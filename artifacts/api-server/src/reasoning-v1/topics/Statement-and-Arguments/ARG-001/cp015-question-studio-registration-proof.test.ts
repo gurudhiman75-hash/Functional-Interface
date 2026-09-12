@@ -42,6 +42,8 @@ function assertRouteContract(route: string): void {
   assertContains(route, "generateArgCp015QuestionStudioBatch(generationInput)", "CP015 route no longer invokes the CP015 generator.");
   assertContains(route, "ARG_CP015_QUESTION_STUDIO_AUTHORITY", "CP015 route lost its Question Studio authority marker.");
   assertContains(route, "ARG_CP015_LEARNER_RELEASE", "CP015 route lost learner-release boundary propagation.");
+  assertContains(route, "ARG_CP015_REAL_PAPER_PROFILES", "CP015 capabilities lost real-paper profile discovery.");
+  assertContains(route, "realPaperProfiles: ARG_CP015_REAL_PAPER_PROFILES", "CP015 capabilities no longer expose real-paper profiles.");
 
   for (const lifecycleGuard of [
     "question.questionBankWritable !== true",

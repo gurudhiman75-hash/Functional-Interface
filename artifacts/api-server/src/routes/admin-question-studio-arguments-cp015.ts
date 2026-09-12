@@ -8,6 +8,7 @@ import { listQuestionStudioPackages } from "../question-studio/shared-generation
 import {
   ARG_CP015_CHECKPOINT_ID,
   ARG_CP015_LEARNER_RELEASE,
+  ARG_CP015_REAL_PAPER_PROFILES,
   ARG_CP015_QUESTION_STUDIO_AUTHORITY,
   ARG_CP015_QUESTION_STUDIO_PACKAGE,
   generateArgCp015QuestionStudioBatch,
@@ -114,6 +115,7 @@ router.get("/capabilities", requireAdminPermission("content.generation.read"), a
       packages: listQuestionStudioPackages().map(currentPackage),
       difficulties: ["Easy", "Medium", "Hard"],
       languages: ["en", "hi", "pa"],
+      realPaperProfiles: ARG_CP015_REAL_PAPER_PROFILES,
       maxBatchSize: 50,
       arg001CurrentAuthority: ARG_CP015_QUESTION_STUDIO_AUTHORITY,
     });

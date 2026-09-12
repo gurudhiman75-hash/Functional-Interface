@@ -56,6 +56,48 @@ type Question = Readonly<Record<string, any>>;
 const TWO_ARGUMENT_PROFILES = new Set(["SSC_RECENT_2X4", "BANKING_CLASSIC_2X5"]);
 const COMBO_PROFILES = new Set(["BANKING_COMBO_3X5", "BANKING_COMBO_4X5"]);
 
+export const ARG_CP015_REAL_PAPER_PROFILES = Object.freeze([
+  Object.freeze({
+    id: "SSC_RECENT_2X4" as const,
+    label: "SSC / RRB / state-style two-argument four-option",
+    argumentCount: 2 as const,
+    optionCount: 4 as const,
+    supportedDifficulties: Object.freeze(["Easy", "Medium"] as const),
+    aliases: Object.freeze(["RRB_2X4", "RAILWAY_2X4", "PUNJAB_STATE_2X4", "STATE_2X4"] as const),
+  }),
+  Object.freeze({
+    id: "BANKING_CLASSIC_2X5" as const,
+    label: "Classic banking two-argument five-option",
+    argumentCount: 2 as const,
+    optionCount: 5 as const,
+    supportedDifficulties: Object.freeze(["Medium", "Hard"] as const),
+    aliases: Object.freeze([] as readonly string[]),
+  }),
+  Object.freeze({
+    id: "BANKING_COMBO_3X5" as const,
+    label: "Banking three-argument combination",
+    argumentCount: 3 as const,
+    optionCount: 5 as const,
+    supportedDifficulties: Object.freeze(["Medium", "Hard"] as const),
+    aliases: Object.freeze([] as readonly string[]),
+  }),
+  Object.freeze({
+    id: "BANKING_COMBO_4X5" as const,
+    label: "Banking four-argument combination",
+    argumentCount: 4 as const,
+    optionCount: 5 as const,
+    supportedDifficulties: Object.freeze(["Hard"] as const),
+    aliases: Object.freeze([] as readonly string[]),
+  }),
+] as const);
+
+const ARG_CP015_PROFILE_ALIASES: Readonly<Record<string, string>> = Object.freeze({
+  RRB_2X4: "SSC_RECENT_2X4",
+  RAILWAY_2X4: "SSC_RECENT_2X4",
+  PUNJAB_STATE_2X4: "SSC_RECENT_2X4",
+  STATE_2X4: "SSC_RECENT_2X4",
+});
+
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
@@ -69,8 +111,13 @@ function words(value: unknown): number {
   return String(value ?? "").trim().split(/\s+/).filter(Boolean).length;
 }
 
+export function normalizeArgCp015Profile(value: unknown): string {
+  const normalized = text(value).toUpperCase();
+  return ARG_CP015_PROFILE_ALIASES[normalized] ?? normalized;
+}
+
 function profileOf(input: ArgCp015QuestionStudioInput): string {
-  return text(input.examProfile ?? input.paperProfile ?? input.deliveryProfile).toUpperCase();
+  return normalizeArgCp015Profile(input.examProfile ?? input.paperProfile ?? input.deliveryProfile);
 }
 
 function fullSignature(question: Question): string {
@@ -114,9 +161,15 @@ function clearExplicitProfile(input: ArgCp015QuestionStudioInput): ArgCp014Quest
 }
 
 function sourceInput(input: ArgCp015QuestionStudioInput): ArgCp014QuestionStudioInput {
+  const normalized: ArgCp014QuestionStudioInput = {
+    ...input,
+    ...(text(input.examProfile) ? { examProfile: normalizeArgCp015Profile(input.examProfile) } : {}),
+    ...(text(input.paperProfile) ? { paperProfile: normalizeArgCp015Profile(input.paperProfile) } : {}),
+    ...(text(input.deliveryProfile) ? { deliveryProfile: normalizeArgCp015Profile(input.deliveryProfile) } : {}),
+  };
   return text(input.cpId).toUpperCase() === ARG_CP015_CHECKPOINT_ID
-    ? { ...input, cpId: undefined }
-    : input;
+    ? { ...normalized, cpId: undefined }
+    : normalized;
 }
 
 function reshapeTwoArgumentProfile(source: Question, profile: string): Question {
