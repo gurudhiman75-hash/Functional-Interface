@@ -1,14 +1,7 @@
 import assert from "node:assert/strict";
 
-import {
-  buildQuantV4PyqFrequencyProfile,
-  canReplaceProvisionalSimulationWeights,
-  validatePyqObservationSet,
-} from "./quant-v4-pyq-frequency-evidence-p2";
-import {
-  QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  listRegisteredCountablePyqObservations,
-} from "./quant-v4-pyq-observation-registry-p2";
+import { validatePyqObservationSet } from "./quant-v4-pyq-frequency-evidence-p2";
+import { QUANT_V4_REGISTERED_PYQ_OBSERVATIONS } from "./quant-v4-pyq-observation-registry-p2";
 import {
   QUANT_V4_PERCENTAGE_CHSL_WAVE1_COUNTABLE_PYQ_OBSERVATIONS,
   QUANT_V4_PERCENTAGE_CHSL_WAVE1_PYQ_MIGRATION_AUTHORITY,
@@ -41,34 +34,15 @@ const percentLess = (120 - 100) / 120 * 100;
 assert.ok(Math.abs(percentLess - 50 / 3) < 1e-12);
 assert.equal(0.01 * 0.01 * 0.25 * 1000, 0.025);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-const percentage = listRegisteredCountablePyqObservations({ packageId: "PCT-002" });
-assert.equal(percentage.length, 9);
-assert.equal(percentage.filter((entry) => entry.examId === "SSC_CHSL").length, 5);
-assert.equal(percentage.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 4);
-
-const chsl = buildQuantV4PyqFrequencyProfile({
-  examId: "SSC_CHSL",
-  observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
-});
-assert.equal(chsl.countableQuestionCount, 26);
-assert.equal(chsl.distinctPaperCount, 7);
-assert.equal(chsl.topicCoverageCount, 6);
-assert.equal(chsl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
-assert.ok(!chsl.blockers.includes("COUNTABLE_QUESTION_SAMPLE_BELOW_POLICY"));
-assert.ok(chsl.blockers.includes("DISTINCT_PAPER_SAMPLE_BELOW_POLICY"));
-assert.ok(chsl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
-assert.ok(!chsl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
-assert.equal(canReplaceProvisionalSimulationWeights(chsl), false);
+// Historical normalization tests verify only evidence introduced by their own wave.
+// Moving aggregate counts belong to the central frequency-calibration tests.
+const registryObservationIds = new Set(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.map((entry) => entry.observationId));
+assert.ok(observations.every((entry) => registryObservationIds.has(entry.observationId)));
 
 console.log(JSON.stringify({
   status: "PASS_QUANT_V4_PERCENTAGE_CHSL_PYQ_NORMALIZATION_WAVE1_P2",
   authority: QUANT_V4_PERCENTAGE_CHSL_WAVE1_PYQ_MIGRATION_AUTHORITY,
   wave1ObservationCount: observations.length,
-  registryObservationCount: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length,
-  chslCountableQuestions: chsl.countableQuestionCount,
-  chslDistinctPapers: chsl.distinctPaperCount,
-  chslTopicCoverage: chsl.topicCoverageCount,
+  registeredLocally: observations.every((entry) => registryObservationIds.has(entry.observationId)),
   empiricalWeightingPromoted: false,
 }));
