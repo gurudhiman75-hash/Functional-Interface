@@ -1,15 +1,7 @@
 import assert from "node:assert/strict";
 
-import { getQuantV4SpecializedProfileSelectionContract } from "../common/specialized-profile-selection";
-import {
-  buildQuantV4PyqFrequencyProfile,
-  canReplaceProvisionalSimulationWeights,
-  validatePyqObservationSet,
-} from "./quant-v4-pyq-frequency-evidence-p2";
-import {
-  QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  listRegisteredCountablePyqObservations,
-} from "./quant-v4-pyq-observation-registry-p2";
+import { validatePyqObservationSet } from "./quant-v4-pyq-frequency-evidence-p2";
+import { QUANT_V4_REGISTERED_PYQ_OBSERVATIONS } from "./quant-v4-pyq-observation-registry-p2";
 import {
   QUANT_V4_CGL_2024_S1_FULL_QUANT_SECTION_WAVE1_AUTHORITY,
   QUANT_V4_CGL_2024_S1_FULL_QUANT_SECTION_WAVE1_COUNTABLE_PYQ_OBSERVATIONS,
@@ -29,6 +21,8 @@ assert.ok(observations.every((entry) => entry.shift === "Shift 1"));
 assert.equal(QUANT_V4_CGL_2024_S1_FULL_QUANT_SECTION_WAVE1_SOURCE_LIMITATIONS.wholeSectionNormalized, true);
 assert.equal(QUANT_V4_CGL_2024_S1_FULL_QUANT_SECTION_WAVE1_SOURCE_LIMITATIONS.frequencyCalibrationAllowed, false);
 
+// Q51 was normalized by the earlier cross-topic wave. Validate this paper only,
+// rather than asserting later global registry/package totals.
 const section = QUANT_V4_REGISTERED_PYQ_OBSERVATIONS
   .filter((entry) => entry.examId === "SSC_CGL_TIER_I" && entry.paperId === PAPER_ID)
   .sort((a, b) => Number(a.questionRef?.match(/Q(\d+)$/u)?.[1] ?? 0) - Number(b.questionRef?.match(/Q(\d+)$/u)?.[1] ?? 0));
@@ -62,40 +56,8 @@ assert.equal((9 / 16) * (16 / 9) * (25 / 9), 25 / 9);
 assert.equal(1 * 1 - 11 * 1 + 10, 0);
 assert.equal(10 * 10 - 11 * 10 + 10, 0);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 26);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 12);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 10);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 24);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 21);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 13);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 9);
-
-const avgCgl = getQuantV4SpecializedProfileSelectionContract("AVG-001", "SSC_CGL_TIER_I");
-assert.equal(avgCgl.normalizedCountableObservationCount, 4);
-assert.equal(avgCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
-assert.ok(!avgCgl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
-const numCgl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
-assert.equal(numCgl.normalizedCountableObservationCount, 18);
-assert.equal(numCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
-assert.ok(numCgl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
-const tmwCgl = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(tmwCgl.normalizedCountableObservationCount, 16);
-assert.equal(tmwCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
-assert.ok(!tmwCgl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
-
-const cgl = buildQuantV4PyqFrequencyProfile({
-  examId: "SSC_CGL_TIER_I",
-  observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
-});
-assert.equal(cgl.countableQuestionCount, 175);
-assert.equal(cgl.distinctPaperCount, 22);
-assert.equal(cgl.topicCoverageCount, 13);
-assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
-assert.deepEqual([...cgl.blockers], ["DATED_PAPER_IDENTITY_INCOMPLETE"]);
-assert.equal(canReplaceProvisionalSimulationWeights(cgl), false);
+const registryObservationIds = new Set(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.map((entry) => entry.observationId));
+assert.ok(observations.every((entry) => registryObservationIds.has(entry.observationId)));
 
 console.log(JSON.stringify({
   status: "PASS_QUANT_V4_CGL_2024_S1_FULL_QUANT_SECTION_WAVE1_P2",
@@ -103,10 +65,5 @@ console.log(JSON.stringify({
   newObservations: observations.length,
   completeSectionQuestions: section.length,
   completeSectionPackages: Object.keys(packageCounts).length,
-  registryObservationCount: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length,
-  cglCountableQuestions: cgl.countableQuestionCount,
-  cglDistinctPapers: cgl.distinctPaperCount,
-  cglTopicCoverage: cgl.topicCoverageCount,
-  cglBlockers: cgl.blockers,
   empiricalWeightingPromoted: false,
 }));
