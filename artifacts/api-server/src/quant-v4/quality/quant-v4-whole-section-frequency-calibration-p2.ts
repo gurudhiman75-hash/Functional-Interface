@@ -87,6 +87,16 @@ export const QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS = Object.freeze([
     expectedQuestionCount: 25,
   }),
   Object.freeze({
+    sectionId: "SSC-CGL-T1-2024-09-11-S1-QUANT",
+    examId: "SSC_CGL_TIER_I",
+    paperId: "SSC-CGL-2024-TIER-I-2024-09-11-S1",
+    heldDate: "2024-09-11",
+    shift: "Shift 1",
+    questionStart: 1,
+    questionEnd: 25,
+    expectedQuestionCount: 25,
+  }),
+  Object.freeze({
     sectionId: "SSC-CGL-T1-2023-07-27-S2-QUANT",
     examId: "SSC_CGL_TIER_I",
     paperId: "SSC-CGL-2023-TIER-I-2023-07-27-S2",
