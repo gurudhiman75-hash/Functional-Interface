@@ -40,15 +40,6 @@ function solveGroupedMultiMissing(stem: string): string {
   return `${a1 + da}, ${b1 + db}`;
 }
 
-/**
- * Final visible-state verifier for CP009.
- *
- * QL041 deliberately permits equal progressions in its first two rows because
- * the exact SSC source fixture `3, 5, 35, 10, 12, 35, ?, ?` uses +7 in both
- * rows. The repeated third-position marker is sufficient to establish the
- * grouped three-term topology; requiring unequal row steps would reject a real
- * source pattern for an artificial anti-degeneracy rule.
- */
 export function solveVisibleNumberSeries(
   qlId: SerCp009QlId,
   stem: string,
@@ -81,12 +72,16 @@ function local(locale: SerCp009Locale, en: string, hi: string, pa: string): stri
   return locale === "en-IN" ? en : locale === "hi-IN" ? hi : pa;
 }
 
-/**
- * Constant-ratio series has a legitimately small rule alphabet (×/÷ by 2..5).
- * Expand visible state by a harmless common scale, which preserves every ratio
- * and does not change reasoning depth or difficulty. The scale is deliberately
- * excluded from difficulty scoring.
- */
+function stableIndex(seed: number, salt: number, modulus: number): number {
+  let value = (seed ^ Math.imul(salt, 0x9e3779b9)) >>> 0;
+  value = (value ^ (value >>> 16)) >>> 0;
+  value = Math.imul(value, 0x7feb352d) >>> 0;
+  value = (value ^ (value >>> 15)) >>> 0;
+  value = Math.imul(value, 0x846ca68b) >>> 0;
+  value = (value ^ (value >>> 16)) >>> 0;
+  return value % modulus;
+}
+
 function diversifyConstantRatio(
   question: GeneratedSerCp009Question,
   requestedSeed: number,
@@ -156,23 +151,6 @@ const PROGRESSIVE_MULTIPLIER_SHELLS: Readonly<Record<SerCp009Locale, readonly st
   ]),
 });
 
-function stableIndex(seed: number, salt: number, modulus: number): number {
-  let value = (seed ^ Math.imul(salt, 0x9e3779b9)) >>> 0;
-  value = (value ^ (value >>> 16)) >>> 0;
-  value = Math.imul(value, 0x7feb352d) >>> 0;
-  value = (value ^ (value >>> 15)) >>> 0;
-  value = Math.imul(value, 0x846ca68b) >>> 0;
-  value = (value ^ (value >>> 16)) >>> 0;
-  return value % modulus;
-}
-
-/**
- * Expand only the parameters already admitted by the visible QL035 verifier:
- * starting multiplier 2..5 and fixed adjustment ±1..3. A broader starting-term
- * pool supplies source-safe instance variety without inventing new operations.
- * Difficulty stays HARD because the structure remains multiplier progression +
- * fixed adjustment + an internal gap; numeral size is not a scoring feature.
- */
 function diversifyProgressiveMultiplierMath(
   question: GeneratedSerCp009Question,
   requestedSeed: number,
@@ -191,14 +169,11 @@ function diversifyProgressiveMultiplierMath(
 
   const correct = values[4]!;
   const previous = values[3]!;
-  const repeatedPreviousMultiplier = previous * (firstMultiplier + 2) + adjustment;
-  const droppedAdjustment = previous * (firstMultiplier + 3);
-  const reversedAdjustment = previous * (firstMultiplier + 3) - adjustment;
   const options: readonly SerCp009Option[] = Object.freeze([
     { value: String(correct), errorLabel: null },
-    { value: String(repeatedPreviousMultiplier), errorLabel: "REPEATED_PREVIOUS_MULTIPLIER" },
-    { value: String(droppedAdjustment), errorLabel: "DROPPED_FIXED_ADJUSTMENT" },
-    { value: String(reversedAdjustment), errorLabel: "REVERSED_ADJUSTMENT" },
+    { value: String(previous * (firstMultiplier + 2) + adjustment), errorLabel: "REPEATED_PREVIOUS_MULTIPLIER" },
+    { value: String(previous * (firstMultiplier + 3)), errorLabel: "DROPPED_FIXED_ADJUSTMENT" },
+    { value: String(previous * (firstMultiplier + 3) - adjustment), errorLabel: "REVERSED_ADJUSTMENT" },
   ]);
   const sign = adjustment > 0 ? "+" : "−";
   const visible = [values[0], values[1], values[2], values[3], "?", values[5]];
@@ -234,12 +209,6 @@ function diversifyProgressiveMultiplierMath(
   });
 }
 
-/**
- * The 2024 SSC progressive-multiplier family is mathematically narrow by
- * design. Improve repeated exposure through normal exam-instruction variation,
- * not by inventing extra operations. The series line, solver state, options,
- * difficulty and misconception model remain unchanged.
- */
 function diversifyProgressiveMultiplierShell(
   question: GeneratedSerCp009Question,
   requestedSeed: number,
@@ -256,15 +225,121 @@ function diversifyProgressiveMultiplierShell(
 }
 
 /**
- * Review-only hardened generator facade.
- *
- * Some prototype builders use deterministic internal retries to avoid invalid
- * mathematical states. This facade preserves the caller's external seed and
- * requested answer position regardless of the internal retry seed. If a narrow
- * prototype combination cannot build three unique distractors, the facade
- * advances through a deterministic retry sequence and still exposes the
- * original seed to Question Studio/review tooling.
+ * Direct powers are source-backed with a small power/offset grammar. Expand the
+ * starting root and root-step domains already accepted by the independent
+ * verifier. This changes the visible instance, not the reasoning contract.
  */
+function diversifyDirectPowerMath(
+  question: GeneratedSerCp009Question,
+  requestedSeed: number,
+  locale: SerCp009Locale,
+): GeneratedSerCp009Question {
+  if (question.qlId !== "SER-QL-036") return question;
+
+  const power = stableIndex(requestedSeed, 10, 2) === 0 ? 2 : 3;
+  const base = 2 + stableIndex(requestedSeed, 11, 7);
+  const step = 1 + stableIndex(requestedSeed, 12, 3);
+  const offsets = [-1, 0, 1] as const;
+  const offset = offsets[stableIndex(requestedSeed, 13, offsets.length)]!;
+  const target = stableIndex(requestedSeed, 14, 2) === 0 ? 5 : 4;
+  const values = Array.from({ length: 6 }, (_, i) => (base + i * step) ** power + offset);
+  const correct = values[target]!;
+  const root = base + target * step;
+  const neighboringRoot = root + (step === 1 ? 2 : 1);
+  const options: readonly SerCp009Option[] = Object.freeze([
+    { value: String(correct), errorLabel: null },
+    { value: String(values[target - 1]!), errorLabel: "REPEATED_PREVIOUS_POWER_TERM" },
+    { value: String((root + step) ** power + offset), errorLabel: "ADVANCED_ONE_TERM_TOO_FAR" },
+    { value: String(neighboringRoot ** power + offset), errorLabel: "USED_WRONG_ROOT_STEP" },
+  ]);
+  const visible = values.map((value, index) => index === target ? "?" : String(value));
+  const taskKind = target === 5 ? "NEXT_TERM" : "MISSING_TERM";
+  const prompt = taskKind === "NEXT_TERM"
+    ? local(locale, "Which number will replace the question mark in the following series?", "निम्नलिखित श्रृंखला में प्रश्नवाचक चिन्ह के स्थान पर कौन-सी संख्या आएगी?", "ਹੇਠਾਂ ਦਿੱਤੀ ਲੜੀ ਵਿੱਚ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਦੀ ਥਾਂ ਕਿਹੜੀ ਸੰਖਿਆ ਆਵੇਗੀ?")
+    : local(locale, "Find the missing number in the following series.", "निम्नलिखित श्रृंखला में लुप्त संख्या ज्ञात कीजिए।", "ਹੇਠਾਂ ਦਿੱਤੀ ਲੜੀ ਵਿੱਚ ਲੁਪਤ ਸੰਖਿਆ ਲੱਭੋ।");
+  const offsetText = offset === 0 ? "" : offset > 0 ? ` + ${offset}` : ` − ${Math.abs(offset)}`;
+  const explanation = Object.freeze([
+    local(
+      locale,
+      `The bases increase by ${step}; each term is base^${power}${offsetText}.`,
+      `आधार ${step} से बढ़ते हैं; प्रत्येक पद आधार^${power}${offsetText} है।`,
+      `ਆਧਾਰ ${step} ਨਾਲ ਵੱਧਦੇ ਹਨ; ਹਰ ਪਦ ਆਧਾਰ^${power}${offsetText} ਹੈ।`,
+    ),
+    values.map((value, i) => `${base + i * step}^${power}${offsetText} = ${value}`).join("; "),
+    local(locale, `Therefore the required number is ${correct}.`, `अतः आवश्यक संख्या ${correct} है।`, `ਇਸ ਲਈ ਲੋੜੀਂਦੀ ਸੰਖਿਆ ${correct} ਹੈ।`),
+  ]);
+  const layers = power === 3 ? 3 : 2;
+  const difficulty = layers + (target < 5 ? 1 : 0) >= 3 ? "MEDIUM" : "EASY";
+
+  return Object.freeze({
+    ...question,
+    taskKind,
+    stem: `${prompt}\n${visible.join(", ")}`,
+    options,
+    correctIndex: 0,
+    correctAnswer: String(correct),
+    explanation,
+    difficulty,
+    structuralFeatures: Object.freeze({
+      layers,
+      channels: 1,
+      internalGap: target < 5,
+      power,
+      baseStep: step,
+      fixedOffset: offset,
+      reasoningLayers: layers,
+    }),
+  });
+}
+
+/**
+ * Fibonacci-like recurrence is also a narrow grammar. Broaden only the two
+ * starting anchors; the second-order recurrence remains unchanged.
+ */
+function diversifyFibonacciAnchors(
+  question: GeneratedSerCp009Question,
+  requestedSeed: number,
+  locale: SerCp009Locale,
+): GeneratedSerCp009Question {
+  if (question.qlId !== "SER-QL-038") return question;
+
+  const first = 1 + stableIndex(requestedSeed, 20, 20);
+  let second = 2 + stableIndex(requestedSeed, 21, 24);
+  if (second === first) second += 1;
+  const values = [first, second];
+  while (values.length < 7) values.push(values.at(-1)! + values.at(-2)!);
+  const correct = values[6]!;
+  const options: readonly SerCp009Option[] = Object.freeze([
+    { value: String(correct), errorLabel: null },
+    { value: String(values[5]! + values[3]!), errorLabel: "ADDED_WRONG_PREVIOUS_TERM" },
+    { value: String(values[5]! * 2), errorLabel: "DOUBLED_LAST_TERM" },
+    { value: String(correct + 1), errorLabel: "ARITHMETIC_SLIP_PLUS_ONE" },
+  ]);
+  const prompt = local(locale, "Which number will replace the question mark in the following series?", "निम्नलिखित श्रृंखला में प्रश्नवाचक चिन्ह के स्थान पर कौन-सी संख्या आएगी?", "ਹੇਠਾਂ ਦਿੱਤੀ ਲੜੀ ਵਿੱਚ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਦੀ ਥਾਂ ਕਿਹੜੀ ਸੰਖਿਆ ਆਵੇਗੀ?");
+  const explanation = Object.freeze([
+    local(locale, "Each term is the sum of the previous two terms.", "हर पद पिछली दो संख्याओं का योग है।", "ਹਰ ਪਦ ਪਿਛਲੀਆਂ ਦੋ ਸੰਖਿਆਵਾਂ ਦਾ ਜੋੜ ਹੈ।"),
+    `${values[2]} + ${values[3]} = ${values[4]}; ${values[3]} + ${values[4]} = ${values[5]}; ${values[4]} + ${values[5]} = ${correct}.`,
+    local(locale, `So the next number is ${correct}.`, `अतः अगली संख्या ${correct} है।`, `ਇਸ ਲਈ ਅਗਲੀ ਸੰਖਿਆ ${correct} ਹੈ।`),
+  ]);
+
+  return Object.freeze({
+    ...question,
+    taskKind: "NEXT_TERM",
+    stem: `${prompt}\n${[...values.slice(0, 6), "?"].join(", ")}`,
+    options,
+    correctIndex: 0,
+    correctAnswer: String(correct),
+    explanation,
+    difficulty: "EASY",
+    structuralFeatures: Object.freeze({
+      layers: 2,
+      channels: 1,
+      recurrenceOrder: 2,
+      reasoningLayers: 2,
+    }),
+  });
+}
+
 export function generateSerCp009NumberSeries(
   qlId: SerCp009QlId,
   seed = 1,
@@ -276,8 +351,10 @@ export function generateSerCp009NumberSeries(
     try {
       const generated = generateBase(qlId, internalSeed, locale);
       const ratioDiversified = diversifyConstantRatio(generated, seed, locale);
-      const mathDiversified = diversifyProgressiveMultiplierMath(ratioDiversified, seed, locale);
-      const diversified = diversifyProgressiveMultiplierShell(mathDiversified, seed, locale);
+      const multiplierMathDiversified = diversifyProgressiveMultiplierMath(ratioDiversified, seed, locale);
+      const multiplierDiversified = diversifyProgressiveMultiplierShell(multiplierMathDiversified, seed, locale);
+      const powerDiversified = diversifyDirectPowerMath(multiplierDiversified, seed, locale);
+      const diversified = diversifyFibonacciAnchors(powerDiversified, seed, locale);
       const normalized = normalizeAnswerPosition(diversified, seed);
       const solved = solveVisibleNumberSeries(
         qlId,
