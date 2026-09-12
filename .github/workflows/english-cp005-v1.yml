@@ -10,11 +10,17 @@ on:
       - synchronize
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
+      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
+      - .github/workflows/english-cp005-v1.yml
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
+      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
+      - .github/workflows/english-cp005-v1.yml
   workflow_dispatch:
 
 permissions:
@@ -55,9 +61,23 @@ jobs:
           name: ENG-001-CP005-REVIEW-V1
           path: dist/english-v1/ENG-001-CP005-REVIEW-V1.md
           if-no-files-found: error
-      - name: Compile CP004 regression
+      - name: Compile CP005 Question Studio integration test
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng001-cp005-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/language-v1-eng001-cp005-adapter-v1.test.mjs
+      - name: Run CP005 Question Studio review-only integration
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng001-cp005-adapter-v1.test.mjs
+      - name: Compile CP004 Question Studio regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng001-cp004-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/language-v1-eng001-cp004-regression.test.mjs
+      - name: Run CP004 Question Studio regression
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng001-cp004-regression.test.mjs
+      - name: Compile legacy ENG-001 Question Studio regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng001-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/language-v1-eng001-regression.test.mjs
+      - name: Run legacy ENG-001 Question Studio regression
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng001-regression.test.mjs
+      - name: Compile CP004 generator regression
         run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-001-cp004-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-001-cp004-v1-regression.test.mjs
-      - name: Re-run approved CP004 regression
+      - name: Re-run approved CP004 generator regression
         run: node artifacts/api-server/dist/english-v1/eng-001-cp004-v1-regression.test.mjs
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app exec tsc --noEmit
