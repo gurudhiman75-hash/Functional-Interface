@@ -51,12 +51,13 @@ grammar = replace_once(
     "grammar authority bump",
 )
 
-grammar = replace_once(
-    grammar,
-    '    .replace(/most ([a-z-]+) programme\\b/gi, "$1 programmes");',
-    '    .replace(/most ([a-z-]+) programme\\b/gi, "$1 programmes")\n    .replace(/\\b(Yes|No)\\.\\s+most instance\\b/gi, "$1. Most instances")\n    .replace(/\\bmost instances of ([^.!?]+?) is\\b/gi, "most instances of $1 are");',
-    "English most-instance agreement",
-)
+if '.replace(/\\b(Yes|No)\\.\\s+most instances?\\b/gi, "$1. Most instances")' not in grammar:
+    grammar = replace_once(
+        grammar,
+        '    .replace(/most ([a-z-]+) programme\\b/gi, "$1 programmes");',
+        '    .replace(/most ([a-z-]+) programme\\b/gi, "$1 programmes")\n    .replace(/\\b(Yes|No)\\.\\s+most instance\\b/gi, "$1. Most instances")\n    .replace(/\\bmost instances of ([^.!?]+?) is\\b/gi, "most instances of $1 are");',
+        "English most-instance agreement",
+    )
 
 source = replace_once(
     source,
