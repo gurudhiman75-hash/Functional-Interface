@@ -1,6 +1,6 @@
-import { intBetween, pick } from "../foundation/prng";
+import { intBetween } from "../foundation/prng";
 import type { AlpQuestionLogic } from "../types";
-import { A, CLASS_WORDS, key, nums, rank, seqMiss, shift, vowel, type C, type L } from "./shared";
+import { A, CLASS_WORDS, cyclePick, key, nums, rank, seqMiss, shift, vowel, type C, type L } from "./shared";
 
 const RULES = [
   { d: { en: "replace vowels by the next letter and consonants by the previous letter", hi: "स्वरों को अगले अक्षर और व्यंजनों को पिछले अक्षर से बदलें", pa: "ਸਵਰਾਂ ਨੂੰ ਅਗਲੇ ਅੱਖਰ ਅਤੇ ਵਿਅੰਜਨਾਂ ਨੂੰ ਪਿਛਲੇ ਅੱਖਰ ਨਾਲ ਬਦਲੋ" }, f: (token: string) => shift(token, vowel(token) ? 1 : -1) },
@@ -10,8 +10,8 @@ const RULES = [
 ] as const;
 
 export function buildCp007(ql: AlpQuestionLogic, seed: number): C {
-  const word = pick(CLASS_WORDS, key(ql, seed, "word"));
-  const rule = pick(RULES, key(ql, seed, "rule"));
+  const word = cyclePick(CLASS_WORDS, ql, seed, "class-word");
+  const rule = cyclePick(RULES, ql, seed, "class-rule");
   const changedByRule = [...word].map(rule.f);
   const position = intBetween(1, word.length, key(ql, seed, "position"));
   let operation: L = rule.d;
@@ -41,7 +41,7 @@ export function buildCp007(ql: AlpQuestionLogic, seed: number): C {
     query = { en: `sort the changed letters and read left position ${position}`, hi: `बदले अक्षर क्रमबद्ध करके बायाँ स्थान ${position} पढ़ें`, pa: `ਬਦਲੇ ਅੱਖਰ ਕ੍ਰਮ ਵਿੱਚ ਲਾ ਕੇ ਖੱਬੀ ਥਾਂ ${position} ਪੜ੍ਹੋ` };
   } else if (ql.solveMode === "CLASS_SHIFT_SORTED_POSITION_OF_LETTER") {
     changed = [...changedByRule].sort();
-    const target = pick([...new Set(changed)], key(ql, seed, "target"));
+    const target = cyclePick([...new Set(changed)], ql, seed, "class-target");
     const finalPosition = changed.indexOf(target) + 1;
     answer = String(finalPosition); pool = nums(finalPosition, word.length);
     query = { en: `sort the changed letters and find the first ${target}`, hi: `बदले अक्षर क्रमबद्ध करके पहला ${target} खोजें`, pa: `ਬਦਲੇ ਅੱਖਰ ਕ੍ਰਮ ਵਿੱਚ ਲਾ ਕੇ ਪਹਿਲਾ ${target} ਲੱਭੋ` };
