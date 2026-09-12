@@ -18,38 +18,35 @@ jobs:
         with:
           ref: feature/arg-001-cp012-editorial-remediation
           fetch-depth: 0
-      - name: Make English renewal-article source repair idempotent
+      - name: Make Hindi permanence reroute idempotent
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          path = Path('scripts/arg-cp015-simple-explanations-repair.py')
+          path = Path('scripts/arg-cp015-hindi-naturalness-hotfix.py')
           text = path.read_text(encoding='utf-8')
-          old = '''source = replace_once(
-              source,
-              '    .replace(/\\\\bmost candidate and centre\\\\b/gi, "most candidates and centres");',
-              '    .replace(/\\\\bmost candidate and centre\\\\b/gi, "most candidates and centres")\\n    .replace(/\\\\ba automatically renewed plan\\\\b/gi, "an automatically renewed plan");',
-              "English renewal article",
-          )
+          old = '''if new_finalizer not in source:
+              count = source.count(old_finalizer)
+              if count != 1:
+                  raise SystemExit(f"Hindi QL003 forced permanence reroute: expected one finalizer anchor, found {count}")
+              source = source.replace(old_finalizer, new_finalizer, 1)
           '''
-          new = '''if '.replace(/\\\\ba automatically renewed plan\\\\b/gi, "an automatically renewed plan")' not in source:
-              source = replace_once(
-                  source,
-                  '    .replace(/\\\\bmost candidate and centre\\\\b/gi, "most candidates and centres");',
-                  '    .replace(/\\\\bmost candidate and centre\\\\b/gi, "most candidates and centres")\\n    .replace(/\\\\ba automatically renewed plan\\\\b/gi, "an automatically renewed plan");',
-                  "English renewal article",
-              )
+          new = '''if 'const forceHindiTimeSlotPermanence = language === "hi"' not in source:
+              count = source.count(old_finalizer)
+              if count != 1:
+                  raise SystemExit(f"Hindi QL003 forced permanence reroute: expected one finalizer anchor, found {count}")
+              source = source.replace(old_finalizer, new_finalizer, 1)
           '''
           if new in text:
-              raise SystemExit('renewal source idempotency guard already present')
+              raise SystemExit('Hindi permanence idempotency guard already present')
           if text.count(old) != 1:
-              raise SystemExit(f'expected one English renewal source block, found {text.count(old)}')
+              raise SystemExit(f'expected one Hindi permanence block, found {text.count(old)}')
           path.write_text(text.replace(old, new, 1), encoding='utf-8')
           PY
       - name: Commit patch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add scripts/arg-cp015-simple-explanations-repair.py
-          git commit -m "fix(arg-cp015): make renewal source repair idempotent"
+          git add scripts/arg-cp015-hindi-naturalness-hotfix.py
+          git commit -m "fix(arg-cp015): make Hindi permanence repair idempotent"
           git push origin HEAD:feature/arg-001-cp012-editorial-remediation
