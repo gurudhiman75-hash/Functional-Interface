@@ -3,7 +3,7 @@ import { generateLp006ProjectionBatchV1 } from "./lp-006-projection-extension-v1
 const caselets = generateLp006ProjectionBatchV1("lp-006-projection-v1-review", 8);
 
 console.log("# LP-006 — Cross-Attribute Projection Extension V1 — English Review\n");
-console.log("Status: **PROVISIONAL REVIEW ONLY**. `LP-QL-041` and `LP-QL-042` are candidate identities and are not permanently allocated. Existing LP-006 QLs 021–024 are unchanged.\n");
+console.log("Status: **PROVISIONAL REVIEW ONLY**. `LP-QL-045` and `LP-QL-046` are candidate identities and are not permanently allocated. Existing LP-006 QLs 021–024 are unchanged.\n");
 console.log("This review focuses only on the new child-question projections over the already approved LP-006 solved table.\n");
 
 for (const [caseletIndex, caselet] of caselets.entries()) {
