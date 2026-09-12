@@ -75,52 +75,56 @@ export type CaeDistractorRole =
   | "WRONG_SCOPE" | "UNRELATED_EVENT" | "COMMON_CAUSE_CONFUSION"
   | "INDIRECTNESS_CONFUSION" | "OVERGENERALISATION" | "MAGNITUDE_MISMATCH";
 
-export type CaeCandidateAuthority = Readonly<{
+export type CaeCandidateOrigin = "CANONICAL_WORLD" | "VARIANT_AUTHORED";
+export type CaeEditorialPlausibility = "CREDIBLE_ALTERNATIVE" | "CLEAR_REJECT";
+
+/** A complete event authored for one scenario, never a noun-substitution template. */
+export type CaeSemanticCandidateAuthority = Readonly<{
   id: string;
   text: LocalizedText;
   mechanism: CaeDistractorRole;
-  source: "CANONICAL_NODE" | "SCENARIO_RULE";
   temporalOrder: number;
   scope: CaeScope;
   magnitude: CaeMagnitude;
   severity: CaeMagnitude;
   causalDistance: number | null;
-  sourceNodeId?: string;
+  editorialPlausibility: CaeEditorialPlausibility;
+  /** Human-authored explanation of why this is a real scenario event, not metadata filler. */
+  editorialRationale: string;
 }>;
 
-/** A family-local production-style alternative, transformed against the actual target at generation time. */
-export type CaeDistractorRule = Readonly<{
-  id: string;
-  mechanism: CaeDistractorRole;
-  text: LocalizedText;
-  /** Whether timing is calculated from the proposed answer or the observed event. */
-  timingAnchor: "REFERENCE" | "TARGET";
-  temporalOffset: number;
-  scopeShift: -2 | -1 | 0 | 1 | 2;
-  magnitudeShift: -2 | -1 | 0 | 1 | 2;
-  severityShift: -2 | -1 | 0 | 1 | 2;
-  causalDistance: number | null;
+export type CaeCandidateAuthority = Readonly<CaeSemanticCandidateAuthority & {
+  source: CaeCandidateOrigin;
+  sourceNodeId?: string;
 }>;
 
 export type CaeCandidateComparison = Readonly<{
   candidateId: string;
   mechanism: CaeDistractorRole;
+  source: CaeCandidateOrigin;
+  editorialPlausibility: CaeEditorialPlausibility;
   expectedRelation: "CAUSE_OF_TARGET" | "EFFECT_OF_TARGET" | "BRIDGE_TO_TARGET";
   candidateTemporalOrder: number;
   targetTemporalOrder: number;
   referenceTemporalOrder: number;
   candidateScope: CaeScope;
   targetScope: CaeScope;
+  referenceScope: CaeScope;
   candidateMagnitude: CaeMagnitude;
   targetMagnitude: CaeMagnitude;
+  referenceMagnitude: CaeMagnitude;
   candidateSeverity: CaeMagnitude;
   targetSeverity: CaeMagnitude;
+  referenceSeverity: CaeMagnitude;
   timingGap: number;
   /** Difference from the graph-supported proposed answer, kept distinct from the observation gap. */
   expectedTimingGap: number;
   scopeGap: number;
+  referenceScopeGap: number;
   magnitudeGap: number;
+  referenceMagnitudeGap: number;
   severityGap: number;
+  referenceSeverityGap: number;
   causalDistance: number | null;
   plausibilityBurden: number;
   rejectionReason: string;
@@ -130,8 +134,10 @@ export type CaeScenarioVariant = Readonly<{
   id: string;
   /** Neutral setting only; never an automatic rendering of canonical state. */
   backdrop: LocalizedText;
-  /** Variant-local terminology used only to render plausible distractors. */
-  distractorAnchor: LocalizedText;
+  /** Complete scenario events that could be considered as cause/bridge alternatives. */
+  semanticCandidateEvents: readonly CaeSemanticCandidateAuthority[];
+  /** Complete scenario events authored specifically as possible effects. */
+  semanticEffectCandidateEvents: readonly CaeSemanticCandidateAuthority[];
   nodes: readonly CaeScenarioNodeUnit[];
   edgeBindings: readonly Readonly<{ from: string; to: string; strength?: CaeCausalStrength; temporalRelation?: CaeTemporalRelation }>[];
 }>;
@@ -150,7 +156,6 @@ export type CaeScenarioFamilyAuthority = Readonly<{
   topology: "DIRECT_CHAIN" | "BRANCHING_COMMON_CAUSE" | "PARALLEL_CHAINS" | "HIDDEN_CHAIN" | "COMPETING_CAUSES";
   allowedProjectionKinds: readonly CaeProjectionKind[];
   allowedQuestionProfiles: readonly CaeQuestionProfile[];
-  distractorRules: readonly CaeDistractorRule[];
   renderingConstraints: CaeRenderingConstraints;
   variants: readonly CaeScenarioVariant[];
 }>;
@@ -197,6 +202,11 @@ export type GeneratedCaeQuestion = Readonly<{
   projectionId: string;
   scenarioFamilyId: string;
   scenarioVariantId: string;
+  /** Graph/substructure state only; does not include candidates, profile, or presentation. */
+  causalStateId: string;
+  /** Causal state plus candidate set, profile, and rendered presentation. */
+  itemVariantId: string;
+  /** Backward-compatible alias for itemVariantId. */
   semanticInstanceId: string;
   causalWorldId: string;
   causalStructure: string;

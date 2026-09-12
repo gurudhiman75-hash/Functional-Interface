@@ -88,7 +88,7 @@ Explanations show only the needed causal chain or shared-cause/separate-path str
 
 ## Generated review samples
 
-The complete deterministic English editorial packet, including every currently available difficulty state from CP-001 through CP-009, is in [CAE-001-V3-HARDENING-EDITORIAL-REVIEW.md](CAE-001-V3-HARDENING-EDITORIAL-REVIEW.md).
+The complete deterministic English editorial packet is materialized by [editorial-review-pack.ts](editorial-review-pack.ts), with ten generated review items from each current CP/QL and every difficulty state actually available to that QL. Its reviewer entry point is [CAE-001-V3-EDITORIAL-REALNESS-REVIEW.md](CAE-001-V3-EDITORIAL-REALNESS-REVIEW.md).
 
 ## Review gate
 

@@ -1,0 +1,88 @@
+import { generateCaeQuestion } from "./chapter-generator.ts";
+import { CAE_PROVISIONAL_QL_IDS, type CaeDifficulty, type GeneratedCaeQuestion } from "./types.ts";
+
+const DIFFICULTY_ORDER: readonly CaeDifficulty[] = ["EASY", "MEDIUM", "HARD"];
+const LETTERS = ["A", "B", "C", "D", "E"] as const;
+
+export type Cae001EditorialReviewSample = Readonly<{
+  seed: number;
+  question: GeneratedCaeQuestion;
+}>;
+
+/**
+ * A deterministic, review-only selection.  It deliberately samples graph
+ * states before item presentations so the pack demonstrates real semantic
+ * coverage rather than option shuffling.
+ */
+function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Cae001EditorialReviewSample[] {
+  const generated: Cae001EditorialReviewSample[] = [];
+  for (let seed = 0; seed < 2_000 && generated.length < 320; seed += 1) {
+    const question = generateCaeQuestion({ qlId, locale: "en-IN", seed });
+    if (!generated.some((entry) => entry.question.itemVariantId === question.itemVariantId)) generated.push({ seed, question });
+  }
+  const availableDifficulties = new Set(generated.map((entry) => entry.question.difficulty));
+  const selected: Cae001EditorialReviewSample[] = [];
+  const add = (entry: Cae001EditorialReviewSample | undefined) => {
+    if (entry && !selected.some((chosen) => chosen.question.itemVariantId === entry.question.itemVariantId)) selected.push(entry);
+  };
+
+  // First show every difficulty that the engine can actually derive for this QL.
+  for (const difficulty of DIFFICULTY_ORDER) if (availableDifficulties.has(difficulty)) add(generated.find((entry) => entry.question.difficulty === difficulty));
+  // Then make family coverage visible before filling the review quota.
+  for (const familyId of new Set(generated.map((entry) => entry.question.scenarioFamilyId))) add(generated.find((entry) => entry.question.scenarioFamilyId === familyId));
+  for (const entry of generated) {
+    add(entry);
+    if (selected.length === 10) break;
+  }
+  if (selected.length !== 10) throw new Error(`${qlId}: editorial review selection did not reach ten questions.`);
+  return Object.freeze(selected);
+}
+
+export const CAE_001_EDITORIAL_REALNESS_REVIEW: Readonly<Record<(typeof CAE_PROVISIONAL_QL_IDS)[number], readonly Cae001EditorialReviewSample[]>> = Object.freeze(
+  Object.fromEntries(CAE_PROVISIONAL_QL_IDS.map((qlId) => [qlId, selectForQl(qlId)])) as Record<(typeof CAE_PROVISIONAL_QL_IDS)[number], readonly Cae001EditorialReviewSample[]>,
+);
+
+function difficultyEvidence(question: GeneratedCaeQuestion): string {
+  const evidence = question.difficultyEvidence;
+  return `distance=${evidence.causalDistance}; hiddenLinks=${evidence.hiddenLinks}; topology=${evidence.topologyComplexity}; credibleDistractors=${evidence.plausibleDistractors}; candidateBurden=${evidence.candidatePlausibilityBurden}; inference=${evidence.inferenceBurden}; score=${evidence.score}`;
+}
+
+function mechanisms(question: GeneratedCaeQuestion): string {
+  return question.candidateComparisons.length === 0
+    ? question.distractorMechanisms.join(", ")
+    : question.candidateComparisons.map((candidate) => `${candidate.mechanism} (${candidate.editorialPlausibility})`).join(", ");
+}
+
+/** Render the full 90-question English pack for editorial review. */
+export function renderCae001EditorialRealnessReview(): string {
+  const lines = [
+    "# CAE-001 V3 editorial-realness review pack",
+    "",
+    "Deterministic English (`en-IN`) review-only samples. There are ten generated questions for each current CP/QL. The pack exposes causal state separately from item presentation; QL allocation remains provisional.",
+  ];
+  for (const qlId of CAE_PROVISIONAL_QL_IDS) {
+    const samples = CAE_001_EDITORIAL_REALNESS_REVIEW[qlId];
+    lines.push("", `## ${samples[0]!.question.checkpointId} / ${qlId}`);
+    for (const { seed, question } of samples) {
+      lines.push(
+        "",
+        `### ${question.difficulty} — seed ${seed}`,
+        "",
+        question.stem,
+        "",
+        ...question.options.map((option, index) => `${LETTERS[index]}. ${option}`),
+        "",
+        `**Answer:** ${LETTERS[question.correctIndex]}. ${question.options[question.correctIndex]}`,
+        "",
+        `**Explanation:** ${question.explanation}`,
+        "",
+        `**Family / variant:** ${question.scenarioFamilyId} / ${question.scenarioVariantId}`,
+        `**causalStateId:** \`${question.causalStateId}\``,
+        `**itemVariantId:** \`${question.itemVariantId}\``,
+        `**Difficulty evidence:** ${difficultyEvidence(question)}`,
+        `**Distractor mechanisms:** ${mechanisms(question)}`,
+      );
+    }
+  }
+  return `${lines.join("\n")}\n`;
+}

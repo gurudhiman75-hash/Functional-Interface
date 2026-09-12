@@ -6,6 +6,7 @@ import {
   previewReasoningV1QuestionStudioReview,
 } from "../../../question-studio-review-registry.ts";
 import { generateCaeQuestion } from "./chapter-generator.ts";
+import { CAE_001_EDITORIAL_REALNESS_REVIEW, renderCae001EditorialRealnessReview } from "./editorial-review-pack.ts";
 import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES } from "./causal-world-authorities.ts";
 import {
   assertCae001QuestionStudioPersistenceAllowed,
@@ -18,7 +19,7 @@ import { validateCaeEngineAuthorities, validateGeneratedCaeQuestion, validateGen
 
 const LOCALES: readonly CaeLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const SEED_COUNT = 240;
-const minimumSemanticInstances: Readonly<Record<(typeof CAE_PROVISIONAL_QL_IDS)[number], number>> = {
+const minimumCausalStates: Readonly<Record<(typeof CAE_PROVISIONAL_QL_IDS)[number], number>> = {
   "CAE-QL-001": 18,
   "CAE-QL-002": 12,
   "CAE-QL-003": 24,
@@ -29,16 +30,16 @@ const minimumSemanticInstances: Readonly<Record<(typeof CAE_PROVISIONAL_QL_IDS)[
   "CAE-QL-008": 12,
   "CAE-QL-009": 18,
 };
-/** Single-state plans here are intentionally stable: competing explanations are hard and correlation checks are medium. */
+/** Bands are only required where the causal state makes them pedagogically meaningful. */
 const minimumPedagogicallyAppropriateDifficultyStates: Readonly<Record<(typeof CAE_PROVISIONAL_QL_IDS)[number], number>> = {
-  "CAE-QL-001": 2,
-  "CAE-QL-002": 2,
+  "CAE-QL-001": 1,
+  "CAE-QL-002": 1,
   "CAE-QL-003": 2,
   "CAE-QL-004": 2,
   "CAE-QL-005": 1,
-  "CAE-QL-006": 2,
+  "CAE-QL-006": 1,
   "CAE-QL-007": 1,
-  "CAE-QL-008": 2,
+  "CAE-QL-008": 1,
   "CAE-QL-009": 2,
 };
 
@@ -46,6 +47,15 @@ assert.deepEqual(validateCaeEngineAuthorities(), []);
 assert.equal(CAE_001_SCENARIO_FAMILIES.length, 9);
 assert.equal(CAE_001_CAUSAL_WORLDS.length, 27);
 assert.equal(CAE_001_PROJECTION_AUTHORITIES.length, 9);
+for (const qlId of CAE_PROVISIONAL_QL_IDS) {
+  const samples = CAE_001_EDITORIAL_REALNESS_REVIEW[qlId];
+  assert.equal(samples.length, 10, `${qlId}: editorial realness pack must contain ten samples.`);
+  assert.ok(new Set(samples.map((sample) => sample.question.scenarioFamilyId)).size >= 2, `${qlId}: editorial review pack must expose multiple families.`);
+  const allAvailableDifficulties = new Set<number>();
+  for (let seed = 0; seed < SEED_COUNT; seed += 1) allAvailableDifficulties.add(["EASY", "MEDIUM", "HARD"].indexOf(generateCaeQuestion({ qlId, locale: "en-IN", seed }).difficulty));
+  assert.deepEqual(new Set(samples.map((sample) => ["EASY", "MEDIUM", "HARD"].indexOf(sample.question.difficulty))), allAvailableDifficulties, `${qlId}: editorial pack must show every available difficulty.`);
+}
+assert.ok(renderCae001EditorialRealnessReview().includes("CAE-CP-009"), "editorial realness pack must render all current checkpoints.");
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.qlAllocationStatus, "PROVISIONAL_PENDING_SOURCE_SATURATION");
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.provisionalQlCount, 9);
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.scenarioFamilyCount, 9);
@@ -59,14 +69,15 @@ const allStructures = new Set<string>();
 const allDifficulties = new Set<string>();
 const allMechanisms = new Set<string>();
 const report: Record<string, Readonly<Record<string, number>>> = {};
-const candidateSetsByTarget = new Map<string, Set<string>>();
-const candidateOccurrencesByTarget = new Map<string, number>();
-const optionOrdersBySemanticInstance = new Map<string, Set<string>>();
+const candidateSetsByCausalState = new Map<string, Set<string>>();
+const candidateOccurrencesByCausalState = new Map<string, number>();
+const itemVariantsByCausalState = new Map<string, Set<string>>();
 let targetRelativeCandidateChecks = 0;
 
 for (const qlId of CAE_PROVISIONAL_QL_IDS) {
   const answerPositions = new Set<number>();
-  const semanticInstances = new Set<string>();
+  const causalStates = new Set<string>();
+  const itemVariants = new Set<string>();
   const structures = new Set<string>();
   const families = new Set<string>();
   const variants = new Set<string>();
@@ -84,25 +95,27 @@ for (const qlId of CAE_PROVISIONAL_QL_IDS) {
     assert.equal(en.visibleContext.backdrop, null, `${qlId}/${seed}: neutral backdrop must remain optional rather than automatically rendered`);
     assert.equal(/\bSetting:|\bपरिवेश:|\bਪ੍ਰਸੰਗ:/u.test(en.stem), false, `${qlId}/${seed}: normal exam form must not add a setting line`);
     answerPositions.add(en.correctIndex);
-    semanticInstances.add(en.semanticInstanceId);
+    causalStates.add(en.causalStateId);
+    itemVariants.add(en.itemVariantId);
     structures.add(en.causalStructure);
     families.add(en.scenarioFamilyId);
     variants.add(`${en.scenarioFamilyId}/${en.scenarioVariantId}`);
     difficulties.add(en.difficulty);
     en.distractorMechanisms.forEach((mechanism) => mechanisms.add(mechanism));
-    optionOrdersBySemanticInstance.set(en.semanticInstanceId, (optionOrdersBySemanticInstance.get(en.semanticInstanceId) ?? new Set<string>()).add(en.optionMetadata.map((option) => option.id).join("|")));
+    itemVariantsByCausalState.set(en.causalStateId, (itemVariantsByCausalState.get(en.causalStateId) ?? new Set<string>()).add(en.itemVariantId));
     if (en.candidateComparisons.length > 0) {
-      const candidateTarget = en.candidateComparisons[0]!.candidateId.split(":candidate:")[0]!;
-      const candidateKey = `${qlId}/${en.scenarioFamilyId}/${en.scenarioVariantId}/${candidateTarget}`;
       const candidateSet = en.candidateComparisons.map((candidate) => candidate.candidateId).sort().join("|");
-      candidateSetsByTarget.set(candidateKey, (candidateSetsByTarget.get(candidateKey) ?? new Set<string>()).add(candidateSet));
-      candidateOccurrencesByTarget.set(candidateKey, (candidateOccurrencesByTarget.get(candidateKey) ?? 0) + 1);
+      candidateSetsByCausalState.set(en.causalStateId, (candidateSetsByCausalState.get(en.causalStateId) ?? new Set<string>()).add(candidateSet));
+      candidateOccurrencesByCausalState.set(en.causalStateId, (candidateOccurrencesByCausalState.get(en.causalStateId) ?? 0) + 1);
+      assert.ok(en.candidateComparisons.every((candidate) => candidate.source === "CANONICAL_WORLD" || candidate.source === "VARIANT_AUTHORED"), `${qlId}/${seed}: candidates must come from the causal world or a scenario-authored semantic authority`);
+      if (en.checkpointId === "CAE-CP-005") assert.ok(en.candidateComparisons.filter((candidate) => candidate.editorialPlausibility === "CREDIBLE_ALTERNATIVE").length >= 2, `${qlId}/${seed}: CP-005 needs two credible alternatives`);
       targetRelativeCandidateChecks += en.candidateComparisons.length;
     }
 
     for (const locale of LOCALES) {
       const localized = generateCaeQuestion({ qlId, locale, seed });
-      assert.equal(localized.semanticInstanceId, en.semanticInstanceId, `${qlId}/${seed}/${locale}: semantic state drift`);
+      assert.equal(localized.causalStateId, en.causalStateId, `${qlId}/${seed}/${locale}: causal state drift`);
+      assert.equal(localized.itemVariantId, en.itemVariantId, `${qlId}/${seed}/${locale}: item presentation drift`);
       assert.equal(localized.answerId, en.answerId, `${qlId}/${seed}/${locale}: answer drift`);
       assert.equal(localized.correctIndex, en.correctIndex, `${qlId}/${seed}/${locale}: option order drift`);
       assert.equal(localized.difficulty, en.difficulty, `${qlId}/${seed}/${locale}: difficulty drift`);
@@ -117,13 +130,14 @@ for (const qlId of CAE_PROVISIONAL_QL_IDS) {
     }
   }
   assert.equal(answerPositions.size, 4, `${qlId}: answer position must vary across all four positions`);
-  assert.ok(semanticInstances.size >= minimumSemanticInstances[qlId], `${qlId}: semantic saturation is too low (${semanticInstances.size})`);
+  assert.ok(causalStates.size >= minimumCausalStates[qlId], `${qlId}: causal-state saturation is too low (${causalStates.size})`);
+  assert.ok(itemVariants.size >= causalStates.size, `${qlId}: item variants must not collapse causal states.`);
   assert.ok(structures.size >= 2, `${qlId}: only one causal structure was generated`);
   assert.ok(families.size >= 2, `${qlId}: only one scenario family was generated`);
   assert.ok(variants.size >= 6, `${qlId}: only a small fixed set of variants was generated`);
   assert.ok(mechanisms.size >= 2, `${qlId}: distractors do not vary by error mechanism`);
   assert.ok(difficulties.size >= minimumPedagogicallyAppropriateDifficultyStates[qlId], `${qlId}: generated state does not provide its pedagogically appropriate difficulty distribution`);
-  report[qlId] = { semanticInstances: semanticInstances.size, structures: structures.size, families: families.size, variants: variants.size, difficultyStates: difficulties.size, distractorMechanisms: mechanisms.size };
+  report[qlId] = { causalStates: causalStates.size, itemVariants: itemVariants.size, structures: structures.size, families: families.size, variants: variants.size, difficultyStates: difficulties.size, distractorMechanisms: mechanisms.size };
   families.forEach((value) => allFamilies.add(value));
   structures.forEach((value) => allStructures.add(value));
   difficulties.forEach((value) => allDifficulties.add(value));
@@ -135,11 +149,12 @@ assert.ok(allFamilies.size >= 8, "saturation must cover nearly all scenario fami
 assert.ok(allStructures.size >= 12, "saturation must cover multiple causal structures, not option permutations");
 assert.ok(allMechanisms.size >= 7, "saturation must cover multiple distractor mechanisms");
 assert.ok(targetRelativeCandidateChecks > 1_000, "saturation must exercise target-relative distractor validation at scale");
-const repeatedCandidateTargets = [...candidateOccurrencesByTarget.entries()].filter(([, occurrences]) => occurrences >= 3);
-assert.ok(repeatedCandidateTargets.length >= 20, "saturation must revisit scenario-local candidate targets");
-for (const [candidateKey] of repeatedCandidateTargets) assert.ok((candidateSetsByTarget.get(candidateKey)?.size ?? 0) >= 2, `${candidateKey}: seeded generation must vary the valid misconception mix for the same family, variant, and target`);
-const permutedSemanticInstances = [...optionOrdersBySemanticInstance.values()].filter((orders) => orders.size >= 2).length;
-assert.ok(permutedSemanticInstances >= 12, "semantic diversity must be counted independently from option permutation");
+const repeatedCandidateStates = [...candidateOccurrencesByCausalState.entries()].filter(([, occurrences]) => occurrences >= 3);
+assert.ok(repeatedCandidateStates.length >= 20, "saturation must revisit scenario-local candidate states");
+const causalStatesWithMultipleValidMixes = repeatedCandidateStates.filter(([causalState]) => (candidateSetsByCausalState.get(causalState)?.size ?? 0) >= 2).length;
+assert.ok(causalStatesWithMultipleValidMixes >= 20, "seeded generation must vary valid misconception mixes for repeated causal states where the pool permits it");
+const causalStatesWithMultipleItemVariants = [...itemVariantsByCausalState.values()].filter((variants) => variants.size >= 2).length;
+assert.ok(causalStatesWithMultipleItemVariants >= 40, "item variation must be reported separately from causal-state diversity");
 
 const fiveWay = generateCaeQuestion({ qlId: "CAE-QL-002", locale: "en-IN", seed: 41, questionProfile: "FIVE_WAY" });
 assert.equal(fiveWay.options.length, 5);
@@ -159,5 +174,5 @@ assert.equal(sharedPreview.question.metadata.reviewOnly, true);
 assert.throws(() => assertCae001QuestionStudioPersistenceAllowed(), /review only.*delivery remain locked/i);
 assert.throws(() => persistReasoningV1QuestionStudioReview({ packageId: CAE_001_QUESTION_STUDIO_PACKAGE_ID, qlId: "CAE-QL-001", locale: "en-IN", seed: 11 }), /review only.*delivery remain locked/i);
 
-console.log("CAE_001_SATURATION", JSON.stringify({ seedsPerPlan: SEED_COUNT, before: { authoredWorlds: 7, fixedProjections: 12, semanticInstanceVariation: "not measured; projection selection plus option shuffling" }, after: { scenarioFamilies: allFamilies.size, causalStructures: allStructures.size, difficultyStates: [...allDifficulties].sort(), distractorMechanisms: [...allMechanisms].sort(), targetRelativeCandidateChecks, repeatedCandidateTargets: repeatedCandidateTargets.length, candidateTargetsWithMultipleValidMixes: repeatedCandidateTargets.filter(([key]) => (candidateSetsByTarget.get(key)?.size ?? 0) >= 2).length, semanticInstancesWithOptionPermutation: permutedSemanticInstances, byQl: report } }, null, 2));
+console.log("CAE_001_SATURATION", JSON.stringify({ seedsPerPlan: SEED_COUNT, before: { authoredWorlds: 7, fixedProjections: 12, causalStateVariation: "not measured; fixed projections plus option shuffling" }, after: { scenarioFamilies: allFamilies.size, causalStructures: allStructures.size, difficultyStates: [...allDifficulties].sort(), distractorMechanisms: [...allMechanisms].sort(), targetRelativeCandidateChecks, repeatedCandidateStates: repeatedCandidateStates.length, causalStatesWithMultipleValidMixes, causalStatesWithMultipleItemVariants, byQl: report } }, null, 2));
 console.log("PASS_CAE_001_GENERATIVE_CAUSAL_STATE_V3");

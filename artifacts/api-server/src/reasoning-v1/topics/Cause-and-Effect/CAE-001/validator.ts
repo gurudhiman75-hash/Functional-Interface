@@ -1,6 +1,6 @@
 import { causalPath, nodeById, validateCaeCausalWorld } from "./causal-solver.ts";
 import { CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES, materializeCae001World } from "./causal-world-authorities.ts";
-import type { CaeCandidateComparison, CaeMagnitude, CaeProjectionAuthority, CaeQuestionProfile, CaeScenarioFamilyAuthority, GeneratedCaeQuestion } from "./types.ts";
+import type { CaeCandidateComparison, CaeMagnitude, CaeProjectionAuthority, CaeQuestionProfile, CaeScenarioFamilyAuthority, CaeScope, GeneratedCaeQuestion } from "./types.ts";
 
 const CURRENT_DISCOVERY_MAP = {
   "CAE-QL-001": ["CAE-CP-001", "DIRECT_RELATIONSHIP"],
@@ -14,31 +14,43 @@ const CURRENT_DISCOVERY_MAP = {
   "CAE-QL-009": ["CAE-CP-009", "MISSING_CAUSAL_LINK"],
 } as const satisfies Readonly<Record<CaeProjectionAuthority["qlId"], readonly [CaeProjectionAuthority["checkpointId"], CaeProjectionAuthority["kind"]]>>;
 
-const GENERIC_DISTRACTOR_WORDING = /minor disturbance|one small part of the area|reported outcome|different local service|generic event|some unrelated event/i;
+// This is a regression tripwire for the retired template corpus, not the
+// mechanism used to establish editorial quality.  Candidate construction and
+// the semantic authority checks below are the primary safeguards.
+const RETIRED_TEMPLATE_ARTIFACT = /attendance count at another|separate condition at the|follow-up notice was issued|short queue formed at one/i;
 const MAGNITUDE_RANK: Readonly<Record<CaeMagnitude, number>> = { LOW: 0, MODERATE: 1, HIGH: 2 };
+const SCOPE_RANK: Readonly<Record<CaeScope, number>> = { PERSON: 0, SITE: 1, LOCAL: 2, CITY: 3, REGIONAL: 4 };
 
-function validateDistractorRule(rule: CaeScenarioFamilyAuthority["distractorRules"][number], familyId: string, issues: string[]) {
+function validateSemanticCandidate(candidate: CaeScenarioFamilyAuthority["variants"][number]["semanticCandidateEvents"][number], familyId: string, variantId: string, issues: string[]) {
   for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
-    if (!rule.text[locale].trim()) issues.push(`${familyId}/${rule.id}/${locale}: incomplete scenario-local distractor text.`);
-    if (GENERIC_DISTRACTOR_WORDING.test(rule.text[locale])) issues.push(`${familyId}/${rule.id}/${locale}: generic or meta distractor wording is not allowed.`);
+    const value = candidate.text[locale].trim();
+    if (!value) issues.push(`${familyId}/${variantId}/${candidate.id}/${locale}: incomplete authored event.`);
+    if (/\{[^}]+\}/u.test(value)) issues.push(`${familyId}/${variantId}/${candidate.id}/${locale}: candidate must be a standalone event, not a substitution template.`);
+    if (RETIRED_TEMPLATE_ARTIFACT.test(value)) issues.push(`${familyId}/${variantId}/${candidate.id}/${locale}: retired template wording reached a semantic authority.`);
   }
-  if (rule.mechanism === "WEAK_CAUSE" && rule.magnitudeShift >= 0 && rule.severityShift >= 0) issues.push(`${familyId}/${rule.id}: weak cause does not reduce magnitude or severity.`);
-  if (rule.mechanism === "WRONG_SCOPE" && rule.scopeShift === 0) issues.push(`${familyId}/${rule.id}: wrong-scope rule does not alter scope.`);
-  if (rule.mechanism === "MAGNITUDE_MISMATCH" && rule.magnitudeShift === 0 && rule.severityShift === 0) issues.push(`${familyId}/${rule.id}: magnitude-mismatch rule does not alter magnitude or severity.`);
-  if (rule.mechanism === "REVERSE_CAUSATION" && (rule.timingAnchor !== "TARGET" || rule.temporalOffset <= 0)) issues.push(`${familyId}/${rule.id}: reverse-causation rule must occur after the observed target.`);
-  if (rule.mechanism === "TEMPORAL_VIOLATION" && (rule.timingAnchor !== "REFERENCE" || rule.temporalOffset >= 0)) issues.push(`${familyId}/${rule.id}: temporal-violation rule must occur before the graph-supported event.`);
-  if (rule.mechanism === "INDIRECTNESS_CONFUSION" && (rule.causalDistance ?? 0) <= 1) issues.push(`${familyId}/${rule.id}: indirectness rule must be more than one causal step away.`);
+  if (candidate.editorialRationale.trim().length < 24) issues.push(`${familyId}/${variantId}/${candidate.id}: missing editorial rationale for this real-world event.`);
+  if (candidate.mechanism === "INDIRECTNESS_CONFUSION" && (candidate.causalDistance ?? 0) <= 1) issues.push(`${familyId}/${variantId}/${candidate.id}: indirect event must be more than one causal step away.`);
 }
 
 function validateFamily(family: CaeScenarioFamilyAuthority, issues: string[]) {
   if (family.variants.length < 3) issues.push(`${family.id}: fewer than three composable scenario variants are available.`);
-  if (family.distractorRules.length < 6) issues.push(`${family.id}: richer scenario-local distractor pool requires at least six rules.`);
-  const mechanisms = new Set(family.distractorRules.map((rule) => rule.mechanism));
-  for (const required of ["WEAK_CAUSE", "WRONG_SCOPE", "MAGNITUDE_MISMATCH", "REVERSE_CAUSATION", "TEMPORAL_VIOLATION", "INDIRECTNESS_CONFUSION"] as const) {
-    if (!mechanisms.has(required)) issues.push(`${family.id}: missing ${required} distractor mechanism.`);
-  }
-  for (const rule of family.distractorRules) validateDistractorRule(rule, family.id, issues);
+  const needsCandidateAuthorities = family.allowedProjectionKinds.some((kind) => ["PROBABLE_CAUSE", "PROBABLE_EFFECT", "COMPETING_EXPLANATION", "MISSING_CAUSAL_LINK"].includes(kind));
   for (const variant of family.variants) {
+    const candidateIds = new Set<string>();
+    const credibleCandidates = variant.semanticCandidateEvents.filter((candidate) => candidate.editorialPlausibility === "CREDIBLE_ALTERNATIVE");
+    if (needsCandidateAuthorities && variant.semanticCandidateEvents.length < 2) issues.push(`${family.id}/${variant.id}: needs two scenario-authored, initially credible alternatives.`);
+    if (family.allowedProjectionKinds.includes("PROBABLE_EFFECT") && variant.semanticEffectCandidateEvents.length < 2) issues.push(`${family.id}/${variant.id}: probable-effect generation needs two authored effect alternatives.`);
+    if (family.allowedProjectionKinds.includes("COMPETING_EXPLANATION") && (variant.semanticCandidateEvents.length < 3 || credibleCandidates.length < 2)) issues.push(`${family.id}/${variant.id}: competing-explanation generation needs two credible alternatives and one additional ruled-out event.`);
+    for (const candidate of variant.semanticCandidateEvents) {
+      if (candidateIds.has(candidate.id)) issues.push(`${family.id}/${variant.id}: duplicate semantic candidate id '${candidate.id}'.`);
+      candidateIds.add(candidate.id);
+      validateSemanticCandidate(candidate, family.id, variant.id, issues);
+    }
+    for (const candidate of variant.semanticEffectCandidateEvents) {
+      if (candidateIds.has(candidate.id)) issues.push(`${family.id}/${variant.id}: duplicate semantic candidate id '${candidate.id}'.`);
+      candidateIds.add(candidate.id);
+      validateSemanticCandidate(candidate, family.id, variant.id, issues);
+    }
     const slots = new Set<string>();
     for (const node of variant.nodes) {
       if (slots.has(node.semanticSlot)) issues.push(`${family.id}/${variant.id}: duplicate semantic slot '${node.semanticSlot}'.`);
@@ -104,14 +116,20 @@ export function validateCaeEngineAuthorities(
 }
 
 function validateCandidateComparison(candidate: CaeCandidateComparison): string | null {
+  if (candidate.source !== "CANONICAL_WORLD" && candidate.source !== "VARIANT_AUTHORED") return `${candidate.candidateId}: unknown semantic candidate source.`;
+  if (candidate.editorialPlausibility !== "CREDIBLE_ALTERNATIVE" && candidate.editorialPlausibility !== "CLEAR_REJECT") return `${candidate.candidateId}: editorial plausibility was not classified.`;
+  const scopeGap = Math.abs(SCOPE_RANK[candidate.candidateScope] - SCOPE_RANK[candidate.targetScope]);
+  const referenceScopeGap = Math.abs(SCOPE_RANK[candidate.candidateScope] - SCOPE_RANK[candidate.referenceScope]);
   const magnitudeGap = Math.abs(MAGNITUDE_RANK[candidate.candidateMagnitude] - MAGNITUDE_RANK[candidate.targetMagnitude]);
+  const referenceMagnitudeGap = Math.abs(MAGNITUDE_RANK[candidate.candidateMagnitude] - MAGNITUDE_RANK[candidate.referenceMagnitude]);
   const severityGap = Math.abs(MAGNITUDE_RANK[candidate.candidateSeverity] - MAGNITUDE_RANK[candidate.targetSeverity]);
-  if (candidate.magnitudeGap !== magnitudeGap || candidate.severityGap !== severityGap) return `${candidate.candidateId}: target-relative magnitude metadata is inconsistent.`;
+  const referenceSeverityGap = Math.abs(MAGNITUDE_RANK[candidate.candidateSeverity] - MAGNITUDE_RANK[candidate.referenceSeverity]);
+  if (candidate.scopeGap !== scopeGap || candidate.referenceScopeGap !== referenceScopeGap || candidate.magnitudeGap !== magnitudeGap || candidate.referenceMagnitudeGap !== referenceMagnitudeGap || candidate.severityGap !== severityGap || candidate.referenceSeverityGap !== referenceSeverityGap) return `${candidate.candidateId}: target/reference-relative scope or scale metadata is inconsistent.`;
   const expectsEffect = candidate.expectedRelation === "EFFECT_OF_TARGET";
   if (candidate.mechanism === "REVERSE_CAUSATION" && (expectsEffect ? candidate.candidateTemporalOrder >= candidate.targetTemporalOrder : candidate.candidateTemporalOrder <= candidate.targetTemporalOrder)) return `${candidate.candidateId}: reverse-causation candidate has the wrong temporal direction.`;
   if (candidate.mechanism === "TEMPORAL_VIOLATION" && (expectsEffect ? candidate.candidateTemporalOrder <= candidate.referenceTemporalOrder : candidate.candidateTemporalOrder >= candidate.referenceTemporalOrder)) return `${candidate.candidateId}: temporal-violation candidate has the wrong distance from the graph-supported event.`;
-  if (candidate.mechanism === "WEAK_CAUSE" && MAGNITUDE_RANK[candidate.candidateMagnitude] >= MAGNITUDE_RANK[candidate.targetMagnitude] && MAGNITUDE_RANK[candidate.candidateSeverity] >= MAGNITUDE_RANK[candidate.targetSeverity]) return `${candidate.candidateId}: weak candidate can still explain the target magnitude and severity.`;
-  if (candidate.mechanism === "WRONG_SCOPE" && candidate.scopeGap === 0) return `${candidate.candidateId}: wrong-scope candidate matches the target scope.`;
+  if (candidate.mechanism === "WEAK_CAUSE" && MAGNITUDE_RANK[candidate.candidateMagnitude] >= MAGNITUDE_RANK[candidate.targetMagnitude] && MAGNITUDE_RANK[candidate.candidateSeverity] >= MAGNITUDE_RANK[candidate.targetSeverity] && MAGNITUDE_RANK[candidate.candidateMagnitude] >= MAGNITUDE_RANK[candidate.referenceMagnitude] && MAGNITUDE_RANK[candidate.candidateSeverity] >= MAGNITUDE_RANK[candidate.referenceSeverity]) return `${candidate.candidateId}: weak candidate can still explain the target and graph-supported cause/effect scale.`;
+  if (candidate.mechanism === "WRONG_SCOPE" && candidate.scopeGap === 0 && candidate.referenceScopeGap === 0 && candidate.magnitudeGap === 0 && candidate.referenceMagnitudeGap === 0 && candidate.severityGap === 0 && candidate.referenceSeverityGap === 0) return `${candidate.candidateId}: wrong-scope candidate has no supporting scope or scale distinction.`;
   if (candidate.mechanism === "MAGNITUDE_MISMATCH" && candidate.magnitudeGap === 0 && candidate.severityGap === 0) return `${candidate.candidateId}: magnitude-mismatch candidate matches the target.`;
   if (candidate.mechanism === "INDIRECTNESS_CONFUSION" && (candidate.causalDistance ?? 0) <= 1) return `${candidate.candidateId}: indirectness candidate is not distant.`;
   if (!candidate.rejectionReason.trim()) return `${candidate.candidateId}: missing target-relative rejection reason.`;
@@ -121,14 +139,23 @@ function validateCandidateComparison(candidate: CaeCandidateComparison): string 
 /** Verifies rendered review items, including target-relative distractor evidence. */
 export function validateGeneratedCaeQuestion(question: GeneratedCaeQuestion): readonly string[] {
   const issues: string[] = [];
+  if (question.causalStateId.includes("distractors:") || question.causalStateId.includes("presentation:")) issues.push(`${question.causalStateId}: causal state must exclude options and their presentation.`);
+  if (!question.itemVariantId.startsWith(question.causalStateId) || !question.itemVariantId.includes("distractors:") || !question.itemVariantId.includes("presentation:")) issues.push(`${question.causalStateId}: item variant must extend the causal state with candidates and presentation.`);
   if (question.options.length !== 4 && question.options.length !== 5) issues.push(`${question.semanticInstanceId}: invalid option count.`);
   if (question.options.filter((_, index) => index === question.correctIndex).length !== 1) issues.push(`${question.semanticInstanceId}: exactly one answer must be marked.`);
-  for (const option of question.options) if (GENERIC_DISTRACTOR_WORDING.test(option)) issues.push(`${question.semanticInstanceId}: generic/meta distractor wording reached a rendered item.`);
+  for (const option of question.options) if (RETIRED_TEMPLATE_ARTIFACT.test(option)) issues.push(`${question.semanticInstanceId}: retired template wording reached a rendered item.`);
   for (const option of question.options) if (/\{(?:target|anchor|relativeTime|reverseRelation|temporalRelation|indirectDistance)\}/u.test(option)) issues.push(`${question.semanticInstanceId}: an unresolved distractor rendering token reached a rendered item.`);
   for (const candidate of question.candidateComparisons) {
     const issue = validateCandidateComparison(candidate);
     if (issue) issues.push(`${question.semanticInstanceId}: ${issue}`);
   }
+  if (question.candidateComparisons.length > 0) {
+    const distractorTexts = question.optionMetadata.filter((option) => !option.isCorrect).map((option) => option.text.trim().toLowerCase());
+    const openings = distractorTexts.map((text) => text.split(/\s+/u).slice(0, 3).join(" "));
+    if (new Set(openings).size !== openings.length) issues.push(`${question.semanticInstanceId}: candidate options repeat a template-like opening.`);
+    if (question.difficulty !== "EASY" && question.candidateComparisons.filter((candidate) => candidate.editorialPlausibility === "CREDIBLE_ALTERNATIVE").length < 2) issues.push(`${question.semanticInstanceId}: medium/hard item lacks two initially credible alternatives.`);
+  }
+  if (question.checkpointId === "CAE-CP-005" && question.candidateComparisons.filter((candidate) => candidate.editorialPlausibility === "CREDIBLE_ALTERNATIVE").length < 2) issues.push(`${question.semanticInstanceId}: CP-005 must present at least two credible competing explanations.`);
   if (question.visibleContext.backdrop && question.stem.includes(question.visibleContext.backdrop) && question.stem.includes(question.options[question.correctIndex]!)) issues.push(`${question.semanticInstanceId}: answer/context leakage.`);
   return issues;
 }

@@ -1,6 +1,5 @@
 import type {
   CaeCausalWorld,
-  CaeDistractorRule,
   CaeMagnitude,
   CaeProjectionAuthority,
   CaeScope,
@@ -9,6 +8,8 @@ import type {
   CaeScenarioVariant,
   LocalizedText,
 } from "./types.ts";
+import { semanticCandidatesForVariant } from "./semantic-distractor-authorities.ts";
+import { semanticEffectCandidatesForVariant } from "./semantic-effect-distractor-authorities.ts";
 
 const l = (en: string, hi: string, pa: string): LocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 type EventText = readonly [string, string, string];
@@ -25,18 +26,6 @@ const VARIANT_SCALE: Readonly<Record<string, VariantScale>> = {
   "umbrellas-admissions": { scope: "CITY", magnitude: "MODERATE", severity: "LOW" }, "books-buses": { scope: "CITY", magnitude: "MODERATE", severity: "LOW" }, "vaccination-market": { scope: "LOCAL", magnitude: "MODERATE", severity: "LOW" },
   roadwork: { scope: "CITY", magnitude: "HIGH", severity: "MODERATE" }, drill: { scope: "SITE", magnitude: "MODERATE", severity: "LOW" }, cleaning: { scope: "LOCAL", magnitude: "MODERATE", severity: "MODERATE" },
   supply: { scope: "REGIONAL", magnitude: "HIGH", severity: "MODERATE" }, ferry: { scope: "REGIONAL", magnitude: "HIGH", severity: "HIGH" }, printer: { scope: "SITE", magnitude: "MODERATE", severity: "MODERATE" },
-};
-
-const VARIANT_DISTRACTOR_ANCHORS: Readonly<Record<string, LocalizedText>> = {
-  fog: l("boarding gate", "बोर्डिंग गेट", "ਬੋਰਡਿੰਗ ਗੇਟ"), signal: l("rail platform", "रेल प्लेटफॉर्म", "ਰੇਲ ਪਲੇਟਫਾਰਮ"), bridge: l("side street", "साइड स्ट्रीट", "ਸਾਈਡ ਗਲੀ"),
-  heat: l("water tap", "पानी का नल", "ਪਾਣੀ ਦੀ ਟੂਟੀ"), festival: l("bus stop", "बस स्टॉप", "ਬੱਸ ਸਟਾਪ"), admissions: l("admissions desk", "प्रवेश डेस्क", "ਦਾਖਲਾ ਡੈਸਕ"),
-  "factory-school": l("workstation", "कार्य-स्थान", "ਕੰਮ ਵਾਲੀ ਥਾਂ"), "pipe-clinic": l("clinic desk", "क्लिनिक डेस्क", "ਕਲੀਨਿਕ ਡੈਸਕ"), "warehouse-library": l("library counter", "पुस्तकालय काउंटर", "ਲਾਇਬ੍ਰੇਰੀ ਕਾਊਂਟਰ"),
-  "waterlogged-rail": l("rail platform", "रेल प्लेटफॉर्म", "ਰੇਲ ਪਲੇਟਫਾਰਮ"), server: l("online help desk", "ऑनलाइन सहायता डेस्क", "ਆਨਲਾਈਨ ਸਹਾਇਤਾ ਡੈਸਕ"), pump: l("supply valve", "आपूर्ति वाल्व", "ਸਪਲਾਈ ਵਾਲਵ"),
-  metro: l("metro entry", "मेट्रो प्रवेश", "ਮੈਟਰੋ ਦਾਖਲਾ"), vegetables: l("market stall", "बाजार स्टॉल", "ਬਾਜ਼ਾਰ ਸਟਾਲ"), "exam-centre": l("exam-centre gate", "परीक्षा केंद्र द्वार", "ਪਰੀਖਿਆ ਕੇਂਦਰ ਗੇਟ"),
-  landslide: l("roadside checkpoint", "सड़क किनारे जाँच बिंदु", "ਸੜਕ ਕਿਨਾਰੇ ਜਾਂਚ ਬਿੰਦੂ"), drainage: l("residential lane", "आवासीय गली", "ਰਿਹਾਇਸ਼ੀ ਗਲੀ"), "cold-storage": l("loading bay", "लोडिंग बे", "ਲੋਡਿੰਗ ਬੇ"),
-  "umbrellas-admissions": l("shop counter", "दुकान काउंटर", "ਦੁਕਾਨ ਕਾਊਂਟਰ"), "books-buses": l("library desk", "पुस्तकालय डेस्क", "ਲਾਇਬ੍ਰੇਰੀ ਡੈਸਕ"), "vaccination-market": l("clinic desk", "क्लिनिक डेस्क", "ਕਲੀਨਿਕ ਡੈਸਕ"),
-  roadwork: l("traffic lane", "यातायात लेन", "ਆਵਾਜਾਈ ਲੇਨ"), drill: l("school corridor", "स्कूल गलियारा", "ਸਕੂਲ ਗਲਿਆਰਾ"), cleaning: l("market entrance", "बाजार प्रवेश", "ਬਾਜ਼ਾਰ ਦਾਖਲਾ"),
-  supply: l("loading bay", "लोडिंग बे", "ਲੋਡਿੰਗ ਬੇ"), ferry: l("boarding point", "चढ़ने का बिंदु", "ਚੜ੍ਹਨ ਦਾ ਬਿੰਦੂ"), printer: l("service desk", "सेवा डेस्क", "ਸੇਵਾ ਡੈਸਕ"),
 };
 
 const SCOPE_RANK: Readonly<Record<CaeScope, number>> = { PERSON: 0, SITE: 1, LOCAL: 2, CITY: 3, REGIONAL: 4 };
@@ -62,12 +51,6 @@ const unit = (variantId: string, semanticSlot: string, role: CaeScenarioNodeUnit
 };
 
 const neutral = (en: string, hi: string, pa: string) => l(en, hi, pa);
-const distractorAnchorFor = (variantId: string): LocalizedText => {
-  const anchor = VARIANT_DISTRACTOR_ANCHORS[variantId];
-  if (!anchor) throw new Error(`CAE-001: missing scenario-local distractor anchor for '${variantId}'.`);
-  return anchor;
-};
-
 const chainVariant = (
   id: string,
   backdrop: LocalizedText,
@@ -78,7 +61,8 @@ const chainVariant = (
 ): CaeScenarioVariant => ({
   id,
   backdrop,
-  distractorAnchor: distractorAnchorFor(id),
+  semanticCandidateEvents: semanticCandidatesForVariant(id),
+  semanticEffectCandidateEvents: semanticEffectCandidatesForVariant(id),
   nodes: [unit(id, "cause", "CAUSE", 1, cause), unit(id, "bridge", "INTERMEDIATE", 2, bridge, false), unit(id, "effect", "EFFECT", 3, effect), unit(id, "terminal", "EFFECT", 4, terminal, false)],
   edgeBindings: [{ from: "cause", to: "bridge" }, { from: "bridge", to: "effect" }, { from: "effect", to: "terminal", temporalRelation: "SHORT_DELAY" }],
 });
@@ -92,7 +76,8 @@ const branchVariant = (
 ): CaeScenarioVariant => ({
   id,
   backdrop,
-  distractorAnchor: distractorAnchorFor(id),
+  semanticCandidateEvents: semanticCandidatesForVariant(id),
+  semanticEffectCandidateEvents: semanticEffectCandidatesForVariant(id),
   nodes: [unit(id, "cause", "CAUSE", 1, cause), unit(id, "first-effect", "EFFECT", 2, first), unit(id, "second-effect", "EFFECT", 2, second)],
   edgeBindings: [{ from: "cause", to: "first-effect" }, { from: "cause", to: "second-effect" }],
 });
@@ -107,7 +92,8 @@ const parallelVariant = (
 ): CaeScenarioVariant => ({
   id,
   backdrop,
-  distractorAnchor: distractorAnchorFor(id),
+  semanticCandidateEvents: semanticCandidatesForVariant(id),
+  semanticEffectCandidateEvents: semanticEffectCandidatesForVariant(id),
   nodes: [unit(id, "first-cause", "CAUSE", 1, firstCause), unit(id, "first-effect", "EFFECT", 2, firstEffect), unit(id, "second-cause", "CAUSE", 1, secondCause), unit(id, "second-effect", "EFFECT", 2, secondEffect)],
   edgeBindings: [{ from: "first-cause", to: "first-effect" }, { from: "second-cause", to: "second-effect" }],
 });
@@ -142,7 +128,7 @@ const CAE_001_SCENARIO_FAMILY_SEEDS = [
     id: "CAE-FAM-SHARED-PRESSURE",
     domain: "UTILITIES",
     topology: "BRANCHING_COMMON_CAUSE",
-    allowedProjectionKinds: ["DIRECT_RELATIONSHIP", "COMMON_OR_INDEPENDENT", "PROBABLE_EFFECT"],
+    allowedProjectionKinds: ["DIRECT_RELATIONSHIP", "COMMON_OR_INDEPENDENT"],
     allowedQuestionProfiles: ["FOUR_WAY", "FIVE_WAY"],
     renderingConstraints: constraints,
     variants: [
@@ -181,7 +167,7 @@ const CAE_001_SCENARIO_FAMILY_SEEDS = [
     id: "CAE-FAM-COMPETING-SCOPE",
     domain: "CIVIC",
     topology: "COMPETING_CAUSES",
-    allowedProjectionKinds: ["PROBABLE_CAUSE", "COMPETING_EXPLANATION", "PROBABLE_EFFECT", "INDIRECT_CAUSAL_CHAIN"],
+    allowedProjectionKinds: ["PROBABLE_CAUSE", "COMPETING_EXPLANATION", "INDIRECT_CAUSAL_CHAIN"],
     allowedQuestionProfiles: ["FOUR_WAY", "FIVE_WAY"],
     renderingConstraints: constraints,
     variants: [
@@ -242,41 +228,15 @@ const CAE_001_SCENARIO_FAMILY_SEEDS = [
       chainVariant("printer", neutral("At a district service office before a deadline.", "समयसीमा से पहले एक जिला सेवा कार्यालय में।", "ਅੰਤਿਮ ਤਾਰੀਖ ਤੋਂ ਪਹਿਲਾਂ ਇੱਕ ਜ਼ਿਲ੍ਹਾ ਸੇਵਾ ਦਫ਼ਤਰ ਵਿੱਚ।"), e("The office printer network failed.", "कार्यालय का प्रिंटर नेटवर्क बंद हुआ।", "ਦਫ਼ਤਰ ਦਾ ਪ੍ਰਿੰਟਰ ਨੈੱਟਵਰਕ ਬੰਦ ਹੋਇਆ।"), e("Required forms could not be printed.", "आवश्यक फॉर्म प्रिंट नहीं हो सके।", "ਲੋੜੀਂਦੇ ਫਾਰਮ ਪ੍ਰਿੰਟ ਨਹੀਂ ਹੋ ਸਕੇ।"), e("Applications waited for verification.", "आवेदन सत्यापन के लिए रुके।", "ਅਰਜ਼ੀਆਂ ਤਸਦੀਕ ਲਈ ਰੁਕੀਆਂ।"), e("Some certificates were issued late.", "कुछ प्रमाणपत्र देर से जारी हुए।", "ਕੁਝ ਪ੍ਰਮਾਣਪੱਤਰ ਦੇਰ ਨਾਲ ਜਾਰੀ ਹੋਏ।")),
     ],
   },
-] as const satisfies readonly Omit<CaeScenarioFamilyAuthority, "distractorRules">[];
+] as const satisfies readonly CaeScenarioFamilyAuthority[];
 
-const rule = (
-  id: string,
-  mechanism: CaeDistractorRule["mechanism"],
-  text: LocalizedText,
-  timingAnchor: CaeDistractorRule["timingAnchor"],
-  temporalOffset: number,
-  scopeShift: CaeDistractorRule["scopeShift"],
-  magnitudeShift: CaeDistractorRule["magnitudeShift"],
-  severityShift: CaeDistractorRule["severityShift"],
-  causalDistance: number | null,
-): CaeDistractorRule => ({ id, mechanism, text, timingAnchor, temporalOffset, scopeShift, magnitudeShift, severityShift, causalDistance });
-
-const familyRules = (familyId: string): readonly CaeDistractorRule[] => [
-  rule(`${familyId}-weak`, "WEAK_CAUSE", l("A short queue formed at one {anchor} {relativeTime} {target}.", "{target} {relativeTime} एक {anchor} पर छोटी कतार लगी।", "{target} {relativeTime} ਇੱਕ {anchor} ਤੇ ਛੋਟੀ ਕਤਾਰ ਲੱਗੀ।"), "REFERENCE", 0, 0, -1, -1, 1),
-  rule(`${familyId}-scope`, "WRONG_SCOPE", l("A routine inspection paused a nearby {anchor} serving a different area {relativeTime} {target}.", "{target} {relativeTime} नियमित जाँच ने दूसरे क्षेत्र के पास के {anchor} को रोका।", "{target} {relativeTime} ਰੁਟੀਨ ਜਾਂਚ ਨੇ ਦੂਜੇ ਖੇਤਰ ਵਾਲੇ ਨੇੜਲੇ {anchor} ਨੂੰ ਰੋਕਿਆ।"), "REFERENCE", 0, -1, 0, 0, null),
-  rule(`${familyId}-magnitude`, "MAGNITUDE_MISMATCH", l("One {anchor} was briefly held up {relativeTime} {target}.", "{target} {relativeTime} एक {anchor} थोड़ी देर के लिए रुका।", "{target} {relativeTime} ਇੱਕ {anchor} ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਰੁਕਿਆ।"), "REFERENCE", 0, 0, -2, -2, null),
-  rule(`${familyId}-reverse`, "REVERSE_CAUSATION", l("A follow-up notice was issued {reverseRelation} {target}.", "{target} {reverseRelation} अनुवर्ती सूचना जारी हुई।", "{target} {reverseRelation} ਅਗਲੀ ਸੂਚਨਾ ਜਾਰੀ ਹੋਈ।"), "TARGET", 1, 0, 0, 0, null),
-  rule(`${familyId}-temporal`, "TEMPORAL_VIOLATION", l("A scheduled {anchor} activity ended {temporalRelation} {target}.", "{target} {temporalRelation} नियोजित {anchor} गतिविधि समाप्त हुई।", "{target} {temporalRelation} ਨਿਰਧਾਰਤ {anchor} ਗਤੀਵਿਧੀ ਮੁਕ ਗਈ।"), "REFERENCE", -3, 0, 0, 0, null),
-  rule(`${familyId}-indirect`, "INDIRECTNESS_CONFUSION", l("An adjustment at the {anchor} was two stages {indirectDistance} {target}.", "{target} {indirectDistance} {anchor} में बदलाव हुआ था।", "{target} {indirectDistance} {anchor} ਵਿੱਚ ਤਬਦੀਲੀ ਹੋਈ ਸੀ।"), "REFERENCE", -1, 0, 0, 0, 2),
-  rule(`${familyId}-common`, "COMMON_CAUSE_CONFUSION", l("A separate condition at the {anchor} affected a wider service area {relativeTime} {target}.", "{target} {relativeTime} {anchor} की अलग स्थिति ने बड़े सेवा क्षेत्र को प्रभावित किया।", "{target} {relativeTime} {anchor} ਦੀ ਵੱਖਰੀ ਸਥਿਤੀ ਨੇ ਵੱਡੇ ਸੇਵਾ ਖੇਤਰ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕੀਤਾ।"), "REFERENCE", -1, 1, 0, 0, 2),
-  rule(`${familyId}-correlation`, "CORRELATION", l("The attendance count at another {anchor} changed during the same shift as {target}.", "{target} वाली पाली में दूसरे {anchor} की उपस्थिति गिनती बदली।", "{target} ਵਾਲੀ ਪਾਲੀ ਵਿੱਚ ਦੂਜੇ {anchor} ਦੀ ਹਾਜ਼ਰੀ ਗਿਣਤੀ ਬਦਲੀ।"), "REFERENCE", 0, 2, 0, 0, null),
-];
-
-export const CAE_001_SCENARIO_FAMILIES: readonly CaeScenarioFamilyAuthority[] = CAE_001_SCENARIO_FAMILY_SEEDS.map((seed) => ({
-  ...seed,
-  distractorRules: familyRules(seed.id),
-}));
+export const CAE_001_SCENARIO_FAMILIES: readonly CaeScenarioFamilyAuthority[] = CAE_001_SCENARIO_FAMILY_SEEDS;
 
 export const CAE_001_PROJECTION_AUTHORITIES = [
   { id: "CAE-PLAN-DIRECT", checkpointId: "CAE-CP-001", qlId: "CAE-QL-001", kind: "DIRECT_RELATIONSHIP", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-CIVIC-SEQUENCE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY", "FIVE_WAY"] },
   { id: "CAE-PLAN-COMMON-INDEPENDENT", checkpointId: "CAE-CP-002", qlId: "CAE-QL-002", kind: "COMMON_OR_INDEPENDENT", compatibleFamilyIds: ["CAE-FAM-SHARED-PRESSURE", "CAE-FAM-PARALLEL-INCIDENTS", "CAE-FAM-COINCIDENT-OBSERVATIONS"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY", "FIVE_WAY"] },
   { id: "CAE-PLAN-PROBABLE-CAUSE", checkpointId: "CAE-CP-003", qlId: "CAE-QL-003", kind: "PROBABLE_CAUSE", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-COMPETING-SCOPE", "CAE-FAM-HIDDEN-CHAIN", "CAE-FAM-MISSING-BRIDGE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
-  { id: "CAE-PLAN-PROBABLE-EFFECT", checkpointId: "CAE-CP-004", qlId: "CAE-QL-004", kind: "PROBABLE_EFFECT", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-SHARED-PRESSURE", "CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-CIVIC-SEQUENCE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
+  { id: "CAE-PLAN-PROBABLE-EFFECT", checkpointId: "CAE-CP-004", qlId: "CAE-QL-004", kind: "PROBABLE_EFFECT", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-CIVIC-SEQUENCE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
   { id: "CAE-PLAN-COMPETING", checkpointId: "CAE-CP-005", qlId: "CAE-QL-005", kind: "COMPETING_EXPLANATION", compatibleFamilyIds: ["CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-COMPETING-SCOPE", "CAE-FAM-HIDDEN-CHAIN", "CAE-FAM-MISSING-BRIDGE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
   { id: "CAE-PLAN-INDIRECT", checkpointId: "CAE-CP-006", qlId: "CAE-QL-006", kind: "INDIRECT_CAUSAL_CHAIN", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-HIDDEN-CHAIN", "CAE-FAM-CIVIC-SEQUENCE", "CAE-FAM-MISSING-BRIDGE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
   { id: "CAE-PLAN-CORRELATION", checkpointId: "CAE-CP-007", qlId: "CAE-QL-007", kind: "CORRELATION_CHECK", compatibleFamilyIds: ["CAE-FAM-PARALLEL-INCIDENTS", "CAE-FAM-COINCIDENT-OBSERVATIONS"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY", "FIVE_WAY"] },

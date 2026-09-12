@@ -180,94 +180,102 @@ function relationshipOptions(locale: CaeLocale, profile: CaeQuestionProfile, rel
 
 const SCOPE_RANK = { PERSON: 0, SITE: 1, LOCAL: 2, CITY: 3, REGIONAL: 4 } as const;
 const MAGNITUDE_RANK = { LOW: 0, MODERATE: 1, HIGH: 2 } as const;
-const scopeByRank = (rank: number): keyof typeof SCOPE_RANK => (Object.keys(SCOPE_RANK) as (keyof typeof SCOPE_RANK)[]).find((entry) => SCOPE_RANK[entry] === Math.max(0, Math.min(4, rank)))!;
-const magnitudeByRank = (rank: number): keyof typeof MAGNITUDE_RANK => (Object.keys(MAGNITUDE_RANK) as (keyof typeof MAGNITUDE_RANK)[]).find((entry) => MAGNITUDE_RANK[entry] === Math.max(0, Math.min(2, rank)))!;
-
-function interpolateCandidateTemplate(template: string, target: CaeNode, variant: CaeScenarioVariant, relation: CandidateTargetRelation, locale: CaeLocale): string {
-  const isEffect = relation === "EFFECT_OF_TARGET";
-  const relationCopy = locale === "en-IN"
-    ? { relativeTime: isEffect ? "after" : "before", reverseRelation: isEffect ? "before" : "after", temporalRelation: isEffect ? "well after" : "well before", indirectDistance: isEffect ? "after" : "before" }
-    : locale === "hi-IN"
-    ? { relativeTime: isEffect ? "के बाद" : "से पहले", reverseRelation: isEffect ? "से पहले" : "के बाद", temporalRelation: isEffect ? "के काफी बाद" : "से काफी पहले", indirectDistance: isEffect ? "के दो चरण बाद" : "से दो चरण पहले" }
-    : { relativeTime: isEffect ? "ਤੋਂ ਬਾਅਦ" : "ਤੋਂ ਪਹਿਲਾਂ", reverseRelation: isEffect ? "ਤੋਂ ਪਹਿਲਾਂ" : "ਤੋਂ ਬਾਅਦ", temporalRelation: isEffect ? "ਤੋਂ ਕਾਫ਼ੀ ਬਾਅਦ" : "ਤੋਂ ਕਾਫ਼ੀ ਪਹਿਲਾਂ", indirectDistance: isEffect ? "ਤੋਂ ਦੋ ਪੜਾਅ ਬਾਅਦ" : "ਤੋਂ ਦੋ ਪੜਾਅ ਪਹਿਲਾਂ" };
-  return template
-    .replaceAll("{target}", target.text[locale].replace(/[.।]+$/u, ""))
-    .replaceAll("{anchor}", variant.distractorAnchor[locale])
-    .replaceAll("{relativeTime}", relationCopy.relativeTime)
-    .replaceAll("{reverseRelation}", relationCopy.reverseRelation)
-    .replaceAll("{temporalRelation}", relationCopy.temporalRelation)
-    .replaceAll("{indirectDistance}", relationCopy.indirectDistance);
+/** Reuse only real canonical events whose graph position creates a named misconception. */
+function canonicalCandidateAuthorities(world: CaeCausalWorld, reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation): readonly CaeCandidateAuthority[] {
+  return world.nodes.flatMap((node): readonly CaeCandidateAuthority[] => {
+    if (node.id === reference.id || node.id === target.id) return [];
+    const toTarget = causalPath(world, node.id, target.id);
+    const fromTarget = causalPath(world, target.id, node.id);
+    let mechanism: CaeCandidateAuthority["mechanism"] | null = null;
+    let causalDistance: number | null = null;
+    let editorialPlausibility: CaeCandidateAuthority["editorialPlausibility"] = "CLEAR_REJECT";
+    if (relation === "EFFECT_OF_TARGET") {
+      if (fromTarget && fromTarget.length > 2) {
+        mechanism = "INDIRECTNESS_CONFUSION";
+        causalDistance = fromTarget.length - 1;
+        editorialPlausibility = "CREDIBLE_ALTERNATIVE";
+      } else if (toTarget) mechanism = "REVERSE_CAUSATION";
+    } else if (toTarget && toTarget.length > 2) {
+      mechanism = "INDIRECTNESS_CONFUSION";
+      causalDistance = toTarget.length - 1;
+      editorialPlausibility = "CREDIBLE_ALTERNATIVE";
+    } else if (fromTarget) mechanism = "REVERSE_CAUSATION";
+    if (!mechanism) return [];
+    return [{
+      id: `${world.id}:node:${node.id}`,
+      text: node.text,
+      mechanism,
+      source: "CANONICAL_WORLD",
+      sourceNodeId: node.id,
+      temporalOrder: node.temporalOrder,
+      scope: node.scope,
+      magnitude: node.magnitude,
+      severity: node.severity,
+      causalDistance,
+      editorialPlausibility,
+      editorialRationale: `The canonical event is a ${mechanism === "INDIRECTNESS_CONFUSION" ? "real but non-immediate" : "real but wrongly directed"} part of this causal world.`,
+    }];
+  });
 }
 
-function candidateFromRule(rule: CaeScenarioFamilyAuthority["distractorRules"][number], reference: CaeNode, target: CaeNode, variant: CaeScenarioVariant, relation: CandidateTargetRelation): CaeCandidateAuthority {
-  const isEffect = relation === "EFFECT_OF_TARGET";
-  const timingBase = rule.timingAnchor === "TARGET" ? target.temporalOrder : reference.temporalOrder;
-  const temporalOrder = isEffect && rule.mechanism === "REVERSE_CAUSATION"
-    ? Math.max(0, target.temporalOrder - 1)
-    : isEffect && rule.mechanism === "TEMPORAL_VIOLATION"
-    ? reference.temporalOrder + Math.abs(rule.temporalOffset)
-    : isEffect && (rule.mechanism === "INDIRECTNESS_CONFUSION" || rule.mechanism === "COMMON_CAUSE_CONFUSION")
-    ? reference.temporalOrder + 1
-    : Math.max(0, timingBase + rule.temporalOffset);
-  return {
-    id: `${target.id}:candidate:${rule.id}`,
-    text: {
-      "en-IN": interpolateCandidateTemplate(rule.text["en-IN"], target, variant, relation, "en-IN"),
-      "hi-IN": interpolateCandidateTemplate(rule.text["hi-IN"], target, variant, relation, "hi-IN"),
-      "pa-IN": interpolateCandidateTemplate(rule.text["pa-IN"], target, variant, relation, "pa-IN"),
-    },
-    mechanism: rule.mechanism,
-    source: "SCENARIO_RULE",
-    temporalOrder,
-    scope: scopeByRank(SCOPE_RANK[target.scope] + rule.scopeShift),
-    magnitude: magnitudeByRank(MAGNITUDE_RANK[target.magnitude] + rule.magnitudeShift),
-    severity: magnitudeByRank(MAGNITUDE_RANK[target.severity] + rule.severityShift),
-    causalDistance: rule.causalDistance,
-  };
+function authoredCandidateAuthorities(world: CaeCausalWorld, variant: CaeScenarioVariant, effectAlternatives = false): readonly CaeCandidateAuthority[] {
+  const events = effectAlternatives ? variant.semanticEffectCandidateEvents : variant.semanticCandidateEvents;
+  return events.map((event) => ({ ...event, id: `${world.id}:authored:${event.id}`, source: "VARIANT_AUTHORED" as const }));
 }
 
 function compareCandidate(reference: CaeNode, target: CaeNode, candidate: CaeCandidateAuthority, relation: CandidateTargetRelation): CaeCandidateComparison | null {
   const timingGap = Math.abs(candidate.temporalOrder - target.temporalOrder);
   const expectedTimingGap = Math.abs(candidate.temporalOrder - reference.temporalOrder);
   const scopeGap = Math.abs(SCOPE_RANK[candidate.scope] - SCOPE_RANK[target.scope]);
+  const referenceScopeGap = Math.abs(SCOPE_RANK[candidate.scope] - SCOPE_RANK[reference.scope]);
   const magnitudeGap = Math.abs(MAGNITUDE_RANK[candidate.magnitude] - MAGNITUDE_RANK[target.magnitude]);
+  const referenceMagnitudeGap = Math.abs(MAGNITUDE_RANK[candidate.magnitude] - MAGNITUDE_RANK[reference.magnitude]);
   const severityGap = Math.abs(MAGNITUDE_RANK[candidate.severity] - MAGNITUDE_RANK[target.severity]);
+  const referenceSeverityGap = Math.abs(MAGNITUDE_RANK[candidate.severity] - MAGNITUDE_RANK[reference.severity]);
   const isEffect = relation === "EFFECT_OF_TARGET";
   const mechanismValid = candidate.mechanism === "REVERSE_CAUSATION"
     ? isEffect ? candidate.temporalOrder < target.temporalOrder : candidate.temporalOrder > target.temporalOrder
     : candidate.mechanism === "TEMPORAL_VIOLATION"
     ? isEffect ? candidate.temporalOrder > reference.temporalOrder : candidate.temporalOrder < reference.temporalOrder
     : candidate.mechanism === "WEAK_CAUSE"
-    ? MAGNITUDE_RANK[candidate.magnitude] < MAGNITUDE_RANK[target.magnitude] || MAGNITUDE_RANK[candidate.severity] < MAGNITUDE_RANK[target.severity]
+    ? MAGNITUDE_RANK[candidate.magnitude] < MAGNITUDE_RANK[target.magnitude] || MAGNITUDE_RANK[candidate.severity] < MAGNITUDE_RANK[target.severity] || MAGNITUDE_RANK[candidate.magnitude] < MAGNITUDE_RANK[reference.magnitude] || MAGNITUDE_RANK[candidate.severity] < MAGNITUDE_RANK[reference.severity]
     : candidate.mechanism === "WRONG_SCOPE"
-    ? scopeGap > 0
+    ? scopeGap > 0 || referenceScopeGap > 0 || magnitudeGap > 0 || referenceMagnitudeGap > 0 || severityGap > 0 || referenceSeverityGap > 0
     : candidate.mechanism === "MAGNITUDE_MISMATCH"
     ? magnitudeGap > 0 || severityGap > 0
     : candidate.mechanism === "INDIRECTNESS_CONFUSION"
     ? (candidate.causalDistance ?? 0) > 1
     : true;
   if (!mechanismValid) return null;
-  const mismatchPenalty = expectedTimingGap + scopeGap + magnitudeGap + severityGap + Math.max(0, (candidate.causalDistance ?? 1) - 1);
+  const mismatchPenalty = expectedTimingGap + Math.max(scopeGap, referenceScopeGap) + Math.max(magnitudeGap, referenceMagnitudeGap) + Math.max(severityGap, referenceSeverityGap) + Math.max(0, (candidate.causalDistance ?? 1) - 1);
   const plausibilityBurden = Math.max(0, 7 - mismatchPenalty);
   if (expectedTimingGap === 0 && scopeGap === 0 && magnitudeGap === 0 && severityGap === 0 && (candidate.causalDistance === null || candidate.causalDistance === 1)) return null;
   return {
     candidateId: candidate.id,
     mechanism: candidate.mechanism,
+    source: candidate.source,
+    editorialPlausibility: candidate.editorialPlausibility,
     expectedRelation: relation,
     candidateTemporalOrder: candidate.temporalOrder,
     targetTemporalOrder: target.temporalOrder,
     referenceTemporalOrder: reference.temporalOrder,
     candidateScope: candidate.scope,
     targetScope: target.scope,
+    referenceScope: reference.scope,
     candidateMagnitude: candidate.magnitude,
     targetMagnitude: target.magnitude,
+    referenceMagnitude: reference.magnitude,
     candidateSeverity: candidate.severity,
     targetSeverity: target.severity,
+    referenceSeverity: reference.severity,
     timingGap,
     expectedTimingGap,
     scopeGap,
+    referenceScopeGap,
     magnitudeGap,
+    referenceMagnitudeGap,
     severityGap,
+    referenceSeverityGap,
     causalDistance: candidate.causalDistance,
     plausibilityBurden,
     rejectionReason: candidate.mechanism === "REVERSE_CAUSATION" || candidate.mechanism === "TEMPORAL_VIOLATION"
@@ -281,8 +289,10 @@ function compareCandidate(reference: CaeNode, target: CaeNode, candidate: CaeCan
 }
 
 function candidateOptions(
+  plan: CaeProjectionAuthority,
   family: CaeScenarioFamilyAuthority,
   variant: CaeScenarioVariant,
+  world: CaeCausalWorld,
   reference: CaeNode,
   target: CaeNode,
   relation: CandidateTargetRelation,
@@ -291,25 +301,38 @@ function candidateOptions(
   locale: CaeLocale,
   seed: number,
 ): Readonly<{ options: readonly CaeRenderedOption[]; comparisons: readonly CaeCandidateComparison[]; plausibilityBurden: number }> {
-  const pool = family.distractorRules
-    .map((rule) => candidateFromRule(rule, reference, target, variant, relation))
+  const candidates = [
+    ...authoredCandidateAuthorities(world, variant, relation === "EFFECT_OF_TARGET"),
+    ...(plan.kind === "COMPETING_EXPLANATION" ? [] : canonicalCandidateAuthorities(world, reference, target, relation)),
+  ];
+  for (const candidate of candidates) {
+    if (candidate.source === "VARIANT_AUTHORED" && candidate.text[locale].includes(target.text[locale].replace(/[.।]+$/u, ""))) {
+      throw new Error(`${world.id}/${candidate.id}: authored distractor repeats the observation instead of standing alone.`);
+    }
+  }
+  const pool = candidates
     .map((candidate) => ({ candidate, comparison: compareCandidate(reference, target, candidate, relation) }))
     .filter((entry): entry is { candidate: CaeCandidateAuthority; comparison: CaeCandidateComparison } => entry.comparison !== null);
-  if (pool.length < 4) throw new Error(`${family.id}/${target.id}: insufficient target-relative distractor pool.`);
-  const targetBand = mix32(seed ^ hashText(target.id)) % 3;
-  const ranked = [...pool].sort((left, right) => targetBand === 0
-    ? left.comparison.plausibilityBurden - right.comparison.plausibilityBurden
-    : targetBand === 1
-    ? Math.abs(left.comparison.plausibilityBurden - 3) - Math.abs(right.comparison.plausibilityBurden - 3)
-    : right.comparison.plausibilityBurden - left.comparison.plausibilityBurden);
-  const rotation = mix32(seed ^ hashText(`${reference.id}:${target.id}`)) % ranked.length;
-  const rotated = [...ranked.slice(rotation), ...ranked.slice(0, rotation)];
+  if (pool.length < 3) throw new Error(`${family.id}/${target.id}: insufficient semantic distractor pool.`);
+  const rotated = shuffled(pool, seed ^ hashText(`${reference.id}:${target.id}`));
   const selected: { candidate: CaeCandidateAuthority; comparison: CaeCandidateComparison }[] = [];
-  for (const entry of rotated) {
+  for (const entry of rotated.filter((entry) => entry.comparison.editorialPlausibility === "CREDIBLE_ALTERNATIVE")) {
     if (!selected.some((chosen) => chosen.candidate.mechanism === entry.candidate.mechanism)) selected.push(entry);
+    if (selected.length === 2) break;
+  }
+  if (selected.length < 2) throw new Error(`${family.id}/${target.id}: needs two natural, initially credible distractors.`);
+  for (const entry of rotated) {
+    if (!selected.some((chosen) => chosen.candidate.id === entry.candidate.id) && !selected.some((chosen) => chosen.candidate.mechanism === entry.candidate.mechanism)) selected.push(entry);
+    if (selected.length === 3) break;
+  }
+  for (const entry of rotated) {
+    if (!selected.some((chosen) => chosen.candidate.id === entry.candidate.id)) selected.push(entry);
     if (selected.length === 3) break;
   }
   if (selected.length !== 3) throw new Error(`${family.id}/${target.id}: cannot form a distinct misconception mix.`);
+  if (plan.kind === "COMPETING_EXPLANATION" && selected.filter((entry) => entry.comparison.editorialPlausibility === "CREDIBLE_ALTERNATIVE").length < 2) {
+    throw new Error(`${family.id}/${target.id}: CP-005 requires two credible competing explanations.`);
+  }
   const options = shuffled([
     { id: correctId, text: correctText, isCorrect: true },
     ...selected.map(({ candidate }) => ({ id: candidate.id, text: candidate.text[locale], isCorrect: false, distractorRole: candidate.mechanism })),
@@ -349,8 +372,23 @@ function relationshipStem(kind: "DIRECT_RELATIONSHIP" | "COMMON_OR_INDEPENDENT" 
   return `${prompt}\n\n${setting}${copy.statementOne}: ${nodeById(world, first!).text[locale]}\n\n${copy.statementTwo}: ${nodeById(world, second!).text[locale]}`;
 }
 
-function semanticId(plan: CaeProjectionAuthority, state: SelectedState, visibleNodeIds: readonly string[], answerId: string, distractorIds: readonly string[]): string {
-  return [plan.id, state.family.id, state.variant.id, ...visibleNodeIds.map((id) => nodeById(state.world, id).semanticSlot), answerId, `distractors:${[...distractorIds].sort().join(",")}`].join("|");
+function causalStateId(plan: CaeProjectionAuthority, state: SelectedState, trace: readonly string[], visibleNodeIds: readonly string[]): string {
+  const slots = trace.map((id) => nodeById(state.world, id).semanticSlot);
+  const visibleSlots = visibleNodeIds.map((id) => nodeById(state.world, id).semanticSlot);
+  return [
+    `projection:${plan.id}`,
+    `family:${state.family.id}`,
+    `variant:${state.variant.id}`,
+    `graph:${state.family.topology}`,
+    `direction:${slots.join(">")}`,
+    `visible:${visibleSlots.join(",")}`,
+  ].join("|");
+}
+
+function itemVariantId(causalState: string, profile: CaeQuestionProfile | null, options: readonly CaeRenderedOption[]): string {
+  const candidateSet = options.filter((option) => !option.isCorrect).map((option) => option.id).sort().join(",");
+  const presentation = options.map((option) => option.id).join(">");
+  return [causalState, `distractors:${candidateSet}`, `profile:${profile ?? "NONE"}`, `presentation:${presentation}`].join("|");
 }
 
 export function generateCaeQuestion(input: {
@@ -377,7 +415,7 @@ export function generateCaeQuestion(input: {
   let candidateComparisons: readonly CaeCandidateComparison[] = [];
   let candidatePlausibilityBurden = 0;
   const installCandidateOptions = (reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation) => {
-    const rendered = candidateOptions(family, variant, reference, target, relation, reference.id, reference.text[locale], locale, mix32(optionSeed ^ input.seed));
+    const rendered = candidateOptions(plan, family, variant, world, reference, target, relation, reference.id, reference.text[locale], locale, mix32(optionSeed ^ input.seed));
     options = rendered.options;
     candidateComparisons = rendered.comparisons;
     candidatePlausibilityBurden = rendered.plausibilityBurden;
@@ -495,8 +533,10 @@ export function generateCaeQuestion(input: {
   if (family.renderingConstraints.prohibitIndependenceCue && visibleContext.backdrop && (plan.kind === "COMMON_OR_INDEPENDENT" || plan.kind === "CORRELATION_CHECK") && /separate|independent|अलग-अलग|स्वतंत्र|ਵੱਖਰੇ|ਸੁਤੰਤਰ/i.test(visibleContext.backdrop)) {
     throw new Error(`${world.id}: backdrop leaks the relationship answer.`);
   }
-  const derived = deriveDifficulty({ path: trace, visibleNodeIds, topology: family.topology, plausibleDistractors: options.filter((option) => !option.isCorrect && option.distractorRole && option.distractorRole !== "UNRELATED_EVENT").length, candidatePlausibilityBurden, inferenceBurden });
+  const derived = deriveDifficulty({ path: trace, visibleNodeIds, topology: family.topology, plausibleDistractors: candidateComparisons.filter((candidate) => candidate.editorialPlausibility === "CREDIBLE_ALTERNATIVE").length, candidatePlausibilityBurden, inferenceBurden });
   const details = answerDetails(options);
+  const generatedCausalStateId = causalStateId(plan, state, trace, visibleNodeIds);
+  const generatedItemVariantId = itemVariantId(generatedCausalStateId, questionProfile, options);
   return {
     chapterId: "CAE-001",
     checkpointId: plan.checkpointId,
@@ -504,7 +544,9 @@ export function generateCaeQuestion(input: {
     projectionId: plan.id,
     scenarioFamilyId: family.id,
     scenarioVariantId: variant.id,
-    semanticInstanceId: semanticId(plan, state, visibleNodeIds, answerId, candidateComparisons.map((candidate) => candidate.candidateId)),
+    causalStateId: generatedCausalStateId,
+    itemVariantId: generatedItemVariantId,
+    semanticInstanceId: generatedItemVariantId,
     causalWorldId: world.id,
     causalStructure: `${family.topology}:${trace.map((nodeId) => nodeById(world, nodeId).semanticSlot).join(">")}`,
     locale,
