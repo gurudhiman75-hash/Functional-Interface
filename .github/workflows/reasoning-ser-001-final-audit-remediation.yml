@@ -51,7 +51,8 @@ jobs:
             --noImplicitReturns \
             --skipLibCheck \
             --types node \
-            src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/ser-cp-007-generated-difficulty-v8.test.ts
 
       - name: Prove CP008 source gaps, visible solving, multilingual parity and stress
         shell: bash
@@ -59,7 +60,13 @@ jobs:
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts | tee ser-cp008-final-audit.log
 
-      - name: Reprove frozen CP007 Question Studio corpus is unchanged
+      - name: Prove CP007 generated-instance difficulty across frozen corpus
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/ser-cp-007-generated-difficulty-v8.test.ts | tee ser-cp007-generated-difficulty.log
+
+      - name: Reprove frozen CP007 Question Studio corpus is structurally unchanged
         shell: bash
         run: |
           set -o pipefail
@@ -75,5 +82,6 @@ jobs:
           name: ser-001-final-audit-logs
           path: |
             ser-cp008-final-audit.log
+            ser-cp007-generated-difficulty.log
             ser-cp007-regression.log
           retention-days: 14
