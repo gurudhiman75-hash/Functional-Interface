@@ -11,7 +11,7 @@ Audit branch: `audit/arg-001-final-chapter-audit`
 
 **Public/student release: LOCKED**
 
-The final audit found no chapter-level semantic blocker in the current ARG-001 engine. The engine has substantial semantic depth, deterministic answer authority, trilingual learner-surface gates, profile-aware exam presentation, large deterministic diversity and Question Studio integration. The audit did find integration/documentation gaps around state/Railway profile discovery and stale CP006-era contracts; those are remediated on this audit branch.
+The final audit found no chapter-level semantic blocker in the current ARG-001 engine. The engine has substantial semantic depth, deterministic answer authority, trilingual learner-surface gates, profile-aware exam presentation, large deterministic diversity and Question Studio integration. The audit found integration/documentation gaps around state/Railway profile discovery and stale CP006-era documentation; those are addressed on this audit branch while the intentionally frozen CP006 authority itself remains byte-identical.
 
 This verdict is an internal content-engine readiness decision. It is not public-release authorization.
 
@@ -65,7 +65,7 @@ The six QLs form a coherent Statement & Arguments progression:
 
 QL006 has eight materially distinct archetypes rather than one generic difficult-question family. It covers alternatives, risk-based alternatives, incentive/evasion effects, proportionality and false dilemmas, displacement, due process, price/access incentives and automated flags.
 
-No additional QL was justified by the final audit. The current six-Ql taxonomy is broad enough for the chapter while remaining distinct from Assumption, Conclusion, Course of Action, Cause & Effect and Decision Making.
+No additional QL was justified by the final audit. The current six-QL taxonomy is broad enough for the chapter while remaining distinct from Assumption, Conclusion, Course of Action, Cause & Effect and Decision Making.
 
 ## 4. Difficulty audit
 
@@ -178,19 +178,20 @@ The audit preserves the checkpoint lineage rather than rewriting old authorities
 - CP014 manual approval/internal-eligibility contract;
 - CP015 current diversity/editorial runtime.
 
-The shared checkpoint type has been corrected to represent CP001 through CP015; the old CP001–CP006-only type was documentation/type debt, not the actual runtime lifecycle.
+The shared `types.ts` file is part of the CP006 frozen authority and therefore intentionally still describes the CP001–CP006-era learner shape. Later checkpoints carry their own additive contracts. During this audit an attempted modernization of that historical type was correctly rejected by the byte-freeze proof and was reverted exactly; no frozen authority is being rewritten merely to make old types look current.
 
-## 12. Audit defects found and remediated
+## 12. Audit findings and disposition
 
-The final audit found these concrete gaps:
+The final audit found these concrete issues:
 
 1. **Stale end-to-end design** — still described CP006-era registration and release state. Updated to CP015 reality.
-2. **Stale checkpoint type** — `ArgCheckpointId` stopped at CP006. Expanded through CP015.
+2. **CP006-era shared type appeared stale** — investigated, but it is an intentionally frozen historical authority rather than the current CP015 contract. An attempted edit was reverted exactly after the freeze proof caught it.
 3. **Stale diversity-status document** — still implied certification was pending. Updated with the certified/merged state.
 4. **Missing explicit Punjab/Railway profile routing** — added aliases to the certified state-style 2x4 authority.
 5. **Hidden real-paper capabilities** — CP015 `/capabilities` now exposes canonical profiles and alias intent.
 6. **No permanent final structural floor** — added a structural audit proof for QL/template/archetype/difficulty/answer-class/capacity invariants.
 7. **Audit-harness cwd defect** — the first final-audit run invoked historical byte-freeze proofs from the API subdirectory even though those proofs resolve repository-root paths. The harness was corrected; frozen learner authorities were not modified.
+8. **Freeze proof caught the audit's own overreach** — once the harness ran correctly, it detected the attempted `types.ts` modernization. That audit edit was removed, demonstrating that the historical freeze still protects the chapter as intended.
 
 ## 13. Residual risks / deliberate non-claims
 
@@ -200,6 +201,7 @@ The following are not treated as blockers but should remain explicit:
 - Human review remains useful because machine gates cannot perfectly judge every subtle wording issue.
 - Exact Punjab official-paper format parity has not been independently established for every Punjab recruitment body/exam; Punjab intent currently routes to the certified state-style 2x4 authority.
 - The chapter can generate novel combinations within its semantic model, but novelty must remain inside exam-valid Statement & Arguments reasoning rather than inventing exotic formats for their own sake.
+- Historical frozen interfaces may look older than current overlays by design; their modern replacements belong in additive checkpoint contracts, not silent edits to frozen evidence.
 - Public/student release requires a separate explicit authorization gate.
 
 ## 14. Final recommendation
