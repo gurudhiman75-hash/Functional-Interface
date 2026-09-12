@@ -77,6 +77,12 @@ jobs:
           node dist/arg-cp015-human-review-export.mjs
           pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-global-uniqueness-proof.ts --bundle --platform=node --format=esm --outfile=dist/arg-cp015-human-review-global-proof.mjs
           node dist/arg-cp015-human-review-global-proof.mjs
+      - name: Persist certified human-review corpus
+        run: |
+          mkdir -p docs/review
+          cp artifacts/api-server/dist/arg-001-cp015-human-review/arg-cp015-human-review.md docs/review/ARG-001-CP015-HUMAN-REVIEW-EN.md
+          cp artifacts/api-server/dist/arg-001-cp015-human-review/arg-cp015-human-review-hi.md docs/review/ARG-001-CP015-HUMAN-REVIEW-HI.md
+          cp artifacts/api-server/dist/arg-001-cp015-human-review/arg-cp015-human-review-pa.md docs/review/ARG-001-CP015-HUMAN-REVIEW-PA.md
       - name: Preserve CP014 and CP013
         working-directory: artifacts/api-server
         run: |
@@ -94,11 +100,11 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server build
           pnpm --dir artifacts/admin-app build
-      - name: Commit proven V8 repair
+      - name: Commit proven V8 repair and certified review corpus
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality.ts artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts
+          git add artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality.ts artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts docs/review/ARG-001-CP015-HUMAN-REVIEW-EN.md docs/review/ARG-001-CP015-HUMAN-REVIEW-HI.md docs/review/ARG-001-CP015-HUMAN-REVIEW-PA.md
           git diff --cached --quiet && exit 0
-          git commit -m "fix(arg-cp015): integrate final editorial quality at runtime"
+          git commit -m "docs(arg-cp015): persist certified trilingual review corpus"
           git push origin HEAD:feature/arg-001-cp012-editorial-remediation
