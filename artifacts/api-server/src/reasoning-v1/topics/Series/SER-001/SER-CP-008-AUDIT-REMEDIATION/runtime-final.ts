@@ -6,8 +6,18 @@ const MAX_ATTEMPTS = 64;
 function numericPartsArePositive(question: GeneratedSerCp008Question): boolean {
   if (question.qlId === "SER-QL-014" || question.qlId === "SER-QL-015") return true;
   return question.options.every((option) => {
-    const matches = option.value.match(/-?\d+/g) ?? [];
-    return matches.length > 0 && matches.every((value) => Number(value) > 0);
+    if (question.qlId === "SER-QL-016") {
+      const letterFirst = option.value.match(/^[A-Z]-(\d+)$/);
+      const numberFirst = option.value.match(/^(\d+)[A-Z]$/);
+      const value = letterFirst?.[1] ?? numberFirst?.[1];
+      return value !== undefined && Number(value) > 0;
+    }
+    if (question.qlId === "SER-QL-017") {
+      const match = option.value.match(/^(\d+)[A-Z]$/);
+      return Boolean(match && Number(match[1]) > 0);
+    }
+    const match = option.value.match(/^[A-Z]{2}(\d+)$/);
+    return Boolean(match && Number(match[1]) > 0);
   });
 }
 
