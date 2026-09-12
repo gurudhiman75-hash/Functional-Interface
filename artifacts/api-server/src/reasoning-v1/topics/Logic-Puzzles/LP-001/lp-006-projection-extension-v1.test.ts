@@ -11,14 +11,14 @@ const base = generateLp006BatchStabilizedV4_2(seed, count);
 const extended = generateLp006ProjectionBatchV1(seed, count);
 
 assert.equal(LP_006_PROJECTION_EXTENSION_V1.status, "PROVISIONAL_REVIEW_CANDIDATE");
-assert.deepEqual(LP_006_PROJECTION_EXTENSION_V1.provisionalQlIds, ["LP-QL-041", "LP-QL-042"]);
+assert.deepEqual(LP_006_PROJECTION_EXTENSION_V1.provisionalQlIds, ["LP-QL-045", "LP-QL-046"]);
 assert.equal(LP_006_PROJECTION_EXTENSION_V1.permanentQlAllocationStatus, "UNALLOCATED");
 assert.equal(LP_006_PROJECTION_EXTENSION_V1.changesHiddenState, false);
 assert.equal(extended.length, base.length);
 
 const answerPositions = new Map<string, number[]>([
-  ["LP-QL-041", [0, 0, 0, 0]],
-  ["LP-QL-042", [0, 0, 0, 0]],
+  ["LP-QL-045", [0, 0, 0, 0]],
+  ["LP-QL-046", [0, 0, 0, 0]],
 ]);
 const projectionPairs = new Set<string>();
 const statementPolarities = new Set<string>();
@@ -33,8 +33,8 @@ for (let index = 0; index < count; index += 1) {
   difficulties.add(candidate.difficultyBand);
 
   const [projection, statement] = projectionChildren;
-  assert.equal(projection!.qlId, "LP-QL-041");
-  assert.equal(statement!.qlId, "LP-QL-042");
+  assert.equal(projection!.qlId, "LP-QL-045");
+  assert.equal(statement!.qlId, "LP-QL-046");
 
   for (const child of projectionChildren) {
     assert.equal(child.options.length, 4, `${child.questionId} option count`);
