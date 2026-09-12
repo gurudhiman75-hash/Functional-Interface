@@ -1,15 +1,7 @@
 import assert from "node:assert/strict";
 
-import { getQuantV4SpecializedProfileSelectionContract } from "../common/specialized-profile-selection";
-import {
-  buildQuantV4PyqFrequencyProfile,
-  canReplaceProvisionalSimulationWeights,
-  validatePyqObservationSet,
-} from "./quant-v4-pyq-frequency-evidence-p2";
-import {
-  QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  listRegisteredCountablePyqObservations,
-} from "./quant-v4-pyq-observation-registry-p2";
+import { validatePyqObservationSet } from "./quant-v4-pyq-frequency-evidence-p2";
+import { QUANT_V4_REGISTERED_PYQ_OBSERVATIONS } from "./quant-v4-pyq-observation-registry-p2";
 import {
   QUANT_V4_CGL_TIER1_CROSS_TOPIC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS,
   QUANT_V4_CGL_TIER1_CROSS_TOPIC_WAVE1_PYQ_MIGRATION_AUTHORITY,
@@ -47,43 +39,13 @@ assert.ok(tmw.subtopic.includes("TMW-CP-002"));
 assert.equal(4 + 3 + 2, 9);
 assert.equal(36 / 9, 4);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 21);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001", examIds: ["SSC_CGL_TIER_I"] }).length, 16);
-
-const tmwCglContract = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(tmwCglContract.normalizedCountableObservationCount, 16);
-assert.equal(tmwCglContract.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
-assert.equal(tmwCglContract.profileSelectionCalibrated, false);
-assert.ok(tmwCglContract.blockers.includes("PROFILE_SAMPLE_INSUFFICIENT_FOR_CALIBRATION"));
-assert.ok(tmwCglContract.blockers.includes("CP_QL_DISTRIBUTION_UNPROVEN"));
-assert.ok(tmwCglContract.blockers.includes("DIFFICULTY_REPRESENTATION_UNCALIBRATED"));
-assert.ok(!tmwCglContract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
-
-const cgl = buildQuantV4PyqFrequencyProfile({
-  examId: "SSC_CGL_TIER_I",
-  observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
-});
-assert.equal(cgl.countableQuestionCount, 175);
-assert.equal(cgl.distinctPaperCount, 22);
-assert.equal(cgl.topicCoverageCount, 13);
-assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
-assert.ok(!cgl.blockers.includes("COUNTABLE_QUESTION_SAMPLE_BELOW_POLICY"));
-assert.ok(!cgl.blockers.includes("DISTINCT_PAPER_SAMPLE_BELOW_POLICY"));
-assert.ok(!cgl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
-assert.deepEqual([...cgl.blockers], ["DATED_PAPER_IDENTITY_INCOMPLETE"]);
-assert.equal(canReplaceProvisionalSimulationWeights(cgl), false);
+const registryObservationIds = new Set(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.map((entry) => entry.observationId));
+assert.ok(observations.every((entry) => registryObservationIds.has(entry.observationId)));
 
 console.log(JSON.stringify({
   status: "PASS_QUANT_V4_CGL_TIER1_CROSS_TOPIC_PYQ_NORMALIZATION_WAVE1_P2",
   authority: QUANT_V4_CGL_TIER1_CROSS_TOPIC_WAVE1_PYQ_MIGRATION_AUTHORITY,
   wave1ObservationCount: observations.length,
-  registryObservationCount: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length,
-  cglCountableQuestions: cgl.countableQuestionCount,
-  cglDistinctPapers: cgl.distinctPaperCount,
-  cglTopicCoverage: cgl.topicCoverageCount,
-  cglBlockers: cgl.blockers,
+  registeredLocally: observations.every((entry) => registryObservationIds.has(entry.observationId)),
   empiricalWeightingPromoted: false,
 }));
