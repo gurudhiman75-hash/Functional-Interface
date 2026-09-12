@@ -22,11 +22,13 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Structural chapter contract
+      - name: Structural chapter and exam-profile contracts
         working-directory: artifacts/api-server
         run: |
-          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/arg-001-final-chapter-structural-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/arg-001-final-chapter-structural-audit.mjs
-          node dist/arg-001-final-chapter-structural-audit.mjs
+          for file in arg-001-final-chapter-structural-audit.test.ts arg-001-final-chapter-profile-proof.test.ts; do
+            pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/$file --bundle --platform=node --format=esm --outfile=dist/${file%.ts}.mjs
+            node dist/${file%.ts}.mjs
+          done
       - name: Current CP015 learner quality gates
         working-directory: artifacts/api-server
         run: |
