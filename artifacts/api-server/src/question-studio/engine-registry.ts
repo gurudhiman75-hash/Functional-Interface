@@ -8,11 +8,13 @@ import type {
 import { knowledgeV1QuestionStudioAdapter } from "./engines/knowledge-v1-adapter";
 import { languageV1QuestionStudioAdapter } from "./engines/language-v1-adapter";
 import { quantV4QuestionStudioAdapter } from "./engines/quant-v4-adapter";
+import { reasoningV1QuestionStudioAdapter } from "./engines/reasoning-v1-adapter";
 
 const adapters = new Map<QuestionStudioEngineId, QuestionStudioEngineAdapter>([
   [quantV4QuestionStudioAdapter.engineId, quantV4QuestionStudioAdapter],
   [knowledgeV1QuestionStudioAdapter.engineId, knowledgeV1QuestionStudioAdapter],
   [languageV1QuestionStudioAdapter.engineId, languageV1QuestionStudioAdapter],
+  [reasoningV1QuestionStudioAdapter.engineId, reasoningV1QuestionStudioAdapter],
 ]);
 
 export function listQuestionStudioEngines(): QuestionStudioEngineId[] {
