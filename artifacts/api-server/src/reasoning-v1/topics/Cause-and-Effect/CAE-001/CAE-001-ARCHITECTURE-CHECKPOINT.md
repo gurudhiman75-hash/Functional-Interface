@@ -28,7 +28,7 @@ provisional checkpoint/QL plan
 | Canonical world | `CaeCausalWorld` | Fully materialized event DAG. It contains causes, intermediates, primary/secondary effects, and temporal order even when these are hidden from the learner. |
 | Visible context | `CaeVisibleContext` | Exact node IDs permitted in the stem and an optional backdrop. It never serializes the canonical world automatically. |
 | Node / edge | `CaeNode`, `CaeCausalEdge` | Role, scope, severity, magnitude, temporal order, effect priority; edge strength, temporal relation, and directness. |
-| Candidate | `CaeCandidateAuthority`, `CaeCandidateComparison` | A target-aware, scenario-local rendered alternative plus its calculated timing, scope, magnitude, severity, and distance comparison to the generated target. |
+| Candidate | `CaeSemanticCandidateAuthority`, `CaeCandidateAuthority`, `CaeCandidateComparison` | A scenario-local event plus an explicit applicability authority: projection kind, eligible target slot, eligible reference slot, relation, and target-specific credibility. Only then can timing, scope, magnitude, severity, and distance be compared to the generated target. |
 | Generation plan | `CaeProjectionAuthority` | A provisional QL/checkpoint owner and compatible families; it is not a finished question. |
 
 The model expressly records scenario family/domain, intermediate nodes, primary and secondary effects, branching/common effects, strength, temporal relation, directness/distance, scope, severity/magnitude, exam profile compatibility, and stem-rendering constraints.
@@ -60,13 +60,13 @@ Nine families currently provide 27 composable variants. They are intentionally c
 | Shared pressure | Branching common cause | Direct, common cause, probable effect |
 | Parallel incidents | Parallel chains | Independent causes/effects, correlation |
 | Diagnostic disruption | Direct chain | Direct, probable cause/effect, competing explanation, indirect |
-| Competing scope | Competing causes | Probable cause/effect, competing explanation, indirect |
+| Competing scope | Competing causes | Probable cause, competing explanation, indirect |
 | Hidden chain | Long hidden chain | Indirect, sequence, missing link, probable cause, competing explanation |
 | Coincident observations | Parallel chains | Correlation, independence |
 | Civic sequence | Long hidden chain | Direct, indirect, sequence, missing link, probable effect |
 | Missing bridge | Long hidden chain | Missing link, indirect, sequence, probable cause, competing explanation |
 
-Generation first selects a compatible family and variant deterministically, then selects an eligible graph substructure: a direct edge, common-effect pair, independent pair, root-to-leaf path, or two-edge bridge. Thus the same plan creates new causal states; shuffling happens only after semantic selection.
+Generation first selects a compatible family and variant deterministically, then selects an eligible graph substructure: a direct edge, common-effect pair, independent pair, root-to-leaf path, or two-edge bridge. Candidate generation next filters semantic authorities by the exact projection, target slot, reference slot, and requested relation; target-relative timing/scope/magnitude scoring happens only on that filtered set. Thus the same plan creates new causal states; shuffling happens only after semantic selection.
 
 ## Provisional QL discovery and allocation strategy
 

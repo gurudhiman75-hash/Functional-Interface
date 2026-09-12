@@ -78,6 +78,17 @@ export type CaeDistractorRole =
 export type CaeCandidateOrigin = "CANONICAL_WORLD" | "VARIANT_AUTHORED";
 export type CaeEditorialPlausibility = "CREDIBLE_ALTERNATIVE" | "CLEAR_REJECT";
 
+/** Semantic applicability is resolved before comparative metadata is scored. */
+export type CaeCandidateApplicability = Readonly<{
+  id: string;
+  applicableProjectionKinds: readonly CaeProjectionKind[];
+  eligibleTargetSemanticSlots: readonly string[];
+  eligibleReferenceSemanticSlots: readonly string[];
+  eligibleRelations: readonly ("CAUSE_OF_TARGET" | "EFFECT_OF_TARGET" | "BRIDGE_TO_TARGET")[];
+  /** This status applies only to the exact projection/target/reference/relation combination above. */
+  editorialPlausibility: CaeEditorialPlausibility;
+}>;
+
 /** A complete event authored for one scenario, never a noun-substitution template. */
 export type CaeSemanticCandidateAuthority = Readonly<{
   id: string;
@@ -88,7 +99,7 @@ export type CaeSemanticCandidateAuthority = Readonly<{
   magnitude: CaeMagnitude;
   severity: CaeMagnitude;
   causalDistance: number | null;
-  editorialPlausibility: CaeEditorialPlausibility;
+  applicability: readonly CaeCandidateApplicability[];
   /** Human-authored explanation of why this is a real scenario event, not metadata filler. */
   editorialRationale: string;
 }>;
@@ -96,14 +107,21 @@ export type CaeSemanticCandidateAuthority = Readonly<{
 export type CaeCandidateAuthority = Readonly<CaeSemanticCandidateAuthority & {
   source: CaeCandidateOrigin;
   sourceNodeId?: string;
+  applicabilityMatch: CaeCandidateApplicability;
+  editorialPlausibility: CaeEditorialPlausibility;
 }>;
 
 export type CaeCandidateComparison = Readonly<{
   candidateId: string;
   mechanism: CaeDistractorRole;
   source: CaeCandidateOrigin;
+  applicabilityId: string;
+  applicability: CaeCandidateApplicability;
   editorialPlausibility: CaeEditorialPlausibility;
+  projectionKind: CaeProjectionKind;
   expectedRelation: "CAUSE_OF_TARGET" | "EFFECT_OF_TARGET" | "BRIDGE_TO_TARGET";
+  targetSemanticSlot: string;
+  referenceSemanticSlot: string;
   candidateTemporalOrder: number;
   targetTemporalOrder: number;
   referenceTemporalOrder: number;
@@ -136,6 +154,8 @@ export type CaeScenarioVariant = Readonly<{
   backdrop: LocalizedText;
   /** Complete scenario events that could be considered as cause/bridge alternatives. */
   semanticCandidateEvents: readonly CaeSemanticCandidateAuthority[];
+  /** Target-specific events that can fill the first hidden bridge of a causal chain. */
+  semanticBridgeCandidateEvents: readonly CaeSemanticCandidateAuthority[];
   /** Complete scenario events authored specifically as possible effects. */
   semanticEffectCandidateEvents: readonly CaeSemanticCandidateAuthority[];
   nodes: readonly CaeScenarioNodeUnit[];

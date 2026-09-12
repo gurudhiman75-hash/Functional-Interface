@@ -29,16 +29,25 @@ function validateSemanticCandidate(candidate: CaeScenarioFamilyAuthority["varian
     if (RETIRED_TEMPLATE_ARTIFACT.test(value)) issues.push(`${familyId}/${variantId}/${candidate.id}/${locale}: retired template wording reached a semantic authority.`);
   }
   if (candidate.editorialRationale.trim().length < 24) issues.push(`${familyId}/${variantId}/${candidate.id}: missing editorial rationale for this real-world event.`);
+  if (candidate.applicability.length === 0) issues.push(`${familyId}/${variantId}/${candidate.id}: candidate has no target/reference applicability.`);
+  const applicabilityIds = new Set<string>();
+  for (const rule of candidate.applicability) {
+    if (applicabilityIds.has(rule.id)) issues.push(`${familyId}/${variantId}/${candidate.id}: duplicate applicability '${rule.id}'.`);
+    applicabilityIds.add(rule.id);
+    if (rule.applicableProjectionKinds.length === 0 || rule.eligibleTargetSemanticSlots.length === 0 || rule.eligibleReferenceSemanticSlots.length === 0 || rule.eligibleRelations.length === 0) issues.push(`${familyId}/${variantId}/${candidate.id}/${rule.id}: applicability must explicitly name projection, target, reference, and relation.`);
+    if (rule.eligibleTargetSemanticSlots.some((slot) => slot === "*" || slot === "ANY") || rule.eligibleReferenceSemanticSlots.some((slot) => slot === "*" || slot === "ANY")) issues.push(`${familyId}/${variantId}/${candidate.id}/${rule.id}: generic slot membership cannot establish candidate credibility.`);
+  }
   if (candidate.mechanism === "INDIRECTNESS_CONFUSION" && (candidate.causalDistance ?? 0) <= 1) issues.push(`${familyId}/${variantId}/${candidate.id}: indirect event must be more than one causal step away.`);
 }
 
 function validateFamily(family: CaeScenarioFamilyAuthority, issues: string[]) {
   if (family.variants.length < 3) issues.push(`${family.id}: fewer than three composable scenario variants are available.`);
-  const needsCandidateAuthorities = family.allowedProjectionKinds.some((kind) => ["PROBABLE_CAUSE", "PROBABLE_EFFECT", "COMPETING_EXPLANATION", "MISSING_CAUSAL_LINK"].includes(kind));
+  const needsCandidateAuthorities = family.allowedProjectionKinds.some((kind) => ["PROBABLE_CAUSE", "COMPETING_EXPLANATION", "MISSING_CAUSAL_LINK"].includes(kind));
   for (const variant of family.variants) {
     const candidateIds = new Set<string>();
-    const credibleCandidates = variant.semanticCandidateEvents.filter((candidate) => candidate.editorialPlausibility === "CREDIBLE_ALTERNATIVE");
+    const credibleCandidates = variant.semanticCandidateEvents.filter((candidate) => candidate.applicability.some((rule) => rule.editorialPlausibility === "CREDIBLE_ALTERNATIVE"));
     if (needsCandidateAuthorities && variant.semanticCandidateEvents.length < 2) issues.push(`${family.id}/${variant.id}: needs two scenario-authored, initially credible alternatives.`);
+    if (family.allowedProjectionKinds.includes("MISSING_CAUSAL_LINK") && variant.semanticBridgeCandidateEvents.length < 1) issues.push(`${family.id}/${variant.id}: missing-link generation needs a target-specific bridge alternative.`);
     if (family.allowedProjectionKinds.includes("PROBABLE_EFFECT") && variant.semanticEffectCandidateEvents.length < 2) issues.push(`${family.id}/${variant.id}: probable-effect generation needs two authored effect alternatives.`);
     if (family.allowedProjectionKinds.includes("COMPETING_EXPLANATION") && (variant.semanticCandidateEvents.length < 3 || credibleCandidates.length < 2)) issues.push(`${family.id}/${variant.id}: competing-explanation generation needs two credible alternatives and one additional ruled-out event.`);
     for (const candidate of variant.semanticCandidateEvents) {
@@ -47,6 +56,11 @@ function validateFamily(family: CaeScenarioFamilyAuthority, issues: string[]) {
       validateSemanticCandidate(candidate, family.id, variant.id, issues);
     }
     for (const candidate of variant.semanticEffectCandidateEvents) {
+      if (candidateIds.has(candidate.id)) issues.push(`${family.id}/${variant.id}: duplicate semantic candidate id '${candidate.id}'.`);
+      candidateIds.add(candidate.id);
+      validateSemanticCandidate(candidate, family.id, variant.id, issues);
+    }
+    for (const candidate of variant.semanticBridgeCandidateEvents) {
       if (candidateIds.has(candidate.id)) issues.push(`${family.id}/${variant.id}: duplicate semantic candidate id '${candidate.id}'.`);
       candidateIds.add(candidate.id);
       validateSemanticCandidate(candidate, family.id, variant.id, issues);
@@ -118,6 +132,8 @@ export function validateCaeEngineAuthorities(
 function validateCandidateComparison(candidate: CaeCandidateComparison): string | null {
   if (candidate.source !== "CANONICAL_WORLD" && candidate.source !== "VARIANT_AUTHORED") return `${candidate.candidateId}: unknown semantic candidate source.`;
   if (candidate.editorialPlausibility !== "CREDIBLE_ALTERNATIVE" && candidate.editorialPlausibility !== "CLEAR_REJECT") return `${candidate.candidateId}: editorial plausibility was not classified.`;
+  if (candidate.applicability.id !== candidate.applicabilityId || candidate.applicability.editorialPlausibility !== candidate.editorialPlausibility) return `${candidate.candidateId}: applicability status does not match the selected candidate.`;
+  if (!candidate.applicability.applicableProjectionKinds.includes(candidate.projectionKind) || !candidate.applicability.eligibleTargetSemanticSlots.includes(candidate.targetSemanticSlot) || !candidate.applicability.eligibleReferenceSemanticSlots.includes(candidate.referenceSemanticSlot) || !candidate.applicability.eligibleRelations.includes(candidate.expectedRelation)) return `${candidate.candidateId}: selected outside its explicit target/reference applicability.`;
   const scopeGap = Math.abs(SCOPE_RANK[candidate.candidateScope] - SCOPE_RANK[candidate.targetScope]);
   const referenceScopeGap = Math.abs(SCOPE_RANK[candidate.candidateScope] - SCOPE_RANK[candidate.referenceScope]);
   const magnitudeGap = Math.abs(MAGNITUDE_RANK[candidate.candidateMagnitude] - MAGNITUDE_RANK[candidate.targetMagnitude]);

@@ -1,4 +1,5 @@
-import type { CaeEditorialPlausibility, CaeMagnitude, CaeScope, CaeSemanticCandidateAuthority, LocalizedText } from "./types.ts";
+import type { CaeMagnitude, CaeScope, CaeSemanticCandidateAuthority, LocalizedText } from "./types.ts";
+import { causeCandidateApplicability } from "./semantic-candidate-applicability.ts";
 
 const text = (en: string, hi: string, pa: string): LocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 const event = (
@@ -9,16 +10,15 @@ const event = (
   scope: CaeScope,
   magnitude: CaeMagnitude,
   severity: CaeMagnitude,
-  editorialPlausibility: CaeEditorialPlausibility,
   editorialRationale: string,
-): CaeSemanticCandidateAuthority => ({ id, text: value, mechanism, temporalOrder, scope, magnitude, severity, causalDistance: null, editorialPlausibility, editorialRationale });
+): CaeSemanticCandidateAuthority => ({ id, text: value, mechanism, temporalOrder, scope, magnitude, severity, causalDistance: null, applicability: causeCandidateApplicability(id, mechanism), editorialRationale });
 
 const credible = (
   id: string, en: string, hi: string, pa: string, mechanism: CaeSemanticCandidateAuthority["mechanism"], temporalOrder: number, scope: CaeScope, magnitude: CaeMagnitude, severity: CaeMagnitude, rationale: string,
-) => event(id, text(en, hi, pa), mechanism, temporalOrder, scope, magnitude, severity, "CREDIBLE_ALTERNATIVE", rationale);
+) => event(id, text(en, hi, pa), mechanism, temporalOrder, scope, magnitude, severity, rationale);
 const clear = (
   id: string, en: string, hi: string, pa: string, mechanism: CaeSemanticCandidateAuthority["mechanism"], temporalOrder: number, scope: CaeScope, magnitude: CaeMagnitude, severity: CaeMagnitude, rationale: string,
-) => event(id, text(en, hi, pa), mechanism, temporalOrder + 1, scope, magnitude, severity, "CLEAR_REJECT", rationale);
+) => event(id, text(en, hi, pa), mechanism, temporalOrder + 1, scope, magnitude, severity, rationale);
 
 /**
  * Variant-authored semantic events. These are complete, situation-specific

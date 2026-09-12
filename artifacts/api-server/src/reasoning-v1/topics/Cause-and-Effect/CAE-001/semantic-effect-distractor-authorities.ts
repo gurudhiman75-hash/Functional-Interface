@@ -1,9 +1,10 @@
 import type { CaeMagnitude, CaeScope, CaeSemanticCandidateAuthority, LocalizedText } from "./types.ts";
+import { effectCandidateApplicability } from "./semantic-candidate-applicability.ts";
 
 const text = (en: string, hi: string, pa: string): LocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 const effect = (
   id: string, en: string, hi: string, pa: string, mechanism: CaeSemanticCandidateAuthority["mechanism"], scope: CaeScope, magnitude: CaeMagnitude, severity: CaeMagnitude, rationale: string,
-): CaeSemanticCandidateAuthority => ({ id, text: text(en, hi, pa), mechanism, temporalOrder: 3, scope, magnitude, severity, causalDistance: null, editorialPlausibility: "CREDIBLE_ALTERNATIVE", editorialRationale: rationale });
+): CaeSemanticCandidateAuthority => ({ id, text: text(en, hi, pa), mechanism, temporalOrder: 3, scope, magnitude, severity, causalDistance: null, applicability: effectCandidateApplicability(id), editorialRationale: rationale });
 
 /**
  * These are possible *effects*, authored independently of the cause-option

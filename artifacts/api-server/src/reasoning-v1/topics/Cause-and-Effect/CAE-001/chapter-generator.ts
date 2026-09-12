@@ -181,7 +181,7 @@ function relationshipOptions(locale: CaeLocale, profile: CaeQuestionProfile, rel
 const SCOPE_RANK = { PERSON: 0, SITE: 1, LOCAL: 2, CITY: 3, REGIONAL: 4 } as const;
 const MAGNITUDE_RANK = { LOW: 0, MODERATE: 1, HIGH: 2 } as const;
 /** Reuse only real canonical events whose graph position creates a named misconception. */
-function canonicalCandidateAuthorities(world: CaeCausalWorld, reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation): readonly CaeCandidateAuthority[] {
+function canonicalCandidateAuthorities(plan: CaeProjectionAuthority, world: CaeCausalWorld, reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation): readonly CaeCandidateAuthority[] {
   return world.nodes.flatMap((node): readonly CaeCandidateAuthority[] => {
     if (node.id === reference.id || node.id === target.id) return [];
     const toTarget = causalPath(world, node.id, target.id);
@@ -201,6 +201,14 @@ function canonicalCandidateAuthorities(world: CaeCausalWorld, reference: CaeNode
       editorialPlausibility = "CREDIBLE_ALTERNATIVE";
     } else if (fromTarget) mechanism = "REVERSE_CAUSATION";
     if (!mechanism) return [];
+    const applicabilityMatch = {
+      id: `${world.id}:node:${node.id}:${plan.kind}:${reference.semanticSlot}:${target.semanticSlot}:${relation}`,
+      applicableProjectionKinds: [plan.kind],
+      eligibleTargetSemanticSlots: [target.semanticSlot],
+      eligibleReferenceSemanticSlots: [reference.semanticSlot],
+      eligibleRelations: [relation],
+      editorialPlausibility,
+    } as const;
     return [{
       id: `${world.id}:node:${node.id}`,
       text: node.text,
@@ -212,18 +220,31 @@ function canonicalCandidateAuthorities(world: CaeCausalWorld, reference: CaeNode
       magnitude: node.magnitude,
       severity: node.severity,
       causalDistance,
+      applicability: [applicabilityMatch],
+      applicabilityMatch,
       editorialPlausibility,
       editorialRationale: `The canonical event is a ${mechanism === "INDIRECTNESS_CONFUSION" ? "real but non-immediate" : "real but wrongly directed"} part of this causal world.`,
     }];
   });
 }
 
-function authoredCandidateAuthorities(world: CaeCausalWorld, variant: CaeScenarioVariant, effectAlternatives = false): readonly CaeCandidateAuthority[] {
-  const events = effectAlternatives ? variant.semanticEffectCandidateEvents : variant.semanticCandidateEvents;
-  return events.map((event) => ({ ...event, id: `${world.id}:authored:${event.id}`, source: "VARIANT_AUTHORED" as const }));
+function applicabilityFor(event: CaeScenarioVariant["semanticCandidateEvents"][number], plan: CaeProjectionAuthority, reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation) {
+  return event.applicability.find((rule) => rule.applicableProjectionKinds.includes(plan.kind) && rule.eligibleTargetSemanticSlots.includes(target.semanticSlot) && rule.eligibleReferenceSemanticSlots.includes(reference.semanticSlot) && rule.eligibleRelations.includes(relation));
 }
 
-function compareCandidate(reference: CaeNode, target: CaeNode, candidate: CaeCandidateAuthority, relation: CandidateTargetRelation): CaeCandidateComparison | null {
+function authoredCandidateAuthorities(plan: CaeProjectionAuthority, world: CaeCausalWorld, variant: CaeScenarioVariant, reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation): readonly CaeCandidateAuthority[] {
+  const events = relation === "EFFECT_OF_TARGET"
+    ? variant.semanticEffectCandidateEvents
+    : relation === "BRIDGE_TO_TARGET"
+    ? [...variant.semanticCandidateEvents, ...variant.semanticBridgeCandidateEvents, ...variant.semanticEffectCandidateEvents]
+    : [...variant.semanticCandidateEvents, ...variant.semanticBridgeCandidateEvents];
+  return events.flatMap((event): readonly CaeCandidateAuthority[] => {
+    const applicabilityMatch = applicabilityFor(event, plan, reference, target, relation);
+    return applicabilityMatch ? [{ ...event, id: `${world.id}:authored:${event.id}`, source: "VARIANT_AUTHORED" as const, applicabilityMatch, editorialPlausibility: applicabilityMatch.editorialPlausibility }] : [];
+  });
+}
+
+function compareCandidate(plan: CaeProjectionAuthority, reference: CaeNode, target: CaeNode, candidate: CaeCandidateAuthority, relation: CandidateTargetRelation): CaeCandidateComparison | null {
   const timingGap = Math.abs(candidate.temporalOrder - target.temporalOrder);
   const expectedTimingGap = Math.abs(candidate.temporalOrder - reference.temporalOrder);
   const scopeGap = Math.abs(SCOPE_RANK[candidate.scope] - SCOPE_RANK[target.scope]);
@@ -254,8 +275,13 @@ function compareCandidate(reference: CaeNode, target: CaeNode, candidate: CaeCan
     candidateId: candidate.id,
     mechanism: candidate.mechanism,
     source: candidate.source,
+    applicabilityId: candidate.applicabilityMatch.id,
+    applicability: candidate.applicabilityMatch,
     editorialPlausibility: candidate.editorialPlausibility,
+    projectionKind: plan.kind,
     expectedRelation: relation,
+    targetSemanticSlot: target.semanticSlot,
+    referenceSemanticSlot: reference.semanticSlot,
     candidateTemporalOrder: candidate.temporalOrder,
     targetTemporalOrder: target.temporalOrder,
     referenceTemporalOrder: reference.temporalOrder,
@@ -302,8 +328,8 @@ function candidateOptions(
   seed: number,
 ): Readonly<{ options: readonly CaeRenderedOption[]; comparisons: readonly CaeCandidateComparison[]; plausibilityBurden: number }> {
   const candidates = [
-    ...authoredCandidateAuthorities(world, variant, relation === "EFFECT_OF_TARGET"),
-    ...(plan.kind === "COMPETING_EXPLANATION" ? [] : canonicalCandidateAuthorities(world, reference, target, relation)),
+    ...authoredCandidateAuthorities(plan, world, variant, reference, target, relation),
+    ...(plan.kind === "COMPETING_EXPLANATION" ? [] : canonicalCandidateAuthorities(plan, world, reference, target, relation)),
   ];
   for (const candidate of candidates) {
     if (candidate.source === "VARIANT_AUTHORED" && candidate.text[locale].includes(target.text[locale].replace(/[.।]+$/u, ""))) {
@@ -311,23 +337,30 @@ function candidateOptions(
     }
   }
   const pool = candidates
-    .map((candidate) => ({ candidate, comparison: compareCandidate(reference, target, candidate, relation) }))
+    .map((candidate) => ({ candidate, comparison: compareCandidate(plan, reference, target, candidate, relation) }))
     .filter((entry): entry is { candidate: CaeCandidateAuthority; comparison: CaeCandidateComparison } => entry.comparison !== null);
   if (pool.length < 3) throw new Error(`${family.id}/${target.id}: insufficient semantic distractor pool.`);
   const rotated = shuffled(pool, seed ^ hashText(`${reference.id}:${target.id}`));
   const selected: { candidate: CaeCandidateAuthority; comparison: CaeCandidateComparison }[] = [];
   for (const entry of rotated.filter((entry) => entry.comparison.editorialPlausibility === "CREDIBLE_ALTERNATIVE")) {
+    if (selected.length >= 2) break;
     if (!selected.some((chosen) => chosen.candidate.mechanism === entry.candidate.mechanism)) selected.push(entry);
-    if (selected.length === 2) break;
+  }
+  // A direct-effect item can have two distinct, plausible downstream outcomes.
+  // They share indirectness as a misconception, but remain separate natural events;
+  // excluding one merely to force distinct labels would erase valid coverage.
+  for (const entry of rotated.filter((entry) => entry.comparison.editorialPlausibility === "CREDIBLE_ALTERNATIVE")) {
+    if (selected.length >= 2) break;
+    if (!selected.some((chosen) => chosen.candidate.id === entry.candidate.id)) selected.push(entry);
   }
   if (selected.length < 2) throw new Error(`${family.id}/${target.id}: needs two natural, initially credible distractors.`);
   for (const entry of rotated) {
+    if (selected.length >= 3) break;
     if (!selected.some((chosen) => chosen.candidate.id === entry.candidate.id) && !selected.some((chosen) => chosen.candidate.mechanism === entry.candidate.mechanism)) selected.push(entry);
-    if (selected.length === 3) break;
   }
   for (const entry of rotated) {
+    if (selected.length >= 3) break;
     if (!selected.some((chosen) => chosen.candidate.id === entry.candidate.id)) selected.push(entry);
-    if (selected.length === 3) break;
   }
   if (selected.length !== 3) throw new Error(`${family.id}/${target.id}: cannot form a distinct misconception mix.`);
   if (plan.kind === "COMPETING_EXPLANATION" && selected.filter((entry) => entry.comparison.editorialPlausibility === "CREDIBLE_ALTERNATIVE").length < 2) {

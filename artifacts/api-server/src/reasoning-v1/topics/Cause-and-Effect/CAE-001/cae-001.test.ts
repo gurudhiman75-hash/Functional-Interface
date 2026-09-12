@@ -19,6 +19,7 @@ import { validateCaeEngineAuthorities, validateGeneratedCaeQuestion, validateGen
 
 const LOCALES: readonly CaeLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const SEED_COUNT = 240;
+const TARGET_APPLICABILITY_QL_IDS = new Set(["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-009"]);
 const minimumCausalStates: Readonly<Record<(typeof CAE_PROVISIONAL_QL_IDS)[number], number>> = {
   "CAE-QL-001": 18,
   "CAE-QL-002": 12,
@@ -47,6 +48,13 @@ assert.deepEqual(validateCaeEngineAuthorities(), []);
 assert.equal(CAE_001_SCENARIO_FAMILIES.length, 9);
 assert.equal(CAE_001_CAUSAL_WORLDS.length, 27);
 assert.equal(CAE_001_PROJECTION_AUTHORITIES.length, 9);
+const fogVariant = CAE_001_SCENARIO_FAMILIES.find((family) => family.id === "CAE-FAM-OPERATIONS-CHAIN")!.variants.find((variant) => variant.id === "fog")!;
+const fogBaggageVehicle = fogVariant.semanticCandidateEvents.find((candidate) => candidate.id === "fog-baggage-vehicle")!;
+assert.equal(
+  fogBaggageVehicle.applicability.find((rule) => rule.applicableProjectionKinds.includes("PROBABLE_CAUSE") && rule.eligibleTargetSemanticSlots.includes("bridge") && rule.eligibleReferenceSemanticSlots.includes("cause") && rule.eligibleRelations.includes("CAUSE_OF_TARGET"))?.editorialPlausibility,
+  "CLEAR_REJECT",
+  "the baggage-loading vehicle cannot be classified as a credible cause of falling runway visibility",
+);
 for (const qlId of CAE_PROVISIONAL_QL_IDS) {
   const samples = CAE_001_EDITORIAL_REALNESS_REVIEW[qlId];
   assert.equal(samples.length, 10, `${qlId}: editorial realness pack must contain ten samples.`);
@@ -72,6 +80,10 @@ const report: Record<string, Readonly<Record<string, number>>> = {};
 const candidateSetsByCausalState = new Map<string, Set<string>>();
 const candidateOccurrencesByCausalState = new Map<string, number>();
 const itemVariantsByCausalState = new Map<string, Set<string>>();
+const generatedCausalStatesByQl = new Map<string, Set<string>>();
+const generatedFamiliesByQl = new Map<string, Set<string>>();
+const targetApplicabilityStates = new Map<string, Set<string>>();
+let targetApplicabilityChecks = 0;
 let targetRelativeCandidateChecks = 0;
 
 for (const qlId of CAE_PROVISIONAL_QL_IDS) {
@@ -109,6 +121,21 @@ for (const qlId of CAE_PROVISIONAL_QL_IDS) {
       candidateOccurrencesByCausalState.set(en.causalStateId, (candidateOccurrencesByCausalState.get(en.causalStateId) ?? 0) + 1);
       assert.ok(en.candidateComparisons.every((candidate) => candidate.source === "CANONICAL_WORLD" || candidate.source === "VARIANT_AUTHORED"), `${qlId}/${seed}: candidates must come from the causal world or a scenario-authored semantic authority`);
       if (en.checkpointId === "CAE-CP-005") assert.ok(en.candidateComparisons.filter((candidate) => candidate.editorialPlausibility === "CREDIBLE_ALTERNATIVE").length >= 2, `${qlId}/${seed}: CP-005 needs two credible alternatives`);
+      if (TARGET_APPLICABILITY_QL_IDS.has(qlId)) {
+        targetApplicabilityStates.set(qlId, (targetApplicabilityStates.get(qlId) ?? new Set<string>()).add(en.causalStateId));
+        for (const candidate of en.candidateComparisons) {
+          const authority = candidate.applicability;
+          assert.ok(authority.applicableProjectionKinds.includes(candidate.projectionKind), `${qlId}/${seed}/${candidate.candidateId}: candidate is not authorised for this projection`);
+          assert.ok(authority.eligibleTargetSemanticSlots.includes(candidate.targetSemanticSlot), `${qlId}/${seed}/${candidate.candidateId}: candidate is not authorised for this target slot`);
+          assert.ok(authority.eligibleReferenceSemanticSlots.includes(candidate.referenceSemanticSlot), `${qlId}/${seed}/${candidate.candidateId}: candidate is not authorised for this reference slot`);
+          assert.ok(authority.eligibleRelations.includes(candidate.expectedRelation), `${qlId}/${seed}/${candidate.candidateId}: candidate is not authorised for this causal relation`);
+          assert.equal(authority.editorialPlausibility, candidate.editorialPlausibility, `${qlId}/${seed}/${candidate.candidateId}: credibility must belong to the exact target/reference applicability rule`);
+          assert.ok(!authority.eligibleTargetSemanticSlots.some((slot) => slot === "*" || slot === "ANY"), `${qlId}/${seed}/${candidate.candidateId}: generic target membership is not an authority`);
+          assert.ok(!authority.eligibleReferenceSemanticSlots.some((slot) => slot === "*" || slot === "ANY"), `${qlId}/${seed}/${candidate.candidateId}: generic reference membership is not an authority`);
+          targetApplicabilityChecks += 1;
+        }
+        if (en.difficulty !== "EASY") assert.ok(en.candidateComparisons.filter((candidate) => candidate.editorialPlausibility === "CREDIBLE_ALTERNATIVE").length >= 2, `${qlId}/${seed}: medium/hard target-specific items need two initially credible alternatives`);
+      }
       targetRelativeCandidateChecks += en.candidateComparisons.length;
     }
 
@@ -137,12 +164,21 @@ for (const qlId of CAE_PROVISIONAL_QL_IDS) {
   assert.ok(variants.size >= 6, `${qlId}: only a small fixed set of variants was generated`);
   assert.ok(mechanisms.size >= 2, `${qlId}: distractors do not vary by error mechanism`);
   assert.ok(difficulties.size >= minimumPedagogicallyAppropriateDifficultyStates[qlId], `${qlId}: generated state does not provide its pedagogically appropriate difficulty distribution`);
+  generatedCausalStatesByQl.set(qlId, causalStates);
+  generatedFamiliesByQl.set(qlId, families);
   report[qlId] = { causalStates: causalStates.size, itemVariants: itemVariants.size, structures: structures.size, families: families.size, variants: variants.size, difficultyStates: difficulties.size, distractorMechanisms: mechanisms.size };
   families.forEach((value) => allFamilies.add(value));
   structures.forEach((value) => allStructures.add(value));
   difficulties.forEach((value) => allDifficulties.add(value));
   mechanisms.forEach((value) => allMechanisms.add(value));
 }
+
+for (const qlId of TARGET_APPLICABILITY_QL_IDS) {
+  assert.deepEqual(targetApplicabilityStates.get(qlId), generatedCausalStatesByQl.get(qlId), `${qlId}: target-applicability QA must exercise every saturated candidate-producing causal state`);
+}
+assert.ok(targetApplicabilityChecks > 1_000, "target-applicability QA must validate target/reference/relation authority at scale");
+assert.ok((report["CAE-QL-004"]?.families ?? 0) >= 4, "probable-effect saturation must retain branching/common-cause family coverage");
+assert.ok(generatedFamiliesByQl.get("CAE-QL-004")?.has("CAE-FAM-SHARED-PRESSURE"), "probable-effect saturation must retain the branching common-cause family");
 
 assert.deepEqual([...allDifficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
 assert.ok(allFamilies.size >= 8, "saturation must cover nearly all scenario families");
@@ -174,5 +210,5 @@ assert.equal(sharedPreview.question.metadata.reviewOnly, true);
 assert.throws(() => assertCae001QuestionStudioPersistenceAllowed(), /review only.*delivery remain locked/i);
 assert.throws(() => persistReasoningV1QuestionStudioReview({ packageId: CAE_001_QUESTION_STUDIO_PACKAGE_ID, qlId: "CAE-QL-001", locale: "en-IN", seed: 11 }), /review only.*delivery remain locked/i);
 
-console.log("CAE_001_SATURATION", JSON.stringify({ seedsPerPlan: SEED_COUNT, before: { authoredWorlds: 7, fixedProjections: 12, causalStateVariation: "not measured; fixed projections plus option shuffling" }, after: { scenarioFamilies: allFamilies.size, causalStructures: allStructures.size, difficultyStates: [...allDifficulties].sort(), distractorMechanisms: [...allMechanisms].sort(), targetRelativeCandidateChecks, repeatedCandidateStates: repeatedCandidateStates.length, causalStatesWithMultipleValidMixes, causalStatesWithMultipleItemVariants, byQl: report } }, null, 2));
+console.log("CAE_001_SATURATION", JSON.stringify({ seedsPerPlan: SEED_COUNT, before: { authoredWorlds: 7, fixedProjections: 12, causalStateVariation: "not measured; fixed projections plus option shuffling" }, after: { scenarioFamilies: allFamilies.size, causalStructures: allStructures.size, difficultyStates: [...allDifficulties].sort(), distractorMechanisms: [...allMechanisms].sort(), targetRelativeCandidateChecks, targetApplicabilityChecks, targetApplicabilityCausalStates: Object.fromEntries([...targetApplicabilityStates].map(([qlId, states]) => [qlId, states.size])), repeatedCandidateStates: repeatedCandidateStates.length, causalStatesWithMultipleValidMixes, causalStatesWithMultipleItemVariants, byQl: report } }, null, 2));
 console.log("PASS_CAE_001_GENERATIVE_CAUSAL_STATE_V3");

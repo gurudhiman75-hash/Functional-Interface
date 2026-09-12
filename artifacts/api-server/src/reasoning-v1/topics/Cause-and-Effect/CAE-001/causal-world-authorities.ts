@@ -10,6 +10,8 @@ import type {
 } from "./types.ts";
 import { semanticCandidatesForVariant } from "./semantic-distractor-authorities.ts";
 import { semanticEffectCandidatesForVariant } from "./semantic-effect-distractor-authorities.ts";
+import { semanticBridgeCandidatesForVariant } from "./semantic-bridge-distractor-authorities.ts";
+import { semanticBranchEffectCandidatesForVariant } from "./semantic-branch-effect-distractor-authorities.ts";
 
 const l = (en: string, hi: string, pa: string): LocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 type EventText = readonly [string, string, string];
@@ -62,7 +64,8 @@ const chainVariant = (
   id,
   backdrop,
   semanticCandidateEvents: semanticCandidatesForVariant(id),
-  semanticEffectCandidateEvents: semanticEffectCandidatesForVariant(id),
+  semanticBridgeCandidateEvents: semanticBridgeCandidatesForVariant(id),
+  semanticEffectCandidateEvents: [...semanticEffectCandidatesForVariant(id), ...semanticBranchEffectCandidatesForVariant(id)],
   nodes: [unit(id, "cause", "CAUSE", 1, cause), unit(id, "bridge", "INTERMEDIATE", 2, bridge, false), unit(id, "effect", "EFFECT", 3, effect), unit(id, "terminal", "EFFECT", 4, terminal, false)],
   edgeBindings: [{ from: "cause", to: "bridge" }, { from: "bridge", to: "effect" }, { from: "effect", to: "terminal", temporalRelation: "SHORT_DELAY" }],
 });
@@ -77,7 +80,8 @@ const branchVariant = (
   id,
   backdrop,
   semanticCandidateEvents: semanticCandidatesForVariant(id),
-  semanticEffectCandidateEvents: semanticEffectCandidatesForVariant(id),
+  semanticBridgeCandidateEvents: semanticBridgeCandidatesForVariant(id),
+  semanticEffectCandidateEvents: [...semanticEffectCandidatesForVariant(id), ...semanticBranchEffectCandidatesForVariant(id)],
   nodes: [unit(id, "cause", "CAUSE", 1, cause), unit(id, "first-effect", "EFFECT", 2, first), unit(id, "second-effect", "EFFECT", 2, second)],
   edgeBindings: [{ from: "cause", to: "first-effect" }, { from: "cause", to: "second-effect" }],
 });
@@ -93,7 +97,8 @@ const parallelVariant = (
   id,
   backdrop,
   semanticCandidateEvents: semanticCandidatesForVariant(id),
-  semanticEffectCandidateEvents: semanticEffectCandidatesForVariant(id),
+  semanticBridgeCandidateEvents: semanticBridgeCandidatesForVariant(id),
+  semanticEffectCandidateEvents: [...semanticEffectCandidatesForVariant(id), ...semanticBranchEffectCandidatesForVariant(id)],
   nodes: [unit(id, "first-cause", "CAUSE", 1, firstCause), unit(id, "first-effect", "EFFECT", 2, firstEffect), unit(id, "second-cause", "CAUSE", 1, secondCause), unit(id, "second-effect", "EFFECT", 2, secondEffect)],
   edgeBindings: [{ from: "first-cause", to: "first-effect" }, { from: "second-cause", to: "second-effect" }],
 });
@@ -128,7 +133,7 @@ const CAE_001_SCENARIO_FAMILY_SEEDS = [
     id: "CAE-FAM-SHARED-PRESSURE",
     domain: "UTILITIES",
     topology: "BRANCHING_COMMON_CAUSE",
-    allowedProjectionKinds: ["DIRECT_RELATIONSHIP", "COMMON_OR_INDEPENDENT"],
+    allowedProjectionKinds: ["DIRECT_RELATIONSHIP", "COMMON_OR_INDEPENDENT", "PROBABLE_EFFECT"],
     allowedQuestionProfiles: ["FOUR_WAY", "FIVE_WAY"],
     renderingConstraints: constraints,
     variants: [
@@ -236,7 +241,7 @@ export const CAE_001_PROJECTION_AUTHORITIES = [
   { id: "CAE-PLAN-DIRECT", checkpointId: "CAE-CP-001", qlId: "CAE-QL-001", kind: "DIRECT_RELATIONSHIP", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-CIVIC-SEQUENCE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY", "FIVE_WAY"] },
   { id: "CAE-PLAN-COMMON-INDEPENDENT", checkpointId: "CAE-CP-002", qlId: "CAE-QL-002", kind: "COMMON_OR_INDEPENDENT", compatibleFamilyIds: ["CAE-FAM-SHARED-PRESSURE", "CAE-FAM-PARALLEL-INCIDENTS", "CAE-FAM-COINCIDENT-OBSERVATIONS"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY", "FIVE_WAY"] },
   { id: "CAE-PLAN-PROBABLE-CAUSE", checkpointId: "CAE-CP-003", qlId: "CAE-QL-003", kind: "PROBABLE_CAUSE", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-COMPETING-SCOPE", "CAE-FAM-HIDDEN-CHAIN", "CAE-FAM-MISSING-BRIDGE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
-  { id: "CAE-PLAN-PROBABLE-EFFECT", checkpointId: "CAE-CP-004", qlId: "CAE-QL-004", kind: "PROBABLE_EFFECT", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-CIVIC-SEQUENCE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
+  { id: "CAE-PLAN-PROBABLE-EFFECT", checkpointId: "CAE-CP-004", qlId: "CAE-QL-004", kind: "PROBABLE_EFFECT", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-SHARED-PRESSURE", "CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-CIVIC-SEQUENCE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
   { id: "CAE-PLAN-COMPETING", checkpointId: "CAE-CP-005", qlId: "CAE-QL-005", kind: "COMPETING_EXPLANATION", compatibleFamilyIds: ["CAE-FAM-DIAGNOSTIC-DISRUPTION", "CAE-FAM-COMPETING-SCOPE", "CAE-FAM-HIDDEN-CHAIN", "CAE-FAM-MISSING-BRIDGE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
   { id: "CAE-PLAN-INDIRECT", checkpointId: "CAE-CP-006", qlId: "CAE-QL-006", kind: "INDIRECT_CAUSAL_CHAIN", compatibleFamilyIds: ["CAE-FAM-OPERATIONS-CHAIN", "CAE-FAM-HIDDEN-CHAIN", "CAE-FAM-CIVIC-SEQUENCE", "CAE-FAM-MISSING-BRIDGE"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY"] },
   { id: "CAE-PLAN-CORRELATION", checkpointId: "CAE-CP-007", qlId: "CAE-QL-007", kind: "CORRELATION_CHECK", compatibleFamilyIds: ["CAE-FAM-PARALLEL-INCIDENTS", "CAE-FAM-COINCIDENT-OBSERVATIONS"], qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION", examProfiles: ["FOUR_WAY", "FIVE_WAY"] },
