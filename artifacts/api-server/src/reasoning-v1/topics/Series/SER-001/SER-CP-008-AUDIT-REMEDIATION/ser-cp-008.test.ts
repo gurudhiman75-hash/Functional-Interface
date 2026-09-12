@@ -9,7 +9,6 @@ import {
 import {
   SER_CP008_PROVISIONAL_QL_IDS,
   SER_CP008_QL_AUTHORITIES,
-  type SerCp008ProvisionalQlId,
 } from "./question-language";
 import { generateSerCp008Final } from "./runtime-final";
 import { independentlySolveVisibleSerCp008 } from "./visible-series-verifier";
@@ -25,7 +24,6 @@ assert.equal(SER_CP008_QL_AUTHORITIES.length, 5);
 assert.equal(new Set(SER_CP008_QL_AUTHORITIES.map((entry) => entry.authorityId)).size, 5);
 assert.ok(SER_CP008_QL_AUTHORITIES.every((entry) => entry.sourceEvidence.length > 0));
 
-// Exact source-backed fixtures.
 assert.equal(
   independentlyContinueSingleLetterProgression({
     start: "B",
@@ -84,7 +82,6 @@ assert.deepEqual(
   { letters: ["Y", "M"], number: 72 },
 );
 
-// The visible-state verifier must solve representative source forms without generator metadata.
 assert.equal(
   independentlySolveVisibleSerCp008("SER-QL-014", "Find the next letter.\nB, D, G, K, ?"),
   "P",
@@ -98,8 +95,8 @@ assert.equal(
   "M-13",
 );
 assert.equal(
-  independentlySolveVisibleSerCp008("SER-QL-017", "Find the next term.\n22P, 2Z, 24Q, 4Y, 26R, 6X, ?"),
-  "28S",
+  independentlySolveVisibleSerCp008("SER-QL-017", "Find the next term.\n22P, 2Z, 24Q, 4Y, 26R, ?"),
+  "6X",
 );
 assert.equal(
   independentlySolveVisibleSerCp008("SER-QL-018", "Find the next term.\nUE88, VG84, WI80, XK76, ?"),
@@ -187,7 +184,6 @@ for (const qlId of SER_CP008_PROVISIONAL_QL_IDS) {
   });
 }
 
-// Difficulty is generated from reasoning burden rather than numeric magnitude or token length.
 const ql014Difficulties = new Set(
   Array.from({ length: seedsPerQl }, (_, seed) => generateSerCp008Final("SER-QL-014", seed, "en-IN").difficulty),
 );
