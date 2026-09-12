@@ -59,12 +59,13 @@ if '.replace(/\\b(Yes|No)\\.\\s+most instances?\\b/gi, "$1. Most instances")' no
         "English most-instance agreement",
     )
 
-source = replace_once(
-    source,
-    '    .replace(/\\bmost candidate and centre\\b/gi, "most candidates and centres");',
-    '    .replace(/\\bmost candidate and centre\\b/gi, "most candidates and centres")\n    .replace(/\\ba automatically renewed plan\\b/gi, "an automatically renewed plan");',
-    "English renewal article",
-)
+if '.replace(/\\ba automatically renewed plan\\b/gi, "an automatically renewed plan")' not in source:
+    source = replace_once(
+        source,
+        '    .replace(/\\bmost candidate and centre\\b/gi, "most candidates and centres");',
+        '    .replace(/\\bmost candidate and centre\\b/gi, "most candidates and centres")\n    .replace(/\\ba automatically renewed plan\\b/gi, "an automatically renewed plan");',
+        "English renewal article",
+    )
 
 source = insert_before_once(
     source,
