@@ -156,6 +156,16 @@ export const QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS = Object.freeze([
     questionEnd: 75,
     expectedQuestionCount: 25,
   }),
+  Object.freeze({
+    sectionId: "SSC-CGL-T1-2022-12-06-S2-QUANT",
+    examId: "SSC_CGL_TIER_I",
+    paperId: "SSC-CGL-2022-TIER-I-2022-12-06-S2",
+    heldDate: "2022-12-06",
+    shift: "Shift 2",
+    questionStart: 51,
+    questionEnd: 75,
+    expectedQuestionCount: 25,
+  }),
 ] satisfies readonly QuantV4CompleteSectionSpec[]);
 
 // P2 audit policy only. It deliberately does not authorize production promotion.
