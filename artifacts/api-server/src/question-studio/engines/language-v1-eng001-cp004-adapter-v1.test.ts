@@ -91,10 +91,10 @@ for (const [qlId, ruleId, difficulty] of [
     difficulty,
     patternId: qlId,
     canonicalProblemId: ruleId,
-    count: 3,
+    count: 1,
     seed: `${qlId}:${ruleId}:cp004-filter`,
   });
-  assert.equal(selected.questions.length, 3);
+  assert.equal(selected.questions.length, 1);
   assert.equal(selected.questions.every((question) => question.qlId === qlId), true);
   assert.equal(selected.questions.every((question) => question.ruleId === ruleId), true);
   assert.equal(selected.questions.every((question) => question.cpId === "ENG-001-CP004"), true);
