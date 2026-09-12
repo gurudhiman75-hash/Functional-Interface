@@ -71,6 +71,7 @@ if capitalization not in quality:
 english_naturalness_repairs = [
     ('.replace(/\\bin school closing time\\b/gi, "during school closing time")', 'school-closing-time preposition'),
     ('.replace(/\\bon the first week of each month\\b/gi, "in the first week of each month")', 'first-week preposition'),
+    ('.replace(/\\bcitizens reaching near closing time\\b/gi, "citizens arriving near closing time")', 'closing-time arrival wording'),
 ]
 for repair, label in english_naturalness_repairs:
     if repair not in quality:
