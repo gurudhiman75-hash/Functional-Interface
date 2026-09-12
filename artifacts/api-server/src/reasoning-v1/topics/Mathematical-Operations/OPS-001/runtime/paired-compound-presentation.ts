@@ -8,7 +8,6 @@ import {
   swapWholeNumbers,
   type TeachingStep,
 } from "../pilot/approved-teaching-helpers";
-import type { ApprovedOpsQuestion } from "../pilot/approved-teaching-canonical";
 import type { OpsPilotOption } from "../pilot/representative-pilots";
 import { withOpsInstanceDifficulty } from "./final-audit-remediation";
 
@@ -61,11 +60,7 @@ function transformationFromSeed(seed: number): Transformation {
   };
 }
 
-function states(
-  expression: string,
-  operatorPair: readonly [string, string],
-  numberPair: readonly [string, string],
-) {
+function states(expression: string, operatorPair: readonly [string, string], numberPair: readonly [string, string]) {
   const operatorOnlyExpression = swapOperatorPairs(expression, [operatorPair]);
   const numberOnlyExpression = swapWholeNumbers(expression, numberPair[0], numberPair[1]);
   const bothExpression = swapWholeNumbers(operatorOnlyExpression, numberPair[0], numberPair[1]);
@@ -74,13 +69,7 @@ function states(
   const numberOnly = integerValue(numberOnlyExpression);
   const both = integerValue(bothExpression);
   if (!original || !operatorOnly || !numberOnly || !both) return null;
-  return {
-    original,
-    operatorOnly,
-    numberOnly,
-    both,
-    bothExpression,
-  };
+  return { original, operatorOnly, numberOnly, both, bothExpression };
 }
 
 function secondExpression(
@@ -119,19 +108,12 @@ function localizedStem(
   first: string,
   second: string,
 ): string {
-  if (locale === "hi") {
-    return `${operatorPair[0]} और ${operatorPair[1]} को तथा पूरी संख्याओं ${numberPair[0]} और ${numberPair[1]} को आपस में बदलने के बाद व्यंजक (I) और (II) के मान क्रमशः क्या होंगे?\nI. ${first}\nII. ${second}`;
-  }
-  if (locale === "pa") {
-    return `${operatorPair[0]} ਅਤੇ ${operatorPair[1]} ਨੂੰ ਅਤੇ ਪੂਰੀਆਂ ਸੰਖਿਆਵਾਂ ${numberPair[0]} ਅਤੇ ${numberPair[1]} ਨੂੰ ਆਪਸ ਵਿੱਚ ਬਦਲਣ ਤੋਂ ਬਾਅਦ (I) ਅਤੇ (II) ਦੇ ਮੁੱਲ ਕ੍ਰਮਵਾਰ ਕੀ ਹੋਣਗੇ?\nI. ${first}\nII. ${second}`;
-  }
+  if (locale === "hi") return `${operatorPair[0]} और ${operatorPair[1]} को तथा पूरी संख्याओं ${numberPair[0]} और ${numberPair[1]} को आपस में बदलने के बाद व्यंजक (I) और (II) के मान क्रमशः क्या होंगे?\nI. ${first}\nII. ${second}`;
+  if (locale === "pa") return `${operatorPair[0]} ਅਤੇ ${operatorPair[1]} ਨੂੰ ਅਤੇ ਪੂਰੀਆਂ ਸੰਖਿਆਵਾਂ ${numberPair[0]} ਅਤੇ ${numberPair[1]} ਨੂੰ ਆਪਸ ਵਿੱਚ ਬਦਲਣ ਤੋਂ ਬਾਅਦ (I) ਅਤੇ (II) ਦੇ ਮੁੱਲ ਕ੍ਰਮਵਾਰ ਕੀ ਹੋਣਗੇ?\nI. ${first}\nII. ${second}`;
   return `After interchanging ${operatorPair[0]} and ${operatorPair[1]}, and interchanging the complete numbers ${numberPair[0]} and ${numberPair[1]}, what will be the values of expressions (I) and (II), respectively?\nI. ${first}\nII. ${second}`;
 }
 
-export function generateOpsPairedCompoundPresentation(
-  seed: number,
-  locale: OpsPairedLocale = "en",
-) {
+export function generateOpsPairedCompoundPresentation(seed: number, locale: OpsPairedLocale = "en") {
   const transform = transformationFromSeed(seed);
   const first = states(transform.firstExpression, transform.operatorPair, transform.numberPair);
   if (!first) throw new Error(`OPS paired compound first expression was not integer-safe for seed ${seed}.`);
@@ -172,20 +154,13 @@ export function generateOpsPairedCompoundPresentation(
       result: correct,
     },
   ];
-  const conclusion = locale === "hi"
-    ? `अतः क्रमशः मान ${correct} हैं।`
-    : locale === "pa"
-      ? `ਇਸ ਲਈ ਕ੍ਰਮਵਾਰ ਮੁੱਲ ${correct} ਹਨ।`
-      : `Therefore, the values respectively are ${correct}.`;
+  const conclusion = locale === "hi" ? `अतः क्रमशः मान ${correct} हैं।` : locale === "pa" ? `ਇਸ ਲਈ ਕ੍ਰਮਵਾਰ ਮੁੱਲ ${correct} ਹਨ।` : `Therefore, the values respectively are ${correct}.`;
 
-  const question: ApprovedOpsQuestion & {
-    readonly qlId: "OPS-QL-026";
-    readonly qlFreezeVersion: typeof OPS_QL_FREEZE_VERSION;
-  } = {
+  const question = {
     candidateId: "OPS-CAND-028",
     checkpointId: "OPS-CP-008",
     seed,
-    locale: locale === "en" ? "en-IN" : locale === "hi" ? "hi-IN" : "pa-IN" as never,
+    locale: locale === "en" ? "en-IN" : locale === "hi" ? "hi-IN" : "pa-IN",
     taskKind: "EVALUATE_PAIRED_EXPRESSIONS_AFTER_GIVEN_INTERCHANGE",
     solveMode: "evaluateAfterSpecifiedCompoundSwap",
     renderer: "STRUCTURED_TEXT",
@@ -195,10 +170,10 @@ export function generateOpsPairedCompoundPresentation(
     answer: correct,
     explanation: { ruleStatement, steps, conclusion },
     proof: {
-      unique: true,
+      unique: true as const,
       solverRoute: "SSC_SOURCE_PAIRED_COMPOUND_TRANSFORMATION",
       eligibleCandidateCount: 4,
-      survivingCandidateCount: 1,
+      survivingCandidateCount: 1 as const,
       semanticFingerprint: `OPS-CAND-028:PAIRED:${transform.operatorPair.join("<->")}:${transform.numberPair.join("<->")}:${transform.firstExpression}|${second.expression}:${correct}`,
     },
     metadata: {
@@ -213,7 +188,7 @@ export function generateOpsPairedCompoundPresentation(
       misconceptionDistractorsGrounded: true,
       distractorModelCount: 3,
     },
-    qlId: "OPS-QL-026",
+    qlId: "OPS-QL-026" as const,
     qlFreezeVersion: OPS_QL_FREEZE_VERSION,
   };
   return withOpsInstanceDifficulty(question);
