@@ -77,6 +77,58 @@ function normalizeAnswerPosition(
   });
 }
 
+function local(locale: SerCp009Locale, en: string, hi: string, pa: string): string {
+  return locale === "en-IN" ? en : locale === "hi-IN" ? hi : pa;
+}
+
+/**
+ * Constant-ratio series has a legitimately small rule alphabet (×/÷ by 2..5).
+ * Expand visible state by a harmless common scale, which preserves every ratio
+ * and does not change reasoning depth or difficulty. The scale is deliberately
+ * excluded from difficulty scoring.
+ */
+function diversifyConstantRatio(
+  question: GeneratedSerCp009Question,
+  requestedSeed: number,
+  locale: SerCp009Locale,
+): GeneratedSerCp009Question {
+  if (question.qlId !== "SER-QL-032") return question;
+  const scale = 1 + (Math.floor(requestedSeed / 4) % 7);
+  if (scale === 1) return question;
+
+  const stemLines = question.stem.split("\n");
+  const sourceTerms = parseSeries(question.stem);
+  const scaledTerms = sourceTerms.map((token) => token === "?" ? token : String(Number(token) * scale));
+  const scaledCorrect = String(Number(question.correctAnswer) * scale);
+  const scaledOptions = question.options.map((option) => ({
+    ...option,
+    value: String(Number(option.value) * scale),
+  }));
+  const factor = Number(question.structuralFeatures.factor ?? 0);
+  const operation = question.structuralFeatures.operation === "DIVIDE" ? "DIVIDE" : "MULTIPLY";
+  const explanation = [
+    local(
+      locale,
+      `The same ratio is used at every step: ${operation === "DIVIDE" ? "divide" : "multiply"} by ${factor}.`,
+      `हर चरण में वही अनुपात है: ${factor} से ${operation === "DIVIDE" ? "भाग" : "गुणा"}।`,
+      `ਹਰ ਪੜਾਅ 'ਤੇ ਉਹੀ ਅਨੁਪਾਤ ਹੈ: ${factor} ਨਾਲ ${operation === "DIVIDE" ? "ਭਾਗ" : "ਗੁਣਾ"}।`,
+    ),
+    scaledTerms.join(" → "),
+    local(locale, `Therefore the missing number is ${scaledCorrect}.`, `अतः लुप्त संख्या ${scaledCorrect} है।`, `ਇਸ ਲਈ ਲੁਪਤ ਸੰਖਿਆ ${scaledCorrect} ਹੈ।`),
+  ];
+  return Object.freeze({
+    ...question,
+    stem: `${stemLines.slice(0, -1).join("\n")}\n${scaledTerms.join(", ")}`,
+    correctAnswer: scaledCorrect,
+    options: Object.freeze(scaledOptions),
+    explanation: Object.freeze(explanation),
+    structuralFeatures: Object.freeze({
+      ...question.structuralFeatures,
+      variationScale: scale,
+    }),
+  });
+}
+
 /**
  * Review-only hardened generator facade.
  *
@@ -97,7 +149,8 @@ export function generateSerCp009NumberSeries(
     const internalSeed = seed + attempt * 997;
     try {
       const generated = generateBase(qlId, internalSeed, locale);
-      const normalized = normalizeAnswerPosition(generated, seed);
+      const diversified = diversifyConstantRatio(generated, seed, locale);
+      const normalized = normalizeAnswerPosition(diversified, seed);
       const solved = solveVisibleNumberSeries(
         qlId,
         normalized.stem,
