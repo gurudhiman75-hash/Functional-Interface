@@ -36,10 +36,16 @@ jobs:
             pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/$file --bundle --platform=node --format=esm --outfile=dist/${file%.ts}.mjs
             node dist/${file%.ts}.mjs
           done
-      - name: Preserve historical freezes and approvals
+      - name: Preserve exact CP006 and CP008 byte freezes
+        run: |
+          for file in cp006-byte-freeze-proof.test.ts cp008-byte-freeze-proof.test.ts; do
+            pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/$file --bundle --platform=node --format=esm --outfile=dist/${file%.ts}.mjs
+            node artifacts/api-server/dist/${file%.ts}.mjs
+          done
+      - name: Preserve CP013 learner surface and CP014 approval
         working-directory: artifacts/api-server
         run: |
-          for file in cp006-byte-freeze-proof.test.ts cp008-byte-freeze-proof.test.ts cp013-final-editorial-surface-proof.test.ts cp014-manual-editorial-approval-proof.test.ts; do
+          for file in cp013-final-editorial-surface-proof.test.ts cp014-manual-editorial-approval-proof.test.ts; do
             pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/$file --bundle --platform=node --format=esm --outfile=dist/${file%.ts}.mjs
             node dist/${file%.ts}.mjs
           done
