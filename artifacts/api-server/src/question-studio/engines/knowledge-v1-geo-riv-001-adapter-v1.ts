@@ -23,6 +23,26 @@ import {
   GEO_RIV_001_CP008_FREEZE_AUTHORITY_V1,
   GEO_RIV_001_CP008_FROZEN_QUESTIONS_V1,
 } from "../../knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-freeze-v1";
+import {
+  GEO_RIV_001_CHAPTER_CLOSE_AUTHORITY_V1,
+  GEO_RIV_001_CP006_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP006_FROZEN_QUESTIONS_V1,
+  GEO_RIV_001_CP007_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP007_FROZEN_QUESTIONS_V1,
+  GEO_RIV_001_CP009_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP009_FROZEN_QUESTIONS_V1,
+  GEO_RIV_001_CP010_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP010_FROZEN_QUESTIONS_V1,
+  GEO_RIV_001_CP011_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP011_FROZEN_QUESTIONS_V1,
+  GEO_RIV_001_CP012_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP012_FROZEN_QUESTIONS_V1,
+  GEO_RIV_001_CP013_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP013_FROZEN_QUESTIONS_V1,
+  GEO_RIV_001_CP014_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP014_FROZEN_QUESTIONS_V1,
+  GEO_RIV_001_CP015_MASTERY_FREEZE_AUTHORITY_V1,
+} from "../../knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-chapter-close-v1";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -35,38 +55,59 @@ import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-l
 export const GEO_RIV_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "GEO-RIV-001" as const;
 export const GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
 export const GEO_RIV_001_REVISION_POLICY_V1 = "SOURCE_GENERATOR_ONLY" as const;
-export const GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1 =
-  `${GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP003_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP004_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP005_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP008_FREEZE_AUTHORITY_V1.authorityId}` as const;
+
+const semanticAuthorities = [
+  GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP003_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP004_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP005_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP006_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP007_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP008_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP009_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP010_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP011_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP012_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP013_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP014_FREEZE_AUTHORITY_V1,
+] as const;
+
+export const GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1 = semanticAuthorities
+  .map((authority) => authority.authorityId)
+  .join("+");
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const supportedLanguages: QuestionStudioLanguage[] = ["en"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
-const cpIds = [
-  "GEO-RIV-001-CP001",
-  "GEO-RIV-001-CP002",
-  "GEO-RIV-001-CP003",
-  "GEO-RIV-001-CP004",
-  "GEO-RIV-001-CP005",
-  "GEO-RIV-001-CP008",
-] as const;
+const cpIds = semanticAuthorities.map((authority) => authority.cpId);
+
 const frozenQuestions = [
   ...GEO_RIV_001_CP001_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP002_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP003_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP004_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP005_FROZEN_QUESTIONS_V1,
+  ...GEO_RIV_001_CP006_FROZEN_QUESTIONS_V1,
+  ...GEO_RIV_001_CP007_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP008_FROZEN_QUESTIONS_V1,
-];
-const qlIds = [...new Set(frozenQuestions.map((question) => question.qlId))];
+  ...GEO_RIV_001_CP009_FROZEN_QUESTIONS_V1,
+  ...GEO_RIV_001_CP010_FROZEN_QUESTIONS_V1,
+  ...GEO_RIV_001_CP011_FROZEN_QUESTIONS_V1,
+  ...GEO_RIV_001_CP012_FROZEN_QUESTIONS_V1,
+  ...GEO_RIV_001_CP013_FROZEN_QUESTIONS_V1,
+  ...GEO_RIV_001_CP014_FROZEN_QUESTIONS_V1,
+] as readonly any[];
+
+const qlIds = [...new Set(frozenQuestions.map((question) => String(question.qlId)))];
+const authorityByCp = Object.fromEntries(
+  semanticAuthorities.map((authority) => [authority.cpId, authority.authorityId]),
+) as Record<string, string>;
 
 function freezeAuthorityForCp(cpId: string) {
-  if (cpId === "GEO-RIV-001-CP001") return GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId;
-  if (cpId === "GEO-RIV-001-CP002") return GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1.authorityId;
-  if (cpId === "GEO-RIV-001-CP003") return GEO_RIV_001_CP003_FREEZE_AUTHORITY_V1.authorityId;
-  if (cpId === "GEO-RIV-001-CP004") return GEO_RIV_001_CP004_FREEZE_AUTHORITY_V1.authorityId;
-  if (cpId === "GEO-RIV-001-CP005") return GEO_RIV_001_CP005_FREEZE_AUTHORITY_V1.authorityId;
-  if (cpId === "GEO-RIV-001-CP008") return GEO_RIV_001_CP008_FREEZE_AUTHORITY_V1.authorityId;
-  throw new Error(`Unknown GEO-RIV-001 frozen CP ${cpId}`);
+  const authorityId = authorityByCp[cpId];
+  if (!authorityId) throw new Error(`Unknown GEO-RIV-001 frozen CP ${cpId}`);
+  return authorityId;
 }
 
 function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
@@ -98,12 +139,12 @@ function selectors(request: QuestionStudioGenerationRequest) {
 function normalizeSelectors(request: QuestionStudioGenerationRequest) {
   const values = selectors(request);
   const qlMatches = values.filter((value) => qlIds.includes(value));
-  const cpMatches = values.filter((value) => cpIds.includes(value as (typeof cpIds)[number]));
+  const cpMatches = values.filter((value) => cpIds.includes(value));
   const unknown = values.filter(
     (value) =>
       value !== GEO_RIV_001_QUESTION_STUDIO_PACKAGE_ID_V1 &&
       !qlIds.includes(value) &&
-      !cpIds.includes(value as (typeof cpIds)[number]),
+      !cpIds.includes(value),
   );
   if (unknown.length) throw new Error(`Unknown GEO-RIV-001 selector ${unknown[0]}`);
   if (new Set(qlMatches).size > 1) throw new Error(`Conflicting GEO-RIV-001 QL selectors ${qlMatches.join(", ")}`);
@@ -111,7 +152,7 @@ function normalizeSelectors(request: QuestionStudioGenerationRequest) {
 
   const qlId = qlMatches[0];
   const explicitCpId = cpMatches[0];
-  const qlCpId = qlId ? frozenQuestions.find((question) => question.qlId === qlId)?.cpId : undefined;
+  const qlCpId = qlId ? String(frozenQuestions.find((question) => question.qlId === qlId)?.cpId ?? "") : undefined;
   if (explicitCpId && qlCpId && explicitCpId !== qlCpId) {
     throw new Error(`Conflicting GEO-RIV-001 CP/QL selectors ${explicitCpId} and ${qlId}`);
   }
@@ -124,7 +165,7 @@ export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
   subject: "Static GK",
   topic: "Indian Geography",
   subtopic: "Indian Rivers & Drainage System",
-  label: "Static GK · Indian Geography · Rivers & Drainage · CP001–CP005 + CP008 Frozen",
+  label: "Static GK · Indian Geography · Rivers & Drainage · CP001–CP014 Frozen",
   enabled: true,
   cpIds: [...cpIds],
   supportedLanguages,
@@ -147,14 +188,10 @@ export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
   metadata: {
     ...lifecycle,
     registrationAuthorityId: GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1,
-    registrationAuthorityIds: [
-      GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId,
-      GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1.authorityId,
-      GEO_RIV_001_CP003_FREEZE_AUTHORITY_V1.authorityId,
-      GEO_RIV_001_CP004_FREEZE_AUTHORITY_V1.authorityId,
-      GEO_RIV_001_CP005_FREEZE_AUTHORITY_V1.authorityId,
-      GEO_RIV_001_CP008_FREEZE_AUTHORITY_V1.authorityId,
-    ],
+    registrationAuthorityIds: semanticAuthorities.map((authority) => authority.authorityId),
+    chapterCloseAuthorityId: GEO_RIV_001_CHAPTER_CLOSE_AUTHORITY_V1.authorityId,
+    masteryAuthorityId: GEO_RIV_001_CP015_MASTERY_FREEZE_AUTHORITY_V1.authorityId,
+    masteryPermanentQlOwner: false,
     authoringReviewApproved: true,
     reviewOnly: true,
     frozenCorpusOnly: true,
@@ -231,7 +268,7 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
     ).slice(0, count);
 
     const questions = selected.map((question) => {
-      const registrationAuthorityId = freezeAuthorityForCp(question.cpId);
+      const registrationAuthorityId = freezeAuthorityForCp(String(question.cpId));
       return {
         ...lifecycle,
         id: question.questionId,
@@ -257,7 +294,7 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
         difficultyLabel: question.difficulty,
         sourceIds: [...question.sourceIds],
         sourceFactIds: [...question.sourceFactIds],
-        solverAuthority: question.solverAuthority,
+        solverAuthority: question.solverAuthority ?? "FROZEN_REVIEW_AUTHORITY",
         registrationStatus: "REGISTERED_REVIEW_ONLY",
         registrationAuthorityId,
         authoringReviewApproved: true,
@@ -299,6 +336,8 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
         deterministicSelection: true,
         selectionWithoutReplacement: true,
         contentAuthorityVersion: GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1,
+        chapterCloseAuthorityId: GEO_RIV_001_CHAPTER_CLOSE_AUTHORITY_V1.authorityId,
+        masteryAuthorityId: GEO_RIV_001_CP015_MASTERY_FREEZE_AUTHORITY_V1.authorityId,
         revisionPolicy: GEO_RIV_001_REVISION_POLICY_V1,
         language,
         requestedDifficulty: difficulty,
@@ -309,7 +348,7 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
         permanentQlIds: qlIds,
         cpIds: [...cpIds],
         candidatePoolSize: candidates.length,
-        selectionMode: "FROZEN_GEO_RIV_001_CP001_CP002_CP003_CP004_CP005_CP008_DETERMINISTIC_WITHOUT_REPLACEMENT",
+        selectionMode: "FROZEN_GEO_RIV_001_CP001_CP014_DETERMINISTIC_WITHOUT_REPLACEMENT",
         explanationVisualPolicy: "OPTIONAL_MANUAL_EDITORIAL_ATTACHMENT",
         seed,
         count,
