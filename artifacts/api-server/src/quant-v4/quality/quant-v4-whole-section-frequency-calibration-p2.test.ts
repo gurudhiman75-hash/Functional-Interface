@@ -21,11 +21,11 @@ assert.equal(
   QUANT_V4_WHOLE_SECTION_FREQUENCY_CALIBRATION_AUTHORITY,
   "QUANT-V4-WHOLE-SECTION-FREQUENCY-CALIBRATION-P2",
 );
-assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 8);
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 258);
-assert.equal(profile.totalCountableQuestionCount, 225);
-assert.equal(profile.completeSectionCount, 8);
-assert.equal(profile.completeQuestionCount, 200);
+assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 9);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 283);
+assert.equal(profile.totalCountableQuestionCount, 250);
+assert.equal(profile.completeSectionCount, 9);
+assert.equal(profile.completeQuestionCount, 225);
 assert.equal(profile.nonWholeSectionCountableQuestionCount, 25);
 assert.equal(profile.undatedCountableQuestionCount, 10);
 assert.equal(profile.distinctSectionYearCount, 3);
@@ -46,6 +46,7 @@ assert.deepEqual(
     ["SSC-CGL-2023-TIER-I-2023-07-25-S3", 25],
     ["SSC-CGL-2023-TIER-I-2023-07-25-S4", 25],
     ["SSC-CGL-2022-TIER-I-2022-12-01-S1", 25],
+    ["SSC-CGL-2022-TIER-I-2022-12-06-S2", 25],
   ],
 );
 
@@ -55,38 +56,38 @@ const packageCounts = Object.fromEntries(
     .sort(([left], [right]) => left.localeCompare(right)),
 );
 assert.deepEqual(packageCounts, {
-  "ALG-001": 21,
+  "ALG-001": 23,
   "ALG-002": 5,
   "AVG-001": 4,
-  "DI-001": 12,
+  "DI-001": 14,
   "DI-003": 5,
   "DI-004": 1,
-  "DI-005": 2,
-  "GEO-001": 8,
-  "GEO-002": 13,
-  "INT-001": 8,
+  "DI-005": 4,
+  "GEO-001": 9,
+  "GEO-002": 16,
+  "INT-001": 9,
   "MAL-001": 3,
   "MEN-001": 5,
-  "MEN-002": 11,
-  "NUM-001": 10,
-  "PCT-001": 4,
+  "MEN-002": 12,
+  "NUM-001": 12,
+  "PCT-001": 5,
   "PCT-002": 4,
   "PCT-007": 1,
-  "PNL-001": 14,
-  "RAP-001": 4,
+  "PNL-001": 17,
+  "RAP-001": 5,
   "RAP-003": 1,
   SAP: 4,
-  "SRI-002": 1,
-  "TMW-001": 22,
-  "TRG-001": 22,
-  "TSD-001": 14,
+  "SRI-002": 2,
+  "TMW-001": 23,
+  "TRG-001": 25,
+  "TSD-001": 15,
   "TSD-002": 1,
 });
-assert.equal(Object.values(packageCounts).reduce((sum, count) => sum + count, 0), 200);
-assert.equal(profile.packageWeights[0]?.packageId, "TMW-001");
-assert.equal(profile.packageWeights[0]?.questionCount, 22);
-assert.equal(profile.packageWeights[0]?.questionShare, 22 / 200);
-assert.equal(profile.packageWeights[0]?.meanQuestionsPerSection, 22 / 8);
+assert.equal(Object.values(packageCounts).reduce((sum, count) => sum + count, 0), 225);
+assert.equal(profile.packageWeights[0]?.packageId, "TRG-001");
+assert.equal(profile.packageWeights[0]?.questionCount, 25);
+assert.equal(profile.packageWeights[0]?.questionShare, 25 / 225);
+assert.equal(profile.packageWeights[0]?.meanQuestionsPerSection, 25 / 9);
 assert.ok(Math.abs(profile.packageWeights.reduce((sum, bucket) => sum + bucket.questionShare, 0) - 1) < 1e-12);
 assert.ok(Math.abs(profile.topicWeights.reduce((sum, bucket) => sum + bucket.questionShare, 0) - 1) < 1e-12);
 
@@ -112,8 +113,8 @@ const contaminated = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(contaminated.totalCountableQuestionCount, 226);
-assert.equal(contaminated.completeQuestionCount, 200);
+assert.equal(contaminated.totalCountableQuestionCount, 251);
+assert.equal(contaminated.completeQuestionCount, 225);
 assert.equal(contaminated.nonWholeSectionCountableQuestionCount, 26);
 assert.equal(contaminated.packageCoverageCount, 26);
 assert.equal(contaminated.packageWeights.some((bucket) => bucket.packageId === "ISOLATED-ONLY"), false);
@@ -134,13 +135,13 @@ const incomplete = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(incomplete.completeSectionCount, 7);
-assert.equal(incomplete.completeQuestionCount, 175);
+assert.equal(incomplete.completeSectionCount, 8);
+assert.equal(incomplete.completeQuestionCount, 200);
 assert.ok(incomplete.blockers.includes("DECLARED_COMPLETE_SECTION_INCOMPLETE"));
-assert.ok(incomplete.blockers.includes("COMPLETE_SECTION_SAMPLE_BELOW_POLICY"));
+assert.equal(incomplete.blockers.includes("COMPLETE_SECTION_SAMPLE_BELOW_POLICY"), false);
 assert.ok(incomplete.blockers.includes("DISTINCT_SECTION_YEAR_SAMPLE_BELOW_POLICY"));
 
-// Meeting the audit evidence floor is deliberately not the same as production authorization.
+// Meeting and exceeding the audit evidence floor is still not production authorization.
 assert.equal(profile.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
 assert.equal(profile.productionPromotionAuthorized, false);
 assert.equal(canPromoteWholeSectionFrequencyWeights(profile), false);
