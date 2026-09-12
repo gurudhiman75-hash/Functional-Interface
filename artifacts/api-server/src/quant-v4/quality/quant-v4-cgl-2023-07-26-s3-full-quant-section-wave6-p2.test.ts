@@ -67,12 +67,11 @@ assert.equal(Object.values(sectionPackageCounts).reduce((sum, count) => sum + co
 assert.equal(7 * 48 / 28, 12); // Q51.
 assert.ok(Math.abs(2 + 24 / 7.5 - 26 / 5) < 1e-12); // Q52.
 assert.equal(1000 * 110 / 100, 1100); // Q53.
-assert.equal(49 / 12 - 2, 25 / 12); // Q54.
+assert.ok(Math.abs((49 / 12 - 2) - 25 / 12) < 1e-12); // Q54.
 assert.ok(Math.abs(Math.cos(Math.PI / 6) - Math.sqrt(3) / 2) < 1e-12); // Q55.
 assert.equal(16 * 16 / 4, 64); // Q56 coefficient of sqrt(3).
 assert.equal(21 % 15, 6); // Q57.
-assert.equal((9 + 16) * 7, 25 * 7); // Q58 numerator magnitude.
-assert.equal((9 - 16) * 25, -7 * 25); // Q58 denominator/sign.
+assert.ok(Math.abs((9 + 16) / (9 - 16) - (-25 / 7)) < 1e-12); // Q58.
 assert.ok(Math.abs(256 * 9 / 320 - 7.2) < 1e-12); // Q59.
 assert.ok(Math.abs(2 / 3 - ((2 / 3) - (5 / 6) * (4 / 5) / (4 / 3) + 1 / 2)) < 1e-12); // Q60.
 assert.ok(Math.abs(Math.tan(64 * Math.PI / 180) + 1 / Math.tan(154 * Math.PI / 180)) < 1e-10); // Q61.
@@ -85,7 +84,7 @@ assert.equal(20 * 100 / 5, 400); // Q66.
 assert.ok(Math.abs(1 / (1 / 9 + 1 / 6) - 18 / 5) < 1e-12); // Q67.
 assert.equal(45 / (120 / 60 + 150 / 60), 10); // Q68.
 assert.ok(Math.abs((8 * Math.sqrt(3)) * 14 - 112 * Math.sqrt(3)) < 1e-12); // Q69.
-assert.equal(17 / (0.08 * 0.85 * 0.10), 2500); // Q70.
+assert.ok(Math.abs(17 / (0.08 * 0.85 * 0.10) - 2500) < 1e-9); // Q70.
 assert.equal((65 - 20) / 20 * 100, 225); // Q71.
 assert.equal(6 * 12 * 12, 864); // Q72.
 assert.equal(1 + 15625, 15626); // Q73.
