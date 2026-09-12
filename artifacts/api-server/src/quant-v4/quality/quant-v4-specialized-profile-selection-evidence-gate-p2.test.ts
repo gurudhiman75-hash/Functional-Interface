@@ -30,7 +30,7 @@ assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).le
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 9);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "MAL-001" }).length, 1);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 22);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 9);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 18);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 11);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 4);
@@ -49,14 +49,14 @@ const EXPECTED_COUNTS: Readonly<Record<QuantV4SpecializedSelectionPackageId, Rea
   "AVG-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 3, SSC_CGL_CHSL: 6 }),
   "MAL-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 1 }),
   "NUM-001": Object.freeze({
-    SSC_CGL_TIER_I: 16,
+    SSC_CGL_TIER_I: 17,
     SSC_CGL_CHSL: 5,
     SSC_CGL_JSO: 1,
     PUNJAB_STATE: 0,
     BANKING_PRELIMS: 0,
     BANKING_MAINS: 0,
   }),
-  "TMW-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 13, SSC_CGL_CHSL: 5 }),
+  "TMW-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 17, SSC_CGL_CHSL: 5 }),
 });
 
 for (const packageId of PACKAGE_IDS) {

@@ -70,11 +70,11 @@ assert.equal((q60FillNumerator - q60OutletNumerator) * 60, q60CommonDenominator)
 assert.equal(13 * 60 / 20, 39);
 assert.equal(7 + 39, 46);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 183);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
 const tmw = listRegisteredCountablePyqObservations({ packageId: "TMW-001" });
-assert.equal(tmw.length, 18);
+assert.equal(tmw.length, 22);
 assert.equal(tmw.filter((entry) => entry.examId === "SSC_CHSL").length, 5);
-assert.equal(tmw.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 13);
+assert.equal(tmw.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 17);
 
 const tmwChslContract = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_CHSL");
 assert.equal(tmwChslContract.normalizedCountableObservationCount, 5);

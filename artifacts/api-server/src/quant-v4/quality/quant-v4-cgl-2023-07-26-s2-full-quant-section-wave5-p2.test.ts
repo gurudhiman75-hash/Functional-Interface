@@ -86,9 +86,9 @@ assert.equal((1 + 7) / (1 + 11), 2 / 3); // Q73 reciprocal expression.
 assert.equal(6 - (6 / 2 - 3 + 7 - 2) * ((3 - 2 / 2) * 5 - 6), -14); // Q74 BODMAS.
 assert.equal(50 * 25 * 10 * 1000, 12_500_000); // Q75 capacity in litres.
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 183);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
 const cgl = listRegisteredCountablePyqObservations({ examIds: ["SSC_CGL_TIER_I"] });
-assert.equal(cgl.length, 150);
+assert.equal(cgl.length, 175);
 assert.equal(cgl.filter((entry) => entry.paperId === "SSC-CGL-2023-TIER-I-2023-07-26-S2").length, 25);
 
 const whole = buildQuantV4WholeSectionFrequencyProfile({
@@ -97,10 +97,10 @@ const whole = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 5);
-assert.equal(whole.totalCountableQuestionCount, 150);
-assert.equal(whole.completeSectionCount, 5);
-assert.equal(whole.completeQuestionCount, 125);
+assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 6);
+assert.equal(whole.totalCountableQuestionCount, 175);
+assert.equal(whole.completeSectionCount, 6);
+assert.equal(whole.completeQuestionCount, 150);
 assert.equal(whole.nonWholeSectionCountableQuestionCount, 25);
 assert.equal(whole.undatedCountableQuestionCount, 10);
 assert.equal(whole.distinctSectionYearCount, 3);
@@ -115,8 +115,8 @@ const avgCgl = getQuantV4SpecializedProfileSelectionContract("AVG-001", "SSC_CGL
 const numCgl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
 const tmwCgl = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
 assert.equal(avgCgl.normalizedCountableObservationCount, 3);
-assert.equal(numCgl.normalizedCountableObservationCount, 16);
-assert.equal(tmwCgl.normalizedCountableObservationCount, 13);
+assert.equal(numCgl.normalizedCountableObservationCount, 17);
+assert.equal(tmwCgl.normalizedCountableObservationCount, 17);
 for (const contract of [avgCgl, numCgl, tmwCgl]) {
   assert.equal(contract.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
   assert.equal(contract.profileSelectionCalibrated, false);
