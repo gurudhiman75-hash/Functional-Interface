@@ -104,7 +104,7 @@ function classifyPropositions(caselet: Pick<Caselet, "people" | "groups" | "grou
   };
 }
 
-function choosePartialClues(caselet: Caselet): { clues: Clue[]; states: Assignment[] } {
+function choosePartialClues(caselet: Caselet, targetStateCount: number): { clues: Clue[]; states: Assignment[] } {
   const clueCount = caselet.clues.length;
   const candidates: Array<{ clues: Clue[]; states: Assignment[]; score: number }> = [];
 
@@ -118,9 +118,11 @@ function choosePartialClues(caselet: Caselet): { clues: Clue[]; states: Assignme
     const classes = classifyPropositions(caselet, states);
     if (classes.must.length < 1 || classes.cannot.length < 3 || classes.could.length < 4) continue;
 
-    const targetStateCount = 3;
-    const score = Math.abs(states.length - targetStateCount) * 100 + (clueCount - kept);
-    candidates.push({ clues, states, score });
+    // Rotate the preferred branching width across the review batch. Exact target
+    // matches beat every fallback; among equal widths prefer fuller clue sets.
+    const widthPenalty = Math.abs(states.length - targetStateCount) * 10_000;
+    const cluePenalty = clueCount - kept;
+    candidates.push({ clues, states, score: widthPenalty + cluePenalty });
   }
 
   const selected = candidates.sort((left, right) => left.score - right.score)[0];
@@ -232,16 +234,17 @@ function semanticCorrectCount(caselet: LpCp03Caselet, child: LpCp03Child): numbe
 
 export function generateLpCp03Caselet(seed = "lp-cp03-possibility-review", index = 0): LpCp03Caselet {
   const sourceCandidates = generateCaseletBatch(`${seed}:source`, Math.max(12, index + 4));
+  const targetStateCount = 2 + (index % 4); // deliberately rotate 2 / 3 / 4 / 5 valid-state targets
   let source: Caselet | undefined;
   let partial: { clues: Clue[]; states: Assignment[] } | undefined;
 
   for (let offset = 0; offset < sourceCandidates.length; offset += 1) {
     const candidate = sourceCandidates[(index + offset) % sourceCandidates.length]!;
     try {
-      const result = choosePartialClues(candidate);
+      const result = choosePartialClues(candidate, targetStateCount);
       source = candidate;
       partial = result;
-      break;
+      if (result.states.length === targetStateCount) break;
     } catch {
       // Try another deterministic source caselet.
     }
