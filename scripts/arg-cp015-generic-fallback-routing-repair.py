@@ -64,6 +64,14 @@ if ql006_overseas_reason not in source:
         raise SystemExit(f"QL006 first-time-overseas reason: expected exactly one English fallback anchor, found {count}")
     source = source.replace(english_fallback_anchor, ql006_overseas_rule + english_fallback_anchor, 1)
 
+ql006_new_device_reason = 'Payments from a newly added device can be genuine, so treating most such payments as fraudulent does not establish that mandatory pre-authorisation is the only reasonable protection.'
+ql006_new_device_rule = f'  if (/payments from a newly added device/i.test(argument) && /(?:most instances|fraudulent|treated as fraudulent)/i.test(argument)) return "{ql006_new_device_reason}";\n'
+if ql006_new_device_reason not in source:
+    count = source.count(english_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL006 newly-added-device reason: expected exactly one English fallback anchor, found {count}")
+    source = source.replace(english_fallback_anchor, ql006_new_device_rule + english_fallback_anchor, 1)
+
 # QL001 localized anti-gaming rewrites turn the old absolute "every item is
 # useless" distractor into a softer "most information is useless" claim. Give
 # that exact claim a contextual reason in both localized surfaces rather than
@@ -168,6 +176,17 @@ if ql004_activity_punjabi_reason not in source:
 article_repair = '.replace(/\\ba automatically renewed plan\\b/gi, "an automatically renewed plan")'
 if article_repair not in source:
     raise SystemExit("renewal article repair missing after V8 plain-language repair")
+
+# The runtime finalizer—not only the auxiliary grammar-polish helper—must also
+# capitalize this family because the certified review exporter reads the final
+# generator surface directly.
+runtime_most_instances_repair = '.replace(/\\b(Yes|No)\\.\\s+most instances?\\b/gi, "$1. Most instances")'
+if runtime_most_instances_repair not in source:
+    runtime_anchor = article_repair + ';'
+    count = source.count(runtime_anchor)
+    if count != 1:
+        raise SystemExit(f"runtime most-instances capitalization: expected one English repair anchor, found {count}")
+    source = source.replace(runtime_anchor, article_repair + '\n    ' + runtime_most_instances_repair + ';', 1)
 
 # The preceding V8 grammar repair pluralizes "instance". Capitalize both the
 # singular source form and the pluralized form after Yes./No. so the final exam
