@@ -1,0 +1,55 @@
+name: ARG-001 CP015 simple repair idempotency fix
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - .github/workflows/arg-001-cp015-simple-idempotency-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/arg-001-cp012-editorial-remediation
+          fetch-depth: 0
+      - name: Make English most-instance repair idempotent
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/arg-cp015-simple-explanations-repair.py')
+          text = path.read_text(encoding='utf-8')
+          old = '''grammar = replace_once(
+              grammar,
+              '    .replace(/most ([a-z-]+) programme\\\\b/gi, "$1 programmes");',
+              '    .replace(/most ([a-z-]+) programme\\\\b/gi, "$1 programmes")\\n    .replace(/\\\\b(Yes|No)\\\\.\\\\s+most instance\\\\b/gi, "$1. Most instances")\\n    .replace(/\\\\bmost instances of ([^.!?]+?) is\\\\b/gi, "most instances of $1 are");',
+              "English most-instance agreement",
+          )
+          '''
+          new = '''if '.replace(/\\\\b(Yes|No)\\\\.\\\\s+most instances?\\\\b/gi, "$1. Most instances")' not in grammar:
+              grammar = replace_once(
+                  grammar,
+                  '    .replace(/most ([a-z-]+) programme\\\\b/gi, "$1 programmes");',
+                  '    .replace(/most ([a-z-]+) programme\\\\b/gi, "$1 programmes")\\n    .replace(/\\\\b(Yes|No)\\\\.\\\\s+most instance\\\\b/gi, "$1. Most instances")\\n    .replace(/\\\\bmost instances of ([^.!?]+?) is\\\\b/gi, "most instances of $1 are");',
+                  "English most-instance agreement",
+              )
+          '''
+          if new in text:
+              raise SystemExit('idempotency guard already present')
+          if text.count(old) != 1:
+              raise SystemExit(f'expected one English most-instance block, found {text.count(old)}')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/arg-cp015-simple-explanations-repair.py
+          git commit -m "fix(arg-cp015): make English capitalization repair idempotent"
+          git push origin HEAD:feature/arg-001-cp012-editorial-remediation
