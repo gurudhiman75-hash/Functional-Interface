@@ -3,9 +3,9 @@ from pathlib import Path
 SOURCE_PATH = Path("artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality.ts")
 source = SOURCE_PATH.read_text(encoding="utf-8")
 
-# Human review of the certified Hindi corpus exposed a small family of literal
-# translation artefacts in QL003. Keep the weak-argument logic unchanged while
-# rendering the statements and arguments in normal exam Hindi.
+# Human review of the certified Hindi corpus exposed literal translation and
+# agreement artefacts across QL003-QL006. Keep argument logic unchanged while
+# rendering the learner surface in natural exam Hindi.
 repair_anchor = '    .replace(/अधिकांश उम्मीदवार और केंद्र प्रभावित था/g, "अधिकांश उम्मीदवार और केंद्र प्रभावित थे");'
 repairs = [
     '    .replace(/अलग किया गया गीले और सूखे कचरे फिर मिल सकता है/g, "अलग किया गया गीला और सूखा कचरा फिर मिल सकता है")',
@@ -16,16 +16,27 @@ repairs = [
     '    .replace(/अधिकांश जगह दो सप्ताह में सीधे उपलब्ध/g, "अधिकांश स्थानों पर दो सप्ताह में अपने-आप उपलब्ध")',
     '    .replace(/का अधिकांश भाग जमीन से दोबारा बनाना पड़ेगा/g, "के बड़े हिस्से का पुनर्निर्माण करना पड़ेगा")',
     '    .replace(/बैकअप संभाल के बिना अपवाद के अधिकांश प्रकार संभाल सकता है/g, "बैकअप सहायता के बिना भी अधिकांश प्रकार के अपवाद संभाल सकता है")',
+    '    .replace(/संक्षिप्त आगमन विंडो ([^।]+) पर एक समान लागू नहीं हो सकता/g, "संक्षिप्त आगमन विंडो $1 पर एक समान लागू नहीं हो सकती")',
+    '    .replace(/आवश्यक कार्य घंटे बनाए रख सकता है/g, "आवश्यक कार्य घंटे बनाए रख सकती है")',
+    '    .replace(/घनी खरीदारी गली पर/g, "घनी खरीदारी गली में")',
+    '    .replace(/फिटनेस-ऐप ट्रायल के भुगतान वाला मासिक सब्सक्रिप्शन बनने से पहले/g, "फिटनेस-ऐप ट्रायल के सशुल्क मासिक सब्सक्रिप्शन में बदलने से पहले")',
+    '    .replace(/फिटनेस-ऐप ट्रायल के भुगतान वाला मासिक सब्सक्रिप्शन में बदलने से पहले/g, "फिटनेस-ऐप ट्रायल के सशुल्क मासिक सब्सक्रिप्शन में बदलने से पहले")',
+    '    .replace(/पीक-समय कार यात्राएँ को/g, "पीक-समय की कार यात्राओं को")',
+    '    .replace(/लंबे समय खड़े न रह सकने वाले लोगों जो/g, "लंबे समय तक खड़े न रह सकने वाले लोग जो")',
+    '    .replace(/सरकारी सेवा कार्यालयों उपयोग करते समय/g, "सरकारी सेवा कार्यालयों का उपयोग करते समय")',
+    '    .replace(/निर्धारित प्राथमिकता स्लॉट,([^।]+)घनी कतार का असमान बोझ कम कर सकती है/g, "निर्धारित प्राथमिकता स्लॉट,$1घनी कतार का असमान बोझ कम कर सकते हैं")',
+    '    .replace(/एकल-उपयोग कपों लेने/g, "एकल-उपयोग कप लेने")',
 ]
 if any(repair not in source for repair in repairs):
     if repair_anchor not in source:
         alternatives = [
+            '    .replace(/एकल-उपयोग कपों लेने/g, "एकल-उपयोग कप लेने");',
             '    .replace(/बैकअप संभाल के बिना अपवाद के अधिकांश प्रकार संभाल सकता है/g, "बैकअप सहायता के बिना भी अधिकांश प्रकार के अपवाद संभाल सकता है");',
             '    .replace(/का अधिकांश भाग जमीन से दोबारा बनाना पड़ेगा/g, "के बड़े हिस्से का पुनर्निर्माण करना पड़ेगा");',
         ]
         matches = [candidate for candidate in alternatives if candidate in source]
         if len(matches) != 1:
-            raise SystemExit(f"Hindi QL003 naturalness repair: expected one terminal repair anchor, found {len(matches)}")
+            raise SystemExit(f"Hindi QL003-QL006 naturalness repair: expected one terminal repair anchor, found {len(matches)}")
         terminal = matches[0]
     else:
         terminal = repair_anchor
@@ -76,4 +87,4 @@ if new_finalizer not in source:
     source = source.replace(old_finalizer, new_finalizer, 1)
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
-print("ARG-001 CP015 Hindi QL003 naturalness and semantic hotfix applied")
+print("ARG-001 CP015 Hindi QL003-QL006 naturalness and semantic hotfix applied")
