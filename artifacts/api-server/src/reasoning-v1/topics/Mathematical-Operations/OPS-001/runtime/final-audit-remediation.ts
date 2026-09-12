@@ -1,11 +1,20 @@
-import type { ApprovedOpsQuestion } from "../pilot/approved-teaching-canonical";
-
 export type OpsInstanceDifficulty = "Easy" | "Medium" | "Hard";
 
 export type OpsDifficultyAssessment = {
   readonly difficulty: OpsInstanceDifficulty;
   readonly score: number;
   readonly factors: readonly string[];
+};
+
+export type OpsDifficultyQuestion = {
+  readonly candidateId: string;
+  readonly taskKind: string;
+  readonly solveMode: string;
+  readonly stem: string;
+  readonly answer: string;
+  readonly options: readonly { readonly value: string; readonly errorLabel: string | null }[];
+  readonly explanation: { readonly steps: readonly unknown[] };
+  readonly metadata: Readonly<Record<string, string | number | boolean>>;
 };
 
 const OPTION_EVALUATION_CANDIDATES = new Set([
@@ -46,11 +55,11 @@ const HIDDEN_MAPPING_CANDIDATES = new Set([
   "OPS-CAND-034",
 ]);
 
-function optionValues(question: ApprovedOpsQuestion): readonly string[] {
+function optionValues(question: OpsDifficultyQuestion): readonly string[] {
   return question.options.map((option) => option.value);
 }
 
-function hasCloseNumericDistractor(question: ApprovedOpsQuestion): boolean {
+function hasCloseNumericDistractor(question: OpsDifficultyQuestion): boolean {
   const answer = Number(question.answer);
   if (!Number.isFinite(answer)) return false;
   const wrong = optionValues(question)
@@ -65,7 +74,7 @@ function hasCloseNumericDistractor(question: ApprovedOpsQuestion): boolean {
  * Difficulty is derived only from the visible/generated instance and its
  * solver topology. Seed identity and raw number magnitude never contribute.
  */
-export function assessOpsInstanceDifficulty(question: ApprovedOpsQuestion): OpsDifficultyAssessment {
+export function assessOpsInstanceDifficulty(question: OpsDifficultyQuestion): OpsDifficultyAssessment {
   let score = 0;
   const factors: string[] = [];
 
@@ -134,7 +143,7 @@ export function assessOpsInstanceDifficulty(question: ApprovedOpsQuestion): OpsD
   return { difficulty, score, factors };
 }
 
-export function withOpsInstanceDifficulty<T extends ApprovedOpsQuestion>(question: T): T & {
+export function withOpsInstanceDifficulty<T extends OpsDifficultyQuestion>(question: T): T & {
   readonly instanceDifficulty: OpsDifficultyAssessment;
 } {
   const instanceDifficulty = assessOpsInstanceDifficulty(question);
