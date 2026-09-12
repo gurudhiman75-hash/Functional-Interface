@@ -65,14 +65,14 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): GeoPhy
     stem = "Which of the following pairs is correctly matched?";
     correct = pair(rowIndex);
     const wrong = rows.filter((_, i) => i !== rowIndex).map((r, i) => `${r.division} — ${rows[(rowIndex + i + 2) % rows.length].contrastDescription}`);
-    options = moveCorrect(deterministicShuffle([correct, ...wrong], `${qlId}:${row.id}`).slice(0, 4), correct, correctTarget);
+    options = optionSet([correct, ...wrong], `${qlId}:${row.id}`, correct, correctTarget);
     explanation = `${row.division} is correctly associated with the description “${row.contrastDescription}”.`;
   } else if (ql === 4) {
     stem = "Which of the following pairs is incorrectly matched?";
     const wrongDescription = rows[(rowIndex + 1) % rows.length].contrastDescription;
     correct = `${row.division} — ${wrongDescription}`;
     const truePairs = rows.filter((_, i) => i !== rowIndex).map((r) => `${r.division} — ${r.contrastDescription}`);
-    options = moveCorrect(deterministicShuffle([correct, ...truePairs], `${qlId}:${row.id}`).slice(0, 4), correct, correctTarget);
+    options = optionSet([correct, ...truePairs], `${qlId}:${row.id}`, correct, correctTarget);
     explanation = `${row.division} is not a ${wrongDescription}; it is a ${row.contrastDescription}.`;
   } else if (ql === 5) {
     stem = `Which major physiographic division is broadly associated with ${row.broadLocation}?`;
