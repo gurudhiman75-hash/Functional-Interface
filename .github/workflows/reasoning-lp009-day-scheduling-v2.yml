@@ -12,7 +12,6 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v2.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v2.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v2-review-export.ts"
-      - ".github/workflows/reasoning-lp009-day-scheduling-v2.yml"
   workflow_dispatch:
 
 concurrency:
