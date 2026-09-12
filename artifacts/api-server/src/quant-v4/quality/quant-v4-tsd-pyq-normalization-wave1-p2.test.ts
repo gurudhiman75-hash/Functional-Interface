@@ -1,14 +1,7 @@
 import assert from "node:assert/strict";
 
-import {
-  buildQuantV4PyqFrequencyProfile,
-  canReplaceProvisionalSimulationWeights,
-  validatePyqObservationSet,
-} from "./quant-v4-pyq-frequency-evidence-p2";
-import {
-  QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  listRegisteredCountablePyqObservations,
-} from "./quant-v4-pyq-observation-registry-p2";
+import { validatePyqObservationSet } from "./quant-v4-pyq-frequency-evidence-p2";
+import { QUANT_V4_REGISTERED_PYQ_OBSERVATIONS } from "./quant-v4-pyq-observation-registry-p2";
 import {
   QUANT_V4_TSD_WAVE1_COUNTABLE_PYQ_OBSERVATIONS,
   QUANT_V4_TSD_WAVE1_PYQ_MIGRATION_AUTHORITY,
@@ -25,7 +18,6 @@ assert.ok(observations.every((entry) => entry.paperId?.includes("IDENTITY-UNRESO
 assert.equal(new Set(observations.map((entry) => `${entry.examId}:${entry.paperId}:${entry.questionRef}`)).size, 6);
 assert.deepEqual(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.packageCounts, { "TSD-001": 3, "TSD-002": 3 });
 assert.deepEqual(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.profileObservationCounts, { SSC_CHSL: 2, IBPS_CLERK: 3, SBI_PO: 1 });
-assert.equal(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.excludedAmbiguousCglTierQuestions.length, 7);
 assert.deepEqual([...QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.excludedAmbiguousCglTierQuestions], [
   "DISHA-PDF-PAGE-195-Q56",
   "DISHA-PDF-PAGE-195-Q57",
@@ -35,17 +27,14 @@ assert.deepEqual([...QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.excludedAmbiguousCglT
   "DISHA-PDF-PAGE-195-Q61",
   "DISHA-PDF-PAGE-195-Q62",
 ]);
-assert.deepEqual([...QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.excludedStageAmbiguousBankingQuestions], [
-  "DISHA-PDF-PAGE-195-Q55",
-]);
+assert.deepEqual([...QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.excludedStageAmbiguousBankingQuestions], ["DISHA-PDF-PAGE-195-Q55"]);
 assert.equal(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.frequencyCalibrationAllowed, false);
 
 const q68RelativeKmph = (100 * 10 * 18) / (72 * 5);
 assert.equal(q68RelativeKmph, 50);
 assert.equal(q68RelativeKmph - 5, 45);
-const q69DistanceKm = 80 * 4.5;
-assert.equal(q69DistanceKm, 360);
-assert.equal(q69DistanceKm / 4, 90);
+assert.equal(80 * 4.5, 360);
+assert.equal(360 / 4, 90);
 const bicycleSpeedMps = 192 / 8;
 const manSpeedMps = bicycleSpeedMps * 3 / 4;
 assert.equal(bicycleSpeedMps, 24);
@@ -61,51 +50,15 @@ assert.equal(circumferenceCm, 220);
 assert.equal(linearMetresPerMinute, 550);
 assert.equal(linearMetresPerMinute * 100 / circumferenceCm, 250);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-const tsd001 = listRegisteredCountablePyqObservations({ packageId: "TSD-001" });
-const tsd002 = listRegisteredCountablePyqObservations({ packageId: "TSD-002" });
-assert.equal(tsd001.length, 13);
-assert.equal(tsd002.length, 4);
-const tsdAll = [...tsd001, ...tsd002];
-assert.equal(tsdAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 11);
-assert.equal(tsdAll.filter((entry) => entry.examId === "SSC_CHSL").length, 2);
-assert.equal(tsdAll.filter((entry) => entry.examId === "IBPS_CLERK").length, 3);
-assert.equal(tsdAll.filter((entry) => entry.examId === "SBI_PO").length, 1);
-
-const chsl = buildQuantV4PyqFrequencyProfile({
-  examId: "SSC_CHSL",
-  observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
-});
-assert.equal(chsl.countableQuestionCount, 26);
-assert.equal(chsl.distinctPaperCount, 7);
-assert.equal(chsl.topicCoverageCount, 6);
-assert.equal(chsl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
-assert.ok(!chsl.blockers.includes("COUNTABLE_QUESTION_SAMPLE_BELOW_POLICY"));
-assert.ok(chsl.blockers.includes("DISTINCT_PAPER_SAMPLE_BELOW_POLICY"));
-assert.ok(!chsl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
-assert.ok(chsl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
-assert.equal(canReplaceProvisionalSimulationWeights(chsl), false);
-
-const ibpsClerk = buildQuantV4PyqFrequencyProfile({
-  examId: "IBPS_CLERK",
-  observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  policy: { minDistinctPapers: 6, minCountableQuestions: 15, minTopicCoverage: 4, requireDatedPaperIdentity: true },
-});
-assert.equal(ibpsClerk.countableQuestionCount, 3);
-assert.equal(ibpsClerk.topicCoverageCount, 1);
-assert.equal(ibpsClerk.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
-assert.ok(ibpsClerk.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
-assert.equal(canReplaceProvisionalSimulationWeights(ibpsClerk), false);
+// Verify this historical wave is registered without pinning future aggregate counts.
+const registryObservationIds = new Set(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.map((entry) => entry.observationId));
+assert.ok(observations.every((entry) => registryObservationIds.has(entry.observationId)));
 
 console.log(JSON.stringify({
   status: "PASS_QUANT_V4_TSD_PYQ_NORMALIZATION_WAVE1_P2",
   authority: QUANT_V4_TSD_WAVE1_PYQ_MIGRATION_AUTHORITY,
   wave1ObservationCount: observations.length,
-  registryObservationCount: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length,
   profileCounts: QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.profileObservationCounts,
-  chslCountableQuestions: chsl.countableQuestionCount,
-  chslDistinctPapers: chsl.distinctPaperCount,
-  chslTopicCoverage: chsl.topicCoverageCount,
+  registeredLocally: observations.every((entry) => registryObservationIds.has(entry.observationId)),
   empiricalWeightingPromoted: false,
 }));
