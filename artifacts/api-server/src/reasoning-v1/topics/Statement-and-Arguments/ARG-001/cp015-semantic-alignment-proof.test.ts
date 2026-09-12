@@ -39,6 +39,7 @@ let hindiQueueSufficiencyChecked = 0;
 let punjabiContactSufficiencyChecked = 0;
 let punjabiApprovalSurfaceChecked = 0;
 let punjabiApprovalAnecdoteChecked = 0;
+let englishNewDeviceReviewChecked = 0;
 
 for (const language of ["hi", "pa"] as const) {
   for (const cell of cells) {
@@ -122,10 +123,37 @@ for (const cell of cells) {
   }
 }
 
+// Reproduce the exact English QL006 SSC/Easy review cell that exposed a defect
+// missed by the broad grammar sweep. Both the learner-facing capitalization and
+// the explanation must stay contextual after future anti-gaming rewrites.
+{
+  const batch = generateArgCp015QuestionStudioBatch({
+    profileMode: "real-paper",
+    examProfile: "SSC_RECENT_2X4",
+    qlId: "ARG-QL-006",
+    language: "en",
+    difficulty: "Easy",
+    seed: "ARG-CP015-HUMAN-REVIEW:en:ARG-QL-006:SSC_RECENT_2X4:Easy:3:0",
+    count: 1,
+  });
+  const question = batch.questions[0] as Question;
+  const args = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
+  const explanation = String(question.explanation ?? "");
+  const target = args.find((argument) => /payments from a newly added device/i.test(argument) && /most instances/i.test(argument));
+  assert.ok(target, `${question.questionId}: English certified review seed no longer exercises newly-added-device fraud overclaim`);
+  englishNewDeviceReviewChecked += 1;
+  assert.doesNotMatch(target!, /\bYes\.\s+most instances\b/, `${question.questionId}: lowercase sentence start leaked after Yes.`);
+  assert.match(target!, /\bYes\.\s+Most instances\b/, `${question.questionId}: newly-added-device review argument must use normal sentence capitalization`);
+  assert.doesNotMatch(explanation, /does not provide enough support for that conclusion/i, `${question.questionId}: newly-added-device fraud overclaim fell through to generic explanation`);
+  assert.match(explanation, /newly added device/i, `${question.questionId}: explanation must stay tied to the newly-added-device claim`);
+  assert.match(explanation, /(?:genuine|fraudulent|mandatory pre-authorisation)/i, `${question.questionId}: explanation must state why the fraud generalisation is unsupported`);
+}
+
 assert.ok(hindiQueueSufficiencyChecked > 0, "semantic proof did not exercise any Hindi queue-sufficiency weak argument");
 assert.ok(punjabiContactSufficiencyChecked > 0, "semantic proof did not exercise any Punjabi contact-sufficiency weak argument");
 assert.ok(punjabiApprovalSurfaceChecked > 0, "semantic proof did not exercise any Punjabi in-app approval surface");
 assert.ok(punjabiApprovalAnecdoteChecked > 0, "semantic proof did not exercise any Punjabi failed-approval anecdote");
+assert.equal(englishNewDeviceReviewChecked, 1, "semantic proof must exercise the certified English newly-added-device review item");
 
 console.log(JSON.stringify({
   status: "PASS_ARG_CP015_SEMANTIC_ALIGNMENT",
@@ -133,4 +161,5 @@ console.log(JSON.stringify({
   punjabiContactSufficiencyChecked,
   punjabiApprovalSurfaceChecked,
   punjabiApprovalAnecdoteChecked,
+  englishNewDeviceReviewChecked,
 }, null, 2));
