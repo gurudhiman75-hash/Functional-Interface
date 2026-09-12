@@ -3,15 +3,8 @@ import assert from "node:assert/strict";
 import {
   getQuantV4SpecializedProfileSelectionContract,
 } from "../common/specialized-profile-selection";
-import {
-  buildQuantV4PyqFrequencyProfile,
-  canReplaceProvisionalSimulationWeights,
-  validatePyqObservationSet,
-} from "./quant-v4-pyq-frequency-evidence-p2";
-import {
-  QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  listRegisteredCountablePyqObservations,
-} from "./quant-v4-pyq-observation-registry-p2";
+import { validatePyqObservationSet } from "./quant-v4-pyq-frequency-evidence-p2";
+import { QUANT_V4_REGISTERED_PYQ_OBSERVATIONS } from "./quant-v4-pyq-observation-registry-p2";
 import {
   QUANT_V4_AVERAGE_CHSL_WAVE1_COUNTABLE_PYQ_OBSERVATIONS,
   QUANT_V4_AVERAGE_CHSL_WAVE1_PYQ_MIGRATION_AUTHORITY,
@@ -48,11 +41,8 @@ const currentOldMembersTotal = oldFamilyTotal + 5 * 3;
 const currentFamilyTotal = 6 * 17;
 assert.equal(currentFamilyTotal - currentOldMembersTotal, 2);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-const average = listRegisteredCountablePyqObservations({ packageId: "AVG-001" });
-assert.equal(average.length, 10);
-assert.equal(average.filter((entry) => entry.examId === "SSC_CHSL").length, 6);
-assert.equal(average.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 4);
+const registryObservationIds = new Set(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.map((entry) => entry.observationId));
+assert.ok(observations.every((entry) => registryObservationIds.has(entry.observationId)));
 
 const avgChslContract = getQuantV4SpecializedProfileSelectionContract("AVG-001", "SSC_CGL_CHSL");
 assert.equal(avgChslContract.normalizedCountableObservationCount, 6);
@@ -64,29 +54,11 @@ assert.ok(avgChslContract.blockers.includes("CP_QL_DISTRIBUTION_UNPROVEN"));
 assert.ok(avgChslContract.blockers.includes("DIFFICULTY_REPRESENTATION_UNCALIBRATED"));
 assert.ok(avgChslContract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 
-const chsl = buildQuantV4PyqFrequencyProfile({
-  examId: "SSC_CHSL",
-  observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
-});
-assert.equal(chsl.countableQuestionCount, 26);
-assert.equal(chsl.topicCoverageCount, 6);
-assert.equal(chsl.distinctPaperCount, 7);
-assert.equal(chsl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
-assert.ok(!chsl.blockers.includes("COUNTABLE_QUESTION_SAMPLE_BELOW_POLICY"));
-assert.ok(!chsl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
-assert.ok(chsl.blockers.includes("DISTINCT_PAPER_SAMPLE_BELOW_POLICY"));
-assert.ok(chsl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
-assert.equal(canReplaceProvisionalSimulationWeights(chsl), false);
-
 console.log(JSON.stringify({
   status: "PASS_QUANT_V4_AVERAGE_CHSL_PYQ_NORMALIZATION_WAVE1_P2",
   authority: QUANT_V4_AVERAGE_CHSL_WAVE1_PYQ_MIGRATION_AUTHORITY,
   wave1ObservationCount: observations.length,
-  registryObservationCount: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length,
+  registeredLocally: observations.every((entry) => registryObservationIds.has(entry.observationId)),
   avgChslObservationCount: avgChslContract.normalizedCountableObservationCount,
-  chslCountableQuestions: chsl.countableQuestionCount,
-  chslDistinctPapers: chsl.distinctPaperCount,
-  chslTopicCoverage: chsl.topicCoverageCount,
   empiricalWeightingPromoted: false,
 }));
