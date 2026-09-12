@@ -63,13 +63,13 @@ assert.equal(1 * 1 - 11 * 1 + 10, 0);
 assert.equal(10 * 10 - 11 * 10 + 10, 0);
 
 assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 24);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 27);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 11);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 9);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 22);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 23);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 18);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 11);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 22);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 12);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 9);
 
 const avgCgl = getQuantV4SpecializedProfileSelectionContract("AVG-001", "SSC_CGL_TIER_I");
