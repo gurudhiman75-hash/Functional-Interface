@@ -1,0 +1,51 @@
+import { LP_001_010_PERMANENT_QL_REGISTRY_V1 } from "./lp-001-010-permanent-ql-registry-v1.ts";
+
+export const LP_001_010_CHAPTER_CLOSURE_AUDIT_V1 = Object.freeze({
+  authorityId: "LP_001_010_CHAPTER_CLOSURE_AUDIT_V1" as const,
+  status: "SOURCE_SATURATION_REVIEW_CANDIDATE" as const,
+  chapterCode: "REAS-PUZ" as const,
+  coveredPackages: Object.freeze([
+    "LP-001", "LP-002", "LP-003", "LP-004", "LP-005",
+    "LP-006", "LP-007", "LP-008", "LP-009", "LP-010",
+  ] as const),
+  permanentQlRange: LP_001_010_PERMANENT_QL_REGISTRY_V1.allocatedRange,
+  permanentQlCount: LP_001_010_PERMANENT_QL_REGISTRY_V1.permanentQlCount,
+  nextAvailableQlId: LP_001_010_PERMANENT_QL_REGISTRY_V1.nextAvailableQlId,
+  nextQlAllocated: false as const,
+  saturationDecision: "CLOSE_V1_UNLESS_NEW_SOURCE_BACKED_TOPOLOGY_APPEARS" as const,
+  sourceTaxonomyCoverage: Object.freeze({
+    BOX_STACK: "LP-003",
+    DAY_SCHEDULING: "LP-002/LP-006/LP-010",
+    MONTH_SCHEDULING: "LP-009",
+    YEAR_SCHEDULING: "LP-009",
+    MONTH_DATE_SCHEDULING: "LP-008",
+    DAY_TIME_SCHEDULING: "LP-010",
+    VARIABLE_VALUE: "LP-007",
+    ASSIGNMENT_GROUPING: "LP-001",
+    MULTI_ATTRIBUTE_ASSIGNMENT: "LP-002",
+    SELECTION_COMMITTEE: "LP-004",
+    DUTY_LOCATION_GRID: "LP-005",
+    DAY_STUDY_AREA_CITY_GRID: "LP-006",
+  }),
+  excludedOwnership: Object.freeze({
+    FLOOR_FLAT: "REAS-FLR",
+    LINEAR_SEATING: "REAS-LAR",
+    CIRCULAR_SEATING: "REAS-CAR",
+    SQUARE_RECTANGULAR_SEATING: "REAS-SQR",
+    BLOOD_RELATIONS: "REAS-BLR",
+    INPUT_OUTPUT: "REAS-INP",
+    GAMES_TOURNAMENT: "REAS-GAM",
+  }),
+  reopenRequirements: Object.freeze([
+    "RECURRING_TARGET_EXAM_OR_REVIEWED_SOURCE_EVIDENCE",
+    "MATERIALLY_NEW_CONSTRAINT_TOPOLOGY",
+    "OWNERSHIP_PROOF_FOR_REAS_PUZ",
+    "NOT_EXPRESSIBLE_AS_EXISTING_PACKAGE_VARIATION",
+  ] as const),
+  invariants: Object.freeze({
+    noCosmeticQlAllocation: true,
+    noCrossChapterOwnershipLeakage: true,
+    lpQl041RemainsUnallocated: true,
+    currentPermanentRegistryUnchanged: true,
+  }),
+});
