@@ -1,10 +1,10 @@
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { CAE_001_MANIFEST } from "./chapter-manifest.ts";
-import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES } from "./causal-world-authorities.ts";
+import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES } from "./causal-world-authorities.ts";
 import type { CaeLocale, CaeQlId, CaeQuestionProfile } from "./types.ts";
 
 export const CAE_001_QUESTION_STUDIO_PACKAGE_ID = "CAE-001-V1-REVIEW" as const;
-export const CAE_001_QUESTION_STUDIO_REVIEW_AUTHORITY = "CAE-001-CAUSAL-GRAPH-REVIEW-V1" as const;
+export const CAE_001_QUESTION_STUDIO_REVIEW_AUTHORITY = "CAE-001-CAUSAL-GRAPH-REVIEW-V3" as const;
 
 export type PreviewCae001QuestionStudioInput = Readonly<{
   qlId: CaeQlId;
@@ -18,13 +18,15 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   chapterId: "CAE-001" as const,
   subjectCode: "REAS-CAE" as const,
   title: "Cause & Effect" as const,
-  version: "V1" as const,
+  version: "V3" as const,
   integrationAuthority: CAE_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
-  reviewStatus: "REVIEW_ONLY_CAUSAL_WORLD_V2_PROOF_GREEN" as const,
-  permanentQlCount: CAE_001_MANIFEST.qlIds.length,
-  permanentQlIds: CAE_001_MANIFEST.qlIds,
-  causalWorldCount: CAE_001_CAUSAL_WORLDS.length,
-  projectionAuthorityCount: CAE_001_PROJECTION_AUTHORITIES.length,
+  reviewStatus: "REVIEW_ONLY_GENERATIVE_CAUSAL_STATE_V3_ARCHITECTURE_CHECKPOINT" as const,
+  qlAllocationStatus: CAE_001_MANIFEST.qlDiscovery.status,
+  provisionalQlCount: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds.length,
+  provisionalQlIds: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds,
+  scenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length,
+  canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length,
+  generationPlanCount: CAE_001_PROJECTION_AUTHORITIES.length,
   locales: CAE_001_MANIFEST.locales,
   enabled: true as const,
   questionStudioVisible: true as const,

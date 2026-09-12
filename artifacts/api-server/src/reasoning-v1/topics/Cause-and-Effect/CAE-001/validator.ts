@@ -1,8 +1,8 @@
-import { causalPath, hasCommonCause, hasDirectEdge, nodeById, solveCaeRelationship, validateCaeCausalWorld } from "./causal-solver.ts";
-import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES } from "./causal-world-authorities.ts";
-import type { CaeCausalWorld, CaeProjectionAuthority, CaeQlId } from "./types.ts";
+import { causalPath, nodeById, validateCaeCausalWorld } from "./causal-solver.ts";
+import { CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES, materializeCae001World } from "./causal-world-authorities.ts";
+import type { CaeProjectionAuthority, CaeQuestionProfile, CaeScenarioFamilyAuthority } from "./types.ts";
 
-const EXPECTED_OWNERSHIP: Readonly<Record<CaeQlId, readonly [CaeProjectionAuthority["checkpointId"], CaeProjectionAuthority["kind"]]>> = {
+const CURRENT_DISCOVERY_MAP = {
   "CAE-QL-001": ["CAE-CP-001", "DIRECT_RELATIONSHIP"],
   "CAE-QL-002": ["CAE-CP-002", "COMMON_OR_INDEPENDENT"],
   "CAE-QL-003": ["CAE-CP-003", "PROBABLE_CAUSE"],
@@ -12,127 +12,94 @@ const EXPECTED_OWNERSHIP: Readonly<Record<CaeQlId, readonly [CaeProjectionAuthor
   "CAE-QL-007": ["CAE-CP-007", "CORRELATION_CHECK"],
   "CAE-QL-008": ["CAE-CP-008", "MULTI_EVENT_SEQUENCE"],
   "CAE-QL-009": ["CAE-CP-009", "MISSING_CAUSAL_LINK"],
-};
+} as const satisfies Readonly<Record<CaeProjectionAuthority["qlId"], readonly [CaeProjectionAuthority["checkpointId"], CaeProjectionAuthority["kind"]]>>;
 
-function worldFor(worlds: readonly CaeCausalWorld[], id: string): CaeCausalWorld | undefined {
-  return worlds.find((world) => world.id === id);
-}
-
-function globalNodeExists(worlds: readonly CaeCausalWorld[], nodeId: string): boolean {
-  return worlds.some((world) => world.nodes.some((node) => node.id === nodeId));
-}
-
-function belongsToWorld(world: CaeCausalWorld, nodeId: string): boolean {
-  return world.nodes.some((node) => node.id === nodeId);
-}
-
-function validateCandidateProjection(projection: CaeProjectionAuthority, world: CaeCausalWorld, issues: string[]) {
-  if (!projection.targetNodeId || !projection.correctNodeId || !projection.candidateNodeIds) {
-    issues.push(`${projection.id}: target, correct candidate, and candidates are required.`);
-    return;
-  }
-  if (!projection.candidateNodeIds.includes(projection.correctNodeId)) issues.push(`${projection.id}: correct candidate is not displayed.`);
-  const wrongCandidates = projection.candidateNodeIds.filter((candidate) => candidate !== projection.correctNodeId);
-  if (projection.kind === "PROBABLE_CAUSE" || projection.kind === "COMPETING_EXPLANATION") {
-    const correctPath = causalPath(world, projection.correctNodeId, projection.targetNodeId);
-    if (!correctPath || correctPath.length < 2) issues.push(`${projection.id}: declared cause does not reach the observed event.`);
-    for (const candidate of wrongCandidates.filter((id) => belongsToWorld(world, id))) {
-      if (causalPath(world, candidate, projection.targetNodeId)) issues.push(`${projection.id}: '${candidate}' is also a graph-supported cause, creating ambiguity.`);
+function validateFamily(family: CaeScenarioFamilyAuthority, issues: string[]) {
+  if (family.variants.length < 3) issues.push(`${family.id}: fewer than three composable scenario variants are available.`);
+  for (const variant of family.variants) {
+    const slots = new Set<string>();
+    for (const node of variant.nodes) {
+      if (slots.has(node.semanticSlot)) issues.push(`${family.id}/${variant.id}: duplicate semantic slot '${node.semanticSlot}'.`);
+      slots.add(node.semanticSlot);
+      if (!node.text["en-IN"].trim() || !node.text["hi-IN"].trim() || !node.text["pa-IN"].trim()) issues.push(`${family.id}/${variant.id}/${node.semanticSlot}: incomplete locale text.`);
+      for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
+        if (variant.backdrop[locale].includes(node.text[locale])) issues.push(`${family.id}/${variant.id}/${locale}: canonical event leaks into neutral backdrop.`);
+      }
     }
-  }
-  if (projection.kind === "PROBABLE_EFFECT") {
-    const correctPath = causalPath(world, projection.targetNodeId, projection.correctNodeId);
-    if (!correctPath || correctPath.length !== 2) issues.push(`${projection.id}: declared immediate effect is not a direct graph effect.`);
-    for (const candidate of wrongCandidates.filter((id) => belongsToWorld(world, id))) {
-      if (hasDirectEdge(world, projection.targetNodeId, candidate)) issues.push(`${projection.id}: '${candidate}' is another direct effect, creating ambiguity.`);
+    if (variant.competingCandidates.length < 3) issues.push(`${family.id}/${variant.id}: fewer than three scenario-local distractors.`);
+    const candidateText = new Set<string>();
+    for (const candidate of variant.competingCandidates) {
+      for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
+        const key = `${locale}:${candidate.text[locale]}`;
+        if (candidateText.has(key)) issues.push(`${family.id}/${variant.id}: duplicate distractor text in ${locale}.`);
+        candidateText.add(key);
+        if (!candidate.text[locale].trim()) issues.push(`${family.id}/${variant.id}/${candidate.id}: incomplete candidate locale text.`);
+      }
+      if (candidate.timingFit === "ALIGNED" && candidate.scopeFit === "ALIGNED" && candidate.magnitudeFit === "ALIGNED" && candidate.causalDistance !== null) {
+        issues.push(`${family.id}/${variant.id}/${candidate.id}: distractor is plausibly indistinguishable from the graph-supported answer.`);
+      }
     }
+    for (const edge of variant.edgeBindings) {
+      if (!slots.has(edge.from) || !slots.has(edge.to)) issues.push(`${family.id}/${variant.id}: edge '${edge.from}->${edge.to}' has an unknown semantic slot.`);
+    }
+    issues.push(...validateCaeCausalWorld(materializeCae001World(family, variant)));
   }
 }
 
-export function validateCaeEngineAuthorities(
-  worlds: readonly CaeCausalWorld[] = CAE_001_CAUSAL_WORLDS,
-  projections: readonly CaeProjectionAuthority[] = CAE_001_PROJECTION_AUTHORITIES,
-): readonly string[] {
-  const issues: string[] = [];
-  const worldIds = new Set<string>();
-  const globalNodeIds = new Set<string>();
-  for (const world of worlds) {
-    if (worldIds.has(world.id)) issues.push(`${world.id}: duplicate causal world id.`);
-    worldIds.add(world.id);
-    for (const node of world.nodes) {
-      if (globalNodeIds.has(node.id)) issues.push(`${world.id}/${node.id}: node ids must be globally unique.`);
-      globalNodeIds.add(node.id);
-    }
-    issues.push(...validateCaeCausalWorld(world));
-  }
-
-  const projectionIds = new Set<string>();
-  const coveredQls = new Set<CaeQlId>();
-  for (const projection of projections) {
-    if (projectionIds.has(projection.id)) issues.push(`${projection.id}: duplicate projection id.`);
-    projectionIds.add(projection.id);
-    coveredQls.add(projection.qlId);
-    const world = worldFor(worlds, projection.worldId);
-    if (!world) {
-      issues.push(`${projection.id}: unknown causal world '${projection.worldId}'.`);
+function validatePlan(plan: CaeProjectionAuthority, issues: string[]) {
+  const expected = CURRENT_DISCOVERY_MAP[plan.qlId];
+  if (plan.checkpointId !== expected[0] || plan.kind !== expected[1]) issues.push(`${plan.id}: current discovery allocation does not match its checkpoint owner.`);
+  if (plan.qlAllocationStatus !== "PROVISIONAL_PENDING_SOURCE_SATURATION") issues.push(`${plan.id}: QL allocation must remain provisional until source saturation.`);
+  if (plan.compatibleFamilyIds.length < 2) issues.push(`${plan.id}: fewer than two scenario families makes the plan too narrow.`);
+  for (const familyId of plan.compatibleFamilyIds) {
+    const family = CAE_001_SCENARIO_FAMILIES.find((entry) => entry.id === familyId);
+    if (!family) {
+      issues.push(`${plan.id}: unknown compatible family '${familyId}'.`);
       continue;
     }
-    const [checkpointId, kind] = EXPECTED_OWNERSHIP[projection.qlId];
-    if (projection.checkpointId !== checkpointId || projection.kind !== kind) issues.push(`${projection.id}: QL ownership mismatch.`);
-    for (const nodeId of projection.displayedNodeIds) {
-      if (!belongsToWorld(world, nodeId)) issues.push(`${projection.id}: displayed node '${nodeId}' is absent from its world.`);
-    }
-    for (const nodeId of projection.candidateNodeIds ?? []) {
-      if (!globalNodeExists(worlds, nodeId)) issues.push(`${projection.id}: candidate node '${nodeId}' is unknown.`);
-    }
-
-    if (projection.kind === "DIRECT_RELATIONSHIP" || projection.kind === "COMMON_OR_INDEPENDENT") {
-      if (projection.displayedNodeIds.length !== 2 || !projection.expectedRelationship) {
-        issues.push(`${projection.id}: relationship projection needs two events and an expected relationship.`);
-      } else {
-        const solved = solveCaeRelationship(world, projection.displayedNodeIds[0]!, projection.displayedNodeIds[1]!);
-        if (solved !== projection.expectedRelationship) issues.push(`${projection.id}: solver returned ${solved}, expected ${projection.expectedRelationship}.`);
-        if (projection.kind === "DIRECT_RELATIONSHIP" && solved !== "FIRST_DIRECT_CAUSES_SECOND" && solved !== "SECOND_DIRECT_CAUSES_FIRST") issues.push(`${projection.id}: direct checkpoint contains a non-direct relationship.`);
-        if (projection.kind === "COMMON_OR_INDEPENDENT" && !["COMMON_CAUSE", "INDEPENDENT_CAUSES", "INDEPENDENT_EFFECTS"].includes(solved)) issues.push(`${projection.id}: CP-002 contains the wrong relationship family.`);
-      }
-    }
-
-    if (["PROBABLE_CAUSE", "PROBABLE_EFFECT", "COMPETING_EXPLANATION"].includes(projection.kind)) {
-      validateCandidateProjection(projection, world, issues);
-    }
-
-    if (projection.kind === "INDIRECT_CAUSAL_CHAIN") {
-      const path = causalPath(world, projection.displayedNodeIds[0]!, projection.displayedNodeIds[1]!);
-      if (!path || path.length < 3) issues.push(`${projection.id}: indirect-cause projection lacks a hidden causal bridge.`);
-      if (projection.expectedRelationship !== solveCaeRelationship(world, projection.displayedNodeIds[0]!, projection.displayedNodeIds[1]!)) issues.push(`${projection.id}: indirect relationship disagrees with solver.`);
-    }
-
-    if (projection.kind === "CORRELATION_CHECK") {
-      const [first, second] = projection.displayedNodeIds;
-      if (!first || !second || causalPath(world, first, second) || causalPath(world, second, first) || hasCommonCause(world, first, second)) {
-        issues.push(`${projection.id}: correlation pair must have no causal path or common cause.`);
-      }
-    }
-
-    if (projection.kind === "MULTI_EVENT_SEQUENCE") {
-      const sequence = projection.sequenceNodeIds ?? [];
-      if (sequence.length < 3 || sequence.some((nodeId, index) => index > 0 && !hasDirectEdge(world, sequence[index - 1]!, nodeId))) {
-        issues.push(`${projection.id}: declared causal sequence is not a chain of direct edges.`);
-      }
-    }
-
-    if (projection.kind === "MISSING_CAUSAL_LINK") {
-      const source = projection.displayedNodeIds[0];
-      const middle = projection.missingLinkNodeId;
-      const target = projection.targetNodeId;
-      if (!source || !middle || !target || !hasDirectEdge(world, source, middle) || !hasDirectEdge(world, middle, target)) {
-        issues.push(`${projection.id}: missing-link projection must contain an unambiguous two-edge bridge.`);
-      }
-    }
+    const allowedKinds = family.allowedProjectionKinds as readonly CaeProjectionAuthority["kind"][];
+    const allowedProfiles = family.allowedQuestionProfiles as readonly CaeQuestionProfile[];
+    if (!allowedKinds.includes(plan.kind)) issues.push(`${plan.id}: ${family.id} does not allow ${plan.kind}.`);
+    if (!plan.examProfiles.every((profile) => allowedProfiles.includes(profile))) issues.push(`${plan.id}: ${family.id} does not allow all declared exam profiles.`);
   }
+}
 
-  for (const qlId of Object.keys(EXPECTED_OWNERSHIP) as CaeQlId[]) {
-    if (!coveredQls.has(qlId)) issues.push(`${qlId}: no projection authority is available.`);
+/** Validates authority data without treating it as a frozen question corpus. */
+export function validateCaeEngineAuthorities(
+  families: readonly CaeScenarioFamilyAuthority[] = CAE_001_SCENARIO_FAMILIES,
+  plans: readonly CaeProjectionAuthority[] = CAE_001_PROJECTION_AUTHORITIES,
+): readonly string[] {
+  const issues: string[] = [];
+  const familyIds = new Set<string>();
+  for (const family of families) {
+    if (familyIds.has(family.id)) issues.push(`${family.id}: duplicate scenario-family id.`);
+    familyIds.add(family.id);
+    validateFamily(family, issues);
+  }
+  const planIds = new Set<string>();
+  const qlIds = new Set<string>();
+  for (const plan of plans) {
+    if (planIds.has(plan.id)) issues.push(`${plan.id}: duplicate generation-plan id.`);
+    if (qlIds.has(plan.qlId)) issues.push(`${plan.qlId}: duplicate current discovery plan.`);
+    planIds.add(plan.id);
+    qlIds.add(plan.qlId);
+    validatePlan(plan, issues);
+  }
+  for (const qlId of Object.keys(CURRENT_DISCOVERY_MAP)) if (!qlIds.has(qlId)) issues.push(`${qlId}: no current discovery plan.`);
+  return issues;
+}
+
+/** A second guard for any generated state used in review, including hidden-link and common-cause overlap. */
+export function validateGeneratedCaeStructure(world: ReturnType<typeof materializeCae001World>, visibleNodeIds: readonly string[]): readonly string[] {
+  const issues: string[] = [];
+  for (const visibleNodeId of visibleNodeIds) {
+    try { nodeById(world, visibleNodeId); } catch (error) { issues.push(error instanceof Error ? error.message : String(error)); }
+  }
+  if (visibleNodeIds.length === 2) {
+    const [first, second] = visibleNodeIds;
+    const forward = causalPath(world, first!, second!);
+    const reverse = causalPath(world, second!, first!);
+    if (forward && reverse) issues.push(`${world.id}: learner-visible pair participates in a causal cycle.`);
   }
   return issues;
 }
