@@ -18,21 +18,10 @@ jobs:
         with:
           ref: feature/arg-001-cp012-editorial-remediation
           fetch-depth: 0
-      - name: Repair due-process explanation alignment and add guard
+      - name: Add permanent stale-explanation guard
         run: |
           python - <<'PY'
           from pathlib import Path
-
-          repair_path = Path('scripts/arg-cp015-final-editorial-integration-repair.py')
-          text = repair_path.read_text(encoding='utf-8')
-          tuple_anchor = '''    ('.replace(/\\bcitizens reaching near closing time\\b/gi, "citizens arriving near closing time")', 'closing-time arrival wording'),\n'''
-          tuple_addition = '''    ('.replace(/\\bBefore [^.]+? imposes an irreversible penalty after [^.]+?, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed\\./gi, "A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation.")', 'due-process explanation alignment'),\n'''
-          if 'due-process explanation alignment' not in text:
-              if text.count(tuple_anchor) != 1:
-                  raise SystemExit(f'expected one closing-time repair tuple, found {text.count(tuple_anchor)}')
-              text = text.replace(tuple_anchor, tuple_anchor + tuple_addition, 1)
-              repair_path.write_text(text, encoding='utf-8')
-
           proof_path = Path('artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts')
           proof = proof_path.read_text(encoding='utf-8')
           anchor = '    /\\bcitizens reaching near closing time\\b/i,\n'
@@ -43,11 +32,11 @@ jobs:
               proof = proof.replace(anchor, anchor + guard, 1)
               proof_path.write_text(proof, encoding='utf-8')
           PY
-      - name: Commit explanation alignment repair
+      - name: Commit explanation alignment proof guard
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add scripts/arg-cp015-final-editorial-integration-repair.py artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts
+          git add artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts
           git diff --cached --quiet && exit 0
-          git commit -m "fix(arg-cp015): align due-process explanations to arguments"
+          git commit -m "test(arg-cp015): reject stale due-process explanation"
           git push origin HEAD:feature/arg-001-cp012-editorial-remediation
