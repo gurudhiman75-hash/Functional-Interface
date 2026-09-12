@@ -1,0 +1,47 @@
+name: ARG-001 final chapter audit
+
+on:
+  push:
+    branches:
+      - audit/arg-001-final-chapter-audit
+    paths:
+      - .github/workflows/arg-001-final-chapter-audit.yml
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/**
+      - artifacts/api-server/src/routes/admin-question-studio-arguments-cp015.ts
+      - artifacts/api-server/src/routes/admin-question-studio-registry.ts
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/arg-001-final-chapter-audit
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Structural chapter contract
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/arg-001-final-chapter-structural-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/arg-001-final-chapter-structural-audit.mjs
+          node dist/arg-001-final-chapter-structural-audit.mjs
+      - name: Current CP015 learner quality gates
+        working-directory: artifacts/api-server
+        run: |
+          for file in cp015-anti-gaming-grammar-proof.test.ts cp015-semantic-alignment-proof.test.ts cp015-punjabi-naturalness-proof.test.ts cp015-hindi-naturalness-proof.test.ts cp015-perceived-diversity-proof.test.ts cp015-question-studio-registration-proof.test.ts; do
+            pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/$file --bundle --platform=node --format=esm --outfile=dist/${file%.ts}.mjs
+            node dist/${file%.ts}.mjs
+          done
+      - name: Preserve historical freezes and approvals
+        working-directory: artifacts/api-server
+        run: |
+          for file in cp006-byte-freeze-proof.test.ts cp008-byte-freeze-proof.test.ts cp013-final-editorial-surface-proof.test.ts cp014-manual-editorial-approval-proof.test.ts; do
+            pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/$file --bundle --platform=node --format=esm --outfile=dist/${file%.ts}.mjs
+            node dist/${file%.ts}.mjs
+          done
+      - name: Production builds
+        run: |
+          pnpm --dir artifacts/api-server build
+          pnpm --dir artifacts/admin-app build
