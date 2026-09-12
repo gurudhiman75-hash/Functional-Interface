@@ -22,6 +22,10 @@ function targetDifficulty(ql: number): KnowledgeV1Difficulty {
   return "Hard";
 }
 
+function withArticle(phrase: string) {
+  return `${/^[aeiou]/i.test(phrase) ? "an" : "a"} ${phrase}`;
+}
+
 function moveCorrect(options: string[], correct: string, target: number) {
   const current = options.indexOf(correct);
   if (current < 0) throw new Error(`Missing correct option ${correct}`);
@@ -55,25 +59,25 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): GeoPhy
     stem = `Which major physiographic division of India is described as ${row.primaryDescription}?`;
     correct = row.division;
     options = optionSet(rows.map((r) => r.division), `${qlId}:${row.id}`, correct, correctTarget);
-    explanation = `${row.division} is ${row.primaryDescription}.`;
+    explanation = `This description identifies ${row.division}.`;
   } else if (ql === 2) {
     stem = `Which of the following best describes ${row.division}?`;
     correct = row.primaryDescription;
     options = optionSet(rows.map((r) => r.primaryDescription), `${qlId}:${row.id}`, correct, correctTarget);
-    explanation = `${row.division} is described in NCERT as ${row.primaryDescription}.`;
+    explanation = `The correct description of ${row.division} is: ${row.primaryDescription}.`;
   } else if (ql === 3) {
     stem = "Which of the following pairs is correctly matched?";
     correct = pair(rowIndex);
     const wrong = rows.filter((_, i) => i !== rowIndex).map((r, i) => `${r.division} — ${rows[(rowIndex + i + 2) % rows.length].contrastDescription}`);
     options = optionSet([correct, ...wrong], `${qlId}:${row.id}`, correct, correctTarget);
-    explanation = `${row.division} is correctly associated with the description “${row.contrastDescription}”.`;
+    explanation = `${row.division} is correctly associated with “${row.contrastDescription}”.`;
   } else if (ql === 4) {
     stem = "Which of the following pairs is incorrectly matched?";
     const wrongDescription = rows[(rowIndex + 1) % rows.length].contrastDescription;
     correct = `${row.division} — ${wrongDescription}`;
     const truePairs = rows.filter((_, i) => i !== rowIndex).map((r) => `${r.division} — ${r.contrastDescription}`);
     options = optionSet([correct, ...truePairs], `${qlId}:${row.id}`, correct, correctTarget);
-    explanation = `${row.division} is not a ${wrongDescription}; it is a ${row.contrastDescription}.`;
+    explanation = `${row.division} is not ${withArticle(wrongDescription)}; it is ${withArticle(row.contrastDescription)}.`;
   } else if (ql === 5) {
     stem = `Which major physiographic division is broadly associated with ${row.broadLocation}?`;
     correct = row.division;
@@ -90,7 +94,7 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): GeoPhy
       `${row.division}: ${row.contrastDescription}; ${other.division}: ${rows[(rowIndex + 2) % rows.length].contrastDescription}`,
     ];
     options = moveCorrect(deterministicShuffle(candidates, `${qlId}:${row.id}`), correct, correctTarget);
-    explanation = `${row.division} is a ${row.contrastDescription}, while ${other.division} is a ${other.contrastDescription}.`;
+    explanation = `${row.division} is ${withArticle(row.contrastDescription)}, while ${other.division} is ${withArticle(other.contrastDescription)}.`;
     sourceIds.push(...other.sourceIds);
     sourceFactIds.push(...other.sourceFactIds);
   } else if (ql === 7) {
@@ -98,12 +102,12 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): GeoPhy
     const mode = rowIndex % 4;
     const s1True = mode === 0 || mode === 2;
     const s2True = mode === 0 || mode === 1;
-    const s1 = s1True ? `${row.division} is a ${row.contrastDescription}.` : `${row.division} is a ${second.contrastDescription}.`;
-    const s2 = s2True ? `${second.division} is a ${second.contrastDescription}.` : `${second.division} is a ${row.contrastDescription}.`;
+    const s1 = s1True ? `${row.division} is ${withArticle(row.contrastDescription)}.` : `${row.division} is ${withArticle(second.contrastDescription)}.`;
+    const s2 = s2True ? `${second.division} is ${withArticle(second.contrastDescription)}.` : `${second.division} is ${withArticle(row.contrastDescription)}.`;
     stem = `Consider the following statements:\nI. ${s1}\nII. ${s2}\nWhich of the statements given above is/are correct?`;
     correct = s1True && s2True ? "Both I and II" : s1True ? "I only" : s2True ? "II only" : "Neither I nor II";
     options = moveCorrect(["I only", "II only", "Both I and II", "Neither I nor II"], correct, correctTarget);
-    explanation = `${row.division} is a ${row.contrastDescription}; ${second.division} is a ${second.contrastDescription}.`;
+    explanation = `${row.division} is ${withArticle(row.contrastDescription)}; ${second.division} is ${withArticle(second.contrastDescription)}.`;
     sourceIds.push(...second.sourceIds);
     sourceFactIds.push(...second.sourceFactIds);
   } else if (ql === 8) {
@@ -111,8 +115,8 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): GeoPhy
     const third = rows[(rowIndex + 2) % rows.length];
     const falseAt = rowIndex % 4;
     const statements = [row, second, third].map((r, i) => {
-      if (falseAt < 3 && i === falseAt) return `${r.division} is a ${rows[(rowIndex + i + 3) % rows.length].contrastDescription}.`;
-      return `${r.division} is a ${r.contrastDescription}.`;
+      if (falseAt < 3 && i === falseAt) return `${r.division} is ${withArticle(rows[(rowIndex + i + 3) % rows.length].contrastDescription)}.`;
+      return `${r.division} is ${withArticle(r.contrastDescription)}.`;
     });
     const count = falseAt < 3 ? 2 : 3;
     stem = `Consider the following statements:\n1. ${statements[0]}\n2. ${statements[1]}\n3. ${statements[2]}\nHow many of the statements given above are correct?`;
