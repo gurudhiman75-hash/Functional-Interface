@@ -1,0 +1,243 @@
+name: Validate ARG-001 CP010 Remediated Question Studio
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp005-question-studio-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp010.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp010-question-studio.yml'
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp010.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp010-question-studio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp010-question-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp010-remediated-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP010 Question Studio adapter and route
+        id: strict_tsc
+        working-directory: artifacts/api-server
+        run: |
+          set +e
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-remediated-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-localized-remediated-templates-v2.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-localized-generator-v2.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-correlated-real-paper-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-question-studio-adapter.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-question-studio-proof.test.ts \
+            src/routes/admin-question-studio-arguments-cp010.ts \
+            src/routes/admin-question-studio-registry.ts \
+            > cp010-tsc.log 2>&1
+          status=$?
+          set -e
+          cat cp010-tsc.log
+
+          # The registry imports the whole Question Studio graph. Preserve the complete
+          # compiler output as evidence, but enforce this chapter gate only on ARG-001
+          # and the two routing files owned by this activation checkpoint. Unrelated
+          # pre-existing repository diagnostics remain visible in the full artifact.
+          grep -E '^src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/.*\): error TS[0-9]+:|^src/routes/admin-question-studio-(arguments-cp010|registry)\.ts.*\): error TS[0-9]+:' cp010-tsc.log > cp010-target-tsc.log || true
+          target_error_count=$(wc -l < cp010-target-tsc.log | tr -d ' ')
+          all_error_count=$(grep -cE 'error TS[0-9]+:' cp010-tsc.log || true)
+
+          {
+            echo '## ARG-001 CP010 strict TypeScript diagnostics'
+            echo
+            echo "Target-owned errors: ${target_error_count}"
+            echo "All transitive repository errors observed: ${all_error_count}"
+            echo "Raw compiler exit code: ${status}"
+            echo
+            if [[ "$target_error_count" -gt 0 ]]; then
+              echo '### Target-owned diagnostics'
+              echo '```text'
+              cat cp010-target-tsc.log
+              echo '```'
+            else
+              echo 'No ARG-001 / CP010 route / registry TypeScript errors were reported.'
+            fi
+            echo
+            echo 'The complete transitive compiler log is retained in the workflow artifact.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          diagnostic_count=0
+          while IFS= read -r line; do
+            if [[ "$line" =~ ^(.+)\(([0-9]+),([0-9]+)\):\ error\ (TS[0-9]+):\ (.*)$ ]]; then
+              file="${BASH_REMATCH[1]}"
+              line_number="${BASH_REMATCH[2]}"
+              column_number="${BASH_REMATCH[3]}"
+              code="${BASH_REMATCH[4]}"
+              message="${BASH_REMATCH[5]}"
+              message="${message//'%'/'%25'}"
+              message="${message//$'\r'/'%0D'}"
+              message="${message//$'\n'/'%0A'}"
+              echo "::error file=artifacts/api-server/${file},line=${line_number},col=${column_number},title=${code}::${message}"
+              diagnostic_count=$((diagnostic_count + 1))
+            fi
+          done < cp010-target-tsc.log
+
+          echo "Target TypeScript diagnostics annotated: ${diagnostic_count}"
+          echo "raw_exit_code=$status" >> "$GITHUB_OUTPUT"
+          echo "target_error_count=$target_error_count" >> "$GITHUB_OUTPUT"
+          echo "all_error_count=$all_error_count" >> "$GITHUB_OUTPUT"
+
+      - name: Upload strict TypeScript diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arg-001-cp010-tsc-diagnostics
+          path: |
+            artifacts/api-server/cp010-tsc.log
+            artifacts/api-server/cp010-target-tsc.log
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce strict TypeScript gate
+        if: steps.strict_tsc.outputs.target_error_count != '0'
+        run: exit 1
+
+      - name: Preserve exhaustive CP009 English remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-remediation-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp009-english-proof.mjs
+          node dist/arg-001-cp009-english-proof.mjs
+
+      - name: Preserve exhaustive CP009 trilingual remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-trilingual-remediation-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp009-trilingual-proof.mjs
+          node dist/arg-001-cp009-trilingual-proof.mjs
+
+      - name: Preserve CP010 correlated real-paper remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-correlated-real-paper-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp010-correlated-proof.mjs
+          node dist/arg-001-cp010-correlated-proof.mjs
+
+      - name: Capture current Question Studio routing and lifecycle proof
+        id: question_studio_proof
+        working-directory: artifacts/api-server
+        run: |
+          set +e
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-question-studio-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp010-question-studio-proof.mjs \
+            > cp010-question-studio-proof.log 2>&1
+          build_status=$?
+
+          if [[ "$build_status" -eq 0 ]]; then
+            node dist/arg-001-cp010-question-studio-proof.mjs >> cp010-question-studio-proof.log 2>&1
+            proof_status=$?
+          else
+            proof_status=$build_status
+          fi
+          set -e
+
+          echo "$proof_status" > cp010-question-studio-proof.status
+          cat cp010-question-studio-proof.log
+          {
+            echo '## ARG-001 CP010 Question Studio proof diagnostics'
+            echo
+            echo "Proof exit code: ${proof_status}"
+            echo
+            echo '```text'
+            cat cp010-question-studio-proof.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "status=$proof_status" >> "$GITHUB_OUTPUT"
+
+      - name: Upload CP010 Question Studio proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arg-001-cp010-question-studio-proof-diagnostics
+          path: |
+            artifacts/api-server/cp010-question-studio-proof.log
+            artifacts/api-server/cp010-question-studio-proof.status
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce current Question Studio routing and lifecycle proof
+        if: steps.question_studio_proof.outputs.status != '0'
+        run: exit 1
+
+      - name: Preserve exact CP006 historical core freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve exact CP008 historical real-paper freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Lifecycle boundary
+        run: |
+          echo 'ARG-001 ordinary Question Studio review uses CP009 remediation.'
+          echo 'ARG-001 real-paper review uses CP010 correlated scenarios.'
+          echo 'Historical CP005/CP007 routers remain behind the current router and are not active for recognized ARG requests.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'

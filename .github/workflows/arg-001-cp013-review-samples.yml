@@ -1,0 +1,49 @@
+name: ARG-001 CP013 Compact Review Samples
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
+      - '.github/workflows/arg-001-cp013-review-samples.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cp013-review-samples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - name: Install dependencies quietly
+        run: pnpm install --frozen-lockfile --reporter=silent
+      - name: Generate exact CP013 review packet
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-review-sample-dump.ts \
+            --bundle --platform=node --format=esm \
+            --log-level=error \
+            --outfile=dist/arg-001-cp013-review-samples.mjs
+          mkdir -p ../../docs/review
+          node dist/arg-001-cp013-review-samples.mjs > ../../docs/review/ARG-001-CP013-RUNTIME-REVIEW-SAMPLES.md
+      - name: Commit exact runtime review packet
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/review/ARG-001-CP013-RUNTIME-REVIEW-SAMPLES.md
+          if git diff --cached --quiet; then
+            echo 'Review packet unchanged.'
+          else
+            git commit -m 'docs(reasoning): record ARG CP013 runtime review samples'
+            git push origin HEAD:feature/arg-001-cp012-editorial-remediation
+          fi

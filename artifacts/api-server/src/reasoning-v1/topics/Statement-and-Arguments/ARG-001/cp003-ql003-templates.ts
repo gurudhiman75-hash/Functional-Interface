@@ -2,7 +2,7 @@ import type { ArgCp003Template } from "./cp003-saturation-types.ts";
 
 export const ARG_CP003_QL003_TEMPLATES: readonly ArgCp003Template[] = [
   {
-    id: "ARG-CP003-QL003-T01", qlId: "ARG-QL-003", archetype: "QUEUE_CAPACITY_IMPLEMENTATION", difficulty: "MEDIUM", answerClass: "ONLY_I",
+    id: "ARG-CP003-QL003-T01", qlId: "ARG-QL-003", archetype: "QUEUE_CAPACITY_IMPLEMENTATION", difficulty: "EASY", answerClass: "ONLY_I",
     dimensions: [
       ["district certificate offices", "passport service centres", "municipal tax offices", "public hospital registration desks"],
       ["online appointments", "time-slot booking", "scheduled visit slots", "advance queue reservations"],
@@ -58,7 +58,7 @@ export const ARG_CP003_QL003_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL003-T05", qlId: "ARG-QL-003", archetype: "TOKEN_SYSTEM_OPERATIONAL_FEASIBILITY", difficulty: "MEDIUM", answerClass: "ONLY_I",
+    id: "ARG-CP003-QL003-T05", qlId: "ARG-QL-003", archetype: "TOKEN_SYSTEM_OPERATIONAL_FEASIBILITY", difficulty: "EASY", answerClass: "ONLY_I",
     dimensions: [
       ["outpatient registration", "diagnostic billing", "pharmacy collection", "non-emergency consultation queues"],
       ["district hospitals", "large community health centres", "public diagnostic centres", "high-volume clinics"],

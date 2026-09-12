@@ -1,0 +1,130 @@
+name: Validate ARG-001 CP014 Manual Editorial Approval
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp014.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp014-manual-editorial-approval.yml'
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp014.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp014-manual-editorial-approval.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp014-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp014-manual-editorial-approval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP014-owned approval runtime
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-manual-editorial-approval.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-manual-editorial-approval-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-question-studio-routing-proof.test.ts
+
+      - name: Prove CP014 approval provenance content identity and internal-only lifecycle
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-manual-editorial-approval-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp014-manual-editorial-approval-proof.mjs
+          node dist/arg-001-cp014-manual-editorial-approval-proof.mjs
+
+      - name: Prove CP014 Question Studio precedence and release boundary
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-question-studio-routing-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp014-question-studio-routing-proof.mjs
+          node dist/arg-001-cp014-question-studio-routing-proof.mjs
+
+      - name: Preserve approved CP013 learner-facing editorial surface
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-final-editorial-surface-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp013-final-editorial-surface-proof.mjs
+          node dist/arg-001-cp013-final-editorial-surface-proof.mjs
+
+      - name: Preserve CP013 historical route proof
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-question-studio-routing-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp013-question-studio-routing-proof.mjs
+          node dist/arg-001-cp013-question-studio-routing-proof.mjs
+
+      - name: Preserve certified CP012 editorial and cardinality proof
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-editorial-real-paper-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp012-editorial-real-paper-proof.mjs
+          node dist/arg-001-cp012-editorial-real-paper-proof.mjs
+
+      - name: Preserve exact CP006 historical core freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve exact CP008 historical real-paper freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: CP014 approved internal lifecycle boundary
+        run: |
+          echo 'ARG-001 CP013 remains the approved learner-facing content surface.'
+          echo 'ARG-001 CP014 records explicit product-owner manual editorial approval.'
+          echo 'Question Bank/test/mock internal eligibility is enabled.'
+          echo 'Public release authorization remains false.'
+          echo 'Direct student delivery authorization remains false.'
+          echo 'Automatic student publication remains false.'
+          echo 'CP006/CP008 and all historical evidence remain preserved.'

@@ -1,0 +1,120 @@
+name: Validate ARG-001 CP008 Real-Paper Closure Freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp007-v2.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp008-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp008-closure-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP008 closure contract
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-freeze-manifest.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-generator-v2.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-freeze-manifest.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-freeze-proof.test.ts
+
+      - name: Prove exact CP007 closure blobs
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+
+      - name: Prove CP008 behavioral closure contract
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-freeze-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp008-freeze-proof.mjs
+          node dist/arg-001-cp008-freeze-proof.mjs
+
+      - name: Preserve CP007 real-paper parity proof
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-proof-v2.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp007-real-paper-proof-v2.mjs
+          node dist/arg-001-cp007-real-paper-proof-v2.mjs
+
+      - name: Preserve exact CP006 frozen blobs
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve CP006 behavioral freeze
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-freeze-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp006-freeze-proof.mjs
+          node dist/arg-001-cp006-freeze-proof.mjs
+
+      - name: Preserve CP005 Question Studio core
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp005-question-studio-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp005-question-studio-proof.mjs
+          node dist/arg-001-cp005-question-studio-proof.mjs
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Closure boundary
+        run: |
+          echo 'ARG-001 CP008 freezes the additive real-paper parity layer.'
+          echo 'ARG_CP006_IMMUTABLE_FREEZE_V1 remains byte-identical and preserved.'
+          echo 'Question Studio remains review-only with manual approval required.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
