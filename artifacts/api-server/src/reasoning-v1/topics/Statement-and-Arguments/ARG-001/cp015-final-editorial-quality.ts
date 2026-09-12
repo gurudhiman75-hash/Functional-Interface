@@ -71,7 +71,8 @@ function repairEnglish(value: string): string {
     .replace(/\bthe entire an entrance examination\b/gi, "the entire entrance examination")
     .replace(/\bthe entire a departmental test\b/gi, "the entire departmental test")
     .replace(/\bmost candidate and centre\b/gi, "most candidates and centres")
-    .replace(/\ba automatically renewed plan\b/gi, "an automatically renewed plan");
+    .replace(/\ba automatically renewed plan\b/gi, "an automatically renewed plan")
+    .replace(/\b(Yes|No)\.\s+most instances?\b/gi, "$1. Most instances");
 }
 
 function repairHindi(value: string): string {
@@ -249,6 +250,7 @@ function specificEnglishReason(argument: string): string {
   if (/temporary restriction on heavy vehicles/i.test(argument) && /most nearby business(?:es)? permanently/i.test(argument)) return "A temporary traffic restriction may inconvenience some businesses, but it does not show that most nearby businesses will permanently close.";
   if (/existing traffic pattern has been in place for years/i.test(argument) && /changing it would readily be unfair/i.test(argument)) return "A long-standing traffic pattern is not automatically fair or untouchable; the argument gives no reason why a limited change would itself be unfair.";
   if (/first-time overseas card use/i.test(argument) && /(?:most instances|treated as fraudulent)/i.test(argument)) return "First-time overseas card use can be legitimate travel or emergency spending, so treating most such transactions as fraud does not justify automatic blocking in every case.";
+  if (/payments from a newly added device/i.test(argument) && /(?:most instances|fraudulent|treated as fraudulent)/i.test(argument)) return "Payments from a newly added device can be genuine, so treating most such payments as fraudulent does not establish that mandatory pre-authorisation is the only reasonable protection.";
   return englishFallback(argument);
 }
 
@@ -397,7 +399,10 @@ export function finalizeArgCp015EditorialQuality(question: Question): Question {
       if (deduped.rewritten.has(index)) return duplicateReason(language);
       const forceHindiTimeSlotPermanence = language === "hi"
         && /समय-स्लॉट.*(?:स्थायी रूप से अव्यावहारिक|स्थायी रूप से अनुपलब्ध|सफलतापूर्वक देना स्थायी)/.test(deduped.arguments[index]!);
-      if (strengths[index] === "WEAK" && (forceHindiTimeSlotPermanence || boilerplateReason(reason, language) || genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);
+      const forceEnglishNewDeviceFraud = language === "en"
+        && /payments from a newly added device/i.test(deduped.arguments[index]!)
+        && /(?:most instances|fraudulent|treated as fraudulent)/i.test(deduped.arguments[index]!);
+      if (strengths[index] === "WEAK" && (forceHindiTimeSlotPermanence || forceEnglishNewDeviceFraud || boilerplateReason(reason, language) || genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);
       return repairSurface(reason, language);
     });
     explanation = formatExplanation(language, strengths, nextReasons);

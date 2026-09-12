@@ -5,7 +5,7 @@ import { finalizeArgCp015EditorialQuality } from "./cp015-final-editorial-qualit
 import { polishArgCp015HumanAuditSurface } from "./cp015-human-audit-polish.ts";
 import { preRepairArgCp015HumanAuditSurface } from "./cp015-human-audit-pre-repair.ts";
 
-export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V11" as const;
+export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V12" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -83,7 +83,9 @@ function polishEnglish(value: string): string {
     .replace(/(.+?) can rarely ([^.]+)\./gi, "$1 would fail to $2 in most cases.")
     .replace(/(.+?) should rarely ([^.]+)\./gi, "$1 should generally avoid $2.")
     .replace(/(.+?) must apparently be ([^.]+)\./gi, "$1 should be $2.")
-    .replace(/most ([a-z-]+) programme\b/gi, "$1 programmes");
+    .replace(/most ([a-z-]+) programme\b/gi, "$1 programmes")
+    .replace(/\b(Yes|No)\.\s+most instances?\b/gi, "$1. Most instances")
+    .replace(/\bmost instances of ([^.!?]+?) is\b/gi, "most instances of $1 are");
 }
 
 function polishHindi(value: string): string {
