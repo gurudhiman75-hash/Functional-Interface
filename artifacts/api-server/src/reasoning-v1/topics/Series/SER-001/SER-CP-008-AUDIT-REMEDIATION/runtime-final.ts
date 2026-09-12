@@ -3,12 +3,21 @@ import {
   type GeneratedSerCp008Question,
   type SerCp008Locale,
 } from "./runtime";
-import type { SerCp008ProvisionalQlId } from "./question-language";
+import { generateSerCp008Mixed } from "./mixed-runtime";
+import {
+  SER_CP008_MIXED_QL_IDS,
+  type SerCp008CoreQlId,
+  type SerCp008MixedQlId,
+  type SerCp008ProvisionalQlId,
+} from "./question-language";
 
 export function generateSerCp008Final(
   qlId: SerCp008ProvisionalQlId,
   seed = 1,
   locale: SerCp008Locale = "en-IN",
 ): GeneratedSerCp008Question {
-  return generateSerCp008(qlId, seed, locale);
+  if ((SER_CP008_MIXED_QL_IDS as readonly string[]).includes(qlId)) {
+    return generateSerCp008Mixed(qlId as SerCp008MixedQlId, seed, locale);
+  }
+  return generateSerCp008(qlId as SerCp008CoreQlId, seed, locale);
 }
