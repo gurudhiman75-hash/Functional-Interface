@@ -7,6 +7,10 @@ import type {
   SerCp008Option,
 } from "./runtime";
 
+export type GeneratedSerCp008MixedQuestion = Omit<GeneratedSerCp008Question, "qlId"> & {
+  readonly qlId: SerCp008MixedQlId;
+};
+
 const MAX_ATTEMPTS = 80;
 
 function randomSource(seed: number): () => number {
@@ -63,17 +67,15 @@ function buildOptions(
     if (wrong.length === 3) break;
   }
   if (wrong.length !== 3) return null;
-  const index = answerIndex(qlId, seed);
+  const correctIndex = answerIndex(qlId, seed);
   const options = [...wrong];
-  options.splice(index, 0, { value: correct, errorLabel: null });
-  return { options, correctIndex: index };
+  options.splice(correctIndex, 0, { value: correct, errorLabel: null });
+  return { options, correctIndex };
 }
 
-function difficulty(features: Readonly<Record<string, number | boolean | string>>): SerCp008Difficulty {
-  let burden = 0;
-  burden += Number(features.activeChannels ?? 1) - 1;
+function deriveMixedDifficulty(features: Readonly<Record<string, number | boolean | string>>): SerCp008Difficulty {
+  let burden = Math.max(0, Number(features.activeChannels ?? 1) - 1);
   if (features.progressiveJump === true) burden += 2;
-  if (features.interleavedRows === 2) burden += 2;
   if (features.relationalBinding === true) burden += 1;
   if (features.squareCoupling === true) burden += 1;
   if (features.wrongTermDetection === true) burden += 1;
@@ -95,13 +97,13 @@ function generated(
   optionResult: { readonly options: readonly SerCp008Option[]; readonly correctIndex: number },
   explanation: readonly string[],
   structuralFeatures: Readonly<Record<string, number | boolean | string>>,
-): GeneratedSerCp008Question {
+): GeneratedSerCp008MixedQuestion {
   return {
     qlId,
     authorityId: serCp008AuthorityByQlId(qlId).authorityId,
     seed,
     locale,
-    difficulty: difficulty(structuralFeatures),
+    difficulty: deriveMixedDifficulty(structuralFeatures),
     stem,
     options: optionResult.options,
     correctIndex: optionResult.correctIndex,
@@ -111,7 +113,7 @@ function generated(
   };
 }
 
-function generate019(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate019(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-019" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 131 + attempt * 1009 + 19);
@@ -122,14 +124,13 @@ function generate019(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
     }
     const shown = letters.slice(0, 5).map((letter) => `${letter}${oneBasedPosition(letter)}`);
     const target = letters[5]!;
-    const correct = String(oneBasedPosition(target));
-    const reverse = String(27 - oneBasedPosition(target));
-    const previous = String(oneBasedPosition(letters[4]!));
+    const position = oneBasedPosition(target);
+    const correct = String(position);
     const optionResult = buildOptions(qlId, seed, correct, [
-      { value: reverse, errorLabel: "USED_REVERSE_ALPHABET_POSITION" },
-      { value: previous, errorLabel: "REPEATED_PREVIOUS_NUMBER" },
-      { value: String(Math.max(1, oneBasedPosition(target) - 1)), errorLabel: "COUNTED_ONE_SHORT" },
-      { value: String(Math.min(26, oneBasedPosition(target) + 1)), errorLabel: "COUNTED_ONE_EXTRA" },
+      { value: String(27 - position), errorLabel: "USED_REVERSE_ALPHABET_POSITION" },
+      { value: String(oneBasedPosition(letters[4]!)), errorLabel: "REPEATED_PREVIOUS_NUMBER" },
+      { value: String(Math.max(1, position - 1)), errorLabel: "COUNTED_ONE_SHORT" },
+      { value: String(Math.min(26, position + 1)), errorLabel: "COUNTED_ONE_EXTRA" },
     ]);
     if (!optionResult) continue;
     return generated(
@@ -141,16 +142,16 @@ function generate019(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
       optionResult,
       [
         text(locale, "Each number is the alphabet position of the letter beside it.", "हर संख्या उसके साथ दिए अक्षर का वर्णमाला स्थान है।", "ਹਰ ਸੰਖਿਆ ਉਸਦੇ ਨਾਲ ਦਿੱਤੇ ਅੱਖਰ ਦਾ ਵਰਣਮਾਲਾ ਸਥਾਨ ਹੈ।"),
-        `${target} = ${oneBasedPosition(target)}.`,
+        `${target} = ${position}.`,
         `${text(locale, "Therefore the missing number is", "अतः लुप्त संख्या है", "ਇਸ ਲਈ ਗੁੰਮ ਸੰਖਿਆ ਹੈ")} ${correct}.`,
       ],
-      { activeChannels: 1, relationalBinding: true, targetAlphabetPosition: oneBasedPosition(target) },
+      { activeChannels: 1, relationalBinding: true, targetAlphabetPosition: position },
     );
   }
   throw new Error(`${qlId} could not generate a valid instance for seed ${seed}.`);
 }
 
-function generate020(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate020(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-020" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 137 + attempt * 1009 + 20);
@@ -191,7 +192,7 @@ function generate020(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
   throw new Error(`${qlId} could not generate a valid instance for seed ${seed}.`);
 }
 
-function generate021(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate021(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-021" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 139 + attempt * 1009 + 21);
@@ -203,9 +204,7 @@ function generate021(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
     const firstGap = integer(next, 3, 8);
     const gapIncrement = pick(next, [1, 2, 3] as const);
     const numbers = [firstNumber];
-    for (let index = 1; index < 5; index += 1) {
-      numbers.push(numbers[index - 1]! + firstGap + (index - 1) * gapIncrement);
-    }
+    for (let index = 1; index < 5; index += 1) numbers.push(numbers[index - 1]! + firstGap + (index - 1) * gapIncrement);
     const token = (index: number, n = numbers[index]!) => `${letterAtOneBased(aStart + aJump * index)}${letterAtOneBased(bStart + bJump * index)}${n}`;
     const terms = Array.from({ length: 5 }, (_, index) => token(index));
     const correct = terms[3]!;
@@ -235,7 +234,7 @@ function generate021(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
   throw new Error(`${qlId} could not generate a valid instance for seed ${seed}.`);
 }
 
-function generate022(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate022(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-022" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 149 + attempt * 1009 + 22);
@@ -274,8 +273,8 @@ function generate022(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
       correct,
       optionResult,
       [
-        `${text(locale, "Number jumps", "संख्या की छलांगें", "ਸੰਖਿਆ ਦੀਆਂ ਛਾਲਾਂ")}: ${shown.slice(0, 3).map((_, index) => numberFirstJump + index * numberJumpIncrement).join(", ")}; ${text(locale, "next", "अगली", "ਅਗਲੀ")}: ${nextNumberJump}.`,
-        `${text(locale, "Letter jumps", "अक्षर की छलांगें", "ਅੱਖਰ ਦੀਆਂ ਛਾਲਾਂ")}: ${shown.slice(0, 3).map((_, index) => letterFirstJump + index * letterJumpIncrement).join(", ")}; ${text(locale, "next", "अगली", "ਅਗਲੀ")}: ${nextLetterJump}.`,
+        `${text(locale, "Number jumps", "संख्या की छलांगें", "ਸੰਖਿਆ ਦੀਆਂ ਛਾਲਾਂ")}: ${numberFirstJump}, ${numberFirstJump + numberJumpIncrement}, ${numberFirstJump + 2 * numberJumpIncrement}; ${text(locale, "next", "अगली", "ਅਗਲੀ")}: ${nextNumberJump}.`,
+        `${text(locale, "Letter jumps", "अक्षर की छलांगें", "ਅੱਖਰ ਦੀਆਂ ਛਾਲਾਂ")}: ${letterFirstJump}, ${letterFirstJump + letterJumpIncrement}, ${letterFirstJump + 2 * letterJumpIncrement}; ${text(locale, "next", "अगली", "ਅਗਲੀ")}: ${nextLetterJump}.`,
         `${shown.at(-1)} → ${correct}.`,
       ],
       { activeChannels: 2, progressiveJump: true, alphabetWrap: letterStart + letterFirstJump * 4 + letterJumpIncrement * 6 > 26 },
@@ -284,7 +283,7 @@ function generate022(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
   throw new Error(`${qlId} could not generate a valid instance for seed ${seed}.`);
 }
 
-function generate023(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate023(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-023" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 151 + attempt * 1009 + 23);
@@ -302,9 +301,10 @@ function generate023(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
     const correctSquare = correctRoot * correctRoot;
     const correct = token(correctRoot);
     const previousRoot = roots.at(-2)!;
-    const nextLinearLetter = letterAtOneBased(oneBasedPosition(letterAtOneBased(previousRoot * previousRoot)) + direction);
+    const previousSquare = previousRoot * previousRoot;
+    const nextLinearLetter = letterAtOneBased(oneBasedPosition(letterAtOneBased(previousSquare)) + direction);
     const optionResult = buildOptions(qlId, seed, correct, [
-      { value: `${nextLinearLetter}${correctSquare}`, errorLabel: "MOVED_LETTER_LINEarly_NOT_BY_SQUARE" },
+      { value: `${nextLinearLetter}${correctSquare}`, errorLabel: "MOVED_LETTER_LINEARLY_NOT_BY_SQUARE" },
       { value: `${letterAtOneBased(correctRoot)}${correctSquare}`, errorLabel: "USED_ROOT_POSITION_FOR_LETTER" },
       { value: token(previousRoot), errorLabel: "REPEATED_PREVIOUS_SQUARE" },
       { value: `${letterAtOneBased(correctSquare + direction)}${correctSquare + direction}`, errorLabel: "USED_LINEAR_NUMBER_STEP" },
@@ -328,13 +328,15 @@ function generate023(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
   throw new Error(`${qlId} could not generate a valid instance for seed ${seed}.`);
 }
 
-function generate024(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate024(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-024" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 157 + attempt * 1009 + 24);
     const jump = pick(next, [2, 3, 4, 5] as const);
     const shownCount = integer(next, 3, 5);
-    const start = integer(next, 1, 26 - jump * shownCount);
+    const maximumStart = 26 - jump * shownCount;
+    if (maximumStart < 1) continue;
+    const start = integer(next, 1, maximumStart);
     const positions = Array.from({ length: shownCount + 1 }, (_, index) => start + jump * index);
     const token = (position: number) => `${letterAtOneBased(position)}${position * position}`;
     const shown = positions.slice(0, -1).map(token);
@@ -357,7 +359,7 @@ function generate024(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
       optionResult,
       [
         `${text(locale, "Letters move by", "अक्षर आगे बढ़ते हैं", "ਅੱਖਰ ਅੱਗੇ ਵਧਦੇ ਹਨ")} ${jump} ${text(locale, "places each time", "स्थान हर बार", "ਥਾਂ ਹਰ ਵਾਰ")}.`,
-        `${text(locale, "The number is the square of the displayed letter's alphabet position", "संख्या प्रदर्शित अक्षर के वर्णमाला स्थान का वर्ग है", "ਸੰਖਿਆ ਦਿੱਤੇ ਅੱਖਰ ਦੇ ਵਰਣਮਾਲਾ ਸਥਾਨ ਦਾ ਵਰਗ ਹੈ")}.`,
+        text(locale, "The number is the square of the displayed letter's alphabet position.", "संख्या प्रदर्शित अक्षर के वर्णमाला स्थान का वर्ग है।", "ਸੰਖਿਆ ਦਿੱਤੇ ਅੱਖਰ ਦੇ ਵਰਣਮਾਲਾ ਸਥਾਨ ਦਾ ਵਰਗ ਹੈ।"),
         `${letterAtOneBased(targetPos)} = ${targetPos}; ${targetPos}² = ${targetPos * targetPos}; ${text(locale, "answer", "उत्तर", "ਉੱਤਰ")}: ${correct}.`,
       ],
       { activeChannels: 2, squareCoupling: true, letterJump: jump },
@@ -366,7 +368,7 @@ function generate024(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
   throw new Error(`${qlId} could not generate a valid instance for seed ${seed}.`);
 }
 
-function generate025(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate025(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-025" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 163 + attempt * 1009 + 25);
@@ -409,7 +411,7 @@ function generate025(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
   throw new Error(`${qlId} could not generate a valid instance for seed ${seed}.`);
 }
 
-function generate026(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate026(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-026" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 167 + attempt * 1009 + 26);
@@ -440,7 +442,7 @@ function generate026(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
       [
         `${text(locale, "The same three characters are rotated one place", "वही तीन चिह्न एक स्थान घुमते हैं", "ਉਹੀ ਤਿੰਨ ਚਿੰਨ੍ਹ ਇੱਕ ਥਾਂ ਘੁੰਮਦੇ ਹਨ")} ${direction === "LEFT" ? text(locale, "to the left", "बाईं ओर", "ਖੱਬੇ ਪਾਸੇ") : text(locale, "to the right", "दाईं ओर", "ਸੱਜੇ ਪਾਸੇ")}.`,
         `${base} → ${second} → ${correct}.`,
-        `${text(locale, "No character changes; only its position changes.", "कोई चिह्न नहीं बदलता; केवल उसका स्थान बदलता है।", "ਕੋਈ ਚਿੰਨ੍ਹ ਨਹੀਂ ਬਦਲਦਾ; ਸਿਰਫ਼ ਉਸਦੀ ਥਾਂ ਬਦਲਦੀ ਹੈ।")}`,
+        text(locale, "No character changes; only its position changes.", "कोई चिह्न नहीं बदलता; केवल उसका स्थान बदलता है।", "ਕੋਈ ਚਿੰਨ੍ਹ ਨਹੀਂ ਬਦਲਦਾ; ਸਿਰਫ਼ ਉਸਦੀ ਥਾਂ ਬਦਲਦੀ ਹੈ।"),
       ],
       { activeChannels: 3, rotation: true, rotationDirection: direction },
     );
@@ -448,7 +450,7 @@ function generate026(seed: number, locale: SerCp008Locale): GeneratedSerCp008Que
   throw new Error(`${qlId} could not generate a valid instance for seed ${seed}.`);
 }
 
-function generate027(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate027(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-027" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 173 + attempt * 1009 + 27);
@@ -503,7 +505,7 @@ const BLOCK_MASKS: readonly (readonly number[])[] = [
   [3, 5, 10, 12, 14],
 ];
 
-function generate028(seed: number, locale: SerCp008Locale): GeneratedSerCp008Question {
+function generate028(seed: number, locale: SerCp008Locale): GeneratedSerCp008MixedQuestion {
   const qlId = "SER-QL-028" as const;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const next = randomSource(seed * 179 + attempt * 1009 + 28);
@@ -549,7 +551,7 @@ export function generateSerCp008Mixed(
   qlId: SerCp008MixedQlId,
   seed = 1,
   locale: SerCp008Locale = "en-IN",
-): GeneratedSerCp008Question {
+): GeneratedSerCp008MixedQuestion {
   if (!Number.isInteger(seed) || seed < 0) throw new Error("SER-CP-008 seed must be a non-negative integer.");
   switch (qlId) {
     case "SER-QL-019": return generate019(seed, locale);
