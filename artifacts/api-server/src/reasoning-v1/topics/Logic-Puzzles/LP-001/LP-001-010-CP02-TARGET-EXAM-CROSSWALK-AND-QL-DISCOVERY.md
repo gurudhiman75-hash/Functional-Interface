@@ -1,225 +1,165 @@
 # Logic Puzzles LP-001 → LP-010 — CP02 Target-Exam Crosswalk and QL Discovery
 
-Status: **CP02 COMPLETE — production gate remains closed; two new high-value solve authorities discovered for implementation review.**
+Status: **CP02 RECONCILED — production gate remains closed; existing post-LP-010 candidates recovered and one additional partial-state solve surface moved into CP03.**
 
 Date: 2026-09-12
 
 ## Purpose
 
-This checkpoint compares the frozen Logic Puzzle chapter (`LP-001` through `LP-010`) against recurring SSC, Banking and Punjab-state reasoning puzzle families. The goal is not to add every wrapper seen on coaching sites. The goal is to distinguish:
+This checkpoint compares the frozen Logic Puzzle chapter (`LP-001` through `LP-010`) against recurring SSC, Banking and Punjab-state puzzle families and reconciles that comparison with **all existing open Logic Puzzle gap work in the repository**.
 
-1. puzzle families already owned by existing LP authorities;
-2. forms owned by other Reasoning chapters;
-3. stem/context variations that do not deserve new QLs;
-4. genuinely different solve contracts that should become new permanent authorities only after implementation and review.
+The permanent registry remains exactly `LP-QL-001..040`. No candidate in this document is permanent.
 
-The current permanent registry `LP-QL-001..040` is preserved. Nothing in this audit reinterprets or renumbers frozen QLs.
+## Evidence and ownership policy
 
-## Evidence policy
+A new QL is justified only when the source-backed answer/query contract or hidden-state contract is genuinely different. Context labels, larger entity counts and alternate wording do not create QLs by themselves.
 
-Evidence is classified conservatively:
+Adjacent reasoning families remain outside Logic Puzzles when their primary inference already has a dedicated owner:
 
-- **A — executable/source-backed:** existing uploaded reasoning references plus current LP generator/solver proofs;
-- **B — repeated exam-analysis evidence:** recurring puzzle families reported across banking/SSC exam analyses and preparation records;
-- **C — coaching/example evidence:** useful for discovering wrappers and edge cases, never sufficient by itself for permanent allocation.
+- linear/circular/double-row seating → Seating Arrangement;
+- floor/flat → Floor/Flat Arrangement;
+- pure height/weight/marks/score ordering → Ranking and Order;
+- data-sufficiency wrappers → Data Sufficiency;
+- blood relation as the primary task → Blood Relation.
 
-Public banking exam analyses repeatedly report scheduling, box, tabular/variable, age, floor and mixed puzzle sets, often in five-question caselets. SSC sources show puzzles/distribution/scheduling as a smaller but recurring part of General Intelligence. Punjab-state evidence is weaker and is treated as SSC-like only for coverage planning, not as official provenance.
+## Frozen core coverage
 
-## Existing chapter crosswalk
-
-| Exam-facing family | Existing owner | Disposition |
+| Exam-facing family | Current owner | Status |
 |---|---|---|
 | assignment / grouping / distribution | `LP-001` | COVERED |
 | person × day × ordered location | `LP-002` | COVERED |
-| vertical box / stack arrangement | `LP-003` | COVERED |
-| committee / subset selection with conditions | `LP-004` | COVERED, but conditional-clue depth remains a calibration item |
+| pure vertical box / stack | `LP-003` | COVERED |
+| committee / subset selection | `LP-004` | COVERED; conditional-depth audit still required |
 | person × attribute × place grid | `LP-005` | COVERED |
-| three-attribute day/subject/city synthesis | `LP-006` | COVERED |
+| day × study-area × city synthesis | `LP-006` | COVERED; projection extension pending review |
 | variable / preference assignment | `LP-007` | COVERED |
 | month × date scheduling | `LP-008` | COVERED |
-| single-axis month / year scheduling | `LP-009` | COVERED |
+| ordered month / year scheduling | `LP-009` | COVERED |
 | day × time scheduling | `LP-010` | COVERED |
-| linear/circular/double-row seating | Seating Arrangement chapter | NOT AN LP GAP |
-| floor/flat puzzles | Floor/Flat chapter | NOT AN LP GAP |
-| pure order/rank by height, weight, marks, score | Ranking and Order chapter | NOT AN LP GAP |
-| data-sufficiency wrapper around a puzzle | Data Sufficiency chapter | NOT AN LP GAP |
-| blood-relation puzzle | Blood Relation chapter unless the relationship is merely one attribute inside a broader LP | NOT AN LP GAP by default |
 
-## Exam-family assessment
+Banking remains the strongest stress target because it uses multiple puzzle/arrangement sets and broader query forms. SSC/Punjab generally require a lower puzzle frequency; that should be handled by exam-profile weighting rather than duplicate easy QLs. Punjab year-tagged provenance remains insufficient for a source-saturation claim.
 
-### SSC / similar recruitment exams
+## Recovered existing post-LP-010 work
 
-The present LP chapter is structurally adequate for the compact distribution, scheduling and assignment puzzles typically expected in SSC-style reasoning. SSC does not require banking-scale puzzle density from every test, so production simulation should use LP questions at a lower frequency than Banking rather than inventing easier duplicate QLs.
+A previous chapter-closure effort already identified three non-overlapping surfaces. They must be reconciled before assigning numbers to any newly discovered candidate.
 
-Important SSC-facing strengths already present:
+### A. LP-009 DAY mode — existing QLs 033–036
 
-- complete standalone stems;
-- small and medium assignment domains;
-- simple direct + relational clue chains;
-- distribution/grouping;
-- vertical box order;
-- committee selection;
-- scheduling by day/month/date/time;
-- direct and inverse lookup questions.
+Pure one-person-per-day Monday–Saturday scheduling is the same ordered-axis solve/query contract as LP-009 month/year scheduling.
 
-### Banking exams
+Decision: **reuse permanent `LP-QL-033..036`; no new QL.**
 
-Banking is the strongest stress target for this chapter. Repeated exam analyses show multiple puzzle/arrangement sets in the same paper, including scheduling, box, tabular/variable, floor, age and multi-layer forms. After excluding Seating and Floor/Flat because they have separate owners, LP-001→010 covers most recurring structural families.
+Existing review branch/PR: `feature/lp009-day-scheduling-v2` / PR #1587.
 
-The remaining weakness is **query/solve mode**, not basic scenario inventory. Existing LP packages overwhelmingly solve one uniquely determined final assignment and then project factual lookups from it. Banking puzzles also commonly test what is possible under the clue set or what follows after an extra temporary condition.
+The six-entities-in-seven-days / one-unused-day variant remains a separate discovery question because state cardinality differs.
 
-### Punjab-state exams
+### B. LP-011 Box + Attribute — provisional 041–044
 
-Current evidence is not strong enough to claim a Punjab-specific source-saturated puzzle profile. The safe production position is:
+Existing review branch/PR: `feature/logic-puzzles-lp011-box-attribute-v1` / PR #1590.
 
-- reuse the proven SSC-style compact puzzle mix;
-- keep language and contexts neutral/standard rather than injecting local place names;
-- do not claim Punjab PYQ saturation until year-tagged papers are crosswalked;
-- keep Punjab-specific weighting provisional.
+LP-011 is structurally different from LP-003. It combines:
 
-This is an evidence gap, not a reason to add Punjab-branded QLs.
+- vertical position ↔ box identity; and
+- box identity ↔ one independent attribute.
 
-## QL discovery result
+Existing provisional identities:
 
-Two solve contracts are materially different from all current `LP-QL-001..040` authorities.
+| Candidate | Contract |
+|---|---|
+| `LP-QL-041` | `BOX_TO_ATTRIBUTE_LOOKUP` |
+| `LP-QL-042` | `ATTRIBUTE_TO_BOX_LOOKUP` |
+| `LP-QL-043` | `ATTRIBUTE_TO_POSITION_LOOKUP` |
+| `LP-QL-044` | `BOX_ATTRIBUTE_POSITION_MATCH` |
 
-### Candidate A — POSSIBILITY-SET QUERY
+These numbers have **first provisional claim only**. They are not permanent because LP-011 has not completed the current English approval/freeze path and its branch is substantially behind `New-main`.
 
-Provisional identity: `LP-QL-041` only if implementation/review later approves it.
+### C. LP-006 cross-attribute projections — provisional 045–046
 
-Representative learner questions:
+Existing chapter-closure branch/PR: `audit/logic-puzzles-chapter-closure-v2` / PR #1593.
 
-- Which of the following **could be true**?
-- Which of the following **cannot be true**?
-- Which of the following **must be true**?
-- Which of the following arrangements is possible?
+The frozen LP-006 state already contains Person, Day, Study Area and City, but QLs 021–024 do not exhaust source-real projections across those columns.
 
-Why this is not a stem variant:
+Existing provisional identities:
 
-The existing LP engine normally requires exactly one final hidden assignment. A possibility question requires retaining **multiple valid states** under the displayed clues and evaluating each option across that set.
+| Candidate | Contract |
+|---|---|
+| `LP-QL-045` | `CROSS_ATTRIBUTE_PROJECTION_LOOKUP` |
+| `LP-QL-046` | `STATEMENT_TRUTH_SELECTION` |
 
-Semantic contracts:
+These are query-layer extensions over the existing LP-006 hidden state, not a new puzzle family. They remain provisional/review-only.
 
-- `COULD_BE_TRUE(option)` → at least one valid state satisfies the option;
-- `CANNOT_BE_TRUE(option)` → no valid state satisfies the option;
-- `MUST_BE_TRUE(option)` → every valid state satisfies the option.
+## Newly advanced surface — partial-state possibility queries
 
-Required implementation change:
+The previous closure audit explicitly quarantined intentionally underdetermined forms because the existing arrangement architecture required one unique final hidden state. CP02 confirms that this quarantine hides a real exam-facing solve contract:
 
-- do not force the parent clue set to a unique final assignment;
-- enumerate the complete valid-state set independently;
-- generate one and only one semantically correct MCQ option;
-- explanation must show the decisive cases/possibilities rather than pretend a unique table existed.
+- Which option **could be true**?
+- Which option **cannot be true**?
+- Which option **must be true**?
+- Which arrangement is possible?
 
-Priority: **HIGH for Banking; useful edge coverage for SSC/Punjab.**
+This cannot be represented honestly by forcing the parent puzzle to one final arrangement. The correct semantic object is the **complete valid-state set** after the displayed clues.
 
-### Candidate B — COUNTERFACTUAL / ADDITIONAL-CONDITION QUERY
+Decision: **implement experimentally in CP03, but keep it completely unnumbered.** It must not claim `LP-QL-041` or any later number while LP-011 and LP-006 candidates are unresolved.
 
-Provisional identity: `LP-QL-042` only if implementation/review later approves it.
+Semantic contract:
 
-Representative learner questions:
+- `COULD_BE_TRUE(option)` → at least one valid state satisfies it;
+- `CANNOT_BE_TRUE(option)` → no valid state satisfies it;
+- `MUST_BE_TRUE(option)` → every valid state satisfies it.
 
-- If A is assigned to Tuesday, which of the following must be true?
-- If B works in City X, who can be assigned to Subject Y?
-- If C is placed immediately before D, which arrangement is possible?
+CP03 therefore becomes the governed partial-state implementation that the older closure audit intentionally deferred.
 
-Why this is not a stem variant:
+## Additional-condition / counterfactual query
 
-The extra condition belongs to the **child question**, not the shared parent puzzle. Solving requires cloning the parent state, adding a temporary condition, re-solving, and then evaluating the child query. That is a distinct counterfactual solve pipeline.
+A second genuine solve surface remains after CP03:
 
-Required implementation change:
+- “If A is assigned to Tuesday, which must be true?”
+- “If B is in City X, who can be assigned to Y?”
+- “If C is immediately before D, which arrangement is possible?”
 
-- preserve the frozen parent clue set;
-- add one validated temporary condition to the child;
-- independently re-solve parent + temporary condition;
-- require at least one valid state and exactly one correct option;
-- explanation must clearly separate `Given puzzle` from `Additional condition` and show only deductions that follow after the temporary condition.
+The extra condition belongs to the child question, so the engine must clone the parent state, add the temporary condition, independently re-solve, and then evaluate the child options.
 
-Priority: **HIGH for Banking; medium for SSC/Punjab.**
+Decision: **CP04 candidate; unnumbered until all earlier provisional identities are reconciled.**
 
-## Forms that do NOT currently justify new LP QLs
+## Forms that do not currently justify new LP QLs
 
-### Age-based puzzle
+- **Age-based puzzle:** owner audit first; pure ordering belongs Ranking/Order, arithmetic belongs Quant, ordinary one-to-one age labels may be an LP parameter.
+- **Comparison-based puzzle:** pure comparison belongs Ranking/Order.
+- **Profession/designation/city/colour wrappers:** parameterization of existing multi-attribute authorities.
+- **Larger caselet sizes:** depth/variety calibration, not a semantic identity by itself.
+- **Exactly/at-least/at-most committee conditions:** extend LP-004 clue depth unless they change the child-query contract.
 
-Banking analyses frequently label sets as age-based. That label alone does not define ownership.
+## Remaining depth/evidence gaps
 
-- pure oldest/youngest or relative-order logic belongs to Ranking/Order or existing LP-009-style ordering;
-- age arithmetic or difference equations introduce a Quant burden;
-- a genuine multi-attribute age puzzle should be parameterized through an LP grid only if the age field behaves as an ordinary one-to-one attribute.
+1. LP-004: explicitly prove `if`, `only if`, either/or, exactly one, at least one, not together and quota-style conditions.
+2. LP-005/006: verify Hard forms require linked cross-attribute deductions, not merely more exclusions.
+3. LP-009 DAY: resolve current review branch and decide whether one-unused-day scheduling needs a distinct state contract.
+4. LP-011: rebase/review the box+attribute candidate against current frozen conventions.
+5. LP-006 projections: review the existing 045/046 candidate rather than duplicating it.
+6. Punjab: obtain year-tagged papers before claiming local source saturation.
+7. Exam-profile weighting: Banking may use multiple puzzle sets; SSC/Punjab should use lower frequencies.
 
-Decision: **OWNER AUDIT REQUIRED; do not allocate a new LP QL yet.**
-
-### Comparison-based puzzle
-
-Pure height/weight/marks/salary ordering is Ranking and Order. Multi-attribute matching that merely uses those values as labels can be represented by LP-005/006.
-
-Decision: **NOT A NEW LP QL.**
-
-### Designation / profession / city / colour wrappers
-
-If the topology is still one-to-one multi-attribute matching, these are scenario/object-pool variants of LP-005/006/007.
-
-Decision: **PARAMETERIZATION, NOT NEW QL.**
-
-### Larger caselet sizes
-
-Five versus six versus seven people does not by itself create a new semantic authority. Size should be expanded inside an existing QL only where solver cost, explanation readability and real-exam evidence justify it.
-
-Decision: **DEPTH/VARIETY CALIBRATION, NOT NEW QL.**
-
-### Exactly/at-least/at-most conditional committee clauses
-
-These belong inside LP-004 if they preserve subset-selection semantics. They may require a new clue family and harder topology but not necessarily a new child-query authority.
-
-Decision: **LP-004 DEPTH AUDIT REQUIRED.**
-
-## Coverage gaps to close without adding QLs
-
-1. **LP-004 conditional depth:** verify `if`, `only if`, `either/or`, `exactly one`, `at least one`, `not together`, and quota-style conditions at real-exam difficulty.
-2. **LP-005/006 multi-layer depth:** verify that Hard forms require linked deductions across attributes rather than merely more exclusions.
-3. **Object/context rotation:** ensure professions, subjects, colours, products, departments, cities and neutral institutional contexts rotate without creating semantically identical stems.
-4. **Question-stem rotation:** direct lookup, inverse lookup, correct combination, pair/triple match and ordered-position wording should remain varied but simple.
-5. **Caselet density:** Banking simulation should permit multiple LP/arrangement sets per paper, while SSC/Punjab should use lower frequencies. This belongs to exam-profile weighting rather than QL creation.
-6. **Punjab provenance:** obtain year-tagged Punjab papers before claiming local source saturation.
-
-## Difficulty audit conclusion
-
-Current LP difficulty design is structurally sound where calibrated:
-
-- Easy = more direct anchors / shorter chain;
-- Medium = mixed direct + relational deductions;
-- Hard = fewer direct anchors + layered relations/exclusions/cases.
-
-A production audit must reject any package where difficulty is produced merely through harder vocabulary, larger arbitrary numbers, or a longer stem with the same deduction depth.
-
-For Candidate A/B, difficulty must instead depend on valid-state count, branching depth, temporary-condition interaction and number of deductions needed to distinguish options.
-
-## Production-readiness decision after CP02
+## Production-readiness decision
 
 **DO NOT OPEN PRODUCTION YET.**
 
-Reason:
+The chapter core is strong and does not need wholesale redesign, but closure is still open because:
 
-1. two high-value solve modes are absent from the frozen LP registry;
-2. LP-004 conditional depth still needs explicit proof;
-3. Punjab source-year provenance remains incomplete;
-4. exam-profile frequency/weighting has not yet been bound to the chapter.
-
-At the same time, CP02 finds **no reason to redesign LP-001..010 wholesale**. Their core scenario/family coverage is broad and well-separated. Most remaining work is targeted.
+- three pre-existing post-LP-010 review surfaces remain unresolved;
+- the intentionally underdetermined possibility contract is only now being implemented under CP03;
+- the counterfactual/additional-condition contract remains pending;
+- LP-004 conditional depth and Punjab provenance remain incomplete.
 
 ## Next checkpoint — CP03
 
-Implement a review-only experimental authority for **Possibility-Set Queries** without touching frozen `LP-QL-001..040`.
+Implement the possibility-set authority as an **unnumbered, review-only** candidate using an existing frozen topology. It must:
 
-CP03 must:
+1. retain multiple valid states intentionally;
+2. enumerate the complete valid-state set independently;
+3. generate `could`, `cannot`, and `must` children;
+4. prove exactly one semantic answer per MCQ;
+5. show learner-friendly possibilities/cases rather than pretending a unique final table exists;
+6. vary branching width rather than producing one repeated state count;
+7. remain outside the permanent QL registry and outside Question Studio production routes until explicit review approval.
 
-1. use one or more existing frozen puzzle topologies as the parent state model;
-2. intentionally retain multiple valid assignments after the displayed clue set;
-3. independently enumerate all valid states;
-4. generate `could be true`, `cannot be true`, and `must be true` children;
-5. guarantee exactly one semantically correct option;
-6. produce beginner-friendly case/possibility explanations;
-7. remain unallocated and `REVIEW_ONLY` until human review;
-8. reserve no permanent QL number until approval.
-
-After CP03 review, implement the counterfactual child-query authority as CP04.
+After CP03 review, CP04 should implement the unnumbered counterfactual/additional-condition query contract.
