@@ -79,6 +79,19 @@ const ARTICLE_RULES = [
   ['GR-ART-010', 'Determiner and noun-number agreement'],
 ] as const;
 
+const PRONOUN_RULES = [
+  ['GR-PRN-001', 'Subject pronoun case'],
+  ['GR-PRN-002', 'Object pronoun case'],
+  ['GR-PRN-003', 'Possessive determiner / possessive pronoun'],
+  ['GR-PRN-004', 'Reflexive pronoun for coreference'],
+  ['GR-PRN-005', 'Avoid unnecessary reflexive pronouns'],
+  ['GR-PRN-006', 'Pronoun–antecedent number agreement'],
+  ['GR-PRN-007', 'Who / whom by grammatical case'],
+  ['GR-PRN-008', 'Relative pronoun for persons and things'],
+  ['GR-PRN-009', 'Demonstrative pronoun number'],
+  ['GR-PRN-010', "Whose / who's"],
+] as const;
+
 const CPS = [
   {
     id: 'ENG-001-CP001',
@@ -103,6 +116,14 @@ const CPS = [
     version: 'V1',
     ruleLabel: 'article / determiner',
     rules: ARTICLE_RULES,
+  },
+  {
+    id: 'ENG-001-CP004',
+    label: 'CP004 · Pronouns',
+    subtopic: 'Pronouns',
+    version: 'V1',
+    ruleLabel: 'pronoun',
+    rules: PRONOUN_RULES,
   },
 ] as const;
 
@@ -266,13 +287,13 @@ export function QuestionStudioEnglishReviewPanel() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="border-success/30 text-success">Human-approved content</Badge>
-            <Badge variant="outline">3 CPs · 3 QLs · 30 grammar rules</Badge>
+            <Badge variant="outline">4 CPs · 3 QLs · 40 grammar rules</Badge>
             <Badge variant="outline">Easy / Medium / Hard</Badge>
             <Badge variant="outline" className="border-warning/30 text-warning">Review-only</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          CP001, CP002 and CP003 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
+          CP001, CP002, CP003 and CP004 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
         </div>
       </CardHeader>
 
@@ -338,7 +359,7 @@ export function QuestionStudioEnglishReviewPanel() {
           <div className="mb-3 grid gap-3 md:grid-cols-[1fr_minmax(18rem,32rem)] md:items-end">
             <div>
               <p className="text-sm font-semibold">Recent ENG-001 review runs</p>
-              <p className="text-xs text-muted-foreground">CP001, CP002 and CP003 share this existing review surface. Approved items cannot enter Question Bank from this package.</p>
+              <p className="text-xs text-muted-foreground">CP001, CP002, CP003 and CP004 share this existing review surface. Approved items cannot enter Question Bank from this package.</p>
             </div>
             <Field label="Reason for Needs fix / Reject">
               <Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the grammar, wording, explanation, ambiguity, or difficulty issue" />
