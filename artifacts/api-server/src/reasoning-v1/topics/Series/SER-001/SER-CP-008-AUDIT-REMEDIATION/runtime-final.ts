@@ -3,19 +3,26 @@ import {
   type GeneratedSerCp008Question,
   type SerCp008Locale,
 } from "./runtime";
-import { generateSerCp008Mixed } from "./mixed-runtime";
+import {
+  generateSerCp008Mixed,
+  type GeneratedSerCp008MixedQuestion,
+} from "./mixed-runtime";
 import {
   SER_CP008_MIXED_QL_IDS,
+  type SerCp008AllProvisionalQlId,
   type SerCp008CoreQlId,
   type SerCp008MixedQlId,
-  type SerCp008ProvisionalQlId,
 } from "./question-language";
 
+export type GeneratedSerCp008FinalQuestion =
+  | GeneratedSerCp008Question
+  | GeneratedSerCp008MixedQuestion;
+
 export function generateSerCp008Final(
-  qlId: SerCp008ProvisionalQlId,
+  qlId: SerCp008AllProvisionalQlId,
   seed = 1,
   locale: SerCp008Locale = "en-IN",
-): GeneratedSerCp008Question {
+): GeneratedSerCp008FinalQuestion {
   if ((SER_CP008_MIXED_QL_IDS as readonly string[]).includes(qlId)) {
     return generateSerCp008Mixed(qlId as SerCp008MixedQlId, seed, locale);
   }
