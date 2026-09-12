@@ -20,5 +20,18 @@ for repair in repairs:
             raise SystemExit(f"Punjabi employee-subject naturalness repair: expected one repair anchor, found {count}")
         source = source.replace(repair_anchor, repair_anchor + '\n' + repair, 1)
 
+# The semantic-alignment layer originally recognised only two verb endings for
+# the digital-rollout connectivity overclaim. Generated Punjabi uses more valid
+# inflections, so route the whole semantic family: announced decision +
+# connectivity + availability. Keep the reason itself unchanged.
+connectivity_reason = 'ਕੇਵਲ ਫੈਸਲਾ ਘੋਸ਼ਿਤ ਕਰਨ ਨਾਲ ਲੋੜੀਂਦੀ ਸਥਿਰ ਕਨੈਕਟਿਵਿਟੀ ਆਪਣੇ ਆਪ ਉਪਲਬਧ ਨਹੀਂ ਹੋ ਜਾਂਦੀ; ਦੋ ਹਫ਼ਤਿਆਂ ਦੀ ਤਿਆਰੀ ਲਈ ਨੈੱਟਵਰਕ ਸਮਰੱਥਾ ਦੀ ਵੱਖਰੀ ਜਾਂਚ ਅਤੇ ਯੋਜਨਾ ਚਾਹੀਦੀ ਹੈ।'
+narrow_rule = f'  if (/ਫੈਸਲਾ ਘੋਸ਼ਿਤ.*ਕਨੈਕਟਿਵਿਟੀ.*(?:ਉਪਲਬਧ ਹੋ ਜਾਵੇਗੀ|ਉਪਲਬਧ ਹੋਵੇਗੀ)/.test(argument)) return "{connectivity_reason}";'
+broad_rule = f'  if (/ਫੈਸਲਾ ਘੋਸ਼ਿਤ.*ਕਨੈਕਟਿਵਿਟੀ.*ਉਪਲਬਧ/.test(argument)) return "{connectivity_reason}";'
+if broad_rule not in source:
+    count = source.count(narrow_rule)
+    if count != 1:
+        raise SystemExit(f"Punjabi connectivity semantic matcher: expected one narrow rule, found {count}")
+    source = source.replace(narrow_rule, broad_rule, 1)
+
 SOURCE_PATH.write_text(source, encoding="utf-8")
-print("ARG-001 CP015 Punjabi employee-subject naturalness hotfix applied")
+print("ARG-001 CP015 Punjabi naturalness and rollout semantic hotfix applied")
