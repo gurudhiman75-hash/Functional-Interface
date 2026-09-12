@@ -72,7 +72,10 @@ function repairEnglish(value: string): string {
     .replace(/\bthe entire a departmental test\b/gi, "the entire departmental test")
     .replace(/\bmost candidate and centre\b/gi, "most candidates and centres")
     .replace(/\ba automatically renewed plan\b/gi, "an automatically renewed plan")
-    .replace(/\b(Yes|No)\.\s+most instances?\b/gi, "$1. Most instances");
+    .replace(/\b(Yes|No)\.\s+most instances?\b/gi, "$1. Most instances")
+    .replace(/\bcitizens reaching near closing time\b/gi, "citizens arriving near closing time")
+    .replace(/\bon the first week of each month\b/gi, "in the first week of each month")
+    .replace(/\bin school closing time\b/gi, "during school closing time");
 }
 
 function repairHindi(value: string): string {

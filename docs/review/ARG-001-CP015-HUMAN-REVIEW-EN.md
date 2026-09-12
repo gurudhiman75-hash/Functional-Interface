@@ -126,15 +126,15 @@ Argument I is strong: The argument identifies a direct transparency and evaluati
 - QL: ARG-QL-001
 - Difficulty: Medium
 - Profile: SSC_RECENT_2X4
-- Template: ARG-CP003-QL001-T04
-- Scenario: ARG-CP003-QL001-T04-CP009-V6e-CP015-SSC_RECENT_2X4
-- Question ID: ARG-001:ARG-QL-001:SSC_RECENT_2X4:CP015:69f2048c6e83bd82eb21
+- Template: ARG-CP003-QL001-T01
+- Scenario: ARG-CP003-QL001-T01-CP009-V28-CP015-SSC_RECENT_2X4
+- Question ID: ARG-001:ARG-QL-001:SSC_RECENT_2X4:CP015:e5fe6f71a3e1fb01f804
 
-**Statement:** Should municipal payment counters remain open one hour longer on the first week of each month for citizens reaching near closing time?
+**Statement:** Should certified helmets be compulsory for riders of electric scooters on busy market roads?
 
 **Arguments:**
-1. No. Citizens reaching near closing time are usually careless, so their service needs should carry little weight when setting the timings of municipal payment counters on the first week of each month.
-2. Yes. Keeping municipal payment counters open one hour longer on the first week of each month is likely to solve the queue problem on its own, making other demand or capacity measures unnecessary.
+1. No. Electric scooters are often used for short local trips, so riders on busy market roads do not need certified helmets against impact injury in mixed traffic.
+2. Yes. Riders of electric scooters on busy market roads can suffer impact injury in mixed traffic, so using certified helmets can address a material safety risk.
 
 **Options:**
 A. Only argument I is strong
@@ -142,10 +142,10 @@ B. Only argument II is strong
 C. Both arguments I and II are strong
 D. Neither argument I nor II is strong
 
-**Correct answer:** Neither argument I nor II is strong (index 3)
+**Correct answer:** Only argument II is strong (index 1)
 
 **Explanation:**
-Argument I is weak: The argument substitutes a stereotype about the people affected for evidence about whether the proposed policy is justified. Argument II is weak: Longer opening hours may reduce queues, but they cannot solve the whole queue problem by themselves; demand and service capacity still matter.
+Argument I is weak: Trip length does not establish that the risk of impact injury in mixed traffic disappears, so the reason does not defeat the safety case. Argument II is strong: The argument directly connects certified helmets to a serious safety risk faced by riders of electric scooters.
 
 ---
 
@@ -1303,13 +1303,13 @@ Argument I is strong: A restriction limited to the evening peak targets the peri
 - Profile: BANKING_COMBO_3X5
 - Template: ARG-CP007-QL004-T01
 - Scenario: ARG-CP007-QL004-T01-CP012-SCHOOL_CLOSING_TIME-BANKING_COMBO_3X5-361470611-CP015-SV2
-- Question ID: ARG-001:ARG-QL-004:BANKING_COMBO_3X5:en-IN:CP015:d1890e1ff392eee3887f
+- Question ID: ARG-001:ARG-QL-004:BANKING_COMBO_3X5:CP015:815b0ce371a1d314a21e
 
 **Statement:** Should movement of heavy vehicles on a school-zone road be curtailed specifically during school closing time?
 
 **Arguments:**
 1. No. Emergency and essential deliveries may still need a school-zone road during school closing time, so the restriction can create real delays.
-2. Yes. Any benefit from a restriction in school closing time proves that a school-zone road should prohibit heavy vehicles throughout the day.
+2. Yes. Any benefit from a restriction during school closing time proves that a school-zone road should prohibit heavy vehicles throughout the day.
 3. Yes. Restricting heavy vehicles only during school closing time can address peak conflict while avoiding a full-day prohibition.
 
 **Options:**
@@ -1333,13 +1333,13 @@ Argument I is strong: Restricting access during school closing time can delay em
 - Profile: BANKING_COMBO_4X5
 - Template: ARG-CP007-QL004-T01
 - Scenario: ARG-CP007-QL004-T01-CP012-SCHOOL_CLOSING_TIME-BANKING_COMBO_4X5-290593762-CP015-SV2
-- Question ID: ARG-001:ARG-QL-004:BANKING_COMBO_4X5:CP015:0a9e54b547df2c3d685d
+- Question ID: ARG-001:ARG-QL-004:BANKING_COMBO_4X5:CP015:02c186c009fdf79da59f
 
 **Statement:** During school closing time, should access for heavy vehicles on a school-zone road be curtailed?
 
 **Arguments:**
 1. Yes. A time-bound restriction during school closing time can lower heavy-vehicle turning and pedestrian conflict on a school-zone road.
-2. No. Limiting heavy vehicles on a school-zone road in school closing time can obstruct time-sensitive emergency or essential deliveries that require access.
+2. No. Limiting heavy vehicles on a school-zone road during school closing time can obstruct time-sensitive emergency or essential deliveries that require access.
 3. Yes. If a limited restriction on a school-zone road helps even once, heavy vehicles should remain barred there outside the restricted period as well.
 4. Yes. A time-bound limit focused on school closing time can reduce traffic conflict without extending the restriction to the whole day.
 
