@@ -14,7 +14,7 @@ export const LP_006_PROJECTION_EXTENSION_V1 = Object.freeze({
   packageId: "LP-006" as const,
   checkpointId: "LP-CP-006" as const,
   status: "PROVISIONAL_REVIEW_CANDIDATE" as const,
-  provisionalQlIds: ["LP-QL-041", "LP-QL-042"] as const,
+  provisionalQlIds: ["LP-QL-045", "LP-QL-046"] as const,
   permanentQlAllocationStatus: "UNALLOCATED" as const,
   changesHiddenState: false as const,
   changesExistingClues: false as const,
@@ -65,7 +65,7 @@ type StatementProof = {
 
 export type Lp006ProjectionChild = {
   questionId: string;
-  qlId: "LP-QL-041" | "LP-QL-042";
+  qlId: "LP-QL-045" | "LP-QL-046";
   stem: string;
   options: string[];
   correctIndex: number;
@@ -170,7 +170,7 @@ function makeProjectionChild(caselet: Lp006Caselet, index: number): Lp006Project
   ];
   return {
     questionId: `${caselet.caseletId}-P1`,
-    qlId: "LP-QL-041",
+    qlId: "LP-QL-045",
     stem: `${baseStem(caselet)}${question}`,
     options,
     correctIndex: options.indexOf(targetValue),
@@ -251,7 +251,7 @@ function makeStatementChild(caselet: Lp006Caselet, index: number): Lp006Projecti
   ];
   return {
     questionId: `${caselet.caseletId}-P2`,
-    qlId: "LP-QL-042",
+    qlId: "LP-QL-046",
     stem: `${baseStem(caselet)}${stem}`,
     options,
     correctIndex,
