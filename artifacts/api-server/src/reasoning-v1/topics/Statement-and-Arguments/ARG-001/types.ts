@@ -13,10 +13,6 @@ export type ArgDifficulty = "EASY" | "MEDIUM" | "HARD";
 export type ArgStrength = "STRONG" | "WEAK";
 export type ArgStance = "SUPPORTS" | "OPPOSES";
 export type ArgAnswerClass = "ONLY_I" | "ONLY_II" | "BOTH" | "NEITHER";
-export type ArgCheckpointId =
-  | "ARG-CP-001" | "ARG-CP-002" | "ARG-CP-003" | "ARG-CP-004" | "ARG-CP-005"
-  | "ARG-CP-006" | "ARG-CP-007" | "ARG-CP-008" | "ARG-CP-009" | "ARG-CP-010"
-  | "ARG-CP-011" | "ARG-CP-012" | "ARG-CP-013" | "ARG-CP-014" | "ARG-CP-015";
 
 export type ArgRelevance = "DIRECT" | "INDIRECT" | "IRRELEVANT";
 export type ArgMateriality = "MAJOR" | "MINOR" | "TRIVIAL";
@@ -82,37 +78,27 @@ export interface ArgScenarioAuthority {
     | "RECRUITMENT";
 }
 
-/**
- * Cross-checkpoint learner-question shape. Historical CP001–CP006 generators
- * use the narrow four-option/two-argument form, while CP007–CP015 add real-paper
- * profiles and lifecycle overlays. Keep lifecycle fields boolean here: their
- * exact allowed values are enforced by the checkpoint-specific proof suites.
- */
 export interface GeneratedArgQuestion {
   readonly chapterId: "ARG-001";
-  readonly checkpointId: ArgCheckpointId;
+  readonly checkpointId: "ARG-CP-001" | "ARG-CP-002" | "ARG-CP-003" | "ARG-CP-004" | "ARG-CP-005" | "ARG-CP-006";
   readonly qlId: ArgQlId;
   readonly scenarioId: string;
   readonly locale: ArgLocale;
   readonly seed: number;
   readonly difficulty: ArgDifficulty;
   readonly statement: string;
-  readonly arguments: readonly string[];
-  readonly options: readonly string[];
+  readonly arguments: readonly [string, string];
+  readonly options: readonly [string, string, string, string];
   readonly correctIndex: number;
-  readonly answerClass?: ArgAnswerClass;
+  readonly answerClass: ArgAnswerClass;
   readonly explanation: string;
   readonly metadata: {
-    readonly solver?: "ARGUMENT_STRENGTH_AUTHORITY_V1";
-    readonly reviewOnly: boolean;
-    readonly questionBankWritable: boolean;
-    readonly testEligible: boolean;
-    readonly mockEligible?: boolean;
-    readonly mockTestEligible?: boolean;
-    readonly publicEligible?: boolean;
-    readonly publiclyPublishable?: boolean;
-    readonly publicReleaseAuthorized?: boolean;
-    readonly studentDeliveryAuthorized?: boolean;
-    readonly automaticStudentPublication: boolean;
+    readonly solver: "ARGUMENT_STRENGTH_AUTHORITY_V1";
+    readonly reviewOnly: true;
+    readonly questionBankWritable: false;
+    readonly testEligible: false;
+    readonly mockEligible: false;
+    readonly publicEligible: false;
+    readonly automaticStudentPublication: false;
   };
 }
