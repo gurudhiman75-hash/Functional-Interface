@@ -76,15 +76,12 @@ export function independentlySolveVisibleSerCp008(
   }
 
   if (qlId === "SER-QL-017") {
-    if (terms.length !== 6) throw new Error("Invalid QL017 visible series.");
-    const targetRow = [terms[0]!, terms[2]!, terms[4]!].map(parseSimpleToken);
-    const letterA = signedAlphabetStep(targetRow[0]!.letter, targetRow[1]!.letter);
-    const letterB = signedAlphabetStep(targetRow[1]!.letter, targetRow[2]!.letter);
-    const numberA = targetRow[1]!.number - targetRow[0]!.number;
-    const numberB = targetRow[2]!.number - targetRow[1]!.number;
-    if (letterA !== letterB || numberA !== numberB) throw new Error("QL017 target row is not fixed-step.");
-    const last = targetRow[2]!;
-    return `${last.number + numberB}${letterAtOneBased(oneBasedPosition(last.letter) + letterB)}`;
+    if (terms.length !== 5) throw new Error("Invalid QL017 visible series.");
+    const targetRow = [terms[1]!, terms[3]!].map(parseSimpleToken);
+    const letterStep = signedAlphabetStep(targetRow[0]!.letter, targetRow[1]!.letter);
+    const numberStep = targetRow[1]!.number - targetRow[0]!.number;
+    const last = targetRow[1]!;
+    return `${last.number + numberStep}${letterAtOneBased(oneBasedPosition(last.letter) + letterStep)}`;
   }
 
   if (qlId === "SER-QL-018") {
