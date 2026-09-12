@@ -156,6 +156,84 @@ const PROGRESSIVE_MULTIPLIER_SHELLS: Readonly<Record<SerCp009Locale, readonly st
   ]),
 });
 
+function stableIndex(seed: number, salt: number, modulus: number): number {
+  let value = (seed ^ Math.imul(salt, 0x9e3779b9)) >>> 0;
+  value ^= value >>> 16;
+  value = Math.imul(value, 0x7feb352d) >>> 0;
+  value ^= value >>> 15;
+  value = Math.imul(value, 0x846ca68b) >>> 0;
+  value ^= value >>> 16;
+  return value % modulus;
+}
+
+/**
+ * Expand only the parameters already admitted by the visible QL035 verifier:
+ * starting multiplier 2..5 and fixed adjustment ±1..3. A broader starting-term
+ * pool supplies source-safe instance variety without inventing new operations.
+ * Difficulty stays HARD because the structure remains multiplier progression +
+ * fixed adjustment + an internal gap; numeral size is not a scoring feature.
+ */
+function diversifyProgressiveMultiplierMath(
+  question: GeneratedSerCp009Question,
+  requestedSeed: number,
+  locale: SerCp009Locale,
+): GeneratedSerCp009Question {
+  if (question.qlId !== "SER-QL-035") return question;
+
+  const adjustments = [-3, -2, -1, 1, 2, 3] as const;
+  const firstMultiplier = 2 + stableIndex(requestedSeed, 1, 4);
+  const adjustment = adjustments[stableIndex(requestedSeed, 2, adjustments.length)]!;
+  const start = 4 + stableIndex(requestedSeed, 3, 24);
+  const values = [start];
+  for (let i = 1; i < 6; i += 1) {
+    values.push(values[i - 1]! * (firstMultiplier + i - 1) + adjustment);
+  }
+
+  const correct = values[4]!;
+  const previous = values[3]!;
+  const repeatedPreviousMultiplier = previous * (firstMultiplier + 2) + adjustment;
+  const droppedAdjustment = previous * (firstMultiplier + 3);
+  const reversedAdjustment = previous * (firstMultiplier + 3) - adjustment;
+  const options: readonly SerCp009Option[] = Object.freeze([
+    { value: String(correct), errorLabel: null },
+    { value: String(repeatedPreviousMultiplier), errorLabel: "REPEATED_PREVIOUS_MULTIPLIER" },
+    { value: String(droppedAdjustment), errorLabel: "DROPPED_FIXED_ADJUSTMENT" },
+    { value: String(reversedAdjustment), errorLabel: "REVERSED_ADJUSTMENT" },
+  ]);
+  const sign = adjustment > 0 ? "+" : "−";
+  const visible = [values[0], values[1], values[2], values[3], "?", values[5]];
+  const explanation = Object.freeze([
+    local(
+      locale,
+      `The multiplier increases by 1 at each step, while the fixed adjustment remains ${sign}${Math.abs(adjustment)}.`,
+      `हर चरण में गुणक 1 बढ़ता है, जबकि स्थिर समायोजन ${sign}${Math.abs(adjustment)} रहता है।`,
+      `ਹਰ ਪੜਾਅ 'ਤੇ ਗੁਣਕ 1 ਵੱਧਦਾ ਹੈ, ਜਦਕਿ ਸਥਿਰ ਸੋਧ ${sign}${Math.abs(adjustment)} ਰਹਿੰਦੀ ਹੈ।`,
+    ),
+    `${values[0]} × ${firstMultiplier} ${sign} ${Math.abs(adjustment)} = ${values[1]}; ${values[1]} × ${firstMultiplier + 1} ${sign} ${Math.abs(adjustment)} = ${values[2]}; ${values[2]} × ${firstMultiplier + 2} ${sign} ${Math.abs(adjustment)} = ${values[3]}; ${values[3]} × ${firstMultiplier + 3} ${sign} ${Math.abs(adjustment)} = ${correct}.`,
+    `${correct} × ${firstMultiplier + 4} ${sign} ${Math.abs(adjustment)} = ${values[5]} (${local(locale, "check", "जाँच", "ਜਾਂਚ")}).`,
+  ]);
+
+  return Object.freeze({
+    ...question,
+    taskKind: "MISSING_TERM",
+    stem: `${question.stem.split("\n")[0]}\n${visible.join(", ")}`,
+    options,
+    correctIndex: 0,
+    correctAnswer: String(correct),
+    explanation,
+    difficulty: "HARD",
+    structuralFeatures: Object.freeze({
+      layers: 3,
+      channels: 1,
+      internalGap: true,
+      firstMultiplier,
+      multiplierStep: 1,
+      adjustment,
+      reasoningLayers: 3,
+    }),
+  });
+}
+
 /**
  * The 2024 SSC progressive-multiplier family is mathematically narrow by
  * design. Improve repeated exposure through normal exam-instruction variation,
@@ -168,8 +246,7 @@ function diversifyProgressiveMultiplierShell(
   locale: SerCp009Locale,
 ): GeneratedSerCp009Question {
   if (question.qlId !== "SER-QL-035") return question;
-  const lines = question.stem.split("\n");
-  const seriesLine = lines.at(-1)!;
+  const seriesLine = question.stem.split("\n").at(-1)!;
   const shells = PROGRESSIVE_MULTIPLIER_SHELLS[locale];
   const shellIndex = (Math.floor(requestedSeed / 4) + Math.floor(requestedSeed / 17)) % shells.length;
   return Object.freeze({
@@ -199,7 +276,8 @@ export function generateSerCp009NumberSeries(
     try {
       const generated = generateBase(qlId, internalSeed, locale);
       const ratioDiversified = diversifyConstantRatio(generated, seed, locale);
-      const diversified = diversifyProgressiveMultiplierShell(ratioDiversified, seed, locale);
+      const mathDiversified = diversifyProgressiveMultiplierMath(ratioDiversified, seed, locale);
+      const diversified = diversifyProgressiveMultiplierShell(mathDiversified, seed, locale);
       const normalized = normalizeAnswerPosition(diversified, seed);
       const solved = solveVisibleNumberSeries(
         qlId,
@@ -219,7 +297,6 @@ export function generateSerCp009NumberSeries(
   throw new Error(`${qlId}:${seed}: exhausted deterministic prototype retries: ${message}`);
 }
 
-// Compile-time ownership proof: the facade covers exactly the provisional IDs.
 const _allIds: readonly SerCp009QlId[] = SER_CP009_NUMBER_SERIES_QL_IDS;
 void _allIds;
 void SER_CP009_QL_AUTHORITIES;
