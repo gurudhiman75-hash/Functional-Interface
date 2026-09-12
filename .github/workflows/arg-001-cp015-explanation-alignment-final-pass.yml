@@ -1,0 +1,56 @@
+name: ARG-001 CP015 explanation alignment final pass
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - .github/workflows/arg-001-cp015-explanation-alignment-final-pass.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/arg-001-cp012-editorial-remediation
+          fetch-depth: 0
+      - name: Repair due-process explanation alignment and add guard
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          repair_path = Path('scripts/arg-cp015-final-editorial-integration-repair.py')
+          text = repair_path.read_text(encoding='utf-8')
+          list_anchor = '''              ('.replace(/\\\\bcitizens reaching near closing time\\\\b/gi, "citizens arriving near closing time")', 'closing-time arrival wording'),
+          ]'''
+          replacement = '''              ('.replace(/\\\\bcitizens reaching near closing time\\\\b/gi, "citizens arriving near closing time")', 'closing-time arrival wording'),
+              ('.replace(/\\\\bBefore [^.]+? imposes an irreversible penalty after [^.]+?, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed\\\\./gi, "A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation.")', 'due-process explanation alignment'),
+          ]'''
+          if 'due-process explanation alignment' not in text:
+              if text.count(list_anchor) != 1:
+                  raise SystemExit(f'expected one English naturalness list tail, found {text.count(list_anchor)}')
+              text = text.replace(list_anchor, replacement, 1)
+              repair_path.write_text(text, encoding='utf-8')
+
+          proof_path = Path('artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts')
+          proof = proof_path.read_text(encoding='utf-8')
+          anchor = '    /\\bcitizens reaching near closing time\\b/i,\n'
+          guard = '    /temporary safeguards and evidence review preserve due process/i,\n'
+          if guard.strip() not in proof:
+              if proof.count(anchor) != 1:
+                  raise SystemExit(f'expected one closing-time guard anchor, found {proof.count(anchor)}')
+              proof = proof.replace(anchor, anchor + guard, 1)
+              proof_path.write_text(proof, encoding='utf-8')
+          PY
+      - name: Commit explanation alignment repair
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/arg-cp015-final-editorial-integration-repair.py artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts
+          git diff --cached --quiet && exit 0
+          git commit -m "fix(arg-cp015): align due-process explanations to arguments"
+          git push origin HEAD:feature/arg-001-cp012-editorial-remediation
