@@ -92,17 +92,17 @@ assert.equal(Math.sqrt(12 ** 2 + 10 ** 2 - 2 * 12 * 10 * 0.5), Math.sqrt(124)); 
 assert.ok(Math.abs(3840 * (0.30 - (1 - 0.75 * 0.95)) - 48) < 1e-9); // Q75 discount difference.
 
 assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 24);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 27);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 9);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 22);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 23);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 18);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 11);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 22);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 12);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 9);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "RAP-001" }).length, 3);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-003" }).length, 3);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-005" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "MEN-001" }).length, 2);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "RAP-001" }).length, 4);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-003" }).length, 4);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-005" }).length, 2);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "MEN-001" }).length, 3);
 
 const avgCgl = getQuantV4SpecializedProfileSelectionContract("AVG-001", "SSC_CGL_TIER_I");
 const numCgl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
