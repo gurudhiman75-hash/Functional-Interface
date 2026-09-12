@@ -36,9 +36,7 @@ if any(repair not in source for repair in repairs):
         source = source.replace(terminal, replacement, 1)
 
 # Put the narrow permanence family immediately before the existing broad
-# time-slot/queue/rebuild fallback. This avoids relying on function-head
-# insertion order and permanently prevents the real Banking 3x5/4x5 family
-# from receiving an unrelated generic implementation-obstacle explanation.
+# time-slot/queue/rebuild fallback.
 permanence_rule = '  if (/समय-स्लॉट.*(?:स्थायी रूप से अव्यावहारिक|स्थायी रूप से अनुपलब्ध|सफलतापूर्वक देना स्थायी)/.test(argument)) return "समय-स्लॉट से कुछ पहुँच या संचालन कठिनाइयाँ हो सकती हैं, लेकिन इससे सेवा स्थायी रूप से अव्यावहारिक या अनुपलब्ध हो जाएगी, यह निष्कर्ष उचित नहीं है।";\n'
 broad_time_slot_rule = '  if (/समय-स्लॉट|कतार|पुनर्निर्माण/.test(argument)) return "यह तर्क प्रस्तावित व्यवस्था के लिए एक बड़े कार्यान्वयन अवरोध को बिना प्रमाण मान लेता है और कम-कठोर विकल्पों पर विचार नहीं करता।";\n'
 if permanence_rule not in source:
@@ -47,9 +45,7 @@ if permanence_rule not in source:
         raise SystemExit(f"Hindi QL003 permanence routing: expected one broad time-slot anchor, found {count}")
     source = source.replace(broad_time_slot_rule, permanence_rule + broad_time_slot_rule, 1)
 
-# Dimension-specific explanations for rapid digital-rollout overclaims. These
-# must precede broad Hindi reason matchers so connectivity/device-capacity claims
-# are not explained as unrelated staffing issues.
+# Dimension-specific explanations for rapid digital-rollout overclaims.
 function_anchor = 'function specificHindiReason(argument: string): string {\n'
 rules = [
     ('निर्णय घोषित.*(?:स्थिर )?कनेक्टिविटी.*(?:उपलब्ध हो जाए|उपलब्ध हो जाएगी|उपलब्ध)', 'केवल निर्णय घोषित करने से आवश्यक स्थिर कनेक्टिविटी अपने-आप उपलब्ध नहीं हो जाती; दो सप्ताह की तैयारी के लिए नेटवर्क क्षमता की अलग जाँच और योजना चाहिए।'),
@@ -63,6 +59,21 @@ for pattern, reason in rules:
         if count != 1:
             raise SystemExit(f"Hindi QL003 semantic reason: expected one function anchor, found {count}")
         source = source.replace(function_anchor, function_anchor + rule, 1)
+
+# The finalizer normally re-routes only boilerplate/generic weak reasons. Some
+# older Banking combo questions already carry the broad time-slot sentence,
+# which is technically "specific" and therefore used to bypass the new narrow
+# permanence router. Force this semantic family through specificReason every
+# time so an old broad explanation cannot survive finalization.
+old_finalizer = '      if (strengths[index] === "WEAK" && (boilerplateReason(reason, language) || genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);'
+new_finalizer = '''      const forceHindiTimeSlotPermanence = language === "hi"
+        && /समय-स्लॉट.*(?:स्थायी रूप से अव्यावहारिक|स्थायी रूप से अनुपलब्ध|सफलतापूर्वक देना स्थायी)/.test(deduped.arguments[index]!);
+      if (strengths[index] === "WEAK" && (forceHindiTimeSlotPermanence || boilerplateReason(reason, language) || genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);'''
+if new_finalizer not in source:
+    count = source.count(old_finalizer)
+    if count != 1:
+        raise SystemExit(f"Hindi QL003 forced permanence reroute: expected one finalizer anchor, found {count}")
+    source = source.replace(old_finalizer, new_finalizer, 1)
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
 print("ARG-001 CP015 Hindi QL003 naturalness and semantic hotfix applied")
