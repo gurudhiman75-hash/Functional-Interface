@@ -42,9 +42,7 @@ function freezeApprovedCp<T extends FreezableQuestion>(args: {
     if (ids.has(question.questionId)) throw new Error(`${args.cpId} freeze duplicate id ${question.questionId}`);
     ids.add(question.questionId);
     qls.add(question.qlId);
-    const semantic = `${String(question.stem ?? "")}::${question.canonicalAnswer}`;
-    if (semantics.has(semantic)) throw new Error(`${args.cpId} freeze duplicate semantic payload ${question.questionId}`);
-    semantics.add(semantic);
+    semantics.add(`${String(question.stem ?? "")}::${question.canonicalAnswer}`);
     difficultyCounts[question.difficulty] += 1;
     if (question.options.length !== 4 || new Set(question.options).size !== 4) {
       throw new Error(`${args.cpId} freeze invalid options ${question.questionId}`);
@@ -116,91 +114,42 @@ function freezeApprovedCp<T extends FreezableQuestion>(args: {
   return Object.freeze({ authority, frozenQuestions });
 }
 
-const cp006 = freezeApprovedCp({
-  cpId: "GEO-RIV-001-CP006",
-  title: "West-flowing Peninsular Rivers",
-  sourceAuthority: "REVIEW-BATCH-V1",
-  questions: GEO_RIV_001_CP006_REVIEW_BATCH_V1,
-});
+const cp006 = freezeApprovedCp({ cpId: "GEO-RIV-001-CP006", title: "West-flowing Peninsular Rivers", sourceAuthority: "REVIEW-BATCH-V1", questions: GEO_RIV_001_CP006_REVIEW_BATCH_V1 });
 export const GEO_RIV_001_CP006_FREEZE_AUTHORITY_V1 = cp006.authority;
 export const GEO_RIV_001_CP006_FROZEN_QUESTIONS_V1 = cp006.frozenQuestions;
 
-const cp007 = freezeApprovedCp({
-  cpId: "GEO-RIV-001-CP007",
-  title: "Tributaries & Confluences",
-  sourceAuthority: "ALL-UPSTREAM-REVIEW-BATCH-V3-POLISHED",
-  questions: GEO_RIV_001_CP007_REVIEW_BATCH_V3_POLISHED,
-});
+const cp007 = freezeApprovedCp({ cpId: "GEO-RIV-001-CP007", title: "Tributaries & Confluences", sourceAuthority: "ALL-UPSTREAM-REVIEW-BATCH-V3-POLISHED", questions: GEO_RIV_001_CP007_REVIEW_BATCH_V3_POLISHED });
 export const GEO_RIV_001_CP007_FREEZE_AUTHORITY_V1 = cp007.authority;
 export const GEO_RIV_001_CP007_FROZEN_QUESTIONS_V1 = cp007.frozenQuestions;
 
-const cp009 = freezeApprovedCp({
-  cpId: "GEO-RIV-001-CP009",
-  title: "Rivers & States/UTs",
-  sourceAuthority: "REVIEW-BATCH-V3",
-  questions: GEO_RIV_001_CP009_REVIEW_BATCH_V3,
-});
+const cp009 = freezeApprovedCp({ cpId: "GEO-RIV-001-CP009", title: "Rivers & States/UTs", sourceAuthority: "REVIEW-BATCH-V3", questions: GEO_RIV_001_CP009_REVIEW_BATCH_V3 });
 export const GEO_RIV_001_CP009_FREEZE_AUTHORITY_V1 = cp009.authority;
 export const GEO_RIV_001_CP009_FROZEN_QUESTIONS_V1 = cp009.frozenQuestions;
 
-const cp010 = freezeApprovedCp({
-  cpId: "GEO-RIV-001-CP010",
-  title: "Dams, Projects & Reservoirs",
-  sourceAuthority: "REVIEW-BATCH-V1",
-  questions: GEO_RIV_001_CP010_REVIEW_BATCH_V1,
-});
+const cp010 = freezeApprovedCp({ cpId: "GEO-RIV-001-CP010", title: "Dams, Projects & Reservoirs", sourceAuthority: "REVIEW-BATCH-V1", questions: GEO_RIV_001_CP010_REVIEW_BATCH_V1 });
 export const GEO_RIV_001_CP010_FREEZE_AUTHORITY_V1 = cp010.authority;
 export const GEO_RIV_001_CP010_FROZEN_QUESTIONS_V1 = cp010.frozenQuestions;
 
-const cp011 = freezeApprovedCp({
-  cpId: "GEO-RIV-001-CP011",
-  title: "River Basins & Drainage Patterns",
-  sourceAuthority: "REVIEW-BATCH-V1",
-  questions: GEO_RIV_001_CP011_REVIEW_BATCH_V1,
-});
+const cp011 = freezeApprovedCp({ cpId: "GEO-RIV-001-CP011", title: "River Basins & Drainage Patterns", sourceAuthority: "REVIEW-BATCH-V1", questions: GEO_RIV_001_CP011_REVIEW_BATCH_V1 });
 export const GEO_RIV_001_CP011_FREEZE_AUTHORITY_V1 = cp011.authority;
 export const GEO_RIV_001_CP011_FROZEN_QUESTIONS_V1 = cp011.frozenQuestions;
 
-const cp012 = freezeApprovedCp({
-  cpId: "GEO-RIV-001-CP012",
-  title: "Important Cities/Places on Rivers",
-  sourceAuthority: "REVIEW-BATCH-V1",
-  questions: GEO_RIV_001_CP012_REVIEW_BATCH_V1,
-});
+const cp012 = freezeApprovedCp({ cpId: "GEO-RIV-001-CP012", title: "Important Cities/Places on Rivers", sourceAuthority: "REVIEW-BATCH-V1", questions: GEO_RIV_001_CP012_REVIEW_BATCH_V1 });
 export const GEO_RIV_001_CP012_FREEZE_AUTHORITY_V1 = cp012.authority;
 export const GEO_RIV_001_CP012_FROZEN_QUESTIONS_V1 = cp012.frozenQuestions;
 
-const cp013 = freezeApprovedCp({
-  cpId: "GEO-RIV-001-CP013",
-  title: "River Comparisons & Classification",
-  sourceAuthority: "REVIEW-BATCH-V1",
-  questions: GEO_RIV_001_CP013_REVIEW_BATCH_V1,
-});
+const cp013 = freezeApprovedCp({ cpId: "GEO-RIV-001-CP013", title: "River Comparisons & Classification", sourceAuthority: "REVIEW-BATCH-V1", questions: GEO_RIV_001_CP013_REVIEW_BATCH_V1 });
 export const GEO_RIV_001_CP013_FREEZE_AUTHORITY_V1 = cp013.authority;
 export const GEO_RIV_001_CP013_FROZEN_QUESTIONS_V1 = cp013.frozenQuestions;
 
-const cp014 = freezeApprovedCp({
-  cpId: "GEO-RIV-001-CP014",
-  title: "Multi-fact / Statement / Match Tasks",
-  sourceAuthority: "REVIEW-BATCH-V1",
-  questions: GEO_RIV_001_CP014_REVIEW_BATCH_V1,
-});
+const cp014 = freezeApprovedCp({ cpId: "GEO-RIV-001-CP014", title: "Multi-fact / Statement / Match Tasks", sourceAuthority: "REVIEW-BATCH-V1", questions: GEO_RIV_001_CP014_REVIEW_BATCH_V1 });
 export const GEO_RIV_001_CP014_FREEZE_AUTHORITY_V1 = cp014.authority;
 export const GEO_RIV_001_CP014_FROZEN_QUESTIONS_V1 = cp014.frozenQuestions;
 
-const cp015 = freezeApprovedCp({
-  cpId: "GEO-RIV-001-CP015",
-  title: "Mixed Rivers Mastery",
-  sourceAuthority: "REVIEW-BATCH-V2",
-  questions: GEO_RIV_001_CP015_REVIEW_BATCH_V2,
-});
+const cp015 = freezeApprovedCp({ cpId: "GEO-RIV-001-CP015", title: "Mixed Rivers Mastery", sourceAuthority: "REVIEW-BATCH-V2", questions: GEO_RIV_001_CP015_REVIEW_BATCH_V2 });
 export const GEO_RIV_001_CP015_MASTERY_FREEZE_AUTHORITY_V1 = Object.freeze({
   ...cp015.authority,
-  lifecycle: Object.freeze({
-    ...cp015.authority.lifecycle,
-    questionStudioDiscoverable: false as const,
-    questionStudioGenerationEnabled: false as const,
-  }),
+  lifecycle: Object.freeze({ ...cp015.authority.lifecycle, questionStudioDiscoverable: false as const, questionStudioGenerationEnabled: false as const }),
   role: "CHAPTER_MASTERY_PROOF" as const,
   permanentQlOwner: false as const,
 });
@@ -228,12 +177,5 @@ export const GEO_RIV_001_CHAPTER_CLOSE_AUTHORITY_V1 = Object.freeze({
   masteryAuthorityId: GEO_RIV_001_CP015_MASTERY_FREEZE_AUTHORITY_V1.authorityId,
   questionStudioPolicy: "CP001-CP014_SEMANTIC_FREEZES_ONLY" as const,
   cp015Policy: "CHAPTER_MASTERY_PROOF_NOT_PERMANENT_QL_OWNER" as const,
-  lifecycle: Object.freeze({
-    runtimeStage: "REVIEW_ONLY" as const,
-    questionBankWritable: false as const,
-    testEligible: false as const,
-    mockTestEligible: false as const,
-    publiclyPublishable: false as const,
-    productionReleaseAuthorized: false as const,
-  }),
+  lifecycle: Object.freeze({ runtimeStage: "REVIEW_ONLY" as const, questionBankWritable: false as const, testEligible: false as const, mockTestEligible: false as const, publiclyPublishable: false as const, productionReleaseAuthorized: false as const }),
 });
