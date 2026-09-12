@@ -3,6 +3,7 @@
  * CP010-F01: Phrase to One-Word Substitution (ਵਾਕੰਸ਼ ਲਈ ਇੱਕ ਸ਼ਬਦ)
  * CP010-F02: Word to Definitional Meaning (ਸ਼ਬਦ ਦਾ ਵਿਆਖਿਆਤਮਕ ਅਰਥ)
  * CP010-F03: Contextual Sentence Blank Fill (ਵਾਕ ਵਿੱਚ ਖ਼ਾਲੀ ਥਾਂ ਦੀ ਪੂਰਤੀ)
+ * CP010-F04: Negative Discrimination / Mismatched Pair Identification (ਅਸ਼ੁੱਧ ਸੁਮੇਲ ਦੀ ਪਛਾਣ)
  */
 
 import { createRng } from "../../../../core/deterministic-rng";
@@ -240,3 +241,54 @@ export function generateCP010F03(
     authorityIds: [item.id],
   });
 }
+
+// -------------------------------------------------------------------------
+// FAMILY 4: Negative Discrimination / Mismatched Pair Identification
+// -------------------------------------------------------------------------
+export function generateCP010F04(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const diffOffset = difficulty === "Easy" ? 11111 : difficulty === "Hard" ? 22222 : 0;
+  const rng = createRng(seed + diffOffset);
+
+  const easyTemplates = [
+    () => `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਜੁੱਟ (ਵਾਕੰਸ਼ ਅਤੇ ਇੱਕ ਸ਼ਬਦ) ਆਪਸ ਵਿੱਚ ਸਹੀ ਸੁਮੇਲ ਨਹੀਂ ਰੱਖਦਾ (ਅਸ਼ੁੱਧ ਹੈ)?`,
+    () => `‘ਬਹੁਤੇ ਸ਼ਬਦਾਂ ਦੀ ਥਾਂ ਇੱਕ ਸ਼ਬਦ’ ਪੱਖੋਂ ਗ਼ਲਤ ਮੇਲ ਵਾਲਾ ਵਿਕਲਪ ਚੁਣੋ:`,
+  ];
+  const medTemplates = [
+    () => `ਦਿੱਤੇ ਗਏ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ਉਹ ਜੁੱਟ ਚੁਣੋ ਜਿਸ ਵਿੱਚ ਵਾਕੰਸ਼ ਦਾ ਅਰਥ ਗ਼ਲਤ ਦਰਸਾਇਆ ਗਿਆ ਹੈ:`,
+    () => `ਹੇਠਾਂ ਦਿੱਤੇ ਚਾਰ ਜੋੜਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਸੁਮੇਲ ਅਸ਼ੁੱਧ (ਗ਼ਲਤ) ਹੈ?`,
+  ];
+  const hardTemplates = [
+    () => `ਪ੍ਰੀਖਿਆ ਪੱਧਰ 'ਤੇ ਪਰਖ ਕਰੋ: ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਵਾਕੰਸ਼ ਅਤੇ ਸੰਬੰਧਿਤ ਸ਼ਬਦ ਦਾ ਸੁਮੇਲ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਸਹੀ ਨਹੀਂ ਹੈ?`,
+    () => `ਟਕਸਾਲੀ ਸ਼ਬਦ-ਕੋਸ਼ ਅਨੁਸਾਰ ਅਸ਼ੁੱਧ ਸਮਾਨਾਰਥੀ ਜੁੱਟ (Mismatched Pair) ਦੀ ਪਛਾਣ ਕਰੋ:`,
+  ];
+
+  const templates = difficulty === "Easy" ? easyTemplates : difficulty === "Hard" ? hardTemplates : medTemplates;
+  const stem = rng.pickOne(templates)();
+
+  // Pick target item that will be mismatched
+  const targetItem = rng.pickOne(ONE_WORD_ITEMS);
+  // Pick a plausible distractor/wrong word for it
+  const wrongWord = targetItem.distractors[0] || "ਅਣਜਾਣ";
+
+  const incorrectPair = `${targetItem.phrasePa} — ${wrongWord}`;
+
+  // Pick 3 distinct valid items
+  const validCandidates = ONE_WORD_ITEMS.filter((i) => i.id !== targetItem.id);
+  const validItems = rng.pickDistinct(validCandidates, 3);
+  const validPairs = validItems.map((i) => `${i.phrasePa} — ${i.wordPa}`);
+
+  return assembleCP010Question({
+    familyId: "F04",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer: incorrectPair,
+    distractors: validPairs,
+    explanation: `ਵਿਕਲਪ “${incorrectPair}” ਅਸ਼ੁੱਧ ਸੁਮੇਲ ਹੈ। ਅਸਲ ਵਿੱਚ “${targetItem.phrasePa}” ਲਈ ਸ਼ੁੱਧ ਇੱਕ ਸ਼ਬਦ ‘${targetItem.wordPa}’ ਹੁੰਦਾ ਹੈ। ਬਾਕੀ ਤਿੰਨੋਂ ਜੋੜੇ ਬਿਲਕੁਲ ਸਹੀ ਹਨ।`,
+    authorityIds: [targetItem.id, ...validItems.map((i) => i.id)],
+  });
+}
+

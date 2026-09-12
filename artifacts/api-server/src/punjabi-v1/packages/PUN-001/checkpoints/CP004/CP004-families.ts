@@ -3,6 +3,7 @@
  * CP004-F01: Gender Transformation (ਲਿੰਗ ਬਦਲੋ)
  * CP004-F02: Number Transformation (ਵਚਨ ਬਦਲੋ)
  * CP004-F03: Sentence-level Agreement Inflection (ਵਾਕ-ਪੱਧਰੀ ਲਿੰਗ/ਵਚਨ ਰੂਪਾਂਤਰਣ)
+ * CP004-F04: Oblique Case Inflection & Agreement (ਸੰਬੰਧਕੀ/ਵਿਕਾਰੀ ਰੂਪ ਅਤੇ ਕਾਰਕੀ ਵਚਨ-ਲਿੰਗ ਰੂਪਾਂਤਰਣ)
  */
 
 import { createRng } from "../../../../core/deterministic-rng";
@@ -15,8 +16,10 @@ import { assertValidPunjabiQuestion } from "../CP001/validator";
 import {
   GENDER_PAIRS,
   NUMBER_PAIRS,
+  OBLIQUE_CASE_ITEMS,
   type GenderPair,
   type NumberPair,
+  type ObliqueCaseItem,
 } from "./CP004-authorities";
 
 function assembleCP004Question(input: {
@@ -487,5 +490,153 @@ export function generateCP004F03(
     distractors: testCase.distractors,
     explanation: testCase.explanation,
     authorityIds: ["PUN-AUTH-SENTENCE-INFLECTION"],
+  });
+}
+
+
+// -------------------------------------------------------------------------
+// FAMILY 4: Oblique Case Inflection & Agreement (ਸੰਬੰਧਕੀ/ਵਿਕਾਰੀ ਰੂਪਾਂਤਰਣ)
+// -------------------------------------------------------------------------
+
+const CP004_F04_EASY_TEMPLATES = [
+  (direct: string, post: string) => `ਜਦੋਂ ਨਾਂਵ ‘${direct}’ ਨਾਲ ਸੰਬੰਧਕ ‘${post}’ ਲੱਗੇ ਤਾਂ ਇੱਕਵਚਨ ਵਿੱਚ ਇਸ ਦਾ ਸ਼ੁੱਧ ਸੰਬੰਧਕੀ (ਵਿਕਾਰੀ) ਰੂਪ ਕੀ ਹੋਵੇਗਾ?`,
+  (direct: string, post: string) => `ਨਾਂਵ ‘${direct}’ ਦੇ ਪਿੱਛੇ ‘${post}’ ਆਉਣ ਨਾਲ ਇਸ ਦਾ ਸਹੀ ਰੂਪ ਚੁਣੋ:`,
+];
+
+const CP004_F04_MED_TEMPLATES = [
+  (direct: string, post: string) => `ਬਹੁਵਚਨ ਵਿੱਚ ਜਦੋਂ ਨਾਂਵ ‘${direct}’ ਨਾਲ ਸੰਬੰਧਕ ‘${post}’ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਇਸ ਦਾ ਸ਼ੁੱਧ ਬਹੁਵਚਨ ਸੰਬੰਧਕੀ ਰੂਪ ਕੀ ਬਣੇਗਾ?`,
+  (s: string) => `ਹੇਠ ਲਿਖੇ ਵਾਕ ਵਿੱਚ ਖ਼ਾਲੀ ਥਾਂ ਭਰਨ ਲਈ ਸ਼ੁੱਧ ਸੰਬੰਧਕੀ ਰੂਪ ਚੁਣੋ:\n“${s}”`,
+];
+
+const CP004_F04_HARD_TEMPLATES = [
+  (errSentence: string, correctForm: string) => `ਵਾਕ “${errSentence}” ਵਿੱਚ ਸੰਬੰਧਕੀ ਰੂਪ ਪੱਖੋਂ ਕਿਹੜੀ ਅਸ਼ੁੱਧੀ ਹੈ?`,
+  (correctSentence: string) => `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਸੰਬੰਧਕੀ ਕਾਰਕੀ ਰੂਪ (Oblique Form) ਪੱਖੋਂ ਬਿਲਕੁਲ ਸ਼ੁੱਧ ਵਾਕ ਕਿਹੜਾ ਹੈ?`,
+];
+
+export function generateCP004F04(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const rng = createRng(seed);
+  const item = rng.pickOne(OBLIQUE_CASE_ITEMS);
+
+  if (difficulty === "Easy") {
+    const stem = rng.pickOne(CP004_F04_EASY_TEMPLATES)(item.directSingular, item.postposition);
+    const correctAnswer = `${item.obliqueSingular} ${item.postposition}`;
+    const base = item.directSingular.replace(/ਾ$/, "");
+    const candidateDistractors = [
+      `${item.directSingular} ${item.postposition}`,
+      `${item.obliquePlural} ${item.postposition}`,
+      `${base}ੇ ${item.postposition}`,
+      `${base}ਿਆਂ ${item.postposition}`,
+      `${base}ੋਂ ${item.postposition}`,
+      `${base}ੀ ${item.postposition}`,
+      `${base}ਾਂ ${item.postposition}`,
+      `${base}ੂ ${item.postposition}`,
+      `${item.directSingular}ੋਂ ${item.postposition}`,
+    ];
+    const distractors = Array.from(
+      new Set(candidateDistractors.map((d) => d.trim()))
+    ).filter((d) => d !== correctAnswer.trim());
+
+    return assembleCP004Question({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer,
+      distractors,
+      explanation: item.explanationPa,
+      authorityIds: [item.id],
+    });
+  }
+
+  if (difficulty === "Medium") {
+    const stem = rng.pickOne(CP004_F04_MED_TEMPLATES)(item.directSingular, item.postposition);
+    const correctAnswer = `${item.obliquePlural} ${item.postposition}`;
+    const base = item.directSingular.replace(/ਾ$/, "");
+    const candidateDistractors = [
+      `${item.directSingular} ${item.postposition}`,
+      `${item.obliqueSingular} ${item.postposition}`,
+      `${item.directPlural} ${item.postposition}`,
+      `${base}ੇ ${item.postposition}`,
+      `${base}ੋ ${item.postposition}`,
+      `${base}ੀਆਂ ${item.postposition}`,
+      `${base}ਵਾਂ ${item.postposition}`,
+      `${base}ੀਂ ${item.postposition}`,
+      `${item.directSingular}ੇ ${item.postposition}`,
+    ];
+    const distractors = Array.from(
+      new Set(candidateDistractors.map((d) => d.trim()))
+    ).filter((d) => d !== correctAnswer.trim());
+
+    return assembleCP004Question({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer,
+      distractors,
+      explanation: `ਬਹੁਵਚਨ ਵਿੱਚ ਸੰਬੰਧਕ ਲੱਗਣ 'ਤੇ ‘${item.directSingular}’ ਦਾ ਰੂਪ ‘${item.obliquePlural} ${item.postposition}’ ਬਣਦਾ ਹੈ।`,
+      authorityIds: [item.id],
+    });
+  }
+
+  // Hard Difficulty: Sentence-level Oblique Case Agreement Verification
+  const obliqueSentenceCases = [
+    {
+      correct: "ਮੁੰਡਿਆਂ ਨੇ ਮਿਲ ਕੇ ਸਾਰਾ ਕੰਮ ਨਿਬੇੜਿਆ।",
+      incorrect: "ਮੁੰਡੇ ਨੇ ਮਿਲ ਕੇ ਸਾਰਾ ਕੰਮ ਨਿਬੇੜਿਆ।",
+      distractors: [
+        "ਮੁੰਡੇ ਨੇ ਮਿਲ ਕੇ ਸਾਰਾ ਕੰਮ ਨਿਬੇੜਿਆ।",
+        "ਮੁੰਡਾ ਨੇ ਮਿਲ ਕੇ ਸਾਰਾ ਕੰਮ ਨਿਬੇੜਿਆ।",
+        "ਮੁੰਡੇਆਂ ਨੇ ਮਿਲ ਕੇ ਸਾਰਾ ਕੰਮ ਨਿਬੇੜਿਆ।",
+      ],
+      reason: "ਬਹੁਵਚਨ ਕਰਤਾ ਨਾਲ ਸੰਬੰਧਕ ‘ਨੇ’ ਆਉਣ ਕਾਰਨ ਸੰਬੰਧਕੀ ਰੂਪ ‘ਮੁੰਡਿਆਂ ਨੇ’ ਸ਼ੁੱਧ ਹੈ।",
+    },
+    {
+      correct: "ਘੋੜਿਆਂ ਨੂੰ ਹਰਾ ਘਾਹ ਪਾਓ।",
+      incorrect: "ਘੋੜੇ ਨੂੰ ਹਰਾ ਘਾਹ ਪਾਓ।",
+      distractors: [
+        "ਘੋੜਾ ਨੂੰ ਹਰਾ ਘਾਹ ਪਾਓ।",
+        "ਘੋੜੇ ਨੂੰ ਹਰਾ ਘਾਹ ਪਾਓ।",
+        "ਘੋੜੀਆਂ ਨੂੰ ਹਰਾ ਘਾਹ ਪਾਓ (ਪੁਲਿੰਗ ਸੰਦਰਭ ਵਿੱਚ)।",
+      ],
+      reason: "ਬਹੁਵਚਨ ਪੁਲਿੰਗ ਸੰਬੰਧਕੀ ਰੂਪ ‘ਘੋੜਿਆਂ ਨੂੰ’ ਹੈ।",
+    },
+    {
+      correct: "ਦਰੱਖ਼ਤਾਂ ਉੱਤੇ ਪੰਛੀਆਂ ਦੇ ਆਲ੍ਹਣੇ ਹਨ।",
+      incorrect: "ਦਰੱਖ਼ਤ ਉੱਤੇ ਪੰਛੀਆਂ ਦੇ ਆਲ੍ਹਣੇ ਹਨ।",
+      distractors: [
+        "ਦਰੱਖ਼ਤ ਉੱਤੇ ਪੰਛੀਆਂ ਦੇ ਆਲ੍ਹਣੇ ਹਨ।",
+        "ਦਰੱਖ਼ਤਾਂ ਉੱਤੇ ਪੰਛੀ ਦੇ ਆਲ੍ਹਣੇ ਹਨ।",
+        "ਦਰੱਖ਼ਤੇ ਉੱਤੇ ਪੰਛੀਆਂ ਦੇ ਆਲ੍ਹਣੇ ਹਨ।",
+      ],
+      reason: "ਅਵਿਕਾਰੀ ਪੁਲਿੰਗ ਸ਼ਬਦ ‘ਦਰੱਖ਼ਤ’ ਬਹੁਵਚਨ ਸੰਬੰਧਕੀ ਵਿੱਚ ‘ਦਰੱਖ਼ਤਾਂ ਉੱਤੇ’ ਬਣਦਾ ਹੈ।",
+    },
+    {
+      correct: "ਕੁੜੀਆਂ ਨੇ ਜਮਾਤ ਵਿੱਚ ਸੋਹਣੇ ਗੀਤ ਗਾਏ।",
+      incorrect: "ਕੁੜੀ ਨੇ ਜਮਾਤ ਵਿੱਚ ਸੋਹਣੇ ਗੀਤ ਗਾਏ।",
+      distractors: [
+        "ਕੁੜੀ ਨੇ ਜਮਾਤ ਵਿੱਚ ਸੋਹਣੇ ਗੀਤ ਗਾਏ।",
+        "ਕੁੜੀਆਂ ਨੂੰ ਜਮਾਤ ਵਿੱਚ ਸੋਹਣੇ ਗੀਤ ਗਾਏ।",
+        "ਕੁੜੀਏ ਨੇ ਜਮਾਤ ਵਿੱਚ ਸੋਹਣੇ ਗੀਤ ਗਾਏ।",
+      ],
+      reason: "ਇਸਤਰੀ ਲਿੰਗ ਬਹੁਵਚਨ ਦਾ ਸੰਬੰਧਕੀ ਰੂਪ ‘ਕੁੜੀਆਂ ਨੇ’ ਹੈ।",
+    },
+  ];
+
+  const chosenCase = rng.pickOne(obliqueSentenceCases);
+  const stem = `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਸੰਬੰਧਕੀ ਕਾਰਕੀ ਰੂਪ (Oblique Form) ਪੱਖੋਂ ਬਿਲਕੁਲ ਸ਼ੁੱਧ ਵਾਕ ਕਿਹੜਾ ਹੈ?`;
+
+  return assembleCP004Question({
+    familyId: "F04",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer: chosenCase.correct,
+    distractors: chosenCase.distractors,
+    explanation: chosenCase.reason,
+    authorityIds: ["PUN-AUTH-OBLIQUE-SENTENCE"],
   });
 }

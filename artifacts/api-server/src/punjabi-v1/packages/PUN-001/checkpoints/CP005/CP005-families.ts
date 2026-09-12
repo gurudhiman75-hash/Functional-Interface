@@ -2,6 +2,8 @@
  * CP005 Question Families:
  * CP005-F01: Adjective Classification & Degrees (ਵਿਸ਼ੇਸ਼ਣ ਸ਼੍ਰੇਣੀ ਵੰਡ ਅਤੇ ਅਵਸਥਾਵਾਂ)
  * CP005-F02: Adverb Classification & Extraction (ਕਿਰਿਆ-ਵਿਸ਼ੇਸ਼ਣ ਸ਼੍ਰੇਣੀ ਵੰਡ)
+ * CP005-F03: Degree Transformation & Sentence Comparison (ਅਵਸਥਾ ਪਰਿਵਰਤਨ ਅਤੇ ਤੁਲਨਾ)
+ * CP005-F04: Adjective Agreement & Inflection (ਵਿਕਾਰੀ/ਅਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ ਅਤੇ ਲਿੰਗ-ਵਚਨ ਅਨੁਕੂਲਤਾ)
  */
 
 import { createRng } from "../../../../core/deterministic-rng";
@@ -15,9 +17,11 @@ import {
   ADJECTIVE_CATEGORIES,
   ADVERB_CATEGORIES,
   DEGREE_ITEMS,
+  ADJECTIVE_AGREEMENT_ITEMS,
   type AdjectiveCategoryItem,
   type AdverbCategoryItem,
   type DegreeItem,
+  type AdjectiveAgreementItem,
 } from "./CP005-authorities";
 
 function assembleCP005Question(input: {
@@ -527,5 +531,377 @@ export function generateCP005F02(
     distractors: otherCategories,
     explanation: selectedCase.explanation,
     authorityIds: ["PUN-AUTH-ADV-SENTENCE"],
+  });
+}
+
+// -------------------------------------------------------------------------
+// FAMILY 3: Degree Transformation & Sentence Comparison (ਵਿਸ਼ੇਸ਼ਣ ਦੀਆਂ ਅਵਸਥਾਵਾਂ ਅਤੇ ਤੁਲਨਾ)
+// -------------------------------------------------------------------------
+
+const CP005_F03_EASY_TEMPLATES = [
+  (word: string) => `ਵਿਆਕਰਣ ਅਨੁਸਾਰ ਰੂਪ ‘${word}’ ਵਿਸ਼ੇਸ਼ਣ ਦੀ ਕਿਹੜੀ ਅਵਸਥਾ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?`,
+  (word: string) => `ਸ਼ਬਦ ‘${word}’ ਵਿਸ਼ੇਸ਼ਣ ਦੀਆਂ ਤਿੰਨਾਂ ਅਵਸਥਾਵਾਂ ਵਿੱਚੋਂ ਕਿਸ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?`,
+  (word: string) => `ਦਿੱਤਾ ਗਿਆ ਸ਼ਬਦ ‘${word}’ ਵਿਸ਼ੇਸ਼ਣ ਦੀ ਕਿਹੜੀ ਤੁਲਨਾਤਮਕ ਅਵਸਥਾ ਪ੍ਰਗਟ ਕਰਦਾ ਹੈ?`,
+];
+
+const CP005_F03_MED_TEMPLATES = [
+  (base: string) => `ਵਿਸ਼ੇਸ਼ਣ ‘${base}’ ਦੀ ‘ਅਧਿਕਤਰ ਅਵਸਥਾ’ (Comparative Degree) ਕਿਹੜੀ ਹੋਵੇਗੀ?`,
+  (base: string) => `ਜਦੋਂ ਦੋ ਵਸਤਾਂ ਦੀ ਆਪਸੀ ਤੁਲਨਾ ਕਰਨੀ ਹੋਵੇ ਤਾਂ ‘${base}’ ਦਾ ਕਿਹੜਾ ਤੁਲਨਾਤਮਕ ਰੂਪ ਵਰਤਿਆ ਜਾਵੇਗਾ?`,
+  (base: string) => `‘${base}’ ਵਿਸ਼ੇਸ਼ਣ ਦਾ ਅਧਿਕਤਮ (Superlative) ਤੁਲਨਾਤਮਕ ਰੂਪ ਚੁਣੋ:`,
+  (higher: string) => `ਅਧਿਕਤਰ ਤੁਲਨਾਤਮਕ ਰੂਪ ‘${higher}’ ਦਾ ਮੂਲ ਸਧਾਰਨ (Positive Degree) ਵਿਸ਼ੇਸ਼ਣ ਕੀ ਹੈ?`,
+];
+
+const CP005_F03_HARD_TEMPLATES = [
+  (s: string) => `ਹੇਠ ਲਿਖੇ ਵਾਕ ਵਿੱਚ ਵਰਤੇ ਗਏ ਵਿਸ਼ੇਸ਼ਣ ਦੀ ਤੁਲਨਾਤਮਕ ਅਵਸਥਾ ਪਛਾਣੋ:\n“${s}”`,
+  (s: string) => `ਵਾਕ “${s}” ਵਿੱਚ ਵਿਸ਼ੇਸ਼ਣ ਦੀ ਕਿਹੜੀ ਡਿਗਰੀ/ਅਵਸਥਾ ਦੀ ਵਰਤੋਂ ਹੋਈ ਹੈ?`,
+];
+
+export function generateCP005F03(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const rng = createRng(seed);
+
+  const degreeCategories = [
+    "ਸਧਾਰਨ ਅਵਸਥਾ (Positive Degree)",
+    "ਅਧਿਕਤਰ ਅਵਸਥਾ (Comparative Degree)",
+    "ਅਧਿਕਤਮ ਅਵਸਥਾ (Superlative Degree)",
+  ];
+
+  if (difficulty === "Easy") {
+    const item = rng.pickOne(DEGREE_ITEMS);
+    const formType = rng.pickOne(["base", "higher", "highest"] as const);
+
+    let word: string;
+    let correctAnswer: string;
+    let explDegree: string;
+
+    if (formType === "base") {
+      word = item.base;
+      correctAnswer = "ਸਧਾਰਨ ਅਵਸਥਾ (Positive Degree)";
+      explDegree = "ਸਧਾਰਨ ਅਵਸਥਾ ਵਿੱਚ ਕਿਸੇ ਇੱਕ ਵਸਤੂ ਜਾਂ ਵਿਅਕਤੀ ਦਾ ਗੁਣ ਦੱਸਿਆ ਜਾਂਦਾ ਹੈ ਬਿਨਾਂ ਕਿਸੇ ਤੁਲਨਾ ਦੇ।";
+    } else if (formType === "higher") {
+      word = item.higher;
+      correctAnswer = "ਅਧਿਕਤਰ ਅਵਸਥਾ (Comparative Degree)";
+      explDegree = "ਅਧਿਕਤਰ ਅਵਸਥਾ ਵਿੱਚ ਦੋ ਵਸਤਾਂ ਜਾਂ ਵਿਅਕਤੀਆਂ ਵਿਚਕਾਰ ਤੁਲਨਾ ਕਰਕੇ ਇੱਕ ਨੂੰ ਦੂਜੇ ਨਾਲੋਂ ਵਧੇਰੇ ਜਾਂ ਘੱਟ ਦੱਸਿਆ ਜਾਂਦਾ ਹੈ।";
+    } else {
+      word = item.highest;
+      correctAnswer = "ਅਧਿਕਤਮ ਅਵਸਥਾ (Superlative Degree)";
+      explDegree = "ਅਧਿਕਤਮ ਅਵਸਥਾ ਵਿੱਚ ਕਿਸੇ ਇੱਕ ਨੂੰ ਸਭ ਨਾਲੋਂ ਵਧੇਰੇ ਜਾਂ ਸ੍ਰੇਸ਼ਠ ਦੱਸਿਆ ਜਾਂਦਾ ਹੈ।";
+    }
+
+    const distractors = [
+      ...degreeCategories.filter((c) => c !== correctAnswer),
+      "ਸੰਯੁਕਤ ਅਵਸਥਾ (Compound Degree)",
+      "ਗੁਣਾਤਮਕ ਅਵਸਥਾ",
+    ];
+
+    const stem = rng.pickOne(CP005_F03_EASY_TEMPLATES)(word);
+
+    return assembleCP005Question({
+      familyId: "F03",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer,
+      distractors,
+      explanation: `‘${word}’ ${correctAnswer} ਹੈ। ${explDegree}`,
+      authorityIds: ["PUN-AUTH-ADJ-DEGREE-IDENTIFY"],
+    });
+  }
+
+  if (difficulty === "Medium") {
+    const item = rng.pickOne(DEGREE_ITEMS);
+    const mode = rng.pickOne(["toHigher", "toHighest", "fromHigher"] as const);
+
+    if (mode === "toHigher") {
+      const stem = `ਵਿਸ਼ੇਸ਼ਣ ‘${item.base}’ ਦੀ ‘ਅਧਿਕਤਰ ਅਵਸਥਾ’ (Comparative Degree) ਕਿਹੜੀ ਹੈ?`;
+      const correctAnswer = item.higher;
+      const distractors = [
+        item.highest,
+        item.base,
+        item.base + "ਪੁਣਾ",
+        "ਵੱਧ " + item.base,
+        item.base + "ਤਮ",
+      ].filter((d) => d !== correctAnswer);
+
+      return assembleCP005Question({
+        familyId: "F03",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer,
+        distractors,
+        explanation: `‘${item.base}’ ਦੀ ਅਧਿਕਤਰ ਅਵਸਥਾ ‘${item.higher}’ ਹੈ (ਅਧਿਕਤਮ ਅਵਸਥਾ ‘${item.highest}’ ਹੈ)।`,
+        authorityIds: ["PUN-AUTH-ADJ-DEGREE-CONVERT"],
+      });
+    } else if (mode === "toHighest") {
+      const stem = `ਵਿਸ਼ੇਸ਼ਣ ‘${item.base}’ ਦੀ ‘ਅਧਿਕਤਮ ਅਵਸਥਾ’ (Superlative Degree) ਕਿਹੜੀ ਹੈ?`;
+      const correctAnswer = item.highest;
+      const distractors = [
+        item.higher,
+        item.base,
+        "ਘੱਟ " + item.base,
+        item.base + "ਤਰ",
+      ].filter((d) => d !== correctAnswer);
+
+      return assembleCP005Question({
+        familyId: "F03",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer,
+        distractors,
+        explanation: `‘${item.base}’ ਦੀ ਅਧਿਕਤਮ ਅਵਸਥਾ ‘${item.highest}’ ਹੈ, ਜੋ ਸਭ ਨਾਲੋਂ ਉੱਤਮਤਾ ਪ੍ਰਗਟ ਕਰਦੀ ਹੈ।`,
+        authorityIds: ["PUN-AUTH-ADJ-DEGREE-CONVERT"],
+      });
+    } else {
+      const stem = `ਅਧਿਕਤਰ ਤੁਲਨਾਤਮਕ ਰੂਪ ‘${item.higher}’ ਦਾ ਮੂਲ ਸਧਾਰਨ (Positive Degree) ਵਿਸ਼ੇਸ਼ਣ ਕੀ ਹੈ?`;
+      const correctAnswer = item.base;
+      const distractors = [
+        item.highest,
+        item.higher + "ਪੁਣਾ",
+        "ਸਭ ਤੋਂ " + item.base,
+        item.base + "ਵਾਲਾ",
+      ].filter((d) => d !== correctAnswer);
+
+      return assembleCP005Question({
+        familyId: "F03",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer,
+        distractors,
+        explanation: `‘${item.higher}’ ਦਾ ਮੂਲ ਸਧਾਰਨ ਰੂਪ ‘${item.base}’ ਹੈ।`,
+        authorityIds: ["PUN-AUTH-ADJ-DEGREE-BASE"],
+      });
+    }
+  }
+
+  // Hard Difficulty: Contextual sentence analysis & syntactic rules
+  const hardSentences = [
+    {
+      sentence: "ਮਾਊਂਟ ਐਵਰੈਸਟ ਦੁਨੀਆ ਦੀ ਸਭ ਤੋਂ ਉੱਚੀ ਚੋਟੀ ਹੈ।",
+      degree: "ਅਧਿਕਤਮ ਅਵਸਥਾ (Superlative Degree)",
+      expl: "ਜਦੋਂ ਕਿਸੇ ਇੱਕ ਵਸਤੂ ਦੀ ਤੁਲਨਾ ਸਮੂਹ ਦੇ ਸਾਰੇ ਮੈਂਬਰਾਂ ਨਾਲ ਕਰਕੇ ਉਸ ਨੂੰ ਸਭ ਤੋਂ ਸ੍ਰੇਸ਼ਠ ਜਾਂ ਉੱਚਾ ਦੱਸਿਆ ਜਾਵੇ, ਤਾਂ ਅਧਿਕਤਮ ਅਵਸਥਾ ਹੁੰਦੀ ਹੈ।",
+    },
+    {
+      sentence: "ਸਤਲੁਜ ਬਿਆਸ ਨਾਲੋਂ ਲੰਮੇਰਾ ਦਰਿਆ ਹੈ।",
+      degree: "ਅਧਿਕਤਰ ਅਵਸਥਾ (Comparative Degree)",
+      expl: "ਇੱਥੇ ਦੋ ਦਰਿਆਵਾਂ (ਸਤਲੁਜ ਅਤੇ ਬਿਆਸ) ਦੀ ਆਪਸੀ ਤੁਲਨਾ ਕੀਤੀ ਗਈ ਹੈ, ਇਸ ਲਈ ‘ਲੰਮੇਰਾ’ ਅਧਿਕਤਰ ਅਵਸਥਾ ਹੈ।",
+    },
+    {
+      sentence: "ਹਰਮੀਤ ਜਮਾਤ ਦਾ ਇੱਕ ਹੁਸ਼ਿਆਰ ਵਿਦਿਆਰਥੀ ਹੈ।",
+      degree: "ਸਧਾਰਨ ਅਵਸਥਾ (Positive Degree)",
+      expl: "ਇੱਥੇ ‘ਹੁਸ਼ਿਆਰ’ ਸਧਾਰਨ ਗੁਣ ਪ੍ਰਗਟ ਕਰਦਾ ਹੈ, ਬਿਨਾਂ ਕਿਸੇ ਹੋਰ ਨਾਲ ਤੁਲਨਾ ਕੀਤੇ।",
+    },
+    {
+      sentence: "ਇਹ ਸਵਾਲ ਪਹਿਲੇ ਸਵਾਲ ਨਾਲੋਂ ਔਖੇਰਾ ਸੀ।",
+      degree: "ਅਧਿਕਤਰ ਅਵਸਥਾ (Comparative Degree)",
+      expl: "ਦੋ ਸਵਾਲਾਂ ਦੀ ਆਪਸੀ ਤੁਲਨਾ ਹੋਣ ਕਾਰਨ ‘ਔਖੇਰਾ’ ਅਧਿਕਤਰ ਅਵਸਥਾ ਹੈ।",
+    },
+    {
+      sentence: "ਸਚਿਨ ਆਪਣੇ ਸਮੇਂ ਦਾ ਮਹਾਨਤਮ ਬੱਲੇਬਾਜ਼ ਮੰਨਿਆ ਜਾਂਦਾ ਸੀ।",
+      degree: "ਅਧਿਕਤਮ ਅਵਸਥਾ (Superlative Degree)",
+      expl: "‘ਮਹਾਨਤਮ’ ਵਿੱਚ ਤਤਸਮ ਪਿਛੇਤਰ ‘ਤਮ’ ਲੱਗ ਕੇ ਅਧਿਕਤਮ ਅਵਸਥਾ (ਸਭ ਨਾਲੋਂ ਮਹਾਨ) ਬਣੀ ਹੈ।",
+    },
+    {
+      sentence: "ਇਹ ਪੁਸਤਕ ਦੂਜੀ ਪੁਸਤਕ ਨਾਲੋਂ ਸ਼੍ਰੇਸ਼ਠਤਰ ਹੈ।",
+      degree: "ਅਧਿਕਤਰ ਅਵਸਥਾ (Comparative Degree)",
+      expl: "‘ਸ਼੍ਰੇਸ਼ਠਤਰ’ ਵਿੱਚ ‘ਤਰ’ ਪਿਛੇਤਰ ਦੋ ਵਸਤਾਂ ਦੀ ਤੁਲਨਾ ਲਈ ਅਧਿਕਤਰ ਅਵਸਥਾ ਦਰਸਾਉਂਦਾ ਹੈ।",
+    },
+  ];
+
+  const chosen = rng.pickOne(hardSentences);
+  const stem = rng.pickOne(CP005_F03_HARD_TEMPLATES)(chosen.sentence);
+  const distractors = [
+    ...degreeCategories.filter((c) => c !== chosen.degree),
+    "ਸੰਯੁਕਤ ਅਵਸਥਾ (Compound Degree)",
+    "ਕਾਰਕੀ ਅਵਸਥਾ (Case Degree)",
+  ];
+
+  return assembleCP005Question({
+    familyId: "F03",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer: chosen.degree,
+    distractors,
+    explanation: chosen.expl,
+    authorityIds: ["PUN-AUTH-ADJ-DEGREE-CONTEXT"],
+  });
+}
+
+// -------------------------------------------------------------------------
+// FAMILY 4: Adjective Agreement & Inflection (ਵਿਕਾਰੀ/ਅਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ ਅਤੇ ਲਿੰਗ-ਵਚਨ ਅਨੁਕੂਲਤਾ)
+// -------------------------------------------------------------------------
+
+const CP005_F04_EASY_TEMPLATES = [
+  (adj: string) => `ਵਿਆਕਰਣਕ ਵਰਗੀਕਰਨ ਅਨੁਸਾਰ ਵਿਸ਼ੇਸ਼ਣ ‘${adj}’ ਕਿਸ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?`,
+  (adj: string) => `ਕੀ ਵਿਸ਼ੇਸ਼ਣ ‘${adj}’ ਨਾਂਵ ਦੇ ਲਿੰਗ ਜਾਂ ਵਚਨ ਬਦਲਣ ਨਾਲ ਬਦਲਦਾ ਹੈ (ਵਿਕਾਰੀ) ਜਾਂ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ (ਅਵਿਕਾਰੀ)?`,
+];
+
+export function generateCP005F04(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const rng = createRng(seed);
+
+  if (difficulty === "Easy") {
+    const item = rng.pickOne(ADJECTIVE_AGREEMENT_ITEMS);
+    const stem = rng.pickOne(CP005_F04_EASY_TEMPLATES)(item.masculineSingular);
+
+    const correctAnswer = item.isDeclinable
+      ? "ਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ (ਜੋ ਲਿੰਗ/ਵਚਨ ਅਨੁਸਾਰ ਰੂਪ ਬਦਲਦਾ ਹੈ)"
+      : "ਅਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ (ਜੋ ਹਰ ਹਾਲਤ ਵਿੱਚ ਇੱਕ ਸਮਾਨ ਰਹਿੰਦਾ ਹੈ)";
+
+    const distractors = [
+      item.isDeclinable
+        ? "ਅਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ (ਜੋ ਹਰ ਹਾਲਤ ਵਿੱਚ ਇੱਕ ਸਮਾਨ ਰਹਿੰਦਾ ਹੈ)"
+        : "ਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ (ਜੋ ਲਿੰਗ/ਵਚਨ ਅਨੁਸਾਰ ਰੂਪ ਬਦਲਦਾ ਹੈ)",
+      "ਪੜਨਾਂਵੀ ਵਿਸ਼ੇਸ਼ਣ",
+      "ਸੰਖਿਆ-ਵਾਚਕ ਵਿਸ਼ੇਸ਼ਣ",
+      "ਪਰਿਮਾਣ-ਵਾਚਕ ਵਿਸ਼ੇਸ਼ਣ",
+    ];
+
+    return assembleCP005Question({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer,
+      distractors,
+      explanation: item.notePa,
+      authorityIds: ["PUN-AUTH-ADJ-DECLENSION-TYPE"],
+    });
+  }
+
+  if (difficulty === "Medium") {
+    // Agreement fill in the blank
+    const item = rng.pickOne(ADJECTIVE_AGREEMENT_ITEMS);
+    const targetCase = rng.pickOne([
+      "mascPlural",
+      "femSingular",
+      "femPlural",
+    ] as const);
+
+    let nounPhrase: string;
+    let correctAnswer: string;
+    let explanationContext: string;
+
+    if (item.isDeclinable) {
+      if (targetCase === "mascPlural") {
+        nounPhrase = `ਚਾਰ ______ (${item.masculineSingular}) ${item.exampleNounMasc}ੇ`;
+        correctAnswer = item.masculinePlural;
+        explanationContext = `ਪੁਲਿੰਗ ਬਹੁਵਚਨ ਨਾਂਵ ਨਾਲ ਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ ਦਾ ਰੂਪ ‘${item.masculinePlural}’ ਲੱਗੇਗਾ।`;
+      } else if (targetCase === "femSingular") {
+        nounPhrase = `ਇੱਕ ______ (${item.masculineSingular}) ${item.exampleNounFem}`;
+        correctAnswer = item.feminineSingular;
+        explanationContext = `ਇਸਤਰੀ ਲਿੰਗ ਇੱਕਵਚਨ ਨਾਂਵ ਨਾਲ ਵਿਸ਼ੇਸ਼ਣ ਦਾ ਰੂਪ ‘${item.feminineSingular}’ ਲੱਗੇਗਾ।`;
+      } else {
+        nounPhrase = `ਕਈ ______ (${item.masculineSingular}) ${item.exampleNounFem}ਾਂ`;
+        correctAnswer = item.femininePlural;
+        explanationContext = `ਇਸਤਰੀ ਲਿੰਗ ਬਹੁਵਚਨ ਨਾਂਵ ਨਾਲ ਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ ਦਾ ਰੂਪ ‘${item.femininePlural}’ ਲੱਗੇਗਾ।`;
+      }
+    } else {
+      // Indeclinable
+      nounPhrase = `ਸਾਰੇ ______ (${item.masculineSingular}) ${item.exampleNounMasc}`;
+      correctAnswer = item.masculineSingular;
+      explanationContext = `‘${item.masculineSingular}’ ਅਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ ਹੈ, ਇਸ ਦਾ ਰੂਪ ਲਿੰਗ ਜਾਂ ਵਚਨ ਬਦਲਣ ਨਾਲ ਨਹੀਂ ਬਦਲਦਾ।`;
+    }
+
+    const stem = `ਹੇਠ ਲਿਖੇ ਸ਼ਬਦ-ਜੁੱਟ ਵਿੱਚ ਖ਼ਾਲੀ ਥਾਂ ਲਈ ਵਿਸ਼ੇਸ਼ਣ ਦਾ ਵਿਆਕਰਣਕ ਤੌਰ 'ਤੇ ਸ਼ੁੱਧ ਰੂਪ ਚੁਣੋ:\n“${nounPhrase}”`;
+
+    const allOptions = item.isDeclinable
+      ? [
+          item.masculineSingular,
+          item.masculinePlural,
+          item.feminineSingular,
+          item.femininePlural,
+          item.masculineSingular + "ਵਾਲਾ",
+        ]
+      : [
+          item.masculineSingular,
+          item.masculineSingular + "ੇ",
+          item.masculineSingular + "ੀ",
+          item.masculineSingular + "ੀਆਂ",
+          item.masculineSingular + "ਾਂ",
+          item.masculineSingular + "ਵਾਲਾ",
+        ];
+    const distractors = Array.from(new Set(allOptions)).filter((o) => o !== correctAnswer);
+
+    return assembleCP005Question({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer,
+      distractors,
+      explanation: `${item.notePa} ${explanationContext}`,
+      authorityIds: ["PUN-AUTH-ADJ-AGREEMENT-FILL"],
+    });
+  }
+
+  // Hard Difficulty: Sentence Agreement Error Detection
+  const agreementSentenceCases = [
+    {
+      correct: "ਸੋਹਣੀਆਂ ਕੁੜੀਆਂ ਨੇ ਮਿੱਠੇ ਗੀਤ ਗਾਏ।",
+      incorrects: [
+        "ਸੋਹਣਾ ਕੁੜੀਆਂ ਨੇ ਮਿੱਠਾ ਗੀਤ ਗਾਏ।",
+        "ਸੋਹਣੇ ਕੁੜੀਆਂ ਨੇ ਮਿੱਠੀਆਂ ਗੀਤ ਗਾਏ।",
+        "ਸੋਹਣੀ ਕੁੜੀਆਂ ਨੇ ਮਿੱਠੇ ਗੀਤ ਗਾਏ।",
+      ],
+      reason: "ਇਸਤਰੀ ਲਿੰਗ ਬਹੁਵਚਨ ‘ਕੁੜੀਆਂ’ ਨਾਲ ‘ਸੋਹਣੀਆਂ’ ਅਤੇ ਪੁਲਿੰਗ ਬਹੁਵਚਨ ‘ਗੀਤ’ ਨਾਲ ‘ਮਿੱਠੇ’ ਵਿਸ਼ੇਸ਼ਣ ਆਉਣਾ ਚਾਹੀਦਾ ਹੈ।",
+    },
+    {
+      correct: "ਕਾਲੇ ਘੋੜੇ ਮੈਦਾਨ ਵਿੱਚ ਤੇਜ਼ ਦੌੜ ਰਹੇ ਹਨ।",
+      incorrects: [
+        "ਕਾਲਾ ਘੋੜੇ ਮੈਦਾਨ ਵਿੱਚ ਤੇਜ਼ ਦੌੜ ਰਹੇ ਹਨ।",
+        "ਕਾਲੀ ਘੋੜੇ ਮੈਦਾਨ ਵਿੱਚ ਤੇਜ਼ ਦੌੜ ਰਹੇ ਹਨ।",
+        "ਕਾਲੀਆਂ ਘੋੜੇ ਮੈਦਾਨ ਵਿੱਚ ਤੇਜ਼ ਦੌੜ ਰਹੇ ਹਨ।",
+      ],
+      reason: "ਪੁਲਿੰਗ ਬਹੁਵਚਨ ‘ਘੋੜੇ’ ਨਾਲ ਵਿਸ਼ੇਸ਼ਣ ਦਾ ਰੂਪ ‘ਕਾਲੇ’ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ, ਨਾ ਕਿ ‘ਕਾਲਾ’।",
+    },
+    {
+      correct: "ਇਮਾਨਦਾਰ ਕਰਮਚਾਰੀਆਂ ਦਾ ਸਭ ਆਦਰ ਕਰਦੇ ਹਨ।",
+      incorrects: [
+        "ਇਮਾਨਦਾਰੇ ਕਰਮਚਾਰੀਆਂ ਦਾ ਸਭ ਆਦਰ ਕਰਦੇ ਹਨ।",
+        "ਇਮਾਨਦਾਰੀ ਕਰਮਚਾਰੀਆਂ ਦਾ ਸਭ ਆਦਰ ਕਰਦੇ ਹਨ।",
+        "ਇਮਾਨਦਾਰੀਆਂ ਕਰਮਚਾਰੀਆਂ ਦਾ ਸਭ ਆਦਰ ਕਰਦੇ ਹਨ।",
+      ],
+      reason: "‘ਇਮਾਨਦਾਰ’ ਅਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ ਹੈ, ਇਸ ਦਾ ਬਹੁਵਚਨ ਰੂਪ ‘ਇਮਾਨਦਾਰੇ’ ਜਾਂ ‘ਇਮਾਨਦਾਰੀਆਂ’ ਨਹੀਂ ਬਣਦਾ।",
+    },
+    {
+      correct: "ਵੱਡੀਆਂ ਇਮਾਰਤਾਂ ਭੂਚਾਲ ਨਾਲ ਹਿੱਲ ਗਈਆਂ।",
+      incorrects: [
+        "ਵੱਡਾ ਇਮਾਰਤਾਂ ਭੂਚਾਲ ਨਾਲ ਹਿੱਲ ਗਈਆਂ।",
+        "ਵੱਡੇ ਇਮਾਰਤਾਂ ਭੂਚਾਲ ਨਾਲ ਹਿੱਲ ਗਈਆਂ।",
+        "ਵੱਡੀ ਇਮਾਰਤਾਂ ਭੂਚਾਲ ਨਾਲ ਹਿੱਲ ਗਈਆਂ।",
+      ],
+      reason: "ਇਸਤਰੀ ਲਿੰਗ ਬਹੁਵਚਨ ‘ਇਮਾਰਤਾਂ’ ਨਾਲ ਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ ‘ਵੱਡੀਆਂ’ ਲੱਗੇਗਾ।",
+    },
+    {
+      correct: "ਉਸ ਕੋਲ ਚਾਰ ਸੁੰਦਰ ਤਸਵੀਰਾਂ ਹਨ।",
+      incorrects: [
+        "ਉਸ ਕੋਲ ਚਾਰ ਸੁੰਦਰੀਆਂ ਤਸਵੀਰਾਂ ਹਨ।",
+        "ਉਸ ਕੋਲ ਚਾਰ ਸੁੰਦਰੇ ਤਸਵੀਰਾਂ ਹਨ।",
+        "ਉਸ ਕੋਲ ਚਾਰ ਸੁੰਦਰੀ ਤਸਵੀਰਾਂ ਹਨ।",
+      ],
+      reason: "‘ਸੁੰਦਰ’ ਅਵਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਣ ਹੈ, ਇਸ ਲਈ ਬਹੁਵਚਨ ਵਿੱਚ ਵੀ ਇਸ ਦਾ ਰੂਪ ‘ਸੁੰਦਰ’ ਹੀ ਰਹਿੰਦਾ ਹੈ।",
+    },
+  ];
+
+  const chosenCase = rng.pickOne(agreementSentenceCases);
+  const stem = `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਵਿਸ਼ੇਸ਼ਣ-ਨਾਂਵ ਲਿੰਗ-ਵਚਨ ਸੁਮੇਲ (Agreement) ਪੱਖੋਂ ਬਿਲਕੁਲ ਸ਼ੁੱਧ ਵਾਕ ਕਿਹੜਾ ਹੈ?`;
+
+  return assembleCP005Question({
+    familyId: "F04",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer: chosenCase.correct,
+    distractors: chosenCase.incorrects,
+    explanation: chosenCase.reason,
+    authorityIds: ["PUN-AUTH-ADJ-AGREEMENT-SENTENCE"],
   });
 }

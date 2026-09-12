@@ -11,7 +11,7 @@ console.log("Starting CP014 Reading Comprehension & Translation Tests...");
 
 // 1. Definition check
 assert.equal(PUN_001_CP014_DEFINITION.cpId, "PUN-001-CP014");
-assert.equal(PUN_001_CP014_DEFINITION.families.length, 4);
+assert.equal(PUN_001_CP014_DEFINITION.families.length, 5);
 
 // 2. Determinism check
 const q1 = generateCP014Question(42, "Medium", "F01");
@@ -20,7 +20,7 @@ assert.deepEqual(q1, q2, "CP014 generation must be 100% deterministic");
 
 // 3. Multi-family generation & validation
 const difficulties: PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
-const families = ["F01", "F02", "F03", "F04"];
+const families = ["F01", "F02", "F03", "F04", "F05"];
 
 for (const diff of difficulties) {
   for (const fam of families) {

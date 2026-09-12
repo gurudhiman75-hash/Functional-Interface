@@ -14,6 +14,7 @@ import {
   generateCP007F01,
   generateCP007F02,
   generateCP007F03,
+  generateCP007F04,
 } from "./CP007-families";
 
 export const PUN_001_CP007_DEFINITION: PunjabiCheckpointDefinition = {
@@ -45,6 +46,13 @@ export const PUN_001_CP007_DEFINITION: PunjabiCheckpointDefinition = {
       targetDifficulties: ["Easy", "Medium", "Hard"],
       generate: generateCP007F03,
     },
+    {
+      familyId: "F04",
+      name: "Conjunction Classification & Clause Structure",
+      description: "Coordinating vs subordinating conjunction classification, subtypes, and clause joining.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP007F04,
+    },
   ],
 };
 
@@ -57,7 +65,7 @@ export function generateCP007Question(
 
   let familyId = requestedFamilyId;
   if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03"];
+    const familyOptions = ["F01", "F02", "F03", "F04"];
     familyId = rng.pickOne(familyOptions);
   }
 
@@ -68,6 +76,8 @@ export function generateCP007Question(
       return generateCP007F02(seed, difficulty);
     case "F03":
       return generateCP007F03(seed, difficulty);
+    case "F04":
+      return generateCP007F04(seed, difficulty);
     default:
       throw new Error(`Unknown CP007 question family: '${familyId}'`);
   }

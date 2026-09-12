@@ -752,6 +752,247 @@ export const GENDER_PAIRS: readonly GenderPair[] = [
     ],
     "explanationPa": "‘ਸੂਰ’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ‘ਸੂਰਨੀ’ ਹੁੰਦਾ ਹੈ।"
   }
+  ,
+  {
+    "id": "GEN-061",
+    "masculine": "ਪੁਰਖ",
+    "feminine": "ਇਸਤਰੀ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਪੁਰਖੀ", "ਪੁਰਖਣੀ", "ਪੁਰਖਾਣੀ"],
+    "explanationPa": "ਸੁਤੰਤਰ ਰੂਪਾਂਤਰਣ (Suppletive): ‘ਪੁਰਖ’ ਦਾ ਵਿਆਕਰਨਕ ਇਸਤਰੀ ਲਿੰਗ ‘ਇਸਤਰੀ’ ਹੁੰਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-062",
+    "masculine": "ਵਰ",
+    "feminine": "ਕੰਨਿਆ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਵਰੀ", "ਵਰਨੀ", "ਵਰਾਣੀ"],
+    "explanationPa": "‘ਵਰ’ (ਦੁਲ੍ਹਾ) ਦਾ ਵਿਰੋਧੀ ਇਸਤਰੀ ਲਿੰਗ ਸ਼ਬਦ ‘ਕੰਨਿਆ’ (ਦੁਲ੍ਹਨ) ਹੁੰਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-063",
+    "masculine": "ਬਾਦਸ਼ਾਹ",
+    "feminine": "ਮਲਿਕਾ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਬਾਦਸ਼ਾਹਨੀ", "ਬਾਦਸ਼ਾਹੀ", "ਬਾਦਸ਼ਾਹਣ"],
+    "explanationPa": "‘ਬਾਦਸ਼ਾਹ’ ਦਾ ਸ਼ੁੱਧ ਇਸਤਰੀ ਲਿੰਗ ਰੂਪ ‘ਮਲਿਕਾ’ (ਜਾਂ ਬੇਗ਼ਮ) ਹੈ।"
+  },
+  {
+    "id": "GEN-064",
+    "masculine": "ਨਵਾਬ",
+    "feminine": "ਬੇਗ਼ਮ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਨਵਾਬਣੀ", "ਨਵਾਬੀ", "ਨਵਾਪਣੀ"],
+    "explanationPa": "‘ਨਵਾਬ’ ਦਾ ਪ੍ਰਮਾਣਿਤ ਇਸਤਰੀ ਲਿੰਗ ‘ਬੇਗ਼ਮ’ ਹੈ।"
+  },
+  {
+    "id": "GEN-065",
+    "masculine": "ਬਲਦ",
+    "feminine": "ਗਾਂ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਬਲਦੀ", "ਬਲਦਣੀ", "ਗਊਆਂ"],
+    "explanationPa": "ਸੁਤੰਤਰ ਰੂਪਾਂਤਰਣ ਅਨੁਸਾਰ ‘ਬਲਦ’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ‘ਗਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "GEN-066",
+    "masculine": "ਮਰਦ",
+    "feminine": "ਔਰਤ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਮਰਦਣੀ", "ਮਰਦੀ", "ਮਰਦਾਣੀ"],
+    "explanationPa": "‘ਮਰਦ’ ਦਾ ਟਕਸਾਲੀ ਇਸਤਰੀ ਲਿੰਗ ‘ਔਰਤ’ ਹੈ।"
+  },
+  {
+    "id": "GEN-067",
+    "masculine": "ਪਿਤਾ",
+    "feminine": "ਮਾਤਾ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਪਿਤਾਨੀ", "ਪਿਤੀ", "ਪਿਤਰੀ"],
+    "explanationPa": "‘ਪਿਤਾ’ ਦਾ ਸੁਤੰਤਰ ਇਸਤਰੀ ਲਿੰਗ ‘ਮਾਤਾ’ ਹੈ।"
+  },
+  {
+    "id": "GEN-068",
+    "masculine": "ਪੁੱਤਰ",
+    "feminine": "ਧੀ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਪੁੱਤਰੀ", "ਪੁਤਰਾਣੀ", "ਪੁੱਤਰੀਆਂ"],
+    "explanationPa": "‘ਪੁੱਤਰ’ ਦਾ ਰਵਾਇਤੀ ਸੁਤੰਤਰ ਇਸਤਰੀ ਲਿੰਗ ‘ਧੀ’ (ਜਾਂ ਪੁੱਤਰੀ) ਹੁੰਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-069",
+    "masculine": "ਭਰਾ",
+    "feminine": "ਭੈਣ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਭਰਾਈ", "ਭਰਾਣੀ", "ਭੈਣਾਂ"],
+    "explanationPa": "‘ਭਰਾ’ ਦਾ ਸੁਤੰਤਰ ਇਸਤਰੀ ਲਿੰਗ ‘ਭੈਣ’ ਹੈ।"
+  },
+  {
+    "id": "GEN-070",
+    "masculine": "ਪਤੀ",
+    "feminine": "ਪਤਨੀ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਪਤੀਆਣੀ", "ਪਤਨ", "ਪਤੀਆਂ"],
+    "explanationPa": "‘ਪਤੀ’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ‘ਪਤਨੀ’ ਹੈ।"
+  },
+  {
+    "id": "GEN-071",
+    "masculine": "ਸਹੁਰਾ",
+    "feminine": "ਸੱਸ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਸਹੁਰਣੀ", "ਸਹੂਰੀ", "ਸਹੁਰੇ"],
+    "explanationPa": "‘ਸਹੁਰਾ’ ਦਾ ਸੁਤੰਤਰ ਇਸਤਰੀ ਲਿੰਗ ‘ਸੱਸ’ ਹੁੰਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-072",
+    "masculine": "ਜਵਾਈ",
+    "feminine": "ਧੀ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਜਵਾਇਣ", "ਜਵਾਇਣੀ", "ਜਵਾਹੀ"],
+    "explanationPa": "ਸੰਬੰਧ-ਵਾਚਕ ਰੂਪਾਂਤਰਣ ਵਿੱਚ ‘ਜਵਾਈ’ ਦਾ ਜੋੜੀਦਾਰ ਇਸਤਰੀ ਲਿੰਗ ‘ਧੀ’ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-073",
+    "masculine": "ਮਾਸੜ",
+    "feminine": "ਮਾਸੀ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਮਾਸੜਨੀ", "ਮਾਸੜੀ", "ਮਾਸੜਣ"],
+    "explanationPa": "‘ਮਾਸੜ’ ਦਾ ਪ੍ਰਮਾਣਿਤ ਇਸਤਰੀ ਲਿੰਗ ‘ਮਾਸੀ’ ਹੈ।"
+  },
+  {
+    "id": "GEN-074",
+    "masculine": "ਫੁੱਫੜ",
+    "feminine": "ਭੂਆ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਫੁੱਫੜਨੀ", "ਫੁੱਫੀ", "ਫੁੱਫੜਣ"],
+    "explanationPa": "‘ਫੁੱਫੜ’ ਦਾ ਸੁਤੰਤਰ ਇਸਤਰੀ ਲਿੰਗ ‘ਭੂਆ’ ਹੈ।"
+  },
+  {
+    "id": "GEN-075",
+    "masculine": "ਤਾਇਆ",
+    "feminine": "ਤਾਈ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਤਾਇਣੀ", "ਤਾਇਆਣੀ", "ਤਾਈਆਂ"],
+    "explanationPa": "ਅੰਤਲੇ ਕੰਨੇ ਨੂੰ ਬਿਹਾਰੀ ਵਿੱਚ ਬਦਲ ਕੇ ‘ਤਾਈ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-076",
+    "masculine": "ਚਾਚਾ",
+    "feminine": "ਚਾਚੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਚਾਚਣੀ", "ਚਾਚਾਣੀ", "ਚਾਚੀਆਂ"],
+    "explanationPa": "ਅੰਤਲੇ ਕੰਨੇ ਨੂੰ ਬਿਹਾਰੀ ਲਾ ਕੇ ‘ਚਾਚੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-077",
+    "masculine": "ਨਾਨਾ",
+    "feminine": "ਨਾਨੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਨਾਨਣੀ", "ਨਾਨਾਣੀ", "ਨਾਨੀਆਂ"],
+    "explanationPa": "ਅੰਤਲੇ ਕੰਨੇ ਨੂੰ ਬਿਹਾਰੀ ਲਾ ਕੇ ‘ਨਾਨੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-078",
+    "masculine": "ਮਾਮਾ",
+    "feminine": "ਮਾਮੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਮਾਮਣੀ", "ਮਾਮਾਣੀ", "ਮਾਮੀਆਂ"],
+    "explanationPa": "ਅੰਤਲੇ ਕੰਨੇ ਨੂੰ ਬਿਹਾਰੀ ਲਾ ਕੇ ‘ਮਾਮੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-079",
+    "masculine": "ਰਾਜਕੁਮਾਰ",
+    "feminine": "ਰਾਜਕੁਮਾਰੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਰਾਜਕੁਮਾਰਨੀ", "ਰਾਜਕੁਮਾਰਣ", "ਰਾਜਕੁਮਾਰੀਆਂ"],
+    "explanationPa": "ਮੁਕਤਾ ਅੰਤ ਵਾਲੇ ਸ਼ਬਦ ਪਿੱਛੇ ਬਿਹਾਰੀ ਲਾ ਕੇ ‘ਰਾਜਕੁਮਾਰੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-080",
+    "masculine": "ਕਬੂਤਰ",
+    "feminine": "ਕਬੂਤਰੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਕਬੂਤਰਨੀ", "ਕਬੂਤਰਣ", "ਕਬੂਤਰੀਆਂ"],
+    "explanationPa": "ਅੰਤਲੇ ਅੱਖਰ ਨੂੰ ਬਿਹਾਰੀ ਲਾ ਕੇ ‘ਕਬੂਤਰੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-081",
+    "masculine": "ਤੋਤਾ",
+    "feminine": "ਮੈਨਾ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਤੋਤੀ", "ਤੋਤਣੀ", "ਤੋਤਣ"],
+    "explanationPa": "ਪੰਛੀਆਂ ਦੀ ਜੋੜੀ ਵਿੱਚ ‘ਤੋਤਾ’ ਦਾ ਸੁਤੰਤਰ ਇਸਤਰੀ ਲਿੰਗ ‘ਮੈਨਾ’ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-082",
+    "masculine": "ਮੋਰ",
+    "feminine": "ਮੋਰਨੀ",
+    "ruleType": "SUFFIX_NEE",
+    "commonDistractors": ["ਮੋਰੀ", "ਮੋਰਣ", "ਮੋਰਨੀਆਂ"],
+    "explanationPa": "ਪਿੱਛੇ ‘ਨੀ’ ਪਿਛੇਤਰ ਲਾ ਕੇ ‘ਮੋਰਨੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-083",
+    "masculine": "ਊਠ",
+    "feminine": "ਡਾਚੀ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਊਠਣੀ", "ਊਠੀ", "ਊਠਣ"],
+    "explanationPa": "‘ਊਠ’ ਦਾ ਸ਼ੁੱਧ ਪੰਜਾਬੀ ਇਸਤਰੀ ਲਿੰਗ ‘ਡਾਚੀ’ (ਜਾਂ ਊਠਣੀ) ਹੁੰਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-084",
+    "masculine": "ਝੋਟਾ",
+    "feminine": "ਮੱਝ",
+    "ruleType": "SUPPLETIVE",
+    "commonDistractors": ["ਝੋਟੀ", "ਝੋਟਣੀ", "ਮੱਝਾਂ"],
+    "explanationPa": "ਸੁਤੰਤਰ ਰੂਪਾਂਤਰਣ ਅਨੁਸਾਰ ‘ਝੋਟਾ’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ‘ਮੱਝ’ ਹੈ।"
+  },
+  {
+    "id": "GEN-085",
+    "masculine": "ਵੱਛਾ",
+    "feminine": "ਵੱਛੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਵੱਛਣੀ", "ਵੱਛੜੀ", "ਵੱਛੀਆਂ"],
+    "explanationPa": "ਅੰਤਲੇ ਕੰਨੇ ਨੂੰ ਬਿਹਾਰੀ ਲਾ ਕੇ ‘ਵੱਛੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-086",
+    "masculine": "ਕੱਟਾ",
+    "feminine": "ਕੱਟੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਕੱਟਣੀ", "ਕੱਟੜੀ", "ਕੱਟੀਆਂ"],
+    "explanationPa": "ਅੰਤਲੇ ਕੰਨੇ ਨੂੰ ਬਿਹਾਰੀ ਲਾ ਕੇ ‘ਕੱਟੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-087",
+    "masculine": "ਚੂਹਾ",
+    "feminine": "ਚੂਹੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਚੂਹਣੀ", "ਚੂਹੀਆਂ", "ਚੂਹੜੀ"],
+    "explanationPa": "ਅੰਤਲੇ ਕੰਨੇ ਨੂੰ ਬਿਹਾਰੀ ਵਿੱਚ ਬਦਲ ਕੇ ‘ਚੂਹੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-088",
+    "masculine": "ਬਾਂਦਰ",
+    "feminine": "ਬਾਂਦਰੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਬਾਂਦਰਨੀ", "ਬਾਂਦਰਣ", "ਬਾਂਦਰੀਆਂ"],
+    "explanationPa": "ਅੰਤਲੇ ਮੁਕਤਾ ਨੂੰ ਬਿਹਾਰੀ ਲਾ ਕੇ ‘ਬਾਂਦਰੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-089",
+    "masculine": "ਹਿਰਨ",
+    "feminine": "ਹਿਰਨੀ",
+    "ruleType": "KANNA_TO_BIHARI",
+    "commonDistractors": ["ਹਿਰਨਣੀ", "ਹਿਰਨਣ", "ਹਿਰਨੀਆਂ"],
+    "explanationPa": "ਅੰਤ ਵਿੱਚ ਬਿਹਾਰੀ ਲਾ ਕੇ ‘ਹਿਰਨੀ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "GEN-090",
+    "masculine": "ਸੱਪ",
+    "feminine": "ਸਪਨੀ",
+    "ruleType": "SUFFIX_NEE",
+    "commonDistractors": ["ਸੱਪੀ", "ਸਪਣ", "ਸਪੋਲੀਆ"],
+    "explanationPa": "ਪਿਛੇਤਰ ‘ਨੀ’ ਲਾ ਕੇ ‘ਸਪਨੀ’ ਬਣਦਾ ਹੈ।"
+  }
 ];
 
 export const NUMBER_PAIRS: readonly NumberPair[] = [
@@ -1355,4 +1596,259 @@ export const NUMBER_PAIRS: readonly NumberPair[] = [
     ],
     "explanationPa": "‘ਕਮਰਾ’ ਦਾ ਬਹੁਵਚਨ ‘ਕਮਰੇ’ ਬਣਦਾ ਹੈ।"
   }
+  ,
+  {
+    "id": "NUM-051",
+    "singular": "ਹਵਾ",
+    "plural": "ਹਵਾਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਹਵਾਈਆਂ", "ਹਵਾਏ", "ਹਵਾ"],
+    "explanationPa": "ਕੰਨਾ ਅੰਤ ਵਾਲੇ ਇਸਤਰੀ ਲਿੰਗ ਸ਼ਬਦ ਪਿੱਛੇ ‘ਵਾਂ’ ਲੱਗ ਕੇ ‘ਹਵਾਵਾਂ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "NUM-052",
+    "singular": "ਸਭਾ",
+    "plural": "ਸਭਾਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਸਭਾਈਆਂ", "ਸਭਾਏ", "ਸਭਾ"],
+    "explanationPa": "ਕੰਨਾ ਅੰਤ ਵਾਲੇ ਇਸਤਰੀ ਲਿੰਗ ਸ਼ਬਦ ਦੇ ਅੰਤ ਵਿੱਚ ‘ਵਾਂ’ ਲੱਗ ਕੇ ‘ਸਭਾਵਾਂ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "NUM-053",
+    "singular": "ਕਵਿਤਾ",
+    "plural": "ਕਵਿਤਾਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਕਵਿਤੀਆਂ", "ਕਵਿਤਾਂ", "ਕਵਿਤਾਏ"],
+    "explanationPa": "‘ਕਵਿਤਾ’ ਦਾ ਬਹੁਵਚਨ ‘ਕਵਿਤਾਵਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-054",
+    "singular": "ਘਟਨਾ",
+    "plural": "ਘਟਨਾਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਘਟਨੀਆਂ", "ਘਟਨੇ", "ਘਟਨਾ"],
+    "explanationPa": "‘ਘਟਨਾ’ ਦਾ ਬਹੁਵਚਨ ‘ਘਟਨਾਵਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-055",
+    "singular": "ਦਿਸ਼ਾ",
+    "plural": "ਦਿਸ਼ਾਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਦਿਸ਼ੀਆਂ", "ਦਿਸ਼ੇ", "ਦਿਸ਼ਾ"],
+    "explanationPa": "‘ਦਿਸ਼ਾ’ ਦਾ ਬਹੁਵਚਨ ‘ਦਿਸ਼ਾਵਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-056",
+    "singular": "ਯੋਜਨਾ",
+    "plural": "ਯੋਜਨਾਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਯੋਜਨੀਆਂ", "ਯੋਜਨੇ", "ਯੋਜਨਾ"],
+    "explanationPa": "‘ਯੋਜਨਾ’ ਦਾ ਬਹੁਵਚਨ ‘ਯੋਜਨਾਵਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-057",
+    "singular": "ਕਲਾ",
+    "plural": "ਕਲਾਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਕਲੀਆਂ", "ਕਲੇ", "ਕਲਾ"],
+    "explanationPa": "‘ਕਲਾ’ ਦਾ ਬਹੁਵਚਨ ‘ਕਲਾਵਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-058",
+    "singular": "ਸਜ਼ਾ",
+    "plural": "ਸਜ਼ਾਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਸਜ਼ੀਆਂ", "ਸਜ਼ੇ", "ਸਜ਼ਾ"],
+    "explanationPa": "‘ਸਜ਼ਾ’ ਦਾ ਬਹੁਵਚਨ ‘ਸਜ਼ਾਵਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-059",
+    "singular": "ਦੁਆ",
+    "plural": "ਦੁਆਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਦੁਆਈਆਂ", "ਦੁਆਏ", "ਦੁਆ"],
+    "explanationPa": "‘ਦੁਆ’ ਦਾ ਬਹੁਵਚਨ ‘ਦੁਆਵਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-060",
+    "singular": "ਬਲਾ",
+    "plural": "ਬਲਾਵਾਂ",
+    "ruleType": "FEM_VOWEL_TO_VAAN",
+    "commonDistractors": ["ਬਲੀਆਂ", "ਬਲੇ", "ਬਲਾ"],
+    "explanationPa": "‘ਬਲਾ’ ਦਾ ਬਹੁਵਚਨ ‘ਬਲਾਵਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-061",
+    "singular": "ਕੰਧ",
+    "plural": "ਕੰਧਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਕੰਧੇ", "ਕੰਧੀਆਂ", "ਕੰਧਾਵਾਂ"],
+    "explanationPa": "ਮੁਕਤਾ ਅੰਤ ਵਾਲੇ ਇਸਤਰੀ ਲਿੰਗ ਸ਼ਬਦ ਪਿੱਛੇ ਕੰਨਾ ਤੇ ਬਿੰਦੀ ਲੱਗ ਕੇ ‘ਕੰਧਾਂ’ ਬਣਦਾ ਹੈ।"
+  },
+  {
+    "id": "NUM-062",
+    "singular": "ਛੱਤ",
+    "plural": "ਛੱਤਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਛੱਤੇ", "ਛੱਤੀਆਂ", "ਛੱਤ"],
+    "explanationPa": "‘ਛੱਤ’ ਦਾ ਬਹੁਵਚਨ ‘ਛੱਤਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-063",
+    "singular": "ਅੱਖ",
+    "plural": "ਅੱਖਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਅੱਖੇ", "ਅੱਖੀਆਂ", "ਅੱਖ"],
+    "explanationPa": "‘ਅੱਖ’ ਦਾ ਬਹੁਵਚਨ ‘ਅੱਖਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-064",
+    "singular": "ਬਾਂਹ",
+    "plural": "ਬਾਹਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਬਾਹੀਂ", "ਬਾਂਹੇ", "ਬਾਂਹ"],
+    "explanationPa": "‘ਬਾਂਹ’ ਦਾ ਬਹੁਵਚਨ ‘ਬਾਹਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-065",
+    "singular": "ਲੱਤ",
+    "plural": "ਲੱਤਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਲੱਤੇ", "ਲੱਤੀਆਂ", "ਲੱਤ"],
+    "explanationPa": "‘ਲੱਤ’ ਦਾ ਬਹੁਵਚਨ ‘ਲੱਤਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-066",
+    "singular": "ਇੱਟ",
+    "plural": "ਇੱਟਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਇੱਟੇ", "ਇੱਟੀਆਂ", "ਇੱਟ"],
+    "explanationPa": "‘ਇੱਟ’ ਦਾ ਬਹੁਵਚਨ ‘ਇੱਟਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-067",
+    "singular": "ਪੁਸਤਕ",
+    "plural": "ਪੁਸਤਕਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਪੁਸਤਕੇ", "ਪੁਸਤਕੀਆਂ", "ਪੁਸਤਕ"],
+    "explanationPa": "‘ਪੁਸਤਕ’ ਦਾ ਬਹੁਵਚਨ ‘ਪੁਸਤਕਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-068",
+    "singular": "ਸੜਕ",
+    "plural": "ਸੜਕਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਸੜਕੇ", "ਸੜਕੀਆਂ", "ਸੜਕ"],
+    "explanationPa": "‘ਸੜਕ’ ਦਾ ਬਹੁਵਚਨ ‘ਸੜਕਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-069",
+    "singular": "ਦਵਾਤ",
+    "plural": "ਦਵਾਤਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਦਵਾਤੇ", "ਦਵਾਤੀਆਂ", "ਦਵਾਤ"],
+    "explanationPa": "‘ਦਵਾਤ’ ਦਾ ਬਹੁਵਚਨ ‘ਦਵਾਤਾਂ’ ਹੈ।"
+  },
+  {
+    "id": "NUM-070",
+    "singular": "ਕਮੀਜ਼",
+    "plural": "ਕਮੀਜ਼ਾਂ",
+    "ruleType": "FEM_MUKTA_TO_AAN",
+    "commonDistractors": ["ਕਮੀਜ਼ੇ", "ਕਮੀਜ਼ੀਆਂ", "ਕਮੀਜ਼"],
+    "explanationPa": "‘ਕਮੀਜ਼’ ਦਾ ਬਹੁਵਚਨ ‘ਕਮੀਜ਼ਾਂ’ ਹੈ।"
+  }
+];
+
+export interface ObliqueCaseItem {
+  readonly id: string;
+  readonly directSingular: string;
+  readonly obliqueSingular: string;
+  readonly directPlural: string;
+  readonly obliquePlural: string;
+  readonly postposition: string;
+  readonly sampleSentence: string;
+  readonly explanationPa: string;
+}
+
+export const OBLIQUE_CASE_ITEMS: readonly ObliqueCaseItem[] = [
+  {
+    id: "OBL-001",
+    directSingular: "ਮੁੰਡਾ",
+    obliqueSingular: "ਮੁੰਡੇ",
+    directPlural: "ਮੁੰਡੇ",
+    obliquePlural: "ਮੁੰਡਿਆਂ",
+    postposition: "ਨੇ",
+    sampleSentence: "ਮੁੰਡੇ ਨੇ ਕਿਤਾਬ ਪੜ੍ਹੀ।",
+    explanationPa: "ਕੰਨਾ-ਅੰਤ ਪੁਲਿੰਗ ਸ਼ਬਦ ‘ਮੁੰਡਾ’ ਸੰਬੰਧਕ ‘ਨੇ’ ਲੱਗਣ ਕਾਰਨ ਇੱਕਵਚਨ ਵਿੱਚ ‘ਮੁੰਡੇ’ ਬਣ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਹੁਵਚਨ ਵਿੱਚ ‘ਮੁੰਡਿਆਂ ਨੇ’ ਬਣਦਾ ਹੈ।",
+  },
+  {
+    id: "OBL-002",
+    directSingular: "ਘੋੜਾ",
+    obliqueSingular: "ਘੋੜੇ",
+    directPlural: "ਘੋੜੇ",
+    obliquePlural: "ਘੋੜਿਆਂ",
+    postposition: "ਨੂੰ",
+    sampleSentence: "ਘੋੜੇ ਨੂੰ ਘਾਹ ਪਾਓ।",
+    explanationPa: "ਪੁਲਿੰਗ ਇੱਕਵਚਨ ‘ਘੋੜਾ’ ਸੰਬੰਧਕ ਨਾਲ ‘ਘੋੜੇ’ ਅਤੇ ਬਹੁਵਚਨ ‘ਘੋੜਿਆਂ ਨੂੰ’ ਬਣਦਾ ਹੈ।",
+  },
+  {
+    id: "OBL-003",
+    directSingular: "ਕੁੱਤਾ",
+    obliqueSingular: "ਕੁੱਤੇ",
+    directPlural: "ਕੁੱਤੇ",
+    obliquePlural: "ਕੁੱਤਿਆਂ",
+    postposition: "ਤੋਂ",
+    sampleSentence: "ਬੱਚਾ ਕੁੱਤੇ ਤੋਂ ਡਰ ਗਿਆ।",
+    explanationPa: "ਸੰਬੰਧਕੀ ਰੂਪ: ਇੱਕਵਚਨ ‘ਕੁੱਤੇ ਤੋਂ’ ਅਤੇ ਬਹੁਵਚਨ ‘ਕੁੱਤਿਆਂ ਤੋਂ’।",
+  },
+  {
+    id: "OBL-004",
+    directSingular: "ਦਰੱਖ਼ਤ",
+    obliqueSingular: "ਦਰੱਖ਼ਤ",
+    directPlural: "ਦਰੱਖ਼ਤ",
+    obliquePlural: "ਦਰੱਖ਼ਤਾਂ",
+    postposition: "ਉੱਤੇ",
+    sampleSentence: "ਦਰੱਖ਼ਤਾਂ ਉੱਤੇ ਪੰਛੀ ਬੈਠੇ ਹਨ।",
+    explanationPa: "ਅਵਿਕਾਰੀ ਪੁਲਿੰਗ ਸ਼ਬਦ ਇੱਕਵਚਨ ਸੰਬੰਧਕੀ ਵਿੱਚ ‘ਦਰੱਖ਼ਤ ਉੱਤੇ’ ਪਰ ਬਹੁਵਚਨ ਵਿੱਚ ‘ਦਰੱਖ਼ਤਾਂ ਉੱਤੇ’ ਬਣਦਾ ਹੈ।",
+  },
+  {
+    id: "OBL-005",
+    directSingular: "ਘਰ",
+    obliqueSingular: "ਘਰ",
+    directPlural: "ਘਰ",
+    obliquePlural: "ਘਰਾਂ",
+    postposition: "ਵਿੱਚ",
+    sampleSentence: "ਘਰਾਂ ਵਿੱਚ ਰੌਸ਼ਨੀ ਹੋ ਰਹੀ ਹੈ।",
+    explanationPa: "ਅਵਿਕਾਰੀ ਪੁਲਿੰਗ ਸ਼ਬਦ ਬਹੁਵਚਨ ਸੰਬੰਧਕੀ ਵਿੱਚ ‘ਘਰਾਂ ਵਿੱਚ’ ਰੂਪ ਧਾਰਨ ਕਰਦਾ ਹੈ।",
+  },
+  {
+    id: "OBL-006",
+    directSingular: "ਹਾਥੀ",
+    obliqueSingular: "ਹਾਥੀ",
+    directPlural: "ਹਾਥੀ",
+    obliquePlural: "ਹਾਥੀਆਂ",
+    postposition: "ਨੇ",
+    sampleSentence: "ਹਾਥੀਆਂ ਨੇ ਜੰਗਲ ਵਿੱਚ ਰੌਲਾ ਪਾਇਆ।",
+    explanationPa: "ਮੁਕਤ-ਕਾਰਕ ਵਿੱਚ ‘ਹਾਥੀ’ ਅਪਰਿਵਰਤਿਤ ਰਹਿੰਦਾ ਹੈ, ਪਰ ਬਹੁਵਚਨ ਸੰਬੰਧਕੀ ਰੂਪ ‘ਹਾਥੀਆਂ ਨੇ’ ਬਣਦਾ ਹੈ।",
+  },
+  {
+    id: "OBL-007",
+    directSingular: "ਕੁੜੀ",
+    obliqueSingular: "ਕੁੜੀ",
+    directPlural: "ਕੁੜੀਆਂ",
+    obliquePlural: "ਕੁੜੀਆਂ",
+    postposition: "ਨੇ",
+    sampleSentence: "ਕੁੜੀਆਂ ਨੇ ਗੀਤ ਗਾਏ।",
+    explanationPa: "ਇਸਤਰੀ ਲਿੰਗ ਸ਼ਬਦ ਦਾ ਬਹੁਵਚਨ ਮੁਕਤ-ਕਾਰਕ ਅਤੇ ਸੰਬੰਧਕੀ-ਕਾਰਕ ਦੋਵਾਂ ਵਿੱਚ ‘ਕੁੜੀਆਂ’ ਹੀ ਰਹਿੰਦਾ ਹੈ।",
+  },
+  {
+    id: "OBL-008",
+    directSingular: "ਕਿਤਾਬ",
+    obliqueSingular: "ਕਿਤਾਬ",
+    directPlural: "ਕਿਤਾਬਾਂ",
+    obliquePlural: "ਕਿਤਾਬਾਂ",
+    postposition: "ਵਿੱਚੋਂ",
+    sampleSentence: "ਇਹਨਾਂ ਕਿਤਾਬਾਂ ਵਿੱਚੋਂ ਗਿਆਨ ਮਿਲਦਾ ਹੈ।",
+    explanationPa: "ਇਸਤਰੀ ਲਿੰਗ ਮੁਕਤਾ-ਅੰਤ ਸ਼ਬਦ ਬਹੁਵਚਨ ਵਿੱਚ ‘ਕਿਤਾਬਾਂ’ ਬਣਦਾ ਹੈ।",
+  },
 ];

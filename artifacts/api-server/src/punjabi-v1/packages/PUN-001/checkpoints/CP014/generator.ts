@@ -15,6 +15,7 @@ import {
   generateCP014_F02,
   generateCP014_F03,
   generateCP014_F04,
+  generateCP014_F05,
 } from "./CP014-families";
 
 export const PUN_001_CP014_DEFINITION: PunjabiCheckpointDefinition = {
@@ -23,7 +24,7 @@ export const PUN_001_CP014_DEFINITION: PunjabiCheckpointDefinition = {
   name: "Reading Comprehension & Translation",
   nameGurmukhi: "ਪਾਠ-ਬੋਧ ਅਤੇ ਪ੍ਰਬੰਧਕੀ ਅਨੁਵਾਦ",
   description:
-    "Textual comprehension, factual retrieval, title deduction, and official English <-> Punjabi administrative terminology translation.",
+    "Textual comprehension, factual retrieval, title deduction, official English <-> Punjabi administrative terminology translation, and heading/summary matching.",
   families: [
     {
       familyId: "F01",
@@ -53,6 +54,13 @@ export const PUN_001_CP014_DEFINITION: PunjabiCheckpointDefinition = {
       targetDifficulties: ["Easy", "Medium", "Hard"],
       generate: generateCP014_F04,
     },
+    {
+      familyId: "F05",
+      name: "Summary & Heading Matching",
+      description: "Extracting the central theme, heading, or gist from complex Punjabi prose.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP014_F05,
+    },
   ],
 };
 
@@ -65,7 +73,7 @@ export function generateCP014Question(
 
   let familyId = requestedFamilyId;
   if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03", "F03", "F04", "F04"];
+    const familyOptions = ["F01", "F02", "F03", "F04", "F05"];
     familyId = rng.pickOne(familyOptions);
   }
 
@@ -78,6 +86,8 @@ export function generateCP014Question(
       return generateCP014_F03(seed, difficulty);
     case "F04":
       return generateCP014_F04(seed, difficulty);
+    case "F05":
+      return generateCP014_F05(seed, difficulty);
     default:
       throw new Error(`Unknown CP014 question family: '${familyId}'`);
   }

@@ -3,6 +3,7 @@
  * CP007-F01: Karak Identification (ਕਾਰਕ ਸ਼ਨਾਖ਼ਤ)
  * CP007-F02: Connectors & Interjections (ਸੰਬੰਧਕ, ਯੋਜਕ, ਵਿਸਮਿਕ)
  * CP007-F03: Case Marker Blank Fill (ਕਾਰਕੀ ਸੰਬੰਧਕ ਖ਼ਾਲੀ ਥਾਂ ਪੂਰਤੀ)
+ * CP007-F04: Conjunction Classification & Clause Structure (ਯੋਜਕ ਸ਼੍ਰੇਣੀ ਵੰਡ ਅਤੇ ਉਪਵਾਕ ਸੰਯੋਜਨ)
  */
 
 import { createRng } from "../../../../core/deterministic-rng";
@@ -14,8 +15,10 @@ import type {
 import { assertValidPunjabiQuestion } from "../CP001/validator";
 import {
   CONNECTOR_ITEMS,
+  CONJUNCTION_TYPE_ITEMS,
   KARAK_ITEMS,
   type KarakItem,
+  type ConjunctionTypeItem,
 } from "./CP007-authorities";
 
 function assembleCP007Question(input: {
@@ -343,5 +346,130 @@ export function generateCP007F03(
     distractors,
     explanation: `ਇਸ ਵਾਕ ਵਿੱਚ ‘${correctMarker}’ (${karak.karakNamePa}) ਦੀ ਵਰਤੋਂ ਸ਼ੁੱਧ ਅਰਥ ਪ੍ਰਦਾਨ ਕਰਦੀ ਹੈ: “${karak.sampleSentence}”`,
     authorityIds: [karak.id],
+  });
+}
+
+
+// -------------------------------------------------------------------------
+// FAMILY 4: Conjunction Classification & Clause Structure (ਯੋਜਕ ਸ਼੍ਰੇਣੀ ਵੰਡ ਅਤੇ ਉਪਵਾਕ ਸੰਯੋਜਨ)
+// -------------------------------------------------------------------------
+
+const CP007_F04_EASY_TEMPLATES = [
+  (marker: string) => `ਪੰਜਾਬੀ ਵਿਆਕਰਣ ਅਨੁਸਾਰ ਯੋਜਕ ‘${marker}’ ਕਿਸ ਮੁੱਖ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?`,
+  (marker: string) => `ਕੀ ਯੋਜਕ ‘${marker}’ ਸਮਾਨ ਯੋਜਕ ਹੈ ਜਾਂ ਅਧੀਨ ਯੋਜਕ?`,
+  (marker: string) => `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ‘${marker}’ ਦੀ ਸਹੀ ਯੋਜਕ ਸ਼੍ਰੇਣੀ ਚੁਣੋ:`,
+];
+
+const CP007_F04_MED_TEMPLATES = [
+  (marker: string) => `ਯੋਜਕ ‘${marker}’ ਦਾ ਸਹੀ ਉਪ-ਵਰਗੀਕਰਨ (Subtype) ਕਿਹੜਾ ਹੈ?`,
+  (marker: string) => `ਵਿਆਕਰਣਕ ਕਾਰਜ ਅਨੁਸਾਰ ‘${marker}’ ਕਿਸ ਕਿਸਮ ਦਾ ਯੋਜਕ ਹੈ?`,
+  (sub: string) => `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ‘${sub}’ ਦੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?`,
+];
+
+const CP007_F04_HARD_TEMPLATES = [
+  (s: string, conn: string) => `ਵਾਕ “${s}” ਵਿੱਚ ਵਰਤਿਆ ਗਿਆ ਯੋਜਕ ‘${conn}’ ਕਿਸ ਸ਼੍ਰੇਣੀ ਦਾ ਹੈ?`,
+  (s: string, conn: string) => `ਦਿੱਤੇ ਗਏ ਮਿਸ਼ਰਤ/ਸੰਯੁਕਤ ਵਾਕ ਵਿੱਚ ‘${conn}’ ਦਾ ਵਿਆਕਰਣਕ ਵਰਗ ਦੱਸੋ:\n“${s}”`,
+];
+
+export function generateCP007F04(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const rng = createRng(seed);
+
+  const mainCategories = [
+    "ਸਮਾਨ ਯੋਜਕ (Coordinating Conjunction)",
+    "ਅਧੀਨ ਯੋਜਕ (Subordinating Conjunction)",
+    "ਪੂਰਨ ਸੰਬੰਧਕ",
+    "ਅਪੂਰਨ ਸੰਬੰਧਕ",
+  ];
+
+  if (difficulty === "Easy") {
+    const item = rng.pickOne(CONJUNCTION_TYPE_ITEMS);
+    const marker = rng.pickOne(item.connectors);
+    const correctAnswer = item.mainType === "SAMAN"
+      ? "ਸਮਾਨ ਯੋਜਕ (Coordinating Conjunction)"
+      : "ਅਧੀਨ ਯੋਜਕ (Subordinating Conjunction)";
+
+    const distractors = mainCategories.filter((c) => c !== correctAnswer);
+    const stem = rng.pickOne(CP007_F04_EASY_TEMPLATES)(marker);
+
+    return assembleCP007Question({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer,
+      distractors,
+      explanation: `‘${marker}’ ${correctAnswer} ਹੈ। ਇਹ ${item.mainType === "SAMAN" ? "ਸੁਤੰਤਰ ਸਮਾਨ ਪੱਧਰ ਦੇ ਵਾਕਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ" : "ਅਧੀਨ ਉਪਵਾਕ ਨੂੰ ਮੁੱਖ ਵਾਕ ਨਾਲ ਜੋੜਦਾ ਹੈ"}।`,
+      authorityIds: [item.id],
+    });
+  }
+
+  if (difficulty === "Medium") {
+    const mode = rng.pickOne(["identifySubtype", "pickMarkerForSubtype"] as const);
+    const item = rng.pickOne(CONJUNCTION_TYPE_ITEMS);
+
+    if (mode === "identifySubtype") {
+      const marker = rng.pickOne(item.connectors);
+      const correctAnswer = item.subTypePa;
+      const otherSubtypes = CONJUNCTION_TYPE_ITEMS.filter((c) => c.id !== item.id).map(
+        (c) => c.subTypePa
+      );
+      const distractors = rng.pickDistinct(otherSubtypes, 3);
+      const stem = rng.pickOne(CP007_F04_MED_TEMPLATES)(marker);
+
+      return assembleCP007Question({
+        familyId: "F04",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer,
+        distractors,
+        explanation: `‘${marker}’ ${item.subTypePa} ਹੈ। (${item.explanationPa})`,
+        authorityIds: [item.id],
+      });
+    } else {
+      const correctAnswer = rng.pickOne(item.connectors);
+      const otherMarkers: string[] = [];
+      for (const other of CONJUNCTION_TYPE_ITEMS) {
+        if (other.id !== item.id) {
+          otherMarkers.push(...other.connectors);
+        }
+      }
+      const distractors = rng.pickDistinct(Array.from(new Set(otherMarkers)), 3);
+      const stem = `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਯੋਜਕ ‘${item.subTypePa}’ ਦੀ ਉਦਾਹਰਨ ਹੈ?`;
+
+      return assembleCP007Question({
+        familyId: "F04",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer,
+        distractors,
+        explanation: `‘${correctAnswer}’ ${item.subTypePa} ਹੈ। (${item.explanationPa})`,
+        authorityIds: [item.id],
+      });
+    }
+  }
+
+  // Hard Difficulty: In-Sentence Conjunction Clause Analysis
+  const item = rng.pickOne(CONJUNCTION_TYPE_ITEMS);
+  const connector = rng.pickOne(item.connectors);
+  const stem = rng.pickOne(CP007_F04_HARD_TEMPLATES)(item.sampleSentence, connector);
+  const otherSubtypes = CONJUNCTION_TYPE_ITEMS.filter((c) => c.id !== item.id).map(
+    (c) => c.subTypePa
+  );
+  const distractors = rng.pickDistinct(otherSubtypes, 3);
+
+  return assembleCP007Question({
+    familyId: "F04",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer: item.subTypePa,
+    distractors,
+    explanation: item.explanationPa,
+    authorityIds: [item.id],
   });
 }

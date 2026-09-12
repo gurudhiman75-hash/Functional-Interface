@@ -14,6 +14,7 @@ import {
   generateCP008F01,
   generateCP008F02,
   generateCP008F03,
+  generateCP008F04,
 } from "./CP008-families";
 
 export const PUN_001_CP008_DEFINITION: PunjabiCheckpointDefinition = {
@@ -22,7 +23,7 @@ export const PUN_001_CP008_DEFINITION: PunjabiCheckpointDefinition = {
   name: "Morphology, Prefixes & Suffixes",
   nameGurmukhi: "ਅਗੇਤਰ, ਪਿਛੇਤਰ ਅਤੇ ਸ਼ਬਦ-ਰਚਨਾ",
   description:
-    "Productive derivational affixes (Prefixes: ਬੇ, ਨਿਰ, ਉਪ, ਅਣ, ਕੁ, ਸੁ / Suffixes: ਦਾਰ, ਵਾਨ, ਮੰਦ, ਆਊ, ਹਾਰ) and pseudo-affix discrimination.",
+    "Productive derivational affixes (Prefixes: ਬੇ, ਨਿਰ, ਉਪ, ਅਣ, ਕੁ, ਸੁ / Suffixes: ਦਾਰ, ਵਾਨ, ਮੰਦ, ਆਊ, ਹਾਰ), pseudo-affix discrimination, and root word extraction.",
   families: [
     {
       familyId: "F01",
@@ -45,6 +46,13 @@ export const PUN_001_CP008_DEFINITION: PunjabiCheckpointDefinition = {
       targetDifficulties: ["Easy", "Medium", "Hard"],
       generate: generateCP008F03,
     },
+    {
+      familyId: "F04",
+      name: "Root Word Extraction",
+      description: "Morphological segmentation and extraction of authentic root base words.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP008F04,
+    },
   ],
 };
 
@@ -57,7 +65,7 @@ export function generateCP008Question(
 
   let familyId = requestedFamilyId;
   if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03"];
+    const familyOptions = ["F01", "F02", "F03", "F04"];
     familyId = rng.pickOne(familyOptions);
   }
 
@@ -68,6 +76,8 @@ export function generateCP008Question(
       return generateCP008F02(seed, difficulty);
     case "F03":
       return generateCP008F03(seed, difficulty);
+    case "F04":
+      return generateCP008F04(seed, difficulty);
     default:
       throw new Error(`Unknown CP008 question family: '${familyId}'`);
   }

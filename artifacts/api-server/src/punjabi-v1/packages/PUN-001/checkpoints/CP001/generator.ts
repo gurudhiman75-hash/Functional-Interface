@@ -14,6 +14,8 @@ import {
   generateCP001F01,
   generateCP001F02,
   generateCP001F03,
+  generateCP001F04,
+  generateCP001F05,
 } from "./CP001-families";
 
 export const PUN_001_CP001_DEFINITION: PunjabiCheckpointDefinition = {
@@ -45,6 +47,20 @@ export const PUN_001_CP001_DEFINITION: PunjabiCheckpointDefinition = {
       targetDifficulties: ["Easy", "Medium", "Hard"],
       generate: generateCP001F03,
     },
+    {
+      familyId: "F04",
+      name: "Dutt Akkhar Identification & Usage",
+      description: "Conjunct consonants in subjoined foot position (ਹ, ਰ, ਵ) and tone shifts.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP001F04,
+    },
+    {
+      familyId: "F05",
+      name: "Orthographic Composition & Breakdown",
+      description: "Composition and grapheme breakdown of lagan-matravan and lagakhars in words.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP001F05,
+    },
   ],
 };
 
@@ -57,7 +73,7 @@ export function generateCP001Question(
 
   let familyId = requestedFamilyId;
   if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03"];
+    const familyOptions = ["F01", "F02", "F03", "F04", "F05"];
     familyId = rng.pickOne(familyOptions);
   }
 
@@ -68,6 +84,10 @@ export function generateCP001Question(
       return generateCP001F02(seed, difficulty);
     case "F03":
       return generateCP001F03(seed, difficulty);
+    case "F04":
+      return generateCP001F04(seed, difficulty);
+    case "F05":
+      return generateCP001F05(seed, difficulty);
     default:
       throw new Error(`Unknown CP001 question family: '${familyId}'`);
   }

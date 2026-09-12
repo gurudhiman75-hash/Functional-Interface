@@ -14,6 +14,7 @@ import {
   generateCP011F01,
   generateCP011F02,
   generateCP011F03,
+  generateCP011F04,
 } from "./CP011-families";
 
 export const PUN_001_CP011_DEFINITION: PunjabiCheckpointDefinition = {
@@ -22,7 +23,7 @@ export const PUN_001_CP011_DEFINITION: PunjabiCheckpointDefinition = {
   name: "Idiomatic Mastery",
   nameGurmukhi: "ਮੁਹਾਵਰੇ - ਅਰਥ ਅਤੇ ਵਾਕ ਵਰਤੋਂ",
   description:
-    "Canonical Punjabi idioms with standard figurative meanings, contextual usage, and distractor traps.",
+    "Canonical Punjabi idioms with standard figurative meanings, contextual usage, and literal vs figurative distractor discrimination.",
   families: [
     {
       familyId: "F01",
@@ -45,6 +46,13 @@ export const PUN_001_CP011_DEFINITION: PunjabiCheckpointDefinition = {
       targetDifficulties: ["Easy", "Medium", "Hard"],
       generate: generateCP011F03,
     },
+    {
+      familyId: "F04",
+      name: "Literal vs Figurative Discrimination",
+      description: "Discriminating genuine figurative idiomatic senses from literal translation distractor traps.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP011F04,
+    },
   ],
 };
 
@@ -57,7 +65,7 @@ export function generateCP011Question(
 
   let familyId = requestedFamilyId;
   if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03"];
+    const familyOptions = ["F01", "F02", "F03", "F04"];
     familyId = rng.pickOne(familyOptions);
   }
 
@@ -68,6 +76,8 @@ export function generateCP011Question(
       return generateCP011F02(seed, difficulty);
     case "F03":
       return generateCP011F03(seed, difficulty);
+    case "F04":
+      return generateCP011F04(seed, difficulty);
     default:
       throw new Error(`Unknown CP011 question family: '${familyId}'`);
   }

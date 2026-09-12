@@ -11,7 +11,7 @@ console.log("Starting CP005 Adjectives & Adverbs Tests...");
 
 // 1. Definition check
 assert.equal(PUN_001_CP005_DEFINITION.cpId, "PUN-001-CP005");
-assert.equal(PUN_001_CP005_DEFINITION.families.length, 2);
+assert.equal(PUN_001_CP005_DEFINITION.families.length, 4);
 
 // 2. Determinism check
 const q1 = generateCP005Question(42, "Medium", "F01");
@@ -20,7 +20,7 @@ assert.deepEqual(q1, q2, "CP005 generation must be 100% deterministic");
 
 // 3. Multi-family generation & validation
 const difficulties: PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
-const families = ["F01", "F02"];
+const families = ["F01", "F02", "F03", "F04"];
 
 for (const diff of difficulties) {
   for (const fam of families) {

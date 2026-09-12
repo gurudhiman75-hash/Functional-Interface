@@ -11,7 +11,7 @@ console.log("Starting CP001 Pilot Generator Tests...");
 
 // 1. Checkpoint definition check
 assert.equal(PUN_001_CP001_DEFINITION.cpId, "PUN-001-CP001");
-assert.equal(PUN_001_CP001_DEFINITION.families.length, 3);
+assert.equal(PUN_001_CP001_DEFINITION.families.length, 5);
 
 // 2. Determinism check: Same seed must produce bit-for-bit identical questions
 const q1 = generateCP001Question(42, "Medium", "F01");
@@ -20,7 +20,7 @@ assert.deepEqual(q1, q2, "Generation with identical seed must be 100% determinis
 
 // 3. Multi-family generation & validation
 const difficulties: PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
-const families = ["F01", "F02", "F03"];
+const families = ["F01", "F02", "F03", "F04", "F05"];
 
 for (const diff of difficulties) {
   for (const fam of families) {

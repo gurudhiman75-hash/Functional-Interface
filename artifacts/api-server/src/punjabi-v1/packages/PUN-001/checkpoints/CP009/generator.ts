@@ -10,7 +10,7 @@ import type {
   PunjabiGeneratedQuestion,
   PunjabiReviewBatch,
 } from "../../../../core/types";
-import { generateCP009F01, generateCP009F02, generateCP009F03 } from "./CP009-families";
+import { generateCP009F01, generateCP009F02, generateCP009F03, generateCP009F04 } from "./CP009-families";
 
 export const PUN_001_CP009_DEFINITION: PunjabiCheckpointDefinition = {
   cpId: "PUN-001-CP009",
@@ -18,7 +18,7 @@ export const PUN_001_CP009_DEFINITION: PunjabiCheckpointDefinition = {
   name: "Synonyms & Antonyms",
   nameGurmukhi: "ਸਮਾਨਾਰਥਕ ਅਤੇ ਵਿਰੋਧੀ ਸ਼ਬਦ",
   description:
-    "Curated literary Punjabi synonyms and antonym pairs tagged by strict semantic sense to eliminate false cross-sense pairings.",
+    "Curated literary Punjabi synonyms and antonym pairs tagged by strict semantic sense to eliminate false cross-sense pairings, plus near-synonym discrimination.",
   families: [
     {
       familyId: "F01",
@@ -41,6 +41,13 @@ export const PUN_001_CP009_DEFINITION: PunjabiCheckpointDefinition = {
       targetDifficulties: ["Easy", "Medium", "Hard"],
       generate: generateCP009F03,
     },
+    {
+      familyId: "F04",
+      name: "Near-Synonym Discrimination",
+      description: "Fine semantic distinction and contextual disambiguation between close synonyms.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP009F04,
+    },
   ],
 };
 
@@ -53,7 +60,7 @@ export function generateCP009Question(
 
   let familyId = requestedFamilyId;
   if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03"];
+    const familyOptions = ["F01", "F02", "F03", "F04"];
     familyId = rng.pickOne(familyOptions);
   }
 
@@ -64,6 +71,8 @@ export function generateCP009Question(
       return generateCP009F02(seed, difficulty);
     case "F03":
       return generateCP009F03(seed, difficulty);
+    case "F04":
+      return generateCP009F04(seed, difficulty);
     default:
       throw new Error(`Unknown CP009 question family: '${familyId}'`);
   }

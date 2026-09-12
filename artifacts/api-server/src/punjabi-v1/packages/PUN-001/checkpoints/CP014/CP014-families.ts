@@ -421,3 +421,84 @@ export function generateCP014_F04(
     authorityIds: [item.id, "PUN-ADMIN-CTX-01"],
   });
 }
+
+// -------------------------------------------------------------------------
+// FAMILY 5: Summary & Heading Matching (ਸਿਰਲੇਖ ਅਤੇ ਸੰਖੇਪ ਸਾਰ ਚੋਣ)
+// -------------------------------------------------------------------------
+
+const CP014_F05_EASY_TEMPLATES = [
+  (txt: string) => `ਹੇਠ ਲਿਖੇ ਪੈਰੇ ਨੂੰ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹ ਕੇ ਇਸ ਲਈ ਸਭ ਤੋਂ ਢੁਕਵਾਂ ਸਿਰਲੇਖ (Heading/Title) ਚੁਣੋ:
+
+"${txt}"`,
+  (txt: string) => `ਦਿੱਤੇ ਗਏ ਪੈਰੇ ਦੀ ਕੇਂਦਰੀ ਭਾਵਨਾ ਨੂੰ ਦਰਸਾਉਂਦਾ ਢੁਕਵਾਂ ਸਿਰਲੇਖ ਕਿਹੜਾ ਹੈ?
+
+"${txt}"`,
+];
+
+const CP014_F05_MED_TEMPLATES = [
+  (txt: string) => `ਪਾਠ-ਬੋਧ ਵਿਸ਼ਲੇਸ਼ਣ: ਹੇਠਾਂ ਦਿੱਤੇ ਪੈਰੇ ਲਈ ਸਭ ਤੋਂ ਸਟੀਕ ਅਤੇ ਪ੍ਰਭਾਵਸ਼ਾਲੀ ਸਿਰਲੇਖ ਕਿਹੜਾ ਹੋਵੇਗਾ?
+
+"${txt}"`,
+  (txt: string) => `ਹੇਠ ਲਿਖੇ ਪੈਰੇ ਦਾ ਮੁੱਖ ਵਿਸ਼ਾ-ਵਸਤੂ ਦੱਸਦਾ ਉੱਤਮ ਸਿਰਲੇਖ ਚੁਣੋ:
+
+"${txt}"`,
+];
+
+const CP014_F05_HARD_TEMPLATES = [
+  (txt: string) => `ਪ੍ਰੀਖਿਆ ਪੱਧਰ 'ਤੇ ਗੰਭੀਰ ਮੁਲਾਂਕਣ ਕਰੋ: ਦਿੱਤੇ ਗਏ ਪੈਰੇ ਦੇ ਸਮੁੱਚੇ ਸੰਦੇਸ਼ ਨੂੰ ਸੰਖੇਪ ਰੂਪ ਵਿੱਚ ਪ੍ਰਗਟਾਉਂਦਾ ਸਿਰਲੇਖ ਕਿਹੜਾ ਹੈ?
+
+"${txt}"`,
+  (txt: string) => `ਹੇਠਾਂ ਦਰਜ ਵਿਸਤ੍ਰਿਤ ਪੈਰੇ ਦੇ ਕੇਂਦਰੀ ਧੁਰੇ ਅਤੇ ਵਿਸ਼ੇ ਦੀ ਪ੍ਰਤੀਨਿਧਤਾ ਕਰਦਾ ਸਿਰਲੇਖ ਚੁਣੋ:
+
+"${txt}"`,
+];
+
+export function generateCP014_F05(
+  seed: number,
+  difficulty: PunjabiDifficulty = "Medium"
+): PunjabiGeneratedQuestion {
+  const diffOffset = difficulty === "Easy" ? 11111 : difficulty === "Hard" ? 22222 : 0;
+  const rng = createRng(seed + diffOffset);
+  const passage: ReadingPassageItem = rng.pickOne(CP014_PASSAGES);
+
+  const titleQuestions = passage.questions.filter((q) => q.type === "title" || q.type === "summary");
+
+  if (titleQuestions.length > 0 && rng.next() > 0.4) {
+    const qItem = rng.pickOne(titleQuestions);
+    const stem = `ਹੇਠ ਦਿੱਤੇ ਪੈਰੇ ਨੂੰ ਪੜ੍ਹ ਕੇ ਪ੍ਰਸ਼ਨ ਦਾ ਉੱਤਰ ਦਿਓ:\n\n"${passage.textPa}"\n\nਪ੍ਰਸ਼ਨ: ${qItem.questionStem}`;
+    return assembleCP014Question({
+      familyId: "F05",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer: qItem.correctAnswer,
+      distractors: qItem.distractors,
+      explanation: qItem.explanationPa,
+      authorityIds: [passage.id, qItem.qId],
+    });
+  }
+
+  const templatePool =
+    difficulty === "Easy"
+      ? CP014_F05_EASY_TEMPLATES
+      : difficulty === "Hard"
+      ? CP014_F05_HARD_TEMPLATES
+      : CP014_F05_MED_TEMPLATES;
+
+  const stemTemplate = rng.pickOne(templatePool);
+  const stem = stemTemplate(passage.textPa);
+
+  const otherTitles = CP014_PASSAGES.filter((p) => p.id !== passage.id).map((p) => p.title);
+
+  return assembleCP014Question({
+    familyId: "F05",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer: passage.title,
+    distractors: otherTitles,
+    explanation: `ਇਸ ਪੈਰੇ ਦਾ ਸਮੁੱਚਾ ਕੇਂਦਰੀ ਭਾਵ ‘${passage.title}’ ਦੇ ਦੁਆਲੇ ਘੁੰਮਦਾ ਹੈ, ਇਸ ਲਈ ਇਹੋ ਸਭ ਤੋਂ ਢੁਕਵਾਂ ਸਿਰਲੇਖ ਹੈ।`,
+    authorityIds: [passage.id],
+  });
+}
+

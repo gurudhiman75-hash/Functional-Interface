@@ -11,7 +11,7 @@ console.log("Starting CP009 Synonyms & Antonyms Tests...");
 
 // 1. Definition check
 assert.equal(PUN_001_CP009_DEFINITION.cpId, "PUN-001-CP009");
-assert.equal(PUN_001_CP009_DEFINITION.families.length, 3);
+assert.equal(PUN_001_CP009_DEFINITION.families.length, 4);
 
 // 2. Determinism check
 const q1 = generateCP009Question(42, "Medium", "F01");
@@ -20,7 +20,7 @@ assert.deepEqual(q1, q2, "CP009 generation must be 100% deterministic");
 
 // 3. Multi-family generation & validation
 const difficulties: PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
-const families = ["F01", "F02", "F03"];
+const families = ["F01", "F02", "F03", "F04"];
 
 for (const diff of difficulties) {
   for (const fam of families) {

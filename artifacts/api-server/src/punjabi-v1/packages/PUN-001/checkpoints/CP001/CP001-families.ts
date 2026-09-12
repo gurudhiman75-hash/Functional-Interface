@@ -9,9 +9,15 @@ import {
   CARRIER_RULES,
   GURMUKHI_VARGS,
   LAGAKHAR_RULES,
+  DUTT_AKKHARS,
+  LAGAAN_DETAILS,
+  ORTHOGRAPHIC_WORD_BREAKDOWNS,
   type CarrierRule,
   type LagakharRule,
   type VargAuthority,
+  type DuttAkkharRule,
+  type LagaanDetail,
+  type WordBreakdownItem,
 } from "./CP001-authorities";
 
 function assembleQuestion(input: {
@@ -1043,3 +1049,231 @@ export function generateCP001F03(seed: number, difficulty: PunjabiDifficulty): P
     authorityIds: ["PUN-AUTH-LAGAKHAR-005"],
   });
 }
+
+// -------------------------------------------------------------------------
+// FAMILY 4: Dutt Akkhar (Pairin Akkhar) Identification & Usage
+// -------------------------------------------------------------------------
+
+export function generateCP001F04(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const diffOffset = difficulty === "Easy" ? 11111 : difficulty === "Hard" ? 22222 : 0;
+  const rng = createRng(seed + diffOffset);
+
+  if (difficulty === "Easy") {
+    const isCountQuestion = rng.next() > 0.5;
+    if (isCountQuestion) {
+      const stem = "ਗੁਰਮੁਖੀ ਲਿਪੀ ਵਿੱਚ ਪੈਰ ਵਿੱਚ ਪੈਣ ਵਾਲੇ (ਦੁੱਤ) ਅੱਖਰਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਕਿੰਨੀ ਹੈ?";
+      return assembleQuestion({
+        familyId: "F04",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer: "3 (ਹ, ਰ, ਵ)",
+        distractors: ["2 (ਹ, ਰ)", "4 (ਹ, ਰ, ਵ, ਯ)", "5 (ਸਾਰੇ ਅਨੁਨਾਸਕ)"],
+        explanation: "ਗੁਰਮੁਖੀ ਵਿੱਚ ਕੇਵਲ ਤਿੰਨ ਅੱਖਰ (ਹ, ਰ, ਵ) ਹੀ ਦੁੱਤ ਅੱਖਰ ਵਜੋਂ ਪੈਰ ਵਿੱਚ ਵਰਤੇ ਜਾਂਦੇ ਹਨ।",
+        authorityIds: ["PUN-AUTH-DUTT-001"],
+      });
+    } else {
+      const duttItem = rng.pickOne(DUTT_AKKHARS);
+      const stem = `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਅੱਖਰ ਗੁਰਮੁਖੀ ਲਿਪੀ ਦਾ ਦੁੱਤ ਅੱਖਰ (ਪੈਰ ਵਿੱਚ ਲੱਗਣ ਵਾਲਾ) ਹੈ?`;
+      const nonDuttLetters = ["ਸ", "ਕ", "ਮ", "ਤ", "ਦ", "ਨ", "ਲ", "ਗ", "ਬ", "ਪ"];
+      const distractors = rng.pickDistinct(nonDuttLetters, 3);
+      return assembleQuestion({
+        familyId: "F04",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer: duttItem.letter,
+        distractors,
+        explanation: `‘${duttItem.letter}’ (${duttItem.namePa}) ਗੁਰਮੁਖੀ ਦਾ ਪ੍ਰਮਾਣਿਕ ਦੁੱਤ ਅੱਖਰ ਹੈ। ਬਾਕੀ ਆਮ ਵਿਅੰਜਨ ਹਨ।`,
+        authorityIds: ["PUN-AUTH-DUTT-002"],
+      });
+    }
+  }
+
+  if (difficulty === "Medium") {
+    const duttItem = rng.pickOne(DUTT_AKKHARS);
+    const validWord = rng.pickOne(duttItem.examplesPa);
+    const nonDuttWords = DUTT_AKKHARS.flatMap((d) => d.nonExamplesPa);
+    const distractors = rng.pickDistinct(nonDuttWords, 3);
+
+    const stem = `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਸ ਸ਼ਬਦ ਵਿੱਚ ਪੈਰੀਂ ਅੱਖਰ (${duttItem.namePa}) ਦੀ ਸ਼ੁੱਧ ਵਰਤੋਂ ਹੋਈ ਹੈ?`;
+    return assembleQuestion({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer: validWord,
+      distractors,
+      explanation: `ਸ਼ਬਦ ‘${validWord}’ ਵਿੱਚ ${duttItem.namePa} ਦੀ ਸ਼ੁੱਧ ਟਕਸਾਲੀ ਵਰਤੋਂ ਹੋਈ ਹੈ। (${duttItem.explanationPa})`,
+      authorityIds: ["PUN-AUTH-DUTT-003"],
+    });
+  }
+
+  // Hard Difficulty: Phonetic & Historical Tone / Tatsam role
+  const isTone = rng.next() > 0.5;
+  if (isTone) {
+    const stem = "ਟਕਸਾਲੀ ਪੰਜਾਬੀ ਉਚਾਰਨ ਅਨੁਸਾਰ ਪੈਰੀਂ 'ਹਾਹਾ' (ੵ) ਮੁੱਖ ਤੌਰ 'ਤੇ ਕਿਸ ਧੁਨੀਆਤਮਕ ਵਿਸ਼ੇਸ਼ਤਾ (Phonetic feature) ਨੂੰ ਪ੍ਰਗਟ ਕਰਦਾ ਹੈ?";
+    return assembleQuestion({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer: "ਸੁਰ (Tone / ਪਿੱਚ)",
+      distractors: [
+        "ਨਾਸਕੀਤਾ (Nasalization)",
+        "ਦਬਾਅ ਜਾਂ ਬਲ (Stress)",
+        "ਦੀਰਘਤਾ (Vowel Length)",
+      ],
+      explanation: "ਪੰਜਾਬੀ ਵਿੱਚ ਪੈਰੀਂ ਹਾਹਾ ਸੁਤੰਤਰ 'ਹ' ਧੁਨੀ ਦੀ ਥਾਂ ਪੂਰਵਵਰਤੀ ਸਵਰ ਉੱਤੇ ਸੁਰ (Tone) ਪੈਦਾ ਕਰਦਾ ਹੈ, ਜਿਵੇਂ 'ਜੜ੍ਹ', 'ਪੜ੍ਹ' ਵਿੱਚ ਨੀਵੀਂ ਸੁਰ।",
+      authorityIds: ["PUN-AUTH-DUTT-004"],
+    });
+  } else {
+    const stem = "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਸ ਸ਼ਬਦ ਵਿੱਚ ਸੰਸਕ੍ਰਿਤ ਦੇ ਤਤਸਮ ਰੂਪ ਕਾਰਨ ਪੈਰੀਂ ਰਾਰਾ (੍ਰ) ਆਇਆ ਹੈ?";
+    const correctTatsam = rng.pickOne(["ਪ੍ਰਸ਼ਨ", "ਪ੍ਰਕਾਸ਼", "ਗ੍ਰੰਥ", "ਕ੍ਰਮ", "ਪ੍ਰੇਮ"]);
+    const distractors = ["ਪੜ੍ਹਾਈ", "ਜੜ੍ਹ", "ਸ੍ਵੈਮਾਣ", "ਚੜ੍ਹਨਾ"];
+    return assembleQuestion({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer: correctTatsam,
+      distractors: rng.pickDistinct(distractors, 3),
+      explanation: `‘${correctTatsam}’ ਸੰਸਕ੍ਰਿਤ ਮੂਲ ਦਾ ਤਤਸਮ ਸ਼ਬਦ ਹੈ ਜਿਸ ਵਿੱਚ ਪੈਰੀਂ ਰਾਰਾ (੍ਰ) ਸੰਯੁਕਤ ਰੂਪ ਵਿੱਚ ਆਇਆ ਹੈ।`,
+      authorityIds: ["PUN-AUTH-DUTT-005"],
+    });
+  }
+}
+
+// -------------------------------------------------------------------------
+// FAMILY 5: Orthographic Composition & Grapheme Breakdown
+// -------------------------------------------------------------------------
+
+export function generateCP001F05(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const diffOffset = difficulty === "Easy" ? 11111 : difficulty === "Hard" ? 22222 : 0;
+  const rng = createRng(seed + diffOffset);
+
+  if (difficulty === "Easy") {
+    const easyTypes = ["TOTAL_COUNT", "MUKTA_PROPERTY", "SHORT_COUNT"];
+    const chosenType = rng.pickOne(easyTypes);
+
+    if (chosenType === "TOTAL_COUNT") {
+      const stem = "ਗੁਰਮੁਖੀ ਲਿਪੀ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੀਆਂ ਲਗਾਂ (ਸਵਰ ਮਾਤਰਾਵਾਂ) ਪ੍ਰਵਾਨਿਤ ਹਨ?";
+      return assembleQuestion({
+        familyId: "F05",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer: "10 (ਦਸ)",
+        distractors: ["8 (ਅੱਠ)", "9 (ਨੌਂ)", "12 (ਬਾਰ੍ਹਾਂ)"],
+        explanation: "ਗੁਰਮੁਖੀ ਵਿੱਚ ਕੁੱਲ 10 ਲਗਾਂ (ਮੁਕਤਾ, ਕੰਨਾ, ਸਿਹਾਰੀ, ਬਿਹਾਰੀ, ਔਂਕੜ, ਦੁਲੈਂਕੜ, ਲਾਂ, ਦੁਲਾਵਾਂ, ਹੋੜਾ, ਕਨੌੜਾ) ਹੁੰਦੀਆਂ ਹਨ।",
+        authorityIds: ["PUN-AUTH-LAGAN-001"],
+      });
+    }
+
+    if (chosenType === "MUKTA_PROPERTY") {
+      const stem = "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਉਹ ਕਿਹੜੀ ਲਗ ਹੈ ਜਿਸ ਦਾ ਆਪਣਾ ਕੋਈ ਲਿਖਤੀ ਚਿੰਨ੍ਹ ਨਹੀਂ ਹੁੰਦਾ?";
+      return assembleQuestion({
+        familyId: "F05",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer: "ਮੁਕਤਾ",
+        distractors: ["ਸਿਹਾਰੀ", "ਕੰਨਾ", "ਔਂਕੜ"],
+        explanation: "‘ਮੁਕਤਾ’ ਦਾ ਕੋਈ ਵੱਖਰਾ ਲਿਖਤੀ ਚਿੰਨ੍ਹ ਨਹੀਂ ਹੁੰਦਾ; ਇਹ ਅੱਖਰ ਦੀ ਮੂਲ ਧੁਨੀ (ਅ) ਵਿੱਚ ਹੀ ਸਮਾਇਆ ਹੁੰਦਾ ਹੈ।",
+        authorityIds: ["PUN-AUTH-LAGAN-002"],
+      });
+    }
+
+    // SHORT_COUNT
+    const stem = "ਗੁਰਮੁਖੀ ਦੀਆਂ ਦਸ ਲਗਾਂ ਵਿੱਚੋਂ ਲਘੂ (ਹ੍ਰਸਵ / ਛੋਟੇ) ਸਵਰ ਵਾਲੀਆਂ ਲਗਾਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੈ?";
+    return assembleQuestion({
+      familyId: "F05",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer: "3 (ਮੁਕਤਾ, ਸਿਹਾਰੀ, ਔਂਕੜ)",
+      distractors: ["7 (ਸੱਤ)", "4 (ਚਾਰ)", "5 (ਪੰਜ)"],
+      explanation: "ਗੁਰਮੁਖੀ ਵਿੱਚ 3 ਲਘੂ ਲਗਾਂ (ਮੁਕਤਾ, ਸਿਹਾਰੀ, ਔਂਕੜ) ਅਤੇ 7 ਦੀਰਘ ਲਗਾਂ (ਕੰਨਾ, ਬਿਹਾਰੀ, ਦੁਲੈਂਕੜ, ਲਾਂ, ਦੁਲਾਵਾਂ, ਹੋੜਾ, ਕਨੌੜਾ) ਹੁੰਦੀਆਂ ਹਨ।",
+      authorityIds: ["PUN-AUTH-LAGAN-003"],
+    });
+  }
+
+  if (difficulty === "Medium") {
+    const medTypes = ["LONG_IDENTIFY", "POSITION_SIHARI", "POSITION_ABOVE"];
+    const chosenType = rng.pickOne(medTypes);
+
+    if (chosenType === "LONG_IDENTIFY") {
+      const longLagan = LAGAAN_DETAILS.filter((l) => l.vowelType === "LONG");
+      const shortLagan = LAGAAN_DETAILS.filter((l) => l.vowelType === "SHORT");
+      const correct = rng.pickOne(longLagan);
+      const distractors = shortLagan.map((l) => l.namePa);
+
+      const stem = "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਦੀਰਘ (Long Vowel) ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਆਉਂਦੀ ਹੈ?";
+      return assembleQuestion({
+        familyId: "F05",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer: correct.namePa,
+        distractors,
+        explanation: `‘${correct.namePa}’ ਦੀਰਘ ਲਗ ਹੈ। ਬਾਕੀ ਤਿੰਨੋਂ (ਮੁਕਤਾ, ਸਿਹਾਰੀ, ਔਂਕੜ) ਲਘੂ ਲਗਾਂ ਹਨ।`,
+        authorityIds: ["PUN-AUTH-LAGAN-004"],
+      });
+    }
+
+    if (chosenType === "POSITION_SIHARI") {
+      const stem = "ਗੁਰਮੁਖੀ ਦੀ ਉਹ ਕਿਹੜੀ ਇਕਲੌਤੀ ਲਗ ਹੈ ਜੋ ਅੱਖਰ ਤੋਂ ਪਹਿਲਾਂ (ਖੱਬੇ ਪਾਸੇ) ਲੱਗਦੀ ਹੈ?";
+      return assembleQuestion({
+        familyId: "F05",
+        seed,
+        difficulty,
+        stem,
+        correctAnswer: "ਸਿਹਾਰੀ (ਿ)",
+        distractors: ["ਬਿਹਾਰੀ (ੀ)", "ਕੰਨਾ (ਾ)", "ਲਾਂ (ੇ)"],
+        explanation: "‘ਸਿਹਾਰੀ’ ਇਕਲੌਤੀ ਅਜਿਹੀ ਲਗ ਹੈ ਜਿਸ ਦਾ ਚਿੰਨ੍ਹ (ਿ) ਅੱਖਰ ਦੇ ਖੱਬੇ ਪਾਸੇ (ਪਹਿਲਾਂ) ਪੈਂਦਾ ਹੈ।",
+        authorityIds: ["PUN-AUTH-LAGAN-005"],
+      });
+    }
+
+    // POSITION_ABOVE
+    const stem = "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਅੱਖਰ ਦੇ ਉੱਪਰ ਲੱਗਦੀ ਹੈ?";
+    const correctAbove = rng.pickOne(["ਲਾਂ (ੇ)", "ਦੁਲਾਵਾਂ (ੈ)", "ਹੋੜਾ (ੋ)", "ਕਨੌੜਾ (ੌ)"]);
+    const distractors = ["ਔਂਕੜ (ੁ)", "ਦੁਲੈਂਕੜ (ੂ)", "ਕੰਨਾ (ਾ)"];
+    return assembleQuestion({
+      familyId: "F05",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer: correctAbove,
+      distractors,
+      explanation: `‘${correctAbove}’ ਅੱਖਰ ਦੇ ਉੱਪਰ ਲੱਗਣ ਵਾਲੀ ਮਾਤਰਾ ਹੈ। ਔਂਕੜ ਤੇ ਦੁਲੈਂਕੜ ਹੇਠਾਂ ਅਤੇ ਕੰਨਾ ਸੱਜੇ ਪਾਸੇ ਲੱਗਦਾ ਹੈ।`,
+      authorityIds: ["PUN-AUTH-LAGAN-006"],
+    });
+  }
+
+  // Hard Difficulty: Detailed Word Grapheme Composition Analysis
+  const item = rng.pickOne(ORTHOGRAPHIC_WORD_BREAKDOWNS);
+  const stem = `ਸ਼ਬਦ ‘${item.word}’ ਦਾ ਸ਼ੁੱਧ ਵਰਣ-ਨਿਖੇੜ (Grapheme & Diacritic Breakdown) ਕਿਹੜਾ ਹੈ?`;
+
+  const otherBreakdowns = ORTHOGRAPHIC_WORD_BREAKDOWNS.filter((b) => b.id !== item.id).map(
+    (b) => b.breakdownPa
+  );
+
+  return assembleQuestion({
+    familyId: "F05",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer: item.breakdownPa,
+    distractors: otherBreakdowns,
+    explanation: `ਸ਼ਬਦ ‘${item.word}’ ਵਿੱਚ ਆਏ ਵਿਅੰਜਨਾਂ, ਲਗਾਂ-ਮਾਤਰਾਵਾਂ ਅਤੇ ਲਗਾਖਰਾਂ ਦਾ ਸ਼ੁੱਧ ਕ੍ਰਮਵਾਰ ਵਿਸ਼ਲੇਸ਼ਣ: ${item.breakdownPa} ਹੈ।`,
+    authorityIds: [item.id, "PUN-AUTH-BREAKDOWN-001"],
+  });
+}
+

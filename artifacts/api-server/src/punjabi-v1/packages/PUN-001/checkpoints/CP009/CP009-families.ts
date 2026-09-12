@@ -2,6 +2,8 @@
  * CP009 Question Families:
  * CP009-F01: Synonym Resolution (ਸਮਾਨਾਰਥਕ ਸ਼ਬਦ)
  * CP009-F02: Antonym Resolution (ਵਿਰੋਧੀ ਸ਼ਬਦ)
+ * CP009-F03: Contextual In-Sentence Evaluation (ਵਾਕ-ਪ੍ਰਸੰਗ ਵਿੱਚ ਪਰਖ)
+ * CP009-F04: Near-Synonym Discrimination (ਨਿਕਟ-ਸਮਾਨਾਰਥਕ ਸੂਖ਼ਮ ਅਰਥ-ਭੇਦ ਪਰਖ)
  */
 
 import { createRng } from "../../../../core/deterministic-rng";
@@ -14,8 +16,10 @@ import { assertValidPunjabiQuestion } from "../CP001/validator";
 import {
   ANTONYM_PAIRS,
   SYNONYM_SETS,
+  NEAR_SYNONYMS,
   type AntonymPair,
   type SynonymSet,
+  type NearSynonymItem,
 } from "./CP009-authorities";
 
 function assembleCP009Question(input: {
@@ -254,4 +258,57 @@ export function generateCP009F03(
     });
   }
 }
+
+// -------------------------------------------------------------------------
+// FAMILY 4: Near-Synonym Discrimination (ਨਿਕਟ-ਸਮਾਨਾਰਥਕ ਸੂਖ਼ਮ ਅਰਥ-ਭੇਦ)
+// -------------------------------------------------------------------------
+export function generateCP009F04(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const diffOffset = difficulty === "Easy" ? 11111 : difficulty === "Hard" ? 22222 : 0;
+  const rng = createRng(seed + diffOffset);
+  const item = rng.pickOne(NEAR_SYNONYMS);
+
+  const easyTemplates = [
+    (sent: string) => `ਹੇਠ ਲਿਖੇ ਵਾਕ ਵਿੱਚ ਖ਼ਾਲੀ ਥਾਂ ਲਈ ਸਭ ਤੋਂ ਢੁਕਵਾਂ ਸ਼ਬਦ ਚੁਣੋ:\n\n“${sent}”`,
+    (sent: string, a: string, b: string) => `ਸ਼ਬਦ ‘${a}’ ਅਤੇ ‘${b}’ ਦੇ ਅਰਥਾਂ ਵਿੱਚ ਸੂਖ਼ਮ ਭੇਦ ਹੈ। ਵਾਕ ਪੂਰਾ ਕਰਨ ਲਈ ਸਹੀ ਸ਼ਬਦ ਚੁਣੋ:\n\n“${sent}”`,
+  ];
+  const medTemplates = [
+    (sent: string, a: string, b: string) =>
+      `‘${a}’ ਅਤੇ ‘${b}’ ਨਿਕਟ-ਸਮਾਨਾਰਥੀ ਹਨ। ਵਾਕ ਦੇ ਭਾਵ ਅਨੁਸਾਰ ਢੁਕਵੀਂ ਚੋਣ ਕਰੋ:\n\n“${sent}”`,
+    (sent: string) =>
+      `ਪ੍ਰਸੰਗਿਕ ਸ਼ੁੱਧਤਾ ਅਨੁਸਾਰ ਖ਼ਾਲੀ ਥਾਂ ਭਰੋ:\n\n“${sent}”`,
+  ];
+  const hardTemplates = [
+    (sent: string, a: string, b: string) =>
+      `ਨਿਕਟ-ਸਮਾਨਾਰਥਕ ਸ਼ਬਦਾਂ ‘${a}’ ਤੇ ‘${b}’ ਦੇ ਸੂਖ਼ਮ ਅਰਥ-ਭੇਦ (Semantic Nuance) ਨੂੰ ਧਿਆਨ ਵਿੱਚ ਰੱਖਦੇ ਹੋਏ ਵਾਕ ਪੂਰਾ ਕਰੋ:\n\n“${sent}”`,
+    (sent: string) =>
+      `ਟਕਸਾਲੀ ਮਿਆਰ ਅਨੁਸਾਰ ਵਾਕ ਦੇ ਵਿਸ਼ੇਸ਼ ਪ੍ਰਸੰਗ ਵਿੱਚ ਕਿਹੜਾ ਸ਼ਬਦ ਪ੍ਰਮਾਣਿਕ ਹੈ?\n\n“${sent}”`,
+  ];
+
+  const templates = difficulty === "Easy" ? easyTemplates : difficulty === "Hard" ? hardTemplates : medTemplates;
+  const stem = rng.pickOne(templates)(item.contextSentence, item.termA, item.termB);
+
+  const candidateDistractors = [
+    ...item.distractors,
+    item.correctTerm === item.termA ? item.termB : item.termA,
+    ...NEAR_SYNONYMS.filter((o) => o.id !== item.id).map((o) => o.correctTerm),
+  ];
+  const distractors = Array.from(
+    new Set(candidateDistractors.map((d) => d.trim()))
+  ).filter((d) => d !== item.correctTerm.trim());
+
+  return assembleCP009Question({
+    familyId: "F04",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer: item.correctTerm,
+    distractors,
+    explanation: item.explanationPa,
+    authorityIds: [item.id],
+  });
+}
+
 

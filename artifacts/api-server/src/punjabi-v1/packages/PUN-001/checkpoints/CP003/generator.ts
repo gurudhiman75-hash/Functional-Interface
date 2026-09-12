@@ -10,7 +10,7 @@ import type {
   PunjabiGeneratedQuestion,
   PunjabiReviewBatch,
 } from "../../../../core/types";
-import { generateCP003F01, generateCP003F02 } from "./CP003-families";
+import { generateCP003F01, generateCP003F02, generateCP003F03, generateCP003F04 } from "./CP003-families";
 
 export const PUN_001_CP003_DEFINITION: PunjabiCheckpointDefinition = {
   cpId: "PUN-001-CP003",
@@ -18,7 +18,7 @@ export const PUN_001_CP003_DEFINITION: PunjabiCheckpointDefinition = {
   name: "Noun & Pronoun Grammar",
   nameGurmukhi: "ਨਾਂਵ ਅਤੇ ਪੜਨਾਂਵ ਪ੍ਰਣਾਲੀ",
   description:
-    "5 Noun classes (Proper, Common, Collective, Material, Abstract) and 6 Pronoun classes (Personal, Reflexive, Demonstrative, Indefinite, Relative, Interrogative).",
+    "7 Noun classes (Proper, Common, Collective, Material, Abstract, Liquid, Compound) and 6 Pronoun classes with case-inflection and collective noun formation.",
   families: [
     {
       familyId: "F01",
@@ -34,6 +34,20 @@ export const PUN_001_CP003_DEFINITION: PunjabiCheckpointDefinition = {
       targetDifficulties: ["Easy", "Medium", "Hard"],
       generate: generateCP003F02,
     },
+    {
+      familyId: "F03",
+      name: "Pronoun Case-Inflection",
+      description: "Identifying correct case forms of pronouns (nominative/accusative/genitive/ablative).",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP003F03,
+    },
+    {
+      familyId: "F04",
+      name: "Collective Noun Identification",
+      description: "Matching individual members to their canonical collective noun.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP003F04,
+    },
   ],
 };
 
@@ -46,7 +60,7 @@ export function generateCP003Question(
 
   let familyId = requestedFamilyId;
   if (!familyId) {
-    const familyOptions = ["F01", "F02"];
+    const familyOptions = ["F01", "F02", "F03", "F04"];
     familyId = rng.pickOne(familyOptions);
   }
 
@@ -55,10 +69,15 @@ export function generateCP003Question(
       return generateCP003F01(seed, difficulty);
     case "F02":
       return generateCP003F02(seed, difficulty);
+    case "F03":
+      return generateCP003F03(seed, difficulty);
+    case "F04":
+      return generateCP003F04(seed, difficulty);
     default:
       throw new Error(`Unknown CP003 question family: '${familyId}'`);
   }
 }
+
 
 export function generateCP003ReviewBatch(
   count: number = 60,

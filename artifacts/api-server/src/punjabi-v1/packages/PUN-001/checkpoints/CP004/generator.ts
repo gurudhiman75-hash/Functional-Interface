@@ -14,6 +14,7 @@ import {
   generateCP004F01,
   generateCP004F02,
   generateCP004F03,
+  generateCP004F04,
 } from "./CP004-families";
 
 export const PUN_001_CP004_DEFINITION: PunjabiCheckpointDefinition = {
@@ -22,7 +23,7 @@ export const PUN_001_CP004_DEFINITION: PunjabiCheckpointDefinition = {
   name: "Gender & Number Systems",
   nameGurmukhi: "ਲਿੰਗ ਅਤੇ ਵਚਨ ਬਦਲੋ",
   description:
-    "Systematic gender (Masculine/Feminine) and number (Singular/Plural) inflections and subject-verb-object agreement.",
+    "Systematic gender (Masculine/Feminine) and number (Singular/Plural) inflections, subject-verb-object agreement, and oblique case forms.",
   families: [
     {
       familyId: "F01",
@@ -45,6 +46,13 @@ export const PUN_001_CP004_DEFINITION: PunjabiCheckpointDefinition = {
       targetDifficulties: ["Easy", "Medium", "Hard"],
       generate: generateCP004F03,
     },
+    {
+      familyId: "F04",
+      name: "Oblique Case Inflection & Agreement",
+      description: "Direct vs oblique case transformations with postpositions and agreement.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP004F04,
+    },
   ],
 };
 
@@ -57,7 +65,7 @@ export function generateCP004Question(
 
   let familyId = requestedFamilyId;
   if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03"];
+    const familyOptions = ["F01", "F02", "F03", "F04"];
     familyId = rng.pickOne(familyOptions);
   }
 
@@ -68,6 +76,8 @@ export function generateCP004Question(
       return generateCP004F02(seed, difficulty);
     case "F03":
       return generateCP004F03(seed, difficulty);
+    case "F04":
+      return generateCP004F04(seed, difficulty);
     default:
       throw new Error(`Unknown CP004 question family: '${familyId}'`);
   }

@@ -3,6 +3,7 @@
  * CP008-F01: Prefix Identification (ਅਗੇਤਰ ਪਛਾਣ)
  * CP008-F02: Suffix Identification (ਪਿਛੇਤਰ ਪਛਾਣ)
  * CP008-F03: Pseudo-Affix Discrimination (ਅਗੇਤਰ/ਪਿਛੇਤਰ ਰਹਿਤ ਮੂਲ ਸ਼ਬਦ ਪਛਾਣ)
+ * CP008-F04: Root Word Extraction (ਮੂਲ ਸ਼ਬਦ ਨਿਖੇੜਾ / ਸ਼ਬਦ-ਨਿਰਮਾਣ ਵਿਸ਼ਲੇਸ਼ਣ)
  */
 
 import { createRng } from "../../../../core/deterministic-rng";
@@ -15,7 +16,9 @@ import { assertValidPunjabiQuestion } from "../CP001/validator";
 import {
   PREFIX_ITEMS,
   SUFFIX_ITEMS,
+  ROOT_WORD_ITEMS,
   type AffixItem,
+  type RootWordItem,
 } from "./CP008-authorities";
 
 function assembleCP008Question(input: {
@@ -267,3 +270,69 @@ export function generateCP008F03(
     authorityIds: [item.id],
   });
 }
+
+// -------------------------------------------------------------------------
+// FAMILY 4: Root Word Extraction (ਮੂਲ ਸ਼ਬਦ ਨਿਖੇੜਾ / ਸ਼ਬਦ-ਨਿਰਮਾਣ ਵਿਸ਼ਲੇਸ਼ਣ)
+// -------------------------------------------------------------------------
+export function generateCP008F04(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const diffOffset = difficulty === "Easy" ? 11111 : difficulty === "Hard" ? 22222 : 0;
+  const rng = createRng(seed + diffOffset);
+  const item = rng.pickOne(ROOT_WORD_ITEMS);
+
+  const affixTypeLabel = item.affixType === "PREFIX" ? "ਅਗੇਤਰ" : "ਪਿਛੇਤਰ";
+
+  const easyTemplates = [
+    (w: string) => `ਸ਼ਬਦ ‘${w}’ ਵਿੱਚੋਂ ਮੂਲ ਸ਼ਬਦ (Root Word) ਦੀ ਪਛਾਣ ਕਰੋ:`,
+    (w: string) => `‘${w}’ ਸ਼ਬਦ ਕਿਸ ਮੂਲ ਸ਼ਬਦ ਤੋਂ ਬਣਿਆ ਹੈ?`,
+    (w: string) => `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ‘${w}’ ਦਾ ਅਸਲ ਮੂਲ ਸ਼ਬਦ ਕਿਹੜਾ ਹੈ?`,
+  ];
+
+  const medTemplates = [
+    (w: string, af: string, type: string) =>
+      `ਜਦੋਂ ‘${w}’ ਵਿੱਚੋਂ ${type} ‘${af}’ ਵੱਖ ਕਰ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਬਾਕੀ ਬਚਦਾ ਸ਼ੁੱਧ ਮੂਲ ਸ਼ਬਦ ਕਿਹੜਾ ਹੋਵੇਗਾ?`,
+    (w: string, af: string, type: string) =>
+      `‘${w}’ ਵਿੱਚ ${type} ‘${af}’ ਲੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਮੂਲ ਸ਼ਬਦ ਕੀ ਸੀ?`,
+    (w: string) =>
+      `ਸ਼ਬਦ-ਨਿਰਮਾਣ ਦੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ‘${w}’ ਦਾ ਮੂਲ ਅੰਗ ਕਿਹੜਾ ਹੈ?`,
+  ];
+
+  const hardTemplates = [
+    (w: string, af: string, type: string) =>
+      `ਸ਼ਬਦ-ਨਿਖੇੜ (Morphological Segmentation) ਅਨੁਸਾਰ ‘${w}’ ਵਿੱਚੋਂ ${type} ‘${af}’ ਹਟਾਉਣ 'ਤੇ ਕਿਹੜਾ ਸਾਰਥਕ ਧਾਤੂ/ਮੂਲ ਸ਼ਬਦ ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ?`,
+    (w: string) =>
+      `ਵਿਆਕਰਣਕ ਦ੍ਰਿਸ਼ਟੀ ਤੋਂ ਸ਼ਬਦ ‘${w}’ ਦੀ ਬਣਤਰ ਵਿੱਚ ਮੂਲ ਧਾਤੂ ਜਾਂ ਸ਼ਬਦ ਚੁਣੋ:`,
+  ];
+
+  let stem: string;
+  if (difficulty === "Easy") {
+    stem = rng.pickOne(easyTemplates)(item.derivedWord);
+  } else if (difficulty === "Medium") {
+    stem = rng.pickOne(medTemplates)(item.derivedWord, item.affix, affixTypeLabel);
+  } else {
+    stem = rng.pickOne(hardTemplates)(item.derivedWord, item.affix, affixTypeLabel);
+  }
+
+  // Ensure robust distractor pool (distinct from rootWord)
+  const candidateDistractors = [
+    ...item.distractors,
+    ...ROOT_WORD_ITEMS.filter((other) => other.id !== item.id).map((other) => other.rootWord),
+  ];
+  const distractors = Array.from(
+    new Set(candidateDistractors.map((d) => d.trim()))
+  ).filter((d) => d !== item.rootWord.trim());
+
+  return assembleCP008Question({
+    familyId: "F04",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer: item.rootWord,
+    distractors,
+    explanation: item.explanationPa,
+    authorityIds: [item.id],
+  });
+}
+

@@ -3,6 +3,7 @@
  * CP011-F01: Idiom Meaning Resolution (ਮੁਹਾਵਰੇ ਦਾ ਅਰਥ)
  * CP011-F02: Contextual Sentence Blank Completion (ਵਾਕ ਵਿੱਚ ਢੁਕਵਾਂ ਮੁਹਾਵਰਾ ਭਰਨਾ)
  * CP011-F03: Reverse Meaning / Scenario to Idiom (ਅਰਥ ਤੋਂ ਮੁਹਾਵਰੇ ਦੀ ਪਛਾਣ)
+ * CP011-F04: Literal vs Figurative Discrimination (ਲੱਛਣਿਕ ਬਨਾਮ ਸ਼ਾਬਦਿਕ ਅਰਥ ਨਿਖੇੜਾ)
  */
 
 import { createRng } from "../../../../core/deterministic-rng";
@@ -12,7 +13,12 @@ import type {
   PunjabiQuestionOption,
 } from "../../../../core/types";
 import { assertValidPunjabiQuestion } from "../CP001/validator";
-import { CP011_IDIOM_ITEMS, type IdiomMasteryItem } from "./CP011-authorities";
+import {
+  CP011_IDIOM_ITEMS,
+  LITERAL_VS_FIGURATIVE_ITEMS,
+  type IdiomItem,
+  type LiteralVsFigurativeItem,
+} from "./CP011-authorities";
 
 function assembleCP011Question(input: {
   familyId: string;
@@ -253,6 +259,102 @@ export function generateCP011F03(
     correctAnswer: item.idiomPa,
     distractors: otherIdioms,
     explanation: `${item.explanationPa} ਇਸ ਲਈ “${item.meaningPa}” ਲਈ ਸਹੀ ਮੁਹਾਵਰਾ ‘${item.idiomPa}’ ਹੈ।`,
+    authorityIds: [item.id],
+  });
+}
+
+
+// -------------------------------------------------------------------------
+// FAMILY 4: Literal vs Figurative Discrimination (ਲੱਛਣਿਕ ਬਨਾਮ ਸ਼ਾਬਦਿਕ ਅਰਥ ਨਿਖੇੜਾ)
+// -------------------------------------------------------------------------
+
+const CP011_F04_EASY_TEMPLATES = [
+  (idm: string) => `ਮੁਹਾਵਰਾ ‘${idm}’ ਦਾ ਅਸਲ ਮੁਹਾਵਰੇਦਾਰ (ਲੱਛਣਿਕ) ਅਰਥ ਕੀ ਹੈ, ਨਾ ਕਿ ਸ਼ਾਬਦਿਕ?`,
+  (idm: string) => `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਮੁਹਾਵਰਾ ‘${idm}’ ਦਾ ਸਹੀ ਲੱਛਣਿਕ ਭਾਵ-ਅਰਥ ਚੁਣੋ:`,
+  (idm: string) => `ਜਦੋਂ ‘${idm}’ ਮੁਹਾਵਰੇ ਵਜੋਂ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਇਸ ਦਾ ਢੁਕਵਾਂ ਅਰਥ ਕੀ ਹੁੰਦਾ ਹੈ?`,
+];
+
+const CP011_F04_MED_TEMPLATES = [
+  (s: string, idm: string) => `ਵਾਕ “${s}” ਵਿੱਚ ਰੇਖਾਂਕਿਤ ਮੁਹਾਵਰੇ ‘${idm}’ ਦਾ ਸਹੀ ਪ੍ਰਸੰਗਿਕ (ਲੱਛਣਿਕ) ਅਰਥ ਕੀ ਹੈ?`,
+  (s: string, idm: string) => `ਦਿੱਤੇ ਗਏ ਕਥਨ ਵਿੱਚ ਵਰਤੇ ਗਏ ਮੁਹਾਵਰੇ ‘${idm}’ ਦਾ ਢੁਕਵਾਂ ਅਰਥ ਦੱਸੋ:\n“${s}”`,
+];
+
+const CP011_F04_HARD_TEMPLATES = [
+  (idm: string) => `ਹੇਠ ਲਿਖੇ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ਮੁਹਾਵਰਾ ‘${idm}’ ਦਾ ਉਹ ਵਿਕਲਪ ਲੱਭੋ ਜੋ ਸਿਰਫ਼ ਸ਼ਾਬਦਿਕ (Literal Distractor) ਭੁਲੇਖਾ ਹੈ ਪਰ ਅਸਲ ਮੁਹਾਵਰੇਦਾਰ ਅਰਥ ਨਹੀਂ ਹੈ:`,
+  (idm: string) => `ਮੁਹਾਵਰੇ ‘${idm}’ ਦੇ ਸੰਦਰਭ ਵਿੱਚ ਕਿਹੜਾ ਅਰਥ ਕੇਵਲ ਸਤਹੀ/ਸ਼ਾਬਦਿਕ ਅਰਥ ਦਾ ਭੁਲੇਖਾ ਪਾਊ ਰੂਪ ਹੈ?`,
+];
+
+export function generateCP011F04(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const rng = createRng(seed);
+  const item = rng.pickOne(LITERAL_VS_FIGURATIVE_ITEMS);
+
+  if (difficulty === "Easy") {
+    const stem = rng.pickOne(CP011_F04_EASY_TEMPLATES)(item.idiomPa);
+    const correctAnswer = item.figurativeMeaning;
+
+    // Distractors: literal meaning + other idioms figurative meanings
+    const otherFiguratives = LITERAL_VS_FIGURATIVE_ITEMS.filter((i) => i.id !== item.id).map(
+      (i) => i.figurativeMeaning
+    );
+    const chosenOthers = rng.pickDistinct(otherFiguratives, 2);
+    const distractors = [item.literalMeaning, ...chosenOthers];
+
+    return assembleCP011Question({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer,
+      distractors,
+      explanation: `${item.explanationPa} ‘${item.literalMeaning}’ ਇਸ ਦਾ ਕੇਵਲ ਸ਼ਾਬਦਿਕ ਭੁਲੇਖਾ ਹੈ।`,
+      authorityIds: [item.id],
+    });
+  }
+
+  if (difficulty === "Medium") {
+    const stem = rng.pickOne(CP011_F04_MED_TEMPLATES)(item.sampleSentence, item.idiomPa);
+    const correctAnswer = item.figurativeMeaning;
+
+    const otherFiguratives = LITERAL_VS_FIGURATIVE_ITEMS.filter((i) => i.id !== item.id).map(
+      (i) => i.figurativeMeaning
+    );
+    const chosenOthers = rng.pickDistinct(otherFiguratives, 2);
+    const distractors = [item.literalMeaning, ...chosenOthers];
+
+    return assembleCP011Question({
+      familyId: "F04",
+      seed,
+      difficulty,
+      stem,
+      correctAnswer,
+      distractors,
+      explanation: `ਵਾਕ ਵਿੱਚ ‘${item.idiomPa}’ ਲੱਛਣਿਕ ਅਰਥ ਵਿੱਚ ਆਇਆ ਹੈ: ${item.explanationPa}`,
+      authorityIds: [item.id],
+    });
+  }
+
+  // Hard Difficulty: Identify the literal distractor trap
+  const stem = rng.pickOne(CP011_F04_HARD_TEMPLATES)(item.idiomPa);
+  const correctAnswer = item.literalMeaning;
+
+  // Distractors: true figurative meaning + related figurative meanings
+  const otherLiterals = LITERAL_VS_FIGURATIVE_ITEMS.filter((i) => i.id !== item.id).map(
+    (i) => i.figurativeMeaning
+  );
+  const chosenOthers = rng.pickDistinct(otherLiterals, 2);
+  const distractors = [item.figurativeMeaning, ...chosenOthers];
+
+  return assembleCP011Question({
+    familyId: "F04",
+    seed,
+    difficulty,
+    stem,
+    correctAnswer,
+    distractors,
+    explanation: `‘${item.literalMeaning}’ ਕੇਵਲ ਸ਼ਾਬਦਿਕ ਅਰਥ ਹੈ ਜੋ ਪ੍ਰੀਖਿਆਵਾਂ ਵਿੱਚ ਭੁਲੇਖਾ ਪਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ। ਇਸ ਦਾ ਸਹੀ ਮੁਹਾਵਰੇਦਾਰ ਅਰਥ ‘${item.figurativeMeaning}’ ਹੈ।`,
     authorityIds: [item.id],
   });
 }

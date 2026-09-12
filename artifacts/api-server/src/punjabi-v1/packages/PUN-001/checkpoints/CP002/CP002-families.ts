@@ -25,7 +25,7 @@ function assembleCP002Question(input: {
 }): PunjabiGeneratedQuestion {
   const rng = createRng(input.seed);
 
-  const filteredDistractors = input.distractors.filter(
+  const filteredDistractors = Array.from(new Set(input.distractors)).filter(
     (d) => d.trim() !== input.correctAnswer.trim()
   );
   if (filteredDistractors.length < 3) {
@@ -134,9 +134,18 @@ export function generateCP002F01(
 
   // Hard Difficulty: Select the INCORRECT (ਅਸ਼ੁੱਧ) spelling among 3 correct words + 1 incorrect word
   const incorrectWord = rng.pickOne(item.incorrectVariations);
-  // Pick 3 OTHER words in their CORRECT form
-  const otherItems = CP002_SPELLING_ITEMS.filter((i) => i.id !== item.id);
-  const selectedOthers = rng.pickDistinct(otherItems, 3);
+  // Pick 3 OTHER words in their CORRECT form, ensuring distinct words that differ from incorrectWord and item.correct
+  const candidateItems = CP002_SPELLING_ITEMS.filter(
+    (i) => i.correct !== item.correct && i.correct !== incorrectWord
+  );
+  const uniqueWordsMap = new Map<string, SpellingItem>();
+  for (const ci of candidateItems) {
+    if (!uniqueWordsMap.has(ci.correct)) {
+      uniqueWordsMap.set(ci.correct, ci);
+    }
+  }
+  const pool = Array.from(uniqueWordsMap.values());
+  const selectedOthers = rng.pickDistinct(pool, 3);
   const correctWords = selectedOthers.map((i) => i.correct);
   const stem = rng.pickOne(CP002_F01_ASHUDH_TEMPLATES)(correctWords[0]!, correctWords[1]!);
 

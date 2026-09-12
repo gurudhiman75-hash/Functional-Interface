@@ -14,6 +14,7 @@ import {
   generateCP010F01,
   generateCP010F02,
   generateCP010F03,
+  generateCP010F04,
 } from "./CP010-families";
 
 export const PUN_001_CP010_DEFINITION: PunjabiCheckpointDefinition = {
@@ -22,7 +23,7 @@ export const PUN_001_CP010_DEFINITION: PunjabiCheckpointDefinition = {
   name: "One-Word Substitution & Lexical Precision",
   nameGurmukhi: "ਬਹੁਤੇ ਸ਼ਬਦਾਂ ਦੀ ਥਾਂ ਇੱਕ ਸ਼ਬਦ",
   description:
-    "High-frequency canonical one-word substitutions testing belief, character, place, attribution, and state terminology.",
+    "High-frequency canonical one-word substitutions testing belief, character, place, attribution, state, relation, time, and action terminology.",
   families: [
     {
       familyId: "F01",
@@ -45,6 +46,13 @@ export const PUN_001_CP010_DEFINITION: PunjabiCheckpointDefinition = {
       targetDifficulties: ["Easy", "Medium", "Hard"],
       generate: generateCP010F03,
     },
+    {
+      familyId: "F04",
+      name: "Negative Discrimination / Mismatched Pair Identification",
+      description: "Identifying incorrectly matched phrase-to-word pairs under competitive exam conditions.",
+      targetDifficulties: ["Easy", "Medium", "Hard"],
+      generate: generateCP010F04,
+    },
   ],
 };
 
@@ -57,7 +65,7 @@ export function generateCP010Question(
 
   let familyId = requestedFamilyId;
   if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03"];
+    const familyOptions = ["F01", "F02", "F03", "F04"];
     familyId = rng.pickOne(familyOptions);
   }
 
@@ -68,6 +76,8 @@ export function generateCP010Question(
       return generateCP010F02(seed, difficulty);
     case "F03":
       return generateCP010F03(seed, difficulty);
+    case "F04":
+      return generateCP010F04(seed, difficulty);
     default:
       throw new Error(`Unknown CP010 question family: '${familyId}'`);
   }

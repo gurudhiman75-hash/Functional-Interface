@@ -2,6 +2,8 @@
  * CP003 Question Families:
  * CP003-F01: Nominal Subtype Classification (ਨਾਂਵ/ਪੜਨਾਂਵ ਸ਼੍ਰੇਣੀ ਵੰਡ)
  * CP003-F02: In-Sentence Functional Extraction (ਵਾਕ ਵਿੱਚੋਂ ਸ਼ਨਾਖ਼ਤ)
+ * CP003-F03: Pronoun Case-Inflection (ਪੜਨਾਂਵ ਕਾਰਕ ਰੂਪਾਂਤਰਣ)
+ * CP003-F04: Collective Noun Identification (ਇਕੱਠ-ਵਾਚਕ ਨਾਂਵ ਸ਼ਨਾਖ਼ਤ)
  */
 
 import { createRng } from "../../../../core/deterministic-rng";
@@ -14,6 +16,8 @@ import { assertValidPunjabiQuestion } from "../CP001/validator";
 import {
   NOUN_CATEGORIES,
   PRONOUN_CATEGORIES,
+  PRONOUN_INFLECTIONS,
+  COLLECTIVE_NOUN_ITEMS,
   type NounCategoryItem,
   type PronounCategoryItem,
 } from "./CP003-authorities";
@@ -546,5 +550,150 @@ export function generateCP003F02(
     distractors: distinctDistractors,
     explanation: selectedCase.explanation,
     authorityIds: ["PUN-AUTH-NOMINAL-SENTENCE"],
+  });
+}
+
+// -------------------------------------------------------------------------
+// FAMILY 3: Pronoun Case-Inflection (ਪੜਨਾਂਵ ਕਾਰਕ ਰੂਪਾਂਤਰਣ)
+// -------------------------------------------------------------------------
+
+const CP003_F03_EASY_TEMPLATES = [
+  (pron: string, caseLabel: string) =>
+    `'${pron}' ਪੜਨਾਂਵ ਦਾ ${caseLabel} ਰੂਪ ਕੀ ਹੈ?`,
+  (pron: string, caseLabel: string) =>
+    `ਵਿਆਕਰਣ ਅਨੁਸਾਰ '${pron}' ਦਾ ${caseLabel} ਕਾਰਕ ਰੂਪ ਦੱਸੋ:`,
+];
+
+const CP003_F03_MED_TEMPLATES = [
+  (pron: string, caseLabel: string) =>
+    `'${pron}' ਦਾ ਸਹੀ ${caseLabel} ਕਾਰਕ ਰੂਪ ਹੇਠਾਂ ਦਿੱਤੇ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ਚੁਣੋ:`,
+  (pron: string, caseLabel: string) =>
+    `ਟਕਸਾਲੀ ਪੰਜਾਬੀ ਵਿੱਚ '${pron}' ਦਾ ${caseLabel} ਰੂਪ ਕਿਹੜਾ ਹੈ?`,
+];
+
+const CP003_F03_HARD_TEMPLATES = [
+  (pron: string, caseLabel: string) =>
+    `ਵਾਕ ਵਿੱਚ '${pron}' ਦੀ ਥਾਂ ${caseLabel} ਕਾਰਕ ਵਿੱਚ ਕਿਹੜਾ ਰੂਪ ਵਰਤਿਆ ਜਾਵੇਗਾ?`,
+  (pron: string, caseLabel: string) =>
+    `'${pron}' ਦਾ ${caseLabel} ਕਾਰਕ ਸੰਬੰਧੀ ਸਹੀ ਰੂਪਾਂਤਰਣ ਕਿਹੜਾ ਹੈ?`,
+];
+
+export function generateCP003F03(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const rng = createRng(seed);
+  const inflection = rng.pickOne(PRONOUN_INFLECTIONS);
+
+  // Choose which case to ask about based on difficulty
+  type CaseKey = "nominative" | "accusative" | "genitive" | "ablative";
+  let askCase: CaseKey;
+  let caseLabel: string;
+  if (difficulty === "Easy") {
+    // Easy: ask nominative or accusative (most common)
+    const easyPairs: [CaseKey, string][] = [
+      ["nominative", "ਕਰਤਾ ਕਾਰਕ"],
+      ["accusative", "ਕਰਮ ਕਾਰਕ"],
+    ];
+    const chosen = rng.pickOne(easyPairs);
+    askCase = chosen[0];
+    caseLabel = chosen[1];
+  } else if (difficulty === "Medium") {
+    const medPairs: [CaseKey, string][] = [
+      ["accusative", "ਕਰਮ ਕਾਰਕ"],
+      ["genitive", "ਸੰਬੰਧ ਕਾਰਕ"],
+    ];
+    const chosen = rng.pickOne(medPairs);
+    askCase = chosen[0];
+    caseLabel = chosen[1];
+  } else {
+    const hardPairs: [CaseKey, string][] = [
+      ["genitive", "ਸੰਬੰਧ ਕਾਰਕ"],
+      ["ablative", "ਅਪਾਦਾਨ ਕਾਰਕ"],
+    ];
+    const chosen = rng.pickOne(hardPairs);
+    askCase = chosen[0];
+    caseLabel = chosen[1];
+  }
+
+  const correctAnswer = inflection.caseForms[askCase];
+
+  // Build distractors from other inflections' same case
+  const otherInflections = PRONOUN_INFLECTIONS.filter(
+    (i) => i.baseForm !== inflection.baseForm
+  );
+  const distractors = otherInflections
+    .map((i) => i.caseForms[askCase])
+    .filter((v) => v !== correctAnswer);
+
+  const templates =
+    difficulty === "Easy"
+      ? CP003_F03_EASY_TEMPLATES
+      : difficulty === "Medium"
+        ? CP003_F03_MED_TEMPLATES
+        : CP003_F03_HARD_TEMPLATES;
+  const stemTemplate = rng.pickOne(templates);
+
+  return assembleCP003Question({
+    familyId: "F03",
+    seed,
+    difficulty,
+    stem: stemTemplate(inflection.baseForm, caseLabel),
+    correctAnswer,
+    distractors,
+    explanation: inflection.explanationPa,
+    authorityIds: [`PUN-AUTH-PRONOUN-INFLECTION-${inflection.baseForm}`],
+  });
+}
+
+// -------------------------------------------------------------------------
+// FAMILY 4: Collective Noun Identification (ਇਕੱਠ-ਵਾਚਕ ਨਾਂਵ ਸ਼ਨਾਖ਼ਤ)
+// -------------------------------------------------------------------------
+
+const CP003_F04_EASY_TEMPLATES = [
+  (entity: string) =>
+    `'${entity}' ਦੇ ਸਮੂਹ ਲਈ ਸਹੀ ਇਕੱਠ-ਵਾਚਕ ਨਾਂਵ ਕਿਹੜਾ ਹੈ?`,
+  (entity: string) =>
+    `'${entity}' ਦੇ ਇਕੱਠ ਜਾਂ ਸਮੂਹ ਲਈ ਕਿਹੜਾ ਸ਼ਬਦ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?`,
+];
+
+const CP003_F04_MED_TEMPLATES = [
+  (entity: string) =>
+    `ਟਕਸਾਲੀ ਪੰਜਾਬੀ ਵਿੱਚ '${entity}' ਦੇ ਸਮੂਹ ਲਈ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਸਹੀ ਇਕੱਠ-ਵਾਚਕ ਨਾਂਵ ਦੱਸੋ:`,
+  (entity: string) =>
+    `ਵਿਆਕਰਣ ਅਨੁਸਾਰ '${entity}' ਦੇ ਸਮੂਹਿਕ ਬੋਧ ਲਈ ਸਹੀ ਸ਼ਬਦ ਚੁਣੋ:`,
+];
+
+const CP003_F04_HARD_TEMPLATES = [
+  (entity: string) =>
+    `'${entity}' ਦੇ ਇਕੱਠ ਲਈ ਪ੍ਰਮਾਣਿਕ ਸਾਹਿਤਕ ਪੰਜਾਬੀ ਵਿੱਚ ਕਿਹੜਾ ਇਕੱਠ-ਵਾਚਕ ਨਾਂਵ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?`,
+  (entity: string) =>
+    `ਨਿਮਨਲਿਖਤ ਵਿੱਚੋਂ '${entity}' ਦਾ ਸਹੀ ਸਮੂਹ-ਵਾਚਕ ਸ਼ਬਦ ਕਿਹੜਾ ਹੈ?`,
+];
+
+export function generateCP003F04(
+  seed: number,
+  difficulty: PunjabiDifficulty
+): PunjabiGeneratedQuestion {
+  const rng = createRng(seed);
+  const item = rng.pickOne(COLLECTIVE_NOUN_ITEMS);
+
+  const templates =
+    difficulty === "Easy"
+      ? CP003_F04_EASY_TEMPLATES
+      : difficulty === "Medium"
+        ? CP003_F04_MED_TEMPLATES
+        : CP003_F04_HARD_TEMPLATES;
+  const stemTemplate = rng.pickOne(templates);
+
+  return assembleCP003Question({
+    familyId: "F04",
+    seed,
+    difficulty,
+    stem: stemTemplate(item.singleEntity),
+    correctAnswer: item.collectiveNoun,
+    distractors: [...item.distractors],
+    explanation: item.explanationPa,
+    authorityIds: [`PUN-AUTH-COLLECTIVE-${item.collectiveNoun}`],
   });
 }
