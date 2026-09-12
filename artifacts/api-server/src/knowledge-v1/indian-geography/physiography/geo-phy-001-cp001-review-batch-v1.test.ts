@@ -15,6 +15,11 @@ for (const question of GEO_PHY_001_CP001_REVIEW_BATCH_V1) {
   assert.doesNotMatch(visible, /\bNCERT\b|generator|sourceFact|review-only|runtimeRegistered/i, question.questionId);
   assert.doesNotMatch(
     visible,
+    /\b(?:The Himalayan Mountains|The Northern Plains|The Coastal Plains|The Islands) is described as\b/i,
+    question.questionId,
+  );
+  assert.doesNotMatch(
+    visible,
     /(?:^|\n)(?:The Islands is the offshore island groups|The Coastal Plains is coastal lowlands)/i,
     question.questionId,
   );
