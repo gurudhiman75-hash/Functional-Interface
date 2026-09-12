@@ -44,12 +44,12 @@ function diversifyNarrowSourceShell(
   seed: number,
   locale: SerCp008Locale,
 ): GeneratedSerCp008MixedQuestion {
-  if (question.qlId !== "SER-QL-023") return question;
+  if (question.qlId !== "SER-QL-023" && question.qlId !== "SER-QL-024") return question;
 
-  // This source family is mathematically narrow by design: consecutive square
-  // roots coupled to wrapped alphabet positions. Preserve that rule instead of
-  // inventing extra mathematics merely to inflate entropy, but vary the normal
-  // competitive-exam instruction shell independently of answer position.
+  // These two square-coupled source families are deliberately narrow. Preserve
+  // the proven mathematics instead of inventing extra transforms merely to
+  // inflate entropy, while varying normal competitive-exam instruction shells
+  // independently of the answer position.
   const shellIndex = Math.floor(seed / 4) % SQUARE_SERIES_SHELLS[locale].length;
   const visibleSeries = question.stem.split("\n").at(-1)!;
   return {
