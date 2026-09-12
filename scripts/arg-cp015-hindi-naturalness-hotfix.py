@@ -80,7 +80,7 @@ old_finalizer = '      if (strengths[index] === "WEAK" && (boilerplateReason(rea
 new_finalizer = '''      const forceHindiTimeSlotPermanence = language === "hi"
         && /समय-स्लॉट.*(?:स्थायी रूप से अव्यावहारिक|स्थायी रूप से अनुपलब्ध|सफलतापूर्वक देना स्थायी)/.test(deduped.arguments[index]!);
       if (strengths[index] === "WEAK" && (forceHindiTimeSlotPermanence || boilerplateReason(reason, language) || genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);'''
-if new_finalizer not in source:
+if 'const forceHindiTimeSlotPermanence = language === "hi"' not in source:
     count = source.count(old_finalizer)
     if count != 1:
         raise SystemExit(f"Hindi QL003 forced permanence reroute: expected one finalizer anchor, found {count}")
