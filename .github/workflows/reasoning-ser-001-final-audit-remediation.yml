@@ -53,6 +53,7 @@ jobs:
             --types node \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008-mixed.test.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/export-review.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/ser-cp-007-generated-difficulty-v8.test.ts
 
       - name: Prove CP008 core source gaps, visible solving, multilingual parity and stress
@@ -79,17 +80,21 @@ jobs:
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/question-studio-review-adapter.test.ts | tee ser-cp007-regression.log
 
+      - name: Export CP008 manual review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/export-review.ts > SER-CP-008-FINAL-AUDIT-REVIEW.md
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Upload Series audit logs
+      - name: Upload Series audit logs and review pack
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ser-001-final-audit-logs-${{ github.run_id }}
+          name: ser-001-final-audit-${{ github.run_id }}
           path: |
             ser-cp008-final-audit.log
             ser-cp008-mixed-audit.log
             ser-cp007-generated-difficulty.log
             ser-cp007-regression.log
+            SER-CP-008-FINAL-AUDIT-REVIEW.md
           retention-days: 14
