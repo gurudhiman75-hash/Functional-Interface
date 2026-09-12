@@ -1,0 +1,1634 @@
+{
+  "batchId": "BATCH-CP001-5000-60",
+  "packageId": "PUN-001",
+  "cpId": "PUN-001-CP001",
+  "generatedAt": "2026-09-11T07:10:26.461Z",
+  "totalQuestions": 60,
+  "distribution": {
+    "easy": 20,
+    "medium": 20,
+    "hard": 20
+  },
+  "questions": [
+    {
+      "id": "PUN-001-CP001-F01-S5000-EASY",
+      "stem": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਅੱਖਰ ਹਨ?",
+      "options": [
+        "52",
+        "45",
+        "26",
+        "35"
+      ],
+      "correctIndex": 3,
+      "explanation": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ 35 ਅੱਖਰ ਹਨ। ਇਸੇ ਕਾਰਨ ਇਸ ਨੂੰ ਰਵਾਇਤੀ ਤੌਰ 'ਤੇ ‘ਪੈਂਤੀ ਅੱਖਰੀ’ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਅਰਬੀ-ਫ਼ਾਰਸੀ ਅਤੇ ਹੋਰ ਧੁਨੀਆਂ ਲਈ 6 ਪੈਰ-ਬਿੰਦੀ ਵਾਲੇ ਅੱਖਰ ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ, ਜਿਸ ਨਾਲ ਕੁੱਲ ਗਿਣਤੀ 41 ਹੋ ਗਈ।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5000,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5000"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5001-EASY",
+      "stem": "ਕਿਸੇ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਨੂੰ ਦੂਹਰਾ (ਬਲ ਵਾਲਾ) ਪ੍ਰਗਟ ਕਰਨ ਲਈ ਕਿਸ ਲਗਾਖਰ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      "options": [
+        "ਸਿਹਾਰੀ",
+        "ਅੱਧਕ",
+        "ਟਿੱਪੀ",
+        "ਬਿੰਦੀ"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਅੱਧਕ (ੱ) ਦਬਾਅ ਜਾਂ ਬਲ ਦਾ ਚਿੰਨ੍ਹ ਹੈ। ਜਿਸ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਦੂਹਰੀ ਕਰਨੀ ਹੋਵੇ, ਉਸ ਤੋਂ ਪਹਿਲੇ ਅੱਖਰ ਉੱਤੇ ਅੱਧਕ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ (ਜਿਵੇਂ: ਬੱਚਾ, ਸੱਚ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5001,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5001"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5002-EASY",
+      "stem": "ਕਿਸੇ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਨੂੰ ਦੂਹਰਾ (ਬਲ ਵਾਲਾ) ਪ੍ਰਗਟ ਕਰਨ ਲਈ ਕਿਸ ਲਗਾਖਰ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      "options": [
+        "ਬਿੰਦੀ",
+        "ਟਿੱਪੀ",
+        "ਅੱਧਕ",
+        "ਹੋੜਾ"
+      ],
+      "correctIndex": 2,
+      "explanation": "ਅੱਧਕ (ੱ) ਦਬਾਅ ਜਾਂ ਬਲ ਦਾ ਚਿੰਨ੍ਹ ਹੈ। ਜਿਸ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਦੂਹਰੀ ਕਰਨੀ ਹੋਵੇ, ਉਸ ਤੋਂ ਪਹਿਲੇ ਅੱਖਰ ਉੱਤੇ ਅੱਧਕ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ (ਜਿਵੇਂ: ਬੱਚਾ, ਸੱਚ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5002,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5002"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5003-EASY",
+      "stem": "ਕਿਸੇ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਨੂੰ ਦੂਹਰਾ (ਬਲ ਵਾਲਾ) ਪ੍ਰਗਟ ਕਰਨ ਲਈ ਕਿਸ ਲਗਾਖਰ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      "options": [
+        "ਅੱਧਕ",
+        "ਬਿੰਦੀ",
+        "ਟਿੱਪੀ",
+        "ਸਿਹਾਰੀ"
+      ],
+      "correctIndex": 0,
+      "explanation": "ਅੱਧਕ (ੱ) ਦਬਾਅ ਜਾਂ ਬਲ ਦਾ ਚਿੰਨ੍ਹ ਹੈ। ਜਿਸ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਦੂਹਰੀ ਕਰਨੀ ਹੋਵੇ, ਉਸ ਤੋਂ ਪਹਿਲੇ ਅੱਖਰ ਉੱਤੇ ਅੱਧਕ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ (ਜਿਵੇਂ: ਬੱਚਾ, ਸੱਚ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5003,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5003"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5004-EASY",
+      "stem": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਕੁੱਲ ਕਿੰਨੀਆਂ ਲਗਾਂ ਲੱਗਦੀਆਂ ਹਨ?",
+      "options": [
+        "4",
+        "1",
+        "2",
+        "6"
+      ],
+      "correctIndex": 0,
+      "explanation": "‘ਅ’ ਨਾਲ ਚਾਰ ਲਗਾਂ (ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ) ਲੱਗਦੀਆਂ ਹਨ। ਅ ਨਾਲ ਮੁਕਤਾ ਹੁੰਦਾ ਹੈ (ਅ), ਕੰਨਾ (ਆ), ਦੁਲਾਵਾਂ (ਐ), ਅਤੇ ਕਨੌੜਾ (ਔ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5004,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5004"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5005-EASY",
+      "stem": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਕੁੱਲ ਕਿੰਨੀਆਂ ਲਗਾਂ ਲੱਗਦੀਆਂ ਹਨ?",
+      "options": [
+        "1",
+        "2",
+        "4",
+        "10"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਅ’ ਨਾਲ ਚਾਰ ਲਗਾਂ (ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ) ਲੱਗਦੀਆਂ ਹਨ। ਅ ਨਾਲ ਮੁਕਤਾ ਹੁੰਦਾ ਹੈ (ਅ), ਕੰਨਾ (ਆ), ਦੁਲਾਵਾਂ (ਐ), ਅਤੇ ਕਨੌੜਾ (ਔ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5005,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5005"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5006-EASY",
+      "stem": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਅੱਖਰ ਹਨ?",
+      "options": [
+        "30",
+        "35",
+        "45",
+        "26"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ 35 ਅੱਖਰ ਹਨ। ਇਸੇ ਕਾਰਨ ਇਸ ਨੂੰ ਰਵਾਇਤੀ ਤੌਰ 'ਤੇ ‘ਪੈਂਤੀ ਅੱਖਰੀ’ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਅਰਬੀ-ਫ਼ਾਰਸੀ ਅਤੇ ਹੋਰ ਧੁਨੀਆਂ ਲਈ 6 ਪੈਰ-ਬਿੰਦੀ ਵਾਲੇ ਅੱਖਰ ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ, ਜਿਸ ਨਾਲ ਕੁੱਲ ਗਿਣਤੀ 41 ਹੋ ਗਈ।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5006,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5006"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5007-EASY",
+      "stem": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਕੁੱਲ ਕਿੰਨੀਆਂ ਲਗਾਂ ਲੱਗਦੀਆਂ ਹਨ?",
+      "options": [
+        "10",
+        "5",
+        "4",
+        "2"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਅ’ ਨਾਲ ਚਾਰ ਲਗਾਂ (ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ) ਲੱਗਦੀਆਂ ਹਨ। ਅ ਨਾਲ ਮੁਕਤਾ ਹੁੰਦਾ ਹੈ (ਅ), ਕੰਨਾ (ਆ), ਦੁਲਾਵਾਂ (ਐ), ਅਤੇ ਕਨੌੜਾ (ਔ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5007,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5007"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5008-EASY",
+      "stem": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਕੁੱਲ ਕਿੰਨੀਆਂ ਲਗਾਂ ਲੱਗਦੀਆਂ ਹਨ?",
+      "options": [
+        "6",
+        "10",
+        "4",
+        "1"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਅ’ ਨਾਲ ਚਾਰ ਲਗਾਂ (ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ) ਲੱਗਦੀਆਂ ਹਨ। ਅ ਨਾਲ ਮੁਕਤਾ ਹੁੰਦਾ ਹੈ (ਅ), ਕੰਨਾ (ਆ), ਦੁਲਾਵਾਂ (ਐ), ਅਤੇ ਕਨੌੜਾ (ਔ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5008,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5008"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5009-EASY",
+      "stem": "ਕਿਸੇ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਨੂੰ ਦੂਹਰਾ (ਬਲ ਵਾਲਾ) ਪ੍ਰਗਟ ਕਰਨ ਲਈ ਕਿਸ ਲਗਾਖਰ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      "options": [
+        "ਅੱਧਕ",
+        "ਟਿੱਪੀ",
+        "ਬਿੰਦੀ",
+        "ਸਿਹਾਰੀ"
+      ],
+      "correctIndex": 0,
+      "explanation": "ਅੱਧਕ (ੱ) ਦਬਾਅ ਜਾਂ ਬਲ ਦਾ ਚਿੰਨ੍ਹ ਹੈ। ਜਿਸ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਦੂਹਰੀ ਕਰਨੀ ਹੋਵੇ, ਉਸ ਤੋਂ ਪਹਿਲੇ ਅੱਖਰ ਉੱਤੇ ਅੱਧਕ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ (ਜਿਵੇਂ: ਬੱਚਾ, ਸੱਚ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5009,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5009"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5010-EASY",
+      "stem": "ਕਿਸੇ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਨੂੰ ਦੂਹਰਾ (ਬਲ ਵਾਲਾ) ਪ੍ਰਗਟ ਕਰਨ ਲਈ ਕਿਸ ਲਗਾਖਰ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      "options": [
+        "ਬਿੰਦੀ",
+        "ਅੱਧਕ",
+        "ਸਿਹਾਰੀ",
+        "ਟਿੱਪੀ"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਅੱਧਕ (ੱ) ਦਬਾਅ ਜਾਂ ਬਲ ਦਾ ਚਿੰਨ੍ਹ ਹੈ। ਜਿਸ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਦੂਹਰੀ ਕਰਨੀ ਹੋਵੇ, ਉਸ ਤੋਂ ਪਹਿਲੇ ਅੱਖਰ ਉੱਤੇ ਅੱਧਕ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ (ਜਿਵੇਂ: ਬੱਚਾ, ਸੱਚ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5010,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5010"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5011-EASY",
+      "stem": "ਕਿਸੇ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਨੂੰ ਦੂਹਰਾ (ਬਲ ਵਾਲਾ) ਪ੍ਰਗਟ ਕਰਨ ਲਈ ਕਿਸ ਲਗਾਖਰ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      "options": [
+        "ਅੱਧਕ",
+        "ਬਿੰਦੀ",
+        "ਸਿਹਾਰੀ",
+        "ਟਿੱਪੀ"
+      ],
+      "correctIndex": 0,
+      "explanation": "ਅੱਧਕ (ੱ) ਦਬਾਅ ਜਾਂ ਬਲ ਦਾ ਚਿੰਨ੍ਹ ਹੈ। ਜਿਸ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਦੂਹਰੀ ਕਰਨੀ ਹੋਵੇ, ਉਸ ਤੋਂ ਪਹਿਲੇ ਅੱਖਰ ਉੱਤੇ ਅੱਧਕ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ (ਜਿਵੇਂ: ਬੱਚਾ, ਸੱਚ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5011,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5011"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5012-EASY",
+      "stem": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਕੁੱਲ ਕਿੰਨੀਆਂ ਲਗਾਂ ਲੱਗਦੀਆਂ ਹਨ?",
+      "options": [
+        "10",
+        "1",
+        "6",
+        "4"
+      ],
+      "correctIndex": 3,
+      "explanation": "‘ਅ’ ਨਾਲ ਚਾਰ ਲਗਾਂ (ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ) ਲੱਗਦੀਆਂ ਹਨ। ਅ ਨਾਲ ਮੁਕਤਾ ਹੁੰਦਾ ਹੈ (ਅ), ਕੰਨਾ (ਆ), ਦੁਲਾਵਾਂ (ਐ), ਅਤੇ ਕਨੌੜਾ (ਔ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5012,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5012"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5013-EASY",
+      "stem": "ਕਿਸੇ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਨੂੰ ਦੂਹਰਾ (ਬਲ ਵਾਲਾ) ਪ੍ਰਗਟ ਕਰਨ ਲਈ ਕਿਸ ਲਗਾਖਰ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      "options": [
+        "ਅੱਧਕ",
+        "ਬਿੰਦੀ",
+        "ਟਿੱਪੀ",
+        "ਸਿਹਾਰੀ"
+      ],
+      "correctIndex": 0,
+      "explanation": "ਅੱਧਕ (ੱ) ਦਬਾਅ ਜਾਂ ਬਲ ਦਾ ਚਿੰਨ੍ਹ ਹੈ। ਜਿਸ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਦੂਹਰੀ ਕਰਨੀ ਹੋਵੇ, ਉਸ ਤੋਂ ਪਹਿਲੇ ਅੱਖਰ ਉੱਤੇ ਅੱਧਕ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ (ਜਿਵੇਂ: ਬੱਚਾ, ਸੱਚ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5013,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5013"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5014-EASY",
+      "stem": "ਕਿਸੇ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਨੂੰ ਦੂਹਰਾ (ਬਲ ਵਾਲਾ) ਪ੍ਰਗਟ ਕਰਨ ਲਈ ਕਿਸ ਲਗਾਖਰ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      "options": [
+        "ਬਿੰਦੀ",
+        "ਸਿਹਾਰੀ",
+        "ਟਿੱਪੀ",
+        "ਅੱਧਕ"
+      ],
+      "correctIndex": 3,
+      "explanation": "ਅੱਧਕ (ੱ) ਦਬਾਅ ਜਾਂ ਬਲ ਦਾ ਚਿੰਨ੍ਹ ਹੈ। ਜਿਸ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਦੂਹਰੀ ਕਰਨੀ ਹੋਵੇ, ਉਸ ਤੋਂ ਪਹਿਲੇ ਅੱਖਰ ਉੱਤੇ ਅੱਧਕ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ (ਜਿਵੇਂ: ਬੱਚਾ, ਸੱਚ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5014,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5014"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5015-EASY",
+      "stem": "ਕਿਸੇ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਨੂੰ ਦੂਹਰਾ (ਬਲ ਵਾਲਾ) ਪ੍ਰਗਟ ਕਰਨ ਲਈ ਕਿਸ ਲਗਾਖਰ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      "options": [
+        "ਹੋੜਾ",
+        "ਅੱਧਕ",
+        "ਟਿੱਪੀ",
+        "ਬਿੰਦੀ"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਅੱਧਕ (ੱ) ਦਬਾਅ ਜਾਂ ਬਲ ਦਾ ਚਿੰਨ੍ਹ ਹੈ। ਜਿਸ ਅੱਖਰ ਦੀ ਆਵਾਜ਼ ਦੂਹਰੀ ਕਰਨੀ ਹੋਵੇ, ਉਸ ਤੋਂ ਪਹਿਲੇ ਅੱਖਰ ਉੱਤੇ ਅੱਧਕ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ (ਜਿਵੇਂ: ਬੱਚਾ, ਸੱਚ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5015,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5015"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5016-EASY",
+      "stem": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਅੱਖਰ ਹਨ?",
+      "options": [
+        "52",
+        "35",
+        "30",
+        "45"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ 35 ਅੱਖਰ ਹਨ। ਇਸੇ ਕਾਰਨ ਇਸ ਨੂੰ ਰਵਾਇਤੀ ਤੌਰ 'ਤੇ ‘ਪੈਂਤੀ ਅੱਖਰੀ’ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਅਰਬੀ-ਫ਼ਾਰਸੀ ਅਤੇ ਹੋਰ ਧੁਨੀਆਂ ਲਈ 6 ਪੈਰ-ਬਿੰਦੀ ਵਾਲੇ ਅੱਖਰ ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ, ਜਿਸ ਨਾਲ ਕੁੱਲ ਗਿਣਤੀ 41 ਹੋ ਗਈ।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5016,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5016"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5017-EASY",
+      "stem": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਕੁੱਲ ਕਿੰਨੀਆਂ ਲਗਾਂ ਲੱਗਦੀਆਂ ਹਨ?",
+      "options": [
+        "1",
+        "4",
+        "2",
+        "10"
+      ],
+      "correctIndex": 1,
+      "explanation": "‘ਅ’ ਨਾਲ ਚਾਰ ਲਗਾਂ (ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ) ਲੱਗਦੀਆਂ ਹਨ। ਅ ਨਾਲ ਮੁਕਤਾ ਹੁੰਦਾ ਹੈ (ਅ), ਕੰਨਾ (ਆ), ਦੁਲਾਵਾਂ (ਐ), ਅਤੇ ਕਨੌੜਾ (ਔ)।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5017,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5017"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5018-EASY",
+      "stem": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਅੱਖਰ ਹਨ?",
+      "options": [
+        "41",
+        "35",
+        "45",
+        "52"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ 35 ਅੱਖਰ ਹਨ। ਇਸੇ ਕਾਰਨ ਇਸ ਨੂੰ ਰਵਾਇਤੀ ਤੌਰ 'ਤੇ ‘ਪੈਂਤੀ ਅੱਖਰੀ’ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਅਰਬੀ-ਫ਼ਾਰਸੀ ਅਤੇ ਹੋਰ ਧੁਨੀਆਂ ਲਈ 6 ਪੈਰ-ਬਿੰਦੀ ਵਾਲੇ ਅੱਖਰ ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ, ਜਿਸ ਨਾਲ ਕੁੱਲ ਗਿਣਤੀ 41 ਹੋ ਗਈ।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5018,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5018"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5019-EASY",
+      "stem": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਅੱਖਰ ਹਨ?",
+      "options": [
+        "45",
+        "35",
+        "52",
+        "41"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਗੁਰਮੁਖੀ ਲਿਪੀ ਦੀ ਮੂਲ ਵਰਣਮਾਲਾ ਵਿੱਚ 35 ਅੱਖਰ ਹਨ। ਇਸੇ ਕਾਰਨ ਇਸ ਨੂੰ ਰਵਾਇਤੀ ਤੌਰ 'ਤੇ ‘ਪੈਂਤੀ ਅੱਖਰੀ’ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਅਰਬੀ-ਫ਼ਾਰਸੀ ਅਤੇ ਹੋਰ ਧੁਨੀਆਂ ਲਈ 6 ਪੈਰ-ਬਿੰਦੀ ਵਾਲੇ ਅੱਖਰ ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ, ਜਿਸ ਨਾਲ ਕੁੱਲ ਗਿਣਤੀ 41 ਹੋ ਗਈ।",
+      "difficulty": "Easy",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Easy",
+        "language": "pa-Guru",
+        "seed": 5019,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-001"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5019"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5020-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਬਿਹਾਰੀ",
+        "ਦੁਲਾਵਾਂ",
+        "ਔਂਕੜ",
+        "ਦੁਲੈਂਕੜ"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਦੁਲਾਵਾਂ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5020,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5020"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5021-MEDIUM",
+      "stem": "ਲਗਾਖਰ ‘ਅੱਧਕ’ ਕਿੰਨੀਆਂ ਲਗਾਂ ਨਾਲ ਲੱਗਦਾ/ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "6",
+        "3",
+        "4",
+        "5"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਅੱਧਕ ਦਬਾਅ ਜਾਂ ਬਲ (ਦੂਹਰੀ ਆਵਾਜ਼) ਦਾ ਚਿੰਨ੍ਹ ਹੈ, ਜੋ ਮੁੱਖ ਤੌਰ 'ਤੇ 3 ਲਗਾਂ (ਮੁਕਤਾ, ਸਿਹਾਰੀ, ਔਂਕੜ) ਨਾਲ ਲੱਗਦਾ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5021,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-003"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5021"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5022-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਔਂਕੜ",
+        "ਕਨੌੜਾ",
+        "ਦੁਲੈਂਕੜ",
+        "ਬਿਹਾਰੀ"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਕਨੌੜਾ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5022,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5022"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5023-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੇ ਅੱਖਰਾਂ ਵਿੱਚੋਂ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਕਿਹੜਾ ਹੈ?",
+      "options": [
+        "ਚ",
+        "ਖ",
+        "ਗ",
+        "ਙ"
+      ],
+      "correctIndex": 3,
+      "explanation": "‘ਙ’ ਇੱਕ ਅਨੁਨਾਸਕ ਅੱਖਰ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ। ਇਹਨਾਂ ਦੇ ਉਚਾਰਨ ਵੇਲੇ ਆਵਾਜ਼ ਨੱਕ ਰਾਹੀਂ ਨਿਕਲਦੀ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5023,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5023"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5024-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੇ ਅੱਖਰਾਂ ਵਿੱਚੋਂ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਕਿਹੜਾ ਹੈ?",
+      "options": [
+        "ਗ",
+        "ਙ",
+        "ਟ",
+        "ਖ"
+      ],
+      "correctIndex": 1,
+      "explanation": "‘ਙ’ ਇੱਕ ਅਨੁਨਾਸਕ ਅੱਖਰ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ। ਇਹਨਾਂ ਦੇ ਉਚਾਰਨ ਵੇਲੇ ਆਵਾਜ਼ ਨੱਕ ਰਾਹੀਂ ਨਿਕਲਦੀ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5024,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5024"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5025-MEDIUM",
+      "stem": "ਲਗਾਖਰ ‘ਅੱਧਕ’ ਕਿੰਨੀਆਂ ਲਗਾਂ ਨਾਲ ਲੱਗਦਾ/ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "3",
+        "6",
+        "4",
+        "2"
+      ],
+      "correctIndex": 0,
+      "explanation": "ਅੱਧਕ ਦਬਾਅ ਜਾਂ ਬਲ (ਦੂਹਰੀ ਆਵਾਜ਼) ਦਾ ਚਿੰਨ੍ਹ ਹੈ, ਜੋ ਮੁੱਖ ਤੌਰ 'ਤੇ 3 ਲਗਾਂ (ਮੁਕਤਾ, ਸਿਹਾਰੀ, ਔਂਕੜ) ਨਾਲ ਲੱਗਦਾ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5025,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-003"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5025"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5026-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਔਂਕੜ",
+        "ਕਨੌੜਾ",
+        "ਹੋੜਾ",
+        "ਬਿਹਾਰੀ"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਕਨੌੜਾ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5026,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5026"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5027-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਦੁਲੈਂਕੜ",
+        "ਕਨੌੜਾ",
+        "ਔਂਕੜ",
+        "ਲਾਂ"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਕਨੌੜਾ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5027,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5027"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5028-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੇ ਅੱਖਰਾਂ ਵਿੱਚੋਂ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਕਿਹੜਾ ਹੈ?",
+      "options": [
+        "ਚ",
+        "ਪ",
+        "ਤ",
+        "ਙ"
+      ],
+      "correctIndex": 3,
+      "explanation": "‘ਙ’ ਇੱਕ ਅਨੁਨਾਸਕ ਅੱਖਰ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ। ਇਹਨਾਂ ਦੇ ਉਚਾਰਨ ਵੇਲੇ ਆਵਾਜ਼ ਨੱਕ ਰਾਹੀਂ ਨਿਕਲਦੀ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5028,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5028"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5029-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੇ ਅੱਖਰਾਂ ਵਿੱਚੋਂ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਕਿਹੜਾ ਹੈ?",
+      "options": [
+        "ਕ",
+        "ਪ",
+        "ਚ",
+        "ਙ"
+      ],
+      "correctIndex": 3,
+      "explanation": "‘ਙ’ ਇੱਕ ਅਨੁਨਾਸਕ ਅੱਖਰ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ। ਇਹਨਾਂ ਦੇ ਉਚਾਰਨ ਵੇਲੇ ਆਵਾਜ਼ ਨੱਕ ਰਾਹੀਂ ਨਿਕਲਦੀ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5029,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5029"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5030-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਔਂਕੜ",
+        "ਸਿਹਾਰੀ",
+        "ਕੰਨਾ",
+        "ਲਾਂ"
+      ],
+      "correctIndex": 2,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਕੰਨਾ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5030,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5030"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5031-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਬਿਹਾਰੀ",
+        "ਕੰਨਾ",
+        "ਲਾਂ",
+        "ਔਂਕੜ"
+      ],
+      "correctIndex": 1,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਕੰਨਾ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5031,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5031"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5032-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਹੋੜਾ",
+        "ਦੁਲੈਂਕੜ",
+        "ਮੁਕਤਾ",
+        "ਲਾਂ"
+      ],
+      "correctIndex": 2,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਮੁਕਤਾ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5032,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5032"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5033-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੇ ਅੱਖਰਾਂ ਵਿੱਚੋਂ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਕਿਹੜਾ ਹੈ?",
+      "options": [
+        "ਟ",
+        "ਖ",
+        "ਙ",
+        "ਪ"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਙ’ ਇੱਕ ਅਨੁਨਾਸਕ ਅੱਖਰ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ। ਇਹਨਾਂ ਦੇ ਉਚਾਰਨ ਵੇਲੇ ਆਵਾਜ਼ ਨੱਕ ਰਾਹੀਂ ਨਿਕਲਦੀ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5033,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5033"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5034-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਔਂਕੜ",
+        "ਹੋੜਾ",
+        "ਬਿਹਾਰੀ",
+        "ਦੁਲਾਵਾਂ"
+      ],
+      "correctIndex": 3,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਦੁਲਾਵਾਂ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5034,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5034"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5035-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਲਾਂ",
+        "ਦੁਲੈਂਕੜ",
+        "ਦੁਲਾਵਾਂ",
+        "ਔਂਕੜ"
+      ],
+      "correctIndex": 2,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਦੁਲਾਵਾਂ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5035,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5035"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5036-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਸਿਹਾਰੀ",
+        "ਔਂਕੜ",
+        "ਦੁਲੈਂਕੜ",
+        "ਕਨੌੜਾ"
+      ],
+      "correctIndex": 3,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਕਨੌੜਾ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5036,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5036"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5037-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਦੁਲੈਂਕੜ",
+        "ਬਿਹਾਰੀ",
+        "ਲਾਂ",
+        "ਮੁਕਤਾ"
+      ],
+      "correctIndex": 3,
+      "explanation": "ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਲੱਗਣ ਵਾਲੀਆਂ ਲਗਾਂ ਹਨ: ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ। ਇਸ ਲਈ ‘ਮੁਕਤਾ’ ਸਹੀ ਉੱਤਰ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5037,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-002"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5037"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5038-MEDIUM",
+      "stem": "ਹੇਠ ਲਿਖੇ ਅੱਖਰਾਂ ਵਿੱਚੋਂ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਕਿਹੜਾ ਹੈ?",
+      "options": [
+        "ਙ",
+        "ਟ",
+        "ਤ",
+        "ਕ"
+      ],
+      "correctIndex": 0,
+      "explanation": "‘ਙ’ ਇੱਕ ਅਨੁਨਾਸਕ ਅੱਖਰ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ। ਇਹਨਾਂ ਦੇ ਉਚਾਰਨ ਵੇਲੇ ਆਵਾਜ਼ ਨੱਕ ਰਾਹੀਂ ਨਿਕਲਦੀ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5038,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5038"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5039-MEDIUM",
+      "stem": "ਲਗਾਖਰ ‘ਅੱਧਕ’ ਕਿੰਨੀਆਂ ਲਗਾਂ ਨਾਲ ਲੱਗਦਾ/ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "3",
+        "4",
+        "8",
+        "5"
+      ],
+      "correctIndex": 0,
+      "explanation": "ਅੱਧਕ ਦਬਾਅ ਜਾਂ ਬਲ (ਦੂਹਰੀ ਆਵਾਜ਼) ਦਾ ਚਿੰਨ੍ਹ ਹੈ, ਜੋ ਮੁੱਖ ਤੌਰ 'ਤੇ 3 ਲਗਾਂ (ਮੁਕਤਾ, ਸਿਹਾਰੀ, ਔਂਕੜ) ਨਾਲ ਲੱਗਦਾ ਹੈ।",
+      "difficulty": "Medium",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Medium",
+        "language": "pa-Guru",
+        "seed": 5039,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-003"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5039"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5040-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ?",
+      "options": [
+        "ਕੰਨਾ",
+        "ਦੁਲਾਵਾਂ",
+        "ਕਨੌੜਾ",
+        "ਹੋੜਾ"
+      ],
+      "correctIndex": 3,
+      "explanation": "‘ਅ’ ਨਾਲ ਕੇਵਲ [ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ] ਹੀ ਲੱਗ ਸਕਦੀਆਂ ਹਨ। ਲਗ ‘ਹੋੜਾ’ ਇਸ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ, ਇਸ ਲਈ ਇਹ ਸਹੀ ਵਿਕਲਪ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5040,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-003"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5040"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5041-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਬਿਹਾਰੀ",
+        "ਕੰਨਾ",
+        "ਸਿਹਾਰੀ",
+        "ਲਾਂ"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5041,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5041"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5042-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ?",
+      "options": [
+        "ਦੁਲਾਵਾਂ",
+        "ਕਨੌੜਾ",
+        "ਕੰਨਾ",
+        "ਔਂਕੜ"
+      ],
+      "correctIndex": 3,
+      "explanation": "‘ਅ’ ਨਾਲ ਕੇਵਲ [ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ] ਹੀ ਲੱਗ ਸਕਦੀਆਂ ਹਨ। ਲਗ ‘ਔਂਕੜ’ ਇਸ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ, ਇਸ ਲਈ ਇਹ ਸਹੀ ਵਿਕਲਪ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5042,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-003"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5042"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5043-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਸਿਹਾਰੀ",
+        "ਲਾਂ",
+        "ਕੰਨਾ",
+        "ਬਿਹਾਰੀ"
+      ],
+      "correctIndex": 0,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5043,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5043"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5044-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਲਾਂ",
+        "ਸਿਹਾਰੀ",
+        "ਕੰਨਾ",
+        "ਬਿਹਾਰੀ"
+      ],
+      "correctIndex": 1,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5044,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5044"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5045-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਸਿਹਾਰੀ",
+        "ਲਾਂ",
+        "ਕੰਨਾ",
+        "ਬਿਹਾਰੀ"
+      ],
+      "correctIndex": 0,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5045,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5045"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5046-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ?",
+      "options": [
+        "ਕਨੌੜਾ",
+        "ਲਾਂ",
+        "ਮੁਕਤਾ",
+        "ਦੁਲਾਵਾਂ"
+      ],
+      "correctIndex": 1,
+      "explanation": "‘ਅ’ ਨਾਲ ਕੇਵਲ [ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ] ਹੀ ਲੱਗ ਸਕਦੀਆਂ ਹਨ। ਲਗ ‘ਲਾਂ’ ਇਸ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ, ਇਸ ਲਈ ਇਹ ਸਹੀ ਵਿਕਲਪ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5046,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-003"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5046"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5047-HARD",
+      "stem": "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਅੱਖਰ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਨਹੀਂ ਹੈ?",
+      "options": [
+        "ਙ",
+        "ਨ",
+        "ਣ",
+        "ਧ"
+      ],
+      "correctIndex": 3,
+      "explanation": "‘ਧ’ ਅਨੁਨਾਸਕ ਅੱਖਰ ਨਹੀਂ ਹੈ, ਸਗੋਂ ਇਹ ‘ਤ-ਵਰਗ’ ਦਾ ਚੌਥਾ ਦੰਤੀ ਵਿਅੰਜਨ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ ਕੇਵਲ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5047,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5047"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5048-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਲਾਂ",
+        "ਕੰਨਾ",
+        "ਸਿਹਾਰੀ",
+        "ਬਿਹਾਰੀ"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5048,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5048"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5049-HARD",
+      "stem": "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਅੱਖਰ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਨਹੀਂ ਹੈ?",
+      "options": [
+        "ਙ",
+        "ਨ",
+        "ਧ",
+        "ਮ"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਧ’ ਅਨੁਨਾਸਕ ਅੱਖਰ ਨਹੀਂ ਹੈ, ਸਗੋਂ ਇਹ ‘ਤ-ਵਰਗ’ ਦਾ ਚੌਥਾ ਦੰਤੀ ਵਿਅੰਜਨ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ ਕੇਵਲ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5049,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5049"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5050-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਬਿਹਾਰੀ",
+        "ਲਾਂ",
+        "ਸਿਹਾਰੀ",
+        "ਕੰਨਾ"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5050,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5050"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5051-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ?",
+      "options": [
+        "ਦੁਲਾਵਾਂ",
+        "ਕਨੌੜਾ",
+        "ਕੰਨਾ",
+        "ਦੁਲੈਂਕੜ"
+      ],
+      "correctIndex": 3,
+      "explanation": "‘ਅ’ ਨਾਲ ਕੇਵਲ [ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ] ਹੀ ਲੱਗ ਸਕਦੀਆਂ ਹਨ। ਲਗ ‘ਦੁਲੈਂਕੜ’ ਇਸ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ, ਇਸ ਲਈ ਇਹ ਸਹੀ ਵਿਕਲਪ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5051,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-003"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5051"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5052-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਸਿਹਾਰੀ",
+        "ਬਿਹਾਰੀ",
+        "ਲਾਂ",
+        "ਕੰਨਾ"
+      ],
+      "correctIndex": 0,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5052,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5052"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5053-HARD",
+      "stem": "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਅੱਖਰ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਨਹੀਂ ਹੈ?",
+      "options": [
+        "ਨ",
+        "ਮ",
+        "ਧ",
+        "ਣ"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਧ’ ਅਨੁਨਾਸਕ ਅੱਖਰ ਨਹੀਂ ਹੈ, ਸਗੋਂ ਇਹ ‘ਤ-ਵਰਗ’ ਦਾ ਚੌਥਾ ਦੰਤੀ ਵਿਅੰਜਨ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ ਕੇਵਲ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5053,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5053"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5054-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਸਿਹਾਰੀ",
+        "ਲਾਂ",
+        "ਬਿਹਾਰੀ",
+        "ਕੰਨਾ"
+      ],
+      "correctIndex": 0,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5054,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5054"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5055-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਸਿਹਾਰੀ",
+        "ਲਾਂ",
+        "ਕੰਨਾ",
+        "ਬਿਹਾਰੀ"
+      ],
+      "correctIndex": 0,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5055,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5055"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5056-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਲਾਂ",
+        "ਸਿਹਾਰੀ",
+        "ਕੰਨਾ",
+        "ਬਿਹਾਰੀ"
+      ],
+      "correctIndex": 1,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5056,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5056"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F03-S5057-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਸ ਲਗ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਪ੍ਰਗਟ ਕਰਨ ਲਈ ‘ਟਿੱਪੀ’ ਲੱਗਦੀ ਹੈ?",
+      "options": [
+        "ਕੰਨਾ",
+        "ਹੋੜਾ",
+        "ਸਿਹਾਰੀ",
+        "ਬਿਹਾਰੀ"
+      ],
+      "correctIndex": 2,
+      "explanation": "‘ਸਿਹਾਰੀ’ (ਿ) ਲਘੂ ਲਗ ਹੈ ਅਤੇ ਇਸ ਨਾਲ ਨਾਸਕੀ ਆਵਾਜ਼ ਲਈ ਟਿੱਪੀ (ੰ) ਲੱਗਦੀ ਹੈ (ਜਿਵੇਂ: ਪਿੰਡ, ਸਿੰਘ)। ਕੰਨਾ, ਬਿਹਾਰੀ, ਲਾਂ ਅਤੇ ਹੋੜਾ ਨਾਲ ਬਿੰਦੀ ਲੱਗਦੀ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F03",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5057,
+        "authorityIds": [
+          "PUN-AUTH-LAGAKHAR-005"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F03-5057"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F02-S5058-HARD",
+      "stem": "ਹੇਠ ਲਿਖੀਆਂ ਲਗਾਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਲਗ ਸਵਰ ਵਾਹਕ ‘ਅ’ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ?",
+      "options": [
+        "ਮੁਕਤਾ",
+        "ਦੁਲੈਂਕੜ",
+        "ਕਨੌੜਾ",
+        "ਦੁਲਾਵਾਂ"
+      ],
+      "correctIndex": 1,
+      "explanation": "‘ਅ’ ਨਾਲ ਕੇਵਲ [ਮੁਕਤਾ, ਕੰਨਾ, ਦੁਲਾਵਾਂ, ਕਨੌੜਾ] ਹੀ ਲੱਗ ਸਕਦੀਆਂ ਹਨ। ਲਗ ‘ਦੁਲੈਂਕੜ’ ਇਸ ਨਾਲ ਨਹੀਂ ਲੱਗ ਸਕਦੀ, ਇਸ ਲਈ ਇਹ ਸਹੀ ਵਿਕਲਪ ਹੈ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F02",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5058,
+        "authorityIds": [
+          "PUN-AUTH-CARRIER-003"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F02-5058"
+      }
+    },
+    {
+      "id": "PUN-001-CP001-F01-S5059-HARD",
+      "stem": "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਅੱਖਰ ‘ਅਨੁਨਾਸਕ’ (ਨਾਸਕੀ) ਅੱਖਰ ਨਹੀਂ ਹੈ?",
+      "options": [
+        "ਮ",
+        "ਨ",
+        "ਞ",
+        "ਧ"
+      ],
+      "correctIndex": 3,
+      "explanation": "‘ਧ’ ਅਨੁਨਾਸਕ ਅੱਖਰ ਨਹੀਂ ਹੈ, ਸਗੋਂ ਇਹ ‘ਤ-ਵਰਗ’ ਦਾ ਚੌਥਾ ਦੰਤੀ ਵਿਅੰਜਨ ਹੈ। ਗੁਰਮੁਖੀ ਵਿੱਚ ਕੇਵਲ 5 ਅਨੁਨਾਸਕ ਅੱਖਰ ਹਨ: ਙ, ਞ, ਣ, ਨ, ਮ।",
+      "difficulty": "Hard",
+      "metadata": {
+        "engine": "punjabi-v1",
+        "packageId": "PUN-001",
+        "cpId": "PUN-001-CP001",
+        "familyId": "F01",
+        "difficulty": "Hard",
+        "language": "pa-Guru",
+        "seed": 5059,
+        "authorityIds": [
+          "PUN-AUTH-ORTHO-006"
+        ],
+        "generatorRevision": "1.0.0",
+        "fingerprint": "FINGERPRINT-F01-5059"
+      }
+    }
+  ]
+}
