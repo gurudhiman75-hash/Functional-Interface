@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Alphabet-Test/ALP-001/**
-      - .github/workflows/alp-001-cp001-cp005.yml
   workflow_dispatch:
 
 permissions:
@@ -47,7 +46,7 @@ jobs:
           STATUS=0
           mkdir -p artifacts/api-server/$OUT
           : > artifacts/api-server/$LOG
-          for TEST in alp-001.test alp-001-completion.test alp-001-localized.test alp-001-editorial-v2.test; do
+          for TEST in alp-001.test alp-001-completion.test alp-001-localized.test alp-001-editorial-v2.test alp-001-final-audit.test; do
             {
               echo "===== $TEST ====="
               pnpm --dir artifacts/api-server exec esbuild \
