@@ -5,8 +5,14 @@ on:
     branches:
       - New-main
     paths:
-      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp002-*"
-      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/GEO-PHY-001-CP002-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp002-facts.ts"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp002-review-types.ts"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp002-review-generator-v1.ts"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp002-review-generator-v2.ts"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp002-review-batch-v1.ts"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp002-review-batch-v1.test.ts"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp002-export-review-v1.ts"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/physiography/GEO-PHY-001-CP002-SPEC.md"
   workflow_dispatch:
 
 permissions:
