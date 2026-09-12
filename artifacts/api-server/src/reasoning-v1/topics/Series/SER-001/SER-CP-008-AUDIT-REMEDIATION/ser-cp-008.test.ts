@@ -7,21 +7,23 @@ import {
   independentlyContinueSingleLetterProgression,
 } from "./independent-solver";
 import {
+  SER_CP008_CORE_QL_IDS,
   SER_CP008_PROVISIONAL_QL_IDS,
   SER_CP008_QL_AUTHORITIES,
 } from "./question-language";
 import { generateSerCp008Final } from "./runtime-final";
 import { independentlySolveVisibleSerCp008 } from "./visible-series-verifier";
 
-assert.deepEqual(SER_CP008_PROVISIONAL_QL_IDS, [
+assert.deepEqual(SER_CP008_CORE_QL_IDS, [
   "SER-QL-014",
   "SER-QL-015",
   "SER-QL-016",
   "SER-QL-017",
   "SER-QL-018",
 ]);
-assert.equal(SER_CP008_QL_AUTHORITIES.length, 5);
-assert.equal(new Set(SER_CP008_QL_AUTHORITIES.map((entry) => entry.authorityId)).size, 5);
+assert.equal(SER_CP008_PROVISIONAL_QL_IDS.length, 15);
+assert.equal(SER_CP008_QL_AUTHORITIES.length, 15);
+assert.equal(new Set(SER_CP008_QL_AUTHORITIES.map((entry) => entry.authorityId)).size, 15);
 assert.ok(SER_CP008_QL_AUTHORITIES.every((entry) => entry.sourceEvidence.length > 0));
 
 assert.equal(
@@ -107,7 +109,7 @@ const locales = ["en-IN", "hi-IN", "pa-IN"] as const;
 const seedsPerQl = 240;
 const report: Record<string, unknown>[] = [];
 
-for (const qlId of SER_CP008_PROVISIONAL_QL_IDS) {
+for (const qlId of SER_CP008_CORE_QL_IDS) {
   const answerPositions = [0, 0, 0, 0];
   const seenDifficulties = new Set<string>();
   const visibleFingerprints = new Set<string>();
@@ -198,4 +200,4 @@ for (const qlId of ["SER-QL-015", "SER-QL-017", "SER-QL-018"] as const) {
   assert.equal(generateSerCp008Final(qlId, 17, "en-IN").difficulty, "HARD");
 }
 
-console.log("SER-CP-008 source-gap and stress audit passed.", report);
+console.log("SER-CP-008 core source-gap and stress audit passed.", report);
