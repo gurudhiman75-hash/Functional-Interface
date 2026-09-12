@@ -32,7 +32,7 @@ assert.equal(
 );
 assert.equal(
   independentlySolveVisibleSerCp008Mixed("SER-QL-022", "Find the next term.\n5E, 7F, 11H, 17K, ?"),
-  "25P",
+  "25O",
 );
 assert.equal(
   independentlySolveVisibleSerCp008Mixed("SER-QL-023", "Find the next term.\nA1, D4, I9, P16, Y25, J36, ?"),
