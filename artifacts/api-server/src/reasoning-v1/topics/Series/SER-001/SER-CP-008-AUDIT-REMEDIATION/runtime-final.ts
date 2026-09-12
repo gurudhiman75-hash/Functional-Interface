@@ -24,18 +24,24 @@ const SQUARE_SERIES_SHELLS = {
     "Select the term that will come next in the following series.",
     "Choose the correct term to continue the series.",
     "Which of the following will replace the question mark in the series?",
+    "Select the correct option to complete the series.",
+    "Find the term that logically continues the series.",
   ],
   "hi-IN": [
     "श्रृंखला में अगला पद कौन-सा होगा?",
     "निम्न श्रृंखला में अगला आने वाला पद चुनिए।",
     "श्रृंखला को आगे बढ़ाने वाला सही पद चुनिए।",
     "श्रृंखला में प्रश्नवाचक चिन्ह के स्थान पर क्या आएगा?",
+    "श्रृंखला पूरी करने के लिए सही विकल्प चुनिए।",
+    "श्रृंखला को तार्किक रूप से आगे बढ़ाने वाला पद ज्ञात कीजिए।",
   ],
   "pa-IN": [
     "ਲੜੀ ਵਿੱਚ ਅਗਲਾ ਪਦ ਕਿਹੜਾ ਹੋਵੇਗਾ?",
     "ਹੇਠਾਂ ਦਿੱਤੀ ਲੜੀ ਵਿੱਚ ਅਗਲਾ ਆਉਣ ਵਾਲਾ ਪਦ ਚੁਣੋ।",
     "ਲੜੀ ਨੂੰ ਅੱਗੇ ਵਧਾਉਣ ਵਾਲਾ ਸਹੀ ਪਦ ਚੁਣੋ।",
     "ਲੜੀ ਵਿੱਚ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਦੀ ਥਾਂ ਕੀ ਆਵੇਗਾ?",
+    "ਲੜੀ ਪੂਰੀ ਕਰਨ ਲਈ ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ।",
+    "ਲੜੀ ਨੂੰ ਤਰਕ ਅਨੁਸਾਰ ਅੱਗੇ ਵਧਾਉਣ ਵਾਲਾ ਪਦ ਲੱਭੋ।",
   ],
 } as const;
 
@@ -50,7 +56,8 @@ function diversifyNarrowSourceShell(
   // the proven mathematics instead of inventing extra transforms merely to
   // inflate entropy, while varying normal competitive-exam instruction shells
   // independently of the answer position.
-  const shellIndex = Math.floor(seed / 4) % SQUARE_SERIES_SHELLS[locale].length;
+  const shellCount = SQUARE_SERIES_SHELLS[locale].length;
+  const shellIndex = (Math.floor(seed / 4) + Math.floor(seed / 17)) % shellCount;
   const visibleSeries = question.stem.split("\n").at(-1)!;
   return {
     ...question,
