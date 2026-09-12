@@ -1,0 +1,79 @@
+name: Validate SER-001 final-audit remediation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/**"
+      - ".github/workflows/reasoning-ser-001-final-audit-remediation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-final-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-series-final-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for Series audit remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts
+
+      - name: Prove CP008 source gaps, visible solving, multilingual parity and stress
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts | tee ser-cp008-final-audit.log
+
+      - name: Reprove frozen CP007 Question Studio corpus is unchanged
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/question-studio-review-adapter.test.ts | tee ser-cp007-regression.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload Series audit logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-final-audit-logs
+          path: |
+            ser-cp008-final-audit.log
+            ser-cp007-regression.log
+          retention-days: 14
