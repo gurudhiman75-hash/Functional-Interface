@@ -1,7 +1,7 @@
-import { generateGeoPhy001Cp002ReviewBatchV1 } from "./geo-phy-001-cp002-review-generator-v1";
+import { generateGeoPhy001Cp002ReviewBatchV2 } from "./geo-phy-001-cp002-review-generator-v2";
 
 export const GEO_PHY_001_CP002_REVIEW_BATCH_V1 = Object.freeze(
-  generateGeoPhy001Cp002ReviewBatchV1().map((question) => Object.freeze(question)),
+  generateGeoPhy001Cp002ReviewBatchV2().map((question) => Object.freeze(question)),
 );
 
 export function auditGeoPhy001Cp002ReviewBatchV1() {
@@ -24,6 +24,7 @@ export function auditGeoPhy001Cp002ReviewBatchV1() {
     if (q.options.length !== 4 || new Set(q.options).size !== 4) issues.push(`OPTIONS:${q.questionId}`);
     if (q.options[q.correctIndex] !== q.canonicalAnswer) issues.push(`ANSWER:${q.questionId}`);
     if (!q.sourceIds.length || !q.sourceFactIds.length) issues.push(`PROVENANCE:${q.questionId}`);
+    if (q.sourceFactIds.some((id) => id.includes("composition"))) issues.push(`GENERIC_PROVENANCE:${q.questionId}`);
     if (!q.reviewOnly || q.runtimeRegistered) issues.push(`LIFECYCLE:${q.questionId}`);
   }
 
