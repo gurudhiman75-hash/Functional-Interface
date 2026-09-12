@@ -204,6 +204,10 @@ const bulkReviewRoute = readFileSync(
   "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts",
   "utf8",
 );
+const routeRegistry = readFileSync(
+  "artifacts/api-server/src/routes/admin-question-studio-registry.ts",
+  "utf8",
+);
 const routeIndex = readFileSync(
   "artifacts/api-server/src/routes/index.ts",
   "utf8",
@@ -226,12 +230,20 @@ assert.match(seriesRoute, /mockTestEligible: false/);
 assert.match(seriesRoute, /publiclyPublishable: true/);
 assert.match(seriesRoute, /publicReleaseAuthorized: false/);
 assert.match(seriesRoute, /studentDeliveryAuthorized: false/);
-assert.match(routeIndex, /adminQuestionStudioSeriesRouter/);
+
+// The top-level index now mounts one canonical Question Studio registry. The
+// registry itself owns specialized Series routing and must place it before the
+// generic Question Studio fallback.
+assert.match(routeIndex, /adminQuestionStudioRegistryRouter/);
+assert.match(routeIndex, /router\.use\("\/admin\/question-studio", adminQuestionStudioRegistryRouter\)/);
+assert.match(routeRegistry, /adminQuestionStudioSeriesRouter/);
+assert.match(routeRegistry, /router\.use\(adminQuestionStudioSeriesRouter\)/);
 assert.ok(
-  routeIndex.indexOf("adminQuestionStudioSeriesRouter")
-    < routeIndex.indexOf("adminQuestionStudioRouter"),
-  "Series router must be mounted before the generic Question Studio router.",
+  routeRegistry.indexOf("router.use(adminQuestionStudioSeriesRouter)")
+    < routeRegistry.indexOf("router.use(adminQuestionStudioRouter)"),
+  "Series router must be mounted before the generic Question Studio fallback inside the canonical registry.",
 );
+
 assert.match(bulkReviewRoute, /getGeneratedItemApprovalDisposition/);
 assert.match(bulkReviewRoute, /disposition\.mode === "question_bank"/);
 assert.match(bulkReviewRoute, /reviewOnlyApprovedCount/);
@@ -251,7 +263,7 @@ console.log(JSON.stringify({
   deterministicBatchProofs,
   targetedQlProofs,
   reviewOnlyApprovalProofs: 1,
-  routeMountProofs: 1,
+  routeMountProofs: 2,
   adminPanelProofs: 1,
   sourceQuestionBankStatus: "NOT_STORED",
   sourceQuestionBankWritable: false,
