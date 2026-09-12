@@ -20,6 +20,22 @@ for repair in repairs:
             raise SystemExit(f"Punjabi employee-subject naturalness repair: expected one repair anchor, found {count}")
         source = source.replace(repair_anchor, repair_anchor + '\n' + repair, 1)
 
+# QL004 reporting-time arguments use the plural noun phrase "ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ
+# ਸਮੇਂ". The generated surface retained singular predicate forms in several
+# templates. Repair the complete sentence family so every team/context variant
+# keeps normal Punjabi subject-verb agreement.
+reporting_repairs = [
+    '    .replace(/ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ([^।]*?)ਘੱਟ ਕਰ ਸਕਦਾ ਹੈ/g, "ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ$1ਘੱਟ ਕਰ ਸਕਦੇ ਹਨ")',
+    '    .replace(/ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ([^।]*?)ਕਾਇਮ ਰੱਖ ਸਕਦਾ ਹੈ/g, "ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ$1ਕਾਇਮ ਰੱਖ ਸਕਦੇ ਹਨ")',
+    '    .replace(/ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ([^।]*?)ਲਾਗੂ ਨਹੀਂ ਹੋ ਸਕਦਾ/g, "ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ$1ਲਾਗੂ ਨਹੀਂ ਹੋ ਸਕਦੇ")',
+]
+for repair in reporting_repairs:
+    if repair not in source:
+        count = source.count(repair_anchor)
+        if count != 1:
+            raise SystemExit(f"Punjabi reporting-time plural agreement repair: expected one repair anchor, found {count}")
+        source = source.replace(repair_anchor, repair_anchor + '\n' + repair, 1)
+
 # The semantic-alignment layer originally recognised only two verb endings for
 # the digital-rollout connectivity overclaim. Generated Punjabi uses more valid
 # inflections, so route the whole semantic family: announced decision +
@@ -34,4 +50,4 @@ if broad_rule not in source:
     source = source.replace(narrow_rule, broad_rule, 1)
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
-print("ARG-001 CP015 Punjabi naturalness and rollout semantic hotfix applied")
+print("ARG-001 CP015 Punjabi naturalness, reporting-time agreement and rollout semantic hotfix applied")
