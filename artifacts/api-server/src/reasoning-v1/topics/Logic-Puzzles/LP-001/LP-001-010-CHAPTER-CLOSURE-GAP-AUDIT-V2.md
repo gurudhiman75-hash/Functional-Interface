@@ -1,10 +1,10 @@
-# Logic Puzzles LP-001 → LP-010 — Chapter Closure and Gap Audit V2
+# Logic Puzzles — Post-LP-010 Chapter Closure and Gap Audit V2
 
-Status: **post-freeze closure audit; `LP-QL-001..040` remain permanent and unchanged; `LP-QL-041` remains unallocated pending review of the gaps below.**
+Status: **closure still open; `LP-QL-001..040` remain the only permanent allocations. Candidate identities below are provisional until explicit English approval and permanent freeze.**
 
-This V2 audit supersedes the earlier narrow closure pass. The earlier pass correctly identified pure day-only scheduling as a missing learner-facing mode, but it treated QL discovery too narrowly as only a question of new solver families. In ExamTree, a permanent QL is also an answer/query contract. A source-backed question projection can therefore justify a new QL even when it reuses an existing hidden-state solver.
+This V2 audit reconciles all currently active Logic Puzzle gap work. It corrects the earlier narrow assumption that only a new solver family can justify a new QL. In ExamTree, a permanent QL is also an answer/query contract; a genuinely different source-backed projection may justify a QL while safely reusing an already approved hidden-state solver.
 
-## 1. Current permanent surface
+## 1. Frozen permanent surface
 
 | Package | Permanent QLs | Primary ownership |
 |---|---:|---|
@@ -19,115 +19,106 @@ This V2 audit supersedes the earlier narrow closure pass. The earlier pass corre
 | `LP-009` | `LP-QL-033..036` | one-axis ordered month/year scheduling |
 | `LP-010` | `LP-QL-037..040` | day + time scheduling |
 
-Registry state: `LP-QL-001..040` allocated; next free identity is `LP-QL-041`.
+`LP-QL-041` is the first free permanent identity. Nothing in this audit allocates it permanently.
 
-## 2. Taxonomy boundaries that remain outside Logic Puzzles
+## 2. Taxonomy boundaries outside Logic Puzzles
 
-Reasoning V1 keeps adjacent skills separate even when a reference book prints them in a common puzzle chapter:
+Reference books often print adjacent families inside one puzzle chapter, but Reasoning V1 ownership follows the primary tested inference:
 
 - floor / flat arrangements → `REAS-FLR`;
 - seating arrangements → seating chapters;
 - blood relations → `REAS-BLR`;
 - ranking / order → ranking chapter;
-- overlapping set-membership / Venn-style classification → set/Venn reasoning where the primary task is membership rather than one-to-one assignment;
-- input-output and games/tournament → their own chapters.
+- overlapping membership / Venn-style classification → set/Venn reasoning when membership itself is the target;
+- input-output and games/tournament → their dedicated chapters.
 
-Therefore source presence alone is not enough; ownership follows the primary tested inference.
+Source presence alone therefore does not justify adding a Logic Puzzle package.
 
-## 3. Uploaded-source crosswalk
+## 3. Reconciled source-backed gaps
 
-The uploaded `reasoning_aggarwal.pdf` / `reasoning_aggarwal(1).pdf` puzzle chapter supplies the following relevant families.
+Three pieces of work are now distinct and non-overlapping.
 
-| Source evidence | Current owner | V2 disposition |
+### A. LP-009 DAY mode — existing QLs 033–036
+
+The uploaded puzzle source contains ordinary one-person-per-day schedules across Monday–Saturday. This is the same ordered-axis hidden-state and query contract already frozen for LP-009 month/year scheduling.
+
+Decision: **reuse `LP-QL-033..036`; no new QL.**
+
+Existing review implementation: PR `#1587`, `feature/lp009-day-scheduling-v2`.
+
+The one-unused-day / six-entities-in-seven-days variant remains a discovery hold because it changes state cardinality and must not be silently folded into the six-by-six form.
+
+### B. LP-011 Box + Attribute — provisional QLs 041–044
+
+The uploaded source also contains a structurally different family: labelled boxes in a vertical stack plus an independent one-to-one attribute attached to each box. This is more than LP-003 wording variation because the hidden state has two linked axes: position↔box and box↔attribute.
+
+Existing review implementation: PR `#1590`, `feature/logic-puzzles-lp011-box-attribute-v1`.
+
+Its current provisional identities are:
+
+| Candidate | Authority |
+|---|---|
+| `LP-QL-041` | `BOX_TO_ATTRIBUTE_LOOKUP` |
+| `LP-QL-042` | `ATTRIBUTE_TO_BOX_LOOKUP` |
+| `LP-QL-043` | `ATTRIBUTE_TO_POSITION_LOOKUP` |
+| `LP-QL-044` | `BOX_ATTRIBUTE_POSITION_MATCH` |
+
+These identities are **provisional, not permanent**. They get first claim only because LP-011 is the distinct new structural family already implemented and review-ready.
+
+### C. LP-006 cross-attribute projections — provisional QLs 045–046
+
+LP-006 already solves a four-column one-to-one state: Person, Day, Study area and City. Its frozen QLs 021–024 currently test only person→attribute lookups and the complete row match.
+
+The uploaded source contains additional exam-real question projections over such multi-attribute tables:
+
+- one non-person attribute → a different attribute;
+- one non-person attribute → person;
+- choose the uniquely correct statement;
+- choose the uniquely incorrect statement.
+
+These are different answer contracts and distractor semantics, but **not** a new hidden-state family. Therefore they belong as a versioned LP-006 projection layer rather than another duplicate package.
+
+Reconciled provisional identities:
+
+| Candidate | Authority | Scope |
 |---|---|---|
-| floor-only and floor + colour/city/fruit caselets | Floor / Flat chapter | out of LP scope |
-| box-stack ordering and relative-position questions | `LP-003` | covered |
-| pure one-person-per-day scheduling | same ordered-axis solver as `LP-009` | **mode gap, no new QL needed** |
-| day + two positions/times per day | `LP-010` | covered |
-| month-only and year-only scheduling | `LP-009` | covered |
-| month + date scheduling | `LP-008` | covered |
-| one-to-one variable/preference matching | `LP-007` | covered |
-| person + two/three linked attributes | `LP-005` / `LP-006` | hidden-state family covered |
-| blood-relation puzzle combined with height/order | Blood Relations chapter | out of LP scope |
-| overlapping memberships such as teachers/subjects, sports/employment | set/Venn/membership reasoning | ownership hold outside LP |
+| `LP-QL-045` | `CROSS_ATTRIBUTE_PROJECTION_LOOKUP` | given a non-person value in one column, identify its linked person or value in another column |
+| `LP-QL-046` | `STATEMENT_TRUTH_SELECTION` | choose the uniquely correct or uniquely incorrect statement about the solved multi-attribute table |
 
-Two genuine gaps remain inside the LP product surface: one **presentation/mode gap** and one **query-contract gap**.
+The prototype must preserve LP-006's approved setup, clue set, assignment, difficulty and existing QLs 021–024 exactly.
 
-## 4. Gap A — pure day-only ordered scheduling
+## 4. Why LP-006 projections are not part of LP-011
 
-The source contains ordinary schedules in which six entities occupy six ordered days with before/between/adjacent/exclusion clues. It also contains a six-lecture / seven-day form with one unused day.
+LP-011 changes the hidden state itself by combining stack position, box identity and an attribute. LP-006 projection V1 does not change hidden state at all; it merely asks new questions over an already approved multi-attribute row table.
 
-### Ownership decision
+Keeping them separate prevents solver duplication and keeps QL ownership semantic:
 
-The six-entity × six-day form is the same permutation/inference contract already owned by `LP-009` QLs 033–036. Changing the ordered values from months/years to weekdays does not justify a new QL.
+- LP-011 = new **box-position-attribute arrangement family**;
+- LP-006 V2 = new **query projections over existing multi-attribute assignment**.
 
-Decision: **extend LP-009 through a versioned DAY mode; do not spend `LP-QL-041` on this.**
+## 5. Determinability / `Cannot be determined`
 
-The one-unused-day variant is not automatically admitted by the same extension because it changes the state cardinality. It should remain a discovery candidate until a separate uniqueness and merge/split proof shows whether it belongs inside LP-009 V2 or needs a distinct solve contract.
+The source also contains questions whose intended answer is `Cannot be determined` / `Data inadequate`. These are real exam forms, but the current Reasoning V1 arrangement contract requires a uniquely solved hidden state before child questions are emitted.
 
-## 5. Gap B — multi-attribute cross-projection questions
+Decision: **quarantine these forms.** They must not be introduced by weakening uniqueness. A future implementation would need an explicit governed partial-state contract proving that underdetermination is intentional rather than a generator defect.
 
-The existing LP-006 state is rich enough to solve a four-row table containing Person, Day, Study area and City. Its permanent QLs currently ask only:
+## 6. Review and allocation order
 
-- person → day (`LP-QL-021`);
-- person → study area (`LP-QL-022`);
-- person → city (`LP-QL-023`);
-- complete person/day/study-area/city row match (`LP-QL-024`).
+1. Human-review LP-009 DAY V2. If approved, extend LP-009 using the existing permanent QLs 033–036.
+2. Human-review LP-011 Box + Attribute. If approved, allocate provisional `LP-QL-041..044` permanently and then localize.
+3. Human-review LP-006 projection extension. If approved, allocate provisional `LP-QL-045..046` permanently and then localize.
+4. Re-run a full chapter closure/source-saturation audit after all three decisions.
+5. Only then decide whether `LP-QL-047+` are justified.
 
-The uploaded source contains additional exam-real projections over the same kind of multi-attribute table, including:
+## 7. Closure verdict
 
-- **attribute → different attribute**: e.g. a college/subject value asks for its city/state;
-- **attribute → person**: e.g. which person is associated with a named college/subject;
-- **statement truth selection**: choose the one correct or one incorrect statement, including cross-attribute statements.
+Logic Puzzles are **not yet source-saturated**.
 
-These are not wording variants of QLs 021–024. The answer semantic and distractor construction are different even though the hidden assignment can be reused.
+The reconciled next surface is:
 
-### Provisional candidate contracts
+- LP-009 DAY mode — no new QLs;
+- LP-011 Box + Attribute — provisional `LP-QL-041..044`;
+- LP-006 cross-attribute projections — provisional `LP-QL-045..046`;
+- intentional underdetermination — quarantined discovery only.
 
-| Candidate | Provisional authority | Scope | Status |
-|---|---|---|---|
-| `LP-QL-041` | `CROSS_ATTRIBUTE_PROJECTION_LOOKUP` | given a non-person value from one column, identify the linked person or value in another column | **prototype required** |
-| `LP-QL-042` | `STATEMENT_TRUTH_SELECTION` | choose the uniquely correct or uniquely incorrect statement about the solved multi-attribute table | **prototype required** |
-
-No permanent allocation is made by this audit. These IDs remain reserved candidates until executable proof + human review.
-
-## 6. Why these candidates belong with LP-006 rather than a new LP-011 generator
-
-The source gap is not a new hidden-state family. LP-006 already produces the required solved relation: one person row links day, study area and city one-to-one. Building a second generator would duplicate solver logic and increase collision risk.
-
-The correct implementation is a **versioned LP-006 projection extension** that wraps the frozen LP-006 solved caselet and adds new child-question contracts while preserving:
-
-- the approved setup and clues;
-- the solved assignment;
-- difficulty;
-- existing QLs 021–024 and their outputs;
-- existing English/Hindi/Punjabi frozen authorities.
-
-The extension must remain review-only until its own English review is approved.
-
-## 7. Determinability / `Cannot be determined` source forms
-
-The source also contains puzzle questions whose correct option is `Cannot be determined` / `Data inadequate`. These are real exam forms, but the current Reasoning V1 arrangement doctrine requires a uniquely solved hidden state before child questions are emitted.
-
-Decision: **quarantine this as a separate discovery question.** Do not weaken the uniqueness invariant merely to reproduce these options. If later admitted, it needs an explicit governed partial-state contract and independent proof that ambiguity is intentional rather than a generator defect.
-
-## 8. Required implementation order
-
-1. Build LP-006 projection V1 as a review candidate for provisional `LP-QL-041` and `LP-QL-042`.
-2. Prove zero state/clue/answer drift for existing LP-006 QLs 021–024.
-3. Prove four distinct options and exactly one semantically correct answer for both new candidates.
-4. Stress cross-column directionality and statement truth/falsehood generation.
-5. Export English review questions and obtain explicit human approval before permanent allocation.
-6. Separately build LP-009 DAY-mode V2 under existing QLs 033–036.
-7. Re-run the chapter closure audit after both gaps are resolved; only then decide whether `LP-QL-043+` are needed.
-
-## 9. Closure verdict
-
-Logic Puzzles are **not yet source-saturated** after LP-010.
-
-The next work is not a speculative LP-011. It is:
-
-- a **new QL projection layer on LP-006** (`LP-QL-041` / `LP-QL-042` provisional), and
-- a **DAY profile extension on LP-009** using existing QLs 033–036.
-
-Until those are reviewed, `LP-QL-041` remains provisional/unallocated and the chapter should not be declared closed.
+No candidate above is permanent until its own English review is explicitly approved.
