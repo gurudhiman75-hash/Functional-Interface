@@ -2,11 +2,16 @@ name: Reasoning LP CP03 Possibility Set V1
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp03-possibility-set-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp03-possibility-set-v1.test.ts"
-      - ".github/workflows/reasoning-lp-cp03-possibility-set-v1.yml"
   workflow_dispatch:
+
+concurrency:
+  group: reasoning-lp-cp03-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   prove-cp03:
