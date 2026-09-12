@@ -1978,27 +1978,27 @@ Argument I is strong: The argument identifies a plausible price incentive linked
 - Difficulty: Medium
 - Profile: BANKING_COMBO_3X5
 - Template: ARG-CP007-QL006-T01
-- Scenario: ARG-CP007-QL006-T01-CP012-BANK_FRAUD_FLAG-BANKING_COMBO_3X5-206623106-CP015-SV3
-- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_3X5:CP015:6505869068c1bcc57f32
+- Scenario: ARG-CP007-QL006-T01-CP012-COLLEGE_MISCONDUCT_ALLEGATION-BANKING_COMBO_3X5-252744739-CP015-SV2
+- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_3X5:CP015:33f881a330ce731f7d89
 
-**Statement:** Is an immediate permanent penalty justified for a bank after one automated fraud flag?
+**Statement:** Should a college impose an irreversible penalty as soon as one misconduct allegation occurs?
 
 **Arguments:**
-1. No. If one automated fraud flag is mistaken, a permanent penalty imposed by a bank can cause serious harm that may not be reversible later.
-2. No. If a bank rejects an immediate permanent penalty after one automated fraud flag, it would have little basis for acting on later complaints either.
-3. Yes. One automated fraud flag is sufficient evidence of guilt on its own, so a bank can punish permanently at once.
+1. No. If a college rejects an immediate permanent penalty after one misconduct allegation, it would have little basis for acting on later complaints either.
+2. No. Before a college imposes a permanent penalty after one misconduct allegation, the affected person should be allowed to respond and the available evidence should be reviewed.
+3. Yes. One misconduct allegation is sufficient evidence of guilt on its own, so a college can punish permanently at once.
 
 **Options:**
-A. Only argument I is strong
-B. Only arguments II and III are strong
-C. Only argument II is strong
-D. Only arguments I and III are strong
-E. None of the arguments is strong
+A. Only arguments II and III are strong
+B. Only argument I is strong
+C. Only arguments I and III are strong
+D. None of the arguments is strong
+E. Only argument II is strong
 
-**Correct answer:** Only argument I is strong (index 0)
+**Correct answer:** Only argument II is strong (index 4)
 
 **Explanation:**
-Argument I is strong: If one automated fraud flag is mistaken, an irreversible penalty can cause serious harm that may not be repairable later, which is a direct cost of acting permanently before verification. Argument II is weak: Rejecting an immediate irreversible penalty does not require later complaints to be ignored; the argument creates a false choice between permanent punishment and inaction. Argument III is weak: A complaint, report, flag or allegation is a signal to investigate, not conclusive proof of guilt by itself.
+Argument I is weak: Rejecting an immediate irreversible penalty does not require later complaints to be ignored; the argument creates a false choice between permanent punishment and inaction. Argument II is strong: A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation. Argument III is weak: A complaint, report, flag or allegation is a signal to investigate, not conclusive proof of guilt by itself.
 
 ---
 
@@ -2008,27 +2008,27 @@ Argument I is strong: If one automated fraud flag is mistaken, an irreversible p
 - Difficulty: Hard
 - Profile: BANKING_COMBO_3X5
 - Template: ARG-CP007-QL006-T01
-- Scenario: ARG-CP007-QL006-T01-CP012-EXAM_AUTHORITY_CHEATING_COMPLAINT-BANKING_COMBO_3X5-236252948-CP015-SV2
-- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_3X5:en-IN:CP015:d6812ef3c0c39cffb4d8
+- Scenario: ARG-CP007-QL006-T01-CP012-MARKETPLACE_BUYER_COMPLAINT-BANKING_COMBO_3X5-203600000-CP015-SV4
+- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_3X5:CP015:353d271f6b23e4a83454
 
-**Statement:** Should an examination authority move straight to an irreversible penalty after one cheating complaint?
+**Statement:** Should a permanent sanction follow immediately when an online marketplace receives one buyer complaint?
 
 **Arguments:**
-1. Yes. The existence of one cheating complaint itself proves guilt conclusively and justifies an immediate permanent penalty by an examination authority.
-2. No. Once an examination authority decides not to impose a permanent penalty immediately for one cheating complaint, it has to disregard all later complaints.
-3. No. An examination authority should review the evidence and hear the affected person before making one cheating complaint the basis of an irreversible penalty.
+1. No. An online marketplace should review the evidence and hear the affected person before making one buyer complaint the basis of an irreversible penalty.
+2. No. An incorrect one buyer complaint could lead an online marketplace to impose an irreversible penalty and cause serious harm before the mistake is discovered.
+3. No. Once an online marketplace decides not to impose a permanent penalty immediately for one buyer complaint, it has to disregard all later complaints.
 
 **Options:**
 A. Only arguments II and III are strong
 B. Only argument I is strong
 C. Only arguments I and III are strong
 D. None of the arguments is strong
-E. Only argument III is strong
+E. Only arguments I and II are strong
 
-**Correct answer:** Only argument III is strong (index 4)
+**Correct answer:** Only arguments I and II are strong (index 4)
 
 **Explanation:**
-Argument I is weak: One cheating complaint is an allegation or signal, not automatic proof of guilt; treating it as conclusive would bypass the need to verify the facts. Argument II is weak: Rejecting an immediate permanent penalty does not require an examination authority to ignore future complaints; the argument creates a false choice between irreversible punishment and doing nothing. Argument III is strong: Before an examination authority imposes an irreversible penalty after one cheating complaint, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed.
+Argument I is strong: A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation. Argument II is strong: If one buyer complaint is mistaken, an irreversible penalty can cause serious harm that may not be repairable later, which is a direct cost of acting permanently before verification. Argument III is weak: Rejecting an immediate permanent penalty does not require an online marketplace to ignore future complaints; the argument creates a false choice between irreversible punishment and doing nothing.
 
 ---
 
@@ -2039,7 +2039,7 @@ Argument I is weak: One cheating complaint is an allegation or signal, not autom
 - Profile: BANKING_COMBO_4X5
 - Template: ARG-CP007-QL006-T01
 - Scenario: ARG-CP007-QL006-T01-CP012-EXAM_AUTHORITY_CHEATING_COMPLAINT-BANKING_COMBO_4X5-342280082-CP015-SV3
-- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_4X5:CP015:56889acd7bbdc21fade1
+- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_4X5:CP015:2e53219520ae01019fea
 
 **Statement:** Should an examination authority permanently penalise the affected party immediately because of one cheating complaint?
 
@@ -2059,7 +2059,7 @@ E. Only arguments I and III are strong
 **Correct answer:** Only argument IV is strong (index 2)
 
 **Explanation:**
-Argument I is weak: One cheating complaint is an allegation or signal, not automatic proof of guilt; treating it as conclusive would bypass the need to verify the facts. Argument II is weak: A complaint, report, flag or allegation is a signal to investigate, not conclusive proof of guilt by itself. Argument III is weak: Rejecting an immediate irreversible penalty does not require later complaints to be ignored; the argument creates a false choice between permanent punishment and inaction. Argument IV is strong: Before an examination authority imposes an irreversible penalty after one cheating complaint, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed.
+Argument I is weak: One cheating complaint is an allegation or signal, not automatic proof of guilt; treating it as conclusive would bypass the need to verify the facts. Argument II is weak: A complaint, report, flag or allegation is a signal to investigate, not conclusive proof of guilt by itself. Argument III is weak: Rejecting an immediate irreversible penalty does not require later complaints to be ignored; the argument creates a false choice between permanent punishment and inaction. Argument IV is strong: A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation.
 
 ---
 
@@ -2070,7 +2070,7 @@ Argument I is weak: One cheating complaint is an allegation or signal, not autom
 - Profile: BANKING_COMBO_4X5
 - Template: ARG-CP007-QL006-T01
 - Scenario: ARG-CP007-QL006-T01-CP012-BANK_FRAUD_FLAG-BANKING_COMBO_4X5-419012820-CP015-SV2
-- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_4X5:CP015:d0b389d7aa04c1f50ea6
+- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_4X5:CP015:661463f23c80991b83e4
 
 **Statement:** On receiving one automated fraud flag, should a bank impose an irreversible penalty at once?
 
@@ -2090,7 +2090,7 @@ E. Only argument IV is strong
 **Correct answer:** Only arguments I and III are strong (index 0)
 
 **Explanation:**
-Argument I is strong: If one automated fraud flag is mistaken, an irreversible penalty can cause serious harm that may not be repairable later, which is a direct cost of acting permanently before verification. Argument II is weak: Rejecting an immediate irreversible penalty does not require later complaints to be ignored; the argument creates a false choice between permanent punishment and inaction. Argument III is strong: Before a bank imposes an irreversible penalty after one automated fraud flag, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed. Argument IV is weak: One automated fraud flag is an allegation or signal, not automatic proof of guilt; treating it as conclusive would bypass the need to verify the facts.
+Argument I is strong: If one automated fraud flag is mistaken, an irreversible penalty can cause serious harm that may not be repairable later, which is a direct cost of acting permanently before verification. Argument II is weak: Rejecting an immediate irreversible penalty does not require later complaints to be ignored; the argument creates a false choice between permanent punishment and inaction. Argument III is strong: A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation. Argument IV is weak: One automated fraud flag is an allegation or signal, not automatic proof of guilt; treating it as conclusive would bypass the need to verify the facts.
 
 ---
 
@@ -2101,7 +2101,7 @@ Argument I is strong: If one automated fraud flag is mistaken, an irreversible p
 - Profile: BANKING_COMBO_4X5
 - Template: ARG-CP007-QL006-T01
 - Scenario: ARG-CP007-QL006-T01-CP012-COLLEGE_MISCONDUCT_ALLEGATION-BANKING_COMBO_4X5-302718586-CP015-SV1
-- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_4X5:en-IN:CP015:a767134bb523154f3943
+- Question ID: ARG-001:ARG-QL-006:BANKING_COMBO_4X5:CP015:98a19a16c086cfb2c6d3
 
 **Statement:** Should a college treat one misconduct allegation as grounds for an immediate and permanent penalty?
 
@@ -2121,7 +2121,7 @@ E. Only arguments I and II are strong
 **Correct answer:** Only arguments I, II and IV are strong (index 3)
 
 **Explanation:**
-Argument I is strong: A reversible interim restriction can control immediate risk while evidence relating to one misconduct allegation is checked, offering a proportionate alternative to an instant permanent sanction. Argument II is strong: Before a college imposes an irreversible penalty after one misconduct allegation, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed. Argument III is weak: One misconduct allegation is an allegation or signal, not automatic proof of guilt; treating it as conclusive would bypass the need to verify the facts. Argument IV is strong: If one misconduct allegation is mistaken, an irreversible penalty can cause serious harm that may not be repairable later, which is a direct cost of acting permanently before verification.
+Argument I is strong: A reversible interim restriction can control immediate risk while evidence relating to one misconduct allegation is checked, offering a proportionate alternative to an instant permanent sanction. Argument II is strong: A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation. Argument III is weak: One misconduct allegation is an allegation or signal, not automatic proof of guilt; treating it as conclusive would bypass the need to verify the facts. Argument IV is strong: If one misconduct allegation is mistaken, an irreversible penalty can cause serious harm that may not be repairable later, which is a direct cost of acting permanently before verification.
 
 ---
 

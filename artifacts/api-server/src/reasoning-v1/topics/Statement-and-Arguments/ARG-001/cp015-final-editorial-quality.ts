@@ -73,6 +73,7 @@ function repairEnglish(value: string): string {
     .replace(/\bmost candidate and centre\b/gi, "most candidates and centres")
     .replace(/\ba automatically renewed plan\b/gi, "an automatically renewed plan")
     .replace(/\b(Yes|No)\.\s+most instances?\b/gi, "$1. Most instances")
+    .replace(/\bBefore [^.]+? imposes an irreversible penalty after [^.]+?, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed\./gi, "A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation.")
     .replace(/\bcitizens reaching near closing time\b/gi, "citizens arriving near closing time")
     .replace(/\bon the first week of each month\b/gi, "in the first week of each month")
     .replace(/\bin school closing time\b/gi, "during school closing time");
