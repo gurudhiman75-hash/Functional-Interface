@@ -6,6 +6,7 @@ on:
       - feature/arg-001-cp012-editorial-remediation
     paths:
       - .github/workflows/arg-001-cp015-english-ql006-integration.yml
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-semantic-alignment-proof.test.ts
 
 permissions:
   contents: write
