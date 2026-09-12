@@ -26,7 +26,11 @@ export const SER_CP008_PROVISIONAL_QL_IDS = [
 
 export type SerCp008CoreQlId = (typeof SER_CP008_CORE_QL_IDS)[number];
 export type SerCp008MixedQlId = (typeof SER_CP008_MIXED_QL_IDS)[number];
-export type SerCp008ProvisionalQlId = (typeof SER_CP008_PROVISIONAL_QL_IDS)[number];
+export type SerCp008AllProvisionalQlId = (typeof SER_CP008_PROVISIONAL_QL_IDS)[number];
+
+// Keep the original core-runtime contract narrow so widening the audit inventory
+// cannot silently make the frozen SER-QL-014..018 switch non-exhaustive.
+export type SerCp008ProvisionalQlId = SerCp008CoreQlId;
 
 export type SerCp008AuthorityId =
   | "SINGLE_LETTER_PROGRESSIVE_JUMP"
@@ -46,7 +50,7 @@ export type SerCp008AuthorityId =
   | "ALPHANUMERIC_NUMBER_LETTER_BLOCK_COMPLETION";
 
 export interface SerCp008QlAuthority {
-  readonly qlId: SerCp008ProvisionalQlId;
+  readonly qlId: SerCp008AllProvisionalQlId;
   readonly authorityId: SerCp008AuthorityId;
   readonly title: string;
   readonly solveContract: string;
@@ -183,7 +187,7 @@ export const SER_CP008_QL_AUTHORITIES: readonly SerCp008QlAuthority[] = [
   },
 ] as const;
 
-export function serCp008AuthorityByQlId(qlId: SerCp008ProvisionalQlId): SerCp008QlAuthority {
+export function serCp008AuthorityByQlId(qlId: SerCp008AllProvisionalQlId): SerCp008QlAuthority {
   const authority = SER_CP008_QL_AUTHORITIES.find((entry) => entry.qlId === qlId);
   if (!authority) throw new Error(`Unknown SER-CP-008 QL: ${qlId}`);
   return authority;
