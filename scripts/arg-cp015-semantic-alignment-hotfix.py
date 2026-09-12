@@ -8,10 +8,8 @@ source = SOURCE_PATH.read_text(encoding="utf-8")
 # contain words such as "शिकायत" and "पर्याप्त".
 hindi_reason = 'अधिक देर तक काउंटर खुला रखने से कतार कम हो सकती है, लेकिन केवल इसी उपाय को पर्याप्त मान लेना उचित नहीं है; मांग और सेवा-क्षमता भी महत्वपूर्ण हैं।'
 hindi_rule = f'  if (/कतार/.test(argument) && /(?:पर्याप्त|काफ़ी|इसी उपाय)/.test(argument)) return "{hindi_reason}";\n'
-hindi_complaint_anchor = '  if (/धोखाधड़ी|शिकायत|दोष|आरोप|फ्लैग|संकेत/.test(argument) && /सबूत|दोष|पर्याप्त|सिद्ध/.test(argument)) return "शिकायत, संकेत या फ्लैग जाँच शुरू करने का आधार हो सकता है, लेकिन वह अपने-आप दोष का निर्णायक प्रमाण नहीं है।";\n'
+hindi_complaint_anchor = '  if (/धोखाधड़ी|शिकायत|आरोप|संकेत|फ्लैग/.test(argument) && /प्रमाण|दोष|पर्याप्त/.test(argument)) return "शिकायत, संकेत या फ्लैग जाँच शुरू करने का आधार हो सकता है, लेकिन वह अपने-आप दोष का निर्णायक प्रमाण नहीं है।";\n'
 
-# Remove any previous lower-priority copy before inserting at the correct
-# precedence point. This keeps the repair idempotent across repeated CI runs.
 if hindi_rule in source:
     source = source.replace(hindi_rule, "", 1)
 count = source.count(hindi_complaint_anchor)
