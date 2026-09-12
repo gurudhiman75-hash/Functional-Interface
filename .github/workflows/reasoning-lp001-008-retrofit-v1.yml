@@ -79,6 +79,9 @@ jobs:
       - name: Reprove LP-010 multilingual Question Studio regression
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-010-question-studio.test.ts
 
+      - name: Guard Logic Puzzles V1 chapter source saturation
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-010-chapter-closure-audit-v1.test.ts
+
       - name: Reprove LP-006 difficulty calibration
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/difficulty-calibration.test.ts
 
