@@ -12,7 +12,6 @@ on:
       - artifacts/api-server/src/english-v1/**
       - artifacts/api-server/src/question-studio/**
       - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
-      - .github/workflows/english-cp005-v1.yml
   push:
     branches:
       - New-main
@@ -20,7 +19,6 @@ on:
       - artifacts/api-server/src/english-v1/**
       - artifacts/api-server/src/question-studio/**
       - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
-      - .github/workflows/english-cp005-v1.yml
   workflow_dispatch:
 
 permissions:
