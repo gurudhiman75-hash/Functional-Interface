@@ -1,10 +1,7 @@
 import assert from "node:assert/strict";
 
-import {
-  OPS_QL_ENTRIES,
-  generateFrozenOpsQuestion,
-} from "../registry";
-import { assessOpsInstanceDifficulty } from "./final-audit-remediation";
+import { OPS_QL_ENTRIES } from "../registry";
+import { generateAuditedOpsQuestion } from "./audited-generator";
 
 const SEEDS = 100;
 const failures: string[] = [];
@@ -18,7 +15,7 @@ for (const entry of OPS_QL_ENTRIES) {
   const difficulties = new Set<string>();
 
   for (let seed = 0; seed < SEEDS; seed += 1) {
-    const question = generateFrozenOpsQuestion(entry.qlId, seed);
+    const question = generateAuditedOpsQuestion(entry.qlId, seed, "en");
     stems.add(question.stem);
     fullOutputs.add(JSON.stringify({
       stem: question.stem,
@@ -26,14 +23,15 @@ for (const entry of OPS_QL_ENTRIES) {
       answer: question.answer,
     }));
     semanticFingerprints.add(question.proof.semanticFingerprint);
-    const assessment = assessOpsInstanceDifficulty(question);
-    difficulties.add(assessment.difficulty);
-    difficultyTotals[assessment.difficulty] += 1;
+    difficulties.add(question.instanceDifficulty.difficulty);
+    difficultyTotals[question.instanceDifficulty.difficulty] += 1;
 
     assert.equal(question.options.length, 4, `${entry.qlId} must keep four current-review options.`);
     assert.equal(new Set(question.options.map((option) => option.value)).size, 4, `${entry.qlId} duplicate options at seed ${seed}.`);
     assert.equal(question.options[question.correctIndex]?.value, question.answer, `${entry.qlId} answer mismatch at seed ${seed}.`);
     assert.equal(question.proof.unique, true, `${entry.qlId} lost uniqueness at seed ${seed}.`);
+    assert.equal(question.metadata.difficultyDerivedFromInstance, true, `${entry.qlId} lacks instance-derived difficulty metadata.`);
+    assert.equal(question.metadata.seedUsedAsDifficultyInput, false, `${entry.qlId} still uses seed identity for difficulty.`);
   }
 
   const stemRatio = stems.size / SEEDS;
@@ -60,16 +58,21 @@ for (const band of ["Easy", "Medium", "Hard"] as const) {
   if (difficultyTotals[band] === 0) failures.push(`chapter never produces ${band} from generated-instance scoring`);
 }
 
-for (const qlId of ["OPS-QL-026", "OPS-QL-027"] as const) {
+for (const qlId of ["OPS-QL-025", "OPS-QL-026", "OPS-QL-027"] as const) {
   for (let seed = 0; seed < 100; seed += 1) {
-    const question = generateFrozenOpsQuestion(qlId, seed);
+    const question = generateAuditedOpsQuestion(qlId, seed, "en");
     assert.equal(question.metadata.misconceptionDistractorsGrounded, true, `${qlId} seed ${seed} lacks misconception-grounded distractor provenance.`);
     const labels = new Set(question.options.filter((option) => option.errorLabel).map((option) => option.errorLabel));
-    assert.deepEqual(
-      labels,
-      new Set(["APPLIED_OPERATOR_SWAP_ONLY", "APPLIED_NUMBER_SWAP_ONLY", "IGNORED_BOTH_INTERCHANGES"]),
-      `${qlId} seed ${seed} does not expose the three intended compound misconceptions.`,
-    );
+    if (qlId === "OPS-QL-025") {
+      assert.ok(labels.has("APPLIED_OPERATOR_SWAP_ONLY"), `${qlId} seed ${seed} lacks operator-only misconception.`);
+      assert.ok(labels.has("APPLIED_DIGIT_SWAP_ONLY"), `${qlId} seed ${seed} lacks digit-only misconception.`);
+    } else {
+      assert.deepEqual(
+        labels,
+        new Set(["APPLIED_OPERATOR_SWAP_ONLY", "APPLIED_NUMBER_SWAP_ONLY", "IGNORED_BOTH_INTERCHANGES"]),
+        `${qlId} seed ${seed} does not expose the three intended compound misconceptions.`,
+      );
+    }
   }
 }
 
