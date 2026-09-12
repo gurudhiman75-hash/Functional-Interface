@@ -53,8 +53,8 @@ jobs:
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008-mixed.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/export-review.ts \
-            src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/number-series.test.ts \
-            src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/export-review.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/number-series-final.test.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/export-review-final.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/ser-cp-007-generated-difficulty-v8.test.ts
 
       - name: Prove CP008 core source gaps, visible solving, multilingual parity and stress
@@ -73,7 +73,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/number-series.test.ts | tee ser-cp009-number-series-audit.log
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/number-series-final.test.ts | tee ser-cp009-number-series-audit.log
 
       - name: Prove CP007 generated-instance difficulty across frozen corpus
         shell: bash
@@ -91,7 +91,7 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/export-review.ts > SER-CP-008-FINAL-AUDIT-REVIEW.md
 
       - name: Export CP009 number-series manual review pack
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/export-review.ts > SER-CP-009-NUMBER-SERIES-REVIEW.md
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/export-review-final.ts > SER-CP-009-NUMBER-SERIES-REVIEW.md
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
