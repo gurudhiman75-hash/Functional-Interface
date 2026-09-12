@@ -19,8 +19,6 @@ repairs = [
 ]
 if any(repair not in source for repair in repairs):
     if repair_anchor not in source:
-        # Once one repair is installed, the original terminal anchor loses its
-        # semicolon. Use the final installed QL003 repair as the terminal anchor.
         alternatives = [
             '    .replace(/बैकअप संभाल के बिना अपवाद के अधिकांश प्रकार संभाल सकता है/g, "बैकअप सहायता के बिना भी अधिकांश प्रकार के अपवाद संभाल सकता है");',
             '    .replace(/का अधिकांश भाग जमीन से दोबारा बनाना पड़ेगा/g, "के बड़े हिस्से का पुनर्निर्माण करना पड़ेगा");',
@@ -37,19 +35,30 @@ if any(repair not in source for repair in repairs):
         replacement = terminal[:-1] + "\n" + "\n".join(missing) + ";"
         source = source.replace(terminal, replacement, 1)
 
+# Put the narrow permanence family immediately before the existing broad
+# time-slot/queue/rebuild fallback. This avoids relying on function-head
+# insertion order and permanently prevents the real Banking 3x5/4x5 family
+# from receiving an unrelated generic implementation-obstacle explanation.
+permanence_rule = '  if (/समय-स्लॉट.*(?:स्थायी रूप से अव्यावहारिक|स्थायी रूप से अनुपलब्ध|सफलतापूर्वक देना स्थायी)/.test(argument)) return "समय-स्लॉट से कुछ पहुँच या संचालन कठिनाइयाँ हो सकती हैं, लेकिन इससे सेवा स्थायी रूप से अव्यावहारिक या अनुपलब्ध हो जाएगी, यह निष्कर्ष उचित नहीं है।";\n'
+broad_time_slot_rule = '  if (/समय-स्लॉट|कतार|पुनर्निर्माण/.test(argument)) return "यह तर्क प्रस्तावित व्यवस्था के लिए एक बड़े कार्यान्वयन अवरोध को बिना प्रमाण मान लेता है और कम-कठोर विकल्पों पर विचार नहीं करता।";\n'
+if permanence_rule not in source:
+    count = source.count(broad_time_slot_rule)
+    if count != 1:
+        raise SystemExit(f"Hindi QL003 permanence routing: expected one broad time-slot anchor, found {count}")
+    source = source.replace(broad_time_slot_rule, permanence_rule + broad_time_slot_rule, 1)
+
 # Dimension-specific explanations for rapid digital-rollout overclaims. These
 # must precede broad Hindi reason matchers so connectivity/device-capacity claims
 # are not explained as unrelated staffing issues.
 function_anchor = 'function specificHindiReason(argument: string): string {\n'
 rules = [
-    ('निर्णय घोषित.*(?:स्थिर )?कनेक्टिविटी.*(?:उपलब्ध हो जाए|उपलब्ध हो जाएगी)', 'केवल निर्णय घोषित करने से आवश्यक स्थिर कनेक्टिविटी अपने-आप उपलब्ध नहीं हो जाती; दो सप्ताह की तैयारी के लिए नेटवर्क क्षमता की अलग जाँच और योजना चाहिए।'),
+    ('निर्णय घोषित.*(?:स्थिर )?कनेक्टिविटी.*(?:उपलब्ध हो जाए|उपलब्ध हो जाएगी|उपलब्ध)', 'केवल निर्णय घोषित करने से आवश्यक स्थिर कनेक्टिविटी अपने-आप उपलब्ध नहीं हो जाती; दो सप्ताह की तैयारी के लिए नेटवर्क क्षमता की अलग जाँच और योजना चाहिए।'),
     ('निर्णय घोषित.*सुरक्षित डिवाइस और केंद्र.*(?:उपलब्ध हो जाएँगे|उपलब्ध)', 'केवल निर्णय घोषित करने से पर्याप्त सुरक्षित डिवाइस और परीक्षा-केंद्र क्षमता दो सप्ताह में अपने-आप तैयार नहीं हो जाती; इसके लिए अलग संसाधन और क्षमता-योजना चाहिए।'),
     ('निर्णय घोषित.*अभ्यर्थी सहायता और बैकअप व्यवस्था.*(?:उपलब्ध हो जाएँगी|उपलब्ध)', 'केवल निर्णय घोषित करने से पर्याप्त अभ्यर्थी सहायता और बैकअप व्यवस्था दो सप्ताह में अपने-आप उपलब्ध नहीं हो जाती; इनके लिए अलग स्टाफिंग और संचालन योजना चाहिए।'),
-    ('समय-स्लॉट.*(?:स्थायी रूप से अव्यावहारिक|स्थायी रूप से अनुपलब्ध|सफलतापूर्वक देना स्थायी)', 'समय-स्लॉट से कुछ पहुँच या संचालन कठिनाइयाँ हो सकती हैं, लेकिन इससे सेवा स्थायी रूप से अव्यावहारिक या अनुपलब्ध हो जाएगी, यह निष्कर्ष उचित नहीं है।'),
 ]
 for pattern, reason in rules:
     rule = f'  if (/{pattern}/.test(argument)) return "{reason}";\n'
-    if reason not in source:
+    if rule not in source:
         count = source.count(function_anchor)
         if count != 1:
             raise SystemExit(f"Hindi QL003 semantic reason: expected one function anchor, found {count}")
