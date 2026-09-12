@@ -184,9 +184,16 @@ old = 'if (strengths[index] === "WEAK" && boilerplateReason(reason, language)) r
 new = 'if (strengths[index] === "WEAK" && (boilerplateReason(reason, language) || genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);'
 if new not in source:
     count = source.count(old)
-    if count != 1:
-        raise SystemExit(f"generic fallback routing: expected exactly one anchor, found {count}")
-    source = source.replace(old, new, 1)
+    if count == 1:
+        source = source.replace(old, new, 1)
+    elif count == 0 and 'genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);' in source:
+        # A later semantic hotfix may have widened this condition (for example,
+        # by prepending a forced Hindi permanence family). The generic fallback
+        # routing is already present in that case, so reapplying this older repair
+        # must be a no-op rather than a failure.
+        pass
+    else:
+        raise SystemExit(f"generic fallback routing: expected one legacy anchor or an already-repaired finalizer, found {count}")
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
 GRAMMAR_PATH.write_text(grammar, encoding="utf-8")
