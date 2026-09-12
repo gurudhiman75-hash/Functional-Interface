@@ -67,6 +67,19 @@ if capitalization not in quality:
         raise SystemExit(f"English QL006 capitalization: expected one repair anchor, found {count}")
     quality = quality.replace(article_anchor, article_anchor + '\n    ' + capitalization, 1)
 
+# Final English naturalness repairs found in the certified human-review corpus.
+english_naturalness_repairs = [
+    ('.replace(/\\bin school closing time\\b/gi, "during school closing time")', 'school-closing-time preposition'),
+    ('.replace(/\\bon the first week of each month\\b/gi, "in the first week of each month")', 'first-week preposition'),
+]
+for repair, label in english_naturalness_repairs:
+    if repair not in quality:
+        insert_anchor = capitalization if capitalization in quality else '.replace(/\\ba automatically renewed plan\\b/gi, "an automatically renewed plan")'
+        count = quality.count(insert_anchor)
+        if count != 1:
+            raise SystemExit(f"English naturalness {label}: expected one repair anchor, found {count}")
+        quality = quality.replace(insert_anchor, insert_anchor + '\n    ' + repair, 1)
+
 old_block = '''      const forceHindiTimeSlotPermanence = language === "hi"
         && /समय-स्लॉट.*(?:स्थायी रूप से अव्यावहारिक|स्थायी रूप से अनुपलब्ध|सफलतापूर्वक देना स्थायी)/.test(deduped.arguments[index]!);
       if (strengths[index] === "WEAK" && (forceHindiTimeSlotPermanence || boilerplateReason(reason, language) || genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);'''
