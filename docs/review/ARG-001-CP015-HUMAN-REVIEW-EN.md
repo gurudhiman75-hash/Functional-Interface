@@ -1863,15 +1863,15 @@ Argument I is weak: The argument predicts lasting city-wide gridlock from a limi
 - QL: ARG-QL-006
 - Difficulty: Easy
 - Profile: SSC_RECENT_2X4
-- Template: ARG-CP003-QL006-T02
-- Scenario: ARG-CP003-QL006-T02-CP009-V57-CP015-SSC_RECENT_2X4
-- Question ID: ARG-001:ARG-QL-006:SSC_RECENT_2X4:CP015:6cf77faaaa76798cf0a7
+- Template: ARG-CP003-QL006-T01
+- Scenario: ARG-CP003-QL006-T01-CP009-Vc0-CP015-SSC_RECENT_2X4
+- Question ID: ARG-001:ARG-QL-006:SSC_RECENT_2X4:CP015:b8d3831a3972d1d18566
 
-**Statement:** Should a bank use mandatory pre-authorisation for all payments from a newly added device?
+**Statement:** Should the city completely prohibit street vendors around a busy railway-station approach to reduce conflict with through movement?
 
 **Arguments:**
-1. Yes. most instances of payments from a newly added device are either fraudulent or should be treated as fraudulent, so only mandatory pre-authorisation can protect the account.
-2. No. Step-up authentication can address risk in payments from a newly added device while reducing unnecessary disruption to genuine unusual purchases compared with mandatory pre-authorisation.
+1. Yes. If any street vendors remain near a busy railway-station approach, conflict with through movement will keep growing until the entire transport and service system stops functioning.
+2. No. Designated operating zones may reduce conflict with through movement around a busy railway-station approach without completely removing street vendors from the area.
 
 **Options:**
 A. Only argument I is strong
@@ -1882,7 +1882,7 @@ D. Neither argument I nor II is strong
 **Correct answer:** Only argument II is strong (index 1)
 
 **Explanation:**
-Argument I is weak: The argument assumes that most instances of payments from a newly added device are either fraudulent or should be treated as fraudulent, so only mandatory pre-authorisation can protect the account; it does not provide enough support for that conclusion in the stated context. Argument II is strong: The argument offers a directly relevant and practical alternative security control.
+Argument I is weak: The argument jumps from a manageable local problem to an extreme outcome without a credible mechanism. Argument II is strong: The argument offers a credible less-restrictive alternative that directly addresses the stated objective.
 
 ---
 
