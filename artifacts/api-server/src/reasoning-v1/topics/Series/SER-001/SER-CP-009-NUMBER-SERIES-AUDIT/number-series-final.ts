@@ -129,6 +129,55 @@ function diversifyConstantRatio(
   });
 }
 
+const PROGRESSIVE_MULTIPLIER_SHELLS: Readonly<Record<SerCp009Locale, readonly string[]>> = Object.freeze({
+  "en-IN": Object.freeze([
+    "Which number will replace the question mark in the following series?",
+    "Find the missing number in the series.",
+    "Select the number that should replace the question mark.",
+    "Choose the correct number to complete the series.",
+    "Which of the following numbers completes the series?",
+    "What number should come in place of the question mark?",
+  ]),
+  "hi-IN": Object.freeze([
+    "निम्नलिखित श्रृंखला में प्रश्नवाचक चिन्ह के स्थान पर कौन-सी संख्या आएगी?",
+    "श्रृंखला में लुप्त संख्या ज्ञात कीजिए।",
+    "प्रश्नवाचक चिन्ह के स्थान पर आने वाली संख्या चुनिए।",
+    "श्रृंखला पूरी करने के लिए सही संख्या चुनिए।",
+    "निम्नलिखित में से कौन-सी संख्या श्रृंखला को पूरा करेगी?",
+    "प्रश्नवाचक चिन्ह के स्थान पर कौन-सी संख्या होनी चाहिए?",
+  ]),
+  "pa-IN": Object.freeze([
+    "ਹੇਠਾਂ ਦਿੱਤੀ ਲੜੀ ਵਿੱਚ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਦੀ ਥਾਂ ਕਿਹੜੀ ਸੰਖਿਆ ਆਵੇਗੀ?",
+    "ਲੜੀ ਵਿੱਚ ਲੁਪਤ ਸੰਖਿਆ ਲੱਭੋ।",
+    "ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਦੀ ਥਾਂ ਆਉਣ ਵਾਲੀ ਸੰਖਿਆ ਚੁਣੋ।",
+    "ਲੜੀ ਪੂਰੀ ਕਰਨ ਲਈ ਸਹੀ ਸੰਖਿਆ ਚੁਣੋ।",
+    "ਹੇਠਾਂ ਦਿੱਤੀਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਸੰਖਿਆ ਲੜੀ ਨੂੰ ਪੂਰਾ ਕਰੇਗੀ?",
+    "ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਦੀ ਥਾਂ ਕਿਹੜੀ ਸੰਖਿਆ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ?",
+  ]),
+});
+
+/**
+ * The 2024 SSC progressive-multiplier family is mathematically narrow by
+ * design. Improve repeated exposure through normal exam-instruction variation,
+ * not by inventing extra operations. The series line, solver state, options,
+ * difficulty and misconception model remain unchanged.
+ */
+function diversifyProgressiveMultiplierShell(
+  question: GeneratedSerCp009Question,
+  requestedSeed: number,
+  locale: SerCp009Locale,
+): GeneratedSerCp009Question {
+  if (question.qlId !== "SER-QL-035") return question;
+  const lines = question.stem.split("\n");
+  const seriesLine = lines.at(-1)!;
+  const shells = PROGRESSIVE_MULTIPLIER_SHELLS[locale];
+  const shellIndex = (Math.floor(requestedSeed / 4) + Math.floor(requestedSeed / 17)) % shells.length;
+  return Object.freeze({
+    ...question,
+    stem: `${shells[shellIndex]}\n${seriesLine}`,
+  });
+}
+
 /**
  * Review-only hardened generator facade.
  *
@@ -149,7 +198,8 @@ export function generateSerCp009NumberSeries(
     const internalSeed = seed + attempt * 997;
     try {
       const generated = generateBase(qlId, internalSeed, locale);
-      const diversified = diversifyConstantRatio(generated, seed, locale);
+      const ratioDiversified = diversifyConstantRatio(generated, seed, locale);
+      const diversified = diversifyProgressiveMultiplierShell(ratioDiversified, seed, locale);
       const normalized = normalizeAnswerPosition(diversified, seed);
       const solved = solveVisibleNumberSeries(
         qlId,
