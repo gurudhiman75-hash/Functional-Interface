@@ -1,0 +1,44 @@
+name: Validate OPS-001 final audit remediation
+
+on:
+  push:
+    branches:
+      - fix/ops-001-final-audit-remediation
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
+      - .github/workflows/ops-001-final-audit-remediation.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ops-001-final-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Final 100-seed per-QL fatigue and instance-difficulty gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/runtime/final-audit-remediation.test.ts
+      - name: Existing approved teaching runtime regression
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-teaching-runtime.test.ts
+      - name: Existing Hindi/Punjabi parity regression
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-localization.test.ts
+      - name: API build
+        run: pnpm --dir artifacts/api-server build
