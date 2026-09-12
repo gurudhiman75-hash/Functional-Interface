@@ -10,114 +10,106 @@ const { PDFDocument, GlobalFonts } = nativeRequire("@napi-rs/canvas") as typeof 
 
 const W = 595.28;
 const H = 841.89;
-const MX = 16;
-const TOP = 24;
-const BOTTOM = 36;
+const MX = 56;
+const TOP = 42;
+const BOTTOM = 50;
 const CW = W - MX * 2;
-const BLUE = "#315FF4";
-const INK = "#111319";
-const MUTED = "#747B86";
-const RULE = "#E4E7EB";
-const CREAM = "#FFF6D9";
-const PALE = "#F5F6F8";
+const INK = "#16191F";
+const MUTED = "#7A818D";
+const RULE = "#E6E8EB";
+const BLUE = "#4F7DF3";
+const GREEN = "#78A94B";
+const PURPLE = "#9A6BB0";
+const TEAL = "#4E9A8A";
+const ORANGE = "#D49A3A";
+const RED = "#C86B67";
+const INDIGO = "#6675C9";
 const WHITE = "#FFFFFF";
 const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 const COPY = {
   en: {
     locale: "en-IN",
-    currentAffairs: "CURRENT AFFAIRS",
-    dailyBrief: "DAILY BRIEF",
-    whatMatters: "What matters today",
-    overview: (events: number, sections: number) => `${events} verified developments across ${sections} sections · built for quick recall`,
-    storyNote: "STORY NOTE",
-    why: "WHY IN NEWS",
-    memory: "EXAM MEMORY",
+    header: "DAILY CURRENT AFFAIRS",
+    kicker: "CURRENT AFFAIRS",
+    hero: ["Daily revision,", "without the noise."],
+    overview: (events: number, sections: number) => `${events} verified developments across ${sections} sections`,
+    inside: "INSIDE TODAY",
+    readingGuide: "READING GUIDE",
+    guideHeadline: "Headline",
+    guideHeadlineText: "what happened",
+    guideFacts: "Key facts",
+    guideFactsText: "extra exam context only",
+    guideRecall: "Recall",
+    guideRecallText: "the one fact worth retaining",
     facts: "KEY FACTS",
-    recall: "ONE-LINE RECALL",
-    exam: "EXAM RELEVANCE",
-    source: "PRIMARY SOURCE",
     rapid: "RAPID REVISION",
-    rapidTitle: (events: number, minutes: number) => `${events} stories. ${minutes} minutes.`,
-    rapidSub: "Only the associations most likely to matter in recall.",
-    refs: "SOURCES & REFERENCES",
-    refsSub: "Primary references for the stories in this daily pack.",
-    briefFooter: "SCAN → RECALL → REVISE",
-    detailFooter: "DETAIL PAGE · SAME VISUAL LANGUAGE, MORE DEPTH",
-    rapidFooter: "REVISION FIRST · MINIMAL DECORATION · CONSISTENT MEMORY CUES",
-    refsFooter: "SOURCE TRACE · PRIMARY REFERENCES",
+    rapidHero: "One last pass.",
+    rapidSub: "Only the facts worth carrying into the exam.",
+    storyWord: (count: number) => count === 1 ? "1 story" : `${count} stories`,
     page: "Page",
   },
   hi: {
     locale: "hi-IN",
-    currentAffairs: "करेंट अफेयर्स",
-    dailyBrief: "दैनिक संक्षेप",
-    whatMatters: "आज क्या महत्वपूर्ण है",
-    overview: (events: number, sections: number) => `${events} सत्यापित घटनाक्रम · ${sections} खंड · त्वरित पुनरावृत्ति के लिए`,
-    storyNote: "स्टोरी नोट",
-    why: "समाचार में क्यों",
-    memory: "परीक्षा स्मृति",
+    header: "दैनिक करेंट अफेयर्स",
+    kicker: "करेंट अफेयर्स",
+    hero: ["दैनिक पुनरावृत्ति,", "बिना अनावश्यक शोर के।"],
+    overview: (events: number, sections: number) => `${events} सत्यापित घटनाक्रम · ${sections} खंड`,
+    inside: "आज के खंड",
+    readingGuide: "पढ़ने का तरीका",
+    guideHeadline: "शीर्षक",
+    guideHeadlineText: "क्या हुआ",
+    guideFacts: "मुख्य तथ्य",
+    guideFactsText: "केवल अतिरिक्त परीक्षा संदर्भ",
+    guideRecall: "पुनरावृत्ति",
+    guideRecallText: "याद रखने योग्य एक मुख्य तथ्य",
     facts: "मुख्य तथ्य",
-    recall: "एक-पंक्ति पुनरावृत्ति",
-    exam: "परीक्षा प्रासंगिकता",
-    source: "प्राथमिक स्रोत",
     rapid: "त्वरित पुनरावृत्ति",
-    rapidTitle: (events: number, minutes: number) => `${events} खबरें · ${minutes} मिनट`,
-    rapidSub: "केवल वे संबंध जो परीक्षा में याद रखने के लिए सबसे उपयोगी हैं।",
-    refs: "स्रोत एवं संदर्भ",
-    refsSub: "इस दैनिक पैक की खबरों के प्राथमिक संदर्भ।",
-    briefFooter: "स्कैन → याद → दोहराएँ",
-    detailFooter: "विस्तृत नोट · वही दृश्य भाषा · अधिक गहराई",
-    rapidFooter: "पुनरावृत्ति पहले · कम सजावट · स्पष्ट स्मृति संकेत",
-    refsFooter: "स्रोत ट्रेस · प्राथमिक संदर्भ",
+    rapidHero: "एक अंतिम नज़र।",
+    rapidSub: "केवल वही तथ्य जिन्हें परीक्षा तक साथ रखना है।",
+    storyWord: (count: number) => `${count} खबरें`,
     page: "पृष्ठ",
   },
   pa: {
     locale: "pa-IN",
-    currentAffairs: "ਕਰੰਟ ਅਫੇਅਰਜ਼",
-    dailyBrief: "ਰੋਜ਼ਾਨਾ ਸੰਖੇਪ",
-    whatMatters: "ਅੱਜ ਕੀ ਮਹੱਤਵਪੂਰਨ ਹੈ",
-    overview: (events: number, sections: number) => `${events} ਪ੍ਰਮਾਣਿਤ ਘਟਨਾਵਾਂ · ${sections} ਭਾਗ · ਤੇਜ਼ ਦੁਹਰਾਈ ਲਈ`,
-    storyNote: "ਸਟੋਰੀ ਨੋਟ",
-    why: "ਖ਼ਬਰਾਂ ਵਿੱਚ ਕਿਉਂ",
-    memory: "ਪ੍ਰੀਖਿਆ ਯਾਦ",
+    header: "ਰੋਜ਼ਾਨਾ ਕਰੰਟ ਅਫੇਅਰਜ਼",
+    kicker: "ਕਰੰਟ ਅਫੇਅਰਜ਼",
+    hero: ["ਰੋਜ਼ਾਨਾ ਦੁਹਰਾਈ,", "ਬਿਨਾਂ ਬੇਲੋੜੇ ਸ਼ੋਰ ਦੇ।"],
+    overview: (events: number, sections: number) => `${events} ਪ੍ਰਮਾਣਿਤ ਘਟਨਾਵਾਂ · ${sections} ਭਾਗ`,
+    inside: "ਅੱਜ ਦੇ ਭਾਗ",
+    readingGuide: "ਪੜ੍ਹਨ ਦਾ ਤਰੀਕਾ",
+    guideHeadline: "ਸਿਰਲੇਖ",
+    guideHeadlineText: "ਕੀ ਹੋਇਆ",
+    guideFacts: "ਮੁੱਖ ਤੱਥ",
+    guideFactsText: "ਕੇਵਲ ਵਾਧੂ ਪ੍ਰੀਖਿਆ ਸੰਦਰਭ",
+    guideRecall: "ਦੁਹਰਾਈ",
+    guideRecallText: "ਯਾਦ ਰੱਖਣ ਲਈ ਇੱਕ ਮੁੱਖ ਤੱਥ",
     facts: "ਮੁੱਖ ਤੱਥ",
-    recall: "ਇੱਕ-ਲਾਈਨ ਦੁਹਰਾਈ",
-    exam: "ਪ੍ਰੀਖਿਆ ਸੰਬੰਧਤਾ",
-    source: "ਮੁੱਖ ਸਰੋਤ",
     rapid: "ਤੇਜ਼ ਦੁਹਰਾਈ",
-    rapidTitle: (events: number, minutes: number) => `${events} ਖ਼ਬਰਾਂ · ${minutes} ਮਿੰਟ`,
-    rapidSub: "ਕੇਵਲ ਉਹ ਸੰਬੰਧ ਜੋ ਪ੍ਰੀਖਿਆ ਲਈ ਯਾਦ ਰੱਖਣ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਮਦਦਗਾਰ ਹਨ।",
-    refs: "ਸਰੋਤ ਅਤੇ ਹਵਾਲੇ",
-    refsSub: "ਇਸ ਰੋਜ਼ਾਨਾ ਪੈਕ ਦੀਆਂ ਖ਼ਬਰਾਂ ਲਈ ਮੁੱਖ ਹਵਾਲੇ।",
-    briefFooter: "ਸਕੈਨ → ਯਾਦ → ਦੁਹਰਾਈ",
-    detailFooter: "ਵਿਸਤ੍ਰਿਤ ਨੋਟ · ਉਹੀ ਵਿਜ਼ੂਅਲ ਭਾਸ਼ਾ · ਹੋਰ ਗਹਿਰਾਈ",
-    rapidFooter: "ਦੁਹਰਾਈ ਪਹਿਲਾਂ · ਘੱਟ ਸਜਾਵਟ · ਸਪਸ਼ਟ ਯਾਦ ਸੰਕੇਤ",
-    refsFooter: "ਸਰੋਤ ਟ੍ਰੇਸ · ਮੁੱਖ ਹਵਾਲੇ",
+    rapidHero: "ਇੱਕ ਆਖਰੀ ਨਜ਼ਰ।",
+    rapidSub: "ਕੇਵਲ ਉਹ ਤੱਥ ਜੋ ਪ੍ਰੀਖਿਆ ਤੱਕ ਨਾਲ ਰੱਖਣੇ ਹਨ।",
+    storyWord: (count: number) => `${count} ਖ਼ਬਰਾਂ`,
     page: "ਪੰਨਾ",
   },
 } satisfies Record<DailyMasterPackLanguage, {
   locale: string;
-  currentAffairs: string;
-  dailyBrief: string;
-  whatMatters: string;
+  header: string;
+  kicker: string;
+  hero: [string, string];
   overview: (events: number, sections: number) => string;
-  storyNote: string;
-  why: string;
-  memory: string;
+  inside: string;
+  readingGuide: string;
+  guideHeadline: string;
+  guideHeadlineText: string;
+  guideFacts: string;
+  guideFactsText: string;
+  guideRecall: string;
+  guideRecallText: string;
   facts: string;
-  recall: string;
-  exam: string;
-  source: string;
   rapid: string;
-  rapidTitle: (events: number, minutes: number) => string;
+  rapidHero: string;
   rapidSub: string;
-  refs: string;
-  refsSub: string;
-  briefFooter: string;
-  detailFooter: string;
-  rapidFooter: string;
-  refsFooter: string;
+  storyWord: (count: number) => string;
   page: string;
 }>;
 
@@ -212,16 +204,11 @@ export type DailyMasterPackPdfRenderResult = {
 };
 
 type Ctx = any;
-type FlatStory = {
+type Story = {
   event: DailyMasterPackEvent;
+  number: number;
   sectionLabel: string;
   sectionCategory: string;
-  number: number;
-};
-
-type PageEnv = {
-  ctx: Ctx;
-  page: number;
 };
 
 const clean = (value: unknown) => String(value ?? "").replace(/\s+/g, " ").trim();
@@ -263,12 +250,12 @@ export function visibleDailyMasterPackPdfFacts(event: Pick<DailyMasterPackEvent,
   return event.facts.filter((fact) => {
     const key = clean(fact.key).toLowerCase();
     const value = clean(fact.value);
-    const normalizedValue = normalized(value);
-    if (!key || !normalizedValue || CORE_FACTS.has(key)) return false;
-    if (narrative.includes(normalizedValue)) return false;
-    if (tokenSet(normalizedValue).size >= 3 && overlapRatio(narrative, normalizedValue) >= 0.82) return false;
-    if (seenValues.has(normalizedValue)) return false;
-    seenValues.add(normalizedValue);
+    const nv = normalized(value);
+    if (!key || !nv || CORE_FACTS.has(key)) return false;
+    if (narrative.includes(nv)) return false;
+    if (tokenSet(nv).size >= 3 && overlapRatio(narrative, nv) >= 0.82) return false;
+    if (seenValues.has(nv)) return false;
+    seenValues.add(nv);
     return true;
   }).slice(0, 5);
 }
@@ -306,44 +293,6 @@ function resolveFont(language: Exclude<DailyMasterPackLanguage, "en">) {
   throw new Error(`${data.family} runtime font is unavailable. Run the verified Current Affairs font bootstrap before rendering localized PDFs.`);
 }
 
-function copyStrings(language: DailyMasterPackLanguage) {
-  const c = COPY[language];
-  return [
-    c.currentAffairs, c.dailyBrief, c.whatMatters, c.storyNote, c.why, c.memory, c.facts, c.recall,
-    c.exam, c.source, c.rapid, c.rapidSub, c.refs, c.refsSub, c.briefFooter, c.detailFooter,
-    c.rapidFooter, c.refsFooter, c.page,
-  ];
-}
-
-function scriptPoints(payload: DailyMasterPackPayload) {
-  if (payload.language === "en") return [];
-  const text = [
-    ...copyStrings(payload.language),
-    COPY[payload.language].overview(payload.eventCount, payload.categoryCount),
-    COPY[payload.language].rapidTitle(payload.eventCount, revisionMinutes(payload.eventCount)),
-    ...payload.sections.flatMap((section) => [
-      section.label,
-      ...section.events.flatMap((event) => [
-        event.title,
-        event.summary,
-        dailyMasterPackPdfTakeaway(event.oneLiner),
-        ...visibleDailyMasterPackPdfFacts(event).flatMap((fact) => [fact.label ?? "", fact.value]),
-        ...event.sources.map((source) => source.name),
-      ]),
-    ]),
-  ].join(" ");
-  const result = new Set<number>();
-  for (const char of Array.from(text)) {
-    const codePoint = char.codePointAt(0)!;
-    if (payload.language === "hi") {
-      if ((codePoint >= 0x0900 && codePoint <= 0x097f) || (codePoint >= 0xa8e0 && codePoint <= 0xa8ff)) result.add(codePoint);
-    } else if (codePoint >= 0x0a00 && codePoint <= 0x0a7f) {
-      result.add(codePoint);
-    }
-  }
-  return [...result];
-}
-
 type Cmap = { format: 4 | 12; offset: number; length: number };
 const u16 = (buffer: Buffer, offset: number) => {
   if (offset < 0 || offset + 2 > buffer.length) throw new Error("Invalid font table offset");
@@ -375,11 +324,11 @@ function cmapSubtables(buffer: Buffer) {
     if (record + 8 > cmapOffset + cmapLength) break;
     const subtableOffset = cmapOffset + u32(buffer, record + 4);
     if (subtableOffset + 2 > buffer.length) continue;
-    const format = u16(buffer, subtableOffset);
-    if (format === 12) {
+    const formatNumber = u16(buffer, subtableOffset);
+    if (formatNumber === 12) {
       const length = u32(buffer, subtableOffset + 4);
       if (length >= 16 && subtableOffset + length <= buffer.length) result.push({ format: 12, offset: subtableOffset, length });
-    } else if (format === 4) {
+    } else if (formatNumber === 4) {
       const length = u16(buffer, subtableOffset + 2);
       if (length >= 16 && subtableOffset + length <= buffer.length) result.push({ format: 4, offset: subtableOffset, length });
     }
@@ -387,14 +336,14 @@ function cmapSubtables(buffer: Buffer) {
   return result.sort((a, b) => b.format - a.format);
 }
 
-function format12Supports(buffer: Buffer, subtable: Cmap, codePoint: number) {
-  const groupCount = u32(buffer, subtable.offset + 12);
+function format12Supports(buffer: Buffer, table: Cmap, codePoint: number) {
+  const groupCount = u32(buffer, table.offset + 12);
   let low = 0;
   let high = groupCount - 1;
   while (low <= high) {
     const middle = Math.floor((low + high) / 2);
-    const group = subtable.offset + 16 + middle * 12;
-    if (group + 12 > subtable.offset + subtable.length) return false;
+    const group = table.offset + 16 + middle * 12;
+    if (group + 12 > table.offset + table.length) return false;
     const start = u32(buffer, group);
     const end = u32(buffer, group + 4);
     if (codePoint < start) high = middle - 1;
@@ -404,10 +353,10 @@ function format12Supports(buffer: Buffer, subtable: Cmap, codePoint: number) {
   return false;
 }
 
-function format4Supports(buffer: Buffer, subtable: Cmap, codePoint: number) {
+function format4Supports(buffer: Buffer, table: Cmap, codePoint: number) {
   if (codePoint > 0xffff) return false;
-  const segmentCount = u16(buffer, subtable.offset + 6) / 2;
-  const endCodes = subtable.offset + 14;
+  const segmentCount = u16(buffer, table.offset + 6) / 2;
+  const endCodes = table.offset + 14;
   const startCodes = endCodes + segmentCount * 2 + 2;
   const deltas = startCodes + segmentCount * 2;
   const rangeOffsets = deltas + segmentCount * 2;
@@ -421,16 +370,51 @@ function format4Supports(buffer: Buffer, subtable: Cmap, codePoint: number) {
     const range = u16(buffer, rangeAddress);
     if (range === 0) return ((codePoint + delta) & 0xffff) !== 0;
     const glyphAddress = rangeAddress + range + (codePoint - start) * 2;
-    if (glyphAddress + 2 > subtable.offset + subtable.length) return false;
+    if (glyphAddress + 2 > table.offset + table.length) return false;
     const glyph = u16(buffer, glyphAddress);
     return glyph !== 0 && ((glyph + delta) & 0xffff) !== 0;
   }
   return false;
 }
 
-const supportsCodePoint = (buffer: Buffer, codePoint: number) => cmapSubtables(buffer).some((subtable) => (
-  subtable.format === 12 ? format12Supports(buffer, subtable, codePoint) : format4Supports(buffer, subtable, codePoint)
+const supportsCodePoint = (buffer: Buffer, codePoint: number) => cmapSubtables(buffer).some((table) => (
+  table.format === 12 ? format12Supports(buffer, table, codePoint) : format4Supports(buffer, table, codePoint)
 ));
+
+function copyText(payload: DailyMasterPackPayload) {
+  const c = COPY[payload.language];
+  return [
+    c.header, c.kicker, ...c.hero, c.inside, c.readingGuide, c.guideHeadline, c.guideHeadlineText,
+    c.guideFacts, c.guideFactsText, c.guideRecall, c.guideRecallText, c.facts, c.rapid, c.rapidHero,
+    c.rapidSub, c.page, c.overview(payload.eventCount, payload.categoryCount),
+    ...payload.sections.flatMap((section) => [
+      section.label,
+      c.storyWord(section.events.length),
+      ...section.events.flatMap((event) => [
+        event.title,
+        event.summary,
+        dailyMasterPackPdfTakeaway(event.oneLiner),
+        ...visibleDailyMasterPackPdfFacts(event).flatMap((fact) => [fact.label ?? "", fact.value]),
+        ...event.sources.map((source) => source.name),
+      ]),
+    ]),
+  ].join(" ");
+}
+
+function scriptPoints(payload: DailyMasterPackPayload) {
+  if (payload.language === "en") return [];
+  const text = copyText(payload);
+  const result = new Set<number>();
+  for (const char of Array.from(text)) {
+    const codePoint = char.codePointAt(0)!;
+    if (payload.language === "hi") {
+      if ((codePoint >= 0x0900 && codePoint <= 0x097f) || (codePoint >= 0xa8e0 && codePoint <= 0xa8ff)) result.add(codePoint);
+    } else if (codePoint >= 0x0a00 && codePoint <= 0x0a7f) {
+      result.add(codePoint);
+    }
+  }
+  return [...result];
+}
 
 export function assertDailyMasterPackPdfFontCoverage(payload: DailyMasterPackPayload) {
   if (payload.language === "en") return { language: "en" as const, fontFamily: "sans-serif", checkedCodePoints: 0 };
@@ -458,8 +442,9 @@ function splitLongToken(ctx: Ctx, token: string, maxWidth: number) {
 }
 
 function wrap(ctx: Ctx, value: string, maxWidth: number) {
-  const rawWords = clean(value).split(" ").filter(Boolean);
-  const words = rawWords.flatMap((word) => ctx.measureText(word).width > maxWidth ? splitLongToken(ctx, word, maxWidth) : [word]);
+  const words = clean(value).split(" ").filter(Boolean).flatMap((word) => (
+    ctx.measureText(word).width > maxWidth ? splitLongToken(ctx, word, maxWidth) : [word]
+  ));
   const lines: string[] = [];
   let line = "";
   for (const word of words) {
@@ -484,95 +469,18 @@ function clippedLines(ctx: Ctx, value: string, maxWidth: number, maxLines: numbe
   return result;
 }
 
-function dateLabel(date: string, language: DailyMasterPackLanguage) {
-  return new Intl.DateTimeFormat(COPY[language].locale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })
-    .format(new Date(`${date}T00:00:00Z`));
-}
-
-function dateTile(date: string, language: DailyMasterPackLanguage) {
-  const parsed = new Date(`${date}T00:00:00Z`);
-  return {
-    day: new Intl.DateTimeFormat(COPY[language].locale, { day: "2-digit", timeZone: "UTC" }).format(parsed),
-    month: new Intl.DateTimeFormat(COPY[language].locale, { month: "short", timeZone: "UTC" }).format(parsed).toUpperCase(),
-  };
-}
-
-function flattenStories(payload: DailyMasterPackPayload) {
-  const result: FlatStory[] = [];
-  let number = 1;
-  for (const section of payload.sections) {
-    for (const event of section.events) {
-      result.push({ event, sectionLabel: section.label, sectionCategory: section.category, number });
-      number += 1;
-    }
-  }
-  return result;
-}
-
-function revisionMinutes(eventCount: number) {
-  return Math.max(2, Math.round(eventCount * 0.45));
-}
-
-function categoryShort(category: string, label: string, language: DailyMasterPackLanguage) {
-  if (language !== "en") return clean(label);
-  const map: Record<string, string> = {
-    national: "NATIONAL",
-    economy_banking: "BANKING",
-    international: "INTERNATIONAL",
-    appointments: "APPOINTMENTS",
-    awards: "AWARDS",
-    reports_indices: "REPORTS",
-    sports: "SPORTS",
-    science_technology: "SCI-TECH",
-    space: "SPACE",
-    defence: "DEFENCE",
-    environment: "ENVIRONMENT",
-    books_authors: "BOOKS",
-    important_days: "IMPORTANT DAYS",
-    summits: "SUMMITS",
-    obituaries: "OBITUARIES",
-    punjab: "PUNJAB",
-  };
-  return map[category] ?? clean(label).toUpperCase();
-}
-
-function primarySource(event: DailyMasterPackEvent) {
-  return event.sources.find((source) => source.primary) ?? event.sources[0];
-}
-
-function shortSourceName(value: string) {
-  const source = clean(value);
-  if (/press information bureau/i.test(source)) return "PIB";
-  if (/reserve bank of india/i.test(source)) return "RBI";
-  if (/securities and exchange board of india/i.test(source)) return "SEBI";
-  return source;
-}
-
-function briefMeta(story: FlatStory) {
-  const source = primarySource(story.event);
-  const parts = [source ? shortSourceName(source.name) : "", ...story.event.examFamilies.slice(0, 2).map((value) => clean(value).toUpperCase())]
-    .filter(Boolean);
-  return parts.join(" · ");
-}
-
-function sectionSummary(payload: DailyMasterPackPayload) {
-  return payload.sections
-    .filter((section) => section.events.length > 0)
-    .map((section) => ({ label: categoryShort(section.category, section.label, payload.language), count: section.events.length }));
-}
-
 function setFont(ctx: Ctx, family: string, size: number, weight = 400, color = INK) {
   ctx.font = font(family, size, weight);
   ctx.fillStyle = color;
 }
 
 function drawTextLines(ctx: Ctx, lines: string[], x: number, y: number, lineHeight: number) {
-  let currentY = y;
+  let cursor = y;
   for (const line of lines) {
-    ctx.fillText(line, x, currentY);
-    currentY += lineHeight;
+    ctx.fillText(line, x, cursor);
+    cursor += lineHeight;
   }
-  return currentY;
+  return cursor;
 }
 
 function drawRule(ctx: Ctx, y: number, x1 = MX, x2 = W - MX, color = RULE, width = 0.7) {
@@ -586,365 +494,311 @@ function drawRule(ctx: Ctx, y: number, x1 = MX, x2 = W - MX, color = RULE, width
   ctx.restore();
 }
 
-function header(ctx: Ctx, payload: DailyMasterPackPayload, family: string, right: string) {
+function dateLabel(date: string, language: DailyMasterPackLanguage) {
+  return new Intl.DateTimeFormat(COPY[language].locale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })
+    .format(new Date(`${date}T00:00:00Z`));
+}
+
+function pageDate(date: string, language: DailyMasterPackLanguage) {
+  return dateLabel(date, language).toLocaleUpperCase(COPY[language].locale);
+}
+
+function accentForCategory(category: string, index = 0) {
+  const mapped: Record<string, string> = {
+    national: GREEN,
+    economy_banking: BLUE,
+    reports_indices: PURPLE,
+    science_technology: TEAL,
+    space: TEAL,
+    environment: ORANGE,
+    international: INDIGO,
+    appointments: RED,
+    awards: PURPLE,
+    sports: GREEN,
+    defence: RED,
+    books_authors: ORANGE,
+    important_days: INDIGO,
+    summits: BLUE,
+    obituaries: MUTED,
+    punjab: GREEN,
+  };
+  return mapped[category] ?? [GREEN, BLUE, PURPLE, TEAL, ORANGE, RED, INDIGO][index % 7]!;
+}
+
+function header(ctx: Ctx, payload: DailyMasterPackPayload, family: string) {
   setFont(ctx, family, 10.5, 700, INK);
   ctx.fillText("examtree", MX, TOP);
-  setFont(ctx, family, 6.7, 500, MUTED);
-  ctx.fillText(COPY[payload.language].currentAffairs, MX, TOP + 16);
   ctx.textAlign = "right";
-  setFont(ctx, family, 6.8, 500, MUTED);
-  ctx.fillText(right, W - MX, TOP + 2);
+  setFont(ctx, family, 6.8, 700, MUTED);
+  ctx.fillText(COPY[payload.language].header, W - MX, TOP);
   ctx.textAlign = "left";
-  drawRule(ctx, TOP + 28);
+  drawRule(ctx, TOP + 20);
 }
 
-function footer(ctx: Ctx, payload: DailyMasterPackPayload, family: string, page: number, totalPages: number | undefined, leftText: string) {
-  drawRule(ctx, H - 28);
+function footer(ctx: Ctx, payload: DailyMasterPackPayload, family: string, page: number, totalPages: number | undefined, centre: string) {
+  drawRule(ctx, H - 36);
   setFont(ctx, family, 6.3, 500, MUTED);
-  ctx.fillText(leftText, MX, H - 14);
+  ctx.fillText(pageDate(payload.contentDate, payload.language), MX, H - 20);
+  ctx.textAlign = "center";
+  ctx.fillText(centre, W / 2, H - 20);
   ctx.textAlign = "right";
-  const c = COPY[payload.language];
-  ctx.fillText(totalPages ? `${String(page).padStart(2, "0")} / ${String(totalPages).padStart(2, "0")}` : `${c.page} ${page}`, W - MX, H - 14);
+  ctx.fillText(totalPages ? `${String(page).padStart(2, "0")} / ${String(totalPages).padStart(2, "0")}` : `${COPY[payload.language].page} ${page}`, W - MX, H - 20);
   ctx.textAlign = "left";
 }
 
-function beginPage(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, page: number, totalPages: number | undefined, right: string, footerText: string): PageEnv {
+function beginPage(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, page: number, totalPages: number | undefined, centre: string) {
   const ctx = doc.beginPage(W, H);
   ctx.fillStyle = WHITE;
   ctx.fillRect(0, 0, W, H);
-  header(ctx, payload, family, right);
-  footer(ctx, payload, family, page, totalPages, footerText);
-  return { ctx, page };
+  header(ctx, payload, family);
+  footer(ctx, payload, family, page, totalPages, centre);
+  return ctx;
 }
 
 function endPage(doc: InstanceType<typeof PDFDocument>) {
   doc.endPage();
 }
 
-function drawOverviewHero(ctx: Ctx, payload: DailyMasterPackPayload, family: string) {
-  const c = COPY[payload.language];
-  const tile = dateTile(payload.contentDate, payload.language);
-  const y = 70;
-  ctx.fillStyle = BLUE;
-  ctx.fillRect(MX, y, 54, 50);
-  ctx.textAlign = "center";
-  setFont(ctx, family, 20, 700, WHITE);
-  ctx.fillText(tile.day, MX + 27, y + 23);
-  setFont(ctx, family, 6.5, 600, WHITE);
-  ctx.fillText(tile.month, MX + 27, y + 39);
-  ctx.textAlign = "left";
-
-  setFont(ctx, family, 23, 700, INK);
-  ctx.fillText(c.whatMatters, MX + 68, y + 21);
-  setFont(ctx, family, 8.4, 400, MUTED);
-  ctx.fillText(c.overview(payload.eventCount, payload.categoryCount), MX + 68, y + 44);
-
-  const summary = sectionSummary(payload);
-  let x = MX;
-  let rowY = y + 76;
-  setFont(ctx, family, 6.6, 600, MUTED);
-  for (const item of summary) {
-    const text = `${item.label}  ${item.count}`;
-    const width = ctx.measureText(text).width + 26;
-    if (x + width > W - MX) {
-      x = MX;
-      rowY += 18;
+function flattenStories(payload: DailyMasterPackPayload) {
+  const stories: Story[] = [];
+  let number = 1;
+  for (const section of payload.sections) {
+    for (const event of section.events) {
+      stories.push({ event, number, sectionLabel: section.label, sectionCategory: section.category });
+      number += 1;
     }
-    ctx.fillStyle = BLUE;
-    ctx.fillText(item.label, x, rowY);
-    const labelWidth = ctx.measureText(item.label).width;
-    ctx.fillStyle = MUTED;
-    ctx.fillText(String(item.count), x + labelWidth + 5, rowY);
-    x += width;
   }
-  drawRule(ctx, rowY + 13, MX, W - MX, BLUE, 1.2);
-  return rowY + 25;
+  return stories;
 }
 
-function drawBriefContinuationHero(ctx: Ctx, payload: DailyMasterPackPayload, family: string, pageIndex: number) {
+function sourceAndExam(event: DailyMasterPackEvent) {
+  const source = event.sources.find((item) => item.primary) ?? event.sources[0];
+  const sourceName = source ? clean(source.name).replace(/^Press Information Bureau$/i, "PIB").replace(/^Reserve Bank of India$/i, "RBI") : "";
+  return [sourceName, ...event.examFamilies.map((family) => clean(family).toUpperCase())].filter(Boolean).join(" · ");
+}
+
+function renderOverview(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, page: number) {
   const c = COPY[payload.language];
-  setFont(ctx, family, 15, 700, INK);
-  ctx.fillText(c.whatMatters, MX, 75);
-  setFont(ctx, family, 7.5, 500, MUTED);
-  ctx.fillText(`${dateLabel(payload.contentDate, payload.language)} · ${pageIndex}`, MX, 93);
-  drawRule(ctx, 106, MX, W - MX, BLUE, 1.1);
-  return 120;
-}
-
-function drawBriefStory(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, y: number, height: number) {
-  const numberWidth = 36;
-  const recallWidth = 142;
-  const gap = 11;
-  const textX = MX + numberWidth + 10;
-  const recallX = W - MX - recallWidth;
-  const textWidth = recallX - gap - textX;
-  const category = categoryShort(story.sectionCategory, story.sectionLabel, payload.language);
-
-  setFont(ctx, family, 8.2, 700, BLUE);
-  ctx.fillText(String(story.number).padStart(2, "0"), MX, y + 12);
-  setFont(ctx, family, 6.1, 500, MUTED);
-  const catLines = clippedLines(ctx, category, numberWidth, 2);
-  drawTextLines(ctx, catLines, MX, y + 29, 8.5);
-
-  setFont(ctx, family, 12.2, 700, INK);
-  const titleLines = clippedLines(ctx, story.event.title, textWidth, 2);
-  let cursorY = drawTextLines(ctx, titleLines, textX, y + 12, 15.5) + 7;
-
-  setFont(ctx, family, 8.3, 400, "#505762");
-  const summaryLines = clippedLines(ctx, story.event.summary, textWidth, 3);
-  cursorY = drawTextLines(ctx, summaryLines, textX, cursorY, 11.5) + 9;
-
-  setFont(ctx, family, 6.6, 500, MUTED);
-  const metaLines = clippedLines(ctx, briefMeta(story), textWidth, 1);
-  drawTextLines(ctx, metaLines, textX, Math.min(y + height - 14, cursorY), 9);
-
-  ctx.fillStyle = CREAM;
-  ctx.fillRect(recallX, y + 4, recallWidth, height - 13);
-  setFont(ctx, family, 6.1, 700, BLUE);
-  ctx.fillText(COPY[payload.language].memory, recallX + 12, y + 21);
-  const takeaway = dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title;
-  setFont(ctx, family, 8.9, 600, INK);
-  const memoryLines = clippedLines(ctx, takeaway, recallWidth - 24, 5);
-  drawTextLines(ctx, memoryLines, recallX + 12, y + 42, 11.5);
-
-  drawRule(ctx, y + height, MX, W - MX);
-}
-
-function renderBriefPages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, pageStart: number) {
-  const stories = flattenStories(payload);
-  const perPage = 5;
-  let page = pageStart;
-  for (let offset = 0, briefPage = 1; offset < stories.length; offset += perPage, briefPage += 1) {
-    page += 1;
-    const right = `${COPY[payload.language].dailyBrief} · ${dateLabel(payload.contentDate, payload.language)}`;
-    const { ctx } = beginPage(doc, payload, family, page, totalPages, right, COPY[payload.language].briefFooter);
-    const startY = briefPage === 1 ? drawOverviewHero(ctx, payload, family) : drawBriefContinuationHero(ctx, payload, family, briefPage);
-    const chunk = stories.slice(offset, offset + perPage);
-    const available = H - BOTTOM - 34 - startY;
-    const rowHeight = Math.min(119, available / Math.max(1, chunk.length));
-    chunk.forEach((story, index) => drawBriefStory(ctx, payload, family, story, startY + index * rowHeight, rowHeight));
-    endPage(doc);
-  }
-  return page;
-}
-
-function detailTitle(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory) {
-  const category = categoryShort(story.sectionCategory, story.sectionLabel, payload.language);
-  ctx.fillStyle = BLUE;
-  ctx.fillRect(MX, 74, 4, 45);
+  const ctx = beginPage(doc, payload, family, page, totalPages, "Overview");
   setFont(ctx, family, 7.2, 700, BLUE);
-  ctx.fillText(`${String(story.number).padStart(2, "0")} · ${category}`, MX + 17, 83);
-  setFont(ctx, family, 22, 700, INK);
-  const titleLines = clippedLines(ctx, story.event.title, CW - 24, 3);
-  const afterTitle = drawTextLines(ctx, titleLines, MX + 17, 108, 26.5);
+  ctx.fillText(c.kicker, MX, 112);
+
+  setFont(ctx, family, 24, 700, INK);
+  ctx.fillText(c.hero[0], MX, 158);
+  ctx.fillText(c.hero[1], MX, 188);
+  setFont(ctx, family, 9.2, 400, MUTED);
+  ctx.fillText(c.overview(payload.eventCount, payload.categoryCount), MX, 220);
+
+  setFont(ctx, family, 6.6, 700, MUTED);
+  ctx.fillText(c.inside, MX, 282);
+  let y = 324;
+  payload.sections.forEach((section, index) => {
+    const accent = accentForCategory(section.category, index);
+    setFont(ctx, family, 7.3, 700, accent);
+    ctx.fillText(String(index + 1).padStart(2, "0"), MX, y);
+    setFont(ctx, family, 11.4, 700, INK);
+    ctx.fillText(section.label, MX + 35, y);
+    ctx.textAlign = "right";
+    setFont(ctx, family, 8.1, 600, MUTED);
+    ctx.fillText(String(section.events.length), W - MX, y);
+    ctx.textAlign = "left";
+    drawRule(ctx, y + 17, MX + 35, W - MX);
+    y += 47;
+  });
+
+  const guideY = Math.min(H - 132, Math.max(y + 35, 618));
+  setFont(ctx, family, 6.6, 700, MUTED);
+  ctx.fillText(c.readingGuide, MX, guideY);
+  const guides: Array<[string, string, string]> = [
+    [c.guideHeadline, c.guideHeadlineText, INK],
+    [c.guideFacts, c.guideFactsText, MUTED],
+    [c.guideRecall, c.guideRecallText, BLUE],
+  ];
+  guides.forEach(([label, text, color], index) => {
+    const rowY = guideY + 28 + index * 19;
+    setFont(ctx, family, 7.2, 700, color);
+    ctx.fillText(label, MX, rowY);
+    setFont(ctx, family, 7.2, 400, MUTED);
+    ctx.fillText(text, MX + 55, rowY);
+  });
+  endPage(doc);
+}
+
+function sectionHeader(ctx: Ctx, payload: DailyMasterPackPayload, family: string, section: DailyMasterPackPayload["sections"][number], index: number, y: number, continued = false) {
+  const accent = accentForCategory(section.category, index);
+  setFont(ctx, family, 7.4, 700, accent);
+  ctx.fillText(String(index + 1).padStart(2, "0"), MX, y);
+  setFont(ctx, family, 15.5, 700, INK);
+  const suffix = continued ? " ·" : "";
+  ctx.fillText(`${section.label}${suffix}`, MX + 30, y);
+  ctx.textAlign = "right";
+  setFont(ctx, family, 7.2, 500, MUTED);
+  ctx.fillText(COPY[payload.language].storyWord(section.events.length), W - MX, y);
+  ctx.textAlign = "left";
+  ctx.fillStyle = accent;
+  ctx.fillRect(MX, y + 15, 64, 2);
+  return y + 39;
+}
+
+function storyFactLine(payload: DailyMasterPackPayload, story: Story) {
+  return visibleDailyMasterPackPdfFacts(story.event).slice(0, 3)
+    .map((fact) => `${factLabel(payload.language, fact)}: ${clean(fact.value)}`)
+    .join("  ·  ");
+}
+
+function measureStory(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: Story) {
+  const x = MX + 30;
+  const width = W - MX - x;
+  setFont(ctx, family, 10.4, 700, INK);
+  const title = clippedLines(ctx, story.event.title, width, 2);
   setFont(ctx, family, 8.1, 400, MUTED);
-  ctx.fillText(dateLabel(story.event.eventDate || payload.contentDate, payload.language), MX + 17, afterTitle + 3);
-  const ruleY = Math.max(163, afterTitle + 23);
-  drawRule(ctx, ruleY);
-  return ruleY + 31;
-}
-
-function drawWhyAndMemory(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, y: number) {
-  const c = COPY[payload.language];
-  const leftX = MX + 17;
-  const rightW = 190;
-  const gap = 19;
-  const rightX = W - MX - rightW;
-  const leftW = rightX - gap - leftX;
-
-  setFont(ctx, family, 7.1, 700, BLUE);
-  ctx.fillText(c.why, leftX, y);
-  setFont(ctx, family, 10.1, 400, "#343A43");
-  const summaryLines = clippedLines(ctx, story.event.summary, leftW, 7);
-  const leftBottom = drawTextLines(ctx, summaryLines, leftX, y + 24, 15.2);
-
-  const boxTop = y - 9;
-  const boxH = Math.max(108, Math.min(148, 48 + Math.max(2, clippedLines(ctx, dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title, rightW - 30, 5).length) * 14));
-  ctx.fillStyle = CREAM;
-  ctx.fillRect(rightX, boxTop, rightW, boxH);
-  setFont(ctx, family, 6.8, 700, BLUE);
-  ctx.fillText(c.memory, rightX + 16, boxTop + 22);
-  setFont(ctx, family, 13.6, 700, INK);
-  const memoryLines = clippedLines(ctx, dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title, rightW - 32, 5);
-  drawTextLines(ctx, memoryLines, rightX + 16, boxTop + 50, 16.5);
-
-  const bottom = Math.max(leftBottom, boxTop + boxH) + 26;
-  drawRule(ctx, bottom - 11);
-  return bottom + 2;
-}
-
-function drawKeyFacts(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, y: number) {
-  const c = COPY[payload.language];
-  const facts = visibleDailyMasterPackPdfFacts(story.event);
-  if (!facts.length) return y;
-  setFont(ctx, family, 7.1, 700, BLUE);
-  ctx.fillText(c.facts, MX + 17, y);
-  let rowY = y + 23;
-  const labelW = 105;
-  const valueX = MX + 17 + labelW;
-  const valueW = W - MX - valueX;
-  for (const fact of facts) {
-    setFont(ctx, family, 6.5, 500, MUTED);
-    const labelLines = clippedLines(ctx, factLabel(payload.language, fact).toUpperCase(), labelW - 12, 2);
-    drawTextLines(ctx, labelLines, MX + 17, rowY + 3, 9.5);
-
-    setFont(ctx, family, 9.1, 500, INK);
-    const valueLines = clippedLines(ctx, fact.value, valueW, 3);
-    const valueBottom = drawTextLines(ctx, valueLines, valueX, rowY + 3, 12.5);
-    const rowH = Math.max(33, valueBottom - rowY + 9);
-    drawRule(ctx, rowY + rowH - 3, valueX, W - MX);
-    rowY += rowH;
+  const summary = clippedLines(ctx, story.event.summary, width, 3);
+  const factText = storyFactLine(payload, story);
+  let factLines: string[] = [];
+  if (factText) {
+    setFont(ctx, family, 7.2, 500, INK);
+    factLines = clippedLines(ctx, factText, width - 54, 2);
   }
-  return rowY + 8;
+  setFont(ctx, family, 8.0, 700, INK);
+  const takeaway = clippedLines(ctx, dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title, width - 12, 2);
+  return 18 + title.length * 14 + 8 + summary.length * 11 + (factLines.length ? 12 + factLines.length * 10 : 0) + 10 + takeaway.length * 11 + 28;
 }
 
-function drawRecallAndMeta(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, y: number) {
-  const c = COPY[payload.language];
-  const recall = dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title;
-  const boxX = MX;
-  const boxW = CW;
-  setFont(ctx, family, 9.8, 600, WHITE);
-  const recallLines = clippedLines(ctx, recall, boxW - 34, 3);
-  const boxH = Math.max(55, 31 + recallLines.length * 14);
-  if (y + boxH + 86 > H - BOTTOM) y = H - BOTTOM - boxH - 86;
+function drawStory(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: Story, y: number, accent: string) {
+  const x = MX + 30;
+  const width = W - MX - x;
+  setFont(ctx, family, 7.2, 700, MUTED);
+  ctx.fillText(String(story.number).padStart(2, "0"), MX, y + 4);
 
-  ctx.fillStyle = BLUE;
-  ctx.fillRect(boxX, y, boxW, boxH);
-  setFont(ctx, family, 6.6, 600, "#E8EEFF");
-  ctx.fillText(c.recall, boxX + 17, y + 18);
-  setFont(ctx, family, 9.8, 600, WHITE);
-  drawTextLines(ctx, recallLines, boxX + 17, y + 39, 14);
+  setFont(ctx, family, 10.4, 700, INK);
+  const titleLines = clippedLines(ctx, story.event.title, width, 2);
+  let cursor = drawTextLines(ctx, titleLines, x, y + 4, 14) + 7;
 
-  let metaY = y + boxH + 26;
-  setFont(ctx, family, 6.5, 500, MUTED);
-  ctx.fillText(c.exam, MX + 17, metaY);
-  setFont(ctx, family, 8.4, 600, INK);
-  ctx.fillText(story.event.examFamilies.map((value) => clean(value).toUpperCase()).join("  ·  ") || "—", MX + 123, metaY);
-  metaY += 30;
-  drawRule(ctx, metaY - 12);
-
-  const source = primarySource(story.event);
-  setFont(ctx, family, 6.5, 500, MUTED);
-  ctx.fillText(c.source, MX + 17, metaY + 7);
   setFont(ctx, family, 8.1, 400, MUTED);
-  const sourceText = source ? clean(source.name) : "—";
-  const sourceLines = clippedLines(ctx, sourceText, W - MX - (MX + 123), 2);
-  drawTextLines(ctx, sourceLines, MX + 123, metaY + 7, 10.5);
-}
+  const summaryLines = clippedLines(ctx, story.event.summary, width, 3);
+  cursor = drawTextLines(ctx, summaryLines, x, cursor, 11) + 7;
 
-function renderDetailPages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, pageStart: number) {
-  const stories = flattenStories(payload);
-  let page = pageStart;
-  for (const story of stories) {
-    page += 1;
-    const category = categoryShort(story.sectionCategory, story.sectionLabel, payload.language);
-    const right = `${COPY[payload.language].storyNote} · ${category}`;
-    const { ctx } = beginPage(doc, payload, family, page, totalPages, right, COPY[payload.language].detailFooter);
-    let y = detailTitle(ctx, payload, family, story);
-    y = drawWhyAndMemory(ctx, payload, family, story, y);
-    y = drawKeyFacts(ctx, payload, family, story, y);
-    drawRecallAndMeta(ctx, payload, family, story, Math.min(y + 8, 650));
-    endPage(doc);
+  const factText = storyFactLine(payload, story);
+  if (factText) {
+    setFont(ctx, family, 6.1, 700, accent);
+    ctx.fillText(COPY[payload.language].facts, x, cursor + 1);
+    setFont(ctx, family, 7.2, 500, INK);
+    const factLines = clippedLines(ctx, factText, width - 57, 2);
+    cursor = drawTextLines(ctx, factLines, x + 57, cursor + 1, 10) + 6;
   }
-  return page;
+
+  ctx.fillStyle = accent;
+  ctx.fillRect(x, cursor + 1, 3, 3);
+  setFont(ctx, family, 8.0, 700, INK);
+  const takeawayLines = clippedLines(ctx, dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title, width - 12, 2);
+  cursor = drawTextLines(ctx, takeawayLines, x + 10, cursor + 5, 11) + 7;
+
+  ctx.textAlign = "right";
+  setFont(ctx, family, 6.0, 500, MUTED);
+  const meta = sourceAndExam(story.event);
+  ctx.fillText(meta, W - MX, cursor + 2);
+  ctx.textAlign = "left";
+  cursor += 17;
+  drawRule(ctx, cursor, x, W - MX);
+  return cursor + 18;
 }
 
-function revisionEntry(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, x: number, y: number, width: number, height: number) {
-  setFont(ctx, family, 7.6, 700, BLUE);
-  ctx.fillText(String(story.number).padStart(2, "0"), x, y);
-  setFont(ctx, family, 6, 500, MUTED);
-  ctx.fillText(categoryShort(story.sectionCategory, story.sectionLabel, payload.language), x + 31, y);
+function renderSectionPages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, startPage: number) {
+  let page = startPage;
+  let ctx: Ctx | null = null;
+  let y = 0;
+  let currentCentre = "";
 
-  setFont(ctx, family, 11.2, 700, INK);
-  const titleLines = clippedLines(ctx, story.event.title, width - 31, 2);
-  drawTextLines(ctx, titleLines, x + 31, y + 25, 14);
-
-  setFont(ctx, family, 7.4, 400, MUTED);
-  const recallLines = clippedLines(ctx, dailyMasterPackPdfTakeaway(story.event.oneLiner), width - 31, 2);
-  drawTextLines(ctx, recallLines, x + 31, y + 58, 10.5);
-  drawRule(ctx, y + height - 7, x, x + width);
-}
-
-function renderRapidPages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, pageStart: number) {
-  const c = COPY[payload.language];
-  const stories = flattenStories(payload);
-  const perPage = 10;
-  let page = pageStart;
-  for (let offset = 0, rapidPage = 1; offset < stories.length; offset += perPage, rapidPage += 1) {
+  const openPage = (centre: string) => {
+    if (ctx) endPage(doc);
     page += 1;
-    const { ctx } = beginPage(doc, payload, family, page, totalPages, `${c.rapid} · ${payload.eventCount}`, c.rapidFooter);
-    setFont(ctx, family, 23, 700, INK);
-    ctx.fillText(c.rapidTitle(payload.eventCount, revisionMinutes(payload.eventCount)), MX, 80);
-    setFont(ctx, family, 8.8, 400, MUTED);
-    ctx.fillText(rapidPage === 1 ? c.rapidSub : `${dateLabel(payload.contentDate, payload.language)} · ${rapidPage}`, MX, 104);
-    drawRule(ctx, 128, MX, W - MX, BLUE, 1.2);
+    currentCentre = centre;
+    ctx = beginPage(doc, payload, family, page, totalPages, centre);
+    y = 91;
+  };
 
-    const chunk = stories.slice(offset, offset + perPage);
-    const gap = 42;
-    const columnW = (CW - gap) / 2;
-    const entryH = 115;
-    chunk.forEach((story, index) => {
-      const column = index < 5 ? 0 : 1;
-      const row = index % 5;
-      const x = MX + column * (columnW + gap);
-      const y = 160 + row * entryH;
-      revisionEntry(ctx, payload, family, story, x, y, columnW, entryH);
+  payload.sections.forEach((section, sectionIndex) => {
+    const stories = section.events.map((event) => {
+      const flattened = flattenStories(payload).find((story) => story.event.id === event.id)!;
+      return flattened;
     });
-    endPage(doc);
-  }
+    const accent = accentForCategory(section.category, sectionIndex);
+    if (!ctx) openPage(section.label);
+    if (y > 650) openPage(section.label);
+    y = sectionHeader(ctx!, payload, family, section, sectionIndex, y);
+
+    stories.forEach((story, storyIndex) => {
+      const needed = measureStory(ctx!, payload, family, story);
+      if (y + needed > H - 66) {
+        openPage(section.label);
+        y = sectionHeader(ctx!, payload, family, section, sectionIndex, y, storyIndex > 0);
+      }
+      y = drawStory(ctx!, payload, family, story, y, accent);
+    });
+    y += 20;
+  });
+
+  if (ctx) endPage(doc);
+  void currentCentre;
   return page;
 }
 
-function referenceRows(payload: DailyMasterPackPayload) {
-  const rows: Array<{ number: number; name: string; url: string }> = [];
-  for (const story of flattenStories(payload)) {
-    const source = primarySource(story.event);
-    if (!source?.url) continue;
-    rows.push({ number: story.number, name: clean(source.name), url: clean(source.url) });
+function rapidSectionHeight(ctx: Ctx, payload: DailyMasterPackPayload, family: string, section: DailyMasterPackPayload["sections"][number]) {
+  let height = 35;
+  for (const event of section.events) {
+    setFont(ctx, family, 8.3, 700, INK);
+    const lines = clippedLines(ctx, dailyMasterPackPdfTakeaway(event.oneLiner) || event.title, CW - 48, 2);
+    height += lines.length * 11 + 11;
   }
-  return rows;
+  return height + 15;
 }
 
-function drawReferenceEntry(ctx: Ctx, family: string, row: { number: number; name: string; url: string }, x: number, y: number, width: number) {
-  setFont(ctx, family, 7.2, 700, BLUE);
-  ctx.fillText(String(row.number).padStart(2, "0"), x, y);
-  setFont(ctx, family, 8.6, 600, INK);
-  const nameLines = clippedLines(ctx, row.name, width - 30, 2);
-  let cursor = drawTextLines(ctx, nameLines, x + 30, y, 11.5) + 5;
-  setFont(ctx, family, 6.6, 400, MUTED);
-  const urlLines = clippedLines(ctx, row.url, width - 30, 3);
-  cursor = drawTextLines(ctx, urlLines, x + 30, cursor, 9.3);
-  drawRule(ctx, y + 75, x, x + width);
-  return cursor;
+function drawRapidSection(ctx: Ctx, payload: DailyMasterPackPayload, family: string, section: DailyMasterPackPayload["sections"][number], sectionIndex: number, y: number) {
+  const accent = accentForCategory(section.category, sectionIndex);
+  setFont(ctx, family, 7.2, 700, accent);
+  ctx.fillText(String(sectionIndex + 1).padStart(2, "0"), MX, y);
+  setFont(ctx, family, 10.5, 700, INK);
+  ctx.fillText(section.label, MX + 30, y);
+  let cursor = y + 29;
+  for (const event of section.events) {
+    ctx.fillStyle = accent;
+    ctx.fillRect(MX + 30, cursor - 3, 3, 3);
+    setFont(ctx, family, 8.3, 700, INK);
+    const lines = clippedLines(ctx, dailyMasterPackPdfTakeaway(event.oneLiner) || event.title, CW - 48, 2);
+    cursor = drawTextLines(ctx, lines, MX + 47, cursor, 11) + 10;
+  }
+  drawRule(ctx, cursor, MX + 30, W - MX);
+  return cursor + 24;
 }
 
-function renderReferencePages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, pageStart: number) {
+function renderRapidPages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, startPage: number) {
   const c = COPY[payload.language];
-  const rows = referenceRows(payload);
-  if (!rows.length) return pageStart;
-  const perPage = 14;
-  let page = pageStart;
-  for (let offset = 0, refsPage = 1; offset < rows.length; offset += perPage, refsPage += 1) {
+  let page = startPage;
+  let ctx: Ctx | null = null;
+  let y = 0;
+  let rapidPage = 0;
+
+  const openPage = () => {
+    if (ctx) endPage(doc);
     page += 1;
-    const { ctx } = beginPage(doc, payload, family, page, totalPages, `${c.refs} · ${dateLabel(payload.contentDate, payload.language)}`, c.refsFooter);
+    rapidPage += 1;
+    ctx = beginPage(doc, payload, family, page, totalPages, c.rapid);
+    setFont(ctx, family, 7.1, 700, BLUE);
+    ctx.fillText(c.rapid, MX, 108);
     setFont(ctx, family, 21, 700, INK);
-    ctx.fillText(c.refs, MX, 80);
-    setFont(ctx, family, 8.4, 400, MUTED);
-    ctx.fillText(refsPage === 1 ? c.refsSub : `${dateLabel(payload.contentDate, payload.language)} · ${refsPage}`, MX, 102);
-    drawRule(ctx, 126, MX, W - MX, BLUE, 1.2);
+    ctx.fillText(c.rapidHero, MX, 146);
+    setFont(ctx, family, 8.6, 400, MUTED);
+    ctx.fillText(rapidPage === 1 ? c.rapidSub : `${pageDate(payload.contentDate, payload.language)} · ${rapidPage}`, MX, 172);
+    y = 222;
+  };
 
-    const chunk = rows.slice(offset, offset + perPage);
-    const gap = 34;
-    const columnW = (CW - gap) / 2;
-    chunk.forEach((row, index) => {
-      const column = index < 7 ? 0 : 1;
-      const itemRow = index % 7;
-      const x = MX + column * (columnW + gap);
-      const y = 158 + itemRow * 88;
-      drawReferenceEntry(ctx, family, row, x, y, columnW);
-    });
-    endPage(doc);
-  }
+  openPage();
+  payload.sections.forEach((section, sectionIndex) => {
+    const needed = rapidSectionHeight(ctx!, payload, family, section);
+    if (y + needed > H - 72) openPage();
+    y = drawRapidSection(ctx!, payload, family, section, sectionIndex, y);
+  });
+  if (ctx) endPage(doc);
   return page;
 }
 
@@ -959,16 +813,15 @@ export function assertDailyMasterPackPdfPayload(value: unknown): DailyMasterPack
 
 function renderDoc(payload: DailyMasterPackPayload, family: string, totalPages?: number) {
   const doc = new PDFDocument({
-    title: `Examtree ${COPY[payload.language].currentAffairs} - ${payload.contentDate}`,
+    title: `Examtree Daily Current Affairs - ${payload.contentDate}`,
     author: "Examtree",
     subject: "Daily Current Affairs",
     creator: "Examtree Current Affairs Studio",
   });
-  let page = 0;
-  page = renderBriefPages(doc, payload, family, totalPages, page);
-  page = renderDetailPages(doc, payload, family, totalPages, page);
+  let page = 1;
+  renderOverview(doc, payload, family, totalPages, page);
+  page = renderSectionPages(doc, payload, family, totalPages, page);
   page = renderRapidPages(doc, payload, family, totalPages, page);
-  page = renderReferencePages(doc, payload, family, totalPages, page);
   return { buffer: doc.close(), pageCount: page };
 }
 
