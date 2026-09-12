@@ -1,4 +1,4 @@
-name: ARG-001 final merge conflict diagnostic
+name: ARG-001 final New-main reconciliation
 
 on:
   push:
@@ -11,32 +11,35 @@ permissions:
   contents: write
 
 jobs:
-  diagnose:
+  reconcile:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: feature/arg-001-cp012-editorial-remediation
           fetch-depth: 0
-      - name: Diagnose merge conflicts against New-main
+      - name: Merge New-main preserving reconciled Question Studio registry
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin New-main
           set +e
-          git merge --no-commit --no-ff origin/New-main
+          git merge --no-ff origin/New-main -m "Merge New-main into ARG-001 final branch"
           rc=$?
-          if [ "$rc" -eq 0 ]; then
-            printf '%s\n' 'NO_CONFLICTS' > /tmp/arg-conflicts.txt
-            git merge --abort || true
-          else
-            git diff --name-only --diff-filter=U > /tmp/arg-conflicts.txt
-            git merge --abort || true
+          set -e
+          if [ "$rc" -ne 0 ]; then
+            conflicts="$(git diff --name-only --diff-filter=U)"
+            expected="artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+            if [ "$conflicts" != "$expected" ]; then
+              printf 'Unexpected merge conflicts:\n%s\n' "$conflicts"
+              git merge --abort || true
+              exit 1
+            fi
+            # Our branch copy is already the reviewed union: it keeps every
+            # current New-main registration and adds ARG-001 CP015/fallbacks.
+            git checkout --ours -- "$expected"
+            git add "$expected"
+            git commit -m "Merge New-main into ARG-001 final branch"
           fi
-          mkdir -p docs/review
-          cp /tmp/arg-conflicts.txt docs/review/ARG-001-FINAL-MERGE-CONFLICTS.txt
-          git add docs/review/ARG-001-FINAL-MERGE-CONFLICTS.txt
-          git diff --cached --quiet && exit 0
-          git commit -m "chore(arg-001): record final merge conflicts"
           git push origin HEAD:feature/arg-001-cp012-editorial-remediation
