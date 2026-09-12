@@ -1,6 +1,6 @@
 # ENG-001 CP005 — Prepositions — Source and Coverage Audit V1
 
-Status: `SOURCE_AUDIT_V1__IMPLEMENTED__CI_PENDING__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `SOURCE_AUDIT_V1__HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY__MERGE_PENDING`
 
 ## Scope
 
@@ -86,14 +86,27 @@ The stress test generates 3,000 questions per difficulty, verifies deterministic
 
 ## Human-review artifact
 
-A deterministic exporter produces a 60-question Markdown review batch with 20 Easy, 20 Medium and 20 Hard questions. The review artifact is generated in CI and remains a review candidate until explicit human approval.
+A deterministic exporter produces a 60-question Markdown review batch with 20 Easy, 20 Medium and 20 Hard questions. The reviewed artifact has received explicit human editorial approval and is pinned by the CP005 approval authority. Future editorial changes must be made at source/generator level and regenerated rather than patched directly in the review output.
+
+## Question Studio registration
+
+CP005 is registered in the shared `language-v1` / `ENG-001` Question Studio package for review-only generation. CP001–CP004 compatibility is preserved, and the legacy package-only route continues to retain its existing default behavior.
+
+Approval in Question Studio remains an editorial-review action only. It does not authorize a Question Bank write or any learner-facing release.
 
 ## Lifecycle gate
 
 Current gate:
 
-`CP005_V1_IMPLEMENTED__CI_PENDING__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+`CP005_V1_HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY__MERGE_PENDING`
 
-CP005 must not be registered in Question Studio, promoted to the Question Bank, used in tests or mock tests, or made publicly publishable before explicit human approval and the subsequent integration checkpoint.
+Still locked:
 
-Any defect found in human review must be corrected in the source catalog, grammar rule, generator or validator and then regenerated. Direct patching of review output is not an accepted revision path.
+- Question Bank writes
+- test eligibility
+- mock-test eligibility
+- public publication
+- automatic learner delivery
+- production release
+
+Any future defect must be corrected in the source catalog, grammar rule, generator or validator and then regenerated. Direct patching of review output is not an accepted revision path.
