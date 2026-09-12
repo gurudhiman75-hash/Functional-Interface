@@ -4,6 +4,7 @@ import { GEO_PHY_001_CP001_DIVISION_ROWS_V1 } from "./geo-phy-001-cp001-facts";
 import type { GeoPhy001Cp001ReviewQuestion } from "./geo-phy-001-cp001-review-types";
 
 const rows = GEO_PHY_001_CP001_DIVISION_ROWS_V1;
+const pluralDivisionIds = new Set(["himalayan-mountains", "northern-plains", "coastal-plains", "islands"]);
 const qlNames: Record<string, string> = {
   "GEO-PHY-001-QL-001": "Identify physiographic division from description",
   "GEO-PHY-001-QL-002": "Identify defining feature of a division",
@@ -24,6 +25,10 @@ function targetDifficulty(ql: number): KnowledgeV1Difficulty {
 
 function withArticle(phrase: string) {
   return `${/^[aeiou]/i.test(phrase) ? "an" : "a"} ${phrase}`;
+}
+
+function describedAs(row: (typeof rows)[number], description: string) {
+  return `${row.division} ${pluralDivisionIds.has(row.id) ? "are" : "is"} described as ${withArticle(description)}`;
 }
 
 function moveCorrect(options: string[], correct: string, target: number) {
@@ -77,7 +82,7 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): GeoPhy
     correct = `${row.division} — ${wrongDescription}`;
     const truePairs = rows.filter((_, i) => i !== rowIndex).map((r) => `${r.division} — ${r.contrastDescription}`);
     options = optionSet([correct, ...truePairs], `${qlId}:${row.id}`, correct, correctTarget);
-    explanation = `${row.division} is not ${withArticle(wrongDescription)}; it is ${withArticle(row.contrastDescription)}.`;
+    explanation = `The description “${wrongDescription}” does not apply to ${row.division}; ${describedAs(row, row.contrastDescription)}.`;
   } else if (ql === 5) {
     stem = `Which major physiographic division is broadly associated with ${row.broadLocation}?`;
     correct = row.division;
@@ -94,7 +99,7 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): GeoPhy
       `${row.division}: ${row.contrastDescription}; ${other.division}: ${rows[(rowIndex + 2) % rows.length].contrastDescription}`,
     ];
     options = moveCorrect(deterministicShuffle(candidates, `${qlId}:${row.id}`), correct, correctTarget);
-    explanation = `${row.division} is ${withArticle(row.contrastDescription)}, while ${other.division} is ${withArticle(other.contrastDescription)}.`;
+    explanation = `${describedAs(row, row.contrastDescription)}, while ${describedAs(other, other.contrastDescription)}.`;
     sourceIds.push(...other.sourceIds);
     sourceFactIds.push(...other.sourceFactIds);
   } else if (ql === 7) {
@@ -102,12 +107,12 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): GeoPhy
     const mode = rowIndex % 4;
     const s1True = mode === 0 || mode === 2;
     const s2True = mode === 0 || mode === 1;
-    const s1 = s1True ? `${row.division} is ${withArticle(row.contrastDescription)}.` : `${row.division} is ${withArticle(second.contrastDescription)}.`;
-    const s2 = s2True ? `${second.division} is ${withArticle(second.contrastDescription)}.` : `${second.division} is ${withArticle(row.contrastDescription)}.`;
+    const s1 = `${describedAs(row, s1True ? row.contrastDescription : second.contrastDescription)}.`;
+    const s2 = `${describedAs(second, s2True ? second.contrastDescription : row.contrastDescription)}.`;
     stem = `Consider the following statements:\nI. ${s1}\nII. ${s2}\nWhich of the statements given above is/are correct?`;
     correct = s1True && s2True ? "Both I and II" : s1True ? "I only" : s2True ? "II only" : "Neither I nor II";
     options = moveCorrect(["I only", "II only", "Both I and II", "Neither I nor II"], correct, correctTarget);
-    explanation = `${row.division} is ${withArticle(row.contrastDescription)}; ${second.division} is ${withArticle(second.contrastDescription)}.`;
+    explanation = `${describedAs(row, row.contrastDescription)}; ${describedAs(second, second.contrastDescription)}.`;
     sourceIds.push(...second.sourceIds);
     sourceFactIds.push(...second.sourceFactIds);
   } else if (ql === 8) {
@@ -115,8 +120,8 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): GeoPhy
     const third = rows[(rowIndex + 2) % rows.length];
     const falseAt = rowIndex % 4;
     const statements = [row, second, third].map((r, i) => {
-      if (falseAt < 3 && i === falseAt) return `${r.division} is ${withArticle(rows[(rowIndex + i + 3) % rows.length].contrastDescription)}.`;
-      return `${r.division} is ${withArticle(r.contrastDescription)}.`;
+      const description = falseAt < 3 && i === falseAt ? rows[(rowIndex + i + 3) % rows.length].contrastDescription : r.contrastDescription;
+      return `${describedAs(r, description)}.`;
     });
     const count = falseAt < 3 ? 2 : 3;
     stem = `Consider the following statements:\n1. ${statements[0]}\n2. ${statements[1]}\n3. ${statements[2]}\nHow many of the statements given above are correct?`;
