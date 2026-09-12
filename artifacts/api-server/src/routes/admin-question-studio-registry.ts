@@ -9,7 +9,9 @@ import adminQuestionStudioArgumentsCp012Router from "./admin-question-studio-arg
 import adminQuestionStudioArgumentsCp010Router from "./admin-question-studio-arguments-cp010";
 import adminQuestionStudioArgumentsCp007Router from "./admin-question-studio-arguments-cp007-v2";
 import adminQuestionStudioArgumentsRouter from "./admin-question-studio-arguments";
+import adminQuestionStudioCom003Router from "./admin-question-studio-com003";
 import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
+import adminQuestionStudioEngineV1Router from "./admin-question-studio-engine-v1";
 import adminQuestionStudioDataSufficiencyCurrentRouter from "./admin-question-studio-data-sufficiency-current";
 import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";
 import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";
@@ -18,7 +20,9 @@ import adminQuestionStudioAverageRouter from "./admin-question-studio-average";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioCalibrationRouter from "./admin-question-studio-calibration";
 import adminQuestionStudioMixedDifficultyRouter from "./admin-question-studio-mixed-difficulty";
+import adminQuestionStudioSeriesWorkflowRouter from "./admin-question-studio-series-workflow";
 import adminQuestionStudioSeriesRouter from "./admin-question-studio-series";
+import adminQuestionStudioInterestChapterRouter from "./admin-question-studio-interest-chapter";
 import adminQuestionStudioInterestRouter from "./admin-question-studio-interest";
 import adminQuestionStudioMensurationRouter from "./admin-question-studio-mensuration";
 import adminQuestionStudioMensurationFullRouter from "./admin-question-studio-mensuration-full";
@@ -26,22 +30,22 @@ import adminQuestionStudioAlgebraRouter from "./admin-question-studio-algebra";
 import adminQuestionStudioDataSufficiencyRouter from "./admin-question-studio-data-sufficiency";
 import adminQuestionStudioProbabilityRouter from "./admin-question-studio-probability";
 import adminQuestionStudioCalendarRouter from "./admin-question-studio-calendar";
+import adminQuestionStudioCubesDiceWorkflowRouter from "./admin-question-studio-cubes-dice-workflow";
+import adminQuestionStudioCubesDiceRouter from "./admin-question-studio-cubes-dice";
+import adminQuestionStudioSpatialWorkflowRouter from "./admin-question-studio-spatial-workflow";
+import adminQuestionStudioSpatialV5Router from "./admin-question-studio-spatial-v5";
 import adminQuestionStudioSpatialRouter from "./admin-question-studio-spatial";
 import adminQuestionStudioRouter from "./admin-question-studio";
 
 /**
  * Canonical Question Studio route registry.
  *
- * Chapter/package integrations belong here instead of routes/index.ts. Keeping
- * the global route index stable prevents unrelated chapter workflows from
- * firing whenever one Question Studio package is added or reordered.
- *
- * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. ARG-001 CP015 is the current
- * diversity-hardened internal authority. It preserves CP014's explicit manual
- * approval and internal lifecycle, expands two-argument SSC/banking variety
- * from the approved core semantic pool, and keeps all public/student delivery
- * gates closed. CP014/CP013/CP012/CP010/CP007/CP005 remain historical fallbacks.
+ * Specialized hardening/read-only and governed chapter routers run before the
+ * generic engine and legacy catch-all surfaces. ARG-001 CP015 is the current
+ * diversity-hardened internal authority; CP014/CP013/CP012/CP010/CP007 and the
+ * base ARG router remain historical fallbacks. COM-003, SRI and the multi-engine
+ * V1 route retain their current New-main ownership and ordering, followed by
+ * chapter/workflow routers and compatibility fallbacks.
  */
 const router: IRouter = Router();
 
@@ -54,7 +58,9 @@ router.use(adminQuestionStudioArgumentsCp012Router);
 router.use(adminQuestionStudioArgumentsCp010Router);
 router.use(adminQuestionStudioArgumentsCp007Router);
 router.use(adminQuestionStudioArgumentsRouter);
+router.use(adminQuestionStudioCom003Router);
 router.use(adminQuestionStudioSriRouter);
+router.use(adminQuestionStudioEngineV1Router);
 router.use(adminQuestionStudioDataSufficiencyCurrentRouter);
 router.use(adminQuestionStudioCp014Router);
 router.use(adminQuestionStudioTrigonometryRouter);
@@ -63,7 +69,9 @@ router.use(adminQuestionStudioAverageRouter);
 router.use(adminQuestionStudioRegenerationRouter);
 router.use(adminQuestionStudioCalibrationRouter);
 router.use(adminQuestionStudioMixedDifficultyRouter);
+router.use(adminQuestionStudioSeriesWorkflowRouter);
 router.use(adminQuestionStudioSeriesRouter);
+router.use(adminQuestionStudioInterestChapterRouter);
 router.use(adminQuestionStudioInterestRouter);
 router.use(adminQuestionStudioMensurationRouter);
 router.use(adminQuestionStudioMensurationFullRouter);
@@ -71,6 +79,11 @@ router.use(adminQuestionStudioAlgebraRouter);
 router.use(adminQuestionStudioDataSufficiencyRouter);
 router.use(adminQuestionStudioProbabilityRouter);
 router.use(adminQuestionStudioCalendarRouter);
+router.use(adminQuestionStudioCubesDiceWorkflowRouter);
+router.use(adminQuestionStudioCubesDiceRouter);
+router.use(adminQuestionStudioSpatialWorkflowRouter);
+router.use(adminQuestionStudioSpatialV5Router);
+// Retain the prior Spatial router as a compatibility fallback; V5 owns the current endpoints above.
 router.use(adminQuestionStudioSpatialRouter);
 router.use(adminQuestionStudioRouter);
 
