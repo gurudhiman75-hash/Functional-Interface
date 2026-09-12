@@ -11,12 +11,100 @@ function getGeminiApiKey() {
   );
 }
 
+function isGemini3Model(model: string) {
+  return /^gemini-3(?:\.|-|$)/i.test(model);
+}
+
+/**
+ * Keep Gemini's HTTP transport intentionally minimal. Notes Studio already
+ * performs strict deterministic validation after generation, so sending JSON
+ * Schema through Gemini's version-sensitive structured-output fields adds
+ * failure modes without adding a trust boundary. The expected JSON shape is
+ * instead embedded in the prompt and validated server-side before persistence.
+ */
+export function buildGeminiGenerationConfig(input: {
+  model: string;
+  temperature?: number;
+  responseSchema?: Record<string, unknown>;
+}) {
+  const generationConfig: Record<string, unknown> = {};
+  if (!isGemini3Model(input.model)) {
+    generationConfig.temperature = input.temperature ?? 0;
+  }
+  return generationConfig;
+}
+
+export function buildGeminiJsonInstruction(
+  responseSchema?: Record<string, unknown>,
+): string | null {
+  if (!responseSchema) return null;
+  return [
+    "Return ONLY one valid JSON value. Do not use Markdown fences or explanatory text.",
+    "The server will strictly validate the JSON after generation. Match this JSON Schema exactly:",
+    JSON.stringify(responseSchema),
+  ].join("\n");
+}
+
+export function isTransientGeminiStatus(status: number) {
+  return status === 408
+    || status === 429
+    || status === 500
+    || status === 502
+    || status === 503
+    || status === 504;
+}
+
+export function geminiRetryDelayMs(retryIndex: number) {
+  const bounded = Math.max(0, Math.min(Math.trunc(retryIndex), 4));
+  return Math.min(500 * (2 ** bounded), 4_000);
+}
+
+export function geminiServerRetryDelayMs(errorText: string) {
+  const match = errorText.match(/(?:please\s+retry\s+in|retryDelay["']?\s*[:=]\s*["']?)\s*([0-9]+(?:\.[0-9]+)?)s/i);
+  if (!match) return null;
+  const seconds = Number(match[1]);
+  if (!Number.isFinite(seconds) || seconds <= 0) return null;
+  return Math.min(Math.ceil(seconds * 1_000) + 1_000, 120_000);
+}
+
+function isNotesStudioV2FactExtraction(responseSchemaName?: string) {
+  return responseSchemaName === "notes_studio_v2_extracted_facts";
+}
+
+export function geminiFallbackModel(primaryModel: string) {
+  const configured = String(process.env["GEMINI_FALLBACK_MODEL"] ?? "").trim();
+  if (configured && configured !== primaryModel) return configured;
+  if (/^gemini-3\.7-flash(?:$|-)/i.test(primaryModel)) return "gemini-3.6-flash";
+  // Do not implicitly fall back from the current 3.6 production model to 2.5.
+  // Google may reject 2.5 for newer API projects; an older model is used only
+  // when an operator explicitly configures GEMINI_FALLBACK_MODEL.
+  return null;
+}
+
+function wait(ms: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
+type GeminiCallSuccess = {
+  ok: true;
+  model: string;
+  raw: any;
+};
+
+type GeminiCallFailure = {
+  ok: false;
+  model: string;
+  status: number | null;
+  errorText: string;
+  transient: boolean;
+};
+
 export const geminiProvider: AIProviderAdapter = {
   name: "gemini",
   defaultModel:
     process.env[
       "GEMINI_KNOWLEDGE_EXTRACTION_MODEL"
-    ] ?? "gemini-1.5-flash",
+    ] ?? "gemini-3.6-flash",
   isConfigured() {
     return Boolean(getGeminiApiKey());
   },
@@ -29,60 +117,151 @@ export const geminiProvider: AIProviderAdapter = {
   },
   async extract(request) {
     this.assertConfigured();
-    const model =
+    const primaryModel =
       request.model ?? this.defaultModel;
-    const endpoint = `${
-      process.env["GEMINI_BASE_URL"] ??
-      "https://generativelanguage.googleapis.com/v1beta"
-    }/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(getGeminiApiKey() ?? "")}`;
-
-    const controller =
-      new AbortController();
+    const notesStudioV2FactExtraction = isNotesStudioV2FactExtraction(
+      request.responseSchemaName,
+    );
+    const maxRetries = Math.max(
+      0,
+      Math.min(
+        Math.trunc(request.maxRetries ?? (notesStudioV2FactExtraction ? 2 : 0)),
+        4,
+      ),
+    );
+    const controller = new AbortController();
+    const timeoutMs = notesStudioV2FactExtraction
+      ? Math.max(request.timeoutMs ?? 60_000, 360_000)
+      : request.timeoutMs ?? 60_000;
     const timeout = setTimeout(
       () => controller.abort(),
-      request.timeoutMs ?? 60_000,
+      timeoutMs,
+    );
+    const warnings: string[] = [];
+    const jsonInstruction = buildGeminiJsonInstruction(
+      request.responseSchema as Record<string, unknown> | undefined,
     );
 
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        signal: controller.signal,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [
-                {
-                  text: [
-                    request.prompt.system,
-                    request.prompt.user,
-                    request.input ?? "",
-                  ]
-                    .filter(Boolean)
-                    .join("\n\n"),
-                },
-              ],
-            },
-          ],
-          generationConfig: {
-            temperature:
-              request.temperature ?? 0,
-            responseMimeType:
-              "application/json",
+    const callModel = async (
+      model: string,
+      attempts: number,
+    ): Promise<GeminiCallSuccess | GeminiCallFailure> => {
+      const endpoint = `${
+        process.env["GEMINI_BASE_URL"] ??
+        "https://generativelanguage.googleapis.com/v1beta"
+      }/models/${encodeURIComponent(model)}:generateContent`;
+      const generationConfig = buildGeminiGenerationConfig({
+        model,
+        temperature: request.temperature,
+        responseSchema: request.responseSchema as Record<string, unknown> | undefined,
+      });
+      const body = JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts: [
+              {
+                text: [
+                  request.prompt.system,
+                  request.prompt.user,
+                  request.input ?? "",
+                  jsonInstruction ?? "",
+                ]
+                  .filter(Boolean)
+                  .join("\n\n"),
+              },
+            ],
           },
-        }),
+        ],
+        ...(Object.keys(generationConfig).length > 0
+          ? { generationConfig }
+          : {}),
       });
 
-      if (!response.ok) {
+      let lastFailure: GeminiCallFailure = {
+        ok: false,
+        model,
+        status: null,
+        errorText: "Gemini request failed before receiving a response.",
+        transient: true,
+      };
+
+      for (let attempt = 0; attempt < attempts; attempt += 1) {
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            signal: controller.signal,
+            headers: {
+              "Content-Type": "application/json",
+              "x-goog-api-key": getGeminiApiKey() ?? "",
+            },
+            body,
+          });
+
+          if (response.ok) {
+            return {
+              ok: true,
+              model,
+              raw: await response.json(),
+            };
+          }
+
+          const errorText = await response.text();
+          lastFailure = {
+            ok: false,
+            model,
+            status: response.status,
+            errorText,
+            transient: isTransientGeminiStatus(response.status),
+          };
+          if (!lastFailure.transient || attempt >= attempts - 1) break;
+        } catch (error) {
+          if (controller.signal.aborted) throw error;
+          lastFailure = {
+            ok: false,
+            model,
+            status: null,
+            errorText: error instanceof Error ? error.message : String(error),
+            transient: true,
+          };
+          if (attempt >= attempts - 1) break;
+        }
+
+        const serverRetryDelay = lastFailure.status === 429
+          ? geminiServerRetryDelayMs(lastFailure.errorText)
+          : null;
+        const delayMs = serverRetryDelay ?? geminiRetryDelayMs(attempt);
+        if (serverRetryDelay) {
+          console.warn(
+            `[notes-studio-v2] Gemini quota window active; retrying ${model} in ${Math.round(delayMs / 1000)}s.`,
+          );
+        }
+        await wait(delayMs);
+      }
+
+      return lastFailure;
+    };
+
+    try {
+      let result = await callModel(primaryModel, maxRetries + 1);
+      if (!result.ok && result.transient) {
+        const fallbackModel = geminiFallbackModel(primaryModel);
+        if (fallbackModel) {
+          warnings.push(
+            `Gemini ${primaryModel} was temporarily unavailable after ${maxRetries + 1} attempt(s); used fallback ${fallbackModel}.`,
+          );
+          result = await callModel(fallbackModel, 1);
+        }
+      }
+
+      if (!result.ok) {
+        const status = result.status === null ? "network error" : `status ${result.status}`;
         throw new Error(
-          `Gemini request failed with status ${response.status}: ${await response.text()}`,
+          `Gemini request failed with ${status} on ${result.model}: ${result.errorText}`,
         );
       }
 
-      const raw = await response.json();
+      const raw = result.raw;
       const text =
         raw?.candidates?.[0]?.content
           ?.parts?.map(
@@ -102,7 +281,7 @@ export const geminiProvider: AIProviderAdapter = {
 
       return {
         provider: "gemini",
-        model,
+        model: result.model,
         text,
         json: parseJsonFromText(text),
         usage: {
@@ -116,7 +295,7 @@ export const geminiProvider: AIProviderAdapter = {
               outputTokens,
         },
         raw,
-        warnings: [],
+        warnings,
       };
     } finally {
       clearTimeout(timeout);
@@ -125,4 +304,3 @@ export const geminiProvider: AIProviderAdapter = {
 };
 
 export const geminiEmptyUsage = emptyUsage;
-

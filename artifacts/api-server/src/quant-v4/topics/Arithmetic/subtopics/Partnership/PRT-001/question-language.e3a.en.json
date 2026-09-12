@@ -1,0 +1,13 @@
+{
+  "language": "en",
+  "status": "E3_EXPANSION_A",
+  "entries": {
+    "PRT-QL-057": "In a {business}, {partnerA} invested {capitalA} for {durationA}, while {partnerB} invested {capitalB} for {durationB}. The difference between their profit shares was {shareDifference}. Find the total profit.",
+    "PRT-QL-058": "In a one-year {business}, {partnerA} started with {initialCapitalA} and increased the capital after {changeMonthA}. {partnerB} kept {capitalB} invested throughout. If their profit ratio was {profitRatioA}:{profitRatioB}, by what percentage did {partnerA} increase the capital?",
+    "PRT-QL-059": "In a one-year {business}, {partnerA} started with an unknown capital and added {addedCapitalA} after {changeMonthA}. {partnerB} kept {capitalB} invested throughout. The total profit was {totalProfit}, of which {partnerA} received {knownShare}. Find {partnerA}'s initial capital.",
+    "PRT-QL-060": "In a {business}, {partnerA}, {partnerB} and {partnerC} invested {capitalA}, {capitalB} and {capitalC}, and shared the profit in the ratio {profitRatioA}:{profitRatioB}:{profitRatioC}. Find the ratio of their investment periods.",
+    "PRT-QL-061": "In a {business}, {partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods. {partnerA} received a commission equal to some percentage of the gross profit before the remainder was divided in their capital ratio. If gross profit was {totalProfit} and {partnerA}'s final receipt was {finalReceipt}, find the commission percentage.",
+    "PRT-QL-062": "In a {business}, {partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods. A fixed amount was deducted from gross profit before distribution. If gross profit was {totalProfit} and {partnerB}'s profit share was {knownShare}, find the deduction.",
+    "PRT-QL-063": "In a {business}, {partnerA} received a salary of {salary} before the remaining profit was divided between {partnerA} and {partnerB}. Their final receipts were {finalReceiptA} and {finalReceiptB}. Find the ratio in which the remaining profit was shared."
+  }
+}

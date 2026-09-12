@@ -1,0 +1,77 @@
+name: Validate English CP004 V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types:
+      - opened
+      - reopened
+      - synchronize
+    paths:
+      - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
+      - .github/workflows/english-cp004-v1.yml
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
+      - .github/workflows/english-cp004-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-cp004-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp004-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Compile CP004 V1 stress test
+        run: |
+          mkdir -p artifacts/api-server/dist/english-v1
+          pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-001-cp004-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-001-cp004-v1.test.mjs
+      - name: Run CP004 V1 generation and validation matrix
+        run: node artifacts/api-server/dist/english-v1/eng-001-cp004-v1.test.mjs
+      - name: Compile CP004 V1 review exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-001-cp004-v1-review.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-001-cp004-v1-review.test.mjs
+      - name: Generate CP004 V1 human review artifact
+        run: node artifacts/api-server/dist/english-v1/eng-001-cp004-v1-review.test.mjs
+      - name: Upload CP004 V1 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ENG-001-CP004-REVIEW-V1
+          path: dist/english-v1/ENG-001-CP004-REVIEW-V1.md
+          if-no-files-found: error
+      - name: Compile CP004 Question Studio integration test
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng001-cp004-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/language-v1-eng001-cp004-adapter-v1.test.mjs
+      - name: Run CP004 Question Studio review-only integration
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng001-cp004-adapter-v1.test.mjs
+      - name: Compile existing ENG-001 Question Studio regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng001-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/language-v1-eng001-regression.test.mjs
+      - name: Run existing ENG-001 Question Studio regression
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng001-regression.test.mjs
+      - name: Compile CP003 regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-001-cp003-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-001-cp003-v1-regression.test.mjs
+      - name: Re-run approved CP003 regression
+        run: node artifacts/api-server/dist/english-v1/eng-001-cp003-v1-regression.test.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app exec tsc --noEmit

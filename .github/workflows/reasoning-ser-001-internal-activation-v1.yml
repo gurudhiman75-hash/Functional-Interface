@@ -1,0 +1,66 @@
+name: Validate SER-001 Internal Test Builder Activation V1
+
+on:
+  push:
+    branches:
+      - feat/ser-001-internal-activation-v1
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/**"
+      - "artifacts/api-server/src/routes/admin-question-studio-series.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-series-workflow.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts"
+      - "artifacts/admin-app/src/features/question-studio/series-review-api.ts"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSeriesReviewPanel.tsx"
+      - ".github/workflows/reasoning-ser-001-internal-activation-v1.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-ser-internal-activation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin Question Studio UI
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Bundle SER internal activation proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/series
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/ser-001-internal-activation-v1.test.ts \
+            --bundle --platform=node --format=cjs \
+            --outfile=dist/reasoning-v1/series/ser-001-internal-activation-v1.test.cjs
+
+      - name: Validate SER internal lifecycle
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/examtree_ci
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/series/ser-001-internal-activation-v1.test.cjs \
+            | tee dist/reasoning-v1/series/ser-001-internal-activation-v1-run.log
+
+      - name: Upload SER activation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: reasoning-ser-001-internal-activation-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/series/ser-001-internal-activation-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/series/ser-001-internal-activation-v1-run.log

@@ -35,12 +35,17 @@ type Recommendation = {
   reason: string;
   coverageSimilarity: number;
   acceptedClaimCount: number;
+  retainedAcceptedClaimCount: number;
+  referenceAcceptedClaimCount: number;
   priorJobCount: number;
   approvedUseCount: number;
   exactSyllabusRefHits: number;
   sameTaxonomyNodeUses: number;
   sameTaxonomyCodeUses: number;
   identityNovel: boolean;
+  evidencePath: 'retained_ready' | 'reference_review_required';
+  referenceReviewRequired: boolean;
+  historicalReferenceEvidenceTransferred: false;
   recommendedRole: string;
   historicalRoles: string[];
 };
@@ -64,6 +69,7 @@ type GapResponse = {
   automaticAttachment: boolean;
   automaticEvidenceAcceptance: boolean;
   automaticGeneration: boolean;
+  historicalReferenceEvidenceTransferred: boolean;
   sourcePackMutable: boolean;
   progressedJobAction?: string;
 };
@@ -245,7 +251,7 @@ export function NotesStudioGapSourceRecommendationsPage() {
           <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
           <div>
             <div className="font-medium">Evidence history, not source guessing</div>
-            <p className="mt-1 text-muted-foreground">A source is ranked only when it previously backed accepted claims on related Notes coverage. Duplicate content and non-generation-ready sources are excluded. Raw retained source bodies are never returned here.</p>
+            <p className="mt-1 text-muted-foreground">A source is ranked only when it previously backed accepted claims on related Notes coverage through retained evidence or a reviewed editor reference note. Duplicate content and sources without a governed evidence path are excluded. Historical reference notes are never transferred.</p>
           </div>
         </div>
       </CardContent>
@@ -265,7 +271,7 @@ export function NotesStudioGapSourceRecommendationsPage() {
         {canResearchRestart && canEdit && <div className="space-y-1.5">
           <Label>Restart reason</Label>
           <Textarea value={restartReason} onChange={(event) => setRestartReason(event.target.value)} placeholder="Example: The river-system gap still lacks an official basin source; return to source collection before further drafting." />
-          <p className="text-xs text-muted-foreground">The chosen source below is recorded only as research intent. You must attach it explicitly after restart.</p>
+          <p className="text-xs text-muted-foreground">The chosen source below is recorded only as research intent. You must attach it explicitly after restart. Reference-only recommendations still require fresh Reference Evidence review after attachment.</p>
         </div>}
       </CardContent>
     </Card>}
@@ -291,12 +297,17 @@ export function NotesStudioGapSourceRecommendationsPage() {
           {gap.recommendations.map((source) => <div key={source.id} className="rounded-lg border p-3">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div className="min-w-0"><div className="font-medium">{source.title}</div><div className="mt-0.5 text-xs text-muted-foreground">{source.publisher || sourceHost(source.sourceUri)} · {pretty(source.recommendedRole)}</div></div>
-              <div className="flex gap-1.5"><Badge>Score {source.score}</Badge>{source.identityNovel && <Badge variant="outline">New identity</Badge>}</div>
+              <div className="flex flex-wrap gap-1.5">
+                <Badge>Score {source.score}</Badge>
+                {source.identityNovel && <Badge variant="outline">New identity</Badge>}
+                <Badge variant={source.referenceReviewRequired ? 'secondary' : 'outline'}>{source.referenceReviewRequired ? 'Fresh reference review' : 'Retained evidence ready'}</Badge>
+              </div>
             </div>
             <div className="mt-2 text-sm">{source.reason}</div>
             <div className="mt-1 text-xs text-muted-foreground">
-              {source.acceptedClaimCount} accepted claim(s) · {source.priorJobCount} prior job(s) · {source.approvedUseCount} approved use(s) · similarity {Math.round(source.coverageSimilarity * 100)}%
+              {source.acceptedClaimCount} accepted claim(s) · {source.retainedAcceptedClaimCount} retained-backed · {source.referenceAcceptedClaimCount} reference-backed · {source.priorJobCount} prior job(s) · {source.approvedUseCount} approved use(s) · similarity {Math.round(source.coverageSimilarity * 100)}%
             </div>
+            {source.referenceReviewRequired && <div className="mt-2 rounded-md bg-muted/50 p-2 text-xs text-muted-foreground">This source previously supported accepted claims through reviewed editor reference notes. That proves historical usefulness, not target-job evidence. If you reuse it, review the source again and record fresh Reference Evidence; publisher wording remains unretained.</div>}
             <div className="mt-3 flex flex-wrap gap-2">
               <Button size="sm" variant="outline" onClick={() => void openPreview(source)} disabled={workingId !== null}>
                 {workingId === `preview:${source.id}` ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Eye className="mr-1.5 h-3.5 w-3.5" />}Preview governed source
@@ -317,7 +328,7 @@ export function NotesStudioGapSourceRecommendationsPage() {
         <div className="text-xs text-muted-foreground">{preview.publisher || sourceHost(preview.sourceUri)} · {pretty(preview.rightsBasis)} · {pretty(preview.retentionMode)}</div>
         {preview.previewAvailable
           ? <pre className="max-h-[420px] overflow-auto whitespace-pre-wrap rounded-lg border bg-muted/20 p-4 text-xs leading-5">{preview.preview}</pre>
-          : <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">No retained text preview is available for this source.</div>}
+          : <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">No retained text preview is available for this source. Reference-only sources remain metadata-only here; open the governed source through the normal research workflow for fresh review.</div>}
       </CardContent>
     </Card>}
   </div>;

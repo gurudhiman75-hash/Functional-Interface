@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CheckCircle2, Link2, Loader2, RefreshCw, ShieldCheck, Sparkles } from 'lucide-react';
+import { CheckCircle2, Loader2, RefreshCw, Sparkles } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
@@ -19,92 +19,63 @@ type AuthoringJob = {
   sourceLanguage: string;
 };
 
-type ClaimEvidence = {
-  relation: 'supports' | 'contradicts';
-  inclusionState: 'included' | 'excluded';
-};
-
-type EvidenceClaim = {
-  id: string;
-  claimText: string;
-  state: 'candidate' | 'accepted' | 'rejected' | 'conflict';
-  evidence: ClaimEvidence[];
-};
-
-type EvidenceResult = {
-  claims: EvidenceClaim[];
-};
-
-type CoverageClaim = {
-  claimId: string;
-};
-
-type CoverageItem = {
-  id: string;
-  title: string;
-  syllabusRef: string;
-  priority: 'required' | 'high' | 'supporting' | 'exclude';
-  plannedDepth: 'brief' | 'standard' | 'deep';
-  examRationale: string;
-  claims: CoverageClaim[];
-};
-
 type CoverageResult = {
-  items: CoverageItem[];
+  summary: {
+    itemCount: number;
+    covered: number;
+    partial: number;
+    blocked: number;
+    uncovered: number;
+  };
 };
 
-type ProposalClaim = {
-  id: string;
-  text: string;
-};
+type BatchClaim = { id: string; text: string };
 
-type ProposalCoverage = {
+type BatchCoverageItem = {
   id: string;
   title: string;
   syllabusRef: string;
   priority: string;
   plannedDepth: string;
   examRationale: string;
+  linkedClaimIds: string[];
 };
 
-type CoverageProposal = {
-  claimId: string;
-  coverageItemIds: string[];
+type BatchReview = {
+  coverageItemId: string;
+  assessment: 'sufficient' | 'partial' | 'missing';
+  claimIds: string[];
   confidence: number;
   rationale: string;
 };
 
-type ProposalResult = {
-  proposals: CoverageProposal[];
-  claims: ProposalClaim[];
-  coverageItems: ProposalCoverage[];
-  totalUnmappedClaims: number;
-  batchClaimCount: number;
+type BatchReviewResult = {
+  reviews: BatchReview[];
+  claims: BatchClaim[];
+  coverageItems: BatchCoverageItem[];
+  counts: { sufficient: number; partial: number; missing: number };
   model: string;
   promptVersion: string;
   rawSourceTextSent: false;
   acceptedClaimsOnly: true;
   automaticApplication: false;
+  automaticCoverageDecision: false;
 };
 
-type ApplyResult = {
-  reviewed: number;
-  created: number;
-  duplicatesSkipped: number;
-  jobState: string | null;
-  editorApplied: true;
-  modelAutomaticallyApplied: false;
-  claimStateChanged: false;
+type BatchApplyResult = {
+  approved: number;
+  createdLinks: number;
+  jobState: { state?: string } | string | null;
 };
-
-type Mapping = { claimId: string; coverageItemId: string };
 
 function prettyState(value: string) {
   return value.split('_').map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
 }
 
-function mappingKey(mapping: Mapping) {
-  return `${mapping.claimId}:${mapping.coverageItemId}`;
+function assessmentBadge(assessment: BatchReview['assessment']) {
+  if (assessment === 'sufficient') return 'default' as const;
+  if (assessment === 'partial') return 'secondary' as const;
+  return 'outline' as const;
 }
 
 export function NotesStudioCoverageProposalPage() {
@@ -112,26 +83,20 @@ export function NotesStudioCoverageProposalPage() {
   const canEdit = hasPermission('content.questions.update');
   const [jobs, setJobs] = useState<AuthoringJob[]>([]);
   const [selectedJobId, setSelectedJobId] = useState('');
-  const [evidence, setEvidence] = useState<EvidenceResult | null>(null);
   const [coverage, setCoverage] = useState<CoverageResult | null>(null);
-  const [proposalResult, setProposalResult] = useState<ProposalResult | null>(null);
-  const [selectedMappingKeys, setSelectedMappingKeys] = useState<string[]>([]);
+  const [reviewResult, setReviewResult] = useState<BatchReviewResult | null>(null);
+  const [selectedSufficientIds, setSelectedSufficientIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [working, setWorking] = useState(false);
 
   const selectedJob = jobs.find((job) => job.id === selectedJobId) ?? null;
-  const acceptedSupportedClaims = useMemo(() => (evidence?.claims ?? []).filter((claim) =>
-    claim.state === 'accepted' && claim.evidence.some((item) => item.relation === 'supports' && item.inclusionState === 'included'),
-  ), [evidence]);
-  const linkedClaimIds = useMemo(() => new Set((coverage?.items ?? []).flatMap((item) => item.claims.map((claim) => claim.claimId))), [coverage]);
-  const currentUnmappedCount = acceptedSupportedClaims.filter((claim) => !linkedClaimIds.has(claim.id)).length;
   const editable = Boolean(selectedJob && ['evidence_ready', 'outline_ready'].includes(selectedJob.state));
-
-  const claimById = useMemo(() => new Map((proposalResult?.claims ?? []).map((claim) => [claim.id, claim])), [proposalResult]);
-  const coverageById = useMemo(() => new Map((proposalResult?.coverageItems ?? []).map((item) => [item.id, item])), [proposalResult]);
-  const allMappings = useMemo<Mapping[]>(() => (proposalResult?.proposals ?? []).flatMap((proposal) =>
-    proposal.coverageItemIds.map((coverageItemId) => ({ claimId: proposal.claimId, coverageItemId })),
-  ), [proposalResult]);
+  const claimById = useMemo(() => new Map((reviewResult?.claims ?? []).map((claim) => [claim.id, claim])), [reviewResult]);
+  const coverageById = useMemo(() => new Map((reviewResult?.coverageItems ?? []).map((item) => [item.id, item])), [reviewResult]);
+  const selectedReviews = useMemo(() => {
+    const selected = new Set(selectedSufficientIds);
+    return (reviewResult?.reviews ?? []).filter((review) => review.assessment === 'sufficient' && selected.has(review.coverageItemId));
+  }, [reviewResult, selectedSufficientIds]);
 
   const loadJobs = async () => {
     const result = await adminRequest<{ jobs: AuthoringJob[] }>('/admin/notes-studio/jobs');
@@ -140,18 +105,12 @@ export function NotesStudioCoverageProposalPage() {
     setSelectedJobId((current) => current && next.some((job) => job.id === current) ? current : next[0]?.id ?? '');
   };
 
-  const loadWorkspace = async (jobId: string) => {
+  const loadCoverage = async (jobId: string) => {
     if (!jobId) {
-      setEvidence(null);
       setCoverage(null);
       return;
     }
-    const [evidenceResult, coverageResult] = await Promise.all([
-      adminRequest<EvidenceResult>(`/admin/notes-studio/jobs/${jobId}/evidence`),
-      adminRequest<CoverageResult>(`/admin/notes-studio/jobs/${jobId}/coverage`),
-    ]);
-    setEvidence(evidenceResult);
-    setCoverage(coverageResult);
+    setCoverage(await adminRequest<CoverageResult>(`/admin/notes-studio/jobs/${jobId}/coverage`));
   };
 
   const load = async () => {
@@ -167,73 +126,78 @@ export function NotesStudioCoverageProposalPage() {
 
   useEffect(() => { void load(); }, []);
   useEffect(() => {
-    setProposalResult(null);
-    setSelectedMappingKeys([]);
+    setReviewResult(null);
+    setSelectedSufficientIds([]);
     if (!selectedJobId) return;
     setLoading(true);
-    void loadWorkspace(selectedJobId)
-      .catch((error) => showToast.error('Unable to load coverage mapping workspace', error instanceof Error ? error.message : 'Request failed.'))
+    void loadCoverage(selectedJobId)
+      .catch((error) => showToast.error('Unable to load coverage', error instanceof Error ? error.message : 'Request failed.'))
       .finally(() => setLoading(false));
   }, [selectedJobId]);
 
   const refresh = async () => {
     setWorking(true);
     try {
-      await Promise.all([loadJobs(), selectedJobId ? loadWorkspace(selectedJobId) : Promise.resolve()]);
+      await Promise.all([loadJobs(), selectedJobId ? loadCoverage(selectedJobId) : Promise.resolve()]);
     } catch (error) {
-      showToast.error('Unable to refresh', error instanceof Error ? error.message : 'Request failed.');
+      showToast.error('Unable to refresh coverage review', error instanceof Error ? error.message : 'Request failed.');
     } finally {
       setWorking(false);
     }
   };
 
-  const generate = async () => {
+  const reviewCoverage = async () => {
     if (!selectedJobId) return;
     setWorking(true);
     try {
-      const result = await adminRequest<ProposalResult>(`/admin/notes-studio/jobs/${selectedJobId}/coverage-proposals/generate`, { method: 'POST' });
-      setProposalResult(result);
-      setSelectedMappingKeys([]);
+      const result = await adminRequest<BatchReviewResult>(
+        `/admin/notes-studio/jobs/${selectedJobId}/coverage-proposals/batch-review/generate`,
+        { method: 'POST' },
+      );
+      setReviewResult(result);
+      setSelectedSufficientIds(result.reviews.filter((review) => review.assessment === 'sufficient').map((review) => review.coverageItemId));
       showToast.success(
-        'Coverage proposals generated',
-        `${result.proposals.length} accepted claims received mapping suggestions. Review each link before applying.`,
+        'Coverage review ready',
+        `${result.counts.sufficient} sufficient, ${result.counts.partial} partial and ${result.counts.missing} missing. Sufficient targets are preselected.`,
       );
     } catch (error) {
-      showToast.error('Unable to generate coverage proposals', error instanceof Error ? error.message : 'Request failed.');
+      showToast.error('Unable to review coverage', error instanceof Error ? error.message : 'Request failed.');
     } finally {
       setWorking(false);
     }
   };
 
-  const toggleMapping = (mapping: Mapping, checked: boolean) => {
-    const key = mappingKey(mapping);
-    setSelectedMappingKeys((current) => checked
-      ? [...new Set([...current, key])]
-      : current.filter((item) => item !== key));
+  const toggleSufficient = (coverageItemId: string, checked: boolean) => {
+    setSelectedSufficientIds((current) => checked
+      ? [...new Set([...current, coverageItemId])]
+      : current.filter((id) => id !== coverageItemId));
   };
 
-  const apply = async () => {
-    if (!selectedJobId || selectedMappingKeys.length === 0) {
-      showToast.warning('Choose reviewed links', 'Select at least one proposed claim-to-coverage link before applying.');
+  const approveSufficient = async () => {
+    if (!selectedJobId || selectedReviews.length === 0) {
+      showToast.warning('No sufficient targets selected', 'Run coverage review and keep at least one sufficient target selected.');
       return;
     }
-    const selected = new Set(selectedMappingKeys);
-    const mappings = allMappings.filter((mapping) => selected.has(mappingKey(mapping)));
     setWorking(true);
     try {
-      const result = await adminRequest<ApplyResult>(`/admin/notes-studio/jobs/${selectedJobId}/coverage-proposals/apply`, {
-        method: 'POST',
-        body: JSON.stringify({ mappings }),
-      });
-      setProposalResult(null);
-      setSelectedMappingKeys([]);
-      await Promise.all([loadJobs(), loadWorkspace(selectedJobId)]);
+      const result = await adminRequest<BatchApplyResult>(
+        `/admin/notes-studio/jobs/${selectedJobId}/coverage-proposals/batch-review/apply`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            reviews: selectedReviews.map((review) => ({ coverageItemId: review.coverageItemId, claimIds: review.claimIds })),
+          }),
+        },
+      );
+      setReviewResult(null);
+      setSelectedSufficientIds([]);
+      await Promise.all([loadJobs(), loadCoverage(selectedJobId)]);
       showToast.success(
-        'Reviewed coverage links applied',
-        `${result.created} links created; ${result.duplicatesSkipped} duplicates skipped. Claim states were not changed.`,
+        'Coverage approved',
+        `${result.approved} sufficient targets confirmed in one batch. Partial and missing targets remain research gaps.`,
       );
     } catch (error) {
-      showToast.error('Unable to apply coverage proposals', error instanceof Error ? error.message : 'Request failed.');
+      showToast.error('Unable to approve coverage', error instanceof Error ? error.message : 'Request failed.');
     } finally {
       setWorking(false);
     }
@@ -241,101 +205,88 @@ export function NotesStudioCoverageProposalPage() {
 
   return <div className="space-y-4">
     <PageHeader
-      title="Coverage proposals"
-      description="Suggest syllabus placement for accepted, source-supported claims. Suggestions are advisory until an editor explicitly applies individual links."
+      title="Coverage review"
+      description="Two-click review: assess every syllabus target together, then approve the clearly sufficient targets in one batch. Partial and missing targets automatically remain research gaps."
       actions={<Button variant="outline" onClick={() => void refresh()} disabled={working}><RefreshCw className="mr-2 h-4 w-4" />Refresh</Button>}
     />
 
     <Card>
-      <CardHeader><CardTitle className="flex items-center gap-2"><ShieldCheck className="h-5 w-5" />Mapping boundary</CardTitle></CardHeader>
-      <CardContent className="grid gap-3 md:grid-cols-4">
-        <div><p className="text-xs text-muted-foreground">Model input</p><p className="font-medium">Accepted claims + coverage plan</p></div>
-        <div><p className="text-xs text-muted-foreground">Raw source text</p><p className="font-medium">Never sent</p></div>
-        <div><p className="text-xs text-muted-foreground">Proposal write</p><p className="font-medium">Stateless / advisory</p></div>
-        <div><p className="text-xs text-muted-foreground">Application</p><p className="font-medium">Explicit editor action only</p></div>
+      <CardContent className="grid gap-4 p-4 lg:grid-cols-[minmax(280px,440px)_1fr] lg:items-end">
+        <div className="space-y-1.5">
+          <Label>Authoring job</Label>
+          <Select value={selectedJobId} onValueChange={setSelectedJobId} disabled={loading || working}>
+            <SelectTrigger><SelectValue placeholder="Choose a Notes Studio job" /></SelectTrigger>
+            <SelectContent>{jobs.map((job) => <SelectItem key={job.id} value={job.id}>{job.title} · {prettyState(job.state)}</SelectItem>)}</SelectContent>
+          </Select>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          {selectedJob && <Badge variant="outline">{prettyState(selectedJob.state)}</Badge>}
+          {coverage && <Badge variant="outline">{coverage.summary.covered}/{coverage.summary.itemCount} covered</Badge>}
+          {coverage && coverage.summary.partial > 0 && <Badge variant="secondary">{coverage.summary.partial} partial</Badge>}
+          {coverage && coverage.summary.uncovered > 0 && <Badge variant="outline">{coverage.summary.uncovered} uncovered</Badge>}
+        </div>
       </CardContent>
     </Card>
 
     <Card>
-      <CardHeader><CardTitle>Target authoring job</CardTitle></CardHeader>
+      <CardHeader><CardTitle>1. Review coverage</CardTitle></CardHeader>
       <CardContent className="space-y-3">
-        <Select value={selectedJobId} onValueChange={setSelectedJobId} disabled={loading || working}>
-          <SelectTrigger><SelectValue placeholder="Choose a Notes Studio job" /></SelectTrigger>
-          <SelectContent>{jobs.map((job) => <SelectItem key={job.id} value={job.id}>{job.title} · {prettyState(job.state)}</SelectItem>)}</SelectContent>
-        </Select>
-        {selectedJob && <div className="flex flex-wrap gap-2">
-          <Badge variant="outline">{prettyState(selectedJob.state)}</Badge>
-          <Badge variant="outline">{acceptedSupportedClaims.length} accepted + supported</Badge>
-          <Badge variant={currentUnmappedCount > 0 ? 'secondary' : 'default'}>{currentUnmappedCount} currently unmapped</Badge>
-          <Badge variant="outline">{coverage?.items.filter((item) => item.priority !== 'exclude').length ?? 0} active coverage targets</Badge>
-        </div>}
-        {selectedJob && !editable && <div className="rounded-md border border-warning/30 bg-warning/5 p-3 text-sm">
-          <p className="font-medium">Coverage mapping is frozen for this lifecycle stage.</p>
-          <p className="text-muted-foreground">Generate/apply proposals only in Evidence ready or Outline ready. Once drafting starts, use the successor-revision workflow for new research or coverage changes.</p>
-        </div>}
-        <div className="flex flex-wrap gap-2">
-          <Button onClick={() => void generate()} disabled={!canEdit || !editable || currentUnmappedCount === 0 || working}>
-            {working ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
-            Generate proposals
-          </Button>
-          {proposalResult && <Badge variant="outline">Model: {proposalResult.model}</Badge>}
-        </div>
+        <p className="text-sm text-muted-foreground">The model sees only editor-accepted claim text and the syllabus coverage plan. It does not receive raw source pages and cannot accept claims or publish notes.</p>
+        {selectedJob && !editable && <div className="rounded-md border p-3 text-sm text-muted-foreground">Coverage review is frozen after drafting begins. Use the normal successor-revision flow for later changes.</div>}
+        <Button onClick={() => void reviewCoverage()} disabled={!canEdit || !editable || working}>
+          {working ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+          Review all coverage
+        </Button>
       </CardContent>
     </Card>
 
-    {proposalResult && <Card>
-      <CardHeader>
-        <CardTitle className="flex flex-wrap items-center justify-between gap-2">
-          <span className="flex items-center gap-2"><Link2 className="h-5 w-5" />Review proposed links</span>
-          <span className="text-sm font-normal text-muted-foreground">{selectedMappingKeys.length}/{allMappings.length} selected</span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => setSelectedMappingKeys(allMappings.map(mappingKey))} disabled={allMappings.length === 0}>Select all proposals</Button>
-          <Button variant="ghost" size="sm" onClick={() => setSelectedMappingKeys([])} disabled={selectedMappingKeys.length === 0}>Clear selection</Button>
-          <Badge variant="outline">Batch {proposalResult.batchClaimCount}/{proposalResult.totalUnmappedClaims} unmapped claims</Badge>
-        </div>
+    {reviewResult && <>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Card><CardContent className="p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Sufficient</div><div className="mt-1 text-2xl font-bold">{reviewResult.counts.sufficient}</div><div className="text-xs text-muted-foreground">preselected for approval</div></CardContent></Card>
+        <Card><CardContent className="p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Partial</div><div className="mt-1 text-2xl font-bold">{reviewResult.counts.partial}</div><div className="text-xs text-muted-foreground">stays in gap research</div></CardContent></Card>
+        <Card><CardContent className="p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Missing</div><div className="mt-1 text-2xl font-bold">{reviewResult.counts.missing}</div><div className="text-xs text-muted-foreground">needs new evidence</div></CardContent></Card>
+      </div>
 
-        {proposalResult.proposals.length === 0
-          ? <div className="rounded-md border border-dashed p-6 text-center text-sm text-muted-foreground">The model found no clear syllabus mappings in this batch. Review the claims and coverage plan manually rather than forcing weak links.</div>
-          : <div className="space-y-3">{proposalResult.proposals.map((proposal) => {
-            const claim = claimById.get(proposal.claimId);
-            return <div key={proposal.claimId} className="rounded-md border p-4">
-              <div className="mb-3 flex flex-wrap items-center gap-2">
-                <Badge variant="outline">Confidence {Math.round(proposal.confidence * 100)}%</Badge>
-                <span className="text-xs text-muted-foreground">{proposal.rationale}</span>
-              </div>
-              <p className="mb-3 font-medium leading-6">{claim?.text ?? proposal.claimId}</p>
-              <div className="space-y-2">{proposal.coverageItemIds.map((coverageItemId) => {
-                const coverageItem = coverageById.get(coverageItemId);
-                const mapping = { claimId: proposal.claimId, coverageItemId };
-                const checked = selectedMappingKeys.includes(mappingKey(mapping));
-                return <Label key={coverageItemId} className="flex cursor-pointer items-start gap-3 rounded-md bg-muted/30 p-3 font-normal">
-                  <Checkbox checked={checked} onCheckedChange={(value) => toggleMapping(mapping, value === true)} />
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-medium">{coverageItem?.title ?? coverageItemId}</span>
-                      {coverageItem?.priority && <Badge variant="outline">{coverageItem.priority}</Badge>}
-                      {coverageItem?.plannedDepth && <Badge variant="outline">{coverageItem.plannedDepth}</Badge>}
-                    </div>
-                    {coverageItem?.syllabusRef && <p className="mt-1 text-xs text-muted-foreground">{coverageItem.syllabusRef}</p>}
-                    {coverageItem?.examRationale && <p className="mt-1 text-sm text-muted-foreground">{coverageItem.examRationale}</p>}
+      <Card>
+        <CardHeader><CardTitle>Review result</CardTitle></CardHeader>
+        <CardContent className="space-y-3">
+          {reviewResult.reviews.map((review) => {
+            const item = coverageById.get(review.coverageItemId);
+            const selected = selectedSufficientIds.includes(review.coverageItemId);
+            return <div key={review.coverageItemId} className="rounded-lg border p-4">
+              <div className="flex items-start gap-3">
+                {review.assessment === 'sufficient' && <Checkbox className="mt-1" checked={selected} onCheckedChange={(value) => toggleSufficient(review.coverageItemId, value === true)} />}
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-semibold">{item?.title ?? review.coverageItemId}</span>
+                    <Badge variant={assessmentBadge(review.assessment)}>{review.assessment}</Badge>
+                    <Badge variant="outline">{Math.round(review.confidence * 100)}%</Badge>
+                    {item?.plannedDepth && <Badge variant="outline">{item.plannedDepth}</Badge>}
                   </div>
-                </Label>;
-              })}</div>
+                  {item?.syllabusRef && <p className="mt-1 text-xs text-muted-foreground">{item.syllabusRef}</p>}
+                  <p className="mt-2 text-sm text-muted-foreground">{review.rationale}</p>
+                  {review.claimIds.length > 0 && <div className="mt-2 space-y-1">
+                    {review.claimIds.slice(0, 3).map((claimId) => <p key={claimId} className="text-xs"><span className="text-muted-foreground">•</span> {claimById.get(claimId)?.text ?? claimId}</p>)}
+                    {review.claimIds.length > 3 && <p className="text-xs text-muted-foreground">+ {review.claimIds.length - 3} more accepted claims</p>}
+                  </div>}
+                </div>
+              </div>
             </div>;
-          })}</div>}
+          })}
+        </CardContent>
+      </Card>
 
-        <div className="flex flex-col gap-2 border-t pt-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-muted-foreground">Applying writes only reviewed claim↔coverage links. It does not change claim state or generate learner prose.</p>
-          <Button onClick={() => void apply()} disabled={!canEdit || working || selectedMappingKeys.length === 0}>
+      <Card>
+        <CardHeader><CardTitle>2. Approve sufficient coverage</CardTitle></CardHeader>
+        <CardContent className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground">One editor action applies the recommended claim links and confirms only the selected sufficient targets. Partial/missing targets are untouched.</p>
+          <Button onClick={() => void approveSufficient()} disabled={!canEdit || working || selectedReviews.length === 0}>
             {working ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}
-            Apply reviewed links
+            Approve {selectedReviews.length} sufficient target{selectedReviews.length === 1 ? '' : 's'}
           </Button>
-        </div>
-      </CardContent>
-    </Card>}
+        </CardContent>
+      </Card>
+    </>}
   </div>;
 }
 

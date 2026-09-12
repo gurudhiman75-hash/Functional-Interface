@@ -3,25 +3,71 @@ import { Router, type IRouter } from 'express';
 import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
+import { diagnoseGeminiSearchCapability } from '../notes-studio/gemini-search-diagnostics';
 import {
   NOTES_STUDIO_MIGRATIONS,
   assessNotesStudioProductionReadiness,
   inspectNotesStudioSchema,
 } from '../notes-studio/production-readiness';
+import {
+  notesStudioAIConfigured,
+  resolveNotesStudioAIProvider,
+  resolveNotesStudioModel,
+} from '../notes-studio/shared-ai-provider';
 
 const router: IRouter = Router();
+
+function notesSourceDiscoveryConfiguration(authoringProvider: string) {
+  const requested = String(process.env.NOTES_STUDIO_SEARCH_PROVIDER ?? '').trim().toLowerCase();
+  const automaticProvider = String(process.env.TAVILY_API_KEY ?? '').trim()
+    ? 'tavily'
+    : (authoringProvider === 'openai' || authoringProvider === 'gemini' ? authoringProvider : 'unconfigured');
+  const provider = requested && requested !== 'auto' ? requested : automaticProvider;
+
+  if (provider === 'tavily') {
+    return {
+      provider,
+      configured: Boolean(String(process.env.TAVILY_API_KEY ?? '').trim()),
+      model: 'tavily-search-basic',
+    };
+  }
+  if (provider === 'gemini') {
+    return {
+      provider,
+      configured: Boolean(String(process.env.GEMINI_API_KEY ?? process.env.GOOGLE_AI_API_KEY ?? '').trim()),
+      model: String(process.env.NOTES_STUDIO_SEARCH_MODEL ?? '').trim() || 'gemini-3.6-flash',
+    };
+  }
+  if (provider === 'openai') {
+    return {
+      provider,
+      configured: Boolean(String(process.env.OPENAI_API_KEY ?? '').trim()),
+      model: String(process.env.NOTES_STUDIO_OPENAI_SEARCH_MODEL ?? '').trim() || 'provider default web-search model',
+    };
+  }
+  return { provider, configured: false, model: null };
+}
 
 router.use(authenticate);
 
 router.get('/operations/readiness', requireAdminPermission('content.questions.read'), async (_req, res) => {
   try {
     const schema = await inspectNotesStudioSchema(sqlClient);
+    const provider = resolveNotesStudioAIProvider();
+    const providerConfigured = notesStudioAIConfigured(provider);
+    const sectionModel = resolveNotesStudioModel(provider, ['NOTES_STUDIO_SECTION_MODEL', 'NOTES_STUDIO_MODEL']);
+    const localizationModel = resolveNotesStudioModel(provider, ['NOTES_STUDIO_LOCALIZATION_MODEL', 'NOTES_STUDIO_MODEL']);
+    const sourceDiscovery = notesSourceDiscoveryConfiguration(provider);
     const modelConfiguration = {
-      sectionModelConfigured: Boolean(String(process.env.NOTES_STUDIO_MODEL ?? '').trim()),
-      sectionModel: String(process.env.NOTES_STUDIO_MODEL ?? '').trim() || null,
-      localizationModelConfigured: Boolean(String(process.env.NOTES_STUDIO_LOCALIZATION_MODEL ?? '').trim()),
-      localizationModel: String(process.env.NOTES_STUDIO_LOCALIZATION_MODEL ?? '').trim() || null,
-      modelApiKeyConfigured: Boolean(String(process.env.NOTES_STUDIO_OPENAI_API_KEY ?? process.env.OPENAI_API_KEY ?? '').trim()),
+      provider,
+      sectionModelConfigured: providerConfigured && Boolean(sectionModel),
+      sectionModel: sectionModel || null,
+      localizationModelConfigured: providerConfigured && Boolean(localizationModel),
+      localizationModel: localizationModel || null,
+      modelApiKeyConfigured: providerConfigured,
+      sourceDiscoveryProvider: sourceDiscovery.provider,
+      sourceDiscoveryConfigured: sourceDiscovery.configured,
+      sourceDiscoveryModel: sourceDiscovery.model,
     };
 
     let stateCounts: Array<Record<string, unknown>> = [];
@@ -57,8 +103,7 @@ router.get('/operations/readiness', requireAdminPermission('content.questions.re
           LIMIT 20
         `,
         sqlClient`
-          SELECT run.id::text AS id, run.job_id::text AS "jobId", job.title AS "jobTitle",
-                 section.title AS "sectionTitle", run.fail_count AS "failCount",
+          SELECT run.id::text AS id, run.job_id::text AS "jobId", job.title AS "jobTitle", section.title AS "sectionTitle", run.fail_count AS "failCount",
                  run.warning_count AS "warningCount", run.created_at AS "createdAt"
           FROM content.note_quality_runs run
           JOIN content.note_authoring_jobs job ON job.id = run.job_id
@@ -93,7 +138,7 @@ router.get('/operations/readiness', requireAdminPermission('content.questions.re
       migrations: {
         orderedFiles: NOTES_STUDIO_MIGRATIONS,
         operatorCommand: 'pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-migrate.mjs && node artifacts/api-server/dist/notes-studio-migrate.mjs',
-        automaticProductionMigration: false,
+        automaticProductionMigration: true,
       },
       modelConfiguration,
       assessment,
@@ -117,6 +162,30 @@ router.get('/operations/readiness', requireAdminPermission('content.questions.re
   } catch (error) {
     console.error('Unable to inspect Notes Studio production readiness', error);
     res.status(500).json({ error: 'Unable to inspect Notes Studio production readiness', code: 'NOTES_STUDIO_READINESS_FAILED' });
+  }
+});
+
+router.post('/operations/search-diagnostics/gemini', requireAdminPermission('content.questions.update'), async (_req, res) => {
+  try {
+    const diagnostic = await diagnoseGeminiSearchCapability();
+    res.json({
+      diagnostic,
+      boundaries: {
+        rawSearchResultsReturned: false,
+        sourceDocumentsCreated: false,
+        sourcesAttachedAutomatically: false,
+        evidenceCreated: false,
+        factsOrClaimsCreated: false,
+        learnerGeneration: false,
+        configurationChanged: false,
+      },
+    });
+  } catch (error) {
+    console.error('Unable to run Gemini Search diagnostic', error);
+    res.status(500).json({
+      error: 'Unable to run Gemini Search diagnostic',
+      code: 'NOTES_STUDIO_GEMINI_SEARCH_DIAGNOSTIC_FAILED',
+    });
   }
 });
 

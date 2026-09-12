@@ -1,3 +1,5 @@
+import { sourceReuseEvidencePath } from './source-library';
+
 export const NOTES_RESEARCH_RESTART_STATES = [
   'evidence_ready',
   'outline_ready',
@@ -7,6 +9,7 @@ export const NOTES_RESEARCH_RESTART_STATES = [
 ] as const;
 
 export type NotesResearchRestartState = typeof NOTES_RESEARCH_RESTART_STATES[number];
+export type ResearchRestartSourceIntentPath = 'retained_ready' | 'reference_review_required';
 
 export function researchRestartAllowed(state: unknown): state is NotesResearchRestartState {
   return (NOTES_RESEARCH_RESTART_STATES as readonly string[]).includes(String(state ?? ''));
@@ -16,6 +19,16 @@ export function researchRestartTargetState(generationReadySourceCount: number): 
   return Number.isFinite(generationReadySourceCount) && generationReadySourceCount > 0
     ? 'sources_ready'
     : 'brief';
+}
+
+export function researchRestartSourceIntentPath(input: {
+  generationReady: boolean;
+  rightsBasis: string;
+  retentionMode: string;
+  reviewedReferenceUseCount: number;
+}): ResearchRestartSourceIntentPath | null {
+  const path = sourceReuseEvidencePath(input);
+  return path === 'provenance_only' ? null : path;
 }
 
 export function normalizeResearchRestartReason(value: unknown): string {

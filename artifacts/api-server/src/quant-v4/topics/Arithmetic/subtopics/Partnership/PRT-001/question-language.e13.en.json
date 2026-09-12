@@ -1,0 +1,13 @@
+{
+  "language": "en",
+  "status": "E13_SOURCE_BACKED",
+  "entries": {
+    "PRT-QL-106": "{partnerA}, {partnerB} and {partnerC} invest ₹{capitalA}, ₹{capitalB} and ₹{capitalC}, respectively, in {business}. {sleepingPartner} is a sleeping partner and receives only {entitlementFraction} of the normal profit entitlement based on capital. From the total profit of ₹{totalProfit}, {retainedPercent}% is retained in the business. What is {targetPartner}'s share of the distributable profit?",
+    "PRT-QL-107": "{partnerA} and {partnerB} invest ₹{initialCapitalA} and ₹{initialCapitalB}, respectively, in {business}. The first-year profit is ₹{firstYearProfit}. {reinvestPartner} reinvests the entire first-year profit share as additional capital while the other partner withdraws the share. If no further capital change occurs, what is their profit-sharing ratio in the second year?",
+    "PRT-QL-108": "{partnerA} and {partnerB} invest ₹{capitalA} and ₹{capitalB}, respectively, in {business}. From a total profit of ₹{totalProfit}, {partnerA} first receives {grossPercentA}% of the gross profit and {partnerB} first receives {grossPercentB}% of the gross profit. The remaining profit is divided in the ratio of their capitals. What is {targetPartner}'s total receipt?",
+    "PRT-QL-109": "In {business}, the total capital is ₹{totalCapital} and the partnership lasts {totalDuration}. {partnerA} invests {capitalFractionA} of the total capital for {durationFractionA} of the total duration, {partnerB} invests {capitalFractionB} of the total capital for {durationFractionB} of the total duration, and {partnerC} invests the remaining capital for the whole duration. If the total profit is ₹{totalProfit}, find {targetPartner}'s share.",
+    "PRT-QL-110": "{partnerA}, {partnerB} and {partnerC} remain in {business} for the same period. Their capitals satisfy: {relationStatement}. If the total profit is ₹{totalProfit}, what is {targetPartner}'s share?",
+    "PRT-QL-111": "{partnerA} and {partnerB} invest ₹{capitalA} and ₹{capitalB}, respectively, in {business} for one year. Before sharing the remaining profit, each partner is credited interest on capital at {interestRatePercent}% per annum. If the total profit is ₹{totalProfit}, what is {targetPartner}'s total receipt including interest on capital?",
+    "PRT-QL-112": "{partnerA} and {partnerB} currently share the profits of {business} in the ratio {oldRatio}. {partnerC} joins and acquires {acquiredFraction} of the total profit share from {partnerA} and {partnerB}, who sacrifice this share in the ratio {sacrificeRatio}. What is the new profit-sharing ratio of {partnerA}, {partnerB} and {partnerC}?"
+  }
+}

@@ -2,6 +2,7 @@ import {
   ZERO,
   compareRational,
   divideRational,
+  formatRational,
   multiplyRational,
   normalizeRatio,
   rational,
@@ -26,7 +27,9 @@ function formatCandidate(
 ): string {
   return parameters.entry.answerType === "DURATION"
     ? formatPrt001Duration(value, parameters.language)
-    : formatPrt001Money(value);
+    : parameters.entry.answerType === "PERCENT"
+      ? `${formatRational(value)}%`
+      : formatPrt001Money(value);
 }
 
 function addRatioCandidate(
@@ -35,6 +38,38 @@ function addRatioCandidate(
 ): void {
   if (values.some((value) => !positive(value))) return;
   candidates.add(normalizeRatio(values).join(":"));
+}
+
+function addReinvestmentMisconceptions(
+  candidates: Set<string>,
+  parameters: Prt001PilotParameters,
+): void {
+  if (parameters.questionLanguageId !== "PRT-QL-107") return;
+  const initialA = Number(parameters.renderVariables.initialCapitalANumeric);
+  const initialB = Number(parameters.renderVariables.initialCapitalBNumeric);
+  const firstYearProfit = Number(parameters.renderVariables.firstYearProfitNumeric);
+  const reinvestedShare = Number(parameters.renderVariables.reinvestedProfitShareNumeric);
+  const reinvestPartner = String(parameters.renderVariables.reinvestPartner ?? "");
+  if (![initialA, initialB, firstYearProfit, reinvestedShare].every(Number.isFinite)) return;
+
+  // Ignore the carry-forward completely.
+  addRatioCandidate(candidates, [rational(initialA), rational(initialB)]);
+
+  // Reinvest the whole first-year profit instead of only that partner's computed share.
+  addRatioCandidate(
+    candidates,
+    reinvestPartner === parameters.partnerA
+      ? [rational(initialA + firstYearProfit), rational(initialB)]
+      : [rational(initialA), rational(initialB + firstYearProfit)],
+  );
+
+  // Credit the computed reinvested share to the wrong partner.
+  addRatioCandidate(
+    candidates,
+    reinvestPartner === parameters.partnerA
+      ? [rational(initialA), rational(initialB + reinvestedShare)]
+      : [rational(initialA + reinvestedShare), rational(initialB)],
+  );
 }
 
 function ratioOptions(
@@ -55,13 +90,26 @@ function ratioOptions(
     candidates,
     segments.map((item) => subtractRational(item.end, item.start)),
   );
-  for (let index = 0; index < answer.ratio.length; index += 1) {
-    addRatioCandidate(
-      candidates,
-      answer.ratio.map((value, itemIndex) =>
-        rational(value + (itemIndex === index ? 1n : 0n)),
-      ),
-    );
+  addReinvestmentMisconceptions(candidates, parameters);
+
+  for (const delta of [1n, 2n, 3n]) {
+    for (let index = 0; index < answer.ratio.length; index += 1) {
+      addRatioCandidate(
+        candidates,
+        answer.ratio.map((value, itemIndex) =>
+          rational(value + (itemIndex === index ? delta : 0n)),
+        ),
+      );
+      if (answer.ratio[index]! > delta) {
+        addRatioCandidate(
+          candidates,
+          answer.ratio.map((value, itemIndex) =>
+            rational(value - (itemIndex === index ? delta : 0n)),
+          ),
+        );
+      }
+      if (candidates.size >= 4) return [...candidates].slice(0, 4);
+    }
   }
   return [...candidates].slice(0, 4);
 }

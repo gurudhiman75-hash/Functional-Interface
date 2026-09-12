@@ -58,6 +58,9 @@ jobs:
           grep -F 'rawSourceTextSent: false' artifacts/api-server/src/routes/admin-notes-studio-sections.ts
           grep -F 'Acceptance opens only after the quality-gate checkpoint.' artifacts/api-server/src/routes/admin-notes-studio-sections.ts
           grep -F 'adminNotesStudioSectionsRouter' artifacts/api-server/src/routes/index.ts
+          grep -F "item.status === 'covered'" artifacts/admin-app/src/pages/content/NotesStudioDraftReviewPage.tsx
+          grep -F 'Partial, missing or blocked targets are excluded automatically.' artifacts/admin-app/src/pages/content/NotesStudioDraftReviewPage.tsx
+          grep -F 'Draft Review below' artifacts/admin-app/src/pages/content/NotesStudioGuidedPage.tsx
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin app

@@ -1,0 +1,75 @@
+{
+  "status": "PRODUCTION_DIVERSITY_E6",
+  "joinLater": [
+    {"capitalA":30000,"capitalB":45000,"joinAfterB":4},
+    {"capitalA":40000,"capitalB":60000,"joinAfterB":3},
+    {"capitalA":50000,"capitalB":80000,"joinAfterB":6},
+    {"capitalA":60000,"capitalB":90000,"joinAfterB":4}
+  ],
+  "leaveEarly": [
+    {"capitalA":36000,"leaveAfterA":8,"capitalB":24000},
+    {"capitalA":50000,"leaveAfterA":6,"capitalB":30000},
+    {"capitalA":72000,"leaveAfterA":9,"capitalB":48000},
+    {"capitalA":60000,"leaveAfterA":5,"capitalB":30000}
+  ],
+  "staggeredThree": [
+    {"capitalA":20000,"capitalB":30000,"joinAfterB":4,"capitalC":40000,"joinAfterC":6},
+    {"capitalA":30000,"capitalB":45000,"joinAfterB":3,"capitalC":60000,"joinAfterC":7},
+    {"capitalA":40000,"capitalB":60000,"joinAfterB":5,"capitalC":72000,"joinAfterC":8},
+    {"capitalA":50000,"capitalB":75000,"joinAfterB":2,"capitalC":90000,"joinAfterC":6}
+  ],
+  "capitalAddition": [
+    {"initialCapitalA":20000,"finalCapitalA":30000,"changeMonth":6,"capitalB":25000},
+    {"initialCapitalA":30000,"finalCapitalA":45000,"changeMonth":4,"capitalB":35000},
+    {"initialCapitalA":40000,"finalCapitalA":60000,"changeMonth":8,"capitalB":45000},
+    {"initialCapitalA":50000,"finalCapitalA":75000,"changeMonth":3,"capitalB":60000}
+  ],
+  "capitalWithdrawal": [
+    {"initialCapitalA":40000,"finalCapitalA":30000,"changeMonth":6,"capitalB":35000},
+    {"initialCapitalA":60000,"finalCapitalA":40000,"changeMonth":4,"capitalB":50000},
+    {"initialCapitalA":80000,"finalCapitalA":50000,"changeMonth":8,"capitalB":60000},
+    {"initialCapitalA":90000,"finalCapitalA":60000,"changeMonth":3,"capitalB":70000}
+  ],
+  "equalProfitChangeTime": [
+    {"initialCapitalA":20000,"finalCapitalA":40000,"changeMonth":6,"capitalB":30000},
+    {"initialCapitalA":30000,"finalCapitalA":45000,"changeMonth":4,"capitalB":40000},
+    {"initialCapitalA":60000,"finalCapitalA":30000,"changeMonth":8,"capitalB":50000},
+    {"initialCapitalA":24000,"finalCapitalA":36000,"changeMonth":3,"capitalB":33000}
+  ],
+  "salary": [
+    {"capitalA":20000,"capitalB":40000,"salary":12000,"distributableUnit":36000},
+    {"capitalA":30000,"capitalB":45000,"salary":15000,"distributableUnit":25000},
+    {"capitalA":60000,"capitalB":40000,"salary":20000,"distributableUnit":20000},
+    {"capitalA":40000,"capitalB":80000,"salary":18000,"distributableUnit":48000}
+  ],
+  "commission": [
+    {"capitalA":30000,"capitalB":30000,"commissionPercent":10,"grossProfit":100000},
+    {"capitalA":30000,"capitalB":45000,"commissionPercent":10,"grossProfit":100000},
+    {"capitalA":60000,"capitalB":40000,"commissionPercent":10,"grossProfit":100000},
+    {"capitalA":80000,"capitalB":100000,"commissionPercent":10,"grossProfit":100000}
+  ],
+  "charity": [
+    {"capitalA":20000,"capitalB":30000,"deduction":10000,"grossProfit":100000},
+    {"capitalA":30000,"capitalB":60000,"deduction":10000,"grossProfit":100000},
+    {"capitalA":60000,"capitalB":40000,"deduction":10000,"grossProfit":100000},
+    {"capitalA":80000,"capitalB":100000,"deduction":10000,"grossProfit":100000}
+  ],
+  "lateJoinCapitalChange": [
+    {"initialCapitalA":20000,"finalCapitalA":30000,"changeMonth":6,"capitalB":45000,"joinAfterB":4},
+    {"initialCapitalA":30000,"finalCapitalA":45000,"changeMonth":4,"capitalB":60000,"joinAfterB":5},
+    {"initialCapitalA":40000,"finalCapitalA":60000,"changeMonth":8,"capitalB":80000,"joinAfterB":6},
+    {"initialCapitalA":50000,"finalCapitalA":75000,"changeMonth":3,"capitalB":90000,"joinAfterB":4}
+  ],
+  "dynamicSalary": [
+    {"initialCapitalA":20000,"finalCapitalA":30000,"changeMonth":6,"capitalB":25000,"salary":12000,"distributableUnit":18000},
+    {"initialCapitalA":30000,"finalCapitalA":45000,"changeMonth":4,"capitalB":35000,"salary":15000,"distributableUnit":15000},
+    {"initialCapitalA":40000,"finalCapitalA":60000,"changeMonth":8,"capitalB":45000,"salary":18000,"distributableUnit":12000},
+    {"initialCapitalA":50000,"finalCapitalA":75000,"changeMonth":3,"capitalB":60000,"salary":20000,"distributableUnit":10000}
+  ],
+  "joinWithDeduction": [
+    {"capitalA":30000,"capitalB":45000,"joinAfterB":4,"deduction":10000,"distributableUnit":18000},
+    {"capitalA":40000,"capitalB":60000,"joinAfterB":3,"deduction":12000,"distributableUnit":15000},
+    {"capitalA":50000,"capitalB":80000,"joinAfterB":6,"deduction":15000,"distributableUnit":12000},
+    {"capitalA":60000,"capitalB":90000,"joinAfterB":4,"deduction":18000,"distributableUnit":10000}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "language": "hi",
+  "status": "HUMAN_AUTHORED_E11_EDITORIAL",
+  "entries": {
+    "PRT-QL-007": "एक {business} में निवेश की अवधियाँ अलग थीं। {partnerA} ने {capitalA} {durationA} तक और {partnerB} ने {capitalB} {durationB} तक लगाए। दोनों के लाभ का अनुपात निकालिए।",
+    "PRT-QL-044": "निवेश-अवधि अनुपात {timeRatioA}:{timeRatioB} और लाभ अनुपात {profitRatioA}:{profitRatioB} दिया है। एक {business} में {partnerA} तथा {partnerB} की पूंजी किस अनुपात में थी?",
+    "PRT-QL-067": "एक {business} में {partnerA} का ज्ञात लाभांश {knownShare} है। उसने {capitalA} को {durationA} तक और {partnerB} ने {capitalB} को {durationB} तक लगाया था। व्यवसाय का कुल लाभ कितना था?"
+  }
+}

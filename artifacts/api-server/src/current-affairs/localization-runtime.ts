@@ -10,7 +10,7 @@ import {
   type LocalizationFact,
 } from "./multilingual-localization";
 
-const LOCALIZATION_VERSION = "ca-cp010-multilingual-notes-v1";
+const LOCALIZATION_VERSION = "ca-cp035-generic-multilingual-recovery-v1";
 export const CURRENT_AFFAIRS_LOCALIZATION_LANGUAGES = ["hi", "pa"] as const;
 
 const FACT_LABELS: Record<CurrentAffairsLocalizationLanguage, Record<string, string>> = {
@@ -32,6 +32,20 @@ const FACT_LABELS: Record<CurrentAffairsLocalizationLanguage, Record<string, str
     scheme_outlay: "परिव्यय",
     beneficiary_count: "लाभार्थी",
     effective_date: "प्रभावी तिथि",
+    acting_entity: "आधिकारिक निकाय",
+    official_action: "आधिकारिक कार्रवाई",
+    action_subject: "विषय",
+    winner: "विजेता",
+    award_or_title: "पुरस्कार या उपाधि",
+    launching_entity: "आरंभ करने वाला निकाय",
+    initiative: "पहल",
+    event_status: "स्थिति",
+    amount: "राशि",
+    percentage: "प्रतिशत",
+    rank: "रैंक",
+    headquarters: "मुख्यालय",
+    target_percentage: "लक्ष्य",
+    target_year: "लक्ष्य वर्ष",
   },
   pa: {
     appointee: "ਨਿਯੁਕਤ ਵਿਅਕਤੀ",
@@ -51,6 +65,20 @@ const FACT_LABELS: Record<CurrentAffairsLocalizationLanguage, Record<string, str
     scheme_outlay: "ਖਰਚਾ",
     beneficiary_count: "ਲਾਭਪਾਤਰੀ",
     effective_date: "ਲਾਗੂ ਮਿਤੀ",
+    acting_entity: "ਅਧਿਕਾਰਤ ਸੰਸਥਾ",
+    official_action: "ਅਧਿਕਾਰਤ ਕਾਰਵਾਈ",
+    action_subject: "ਵਿਸ਼ਾ",
+    winner: "ਜੇਤੂ",
+    award_or_title: "ਇਨਾਮ ਜਾਂ ਖਿਤਾਬ",
+    launching_entity: "ਸ਼ੁਰੂ ਕਰਨ ਵਾਲੀ ਸੰਸਥਾ",
+    initiative: "ਪਹਿਲ",
+    event_status: "ਸਥਿਤੀ",
+    amount: "ਰਕਮ",
+    percentage: "ਪ੍ਰਤੀਸ਼ਤ",
+    rank: "ਰੈਂਕ",
+    headquarters: "ਮੁੱਖ ਦਫ਼ਤਰ",
+    target_percentage: "ਟੀਚਾ",
+    target_year: "ਟੀਚਾ ਸਾਲ",
   },
 };
 
@@ -95,6 +123,23 @@ function localizationInput(row: LocalizationQueueRow, languageCode: CurrentAffai
   };
 }
 
+function mapLocalizationRows(rows: any[]): LocalizationQueueRow[] {
+  return rows.map((row) => ({
+    eventId: String(row.eventId),
+    publicCode: String(row.publicCode),
+    eventDate: String(row.eventDate).slice(0, 10),
+    category: String(row.category),
+    authoringVersionId: String(row.authoringVersionId),
+    authoringStatus: String(row.authoringStatus),
+    sourceTitle: String(row.sourceTitle ?? ""),
+    sourceSummary: String(row.sourceSummary ?? ""),
+    sourceOneLiner: String(row.sourceOneLiner ?? row.sourceSummary ?? ""),
+    templateId: row.templateId ? String(row.templateId) : undefined,
+    sourceKey: row.sourceKey ? String(row.sourceKey) : undefined,
+    facts: normalizeFacts(row.facts),
+  }));
+}
+
 async function loadLocalizationQueue(limit: number): Promise<LocalizationQueueRow[]> {
   const rows = await sqlClient`
     SELECT
@@ -129,20 +174,45 @@ async function loadLocalizationQueue(limit: number): Promise<LocalizationQueueRo
     ORDER BY event.event_date DESC, event.updated_at DESC
     LIMIT ${limit}
   `;
-  return rows.map((row) => ({
-    eventId: String(row.eventId),
-    publicCode: String(row.publicCode),
-    eventDate: String(row.eventDate).slice(0, 10),
-    category: String(row.category),
-    authoringVersionId: String(row.authoringVersionId),
-    authoringStatus: String(row.authoringStatus),
-    sourceTitle: String(row.sourceTitle ?? ""),
-    sourceSummary: String(row.sourceSummary ?? ""),
-    sourceOneLiner: String(row.sourceOneLiner ?? row.sourceSummary ?? ""),
-    templateId: row.templateId ? String(row.templateId) : undefined,
-    sourceKey: row.sourceKey ? String(row.sourceKey) : undefined,
-    facts: normalizeFacts(row.facts),
-  }));
+  return mapLocalizationRows(rows);
+}
+
+async function loadLocalizationEventsByIds(eventIds: string[]): Promise<LocalizationQueueRow[]> {
+  if (eventIds.length === 0) return [];
+  const rows = await sqlClient`
+    SELECT
+      event.id::text AS "eventId",
+      event.public_code AS "publicCode",
+      event.event_date::text AS "eventDate",
+      event.category,
+      version.id::text AS "authoringVersionId",
+      version.status AS "authoringStatus",
+      version.learner_title AS "sourceTitle",
+      version.learner_summary AS "sourceSummary",
+      COALESCE(version.learner_one_liner, version.learner_summary) AS "sourceOneLiner",
+      version.template_id AS "templateId",
+      source.source_key AS "sourceKey",
+      version.input_fact_snapshot AS facts
+    FROM content.current_affairs_events event
+    JOIN content.current_affairs_authoring_versions version
+      ON version.id=event.learner_authoring_version_id
+    LEFT JOIN LATERAL (
+      SELECT evidence.source_id
+      FROM content.current_affairs_event_sources evidence
+      WHERE evidence.event_id=event.id
+      ORDER BY evidence.is_primary_evidence DESC, evidence.created_at ASC
+      LIMIT 1
+    ) primary_evidence ON true
+    LEFT JOIN content.current_affairs_sources source ON source.id=primary_evidence.source_id
+    WHERE event.id = ANY(${eventIds}::uuid[])
+      AND event.status='verified'
+      AND event.learner_authoring_status IN ('ready', 'manual')
+      AND version.status IN ('ready', 'manual')
+      AND BTRIM(COALESCE(version.learner_title, '')) <> ''
+      AND BTRIM(COALESCE(version.learner_summary, '')) <> ''
+    ORDER BY event.event_date DESC, event.updated_at DESC
+  `;
+  return mapLocalizationRows(rows);
 }
 
 async function storeLocalization(
@@ -157,6 +227,9 @@ async function storeLocalization(
       AND language_code=${languageCode}
     LIMIT 1
   `;
+  if (existing[0] && String(existing[0].status) === "manual") {
+    return { id: String(existing[0].id), unchanged: true, status: "manual" };
+  }
   if (existing[0] && String(existing[0].inputFingerprint) === output.inputFingerprint) {
     return { id: String(existing[0].id), unchanged: true, status: String(existing[0].status) };
   }
@@ -200,9 +273,7 @@ async function storeLocalization(
   return { id, unchanged: false, status: output.status };
 }
 
-export async function runCurrentAffairsLocalization(limit = 200) {
-  const safeLimit = Math.max(1, Math.min(500, Math.floor(limit)));
-  const rows = await loadLocalizationQueue(safeLimit);
+async function runLocalizationRows(rows: LocalizationQueueRow[], scope: string) {
   const results: Array<Record<string, unknown>> = [];
   for (const row of rows) {
     for (const languageCode of CURRENT_AFFAIRS_LOCALIZATION_LANGUAGES) {
@@ -228,7 +299,21 @@ export async function runCurrentAffairsLocalization(limit = 200) {
     needsEditorial: results.filter((item) => item.status === "needs_editorial").length,
     unchanged: results.filter((item) => item.status === "unchanged").length,
     results,
+    scope,
   };
+}
+
+export async function runCurrentAffairsLocalization(limit = 200) {
+  const safeLimit = Math.max(1, Math.min(500, Math.floor(limit)));
+  return runLocalizationRows(await loadLocalizationQueue(safeLimit), "global_queue");
+}
+
+export async function runCurrentAffairsLocalizationForEventIds(eventIdsInput: string[]) {
+  const eventIds = [...new Set(eventIdsInput.map(String).filter(Boolean))].slice(0, 300);
+  const rows = await loadLocalizationEventsByIds(eventIds);
+  const result = await runLocalizationRows(rows, "explicit_event_ids");
+  const seen = new Set(rows.map((row) => row.eventId));
+  return { ...result, requested: eventIds.length, skippedEventIds: eventIds.filter((eventId) => !seen.has(eventId)) };
 }
 
 async function loadManualLocalizationInput(

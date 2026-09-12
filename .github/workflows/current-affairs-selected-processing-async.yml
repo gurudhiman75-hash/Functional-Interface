@@ -1,0 +1,93 @@
+name: Validate Current Affairs Selected Processing Async
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/current-affairs/selected-affairs-processing-job.ts"
+      - "artifacts/api-server/src/current-affairs/selected-affairs-processing-runtime.ts"
+      - "artifacts/api-server/src/current-affairs/selected-binding-integrity-runtime.ts"
+      - "artifacts/api-server/src/current-affairs/selected-blocker-closure-runtime.ts"
+      - "artifacts/api-server/src/current-affairs/selected-blocker-closure-finalizer.ts"
+      - "artifacts/api-server/src/current-affairs/selected-daily-master-pack.ts"
+      - "artifacts/api-server/src/current-affairs/selected-daily-master-pack-approval-runtime.ts"
+      - "artifacts/api-server/src/current-affairs/selected-approval-census.ts"
+      - "artifacts/api-server/src/current-affairs/selected-editorial-*.ts"
+      - "artifacts/api-server/src/current-affairs/selected-master-pack-boundary.test.ts"
+      - "artifacts/api-server/src/current-affairs/selected-residual-blocker-closure*.ts"
+      - "artifacts/api-server/src/current-affairs/selected-rbi-final-mile-closure*.ts"
+      - "artifacts/api-server/src/current-affairs/source-fetch*.ts"
+      - "artifacts/api-server/src/current-affairs/selected-processing-*.test.ts"
+      - "artifacts/api-server/src/current-affairs/one-day-rescue-policy.ts"
+      - "artifacts/api-server/src/current-affairs/on-demand-yesterday-runtime.ts"
+      - "artifacts/api-server/src/routes/admin-current-affairs-selected-processing.ts"
+      - "artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts"
+      - "artifacts/api-server/src/routes/admin-current-affairs-pack-editorial.ts"
+      - "artifacts/api-server/src/app.ts"
+      - "artifacts/api-server/migrations/*current_affairs_selected_processing*.sql"
+      - "artifacts/api-server/ensure-current-affairs.mjs"
+      - "artifacts/admin-app/src/features/current-affairs/selected-processing-api.ts"
+      - "artifacts/admin-app/src/features/current-affairs/pack-editorial-api.ts"
+      - "artifacts/admin-app/src/features/current-affairs/CurrentAffairsMasterPackApprovalCard.tsx"
+      - "artifacts/admin-app/src/features/current-affairs/CurrentAffairsPackEditorialWorkspace.tsx"
+      - "artifacts/admin-app/src/features/current-affairs/CurrentAffairsPastDailyPacksCard.tsx"
+      - "artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-selected-processing-async-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Verify selected-processing SQL typing regression
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-sql-typing.test.ts
+      - name: Verify async selected-processing contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-async.test.ts
+      - name: Verify bounded official-source fetch contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/source-fetch.test.ts
+      - name: Verify localization-method schema contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-localization-method-schema.test.ts
+      - name: Verify CP064 residual blocker closure contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-residual-blocker-closure.test.ts
+      - name: Verify CP065 RBI final-mile closure contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-rbi-final-mile-closure.test.ts
+      - name: Verify CP068 selected master-pack boundary contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-master-pack-boundary.test.ts
+      - name: Verify CP069 selected editorial cleanup and approval contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-editorial-approval-cleanup.test.ts
+      - name: Verify CP070 selection-aware approval census contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-editorial-approval-census.test.ts
+      - name: Verify CP071 Past Daily Packs and replay-boundary contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-past-daily-packs.test.ts
+      - name: Verify CP072 Daily Pack editorial workspace contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-pack-editorial-workspace.test.ts
+      - name: Verify CP073 selected binding integrity contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-binding-integrity.test.ts
+      - name: Verify CP074 learner editorial quality contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-learner-editorial-quality.test.ts
+      - name: Verify CP075 approved revision editability contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-approved-revision-editability.test.ts
+      - name: Build API server
+        run: pnpm --filter @workspace/api-server build
+      - name: Typecheck admin frontend
+        run: pnpm --filter @workspace/admin-app typecheck

@@ -1,0 +1,14 @@
+{
+  "language": "en",
+  "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED_VARIANTS",
+  "entries": {
+    "PRT-QL-104": [
+      "{partnerA} and {partnerB} put {capitalA} and {capitalB} for equal periods into a {business}. Of the profit, {equalSplitPercent}% was divided equally and the other {capitalSplitPercent}% according to capital. Their final receipts differed by {shareDifference}. Determine the whole profit.",
+      "A {business} had equal-duration capitals {capitalA} and {capitalB} from {partnerA} and {partnerB}. They shared {equalSplitPercent}% of profit equally, then split the remaining {capitalSplitPercent}% by capital ratio. If one finally received {shareDifference} more than the other, what was the total profit?"
+    ],
+    "PRT-QL-105": [
+      "Over {totalDuration} in a {business}, {partnerA} maintained {capitalA}. {partnerB} invested {initialCapitalB} initially and withdrew {withdrawnCapitalB} after {changeAfterB}, while {partnerC} maintained {capitalC}. If profit was {totalProfit}, calculate {targetPartner}'s share.",
+      "A {business} continued for {totalDuration}. Capitals of {partnerA} and {partnerC} remained {capitalA} and {capitalC} throughout, whereas {partnerB} reduced {initialCapitalB} by {withdrawnCapitalB} after {changeAfterB}. From {totalProfit} profit, how much belonged to {targetPartner}?"
+    ]
+  }
+}

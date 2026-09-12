@@ -1,0 +1,117 @@
+export type SpatialFinalHeldGapDispositionV1 =
+  | "PROMOTE_TO_PERMANENT_QL_REVIEW_CANDIDATE"
+  | "RETAIN_HOLD_NO_STANDALONE_QL"
+  | "MERGE_INTO_EXISTING_QL_PARAMETER_SPACE";
+
+export const SPATIAL_FINAL_HELD_GAP_SATURATION_AUTHORITY_V1 = Object.freeze({
+  authorityId: "SPA-FND-001-FINAL-HELD-GAP-SATURATION-V1" as const,
+  status: "FINAL_HELD_GAP_AUDIT_COMPLETE_THREE_SOURCE_BACKED_REVIEW_CANDIDATES" as const,
+  reviewedNewMainHead: "19c69dd5a6d64564634a1924ec7a41d5d2ca93d7" as const,
+  sourcePolicy: "EXAM_SOURCE_BACKED_SEMANTIC_SKILL_NOT_REPRESENTATION_VARIANT" as const,
+  evidence: Object.freeze([
+    Object.freeze({
+      evidenceId: "SPA-HG-E01" as const,
+      family: "STRAIGHT_LINE_COUNTING" as const,
+      exam: "SSC Stenographer 2025" as const,
+      paper: "Official Paper — 06 Aug 2025 Shift 3" as const,
+      sourceUrl: "https://testbook.com/question-answer/how-many-straight-lines-are-there-in-the-star-figu--68b0e719a4e2ea0fdf7b03b9" as const,
+      observedTask: "COUNT_STRAIGHT_LINES_IN_FIGURE" as const,
+    }),
+    Object.freeze({
+      evidenceId: "SPA-HG-E02" as const,
+      family: "CURVED_PRIMITIVE_COUNTING" as const,
+      exam: "SSC CGL 2024 Tier-I" as const,
+      paper: "Official Paper — 23 Sep 2024 Shift 2" as const,
+      sourceUrl: "https://testbook.com/question-answer/how-many-circles-are-there-in-the-given-figure--671603eba353655e7a16de30" as const,
+      observedTask: "COUNT_CIRCLES_IN_FIGURE" as const,
+    }),
+    Object.freeze({
+      evidenceId: "SPA-HG-E03" as const,
+      family: "CURVED_PRIMITIVE_COUNTING" as const,
+      exam: "SSC CGL 2024 Tier-I" as const,
+      paper: "Official Paper — 19 Sep 2024 Shift 2" as const,
+      sourceUrl: "https://testbook.com/question-answer/how-many-semicircles-are-there-in-the-given-figure--671602e45d7c6dc961fe5d74" as const,
+      observedTask: "COUNT_SEMICIRCLES_IN_FIGURE" as const,
+    }),
+    Object.freeze({
+      evidenceId: "SPA-HG-E04" as const,
+      family: "ROTATION_ALLOWED_EMBEDDED_FIGURE" as const,
+      exam: "SSC GD 2021" as const,
+      paper: "Official Paper — 26 Nov 2021 Shift 1" as const,
+      sourceUrl: "https://testbook.com/question-answer/select-the-option-in-which-the-given-figure-is-emb--6247f0673a59c718349f1d5a" as const,
+      observedTask: "EMBEDDED_FIGURE_ROTATION_ALLOWED" as const,
+    }),
+    Object.freeze({
+      evidenceId: "SPA-HG-E05" as const,
+      family: "ROTATION_ALLOWED_EMBEDDED_FIGURE" as const,
+      exam: "SSC GD 2021" as const,
+      paper: "Official Paper — 02 Dec 2021 Shift 3" as const,
+      sourceUrl: "https://testbook.com/question-answer/select-the-option-in-which-the-given-figure-is-emb--6255931f76245f5bf3fba190" as const,
+      observedTask: "EMBEDDED_FIGURE_ROTATION_ALLOWED" as const,
+    }),
+  ]),
+  dispositions: Object.freeze([
+    Object.freeze({
+      gapId: "FCT-HOLD-LINE-COUNT" as const,
+      family: "STRAIGHT_LINE_COUNTING" as const,
+      disposition: "PROMOTE_TO_PERMANENT_QL_REVIEW_CANDIDATE" as SpatialFinalHeldGapDispositionV1,
+      proposedPermanentQlId: "SPA-QL-048" as const,
+      reason: "Direct SSC official-paper task asks for the number of straight lines in a figure; this is not closed-polygon enumeration." as const,
+    }),
+    Object.freeze({
+      gapId: "FCT-HOLD-CURVED-MIXED" as const,
+      family: "CURVED_PRIMITIVE_COUNTING" as const,
+      disposition: "PROMOTE_TO_PERMANENT_QL_REVIEW_CANDIDATE" as SpatialFinalHeldGapDispositionV1,
+      proposedPermanentQlId: "SPA-QL-049" as const,
+      reason: "Direct SSC CGL official-paper tasks separately ask for circles and semicircles; target primitive is parameterized inside one counting skill." as const,
+    }),
+    Object.freeze({
+      gapId: "EMB-HOLD-ROTATION" as const,
+      family: "ROTATION_ALLOWED_EMBEDDED_FIGURE" as const,
+      disposition: "PROMOTE_TO_PERMANENT_QL_REVIEW_CANDIDATE" as SpatialFinalHeldGapDispositionV1,
+      proposedPermanentQlId: "SPA-QL-050" as const,
+      reason: "SSC GD official papers explicitly state that rotation is allowed, making it a learner-semantic boundary from fixed-orientation embedding." as const,
+    }),
+    Object.freeze({
+      gapId: "WAT-HOLD-P01" as const,
+      family: "ANALOG_CLOCK_WATER_IMAGE_DIAGRAM" as const,
+      disposition: "RETAIN_HOLD_NO_STANDALONE_QL" as SpatialFinalHeldGapDispositionV1,
+      proposedPermanentQlId: null,
+      reason: "Current evidence is stronger for numeric water-clock interpretation, which belongs to clock reasoning; no new diagram-only Spatial authority is justified." as const,
+    }),
+    Object.freeze({
+      gapId: "FCL-HOLD-P01" as const,
+      family: "LETTER_SYMBOL_IDENTITY_SET_REPLACEMENT" as const,
+      disposition: "MERGE_INTO_EXISTING_QL_PARAMETER_SPACE" as SpatialFinalHeldGapDispositionV1,
+      proposedPermanentQlId: null,
+      reason: "Comparable police/railway examples exist, but current SSC evidence does not justify a standalone QL; glyph/object identity can remain an object-pool parameter under existing classification semantics." as const,
+    }),
+    Object.freeze({
+      gapId: "EMB-HOLD-REFLECTION" as const,
+      family: "REFLECTION_ALLOWED_EMBEDDED_FIGURE" as const,
+      disposition: "RETAIN_HOLD_NO_STANDALONE_QL" as SpatialFinalHeldGapDispositionV1,
+      proposedPermanentQlId: null,
+      reason: "No target-exam source evidence reviewed in this pass explicitly authorizes reflection as an allowed embedding transform." as const,
+    }),
+  ]),
+  promotedQlIds: Object.freeze(["SPA-QL-048", "SPA-QL-049", "SPA-QL-050"] as const),
+  retainedOrMergedHolds: Object.freeze(["WAT-HOLD-P01", "FCL-HOLD-P01", "EMB-HOLD-REFLECTION"] as const),
+  routing: Object.freeze({
+    sscEvidenceEstablished: true,
+    punjabFamilyLevelSpatialEvidenceEstablished: true,
+    bankingHeldGapEvidenceEstablished: false,
+    doNotAutoRouteNewHeldGapQlsToBanking: true,
+  }),
+  lifecycle: Object.freeze({
+    sourceAuditComplete: true,
+    permanentIdentityAllocationAuthorizedForPromotedQls: true,
+    learnerContentFrozen: false,
+    questionStudioPersistenceAuthorized: false,
+    questionBankWritesAuthorized: false,
+    testBuilderAuthorized: false,
+    mockTestAuthorized: false,
+    publicReleaseAuthorized: false,
+    automaticStudentPublication: false,
+  }),
+  nextGate: "SPA_FINAL_HELD_GAP_PERMANENT_RUNTIME_REVIEW_V1" as const,
+} as const);

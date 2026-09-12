@@ -1,0 +1,91 @@
+{
+  "chapterId": "PRT-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "E13_POST_FREEZE_EXHAUSTIVENESS_CLOSURE",
+  "entries": {
+    "PRT-QL-106": {
+      "cpId": "PRT-CP-006",
+      "taskKind": "adjustedSleepingPartnerEntitlement",
+      "solveMode": "findSleepingPartnerAdjustedEntitlementShare",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "partnerC", "capitalA", "capitalB", "capitalC", "sleepingPartner", "entitlementFraction", "retainedPercent", "totalProfit", "targetPartner", "business"],
+      "scenarioFamily": "reducedSleepingPartnerEntitlement",
+      "distractorProfile": "ignoreEntitlementMultiplierOrRetention",
+      "explanationStrategy": "adjustSleepingWeightThenDistributeResidual",
+      "active": true
+    },
+    "PRT-QL-107": {
+      "cpId": "PRT-CP-007",
+      "taskKind": "profitShareReinvestedNextPeriod",
+      "solveMode": "findNextPeriodProfitRatioAfterProfitShareReinvestment",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "initialCapitalA", "initialCapitalB", "firstYearProfit", "reinvestPartner", "business"],
+      "scenarioFamily": "priorProfitShareReinvestedAsCapital",
+      "distractorProfile": "addGrossProfitOrIgnoreFirstYearShare",
+      "explanationStrategy": "solveFirstPeriodShareThenCarryCapitalForward",
+      "active": true
+    },
+    "PRT-QL-108": {
+      "cpId": "PRT-CP-006",
+      "taskKind": "multipleGrossAllocationsDifferentPartners",
+      "solveMode": "findPartnerReceiptsWithMultipleOrderedAllocations",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "capitalA", "capitalB", "grossPercentA", "grossPercentB", "totalProfit", "targetPartner", "business"],
+      "scenarioFamily": "multipleRecipientGrossAllocations",
+      "distractorProfile": "combinePercentagesOrApplyToResidual",
+      "explanationStrategy": "paySeparateGrossAllocationsThenShareResidual",
+      "active": true
+    },
+    "PRT-QL-109": {
+      "cpId": "PRT-CP-005",
+      "taskKind": "residualFractionsCapitalTimeShare",
+      "solveMode": "findMultiPartnerSharesFromTotalProfit",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "partnerC", "totalCapital", "capitalFractionA", "capitalFractionB", "durationFractionA", "durationFractionB", "totalDuration", "totalProfit", "targetPartner", "business"],
+      "scenarioFamily": "residualTotalCapitalAndTimeFractions",
+      "distractorProfile": "ignoreResidualCapitalOrDurationFractions",
+      "explanationStrategy": "deriveResidualCapitalThenCapitalTimeWeights",
+      "active": true
+    },
+    "PRT-QL-110": {
+      "cpId": "PRT-CP-005",
+      "taskKind": "aggregateRelationalCoefficientShare",
+      "solveMode": "findMultiPartnerSharesFromTotalProfit",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "partnerC", "relationStatement", "totalProfit", "targetPartner", "business"],
+      "scenarioFamily": "aggregateRationalCapitalRelation",
+      "distractorProfile": "solveIndividualsUnnecessarilyOrCopyCoefficient",
+      "explanationStrategy": "collapseAggregateRelationThenShare",
+      "active": true
+    },
+    "PRT-QL-111": {
+      "cpId": "PRT-CP-006",
+      "taskKind": "interestOnCapitalThenResidualShare",
+      "solveMode": "findPartnerReceiptsWithMultipleOrderedAllocations",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "capitalA", "capitalB", "interestRatePercent", "totalProfit", "targetPartner", "business"],
+      "scenarioFamily": "interestOnPartnerCapitalBeforeResidualProfit",
+      "distractorProfile": "ignoreInterestOrApplyRateToProfit",
+      "explanationStrategy": "creditCapitalInterestThenShareResidual",
+      "active": true
+    },
+    "PRT-QL-112": {
+      "cpId": "PRT-CP-005",
+      "taskKind": "incomingPartnerProfitShareAcquisition",
+      "solveMode": "findProfitRatioAfterNewPartnerAcquiresShare",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "partnerC", "oldRatio", "acquiredFraction", "sacrificeRatio", "business"],
+      "scenarioFamily": "incomingPartnerAcquiresProfitShare",
+      "distractorProfile": "subtractWholeAcquiredShareFromEachOrIgnoreSacrificeRatio",
+      "explanationStrategy": "splitAcquiredShareBySacrificeRatioThenRenormalize",
+      "active": true
+    }
+  }
+}

@@ -1,0 +1,40 @@
+name: Quant V4 Quantity Comparison P0
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/**"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-exam-profile-conformance.test.ts"
+  push:
+    branches:
+      - "feat/quant-v4-quantity-comparison-p0"
+    paths:
+      - "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/**"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-exam-profile-conformance.test.ts"
+      - ".github/workflows/quant-v4-quantity-comparison-p0.yml"
+
+concurrency:
+  group: quant-v4-qcp-p0-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quantity-comparison:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: artifacts/api-server
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: QCP-001 deterministic and independent proof
+        run: npx --yes tsx src/quant-v4/representations/QuantityComparison/QCP-001/qcp-001.test.ts
+      - name: Quant V4 central exam-profile conformance
+        run: npx --yes tsx src/quant-v4/quality/quant-v4-exam-profile-conformance.test.ts
+      - name: Patch hygiene
+        run: git -C ../.. diff --check origin/New-main...HEAD

@@ -1,0 +1,134 @@
+name: Validate Computer Content Engine Integration V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/**"
+      - "artifacts/api-server/src/question-studio/**"
+      - "artifacts/api-server/src/routes/admin-question-studio-com003.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-mixed-difficulty.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioCom003PreviewPanel.tsx"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioCom003ReviewPanel.tsx"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioComputerAwarenessReviewPanel.tsx"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
+  workflow_dispatch:
+
+concurrency:
+  group: computer-content-engine-integration-v2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-computer-content-engine:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Computer integration governance gate
+        run: |
+          mkdir -p artifacts/api-server/dist/question-studio
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/computer-content-engine-integration-v2.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/question-studio/computer-content-engine-integration-v2.test.mjs
+
+      - name: Validate frozen COM-003 corpus and active BANK_ONLY lifecycle
+        run: node artifacts/api-server/dist/question-studio/computer-content-engine-integration-v2.test.mjs
+
+      - name: Run frozen computer corpus and BANK_ONLY contracts
+        run: |
+          mkdir -p artifacts/api-server/dist/question-studio/computer-final
+          tests=(
+            "src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-freeze-v1.test.ts"
+            "src/knowledge-v1/computer-awareness/com006-cyber-security-english-review-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-com006-adapter-v1.test.ts"
+            "src/knowledge-v1/computer-awareness/com007-software-languages-database-english-review-v1.test.ts"
+            "src/knowledge-v1/computer-awareness/com007-software-languages-database-freeze-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-com007-adapter-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-com005-adapter-v1.test.ts"
+            "src/knowledge-v1/computer-awareness/com003-question-studio-review-only-route-contract-v1.test.ts"
+            "src/knowledge-v1/computer-awareness/com003-question-studio-review-run-ui-contract-v1.test.ts"
+            "src/question-studio/engines/com003-bank-only-activation-authority-v1.test.ts"
+            "src/question-studio/engines/com003-bank-only-registry-contract-v1.test.ts"
+            "src/question-studio/engines/com003-question-bank-acceptance-route-v1.test.ts"
+            "src/question-studio/engines/com003-regeneration-lock-contract-v1.test.ts"
+            "src/question-studio/engines/com003-source-controlled-review-contract-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts"
+            "src/question-studio/engines/knowledge-v1-com001-cp006-adapter.test.ts"
+            "src/question-studio/engines/knowledge-v1-com001-completion-v1.test.ts"
+          )
+          for test_file in "${tests[@]}"; do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "${test_file}" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/question-studio/computer-final/${output_name}"
+            node "artifacts/api-server/dist/question-studio/computer-final/${output_name}"
+          done
+
+      - name: Bundle existing Question Studio foundation gates
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/standard-lifecycle.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/question-studio/standard-lifecycle.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engine-registry.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/question-studio/engine-registry.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engine-route-integration.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/question-studio/engine-route-integration.test.mjs
+
+      - name: Run Question Studio lifecycle and engine gates
+        run: |
+          node artifacts/api-server/dist/question-studio/standard-lifecycle.test.mjs
+          node artifacts/api-server/dist/question-studio/engine-registry.test.mjs
+          node artifacts/api-server/dist/question-studio/engine-route-integration.test.mjs
+
+      - name: Bundle Computer admin API routes
+        run: |
+          mkdir -p artifacts/api-server/dist/routes
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/routes/admin-question-studio-com003.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/routes/admin-question-studio-com003.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/routes/admin-question-studio-engine-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/routes/admin-question-studio-engine-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/routes/admin-question-studio-mixed-difficulty.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/routes/admin-question-studio-mixed-difficulty.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/routes/admin-question-studio-registry.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/routes/admin-question-studio-registry.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck Computer admin review surfaces
+        run: pnpm --dir artifacts/admin-app typecheck

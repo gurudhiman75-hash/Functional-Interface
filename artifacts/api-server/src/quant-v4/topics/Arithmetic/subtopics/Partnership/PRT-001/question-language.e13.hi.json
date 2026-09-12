@@ -1,0 +1,13 @@
+{
+  "language": "hi",
+  "status": "E13_SOURCE_BACKED",
+  "entries": {
+    "PRT-QL-106": "{partnerA}, {partnerB} और {partnerC} {business} में क्रमशः ₹{capitalA}, ₹{capitalB} और ₹{capitalC} निवेश करते हैं। {sleepingPartner} निष्क्रिय साझेदार है और उसे पूंजी के आधार पर मिलने वाले सामान्य लाभ-अधिकार का केवल {entitlementFraction} मिलता है। ₹{totalProfit} के कुल लाभ में से {retainedPercent}% व्यवसाय में रोक लिया जाता है। बांटे जाने वाले लाभ में {targetPartner} का हिस्सा कितना होगा?",
+    "PRT-QL-107": "{partnerA} और {partnerB} {business} में क्रमशः ₹{initialCapitalA} और ₹{initialCapitalB} निवेश करते हैं। पहले वर्ष का लाभ ₹{firstYearProfit} है। {reinvestPartner} पहले वर्ष के अपने पूरे लाभांश को अतिरिक्त पूंजी के रूप में दोबारा निवेश करता है, जबकि दूसरा साझेदार अपना लाभांश निकाल लेता है। आगे कोई पूंजी परिवर्तन न हो, तो दूसरे वर्ष में लाभ-विभाजन का अनुपात क्या होगा?",
+    "PRT-QL-108": "{partnerA} और {partnerB} {business} में क्रमशः ₹{capitalA} और ₹{capitalB} निवेश करते हैं। ₹{totalProfit} के कुल लाभ में से पहले {partnerA} को सकल लाभ का {grossPercentA}% और {partnerB} को सकल लाभ का {grossPercentB}% मिलता है। शेष लाभ पूंजी के अनुपात में बांटा जाता है। {targetPartner} को कुल कितनी राशि मिलेगी?",
+    "PRT-QL-109": "{business} में कुल पूंजी ₹{totalCapital} है और साझेदारी की अवधि {totalDuration} है। {partnerA} कुल पूंजी का {capitalFractionA} भाग कुल अवधि के {durationFractionA} भाग के लिए, {partnerB} कुल पूंजी का {capitalFractionB} भाग कुल अवधि के {durationFractionB} भाग के लिए निवेश करता है और {partnerC} शेष पूंजी पूरी अवधि के लिए निवेश करता है। कुल लाभ ₹{totalProfit} हो, तो {targetPartner} का हिस्सा ज्ञात कीजिए।",
+    "PRT-QL-110": "{partnerA}, {partnerB} और {partnerC} {business} में समान अवधि तक साझेदार रहते हैं। उनकी पूंजी के बीच संबंध है: {relationStatement}। कुल लाभ ₹{totalProfit} हो, तो {targetPartner} का हिस्सा कितना होगा?",
+    "PRT-QL-111": "{partnerA} और {partnerB} {business} में एक वर्ष के लिए क्रमशः ₹{capitalA} और ₹{capitalB} निवेश करते हैं। शेष लाभ बांटने से पहले प्रत्येक साझेदार को उसकी पूंजी पर {interestRatePercent}% वार्षिक की दर से ब्याज दिया जाता है। कुल लाभ ₹{totalProfit} हो, तो पूंजी पर ब्याज सहित {targetPartner} की कुल प्राप्ति कितनी होगी?",
+    "PRT-QL-112": "{partnerA} और {partnerB} {business} का लाभ वर्तमान में {oldRatio} के अनुपात में बांटते हैं। {partnerC} साझेदारी में आता है और कुल लाभ का {acquiredFraction} हिस्सा {partnerA} तथा {partnerB} से प्राप्त करता है; दोनों यह हिस्सा {sacrificeRatio} के अनुपात में त्यागते हैं। {partnerA}, {partnerB} और {partnerC} का नया लाभ-विभाजन अनुपात क्या होगा?"
+  }
+}

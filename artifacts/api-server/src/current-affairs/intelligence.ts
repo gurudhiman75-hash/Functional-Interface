@@ -257,6 +257,16 @@ function pushClaim(claims: FactClaim[], claim: Omit<FactClaim, "normalizedValue"
   if (!duplicate) claims.push({ ...claim, normalizedValue });
 }
 
+function plannedPassiveBaseVerb(participle: string) {
+  const normalized = participle.toLowerCase();
+  if (normalized === "held") return "hold";
+  if (normalized === "conducted") return "conduct";
+  if (normalized === "inaugurated") return "inaugurate";
+  if (normalized === "launched") return "launch";
+  if (normalized === "opened") return "open";
+  return normalized;
+}
+
 export function extractHeadlineFactClaims(title: string): FactClaim[] {
   const claims: FactClaim[] = [];
   const cleaned = title.replace(/\s+/g, " ").trim();
@@ -279,6 +289,207 @@ export function extractHeadlineFactClaims(title: string): FactClaim[] {
       confidence: 0.68,
       extractionMethod: "rule",
     });
+  }
+
+  // CP-045: planned passive headlines must be recognized before the completed-
+  // event passive rule. Otherwise "Forum to be held in New Delhi" is misread as
+  // an organisation named "Forum to be" with a completed action "held".
+  const plannedPassive = cleaned.match(/^(.{3,140}?)\s+to be\s+(held|conducted|inaugurated|launched|opened)\b\s*(.{0,160})$/i);
+  if (plannedPassive?.[1] && plannedPassive[2]) {
+    const initiative = plannedPassive[1].trim();
+    const participle = plannedPassive[2].toLowerCase();
+    const tail = plannedPassive[3]?.trim() ?? "";
+    pushClaim(claims, {
+      factKey: "initiative",
+      factValue: initiative,
+      factType: "entity",
+      confidence: 0.72,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: `scheduled ${plannedPassiveBaseVerb(participle)}`,
+      factType: "string",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "event_status",
+      factValue: `to be ${participle}${tail ? ` ${tail}` : ""}`,
+      factType: "string",
+      confidence: 0.66,
+      extractionMethod: "rule",
+    });
+    return claims;
+  }
+
+  // CP-049: important official headlines frequently describe office-taking,
+  // historic firsts, summit participation, reviews and bilateral cooperation
+  // without using the older launch/approve verbs. Extract these semantics before
+  // generic rules so they can promote and verify from primary evidence.
+  const officeAssumption = cleaned.match(/^(.{2,140}?)\s+(?:takes? over|took over|assumes? charge|assumed charge|assumes? the appointment|assumed the appointment)\s+(?:as|of)\s+(.{3,200})$/i);
+  if (officeAssumption?.[1] && officeAssumption[2]) {
+    pushClaim(claims, {
+      factKey: "appointee",
+      factValue: officeAssumption[1].trim(),
+      factType: "entity",
+      confidence: 0.76,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "position",
+      factValue: officeAssumption[2].trim(),
+      factType: "string",
+      confidence: 0.72,
+      extractionMethod: "rule",
+    });
+    return claims;
+  }
+
+  const historicFirst = cleaned.match(/^(.{2,140}?)\s+(?:scripts?|makes?)\s+history\s+as\s+(.{3,220})$/i);
+  if (historicFirst?.[1] && historicFirst[2]) {
+    pushClaim(claims, {
+      factKey: "appointee",
+      factValue: historicFirst[1].trim(),
+      factType: "entity",
+      confidence: 0.78,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "position",
+      factValue: historicFirst[2].trim(),
+      factType: "string",
+      confidence: 0.74,
+      extractionMethod: "rule",
+    });
+    return claims;
+  }
+
+  const participation = cleaned.match(/^(.{2,140}?)\s+(participates?|participated|addresses?|addressed)\s+(?:in|at)\s+(.{3,220})$/i);
+  if (participation?.[1] && participation[2] && participation[3]) {
+    pushClaim(claims, {
+      factKey: "acting_entity",
+      factValue: participation[1].trim(),
+      factType: "entity",
+      confidence: 0.76,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: participation[2].toLowerCase(),
+      factType: "string",
+      confidence: 0.72,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "action_subject",
+      factValue: participation[3].trim(),
+      factType: "string",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    return claims;
+  }
+
+  const reviewAction = cleaned.match(/^(.{2,140}?)\s+(reviews?|reviewed)\s+(.{3,240})$/i);
+  if (reviewAction?.[1] && reviewAction[2] && reviewAction[3]) {
+    pushClaim(claims, {
+      factKey: "acting_entity",
+      factValue: reviewAction[1].trim(),
+      factType: "entity",
+      confidence: 0.74,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: reviewAction[2].toLowerCase(),
+      factType: "string",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "action_subject",
+      factValue: reviewAction[3].trim(),
+      factType: "string",
+      confidence: 0.68,
+      extractionMethod: "rule",
+    });
+    return claims;
+  }
+
+  const celebratoryLaunch = cleaned.match(/^(.{2,140}?)\s+(?:celebrates?|marks?|observes?)\b[^;]{0,180};\s*(?:launches|launched)\s+(.{3,220})$/i);
+  if (celebratoryLaunch?.[1] && celebratoryLaunch[2]) {
+    pushClaim(claims, {
+      factKey: "launching_entity",
+      factValue: celebratoryLaunch[1].trim(),
+      factType: "entity",
+      confidence: 0.76,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "initiative",
+      factValue: celebratoryLaunch[2].trim(),
+      factType: "string",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    return claims;
+  }
+
+  // Compound official headlines often add a second impact clause after a semicolon.
+  // Preserve the first substantive action as the canonical event action so a title
+  // such as "BHASHINI Division Organises ...; Strengthens ..." is not misread as
+  // an organisation whose name contains the first clause.
+  const compoundPrimaryAction = cleaned.match(/^(.{2,140}?)\s+(organises|organised|organizes|organized)\s+([^;]{3,220})(?:;\s*.+)?$/i);
+  if (compoundPrimaryAction?.[1] && compoundPrimaryAction[2] && compoundPrimaryAction[3]) {
+    pushClaim(claims, {
+      factKey: "acting_entity",
+      factValue: compoundPrimaryAction[1].trim(),
+      factType: "entity",
+      confidence: 0.76,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: compoundPrimaryAction[2].toLowerCase(),
+      factType: "string",
+      confidence: 0.72,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "action_subject",
+      factValue: compoundPrimaryAction[3].trim(),
+      factType: "string",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    return claims;
+  }
+
+  const bilateralStrengthen = cleaned.match(/^(.{3,140}?)\s+(strengthens?|strengthened)\s+(.{3,220})$/i);
+  if (bilateralStrengthen?.[1] && bilateralStrengthen[2] && bilateralStrengthen[3]) {
+    pushClaim(claims, {
+      factKey: "acting_entity",
+      factValue: bilateralStrengthen[1].trim(),
+      factType: "entity",
+      confidence: 0.74,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: bilateralStrengthen[2].toLowerCase(),
+      factType: "string",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "action_subject",
+      factValue: bilateralStrengthen[3].trim(),
+      factType: "string",
+      confidence: 0.68,
+      extractionMethod: "rule",
+    });
+    return claims;
   }
 
   const appointment = cleaned.match(/^(.{2,100}?)\s+(?:is\s+)?appointed\s+(?:as\s+)?(.{3,140}?)(?:\s+(?:of|at)\s+.+)?$/i);
@@ -331,6 +542,83 @@ export function extractHeadlineFactClaims(title: string): FactClaim[] {
       factValue: launch[2].trim(),
       factType: "string",
       confidence: 0.60,
+      extractionMethod: "rule",
+    });
+  }
+
+  const passiveConducted = cleaned.match(/^(.{3,120}?)\s+(?:successfully\s+)?(?:is\s+|was\s+|has been\s+)?(conducted|held)\b\s*(.{0,160})$/i);
+  if (passiveConducted?.[1] && passiveConducted[2]) {
+    pushClaim(claims, {
+      factKey: "initiative",
+      factValue: passiveConducted[1].trim(),
+      factType: "entity",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: passiveConducted[2].toLowerCase(),
+      factType: "string",
+      confidence: 0.68,
+      extractionMethod: "rule",
+    });
+    if (passiveConducted[3]?.trim()) {
+      pushClaim(claims, {
+        factKey: "event_status",
+        factValue: `${passiveConducted[2].toLowerCase()} ${passiveConducted[3].trim()}`,
+        factType: "string",
+        confidence: 0.60,
+        extractionMethod: "rule",
+      });
+    }
+  }
+
+  const plannedAction = cleaned.match(/^(.{2,120}?)\s+to\s+(release|launch|inaugurate|grace|hold|conduct|open|unveil)\s+(.{3,180})$/i);
+  if (plannedAction?.[1] && plannedAction[2] && plannedAction[3]) {
+    pushClaim(claims, {
+      factKey: "acting_entity",
+      factValue: plannedAction[1].trim(),
+      factType: "entity",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: `scheduled ${plannedAction[2].toLowerCase()}`,
+      factType: "string",
+      confidence: 0.66,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "action_subject",
+      factValue: plannedAction[3].trim(),
+      factType: "string",
+      confidence: 0.62,
+      extractionMethod: "rule",
+    });
+  }
+
+  const formalAction = cleaned.match(/^(.{2,120}?)\s+(notifies|notified|issues|issued|approves|approved|adopts|adopted|releases|released|inaugurates|inaugurated|conducts|conducted|holds|held|leads|led|performs|performed|opens|opened|organises|organised|organizes|organized)\s+(.{3,220})$/i);
+  if (formalAction?.[1] && formalAction[2] && formalAction[3] && !formalAction[1].includes(";")) {
+    pushClaim(claims, {
+      factKey: "acting_entity",
+      factValue: formalAction[1].trim(),
+      factType: "entity",
+      confidence: 0.72,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: formalAction[2].toLowerCase(),
+      factType: "string",
+      confidence: 0.68,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "action_subject",
+      factValue: formalAction[3].trim(),
+      factType: "string",
+      confidence: 0.64,
       extractionMethod: "rule",
     });
   }

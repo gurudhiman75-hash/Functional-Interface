@@ -145,6 +145,8 @@ export function PublicLayout({ children }: PublicLayoutProps) {
         Skip to main content
       </a>
 
+      {isHome ? <div className="sites-top-strip"><span>India&apos;s smarter exam prep platform</span><span aria-hidden="true">•</span><strong>Start with free mock tests</strong><span aria-hidden="true">•</span><span>Updated for 2026</span></div> : null}
+
       <header className={`et-chrome sticky top-0 z-50 border-b ${isHome ? "home-reference-header" : ""}`} data-testid="public-header">
         <div className={`mx-auto flex w-full items-center gap-4 px-4 sm:px-6 ${isHome ? "h-14 max-w-7xl lg:px-8" : `h-16 ${showStudySidebar ? "max-w-[1536px] lg:px-0" : "max-w-7xl lg:px-8"}`}`}>
           <div className={!isHome && showStudySidebar ? "lg:flex lg:w-[252px] lg:shrink-0 lg:items-center lg:border-r lg:border-sidebar-border lg:px-5 lg:self-stretch" : "shrink-0"}>

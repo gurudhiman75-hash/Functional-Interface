@@ -1,0 +1,13 @@
+{
+  "language": "hi",
+  "status": "E3_EXPANSION_A",
+  "entries": {
+    "PRT-QL-057": "एक {business} में {partnerA} ने {capitalA}, {durationA} के लिए और {partnerB} ने {capitalB}, {durationB} के लिए लगाए। उनके लाभांशों का अंतर {shareDifference} था। कुल लाभ ज्ञात कीजिए।",
+    "PRT-QL-058": "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत की और {changeMonthA} बाद पूंजी बढ़ाई। {partnerB} ने पूरे वर्ष {capitalB} लगाए रखे। यदि लाभ अनुपात {profitRatioA}:{profitRatioB} था, तो {partnerA} ने पूंजी कितने प्रतिशत बढ़ाई?",
+    "PRT-QL-059": "एक वर्ष के {business} में {partnerA} ने अज्ञात प्रारंभिक पूंजी लगाई और {changeMonthA} बाद {addedCapitalA} और जोड़े। {partnerB} ने पूरे वर्ष {capitalB} लगाए रखे। कुल लाभ {totalProfit} था, जिसमें {partnerA} का हिस्सा {knownShare} था। {partnerA} की प्रारंभिक पूंजी ज्ञात कीजिए।",
+    "PRT-QL-060": "एक {business} में {partnerA}, {partnerB} और {partnerC} ने क्रमशः {capitalA}, {capitalB} और {capitalC} लगाए तथा लाभ {profitRatioA}:{profitRatioB}:{profitRatioC} के अनुपात में बाँटा। उनकी निवेश अवधियों का अनुपात ज्ञात कीजिए।",
+    "PRT-QL-061": "एक {business} में {partnerA} और {partnerB} ने समान अवधि के लिए {capitalA} और {capitalB} लगाए। शेष लाभ को पूंजी अनुपात में बाँटने से पहले {partnerA} को सकल लाभ का कुछ प्रतिशत कमीशन मिलता है। यदि सकल लाभ {totalProfit} और {partnerA} की अंतिम प्राप्ति {finalReceipt} थी, तो कमीशन प्रतिशत ज्ञात कीजिए।",
+    "PRT-QL-062": "एक {business} में {partnerA} और {partnerB} ने समान अवधि के लिए {capitalA} और {capitalB} लगाए। वितरण से पहले सकल लाभ से एक निश्चित राशि काटी गई। यदि सकल लाभ {totalProfit} और {partnerB} का लाभांश {knownShare} था, तो कटौती ज्ञात कीजिए।",
+    "PRT-QL-063": "एक {business} में शेष लाभ बाँटने से पहले {partnerA} को {salary} वेतन मिला। {partnerA} और {partnerB} की अंतिम प्राप्तियाँ क्रमशः {finalReceiptA} और {finalReceiptB} थीं। शेष लाभ किस अनुपात में बाँटा गया था?"
+  }
+}

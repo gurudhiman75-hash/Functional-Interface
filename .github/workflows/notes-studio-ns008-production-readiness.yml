@@ -6,9 +6,11 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/migrations/20260829_notes_studio_source_pack*.sql
-      - artifacts/api-server/migrations/20260830_notes_studio_source_pack*.sql
+      - build-api.sh
+      - render.yaml
+      - artifacts/api-server/migrations/*notes_studio*.sql
       - artifacts/api-server/notes-studio-migrate.ts
+      - artifacts/api-server/src/lib/ai-providers/**
       - artifacts/api-server/src/notes-studio/**
       - artifacts/api-server/src/routes/admin-notes-studio*.ts
       - artifacts/api-server/src/routes/index.ts
@@ -61,6 +63,7 @@ jobs:
         run: |
           set -euo pipefail
           for test_file in \
+            gemini-adapter \
             source-pack \
             source-pack-policy \
             evidence-map \
@@ -69,6 +72,10 @@ jobs:
             quality-grounding \
             approval-versioning \
             release-lineage \
+            research-restart \
+            gemini-search-diagnostics \
+            source-discovery-provider \
+            source-discovery-authority \
             production-readiness
           do
             pnpm --dir artifacts/api-server exec esbuild "src/notes-studio/${test_file}.test.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/notes-studio-${test_file}.test.mjs"
@@ -82,14 +89,59 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-migrate.mjs
           (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
+          (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
+          test "$(psql "$DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "14"
+          test "$(psql "$DATABASE_URL" -Atc "SELECT column_name FROM information_schema.columns WHERE table_schema='content' AND table_name='note_coverage_plan_items' AND column_name='coverage_review_state'")" = "coverage_review_state"
+
+      - name: Reconcile unledgered partial Notes Studio schema
+        env:
+          PARTIAL_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/notes_studio_partial_ci
+        run: |
+          set -euo pipefail
+          psql "postgresql://postgres:postgres@127.0.0.1:5432/postgres" -v ON_ERROR_STOP=1 -c 'CREATE DATABASE notes_studio_partial_ci'
+          psql "$PARTIAL_DATABASE_URL" -v ON_ERROR_STOP=1 -f artifacts/api-server/src/notes-studio/production-readiness-bootstrap.sql
+          for migration in \
+            20260829_notes_studio_source_pack.sql \
+            20260829_notes_studio_source_pack_ns003_evidence_coverage.sql \
+            20260829_notes_studio_source_pack_ns004_section_synthesis.sql \
+            20260829_notes_studio_source_pack_ns004_section_synthesis_hardening.sql \
+            20260830_notes_studio_source_pack_ns005_quality_gates.sql \
+            20260830_notes_studio_source_pack_ns006_approval_localization.sql \
+            20260830_notes_studio_source_pack_ns007_release_lineage.sql \
+            20260830_notes_studio_source_pack_ns009_planning.sql \
+            20260830_notes_studio_source_pack_ns011_source_policy.sql \
+            20260831_notes_studio_ns017_source_pack_freeze.sql \
+            20260831_notes_studio_ns018_research_restart.sql
+          do
+            psql "$PARTIAL_DATABASE_URL" -v ON_ERROR_STOP=1 -f "artifacts/api-server/migrations/$migration"
+          done
+          (cd artifacts/api-server && DATABASE_URL="$PARTIAL_DATABASE_URL" node dist/notes-studio-migrate.mjs)
+          test "$(psql "$PARTIAL_DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "14"
+          test "$(psql "$PARTIAL_DATABASE_URL" -Atc "SELECT to_regclass('content.note_authoring_jobs')::text")" = "content.note_authoring_jobs"
+          test "$(psql "$PARTIAL_DATABASE_URL" -Atc "SELECT column_name FROM information_schema.columns WHERE table_schema='content' AND table_name='note_coverage_plan_items' AND column_name='coverage_review_state'")" = "coverage_review_state"
+          psql "$PARTIAL_DATABASE_URL" -v ON_ERROR_STOP=1 -c 'DELETE FROM platform.notes_studio_schema_migrations'
+          (cd artifacts/api-server && DATABASE_URL="$PARTIAL_DATABASE_URL" node dist/notes-studio-migrate.mjs)
+          test "$(psql "$PARTIAL_DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "14"
 
       - name: Run seeded PostgreSQL lifecycle
         run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f artifacts/api-server/src/notes-studio/production-readiness-smoke.sql
 
+      - name: Run reference-evidence PostgreSQL lifecycle
+        run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f artifacts/api-server/src/notes-studio/reference-evidence-production-smoke.sql
+
       - name: Verify production-readiness boundaries
         run: |
           grep -F 'pg_advisory_xact_lock' artifacts/api-server/notes-studio-migrate.ts
-          grep -F 'automaticProductionMigration: false' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
+          grep -F 'notes_studio_schema_migrations' artifacts/api-server/notes-studio-migrate.ts
+          grep -F 'Unmanifested Notes Studio migration file(s)' artifacts/api-server/notes-studio-migrate.ts
+          grep -F '20260903_notes_studio_coverage_editorial_review_gate.sql' artifacts/api-server/src/notes-studio/production-readiness.ts
+          grep -F '20260905_notes_studio_append_only_gap_sources.sql' artifacts/api-server/src/notes-studio/production-readiness.ts
+          grep -F 'coverage_review_state' artifacts/api-server/src/notes-studio/production-readiness.ts
+          grep -F 'append-only after evidence work begins' artifacts/api-server/migrations/20260905_notes_studio_append_only_gap_sources.sql
+          grep -F 'reconciling unledgered schema by replaying ordered migrations' artifacts/api-server/notes-studio-migrate.ts
+          grep -F 'automaticProductionMigration: true' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
+          grep -F '[render-build] verify Notes Studio schema' build-api.sh
+          grep -F 'notes-studio-migrate.ts' build-api.sh
           grep -F 'rawSourceBodiesSentToSectionWriter: false' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
           grep -F 'rawResearchSourcesSentToLocalization: false' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
           grep -F 'handoffPublishesResource: false' artifacts/api-server/src/routes/admin-notes-studio-operations.ts

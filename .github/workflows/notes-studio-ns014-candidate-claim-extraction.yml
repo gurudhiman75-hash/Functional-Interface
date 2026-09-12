@@ -10,8 +10,12 @@ on:
       - artifacts/api-server/src/notes-studio/candidate-claim-extraction-provider.ts
       - artifacts/api-server/src/notes-studio/candidate-claim-extraction.test.ts
       - artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-research-review.ts
       - artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+      - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/pages/content/NotesStudioCandidateClaimsPage.tsx
+      - artifacts/admin-app/src/pages/content/NotesStudioResearchReviewPage.tsx
+      - artifacts/admin-app/src/pages/content/NotesStudioGuidedPage.tsx
       - artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
       - docs/notes-studio-ns014-candidate-claim-extraction.md
 
@@ -57,9 +61,15 @@ jobs:
           grep -F "adminNotesStudioCandidateClaimsRouter" artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
           grep -F "Candidate claims" artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
           grep -F "Nothing was accepted automatically" artifacts/admin-app/src/pages/content/NotesStudioCandidateClaimsPage.tsx
-          if grep -F "UPDATE content.note_source_claims" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts; then exit 1; fi
+          grep -F "Guided Research Review model-extracted candidate; editorial acceptance required." artifacts/api-server/src/routes/admin-notes-studio-research-review.ts
+          grep -F "automaticAcceptance: false" artifacts/api-server/src/routes/admin-notes-studio-research-review.ts
+          grep -F "editorApplied: true" artifacts/api-server/src/routes/admin-notes-studio-research-review.ts
+          grep -F "adminNotesStudioResearchReviewRouter" artifacts/api-server/src/routes/index.ts
+          grep -F "Accept selected facts" artifacts/admin-app/src/pages/content/NotesStudioResearchReviewPage.tsx
+          grep -F "Research Review below" artifacts/admin-app/src/pages/content/NotesStudioGuidedPage.tsx
           if grep -F "INSERT INTO content.note_coverage_item_claims" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts; then exit 1; fi
           if grep -F "INSERT INTO content.note_sections" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts; then exit 1; fi
+          if grep -F "INSERT INTO content.note_sections" artifacts/api-server/src/routes/admin-notes-studio-research-review.ts; then exit 1; fi
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build

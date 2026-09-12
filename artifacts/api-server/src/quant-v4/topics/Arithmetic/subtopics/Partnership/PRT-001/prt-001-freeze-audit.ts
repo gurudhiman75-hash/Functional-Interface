@@ -3,35 +3,62 @@ import { generateQuestion, listQuantV4Packages } from "../../../../../generation
 import {
   auditPrt001ContextRealism,
   auditPrt001Coverage,
+  auditPrt001E1MathDiversity,
+  auditPrt001E2MathDiversity,
+  auditPrt001E3MathDiversity,
+  auditPrt001E4MathDiversity,
+  auditPrt001E5MathDiversity,
+  auditPrt001E13MathDiversity,
   auditPrt001Multilingual,
   auditPrt001OptionQuality,
 } from "./foundation/coverage-auditor";
+import {
+  auditPrt001AdvancedStemSkeletonDiversity,
+  auditPrt001BaselineAdvancedMathDiversity,
+  auditPrt001ObjectPoolDepth,
+} from "./foundation/e6-production-diversity-auditor";
+import {
+  auditPrt001ChapterStemSkeletonDepth,
+  auditPrt001CrossQlStemStructure,
+} from "./foundation/e7-stem-structure-auditor";
+import { auditPrt001E8SourceRealness } from "./foundation/e8-source-realness-auditor";
+import { auditPrt001E10EnglishEditorial } from "./foundation/e10-english-editorial-auditor";
+import { auditPrt001E11LocalizedEditorial } from "./foundation/e11-localized-editorial-auditor";
+import { auditPrt001E13SourceOwnership } from "./foundation/e13-source-ownership-auditor";
 import { PRT_001_CP_IDS } from "./foundation/types";
+import { auditPrt001E13CrossChapterOwnership } from "./prt-001-e13-cross-chapter-ownership-audit";
 
 const reports = [
   auditPrt001Coverage(),
   auditPrt001ContextRealism(),
+  auditPrt001E8SourceRealness(),
+  auditPrt001E13SourceOwnership(),
+  auditPrt001E13CrossChapterOwnership(),
+  auditPrt001E10EnglishEditorial(),
+  auditPrt001E11LocalizedEditorial(),
+  auditPrt001ChapterStemSkeletonDepth(),
+  auditPrt001CrossQlStemStructure(),
+  auditPrt001BaselineAdvancedMathDiversity(),
+  auditPrt001AdvancedStemSkeletonDiversity(),
+  auditPrt001ObjectPoolDepth(),
+  auditPrt001E1MathDiversity(),
+  auditPrt001E2MathDiversity(),
+  auditPrt001E3MathDiversity(),
+  auditPrt001E4MathDiversity(),
+  auditPrt001E5MathDiversity(),
+  auditPrt001E13MathDiversity(),
   auditPrt001Multilingual(),
   auditPrt001OptionQuality(),
 ];
 
 const definition = listQuantV4Packages().find((item) => item.packageId === "PRT-001");
 assert.ok(definition, "Question Studio package discovery is missing PRT-001");
-assert.deepEqual(
-  definition.canonicalProblems.map((item) => item.id),
-  [...PRT_001_CP_IDS],
-);
+assert.deepEqual(definition.canonicalProblems.map((item) => item.id), [...PRT_001_CP_IDS]);
 
 let studioCases = 0;
 for (const cpId of PRT_001_CP_IDS) {
   for (const language of ["en", "hi", "pa"] as const) {
-    const result = await generateQuestion({
-      packageId: "PRT-001",
-      cpId,
-      language,
-      count: 2,
-      seed: `prt-001:studio:${cpId}:${language}`,
-    });
+    const result = await generateQuestion({ packageId: "PRT-001", cpId, language, count: 2, seed: `prt-001:studio:${cpId}:${language}` });
     assert.equal(result.questionPackages.length, 2);
     assert.equal(result.questions.length, 2);
     for (const pkg of result.questionPackages) {
@@ -44,10 +71,5 @@ for (const cpId of PRT_001_CP_IDS) {
   }
 }
 
-reports.push({
-  audit: "question-studio-integration",
-  cases: studioCases,
-  metrics: { canonicalProblems: 7, languages: 3 },
-});
-
-console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", reports }, null, 2));
+reports.push({ audit: "question-studio-integration", cases: studioCases, metrics: { canonicalProblems: 7, languages: 3, productionWave: "E13" } });
+console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", productionWave: "E13", reports }, null, 2));

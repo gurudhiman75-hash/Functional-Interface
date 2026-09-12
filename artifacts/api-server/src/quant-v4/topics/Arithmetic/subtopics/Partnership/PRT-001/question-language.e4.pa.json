@@ -1,0 +1,20 @@
+{
+  "language": "pa",
+  "status": "E4_SEMANTIC_LOCALIZATION",
+  "entries": {
+    "PRT-QL-071": "{partnerA} ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਜੇ {partnerA} ਦਾ ਮੁਨਾਫ਼ੇ ਦਾ ਹਿੱਸਾ {knownShare} ਸੀ, ਤਾਂ {partnerB} ਨੂੰ ਕਿੰਨਾ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ?",
+    "PRT-QL-072": "{business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ ਅਤੇ ਕ੍ਰਮਵਾਰ {shareA} ਅਤੇ {shareB} ਮੁਨਾਫ਼ਾ ਪ੍ਰਾਪਤ ਕੀਤਾ। ਉਨ੍ਹਾਂ ਦੀ ਪੂੰਜੀ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-073": "{partnerA} ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਵਪਾਰ ਨੂੰ {totalLoss} ਦਾ ਨੁਕਸਾਨ ਹੋਇਆ। {targetPartner} ਨੂੰ ਕਿੰਨਾ ਨੁਕਸਾਨ ਝੱਲਣਾ ਚਾਹੀਦਾ ਹੈ?",
+    "PRT-QL-074": "{partnerA} ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ ਕੁੱਲ {totalCapital} ਪੂੰਜੀ ਲਗਾਈ। ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+    "PRT-QL-075": "{business} ਵਿੱਚ {partnerA} ਨੇ ਕੁਝ ਪੂੰਜੀ {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB}, {durationB} ਲਈ ਲਗਾਏ। ਜੇ ਦੋਵਾਂ ਨੂੰ ਬਰਾਬਰ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ, ਤਾਂ {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+    "PRT-QL-076": "{business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} ਕੁਝ ਸਮੇਂ ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB}, {durationB} ਲਈ ਲਗਾਏ। ਜੇ ਦੋਵਾਂ ਨੂੰ ਬਰਾਬਰ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ, ਤਾਂ {partnerA} ਨੇ ਕਿੰਨੇ ਸਮੇਂ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ?",
+    "PRT-QL-077": "{partnerA} ਨੇ {business} ਵਿੱਚ {capitalA}, {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB}, {durationB} ਲਈ ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ ਉਨ੍ਹਾਂ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ ਕੱਢੋ।",
+    "PRT-QL-078": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਪਰ {leaveAfterA} ਬਾਅਦ ਕਾਰੋਬਾਰ ਛੱਡ ਦਿੱਤਾ। {partnerB} ਨੇ ਪੂਰੇ ਸਾਲ {capitalB} ਲਗਾਏ। ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-079": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ। {partnerB}, {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+    "PRT-QL-080": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਅਣਜਾਣ ਪੂੰਜੀ ਲਗਾਈ ਅਤੇ {leaveAfterA} ਬਾਅਦ ਕਾਰੋਬਾਰ ਛੱਡ ਦਿੱਤਾ। {partnerB} ਨੇ ਪੂਰੇ ਸਾਲ {capitalB} ਲਗਾਏ। ਜੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ, ਤਾਂ {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+    "PRT-QL-081": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ, {partnerB} {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਅਤੇ {partnerC} {joinAfterC} ਬਾਅਦ {capitalC} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਜੇ {targetPartner} ਦਾ ਮੁਨਾਫ਼ੇ ਦਾ ਹਿੱਸਾ {knownShare} ਸੀ, ਤਾਂ ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+    "PRT-QL-082": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਦੀ ਸ਼ੁਰੂਆਤ {initialCapitalA} ਨਾਲ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਪੂੰਜੀ ਵਿੱਚ {percentageDecreaseA}% ਦੀ ਕਮੀ ਕਰ ਦਿੱਤੀ। {partnerB} ਨੇ ਪੂਰੇ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-083": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਦੀ ਸ਼ੁਰੂਆਤ {initialCapitalA} ਨਾਲ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ {fractionalChangeA}। {partnerB} ਨੇ ਪੂਰੇ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-084": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਦੀ ਸ਼ੁਰੂਆਤ {initialCapitalA} ਨਾਲ ਕੀਤੀ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਪੂੰਜੀ ਬਦਲ ਕੇ {finalCapitalA} ਕਰ ਦਿੱਤੀ। {partnerB} ਨੇ ਪੂਰੇ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਜੇ ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਅਤੇ {partnerA} ਦਾ ਹਿੱਸਾ {knownShare} ਸੀ, ਤਾਂ {partnerA} ਨੇ ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਪੂੰਜੀ ਬਦਲੀ?"
+  }
+}

@@ -12,7 +12,7 @@ export const PRT_001_CP_IDS = [
 export type Prt001PilotCanonicalProblemId = (typeof PRT_001_CP_IDS)[number];
 export type Prt001Language = "en" | "hi" | "pa";
 export type Prt001Difficulty = "Easy" | "Medium" | "Hard";
-export type Prt001AnswerType = "RATIO" | "MONEY" | "CAPITAL" | "DURATION";
+export type Prt001AnswerType = "RATIO" | "MONEY" | "CAPITAL" | "DURATION" | "PERCENT";
 export type Prt001PilotSolveMode =
   | "findProfitRatioFromCapitals"
   | "findPartnerShareFromTotalProfitAndCapitals"
@@ -41,7 +41,81 @@ export type Prt001PilotSolveMode =
   | "findShareWithLateJoinAndCapitalChange"
   | "findShareWithDynamicCapitalAndWorkingPartnerSalary"
   | "findMultiPartnerSharesWithStaggeredEvents"
-  | "findUnknownJoinTimeWithPreDistributionDeduction";
+  | "findUnknownJoinTimeWithPreDistributionDeduction"
+  | "findProfitRatioWithJoinAndLeaveEvents"
+  | "findUnknownLeaveTimeFromProfitRatio"
+  | "findUnknownCapitalOfLateJoiningPartner"
+  | "findProfitRatioAfterPercentageCapitalIncrease"
+  | "findProfitRatioWithChangesForMultiplePartners"
+  | "findSharesFromCapitalMultiplesAndDurations"
+  | "findTotalProfitFromActivePartnerFinalReceipt"
+  | "findPartnerReceiptsWithMultipleOrderedAllocations"
+  | "findProfitRatioWithJoinLeaveAndCapitalChange"
+  | "findUnknownCapitalWithStaggeredParticipation"
+  | "findTotalProfitFromShareDifferenceAndCapitals"
+  | "findCapitalRatioFromProfitRatioAndTimeRatio"
+  | "findTimeRatioFromProfitRatioAndCapitalRatio"
+  | "findProfitRatioWithMultipleChangesForOnePartner"
+  | "findUnknownCapitalChangeTimeFromProfitRatio"
+  | "findFourPartnerProfitRatio"
+  | "findUnknownDurationInThreePartnerSystem"
+  | "findCapitalRatioFromPartnerShareRelations"
+  | "findTotalProfitFromSleepingPartnerReceipt"
+  | "findPartnerReceiptWithSalaryAndDeduction"
+  | "findShareWithDynamicCapitalAndPercentCommission"
+  | "findUnknownJoinTimeWithCapitalChangeHistory"
+  | "findTotalProfitFromMixedTimelineFinalReceipt"
+  | "findDifferenceBetweenFinalReceiptsInMixedSystem"
+  | "findTotalProfitFromShareDifferenceAndWeights"
+  | "findUnknownPercentageCapitalChange"
+  | "findInitialCapitalFromFinalShareAndChangeHistory"
+  | "findDurationRatioFromPartnerShareRelations"
+  | "findUnknownCommissionPercentFromFinalReceipt"
+  | "findUnknownDeductionFromPartnerShare"
+  | "findProfitRatioFromFinalReceiptsWhenOnePartnerGetsSalary"
+  | "findEqualFinalReceiptsConditionWithRemuneration"
+  | "findReverseContributionFromMixedPartnerRelations"
+  | "findUnknownCapitalFromProfitRatio"
+  | "findTotalProfitFromPartnerShareCapitalDuration"
+  | "findUnknownJoinTimeFromPartnerShare"
+  | "findUnknownWithdrawnCapitalFromProfitRatio"
+  | "findTotalProfitFromDifferenceBetweenTwoShares"
+  | "findOtherPartnerShareFromKnownShareAndCapitals"
+  | "findCapitalRatioFromProfitShares"
+  | "findLossShareFromCapitals"
+  | "findIndividualCapitalsFromTotalCapitalAndProfitRatio"
+  | "findCapitalForEqualProfitGivenDurations"
+  | "findDurationForEqualProfitGivenCapitals"
+  | "findProfitDifferenceFromCapitalDurationWeights"
+  | "findProfitRatioWhenPartnerLeavesEarly"
+  | "findShareWhenPartnerJoinsLater"
+  | "findUnknownCapitalOfEarlyLeavingPartner"
+  | "findTotalProfitFromStaggeredPartnerShare"
+  | "findProfitRatioAfterPercentageCapitalDecrease"
+  | "findProfitRatioAfterFractionalCapitalChange"
+  | "findUnknownCapitalChangeTimeFromPartnerShare"
+  | "findUnknownCapitalFromPartnerShares"
+  | "findMissingPartnerShareFromKnownShareAndWeights"
+  | "findUnknownLeaveTimeFromPartnerShare"
+  | "findJoinTimeForEqualProfitShares"
+  | "findLeaveTimeForEqualProfitShares"
+  | "findShareDifferenceWithStaggeredParticipation"
+  | "findProfitRatioAfterCapitalWithdrawal"
+  | "findShareAfterCapitalAddition"
+  | "findCapitalChangeForEqualProfitShares"
+  | "compareEffectiveCapitalsAfterDifferentChanges"
+  | "findSharesFromTimeMultiplesAndCapitals"
+  | "findPartnerShareWhenOneWeightIsSumOfOthers"
+  | "findUnknownCapitalFromEqualShareConditionInMultiPartnerSystem"
+  | "findUnknownDurationFromEqualShareConditionInMultiPartnerSystem"
+  | "findSleepingPartnerShareWithActivePartnerSalary"
+  | "findPartnerSharesAfterFixedManagementAllowance"
+  | "findActivePartnerReceiptWithPercentOfGrossProfitCommission"
+  | "findSharesAfterReserveDeduction"
+  | "findSharesAfterExplicitBusinessExpenseDeduction"
+  | "findSleepingPartnerAdjustedEntitlementShare"
+  | "findNextPeriodProfitRatioAfterProfitShareReinvestment"
+  | "findProfitRatioAfterNewPartnerAcquiresShare";
 
 export type MoneyUnit = "RUPEE";
 export type TimeUnit = "MONTH" | "YEAR";
@@ -49,11 +123,13 @@ export type PartnerRole = "ACTIVE" | "SLEEPING" | "UNSPECIFIED";
 export type AllocationBasis =
   | "FIXED_AMOUNT"
   | "PERCENT_OF_GROSS_PROFIT"
-  | "PERCENT_OF_POST_DEDUCTION_POOL";
+  | "PERCENT_OF_POST_DEDUCTION_POOL"
+  | "PERCENT_OF_PARTNER_CAPITAL";
 export type AllocationKind =
   | "SALARY"
   | "COMMISSION"
   | "BONUS"
+  | "INTEREST_ON_CAPITAL"
   | "CHARITY"
   | "RESERVE"
   | "EXPENSE";
@@ -73,6 +149,8 @@ export interface Partner {
   readonly partnerId: string;
   readonly role: PartnerRole;
   readonly capitalSegments: readonly CapitalSegment[];
+  /** Optional exact multiplier applied to capital-time weight when the agreement changes a partner's profit entitlement. */
+  readonly profitShareMultiplier?: Rational;
 }
 
 export interface PreDistributionAllocation {

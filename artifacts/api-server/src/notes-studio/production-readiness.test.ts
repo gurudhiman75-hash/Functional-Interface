@@ -2,11 +2,26 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  buildGeminiGenerationConfig,
+  buildGeminiJsonInstruction,
+} from '../lib/ai-providers/gemini-adapter';
+import {
+  coveragePlanBulkAllowed,
+  coveragePlanItemKey,
+  normalizeCoveragePlanBulk,
+} from './coverage-plan-bulk';
+import {
   NOTES_STUDIO_MIGRATIONS,
+  NOTES_STUDIO_REQUIRED_COLUMNS,
   NOTES_STUDIO_REQUIRED_RELATIONS,
   NOTES_STUDIO_REQUIRED_TRIGGERS,
   assessNotesStudioProductionReadiness,
 } from './production-readiness';
+import {
+  referenceEvidenceAllowed,
+  referenceEvidenceFingerprint,
+  validateReferenceEvidenceInput,
+} from './reference-evidence';
 import {
   normalizeResearchRestartReason,
   researchRestartAllowed,
@@ -34,15 +49,55 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
     '20260830_notes_studio_source_pack_ns011_source_policy.sql',
     '20260831_notes_studio_ns017_source_pack_freeze.sql',
     '20260831_notes_studio_ns018_research_restart.sql',
+    '20260831_notes_studio_ns021_reference_evidence.sql',
+    '20260903_notes_studio_coverage_editorial_review_gate.sql',
+    '20260905_notes_studio_append_only_gap_sources.sql',
   ]);
   assert.equal(new Set(NOTES_STUDIO_MIGRATIONS).size, NOTES_STUDIO_MIGRATIONS.length);
+  assert.equal(new Set(NOTES_STUDIO_REQUIRED_COLUMNS).size, NOTES_STUDIO_REQUIRED_COLUMNS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_RELATIONS).size, NOTES_STUDIO_REQUIRED_RELATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_TRIGGERS).size, NOTES_STUDIO_REQUIRED_TRIGGERS.length);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_batches'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_items'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_research_restarts'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_COLUMNS.includes('content.note_coverage_plan_items.coverage_review_state'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_COLUMNS.includes('content.note_coverage_plan_items.coverage_review_claim_ids'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_COLUMNS.includes('content.note_coverage_plan_items.coverage_reviewed_by'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_COLUMNS.includes('content.note_coverage_plan_items.coverage_reviewed_at'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_authoring_sources_pre_evidence_freeze'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_research_restarts_immutable'), true);
+});
+
+test('Gemini keeps Notes Studio JSON schema in the prompt and out of HTTP generation config', () => {
+  const schema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['claims'],
+    properties: {
+      claims: {
+        type: 'array',
+        items: {
+          type: 'object',
+          additionalProperties: false,
+          required: ['text'],
+          properties: {
+            text: { type: ['string', 'null'], minLength: 5, maxLength: 1200 },
+          },
+        },
+      },
+    },
+  } as Record<string, unknown>;
+  const config = buildGeminiGenerationConfig({
+    model: 'gemini-3.6-flash',
+    temperature: 0,
+    responseSchema: schema,
+  });
+  assert.deepEqual(config, {});
+  const instruction = buildGeminiJsonInstruction(schema);
+  assert.ok(instruction);
+  assert.match(instruction!, /Return ONLY one valid JSON value/);
+  assert.match(instruction!, /"minLength":5/);
+  assert.match(instruction!, /"maxLength":1200/);
 });
 
 test('NS-018 research restart remains bounded to progressed pre-approval work', () => {
@@ -119,6 +174,72 @@ test('NS-019 source discovery produces bounded public URL candidates without cre
     'https://punjab.gov.in/know-punjab/',
     'https://cwc.gov.in/en/ibo/about-basins',
   ]);
+});
+
+test('NS-020 bulk coverage import is bounded, deterministic and pre-drafting only', () => {
+  for (const state of ['brief', 'sources_ready', 'evidence_ready', 'outline_ready']) {
+    assert.equal(coveragePlanBulkAllowed(state), true, state);
+  }
+  for (const state of ['drafting', 'qa_required', 'review_ready', 'approved', 'materialized']) {
+    assert.equal(coveragePlanBulkAllowed(state), false, state);
+  }
+
+  const plan = normalizeCoveragePlanBulk([
+    {
+      title: 'Historic five rivers',
+      syllabusRef: 'Punjab Geography → River System → Historic five',
+      priority: 'required',
+      plannedDepth: 'standard',
+      examRationale: 'High-yield enumeration fact.',
+      sortOrder: 2,
+    },
+    {
+      title: 'Present-day Punjab rivers',
+      syllabusRef: 'Punjab Geography → River System → Present-day Punjab',
+    },
+  ]);
+  assert.equal(plan.length, 2);
+  assert.equal(plan[0]?.priority, 'required');
+  assert.equal(plan[1]?.plannedDepth, 'standard');
+  assert.equal(plan[1]?.sortOrder, 1);
+  assert.notEqual(coveragePlanItemKey(plan[0]!), coveragePlanItemKey(plan[1]!));
+
+  assert.throws(() => normalizeCoveragePlanBulk([
+    { title: 'Same', syllabusRef: 'Path' },
+    { title: ' same ', syllabusRef: ' path ' },
+  ]), /duplicate/i);
+  assert.throws(() => normalizeCoveragePlanBulk([]), /between 1 and 50/i);
+  assert.throws(() => normalizeCoveragePlanBulk([{ title: 'Valid title', priority: 'critical' }]), /invalid priority/i);
+});
+
+test('NS-021 reference evidence is explicit, locator-bearing and pre-drafting only', () => {
+  for (const state of ['brief', 'sources_ready', 'evidence_ready', 'outline_ready']) {
+    assert.equal(referenceEvidenceAllowed(state), true, state);
+  }
+  for (const state of ['drafting', 'qa_required', 'review_ready', 'approved', 'materialized']) {
+    assert.equal(referenceEvidenceAllowed(state), false, state);
+  }
+
+  const normalized = validateReferenceEvidenceInput({
+    noteText: '  The source identifies Ravi, Beas and Sutlej as rivers flowing through present-day Punjab.  ',
+    locatorLabel: ' Know Punjab — Geography section ',
+    paraphrasedByEditor: true,
+  });
+  assert.equal(normalized.noteText, 'The source identifies Ravi, Beas and Sutlej as rivers flowing through present-day Punjab.');
+  assert.equal(normalized.locatorLabel, 'Know Punjab — Geography section');
+  assert.equal(normalized.excerptHash, referenceEvidenceFingerprint(normalized.noteText));
+  assert.match(normalized.excerptHash, /^[0-9a-f]{64}$/);
+
+  assert.throws(() => validateReferenceEvidenceInput({
+    noteText: 'This is a sufficiently long factual paraphrase.',
+    locatorLabel: '',
+    paraphrasedByEditor: true,
+  }), /locator/i);
+  assert.throws(() => validateReferenceEvidenceInput({
+    noteText: 'This is a sufficiently long factual paraphrase.',
+    locatorLabel: 'Section 2',
+    paraphrasedByEditor: false,
+  }), /confirm/i);
 });
 
 test('editor traffic is blocked when schema or model configuration is incomplete', () => {

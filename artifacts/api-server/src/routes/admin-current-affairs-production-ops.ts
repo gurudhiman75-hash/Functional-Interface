@@ -1,7 +1,20 @@
 import { randomUUID } from "node:crypto";
 import { Router, type IRouter, type Response } from "express";
 
+import { loadDailyDiscoveryCensus } from "../current-affairs/daily-discovery-census";
+import {
+  listDailyMasterPackApprovalHistory,
+  revokeDailyMasterPackApproval,
+} from "../current-affairs/daily-master-pack-approval-runtime";
+import {
+  assertDailyMasterPackLanguage,
+  loadDailyMasterPack,
+  loadDailyMasterPacks,
+  type DailyMasterPackLanguage,
+} from "../current-affairs/daily-master-pack";
+import { renderDailyMasterPackPdf } from "../current-affairs/daily-master-pack-pdf";
 import { generateYesterdayCurrentAffairsOnDemand } from "../current-affairs/on-demand-yesterday-runtime";
+import { previousIndiaDate } from "../current-affairs/orchestration-policy";
 import { loadCurrentAffairsProductionReadiness } from "../current-affairs/production-readiness-runtime";
 import { runCurrentAffairsProductionRecovery } from "../current-affairs/production-recovery-runtime";
 import { requireAdminPermission } from "../lib/admin-rbac";
@@ -9,11 +22,46 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 
 function sendError(res: Response, error: unknown, fallback: string) {
   const message = error instanceof Error ? error.message : fallback;
   console.error(fallback, error);
   res.status(500).json({ error: message, code: "CURRENT_AFFAIRS_PRODUCTION_OPS_FAILED" });
+}
+
+function requestedDate(value: unknown) {
+  const text = typeof value === "string" ? value.trim() : "";
+  return DATE_ONLY.test(text) ? text : previousIndiaDate(new Date());
+}
+
+function requestedLanguage(value: unknown): DailyMasterPackLanguage {
+  return assertDailyMasterPackLanguage(typeof value === "string" ? value : "en");
+}
+
+async function selectedHeadlineCount(targetDate: string) {
+  const rows = await sqlClient`
+    SELECT COUNT(*)::int AS count
+    FROM content.current_affairs_ingestion_candidates candidate
+    WHERE COALESCE((candidate.payload->>'manualEditorialSelected')::boolean, false)=true
+      AND COALESCE(
+        NULLIF(candidate.payload->>'historicalTargetDate',''),
+        NULLIF(candidate.payload->>'discoveryTargetDate',''),
+        (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+      )=${targetDate}
+  `;
+  return Number(rows[0]?.count ?? 0);
+}
+
+function artifactFilename(targetDate: string, language: DailyMasterPackLanguage, extension: "md" | "pdf") {
+  const languageSuffix = language === "en" ? "" : `-${language}`;
+  return `examtree-current-affairs-${targetDate}${languageSuffix}.${extension}`;
+}
+
+function adminActor(req: { adminSession?: { user?: { id?: string } } }) {
+  const actorUserId = req.adminSession?.user?.id;
+  if (!actorUserId) throw new Error("Administrator session required");
+  return actorUserId;
 }
 
 router.use(authenticate);
@@ -23,6 +71,165 @@ router.get("/production/readiness", requireAdminPermission("content.questions.re
     res.json(await loadCurrentAffairsProductionReadiness());
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs production readiness");
+  }
+});
+
+router.get("/production/discovery-census", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    res.json({ targetDate, census: await loadDailyDiscoveryCensus(targetDate) });
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs daily discovery census");
+  }
+});
+
+router.get("/production/master-packs", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    res.json({ targetDate, masterPacks: await loadDailyMasterPacks(targetDate) });
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs multilingual daily master packs");
+  }
+});
+
+router.get("/production/master-pack-archive", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const limit = Math.max(1, Math.min(180, Math.floor(Number(req.query.limit ?? 60)) || 60));
+    const dates = await sqlClient`
+      SELECT
+        pack.content_date::text AS "contentDate",
+        COUNT(*)::int AS "languageCount",
+        MAX(pack.generated_at)::text AS "latestGeneratedAt",
+        jsonb_object_agg(
+          pack.language_code,
+          jsonb_build_object(
+            'language', pack.language_code,
+            'status', pack.status,
+            'eventCount', pack.event_count,
+            'categoryCount', pack.category_count,
+            'publicCode', pack.public_code,
+            'generatedAt', pack.generated_at,
+            'learningResourceStatus', resource.status
+          )
+          ORDER BY pack.language_code
+        ) AS languages
+      FROM content.current_affairs_daily_master_packs pack
+      LEFT JOIN content.learning_resources resource
+        ON resource.id=pack.learning_resource_id
+      GROUP BY pack.content_date
+      ORDER BY pack.content_date DESC
+      LIMIT ${limit}
+    `;
+    res.json({ dates, generatedAt: new Date().toISOString() });
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs past Daily Master Pack archive");
+  }
+});
+
+router.get("/production/master-pack-approval", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    const { loadDailyMasterPackApprovalCandidate } = await import(
+      "../current-affairs/selected-daily-master-pack-approval-runtime"
+    );
+    const [candidate, history] = await Promise.all([
+      loadDailyMasterPackApprovalCandidate(targetDate),
+      listDailyMasterPackApprovalHistory(targetDate, 20),
+    ]);
+    res.json({ targetDate, candidate, history });
+  } catch (error) {
+    sendError(res, error, "Unable to load canonical Daily Master Pack editorial approval state");
+  }
+});
+
+router.post("/production/master-pack-approval/approve", requireAdminPermission("content.questions.update"), async (req, res) => {
+  try {
+    const actorUserId = adminActor(req);
+    const targetDate = requestedDate(req.body?.date);
+    const { approveDailyMasterPackSet } = await import(
+      "../current-affairs/selected-daily-master-pack-approval-runtime"
+    );
+    const result = await approveDailyMasterPackSet({
+      contentDate: targetDate,
+      actorUserId,
+      reason: String(req.body?.reason ?? ""),
+    });
+    res.status(201).json(result);
+  } catch (error) {
+    sendError(res, error, "Unable to approve canonical Daily Master Pack");
+  }
+});
+
+router.post("/production/master-pack-approval/revoke", requireAdminPermission("content.questions.update"), async (req, res) => {
+  try {
+    const actorUserId = adminActor(req);
+    const approvalId = String(req.body?.approvalId ?? "").trim();
+    if (!approvalId) {
+      res.status(400).json({ error: "approvalId is required", code: "CURRENT_AFFAIRS_MASTER_PACK_APPROVAL_ID_REQUIRED" });
+      return;
+    }
+    const result = await revokeDailyMasterPackApproval({
+      approvalId,
+      actorUserId,
+      reason: String(req.body?.reason ?? ""),
+    });
+    res.json(result);
+  } catch (error) {
+    sendError(res, error, "Unable to revoke canonical Daily Master Pack approval");
+  }
+});
+
+router.get("/production/master-pack", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    const language = requestedLanguage(req.query.lang);
+    res.json({ targetDate, language, masterPack: await loadDailyMasterPack(targetDate, language) });
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs daily master pack");
+  }
+});
+
+router.get("/production/master-pack/text", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    const language = requestedLanguage(req.query.lang);
+    const masterPack = await loadDailyMasterPack(targetDate, language);
+    if (!masterPack) {
+      res.status(404).json({
+        error: `Daily Current Affairs ${language.toUpperCase()} master pack has not been materialized yet.`,
+        code: "CURRENT_AFFAIRS_MASTER_PACK_NOT_FOUND",
+      });
+      return;
+    }
+    res.setHeader("Content-Type", "text/markdown; charset=utf-8");
+    res.setHeader("Content-Disposition", `attachment; filename="${artifactFilename(targetDate, language, "md")}"`);
+    res.setHeader("Cache-Control", "private, no-store");
+    res.send(String(masterPack.bodyMarkdown ?? ""));
+  } catch (error) {
+    sendError(res, error, "Unable to download Current Affairs master text");
+  }
+});
+
+router.get("/production/master-pack/pdf", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    const language = requestedLanguage(req.query.lang);
+    const masterPack = await loadDailyMasterPack(targetDate, language);
+    if (!masterPack) {
+      res.status(404).json({
+        error: `Daily Current Affairs ${language.toUpperCase()} master pack has not been materialized yet.`,
+        code: "CURRENT_AFFAIRS_MASTER_PACK_NOT_FOUND",
+      });
+      return;
+    }
+    const rendered = renderDailyMasterPackPdf(masterPack.payload);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Length", String(rendered.buffer.length));
+    res.setHeader("Content-Disposition", `attachment; filename="${artifactFilename(targetDate, language, "pdf")}"`);
+    res.setHeader("Cache-Control", "private, no-store");
+    res.send(rendered.buffer);
+  } catch (error) {
+    sendError(res, error, "Unable to render Current Affairs master PDF");
   }
 });
 
@@ -55,7 +262,20 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
     }
 
     const generationRequestId = randomUUID();
-    const result = await generateYesterdayCurrentAffairsOnDemand();
+    const requestedTargetDate = typeof req.body?.date === "string" ? req.body.date.trim() || undefined : undefined;
+    if (requestedTargetDate) {
+      const selectedCount = await selectedHeadlineCount(requestedTargetDate);
+      if (selectedCount > 0) {
+        res.status(409).json({
+          error: "Historical replay is disabled for dates with an admin-selected canonical pack. Use Process selected affairs for verification recovery, or Refresh pack + run QA for pack-only rematerialization.",
+          code: "CURRENT_AFFAIRS_SELECTED_DATE_REPLAY_BLOCKED",
+          targetDate: requestedTargetDate,
+          selectedHeadlineCount: selectedCount,
+        });
+        return;
+      }
+    }
+    const result = await generateYesterdayCurrentAffairsOnDemand(new Date(), requestedTargetDate);
     await sqlClient`
       INSERT INTO platform.audit_events (
         id, actor_type, actor_user_id, effective_role_key, action_key,
@@ -68,21 +288,25 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
         'current_affairs.yesterday.generate_on_demand',
         'current_affairs_generation_request',
         ${generationRequestId}::uuid,
-        'Administrator requested complete previous-day Current Affairs generation',
+        'Administrator requested bounded past-date Current Affairs generation',
         ${`Generated/ensured Current Affairs for ${result.targetDate}`},
         ${JSON.stringify({
           generationRequestId,
+          requestedTargetDate: requestedTargetDate ?? null,
           targetDate: result.targetDate,
           before: result.before,
           after: result.after,
           summary: result.summary,
+          discoveryCensus: result.discoveryCensus,
+          dailyMasterPack: result.dailyMasterPack,
+          dailyMasterPacks: result.dailyMasterPacks,
           publicationAuthority: false,
         })}::jsonb
       )
     `;
     res.status(201).json(result);
   } catch (error) {
-    sendError(res, error, "Unable to generate yesterday's Current Affairs");
+    sendError(res, error, "Unable to generate requested Current Affairs date");
   }
 });
 

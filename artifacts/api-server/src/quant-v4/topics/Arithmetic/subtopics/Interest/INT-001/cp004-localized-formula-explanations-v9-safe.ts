@@ -10,6 +10,7 @@ export const INT_CP004_LOCALIZED_FORMULA_EXPLANATION_V9_SAFE_VERSION =
 
 const DEVANAGARI = /[\u0900-\u097F]/u;
 const GURMUKHI = /[\u0A00-\u0A7F]/u;
+const DIRECT_CALCULATION = /[0-9०-९੦-੯].*[=×÷+−^/]|[=×÷+−^/].*[0-9०-९੦-੯]/u;
 
 function localeSafeCalculationStep(
   locale: IntCp004LocalizedLocale,
@@ -39,6 +40,11 @@ function completeSteps(
   steps: readonly string[],
 ): readonly string[] {
   const localized = steps.map((step) => localeSafeCalculationStep(locale, step));
+  if (source.qlId === "INT-QL-078") {
+    const formula = localized[0];
+    const calculations = localized.slice(1).filter((step) => DIRECT_CALCULATION.test(step));
+    return Object.freeze([...(formula ? [formula] : []), ...calculations]);
+  }
   if (source.qlId !== "INT-QL-076") return Object.freeze(localized);
   if (source.solution.denominator !== 1n) {
     throw new Error(`${source.qlId}/${source.seed}: v9 effective rate must be integer.`);
@@ -87,11 +93,13 @@ export function buildCp004LocalizedFormulaExplanationV9Safe(
     locale,
     correctAnswer,
   );
+  const directFrequency = source.qlId === "INT-QL-078";
 
   return Object.freeze({
     ...explanation,
+    whatAsked: directFrequency ? "" : explanation.whatAsked,
     steps: completeSteps(source, locale, explanation.steps),
     finalAnswer: cleanRuntimeFinalAnswer(locale, explanation.finalAnswer),
-    commonMistake: cleanCommonMistake(locale, explanation.commonMistake),
+    commonMistake: directFrequency ? "" : cleanCommonMistake(locale, explanation.commonMistake),
   });
 }

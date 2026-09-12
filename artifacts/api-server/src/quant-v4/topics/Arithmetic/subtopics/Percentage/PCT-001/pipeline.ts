@@ -1,17 +1,76 @@
 import { renderPct001Explanation } from "./explanation-renderer";
-import { buildPct001SemanticTrace, getQuestionEntry, renderTemplate } from "./library";
-import { generatePct001Parameters, type Pct001ParameterInput } from "./parameter-generator";
+import {
+  buildPct001SemanticTrace,
+  getAnswerType,
+  getQuestionEntry,
+  getRequiredVariables,
+  getTaskKind,
+  renderTemplate,
+} from "./library";
+import {
+  generatePct001Parameters,
+  getSelectableQuestionLanguageIds,
+  type Pct001ParameterInput,
+} from "./parameter-generator";
 import { buildPct001ReasoningGraph } from "./reasoning-graph";
 import { solvePct001 } from "./solver";
-import { PCT_001_ARCHETYPE_ID, type Pct001CanonicalProblemId, type Pct001Language, type Pct001QuestionPackage } from "./types";
+import {
+  PCT_001_ARCHETYPE_ID,
+  type Pct001CanonicalProblemId,
+  type Pct001Language,
+  type Pct001QuestionPackage,
+} from "./types";
 import { validatePct001QuestionPackage } from "./validator";
+import { stableBucket } from "./math";
+import { curateDefaultQuestionLanguageIds } from "../../../../../common/default-question-language-pool";
 
-export function runPct001Pipeline(cpId: Pct001CanonicalProblemId, input: Pct001ParameterInput = {}): Pct001QuestionPackage {
-  const parameters = generatePct001Parameters(cpId, input);
+function resolvePct001DefaultInput(
+  cpId: Pct001CanonicalProblemId,
+  input: Pct001ParameterInput,
+): Pct001ParameterInput {
+  if (input.questionLanguageId) return input;
+
+  const language = input.language ?? "en";
+  const availableIds = getSelectableQuestionLanguageIds(cpId, language);
+  const curatedIds = curateDefaultQuestionLanguageIds(availableIds, (questionLanguageId) => {
+    const englishEntry = getQuestionEntry(cpId, questionLanguageId, "en");
+    return {
+      taskKind: getTaskKind(cpId, questionLanguageId),
+      answerType: getAnswerType(cpId, questionLanguageId),
+      requiredVariables: getRequiredVariables(cpId, questionLanguageId),
+      difficulty: englishEntry.difficulty,
+      template: englishEntry.template,
+    };
+  });
+  const difficultyFiltered = input.difficultyBand
+    ? curatedIds.filter(
+        (questionLanguageId) =>
+          getQuestionEntry(cpId, questionLanguageId, "en").difficulty === input.difficultyBand,
+      )
+    : curatedIds;
+  const source = difficultyFiltered.length > 0 ? difficultyFiltered : curatedIds;
+  if (source.length === 0) return input;
+  const seed = input.seed ?? `PCT-001:${cpId}`;
+
+  return {
+    ...input,
+    questionLanguageId: source[stableBucket(`${seed}:curated-default-ql`, source.length)]!,
+  };
+}
+
+export function runPct001Pipeline(
+  cpId: Pct001CanonicalProblemId,
+  input: Pct001ParameterInput = {},
+): Pct001QuestionPackage {
+  const resolvedInput = resolvePct001DefaultInput(cpId, input);
+  const parameters = generatePct001Parameters(cpId, resolvedInput);
   const solver = solvePct001(parameters);
   const reasoningGraph = buildPct001ReasoningGraph(parameters, solver);
   const explanation = renderPct001Explanation(parameters, solver, reasoningGraph);
-  const stem = renderTemplate(getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
+  const stem = renderTemplate(
+    getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template,
+    parameters.variables,
+  );
   const semanticTrace = buildPct001SemanticTrace(parameters.semanticContext);
   const basePackage = {
     archetypeId: PCT_001_ARCHETYPE_ID,
@@ -46,15 +105,19 @@ export function runPct001Pipeline(cpId: Pct001CanonicalProblemId, input: Pct001P
     },
     mathJax: solver.mathJax,
   };
-  const validation = validatePct001QuestionPackage({ ...basePackage, validation: { valid: false, checks: [] } });
+  const validation = validatePct001QuestionPackage({
+    ...basePackage,
+    validation: { valid: false, checks: [] },
+  });
   return { ...basePackage, validation };
 }
 
-export function runPct001ForLanguages(cpId: Pct001CanonicalProblemId, input: Pct001ParameterInput = {}) {
-  const base = generatePct001Parameters(cpId, {
-    ...input,
-    language: "hi",
-  });
+export function runPct001ForLanguages(
+  cpId: Pct001CanonicalProblemId,
+  input: Pct001ParameterInput = {},
+) {
+  const baseInput = resolvePct001DefaultInput(cpId, { ...input, language: "hi" });
+  const base = generatePct001Parameters(cpId, baseInput);
   return (["en", "hi", "pa"] as Pct001Language[]).map((language) =>
     runPct001Pipeline(cpId, {
       ...input,
@@ -66,9 +129,15 @@ export function runPct001ForLanguages(cpId: Pct001CanonicalProblemId, input: Pct
   );
 }
 
-export const runPct001Cp001Pipeline = (input: Pct001ParameterInput = {}) => runPct001Pipeline("PCT-CP-001", input);
-export const runPct001Cp002Pipeline = (input: Pct001ParameterInput = {}) => runPct001Pipeline("PCT-CP-002", input);
-export const runPct001Cp003Pipeline = (input: Pct001ParameterInput = {}) => runPct001Pipeline("PCT-CP-003", input);
-export const runPct001Cp004Pipeline = (input: Pct001ParameterInput = {}) => runPct001Pipeline("PCT-CP-004", input);
-export const runPct001Cp005Pipeline = (input: Pct001ParameterInput = {}) => runPct001Pipeline("PCT-CP-005", input);
-export const runPct001Cp006Pipeline = (input: Pct001ParameterInput = {}) => runPct001Pipeline("PCT-CP-006", input);
+export const runPct001Cp001Pipeline = (input: Pct001ParameterInput = {}) =>
+  runPct001Pipeline("PCT-CP-001", input);
+export const runPct001Cp002Pipeline = (input: Pct001ParameterInput = {}) =>
+  runPct001Pipeline("PCT-CP-002", input);
+export const runPct001Cp003Pipeline = (input: Pct001ParameterInput = {}) =>
+  runPct001Pipeline("PCT-CP-003", input);
+export const runPct001Cp004Pipeline = (input: Pct001ParameterInput = {}) =>
+  runPct001Pipeline("PCT-CP-004", input);
+export const runPct001Cp005Pipeline = (input: Pct001ParameterInput = {}) =>
+  runPct001Pipeline("PCT-CP-005", input);
+export const runPct001Cp006Pipeline = (input: Pct001ParameterInput = {}) =>
+  runPct001Pipeline("PCT-CP-006", input);

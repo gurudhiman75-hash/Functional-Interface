@@ -1,96 +1,105 @@
 import { adminRequest } from '@/lib/admin-request';
 
-export type InterestReviewLanguage = 'hi' | 'pa';
-export type InterestReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
+export type InterestReviewLanguage = 'en' | 'hi' | 'pa';
+export type InterestReviewCheckpointId =
+  | 'INT-CP-001' | 'INT-CP-002' | 'INT-CP-003' | 'INT-CP-004' | 'INT-CP-005'
+  | 'INT-CP-006' | 'INT-CP-007' | 'INT-CP-008' | 'INT-CP-009' | 'INT-CP-010';
+
+export interface InterestReviewCheckpoint {
+  checkpointId: InterestReviewCheckpointId;
+  label: string;
+  qlIds: string[];
+  permanentQlCount: number;
+}
 
 export interface InterestReviewQuestion {
+  packageId: 'INT-001';
+  chapterId: 'INT-001';
+  checkpointId: InterestReviewCheckpointId;
+  canonicalProblemId: InterestReviewCheckpointId;
+  sourceCanonicalProblemId: string;
+  qlId: string;
+  permanentQlId: string;
   questionId: string;
   canonicalItemId: string;
   questionLanguageId: string;
-  qlId: string;
   language: InterestReviewLanguage;
   locale: string;
-  difficultyBand: InterestReviewDifficulty;
+  difficultyBand: string;
   stem: string;
   options: string[];
-  optionDetails: Array<{
-    label: string;
-    text: string;
-    studentExplanation: string;
-    isCorrect: boolean;
-    semanticKey: string;
-  }>;
   correctIndex: number;
   answer: string;
-  explanation: {
-    explanationId: string;
-    whatAsked: string;
-    steps: string[];
-    conclusion: string;
-    shortcut: string;
-    commonTrap: string;
-  };
+  explanationLines: string[];
   runtimeMode: string;
   reviewStatus: string;
   integrationAuthority: string;
-  validation: {
-    valid: boolean;
-    frozenAuthority: boolean;
-    decimalFree: boolean;
-    formulaFirst: boolean;
-    completeCalculation: boolean;
-    optionFeedbackSuppressed: boolean;
-    sourceLifecycleLocked: boolean;
-  };
+  chapterIntegrationAuthority: string;
+  seed: string;
+  questionStudioRegistrationStatus: 'REGISTERED_REVIEW_ONLY';
+  questionStudioStagingStatus: 'REVIEW_QUEUE_ENABLED';
+  questionBankStatus: 'NOT_STORED';
+  questionBankWritable: false;
+  testEligibility: 'INELIGIBLE';
+  testEligible: false;
+  mockTestEligible: false;
+  publiclyPublishable: false;
+  automaticStudentPublication: false;
+  manualApprovalRequired: true;
 }
 
 export interface InterestReviewPackage {
   packageId: 'INT-001';
-  checkpointId: 'INT-CP-004';
+  chapterId: 'INT-001';
+  name: string;
   label: string;
+  subject: string;
   topic: string;
   subtopic: string;
-  qlIds: string[];
+  generationDomain: 'quant-v4';
   supportedLanguages: InterestReviewLanguage[];
-  supportedDifficulties: InterestReviewDifficulty[];
-  runtimeMode: string;
-  reviewStatus: string;
+  permanentQlIds: string[];
+  permanentQlCount: number;
+  checkpointCount: number;
+  checkpoints: InterestReviewCheckpoint[];
+  runtimeMode: 'QUESTION_STUDIO_ACTIVE';
+  reviewOnly: true;
+  questionStudioDiscoverable: true;
   questionStudioRegistrationStatus: 'REGISTERED_REVIEW_ONLY';
   questionStudioStagingStatus: 'REVIEW_QUEUE_ENABLED';
-  integrationAuthority: string;
-  frozenQlCount: number;
-  approvedReviewPayloadCount: number;
-  reviewOnly: true;
+  persistenceAllowed: true;
+  databaseWriteEnabled: true;
   questionBankStatus: 'NOT_STORED';
   questionBankWritable: false;
   testEligible: false;
+  mockTestEligible: false;
   publiclyPublishable: false;
-  bulkSyncSupported: false;
-  englishStatus: 'NOT_REGISTERED_FROM_HISTORICAL_FREEZE';
+  automaticStudentPublication: false;
+  integrationAuthority: string;
 }
 
 export interface InterestReviewInput {
   language: InterestReviewLanguage;
+  checkpointId?: InterestReviewCheckpointId;
   qlId?: string;
-  difficulty?: InterestReviewDifficulty;
   count: number;
   seed?: string;
 }
 
 export interface InterestReviewStatus {
   packageId: 'INT-001';
-  checkpointId: 'INT-CP-004';
   permanentQlCount: number;
-  approvedReviewPayloadCount: number;
+  checkpointCount: number;
   generationItemCount: number;
   approvedItemCount: number;
   questionBankCount: number;
-  integrationAuthority: string;
+  chapterIntegrationAuthority: string;
   questionStudioRegistrationStatus: 'REGISTERED_REVIEW_ONLY';
   questionStudioStagingStatus: 'REVIEW_QUEUE_ENABLED';
   reviewOnly: true;
   questionBankWritable: false;
   testEligible: false;
+  mockTestEligible: false;
   publiclyPublishable: false;
   automaticStudentPublication: false;
 }
@@ -102,10 +111,12 @@ export interface InterestReviewRunResult {
   itemCount: number;
   generationSystem: 'quant-v4';
   packageId: 'INT-001';
-  checkpointId: 'INT-CP-004';
+  checkpointId: InterestReviewCheckpointId | null;
+  chapterIntegrationAuthority: string;
   reviewOnly: true;
   questionBankWritable: false;
   testEligible: false;
+  mockTestEligible: false;
   publiclyPublishable: false;
 }
 
@@ -114,8 +125,8 @@ function paramsFor(input: InterestReviewInput) {
     language: input.language,
     count: String(input.count),
   });
+  if (input.checkpointId) params.set('checkpointId', input.checkpointId);
   if (input.qlId) params.set('qlId', input.qlId);
-  if (input.difficulty) params.set('difficulty', input.difficulty);
   if (input.seed?.trim()) params.set('seed', input.seed.trim());
   return params;
 }
@@ -127,7 +138,7 @@ export function getInterestReviewPackage() {
     package: InterestReviewPackage;
     maxBatchSize: number;
     permanentQlCount: number;
-    approvedReviewPayloadCount: number;
+    checkpointCount: number;
     supportedLanguages: InterestReviewLanguage[];
     databaseWriteEnabled: true;
     persistenceAllowed: true;
@@ -135,12 +146,13 @@ export function getInterestReviewPackage() {
     questionStudioStagingStatus: 'REVIEW_QUEUE_ENABLED';
     questionBankWriteEnabled: false;
     testEligible: false;
+    mockTestEligible: false;
     publiclyPublishable: false;
-    bulkSyncSupported: false;
+    automaticStudentPublication: false;
   }>(
-    '/admin/question-studio/quant/interest/cp004/package',
+    '/admin/question-studio/quant/interest/package',
     undefined,
-    { fallbackMessage: 'Unable to load the Interest CP-004 review package.' },
+    { fallbackMessage: 'Unable to load the Interest chapter review package.' },
   );
 }
 
@@ -149,26 +161,30 @@ export function previewInterestReview(input: InterestReviewInput) {
     questions: InterestReviewQuestion[];
     productionEligible: false;
     reviewOnly: true;
+    questionBankWritable: false;
+    testEligible: false;
+    mockTestEligible: false;
+    publiclyPublishable: false;
     integrationAuthority: string;
   }>(
-    `/admin/question-studio/quant/interest/cp004/preview?${paramsFor(input).toString()}`,
+    `/admin/question-studio/quant/interest/preview?${paramsFor(input).toString()}`,
     undefined,
-    { fallbackMessage: 'Unable to preview Interest CP-004 questions.' },
+    { fallbackMessage: 'Unable to preview Interest questions.' },
   );
 }
 
 export function createInterestReviewRun(input: InterestReviewInput) {
   return adminRequest<InterestReviewRunResult>(
-    '/admin/question-studio/quant/interest/cp004/runs',
+    '/admin/question-studio/quant/interest/runs',
     { method: 'POST', body: JSON.stringify(input) },
-    { fallbackMessage: 'Unable to create the Interest CP-004 review run.' },
+    { fallbackMessage: 'Unable to create the Interest chapter review run.' },
   );
 }
 
 export function getInterestReviewStatus() {
   return adminRequest<InterestReviewStatus>(
-    '/admin/question-studio/quant/interest/cp004/status',
+    '/admin/question-studio/quant/interest/status',
     undefined,
-    { fallbackMessage: 'Unable to load Interest CP-004 review status.' },
+    { fallbackMessage: 'Unable to load Interest chapter review status.' },
   );
 }

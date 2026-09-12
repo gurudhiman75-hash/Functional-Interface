@@ -2,6 +2,9 @@ import {
   claudeProvider,
 } from "./claude-adapter";
 import {
+  deepSeekProvider,
+} from "./deepseek-adapter";
+import {
   geminiProvider,
 } from "./gemini-adapter";
 import {
@@ -29,9 +32,17 @@ const PROVIDERS: Record<
   AIProviderAdapter
 > = {
   openai: openAIProvider,
+  deepseek: deepSeekProvider,
   gemini: geminiProvider,
   claude: claudeProvider,
 };
+
+const PROVIDER_FAILOVER_ORDER: AIProviderName[] = [
+  "openai",
+  "deepseek",
+  "gemini",
+  "claude",
+];
 
 export function resolveAIProvider(
   provider?: AIProviderName,
@@ -48,6 +59,9 @@ export function resolveAIProvider(
 
   if (openAIProvider.isConfigured()) {
     return "openai";
+  }
+  if (deepSeekProvider.isConfigured()) {
+    return "deepseek";
   }
   if (geminiProvider.isConfigured()) {
     return "gemini";
@@ -73,14 +87,48 @@ export function getAIProvider(
   return adapter;
 }
 
-export async function extractWithAI(
-  request: AIProviderRequest,
-): Promise<AIProviderResponse> {
-  const adapter = getAIProvider(
-    request.provider,
+function providerErrorText(error: unknown) {
+  const err = error as {
+    status?: number;
+    code?: string;
+    message?: string;
+    cause?: { message?: string; code?: string };
+  };
+  return [
+    err.status,
+    err.code,
+    err.message,
+    err.cause?.code,
+    err.cause?.message,
+  ]
+    .filter((value) => value !== undefined && value !== null)
+    .join(" ");
+}
+
+function isProviderQuotaFailure(error: unknown) {
+  const err = error as { status?: number };
+  if (err.status === 429) return true;
+  return /no credits|insufficient[_ -]?(?:quota|balance)|quota exceeded|exceeded your current quota|resource[_ -]?exhausted|billing|rate limit|too many requests/i.test(
+    providerErrorText(error),
   );
+}
+
+function isNotesStudioV2Request(request: AIProviderRequest) {
+  return String(request.responseSchemaName ?? "").startsWith(
+    "notes_studio_v2_",
+  );
+}
+
+async function extractWithProvider(
+  provider: AIProviderName,
+  request: AIProviderRequest,
+  useRequestedModel: boolean,
+) {
+  const adapter = PROVIDERS[provider];
   return adapter.extract({
-    model: request.model,
+    model: useRequestedModel
+      ? request.model
+      : undefined,
     prompt: request.prompt,
     input: request.input,
     temperature: request.temperature,
@@ -91,6 +139,74 @@ export async function extractWithAI(
     timeoutMs: request.timeoutMs,
     maxRetries: request.maxRetries,
   });
+}
+
+export async function extractWithAI(
+  request: AIProviderRequest,
+): Promise<AIProviderResponse> {
+  const primaryProvider = resolveAIProvider(
+    request.provider,
+  );
+
+  try {
+    return await extractWithProvider(
+      primaryProvider,
+      request,
+      true,
+    );
+  } catch (primaryError) {
+    const allowAutomaticFailover =
+      !request.provider &&
+      isNotesStudioV2Request(request) &&
+      isProviderQuotaFailure(primaryError);
+
+    if (!allowAutomaticFailover) {
+      throw primaryError;
+    }
+
+    const configuredAlternates =
+      PROVIDER_FAILOVER_ORDER.filter(
+        (provider) =>
+          provider !== primaryProvider &&
+          PROVIDERS[provider].isConfigured(),
+      );
+
+    if (configuredAlternates.length === 0) {
+      console.error(
+        `[notes-studio-v2] ${primaryProvider} quota exhausted and no alternate AI provider is configured.`,
+      );
+      throw primaryError;
+    }
+
+    let lastError: unknown = primaryError;
+    for (const provider of configuredAlternates) {
+      try {
+        const response = await extractWithProvider(
+          provider,
+          request,
+          false,
+        );
+        console.warn(
+          `[notes-studio-v2] ${primaryProvider} quota exhausted; extraction failed over to ${provider}.`,
+        );
+        return {
+          ...response,
+          warnings: [
+            ...response.warnings,
+            `Primary provider ${primaryProvider} was unavailable because of quota/billing limits; used ${provider}.`,
+          ],
+        };
+      } catch (fallbackError) {
+        lastError = fallbackError;
+        console.error(
+          `[notes-studio-v2] fallback provider ${provider} failed after ${primaryProvider} quota exhaustion.`,
+          fallbackError,
+        );
+      }
+    }
+
+    throw lastError;
+  }
 }
 
 export function describeAIProviderError(
@@ -135,7 +251,13 @@ export function validateAIProviderStartup() {
     return;
   }
 
+  const configuredProviders = PROVIDER_FAILOVER_ORDER.filter(
+    (name) => PROVIDERS[name].isConfigured(),
+  );
   console.info(
     `AI extraction provider configured: ${provider}`,
+  );
+  console.info(
+    `AI extraction providers available: ${configuredProviders.join(", ")}`,
   );
 }

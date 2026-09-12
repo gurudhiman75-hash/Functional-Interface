@@ -17,6 +17,15 @@ assert.equal(isTrg002V4GenerationRequest({ packageId: "TRG-001" }), false);
 const packages = listQuestionStudioPackages();
 assert.equal(packages.filter((entry: any) => entry.packageId === "TRG-001").length, 1);
 assert.equal(packages.filter((entry: any) => entry.packageId === "TRG-002").length, 1);
+const trg001 = packages.find((entry: any) => entry.packageId === "TRG-001") as any;
+assert.deepEqual(trg001.supportedLanguages, ["en", "hi", "pa"]);
+assert.equal(trg001.questionStudioDiscoverable, true);
+assert.equal(trg001.questionBankWritable, true);
+assert.equal(trg001.testEligible, true);
+assert.equal(trg001.testBuilderEligible, true);
+assert.equal(trg001.mockTestEligible, true);
+assert.equal(trg001.publicReleaseAuthorized, false);
+assert.equal(trg001.localizationStatus, "MULTILINGUAL_FROZEN_ACTIVE");
 
 const adminRouteSource = readFileSync(
   resolve(process.cwd(), "artifacts/api-server/src/routes/admin-question-studio-trigonometry.ts"),
@@ -44,6 +53,7 @@ for (const marker of [
   "content.generation_runs",
   "content.generation_run_items",
   "content.generation_item_versions",
+  'const LANGUAGES = new Set(["en", "hi", "pa"])',
 ]) {
   assert.ok(adminRouteSource.includes(marker), `Trigonometry admin route missing marker: ${marker}`);
 }
@@ -76,6 +86,7 @@ assert.ok(trigIndex < legacyIndex, "Trigonometry aggregate must be mounted befor
 for (const marker of [
   "TRG_001_QUESTION_STUDIO_PACKAGE",
   "TRG_002_V4_QUESTION_STUDIO_PACKAGE",
+  "TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1",
   "if (isTrg001QuestionStudioRequest(request))",
   "generateTrg001QuestionStudioBatch",
   "if (isTrg002V4GenerationRequest(request))",
@@ -90,7 +101,11 @@ console.log(JSON.stringify({
   routeOrder: "TRIGONOMETRY_BEFORE_CP013_BEFORE_LEGACY",
   routeArchitecture: "QUESTION_STUDIO_REGISTRY",
   trg001PermanentQlCount: 144,
-  trg001Languages: ["en"],
+  trg001Languages: ["en", "hi", "pa"],
+  trg001QuestionBankWritable: true,
+  trg001TestEligible: true,
+  trg001TestBuilderEligible: true,
+  trg001MockTestEligible: true,
   trg002QlCount: 96,
   trg002Languages: ["en", "hi", "pa"],
   publicReleaseAuthorized: false,

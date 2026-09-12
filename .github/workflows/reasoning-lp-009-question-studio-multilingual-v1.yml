@@ -1,0 +1,44 @@
+name: Reasoning LP-009 Multilingual Question Studio V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v2.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-question-studio.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-question-studio-multilingual-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/LP-009-QUESTION-STUDIO-MULTILINGUAL-INTEGRATION-V1.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-freeze-v3.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v3.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: lp-009-question-studio-multilingual-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lp009-question-studio-multilingual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Reprove frozen English authority
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-permanent-freeze.test.ts
+
+      - name: Reprove approved Hindi Punjabi localization freeze
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-freeze-v3.test.ts
+
+      - name: Prove LP-009 multilingual Question Studio route
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-question-studio.test.ts
+
+      - name: Reprove LP-008 shared Question Studio route
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-008-question-studio.test.ts

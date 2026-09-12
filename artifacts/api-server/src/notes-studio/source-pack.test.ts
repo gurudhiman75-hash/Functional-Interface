@@ -7,6 +7,7 @@ import {
   extractReadableWebText,
   extractWebTitle,
   noteSourceContentHash,
+  referenceOnlyUrlContentHash,
   retentionModeForRights,
   sourcePreview,
 } from './source-pack';
@@ -24,6 +25,15 @@ test('public HTTPS validation rejects private-network URLs', () => {
   assert.throws(() => assertPublicHttpsUrl('http://example.com/a'), /HTTPS/);
   assert.throws(() => assertPublicHttpsUrl('https://127.0.0.1/a'), /private-network/);
   assert.throws(() => assertPublicHttpsUrl('https://192.168.1.2/a'), /private-network/);
+});
+
+test('reference-only URL fingerprints are deterministic without fetching publisher text', () => {
+  const a = referenceOnlyUrlContentHash('https://example.com/source#section');
+  const b = referenceOnlyUrlContentHash('https://example.com/source');
+  const c = referenceOnlyUrlContentHash('https://example.com/other');
+  assert.equal(a, b);
+  assert.notEqual(a, c);
+  assert.match(a, /^[0-9a-f]{64}$/);
 });
 
 test('web extraction removes scripts and preserves readable blocks', () => {

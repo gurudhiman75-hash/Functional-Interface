@@ -1,0 +1,13 @@
+{
+  "language": "pa",
+  "status": "E3_EXPANSION_A",
+  "entries": {
+    "PRT-QL-057": "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA}, {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB}, {durationB} ਲਈ ਲਗਾਏ। ਉਨ੍ਹਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+    "PRT-QL-058": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਪੂੰਜੀ ਵਧਾਈ। {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਜੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ, ਤਾਂ {partnerA} ਨੇ ਪੂੰਜੀ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਧਾਈ?",
+    "PRT-QL-059": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਅਣਜਾਣ ਸ਼ੁਰੂਆਤੀ ਪੂੰਜੀ ਲਗਾਈ ਅਤੇ {changeMonthA} ਬਾਅਦ {addedCapitalA} ਹੋਰ ਜੋੜੇ। {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ, ਜਿਸ ਵਿੱਚੋਂ {partnerA} ਦਾ ਹਿੱਸਾ {knownShare} ਸੀ। {partnerA} ਦੀ ਸ਼ੁਰੂਆਤੀ ਪੂੰਜੀ ਕੱਢੋ।",
+    "PRT-QL-060": "ਇੱਕ {business} ਵਿੱਚ {partnerA}, {partnerB} ਅਤੇ {partnerC} ਨੇ ਕ੍ਰਮਵਾਰ {capitalA}, {capitalB} ਅਤੇ {capitalC} ਲਗਾਏ ਅਤੇ ਮੁਨਾਫ਼ਾ {profitRatioA}:{profitRatioB}:{profitRatioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਨਿਵੇਸ਼ ਮਿਆਦਾਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-061": "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ ਸਕਲ ਮੁਨਾਫ਼ੇ ਦਾ ਕੁਝ ਪ੍ਰਤੀਸ਼ਤ ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਜੇ ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਅਤੇ {partnerA} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ {finalReceipt} ਸੀ, ਤਾਂ ਕਮਿਸ਼ਨ ਪ੍ਰਤੀਸ਼ਤ ਕੱਢੋ।",
+    "PRT-QL-062": "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਵੰਡ ਤੋਂ ਪਹਿਲਾਂ ਸਕਲ ਮੁਨਾਫ਼ੇ ਵਿੱਚੋਂ ਇੱਕ ਨਿਰਧਾਰਤ ਰਕਮ ਘਟਾਈ ਗਈ। ਜੇ ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਅਤੇ {partnerB} ਦਾ ਮੁਨਾਫ਼ਾ-ਹਿੱਸਾ {knownShare} ਸੀ, ਤਾਂ ਘਟਾਈ ਗਈ ਰਕਮ ਕੱਢੋ।",
+    "PRT-QL-063": "ਇੱਕ {business} ਵਿੱਚ ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ {salary} ਤਨਖਾਹ ਮਿਲੀ। {partnerA} ਅਤੇ {partnerB} ਦੀਆਂ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ ਕ੍ਰਮਵਾਰ {finalReceiptA} ਅਤੇ {finalReceiptB} ਸਨ। ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਸੀ?"
+  }
+}

@@ -1,0 +1,8 @@
+import fs from "node:fs";
+import path from "node:path";
+import { auditGeoRiv001Cp006ReviewBatchV1, GEO_RIV_001_CP006_REVIEW_BATCH_V1 } from "./geo-riv-001-cp006-review-batch-v1";
+const audit=auditGeoRiv001Cp006ReviewBatchV1();if(!audit.valid)throw new Error(`CP006 export blocked: ${audit.issues.join(" | ")}`);
+const outDir=path.resolve("artifacts/api-server/dist/geography/GEO-RIV-001-CP006-REVIEW-BATCH-V1");fs.mkdirSync(outDir,{recursive:true});
+const lines:string[]=["# GEO-RIV-001 CP006 — West-flowing Peninsular Rivers — Review Batch V1","",`Questions: ${audit.total}`,`Difficulty: ${JSON.stringify(audit.difficulty)}`,`Answer positions: A ${audit.positions[0]} / B ${audit.positions[1]} / C ${audit.positions[2]} / D ${audit.positions[3]}`,""];
+let current="";GEO_RIV_001_CP006_REVIEW_BATCH_V1.forEach((q,i)=>{if(q.qlId!==current){current=q.qlId;lines.push(`## ${q.qlId} — ${q.qlName}`,"")}lines.push(`### ${i+1}. ${q.stem}`,"");q.options.forEach((o,j)=>lines.push(`${String.fromCharCode(65+j)}. ${o}`));lines.push("",`**Answer:** ${String.fromCharCode(65+q.correctIndex)} — ${q.canonicalAnswer}`,"",`**Explanation:** ${q.explanation}`,"")});
+const markdown=lines.join("\n");fs.writeFileSync(path.join(outDir,"GEO-RIV-001-CP006-REVIEW-BATCH-V1.md"),markdown);fs.writeFileSync(path.join(outDir,"GEO-RIV-001-CP006-REVIEW-BATCH-V1.json"),JSON.stringify({audit,questions:GEO_RIV_001_CP006_REVIEW_BATCH_V1},null,2));const escaped=markdown.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");fs.writeFileSync(path.join(outDir,"GEO-RIV-001-CP006-REVIEW-BATCH-V1.html"),`<!doctype html><meta charset="utf-8"><title>CP006 Review</title><pre>${escaped}</pre>`);console.log(outDir);

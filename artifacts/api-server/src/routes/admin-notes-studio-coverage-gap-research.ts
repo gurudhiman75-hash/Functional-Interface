@@ -15,7 +15,12 @@ import {
   CoverageGapResearchModelConfigurationError,
   generateCoverageGapResearchBriefs,
 } from '../notes-studio/coverage-gap-research-provider';
-import { coverageStatusFromClaimStates, type CoverageClaimState } from '../notes-studio/evidence-map';
+import {
+  coverageAcceptedClaimKey,
+  coverageStatusFromEditorialReview,
+  type CoverageClaimReviewLink,
+  type CoverageClaimState,
+} from '../notes-studio/evidence-map';
 
 const router: IRouter = Router();
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -75,7 +80,9 @@ async function loadGapInput(jobId: string): Promise<{ input: CoverageGapResearch
       priority,
       planned_depth AS "plannedDepth",
       exam_rationale AS "examRationale",
-      sort_order AS "sortOrder"
+      sort_order AS "sortOrder",
+      coverage_review_state AS "coverageReviewState",
+      coverage_review_claim_ids AS "coverageReviewClaimIds"
     FROM content.note_coverage_plan_items
     WHERE job_id = ${jobId}::uuid
       AND priority IN ('required', 'high')
@@ -122,10 +129,19 @@ async function loadGapInput(jobId: string): Promise<{ input: CoverageGapResearch
   const allGaps: CoverageGapResearchItem[] = [];
   for (const item of itemRows) {
     const links = linksByItem.get(String(item.id)) ?? [];
-    const states = links.map((claim) =>
-      claim.hasActiveSupport ? String(claim.state) as CoverageClaimState : 'rejected' as CoverageClaimState,
+    const normalizedLinks: CoverageClaimReviewLink[] = links.map((claim) => ({
+      claimId: String(claim.claimId ?? ''),
+      state: String(claim.state ?? 'rejected') as CoverageClaimState,
+      hasActiveSupport: claim.hasActiveSupport === true,
+    }));
+    const states = normalizedLinks.map((claim) =>
+      claim.hasActiveSupport ? claim.state : 'rejected' as CoverageClaimState,
     );
-    const status = coverageStatusFromClaimStates(states);
+    const currentClaimKey = coverageAcceptedClaimKey(normalizedLinks);
+    const coverageReviewCurrent = String(item.coverageReviewState) === 'confirmed'
+      && currentClaimKey.length > 0
+      && String(item.coverageReviewClaimIds ?? '') === currentClaimKey;
+    const status = coverageStatusFromEditorialReview(states, coverageReviewCurrent);
     if (status === 'covered') continue;
     allGaps.push({
       id: String(item.id),

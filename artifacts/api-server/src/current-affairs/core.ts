@@ -1,5 +1,10 @@
 import { createHash, randomUUID } from "node:crypto";
 
+import {
+  evaluateCurrentAffairsEditorialPriority,
+  examFamilySignalAdjustment,
+} from "./editorial-priority";
+
 export const CURRENT_AFFAIRS_CATEGORIES = [
   "national",
   "economy_banking",
@@ -61,7 +66,7 @@ export type ExamRelevanceScore = {
   reasons: string[];
 };
 
-const CATEGORY_BASE: Record<CurrentAffairsCategory, number> = {
+const GENERAL_CATEGORY_BASE: Record<CurrentAffairsCategory, number> = {
   national: 70,
   economy_banking: 76,
   international: 62,
@@ -81,41 +86,88 @@ const CATEGORY_BASE: Record<CurrentAffairsCategory, number> = {
   other: 40,
 };
 
-const EXAM_ADJUSTMENTS: Record<CurrentAffairsExamFamily, Partial<Record<CurrentAffairsCategory, number>>> = {
+// CP-045: category alone may make a story generally exam-relevant, but it must
+// not manufacture Banking/Punjab relevance. Family-specific signals are added
+// below from the actual event text/facts. Routine recurring notices also receive
+// an editorial-priority penalty before the recommendation threshold is applied.
+const EXAM_CATEGORY_BASE: Record<CurrentAffairsExamFamily, Record<CurrentAffairsCategory, number>> = {
   ssc: {
-    national: 8,
-    appointments: 6,
-    awards: 5,
-    reports_indices: 5,
-    sports: 5,
-    science_technology: 5,
-    space: 7,
-    defence: 7,
-    important_days: 4,
+    national: 72,
+    economy_banking: 66,
+    international: 66,
+    appointments: 74,
+    awards: 70,
+    reports_indices: 70,
+    sports: 68,
+    science_technology: 68,
+    space: 72,
+    defence: 72,
+    environment: 64,
+    books_authors: 52,
+    important_days: 64,
+    summits: 66,
+    obituaries: 48,
+    punjab: 52,
+    other: 35,
   },
   banking: {
-    economy_banking: 18,
-    reports_indices: 10,
-    appointments: 7,
-    national: 5,
-    international: 5,
+    national: 50,
+    economy_banking: 72,
+    international: 54,
+    appointments: 56,
+    awards: 48,
+    reports_indices: 56,
+    sports: 40,
+    science_technology: 44,
+    space: 42,
+    defence: 42,
+    environment: 42,
+    books_authors: 38,
+    important_days: 40,
+    summits: 50,
+    obituaries: 36,
+    punjab: 38,
+    other: 30,
   },
   punjab: {
-    punjab: 24,
-    national: 5,
-    appointments: 5,
-    awards: 4,
-    sports: 4,
+    national: 52,
+    economy_banking: 48,
+    international: 42,
+    appointments: 54,
+    awards: 52,
+    reports_indices: 48,
+    sports: 54,
+    science_technology: 48,
+    space: 44,
+    defence: 46,
+    environment: 48,
+    books_authors: 44,
+    important_days: 46,
+    summits: 46,
+    obituaries: 42,
+    punjab: 78,
+    other: 30,
   },
   railways: {
-    national: 7,
-    appointments: 5,
-    awards: 4,
-    sports: 5,
-    science_technology: 5,
-    defence: 4,
+    national: 70,
+    economy_banking: 62,
+    international: 60,
+    appointments: 72,
+    awards: 68,
+    reports_indices: 66,
+    sports: 68,
+    science_technology: 68,
+    space: 70,
+    defence: 68,
+    environment: 60,
+    books_authors: 50,
+    important_days: 62,
+    summits: 62,
+    obituaries: 46,
+    punjab: 48,
+    other: 35,
   },
-  general: {},
+  general: GENERAL_CATEGORY_BASE,
 };
 
 function bounded(value: number, min = 0, max = 100): number {
@@ -226,31 +278,54 @@ export function validateEventCandidate(input: EventCandidateInput): EventCandida
 
 export function scoreExamRelevance(input: EventCandidateInput): ExamRelevanceScore[] {
   const candidate = validateEventCandidate(input);
-  const trustBoost = Math.round(((candidate.sourceTrustScore ?? 0.7) - 0.5) * 20);
-  const primaryBoost = candidate.isPrimarySource ? 8 : 0;
-  const factBoost = Math.min(6, Math.floor((candidate.facts?.length ?? 0) / 2));
+  const trustAdjustment = Math.round(((candidate.sourceTrustScore ?? 0.7) - 0.5) * 4);
+  const primaryEvidenceAdjustment = candidate.isPrimarySource ? 2 : 0;
+  const structuredFactAdjustment = Math.min(2, Math.floor((candidate.facts?.length ?? 0) / 3));
+  const editorialPriority = evaluateCurrentAffairsEditorialPriority({
+    title: candidate.title,
+    summary: candidate.summary,
+    category: candidate.category,
+    facts: candidate.facts,
+  });
 
   return CURRENT_AFFAIRS_EXAM_FAMILIES.map((examFamily) => {
     const reasons: string[] = [];
-    let score = CATEGORY_BASE[candidate.category];
-    reasons.push(`Category baseline: ${candidate.category}`);
+    let score = EXAM_CATEGORY_BASE[examFamily][candidate.category];
+    reasons.push(`Exam-family category fit: ${examFamily}/${candidate.category} = ${score}`);
 
-    const examAdjustment = EXAM_ADJUSTMENTS[examFamily][candidate.category] ?? 0;
-    if (examAdjustment) {
-      score += examAdjustment;
-      reasons.push(`${examFamily} category emphasis +${examAdjustment}`);
+    const familySignal = examFamilySignalAdjustment(examFamily, {
+      title: candidate.title,
+      summary: candidate.summary,
+      category: candidate.category,
+      facts: candidate.facts,
+    });
+    if (familySignal.adjustment) {
+      score += familySignal.adjustment;
+      reasons.push(...familySignal.reasons.map((reason) => `${reason} ${familySignal.adjustment >= 0 ? "+" : ""}${familySignal.adjustment}`));
     }
-    if (trustBoost) {
-      score += trustBoost;
-      reasons.push(`Source trust adjustment ${trustBoost >= 0 ? "+" : ""}${trustBoost}`);
+
+    const priorityCanAffectFamily = editorialPriority.scoreAdjustment < 0
+      || examFamily === "ssc"
+      || examFamily === "railways"
+      || examFamily === "general"
+      || familySignal.adjustment > 0;
+    if (editorialPriority.scoreAdjustment && priorityCanAffectFamily) {
+      score += editorialPriority.scoreAdjustment;
+      reasons.push(`Editorial priority ${editorialPriority.tier} ${editorialPriority.scoreAdjustment >= 0 ? "+" : ""}${editorialPriority.scoreAdjustment}: ${editorialPriority.reasons.join(", ")}`);
+    } else if (editorialPriority.scoreAdjustment > 0) {
+      reasons.push(`Editorial priority ${editorialPriority.tier} boost withheld: no explicit ${examFamily} signal`);
     }
-    if (primaryBoost) {
-      score += primaryBoost;
-      reasons.push("Primary-source evidence +8");
+    if (trustAdjustment) {
+      score += trustAdjustment;
+      reasons.push(`Evidence trust relevance nudge ${trustAdjustment >= 0 ? "+" : ""}${trustAdjustment}`);
     }
-    if (factBoost) {
-      score += factBoost;
-      reasons.push(`Structured fact density +${factBoost}`);
+    if (primaryEvidenceAdjustment) {
+      score += primaryEvidenceAdjustment;
+      reasons.push("Primary evidence relevance nudge +2");
+    }
+    if (structuredFactAdjustment) {
+      score += structuredFactAdjustment;
+      reasons.push(`Structured-fact relevance nudge +${structuredFactAdjustment}`);
     }
 
     const normalized = bounded(score);
@@ -272,7 +347,7 @@ export function verificationConfidence(input: {
     const trust = Math.max(0, Math.min(1, Number(item.trustScore ?? 0.5)));
     return Math.min(1, trust + (item.isPrimaryEvidence ? 0.15 : 0));
   });
-  const evidenceAverage = evidenceScores.reduce((sum, value) => sum + value, 0) / evidenceScores.length;
+  const evidenceAverage = evidenceScores.reduce((sum, value) => sum + value, 0) / input.evidence.length;
   const corroborationBoost = Math.min(0.12, Math.max(0, input.evidence.length - 1) * 0.04);
   const facts = (input.factConfidences ?? []).filter((value) => Number.isFinite(value));
   const factAverage = facts.length > 0

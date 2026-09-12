@@ -4,7 +4,9 @@ import { Router, type IRouter, type Response } from 'express';
 import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
+import { sourcePackAppendableState, sourcePackEditableState } from '../notes-studio/gap-source-recommendations';
 import {
+  NOTES_SOURCE_DISCOVERY_MAX_QUERIES,
   buildSourceDiscoveryQueries,
   normalizeSourceDiscoveryQuery,
   sourceDiscoveryAllowed,
@@ -27,6 +29,12 @@ function uuid(value: unknown, label: string): string {
   const id = typeof value === 'string' ? value.trim() : '';
   if (!uuidPattern.test(id)) throw new SourceDiscoveryError('INVALID_ID', `${label} is invalid.`);
   return id;
+}
+
+function explicitQueries(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.map(normalizeSourceDiscoveryQuery).filter(Boolean))]
+    .slice(0, NOTES_SOURCE_DISCOVERY_MAX_QUERIES);
 }
 
 function sendError(res: Response, error: unknown) {
@@ -93,11 +101,14 @@ router.post('/jobs/:jobId/source-discovery', requireAdminPermission('content.que
       ? job.brief as Record<string, unknown>
       : {};
     const focus = normalizeSourceDiscoveryQuery(req.body?.focus);
-    const queries = buildSourceDiscoveryQueries({
-      topicLabel: brief.topicLabel ?? job.title,
-      syllabusEmphasis: brief.syllabusEmphasis,
-      focus,
-    });
+    const requestedQueries = explicitQueries(req.body?.queries);
+    const queries = requestedQueries.length > 0
+      ? requestedQueries
+      : buildSourceDiscoveryQueries({
+          topicLabel: brief.topicLabel ?? job.title,
+          syllabusEmphasis: brief.syllabusEmphasis,
+          focus,
+        });
     if (queries.length === 0) {
       throw new SourceDiscoveryError('SOURCE_DISCOVERY_QUERY_REQUIRED', 'Add a topic label, syllabus emphasis or a focused research query first.', 422);
     }
@@ -132,6 +143,7 @@ router.post('/jobs/:jobId/source-discovery', requireAdminPermission('content.que
           promptVersion: discovered.promptVersion,
           responseId: discovered.responseId,
           queryCount: queries.length,
+          explicitQueryBatch: requestedQueries.length > 0,
           searchCallCount: discovered.searchCallCount,
           candidateCount: candidates.length,
           candidateDomains: [...new Set(candidates.map((candidate) => candidate.domain))].slice(0, 20),
@@ -145,8 +157,11 @@ router.post('/jobs/:jobId/source-discovery', requireAdminPermission('content.que
       )
     `;
 
+    const state = String(job.state);
+    const sourcePackMutable = sourcePackEditableState(state);
+    const sourcePackAppendable = sourcePackAppendableState(state);
     res.json({
-      job: { id: String(job.id), title: String(job.title), state: String(job.state) },
+      job: { id: String(job.id), title: String(job.title), state },
       queries,
       candidates,
       search: {
@@ -165,10 +180,13 @@ router.post('/jobs/:jobId/source-discovery', requireAdminPermission('content.que
         factsOrClaimsCreated: false,
         learnerGeneration: false,
       },
-      sourcePackMutable: ['brief', 'sources_ready'].includes(String(job.state)),
-      nextAction: ['brief', 'sources_ready'].includes(String(job.state))
+      sourcePackMutable,
+      sourcePackAppendable,
+      nextAction: sourcePackMutable
         ? 'Review a candidate URL, then explicitly attach it through the existing URL source form.'
-        : 'Review candidate URLs, then run an explicit research restart before attaching a new source.',
+        : sourcePackAppendable
+          ? 'Review candidate URLs, then append only the useful sources. Existing source membership and accepted research remain frozen.'
+          : 'Review candidate URLs for a successor revision; the current job can no longer accept source additions.',
     });
   } catch (error) {
     sendError(res, error);

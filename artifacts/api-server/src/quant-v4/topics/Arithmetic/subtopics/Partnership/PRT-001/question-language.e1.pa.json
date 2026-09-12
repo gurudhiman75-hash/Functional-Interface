@@ -1,0 +1,16 @@
+{
+  "language": "pa",
+  "status": "HUMAN_AUTHORED_E1",
+  "entries": {
+    "PRT-QL-033": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਅਤੇ {leaveAfterA} ਬਾਅਦ ਕਾਰੋਬਾਰ ਛੱਡ ਦਿੱਤਾ। {partnerB}, {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ ਅਤੇ ਸਾਲ ਦੇ ਅੰਤ ਤੱਕ ਰਿਹਾ। ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-034": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ, ਜਦਕਿ {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਜੇ ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ, ਤਾਂ {partnerA} ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਕਾਰੋਬਾਰ ਤੋਂ ਬਾਹਰ ਹੋਇਆ?",
+    "PRT-QL-035": "{partnerA} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਪੂਰਾ ਸਾਲ {capitalA} ਲਗਾਏ। {partnerB}, {joinAfterB} ਬਾਅਦ ਕੁਝ ਪੂੰਜੀ ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਜੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ, ਤਾਂ {partnerB} ਨੇ ਕਿੰਨੀ ਪੂੰਜੀ ਲਗਾਈ?",
+    "PRT-QL-036": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਲਗਾਏ ਅਤੇ {changeMonthA} ਬਾਅਦ ਆਪਣੀ ਪੂੰਜੀ {percentageChangeA}% ਵਧਾ ਦਿੱਤੀ। {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-037": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਪੂੰਜੀ {percentageChangeA}% ਵਧਾ ਦਿੱਤੀ। {partnerB} ਨੇ {initialCapitalB} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthB} ਬਾਅਦ ਪੂੰਜੀ {percentageDecreaseB}% ਘਟਾ ਦਿੱਤੀ। ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-038": "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA}, {durationA} ਲਈ ਲਗਾਏ। {partnerB} ਦੀ ਪੂੰਜੀ {capitalRelationB} ਸੀ ਅਤੇ {durationB} ਲਈ ਲੱਗੀ ਰਹੀ, ਜਦਕਿ {partnerC} ਦੀ ਪੂੰਜੀ {capitalRelationC} ਸੀ ਅਤੇ {durationC} ਲਈ ਲੱਗੀ ਰਹੀ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+    "PRT-QL-039": "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ {salary} ਤਨਖਾਹ ਮਿਲੀ। ਜੇ {partnerA} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ {finalReceipt} ਸੀ, ਤਾਂ ਕੁੱਲ ਸਕਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+    "PRT-QL-040": "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। {totalProfit} ਦੇ ਸਕਲ ਮੁਨਾਫ਼ੇ ਵਿੱਚੋਂ ਪਹਿਲਾਂ {reserve} ਰਿਜ਼ਰਵ ਰੱਖਿਆ ਗਿਆ। ਫਿਰ ਬਚੀ ਰਕਮ ਵਿੱਚੋਂ {partnerA} ਨੂੰ {commissionPercent}% ਕਮਿਸ਼ਨ ਦਿੱਤਾ ਗਿਆ ਅਤੇ ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਵੰਡਿਆ ਗਿਆ। {targetPartner} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਕੱਢੋ।",
+    "PRT-QL-041": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ, {changeMonthA} ਬਾਅਦ {addedCapitalA} ਹੋਰ ਜੋੜੇ ਅਤੇ {leaveAfterA} ਬਾਅਦ ਕਾਰੋਬਾਰ ਛੱਡ ਦਿੱਤਾ। {partnerB}, {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ ਅਤੇ ਸਾਲ ਦੇ ਅੰਤ ਤੱਕ ਰਿਹਾ। ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-042": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਅਤੇ {partnerB}, {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। {partnerC}, {joinAfterC} ਬਾਅਦ ਅਣਜਾਣ ਪੂੰਜੀ ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਜੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB}:{profitRatioC} ਸੀ, ਤਾਂ {partnerC} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।"
+  }
+}

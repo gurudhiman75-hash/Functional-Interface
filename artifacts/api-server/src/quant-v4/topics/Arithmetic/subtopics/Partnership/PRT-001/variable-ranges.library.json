@@ -1,5 +1,5 @@
 {
-  "status": "ENGLISH_PILOT",
+  "status": "SOURCE_BACKED_E8",
   "samePeriodRatios": [
     [2, 3],
     [3, 5],
@@ -9,22 +9,29 @@
   ],
   "capitalScaleRupees": [5000, 6000, 7500, 9000],
   "shareUnitRupees": [4000, 6000, 7500, 9000, 12000],
-  "durationsMonths": [4, 6, 8, 9, 10, 12],
+  "durationsMonths": [1, 4, 6, 8, 9, 10, 11, 12, 18, 24, 30, 36],
   "unequalDurationScenarios": [
     { "capitalA": 30000, "durationA": 12, "capitalB": 45000, "durationB": 8 },
     { "capitalA": 24000, "durationA": 10, "capitalB": 30000, "durationB": 6 },
     { "capitalA": 36000, "durationA": 8, "capitalB": 24000, "durationB": 12 },
     { "capitalA": 42000, "durationA": 6, "capitalB": 28000, "durationB": 9 },
-    { "capitalA": 25000, "durationA": 12, "capitalB": 40000, "durationB": 6 }
+    { "capitalA": 25000, "durationA": 12, "capitalB": 40000, "durationB": 6 },
+    { "capitalA": 75000, "durationA": 36, "capitalB": 100000, "durationB": 24 },
+    { "capitalA": 60000, "durationA": 24, "capitalB": 90000, "durationB": 18 },
+    { "capitalA": 80000, "durationA": 30, "capitalB": 100000, "durationB": 20 }
   ],
   "unknownCapitalScenarios": [
     { "capitalA": 36000, "durationA": 8, "capitalB": 24000, "durationB": 12 },
     { "capitalA": 72000, "durationA": 6, "capitalB": 24000, "durationB": 9 },
-    { "capitalA": 36000, "durationA": 12, "capitalB": 36000, "durationB": 8 }
+    { "capitalA": 36000, "durationA": 12, "capitalB": 36000, "durationB": 8 },
+    { "capitalA": 60000, "durationA": 24, "capitalB": 80000, "durationB": 18 },
+    { "capitalA": 90000, "durationA": 20, "capitalB": 75000, "durationB": 30 }
   ],
   "unknownDurationScenarios": [
     { "capitalA": 45000, "durationA": 8, "capitalB": 30000, "durationB": 12 },
     { "capitalA": 36000, "durationA": 12, "capitalB": 48000, "durationB": 9 },
-    { "capitalA": 40000, "durationA": 9, "capitalB": 30000, "durationB": 12 }
+    { "capitalA": 40000, "durationA": 9, "capitalB": 30000, "durationB": 12 },
+    { "capitalA": 50000, "durationA": 24, "capitalB": 75000, "durationB": 16 },
+    { "capitalA": 80000, "durationA": 18, "capitalB": 60000, "durationB": 24 }
   ]
 }

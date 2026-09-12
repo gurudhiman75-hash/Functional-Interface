@@ -14,6 +14,7 @@ export type SourcePackPolicySource = {
   sourceRole: NoteSourceRole;
   inclusionState: string;
   generationReady: boolean;
+  referenceEvidenceReady?: boolean;
   contentHash?: string | null;
   sourceIdentity?: string | null;
 };
@@ -23,6 +24,8 @@ type RequirementDefinition = {
   label: string;
   roles: NoteSourceRole[];
   minCount: number;
+  /** Legacy field name retained in the API shape. When true, the source must be evidence-ready:
+   * either authorized retained text or at least one reviewed editor reference note. */
   generationReadyOnly: boolean;
 };
 
@@ -64,13 +67,13 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
 }> = {
   balanced: {
     name: 'Balanced static note',
-    description: 'Requires two independent generation-ready core sources. Use for most static syllabus notes.',
+    description: 'Requires two independent evidence-ready core sources. A source may qualify through authorized retained text or an explicit reviewed reference note.',
     minUniqueContent: 2,
     minDistinctIdentities: 2,
     requirements: [
       {
         code: 'two_core_sources',
-        label: 'Two generation-ready authority/reference sources',
+        label: 'Two evidence-ready authority/reference sources',
         roles: ['primary_authority', 'core_reference'],
         minCount: 2,
         generationReadyOnly: true,
@@ -79,20 +82,20 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
   },
   official_first: {
     name: 'Official-first',
-    description: 'Requires a generation-ready primary authority plus an independent generation-ready reference.',
+    description: 'Requires an evidence-ready primary authority plus an independent evidence-ready reference. Reference-only sources qualify only after explicit editor-authored reference evidence exists.',
     minUniqueContent: 2,
     minDistinctIdentities: 2,
     requirements: [
       {
         code: 'primary_authority',
-        label: 'Generation-ready primary authority',
+        label: 'Evidence-ready primary authority',
         roles: ['primary_authority'],
         minCount: 1,
         generationReadyOnly: true,
       },
       {
         code: 'core_reference',
-        label: 'Generation-ready core reference',
+        label: 'Evidence-ready core reference',
         roles: ['core_reference'],
         minCount: 1,
         generationReadyOnly: true,
@@ -101,13 +104,13 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
   },
   reference_led: {
     name: 'Reference-led',
-    description: 'Requires two generation-ready standard references where no single official primary authority is appropriate.',
+    description: 'Requires two evidence-ready standard references where no single official primary authority is appropriate.',
     minUniqueContent: 2,
     minDistinctIdentities: 2,
     requirements: [
       {
         code: 'two_references',
-        label: 'Two generation-ready core references',
+        label: 'Two evidence-ready core references',
         roles: ['core_reference'],
         minCount: 2,
         generationReadyOnly: true,
@@ -116,7 +119,7 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
   },
   exam_focused: {
     name: 'Exam-focused',
-    description: 'Requires an explicit syllabus/PYQ/notification context source plus one generation-ready authority or reference.',
+    description: 'Requires an explicit syllabus/PYQ/notification context source plus one evidence-ready authority or reference.',
     minUniqueContent: 2,
     minDistinctIdentities: 1,
     requirements: [
@@ -129,7 +132,7 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
       },
       {
         code: 'core_evidence',
-        label: 'Generation-ready authority/reference source',
+        label: 'Evidence-ready authority/reference source',
         roles: ['primary_authority', 'core_reference'],
         minCount: 1,
         generationReadyOnly: true,
@@ -138,13 +141,13 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
   },
   quick_revision: {
     name: 'Quick revision',
-    description: 'Requires one generation-ready authority or reference for deliberately narrow revision notes.',
+    description: 'Requires one evidence-ready authority or reference for deliberately narrow revision notes.',
     minUniqueContent: 1,
     minDistinctIdentities: 1,
     requirements: [
       {
         code: 'one_core_source',
-        label: 'Generation-ready authority/reference source',
+        label: 'Evidence-ready authority/reference source',
         roles: ['primary_authority', 'core_reference'],
         minCount: 1,
         generationReadyOnly: true,
@@ -183,6 +186,10 @@ export function sourcePackTemplateOptions() {
   return NOTE_SOURCE_PACK_TEMPLATES.map((key) => ({ key, ...TEMPLATES[key] }));
 }
 
+export function sourcePolicyEvidenceReady(source: Pick<SourcePackPolicySource, 'generationReady' | 'referenceEvidenceReady'>): boolean {
+  return source.generationReady || source.referenceEvidenceReady === true;
+}
+
 export function evaluateSourcePackPolicy(
   templateValue: unknown,
   sources: SourcePackPolicySource[],
@@ -193,7 +200,7 @@ export function evaluateSourcePackPolicy(
   const requirements = template.requirements.map((requirement) => {
     const currentCount = included.filter((source) =>
       requirement.roles.includes(source.sourceRole)
-      && (!requirement.generationReadyOnly || source.generationReady),
+      && (!requirement.generationReadyOnly || sourcePolicyEvidenceReady(source)),
     ).length;
     return {
       ...requirement,

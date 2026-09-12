@@ -1,0 +1,67 @@
+import { LP_001_008_ENGLISH_FREEZE_V1 } from "./lp-001-008-permanent-freeze-v1.ts";
+import { LP_001_008_HI_PA_LOCALIZATION_APPROVAL_V4 } from "./lp-001-008-localization-approval-v4.ts";
+
+export const LP_001_008_PACKAGE_QL_IDS = Object.freeze({
+  "LP-001": Object.freeze(["LP-QL-001", "LP-QL-002", "LP-QL-003", "LP-QL-004"] as const),
+  "LP-002": Object.freeze(["LP-QL-005", "LP-QL-006", "LP-QL-007", "LP-QL-008"] as const),
+  "LP-003": Object.freeze(["LP-QL-009", "LP-QL-010", "LP-QL-011", "LP-QL-012"] as const),
+  "LP-004": Object.freeze(["LP-QL-013", "LP-QL-014", "LP-QL-015", "LP-QL-016"] as const),
+  "LP-005": Object.freeze(["LP-QL-017", "LP-QL-018", "LP-QL-019", "LP-QL-020"] as const),
+  "LP-006": Object.freeze(["LP-QL-021", "LP-QL-022", "LP-QL-023", "LP-QL-024"] as const),
+  "LP-007": Object.freeze(["LP-QL-025", "LP-QL-026", "LP-QL-027", "LP-QL-028"] as const),
+  "LP-008": Object.freeze(["LP-QL-029", "LP-QL-030", "LP-QL-031", "LP-QL-032"] as const),
+});
+
+export type Lp001008FrozenPackageId = keyof typeof LP_001_008_PACKAGE_QL_IDS;
+
+export const LP_001_008_HI_PA_LOCALIZATION_FREEZE_V4 = Object.freeze({
+  authorityId: "LP_001_008_HI_PA_LOCALIZATION_FREEZE_V4" as const,
+  sourceEnglishAuthorityId: LP_001_008_ENGLISH_FREEZE_V1.authorityId,
+  sourceLocalizationApprovalAuthorityId: LP_001_008_HI_PA_LOCALIZATION_APPROVAL_V4.authorityId,
+  sourceLocalizationAuthorityId: LP_001_008_HI_PA_LOCALIZATION_APPROVAL_V4.approvedSourceAuthority,
+  packages: Object.freeze(Object.entries(LP_001_008_PACKAGE_QL_IDS).map(([packageId, permanentQlIds], index) => Object.freeze({
+    packageId: packageId as Lp001008FrozenPackageId,
+    checkpointId: `LP-CP-00${index + 1}` as string,
+    permanentQlIds,
+    permanentQlCount: permanentQlIds.length,
+  }))),
+  permanentQlIds: LP_001_008_ENGLISH_FREEZE_V1.permanentQlIds,
+  permanentQlCount: LP_001_008_ENGLISH_FREEZE_V1.permanentQlCount,
+  permanentQlAllocationStatus: "ALLOCATED" as const,
+  supportedLanguages: Object.freeze(["en", "hi", "pa"] as const),
+  locales: Object.freeze(["en-IN", "hi-IN", "pa-IN"] as const),
+  status: "HI_PA_HUMAN_REVIEWED_V4_LOCALIZATION_FROZEN" as const,
+  approvedOn: "2026-09-11" as const,
+  approvalBasis: "EXPLICIT_HUMAN_REVIEW_APPROVAL" as const,
+  approvalRecord: LP_001_008_HI_PA_LOCALIZATION_APPROVAL_V4.authorityId,
+  localizationMethod: "SEMANTIC_REBUILD_FROM_FROZEN_SOLVED_CASELET" as const,
+  englishFreezeStatus: "FROZEN_V1" as const,
+  localizationFreezeStatus: "FROZEN_V4" as const,
+  questionStudioLanguageActivation: "ALLOWED_AFTER_INTEGRATION_PROOF" as const,
+  runtimeMode: "REVIEW_ONLY" as const,
+  reviewOnly: true as const,
+  questionBankStatus: "NOT_STORED" as const,
+  questionBankWritable: false as const,
+  testEligibility: "INELIGIBLE" as const,
+  testEligible: false as const,
+  mockTestEligible: false as const,
+  publiclyPublishable: false as const,
+  automaticStudentPublication: false as const,
+  invariants: Object.freeze({
+    samePermanentQlOwnership: true,
+    sameSolvedAssignmentsAcrossLanguages: true,
+    sameDifficultyBandsAcrossLanguages: true,
+    sameCorrectOptionIndicesAcrossLanguages: true,
+    sameQuestionTargetsAcrossLanguages: true,
+    completeVariableDomainsPreserved: true,
+    lp001RepetitionClubbingPreserved: true,
+    dependencyDrivenExplanationOrderPreserved: true,
+    progressiveExplanationTablesPreserved: true,
+    genuineCaseTablesPreserved: true,
+    nativeHindiPunjabiLearnerCopy: true,
+    lp003NativeGrammarPolishPreserved: true,
+    lp004GenderNeutralSelectionCopyPreserved: true,
+    optionByOptionAnalysisForbidden: true,
+    sharedQuestionStudioOnly: true,
+  }),
+});

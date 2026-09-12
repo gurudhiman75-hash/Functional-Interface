@@ -1,8 +1,13 @@
 import { QuestionStudioAlgebraReviewPanel } from './QuestionStudioAlgebraReviewPanel';
 import { QuestionStudioCalendarReviewPanel } from './QuestionStudioCalendarReviewPanel';
 import { QuestionStudioCockpitPage } from './QuestionStudioCockpitPage';
+import { QuestionStudioCom003PreviewPanel } from './QuestionStudioCom003PreviewPanel';
+import { QuestionStudioCom003ReviewPanel } from './QuestionStudioCom003ReviewPanel';
+import { QuestionStudioComputerAwarenessReviewPanel } from './QuestionStudioComputerAwarenessReviewPanel';
+import { QuestionStudioCubesDiceReviewPanel } from './QuestionStudioCubesDiceReviewPanel';
 import { QuestionStudioDataSufficiencyReviewPanel } from './QuestionStudioDataSufficiencyReviewPanel';
 import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyMixControls';
+import { QuestionStudioEnglishReviewPanel } from './QuestionStudioEnglishReviewPanel';
 import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSummary';
 import { QuestionStudioInputOutputReviewPanel } from './QuestionStudioInputOutputReviewPanel';
 import { QuestionStudioInterestReviewPanel } from './QuestionStudioInterestReviewPanel';
@@ -15,9 +20,14 @@ import { QuestionStudioStatementAssumptionReviewPanel } from './QuestionStudioSt
 export function QuestionStudioOperationsPage() {
   return (
     <>
+      <QuestionStudioEnglishReviewPanel />
+      <QuestionStudioComputerAwarenessReviewPanel />
+      <QuestionStudioCom003PreviewPanel />
+      <QuestionStudioCom003ReviewPanel />
       <QuestionStudioDataSufficiencyReviewPanel />
       <QuestionStudioAlgebraReviewPanel />
       <QuestionStudioSpatialReviewPanel />
+      <QuestionStudioCubesDiceReviewPanel />
       <QuestionStudioInterestReviewPanel />
       <QuestionStudioSeriesReviewPanel />
       <QuestionStudioCalendarReviewPanel />

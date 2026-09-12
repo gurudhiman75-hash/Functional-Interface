@@ -1,0 +1,40 @@
+name: Validate Notes Studio Guided Research Load
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/admin-app/src/pages/content/NotesStudioResearchReviewSafePage.tsx'
+      - 'artifacts/admin-app/src/pages/content/NotesStudioGuidedPage.tsx'
+  workflow_dispatch:
+
+concurrency:
+  group: notes-studio-guided-research-load-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-guided-research-load:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Verify load guard contract
+        run: |
+          page='artifacts/admin-app/src/pages/content/NotesStudioResearchReviewSafePage.tsx'
+          guided='artifacts/admin-app/src/pages/content/NotesStudioGuidedPage.tsx'
+          grep -F 'Promise.allSettled' "$page"
+          grep -F 'Loading saved research data' "$page"
+          grep -F 'will not display fake zero counts' "$page"
+          grep -F 'NotesStudioResearchReviewSafePage' "$guided"
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck

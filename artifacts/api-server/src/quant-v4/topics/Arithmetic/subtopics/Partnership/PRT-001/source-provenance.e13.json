@@ -1,0 +1,86 @@
+{
+  "chapterId": "PRT-001",
+  "wave": "E13",
+  "status": "SOURCE_BACKED_IMPLEMENTATION",
+  "sources": [
+    {
+      "id": "E13-S01",
+      "exam": "SSC CGL Tier 2 Quant Previous Paper 8",
+      "heldOn": "2018-02-18",
+      "url": "https://testbook.com/question-answer/a-b-and-c-invest-in-a-business-in-the-ratio-4-%E2%88%B6--5c20b58906e94d2a1191aa7a",
+      "family": "reducedSleepingPartnerEntitlement",
+      "mappedQuestionLanguageIds": ["PRT-QL-106"]
+    },
+    {
+      "id": "E13-S02",
+      "exam": "SSC CGL Tier 2 Quant Previous Paper 11",
+      "heldOn": "2018-02-21",
+      "url": "https://testbook.com/question-answer/a-b-and-c-invest-in-a-business-in-the-ratio-3-6--5c2e13a5fdb8bb5d5d6eb9a1",
+      "family": "reducedSleepingPartnerEntitlement",
+      "mappedQuestionLanguageIds": ["PRT-QL-106"]
+    },
+    {
+      "id": "E13-S03",
+      "exam": "OSSC CGL 2024 Preliminary Exam Official Paper",
+      "heldOn": "2024-10-20",
+      "url": "https://testbook.com/question-answer/x-and-y-put-in-rs-3000-and-rs-4000-respectivel--694f279d00a17a14925bc4f1",
+      "family": "priorProfitShareReinvestedAsCapital",
+      "mappedQuestionLanguageIds": ["PRT-QL-107"]
+    },
+    {
+      "id": "E13-S04",
+      "exam": "OSSSC Forester, Forest Guard & Excise Constable Official Paper Shift 1",
+      "heldOn": "2026-04-22",
+      "url": "https://testbook.com/question-answer/two-companies-x-and-y-enter-into-a-partnership--6a0ab43990fad6301d9f645a",
+      "family": "multipleRecipientGrossAllocations",
+      "mappedQuestionLanguageIds": ["PRT-QL-108"]
+    },
+    {
+      "id": "E13-S05",
+      "exam": "UP Police Constable Re-Exam 2024 Official Paper Shift 1",
+      "heldOn": "2024-08-24",
+      "url": "https://testbook.com/question-answer/in-a-partnership-x-invests-frac16th-of-t--66c98f15c2a6ce31a8f8c877",
+      "family": "residualTotalCapitalAndTimeFractions",
+      "mappedQuestionLanguageIds": ["PRT-QL-109"]
+    },
+    {
+      "id": "E13-S06",
+      "exam": "UPSC CSE Prelims 2026 CSAT Official Paper",
+      "heldOn": "2026",
+      "url": "https://testbook.com/question-answer/three-partners-a-b-and-c-entered-into-a-business--6a159cdb0bd449d7a0bb5e17",
+      "family": "residualTotalCapitalAndTimeFractions",
+      "mappedQuestionLanguageIds": ["PRT-QL-109"]
+    },
+    {
+      "id": "E13-S07",
+      "exam": "AFCAT Official Paper Shift 1",
+      "heldOn": "2026-01-31",
+      "url": "https://testbook.com/question-answer/among-three-partners-a-b-and-c-in-a-business-the--6a070264ee09dbb41f0a6814",
+      "family": "aggregateRationalCapitalRelation",
+      "mappedQuestionLanguageIds": ["PRT-QL-110"]
+    },
+    {
+      "id": "E13-S08",
+      "exam": "IBPS Clerk Mains memory-based Shift 1",
+      "heldOn": "2021-02-28",
+      "url": "https://testbook.com/question-answer/three-friends-invested-rs-48000-rs-52000-and-36--603b79a25ece44e569a86b4f",
+      "family": "interestOnPartnerCapitalBeforeResidualProfit",
+      "mappedQuestionLanguageIds": ["PRT-QL-111"]
+    },
+    {
+      "id": "E13-S09",
+      "exam": "Punjab Police Constable Official Paper-I & II Shift 2",
+      "heldOn": "2023-08-10",
+      "url": "https://testbook.com/question-answer/ques--69ea07e10639cc52d17aa343",
+      "family": "incomingPartnerAcquiresProfitShare",
+      "mappedQuestionLanguageIds": ["PRT-QL-112"]
+    }
+  ],
+  "ownership": {
+    "pureSimpleOrCompoundInterest": "INT-001",
+    "interestOnCapitalInsidePartnershipDistribution": "PRT-001",
+    "accountingAdmissionReconstitution": "EXCLUDED_FROM_APTITUDE_PRT",
+    "arithmeticIncomingPartnerShareAcquisition": "PRT-001",
+    "legacyPartnershipProductOwnership": "PRT-001"
+  }
+}

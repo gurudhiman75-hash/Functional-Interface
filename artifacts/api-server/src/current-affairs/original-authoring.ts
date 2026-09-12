@@ -1,5 +1,7 @@
 import { createHash } from "node:crypto";
 
+import { factualFallbackTitle, isGenericCurrentAffairsLearnerTitle } from "./learner-title-quality";
+
 export type AuthoringFact = {
   key: string;
   value: string;
@@ -26,13 +28,81 @@ export type AuthoringOutput = {
   inputFingerprint: string;
 };
 
+const AUTHORING_POLICY_VERSION = "ca-cp060-fact-rephrase-v1";
+const TITLE_SIMILARITY_LIMIT = 0.72;
+
 const SOURCE_NAMES: Record<string, string> = {
   pib: "Government of India",
   rbi: "Reserve Bank of India",
   sebi: "SEBI",
   isro: "ISRO",
   punjab_gov: "Punjab Government",
+  punjab_gov_press: "Punjab Government",
+  punjab_lok_bhavan_press: "Punjab Lok Bhavan",
 };
+
+const CATEGORY_LABELS: Record<string, string> = {
+  national: "national affairs",
+  economy_banking: "economy and banking",
+  international: "international affairs",
+  appointments: "appointment",
+  awards: "award",
+  reports_indices: "report and index",
+  sports: "sports",
+  science_technology: "science and technology",
+  space: "space",
+  defence: "defence",
+  environment: "environment",
+  books_authors: "books and authors",
+  important_days: "important day",
+  summits: "summit",
+  obituaries: "obituary",
+  punjab: "Punjab affairs",
+  other: "current affairs",
+};
+
+const FACT_LABELS: Record<string, string> = {
+  appointee: "Appointee",
+  position: "Position",
+  winner: "Winner",
+  award_or_title: "Award / title",
+  launching_entity: "Organisation",
+  initiative: "Initiative",
+  acting_entity: "Organisation",
+  official_action: "Action",
+  action_subject: "Topic",
+  event_status: "Status",
+  amount: "Amount",
+  percentage: "Percentage",
+  rank: "Rank",
+  scheme_outlay: "Outlay",
+  beneficiary_count: "Beneficiaries",
+  effective_date: "Effective date",
+  headquarters: "Headquarters",
+  target_percentage: "Target",
+  target_year: "Target year",
+  mou_parties: "Parties",
+  orbit_altitude: "Orbit altitude",
+  repeat_cycle: "Repeat cycle",
+  mission_life: "Mission life",
+  launcher: "Launch vehicle",
+  index_value: "Index value",
+  current_account_status: "Current account",
+  current_account_amount: "Current account amount",
+  current_account_gdp_share: "Share of GDP",
+  net_services_receipts: "Net services receipts",
+};
+
+const SUBJECT_FACT_PRIORITY = [
+  "action_subject",
+  "initiative",
+  "award_or_title",
+  "appointee",
+  "mou_parties",
+  "headquarters",
+  "scheme_outlay",
+  "rank",
+] as const;
 
 const ACRONYM_STOP = new Set([
   "RBI", "SEBI", "ISRO", "PIB", "NASA", "GOVT", "INDIA", "PRESS", "RELEASE",
@@ -92,8 +162,249 @@ function factualSubjectFromSourceTitle(sourceTitle: string): string | undefined 
   if (quoted?.[1]) return quoted[1].trim();
 
   const acronyms = sourceTitle.match(/\b[A-Z][A-Z0-9-]{2,14}\b/g) ?? [];
-  const subject = acronyms.find((token) => !ACRONYM_STOP.has(token) && !/^\d/.test(token));
-  return subject;
+  return acronyms.find((token) => !ACRONYM_STOP.has(token) && !/^\d/.test(token));
+}
+
+function cleanFactValue(value: string): string | undefined {
+  const clean = value.replace(/\s+/g, " ").trim();
+  if (!clean || clean.length > 220 || /https?:\/\//i.test(clean)) return undefined;
+  return clean;
+}
+
+function factLabel(key: string): string {
+  return FACT_LABELS[key] ?? key.replace(/_/g, " ").replace(/^./, (char) => char.toUpperCase());
+}
+
+function learnerSubject(value: string): string {
+  const clean = value
+    .replace(/\bit[’']s\b/gi, "its")
+    .replace(/\s+/g, " ")
+    .trim();
+  const firstClause = clean.split(/\s*;\s*(?=(?:describes|says|terms|calls|notes|adds)\b)/i)[0]?.trim();
+  return firstClause || clean;
+}
+
+function compact(value: string, _max = 112): string {
+  return learnerSubject(value);
+}
+
+function humanDate(date: string): string {
+  const parsed = new Date(`${date}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return date;
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(parsed);
+}
+
+function lowerFirst(value: string) {
+  const clean = value.trim();
+  return clean ? `${clean[0]!.toLowerCase()}${clean.slice(1)}` : clean;
+}
+
+function readableAction(action: string) {
+  return action.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function plannedAction(action: string): string | null {
+  const match = readableAction(action).match(/^scheduled\s+(release|launch|inaugurate|grace|hold|conduct|open|unveil)$/i);
+  return match?.[1]?.toLowerCase() ?? null;
+}
+
+function naturalFactDetail(items: ReadonlyArray<readonly [string, string]>) {
+  return items.map(([key, value]) => `${factLabel(key)}: ${value}`).join("; ");
+}
+
+function sourceSafeTitle(preferred: string, fallback: string, sourceTitle: string, alternatives: string[] = []) {
+  for (const candidate of [preferred, ...alternatives, fallback]) {
+    if (candidate && titleSimilarity(candidate, sourceTitle) < TITLE_SIMILARITY_LIMIT) return candidate;
+  }
+  return fallback;
+}
+
+function editorialHold(input: AuthoringInput, reason: string): AuthoringOutput {
+  return {
+    status: "needs_editorial",
+    sourceTitleSimilarity: 0,
+    reasons: [reason],
+    inputFingerprint: authoringInputFingerprint(input),
+  };
+}
+
+function malformedActingEntity(value: string) {
+  const clean = value.replace(/\s+/g, " ").trim();
+  return /^(?:PM|Prime Minister)\s+to$/i.test(clean) || /\b(?:to|for|at|on)\s*$/i.test(clean);
+}
+
+function cleanPartyForTitle(value: string) {
+  return value
+    .replace(/\s*\([^)]*\)/g, "")
+    .replace(/\b(?:Pte\.?\s+Ltd\.?|Limited|Ltd\.?)\b/gi, "")
+    .replace(/\s+/g, " ")
+    .replace(/[ ,;:-]+$/g, "")
+    .trim();
+}
+
+function officialActionAlternativeTitle(entity: string, action: string, subject: string): string | undefined {
+  const cleanAction = readableAction(action).toLowerCase();
+  const acquisition = subject.match(/^acquisition of (.+?) by (.+?)(?:\s+and related transactions)?$/i);
+  if (/^approv/.test(cleanAction) && acquisition?.[1] && acquisition[2]) {
+    const target = cleanPartyForTitle(acquisition[1].replace(/^up to\s+[0-9.]+%\s+equity shareholding of\s+/i, ""));
+    const buyer = cleanPartyForTitle(acquisition[2]);
+    if (target && buyer) return `${buyer} purchase of ${target} gets ${entity} clearance`;
+  }
+
+  const automated = subject.match(/^Automated Issuance of (.+?)(?:\s+to Promote\b.*)?$/i);
+  if (/^enable/.test(cleanAction) && automated?.[1]) {
+    const topic = automated[1].replace(/\bCertificates\b/i, "Certificate").trim();
+    return `${entity} automates ${topic} issuance`;
+  }
+
+  const bilateral = subject.match(/^Bilateral Cooperation in (.+)$/i);
+  if (/^strengthen/.test(cleanAction) && bilateral?.[1]) {
+    const parties = entity.replace(/\s*[–—-]\s*/g, " and ");
+    const topics = bilateral[1].replace(/\bIntellectual Property\b/gi, "IP").trim();
+    return `${parties} deepen ${topics} cooperation`;
+  }
+  return undefined;
+}
+
+function readablePersonName(value: string) {
+  let clean = value.replace(/\s+/g, " ").trim();
+  clean = clean.replace(/^(?:AVM|AIR\s+MARSHAL|AIR\s+VICE\s+MARSHAL)\s+/i, "");
+  if (clean && clean === clean.toUpperCase()) {
+    clean = clean.toLowerCase().replace(/\b[a-z][a-z'-]*/g, (word) => word[0]!.toUpperCase() + word.slice(1));
+    clean = clean.replace(/\bKaa\b/g, "KAA");
+  }
+  return clean;
+}
+
+function readablePosition(value: string) {
+  const clean = value.replace(/\s+/g, " ").trim();
+  if (!clean || clean !== clean.toUpperCase()) return clean;
+  const lowered = clean.toLowerCase().replace(/[()]/g, "");
+  return lowered[0]!.toUpperCase() + lowered.slice(1);
+}
+
+function appointmentAlternativeTitle(appointee: string, position: string): string | undefined {
+  const person = readablePersonName(appointee);
+  const role = readablePosition(position);
+  if (/^first\b/i.test(role)) return `${person} becomes ${lowerFirst(role)}`;
+  if (/air officer-in-charge maintenance.*indian air force/i.test(position)) {
+    return `${person} assumes IAF maintenance leadership`;
+  }
+  return undefined;
+}
+
+function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, string>, sourceName: string): AuthoringOutput | null {
+  const useful = [...facts.entries()]
+    .map(([key, value]) => [key, cleanFactValue(value)] as const)
+    .filter((entry): entry is readonly [string, string] => Boolean(entry[1]));
+  if (useful.length < 2) return null;
+
+  const categoryLabel = CATEGORY_LABELS[input.category] ?? CATEGORY_LABELS.other;
+  const actionEntity = cleanFactValue(facts.get("acting_entity") ?? "");
+  const officialAction = cleanFactValue(facts.get("official_action") ?? "");
+  const actionSubject = cleanFactValue(facts.get("action_subject") ?? "");
+  if (actionEntity && officialAction && actionSubject) {
+    if (malformedActingEntity(actionEntity)) {
+      return editorialHold(input, "Verified official-action actor is malformed and requires editorial correction");
+    }
+    const action = readableAction(officialAction);
+    const subject = learnerSubject(actionSubject);
+    const planned = plannedAction(action);
+    const preferredTitle = `${sourceName}: ${subject}`;
+    const fallbackTitle = `${subject} — ${actionEntity}`;
+    const alternative = officialActionAlternativeTitle(actionEntity, action, subject);
+    return result({
+      input,
+      title: sourceSafeTitle(preferredTitle, fallbackTitle, input.sourceTitle, alternative ? [alternative] : []),
+      summary: planned
+        ? `On ${humanDate(input.eventDate)}, ${actionEntity} announced that it would ${planned} ${actionSubject}.`
+        : `On ${humanDate(input.eventDate)}, ${actionEntity} ${lowerFirst(action)} ${actionSubject}.`,
+      oneLiner: planned
+        ? `${subject} — announced by ${actionEntity}`
+        : `${subject} — ${actionEntity}`,
+      templateId: alternative ? "verified_official_action_rephrased_v1" : "verified_official_action_v1",
+      reasons: [alternative
+        ? "Learner title is deterministically rephrased from reconciled action facts while retaining the source-title similarity gate"
+        : planned
+          ? "Scheduled event is expressed as an announcement on the Current Affairs date, not as broken extraction grammar"
+          : "Learner copy states the event directly and anchors it to the Current Affairs date"],
+    });
+  }
+
+  const winner = cleanFactValue(facts.get("winner") ?? "");
+  const award = cleanFactValue(facts.get("award_or_title") ?? "");
+  if (winner && award) {
+    const preferredTitle = `${sourceName}: ${compact(award, 105)} — ${compact(winner, 60)}`;
+    return result({
+      input,
+      title: sourceSafeTitle(preferredTitle, `${winner} wins ${award}`, input.sourceTitle),
+      summary: `On ${humanDate(input.eventDate)}, ${winner} was recorded as the winner of ${award}.`,
+      oneLiner: `${winner} — ${award}`,
+      templateId: "verified_award_result_v1",
+      reasons: ["Winner and award are rendered as a direct learner-facing fact"],
+    });
+  }
+
+  const launchingEntity = cleanFactValue(facts.get("launching_entity") ?? "");
+  const initiative = cleanFactValue(facts.get("initiative") ?? "");
+  if (launchingEntity && initiative) {
+    const preferredTitle = `${sourceName}: ${compact(initiative, 118)}`;
+    return result({
+      input,
+      title: sourceSafeTitle(preferredTitle, `${learnerSubject(initiative)} — ${launchingEntity}`, input.sourceTitle),
+      summary: `On ${humanDate(input.eventDate)}, ${launchingEntity} launched ${initiative}.`,
+      oneLiner: `${learnerSubject(initiative)} — launched by ${launchingEntity}`,
+      templateId: "verified_initiative_v1",
+      reasons: ["Initiative wording is expressed as a direct event rather than extraction metadata"],
+    });
+  }
+
+  const eventStatus = cleanFactValue(facts.get("event_status") ?? "");
+  if (initiative && eventStatus && /(?:to be|scheduled|held|conducted|opened|inaugurated)/i.test(eventStatus)) {
+    const cleanInitiative = learnerSubject(initiative).replace(/\s+to be$/i, "").trim();
+    const status = eventStatus.replace(/^scheduled\s+/i, "").trim();
+    return result({
+      input,
+      title: sourceSafeTitle(`${sourceName}: ${cleanInitiative}`, `${cleanInitiative} — ${status}`, input.sourceTitle),
+      summary: `On ${humanDate(input.eventDate)}, it was announced that ${cleanInitiative} would be ${status.replace(/^to be\s+/i, "")}.`,
+      oneLiner: `${cleanInitiative} — ${status}`,
+      templateId: "generic_verified_fact_graph_v1",
+      reasons: ["Planned passive event is rendered as a future event announced on the Current Affairs date"],
+    });
+  }
+
+  const subject = SUBJECT_FACT_PRIORITY
+    .map((key) => facts.get(key))
+    .map((value) => value ? cleanFactValue(value) : undefined)
+    .find(Boolean);
+  const selected = useful.slice(0, 4);
+  const detail = naturalFactDetail(selected);
+  const factualTitle = factualFallbackTitle(useful.map(([key, value]) => ({ key, value })));
+  const preferredTitle = subject
+    ? `${sourceName}: ${compact(subject, 118)}`
+    : factualTitle ?? `${sourceName}: key ${categoryLabel} development`;
+  const fallbackTitle = subject
+    ? `${compact(subject, 118)} — ${sourceName}`
+    : factualTitle ?? `${sourceName}: key ${categoryLabel} development`;
+  const title = sourceSafeTitle(preferredTitle, fallbackTitle, input.sourceTitle);
+  const memory = selected.length >= 2
+    ? `${compact(selected[0]![1], 85)} · ${compact(selected[1]![1], 85)}`
+    : compact(selected[0]?.[1] ?? subject ?? sourceName, 150);
+  return result({
+    input,
+    title,
+    summary: `On ${humanDate(input.eventDate)}, this ${categoryLabel} development was recorded with these key details: ${detail}.`,
+    oneLiner: memory,
+    templateId: "generic_verified_fact_graph_v1",
+    reasons: [factualTitle
+      ? "Fallback title is composed from reconciled atomic facts rather than a source/category placeholder"
+      : "Fallback uses only reconciled atomic facts while avoiding internal extraction terminology"],
+  });
 }
 
 function result(args: {
@@ -106,8 +417,13 @@ function result(args: {
 }): AuthoringOutput {
   const similarity = titleSimilarity(args.title, args.input.sourceTitle);
   const reasons = [...(args.reasons ?? [])];
-  if (similarity >= 0.72) reasons.push("Generated learner title is too similar to the source title");
-  const ready = similarity < 0.72 && args.title.length >= 12 && args.summary.length >= 20;
+  const genericTitle = isGenericCurrentAffairsLearnerTitle(args.title);
+  if (similarity >= TITLE_SIMILARITY_LIMIT) reasons.push("Generated learner title is too similar to the source title");
+  if (genericTitle) reasons.push("Generated learner title is a generic source/category placeholder and requires editorial wording");
+  const ready = similarity < TITLE_SIMILARITY_LIMIT
+    && !genericTitle
+    && args.title.length >= 12
+    && args.summary.length >= 20;
   return {
     status: ready ? "ready" : "needs_editorial",
     title: ready ? args.title : undefined,
@@ -122,6 +438,7 @@ function result(args: {
 
 export function authoringInputFingerprint(input: AuthoringInput): string {
   const stable = JSON.stringify({
+    authoringPolicyVersion: AUTHORING_POLICY_VERSION,
     eventId: input.eventId,
     eventDate: input.eventDate,
     category: input.category,
@@ -140,12 +457,17 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
   const appointee = facts.get("appointee");
   const position = facts.get("position");
   if (appointee && position) {
+    const alternative = appointmentAlternativeTitle(appointee, position);
+    const preferred = `${appointee} appointed ${position}`;
+    const readableAppointee = readablePersonName(appointee) || appointee;
+    const readableRole = readablePosition(position) || position;
     return result({
       input,
-      title: `${appointee} appointed ${position}`,
-      summary: `${appointee} has been appointed ${position}.`,
-      oneLiner: `${appointee} was appointed ${position}`,
-      templateId: "appointment_v1",
+      title: sourceSafeTitle(preferred, preferred, input.sourceTitle, alternative ? [alternative] : []),
+      summary: `On ${humanDate(input.eventDate)}, ${readableAppointee} was appointed ${lowerFirst(readableRole)}.`,
+      oneLiner: `${readableAppointee} — ${readableRole}`,
+      templateId: alternative ? "appointment_fact_rephrased_v1" : "appointment_v1",
+      reasons: alternative ? ["Long or record-setting appointment title is rephrased from verified appointee and position facts"] : undefined,
     });
   }
 
@@ -154,9 +476,25 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     return result({
       input,
       title: `RBI Financial Inclusion Index stands at ${fiIndex}`,
-      summary: `The Reserve Bank of India reported its Financial Inclusion Index at ${fiIndex}.`,
-      oneLiner: `RBI's Financial Inclusion Index is ${fiIndex}`,
+      summary: `On ${humanDate(input.eventDate)}, the Reserve Bank of India reported its Financial Inclusion Index at ${fiIndex}.`,
+      oneLiner: `RBI Financial Inclusion Index — ${fiIndex}`,
       templateId: "rbi_financial_inclusion_index_v1",
+    });
+  }
+
+  const currentAccountStatus = facts.get("current_account_status");
+  const currentAccountAmount = facts.get("current_account_amount");
+  const currentAccountShare = facts.get("current_account_gdp_share");
+  const netServicesReceipts = facts.get("net_services_receipts");
+  if (input.sourceKey === "rbi" && currentAccountStatus && currentAccountAmount && currentAccountShare) {
+    const services = netServicesReceipts ? ` Net services receipts were ${netServicesReceipts}.` : "";
+    return result({
+      input,
+      title: `India current account ${currentAccountStatus}: ${currentAccountAmount}`,
+      summary: `On ${humanDate(input.eventDate)}, the RBI reported a current account ${currentAccountStatus} of ${currentAccountAmount}, equivalent to ${currentAccountShare}.${services}`,
+      oneLiner: `Current account ${currentAccountStatus} — ${currentAccountAmount} (${currentAccountShare})`,
+      templateId: "rbi_balance_of_payments_v1",
+      reasons: ["Balance-of-Payments wording is composed from reconciled RBI current-account facts"],
     });
   }
 
@@ -173,8 +511,8 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     return result({
       input,
       title: `RBI policy rates: repo rate at ${repo}`,
-      summary: `The Reserve Bank of India policy-rate snapshot is: ${detail}.`,
-      oneLiner: `RBI repo rate is ${repo}`,
+      summary: `On ${humanDate(input.eventDate)}, the RBI policy-rate snapshot showed ${detail}.`,
+      oneLiner: `RBI repo rate — ${repo}`,
       templateId: "rbi_policy_rates_v1",
     });
   }
@@ -184,8 +522,8 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     return result({
       input,
       title: `MoU between ${mouParties}`,
-      summary: `A Memorandum of Understanding involves ${mouParties}.`,
-      oneLiner: `MoU parties: ${mouParties}`,
+      summary: `On ${humanDate(input.eventDate)}, a Memorandum of Understanding was recorded between ${mouParties}.`,
+      oneLiner: `MoU parties — ${mouParties}`,
       templateId: "mou_v1",
     });
   }
@@ -202,7 +540,7 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     return result({
       input,
       title: `${subject}: key ISRO mission facts`,
-      summary: `Key verified facts for ${subject} include ${detail}.`,
+      summary: `For ${subject}, the key mission details are ${detail}.`,
       oneLiner: `${subject} — ${detail}`,
       templateId: "isro_mission_facts_v1",
       reasons: ["Subject name is extracted as a factual acronym/entity from source evidence; source wording is not reused"],
@@ -218,12 +556,15 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     ]);
     return result({
       input,
-      title: `${sourceName} programme update: ${outlay} outlay`,
-      summary: `Verified programme facts from ${sourceName}: ${detail}.`,
+      title: `${sourceName} programme: ${outlay} outlay`,
+      summary: `On ${humanDate(input.eventDate)}, the programme details included ${detail}.`,
       oneLiner: `${sourceName} programme — ${detail}`,
       templateId: "programme_outlay_v1",
     });
   }
+
+  const generic = genericVerifiedFactAuthoring(input, facts, sourceName);
+  if (generic) return generic;
 
   return {
     status: "needs_editorial",

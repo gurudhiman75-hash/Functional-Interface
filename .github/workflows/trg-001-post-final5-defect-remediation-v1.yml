@@ -1,0 +1,90 @@
+name: Validate TRG-001 post-Final5 defect remediation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-post-freeze-remediation-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final6.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-defect-remediation-v1.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-post-final5-defect-remediation-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/POST-FINAL5-DEFECT-REMEDIATION-V1-STATUS.md"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final5.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: trg-001-post-final5-defect-remediation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-trg-001-post-final5-remediation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle historical frozen English audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-historical-frozen-english-audit.mjs
+
+      - name: Revalidate historical frozen English bytes
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-historical-frozen-english-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-historical-frozen-english-audit.log
+
+      - name: Bundle post-Final5 remediation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-defect-remediation-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-post-final5-defect-remediation-v1-audit.mjs
+
+      - name: Run post-Final5 remediation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-post-final5-defect-remediation-v1-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-post-final5-defect-remediation-v1-audit.log
+
+      - name: Bundle remediation review-pack exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-post-final5-defect-remediation-v1.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-post-final5-defect-remediation-v1-exporter.mjs
+
+      - name: Generate remediation review pack
+        run: node artifacts/api-server/dist/quant-v4/trg-001-post-final5-defect-remediation-v1-exporter.mjs
+
+      - name: Upload remediation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-001-post-final5-defect-remediation-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/trg-001-historical-frozen-english-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-post-final5-defect-remediation-v1-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-post-final5-defect-remediation-v1.json
+          if-no-files-found: error
+          retention-days: 30

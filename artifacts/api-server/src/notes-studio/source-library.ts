@@ -7,8 +7,11 @@ export type SourceRecommendationSignals = {
   sameTopicUses: number;
   approvedUses: number;
   generatable: boolean;
+  referenceReviewEligible?: boolean;
   alreadyAttached: boolean;
 };
+
+export type SourceReuseEvidencePath = 'retained_ready' | 'reference_review_required' | 'provenance_only';
 
 export function sourceLibraryLimit(value: unknown): number {
   const parsed = Number(value ?? 50);
@@ -23,7 +26,10 @@ export function sourceRecommendationScore(signals: SourceRecommendationSignals):
     + signals.sameTaxonomyCodeUses * 60
     + signals.sameTopicUses * 30;
   if (relevance === 0) return 0;
-  return relevance + signals.approvedUses * 15 + (signals.generatable ? 10 : 0);
+  return relevance
+    + signals.approvedUses * 15
+    + (signals.generatable ? 10 : 0)
+    + (!signals.generatable && signals.referenceReviewEligible ? 5 : 0);
 }
 
 export function sourceRecommendationReason(signals: SourceRecommendationSignals): string {
@@ -41,4 +47,19 @@ export function isGenerationReadySource(input: {
   return input.retentionMode === 'extracted_text'
     && input.extractionStatus === 'processed'
     && input.retainedCharCount >= 100;
+}
+
+export function sourceReuseEvidencePath(input: {
+  generationReady: boolean;
+  rightsBasis: string;
+  retentionMode: string;
+  reviewedReferenceUseCount?: number;
+}): SourceReuseEvidencePath {
+  if (input.generationReady) return 'retained_ready';
+  if (
+    input.rightsBasis === 'reference_only'
+    && input.retentionMode === 'metadata_only'
+    && Number(input.reviewedReferenceUseCount ?? 0) > 0
+  ) return 'reference_review_required';
+  return 'provenance_only';
 }

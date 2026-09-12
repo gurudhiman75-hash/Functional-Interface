@@ -6,27 +6,29 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import { MENSURATION_QUESTION_STUDIO_INTEGRATION_AUTHORITY } from "../quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-selection-v2";
 import {
+  MENSURATION_BANK_ONLY_ENGLISH_CP_IDS,
   MENSURATION_LOCALIZATION_AUTHORITY,
   MENSURATION_LOCALIZED_LANGUAGES,
-  MENSURATION_LOCALIZED_PACKAGE_V1,
   MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS,
+  MENSURATION_QUESTION_STUDIO_DELIVERY_V3_AUTHORITY,
   MENSURATION_QUESTION_STUDIO_DIFFICULTIES,
-  MENSURATION_QUESTION_STUDIO_EXAM_PROFILES,
+  MENSURATION_QUESTION_STUDIO_EXAM_PROFILES_V3,
+  MENSURATION_QUESTION_STUDIO_PACKAGE_V3,
   MENSURATION_QUESTION_STUDIO_PATTERNS,
   MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
-  generateMensurationLocalizedBatchV1,
-  type MensurationLocalizedQuestionV1,
+  generateMensurationDeliveredBatchV3,
+  type MensurationDeliveredQuestionV3,
   type MensurationQuestionStudioCpId,
   type MensurationQuestionStudioDifficulty,
-  type MensurationQuestionStudioExamProfile,
+  type MensurationStudioExamProfileV3,
   type MensurationStudioLanguage,
-} from "../quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/localization/mensuration-localization-runtime-v1";
+} from "../quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-delivery-v3";
 
 const router = Router();
 const CP_IDS = new Set<string>(MENSURATION_QUESTION_STUDIO_CANONICAL_PROBLEMS.map((row) => row.cpId));
 const PATTERN_IDS = new Set<string>(MENSURATION_QUESTION_STUDIO_PATTERNS.map((row) => row.patternId));
 const DIFFICULTIES = new Set<string>(MENSURATION_QUESTION_STUDIO_DIFFICULTIES);
-const EXAM_PROFILES = new Set<string>(MENSURATION_QUESTION_STUDIO_EXAM_PROFILES);
+const EXAM_PROFILES = new Set<string>(MENSURATION_QUESTION_STUDIO_EXAM_PROFILES_V3);
 const LANGUAGES = new Set<string>(MENSURATION_LOCALIZED_LANGUAGES);
 
 function asString(value: unknown) { return typeof value === "string" ? value.trim() : ""; }
@@ -44,12 +46,13 @@ function requestFilters(source: Record<string, unknown>) {
   const cpId = asString(source.cpId);
   const patternId = asString(source.patternId);
   const difficulty = asString(source.difficulty);
-  const examProfile = asString(source.examProfile) || "SSC_CORE";
+  const requestedProfile = asString(source.examProfile) || "SSC_CORE";
+  const examProfile = requestedProfile === "BANKING" ? "BANKING_PRELIMS" : requestedProfile;
   if (!LANGUAGES.has(language)) throw new Error(`Unsupported Mensuration language '${language}'.`);
   if (cpId && !CP_IDS.has(cpId)) throw new Error(`Unsupported Mensuration canonical problem '${cpId}'.`);
   if (patternId && !PATTERN_IDS.has(patternId)) throw new Error(`Unsupported Mensuration pattern '${patternId}'.`);
   if (difficulty && !DIFFICULTIES.has(difficulty)) throw new Error(`Unsupported difficulty '${difficulty}'.`);
-  if (!EXAM_PROFILES.has(examProfile)) throw new Error(`Unsupported Mensuration exam profile '${examProfile}'.`);
+  if (!EXAM_PROFILES.has(examProfile)) throw new Error(`Unsupported Mensuration exam profile '${requestedProfile}'.`);
   const pattern = patternId ? MENSURATION_QUESTION_STUDIO_PATTERNS.find((row) => row.patternId === patternId) : undefined;
   if (pattern && cpId && pattern.cpId !== cpId) throw new Error(`${patternId} belongs to ${pattern.cpId}, not ${cpId}.`);
   return {
@@ -57,11 +60,11 @@ function requestFilters(source: Record<string, unknown>) {
     cpId: cpId ? cpId as MensurationQuestionStudioCpId : undefined,
     patternId: patternId || undefined,
     difficulty: difficulty ? difficulty as MensurationQuestionStudioDifficulty : undefined,
-    examProfile: examProfile as MensurationQuestionStudioExamProfile,
+    examProfile: examProfile as MensurationStudioExamProfileV3,
   };
 }
 
-function reviewPayload(question: MensurationLocalizedQuestionV1) {
+export function buildMensurationReviewPayloadV3(question: MensurationDeliveredQuestionV3) {
   return {
     text: question.stem,
     stem: question.stem,
@@ -79,6 +82,7 @@ function reviewPayload(question: MensurationLocalizedQuestionV1) {
     patternId: question.patternId,
     patternKind: question.patternKind,
     qlId: question.qlId,
+    permanentQlId: question.qlId,
     packageId: question.packageId,
     canonicalProblemId: question.cpId,
     canonicalItemId: question.canonicalItemId,
@@ -91,8 +95,12 @@ function reviewPayload(question: MensurationLocalizedQuestionV1) {
     locale: question.locale,
     seed: question.seed,
     solveMode: question.solveMode,
-    runtimeMode: MENSURATION_LOCALIZED_PACKAGE_V1.runtimeMode,
-    reviewStatus: MENSURATION_LOCALIZED_PACKAGE_V1.reviewStatus,
+    examProfile: question.examProfile,
+    sourceExamProfile: question.sourceExamProfile,
+    centralExamProfile: question.centralExamProfile,
+    optionCount: question.optionCount,
+    runtimeMode: MENSURATION_QUESTION_STUDIO_PACKAGE_V3.runtimeMode,
+    reviewStatus: MENSURATION_QUESTION_STUDIO_PACKAGE_V3.reviewStatus,
     sourceAuthority: question.sourceAuthority,
     sourceReviewStatus: question.sourceReviewStatus,
     sourceMaturity: question.sourceMaturity,
@@ -100,16 +108,28 @@ function reviewPayload(question: MensurationLocalizedQuestionV1) {
     realismAuthority: MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
     localization: question.localization ?? null,
     localizationAuthority: question.localization ? MENSURATION_LOCALIZATION_AUTHORITY : null,
-    questionStudioRegistrationStatus: "REGISTERED" as const,
+    deliveryAuthority: question.deliveryAuthority,
+    bankOnlyEligibility: question.bankOnlyEligibility,
+    questionStudioRegistrationStatus: question.lifecycleStage === "BANK_ONLY"
+      ? "REGISTERED_BANK_ONLY_INTERNAL" as const
+      : "REGISTERED_REVIEW_ONLY" as const,
     questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
-    questionBankStatus: "NOT_STORED" as const,
-    questionBankWritable: false as const,
-    testEligibility: "INELIGIBLE" as const,
-    testEligible: false as const,
-    publiclyPublishable: false as const,
-    mockTestEligible: false as const,
-    manualApprovalRequired: true as const,
-    automaticStudentPublication: false as const,
+    lifecycleId: question.lifecycleId,
+    lifecycleStage: question.lifecycleStage,
+    reviewSurfaceRequired: question.reviewSurfaceRequired,
+    reviewRunPersistenceAllowed: question.reviewRunPersistenceAllowed,
+    canonicalQuestionPersistenceAllowed: question.canonicalQuestionPersistenceAllowed,
+    questionBankStatus: question.questionBankStatus,
+    questionBankWritable: question.questionBankWritable,
+    questionBankAcceptanceMode: question.questionBankAcceptanceMode,
+    questionBankAcceptanceAuthority: question.questionBankAcceptanceAuthority,
+    testEligibility: question.testEligibility,
+    testEligible: question.testEligible,
+    publiclyPublishable: question.publiclyPublishable,
+    mockTestEligible: question.mockTestEligible,
+    manualApprovalRequired: question.manualApprovalRequired,
+    automaticStudentPublication: question.automaticStudentPublication,
+    productionReleaseAuthorized: question.productionReleaseAuthorized,
     integrationAuthority: question.integrationAuthority,
     sourceValidation: question.validation,
     generationContext: {
@@ -122,30 +142,46 @@ function reviewPayload(question: MensurationLocalizedQuestionV1) {
       qlId: question.qlId,
       language: question.language,
       locale: question.locale,
-      examProfile: question.realism.examProfile,
+      examProfile: question.examProfile,
+      sourceExamProfile: question.sourceExamProfile,
+      centralExamProfile: question.centralExamProfile,
+      optionCount: question.optionCount,
       frequencyBand: question.realism.frequencyBand,
       realismAuthority: MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
       localizationAuthority: question.localization ? MENSURATION_LOCALIZATION_AUTHORITY : null,
       integrationAuthority: question.integrationAuthority,
+      deliveryAuthority: question.deliveryAuthority,
+      lifecycleId: question.lifecycleId,
+      lifecycleStage: question.lifecycleStage,
       questionStudioDiscoverable: true as const,
       persistenceAllowed: true as const,
-      questionBankStatus: "NOT_STORED" as const,
-      questionBankWritable: false as const,
-      testEligibility: "INELIGIBLE" as const,
-      testEligible: false as const,
-      publiclyPublishable: false as const,
-      reviewOnly: true as const,
-      manualApprovalRequired: true as const,
-      automaticStudentPublication: false as const,
+      questionBankStatus: question.questionBankStatus,
+      questionBankWritable: question.questionBankWritable,
+      questionBankAcceptanceMode: question.questionBankAcceptanceMode,
+      questionBankAcceptanceAuthority: question.questionBankAcceptanceAuthority,
+      testEligibility: question.testEligibility,
+      testEligible: question.testEligible,
+      mockTestEligible: question.mockTestEligible,
+      publiclyPublishable: question.publiclyPublishable,
+      reviewOnly: question.lifecycleStage === "REVIEW_ONLY",
+      manualApprovalRequired: question.manualApprovalRequired,
+      automaticStudentPublication: question.automaticStudentPublication,
+      productionReleaseAuthorized: question.productionReleaseAuthorized,
     },
   };
 }
 
-async function persistRun(questions: readonly MensurationLocalizedQuestionV1[], requestSnapshot: Record<string, unknown>, actorUserId: string) {
+async function persistRun(
+  questions: readonly MensurationDeliveredQuestionV3[],
+  requestSnapshot: Record<string, unknown>,
+  actorUserId: string,
+) {
   if (!questions.length) throw new Error("No Mensuration questions matched the request.");
   const runId = randomUUID();
   const publicCode = publicRunCode();
   const timestamp = new Date().toISOString();
+  const bankOnlyItemCount = questions.filter((question) => question.lifecycleStage === "BANK_ONLY").length;
+  const reviewOnlyItemCount = questions.length - bankOnlyItemCount;
   await sqlClient.begin(async (tx) => {
     await tx`
       INSERT INTO content.generation_runs (
@@ -155,7 +191,7 @@ async function persistRun(questions: readonly MensurationLocalizedQuestionV1[], 
       ) VALUES (
         ${runId}::uuid, ${publicCode}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}::jsonb, ${JSON.stringify(requestSnapshot)}::jsonb,
-        'examtree', 'quant-v4-mensuration-full-chapter-multilingual-v1', 0, 0, 0, 0,
+        'examtree', 'quant-v4-mensuration-delivery-v3', 0, 0, 0, 0,
         ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )
     `;
@@ -163,7 +199,7 @@ async function persistRun(questions: readonly MensurationLocalizedQuestionV1[], 
       const question = questions[index]!;
       const itemId = randomUUID();
       const versionId = randomUUID();
-      const payload = reviewPayload(question);
+      const payload = buildMensurationReviewPayloadV3(question);
       await tx`
         INSERT INTO content.generation_run_items (
           id, generation_run_id, item_number, status, current_version_number, created_at, updated_at
@@ -186,20 +222,27 @@ async function persistRun(questions: readonly MensurationLocalizedQuestionV1[], 
       ) VALUES (
         ${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
         'question_studio.mensuration_run.created', 'generation_run', ${runId}::uuid,
-        'Full multilingual Mensuration chapter entered the Question Studio review queue with exam-profile realism and source identities preserved',
-        ${`Created ${questions.length} Mensuration review items in ${publicCode}`},
-        ${JSON.stringify({ requestSnapshot, integrationAuthority: MENSURATION_QUESTION_STUDIO_INTEGRATION_AUTHORITY, realismAuthority: MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY, localizationAuthority: MENSURATION_LOCALIZATION_AUTHORITY, canonicalProblemCount: 13 })}::jsonb
+        'Mensuration entered the Question Studio review queue under fail-closed per-item lifecycle rules',
+        ${`Created ${questions.length} Mensuration items in ${publicCode}: ${bankOnlyItemCount} bank-only, ${reviewOnlyItemCount} review-only`},
+        ${JSON.stringify({ requestSnapshot, integrationAuthority: MENSURATION_QUESTION_STUDIO_INTEGRATION_AUTHORITY, deliveryAuthority: MENSURATION_QUESTION_STUDIO_DELIVERY_V3_AUTHORITY, realismAuthority: MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY, localizationAuthority: MENSURATION_LOCALIZATION_AUTHORITY, canonicalProblemCount: 13, bankOnlyItemCount, reviewOnlyItemCount })}::jsonb
       )
     `;
     await tx`
       INSERT INTO platform.outbox_events (id, aggregate_type, aggregate_id, event_type, payload)
       VALUES (
         ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid, 'question_studio.mensuration_run.created',
-        ${JSON.stringify({ runId, publicCode, itemCount: questions.length, chapter: "Mensuration", realismAuthority: MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY, localizationAuthority: MENSURATION_LOCALIZATION_AUTHORITY, reviewOnly: true })}::jsonb
+        ${JSON.stringify({ runId, publicCode, itemCount: questions.length, bankOnlyItemCount, reviewOnlyItemCount, chapter: "Mensuration", deliveryAuthority: MENSURATION_QUESTION_STUDIO_DELIVERY_V3_AUTHORITY, mixedLifecycle: true })}::jsonb
       )
     `;
   });
-  return { id: runId, publicCode, status: "review" as const, itemCount: questions.length };
+  return {
+    id: runId,
+    publicCode,
+    status: "review" as const,
+    itemCount: questions.length,
+    bankOnlyItemCount,
+    reviewOnlyItemCount,
+  };
 }
 
 router.use(authenticate);
@@ -207,13 +250,17 @@ router.use(authenticate);
 router.get("/quant/mensuration/package", requireAdminPermission("content.generation.read"), (_req, res) => {
   res.json({
     generationSystem: "quant-v4",
-    activationMode: "QUESTION_STUDIO_CONNECTED",
-    package: MENSURATION_LOCALIZED_PACKAGE_V1,
+    activationMode: "QUESTION_STUDIO_MIXED_REVIEW_BANK_ONLY",
+    package: MENSURATION_QUESTION_STUDIO_PACKAGE_V3,
     maxBatchSize: 50,
     databaseWriteEnabled: true,
     persistenceAllowed: true,
-    questionBankWriteEnabled: false,
+    questionBankWriteEnabled: true,
+    questionBankWritePolicy: "ELIGIBLE_APPROVED_ITEMS_ONLY",
+    bankOnlyEnglishCpIds: MENSURATION_BANK_ONLY_ENGLISH_CP_IDS,
+    nonEnglishLifecycle: "REVIEW_ONLY",
     testEligible: false,
+    mockTestEligible: false,
     publiclyPublishable: false,
   });
 });
@@ -221,12 +268,19 @@ router.get("/quant/mensuration/package", requireAdminPermission("content.generat
 router.get("/quant/mensuration/preview", requireAdminPermission("content.generation.read"), (req, res) => {
   try {
     const filters = requestFilters(req.query as Record<string, unknown>);
-    const result = generateMensurationLocalizedBatchV1({
+    const result = generateMensurationDeliveredBatchV3({
       ...filters,
       seed: asString(req.query.seed) || "mensuration-question-studio-preview",
       count: asCount(req.query.count, 1, 20),
     });
-    res.json({ ...result, productionEligible: false, reviewOnly: true });
+    const bankOnlyItemCount = result.questions.filter((question) => question.lifecycleStage === "BANK_ONLY").length;
+    res.json({
+      ...result,
+      productionEligible: false,
+      bankOnlyItemCount,
+      reviewOnlyItemCount: result.questions.length - bankOnlyItemCount,
+      automaticStudentPublication: false,
+    });
   } catch (error) {
     res.status(400).json({ error: error instanceof Error ? error.message : "Unable to preview Mensuration questions." });
   }
@@ -239,7 +293,7 @@ router.post("/quant/mensuration/runs", requireAdminPermission("content.generatio
     const filters = requestFilters((req.body ?? {}) as Record<string, unknown>);
     const count = asCount(req.body?.count, 5, 50);
     const seed = asString(req.body?.seed) || `mensuration-run:${Date.now()}`;
-    const result = generateMensurationLocalizedBatchV1({ ...filters, seed, count });
+    const result = generateMensurationDeliveredBatchV3({ ...filters, seed, count });
     const persisted = await persistRun(result.questions, {
       chapter: "Mensuration",
       cpId: filters.cpId ?? null,
@@ -250,12 +304,15 @@ router.post("/quant/mensuration/runs", requireAdminPermission("content.generatio
       count,
       seed,
       integrationAuthority: MENSURATION_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
+      deliveryAuthority: MENSURATION_QUESTION_STUDIO_DELIVERY_V3_AUTHORITY,
       realismAuthority: MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
       localizationAuthority: filters.language === "en" ? null : MENSURATION_LOCALIZATION_AUTHORITY,
       questionStudioDiscoverable: true,
       persistenceAllowed: true,
-      questionBankWritable: false,
+      lifecycleMode: "PER_ITEM_FAIL_CLOSED",
+      bankOnlyEnglishCpIds: MENSURATION_BANK_ONLY_ENGLISH_CP_IDS,
       testEligible: false,
+      mockTestEligible: false,
       publiclyPublishable: false,
       requestedByFirebaseUid: req.user?.id,
     }, actorUserId);
@@ -265,7 +322,9 @@ router.post("/quant/mensuration/runs", requireAdminPermission("content.generatio
       chapter: "Mensuration",
       examProfile: filters.examProfile,
       language: filters.language,
-      reviewOnly: true,
+      mixedLifecycle: true,
+      testEligible: false,
+      publiclyPublishable: false,
     });
   } catch (error) {
     console.error("Full Mensuration Question Studio run failed", error);
@@ -279,6 +338,8 @@ router.get("/quant/mensuration/status", requireAdminPermission("content.generati
       SELECT
         count(*)::int AS "generationItemCount",
         count(*) FILTER (WHERE i.status = 'approved')::int AS "approvedItemCount",
+        count(*) FILTER (WHERE v.payload ->> 'questionBankWritable' = 'true')::int AS "bankReadyItemCount",
+        count(*) FILTER (WHERE v.payload ->> 'lifecycleStage' = 'REVIEW_ONLY')::int AS "reviewOnlyItemCount",
         count(*) FILTER (WHERE i.accepted_question_id IS NOT NULL)::int AS "questionBankCount"
       FROM content.generation_run_items i
       INNER JOIN content.generation_item_versions v
@@ -288,23 +349,28 @@ router.get("/quant/mensuration/status", requireAdminPermission("content.generati
     res.json({
       chapter: "Mensuration",
       canonicalProblemCount: 13,
-      patternCount: MENSURATION_LOCALIZED_PACKAGE_V1.patternCount,
-      qlCount: MENSURATION_LOCALIZED_PACKAGE_V1.qlCount,
-      prototypeCount: MENSURATION_LOCALIZED_PACKAGE_V1.prototypeCount,
+      patternCount: MENSURATION_QUESTION_STUDIO_PACKAGE_V3.patternCount,
+      qlCount: MENSURATION_QUESTION_STUDIO_PACKAGE_V3.qlCount,
+      prototypeCount: MENSURATION_QUESTION_STUDIO_PACKAGE_V3.prototypeCount,
       generationItemCount: Number(rows[0]?.generationItemCount ?? 0),
       approvedItemCount: Number(rows[0]?.approvedItemCount ?? 0),
+      bankReadyItemCount: Number(rows[0]?.bankReadyItemCount ?? 0),
+      reviewOnlyItemCount: Number(rows[0]?.reviewOnlyItemCount ?? 0),
       questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
       integrationAuthority: MENSURATION_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
+      deliveryAuthority: MENSURATION_QUESTION_STUDIO_DELIVERY_V3_AUTHORITY,
       realismAuthority: MENSURATION_QUESTION_STUDIO_REALISM_AUTHORITY,
       localizationAuthority: MENSURATION_LOCALIZATION_AUTHORITY,
-      defaultExamProfile: MENSURATION_LOCALIZED_PACKAGE_V1.defaultExamProfile,
-      supportedExamProfiles: MENSURATION_QUESTION_STUDIO_EXAM_PROFILES,
+      defaultExamProfile: MENSURATION_QUESTION_STUDIO_PACKAGE_V3.defaultExamProfile,
+      supportedExamProfiles: MENSURATION_QUESTION_STUDIO_EXAM_PROFILES_V3,
       supportedLanguages: MENSURATION_LOCALIZED_LANGUAGES,
       questionStudioDiscoverable: true,
       persistenceAllowed: true,
-      reviewOnly: true,
-      questionBankWritable: false,
+      lifecycleMode: "PER_ITEM_FAIL_CLOSED",
+      bankOnlyEnglishCpIds: MENSURATION_BANK_ONLY_ENGLISH_CP_IDS,
+      nonEnglishLifecycle: "REVIEW_ONLY",
       testEligible: false,
+      mockTestEligible: false,
       publiclyPublishable: false,
     });
   } catch (error) {

@@ -7,13 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { QUESTION_STUDIO_REFRESH_EVENT } from '@/features/question-studio/events';
 import {
   createAlgebraReviewRun,
@@ -33,7 +27,8 @@ const ALL = 'all';
 const PROFILE_LABELS: Record<AlgebraReviewExamProfile, string> = {
   SSC_CORE: 'SSC · Core',
   SSC_ADVANCED: 'SSC · Advanced',
-  BANKING: 'Banking',
+  BANKING_PRELIMS: 'Banking · Prelims',
+  BANKING_MAINS: 'Banking · Mains',
   PUNJAB_STATE: 'Punjab State',
 };
 
@@ -66,6 +61,7 @@ function QuestionCard({ question }: { question: AlgebraReviewQuestion }) {
           <Badge variant="outline">{question.prototypeId}</Badge>
           <Badge variant="outline">{question.difficultyBand}</Badge>
           <Badge variant="outline">{PROFILE_LABELS[question.examProfile]}</Badge>
+          <Badge variant="outline">{question.optionCount} options</Badge>
           <Badge variant="outline">{LANGUAGE_LABELS[question.language]} · {question.locale}</Badge>
           {question.validation.valid && (
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
@@ -74,7 +70,7 @@ function QuestionCard({ question }: { question: AlgebraReviewQuestion }) {
           )}
         </div>
         <p className="text-xs text-muted-foreground">
-          {question.canonicalItemId} · {question.solveMode}
+          {question.canonicalItemId} · {question.solveMode} · {question.centralExamProfile}
         </p>
       </CardHeader>
       <CardContent className="space-y-4 text-sm">
@@ -99,10 +95,7 @@ function QuestionCard({ question }: { question: AlgebraReviewQuestion }) {
           <p className="font-semibold">Solution</p>
           <div className="mt-3 space-y-2 leading-6 text-muted-foreground">
             {question.explanation.steps.map((step, index) => (
-              <p
-                key={`${question.questionId}-step-${index}`}
-                className={index === question.explanation.steps.length - 1 ? 'font-medium text-foreground' : ''}
-              >
+              <p key={`${question.questionId}-step-${index}`} className={index === question.explanation.steps.length - 1 ? 'font-medium text-foreground' : ''}>
                 {step}
               </p>
             ))}
@@ -145,10 +138,7 @@ export function QuestionStudioAlgebraReviewPanel() {
         setExamProfile(packageResponse.package.defaultExamProfile ?? 'SSC_CORE');
       })
       .catch((error) => {
-        showToast.error(
-          'Algebra package unavailable',
-          error instanceof Error ? error.message : 'Unable to load the Algebra Question Studio package.',
-        );
+        showToast.error('Algebra package unavailable', error instanceof Error ? error.message : 'Unable to load the Algebra Question Studio package.');
       })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
@@ -176,28 +166,12 @@ export function QuestionStudioAlgebraReviewPanel() {
     seed: seed.trim() || undefined,
   }), [count, cpId, difficulty, examProfile, language, patternId, qlId, seed]);
 
-  const handleCpChange = (value: string) => {
-    setCpId(value);
-    setQlId(ALL);
-    setPatternId(ALL);
-    setQuestions([]);
-  };
-
-  const handleQlChange = (value: string) => {
-    setQlId(value);
-    setPatternId(ALL);
-    setQuestions([]);
-  };
-
   const handlePreview = async () => {
     setWorking('preview');
     try {
       const result = await previewAlgebraReview({ ...request, count: Math.min(20, request.count) });
       setQuestions(result.questions);
-      showToast.success(
-        'Algebra preview loaded',
-        `${result.questions.length} ${LANGUAGE_LABELS[language]} · ${PROFILE_LABELS[examProfile]} question(s) validated.`,
-      );
+      showToast.success('Algebra preview loaded', `${result.questions.length} ${LANGUAGE_LABELS[language]} · ${PROFILE_LABELS[examProfile]} question(s) validated.`);
     } catch (error) {
       showToast.error('Preview failed', error instanceof Error ? error.message : 'Unable to preview Algebra questions.');
     } finally {
@@ -211,10 +185,7 @@ export function QuestionStudioAlgebraReviewPanel() {
       const result = await createAlgebraReviewRun(request);
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
       await refreshStatus();
-      showToast.success(
-        'Algebra review run created',
-        `${result.publicCode} contains ${result.itemCount} ${LANGUAGE_LABELS[result.language]} · ${PROFILE_LABELS[result.examProfile]} question(s).`,
-      );
+      showToast.success('Algebra review run created', `${result.publicCode} contains ${result.itemCount} ${LANGUAGE_LABELS[result.language]} · ${PROFILE_LABELS[result.examProfile]} question(s).`);
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create an Algebra review run.');
     } finally {
@@ -234,29 +205,31 @@ export function QuestionStudioAlgebraReviewPanel() {
             <Badge variant="outline">43 permanent QLs</Badge>
             <Badge variant="outline">109 variants</Badge>
             <Badge variant="outline">EN · हिन्दी · ਪੰਜਾਬੀ</Badge>
-            <Badge variant="outline">4 exam profiles</Badge>
+            <Badge variant="outline">V5 central option contract</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Review the frozen Algebra learner surfaces through the V3 delivery matrix. Selection may vary by exam profile and seed, but QL identity, frozen source content, canonical solver answer and downstream lifecycle locks remain authoritative.
+          V5 preserves the frozen Algebra source and adds exam-profile delivery conformance: SSC/Punjab use four options; Banking Prelims and Mains use five. New review runs enter the standard BANK_ONLY lifecycle.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
         {status && (
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
             <Metric label="Canonical problems" value={status.canonicalProblemCount} />
             <Metric label="Permanent QLs" value={status.qlCount} />
             <Metric label="Studio variants" value={status.patternCount} />
             <Metric label="Review items" value={status.generationItemCount} />
+            <Metric label="Bank-ready items" value={status.bankReadyItemCount} />
+            <Metric label="In Question Bank" value={status.questionBankCount} />
           </div>
         )}
 
         <div className="rounded-lg border border-primary/20 bg-background/60 p-3 text-sm">
           <div className="flex items-center gap-2 font-medium">
-            <ShieldAlert className="h-4 w-4" /> Review-only lifecycle boundary
+            <ShieldAlert className="h-4 w-4" /> BANK_ONLY · manual approval required
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            Question Studio preview and review-queue persistence are enabled. Question Bank writes, scored tests, mock-test eligibility and public/student publication remain locked.
+            New Algebra items can enter Question Bank only through the shared approval/converter workflow after manual review. Scored tests, mock-test eligibility, automatic publication and public/student delivery remain locked.
           </p>
         </div>
 
@@ -269,45 +242,33 @@ export function QuestionStudioAlgebraReviewPanel() {
             <Field label="Language">
               <Select value={language} onValueChange={(value) => { setLanguage(value as AlgebraReviewLanguage); setQuestions([]); }}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {(pkg?.supportedLanguages ?? ['en', 'hi', 'pa']).map((entry) => (
-                    <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry]}</SelectItem>
-                  ))}
-                </SelectContent>
+                <SelectContent>{(pkg?.supportedLanguages ?? ['en', 'hi', 'pa']).map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry]}</SelectItem>)}</SelectContent>
               </Select>
             </Field>
 
             <Field label="Exam profile">
               <Select value={examProfile} onValueChange={(value) => { setExamProfile(value as AlgebraReviewExamProfile); setQuestions([]); }}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {(pkg?.supportedExamProfiles ?? ['SSC_CORE', 'SSC_ADVANCED', 'BANKING', 'PUNJAB_STATE']).map((profile) => (
-                    <SelectItem key={profile} value={profile}>{PROFILE_LABELS[profile]}</SelectItem>
-                  ))}
-                </SelectContent>
+                <SelectContent>{(pkg?.supportedExamProfiles ?? ['SSC_CORE', 'SSC_ADVANCED', 'BANKING_PRELIMS', 'BANKING_MAINS', 'PUNJAB_STATE']).map((profile) => <SelectItem key={profile} value={profile}>{PROFILE_LABELS[profile]}</SelectItem>)}</SelectContent>
               </Select>
             </Field>
 
             <Field label="Canonical problem">
-              <Select value={cpId} onValueChange={handleCpChange}>
+              <Select value={cpId} onValueChange={(value) => { setCpId(value); setQlId(ALL); setPatternId(ALL); setQuestions([]); }}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value={ALL}>All CPs</SelectItem>
-                  {(pkg?.canonicalProblems ?? []).map((cp) => (
-                    <SelectItem key={cp.cpId} value={cp.cpId}>{cp.cpId} · {cp.qlCount} QLs</SelectItem>
-                  ))}
+                  {(pkg?.canonicalProblems ?? []).map((cp) => <SelectItem key={cp.cpId} value={cp.cpId}>{cp.cpId} · {cp.qlCount} QLs</SelectItem>)}
                 </SelectContent>
               </Select>
             </Field>
 
             <Field label="Permanent QL">
-              <Select value={qlId} onValueChange={handleQlChange}>
+              <Select value={qlId} onValueChange={(value) => { setQlId(value); setPatternId(ALL); setQuestions([]); }}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value={ALL}>All QLs</SelectItem>
-                  {visibleQls.map((entry) => (
-                    <SelectItem key={entry.qlId} value={entry.qlId}>{entry.qlId}</SelectItem>
-                  ))}
+                  {visibleQls.map((entry) => <SelectItem key={entry.qlId} value={entry.qlId}>{entry.qlId}</SelectItem>)}
                 </SelectContent>
               </Select>
             </Field>
@@ -317,9 +278,7 @@ export function QuestionStudioAlgebraReviewPanel() {
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value={ALL}>All variants</SelectItem>
-                  {visiblePatterns.map((entry) => (
-                    <SelectItem key={entry.prototypeId} value={entry.prototypeId}>{entry.prototypeId}</SelectItem>
-                  ))}
+                  {visiblePatterns.map((entry) => <SelectItem key={entry.prototypeId} value={entry.prototypeId}>{entry.prototypeId}</SelectItem>)}
                 </SelectContent>
               </Select>
             </Field>
@@ -329,21 +288,13 @@ export function QuestionStudioAlgebraReviewPanel() {
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value={ALL}>All levels</SelectItem>
-                  {(pkg?.supportedDifficulties ?? ['Easy', 'Medium', 'Hard']).map((entry) => (
-                    <SelectItem key={entry} value={entry}>{entry}</SelectItem>
-                  ))}
+                  {(pkg?.supportedDifficulties ?? ['Easy', 'Medium', 'Hard']).map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}
                 </SelectContent>
               </Select>
             </Field>
 
             <Field label="Count">
-              <Input
-                type="number"
-                min={1}
-                max={50}
-                value={count}
-                onChange={(event) => setCount(Math.min(50, Math.max(1, Number(event.target.value) || 1)))}
-              />
+              <Input type="number" min={1} max={50} value={count} onChange={(event) => setCount(Math.min(50, Math.max(1, Number(event.target.value) || 1)))} />
             </Field>
 
             <Field label="Seed (optional)">
@@ -354,21 +305,20 @@ export function QuestionStudioAlgebraReviewPanel() {
 
         <div className="flex flex-wrap gap-3">
           <Button variant="outline" onClick={handlePreview} disabled={loading || working !== null}>
-            {working === 'preview' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Eye className="mr-2 h-4 w-4" />}
-            Preview
+            {working === 'preview' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Eye className="mr-2 h-4 w-4" />} Preview
           </Button>
           <Button onClick={handleCreateRun} disabled={loading || working !== null}>
-            {working === 'run' && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Create review run
+            {working === 'run' && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Create review run
           </Button>
-          <Badge variant="outline" className="self-center">Question Bank locked</Badge>
+          <Badge variant="outline" className="self-center">Question Bank after manual approval</Badge>
+          <Badge variant="outline" className="self-center">Tests/public locked</Badge>
         </div>
 
         {questions.length > 0 && (
           <div className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm font-medium">Preview · {questions.length} question(s)</p>
-              <p className="text-xs text-muted-foreground">Correct options are highlighted for editorial review only.</p>
+              <p className="text-xs text-muted-foreground">Correct options are highlighted for editorial review.</p>
             </div>
             {questions.map((question) => <QuestionCard key={question.questionId} question={question} />)}
           </div>

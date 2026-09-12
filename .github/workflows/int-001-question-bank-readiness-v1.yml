@@ -1,0 +1,104 @@
+name: Validate INT-001 Question Bank Readiness V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
+      - "artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: int-001-question-bank-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-001-question-bank-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Certify Interest Question Bank readiness without activation
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-question-bank-readiness-v1-audit.ts | tee int-001-question-bank-readiness-v1.log
+          grep -q 'PASS_INT_001_QUESTION_BANK_READINESS_V1_AUDIT' int-001-question-bank-readiness-v1.log
+          grep -q '"status": "READINESS_CERTIFICATION_ONLY"' int-001-question-bank-readiness-v1.log
+          grep -q '"activationAuthorized": false' int-001-question-bank-readiness-v1.log
+          grep -q '"permanentQlCount": 133' int-001-question-bank-readiness-v1.log
+          grep -q '"qlLanguageSurfaceCount": 399' int-001-question-bank-readiness-v1.log
+          grep -q '"seedsPerSurface": 2' int-001-question-bank-readiness-v1.log
+          grep -q '"generated": 798' int-001-question-bank-readiness-v1.log
+          grep -q '"proposedAcceptanceMode": "BANK_ONLY"' int-001-question-bank-readiness-v1.log
+          grep -q '"liveQuestionBankWritable": false' int-001-question-bank-readiness-v1.log
+          grep -q '"readinessEnablesQuestionBankWrites": false' int-001-question-bank-readiness-v1.log
+          grep -q '"testEligibleAfterProposedBankAcceptance": false' int-001-question-bank-readiness-v1.log
+          grep -q '"mockTestEligibleAfterProposedBankAcceptance": false' int-001-question-bank-readiness-v1.log
+          grep -q '"publiclyPublishableAfterProposedBankAcceptance": false' int-001-question-bank-readiness-v1.log
+          grep -q '"automaticStudentPublicationAfterProposedBankAcceptance": false' int-001-question-bank-readiness-v1.log
+      - name: Preserve chapter-admin 399-surface contract
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-question-studio-admin-v1-audit.ts | tee int-001-chapter-admin-regression.log
+          grep -q 'PASS_INT_001_CHAPTER_ADMIN_QUESTION_STUDIO_V1_AUDIT' int-001-chapter-admin-regression.log
+          grep -q '"qlLanguageSurfaceCount": 399' int-001-chapter-admin-regression.log
+          grep -q '"questionBankWritable": false' int-001-chapter-admin-regression.log
+      - name: Preserve full 2,394-question chapter soak
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-399-surface-question-studio-soak-v2-audit.ts | tee int-001-399-surface-regression.log
+          grep -q 'PASS_INT_001_399_SURFACE_QUESTION_STUDIO_SOAK_V2_AUDIT' int-001-399-surface-regression.log
+          grep -q '"generated": 2394' int-001-399-surface-regression.log
+          grep -q '"legacyImplicitOwnershipCases": 0' int-001-399-surface-regression.log
+          grep -q '"exactCrossQlStemCollisions": 0' int-001-399-surface-regression.log
+          grep -q '"questionIdCollisions": 0' int-001-399-surface-regression.log
+      - name: Preserve approval disposition policy
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/lib/admin-question-studio-approval-policy.test.ts | tee int-001-approval-policy-regression.log
+          grep -q 'Question Studio approval disposition policy: PASS' int-001-approval-policy-regression.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-001-question-bank-readiness-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - name: Upload validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-001-question-bank-readiness-v1
+          path: |
+            int-001-question-bank-readiness-v1.log
+            int-001-chapter-admin-regression.log
+            int-001-399-surface-regression.log
+            int-001-approval-policy-regression.log
+            int-001-question-bank-readiness-head.log
+          retention-days: 30

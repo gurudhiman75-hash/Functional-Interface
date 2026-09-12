@@ -1,11 +1,16 @@
 import {
+  applyQuantV4ExamProfileDelivery,
   generateQuestion as generateBaseQuestion,
   listQuantV4Packages as listBasePackages,
   toQuestionStudioPreview,
+  withQuantV4ExamProfileContext,
   type QuantV4Difficulty,
   type QuantV4GenerationRequest,
   type QuantV4Language,
 } from "./generation-engine";
+import {
+  getQuantV4SpecializedProfileSelectionCapability,
+} from "./common/specialized-profile-selection";
 import {
   AVG_001_QUESTION_STUDIO_CP_IDS,
   AVG_001_QUESTION_STUDIO_LANGUAGES,
@@ -222,6 +227,7 @@ function packageCard(
     questionBankStatus: "WRITABLE",
     testEligibility: "ELIGIBLE",
     publiclyPublishable: true,
+    examProfileSelection: getQuantV4SpecializedProfileSelectionCapability(definition.packageId),
   };
 }
 
@@ -251,6 +257,7 @@ function numberSystemPackageCard() {
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
     publiclyPublishable: false,
+    examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("NUM-001"),
   };
 }
 
@@ -285,7 +292,15 @@ function simplificationPackageCard() {
 }
 
 export function listQuantV4Packages() {
-  const existing = listBasePackages();
+  const existing = listBasePackages().map((pkg: any) => {
+    if (pkg.packageId === "AVG-001" || pkg.packageId === "MAL-001" || pkg.packageId === "NUM-001") {
+      return {
+        ...pkg,
+        examProfileSelection: getQuantV4SpecializedProfileSelectionCapability(pkg.packageId),
+      };
+    }
+    return pkg;
+  });
   const additions = [];
   if (!existing.some((pkg: any) => pkg.packageId === "AVG-001")) {
     additions.push(packageCard(AVG_PACKAGE_DEFINITION));
@@ -976,20 +991,31 @@ async function generateSimplificationQuestion(
   };
 }
 
+async function generateSpecializedWithProfileDelivery(
+  request: QuestionStudioQuantV4GenerationRequest,
+  generate: () => Promise<any>,
+) {
+  if (!request.examProfile) return generate();
+  return withQuantV4ExamProfileContext(request.examProfile, async () => {
+    const result = await generate();
+    return applyQuantV4ExamProfileDelivery(result, request as QuantV4GenerationRequest);
+  });
+}
+
 export async function generateQuestion(
   request: QuestionStudioQuantV4GenerationRequest = {},
 ) {
   if (isSimplificationRequest(request)) {
-    return generateSimplificationQuestion(request);
+    return generateSpecializedWithProfileDelivery(request, () => generateSimplificationQuestion(request));
   }
   if (isNumberSystemRequest(request)) {
-    return generateNumberSystemQuestion(request);
+    return generateSpecializedWithProfileDelivery(request, () => generateNumberSystemQuestion(request));
   }
   if (isMixtureAndAlligationRequest(request)) {
-    return generateMixtureAndAlligationQuestion(request);
+    return generateSpecializedWithProfileDelivery(request, () => generateMixtureAndAlligationQuestion(request));
   }
   if (isAverageRequest(request)) {
-    return generateAverageQuestion(request);
+    return generateSpecializedWithProfileDelivery(request, () => generateAverageQuestion(request));
   }
   return generateBaseQuestion(request as QuantV4GenerationRequest);
 }

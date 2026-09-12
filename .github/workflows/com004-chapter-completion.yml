@@ -1,0 +1,38 @@
+name: COM-004 chapter content and localization audit
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004*'
+      - 'artifacts/api-server/src/question-studio/engines/*com004*.ts'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: com004-chapter-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  content-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Validate COM-004 source, localization and Question Studio contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          for test in \
+            artifacts/api-server/src/knowledge-v1/computer-awareness/com004*.test.ts \
+            artifacts/api-server/src/question-studio/engines/*com004*.test.ts; do
+            [ -e "$test" ] || continue
+            relative="${test#artifacts/api-server/}"
+            pnpm --dir artifacts/api-server exec esbuild "$relative" --bundle --platform=node --format=esm --outfile=/tmp/com004-audit.mjs
+            node /tmp/com004-audit.mjs
+          done

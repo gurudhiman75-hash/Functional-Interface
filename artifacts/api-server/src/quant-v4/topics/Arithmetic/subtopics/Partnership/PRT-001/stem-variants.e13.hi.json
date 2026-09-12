@@ -1,0 +1,34 @@
+{
+  "language": "hi",
+  "status": "E13_THREE_SKELETONS",
+  "entries": {
+    "PRT-QL-106": [
+      "{business} में {partnerA}, {partnerB} और {partnerC} की पूंजी क्रमशः ₹{capitalA}, ₹{capitalB} और ₹{capitalC} है। {sleepingPartner} को निष्क्रिय साझेदार होने के कारण सामान्य पूंजी-आधारित लाभ-अधिकार का केवल {entitlementFraction} मिलता है। ₹{totalProfit} में से {retainedPercent}% रोकने के बाद {targetPartner} को कितना मिलेगा?",
+      "{partnerA}, {partnerB} और {partnerC} ने {business} में ₹{capitalA}, ₹{capitalB} और ₹{capitalC} लगाए। समझौते के अनुसार {sleepingPartner} का लाभ-भार सामान्य भार का केवल {entitlementFraction} है। कुल ₹{totalProfit} लाभ का {retainedPercent}% व्यवसाय में रख लिया जाता है। शेष में {targetPartner} का हिस्सा ज्ञात कीजिए।"
+    ],
+    "PRT-QL-107": [
+      "{partnerA} और {partnerB} ने {business} में ₹{initialCapitalA} और ₹{initialCapitalB} से शुरुआत की। पहले वर्ष में ₹{firstYearProfit} लाभ हुआ। {reinvestPartner} अपना पूरा लाभांश अतिरिक्त पूंजी में जोड़ देता है, जबकि दूसरा साझेदार लाभांश निकाल लेता है। दूसरे वर्ष का लाभ अनुपात क्या होगा?",
+      "{business} में आरंभिक पूंजी {partnerA} की ₹{initialCapitalA} और {partnerB} की ₹{initialCapitalB} है। पहले वर्ष का लाभ ₹{firstYearProfit} है। केवल {reinvestPartner} अपने पूरे लाभांश को फिर से पूंजी बनाता है। दूसरे वर्ष का लाभ-विभाजन अनुपात ज्ञात कीजिए।"
+    ],
+    "PRT-QL-108": [
+      "{business} में {partnerA} और {partnerB} की पूंजी ₹{capitalA} और ₹{capitalB} है। ₹{totalProfit} में से पहले {partnerA} को {grossPercentA}% और {partnerB} को {grossPercentB}% सकल लाभ मिलता है; शेष पूंजी अनुपात में बांटा जाता है। {targetPartner} की कुल प्राप्ति कितनी है?",
+      "{partnerA} और {partnerB} {business} में ₹{capitalA}:₹{capitalB} निवेश करते हैं। कुल ₹{totalProfit} लाभ में से {partnerA} को {grossPercentA}% तथा {partnerB} को {grossPercentB}% पहले दिया जाता है। बचा लाभ पूंजी के अनुपात में बंटता है। {targetPartner} को कुल कितना मिलेगा?"
+    ],
+    "PRT-QL-109": [
+      "{business} की कुल अवधि {totalDuration} और कुल पूंजी ₹{totalCapital} है। {partnerA} पूंजी का {capitalFractionA} भाग अवधि के {durationFractionA} भाग के लिए, {partnerB} {capitalFractionB} भाग {durationFractionB} अवधि के लिए और {partnerC} शेष पूंजी पूरी अवधि के लिए लगाता है। ₹{totalProfit} लाभ में {targetPartner} का हिस्सा ज्ञात कीजिए।",
+      "₹{totalCapital} की कुल पूंजी वाले {business} में साझेदारी {totalDuration} चलती है। {partnerA} कुल पूंजी का {capitalFractionA} भाग कुल समय के {durationFractionA} भाग तक, {partnerB} {capitalFractionB} भाग {durationFractionB} समय तक और {partnerC} बची पूंजी पूरे समय तक लगाता है। ₹{totalProfit} में {targetPartner} का हिस्सा कितना है?"
+    ],
+    "PRT-QL-110": [
+      "{business} में {partnerA}, {partnerB} और {partnerC} समान समय तक निवेश करते हैं और पूंजी का संबंध है: {relationStatement}। कुल लाभ ₹{totalProfit} हो तो {targetPartner} का हिस्सा निकालिए।",
+      "{partnerA}, {partnerB} और {partnerC} {business} में बराबर अवधि के साझेदार हैं। व्यक्तिगत पूंजी के बजाय दिया है कि {relationStatement}। ₹{totalProfit} के लाभ में {targetPartner} को कितना मिलेगा?"
+    ],
+    "PRT-QL-111": [
+      "{business} में {partnerA} ₹{capitalA} और {partnerB} ₹{capitalB} एक वर्ष के लिए लगाते हैं। पहले दोनों को पूंजी पर {interestRatePercent}% वार्षिक ब्याज दिया जाता है और फिर शेष लाभ पूंजी अनुपात में बंटता है। ₹{totalProfit} कुल लाभ में {targetPartner} की कुल प्राप्ति क्या है?",
+      "{partnerA} तथा {partnerB} की वार्षिक पूंजी {business} में ₹{capitalA} और ₹{capitalB} है। समझौते के अनुसार लाभ में से पहले दोनों को पूंजी पर {interestRatePercent}% ब्याज मिलता है, फिर बचा भाग पूंजी अनुपात में बंटता है। ₹{totalProfit} में {targetPartner} कुल कितना पाएगा?"
+    ],
+    "PRT-QL-112": [
+      "{business} में {partnerA} और {partnerB} का पुराना लाभ अनुपात {oldRatio} है। {partnerC} को प्रवेश पर कुल लाभ का {acquiredFraction} हिस्सा दिया जाता है, जिसे पुराने साझेदार {sacrificeRatio} के अनुपात में छोड़ते हैं। नया अनुपात ज्ञात कीजिए।",
+      "{partnerA}:{partnerB} {business} का लाभ {oldRatio} में बांटते हैं। {partnerC} आता है और कुल लाभ का {acquiredFraction} हिस्सा प्राप्त करता है; यह हिस्सा {partnerA} और {partnerB} से {sacrificeRatio} त्याग-अनुपात में लिया जाता है। नया {partnerA}:{partnerB}:{partnerC} अनुपात क्या है?"
+    ]
+  }
+}

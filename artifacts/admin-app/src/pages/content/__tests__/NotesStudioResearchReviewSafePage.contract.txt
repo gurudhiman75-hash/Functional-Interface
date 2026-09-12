@@ -1,0 +1,7 @@
+Guided Research Review startup contract
+
+- Probe source-policy, evidence and coverage read endpoints before rendering the editor.
+- Retry one failed startup batch automatically.
+- Never represent an incomplete/failed startup read as zero saved evidence, zero accepted claims or an empty coverage plan.
+- Surface the exact failed panel and preserve saved data.
+- Render the existing governed Research Review only after the three read dependencies are reachable.

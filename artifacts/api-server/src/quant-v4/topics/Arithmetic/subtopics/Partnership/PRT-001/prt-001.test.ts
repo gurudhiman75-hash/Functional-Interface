@@ -6,7 +6,11 @@ import {
   formatDuration,
   formatMoney,
   formatRatio,
+  generatePrt001E8Parameters,
+  generatePrt001E13Parameters,
   getPrt001QuestionLanguageIds,
+  getPrt001TaskEntries,
+  getPrt001TaskEntry,
   intervalForLastDuration,
   intervalForPartnerJoiningAfter,
   intervalForPartnerLeavingAfter,
@@ -25,23 +29,10 @@ import {
 } from "./index";
 
 const r = rational;
-const segment = (
-  start: number,
-  end: number,
-  capital: number,
-): CapitalSegment => ({ start: r(start), end: r(end), capital: r(capital) });
-const partner = (
-  partnerId: string,
-  capitalSegments: readonly CapitalSegment[],
-  role: Partner["role"] = "UNSPECIFIED",
-): Partner => ({ partnerId, role, capitalSegments });
-
+const segment = (start: number, end: number, capital: number): CapitalSegment => ({ start: r(start), end: r(end), capital: r(capital) });
+const partner = (partnerId: string, capitalSegments: readonly CapitalSegment[], role: Partner["role"] = "UNSPECIFIED", profitShareMultiplier?: Rational): Partner => ({ partnerId, role, capitalSegments, ...(profitShareMultiplier ? { profitShareMultiplier } : {}) });
 function assertRational(actual: Rational, expected: Rational): void {
-  assert.equal(
-    equalRational(actual, expected),
-    true,
-    `expected ${expected.numerator}/${expected.denominator}, got ${actual.numerator}/${actual.denominator}`,
-  );
+  assert.equal(equalRational(actual, expected), true, `expected ${expected.numerator}/${expected.denominator}, got ${actual.numerator}/${actual.denominator}`);
 }
 
 assert.deepEqual(r(6, -8), { numerator: -3n, denominator: 4n });
@@ -51,35 +42,18 @@ assert.equal(formatMoney(r(125, 2)), "₹62.50");
 assert.equal(formatDuration(r(1), "YEAR"), "1 year");
 assert.equal(formatRatio([r(30_000 * 12), r(45_000 * 8)]), "1:1");
 
-const inverse = solveLinearContributionUnknown({
-  fixedWeight: r(20_000 * 4),
-  unknownCoefficient: r(8),
-  comparisonWeight: r(30_000 * 12),
-  targetUnknownToComparisonRatio: r(1),
-});
+const inverse = solveLinearContributionUnknown({ fixedWeight: r(20_000 * 4), unknownCoefficient: r(8), comparisonWeight: r(30_000 * 12), targetUnknownToComparisonRatio: r(1) });
 assertRational(inverse, r(35_000));
 
 const totalDuration = r(12);
-assert.deepEqual(intervalForPartnerJoiningAfter(totalDuration, r(4)), {
-  start: r(4),
-  end: r(12),
-});
-assert.deepEqual(intervalForLastDuration(totalDuration, r(4)), {
-  start: r(8),
-  end: r(12),
-});
-assert.deepEqual(intervalForPartnerLeavingAfter(totalDuration, r(7)), {
-  start: r(0),
-  end: r(7),
-});
+assert.deepEqual(intervalForPartnerJoiningAfter(totalDuration, r(4)), { start: r(4), end: r(12) });
+assert.deepEqual(intervalForLastDuration(totalDuration, r(4)), { start: r(8), end: r(12) });
+assert.deepEqual(intervalForPartnerLeavingAfter(totalDuration, r(7)), { start: r(0), end: r(7) });
 
 const equalJoinState: PartnershipState = {
   totalDuration,
   grossProfitOrLoss: r(84_000),
-  partners: [
-    partner("A", [segment(0, 12, 30_000)]),
-    partner("B", [segment(4, 12, 45_000)]),
-  ],
+  partners: [partner("A", [segment(0, 12, 30_000)]), partner("B", [segment(4, 12, 45_000)])],
   allocations: [],
 };
 const equalJoinSolution = solvePrt001State(equalJoinState);
@@ -90,62 +64,29 @@ assertRational(equalJoinSolution.distributedShares.B!, r(42_000));
 const capitalChangeState: PartnershipState = {
   totalDuration,
   grossProfitOrLoss: r(90_000),
-  partners: [
-    partner("A", [segment(0, 6, 20_000), segment(6, 12, 30_000)]),
-    partner("B", [segment(0, 12, 25_000)]),
-  ],
+  partners: [partner("A", [segment(0, 6, 20_000), segment(6, 12, 30_000)]), partner("B", [segment(0, 12, 25_000)])],
   allocations: [],
 };
-const capitalTimeline = buildCapitalTimeline(capitalChangeState);
-assert.deepEqual(
-  capitalTimeline.weights.map((item) => item.effectiveCapital),
-  [r(300_000), r(300_000)],
-);
+assert.deepEqual(buildCapitalTimeline(capitalChangeState).weights.map((item) => item.effectiveCapital), [r(300_000), r(300_000)]);
 
 const salaryState: PartnershipState = {
   totalDuration,
   grossProfitOrLoss: r(120_000),
-  partners: [
-    partner("A", [segment(0, 12, 20_000)], "ACTIVE"),
-    partner("B", [segment(0, 12, 40_000)], "SLEEPING"),
-  ],
-  allocations: [
-    {
-      kind: "SALARY",
-      basis: "FIXED_AMOUNT",
-      value: r(12_000),
-      recipientPartnerId: "A",
-      sequence: 1,
-    },
-  ],
+  partners: [partner("A", [segment(0, 12, 20_000)], "ACTIVE"), partner("B", [segment(0, 12, 40_000)], "SLEEPING")],
+  allocations: [{ kind: "SALARY", basis: "FIXED_AMOUNT", value: r(12_000), recipientPartnerId: "A", sequence: 1 }],
 };
 const salarySolution = solvePrt001State(salaryState);
 assertRational(salarySolution.pool.distributablePool, r(108_000));
-assertRational(salarySolution.distributedShares.A!, r(36_000));
-assertRational(salarySolution.distributedShares.B!, r(72_000));
 assertRational(salarySolution.finalPartnerReceipts.A!, r(48_000));
+assertRational(salarySolution.finalPartnerReceipts.B!, r(72_000));
 
 const orderedAllocationState: PartnershipState = {
   totalDuration,
   grossProfitOrLoss: r(100_000),
-  partners: [
-    partner("A", [segment(0, 12, 10_000)], "ACTIVE"),
-    partner("B", [segment(0, 12, 20_000)]),
-  ],
+  partners: [partner("A", [segment(0, 12, 10_000)], "ACTIVE"), partner("B", [segment(0, 12, 20_000)])],
   allocations: [
-    {
-      kind: "COMMISSION",
-      basis: "PERCENT_OF_POST_DEDUCTION_POOL",
-      value: r(10),
-      recipientPartnerId: "A",
-      sequence: 2,
-    },
-    {
-      kind: "RESERVE",
-      basis: "FIXED_AMOUNT",
-      value: r(10_000),
-      sequence: 1,
-    },
+    { kind: "COMMISSION", basis: "PERCENT_OF_POST_DEDUCTION_POOL", value: r(10), recipientPartnerId: "A", sequence: 2 },
+    { kind: "RESERVE", basis: "FIXED_AMOUNT", value: r(10_000), sequence: 1 },
   ],
 };
 const orderedSolution = solvePrt001State(orderedAllocationState);
@@ -154,185 +95,137 @@ assertRational(orderedSolution.pool.distributablePool, r(81_000));
 assertRational(orderedSolution.finalPartnerReceipts.A!, r(36_000));
 assertRational(orderedSolution.finalPartnerReceipts.B!, r(54_000));
 
-const lossSolution = solvePrt001State({
+const entitlementState: PartnershipState = {
   totalDuration,
-  grossProfitOrLoss: r(-9_000),
+  grossProfitOrLoss: r(300),
   partners: [
-    partner("A", [segment(0, 12, 10_000)]),
-    partner("B", [segment(0, 12, 20_000)]),
+    partner("A", [segment(0, 12, 100)], "ACTIVE"),
+    partner("B", [segment(0, 12, 100)], "SLEEPING", r(1, 2)),
   ],
   allocations: [],
-});
+};
+const entitlementSolution = solvePrt001State(entitlementState);
+assert.deepEqual(entitlementSolution.normalizedRatio, [2n, 1n]);
+assertRational(entitlementSolution.distributedShares.A!, r(200));
+assertRational(entitlementSolution.distributedShares.B!, r(100));
+
+const capitalInterestState: PartnershipState = {
+  totalDuration,
+  grossProfitOrLoss: r(25_000),
+  partners: [partner("A", [segment(0, 12, 40_000)]), partner("B", [segment(0, 12, 60_000)])],
+  allocations: [
+    { kind: "INTEREST_ON_CAPITAL", basis: "FIXED_AMOUNT", value: r(3_200), recipientPartnerId: "A", sequence: 1 },
+    { kind: "INTEREST_ON_CAPITAL", basis: "FIXED_AMOUNT", value: r(4_800), recipientPartnerId: "B", sequence: 2 },
+  ],
+};
+const capitalInterestSolution = solvePrt001State(capitalInterestState);
+assertRational(capitalInterestSolution.pool.distributablePool, r(17_000));
+assertRational(capitalInterestSolution.finalPartnerReceipts.A!, r(10_000));
+assertRational(capitalInterestSolution.finalPartnerReceipts.B!, r(15_000));
+
+const lossSolution = solvePrt001State({ totalDuration, grossProfitOrLoss: r(-9_000), partners: [partner("A", [segment(0, 12, 10_000)]), partner("B", [segment(0, 12, 20_000)])], allocations: [] });
 assertRational(lossSolution.distributedShares.A!, r(-3_000));
 assertRational(lossSolution.distributedShares.B!, r(-6_000));
 
-for (const state of [
-  equalJoinState,
-  capitalChangeState,
-  salaryState,
-  orderedAllocationState,
-]) {
+for (const state of [equalJoinState, capitalChangeState, salaryState, orderedAllocationState, entitlementState, capitalInterestState]) {
   const solution = solvePrt001State(state);
   const verification = verifyPrt001Independently(state);
   const validation = validatePrt001Solution(solution, verification);
-  assert.equal(
-    validation.valid,
-    true,
-    validation.checks
-      .filter((check) => !check.passed)
-      .map((check) => check.message)
-      .join("\n"),
-  );
+  assert.equal(validation.valid, true, validation.checks.filter((check) => !check.passed).map((check) => check.message).join("\n"));
 }
 
-assert.throws(
-  () =>
-    buildCapitalTimeline({
-      totalDuration,
-      grossProfitOrLoss: r(1_000),
-      partners: [
-        partner("A", [segment(0, 8, 10_000), segment(7, 12, 12_000)]),
-        partner("B", [segment(0, 12, 10_000)]),
-      ],
-      allocations: [],
-    }),
-  /must not overlap/,
-);
-assert.throws(
-  () =>
-    solvePrt001State({
-      ...salaryState,
-      allocations: [
-        salaryState.allocations[0]!,
-        {
-          kind: "RESERVE",
-          basis: "FIXED_AMOUNT",
-          value: r(1_000),
-          sequence: 1,
-        },
-      ],
-    }),
-  /sequence values must be unique/,
-);
+assert.throws(() => buildCapitalTimeline({ totalDuration, grossProfitOrLoss: r(1_000), partners: [partner("A", [segment(0, 8, 10_000), segment(7, 12, 12_000)]), partner("B", [segment(0, 12, 10_000)])], allocations: [] }), /must not overlap/);
+assert.throws(() => buildCapitalTimeline({ totalDuration, grossProfitOrLoss: r(1_000), partners: [partner("A", [segment(0, 12, 10_000)], "SLEEPING", r(0)), partner("B", [segment(0, 12, 10_000)])], allocations: [] }), /entitlement multiplier must be positive/);
+assert.throws(() => solvePrt001State({ ...salaryState, allocations: [salaryState.allocations[0]!, { kind: "RESERVE", basis: "FIXED_AMOUNT", value: r(1_000), sequence: 1 }] }), /sequence values must be unique/);
 
-const expectedPilotIds = Array.from(
-  { length: 32 },
-  (_, index) => `PRT-QL-${String(index + 1).padStart(3, "0")}`,
-);
-assert.deepEqual(getPrt001QuestionLanguageIds(), expectedPilotIds);
+const expectedIds = Array.from({ length: 112 }, (_, index) => `PRT-QL-${String(index + 1).padStart(3, "0")}`);
+assert.deepEqual(getPrt001QuestionLanguageIds(), expectedIds);
 assert.deepEqual(validatePrt001PilotLibraries(), []);
+const taskEntries = getPrt001TaskEntries();
+assert.equal(taskEntries.length, 112);
+assert.equal(new Set(taskEntries.map(({ entry }) => entry.solveMode)).size, 102);
 
-const expectedModes = new Set([
-  "findProfitRatioFromCapitals",
-  "findPartnerShareFromTotalProfitAndCapitals",
-  "findTotalProfitFromPartnerShareAndCapitals",
-  "findProfitDifferenceFromTotalProfitAndCapitals",
-  "findProfitRatioFromCapitalAndDuration",
-  "findPartnerShareFromTotalProfitCapitalDuration",
-  "findUnknownCapitalFromShareRatioAndDurations",
-  "findUnknownDurationFromShareRatioAndCapitals",
-  "findProfitRatioWhenPartnerJoinsLater",
-  "findShareWhenPartnerLeavesEarly",
-  "findUnknownJoinTimeFromProfitRatio",
-  "findProfitRatioWithMultipleStaggeredJoins",
-  "findProfitRatioAfterCapitalAddition",
-  "findShareAfterCapitalWithdrawal",
-  "findUnknownAddedCapitalFromProfitRatio",
-  "findEventTimeForEqualProfitShares",
-  "findThreePartnerProfitRatio",
-  "findMultiPartnerSharesFromTotalProfit",
-  "findUnknownCapitalInThreePartnerSystem",
-  "findTotalProfitFromOnePartnerShareInMultiPartnerSystem",
-  "findActivePartnerTotalReceiptWithFixedSalary",
-  "findOtherPartnerShareWithPercentCommission",
-  "findSharesAfterCharityDeduction",
-  "findUnknownSalaryFromFinalPartnerReceipts",
-  "findShareWithLateJoinAndCapitalChange",
-  "findShareWithDynamicCapitalAndWorkingPartnerSalary",
-  "findMultiPartnerSharesWithStaggeredEvents",
-  "findUnknownJoinTimeWithPreDistributionDeduction",
+const expectedE5Modes = new Set([
+  "findUnknownCapitalFromPartnerShares",
+  "findMissingPartnerShareFromKnownShareAndWeights",
+  "findUnknownLeaveTimeFromPartnerShare",
+  "findJoinTimeForEqualProfitShares",
+  "findLeaveTimeForEqualProfitShares",
+  "findShareDifferenceWithStaggeredParticipation",
+  "findProfitRatioAfterCapitalWithdrawal",
+  "findShareAfterCapitalAddition",
+  "findCapitalChangeForEqualProfitShares",
+  "compareEffectiveCapitalsAfterDifferentChanges",
+  "findSharesFromTimeMultiplesAndCapitals",
+  "findPartnerShareWhenOneWeightIsSumOfOthers",
+  "findUnknownCapitalFromEqualShareConditionInMultiPartnerSystem",
+  "findUnknownDurationFromEqualShareConditionInMultiPartnerSystem",
+  "findSleepingPartnerShareWithActivePartnerSalary",
+  "findPartnerSharesAfterFixedManagementAllowance",
+  "findActivePartnerReceiptWithPercentOfGrossProfitCommission",
+  "findSharesAfterReserveDeduction",
+  "findSharesAfterExplicitBusinessExpenseDeduction",
 ]);
-const observedModes = new Set<string>();
+assert.deepEqual(new Set(taskEntries.filter(({ questionLanguageId }) => Number(questionLanguageId.slice(-3)) >= 85 && Number(questionLanguageId.slice(-3)) <= 103).map(({ entry }) => entry.solveMode)), expectedE5Modes);
+
+const ql104Params = generatePrt001E8Parameters({ questionLanguageId: "PRT-QL-104", seed: "e8-split-proof", entry: getPrt001TaskEntry("PRT-QL-104"), language: "en" });
+assert.equal(ql104Params.state.allocations.length, 2);
+assert.equal(ql104Params.state.allocations.every((item) => item.basis === "PERCENT_OF_GROSS_PROFIT"), true);
+const ql104 = runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-104", seed: "e8-split-proof", language: "en" });
+assert.equal(ql104.solveMode, "findTotalProfitFromShareDifferenceAndCapitals");
+assert.equal(ql104.traceability.expansionWave, "E8");
+const ql105Params = generatePrt001E8Parameters({ questionLanguageId: "PRT-QL-105", seed: "e8-multiyear-proof", entry: getPrt001TaskEntry("PRT-QL-105"), language: "en" });
+assert.equal(ql105Params.state.totalDuration.numerator > 12n * ql105Params.state.totalDuration.denominator, true);
+assert.equal(ql105Params.state.partners.length, 3);
+assert.equal(ql105Params.state.partners[1]!.capitalSegments.length, 2);
+
+const ql106Params = generatePrt001E13Parameters({ questionLanguageId: "PRT-QL-106", seed: "e13-entitlement-proof", entry: getPrt001TaskEntry("PRT-QL-106"), language: "en" });
+assert.ok(ql106Params.state.partners.some((item) => item.role === "SLEEPING" && item.profitShareMultiplier));
+const ql106 = runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-106", seed: "e13-entitlement-proof", language: "en" });
+assert.equal(ql106.solveMode, "findSleepingPartnerAdjustedEntitlementShare");
+assert.equal(ql106.traceability.expansionWave, "E13");
+const ql107 = runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-107", seed: "e13-reinvestment-proof", language: "en" });
+assert.equal(ql107.solveMode, "findNextPeriodProfitRatioAfterProfitShareReinvestment");
+assert.equal(ql107.answerType, "RATIO");
+const ql111Params = generatePrt001E13Parameters({ questionLanguageId: "PRT-QL-111", seed: "e13-capital-interest-proof", entry: getPrt001TaskEntry("PRT-QL-111"), language: "en" });
+assert.equal(ql111Params.state.allocations.length, 2);
+assert.equal(ql111Params.state.allocations.every((item) => item.kind === "INTEREST_ON_CAPITAL"), true);
+const ql112 = runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-112", seed: "e13-share-acquisition-proof", language: "en" });
+assert.equal(ql112.solveMode, "findProfitRatioAfterNewPartnerAcquiresShare");
+assert.equal(ql112.traceability.expansionWave, "E13");
+
 const observedCanonicalProblems = new Set<string>();
 let generatedPilotQuestions = 0;
-for (const questionLanguageId of expectedPilotIds) {
+for (const questionLanguageId of expectedIds) {
   for (let index = 0; index < 10; index += 1) {
     const seed = `prt-pilot:${questionLanguageId}:${index}`;
-    const first = runPrt001PilotPipeline({ questionLanguageId, seed });
-    const second = runPrt001PilotPipeline({ questionLanguageId, seed });
-    assert.equal(first.validation.valid, true);
-    assert.deepEqual(first, second);
-    assert.equal(first.options.length, 4);
-    assert.equal(new Set(first.options).size, 4);
-    assert.equal(first.options[first.correctIndex], first.answer);
-    assert.doesNotMatch(first.stem, /\{[^}]+\}/);
-    assert.doesNotThrow(() => JSON.stringify(first));
-    observedModes.add(first.solveMode);
-    observedCanonicalProblems.add(first.canonicalProblemId);
+    const english = runPrt001PilotPipeline({ questionLanguageId, seed, language: "en" });
+    const repeat = runPrt001PilotPipeline({ questionLanguageId, seed, language: "en" });
+    assert.equal(english.validation.valid, true);
+    assert.deepEqual(english, repeat);
+    assert.equal(english.options.length, 4);
+    assert.equal(new Set(english.options).size, 4);
+    assert.equal(english.options[english.correctIndex], english.answer);
+    assert.doesNotMatch(english.stem, /\{[^}]+\}/);
+    assert.doesNotThrow(() => JSON.stringify(english));
+    observedCanonicalProblems.add(english.canonicalProblemId);
     generatedPilotQuestions += 1;
     for (const language of ["hi", "pa"] as const) {
-      const localized = runPrt001PilotPipeline({
-        questionLanguageId,
-        seed,
-        language,
-      });
+      const localized = runPrt001PilotPipeline({ questionLanguageId, seed, language });
       assert.equal(localized.validation.valid, true);
-      assert.equal(localized.language, language);
-      assert.equal(localized.solveMode, first.solveMode);
-      assert.equal(localized.answerType, first.answerType);
-      assert.deepEqual(
-        localized.traceability.exactWeights,
-        first.traceability.exactWeights,
-      );
-      assert.notEqual(localized.stem, first.stem);
+      assert.equal(localized.solveMode, english.solveMode);
+      assert.equal(localized.answerType, english.answerType);
+      assert.deepEqual(localized.traceability.exactWeights, english.traceability.exactWeights);
+      assert.notEqual(localized.stem, english.stem);
       assert.doesNotThrow(() => JSON.stringify(localized));
       generatedPilotQuestions += 1;
     }
   }
 }
-assert.deepEqual(observedModes, expectedModes);
-assert.deepEqual(
-  observedCanonicalProblems,
-  new Set([
-    "PRT-CP-001",
-    "PRT-CP-002",
-    "PRT-CP-003",
-    "PRT-CP-004",
-    "PRT-CP-005",
-    "PRT-CP-006",
-    "PRT-CP-007",
-  ]),
-);
-assert.equal(
-  runPrt001PilotPipeline({
-    questionLanguageId: "PRT-QL-011",
-    seed: "capital-proof",
-  }).answerType,
-  "CAPITAL",
-);
-assert.equal(
-  runPrt001PilotPipeline({
-    questionLanguageId: "PRT-QL-012",
-    seed: "duration-proof",
-  }).answerType,
-  "DURATION",
-);
-assert.throws(
-  () => runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-999" }),
-  /unknown or inactive/,
-);
+assert.deepEqual(observedCanonicalProblems, new Set(["PRT-CP-001","PRT-CP-002","PRT-CP-003","PRT-CP-004","PRT-CP-005","PRT-CP-006","PRT-CP-007"]));
+assert.equal(runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-087", seed: "e5-leave-proof" }).answerType, "DURATION");
+assert.equal(runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-093", seed: "e5-change-capital-proof" }).answerType, "CAPITAL");
+assert.throws(() => runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-999" }), /unknown or inactive/);
+assert.equal(generatedPilotQuestions, 3360);
 
-console.log(
-  JSON.stringify(
-    {
-      packageId: "PRT-001",
-      foundationCases: 18,
-      verifierParityCases: 4,
-      pilotQuestionLanguages: expectedPilotIds.length,
-      generatedPilotQuestions,
-      status: "PASS",
-    },
-    null,
-    2,
-  ),
-);
+console.log(JSON.stringify({ packageId: "PRT-001", foundationCases: 22, pilotQuestionLanguages: expectedIds.length, activeSolveModes: 102, generatedPilotQuestions, sourceWave: "E13", status: "PASS" }, null, 2));

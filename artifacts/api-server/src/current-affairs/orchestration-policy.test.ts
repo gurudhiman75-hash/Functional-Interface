@@ -5,6 +5,7 @@ import {
   canAutoVerifyEvent,
   indiaDate,
   previousIndiaDate,
+  resolveHistoricalIndiaDate,
   shouldBuildDailyDrafts,
 } from "./orchestration-policy";
 
@@ -85,9 +86,17 @@ assert.equal(canAutoVerifyEvent({
   primaryEvidenceCount: 1,
 }).allowed, false, "events with no canonical facts remain review-only");
 
+const auditNow = new Date("2026-09-01T16:30:00Z"); // 22:00 IST on 1 Sep 2026
 assert.equal(indiaDate(new Date("2026-08-28T20:00:00Z")), "2026-08-29");
 assert.equal(previousIndiaDate(new Date("2026-08-29T00:20:00Z")), "2026-08-28");
+assert.equal(resolveHistoricalIndiaDate(undefined, auditNow), "2026-08-31");
+assert.equal(resolveHistoricalIndiaDate("2026-08-31", auditNow), "2026-08-31");
+assert.equal(resolveHistoricalIndiaDate("2026-08-15", auditNow), "2026-08-15");
+assert.throws(() => resolveHistoricalIndiaDate("2026-09-01", auditNow), /before the current India calendar date/);
+assert.throws(() => resolveHistoricalIndiaDate("2026-09-02", auditNow), /before the current India calendar date/);
+assert.throws(() => resolveHistoricalIndiaDate("2026-02-30", auditNow), /invalid/);
+assert.throws(() => resolveHistoricalIndiaDate("2026-07-31", auditNow), /previous 31 India calendar days/);
 assert.equal(shouldBuildDailyDrafts(new Date("2026-08-29T00:20:00Z")), true);
 assert.equal(shouldBuildDailyDrafts(new Date("2026-08-29T03:20:00Z")), false);
 
-console.log("Current Affairs Studio CP006 orchestration policy contracts passed");
+console.log("Current Affairs Studio CP006 + CP046 orchestration policy contracts passed");

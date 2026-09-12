@@ -2,6 +2,7 @@ import { sqlClient } from "../lib/db";
 import { previousIndiaDate } from "./orchestration-policy";
 import { evaluateCurrentAffairsProductionReadiness } from "./production-readiness-policy";
 import { loadCurrentAffairsReleaseQueue } from "./release-runtime";
+import { evaluateCurrentAffairsSourceFamilyCoverage } from "./source-family-policy";
 
 const FAMILIES = ["ssc", "banking", "punjab"] as const;
 
@@ -20,20 +21,32 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
   const targetDate = previousIndiaDate(now);
   const deadlineIso = deadlineForTargetDate(targetDate);
   const releaseQueue = await loadCurrentAffairsReleaseQueue(300);
-  const [sources, runs, queue, conflicts, compilations, approvedReleases, missingDays] = await Promise.all([
+  const [sources, runs, queue, conflicts, compilations, approvedReleases, missingDays, targetInventoryRows] = await Promise.all([
     sqlClient`
       SELECT
-        source_key AS "sourceKey", name, is_primary_source AS "isPrimarySource",
-        ingestion_mode AS "ingestionMode", last_ingested_at::text AS "lastIngestedAt",
+        source_key AS "sourceKey", name, source_type AS "sourceType",
+        source_family AS "sourceFamily", source_tier AS "sourceTier",
+        coverage_domain AS "coverageDomain", content_policy AS "contentPolicy",
+        is_primary_source AS "isPrimarySource", ingestion_mode AS "ingestionMode",
+        base_url AS "baseUrl", feed_url AS "feedUrl", listing_url AS "listingUrl",
+        metadata,
+        last_ingested_at::text AS "lastIngestedAt",
         last_ingestion_status AS "lastIngestionStatus", last_ingestion_error AS "lastIngestionError",
         CASE WHEN last_ingested_at IS NOT NULL AND last_ingested_at >= now() - interval '6 hours' THEN true ELSE false END AS fresh,
-        CASE WHEN is_active=true AND is_primary_source=true AND (
+        CASE WHEN is_active=true AND (
           (ingestion_mode IN ('feed','feed_and_pdf') AND feed_url IS NOT NULL)
           OR (ingestion_mode IN ('listing','listing_and_pdf') AND listing_url IS NOT NULL AND listing_adapter IS NOT NULL)
         ) THEN true ELSE false END AS scheduled
       FROM content.current_affairs_sources
       WHERE is_active=true
-      ORDER BY is_primary_source DESC, trust_score DESC, source_key
+      ORDER BY
+        CASE source_tier
+          WHEN 'core_official' THEN 0
+          WHEN 'supplementary_official' THEN 1
+          WHEN 'trusted_news' THEN 2
+          ELSE 3
+        END,
+        is_primary_source DESC, trust_score DESC, source_key
     `,
     sqlClient`
       SELECT DISTINCT ON (job_type)
@@ -80,14 +93,73 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
       WHERE compilation.id IS NULL
       ORDER BY expected.day DESC, expected.family
     `,
+    sqlClient`
+      SELECT
+        (SELECT count(*) FROM content.current_affairs_ingestion_candidates candidate
+          WHERE COALESCE(
+            NULLIF(candidate.payload->>'historicalTargetDate',''),
+            NULLIF(candidate.payload->>'discoveryTargetDate',''),
+            (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+          )=${targetDate})::int AS "candidateCount",
+        (SELECT count(*) FROM content.current_affairs_ingestion_candidates candidate
+          JOIN content.current_affairs_sources source ON source.id=candidate.source_id
+          WHERE COALESCE(
+            NULLIF(candidate.payload->>'historicalTargetDate',''),
+            NULLIF(candidate.payload->>'discoveryTargetDate',''),
+            (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+          )=${targetDate}
+            AND source.is_primary_source=true)::int AS "primaryCandidateCount",
+        (SELECT count(*) FROM content.current_affairs_clusters cluster
+          WHERE cluster.event_date_guess=${targetDate}::date AND cluster.status='open')::int AS "openClusterCount",
+        (SELECT count(*) FROM content.current_affairs_clusters cluster
+          WHERE cluster.event_date_guess=${targetDate}::date AND cluster.status='open' AND cluster.category_guess='other')::int AS "openOtherClusterCount",
+        (SELECT count(*) FROM content.current_affairs_events event
+          WHERE event.event_date=${targetDate}::date AND event.status IN ('review','verified'))::int AS "eventCount",
+        (SELECT count(*) FROM content.current_affairs_events event
+          WHERE event.event_date=${targetDate}::date AND event.status='verified')::int AS "verifiedEventCount",
+        (SELECT count(*) FROM content.current_affairs_events event
+          WHERE event.event_date=${targetDate}::date AND event.status='review')::int AS "reviewEventCount",
+        (SELECT count(*) FROM content.current_affairs_events event
+          WHERE event.event_date=${targetDate}::date AND event.status='verified'
+            AND event.learner_authoring_status IN ('ready','manual'))::int AS "authoringReadyCount",
+        (SELECT count(DISTINCT event.id)
+          FROM content.current_affairs_events event
+          JOIN content.current_affairs_exam_scores score ON score.event_id=event.id
+          WHERE event.event_date=${targetDate}::date AND event.status='verified'
+            AND event.learner_authoring_status IN ('ready','manual')
+            AND score.exam_family_key='ssc' AND score.include_recommended=true
+            AND NOT EXISTS (SELECT 1 FROM content.current_affairs_fact_conflicts conflict WHERE conflict.event_id=event.id AND conflict.status='open'))::int AS "sscEligibleCount",
+        (SELECT count(DISTINCT event.id)
+          FROM content.current_affairs_events event
+          JOIN content.current_affairs_exam_scores score ON score.event_id=event.id
+          WHERE event.event_date=${targetDate}::date AND event.status='verified'
+            AND event.learner_authoring_status IN ('ready','manual')
+            AND score.exam_family_key='banking' AND score.include_recommended=true
+            AND NOT EXISTS (SELECT 1 FROM content.current_affairs_fact_conflicts conflict WHERE conflict.event_id=event.id AND conflict.status='open'))::int AS "bankingEligibleCount",
+        (SELECT count(DISTINCT event.id)
+          FROM content.current_affairs_events event
+          JOIN content.current_affairs_exam_scores score ON score.event_id=event.id
+          WHERE event.event_date=${targetDate}::date AND event.status='verified'
+            AND event.learner_authoring_status IN ('ready','manual')
+            AND score.exam_family_key='punjab' AND score.include_recommended=true
+            AND NOT EXISTS (SELECT 1 FROM content.current_affairs_fact_conflicts conflict WHERE conflict.event_id=event.id AND conflict.status='open'))::int AS "punjabEligibleCount"
+    `,
   ]);
 
-  const scheduledPrimary = sources.filter((row) => Boolean(row.scheduled));
-  const freshSuccessfulPrimary = scheduledPrimary.filter((row) => Boolean(row.fresh) && String(row.lastIngestionStatus) === "success");
-  const stalePrimary = scheduledPrimary.filter((row) => !Boolean(row.fresh));
-  const failingPrimary = scheduledPrimary.filter((row) => String(row.lastIngestionStatus) === "failure");
-  const criticalSourceFailures = scheduledPrimary.filter((row) =>
-    !Boolean(row.fresh) || String(row.lastIngestionStatus) !== "success").length;
+  const sourceFamilyCoverage = evaluateCurrentAffairsSourceFamilyCoverage(sources.map((row) => ({
+    sourceKey: String(row.sourceKey),
+    name: String(row.name),
+    sourceFamily: String(row.sourceFamily ?? row.sourceKey),
+    sourceTier: String(row.sourceTier ?? "supplementary_official"),
+    coverageDomain: text(row.coverageDomain),
+    scheduled: Boolean(row.scheduled),
+    fresh: Boolean(row.fresh),
+    status: text(row.lastIngestionStatus),
+  })));
+  const coreOfficialSources = sources.filter((row) => String(row.sourceTier) === "core_official" && Boolean(row.scheduled));
+  const discoverySources = sources.filter((row) => String(row.sourceTier) === "trusted_news");
+  const targetInventory = targetInventoryRows[0] ?? {};
+
   const runByType = new Map(runs.map((row) => [String(row.jobType), row]));
   const feedRun = runByType.get("feed_ingestion");
   const intelligenceRun = runByType.get("intelligence_processing");
@@ -145,11 +217,12 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
     now,
     targetDate,
     deadlineIso,
-    scheduledPrimarySources: scheduledPrimary.length,
-    freshSuccessfulPrimarySources: freshSuccessfulPrimary.length,
-    failingPrimarySources: failingPrimary.length,
-    stalePrimarySources: stalePrimary.length,
-    criticalSourceFailures,
+    scheduledPrimarySources: sourceFamilyCoverage.requiredSourceFamilies,
+    freshSuccessfulPrimarySources: sourceFamilyCoverage.healthyRequiredSourceFamilies,
+    failingPrimarySources: sourceFamilyCoverage.failingPrimaryEndpoints,
+    stalePrimarySources: sourceFamilyCoverage.stalePrimaryEndpoints,
+    criticalSourceFailures: sourceFamilyCoverage.criticalDomainFailures.length,
+    criticalSourceFailureLabels: sourceFamilyCoverage.criticalDomainFailures,
     latestFeedRunAt: feedRunHealthy ? text(feedRun?.completedAt ?? feedRun?.startedAt) : null,
     latestIntelligenceRunAt: intelligenceRunHealthy ? text(intelligenceRun?.completedAt ?? intelligenceRun?.startedAt) : null,
     queuedCandidates: Number(queue[0]?.count ?? 0),
@@ -162,20 +235,63 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
     deadlineIso,
     generatedAt: now.toISOString(),
     evaluation,
+    targetInventory: {
+      candidateCount: Number(targetInventory.candidateCount ?? 0),
+      primaryCandidateCount: Number(targetInventory.primaryCandidateCount ?? 0),
+      openClusterCount: Number(targetInventory.openClusterCount ?? 0),
+      openOtherClusterCount: Number(targetInventory.openOtherClusterCount ?? 0),
+      eventCount: Number(targetInventory.eventCount ?? 0),
+      verifiedEventCount: Number(targetInventory.verifiedEventCount ?? 0),
+      reviewEventCount: Number(targetInventory.reviewEventCount ?? 0),
+      authoringReadyCount: Number(targetInventory.authoringReadyCount ?? 0),
+      familyEligible: {
+        ssc: Number(targetInventory.sscEligibleCount ?? 0),
+        banking: Number(targetInventory.bankingEligibleCount ?? 0),
+        punjab: Number(targetInventory.punjabEligibleCount ?? 0),
+      },
+    },
     sourceCoverage: {
-      scheduledPrimarySources: scheduledPrimary.length,
-      freshSuccessfulPrimarySources: freshSuccessfulPrimary.length,
-      failingPrimarySources: failingPrimary.length,
-      stalePrimarySources: stalePrimary.length,
-      criticalSourceFailures,
-      sources: scheduledPrimary.map((row) => ({
+      scheduledPrimarySources: sourceFamilyCoverage.requiredSourceFamilies,
+      freshSuccessfulPrimarySources: sourceFamilyCoverage.healthyRequiredSourceFamilies,
+      failingPrimarySources: sourceFamilyCoverage.failingPrimaryEndpoints,
+      stalePrimarySources: sourceFamilyCoverage.stalePrimaryEndpoints,
+      criticalSourceFailures: sourceFamilyCoverage.criticalDomainFailures.length,
+      requiredDomains: ["national", "economy_banking", "punjab"],
+      criticalDomainFailures: sourceFamilyCoverage.criticalDomainFailures,
+      degradedSourceFamilies: sourceFamilyCoverage.degradedSourceFamilies,
+      unhealthySourceFamilies: sourceFamilyCoverage.unhealthySourceFamilies,
+      sourceFamilies: sourceFamilyCoverage.families,
+      sources: coreOfficialSources.map((row) => ({
         sourceKey: String(row.sourceKey),
         name: String(row.name),
+        sourceFamily: String(row.sourceFamily ?? row.sourceKey),
+        sourceTier: String(row.sourceTier ?? "core_official"),
+        coverageDomain: text(row.coverageDomain),
         fresh: Boolean(row.fresh),
         status: text(row.lastIngestionStatus),
         lastIngestedAt: text(row.lastIngestedAt),
         error: text(row.lastIngestionError),
       })),
+      discoverySources: discoverySources.map((row) => {
+        const metadata = row.metadata && typeof row.metadata === "object" ? row.metadata as Record<string, unknown> : {};
+        return {
+          sourceKey: String(row.sourceKey),
+          name: String(row.name),
+          sourceFamily: String(row.sourceFamily ?? row.sourceKey),
+          sourceTier: String(row.sourceTier),
+          coverageDomain: text(row.coverageDomain),
+          contentPolicy: text(row.contentPolicy),
+          ingestionMode: String(row.ingestionMode ?? "manual"),
+          scheduled: Boolean(row.scheduled),
+          fresh: Boolean(row.fresh),
+          status: text(row.lastIngestionStatus),
+          lastIngestedAt: text(row.lastIngestedAt),
+          baseUrl: text(row.baseUrl),
+          feedUrl: text(row.feedUrl),
+          automationStatus: text(metadata.automationStatus),
+          usagePolicy: text(metadata.usagePolicy),
+        };
+      }),
     },
     pipeline: {
       queuedCandidates: Number(queue[0]?.count ?? 0),

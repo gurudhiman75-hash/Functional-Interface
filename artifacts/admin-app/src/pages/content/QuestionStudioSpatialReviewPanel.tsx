@@ -38,6 +38,12 @@ const CHAPTER_LABELS: Record<SpatialReviewChapter, string> = {
   'FGC-001': 'Figure Completion',
   'PFC-001': 'Paper Folding & Cutting',
   'TPF-001': 'Transparent Pattern Folding',
+  'FCT-001': 'Counting Figures',
+  'EMB-001': 'Embedded Figure',
+  'FFM-001': 'Figure Formation',
+  'DOT-001': 'Dot Situation',
+  'FMT-001': 'Figure Matrix',
+  'IDF-001': 'Identical Figure / Figure Grouping',
 };
 const LANGUAGE_LABELS: Record<SpatialReviewLanguage, string> = {
   en: 'English',
@@ -63,7 +69,7 @@ function SvgFigure({ svg, label, wide = false }: { svg: string; label: string; w
     <div className="rounded-lg border bg-white p-2 text-center text-slate-950">
       <div className="mb-1 text-xs font-medium text-slate-500">{label}</div>
       <div
-        className={`mx-auto w-full ${wide ? 'max-w-[560px]' : 'max-w-[150px]'} [&_svg]:h-auto [&_svg]:w-full`}
+        className={`mx-auto w-full ${wide ? 'max-w-[900px]' : 'max-w-[150px]'} [&_svg]:h-auto [&_svg]:w-full`}
         // SVG is produced only by the validated internal Spatial renderer.
         dangerouslySetInnerHTML={{ __html: svg }}
       />
@@ -79,8 +85,20 @@ function explanationLabels(language: SpatialReviewLanguage) {
 
 function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) {
   const labels = explanationLabels(question.language);
-  const isWideStimulus = question.chapterCode === 'FGC-001' || question.chapterCode === 'PFC-001' || question.chapterCode === 'TPF-001';
-  const isWideOptionProcess = question.qlId === 'SPA-QL-039';
+  const isWideStimulus = question.chapterCode === 'FGC-001'
+    || question.chapterCode === 'PFC-001'
+    || question.chapterCode === 'TPF-001'
+    || question.chapterCode === 'FFM-001'
+    || question.chapterCode === 'FMT-001'
+    || question.chapterCode === 'IDF-001';
+  const isWideOptionProcess = question.qlId === 'SPA-QL-039' || question.chapterCode === 'IDF-001';
+  const explanationIllustrationLabel = question.chapterCode === 'DOT-001'
+    ? 'Solution: one valid placement preserving every dot-region relation'
+    : question.chapterCode === 'FMT-001'
+      ? 'Solution: completed matrix with the missing cell filled'
+      : question.chapterCode === 'IDF-001'
+        ? 'Solution: three valid groups using every numbered figure once'
+        : 'Assembly: printed pieces → required turn → exact joined positions';
   return (
     <Card className="border-primary/15 bg-background">
       <CardHeader className="space-y-2 pb-3">
@@ -137,11 +155,64 @@ function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) 
 
         <details className="rounded-lg border p-3">
           <summary className="cursor-pointer font-semibold">Learner explanation</summary>
-          <div className="mt-3 space-y-2 leading-6 text-muted-foreground">
+          <div className="mt-3 space-y-3 leading-6 text-muted-foreground">
             <p><strong className="text-foreground">{labels.observe}:</strong> {question.explanation.observation}</p>
             <p><strong className="text-foreground">{labels.rule}:</strong> {question.explanation.rule}</p>
             <p><strong className="text-foreground">{labels.apply}:</strong> {question.explanation.application}</p>
             <p><strong className="text-foreground">{labels.check}:</strong> {question.explanation.check}</p>
+            {question.explanation.membershipTable && question.explanation.membershipTable.length > 0 && (
+              <div className="overflow-x-auto rounded-lg border bg-background">
+                <table className="w-full min-w-[520px] border-collapse text-xs">
+                  <thead>
+                    <tr className="border-b bg-muted/40 text-left text-foreground">
+                      <th className="px-3 py-2 font-semibold">Dot</th>
+                      <th className="px-3 py-2 font-semibold">Inside</th>
+                      <th className="px-3 py-2 font-semibold">Outside</th>
+                      <th className="px-3 py-2 font-semibold">Signature</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {question.explanation.membershipTable.map((row) => (
+                      <tr key={`${question.questionId}-dot-${row.dot}`} className="border-b last:border-b-0">
+                        <td className="px-3 py-2 font-medium text-foreground">{row.dot}</td>
+                        <td className="px-3 py-2">{row.inside.join(', ') || '—'}</td>
+                        <td className="px-3 py-2">{row.outside.join(', ') || '—'}</td>
+                        <td className="px-3 py-2 font-mono text-foreground">{row.signature}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {question.explanation.groupTable && question.explanation.groupTable.length > 0 && (
+              <div className="overflow-x-auto rounded-lg border bg-background">
+                <table className="w-full min-w-[560px] border-collapse text-xs">
+                  <thead>
+                    <tr className="border-b bg-muted/40 text-left text-foreground">
+                      <th className="px-3 py-2 font-semibold">Group</th>
+                      <th className="px-3 py-2 font-semibold">Figures</th>
+                      <th className="px-3 py-2 font-semibold">Why they belong together</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {question.explanation.groupTable.map((row, index) => (
+                      <tr key={`${question.questionId}-group-${index}`} className="border-b last:border-b-0">
+                        <td className="px-3 py-2 font-medium text-foreground">{index + 1}</td>
+                        <td className="px-3 py-2 font-mono text-foreground">({row.members})</td>
+                        <td className="px-3 py-2">{row.reason}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {question.explanationIllustrationSvg && (
+              <SvgFigure
+                svg={question.explanationIllustrationSvg}
+                label={explanationIllustrationLabel}
+                wide={question.chapterCode !== 'DOT-001'}
+              />
+            )}
           </div>
         </details>
       </CardContent>
@@ -250,17 +321,17 @@ export function QuestionStudioSpatialReviewPanel() {
             <Badge variant="outline" className="gap-1">
               <ShieldAlert className="h-3 w-3" /> Standard Question Studio lifecycle
             </Badge>
-            <Badge variant="outline">{pkg?.permanentQlCount ?? 40} permanent QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
+            <Badge variant="outline">{pkg?.permanentQlCount ?? 58} production QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate approved Mirror Image, Water Image, Figure Analogy, Figure Classification, Figure Series, Figure Completion, Paper Folding & Cutting and Transparent Pattern Folding questions in English, Hindi or Punjabi directly into the normal Question Studio review queue. Frozen geometry and answers stay identical across languages; only learner-facing text is localized.
+          Generate approved Spatial Reasoning questions across mirror/water images, visual analogy and classification, figure series/completion, paper and transparent folding, Counting Figures, Embedded Figure, Figure Formation, Dot Situation, Figure Matrix and Identical Figure / Figure Grouping in English, Hindi or Punjabi. SPA-QL-051..053 use the approved FFM V5 geometry and illustrated assembly explanation; SPA-QL-054 uses the approved DOT V1 region-membership solver; SPA-QL-055..060 use the approved FMT V2.4 matrix solver; SPA-QL-061..063 use the approved IDF V1.1 full-bank grouping solver with readable 1–9 labels, explicit rotation/reflection policy and grouped solution illustration. All items require manual review before Question Bank/Test Builder use, while mock and student/public release remain locked.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
         {status && (
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <Metric label="Permanent QLs" value={status.permanentQlCount} />
+            <Metric label="Production QLs" value={status.permanentQlCount} />
             <Metric label="Studio items" value={status.generationItemCount} />
             <Metric label="Review-approved" value={status.approvedItemCount} />
             <Metric label="Question Bank" value={status.questionBankCount} />
@@ -272,7 +343,7 @@ export function QuestionStudioSpatialReviewPanel() {
             <ShieldAlert className="h-4 w-4" /> Multilingual standard approval handoff
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            English, Hindi and Punjabi use the same canonical geometry, option order, answer and semantic fingerprint. After the quality gate and manual approval, Question Studio converts the selected language item into Question Bank through the shared lifecycle. Automatic student publication stays disabled.
+            English, Hindi and Punjabi preserve the same approved geometry, option order and answer semantics. Manual Question Studio approval converts eligible items into Question Bank; approved held-gap, Figure Formation, Dot Situation, Figure Matrix and Identical Figure QLs may then be manually used in Test Builder, while mock-test, automatic student delivery and public release stay disabled.
           </p>
         </div>
 

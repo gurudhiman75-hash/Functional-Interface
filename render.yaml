@@ -44,6 +44,38 @@ services:
       - key: CORS_ORIGINS
         sync: false   # set in Render dashboard
 
+      # ── AI / Notes Studio ─────────────────────────────────────────────────
+      # Secret stays in Render; never commit provider keys to GitHub.
+      - key: GEMINI_API_KEY
+        sync: false
+      # All Notes Studio model-backed authoring stages use the shared provider layer.
+      - key: NOTES_STUDIO_AI_PROVIDER
+        value: gemini
+      # Stable production model for candidate claims, coverage, research,
+      # section synthesis, QA and localization. Stage-specific overrides remain optional.
+      - key: NOTES_STUDIO_MODEL
+        value: gemini-3.6-flash
+      - key: NOTES_STUDIO_EVIDENCE_MODEL
+        value: gemini-3.6-flash
+      # If Gemini 3.6 remains transiently unavailable after the bounded retry policy,
+      # use the stable GA 3.5 Flash model for that one authoring request. This is a
+      # capacity fallback only; 3.6 remains primary and Gemini 2.5 is never selected.
+      - key: GEMINI_FALLBACK_MODEL
+        value: gemini-3.5-flash
+
+      # Web Discovery is intentionally decoupled from the authoring model provider.
+      # Tavily returns bounded search results; Notes Studio keeps URLs only and discards
+      # result snippets/answers/raw content. The free Tavily plan currently includes
+      # 1,000 API credits/month and does not require a credit card.
+      - key: NOTES_STUDIO_SEARCH_PROVIDER
+        value: tavily
+      - key: TAVILY_API_KEY
+        sync: false
+      # Optional Gemini-search override if Web Discovery is deliberately switched
+      # back to Gemini later. Current Gemini 3.x grounding uses the Interactions API.
+      - key: NOTES_STUDIO_SEARCH_MODEL
+        value: gemini-3.6-flash
+
       # ── Razorpay (optional — omit if not using payments) ─────────────────
       - key: RAZORPAY_KEY_ID
         sync: false

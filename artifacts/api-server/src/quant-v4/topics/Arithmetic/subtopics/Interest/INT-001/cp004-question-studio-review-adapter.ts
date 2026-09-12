@@ -8,20 +8,24 @@ import {
   INT_CP004_MULTILINGUAL_FREEZE_V9,
   generateIntCp004MultilingualFrozenQuestionV9,
 } from "./cp004-multilingual-freeze-v9";
+import {
+  INT_CP004_ENGLISH_FREEZE_V2_ID,
+} from "./cp004-english-freeze-authority-v2";
+import { generateIntCp004EnglishFrozenV2Question } from "./cp004-english-frozen-runtime-v2";
+import {
+  assertInterestDirectCalculationExplanation,
+  retrofitInterestFrozenSourceExplanation,
+} from "./interest-direct-calculation-explanation-policy-v1";
 
 export const INT_CP004_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
 export const INT_CP004_QUESTION_STUDIO_CHECKPOINT_ID = "INT-CP-004" as const;
-export const INT_CP004_QUESTION_STUDIO_LANGUAGES = ["hi", "pa"] as const;
+export const INT_CP004_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
 export const INT_CP004_QUESTION_STUDIO_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
-export const INT_CP004_QUESTION_STUDIO_RUNTIME_MODE =
-  "INT-CP-004-MULTILINGUAL-FROZEN-REVIEW-v1" as const;
-export const INT_CP004_QUESTION_STUDIO_INTEGRATION_AUTHORITY =
-  INT_CP004_MULTILINGUAL_FREEZE_V9.freezeId;
+export const INT_CP004_QUESTION_STUDIO_RUNTIME_MODE = "INT-CP-004-TRILINGUAL-FROZEN-REVIEW-v2" as const;
+export const INT_CP004_QUESTION_STUDIO_INTEGRATION_AUTHORITY = "INT-CP-004-EN-v2+HI-PA-v9" as const;
 
-export type IntCp004QuestionStudioLanguage =
-  (typeof INT_CP004_QUESTION_STUDIO_LANGUAGES)[number];
-export type IntCp004QuestionStudioDifficulty =
-  (typeof INT_CP004_QUESTION_STUDIO_DIFFICULTIES)[number];
+export type IntCp004QuestionStudioLanguage = (typeof INT_CP004_QUESTION_STUDIO_LANGUAGES)[number];
+export type IntCp004QuestionStudioDifficulty = (typeof INT_CP004_QUESTION_STUDIO_DIFFICULTIES)[number];
 
 export type IntCp004QuestionStudioReviewRequest = Readonly<{
   language?: IntCp004QuestionStudioLanguage;
@@ -41,8 +45,8 @@ export const INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   subtopic: "Interest",
   chapterId: "INT-001",
   checkpointId: INT_CP004_QUESTION_STUDIO_CHECKPOINT_ID,
-  name: "INT-001 Interest — CP-004 Multilingual Frozen Review",
-  label: "Interest · CP-004 · 19 Frozen QLs",
+  name: "INT-001 Interest — CP-004 Trilingual Frozen Review",
+  label: "Interest · CP-004 · 19 Frozen QLs · EN/HI/PA",
   generationDomain: "quant-v4",
   qlIds: [...INT_CP004_QL_IDS],
   supportedDifficulties: [...INT_CP004_QUESTION_STUDIO_DIFFICULTIES],
@@ -51,7 +55,7 @@ export const INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   reviewOnly: true,
   reviewPreviewAvailable: true,
   runtimeMode: INT_CP004_QUESTION_STUDIO_RUNTIME_MODE,
-  reviewStatus: "APPROVED_MULTILINGUAL_FROZEN",
+  reviewStatus: "APPROVED_TRILINGUAL_FROZEN",
   questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY",
   questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED",
   questionBankStatus: "NOT_STORED",
@@ -71,12 +75,13 @@ export const INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   frozenQlCount: INT_CP004_QL_IDS.length,
   approvedReviewPayloadCount: INT_CP004_MULTILINGUAL_FREEZE_V9.reviewQuestionCount,
   bulkSyncSupported: false,
-  englishStatus: "NOT_REGISTERED_FROM_HISTORICAL_FREEZE",
+  englishStatus: "REGISTERED_FROM_APPROVED_ENGLISH_V2_FREEZE",
 } as const);
 
 const DECIMAL_TOKEN = /\d+\.\d+/u;
 
 function localeForLanguage(language: IntCp004QuestionStudioLanguage) {
+  if (language === "en") return "en-IN" as const;
   return language === "hi" ? "hi-IN" as const : "pa-IN" as const;
 }
 
@@ -102,116 +107,149 @@ function difficultyForQl(qlId: IntCp004QlId): Cp004Difficulty {
   return entry.difficulty;
 }
 
-function assertFrozenReviewQuestion(
-  question: ReturnType<typeof generateIntCp004MultilingualFrozenQuestionV9>,
-) {
-  if (question.options.length !== 4) {
-    throw new Error(`${question.qlId}: expected exactly four frozen options.`);
+type NormalizedFrozenSource = Readonly<{
+  qlId: IntCp004QlId;
+  seed: string;
+  locale: "en-IN" | "hi-IN" | "pa-IN";
+  difficulty: Cp004Difficulty;
+  representation: unknown;
+  stemFamilyId: string;
+  answerSemantic: string;
+  solveContract: string;
+  stem: string;
+  options: readonly string[];
+  correctIndex: number;
+  correctAnswer: string;
+  explanationLines: readonly string[];
+  commonMistake: string;
+  sourceFreezeId: string;
+  canonicalEnglishFreezeId: string;
+  canonicalSeed: string;
+  canonicalQlId: IntCp004QlId;
+}>;
+
+function normalizedLocalizedSource(
+  qlId: IntCp004QlId,
+  seed: string,
+  language: "hi" | "pa",
+): NormalizedFrozenSource {
+  const locale = localeForLanguage(language);
+  const source = generateIntCp004MultilingualFrozenQuestionV9({ qlId, seed, locale });
+  if (source.options.length !== 4 || source.options.filter((option) => option.isCorrect).length !== 1) {
+    throw new Error(`${qlId}/${language}: CP004 frozen option ownership failed.`);
   }
-  const optionTexts = question.options.map((option) => option.text);
-  if (new Set(optionTexts).size !== optionTexts.length) {
-    throw new Error(`${question.qlId}: duplicate learner options detected.`);
+  const optionTexts = source.options.map((option) => option.text);
+  if (new Set(optionTexts).size !== 4 || source.options[source.correctIndex]?.text !== source.correctAnswer) {
+    throw new Error(`${qlId}/${language}: CP004 frozen option display drifted.`);
   }
-  if (question.options.filter((option) => option.isCorrect).length !== 1) {
-    throw new Error(`${question.qlId}: expected exactly one correct option.`);
-  }
-  if (question.options.some((option) => option.feedback !== "")) {
-    throw new Error(`${question.qlId}: learner-facing option feedback is not suppressed.`);
-  }
-  if (question.options[question.correctIndex]?.text !== question.correctAnswer) {
-    throw new Error(`${question.qlId}: correct-answer ownership changed.`);
-  }
-  const formulaPrefix = question.locale === "hi-IN" ? "सूत्र:" : "ਸੂਤਰ:";
-  if (!(question.explanation.steps[0] ?? "").startsWith(formulaPrefix)) {
-    throw new Error(`${question.qlId}: frozen explanation no longer starts with the formula.`);
-  }
-  if (!question.explanation.steps.slice(1).some((step) => /[=×÷+−^/]/u.test(step))) {
-    throw new Error(`${question.qlId}: frozen explanation lacks explicit calculation.`);
-  }
-  const learnerText = [
-    question.stem,
-    ...optionTexts,
-    question.correctAnswer,
-    question.explanation.whatAsked,
-    ...question.explanation.steps,
-    question.explanation.finalAnswer,
-  ].join("\n");
-  if (DECIMAL_TOKEN.test(learnerText)) {
-    throw new Error(`${question.qlId}: decimal token leaked into the frozen learner surface.`);
-  }
+  if (source.options.some((option) => option.feedback !== "")) throw new Error(`${qlId}/${language}: option feedback leaked.`);
+  const learnerText = [source.stem, ...optionTexts, ...source.explanation.steps].join("\n");
+  if (DECIMAL_TOKEN.test(learnerText)) throw new Error(`${qlId}/${language}: decimal token leaked into frozen learner content.`);
   if (
-    question.enabled
-    || question.lifecycle.enabled
-    || question.lifecycle.questionStudioDiscoverable
-    || question.lifecycle.questionBankStatus !== "NOT_STORED"
-    || question.lifecycle.testEligibility !== "INELIGIBLE"
-    || question.lifecycle.publiclyPublishable
-  ) {
-    throw new Error(`${question.qlId}: source freeze lifecycle changed unexpectedly.`);
-  }
-  if (question.multilingualFreeze.freezeId !== INT_CP004_QUESTION_STUDIO_INTEGRATION_AUTHORITY) {
-    throw new Error(`${question.qlId}: multilingual freeze authority changed.`);
-  }
+    source.enabled || source.lifecycle.enabled || source.lifecycle.questionStudioDiscoverable
+    || source.lifecycle.questionBankStatus !== "NOT_STORED"
+    || source.lifecycle.testEligibility !== "INELIGIBLE" || source.lifecycle.publiclyPublishable
+  ) throw new Error(`${qlId}/${language}: localized frozen lifecycle opened unexpectedly.`);
+  return Object.freeze({
+    qlId,
+    seed: source.seed,
+    locale: source.locale,
+    difficulty: source.difficulty,
+    representation: source.representation,
+    stemFamilyId: source.stemFamilyId,
+    answerSemantic: source.answerSemantic,
+    solveContract: source.solveContract,
+    stem: source.stem,
+    options: Object.freeze(optionTexts),
+    correctIndex: source.correctIndex,
+    correctAnswer: source.correctAnswer,
+    explanationLines: Object.freeze([...source.explanation.steps]),
+    commonMistake: source.explanation.commonMistake,
+    sourceFreezeId: source.multilingualFreeze.freezeId,
+    canonicalEnglishFreezeId: source.multilingualFreeze.canonicalEnglishFreezeId,
+    canonicalSeed: source.localization.canonicalSeed,
+    canonicalQlId: source.localization.canonicalQlId,
+  });
 }
 
-function toReviewPreview(
-  source: ReturnType<typeof generateIntCp004MultilingualFrozenQuestionV9>,
-  language: IntCp004QuestionStudioLanguage,
-) {
-  assertFrozenReviewQuestion(source);
-  const questionId = [
-    INT_CP004_QUESTION_STUDIO_CHECKPOINT_ID,
-    source.qlId,
-    source.locale,
-    source.seed,
-  ].join(":");
-  const explanationId = `${questionId}:EXPLANATION`;
+function normalizedEnglishSource(qlId: IntCp004QlId, seed: string): NormalizedFrozenSource {
+  const frozen = generateIntCp004EnglishFrozenV2Question(qlId, seed);
+  if (!frozen.permanentIdentityFrozen || !frozen.learnerContentFrozen || frozen.enabled || frozen.questionStudioDiscoverable) {
+    throw new Error(`${qlId}/en: approved English freeze boundary changed.`);
+  }
+  const direct = retrofitInterestFrozenSourceExplanation(frozen, qlId, "en");
+  const lines = Object.freeze([...(direct.explanation.steps ?? [])].map(String));
+  assertInterestDirectCalculationExplanation(qlId, "en", lines);
+  const options = Object.freeze(frozen.options.map((option) => option.text));
+  if (options.length !== 4 || new Set(options).size !== 4 || options[frozen.correctIndex] !== frozen.correctAnswer) {
+    throw new Error(`${qlId}/en: approved English frozen options drifted.`);
+  }
+  return Object.freeze({
+    qlId,
+    seed: frozen.seed,
+    locale: "en-IN",
+    difficulty: frozen.difficulty,
+    representation: frozen.representation,
+    stemFamilyId: frozen.stemFamilyId,
+    answerSemantic: frozen.answerSemantic,
+    solveContract: frozen.solveContract,
+    stem: frozen.stem,
+    options,
+    correctIndex: frozen.correctIndex,
+    correctAnswer: frozen.correctAnswer,
+    explanationLines: lines,
+    commonMistake: "",
+    sourceFreezeId: INT_CP004_ENGLISH_FREEZE_V2_ID,
+    canonicalEnglishFreezeId: INT_CP004_ENGLISH_FREEZE_V2_ID,
+    canonicalSeed: frozen.seed,
+    canonicalQlId: qlId,
+  });
+}
 
+function toReviewPreview(source: NormalizedFrozenSource, language: IntCp004QuestionStudioLanguage) {
+  const questionId = [INT_CP004_QUESTION_STUDIO_CHECKPOINT_ID, source.qlId, source.locale, source.seed].join(":");
+  const explanationId = `${questionId}:EXPLANATION`;
   return Object.freeze({
     archetypeId: INT_CP004_QUESTION_STUDIO_PACKAGE_ID,
     packageId: INT_CP004_QUESTION_STUDIO_PACKAGE_ID,
     canonicalProblemId: INT_CP004_QUESTION_STUDIO_CHECKPOINT_ID,
     qlId: source.qlId,
+    permanentQlId: source.qlId,
     questionId,
     canonicalItemId: `${source.qlId}:${source.seed}`,
-    questionLanguageId: questionId,
+    questionLanguageId: `${source.qlId}:${language}`,
     explanationId,
     language,
     locale: source.locale,
     difficultyBand: source.difficulty,
-    useMode: "GENERATED_MULTILINGUAL_FROZEN_QL",
+    useMode: "GENERATED_TRILINGUAL_FROZEN_QL",
     sharedPrompt: "",
     stem: source.stem,
-    options: source.options.map((option) => option.text),
-    optionDetails: source.options.map((option) => Object.freeze({
-      label: option.id,
-      text: option.text,
-      studentExplanation: "",
-      isCorrect: option.isCorrect,
-      semanticKey: `option-${option.id}`,
+    options: [...source.options],
+    optionDetails: source.options.map((text, index) => Object.freeze({
+      label: String.fromCharCode(65 + index), text, studentExplanation: "", isCorrect: index === source.correctIndex, semanticKey: `option-${index + 1}`,
     })),
     correctIndex: source.correctIndex,
     answer: source.correctAnswer,
     decodedStatements: [] as string[],
     explanation: Object.freeze({
       explanationId,
-      whatAsked: source.explanation.whatAsked,
-      steps: [...source.explanation.steps],
-      conclusion: source.explanation.finalAnswer,
+      whatAsked: "",
+      steps: [...source.explanationLines],
+      conclusion: source.correctAnswer,
       shortcut: "",
-      commonTrap: source.explanation.commonMistake,
+      commonTrap: source.commonMistake,
       optionAnalysis: [] as unknown[],
       familyTree: null,
       diagramProof: null,
     }),
     reasoningGraph: null,
-    renderer: Object.freeze({
-      kind: "text-math",
-      renderingContract: "plain-unicode-math-v1",
-      textFallbackAvailable: true,
-    }),
+    renderer: Object.freeze({ kind: "text-math", renderingContract: "plain-unicode-math-v1", textFallbackAvailable: true }),
     runtimeMode: INT_CP004_QUESTION_STUDIO_RUNTIME_MODE,
-    reviewStatus: "APPROVED_MULTILINGUAL_FROZEN" as const,
+    reviewStatus: "APPROVED_TRILINGUAL_FROZEN" as const,
+    questionStudioDiscoverable: true as const,
+    questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
+    questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
     questionBankStatus: "NOT_STORED" as const,
     questionBankWritable: false as const,
     testEligibility: "INELIGIBLE" as const,
@@ -231,7 +269,7 @@ function toReviewPreview(
       answerSemantic: source.answerSemantic,
       solveContract: source.solveContract,
       runtimeMode: INT_CP004_QUESTION_STUDIO_RUNTIME_MODE,
-      reviewStatus: "APPROVED_MULTILINGUAL_FROZEN",
+      reviewStatus: "APPROVED_TRILINGUAL_FROZEN",
       integrationAuthority: INT_CP004_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
@@ -241,14 +279,15 @@ function toReviewPreview(
       persistenceAllowed: true,
     }),
     traceability: Object.freeze({
-      multilingualFreezeId: source.multilingualFreeze.freezeId,
-      approvedReviewedHead: source.multilingualFreeze.approvedReviewedHead,
-      approvalCommentId: source.multilingualFreeze.approvalCommentId,
-      canonicalEnglishFreezeId: source.multilingualFreeze.canonicalEnglishFreezeId,
-      canonicalSeed: source.localization.canonicalSeed,
-      canonicalQlId: source.localization.canonicalQlId,
+      permanentQlId: source.qlId,
+      sourceFreezeId: source.sourceFreezeId,
+      canonicalEnglishFreezeId: source.canonicalEnglishFreezeId,
+      canonicalSeed: source.canonicalSeed,
+      canonicalQlId: source.canonicalQlId,
       representation: source.representation,
       stemFamilyId: source.stemFamilyId,
+      permanentIdentityFrozen: true as const,
+      learnerContentFrozen: true as const,
     }),
     safety: Object.freeze({
       reviewOnly: true as const,
@@ -265,8 +304,6 @@ function toReviewPreview(
     validation: Object.freeze({
       valid: true as const,
       frozenAuthority: true as const,
-      decimalFree: true as const,
-      formulaFirst: true as const,
       completeCalculation: true as const,
       optionFeedbackSuppressed: true as const,
       sourceLifecycleLocked: true as const,
@@ -274,46 +311,28 @@ function toReviewPreview(
   });
 }
 
-export function previewIntCp004QuestionStudioReview(
-  request: IntCp004QuestionStudioReviewRequest = {},
-) {
-  const language = request.language ?? "hi";
+export function previewIntCp004QuestionStudioReview(request: IntCp004QuestionStudioReviewRequest = {}) {
+  const language = request.language ?? "en";
   const locale = localeForLanguage(language);
   const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
-  const seed = request.seed?.trim() || [
-    INT_CP004_QUESTION_STUDIO_CHECKPOINT_ID,
-    language,
-    request.qlId ?? "all-qls",
-    request.difficulty ?? "all-difficulties",
-  ].join(":");
-
-  const eligibleQls = INT_CP004_QL_IDS.filter((qlId) =>
-    (!request.qlId || qlId === request.qlId)
-    && (!request.difficulty || difficultyForQl(qlId) === request.difficulty)
-  );
-  if (!eligibleQls.length) {
-    throw new Error("No frozen CP-004 QLs match the requested filters.");
-  }
-
+  const seed = request.seed?.trim() || [INT_CP004_QUESTION_STUDIO_CHECKPOINT_ID, language, request.qlId ?? "all-qls", request.difficulty ?? "all-difficulties"].join(":");
+  const eligibleQls = INT_CP004_QL_IDS.filter((qlId) => (!request.qlId || qlId === request.qlId) && (!request.difficulty || difficultyForQl(qlId) === request.difficulty));
+  if (!eligibleQls.length) throw new Error("No frozen CP-004 QLs match the requested filters.");
   const orderedQls = stableQlOrder(eligibleQls, seed);
   const questions: ReturnType<typeof toReviewPreview>[] = [];
   const rounds = Math.max(2, Math.ceil(count / orderedQls.length) + 1);
 
   for (let round = 0; round < rounds && questions.length < count; round += 1) {
     for (const qlId of orderedQls) {
-      const generated = generateIntCp004MultilingualFrozenQuestionV9({
-        qlId,
-        seed: `${seed}:${round}:${qlId}`,
-        locale,
-      });
-      questions.push(toReviewPreview(generated, language));
+      const itemSeed = `${seed}:${round}:${qlId}`;
+      const source = language === "en"
+        ? normalizedEnglishSource(qlId, itemSeed)
+        : normalizedLocalizedSource(qlId, itemSeed, language);
+      questions.push(toReviewPreview(source, language));
       if (questions.length >= count) break;
     }
   }
-
-  if (questions.length !== count) {
-    throw new Error(`Unable to produce the requested ${count} frozen CP-004 review question(s).`);
-  }
+  if (questions.length !== count) throw new Error(`Unable to produce the requested ${count} frozen CP-004 review question(s).`);
 
   return Object.freeze({
     generationContext: Object.freeze({
@@ -324,7 +343,7 @@ export function previewIntCp004QuestionStudioReview(
       language,
       locale,
       runtimeMode: INT_CP004_QUESTION_STUDIO_RUNTIME_MODE,
-      reviewStatus: "APPROVED_MULTILINGUAL_FROZEN" as const,
+      reviewStatus: "APPROVED_TRILINGUAL_FROZEN" as const,
       integrationAuthority: INT_CP004_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
       questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
       questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,

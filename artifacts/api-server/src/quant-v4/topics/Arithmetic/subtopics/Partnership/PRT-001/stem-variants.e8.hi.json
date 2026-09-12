@@ -1,0 +1,14 @@
+{
+  "language": "hi",
+  "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED_VARIANTS",
+  "entries": {
+    "PRT-QL-104": [
+      "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। लाभ का {equalSplitPercent}% बराबर और बाकी {capitalSplitPercent}% पूंजी अनुपात में बाँटा गया। उनकी अंतिम प्राप्तियों में {shareDifference} का अंतर था। कुल लाभ ज्ञात कीजिए।",
+      "एक {business} में {partnerA} और {partnerB} की समान-अवधि पूंजी {capitalA} और {capitalB} थी। लाभ का {equalSplitPercent}% दोनों ने बराबर बाँटा और शेष {capitalSplitPercent}% पूंजी के अनुपात में। यदि अंत में एक को दूसरे से {shareDifference} अधिक मिला, तो कुल लाभ कितना था?"
+    ],
+    "PRT-QL-105": [
+      "एक {business} {totalDuration} तक चला। {partnerA} ने {capitalA} पूरे समय रखे। {partnerB} ने शुरू में {initialCapitalB} लगाए और {changeAfterB} बाद {withdrawnCapitalB} निकाल लिए, जबकि {partnerC} ने {capitalC} पूरे समय लगाए। लाभ {totalProfit} में {targetPartner} का हिस्सा निकालिए।",
+      "{totalDuration} चलने वाले एक {business} में {partnerA} और {partnerC} की पूंजी क्रमशः {capitalA} और {capitalC} पूरे समय स्थिर रही। {partnerB} ने {initialCapitalB} में से {changeAfterB} बाद {withdrawnCapitalB} निकाल लिए। कुल लाभ {totalProfit} में से {targetPartner} को कितना मिला?"
+    ]
+  }
+}

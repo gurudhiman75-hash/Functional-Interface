@@ -35,12 +35,27 @@ const DATASETS: readonly [string, readonly SemanticPair[]][] = [
 const SCIENCE_RELATIONS = new Set(["SEM_INSTRUMENT_MEASUREMENT", "SEM_QUANTITY_UNIT"]);
 const LANGUAGE_RELATIONS = new Set(["SEM_ANIMAL_SOUND", "SEM_ANIMAL_MOVEMENT", "SEM_OBJECT_FUNCTION"]);
 
+// Fact-array order is not a measure of difficulty. These bands describe the
+// reasoning subtlety of the relationship itself; generated-question difficulty
+// is derived separately from relation demand and presentation burden.
+const MEDIUM_RELATIONS = new Set([
+  "SEM_ANIMAL_MOVEMENT",
+  "SEM_WORKER_PRODUCT",
+  "SEM_OBJECT_FUNCTION",
+  "SEM_PART_WHOLE",
+  "SEM_MEMBER_CLASS",
+  "SEM_INDIVIDUAL_GROUP",
+  "SEM_PRODUCT_MATERIAL",
+  "SEM_PLACE_PURPOSE",
+]);
+
 function fill(template: string, left: string, right: string): string {
   return template.replace("{left}", left).replace("{right}", right);
 }
 
 export const ANA_CP001_FACTS: readonly SemanticFact[] = DATASETS.flatMap(([relation, pairs], relationIndex) => {
   const definition = relationDefinition(relation);
+  const relationDifficulty = MEDIUM_RELATIONS.has(relation) ? "MEDIUM" as const : "EASY" as const;
   return pairs.map(([left, right], pairIndex) => {
     const predicate = fill(definition.predicateTemplate, left, right);
     return {
@@ -48,9 +63,9 @@ export const ANA_CP001_FACTS: readonly SemanticFact[] = DATASETS.flatMap(([relat
       left, right, relation, direction: "FORWARD" as const,
       predicate, explanation: predicate,
       answerCategory: definition.answerCategory, sourceCategory: definition.sourceCategory,
-      difficulty: pairIndex < 5 ? "EASY" as const : pairIndex < 10 ? "MEDIUM" as const : "HARD" as const,
+      difficulty: relationDifficulty,
       locale: "en-IN" as const, examSuitability: ["SSC", "BANKING", "PUNJAB"] as const,
-      version: "2.0.0", status: "CURATED" as const, verifiedAt: "2026-07-24",
+      version: "2.1.0", status: "CURATED" as const, verifiedAt: "2026-09-11",
       sourceType: SCIENCE_RELATIONS.has(relation) ? "STANDARD_SCIENCE" as const
         : LANGUAGE_RELATIONS.has(relation) ? "STANDARD_LANGUAGE" as const
         : "STABLE_GENERAL_KNOWLEDGE" as const,

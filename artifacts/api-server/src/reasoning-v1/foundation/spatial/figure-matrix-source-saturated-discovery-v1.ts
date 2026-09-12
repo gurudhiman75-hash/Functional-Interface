@@ -1,0 +1,193 @@
+export const FIGURE_MATRIX_SOURCE_SATURATED_DISCOVERY_V1 = Object.freeze({
+  authorityId: "SPA-FMT-001-SOURCE-SATURATED-DISCOVERY-V1" as const,
+  chapterCode: "FMT-001" as const,
+  chapterName: "Figure Matrix" as const,
+  auditDate: "2026-09-05" as const,
+  reviewedNewMainHead: "0e3e66b18546406746d45d815c3d7032ac6d99db" as const,
+  targetExams: Object.freeze(["SSC", "BANKING", "PUNJAB_STATE"] as const),
+  repositoryAuthorities: Object.freeze([
+    "SPA_001_SPATIAL_FAMILY_MASTER_BLUEPRINT.md",
+    "SPA_001_QUESTION_TYPE_INVENTORY.md",
+    "SPA_001_VALIDATION_CONTRACT.md",
+    "SPA-FND-001-FAMILY-FINAL-CLOSURE-AUDIT-V1",
+    "SPA-FND-001-FAMILY-FINAL-CLOSURE-SOURCE-EVIDENCE-V1",
+  ] as const),
+  semanticBoundary: Object.freeze({
+    owns: "ROW_AND_COLUMN_RULE_INFERENCE_IN_A_2D_FIGURE_MATRIX" as const,
+    differsFromFigureSeries: "FSR-001 is a one-dimensional progression; FMT-001 requires a missing cell in a two-dimensional matrix with a repeated row rule, repeated column rule, or simultaneous row-and-column constraints." as const,
+    differsFromFigureAnalogy: "A pure A:B::C:? relation with only one pairwise transform remains FAN-001. A 2x2 surface belongs to FMT-001 only when the grid itself supplies row/column consistency constraints rather than merely restyling an analogy." as const,
+    differsFromIdenticalGrouping: "Grouping a bank of figures into equivalent sets is not a matrix-completion task and is reserved for IDF-001 discovery." as const,
+  }),
+  sourceObservedSurfaces: Object.freeze({
+    matrixSizes: Object.freeze(["2x2", "3x3", "4x4"] as const),
+    governingAxes: Object.freeze(["ROW", "COLUMN", "BOTH"] as const),
+    missingCellPositions: "ANY_NON_TRIVIAL_CELL_SUPPORTED_BY_RULE_CONSTRAINTS" as const,
+    answerSurface: "FOUR_FIGURE_OPTIONS" as const,
+    commonMotifs: Object.freeze([
+      "LINES_AND_SEGMENTS",
+      "DOTS",
+      "ARROWS_OR_DIRECTIONAL_MARKS",
+      "NESTED_GEOMETRIC_SHAPES",
+      "SHADING_OR_FILL_STATES",
+      "MULTI_ELEMENT_COMPOSITES",
+    ] as const),
+  }),
+  canonicalTaskFamilies: Object.freeze([
+    Object.freeze({
+      proposalId: "FMT-PROP-01" as const,
+      skillMode: "REPEATED_UNARY_TRANSFORM" as const,
+      name: "Apply the same figure transformation across each row or column" as const,
+      observedRuleExamples: Object.freeze([
+        "ROTATION",
+        "REFLECTION_OR_INVERSION",
+        "ELEMENT_REMOVAL_OR_ADDITION",
+        "POSITION_SHIFT",
+        "NESTING_OR_SIZE_LAYER_CHANGE",
+        "SHADING_STATE_CHANGE",
+      ] as const),
+      solverRequirement: "Infer one deterministic transform from completed row/column exemplars and apply it to the incomplete row/column; verify the completed matrix repeats the same transform wherever evidence exists." as const,
+    }),
+    Object.freeze({
+      proposalId: "FMT-PROP-02" as const,
+      skillMode: "BINARY_FIGURE_COMPOSITION" as const,
+      name: "Derive the third cell from the first two by a figure-set operation" as const,
+      observedRuleExamples: Object.freeze([
+        "UNION_OR_SUPERIMPOSITION",
+        "INTERSECTION_OR_COMMON_PARTS",
+        "SYMMETRIC_DIFFERENCE_OR_CANCELLATION",
+        "DIRECTIONAL_SUBTRACTION_OR_DIFFERENCE",
+      ] as const),
+      solverRequirement: "Represent visible primitives as semantic sets/layers and recompute the declared composition operator; the answer cannot be chosen from SVG resemblance alone." as const,
+    }),
+    Object.freeze({
+      proposalId: "FMT-PROP-03" as const,
+      skillMode: "QUANTITATIVE_COUNT_RELATION" as const,
+      name: "Complete a matrix governed by counts of dots, lines or repeated elements" as const,
+      observedRuleExamples: Object.freeze([
+        "ADD_CONSTANT",
+        "MULTIPLY_CONSTANT",
+        "SUM_OR_DIFFERENCE_ACROSS_CELLS",
+        "BALANCED_COUNT_RELATION",
+      ] as const),
+      solverRequirement: "Extract the governed count feature from every completed row/column, solve the numeric relation, then render an answer whose non-count attributes remain controlled and non-cueing." as const,
+    }),
+    Object.freeze({
+      proposalId: "FMT-PROP-04" as const,
+      skillMode: "CYCLIC_DISTRIBUTION_OR_PERMUTATION" as const,
+      name: "Complete a row/column cycle of motifs, positions, orientations or fill states" as const,
+      observedRuleExamples: Object.freeze([
+        "POSITION_CYCLE",
+        "ORIENTATION_CYCLE",
+        "MOTIF_PERMUTATION",
+        "FILL_STATE_CYCLE",
+      ] as const),
+      solverRequirement: "Identify the cyclic order and verify that each completed row/column contains the expected permutation without introducing a second valid completion." as const,
+    }),
+    Object.freeze({
+      proposalId: "FMT-PROP-05" as const,
+      skillMode: "ORTHOGONAL_ROW_COLUMN_ATTRIBUTES" as const,
+      name: "Satisfy independent row and column attributes in the missing cell" as const,
+      observedRuleExamples: Object.freeze([
+        "ROW_CONTROLS_SHAPE_COLUMN_CONTROLS_FILL",
+        "ROW_CONTROLS_COUNT_COLUMN_CONTROLS_ORIENTATION",
+        "ROW_CONTROLS_POSITION_COLUMN_CONTROLS_MOTIF",
+      ] as const),
+      solverRequirement: "Derive at least one constraint from the missing cell's row and a distinct constraint from its column; the correct option must satisfy both simultaneously." as const,
+    }),
+    Object.freeze({
+      proposalId: "FMT-PROP-06" as const,
+      skillMode: "COMPOUND_MATRIX_RULE" as const,
+      name: "Complete a matrix using two coordinated transformations" as const,
+      observedRuleExamples: Object.freeze([
+        "ROTATE_PLUS_REFLECT",
+        "ROTATE_PLUS_MOVE_ELEMENT",
+        "COUNT_CHANGE_PLUS_POSITION_CHANGE",
+        "REMOVE_ELEMENT_PLUS_ORIENTATION_CHANGE",
+      ] as const),
+      solverRequirement: "Track both controlled attributes independently, apply the same compound rule to all evidential rows/columns and reject distractors that satisfy only one component." as const,
+    }),
+  ]),
+  consolidation: Object.freeze({
+    twoByTwoVsThreeByThreeVsFourByFour: "MATRIX_SIZE_PARAMETER" as const,
+    rowVsColumnRule: "GOVERNING_AXIS_PARAMETER" as const,
+    primitiveShapeChoice: "MOTIF_POOL_PARAMETER" as const,
+    clockwiseVsAnticlockwise: "TRANSFORM_PARAMETER" as const,
+    exactRotationAngle: "TRANSFORM_PARAMETER" as const,
+    numberOfDotsOrLines: "INSTANCE_PARAMETER" as const,
+    missingCellLocation: "INSTANCE_PARAMETER" as const,
+    easyVsHard: "RULE_DEPTH_AND_NUMBER_OF_ACTIVE_ATTRIBUTES_PARAMETER" as const,
+  }),
+  exclusions: Object.freeze([
+    "A one-dimensional next-figure progression is FSR-001, even if displayed in a decorative grid.",
+    "A pure pairwise A:B::C:? transform is FAN-001 unless the two-dimensional matrix supplies independent row/column evidence.",
+    "Questions that ask to form groups from a numbered bank of figures are not FMT-001; they remain for IDF-001/grouping discovery.",
+    "Numeric symbol matrices whose reasoning is purely arithmetic and does not depend on figure attributes belong to the non-spatial Matrix/Missing Number family.",
+    "Option identity must be based on semantic primitives and rule state, not raster/SVG pixel similarity.",
+  ] as const),
+  runtimeContract: Object.freeze({
+    authorityRepresentation: "LANGUAGE_NEUTRAL_MATRIX_CELLS_PLUS_DECLARED_RULE_AND_SEMANTIC_FEATURE_STATE" as const,
+    deterministic: true as const,
+    matrixSizeRange: Object.freeze([2, 4] as const),
+    fourOptionsRequired: true as const,
+    independentSolverRequired: true as const,
+    solverMustRecomputeMissingCell: true as const,
+    correctOptionMustSatisfyAllEvidentialAxes: true as const,
+    everyDistractorMustHaveDeclaredSemanticFailure: true as const,
+    uniqueAnswerRequired: true as const,
+    duplicateSemanticOptionsRejected: true as const,
+    svgIsOutputNotAuthority: true as const,
+  }),
+  visualContract: Object.freeze({
+    whiteBackground: true as const,
+    examStrokeWidthPx: 1.35 as const,
+    examStroke: "#111827" as const,
+    equalCellScaleWithinQuestion: true as const,
+    explicitMissingCellMarker: true as const,
+    optionsUseSameFigureScaleAsMatrixCells: true as const,
+    noAccidentalWholeFigureTilt: true as const,
+    noBrokenOrClippedEdges: true as const,
+    shadingMustRemainHighContrast: true as const,
+  }),
+  explanationContract: Object.freeze({
+    nameGoverningAxis: true as const,
+    showRuleOnAtLeastOneCompletedRowOrColumn: true as const,
+    applyRuleToMissingRowOrColumn: true as const,
+    showSecondAxisCheckWhenAvailable: true as const,
+    identifyChangedAttributesExplicitly: true as const,
+    explainWhyNearMissDistractorsFail: true as const,
+    assertionOnlyExplanationProhibited: true as const,
+    solutionIllustrationRequiredForTransformAndCompositionFamilies: true as const,
+  }),
+  localization: Object.freeze({
+    languages: Object.freeze(["en", "hi", "pa"] as const),
+    geometryLanguageNeutral: true as const,
+    matrixRuleLanguageNeutral: true as const,
+    stemAndExplanationLocalized: true as const,
+    semanticParityRequired: true as const,
+  }),
+  decision: Object.freeze({
+    allocatePermanentQlCount: 6,
+    allocateProposalIds: Object.freeze([
+      "FMT-PROP-01",
+      "FMT-PROP-02",
+      "FMT-PROP-03",
+      "FMT-PROP-04",
+      "FMT-PROP-05",
+      "FMT-PROP-06",
+    ] as const),
+    proposedPermanentQlRange: "SPA-QL-055..SPA-QL-060" as const,
+    sourceSaturationEstablishedForCoreFigureMatrix: true as const,
+    chapterImplementationAuthorized: true as const,
+    groupingQuestionsRoutedOutOfChapter: true as const,
+  }),
+} as const);
+
+if (FIGURE_MATRIX_SOURCE_SATURATED_DISCOVERY_V1.canonicalTaskFamilies.length !== 6) {
+  throw new Error("FMT-001 discovery expects six consolidated semantic task families.");
+}
+if (!FIGURE_MATRIX_SOURCE_SATURATED_DISCOVERY_V1.decision.groupingQuestionsRoutedOutOfChapter) {
+  throw new Error("Figure grouping material must not be absorbed into FMT-001.");
+}
+if (FIGURE_MATRIX_SOURCE_SATURATED_DISCOVERY_V1.visualContract.examStrokeWidthPx !== 1.35) {
+  throw new Error("FMT-001 review visuals must use the approved Spatial exam stroke.");
+}

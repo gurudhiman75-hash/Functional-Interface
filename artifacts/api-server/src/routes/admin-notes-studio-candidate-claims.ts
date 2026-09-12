@@ -6,8 +6,11 @@ import { sqlClient } from '../lib/db';
 import {
   MAX_CLAIM_EXTRACTION_BLOCKS,
   NOTES_CLAIM_EXTRACTION_PROMPT_VERSION,
+  candidateClaimExtractionStateEligible,
   candidateClaimInputFingerprint,
   candidateClaimOutputFingerprint,
+  candidateEvidenceBlockEligible,
+  type ClaimExtractionEvidenceKind,
   type ClaimExtractionInput,
 } from '../notes-studio/candidate-claim-extraction';
 import {
@@ -54,6 +57,10 @@ function sendError(res: Response, error: unknown, fallback: string) {
   res.status(500).json({ error: fallback, code: 'NOTES_STUDIO_CANDIDATE_CLAIM_EXTRACTION_FAILED' });
 }
 
+function evidenceKind(value: unknown): ClaimExtractionEvidenceKind {
+  return String(value ?? '') === 'editor_reference_note' ? 'editor_reference_note' : 'retained_excerpt';
+}
+
 async function loadJobAndPolicy(jobId: string) {
   const jobRows = await sqlClient`
     SELECT id::text AS id, title, source_language AS "sourceLanguage", state, brief
@@ -63,10 +70,10 @@ async function loadJobAndPolicy(jobId: string) {
   `;
   const job = jobRows[0];
   if (!job) throw new CandidateClaimError('JOB_NOT_FOUND', 'Notes Studio authoring job not found.', 404);
-  if (String(job.state) !== 'evidence_ready') {
+  if (!candidateClaimExtractionStateEligible(job.state)) {
     throw new CandidateClaimError(
       'CANDIDATE_EXTRACTION_NOT_READY',
-      'Candidate claim extraction is available only while the job is in evidence review. Finish source/evidence setup before extraction, or use a successor revision after downstream drafting begins.',
+      'Candidate claim extraction can start from Sources Ready once the governed source policy and reviewed evidence are ready, and then continues only in Evidence Ready. Finish source/evidence setup before extraction, or use a successor revision after downstream drafting begins.',
       409,
     );
   }
@@ -80,7 +87,15 @@ async function loadJobAndPolicy(jobId: string) {
       document.extraction_status AS "extractionStatus",
       LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
       link.inclusion_state AS "inclusionState",
-      link.source_role AS "sourceRole"
+      link.source_role AS "sourceRole",
+      EXISTS (
+        SELECT 1
+        FROM content.note_source_evidence_blocks block
+        WHERE block.job_id = link.job_id
+          AND block.source_document_id = link.source_document_id
+          AND block.evidence_kind = 'editor_reference_note'
+          AND block.reviewed_at IS NOT NULL
+      ) AS "referenceEvidenceReady"
     FROM content.note_authoring_sources link
     JOIN content.source_documents document ON document.id = link.source_document_id
     WHERE link.job_id = ${jobId}::uuid
@@ -95,13 +110,14 @@ async function loadJobAndPolicy(jobId: string) {
     generationReady: source.retentionMode === 'extracted_text'
       && source.extractionStatus === 'processed'
       && Number(source.retainedCharCount ?? 0) >= 100,
+    referenceEvidenceReady: Boolean(source.referenceEvidenceReady),
     contentHash: String(source.contentHash ?? ''),
     sourceIdentity: noteSourceIdentity(source.publisher, source.sourceUri),
   })));
   if (!policy.ready) {
     throw new CandidateClaimError(
       'SOURCE_PACK_POLICY_INCOMPLETE',
-      'The governed source-pack policy is no longer complete. Resolve source policy before extracting candidate claims.',
+      'The governed source-pack policy is not complete. Resolve source policy before extracting candidate claims.',
       409,
     );
   }
@@ -126,6 +142,7 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
     if (!actorUserId) throw new CandidateClaimError('ADMIN_SESSION_REQUIRED', 'Administrator session required.', 403);
     const jobId = uuid(req.params.jobId, 'Authoring job ID');
     const { job, policy } = await loadJobAndPolicy(jobId);
+    const stagedFromSourcesReady = String(job.state) === 'sources_ready';
 
     const rawBlockIds = Array.isArray(req.body?.blockIds) ? req.body.blockIds : [];
     const blockIds = [...new Set(rawBlockIds.map((value: unknown) => uuid(value, 'Evidence block ID')))];
@@ -141,7 +158,11 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
         block.id::text AS id,
         block.source_document_id::text AS "sourceDocumentId",
         block.excerpt,
+        block.evidence_kind AS "evidenceKind",
+        block.reviewed_at AS "reviewedAt",
         document.title AS "sourceTitle",
+        document.retention_mode AS "retentionMode",
+        document.extraction_status AS "extractionStatus",
         link.position,
         block.block_index AS "blockIndex"
       FROM content.note_source_evidence_blocks block
@@ -151,14 +172,18 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       WHERE block.job_id = ${jobId}::uuid
         AND block.id = ANY(${blockIds}::uuid[])
         AND link.inclusion_state = 'included'
-        AND document.retention_mode = 'extracted_text'
-        AND document.extraction_status = 'processed'
       ORDER BY link.position, block.source_document_id, block.block_index
     `;
-    if (rows.length !== blockIds.length) {
+    const eligibleRows = rows.filter((row) => candidateEvidenceBlockEligible({
+      evidenceKind: row.evidenceKind,
+      reviewedAt: row.reviewedAt,
+      retentionMode: row.retentionMode,
+      extractionStatus: row.extractionStatus,
+    }));
+    if (eligibleRows.length !== blockIds.length) {
       throw new CandidateClaimError(
         'EVIDENCE_SELECTION_STALE',
-        'One or more selected evidence blocks are no longer active generation-ready evidence for this source pack.',
+        'One or more selected evidence blocks are no longer active governed evidence for this source pack.',
         409,
       );
     }
@@ -167,10 +192,11 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       jobId,
       noteTitle: String(job.title),
       languageCode: String(job.sourceLanguage || 'en'),
-      blocks: rows.map((row) => ({
+      blocks: eligibleRows.map((row) => ({
         id: String(row.id),
         sourceDocumentId: String(row.sourceDocumentId),
         sourceTitle: String(row.sourceTitle),
+        evidenceKind: evidenceKind(row.evidenceKind),
         excerpt: String(row.excerpt),
       })),
     };
@@ -192,7 +218,7 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
           ) VALUES (
             ${claimId}::uuid, ${jobId}::uuid, ${candidate.claimText}, ${claimHash}, 'candidate',
             ${candidate.confidence}, ${candidate.contradictionKey},
-            'NS-014 model-extracted candidate; editorial acceptance required.',
+            'NS-014/NS-023 model-extracted candidate; editorial acceptance required.',
             ${actorUserId}::uuid, ${actorUserId}::uuid, now(), now()
           )
           ON CONFLICT (job_id, claim_hash) DO NOTHING
@@ -215,8 +241,26 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
           `;
         }
       }
+
+      if (stagedFromSourcesReady) {
+        const transitioned = await tx`
+          UPDATE content.note_authoring_jobs
+          SET state = 'evidence_ready', updated_by = ${actorUserId}::uuid, updated_at = now()
+          WHERE id = ${jobId}::uuid AND state = 'sources_ready'
+          RETURNING id::text AS id
+        `;
+        if (!transitioned[0]) {
+          throw new CandidateClaimError(
+            'CANDIDATE_EXTRACTION_STATE_CHANGED',
+            'The authoring job changed state while candidate claims were being extracted. Refresh the workspace and try again.',
+            409,
+          );
+        }
+      }
     });
 
+    const selectedReferenceEvidenceCount = input.blocks.filter((block) => block.evidenceKind === 'editor_reference_note').length;
+    const selectedRetainedEvidenceCount = input.blocks.length - selectedReferenceEvidenceCount;
     await audit(actorUserId, jobId, {
       provider: generated.provider,
       model: generated.model,
@@ -227,10 +271,15 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       outputFingerprint,
       sourcePackTemplate: policy.templateKey,
       selectedBlockCount: input.blocks.length,
+      selectedRetainedEvidenceCount,
+      selectedReferenceEvidenceCount,
       generatedClaimCount: generated.extraction.claims.length,
       createdClaimCount: created,
       duplicateClaimCount: duplicatesSkipped,
-      boundedEvidenceExcerptsSent: true,
+      stagedFromSourcesReady,
+      resultingJobState: stagedFromSourcesReady ? 'evidence_ready' : String(job.state),
+      boundedEvidenceBlocksSent: true,
+      publisherTextAssumedForReferenceNotes: false,
       fullSourceDocumentsSent: false,
       automaticAcceptance: false,
       automaticCoverageLinking: false,
@@ -248,7 +297,10 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       promptVersion: NOTES_CLAIM_EXTRACTION_PROMPT_VERSION,
       inputFingerprint,
       outputFingerprint,
-      boundedEvidenceExcerptsSent: true,
+      selectedRetainedEvidenceCount,
+      selectedReferenceEvidenceCount,
+      jobState: stagedFromSourcesReady ? 'evidence_ready' : String(job.state),
+      boundedEvidenceBlocksSent: true,
       fullSourceDocumentsSent: false,
       automaticAcceptance: false,
       automaticCoverageLinking: false,

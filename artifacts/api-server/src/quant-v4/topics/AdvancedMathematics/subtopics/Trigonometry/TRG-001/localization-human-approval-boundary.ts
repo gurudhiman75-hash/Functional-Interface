@@ -6,6 +6,10 @@ export const TRG_001_LOCALIZATION_HUMAN_APPROVAL_BOUNDARY_VERSION =
 export const TRG_001_LOCALIZATION_REQUIRED_APPROVAL_STATEMENT =
   "I approve the TRG-001 Final5 Hindi/Punjabi localization candidate for multilingual freeze and internal activation." as const;
 
+export const TRG_001_LOCALIZATION_HUMAN_APPROVAL_BOUNDARY_SUPERSEDED = true as const;
+export const TRG_001_LOCALIZATION_HUMAN_APPROVAL_BOUNDARY_SUPERSEDED_BY =
+  "TRG001_POST_FINAL5_HUMAN_APPROVAL_BOUNDARY_V1" as const;
+
 export type Trg001LocalizationHumanApprovalRecord = Readonly<{
   boundaryVersion: typeof TRG_001_LOCALIZATION_HUMAN_APPROVAL_BOUNDARY_VERSION;
   packageId: "TRG-001";
@@ -23,74 +27,42 @@ export type Trg001LocalizationHumanApprovalRecord = Readonly<{
 }>;
 
 export const TRG_001_LOCALIZATION_APPROVAL_BOUNDARY_STATE = Object.freeze({
-  packageId: "TRG-001",
-  engineeringReviewReadiness: TRG_001_LOCALIZATION_FREEZE_READINESS.engineeringReviewReadiness,
+  packageId: "TRG-001" as const,
+  historicalCandidateVersion: TRG_001_LOCALIZATION_FREEZE_READINESS.candidateVersion,
+  historicalEngineeringReviewReadiness: TRG_001_LOCALIZATION_FREEZE_READINESS.engineeringReviewReadiness,
+  superseded: true as const,
+  supersededBy: TRG_001_LOCALIZATION_HUMAN_APPROVAL_BOUNDARY_SUPERSEDED_BY,
   humanLanguageApproval: "PENDING" as const,
-  approvalRecordPresent: false,
-  multilingualFreezeGranted: false,
-  freezeAuthorized: false,
-  activationAuthorized: false,
-  questionStudioEnabledForLocalizedSurface: false,
-  questionBankWritableForLocalizedSurface: false,
-  testBuilderEligibleForLocalizedSurface: false,
-  publiclyPublishable: false,
-  publicReleaseAuthorized: false,
+  approvalRecordPresent: false as const,
+  multilingualFreezeGranted: false as const,
+  freezeAuthorized: false as const,
+  activationAuthorized: false as const,
+  questionStudioEnabledForLocalizedSurface: false as const,
+  questionBankWritableForLocalizedSurface: false as const,
+  testBuilderEligibleForLocalizedSurface: false as const,
+  publiclyPublishable: false as const,
+  publicReleaseAuthorized: false as const,
 });
 
-function fail(message: string): never {
-  throw new Error(`TRG-001 localization approval rejected: ${message}`);
-}
-
-export function validateTrg001LocalizationHumanApprovalRecord(
-  record: Trg001LocalizationHumanApprovalRecord,
-) {
-  const readiness = TRG_001_LOCALIZATION_FREEZE_READINESS;
-
-  if (readiness.engineeringReviewReadiness !== "PASS") fail("engineering review readiness is not PASS.");
-  if (record.boundaryVersion !== TRG_001_LOCALIZATION_HUMAN_APPROVAL_BOUNDARY_VERSION) fail("boundary version mismatch.");
-  if (record.packageId !== "TRG-001") fail("package mismatch.");
-  if (record.decision !== "APPROVED") fail("decision is not APPROVED.");
-  if (record.approvalStatement !== TRG_001_LOCALIZATION_REQUIRED_APPROVAL_STATEMENT) fail("approval statement mismatch.");
-  if (!record.reviewer.trim()) fail("reviewer is empty.");
-  if (!Number.isFinite(Date.parse(record.approvedAtIso))) fail("approval timestamp is invalid.");
-  if (record.candidateVersion !== readiness.candidateVersion) fail("candidate version mismatch.");
-  if (record.candidateSourceHead !== readiness.candidateSourceHead) fail("candidate source head mismatch.");
-  if (record.frozenEnglishFingerprint !== readiness.englishAuthority.fingerprint) fail("frozen English fingerprint mismatch.");
-  if (record.locales.length !== 2 || record.locales[0] !== "hi-IN" || record.locales[1] !== "pa-IN") fail("locale scope mismatch.");
-  if (record.localizedSurfaces !== readiness.localizedScope.localizedSurfaces) fail("localized surface count mismatch.");
-  if (record.evidenceArtifactId !== readiness.evidence.reviewReadiness.artifactId) fail("evidence artifact id mismatch.");
-  if (record.evidenceArtifactDigest !== readiness.evidence.reviewReadiness.artifactDigest) fail("evidence artifact digest mismatch.");
-
-  return Object.freeze({
-    status: "APPROVAL_RECORD_VALID" as const,
-    packageId: "TRG-001" as const,
-    reviewer: record.reviewer,
-    approvedAtIso: record.approvedAtIso,
-    candidateVersion: record.candidateVersion,
-    candidateSourceHead: record.candidateSourceHead,
-    frozenEnglishFingerprint: record.frozenEnglishFingerprint,
-    locales: record.locales,
-    localizedSurfaces: record.localizedSurfaces,
-    evidenceArtifactId: record.evidenceArtifactId,
-    evidenceArtifactDigest: record.evidenceArtifactDigest,
-  });
+function superseded(): never {
+  throw new Error(
+    "TRG-001 Final5 localization approval rejected: boundary superseded by the post-Final5 remediation approval boundary.",
+  );
 }
 
 /**
- * This function validates a supplied approval record only. It does not mutate
- * Question Studio, Question Bank, Test Builder, public release, or freeze state.
- * A separate activation change must explicitly consume a committed approval
- * record after this validator passes.
+ * Historical Final5 approval records are no longer authorizable because the
+ * merged post-Final5 remediation changes learner-facing English/localized
+ * content. The Final5 evidence remains provenance only.
  */
+export function validateTrg001LocalizationHumanApprovalRecord(
+  _record: Trg001LocalizationHumanApprovalRecord,
+): never {
+  return superseded();
+}
+
 export function buildTrg001LocalizationActivationAuthorization(
-  record: Trg001LocalizationHumanApprovalRecord,
-) {
-  const approval = validateTrg001LocalizationHumanApprovalRecord(record);
-  return Object.freeze({
-    ...approval,
-    multilingualFreezeAuthorizedByRecord: true,
-    internalActivationAuthorizedByRecord: true,
-    publicReleaseAuthorizedByRecord: false,
-    automaticStudentPublicationAuthorizedByRecord: false,
-  });
+  _record: Trg001LocalizationHumanApprovalRecord,
+): never {
+  return superseded();
 }

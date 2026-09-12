@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import { auditCom004EnglishChapterV2 } from './com004-english-chapter-v2';
+import { auditCom004LocalizationFreezeV2, COM004_LOCALIZATION_FREEZE_AUTHORITY_V2 } from './com004-localization-freeze-v2';
+import { auditCom004DifficultyAuthorityV1, COM004_DIFFICULTY_AUTHORITY_V1 } from './com004-difficulty-authority-v1';
+assert.equal(auditCom004EnglishChapterV2().valid, true);
+assert.equal(auditCom004LocalizationFreezeV2().valid, true);
+assert.equal(COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.governance.localizationFrozen, true);
+const difficulty = auditCom004DifficultyAuthorityV1();
+assert.equal(difficulty.valid, true);
+assert.equal(difficulty.counts.Easy + difficulty.counts.Medium, 204);
+assert.equal(COM004_DIFFICULTY_AUTHORITY_V1.hardDifficultyAuthorized, false);
+console.log(JSON.stringify({ localization: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.validation, difficulty: difficulty.counts }, null, 2));

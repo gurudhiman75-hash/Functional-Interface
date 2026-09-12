@@ -1,4 +1,5 @@
-import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 import { sqlClient } from './src/lib/db';
@@ -7,26 +8,120 @@ import {
   inspectNotesStudioSchema,
 } from './src/notes-studio/production-readiness';
 
+type MigrationFile = {
+  fileName: string;
+  sqlText: string;
+  digest: string;
+};
+
+function sha256(value: string): string {
+  return createHash('sha256').update(value).digest('hex');
+}
+
+async function loadMigrations(migrationsDir: string): Promise<MigrationFile[]> {
+  const manifestNames = new Set<string>(NOTES_STUDIO_MIGRATIONS);
+  const diskNames = (await readdir(migrationsDir))
+    .filter((fileName) => /^\d{8}_notes_studio.*\.sql$/.test(fileName))
+    // Notes Studio v2 has an independent migration authority and ledger.
+    // Never let the legacy v1 drift check claim v2 migration files.
+    .filter((fileName) => !/^\d{8}_notes_studio_v2(?:_|\.)/.test(fileName))
+    .sort();
+  const unmanifested = diskNames.filter((fileName) => !manifestNames.has(fileName));
+  if (unmanifested.length > 0) {
+    throw new Error(`Unmanifested Notes Studio migration file(s): ${unmanifested.join(', ')}`);
+  }
+
+  const migrations: MigrationFile[] = [];
+  for (const fileName of NOTES_STUDIO_MIGRATIONS) {
+    const sqlText = await readFile(path.join(migrationsDir, fileName), 'utf8');
+    if (!sqlText.trim()) throw new Error(`Notes Studio migration is empty: ${fileName}`);
+    migrations.push({ fileName, sqlText, digest: sha256(sqlText) });
+  }
+  return migrations;
+}
+
 async function run() {
   const migrationsDir = path.resolve(process.cwd(), 'migrations');
-  console.log(`[notes-studio:migrate] applying ${NOTES_STUDIO_MIGRATIONS.length} ordered migrations`);
+  const migrations = await loadMigrations(migrationsDir);
+  console.log(`[notes-studio:migrate] verifying ${migrations.length} ordered migrations`);
 
   await sqlClient.begin(async (tx) => {
     await tx`SELECT pg_advisory_xact_lock(hashtext('examtree:notes-studio:v1'))`;
-    for (const fileName of NOTES_STUDIO_MIGRATIONS) {
-      const filePath = path.join(migrationsDir, fileName);
-      const sqlText = await readFile(filePath, 'utf8');
-      if (!sqlText.trim()) throw new Error(`Notes Studio migration is empty: ${fileName}`);
-      console.log(`[notes-studio:migrate] ${fileName}`);
-      await tx.unsafe(sqlText);
+    await tx`CREATE SCHEMA IF NOT EXISTS platform`;
+    await tx`
+      CREATE TABLE IF NOT EXISTS platform.notes_studio_schema_migrations (
+        filename TEXT PRIMARY KEY,
+        content_sha256 TEXT NOT NULL CHECK (content_sha256 ~ '^[0-9a-f]{64}$'),
+        applied_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      )
+    `;
+
+    const ledgerRows = await tx`
+      SELECT filename, content_sha256 AS "contentSha256"
+      FROM platform.notes_studio_schema_migrations
+      ORDER BY applied_at, filename
+    `;
+    const recorded = new Map<string, string>(
+      ledgerRows.map((row) => [String(row.filename), String(row.contentSha256)] as const),
+    );
+    const manifestNames = new Set(migrations.map((migration) => migration.fileName));
+
+    for (const [fileName, digest] of recorded) {
+      if (!manifestNames.has(fileName)) {
+        throw new Error(`Unknown Notes Studio migration recorded in production ledger: ${fileName}`);
+      }
+      const current = migrations.find((migration) => migration.fileName === fileName);
+      if (!current || current.digest !== digest) {
+        throw new Error(`Notes Studio migration drift detected for ${fileName}`);
+      }
+    }
+
+    const recordedNames = migrations.filter((migration) => recorded.has(migration.fileName)).map((migration) => migration.fileName);
+    const expectedPrefix = migrations.slice(0, recordedNames.length).map((migration) => migration.fileName);
+    if (recordedNames.some((fileName, index) => fileName !== expectedPrefix[index])) {
+      throw new Error('Notes Studio migration ledger is not a contiguous prefix of the ordered migration manifest.');
+    }
+
+    if (recorded.size === 0) {
+      const before = await inspectNotesStudioSchema(tx);
+      if (before.presentRelations.length > 0 || before.presentTriggers.length > 0) {
+        console.log(
+          `[notes-studio:migrate] reconciling unledgered schema by replaying ordered migrations: ${before.presentRelations.length} known relations, ${before.presentTriggers.length} known triggers`,
+        );
+      }
+    }
+
+    for (const migration of migrations.slice(recorded.size)) {
+      console.log(`[notes-studio:migrate] applying ${migration.fileName}`);
+      await tx.unsafe(migration.sqlText);
+      await tx`
+        INSERT INTO platform.notes_studio_schema_migrations (filename, content_sha256)
+        VALUES (${migration.fileName}, ${migration.digest})
+      `;
     }
   });
 
   const inspection = await inspectNotesStudioSchema(sqlClient);
   if (!inspection.ready) {
-    throw new Error(`Notes Studio schema is incomplete after migration. Missing relations: ${inspection.missingRelations.join(', ') || 'none'}; missing triggers: ${inspection.missingTriggers.join(', ') || 'none'}`);
+    throw new Error(`Notes Studio schema is incomplete after migration. Missing relations: ${inspection.missingRelations.join(', ') || 'none'}; missing columns: ${inspection.missingColumns.join(', ') || 'none'}; missing triggers: ${inspection.missingTriggers.join(', ') || 'none'}`);
   }
-  console.log(`[notes-studio:migrate] ready: ${inspection.presentRelations.length} relations, ${inspection.presentTriggers.length} required triggers`);
+
+  const ledgerRows = await sqlClient`
+    SELECT filename, content_sha256 AS "contentSha256"
+    FROM platform.notes_studio_schema_migrations
+    ORDER BY applied_at, filename
+  `;
+  if (ledgerRows.length !== migrations.length) {
+    throw new Error(`Notes Studio migration ledger is incomplete after bootstrap: ${ledgerRows.length}/${migrations.length}`);
+  }
+  for (const migration of migrations) {
+    const row = ledgerRows.find((candidate) => String(candidate.filename) === migration.fileName);
+    if (!row || String(row.contentSha256) !== migration.digest) {
+      throw new Error(`Notes Studio migration ledger verification failed for ${migration.fileName}`);
+    }
+  }
+
+  console.log(`[notes-studio:migrate] ready: ${inspection.presentRelations.length} relations, ${inspection.presentColumns.length} required columns, ${inspection.presentTriggers.length} required triggers, ${ledgerRows.length} ledger entries`);
 }
 
 run()

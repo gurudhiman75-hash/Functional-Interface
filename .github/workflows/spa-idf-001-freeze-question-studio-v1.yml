@@ -1,0 +1,77 @@
+name: Validate SPA IDF-001 Freeze Question Studio V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/identical-figure-*.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/SPA-IDF-001-*.md"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v13.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v9.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v9.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/identical-figure-idf-001-freeze-question-studio-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts"
+      - "artifacts/admin-app/src/features/question-studio/spatial-review-api.ts"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
+  workflow_dispatch:
+
+concurrency:
+  group: spa-idf-001-freeze-question-studio-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/examtree_idf_ci
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin Question Studio UI
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Bundle IDF-001 freeze integration proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/identical-figure-idf-001-freeze-question-studio-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/identical-figure-idf-001-freeze-question-studio-v1.test.mjs
+
+      - name: Run IDF-001 freeze integration proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/identical-figure-idf-001-freeze-question-studio-v1.test.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/idf-001-freeze-question-studio-v1-run.log
+
+      - name: Upload IDF-001 freeze integration evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-idf-001-freeze-question-studio-v1
+          path: artifacts/api-server/dist/reasoning-v1/spatial/idf-001-freeze-question-studio-v1-run.log
+          if-no-files-found: error

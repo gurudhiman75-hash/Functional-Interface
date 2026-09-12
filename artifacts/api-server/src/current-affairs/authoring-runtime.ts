@@ -64,6 +64,27 @@ function normalizeSourceTitles(value: unknown): string[] {
   return titles.slice(0, 20);
 }
 
+function mapAuthoringRows(rows: any[]): EventAuthoringRow[] {
+  return rows.map((row) => ({
+    id: String(row.id),
+    publicCode: String(row.publicCode),
+    title: String(row.title ?? ""),
+    summary: String(row.summary ?? ""),
+    importanceReason: String(row.importanceReason ?? ""),
+    eventDate: String(row.eventDate).slice(0, 10),
+    category: String(row.category),
+    authoringStatus: String(row.authoringStatus ?? "pending"),
+    sourceKey: String(row.sourceKey),
+    sourceUrl: String(row.sourceUrl),
+    sourceTitle: String(row.sourceTitle ?? row.title ?? ""),
+    sourcePublishedAt: row.sourcePublishedAt ? String(row.sourcePublishedAt) : undefined,
+    sourceTrustScore: Number(row.sourceTrustScore ?? 0.7),
+    isPrimarySource: Boolean(row.isPrimarySource),
+    sourceTitles: normalizeSourceTitles(row.sourceTitles),
+    facts: normalizeFacts(row.facts),
+  }));
+}
+
 async function loadAuthoringQueue(limit: number): Promise<EventAuthoringRow[]> {
   const rows = await sqlClient`
     SELECT
@@ -120,24 +141,66 @@ async function loadAuthoringQueue(limit: number): Promise<EventAuthoringRow[]> {
     LIMIT ${limit}
   `;
 
-  return rows.map((row) => ({
-    id: String(row.id),
-    publicCode: String(row.publicCode),
-    title: String(row.title ?? ""),
-    summary: String(row.summary ?? ""),
-    importanceReason: String(row.importanceReason ?? ""),
-    eventDate: String(row.eventDate).slice(0, 10),
-    category: String(row.category),
-    authoringStatus: String(row.authoringStatus ?? "pending"),
-    sourceKey: String(row.sourceKey),
-    sourceUrl: String(row.sourceUrl),
-    sourceTitle: String(row.sourceTitle ?? row.title ?? ""),
-    sourcePublishedAt: row.sourcePublishedAt ? String(row.sourcePublishedAt) : undefined,
-    sourceTrustScore: Number(row.sourceTrustScore ?? 0.7),
-    isPrimarySource: Boolean(row.isPrimarySource),
-    sourceTitles: normalizeSourceTitles(row.sourceTitles),
-    facts: normalizeFacts(row.facts),
-  }));
+  return mapAuthoringRows(rows);
+}
+
+async function loadAuthoringEventsByIds(eventIds: string[]): Promise<EventAuthoringRow[]> {
+  if (eventIds.length === 0) return [];
+  const rows = await sqlClient`
+    SELECT
+      event.id::text AS id,
+      event.public_code AS "publicCode",
+      event.canonical_title AS title,
+      event.summary,
+      event.importance_reason AS "importanceReason",
+      event.event_date::text AS "eventDate",
+      event.category,
+      event.learner_authoring_status AS "authoringStatus",
+      primary_source.source_key AS "sourceKey",
+      primary_source.source_url AS "sourceUrl",
+      primary_source.source_title AS "sourceTitle",
+      primary_source.source_published_at AS "sourcePublishedAt",
+      primary_source.trust_score::float8 AS "sourceTrustScore",
+      primary_source.is_primary_source AS "isPrimarySource",
+      COALESCE((
+        SELECT json_agg(DISTINCT evidence.source_title)
+        FROM content.current_affairs_event_sources evidence
+        WHERE evidence.event_id=event.id
+          AND BTRIM(COALESCE(evidence.source_title, '')) <> ''
+      ), '[]'::json) AS "sourceTitles",
+      COALESCE((
+        SELECT json_agg(json_build_object(
+          'key', fact.fact_key,
+          'value', fact.fact_value,
+          'type', fact.fact_type,
+          'confidence', fact.confidence::float8
+        ) ORDER BY fact.sort_order, fact.fact_key, fact.fact_value)
+        FROM content.current_affairs_facts fact
+        WHERE fact.event_id=event.id
+          AND fact.is_verified=true
+      ), '[]'::json) AS facts
+    FROM content.current_affairs_events event
+    JOIN LATERAL (
+      SELECT
+        source.source_key,
+        evidence.source_url,
+        evidence.source_title,
+        evidence.source_published_at,
+        source.trust_score,
+        evidence.is_primary_evidence AS is_primary_source
+      FROM content.current_affairs_event_sources evidence
+      JOIN content.current_affairs_sources source ON source.id=evidence.source_id
+      WHERE evidence.event_id=event.id
+      ORDER BY evidence.is_primary_evidence DESC, source.trust_score DESC, evidence.created_at ASC
+      LIMIT 1
+    ) primary_source ON true
+    WHERE event.id = ANY(${eventIds}::uuid[])
+      AND event.status='verified'
+      AND event.learner_authoring_status <> 'manual'
+      AND COALESCE((event.metadata->>'autoPromoted')::boolean, false)=true
+    ORDER BY event.event_date DESC, event.updated_at DESC
+  `;
+  return mapAuthoringRows(rows);
 }
 
 function authoringInput(event: EventAuthoringRow): AuthoringInput {
@@ -299,11 +362,8 @@ async function storeAuthoringVersion(event: EventAuthoringRow, output: Authoring
   return versionId;
 }
 
-export async function runSourceIndependentAuthoring(limit = 200) {
-  const safeLimit = Math.max(1, Math.min(500, Math.floor(limit)));
-  const events = await loadAuthoringQueue(safeLimit);
+async function runAuthoringRows(events: EventAuthoringRow[], scope: string) {
   const results: Array<Record<string, unknown>> = [];
-
   for (const event of events) {
     const input = authoringInput(event);
     const raw = authorSourceIndependentEvent(input);
@@ -329,14 +389,27 @@ export async function runSourceIndependentAuthoring(limit = 200) {
       reasons: output.reasons,
     });
   }
-
   return {
     examined: events.length,
     ready: results.filter((item) => item.status === "ready").length,
     needsEditorial: results.filter((item) => item.status === "needs_editorial").length,
     unchanged: results.filter((item) => item.status === "unchanged").length,
     results,
+    scope,
   };
+}
+
+export async function runSourceIndependentAuthoring(limit = 200) {
+  const safeLimit = Math.max(1, Math.min(500, Math.floor(limit)));
+  return runAuthoringRows(await loadAuthoringQueue(safeLimit), "global_queue");
+}
+
+export async function runSourceIndependentAuthoringForEventIds(eventIdsInput: string[]) {
+  const eventIds = [...new Set(eventIdsInput.map(String).filter(Boolean))].slice(0, 300);
+  const events = await loadAuthoringEventsByIds(eventIds);
+  const result = await runAuthoringRows(events, "explicit_event_ids");
+  const seen = new Set(events.map((event) => event.id));
+  return { ...result, requested: eventIds.length, skippedEventIds: eventIds.filter((eventId) => !seen.has(eventId)) };
 }
 
 export async function createManualAuthoringVersion(args: {

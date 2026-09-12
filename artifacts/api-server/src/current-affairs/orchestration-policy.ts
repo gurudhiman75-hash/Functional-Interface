@@ -102,6 +102,33 @@ export function previousIndiaDate(now = new Date()): string {
   return date.toISOString().slice(0, 10);
 }
 
+export function resolveHistoricalIndiaDate(
+  requestedDate: unknown,
+  now = new Date(),
+  maxLookbackDays = 31,
+): string {
+  if (requestedDate == null || String(requestedDate).trim() === "") return previousIndiaDate(now);
+  const targetDate = String(requestedDate).trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(targetDate)) {
+    throw new Error("targetDate must use YYYY-MM-DD");
+  }
+  const parsed = new Date(`${targetDate}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== targetDate) {
+    throw new Error("targetDate is invalid");
+  }
+
+  const current = indiaDate(now);
+  if (targetDate >= current) {
+    throw new Error("targetDate must be before the current India calendar date");
+  }
+  const currentDate = new Date(`${current}T00:00:00Z`);
+  const lookbackDays = Math.round((currentDate.getTime() - parsed.getTime()) / 86_400_000);
+  if (lookbackDays > maxLookbackDays) {
+    throw new Error(`targetDate must be within the previous ${maxLookbackDays} India calendar days`);
+  }
+  return targetDate;
+}
+
 export function shouldBuildDailyDrafts(now = new Date()): boolean {
   return now.getUTCMinutes() >= 15 && now.getUTCHours() === 0;
 }

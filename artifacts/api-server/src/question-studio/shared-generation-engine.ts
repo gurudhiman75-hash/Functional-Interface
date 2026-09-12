@@ -65,6 +65,11 @@ import {
   type WorQuestionStudioLanguage,
   type WorQuestionStudioReviewQuestion,
 } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/question-studio-review";
+import {
+  generateLogicPuzzleQuestionStudioBatch,
+  isLogicPuzzleQuestionStudioRequest,
+  listLogicPuzzleQuestionStudioPackages,
+} from "../reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio.ts";
 
 export type SharedQuestionStudioGenerationRequest = {
   packageId?: string;
@@ -350,6 +355,11 @@ export function listQuestionStudioPackages() {
   if (!packages.some((entry) => String(entry.packageId) === "WOR-001")) {
     packages.push(worPackageCapability());
   }
+  for (const packageCapability of listLogicPuzzleQuestionStudioPackages()) {
+    if (!packages.some((entry) => String(entry.packageId) === packageCapability.packageId)) {
+      packages.push(packageCapability);
+    }
+  }
   return packages.sort((left, right) =>
     String(left.packageId).localeCompare(String(right.packageId)),
   );
@@ -536,6 +546,9 @@ export async function generateQuestion(request: SharedQuestionStudioGenerationRe
   }
   if (isWor001QuestionStudioRequest(request)) {
     return generateWor001QuestionStudioQuestions(request);
+  }
+  if (isLogicPuzzleQuestionStudioRequest(request)) {
+    return generateLogicPuzzleQuestionStudioBatch(request);
   }
   return generateQuantQuestionStudioQuestion(request as any);
 }

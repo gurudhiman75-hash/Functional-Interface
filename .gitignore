@@ -12,6 +12,8 @@ tmp/
 **/tmp/
 *.tsbuildinfo
 *.cache
+.runtime-assets/
+**/.runtime-assets/
 
 # Environment
 .env

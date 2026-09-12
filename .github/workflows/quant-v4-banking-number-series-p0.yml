@@ -1,0 +1,37 @@
+name: Quant V4 Banking Number Series P0
+
+on:
+  push:
+    branches:
+      - feat/quant-v4-banking-number-series-p0
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/**"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quant-v4-bns-p0-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bns-phase0:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Banking Number Series deterministic proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/bns-001.test.ts
+
+      - name: Patch hygiene
+        run: git diff --check

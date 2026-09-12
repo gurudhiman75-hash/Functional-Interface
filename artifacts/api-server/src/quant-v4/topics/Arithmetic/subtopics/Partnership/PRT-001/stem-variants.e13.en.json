@@ -1,0 +1,34 @@
+{
+  "language": "en",
+  "status": "E13_THREE_SKELETONS",
+  "entries": {
+    "PRT-QL-106": [
+      "In {business}, {partnerA}, {partnerB} and {partnerC} put in ₹{capitalA}, ₹{capitalB} and ₹{capitalC}. Although {sleepingPartner} has that capital, the sleeping-partner agreement allows only {entitlementFraction} of the ordinary profit entitlement. After retaining {retainedPercent}% of the ₹{totalProfit} profit, how much of the balance goes to {targetPartner}?",
+      "A partnership in {business} has capitals ₹{capitalA}, ₹{capitalB} and ₹{capitalC} belonging to {partnerA}, {partnerB} and {partnerC}. {sleepingPartner}'s profit weight is restricted to {entitlementFraction} of the normal capital-based weight. If {retainedPercent}% of ₹{totalProfit} is kept back, find {targetPartner}'s distributable share."
+    ],
+    "PRT-QL-107": [
+      "{partnerA} starts {business} with ₹{initialCapitalA} and {partnerB} with ₹{initialCapitalB}. They earn ₹{firstYearProfit} in year one. {reinvestPartner} leaves the entire first-year share in the business as extra capital, while the other partner takes the share out. Find the second-year profit ratio if capitals then remain unchanged.",
+      "The opening capitals of {partnerA} and {partnerB} in {business} are ₹{initialCapitalA} and ₹{initialCapitalB}. First-year profit is ₹{firstYearProfit}. Only {reinvestPartner} converts the full first-year profit share into additional capital. What ratio should govern second-year profit?"
+    ],
+    "PRT-QL-108": [
+      "The capitals of {partnerA} and {partnerB} in {business} are ₹{capitalA} and ₹{capitalB}. Out of ₹{totalProfit}, {partnerA} is allotted {grossPercentA}% of gross profit and {partnerB} {grossPercentB}% before the balance is shared by capital. Find {targetPartner}'s final receipt.",
+      "In {business}, {partnerA}:{partnerB} invest ₹{capitalA}:₹{capitalB}. Before ordinary profit division, {partnerA} gets {grossPercentA}% and {partnerB} gets {grossPercentB}% of the gross ₹{totalProfit}. The residue follows the capital ratio. How much does {targetPartner} receive altogether?"
+    ],
+    "PRT-QL-109": [
+      "A {totalDuration} partnership in {business} has total capital ₹{totalCapital}. {partnerA} uses {capitalFractionA} of it for {durationFractionA} of the period and {partnerB} uses {capitalFractionB} for {durationFractionB}; {partnerC} supplies the balance for the entire period. From profit ₹{totalProfit}, determine {targetPartner}'s share.",
+      "The fund for {business} is ₹{totalCapital} for a total term of {totalDuration}. {partnerA}'s capital-time input is based on {capitalFractionA} of the fund for {durationFractionA} of the term, {partnerB}'s on {capitalFractionB} for {durationFractionB}, and {partnerC} invests whatever capital remains for the full term. What is {targetPartner}'s share of ₹{totalProfit}?"
+    ],
+    "PRT-QL-110": [
+      "For equal investment periods in {business}, the capitals of {partnerA}, {partnerB} and {partnerC} obey the condition {relationStatement}. If ₹{totalProfit} is earned, calculate {targetPartner}'s profit share.",
+      "{partnerA}, {partnerB} and {partnerC} stay in {business} for equal time. Instead of individual capitals, you are told that {relationStatement}. On a total profit of ₹{totalProfit}, how much belongs to {targetPartner}?"
+    ],
+    "PRT-QL-111": [
+      "In {business}, {partnerA} invests ₹{capitalA} and {partnerB} ₹{capitalB} for a year. Each capital first earns {interestRatePercent}% interest out of the business profit; only the leftover profit is divided by capital. If gross profit is ₹{totalProfit}, find {targetPartner}'s total amount.",
+      "Annual capitals in {business} are ₹{capitalA} for {partnerA} and ₹{capitalB} for {partnerB}. The agreement credits both partners {interestRatePercent}% p.a. on capital before the residual ₹{totalProfit} profit is shared in the capital ratio. What does {targetPartner} receive in all?"
+    ],
+    "PRT-QL-112": [
+      "In {business}, {partnerA} and {partnerB} have an old profit ratio of {oldRatio}. When {partnerC} enters, a total share of {acquiredFraction} is transferred to the newcomer; {partnerA} and {partnerB} surrender it in the ratio {sacrificeRatio}. Determine the new three-partner ratio.",
+      "{partnerA}:{partnerB} currently divide profits of {business} as {oldRatio}. {partnerC} is admitted for {acquiredFraction} of total profit, obtained from the old partners in sacrifice ratio {sacrificeRatio}. Find the revised ratio {partnerA}:{partnerB}:{partnerC}."
+    ]
+  }
+}

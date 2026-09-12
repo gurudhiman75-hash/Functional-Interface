@@ -1,5 +1,11 @@
-import OpenAI from 'openai';
-
+import {
+  describeAIProviderError,
+  extractWithAI,
+  getAIProvider,
+  isAIProviderConfigured,
+  resolveAIProvider,
+  type AIProviderName,
+} from '../lib/ai-providers';
 import {
   buildCandidateClaimInstruction,
   candidateClaimJsonSchema,
@@ -9,57 +15,75 @@ import {
 } from './candidate-claim-extraction';
 
 export type CandidateClaimProviderResult = {
-  provider: 'openai';
+  provider: AIProviderName;
   model: string;
   responseId: string | null;
   extraction: CandidateClaimExtraction;
   usage: Record<string, unknown>;
+  warnings: string[];
 };
 
 export class CandidateClaimModelConfigurationError extends Error {}
-
-function configuredModel(): string {
-  const model = String(process.env.NOTES_STUDIO_EVIDENCE_MODEL ?? process.env.NOTES_STUDIO_MODEL ?? '').trim();
-  if (!model) throw new CandidateClaimModelConfigurationError('NOTES_STUDIO_EVIDENCE_MODEL or NOTES_STUDIO_MODEL is not configured.');
-  return model;
+export class CandidateClaimProviderRequestError extends Error {
+  constructor(message: string, readonly provider: AIProviderName) {
+    super(message);
+  }
 }
 
-function configuredApiKey(): string {
-  const apiKey = String(process.env.NOTES_STUDIO_OPENAI_API_KEY ?? process.env.OPENAI_API_KEY ?? '').trim();
-  if (!apiKey) throw new CandidateClaimModelConfigurationError('Notes Studio model API key is not configured.');
-  return apiKey;
+function configuredProvider(): AIProviderName {
+  const explicit = String(process.env.NOTES_STUDIO_AI_PROVIDER ?? '').trim().toLowerCase();
+  if (explicit === 'openai' || explicit === 'gemini' || explicit === 'claude') return explicit;
+  return resolveAIProvider();
+}
+
+function configuredModel(provider: AIProviderName): string {
+  return String(process.env.NOTES_STUDIO_EVIDENCE_MODEL ?? process.env.NOTES_STUDIO_MODEL ?? '').trim()
+    || getAIProvider(provider).defaultModel;
 }
 
 export async function generateCandidateClaims(input: ClaimExtractionInput): Promise<CandidateClaimProviderResult> {
-  const model = configuredModel();
-  const client = new OpenAI({ apiKey: configuredApiKey() });
-  const response = await client.responses.create({
-    model,
-    input: buildCandidateClaimInstruction(input),
-    text: {
-      format: {
-        type: 'json_schema',
-        name: 'examtree_note_candidate_claims',
-        strict: true,
-        schema: candidateClaimJsonSchema,
-      },
-    },
-  });
-  const outputText = response.output_text?.trim();
-  if (!outputText) throw new Error('Notes Studio model returned no candidate-claim output.');
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(outputText);
-  } catch {
-    throw new Error('Notes Studio model returned invalid structured candidate-claim JSON.');
+  const provider = configuredProvider();
+  if (!isAIProviderConfigured(provider)) {
+    throw new CandidateClaimModelConfigurationError(
+      `No configured AI provider is available for Notes Studio candidate extraction (resolved provider: ${provider}).`,
+    );
   }
-  const extraction = validateCandidateClaimExtraction(parsed, new Set(input.blocks.map((block) => block.id)));
-  const raw = response as unknown as Record<string, unknown>;
-  return {
-    provider: 'openai',
-    model,
-    responseId: typeof raw.id === 'string' ? raw.id : null,
-    extraction,
-    usage: raw.usage && typeof raw.usage === 'object' ? raw.usage as Record<string, unknown> : {},
-  };
+  const model = configuredModel(provider);
+
+  try {
+    const response = await extractWithAI({
+      provider,
+      model,
+      prompt: {
+        system: 'Extract only atomic factual claims from the governed evidence supplied by the Notes Studio editor.',
+        user: buildCandidateClaimInstruction(input),
+      },
+      temperature: 0,
+      responseSchema: candidateClaimJsonSchema,
+      responseSchemaName: 'examtree_note_candidate_claims',
+      timeoutMs: 60_000,
+      maxRetries: 2,
+    });
+    if (!response.json) {
+      throw new Error(`${provider} returned no valid structured candidate-claim JSON.`);
+    }
+    const extraction = validateCandidateClaimExtraction(
+      response.json,
+      new Set(input.blocks.map((block) => block.id)),
+    );
+    const raw = response.raw && typeof response.raw === 'object'
+      ? response.raw as Record<string, unknown>
+      : null;
+    return {
+      provider: response.provider,
+      model: response.model,
+      responseId: raw && typeof raw.id === 'string' ? raw.id : null,
+      extraction,
+      usage: { ...response.usage },
+      warnings: response.warnings,
+    };
+  } catch (error) {
+    if (error instanceof CandidateClaimProviderRequestError) throw error;
+    throw new CandidateClaimProviderRequestError(describeAIProviderError(provider, error), provider);
+  }
 }

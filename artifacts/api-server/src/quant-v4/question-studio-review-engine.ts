@@ -4,12 +4,26 @@ import {
   type QuestionStudioQuantV4GenerationRequest,
 } from "./question-studio-generation-engine";
 import {
+  applyQuantV4ExamProfileDelivery,
+  withQuantV4ExamProfileContext,
+  type QuantV4GenerationRequest,
+} from "./generation-engine";
+import {
+  getQuantV4SpecializedProfileSelectionCapability,
+} from "./common/specialized-profile-selection";
+import {
   NUM_CP001_QUESTION_STUDIO_REVIEW_RELEASE,
   getNumCp001QuestionStudioReviewQlIds,
   runNumCp001QuestionStudioReview,
   type NumCp001QuestionStudioReviewDifficulty,
   type NumCp001QuestionStudioReviewLanguage,
 } from "./topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/question-studio-review-release";
+import {
+  generateSapBankingQuestionStudioBatch,
+  isSapBankingQuestionStudioRequest,
+  SAP_BANKING_QUESTION_STUDIO_CAPABILITY,
+  type SapBankingQuestionStudioRequest,
+} from "./topics/Arithmetic/subtopics/SimplificationAndApproximation/question-studio-banking-integration";
 import {
   TMW_001_QUESTION_STUDIO_CP_IDS,
   TMW_001_QUESTION_STUDIO_LANGUAGES,
@@ -413,6 +427,26 @@ async function generateTmwReview(request: QuestionStudioReviewGenerationRequest)
 
 export function listQuantV4Packages() {
   const packages = listBasePackages().map((pkg: any) => {
+    if (pkg.packageId === "TMW-001") {
+      return {
+        ...pkg,
+        examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("TMW-001"),
+      };
+    }
+    if (pkg.packageId === "SAP") {
+      return {
+        ...pkg,
+        supportedExamProfiles: [
+          "GENERIC_PRACTICE",
+          ...SAP_BANKING_QUESTION_STUDIO_CAPABILITY.supportedExamProfiles,
+        ],
+        optionCountByExamProfile: {
+          GENERIC_PRACTICE: 4,
+          ...SAP_BANKING_QUESTION_STUDIO_CAPABILITY.optionCountByExamProfile,
+        },
+        bankingSpeedProfiles: SAP_BANKING_QUESTION_STUDIO_CAPABILITY.bankingSpeedProfiles,
+      };
+    }
     if (pkg.packageId !== "NUM-001") return pkg;
     const cpIds = [...new Set([...(pkg.cpIds ?? []), "NUM-CP-001"])];
     const canonicalProblems = Array.isArray(pkg.canonicalProblems)
@@ -455,6 +489,7 @@ export function listQuantV4Packages() {
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
+      examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("TMW-001"),
     } as any);
   }
 
@@ -463,8 +498,24 @@ export function listQuantV4Packages() {
   );
 }
 
+async function generateReviewSpecializedWithProfileDelivery(
+  request: QuestionStudioReviewGenerationRequest,
+  generate: () => Promise<any>,
+) {
+  if (!request.examProfile) return generate();
+  return withQuantV4ExamProfileContext(request.examProfile, async () => {
+    const result = await generate();
+    return applyQuantV4ExamProfileDelivery(result, request as QuantV4GenerationRequest);
+  });
+}
+
 export async function generateQuestion(request: QuestionStudioReviewGenerationRequest = {}) {
-  if (isTimeAndWorkRequest(request)) return generateTmwReview(request);
+  if (isSapBankingQuestionStudioRequest(request as SapBankingQuestionStudioRequest)) {
+    return generateSapBankingQuestionStudioBatch(request as SapBankingQuestionStudioRequest);
+  }
+  if (isTimeAndWorkRequest(request)) {
+    return generateReviewSpecializedWithProfileDelivery(request, () => generateTmwReview(request));
+  }
   if (!isNumberSystemRequest(request)) {
     return generateBaseQuestion(request as QuestionStudioQuantV4GenerationRequest);
   }
@@ -481,7 +532,9 @@ export async function generateQuestion(request: QuestionStudioReviewGenerationRe
     || inferredCp === "NUM-CP-001"
     || (language !== "en" && !explicitCp && !inferredCp);
 
-  if (cp001Target) return generateCp001Review(request);
+  if (cp001Target) {
+    return generateReviewSpecializedWithProfileDelivery(request, () => generateCp001Review(request));
+  }
 
   if (language !== "en") {
     throw new Error(

@@ -1,0 +1,113 @@
+name: Quant V4 Algebra PYQ normalization Wave 2 P2
+
+on:
+  push:
+    branches:
+      - audit/quant-v4-algebra-pyq-normalization-wave2-p2
+    paths:
+      - ".github/workflows/quant-v4-algebra-pyq-normalization-wave2-p2.yml"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-ALGEBRA-PYQ-NORMALIZATION-WAVE2-P2.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-algebra-wave2-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observation-registry-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-algebra-pyq-normalization-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-selection-evidence-gate-p2.test.ts"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-ALGEBRA-PYQ-NORMALIZATION-WAVE2-P2.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-algebra-wave2-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observation-registry-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-algebra-pyq-normalization-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-selection-evidence-gate-p2.test.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quant-v4-algebra-pyq-normalization-wave2-p2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  algebra-pyq-normalization-wave2:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle PYQ frequency infrastructure proof
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/quality
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-pyq-frequency-evidence-p2.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-pyq-frequency-evidence-p2.test.mjs
+
+      - name: Run PYQ frequency infrastructure proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-pyq-frequency-evidence-p2.test.mjs
+
+      - name: Bundle Algebra Wave 1 regression
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-pyq-observations-algebra-wave1-p2.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-pyq-observations-algebra-wave1-p2.test.mjs
+
+      - name: Run Algebra Wave 1 regression
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-pyq-observations-algebra-wave1-p2.test.mjs
+
+      - name: Bundle Algebra Wave 2 proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-algebra-pyq-normalization-wave2-p2.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-algebra-pyq-normalization-wave2-p2.test.mjs
+
+      - name: Run Algebra Wave 2 proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-algebra-pyq-normalization-wave2-p2.test.mjs
+
+      - name: Bundle Number System Wave 2 registry regression
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test.mjs
+
+      - name: Run Number System Wave 2 registry regression
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test.mjs
+
+      - name: Bundle specialized selection evidence regression
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-specialized-profile-selection-evidence-gate-p2.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-specialized-profile-selection-evidence-gate-p2.test.mjs
+
+      - name: Run specialized selection evidence regression
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-specialized-profile-selection-evidence-gate-p2.test.mjs
+
+      - name: Patch hygiene
+        run: git diff --check

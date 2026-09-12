@@ -8,6 +8,7 @@ import { buildProbabilityVisuals } from "./probability-visual";
 import { generateProbabilityOptions } from "./option-generator";
 import { buildRenderContext, renderQuestionStem } from "./probability-formatter";
 import { renderStudentFacingStem } from "./student-facing-renderer";
+import { sanitizeProbabilityLearnerStem } from "./editorial-surface-guard";
 import { explanationWordCount, renderProbabilityExplanation } from "./explanation-renderer";
 import { remodelProbabilityExplanation, remodelProbabilityStem } from "./exam-depth-remodeler";
 import { remodelTeachingCalculation } from "./teaching-calculation-remodeler";
@@ -74,7 +75,7 @@ export function runProbabilityPackagePipeline(
   const renderContext = buildRenderContext(parameters, solved);
   const legacyStem = renderQuestionStem(language, renderContext);
   const baseStem = renderStudentFacingStem(entry, parameters, solved, event, legacyStem);
-  const plainStem = remodelProbabilityStem(entry, parameters, solved, baseStem);
+  const plainStem = sanitizeProbabilityLearnerStem(remodelProbabilityStem(entry, parameters, solved, baseStem));
   const baseExplanation = renderProbabilityExplanation(entry, language, parameters, solved, verification, visuals);
   const examDepthExplanation = remodelProbabilityExplanation(entry, parameters, solved, baseExplanation);
   const plainExplanation = remodelTeachingCalculation(entry, parameters, solved, examDepthExplanation);
