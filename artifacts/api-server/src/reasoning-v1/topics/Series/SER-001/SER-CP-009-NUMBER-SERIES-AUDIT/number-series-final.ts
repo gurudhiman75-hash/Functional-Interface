@@ -158,11 +158,11 @@ const PROGRESSIVE_MULTIPLIER_SHELLS: Readonly<Record<SerCp009Locale, readonly st
 
 function stableIndex(seed: number, salt: number, modulus: number): number {
   let value = (seed ^ Math.imul(salt, 0x9e3779b9)) >>> 0;
-  value ^= value >>> 16;
+  value = (value ^ (value >>> 16)) >>> 0;
   value = Math.imul(value, 0x7feb352d) >>> 0;
-  value ^= value >>> 15;
+  value = (value ^ (value >>> 15)) >>> 0;
   value = Math.imul(value, 0x846ca68b) >>> 0;
-  value ^= value >>> 16;
+  value = (value ^ (value >>> 16)) >>> 0;
   return value % modulus;
 }
 
