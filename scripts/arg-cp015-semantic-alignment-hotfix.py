@@ -55,5 +55,35 @@ if approval_reason not in source:
         raise SystemExit(f"Punjabi approval semantic repair: expected one fallback anchor, found {count}")
     source = source.replace(punjabi_fallback_anchor, approval_rule + punjabi_fallback_anchor, 1)
 
+# QL003 Punjabi digital-exam rollout family. Keep the weak claims logically weak,
+# but render them in natural Punjabi rather than machine-translated agreement.
+ql003_repairs = [
+    '    .replace(/ਪੂਰੀ ਤਰ੍ਹਾਂ ਡਿਜ਼ਿਟਲ ਪ੍ਰੀਖਿਆ ਕੇਂਦਰ ਉੱਤੇ ਲਿਆਂਦਾ ਜਾਣਾ/g, "ਪੂਰੀ ਤਰ੍ਹਾਂ ਡਿਜ਼ਿਟਲ ਪ੍ਰੀਖਿਆ ਕੇਂਦਰਾਂ ਵਿੱਚ ਕਰਵਾਇਆ ਜਾਣਾ")',
+    '    .replace(/ਸਥਿਰ ਕਨੈਕਟਿਵਿਟੀ ਜੋ ਵੀ ਹੋਣ/g, "ਭਾਵੇਂ ਸਥਿਰ ਕਨੈਕਟਿਵਿਟੀ ਉਪਲਬਧ ਹੋਵੇ")',
+    '    .replace(/ਸੁਰੱਖਿਅਤ ਡਿਵਾਈਸ ਅਤੇ ਕੇਂਦਰ ਜੋ ਵੀ ਹੋਣ/g, "ਭਾਵੇਂ ਸੁਰੱਖਿਅਤ ਡਿਵਾਈਸ ਅਤੇ ਕੇਂਦਰ ਉਪਲਬਧ ਹੋਣ")',
+    '    .replace(/ਜ਼ਿਆਦਾਤਰ ਥਾਂ ਦੋ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਸਿੱਧੇ ਉਪਲਬਧ/g, "ਜ਼ਿਆਦਾਤਰ ਥਾਵਾਂ \'ਤੇ ਦੋ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਆਪਣੇ ਆਪ ਉਪਲਬਧ")',
+]
+for repair in ql003_repairs:
+    if repair not in source:
+        count = source.count(repair_anchor)
+        if count != 1:
+            raise SystemExit(f"Punjabi QL003 digital-rollout repair: expected one repair anchor, found {count}")
+        source = source.replace(repair_anchor, repair_anchor + '\n' + repair, 1)
+
+# Give rollout-capacity weak arguments dimension-specific reasons. These rules
+# must precede broader Punjabi reason matchers so connectivity/devices are not
+# explained as a generic staffing or security issue.
+punjabi_reason_function_anchor = 'function specificPunjabiReason(argument: string): string {\n'
+connectivity_reason = 'ਕੇਵਲ ਫੈਸਲਾ ਘੋਸ਼ਿਤ ਕਰਨ ਨਾਲ ਲੋੜੀਂਦੀ ਸਥਿਰ ਕਨੈਕਟਿਵਿਟੀ ਆਪਣੇ ਆਪ ਉਪਲਬਧ ਨਹੀਂ ਹੋ ਜਾਂਦੀ; ਦੋ ਹਫ਼ਤਿਆਂ ਦੀ ਤਿਆਰੀ ਲਈ ਨੈੱਟਵਰਕ ਸਮਰੱਥਾ ਦੀ ਵੱਖਰੀ ਜਾਂਚ ਅਤੇ ਯੋਜਨਾ ਚਾਹੀਦੀ ਹੈ।'
+connectivity_rule = f'  if (/ਫੈਸਲਾ ਘੋਸ਼ਿਤ.*ਕਨੈਕਟਿਵਿਟੀ.*(?:ਉਪਲਬਧ ਹੋ ਜਾਵੇਗੀ|ਉਪਲਬਧ ਹੋਵੇਗੀ)/.test(argument)) return "{connectivity_reason}";\n'
+devices_reason = 'ਕੇਵਲ ਫੈਸਲਾ ਘੋਸ਼ਿਤ ਕਰਨ ਨਾਲ ਲੋੜੀਂਦੇ ਸੁਰੱਖਿਅਤ ਡਿਵਾਈਸ ਅਤੇ ਕੇਂਦਰ ਦੋ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਆਪਣੇ ਆਪ ਤਿਆਰ ਨਹੀਂ ਹੋ ਜਾਂਦੇ; ਉਪਕਰਣ ਅਤੇ ਕੇਂਦਰ-ਸਮਰੱਥਾ ਦੀ ਵੱਖਰੀ ਯੋਜਨਾ ਚਾਹੀਦੀ ਹੈ।'
+devices_rule = f'  if (/ਫੈਸਲਾ ਘੋਸ਼ਿਤ.*ਸੁਰੱਖਿਅਤ ਡਿਵਾਈਸ ਅਤੇ ਕੇਂਦਰ.*(?:ਉਪਲਬਧ ਹੋ ਜਾਣਗੇ|ਉਪਲਬਧ)/.test(argument)) return "{devices_reason}";\n'
+for rule, reason in [(connectivity_rule, connectivity_reason), (devices_rule, devices_reason)]:
+    if reason not in source:
+        count = source.count(punjabi_reason_function_anchor)
+        if count != 1:
+            raise SystemExit(f"Punjabi QL003 rollout reason: expected one function anchor, found {count}")
+        source = source.replace(punjabi_reason_function_anchor, punjabi_reason_function_anchor + rule, 1)
+
 SOURCE_PATH.write_text(source, encoding="utf-8")
-print("ARG-001 CP015 localized semantic-alignment and Punjabi approval hotfix applied")
+print("ARG-001 CP015 localized semantic-alignment, Punjabi approval and QL003 rollout hotfix applied")
