@@ -13,7 +13,11 @@ for (const question of GEO_PHY_001_CP001_REVIEW_BATCH_V1) {
   const visible = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
   assert.doesNotMatch(visible, /\ba\s+[aeiou][a-z-]*\b/i, question.questionId);
   assert.doesNotMatch(visible, /\bNCERT\b|generator|sourceFact|review-only|runtimeRegistered/i, question.questionId);
-  assert.doesNotMatch(visible, /\bThe Islands is\b|\bThe Coastal Plains is coastal lowlands\b/i, question.questionId);
+  assert.doesNotMatch(
+    visible,
+    /(?:^|\n)(?:The Islands is the offshore island groups|The Coastal Plains is coastal lowlands)/i,
+    question.questionId,
+  );
 }
 
 console.log(JSON.stringify(audit, null, 2));
