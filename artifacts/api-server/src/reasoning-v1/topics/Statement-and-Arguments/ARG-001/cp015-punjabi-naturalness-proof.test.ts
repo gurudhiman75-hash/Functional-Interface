@@ -32,9 +32,10 @@ function reasons(question: Question): readonly string[] {
 
 let rolloutSurfacesChecked = 0;
 let rolloutSemanticReasonsChecked = 0;
+let reportingTimeSurfacesChecked = 0;
 let employeeSurfacesChecked = 0;
 
-for (const qlId of ["ARG-QL-003", "ARG-QL-005"] as const) {
+for (const qlId of ["ARG-QL-003", "ARG-QL-004", "ARG-QL-005"] as const) {
   for (const cell of cells) {
     for (let seedIndex = 0; seedIndex < 160; seedIndex += 1) {
       const batch = generateArgCp015QuestionStudioBatch({
@@ -71,6 +72,11 @@ for (const qlId of ["ARG-QL-003", "ARG-QL-005"] as const) {
             assert.match(reason, /(?:ਡਿਵਾਈਸ|ਕੇਂਦਰ|ਉਪਕਰਣ|ਸਮਰੱਥਾ)/, `${question.questionId}: device/centre rollout argument got an unrelated reason`);
           }
         }
+      } else if (qlId === "ARG-QL-004") {
+        if (/ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ/.test(fullSurface)) reportingTimeSurfacesChecked += 1;
+        assert.doesNotMatch(fullSurface, /ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ[^।]*ਘੱਟ ਕਰ ਸਕਦਾ ਹੈ/, `${question.questionId}: plural reporting-time subject retained singular reduction verb`);
+        assert.doesNotMatch(fullSurface, /ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ[^।]*ਕਾਇਮ ਰੱਖ ਸਕਦਾ ਹੈ/, `${question.questionId}: plural reporting-time subject retained singular maintenance verb`);
+        assert.doesNotMatch(fullSurface, /ਵੱਖਰੇ ਰਿਪੋਰਟਿੰਗ ਸਮੇਂ[^।]*ਲਾਗੂ ਨਹੀਂ ਹੋ ਸਕਦਾ/, `${question.questionId}: plural reporting-time subject retained singular applicability verb`);
       } else {
         employeeSurfacesChecked += 1;
         assert.doesNotMatch(fullSurface, /(?:ਦਫ਼ਤਰੀ|ਦੂਰਸਥ|ਰਿਮੋਟ|ਕੌਨਟ੍ਰੈਕਟ) ਕਰਮਚਾਰੀਆਂ ਵਿੱਚ ਜੋ ਵੀ/, `${question.questionId}: oblique employee-subject construction leaked`);
@@ -81,11 +87,13 @@ for (const qlId of ["ARG-QL-003", "ARG-QL-005"] as const) {
 
 assert.ok(rolloutSurfacesChecked > 0, "Punjabi naturalness proof did not exercise QL003 rollout surfaces");
 assert.ok(rolloutSemanticReasonsChecked > 0, "Punjabi naturalness proof did not exercise rollout semantic reasons");
+assert.ok(reportingTimeSurfacesChecked > 0, "Punjabi naturalness proof did not exercise QL004 reporting-time surfaces");
 assert.ok(employeeSurfacesChecked > 0, "Punjabi naturalness proof did not exercise QL005 employee surfaces");
 
 console.log(JSON.stringify({
   status: "PASS_ARG_CP015_PUNJABI_NATURALNESS",
   rolloutSurfacesChecked,
   rolloutSemanticReasonsChecked,
+  reportingTimeSurfacesChecked,
   employeeSurfacesChecked,
 }, null, 2));
