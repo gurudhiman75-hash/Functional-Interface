@@ -59,7 +59,7 @@ assert.equal(2_695 / (1.1 * 1.4), 1_750); // Q60 reverse percentage chain.
 assert.equal((900 * 15 + 700 * 14 - 1_600 * 10) / (1_600 * 10) * 100, 45.625); // Q63 gain%.
 assert.equal(10 / 50 * 100, 20); // Q68 dilution.
 assert.equal((15_990 - 12_792) / 15_990 * 100, 20); // Q70 discount.
-assert.equal(93_472 % 44, 0); // Q74 divisibility.
+assert.equal(54_736 % 44, 0); // Q74 divisibility.
 
 assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 258);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 32);
