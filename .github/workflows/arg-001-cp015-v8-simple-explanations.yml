@@ -11,8 +11,10 @@ on:
       - scripts/arg-cp015-ql004-localized-routing-hotfix.py
       - scripts/arg-cp015-localized-routing-hotfix-v2.py
       - scripts/arg-cp015-localized-routing-hotfix-v3.py
+      - scripts/arg-cp015-semantic-alignment-hotfix.py
       - scripts/arg-cp015-final-editorial-integration-repair.py
       - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-semantic-alignment-proof.test.ts
 
 permissions:
   contents: write
@@ -37,11 +39,12 @@ jobs:
           python scripts/arg-cp015-ql004-localized-routing-hotfix.py
           python scripts/arg-cp015-localized-routing-hotfix-v2.py
           python scripts/arg-cp015-localized-routing-hotfix-v3.py
+          python scripts/arg-cp015-semantic-alignment-hotfix.py
           python scripts/arg-cp015-final-editorial-integration-repair.py
       - name: Strict TypeScript
         working-directory: artifacts/api-server
         run: |
-          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch --skipLibCheck --types node src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-export.ts src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-global-uniqueness-proof.ts
+          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch --skipLibCheck --types node src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-semantic-alignment-proof.test.ts src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-export.ts src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-global-uniqueness-proof.ts
       - name: Prove grammar and plain-language surface
         working-directory: artifacts/api-server
         run: |
@@ -68,6 +71,11 @@ jobs:
             exit "$status"
           fi
           cat /tmp/arg-cp015-grammar.log
+      - name: Prove explanation semantic alignment
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-semantic-alignment-proof.test.ts --bundle --platform=node --format=esm --outfile=dist/arg-cp015-semantic-alignment-proof.mjs
+          node dist/arg-cp015-semantic-alignment-proof.mjs
       - name: Prove diversity and human-review uniqueness
         working-directory: artifacts/api-server
         run: |
