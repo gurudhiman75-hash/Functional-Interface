@@ -23,12 +23,34 @@ function normalizePunjabi(question: GeneratedSerCp008Question): GeneratedSerCp00
   };
 }
 
+function generatedInstanceDifficulty(
+  question: GeneratedSerCp008Question,
+): GeneratedSerCp008Question["difficulty"] {
+  const wrap = question.structuralFeatures.alphabetWrap === true;
+  const activeChannels = Number(question.structuralFeatures.activeChannels ?? 1);
+  const interleavedRows = Number(question.structuralFeatures.interleavedRows ?? 1);
+  const orderedMultiAnswer = question.structuralFeatures.orderedMultiAnswer === true;
+  const progressiveJump = question.structuralFeatures.progressiveJump === true;
+  const independentChannels = question.structuralFeatures.independentChannelSteps === true;
+
+  let burden = 0;
+  if (progressiveJump) burden += 2;
+  if (independentChannels && activeChannels >= 2) burden += 2;
+  if (activeChannels >= 3) burden += 1;
+  if (interleavedRows >= 2) burden += 2;
+  if (orderedMultiAnswer) burden += 1;
+  if (wrap) burden += 2;
+
+  if (burden <= 1) return "EASY";
+  if (burden <= 3) return "MEDIUM";
+  return "HARD";
+}
+
 function placeCorrectAtRequestedIndex(
   question: GeneratedSerCp008Question,
   requestedSeed: number,
 ): GeneratedSerCp008Question {
   const requestedIndex = ((requestedSeed + Number(question.qlId.slice(-3))) % 4 + 4) % 4;
-  if (question.correctIndex === requestedIndex && question.seed === requestedSeed) return question;
   const options = [...question.options];
   const current = options.findIndex((option) => option.errorLabel === null);
   if (current < 0) throw new Error(`${question.qlId} has no canonical correct option.`);
@@ -37,6 +59,7 @@ function placeCorrectAtRequestedIndex(
   return {
     ...question,
     seed: requestedSeed,
+    difficulty: generatedInstanceDifficulty(question),
     options,
     correctIndex: requestedIndex,
   };
