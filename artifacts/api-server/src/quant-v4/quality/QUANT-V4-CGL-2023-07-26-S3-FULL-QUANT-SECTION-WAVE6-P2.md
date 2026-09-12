@@ -64,6 +64,8 @@ Expected shared state:
 - distinct complete-section years: **3**
 - package coverage across complete sections: **23**
 
+The cumulative evidence regression suite is aligned to these totals while preserving strict chapter/package-specific counts. No historical source observation was rewritten to manufacture this transition.
+
 ## Frequency-calibration safety
 
 The conservative P2 whole-section policy requires **8 complete sections**. With six sections, the profile must remain `SECTION_EVIDENCE_ACCUMULATING` with blocker `COMPLETE_SECTION_SAMPLE_BELOW_POLICY`.
