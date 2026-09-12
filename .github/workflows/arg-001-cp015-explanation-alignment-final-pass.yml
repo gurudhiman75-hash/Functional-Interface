@@ -25,15 +25,12 @@ jobs:
 
           repair_path = Path('scripts/arg-cp015-final-editorial-integration-repair.py')
           text = repair_path.read_text(encoding='utf-8')
-          list_anchor = '''              ('.replace(/\\\\bcitizens reaching near closing time\\\\b/gi, "citizens arriving near closing time")', 'closing-time arrival wording'),
-          ]'''
-          replacement = '''              ('.replace(/\\\\bcitizens reaching near closing time\\\\b/gi, "citizens arriving near closing time")', 'closing-time arrival wording'),
-              ('.replace(/\\\\bBefore [^.]+? imposes an irreversible penalty after [^.]+?, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed\\\\./gi, "A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation.")', 'due-process explanation alignment'),
-          ]'''
+          tuple_anchor = '''    ('.replace(/\\bcitizens reaching near closing time\\b/gi, "citizens arriving near closing time")', 'closing-time arrival wording'),\n'''
+          tuple_addition = '''    ('.replace(/\\bBefore [^.]+? imposes an irreversible penalty after [^.]+?, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed\\./gi, "A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation.")', 'due-process explanation alignment'),\n'''
           if 'due-process explanation alignment' not in text:
-              if text.count(list_anchor) != 1:
-                  raise SystemExit(f'expected one English naturalness list tail, found {text.count(list_anchor)}')
-              text = text.replace(list_anchor, replacement, 1)
+              if text.count(tuple_anchor) != 1:
+                  raise SystemExit(f'expected one closing-time repair tuple, found {text.count(tuple_anchor)}')
+              text = text.replace(tuple_anchor, tuple_anchor + tuple_addition, 1)
               repair_path.write_text(text, encoding='utf-8')
 
           proof_path = Path('artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts')
