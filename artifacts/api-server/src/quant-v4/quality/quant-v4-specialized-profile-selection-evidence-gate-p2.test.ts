@@ -24,15 +24,15 @@ assert.equal(
   QUANT_V4_PYQ_OBSERVATION_REGISTRY_AUTHORITY,
   "QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2",
 );
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 183, "The normalized registry should contain five complete dated SSC CGL Tier-I Quant sections plus prior evidence.");
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 24);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 9);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208, "The normalized registry should contain six complete dated SSC CGL Tier-I Quant sections plus prior evidence.");
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 26);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 12);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 10);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "MAL-001" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 22);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 9);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 18);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 11);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 24);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 21);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 13);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 4);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 9);
 
@@ -46,17 +46,17 @@ const ZERO_COUNTS: Readonly<Record<QuantV4CompetitiveExamProfileId, number>> = O
 });
 
 const EXPECTED_COUNTS: Readonly<Record<QuantV4SpecializedSelectionPackageId, Readonly<Record<QuantV4CompetitiveExamProfileId, number>>>> = Object.freeze({
-  "AVG-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 3, SSC_CGL_CHSL: 6 }),
+  "AVG-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 4, SSC_CGL_CHSL: 6 }),
   "MAL-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 1 }),
   "NUM-001": Object.freeze({
-    SSC_CGL_TIER_I: 16,
+    SSC_CGL_TIER_I: 18,
     SSC_CGL_CHSL: 5,
     SSC_CGL_JSO: 1,
     PUNJAB_STATE: 0,
     BANKING_PRELIMS: 0,
     BANKING_MAINS: 0,
   }),
-  "TMW-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 13, SSC_CGL_CHSL: 5 }),
+  "TMW-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 16, SSC_CGL_CHSL: 5 }),
 });
 
 for (const packageId of PACKAGE_IDS) {
