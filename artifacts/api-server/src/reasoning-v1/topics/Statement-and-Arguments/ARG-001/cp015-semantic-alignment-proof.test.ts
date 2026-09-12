@@ -82,9 +82,6 @@ for (const language of ["hi", "pa"] as const) {
   }
 }
 
-// QL002 Punjabi approval surfaces need both grammatical agreement and semantic
-// alignment. Exercise a much wider deterministic seed sweep because the approval
-// template is only one member of this question family.
 for (const cell of cells) {
   for (let seedIndex = 0; seedIndex < 160; seedIndex += 1) {
     const batch = generateArgCp015QuestionStudioBatch({
@@ -123,27 +120,65 @@ for (const cell of cells) {
   }
 }
 
-// Reproduce the exact English QL006 SSC/Easy review cell that exposed a defect
-// missed by the broad grammar sweep. Both the learner-facing capitalization and
-// the explanation must stay contextual after future anti-gaming rewrites.
+// Reproduce the certified English QL006 SSC/Easy review cell exactly as the
+// exporter does. Earlier cells consume unique statement/explanation surfaces,
+// so the SSC/Easy item is not guaranteed to be sampleAttempt 0.
 {
-  const batch = generateArgCp015QuestionStudioBatch({
-    profileMode: "real-paper",
-    examProfile: "SSC_RECENT_2X4",
-    qlId: "ARG-QL-006",
-    language: "en",
-    difficulty: "Easy",
-    seed: "ARG-CP015-HUMAN-REVIEW:en:ARG-QL-006:SSC_RECENT_2X4:Easy:3:0",
-    count: 1,
-  });
-  const question = batch.questions[0] as Question;
+  const reviewCells = [
+    { profileMode: "core" as const, difficulty: "Easy" as const, count: 1 },
+    { profileMode: "core" as const, difficulty: "Medium" as const, count: 1 },
+    { profileMode: "core" as const, difficulty: "Hard" as const, count: 1 },
+    { profileMode: "real-paper" as const, examProfile: "SSC_RECENT_2X4", difficulty: "Easy" as const, count: 1 },
+  ] as const;
+  const seenStatements = new Set<string>();
+  const seenExplanations = new Set<string>();
+  let sscEasyQuestion: Question | undefined;
+
+  for (let cellIndex = 0; cellIndex < reviewCells.length; cellIndex += 1) {
+    const cell = reviewCells[cellIndex]!;
+    let selected: readonly Question[] | undefined;
+
+    for (let sampleAttempt = 0; sampleAttempt < 256; sampleAttempt += 1) {
+      const seed = `ARG-CP015-HUMAN-REVIEW:en:ARG-QL-006:${"examProfile" in cell ? cell.examProfile : "CORE"}:${cell.difficulty}:${cellIndex}:${sampleAttempt}`;
+      const batch = generateArgCp015QuestionStudioBatch({
+        profileMode: cell.profileMode,
+        examProfile: "examProfile" in cell ? cell.examProfile : undefined,
+        qlId: "ARG-QL-006",
+        language: "en",
+        difficulty: cell.difficulty,
+        seed,
+        count: cell.count,
+      });
+      const candidates = batch.questions as readonly Question[];
+      const statements = candidates.map((question) => String(question.statement ?? "").trim().replace(/\s+/g, " "));
+      const explanations = candidates.map((question) => String(question.explanation ?? "").trim().replace(/\s+/g, " "));
+      const uniqueWithinCandidate = new Set(statements).size === candidates.length
+        && new Set(explanations).size === candidates.length;
+      const newToReviewSet = statements.every((key) => !seenStatements.has(key))
+        && explanations.every((key) => !seenExplanations.has(key));
+      if (uniqueWithinCandidate && newToReviewSet) {
+        selected = candidates;
+        break;
+      }
+    }
+
+    assert.ok(selected, `English/ARG-QL-006/review-cell-${cellIndex}: unable to reproduce certified review selection`);
+    for (const question of selected!) {
+      seenStatements.add(String(question.statement ?? "").trim().replace(/\s+/g, " "));
+      seenExplanations.add(String(question.explanation ?? "").trim().replace(/\s+/g, " "));
+    }
+    if (cellIndex === 3) sscEasyQuestion = selected![0] as Question;
+  }
+
+  assert.ok(sscEasyQuestion, "English certified review selection did not produce SSC/Easy QL006 item");
+  const question = sscEasyQuestion!;
   const args = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
   const explanation = String(question.explanation ?? "");
-  const target = args.find((argument) => /payments from a newly added device/i.test(argument) && /most instances/i.test(argument));
-  assert.ok(target, `${question.questionId}: English certified review seed no longer exercises newly-added-device fraud overclaim`);
+  const target = args.find((argument: string) => /payments from a newly added device/i.test(argument) && /most instances/i.test(argument));
+  assert.ok(target, `${question.questionId}: English certified SSC/Easy review item no longer exercises newly-added-device fraud overclaim`);
   englishNewDeviceReviewChecked += 1;
-  assert.doesNotMatch(target!, /\bYes\.\s+most instances\b/, `${question.questionId}: lowercase sentence start leaked after Yes.`);
-  assert.match(target!, /\bYes\.\s+Most instances\b/, `${question.questionId}: newly-added-device review argument must use normal sentence capitalization`);
+  assert.doesNotMatch(target, /\bYes\.\s+most instances\b/, `${question.questionId}: lowercase sentence start leaked after Yes.`);
+  assert.match(target, /\bYes\.\s+Most instances\b/, `${question.questionId}: newly-added-device review argument must use normal sentence capitalization`);
   assert.doesNotMatch(explanation, /does not provide enough support for that conclusion/i, `${question.questionId}: newly-added-device fraud overclaim fell through to generic explanation`);
   assert.match(explanation, /newly added device/i, `${question.questionId}: explanation must stay tied to the newly-added-device claim`);
   assert.match(explanation, /(?:genuine|fraudulent|mandatory pre-authorisation)/i, `${question.questionId}: explanation must state why the fraud generalisation is unsupported`);
