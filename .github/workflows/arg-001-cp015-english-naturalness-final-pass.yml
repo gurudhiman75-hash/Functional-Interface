@@ -25,22 +25,29 @@ jobs:
 
           repair_path = Path('scripts/arg-cp015-final-editorial-integration-repair.py')
           text = repair_path.read_text(encoding='utf-8')
-          anchor = '''capitalization = '.replace(/\\\\b(Yes|No)\\\\.\\\\s+most instances?\\\\b/gi, "$1. Most instances")'\nif capitalization not in quality:\n    article_anchor = '.replace(/\\\\ba automatically renewed plan\\\\b/gi, "an automatically renewed plan")'\n    count = quality.count(article_anchor)\n    if count != 1:\n        raise SystemExit(f"English QL006 capitalization: expected one repair anchor, found {count}")\n    quality = quality.replace(article_anchor, article_anchor + '\\n    ' + capitalization, 1)\n'''
-          addition = '''capitalization = '.replace(/\\\\b(Yes|No)\\\\.\\\\s+most instances?\\\\b/gi, "$1. Most instances")'\nif capitalization not in quality:\n    article_anchor = '.replace(/\\\\ba automatically renewed plan\\\\b/gi, "an automatically renewed plan")'\n    count = quality.count(article_anchor)\n    if count != 1:\n        raise SystemExit(f"English QL006 capitalization: expected one repair anchor, found {count}")\n    quality = quality.replace(article_anchor, article_anchor + '\\n    ' + capitalization, 1)\n\n# Final English naturalness repairs found in the certified human-review corpus.\nenglish_naturalness_repairs = [\n    ('.replace(/\\\\bin school closing time\\\\b/gi, "during school closing time")', 'school-closing-time preposition'),\n    ('.replace(/\\\\bon the first week of each month\\\\b/gi, "in the first week of each month")', 'first-week preposition'),\n]\nfor repair, label in english_naturalness_repairs:\n    if repair not in quality:\n        insert_anchor = capitalization if capitalization in quality else '.replace(/\\\\ba automatically renewed plan\\\\b/gi, "an automatically renewed plan")'\n        count = quality.count(insert_anchor)\n        if count != 1:\n            raise SystemExit(f"English naturalness {label}: expected one repair anchor, found {count}")\n        quality = quality.replace(insert_anchor, insert_anchor + '\\n    ' + repair, 1)\n'''
-          if 'english_naturalness_repairs = [' not in text:
-              if text.count(anchor) != 1:
-                  raise SystemExit(f'expected one English capitalization block, found {text.count(anchor)}')
-              text = text.replace(anchor, addition, 1)
+          old_pair = '''english_naturalness_repairs = [
+              ('.replace(/\\\\bin school closing time\\\\b/gi, "during school closing time")', 'school-closing-time preposition'),
+              ('.replace(/\\\\bon the first week of each month\\\\b/gi, "in the first week of each month")', 'first-week preposition'),
+          ]'''
+          new_trio = '''english_naturalness_repairs = [
+              ('.replace(/\\\\bin school closing time\\\\b/gi, "during school closing time")', 'school-closing-time preposition'),
+              ('.replace(/\\\\bon the first week of each month\\\\b/gi, "in the first week of each month")', 'first-week preposition'),
+              ('.replace(/\\\\bcitizens reaching near closing time\\\\b/gi, "citizens arriving near closing time")', 'closing-time arrival wording'),
+          ]'''
+          if 'closing-time arrival wording' not in text:
+              if text.count(old_pair) != 1:
+                  raise SystemExit(f'expected one English naturalness repair list, found {text.count(old_pair)}')
+              text = text.replace(old_pair, new_trio, 1)
               repair_path.write_text(text, encoding='utf-8')
 
           proof_path = Path('artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts')
           proof = proof_path.read_text(encoding='utf-8')
-          proof_anchor = '    /\\bmost instance\\b/i,\n'
-          guards = '    /\\bin school closing time\\b/i,\n    /\\bon the first week of each month\\b/i,\n'
-          if '/\\bin school closing time\\b/i' not in proof:
-              if proof.count(proof_anchor) != 1:
-                  raise SystemExit(f'expected one English malformed anchor, found {proof.count(proof_anchor)}')
-              proof = proof.replace(proof_anchor, proof_anchor + guards, 1)
+          anchor = '    /\\bon the first week of each month\\b/i,\n'
+          guard = '    /\\bcitizens reaching near closing time\\b/i,\n'
+          if guard.strip() not in proof:
+              if proof.count(anchor) != 1:
+                  raise SystemExit(f'expected one English first-week guard, found {proof.count(anchor)}')
+              proof = proof.replace(anchor, anchor + guard, 1)
               proof_path.write_text(proof, encoding='utf-8')
           PY
       - name: Commit final English naturalness guards
@@ -49,5 +56,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add scripts/arg-cp015-final-editorial-integration-repair.py artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts
           git diff --cached --quiet && exit 0
-          git commit -m "fix(arg-cp015): harden final English naturalness"
+          git commit -m "fix(arg-cp015): extend final English naturalness hardening"
           git push origin HEAD:feature/arg-001-cp012-editorial-remediation
