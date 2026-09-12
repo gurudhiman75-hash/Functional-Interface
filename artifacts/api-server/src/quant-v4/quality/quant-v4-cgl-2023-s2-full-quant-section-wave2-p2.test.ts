@@ -97,15 +97,15 @@ assert.ok(!priorPackages.has("RAP-003"));
 assert.ok(!priorPackages.has("DI-003"));
 
 assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 24);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 22);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 27);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 23);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 18);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "SAP" }).length, 4);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "RAP-001" }).length, 3);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 22);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 12);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "SAP" }).length, 5);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "RAP-001" }).length, 4);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "RAP-003" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-003" }).length, 3);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-003" }).length, 4);
 
 const numCgl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
 assert.equal(numCgl.normalizedCountableObservationCount, 17);
