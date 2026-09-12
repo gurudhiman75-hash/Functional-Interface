@@ -34,7 +34,7 @@ assert.equal(listQuestionStudioEngines().includes("language-v1"), true);
 const registered = listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001");
 assert.equal(registered?.engineId, "language-v1");
 assert.equal(registered?.enabled, true);
-assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003"]);
+assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004"]);
 
 assert.equal(isEng001QuestionStudioRequestV1({ packageId: "ENG-001" }), true);
 assert.equal(isEng001QuestionStudioRequestV1({ canonicalProblemId: "ENG-001-CP002" }), true);
@@ -248,4 +248,4 @@ await assert.rejects(
   /Conflicting ENG-001 checkpoint selectors/i,
 );
 
-console.log("ENG-001 CP001 + CP002 + CP003 Question Studio language-v1 integration tests passed.");
+console.log("ENG-001 CP001 + CP002 + CP003 legacy Question Studio regression tests passed with CP004 package registration.");
