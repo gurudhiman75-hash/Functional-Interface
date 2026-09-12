@@ -21,7 +21,6 @@ on:
       - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
       - artifacts/api-server/src/question-studio/engines/reasoning-v1-ops001-adapter.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
-      - .github/workflows/ops-001-forward-port.yml
   workflow_dispatch:
 
 permissions:
