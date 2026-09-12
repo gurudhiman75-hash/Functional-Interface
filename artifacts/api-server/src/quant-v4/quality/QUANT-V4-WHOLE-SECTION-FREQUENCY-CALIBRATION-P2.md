@@ -13,7 +13,7 @@ Mixing both shapes in one frequency calculation can over-weight chapters that re
 
 ## P2 decision
 
-Whole-section frequency calibration is now a separate evidence surface.
+Whole-section frequency calibration is a separate evidence surface.
 
 - Only explicitly declared, fully normalized Quant sections enter section-frequency weights.
 - A declared section enters the calibration sample only when every expected question is present exactly once and its held date/shift match the declared paper identity.
@@ -27,11 +27,14 @@ Whole-section frequency calibration is now a separate evidence surface.
 | --- | --- | ---: |
 | 09 Sep 2024 Shift 1 | Q51–Q75 | 25 |
 | 27 Jul 2023 Shift 2 | Q26–Q50 | 25 |
+| 26 Jul 2023 Shift 1 | Q51–Q75 | 25 |
 | 01 Dec 2022 Shift 1 | Q51–Q75 | 25 |
 
-Current complete-section sample: **3 papers / 75 questions / 3 exam years / 20 live package IDs**.
+Current complete-section sample: **4 papers / 100 questions / 3 exam years / 23 live package IDs**.
 
-The shared CGL Tier-I registry contains **100 countable observations**. Therefore **25** remain non-whole-section observations. Ten of those are legacy undated Number System collection observations; they no longer contaminate whole-section weights because they are outside the complete-section sample.
+The shared CGL Tier-I registry contains **125 countable observations**. Therefore **25** remain non-whole-section observations. Ten of those are legacy undated Number System collection observations; they do not contaminate whole-section weights because they are outside the complete-section sample.
+
+Wave 4 also adds first complete-section presence for `MAL-001`, `PCT-007` and `TSD-002`. This is useful breadth evidence, but it is not a reason to lower the complete-section sample threshold.
 
 ## Conservative P2 audit policy
 
@@ -41,7 +44,7 @@ The shared CGL Tier-I registry contains **100 countable observations**. Therefor
 - dated section identity required: **yes**;
 - production promotion authorized: **no**.
 
-The current profile is therefore `SECTION_EVIDENCE_ACCUMULATING` with blocker `COMPLETE_SECTION_SAMPLE_BELOW_POLICY`.
+The current profile remains `SECTION_EVIDENCE_ACCUMULATING` with blocker `COMPLETE_SECTION_SAMPLE_BELOW_POLICY`.
 
 This checkpoint does **not** authorize replacement of provisional simulator weights. Even if evidence thresholds are temporarily lowered in a test, production promotion still requires an explicit authorization switch.
 
@@ -51,4 +54,4 @@ A chapter can have many verified PYQs because it was audited aggressively. That 
 
 ## Exit condition
 
-Continue normalizing fully dated complete Quant sections. Revisit the P2 sample threshold only after enough independent sections exist to examine paper-to-paper variance. Do not promote production frequency weights merely because isolated-question totals are large.
+Continue normalizing fully dated complete Quant sections. The immediate evidence target is **8 independent complete sections**. Revisit the P2 sample threshold only after enough sections exist to examine paper-to-paper variance. Do not promote production frequency weights merely because isolated-question totals are large.
