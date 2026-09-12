@@ -59,6 +59,7 @@ const MALFORMED: Readonly<Record<Language, readonly RegExp[]>> = Object.freeze({
     /\bin school closing time\b/i,
     /\bon the first week of each month\b/i,
     /\bcitizens reaching near closing time\b/i,
+    /temporary safeguards and evidence review preserve due process/i,
   ]),
   hi: Object.freeze([
     /अधिकांश दस दिन/,
