@@ -37,6 +37,8 @@ const cells = [
 
 let hindiQueueSufficiencyChecked = 0;
 let punjabiContactSufficiencyChecked = 0;
+let punjabiApprovalSurfaceChecked = 0;
+let punjabiApprovalAnecdoteChecked = 0;
 
 for (const language of ["hi", "pa"] as const) {
   for (const cell of cells) {
@@ -63,6 +65,7 @@ for (const language of ["hi", "pa"] as const) {
         if (language === "hi" && /कतार/.test(argument) && /(?:पर्याप्त|काफ़ी|इसी उपाय)/.test(argument)) {
           hindiQueueSufficiencyChecked += 1;
           assert.doesNotMatch(reason, /कार्यान्वयन अवरोध/, `${question.questionId}: Hindi queue-sufficiency argument routed to unrelated implementation-obstacle reason`);
+          assert.doesNotMatch(reason, /(?:शिकायत|फ्लैग).*निर्णायक प्रमाण/, `${question.questionId}: Hindi queue-sufficiency argument routed to unrelated complaint-evidence reason`);
           assert.match(reason, /कतार/, `${question.questionId}: Hindi queue-sufficiency reason must stay tied to the queue claim`);
           assert.match(reason, /(?:मांग|सेवा-क्षमता|अकेले|इसी उपाय)/, `${question.questionId}: Hindi queue-sufficiency reason must explain why one measure is insufficient`);
         }
@@ -78,11 +81,56 @@ for (const language of ["hi", "pa"] as const) {
   }
 }
 
+// QL002 Punjabi approval surfaces need both grammatical agreement and semantic
+// alignment. Exercise a much wider deterministic seed sweep because the approval
+// template is only one member of this question family.
+for (const cell of cells) {
+  for (let seedIndex = 0; seedIndex < 160; seedIndex += 1) {
+    const batch = generateArgCp015QuestionStudioBatch({
+      profileMode: cell.profileMode,
+      examProfile: "examProfile" in cell ? cell.examProfile : undefined,
+      qlId: "ARG-QL-002",
+      language: "pa",
+      difficulty: cell.difficulty,
+      seed: `ARG-CP015-SEMANTIC-APPROVAL:pa:${cell.profileMode}:${"examProfile" in cell ? cell.examProfile : "CORE"}:${cell.difficulty}:${seedIndex}`,
+      count: 1,
+    });
+    const question = batch.questions[0] as Question;
+    const args = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
+    const rs = reasons(question, "pa");
+    const ss = strengths(question);
+    const fullSurface = [String(question.statement ?? ""), ...args, String(question.explanation ?? "")].join(" ");
+
+    if (/ਮਨਜ਼ੂਰੀ/.test(fullSurface)) {
+      punjabiApprovalSurfaceChecked += 1;
+      assert.doesNotMatch(fullSurface, /ਇਨ-ਐਪ ਮਨਜ਼ੂਰੀ ਪੂਰਾ ਕਰਨਾ/, `${question.questionId}: Punjabi approval has wrong infinitive agreement`);
+      assert.doesNotMatch(fullSurface, /ਇਨ-ਐਪ ਮਨਜ਼ੂਰੀ ਇਹ ਰੋਕ ਸਕਦਾ ਹੈ/, `${question.questionId}: Punjabi approval has wrong gender agreement`);
+      assert.doesNotMatch(fullSurface, /ਇਨ-ਐਪ ਮਨਜ਼ੂਰੀ ਵਿੱਚ ਫੇਲ ਹੋਇਆ ਸੀ/, `${question.questionId}: Punjabi failed-approval wording remained unnatural`);
+    }
+
+    for (let index = 0; index < args.length; index += 1) {
+      if (ss[index]?.toUpperCase() !== "WEAK") continue;
+      const argument = args[index]!;
+      const reason = rs[index]!;
+      if (/ਇੱਕ ਵਰਤੋਂਕਾਰ.*ਮਨਜ਼ੂਰੀ.*(?:ਪੂਰੀ ਨਹੀਂ ਕਰ ਸਕਿਆ|ਫੇਲ|ਅਸਫਲ)/.test(argument)) {
+        punjabiApprovalAnecdoteChecked += 1;
+        assert.doesNotMatch(reason, /ਇਹ ਦਲੀਲ ਮੰਨ ਲੈਂਦੀ ਹੈ ਕਿ/, `${question.questionId}: Punjabi failed-approval anecdote fell through to generic explanation`);
+        assert.match(reason, /(?:ਇੱਕ ਘਟਨਾ|ਇੱਕ ਵਰਤੋਂਕਾਰ)/, `${question.questionId}: Punjabi failed-approval reason must identify the single-case weakness`);
+        assert.match(reason, /(?:ਜ਼ਿਆਦਾਤਰ|ਵਾਜਬ|ਅਣਭਰੋਸੇਯੋਗ)/, `${question.questionId}: Punjabi failed-approval reason must explain why the anecdote cannot establish general unreliability`);
+      }
+    }
+  }
+}
+
 assert.ok(hindiQueueSufficiencyChecked > 0, "semantic proof did not exercise any Hindi queue-sufficiency weak argument");
 assert.ok(punjabiContactSufficiencyChecked > 0, "semantic proof did not exercise any Punjabi contact-sufficiency weak argument");
+assert.ok(punjabiApprovalSurfaceChecked > 0, "semantic proof did not exercise any Punjabi in-app approval surface");
+assert.ok(punjabiApprovalAnecdoteChecked > 0, "semantic proof did not exercise any Punjabi failed-approval anecdote");
 
 console.log(JSON.stringify({
   status: "PASS_ARG_CP015_SEMANTIC_ALIGNMENT",
   hindiQueueSufficiencyChecked,
   punjabiContactSufficiencyChecked,
+  punjabiApprovalSurfaceChecked,
+  punjabiApprovalAnecdoteChecked,
 }, null, 2));
