@@ -72,6 +72,7 @@ english_naturalness_repairs = [
     ('.replace(/\\bin school closing time\\b/gi, "during school closing time")', 'school-closing-time preposition'),
     ('.replace(/\\bon the first week of each month\\b/gi, "in the first week of each month")', 'first-week preposition'),
     ('.replace(/\\bcitizens reaching near closing time\\b/gi, "citizens arriving near closing time")', 'closing-time arrival wording'),
+    ('.replace(/\\bBefore [^.]+? imposes an irreversible penalty after [^.]+?, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed\\./gi, "A fair chance to respond and an evidence check are directly relevant before an irreversible penalty because they reduce the risk of acting permanently on an unverified complaint, flag or allegation.")', 'due-process explanation alignment'),
 ]
 for repair, label in english_naturalness_repairs:
     if repair not in quality:
