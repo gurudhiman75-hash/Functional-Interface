@@ -23,6 +23,10 @@ import {
   isEng001Cp007QuestionStudioRequestV1,
   languageV1Eng001Cp007QuestionStudioAdapterV1,
 } from "./language-v1-eng001-cp007-adapter-v1";
+import {
+  isEng001Cp008QuestionStudioRequestV1,
+  languageV1Eng001Cp008QuestionStudioAdapterV1,
+} from "./language-v1-eng001-cp008-adapter-v1";
 
 /**
  * Composite adapter for language subjects. Individual chapter adapters own
@@ -32,10 +36,13 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "language-v1",
 
   listPackages() {
-    return [...languageV1Eng001Cp007QuestionStudioAdapterV1.listPackages()];
+    return [...languageV1Eng001Cp008QuestionStudioAdapterV1.listPackages()];
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isEng001Cp008QuestionStudioRequestV1(request)) {
+      return languageV1Eng001Cp008QuestionStudioAdapterV1.generate(request);
+    }
     if (isEng001Cp007QuestionStudioRequestV1(request)) {
       return languageV1Eng001Cp007QuestionStudioAdapterV1.generate(request);
     }
