@@ -28,34 +28,43 @@ for (const caselet of batch) {
   assert.equal(child.answer, child.options[child.correctIndex]);
   answerSlots[child.correctIndex] += 1;
 
-  const states = caselet.validStates.filter((state) => state[child.temporaryCondition.person] === child.temporaryCondition.group);
+  const conditionPeople = new Set(child.temporaryConditions.map((condition) => condition.person));
+  const states = caselet.validStates.filter((state) => child.temporaryConditions.every((condition) => state[condition.person] === condition.group));
   assert.equal(states.length, child.conditionedStateCount);
-  assert.ok(child.conditionedStateCount < child.parentStateCount, `${child.questionId}: condition does not reduce the possibility set`);
+  assert.ok(child.conditionedStateCount < child.parentStateCount, `${child.questionId}: conditions do not reduce the possibility set`);
 
   const correct = parse(caselet, child.answer);
-  assert.notEqual(correct.person, child.temporaryCondition.person, `${child.questionId}: correct answer merely repeats the condition person`);
+  assert.equal(conditionPeople.has(correct.person), false, `${child.questionId}: correct answer merely repeats a condition person`);
   assert.equal(states.every((state) => state[correct.person] === correct.group), true, `${child.questionId}: answer is not true in all conditioned states`);
   assert.equal(caselet.validStates.every((state) => state[correct.person] === correct.group), false, `${child.questionId}: answer was already forced before the additional condition`);
 
   for (let optionIndex = 0; optionIndex < child.options.length; optionIndex += 1) {
     if (optionIndex === child.correctIndex) continue;
     const distractor = parse(caselet, child.options[optionIndex]!);
-    assert.notEqual(distractor.person, child.temporaryCondition.person, `${child.questionId}: distractor trivially restates/contradicts the condition person`);
+    assert.equal(conditionPeople.has(distractor.person), false, `${child.questionId}: distractor trivially restates/contradicts a condition person`);
     assert.equal(caselet.validStates.some((state) => state[distractor.person] === distractor.group), true, `${child.questionId}: distractor was impossible even before the condition`);
     assert.equal(states.every((state) => state[distractor.person] === distractor.group), false, `${child.questionId}: distractor is also must-true after condition`);
   }
 
   if (caselet.difficultyBand === "Easy") {
+    assert.equal(child.temporaryConditions.length, 1);
     assert.equal(child.parentStateCount, 2);
     assert.equal(child.conditionedStateCount, 1);
   }
   if (caselet.difficultyBand === "Medium") {
+    assert.equal(child.temporaryConditions.length, 1);
     assert.ok(child.parentStateCount >= 3 && child.parentStateCount <= 4);
     assert.ok(child.conditionedStateCount >= 1 && child.conditionedStateCount <= 2);
   }
   if (caselet.difficultyBand === "Hard") {
+    assert.equal(child.temporaryConditions.length, 2);
+    assert.notEqual(child.temporaryConditions[0]!.person, child.temporaryConditions[1]!.person);
     assert.ok(child.parentStateCount >= 5, `${child.questionId}: Hard parent ambiguity is too narrow`);
     assert.ok(child.conditionedStateCount >= 1 && child.conditionedStateCount <= 2);
+    for (const condition of child.temporaryConditions) {
+      const singlyConditioned = caselet.validStates.filter((state) => state[condition.person] === condition.group);
+      assert.equal(singlyConditioned.every((state) => state[correct.person] === correct.group), false, `${child.questionId}: one Hard condition alone already forces the answer`);
+    }
   }
   assert.ok(child.explanation.lines.some((line) => line.includes("| Person | Assignment |")));
   assert.ok(child.explanation.lines.some((line) => line.includes(`${child.parentStateCount} valid arrangements`)));
@@ -66,4 +75,4 @@ for (const caselet of batch) {
 assert.deepEqual(difficultyCounts, new Map([["Easy", 6], ["Medium", 6], ["Hard", 6]]));
 assert.ok(answerSlots.every((count) => count >= 3), `CP04 V2 answer slots too concentrated: ${answerSlots.join(",")}`);
 
-console.log(`CP04 V2 ambiguity-calibrated difficulty and condition dependency passed: ${batch.length} caselets; answer slots ${answerSlots.join("/")}.`);
+console.log(`CP04 V2 compound-Hard difficulty and condition dependency passed: ${batch.length} caselets; answer slots ${answerSlots.join("/")}.`);
