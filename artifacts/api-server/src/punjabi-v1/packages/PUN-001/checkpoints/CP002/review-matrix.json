@@ -1,0 +1,13 @@
+{
+  "cpId": "PUN-001-CP002",
+  "status": "REVIEW_ONLY",
+  "families": [
+    {"familyId":"F01","subtype":"CORRECT_FORM_RECOGNITION","difficulty":["Easy","Medium"]},
+    {"familyId":"F02","subtype":"SENTENCE_ERROR_CORRECTION","difficulty":["Medium"]},
+    {"familyId":"F03","subtype":"CONTEXTUAL_COMPLETION","difficulty":["Medium"]},
+    {"familyId":"F04","subtype":"MULTI_ERROR_SENTENCE_REPAIR","difficulty":["Hard"]},
+    {"familyId":"F05","subtype":"TWO_WORD_PRECISION","difficulty":["Hard"]}
+  ],
+  "authorityStatus": "REVIEW_PENDING",
+  "productionPromotion": false
+}
