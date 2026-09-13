@@ -4,6 +4,7 @@ import {
   type ApprovedOpsQuestion,
   type OpsApprovedCandidateId,
 } from "./approved-teaching-entry";
+import { generateAuditArbitraryCandidate } from "./audit-generated-arbitrary";
 import {
   generateAuditMappingCandidate,
   supportsAuditGeneratedMappingCandidate,
@@ -23,6 +24,9 @@ export function generateApprovedOpsQuestion(
 ): ApprovedOpsQuestion {
   if (!Number.isInteger(seed) || seed < 0) {
     throw new Error(`Approved runtime seed must be a non-negative integer; received ${seed}.`);
+  }
+  if (candidateId === "OPS-CAND-004" || candidateId === "OPS-CAND-007") {
+    return generateAuditArbitraryCandidate(candidateId, seed);
   }
   if (supportsAuditGeneratedMappingCandidate(candidateId)) {
     return generateAuditMappingCandidate(candidateId, seed);
