@@ -1,0 +1,10 @@
+import type { HisCp003Spec } from "./his-cp003-review-specs-v1";
+
+export const HIS_CP003_ITEM_OVERRIDES_V1:Readonly<Record<number,HisCp003Spec>>={
+  32:[6,"Which language did Buddha use to spread his teachings?","Pali",["Persian","Greek","Tamil"],["bud-pali"]],
+  35:[6,"Which feature is associated with Mahayana Buddhism?","Wider use of Sanskrit and worship of Buddha in image form",["Exclusive use of Pali and rejection of Buddha images","Strict adherence to the five Jain vows","Rejection of the sangha"],["bud-mahayana"]],
+  36:[6,"Which description best matches Hinayana?","It continued the use of Pali and treated Buddha mainly as a guide",["It centred on Sanskrit and image worship","It was a Jain sect based on anekantavada","It rejected the Four Noble Truths"],["bud-hinayana"]],
+  52:[9,"Which option correctly compares the political forms of the Mahajanapadas?","Most were monarchies, while Vajji was an important gana-sangha that used clan councils or assemblies",["All were hereditary monarchies and none used assemblies","Most were gana-sanghas, while Vajji was a hereditary monarchy","Vajji had no council or assembly and was governed only by priests"],["mh-two-governments","mh-vajji-gana"]],
+  53:[9,"Which option correctly compares the main paths taught by Jainism and Buddhism?","Jainism stresses Triratna and great vows; Buddhism stresses Four Noble Truths and the Eightfold Path",["Jainism teaches the Eightfold Path; Buddhism teaches the five great Jain vows","Both depend mainly on Vedic sacrifice","Neither tradition gives importance to ethical conduct"],["jain-triratna","jain-five-vows","bud-four-truths","bud-eightfold"]],
+  54:[9,"Which combined statement is correct?","Mahavira — Prakrit — Triratna; Buddha — Pali — Eightfold Path",["Mahavira — Pali — Eightfold Path; Buddha — Prakrit — Triratna","Mahavira — Prakrit — Eightfold Path; Buddha — Pali — Triratna","Mahavira — Pali — Triratna; Buddha — Prakrit — Eightfold Path"],["jain-prakrit","jain-triratna","bud-pali","bud-eightfold"]],
+};
