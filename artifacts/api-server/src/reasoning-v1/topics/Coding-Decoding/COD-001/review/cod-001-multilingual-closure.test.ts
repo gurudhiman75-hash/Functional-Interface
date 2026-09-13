@@ -181,9 +181,16 @@ for (const id of qlIds) {
       }
 
       assert.notEqual(question.prototypeOnly, true);
-      assert.notEqual(question.questionStudioVisible, true);
+      if (number >= 200) {
+        assert.equal(question.questionStudioVisible, true, `${id}/${locale}/${seed} must be visible to Question Studio review`);
+        assert.equal(question.metadata?.questionStudioDiscoverable, true, `${id}/${locale}/${seed} must be discoverable in Question Studio review`);
+      } else {
+        assert.notEqual(question.questionStudioVisible, true, `${id}/${locale}/${seed} legacy runtime lifecycle changed unexpectedly`);
+      }
       assert.notEqual(question.publiclyPublishable, true);
       assert.notEqual(question.metadata?.publiclyPublishable, true);
+      assert.notEqual(question.metadata?.questionBankWritable, true);
+      assert.notEqual(question.metadata?.mockTestEligible, true);
 
       const fingerprint = stableStringify({
         stem: question.stem,
@@ -231,6 +238,8 @@ console.log(JSON.stringify({
   renderers: Object.fromEntries(locales.map((locale) => [locale, [...renderers[locale]].sort()])),
   exactQuestionCollisions: { "en-IN": 0, "hi-IN": 0, "pa-IN": 0 },
   sourceGapLocalizedRange: "COD-QL-200..203",
-  questionStudioVisible: false,
+  sourceGapQuestionStudioVisible: true,
+  questionBankWritable: false,
+  mockTestEligible: false,
   publiclyPublishable: false,
 }, null, 2));
