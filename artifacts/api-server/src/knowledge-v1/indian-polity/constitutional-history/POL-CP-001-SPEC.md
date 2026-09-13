@@ -63,7 +63,7 @@ Before runtime registration:
 - all 12 QLs represented;
 - at least 10 Easy, 16 Medium and 8 Hard review items;
 - all four option positions used as the correct answer;
-- no duplicate stems;
+- no duplicate semantic questions (standard instruction stems may repeat);
 - no duplicate options inside a question;
 - every item carries source IDs and source-fact IDs;
 - editorial review confirms exam realism and factual precision.
