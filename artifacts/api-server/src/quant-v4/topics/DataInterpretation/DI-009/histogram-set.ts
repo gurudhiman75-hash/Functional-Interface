@@ -300,6 +300,10 @@ function buildDrafts(seed: string, stimulus: Di009Stimulus): Draft[] {
         { text: ratioDisplay(bins[leftEnd]!.frequency, bins[rightEnd]!.frequency), misconceptionId: "USE_LAST_BIN_OF_EACH_RANGE", derivation: "Uses only the last rectangle from each multi-class range." },
         { text: ratioDisplay(leftTotal, total), misconceptionId: "COMPARE_FIRST_RANGE_WITH_WHOLE", derivation: "Compares the first range with the whole histogram instead of the second range." },
         { text: ratioDisplay(total, rightTotal), misconceptionId: "COMPARE_WHOLE_WITH_SECOND_RANGE", derivation: "Uses the whole histogram total as the first term of the ratio." },
+        { text: ratioDisplay(leftTotal + bins[leftStart]!.frequency, rightTotal), misconceptionId: "DOUBLE_COUNT_FIRST_LEFT_BIN", derivation: "Totals the first range but accidentally counts its first rectangle twice before forming the ratio." },
+        { text: ratioDisplay(leftTotal, rightTotal + bins[rightStart]!.frequency), misconceptionId: "DOUBLE_COUNT_FIRST_RIGHT_BIN", derivation: "Totals the second range but accidentally counts its first rectangle twice before forming the ratio." },
+        { text: ratioDisplay(leftTotal + bins[leftEnd]!.frequency, rightTotal), misconceptionId: "DOUBLE_COUNT_LAST_LEFT_BIN", derivation: "Totals the first range but accidentally counts its last rectangle twice before forming the ratio." },
+        { text: ratioDisplay(leftTotal, rightTotal + bins[rightEnd]!.frequency), misconceptionId: "DOUBLE_COUNT_LAST_RIGHT_BIN", derivation: "Totals the second range but accidentally counts its last rectangle twice before forming the ratio." },
       ],
       explanation: {
         keyIdea: `First total the bars in each named range, then form the ratio in the same order as the question.`,
