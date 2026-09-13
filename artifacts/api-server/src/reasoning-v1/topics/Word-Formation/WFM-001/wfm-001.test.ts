@@ -59,6 +59,9 @@ for (const qlId of WFM_001_QL_IDS) {
     const question = generateWfm001Question({ qlId, seed: 14, language, examProfile: "PUNJAB_4" });
     assert(question.stem.includes(question.sourceWord));
     assert(question.explanation.length > 80, `${qlId}/${language} explanation is too thin.`);
+    if (language !== "en-IN") {
+      assert(!/\b(?:needed|available|common trap)\b/i.test(question.explanation), `${qlId}/${language} contains English explanation leakage.`);
+    }
   }
 }
 
@@ -81,6 +84,11 @@ const markdown = renderWfm001ReviewMarkdown(review);
 assert(markdown.includes("WFM-QL-001"));
 assert(markdown.includes("WFM-QL-002"));
 assert(!markdown.includes("Option A is wrong"), "Review explanations must not become option-by-option boilerplate.");
+
+for (const language of ["hi-IN", "pa-IN"] as const) {
+  const nativeReview = renderWfm001ReviewMarkdown(buildWfm001ReviewPack(language, 1));
+  assert(!/\b(?:needed|available|common trap)\b/i.test(nativeReview), `${language} review pack contains English explanation leakage.`);
+}
 
 console.log(JSON.stringify({
   status: "PASS",
