@@ -6,7 +6,7 @@ This is a fresh forward-port implementation. It does not merge donor Punjabi his
 
 ## Semantic families
 
-- F01 — correct-form recognition — Easy/Medium
+- F01 — correct-form recognition — Easy
 - F02 — sentence error correction — Medium
 - F03 — contextual completion — Medium
 - F04 — multi-error sentence repair — Hard
@@ -20,7 +20,7 @@ Difficulty is driven by the operation required:
 - Medium: resolve the spelling inside a sentence/context.
 - Hard: repair or evaluate two spelling decisions together.
 
-Negative wording, rare vocabulary, formal prose and instruction paraphrases do not create difficulty.
+Negative wording, rare vocabulary, formal prose and instruction paraphrases do not create difficulty. Direct recognition is intentionally not relabelled Medium.
 
 ## Editorial contract
 
@@ -34,4 +34,6 @@ Negative wording, rare vocabulary, formal prose and instruction paraphrases do n
 
 ## Authority lifecycle
 
-Wave-1 authorities are extracted donor records marked `REVIEW_PENDING`. They may power deterministic reviewer output but are not yet production linguistic truth. Each record must later be promoted only after lexical/source verification.
+The current review corpus contains 45 selectively extracted donor records across six spelling-confusion categories. Records are normalized for concise explanations and natural sentence context, but all remain `REVIEW_PENDING` until lexical/source review explicitly promotes them.
+
+The semantic proof requires unique correct forms, three distinct incorrect variants, NFC-normalized text, context containing the target form, donor provenance, 40 unique review questions per enabled family/difficulty sample, and strict `REVIEW_ONLY` lifecycle metadata.
