@@ -15,10 +15,13 @@ import {
   type CP009V2FamilyId,
 } from "./CP009-v2-families";
 import { generateCP009V2F02Forward } from "./CP009-v2-f02";
+import { generateCP009V21F07, generateCP009V21F08 } from "./CP009-v2-pair-families";
 
 const FAMILY_GENERATORS = {
   ...CP009_V2_FAMILY_GENERATORS,
   F02: generateCP009V2F02Forward,
+  F07: generateCP009V21F07,
+  F08: generateCP009V21F08,
 } as const;
 
 const ELIGIBLE_BY_DIFFICULTY: Record<PunjabiDifficulty, readonly CP009V2FamilyId[]> = {
@@ -43,8 +46,8 @@ export const PUN_001_CP009_DEFINITION: PunjabiCheckpointDefinition = {
     { familyId: "F04", name: "Near-Synonym Context", description: "Choose the exact word demanded by an authored contextual distinction.", targetDifficulties: TARGET_DIFFICULTIES.F04, generate: FAMILY_GENERATORS.F04 },
     { familyId: "F05", name: "Not a Synonym", description: "Find the semantic outsider among genuine synonyms.", targetDifficulties: TARGET_DIFFICULTIES.F05, generate: FAMILY_GENERATORS.F05 },
     { familyId: "F06", name: "Complete the Synonym Set", description: "Complete a reviewed synonym set without mixing semantic poles.", targetDifficulties: TARGET_DIFFICULTIES.F06, generate: FAMILY_GENERATORS.F06 },
-    { familyId: "F07", name: "Correct Synonym Pair", description: "Identify one genuine synonym pair among same-format false pairs.", targetDifficulties: TARGET_DIFFICULTIES.F07, generate: FAMILY_GENERATORS.F07 },
-    { familyId: "F08", name: "Correct Antonym Pair", description: "Identify one genuine antonym pair among coherent same-format traps.", targetDifficulties: TARGET_DIFFICULTIES.F08, generate: FAMILY_GENERATORS.F08 },
+    { familyId: "F07", name: "Correct Synonym Pair", description: "Identify one genuine synonym pair among unique same-format false pairs.", targetDifficulties: TARGET_DIFFICULTIES.F07, generate: FAMILY_GENERATORS.F07 },
+    { familyId: "F08", name: "Correct Antonym Pair", description: "Identify one genuine antonym pair among unique coherent same-format traps.", targetDifficulties: TARGET_DIFFICULTIES.F08, generate: FAMILY_GENERATORS.F08 },
   ],
 };
 
