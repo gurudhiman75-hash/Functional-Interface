@@ -1,5 +1,5 @@
 import { generateCaeQuestion } from "./chapter-generator.ts";
-import { generateCaeCombinationQuestion } from "./cp003004-combination.ts";
+import { generateReviewedCaeCombinationQuestion } from "./cp003004-reviewed-polish.ts";
 import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.ts";
 import { generateCp006CausalDistanceQuestion } from "./cp006-causal-distance.ts";
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
@@ -20,7 +20,7 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   const defaultFourWay = input.questionProfile === undefined || input.questionProfile === "FOUR_WAY";
 
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && (input.seed >>> 0) % 3 === 0) {
-    return generateCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
+    return generateReviewedCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-005" && defaultFourWay) {
     return generateCp005CompetingQuestion({ locale: input.locale, seed: input.seed });
