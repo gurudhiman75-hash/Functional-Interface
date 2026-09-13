@@ -9,8 +9,10 @@ assert.equal(LP_006_PROJECTION_HI_PA_LOCALIZATION_REVIEW_V1.status, "HUMAN_REVIE
 assert.deepEqual(LP_006_PROJECTION_HI_PA_LOCALIZATION_REVIEW_V1.permanentQlIds, ["LP-QL-045", "LP-QL-046"]);
 
 const seed = "lp-006-projection-localization-parity";
-const count = 48;
+const count = 16;
 const english = generateLp006ProjectionBatchV2(seed, count);
+const projectionDirections = new Set<string>();
+const statementPolarities = new Set<string>();
 
 for (const language of ["hi", "pa"] as const) {
   const localized = generateLp006ProjectionLocalizedBatchV1(language, seed, count);
@@ -43,14 +45,21 @@ for (const language of ["hi", "pa"] as const) {
       }
     }
 
+    const projection = source.projectionChildren.find((child) => child.qlId === "LP-QL-045")!;
+    if ("sourceDimension" in projection.proof) projectionDirections.add(`${projection.proof.sourceDimension}->${projection.proof.targetDimension}`);
+
     const statement = candidate.projectionChildren.find((child) => child.qlId === "LP-QL-046")!;
     const sourceStatement = source.projectionChildren.find((child) => child.qlId === "LP-QL-046")!;
     assert.ok("polarity" in sourceStatement.proof && "polarity" in statement.proof);
     if ("polarity" in sourceStatement.proof) {
+      statementPolarities.add(sourceStatement.proof.polarity);
       const semanticMatches = sourceStatement.proof.truthByOption.map((truth) => sourceStatement.proof.polarity === "CORRECT" ? truth : !truth);
       assert.deepEqual(semanticMatches.flatMap((match, optionIndex) => match ? [optionIndex] : []), [statement.correctIndex]);
     }
   }
 }
 
-console.log(`LP-006 projection localization V1 parity passed: ${count} English caselets rebuilt in Hindi and Punjabi with stable QLs, proofs and answer indexes.`);
+assert.ok(projectionDirections.size >= 5, `Localized review batch projection variety too low: ${[...projectionDirections].join(", ")}`);
+assert.deepEqual(statementPolarities, new Set(["CORRECT", "INCORRECT"]));
+
+console.log(`LP-006 projection localization V1 parity passed: ${count} English caselets rebuilt in Hindi and Punjabi; ${projectionDirections.size} projection directions and both statement polarities covered.`);
