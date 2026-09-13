@@ -52,6 +52,16 @@ jobs:
       - name: Run frozen V3 regression
         run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-v3-regression.mjs
 
+      - name: Bundle saturation wave 1 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-saturation-wave1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-001-saturation-wave1.mjs
+
+      - name: Run saturation wave 1 regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-saturation-wave1.mjs
+
       - name: Bundle reviewed final QA
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
