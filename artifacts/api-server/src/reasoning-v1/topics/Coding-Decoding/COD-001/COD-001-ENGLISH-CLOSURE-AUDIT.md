@@ -1,47 +1,84 @@
 # COD-001 — English Runtime Closure Audit
 
-Status: **executable whole-chapter audit; localisation remains open**.
+Status: **executable English closure through `COD-QL-203`; source-gap extension review-only; Hindi/Punjabi remain closed through `COD-QL-199`**.
 
 ## Frozen English identity
 
 ```text
 Checkpoints: COD-CP-001..010
-Permanent range: COD-QL-001..199
-Permanent QLs: 199
+Permanent English range: COD-QL-001..203
+Permanent English QLs: 203
+Localized Hindi range: COD-QL-001..199
+Localized Punjabi range: COD-QL-001..199
 ```
 
-The earlier fixed reservation of 260 QLs is not authoritative. The evidence-backed English identity ends at `COD-QL-199` unless new source evidence passes the open-discovery amendment.
+The old fixed reservation of 260 QLs remains revoked. `COD-QL-200..203` are late evidence-led identities allocated only through `COD-001-SOURCE-GAP-DISCOVERY-FREEZE-V1.md` and `COD-001-MANIFEST-AMENDMENT-SOURCE-GAP-V1.md`. `COD-QL-204` is not reserved.
 
-## Exact executable coverage
+## Executable closure structure
 
-The closure test generates every permanent QL through its real checkpoint runtime for twelve deterministic seeds, producing 2,388 questions.
+English closure is deliberately additive so the mature 199-QL proof is not rewritten.
 
-It enforces:
+### Legacy gate — COD-QL-001..199
 
-- continuous and unique identity from `COD-QL-001` through `COD-QL-199`;
+The unchanged closure test generates every legacy permanent QL for twelve deterministic seeds, producing 2,388 questions. It enforces deterministic identity, checkpoint ownership, four unique options, exact answer truth, complete stems/explanations, no internal leakage, no exact displayed-question collisions, stem/explanation variation, difficulty coverage, renderer coverage, answer-position balance and review-only release safety.
+
+Observed legacy answer-position distribution remains:
+
+```text
+612 / 561 / 619 / 596
+max/min ratio = 1.1034
+```
+
+### Source-gap extension — COD-QL-200..203
+
+The source-gap English extension gate generates 120 deterministic questions per new QL, producing 480 permanent-runtime questions.
+
+It additionally samples 1,592 legacy questions for direct exact-surface collision checks.
+
+The green result proves:
+
+- all four new permanent IDs resolve to the approved owner checkpoint and solve contract;
+- all four remain `INFER_AND_ENCODE` only;
 - deterministic repeat generation;
-- exact QL and checkpoint ownership;
-- four semantically unique options;
-- exactly one marked answer and correct-index agreement;
-- complete student stems and explanations;
-- no unresolved placeholders or internal contract leakage;
-- no exact displayed-question collision across the sampled chapter corpus;
-- at least two English stem and explanation forms per QL;
-- all ten checkpoints, all three difficulties and at least four renderers;
-- all four answer positions with a chapter-wide max/min ratio no greater than 1.25;
-- review-only release safety with Question Studio and public publication disabled.
+- four unique options and exactly one correct answer;
+- instance-derived difficulty reaches multiple bands within each QL;
+- every answer position occurs within every new QL;
+- no source-gap exact collisions;
+- no exact collision with the sampled legacy corpus;
+- Question Studio, public publication, Question Bank and mock eligibility remain disabled.
 
-## Multilingual audit result
+Observed extension result:
 
-The current chapter is English-only at runtime. `hi-IN` and `pa-IN` are declared in foundation types but no permanent chapter-wide Hindi or Punjabi generator is currently exposed.
+```text
+English permanent range: COD-QL-001..203
+English permanent QLs: 203
+Generated source-gap closure questions: 480
+Sampled legacy collision questions: 1,592
+Source-gap exact collisions: 0
+Legacy cross-collisions: 0
+```
 
-Localisation must therefore be implemented in guarded groups:
+## Discovery-freeze proof
 
-1. translational checkpoints `CP-001..007` and `CP-010`, preserving Latin letters, digits and symbols while authoring Hindi/Punjabi instructions and explanations;
-2. language-adapted `CP-008`, using natural locale-specific referent datasets;
-3. language-adapted `CP-009`, using separately authored natural sentence datasets and grammar;
-4. one final whole-chapter three-locale parity and editorial gate.
+The permanent source-gap freeze independently generates 240 instances per new QL (960 total) and checks:
+
+- exact audited source fixtures;
+- unique hidden-rule/context inference;
+- identity and checkpoint ownership;
+- lifecycle locks;
+- all answer positions;
+- target and evidence-pair diversity;
+- multiple legitimate difficulty bands per rule;
+- misconception-labelled distractors with no arbitrary fallback.
+
+The older 480-question prototype regression and 960-question V2 quality/fatigue gate also remain green.
+
+## Multilingual boundary
+
+Hindi and Punjabi are already closed and approved for `COD-QL-001..199`. This English source-gap allocation does not falsely extend those locale closures.
+
+`COD-QL-200..203` require a separate localization expansion before the chapter can again be called fully multilingual at its newest English frontier.
 
 ## Release boundary
 
-English closure does not enable Question Studio, Question Bank conversion, mock-test eligibility or public routing. Multilingual review must close first.
+Permanent English identity does not mean publication. `COD-QL-200..203` remain review-only with Question Studio, Question Bank conversion, mock-test eligibility and public routing disabled until localization and guarded integration are separately approved.
