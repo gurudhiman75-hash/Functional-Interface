@@ -89,6 +89,13 @@ const NOUN_QUANTIFIER_RULES = [
   ['GR-NQN-007', 'Irregular plural forms'], ['GR-NQN-008', 'Plural-only nouns and pair of'],
   ['GR-NQN-009', 'Unit expressions with mass nouns'], ['GR-NQN-010', 'Each/one of the + plural group noun'],
 ] as const;
+const GERUND_INFINITIVE_PARTICIPLE_RULES = [
+  ['GR-GIP-001', 'Gerund after gerund-selecting verbs'], ['GR-GIP-002', 'To-infinitive after infinitive-selecting verbs'],
+  ['GR-GIP-003', 'Object + to-infinitive'], ['GR-GIP-004', 'Bare infinitive after make / let'],
+  ['GR-GIP-005', 'Bare infinitive after modal verbs'], ['GR-GIP-006', 'Gerund after prepositions'],
+  ['GR-GIP-007', 'Used to vs be used to'], ['GR-GIP-008', 'To-infinitive of purpose'],
+  ['GR-GIP-009', 'Meaning-sensitive remember / stop complements'], ['GR-GIP-010', 'Participle form (perfect / passive)'],
+] as const;
 
 const CPS = [
   { id: 'ENG-001-CP001', label: 'CP001 · Subject–Verb Agreement', subtopic: 'Subject–Verb Agreement', version: 'V4', ruleLabel: 'SVA', rules: SVA_RULES },
@@ -99,6 +106,7 @@ const CPS = [
   { id: 'ENG-001-CP006', label: 'CP006 · Adjectives, Adverbs and Comparison', subtopic: 'Adjectives, Adverbs and Comparison', version: 'V1', ruleLabel: 'comparison', rules: COMPARISON_RULES },
   { id: 'ENG-001-CP007', label: 'CP007 · Conjunctions & Parallelism', subtopic: 'Conjunctions & Parallelism', version: 'V1', ruleLabel: 'conjunction / parallelism', rules: CONJUNCTION_RULES },
   { id: 'ENG-001-CP008', label: 'CP008 · Nouns & Quantifiers', subtopic: 'Nouns & Quantifiers', version: 'V1', ruleLabel: 'noun / quantifier', rules: NOUN_QUANTIFIER_RULES },
+  { id: 'ENG-001-CP009', label: 'CP009 · Gerunds, Infinitives & Participles', subtopic: 'Gerunds, Infinitives & Participles', version: 'V1', ruleLabel: 'gerund / infinitive / participle', rules: GERUND_INFINITIVE_PARTICIPLE_RULES },
 ] as const;
 
 type CpId = (typeof CPS)[number]['id'];
@@ -125,6 +133,7 @@ export function QuestionStudioEnglishReviewPanel() {
   const [seed, setSeed] = useState('');
   const [reviewReason, setReviewReason] = useState('');
   const selectedCp = CPS.find((entry) => entry.id === cpId) ?? CPS[0];
+  const maxBatchCount = selectedCp.id === 'ENG-001-CP009' ? 20 : 50;
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -149,7 +158,7 @@ export function QuestionStudioEnglishReviewPanel() {
     try {
       const result = await createGenerationRun({
         engineId: ENGINE_ID, exam: selectedExam?.name ?? exam, subject: 'English', topic: 'Error Spotting', subtopic: selectedCp.subtopic,
-        difficulty, count: Math.max(1, Math.min(50, count)), packageId: PACKAGE_ID,
+        difficulty, count: Math.max(1, Math.min(maxBatchCount, count)), packageId: PACKAGE_ID,
         patternId: qlId === ALL_QLS ? undefined : qlId,
         canonicalProblemId: ruleId === ALL_RULES ? selectedCp.id : ruleId,
         language: 'en', seed: seed.trim() || undefined, runtimeMode: RUNTIME_MODE,
@@ -188,13 +197,13 @@ export function QuestionStudioEnglishReviewPanel() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="border-success/30 text-success">Human-approved content</Badge>
-            <Badge variant="outline">8 CPs · 3 QLs · 80 grammar rules</Badge>
+            <Badge variant="outline">9 CPs · 3 QLs · 90 grammar rules</Badge>
             <Badge variant="outline">Easy / Medium / Hard</Badge>
             <Badge variant="outline" className="border-warning/30 text-warning">Review-only</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          CP001 through CP008 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
+          CP001 through CP009 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -204,7 +213,7 @@ export function QuestionStudioEnglishReviewPanel() {
           <Field label="QL"><Select value={qlId} onValueChange={setQlId}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL_QLS}>All approved QLs</SelectItem>{QLS.map(([id, label]) => <SelectItem key={id} value={id}>{id} · {label}</SelectItem>)}</SelectContent></Select></Field>
           <Field label="Grammar rule" className="xl:col-span-2"><Select value={ruleId} onValueChange={setRuleId}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL_RULES}>All approved {selectedCp.ruleLabel} rules</SelectItem>{selectedCp.rules.map(([id, label]) => <SelectItem key={id} value={id}>{id} · {label}</SelectItem>)}</SelectContent></Select></Field>
           <Field label="Difficulty"><Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{['Easy', 'Medium', 'Hard'].map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
-          <Field label="Question count"><Input type="number" min={1} max={50} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+          <Field label="Question count"><Input type="number" min={1} max={maxBatchCount} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
         </div>
         <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
           <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for the approved checkpoint default seed" /></Field>
@@ -215,7 +224,7 @@ export function QuestionStudioEnglishReviewPanel() {
         </div>
         <div className="border-t pt-5">
           <div className="mb-3 grid gap-3 md:grid-cols-[1fr_minmax(18rem,32rem)] md:items-end">
-            <div><p className="text-sm font-semibold">Recent ENG-001 review runs</p><p className="text-xs text-muted-foreground">CP001 through CP008 share this review surface. Approved items cannot enter Question Bank from this package.</p></div>
+            <div><p className="text-sm font-semibold">Recent ENG-001 review runs</p><p className="text-xs text-muted-foreground">CP001 through CP009 share this review surface. Approved items cannot enter Question Bank from this package.</p></div>
             <Field label="Reason for Needs fix / Reject"><Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the grammar, wording, explanation, ambiguity, or difficulty issue" /></Field>
           </div>
           {loading ? <div className="flex items-center justify-center gap-2 rounded-lg border p-8 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading English review runs…</div>
