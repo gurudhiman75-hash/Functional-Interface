@@ -6,7 +6,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/knowledge-v1/science/work-energy-power/**"
-      - ".github/workflows/science-sci-cp003-review.yml"
   workflow_dispatch:
 
 permissions:
