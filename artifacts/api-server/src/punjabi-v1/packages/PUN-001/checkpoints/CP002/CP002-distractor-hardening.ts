@@ -49,8 +49,14 @@ const overrides: Readonly<Record<string, Partial<HardenableSpellingAuthority>>> 
   "ED-W2-032": { incorrect: ["ਪੂਰੱਬ", "ਪੂੜਬ", "ਪੁਰੱਬ"] },
   // ਸਹਿ can function independently; keep the distractors orthographic-only.
   "ED-W2-072": { incorrect: ["ਸੈਹੀ", "ਸਹੀੰ", "ਸੇਹੀ"] },
-  // ਪਤਾ is an independent valid Punjabi word.
-  "ED-W2-118": { incorrect: ["ਪਤਤਾ", "ਪਤ੍ਤਾ", "ਪਤਾਾ"] },
+  // ਪਤਾ is an independent valid word; replace the target with a cleaner addak item.
+  "ED-W2-118": {
+    correct: "ਮੱਛੀ",
+    incorrect: ["ਮਛੀ", "ਮੱਛਿ", "ਮਛ੍ਛੀ"],
+    category: "ADDAK_OMISSION",
+    contextPa: "ਤਲਾਬ ਵਿੱਚ ਮੱਛੀ ਤੈਰ ਰਹੀ ਹੈ।",
+    explanationPa: "ਸਹੀ ਸ਼ਬਦ-ਜੋੜ ‘ਮੱਛੀ’ ਹੈ।",
+  },
   // ਹਲ is a valid word (plough); replace the target rather than contrast lexemes.
   "ED-W2-134": {
     correct: "ਚਿੱਠੀ",
@@ -59,12 +65,18 @@ const overrides: Readonly<Record<string, Partial<HardenableSpellingAuthority>>> 
     contextPa: "ਉਸ ਨੇ ਘਰ ਚਿੱਠੀ ਭੇਜੀ।",
     explanationPa: "ਸਹੀ ਸ਼ਬਦ-ਜੋੜ ‘ਚਿੱਠੀ’ ਹੈ।",
   },
-  // ਸਦਾ is a valid adverb; do not use it against ਸੱਦਾ.
-  "ED-W2-135": { incorrect: ["ਸਦ੍ਦਾ", "ਸਦਦਾ", "ਸਤੱਦਾ"] },
+  // ਸਦਾ is a valid adverb; replace ਸੱਦਾ with a cleaner addak target.
+  "ED-W2-135": {
+    correct: "ਮਿੱਟੀ",
+    incorrect: ["ਮਿਟੀ", "ਮਿੱਟਿ", "ਮੀੱਟੀ"],
+    category: "ADDAK_OMISSION",
+    contextPa: "ਖੇਤ ਦੀ ਮਿੱਟੀ ਉਪਜਾਊ ਹੈ।",
+    explanationPa: "ਸਹੀ ਸ਼ਬਦ-ਜੋੜ ‘ਮਿੱਟੀ’ ਹੈ।",
+  },
   // Punjabi University uses ਵਿਆਕਰਨ; avoid treating it as a wrong form.
   "ED-W2-180": {
     correct: "ਵਰਤਮਾਨ",
-    incorrect: ["ਵਰਤਮਾਣ", "ਵਰਤਮਾਂਨ", "ਵਰਤਮਾਨ਼"],
+    incorrect: ["ਵਰਤਮਾਣ", "ਵਰਤਮਾਂਨ", "ਵਰਤਮਾਨਿ"],
     category: "VARG_CONFUSION",
     contextPa: "ਵਰਤਮਾਨ ਸਮੇਂ ਤਕਨਾਲੋਜੀ ਦੀ ਵਰਤੋਂ ਵਧ ਰਹੀ ਹੈ।",
     explanationPa: "ਸਹੀ ਸ਼ਬਦ-ਜੋੜ ‘ਵਰਤਮਾਨ’ ਹੈ।",
@@ -73,10 +85,10 @@ const overrides: Readonly<Record<string, Partial<HardenableSpellingAuthority>>> 
   "ED-W2-181": { incorrect: ["ਪ੍ਰਮਾਨ", "ਪ੍ਰਮਾਂਣ", "ਪ੍ਰਮਾਣਿ"] },
 
   // Cluster authorities: avoid decomposed forms that may be valid lexical variants.
-  "ED-W2-193": { incorrect: ["ਪ੍ਰਕਾੜ", "ਪ੍ਰਕਾਰਿ", "ਪ੍ਰਕਾਰ਼"] },
-  "ED-W2-194": { incorrect: ["ਪ੍ਰਯੌਗ", "ਪ੍ਰਯੋਗਿ", "ਪ੍ਰਯੌਗ਼"] },
-  "ED-W2-195": { incorrect: ["ਪ੍ਰਯਾਸ਼", "ਪ੍ਰਯਾਸਿ", "ਪ੍ਰਯਾਸ਼ਿ"] },
-  "ED-W2-196": { incorrect: ["ਪ੍ਰਸਤਾਉ", "ਪ੍ਰਸਤਾਵਿ", "ਪ੍ਰਸਤਾਂਵ"] },
+  "ED-W2-193": { incorrect: ["ਪ੍ਰਕਾੜ", "ਪ੍ਰਕਰ", "ਪ੍ਰਕੌਰ"] },
+  "ED-W2-194": { incorrect: ["ਪ੍ਰਯੌਗ", "ਪ੍ਰਯੂਗ", "ਪ੍ਰਯੋਗਿ"] },
+  "ED-W2-195": { incorrect: ["ਪ੍ਰਯਾਸ਼", "ਪ੍ਰਯਸ", "ਪ੍ਰਿਆਸ"] },
+  "ED-W2-196": { incorrect: ["ਪ੍ਰਸਤਾਉ", "ਪ੍ਰਸਤਵ", "ਪ੍ਰਸਤਾਂਵ"] },
   // ਪ੍ਰਨਾਲੀ / ਪਰਨਾਲੀ are independently attested; keep neither as a wrong spelling.
   "ED-W2-197": {
     correct: "ਪ੍ਰਬੰਧਕੀ",
@@ -86,13 +98,13 @@ const overrides: Readonly<Record<string, Partial<HardenableSpellingAuthority>>> 
     explanationPa: "ਸਹੀ ਸ਼ਬਦ-ਜੋੜ ‘ਪ੍ਰਬੰਧਕੀ’ ਹੈ।",
   },
   // ਪਰਦੇਸ਼ / ਪ੍ਰਦੇਸ are attested alternatives/lexemes.
-  "ED-W2-198": { incorrect: ["ਪ੍ਰਦੈਸ਼", "ਪ੍ਰਦੇਸ਼ਿ", "ਪ੍ਰਦੇਸ਼਼"] },
-  "ED-W2-199": { incorrect: ["ਪ੍ਰਾਚਿਨ", "ਪ੍ਰਾਚੀਣ", "ਪ੍ਰਾਚੀਨਿ"] },
+  "ED-W2-198": { incorrect: ["ਪ੍ਰਦੈਸ਼", "ਪ੍ਰਦੇਸ਼ਿ", "ਪ੍ਰਦੀਸ਼"] },
+  "ED-W2-199": { incorrect: ["ਪ੍ਰਾਚਿਨ", "ਪ੍ਰਾਚੀਣ", "ਪ੍ਰਚੀਨ"] },
   // ਪ੍ਰੇਰਨਾ is itself a Punjabi University dictionary headword.
-  "ED-W2-200": { incorrect: ["ਪਰੇਰਣਾ", "ਪ੍ਰੈਰਣਾ", "ਪ੍ਰੇਰਣ਼ਾ"] },
+  "ED-W2-200": { incorrect: ["ਪਰੇਰਣਾ", "ਪ੍ਰੈਰਣਾ", "ਪ੍ਰੇਰਿਣਾ"] },
   "ED-W2-201": { incorrect: ["ਪ੍ਰਮੁਖ਼", "ਪ੍ਰਮੁੱਖਿ", "ਪ੍ਰਮੂੱਖ"] },
-  "ED-W2-202": { incorrect: ["ਪ੍ਰੌਗਰਾਮ", "ਪ੍ਰੋਗਰਾਂਮ", "ਪ੍ਰੋਗਰਾਮਿ"] },
-  "ED-W2-203": { incorrect: ["ਕ੍ਰਾਂਤਿ", "ਕ੍ਰਾਂਤੀੀ", "ਕ੍ਰਾਂਤੀਂ"] },
+  "ED-W2-202": { incorrect: ["ਪ੍ਰੌਗਰਾਮ", "ਪ੍ਰੋਗਰਾਂਮ", "ਪ੍ਰੋਗਰਮ"] },
+  "ED-W2-203": { incorrect: ["ਕ੍ਰਾਂਤਿ", "ਕ੍ਰਾਂਥੀ", "ਕ੍ਰਾਂਟੀ"] },
   // Standard Punjabi grammar headword is ਕਿਰਿਆ, so do not make ਕ੍ਰਿਆ the target.
   "ED-W2-204": {
     correct: "ਪ੍ਰਸ਼ਾਸਕੀ",
@@ -104,7 +116,7 @@ const overrides: Readonly<Record<string, Partial<HardenableSpellingAuthority>>> 
   "ED-W2-205": { incorrect: ["ਤ੍ਰੀਕੋਣ", "ਤ੍ਰਿਕੋਨ", "ਤ੍ਰਿਕੌਣ"] },
   "ED-W2-206": { incorrect: ["ਤ੍ਰੀਭੁਜ", "ਤ੍ਰਿਭੂਜ", "ਤ੍ਰਿਭੁਜ਼"] },
   // ਬ੍ਰਹਮੰਡ is attested; it must not be labelled a misspelling of ਬ੍ਰਹਿਮੰਡ.
-  "ED-W2-207": { incorrect: ["ਬ੍ਰਹੀਮੰਡ", "ਬ੍ਰਹਿਮੰੜ", "ਬ੍ਰਹਿਮੰਡ਼"] },
+  "ED-W2-207": { incorrect: ["ਬ੍ਰਹੀਮੰਡ", "ਬ੍ਰਹਿਮੰੜ", "ਬ੍ਰਹਿਮਡ"] },
 };
 
 export function hardenCP002Authority<T extends HardenableSpellingAuthority>(authority: T): T {
