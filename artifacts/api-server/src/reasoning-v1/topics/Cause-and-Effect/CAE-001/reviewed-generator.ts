@@ -48,6 +48,9 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
   }
 
+  // Controlled saturation is exposed where the reviewed learner operation is
+  // the same as the graph-native projection. CP007/008/009 keep specialised
+  // inference/operation renderers until dedicated saturation adapters exist.
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) {
     return reviewedSaturationQuestion(input, true);
   }
@@ -62,18 +65,15 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-007" && defaultFourWay) {
-    // CP007 remains inference-calibrated MEDIUM/HARD. Expanded parallel worlds
-    // stay available to QL002/raw correlation audit until a dedicated CP007
-    // false-causation renderer is authored for them.
     return seed % 4 === 0
       ? generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed })
       : generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) {
-    return seed % 5 === 4 ? reviewedSaturationQuestion(input, false) : generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
+    return generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-009" && defaultFourWay) {
-    return seed % 5 === 4 ? reviewedSaturationQuestion(input, true) : generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
+    return generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
   }
 
   const graphNativeSaturationEligible = input.qlId === "CAE-QL-001" || input.qlId === "CAE-QL-002" || input.qlId === "CAE-QL-006";
