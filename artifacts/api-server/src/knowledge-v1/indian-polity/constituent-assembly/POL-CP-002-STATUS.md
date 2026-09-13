@@ -1,8 +1,8 @@
 # POL-CP-002 — Constituent Assembly & Making of the Constitution Status
 
 **Branch:** `feature/polity-cp002-constituent-assembly`  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / FROZEN ENGLISH CONTENT  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Implemented
 
@@ -19,6 +19,7 @@
 - dedicated drafting-process sequence
 - 50-question English review batch
 - structural and provenance QA test
+- generic `On which date did the following occur...` wrapper removed from QL-001 and replaced by direct exam-style stems
 
 ## Mechanical review-batch QA
 
@@ -31,13 +32,18 @@ Independent generator reproduction passed:
 - canonical answer matches the recorded correct option for every question
 - 50 unique semantic signatures
 - every used source ID resolves in the CP source registry
+- generic date-wrapper QA gate enabled
 
 This is a mechanical/content-structure checkpoint, not a claim that the full repository CI suite has run.
 
-## Deliberately gated
+## Approval
 
-- production/runtime registration
+Project owner approved the revised V2 English review batch on 13 September 2026.
+
+## Deferred chapter-level work
+
 - Question Studio exposure
 - Hindi/Punjabi localization
+- package-wide production registration
 
-These remain blocked until the English CP-002 review batch is approved.
+These are intentionally deferred to the Polity integration/localization checkpoints so later CPs can reuse one stable chapter-level adapter rather than creating per-CP integration fragments.
