@@ -1,8 +1,13 @@
+import { CAE_001_SATURATION_WAVE1_FAMILIES } from "./causal-world-saturation-wave1.ts";
+import { CAE_001_SATURATION_WAVE2_FAMILIES } from "./causal-world-saturation-wave2.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import { CAE_PROVISIONAL_QL_IDS, type CaeDifficulty, type GeneratedCaeQuestion } from "./types.ts";
 
 const DIFFICULTY_ORDER: readonly CaeDifficulty[] = ["EASY", "MEDIUM", "HARD"];
 const LETTERS = ["A", "B", "C", "D", "E"] as const;
+const SATURATION_FAMILY_IDS = new Set([...CAE_001_SATURATION_WAVE1_FAMILIES, ...CAE_001_SATURATION_WAVE2_FAMILIES].map((family) => family.id));
+const CONTROLLED_SATURATION_QL_IDS = new Set(["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-007", "CAE-QL-008", "CAE-QL-009"] as const);
+const CONTROLLED_REVIEW_SATURATION_MAX = 2;
 
 export type Cae001ReviewedEditorialSample = Readonly<{
   seed: number;
@@ -17,9 +22,6 @@ function operationKey(question: GeneratedCaeQuestion): string {
 }
 
 function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Cae001ReviewedEditorialSample[] {
-  // Keep presentation variants in the candidate pool. Some reviewed causal
-  // states legitimately render at different difficulty bands; semantic
-  // de-duplication belongs at selection time, not discovery time.
   const generated: Cae001ReviewedEditorialSample[] = [];
   for (let seed = 0; seed < 5_000 && generated.length < 320; seed += 1) {
     generated.push({ seed, question: generateReviewedCaeQuestion({ qlId, locale: "en-IN", seed }) });
@@ -28,29 +30,36 @@ function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Ca
   const availableDifficulties = new Set(generated.map((entry) => entry.question.difficulty));
   const selected: Cae001ReviewedEditorialSample[] = [];
   const selectedCausalStates = new Set<string>();
+  const saturationCapped = CONTROLLED_SATURATION_QL_IDS.has(qlId as never);
+  const saturationSelected = () => selected.filter((entry) => SATURATION_FAMILY_IDS.has(entry.question.scenarioFamilyId)).length;
+  const canAdd = (entry: Cae001ReviewedEditorialSample) => !(
+    saturationCapped
+    && SATURATION_FAMILY_IDS.has(entry.question.scenarioFamilyId)
+    && saturationSelected() >= CONTROLLED_REVIEW_SATURATION_MAX
+  );
   const add = (entry: Cae001ReviewedEditorialSample | undefined) => {
     if (selected.length >= 10) return;
-    if (entry && !selectedCausalStates.has(entry.question.causalStateId)) {
+    if (entry && canAdd(entry) && !selectedCausalStates.has(entry.question.causalStateId)) {
       selected.push(entry);
       selectedCausalStates.add(entry.question.causalStateId);
     }
   };
   const findUnseen = (predicate: (entry: Cae001ReviewedEditorialSample) => boolean) =>
-    generated.find((entry) => predicate(entry) && !selectedCausalStates.has(entry.question.causalStateId));
+    generated.find((entry) => predicate(entry) && canAdd(entry) && !selectedCausalStates.has(entry.question.causalStateId));
 
   // 1. Every generated difficulty band gets a semantically distinct example.
   for (const difficulty of DIFFICULTY_ORDER) {
     if (availableDifficulties.has(difficulty)) add(findUnseen((entry) => entry.question.difficulty === difficulty));
   }
 
-  // 2. Every reviewed learner operation/mode gets priority. If the first
-  // presentation of an operation reused an already-selected causal state, find
-  // another state for that operation instead of silently losing the mode.
+  // 2. Every reviewed learner operation/mode gets priority. Controlled
+  // saturation QLs still respect the two-of-ten review quota.
   for (const key of new Set(generated.map((entry) => operationKey(entry.question)))) {
     add(findUnseen((entry) => operationKey(entry.question) === key));
   }
 
-  // 3. Expose family breadth with fresh states.
+  // 3. Expose family breadth with fresh states without allowing the family-first
+  // sampler to over-represent the 20% saturation allocation.
   for (const familyId of new Set(generated.map((entry) => entry.question.scenarioFamilyId))) {
     add(findUnseen((entry) => entry.question.scenarioFamilyId === familyId));
   }
@@ -81,7 +90,7 @@ export function renderCae001ReviewedEditorialRealnessReview(): string {
   const lines = [
     "# CAE-001 reviewed editorial-realness pack",
     "",
-    "Deterministic English (`en-IN`) review-only samples. Ten distinct causal states are selected per CP/QL with difficulty, learner-operation and family breadth prioritised. The frozen V3 regression pack remains separate.",
+    "Deterministic English (`en-IN`) review-only samples. Ten distinct causal states are selected per CP/QL with difficulty, learner-operation and family breadth prioritised. QLs using controlled saturation keep that expansion to at most two of ten review samples so the pack mirrors the intended reviewed allocation. The frozen V3 regression pack remains separate.",
   ];
   for (const qlId of CAE_PROVISIONAL_QL_IDS) {
     const samples = CAE_001_REVIEWED_EDITORIAL_REALNESS_REVIEW[qlId];
