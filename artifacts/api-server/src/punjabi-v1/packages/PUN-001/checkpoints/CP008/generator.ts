@@ -16,7 +16,7 @@ import type {
 import {
   CP008_V4_FAMILY_GENERATORS,
   type CP008V4FamilyId,
-} from "./CP008-v4-families";
+} from "./CP008-v4_1-families";
 
 const CP008_V4_FAMILY_IDS = Object.keys(
   CP008_V4_FAMILY_GENERATORS
@@ -32,62 +32,14 @@ export const PUN_001_CP008_DEFINITION: PunjabiCheckpointDefinition = {
   description:
     "Native Punjabi morphology: prefix/suffix identification, genuine-vs-spurious affix discrimination, root extraction, formation, morphological analysis and meaning-to-affix precision.",
   families: [
-    {
-      familyId: "F01",
-      name: "Prefix Identification",
-      description: "Identify the genuine prefix used in a target word.",
-      targetDifficulties: CP008_DIFFICULTIES,
-      generate: CP008_V4_FAMILY_GENERATORS.F01,
-    },
-    {
-      familyId: "F02",
-      name: "Suffix Identification",
-      description: "Identify the genuine suffix used in a target word.",
-      targetDifficulties: CP008_DIFFICULTIES,
-      generate: CP008_V4_FAMILY_GENERATORS.F02,
-    },
-    {
-      familyId: "F03",
-      name: "Spurious Affix Discrimination",
-      description: "Separate genuine affix formation from a root word that only resembles it.",
-      targetDifficulties: CP008_DIFFICULTIES,
-      generate: CP008_V4_FAMILY_GENERATORS.F03,
-    },
-    {
-      familyId: "F04",
-      name: "Root Word Extraction",
-      description: "Recover the authentic root from a derived word.",
-      targetDifficulties: CP008_DIFFICULTIES,
-      generate: CP008_V4_FAMILY_GENERATORS.F04,
-    },
-    {
-      familyId: "F05",
-      name: "Prefix Formation",
-      description: "Choose the genuine word formed with a stated prefix.",
-      targetDifficulties: CP008_DIFFICULTIES,
-      generate: CP008_V4_FAMILY_GENERATORS.F05,
-    },
-    {
-      familyId: "F06",
-      name: "Suffix Formation",
-      description: "Choose the genuine word formed with a stated suffix.",
-      targetDifficulties: CP008_DIFFICULTIES,
-      generate: CP008_V4_FAMILY_GENERATORS.F06,
-    },
-    {
-      familyId: "F07",
-      name: "Morphological Segmentation",
-      description: "Choose the correct affix-plus-root analysis of a target word.",
-      targetDifficulties: CP008_DIFFICULTIES,
-      generate: CP008_V4_FAMILY_GENERATORS.F07,
-    },
-    {
-      familyId: "F08",
-      name: "Affix Semantic Precision",
-      description: "Select an affix from its meaning using close and opposite semantic confusables.",
-      targetDifficulties: CP008_DIFFICULTIES,
-      generate: CP008_V4_FAMILY_GENERATORS.F08,
-    },
+    { familyId: "F01", name: "Prefix Identification", description: "Identify the genuine prefix used in a target word.", targetDifficulties: CP008_DIFFICULTIES, generate: CP008_V4_FAMILY_GENERATORS.F01 },
+    { familyId: "F02", name: "Suffix Identification", description: "Identify the genuine suffix used in a target word.", targetDifficulties: CP008_DIFFICULTIES, generate: CP008_V4_FAMILY_GENERATORS.F02 },
+    { familyId: "F03", name: "Spurious Affix Discrimination", description: "Separate genuine affix formation from a root word that only resembles it.", targetDifficulties: CP008_DIFFICULTIES, generate: CP008_V4_FAMILY_GENERATORS.F03 },
+    { familyId: "F04", name: "Root Word Extraction", description: "Recover the authentic root from a derived word.", targetDifficulties: CP008_DIFFICULTIES, generate: CP008_V4_FAMILY_GENERATORS.F04 },
+    { familyId: "F05", name: "Prefix Formation", description: "Choose the genuine word formed with a stated prefix.", targetDifficulties: CP008_DIFFICULTIES, generate: CP008_V4_FAMILY_GENERATORS.F05 },
+    { familyId: "F06", name: "Suffix Formation", description: "Choose the genuine word formed with a stated suffix.", targetDifficulties: CP008_DIFFICULTIES, generate: CP008_V4_FAMILY_GENERATORS.F06 },
+    { familyId: "F07", name: "Morphological Segmentation", description: "Choose the correct affix-plus-root analysis of a target word.", targetDifficulties: CP008_DIFFICULTIES, generate: CP008_V4_FAMILY_GENERATORS.F07 },
+    { familyId: "F08", name: "Affix Semantic Precision", description: "Select an affix from its meaning using close and opposite semantic confusables.", targetDifficulties: CP008_DIFFICULTIES, generate: CP008_V4_FAMILY_GENERATORS.F08 },
   ],
 };
 
@@ -99,21 +51,10 @@ export function generateCP008Question(
   const rng = createRng(seed);
   const familyId = (requestedFamilyId ?? rng.pickOne(CP008_V4_FAMILY_IDS)) as CP008V4FamilyId;
   const generator = CP008_V4_FAMILY_GENERATORS[familyId];
-
-  if (!generator) {
-    throw new Error(`Unknown CP008 V4 question family: '${requestedFamilyId}'`);
-  }
-
+  if (!generator) throw new Error(`Unknown CP008 V4 question family: '${requestedFamilyId}'`);
   return generator(seed, difficulty);
 }
 
-/**
- * Produces the reviewer-facing V4 corpus.
- *
- * The canonical review size is 120 so every family/difficulty cell receives
- * exactly five questions. A non-120 count remains deterministic and is filled
- * round-robin without changing family ownership.
- */
 export function generateCP008ReviewBatch(
   count: number = 120,
   seedStart: number = 8000
@@ -124,7 +65,6 @@ export function generateCP008ReviewBatch(
 
   const questions: PunjabiGeneratedQuestion[] = [];
   let currentSeed = seedStart;
-
   const cells = CP008_DIFFICULTIES.flatMap((difficulty) =>
     CP008_V4_FAMILY_IDS.map((familyId) => ({ difficulty, familyId }))
   );
@@ -138,9 +78,7 @@ export function generateCP008ReviewBatch(
   } else {
     for (let i = 0; i < count; i++) {
       const cell = cells[i % cells.length]!;
-      questions.push(
-        generateCP008Question(currentSeed++, cell.difficulty, cell.familyId)
-      );
+      questions.push(generateCP008Question(currentSeed++, cell.difficulty, cell.familyId));
     }
   }
 
