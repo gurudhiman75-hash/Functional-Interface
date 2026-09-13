@@ -4,7 +4,7 @@ const checkpoint = (
   checkpointId: (typeof CAE_CHECKPOINT_IDS)[number],
   qlIds: readonly string[],
   ownership: string,
-  status: "IMPLEMENTED_REVIEW_CANDIDATE_V2" | "AUTOMATED_QA_NOT_FROZEN",
+  status: "IMPLEMENTED_REVIEW_CANDIDATE_V2" | "FINAL_QA_CANDIDATE_AWAITING_EXECUTION",
 ) => ({ checkpointId, qlIds, ownership, status }) as const;
 
 export const CAE_001_MANIFEST = Object.freeze({
@@ -17,19 +17,19 @@ export const CAE_001_MANIFEST = Object.freeze({
   qlDiscovery: {
     status: "PROVISIONAL_PENDING_SOURCE_SATURATION" as const,
     currentCandidateIds: CAE_PROVISIONAL_QL_IDS,
-    freezeRule: "Do not freeze QL count or allocation until source-pattern discovery and semantic saturation are reviewed.",
+    freezeRule: "Do not freeze QL count or allocation until reviewed QA execution and human editorial saturation are approved.",
   },
   checkpoints: [
-    checkpoint("CAE-CP-001", ["CAE-QL-001"], "Current provisional direct-cause/effect candidate; statement order varies independently of causal order.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
-    checkpoint("CAE-CP-002", ["CAE-QL-002"], "Current provisional common-cause/independence candidate.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
-    checkpoint("CAE-CP-003", ["CAE-QL-003"], "Current provisional probable-cause candidate.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
-    checkpoint("CAE-CP-004", ["CAE-QL-004"], "Current provisional probable-effect candidate.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
-    checkpoint("CAE-CP-005", ["CAE-QL-005"], "Current provisional causal-strength/competing-explanation candidate.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
-    checkpoint("CAE-CP-006", ["CAE-QL-006"], "Current provisional indirect-cause candidate.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
-    checkpoint("CAE-CP-007", ["CAE-QL-007"], "Current provisional correlation-versus-causation candidate.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
-    checkpoint("CAE-CP-008", ["CAE-QL-008"], "Current provisional multi-event-sequence candidate.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
-    checkpoint("CAE-CP-009", ["CAE-QL-009"], "Current provisional missing-link candidate.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
-    checkpoint("CAE-CP-010", [], "Generated-output ambiguity, duplication, localization, and difficulty gates.", "AUTOMATED_QA_NOT_FROZEN"),
+    checkpoint("CAE-CP-001", ["CAE-QL-001"], "Direct cause/effect plus source-profile direct-recognition coverage.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
+    checkpoint("CAE-CP-002", ["CAE-QL-002"], "Common/independent relationships plus exact Bank/Punjab source relationship sets.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
+    checkpoint("CAE-CP-003", ["CAE-QL-003"], "Probable cause with conventional one-of-four and graph-proven two-cause combination rendering.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
+    checkpoint("CAE-CP-004", ["CAE-QL-004"], "Probable effect with conventional one-of-four and graph-proven two/three-effect combination rendering.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
+    checkpoint("CAE-CP-005", ["CAE-QL-005"], "Reviewed causal-strength/competing-explanation calibration with genuine MEDIUM/HARD alternatives.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
+    checkpoint("CAE-CP-006", ["CAE-QL-006"], "Indirect causal chain plus immediate-versus-remote/principal causal-distance discrimination.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
+    checkpoint("CAE-CP-007", ["CAE-QL-007"], "Reviewed same-domain false causation/post-hoc and hidden-common-factor discrimination.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
+    checkpoint("CAE-CP-008", ["CAE-QL-008"], "Reviewed multi-event causal reasoning across sequence, immediate/remote roles, bridge and invalid-link operations.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
+    checkpoint("CAE-CP-009", ["CAE-QL-009"], "Reviewed integrated graph reasoning across one/two-gap, connector, relation, outcome and common-cause reconstruction.", "IMPLEMENTED_REVIEW_CANDIDATE_V2"),
+    checkpoint("CAE-CP-010", [], "Reviewed-output saturation, ambiguity, identity, localization, lifecycle and editorial-pack gates implemented; execution/human approval pending.", "FINAL_QA_CANDIDATE_AWAITING_EXECUTION"),
   ],
   ownership: {
     statementConclusionOwnedBy: "STC-001" as const,
