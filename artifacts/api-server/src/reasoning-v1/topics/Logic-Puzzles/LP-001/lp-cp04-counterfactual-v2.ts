@@ -35,9 +35,9 @@ export const LP_CP04_COUNTERFACTUAL_V2 = Object.freeze({
   parentAuthorityId: "LP_CP03_POSSIBILITY_SET_V1" as const,
   supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"] as const),
   difficultyContract: Object.freeze({
-    Easy: "EXTRA_CONDITION_LEAVES_ONE_VALID_STATE",
-    Medium: "EXTRA_CONDITION_LEAVES_TWO_VALID_STATES",
-    Hard: "EXTRA_CONDITION_LEAVES_THREE_OR_MORE_VALID_STATES",
+    Easy: "ADDITIONAL_CONDITION_LEAVES_ONE_VALID_STATE",
+    Medium: "PARENT_HAS_THREE_TO_FOUR_STATES_AND_CONDITION_LEAVES_TWO",
+    Hard: "PARENT_HAS_AT_LEAST_FIVE_STATES_AND_CONDITION_LEAVES_MULTIPLE_STATES_WITH_A_NEW_INVARIANT",
   }),
   answerDependencyContract: "CORRECT_PROPOSITION_NOT_MUST_BEFORE_CONDITION_BECOMES_MUST_AFTER_CONDITION" as const,
   distractorContract: "EACH_DISTRACTOR_WAS_POSSIBLE_BEFORE_CONDITION_AND_IS_NOT_MUST_AFTER_CONDITION" as const,
@@ -59,10 +59,10 @@ function targetDifficulty(index: number): LpCp04Difficulty {
   return (["Easy", "Medium", "Hard"] as const)[index % 3]!;
 }
 
-function stateCountMatchesDifficulty(difficulty: LpCp04Difficulty, stateCount: number): boolean {
-  if (difficulty === "Easy") return stateCount === 1;
-  if (difficulty === "Medium") return stateCount === 2;
-  return stateCount >= 3;
+function topologyMatchesDifficulty(difficulty: LpCp04Difficulty, caselet: LpCp03Caselet, conditionedStateCount: number): boolean {
+  if (difficulty === "Easy") return conditionedStateCount === 1;
+  if (difficulty === "Medium") return caselet.validStates.length >= 3 && caselet.validStates.length <= 4 && conditionedStateCount === 2;
+  return caselet.validStates.length >= 5 && conditionedStateCount >= 2;
 }
 
 function allPropositions(caselet: LpCp03Caselet): Proposition[] {
@@ -78,7 +78,7 @@ function eligibleConditions(caselet: LpCp03Caselet, difficulty: LpCp04Difficulty
   for (const person of caselet.people) for (const group of caselet.groups) {
     const states = caselet.validStates.filter((state) => state[person] === group);
     if (states.length === 0 || states.length === caselet.validStates.length) continue;
-    if (!stateCountMatchesDifficulty(difficulty, states.length)) continue;
+    if (!topologyMatchesDifficulty(difficulty, caselet, states.length)) continue;
     candidates.push({ condition: { person, group, text: propositionText(person, group, caselet) }, states });
   }
   return candidates.sort((left, right) => left.condition.text.localeCompare(right.condition.text));
@@ -170,7 +170,7 @@ export function generateLpCp04BatchV2(seed = "lp-cp04-counterfactual-review-v2",
         if (!selected) continue;
         try {
           const child = makeChild(caselet, outputIndex, difficultyBand, selected);
-          if (!stateCountMatchesDifficulty(difficultyBand, child.conditionedStateCount)) continue;
+          if (!topologyMatchesDifficulty(difficultyBand, caselet, child.conditionedStateCount)) continue;
           built = { ...caselet, difficultyBand, counterfactualChild: child };
         } catch {
           continue;
