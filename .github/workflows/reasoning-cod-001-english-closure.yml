@@ -1,10 +1,17 @@
 name: Reasoning COD-001 English Closure
+
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/**
-      - .github/workflows/reasoning-cod-001-english-closure.yml
   workflow_dispatch:
+
+concurrency:
+  group: reasoning-cod-001-english-closure-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cod-english-closure:
     runs-on: ubuntu-latest
