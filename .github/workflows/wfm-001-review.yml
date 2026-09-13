@@ -1,0 +1,76 @@
+name: Validate WFM-001 review candidate
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wfm-001-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-word-formation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Run WFM-001 adversarial review gate
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Word-Formation/WFM-001
+          OUT=dist/reasoning-v1/wfm-001
+          mkdir -p artifacts/api-server/$OUT/review
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/wfm-001.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/wfm-001.test.mjs"
+          (cd artifacts/api-server && node "$OUT/wfm-001.test.mjs") | tee artifacts/api-server/$OUT/review/test-results.json
+      - name: Generate multilingual review packs
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Word-Formation/WFM-001
+          OUT=dist/reasoning-v1/wfm-001
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-review.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-review.mjs" en-IN "$OUT/review/wfm-001-en-IN-review.md" 2)
+          (cd artifacts/api-server && node "$OUT/export-review.mjs" hi-IN "$OUT/review/wfm-001-hi-IN-review.md" 1)
+          (cd artifacts/api-server && node "$OUT/export-review.mjs" pa-IN "$OUT/review/wfm-001-pa-IN-review.md" 1)
+          cat > artifacts/api-server/$OUT/review/README.txt <<'EOF'
+          WFM-001 Word Formation — review-only ownership candidate
+
+          English: 2 QLs × 3 difficulties × 2 samples = 12 questions
+          Hindi:   2 QLs × 3 difficulties × 1 sample  = 6 questions
+          Punjabi: 2 QLs × 3 difficulties × 1 sample  = 6 questions
+
+          This artifact is for editorial/ownership review only. No Question Bank write,
+          test eligibility, public publication or master-taxonomy promotion is enabled.
+          EOF
+      - name: Upload WFM-001 review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wfm-001-review-candidate
+          path: artifacts/api-server/dist/reasoning-v1/wfm-001/review
+          if-no-files-found: error
+          retention-days: 30
