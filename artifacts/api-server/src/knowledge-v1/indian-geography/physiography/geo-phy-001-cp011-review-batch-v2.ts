@@ -76,6 +76,7 @@ const simpleStems: Record<string, string> = {
 const simpleExplanations: Record<string, string> = {
   "GEO-PHY-001-CP011-Q011": "The Himalayas are young fold mountains. The Peninsular Plateau is an old plateau.",
   "GEO-PHY-001-CP011-Q012": "The Northern Plains are alluvial plains made by river deposits. The Indian Desert is dry and sandy.",
+  "GEO-PHY-001-CP011-Q018": "Andaman and Nicobar form a long island chain in the Bay of Bengal.",
   "GEO-PHY-001-CP011-Q019": "The Himalayas are young fold mountains. The Peninsular Plateau is an old plateau.",
   "GEO-PHY-001-CP011-Q020": "The Peninsular Plateau is old and stable, and is made mainly of crystalline, igneous and metamorphic rocks.",
   "GEO-PHY-001-CP011-Q021": "The Himalayas are geologically young fold mountains.",
