@@ -1,4 +1,4 @@
-import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
+import { generateCaeQuestion } from "./chapter-generator.ts";
 import { CAE_PROVISIONAL_QL_IDS, type CaeDifficulty, type GeneratedCaeQuestion } from "./types.ts";
 
 const DIFFICULTY_ORDER: readonly CaeDifficulty[] = ["EASY", "MEDIUM", "HARD"];
@@ -10,14 +10,15 @@ export type Cae001EditorialReviewSample = Readonly<{
 }>;
 
 /**
- * A deterministic, review-only selection. It samples semantic causal states
- * before item presentations so option shuffling cannot consume review slots.
+ * Frozen-V3 regression selection. It samples semantic causal states before
+ * item presentations so option shuffling cannot consume review slots.
+ * Reviewed checkpoint overrides live in reviewed-editorial-review-pack.ts.
  */
 function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Cae001EditorialReviewSample[] {
   const generated: Cae001EditorialReviewSample[] = [];
   const seenCausalStates = new Set<string>();
   for (let seed = 0; seed < 5_000 && generated.length < 320; seed += 1) {
-    const question = generateReviewedCaeQuestion({ qlId, locale: "en-IN", seed });
+    const question = generateCaeQuestion({ qlId, locale: "en-IN", seed });
     if (!seenCausalStates.has(question.causalStateId)) {
       seenCausalStates.add(question.causalStateId);
       generated.push({ seed, question });
@@ -33,9 +34,7 @@ function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Ca
     }
   };
 
-  // First show every difficulty that the engine can actually derive for this QL.
   for (const difficulty of DIFFICULTY_ORDER) if (availableDifficulties.has(difficulty)) add(generated.find((entry) => entry.question.difficulty === difficulty));
-  // Then make family coverage visible before filling the review quota.
   for (const familyId of new Set(generated.map((entry) => entry.question.scenarioFamilyId))) add(generated.find((entry) => entry.question.scenarioFamilyId === familyId));
   for (const entry of generated) {
     add(entry);
@@ -60,12 +59,12 @@ function mechanisms(question: GeneratedCaeQuestion): string {
     : question.candidateComparisons.map((candidate) => `${candidate.mechanism} (${candidate.editorialPlausibility})`).join(", ");
 }
 
-/** Render the full 90-question English pack for editorial review. */
+/** Render the frozen-V3 90-question regression pack. */
 export function renderCae001EditorialRealnessReview(): string {
   const lines = [
-    "# CAE-001 V3 editorial-realness review pack",
+    "# CAE-001 V3 editorial-realness regression pack",
     "",
-    "Deterministic English (`en-IN`) review-only samples. There are ten semantically distinct generated causal states for each current CP/QL. QL allocation remains provisional. CP-007 is rendered through the reviewed false-causation corpus rather than the superseded arbitrary-disconnected-node sampler.",
+    "Deterministic English (`en-IN`) frozen-V3 regression samples. There are ten semantically distinct generated causal states for each current CP/QL. Reviewed checkpoint overrides are rendered separately.",
   ];
   for (const qlId of CAE_PROVISIONAL_QL_IDS) {
     const samples = CAE_001_EDITORIAL_REALNESS_REVIEW[qlId];
