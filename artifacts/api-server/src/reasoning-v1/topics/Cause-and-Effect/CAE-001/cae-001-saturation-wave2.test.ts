@@ -8,6 +8,7 @@ import {
   CAE_001_SATURATION_WAVE2_VARIANT_COUNT,
   withCae001SaturationWave2,
 } from "./causal-world-saturation-wave2.ts";
+import { CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS } from "./saturation-candidate-authorities.ts";
 import { CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE } from "./question-studio-review.ts";
 import type { CaeLocale, CaeQlId } from "./types.ts";
 
@@ -18,11 +19,11 @@ assert.equal(CAE_001_SATURATION_EFFECTIVE_VARIANT_COUNT, 120, "Effective saturat
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.effectiveScenarioFamilyCount, 30, "Question Studio must expose 30 effective families.");
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.effectiveCanonicalScenarioVariantCount, 120, "Question Studio must expose 120 effective canonical variants.");
 
-// Importing the saturation modules must not mutate the frozen source registry.
 assert.equal(CAE_001_SCENARIO_FAMILIES.length, 9, "Wave 2 module import leaked into frozen family registry.");
 assert.equal(CAE_001_CAUSAL_WORLDS.length, 27, "Wave 2 module import leaked into frozen world registry.");
 
 const wave2Ids = new Set(CAE_001_SATURATION_WAVE2_FAMILIES.map((family) => family.id));
+const candidateReadyIds = new Set(CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS);
 const chainIds = CAE_001_SATURATION_WAVE2_FAMILIES.filter((family) => family.topology === "DIRECT_CHAIN").map((family) => family.id);
 const commonIds = CAE_001_SATURATION_WAVE2_FAMILIES.filter((family) => family.topology === "BRANCHING_COMMON_CAUSE" || family.topology === "PARALLEL_CHAINS").map((family) => family.id);
 const correlationIds = CAE_001_SATURATION_WAVE2_FAMILIES.filter((family) => family.topology === "PARALLEL_CHAINS").map((family) => family.id);
@@ -67,16 +68,16 @@ for (const family of CAE_001_SATURATION_WAVE2_FAMILIES) {
   }
 }
 
-// Candidate-heavy plans remain protected until their scenario-specific pools are
-// explicitly authored and audited; canonical growth alone must not unlock them.
+// Hard projections may contain only the explicitly candidate-ready Wave 2
+// families. The remaining four Wave 2 families stay gated.
 withCae001SaturationWave2(() => {
   for (const qlId of ["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-009"] as const) {
     const plan = CAE_001_PROJECTION_AUTHORITIES.find((entry) => entry.qlId === qlId)!;
-    assert.ok(!plan.compatibleFamilyIds.some((familyId) => wave2Ids.has(familyId)), `${qlId}: Wave 2 candidate-heavy family unlocked before distractor authority.`);
+    for (const familyId of CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS) assert.ok(plan.compatibleFamilyIds.includes(familyId), `${qlId}: candidate-ready family ${familyId} is not unlocked.`);
+    assert.ok(!plan.compatibleFamilyIds.some((familyId) => wave2Ids.has(familyId) && !candidateReadyIds.has(familyId)), `${qlId}: a non-ready Wave 2 family entered a candidate-heavy plan.`);
   }
 });
 
-// The scoped overlay must restore legacy registries after every call.
 assert.equal(CAE_001_SCENARIO_FAMILIES.length, 9, "Wave 2 scope did not restore frozen family registry.");
 assert.equal(CAE_001_CAUSAL_WORLDS.length, 27, "Wave 2 scope did not restore frozen world registry.");
 
