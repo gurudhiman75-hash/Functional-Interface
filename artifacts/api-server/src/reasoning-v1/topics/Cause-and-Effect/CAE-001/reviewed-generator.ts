@@ -1,4 +1,4 @@
-import "./causal-world-saturation-wave1.ts";
+import { installCae001SaturationWave1 } from "./causal-world-saturation-wave1.ts";
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { generateReviewedCp001Question } from "./cp001-reviewed-quality-guard.ts";
 import { generateReviewedCaeCombinationQuestion } from "./cp003004-reviewed-polish.ts";
@@ -19,6 +19,7 @@ export type GenerateReviewedCaeQuestionInput = Readonly<{
 
 /** Review-facing facade layered over the frozen V3 causal architecture. */
 export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionInput): GeneratedCaeQuestion {
+  installCae001SaturationWave1();
   const defaultFourWay = input.questionProfile === undefined || input.questionProfile === "FOUR_WAY";
 
   if (input.qlId === "CAE-QL-001" && defaultFourWay) {
