@@ -1,0 +1,86 @@
+export const HIS_CP003_QL_NAMES_V1:Record<number,string>={
+  1:"Major Mahajanapadas and capitals",
+  2:"Mahajanapada locations and political forms",
+  3:"Life of Gautama Buddha",
+  4:"Jain doctrines and institutions",
+  5:"Buddhist doctrines and the path",
+  6:"Languages, sects and councils",
+  7:"Sixth-century BCE economy, towns and new religions",
+  8:"Association and matching checks",
+  9:"Sequence, geography and comparative reasoning",
+  10:"Multi-statement synthesis",
+};
+
+export type HisCp003Spec=readonly[ql:number,stem:string,answer:string,distractors:readonly[string,string,string],factIds:readonly string[]];
+
+export const HIS_CP003_SPECS_V1:readonly HisCp003Spec[]=[
+  [1,"What was the early capital of Magadha?","Rajagriha",["Kaushambi","Sravasti","Taxila"],["mh-magadha"]],
+  [1,"Kaushambi was the capital of which Mahajanapada?","Vatsa",["Kosala","Anga","Kuru"],["mh-vatsa"]],
+  [1,"Sravasti was the capital of which Mahajanapada?","Kosala",["Vatsa","Surasena","Matsya"],["mh-kosala"]],
+  [1,"Mathura was the capital of which Mahajanapada?","Surasena",["Panchala","Gandhara","Anga"],["mh-surasena"]],
+  [1,"Taxila was the capital of which Mahajanapada?","Gandhara",["Kamboja","Avanti","Kuru"],["mh-gandhara"]],
+  [1,"Champa was the capital of which Mahajanapada?","Anga",["Magadha","Vatsa","Malla"],["mh-anga"]],
+
+  [2,"Which pair was associated with Panchala?","Ahichhatra and Kampilya",["Ujjain and Mahishmati","Rajagriha and Pataliputra","Sravasti and Kaushambi"],["mh-panchala"]],
+  [2,"Indraprastha was the capital of which Mahajanapada?","Kuru",["Matsya","Chedi","Kosala"],["mh-kuru"]],
+  [2,"Viratanagar was the capital of which Mahajanapada?","Matsya",["Kuru","Vatsa","Surasena"],["mh-matsya"]],
+  [2,"Which Mahajanapada had important capitals at Ujjain and Mahishmati?","Avanti",["Anga","Gandhara","Kosala"],["mh-avanti"]],
+  [2,"Pratishthana or Paithan was the capital of which Mahajanapada?","Asmaka",["Avanti","Chedi","Malla"],["mh-asmaka"]],
+  [2,"Vaishali was the capital of which important gana-sangha?","Vajji",["Magadha","Kosala","Gandhara"],["mh-vajji-gana"]],
+
+  [3,"Which place is associated with the birth of Gautama Buddha?","Lumbini",["Bodh Gaya","Sarnath","Kushinagar"],["bud-lumbini"]],
+  [3,"Where did Gautama Buddha attain enlightenment?","Bodh Gaya",["Lumbini","Sarnath","Rajagriha"],["bud-bodhgaya"]],
+  [3,"Where did Buddha deliver his first sermon?","Sarnath",["Lumbini","Bodh Gaya","Kushinagar"],["bud-sarnath"]],
+  [3,"What is the traditional name for Buddha's first sermon?","Dharma-chakra-pravartana",["Triratna","Anekantavada","Panchamahavrata"],["bud-first-sermon-term"]],
+  [3,"Which place is associated with the death of Gautama Buddha?","Kushinagar",["Sarnath","Bodh Gaya","Vaishali"],["bud-kushinagar"]],
+  [3,"Which sequence correctly follows major places in Buddha's life?","Lumbini → Bodh Gaya → Sarnath → Kushinagar",["Bodh Gaya → Lumbini → Kushinagar → Sarnath","Sarnath → Lumbini → Bodh Gaya → Kushinagar","Lumbini → Sarnath → Bodh Gaya → Kushinagar"],["bud-lumbini","bud-bodhgaya","bud-sarnath","bud-kushinagar"]],
+
+  [4,"Mahavira is regarded as which Tirthankara of Jainism?","Twenty-fourth",["First","Tenth","Twenty-third"],["jain-mahavira-24"]],
+  [4,"Which set correctly gives the Jain Triratna?","Right faith, right knowledge and right conduct",["Right speech, right livelihood and right effort","Ahimsa, satya and asteya only","Faith, sacrifice and ritual purity"],["jain-triratna"]],
+  [4,"Which of the following is NOT one of the five great Jain vows?","Animal sacrifice",["Ahimsa","Asteya","Aparigraha"],["jain-five-vows"]],
+  [4,"What were the milder vows followed by Jain householders called?","Anuvratas",["Mahavratas","Sutras","Nikayas"],["jain-anuvrata"]],
+  [4,"What does anekantavada broadly teach?","Truth can be understood from more than one point of view",["Only one viewpoint can ever be valid","Liberation is possible only through sacrifice","Kingship is necessary for salvation"],["jain-anekantavada"]],
+  [4,"Which pair names the two major Jain sects?","Digambara and Svetambara",["Mahayana and Hinayana","Shaiva and Vaishnava","Ajivika and Lokayata"],["jain-sects"]],
+
+  [5,"What is meant by the Buddhist Middle Path?","Avoiding both extreme indulgence and extreme asceticism",["Rejecting every form of social life","Following only severe penance","Seeking pleasure as the highest goal"],["bud-middle-path"]],
+  [5,"The Four Noble Truths are mainly concerned with what?","Suffering, its cause, its end and the path to its end",["Creation of the world and its gods","Rules of royal succession","Classification of social groups"],["bud-four-truths"]],
+  [5,"According to Buddhist teaching, what must be overcome to end suffering?","Desire",["Agriculture","Trade","Learning"],["bud-four-truths"]],
+  [5,"Which of the following belongs to the Eightfold Path?","Right speech",["Right sacrifice","Right birth","Right conquest"],["bud-eightfold"]],
+  [5,"Which of the following is NOT part of the Eightfold Path?","Royal ritual",["Right action","Right livelihood","Right effort"],["bud-eightfold"]],
+  [5,"Which Buddhist teaching gives the practical path for overcoming suffering?","Eightfold Path",["Panchamahavrata","Anekantavada","Ashvamedha"],["bud-eightfold","bud-four-truths"]],
+
+  [6,"Which language did Mahavira use to spread his teachings?","Prakrit",["Sanskrit only","Persian","Greek"],["jain-prakrit"]],
+  [6,"Which language did Buddha use to communicate his teachings to ordinary people in the school-level account?","Pali",["Persian","Greek","Tamil"],["bud-pali"]],
+  [6,"Which pair belongs to Jainism?","Digambara and Svetambara",["Mahayana and Hinayana","Theravada and Mahayana","Shaiva and Shakta"],["jain-sects"]],
+  [6,"The fourth Buddhist council is associated with the reign of which ruler?","Kanishka",["Bimbisara","Harsha","Samudragupta"],["bud-fourth-council"]],
+  [6,"Which feature is associated with Mahayana in the school-level account?","Wider use of Sanskrit and worship of Buddha in image form",["Exclusive use of Pali and rejection of Buddha images","Strict adherence to the five Jain vows","Rejection of the sangha"],["bud-mahayana"]],
+  [6,"Which description best matches Hinayana in the school-level account?","It continued the use of Pali and treated Buddha mainly as a guide",["It centred on Sanskrit and image worship","It was a Jain sect based on anekantavada","It rejected the Four Noble Truths"],["bud-hinayana"]],
+
+  [7,"The rise of many towns in the middle Ganga basin around the sixth century BCE is known as what?","Second Urbanisation",["First Urbanisation","Green Revolution","Sangam Urbanisation"],["mh-second-urbanisation"]],
+  [7,"Which combination helped some janapadas grow into Mahajanapadas?","Agricultural expansion, iron tools and growing trade",["Decline of farming, weaker tools and falling trade","Only sea trade with no agricultural growth","Only ritual activity without economic change"],["mh-rise-factors"]],
+  [7,"Why are early punch-marked coins called by that name?","Symbols were punched onto their metal surface",["They were always circular with holes","They carried only written royal names","They were made only from gold"],["mh-punch-coins"]],
+  [7,"Who is associated with the Ajivika sect?","Makkhali Gosala",["Mahavira","Gautama Buddha","Kanishka"],["ajivika-founder"]],
+  [7,"Which change helped Jainism and Buddhism gain support in the sixth century BCE?","Urban and social change combined with dissatisfaction with ritualism",["Complete disappearance of towns","End of trade and agriculture","Return to a purely pastoral economy"],["new-religions-background"]],
+  [7,"How did a gana-sangha differ from a monarchy?","Power was exercised through clan councils or assemblies rather than only a hereditary king",["It had no political institutions at all","It was always ruled by a foreign emperor","It was governed only by priests"],["mh-two-governments"]],
+
+  [8,"Which Mahajanapada–capital pair is correctly matched?","Gandhara — Taxila",["Kosala — Mathura","Vatsa — Sravasti","Surasena — Kaushambi"],["mh-gandhara","mh-kosala","mh-vatsa","mh-surasena"]],
+  [8,"Which Mahajanapada–capital pair is incorrectly matched?","Kuru — Viratanagar",["Matsya — Viratanagar","Anga — Champa","Vatsa — Kaushambi"],["mh-kuru","mh-matsya","mh-anga","mh-vatsa"]],
+  [8,"Which Buddhist site–event pair is correctly matched?","Bodh Gaya — enlightenment",["Lumbini — first sermon","Sarnath — birth","Kushinagar — enlightenment"],["bud-bodhgaya","bud-lumbini","bud-sarnath","bud-kushinagar"]],
+  [8,"Which Jain term–meaning pair is correctly matched?","Anuvrata — milder vow for householders",["Anekantavada — animal sacrifice","Triratna — three royal taxes","Aparigraha — conquest of territory"],["jain-anuvrata","jain-anekantavada","jain-triratna","jain-five-vows"]],
+  [8,"Which group contains Buddhist literary works?","Tripitaka, Milindapanho and Buddhacharita",["Arthashastra, Manusmriti and Rajatarangini","Rigveda, Samaveda and Yajurveda","Acharanga, Kalpasutra and Tattvartha only"],["bud-literature"]],
+  [8,"Which form of art received strong support from Buddhism?","Stupas and rock-cut caves",["Only Vedic fire altars","Only megalithic burials","Only royal palaces"],["bud-art"]],
+
+  [9,"Which sequence best shows a broad political development of the period?","Permanent settlements → janapadas → larger Mahajanapadas",["Mahajanapadas → nomadic bands → janapadas","Urban centres → hunter-gatherer bands → janapadas","Empires → villages → tribal camps"],["mh-rise-factors","mh-sixteen"]],
+  [9,"Which sequence correctly follows the main events in Buddha's life?","Birth at Lumbini → enlightenment at Bodh Gaya → first sermon at Sarnath → death at Kushinagar",["Enlightenment at Bodh Gaya → birth at Lumbini → first sermon at Sarnath → death at Kushinagar","Birth at Lumbini → first sermon at Sarnath → enlightenment at Bodh Gaya → death at Kushinagar","Birth at Lumbini → enlightenment at Bodh Gaya → death at Kushinagar → first sermon at Sarnath"],["bud-lumbini","bud-bodhgaya","bud-sarnath","bud-kushinagar"]],
+  [9,"Which set places one Mahajanapada in the northwest, one in the middle Ganga region and one near the Godavari?","Gandhara, Vajji and Asmaka",["Asmaka, Gandhara and Vajji","Vajji, Asmaka and Gandhara","Kosala, Kuru and Panchala"],["mh-gandhara","mh-vajji-gana","mh-asmaka"]],
+  [9,"Which comparison is correct?","Vajji was a gana-sangha, while most Mahajanapadas were monarchies",["All Mahajanapadas were gana-sanghas","Vajji was a monarchy ruled only by a hereditary king","No Mahajanapada used assemblies"],["mh-vajji-gana","mh-two-governments"]],
+  [9,"Which option correctly distinguishes Jain and Buddhist paths in this CP?","Jainism stresses Triratna and great vows; Buddhism stresses Four Noble Truths and the Eightfold Path",["Jainism teaches the Eightfold Path; Buddhism teaches the five great Jain vows","Both are defined only by Vedic sacrifice","Neither teaches ethical conduct"],["jain-triratna","jain-five-vows","bud-four-truths","bud-eightfold"]],
+  [9,"Which option correctly matches the teachers with the languages used to spread their teachings?","Mahavira — Prakrit; Buddha — Pali",["Mahavira — Pali; Buddha — Prakrit","Mahavira — Persian; Buddha — Greek","Mahavira — Greek; Buddha — Persian"],["jain-prakrit","bud-pali"]],
+
+  [10,"Consider the statements: 1. There were sixteen Mahajanapadas. 2. Most were monarchies. 3. Some, such as Vajji, were gana-sanghas. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["mh-sixteen","mh-two-governments","mh-vajji-gana"]],
+  [10,"Consider the statements about Jainism: 1. Mahavira was the twenty-fourth Tirthankara. 2. Triratna includes right faith, right knowledge and right conduct. 3. Anuvratas were milder vows for householders. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["jain-mahavira-24","jain-triratna","jain-anuvrata"]],
+  [10,"Consider the statements about Buddhism: 1. The Middle Path avoids two extremes. 2. The Four Noble Truths deal with suffering and its end. 3. The Eightfold Path gives a path of conduct and mental discipline. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["bud-middle-path","bud-four-truths","bud-eightfold"]],
+  [10,"Consider the statements: 1. Lumbini is linked with Buddha's birth. 2. Bodh Gaya is linked with enlightenment. 3. Sarnath is linked with the first sermon. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["bud-lumbini","bud-bodhgaya","bud-sarnath"]],
+  [10,"Consider the statements: 1. Punch-marked coins reflect expanding exchange. 2. The middle Ganga basin saw renewed urban growth. 3. Economic and social change formed part of the background to new religious movements. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["mh-punch-coins","mh-second-urbanisation","new-religions-background"]],
+  [10,"Consider the statements: 1. Digambara and Svetambara are Jain sects. 2. Mahayana is linked with wider use of Sanskrit in the school-level account. 3. The fourth Buddhist council is associated with Kanishka. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["jain-sects","bud-mahayana","bud-fourth-council"]],
+];
