@@ -30,6 +30,26 @@ const ALL_TASK_KINDS: readonly Di009TaskKind[] = [
   "APPROX_GROUPED_MODE_FROM_HISTOGRAM",
 ];
 
+const TASK_DIFFICULTY: Readonly<Record<Di009TaskKind, Di009Difficulty>> = {
+  DIRECT_CLASS_FREQUENCY: "Easy",
+  TOTAL_FREQUENCY: "Easy",
+  COMBINED_RANGE_TOTAL: "Medium",
+  ABOVE_BOUNDARY_TOTAL: "Medium",
+  BELOW_BOUNDARY_TOTAL: "Medium",
+  RANGE_RATIO: "Hard",
+  CLASS_SHARE_OF_TOTAL: "Medium",
+  FREQUENCY_DIFFERENCE_BETWEEN_CLASSES: "Medium",
+  MODAL_CLASS_IDENTIFICATION: "Easy",
+  MEDIAN_CLASS_IDENTIFICATION: "Hard",
+  KTH_OBSERVATION_CLASS: "Hard",
+  APPROX_GROUPED_MEAN_FROM_HISTOGRAM: "Hard",
+  APPROX_GROUPED_MODE_FROM_HISTOGRAM: "Hard",
+};
+
+function applyDifficultyPolicy(draft: Di009Draft): Di009Draft {
+  return { ...draft, difficulty: TASK_DIFFICULTY[draft.kind] };
+}
+
 function numericRescueCandidates(answer: string): Di009Candidate[] {
   if (/^-?\d+(?:\.\d+)?%$/.test(answer)) {
     const value = Number(answer.slice(0, -1));
@@ -105,6 +125,7 @@ function validateSet(set: Omit<Di009QuestionSet, "validation">) {
   add("FIVE_QUESTION_MIX", set.questions.length === QUESTIONS_PER_SET, "Each V2 histogram set must contain exactly five questions.");
   add("NO_REPEATED_TASK", new Set(set.questions.map((question) => question.kind)).size === set.questions.length, "A set must not repeat the same task family.");
   add("KNOWN_TASKS", set.questions.every((question) => ALL_TASK_KINDS.includes(question.kind)), "Every question must belong to the DI-009 V2 contract library.");
+  add("DIFFICULTY_POLICY", set.questions.every((question) => question.difficulty === TASK_DIFFICULTY[question.kind]), "Every task family must use the calibrated DI-009 V2 difficulty policy.");
   add("DIFFICULTY_MIX", set.questions.filter((question) => question.difficulty === "Easy").length === 1 && set.questions.filter((question) => question.difficulty === "Medium").length === 2 && set.questions.filter((question) => question.difficulty === "Hard").length === 2, "Each set must contain 1 Easy, 2 Medium and 2 Hard questions.");
   add("FOUR_UNIQUE_OPTIONS", set.questions.every((question) => question.options.length === 4 && new Set(question.options).size === 4), "Every question must expose four unique options.");
   add("ANSWER_INDEX_VALID", set.questions.every((question) => question.options[question.correctIndex] === question.answer), "Correct-index metadata must point to the exact answer.");
@@ -123,7 +144,7 @@ export function generateDi009HistogramSet(input: {
   const seed = input.seed.trim();
   if (!seed) throw new Error("DI-009 requires a non-empty deterministic seed.");
   const stimulus = buildDi009Stimulus(seed, input.examProfile);
-  const drafts = buildDi009Drafts(seed, stimulus);
+  const drafts = buildDi009Drafts(seed, stimulus).map(applyDifficultyPolicy);
   const selected = chooseQuestionMix(seed, drafts);
   const setId = `DI-009-${input.examProfile}-${hashSeed(`${seed}:${input.examProfile}`).toString(16).padStart(8, "0")}`;
 

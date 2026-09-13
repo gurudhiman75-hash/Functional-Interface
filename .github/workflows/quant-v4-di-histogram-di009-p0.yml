@@ -6,13 +6,11 @@ on:
       - feature/di-009-histogram-p0
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/**"
-      - ".github/workflows/quant-v4-di-histogram-di009-p0.yml"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/**"
-      - ".github/workflows/quant-v4-di-histogram-di009-p0.yml"
   workflow_dispatch:
 
 concurrency:
