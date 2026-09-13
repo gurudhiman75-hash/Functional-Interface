@@ -1,5 +1,5 @@
 /**
- * CP009 Generator Engine & Checkpoint Definition:
+ * PUN-001-CP009 V2 Generator
  * Synonyms & Antonyms (ਸਮਾਨਾਰਥਕ ਅਤੇ ਵਿਰੋਧੀ ਸ਼ਬਦ)
  */
 
@@ -10,7 +10,27 @@ import type {
   PunjabiGeneratedQuestion,
   PunjabiReviewBatch,
 } from "../../../../core/types";
-import { generateCP009F01, generateCP009F02, generateCP009F03, generateCP009F04 } from "./CP009-families";
+import {
+  CP009_V2_FAMILY_GENERATORS,
+  type CP009V2FamilyId,
+} from "./CP009-v2-families";
+
+const ELIGIBLE_BY_DIFFICULTY: Record<PunjabiDifficulty, readonly CP009V2FamilyId[]> = {
+  Easy: ["F01", "F02", "F03", "F05"],
+  Medium: ["F02", "F03", "F04", "F05", "F06", "F07", "F08"],
+  Hard: ["F04", "F06", "F07", "F08"],
+};
+
+const TARGET_DIFFICULTIES: Record<CP009V2FamilyId, PunjabiDifficulty[]> = {
+  F01: ["Easy"],
+  F02: ["Easy", "Medium"],
+  F03: ["Easy", "Medium"],
+  F04: ["Medium", "Hard"],
+  F05: ["Easy", "Medium"],
+  F06: ["Medium", "Hard"],
+  F07: ["Medium", "Hard"],
+  F08: ["Medium", "Hard"],
+};
 
 export const PUN_001_CP009_DEFINITION: PunjabiCheckpointDefinition = {
   cpId: "PUN-001-CP009",
@@ -18,36 +38,16 @@ export const PUN_001_CP009_DEFINITION: PunjabiCheckpointDefinition = {
   name: "Synonyms & Antonyms",
   nameGurmukhi: "ਸਮਾਨਾਰਥਕ ਅਤੇ ਵਿਰੋਧੀ ਸ਼ਬਦ",
   description:
-    "Curated literary Punjabi synonyms and antonym pairs tagged by strict semantic sense to eliminate false cross-sense pairings, plus near-synonym discrimination.",
+    "Curated Punjabi synonym/antonym authority with direct recognition, relationship classification, lexical-set completion, correct-pair recognition and genuinely authored near-synonym contexts.",
   families: [
-    {
-      familyId: "F01",
-      name: "Synonym Resolution",
-      description: "Direct identification of standard literary Punjabi synonyms.",
-      targetDifficulties: ["Easy", "Medium", "Hard"],
-      generate: generateCP009F01,
-    },
-    {
-      familyId: "F02",
-      name: "Antonym Resolution",
-      description: "Direct identification of standard literary Punjabi antonyms.",
-      targetDifficulties: ["Easy", "Medium", "Hard"],
-      generate: generateCP009F02,
-    },
-    {
-      familyId: "F03",
-      name: "Contextual In-Sentence Evaluation",
-      description: "Evaluation and replacement of synonyms and antonyms in authentic Punjabi sentences.",
-      targetDifficulties: ["Easy", "Medium", "Hard"],
-      generate: generateCP009F03,
-    },
-    {
-      familyId: "F04",
-      name: "Near-Synonym Discrimination",
-      description: "Fine semantic distinction and contextual disambiguation between close synonyms.",
-      targetDifficulties: ["Easy", "Medium", "Hard"],
-      generate: generateCP009F04,
-    },
+    { familyId: "F01", name: "Direct Synonym", description: "Basic direct synonym recognition; deliberately Easy only.", targetDifficulties: TARGET_DIFFICULTIES.F01, generate: CP009_V2_FAMILY_GENERATORS.F01 },
+    { familyId: "F02", name: "Direct Antonym", description: "Antonym recognition against source-side semantic confusables.", targetDifficulties: TARGET_DIFFICULTIES.F02, generate: CP009_V2_FAMILY_GENERATORS.F02 },
+    { familyId: "F03", name: "Meaning Relation", description: "Classify a reviewed word pair as synonym or antonym without synthetic sentence insertion.", targetDifficulties: TARGET_DIFFICULTIES.F03, generate: CP009_V2_FAMILY_GENERATORS.F03 },
+    { familyId: "F04", name: "Near-Synonym Context", description: "Choose the exact word demanded by an authored contextual distinction.", targetDifficulties: TARGET_DIFFICULTIES.F04, generate: CP009_V2_FAMILY_GENERATORS.F04 },
+    { familyId: "F05", name: "Not a Synonym", description: "Find the semantic outsider among genuine synonyms.", targetDifficulties: TARGET_DIFFICULTIES.F05, generate: CP009_V2_FAMILY_GENERATORS.F05 },
+    { familyId: "F06", name: "Complete the Synonym Set", description: "Complete a reviewed synonym set without mixing semantic poles.", targetDifficulties: TARGET_DIFFICULTIES.F06, generate: CP009_V2_FAMILY_GENERATORS.F06 },
+    { familyId: "F07", name: "Correct Synonym Pair", description: "Identify one genuine synonym pair among same-format false pairs.", targetDifficulties: TARGET_DIFFICULTIES.F07, generate: CP009_V2_FAMILY_GENERATORS.F07 },
+    { familyId: "F08", name: "Correct Antonym Pair", description: "Identify one genuine antonym pair among coherent same-format traps.", targetDifficulties: TARGET_DIFFICULTIES.F08, generate: CP009_V2_FAMILY_GENERATORS.F08 },
   ],
 };
 
@@ -57,59 +57,49 @@ export function generateCP009Question(
   requestedFamilyId?: string
 ): PunjabiGeneratedQuestion {
   const rng = createRng(seed);
-
-  let familyId = requestedFamilyId;
-  if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03", "F04"];
-    familyId = rng.pickOne(familyOptions);
+  const eligible = ELIGIBLE_BY_DIFFICULTY[difficulty];
+  const familyId = (requestedFamilyId ?? rng.pickOne(eligible)) as CP009V2FamilyId;
+  if (!eligible.includes(familyId)) {
+    throw new Error(`CP009 V2 family ${familyId} is not authorized for ${difficulty} difficulty`);
   }
-
-  switch (familyId) {
-    case "F01":
-      return generateCP009F01(seed, difficulty);
-    case "F02":
-      return generateCP009F02(seed, difficulty);
-    case "F03":
-      return generateCP009F03(seed, difficulty);
-    case "F04":
-      return generateCP009F04(seed, difficulty);
-    default:
-      throw new Error(`Unknown CP009 question family: '${familyId}'`);
-  }
+  const generator = CP009_V2_FAMILY_GENERATORS[familyId];
+  if (!generator) throw new Error(`Unknown CP009 V2 family: '${requestedFamilyId}'`);
+  return generator(seed, difficulty);
 }
 
 export function generateCP009ReviewBatch(
-  count: number = 60,
+  count: number = 120,
   seedStart: number = 9000
 ): PunjabiReviewBatch {
-  const questions: PunjabiGeneratedQuestion[] = [];
+  if (!Number.isInteger(count) || count <= 0) {
+    throw new Error(`CP009 review count must be a positive integer; got ${count}`);
+  }
   const easyCount = Math.floor(count / 3);
   const mediumCount = Math.floor(count / 3);
   const hardCount = count - easyCount - mediumCount;
-
+  const targets: Array<[PunjabiDifficulty, number]> = [
+    ["Easy", easyCount],
+    ["Medium", mediumCount],
+    ["Hard", hardCount],
+  ];
+  const questions: PunjabiGeneratedQuestion[] = [];
   let currentSeed = seedStart;
 
-  for (let i = 0; i < easyCount; i++) {
-    questions.push(generateCP009Question(currentSeed++, "Easy"));
-  }
-  for (let i = 0; i < mediumCount; i++) {
-    questions.push(generateCP009Question(currentSeed++, "Medium"));
-  }
-  for (let i = 0; i < hardCount; i++) {
-    questions.push(generateCP009Question(currentSeed++, "Hard"));
+  for (const [difficulty, targetCount] of targets) {
+    const families = ELIGIBLE_BY_DIFFICULTY[difficulty];
+    for (let index = 0; index < targetCount; index++) {
+      const familyId = families[index % families.length]!;
+      questions.push(generateCP009Question(currentSeed++, difficulty, familyId));
+    }
   }
 
   return {
-    batchId: `BATCH-CP009-${seedStart}-${count}`,
+    batchId: `BATCH-CP009-V2-${seedStart}-${count}`,
     packageId: "PUN-001",
     cpId: "PUN-001-CP009",
     generatedAt: new Date().toISOString(),
     totalQuestions: questions.length,
-    distribution: {
-      easy: easyCount,
-      medium: mediumCount,
-      hard: hardCount,
-    },
+    distribution: { easy: easyCount, medium: mediumCount, hard: hardCount },
     questions,
   };
 }
