@@ -13,7 +13,7 @@ import {
 } from "./standard-lifecycle";
 
 const engines = listQuestionStudioEngines();
-assert.deepEqual(engines, ["quant-v4", "knowledge-v1", "language-v1"]);
+assert.deepEqual(engines, ["quant-v4", "knowledge-v1", "language-v1", "reasoning-v1"]);
 
 const packages = listQuestionStudioPackages();
 assert.equal(packages.length > 0, true);
@@ -25,6 +25,7 @@ assert.ok(quantPackage);
 assert.equal(resolveQuestionStudioEngine({ packageId: quantPackage.packageId }).engineId, "quant-v4");
 assert.equal(resolveQuestionStudioEngine({ topic: "Arithmetic", subtopic: "Percentage" }).engineId, "quant-v4");
 assert.equal(getQuestionStudioEngine("quant-v4").engineId, "quant-v4");
+assert.equal(getQuestionStudioEngine("reasoning-v1").engineId, "reasoning-v1");
 
 const com001 = packages.find((pkg) => pkg.packageId === "COM-001");
 const bankLifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
@@ -192,4 +193,4 @@ assert.equal(eng001Cp005Result.questions.every((question) => question.cpId === "
 assert.equal(eng001Cp005Result.questions.every((question) => String(question.ruleId).startsWith("GR-PRP-")), true);
 assert.equal(eng001Cp005Result.questions.every((question) => question.reviewOnly === true), true);
 
-console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 ENG-001 CP001+CP002+CP003+CP004+CP005=review-only");
+console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005=review-only");
