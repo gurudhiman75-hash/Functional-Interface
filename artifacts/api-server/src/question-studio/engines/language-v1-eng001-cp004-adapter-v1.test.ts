@@ -22,7 +22,7 @@ assert.equal(packageDef.metadata?.humanReviewApproved, true);
 assert.equal(packageDef.metadata?.reviewOnly, true);
 
 const registered = listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001");
-assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004"]);
+assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005"]);
 
 assert.equal(isEng001Cp004QuestionStudioRequestV1({ packageId: "ENG-001" }), false);
 assert.equal(isEng001Cp004QuestionStudioRequestV1({ packageId: "ENG-001", canonicalProblemId: "ENG-001-CP004" }), true);

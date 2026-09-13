@@ -1,7 +1,8 @@
 export type QuestionStudioEngineId =
   | "quant-v4"
   | "language-v1"
-  | "knowledge-v1";
+  | "knowledge-v1"
+  | "reasoning-v1";
 
 export type QuestionStudioDifficulty = "Easy" | "Medium" | "Hard";
 export type QuestionStudioLanguage = "en" | "hi" | "pa";

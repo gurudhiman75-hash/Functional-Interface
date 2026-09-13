@@ -1,0 +1,27 @@
+name: Reasoning LP CP03 Possibility Set V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp03-possibility-set-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp03-possibility-set-v1.test.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-lp-cp03-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prove-cp03:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Prove possibility-set semantics
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp03-possibility-set-v1.test.ts
+      - name: Reprove frozen LP-001–008 authorities
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-permanent-freeze-v1.test.ts

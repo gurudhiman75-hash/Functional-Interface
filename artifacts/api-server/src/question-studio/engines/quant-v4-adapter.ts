@@ -2,7 +2,13 @@ import {
   generateQuestion as generateQuantV4Question,
   listQuantV4Packages,
 } from "../../quant-v4/generation-engine";
+import {
+  generateStat001QuestionStudioBatch,
+  isStat001QuestionStudioRequest,
+  stat001QuestionStudioPackageCard,
+} from "../../quant-v4/topics/Statistics/STAT-001/question-studio-adapter";
 import type {
+  QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
   QuestionStudioGenerationResult,
@@ -26,6 +32,18 @@ function asLanguageArray(value: unknown): QuestionStudioLanguage[] {
   );
 }
 
+function asDifficultyArray(value: unknown): QuestionStudioDifficulty[] {
+  const raw = Array.isArray(value) ? value.map(String) : [];
+  const normalized = raw.map((entry) => {
+    const lower = entry.trim().toLowerCase();
+    if (lower === "easy") return "Easy";
+    if (lower === "medium" || lower === "moderate") return "Medium";
+    if (lower === "hard") return "Hard";
+    return undefined;
+  });
+  return normalized.filter((entry): entry is QuestionStudioDifficulty => Boolean(entry));
+}
+
 function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDefinition {
   return {
     engineId: "quant-v4",
@@ -37,15 +55,58 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     enabled: Boolean(pkg.enabled),
     cpIds: asStringArray(pkg.cpIds),
     supportedLanguages: asLanguageArray(pkg.supportedLanguages),
+    supportedDifficulties: asDifficultyArray(pkg.supportedDifficulties),
     runtimeMode: asString(pkg.runtimeMode) || undefined,
     supportedRuntimeModes: asStringArray(pkg.supportedRuntimeModes),
     dynamicCandidateCpIds: asStringArray(pkg.dynamicCandidateCpIds),
     questionBankStatus: asString(pkg.questionBankStatus) || undefined,
+    questionBankWritable:
+      typeof pkg.questionBankWritable === "boolean"
+        ? pkg.questionBankWritable
+        : undefined,
     testEligibility: asString(pkg.testEligibility) || undefined,
+    testEligible:
+      typeof pkg.testEligible === "boolean" ? pkg.testEligible : undefined,
+    mockTestEligible:
+      typeof pkg.mockTestEligible === "boolean"
+        ? pkg.mockTestEligible
+        : undefined,
     publiclyPublishable:
       typeof pkg.publiclyPublishable === "boolean"
         ? pkg.publiclyPublishable
         : undefined,
+    automaticStudentPublication:
+      typeof pkg.automaticStudentPublication === "boolean"
+        ? pkg.automaticStudentPublication
+        : undefined,
+    manualApprovalRequired:
+      typeof pkg.manualApprovalRequired === "boolean"
+        ? pkg.manualApprovalRequired
+        : undefined,
+  };
+}
+
+function normalizeStatExamProfile(value: unknown) {
+  const normalized = String(value ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ");
+  if (!normalized) return undefined;
+  if (normalized.includes("jso") || normalized.includes("statistics")) return "SSC_CGL_JSO";
+  if (normalized.includes("ssc") && normalized.includes("cgl")) return "SSC_CGL_TIER_II";
+  return undefined;
+}
+
+function toStat001Request(request: QuestionStudioGenerationRequest) {
+  return {
+    packageId: request.packageId,
+    patternId: request.patternId,
+    topic: request.topic,
+    subtopic: request.subtopic,
+    difficulty: request.difficulty,
+    language: request.language,
+    seed: request.seed,
+    count: request.count,
+    canonicalProblemId: request.canonicalProblemId,
+    questionLanguageId: request.questionLanguageId,
+    examProfile: normalizeStatExamProfile(request.exam),
   };
 }
 
@@ -53,14 +114,27 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "quant-v4",
 
   listPackages() {
-    return listQuantV4Packages().map((pkg) =>
+    const packages = listQuantV4Packages().map((pkg) =>
       toSharedPackage(pkg as unknown as Record<string, unknown>),
     );
+    if (!packages.some((pkg) => pkg.packageId === "STAT-001")) {
+      packages.push(
+        toSharedPackage(
+          stat001QuestionStudioPackageCard() as unknown as Record<string, unknown>,
+        ),
+      );
+    }
+    return packages.sort((left, right) => left.packageId.localeCompare(right.packageId));
   },
 
   async generate(
     request: QuestionStudioGenerationRequest,
   ): Promise<QuestionStudioGenerationResult> {
+    const stat001Request = toStat001Request(request);
+    if (isStat001QuestionStudioRequest(stat001Request)) {
+      return generateStat001QuestionStudioBatch(stat001Request) as unknown as QuestionStudioGenerationResult;
+    }
+
     const result = await generateQuantV4Question({
       packageId: request.packageId as never,
       patternId: request.patternId,

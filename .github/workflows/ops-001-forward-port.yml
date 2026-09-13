@@ -1,0 +1,55 @@
+name: Validate OPS-001 forward port
+
+on:
+  push:
+    branches:
+      - chore/ops-001-forward-port
+    paths:
+      - artifacts/api-server/src/question-studio/engine-types.ts
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-ops001-adapter.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
+      - .github/workflows/ops-001-forward-port.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/question-studio/engine-types.ts
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-ops001-adapter.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ops-001-forward-port-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle and run current Question Studio integration proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/reasoning-v1-ops001-adapter.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1-ops001-adapter.test.mjs
+          node artifacts/api-server/dist/reasoning-v1-ops001-adapter.test.mjs
+      - name: Prove frozen OPS QL registry
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/registry/ops-ql-registry.test.ts
+      - name: Prove approved OPS teaching runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-teaching-runtime.test.ts
+      - name: Prove OPS Hindi and Punjabi runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-localization.test.ts
+      - name: Build current API server
+        run: pnpm --dir artifacts/api-server build
