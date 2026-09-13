@@ -73,6 +73,18 @@ for (let seed = 9700; seed < 10100; seed++) {
   assert.equal(validation.isValid, true, `${q.id}: ${validation.errors.join("; ")}`);
 }
 
+// Pair families must never collapse false pairs into duplicate option text.
+// This range includes the reviewer seed band that exposed the original F07 defect.
+for (let seed = 12000; seed < 13250; seed++) {
+  for (const familyId of ["F07", "F08"] as const) {
+    const difficulty: PunjabiDifficulty = seed % 2 ? "Medium" : "Hard";
+    const q = generateCP009Question(seed, difficulty, familyId);
+    assert.equal(new Set(q.options).size, 4, `${familyId}/${seed} must keep four unique pair options`);
+    const validation = validatePunjabiQuestion(q);
+    assert.equal(validation.isValid, true, `${q.id}: ${validation.errors.join("; ")}`);
+  }
+}
+
 console.log("Generating canonical 120-question CP009 V2 review batch...");
 const batch = generateCP009ReviewBatch(120, 17000);
 assert.equal(batch.totalQuestions, 120);
@@ -89,6 +101,15 @@ for (const q of batch.questions) {
   const res = validatePunjabiQuestion(q);
   assert.equal(res.isValid, true, `${q.id}: ${res.errors.join("; ")}`);
   assert.doesNotMatch(q.stem, /\bAntonym\b|\bSynonym\b/i);
+}
+
+// The exact reviewer export seed is a permanent regression surface.
+const reviewerBatch = generateCP009ReviewBatch(120, 13000);
+assert.equal(reviewerBatch.totalQuestions, 120);
+for (const q of reviewerBatch.questions) {
+  assert.equal(new Set(q.options).size, 4, `${q.id}: reviewer options must remain unique`);
+  const res = validatePunjabiQuestion(q);
+  assert.equal(res.isValid, true, `${q.id}: ${res.errors.join("; ")}`);
 }
 
 const fingerprints = new Set(batch.questions.map((q) => q.metadata.fingerprint));
