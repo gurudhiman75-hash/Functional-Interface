@@ -1,0 +1,86 @@
+name: CAE-001 Final QA
+
+on:
+  push:
+    branches:
+      - codex/cae-001-generative-architecture
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Cause-and-Effect/CAE-001/**'
+      - '.github/workflows/cae-001-final-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cae-final-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare CAE QA output
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/cae-001
+
+      - name: Bundle frozen V3 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-001-v3-regression.mjs
+
+      - name: Run frozen V3 regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-v3-regression.mjs
+
+      - name: Bundle reviewed final QA
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-reviewed.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-001-reviewed-final-qa.mjs
+
+      - name: Run reviewed final QA
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-reviewed-final-qa.mjs
+
+      - name: Create review export entrypoint
+        shell: bash
+        run: |
+          cat > artifacts/api-server/src/reasoning-v1/topics/Cause-and-Effect/CAE-001/__cae-review-export.ts <<'TS'
+          import { writeFileSync } from "node:fs";
+          import { renderCae001ReviewedEditorialRealnessReview } from "./reviewed-editorial-review-pack.ts";
+          import { renderCae001SourceProfileReview } from "./source-profile-review-pack.ts";
+          writeFileSync("dist/reasoning-v1/cae-001/CAE-001-REVIEWED-90.md", renderCae001ReviewedEditorialRealnessReview());
+          writeFileSync("dist/reasoning-v1/cae-001/CAE-001-SOURCE-PROFILE-30.md", renderCae001SourceProfileReview());
+          TS
+
+      - name: Bundle review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/__cae-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-review-export.mjs
+
+      - name: Materialize review packs
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/cae-001/cae-review-export.mjs
+
+      - name: Upload CAE final-review packs
+        uses: actions/upload-artifact@v4
+        with:
+          name: cae-001-final-review-packs
+          path: |
+            artifacts/api-server/dist/reasoning-v1/cae-001/CAE-001-REVIEWED-90.md
+            artifacts/api-server/dist/reasoning-v1/cae-001/CAE-001-SOURCE-PROFILE-30.md
+          if-no-files-found: error
