@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/**
-      - .github/workflows/wfm-001-review.yml
   workflow_dispatch:
 
 permissions:
