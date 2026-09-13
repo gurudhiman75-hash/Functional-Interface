@@ -59,9 +59,10 @@ export const LP_CP04_COUNTERFACTUAL_V3 = Object.freeze({
   difficultyContract: Object.freeze({
     Easy: "LP001_TWO_PARENT_STATES_PLUS_ONE_CONDITION_REDUCES_TO_ONE",
     Medium: "LP001_THREE_TO_FOUR_PARENT_STATES_PLUS_ONE_CONDITION_REDUCES_TO_ONE_OR_TWO",
-    Hard: "LP004_PARTIAL_COMMITTEE_WITH_AT_LEAST_FIVE_VALID_STATES_PLUS_ONE_CONDITION_CREATES_NEW_MUST_FACT",
+    Hard: "LP004_PARTIAL_COMMITTEE_WITH_AT_LEAST_FIVE_VALID_STATES_PLUS_ONE_CONDITION_CREATES_NEW_MUST_FACT_REQUIRING_MULTI_CLUE_INTERACTION",
   }),
   answerDependencyContract: "ANSWER_NOT_FIXED_BEFORE_CONDITION_BUT_FIXED_AFTER_CONDITION" as const,
+  hardDepthContract: "NO_SINGLE_ORIGINAL_CLUE_PLUS_THE_ADDED_CONDITION_MAY_ALREADY_FORCE_THE_HARD_ANSWER" as const,
   distractorContract: "DISTRACTORS_REMAIN_PLAUSIBLE_BEFORE_CONDITION_AND_ARE_NOT_MUST_AFTER_CONDITION" as const,
   answerPositionContract: "BATCH_DISTRIBUTED_ACROSS_ALL_FOUR_OPTION_SLOTS" as const,
   runtimeMode: "REVIEW_ONLY" as const,
@@ -122,10 +123,27 @@ function plausibleDistractors(
   );
 }
 
+function requiresMultipleClueInteraction(
+  source: Lp004Caselet,
+  clues: readonly SelectionClue[],
+  condition: CommitteeCondition,
+  answerCandidate: CandidateId,
+  targetValue: boolean,
+): boolean {
+  if (clues.length < 2) return false;
+  for (const clue of clues) {
+    const singleClueStates = solveLp004({ candidates: source.candidates, committeeSize: source.committeeSize, clues: [clue] });
+    const afterSingleClue = conditionStates(singleClueStates, condition);
+    if (afterSingleClue.length > 0 && afterSingleClue.every((state) => state[answerCandidate] === targetValue)) return false;
+  }
+  return true;
+}
+
 function buildHardCandidate(source: Lp004Caselet, outputIndex: number): Lp004HardCounterfactualCaselet | null {
   const subsets = combinations(source.clues);
   for (let subsetIndex = 0; subsetIndex < subsets.length; subsetIndex += 1) {
     const clues = subsets[subsetIndex]!;
+    if (clues.length < 3) continue;
     const parentStates = solveLp004({ candidates: source.candidates, committeeSize: source.committeeSize, clues });
     if (parentStates.length < 5 || parentStates.length > 14) continue;
 
@@ -138,7 +156,8 @@ function buildHardCandidate(source: Lp004Caselet, outputIndex: number): Lp004Har
 
         for (const mode of ["MUST_BE_SELECTED", "MUST_NOT_BE_SELECTED"] as const) {
           const targetValue = mode === "MUST_BE_SELECTED";
-          const correctPool = newlyFixedCandidates(source, parentStates, after, conditionCandidate, targetValue);
+          const correctPool = newlyFixedCandidates(source, parentStates, after, conditionCandidate, targetValue)
+            .filter((candidate) => requiresMultipleClueInteraction(source, clues, condition, candidate, targetValue));
           const distractorPool = plausibleDistractors(source, parentStates, after, conditionCandidate, targetValue);
           if (!correctPool.length || distractorPool.length < 3) continue;
 
@@ -181,13 +200,13 @@ function buildHardCandidate(source: Lp004Caselet, outputIndex: number): Lp004Har
               parentStateCount: parentStates.length,
               conditionedStateCount: after.length,
               explanation: {
-                summary: "The original conditions allow several committees. Apply the extra condition, keep every committee that still works, then identify the name whose status is the same in every remaining committee.",
+                summary: "The original conditions allow several committees. Apply the extra condition, combine it with the original conditions, and identify the name whose status becomes fixed only after those conditions work together.",
                 lines: [
                   `Before the additional condition, ${parentStates.length} valid committees are possible.`,
                   `**Additional condition:** ${condition.text}`,
-                  `After applying it, ${after.length} valid committee${after.length === 1 ? "" : "s"} remain${after.length === 1 ? "s" : ""}.`,
+                  `After applying it together with the original conditions, ${after.length} valid committee${after.length === 1 ? "" : "s"} remain${after.length === 1 ? "s" : ""}.`,
                   ...stateLines,
-                  `Before the additional condition, **${answer}** was not fixed as ${targetValue ? "selected" : "not selected"} in every valid committee. After applying the condition, **${answer}** is ${targetValue ? "selected" : "not selected"} in every remaining committee.`,
+                  `No single original clue with the added condition is enough to force **${answer}**. After the relevant clues are combined, **${answer}** is ${targetValue ? "selected" : "not selected"} in every remaining committee.`,
                 ],
               },
             },
@@ -200,7 +219,7 @@ function buildHardCandidate(source: Lp004Caselet, outputIndex: number): Lp004Har
 }
 
 function generateHard(seed: string, outputIndex: number): Lp004HardCounterfactualCaselet {
-  for (let attempt = 0; attempt < 80; attempt += 1) {
+  for (let attempt = 0; attempt < 120; attempt += 1) {
     const source = generateLp004Caselet(`${seed}:lp004-hard:${outputIndex}:${attempt}`, attempt % 12);
     const built = buildHardCandidate(source, outputIndex);
     if (built) return built;
