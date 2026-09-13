@@ -212,9 +212,83 @@ function generate029(seed: number): ApprovedOpsQuestion {
   };
 }
 
+function generate034(seed: number): ApprovedOpsQuestion {
+  const x = int(seed, 11, 2, 18);
+  const y = int(seed, 12, 2, 15);
+  const sum = x + y;
+  const gtRight = int(seed, 13, 2, 18);
+  const gtLeft = gtRight + int(seed, 14, 1, 12);
+  const p = int(seed, 15, 3, 20);
+  const q = int(seed, 16, 2, 17);
+  const r = int(seed, 17, 4, 23);
+  const correct = `${p} A ${q} B ${p + q}`;
+  const optionValues = rotate([
+    { value: correct, errorLabel: null },
+    { value: `${p} A ${q} C ${p + q + 1}`, errorLabel: "USED_GREATER_THAN_AT_EQUALITY_BOUNDARY" },
+    { value: `${p + q} B ${p} A ${q + 1}`, errorLabel: "REVERSED_EQUALITY_CONSTRUCTION" },
+    { value: `${r} C ${r + 1}`, errorLabel: "REVERSED_GREATER_THAN_DIRECTION" },
+  ] as const, seed);
+  const options: OpsPilotOption[] = optionValues.map((entry) => ({ ...entry }));
+  const correctIndex = options.findIndex((option) => option.errorLabel === null);
+  const evidenceOne = `${x} A ${y} B ${sum}`;
+  const evidenceTwo = `${gtLeft} C ${gtRight}`;
+  return {
+    candidateId: "OPS-CAND-034",
+    checkpointId: "OPS-CP-009",
+    seed,
+    locale: "en-IN",
+    taskKind: "INFER_MAPPING_AND_IDENTIFY_TRUE_STATEMENT",
+    solveMode: "inferMixedArithmeticRelationMappingThenSelectStatement",
+    renderer: "TABLE_OR_GRID",
+    stem: `A, B and C represent +, = and > in some order. The statements ${evidenceOne} and ${evidenceTwo} are true. Determine the meanings and select the true statement.`,
+    options,
+    correctIndex,
+    answer: correct,
+    explanation: {
+      ruleStatement: "Infer the arithmetic and relation meanings from the two facts, then transform and evaluate every option under the same mapping.",
+      steps: [
+        {
+          label: "Determine C",
+          expression: evidenceTwo,
+          result: `C must mean > because ${gtLeft} > ${gtRight} is true.`,
+        },
+        {
+          label: "Determine A and B",
+          expression: evidenceOne,
+          result: `A = + and B = = gives ${x} + ${y} = ${sum}, which is true.`,
+        },
+        {
+          label: "Check the keyed option",
+          expression: correct,
+          result: `${p} + ${q} = ${p + q}, which is true.`,
+        },
+      ],
+      conclusion: `Therefore, ${correct} is the only true option.`,
+    },
+    proof: {
+      unique: true,
+      solverRoute: "GENERATED_MIXED_ARITHMETIC_RELATION_MAPPING",
+      eligibleCandidateCount: 6,
+      survivingCandidateCount: 1,
+      semanticFingerprint: `MAPPING:A->ADD:B->EQUAL:C->GREATER_THAN:${x}:${y}:${gtLeft}:${gtRight}:${p}:${q}:${r}`,
+    },
+    metadata: {
+      teachingExplanationVersion: "V3_APPROVED",
+      teachingTraceVerified: true,
+      requestedSeed: seed,
+      sourceSeed: seed,
+      evidenceCount: 2,
+      relationTokenInferred: true,
+      generatedMixedMappingState: true,
+      misconceptionDistractors: true,
+    },
+  };
+}
+
 export function generateApprovedOpsQuestion(candidateId: OpsApprovedCandidateId, seed: number): ApprovedOpsQuestion {
   if (!Number.isInteger(seed) || seed < 0) throw new Error(`Approved runtime seed must be a non-negative integer; received ${seed}.`);
   if (candidateId === "OPS-CAND-028") return generate028(seed);
   if (candidateId === "OPS-CAND-029") return generate029(seed);
+  if (candidateId === "OPS-CAND-034") return generate034(seed);
   return generateEntryQuestion(candidateId, seed);
 }
