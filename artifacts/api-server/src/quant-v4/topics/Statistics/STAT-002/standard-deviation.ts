@@ -131,7 +131,9 @@ function buildOptions(seed: string, answer: string, candidates: readonly Candida
 function buildRawSd(seed: string, profile: Stat002ExamProfile): Draft {
   const data = generateExactData(`${seed}:raw`, profile);
   const variance = data.standardDeviation ** 2;
-  const squaredDeviationTotal = variance * data.values.length;
+  const deviations = data.values.map((value) => value - data.mean);
+  const squaredDeviations = deviations.map((deviation) => deviation ** 2);
+  const squaredDeviationTotal = sum(squaredDeviations);
   const s = surface(`${seed}:raw`);
   const stems = [
     `Find the standard deviation of the observations ${list(data.values)}.`,
@@ -150,11 +152,11 @@ function buildRawSd(seed: string, profile: Stat002ExamProfile): Draft {
       { text: String(data.values.length), misconceptionId: "REPORT_OBSERVATION_COUNT", derivation: "Reports the number of observations instead of measuring their spread." },
     ],
     explanation: {
-      keyIdea: "For these observations, use the population standard deviation: find the mean, average the squared deviations from the mean, and then take the square root.",
+      keyIdea: `The ${data.values.length} observations have mean ${data.mean}. Their spread must therefore be measured from ${data.mean}, using the actual deviations ${list(deviations)}.`,
       steps: [
-        `Mean = ${sum(data.values)} ÷ ${data.values.length} = ${data.mean}.`,
-        `Sum of squared deviations from ${data.mean} = ${squaredDeviationTotal}, so variance = ${squaredDeviationTotal} ÷ ${data.values.length} = ${variance}.`,
-        `Standard deviation = √${variance} = ${data.standardDeviation}.`,
+        `Mean = (${data.values.join(" + ")}) ÷ ${data.values.length} = ${sum(data.values)} ÷ ${data.values.length} = ${data.mean}.`,
+        `Deviations from ${data.mean}: ${list(deviations)}. Squared deviations: ${list(squaredDeviations)}; their sum is ${squaredDeviationTotal}.`,
+        `Variance = ${squaredDeviationTotal} ÷ ${data.values.length} = ${variance}, so standard deviation = √${variance} = ${data.standardDeviation}.`,
       ],
     },
   };
@@ -184,9 +186,9 @@ function buildMeanSquares(seed: string, profile: Stat002ExamProfile): Draft {
       { text: String(sd * 2), misconceptionId: "DOUBLE_ROOT", derivation: "Doubles the correct square root before reporting the standard deviation." },
     ],
     explanation: {
-      keyIdea: "Use variance = mean of squares − (mean)², then take the square root to obtain the standard deviation.",
+      keyIdea: `Here x̄ = ${m} and mean(x²) = ${meanOfSquares}. Hence variance is ${meanOfSquares} - ${m}², not ${meanOfSquares} - ${m}.`,
       steps: [
-        `Variance = ${meanOfSquares} - (${m})² = ${meanOfSquares} - ${m ** 2} = ${variance}.`,
+        `Variance = mean(x²) - [mean(x)]² = ${meanOfSquares} - (${m})² = ${meanOfSquares} - ${m ** 2} = ${variance}.`,
         `Standard deviation = √${variance} = ${sd}.`,
       ],
     },
@@ -203,6 +205,10 @@ function buildTranslation(seed: string, profile: Stat002ExamProfile): Draft {
     `A data set has standard deviation ${data.standardDeviation}. Every value is increased by ${constant}. Find the standard deviation of the new data set.`,
     `Each observation in ${list(data.values)} is replaced by x + ${constant}. If the original standard deviation is ${data.standardDeviation}, determine the new standard deviation.`,
   ] as const;
+  const visibleValues = s !== 1;
+  const newMean = data.mean + constant;
+  const exampleValue = data.values[0];
+  const exampleDeviation = exampleValue - data.mean;
   return {
     state: { kind: "TRANSLATED_DATA", values: data.values, additiveConstant: constant },
     stem: stems[s],
@@ -213,14 +219,22 @@ function buildTranslation(seed: string, profile: Stat002ExamProfile): Draft {
       { text: String(data.standardDeviation * constant), misconceptionId: "TREAT_TRANSLATION_AS_SCALING", derivation: "Treats adding a constant as if every observation had been multiplied by that constant." },
       { text: String(Math.abs(constant - data.standardDeviation)), misconceptionId: "SUBTRACT_CONSTANT_FROM_SD", derivation: "Subtracts the translation constant from the original standard deviation." },
     ],
-    explanation: {
-      keyIdea: "Adding the same constant to every observation shifts the whole data set but does not change any deviation from the mean, so the standard deviation stays unchanged.",
-      steps: [
-        `Every observation and the mean increase by the same amount, ${constant}.`,
-        "Therefore each value's deviation from the mean remains exactly the same.",
-        `So the new standard deviation remains ${data.standardDeviation}.`,
-      ],
-    },
+    explanation: visibleValues
+      ? {
+          keyIdea: `These observations have mean ${data.mean}. After adding ${constant} to every value, the mean becomes ${newMean}; each value stays the same distance from the new mean as before.`,
+          steps: [
+            `Original mean = ${sum(data.values)} ÷ ${data.values.length} = ${data.mean}; new mean = ${data.mean} + ${constant} = ${newMean}.`,
+            `For example, ${exampleValue} - ${data.mean} = ${exampleDeviation}, while ${exampleValue + constant} - ${newMean} = ${exampleDeviation}. The same cancellation occurs for every observation.`,
+            `The deviations are unchanged, so the standard deviation remains ${data.standardDeviation}.`,
+          ],
+        }
+      : {
+          keyIdea: `The original standard deviation is ${data.standardDeviation}. Adding ${constant} to every value also adds ${constant} to the mean, so every deviation from the mean stays unchanged.`,
+          steps: [
+            `(x + ${constant}) - (x̄ + ${constant}) = x - x̄, so neither the deviations nor their squares change.`,
+            `Therefore the new standard deviation is the same as the original one: ${data.standardDeviation}.`,
+          ],
+        },
   };
 }
 
@@ -235,6 +249,10 @@ function buildScale(seed: string, profile: Stat002ExamProfile): Draft {
     `The standard deviation of ${list(data.values)} is ${data.standardDeviation}. Each value is replaced by ${multiplier}x. Find the new standard deviation.`,
     `Every observation of a data set with standard deviation ${data.standardDeviation} is multiplied by ${multiplier}. Determine the resulting standard deviation.`,
   ] as const;
+  const visibleValues = s === 1;
+  const transformedMean = data.mean * multiplier;
+  const exampleValue = data.values[0];
+  const exampleDeviation = exampleValue - data.mean;
   return {
     state: { kind: "SCALED_DATA", values: data.values, multiplier },
     stem: stems[s],
@@ -246,13 +264,21 @@ function buildScale(seed: string, profile: Stat002ExamProfile): Draft {
       { text: String(answer + data.standardDeviation), misconceptionId: "ADD_EXTRA_ORIGINAL_SD", derivation: "Scales the standard deviation correctly and then adds the original standard deviation once more." },
       { text: String(multiplier), misconceptionId: "REPORT_MULTIPLIER", derivation: "Reports only the transformation factor rather than the transformed spread." },
     ],
-    explanation: {
-      keyIdea: "When every observation is multiplied by a constant k, every deviation from the mean is multiplied by k, so the standard deviation is multiplied by |k|.",
-      steps: [
-        `Original standard deviation = ${data.standardDeviation}.`,
-        `New standard deviation = ${multiplier} × ${data.standardDeviation} = ${answer}.`,
-      ],
-    },
+    explanation: visibleValues
+      ? {
+          keyIdea: `For these observations the mean is ${data.mean}. Replacing x by ${multiplier}x changes the mean to ${transformedMean} and multiplies every deviation from the mean by ${multiplier}.`,
+          steps: [
+            `For example, ${exampleValue} - ${data.mean} = ${exampleDeviation}; after scaling, ${exampleValue * multiplier} - ${transformedMean} = ${exampleDeviation * multiplier}.`,
+            `So the standard deviation is also multiplied by ${multiplier}: ${data.standardDeviation} × ${multiplier} = ${answer}.`,
+          ],
+        }
+      : {
+          keyIdea: `The original standard deviation is ${data.standardDeviation}, and every observation is multiplied by ${multiplier}. Therefore every deviation from the mean is also multiplied by ${multiplier}.`,
+          steps: [
+            `SD(${multiplier}x) = ${multiplier} × SD(x).`,
+            `New standard deviation = ${multiplier} × ${data.standardDeviation} = ${answer}.`,
+          ],
+        },
   };
 }
 
@@ -279,10 +305,10 @@ function buildReverseScale(seed: string, profile: Stat002ExamProfile): Draft {
       { text: String(originalStandardDeviation), misconceptionId: "REPORT_ORIGINAL_SD", derivation: "Reports the original standard deviation instead of the multiplier." },
     ],
     explanation: {
-      keyIdea: "A positive multiplication factor changes standard deviation by the same factor, so divide the new standard deviation by the old standard deviation.",
+      keyIdea: `The standard deviation changes from ${originalStandardDeviation} to ${transformedStandardDeviation}. Because the common multiplier is positive, the SD changes by exactly the same factor.`,
       steps: [
-        `k = ${transformedStandardDeviation} ÷ ${originalStandardDeviation}.`,
-        `Therefore k = ${multiplier}.`,
+        `${transformedStandardDeviation} = k × ${originalStandardDeviation}.`,
+        `k = ${transformedStandardDeviation} ÷ ${originalStandardDeviation} = ${multiplier}.`,
       ],
     },
   };
@@ -316,11 +342,11 @@ function buildAffineFromMoments(seed: string, profile: Stat002ExamProfile): Draf
       { text: String(sd * multiplier ** 2), misconceptionId: "SQUARE_SCALE_ON_SD", derivation: "Uses the variance scale factor k² directly on the standard deviation." },
     ],
     explanation: {
-      keyIdea: "First recover the standard deviation of x from its moments. In y = ax + b, the shift b does not affect spread, while the scale a multiplies the standard deviation by |a|.",
+      keyIdea: `Here mean(x) = ${m} and mean(x²) = ${meanOfSquares}, giving variance ${variance} and SD(x) = ${sd}. In y = ${transform}, only the factor ${multiplier} changes the spread.`,
       steps: [
         `Variance of x = ${meanOfSquares} - (${m})² = ${meanOfSquares} - ${m ** 2} = ${variance}.`,
-        `So SD(x) = √${variance} = ${sd}.`,
-        `For y = ${transform}, the additive term does not change standard deviation; SD(y) = ${multiplier} × ${sd} = ${answer}.`,
+        `SD(x) = √${variance} = ${sd}.`,
+        `The additive term in y = ${transform} only shifts all values; it does not change their spread. Therefore SD(y) = ${multiplier} × ${sd} = ${answer}.`,
       ],
     },
   };
@@ -364,12 +390,14 @@ function solveState(state: Stat002State): string {
 function validateQuestion(question: Omit<Stat002Question, "validation">) {
   const checks: Stat002ValidationCheck[] = [];
   const add = (id: string, passed: boolean, message: string) => checks.push({ id, passed, message });
+  const explanationText = `${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`;
   add("FOUR_OPTIONS", question.options.length === 4, "SSC STAT-002 review questions require exactly four options.");
   add("UNIQUE_OPTIONS", new Set(question.options).size === 4, "Displayed options must be unique.");
   add("ONE_CORRECT", question.optionMetadata.filter((option) => option.misconceptionId === "CORRECT").length === 1 && question.options[question.correctIndex] === question.answer, "Exactly one option must be bound to the exact answer.");
   add("STATE_RECOMPUTATION", solveState(question.state) === question.answer, "The answer must independently recompute from the stored mathematical state.");
   add("MISCONCEPTION_PROVENANCE", question.optionMetadata.every((option) => option.derivation.length >= 24), "Each option requires a meaningful derivation or misconception provenance.");
   add("EXPLANATION_SPECIFICITY", question.explanation.keyIdea.length >= 60 && question.explanation.steps.length >= 2, "Explanation must state the governing idea and show the relevant calculation in simple steps.");
+  add("EXPLANATION_NUMERIC_BINDING", /\d/.test(question.explanation.keyIdea) && explanationText.includes(question.answer), "Explanation must be tied to the actual numerical state and final answer rather than generic boilerplate.");
   add("STEM_NATURALNESS", question.stem.length >= 40 && !/template|generator|question library|ql[- ]?id|mock[- ]?test problem/iu.test(question.stem), "Stem must be direct learner-facing exam prose without generator metadata.");
   add("POSITIVE_RAW_VALUES", question.state.kind !== "RAW_POPULATION_SD" || question.state.values.every((value) => value > 0), "Direct raw-data states must use positive learner-facing observations.");
   add("HARD_REQUIRES_COMPOUND_REASONING", question.difficulty !== "Hard" || question.contractId === "STAT-002-TEMP-006-AFFINE-FROM-MOMENTS", "Hard STAT-002 questions must use the compound moments-plus-affine contract.");
