@@ -9,7 +9,7 @@ import type {
   GerundInfinitiveParticipleRuleId,
 } from "../../../../core/types";
 import { GERUND_INFINITIVE_PARTICIPLE_RULE_BY_ID } from "../../../../grammar/gerunds-infinitives-participles";
-import { CP009_SCENES_BY_DIFFICULTY_V1 } from "./cp009-catalog-v1";
+import { CP009_SCENES_BY_DIFFICULTY_V2 } from "./cp009-catalog-v2";
 import type { GerundInfinitiveParticipleSceneV1 } from "./cp009-catalog-v1";
 
 const STEMS: Record<Eng001QlId, string> = {
@@ -28,14 +28,14 @@ export function cp009ScenePoolV1(
   difficulty: EnglishDifficulty,
   ruleId?: GerundInfinitiveParticipleRuleId,
 ): readonly GerundInfinitiveParticipleSceneV1[] {
-  const base = CP009_SCENES_BY_DIFFICULTY_V1[difficulty];
+  const base = CP009_SCENES_BY_DIFFICULTY_V2[difficulty];
   const filtered = ruleId ? base.filter((scene) => scene.ruleId === ruleId) : base;
   if (!filtered.length) throw new Error(`No CP009 ${difficulty} scene is available${ruleId ? ` for ${ruleId}` : ""}.`);
   return filtered;
 }
 
 export function rulesForDifficultyCp009V1(difficulty: EnglishDifficulty): readonly GerundInfinitiveParticipleRuleId[] {
-  return [...new Set(CP009_SCENES_BY_DIFFICULTY_V1[difficulty].map((scene) => scene.ruleId))];
+  return [...new Set(CP009_SCENES_BY_DIFFICULTY_V2[difficulty].map((scene) => scene.ruleId))];
 }
 
 export function buildEng001Cp009CandidateV1(input: {
@@ -68,7 +68,7 @@ export function buildEng001Cp009CandidateV1(input: {
     correction: selected.correction,
     subjectHead: selected.correctSegments[0],
     explanationApplication: selected.reason,
-    tags: [`domain:${selected.domain}`, `scene:${selected.id}`, `gip-rule:${selected.ruleId}`],
+    tags: [`domain:${selected.domain}`, `scene:${selected.id}`, `gip-rule:${selected.ruleId}`, "presentation:v2-balanced"],
   };
 }
 
