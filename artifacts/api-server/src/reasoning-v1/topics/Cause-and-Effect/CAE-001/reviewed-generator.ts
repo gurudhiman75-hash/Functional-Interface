@@ -1,4 +1,4 @@
-import { installCae001SaturationWave1 } from "./causal-world-saturation-wave1.ts";
+import { withCae001SaturationWave1 } from "./causal-world-saturation-wave1.ts";
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { generateReviewedCp001Question } from "./cp001-reviewed-quality-guard.ts";
 import { generateReviewedCaeCombinationQuestion } from "./cp003004-reviewed-polish.ts";
@@ -19,7 +19,6 @@ export type GenerateReviewedCaeQuestionInput = Readonly<{
 
 /** Review-facing facade layered over the frozen V3 causal architecture. */
 export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionInput): GeneratedCaeQuestion {
-  installCae001SaturationWave1();
   const defaultFourWay = input.questionProfile === undefined || input.questionProfile === "FOUR_WAY";
 
   if (input.qlId === "CAE-QL-001" && defaultFourWay) {
@@ -33,7 +32,8 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   }
   // Two out of every three default CP006 seeds exercise causal distance;
   // seed parity then gives both immediate and remote cases. The remaining
-  // third preserves the frozen indirect-chain renderer in reviewed output.
+  // third preserves the graph-native indirect-chain renderer with Wave 1
+  // saturation enabled for reviewed output.
   if (input.qlId === "CAE-QL-006" && defaultFourWay && (input.seed >>> 0) % 3 !== 2) {
     return generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
   }
@@ -48,5 +48,9 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   if (input.qlId === "CAE-QL-009" && defaultFourWay) {
     return generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
   }
-  return generateCaeQuestion(input);
+
+  const graphNativeSaturationEligible = input.qlId === "CAE-QL-001" || input.qlId === "CAE-QL-002" || input.qlId === "CAE-QL-006";
+  return graphNativeSaturationEligible
+    ? withCae001SaturationWave1(() => generateCaeQuestion(input))
+    : generateCaeQuestion(input);
 }
