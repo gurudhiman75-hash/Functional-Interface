@@ -1,7 +1,7 @@
-import { generateGeoPhy001Cp004ReviewBatchV1 } from "./geo-phy-001-cp004-review-generator-v1";
+import { generateGeoPhy001Cp004ReviewBatchV2 } from "./geo-phy-001-cp004-review-generator-v2";
 
 export const GEO_PHY_001_CP004_REVIEW_BATCH_V1 = Object.freeze(
-  generateGeoPhy001Cp004ReviewBatchV1().map((question) => Object.freeze(question)),
+  generateGeoPhy001Cp004ReviewBatchV2().map((question) => Object.freeze(question)),
 );
 
 export function auditGeoPhy001Cp004ReviewBatchV1() {
@@ -30,7 +30,7 @@ export function auditGeoPhy001Cp004ReviewBatchV1() {
     if (!question.reviewOnly || question.runtimeRegistered) issues.push(`LIFECYCLE:${question.questionId}`);
 
     const learner = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
-    if (/physiographic division|sourceFact|review-only|runtimeRegistered|generator|qualification gate/i.test(learner)) {
+    if (/physiographic division|\bNCERT\b|sourceFact|review-only|runtimeRegistered|generator|qualification gate/i.test(learner)) {
       issues.push(`LEARNER_META:${question.questionId}`);
     }
     if (/^This pair is (?:correct|incorrect)\.?$/i.test(question.explanation.trim())) issues.push(`WEAK_EXPLANATION:${question.questionId}`);
