@@ -47,8 +47,14 @@ for (const qlId of qlIds) {
       }
 
       if (qlId === "COD-QL-203") {
-        if (locale === "hi-IN") assert.match(explanationText, /वर्णमाला में उसका विपरीत अक्षर/u);
-        else assert.match(explanationText, /ਵਰਣਮਾਲਾ ਵਿੱਚ ਉਸ ਦਾ ਉਲਟ ਅੱਖਰ/u);
+        const previousLetterVariant = seed % 2 === 0;
+        if (locale === "hi-IN") {
+          if (previousLetterVariant) assert.match(explanationText, /उससे ठीक पहले वाला वर्णमाला अक्षर/u);
+          else assert.match(explanationText, /वर्णमाला में उसका विपरीत अक्षर/u);
+        } else {
+          if (previousLetterVariant) assert.match(explanationText, /ਉਸ ਤੋਂ ਤੁਰੰਤ ਪਹਿਲਾਂ ਵਾਲਾ ਵਰਣਮਾਲਾ ਅੱਖਰ/u);
+          else assert.match(explanationText, /ਵਰਣਮਾਲਾ ਵਿੱਚ ਉਸ ਦਾ ਉਲਟ ਅੱਖਰ/u);
+        }
 
         const mappingLines = strings(question.explanation).filter((line) => /→/u.test(line) && /[,:]/u.test(line));
         for (const line of mappingLines) {
@@ -69,6 +75,7 @@ console.log(JSON.stringify({
   locales,
   seedsPerQl,
   checkedQuestions: checked,
+  mixedClassContextsChecked: ["VOWEL_INDEX_CONSONANT_PREVIOUS", "REVERSE_VOWEL_INDEX_CONSONANT_OPPOSITE"],
   mechanicalShiftWording: false,
   nonCanonicalPunjabiConsonantSpelling: false,
   awkwardOppositeAlphabetPhrasing: false,
