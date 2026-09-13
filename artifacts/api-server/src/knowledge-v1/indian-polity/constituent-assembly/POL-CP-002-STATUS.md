@@ -17,8 +17,22 @@
 - deterministic same-domain distractors
 - dedicated adoption/signing/commencement distinction
 - dedicated drafting-process sequence
-- 50-question English review target
+- 50-question English review batch
 - structural and provenance QA test
+
+## Mechanical review-batch QA
+
+Independent generator reproduction passed:
+- 50 questions
+- 16/16 QLs represented
+- 18 Easy / 24 Medium / 8 Hard
+- exactly four unique options for every question
+- all four answer positions used
+- canonical answer matches the recorded correct option for every question
+- 50 unique semantic signatures
+- every used source ID resolves in the CP source registry
+
+This is a mechanical/content-structure checkpoint, not a claim that the full repository CI suite has run.
 
 ## Deliberately gated
 
