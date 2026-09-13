@@ -46,7 +46,7 @@ jobs:
           STATUS=0
           mkdir -p artifacts/api-server/$OUT
           : > artifacts/api-server/$LOG
-          for TEST in alp-001.test alp-001-completion.test alp-001-localized.test alp-001-editorial-v2.test alp-001-final-audit.test; do
+          for TEST in alp-001.test alp-001-completion.test alp-001-localized.test alp-001-editorial-v2.test alp-001-final-audit.test alp-001-distractor-provenance.test; do
             {
               echo "===== $TEST ====="
               pnpm --dir artifacts/api-server exec esbuild \
