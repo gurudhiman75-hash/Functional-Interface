@@ -10,6 +10,11 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v6.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-counterfactual-v3.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-counterfactual-v3.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-permanent-freeze-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-permanent-freeze-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-011-permanent-ql-registry-v3.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v7.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v7.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-review-export-v1.ts"
   workflow_dispatch:
 
@@ -32,9 +37,13 @@ jobs:
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-post-046-localization-freeze-v1.test.ts
       - name: Prove CP04 V3 mixed-parent difficulty and condition dependency
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-counterfactual-v3.test.ts
-      - name: Export CP04 V3 human review pack
+      - name: Prove CP04 permanent LP-QL-047 freeze and registry parity
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-permanent-freeze-v1.test.ts
+      - name: Prove Question Studio V7 LP-QL-047 English routing
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v7.test.ts
+      - name: Export frozen CP04 V3 human review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-review-export-v1.ts lp-cp04-human-review-v3 9 lp-cp04-counterfactual-review-v3.md > /dev/null
-      - name: Upload CP04 V3 review pack
+      - name: Upload frozen CP04 V3 review pack
         uses: actions/upload-artifact@v4
         with:
           name: lp-cp04-counterfactual-review-v3
