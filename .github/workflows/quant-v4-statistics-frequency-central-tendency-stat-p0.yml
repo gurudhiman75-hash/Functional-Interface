@@ -7,12 +7,14 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-003/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-003/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   workflow_dispatch:
 
 concurrency:
@@ -38,9 +40,11 @@ jobs:
       - name: Package namespace and lifecycle guard
         run: |
           test -d artifacts/api-server/src/quant-v4/topics/Statistics/STAT-003
-          ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/Statistics/STAT-003
+          ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/Statistics/STAT-003
       - name: Frequency central tendency deterministic proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-003/frequency-central-tendency.test.ts
+      - name: Question Studio controlled-review integration
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-003/question-studio-integration.test.ts
       - name: Export deterministic human review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-003/export-review.ts STAT-003-REVIEW-P0.md
       - uses: actions/upload-artifact@v4
