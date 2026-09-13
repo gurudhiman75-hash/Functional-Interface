@@ -85,6 +85,33 @@ Remediation:
 
 Result: **PASS**.
 
+### 4. CP-003/004 — technically valid but cartoonishly easy combination distractors
+
+The first final-review pack exposed several combination candidates whose truth value was valid but whose wording made the answer obvious without causal reasoning—for example cosmetic colour changes, a repainted parking area, office-garden plants and a school assembly song.
+
+Remediation:
+
+- the canonical graph and truth vectors remain frozen;
+- the reviewed surface now replaces those weak candidates with same-context events that fail for a causal reason such as insufficient scope, independent stated cause or timing;
+- examples now include a small number of vans undergoing servicing versus a route-planning outage, a train rescheduled because of track maintenance versus a road-bridge closure, and a dispatch route changed because of roadwork versus a cold-storage power failure;
+- explanations state the resolving causal distinction directly;
+- `reviewed-editorial-polish.test.ts` sweeps 240 seeds and rejects return of the weak cosmetic distractors while preserving EN/HI/PA semantic parity.
+
+Result: **PASS**.
+
+### 5. CP-009 — HARD common-cause reconstruction used generic cross-world distractors
+
+The admissions reconstruction correctly required a hidden common cause, but the first reviewed pack paired the correct admission event with generic events such as a heatwave or local festival. The item was structurally valid yet easier than its HARD label suggested.
+
+Remediation:
+
+- reviewed common-cause reconstruction now uses scenario-specific, same-context alternatives for all three shared-pressure worlds: heat, festival and admissions;
+- each wrong alternative can at most account for one visible outcome, or carries an independent stated cause, while only the keyed event explains both observations together;
+- reviewed distractors receive explicit review-surface identities rather than masquerading as unrelated canonical nodes from another world;
+- the 240-seed regression requires all three shared-pressure variants to be reachable and to retain identical answer/option semantics across EN/HI/PA.
+
+Result: **PASS**.
+
 ## Final CP-by-CP editorial status
 
 ### CP-001 — PASS
@@ -97,11 +124,11 @@ Common cause, independent causes/effects and source-profile relationship schemas
 
 ### CP-003 — PASS
 
-Probable-cause items contain target-specific alternatives and the final ambiguity case is remediated. Combination-answer coverage is graph-derived rather than manually keyed.
+Probable-cause items contain target-specific alternatives and the final ambiguity case is remediated. Combination-answer coverage is graph-derived, and reviewed false candidates require scope/timing/mechanism discrimination rather than cosmetic elimination.
 
 ### CP-004 — PASS
 
-Conventional probable-effect, two-effect and three-effect combination forms are represented with one defensible answer and clear explanations.
+Conventional probable-effect, two-effect and three-effect combination forms are represented with one defensible answer and clear explanations. Reviewed false effects remain contextually plausible while carrying an independent cause or insufficient causal fit.
 
 ### CP-005 — PASS
 
@@ -121,7 +148,7 @@ Reviewed output covers sequence, immediate cause, immediate effect, earliest/roo
 
 ### CP-009 — PASS
 
-Reviewed output covers single-gap, two-gap, relation type, connector pair, next outcome and common-cause reconstruction. The final answer-leading chain cue is removed.
+Reviewed output covers single-gap, two-gap, relation type, connector pair, next outcome and common-cause reconstruction. The answer-leading chain cue is removed, and HARD common-cause reconstruction now uses same-context partial alternatives rather than generic unrelated events.
 
 ## Explanation quality
 
