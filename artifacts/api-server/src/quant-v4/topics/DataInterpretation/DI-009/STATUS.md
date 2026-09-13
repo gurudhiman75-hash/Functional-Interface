@@ -1,57 +1,68 @@
-# DI-009 — Histogram
+# DI-009 Histogram — V2 Review Status
 
-Status: `PHASE0_HUMAN_REVIEW_REQUIRED`
+## State
 
-## Why this package exists
+`REVIEW_ONLY_V2` — not approved, not merged, not Question Studio discoverable, not Question Bank writable, and not eligible for tests/mocks/publication.
 
-The common SSC Mathematical Abilities syllabus explicitly includes histograms. Existing DI packages own tables, grouped bars, line charts, pie charts, caselets and arithmetic/missing DI, but none owns the semantics of a continuous histogram with touching class intervals.
+## Why V2 exists
 
-`DI-009` therefore owns the **histogram representation layer**. It does not replace `STAT-003`, which remains the semantic authority for grouped-frequency central-tendency mathematics.
+P0 was mathematically correct but too repetitive: six fixed questions, one fixed six-class shape, and frequency states that could look mechanically shuffled. V2 replaces that review surface instead of promoting it.
 
-## Real-paper anchors
+## V2 contract library (13)
 
-The Phase-0 contract is grounded in SSC forms that include:
-- reading and aggregating frequencies from histogram rectangles;
-- forming a ratio across two multi-class ranges (SSC CGL 2021 Tier-I, held 11 Apr 2022 Shift 1);
-- interpreting a histogram as the source for grouped-frequency calculations;
-- deriving frequency-polygon structure from histogram classes, which remains reserved for planned sibling `DI-010` rather than duplicated here.
+1. Direct class frequency
+2. Total frequency
+3. Combined contiguous-range total
+4. Frequency at/above a boundary
+5. Cumulative frequency below a boundary
+6. Ratio of two grouped histogram ranges
+7. One class as a percentage of total frequency
+8. Difference between two class frequencies
+9. Modal-class identification
+10. Median-class identification from cumulative frequency
+11. Class containing a specified kth observation
+12. Approximate grouped mean using class marks
+13. Approximate grouped mode using neighbouring frequencies
 
-## Phase-0 task families
+## Set construction
 
-1. `DIRECT_CLASS_FREQUENCY` — read one class frequency from its rectangle height;
-2. `COMBINED_RANGE_TOTAL` — add frequencies across a contiguous range;
-3. `RANGE_RATIO` — compare totals from two histogram ranges;
-4. `CLASS_SHARE_OF_TOTAL` — selected class as a percentage of all observations;
-5. `MODAL_CLASS_IDENTIFICATION` — identify the tallest rectangle / modal class;
-6. `APPROX_GROUPED_MEAN_FROM_HISTOGRAM` — extract frequencies from the histogram and apply class-mark weighting, while `STAT-003` remains the underlying grouped-mean mathematical authority.
+- Exactly 5 questions per set, not all contracts every time.
+- Structural mix: 1 Easy + 2 Medium + 2 Hard.
+- Task order is deterministically shuffled.
+- 5, 6, 7, 8 or 9 continuous equal-width classes.
+- Six controlled distribution shapes: `UNIMODAL`, `RIGHT_SKEWED`, `LEFT_SKEWED`, `ASCENDING`, `DESCENDING`, `CONTROLLED_IRREGULAR`.
+- Histogram rectangles physically touch in SVG; axes use readable rounded tick steps.
+- Student/review question surface does not show a fallback frequency table beside the histogram.
+- Mean/median/kth/mode explanations may use compact working tables because those tables explain the calculation rather than reveal the stimulus.
 
-## Visual contract
+## Language / explanation quality
 
-- exactly six contiguous equal-width class intervals in Phase 0;
-- rectangle bases touch: no categorical gaps as in an ordinary bar chart;
-- x-axis uses numerical class boundaries;
-- y-axis is frequency, never cumulative frequency;
-- generated SVG is part of the review stimulus and is derived from the same certified bin state used by the solver;
-- no tilted, decorative or out-of-scale geometry.
+- Multiple stem surfaces per contract.
+- No generic shortcut/trap filler.
+- No `associated` boilerplate.
+- Explanations are question-specific and beginner-readable.
+- Distractors carry misconception ids and derivations.
 
-## Difficulty
+## Proof gate
 
-- **Easy:** direct frequency and modal class;
-- **Medium:** range total, range ratio, class share;
-- **Hard:** approximate grouped mean requiring both visual extraction and weighted-frequency calculation.
+Offline exact TypeScript mirror before push:
 
-## Explicit exclusions
+- 2 SSC profiles
+- 120 deterministic seeds per profile
+- 240 generated sets
+- 1,200 questions
+- 240 deterministic replay checks
+- 240 independent-verifier checks
+- 4,800 option checks
+- all 13 task families exercised in each profile
+- A/B/C/D correct-position coverage for every task family in each profile
+- at least 3 stem surfaces exercised for every task family in each profile
+- all six distribution shapes exercised in each profile
+- all class counts 5–9 exercised in each profile
+- at least 70 distinct five-question order signatures per profile
 
-- unequal-width histogram/frequency-density theory;
-- cumulative-frequency ogives;
-- frequency-polygon construction and endpoint questions (`DI-010` planned);
-- grouped median/mode formula work already owned by `STAT-003`;
-- advanced JSO descriptive-statistics theory.
+GitHub CI must reproduce these gates before this checkpoint can be considered review-ready.
 
-## Lifecycle
+## Next gate
 
-- English human review required;
-- Question Studio discoverable: false;
-- Question Bank: `NOT_STORED`;
-- tests/mocks: ineligible;
-- public/automatic publication: false.
+Human review of the generated V2 HTML/Markdown pack. Only after explicit approval should DI-009 receive permanent review authority / Question Studio integration or merge to `New-main`.
