@@ -17,6 +17,7 @@ export const STAT002_CONTRACTS: readonly Stat002ContractId[] = [
   "STAT-002-TEMP-003-TRANSLATION-INVARIANCE",
   "STAT-002-TEMP-004-SCALE-TRANSFORMATION",
   "STAT-002-TEMP-005-REVERSE-SCALE",
+  "STAT-002-TEMP-006-AFFINE-FROM-MOMENTS",
 ] as const;
 
 const EXACT_SD_TEMPLATES = [
@@ -29,9 +30,10 @@ const EXACT_SD_TEMPLATES = [
 const CONTRACT_META: Record<Stat002ContractId, { solveMode: Stat002SolveMode; difficulty: Stat002Difficulty }> = {
   "STAT-002-TEMP-001-RAW-SD": { solveMode: "DIRECT_POPULATION_SD", difficulty: "Easy" },
   "STAT-002-TEMP-002-MEAN-SQUARES-SD": { solveMode: "SD_FROM_MEAN_AND_MEAN_SQUARES", difficulty: "Medium" },
-  "STAT-002-TEMP-003-TRANSLATION-INVARIANCE": { solveMode: "TRANSLATION_INVARIANCE", difficulty: "Medium" },
+  "STAT-002-TEMP-003-TRANSLATION-INVARIANCE": { solveMode: "TRANSLATION_INVARIANCE", difficulty: "Easy" },
   "STAT-002-TEMP-004-SCALE-TRANSFORMATION": { solveMode: "SCALE_STANDARD_DEVIATION", difficulty: "Medium" },
-  "STAT-002-TEMP-005-REVERSE-SCALE": { solveMode: "INFER_SCALE_FROM_STANDARD_DEVIATION", difficulty: "Hard" },
+  "STAT-002-TEMP-005-REVERSE-SCALE": { solveMode: "INFER_SCALE_FROM_STANDARD_DEVIATION", difficulty: "Medium" },
+  "STAT-002-TEMP-006-AFFINE-FROM-MOMENTS": { solveMode: "AFFINE_SD_FROM_MOMENTS", difficulty: "Hard" },
 };
 
 type Candidate = Readonly<{ text: string; misconceptionId: string; derivation: string }>;
@@ -81,6 +83,13 @@ function list(values: readonly number[]) {
 
 function surface(seed: string): 0 | 1 | 2 {
   return (hashSeed(`${seed}:surface`) % 3) as 0 | 1 | 2;
+}
+
+function affineExpression(multiplier: number, additiveConstant: number) {
+  if (additiveConstant === 0) return `${multiplier}x`;
+  return additiveConstant > 0
+    ? `${multiplier}x + ${additiveConstant}`
+    : `${multiplier}x - ${Math.abs(additiveConstant)}`;
 }
 
 function generateExactData(seed: string, profile: Stat002ExamProfile): ExactData {
@@ -208,7 +217,7 @@ function buildTranslation(seed: string, profile: Stat002ExamProfile): Draft {
       keyIdea: "Adding the same constant to every observation shifts the whole data set but does not change any deviation from the mean, so the standard deviation stays unchanged.",
       steps: [
         `Every observation and the mean increase by the same amount, ${constant}.`,
-        `Therefore each value's deviation from the mean remains exactly the same.`,
+        "Therefore each value's deviation from the mean remains exactly the same.",
         `So the new standard deviation remains ${data.standardDeviation}.`,
       ],
     },
@@ -279,6 +288,44 @@ function buildReverseScale(seed: string, profile: Stat002ExamProfile): Draft {
   };
 }
 
+function buildAffineFromMoments(seed: string, profile: Stat002ExamProfile): Draft {
+  const random = seededRandom(`${seed}:${profile}:affine-from-moments`);
+  const m = pick(random, profile === "SSC_CGL_JSO" ? [14, 18, 22, 28, 34] : [10, 14, 18, 22, 26]);
+  const sd = pick(random, profile === "SSC_CGL_JSO" ? [3, 4, 5, 6] : [2, 3, 4, 5]);
+  const variance = sd ** 2;
+  const meanOfSquares = m ** 2 + variance;
+  const multiplier = pick(random, profile === "SSC_CGL_JSO" ? [2, 3, 4, 5] : [2, 3, 4]);
+  const additiveConstant = pick(random, [-13, -9, -5, 7, 11, 15]);
+  const answer = sd * multiplier;
+  const transform = affineExpression(multiplier, additiveConstant);
+  const s = surface(`${seed}:affine-from-moments`);
+  const stems = [
+    `For a data set, x̄ = ${m} and the mean of x² is ${meanOfSquares}. If y = ${transform}, find the standard deviation of y.`,
+    `The mean of x is ${m} and the mean of x² is ${meanOfSquares}. Each observation is transformed by y = ${transform}. Determine the standard deviation of the transformed data.`,
+    `A variable x has mean ${m} and mean of squares ${meanOfSquares}. Under the transformation y = ${transform}, what is the standard deviation of y?`,
+  ] as const;
+  return {
+    state: { kind: "AFFINE_FROM_MOMENTS", mean: m, meanOfSquares, multiplier, additiveConstant },
+    stem: stems[s],
+    answer: String(answer),
+    candidates: [
+      { text: String(sd), misconceptionId: "IGNORE_MULTIPLIER", derivation: "Finds the original standard deviation correctly but ignores the multiplicative part of the transformation." },
+      { text: String(variance), misconceptionId: "REPORT_ORIGINAL_VARIANCE", derivation: "Computes the original variance but reports it instead of transforming the standard deviation." },
+      { text: String(multiplier * variance), misconceptionId: "SCALE_VARIANCE_LINEarly", derivation: "Multiplies the original variance by the scale factor and reports that value as the standard deviation." },
+      { text: String(answer + Math.abs(additiveConstant)), misconceptionId: "ADD_SHIFT_TO_SD", derivation: "Scales the standard deviation but then incorrectly adds the translation constant to the spread." },
+      { text: String(sd * multiplier ** 2), misconceptionId: "SQUARE_SCALE_ON_SD", derivation: "Uses the variance scale factor k² directly on the standard deviation." },
+    ],
+    explanation: {
+      keyIdea: "First recover the standard deviation of x from its moments. In y = ax + b, the shift b does not affect spread, while the scale a multiplies the standard deviation by |a|.",
+      steps: [
+        `Variance of x = ${meanOfSquares} - (${m})² = ${meanOfSquares} - ${m ** 2} = ${variance}.`,
+        `So SD(x) = √${variance} = ${sd}.`,
+        `For y = ${transform}, the additive term does not change standard deviation; SD(y) = ${multiplier} × ${sd} = ${answer}.`,
+      ],
+    },
+  };
+}
+
 function buildDraft(contractId: Stat002ContractId, seed: string, profile: Stat002ExamProfile): Draft {
   switch (contractId) {
     case "STAT-002-TEMP-001-RAW-SD": return buildRawSd(seed, profile);
@@ -286,6 +333,7 @@ function buildDraft(contractId: Stat002ContractId, seed: string, profile: Stat00
     case "STAT-002-TEMP-003-TRANSLATION-INVARIANCE": return buildTranslation(seed, profile);
     case "STAT-002-TEMP-004-SCALE-TRANSFORMATION": return buildScale(seed, profile);
     case "STAT-002-TEMP-005-REVERSE-SCALE": return buildReverseScale(seed, profile);
+    case "STAT-002-TEMP-006-AFFINE-FROM-MOMENTS": return buildAffineFromMoments(seed, profile);
   }
 }
 
@@ -304,6 +352,12 @@ function solveState(state: Stat002State): string {
       if (state.transformedStandardDeviation % state.originalStandardDeviation !== 0) throw new Error("STAT-002 reverse-scale state is not integral.");
       return String(state.transformedStandardDeviation / state.originalStandardDeviation);
     }
+    case "AFFINE_FROM_MOMENTS": {
+      const variance = state.meanOfSquares - state.mean ** 2;
+      const sd = Math.sqrt(variance);
+      if (!Number.isInteger(sd)) throw new Error("STAT-002 affine state does not have an exact integer source SD.");
+      return String(sd * Math.abs(state.multiplier));
+    }
   }
 }
 
@@ -318,6 +372,7 @@ function validateQuestion(question: Omit<Stat002Question, "validation">) {
   add("EXPLANATION_SPECIFICITY", question.explanation.keyIdea.length >= 60 && question.explanation.steps.length >= 2, "Explanation must state the governing idea and show the relevant calculation in simple steps.");
   add("STEM_NATURALNESS", question.stem.length >= 40 && !/template|generator|question library|ql[- ]?id|mock[- ]?test problem/iu.test(question.stem), "Stem must be direct learner-facing exam prose without generator metadata.");
   add("POSITIVE_RAW_VALUES", question.state.kind !== "RAW_POPULATION_SD" || question.state.values.every((value) => value > 0), "Direct raw-data states must use positive learner-facing observations.");
+  add("HARD_REQUIRES_COMPOUND_REASONING", question.difficulty !== "Hard" || question.contractId === "STAT-002-TEMP-006-AFFINE-FROM-MOMENTS", "Hard STAT-002 questions must use the compound moments-plus-affine contract.");
   add("LIFECYCLE_LOCK", !question.traceability.questionStudioDiscoverable && question.traceability.questionBankStatus === "NOT_STORED" && question.traceability.testEligibility === "INELIGIBLE" && !question.traceability.mockTestEligible && !question.traceability.publiclyPublishable && !question.traceability.automaticStudentPublication, "STAT-002 Phase 0 must remain review-only and undiscoverable.");
   return { valid: checks.every((check) => check.passed), checks };
 }
