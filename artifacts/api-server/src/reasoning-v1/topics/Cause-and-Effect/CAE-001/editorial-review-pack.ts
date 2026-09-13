@@ -1,4 +1,4 @@
-import { generateCaeQuestion } from "./chapter-generator.ts";
+import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import { CAE_PROVISIONAL_QL_IDS, type CaeDifficulty, type GeneratedCaeQuestion } from "./types.ts";
 
 const DIFFICULTY_ORDER: readonly CaeDifficulty[] = ["EASY", "MEDIUM", "HARD"];
@@ -17,7 +17,7 @@ function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Ca
   const generated: Cae001EditorialReviewSample[] = [];
   const seenCausalStates = new Set<string>();
   for (let seed = 0; seed < 5_000 && generated.length < 320; seed += 1) {
-    const question = generateCaeQuestion({ qlId, locale: "en-IN", seed });
+    const question = generateReviewedCaeQuestion({ qlId, locale: "en-IN", seed });
     if (!seenCausalStates.has(question.causalStateId)) {
       seenCausalStates.add(question.causalStateId);
       generated.push({ seed, question });
@@ -65,7 +65,7 @@ export function renderCae001EditorialRealnessReview(): string {
   const lines = [
     "# CAE-001 V3 editorial-realness review pack",
     "",
-    "Deterministic English (`en-IN`) review-only samples. There are ten semantically distinct generated causal states for each current CP/QL. QL allocation remains provisional.",
+    "Deterministic English (`en-IN`) review-only samples. There are ten semantically distinct generated causal states for each current CP/QL. QL allocation remains provisional. CP-007 is rendered through the reviewed false-causation corpus rather than the superseded arbitrary-disconnected-node sampler.",
   ];
   for (const qlId of CAE_PROVISIONAL_QL_IDS) {
     const samples = CAE_001_EDITORIAL_REALNESS_REVIEW[qlId];
