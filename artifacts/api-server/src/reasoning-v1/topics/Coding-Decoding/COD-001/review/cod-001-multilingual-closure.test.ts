@@ -6,6 +6,7 @@ interface QuestionLike {
   qlId?: string;
   permanentQlId?: string | null;
   checkpointId: string;
+  ruleId?: string;
   locale: string;
   difficulty: string;
   renderer: string;
@@ -91,12 +92,13 @@ function stripProtected(text: string, english: QuestionLike): string {
 }
 
 function expectedLocalizationVersion(number: number): string {
+  if (number >= 200) return "cod-001-source-gap-localization-v1";
   if (number <= 172 || number === 199) return "cod-001-translational-localization-v1";
   if (number <= 174) return "cod-cp008-language-adapted-v1";
   return "cod-cp009-language-adapted-v1";
 }
 
-const qlIds = Array.from({ length: 199 }, (_, index) => qlId(index + 1));
+const qlIds = Array.from({ length: 203 }, (_, index) => qlId(index + 1));
 const locales: readonly Cod001Locale[] = ["en-IN", "hi-IN", "pa-IN"];
 const seedsPerQl = 6;
 const answerPositions: Record<Cod001Locale, number[]> = {
@@ -119,8 +121,8 @@ const fingerprints: Record<Cod001Locale, Map<string, string>> = {
 let generatedQuestions = 0;
 
 assert.equal(qlIds[0], "COD-QL-001");
-assert.equal(qlIds.at(-1), "COD-QL-199");
-assert.equal(new Set(qlIds).size, 199);
+assert.equal(qlIds.at(-1), "COD-QL-203");
+assert.equal(new Set(qlIds).size, 203);
 
 for (const id of qlIds) {
   const number = Number(id.slice(-3));
@@ -168,6 +170,14 @@ for (const id of qlIds) {
           assert.match(text, /[\u0A00-\u0A7F]/u, `${id}/${locale}/${seed} lacks Gurmukhi`);
           assert.doesNotMatch(text, /(?:^|[\s।,:;!?])(?:ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ)(?=$|[\s।,:;!?])/u);
         }
+
+        if (number >= 200) {
+          assert.equal(question.ruleId, english.ruleId, `${id}/${locale}/${seed} changed rule identity`);
+          assert.equal(stableStringify(question.structuredPrompt), stableStringify(english.structuredPrompt), `${id}/${locale}/${seed} changed source-gap solver data`);
+          assert.deepEqual(question.options.map(optionSemanticValue), english.options.map(optionSemanticValue), `${id}/${locale}/${seed} changed source-gap options`);
+          assert.equal(question.metadata?.hiddenFingerprint, english.metadata?.hiddenFingerprint, `${id}/${locale}/${seed} changed hidden fingerprint`);
+          assert.equal(question.metadata?.maturity, "MULTILINGUAL_RUNTIME_PROOF");
+        }
       }
 
       assert.notEqual(question.prototypeOnly, true);
@@ -209,7 +219,7 @@ assert.equal(generatedQuestions, qlIds.length * seedsPerQl * locales.length);
 
 console.log(JSON.stringify({
   status: "COD-001 MULTILINGUAL RUNTIME CLOSURE PASSED",
-  qlRange: "COD-QL-001..199",
+  qlRange: "COD-QL-001..203",
   permanentQls: qlIds.length,
   locales,
   seedsPerQl,
@@ -220,6 +230,7 @@ console.log(JSON.stringify({
   difficulties: Object.fromEntries(locales.map((locale) => [locale, [...difficulties[locale]].sort()])),
   renderers: Object.fromEntries(locales.map((locale) => [locale, [...renderers[locale]].sort()])),
   exactQuestionCollisions: { "en-IN": 0, "hi-IN": 0, "pa-IN": 0 },
+  sourceGapLocalizedRange: "COD-QL-200..203",
   questionStudioVisible: false,
   publiclyPublishable: false,
 }, null, 2));
