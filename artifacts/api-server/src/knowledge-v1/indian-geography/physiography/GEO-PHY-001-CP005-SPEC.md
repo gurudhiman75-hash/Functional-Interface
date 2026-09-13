@@ -9,9 +9,9 @@ QL range: `GEO-PHY-001-QL-037` to `GEO-PHY-001-QL-045`
 CP005 covers the Indian/Great Indian Desert and standard arid-land features relevant to SSC, Banking and similar competitive exams:
 
 - position relative to the Aravali Hills;
-- undulating sandy plain and sparse vegetation;
+- sandy plain, uneven surface and sparse vegetation;
 - rainfall below 150 mm per year and arid climate;
-- short-lived/ephemeral streams and the Luni;
+- seasonal/ephemeral streams and the Luni;
 - barchans and longitudinal dunes;
 - wind action and physical weathering;
 - mushroom rocks, shifting dunes and oasis;
@@ -42,6 +42,10 @@ Runtime web or LLM output is never a truth authority.
 - Easy 18 / Medium 30 / Hard 6;
 - answer positions A14 / B14 / C13 / D13;
 - concise exam-standard stems;
+- use common, direct words wherever possible;
+- keep necessary geography terms, but explain them in plain language when they may be unfamiliar;
+- difficulty must come from the fact relation or number of facts being combined, not from difficult sentence construction;
+- avoid textbook-heavy wording such as `geomorphology`, `moisture conditions`, `localized water-related feature`, and similar phrasing in learner-facing text;
 - plausible distractors;
 - explanations state the decisive fact in simple language;
 - no option-by-option analysis unless needed;
@@ -56,7 +60,7 @@ Runtime web or LLM output is never a truth authority.
 |---|---|---|
 | QL037 | Identify the Indian Desert from location/core clues | Easy |
 | QL038 | Rainfall, climate and vegetation | Easy |
-| QL039 | Drainage, ephemeral streams and Luni | Easy |
+| QL039 | Drainage, seasonal/ephemeral streams and Luni | Easy |
 | QL040 | Barchans and longitudinal dunes | Medium |
 | QL041 | Wind-shaped desert landforms and processes | Medium |
 | QL042 | Inland drainage, playas, oasis and regional slope | Medium |
