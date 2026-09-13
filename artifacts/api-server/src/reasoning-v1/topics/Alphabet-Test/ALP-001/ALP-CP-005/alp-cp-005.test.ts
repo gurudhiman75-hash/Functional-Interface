@@ -29,7 +29,7 @@ for (const ql of ALP_CP005_TASK_REGISTRY.questionLogics) {
     if (data.word) visibleWords.add(data.word);
     generated += 1;
   }
-  assert(visibleWords.size >= 45, `${ql.qlId} exposes weak CP005 word diversity across 100 seeds: ${visibleWords.size}`);
+  assert(visibleWords.size >= 95, `${ql.qlId} fails the CP005 100-seed word-fatigue gate: ${visibleWords.size} distinct words.`);
 }
 console.log("ALP-CP-005 checkpoint audit passed.", {
   generated,
