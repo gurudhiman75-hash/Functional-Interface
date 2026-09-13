@@ -11,8 +11,11 @@ import { generateCp010Question } from "./COD-CP-010/cp010-runtime";
 import { localizeCp008Question } from "./localization/cp008-localizer";
 import { localizeCp009Question } from "./localization/cp009-localizer";
 import { finalizeCodPedagogicalQuestion } from "./localization/pedagogical-sanitizer";
+import { localizeCodSourceGapQuestion } from "./localization/source-gap-localizer";
 import { localizeCodTranslationalQuestion } from "./localization/translational-localizer";
 import type { CodTranslatedLocale } from "./localization/translational-language-pack";
+import type { CodSourceGapQlId } from "./source-gap-permanent-contracts";
+import { generateCodSourceGapPermanentQuestion } from "./source-gap-permanent-runtime";
 
 export type Cod001Locale = "en-IN" | CodTranslatedLocale;
 
@@ -33,7 +36,7 @@ function qlNumber(qlId: string): number {
   const match = /^COD-QL-(\d{3})$/u.exec(qlId);
   if (!match) throw new Error(`Invalid COD-001 QL identity '${qlId}'`);
   const value = Number(match[1]);
-  if (value < 1 || value > 199) throw new Error(`COD-001 does not own '${qlId}'`);
+  if (value < 1 || value > 203) throw new Error(`COD-001 does not own '${qlId}'`);
   return value;
 }
 
@@ -48,7 +51,8 @@ function generateCod001RawEnglishQuestion(qlId: string, seed = 0): QuestionLike 
   if (number <= 172) return generateCp007Question(qlId as never, seed) as QuestionLike;
   if (number <= 174) return generateCp008Question(qlId as never, seed) as QuestionLike;
   if (number <= 198) return generateCp009Question(qlId as never, seed) as QuestionLike;
-  return generateCp010Question(qlId as never, seed) as QuestionLike;
+  if (number === 199) return generateCp010Question(qlId as never, seed) as QuestionLike;
+  return generateCodSourceGapPermanentQuestion(qlId as CodSourceGapQlId, seed) as QuestionLike;
 }
 
 export function generateCod001EnglishQuestion(qlId: string, seed = 0): QuestionLike {
@@ -70,6 +74,11 @@ export function isCod001Cp009Ql(qlId: string): boolean {
   return number >= 175 && number <= 198;
 }
 
+export function isCod001SourceGapQl(qlId: string): boolean {
+  const number = qlNumber(qlId);
+  return number >= 200 && number <= 203;
+}
+
 export function generateCod001Question(
   qlId: string,
   locale: Cod001Locale,
@@ -82,6 +91,7 @@ export function generateCod001Question(
   if (isCod001TranslationalQl(qlId)) localized = localizeCodTranslationalQuestion(english as never, locale) as QuestionLike;
   else if (isCod001Cp008Ql(qlId)) localized = localizeCp008Question(english as never, locale) as QuestionLike;
   else if (isCod001Cp009Ql(qlId)) localized = localizeCp009Question(english as never, locale) as QuestionLike;
+  else if (isCod001SourceGapQl(qlId)) localized = localizeCodSourceGapQuestion(english, locale) as QuestionLike;
   else throw new Error(`No ${locale} runtime for '${qlId}'`);
 
   return finalizeCodPedagogicalQuestion(localized);
