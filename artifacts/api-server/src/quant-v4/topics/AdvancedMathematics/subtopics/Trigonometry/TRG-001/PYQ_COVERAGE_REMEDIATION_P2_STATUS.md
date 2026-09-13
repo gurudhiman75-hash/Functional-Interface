@@ -4,132 +4,147 @@ Status: **AUDIT CANDIDATE — NOT ACTIVATED — EXECUTION EVIDENCE PENDING**
 
 Authority: `TRG-001-PYQ-COVERAGE-REMEDIATION-P2`
 
-## Why this exists
+## Audit outcome so far
 
-The Quant V4 whole-section audit found two places where internal TRG-001 completeness did not fully prove external SSC-paper fidelity.
+The real-paper comparison has identified three places where the 144-QL internal authority did not fully prove SSC construction coverage.
 
-### 1. Cubic trigonometric factorization
+### `TRG-001-QL-024` — acute-interval sine/cosine ordering
 
-Real SSC CGL anchor: 09 Sep 2024 Shift 2.
+SSC anchor: **10 Sep 2024 Shift 1**.
+
+The existing comparison family mainly derives `sin θ` versus `cos θ` from a supplied tangent/right-triangle ratio. The SSC construction gives the acute interval directly around 45°.
+
+Audit candidate solve mode:
+
+`compareSinCosFromAcuteInterval`
+
+Reachable mathematical states:
+
+- `0° < θ < 45°` → `sin θ < cos θ`;
+- `45° < θ < 90°` → `sin θ > cos θ`.
+
+This broadens an existing comparison role; it does not add a permanent QL.
+
+### `TRG-001-QL-126` — trig relation to higher powers
+
+SSC anchor: **26 Jul 2023 Shift 1**.
+
+Observed form starts from a relation such as:
+
+`cos θ + cos² θ = 1`
+
+and requires transforming a higher-power sine expression.
+
+Current `QL-126` already owns genuine mixed-identity work, including fourth-power tan/cot constructions, so this is classified as **WEAK/BROAD coverage**, not a missing family.
+
+The complete audit wrapper therefore keeps the existing QL-126 role reachable for some seeds and adds a sibling solve mode for other seeds:
+
+`deriveHigherPowerFromTrigQuadraticRelation`
+
+Sibling states include:
+
+- `cos θ + cos² θ = 1` → higher powers of sine;
+- mirrored `sin θ + sin² θ = 1` → higher powers of cosine.
+
+The exact SSC cosine-relation form remains explicitly reachable.
+
+### `TRG-001-QL-143` — cubic trigonometric factorization
+
+SSC anchor: **09 Sep 2024 Shift 2**.
 
 Observed form:
 
 `(sin³A − cos³A)/(sin A − cos A)`
 
-The intended solution requires difference-of-cubes factorization, cancellation under the stated domain condition, and `sin²A+cos²A=1`.
-
-The current 144-QL authority has broad composite-expression coverage but no explicit cubic-factorization role.
-
-### 2. Acute-interval sine/cosine ordering
-
-Real SSC CGL anchor: 10 Sep 2024 Shift 1.
-
-Observed concept: compare `sin θ` and `cos θ` when θ lies below or above 45° in the acute interval.
-
-The current authority already has comparison roles, but the implemented comparison surface is driven mainly by a supplied tangent/right-triangle ratio. That covers the mathematical relationship but not the direct SSC interval construction.
-
-## Remediation decisions
-
-Do **not** increase the permanent 144-QL envelope.
-
-### `TRG-001-QL-024`
-
-Broaden the existing `RECIPROCAL_COMPARISON` role to include direct acute-interval comparison around the 45° equality boundary.
-
-Candidate solve mode:
-
-`compareSinCosFromAcuteInterval`
-
-The audit surface generates both:
-
-- `0° < θ < 45°` → `sin θ < cos θ`;
-- `45° < θ < 90°` → `sin θ > cos θ`.
-
-It uses compact exam-style stems, four plausible relation options and a short beginner-readable explanation based on the 45° comparison point.
-
-### `TRG-001-QL-143`
-
-Use the existing terminal `EQUIVALENCE_VERIFICATION_COMPOSITE` slot as the cubic-factorization candidate rather than adding `QL-145`.
-
-Reason:
-
-- `QL-142` is already a separately hardened composite-equivalence role;
-- `QL-144` owns a double-angle equivalence role;
-- the current `QL-143` authority surface overlaps more strongly with Pythagorean/reciprocal identity coverage already present elsewhere;
-- replacing it preserves CP-006 and the permanent-ID envelope.
+The current authority has broad terminal composite coverage but no explicit cubic-factorization role. `QL-143` is the best candidate permanent slot because its current authority surface overlaps more strongly with identity work already covered elsewhere, while `QL-142` and `QL-144` retain distinct hardened roles.
 
 Candidate solve mode:
 
 `simplifyTrigCubicFactorization`
 
-The first audit version only changed wording around one fixed difference-of-cubes expression. That was insufficient for Examtree's novelty requirement. The candidate now exposes a controlled family:
+The audit family now supports:
 
 - difference of cubes;
 - sum of cubes;
-- sine-first and cosine-first operand order;
-- at least two stem surfaces per mathematical construction.
+- sine-first and cosine-first order;
+- multiple stem surfaces;
+- explicit denominator/domain restriction;
+- misconception-based distractors;
+- beginner-readable factorization → cancellation → Pythagorean-identity explanations.
 
-The exact SSC CGL difference-of-cubes construction remains explicitly reachable and tagged as the PYQ anchor.
+## Complete audit runtime
 
-## Candidate implementation
-
-Audit overlay:
+Base PYQ overlay:
 
 - `pyq-coverage-remediated-runtime-p2.ts`
 - `pyq-coverage-remediated-runtime-p2.test.ts`
 
-Only `QL-024` and `QL-143` are remediated. All other QLs delegate directly to the existing authority candidate.
+Complete wrapper retaining the valid legacy QL-126 role while adding its PYQ sibling:
 
-The test source checks, without claiming execution:
+- `pyq-coverage-remediated-runtime-p2-complete.ts`
+- `pyq-coverage-remediated-runtime-p2-complete.test.ts`
 
-- package/CP/QL identity;
-- four unique options and one correct answer;
-- both acute interval directions;
-- both cubic operations;
-- both sine/cosine operand orders;
-- preservation of the exact SSC cubic anchor;
-- multiple distinct stems rather than wording-only duplication;
-- activation locks;
-- neighbouring `QL-142` and `QL-144` remain unchanged.
+Complete remediation set:
 
-## Question Studio boundary
+- `TRG-001-QL-024`
+- `TRG-001-QL-126`
+- `TRG-001-QL-143`
 
-The live/internal Question Studio runtime currently calls the previously frozen post-freeze runtime, not this audit overlay.
+No new permanent IDs are introduced.
 
-That is intentional. This remediation must not silently mutate already approved/frozen content. A later authority amendment, review/freeze update and explicit Question Studio rebinding are required before these surfaces can become active.
+## Realism and novelty rules applied
 
-## What this remediation does not change
+The remediation deliberately avoids one-off PYQ cloning.
 
-- package IDs;
-- CP counts;
-- total permanent QL count;
+- QL-024 generates both sides of the 45° interval boundary.
+- QL-126 retains the previous mixed-identity construction and adds mirrored sine/cosine higher-power relations.
+- QL-143 generates sum/difference cubic forms and both operand orders.
+- stems stay compact and exam-like;
+- explanations show the actual transformations without shortcut-only reasoning;
+- distractors correspond to realistic sign, identity and premature-simplification errors.
+
+## Question Studio / governance boundary
+
+The internal Question Studio currently remains bound to the previously approved/frozen post-Final5 runtime, not this audit candidate.
+
+Repository lineage check confirms that the post-Final5 freeze explicitly binds the approved English candidate to `TRG001_POST_FREEZE_REMEDIATION_V1`; therefore the existing internal activation is not an unbound-content activation. The source generator's local `PENDING/NOT_FROZEN` metadata is stale relative to the later freeze record, but the later freeze and activation artifacts bind the approved version.
+
+The new P2 remediation surfaces are **not** covered by that historical freeze. They must remain inactive until a new authority amendment, review/freeze decision and explicit Question Studio rebind occur.
+
+## Safety invariants retained
+
+The audit candidate does not change:
+
+- package count;
+- CP count;
+- 144 permanent-Ql envelope;
 - Question Studio activation;
 - test-builder eligibility;
 - question-bank writing;
 - public publication;
-- production frequency authorization.
+- Quant whole-section frequency promotion.
 
-## Evidence still required
+## Execution evidence
 
-The new/updated regression source is committed but has **not been executed in this chat environment**.
+The new regression sources are committed but have **not been executed in this chat environment**.
 
-Therefore this checkpoint does not claim:
+No claim is made for:
 
-- TypeScript compile pass;
+- strict TypeScript compile;
 - runtime test pass;
-- production-authority gate pass;
-- CI pass;
-- human approval.
+- full production-authority sweep;
+- GitHub Actions pass;
+- human approval;
+- new freeze eligibility.
 
-## Next audit step
+## Next checkpoint
 
-Continue real-PYQ comparison across already-covered TRG families and distinguish:
+The structural/PYQ coverage pass for TRG-001 is now focused enough to stop adding speculative roles. The next pass should review already-covered high-frequency PYQ families for learner-surface quality only:
 
-- mathematically covered and exam-real;
-- mathematically covered but stem construction too narrow;
-- explanation too terse or unnecessarily complex;
-- distractors weaker than SSC-style alternatives;
-- difficulty label inconsistent with the transformations required;
-- genuine remaining archetype gaps.
+1. stem realism versus SSC wording;
+2. distractor strength;
+3. explanation simplicity and completeness;
+4. difficulty calibration;
+5. whether generated variation changes mathematical state rather than only numbers/phrasing.
 
-Only after that external-realism pass should a permanent TRG authority amendment be proposed.
+Only confirmed defects from that pass should be added to this remediation set.
