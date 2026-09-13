@@ -11,6 +11,9 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v3-review-export.ts"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
   group: reasoning-lp009-day-v3-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
