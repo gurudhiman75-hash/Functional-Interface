@@ -13,12 +13,12 @@ assert.equal(CAE_001_SATURATION_WAVE1_FAMILIES.length, 12, "Wave 1 must keep all
 assert.equal(CAE_001_SATURATION_WAVE1_VARIANT_COUNT, 48, "Wave 1 must keep all 48 authored saturation variants.");
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.scenarioFamilyCount, 9, "Frozen V3 family-count compatibility drifted.");
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.canonicalScenarioVariantCount, 27, "Frozen V3 variant-count compatibility drifted.");
-assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.effectiveScenarioFamilyCount, 21, "Effective saturation family count must be 21.");
-assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.effectiveCanonicalScenarioVariantCount, 75, "Effective saturation variant count must be 75.");
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.saturationWave1FamilyCount, 12, "Question Studio Wave 1 family count drifted.");
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.saturationWave1VariantCount, 48, "Question Studio Wave 1 variant count drifted.");
 
 installCae001SaturationWave1();
-assert.equal(CAE_001_SCENARIO_FAMILIES.length, 21, "Installed reviewed registry must contain 21 families.");
-assert.equal(CAE_001_CAUSAL_WORLDS.length, 75, "Installed reviewed registry must contain 75 canonical worlds.");
+assert.equal(CAE_001_SCENARIO_FAMILIES.length, 21, "Installed Wave 1 registry must contain 21 families.");
+assert.equal(CAE_001_CAUSAL_WORLDS.length, 75, "Installed Wave 1 registry must contain 75 canonical worlds.");
 
 const chainIds = CAE_001_SATURATION_WAVE1_FAMILIES.filter((family) => family.topology === "DIRECT_CHAIN").map((family) => family.id);
 const commonIds = CAE_001_SATURATION_WAVE1_FAMILIES.filter((family) => family.topology === "BRANCHING_COMMON_CAUSE" || family.topology === "PARALLEL_CHAINS").map((family) => family.id);
@@ -39,9 +39,7 @@ const expectedByQl: Readonly<Record<CaeQlId, readonly string[]>> = {
 for (const [qlId, expectedIds] of Object.entries(expectedByQl) as [CaeQlId, readonly string[]][]) {
   const plan = CAE_001_PROJECTION_AUTHORITIES.find((entry) => entry.qlId === qlId);
   assert.ok(plan, `${qlId}: projection plan missing.`);
-  for (const familyId of expectedIds) {
-    assert.ok(plan.compatibleFamilyIds.includes(familyId), `${qlId}: saturation family ${familyId} is not wired into the plan.`);
-  }
+  for (const familyId of expectedIds) assert.ok(plan.compatibleFamilyIds.includes(familyId), `${qlId}: saturation family ${familyId} is not wired into the plan.`);
 }
 
 const representativeSeed = new Map<string, Readonly<{ qlId: CaeQlId; seed: number }>>();
@@ -51,9 +49,7 @@ const saturationIds = new Set(CAE_001_SATURATION_WAVE1_FAMILIES.map((family) => 
 for (const qlId of graphNativeQls) {
   for (let seed = 0; seed < 1024; seed += 1) {
     const question = generateCaeQuestion({ qlId, locale: "en-IN", seed, questionProfile: "FOUR_WAY" });
-    if (saturationIds.has(question.scenarioFamilyId) && !representativeSeed.has(question.scenarioFamilyId)) {
-      representativeSeed.set(question.scenarioFamilyId, { qlId, seed });
-    }
+    if (saturationIds.has(question.scenarioFamilyId) && !representativeSeed.has(question.scenarioFamilyId)) representativeSeed.set(question.scenarioFamilyId, { qlId, seed });
   }
 }
 
@@ -70,12 +66,9 @@ for (const family of CAE_001_SATURATION_WAVE1_FAMILIES) {
   }
 }
 
-// Candidate-heavy QLs are deliberately not expanded in Wave 1. This protects
-// distractor quality until each new scenario receives its own authored semantic
-// candidate authority rather than falling back to weak cross-scenario options.
 for (const qlId of ["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-009"] as const) {
   const plan = CAE_001_PROJECTION_AUTHORITIES.find((entry) => entry.qlId === qlId)!;
-  assert.ok(!plan.compatibleFamilyIds.some((familyId) => saturationIds.has(familyId)), `${qlId}: candidate-heavy expansion was enabled before distractor authority was authored.`);
+  assert.ok(!plan.compatibleFamilyIds.some((familyId) => saturationIds.has(familyId)), `${qlId}: Wave 1 candidate-heavy expansion was enabled before distractor authority was authored.`);
 }
 
-console.log(`CAE-001 saturation wave 1 QA passed: ${CAE_001_SCENARIO_FAMILIES.length} effective families / ${CAE_001_CAUSAL_WORLDS.length} effective variants.`);
+console.log(`CAE-001 saturation wave 1 QA passed: ${CAE_001_SCENARIO_FAMILIES.length} Wave 1 families / ${CAE_001_CAUSAL_WORLDS.length} Wave 1 variants.`);
