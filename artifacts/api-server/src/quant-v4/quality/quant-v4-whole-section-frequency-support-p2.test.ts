@@ -19,64 +19,34 @@ const profile = buildQuantV4WholeSectionFrequencyProfile({
 });
 const assessment = buildQuantV4FrequencySupportAssessment(profile);
 
-assert.equal(
-  QUANT_V4_WHOLE_SECTION_FREQUENCY_SUPPORT_AUTHORITY,
-  "QUANT-V4-WHOLE-SECTION-FREQUENCY-SUPPORT-P2",
-);
+assert.equal(QUANT_V4_WHOLE_SECTION_FREQUENCY_SUPPORT_AUTHORITY, "QUANT-V4-WHOLE-SECTION-FREQUENCY-SUPPORT-P2");
 assert.equal(assessment.sampleQuestionCount, 300);
 assert.equal(assessment.completeSectionCount, 12);
 assert.equal(assessment.productionWeightingAuthorized, false);
 
 assert.deepEqual(assessment.coreEvidencePackages, [
-  "TRG-001",
-  "ALG-001",
-  "TMW-001",
-  "PNL-001",
-  "DI-001",
-  "TSD-001",
-  "GEO-002",
-  "NUM-001",
-  "GEO-001",
-  "MEN-002",
+  "TRG-001", "ALG-001", "TMW-001", "PNL-001", "DI-001",
+  "TSD-001", "GEO-002", "NUM-001", "GEO-001", "MEN-002",
 ]);
 
 assert.deepEqual(assessment.establishedEvidencePackages, [
-  "INT-001",
-  "MEN-001",
-  "DI-003",
-  "RAP-001",
-  "ALG-002",
-  "AVG-001",
-  "PCT-001",
-  "DI-005",
+  "INT-001", "MEN-001", "DI-003", "RAP-001", "ALG-002",
+  "AVG-001", "PCT-001", "DI-005",
 ]);
 
 assert.deepEqual(assessment.thinEvidencePackages, [
-  "SAP",
-  "PCT-002",
-  "MAL-001",
-  "RAP-002",
-  "RAP-003",
-  "DI-004",
-  "PCT-007",
-  "SRI-001",
-  "SRI-002",
-  "TSD-002",
+  "SAP", "PCT-002", "MAL-001", "RAP-002", "RAP-003",
+  "DI-004", "PCT-007", "SRI-001", "SRI-002", "TRG-002", "TSD-002",
 ]);
 
-assert.equal(assessment.packages.length, 28);
-assert.equal(
-  assessment.packages.reduce((sum, entry) => sum + entry.questionCount, 0),
-  300,
-);
-assert.ok(
-  assessment.packages.every((entry) =>
-    entry.sectionPresenceCount >= 1 &&
-    entry.sectionPresenceCount <= 12 &&
-    entry.sectionPresenceShare > 0 &&
-    entry.sectionPresenceShare <= 1,
-  ),
-);
+assert.equal(assessment.packages.length, 29);
+assert.equal(assessment.packages.reduce((sum, entry) => sum + entry.questionCount, 0), 300);
+assert.ok(assessment.packages.every((entry) =>
+  entry.sectionPresenceCount >= 1 &&
+  entry.sectionPresenceCount <= 12 &&
+  entry.sectionPresenceShare > 0 &&
+  entry.sectionPresenceShare <= 1,
+));
 
 console.log(JSON.stringify({
   status: "PASS_QUANT_V4_WHOLE_SECTION_FREQUENCY_SUPPORT_P2",
