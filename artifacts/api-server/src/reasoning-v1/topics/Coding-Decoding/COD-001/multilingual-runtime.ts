@@ -11,6 +11,7 @@ import { generateCp010Question } from "./COD-CP-010/cp010-runtime";
 import { localizeCp008Question } from "./localization/cp008-localizer";
 import { localizeCp009Question } from "./localization/cp009-localizer";
 import { finalizeCodPedagogicalQuestion } from "./localization/pedagogical-sanitizer";
+import { polishCodSourceGapLocalization } from "./localization/source-gap-editorial-polish";
 import { localizeCodSourceGapQuestion } from "./localization/source-gap-localizer";
 import { localizeCodTranslationalQuestion } from "./localization/translational-localizer";
 import type { CodTranslatedLocale } from "./localization/translational-language-pack";
@@ -91,8 +92,9 @@ export function generateCod001Question(
   if (isCod001TranslationalQl(qlId)) localized = localizeCodTranslationalQuestion(english as never, locale) as QuestionLike;
   else if (isCod001Cp008Ql(qlId)) localized = localizeCp008Question(english as never, locale) as QuestionLike;
   else if (isCod001Cp009Ql(qlId)) localized = localizeCp009Question(english as never, locale) as QuestionLike;
-  else if (isCod001SourceGapQl(qlId)) localized = localizeCodSourceGapQuestion(english, locale) as QuestionLike;
-  else throw new Error(`No ${locale} runtime for '${qlId}'`);
+  else if (isCod001SourceGapQl(qlId)) {
+    localized = polishCodSourceGapLocalization(localizeCodSourceGapQuestion(english, locale) as QuestionLike);
+  } else throw new Error(`No ${locale} runtime for '${qlId}'`);
 
   return finalizeCodPedagogicalQuestion(localized);
 }
