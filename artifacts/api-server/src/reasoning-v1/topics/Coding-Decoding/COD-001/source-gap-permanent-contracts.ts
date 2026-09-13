@@ -21,7 +21,7 @@ export interface CodSourceGapPermanentContract {
   readonly status: "ENGLISH_RUNTIME_PROOF";
   readonly reviewOnly: true;
   readonly publiclyPublishable: false;
-  readonly questionStudioVisible: false;
+  readonly questionStudioVisible: true;
   readonly questionBankWritable: false;
   readonly mockTestEligible: false;
 }
@@ -36,7 +36,7 @@ export const COD_SOURCE_GAP_PERMANENT_CONTRACTS: readonly CodSourceGapPermanentC
     status: "ENGLISH_RUNTIME_PROOF",
     reviewOnly: true,
     publiclyPublishable: false,
-    questionStudioVisible: false,
+    questionStudioVisible: true,
     questionBankWritable: false,
     mockTestEligible: false,
   },
@@ -49,7 +49,7 @@ export const COD_SOURCE_GAP_PERMANENT_CONTRACTS: readonly CodSourceGapPermanentC
     status: "ENGLISH_RUNTIME_PROOF",
     reviewOnly: true,
     publiclyPublishable: false,
-    questionStudioVisible: false,
+    questionStudioVisible: true,
     questionBankWritable: false,
     mockTestEligible: false,
   },
@@ -62,7 +62,7 @@ export const COD_SOURCE_GAP_PERMANENT_CONTRACTS: readonly CodSourceGapPermanentC
     status: "ENGLISH_RUNTIME_PROOF",
     reviewOnly: true,
     publiclyPublishable: false,
-    questionStudioVisible: false,
+    questionStudioVisible: true,
     questionBankWritable: false,
     mockTestEligible: false,
   },
@@ -75,7 +75,7 @@ export const COD_SOURCE_GAP_PERMANENT_CONTRACTS: readonly CodSourceGapPermanentC
     status: "ENGLISH_RUNTIME_PROOF",
     reviewOnly: true,
     publiclyPublishable: false,
-    questionStudioVisible: false,
+    questionStudioVisible: true,
     questionBankWritable: false,
     mockTestEligible: false,
   },
