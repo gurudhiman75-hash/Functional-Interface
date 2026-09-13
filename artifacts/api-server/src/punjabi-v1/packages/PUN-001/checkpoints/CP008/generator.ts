@@ -1,6 +1,9 @@
 /**
- * CP008 Generator Engine & Checkpoint Definition:
+ * PUN-001-CP008 V4 Generator
  * Morphology, Prefixes & Suffixes (ਅਗੇਤਰ, ਪਿਛੇਤਰ ਅਤੇ ਸ਼ਬਦ-ਰਚਨਾ)
+ *
+ * V4 restores the eight-family review surface and uses an explicitly balanced
+ * 120-question reviewer batch: 8 families × 3 difficulties × 5 questions.
  */
 
 import { createRng } from "../../../../core/deterministic-rng";
@@ -11,11 +14,15 @@ import type {
   PunjabiReviewBatch,
 } from "../../../../core/types";
 import {
-  generateCP008F01,
-  generateCP008F02,
-  generateCP008F03,
-  generateCP008F04,
-} from "./CP008-families";
+  CP008_V4_FAMILY_GENERATORS,
+  type CP008V4FamilyId,
+} from "./CP008-v4-families";
+
+const CP008_V4_FAMILY_IDS = Object.keys(
+  CP008_V4_FAMILY_GENERATORS
+) as CP008V4FamilyId[];
+
+const CP008_DIFFICULTIES: PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
 
 export const PUN_001_CP008_DEFINITION: PunjabiCheckpointDefinition = {
   cpId: "PUN-001-CP008",
@@ -23,35 +30,63 @@ export const PUN_001_CP008_DEFINITION: PunjabiCheckpointDefinition = {
   name: "Morphology, Prefixes & Suffixes",
   nameGurmukhi: "ਅਗੇਤਰ, ਪਿਛੇਤਰ ਅਤੇ ਸ਼ਬਦ-ਰਚਨਾ",
   description:
-    "Productive derivational affixes (Prefixes: ਬੇ, ਨਿਰ, ਉਪ, ਅਣ, ਕੁ, ਸੁ / Suffixes: ਦਾਰ, ਵਾਨ, ਮੰਦ, ਆਊ, ਹਾਰ), pseudo-affix discrimination, and root word extraction.",
+    "Native Punjabi morphology: prefix/suffix identification, genuine-vs-spurious affix discrimination, root extraction, formation, morphological analysis and meaning-to-affix precision.",
   families: [
     {
       familyId: "F01",
       name: "Prefix Identification",
-      description: "Identification and formation of prefix-derived words.",
-      targetDifficulties: ["Easy", "Medium", "Hard"],
-      generate: generateCP008F01,
+      description: "Identify the genuine prefix used in a target word.",
+      targetDifficulties: CP008_DIFFICULTIES,
+      generate: CP008_V4_FAMILY_GENERATORS.F01,
     },
     {
       familyId: "F02",
       name: "Suffix Identification",
-      description: "Identification and formation of suffix-derived words.",
-      targetDifficulties: ["Easy", "Medium", "Hard"],
-      generate: generateCP008F02,
+      description: "Identify the genuine suffix used in a target word.",
+      targetDifficulties: CP008_DIFFICULTIES,
+      generate: CP008_V4_FAMILY_GENERATORS.F02,
     },
     {
       familyId: "F03",
-      name: "Pseudo-Affix Discrimination",
-      description: "Distinguishing genuine derivational affixes from accidental phonetic root matches.",
-      targetDifficulties: ["Easy", "Medium", "Hard"],
-      generate: generateCP008F03,
+      name: "Spurious Affix Discrimination",
+      description: "Separate genuine affix formation from a root word that only resembles it.",
+      targetDifficulties: CP008_DIFFICULTIES,
+      generate: CP008_V4_FAMILY_GENERATORS.F03,
     },
     {
       familyId: "F04",
       name: "Root Word Extraction",
-      description: "Morphological segmentation and extraction of authentic root base words.",
-      targetDifficulties: ["Easy", "Medium", "Hard"],
-      generate: generateCP008F04,
+      description: "Recover the authentic root from a derived word.",
+      targetDifficulties: CP008_DIFFICULTIES,
+      generate: CP008_V4_FAMILY_GENERATORS.F04,
+    },
+    {
+      familyId: "F05",
+      name: "Prefix Formation",
+      description: "Choose the genuine word formed with a stated prefix.",
+      targetDifficulties: CP008_DIFFICULTIES,
+      generate: CP008_V4_FAMILY_GENERATORS.F05,
+    },
+    {
+      familyId: "F06",
+      name: "Suffix Formation",
+      description: "Choose the genuine word formed with a stated suffix.",
+      targetDifficulties: CP008_DIFFICULTIES,
+      generate: CP008_V4_FAMILY_GENERATORS.F06,
+    },
+    {
+      familyId: "F07",
+      name: "Morphological Segmentation",
+      description: "Choose the correct affix-plus-root analysis of a target word.",
+      targetDifficulties: CP008_DIFFICULTIES,
+      generate: CP008_V4_FAMILY_GENERATORS.F07,
+    },
+    {
+      familyId: "F08",
+      name: "Affix Semantic Precision",
+      description: "Select an affix from its meaning using close and opposite semantic confusables.",
+      targetDifficulties: CP008_DIFFICULTIES,
+      generate: CP008_V4_FAMILY_GENERATORS.F08,
     },
   ],
 };
@@ -62,59 +97,64 @@ export function generateCP008Question(
   requestedFamilyId?: string
 ): PunjabiGeneratedQuestion {
   const rng = createRng(seed);
+  const familyId = (requestedFamilyId ?? rng.pickOne(CP008_V4_FAMILY_IDS)) as CP008V4FamilyId;
+  const generator = CP008_V4_FAMILY_GENERATORS[familyId];
 
-  let familyId = requestedFamilyId;
-  if (!familyId) {
-    const familyOptions = ["F01", "F02", "F03", "F04"];
-    familyId = rng.pickOne(familyOptions);
+  if (!generator) {
+    throw new Error(`Unknown CP008 V4 question family: '${requestedFamilyId}'`);
   }
 
-  switch (familyId) {
-    case "F01":
-      return generateCP008F01(seed, difficulty);
-    case "F02":
-      return generateCP008F02(seed, difficulty);
-    case "F03":
-      return generateCP008F03(seed, difficulty);
-    case "F04":
-      return generateCP008F04(seed, difficulty);
-    default:
-      throw new Error(`Unknown CP008 question family: '${familyId}'`);
-  }
+  return generator(seed, difficulty);
 }
 
+/**
+ * Produces the reviewer-facing V4 corpus.
+ *
+ * The canonical review size is 120 so every family/difficulty cell receives
+ * exactly five questions. A non-120 count remains deterministic and is filled
+ * round-robin without changing family ownership.
+ */
 export function generateCP008ReviewBatch(
-  count: number = 60,
+  count: number = 120,
   seedStart: number = 8000
 ): PunjabiReviewBatch {
-  const questions: PunjabiGeneratedQuestion[] = [];
-  const easyCount = Math.floor(count / 3);
-  const mediumCount = Math.floor(count / 3);
-  const hardCount = count - easyCount - mediumCount;
+  if (!Number.isInteger(count) || count <= 0) {
+    throw new Error(`CP008 review count must be a positive integer; got ${count}`);
+  }
 
+  const questions: PunjabiGeneratedQuestion[] = [];
   let currentSeed = seedStart;
 
-  for (let i = 0; i < easyCount; i++) {
-    questions.push(generateCP008Question(currentSeed++, "Easy"));
-  }
-  for (let i = 0; i < mediumCount; i++) {
-    questions.push(generateCP008Question(currentSeed++, "Medium"));
-  }
-  for (let i = 0; i < hardCount; i++) {
-    questions.push(generateCP008Question(currentSeed++, "Hard"));
+  const cells = CP008_DIFFICULTIES.flatMap((difficulty) =>
+    CP008_V4_FAMILY_IDS.map((familyId) => ({ difficulty, familyId }))
+  );
+
+  if (count === 120) {
+    for (const { difficulty, familyId } of cells) {
+      for (let i = 0; i < 5; i++) {
+        questions.push(generateCP008Question(currentSeed++, difficulty, familyId));
+      }
+    }
+  } else {
+    for (let i = 0; i < count; i++) {
+      const cell = cells[i % cells.length]!;
+      questions.push(
+        generateCP008Question(currentSeed++, cell.difficulty, cell.familyId)
+      );
+    }
   }
 
+  const easy = questions.filter((question) => question.difficulty === "Easy").length;
+  const medium = questions.filter((question) => question.difficulty === "Medium").length;
+  const hard = questions.filter((question) => question.difficulty === "Hard").length;
+
   return {
-    batchId: `BATCH-CP008-${seedStart}-${count}`,
+    batchId: `BATCH-CP008-V4-${seedStart}-${count}`,
     packageId: "PUN-001",
     cpId: "PUN-001-CP008",
     generatedAt: new Date().toISOString(),
     totalQuestions: questions.length,
-    distribution: {
-      easy: easyCount,
-      medium: mediumCount,
-      hard: hardCount,
-    },
+    distribution: { easy, medium, hard },
     questions,
   };
 }
