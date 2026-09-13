@@ -1,6 +1,7 @@
 import { CAE_001_MANIFEST } from "./chapter-manifest.ts";
 import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES } from "./causal-world-authorities.ts";
 import { CAE_001_SATURATION_WAVE1_FAMILIES, CAE_001_SATURATION_WAVE1_VARIANT_COUNT } from "./causal-world-saturation-wave1.ts";
+import { CAE_001_SATURATION_WAVE2_FAMILIES, CAE_001_SATURATION_WAVE2_VARIANT_COUNT } from "./causal-world-saturation-wave2.ts";
 import { CAE_COMBINATION_WORLDS } from "./cp003004-combination.ts";
 import { CP005_COMPETING_SCENARIOS } from "./cp005-competing-explanations.ts";
 import { CP007_FALSE_CAUSATION_WORLDS } from "./cp007-false-causation.ts";
@@ -20,8 +21,9 @@ export type PreviewCae001QuestionStudioInput = Readonly<{
 }>;
 
 const SATURATION_WAVE1_FAMILY_COUNT = CAE_001_SATURATION_WAVE1_FAMILIES.length;
-const EFFECTIVE_CANONICAL_FAMILY_COUNT = CAE_001_SCENARIO_FAMILIES.length + SATURATION_WAVE1_FAMILY_COUNT;
-const EFFECTIVE_CANONICAL_VARIANT_COUNT = CAE_001_CAUSAL_WORLDS.length + CAE_001_SATURATION_WAVE1_VARIANT_COUNT;
+const SATURATION_WAVE2_FAMILY_COUNT = CAE_001_SATURATION_WAVE2_FAMILIES.length;
+const EFFECTIVE_CANONICAL_FAMILY_COUNT = CAE_001_SCENARIO_FAMILIES.length + SATURATION_WAVE1_FAMILY_COUNT + SATURATION_WAVE2_FAMILY_COUNT;
+const EFFECTIVE_CANONICAL_VARIANT_COUNT = CAE_001_CAUSAL_WORLDS.length + CAE_001_SATURATION_WAVE1_VARIANT_COUNT + CAE_001_SATURATION_WAVE2_VARIANT_COUNT;
 
 export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   packageId: CAE_001_QUESTION_STUDIO_PACKAGE_ID,
@@ -31,11 +33,7 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   version: "V3" as const,
   integrationAuthority: CAE_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
   reviewStatus: "REVIEW_ONLY_GENERATIVE_CAUSAL_STATE_V3_ARCHITECTURE_CHECKPOINT" as const,
-  /**
-   * Compatibility contract for the frozen V3 Question Studio package.
-   * These legacy counts deliberately remain the original frozen source counts.
-   * Effective reviewed counts below expose the saturation overlay separately.
-   */
+  /** Frozen V3 legacy counts remain stable; saturation is exposed separately. */
   qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION" as const,
   contentFreezeStatus: CAE_001_MANIFEST.qlDiscovery.status,
   provisionalQlCount: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds.length,
@@ -44,11 +42,13 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length,
   saturationWave1FamilyCount: SATURATION_WAVE1_FAMILY_COUNT,
   saturationWave1VariantCount: CAE_001_SATURATION_WAVE1_VARIANT_COUNT,
+  saturationWave2FamilyCount: SATURATION_WAVE2_FAMILY_COUNT,
+  saturationWave2VariantCount: CAE_001_SATURATION_WAVE2_VARIANT_COUNT,
   effectiveScenarioFamilyCount: EFFECTIVE_CANONICAL_FAMILY_COUNT,
   effectiveCanonicalScenarioVariantCount: EFFECTIVE_CANONICAL_VARIANT_COUNT,
-  saturationWave1ExpandedQlIds: ["CAE-QL-001", "CAE-QL-002", "CAE-QL-006", "CAE-QL-007", "CAE-QL-008"] as const,
+  saturationExpandedQlIds: ["CAE-QL-001", "CAE-QL-002", "CAE-QL-006", "CAE-QL-007", "CAE-QL-008"] as const,
   saturationCandidateHeavyQlStatus: "GATED_PENDING_SCENARIO_SPECIFIC_DISTRACTOR_AUTHORITIES" as const,
-  /** Reviewed authorities add two combination families plus CP005/CP007 authored families. CP006/008/009 reuse canonical worlds with richer projections. */
+  /** Reviewed authorities add combination/CP005/CP007 authored families beyond the canonical saturation pool. */
   reviewedScenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length + 4,
   reviewedCanonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length + CAE_COMBINATION_WORLDS.length + CP005_COMPETING_SCENARIOS.length + CP007_FALSE_CAUSATION_WORLDS.length,
   effectiveReviewedScenarioFamilyCount: EFFECTIVE_CANONICAL_FAMILY_COUNT + 4,
