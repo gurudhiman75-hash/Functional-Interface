@@ -10,7 +10,8 @@ export type Eng001CpId =
   | "ENG-001-CP002"
   | "ENG-001-CP003"
   | "ENG-001-CP004"
-  | "ENG-001-CP005";
+  | "ENG-001-CP005"
+  | "ENG-001-CP006";
 
 export type SvaRuleId =
   | "GR-SVA-001"
@@ -72,7 +73,19 @@ export type PrepositionRuleId =
   | "GR-PRP-009"
   | "GR-PRP-010";
 
-export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId | PrepositionRuleId;
+export type ComparisonRuleId =
+  | "GR-CMP-001"
+  | "GR-CMP-002"
+  | "GR-CMP-003"
+  | "GR-CMP-004"
+  | "GR-CMP-005"
+  | "GR-CMP-006"
+  | "GR-CMP-007"
+  | "GR-CMP-008"
+  | "GR-CMP-009"
+  | "GR-CMP-010";
+
+export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId | PrepositionRuleId | ComparisonRuleId;
 
 export type SvaMutationId =
   | "MUT-SVA-NUMBER-001"
@@ -134,7 +147,19 @@ export type PrepositionMutationId =
   | "MUT-PRP-VERB-COMPLEMENT-001"
   | "MUT-PRP-NOUN-COMPLEMENT-001";
 
-export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId | PrepositionMutationId;
+export type ComparisonMutationId =
+  | "MUT-CMP-ADVERB-MANNER-001"
+  | "MUT-CMP-LINKING-ADJECTIVE-001"
+  | "MUT-CMP-AS-AS-001"
+  | "MUT-CMP-COMPARATIVE-THAN-001"
+  | "MUT-CMP-SUPERLATIVE-ARTICLE-001"
+  | "MUT-CMP-ONE-OF-SUPERLATIVE-001"
+  | "MUT-CMP-DOUBLE-COMPARATIVE-001"
+  | "MUT-CMP-DOUBLE-SUPERLATIVE-001"
+  | "MUT-CMP-COMPARATIVE-INTENSIFIER-001"
+  | "MUT-CMP-IRREGULAR-DEGREE-001";
+
+export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId | PrepositionMutationId | ComparisonMutationId;
 
 export interface DifficultyDimensions {
   ruleComplexity: 1 | 2 | 3 | 4 | 5;
@@ -147,7 +172,7 @@ export interface DifficultyDimensions {
 
 export interface EnglishGrammarRule {
   ruleId: GrammarRuleId;
-  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns" | "prepositions";
+  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns" | "prepositions" | "adjectives_adverbs_comparison";
   name: string;
   principle: string;
   mutationId: GrammarMutationId;

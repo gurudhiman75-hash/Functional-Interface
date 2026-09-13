@@ -31,7 +31,7 @@ assert.equal(listQuestionStudioEngines().includes("language-v1"), true);
 const registered = listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001");
 assert.equal(registered?.engineId, "language-v1");
 assert.equal(registered?.enabled, true);
-assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005"]);
+assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006"]);
 
 assert.equal(isEng001QuestionStudioRequestV1({ packageId: "ENG-001" }), true);
 assert.equal(isEng001QuestionStudioRequestV1({ canonicalProblemId: "ENG-001-CP002" }), true);
@@ -132,4 +132,4 @@ await assert.rejects(
   /Unknown ENG-001 selector/i,
 );
 
-console.log("ENG-001 CP001–CP003 legacy Question Studio regressions passed with CP004–CP005 package registration.");
+console.log("ENG-001 CP001–CP003 legacy Question Studio regressions passed with CP004–CP006 package registration.");
