@@ -1,37 +1,50 @@
 import { writeFileSync } from "node:fs";
-import { resolve } from "node:path";
-import { generateDi009HistogramSet } from "./histogram-set";
-import type { Di009ExamProfile } from "./types";
+import { markdownTable, selectDi009V2ReviewSets } from "./review-utils";
 
-const profiles: readonly Di009ExamProfile[] = ["SSC_CGL_TIER_I", "SSC_CGL_TIER_II"];
+const outputPath = process.argv[2] || "DI-009-REVIEW-V2.md";
+const sets = selectDi009V2ReviewSets();
 const lines: string[] = [
-  "# DI-009 — Histogram — English Review Pack P0",
+  "# DI-009 Histogram — V2 Review Pack",
   "",
-  "Lifecycle: human review only. No Question Studio registration, Question Bank write, test/mock eligibility, localization or publication is authorized by this artifact.",
+  "> Review-only checkpoint. The histogram is the question stimulus. The source frequency table is deliberately not shown beside it.",
+  "",
+  `- Sets: ${sets.length}`,
+  `- Questions: ${sets.reduce((sum, set) => sum + set.questions.length, 0)}`,
+  `- Contract library represented: ${new Set(sets.flatMap((set) => set.questions.map((question) => question.kind))).size} / 13`,
+  `- Shapes represented: ${[...new Set(sets.map((set) => set.stimulus.shape))].join(", ")}`,
+  `- Class counts represented: ${[...new Set(sets.map((set) => set.stimulus.bins.length))].sort((a, b) => a - b).join(", ")}`,
   "",
 ];
 
-let ordinal = 1;
-for (const profile of profiles) {
-  lines.push(`## ${profile}`, "");
-  for (let sample = 1; sample <= 2; sample += 1) {
-    const set = generateDi009HistogramSet({ seed: `DI-009-REVIEW-${profile}-${sample}`, examProfile: profile });
-    lines.push(`### Histogram set ${sample}`, "", set.stimulus.svg, "");
-    lines.push("Fallback data table:", "", "| Class interval | Frequency |", "|---|---:|");
-    for (const bin of set.stimulus.bins) lines.push(`| ${bin.lower}–${bin.upper} | ${bin.frequency} |`);
-    lines.push("");
-    for (const question of set.questions) {
-      lines.push(`#### Q${ordinal}. ${question.difficulty} — ${question.kind}`, "", question.stem, "");
-      question.options.forEach((option, index) => lines.push(`${String.fromCharCode(65 + index)}. ${option}`));
-      lines.push("", `**Answer:** ${String.fromCharCode(65 + question.correctIndex)}. ${question.answer}`, "");
-      lines.push(`**Explanation:** ${question.explanation.keyIdea}`, "");
-      question.explanation.steps.forEach((step, index) => lines.push(`${index + 1}. ${step}`));
-      lines.push("");
-      ordinal += 1;
-    }
-  }
-}
+sets.forEach((set, setIndex) => {
+  lines.push(`## Set ${setIndex + 1} — ${set.examProfile}`);
+  lines.push("");
+  lines.push(`**Shape:** ${set.stimulus.shape}  `);
+  lines.push(`**Class intervals:** ${set.stimulus.bins.length}  `);
+  lines.push(`**Context:** ${set.stimulus.title}`);
+  lines.push("");
+  lines.push(set.stimulus.svg);
+  lines.push("");
 
-const outputPath = resolve(process.argv[2] ?? "DI-009-REVIEW-P0.md");
-writeFileSync(outputPath, `${lines.join("\n")}\n`, "utf8");
-console.log(JSON.stringify({ status: "EXPORTED_DI_009_REVIEW_P0", outputPath, questions: ordinal - 1 }));
+  set.questions.forEach((question, questionIndex) => {
+    lines.push(`### Q${questionIndex + 1}. ${question.stem}`);
+    lines.push("");
+    question.options.forEach((option, index) => lines.push(`${String.fromCharCode(65 + index)}. ${option}`));
+    lines.push("");
+    lines.push(`**Answer:** ${String.fromCharCode(65 + question.correctIndex)}. ${question.answer}`);
+    lines.push("");
+    lines.push(`**Explanation:** ${question.explanation.keyIdea}`);
+    lines.push("");
+    question.explanation.steps.forEach((step, index) => lines.push(`${index + 1}. ${step}`));
+    if (question.explanation.workingTable) {
+      lines.push("");
+      lines.push(markdownTable(question.explanation.workingTable.headers, question.explanation.workingTable.rows));
+    }
+    lines.push("");
+    lines.push(`_Family: ${question.kind} · Difficulty: ${question.difficulty}_`);
+    lines.push("");
+  });
+});
+
+writeFileSync(outputPath, lines.join("\n"), "utf8");
+console.log(JSON.stringify({ outputPath, sets: sets.length, questions: sets.reduce((sum, set) => sum + set.questions.length, 0) }));

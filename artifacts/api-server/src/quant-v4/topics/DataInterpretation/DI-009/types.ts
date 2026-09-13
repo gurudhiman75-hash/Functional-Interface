@@ -2,13 +2,28 @@ export type Di009ExamProfile = "SSC_CGL_TIER_I" | "SSC_CGL_TIER_II";
 
 export type Di009TaskKind =
   | "DIRECT_CLASS_FREQUENCY"
+  | "TOTAL_FREQUENCY"
   | "COMBINED_RANGE_TOTAL"
+  | "ABOVE_BOUNDARY_TOTAL"
+  | "BELOW_BOUNDARY_TOTAL"
   | "RANGE_RATIO"
   | "CLASS_SHARE_OF_TOTAL"
+  | "FREQUENCY_DIFFERENCE_BETWEEN_CLASSES"
   | "MODAL_CLASS_IDENTIFICATION"
-  | "APPROX_GROUPED_MEAN_FROM_HISTOGRAM";
+  | "MEDIAN_CLASS_IDENTIFICATION"
+  | "KTH_OBSERVATION_CLASS"
+  | "APPROX_GROUPED_MEAN_FROM_HISTOGRAM"
+  | "APPROX_GROUPED_MODE_FROM_HISTOGRAM";
 
 export type Di009Difficulty = "Easy" | "Medium" | "Hard";
+
+export type Di009DistributionShape =
+  | "UNIMODAL"
+  | "RIGHT_SKEWED"
+  | "LEFT_SKEWED"
+  | "ASCENDING"
+  | "DESCENDING"
+  | "CONTROLLED_IRREGULAR";
 
 export type Di009HistogramBin = Readonly<{
   lower: number;
@@ -22,6 +37,7 @@ export type Di009Stimulus = Readonly<{
   instruction: string;
   bins: readonly Di009HistogramBin[];
   classWidth: number;
+  shape: Di009DistributionShape;
   xAxisLabel: string;
   yAxisLabel: string;
   unit: string;
@@ -34,9 +50,15 @@ export type Di009Option = Readonly<{
   derivation: string;
 }>;
 
+export type Di009WorkingTable = Readonly<{
+  headers: readonly string[];
+  rows: readonly (readonly string[])[];
+}>;
+
 export type Di009Explanation = Readonly<{
   keyIdea: string;
   steps: readonly string[];
+  workingTable?: Di009WorkingTable;
 }>;
 
 export type Di009Question = Readonly<{
@@ -79,7 +101,7 @@ export type Di009QuestionSet = Readonly<{
     groupedBarSibling: "DI-003";
     statisticsSibling: "STAT-003";
     frequencyPolygonSibling: "DI-010_PLANNED";
-    setContractVersion: "DI-009-SET-CONTRACT-V1";
+    setContractVersion: "DI-009-SET-CONTRACT-V2";
     arithmeticAuthority: "EXACT_INTEGER_RATIONAL";
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
