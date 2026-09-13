@@ -14,6 +14,7 @@ import "./cp007-false-causation.test.ts";
 import "./cp007-visible-evidence.test.ts";
 import "./cp008-multi-event.test.ts";
 import "./cp009-integrated.test.ts";
+import "./reviewed-editorial-polish.test.ts";
 import "./cp010-freeze.test.ts";
 
 console.log("PASS_CAE_001_REVIEWED_LAYER_CP010_CANDIDATE");
