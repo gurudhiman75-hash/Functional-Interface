@@ -159,6 +159,8 @@ Wave 02 therefore finds **no evidence-backed reason to allocate `LP-QL-048`.**
 3. Punjab: at least one durable year-tagged official question paper, official response-sheet archive, or equivalent first-party item-level source containing reasoning questions.
 4. Convergence: demonstrate that another evidence wave adds no new hidden-state/query contract before considering `SOURCE_SATURATED_FOR_TARGET_EXAMS = true`.
 
+Current convergence status: **NOT YET PROVEN**. Wave 02 is evidence accumulation, not a production-promotion checkpoint.
+
 ## Production decision
 
 `SOURCE_SATURATED_FOR_TARGET_EXAMS = false`
