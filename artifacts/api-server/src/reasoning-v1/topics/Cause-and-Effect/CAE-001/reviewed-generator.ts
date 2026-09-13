@@ -25,7 +25,10 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   if (input.qlId === "CAE-QL-005" && defaultFourWay) {
     return generateCp005CompetingQuestion({ locale: input.locale, seed: input.seed });
   }
-  if (input.qlId === "CAE-QL-006" && defaultFourWay && (input.seed >>> 0) % 2 === 0) {
+  // Two out of every three default CP006 seeds exercise causal distance;
+  // seed parity then gives both immediate and remote cases. The remaining
+  // third preserves the frozen indirect-chain renderer in reviewed output.
+  if (input.qlId === "CAE-QL-006" && defaultFourWay && (input.seed >>> 0) % 3 !== 2) {
     return generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-007" && defaultFourWay) {
