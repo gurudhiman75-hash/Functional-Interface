@@ -22,6 +22,7 @@ for (const caselet of batch) {
   const child = caselet.counterfactualChild;
   difficultyCounts.set(caselet.difficultyBand, (difficultyCounts.get(caselet.difficultyBand) ?? 0) + 1);
   assert.equal(child.difficultyBand, caselet.difficultyBand);
+  assert.equal(child.parentStateCount, caselet.validStates.length);
   assert.equal(child.options.length, 4);
   assert.equal(new Set(child.options).size, 4);
   assert.equal(child.answer, child.options[child.correctIndex]);
@@ -29,6 +30,7 @@ for (const caselet of batch) {
 
   const states = caselet.validStates.filter((state) => state[child.temporaryCondition.person] === child.temporaryCondition.group);
   assert.equal(states.length, child.conditionedStateCount);
+  assert.ok(child.conditionedStateCount < child.parentStateCount, `${child.questionId}: condition does not reduce the possibility set`);
 
   const correct = parse(caselet, child.answer);
   assert.notEqual(correct.person, child.temporaryCondition.person, `${child.questionId}: correct answer merely repeats the condition person`);
@@ -44,17 +46,19 @@ for (const caselet of batch) {
   }
 
   if (caselet.difficultyBand === "Easy") {
+    assert.equal(child.parentStateCount, 2);
     assert.equal(child.conditionedStateCount, 1);
   }
   if (caselet.difficultyBand === "Medium") {
-    assert.ok(caselet.validStates.length >= 3 && caselet.validStates.length <= 4);
-    assert.equal(child.conditionedStateCount, 2);
+    assert.ok(child.parentStateCount >= 3 && child.parentStateCount <= 4);
+    assert.ok(child.conditionedStateCount >= 1 && child.conditionedStateCount <= 2);
   }
   if (caselet.difficultyBand === "Hard") {
-    assert.ok(caselet.validStates.length >= 5, `${child.questionId}: Hard parent ambiguity is too narrow`);
-    assert.ok(child.conditionedStateCount >= 2, `${child.questionId}: Hard should retain multiple conditioned cases`);
+    assert.ok(child.parentStateCount >= 5, `${child.questionId}: Hard parent ambiguity is too narrow`);
+    assert.ok(child.conditionedStateCount >= 1 && child.conditionedStateCount <= 2);
   }
   assert.ok(child.explanation.lines.some((line) => line.includes("| Person | Assignment |")));
+  assert.ok(child.explanation.lines.some((line) => line.includes(`${child.parentStateCount} valid arrangements`)));
   assert.ok(child.explanation.lines.at(-1)?.includes(child.answer));
   assert.match(child.explanation.summary, /original clues do not force the answer/i);
 }
@@ -62,4 +66,4 @@ for (const caselet of batch) {
 assert.deepEqual(difficultyCounts, new Map([["Easy", 6], ["Medium", 6], ["Hard", 6]]));
 assert.ok(answerSlots.every((count) => count >= 3), `CP04 V2 answer slots too concentrated: ${answerSlots.join(",")}`);
 
-console.log(`CP04 V2 structural difficulty and condition dependency passed: ${batch.length} caselets; answer slots ${answerSlots.join("/")}.`);
+console.log(`CP04 V2 ambiguity-calibrated difficulty and condition dependency passed: ${batch.length} caselets; answer slots ${answerSlots.join("/")}.`);
