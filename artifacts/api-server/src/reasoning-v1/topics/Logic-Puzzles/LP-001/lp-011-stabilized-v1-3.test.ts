@@ -14,6 +14,7 @@ assert.equal(LP_011_STABILIZED_V1_3.changesQlSemantics, false);
 const qls = ["LP-QL-041", "LP-QL-042", "LP-QL-043", "LP-QL-044"];
 const difficulties = { Easy: 0, Medium: 0, Hard: 0 };
 const profiles = new Set<string>();
+const mechanicalReference = /box with [A-Za-z ]+ (?:colour|stock item|item|material|supply|subject)/iu;
 
 for (const caselet of caselets) {
   difficulties[caselet.difficultyBand] += 1;
@@ -29,11 +30,16 @@ for (const caselet of caselets) {
   assert.deepEqual(caselet.children.map((child) => child.qlId), qls);
   for (const clue of caselet.clues) {
     assert.doesNotMatch(clue.text, /as its colour|as its subject/u, `${caselet.caseletId} has unnatural clue wording.`);
+    assert.doesNotMatch(clue.text, mechanicalReference, `${caselet.caseletId} has mechanical box-with-attribute wording.`);
   }
   for (const child of caselet.children) {
     assert.equal(new Set(child.options).size, 4, `${child.questionId} must keep four distinct options.`);
     assert.equal(child.options[child.correctIndex], child.answer, `${child.questionId} answer/index mismatch.`);
     assert.doesNotMatch(child.stem, /belongs to Box|has .* as its colour|has .* as its subject/u, `${child.questionId} has unnatural stem wording.`);
+    assert.doesNotMatch(child.stem, mechanicalReference, `${child.questionId} has mechanical box-with-attribute wording.`);
+    for (const line of child.explanation.lines) {
+      assert.doesNotMatch(line, mechanicalReference, `${child.questionId} explanation has mechanical box-with-attribute wording.`);
+    }
     assert.ok(child.explanation.lines.some((line) => line.includes("final table")), `${child.questionId} must retain the final table explanation.`);
   }
 }
