@@ -1,0 +1,37 @@
+name: Reasoning LP-QL-047 Localization V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1-review-export.ts"
+      - ".github/workflows/reasoning-lp-ql047-localization-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reasoning-lp-ql047-localization-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  localization-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove LP-QL-047 Hindi Punjabi semantic parity and leakage guards
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1.test.ts
+      - name: Export LP-QL-047 localization human review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1-review-export.ts lp-cp04-localization-v1-review 9 lp-cp04-localization-v1-review.md > /dev/null
+      - name: Upload localization review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: lp-cp04-localization-v1-review
+          path: lp-cp04-localization-v1-review.md
