@@ -200,13 +200,13 @@ function buildHardCandidate(source: Lp004Caselet, outputIndex: number): Lp004Har
               parentStateCount: parentStates.length,
               conditionedStateCount: after.length,
               explanation: {
-                summary: "The original conditions allow several committees. Apply the extra condition, combine it with the original conditions, and identify the name whose status becomes fixed only after those conditions work together.",
+                summary: "The original conditions allow several committees. Apply the extra condition, combine it with the original conditions, and identify the name whose status becomes fixed in every remaining committee.",
                 lines: [
                   `Before the additional condition, ${parentStates.length} valid committees are possible.`,
                   `**Additional condition:** ${condition.text}`,
                   `After applying it together with the original conditions, ${after.length} valid committee${after.length === 1 ? "" : "s"} remain${after.length === 1 ? "s" : ""}.`,
                   ...stateLines,
-                  `No single original clue with the added condition is enough to force **${answer}**. After the relevant clues are combined, **${answer}** is ${targetValue ? "selected" : "not selected"} in every remaining committee.`,
+                  `Combining the additional condition with the relevant original clues shows that **${answer}** is ${targetValue ? "selected" : "not selected"} in every remaining committee. Therefore, this must be true.`,
                 ],
               },
             },
@@ -249,12 +249,19 @@ function rebalanceAnswerSlot<T extends LpCp04CaseletV3>(caselet: T, desiredSlot:
   for (let slot = 0; slot < 4; slot += 1) {
     options.push(slot === desiredSlot ? answer : distractors[distractorIndex++]!);
   }
+  const explanation = child.explanation.summary.includes("condition or conditions")
+    ? {
+        ...child.explanation,
+        summary: "The original clues do not force the answer by themselves. Apply the extra condition, retain every arrangement that still works, and compare the options across those arrangements.",
+      }
+    : child.explanation;
   return {
     ...caselet,
     counterfactualChild: {
       ...child,
       options,
       correctIndex: desiredSlot,
+      explanation,
     },
   } as T;
 }
