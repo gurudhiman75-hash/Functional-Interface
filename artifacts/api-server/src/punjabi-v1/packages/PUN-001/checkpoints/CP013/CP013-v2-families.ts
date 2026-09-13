@@ -10,6 +10,9 @@ import {
   type SentenceTransformationItem,
 } from "./CP013-authorities";
 
+const STRUCTURES = ["ਸਧਾਰਨ ਵਾਕ", "ਸੰਯੁਕਤ ਵਾਕ", "ਮਿਸ਼ਰਤ ਵਾਕ"] as const;
+const FUNCTIONS = ["ਹਾਂ-ਵਾਚਕ ਵਾਕ", "ਨਾਂਹ-ਵਾਚਕ ਵਾਕ", "ਪ੍ਰਸ਼ਨ-ਵਾਚਕ ਵਾਕ", "ਹੁਕਮੀ ਵਾਕ", "ਵਿਸਮਈ ਵਾਕ"] as const;
+
 function norm(value: string): string { return value.normalize("NFC").trim(); }
 function uniq(values: readonly string[]): string[] { return Array.from(new Set(values.map(norm).filter(Boolean))); }
 function hashText(value: string): string {
@@ -39,7 +42,7 @@ function assemble(input: { familyId: string; seed: number; difficulty: PunjabiDi
     correctIndex: options.findIndex((o) => o.isCorrect),
     explanation: input.explanation,
     difficulty: input.difficulty,
-    metadata: { engine: "punjabi-v1", packageId: "PUN-001", cpId: "PUN-001-CP013", familyId: input.familyId, difficulty: input.difficulty, language: "pa-Guru", seed: input.seed, authorityIds: input.authorityIds, generatorRevision: "2.0.2", fingerprint: `CP013-V2-${hashText(canonical)}` },
+    metadata: { engine: "punjabi-v1", packageId: "PUN-001", cpId: "PUN-001-CP013", familyId: input.familyId, difficulty: input.difficulty, language: "pa-Guru", seed: input.seed, authorityIds: input.authorityIds, generatorRevision: "2.0.3", fingerprint: `CP013-V2-${hashText(canonical)}` },
   };
   assertValidPunjabiQuestion(q);
   return q;
@@ -72,20 +75,20 @@ function distinctCorrectionPeers(item: SentenceCorrectionItem, count: number, se
 }
 
 export function generateCP013V2F01(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
-  const item = cls(seed + 101); const peers = distinctClassificationPeers(item, 3, seed + 109);
+  const item = cls(seed + 101);
   const answer = `${item.structureType} — ${item.functionType}`;
-  const distractors = uniq([
-    `${item.structureType} — ${peers[0]!.functionType}`,
-    `${peers[1]!.structureType} — ${item.functionType}`,
-    `${peers[2]!.structureType} — ${peers[1]!.functionType}`,
-    ...peers.map((p) => `${p.structureType} — ${p.functionType}`),
-  ]);
-  return assemble({ familyId: "F01", seed, difficulty, stem: `ਵਾਕ “${item.sentencePa}” ਦਾ ਬਣਤਰ ਅਤੇ ਕਾਰਜ ਪੱਖੋਂ ਸਹੀ ਵਰਗੀਕਰਨ ਕਿਹੜਾ ਹੈ?`, correctAnswer: answer, distractors, explanation: item.explanationPa, authorityIds: [item.id, ...peers.map((p) => p.id)] });
+  const candidates: string[] = [];
+  for (const structure of STRUCTURES) for (const fn of FUNCTIONS) {
+    const value = `${structure} — ${fn}`;
+    if (value !== answer) candidates.push(value);
+  }
+  const distractors = createRng(seed + 109).pickDistinct(candidates, 6);
+  return assemble({ familyId: "F01", seed, difficulty, stem: `ਵਾਕ “${item.sentencePa}” ਦਾ ਬਣਤਰ ਅਤੇ ਕਾਰਜ ਪੱਖੋਂ ਸਹੀ ਵਰਗੀਕਰਨ ਕਿਹੜਾ ਹੈ?`, correctAnswer: answer, distractors, explanation: item.explanationPa, authorityIds: [item.id] });
 }
 
 export function generateCP013V2F02(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   const item = cls(seed + 203);
-  const pool = ["ਹਾਂ-ਵਾਚਕ ਵਾਕ", "ਨਾਂਹ-ਵਾਚਕ ਵਾਕ", "ਪ੍ਰਸ਼ਨ-ਵਾਚਕ ਵਾਕ", "ਹੁਕਮੀ ਵਾਕ", "ਵਿਸਮਈ ਵਾਕ"].filter((x) => x !== item.functionType);
+  const pool = FUNCTIONS.filter((x) => x !== item.functionType);
   return assemble({ familyId: "F02", seed, difficulty, stem: `ਕਾਰਜ ਪੱਖੋਂ ਵਾਕ “${item.sentencePa}” ਦੀ ਕਿਸਮ ਕਿਹੜੀ ਹੈ?`, correctAnswer: item.functionType, distractors: pool, explanation: item.explanationPa, authorityIds: [item.id] });
 }
 
@@ -119,12 +122,10 @@ export function generateCP013V2F07(seed: number, difficulty: PunjabiDifficulty):
 
 export function generateCP013V2F08(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   const first = cls(seed + 809); const second = distinctClassificationPeers(first, 1, seed + 811)[0]!;
-  const structures = ["ਸਧਾਰਨ ਵਾਕ", "ਸੰਯੁਕਤ ਵਾਕ", "ਮਿਸ਼ਰਤ ਵਾਕ"] as const;
-  const functions = ["ਹਾਂ-ਵਾਚਕ ਵਾਕ", "ਨਾਂਹ-ਵਾਚਕ ਵਾਕ", "ਪ੍ਰਸ਼ਨ-ਵਾਚਕ ਵਾਕ", "ਹੁਕਮੀ ਵਾਕ", "ਵਿਸਮਈ ਵਾਕ"] as const;
   const describe = (structure: string, fn: string) => `${structure}/${fn}`;
   const correct = `${describe(first.structureType, first.functionType)} — ${describe(second.structureType, second.functionType)}`;
   const candidatePairs: string[] = [];
-  for (const s1 of structures) for (const f1 of functions) for (const s2 of structures) for (const f2 of functions) {
+  for (const s1 of STRUCTURES) for (const f1 of FUNCTIONS) for (const s2 of STRUCTURES) for (const f2 of FUNCTIONS) {
     const value = `${describe(s1, f1)} — ${describe(s2, f2)}`;
     if (value !== correct) candidatePairs.push(value);
   }
