@@ -1,17 +1,23 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import {
-  generateStat002Question,
-  STAT002_CONTRACTS,
-} from "./standard-deviation";
+import { generateStat002Question, STAT002_CONTRACTS } from "./standard-deviation";
 import { independentlyVerifyStat002Question } from "./independent-verifier";
-import type { Stat002ContractId, Stat002ExamProfile } from "./types";
+import type { Stat002ContractId, Stat002Difficulty, Stat002ExamProfile } from "./types";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
 const profiles: readonly Stat002ExamProfile[] = ["SSC_CGL_TIER_II", "SSC_CGL_JSO"];
+const expectedDifficulty: Record<Stat002ContractId, Stat002Difficulty> = {
+  "STAT-002-TEMP-001-RAW-SD": "Easy",
+  "STAT-002-TEMP-002-MEAN-SQUARES-SD": "Medium",
+  "STAT-002-TEMP-003-TRANSLATION-INVARIANCE": "Easy",
+  "STAT-002-TEMP-004-SCALE-TRANSFORMATION": "Medium",
+  "STAT-002-TEMP-005-REVERSE-SCALE": "Medium",
+  "STAT-002-TEMP-006-AFFINE-FROM-MOMENTS": "Hard",
+};
+
 const answerPositions = new Map<string, Set<number>>();
 const stemStructures = new Map<string, Set<string>>();
 const misconceptionFamilies = new Map<string, Set<string>>();
@@ -48,6 +54,7 @@ for (const profile of profiles) {
       independentVerificationCount += 1;
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${key} seed ${seedIndex} does not have four unique options.`);
       assert(question.options[question.correctIndex] === question.answer, `${key} seed ${seedIndex} has a broken correct index.`);
+      assert(question.difficulty === expectedDifficulty[contractId], `${key} seed ${seedIndex} has an incorrect difficulty label.`);
       assert(question.traceability.questionStudioDiscoverable === false, `${key} unexpectedly opened Question Studio discovery.`);
       assert(question.traceability.questionBankStatus === "NOT_STORED", `${key} unexpectedly changed Question Bank state.`);
       assert(question.traceability.testEligibility === "INELIGIBLE", `${key} unexpectedly became test eligible.`);
@@ -55,6 +62,11 @@ for (const profile of profiles) {
       assert(question.traceability.publiclyPublishable === false, `${key} unexpectedly became publicly publishable.`);
       assert(question.traceability.automaticStudentPublication === false, `${key} unexpectedly enabled automatic student publication.`);
       assert(!/shortcut|common trap|trick/iu.test(question.explanation.keyIdea), `${key} leaked shortcut/trap boilerplate into the key idea.`);
+
+      if (contractId === "STAT-002-TEMP-006-AFFINE-FROM-MOMENTS") {
+        assert(question.state.kind === "AFFINE_FROM_MOMENTS", `${key} did not preserve the compound hard-state contract.`);
+        assert(question.explanation.steps.length >= 3, `${key} hard questions must show both source-SD recovery and affine transformation.`);
+      }
 
       answerPositions.get(key)!.add(question.correctIndex);
       stemStructures.get(key)!.add(normalizeStem(question.stem));
@@ -78,6 +90,11 @@ for (const profile of profiles) {
   }
 }
 
+const expectedQuestions = profiles.length * STAT002_CONTRACTS.length * 100;
+assert(questionCount === expectedQuestions, `Expected ${expectedQuestions} questions, found ${questionCount}.`);
+assert(replayCount === expectedQuestions, "Deterministic replay proof count is incomplete.");
+assert(independentVerificationCount === expectedQuestions, "Independent verification proof count is incomplete.");
+assert(optionCheckCount === expectedQuestions * 4, "Option proof count is incomplete.");
 assert(solveModes.size === STAT002_CONTRACTS.length, "STAT-002 did not exercise every solve mode.");
 assert(difficulties.has("Easy") && difficulties.has("Medium") && difficulties.has("Hard"), "STAT-002 did not exercise all difficulty bands.");
 
