@@ -7,10 +7,25 @@ import {
 
 export type { ApprovedOpsLocale, LocalizedApprovedOpsQuestion };
 
+const GENERATED_MAPPING_GUIDANCE = new Set([
+  "Use both stated meanings for every occurrence.",
+  "Apply both meanings to the common expression.",
+  "Keep the two token meanings separate.",
+  "Use this one key for every option.",
+  "Each complete word has one arithmetic meaning.",
+  "Use the complete replacement key before checking any option.",
+  "The answer must be a display token from this key.",
+]);
+
 function placeholderLabel(label: string): string {
   if (label === "Read the value") return "Identify complete tokens";
   if (label.endsWith(": Read the value")) return label.replace(/Read the value$/u, "Identify complete tokens");
   return label;
+}
+
+function isMeaningKey(source: string): boolean {
+  const parts = source.split(", ");
+  return parts.length >= 2 && parts.every((part) => /^.+ means .+$/u.test(part));
 }
 
 function placeholderText(source: string): string {
@@ -19,6 +34,10 @@ function placeholderText(source: string): string {
   if (source === "Only complete number tokens are exchanged; digits inside other numbers are unchanged.") return "Digits inside other numbers remain unchanged.";
   if (/^C must be > because .+$/u.test(source)) return "Use this one mapping for every option.";
   if (/^Using A = \+ and B = = gives .+$/u.test(source)) return "Use this one mapping for every option.";
+  if (isMeaningKey(source)) return "Use this one mapping for every option.";
+  if (GENERATED_MAPPING_GUIDANCE.has(source)) return "Use this one mapping for every option.";
+  if (/^.+; (true|false)\.$/u.test(source)) return "The transformed equation is true.";
+  if (/^[ABCD] represents equality\.$/u.test(source)) return "The transformed equation is true.";
   return source;
 }
 
@@ -28,6 +47,17 @@ function localizedValueLabel(label: string, locale: ApprovedOpsLocale): string {
   if (label.startsWith("Left side:")) return locale === "hi-IN" ? `बायाँ पक्ष: ${base}` : `ਖੱਬਾ ਪਾਸਾ: ${base}`;
   if (label.startsWith("Right side:")) return locale === "hi-IN" ? `दायाँ पक्ष: ${base}` : `ਸੱਜਾ ਪਾਸਾ: ${base}`;
   return base;
+}
+
+function localizedMeaningKey(source: string, locale: ApprovedOpsLocale): string | null {
+  if (!isMeaningKey(source)) return null;
+  const parts = source.split(", ").map((part) => {
+    const match = part.match(/^(.+) means (.+)$/u)!;
+    return locale === "hi-IN"
+      ? `${match[1]} का अर्थ ${match[2]} है`
+      : `${match[1]} ਦਾ ਅਰਥ ${match[2]} ਹੈ`;
+  });
+  return locale === "hi-IN" ? parts.join(" और ") : parts.join(" ਅਤੇ ");
 }
 
 function restoreText(original: string, translated: string, locale: ApprovedOpsLocale): string {
@@ -53,6 +83,45 @@ function restoreText(original: string, translated: string, locale: ApprovedOpsLo
   if (mixed) return locale === "hi-IN"
     ? `A = + और B = = रखने पर ${mixed[1]} मिलता है, जो सही है; अर्थ उलटने पर ${mixed[2]} मिलता है, जो गलत है।`
     : `A = + ਅਤੇ B = = ਰੱਖਣ ਉੱਤੇ ${mixed[1]} ਮਿਲਦਾ ਹੈ, ਜੋ ਸਹੀ ਹੈ; ਅਰਥ ਉਲਟਣ ਉੱਤੇ ${mixed[2]} ਮਿਲਦਾ ਹੈ, ਜੋ ਗਲਤ ਹੈ।`;
+
+  const meaningKey = localizedMeaningKey(original, locale);
+  if (meaningKey) return meaningKey;
+
+  if (original === "Use both stated meanings for every occurrence.") return locale === "hi-IN"
+    ? "हर जगह दिए गए दोनों अर्थ लागू करें।"
+    : "ਹਰ ਥਾਂ ਦਿੱਤੇ ਦੋਵੇਂ ਅਰਥ ਲਾਗੂ ਕਰੋ।";
+  if (original === "Apply both meanings to the common expression.") return locale === "hi-IN"
+    ? "समान व्यंजक पर दोनों अर्थ लागू करें।"
+    : "ਸਾਂਝੇ ਹਿਸਾਬ ਉੱਤੇ ਦੋਵੇਂ ਅਰਥ ਲਾਗੂ ਕਰੋ।";
+  if (original === "Keep the two token meanings separate.") return locale === "hi-IN"
+    ? "दोनों चिह्नों के अर्थ अलग-अलग ध्यान में रखें।"
+    : "ਦੋਵੇਂ ਚਿੰਨ੍ਹਾਂ ਦੇ ਅਰਥ ਵੱਖ-ਵੱਖ ਧਿਆਨ ਵਿੱਚ ਰੱਖੋ।";
+  if (original === "Use this one key for every option.") return locale === "hi-IN"
+    ? "हर विकल्प में यही एक अर्थ-कुंजी लागू करें।"
+    : "ਹਰ ਵਿਕਲਪ ਵਿੱਚ ਇਹੀ ਇੱਕ ਅਰਥ-ਕੁੰਜੀ ਲਾਗੂ ਕਰੋ।";
+  if (original === "Each complete word has one arithmetic meaning.") return locale === "hi-IN"
+    ? "हर पूरे शब्द का एक गणितीय अर्थ है।"
+    : "ਹਰ ਪੂਰੇ ਸ਼ਬਦ ਦਾ ਇੱਕ ਗਣਿਤੀ ਅਰਥ ਹੈ।";
+  if (original === "Use the complete replacement key before checking any option.") return locale === "hi-IN"
+    ? "किसी विकल्प की जाँच से पहले पूरी अर्थ-कुंजी लागू करें।"
+    : "ਕਿਸੇ ਵਿਕਲਪ ਦੀ ਜਾਂਚ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੀ ਅਰਥ-ਕੁੰਜੀ ਲਾਗੂ ਕਰੋ।";
+  if (original === "The answer must be a display token from this key.") return locale === "hi-IN"
+    ? "उत्तर इसी कुंजी का सांकेतिक चिह्न होना चाहिए।"
+    : "ਉੱਤਰ ਇਸੇ ਕੁੰਜੀ ਦਾ ਸੰਕੇਤੀ ਚਿੰਨ੍ਹ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।";
+
+  const booleanTrace = original.match(/^(.+); (true|false)\.$/u);
+  if (booleanTrace) {
+    const truth = booleanTrace[2] === "true";
+    return locale === "hi-IN"
+      ? `${booleanTrace[1]}; यह कथन ${truth ? "सही" : "गलत"} है।`
+      : `${booleanTrace[1]}; ਇਹ ਕਥਨ ${truth ? "ਸਹੀ" : "ਗਲਤ"} ਹੈ।`;
+  }
+
+  const equalityToken = original.match(/^([ABCD]) represents equality\.$/u);
+  if (equalityToken) return locale === "hi-IN"
+    ? `${equalityToken[1]} बराबरी को दर्शाता है।`
+    : `${equalityToken[1]} ਬਰਾਬਰੀ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।`;
+
   return translated;
 }
 
