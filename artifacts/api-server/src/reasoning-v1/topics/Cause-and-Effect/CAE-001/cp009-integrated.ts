@@ -135,11 +135,15 @@ function sameDomainNodeOptions(
     .filter((entry) => entry.id !== world.id && entry.domain === world.domain)
     .flatMap((entry) => entry.nodes.map((node) => ({ entry, node })))
     .filter(({ node }) => !excludedTexts.includes(node.text[locale]));
-  const preferred = candidates.filter(({ node }) => preferredRoles.includes(node.role));
-  const fallback = candidates.filter(({ node }) => !preferredRoles.includes(node.role));
+  const sameFamily = candidates.filter(({ entry }) => entry.scenarioFamilyId === world.scenarioFamilyId);
+  const sameDomainFallback = candidates.filter(({ entry }) => entry.scenarioFamilyId !== world.scenarioFamilyId);
+  const orderGroup = (values: typeof candidates, salt: number) => [
+    ...shuffled(values.filter(({ node }) => preferredRoles.includes(node.role)), seed ^ salt),
+    ...shuffled(values.filter(({ node }) => !preferredRoles.includes(node.role)), seed ^ (salt + 1)),
+  ];
   const ordered = [
-    ...shuffled(preferred, seed ^ 0x9111),
-    ...shuffled(fallback, seed ^ 0x9222),
+    ...orderGroup(sameFamily, 0x9111),
+    ...orderGroup(sameDomainFallback, 0x9222),
   ];
   const unique = [...new Map(ordered.map(({ entry, node }) => [node.text[locale], {
     id: `ALT:${entry.id}:${node.id}`,
@@ -153,40 +157,33 @@ function sameDomainNodeOptions(
   return unique.slice(0, count);
 }
 
-function sameDomainPairOptions(
+function nearMissPairOptions(
   world: CaeCausalWorld,
+  path: readonly string[],
   locale: CaeLocale,
   count: number,
   seed: number,
   excludedTexts: readonly string[],
 ): readonly CaeRenderedOption[] {
-  const candidates = CHAIN_WORLDS
-    .filter((entry) => entry.id !== world.id && entry.domain === world.domain)
-    .flatMap((entry) => {
-      const path = fourPath(entry)!;
-      const pairs: readonly (readonly [string, string])[] = [
-        [path[1]!, path[2]!],
-        [path[2]!, path[1]!],
-        [path[0]!, path[1]!],
-        [path[2]!, path[3]!],
-      ];
-      return pairs.map(([a, b]) => ({ entry, a, b }));
-    })
-    .filter(({ entry, a, b }) => !excludedTexts.includes(text(entry, a, locale)) && !excludedTexts.includes(text(entry, b, locale)));
-  const shuffledCandidates = shuffled(candidates, seed ^ 0x9333);
-  const unique = [...new Map(shuffledCandidates.map(({ entry, a, b }) => {
-    const rendered = `${trim(text(entry, a, locale))} → ${trim(text(entry, b, locale))}`;
-    return [rendered, {
-      id: `ALT_PAIR:${entry.id}:${a}|${b}`,
-      text: rendered,
-      isCorrect: false,
-      distractorRole: "INDIRECTNESS_CONFUSION" as const,
-    }];
-  })).values()];
-  if (unique.length < count) {
-    throw new Error(`${world.id}: CP009 needs ${count} same-domain pair distractors but found ${unique.length}.`);
-  }
-  return unique.slice(0, count);
+  const firstConnector = trim(text(world, path[1]!, locale));
+  const secondConnector = trim(text(world, path[2]!, locale));
+  const decoys = sameDomainNodeOptions(
+    world,
+    locale,
+    count,
+    seed ^ 0x9333,
+    [...excludedTexts, text(world, path[1]!, locale), text(world, path[2]!, locale)],
+    ["INTERMEDIATE", "EFFECT", "CAUSE"],
+    "INDIRECTNESS_CONFUSION",
+  );
+  return decoys.map((decoy, index) => ({
+    id: `NEAR_PAIR:${decoy.id}:${index % 2 === 0 ? "AFTER_FIRST" : "BEFORE_SECOND"}`,
+    text: index % 2 === 0
+      ? `${firstConnector} → ${trim(decoy.text)}`
+      : `${trim(decoy.text)} → ${secondConnector}`,
+    isCorrect: false,
+    distractorRole: "INDIRECTNESS_CONFUSION" as const,
+  }));
 }
 
 function difficulty(mode: Cp009Mode): Readonly<{ difficulty: CaeDifficulty; evidence: CaeDifficultyEvidence }> {
@@ -265,7 +262,7 @@ export function generateCp009IntegratedQuestion(input: Readonly<{ locale: CaeLoc
       const pairs = [
         { id: answerId, text: pairText(path[1]!, path[2]!), isCorrect: true },
         { id: `${path[2]}|${path[1]}`, text: pairText(path[2]!, path[1]!), isCorrect: false, distractorRole: "TEMPORAL_VIOLATION" as const },
-        ...sameDomainPairOptions(world, locale, 2, selectionSeed, visibleTexts),
+        ...nearMissPairOptions(world, path, locale, 2, selectionSeed, visibleTexts),
       ];
       options = shuffled(pairs, selectionSeed);
       stem = mode === "MISSING_PAIR"
