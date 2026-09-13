@@ -61,9 +61,20 @@ describe("POL-CP-003 Preamble, Union and Citizenship review batch V2", () => {
     expect(POL_CP003_CITIZENSHIP_ARTICLES_V1.map((row) => row.article)).toEqual([5, 6, 7, 8, 9, 10, 11]);
   });
 
-  it("blocks the previously rejected generic date wrapper", () => {
+  it("blocks rejected generic or unnecessarily legalistic stem wording", () => {
     const text = questions.map((question) => question.stem).join("\n");
     expect(text).not.toMatch(/On which date did the following occur/i);
+    expect(text).not.toMatch(/principal subject/i);
+    expect(text).not.toMatch(/most directly governs/i);
+    expect(text).not.toMatch(/For the purposes of Article 368/i);
+    expect(text).not.toMatch(/supplemental, incidental and consequential provisions/i);
+  });
+
+  it("keeps ordinary direct stems short", () => {
+    for (const question of questions) {
+      if (question.stem.startsWith("Consider the following statements")) continue;
+      expect(question.stem.split(/\s+/).length).toBeLessThanOrEqual(30);
+    }
   });
 
   it("does not leak current citizenship-policy questions into Static GK", () => {
