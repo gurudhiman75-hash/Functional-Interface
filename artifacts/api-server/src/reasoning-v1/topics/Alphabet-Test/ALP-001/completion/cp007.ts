@@ -52,7 +52,7 @@ export function buildCp007(ql: AlpQuestionLogic, seed: number): C {
       pa: "ਹਰ ਸਵਰ ਨੂੰ ਅੰਗਰੇਜ਼ੀ ਵਰਣਮਾਲਾ ਦੇ ਉਸਦੇ ਉਲਟ ਅੱਖਰ ਨਾਲ ਬਦਲੋ ਅਤੇ ਵਿਅੰਜਨਾਂ ਨੂੰ ਨਾ ਬਦਲੋ",
     };
     changed = [...word].map((token) => vowel(token) ? A[26 - rank(token)]! : token);
-    answer = changed[position - 1]!; pool = changed;
+    answer = changed[position - 1]!; pool = [...changed];
     query = { en: `read position ${position} from the left`, hi: `बाईं ओर से स्थान ${position} पढ़ें`, pa: `ਖੱਬੇ ਪਾਸੋਂ ਥਾਂ ${position} ਪੜ੍ਹੋ` };
   } else if (ql.solveMode === "CLASS_TWO_STAGE_LETTER_AT_POSITION") {
     changed = [...changedByRule].reverse(); answer = changed[position - 1]!; pool = changed;
