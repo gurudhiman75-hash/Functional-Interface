@@ -5,7 +5,7 @@ import { generateCp006CausalDistanceQuestion } from "./cp006-causal-distance.ts"
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateReviewedCp007FalseCausationQuestion } from "./cp007-reviewed-visible-evidence.ts";
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
-import { generateCp009IntegratedQuestion } from "./cp009-integrated.ts";
+import { generateReviewedCp009Question } from "./cp009-reviewed-polish.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
 
 export type GenerateReviewedCaeQuestionInput = Readonly<{
@@ -40,7 +40,7 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-009" && defaultFourWay) {
-    return generateCp009IntegratedQuestion({ locale: input.locale, seed: input.seed });
+    return generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
   }
   return generateCaeQuestion(input);
 }
