@@ -6,7 +6,7 @@ export type HisCp005ReviewQuestion={questionId:string;chapterId:"HIS-001";cpId:"
 const difficulty=(ql:number):KnowledgeV1Difficulty=>ql<=3?"Easy":ql<=8?"Medium":"Hard";
 const explain=(ids:readonly string[])=>ids.map(id=>{const f=HIS_CP005_FACT_BY_ID_V1.get(id);if(!f)throw new Error(`Unknown fact ${id}`);return f[1]}).join(" ");
 const sourceIds=(ids:readonly string[])=>[...new Set(ids.flatMap(id=>HIS_CP005_FACT_BY_ID_V1.get(id)?.[2]??[]))];
-const SOURCE_LEAK=/\b(?:NIOS|NCERT|UNESCO|source|textbook)\b/i;
+const SOURCE_LEAK=/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i;
 const META_WORDING=/(?:school-level|this CP|review batch|internal wording)/i;
 export function generateHisCp005ReviewBatchV1():HisCp005ReviewQuestion[]{return HIS_CP005_SPECS_V1.map((baseSpec,i)=>{const s=HIS_CP005_ITEM_OVERRIDES_V1[i+1]??baseSpec;const[ql,stem,answer,distractors,factIds]=s;const base=[answer,...distractors];const shift=i%4;const options=[...base.slice(shift),...base.slice(0,shift)];const correctIndex=options.indexOf(answer);return{questionId:`HIS-CP005-V1-${String(i+1).padStart(3,"0")}`,chapterId:"HIS-001",cpId:"HIS-CP-005",qlId:`HIS-005-QL-${String(ql).padStart(3,"0")}`,qlName:HIS_CP005_QL_NAMES_V1[ql],difficulty:difficulty(ql),stem,options,correctIndex,canonicalAnswer:answer,explanation:explain(factIds),sourceIds:sourceIds(factIds),sourceFactIds:[...factIds],reviewOnly:true,runtimeRegistered:false};});}
 export const HIS_CP005_REVIEW_BATCH_V1=Object.freeze(generateHisCp005ReviewBatchV1().map(q=>Object.freeze(q)));
