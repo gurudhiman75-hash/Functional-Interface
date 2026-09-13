@@ -1,0 +1,73 @@
+export const HIS_CP002_QL_NAMES_V1:Record<number,string>={1:"Vedic texts and basic terms",2:"Vedas and their contents",3:"Vedic chronology and geographical spread",4:"Sapta-Sindhu rivers and regions",5:"Early Vedic economy and terms",6:"Later Vedic economy and iron",7:"Early and Later Vedic society",8:"Vedic religion and philosophical ideas",9:"Vedic polity and institutions",10:"Early–Later Vedic comparison and synthesis"};
+export type HisCp002Spec=readonly[ql:number,stem:string,answer:string,distractors:readonly[string,string,string],factIds:readonly string[]];
+export const HIS_CP002_SPECS_V1:readonly HisCp002Spec[]=[
+  [1,"The word 'Veda' comes from the root 'vid'. What does 'vid' mean?","To know",["To rule","To sacrifice","To trade"],["ved-veda-meaning"]],
+  [1,"Which group contains all four Vedas?","Rigveda, Samaveda, Yajurveda and Atharvaveda",["Rigveda, Brahmana, Aranyaka and Upanishad","Samaveda, Vedanga, Purana and Upanishad","Yajurveda, Ramayana, Mahabharata and Brahmana"],["ved-four-vedas"]],
+  [1,"What are the Brahmanas mainly concerned with?","Explanations of mantras and sacrificial rituals",["Royal genealogies only","Medical prescriptions only","Rules of city administration"],["ved-brahmanas"]],
+  [1,"Which Vedic texts are often described as forest treatises?","Aranyakas",["Brahmanas","Samhitas","Puranas"],["ved-aranyakas"]],
+  [1,"Which texts contain philosophical discussions and are linked with the term Vedanta?","Upanishads",["Brahmanas","Vedangas","Sutras"],["ved-upanishads"]],
+  [1,"In the NIOS account, the four Vedas together with their Brahmanas are known as what?","Shruti",["Smriti","Itihasa","Purana"],["ved-shruti"]],
+
+  [2,"Which is considered the oldest Vedic text?","Rigveda",["Samaveda","Yajurveda","Atharvaveda"],["ved-rigveda-oldest"]],
+  [2,"How many hymns are contained in the Rigveda?","1,028",["1,008","1,108","1,208"],["ved-rigveda-hymns"]],
+  [2,"The Rigveda is divided into how many mandalas?","10",["8","12","18"],["ved-rigveda-hymns"]],
+  [2,"Which Veda mainly contains verses arranged for singing?","Samaveda",["Rigveda","Yajurveda","Atharvaveda"],["ved-samaveda"]],
+  [2,"Which Veda is most closely connected with the performance of rituals?","Yajurveda",["Samaveda","Rigveda","Atharvaveda"],["ved-yajurveda"]],
+  [2,"Which Veda includes spells and charms for protection from disease and evil spirits?","Atharvaveda",["Rigveda","Samaveda","Yajurveda"],["ved-atharvaveda"]],
+
+  [3,"According to NIOS, the Early Vedic period is broadly dated to which span?","c. 1500–1000 BCE",["c. 2600–1900 BCE","c. 1000–600 BCE","c. 600–300 BCE"],["ved-early-dates"]],
+  [3,"According to NIOS, the Later Vedic period is broadly dated to which span?","c. 1000–600 BCE",["c. 1500–1000 BCE","c. 2600–1900 BCE","c. 600–200 BCE"],["ved-later-dates"]],
+  [3,"Which region formed the main geographical setting of Early Vedic life?","Sapta-Sindhu",["Deccan plateau","Lower Ganga delta","Tamilakam"],["ved-sapta-sindhu"]],
+  [3,"During the Later Vedic period, settlement expanded mainly in which direction?","Eastward",["Only westward","Only southward to the far peninsula","Only northward beyond the Himalayas"],["ved-eastward"]],
+  [3,"Which pair of regions is linked with the Later Vedic eastward expansion?","Kosala and Videha",["Gandhara and Kamboja only","Avanti and Surashtra only","Chera and Pandya"],["ved-eastward"]],
+  [3,"Which sequence is chronologically correct?","Early Vedic → Later Vedic",["Later Vedic → Early Vedic","Harappan → Later Vedic → Early Vedic","Later Vedic → Harappan → Early Vedic"],["ved-early-dates","ved-later-dates"]],
+
+  [4,"Vitasta is the Vedic name of which river?","Jhelum",["Chenab","Ravi","Beas"],["ved-vitasta"]],
+  [4,"Asikni is the Vedic name of which river?","Chenab",["Jhelum","Ravi","Sutlej"],["ved-asikni"]],
+  [4,"Parushni is the Vedic name of which river?","Ravi",["Beas","Chenab","Jhelum"],["ved-parushni"]],
+  [4,"Vipash is the Vedic name of which river?","Beas",["Ravi","Sutlej","Chenab"],["ved-vipash"]],
+  [4,"Shutudri is the Vedic name of which river?","Sutlej",["Beas","Ravi","Jhelum"],["ved-shutudri"]],
+  [4,"Which of the following belongs to the Sapta-Sindhu river group listed by NIOS?","Sarasvati",["Narmada","Godavari","Kaveri"],["ved-sapta-rivers"]],
+
+  [5,"What was the main occupation of the Early Vedic people?","Cattle rearing",["Urban craft production","Sea trade","Plantation agriculture"],["ved-early-pastoral"]],
+  [5,"In the Rigvedic context, what did the term 'gomat' indicate?","A wealthy person",["A village headman","A priest","A chariot maker"],["ved-gomat"]],
+  [5,"What is the literal meaning of 'gaveshana'?","Search for cows",["Search for iron","Distribution of grain","Royal sacrifice"],["ved-gaveshana"]],
+  [5,"Which cereal is linked with the Vedic term 'yava'?","Barley",["Rice","Sugarcane","Cotton"],["ved-yava"]],
+  [5,"How were goods commonly exchanged in the Early Vedic economy?","Through barter",["Only through silver coins","Only through state-issued copper coins","Through paper currency"],["ved-barter"]],
+  [5,"Which item was an important medium of exchange in Early Vedic society?","Cows",["Stamped gold coins","Paper notes","Roman denarii"],["ved-barter"]],
+
+  [6,"What became the main economic activity in the Later Vedic period?","Agriculture",["Pastoralism alone","Long-distance sea trade","Mining alone"],["ved-later-agriculture"]],
+  [6,"The beginning of widespread iron use is linked by NIOS with which period?","Later Vedic period",["Mature Harappan period","Early Harappan period","Mauryan period only"],["ved-iron-beginning"]],
+  [6,"Which Later Vedic terms are used for the black metal identified with iron?","Shyama ayas and krishna ayas",["Gomat and gaveshana","Sabha and samiti","Dana and dakshina"],["ved-iron-terms"]],
+  [6,"How did iron tools help Later Vedic agriculture?","They helped clear forests and plough deeper soil",["They replaced all farming with hunting","They ended the use of ploughs","They were used only for ornaments"],["ved-iron-impact"]],
+  [6,"Which pottery tradition is linked with growing Later Vedic settlements in the doab?","Painted Grey Ware",["Northern Black Polished Ware only","Black-and-Red Ware only","Rouletted Ware"],["ved-pgw"]],
+  [6,"Which pair of settlements grew larger towards the end of the Later Vedic period?","Hastinapur and Kaushambi",["Harappa and Mohenjo-daro","Lothal and Dholavira","Pataliputra and Taxila"],["ved-later-towns"]],
+
+  [7,"What was the basic unit of Early Vedic society?","Family",["Janapada","Empire","Guild"],["ved-family-unit"]],
+  [7,"In Early Vedic society, a larger clan was called what?","Vis",["Jana","Sabha","Bhaga"],["ved-vis-jana"]],
+  [7,"One or more clans together formed which larger social unit?","Jana",["Vis","Gotra","Shulka"],["ved-vis-jana"]],
+  [7,"Which statement best describes occupation in Early Vedic society?","It was not rigidly fixed by birth",["Every occupation was fixed by birth","Only priests could change occupation","Only rulers could work in crafts"],["ved-early-occupation"]],
+  [7,"Which institution became important in Later Vedic society and restricted marriage within the same group?","Gotra",["Samiti","Vidatha","Bali"],["ved-gotra"]],
+  [7,"Which four-fold division became clearer in Later Vedic society?","Brahmana, Kshatriya, Vaishya and Shudra",["Rajan, Purohita, Senani and Gramani","Brahmacharya, Grihastha, Vanaprastha and Sanyasa","Sabha, Samiti, Vidatha and Gana"],["ved-four-varnas"]],
+
+  [8,"Which deity is mentioned most frequently in the Rigveda?","Indra",["Agni","Varuna","Pushan"],["ved-indra"]],
+  [8,"Agni was regarded as an intermediary between whom?","Gods and humans",["Kings and assemblies","Traders and farmers","Teachers and students"],["ved-agni"]],
+  [8,"Which deity was regarded as the keeper of rita, the cosmic order?","Varuna",["Indra","Agni","Pushan"],["ved-varuna"]],
+  [8,"Pushan was especially associated with what?","Roads, herdsmen and cattle",["Sea trade and ships","Iron smelting only","Writing and manuscripts"],["ved-pushan"]],
+  [8,"Which group lists important Later Vedic royal sacrifices?","Ashvamedha, Vajapeya and Rajasuya",["Sabha, Samiti and Vidatha","Bali, Shulka and Bhaga","Rigveda, Samaveda and Atharvaveda"],["ved-major-yajnas"]],
+  [8,"Which set of ideas is discussed in the Upanishads according to NIOS?","Karma, rebirth and moksha",["Coinage, taxation and trade","Temple building and image worship","Guilds, ports and sea routes"],["ved-upanishad-ideas"]],
+
+  [9,"What was the political leader of an Early Vedic jana called?","Rajan",["Gomat","Rathakara","Vaishya"],["ved-rajan"]],
+  [9,"Which two assemblies were especially important in Early Vedic polity?","Sabha and samiti",["Bali and bhaga","Vis and jana","Gotra and ashrama"],["ved-sabha-samiti"]],
+  [9,"What was the role of the purohita?","To advise and assist the chief",["To collect customs duty at ports","To lead merchant guilds","To supervise only irrigation"],["ved-purohita"]],
+  [9,"Which set contains officials mentioned in the Rigveda?","Senani, kulapa and gramani",["Mahamatra, rajuka and yukta","Amatya, nagaraka and samaharta","Kotwal, qazi and muqti"],["ved-functionaries"]],
+  [9,"What was 'bali' in the Early Vedic period?","A voluntary contribution to the chief",["A compulsory land tax collected monthly","A coin issued by the rajan","A military office"],["ved-bali-early"]],
+  [9,"Which change occurred in Later Vedic polity?","Chiefship became hereditary and assemblies declined",["Chiefship disappeared completely","Assemblies became the only rulers","Kingship was replaced by merchant guilds"],["ved-later-hereditary"]],
+
+  [10,"Consider the statements: 1. Early Vedic life was mainly pastoral. 2. Agriculture became more important in the Later Vedic period. 3. Iron tools supported agricultural expansion. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["ved-early-pastoral","ved-later-agriculture","ved-iron-impact"]],
+  [10,"Consider the statements: 1. Women could participate in sabha and samiti in the Early Vedic period. 2. Later Vedic society saw stronger varna divisions. 3. Gotra became important in the Later Vedic period. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["ved-women-assemblies","ved-four-varnas","ved-gotra"]],
+  [10,"Which option correctly contrasts Early and Later Vedic polity?","Early chiefs were checked by assemblies; later chiefship became more hereditary",["Early Vedic polity had a large bureaucracy; Later Vedic polity had none","Early Vedic chiefs were always hereditary; Later Vedic chiefs were always elected","Assemblies became stronger as Later Vedic kingship grew"],["ved-sabha-samiti","ved-later-hereditary"]],
+  [10,"Which option correctly shows a broad economic change from Early to Later Vedic times?","Pastoral dominance → stronger agricultural economy",["Urban sea trade → hunting economy","Coin economy → barter economy","Rice plantation economy → cattle-only economy"],["ved-early-pastoral","ved-later-agriculture"]],
+  [10,"Consider the statements: 1. Indra is the most frequently mentioned Rigvedic deity. 2. Varuna is linked with rita. 3. Vishnu and Rudra became more important in Later Vedic religion. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["ved-indra","ved-varuna","ved-later-deities"]],
+  [10,"Consider the statements: 1. The Rigveda is the oldest Vedic text. 2. The Samaveda is mainly arranged for singing. 3. The Upanishads discuss karma, rebirth and moksha. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["ved-rigveda-oldest","ved-samaveda","ved-upanishad-ideas"]],
+];
