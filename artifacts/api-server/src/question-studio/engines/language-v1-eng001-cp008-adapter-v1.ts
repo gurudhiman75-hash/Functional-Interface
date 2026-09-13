@@ -84,7 +84,8 @@ export function isEng001Cp008QuestionStudioRequestV1(request: QuestionStudioGene
   if (packageId && packageId !== ENG001_QUESTION_STUDIO_PACKAGE_ID_V1) return false;
   const subtopic = text(request.subtopic).toLowerCase();
   const selectors = [request.patternId, request.canonicalProblemId, request.questionLanguageId].map((value) => text(value).toUpperCase());
-  return selectors.includes(ENG001_QUESTION_STUDIO_CP008_ID_V1) || selectors.some((value) => value.startsWith("GR-NQN-")) || subtopic.includes("noun") || subtopic.includes("quantifier");
+  const hasNounQuantifierSubtopic = /\bnouns?\b/.test(subtopic) || /\bquantifiers?\b/.test(subtopic);
+  return selectors.includes(ENG001_QUESTION_STUDIO_CP008_ID_V1) || selectors.some((value) => value.startsWith("GR-NQN-")) || hasNounQuantifierSubtopic;
 }
 
 export const languageV1Eng001Cp008QuestionStudioAdapterV1: QuestionStudioEngineAdapter = {
