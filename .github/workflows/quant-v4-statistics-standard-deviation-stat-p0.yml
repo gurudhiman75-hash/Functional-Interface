@@ -7,12 +7,14 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   workflow_dispatch:
 
 concurrency:
@@ -38,9 +40,11 @@ jobs:
       - name: Package namespace and lifecycle guard
         run: |
           test -d artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002
-          ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|publiclyPublishable: true\|automaticStudentPublication: true' artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002
+          ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002
       - name: Standard deviation deterministic proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/standard-deviation.test.ts
+      - name: Question Studio controlled-review integration
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/question-studio-integration.test.ts
       - name: Export deterministic human review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/export-review.ts STAT-002-REVIEW-P0.md
       - uses: actions/upload-artifact@v4
