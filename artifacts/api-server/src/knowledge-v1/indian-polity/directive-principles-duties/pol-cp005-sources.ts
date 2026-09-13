@@ -35,4 +35,18 @@ export const POL_CP005_SOURCES_V1: readonly PolCp005Source[] = Object.freeze([
     url: "https://cdnbbsr.s3waas.gov.in/s380537a945c7aaa788ccfcdf1b99b5d8f/uploads/2023/03/2023030264.pdf",
     notes: "Primary amendment authority for Article 43B on co-operative societies.",
   },
+  {
+    sourceId: "IGNOU-UNIT13-DPSP-CLASSIFICATION",
+    sourceType: "academic",
+    title: "IGNOU Unit 13 — Indian Constitution and Democratic Politics",
+    url: "https://www.egyankosh.ac.in/bitstream/123456789/46741/1/Unit-13.pdf",
+    notes: "Academic source for the Irish influence on DPSP and conventional exam-useful classification of Directive Principles.",
+  },
+  {
+    sourceId: "IGNOU-HUMAN-RIGHTS-DUTIES-USSR",
+    sourceType: "academic",
+    title: "IGNOU Human Rights and Duties — Fundamental Duties",
+    url: "https://egyankosh.ac.in/bitstream/123456789/124427/1/Block-3.pdf",
+    notes: "Academic source for the influence of the erstwhile USSR Constitution on Fundamental Duties and the Swaran Singh Committee context.",
+  },
 ]);
