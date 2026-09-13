@@ -6,7 +6,7 @@ import {
   CP007_FALSE_CAUSATION_WORLDS,
   generateCp007FalseCausationQuestion,
 } from "./cp007-false-causation.ts";
-import { CAE_001_EDITORIAL_REALNESS_REVIEW } from "./editorial-review-pack.ts";
+import { CAE_001_REVIEWED_EDITORIAL_REALNESS_REVIEW } from "./reviewed-editorial-review-pack.ts";
 import { previewCae001QuestionStudioReview } from "./question-studio-review.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import type { CaeLocale } from "./types.ts";
@@ -91,7 +91,7 @@ assert.deepEqual(reviewedAnswers, new Set(["COMMON_CAUSE", "CORRELATION_ONLY"]))
 assert.ok(reviewedFamilies.has("CAE-FAM-FALSE-CAUSATION"));
 assert.ok(reviewedFamilies.has("CAE-FAM-SHARED-PRESSURE"));
 
-const review = CAE_001_EDITORIAL_REALNESS_REVIEW["CAE-QL-007"];
+const review = CAE_001_REVIEWED_EDITORIAL_REALNESS_REVIEW["CAE-QL-007"];
 assert.equal(review.length, 10);
 assert.equal(new Set(review.map((entry) => entry.question.causalStateId)).size, 10);
 assert.ok(review.some((entry) => entry.question.answerId === "CORRELATION_ONLY"));
