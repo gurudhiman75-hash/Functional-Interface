@@ -36,7 +36,8 @@ caselets.forEach((caselet, index) => {
   child.options.forEach((option, optionIndex) => lines.push(`${String.fromCharCode(65 + optionIndex)}. ${option}`));
   lines.push("");
   lines.push(`**Correct option:** ${String.fromCharCode(65 + child.correctIndex)} — ${child.answer}`);
-  lines.push(`**Conditioned valid states:** ${child.conditionedStateCount}`);
+  lines.push(`**Original valid states:** ${child.parentStateCount}`);
+  lines.push(`**After additional condition${child.temporaryConditions.length === 1 ? "" : "s"}:** ${child.conditionedStateCount}`);
   lines.push("");
   lines.push("### Explanation");
   lines.push("");
