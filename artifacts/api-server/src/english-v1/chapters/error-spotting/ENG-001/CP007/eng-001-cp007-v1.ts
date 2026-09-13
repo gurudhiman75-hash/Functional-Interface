@@ -1,7 +1,7 @@
 import { deterministicPick } from "../../../../core/deterministic";
 import { classifyEnglishDifficulty } from "../../../../core/difficulty";
-import type { DifficultyDimensions, Eng001QlId, Eng001Question, EnglishDifficulty } from "../../../../core/types";
-import { CONJUNCTION_RULE_BY_ID, type ConjunctionRuleId } from "../../../../grammar/conjunctions-parallelism";
+import type { ConjunctionRuleId, DifficultyDimensions, Eng001QlId, Eng001Question, Eng001SentenceCandidate, EnglishDifficulty } from "../../../../core/types";
+import { CONJUNCTION_RULE_BY_ID } from "../../../../grammar/conjunctions-parallelism";
 import { CP007_SCENES_BY_DIFFICULTY_V1 } from "./cp007-catalog-v1";
 import type { ConjunctionSceneV1 } from "./cp007-catalog-v1";
 
@@ -28,21 +28,7 @@ export function rulesForDifficultyCp007V1(difficulty: EnglishDifficulty): readon
   return [...new Set(CP007_SCENES_BY_DIFFICULTY_V1[difficulty].map((scene) => scene.ruleId))];
 }
 
-interface Cp007Candidate {
-  candidateId: string;
-  ruleId: ConjunctionRuleId;
-  mutationId: string;
-  difficulty: EnglishDifficulty;
-  dimensions: DifficultyDimensions;
-  correctSegments: readonly string[];
-  errorSegments: readonly string[];
-  errorIndex: number;
-  correction: string;
-  explanationApplication: string;
-  domain: string;
-}
-
-export function buildEng001Cp007CandidateV1(input: { seed: string; difficulty: EnglishDifficulty; ruleId?: ConjunctionRuleId; sceneId?: string }): Cp007Candidate {
+export function buildEng001Cp007CandidateV1(input: { seed: string; difficulty: EnglishDifficulty; ruleId?: ConjunctionRuleId; sceneId?: string }): Eng001SentenceCandidate {
   const pool = cp007ScenePoolV1(input.difficulty, input.ruleId);
   const selected = input.sceneId ? pool.find((candidate) => candidate.id === input.sceneId) : deterministicPick(`${input.seed}:cp007:scene`, pool);
   if (!selected) throw new Error(`Unknown CP007 ${input.difficulty} scene ${input.sceneId}.`);
@@ -59,15 +45,17 @@ export function buildEng001Cp007CandidateV1(input: { seed: string; difficulty: E
     correctSegments: selected.correctSegments,
     errorSegments: selected.errorSegments,
     errorIndex: selected.errorIndex,
+    errorSpan: selected.errorSegments[selected.errorIndex],
     correction: selected.correction,
+    subjectHead: selected.correctSegments[0],
     explanationApplication: selected.reason,
-    domain: selected.domain,
+    tags: [`domain:${selected.domain}`, `scene:${selected.id}`, `conjunction-rule:${selected.ruleId}`],
   };
 }
 
 const sentenceFromSegments = (segments: readonly string[]): string => segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 
-function renderExplanation(input: { seed: string; qlId: Eng001QlId; candidate: Cp007Candidate; answerLabel: string; correctedSentence: string; noError: boolean }): string {
+function renderExplanation(input: { seed: string; qlId: Eng001QlId; candidate: Eng001SentenceCandidate; answerLabel: string; correctedSentence: string; noError: boolean }): string {
   const { seed, qlId, candidate, answerLabel, correctedSentence, noError } = input;
   const reason = candidate.explanationApplication;
   const styleSeed = `${seed}:cp007:explanation:${candidate.candidateId}:${qlId}`;
@@ -120,7 +108,7 @@ export function generateEng001Cp007QuestionV1(input: GenerateEng001Cp007V1Input)
   const candidate = buildEng001Cp007CandidateV1(input);
   const noError = qlId === "ENG-001-QL007";
   const sourceSegments = noError ? [...candidate.correctSegments] : [...candidate.errorSegments];
-  const shaped = qlId === "ENG-001-QL002" ? shapeQl002(sourceSegments, candidate.errorIndex, input.seed) : { segments: sourceSegments, errorIndex: candidate.errorIndex };
+  const shaped = qlId === "ENG-001-QL002" ? shapeQl002(sourceSegments, candidate.errorIndex!, input.seed) : { segments: sourceSegments, errorIndex: candidate.errorIndex! };
   const includeNoError = qlId !== "ENG-001-QL001";
   const options = [...Array.from({ length: shaped.segments.length }, (_, i) => String.fromCharCode(65 + i)), ...(includeNoError ? ["No error"] : [])];
   const correctOptionIndex = noError ? shaped.segments.length : shaped.errorIndex;
@@ -135,8 +123,8 @@ export function generateEng001Cp007QuestionV1(input: GenerateEng001Cp007V1Input)
     correctedSentence,
     explanation: renderExplanation({ seed: input.seed, qlId, candidate, answerLabel, correctedSentence, noError }),
     metadata: {
-      track: "english", chapterId: "ENG-001", cpId: "ENG-001-CP007" as any, qlId,
-      ruleId: candidate.ruleId as any, mutationId: candidate.mutationId as any, difficulty: candidate.difficulty,
+      track: "english", chapterId: "ENG-001", cpId: "ENG-001-CP007", qlId,
+      ruleId: candidate.ruleId, mutationId: candidate.mutationId, difficulty: candidate.difficulty,
       dimensions: candidate.dimensions, answerSegment: answerLabel, hasNoError: noError,
       seed: input.seed, candidateId: candidate.candidateId, reviewOnly: true,
     },
