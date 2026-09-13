@@ -32,13 +32,13 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   /** Frozen-V3 architecture counts retained as regression metadata. */
   scenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length,
   canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length,
-  /** Review-layer counts include CP-005 and CP-007 editorial authorities. */
+  /** Review-layer counts add authored CP-005/007 authorities; CP-008 reuses frozen canonical worlds with richer projections. */
   reviewedScenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length + 2,
   reviewedCanonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length + CP005_COMPETING_SCENARIOS.length + CP007_FALSE_CAUSATION_WORLDS.length,
   generationPlanCount: CAE_001_PROJECTION_AUTHORITIES.length,
   locales: CAE_001_MANIFEST.locales,
   sourceProfiles: CAE_SOURCE_PROFILE_IDS,
-  reviewedQlOverrides: ["CAE-QL-005", "CAE-QL-007"] as const,
+  reviewedQlOverrides: ["CAE-QL-005", "CAE-QL-007", "CAE-QL-008"] as const,
   enabled: true as const,
   questionStudioVisible: true as const,
   reviewOnly: true as const,
