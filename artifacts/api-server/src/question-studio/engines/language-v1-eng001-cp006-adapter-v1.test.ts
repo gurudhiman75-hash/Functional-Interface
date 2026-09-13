@@ -27,7 +27,7 @@ assert.equal(packageDef.metadata?.reviewOnly, true);
 const registered = listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001");
 assert.deepEqual(registered?.cpIds, [
   "ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003",
-  "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007",
+  "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008",
 ]);
 
 assert.equal(isEng001Cp006QuestionStudioRequestV1({ packageId: "ENG-001" }), false);
@@ -130,4 +130,4 @@ await assert.rejects(
   /GR-CMP-006 is not approved for Easy difficulty/i,
 );
 
-console.log("ENG-001 CP006 Question Studio review-only integration tests passed.");
+console.log("ENG-001 CP006 Question Studio review-only integration tests passed with CP008 registered globally.");
