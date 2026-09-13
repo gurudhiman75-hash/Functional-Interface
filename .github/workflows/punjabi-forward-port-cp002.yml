@@ -31,6 +31,22 @@ jobs:
       - name: Run CP002 semantic proof
         working-directory: artifacts/api-server
         run: node dist/punjabi-forward-port-cp002.test.mjs
+      - name: Bundle CP002 review exporter
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/punjabi-v1/packages/PUN-001/checkpoints/CP002/export-review.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/punjabi-forward-port-cp002-review.mjs
+      - name: Generate 120-question review pack
+        working-directory: artifacts/api-server
+        run: node dist/punjabi-forward-port-cp002-review.mjs
+      - name: Upload CP002 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: PUN-001-CP002-FORWARD-PORT-REVIEW-120
+          path: artifacts/api-server/review-output/PUN-001-CP002-FORWARD-PORT-REVIEW-120.md
+          if-no-files-found: error
       - name: Build API server
         working-directory: artifacts/api-server
         run: pnpm run build
