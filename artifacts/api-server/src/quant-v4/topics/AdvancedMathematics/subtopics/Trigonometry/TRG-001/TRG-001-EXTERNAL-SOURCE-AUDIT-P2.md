@@ -4,107 +4,107 @@ Status: **AUDIT EVIDENCE — NOT A PRODUCTION AUTHORITY — NOT FROZEN**
 
 ## Purpose
 
-Uploaded books, guides, coaching material and other user-provided references are now treated as a formal external challenge corpus for TRG-001 rather than informal reading material.
+Uploaded books, guides, coaching material and other user-provided references are a formal external challenge corpus for TRG-001. They are not production authority and do not directly change frequency weights, freeze state, QL count or activation.
 
-Every extracted archetype must receive one of these labels:
+Every extracted archetype receives one of these labels:
 
 - `DIRECTLY_COVERED` — current runtime already owns the construction;
-- `COVERED_WITH_VARIATION` — underlying mathematics/family is owned, but the exact construction still deserves runtime sampling;
-- `MISSING` — material recurring/relevant to target exams with no demonstrated runtime home;
-- `ROUTE_TO_TRG_002` — Heights & Distances / line-of-sight application, not a TRG-001 gap;
-- `OUT_OF_SCOPE` — unsuitable for the target exam domain or objective-mock product.
+- `COVERED_WITH_VARIATION` — mathematics/family is owned, but the exact construction needs runtime sampling;
+- `MISSING_CANDIDATE` — target-exam material appears relevant but has no demonstrated runtime home yet;
+- `ROUTE_TO_TRG_002` — Heights & Distances / line-of-sight application;
+- `OUT_OF_SCOPE` — belongs outside TRG-001 or is unsuitable for the target objective-mock domain.
 
-This evidence must not silently change production frequencies, QL counts, freeze state, or activation status.
+The machine-readable registry for this audit is `external-material-audit-p2.ts`.
 
 ## Source 1 — Disha SSC Mathematics Guide
 
 Uploaded library source: `Disha SSC Mathematics Guidein English (sscstudy.com) (1).pdf`.
 
-The trigonometry chapter contains standard ratios/identities as well as SSC question material spanning reciprocal/conjugate identities, complementary-angle constructions, power identities, extrema and Heights & Distances.
+The audited trigonometry pages contain standard ratios and identities, complementary-angle products, higher-power forms, extrema, degree/radian conversion, SSC-labelled algebraic trigonometry, and Heights & Distances.
 
-### First evidence wave
+## Wave 1 — initial challenge sample
 
 | Source item | External archetype | Audit result | Runtime/package home |
 | --- | --- | --- | --- |
-| Q39 | long consecutive-angle sine sum | COVERED_WITH_VARIATION | TRG-001 complementary/angle-relation family; needs explicit long-series sampling |
+| Q39 | long consecutive-angle sine sum | COVERED_WITH_VARIATION | complementary/angle-relation family; explicit long-series proof still needed |
 | Q40 | cubic trig sum/difference factorisation | DIRECTLY_COVERED | QL-143 P2 |
-| Q41 | ratio reconstruction + complementary sine/sec expression | DIRECTLY_COVERED | existing reconstruction/cofunction families |
+| Q41 | ratio reconstruction + complementary sine/sec expression | DIRECTLY_COVERED | reconstruction/cofunction families |
 | Q42 | `cosec θ + cot θ` → cosec θ | DIRECTLY_COVERED | conjugate family / QL-112 |
-| Q43 | `cos a + sec a` → cubic reciprocal expression | COVERED_WITH_VARIATION | reciprocal + algebra machinery exists; exact construction needs challenge sampling |
+| Q43 | `cos a + sec a` → cubic reciprocal expression | COVERED_WITH_VARIATION | reciprocal + algebra family; exact construction needs proof |
 | Q44 | linear sin/cos relation → cot θ | DIRECTLY_COVERED | linear relation family |
-| Q45 | changing tower shadow at 60°/45° | ROUTE_TO_TRG_002 | Heights & Distances |
+| Q45 | changing tower shadow | ROUTE_TO_TRG_002 | Heights & Distances |
 | Level-I Q15 | `sec θ + tan θ = x` → sin θ | DIRECTLY_COVERED | conjugate family / QL-112 |
 | Level-I Q16 | mixed cot/cosec × tan/sec composite | DIRECTLY_COVERED | reciprocal/conjugate composite family |
-| Level-I Q17 | symmetric high even powers | COVERED_WITH_VARIATION | QL-126 higher-power family; exact symmetric construction to challenge-test |
-| Q53 | `tan1° tan2° ... tan89°` complementary pairing | COVERED_WITH_VARIATION | complementary-angle family; long-product form needs explicit sampling |
-| Q54 | minimum of weighted `tan²θ + cot²θ` | DIRECTLY_COVERED | CP-006 max/min / QL-142 |
+| Level-I Q17 | symmetric high even powers | COVERED_WITH_VARIATION | higher-power family; exact symmetric form needs proof |
+| Q53 | `tan1° tan2° ... tan89°` | COVERED_WITH_VARIATION | complementary-angle family; long-product proof needed |
+| Q54 | weighted `tan²θ + cot²θ` minimum | DIRECTLY_COVERED | CP-006 max/min |
 | Q56 | `cosec θ − cot θ` → cosec θ | DIRECTLY_COVERED | conjugate family / QL-112 |
 | Q57 | hill / two-angle line-of-sight | ROUTE_TO_TRG_002 | Heights & Distances |
-| Q58 | `sec²θ + tan²θ` relation → acute standard angle | DIRECTLY_COVERED | sec/tan identity + acute-angle solve |
+| Q58 | `sec²θ + tan²θ` relation → acute angle | DIRECTLY_COVERED | sec/tan identity + angle solve |
 
-Initial wave totals:
+## Wave 2 — broader chapter sweep
 
-- `DIRECTLY_COVERED`: 9
-- `COVERED_WITH_VARIATION`: 4
-- `MISSING`: 0
-- `ROUTE_TO_TRG_002`: 2
-- `OUT_OF_SCOPE`: 0
+The wider sweep confirms many existing families but adds higher-value stress tests.
 
-This first wave is **not** sufficient to claim complete book coverage. It demonstrates that the audit mechanism works and that the sampled Disha SSC families do not currently expose a confirmed TRG-001 structural hole.
+### Strongly covered
 
-## Important findings
+- right-triangle ratio composites;
+- sec/tan and cosec/cot identities;
+- sum/difference-square relations;
+- conjugate forms `sec±tan` and `cosec±cot`;
+- linear sin/cos relation solving;
+- mixed fundamental-identity simplification;
+- higher-power relation of the QL-126 type;
+- cubic factorisation of the QL-143 type;
+- max/min forms such as weighted `tan²θ + cot²θ`.
 
-### 1. Uploaded books are useful for a different purpose than whole-paper frequency evidence
+### Route to TRG-002
 
-Whole SSC sections estimate what appears frequently. Books/guides are better for **breadth challenge testing** because they deliberately collect more varieties than any one paper.
+Broken-tree, aircraft, kite, tower, chimney, shadow, two-observation, depression/elevation and observer-distance questions remain TRG-002 evidence, not TRG-001 gaps.
 
-Therefore book evidence should influence:
+### Out of TRG-001 scope
 
-- missing-archetype discovery;
-- stem/construction diversity audits;
-- edge-family sampling;
-- explanation/distractor realism review.
+Pure triangle-geometry questions whose final task is only an angle/radian measure are not grounds to expand the TRG-001 symbolic runtime.
 
-It should **not** directly set production frequency weights.
+## New challenge frontier
 
-### 2. `COVERED_WITH_VARIATION` is not the same as a pass
+The following forms must be proved by actual runtime output before P2 refreeze:
 
-Before refreeze, the important variation cases should be generated from runtime and checked concretely. For this wave the highest-value challenges are:
+1. **Triple-angle reduction** — SSC-style `3cosθ − 4cos³θ` construction. This is now a `MISSING_CANDIDATE`, not presumed covered.
+2. **Long complementary products** — e.g. `tan1° tan2° ... tan89°` and multi-factor cotangent pairings.
+3. **Long complementary sums/series** — consecutive-angle sine/cosine sums using symmetry.
+4. **Symmetric high-even-power reductions** — combinations of sixth and fourth powers.
+5. **Reciprocal cubic algebra** — `cosθ + secθ = k` leading to `cos³θ + sec³θ`.
+6. **Multiple-angle chains** — cofunction conditions involving `2a`, `3a`, `6a` etc.
+7. **DMS-to-radian conversion** — degree-minute-second precision rather than integer-degree conversion only.
+8. **Inverse derived relation forms** — e.g. a difference of squared trig functions given and a related product requested.
 
-1. long complementary-angle sum/product constructions;
-2. reciprocal cubic form from `x + 1/x` style relation;
-3. symmetric high-even-power reduction.
+`COVERED_WITH_VARIATION` is deliberately not considered a pass until a generated runtime sample demonstrates comparable mathematical structure.
 
-If current runtime cannot actually emit a comparable question, the status must be downgraded to `MISSING` and remediated.
-
-### 3. TRG-001/TRG-002 boundary remains mandatory
-
-Tower, hill, aircraft, tree, observer-height, angle-of-elevation/depression and changing-shadow problems are application geometry and belong to `TRG-002` even when the book places them in the same Trigonometry chapter.
-
-Do not inflate TRG-001 coverage requirements with these forms.
-
-## Reusable audit policy for future uploaded material
+## Audit-system policy for uploaded books
 
 For each relevant uploaded source:
 
 1. locate the chapter/section;
-2. extract distinct **question archetypes**, not every numerical duplicate;
+2. extract distinct question archetypes rather than every numerical duplicate;
 3. record source locator and exam tag when available;
-4. map each archetype to package/QL/runtime evidence;
-5. classify with the five statuses above;
-6. runtime-sample every `COVERED_WITH_VARIATION` item;
-7. remediate target-exam `MISSING` forms;
-8. keep `OUT_OF_SCOPE` explicit so harder/non-target book material does not distort Examtree;
-9. keep source evidence audit-only until human approval.
+4. map each archetype to TRG-001, TRG-002, or another chapter;
+5. classify with the audit verdicts above;
+6. runtime-sample every `COVERED_WITH_VARIATION` form;
+7. search the active runtime before declaring `MISSING_CANDIDATE` as a confirmed gap;
+8. remediate only target-exam gaps;
+9. keep harder/non-target material explicit rather than expanding scope automatically;
+10. never use book frequency as production frequency authority.
 
 ## Freeze implication
 
-TRG-001 should not be refrozen merely because the initial Disha sample has zero confirmed missing forms.
+TRG-001 P2 is **not ready to refreeze yet** solely on structural/PYQ evidence.
 
 Before freeze:
 
-- expand this audit across the rest of the relevant uploaded SSC trigonometry material;
-- challenge-test the `COVERED_WITH_VARIATION` families against actual runtime output;
-- review the P2 multilingual samples;
-- execute regression/TypeScript checks;
+- resolve the triple-angle `MISSING_CANDIDATE`;
+- runtime-prove or downgrade the variation frontier;
+- continue the audit across other uploaded SSC-relevant books/material where text can be recovered reliably;
+- keep CAT/management-level material as secondary breadth evidence, not SSC difficulty authority;
+- execute the targeted regression/TypeScript checks;
 - then make the human freeze decision.
