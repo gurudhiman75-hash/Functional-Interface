@@ -7,65 +7,112 @@ import {
   PUN_001_CP009_DEFINITION,
 } from "./generator";
 
-console.log("Starting CP009 Synonyms & Antonyms Tests...");
+console.log("Starting PUN-001-CP009 V2 semantic tests...");
 
-// 1. Definition check
+const eligible: Record<PunjabiDifficulty, readonly string[]> = {
+  Easy: ["F01", "F02", "F03", "F05"],
+  Medium: ["F02", "F03", "F04", "F05", "F06", "F07", "F08"],
+  Hard: ["F04", "F06", "F07", "F08"],
+};
+
 assert.equal(PUN_001_CP009_DEFINITION.cpId, "PUN-001-CP009");
-assert.equal(PUN_001_CP009_DEFINITION.families.length, 4);
+assert.equal(PUN_001_CP009_DEFINITION.families.length, 8);
+assert.deepEqual(
+  PUN_001_CP009_DEFINITION.families.map((family) => family.familyId),
+  ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08"]
+);
 
-// 2. Determinism check
-const q1 = generateCP009Question(42, "Medium", "F01");
-const q2 = generateCP009Question(42, "Medium", "F01");
-assert.deepEqual(q1, q2, "CP009 generation must be 100% deterministic");
-
-// 3. Multi-family generation & validation
-const difficulties: PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
-const families = ["F01", "F02", "F03", "F04"];
-
-for (const diff of difficulties) {
-  for (const fam of families) {
-    const q = generateCP009Question(1357, diff, fam);
-    const validation = validatePunjabiQuestion(q);
-    assert.equal(
-      validation.isValid,
-      true,
-      `CP009 validation failed for ${fam} [${diff}]: ${validation.errors.join("; ")}`
-    );
-    assert.equal(q.options.length, 4);
-    assert.equal(q.correctIndex >= 0 && q.correctIndex < 4, true);
-    assert.equal(typeof q.stem, "string");
-    assert.equal(q.stem.length > 5, true);
-    assert.equal(typeof q.explanation, "string");
-    assert.equal(q.explanation.length > 10, true);
+for (const difficulty of Object.keys(eligible) as PunjabiDifficulty[]) {
+  for (const familyId of eligible[difficulty]) {
+    const a = generateCP009Question(9341, difficulty, familyId);
+    const b = generateCP009Question(9341, difficulty, familyId);
+    assert.deepEqual(a, b, `${familyId}/${difficulty} must replay deterministically`);
+    const validation = validatePunjabiQuestion(a);
+    assert.equal(validation.isValid, true, `${familyId}/${difficulty}: ${validation.errors.join("; ")}`);
+    assert.equal(a.options.length, 4);
+    assert.equal(new Set(a.options).size, 4, `${familyId}/${difficulty} options must be unique`);
+    assert.ok(a.correctIndex >= 0 && a.correctIndex < 4);
+    assert.match(a.metadata.fingerprint, /^CP009-V2-[0-9a-f]{8}$/);
+    assert.doesNotMatch(a.stem, /\bAntonym\b|\bSynonym\b/i, "Learner stem must not leak English grammar labels");
+    assert.doesNotMatch(a.explanation, /(ਵਿਕਲਪ A|ਵਿਕਲਪ B|ਵਿਕਲਪ C|ਵਿਕਲਪ D|ਬਾਕੀ ਤਿੰਨ|ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ)/u);
   }
 }
 
-// 4. Stress test over 200 seeds across all difficulties
-console.log("Running 200-seed stress test for CP009...");
-for (let seed = 9000; seed < 9200; seed++) {
-  const diff = difficulties[seed % 3]!;
-  const q = generateCP009Question(seed, diff);
+// Difficulty must be semantic, not cosmetic: basic direct synonym is Easy only.
+assert.throws(() => generateCP009Question(9001, "Medium", "F01"), /not authorized/);
+assert.throws(() => generateCP009Question(9001, "Hard", "F01"), /not authorized/);
+assert.throws(() => generateCP009Question(9001, "Easy", "F04"), /not authorized/);
 
-  const val = validatePunjabiQuestion(q);
-  assert.equal(
-    val.isValid,
-    true,
-    `Validation error at seed ${seed}: ${val.errors.join("; ")}`
-  );
+// F02 is intentionally one-directional. Its alternatives are source-side
+// confusables, so reverse querying cannot accidentally make several answers valid.
+for (let seed = 9400; seed < 9460; seed++) {
+  const q = generateCP009Question(seed, seed % 2 ? "Easy" : "Medium", "F02");
+  assert.equal(new Set(q.options).size, 4);
+  assert.doesNotMatch(q.stem, /Antonym/i);
 }
 
-// 5. 60-Question Golden Review Batch generation
-console.log("Generating 60-question CP009 golden review batch...");
-const batch = generateCP009ReviewBatch(60, 17000);
-assert.equal(batch.totalQuestions, 60);
-assert.equal(batch.distribution.easy, 20);
-assert.equal(batch.distribution.medium, 20);
-assert.equal(batch.distribution.hard, 20);
-assert.equal(batch.questions.length, 60);
+// The old CP009 F03 inserted arbitrary words into generic sentence skeletons.
+// V2 F03 is relation classification, while authored context is reserved for F04.
+for (let seed = 9500; seed < 9560; seed++) {
+  const q = generateCP009Question(seed, seed % 2 ? "Easy" : "Medium", "F03");
+  assert.match(q.stem, /ਅਰਥ-ਸੰਬੰਧ/u);
+  assert.doesNotMatch(q.stem, /ਅਧਿਆਪਕ ਨੇ ਵਿਦਿਆਰਥੀਆਂ ਨੂੰ/u);
+}
+for (let seed = 9560; seed < 9620; seed++) {
+  const q = generateCP009Question(seed, seed % 2 ? "Medium" : "Hard", "F04");
+  assert.equal(new Set(q.options).size, 4);
+}
 
+console.log("Running CP009 V2 stress matrix...");
+for (let seed = 9700; seed < 10100; seed++) {
+  const difficulty: PunjabiDifficulty = seed % 3 === 0 ? "Easy" : seed % 3 === 1 ? "Medium" : "Hard";
+  const familyOptions = eligible[difficulty];
+  const familyId = familyOptions[seed % familyOptions.length]!;
+  const q = generateCP009Question(seed, difficulty, familyId);
+  const validation = validatePunjabiQuestion(q);
+  assert.equal(validation.isValid, true, `${q.id}: ${validation.errors.join("; ")}`);
+}
+
+// Pair families must never collapse false pairs into duplicate option text.
+// This range includes the reviewer seed band that exposed the original F07 defect.
+for (let seed = 12000; seed < 13250; seed++) {
+  for (const familyId of ["F07", "F08"] as const) {
+    const difficulty: PunjabiDifficulty = seed % 2 ? "Medium" : "Hard";
+    const q = generateCP009Question(seed, difficulty, familyId);
+    assert.equal(new Set(q.options).size, 4, `${familyId}/${seed} must keep four unique pair options`);
+    const validation = validatePunjabiQuestion(q);
+    assert.equal(validation.isValid, true, `${q.id}: ${validation.errors.join("; ")}`);
+  }
+}
+
+console.log("Generating canonical 120-question CP009 V2 review batch...");
+const batch = generateCP009ReviewBatch(120, 17000);
+assert.equal(batch.totalQuestions, 120);
+assert.equal(batch.distribution.easy, 40);
+assert.equal(batch.distribution.medium, 40);
+assert.equal(batch.distribution.hard, 40);
+assert.equal(batch.questions.length, 120);
+
+const representedFamilies = new Set(batch.questions.map((q) => q.metadata.familyId));
+for (const familyId of ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08"]) {
+  assert.ok(representedFamilies.has(familyId), `Review batch must represent ${familyId}`);
+}
 for (const q of batch.questions) {
   const res = validatePunjabiQuestion(q);
-  assert.equal(res.isValid, true, `Batch question ${q.id} failed validation: ${res.errors.join("; ")}`);
+  assert.equal(res.isValid, true, `${q.id}: ${res.errors.join("; ")}`);
+  assert.doesNotMatch(q.stem, /\bAntonym\b|\bSynonym\b/i);
 }
 
-console.log("All CP009 Synonyms & Antonyms tests passed successfully!");
+// The exact reviewer export seed is a permanent regression surface.
+const reviewerBatch = generateCP009ReviewBatch(120, 13000);
+assert.equal(reviewerBatch.totalQuestions, 120);
+for (const q of reviewerBatch.questions) {
+  assert.equal(new Set(q.options).size, 4, `${q.id}: reviewer options must remain unique`);
+  const res = validatePunjabiQuestion(q);
+  assert.equal(res.isValid, true, `${q.id}: ${res.errors.join("; ")}`);
+}
+
+const fingerprints = new Set(batch.questions.map((q) => q.metadata.fingerprint));
+assert.ok(fingerprints.size >= 100, `Expected broad CP009 semantic diversity; observed ${fingerprints.size}/120`);
+
+console.log("PUN-001-CP009 V2 semantic tests passed.");
