@@ -48,7 +48,7 @@ describe("POL-CP-001 constitutional-history review batch", () => {
 
   it("has no duplicate semantic questions while allowing standard instruction stems", () => {
     const signatures = questions.map((question) =>
-      [question.qlId, question.canonicalAnswer, [...question.options].sort().join("||")].join("::"),
+      [question.qlId, question.canonicalAnswer, [...question.sourceFactIds].sort().join("||")].join("::"),
     );
     expect(new Set(signatures).size).toBe(questions.length);
   });
