@@ -1,0 +1,51 @@
+import fs from "node:fs";
+import path from "node:path";
+import { HIS_CP002_REVIEW_BATCH_V1, auditHisCp002ReviewBatchV1 } from "./his-cp002-review-v1";
+
+const audit = auditHisCp002ReviewBatchV1();
+if (!audit.valid) throw new Error(`HIS-CP-002 export blocked: ${audit.issues.join(" | ")}`);
+
+const outDir = path.resolve(process.cwd(), "dist/history-review/HIS-001-CP002-V1");
+fs.mkdirSync(outDir, { recursive: true });
+const letters = ["A", "B", "C", "D"];
+const lines: string[] = [
+  "# HIS-CP-002 — Vedic Age — Review Batch V1",
+  "",
+  `**Questions:** ${audit.questionCount}  `,
+  `**Canonical facts used:** ${audit.requiredFactCount} / ${audit.canonicalFactCount}  `,
+  `**Difficulty:** Easy ${audit.difficultyCounts.Easy} · Medium ${audit.difficultyCounts.Medium} · Hard ${audit.difficultyCounts.Hard}  `,
+  `**Answer positions:** A ${audit.answerPositions[0]} · B ${audit.answerPositions[1]} · C ${audit.answerPositions[2]} · D ${audit.answerPositions[3]}`,
+  "",
+  "> Review-only checkpoint. Not registered for Question Studio runtime or Question Bank persistence.",
+  "",
+  "---",
+  "",
+];
+
+HIS_CP002_REVIEW_BATCH_V1.forEach((question, index) => {
+  lines.push(
+    `## ${index + 1}. ${question.stem}`,
+    "",
+    ...question.options.map((option, i) => `${letters[i]}. ${option}`),
+    "",
+    `**Answer:** ${letters[question.correctIndex]}. ${question.canonicalAnswer}`,
+    "",
+    `**Explanation:** ${question.explanation}`,
+    "",
+    `**Difficulty:** ${question.difficulty}`,
+    "",
+    `**QL:** ${question.qlId} — ${question.qlName}`,
+    "",
+    `**Source facts:** ${question.sourceFactIds.join(", ")}`,
+    "",
+    `**Sources:** ${question.sourceIds.join(", ")}`,
+    "",
+    "---",
+    "",
+  );
+});
+
+const baseName = "HIS-001-CP002-REVIEW-BATCH-V1";
+fs.writeFileSync(path.join(outDir, `${baseName}.md`), lines.join("\n"));
+fs.writeFileSync(path.join(outDir, `${baseName}.json`), JSON.stringify({ audit, questions: HIS_CP002_REVIEW_BATCH_V1 }, null, 2));
+console.log(JSON.stringify(audit));
