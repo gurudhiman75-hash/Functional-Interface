@@ -1,5 +1,5 @@
 # ECO-CP-001 — Basic Economic Concepts
-## Human Review Set V1
+## Human Review Set V2 — Simplified Language
 
 **Status:** REVIEW ONLY — not runtime registered  
 **Chapter:** ECO-001 Indian Economy  
@@ -8,7 +8,7 @@
 ---
 
 ### 1. Easy · Term identification
-Which term describes a situation in which limited resources have many competing uses?
+Limited resources have many possible uses. This is called:
 
 A. Utility  
 B. Scarcity  
@@ -17,12 +17,12 @@ D. Market
 
 **Answer:** B. Scarcity
 
-**Explanation:** Scarcity exists because resources are limited while wants and possible uses are many. It makes choice necessary.
+**Explanation:** Scarcity means resources are limited but wants are many.
 
 ---
 
 ### 2. Easy · Term identification
-The next best alternative given up when a choice is made is called:
+The next best option given up after making a choice is called:
 
 A. Utility  
 B. Production  
@@ -31,40 +31,40 @@ D. Demand
 
 **Answer:** C. Opportunity cost
 
-**Explanation:** Opportunity cost is the value of the next best alternative that is forgone because of a choice.
+**Explanation:** Opportunity cost is the next best option that is given up.
 
 ---
 
 ### 3. Easy · Definition identification
-Which option best describes utility?
+What does utility mean?
 
-A. Want-satisfying capacity of a good or service  
+A. Ability of a good or service to satisfy a want  
 B. Quantity offered for sale  
 C. Human effort used in production  
-D. Allocation of limited resources by government
+D. Allocation of resources by government
 
-**Answer:** A. Want-satisfying capacity of a good or service
+**Answer:** A. Ability of a good or service to satisfy a want
 
-**Explanation:** Utility means the ability of a good or service to satisfy a want.
+**Explanation:** Utility is the ability of a good or service to satisfy a want.
 
 ---
 
 ### 4. Easy · Definition identification
-In economics, demand mainly refers to:
+What does demand mean?
 
 A. Any desire for a product  
 B. Goods already produced  
-C. Willingness and ability of consumers to buy  
-D. Willingness of producers to offer goods for sale
+C. Willingness and ability to buy  
+D. Willingness of sellers to sell
 
-**Answer:** C. Willingness and ability of consumers to buy
+**Answer:** C. Willingness and ability to buy
 
-**Explanation:** Demand requires both willingness and ability to buy a good or service under given conditions.
+**Explanation:** Demand means willingness and ability to buy a good or service.
 
 ---
 
 ### 5. Easy · Factor of production
-A tractor used by a farmer for cultivation is classified as:
+A tractor used for farming is an example of:
 
 A. Land  
 B. Labour  
@@ -73,12 +73,12 @@ D. Entrepreneurship
 
 **Answer:** C. Capital
 
-**Explanation:** Capital includes man-made tools, machines and equipment used for production. A tractor is therefore capital.
+**Explanation:** A tractor is a man-made resource used for production, so it is capital.
 
 ---
 
 ### 6. Easy · Factor of production
-The physical and mental effort of workers used in production is called:
+Human physical or mental effort used in production is called:
 
 A. Labour  
 B. Capital  
@@ -87,12 +87,12 @@ D. Profit
 
 **Answer:** A. Labour
 
-**Explanation:** Labour means human physical or mental effort used to produce goods and services.
+**Explanation:** Labour means human effort used in production.
 
 ---
 
 ### 7. Easy · Factor reward
-What is the usual reward for land as a factor of production?
+The reward for land is:
 
 A. Profit  
 B. Interest  
@@ -101,12 +101,12 @@ D. Rent
 
 **Answer:** D. Rent
 
-**Explanation:** Rent is the usual factor reward assigned to land and natural resources.
+**Explanation:** Rent is the factor reward for land.
 
 ---
 
 ### 8. Easy · Factor reward
-Profit is normally treated as the reward for:
+Profit is the reward for:
 
 A. Labour  
 B. Entrepreneurship  
@@ -115,40 +115,40 @@ D. Capital
 
 **Answer:** B. Entrepreneurship
 
-**Explanation:** An entrepreneur organises the factors of production, takes decisions and bears business risk. Profit is the usual reward for this role.
+**Explanation:** Profit is the factor reward for entrepreneurship.
 
 ---
 
 ### 9. Medium · Opportunity cost
-A farmer can grow wheat or mustard on the same field and chooses wheat. The opportunity cost of this choice is:
+A farmer can grow wheat or mustard. He chooses wheat. What is the opportunity cost?
 
-A. Total value of all crops grown in the village  
-B. Cost of wheat seed only  
-C. Value of the best alternative use of the field that was given up  
-D. Rent of every field owned by the farmer
+A. Value of all crops in the village  
+B. Cost of wheat seed  
+C. Benefit from growing mustard  
+D. Rent of all his fields
 
-**Answer:** C. Value of the best alternative use of the field that was given up
+**Answer:** C. Benefit from growing mustard
 
-**Explanation:** Opportunity cost is the next best alternative forgone. Here it is the benefit from the best alternative use of the field.
+**Explanation:** Mustard is the next best option given up, so its benefit is the opportunity cost.
 
 ---
 
 ### 10. Medium · Opportunity cost
-A local body uses a limited fund for a water project instead of its next-best road project. Its opportunity cost is:
+A local body funds a water project instead of a road project. What is the opportunity cost?
 
-A. The benefit expected from the road project that was given up  
-B. The total annual budget of the local body  
-C. Only the salaries of its employees  
-D. The cost of all road projects in the state
+A. Benefit from the road project not chosen  
+B. Its full annual budget  
+C. Employee salaries  
+D. Cost of every road in the state
 
-**Answer:** A. The benefit expected from the road project that was given up
+**Answer:** A. Benefit from the road project not chosen
 
-**Explanation:** Choosing the water project means giving up the next-best road project. The forgone benefit is the opportunity cost.
+**Explanation:** The road project was the next best option given up.
 
 ---
 
 ### 11. Medium · Scarcity
-A family has limited income but many wants. It must decide which wants to satisfy first. Which economic problem is illustrated most directly?
+A family has limited income but many wants. This is an example of:
 
 A. Supply  
 B. Utility  
@@ -157,12 +157,12 @@ D. Market
 
 **Answer:** C. Scarcity
 
-**Explanation:** Limited resources cannot satisfy every want. This creates scarcity and forces choices.
+**Explanation:** Income is limited, but wants are many. This creates scarcity.
 
 ---
 
 ### 12. Medium · Scarcity
-A factory has a fixed amount of labour and machinery but can produce several different products. It cannot produce unlimited quantities of all of them. This mainly illustrates:
+A factory has limited labour and machines but can make many products. This shows:
 
 A. Consumption  
 B. Scarcity  
@@ -171,12 +171,12 @@ D. Utility
 
 **Answer:** B. Scarcity
 
-**Explanation:** The factory has limited productive resources and competing possible uses for them, which is the problem of scarcity.
+**Explanation:** The factory has limited resources and several possible uses for them.
 
 ---
 
 ### 13. Medium · Economic activity
-A bakery converts flour into bread for sale. Which economic activity is illustrated?
+A bakery makes bread from flour. This is:
 
 A. Distribution  
 B. Consumption  
@@ -185,12 +185,12 @@ D. Saving
 
 **Answer:** C. Production
 
-**Explanation:** The bakery is creating a good from inputs. This is production.
+**Explanation:** Making a good is production.
 
 ---
 
 ### 14. Medium · Economic activity
-A passenger uses a bus service to travel to work. This is an example of:
+A passenger uses a bus service. This is:
 
 A. Production  
 B. Consumption  
@@ -199,12 +199,12 @@ D. Capital formation
 
 **Answer:** B. Consumption
 
-**Explanation:** The passenger is using a service to satisfy a need, so the activity is consumption.
+**Explanation:** Using a service to satisfy a need is consumption.
 
 ---
 
 ### 15. Medium · Micro/Macro
-A study examines how a rise in the price of tea affects the quantity of tea purchased by consumers. This is mainly a study of:
+The effect of tea prices on tea buyers is studied under:
 
 A. Macroeconomics  
 B. Public finance  
@@ -213,12 +213,12 @@ D. Economic history
 
 **Answer:** C. Microeconomics
 
-**Explanation:** The question concerns a particular product and consumer behaviour in one market, so it belongs to microeconomics.
+**Explanation:** Microeconomics studies individual consumers, firms and markets.
 
 ---
 
 ### 16. Medium · Micro/Macro
-A study examines employment in the economy as a whole. It belongs mainly to:
+Employment in the economy as a whole is studied under:
 
 A. Microeconomics  
 B. Macroeconomics  
@@ -227,7 +227,7 @@ D. Market research
 
 **Answer:** B. Macroeconomics
 
-**Explanation:** Economy-wide employment is a broad aggregate, so it is studied under macroeconomics.
+**Explanation:** Macroeconomics studies the economy as a whole and broad totals.
 
 ---
 
@@ -235,37 +235,37 @@ D. Market research
 Which pair is correctly matched?
 
 A. Scarcity — unlimited resources  
-B. Demand — willingness and ability of buyers to buy  
+B. Demand — willingness and ability to buy  
 C. Supply — use of goods to satisfy wants  
 D. Utility — human effort used in production
 
-**Answer:** B. Demand — willingness and ability of buyers to buy
+**Answer:** B. Demand — willingness and ability to buy
 
-**Explanation:** Demand refers to consumers' willingness and ability to buy under given conditions.
+**Explanation:** Demand means willingness and ability to buy.
 
 ---
 
 ### 18. Medium · Correct pair
 Which pair is correctly matched?
 
-A. Labour — natural resources used in production  
-B. Capital — man-made resources used for further production  
-C. Land — human effort used in production  
-D. Entrepreneurship — consumption of final goods
+A. Labour — natural resources  
+B. Capital — man-made resources used for production  
+C. Land — human effort  
+D. Entrepreneurship — consumption of goods
 
-**Answer:** B. Capital — man-made resources used for further production
+**Answer:** B. Capital — man-made resources used for production
 
-**Explanation:** Capital includes man-made tools, machinery and equipment used to produce other goods and services.
+**Explanation:** Capital includes man-made resources used for production.
 
 ---
 
 ### 19. Hard · Statements
-Consider the following statements:
+Consider the statements:
 
-I. Scarcity makes economic choice necessary.  
-II. Opportunity cost is the next best alternative forgone because of a choice.
+I. Scarcity makes choice necessary.  
+II. Opportunity cost is the next best option given up.
 
-Which of the statements given above is/are correct?
+Which is correct?
 
 A. I only  
 B. II only  
@@ -274,17 +274,17 @@ D. Neither I nor II
 
 **Answer:** C. Both I and II
 
-**Explanation:** Scarcity means resources are limited relative to competing uses, so choices are necessary. The next best alternative given up is the opportunity cost.
+**Explanation:** Scarcity forces choice. Opportunity cost is the next best option given up.
 
 ---
 
 ### 20. Hard · Statements
-Consider the following statements:
+Consider the statements:
 
-I. Demand concerns buyers' willingness and ability to buy.  
-II. Supply concerns sellers' willingness and ability to offer goods or services for sale.
+I. Demand is about buyers.  
+II. Supply is about sellers.
 
-Which of the statements given above is/are correct?
+Which is correct?
 
 A. I only  
 B. II only  
@@ -293,54 +293,54 @@ D. Neither I nor II
 
 **Answer:** C. Both I and II
 
-**Explanation:** Demand describes the buyer side of a market, while supply describes the seller side.
+**Explanation:** Demand comes from buyers. Supply comes from sellers.
 
 ---
 
 ### 21. Hard · Concept distinction
-Which statement correctly distinguishes scarcity from opportunity cost?
+Which statement is correct?
 
-A. Scarcity means unlimited wants; opportunity cost means unlimited resources.  
-B. Scarcity creates the need to choose; opportunity cost is the next best alternative forgone because of the choice.  
-C. Scarcity applies only to money; opportunity cost applies only to goods.  
-D. Both terms mean exactly the same thing.
+A. Scarcity means unlimited resources.  
+B. Scarcity forces choices; opportunity cost is the next best option given up.  
+C. Scarcity applies only to money.  
+D. Scarcity and opportunity cost mean the same thing.
 
-**Answer:** B. Scarcity creates the need to choose; opportunity cost is the next best alternative forgone because of the choice.
+**Answer:** B. Scarcity forces choices; opportunity cost is the next best option given up.
 
-**Explanation:** Scarcity is the underlying limitation of resources. Opportunity cost arises when a choice is made among competing alternatives.
+**Explanation:** Scarcity makes a choice necessary. Opportunity cost comes from that choice.
 
 ---
 
 ### 22. Hard · Concept distinction
-Which statement correctly distinguishes demand from supply?
+Which statement is correct?
 
-A. Demand concerns buyers; supply concerns sellers.  
-B. Demand is production; supply is consumption.  
-C. Demand applies only to services; supply applies only to goods.  
-D. Demand and supply both refer only to government purchases.
+A. Demand is about buyers; supply is about sellers.  
+B. Demand means production; supply means consumption.  
+C. Demand applies only to services.  
+D. Demand and supply apply only to government purchases.
 
-**Answer:** A. Demand concerns buyers; supply concerns sellers.
+**Answer:** A. Demand is about buyers; supply is about sellers.
 
-**Explanation:** Demand describes willingness and ability to buy, while supply describes willingness and ability to offer for sale.
+**Explanation:** Buyers create demand. Sellers provide supply.
 
 ---
 
 ### 23. Hard · Concept distinction
-Which statement correctly distinguishes microeconomics from macroeconomics?
+Which statement is correct?
 
-A. Microeconomics studies only government; macroeconomics studies only firms.  
-B. Microeconomics studies individual units and markets; macroeconomics studies the economy as a whole and broad aggregates.  
-C. Microeconomics deals only with money; macroeconomics deals only with goods.  
+A. Microeconomics studies only government.  
+B. Microeconomics studies individual units; macroeconomics studies the whole economy.  
+C. Microeconomics deals only with money.  
 D. There is no difference between them.
 
-**Answer:** B. Microeconomics studies individual units and markets; macroeconomics studies the economy as a whole and broad aggregates.
+**Answer:** B. Microeconomics studies individual units; macroeconomics studies the whole economy.
 
-**Explanation:** Microeconomics focuses on individual consumers, firms and markets. Macroeconomics looks at economy-wide aggregates.
+**Explanation:** Microeconomics looks at individual units. Macroeconomics looks at the whole economy.
 
 ---
 
 ### 24. Medium · Factor identification
-A person combines land, labour and capital, makes business decisions and bears the risk of loss. Which factor of production is being described?
+A person combines land, labour and capital and bears business risk. This person represents:
 
 A. Labour  
 B. Land  
@@ -349,15 +349,14 @@ D. Capital
 
 **Answer:** C. Entrepreneurship
 
-**Explanation:** Entrepreneurship organises the other factors of production, takes decisions and bears business risk.
+**Explanation:** Entrepreneurship organises the other factors and bears business risk.
 
 ---
 
 ## Review focus
 
 Please review especially for:
-- exam realism of stems;
-- whether language is simple enough;
-- whether distractors are close and plausible;
-- whether opportunity-cost scenarios feel natural;
-- whether the direct-definition share is acceptable for an introductory CP.
+- whether stems now feel short and exam-like;
+- whether explanations are easy for beginners;
+- whether any wording still feels textbook-like;
+- whether distractors remain plausible after simplification.
