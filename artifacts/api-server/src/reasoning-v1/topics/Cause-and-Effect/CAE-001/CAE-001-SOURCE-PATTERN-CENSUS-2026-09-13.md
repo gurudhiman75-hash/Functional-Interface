@@ -27,7 +27,7 @@ Observed classic five-way schema:
 4. Both statements are effects of independent causes.
 5. Both statements are effects of a common cause.
 
-This is a **core source pattern** and must be directly reviewable in CAE-001.
+This is a **core source pattern** and is now directly represented by `CLASSIC_BANK_FIVE_RELATION`.
 
 The same source also shows a four-option variant where the relationship categories are not identical to the classic five-way set. Therefore option-count alone is not enough to define an exam profile.
 
@@ -43,7 +43,7 @@ Observed form:
 
 Implication:
 
-`FIVE_WAY` as a count is not a sufficient source-profile definition. The renderer should map to a named relationship schema, not merely a number of options.
+A count-only `FIVE_WAY` label is not a sufficient source-profile definition. The implemented source-profile layer now records named relationship sets separately from the legacy low-level option-count renderer.
 
 Status: memory-based rather than SSC/IBPS official-host PDF; retain as secondary pattern evidence, not sole authority for freeze.
 
@@ -78,9 +78,11 @@ Notably, this four-option set does **not** contain a generic merged `independent
 Reference discovered 2026-09-13:
 `https://testbook.com/question-answer/directions-to-solvein-each-of-the-following-que--607abbe5704cf93c32d89f8b`
 
-Implication:
+Implementation status:
 
-Punjab-state exam coverage gives direct evidence that `FOUR_WAY` cannot mean one universal relationship set. CAE should support an exact source-profile/relationship-set authority.
+- represented exactly by `PUNJAB_POLICE_SI_2016_FOUR_RELATION`;
+- generated on top of the same canonical causal state;
+- unsupported relationship states are rejected for this source profile rather than silently collapsed.
 
 ### 5. SSC Selection Post 2025 — direct recognition form
 
@@ -98,9 +100,12 @@ This is **not** the normal paired-statement relationship renderer. It is a direc
 Reference discovered 2026-09-13:
 `https://testbook.com/question-answer/which-of-the-following-is-an-example-of-cause-and--69ccc950353b7d6dd14c07a7`
 
-Implication:
+Implementation status:
 
-Add a source-backed CP-001 rendering family for **valid-causal-relation recognition among options**. It can still originate from canonical graph edges plus invalid/non-causal option authorities; no graph redesign is needed.
+- represented by `SSC_SELECTION_POST_DIRECT_RECOGNITION` under CP-001;
+- one option is built from a direct canonical edge;
+- three distractors are graph-derived reverse-causation, common-cause-confusion and independent-event false-causation claims;
+- EN/HI/PA use the same semantic option IDs and answer order.
 
 ### 6. Oliveboard 2026 Cause and Effect guide / live quiz
 
@@ -115,7 +120,7 @@ Observed coverage claims and practice forms include:
 - immediate and remote effects;
 - four-option paired-statement live-quiz rendering.
 
-Important observation: the visible four-option relationship set is not identical to CAE's current generalized `FOUR_WAY` profile.
+Important observation: the visible four-option relationship set is not identical across all sources. This is now handled by the named source-profile layer rather than assuming one universal four-option schema.
 
 Reference:
 `https://www.oliveboard.in/blog/cause-and-effect-reasoning/`
@@ -166,14 +171,14 @@ CP-003/004 should eventually support **combination-answer probable-cause/effect 
 | --- | --- | --- | --- |
 | Paired statements: I causes II | Strong / classic + bank + Punjab | Yes | Core |
 | Paired statements: II causes I | Strong / classic + bank + Punjab | Yes | Core |
-| Both independent causes | Strong / classic + bank | Engine supports via five-way | Must be explicitly reviewed |
-| Effects of independent causes | Strong / classic + bank + Punjab | Engine supports via five-way | Must be explicitly reviewed |
-| Effects of common cause | Strong / classic + bank + Punjab | Yes | Core |
-| Punjab Police SI 2016 exact four-way relationship set | Strong official-paper-labelled evidence | Not exact; generalized four-way only | Add/source-map exact profile |
-| Other four-option paired-statement schemas | Strong as observed variants | Generalized only | Map exact supported schemas |
-| Classic five-option paired-statement schema | Strong | Yes in broad form | Rename/profile by relationship set, not count alone |
+| Both independent causes | Strong / classic + bank | Exact in `CLASSIC_BANK_FIVE_RELATION` | Core/source-profile review |
+| Effects of independent causes | Strong / classic + bank + Punjab | Exact in Bank + Punjab profiles | Core/source-profile review |
+| Effects of common cause | Strong / classic + bank + Punjab | Exact in Bank + Punjab profiles | Core |
+| Punjab Police SI 2016 exact four-way relationship set | Strong official-paper-labelled evidence | **Implemented exact** | Human-review profile |
+| Other four-option paired-statement schemas | Strong as observed variants | Partly mapped | Add only when source-specific set is verified |
+| Classic five-option paired-statement schema | Strong | **Implemented exact** | Human-review profile |
 | `None of these` relationship outcome | Secondary recent bank memory evidence | No explicit profile | Discovery candidate; verify with stronger source before freeze |
-| Choose the sentence/pair showing valid cause-effect | Strong recent SSC-labelled source | Not currently represented as dedicated learner task | Add CP-001 renderer |
+| Choose the sentence/pair showing valid cause-effect | Strong recent SSC-labelled source | **Implemented CP-001 renderer** | Human-review profile |
 | Observation + two possible causes, combination answer | Current practice/discovery evidence | No | Add CP-003 renderer after source validation |
 | Cause/statement + two possible effects, combination answer | Current practice/discovery evidence | No | Add CP-004 renderer after source validation |
 | Cause + three possible effects, combination answer | Current practice/discovery evidence | No | Add CP-004 advanced renderer after source validation |
@@ -186,49 +191,40 @@ CP-003/004 should eventually support **combination-answer probable-cause/effect 
 | Missing causal link | Novel/depth evidence; not yet established as common SSC/Bank CAE paper form | Yes CP-009 | Keep as Examtree edge; do not call core exam pattern |
 | Competing explanations by timing/scope/magnitude | General causal-reasoning depth | Yes CP-005 | Keep as advanced/edge and strengthen |
 
-## Profile-model finding
+## Profile-model implementation finding
 
-The current type names `FOUR_WAY` and `FIVE_WAY` are too coarse for source parity because different sources use different relationship sets at the same option count.
+Source parity is now represented by `source-profiles.ts` rather than by option count alone.
 
-Before source freeze, introduce either:
+The legacy core generator still uses its existing `FOUR_WAY` / `FIVE_WAY` low-level profile values to preserve the frozen architecture. The source layer declares:
 
-1. named profile IDs, e.g. `CLASSIC_BANK_FIVE_RELATION`, `PUNJAB_POLICE_FOUR_RELATION`, `COLLAPSED_INDEPENDENCE_FOUR_RELATION`, `DIRECT_RECOGNITION_FOUR_OPTION`; or
-2. a relationship-set authority where a profile declares the exact relationship IDs/options it can render.
+- exact source profile ID;
+- source label;
+- learner operation;
+- legacy base rendering shape where required;
+- exact relationship IDs for paired-statement profiles;
+- compatible QL ownership.
 
-The second form is preferable because it avoids multiplying hard-coded profile enums while still making source coverage auditable.
-
-This is a **renderer/profile-model refinement**, not a causal-graph redesign.
+This keeps source evidence auditable without forcing a causal-graph redesign.
 
 ## Source-driven gap decisions
 
-### Gap 1 — recent SSC direct-recognition MCQ
+### Gap 1 — recent SSC direct-recognition MCQ — IMPLEMENTED
 
-Add under CP-001:
+Implemented under CP-001 as `SSC_SELECTION_POST_DIRECT_RECOGNITION`.
 
-- one correct option built from a valid canonical direct causal edge;
-- distractors representing coincidence, invalid causation, mere conjunction and nonsensical/unsupported relation;
-- no difficult vocabulary;
-- source/profile metadata identifying this as direct-recognition rather than paired-statement relationship.
+### Gap 2 — classic banking five-way review — IMPLEMENTED AT RENDERER LEVEL
 
-### Gap 2 — classic banking five-way review
+`CLASSIC_BANK_FIVE_RELATION` now carries the exact five relationship IDs. `source-profile-review-pack.ts` is designed to expose all five answer relationships before filling its ten-question quota.
 
-The engine already contains the relationship distinctions. The immediate gap is review/profile coverage rather than graph capability.
+### Gap 3 — Punjab exact four-way profile — IMPLEMENTED
 
-Required:
+`PUNJAB_POLICE_SI_2016_FOUR_RELATION` matches the four source categories exactly and does not merge independent causes/effects into a generic answer.
 
-- materialize five-way samples in the editorial pack;
-- ensure independent causes and effects of independent causes are both exercised;
-- compare wording with source conventions.
+### Gap 4 — exact profile authority rather than option-count authority — IMPLEMENTED
 
-### Gap 3 — Punjab exact four-way profile
+The source-profile layer now provides the source-auditable authority while preserving legacy renderer compatibility under the frozen core.
 
-Add/source-map a paired-statement relationship profile matching the Punjab Police SI 2016 category set. Do not approximate it through a generic merged-independent answer.
-
-### Gap 4 — exact profile authority rather than option-count authority
-
-Do not assume every four-option source means `independent` should be collapsed, and do not assume every five-option source is the classic bank five-way set. Record the exact relationship set supported by each renderer.
-
-### Gap 5 — combined possible-cause/effect renderings
+### Gap 5 — combined possible-cause/effect renderings — PENDING SOURCE-VALIDATED WAVE
 
 The current graph/candidate engine can support multi-cause/effect evaluation without redesign:
 
@@ -239,7 +235,7 @@ The current graph/candidate engine can support multi-cause/effect evaluation wit
 
 Add these only with clear source/profile metadata and separate them from the current one-of-four probable cause/effect form.
 
-### Gap 6 — advanced Examtree edge versus exam-core labelling
+### Gap 6 — advanced Examtree edge versus exam-core labelling — OPEN
 
 CP-005 to CP-009 contain useful deeper causal reasoning. Until stronger paper evidence is collected, classify sequence/missing-link/integrated forms as **Examtree advanced/novel coverage**, not as proven high-frequency SSC/Bank/Punjab paper formats.
 
@@ -271,7 +267,6 @@ Do not copy whole proprietary question sets into runtime authorities.
 CAE-001 source coverage can be frozen only when:
 
 - every core observed exam pattern maps to an implemented renderer/profile;
-- the Punjab-state exact relationship profile is represented rather than approximated;
 - the 10-question-per-CP human review pack samples distinct causal states;
 - paired-statement review includes every supported source profile;
 - CP-003/004 source review decides which multi-cause/effect combination renderers become core versus advanced;
