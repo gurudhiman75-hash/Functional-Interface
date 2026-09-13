@@ -10,20 +10,27 @@ export type Cae001EditorialReviewSample = Readonly<{
 }>;
 
 /**
- * A deterministic, review-only selection.  It deliberately samples graph
- * states before item presentations so the pack demonstrates real semantic
- * coverage rather than option shuffling.
+ * A deterministic, review-only selection. It samples semantic causal states
+ * before item presentations so option shuffling cannot consume review slots.
  */
 function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Cae001EditorialReviewSample[] {
   const generated: Cae001EditorialReviewSample[] = [];
-  for (let seed = 0; seed < 2_000 && generated.length < 320; seed += 1) {
+  const seenCausalStates = new Set<string>();
+  for (let seed = 0; seed < 5_000 && generated.length < 320; seed += 1) {
     const question = generateCaeQuestion({ qlId, locale: "en-IN", seed });
-    if (!generated.some((entry) => entry.question.itemVariantId === question.itemVariantId)) generated.push({ seed, question });
+    if (!seenCausalStates.has(question.causalStateId)) {
+      seenCausalStates.add(question.causalStateId);
+      generated.push({ seed, question });
+    }
   }
   const availableDifficulties = new Set(generated.map((entry) => entry.question.difficulty));
   const selected: Cae001EditorialReviewSample[] = [];
+  const selectedCausalStates = new Set<string>();
   const add = (entry: Cae001EditorialReviewSample | undefined) => {
-    if (entry && !selected.some((chosen) => chosen.question.itemVariantId === entry.question.itemVariantId)) selected.push(entry);
+    if (entry && !selectedCausalStates.has(entry.question.causalStateId)) {
+      selected.push(entry);
+      selectedCausalStates.add(entry.question.causalStateId);
+    }
   };
 
   // First show every difficulty that the engine can actually derive for this QL.
@@ -34,7 +41,7 @@ function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Ca
     add(entry);
     if (selected.length === 10) break;
   }
-  if (selected.length !== 10) throw new Error(`${qlId}: editorial review selection did not reach ten questions.`);
+  if (selected.length !== 10) throw new Error(`${qlId}: editorial review selection did not reach ten distinct causal states.`);
   return Object.freeze(selected);
 }
 
@@ -58,7 +65,7 @@ export function renderCae001EditorialRealnessReview(): string {
   const lines = [
     "# CAE-001 V3 editorial-realness review pack",
     "",
-    "Deterministic English (`en-IN`) review-only samples. There are ten generated questions for each current CP/QL. The pack exposes causal state separately from item presentation; QL allocation remains provisional.",
+    "Deterministic English (`en-IN`) review-only samples. There are ten semantically distinct generated causal states for each current CP/QL. QL allocation remains provisional.",
   ];
   for (const qlId of CAE_PROVISIONAL_QL_IDS) {
     const samples = CAE_001_EDITORIAL_REALNESS_REVIEW[qlId];
