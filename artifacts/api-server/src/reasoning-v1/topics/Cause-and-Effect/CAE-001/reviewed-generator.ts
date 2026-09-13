@@ -1,4 +1,4 @@
-import { withCae001SaturationWave1 } from "./causal-world-saturation-wave1.ts";
+import { withCae001SaturationWave2 } from "./causal-world-saturation-wave2.ts";
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { generateReviewedCp001Question } from "./cp001-reviewed-quality-guard.ts";
 import { generateReviewedCaeCombinationQuestion } from "./cp003004-reviewed-polish.ts";
@@ -32,8 +32,8 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   }
   // Two out of every three default CP006 seeds exercise causal distance;
   // seed parity then gives both immediate and remote cases. The remaining
-  // third preserves the graph-native indirect-chain renderer with Wave 1
-  // saturation enabled for reviewed output.
+  // third preserves the graph-native indirect-chain renderer with the full
+  // Wave 1 + Wave 2 saturation pool enabled for reviewed output.
   if (input.qlId === "CAE-QL-006" && defaultFourWay && (input.seed >>> 0) % 3 !== 2) {
     return generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
   }
@@ -51,6 +51,6 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
 
   const graphNativeSaturationEligible = input.qlId === "CAE-QL-001" || input.qlId === "CAE-QL-002" || input.qlId === "CAE-QL-006";
   return graphNativeSaturationEligible
-    ? withCae001SaturationWave1(() => generateCaeQuestion(input))
+    ? withCae001SaturationWave2(() => generateCaeQuestion(input))
     : generateCaeQuestion(input);
 }
