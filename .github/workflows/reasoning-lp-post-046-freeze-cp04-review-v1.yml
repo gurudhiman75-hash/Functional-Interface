@@ -2,7 +2,8 @@ name: Reasoning Logic Puzzles Post-046 Freeze and CP04 Review V1
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-post-046-localization-freeze-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-post-046-localization-freeze-v1.test.ts"
