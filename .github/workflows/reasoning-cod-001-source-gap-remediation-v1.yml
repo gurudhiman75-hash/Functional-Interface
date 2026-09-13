@@ -1,0 +1,40 @@
+name: Reasoning COD-001 Source-Gap Remediation V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/remediation/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-001-SOURCE-GAP-REMEDIATION-V1.md"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-cod-001-source-gap-remediation-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-gap-remediation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run 480-question source-gap prototype audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/remediation/source-gap-prototype.test.ts
+
+      - name: Export human-review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/remediation/export-source-gap-review.ts cod-001-source-gap-review.md
+
+      - name: Upload review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-source-gap-remediation-v1-review-${{ github.run_id }}
+          path: cod-001-source-gap-review.md
+          retention-days: 14
