@@ -1,4 +1,5 @@
 import { generateCaeQuestion } from "./chapter-generator.ts";
+import { generateCaeCombinationQuestion } from "./cp003004-combination.ts";
 import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.ts";
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateCp007FalseCausationQuestion } from "./cp007-false-causation.ts";
@@ -15,23 +16,19 @@ export type GenerateReviewedCaeQuestionInput = Readonly<{
 
 /**
  * Review-facing generator facade. V3 remains frozen as the architecture
- * regression. Approved editorial remediations are layered here:
+ * regression. Approved editorial/source remediations are layered here.
  *
- * - CP-005: human-calibrated competing explanations with genuinely close
- *   alternatives; HARD is earned by causal discrimination rather than tiny or
- *   wrong-location distractors.
- * - CP-007: false-causation/post-hoc cases plus hidden common-factor cases.
- * - CP-008: multi-event reasoning beyond simple ordering: immediate/remote
- *   cause/effect, bridge-role inference and invalid-link detection.
- * - CP-009: integrated graph reasoning: single/double gap completion,
- *   connector-pair inference, indirect relation, next-outcome prediction and
- *   common-cause reconstruction.
- *
- * Explicit FIVE_WAY requests remain on V3 unless a checkpoint-specific sourced
- * five-way renderer has been separately approved.
+ * CP-003/004 retain the frozen one-of-four forms, while every third default
+ * seed exercises the practice-validated combination-answer renderer. This
+ * preserves the conventional form and makes the newly sourced learner
+ * operation visible without redefining the canonical graph model.
  */
 export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionInput): GeneratedCaeQuestion {
   const defaultFourWay = input.questionProfile === undefined || input.questionProfile === "FOUR_WAY";
+
+  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && (input.seed >>> 0) % 3 === 0) {
+    return generateCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
+  }
   if (input.qlId === "CAE-QL-005" && defaultFourWay) {
     return generateCp005CompetingQuestion({ locale: input.locale, seed: input.seed });
   }
