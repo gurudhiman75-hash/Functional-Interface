@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { POL_CP001_ACT_ROWS_V1 } from "./pol-cp001-facts";
+import { POL_CP001_SOURCE_IDS_V1 } from "./pol-cp001-sources";
 import { generatePolCp001ReviewBatchV1 } from "./pol-cp001-review-generator-v1";
 
 describe("POL-CP-001 constitutional-history review batch", () => {
@@ -34,12 +35,22 @@ describe("POL-CP-001 constitutional-history review batch", () => {
     }
   });
 
+  it("resolves every fact source ID in the CP source registry", () => {
+    const sourceIds = new Set(POL_CP001_SOURCE_IDS_V1);
+    for (const row of POL_CP001_ACT_ROWS_V1) {
+      for (const sourceId of row.sourceIds) expect(sourceIds.has(sourceId)).toBe(true);
+    }
+  });
+
   it("uses all four correct-option positions", () => {
     expect(new Set(questions.map((question) => question.correctIndex))).toEqual(new Set([0, 1, 2, 3]));
   });
 
-  it("has no duplicate stems", () => {
-    expect(new Set(questions.map((question) => question.stem)).size).toBe(questions.length);
+  it("has no duplicate semantic questions while allowing standard instruction stems", () => {
+    const signatures = questions.map((question) =>
+      [question.qlId, question.canonicalAnswer, [...question.options].sort().join("||")].join("::"),
+    );
+    expect(new Set(signatures).size).toBe(questions.length);
   });
 
   it("contains all three intended difficulty bands", () => {
