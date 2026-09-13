@@ -79,5 +79,8 @@ const studio = previewCae001QuestionStudioReview({ qlId: "CAE-QL-009", locale: "
 assert.equal(studio.question.projectionId, "CAE-PLAN-INTEGRATED-V2");
 assert.equal(studio.reviewOnly, true);
 
-const legacyFiveWay = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "en-IN", seed: 9, questionProfile: "FIVE_WAY" });
-assert.notEqual(legacyFiveWay.projectionId, "CAE-PLAN-INTEGRATED-V2", "explicit unsourced five-way CP009 requests must remain on frozen V3");
+assert.throws(
+  () => generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "en-IN", seed: 9, questionProfile: "FIVE_WAY" }),
+  /does not support profile 'FIVE_WAY'/,
+  "CP009 is four-way-only; unsupported five-way requests must fail closed",
+);
