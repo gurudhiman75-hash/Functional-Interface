@@ -86,6 +86,24 @@ jobs:
             node "artifacts/api-server/dist/geography/${output_name}"
           done
 
+      - name: Run GEO-PHY-001 qualification gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          tests=(
+            "src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp001-review-batch-v1.test.ts"
+            "src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp002-review-batch-v1.test.ts"
+            "src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp003-review-batch-v1.test.ts"
+            "src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp004-review-batch-v1.test.ts"
+          )
+          for test_file in "${tests[@]}"; do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "${test_file}" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/${output_name}"
+            node "artifacts/api-server/dist/geography/${output_name}"
+          done
+
       - name: Materialize current GEO-RIV-001 review authorities
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
@@ -114,6 +132,15 @@ jobs:
           node dist/geography/geo-riv-001-cp003-export-review-v2.mjs
           node dist/geography/geo-riv-001-cp004-export-review.mjs
           node dist/geography/geo-riv-001-cp005-export-review-v4.mjs
+
+      - name: Materialize GEO-PHY-001 CP004 review candidate
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/physiography/geo-phy-001-cp004-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-phy-001-cp004-export-review-v1.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-phy-001-cp004-export-review-v1.mjs
 
       - name: Upload GEO-RIV-001 CP001 review artifact
         uses: actions/upload-artifact@v4
@@ -152,6 +179,14 @@ jobs:
         with:
           name: GEO-RIV-001-CP005-REVIEW-BATCH-V4
           path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP005-V4/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-PHY-001 CP004 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-PHY-001-CP004-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-PHY-001-CP004-V1/
           if-no-files-found: error
           retention-days: 30
 
