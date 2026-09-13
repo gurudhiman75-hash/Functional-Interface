@@ -22,6 +22,13 @@ function assertNativeScript(text: string, language: "hi" | "pa") {
   else assert.match(text, /[\u0A00-\u0A7F]/u);
 }
 
+function assertCleanNativeWording(text: string) {
+  assert.ok(!text.includes("तुलना-बिंदु"));
+  assert.ok(!text.includes("ਤੁਲਨਾ-ਬਿੰਦੂ"));
+  assert.ok(!text.includes("प्राप्त करें"));
+  assert.ok(!text.includes("ਪ੍ਰਾਪਤ ਕਰੋ"));
+}
+
 const q24En = generateConsolidatedAuditTrg001Question("TRG-001-QL-024", "consolidated-q24", "en") as any;
 assert.equal(q24En.solveMode, "compareSinCosFromAcuteInterval");
 assert.equal(q24En.difficulty, "Easy");
@@ -33,6 +40,7 @@ for (const language of ["hi", "pa"] as const) {
   assert.equal(q24.correctIndex, q24En.correctIndex);
   assertNativeScript(q24.stem, language);
   assertNativeScript(q24.learnerExplanation, language);
+  assertCleanNativeWording(q24.learnerExplanation);
 }
 
 let q126PyqSeed: string | null = null;
@@ -56,6 +64,7 @@ for (const seed of [q126PyqSeed!, q126LegacySeed!]) {
     assert.equal(localized.correctIndex, en.correctIndex);
     assertNativeScript(localized.stem, language);
     assertNativeScript(localized.learnerExplanation, language);
+    assertCleanNativeWording(localized.learnerExplanation);
   }
 }
 
@@ -69,6 +78,7 @@ for (const language of ["hi", "pa"] as const) {
   assert.equal(q143.correctIndex, q143En.correctIndex);
   assertNativeScript(q143.stem, language);
   assertNativeScript(q143.learnerExplanation, language);
+  assertCleanNativeWording(q143.learnerExplanation);
 }
 
 for (const language of ["en", "hi", "pa"] as const) {
