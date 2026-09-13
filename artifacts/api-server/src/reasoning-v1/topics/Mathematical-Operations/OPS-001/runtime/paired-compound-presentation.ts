@@ -182,7 +182,7 @@ export function generateOpsPairedCompoundPresentation(seed: number, locale: OpsP
       requestedSeed: seed,
       sourceSeed: seed,
       compoundSubtype: "OPERATOR_AND_WHOLE_NUMBER",
-      presentationMode: "PAIRED_EXPRESSIONS_ORDERED_RESULTS",
+      presentationMode: "SSC_PAIRED_EQUATION_RESULTS",
       presentationAnswerSemantic: "ORDERED_RESULT_PAIR",
       sourceBackedSurface: "SSC_CGL_2022_PAIRED_EQUATIONS",
       misconceptionDistractorsGrounded: true,
