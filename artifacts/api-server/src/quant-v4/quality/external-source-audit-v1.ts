@@ -16,6 +16,7 @@ export type QuantExternalCoverageDisposition =
   | "DIRECTLY_COVERED"
   | "COVERED_WITH_VARIATION"
   | "MISSING_ARCHETYPE"
+  | "RUNTIME_MAPPING_PENDING"
   | "OWNED_BY_OTHER_PACKAGE"
   | "OUT_OF_TARGET_SCOPE"
   | "AMBIGUOUS_SOURCE_ITEM"
@@ -50,6 +51,7 @@ export const QUANT_V4_EXTERNAL_SOURCE_AUDIT_V1 = Object.freeze({
     "Uploaded books are evidence, not automatic package authority.",
     "Real-exam PYQs and target-exam books are reported separately from adjacent-exam material.",
     "A source contributes to a package denominator only when its source scope and item are relevant to that package.",
+    "RUNTIME_MAPPING_PENDING is unresolved audit work and must not be counted as covered or missing until the active runtime is checked.",
     "OWNED_BY_OTHER_PACKAGE is not a coverage failure for the audited package.",
     "OUT_OF_TARGET_SCOPE is not a coverage failure for the target exam profile.",
     "EXTRACTION_FAILURE is an ingestion defect and must never be counted as mathematical non-coverage.",
@@ -68,6 +70,16 @@ export const QUANT_V4_EXTERNAL_SOURCE_AUDIT_V1 = Object.freeze({
 });
 
 export const QUANT_V4_EXTERNAL_SOURCES_V1: readonly QuantExternalSource[] = Object.freeze([
+  Object.freeze({
+    sourceId: "BOOK-DISHA-SSC-MATHEMATICS-GUIDE",
+    title: "Disha SSC Mathematics Guide in English",
+    tier: "B_TARGET_EXAM_BOOK" as const,
+    targetExams: ["SSC"],
+    packages: ["ALL_QUANT_BY_SECTION"],
+    ingestionStatus: "READY" as const,
+    countInTargetCoverageDenominator: true,
+    notes: "High-value target-exam source with a readable Trigonometry and Its Applications chapter. Use page/question locators and route Heights & Distances to TRG-002 before scoring TRG-001.",
+  }),
   Object.freeze({
     sourceId: "BOOK-RAKESH-YADAV-MATHS-7300",
     title: "Rakesh Yadav Maths 7300 Book PDF",
@@ -125,6 +137,7 @@ export function summarizeExternalCoverage(
     eligible: eligible.length,
     covered: covered.length,
     missing: eligible.filter((observation) => observation.disposition === "MISSING_ARCHETYPE").length,
+    pendingRuntimeMapping: observations.filter((observation) => observation.disposition === "RUNTIME_MAPPING_PENDING").length,
     coverageRate: eligible.length === 0 ? null : covered.length / eligible.length,
   });
 }
