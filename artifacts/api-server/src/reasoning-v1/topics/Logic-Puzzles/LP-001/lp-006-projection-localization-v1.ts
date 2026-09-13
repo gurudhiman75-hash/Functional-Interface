@@ -49,7 +49,6 @@ export const LP_006_PROJECTION_HI_PA_LOCALIZATION_REVIEW_V1 = Object.freeze({
 });
 
 type ProjectionDimension = "PERSON" | "DAY" | "SUBJECT" | "CITY";
-
 type ValueMap = Map<string, string>;
 
 function tableRows(lines: readonly string[]): string[][] {
@@ -81,12 +80,7 @@ function translated(map: ValueMap, value: string): string {
   return map.get(value) ?? value;
 }
 
-function nativeProjectionStem(
-  language: Lp006ProjectionLocalizedLanguage,
-  source: ProjectionDimension,
-  target: ProjectionDimension,
-  sourceValue: string,
-): string {
+function nativeProjectionStem(language: Lp006ProjectionLocalizedLanguage, source: ProjectionDimension, target: ProjectionDimension, sourceValue: string): string {
   if (language === "hi") {
     if (source === "SUBJECT" && target === "CITY") return `${sourceValue} अध्ययन क्षेत्र वाले व्यक्ति का शहर कौन-सा है?`;
     if (source === "SUBJECT" && target === "PERSON") return `${sourceValue} अध्ययन क्षेत्र किस व्यक्ति को मिला है?`;
@@ -110,23 +104,32 @@ function nativeProjectionStem(
 }
 
 function statementFromEnglish(language: Lp006ProjectionLocalizedLanguage, option: string, map: ValueMap): string {
-  let match = option.match(/^(.+) is scheduled on (.+)\.$/u);
+  let match = option.match(/^The person assigned to (.+) is scheduled in (.+)\.$/u);
   if (match) {
-    const first = translated(map, match[1]!);
+    const subject = translated(map, match[1]!);
+    const city = translated(map, match[2]!);
+    return language === "hi" ? `${subject} अध्ययन क्षेत्र वाला व्यक्ति ${city} शहर से जुड़ा है।` : `${subject} ਅਧਿਐਨ ਖੇਤਰ ਵਾਲਾ ਵਿਅਕਤੀ ${city} ਸ਼ਹਿਰ ਨਾਲ ਜੁੜਿਆ ਹੈ।`;
+  }
+
+  match = option.match(/^The person assigned to (.+) is scheduled on (.+)\.$/u);
+  if (match) {
+    const subject = translated(map, match[1]!);
     const day = translated(map, match[2]!);
-    if (option.startsWith("The person scheduled in ")) {
-      const cityMatch = option.match(/^The person scheduled in (.+) is scheduled on (.+)\.$/u)!;
-      const city = translated(map, cityMatch[1]!);
-      const cityDay = translated(map, cityMatch[2]!);
-      return language === "hi" ? `${city} शहर वाले व्यक्ति का दिन ${cityDay} है।` : `${city} ਸ਼ਹਿਰ ਵਾਲੇ ਵਿਅਕਤੀ ਦਾ ਦਿਨ ${cityDay} ਹੈ।`;
-    }
-    if (option.startsWith("The person assigned to ")) {
-      const subjectMatch = option.match(/^The person assigned to (.+) is scheduled on (.+)\.$/u)!;
-      const subject = translated(map, subjectMatch[1]!);
-      const subjectDay = translated(map, subjectMatch[2]!);
-      return language === "hi" ? `${subject} अध्ययन क्षेत्र वाले व्यक्ति का दिन ${subjectDay} है।` : `${subject} ਅਧਿਐਨ ਖੇਤਰ ਵਾਲੇ ਵਿਅਕਤੀ ਦਾ ਦਿਨ ${subjectDay} ਹੈ।`;
-    }
-    return language === "hi" ? `${first} का दिन ${day} है।` : `${first} ਦਾ ਦਿਨ ${day} ਹੈ।`;
+    return language === "hi" ? `${subject} अध्ययन क्षेत्र वाले व्यक्ति का दिन ${day} है।` : `${subject} ਅਧਿਐਨ ਖੇਤਰ ਵਾਲੇ ਵਿਅਕਤੀ ਦਾ ਦਿਨ ${day} ਹੈ।`;
+  }
+
+  match = option.match(/^The person scheduled in (.+) is scheduled on (.+)\.$/u);
+  if (match) {
+    const city = translated(map, match[1]!);
+    const day = translated(map, match[2]!);
+    return language === "hi" ? `${city} शहर वाले व्यक्ति का दिन ${day} है।` : `${city} ਸ਼ਹਿਰ ਵਾਲੇ ਵਿਅਕਤੀ ਦਾ ਦਿਨ ${day} ਹੈ।`;
+  }
+
+  match = option.match(/^(.+) is scheduled on (.+)\.$/u);
+  if (match) {
+    const person = translated(map, match[1]!);
+    const day = translated(map, match[2]!);
+    return language === "hi" ? `${person} का दिन ${day} है।` : `${person} ਦਾ ਦਿਨ ${day} ਹੈ।`;
   }
 
   match = option.match(/^(.+) is assigned to (.+)\.$/u);
@@ -143,28 +146,15 @@ function statementFromEnglish(language: Lp006ProjectionLocalizedLanguage, option
     return language === "hi" ? `${person} का शहर ${city} है।` : `${person} ਦਾ ਸ਼ਹਿਰ ${city} ਹੈ।`;
   }
 
-  match = option.match(/^The person assigned to (.+) is scheduled in (.+)\.$/u);
-  if (match) {
-    const subject = translated(map, match[1]!);
-    const city = translated(map, match[2]!);
-    return language === "hi" ? `${subject} अध्ययन क्षेत्र वाला व्यक्ति ${city} शहर से जुड़ा है।` : `${subject} ਅਧਿਐਨ ਖੇਤਰ ਵਾਲਾ ਵਿਅਕਤੀ ${city} ਸ਼ਹਿਰ ਨਾਲ ਜੁੜਿਆ ਹੈ।`;
-  }
-
   throw new Error(`Unsupported LP-006 projection statement surface: ${option}`);
 }
 
-function localizedBaseEvidence(language: Lp006ProjectionLocalizedLanguage, base: Lp001008LocalizedCaselet): string[] {
+function localizedBaseEvidence(base: Lp001008LocalizedCaselet): string[] {
   const lines = [...base.children[0]!.explanation.lines];
   return lines.length > 1 ? lines.slice(0, -1) : lines;
 }
 
-function localizeProjectionChild(
-  language: Lp006ProjectionLocalizedLanguage,
-  caselet: Lp006ProjectionCaselet,
-  base: Lp001008LocalizedCaselet,
-  child: Lp006ProjectionChild,
-  map: ValueMap,
-): Lp006ProjectionLocalizedChild {
+function localizeProjectionChild(language: Lp006ProjectionLocalizedLanguage, base: Lp001008LocalizedCaselet, child: Lp006ProjectionChild, map: ValueMap): Lp006ProjectionLocalizedChild {
   if (child.qlId === "LP-QL-045") {
     if (!("sourceDimension" in child.proof)) throw new Error(`${child.questionId}: missing projection proof.`);
     const sourceValue = translated(map, child.proof.sourceValue);
@@ -181,10 +171,7 @@ function localizeProjectionChild(
       stem: `${base.scenario}\n\n${language === "hi" ? "शर्तें" : "ਸ਼ਰਤਾਂ"}:\n${base.learnerFacingClues.map((clue) => `- ${clue}`).join("\n")}\n\n${question}`,
       options,
       answer,
-      explanation: {
-        summary: language === "hi" ? `${sourceValue} वाली पंक्ति पढ़ें।` : `${sourceValue} ਵਾਲੀ ਕਤਾਰ ਪੜ੍ਹੋ।`,
-        lines: [...localizedBaseEvidence(language, base), decision],
-      },
+      explanation: { summary: language === "hi" ? `${sourceValue} वाली पंक्ति पढ़ें।` : `${sourceValue} ਵਾਲੀ ਕਤਾਰ ਪੜ੍ਹੋ।`, lines: [...localizedBaseEvidence(base), decision] },
     };
   }
 
@@ -194,27 +181,18 @@ function localizeProjectionChild(
   const stem = language === "hi"
     ? (child.proof.polarity === "CORRECT" ? "निम्नलिखित में से कौन-सा कथन सही है?" : "निम्नलिखित में से कौन-सा कथन सही नहीं है?")
     : (child.proof.polarity === "CORRECT" ? "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?" : "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਨਹੀਂ ਹੈ?");
-  const decision = language === "hi"
-    ? `पूरी तालिका के अनुसार अपेक्षित कथन **${answer}** है।`
-    : `ਪੂਰੀ ਸਾਰਣੀ ਅਨੁਸਾਰ ਲੋੜੀਂਦਾ ਕਥਨ **${answer}** ਹੈ।`;
+  const decision = language === "hi" ? `पूरी तालिका के अनुसार अपेक्षित कथन **${answer}** है।` : `ਪੂਰੀ ਸਾਰਣੀ ਅਨੁਸਾਰ ਲੋੜੀਂਦਾ ਕਥਨ **${answer}** ਹੈ।`;
   return {
     ...child,
     language,
     stem: `${base.scenario}\n\n${language === "hi" ? "शर्तें" : "ਸ਼ਰਤਾਂ"}:\n${base.learnerFacingClues.map((clue) => `- ${clue}`).join("\n")}\n\n${stem}`,
     options,
     answer,
-    explanation: {
-      summary: language === "hi" ? "पूरी तालिका देखकर अपेक्षित कथन चुनें।" : "ਪੂਰੀ ਸਾਰਣੀ ਦੇਖ ਕੇ ਲੋੜੀਂਦਾ ਕਥਨ ਚੁਣੋ।",
-      lines: [...localizedBaseEvidence(language, base), decision],
-    },
+    explanation: { summary: language === "hi" ? "पूरी तालिका देखकर अपेक्षित कथन चुनें।" : "ਪੂਰੀ ਸਾਰਣੀ ਦੇਖ ਕੇ ਲੋੜੀਂਦਾ ਕਥਨ ਚੁਣੋ।", lines: [...localizedBaseEvidence(base), decision] },
   };
 }
 
-export function generateLp006ProjectionLocalizedBatchV1(
-  language: Lp006ProjectionLocalizedLanguage,
-  seed = "lp-006-projection-localization-v1",
-  count = 8,
-): Lp006ProjectionLocalizedCaselet[] {
+export function generateLp006ProjectionLocalizedBatchV1(language: Lp006ProjectionLocalizedLanguage, seed = "lp-006-projection-localization-v1", count = 8): Lp006ProjectionLocalizedCaselet[] {
   const english = generateLp006ProjectionBatchV2(seed, count);
   const localizedBase = LP_001_008_LOCALIZED_GENERATORS_V4["LP-006"]!(language, seed, count);
   if (english.length !== localizedBase.length) throw new Error("LP-006 projection localization base batch length mismatch.");
@@ -232,7 +210,7 @@ export function generateLp006ProjectionLocalizedBatchV1(
       difficultyBand: caselet.difficultyBand,
       scenario: base.scenario,
       learnerFacingClues: base.learnerFacingClues,
-      projectionChildren: caselet.projectionChildren.map((child) => localizeProjectionChild(language, caselet, base, child, map)),
+      projectionChildren: caselet.projectionChildren.map((child) => localizeProjectionChild(language, base, child, map)),
       englishProjectionCaselet: caselet,
       localizedBaseCaselet: base,
     };
