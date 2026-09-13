@@ -149,27 +149,68 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
     }
     metadata = sources(gross, net, concept("depreciation"));
   } else if (ql === 4) {
-    const row = rowIndex % 2 === 0 ? aggregates[1] : aggregates[0];
-    if (row.term === "GNP") {
-      stem = "GDP plus net factor income from abroad gives:";
-      correct = "GNP";
-      options = moveCorrect(aggregates.map((item) => item.term), correct, correctTarget);
-      explanation = "GNP = GDP + NFIA.";
-    } else {
-      stem = "Which item converts GDP into GNP?";
-      correct = "Net factor income from abroad";
-      options = moveCorrect(["Net factor income from abroad", "Depreciation", "Population", "Subsidies"], correct, correctTarget);
-      explanation = "Add NFIA to GDP to get GNP.";
-    }
+    const variants = [
+      {
+        stem: "GDP plus net factor income from abroad gives:",
+        correct: "GNP",
+        options: aggregates.map((item) => item.term),
+        explanation: "GNP = GDP + NFIA.",
+      },
+      {
+        stem: "Which item converts GDP into GNP?",
+        correct: "Net factor income from abroad",
+        options: ["Net factor income from abroad", "Depreciation", "Population", "Subsidies"],
+        explanation: "Add NFIA to GDP to get GNP.",
+      },
+      {
+        stem: "Adding NFIA to GDP gives which national aggregate?",
+        correct: "GNP",
+        options: aggregates.map((item) => item.term),
+        explanation: "GDP + NFIA = GNP.",
+      },
+      {
+        stem: "GNP differs from GDP because GNP includes:",
+        correct: "Net factor income from abroad",
+        options: ["Net factor income from abroad", "Depreciation only", "Population", "Subsidies only"],
+        explanation: "GNP adjusts GDP by NFIA.",
+      },
+    ];
+    const row = variants[rowIndex % variants.length];
+    stem = row.stem;
+    correct = row.correct;
+    options = moveCorrect([...row.options], correct, correctTarget);
+    explanation = row.explanation;
     metadata = sources(aggregates[0], aggregates[1], concept("nfia"));
   } else if (ql === 5) {
     const nominal = concept("nominal-gdp");
     const real = concept("real-gdp");
-    const nominalQuestion = rowIndex % 2 === 0;
-    stem = nominalQuestion ? "GDP measured at current prices is called:" : "GDP measured at constant prices is called:";
-    correct = nominalQuestion ? "Nominal GDP" : "Real GDP";
+    const variants = [
+      {
+        stem: "GDP measured at current prices is called:",
+        correct: "Nominal GDP",
+        explanation: "Nominal GDP uses current prices.",
+      },
+      {
+        stem: "GDP measured at constant prices is called:",
+        correct: "Real GDP",
+        explanation: "Real GDP uses constant prices.",
+      },
+      {
+        stem: "Which GDP measure uses current-year prices?",
+        correct: "Nominal GDP",
+        explanation: "Nominal GDP is measured at current prices.",
+      },
+      {
+        stem: "Which GDP measure uses constant prices?",
+        correct: "Real GDP",
+        explanation: "Real GDP is measured at constant prices.",
+      },
+    ];
+    const row = variants[rowIndex % variants.length];
+    stem = row.stem;
+    correct = row.correct;
     options = moveCorrect(["Nominal GDP", "Real GDP", "NDP", "GNP"], correct, correctTarget);
-    explanation = nominalQuestion ? "Nominal GDP uses current prices." : "Real GDP uses constant prices.";
+    explanation = row.explanation;
     metadata = sources(nominal, real);
   } else if (ql === 6) {
     const row = perCapitaCases[rowIndex % perCapitaCases.length];
