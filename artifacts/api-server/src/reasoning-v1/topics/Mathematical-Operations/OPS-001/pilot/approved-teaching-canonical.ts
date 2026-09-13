@@ -73,5 +73,6 @@ export function generateApprovedOpsQuestion(
     question = generateEntryQuestion(candidateId, seed);
   }
 
-  return restoreApprovedTeachingInvariants(question);
+  const normalized = restoreApprovedTeachingInvariants(question);
+  return normalized.seed === seed ? normalized : { ...normalized, seed };
 }
