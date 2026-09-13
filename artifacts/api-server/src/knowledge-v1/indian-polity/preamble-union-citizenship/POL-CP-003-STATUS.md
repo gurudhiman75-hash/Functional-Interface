@@ -1,8 +1,14 @@
 # POL-CP-003 — Preamble, Union & Citizenship Status
 
 **Branch:** `feature/polity-cp003-preamble-union-citizenship`  
-**Lifecycle:** REVIEW CANDIDATE — LANGUAGE V3  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Runtime registration:** READY FOR SHARED POLITY PACKAGE BINDING
+
+## Approval
+
+English editorial review approved by project owner on 2026-09-13 after the V4 exam-style stem pass.
+
+The approved authority is the repository-side V3 exam-style generator layered over the simplified V2 language pass. Future edits must be made in the source/generator layer and re-reviewed; preview-only patching is not allowed.
 
 ## Implemented
 
@@ -16,25 +22,11 @@
 - Article 6 pre/post-19 July 1948 migration distinction
 - Article 7 resettlement/permanent-return exception
 - Article 8 overseas Indian-origin registration path
-- 4 scenario rows for Articles 5–8
 - 18 genuine QLs
 - 58-question review batch
-- structural/provenance QA
-- generic date-wrapper ban carried forward from CP-002
+- short exam-style stems and beginner-friendly explanations
+- generic date-wrapper and conversational-stem bans
 - current citizenship-policy/current-affairs leakage blocked
-
-## Language V3 pass
-
-The review generator and canonical fact explanations were simplified after editorial feedback.
-
-Rules now enforced:
-- short, direct exam-style stems;
-- plain explanations suitable for beginners;
-- no artificial difficulty through legalistic wording;
-- constitutional terms such as `domicile`, `ordinary residence`, `registration` and `President's recommendation` are retained only where they affect legal meaning;
-- ordinary direct stems must remain at or below 30 words;
-- banned stem wording includes `principal subject`, `most directly governs`, `For the purposes of Article 368`, and `supplemental, incidental and consequential provisions`;
-- the rejected `On which date did the following occur...` wrapper remains blocked.
 
 ## Mechanical review QA
 
@@ -47,13 +39,10 @@ Rules now enforced:
 - no exact semantic duplicate signatures
 - Static constitutional scope preserved
 
-The repository-side V2 generator is now the simplified-language authority for this CP. Full repository CI is not claimed here.
+Full repository CI is not claimed here.
 
-## Deliberately gated
+## Still chapter-gated
 
-- merge to `New-main`
-- Question Studio exposure
+- Question Studio production exposure
 - Hindi/Punjabi localization
 - chapter-wide production registration
-
-These remain gated until the simplified English V3 review is approved.
