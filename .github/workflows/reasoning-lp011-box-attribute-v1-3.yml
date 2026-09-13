@@ -1,0 +1,36 @@
+name: Reasoning LP-011 Box Attribute V1.3
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011-stabilized-v1-3.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011-stabilized-v1-3.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011-review-export-v1-3.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-lp011-v1-3-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prove-v1-3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Prove LP-011 V1.3 terminology and semantic invariants
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011-stabilized-v1-3.test.ts
+      - name: Reprove LP-011 V1.2 structural candidate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011.test.ts
+      - name: Export V1.3 English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011-review-export-v1-3.ts > LP-011-ENGLISH-REVIEW-V1-3.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LP-011-ENGLISH-REVIEW-V1-3
+          path: LP-011-ENGLISH-REVIEW-V1-3.md
+          if-no-files-found: error
