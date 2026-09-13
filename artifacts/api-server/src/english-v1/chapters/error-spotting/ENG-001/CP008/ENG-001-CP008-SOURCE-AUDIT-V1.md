@@ -48,3 +48,5 @@ The approved source passed 9,000 deterministic stress generations, the complete 
 ## Runtime lifecycle
 
 CP008 is registered in shared `language-v1 / ENG-001` for Question Studio review generation only. Question Bank writes, test eligibility, mock-test eligibility, public publication, automatic learner delivery and production release remain locked. Defects must be fixed in the source generator and regenerated; the approved review output is not an editable source of truth.
+
+Merge remains blocked until the post-approval Question Studio integration gate is green on the current head.
