@@ -5,6 +5,9 @@ import {
   isOpenNewsClusterEligible,
   OPEN_NEWS_DISCOVERY_QUERIES,
   parseGdeltArticleList,
+  parseTavilySearchResults,
+  TRUSTED_NEWS_DISCOVERY_QUERIES,
+  trustedNewsSearchBody,
 } from "./open-news-discovery";
 
 assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.length >= 9);
@@ -17,6 +20,63 @@ assert.match(
   OPEN_NEWS_DISCOVERY_QUERIES.find((item) => item.key === "regulators_departments")?.query ?? "",
   /Legal Metrology/,
 );
+
+assert.ok(TRUSTED_NEWS_DISCOVERY_QUERIES.length >= 6);
+assert.ok(TRUSTED_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "trusted_press_broad"));
+assert.ok(TRUSTED_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "national_governance"));
+assert.ok(TRUSTED_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "economy_banking"));
+assert.ok(TRUSTED_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "punjab"));
+
+const searchBody = trustedNewsSearchBody(
+  "India current affairs 2026-08-30",
+  "2026-08-30",
+  ["thehindu.com", "indianexpress.com"],
+);
+assert.equal(searchBody.topic, "news");
+assert.equal(searchBody.search_depth, "basic");
+assert.equal(searchBody.max_results, 20);
+assert.equal(searchBody.include_answer, false);
+assert.equal(searchBody.include_raw_content, false);
+assert.equal(searchBody.include_images, false);
+assert.deepEqual(searchBody.include_domains, ["thehindu.com", "indianexpress.com"]);
+assert.equal(searchBody.start_date, "2026-08-30");
+assert.equal(searchBody.end_date, "2026-08-31");
+
+const tavilyArticles = parseTavilySearchResults({
+  answer: "This answer must never enter Current Affairs storage.",
+  results: [
+    {
+      title: "Government announces a major national policy initiative",
+      url: "https://www.thehindu.com/news/national/example-story/article123.ece",
+      content: "Publisher/search snippet text that must be discarded rather than persisted.",
+      raw_content: "Full article content must never be requested or persisted.",
+      published_date: "2026-08-30T08:00:00Z",
+    },
+    {
+      title: "RBI announces a banking policy development",
+      url: "https://indianexpress.com/article/business/example-999/",
+      content: "Another snippet that must be discarded.",
+    },
+    {
+      title: "Off-domain story should not enter the trusted publisher pool",
+      url: "https://unknown.example.com/story/1",
+      published_date: "2026-08-30T09:00:00Z",
+    },
+    {
+      title: "Wrong-day story should be rejected when provider date is available",
+      url: "https://www.thehindu.com/news/national/wrong-day/article456.ece",
+      published_date: "2026-08-29T08:00:00Z",
+    },
+  ],
+}, "2026-08-30", ["thehindu.com", "indianexpress.com"]);
+
+assert.equal(tavilyArticles.length, 2);
+assert.equal(tavilyArticles[0]?.domain, "thehindu.com");
+assert.equal(tavilyArticles[0]?.seenAt, "2026-08-30T08:00:00.000Z");
+assert.equal(tavilyArticles[1]?.domain, "indianexpress.com");
+assert.ok(tavilyArticles[1]?.seenAt.startsWith("2026-08-30T"));
+assert.ok(tavilyArticles.every((article) => !Object.prototype.hasOwnProperty.call(article, "content")));
+assert.ok(tavilyArticles.every((article) => !Object.prototype.hasOwnProperty.call(article, "raw_content")));
 
 const url = new URL(gdeltQueryUrl("sourcecountry:india sourcelang:english", "2026-08-30", 500));
 assert.equal(url.origin, "https://api.gdeltproject.org");
@@ -89,6 +149,13 @@ const broadLowSignal = isOpenNewsClusterEligible({
 assert.equal(broadLowSignal.eligible, false);
 assert.equal(broadLowSignal.reason, "broad_only_low_signal");
 
+const trustedBroadLowSignal = isOpenNewsClusterEligible({
+  discoveryScore: 24,
+  queryKeys: ["trusted_press_broad"],
+});
+assert.equal(trustedBroadLowSignal.eligible, false);
+assert.equal(trustedBroadLowSignal.reason, "broad_only_low_signal");
+
 const strongBroadSignal = isOpenNewsClusterEligible({
   discoveryScore: 45,
   queryKeys: ["india_press_broad"],
@@ -98,7 +165,7 @@ assert.equal(strongBroadSignal.reason, "exam_signal_score");
 
 const targetedLowSignal = isOpenNewsClusterEligible({
   discoveryScore: 24,
-  queryKeys: ["science_defence_sports"],
+  queryKeys: ["science_space_defence_environment"],
 });
 assert.equal(targetedLowSignal.eligible, true);
 assert.equal(targetedLowSignal.reason, "targeted_discovery_query");
@@ -110,4 +177,4 @@ const regulatorLowSignal = isOpenNewsClusterEligible({
 assert.equal(regulatorLowSignal.eligible, true);
 assert.equal(regulatorLowSignal.reason, "targeted_discovery_query");
 
-console.log("CP-043/052 open-news target-date, expanded-source and clustering-triage contracts passed");
+console.log("Current Affairs trusted-news metadata discovery, target-date and clustering-triage contracts passed");
