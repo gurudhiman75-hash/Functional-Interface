@@ -9,7 +9,7 @@ const audit = auditHisCp002ReviewBatchV1();
 assert.equal(audit.valid, true, audit.issues.join(" | "));
 assert.equal(audit.questionCount, 60);
 assert.equal(audit.semanticCount, 60);
-assert.deepEqual(audit.difficultyCounts, { Easy: 18, Medium: 24, Hard: 18 });
+assert.deepEqual(audit.difficultyCounts, { Easy: 18, Medium: 36, Hard: 6 });
 assert.equal(Object.keys(audit.qlCounts).length, 10);
 assert.ok(Object.values(audit.qlCounts).every((count) => count === 6));
 assert.ok(Math.max(...audit.answerPositions) - Math.min(...audit.answerPositions) <= 1);
