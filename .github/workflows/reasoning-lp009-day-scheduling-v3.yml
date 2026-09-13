@@ -1,0 +1,37 @@
+name: Reasoning LP-009 Day Scheduling V3
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v2.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v3.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v3.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v3-review-export.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-lp009-day-v3-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prove-day-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Prove LP-009 Day V3 topology and editorial guards
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v3.test.ts
+      - name: Reprove frozen LP-009 authority
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-permanent-freeze.test.ts
+      - name: Export V3 English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v3-review-export.ts > LP-009-DAY-SCHEDULING-V3-ENGLISH-REVIEW.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LP-009-DAY-SCHEDULING-V3-ENGLISH-REVIEW
+          path: LP-009-DAY-SCHEDULING-V3-ENGLISH-REVIEW.md
+          if-no-files-found: error
