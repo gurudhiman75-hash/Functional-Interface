@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { generateLpCp04BatchV3, LP_CP04_COUNTERFACTUAL_V3, type Lp004HardCounterfactualCaselet } from "./lp-cp04-counterfactual-v3.ts";
+import { solveLp004 } from "./lp-004.ts";
 
 assert.equal(LP_CP04_COUNTERFACTUAL_V3.permanentQlId, null);
 assert.equal(LP_CP04_COUNTERFACTUAL_V3.status, "HUMAN_REVIEW_CANDIDATE_V3");
@@ -51,6 +52,7 @@ for (const caselet of batch) {
 
   const hard = caselet as Lp004HardCounterfactualCaselet;
   assert.equal(hard.parentTopology, "LP-004_COMMITTEE_SELECTION");
+  assert.ok(hard.clues.length >= 3, `${hard.caseletId}: Hard should use at least three original clues`);
   assert.ok(hard.validStates.length >= 5, `${hard.caseletId}: Hard parent set too narrow`);
   assert.equal(child.parentStateCount, hard.validStates.length);
   assert.ok(child.conditionedStateCount >= 1 && child.conditionedStateCount <= 4);
@@ -68,6 +70,17 @@ for (const caselet of batch) {
   assert.equal(hard.validStates.every((state) => state[correctCandidate] === targetValue), false, `${hard.caseletId}: Hard answer already fixed before condition`);
   assert.equal(after.every((state) => state[correctCandidate] === targetValue), true, `${hard.caseletId}: Hard answer not fixed after condition`);
 
+  for (const clue of hard.clues) {
+    const singleClueStates = solveLp004({ candidates: hard.candidates, committeeSize: hard.committeeSize, clues: [clue] });
+    const afterSingleClue = singleClueStates.filter((state) => state[condition.candidate] === condition.selected);
+    assert.ok(afterSingleClue.length > 0, `${hard.caseletId}: single-clue condition unexpectedly impossible`);
+    assert.equal(
+      afterSingleClue.every((state) => state[correctCandidate] === targetValue),
+      false,
+      `${hard.caseletId}: Hard answer is already forced by the added condition plus one original clue`,
+    );
+  }
+
   for (let optionIndex = 0; optionIndex < child.options.length; optionIndex += 1) {
     if (optionIndex === child.correctIndex) continue;
     const candidate = candidateForLabel(child.options[optionIndex]!);
@@ -76,9 +89,10 @@ for (const caselet of batch) {
     assert.equal(after.every((state) => state[candidate] === targetValue), false, `${hard.caseletId}: Hard distractor is also must-true`);
   }
   assert.ok(child.explanation.lines.some((line: string) => line.includes(`${hard.validStates.length} valid committees`)));
+  assert.ok(child.explanation.lines.some((line: string) => /No single original clue/i.test(line)));
 }
 
 assert.deepEqual(counts, new Map([["Easy", 4], ["Medium", 4], ["Hard", 4]]));
-assert.ok(answerSlots.every((count) => count >= 2), `CP04 V3 answer slots too concentrated: ${answerSlots.join(",")}`);
+assert.deepEqual(answerSlots, [3, 3, 3, 3]);
 
-console.log(`CP04 V3 mixed-parent proof passed: ${batch.length} caselets; Easy/Medium LP-001 and Hard LP-004; answer slots ${answerSlots.join("/")}.`);
+console.log(`CP04 V3 mixed-parent proof passed: ${batch.length} caselets; Easy/Medium LP-001 and multi-clue Hard LP-004; answer slots ${answerSlots.join("/")}.`);
