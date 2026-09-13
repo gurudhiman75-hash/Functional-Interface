@@ -9,7 +9,10 @@ function categoryBag(
   seed: number,
   salt: string,
 ): string[] {
-  const maxRepeats = Math.min(2, Math.max(0, count - 3));
+  // Keep at least four distinct values in every category. That preserves
+  // realistic repeated occurrences without starving nth-category/direct-token
+  // questions of three provenance-bearing wrong alternatives.
+  const maxRepeats = Math.min(2, Math.max(0, count - 4));
   const repeatCount = intBetween(0, maxRepeats, key(ql, seed, `${salt}-repeat-count`));
   const uniqueCount = count - repeatCount;
   const unique = shuffle(base, key(ql, seed, `${salt}-unique`)).slice(0, uniqueCount);
@@ -24,7 +27,7 @@ function categoryBag(
  * and 8 distinct symbols. Real exam rows vary in length/category balance and
  * may repeat visible tokens, so this builder varies all three independently.
  * Repetition is bounded: a row can have zero, one or two repeated occurrences
- * per category while still retaining a large set of unique tokens.
+ * per category while retaining at least four distinct members of that category.
  */
 export function mixedRow(ql: AlpQuestionLogic, seed: number): string[] {
   const letterCount = intBetween(7, 10, key(ql, seed, "mixed-letter-count"));
