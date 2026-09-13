@@ -34,7 +34,7 @@ assert.equal(5480 * 0.95 + 9800 * 0.98, 14_810); // Q17.
 assert.equal((1 / 6) / (5 / 6) * 100, 20); // Q18.
 assert.equal(12 ** 2 - 2, 142); // Q19.
 assert.equal(750 / (4.5 * 5 / 18), 600); // Q22.
-assert.equal(1 / ((1 / 3) * (1 / 40 + 1 / 50 + 1 / 60)), 48.64864864864865); // Q23 equal-distance average speed.
+assert.ok(Math.abs(1 / ((1 / 3) * (1 / 40 + 1 / 50 + 1 / 60)) - 48.64864864864865) < 1e-12); // Q23.
 assert.equal(30 / 40 + 12 / 80 + 12 / 120, 1); // Q24.
 
 const contributionCounts = observations.reduce<Record<string, number>>((counts, observation) => {
