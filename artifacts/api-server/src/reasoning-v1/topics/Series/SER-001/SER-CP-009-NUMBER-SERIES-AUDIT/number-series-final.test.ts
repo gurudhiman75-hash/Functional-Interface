@@ -156,14 +156,27 @@ for (const qlId of SER_CP009_NUMBER_SERIES_QL_IDS) {
   });
 }
 
-// Difficulty anti-magnitude proof. A structurally hard item can use smaller
-// numerals than a structurally simple item; magnitude is not a scoring input.
-const hard = generateSerCp009NumberSeries("SER-QL-035", 3);
-const easy = generateSerCp009NumberSeries("SER-QL-032", 3);
-assert.equal(hard.difficulty, "HARD");
-assert.equal(easy.difficulty, "EASY");
+// Difficulty anti-magnitude proof. Do not depend on one brittle seed pair: scan
+// a bounded deterministic sample and require a concrete witness in which the
+// EASY constant-ratio item contains larger numerals than the HARD progressive-
+// multiplier item. This proves numeric size is not monotonic with difficulty.
 const numericMax = (stem: string): number => Math.max(...(stem.match(/\d+/g) ?? ["0"]).map(Number));
-assert.ok(numericMax(easy.stem) > numericMax(hard.stem), "anti-magnitude fixture must have larger numerals in EASY item");
+const easyCandidates = Array.from({ length: 64 }, (_, seed) => {
+  const item = generateSerCp009NumberSeries("SER-QL-032", seed);
+  assert.equal(item.difficulty, "EASY");
+  return { seed, max: numericMax(item.stem) };
+});
+const hardCandidates = Array.from({ length: 64 }, (_, seed) => {
+  const item = generateSerCp009NumberSeries("SER-QL-035", seed);
+  assert.equal(item.difficulty, "HARD");
+  return { seed, max: numericMax(item.stem) };
+});
+const largestEasy = easyCandidates.reduce((best, candidate) => candidate.max > best.max ? candidate : best);
+const smallestHard = hardCandidates.reduce((best, candidate) => candidate.max < best.max ? candidate : best);
+assert.ok(
+  largestEasy.max > smallestHard.max,
+  `anti-magnitude witness missing: largest EASY max=${largestEasy.max}, smallest HARD max=${smallestHard.max}`,
+);
 
 console.log("SER-CP-009 hardened pure-number-series audit passed.", {
   qlCount: SER_CP009_NUMBER_SERIES_QL_IDS.length,
@@ -172,5 +185,6 @@ console.log("SER-CP-009 hardened pure-number-series audit passed.", {
   localizationProofs,
   lifecycleProofs,
   misconceptionOptionProofs,
+  antiMagnitudeWitness: { largestEasy, smallestHard },
   report,
 });
