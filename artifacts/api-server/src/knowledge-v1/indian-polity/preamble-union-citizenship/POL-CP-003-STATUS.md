@@ -1,7 +1,7 @@
 # POL-CP-003 — Preamble, Union & Citizenship Status
 
 **Branch:** `feature/polity-cp003-preamble-union-citizenship`  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** REVIEW CANDIDATE — LANGUAGE V3  
 **Runtime registration:** BLOCKED pending human approval
 
 ## Implemented
@@ -18,14 +18,26 @@
 - Article 8 overseas Indian-origin registration path
 - 4 scenario rows for Articles 5–8
 - 18 genuine QLs
-- 58-question V2 review batch
+- 58-question review batch
 - structural/provenance QA
 - generic date-wrapper ban carried forward from CP-002
 - current citizenship-policy/current-affairs leakage blocked
 
+## Language V3 pass
+
+The review generator and canonical fact explanations were simplified after editorial feedback.
+
+Rules now enforced:
+- short, direct exam-style stems;
+- plain explanations suitable for beginners;
+- no artificial difficulty through legalistic wording;
+- constitutional terms such as `domicile`, `ordinary residence`, `registration` and `President's recommendation` are retained only where they affect legal meaning;
+- ordinary direct stems must remain at or below 30 words;
+- banned stem wording includes `principal subject`, `most directly governs`, `For the purposes of Article 368`, and `supplemental, incidental and consequential provisions`;
+- the rejected `On which date did the following occur...` wrapper remains blocked.
+
 ## Mechanical review QA
 
-Independent review-batch construction passed:
 - 58 questions
 - 18/18 QLs represented
 - 14 Easy / 35 Medium / 9 Hard
@@ -33,10 +45,9 @@ Independent review-batch construction passed:
 - canonical answer matches the recorded correct option in every question
 - all four answer positions used
 - no exact semantic duplicate signatures
-- no rejected `On which date did the following occur...` wrapper
 - Static constitutional scope preserved
 
-The repository-side V2 QA test checks the same structural, source-resolution and Article-map invariants. This is not a claim that the full repository CI suite has run.
+The repository-side V2 generator is now the simplified-language authority for this CP. Full repository CI is not claimed here.
 
 ## Deliberately gated
 
@@ -45,4 +56,4 @@ The repository-side V2 QA test checks the same structural, source-resolution and
 - Hindi/Punjabi localization
 - chapter-wide production registration
 
-These remain gated until the English V2 review file is approved.
+These remain gated until the simplified English V3 review is approved.
