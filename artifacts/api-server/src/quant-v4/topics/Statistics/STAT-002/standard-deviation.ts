@@ -134,9 +134,9 @@ function buildRawSd(seed: string, profile: Stat002ExamProfile): Draft {
   const squaredDeviationTotal = variance * data.values.length;
   const s = surface(`${seed}:raw`);
   const stems = [
-    `Find the standard deviation of the observations ${list(data.values)}.`,
-    `The values are ${list(data.values)}. What is their standard deviation?`,
-    `Calculate the standard deviation of the data set ${list(data.values)}.`,
+    `For the observations ${list(data.values)}, the standard deviation is:`,
+    `The values are ${list(data.values)}. Their standard deviation is:`,
+    `For the data set ${list(data.values)}, the standard deviation is:`,
   ] as const;
   return {
     state: { kind: "RAW_POPULATION_SD", values: data.values },
@@ -168,9 +168,9 @@ function buildMeanSquares(seed: string, profile: Stat002ExamProfile): Draft {
   const meanOfSquares = m ** 2 + variance;
   const s = surface(`${seed}:mean-squares`);
   const stems = [
-    `The mean of a set of observations is ${m}, and the mean of their squares is ${meanOfSquares}. Find the standard deviation.`,
-    `For a data set, mean = ${m} and mean of squares = ${meanOfSquares}. What is its standard deviation?`,
-    `If x̄ = ${m} and the mean of x² is ${meanOfSquares}, determine the standard deviation of the observations.`,
+    `The mean of a set of observations is ${m}, and the mean of their squares is ${meanOfSquares}. The standard deviation is:`,
+    `For a data set, mean = ${m} and mean of squares = ${meanOfSquares}. Its standard deviation is:`,
+    `If x̄ = ${m} and the mean of x² is ${meanOfSquares}, the standard deviation of the observations is:`,
   ] as const;
   return {
     state: { kind: "MEAN_AND_MEAN_SQUARES", mean: m, meanOfSquares },
@@ -199,9 +199,9 @@ function buildTranslation(seed: string, profile: Stat002ExamProfile): Draft {
   const constant = pick(random, [5, 7, 9, 11, 13, 15]);
   const s = surface(`${seed}:translation`);
   const stems = [
-    `The standard deviation of the observations ${list(data.values)} is ${data.standardDeviation}. If ${constant} is added to every observation, what will be the new standard deviation?`,
-    `A data set has standard deviation ${data.standardDeviation}. Every value is increased by ${constant}. Find the standard deviation of the new data set.`,
-    `Each observation in ${list(data.values)} is replaced by x + ${constant}. If the original standard deviation is ${data.standardDeviation}, determine the new standard deviation.`,
+    `The standard deviation of the observations ${list(data.values)} is ${data.standardDeviation}. If ${constant} is added to every observation, the new standard deviation is:`,
+    `A data set has standard deviation ${data.standardDeviation}. Every value is increased by ${constant}. The new standard deviation is:`,
+    `Each observation in ${list(data.values)} is replaced by x + ${constant}. If the original standard deviation is ${data.standardDeviation}, the new standard deviation is:`,
   ] as const;
   return {
     state: { kind: "TRANSLATED_DATA", values: data.values, additiveConstant: constant },
@@ -231,9 +231,9 @@ function buildScale(seed: string, profile: Stat002ExamProfile): Draft {
   const answer = data.standardDeviation * multiplier;
   const s = surface(`${seed}:scale`);
   const stems = [
-    `A data set has standard deviation ${data.standardDeviation}. If every observation is multiplied by ${multiplier}, what is the standard deviation of the new data set?`,
-    `The standard deviation of ${list(data.values)} is ${data.standardDeviation}. Each value is replaced by ${multiplier}x. Find the new standard deviation.`,
-    `Every observation of a data set with standard deviation ${data.standardDeviation} is multiplied by ${multiplier}. Determine the resulting standard deviation.`,
+    `A data set has standard deviation ${data.standardDeviation}. If every observation is multiplied by ${multiplier}, the standard deviation of the new data set is:`,
+    `The standard deviation of ${list(data.values)} is ${data.standardDeviation}. Each value is replaced by ${multiplier}x. The new standard deviation is:`,
+    `Every observation of a data set with standard deviation ${data.standardDeviation} is multiplied by ${multiplier}. The resulting standard deviation is:`,
   ] as const;
   return {
     state: { kind: "SCALED_DATA", values: data.values, multiplier },
@@ -263,9 +263,9 @@ function buildReverseScale(seed: string, profile: Stat002ExamProfile): Draft {
   const transformedStandardDeviation = originalStandardDeviation * multiplier;
   const s = surface(`${seed}:reverse-scale`);
   const stems = [
-    `The standard deviation of a data set is ${originalStandardDeviation}. After every observation is multiplied by the same positive number, the standard deviation becomes ${transformedStandardDeviation}. Find the multiplier.`,
-    `Multiplying every value in a data set by k changes its standard deviation from ${originalStandardDeviation} to ${transformedStandardDeviation}. Find k.`,
-    `A common positive scale factor changes the standard deviation of a set from ${originalStandardDeviation} to ${transformedStandardDeviation}. What is the scale factor?`,
+    `The standard deviation of a data set is ${originalStandardDeviation}. After every observation is multiplied by the same positive number, the standard deviation becomes ${transformedStandardDeviation}. The multiplier is:`,
+    `Multiplying every value in a data set by k changes its standard deviation from ${originalStandardDeviation} to ${transformedStandardDeviation}. The value of k is:`,
+    `A common positive scale factor changes the standard deviation of a set from ${originalStandardDeviation} to ${transformedStandardDeviation}. The scale factor is:`,
   ] as const;
   return {
     state: { kind: "REVERSE_SCALE", originalStandardDeviation, transformedStandardDeviation },
@@ -300,9 +300,9 @@ function buildAffineFromMoments(seed: string, profile: Stat002ExamProfile): Draf
   const transform = affineExpression(multiplier, additiveConstant);
   const s = surface(`${seed}:affine-from-moments`);
   const stems = [
-    `For a data set, x̄ = ${m} and the mean of x² is ${meanOfSquares}. If y = ${transform}, find the standard deviation of y.`,
-    `The mean of x is ${m} and the mean of x² is ${meanOfSquares}. Each observation is transformed by y = ${transform}. Determine the standard deviation of the transformed data.`,
-    `A variable x has mean ${m} and mean of squares ${meanOfSquares}. Under the transformation y = ${transform}, what is the standard deviation of y?`,
+    `For a data set, x̄ = ${m} and the mean of x² is ${meanOfSquares}. If y = ${transform}, the standard deviation of y is:`,
+    `The mean of x is ${m} and the mean of x² is ${meanOfSquares}. Each observation is transformed by y = ${transform}. The standard deviation of the transformed data is:`,
+    `A variable x has mean ${m} and mean of squares ${meanOfSquares}. Under the transformation y = ${transform}, the standard deviation of y is:`,
   ] as const;
   return {
     state: { kind: "AFFINE_FROM_MOMENTS", mean: m, meanOfSquares, multiplier, additiveConstant },
@@ -371,6 +371,7 @@ function validateQuestion(question: Omit<Stat002Question, "validation">) {
   add("MISCONCEPTION_PROVENANCE", question.optionMetadata.every((option) => option.derivation.length >= 24), "Each option requires a meaningful derivation or misconception provenance.");
   add("EXPLANATION_SPECIFICITY", question.explanation.keyIdea.length >= 60 && question.explanation.steps.length >= 2, "Explanation must state the governing idea and show the relevant calculation in simple steps.");
   add("STEM_NATURALNESS", question.stem.length >= 40 && !/template|generator|question library|ql[- ]?id|mock[- ]?test problem/iu.test(question.stem), "Stem must be direct learner-facing exam prose without generator metadata.");
+  add("NO_INSTRUCTIONAL_STEM_WORDING", !/\b(find|calculate|determine)\b|\bwhat\s+(?:is|will\s+be)\b/iu.test(question.stem), "STAT-002 stems must use statement-style MCQ wording rather than learner instructions.");
   add("POSITIVE_RAW_VALUES", question.state.kind !== "RAW_POPULATION_SD" || question.state.values.every((value) => value > 0), "Direct raw-data states must use positive learner-facing observations.");
   add("HARD_REQUIRES_COMPOUND_REASONING", question.difficulty !== "Hard" || question.contractId === "STAT-002-TEMP-006-AFFINE-FROM-MOMENTS", "Hard STAT-002 questions must use the compound moments-plus-affine contract.");
   add("LIFECYCLE_LOCK", !question.traceability.questionStudioDiscoverable && question.traceability.questionBankStatus === "NOT_STORED" && question.traceability.testEligibility === "INELIGIBLE" && !question.traceability.mockTestEligible && !question.traceability.publiclyPublishable && !question.traceability.automaticStudentPublication, "STAT-002 Phase 0 must remain review-only and undiscoverable.");
