@@ -79,7 +79,38 @@ assert.deepEqual(
   "CP009 reviewed common-cause sweep did not reach all shared-pressure variants",
 );
 
+for (const locale of LOCALES) {
+  for (let seed = 0; seed < SEED_COUNT; seed += 1) {
+    const cp001 = generateReviewedCaeQuestion({ qlId: "CAE-QL-001", locale, seed });
+    assert.equal(
+      cp001.causalStateId.includes("variant:drill|graph:HIDDEN_CHAIN|direction:bridge>effect"),
+      false,
+      `CP001 seed ${seed} ${locale}: ambiguous drill bridge→effect direct pair survived`,
+    );
+
+    const cp009 = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale, seed });
+    const mode = cp009.causalStructure.split(":")[1];
+    if (mode === "MISSING_PAIR" || mode === "CONNECTOR_PAIR") {
+      assert.equal(
+        cp009.optionMetadata.filter((option) => option.id.startsWith("NEAR_PAIR:TARGETED:")).length,
+        2,
+        `CP009 seed ${seed} ${locale}: pair mode must use two exact-target near misses`,
+      );
+      assert.ok(cp009.itemVariantId.includes("surface:targeted-connector-pairs-v3"));
+    }
+    if (mode === "MISSING_SINGLE" || mode === "NEXT_OUTCOME") {
+      assert.equal(
+        cp009.optionMetadata.filter((option) => !option.isCorrect).every((option) => option.id.startsWith("EDITORIAL_SAME_SCENARIO:")),
+        true,
+        `CP009 seed ${seed} ${locale}: cross-scenario event distractor survived`,
+      );
+      assert.ok(cp009.itemVariantId.includes("surface:same-scenario-event-distractors-v1"));
+    }
+  }
+}
+
 console.log("PASS_CAE_REVIEWED_EDITORIAL_POLISH", {
   combinationVariants: [...seenCombinationVariants].sort(),
   commonCauseVariants: [...seenCommonCauseVariants].sort(),
+  qualityRemediationSeeds: SEED_COUNT,
 });
