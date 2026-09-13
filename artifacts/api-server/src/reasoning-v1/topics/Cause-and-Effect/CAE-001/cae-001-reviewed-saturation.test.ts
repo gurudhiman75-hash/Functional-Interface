@@ -31,7 +31,10 @@ for (const qlId of hardQls) {
   assert.ok(specialisedCount >= 350, `${qlId}: specialised reviewed renderer lost dominance.`);
 }
 
-for (const qlId of ["CAE-QL-007", "CAE-QL-008"] as const satisfies readonly CaeQlId[]) {
+// CP008 can safely expose graph-native sequence saturation. CP007 cannot: its
+// reviewed contract requires inference-calibrated MEDIUM/HARD false-causation.
+{
+  const qlId = "CAE-QL-008" as const;
   let saturated = 0;
   let specialised = 0;
   const families = new Set<string>();
@@ -47,8 +50,14 @@ for (const qlId of ["CAE-QL-007", "CAE-QL-008"] as const satisfies readonly CaeQ
   assert.ok(specialised >= 350, `${qlId}: specialised reviewed form lost dominance.`);
 }
 
-// Locale must never alter semantic selection for a saturation-sampled reviewed seed.
-for (const qlId of ["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-007", "CAE-QL-008", "CAE-QL-009"] as const satisfies readonly CaeQlId[]) {
+for (let seed = 0; seed < 500; seed += 1) {
+  const question = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", locale: "en-IN", seed });
+  assert.ok(!saturationIds.has(question.scenarioFamilyId), `CAE-QL-007/${seed}: raw saturation family bypassed the inference-calibrated reviewed renderer.`);
+  assert.notEqual(question.difficulty, "EASY", `CAE-QL-007/${seed}: reviewed false-causation item became EASY.`);
+}
+
+// Locale must never alter semantic selection for reviewed saturation seeds.
+for (const qlId of ["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-008", "CAE-QL-009"] as const satisfies readonly CaeQlId[]) {
   for (let seed = 4; seed < 100; seed += 5) {
     const en = generateReviewedCaeQuestion({ qlId, locale: "en-IN", seed });
     const hi = generateReviewedCaeQuestion({ qlId, locale: "hi-IN", seed });
@@ -60,4 +69,4 @@ for (const qlId of ["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-007", "CAE
   }
 }
 
-console.log("CAE-001 reviewed saturation sampling QA passed: controlled saturation share with specialised forms preserved.");
+console.log("CAE-001 reviewed saturation sampling QA passed: controlled saturation share with CP007 inference floor preserved.");
