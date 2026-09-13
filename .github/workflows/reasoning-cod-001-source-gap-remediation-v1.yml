@@ -7,6 +7,9 @@ on:
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/remediation/**"
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/source-gap-*.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/question-studio-review.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/question-studio-review.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-001-SOURCE-GAP-*.md"
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-001-MANIFEST-AMENDMENT-SOURCE-GAP-V1.md"
   workflow_dispatch:
@@ -36,6 +39,9 @@ jobs:
 
       - name: Run permanent discovery freeze gate
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/source-gap-discovery-freeze.test.ts
+
+      - name: Run shared Question Studio integration gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/question-studio-review.test.ts
 
       - name: Export human-review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/remediation/export-source-gap-review.ts cod-001-source-gap-review.md
