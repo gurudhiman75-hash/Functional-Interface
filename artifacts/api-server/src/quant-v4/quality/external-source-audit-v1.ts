@@ -41,6 +41,8 @@ export type QuantExternalCoverageObservation = Readonly<{
   proposedFamily: string;
   disposition: QuantExternalCoverageDisposition;
   mappedQlIds: readonly string[];
+  candidateMappedQlIds?: readonly string[];
+  candidateCoverageStatus?: "NONE" | "AUDIT_CANDIDATE" | "APPROVED_NOT_ACTIVE";
   confidence: "HIGH" | "MEDIUM" | "LOW";
   notes: string;
 }>;
@@ -51,6 +53,7 @@ export const QUANT_V4_EXTERNAL_SOURCE_AUDIT_V1 = Object.freeze({
     "Uploaded books are evidence, not automatic package authority.",
     "Real-exam PYQs and target-exam books are reported separately from adjacent-exam material.",
     "A source contributes to a package denominator only when its source scope and item are relevant to that package.",
+    "Active runtime coverage and audit-candidate coverage must be recorded separately; candidate coverage cannot satisfy the active coverage denominator.",
     "RUNTIME_MAPPING_PENDING is unresolved audit work and must not be counted as covered or missing until the active runtime is checked.",
     "OWNED_BY_OTHER_PACKAGE is not a coverage failure for the audited package.",
     "OUT_OF_TARGET_SCOPE is not a coverage failure for the target exam profile.",
@@ -138,6 +141,7 @@ export function summarizeExternalCoverage(
     covered: covered.length,
     missing: eligible.filter((observation) => observation.disposition === "MISSING_ARCHETYPE").length,
     pendingRuntimeMapping: observations.filter((observation) => observation.disposition === "RUNTIME_MAPPING_PENDING").length,
+    candidateCovered: observations.filter((observation) => (observation.candidateMappedQlIds?.length ?? 0) > 0).length,
     coverageRate: eligible.length === 0 ? null : covered.length / eligible.length,
   });
 }
