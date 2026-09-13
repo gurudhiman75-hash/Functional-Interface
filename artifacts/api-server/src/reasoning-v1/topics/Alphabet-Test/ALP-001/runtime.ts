@@ -7,19 +7,64 @@ import { solveAlpInstance } from "./independent-solver";
 import { localizeAlpAnswerSurface } from "./localized-values";
 import { generateAlpCompletionQuestion } from "./completion-runtime";
 import { alp001QlById } from "./ql-registry";
-import type { AlpDifficulty, AlpInstanceData, AlpLocale, AlpQuestionLogic, GeneratedAlpQuestion } from "./types";
+import type { AlpDifficulty, AlpInstanceData, AlpLocale, AlpQuestionLogic, AlpTransformId, GeneratedAlpQuestion } from "./types";
 
-function difficultyFor(ql: AlpQuestionLogic, data: AlpInstanceData, seed: number): AlpDifficulty {
+const HARD_ALPHA_TRANSFORMS = new Set<AlpTransformId>([
+  "ALTERNATE_LEFT_RIGHT",
+  "ALTERNATE_RIGHT_LEFT",
+  "REMOVE_VOWELS",
+  "REMOVE_CONSONANTS",
+  "REVERSE_BLOCKS_OF_THREE",
+]);
+
+const MEDIUM_ALPHA_TRANSFORMS = new Set<AlpTransformId>([
+  "REVERSE_FIRST_HALF",
+  "REVERSE_SECOND_HALF",
+  "REVERSE_BOTH_HALVES",
+  "SWAP_HALVES",
+  "ROTATE_TO_START",
+  "ODD_THEN_EVEN",
+  "EVEN_THEN_ODD",
+  "SWAP_ADJACENT_PAIRS",
+]);
+
+function difficultyFor(ql: AlpQuestionLogic, data: AlpInstanceData): AlpDifficulty {
+  const checkpoint = Number(ql.checkpointId.slice(-3));
   let score = 0;
-  if (ql.checkpointId === "ALP-CP-002") score += 1;
-  if (ql.checkpointId === "ALP-CP-003") score += 1;
-  if (ql.checkpointId === "ALP-CP-004") score += 2;
-  if (ql.checkpointId === "ALP-CP-005") score += 1;
-  if (ql.presentationMode.includes("INVERSE") || ql.taskKind.startsWith("recover")) score += 1;
-  if (ql.presentationMode.includes("COMPOSITE") || ql.presentationMode.includes("RANGE")) score += 1;
-  if (ql.solveMode.includes("CYCLIC") || ql.solveMode.includes("MIDDLE") || ql.solveMode.includes("UNCHANGED")) score += 1;
-  if (data.occurrenceRef && data.occurrenceRef.occurrence > 1) score += 1;
-  score += Math.abs(seed) % 3 === 2 ? 2 : Math.abs(seed) % 3 === 1 ? 1 : 0;
+
+  if (checkpoint === 1) {
+    if (ql.solveMode.includes("OPPOSITE") || ql.solveMode.includes("BOTH_RANKS") || ql.solveMode.includes("IDENTIFY")) score += 2;
+  }
+
+  if (checkpoint === 2) {
+    score += 1;
+    if (ql.presentationMode.includes("INVERSE") || ql.solveMode.startsWith("RECOVER") || ql.solveMode.startsWith("FIND_")) score += 1;
+    if (ql.solveMode.startsWith("TWO_STAGE") || ql.solveMode.includes("CYCLIC")) score += 2;
+    if (data.offset !== undefined && data.secondOffset !== undefined) score += 1;
+  }
+
+  if (checkpoint === 3) {
+    score += 1;
+    if (ql.solveMode.includes("MIDPOINT") || ql.solveMode.startsWith("RECOVER") || ql.solveMode.includes("COMPARE")) score += 2;
+    if (ql.solveMode.includes("ENDPOINTS") || ql.solveMode.includes("OUTSIDE") || ql.solveMode.includes("BEFORE_AND_AFTER")) score += 1;
+  }
+
+  if (checkpoint === 4) {
+    score += 1;
+    if (data.transformId && MEDIUM_ALPHA_TRANSFORMS.has(data.transformId)) score += 1;
+    if (data.transformId && HARD_ALPHA_TRANSFORMS.has(data.transformId)) score += 3;
+    if (ql.solveMode === "TRANSFORMED_POSITION_OF_LETTER") score += 1;
+  }
+
+  if (checkpoint === 5) {
+    if (ql.solveMode.startsWith("WORD_LETTER_") || ql.solveMode.startsWith("WORD_LEFT_POSITION") || ql.solveMode.startsWith("WORD_RIGHT_POSITION")) score += 1;
+    if (ql.solveMode.includes("REVERSE") || ql.solveMode.includes("ASC") || ql.solveMode.includes("DESC")) score += 2;
+    if (ql.solveMode.includes("VOWELS_FIRST") || ql.solveMode.includes("CONSONANTS_FIRST") || ql.solveMode.includes("ODD_THEN_EVEN") || ql.solveMode.includes("EVEN_THEN_ODD") || ql.solveMode.includes("SWAP_ADJACENT")) score += 2;
+    if (ql.solveMode.includes("REVERSE_RANGE") || ql.solveMode.includes("SELECTED_TRANSFORM")) score += 3;
+    if (ql.solveMode.includes("UNCHANGED") || ql.solveMode.includes("IDENTIFY_UNCHANGED")) score += 1;
+    if (data.occurrenceRef && data.occurrenceRef.occurrence > 1) score += 1;
+  }
+
   if (score <= 1) return "EASY";
   if (score <= 3) return "MEDIUM";
   return "HARD";
@@ -62,7 +107,7 @@ export function generateAlp001Question(qlId: string, seed = 0, locale: AlpLocale
     solveMode: ql.solveMode,
     locale,
     seed,
-    difficulty: difficultyFor(ql, data, seed),
+    difficulty: difficultyFor(ql, data),
     renderer: ql.renderer,
     presentationMode: ql.presentationMode,
     stem,
