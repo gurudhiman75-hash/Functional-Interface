@@ -52,13 +52,13 @@ function localizeIntervalComparison(question: AnyQuestion, locale: Trg001Localiz
   const explanation = {
     keyRule: native(
       locale,
-      "न्यूनकोणों के लिए 45° पर sin θ = cos θ होता है। 45° से कम पर cos θ बड़ा और 45° से अधिक पर sin θ बड़ा होता है।",
-      "ਨਿਊਨ ਕੋਣਾਂ ਲਈ 45° ਤੇ sin θ = cos θ ਹੁੰਦਾ ਹੈ। 45° ਤੋਂ ਘੱਟ ਤੇ cos θ ਵੱਡਾ ਅਤੇ 45° ਤੋਂ ਵੱਧ ਤੇ sin θ ਵੱਡਾ ਹੁੰਦਾ ਹੈ।",
+      "न्यूनकोण के लिए 45° पर sin θ = cos θ होता है। 45° से कम पर cos θ बड़ा और 45° से अधिक पर sin θ बड़ा होता है।",
+      "ਨਿਊਨ ਕੋਣ ਲਈ 45° ਤੇ sin θ = cos θ ਹੁੰਦਾ ਹੈ। 45° ਤੋਂ ਘੱਟ ਤੇ cos θ ਵੱਡਾ ਅਤੇ 45° ਤੋਂ ਵੱਧ ਤੇ sin θ ਵੱਡਾ ਹੁੰਦਾ ਹੈ।",
     ),
     steps: [
       {
         title: native(locale, "चरण 1", "ਕਦਮ 1"),
-        body: native(locale, "45° को तुलना-बिंदु मानें, जहाँ sin θ = cos θ है।", "45° ਨੂੰ ਤੁਲਨਾ-ਬਿੰਦੂ ਮੰਨੋ, ਜਿੱਥੇ sin θ = cos θ ਹੈ।"),
+        body: native(locale, "45° को आधार मानें। इस कोण पर sin θ = cos θ होता है।", "45° ਨੂੰ ਆਧਾਰ ਮੰਨੋ। ਇਸ ਕੋਣ ਤੇ sin θ = cos θ ਹੁੰਦਾ ਹੈ।"),
       },
       {
         title: native(locale, "उत्तर", "ਉੱਤਰ"),
@@ -84,8 +84,8 @@ function localizeHigherPowerRelation(question: AnyQuestion, locale: Trg001Locali
   const explanation = {
     keyRule: native(
       locale,
-      `दिए गए संबंध और sin²θ+cos²θ=1 से पहले ${target}²θ=${given}θ प्राप्त करें।`,
-      `ਦਿੱਤੇ ਸੰਬੰਧ ਅਤੇ sin²θ+cos²θ=1 ਤੋਂ ਪਹਿਲਾਂ ${target}²θ=${given}θ ਪ੍ਰਾਪਤ ਕਰੋ।`,
+      `दिए गए संबंध और sin²θ+cos²θ=1 से पहले ${target}²θ=${given}θ निकालें।`,
+      `ਦਿੱਤੇ ਸੰਬੰਧ ਅਤੇ sin²θ+cos²θ=1 ਤੋਂ ਪਹਿਲਾਂ ${target}²θ=${given}θ ਕੱਢੋ।`,
     ),
     steps: [
       {
@@ -104,8 +104,8 @@ function localizeHigherPowerRelation(question: AnyQuestion, locale: Trg001Locali
         title: native(locale, "उत्तर", "ਉੱਤਰ"),
         body: native(
           locale,
-          `क्योंकि ${given}θ(1+${given}θ)=1, इसलिए परिणाम ${given} θ है।`,
-          `ਕਿਉਂਕਿ ${given}θ(1+${given}θ)=1, ਇਸ ਲਈ ਨਤੀਜਾ ${given} θ ਹੈ।`,
+          `क्योंकि ${given}θ(1+${given}θ)=1, इसलिए उत्तर ${given} θ है।`,
+          `ਕਿਉਂਕਿ ${given}θ(1+${given}θ)=1, ਇਸ ਲਈ ਉੱਤਰ ${given} θ ਹੈ।`,
         ),
       },
     ],
@@ -137,27 +137,27 @@ function localizeCubicFactorization(question: AnyQuestion, locale: Trg001Localiz
     keyRule: native(
       locale,
       `${identity} का प्रयोग करें, फिर sin²A+cos²A=1 लगाएँ।`,
-      `${identity} ਦੀ ਵਰਤੋਂ ਕਰੋ, ਫਿਰ sin²A+cos²A=1 ਲਗਾਓ।`,
+      `${identity} ਵਰਤੋ, ਫਿਰ sin²A+cos²A=1 ਲਗਾਓ।`,
     ),
     steps: [
       {
         title: native(locale, "चरण 1", "ਕਦਮ 1"),
-        body: native(locale, `अंश का गुणनखंड ${identity} से करें।`, `ਅੰਸ਼ ਦਾ ਗੁਣਨਖੰਡ ${identity} ਨਾਲ ਕਰੋ।`),
+        body: native(locale, `अंश में ${identity} सूत्र लगाएँ।`, `ਅੰਸ਼ ਵਿੱਚ ${identity} ਸੂਤਰ ਲਗਾਓ।`),
       },
       {
         title: native(locale, "चरण 2", "ਕਦਮ 2"),
         body: native(
           locale,
-          `क्योंकि ${domain}, इसलिए ${denominator} को काट सकते हैं। शेष व्यंजक sin²A ${middle} sin A cos A + cos²A है।`,
-          `ਕਿਉਂਕਿ ${domain}, ਇਸ ਲਈ ${denominator} ਨੂੰ ਕੱਟ ਸਕਦੇ ਹਾਂ। ਬਾਕੀ ਵਿਅੰਜਕ sin²A ${middle} sin A cos A + cos²A ਹੈ।`,
+          `क्योंकि ${domain}, इसलिए ${denominator} को काट सकते हैं। अब व्यंजक sin²A ${middle} sin A cos A + cos²A रह जाता है।`,
+          `ਕਿਉਂਕਿ ${domain}, ਇਸ ਲਈ ${denominator} ਨੂੰ ਕੱਟ ਸਕਦੇ ਹਾਂ। ਹੁਣ ਵਿਅੰਜਕ sin²A ${middle} sin A cos A + cos²A ਰਹਿ ਜਾਂਦਾ ਹੈ।`,
         ),
       },
       {
         title: native(locale, "उत्तर", "ਉੱਤਰ"),
         body: native(
           locale,
-          `sin²A+cos²A=1 लगाने पर व्यंजक ${answer} बनता है।`,
-          `sin²A+cos²A=1 ਲਗਾਉਣ ਤੇ ਵਿਅੰਜਕ ${answer} ਬਣਦਾ ਹੈ।`,
+          `sin²A+cos²A=1 लगाने पर उत्तर ${answer} मिलता है।`,
+          `sin²A+cos²A=1 ਲਗਾਉਣ ਤੇ ਉੱਤਰ ${answer} ਮਿਲਦਾ ਹੈ।`,
         ),
       },
     ],
