@@ -191,10 +191,14 @@ function countSummary(word: string): string {
   return Object.entries(letterCounts(word)).sort(([a], [b]) => a.localeCompare(b)).map(([letter, count]) => `${letter}×${count}`).join(", ");
 }
 
-function deficitSummary(sourceWord: string, candidateWord: string): string {
+function deficitSummary(language: WfmLanguage, sourceWord: string, candidateWord: string): string {
   const analysis = analyseCandidate(sourceWord, candidateWord);
   return Object.entries(analysis.deficits)
-    .map(([letter, values]) => `${letter}×${values.needed} needed, ${letter}×${values.available} available`)
+    .map(([letter, values]) => {
+      if (language === "hi-IN") return `${letter}×${values.needed} चाहिए, ${letter}×${values.available} उपलब्ध है`;
+      if (language === "pa-IN") return `${letter}×${values.needed} ਚਾਹੀਦਾ ਹੈ, ${letter}×${values.available} ਮੌਜੂਦ ਹੈ`;
+      return `${letter}×${values.needed} needed, ${letter}×${values.available} available`;
+    })
     .join("; ");
 }
 
@@ -206,30 +210,29 @@ function renderExplanation(
   correctIndex: number,
 ): string {
   const answer = optionWords[correctIndex];
-  const answerAnalysis = analyseCandidate(sourceWord, answer);
   const multiplicityTrap = optionWords.find((word, index) => index !== correctIndex && analyseCandidate(sourceWord, word).deficitKind === "MULTIPLICITY");
 
   if (language === "hi-IN") {
     if (task === "CAN_FORM") {
-      const trap = multiplicityTrap ? ` ध्यान रखें: ${multiplicityTrap} में ${deficitSummary(sourceWord, multiplicityTrap)}।` : "";
+      const trap = multiplicityTrap ? ` ध्यान रखें: ${multiplicityTrap} में ${deficitSummary(language, sourceWord, multiplicityTrap)}।` : "";
       return `हर अक्षर को केवल उतनी बार ही इस्तेमाल किया जा सकता है जितनी बार वह मूल शब्द में है। ${answer} के लिए ${countSummary(answer)} चाहिए और ये सभी अक्षर ${sourceWord} में पर्याप्त संख्या में हैं। इसलिए सही उत्तर ${answer} है।${trap}`;
     }
-    return `हर अक्षर की संख्या जाँचें। ${answer} नहीं बन सकता क्योंकि ${deficitSummary(sourceWord, answer)}। इसलिए सही उत्तर ${answer} है।`;
+    return `हर अक्षर की संख्या जाँचें। ${answer} नहीं बन सकता क्योंकि ${deficitSummary(language, sourceWord, answer)}। इसलिए सही उत्तर ${answer} है।`;
   }
 
   if (language === "pa-IN") {
     if (task === "CAN_FORM") {
-      const trap = multiplicityTrap ? ` ਧਿਆਨ ਰੱਖੋ: ${multiplicityTrap} ਲਈ ${deficitSummary(sourceWord, multiplicityTrap)}।` : "";
+      const trap = multiplicityTrap ? ` ਧਿਆਨ ਰੱਖੋ: ${multiplicityTrap} ਲਈ ${deficitSummary(language, sourceWord, multiplicityTrap)}।` : "";
       return `ਹਰ ਅੱਖਰ ਨੂੰ ਮੂਲ ਸ਼ਬਦ ਵਿੱਚ ਮੌਜੂਦ ਗਿਣਤੀ ਤੋਂ ਵੱਧ ਵਾਰ ਨਹੀਂ ਵਰਤਿਆ ਜਾ ਸਕਦਾ। ${answer} ਲਈ ${countSummary(answer)} ਚਾਹੀਦਾ ਹੈ ਅਤੇ ਇਹ ਸਾਰੇ ਅੱਖਰ ${sourceWord} ਵਿੱਚ ਕਾਫ਼ੀ ਗਿਣਤੀ ਵਿੱਚ ਹਨ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।${trap}`;
     }
-    return `ਹਰ ਅੱਖਰ ਦੀ ਗਿਣਤੀ ਜਾਂਚੋ। ${answer} ਨਹੀਂ ਬਣ ਸਕਦਾ ਕਿਉਂਕਿ ${deficitSummary(sourceWord, answer)}। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।`;
+    return `ਹਰ ਅੱਖਰ ਦੀ ਗਿਣਤੀ ਜਾਂਚੋ। ${answer} ਨਹੀਂ ਬਣ ਸਕਦਾ ਕਿਉਂਕਿ ${deficitSummary(language, sourceWord, answer)}। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।`;
   }
 
   if (task === "CAN_FORM") {
-    const trap = multiplicityTrap ? ` A common trap is ${multiplicityTrap}: ${deficitSummary(sourceWord, multiplicityTrap)}.` : "";
+    const trap = multiplicityTrap ? ` A common trap is ${multiplicityTrap}: ${deficitSummary(language, sourceWord, multiplicityTrap)}.` : "";
     return `Each letter can be used only as many times as it appears in the source word. ${answer} needs ${countSummary(answer)}, and ${sourceWord} contains all of those letters in sufficient counts. Therefore, ${answer} can be formed.${trap}`;
   }
-  return `Check the number of times each letter is available. ${answer} cannot be formed because ${deficitSummary(sourceWord, answer)}. Therefore, ${answer} is the correct answer.`;
+  return `Check the number of times each letter is available. ${answer} cannot be formed because ${deficitSummary(language, sourceWord, answer)}. Therefore, ${answer} is the correct answer.`;
 }
 
 export function generateWfm001Question(input: {
