@@ -43,9 +43,27 @@ export type LpCp04PermanentCaselet = LpCp04CaseletV3 & {
   counterfactualChild: LpCp04CaseletV3["counterfactualChild"] & { qlId: "LP-QL-047" };
 };
 
+const LP001_PROFILE_BY_SURVEY_LABEL: Readonly<Record<string, string>> = Object.freeze({
+  "Household Survey": "PUBLIC_HEALTH_FIELDWORK",
+  "Lesson Planning": "TEACHER_TRAINING",
+  "Customer-Service Audit": "BANK_BRANCH_AUDIT",
+  "Field Inspection": "DISTRICT_OFFICERS",
+  "Eligibility Check": "SCHOLARSHIP_VERIFICATION",
+  "Household Visits": "CIVIC_WATER_AUDIT",
+  "Student Interviews": "CAMPUS_RESEARCH",
+  "Roads and Drainage": "MUNICIPAL_PLANNING",
+});
+
+function localizationProfileId(caselet: any): string | undefined {
+  if (caselet.scenarioProfileId) return caselet.scenarioProfileId;
+  const surveyLabel = caselet.groupLabels?.Survey;
+  return surveyLabel ? LP001_PROFILE_BY_SURVEY_LABEL[surveyLabel] : undefined;
+}
+
 export function generateLpCp04PermanentBatch(seed = "lp-cp04-permanent-freeze-v1", count = 9): LpCp04PermanentCaselet[] {
-  return generateLpCp04BatchV3(seed, count).map((caselet) => ({
+  return generateLpCp04BatchV3(seed, count).map((caselet: any) => ({
     ...caselet,
+    scenarioProfileId: localizationProfileId(caselet),
     counterfactualChild: {
       ...caselet.counterfactualChild,
       qlId: "LP-QL-047" as const,
