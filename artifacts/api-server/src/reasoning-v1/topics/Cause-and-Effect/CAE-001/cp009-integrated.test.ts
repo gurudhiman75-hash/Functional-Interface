@@ -27,8 +27,9 @@ function assertExternalDistractorDomain(question: ReturnType<typeof generateRevi
   const currentWorld = CAE_001_CAUSAL_WORLDS.find((world) => world.id === question.causalWorldId);
   assert.ok(currentWorld, `${question.causalWorldId}: current CP009 world missing`);
   for (const option of question.optionMetadata) {
-    if (!option.id.startsWith("ALT:") && !option.id.startsWith("ALT_PAIR:")) continue;
-    const altWorldId = option.id.split(":")[1]!;
+    const match = option.id.match(/^(?:NEAR_PAIR:)?(?:ALT|ALT_PAIR):([^:]+)/u);
+    if (!match) continue;
+    const altWorldId = match[1]!;
     const altWorld = CAE_001_CAUSAL_WORLDS.find((world) => world.id === altWorldId);
     assert.ok(altWorld, `${option.id}: external CP009 distractor world missing`);
     assert.equal(altWorld.domain, currentWorld.domain, `${question.causalStateId}: external distractor must stay in the same domain`);
@@ -64,8 +65,16 @@ for (let seed = 0; seed < 240; seed += 1) {
     assert.equal(question.visibleContext.visibleNodeIds.length, 2);
     const world = CAE_001_CAUSAL_WORLDS.find((entry) => entry.id === question.causalWorldId)!;
     const visibleTexts = question.visibleContext.visibleNodeIds.map((id) => trim(world.nodes.find((node) => node.id === id)!.text[question.locale]));
+    const connectorTexts = question.causalTrace.slice(1, 3).map((id) => trim(world.nodes.find((node) => node.id === id)!.text[question.locale]));
     for (const option of question.optionMetadata.filter((entry) => !entry.isCorrect)) {
       assert.ok(visibleTexts.every((visible) => !option.text.includes(visible)), `${question.causalStateId}: pair distractor repeats a visible endpoint`);
+      const connectorMatches = connectorTexts.filter((connector) => option.text.includes(connector)).length;
+      if (option.distractorRole === "TEMPORAL_VIOLATION") {
+        assert.equal(connectorMatches, 2, `${question.causalStateId}: reversed connector distractor must use both true connector events`);
+      } else {
+        assert.ok(option.id.startsWith("NEAR_PAIR:"), `${question.causalStateId}: hard pair distractor must be a same-context near miss`);
+        assert.equal(connectorMatches, 1, `${question.causalStateId}: near-miss pair must retain exactly one true connector event`);
+      }
     }
   }
   if (mode === "RELATION_TYPE") {
