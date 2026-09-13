@@ -1,0 +1,138 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
+
+const read = (relative) => fs.readFileSync(fileURLToPath(new URL(relative, import.meta.url)), "utf8");
+const app = read("../src/App.tsx");
+const publicLayout = read("../src/components/PublicLayout.tsx");
+const categoryIcon = read("../src/components/CategoryIcon.tsx");
+const categoryIconResolver = read("../../api-server/src/lib/category-icons.ts");
+const categoryIconDirectory = fileURLToPath(new URL("../public/category-icons/", import.meta.url));
+const categoryIconFiles = fs.readdirSync(categoryIconDirectory);
+const categoryIconFileKeys = categoryIconFiles.map((filename) => filename.toLowerCase());
+const login = read("../src/pages/login.tsx");
+const api = read("../src/lib/api.ts");
+const mathBoundary = read("../src/components/RouteMathBoundary.tsx");
+const mathProvider = read("../src/providers/MathJaxRouteProvider.tsx");
+const catalogBoundary = read("../src/components/RouteCatalogBoundary.tsx");
+const catalogProvider = read("../src/providers/ExamCatalogProvider.tsx");
+const authBoundary = read("../src/components/RouteAuthSessionSync.tsx");
+const sessionUser = read("../src/lib/session-user.ts");
+const vite = read("../vite.config.ts");
+const proof = read("../../../scripts/e2e/tests/student-startup-performance.spec.ts");
+const pkg = JSON.parse(read("../package.json"));
+
+assert.equal(pkg.scripts["audit:startup-performance"], "node scripts/check-startup-performance.mjs");
+assert.match(pkg.scripts.quality, /audit:startup-performance/);
+
+assert.doesNotMatch(app, /from "better-react-mathjax"/, "application root must not statically import MathJax");
+assert.doesNotMatch(app, /<MathJaxContext/, "application root must not globally mount MathJax");
+assert.match(app, /<RouteMathBoundary>[\s\S]*?<Router \/>[\s\S]*?<\/RouteMathBoundary>/, "router must be wrapped by the route-scoped math boundary");
+assert.match(mathBoundary, /lazy\(\(\) => import\("@\/providers\/MathJaxRouteProvider"\)\)/, "MathJax provider must be dynamically imported");
+assert.match(mathBoundary, /location\.startsWith\("\/test\/"\)/, "active test routes must load the math provider");
+assert.match(mathBoundary, /location === "\/result"/, "canonical result route must load the math provider");
+assert.doesNotMatch(mathBoundary, /location\.startsWith\("\/test-series\/"\)/, "test-series summary routes must not load MathJax unnecessarily");
+assert.match(mathBoundary, /Suspense fallback=\{<MathRouteSkeleton \/>\}/, "math provider loading must use a context-safe route skeleton");
+assert.match(mathProvider, /MathJaxContext/);
+assert.match(mathProvider, /inlineMath/);
+assert.match(mathProvider, /displayMath/);
+assert.match(mathProvider, /processEscapes: true/);
+assert.match(mathProvider, /\[tex\]\/ams/);
+assert.doesNotMatch(vite, /mathjax:\s*\[/, "MathJax must not be a manual chunk because Vite can preload manual entry dependencies globally");
+
+assert.doesNotMatch(app, /import \{ AppLayout \}/, "application root must not statically import the Firebase/catalog-backed preparation shell");
+assert.match(app, /const AppLayout = lazy\(\(\) => import\("@\/components\/AppLayout"\)/, "preparation shell must be dynamically imported");
+assert.doesNotMatch(app, /import \{ ExamCatalogProvider \}/, "application root must not statically import the exam catalog provider");
+assert.doesNotMatch(app, /<ExamCatalogProvider>/, "application root must not globally mount the exam catalog provider");
+assert.match(app, /import \{ RouteCatalogBoundary \}/, "application router must own the lazy catalog boundary");
+assert.match(catalogBoundary, /lazy\(\(\) =>[\s\S]*?import\("@\/providers\/ExamCatalogProvider"\)/, "exam catalog provider must be dynamically imported");
+assert.match(catalogBoundary, /Suspense fallback=\{<CatalogRouteSkeleton \/>\}/, "catalog provider loading must use a context-safe route skeleton");
+assert.match(catalogProvider, /Promise\.all\(\[[\s\S]*?getCategories\(\)[\s\S]*?getSubcategories\(\)[\s\S]*?getTests\(\)/, "catalog provider must preserve the canonical three-source catalog request");
+assert.match(app, /renderCatalogPublicRoute\(Home\)/, "home must retain catalog context");
+assert.match(app, /path="\/exams"[\s\S]*?renderCatalogPublicRoute\(Tests\)/, "exam discovery must retain catalog context");
+assert.match(app, /path="\/category\/:id"[\s\S]*?renderCatalogPublicRoute\(Category\)/, "category discovery must retain catalog context");
+assert.match(app, /path="\/subcategory\/:id"[\s\S]*?renderCatalogPublicRoute\(Subcategory\)/, "subcategory discovery must retain catalog context");
+assert.match(app, /path="\/mock-tests"[\s\S]*?renderCatalogPublicRoute\(MockTestsHub\)/, "mock-test hub must retain catalog context");
+assert.match(app, /renderAppRoute = [\s\S]*?<RouteCatalogBoundary><AppLayout>/, "preparation chrome must retain catalog context");
+assert.match(app, /<RouteCatalogBoundary>[\s\S]*?layout === "none"/, "protected runner routes must retain catalog context without app chrome");
+
+assert.doesNotMatch(app, /from "@\/lib\/storage"/, "application root must not import the API-backed storage graph for a local user check");
+assert.match(app, /import \{ getSessionUser \} from "@\/lib\/session-user"/, "protected route guard must use the dependency-free session user reader");
+assert.match(app, /const user = getSessionUser\(\)/, "protected route guard must preserve the local user gate");
+assert.doesNotMatch(publicLayout, /from "@\/lib\/storage"/, "public shell must not import the API-backed storage graph");
+assert.match(publicLayout, /import \{ getSessionUser \} from "@\/lib\/session-user"/, "public shell must use the dependency-free session user reader");
+assert.match(publicLayout, /const user = getSessionUser\(\)/, "public shell must preserve signed-in versus signed-out navigation");
+assert.match(sessionUser, /localStorage\.getItem\("user"\)/, "session user reader must use the same local user key");
+assert.doesNotMatch(sessionUser, /@\/lib\/api|@\/lib\/firebase|firebase\//, "session user reader must stay dependency-free from API and Firebase modules");
+
+assert.doesNotMatch(api, /^import .*@\/lib\/firebase/m, "shared API client must not statically import Firebase");
+assert.match(api, /import \{ getSessionUser \} from "@\/lib\/session-user"/, "shared API client must use the lightweight session marker before considering Firebase");
+assert.match(api, /function requestMayNeedFirebaseAuth\(\)/, "shared API client must explicitly classify whether Firebase auth is needed");
+assert.match(api, /if \(!requestMayNeedFirebaseAuth\(\)\) return \{\};/, "anonymous API requests must exit before importing Firebase");
+assert.match(api, /await import\("@\/lib\/firebase"\)/, "authenticated API requests must dynamically load the Firebase helper");
+assert.match(api, /window\.location\.pathname === "\/login"[\s\S]*?startsWith\("\/login\/"\)/, "first login profile request must still be allowed to acquire a Firebase token before setUser");
+
+assert.doesNotMatch(app, /import \{ syncAuthSession \}/, "application root must not statically import Firebase-backed auth synchronization");
+assert.match(app, /<RouteAuthSessionSync \/>/, "router must mount route-aware auth synchronization");
+assert.match(authBoundary, /import\("@\/lib\/auth"\)/, "auth synchronization must dynamically import the Firebase-backed auth module");
+assert.match(authBoundary, /location === "\/dashboard"/, "dashboard must retain active-session synchronization");
+assert.match(authBoundary, /location\.startsWith\("\/test\/"\)/, "active tests must retain revocation synchronization");
+assert.match(authBoundary, /location === "\/result"/, "canonical result must retain auth synchronization");
+assert.doesNotMatch(authBoundary, /\/about/, "anonymous information routes must not trigger Firebase session synchronization");
+assert.doesNotMatch(authBoundary, /\/contact/, "contact must not trigger Firebase session synchronization");
+assert.doesNotMatch(authBoundary, /\/privacy-policy/, "legal information routes must not trigger Firebase session synchronization");
+assert.match(login, /from "firebase\/auth"/, "student login must remain backed by Firebase Auth");
+assert.match(login, /from "@\/lib\/auth"/, "student login must retain the canonical auth helpers");
+
+assert.doesNotMatch(categoryIcon, /import \* as Icons from "lucide-react"/, "category icons must never import the full Lucide namespace");
+assert.match(categoryIcon, /type LucideIcon/, "category icon map must use the Lucide icon component type");
+assert.match(categoryIcon, /const lucideCategoryIcons: Readonly<Record<string, LucideIcon>>/, "category icons must use a bounded lookup map");
+assert.match(categoryIcon, /Landmark,[\s\S]*?BadgeCheck,[\s\S]*?Building2,[\s\S]*?GraduationCap,[\s\S]*?BriefcaseBusiness,[\s\S]*?Monitor/, "all canonical fallback category icons must remain available");
+assert.match(categoryIcon, /Heart,[\s\S]*?Banknote/, "documented historical category icon examples must remain available");
+assert.match(categoryIcon, /const IconComponent = lucideCategoryIcons\[icon\]/, "category icon lookup must use the bounded map");
+assert.match(categoryIcon, /return <BookOpen className=\{className\} \/>/, "unknown or empty category icons must retain the BookOpen fallback");
+
+assert.ok(categoryIconFiles.length > 0, "category icon asset directory must not be empty");
+assert.equal(new Set(categoryIconFileKeys).size, categoryIconFileKeys.length, "category icon assets must not collide case-insensitively");
+assert.ok(categoryIconFileKeys.includes("ssc-cgl.png"), "SSC-CGL icon must remain addressable by its normalized category slug");
+assert.ok(categoryIconFileKeys.includes("punjab.png"), "Punjab icon must remain addressable by its normalized category slug");
+assert.match(categoryIconResolver, /readdirSync\(root, \{ withFileTypes: true \}\)/, "category icon resolver must inspect actual filenames on disk");
+assert.match(categoryIconResolver, /const key = entry\.name\.toLowerCase\(\)/, "category icon resolver must normalize filenames for case-insensitive lookup");
+assert.match(categoryIconResolver, /Case-insensitive category icon collision/, "category icon resolver must fail closed on ambiguous case-only duplicates");
+assert.match(categoryIconResolver, /index\.get\(`\$\{slug\}\$\{extension\}`\.toLowerCase\(\)\)/, "category icon resolver must lookup normalized category slugs case-insensitively");
+assert.match(categoryIconResolver, /return `\/category-icons\/\$\{filename\}`/, "category icon resolver must return the actual asset filename casing");
+assert.match(categoryIconResolver, /ICON_INDEX_CACHE/, "category icon resolver must cache directory indexes instead of rescanning per category row");
+
+assert.doesNotMatch(vite, /firebase:\s*\[/, "Firebase must not be forced into a manual chunk that can become an entry dependency");
+assert.doesNotMatch(vite, /hoistTransitiveImports:/, "startup isolation must not depend on a global Rollup hoisting override");
+assert.match(vite, /assertStaticEntryExcludesFirebase/, "production build must enforce a Firebase-free static entry graph");
+assert.match(vite, /node_modules\/firebase\//, "entry-graph guard must detect the Firebase package");
+assert.match(vite, /node_modules\/@firebase\//, "entry-graph guard must detect Firebase internal packages");
+assert.match(vite, /CATEGORY_ICON_CHUNK_BUDGET_BYTES = 64 \* 1024/, "production build must define a strict CategoryIcon chunk budget");
+assert.match(vite, /function assertCategoryIconBundleBudget\(\)/, "production build must own a CategoryIcon bundle guard");
+assert.match(vite, /includes\("\/src\/components\/CategoryIcon\.tsx"\)/, "bundle guard must identify the chunk containing CategoryIcon");
+assert.match(vite, /Buffer\.byteLength\(output\.code, "utf8"\)/, "bundle guard must measure emitted production bytes");
+assert.match(vite, /assertCategoryIconBundleBudget\(\)/, "CategoryIcon bundle guard must be enabled in the Vite plugin chain");
+
+assert.match(proof, /anonymous information pages download neither MathJax auth Firebase nor the exam catalog/);
+assert.match(proof, /exam discovery loads the catalog on demand without loading auth or Firebase/);
+assert.match(proof, /student login loads Firebase-backed auth on demand without waking the exam catalog/);
+assert.match(proof, /saved question review loads the isolated MathJax bundle on demand/);
+assert.match(proof, /function localMathProviderChunks/);
+assert.match(proof, /function localAuthChunks/);
+assert.match(proof, /function localFirebaseChunks/);
+assert.match(proof, /MathJaxRouteProvider-/);
+assert.match(proof, /auth-/);
+assert.match(proof, /firebase-/);
+assert.match(proof, /page\.route\("\*\*\/api\/users\/me"[\s\S]*?new Promise<void>\(\(\) => \{\}\)/, "login proof must hold the synthetic E2E profile lookup to preserve the signed-out surface");
+assert.match(proof, /counts\)\.toEqual\(\{ categories: 0, subcategories: 0, tests: 0 \}\)/, "anonymous and login proofs must reject eager catalog API requests");
+assert.match(proof, /counts\.categories\)\.toBeGreaterThan\(0\)/, "exam discovery proof must observe category loading on demand");
+assert.match(proof, /counts\.subcategories\)\.toBeGreaterThan\(0\)/, "exam discovery proof must observe subcategory loading on demand");
+assert.match(proof, /counts\.tests\)\.toBeGreaterThan\(0\)/, "exam discovery proof must observe test loading on demand");
+assert.match(proof, /localAuthChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous/catalog routes must prove the auth module is absent");
+assert.match(proof, /localAuthChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase-backed auth module loads on demand");
+assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous/catalog routes must prove the Firebase helper chunk is absent");
+assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase helper chunk loads on demand");
+assert.match(proof, /\$x = 2\$/);
+
+console.log("Startup performance audit passed (99 assertions).");
