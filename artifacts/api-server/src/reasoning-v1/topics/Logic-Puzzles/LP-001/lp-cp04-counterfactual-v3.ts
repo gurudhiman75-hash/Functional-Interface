@@ -63,6 +63,7 @@ export const LP_CP04_COUNTERFACTUAL_V3 = Object.freeze({
   }),
   answerDependencyContract: "ANSWER_NOT_FIXED_BEFORE_CONDITION_BUT_FIXED_AFTER_CONDITION" as const,
   distractorContract: "DISTRACTORS_REMAIN_PLAUSIBLE_BEFORE_CONDITION_AND_ARE_NOT_MUST_AFTER_CONDITION" as const,
+  answerPositionContract: "BATCH_DISTRIBUTED_ACROSS_ALL_FOUR_OPTION_SLOTS" as const,
   runtimeMode: "REVIEW_ONLY" as const,
   questionBankWritable: false as const,
   testEligible: false as const,
@@ -77,10 +78,6 @@ function combinations<T>(items: readonly T[]): T[][] {
     if (subset.length < items.length) result.push(subset);
   }
   return result.sort((left, right) => right.length - left.length);
-}
-
-function stateKey(caselet: Pick<Lp004Caselet, "candidates">, state: SelectionAssignment): string {
-  return caselet.candidates.filter((candidate) => state[candidate]).join("");
 }
 
 function renderCommittee(caselet: Pick<Lp004Caselet, "candidates" | "candidateLabels">, state: SelectionAssignment): string {
@@ -224,10 +221,31 @@ function generateEasyOrMedium(seed: string, difficulty: "Easy" | "Medium", outpu
   throw new Error(`CP04 V3 could not build ${difficulty} LP-001 caselet ${outputIndex + 1}.`);
 }
 
+function rebalanceAnswerSlot<T extends LpCp04CaseletV3>(caselet: T, desiredSlot: number): T {
+  const child: any = caselet.counterfactualChild;
+  const answer = child.answer as string;
+  const distractors = (child.options as string[]).filter((option) => option !== answer);
+  const options: string[] = [];
+  let distractorIndex = 0;
+  for (let slot = 0; slot < 4; slot += 1) {
+    options.push(slot === desiredSlot ? answer : distractors[distractorIndex++]!);
+  }
+  return {
+    ...caselet,
+    counterfactualChild: {
+      ...child,
+      options,
+      correctIndex: desiredSlot,
+    },
+  } as T;
+}
+
 export function generateLpCp04BatchV3(seed = "lp-cp04-counterfactual-review-v3", count = 9): LpCp04CaseletV3[] {
   return Array.from({ length: count }, (_, outputIndex) => {
     const difficulty = (["Easy", "Medium", "Hard"] as const)[outputIndex % 3]!;
-    if (difficulty === "Hard") return generateHard(seed, outputIndex);
-    return generateEasyOrMedium(seed, difficulty, outputIndex);
+    const built = difficulty === "Hard"
+      ? generateHard(seed, outputIndex)
+      : generateEasyOrMedium(seed, difficulty, outputIndex);
+    return rebalanceAnswerSlot(built, outputIndex % 4);
   });
 }
