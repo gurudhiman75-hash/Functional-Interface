@@ -1,11 +1,12 @@
-import type { AlpLocale, AlpQuestionLogic, GeneratedAlpQuestion } from "./types";
+import type { AlpLocale, AlpOption, AlpQuestionLogic, GeneratedAlpQuestion } from "./types";
 import { buildCp006 } from "./completion/cp006";
 import { buildCp007 } from "./completion/cp007";
 import { buildCp008 } from "./completion/cp008";
 import { buildCp009 } from "./completion/cp009";
 import { buildCp010 } from "./completion/cp010";
 import { renderCompletionEditorial } from "./completion/editorial";
-import { difficulty, options, rank, track, type C } from "./completion/shared";
+import { completionDifficulty } from "./completion/difficulty-v2";
+import { options, rank, track, type C } from "./completion/shared";
 
 function build(ql: AlpQuestionLogic, seed: number): C {
   switch (ql.checkpointId) {
@@ -141,6 +142,85 @@ function naturalizeCompletionText(text: string): string {
     .replaceAll("between its members in the number", "between their members in the number");
 }
 
+function localText(locale: AlpLocale, en: string, hi: string, pa: string): string {
+  return locale === "hi-IN" ? hi : locale === "pa-IN" ? pa : en;
+}
+
+function compoundWindowPresentation(
+  ql: AlpQuestionLogic,
+  completion: C,
+  opts: readonly AlpOption[],
+  correctIndex: number,
+  locale: AlpLocale,
+) {
+  if (ql.qlId !== "ALP-QL-138" && ql.qlId !== "ALP-QL-140") return undefined;
+
+  const sequence = completion.source.join(" ");
+  const literalZab = ql.qlId === "ALP-QL-138" && completion.query.en.includes("Z-A-B");
+  const symbolLetterDigit = ql.qlId === "ALP-QL-138" && !literalZab;
+  const working = locale === "hi-IN" ? completion.working.hi : locale === "pa-IN" ? completion.working.pa : completion.working.en;
+
+  const stem = literalZab
+    ? localText(locale,
+      `In the sequence ${sequence}, how many A's are immediately preceded by Z and immediately followed by B?`,
+      `श्रृंखला ${sequence} में कितने A ऐसे हैं जिनके ठीक पहले Z और ठीक बाद B है?`,
+      `ਲੜੀ ${sequence} ਵਿੱਚ ਕਿੰਨੇ A ਅਜੇਹੇ ਹਨ ਜਿਨ੍ਹਾਂ ਦੇ ਠੀਕ ਪਹਿਲਾਂ Z ਅਤੇ ਠੀਕ ਬਾਅਦ B ਹੈ?`)
+    : symbolLetterDigit
+      ? localText(locale,
+        `In the sequence ${sequence}, how many letters are immediately preceded by a symbol and immediately followed by a digit?`,
+        `श्रृंखला ${sequence} में कितने अक्षर ऐसे हैं जिनके ठीक पहले कोई चिन्ह और ठीक बाद कोई अंक है?`,
+        `ਲੜੀ ${sequence} ਵਿੱਚ ਕਿੰਨੇ ਅੱਖਰ ਅਜੇਹੇ ਹਨ ਜਿਨ੍ਹਾਂ ਦੇ ਠੀਕ ਪਹਿਲਾਂ ਕੋਈ ਨਿਸ਼ਾਨ ਅਤੇ ਠੀਕ ਬਾਅਦ ਕੋਈ ਅੰਕ ਹੈ?`)
+      : localText(locale,
+        `In the sequence ${sequence}, how many symbols have a letter on one side and a digit on the other side, immediately adjacent?`,
+        `श्रृंखला ${sequence} में कितने चिन्ह ऐसे हैं जिनके एक ओर अक्षर और दूसरी ओर अंक ठीक साथ में है?`,
+        `ਲੜੀ ${sequence} ਵਿੱਚ ਕਿੰਨੇ ਨਿਸ਼ਾਨ ਅਜੇਹੇ ਹਨ ਜਿਨ੍ਹਾਂ ਦੇ ਇੱਕ ਪਾਸੇ ਅੱਖਰ ਅਤੇ ਦੂਜੇ ਪਾਸੇ ਅੰਕ ਬਿਲਕੁਲ ਨਾਲ ਹੈ?`);
+
+  const coreConcept = localText(locale,
+    "Check overlapping windows of three consecutive elements; all three conditions must be true in the same window.",
+    "तीन लगातार तत्त्वों के हर समूह को जाँचें; एक ही समूह में तीनों शर्तें पूरी होनी चाहिए।",
+    "ਤਿੰਨ ਲਗਾਤਾਰ ਤੱਤਾਂ ਦੇ ਹਰ ਸਮੂਹ ਨੂੰ ਜਾਂਚੋ; ਇੱਕੋ ਸਮੂਹ ਵਿੱਚ ਤਿੰਨੇ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ।");
+  const ruleStatement = literalZab
+    ? localText(locale, "Count only consecutive Z-A-B windows.", "केवल लगातार Z-A-B समूह गिनें।", "ਕੇਵਲ ਲਗਾਤਾਰ Z-A-B ਸਮੂਹ ਗਿਣੋ।")
+    : symbolLetterDigit
+      ? localText(locale, "The centre element must be a letter, with a symbol immediately before it and a digit immediately after it.", "बीच का तत्त्व अक्षर हो; उसके ठीक पहले चिन्ह और ठीक बाद अंक हो।", "ਵਿਚਕਾਰਲਾ ਤੱਤ ਅੱਖਰ ਹੋਵੇ; ਉਸਦੇ ਠੀਕ ਪਹਿਲਾਂ ਨਿਸ਼ਾਨ ਅਤੇ ਠੀਕ ਬਾਅਦ ਅੰਕ ਹੋਵੇ।")
+      : localText(locale, "The centre element must be a symbol and its two immediate neighbours must be one letter and one digit in either order.", "बीच का तत्त्व चिन्ह हो और उसके दोनों तुरंत पड़ोसी एक अक्षर तथा एक अंक हों, क्रम कोई भी हो।", "ਵਿਚਕਾਰਲਾ ਤੱਤ ਨਿਸ਼ਾਨ ਹੋਵੇ ਅਤੇ ਉਸਦੇ ਦੋਵੇਂ ਤੁਰੰਤ ਗੁਆਂਢੀ ਇੱਕ ਅੱਖਰ ਅਤੇ ਇੱਕ ਅੰਕ ਹੋਣ, ਕ੍ਰਮ ਕੋਈ ਵੀ ਹੋਵੇ।");
+
+  const steps = [
+    localText(locale, "Number the complete row without removing any element.", "पूरी पंक्ति को स्थान संख्या दें; कोई तत्त्व न हटाएँ।", "ਪੂਰੀ ਕਤਾਰ ਨੂੰ ਥਾਂ ਨੰਬਰ ਦਿਓ; ਕੋਈ ਤੱਤ ਨਾ ਹਟਾਓ।"),
+    localText(locale, "Slide a three-element window one place at a time and keep only the windows satisfying every stated condition.", "तीन-तत्त्व की खिड़की को एक-एक स्थान आगे बढ़ाएँ और केवल वे समूह रखें जो सभी शर्तें पूरी करते हैं।", "ਤਿੰਨ-ਤੱਤ ਖਿੜਕੀ ਨੂੰ ਇੱਕ-ਇੱਕ ਥਾਂ ਅੱਗੇ ਵਧਾਓ ਅਤੇ ਕੇਵਲ ਉਹ ਸਮੂਹ ਰੱਖੋ ਜੋ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੇ ਹਨ।"),
+    working,
+  ];
+  const visualWorking = [
+    localText(locale, `Row: ${sequence}`, `पंक्ति: ${sequence}`, `ਕਤਾਰ: ${sequence}`),
+    working,
+    localText(locale, `Answer: ${completion.answer}`, `उत्तर: ${completion.answer}`, `ਉੱਤਰ: ${completion.answer}`),
+  ];
+  const distractorAnalyses: GeneratedAlpQuestion["explanation"]["distractorAnalyses"] = opts
+    .map((option, optionIndex) => ({ option, optionIndex }))
+    .filter(({ optionIndex }) => optionIndex !== correctIndex)
+    .map(({ option, optionIndex }) => ({
+      optionIndex,
+      optionValue: option.value,
+      errorLabel: option.errorLabel ?? "WINDOW_MISCOUNT",
+      explanation: localText(locale,
+        `Option ${optionIndex + 1} (${option.value}) is incorrect. ${working} The verified total is ${completion.answer}, so ${option.value} misses or adds at least one three-token window.`,
+        `विकल्प ${optionIndex + 1} (${option.value}) गलत है। ${working} सत्यापित कुल ${completion.answer} है, इसलिए ${option.value} में कम-से-कम एक तीन-तत्त्व समूह छूटा या अतिरिक्त गिना गया है।`,
+        `ਚੋਣ ${optionIndex + 1} (${option.value}) ਗਲਤ ਹੈ। ${working} ਜਾਂਚੀ ਕੁੱਲ ਗਿਣਤੀ ${completion.answer} ਹੈ, ਇਸ ਲਈ ${option.value} ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਤਿੰਨ-ਤੱਤ ਸਮੂਹ ਛੁੱਟਿਆ ਜਾਂ ਵੱਧ ਗਿਣਿਆ ਗਿਆ ਹੈ।`),
+    }));
+
+  return {
+    stem,
+    coreConcept,
+    ruleStatement,
+    steps,
+    visualWorking,
+    examShortcut: localText(locale, "Mark only the middle element of each valid three-token window; this prevents double-counting overlapping windows.", "हर सही तीन-तत्त्व समूह के केवल बीच वाले तत्त्व को चिन्हित करें; इससे पास-पास के समूह दो बार नहीं गिने जाते।", "ਹਰ ਸਹੀ ਤਿੰਨ-ਤੱਤ ਸਮੂਹ ਦੇ ਕੇਵਲ ਵਿਚਕਾਰਲੇ ਤੱਤ ਨੂੰ ਨਿਸ਼ਾਨ ਲਗਾਓ; ਇਸ ਨਾਲ ਨੇੜਲੇ ਸਮੂਹ ਦੋ ਵਾਰ ਨਹੀਂ ਗਿਣੇ ਜਾਂਦੇ।"),
+    conclusion: localText(locale, `Therefore, the correct count is ${completion.answer}.`, `इसलिए सही संख्या ${completion.answer} है।`, `ਇਸ ਲਈ ਸਹੀ ਗਿਣਤੀ ${completion.answer} ਹੈ।`),
+    distractorAnalyses,
+    closestTrapRejection: localText(locale, `The nearest option still disagrees with the complete three-token scan; the verified count is ${completion.answer}.`, `निकटतम विकल्प भी पूरी तीन-तत्त्व जाँच से मेल नहीं खाता; सत्यापित संख्या ${completion.answer} है।`, `ਸਭ ਤੋਂ ਨੇੜਲੀ ਚੋਣ ਵੀ ਪੂਰੀ ਤਿੰਨ-ਤੱਤ ਜਾਂਚ ਨਾਲ ਨਹੀਂ ਮਿਲਦੀ; ਜਾਂਚੀ ਗਿਣਤੀ ${completion.answer} ਹੈ।`),
+  };
+}
+
 export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number, locale: AlpLocale): GeneratedAlpQuestion {
   if (!Number.isInteger(seed)) throw new Error("ALP-001 completion seed must be an integer.");
   const completion = build(ql, seed);
@@ -149,6 +229,7 @@ export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number
   const distractorAnalyses = ensureVerifiedAnswerInTraps(editorial.distractorAnalyses, completion.answer, locale);
   const optionOnlyQuestion = ql.solveMode === "IDENTIFY_WORD_BY_ALPHA_PAIR_COUNT";
   const optionOnlyWorking = optionOnlyQuestion ? optionCountWorking(completion, locale) : undefined;
+  const compoundPresentation = compoundWindowPresentation(ql, completion, builtOptions.out, builtOptions.correctIndex, locale);
   const renderedStem = ql.solveMode === "DIGIT_COUNT_UNCHANGED_SELECTED_TRANSFORM"
     ? selectedDigitTransformStem(completion, locale)
     : optionOnlyQuestion
@@ -163,10 +244,10 @@ export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number
     solveMode: ql.solveMode,
     locale,
     seed,
-    difficulty: difficulty(ql, seed),
+    difficulty: completionDifficulty(ql, completion),
     renderer: ql.renderer,
     presentationMode: ql.presentationMode,
-    stem: renderedStem,
+    stem: compoundPresentation?.stem ?? renderedStem,
     structuredPrompt: {
       ...(!optionOnlyQuestion ? { sequence: completion.source } : {}),
       ...(!optionOnlyQuestion && completion.changed ? { transformedSequence: completion.changed } : {}),
@@ -179,24 +260,24 @@ export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number
     answer: completion.answer,
     explanation: {
       schemaVersion: "ALP-001-PEDAGOGY-V2",
-      coreConcept: naturalizeCompletionText(editorial.coreConcept),
-      ruleStatement: naturalizeCompletionText(editorial.ruleStatement),
-      steps: optionOnlyWorking?.steps ?? editorial.steps.map(naturalizeCompletionText),
-      visualWorking: optionOnlyWorking?.visualWorking ?? editorial.visualWorking.map(naturalizeCompletionText),
-      examShortcut: naturalizeCompletionText(editorial.examShortcut),
-      conclusion: naturalizeCompletionText(editorial.conclusion),
-      distractorAnalyses: distractorAnalyses.map((analysis) => ({
+      coreConcept: compoundPresentation?.coreConcept ?? naturalizeCompletionText(editorial.coreConcept),
+      ruleStatement: compoundPresentation?.ruleStatement ?? naturalizeCompletionText(editorial.ruleStatement),
+      steps: compoundPresentation?.steps ?? optionOnlyWorking?.steps ?? editorial.steps.map(naturalizeCompletionText),
+      visualWorking: compoundPresentation?.visualWorking ?? optionOnlyWorking?.visualWorking ?? editorial.visualWorking.map(naturalizeCompletionText),
+      examShortcut: compoundPresentation?.examShortcut ?? naturalizeCompletionText(editorial.examShortcut),
+      conclusion: compoundPresentation?.conclusion ?? naturalizeCompletionText(editorial.conclusion),
+      distractorAnalyses: compoundPresentation?.distractorAnalyses ?? distractorAnalyses.map((analysis) => ({
         ...analysis,
         explanation: naturalizeCompletionText(analysis.explanation),
       })),
-      closestTrapRejection: naturalizeCompletionText(editorial.closestTrapRejection),
+      closestTrapRejection: compoundPresentation?.closestTrapRejection ?? naturalizeCompletionText(editorial.closestTrapRejection),
     },
     metadata: {
       runtimeVersion: "ALP-001-RUNTIME-V3",
       localeMode: "TRANSLATABLE",
       independentSolverVerified: true,
       ambiguityAudit: "EXPLICIT_OPERATION_UNIQUE",
-      occurrenceAware: false,
+      occurrenceAware: new Set(completion.source).size !== completion.source.length,
     },
   };
 }
