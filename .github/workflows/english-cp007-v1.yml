@@ -11,6 +11,7 @@ on:
     paths:
       - artifacts/api-server/src/english-v1/**
       - artifacts/api-server/src/question-studio/**
+      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
       - .github/workflows/english-cp007-v1.yml
   push:
     branches:
@@ -18,6 +19,7 @@ on:
     paths:
       - artifacts/api-server/src/english-v1/**
       - artifacts/api-server/src/question-studio/**
+      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
       - .github/workflows/english-cp007-v1.yml
   workflow_dispatch:
 
@@ -69,3 +71,5 @@ jobs:
         run: node artifacts/api-server/dist/english-v1/eng-001-cp006-v1-regression.test.mjs
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app exec tsc -b --pretty false
