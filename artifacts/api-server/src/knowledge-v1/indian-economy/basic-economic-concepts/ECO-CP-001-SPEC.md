@@ -33,13 +33,17 @@ Excluded from this CP:
 ## Design goals
 
 1. Questions must feel like SSC/Banking/State-exam Economy questions, not textbook prompts.
-2. Direct-definition items are permitted, but the CP must also test application through short realistic scenarios.
-3. Factors of production must be tested through both classification and factor-reward relationships.
-4. Scarcity and opportunity cost must be represented as choice/trade-off ideas, not memorised wording only.
-5. Distractors must come from the same conceptual family.
-6. Explanations must be short, simple and beginner-friendly.
-7. No volatile/current economic figures are allowed.
-8. Review questions remain `runtimeRegistered: false` until human approval.
+2. Use short, direct stems. Remove wording that does not help solve the question.
+3. Prefer one clean sentence where possible. Scenario stems may use two short sentences when needed.
+4. Explanations should normally be one short sentence, or two short sentences when a distinction needs to be shown.
+5. Explanations should explain the key idea instead of repeating the full question.
+6. Direct-definition items are permitted, but the CP must also test application through short realistic scenarios.
+7. Factors of production must be tested through both classification and factor-reward relationships.
+8. Scarcity and opportunity cost must be represented as choice/trade-off ideas, not memorised wording only.
+9. Distractors must come from the same conceptual family.
+10. Avoid formal filler such as "which option best describes", "illustrates most directly", and "normally treated as" when a simpler exam-style stem works.
+11. No volatile/current economic figures are allowed.
+12. Review questions remain `runtimeRegistered: false` until human approval.
 
 ## QL inventory
 
@@ -68,7 +72,9 @@ Before runtime registration:
 - no duplicate semantic question signatures;
 - every item carries source IDs and source-fact IDs;
 - no dynamic/current-value leakage;
-- editorial review confirms natural stems, plausible distractors and simple explanations.
+- no avoidable formal filler in stems;
+- explanations remain short and beginner-friendly;
+- editorial review confirms natural stems and plausible distractors.
 
 ## Sources
 
