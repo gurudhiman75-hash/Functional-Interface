@@ -1,108 +1,98 @@
-export type ConjunctionRuleId =
-  | "GR-CON-001"
-  | "GR-CON-002"
-  | "GR-CON-003"
-  | "GR-CON-004"
-  | "GR-CON-005"
-  | "GR-CON-006"
-  | "GR-CON-007"
-  | "GR-CON-008"
-  | "GR-CON-009"
-  | "GR-CON-010";
+import type { ConjunctionRuleId, EnglishGrammarRule } from "../core/types";
 
-export type ConjunctionMutationId =
-  | "MUT-CON-COORDINATOR-001"
-  | "MUT-CON-BOTH-AND-001"
-  | "MUT-CON-EITHER-OR-001"
-  | "MUT-CON-NEITHER-NOR-001"
-  | "MUT-CON-NOT-ONLY-BUT-ALSO-001"
-  | "MUT-CON-ALTHOUGH-BUT-001"
-  | "MUT-CON-BECAUSE-BECAUSE-OF-001"
-  | "MUT-CON-DESPITE-ALTHOUGH-001"
-  | "MUT-CON-PARALLEL-LIST-001"
-  | "MUT-CON-PARALLEL-CORRELATIVE-001";
-
-export interface ConjunctionRuleV1 {
-  ruleId: ConjunctionRuleId;
-  name: string;
-  principle: string;
-  mutationId: ConjunctionMutationId;
-  ambiguityGuard: string;
-}
-
-export const CONJUNCTION_RULES_V1: readonly ConjunctionRuleV1[] = [
+export const CONJUNCTION_RULES_V1: readonly EnglishGrammarRule[] = [
   {
     ruleId: "GR-CON-001",
+    category: "conjunctions_parallelism",
     name: "Choose the coordinating conjunction that matches the relation",
-    principle: "Use a coordinating conjunction that matches the meaning between the two clauses, such as but or yet for contrast and so for result.",
+    principle: "Use a coordinating conjunction that matches the meaning between clauses, such as but or yet for contrast and so for result.",
     mutationId: "MUT-CON-COORDINATOR-001",
-    ambiguityGuard: "The two clauses must make the intended contrast, addition, alternative, or result unmistakable from context.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "The clause relation must be unmistakable from context.",
   },
   {
     ruleId: "GR-CON-002",
+    category: "conjunctions_parallelism",
     name: "Both ... and",
     principle: "Use both with and to join two parallel words, phrases, or clauses.",
     mutationId: "MUT-CON-BOTH-AND-001",
-    ambiguityGuard: "The paired elements must be grammatically parallel and the error must concern the correlative pair, not agreement.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "The paired elements must be grammatical equals and agreement is not the tested point.",
   },
   {
     ruleId: "GR-CON-003",
+    category: "conjunctions_parallelism",
     name: "Either ... or",
     principle: "Use either with or when presenting two alternatives.",
     mutationId: "MUT-CON-EITHER-OR-001",
-    ambiguityGuard: "Do not test subject-verb agreement after either/or; that remains CP001 ownership.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "Subject-verb agreement after either/or remains CP001 ownership.",
   },
   {
     ruleId: "GR-CON-004",
+    category: "conjunctions_parallelism",
     name: "Neither ... nor",
     principle: "Use neither with nor when rejecting both alternatives.",
     mutationId: "MUT-CON-NEITHER-NOR-001",
-    ambiguityGuard: "Do not test proximity agreement; the keyed defect is only the correlative conjunction pair.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "The keyed defect is the conjunction pair, not proximity agreement.",
   },
   {
     ruleId: "GR-CON-005",
+    category: "conjunctions_parallelism",
     name: "Not only ... but also",
     principle: "Use not only with but also, keeping the joined elements in parallel grammatical form.",
     mutationId: "MUT-CON-NOT-ONLY-BUT-ALSO-001",
-    ambiguityGuard: "The sentence must not depend on optional stylistic inversion; the defect is in pairing or parallel structure.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "Avoid optional stylistic inversion; test only the pair or its parallel structure.",
   },
   {
     ruleId: "GR-CON-006",
+    category: "conjunctions_parallelism",
     name: "Although / though without but",
-    principle: "Do not normally use but in the same clause pair after although or though; the subordinating conjunction already marks contrast.",
+    principle: "Do not normally use but in the same clause pair after although or though because the subordinator already marks contrast.",
     mutationId: "MUT-CON-ALTHOUGH-BUT-001",
-    ambiguityGuard: "Use standard exam grammar and avoid discourse uses where but starts a new independent sentence.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "Use the standard competitive-exam construction and avoid discourse uses where but begins a new sentence.",
   },
   {
     ruleId: "GR-CON-007",
+    category: "conjunctions_parallelism",
     name: "Because vs because of",
-    principle: "Use because before a clause and because of before a noun phrase or gerund phrase.",
+    principle: "Use because before a finite clause and because of before a noun or gerund phrase.",
     mutationId: "MUT-CON-BECAUSE-BECAUSE-OF-001",
-    ambiguityGuard: "The complement must clearly be either a finite clause or a noun phrase so the choice is unambiguous.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "The complement must clearly be a finite clause or a noun phrase.",
   },
   {
     ruleId: "GR-CON-008",
+    category: "conjunctions_parallelism",
     name: "Despite / in spite of vs although",
-    principle: "Use despite or in spite of before a noun phrase or gerund phrase, and although before a finite clause.",
+    principle: "Use despite or in spite of before a noun or gerund phrase, and although before a finite clause.",
     mutationId: "MUT-CON-DESPITE-ALTHOUGH-001",
-    ambiguityGuard: "Avoid compressed or elliptical clauses that could license more than one analysis.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "Avoid compressed clauses that permit more than one analysis.",
   },
   {
     ruleId: "GR-CON-009",
+    category: "conjunctions_parallelism",
     name: "Parallel structure in coordinated lists",
-    principle: "Items joined in a list should follow the same grammatical pattern, such as all gerunds, all infinitives, or all noun phrases.",
+    principle: "Items joined in a list should follow the same grammatical pattern.",
     mutationId: "MUT-CON-PARALLEL-LIST-001",
-    ambiguityGuard: "The list must contain three clearly comparable items and only one item may break the pattern.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "Use at least three clearly comparable items and let only one item break the pattern.",
   },
   {
     ruleId: "GR-CON-010",
+    category: "conjunctions_parallelism",
     name: "Parallel structure after correlative conjunctions",
     principle: "The elements following each half of a correlative pair should have matching grammatical form.",
     mutationId: "MUT-CON-PARALLEL-CORRELATIVE-001",
-    ambiguityGuard: "The keyed defect must be structural parallelism, not a vocabulary preference or agreement issue.",
+    allowedDifficulties: ["easy", "medium", "hard"],
+    ambiguityGuard: "The keyed defect must be structural parallelism, not vocabulary preference or agreement.",
   },
 ] as const;
 
-export const CONJUNCTION_RULE_BY_ID: Readonly<Record<ConjunctionRuleId, ConjunctionRuleV1>> = Object.freeze(
-  Object.fromEntries(CONJUNCTION_RULES_V1.map((rule) => [rule.ruleId, rule])) as Record<ConjunctionRuleId, ConjunctionRuleV1>,
+export const CONJUNCTION_RULE_BY_ID: Readonly<Record<ConjunctionRuleId, EnglishGrammarRule>> = Object.freeze(
+  Object.fromEntries(CONJUNCTION_RULES_V1.map((rule) => [rule.ruleId, rule])) as Record<ConjunctionRuleId, EnglishGrammarRule>,
 );
