@@ -1,7 +1,7 @@
-import { generateGeoPhy001Cp004ReviewBatchV2 } from "./geo-phy-001-cp004-review-generator-v2";
+import { generateGeoPhy001Cp004ReviewBatchV3 } from "./geo-phy-001-cp004-review-generator-v3";
 
 export const GEO_PHY_001_CP004_REVIEW_BATCH_V1 = Object.freeze(
-  generateGeoPhy001Cp004ReviewBatchV2().map((question) => Object.freeze(question)),
+  generateGeoPhy001Cp004ReviewBatchV3().map((question) => Object.freeze(question)),
 );
 
 export function auditGeoPhy001Cp004ReviewBatchV1() {
@@ -47,6 +47,17 @@ export function auditGeoPhy001Cp004ReviewBatchV1() {
     issues.push(`DIFFICULTY:${difficultyCounts.Easy}/${difficultyCounts.Medium}/${difficultyCounts.Hard}`);
   }
   if (answerPositions.join(",") !== "14,14,13,13") issues.push(`ANSWER_POSITIONS:${answerPositions.join(",")}`);
+
+  const requiredCoverage = [
+    "geo-phy-001-cp004-deccan-trap",
+    "geo-phy-001-cp004-central-highlands-rivers",
+    "geo-phy-001-cp004-deccan-eastern-extensions",
+    "geo-phy-001-cp004-deccan-northeast-fault",
+  ];
+  const usedFacts = new Set(GEO_PHY_001_CP004_REVIEW_BATCH_V1.flatMap((question) => question.sourceFactIds));
+  for (const factId of requiredCoverage) {
+    if (!usedFacts.has(factId)) issues.push(`DORMANT_REQUIRED_FACT:${factId}`);
+  }
 
   return {
     valid: issues.length === 0,
