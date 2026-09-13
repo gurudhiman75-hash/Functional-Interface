@@ -1,6 +1,6 @@
 # ENG-001 CP008 — Nouns & Quantifiers — Source Audit V1
 
-Status: `IMPLEMENTED_V1__AUTOMATED_VALIDATION_PENDING__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__PRODUCTION_LOCKED`
 
 ## Ownership
 
@@ -27,9 +27,24 @@ CP008 owns noun countability, noun number forms and quantifier–noun compatibil
 - deterministic generation and replay
 - exactly one canonical mutation per invalid scene
 - curated four-part learner boundaries
-- QL001 authored position target: A=8, B=22, C=22, D=8
+- verified QL001 source-answer spread: A=9, B=24, C=19, D=8
+- QL002 exercises A, B and C
 - difficulty comes from structural distance and sentence complexity rather than obscure vocabulary
 - explanations state the sentence-specific rule and full corrected sentence
 - no option-by-option analysis or test-taking jargon
 
-Question Studio registration, Question Bank writes, tests, mocks, public publication and production release remain locked until human editorial approval and the separate integration gate.
+## Approved review authority
+
+- Human editorial approval: explicit, 2026-09-13
+- Review artifact: `ENG-001-CP008-REVIEW-V1.md`
+- Review SHA-256: `d700c67cfa22a1573cd381e2000f84d3d24200354b877d93c0ac2c9736bf36c0`
+- Approved content head: `72c9d800c7787da29dca5703101a0a3e9714bc8e`
+- Authority: `ENG-001-CP008-HUMAN-EDITORIAL-APPROVAL-V1`
+
+## Automated validation
+
+The approved source passed 9,000 deterministic stress generations, the complete rule × difficulty × QL matrix, 60-scene exact-one-mutation validation, deterministic review export, CP007 generator regression and API build. The post-approval integration gate additionally verifies the CP008 Question Studio adapter, CP007 Question Studio regression, API build and admin typecheck.
+
+## Runtime lifecycle
+
+CP008 is registered in shared `language-v1 / ENG-001` for Question Studio review generation only. Question Bank writes, test eligibility, mock-test eligibility, public publication, automatic learner delivery and production release remain locked. Defects must be fixed in the source generator and regenerated; the approved review output is not an editable source of truth.
