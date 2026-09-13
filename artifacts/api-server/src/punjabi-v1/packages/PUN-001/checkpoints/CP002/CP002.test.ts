@@ -1,10 +1,15 @@
 import assert from "node:assert/strict";
 import { CP002_ACTIVE_AUTHORITIES, CP002_CONTEXT_AUTHORITIES, getCP002CategoryCounts } from "./CP002-authority-pool";
 import { CP002_KNOWN_VALID_DISTRACTOR_QUARANTINE } from "./CP002-distractor-hardening";
+import { CP002_LOANWORD_VARIANT_QUARANTINE } from "./CP002-loanword-hardening";
 import { CP002_FAMILIES, getCP002BreadthReport } from "./generator";
 
 const canonicalForms = new Set(CP002_ACTIVE_AUTHORITIES.map((x) => x.correct));
 const authorityIds = new Set<string>();
+const disallowedDistractors = new Set([
+  ...CP002_KNOWN_VALID_DISTRACTOR_QUARANTINE,
+  ...CP002_LOANWORD_VARIANT_QUARANTINE,
+]);
 
 assert.equal(CP002_ACTIVE_AUTHORITIES.length, 375, "CP002 active review corpus must contain exactly 375 authorities");
 assert.equal(canonicalForms.size, CP002_ACTIVE_AUTHORITIES.length, "canonical spelling forms must be unique");
@@ -20,8 +25,8 @@ for (const authority of CP002_ACTIVE_AUTHORITIES) {
     assert.equal(wrong, wrong.normalize("NFC"), `${authority.id}: non-NFC incorrect variant`);
     assert(!canonicalForms.has(wrong), `${authority.id}: incorrect variant '${wrong}' is canonical elsewhere in CP002`);
     assert(
-      !CP002_KNOWN_VALID_DISTRACTOR_QUARANTINE.has(wrong),
-      `${authority.id}: known-valid Punjabi lexical form '${wrong}' cannot be labelled a spelling error`,
+      !disallowedDistractors.has(wrong),
+      `${authority.id}: valid or orthographically contested Punjabi form '${wrong}' cannot be labelled a generic spelling error`,
     );
   }
   assert(["DONOR_CP002", "DONOR_CP002_CURATED", "EDITORIAL_CURATED"].includes(authority.provenance));
