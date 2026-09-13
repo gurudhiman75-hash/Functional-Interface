@@ -10,36 +10,46 @@ export type Cae001EditorialReviewSample = Readonly<{
 }>;
 
 /**
- * Frozen-V3 regression selection. It samples semantic causal states before
- * item presentations so option shuffling cannot consume review slots.
- * Reviewed checkpoint overrides live in reviewed-editorial-review-pack.ts.
+ * Frozen-V3 regression selection. The candidate pool keeps presentation-level
+ * variation long enough to expose every generated difficulty band. Selection
+ * itself still admits each semantic causal state at most once, so option/order
+ * variation cannot consume another human-review slot.
  */
 function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Cae001EditorialReviewSample[] {
   const generated: Cae001EditorialReviewSample[] = [];
-  const seenCausalStates = new Set<string>();
   for (let seed = 0; seed < 5_000 && generated.length < 320; seed += 1) {
-    const question = generateCaeQuestion({ qlId, locale: "en-IN", seed });
-    if (!seenCausalStates.has(question.causalStateId)) {
-      seenCausalStates.add(question.causalStateId);
-      generated.push({ seed, question });
-    }
+    generated.push({ seed, question: generateCaeQuestion({ qlId, locale: "en-IN", seed }) });
   }
+
   const availableDifficulties = new Set(generated.map((entry) => entry.question.difficulty));
   const selected: Cae001EditorialReviewSample[] = [];
   const selectedCausalStates = new Set<string>();
   const add = (entry: Cae001EditorialReviewSample | undefined) => {
+    if (selected.length >= 10) return;
     if (entry && !selectedCausalStates.has(entry.question.causalStateId)) {
       selected.push(entry);
       selectedCausalStates.add(entry.question.causalStateId);
     }
   };
+  const findUnseen = (predicate: (entry: Cae001EditorialReviewSample) => boolean) =>
+    generated.find((entry) => predicate(entry) && !selectedCausalStates.has(entry.question.causalStateId));
 
-  for (const difficulty of DIFFICULTY_ORDER) if (availableDifficulties.has(difficulty)) add(generated.find((entry) => entry.question.difficulty === difficulty));
-  for (const familyId of new Set(generated.map((entry) => entry.question.scenarioFamilyId))) add(generated.find((entry) => entry.question.scenarioFamilyId === familyId));
-  for (const entry of generated) {
-    add(entry);
-    if (selected.length === 10) break;
+  // Difficulty is a presentation property for some causal states. Choose a
+  // fresh semantic state for every available band rather than discarding the
+  // later rendering before selection starts.
+  for (const difficulty of DIFFICULTY_ORDER) {
+    if (availableDifficulties.has(difficulty)) add(findUnseen((entry) => entry.question.difficulty === difficulty));
   }
+
+  // Then expose family breadth, again without reusing a causal state already
+  // selected for another review purpose.
+  for (const familyId of new Set(generated.map((entry) => entry.question.scenarioFamilyId))) {
+    add(findUnseen((entry) => entry.question.scenarioFamilyId === familyId));
+  }
+
+  // Fill the quota with fresh semantic states only.
+  for (const entry of generated) add(entry);
+
   if (selected.length !== 10) throw new Error(`${qlId}: editorial review selection did not reach ten distinct causal states.`);
   return Object.freeze(selected);
 }
@@ -64,7 +74,7 @@ export function renderCae001EditorialRealnessReview(): string {
   const lines = [
     "# CAE-001 V3 editorial-realness regression pack",
     "",
-    "Deterministic English (`en-IN`) frozen-V3 regression samples. There are ten semantically distinct generated causal states for each current CP/QL. Reviewed checkpoint overrides are rendered separately.",
+    "Deterministic English (`en-IN`) frozen-V3 regression samples. There are ten semantically distinct generated causal states for each current CP/QL, with every available difficulty represented. Reviewed checkpoint overrides are rendered separately.",
   ];
   for (const qlId of CAE_PROVISIONAL_QL_IDS) {
     const samples = CAE_001_EDITORIAL_REALNESS_REVIEW[qlId];
