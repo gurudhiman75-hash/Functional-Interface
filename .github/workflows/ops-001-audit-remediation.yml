@@ -1,0 +1,64 @@
+name: OPS-001 audit remediation
+
+on:
+  push:
+    branches:
+      - audit-remediation/ops-001-v1
+    paths:
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.test.ts
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
+      - .github/workflows/ops-001-audit-remediation.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.test.ts
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
+      - .github/workflows/ops-001-audit-remediation.yml
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/question-studio/engines/reasoning-v1-adapter.ts \
+            src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.ts \
+            src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.test.ts \
+            src/question-studio/engine-registry.ts
+      - name: Instance-derived difficulty proof
+        run: pnpm dlx tsx ./artifacts/api-server/src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.test.ts
+      - name: Frozen QL registry proof
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/registry/ops-ql-registry.test.ts
+      - name: Approved runtime regression
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-teaching-runtime.test.ts
+      - name: API build
+        run: pnpm --dir artifacts/api-server build
