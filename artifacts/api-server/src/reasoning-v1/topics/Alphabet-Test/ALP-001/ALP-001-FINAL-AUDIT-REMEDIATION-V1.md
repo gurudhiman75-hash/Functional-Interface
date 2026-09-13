@@ -1,10 +1,10 @@
 # ALP-001 — Reasoning V1 Final-Audit Remediation V1
 
-Status: `IMPLEMENTED_ON_REVIEW_BRANCH__CI_REQUIRED__NO_PUBLIC_PROMOTION`
+Status: `IMPLEMENTED_ON_REVIEW_BRANCH__CI_GREEN__NO_PUBLIC_PROMOTION`
 
 ## Why this remediation exists
 
-The final Reasoning V1 audit found no P0 logical failure, but it did find several P1 weaknesses that must be closed before ALP-001 can be treated as final-release ready. The original version of this remediation note covered only four of them; this revision reconciles the branch with the complete audit.
+The final Reasoning V1 audit found no P0 logical failure, but it did find several P1 weaknesses that must be closed before ALP-001 can be treated as final-release ready. The original version of this remediation note covered only four of them; this revision reconciles the branch with the complete audit and the follow-up micro-audit of the remediation itself.
 
 The audited P1 set is:
 
@@ -12,7 +12,7 @@ The audited P1 set is:
 2. CP009 lacked source-backed compound three-token neighbourhood scans;
 3. CP010 could sort letters in place and could count unchanged positions, but could not compose those two operations;
 4. CP008–CP010 source rows had a strong generator fingerprint: fixed lengths/category ratios and no repeated visible tokens;
-5. CP006/CP007 word reservoirs were too small for production fatigue resistance;
+5. CP005–CP007 word reservoirs were too small for production fatigue resistance;
 6. CP009 contained two pairs of semantic duplicate QLs;
 7. CP006–CP010 distractors were not consistently constructed from explicit misconception states.
 
@@ -22,7 +22,7 @@ A separate cross-chapter source audit also found classic meaningful-word formati
 
 ### 1. Generated-state difficulty
 
-CP001–CP005 retain their earlier removal of seed-cycle bonuses. CP006–CP010 now use `completion/difficulty-v2.ts`, which receives the completed solve state rather than the raw seed.
+CP001–CP005 retain their earlier removal of seed-cycle bonuses. The follow-up micro-audit also removed the remaining CP005 word-length bonus, because a longer source word must not be the deciding reason an otherwise equivalent item becomes Hard. CP006–CP010 use `completion/difficulty-v2.ts`, which receives the completed solve state rather than the raw seed.
 
 Difficulty can use actual reasoning features such as:
 
@@ -33,7 +33,7 @@ Difficulty can use actual reasoning features such as:
 - transform-then-count composition;
 - repeated-token burden only for scan/inverse tasks where repetition actually matters.
 
-Raw seed, number magnitude and mixed-row length are deliberately absent from the difficulty function. The executable gate also compares otherwise identical direct-position states of different lengths and requires the same difficulty.
+Raw seed, number magnitude, mixed-row length and single-word length are deliberately absent as difficulty escalators. The executable gate also compares otherwise identical direct-position states of different lengths and requires the same difficulty.
 
 Some QLs are intentionally allowed to span more than one difficulty when their generated transform structure changes. This replaces the earlier, incorrect gate that required every advanced QL to have exactly one difficulty across all seeds.
 
@@ -79,12 +79,19 @@ CP008 digit rows also vary from 7–9 digits and permit controlled repeated digi
 
 ### 5. Fatigue resistance
 
-- CP006 source vocabulary is above 180 unique exam-neutral words.
-- CP007 class-transformation vocabulary is above 160 eligible words.
-- deterministic cycling is retained for these families.
+The follow-up micro-audit found that the original remediation had expanded CP006/CP007 but had accidentally left the old 24-word CP005 reservoir in place. That residual P1 is now closed.
+
+- CP005 now has 270 unique governed exam-neutral words; 256 are six-plus-letter words eligible for the ordinary CP005 surfaces.
+- the CP005 reservoir has at least 120 eligible odd-length and at least 120 eligible even-length words, so middle-letter and middle-pair tasks do not collapse into small sub-pools;
+- CP005 now cycles through each QL's eligible governed pool before repeating a word, rather than relying on collision-prone random picks;
+- `WORD_IDENTIFY_UNCHANGED_ASC` filters for valid unchanged-position words before selection, eliminating the old constant-fallback fingerprint;
+- every CP005 QL must expose at least 95 distinct source words across seeds 0–99;
+- CP006 source vocabulary is above 180 unique exam-neutral words;
+- CP007 class-transformation vocabulary is above 160 eligible words;
+- deterministic cycling is retained for CP006/CP007;
 - every CP006/CP007 QL must produce at least 95 distinct visible questions across seeds 0–99.
 
-The gate measures visible `stem + options`, not hidden seed diversity.
+The CP006/CP007 gate measures visible `stem + options`; the CP005 gate directly measures source-word exposure because the governed word itself is the principal fatigue surface.
 
 ### 6. Misconception-owned distractors
 
@@ -112,21 +119,23 @@ Supported local profiles remain:
 
 ## Executable release gate
 
-`alp-001-final-audit.test.ts` now proves:
+The ALP chapter workflow now proves:
 
-- governed word-pool size and uniqueness;
+- CP005 governed reservoir size/uniqueness, odd/even depth and >=95/100 source-word exposure for every CP005 QL;
+- CP006/CP007 governed word-pool size/uniqueness and >=95/100 visible-fatigue diversity;
 - absence of legacy/fallback advanced distractor labels;
 - real instance-derived difficulty variation for composite QLs;
-- row length alone cannot promote difficulty;
+- row length alone cannot promote difficulty, while CP005 no longer uses source-word length as an escalation lever;
 - mixed-row length/category-profile diversity;
 - repeated-token exposure in mixed rows and digit rows;
 - CP009 duplicate-QL identities have been replaced by compound-window identities;
 - both source-backed QL-138 window variants are reachable;
 - QL-140 centre-flank semantics render correctly;
 - CP010 can generate sort-letters-in-place → unchanged-count and its digit analogue;
-- CP006/CP007 pass the 100-question visible-fatigue gate;
 - controlled SSC/Punjab generation satisfies requested difficulty/profile;
 - unsupported five-option Banking generation fails closed.
+
+The complete ALP-001 chapter workflow and retained CP001–CP005 regressions are green on the remediation branch. Lifecycle promotion is still deliberately blocked.
 
 ## Word-formation ownership gate
 
