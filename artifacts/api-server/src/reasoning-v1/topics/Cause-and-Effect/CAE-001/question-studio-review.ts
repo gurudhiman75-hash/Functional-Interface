@@ -1,7 +1,7 @@
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { CAE_001_MANIFEST } from "./chapter-manifest.ts";
 import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES } from "./causal-world-authorities.ts";
-import { generateCaeSourceProfileQuestion, type CaeSourceProfileId } from "./source-profiles.ts";
+import { CAE_SOURCE_PROFILE_IDS, generateCaeSourceProfileQuestion, type CaeSourceProfileId } from "./source-profiles.ts";
 import type { CaeLocale, CaeQlId, CaeQuestionProfile } from "./types.ts";
 
 export const CAE_001_QUESTION_STUDIO_PACKAGE_ID = "CAE-001-V1-REVIEW" as const;
@@ -31,6 +31,7 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length,
   generationPlanCount: CAE_001_PROJECTION_AUTHORITIES.length,
   locales: CAE_001_MANIFEST.locales,
+  sourceProfiles: CAE_SOURCE_PROFILE_IDS,
   enabled: true as const,
   questionStudioVisible: true as const,
   reviewOnly: true as const,
