@@ -74,7 +74,7 @@ for (const ruleId of COD_SOURCE_GAP_V2_RULES) {
     difficultyByRule.get(ruleId)!.add(question.difficulty);
     answerPositions.get(ruleId)!.add(question.correctIndex);
     seenTargets.get(ruleId)!.add(question.targetWord);
-    provenanceByRule.get(ruleId)!.add(...question.distractors.map((item) => item.provenance));
+    for (const distractor of question.distractors) provenanceByRule.get(ruleId)!.add(distractor.provenance);
     const evidencePair = question.evidence.map((row) => row.source).sort().join("|");
     seenEvidencePairs.get(ruleId)!.add(evidencePair);
     fingerprints.add(`${ruleId}|${question.stem}|${question.options.join("|")}`);
