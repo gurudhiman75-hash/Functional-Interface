@@ -19,34 +19,38 @@ interface ReviewRow {
 
 const rows: ReviewRow[] = [];
 
-for (let seed = 1; seed <= 60; seed++) {
+for (let seed = 1; seed <= 80; seed++) {
   rows.push({ difficulty: "Easy", question: generateCP002F01(seed, "Easy") });
 }
-for (let seed = 1; seed <= 20; seed++) {
+for (let seed = 1; seed <= 40; seed++) {
   rows.push({ difficulty: "Medium", question: generateCP002F02(seed, "Medium") });
-  rows.push({ difficulty: "Medium", question: generateCP002F03(seed + 20, "Medium") });
-  rows.push({ difficulty: "Medium", question: generateCP002F06(seed + 40, "Medium") });
 }
 for (let seed = 1; seed <= 20; seed++) {
+  rows.push({ difficulty: "Medium", question: generateCP002F03(seed + 80, "Medium") });
+  rows.push({ difficulty: "Medium", question: generateCP002F06(seed + 160, "Medium") });
+}
+for (let seed = 1; seed <= 30; seed++) {
   rows.push({ difficulty: "Hard", question: generateCP002F04(seed, "Hard") });
-  rows.push({ difficulty: "Hard", question: generateCP002F05(seed + 20, "Hard") });
-  rows.push({ difficulty: "Hard", question: generateCP002F07(seed + 40, "Hard") });
+  rows.push({ difficulty: "Hard", question: generateCP002F05(seed + 120, "Hard") });
+}
+for (let seed = 1; seed <= 20; seed++) {
+  rows.push({ difficulty: "Hard", question: generateCP002F07(seed + 240, "Hard") });
 }
 
-if (rows.length !== 180) throw new Error(`Expected 180 review questions, got ${rows.length}`);
+if (rows.length !== 240) throw new Error(`Expected 240 review questions, got ${rows.length}`);
 const fingerprints = new Set(rows.map((row) => row.question.metadata.fingerprint));
 if (fingerprints.size !== rows.length) throw new Error("Review pack contains duplicate semantic fingerprints");
 
 const breadth = getCP002BreadthReport();
 const letters = ["A", "B", "C", "D"] as const;
 const out: string[] = [
-  "# PUN-001 CP002 — Expanded Forward-Port Review Pack",
+  "# PUN-001 CP002 — Exhaustive-Breadth Forward-Port Review Pack",
   "",
   "> REVIEW ONLY — lexical authorities remain REVIEW_PENDING. This file does not imply Question Bank/test/mock/public eligibility.",
   "",
-  "Distribution: **60 Easy / 60 Medium / 60 Hard**",
+  "Distribution: **80 Easy / 80 Medium / 80 Hard**",
   "",
-  `Active authorities: **${breadth.authorityCount}** · Orthographic categories: **${breadth.categoryCount}** · Semantic families: **7**`,
+  `Active authorities: **${breadth.authorityCount}** · Contextual authorities: **${breadth.contextualAuthorityCount}** · Orthographic categories: **${breadth.categoryCount}** · Semantic families: **7**`,
   "",
   `Computed semantic capacity: **${breadth.totalSemanticCapacity.toLocaleString("en-US")}** content combinations (option-order permutations excluded).`,
   "",
@@ -68,7 +72,7 @@ rows.forEach((row, index) => {
   out.push("");
 });
 
-const outputPath = resolve(process.cwd(), "review-output/PUN-001-CP002-FORWARD-PORT-REVIEW-180.md");
+const outputPath = resolve(process.cwd(), "review-output/PUN-001-CP002-FORWARD-PORT-REVIEW-240.md");
 mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, out.join("\n"), "utf8");
 console.log(outputPath);
