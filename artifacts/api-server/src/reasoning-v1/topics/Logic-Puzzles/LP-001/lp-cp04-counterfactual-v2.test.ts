@@ -43,9 +43,17 @@ for (const caselet of batch) {
     assert.equal(states.every((state) => state[distractor.person] === distractor.group), false, `${child.questionId}: distractor is also must-true after condition`);
   }
 
-  if (caselet.difficultyBand === "Easy") assert.equal(child.conditionedStateCount, 1);
-  if (caselet.difficultyBand === "Medium") assert.equal(child.conditionedStateCount, 2);
-  if (caselet.difficultyBand === "Hard") assert.ok(child.conditionedStateCount >= 3);
+  if (caselet.difficultyBand === "Easy") {
+    assert.equal(child.conditionedStateCount, 1);
+  }
+  if (caselet.difficultyBand === "Medium") {
+    assert.ok(caselet.validStates.length >= 3 && caselet.validStates.length <= 4);
+    assert.equal(child.conditionedStateCount, 2);
+  }
+  if (caselet.difficultyBand === "Hard") {
+    assert.ok(caselet.validStates.length >= 5, `${child.questionId}: Hard parent ambiguity is too narrow`);
+    assert.ok(child.conditionedStateCount >= 2, `${child.questionId}: Hard should retain multiple conditioned cases`);
+  }
   assert.ok(child.explanation.lines.some((line) => line.includes("| Person | Assignment |")));
   assert.ok(child.explanation.lines.at(-1)?.includes(child.answer));
   assert.match(child.explanation.summary, /original clues do not force the answer/i);
