@@ -40,6 +40,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     bridgeRole: "Which event is the immediate effect of {source} and also an indirect cause of {target}?",
     invalidRelation: "Which statement about the causal links is NOT supported?",
     immediateClaim: "{source} is the immediate cause of {target}.",
+    pathThrough: "{source} reaches {target} through two intermediate events.",
     explanationSequence: "This order follows the causal chain step by step.",
     explanationImmediateCause: "This event directly produces the target event.",
     explanationImmediateEffect: "This event follows directly from the target event.",
@@ -57,6 +58,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     bridgeRole: "कौन-सी घटना {source} का तात्कालिक प्रभाव और साथ ही {target} का अप्रत्यक्ष कारण है?",
     invalidRelation: "कारणात्मक संबंधों के बारे में कौन-सा कथन समर्थित नहीं है?",
     immediateClaim: "{source}, {target} का तात्कालिक कारण है।",
+    pathThrough: "{source} से {target} तक पहुँचने के बीच दो मध्यवर्ती घटनाएँ आती हैं।",
     explanationSequence: "यह क्रम कारणात्मक श्रृंखला को चरण-दर-चरण दिखाता है।",
     explanationImmediateCause: "यह घटना लक्ष्य घटना को सीधे उत्पन्न करती है।",
     explanationImmediateEffect: "यह घटना लक्ष्य घटना के तुरंत बाद आती है।",
@@ -74,6 +76,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     bridgeRole: "ਕਿਹੜੀ ਘਟਨਾ {source} ਦਾ ਤੁਰੰਤ ਪ੍ਰਭਾਵ ਅਤੇ ਨਾਲ ਹੀ {target} ਦਾ ਅਪ੍ਰਤੱਖ ਕਾਰਨ ਹੈ?",
     invalidRelation: "ਕਾਰਨਾਤਮਕ ਸੰਬੰਧਾਂ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ?",
     immediateClaim: "{source}, {target} ਦਾ ਤੁਰੰਤ ਕਾਰਨ ਹੈ।",
+    pathThrough: "{source} ਤੋਂ {target} ਤੱਕ ਪਹੁੰਚਣ ਵਿਚਕਾਰ ਦੋ ਵਿਚਕਾਰਲੀਆਂ ਘਟਨਾਵਾਂ ਆਉਂਦੀਆਂ ਹਨ।",
     explanationSequence: "ਇਹ ਕ੍ਰਮ ਕਾਰਨਾਤਮਕ ਲੜੀ ਨੂੰ ਕਦਮ-ਦਰ-ਕਦਮ ਦਿਖਾਉਂਦਾ ਹੈ।",
     explanationImmediateCause: "ਇਹ ਘਟਨਾ ਟੀਚਾ ਘਟਨਾ ਨੂੰ ਸਿੱਧੇ ਤੌਰ ਤੇ ਪੈਦਾ ਕਰਦੀ ਹੈ।",
     explanationImmediateEffect: "ਇਹ ਘਟਨਾ ਟੀਚਾ ਘਟਨਾ ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ ਆਉਂਦੀ ਹੈ।",
@@ -257,7 +260,7 @@ export function generateCp008MultiEventQuestion(input: Readonly<{ locale: CaeLoc
       distractorRole: claim.correct ? undefined : "INDIRECTNESS_CONFUSION" as const,
     })), selectionSeed);
     stem = `${copy.invalidRelation}\n\n${block}`;
-    explanation = `${trim(eventText(world, path[0]!, locale))} reaches ${trim(eventText(world, path[3]!, locale))} through two intermediate events. ${copy.explanationInvalid}`;
+    explanation = `${fill(copy.pathThrough, { source: trim(eventText(world, path[0]!, locale)), target: trim(eventText(world, path[3]!, locale)) })} ${copy.explanationInvalid}`;
   }
 
   if (options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${world.id}/${mode}: CP008 must have exactly one answer.`);
