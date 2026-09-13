@@ -1,20 +1,20 @@
 import assert from "node:assert/strict";
 import {
-  GEO_PHY_001_CP011_REVIEW_BATCH_V3,
-  auditGeoPhy001Cp011ReviewBatchV3,
-} from "./geo-phy-001-cp011-review-batch-v3";
+  GEO_PHY_001_CP011_REVIEW_BATCH_V4,
+  auditGeoPhy001Cp011ReviewBatchV4,
+} from "./geo-phy-001-cp011-review-batch-v4";
 
-const audit = auditGeoPhy001Cp011ReviewBatchV3();
+const audit = auditGeoPhy001Cp011ReviewBatchV4();
 assert.equal(audit.valid, true, audit.issues.join(" | "));
 assert.equal(audit.questionCount, 54);
 assert.equal(audit.semanticCount, 54);
 assert.deepEqual(audit.difficultyCounts, { Easy: 18, Medium: 30, Hard: 6 });
 assert.deepEqual(audit.answerPositions, [14, 14, 13, 13]);
 assert.ok(audit.hardAnswerVariety >= 4, "hard answer pattern is too repetitive");
-assert.equal(new Set(GEO_PHY_001_CP011_REVIEW_BATCH_V3.map((q) => q.qlId)).size, 9);
+assert.equal(new Set(GEO_PHY_001_CP011_REVIEW_BATCH_V4.map((q) => q.qlId)).size, 9);
 assert.ok(audit.usedSourceFactCount >= 20, "comparison coverage is too shallow");
 
-for (const question of GEO_PHY_001_CP011_REVIEW_BATCH_V3) {
+for (const question of GEO_PHY_001_CP011_REVIEW_BATCH_V4) {
   const learner = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
   assert.doesNotMatch(
     learner,
