@@ -33,7 +33,9 @@ jobs:
           chapter_status=$?
           npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-001-source-gap-localization.test.ts > cod-001-source-gap-localization.log 2>&1
           source_gap_status=$?
-          if [ "$chapter_status" -eq 0 ] && [ "$source_gap_status" -eq 0 ]; then
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-001-source-gap-editorial.test.ts > cod-001-source-gap-editorial.log 2>&1
+          editorial_status=$?
+          if [ "$chapter_status" -eq 0 ] && [ "$source_gap_status" -eq 0 ] && [ "$editorial_status" -eq 0 ]; then
             status=0
           else
             status=1
@@ -50,6 +52,7 @@ jobs:
           path: |
             cod-001-multilingual-closure.log
             cod-001-source-gap-localization.log
+            cod-001-source-gap-editorial.log
             cod-multilingual-review-output
           retention-days: 14
       - name: Enforce multilingual closure result
@@ -58,4 +61,6 @@ jobs:
           cat cod-001-multilingual-closure.log
           echo "=== COD-QL-200..203 focused Hindi/Punjabi localization ==="
           cat cod-001-source-gap-localization.log
+          echo "=== COD-QL-200..203 native editorial quality ==="
+          cat cod-001-source-gap-editorial.log
           test "${{ steps.audit.outputs.exit_code }}" = "0"
