@@ -2,6 +2,7 @@ import { generateCaeQuestion } from "./chapter-generator.ts";
 import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.ts";
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateCp007FalseCausationQuestion } from "./cp007-false-causation.ts";
+import { generateCp008MultiEventQuestion } from "./cp008-multi-event.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
 
 export type GenerateReviewedCaeQuestionInput = Readonly<{
@@ -19,6 +20,8 @@ export type GenerateReviewedCaeQuestionInput = Readonly<{
  *   alternatives; HARD is earned by causal discrimination rather than tiny or
  *   wrong-location distractors.
  * - CP-007: false-causation/post-hoc cases plus hidden common-factor cases.
+ * - CP-008: multi-event reasoning beyond simple ordering: immediate/remote
+ *   cause/effect, bridge-role inference and invalid-link detection.
  *
  * Explicit FIVE_WAY requests remain on V3 unless a checkpoint-specific sourced
  * five-way renderer has been separately approved.
@@ -32,6 +35,9 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return (input.seed >>> 0) % 4 === 0
       ? generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed })
       : generateCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
+  }
+  if (input.qlId === "CAE-QL-008" && defaultFourWay) {
+    return generateCp008MultiEventQuestion({ locale: input.locale, seed: input.seed });
   }
   return generateCaeQuestion(input);
 }
