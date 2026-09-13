@@ -50,3 +50,24 @@ jobs:
       - name: Build API server
         working-directory: artifacts/api-server
         run: pnpm run build
+
+      - name: Bundle CP008 V4.1 review exporter
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/punjabi-v1/packages/PUN-001/checkpoints/CP008/export-review.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/pun-001-cp008-review-export.mjs
+
+      - name: Generate CP008 V4.1 120-question review file
+        working-directory: artifacts/api-server
+        run: node dist/pun-001-cp008-review-export.mjs
+
+      - name: Upload CP008 V4.1 review file
+        uses: actions/upload-artifact@v4
+        with:
+          name: PUN-001-CP008-V4.1-REVIEW-120
+          path: artifacts/api-server/dist/PUN-001-CP008-V4.1-REVIEW-120.md
+          if-no-files-found: error
