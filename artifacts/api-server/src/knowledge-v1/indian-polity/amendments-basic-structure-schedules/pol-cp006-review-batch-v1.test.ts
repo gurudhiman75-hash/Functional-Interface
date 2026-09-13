@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { generatePolCp006ReviewBatchV1 } from "./pol-cp006-review-generator-v1";
+import { generatePolCp006ReviewBatchV2 } from "./pol-cp006-review-generator-v2";
 import { POL_CP006_SOURCES_V1 } from "./pol-cp006-sources";
 import { POL_CP006_SCHEDULES_V1 } from "./pol-cp006-facts";
 
-describe("POL-CP-006 Amendments, Basic Structure and Schedules review batch", () => {
-  const questions = generatePolCp006ReviewBatchV1();
+describe("POL-CP-006 Amendments, Basic Structure and Schedules review batch V2", () => {
+  const questions = generatePolCp006ReviewBatchV2();
 
   it("provides the full review floor", () => {
     expect(questions).toHaveLength(90);
