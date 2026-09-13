@@ -101,7 +101,10 @@ function makeQuestion(
       .filter((candidate) => candidate.id !== row.id)
       .slice(0, 8)
       .map((candidate, offset) => {
-        const donor = rows[(rowIndex + offset + 2) % rows.length];
+        let donor = rows[(rowIndex + offset + 2) % rows.length];
+        if (donor.id === candidate.id) {
+          donor = rows[(donor.sequenceRank + 1) % rows.length];
+        }
         return `${candidate.title} — ${donor.compactFeature}`;
       });
     options = chooseFour([correct, ...wrongPairs], correct, `${qlId}:${row.id}`, correctTarget);
