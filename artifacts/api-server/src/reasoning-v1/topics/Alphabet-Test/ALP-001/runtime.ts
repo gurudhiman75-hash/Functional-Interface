@@ -63,7 +63,6 @@ function difficultyFor(ql: AlpQuestionLogic, data: AlpInstanceData): AlpDifficul
     if (ql.solveMode.includes("REVERSE_RANGE") || ql.solveMode.includes("SELECTED_TRANSFORM")) score += 3;
     if (ql.solveMode.includes("UNCHANGED") || ql.solveMode.includes("IDENTIFY_UNCHANGED")) score += 1;
     if (data.occurrenceRef && data.occurrenceRef.occurrence > 1) score += 1;
-    if ((data.word?.length ?? 0) >= 8) score += 1;
   }
 
   if (score <= 1) return "EASY";
