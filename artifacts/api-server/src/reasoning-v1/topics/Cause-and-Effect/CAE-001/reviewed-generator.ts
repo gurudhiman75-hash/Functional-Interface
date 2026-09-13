@@ -32,8 +32,12 @@ function reviewedSaturationQuestion(input: GenerateReviewedCaeQuestionInput, can
     if (!eligible) continue;
     if (offset === 0) return question;
 
-    const causalStateId = `${question.causalStateId}|reviewed-saturation-remap:${externalSeed}->${internalSeed}`;
-    const itemVariantId = `${question.itemVariantId}|reviewed-saturation-remap:${externalSeed}->${internalSeed}`;
+    const remapMarker = `reviewed-saturation-remap:${externalSeed}->${internalSeed}`;
+    const causalStateId = `${question.causalStateId}|${remapMarker}`;
+    const itemSuffix = question.itemVariantId.startsWith(question.causalStateId)
+      ? question.itemVariantId.slice(question.causalStateId.length)
+      : `|source-item:${question.itemVariantId}`;
+    const itemVariantId = `${causalStateId}${itemSuffix}`;
     return Object.freeze({ ...question, seed: input.seed, causalStateId, itemVariantId, semanticInstanceId: itemVariantId });
   }
   throw new Error(`${input.qlId} seed ${externalSeed}: no eligible reviewed saturation family found.`);
