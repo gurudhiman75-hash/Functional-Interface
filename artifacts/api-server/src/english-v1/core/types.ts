@@ -7,7 +7,8 @@ export type Eng001QlId =
 
 export type Eng001CpId =
   | "ENG-001-CP001" | "ENG-001-CP002" | "ENG-001-CP003" | "ENG-001-CP004"
-  | "ENG-001-CP005" | "ENG-001-CP006" | "ENG-001-CP007" | "ENG-001-CP008";
+  | "ENG-001-CP005" | "ENG-001-CP006" | "ENG-001-CP007" | "ENG-001-CP008"
+  | "ENG-001-CP009";
 
 export type SvaRuleId =
   | "GR-SVA-001" | "GR-SVA-002" | "GR-SVA-003" | "GR-SVA-004" | "GR-SVA-005"
@@ -33,8 +34,13 @@ export type ConjunctionRuleId =
 export type NounQuantifierRuleId =
   | "GR-NQN-001" | "GR-NQN-002" | "GR-NQN-003" | "GR-NQN-004" | "GR-NQN-005"
   | "GR-NQN-006" | "GR-NQN-007" | "GR-NQN-008" | "GR-NQN-009" | "GR-NQN-010";
+export type GerundInfinitiveParticipleRuleId =
+  | "GR-GIP-001" | "GR-GIP-002" | "GR-GIP-003" | "GR-GIP-004" | "GR-GIP-005"
+  | "GR-GIP-006" | "GR-GIP-007" | "GR-GIP-008" | "GR-GIP-009" | "GR-GIP-010";
 
-export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId | PrepositionRuleId | ComparisonRuleId | ConjunctionRuleId | NounQuantifierRuleId;
+export type GrammarRuleId =
+  | SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId | PrepositionRuleId
+  | ComparisonRuleId | ConjunctionRuleId | NounQuantifierRuleId | GerundInfinitiveParticipleRuleId;
 
 export type SvaMutationId =
   | "MUT-SVA-NUMBER-001" | "MUT-SVA-EACH-EVERY-001" | "MUT-SVA-ONE-OF-001" | "MUT-SVA-NUMBER-PHRASE-001"
@@ -67,8 +73,14 @@ export type NounQuantifierMutationId =
   | "MUT-NQN-MANY-MUCH-001" | "MUT-NQN-FEW-A-FEW-001" | "MUT-NQN-LITTLE-A-LITTLE-001" | "MUT-NQN-FEWER-LESS-001"
   | "MUT-NQN-NUMBER-AMOUNT-001" | "MUT-NQN-UNCOUNTABLE-PLURAL-001" | "MUT-NQN-IRREGULAR-PLURAL-001"
   | "MUT-NQN-PAIR-NOUN-001" | "MUT-NQN-UNIT-MASS-NOUN-001" | "MUT-NQN-EACH-ONE-OF-001";
+export type GerundInfinitiveParticipleMutationId =
+  | "MUT-GIP-VERB-GERUND-001" | "MUT-GIP-VERB-TO-INFINITIVE-001" | "MUT-GIP-OBJECT-TO-INFINITIVE-001"
+  | "MUT-GIP-CAUSATIVE-BARE-INFINITIVE-001" | "MUT-GIP-MODAL-BARE-INFINITIVE-001" | "MUT-GIP-PREPOSITION-GERUND-001"
+  | "MUT-GIP-USED-TO-001" | "MUT-GIP-PURPOSE-INFINITIVE-001" | "MUT-GIP-MEANING-SHIFT-001" | "MUT-GIP-PARTICIPLE-FORM-001";
 
-export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId | PrepositionMutationId | ComparisonMutationId | ConjunctionMutationId | NounQuantifierMutationId;
+export type GrammarMutationId =
+  | SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId | PrepositionMutationId
+  | ComparisonMutationId | ConjunctionMutationId | NounQuantifierMutationId | GerundInfinitiveParticipleMutationId;
 
 export interface DifficultyDimensions {
   ruleComplexity: 1 | 2 | 3 | 4 | 5;
@@ -81,7 +93,10 @@ export interface DifficultyDimensions {
 
 export interface EnglishGrammarRule {
   ruleId: GrammarRuleId;
-  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns" | "prepositions" | "adjectives_adverbs_comparison" | "conjunctions_parallelism" | "nouns_quantifiers";
+  category:
+    | "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns" | "prepositions"
+    | "adjectives_adverbs_comparison" | "conjunctions_parallelism" | "nouns_quantifiers"
+    | "gerunds_infinitives_participles";
   name: string;
   principle: string;
   mutationId: GrammarMutationId;
