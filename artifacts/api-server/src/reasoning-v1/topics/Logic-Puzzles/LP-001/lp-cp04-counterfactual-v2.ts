@@ -4,7 +4,7 @@ import type { Assignment, GroupId, PersonId } from "./index.ts";
 export type LpCp04Difficulty = "Easy" | "Medium" | "Hard";
 
 type TemporaryCondition = { person: PersonId; group: GroupId; text: string };
-type ConditionedCandidate = { condition: TemporaryCondition; states: Assignment[] };
+type ConditionedCandidate = { conditions: TemporaryCondition[]; states: Assignment[] };
 type Proposition = { person: PersonId; group: GroupId; text: string };
 
 export type LpCp04ChildV2 = {
@@ -15,7 +15,7 @@ export type LpCp04ChildV2 = {
   options: string[];
   correctIndex: number;
   answer: string;
-  temporaryCondition: TemporaryCondition;
+  temporaryConditions: readonly TemporaryCondition[];
   parentStateCount: number;
   conditionedStateCount: number;
   explanation: { summary: string; lines: string[] };
@@ -36,11 +36,12 @@ export const LP_CP04_COUNTERFACTUAL_V2 = Object.freeze({
   parentAuthorityId: "LP_CP03_POSSIBILITY_SET_V1" as const,
   supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"] as const),
   difficultyContract: Object.freeze({
-    Easy: "PARENT_HAS_TWO_VALID_STATES_AND_CONDITION_REDUCES_TO_ONE",
-    Medium: "PARENT_HAS_THREE_TO_FOUR_VALID_STATES_AND_CONDITION_REDUCES_TO_ONE_OR_TWO",
-    Hard: "PARENT_HAS_AT_LEAST_FIVE_VALID_STATES_AND_CONDITION_REDUCES_TO_ONE_OR_TWO",
+    Easy: "TWO_PARENT_STATES_PLUS_ONE_CONDITION_REDUCES_TO_ONE",
+    Medium: "THREE_TO_FOUR_PARENT_STATES_PLUS_ONE_CONDITION_REDUCES_TO_ONE_OR_TWO",
+    Hard: "FIVE_PLUS_PARENT_STATES_PLUS_TWO_CONDITIONS_CREATE_A_NEW_DOWNSTREAM_INVARIANT",
   }),
   answerDependencyContract: "CORRECT_PROPOSITION_NOT_MUST_BEFORE_CONDITION_BECOMES_MUST_AFTER_CONDITION" as const,
+  hardSynergyContract: "HARD_ANSWER_IS_NOT_MUST_UNDER_EITHER_EXTRA_CONDITION_ALONE" as const,
   distractorContract: "EACH_DISTRACTOR_WAS_POSSIBLE_BEFORE_CONDITION_AND_IS_NOT_MUST_AFTER_CONDITION" as const,
   runtimeMode: "REVIEW_ONLY" as const,
   questionBankWritable: false as const,
@@ -60,11 +61,12 @@ function targetDifficulty(index: number): LpCp04Difficulty {
   return (["Easy", "Medium", "Hard"] as const)[index % 3]!;
 }
 
-function topologyMatchesDifficulty(difficulty: LpCp04Difficulty, caselet: LpCp03Caselet, conditionedStateCount: number): boolean {
+function topologyMatchesDifficulty(difficulty: LpCp04Difficulty, caselet: LpCp03Caselet, candidate: ConditionedCandidate): boolean {
   const parentCount = caselet.validStates.length;
-  if (difficulty === "Easy") return parentCount === 2 && conditionedStateCount === 1;
-  if (difficulty === "Medium") return parentCount >= 3 && parentCount <= 4 && conditionedStateCount >= 1 && conditionedStateCount <= 2;
-  return parentCount >= 5 && conditionedStateCount >= 1 && conditionedStateCount <= 2;
+  const conditionedCount = candidate.states.length;
+  if (difficulty === "Easy") return parentCount === 2 && candidate.conditions.length === 1 && conditionedCount === 1;
+  if (difficulty === "Medium") return parentCount >= 3 && parentCount <= 4 && candidate.conditions.length === 1 && conditionedCount >= 1 && conditionedCount <= 2;
+  return parentCount >= 5 && candidate.conditions.length === 2 && conditionedCount >= 1 && conditionedCount <= 2;
 }
 
 function allPropositions(caselet: LpCp03Caselet): Proposition[] {
@@ -75,32 +77,75 @@ function isTrue(state: Assignment, proposition: Proposition): boolean {
   return state[proposition.person] === proposition.group;
 }
 
-function eligibleConditions(caselet: LpCp03Caselet, difficulty: LpCp04Difficulty): ConditionedCandidate[] {
-  const candidates: ConditionedCandidate[] = [];
+function atomicConditions(caselet: LpCp03Caselet): Array<{ condition: TemporaryCondition; states: Assignment[] }> {
+  const result: Array<{ condition: TemporaryCondition; states: Assignment[] }> = [];
   for (const person of caselet.people) for (const group of caselet.groups) {
     const states = caselet.validStates.filter((state) => state[person] === group);
     if (states.length === 0 || states.length === caselet.validStates.length) continue;
-    if (!topologyMatchesDifficulty(difficulty, caselet, states.length)) continue;
-    candidates.push({ condition: { person, group, text: propositionText(person, group, caselet) }, states });
+    result.push({ condition: { person, group, text: propositionText(person, group, caselet) }, states });
   }
-  return candidates.sort((left, right) => left.condition.text.localeCompare(right.condition.text));
+  return result.sort((left, right) => left.condition.text.localeCompare(right.condition.text));
 }
 
-function hasViableQuestion(caselet: LpCp03Caselet, selected: ConditionedCandidate): boolean {
-  const propositions = allPropositions(caselet).filter((item) => item.person !== selected.condition.person);
-  const newlyMust = propositions.filter((item) =>
-    !caselet.validStates.every((state) => isTrue(state, item))
-    && selected.states.every((state) => isTrue(state, item)),
-  );
-  const plausibleDistractors = propositions.filter((item) =>
-    caselet.validStates.some((state) => isTrue(state, item))
+function singleConditionCandidates(caselet: LpCp03Caselet, difficulty: LpCp04Difficulty): ConditionedCandidate[] {
+  return atomicConditions(caselet)
+    .map((item) => ({ conditions: [item.condition], states: item.states }))
+    .filter((candidate) => topologyMatchesDifficulty(difficulty, caselet, candidate));
+}
+
+function hardCompoundCandidates(caselet: LpCp03Caselet): ConditionedCandidate[] {
+  if (caselet.validStates.length < 5) return [];
+  const atomic = atomicConditions(caselet);
+  const result: ConditionedCandidate[] = [];
+  for (let leftIndex = 0; leftIndex < atomic.length; leftIndex += 1) {
+    const left = atomic[leftIndex]!;
+    for (let rightIndex = leftIndex + 1; rightIndex < atomic.length; rightIndex += 1) {
+      const right = atomic[rightIndex]!;
+      if (left.condition.person === right.condition.person) continue;
+      const states = caselet.validStates.filter((state) =>
+        state[left.condition.person] === left.condition.group
+        && state[right.condition.person] === right.condition.group,
+      );
+      if (states.length === 0 || states.length > 2 || states.length === caselet.validStates.length) continue;
+      const candidate = { conditions: [left.condition, right.condition], states };
+      if (topologyMatchesDifficulty("Hard", caselet, candidate)) result.push(candidate);
+    }
+  }
+  return result;
+}
+
+function newlyMustPropositions(caselet: LpCp03Caselet, selected: ConditionedCandidate, difficulty: LpCp04Difficulty): Proposition[] {
+  const conditionPeople = new Set(selected.conditions.map((condition) => condition.person));
+  return allPropositions(caselet).filter((item) => {
+    if (conditionPeople.has(item.person)) return false;
+    if (caselet.validStates.every((state) => isTrue(state, item))) return false;
+    if (!selected.states.every((state) => isTrue(state, item))) return false;
+    if (difficulty === "Hard") {
+      for (const condition of selected.conditions) {
+        const singlyConditioned = caselet.validStates.filter((state) => state[condition.person] === condition.group);
+        if (singlyConditioned.every((state) => isTrue(state, item))) return false;
+      }
+    }
+    return true;
+  });
+}
+
+function plausibleDistractors(caselet: LpCp03Caselet, selected: ConditionedCandidate): Proposition[] {
+  const conditionPeople = new Set(selected.conditions.map((condition) => condition.person));
+  return allPropositions(caselet).filter((item) =>
+    !conditionPeople.has(item.person)
+    && caselet.validStates.some((state) => isTrue(state, item))
     && !selected.states.every((state) => isTrue(state, item)),
   );
-  return newlyMust.length > 0 && plausibleDistractors.length >= 3;
+}
+
+function hasViableQuestion(caselet: LpCp03Caselet, selected: ConditionedCandidate, difficulty: LpCp04Difficulty): boolean {
+  return newlyMustPropositions(caselet, selected, difficulty).length > 0 && plausibleDistractors(caselet, selected).length >= 3;
 }
 
 function pickCondition(caselet: LpCp03Caselet, index: number, difficulty: LpCp04Difficulty): ConditionedCandidate | null {
-  const candidates = eligibleConditions(caselet, difficulty).filter((candidate) => hasViableQuestion(caselet, candidate));
+  const raw = difficulty === "Hard" ? hardCompoundCandidates(caselet) : singleConditionCandidates(caselet, difficulty);
+  const candidates = raw.filter((candidate) => hasViableQuestion(caselet, candidate, difficulty));
   if (!candidates.length) return null;
   if (difficulty === "Hard") {
     const widest = Math.max(...candidates.map((candidate) => candidate.states.length));
@@ -111,21 +156,13 @@ function pickCondition(caselet: LpCp03Caselet, index: number, difficulty: LpCp04
 }
 
 function makeChild(caselet: LpCp03Caselet, index: number, difficulty: LpCp04Difficulty, selected: ConditionedCandidate): LpCp04ChildV2 {
-  const { condition, states } = selected;
-  const propositions = allPropositions(caselet).filter((item) => item.person !== condition.person);
-  const newlyMust = propositions.filter((item) =>
-    !caselet.validStates.every((state) => isTrue(state, item))
-    && states.every((state) => isTrue(state, item)),
-  );
-  const plausibleDistractors = propositions.filter((item) =>
-    caselet.validStates.some((state) => isTrue(state, item))
-    && !states.every((state) => isTrue(state, item)),
-  );
-  if (!newlyMust.length || plausibleDistractors.length < 3) throw new Error(`${caselet.caseletId}: temporary condition does not create enough downstream question value.`);
+  const newlyMust = newlyMustPropositions(caselet, selected, difficulty);
+  const distractorPool = plausibleDistractors(caselet, selected);
+  if (!newlyMust.length || distractorPool.length < 3) throw new Error(`${caselet.caseletId}: temporary conditions do not create enough downstream question value.`);
 
   const correct = newlyMust[(index + 1) % newlyMust.length]!;
-  const start = index % plausibleDistractors.length;
-  const distractors = [...plausibleDistractors.slice(start), ...plausibleDistractors.slice(0, start)]
+  const start = index % distractorPool.length;
+  const distractors = [...distractorPool.slice(start), ...distractorPool.slice(0, start)]
     .filter((item) => item.text !== correct.text)
     .slice(0, 3);
   if (distractors.length !== 3) throw new Error(`${caselet.caseletId}: insufficient distinct condition-sensitive distractors.`);
@@ -134,27 +171,28 @@ function makeChild(caselet: LpCp03Caselet, index: number, difficulty: LpCp04Diff
   const shift = index % 4;
   const ordered = [...raw.slice(shift), ...raw.slice(0, shift)];
   const correctIndex = ordered.findIndex((item) => item.text === correct.text);
-  const conditionText = condition.text.replace(/[.]$/u, "");
-  const caseWord = states.length === 1 ? "arrangement" : "arrangements";
+  const conditionPhrase = selected.conditions.map((condition) => condition.text.replace(/[.]$/u, "")).join(" and ");
+  const caseWord = selected.states.length === 1 ? "arrangement" : "arrangements";
+  const conditionLabel = selected.conditions.length === 1 ? "Additional condition" : "Additional conditions";
   return {
     questionId: `${caselet.caseletId}-CF2`,
     candidateAuthority: "COUNTERFACTUAL_ADDITIONAL_CONDITION_QUERY",
     difficultyBand: difficulty,
-    stem: `If ${conditionText}, which of the following must be true?`,
+    stem: `If ${conditionPhrase}, which of the following must be true?`,
     options: ordered.map((item) => item.text),
     correctIndex,
     answer: ordered[correctIndex]!.text,
-    temporaryCondition: condition,
+    temporaryConditions: selected.conditions,
     parentStateCount: caselet.validStates.length,
-    conditionedStateCount: states.length,
+    conditionedStateCount: selected.states.length,
     explanation: {
-      summary: "The original clues do not force the answer by themselves. Apply the extra condition, retain every arrangement that still works, and compare the options across those arrangements.",
+      summary: "The original clues do not force the answer by themselves. Apply the extra condition or conditions, retain every arrangement that still works, and compare the options across those arrangements.",
       lines: [
-        `Before the additional condition, the original clues allow ${caselet.validStates.length} valid arrangements.`,
-        `**Additional condition:** ${condition.text}`,
-        `After applying the additional condition, ${states.length} valid ${caseWord} remain${states.length === 1 ? "s" : ""}.`,
-        ...states.map((state, stateIndex) => `**Remaining case ${stateIndex + 1}**\n\n${renderState(caselet, state)}`),
-        `Before the additional condition, **${ordered[correctIndex]!.text}** was not fixed in every valid arrangement. After applying the condition, it is true in every remaining case. Therefore, it must be true.`,
+        `Before the additional condition${selected.conditions.length === 1 ? "" : "s"}, the original clues allow ${caselet.validStates.length} valid arrangements.`,
+        `**${conditionLabel}:** ${selected.conditions.map((condition) => condition.text).join(" ")}`,
+        `After applying the additional condition${selected.conditions.length === 1 ? "" : "s"}, ${selected.states.length} valid ${caseWord} remain${selected.states.length === 1 ? "s" : ""}.`,
+        ...selected.states.map((state, stateIndex) => `**Remaining case ${stateIndex + 1}**\n\n${renderState(caselet, state)}`),
+        `Before the additional condition${selected.conditions.length === 1 ? "" : "s"}, **${ordered[correctIndex]!.text}** was not fixed in every valid arrangement. After applying ${selected.conditions.length === 1 ? "the condition" : "both conditions together"}, it is true in every remaining case. Therefore, it must be true.`,
       ],
     },
   };
@@ -166,7 +204,7 @@ export function generateLpCp04BatchV2(seed = "lp-cp04-counterfactual-review-v2",
     const difficultyBand = targetDifficulty(outputIndex);
     let built: LpCp04CaseletV2 | null = null;
 
-    for (let attempt = 0; attempt < 80 && !built; attempt += 1) {
+    for (let attempt = 0; attempt < 100 && !built; attempt += 1) {
       const pool = generateLpCp03Batch(`${seed}:candidate:${outputIndex}:${attempt}`, 4);
       for (let parentIndex = 0; parentIndex < pool.length && !built; parentIndex += 1) {
         const caselet = pool[parentIndex]!;
@@ -174,7 +212,7 @@ export function generateLpCp04BatchV2(seed = "lp-cp04-counterfactual-review-v2",
         if (!selected) continue;
         try {
           const child = makeChild(caselet, outputIndex, difficultyBand, selected);
-          if (!topologyMatchesDifficulty(difficultyBand, caselet, child.conditionedStateCount)) continue;
+          if (!topologyMatchesDifficulty(difficultyBand, caselet, selected)) continue;
           built = { ...caselet, difficultyBand, counterfactualChild: child };
         } catch {
           continue;
@@ -182,7 +220,7 @@ export function generateLpCp04BatchV2(seed = "lp-cp04-counterfactual-review-v2",
       }
     }
 
-    if (!built) throw new Error(`CP04 V2 could not build ${difficultyBand} caselet ${outputIndex + 1} with a condition-dependent answer and the required ambiguity profile.`);
+    if (!built) throw new Error(`CP04 V2 could not build ${difficultyBand} caselet ${outputIndex + 1} with condition-dependent answer semantics and the required difficulty topology.`);
     result.push(built);
   }
   return result;
