@@ -115,6 +115,8 @@ export type CaeCandidateComparison = Readonly<{
   candidateId: string;
   mechanism: CaeDistractorRole;
   source: CaeCandidateOrigin;
+  /** Present only for a candidate reused from a canonical-world node. */
+  sourceNodeId?: string;
   applicabilityId: string;
   applicability: CaeCandidateApplicability;
   editorialPlausibility: CaeEditorialPlausibility;

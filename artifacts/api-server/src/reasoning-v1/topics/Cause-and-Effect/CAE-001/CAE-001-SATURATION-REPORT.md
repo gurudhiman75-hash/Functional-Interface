@@ -13,7 +13,7 @@ Run: 240 deterministic English seeds for every current provisional plan. Each ge
 | Unique causal structures | Not measured | 23 |
 | Target/reference-relative validation checks | None | 2,880 |
 | Explicit target/reference/relation applicability checks (CP-003/004/005/009) | None | 2,880 across every saturated candidate-producing state |
-| Revisited causal states with a different valid candidate mix | Not measured | 91 |
+| Revisited causal states with a different valid candidate mix | Not measured | 90 |
 | Causal states with multiple item presentations | Not measured | 227 |
 
 ## Per-plan evidence
@@ -28,7 +28,7 @@ Run: 240 deterministic English seeds for every current provisional plan. Each ge
 | QL-006 / CP-006 | 12 | 154 | 2 | 4 | 12 | 1 | 3 |
 | QL-007 / CP-007 | 24 | 201 | 4 | 2 | 6 | 1 | 3 |
 | QL-008 / CP-008 | 12 | 161 | 2 | 4 | 12 | 1 | 3 |
-| QL-009 / CP-009 | 24 | 234 | 4 | 4 | 12 | 2 | 5 |
+| QL-009 / CP-009 | 24 | 222 | 4 | 4 | 12 | 2 | 5 |
 
 The differing totals demonstrate new graph states and candidate sets separately. In particular, changing distractors or option order cannot inflate the causal-state figure.
 
@@ -37,6 +37,7 @@ The differing totals demonstrate new graph states and candidate sets separately.
 - semantic candidates are either canonical-world events or complete variant-authored events; retired noun-substitution templates cannot render;
 - timing, scope, magnitude, severity, and causal distance are checked against both the observation and graph-supported answer;
 - every selected candidate in CP-003, CP-004, CP-005, and CP-009 is explicitly authorised for its projection, target semantic slot, reference semantic slot, and causal relation before target-relative scoring; a scenario-local event cannot gain credibility from variant membership alone;
+- every CP-009 state is replayed in English, Hindi, and Punjabi with both visible endpoints excluded from canonical candidates; no option can repeat endpoint text, exactly one direct bridge remains, and target/reference applicability still holds;
 - medium/hard candidate questions require two initially credible alternatives; CP-005 enforces this explicitly;
 - target text cannot be inserted into a scenario-authored option, and template-like repeated openings are rejected;
 - no answer/context leakage, hidden canonical facts, unresolved rendering tokens, or English fragments in Hindi/Punjabi;

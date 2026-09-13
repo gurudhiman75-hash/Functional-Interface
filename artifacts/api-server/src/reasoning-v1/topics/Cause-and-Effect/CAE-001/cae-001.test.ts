@@ -5,6 +5,7 @@ import {
   persistReasoningV1QuestionStudioReview,
   previewReasoningV1QuestionStudioReview,
 } from "../../../question-studio-review-registry.ts";
+import { hasDirectEdge } from "./causal-solver.ts";
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { CAE_001_EDITORIAL_REALNESS_REVIEW, renderCae001EditorialRealnessReview } from "./editorial-review-pack.ts";
 import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES } from "./causal-world-authorities.ts";
@@ -83,6 +84,7 @@ const itemVariantsByCausalState = new Map<string, Set<string>>();
 const generatedCausalStatesByQl = new Map<string, Set<string>>();
 const generatedFamiliesByQl = new Map<string, Set<string>>();
 const targetApplicabilityStates = new Map<string, Set<string>>();
+const cp009CausalStatesByLocale = new Map<CaeLocale, Set<string>>(LOCALES.map((locale) => [locale, new Set<string>()]));
 let targetApplicabilityChecks = 0;
 let targetRelativeCandidateChecks = 0;
 
@@ -154,6 +156,28 @@ for (const qlId of CAE_PROVISIONAL_QL_IDS) {
       }
       if (locale !== "en-IN") assert.equal(/[A-Za-z]{3,}/.test(localized.explanation), false, `${qlId}/${seed}/${locale}: English explanation fragment leaked`);
       if (locale !== "en-IN") assert.equal(/[A-Za-z]{3,}/.test(`${localized.stem}\n${localized.options.join("\n")}`), false, `${qlId}/${seed}/${locale}: English renderer fragment leaked`);
+      if (qlId === "CAE-QL-009") {
+        cp009CausalStatesByLocale.get(locale)!.add(localized.causalStateId);
+        const world = CAE_001_CAUSAL_WORLDS.find((entry) => entry.id === localized.causalWorldId)!;
+        const [sourceId, correctBridgeId, targetId] = localized.causalTrace;
+        const visibleEndpointIds = localized.visibleContext.visibleNodeIds;
+        const visibleEndpointTexts = new Set(visibleEndpointIds.map((nodeId) => world.nodes.find((node) => node.id === nodeId)!.text[locale].trim()));
+        const directBridges = world.nodes.filter((node) => hasDirectEdge(world, sourceId!, node.id) && hasDirectEdge(world, node.id, targetId!));
+        assert.deepEqual(visibleEndpointIds, [sourceId, targetId], `CP-009/${seed}/${locale}: only the two endpoints may be learner-visible`);
+        assert.equal(directBridges.length, 1, `CP-009/${seed}/${locale}: the visible endpoints must have exactly one valid bridge`);
+        assert.equal(directBridges[0]!.id, correctBridgeId, `CP-009/${seed}/${locale}: causal trace must retain that unique bridge`);
+        assert.equal(localized.answerId, correctBridgeId, `CP-009/${seed}/${locale}: only the unique bridge may be the answer`);
+        assert.ok(localized.candidateComparisons.every((candidate) => candidate.source !== "CANONICAL_WORLD" || (candidate.sourceNodeId !== undefined && ![sourceId, correctBridgeId, targetId].includes(candidate.sourceNodeId))), `CP-009/${seed}/${locale}: a visible endpoint or the correct bridge entered the canonical distractor pool`);
+        assert.ok(localized.optionMetadata.filter((option) => !option.isCorrect).every((option) => !visibleEndpointTexts.has(option.text.trim())), `CP-009/${seed}/${locale}: a distractor repeats a learner-visible endpoint`);
+        assert.ok(localized.optionMetadata.every((option) => !visibleEndpointTexts.has(option.text.trim())), `CP-009/${seed}/${locale}: an option repeats a learner-visible endpoint`);
+        assert.equal(new Set(localized.options).size, 4, `CP-009/${seed}/${locale}: all four options must remain unique`);
+        for (const candidate of localized.candidateComparisons) {
+          assert.ok(candidate.applicability.applicableProjectionKinds.includes(candidate.projectionKind), `CP-009/${seed}/${locale}/${candidate.candidateId}: projection applicability drift`);
+          assert.ok(candidate.applicability.eligibleTargetSemanticSlots.includes(candidate.targetSemanticSlot), `CP-009/${seed}/${locale}/${candidate.candidateId}: target applicability drift`);
+          assert.ok(candidate.applicability.eligibleReferenceSemanticSlots.includes(candidate.referenceSemanticSlot), `CP-009/${seed}/${locale}/${candidate.candidateId}: reference applicability drift`);
+          assert.ok(candidate.applicability.eligibleRelations.includes(candidate.expectedRelation), `CP-009/${seed}/${locale}/${candidate.candidateId}: relation applicability drift`);
+        }
+      }
     }
   }
   assert.equal(answerPositions.size, 4, `${qlId}: answer position must vary across all four positions`);
@@ -176,9 +200,18 @@ for (const qlId of CAE_PROVISIONAL_QL_IDS) {
 for (const qlId of TARGET_APPLICABILITY_QL_IDS) {
   assert.deepEqual(targetApplicabilityStates.get(qlId), generatedCausalStatesByQl.get(qlId), `${qlId}: target-applicability QA must exercise every saturated candidate-producing causal state`);
 }
+for (const locale of LOCALES) {
+  assert.deepEqual(cp009CausalStatesByLocale.get(locale), generatedCausalStatesByQl.get("CAE-QL-009"), `CP-009/${locale}: endpoint-exclusion QA must exercise every saturated causal state`);
+}
 assert.ok(targetApplicabilityChecks > 1_000, "target-applicability QA must validate target/reference/relation authority at scale");
 assert.ok((report["CAE-QL-004"]?.families ?? 0) >= 4, "probable-effect saturation must retain branching/common-cause family coverage");
 assert.ok(generatedFamiliesByQl.get("CAE-QL-004")?.has("CAE-FAM-SHARED-PRESSURE"), "probable-effect saturation must retain the branching common-cause family");
+assert.ok((report["CAE-QL-009"]?.causalStates ?? 0) >= 24, "CP-009 semantic causal-state diversity must not decrease");
+assert.ok((report["CAE-QL-009"]?.structures ?? 0) >= 4, "CP-009 causal-structure diversity must not decrease");
+assert.ok((report["CAE-QL-009"]?.families ?? 0) >= 4, "CP-009 family coverage must not decrease");
+assert.ok((report["CAE-QL-009"]?.variants ?? 0) >= 12, "CP-009 variant coverage must not decrease");
+assert.ok((report["CAE-QL-009"]?.difficultyStates ?? 0) >= 2, "CP-009 difficulty diversity must not decrease");
+assert.ok((report["CAE-QL-009"]?.distractorMechanisms ?? 0) >= 5, "CP-009 misconception diversity must not decrease");
 
 assert.deepEqual([...allDifficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
 assert.ok(allFamilies.size >= 8, "saturation must cover nearly all scenario families");

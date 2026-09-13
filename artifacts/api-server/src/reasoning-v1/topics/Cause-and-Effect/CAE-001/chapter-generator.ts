@@ -180,10 +180,11 @@ function relationshipOptions(locale: CaeLocale, profile: CaeQuestionProfile, rel
 
 const SCOPE_RANK = { PERSON: 0, SITE: 1, LOCAL: 2, CITY: 3, REGIONAL: 4 } as const;
 const MAGNITUDE_RANK = { LOW: 0, MODERATE: 1, HIGH: 2 } as const;
-/** Reuse only real canonical events whose graph position creates a named misconception. */
-function canonicalCandidateAuthorities(plan: CaeProjectionAuthority, world: CaeCausalWorld, reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation): readonly CaeCandidateAuthority[] {
+/** Reuse only non-visible canonical events whose graph position creates a named misconception. */
+function canonicalCandidateAuthorities(plan: CaeProjectionAuthority, world: CaeCausalWorld, reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation, excludedCandidateNodeIds: readonly string[]): readonly CaeCandidateAuthority[] {
+  const excluded = new Set(excludedCandidateNodeIds);
   return world.nodes.flatMap((node): readonly CaeCandidateAuthority[] => {
-    if (node.id === reference.id || node.id === target.id) return [];
+    if (node.id === reference.id || node.id === target.id || excluded.has(node.id)) return [];
     const toTarget = causalPath(world, node.id, target.id);
     const fromTarget = causalPath(world, target.id, node.id);
     let mechanism: CaeCandidateAuthority["mechanism"] | null = null;
@@ -275,6 +276,7 @@ function compareCandidate(plan: CaeProjectionAuthority, reference: CaeNode, targ
     candidateId: candidate.id,
     mechanism: candidate.mechanism,
     source: candidate.source,
+    sourceNodeId: candidate.sourceNodeId,
     applicabilityId: candidate.applicabilityMatch.id,
     applicability: candidate.applicabilityMatch,
     editorialPlausibility: candidate.editorialPlausibility,
@@ -322,6 +324,7 @@ function candidateOptions(
   reference: CaeNode,
   target: CaeNode,
   relation: CandidateTargetRelation,
+  excludedCandidateNodeIds: readonly string[],
   correctId: string,
   correctText: string,
   locale: CaeLocale,
@@ -329,9 +332,13 @@ function candidateOptions(
 ): Readonly<{ options: readonly CaeRenderedOption[]; comparisons: readonly CaeCandidateComparison[]; plausibilityBurden: number }> {
   const candidates = [
     ...authoredCandidateAuthorities(plan, world, variant, reference, target, relation),
-    ...(plan.kind === "COMPETING_EXPLANATION" ? [] : canonicalCandidateAuthorities(plan, world, reference, target, relation)),
+    ...(plan.kind === "COMPETING_EXPLANATION" ? [] : canonicalCandidateAuthorities(plan, world, reference, target, relation, excludedCandidateNodeIds)),
   ];
+  const learnerVisibleTexts = new Set(excludedCandidateNodeIds.map((nodeId) => nodeById(world, nodeId).text[locale].trim()));
   for (const candidate of candidates) {
+    if (learnerVisibleTexts.has(candidate.text[locale].trim())) {
+      throw new Error(`${world.id}/${candidate.id}: a candidate repeats a learner-visible event.`);
+    }
     if (candidate.source === "VARIANT_AUTHORED" && candidate.text[locale].includes(target.text[locale].replace(/[.।]+$/u, ""))) {
       throw new Error(`${world.id}/${candidate.id}: authored distractor repeats the observation instead of standing alone.`);
     }
@@ -370,6 +377,9 @@ function candidateOptions(
     { id: correctId, text: correctText, isCorrect: true },
     ...selected.map(({ candidate }) => ({ id: candidate.id, text: candidate.text[locale], isCorrect: false, distractorRole: candidate.mechanism })),
   ], seed ^ 0x4e67);
+  if (options.some((option) => learnerVisibleTexts.has(option.text.trim()))) {
+    throw new Error(`${world.id}: an option repeats a learner-visible event.`);
+  }
   return { options, comparisons: selected.map((entry) => entry.comparison), plausibilityBurden: selected.reduce((sum, entry) => sum + entry.comparison.plausibilityBurden, 0) };
 }
 
@@ -447,8 +457,8 @@ export function generateCaeQuestion(input: {
   let inferenceBurden = 0;
   let candidateComparisons: readonly CaeCandidateComparison[] = [];
   let candidatePlausibilityBurden = 0;
-  const installCandidateOptions = (reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation) => {
-    const rendered = candidateOptions(plan, family, variant, world, reference, target, relation, reference.id, reference.text[locale], locale, mix32(optionSeed ^ input.seed));
+  const installCandidateOptions = (reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation, excludedCandidateNodeIds: readonly string[]) => {
+    const rendered = candidateOptions(plan, family, variant, world, reference, target, relation, excludedCandidateNodeIds, reference.id, reference.text[locale], locale, mix32(optionSeed ^ input.seed));
     options = rendered.options;
     candidateComparisons = rendered.comparisons;
     candidatePlausibilityBurden = rendered.plausibilityBurden;
@@ -492,7 +502,7 @@ export function generateCaeQuestion(input: {
     const correctNodeId = plan.kind === "PROBABLE_CAUSE" ? pair[0] : pair[1];
     const targetNodeId = plan.kind === "PROBABLE_CAUSE" ? pair[1] : pair[0];
     visibleNodeIds = [targetNodeId];
-    installCandidateOptions(nodeById(world, correctNodeId), nodeById(world, targetNodeId), plan.kind === "PROBABLE_CAUSE" ? "CAUSE_OF_TARGET" : "EFFECT_OF_TARGET");
+    installCandidateOptions(nodeById(world, correctNodeId), nodeById(world, targetNodeId), plan.kind === "PROBABLE_CAUSE" ? "CAUSE_OF_TARGET" : "EFFECT_OF_TARGET", visibleNodeIds);
     trace = plan.kind === "PROBABLE_CAUSE" ? [correctNodeId, targetNodeId] : [targetNodeId, correctNodeId];
     stem = `${copy.observation}: ${nodeById(world, targetNodeId).text[locale]}\n\n${plan.kind === "PROBABLE_CAUSE" ? copy.probableCause : copy.probableEffect}`;
     explanation = `${renderTrace(world, locale, trace)}. ${copy.matchedFactors}`;
@@ -503,7 +513,7 @@ export function generateCaeQuestion(input: {
     const correctNodeId = path[0]!;
     const targetNodeId = path[path.length - 1]!;
     visibleNodeIds = [targetNodeId];
-    installCandidateOptions(nodeById(world, correctNodeId), nodeById(world, targetNodeId), "CAUSE_OF_TARGET");
+    installCandidateOptions(nodeById(world, correctNodeId), nodeById(world, targetNodeId), "CAUSE_OF_TARGET", visibleNodeIds);
     trace = path;
     stem = `${copy.observation}: ${nodeById(world, targetNodeId).text[locale]}\n\n${copy.competing}`;
     explanation = `${renderTrace(world, locale, trace)}. ${copy.competingMatch}`;
@@ -549,7 +559,7 @@ export function generateCaeQuestion(input: {
     const middle = path[start + 1]!;
     const target = path[start + 2]!;
     visibleNodeIds = [source, target];
-    installCandidateOptions(nodeById(world, middle), nodeById(world, target), "BRIDGE_TO_TARGET");
+    installCandidateOptions(nodeById(world, middle), nodeById(world, target), "BRIDGE_TO_TARGET", visibleNodeIds);
     trace = [source, middle, target];
     stem = `${copy.missing}\n\n${nodeById(world, source).text[locale]} → ? → ${nodeById(world, target).text[locale]}`;
     explanation = `${renderTrace(world, locale, trace)}. ${copy.missingBridge}`;

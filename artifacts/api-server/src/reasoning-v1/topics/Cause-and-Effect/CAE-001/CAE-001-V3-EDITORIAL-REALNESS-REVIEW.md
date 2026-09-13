@@ -1837,8 +1837,8 @@ Which event most logically completes the causal sequence?
 
 A safety drill was announced. → ? → Regular lessons paused.
 
-A. The school timetable shifted for the day.
-B. A safety drill was announced.
+A. A classroom projector fault paused one lesson.
+B. A teacher delayed one classroom activity.
 C. One class missed a few minutes of a lesson.
 D. Classes moved to the assembly area.
 
@@ -1848,9 +1848,9 @@ D. Classes moved to the assembly area.
 
 **Family / variant:** CAE-FAM-CIVIC-SEQUENCE / drill
 **causalStateId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-CIVIC-SEQUENCE|variant:drill|graph:HIDDEN_CHAIN|direction:cause>bridge>effect|visible:cause,effect`
-**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-CIVIC-SEQUENCE|variant:drill|graph:HIDDEN_CHAIN|direction:cause>bridge>effect|visible:cause,effect|distractors:CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-one-class-delay,CAE-WORLD-CIVIC-SEQUENCE-drill:node:CAE-WORLD-CIVIC-SEQUENCE-drill:cause,CAE-WORLD-CIVIC-SEQUENCE-drill:node:CAE-WORLD-CIVIC-SEQUENCE-drill:terminal|profile:NONE|presentation:CAE-WORLD-CIVIC-SEQUENCE-drill:node:CAE-WORLD-CIVIC-SEQUENCE-drill:terminal>CAE-WORLD-CIVIC-SEQUENCE-drill:node:CAE-WORLD-CIVIC-SEQUENCE-drill:cause>CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-one-class-delay>CAE-WORLD-CIVIC-SEQUENCE-drill:bridge`
-**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=2; candidateBurden=11; inference=2; score=18
-**Distractor mechanisms:** INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE), MAGNITUDE_MISMATCH (CREDIBLE_ALTERNATIVE), REVERSE_CAUSATION (CLEAR_REJECT)
+**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-CIVIC-SEQUENCE|variant:drill|graph:HIDDEN_CHAIN|direction:cause>bridge>effect|visible:cause,effect|distractors:CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-classroom-activity,CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-one-class-delay,CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-projector|profile:NONE|presentation:CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-projector>CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-classroom-activity>CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-one-class-delay>CAE-WORLD-CIVIC-SEQUENCE-drill:bridge`
+**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=3; candidateBurden=12; inference=2; score=19
+**Distractor mechanisms:** WRONG_SCOPE (CREDIBLE_ALTERNATIVE), MAGNITUDE_MISMATCH (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CREDIBLE_ALTERNATIVE)
 
 ### MEDIUM — seed 1
 
@@ -1879,10 +1879,10 @@ Which event most logically completes the causal sequence?
 
 The power supply to a cold-storage unit failed. → ? → Loading of perishable goods paused.
 
-A. A short power fluctuation paused one loading bay.
+A. A faulty relay kept the backup generator from starting.
 B. The backup generator took time to start.
-C. Dispatch vehicles left later than scheduled.
-D. The power supply to a cold-storage unit failed.
+C. A forklift needed repair in a different warehouse section.
+D. A short power fluctuation paused one loading bay.
 
 **Answer:** B. The backup generator took time to start.
 
@@ -1890,9 +1890,9 @@ D. The power supply to a cold-storage unit failed.
 
 **Family / variant:** CAE-FAM-HIDDEN-CHAIN / cold-storage
 **causalStateId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-HIDDEN-CHAIN|variant:cold-storage|graph:HIDDEN_CHAIN|direction:cause>bridge>effect|visible:cause,effect`
-**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-HIDDEN-CHAIN|variant:cold-storage|graph:HIDDEN_CHAIN|direction:cause>bridge>effect|visible:cause,effect|distractors:CAE-WORLD-HIDDEN-CHAIN-cold-storage:authored:cold-storage-power-fluctuation,CAE-WORLD-HIDDEN-CHAIN-cold-storage:node:CAE-WORLD-HIDDEN-CHAIN-cold-storage:cause,CAE-WORLD-HIDDEN-CHAIN-cold-storage:node:CAE-WORLD-HIDDEN-CHAIN-cold-storage:terminal|profile:NONE|presentation:CAE-WORLD-HIDDEN-CHAIN-cold-storage:authored:cold-storage-power-fluctuation>CAE-WORLD-HIDDEN-CHAIN-cold-storage:bridge>CAE-WORLD-HIDDEN-CHAIN-cold-storage:node:CAE-WORLD-HIDDEN-CHAIN-cold-storage:terminal>CAE-WORLD-HIDDEN-CHAIN-cold-storage:node:CAE-WORLD-HIDDEN-CHAIN-cold-storage:cause`
-**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=2; candidateBurden=7; inference=1; score=16
-**Distractor mechanisms:** INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CREDIBLE_ALTERNATIVE), REVERSE_CAUSATION (CLEAR_REJECT)
+**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-HIDDEN-CHAIN|variant:cold-storage|graph:HIDDEN_CHAIN|direction:cause>bridge>effect|visible:cause,effect|distractors:CAE-WORLD-HIDDEN-CHAIN-cold-storage:authored:cold-storage-forklift,CAE-WORLD-HIDDEN-CHAIN-cold-storage:authored:cold-storage-generator-relay,CAE-WORLD-HIDDEN-CHAIN-cold-storage:authored:cold-storage-power-fluctuation|profile:NONE|presentation:CAE-WORLD-HIDDEN-CHAIN-cold-storage:authored:cold-storage-generator-relay>CAE-WORLD-HIDDEN-CHAIN-cold-storage:bridge>CAE-WORLD-HIDDEN-CHAIN-cold-storage:authored:cold-storage-forklift>CAE-WORLD-HIDDEN-CHAIN-cold-storage:authored:cold-storage-power-fluctuation`
+**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=2; candidateBurden=6; inference=1; score=15
+**Distractor mechanisms:** WEAK_CAUSE (CREDIBLE_ALTERNATIVE), MAGNITUDE_MISMATCH (CREDIBLE_ALTERNATIVE), WRONG_SCOPE (CLEAR_REJECT)
 
 ### MEDIUM — seed 2
 
@@ -1900,9 +1900,9 @@ Which event most logically completes the causal sequence?
 
 Visibility on the runway fell sharply. → ? → Passengers were moved to later flights.
 
-A. Visibility on the runway fell sharply.
+A. Airport staff delayed a boarding announcement at one gate.
 B. Several departures were delayed.
-C. Airport staff delayed a boarding announcement at one gate.
+C. A thin patch of mist briefly covered one taxiway.
 D. A small number of passengers waited longer at one departure gate.
 
 **Answer:** B. Several departures were delayed.
@@ -1911,9 +1911,9 @@ D. A small number of passengers waited longer at one departure gate.
 
 **Family / variant:** CAE-FAM-OPERATIONS-CHAIN / fog
 **causalStateId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:fog|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal`
-**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:fog|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-boarding-announcement,CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-gate-wait,CAE-WORLD-OPERATIONS-CHAIN-fog:node:CAE-WORLD-OPERATIONS-CHAIN-fog:bridge|profile:NONE|presentation:CAE-WORLD-OPERATIONS-CHAIN-fog:node:CAE-WORLD-OPERATIONS-CHAIN-fog:bridge>CAE-WORLD-OPERATIONS-CHAIN-fog:effect>CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-boarding-announcement>CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-gate-wait`
-**Difficulty evidence:** distance=2; hiddenLinks=1; topology=1; credibleDistractors=3; candidateBurden=6; inference=1; score=13
-**Distractor mechanisms:** INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE), MAGNITUDE_MISMATCH (CREDIBLE_ALTERNATIVE), WRONG_SCOPE (CREDIBLE_ALTERNATIVE)
+**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:fog|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-boarding-announcement,CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-gate-wait,CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-taxiway-mist|profile:NONE|presentation:CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-boarding-announcement>CAE-WORLD-OPERATIONS-CHAIN-fog:effect>CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-taxiway-mist>CAE-WORLD-OPERATIONS-CHAIN-fog:authored:fog-gate-wait`
+**Difficulty evidence:** distance=2; hiddenLinks=1; topology=1; credibleDistractors=2; candidateBurden=4; inference=1; score=12
+**Distractor mechanisms:** WRONG_SCOPE (CREDIBLE_ALTERNATIVE), MAGNITUDE_MISMATCH (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CLEAR_REJECT)
 
 ### MEDIUM — seed 3
 
@@ -1924,27 +1924,6 @@ Trains were instructed to move cautiously through that section. → ? → Commut
 A. A platform display system briefly failed at one station.
 B. Train movement slowed down.
 C. A station announced a short delay on one branch line.
-D. Trains were instructed to move cautiously through that section.
-
-**Answer:** B. Train movement slowed down.
-
-**Explanation:** Trains were instructed to move cautiously through that section → Train movement slowed down → Commuters reached later than usual. The missing event is the only direct bridge between the shown events.
-
-**Family / variant:** CAE-FAM-OPERATIONS-CHAIN / signal
-**causalStateId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:signal|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal`
-**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:signal|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-branch-announcement,CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-display,CAE-WORLD-OPERATIONS-CHAIN-signal:node:CAE-WORLD-OPERATIONS-CHAIN-signal:bridge|profile:NONE|presentation:CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-display>CAE-WORLD-OPERATIONS-CHAIN-signal:effect>CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-branch-announcement>CAE-WORLD-OPERATIONS-CHAIN-signal:node:CAE-WORLD-OPERATIONS-CHAIN-signal:bridge`
-**Difficulty evidence:** distance=2; hiddenLinks=1; topology=1; credibleDistractors=2; candidateBurden=6; inference=1; score=12
-**Distractor mechanisms:** INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE), WRONG_SCOPE (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CLEAR_REJECT)
-
-### MEDIUM — seed 6
-
-Which event most logically completes the causal sequence?
-
-Trains were instructed to move cautiously through that section. → ? → Commuters reached later than usual.
-
-A. A platform display system briefly failed at one station.
-B. Train movement slowed down.
-C. A points failure slowed trains on a different branch line.
 D. Passengers at one platform waited a few extra minutes.
 
 **Answer:** B. Train movement slowed down.
@@ -1953,9 +1932,30 @@ D. Passengers at one platform waited a few extra minutes.
 
 **Family / variant:** CAE-FAM-OPERATIONS-CHAIN / signal
 **causalStateId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:signal|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal`
-**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:signal|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-branch-points,CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-display,CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-wait|profile:NONE|presentation:CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-display>CAE-WORLD-OPERATIONS-CHAIN-signal:effect>CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-branch-points>CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-wait`
-**Difficulty evidence:** distance=2; hiddenLinks=1; topology=1; credibleDistractors=2; candidateBurden=5; inference=1; score=12
+**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:signal|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-branch-announcement,CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-display,CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-wait|profile:NONE|presentation:CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-display>CAE-WORLD-OPERATIONS-CHAIN-signal:effect>CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-branch-announcement>CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-wait`
+**Difficulty evidence:** distance=2; hiddenLinks=1; topology=1; credibleDistractors=2; candidateBurden=6; inference=1; score=12
 **Distractor mechanisms:** MAGNITUDE_MISMATCH (CREDIBLE_ALTERNATIVE), WRONG_SCOPE (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CLEAR_REJECT)
+
+### MEDIUM — seed 6
+
+Which event most logically completes the causal sequence?
+
+Trains were instructed to move cautiously through that section. → ? → Commuters reached later than usual.
+
+A. A signal fault was detected on one rail section.
+B. Train movement slowed down.
+C. A station announced a short delay on one branch line.
+D. Passengers at one platform waited a few extra minutes.
+
+**Answer:** B. Train movement slowed down.
+
+**Explanation:** Trains were instructed to move cautiously through that section → Train movement slowed down → Commuters reached later than usual. The missing event is the only direct bridge between the shown events.
+
+**Family / variant:** CAE-FAM-OPERATIONS-CHAIN / signal
+**causalStateId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:signal|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal`
+**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-OPERATIONS-CHAIN|variant:signal|graph:DIRECT_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-branch-announcement,CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-wait,CAE-WORLD-OPERATIONS-CHAIN-signal:node:CAE-WORLD-OPERATIONS-CHAIN-signal:cause|profile:NONE|presentation:CAE-WORLD-OPERATIONS-CHAIN-signal:node:CAE-WORLD-OPERATIONS-CHAIN-signal:cause>CAE-WORLD-OPERATIONS-CHAIN-signal:effect>CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-branch-announcement>CAE-WORLD-OPERATIONS-CHAIN-signal:authored:signal-platform-wait`
+**Difficulty evidence:** distance=2; hiddenLinks=1; topology=1; credibleDistractors=3; candidateBurden=5; inference=1; score=13
+**Distractor mechanisms:** MAGNITUDE_MISMATCH (CREDIBLE_ALTERNATIVE), WRONG_SCOPE (CREDIBLE_ALTERNATIVE), INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE)
 
 ### MEDIUM — seed 7
 
@@ -1963,10 +1963,10 @@ Which event most logically completes the causal sequence?
 
 Ferry departures were paused. → ? → Goods reached the market late.
 
-A. Ferry departures were paused.
+A. A roadside repair slowed cars near another river crossing.
 B. Vehicles waited at the crossing.
 C. A ticket check held one vehicle for a few minutes.
-D. A roadside repair slowed cars near another river crossing.
+D. Strong wind affected the ferry crossing.
 
 **Answer:** B. Vehicles waited at the crossing.
 
@@ -1974,19 +1974,19 @@ D. A roadside repair slowed cars near another river crossing.
 
 **Family / variant:** CAE-FAM-MISSING-BRIDGE / ferry
 **causalStateId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-MISSING-BRIDGE|variant:ferry|graph:HIDDEN_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal`
-**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-MISSING-BRIDGE|variant:ferry|graph:HIDDEN_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-MISSING-BRIDGE-ferry:authored:ferry-other-crossing,CAE-WORLD-MISSING-BRIDGE-ferry:authored:ferry-ticket-check,CAE-WORLD-MISSING-BRIDGE-ferry:node:CAE-WORLD-MISSING-BRIDGE-ferry:bridge|profile:NONE|presentation:CAE-WORLD-MISSING-BRIDGE-ferry:node:CAE-WORLD-MISSING-BRIDGE-ferry:bridge>CAE-WORLD-MISSING-BRIDGE-ferry:effect>CAE-WORLD-MISSING-BRIDGE-ferry:authored:ferry-ticket-check>CAE-WORLD-MISSING-BRIDGE-ferry:authored:ferry-other-crossing`
-**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=2; candidateBurden=3; inference=1; score=14
-**Distractor mechanisms:** INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE), WRONG_SCOPE (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CLEAR_REJECT)
+**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-MISSING-BRIDGE|variant:ferry|graph:HIDDEN_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-MISSING-BRIDGE-ferry:authored:ferry-other-crossing,CAE-WORLD-MISSING-BRIDGE-ferry:authored:ferry-ticket-check,CAE-WORLD-MISSING-BRIDGE-ferry:node:CAE-WORLD-MISSING-BRIDGE-ferry:cause|profile:NONE|presentation:CAE-WORLD-MISSING-BRIDGE-ferry:authored:ferry-other-crossing>CAE-WORLD-MISSING-BRIDGE-ferry:effect>CAE-WORLD-MISSING-BRIDGE-ferry:authored:ferry-ticket-check>CAE-WORLD-MISSING-BRIDGE-ferry:node:CAE-WORLD-MISSING-BRIDGE-ferry:cause`
+**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=2; candidateBurden=1; inference=1; score=14
+**Distractor mechanisms:** WRONG_SCOPE (CREDIBLE_ALTERNATIVE), INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CLEAR_REJECT)
 
-### HARD — seed 8
+### MEDIUM — seed 8
 
 Which event most logically completes the causal sequence?
 
 A warehouse loading system stopped working. → ? → Delivery vehicles left late.
 
-A. A warehouse loading system stopped working.
+A. One loader paused briefly to check a pallet.
 B. A loading-bay conveyor jammed during the morning dispatch.
-C. A local shop rearranged shelves during opening hours.
+C. The shop received stock later than planned.
 D. Packages waited at the loading bay.
 
 **Answer:** D. Packages waited at the loading bay.
@@ -1995,18 +1995,18 @@ D. Packages waited at the loading bay.
 
 **Family / variant:** CAE-FAM-MISSING-BRIDGE / supply
 **causalStateId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-MISSING-BRIDGE|variant:supply|graph:HIDDEN_CHAIN|direction:cause>bridge>effect|visible:cause,effect`
-**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-MISSING-BRIDGE|variant:supply|graph:HIDDEN_CHAIN|direction:cause>bridge>effect|visible:cause,effect|distractors:CAE-WORLD-MISSING-BRIDGE-supply:authored:supply-conveyor-jam,CAE-WORLD-MISSING-BRIDGE-supply:authored:supply-shelf-rearrangement,CAE-WORLD-MISSING-BRIDGE-supply:node:CAE-WORLD-MISSING-BRIDGE-supply:cause|profile:NONE|presentation:CAE-WORLD-MISSING-BRIDGE-supply:node:CAE-WORLD-MISSING-BRIDGE-supply:cause>CAE-WORLD-MISSING-BRIDGE-supply:authored:supply-conveyor-jam>CAE-WORLD-MISSING-BRIDGE-supply:authored:supply-shelf-rearrangement>CAE-WORLD-MISSING-BRIDGE-supply:bridge`
-**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=2; candidateBurden=8; inference=2; score=17
-**Distractor mechanisms:** MAGNITUDE_MISMATCH (CREDIBLE_ALTERNATIVE), INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE), WRONG_SCOPE (CLEAR_REJECT)
+**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-MISSING-BRIDGE|variant:supply|graph:HIDDEN_CHAIN|direction:cause>bridge>effect|visible:cause,effect|distractors:CAE-WORLD-MISSING-BRIDGE-supply:authored:supply-conveyor-jam,CAE-WORLD-MISSING-BRIDGE-supply:authored:supply-pallet-check,CAE-WORLD-MISSING-BRIDGE-supply:node:CAE-WORLD-MISSING-BRIDGE-supply:terminal|profile:NONE|presentation:CAE-WORLD-MISSING-BRIDGE-supply:authored:supply-pallet-check>CAE-WORLD-MISSING-BRIDGE-supply:authored:supply-conveyor-jam>CAE-WORLD-MISSING-BRIDGE-supply:node:CAE-WORLD-MISSING-BRIDGE-supply:terminal>CAE-WORLD-MISSING-BRIDGE-supply:bridge`
+**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=2; candidateBurden=7; inference=1; score=16
+**Distractor mechanisms:** MAGNITUDE_MISMATCH (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CREDIBLE_ALTERNATIVE), REVERSE_CAUSATION (CLEAR_REJECT)
 
-### HARD — seed 9
+### MEDIUM — seed 9
 
 Which event most logically completes the causal sequence?
 
 Classes moved to the assembly area. → ? → The school timetable shifted for the day.
 
-A. Classes moved to the assembly area.
-B. A sports practice used a different school corridor.
+A. A sports practice used a different school corridor.
+B. A safety drill was announced.
 C. A classroom projector fault paused one lesson.
 D. Regular lessons paused.
 
@@ -2016,6 +2016,6 @@ D. Regular lessons paused.
 
 **Family / variant:** CAE-FAM-CIVIC-SEQUENCE / drill
 **causalStateId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-CIVIC-SEQUENCE|variant:drill|graph:HIDDEN_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal`
-**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-CIVIC-SEQUENCE|variant:drill|graph:HIDDEN_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-projector,CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-sports-practice,CAE-WORLD-CIVIC-SEQUENCE-drill:node:CAE-WORLD-CIVIC-SEQUENCE-drill:bridge|profile:NONE|presentation:CAE-WORLD-CIVIC-SEQUENCE-drill:node:CAE-WORLD-CIVIC-SEQUENCE-drill:bridge>CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-sports-practice>CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-projector>CAE-WORLD-CIVIC-SEQUENCE-drill:effect`
-**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=2; candidateBurden=9; inference=2; score=17
-**Distractor mechanisms:** INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE), WRONG_SCOPE (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CLEAR_REJECT)
+**itemVariantId:** `projection:CAE-PLAN-MISSING|family:CAE-FAM-CIVIC-SEQUENCE|variant:drill|graph:HIDDEN_CHAIN|direction:bridge>effect>terminal|visible:bridge,terminal|distractors:CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-projector,CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-sports-practice,CAE-WORLD-CIVIC-SEQUENCE-drill:node:CAE-WORLD-CIVIC-SEQUENCE-drill:cause|profile:NONE|presentation:CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-sports-practice>CAE-WORLD-CIVIC-SEQUENCE-drill:node:CAE-WORLD-CIVIC-SEQUENCE-drill:cause>CAE-WORLD-CIVIC-SEQUENCE-drill:authored:drill-projector>CAE-WORLD-CIVIC-SEQUENCE-drill:effect`
+**Difficulty evidence:** distance=2; hiddenLinks=1; topology=4; credibleDistractors=2; candidateBurden=7; inference=1; score=16
+**Distractor mechanisms:** WRONG_SCOPE (CREDIBLE_ALTERNATIVE), INDIRECTNESS_CONFUSION (CREDIBLE_ALTERNATIVE), WEAK_CAUSE (CLEAR_REJECT)
