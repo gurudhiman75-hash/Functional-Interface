@@ -23,6 +23,7 @@ assert.equal(isEng001Cp008QuestionStudioRequestV1({ packageId: "ENG-001" }), fal
 assert.equal(isEng001Cp008QuestionStudioRequestV1({ packageId: "ENG-001", canonicalProblemId: "ENG-001-CP008" }), true);
 assert.equal(isEng001Cp008QuestionStudioRequestV1({ canonicalProblemId: "GR-NQN-005" }), true);
 assert.equal(isEng001Cp008QuestionStudioRequestV1({ subject: "English", topic: "Error Spotting", subtopic: "Nouns & Quantifiers" }), true);
+assert.equal(isEng001Cp008QuestionStudioRequestV1({ subject: "English", topic: "Error Spotting", subtopic: "Pronouns" }), false);
 assert.equal(isEng001Cp008QuestionStudioRequestV1({ packageId: "COM-001", canonicalProblemId: "ENG-001-CP008" }), false);
 
 const baseRequest = { engineId: "language-v1" as const, packageId: "ENG-001", language: "en" as const, difficulty: "Medium", count: 12, seed: "eng001-cp008-question-studio-integration-test", runtimeMode: "review-only" };
