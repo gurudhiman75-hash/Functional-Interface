@@ -19,7 +19,7 @@ export const LP_009_DAY_SCHEDULING_V3_REVIEW = Object.freeze({
   editorialChanges: Object.freeze({
     removesDuplicatedScenarioOpening: true,
     easyRequiresRelationalDeduction: true,
-    easyCapsDirectPlacementsAtThree: true,
+    easyRejectsDirectOnlyResolution: true,
     mediumCapsDirectPlacementsAtTwo: true,
     hardRetainsLayeredRelationalTopology: true,
   }),
@@ -52,7 +52,7 @@ export function lp009DayV3TopologyAcceptable(caselet: Lp009DayCaselet): boolean 
   const exclusions = exclusionCount(caselet);
 
   if (caselet.difficultyBand === "Easy") {
-    return direct === 3 && relations.size >= 1 && exclusions <= 1 && caselet.clues.length >= 4;
+    return direct >= 3 && direct <= 4 && relations.size >= 1 && exclusions <= 1 && caselet.clues.length >= 4;
   }
   if (caselet.difficultyBand === "Medium") {
     return direct >= 1 && direct <= 2 && relations.size >= 1 && exclusions <= 1 && caselet.clues.length >= 5;
