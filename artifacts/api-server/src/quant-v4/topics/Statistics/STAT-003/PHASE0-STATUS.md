@@ -1,34 +1,36 @@
 # STAT-003 — Elementary Frequency Distribution & Central Tendency
 
-Status: `PHASE0_HUMAN_REVIEW_REQUIRED`
+Status: `PERMANENT_ENGLISH_REVIEW_READY`
 
 ## Why this package exists
 
 `STAT-001` owns raw-observation mean/median/mode. `STAT-003` owns elementary frequency-distribution forms that occur in the common SSC Mathematical Abilities lane and must not be misclassified as Data Interpretation.
 
-Real-paper anchors used for this Phase-0 design include:
+Real-paper anchors used for this design include:
 - grouped-frequency mean using class marks (`SSC CGL 2022 Tier-I`, held 09 Dec 2022 Shift 1);
 - empirical mean/median/mode relation (`SSC CGL 2022 Tier-II`, held 06 Mar 2023);
 - grouped-frequency median (`SSC CGL 2024 Tier-II Paper-I`, held 20 Jan 2025).
 
-## Temporary review contracts
+## Permanent semantic ownership
 
-1. `STAT-003-TEMP-001-DISCRETE-FREQUENCY-MEAN` — direct weighted mean from x/f table;
-2. `STAT-003-TEMP-002-GROUPED-FREQUENCY-MEAN` — grouped mean using class marks;
-3. `STAT-003-TEMP-003-DISCRETE-FREQUENCY-MEDIAN` — cumulative-frequency median from x/f table;
-4. `STAT-003-TEMP-004-GROUPED-FREQUENCY-MEDIAN` — locate median class and interpolate;
-5. `STAT-003-TEMP-005-GROUPED-FREQUENCY-MODE` — modal-class interpolation using adjacent frequencies;
-6. `STAT-003-TEMP-006-EMPIRICAL-MODE` — recover mode from mean and median;
-7. `STAT-003-TEMP-007-EMPIRICAL-DIFFERENCE` — use `Mean − Mode = 3(Mean − Median)`;
-8. `STAT-003-TEMP-008-MISSING-VALUE-FROM-MEAN` — recover one unknown x-value from a frequency mean equation.
+1. `STAT-QL-013` — direct weighted mean from a discrete x/f table;
+2. `STAT-QL-014` — grouped mean using class marks;
+3. `STAT-QL-015` — cumulative-frequency median from a discrete x/f table;
+4. `STAT-QL-016` — grouped median by median-class interpolation;
+5. `STAT-QL-017` — grouped mode by modal-class interpolation;
+6. `STAT-QL-018` — recover mode from mean and median using the empirical relation;
+7. `STAT-QL-019` — use `Mean − Mode = 3(Mean − Median)` to recover a difference;
+8. `STAT-QL-020` — recover one unknown x-value from a stated frequency mean.
+
+The historical `STAT-003-TEMP-*` identifiers remain internal deterministic runtime contracts. New ownership and Question Studio controlled review use the permanent `STAT-QL-*` namespace.
 
 ## Difficulty contract
 
 - **Easy:** direct discrete frequency mean/median and direct empirical-mode relation.
 - **Medium:** grouped mean, grouped median, grouped mode, and empirical difference relation.
-- **Hard:** recover an unknown table value from the stated frequency mean; difficulty comes from the extra weighted-equation reconstruction, not larger numbers.
+- **Hard:** recover an unknown table value from the stated frequency mean; difficulty comes from weighted-equation reconstruction, not larger numbers.
 
-## Editorial rules
+## Editorial/runtime rules
 
 - natural SSC-style prompts;
 - table shown whenever the learner needs a frequency distribution;
@@ -37,7 +39,18 @@ Real-paper anchors used for this Phase-0 design include:
 - grouped mean uses class marks explicitly;
 - grouped mode names `l, h, f0, f1, f2` before substitution;
 - no generic shortcut/trap filler;
-- misconception-owned distractors and exactly four unique SSC options.
+- misconception-owned distractors and exactly four unique SSC options;
+- deterministic generation with an independent mathematical verifier.
+
+## Proof authority
+
+- 100 seeds × 2 profiles × 8 contracts = 1,600 generated questions;
+- 1,600 deterministic replay checks;
+- 1,600 independent-verifier checks;
+- 6,400 option checks;
+- four unique options and exactly one correct answer throughout;
+- structural Easy/Medium/Hard contract preserved;
+- human English review approved 2026-09-13.
 
 ## Boundary
 
@@ -45,9 +58,16 @@ This package does **not** own histogram/frequency-polygon rendering (DI remediat
 
 ## Lifecycle
 
-- temporary contracts only; no permanent QL allocation yet;
-- Question Studio discovery: false;
-- Question Bank: `NOT_STORED`;
-- tests/mocks: ineligible;
-- public/automatic publication: false;
-- English human review required before any promotion.
+- English human review: **approved 2026-09-13**;
+- permanent QLs: `STAT-QL-013..020`;
+- canonical problem: `STAT-CP-003`;
+- Question Studio: `CONTROLLED_REVIEW` / English only;
+- Question Bank: `NOT_STORED`, writable false;
+- test eligibility: `INELIGIBLE`;
+- mock-test eligibility: false;
+- public publication: false;
+- automatic student publication: false;
+- production release authorized: false;
+- localization: not started.
+
+Human approval authorizes permanent QL allocation and controlled Question Studio review only. It does **not** authorize Question Bank storage, tests/mocks, public publication, localization, or production release.
