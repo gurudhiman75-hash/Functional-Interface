@@ -1,0 +1,59 @@
+name: Validate PUN-001 CP012 V2 Semantic
+
+on:
+  pull_request:
+    branches:
+      - feature/punjabi-v1-content-engine
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+      - ".github/workflows/pun-001-cp012-v2-semantic.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-cp012-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Enable pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP012 V2 proof
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/punjabi-v1/packages/PUN-001/checkpoints/CP012/CP012.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/pun-001-cp012-v2.test.mjs
+      - name: Run CP012 V2 proof
+        working-directory: artifacts/api-server
+        run: node dist/pun-001-cp012-v2.test.mjs
+      - name: Run full Punjabi V1 regression
+        working-directory: artifacts/api-server
+        run: pnpm run test:punjabi-v1
+      - name: Build API server
+        working-directory: artifacts/api-server
+        run: pnpm run build
+      - name: Bundle CP012 V2 review exporter
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/punjabi-v1/packages/PUN-001/checkpoints/CP012/export-review.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/pun-001-cp012-v2-export.mjs
+      - name: Generate CP012 V2 120-question review file
+        working-directory: artifacts/api-server
+        run: node dist/pun-001-cp012-v2-export.mjs
+      - name: Upload CP012 V2 review file
+        uses: actions/upload-artifact@v4
+        with:
+          name: PUN-001-CP012-V2-REVIEW-120
+          path: artifacts/api-server/dist/PUN-001-CP012-V2-REVIEW-120.md
+          if-no-files-found: error
