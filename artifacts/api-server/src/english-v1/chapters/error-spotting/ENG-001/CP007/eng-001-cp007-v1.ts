@@ -2,7 +2,7 @@ import { deterministicPick } from "../../../../core/deterministic";
 import { classifyEnglishDifficulty } from "../../../../core/difficulty";
 import type { ConjunctionRuleId, DifficultyDimensions, Eng001QlId, Eng001Question, Eng001SentenceCandidate, EnglishDifficulty } from "../../../../core/types";
 import { CONJUNCTION_RULE_BY_ID } from "../../../../grammar/conjunctions-parallelism";
-import { CP007_SCENES_BY_DIFFICULTY_V1 } from "./cp007-catalog-v1";
+import { CP007_SCENES_BY_DIFFICULTY_V2 } from "./cp007-catalog-v2";
 import type { ConjunctionSceneV1 } from "./cp007-catalog-v1";
 
 const STEMS: Record<Eng001QlId, string> = {
@@ -18,14 +18,14 @@ const dims = (difficulty: EnglishDifficulty): DifficultyDimensions => difficulty
     : { ruleComplexity: 4, dependencyDistance: 4, distractorSimilarity: 4, sentenceLength: 3, ruleInteraction: 1, lexicalLoad: 1 };
 
 export function cp007ScenePoolV1(difficulty: EnglishDifficulty, ruleId?: ConjunctionRuleId): readonly ConjunctionSceneV1[] {
-  const base = CP007_SCENES_BY_DIFFICULTY_V1[difficulty];
+  const base = CP007_SCENES_BY_DIFFICULTY_V2[difficulty];
   const filtered = ruleId ? base.filter((scene) => scene.ruleId === ruleId) : base;
   if (!filtered.length) throw new Error(`No CP007 ${difficulty} scene is available${ruleId ? ` for ${ruleId}` : ""}.`);
   return filtered;
 }
 
 export function rulesForDifficultyCp007V1(difficulty: EnglishDifficulty): readonly ConjunctionRuleId[] {
-  return [...new Set(CP007_SCENES_BY_DIFFICULTY_V1[difficulty].map((scene) => scene.ruleId))];
+  return [...new Set(CP007_SCENES_BY_DIFFICULTY_V2[difficulty].map((scene) => scene.ruleId))];
 }
 
 export function buildEng001Cp007CandidateV1(input: { seed: string; difficulty: EnglishDifficulty; ruleId?: ConjunctionRuleId; sceneId?: string }): Eng001SentenceCandidate {
