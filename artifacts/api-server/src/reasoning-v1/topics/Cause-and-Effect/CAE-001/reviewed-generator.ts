@@ -17,40 +17,54 @@ export type GenerateReviewedCaeQuestionInput = Readonly<{
   questionProfile?: CaeQuestionProfile;
 }>;
 
+const saturatedBase = (input: GenerateReviewedCaeQuestionInput) => withCae001SaturationWave2(() => generateCaeQuestion(input));
+
 /** Review-facing facade layered over the frozen V3 causal architecture. */
 export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionInput): GeneratedCaeQuestion {
   const defaultFourWay = input.questionProfile === undefined || input.questionProfile === "FOUR_WAY";
+  const seed = input.seed >>> 0;
 
   if (input.qlId === "CAE-QL-001" && defaultFourWay) {
     return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
   }
-  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && (input.seed >>> 0) % 3 === 0) {
+
+  // One reviewed seed in five intentionally exposes the saturation pool on the
+  // candidate-heavy QLs. The other seeds preserve the specialised combination,
+  // CP005 and integrated CP009 renderers already approved for the chapter.
+  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) {
+    return saturatedBase(input);
+  }
+  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 3 === 0) {
     return generateReviewedCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-005" && defaultFourWay) {
-    return generateCp005CompetingQuestion({ locale: input.locale, seed: input.seed });
+    return seed % 5 === 4 ? saturatedBase(input) : generateCp005CompetingQuestion({ locale: input.locale, seed: input.seed });
   }
+
   // Two out of every three default CP006 seeds exercise causal distance;
-  // seed parity then gives both immediate and remote cases. The remaining
-  // third preserves the graph-native indirect-chain renderer with the full
-  // Wave 1 + Wave 2 saturation pool enabled for reviewed output.
-  if (input.qlId === "CAE-QL-006" && defaultFourWay && (input.seed >>> 0) % 3 !== 2) {
+  // the remaining third exposes the graph-native saturation universe.
+  if (input.qlId === "CAE-QL-006" && defaultFourWay && seed % 3 !== 2) {
     return generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-007" && defaultFourWay) {
-    return (input.seed >>> 0) % 4 === 0
+    // Preserve the specialised false-causation/common-factor mix while allowing
+    // a controlled share of correlation questions to draw from expanded parallel worlds.
+    if (seed % 5 === 4) return saturatedBase(input);
+    return seed % 4 === 0
       ? generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed })
       : generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) {
-    return generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
+    // One in five uses the expanded graph-native sequence worlds; the reviewed
+    // multi-event renderer remains the dominant form.
+    return seed % 5 === 4 ? saturatedBase(input) : generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-009" && defaultFourWay) {
-    return generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
+    // Keep integrated missing-link modes dominant, but surface audited Wave 2
+    // missing-link worlds often enough for real Question Studio coverage.
+    return seed % 5 === 4 ? saturatedBase(input) : generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
   }
 
   const graphNativeSaturationEligible = input.qlId === "CAE-QL-001" || input.qlId === "CAE-QL-002" || input.qlId === "CAE-QL-006";
-  return graphNativeSaturationEligible
-    ? withCae001SaturationWave2(() => generateCaeQuestion(input))
-    : generateCaeQuestion(input);
+  return graphNativeSaturationEligible ? saturatedBase(input) : generateCaeQuestion(input);
 }
