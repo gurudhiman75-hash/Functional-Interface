@@ -1,18 +1,18 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
-  GEO_PHY_001_CP011_REVIEW_BATCH_V2,
-  auditGeoPhy001Cp011ReviewBatchV2,
-} from "./geo-phy-001-cp011-review-batch-v2";
+  GEO_PHY_001_CP011_REVIEW_BATCH_V3,
+  auditGeoPhy001Cp011ReviewBatchV3,
+} from "./geo-phy-001-cp011-review-batch-v3";
 
-const audit = auditGeoPhy001Cp011ReviewBatchV2();
+const audit = auditGeoPhy001Cp011ReviewBatchV3();
 if (!audit.valid) throw new Error(`GEO-PHY-001 CP011 export blocked: ${audit.issues.join(" | ")}`);
 
 const outDir = path.resolve(process.cwd(), "dist/geography-review/GEO-PHY-001-CP011-V1");
 fs.mkdirSync(outDir, { recursive: true });
 const letters = ["A", "B", "C", "D"];
 const lines: string[] = [
-  "# GEO-PHY-001 CP011 — Comparative Physiography & Classification — Review Batch V1",
+  "# GEO-PHY-001 CP011 — Comparing India's Physical Regions — Review Batch V1",
   "",
   `**Questions:** ${audit.questionCount}  `,
   `**Semantic unique:** ${audit.semanticCount}  `,
@@ -25,7 +25,7 @@ const lines: string[] = [
   "",
 ];
 
-GEO_PHY_001_CP011_REVIEW_BATCH_V2.forEach((question, index) => {
+GEO_PHY_001_CP011_REVIEW_BATCH_V3.forEach((question, index) => {
   lines.push(
     `## ${index + 1}. ${question.stem}`,
     "",
@@ -52,6 +52,6 @@ const baseName = "GEO-PHY-001-CP011-REVIEW-BATCH-V1";
 fs.writeFileSync(path.join(outDir, `${baseName}.md`), lines.join("\n"));
 fs.writeFileSync(
   path.join(outDir, `${baseName}.json`),
-  JSON.stringify({ audit, questions: GEO_PHY_001_CP011_REVIEW_BATCH_V2 }, null, 2),
+  JSON.stringify({ audit, questions: GEO_PHY_001_CP011_REVIEW_BATCH_V3 }, null, 2),
 );
 console.log(JSON.stringify(audit));
