@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **English runtime-proof identity expanded to 203 permanent QLs; Hindi/Punjabi remain closed and approved through COD-QL-199; all content remains review-only**.
+Status: **203 permanent QLs are runtime-proof in English, Hindi and Punjabi; COD-001 is registered in the shared Reasoning V1 Question Studio for review generation; downstream release surfaces remain locked**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -14,16 +14,15 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 4. `COD-001-SOURCE-GAP-DISCOVERY-FREEZE-V1.md` and `COD-001-MANIFEST-AMENDMENT-SOURCE-GAP-V1.md` — late source-gap allocation authority.
 5. `COD-001-MANIFEST-AMENDMENT-CP007.md` through `COD-001-MANIFEST-AMENDMENT-CP010.md` and earlier merged identities.
 6. `COD-001-ENGLISH-CLOSURE-AUDIT.md`, the legacy English closure test and the source-gap English extension gate.
-7. `COD-001-TRANSLATIONAL-LOCALES-REPORT.md` and the translational Hindi/Punjabi audit.
-8. `COD-CP-008/COD-CP-008-MULTILINGUAL-REPORT.md` and its language-adapted audit.
-9. `COD-CP-009/COD-CP-009-MULTILINGUAL-REPORT.md` and its language-adapted audit.
-10. `COD-001-MULTILINGUAL-CLOSURE.md` and the three-locale closure gate for `COD-QL-001..199`.
-11. `COD-001-PEDAGOGICAL-REMEDIATION.md` and the existing all-QL explanation-quality gate.
-12. checkpoint-specific discovery, implementation and review authorities.
+7. `COD-001-TRANSLATIONAL-LOCALES-REPORT.md`, CP008/CP009 language-adapted reports and the whole-chapter multilingual closure.
+8. source-gap localization/editorial gates for `COD-QL-200..203`.
+9. `COD-001-PEDAGOGICAL-REMEDIATION.md` and the all-QL explanation-quality gates.
+10. `question-studio-review.ts` plus `../../../question-studio-review-registry.ts` for the shared review-generation integration.
+11. checkpoint-specific discovery, implementation and review authorities.
 
-## Frozen permanent English identity
+## Frozen permanent identity
 
-| Checkpoint | Permanent English identities | Count |
+| Checkpoint | Permanent identities | Count |
 |---|---:|---:|
 | `COD-CP-001` | `COD-QL-001..024` | 24 |
 | `COD-CP-002` | `COD-QL-025..052` | 28 |
@@ -43,33 +42,22 @@ The old predetermined 260-QL total remains revoked. `COD-QL-200..203` are eviden
 
 ```text
 English: COD-QL-001..203  203 permanent runtime-proof QLs
-Hindi:   COD-QL-001..199  199 / 199 localized QLs
-Punjabi: COD-QL-001..199  199 / 199 localized QLs
+Hindi:   COD-QL-001..203  203 localized runtime-proof QLs
+Punjabi: COD-QL-001..203  203 localized runtime-proof QLs
 ```
 
-The new four source-gap identities are deliberately English review-only until a separate localization pass is implemented and audited. Existing Hindi/Punjabi closure remains truthful for the original 199-Ql range.
+The source-gap identities preserve exact solver data and option semantics across locales while localizing only the instructional presentation. Their Hindi/Punjabi editorial gate rejects English instructional leakage, generic pedagogy contamination and previously identified awkward native-language wording.
 
-## English closure structure
+## Multilingual closure
 
-The English closure workflow now enforces two additive gates:
+The current chapter-wide closure covers:
 
 ```text
-Legacy closure:     COD-QL-001..199, unchanged regression
-Source-gap extension: COD-QL-200..203, permanent-runtime extension
+203 QLs × 6 seeds × 3 locales = 3,654 questions
+1,218 questions per locale
 ```
 
-The extension rechecks deterministic identity, option truth, difficulty variation, lifecycle locks and exact-surface collisions against a broad legacy sample. The source-gap discovery-freeze gate independently generates 240 instances per new QL and revalidates source fixtures, inference uniqueness, answer positions and diversity.
-
-## Existing multilingual proof
-
-The frozen three-locale closure for the original range remains:
-
-```text
-199 QLs × 6 seeds × 3 locales = 3,582 questions
-1,194 questions per locale
-```
-
-It verifies all ten checkpoints, all three difficulties, approved renderers, exact option truth, deterministic parity, native scripts, no English instructional fallback, natural Punjabi, review-only safety and zero exact displayed-question collisions for `COD-QL-001..199`.
+It verifies all ten checkpoints, all three difficulty bands, renderer coverage, option truth, deterministic parity, native scripts, source-gap hidden-fingerprint parity, review-only safety and zero exact displayed-question collisions.
 
 ## Source-gap quality proof
 
@@ -78,8 +66,11 @@ The `COD-QL-200..203` allocation is backed by:
 - exact audited source-fixture reproduction;
 - 480-question prototype regression;
 - 960-question V2 quality/fatigue matrix;
+- 960-question permanent discovery-freeze matrix;
+- 480-question English extension closure;
+- 512-question Hindi/Punjabi localization audit;
+- 512-question native editorial regression;
 - 180+ governed exam-neutral vocabulary pool;
-- rolling target/evidence-pair fatigue gates;
 - instance-derived difficulty with multiple bands per rule;
 - misconception-labelled distractors with no arbitrary fallback;
 - beginner-first explanations;
@@ -94,20 +85,42 @@ The four contracts are exactly:
 
 No inverse, missing-token, choose-matching, explicit-rule or mixed-variant multiplication is allocated.
 
+## Question Studio integration
+
+COD-001 is represented by one shared Reasoning V1 Question Studio package, not separate legacy/source-gap packages.
+
+```text
+Package: COD-001
+QL discovery: COD-QL-001..203
+Checkpoints: COD-CP-001..010
+Locales: en-IN, hi-IN, pa-IN
+Question Studio review generation: enabled
+Review-only: yes
+Question Bank writes: disabled
+Test eligibility: disabled
+Mock-test eligibility: disabled
+Public publication: disabled
+Automatic student publication: disabled
+```
+
+The shared adapter routes previews through the canonical `generateCod001Question` multilingual runtime. For `COD-QL-200..203`, the permanent runtime itself is now Question-Studio-discoverable. The adapter also exposes older COD identities through the same package without duplicating checkpoint-specific generation logic.
+
+Persistence through the generic review registry is explicitly rejected for COD-001 until a separate release decision opens downstream storage/delivery.
+
 ## Current release state
 
 ```text
-English runtime identity: COD-QL-001..203 permanent, review-only
-Hindi runtime identity: COD-QL-001..199 complete and approved
-Punjabi runtime identity: COD-QL-001..199 complete and approved
-Source-gap Hindi/Punjabi localization: pending
-Question Studio: disabled for COD-QL-200..203
-Question Bank conversion: disabled for COD-QL-200..203
-Mock-test eligibility: disabled for COD-QL-200..203
-Public routing/publication: disabled for COD-QL-200..203
+English runtime identity: COD-QL-001..203 complete
+Hindi runtime identity: COD-QL-001..203 complete
+Punjabi runtime identity: COD-QL-001..203 complete
+Shared Question Studio review package: enabled for COD-QL-001..203
+Source-gap Question Studio discovery: enabled for COD-QL-200..203
+Question Bank conversion: disabled
+Test/mock-test eligibility: disabled
+Public routing/publication: disabled
 ```
 
-The chapter is therefore **not falsely declared fully multilingual at 203**. English source coverage has advanced to 203 permanent identities; localization and later guarded integration of the four new identities remain separate checkpoints.
+Question Studio visibility is a reviewer-generation capability only. It is not a public-release signal.
 
 ## Scope exclusions
 
