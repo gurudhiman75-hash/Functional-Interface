@@ -1,11 +1,12 @@
 import { generateCaeQuestion } from "./chapter-generator.ts";
+import { generateReviewedCp001Question } from "./cp001-reviewed-quality-guard.ts";
 import { generateReviewedCaeCombinationQuestion } from "./cp003004-reviewed-polish.ts";
 import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.ts";
 import { generateCp006CausalDistanceQuestion } from "./cp006-causal-distance.ts";
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateReviewedCp007FalseCausationQuestion } from "./cp007-reviewed-visible-evidence.ts";
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
-import { generateReviewedCp009Question } from "./cp009-reviewed-polish.ts";
+import { generateReviewedCp009Question } from "./cp009-targeted-pair-polish.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
 
 export type GenerateReviewedCaeQuestionInput = Readonly<{
@@ -19,6 +20,9 @@ export type GenerateReviewedCaeQuestionInput = Readonly<{
 export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionInput): GeneratedCaeQuestion {
   const defaultFourWay = input.questionProfile === undefined || input.questionProfile === "FOUR_WAY";
 
+  if (input.qlId === "CAE-QL-001" && defaultFourWay) {
+    return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
+  }
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && (input.seed >>> 0) % 3 === 0) {
     return generateReviewedCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
   }
