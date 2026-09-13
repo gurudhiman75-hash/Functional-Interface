@@ -4,9 +4,9 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 
 ## Promotion order
 
-1. `ECO-CP-001` Basic Economic Concepts
-2. `ECO-CP-002` Economic Systems & Sectors
-3. `ECO-CP-003` National Income & Aggregates
+1. `ECO-CP-001` Basic Economic Concepts — REVIEW CANDIDATE
+2. `ECO-CP-002` Economic Systems & Sectors — REVIEW CANDIDATE
+3. `ECO-CP-003` National Income & Aggregates — REVIEW CANDIDATE
 4. `ECO-CP-004` National Income Measurement
 5. `ECO-CP-005` Inflation & Price Concepts
 6. `ECO-CP-006` Employment, Unemployment & Poverty
@@ -34,4 +34,4 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Each CP is review-only until English editorial approval.
 - Runtime registration is a separate promotion step after approval.
 - Facts are locale-neutral; localisation is layered later.
-- Questions must use exam-realistic stems, plausible same-domain distractors and beginner-friendly explanations.
+- Questions must use short exam-like stems, plausible same-domain distractors and simple beginner-friendly explanations.
