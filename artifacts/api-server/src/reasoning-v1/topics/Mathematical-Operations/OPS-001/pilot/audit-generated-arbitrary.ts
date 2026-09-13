@@ -94,7 +94,7 @@ export function generateAuditArbitraryCandidate(candidateId: "OPS-CAND-004" | "O
       ruleStatement: "Treat each arbitrary token as the arithmetic operation stated in the key, replace every token first and then evaluate the transformed expression normally.",
       steps: [
         { label: "Read the meaning key", expression: auditMappingKey(instance.mapping), result: "Keep the two token meanings separate." },
-        { label: "Replace arbitrary tokens", expression: instance.expression, result: instance.transformed },
+        { label: "Replace every occurrence", expression: instance.expression, result: instance.transformed },
         { label: "Evaluate the transformed expression", expression: instance.transformed, result: instance.answer },
       ],
       conclusion: `Therefore, the required value is ${instance.answer}.`,
