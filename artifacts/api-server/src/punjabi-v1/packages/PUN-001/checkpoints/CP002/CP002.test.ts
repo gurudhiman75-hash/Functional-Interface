@@ -5,20 +5,21 @@ import { CP002_FAMILIES, getCP002BreadthReport } from "./generator";
 const canonicalForms = new Set(CP002_ACTIVE_AUTHORITIES.map((x) => x.correct));
 const authorityIds = new Set<string>();
 
-assert.equal(CP002_ACTIVE_AUTHORITIES.length, 168, "CP002 active review corpus must contain 168 unique authorities");
+assert.equal(CP002_ACTIVE_AUTHORITIES.length, 375, "CP002 active review corpus must contain exactly 375 authorities");
 assert.equal(canonicalForms.size, CP002_ACTIVE_AUTHORITIES.length, "canonical spelling forms must be unique");
-assert.equal(CP002_CONTEXT_AUTHORITIES.length, 45, "contextual families must stay on the manually contextualized 45-authority subset");
+assert.equal(CP002_CONTEXT_AUTHORITIES.length, 252, "contextual families must expose all 45 original + 207 editorial contextual authorities");
 
 for (const authority of CP002_ACTIVE_AUTHORITIES) {
   assert(!authorityIds.has(authority.id), `${authority.id}: duplicate forward-port authority id`);
   authorityIds.add(authority.id);
-  assert.equal(authority.correct, authority.correct.normalize("NFC"));
+  assert.equal(authority.correct, authority.correct.normalize("NFC"), `${authority.id}: canonical form must be NFC`);
   assert.equal(new Set(authority.incorrect).size, 3, `${authority.id}: incorrect variants must be unique`);
   assert(!authority.incorrect.includes(authority.correct as never), `${authority.id}: canonical form leaked into incorrect variants`);
   for (const wrong of authority.incorrect) {
     assert.equal(wrong, wrong.normalize("NFC"), `${authority.id}: non-NFC incorrect variant`);
     assert(!canonicalForms.has(wrong), `${authority.id}: incorrect variant '${wrong}' is canonical elsewhere in CP002`);
   }
+  assert(["DONOR_CP002", "DONOR_CP002_CURATED", "EDITORIAL_CURATED"].includes(authority.provenance));
   assert.equal(authority.sourceStatus, "REVIEW_PENDING");
 }
 
@@ -29,17 +30,17 @@ for (const authority of CP002_CONTEXT_AUTHORITIES) {
 const categoryCounts = getCP002CategoryCounts();
 assert.equal(Object.keys(categoryCounts).length, 8, "CP002 must cover eight active orthographic categories");
 for (const [category, count] of Object.entries(categoryCounts)) {
-  assert(count >= 16, `${category}: category is too shallow (${count})`);
+  assert(count >= 30, `${category}: category is too shallow (${count})`);
 }
 
 const sampleSizes: Record<string, number> = {
-  F01: 168,
-  F02: 135,
-  F03: 45,
-  F04: 500,
-  F05: 500,
-  F06: 1000,
-  F07: 500,
+  F01: 375,
+  F02: 756,
+  F03: 252,
+  F04: 1000,
+  F05: 1000,
+  F06: 2000,
+  F07: 1000,
 };
 const seenFingerprints = new Set<string>();
 
@@ -73,11 +74,11 @@ const hard = CP002_FAMILIES.find((x) => x.familyId === "F04")!.generate(7, "Hard
 assert(hard.metadata.authorityIds.length > easy.metadata.authorityIds.length, "Hard must require broader semantic operation than Easy");
 
 const breadth = getCP002BreadthReport();
-assert.equal(breadth.authorityCount, 168);
-assert.equal(breadth.contextualAuthorityCount, 45);
+assert.equal(breadth.authorityCount, 375);
+assert.equal(breadth.contextualAuthorityCount, 252);
 assert.equal(breadth.categoryCount, 8);
-assert(breadth.capacities.F06 > 300_000_000, "four-word detection must exploit the full combinatorial corpus");
-assert(breadth.totalSemanticCapacity > 380_000_000, "CP002 semantic capacity must exceed 380 million content combinations");
+assert(breadth.capacities.F06 > 9_700_000_000, "four-word detection must exploit the 375-authority combinatorial corpus");
+assert(breadth.totalSemanticCapacity > 9_730_000_000, "CP002 semantic capacity must exceed 9.73 billion content combinations");
 assert.equal(breadth.quarantinedDonorCategory, "TATSAM_TADBHAV");
 
 console.log(`CP002 forward-port semantic gates passed: ${seenFingerprints.size} generated proof questions`);
