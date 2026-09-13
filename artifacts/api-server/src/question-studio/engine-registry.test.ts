@@ -73,13 +73,7 @@ assert.equal(com002.metadata?.humanReviewApproved, true);
 assert.equal(resolveQuestionStudioEngine({ packageId: "COM-002" }).engineId, "knowledge-v1");
 assert.equal(getQuestionStudioEngine("knowledge-v1").engineId, "knowledge-v1");
 
-const com002Result = await generateQuestionStudioQuestions({
-  packageId: "COM-002",
-  language: "pa",
-  runtimeMode: "review-only",
-  count: 2,
-  seed: "engine-registry-com002-smoke",
-});
+const com002Result = await generateQuestionStudioQuestions({ packageId: "COM-002", language: "pa", runtimeMode: "review-only", count: 2, seed: "engine-registry-com002-smoke" });
 assert.equal(com002Result.engineId, "knowledge-v1");
 assert.equal(com002Result.questions.length, 2);
 assert.equal(com002Result.generationContext.packageId, "COM-002");
@@ -93,7 +87,7 @@ const reviewLifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 assert.ok(eng001);
 assert.equal(eng001.engineId, "language-v1");
 assert.equal(eng001.enabled, true);
-assert.deepEqual(eng001.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007"]);
+assert.deepEqual(eng001.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008"]);
 assert.deepEqual(eng001.supportedLanguages, ["en"]);
 assert.deepEqual(eng001.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(eng001.runtimeMode, "review-only");
@@ -107,14 +101,7 @@ assert.equal(eng001.metadata?.humanReviewApproved, true);
 assert.equal(resolveQuestionStudioEngine({ packageId: "ENG-001" }).engineId, "language-v1");
 assert.equal(getQuestionStudioEngine("language-v1").engineId, "language-v1");
 
-const eng001Result = await generateQuestionStudioQuestions({
-  packageId: "ENG-001",
-  language: "en",
-  difficulty: "Easy",
-  runtimeMode: "review-only",
-  count: 2,
-  seed: "engine-registry-eng001-smoke",
-});
+const eng001Result = await generateQuestionStudioQuestions({ packageId: "ENG-001", language: "en", difficulty: "Easy", runtimeMode: "review-only", count: 2, seed: "engine-registry-eng001-smoke" });
 assert.equal(eng001Result.engineId, "language-v1");
 assert.equal(eng001Result.questions.length, 2);
 assert.equal(eng001Result.generationContext.packageId, "ENG-001");
@@ -131,17 +118,9 @@ for (const [cpId, subtopic, rulePrefix, difficulty] of [
   ["ENG-001-CP005", "Prepositions", "GR-PRP-", "Hard"],
   ["ENG-001-CP006", "Adjectives, Adverbs and Comparison", "GR-CMP-", "Hard"],
   ["ENG-001-CP007", "Conjunctions & Parallelism", "GR-CON-", "Hard"],
+  ["ENG-001-CP008", "Nouns & Quantifiers", "GR-NQN-", "Hard"],
 ] as const) {
-  const result = await generateQuestionStudioQuestions({
-    packageId: "ENG-001",
-    canonicalProblemId: cpId,
-    subtopic,
-    language: "en",
-    difficulty,
-    runtimeMode: "review-only",
-    count: 2,
-    seed: `engine-registry-${cpId.toLowerCase()}-smoke`,
-  });
+  const result = await generateQuestionStudioQuestions({ packageId: "ENG-001", canonicalProblemId: cpId, subtopic, language: "en", difficulty, runtimeMode: "review-only", count: 2, seed: `engine-registry-${cpId.toLowerCase()}-smoke` });
   assert.equal(result.questions.length, 2);
   assert.equal(result.generationContext.cpId, cpId);
   assert.equal(result.generationContext.questionBankWritable, false);
@@ -150,4 +129,4 @@ for (const [cpId, subtopic, rulePrefix, difficulty] of [
   assert.equal(result.questions.every((question) => question.reviewOnly === true), true);
 }
 
-console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007=review-only");
+console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008=review-only");
