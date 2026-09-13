@@ -7,65 +7,93 @@ import {
   PUN_001_CP010_DEFINITION,
 } from "./generator";
 
-console.log("Starting CP010 One-Word Substitution Tests...");
+console.log("Starting PUN-001-CP010 V2 semantic tests...");
 
-// 1. Definition check
+const eligible: Record<PunjabiDifficulty, readonly string[]> = {
+  Easy: ["F01", "F02"],
+  Medium: ["F02", "F03", "F04", "F05"],
+  Hard: ["F03", "F04", "F05", "F06", "F07", "F08"],
+};
+
 assert.equal(PUN_001_CP010_DEFINITION.cpId, "PUN-001-CP010");
-assert.equal(PUN_001_CP010_DEFINITION.families.length, 4);
+assert.equal(PUN_001_CP010_DEFINITION.families.length, 8);
+assert.deepEqual(
+  PUN_001_CP010_DEFINITION.families.map((family) => family.familyId),
+  ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08"]
+);
 
-// 2. Determinism check
-const q1 = generateCP010Question(42, "Medium", "F01");
-const q2 = generateCP010Question(42, "Medium", "F01");
-assert.deepEqual(q1, q2, "CP010 generation must be 100% deterministic");
-
-// 3. Multi-family generation & validation
-const difficulties: PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
-const families = ["F01", "F02", "F03", "F04"];
-
-for (const diff of difficulties) {
-  for (const fam of families) {
-    const q = generateCP010Question(12345, diff, fam);
-    const validation = validatePunjabiQuestion(q);
-    assert.equal(
-      validation.isValid,
-      true,
-      `CP010 validation failed for ${fam} [${diff}]: ${validation.errors.join("; ")}`
-    );
-    assert.equal(q.options.length, 4);
-    assert.equal(q.correctIndex >= 0 && q.correctIndex < 4, true);
-    assert.equal(typeof q.stem, "string");
-    assert.equal(q.stem.length > 5, true);
-    assert.equal(typeof q.explanation, "string");
-    assert.equal(q.explanation.length > 10, true);
+for (const difficulty of Object.keys(eligible) as PunjabiDifficulty[]) {
+  for (const familyId of eligible[difficulty]) {
+    const a = generateCP010Question(20341, difficulty, familyId);
+    const b = generateCP010Question(20341, difficulty, familyId);
+    assert.deepEqual(a, b, `${familyId}/${difficulty} must replay deterministically`);
+    const validation = validatePunjabiQuestion(a);
+    assert.equal(validation.isValid, true, `${familyId}/${difficulty}: ${validation.errors.join("; ")}`);
+    assert.equal(a.options.length, 4);
+    assert.equal(new Set(a.options).size, 4, `${familyId}/${difficulty} options must be unique`);
+    assert.ok(a.correctIndex >= 0 && a.correctIndex < 4);
+    assert.match(a.metadata.fingerprint, /^CP010-V2-[0-9a-f]{8}$/);
+    assert.doesNotMatch(a.stem, /Mismatched Pair|One[- ]Word|Hard|Easy|Medium/i);
+    assert.doesNotMatch(a.explanation, /(ਵਿਕਲਪ A|ਵਿਕਲਪ B|ਵਿਕਲਪ C|ਵਿਕਲਪ D|ਬਾਕੀ ਤਿੰਨ|ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ)/u);
   }
 }
 
-// 4. Stress test over 200 seeds across all difficulties
-console.log("Running 200-seed stress test for CP010...");
-for (let seed = 10000; seed < 10200; seed++) {
-  const diff = difficulties[seed % 3]!;
-  const q = generateCP010Question(seed, diff);
+// Difficulty topology must be semantic rather than cosmetic.
+assert.throws(() => generateCP010Question(20001, "Medium", "F01"), /not authorized/);
+assert.throws(() => generateCP010Question(20001, "Hard", "F01"), /not authorized/);
+assert.throws(() => generateCP010Question(20001, "Easy", "F03"), /not authorized/);
+assert.throws(() => generateCP010Question(20001, "Medium", "F06"), /not authorized/);
+assert.throws(() => generateCP010Question(20001, "Easy", "F08"), /not authorized/);
 
-  const val = validatePunjabiQuestion(q);
-  assert.equal(
-    val.isValid,
-    true,
-    `Validation error at seed ${seed}: ${val.errors.join("; ")}`
-  );
+// The donor F03 fabricated generic sentence shells around every phrase. V2 removes that surface.
+for (let seed = 20400; seed < 20500; seed++) {
+  const difficulty: PunjabiDifficulty = seed % 2 ? "Medium" : "Hard";
+  const q = generateCP010Question(seed, difficulty, "F03");
+  assert.doesNotMatch(q.stem, /ਅਸੀਂ ਉਸ ਨੂੰ|ਇਸੇ ਕਰਕੇ ਸਾਰੇ ਉਸ ਨੂੰ|ਜੋ ਵਿਅਕਤੀ ਜਾਂ ਵਸਤੂ/u);
 }
 
-// 5. 60-Question Golden Review Batch generation
-console.log("Generating 60-question CP010 golden review batch...");
-const batch = generateCP010ReviewBatch(60, 11000);
-assert.equal(batch.totalQuestions, 60);
-assert.equal(batch.distribution.easy, 20);
-assert.equal(batch.distribution.medium, 20);
-assert.equal(batch.distribution.hard, 20);
-assert.equal(batch.questions.length, 60);
+// Pair families must keep all four mappings textually unique across a broad reviewer-adjacent range.
+for (let seed = 20500; seed < 21000; seed++) {
+  for (const familyId of ["F04", "F05"]) {
+    const q = generateCP010Question(seed, seed % 2 ? "Medium" : "Hard", familyId);
+    assert.equal(new Set(q.options).size, 4, `${familyId}/${seed} collapsed options`);
+  }
+  for (const familyId of ["F06", "F07", "F08"]) {
+    const q = generateCP010Question(seed, "Hard", familyId);
+    assert.equal(new Set(q.options).size, 4, `${familyId}/${seed} collapsed options`);
+  }
+}
 
+console.log("Running CP010 V2 stress matrix...");
+for (let seed = 21000; seed < 21600; seed++) {
+  const difficulty: PunjabiDifficulty = seed % 3 === 0 ? "Easy" : seed % 3 === 1 ? "Medium" : "Hard";
+  const familyOptions = eligible[difficulty];
+  const familyId = familyOptions[seed % familyOptions.length]!;
+  const q = generateCP010Question(seed, difficulty, familyId);
+  const validation = validatePunjabiQuestion(q);
+  assert.equal(validation.isValid, true, `${q.id}: ${validation.errors.join("; ")}`);
+}
+
+console.log("Generating canonical 120-question CP010 V2 review batch...");
+const batch = generateCP010ReviewBatch(120, 22000);
+assert.equal(batch.totalQuestions, 120);
+assert.equal(batch.distribution.easy, 40);
+assert.equal(batch.distribution.medium, 40);
+assert.equal(batch.distribution.hard, 40);
+assert.equal(batch.questions.length, 120);
+
+const representedFamilies = new Set(batch.questions.map((q) => q.metadata.familyId));
+for (const familyId of ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08"]) {
+  assert.ok(representedFamilies.has(familyId), `Review batch must represent ${familyId}`);
+}
 for (const q of batch.questions) {
   const res = validatePunjabiQuestion(q);
-  assert.equal(res.isValid, true, `Batch question ${q.id} failed validation: ${res.errors.join("; ")}`);
+  assert.equal(res.isValid, true, `${q.id}: ${res.errors.join("; ")}`);
+  assert.equal(new Set(q.options).size, 4, `${q.id} options must stay unique`);
+  assert.doesNotMatch(q.explanation, /(ਬਾਕੀ ਤਿੰਨ|Mismatched Pair|ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ)/u);
 }
 
-console.log("All CP010 One-Word Substitution tests passed successfully!");
+const fingerprints = new Set(batch.questions.map((q) => q.metadata.fingerprint));
+assert.ok(fingerprints.size >= 100, `Expected broad CP010 semantic diversity; observed ${fingerprints.size}/120`);
+
+console.log("PUN-001-CP010 V2 semantic tests passed.");
