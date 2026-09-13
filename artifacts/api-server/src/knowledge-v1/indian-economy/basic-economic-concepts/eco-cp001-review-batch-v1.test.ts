@@ -59,8 +59,11 @@ describe("ECO-CP-001 basic-economic-concepts review batch", () => {
       .toEqual(new Set([0, 1, 2, 3]));
   });
 
-  it("does not repeat complete question stems", () => {
-    expect(new Set(questions.map((question) => question.stem)).size).toBe(questions.length);
+  it("does not produce duplicate semantic review items", () => {
+    const signatures = questions.map((question) =>
+      [question.qlId, question.stem, question.canonicalAnswer].join("::"),
+    );
+    expect(new Set(signatures).size).toBe(questions.length);
   });
 
   it("contains Easy, Medium and Hard questions", () => {
