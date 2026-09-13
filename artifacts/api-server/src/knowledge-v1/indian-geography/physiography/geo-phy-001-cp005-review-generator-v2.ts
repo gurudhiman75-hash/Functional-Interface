@@ -43,15 +43,26 @@ const exactText: Record<string, string> = {
   "West of the Aravalis and an undulating sandy surface": "West of the Aravali Hills and a sandy, uneven surface",
   "Arid climate": "Dry (arid) climate",
   "Rainfall is very low and the climate is arid": "Rainfall is very low and the climate is dry (arid)",
+  "Humid equatorial climate": "Hot and very humid climate",
+  "Marine west-coast climate": "Mild marine climate",
+  "Frequent snowfall and alpine meadow": "Frequent snowfall and mountain grasslands",
   "Ephemeral": "Seasonal (ephemeral)",
   "Short-lived streams with limited or inland flow": "Seasonal streams that often end within the desert",
+  "Glacial U-shaped valleys": "U-shaped glacial valleys",
+  "River-built natural levees": "River-built levees",
+  "Glacial plucking and abrasion": "Glacial erosion",
+  "Coral growth and wave action": "Coral growth and sea waves",
   "Extreme aridity leaves loose dry material exposed to wind": "The dry surface has loose material that wind can move",
   "Mushroom rocks, shifting dunes and oasis": "Mushroom rocks, shifting dunes and oases",
   "Brackish": "Brackish (slightly salty)",
+  "Fresh glacier meltwater": "Fresh water from melting glaciers",
+  "Deep-ocean saline water": "Deep sea water",
   "Playa — brackish inland basin": "Playa — inland basin with slightly salty water",
+  "Playa — open-ocean bay": "Playa — sea bay",
   "Oasis — arid-land feature": "Oasis — desert feature",
   "Indian Desert — sandy undulating plain": "Indian Desert — sandy, uneven plain",
   "Playa water — commonly brackish": "Playa water — usually slightly salty",
+  "Ephemeral river — short-lived flow": "Seasonal (ephemeral) river — short-lived flow",
 };
 
 function simplifyText(text: string): string {
@@ -59,10 +70,14 @@ function simplifyText(text: string): string {
   return text
     .replace(/towards the western margins of/gi, "to the west of")
     .replace(/\bundulating\b/gi, "uneven")
+    .replace(/Indo-Pakistan boundary/gi, "India-Pakistan border")
     .replace(/gains greater prominence/gi, "is more common")
     .replace(/become more prominent/gi, "are more common")
     .replace(/especially prominent/gi, "common")
+    .replace(/prominent near/gi, "common near")
+    .replace(/arid climate/gi, "dry (arid) climate")
     .replace(/arid-land/gi, "desert")
+    .replace(/arid features/gi, "desert features")
     .replace(/annual rainfall generally/gi, "annual rainfall")
     .replace(/sparse natural vegetation/gi, "little natural vegetation");
 }
