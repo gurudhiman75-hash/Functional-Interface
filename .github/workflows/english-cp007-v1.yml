@@ -10,12 +10,14 @@ on:
       - synchronize
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
       - .github/workflows/english-cp007-v1.yml
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
       - .github/workflows/english-cp007-v1.yml
   workflow_dispatch:
 
@@ -57,6 +59,10 @@ jobs:
           name: ENG-001-CP007-REVIEW-V1
           path: dist/english-v1/ENG-001-CP007-REVIEW-V1.md
           if-no-files-found: error
+      - name: Compile CP007 Question Studio integration test
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng001-cp007-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/language-v1-eng001-cp007-adapter-v1.test.mjs
+      - name: Run CP007 Question Studio review-only integration test
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng001-cp007-adapter-v1.test.mjs
       - name: Compile CP006 generator regression
         run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-001-cp006-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-001-cp006-v1-regression.test.mjs
       - name: Re-run approved CP006 generator regression
