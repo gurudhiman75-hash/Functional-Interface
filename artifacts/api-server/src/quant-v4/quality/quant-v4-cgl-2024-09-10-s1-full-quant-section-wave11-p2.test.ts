@@ -25,17 +25,17 @@ assert.equal(QUANT_V4_CGL_2024_09_10_S1_FULL_QUANT_SECTION_WAVE11_SOURCE_LIMITAT
 
 // Source-math spot checks stay wave-local so future registry growth cannot break this test.
 assert.equal(11 + 13, 24); // Q8: collinear points because XY + YZ = XZ.
-assert.equal(1500 * 0.07, 105); // Q10: gap between 65% and 58% discounts.
+assert.ok(Math.abs(1500 * 0.07 - 105) < 1e-12); // Q10: gap between 65% and 58% discounts.
 assert.ok(Math.abs(10 * Math.cos(Math.PI / 6) - 5 * Math.sqrt(3)) < 1e-12); // Q11.
 assert.equal(3 * 1 + 5 * 5 + 7 * 10, 98); // Q13 weighted coin-ratio block.
 assert.equal(99_969 % 47, 0); // Q14.
-assert.equal((22 / 7) * 7 * (25 + 7), 704); // Q15 cone TSA.
-assert.equal(5480 * 0.95 + 9800 * 0.98, 14_810); // Q17.
-assert.equal((1 / 6) / (5 / 6) * 100, 20); // Q18.
+assert.ok(Math.abs((22 / 7) * 7 * (25 + 7) - 704) < 1e-12); // Q15 cone TSA.
+assert.ok(Math.abs(5480 * 0.95 + 9800 * 0.98 - 14_810) < 1e-12); // Q17.
+assert.ok(Math.abs((1 / 6) / (5 / 6) * 100 - 20) < 1e-12); // Q18.
 assert.equal(12 ** 2 - 2, 142); // Q19.
-assert.equal(750 / (4.5 * 5 / 18), 600); // Q22.
+assert.ok(Math.abs(750 / (4.5 * 5 / 18) - 600) < 1e-12); // Q22.
 assert.ok(Math.abs(1 / ((1 / 3) * (1 / 40 + 1 / 50 + 1 / 60)) - 48.64864864864865) < 1e-12); // Q23.
-assert.equal(30 / 40 + 12 / 80 + 12 / 120, 1); // Q24.
+assert.ok(Math.abs(30 / 40 + 12 / 80 + 12 / 120 - 1) < 1e-12); // Q24.
 
 const contributionCounts = observations.reduce<Record<string, number>>((counts, observation) => {
   counts[observation.packageId ?? "UNMAPPED_PACKAGE"] = (counts[observation.packageId ?? "UNMAPPED_PACKAGE"] ?? 0) + 1;
