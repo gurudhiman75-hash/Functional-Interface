@@ -7,65 +7,93 @@ import {
   PUN_001_CP008_DEFINITION,
 } from "./generator";
 
-console.log("Starting CP008 Prefixes & Suffixes Tests...");
+console.log("Starting PUN-001-CP008 V4 tests...");
 
-// 1. Definition check
-assert.equal(PUN_001_CP008_DEFINITION.cpId, "PUN-001-CP008");
-assert.equal(PUN_001_CP008_DEFINITION.families.length, 4);
-
-// 2. Determinism check
-const q1 = generateCP008Question(42, "Medium", "F01");
-const q2 = generateCP008Question(42, "Medium", "F01");
-assert.deepEqual(q1, q2, "CP008 generation must be 100% deterministic");
-
-// 3. Multi-family generation & validation
 const difficulties: PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
-const families = ["F01", "F02", "F03", "F04"];
+const families = ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08"] as const;
 
-for (const diff of difficulties) {
-  for (const fam of families) {
-    const q = generateCP008Question(888, diff, fam);
-    const validation = validatePunjabiQuestion(q);
-    assert.equal(
-      validation.isValid,
-      true,
-      `CP008 validation failed for ${fam} [${diff}]: ${validation.errors.join("; ")}`
-    );
-    assert.equal(q.options.length, 4);
-    assert.equal(q.correctIndex >= 0 && q.correctIndex < 4, true);
-    assert.equal(typeof q.stem, "string");
-    assert.equal(q.stem.length > 5, true);
-    assert.equal(typeof q.explanation, "string");
-    assert.equal(q.explanation.length > 10, true);
+assert.equal(PUN_001_CP008_DEFINITION.cpId, "PUN-001-CP008");
+assert.equal(PUN_001_CP008_DEFINITION.families.length, 8);
+assert.deepEqual(PUN_001_CP008_DEFINITION.families.map((family) => family.familyId), [...families]);
+
+for (const difficulty of difficulties) {
+  for (const familyId of families) {
+    const a = generateCP008Question(8401, difficulty, familyId);
+    const b = generateCP008Question(8401, difficulty, familyId);
+    assert.deepEqual(a, b, `CP008 V4 deterministic replay failed for ${familyId}/${difficulty}`);
   }
 }
 
-// 4. Stress test over 200 seeds across all difficulties
-console.log("Running 200-seed stress test for CP008...");
-for (let seed = 8000; seed < 8200; seed++) {
-  const diff = difficulties[seed % 3]!;
-  const q = generateCP008Question(seed, diff);
-
-  const val = validatePunjabiQuestion(q);
-  assert.equal(
-    val.isValid,
-    true,
-    `Validation error at seed ${seed}: ${val.errors.join("; ")}`
-  );
+for (const difficulty of difficulties) {
+  for (const familyId of families) {
+    const question = generateCP008Question(8888, difficulty, familyId);
+    const validation = validatePunjabiQuestion(question);
+    assert.equal(validation.isValid, true, `CP008 V4 validation failed for ${familyId}/${difficulty}: ${validation.errors.join("; ")}`);
+    assert.equal(question.options.length, 4);
+    assert.equal(new Set(question.options).size, 4, `${familyId}/${difficulty} options must be unique`);
+    assert.ok(question.correctIndex >= 0 && question.correctIndex < 4);
+    assert.equal(question.metadata.generatorRevision, "4.1.0");
+    assert.match(question.metadata.fingerprint, /^CP008-V4-[0-9a-f]{8}$/, `${familyId}/${difficulty} must use a semantic-content fingerprint`);
+    assert.equal(question.metadata.fingerprint.includes(String(question.metadata.seed)), false, "Fingerprint must not be a seed-only identity");
+  }
 }
 
-// 5. 60-Question Golden Review Batch generation
-console.log("Generating 60-question CP008 golden review batch...");
-const batch = generateCP008ReviewBatch(60, 9000);
-assert.equal(batch.totalQuestions, 60);
-assert.equal(batch.distribution.easy, 20);
-assert.equal(batch.distribution.medium, 20);
-assert.equal(batch.distribution.hard, 20);
-assert.equal(batch.questions.length, 60);
-
-for (const q of batch.questions) {
-  const res = validatePunjabiQuestion(q);
-  assert.equal(res.isValid, true, `Batch question ${q.id} failed validation: ${res.errors.join("; ")}`);
+for (let seed = 8600; seed < 8660; seed++) {
+  const question = generateCP008Question(seed, difficulties[seed % 3]!, "F03");
+  assert.equal(question.options.length, 4);
+  assert.equal(new Set(question.options).size, 4);
+  assert.doesNotMatch(question.explanation, /(ਬਾਕੀ ਤਿੰਨ|ਵਿਕਲਪ A|ਵਿਕਲਪ B|ਵਿਕਲਪ C|ਵਿਕਲਪ D)/u, "F03 explanation must not contain option-by-option analysis");
 }
 
-console.log("All CP008 Prefixes & Suffixes tests passed successfully!");
+for (let seed = 8700; seed < 8760; seed++) {
+  const difficulty = difficulties[seed % 3]!;
+  for (const familyId of ["F05", "F06", "F07"] as const) {
+    const question = generateCP008Question(seed, difficulty, familyId);
+    assert.equal(question.options.length, 4);
+    assert.equal(new Set(question.options).size, 4);
+    assert.doesNotMatch(question.explanation, /(ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ|ਬਾਕੀ ਵਿਕਲਪ|ਚੋਣਾਂ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ)/u, `${familyId} explanation must stay direct and question-specific`);
+  }
+}
+
+for (let seed = 8800; seed < 8860; seed++) {
+  const question = generateCP008Question(seed, difficulties[seed % 3]!, "F08");
+  assert.equal(question.options.length, 4);
+  assert.equal(new Set(question.options).size, 4);
+  assert.match(question.stem, /(ਅਰਥ|ਅਗੇਤਰ|ਪਿਛੇਤਰ)/u);
+  assert.doesNotMatch(question.stem, /\b(root|prefix|suffix|morphology)\b/i);
+  assert.doesNotMatch(question.explanation, /\b(root|prefix|suffix|morphology)\b/i);
+}
+
+console.log("Running CP008 V4 stress matrix...");
+for (let seed = 9000; seed < 9200; seed++) {
+  const difficulty = difficulties[seed % 3]!;
+  const familyId = families[seed % families.length]!;
+  const question = generateCP008Question(seed, difficulty, familyId);
+  const validation = validatePunjabiQuestion(question);
+  assert.equal(validation.isValid, true, `Validation error at ${familyId}/${difficulty}/seed ${seed}: ${validation.errors.join("; ")}`);
+}
+
+console.log("Generating canonical 120-question CP008 V4 review batch...");
+const batch = generateCP008ReviewBatch(120, 12000);
+assert.equal(batch.totalQuestions, 120);
+assert.equal(batch.questions.length, 120);
+assert.equal(batch.distribution.easy, 40);
+assert.equal(batch.distribution.medium, 40);
+assert.equal(batch.distribution.hard, 40);
+
+for (const difficulty of difficulties) {
+  for (const familyId of families) {
+    const cell = batch.questions.filter((question) => question.difficulty === difficulty && question.metadata.familyId === familyId);
+    assert.equal(cell.length, 5, `Review batch must contain exactly 5 questions for ${familyId}/${difficulty}`);
+  }
+}
+
+for (const question of batch.questions) {
+  const validation = validatePunjabiQuestion(question);
+  assert.equal(validation.isValid, true, `Review question ${question.id} failed: ${validation.errors.join("; ")}`);
+}
+
+const fingerprints = new Set(batch.questions.map((question) => question.metadata.fingerprint));
+assert.ok(fingerprints.size >= 100, `Expected broad semantic fingerprint diversity; observed ${fingerprints.size}/120`);
+
+console.log("PUN-001-CP008 V4 tests passed.");
