@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
 import type { Eng001QlId, EnglishDifficulty } from "../../../../core/types";
-import { CP007_SCENES_BY_DIFFICULTY_V1 } from "./cp007-catalog-v1";
+import { CP007_SCENES_BY_DIFFICULTY_V2 } from "./cp007-catalog-v2";
 import { generateEng001Cp007QuestionV1 } from "./eng-001-cp007-v1";
 import { assertValidEng001Cp007QuestionV1 } from "./eng-001-cp007-v1-validator";
 
@@ -15,14 +15,14 @@ export function renderEng001Cp007ReviewV1(): string {
     "",
     "Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`",
     "",
-    "This batch exposes all 60 authored invalid mutations. Review whether each sentence feels like a real competitive-exam item, has one clear error, uses plausible wording, and gives a simple sentence-specific explanation. QL007/no-error behavior is validated separately by the automated matrix. Any defect should be fixed in source and regenerated.",
+    "This batch exposes all 60 authored invalid mutations using the curated V2 learner-facing part boundaries. Review whether each sentence feels like a real competitive-exam item, has one clear error, uses plausible wording, and gives a simple sentence-specific explanation. QL007/no-error behavior is validated separately by the automated matrix. Any defect should be fixed in source and regenerated.",
     "",
   ];
 
   let serial = 0;
   for (const difficulty of difficulties) {
     lines.push(`## ${difficulty[0]!.toUpperCase()}${difficulty.slice(1)}`, "");
-    for (const scene of CP007_SCENES_BY_DIFFICULTY_V1[difficulty]) {
+    for (const scene of CP007_SCENES_BY_DIFFICULTY_V2[difficulty]) {
       serial += 1;
       const qlId = reviewQls[(serial - 1) % reviewQls.length]!;
       const question = generateEng001Cp007QuestionV1({ seed: `review:${scene.id}:${qlId}`, difficulty, qlId, ruleId: scene.ruleId, sceneId: scene.id });
