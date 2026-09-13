@@ -5,6 +5,7 @@ import type {
   CaeDifficulty,
   CaeDifficultyEvidence,
   CaeLocale,
+  CaeNodeRole,
   CaeRenderedOption,
   GeneratedCaeQuestion,
 } from "./types.ts";
@@ -18,6 +19,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     missingSingle: "Which event most logically completes the causal sequence?",
     missingPair: "Which pair of events correctly completes the two missing steps?",
     relationType: "Which relationship between P and S is supported by the causal information?",
+    relationEvidence: "The causal information establishes the chain P → Q → R → S.",
     connectorPair: "Which pair forms the two-step connector between P and S?",
     nextOutcome: "The first three events are known. Which event most logically follows next?",
     commonCause: "Which hidden event best explains both observations?",
@@ -36,6 +38,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     missingSingle: "कौन-सी घटना कारणात्मक क्रम को सबसे तार्किक रूप से पूरा करती है?",
     missingPair: "कौन-सी घटनाओं की जोड़ी दो लुप्त चरणों को सही क्रम में पूरा करती है?",
     relationType: "कारणात्मक जानकारी के आधार पर P और S के बीच कौन-सा संबंध समर्थित है?",
+    relationEvidence: "कारणात्मक जानकारी P → Q → R → S की श्रृंखला स्थापित करती है।",
     connectorPair: "P और S के बीच दो-चरणीय जोड़ कौन-सी घटनाओं की जोड़ी बनाती है?",
     nextOutcome: "पहली तीन घटनाएं ज्ञात हैं। इसके बाद कौन-सी घटना सबसे तार्किक रूप से आएगी?",
     commonCause: "कौन-सी छिपी घटना दोनों अवलोकनों को सबसे अच्छी तरह समझाती है?",
@@ -54,6 +57,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     missingSingle: "ਕਿਹੜੀ ਘਟਨਾ ਕਾਰਨਾਤਮਕ ਕ੍ਰਮ ਨੂੰ ਸਭ ਤੋਂ ਤਰਕਸੰਗਤ ਢੰਗ ਨਾਲ ਪੂਰਾ ਕਰਦੀ ਹੈ?",
     missingPair: "ਕਿਹੜੀਆਂ ਘਟਨਾਵਾਂ ਦੀ ਜੋੜੀ ਦੋ ਲਾਪਤਾ ਪੜਾਅ ਸਹੀ ਕ੍ਰਮ ਵਿੱਚ ਪੂਰੇ ਕਰਦੀ ਹੈ?",
     relationType: "ਕਾਰਨਾਤਮਕ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਤੇ P ਅਤੇ S ਵਿਚਕਾਰ ਕਿਹੜਾ ਸੰਬੰਧ ਸਮਰਥਿਤ ਹੈ?",
+    relationEvidence: "ਕਾਰਨਾਤਮਕ ਜਾਣਕਾਰੀ P → Q → R → S ਦੀ ਲੜੀ ਸਥਾਪਤ ਕਰਦੀ ਹੈ।",
     connectorPair: "P ਅਤੇ S ਵਿਚਕਾਰ ਦੋ-ਪੜਾਅ ਜੋੜ ਕਿਹੜੀਆਂ ਘਟਨਾਵਾਂ ਦੀ ਜੋੜੀ ਬਣਾਉਂਦੀ ਹੈ?",
     nextOutcome: "ਪਹਿਲੀਆਂ ਤਿੰਨ ਘਟਨਾਵਾਂ ਜਾਣੀਆਂ ਹਨ। ਅਗਲੀ ਸਭ ਤੋਂ ਤਰਕਸੰਗਤ ਘਟਨਾ ਕਿਹੜੀ ਹੈ?",
     commonCause: "ਕਿਹੜੀ ਲੁਕੀ ਘਟਨਾ ਦੋਵੇਂ ਨਿਰੀਖਣਾਂ ਨੂੰ ਸਭ ਤੋਂ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਉਂਦੀ ਹੈ?",
@@ -113,31 +117,80 @@ function text(world: CaeCausalWorld, id: string, locale: CaeLocale): string {
 }
 
 function distinctOtherNodes(world: CaeCausalWorld, excluded: readonly string[], locale: CaeLocale): readonly CaeRenderedOption[] {
-  const own = world.nodes.filter((node) => !excluded.includes(node.id)).map((node) => ({ id: node.id, text: node.text[locale], isCorrect: false, distractorRole: "INDIRECTNESS_CONFUSION" as const }));
-  return own;
+  return world.nodes
+    .filter((node) => !excluded.includes(node.id))
+    .map((node) => ({ id: node.id, text: node.text[locale], isCorrect: false, distractorRole: "INDIRECTNESS_CONFUSION" as const }));
 }
 
-function otherTerminalOptions(world: CaeCausalWorld, locale: CaeLocale, count: number): readonly CaeRenderedOption[] {
-  const candidates = CHAIN_WORLDS.filter((entry) => entry.id !== world.id).flatMap((entry) => {
-    const path = fourPath(entry)!;
-    const id = path[3]!;
-    return [{ id, text: text(entry, id, locale), isCorrect: false, distractorRole: "UNRELATED_EVENT" as const }];
-  });
-  const unique = [...new Map(candidates.map((entry) => [entry.text, entry])).values()];
+function sameDomainNodeOptions(
+  world: CaeCausalWorld,
+  locale: CaeLocale,
+  count: number,
+  seed: number,
+  excludedTexts: readonly string[],
+  preferredRoles: readonly CaeNodeRole[],
+  role: "UNRELATED_EVENT" | "COMMON_CAUSE_CONFUSION" | "INDIRECTNESS_CONFUSION",
+): readonly CaeRenderedOption[] {
+  const candidates = CAE_001_CAUSAL_WORLDS
+    .filter((entry) => entry.id !== world.id && entry.domain === world.domain)
+    .flatMap((entry) => entry.nodes.map((node) => ({ entry, node })))
+    .filter(({ node }) => !excludedTexts.includes(node.text[locale]));
+  const preferred = candidates.filter(({ node }) => preferredRoles.includes(node.role));
+  const fallback = candidates.filter(({ node }) => !preferredRoles.includes(node.role));
+  const ordered = [
+    ...shuffled(preferred, seed ^ 0x9111),
+    ...shuffled(fallback, seed ^ 0x9222),
+  ];
+  const unique = [...new Map(ordered.map(({ entry, node }) => [node.text[locale], {
+    id: `ALT:${entry.id}:${node.id}`,
+    text: node.text[locale],
+    isCorrect: false,
+    distractorRole: role,
+  }])).values()];
+  if (unique.length < count) {
+    throw new Error(`${world.id}: CP009 needs ${count} same-domain distractors but found ${unique.length}.`);
+  }
   return unique.slice(0, count);
 }
 
-function otherCauseOptions(world: CaeCausalWorld, locale: CaeLocale, count: number): readonly CaeRenderedOption[] {
-  const candidates = CAE_001_CAUSAL_WORLDS.filter((entry) => entry.id !== world.id).flatMap((entry) => {
-    const causes = entry.nodes.filter((node) => node.role === "CAUSE");
-    return causes.map((node) => ({ id: node.id, text: node.text[locale], isCorrect: false, distractorRole: "COMMON_CAUSE_CONFUSION" as const }));
-  });
-  const unique = [...new Map(candidates.map((entry) => [entry.text, entry])).values()];
+function sameDomainPairOptions(
+  world: CaeCausalWorld,
+  locale: CaeLocale,
+  count: number,
+  seed: number,
+  excludedTexts: readonly string[],
+): readonly CaeRenderedOption[] {
+  const candidates = CHAIN_WORLDS
+    .filter((entry) => entry.id !== world.id && entry.domain === world.domain)
+    .flatMap((entry) => {
+      const path = fourPath(entry)!;
+      const pairs: readonly (readonly [string, string])[] = [
+        [path[1]!, path[2]!],
+        [path[2]!, path[1]!],
+        [path[0]!, path[1]!],
+        [path[2]!, path[3]!],
+      ];
+      return pairs.map(([a, b]) => ({ entry, a, b }));
+    })
+    .filter(({ entry, a, b }) => !excludedTexts.includes(text(entry, a, locale)) && !excludedTexts.includes(text(entry, b, locale)));
+  const shuffledCandidates = shuffled(candidates, seed ^ 0x9333);
+  const unique = [...new Map(shuffledCandidates.map(({ entry, a, b }) => {
+    const rendered = `${trim(text(entry, a, locale))} → ${trim(text(entry, b, locale))}`;
+    return [rendered, {
+      id: `ALT_PAIR:${entry.id}:${a}|${b}`,
+      text: rendered,
+      isCorrect: false,
+      distractorRole: "INDIRECTNESS_CONFUSION" as const,
+    }];
+  })).values()];
+  if (unique.length < count) {
+    throw new Error(`${world.id}: CP009 needs ${count} same-domain pair distractors but found ${unique.length}.`);
+  }
   return unique.slice(0, count);
 }
 
 function difficulty(mode: Cp009Mode): Readonly<{ difficulty: CaeDifficulty; evidence: CaeDifficultyEvidence }> {
-  const medium = mode === "MISSING_SINGLE";
+  const medium = mode === "MISSING_SINGLE" || mode === "RELATION_TYPE";
   return {
     difficulty: medium ? "MEDIUM" : "HARD",
     evidence: {
@@ -174,9 +227,10 @@ export function generateCp009IntegratedQuestion(input: Readonly<{ locale: CaeLoc
     visibleNodeIds = effects.map((node) => node.id);
     trace = [cause.id, ...visibleNodeIds];
     answerId = cause.id;
+    const excludedTexts = [cause.text[locale], ...effects.map((node) => node.text[locale])];
     options = shuffled([
       { id: cause.id, text: cause.text[locale], isCorrect: true },
-      ...otherCauseOptions(world, locale, 3),
+      ...sameDomainNodeOptions(world, locale, 3, selectionSeed, excludedTexts, ["CAUSE", "INTERMEDIATE"], "COMMON_CAUSE_CONFUSION"),
     ], selectionSeed);
     stem = `${copy.commonCause}\n\nP. ${effects[0]!.text[locale]}\nQ. ${effects[1]!.text[locale]}`;
     explanation = `${trim(cause.text[locale])} → ${trim(effects[0]!.text[locale])} / ${trim(effects[1]!.text[locale])}. ${copy.commonExplanation}`;
@@ -193,23 +247,25 @@ export function generateCp009IntegratedQuestion(input: Readonly<{ locale: CaeLoc
       const target = path[gap + 1]!;
       answerId = answer;
       visibleNodeIds = [source, target];
-      const distractors = distinctOtherNodes(world, [answer, source, target], locale);
+      const ownDistractors = distinctOtherNodes(world, [answer, source, target], locale);
+      const excludedTexts = [text(world, answer, locale), text(world, source, locale), text(world, target, locale), ...ownDistractors.map((option) => option.text)];
+      const needed = 3 - ownDistractors.length;
       options = shuffled([
         { id: answer, text: text(world, answer, locale), isCorrect: true },
-        ...distractors,
-        ...otherTerminalOptions(world, locale, 3),
-      ].slice(0, 4), selectionSeed);
+        ...ownDistractors,
+        ...sameDomainNodeOptions(world, locale, needed, selectionSeed, excludedTexts, ["INTERMEDIATE", "EFFECT", "CAUSE"], "INDIRECTNESS_CONFUSION"),
+      ], selectionSeed);
       stem = `${copy.missingSingle}\n\n${text(world, source, locale)} → ? → ${text(world, target, locale)}`;
       explanation = `${trim(text(world, source, locale))} → ${trim(text(world, answer, locale))} → ${trim(text(world, target, locale))}. ${copy.missingExplanation}`;
     } else if (mode === "MISSING_PAIR" || mode === "CONNECTOR_PAIR") {
       answerId = `${path[1]}|${path[2]}`;
       visibleNodeIds = [path[0]!, path[3]!];
       const pairText = (a: string, b: string) => `${trim(text(world, a, locale))} → ${trim(text(world, b, locale))}`;
+      const visibleTexts = visibleNodeIds.map((id) => text(world, id, locale));
       const pairs = [
         { id: answerId, text: pairText(path[1]!, path[2]!), isCorrect: true },
         { id: `${path[2]}|${path[1]}`, text: pairText(path[2]!, path[1]!), isCorrect: false, distractorRole: "TEMPORAL_VIOLATION" as const },
-        { id: `${path[0]}|${path[2]}`, text: pairText(path[0]!, path[2]!), isCorrect: false, distractorRole: "INDIRECTNESS_CONFUSION" as const },
-        { id: `${path[1]}|${path[3]}`, text: pairText(path[1]!, path[3]!), isCorrect: false, distractorRole: "INDIRECTNESS_CONFUSION" as const },
+        ...sameDomainPairOptions(world, locale, 2, selectionSeed, visibleTexts),
       ];
       options = shuffled(pairs, selectionSeed);
       stem = mode === "MISSING_PAIR"
@@ -218,21 +274,22 @@ export function generateCp009IntegratedQuestion(input: Readonly<{ locale: CaeLoc
       explanation = `${path.map((id) => trim(text(world, id, locale))).join(" → ")}. ${mode === "MISSING_PAIR" ? copy.pairExplanation : copy.connectorExplanation}`;
     } else if (mode === "RELATION_TYPE") {
       answerId = "INDIRECT";
-      visibleNodeIds = [path[0]!, path[3]!];
+      visibleNodeIds = path;
       options = shuffled([
         { id: "DIRECT", text: copy.direct, isCorrect: false, distractorRole: "INDIRECTNESS_CONFUSION" },
         { id: "INDIRECT", text: copy.indirect, isCorrect: true },
         { id: "COMMON", text: copy.common, isCorrect: false, distractorRole: "COMMON_CAUSE_CONFUSION" },
         { id: "NONE", text: copy.none, isCorrect: false, distractorRole: "UNRELATED_EVENT" },
       ], selectionSeed);
-      stem = `${copy.relationType}\n\nP. ${text(world, path[0]!, locale)}\nS. ${text(world, path[3]!, locale)}`;
+      stem = `${copy.relationType}\n\n${path.map((id, index) => `${LABELS[index]}. ${text(world, id, locale)}`).join("\n")}\n\n${copy.relationEvidence}`;
       explanation = `${path.map((id) => trim(text(world, id, locale))).join(" → ")}. ${copy.relationExplanation}`;
     } else {
       answerId = path[3]!;
       visibleNodeIds = path.slice(0, 3);
+      const excludedTexts = path.map((id) => text(world, id, locale));
       options = shuffled([
         { id: path[3]!, text: text(world, path[3]!, locale), isCorrect: true },
-        ...otherTerminalOptions(world, locale, 3),
+        ...sameDomainNodeOptions(world, locale, 3, selectionSeed, excludedTexts, ["EFFECT", "INTERMEDIATE"], "UNRELATED_EVENT"),
       ], selectionSeed);
       stem = `${copy.nextOutcome}\n\n${path.slice(0, 3).map((id, index) => `${LABELS[index]}. ${text(world, id, locale)}`).join("\n")}`;
       explanation = `${path.map((id) => trim(text(world, id, locale))).join(" → ")}. ${copy.nextExplanation}`;
@@ -242,6 +299,10 @@ export function generateCp009IntegratedQuestion(input: Readonly<{ locale: CaeLoc
   if (options.length !== 4) throw new Error(`${world.id}/${mode}: CP009 must render four options.`);
   if (options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${world.id}/${mode}: CP009 must have exactly one answer.`);
   if (new Set(options.map((option) => option.text)).size !== options.length) throw new Error(`${world.id}/${mode}: CP009 options must be unique.`);
+  const visibleTexts = visibleNodeIds.map((id) => text(world, id, locale));
+  if ((mode === "MISSING_PAIR" || mode === "CONNECTOR_PAIR") && options.some((option) => !option.isCorrect && visibleTexts.some((visible) => option.text.includes(trim(visible))))) {
+    throw new Error(`${world.id}/${mode}: CP009 pair distractor repeats a learner-visible endpoint.`);
+  }
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const derived = difficulty(mode);
   const causalStateId = `projection:CAE-PLAN-INTEGRATED-V2|world:${world.id}|mode:${mode}|trace:${trace.join(">")}|visible:${visibleNodeIds.join(",")}`;
