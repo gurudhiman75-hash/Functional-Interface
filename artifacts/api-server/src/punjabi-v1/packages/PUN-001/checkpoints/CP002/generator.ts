@@ -49,7 +49,7 @@ function assemble(input: {
       language: "pa-Guru",
       seed: input.seed,
       authorityIds: input.authorityIds,
-      generatorRevision: "2.0.0-forward-port",
+      generatorRevision: "2.1.0-forward-port",
       fingerprint,
       lifecycle: "REVIEW_ONLY",
     },
@@ -57,16 +57,21 @@ function assemble(input: {
 }
 
 function item(seed: number): SpellingAuthority {
-  return createRng(seed).pickOne(CP002_AUTHORITIES);
+  const n = CP002_AUTHORITIES.length;
+  const normalized = Math.trunc(seed);
+  const index = ((normalized - 1) % n + n) % n;
+  return CP002_AUTHORITIES[index]!;
 }
 
-function peers(target: SpellingAuthority, seed: number, count = 3): SpellingAuthority[] {
-  const pool = CP002_AUTHORITIES.filter((x) => x.id !== target.id);
-  return createRng(seed).pickDistinct(pool, count);
+function pairedItem(seed: number, offset = 17): SpellingAuthority {
+  const first = item(seed);
+  let second = item(seed + offset);
+  if (second.id === first.id) second = item(seed + offset + 1);
+  return second;
 }
 
 export function generateCP002F01(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
-  if (difficulty !== "Easy" && difficulty !== "Medium") throw new Error("CP002 F01 supports Easy/Medium only");
+  if (difficulty !== "Easy") throw new Error("CP002 F01 supports Easy only");
   const target = item(seed + 11);
   return assemble({
     seed,
@@ -118,16 +123,16 @@ export function generateCP002F03(seed: number, difficulty: PunjabiDifficulty): P
 
 export function generateCP002F04(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   if (difficulty !== "Hard") throw new Error("CP002 F04 supports Hard only");
-  const rng = createRng(seed + 301);
-  const targets = rng.pickDistinct(CP002_AUTHORITIES, 2);
-  const [a, b] = targets;
-  const wrongA = rng.pickOne(a!.incorrect);
-  const wrongB = rng.pickOne(b!.incorrect);
-  const broken = `${a!.contextPa.replace(a!.correct, wrongA)} ${b!.contextPa.replace(b!.correct, wrongB)}`;
-  const correct = `${a!.contextPa} ${b!.contextPa}`;
-  const d1 = `${a!.contextPa.replace(a!.correct, wrongA)} ${b!.contextPa}`;
-  const d2 = `${a!.contextPa} ${b!.contextPa.replace(b!.correct, wrongB)}`;
-  const d3 = `${a!.contextPa.replace(a!.correct, a!.incorrect[1])} ${b!.contextPa.replace(b!.correct, b!.incorrect[1])}`;
+  const a = item(seed + 301);
+  const b = pairedItem(seed + 301);
+  const rng = createRng(seed + 307);
+  const wrongA = rng.pickOne(a.incorrect);
+  const wrongB = rng.pickOne(b.incorrect);
+  const broken = `${a.contextPa.replace(a.correct, wrongA)} ${b.contextPa.replace(b.correct, wrongB)}`;
+  const correct = `${a.contextPa} ${b.contextPa}`;
+  const d1 = `${a.contextPa.replace(a.correct, wrongA)} ${b.contextPa}`;
+  const d2 = `${a.contextPa} ${b.contextPa.replace(b.correct, wrongB)}`;
+  const d3 = `${a.contextPa.replace(a.correct, a.incorrect[1])} ${b.contextPa.replace(b.correct, b.incorrect[1])}`;
   return assemble({
     seed,
     difficulty,
@@ -136,19 +141,19 @@ export function generateCP002F04(seed: number, difficulty: PunjabiDifficulty): P
     stem: `ਦੋਵੇਂ ਸ਼ਬਦ-ਜੋੜ ਠੀਕ ਕਰਕੇ ਸਹੀ ਵਾਕ-ਰੂਪ ਚੁਣੋ।\n\n“${broken}”`,
     correctAnswer: correct,
     distractors: [d1, d2, d3],
-    explanation: `ਪਹਿਲੇ ਵਾਕ ਵਿੱਚ ‘${wrongA}’ ਦੀ ਥਾਂ ‘${a!.correct}’ ਅਤੇ ਦੂਜੇ ਵਾਕ ਵਿੱਚ ‘${wrongB}’ ਦੀ ਥਾਂ ‘${b!.correct}’ ਲਿਖਿਆ ਜਾਵੇਗਾ।`,
-    authorityIds: [a!.id, b!.id],
+    explanation: `ਪਹਿਲੇ ਵਾਕ ਵਿੱਚ ‘${wrongA}’ ਦੀ ਥਾਂ ‘${a.correct}’ ਅਤੇ ਦੂਜੇ ਵਾਕ ਵਿੱਚ ‘${wrongB}’ ਦੀ ਥਾਂ ‘${b.correct}’ ਲਿਖਿਆ ਜਾਵੇਗਾ।`,
+    authorityIds: [a.id, b.id],
   });
 }
 
 export function generateCP002F05(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   if (difficulty !== "Hard") throw new Error("CP002 F05 supports Hard only");
   const target = item(seed + 401);
-  const other = peers(target, seed + 409, 3);
-  const correct = `${target.correct} — ${other[0]!.correct}`;
-  const d1 = `${target.incorrect[0]} — ${other[0]!.correct}`;
-  const d2 = `${target.correct} — ${other[0]!.incorrect[0]}`;
-  const d3 = `${target.incorrect[1]} — ${other[0]!.incorrect[1]}`;
+  const other = pairedItem(seed + 401);
+  const correct = `${target.correct} — ${other.correct}`;
+  const d1 = `${target.incorrect[0]} — ${other.correct}`;
+  const d2 = `${target.correct} — ${other.incorrect[0]}`;
+  const d3 = `${target.incorrect[1]} — ${other.incorrect[1]}`;
   return assemble({
     seed,
     difficulty,
@@ -157,13 +162,13 @@ export function generateCP002F05(seed: number, difficulty: PunjabiDifficulty): P
     stem: "ਉਹ ਵਿਕਲਪ ਚੁਣੋ ਜਿਸ ਵਿੱਚ ਦੋਵੇਂ ਸ਼ਬਦ ਸ਼ੁੱਧ ਲਿਖੇ ਹੋਏ ਹਨ।",
     correctAnswer: correct,
     distractors: [d1, d2, d3],
-    explanation: `ਸਹੀ ਜੋੜ ‘${target.correct} — ${other[0]!.correct}’ ਹੈ।`,
-    authorityIds: [target.id, other[0]!.id],
+    explanation: `ਸਹੀ ਜੋੜ ‘${target.correct} — ${other.correct}’ ਹੈ।`,
+    authorityIds: [target.id, other.id],
   });
 }
 
 export const CP002_FAMILIES: readonly PunjabiQuestionFamilyDefinition[] = [
-  { familyId: "F01", subtype: "CORRECT_FORM_RECOGNITION", name: "ਸ਼ੁੱਧ ਸ਼ਬਦ ਦੀ ਪਛਾਣ", targetDifficulties: ["Easy", "Medium"], generate: generateCP002F01 },
+  { familyId: "F01", subtype: "CORRECT_FORM_RECOGNITION", name: "ਸ਼ੁੱਧ ਸ਼ਬਦ ਦੀ ਪਛਾਣ", targetDifficulties: ["Easy"], generate: generateCP002F01 },
   { familyId: "F02", subtype: "SENTENCE_ERROR_CORRECTION", name: "ਵਾਕ ਵਿੱਚ ਸ਼ਬਦ-ਜੋੜ ਸੁਧਾਰ", targetDifficulties: ["Medium"], generate: generateCP002F02 },
   { familyId: "F03", subtype: "CONTEXTUAL_COMPLETION", name: "ਸੰਦਰਭ ਅਨੁਸਾਰ ਸ਼ਬਦ-ਜੋੜ", targetDifficulties: ["Medium"], generate: generateCP002F03 },
   { familyId: "F04", subtype: "MULTI_ERROR_SENTENCE_REPAIR", name: "ਦੋਹਰਾ ਸ਼ਬਦ-ਜੋੜ ਸੁਧਾਰ", targetDifficulties: ["Hard"], generate: generateCP002F04 },
