@@ -6,24 +6,24 @@ This is a fresh forward-port implementation. It does not merge donor Punjabi his
 
 ## Current breadth
 
-- 168 unique active review authorities;
-- 45 manually contextualized authorities for sentence families;
-- 8 active orthographic categories;
-- 7 semantic question families;
-- computed semantic capacity: **384,378,270** content combinations;
+- **375 unique active review authorities**;
+- **252 contextual authorities** available to sentence families;
+- **8 active orthographic categories**;
+- **7 semantic question families**;
+- computed semantic capacity: **9,731,687,658** content combinations;
 - option-order permutations are excluded from that capacity number;
 - donor `TATSAM_TADBHAV` remains quarantined because several donor "incorrect" options are valid lexical alternatives rather than spelling errors.
 
 ### Active orthographic categories
 
-- SIHARI_BIHARI — 20
-- AUNKAR_DULANKAR — 16
-- HA_PAIRIN_SOUND — 23
-- TIPPI_BINDI — 20
-- ADDAK_OMISSION — 16
-- LOANWORD_PHONETICS — 24
-- VARG_CONFUSION — 28
-- HALVANT_PAIRIN — 21
+- SIHARI_BIHARI — 50
+- AUNKAR_DULANKAR — 41
+- HA_PAIRIN_SOUND — 43
+- TIPPI_BINDI — 55
+- ADDAK_OMISSION — 51
+- LOANWORD_PHONETICS — 54
+- VARG_CONFUSION — 45
+- HALVANT_PAIRIN — 36
 
 ## Semantic families
 
@@ -47,20 +47,33 @@ Negative wording, rare vocabulary, formal prose and instruction paraphrases do n
 
 ## Breadth contract
 
-The engine now uses combinatorial unranking rather than a fixed pair offset. Different seeds traverse real authority combinations instead of repeatedly recycling the same 45 pairings.
+The engine uses combinatorial unranking rather than fixed pair offsets. Different seeds traverse real authority combinations instead of recycling a small set of pairings.
 
-Approximate exact capacities enforced by code:
+Exact semantic capacities from the current corpus:
 
-- F01: 168
-- F02: 135
-- F03: 45
-- F04: 8,910
-- F05: 126,252
-- F06: 384,226,920
-- F07: 15,840
-- Total: 384,378,270
+- F01: 375
+- F02: 756
+- F03: 252
+- F04: 284,634
+- F05: 631,125
+- F06: 9,730,264,500
+- F07: 506,016
+- **Total: 9,731,687,658**
 
 These are semantic content combinations. Shuffling the same four options is not counted as a new question.
+
+## Editorial expansion contract
+
+The exhaustive-breadth wave adds 207 new contextual authorities on top of the 168-authority audited pool. The added authorities are distributed across all eight categories rather than concentrated in one easy spelling pattern. Every new editorial authority has:
+
+- one unique canonical form;
+- exactly three distinct close spelling variants;
+- a natural Punjabi sentence containing the canonical form;
+- an explicit category;
+- `EDITORIAL_CURATED` provenance;
+- `REVIEW_PENDING` lifecycle status.
+
+No editorial item is silently promoted to production linguistic truth by being present in the generator.
 
 ## Editorial contract
 
@@ -74,6 +87,6 @@ These are semantic content combinations. Shuffling the same four options is not 
 
 ## Authority lifecycle
 
-All 168 records remain `REVIEW_PENDING`. The first 45 records contain manually normalized Punjabi sentence context. The additional 123 records expand direct/pair/group spelling coverage while remaining outside production authority until lexical review explicitly promotes them.
+All 375 records remain `REVIEW_PENDING`. The contextual pool now contains 252 authorities: the original 45 manually normalized records plus all 207 authorities from the exhaustive-breadth editorial wave. The remaining donor-derived authorities continue to support direct/pair/group families without fabricated generic sentence context.
 
-The semantic proof requires unique canonical forms, unique authority IDs, three distinct incorrect variants, NFC normalization, no incorrect variant colliding with another canonical form, eight-category depth, deterministic semantic uniqueness, and strict `REVIEW_ONLY` lifecycle metadata.
+The semantic proof requires exactly 375 unique canonical forms, unique authority IDs, three distinct incorrect variants, NFC normalization, no incorrect variant colliding with another canonical form, at least 30 authorities in every active category, deterministic semantic uniqueness, and strict `REVIEW_ONLY` lifecycle metadata.
