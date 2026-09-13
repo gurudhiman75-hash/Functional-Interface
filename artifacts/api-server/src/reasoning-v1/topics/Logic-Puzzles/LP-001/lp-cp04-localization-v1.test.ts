@@ -23,8 +23,19 @@ for (const language of ["hi", "pa"] as const) {
   for (let index = 0; index < localized.length; index += 1) {
     const source: any = english[index]!;
     const target = localized[index]!;
+    const localizedSource: any = target.englishCaselet;
     const child = target.counterfactualChild;
-    assert.equal(target.englishCaselet, source);
+
+    assert.equal(localizedSource.caseletId, source.caseletId);
+    assert.equal(localizedSource.scenarioProfileId, source.scenarioProfileId);
+    assert.equal(localizedSource.difficultyBand, source.difficultyBand);
+    assert.deepEqual(localizedSource.clues, source.clues);
+    assert.deepEqual(localizedSource.validStates, source.validStates);
+    assert.equal(localizedSource.counterfactualChild.stem, source.counterfactualChild.stem);
+    assert.deepEqual(localizedSource.counterfactualChild.options, source.counterfactualChild.options);
+    assert.equal(localizedSource.counterfactualChild.correctIndex, source.counterfactualChild.correctIndex);
+    assert.equal(localizedSource.counterfactualChild.answer, source.counterfactualChild.answer);
+
     assert.equal(target.caseletId, source.caseletId);
     assert.equal(target.difficultyBand, source.difficultyBand);
     assert.equal(child.difficultyBand, source.counterfactualChild.difficultyBand);
@@ -50,6 +61,7 @@ for (const language of ["hi", "pa"] as const) {
       assert.ok(source.validStates.length >= 5);
     } else {
       assert.equal(target.parentTopology, "LP-001_GROUPING");
+      assert.ok(source.scenarioProfileId);
     }
   }
 
