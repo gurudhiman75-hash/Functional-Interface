@@ -8,11 +8,13 @@ export type PolCp004ArticleRow = PolCp004Sourced & {
   subject: string;
   simpleRule: string;
   holder: "all persons" | "citizens" | "minorities" | "religious denominations" | "institutional/procedural";
-  group: "general" | "equality" | "freedom" | "exploitation" | "religion" | "cultural" | "remedies" | "special";
+  group: "general" | "equality" | "freedom" | "exploitation" | "religion" | "cultural" | "saving" | "remedies" | "special";
 };
 
 const C = "LEGISLATIVE-DEPT-CONSTITUTION-2025";
+const J31C = "SCI-2024-ARTICLE31C-OPERATIVE";
 const src = (id: string) => ({ sourceIds: [C] as const, sourceFactIds: [id] as const });
+const src31c = (id: string) => ({ sourceIds: [C, J31C] as const, sourceFactIds: [id] as const });
 
 export const POL_CP004_ARTICLES_V1: readonly PolCp004ArticleRow[] = Object.freeze([
   { article: "12", subject: "Definition of State for Part III", simpleRule: "Article 12 defines 'State' for Fundamental Rights. It includes the Union and State governments and legislatures, local authorities and other authorities within the constitutional scope.", holder: "institutional/procedural", group: "general", ...src("pol-cp004-a12-state-definition") },
@@ -25,7 +27,7 @@ export const POL_CP004_ARTICLES_V1: readonly PolCp004ArticleRow[] = Object.freez
   { article: "19", subject: "Six freedoms of citizens", simpleRule: "Article 19 gives citizens six freedoms: speech and expression; peaceful assembly without arms; associations or unions or co-operative societies; movement; residence and settlement; and profession, occupation, trade or business, subject to constitutional restrictions.", holder: "citizens", group: "freedom", ...src("pol-cp004-a19-six-freedoms") },
   { article: "20", subject: "Protection in respect of conviction for offences", simpleRule: "Article 20 protects against ex post facto criminal punishment, double jeopardy and compelled self-incrimination.", holder: "all persons", group: "freedom", ...src("pol-cp004-a20-criminal-protections") },
   { article: "21", subject: "Protection of life and personal liberty", simpleRule: "Article 21 says no person shall be deprived of life or personal liberty except according to procedure established by law.", holder: "all persons", group: "freedom", ...src("pol-cp004-a21-life-liberty") },
-  { article: "21A", subject: "Right to education", simpleRule: "Article 21A requires the State to provide free and compulsory education to children from six to fourteen years of age in the manner provided by law.", holder: "citizens", group: "freedom", ...src("pol-cp004-a21a-education") },
+  { article: "21A", subject: "Right to education", simpleRule: "Article 21A requires the State to provide free and compulsory education to all children from six to fourteen years of age in the manner provided by law.", holder: "all persons", group: "freedom", ...src("pol-cp004-a21a-education") },
   { article: "22", subject: "Protection against arrest and detention in certain cases", simpleRule: "Article 22 gives safeguards such as being informed of grounds of arrest, consulting a lawyer and production before a magistrate within twenty-four hours, subject to the constitutional exceptions including preventive detention provisions.", holder: "all persons", group: "freedom", ...src("pol-cp004-a22-arrest-detention") },
   { article: "23", subject: "Prohibition of trafficking and forced labour", simpleRule: "Article 23 prohibits traffic in human beings, begar and other similar forms of forced labour.", holder: "all persons", group: "exploitation", ...src("pol-cp004-a23-trafficking-forced-labour") },
   { article: "24", subject: "Prohibition of child labour in hazardous employment", simpleRule: "Article 24 prohibits employment of children below fourteen years in factories, mines or other hazardous employment covered by the Article.", holder: "all persons", group: "exploitation", ...src("pol-cp004-a24-child-labour") },
@@ -35,6 +37,9 @@ export const POL_CP004_ARTICLES_V1: readonly PolCp004ArticleRow[] = Object.freez
   { article: "28", subject: "Religious instruction in educational institutions", simpleRule: "Article 28 regulates religious instruction and worship in educational institutions, including a bar on religious instruction in institutions wholly maintained from State funds, subject to its stated exception.", holder: "all persons", group: "religion", ...src("pol-cp004-a28-religious-instruction") },
   { article: "29", subject: "Protection of interests of minorities and cultural groups", simpleRule: "Article 29 protects the right of any section of citizens with a distinct language, script or culture to conserve it and protects citizens from specified admission discrimination in State-maintained or State-aided educational institutions.", holder: "citizens", group: "cultural", ...src("pol-cp004-a29-culture-admission") },
   { article: "30", subject: "Right of minorities to establish and administer educational institutions", simpleRule: "Article 30 gives religious and linguistic minorities the right to establish and administer educational institutions of their choice.", holder: "minorities", group: "cultural", ...src("pol-cp004-a30-minority-education") },
+  { article: "31A", subject: "Saving of certain laws including acquisition of estates", simpleRule: "Article 31A protects specified categories of laws, including certain laws on acquisition of estates and related land-reform matters, from challenge under the Fundamental Rights provisions named in the Article.", holder: "institutional/procedural", group: "saving", ...src("pol-cp004-a31a-saving-laws") },
+  { article: "31B", subject: "Validation of Acts and Regulations in the Ninth Schedule", simpleRule: "Article 31B gives constitutional protection to Acts and Regulations placed in the Ninth Schedule, subject to the Constitution's judicial-review doctrine.", holder: "institutional/procedural", group: "saving", ...src("pol-cp004-a31b-ninth-schedule") },
+  { article: "31C", subject: "Saving of laws giving effect to Article 39(b) and 39(c)", simpleRule: "As currently operative, Article 31C protects laws giving effect to the policy in Article 39(b) or 39(c) from challenge under Articles 14 and 19, subject to constitutional judicial review.", holder: "institutional/procedural", group: "saving", ...src31c("pol-cp004-a31c-operative-scope") },
   { article: "32", subject: "Constitutional remedies for enforcement of Fundamental Rights", simpleRule: "Article 32 guarantees the right to move the Supreme Court for enforcement of Fundamental Rights and empowers it to issue constitutional writs.", holder: "all persons", group: "remedies", ...src("pol-cp004-a32-remedies") },
   { article: "33", subject: "Parliament's power to modify rights for specified forces and services", simpleRule: "Article 33 allows Parliament to restrict or modify Fundamental Rights for specified armed forces, public-order forces, intelligence organisations and related services to ensure proper discharge of duties and discipline.", holder: "institutional/procedural", group: "special", ...src("pol-cp004-a33-forces") },
   { article: "34", subject: "Restriction of rights while martial law is in force", simpleRule: "Article 34 allows Parliament to indemnify acts and make related provisions where martial law was in force in an area.", holder: "institutional/procedural", group: "special", ...src("pol-cp004-a34-martial-law") },
@@ -96,6 +101,6 @@ export const POL_CP004_RIGHT_HOLDERS_V1 = Object.freeze([
 export const POL_CP004_BOUNDARY_FACTS_V1 = Object.freeze([
   { key: "property", statement: "The right to property is not a Fundamental Right. It is protected separately by Article 300A as a constitutional right." },
   { key: "part", statement: "Fundamental Rights are mainly contained in Part III of the Constitution." },
-  { key: "range", statement: "Part III runs from Articles 12 to 35, though some article numbers within the sequence have been omitted or inserted over time." },
+  { key: "range", statement: "Part III runs from Articles 12 to 35, with Article 31 omitted and Articles such as 21A and 31A–31C inserted in the present numbering." },
   { key: "article32", statement: "The right to move the Supreme Court under Article 32 for enforcement of Fundamental Rights is itself guaranteed in Part III." },
 ].map((row) => ({ ...row, ...src(`pol-cp004-boundary-${row.key}`) })));
