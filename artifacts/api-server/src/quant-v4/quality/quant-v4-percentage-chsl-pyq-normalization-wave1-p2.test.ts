@@ -41,11 +41,11 @@ const percentLess = (120 - 100) / 120 * 100;
 assert.ok(Math.abs(percentLess - 50 / 3) < 1e-12);
 assert.equal(0.01 * 0.01 * 0.25 * 1000, 0.025);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 133);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
 const percentage = listRegisteredCountablePyqObservations({ packageId: "PCT-002" });
-assert.equal(percentage.length, 7);
+assert.equal(percentage.length, 9);
 assert.equal(percentage.filter((entry) => entry.examId === "SSC_CHSL").length, 5);
-assert.equal(percentage.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 2);
+assert.equal(percentage.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 4);
 
 const chsl = buildQuantV4PyqFrequencyProfile({
   examId: "SSC_CHSL",

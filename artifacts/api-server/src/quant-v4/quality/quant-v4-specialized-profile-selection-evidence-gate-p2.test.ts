@@ -24,16 +24,17 @@ assert.equal(
   QUANT_V4_PYQ_OBSERVATION_REGISTRY_AUTHORITY,
   "QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2",
 );
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 133, "The normalized registry should contain three complete dated SSC CGL Tier-I Quant sections plus prior evidence.");
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 18);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 8);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 20);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 6);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 12);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 7);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 3);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 7);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208, "The normalized registry should contain six complete dated SSC CGL Tier-I Quant sections plus prior evidence.");
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 26);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 12);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 10);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "MAL-001" }).length, 1);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 24);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 21);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 13);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 4);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 9);
 
 const ZERO_COUNTS: Readonly<Record<QuantV4CompetitiveExamProfileId, number>> = Object.freeze({
   SSC_CGL_TIER_I: 0,
@@ -45,17 +46,17 @@ const ZERO_COUNTS: Readonly<Record<QuantV4CompetitiveExamProfileId, number>> = O
 });
 
 const EXPECTED_COUNTS: Readonly<Record<QuantV4SpecializedSelectionPackageId, Readonly<Record<QuantV4CompetitiveExamProfileId, number>>>> = Object.freeze({
-  "AVG-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 2, SSC_CGL_CHSL: 6 }),
-  "MAL-001": ZERO_COUNTS,
+  "AVG-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 4, SSC_CGL_CHSL: 6 }),
+  "MAL-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 1 }),
   "NUM-001": Object.freeze({
-    SSC_CGL_TIER_I: 14,
+    SSC_CGL_TIER_I: 18,
     SSC_CGL_CHSL: 5,
     SSC_CGL_JSO: 1,
     PUNJAB_STATE: 0,
     BANKING_PRELIMS: 0,
     BANKING_MAINS: 0,
   }),
-  "TMW-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 7, SSC_CGL_CHSL: 5 }),
+  "TMW-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 16, SSC_CGL_CHSL: 5 }),
 });
 
 for (const packageId of PACKAGE_IDS) {
@@ -124,6 +125,7 @@ const runtimeCases = [
   { packageId: "AVG-001", examProfile: "SSC_CGL_TIER_I", seed: "selection-gate:avg:ssc-tier1" },
   { packageId: "AVG-001", examProfile: "SSC_CGL_CHSL", seed: "selection-gate:avg:chsl" },
   { packageId: "AVG-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:avg:bank" },
+  { packageId: "MAL-001", examProfile: "SSC_CGL_TIER_I", seed: "selection-gate:mal:ssc-tier1" },
   { packageId: "MAL-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:mal:bank" },
   { packageId: "NUM-001", examProfile: "BANKING_PRELIMS", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:bank" },
   { packageId: "NUM-001", examProfile: "SSC_CGL_TIER_I", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:ssc-tier1" },
@@ -169,6 +171,7 @@ console.log(JSON.stringify({
   evidenceAccumulatingProfiles: [
     "AVG-001/SSC_CGL_TIER_I",
     "AVG-001/SSC_CGL_CHSL",
+    "MAL-001/SSC_CGL_TIER_I",
     "NUM-001/SSC_CGL_TIER_I",
     "NUM-001/SSC_CGL_CHSL",
     "NUM-001/SSC_CGL_JSO",

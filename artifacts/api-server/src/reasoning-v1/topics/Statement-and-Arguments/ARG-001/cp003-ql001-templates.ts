@@ -16,7 +16,7 @@ export const ARG_CP003_QL001_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL001-T02", qlId: "ARG-QL-001", archetype: "TRANSPARENCY_MATERIALITY", difficulty: "MEDIUM", answerClass: "ONLY_II",
+    id: "ARG-CP003-QL001-T02", qlId: "ARG-QL-001", archetype: "TRANSPARENCY_MATERIALITY", difficulty: "EASY", answerClass: "ONLY_II",
     dimensions: [
       ["a university essay examination", "a descriptive recruitment examination", "a semester written examination", "a state-level written test"],
       ["model answer outlines", "indicative marking points", "sample response frameworks", "evaluation-guidance notes"],
@@ -58,7 +58,7 @@ export const ARG_CP003_QL001_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL001-T05", qlId: "ARG-QL-001", archetype: "CONSUMER_HARM_MATERIALITY", difficulty: "MEDIUM", answerClass: "ONLY_I",
+    id: "ARG-CP003-QL001-T05", qlId: "ARG-QL-001", archetype: "CONSUMER_HARM_MATERIALITY", difficulty: "EASY", answerClass: "ONLY_I",
     dimensions: [
       ["packaged snacks", "ready-to-eat meals", "bakery products", "packaged beverages"],
       ["allergen warnings", "high-risk ingredient warnings", "cross-contamination warnings", "ingredient sensitivity warnings"],
@@ -72,7 +72,7 @@ export const ARG_CP003_QL001_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL001-T06", qlId: "ARG-QL-001", archetype: "PROCEDURAL_ERROR_CORRECTION", difficulty: "MEDIUM", answerClass: "ONLY_II",
+    id: "ARG-CP003-QL001-T06", qlId: "ARG-QL-001", archetype: "PROCEDURAL_ERROR_CORRECTION", difficulty: "EASY", answerClass: "ONLY_II",
     dimensions: [
       ["a recruitment application", "a scholarship application", "an entrance-test application", "a professional-registration form"],
       ["a spelling error in the name field", "an incorrect category selection", "a mistyped graduation year", "an incorrect correspondence address"],

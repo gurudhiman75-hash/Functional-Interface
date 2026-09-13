@@ -1,0 +1,51 @@
+name: Reasoning LP-009 Day Scheduling V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-permanent-freeze.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-permanent-freeze.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-010-permanent-ql-registry-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v2.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v2.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v2-review-export.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reasoning-lp009-day-scheduling-v2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  day-scheduling-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Reprove frozen LP-009 V1 authority
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-permanent-freeze.test.ts
+
+      - name: Prove day-only scheduling V2 with permanent QL reuse
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v2.test.ts
+
+      - name: Export English human-review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-day-scheduling-v2-review-export.ts > LP-009-DAY-SCHEDULING-V2-ENGLISH-REVIEW.md
+
+      - name: Upload English human-review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: LP-009-DAY-SCHEDULING-V2-ENGLISH-REVIEW
+          path: LP-009-DAY-SCHEDULING-V2-ENGLISH-REVIEW.md
+          if-no-files-found: error

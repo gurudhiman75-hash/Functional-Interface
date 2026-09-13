@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useLocation, useParams } from "wouter";
 import {
   ArrowLeft,
@@ -11,6 +11,7 @@ import {
   LayoutGrid,
   Lock,
   RotateCcw,
+  Search,
   ShieldCheck,
   Sparkles,
   Target,
@@ -57,6 +58,11 @@ export default function CategoryPage() {
   );
 
   const attempts = useMemo(() => getAttempts(), []);
+  const [examQuery, setExamQuery] = useState("");
+  const visibleExams = useMemo(() => {
+    const query = examQuery.trim().toLowerCase();
+    return query ? exams.filter((exam) => `${exam.name} ${exam.description ?? ""}`.toLowerCase().includes(query)) : exams;
+  }, [examQuery, exams]);
   const attemptedTestIds = useMemo(() => new Set(attempts.map((attempt) => attempt.testId)), [attempts]);
 
   const examMetaMap = useMemo(() => {
@@ -234,14 +240,19 @@ export default function CategoryPage() {
             ) : null}
           </div>
 
-          {exams.length === 0 ? (
+          <label className="relative mt-5 block max-w-md">
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <input value={examQuery} onChange={(event) => setExamQuery(event.target.value)} placeholder={`Search ${category.name} exams`} className="min-h-11 w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#6c5cf1] focus:ring-2 focus:ring-[#edeaff]" />
+          </label>
+
+          {visibleExams.length === 0 ? (
             <div className="mt-6 rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
               <BookOpen className="mx-auto h-9 w-9 text-slate-300" />
-              <p className="mt-3 text-sm font-medium text-slate-500">No exams are available in this category yet.</p>
+              <p className="mt-3 text-sm font-medium text-slate-500">{examQuery ? "No exams match your search." : "No exams are available in this category yet."}</p>
             </div>
           ) : (
             <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {exams.map((exam, index) => {
+              {visibleExams.map((exam, index) => {
                 const meta = examMetaMap.get(exam.id);
                 const examIcon = exam.icon ?? category.icon;
                 const tone = CARD_TONES[index % CARD_TONES.length];

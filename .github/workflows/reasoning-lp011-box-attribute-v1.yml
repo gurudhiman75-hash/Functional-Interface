@@ -1,0 +1,44 @@
+name: Reasoning LP-011 Box Attribute V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011-stabilized-v1-1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011-stabilized-v1-2.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011-review-export.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/LP-011-END-TO-END-DESIGN.md"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-lp011-box-attribute-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lp011-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove LP-011 generator and option integrity
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011.test.ts
+
+      - name: Export LP-011 English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-011-review-export.ts > LP-011-ENGLISH-REVIEW-V1-2.md
+
+      - name: Upload LP-011 English review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: LP-011-ENGLISH-REVIEW-V1-2
+          path: LP-011-ENGLISH-REVIEW-V1-2.md
+          if-no-files-found: error

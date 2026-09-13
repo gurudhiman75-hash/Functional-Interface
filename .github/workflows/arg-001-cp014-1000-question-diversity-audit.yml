@@ -1,0 +1,184 @@
+name: Validate ARG-001 CP015 Diversity Closure
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp015.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp014-1000-question-diversity-audit.yml'
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp015.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp014-1000-question-diversity-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp015-diversity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp015-diversity-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP015 diversity authority
+        working-directory: artifacts/api-server
+        run: |
+          set -o pipefail
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-cue-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-question-studio-registration-proof.test.ts \
+            2>&1 | tee cp015-strict-tsc.log
+
+      - name: Upload CP015 strict TypeScript diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arg-cp015-strict-tsc-diagnostics
+          path: artifacts/api-server/cp015-strict-tsc.log
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Gate CP015 Question Studio route and registry contract
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-question-studio-registration-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-question-studio-registration-proof.mjs
+          node dist/arg-001-cp015-question-studio-registration-proof.mjs
+
+      - name: Gate CP015 deterministic 1000-question diversity
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-perceived-diversity-proof.mjs
+          node dist/arg-001-cp015-perceived-diversity-proof.mjs
+
+      - name: Gate CP015 lexical answer-cue anti-gaming
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-cue-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-anti-gaming-cue-proof.mjs
+          node dist/arg-001-cp015-anti-gaming-cue-proof.mjs
+
+      - name: Gate CP015 anti-gaming grammar naturalness
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-anti-gaming-grammar-proof.mjs
+          node dist/arg-001-cp015-anti-gaming-grammar-proof.mjs
+
+      - name: Gate CP015 final trilingual editorial quality
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-final-editorial-quality-proof.mjs
+          node dist/arg-001-cp015-final-editorial-quality-proof.mjs
+
+      - name: Preserve CP014 baseline duplicate diagnostics
+        continue-on-error: true
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-diversity-duplicate-diagnostics.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp014-diversity-duplicate-diagnostics.mjs
+          node dist/arg-001-cp014-diversity-duplicate-diagnostics.mjs
+
+      - name: Preserve CP014 manual approval and lifecycle
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-manual-editorial-approval-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp014-manual-editorial-approval-proof.mjs
+          node dist/arg-001-cp014-manual-editorial-approval-proof.mjs
+
+      - name: Preserve CP013 final learner-facing editorial proof
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-final-editorial-surface-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp013-final-editorial-surface-proof.mjs
+          node dist/arg-001-cp013-final-editorial-surface-proof.mjs
+
+      - name: Preserve exact CP006 historical freeze
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp006-byte-freeze-proof.mjs
+          cd ../..
+          node artifacts/api-server/dist/arg-001-cp006-byte-freeze-proof.mjs
+
+      - name: Preserve exact CP008 historical freeze
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp008-byte-freeze-proof.mjs
+          cd ../..
+          node artifacts/api-server/dist/arg-001-cp008-byte-freeze-proof.mjs
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm build

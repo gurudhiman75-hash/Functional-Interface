@@ -8,7 +8,9 @@ export type Eng001QlId =
 export type Eng001CpId =
   | "ENG-001-CP001"
   | "ENG-001-CP002"
-  | "ENG-001-CP003";
+  | "ENG-001-CP003"
+  | "ENG-001-CP004"
+  | "ENG-001-CP005";
 
 export type SvaRuleId =
   | "GR-SVA-001"
@@ -46,7 +48,31 @@ export type ArticleRuleId =
   | "GR-ART-009"
   | "GR-ART-010";
 
-export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId;
+export type PronounRuleId =
+  | "GR-PRN-001"
+  | "GR-PRN-002"
+  | "GR-PRN-003"
+  | "GR-PRN-004"
+  | "GR-PRN-005"
+  | "GR-PRN-006"
+  | "GR-PRN-007"
+  | "GR-PRN-008"
+  | "GR-PRN-009"
+  | "GR-PRN-010";
+
+export type PrepositionRuleId =
+  | "GR-PRP-001"
+  | "GR-PRP-002"
+  | "GR-PRP-003"
+  | "GR-PRP-004"
+  | "GR-PRP-005"
+  | "GR-PRP-006"
+  | "GR-PRP-007"
+  | "GR-PRP-008"
+  | "GR-PRP-009"
+  | "GR-PRP-010";
+
+export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId | PrepositionRuleId;
 
 export type SvaMutationId =
   | "MUT-SVA-NUMBER-001"
@@ -84,7 +110,31 @@ export type ArticleMutationId =
   | "MUT-ART-COUNTABILITY-001"
   | "MUT-ART-DETERMINER-NUMBER-001";
 
-export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId;
+export type PronounMutationId =
+  | "MUT-PRN-SUBJECT-CASE-001"
+  | "MUT-PRN-OBJECT-CASE-001"
+  | "MUT-PRN-POSSESSIVE-FORM-001"
+  | "MUT-PRN-REFLEXIVE-COREFERENCE-001"
+  | "MUT-PRN-REFLEXIVE-MISUSE-001"
+  | "MUT-PRN-ANTECEDENT-NUMBER-001"
+  | "MUT-PRN-WHO-WHOM-001"
+  | "MUT-PRN-RELATIVE-PERSON-THING-001"
+  | "MUT-PRN-DEMONSTRATIVE-NUMBER-001"
+  | "MUT-PRN-WHOSE-WHOS-001";
+
+export type PrepositionMutationId =
+  | "MUT-PRP-TIME-001"
+  | "MUT-PRP-PLACE-001"
+  | "MUT-PRP-SINCE-FOR-001"
+  | "MUT-PRP-BY-UNTIL-001"
+  | "MUT-PRP-BETWEEN-AMONG-001"
+  | "MUT-PRP-IN-INTO-001"
+  | "MUT-PRP-BESIDE-BESIDES-001"
+  | "MUT-PRP-ADJECTIVE-COMPLEMENT-001"
+  | "MUT-PRP-VERB-COMPLEMENT-001"
+  | "MUT-PRP-NOUN-COMPLEMENT-001";
+
+export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId | PrepositionMutationId;
 
 export interface DifficultyDimensions {
   ruleComplexity: 1 | 2 | 3 | 4 | 5;
@@ -97,7 +147,7 @@ export interface DifficultyDimensions {
 
 export interface EnglishGrammarRule {
   ruleId: GrammarRuleId;
-  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners";
+  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns" | "prepositions";
   name: string;
   principle: string;
   mutationId: GrammarMutationId;

@@ -1,0 +1,51 @@
+name: Validate GEO-RIV-001 Chapter Close
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/**"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geo-riv-001-chapter-close-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-chapter-close:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run chapter-close and Question Studio gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for test_file in \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-chapter-close-v1.test.ts \
+            src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts
+          do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "${test_file}" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/${output_name}"
+            node "artifacts/api-server/dist/geography/${output_name}"
+          done
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

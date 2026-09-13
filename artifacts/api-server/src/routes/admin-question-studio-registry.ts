@@ -2,6 +2,13 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
+import adminQuestionStudioArgumentsCp015Router from "./admin-question-studio-arguments-cp015";
+import adminQuestionStudioArgumentsCp014Router from "./admin-question-studio-arguments-cp014";
+import adminQuestionStudioArgumentsCp013Router from "./admin-question-studio-arguments-cp013";
+import adminQuestionStudioArgumentsCp012Router from "./admin-question-studio-arguments-cp012";
+import adminQuestionStudioArgumentsCp010Router from "./admin-question-studio-arguments-cp010";
+import adminQuestionStudioArgumentsCp007Router from "./admin-question-studio-arguments-cp007-v2";
+import adminQuestionStudioArgumentsRouter from "./admin-question-studio-arguments";
 import adminQuestionStudioCom003Router from "./admin-question-studio-com003";
 import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
 import adminQuestionStudioEngineV1Router from "./admin-question-studio-engine-v1";
@@ -33,16 +40,24 @@ import adminQuestionStudioRouter from "./admin-question-studio";
 /**
  * Canonical Question Studio route registry.
  *
- * Specialized hardening and read-only routes run first. COM-003's dedicated
- * route exposes only its governed preview/status surface. SRI keeps ownership
- * of its established compatibility capabilities surface. The multi-engine V1
- * route then gives registered non-Quant engines first refusal before current
- * chapter/workflow routers and the legacy Quant/Reasoning catch-all.
+ * Specialized hardening/read-only and governed chapter routers run before the
+ * generic engine and legacy catch-all surfaces. ARG-001 CP015 is the current
+ * diversity-hardened internal authority; CP014/CP013/CP012/CP010/CP007 and the
+ * base ARG router remain historical fallbacks. COM-003, SRI and the multi-engine
+ * V1 route retain their current New-main ownership and ordering, followed by
+ * chapter/workflow routers and compatibility fallbacks.
  */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
+router.use(adminQuestionStudioArgumentsCp015Router);
+router.use(adminQuestionStudioArgumentsCp014Router);
+router.use(adminQuestionStudioArgumentsCp013Router);
+router.use(adminQuestionStudioArgumentsCp012Router);
+router.use(adminQuestionStudioArgumentsCp010Router);
+router.use(adminQuestionStudioArgumentsCp007Router);
+router.use(adminQuestionStudioArgumentsRouter);
 router.use(adminQuestionStudioCom003Router);
 router.use(adminQuestionStudioSriRouter);
 router.use(adminQuestionStudioEngineV1Router);
