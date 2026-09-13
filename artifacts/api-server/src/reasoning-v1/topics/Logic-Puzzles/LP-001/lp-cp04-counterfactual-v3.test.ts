@@ -39,6 +39,7 @@ for (const caselet of batch) {
     assert.notEqual(correct.person, condition.person);
     assert.equal(grouping.validStates.every((state: any) => state[correct.person] === correct.group), false);
     assert.equal(after.every((state: any) => state[correct.person] === correct.group), true);
+    assert.doesNotMatch(child.explanation.summary, /condition or conditions/i);
 
     if (caselet.difficultyBand === "Easy") {
       assert.equal(grouping.validStates.length, 2);
@@ -89,7 +90,8 @@ for (const caselet of batch) {
     assert.equal(after.every((state) => state[candidate] === targetValue), false, `${hard.caseletId}: Hard distractor is also must-true`);
   }
   assert.ok(child.explanation.lines.some((line: string) => line.includes(`${hard.validStates.length} valid committees`)));
-  assert.ok(child.explanation.lines.some((line: string) => /No single original clue/i.test(line)));
+  assert.ok(child.explanation.lines.at(-1)?.includes(child.answer));
+  assert.doesNotMatch(child.explanation.lines.join("\n"), /No single original clue/i);
 }
 
 assert.deepEqual(counts, new Map([["Easy", 4], ["Medium", 4], ["Hard", 4]]));
