@@ -60,10 +60,10 @@ for (const contract of COD_SOURCE_GAP_PERMANENT_CONTRACTS) {
     assert.equal(question.locale, "en-IN");
     assert.equal(question.prototypeOnly, false);
     assert.equal(question.reviewOnly, true);
-    assert.equal(question.questionStudioVisible, false);
+    assert.equal(question.questionStudioVisible, true);
     assert.equal(question.publiclyPublishable, false);
     assert.equal(question.metadata.reviewOnly, true);
-    assert.equal(question.metadata.questionStudioDiscoverable, false);
+    assert.equal(question.metadata.questionStudioDiscoverable, true);
     assert.equal(question.metadata.questionBankWritable, false);
     assert.equal(question.metadata.mockTestEligible, false);
     assert.equal(question.metadata.inferredCandidateCount, 1);
@@ -110,4 +110,6 @@ console.log(JSON.stringify({
   generatedQuestions: COD_SOURCE_GAP_PERMANENT_CONTRACTS.length * 240,
   sourceFixtures: COD_SOURCE_GAP_SOURCE_FIXTURES.length,
   explicitNonAllocations: COD_SOURCE_GAP_EXPLICIT_NON_ALLOCATIONS,
+  questionStudioVisible: true,
+  publiclyPublishable: false,
 }, null, 2));
