@@ -211,7 +211,7 @@ export const POL_CP002_COMMITTEE_ROWS_V1: readonly PolCp002CommitteeRow[] = Obje
     committee: "Provincial Constitution Committee",
     chair: "Vallabhbhai Patel",
     function: "reporting on the principles of a model provincial constitution",
-    sourceIds: ["COI-COMMITTEE-UNION-CONSTITUTION"],
+    sourceIds: ["COI-COMMITTEE-PROVINCIAL-CONSTITUTION"],
     sourceFactIds: ["pol-cp002-provincial-constitution-committee-chair"],
   },
   {
@@ -219,7 +219,7 @@ export const POL_CP002_COMMITTEE_ROWS_V1: readonly PolCp002CommitteeRow[] = Obje
     committee: "Advisory Committee on Fundamental Rights, Minorities and Tribal and Excluded Areas",
     chair: "Vallabhbhai Patel",
     function: "examining fundamental rights, minority safeguards and tribal/excluded-area questions",
-    sourceIds: ["COI-COMMITTEE-UNION-POWERS"],
+    sourceIds: ["CAD-1947-04-29-ADVISORY-COMMITTEE"],
     sourceFactIds: ["pol-cp002-advisory-committee-chair"],
   },
 ]);
