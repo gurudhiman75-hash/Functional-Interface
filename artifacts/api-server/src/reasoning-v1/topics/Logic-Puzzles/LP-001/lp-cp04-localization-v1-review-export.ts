@@ -1,15 +1,15 @@
 import { writeFileSync } from "node:fs";
-import { generateLpCp04LocalizedBatchV2, LP_CP04_HI_PA_LOCALIZATION_REVIEW_V2 } from "./lp-cp04-localization-v2.ts";
+import { generateLpCp04LocalizedBatchV3, LP_CP04_HI_PA_LOCALIZATION_REVIEW_V3 } from "./lp-cp04-localization-v3.ts";
 
-const seed = process.argv[2] || "lp-cp04-localization-v2-review";
+const seed = process.argv[2] || "lp-cp04-localization-v3-review";
 const perLanguage = Math.min(12, Math.max(3, Number(process.argv[3] || 9)));
-const outputPath = process.argv[4] || "lp-cp04-localization-v2-review.md";
+const outputPath = process.argv[4] || "lp-cp04-localization-v3-review.md";
 
 const lines: string[] = [
-  "# LP-QL-047 — Hindi / Punjabi Localization Review V2",
+  "# LP-QL-047 — Hindi / Punjabi Localization Review V3",
   "",
-  `Authority: ${LP_CP04_HI_PA_LOCALIZATION_REVIEW_V2.authorityId}`,
-  "Status: HUMAN REVIEW CANDIDATE V2 — REVIEW ONLY",
+  `Authority: ${LP_CP04_HI_PA_LOCALIZATION_REVIEW_V3.authorityId}`,
+  "Status: HUMAN REVIEW CANDIDATE V3 — REVIEW ONLY",
   "Source English authority: LP_CP04_ENGLISH_FREEZE_V1",
   "Permanent QL: LP-QL-047",
   "",
@@ -21,7 +21,7 @@ for (const language of ["hi", "pa"] as const) {
   const label = language === "hi" ? "Hindi" : "Punjabi";
   lines.push(`# ${label}`);
   lines.push("");
-  const caselets = generateLpCp04LocalizedBatchV2(language, `${seed}:${language}`, perLanguage);
+  const caselets = generateLpCp04LocalizedBatchV3(language, `${seed}:${language}`, perLanguage);
   caselets.forEach((caselet, index) => {
     const child = caselet.counterfactualChild;
     lines.push(`## ${label} ${index + 1} — ${caselet.difficultyBand}`);
