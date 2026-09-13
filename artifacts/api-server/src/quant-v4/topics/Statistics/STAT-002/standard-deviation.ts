@@ -188,7 +188,6 @@ function buildTranslation(seed: string, profile: Stat002ExamProfile): Draft {
   const data = generateExactData(`${seed}:translation`, profile);
   const random = seededRandom(`${seed}:${profile}:translation-constant`);
   const constant = pick(random, [5, 7, 9, 11, 13, 15]);
-  const transformed = data.values.map((value) => value + constant);
   const s = surface(`${seed}:translation`);
   const stems = [
     `The standard deviation of the observations ${list(data.values)} is ${data.standardDeviation}. If ${constant} is added to every observation, what will be the new standard deviation?`,
@@ -208,9 +207,9 @@ function buildTranslation(seed: string, profile: Stat002ExamProfile): Draft {
     explanation: {
       keyIdea: "Adding the same constant to every observation shifts the whole data set but does not change any deviation from the mean, so the standard deviation stays unchanged.",
       steps: [
-        `The new observations are ${list(transformed)} and their new mean is ${data.mean + constant}.`,
-        `Every value and the mean have both increased by ${constant}, so each deviation from the mean is unchanged.`,
-        `Therefore the new standard deviation is ${data.standardDeviation}.`,
+        `Every observation and the mean increase by the same amount, ${constant}.`,
+        `Therefore each value's deviation from the mean remains exactly the same.`,
+        `So the new standard deviation remains ${data.standardDeviation}.`,
       ],
     },
   };
