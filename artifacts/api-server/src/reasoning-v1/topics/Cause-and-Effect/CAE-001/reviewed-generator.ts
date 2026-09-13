@@ -2,7 +2,7 @@ import { generateCaeQuestion } from "./chapter-generator.ts";
 import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.ts";
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateCp007FalseCausationQuestion } from "./cp007-false-causation.ts";
-import { generateCp008MultiEventQuestion } from "./cp008-multi-event.ts";
+import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
 
 export type GenerateReviewedCaeQuestionInput = Readonly<{
@@ -37,7 +37,7 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
       : generateCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) {
-    return generateCp008MultiEventQuestion({ locale: input.locale, seed: input.seed });
+    return generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
   }
   return generateCaeQuestion(input);
 }
