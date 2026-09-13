@@ -37,6 +37,13 @@ export const GEO_PHY_001_CP004_FOUNDATION_FACTS_V1: readonly GeoPhy001Cp004FactR
     shortFact: "Central Highlands and Deccan Plateau are its two broad divisions",
     sourceFactIds: ["geo-phy-001-cp004-two-divisions"],
   },
+  {
+    id: "deccan-trap",
+    subject: "Peninsular Plateau",
+    fact: "The black-soil area known as the Deccan Trap is of volcanic origin and is formed from igneous rocks.",
+    shortFact: "Deccan Trap is a volcanic-origin black-soil area",
+    sourceFactIds: ["geo-phy-001-cp004-deccan-trap"],
+  },
 ]);
 
 export const GEO_PHY_001_CP004_CENTRAL_HIGHLANDS_FACTS_V1: readonly GeoPhy001Cp004FactRow[] = Object.freeze([
@@ -100,11 +107,25 @@ export const GEO_PHY_001_CP004_DECCAN_FACTS_V1: readonly GeoPhy001Cp004FactRow[]
     sourceFactIds: ["geo-phy-001-cp004-deccan-slope"],
   },
   {
+    id: "deccan-eastern-extensions",
+    subject: "Deccan Plateau",
+    fact: "The Mahadev Hills, Kaimur Hills and Maikal Range form prominent eastern extensions of the plateau.",
+    shortFact: "Mahadev, Kaimur and Maikal form eastern extensions",
+    sourceFactIds: ["geo-phy-001-cp004-deccan-eastern-extensions"],
+  },
+  {
     id: "deccan-ne-extension",
     subject: "Deccan Plateau",
     fact: "Its northeastern extension includes the Meghalaya and Karbi-Anglong plateaus and the North Cachar Hills.",
     shortFact: "northeastern extension includes Meghalaya and Karbi-Anglong plateaus and North Cachar Hills",
     sourceFactIds: ["geo-phy-001-cp004-deccan-northeast-extension"],
+  },
+  {
+    id: "deccan-ne-fault",
+    subject: "Northeastern plateau extension",
+    fact: "The northeastern extension is separated from the Chotanagpur Plateau by a fault.",
+    shortFact: "separated from Chotanagpur Plateau by a fault",
+    sourceFactIds: ["geo-phy-001-cp004-deccan-northeast-fault"],
   },
   {
     id: "garo-khasi-jaintia",
