@@ -1,0 +1,42 @@
+name: Reasoning Logic Puzzles Chapter Closure V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/**"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-logic-puzzles-closure-v2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  closure-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Reprove permanent LP-001 through LP-010 registry
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-permanent-freeze-v1.test.ts
+
+      - name: Prove LP-006 cross-attribute projection candidate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-006-projection-extension-v1.test.ts
+
+      - name: Export LP-006 projection review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-006-projection-extension-v1-review-export.ts > LP-006-PROJECTION-EXTENSION-V1-REVIEW.md
+
+      - name: Upload LP-006 projection review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: LP-006-PROJECTION-EXTENSION-V1-REVIEW
+          path: LP-006-PROJECTION-EXTENSION-V1-REVIEW.md
+          if-no-files-found: error
