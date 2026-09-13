@@ -6,7 +6,7 @@ import { generateCp006CausalDistanceQuestion } from "./cp006-causal-distance.ts"
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateReviewedCp007FalseCausationQuestion } from "./cp007-reviewed-visible-evidence.ts";
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
-import { generateReviewedCp009Question } from "./cp009-targeted-pair-polish.ts";
+import { generateReviewedCp009Question } from "./cp009-final-quality-guard.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
 
 export type GenerateReviewedCaeQuestionInput = Readonly<{
