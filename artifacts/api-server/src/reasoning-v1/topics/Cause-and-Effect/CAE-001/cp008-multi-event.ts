@@ -28,6 +28,7 @@ const MODES: readonly Cp008Mode[] = [
 ];
 
 const LABELS = ["P", "Q", "R", "S"] as const;
+type EventLabel = (typeof LABELS)[number];
 
 const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
   "en-IN": {
@@ -38,7 +39,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     finalEffect: "Which event is the most remote effect shown for {target}?",
     bridgeRole: "Which event is the immediate effect of {source} and also an indirect cause of {target}?",
     invalidRelation: "Which statement about the causal links is NOT supported?",
-    none: "None of these",
+    immediateClaim: "{source} is the immediate cause of {target}.",
     explanationSequence: "This order follows the causal chain step by step.",
     explanationImmediateCause: "This event directly produces the target event.",
     explanationImmediateEffect: "This event follows directly from the target event.",
@@ -55,7 +56,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     finalEffect: "{target} का यहाँ दिखाया गया सबसे दूर का प्रभाव कौन-सा है?",
     bridgeRole: "कौन-सी घटना {source} का तात्कालिक प्रभाव और साथ ही {target} का अप्रत्यक्ष कारण है?",
     invalidRelation: "कारणात्मक संबंधों के बारे में कौन-सा कथन समर्थित नहीं है?",
-    none: "इनमें से कोई नहीं",
+    immediateClaim: "{source}, {target} का तात्कालिक कारण है।",
     explanationSequence: "यह क्रम कारणात्मक श्रृंखला को चरण-दर-चरण दिखाता है।",
     explanationImmediateCause: "यह घटना लक्ष्य घटना को सीधे उत्पन्न करती है।",
     explanationImmediateEffect: "यह घटना लक्ष्य घटना के तुरंत बाद आती है।",
@@ -72,7 +73,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     finalEffect: "{target} ਦਾ ਇੱਥੇ ਦਿਖਾਇਆ ਸਭ ਤੋਂ ਦੂਰਲਾ ਪ੍ਰਭਾਵ ਕਿਹੜਾ ਹੈ?",
     bridgeRole: "ਕਿਹੜੀ ਘਟਨਾ {source} ਦਾ ਤੁਰੰਤ ਪ੍ਰਭਾਵ ਅਤੇ ਨਾਲ ਹੀ {target} ਦਾ ਅਪ੍ਰਤੱਖ ਕਾਰਨ ਹੈ?",
     invalidRelation: "ਕਾਰਨਾਤਮਕ ਸੰਬੰਧਾਂ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ?",
-    none: "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ",
+    immediateClaim: "{source}, {target} ਦਾ ਤੁਰੰਤ ਕਾਰਨ ਹੈ।",
     explanationSequence: "ਇਹ ਕ੍ਰਮ ਕਾਰਨਾਤਮਕ ਲੜੀ ਨੂੰ ਕਦਮ-ਦਰ-ਕਦਮ ਦਿਖਾਉਂਦਾ ਹੈ।",
     explanationImmediateCause: "ਇਹ ਘਟਨਾ ਟੀਚਾ ਘਟਨਾ ਨੂੰ ਸਿੱਧੇ ਤੌਰ ਤੇ ਪੈਦਾ ਕਰਦੀ ਹੈ।",
     explanationImmediateEffect: "ਇਹ ਘਟਨਾ ਟੀਚਾ ਘਟਨਾ ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ ਆਉਂਦੀ ਹੈ।",
@@ -128,8 +129,22 @@ export const CP008_MULTI_EVENT_WORLDS = Object.freeze(
   CAE_001_CAUSAL_WORLDS.filter((world) => rootToLeafFour(world) !== null),
 );
 
-function eventBlock(world: (typeof CAE_001_CAUSAL_WORLDS)[number], path: readonly string[], locale: CaeLocale): string {
-  return path.map((id, index) => `${LABELS[index]}. ${world.nodes.find((node) => node.id === id)!.text[locale]}`).join("\n");
+function labelsForPath(path: readonly string[], seed: number): ReadonlyMap<string, EventLabel> {
+  const assigned = shuffled(LABELS, seed ^ 0x8a11b3) as readonly EventLabel[];
+  return new Map(path.map((id, index) => [id, assigned[index]!] as const));
+}
+
+function eventBlock(
+  world: (typeof CAE_001_CAUSAL_WORLDS)[number],
+  path: readonly string[],
+  locale: CaeLocale,
+  labelsByNode: ReadonlyMap<string, EventLabel>,
+): string {
+  return LABELS.map((label) => {
+    const id = path.find((candidate) => labelsByNode.get(candidate) === label);
+    if (!id) throw new Error(`${world.id}: missing CP008 event for label ${label}.`);
+    return `${label}. ${world.nodes.find((node) => node.id === id)!.text[locale]}`;
+  }).join("\n");
 }
 
 function eventText(world: (typeof CAE_001_CAUSAL_WORLDS)[number], id: string, locale: CaeLocale): string {
@@ -166,7 +181,13 @@ export function generateCp008MultiEventQuestion(input: Readonly<{ locale: CaeLoc
   const mode = MODES[mix32(selectionSeed ^ 0x80) % MODES.length]!;
   const locale = input.locale;
   const copy = COPY[locale];
-  const block = eventBlock(world, path, locale);
+  const labelsByNode = labelsForPath(path, selectionSeed);
+  const labelOf = (id: string): EventLabel => {
+    const label = labelsByNode.get(id);
+    if (!label) throw new Error(`${world.id}/${mode}: no learner label for ${id}.`);
+    return label;
+  };
+  const block = eventBlock(world, path, locale, labelsByNode);
   let stem = "";
   let options: readonly CaeRenderedOption[] = [];
   let answerId = "";
@@ -194,7 +215,7 @@ export function generateCp008MultiEventQuestion(input: Readonly<{ locale: CaeLoc
     const answer = path[targetIndex - 1]!;
     answerId = answer;
     options = shuffled(path.map((id) => optionForEvent(world, id, locale, id === answer)), selectionSeed);
-    stem = `${fill(copy.immediateCause, { target: LABELS[targetIndex]! })}\n\n${block}`;
+    stem = `${fill(copy.immediateCause, { target: labelOf(target) })}\n\n${block}`;
     explanation = `${trim(eventText(world, answer, locale))} → ${trim(eventText(world, target, locale))}. ${copy.explanationImmediateCause}`;
   } else if (mode === "IMMEDIATE_EFFECT") {
     const sourceIndex = mix32(selectionSeed ^ 0x82) % 3;
@@ -202,36 +223,36 @@ export function generateCp008MultiEventQuestion(input: Readonly<{ locale: CaeLoc
     const answer = path[sourceIndex + 1]!;
     answerId = answer;
     options = shuffled(path.map((id) => optionForEvent(world, id, locale, id === answer)), selectionSeed);
-    stem = `${fill(copy.immediateEffect, { target: LABELS[sourceIndex]! })}\n\n${block}`;
+    stem = `${fill(copy.immediateEffect, { target: labelOf(source) })}\n\n${block}`;
     explanation = `${trim(eventText(world, source, locale))} → ${trim(eventText(world, answer, locale))}. ${copy.explanationImmediateEffect}`;
   } else if (mode === "EARLIEST_CAUSE") {
     const target = path[3]!;
     answerId = path[0]!;
     options = shuffled(path.map((id) => optionForEvent(world, id, locale, id === answerId)), selectionSeed);
-    stem = `${fill(copy.earliestCause, { target: "S" })}\n\n${block}`;
+    stem = `${fill(copy.earliestCause, { target: labelOf(target) })}\n\n${block}`;
     explanation = `${path.map((id) => trim(eventText(world, id, locale))).join(" → ")}. ${copy.explanationEarliest}`;
   } else if (mode === "FINAL_EFFECT") {
     const source = path[0]!;
     answerId = path[3]!;
     options = shuffled(path.map((id) => optionForEvent(world, id, locale, id === answerId)), selectionSeed);
-    stem = `${fill(copy.finalEffect, { target: "P" })}\n\n${block}`;
+    stem = `${fill(copy.finalEffect, { target: labelOf(source) })}\n\n${block}`;
     explanation = `${path.map((id) => trim(eventText(world, id, locale))).join(" → ")}. ${copy.explanationFinal}`;
   } else if (mode === "BRIDGE_ROLE") {
     answerId = path[1]!;
     options = shuffled(path.map((id) => optionForEvent(world, id, locale, id === answerId)), selectionSeed);
-    stem = `${fill(copy.bridgeRole, { source: "P", target: "S" })}\n\n${block}`;
+    stem = `${fill(copy.bridgeRole, { source: labelOf(path[0]!), target: labelOf(path[3]!) })}\n\n${block}`;
     explanation = `${trim(eventText(world, path[0]!, locale))} → ${trim(eventText(world, path[1]!, locale))} → … → ${trim(eventText(world, path[3]!, locale))}. ${copy.explanationBridge}`;
   } else {
     const claims = [
-      { id: "P_TO_Q", text: `${LABELS[0]} is the immediate cause of ${LABELS[1]}.`, correct: false },
-      { id: "Q_TO_R", text: `${LABELS[1]} is the immediate cause of ${LABELS[2]}.`, correct: false },
-      { id: "R_TO_S", text: `${LABELS[2]} is the immediate cause of ${LABELS[3]}.`, correct: false },
-      { id: "P_IMMEDIATE_S", text: `${LABELS[0]} is the immediate cause of ${LABELS[3]}.`, correct: true },
+      { id: "PATH_0_TO_1", source: path[0]!, target: path[1]!, correct: false },
+      { id: "PATH_1_TO_2", source: path[1]!, target: path[2]!, correct: false },
+      { id: "PATH_2_TO_3", source: path[2]!, target: path[3]!, correct: false },
+      { id: "PATH_0_IMMEDIATE_3", source: path[0]!, target: path[3]!, correct: true },
     ];
-    answerId = "P_IMMEDIATE_S";
+    answerId = "PATH_0_IMMEDIATE_3";
     options = shuffled(claims.map((claim) => ({
       id: claim.id,
-      text: claim.text,
+      text: fill(copy.immediateClaim, { source: labelOf(claim.source), target: labelOf(claim.target) }),
       isCorrect: claim.correct,
       distractorRole: claim.correct ? undefined : "INDIRECTNESS_CONFUSION" as const,
     })), selectionSeed);
@@ -243,8 +264,9 @@ export function generateCp008MultiEventQuestion(input: Readonly<{ locale: CaeLoc
   if (new Set(options.map((option) => option.text)).size !== options.length) throw new Error(`${world.id}/${mode}: CP008 options must be unique.`);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const derived = evidence(mode);
+  const labelSignature = path.map((id) => `${id}:${labelOf(id)}`).join(",");
   const causalStateId = `projection:CAE-PLAN-SEQUENCE-V2|world:${world.id}|mode:${mode}|path:${path.join(">")}`;
-  const itemVariantId = `${causalStateId}|presentation:${options.map((option) => option.id).join(">")}`;
+  const itemVariantId = `${causalStateId}|labels:${labelSignature}|presentation:${options.map((option) => option.id).join(">")}`;
 
   return Object.freeze({
     chapterId: "CAE-001",
