@@ -27,7 +27,7 @@ assert.equal(packageDef.metadata?.reviewOnly, true);
 const registered = listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001");
 assert.deepEqual(registered?.cpIds, [
   "ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003",
-  "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006",
+  "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007",
 ]);
 
 assert.equal(isEng001Cp006QuestionStudioRequestV1({ packageId: "ENG-001" }), false);

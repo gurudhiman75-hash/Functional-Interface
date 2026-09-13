@@ -11,155 +11,74 @@ export type Eng001CpId =
   | "ENG-001-CP003"
   | "ENG-001-CP004"
   | "ENG-001-CP005"
-  | "ENG-001-CP006";
+  | "ENG-001-CP006"
+  | "ENG-001-CP007";
 
 export type SvaRuleId =
-  | "GR-SVA-001"
-  | "GR-SVA-002"
-  | "GR-SVA-003"
-  | "GR-SVA-004"
-  | "GR-SVA-005"
-  | "GR-SVA-006"
-  | "GR-SVA-007"
-  | "GR-SVA-008"
-  | "GR-SVA-009"
-  | "GR-SVA-010";
+  | "GR-SVA-001" | "GR-SVA-002" | "GR-SVA-003" | "GR-SVA-004" | "GR-SVA-005"
+  | "GR-SVA-006" | "GR-SVA-007" | "GR-SVA-008" | "GR-SVA-009" | "GR-SVA-010";
 
 export type TenseRuleId =
-  | "GR-TNS-001"
-  | "GR-TNS-002"
-  | "GR-TNS-003"
-  | "GR-TNS-004"
-  | "GR-TNS-005"
-  | "GR-TNS-006"
-  | "GR-TNS-007"
-  | "GR-TNS-008"
-  | "GR-TNS-009"
-  | "GR-TNS-010";
+  | "GR-TNS-001" | "GR-TNS-002" | "GR-TNS-003" | "GR-TNS-004" | "GR-TNS-005"
+  | "GR-TNS-006" | "GR-TNS-007" | "GR-TNS-008" | "GR-TNS-009" | "GR-TNS-010";
 
 export type ArticleRuleId =
-  | "GR-ART-001"
-  | "GR-ART-002"
-  | "GR-ART-003"
-  | "GR-ART-004"
-  | "GR-ART-005"
-  | "GR-ART-006"
-  | "GR-ART-007"
-  | "GR-ART-008"
-  | "GR-ART-009"
-  | "GR-ART-010";
+  | "GR-ART-001" | "GR-ART-002" | "GR-ART-003" | "GR-ART-004" | "GR-ART-005"
+  | "GR-ART-006" | "GR-ART-007" | "GR-ART-008" | "GR-ART-009" | "GR-ART-010";
 
 export type PronounRuleId =
-  | "GR-PRN-001"
-  | "GR-PRN-002"
-  | "GR-PRN-003"
-  | "GR-PRN-004"
-  | "GR-PRN-005"
-  | "GR-PRN-006"
-  | "GR-PRN-007"
-  | "GR-PRN-008"
-  | "GR-PRN-009"
-  | "GR-PRN-010";
+  | "GR-PRN-001" | "GR-PRN-002" | "GR-PRN-003" | "GR-PRN-004" | "GR-PRN-005"
+  | "GR-PRN-006" | "GR-PRN-007" | "GR-PRN-008" | "GR-PRN-009" | "GR-PRN-010";
 
 export type PrepositionRuleId =
-  | "GR-PRP-001"
-  | "GR-PRP-002"
-  | "GR-PRP-003"
-  | "GR-PRP-004"
-  | "GR-PRP-005"
-  | "GR-PRP-006"
-  | "GR-PRP-007"
-  | "GR-PRP-008"
-  | "GR-PRP-009"
-  | "GR-PRP-010";
+  | "GR-PRP-001" | "GR-PRP-002" | "GR-PRP-003" | "GR-PRP-004" | "GR-PRP-005"
+  | "GR-PRP-006" | "GR-PRP-007" | "GR-PRP-008" | "GR-PRP-009" | "GR-PRP-010";
 
 export type ComparisonRuleId =
-  | "GR-CMP-001"
-  | "GR-CMP-002"
-  | "GR-CMP-003"
-  | "GR-CMP-004"
-  | "GR-CMP-005"
-  | "GR-CMP-006"
-  | "GR-CMP-007"
-  | "GR-CMP-008"
-  | "GR-CMP-009"
-  | "GR-CMP-010";
+  | "GR-CMP-001" | "GR-CMP-002" | "GR-CMP-003" | "GR-CMP-004" | "GR-CMP-005"
+  | "GR-CMP-006" | "GR-CMP-007" | "GR-CMP-008" | "GR-CMP-009" | "GR-CMP-010";
 
-export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId | PrepositionRuleId | ComparisonRuleId;
+export type ConjunctionRuleId =
+  | "GR-CON-001" | "GR-CON-002" | "GR-CON-003" | "GR-CON-004" | "GR-CON-005"
+  | "GR-CON-006" | "GR-CON-007" | "GR-CON-008" | "GR-CON-009" | "GR-CON-010";
+
+export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId | PrepositionRuleId | ComparisonRuleId | ConjunctionRuleId;
 
 export type SvaMutationId =
-  | "MUT-SVA-NUMBER-001"
-  | "MUT-SVA-EACH-EVERY-001"
-  | "MUT-SVA-ONE-OF-001"
-  | "MUT-SVA-NUMBER-PHRASE-001"
-  | "MUT-SVA-ADDITIVE-PHRASE-001"
-  | "MUT-SVA-PROXIMITY-001"
-  | "MUT-SVA-COLLECTIVE-001"
-  | "MUT-SVA-MORE-THAN-ONE-001"
-  | "MUT-SVA-MANY-A-001"
-  | "MUT-SVA-INTERVENING-PP-001";
+  | "MUT-SVA-NUMBER-001" | "MUT-SVA-EACH-EVERY-001" | "MUT-SVA-ONE-OF-001" | "MUT-SVA-NUMBER-PHRASE-001"
+  | "MUT-SVA-ADDITIVE-PHRASE-001" | "MUT-SVA-PROXIMITY-001" | "MUT-SVA-COLLECTIVE-001"
+  | "MUT-SVA-MORE-THAN-ONE-001" | "MUT-SVA-MANY-A-001" | "MUT-SVA-INTERVENING-PP-001";
 
 export type TenseMutationId =
-  | "MUT-TNS-PAST-TIME-001"
-  | "MUT-TNS-CONTINUING-ACTION-001"
-  | "MUT-TNS-HABIT-001"
-  | "MUT-TNS-CURRENT-ACTION-001"
-  | "MUT-TNS-STATIVE-CONTINUOUS-001"
-  | "MUT-TNS-DID-BASE-001"
-  | "MUT-TNS-PAST-SEQUENCE-001"
-  | "MUT-TNS-PAST-INTERRUPTION-001"
-  | "MUT-TNS-SINGLE-PAST-001"
-  | "MUT-TNS-STATIVE-DURATION-001";
+  | "MUT-TNS-PAST-TIME-001" | "MUT-TNS-CONTINUING-ACTION-001" | "MUT-TNS-HABIT-001" | "MUT-TNS-CURRENT-ACTION-001"
+  | "MUT-TNS-STATIVE-CONTINUOUS-001" | "MUT-TNS-DID-BASE-001" | "MUT-TNS-PAST-SEQUENCE-001"
+  | "MUT-TNS-PAST-INTERRUPTION-001" | "MUT-TNS-SINGLE-PAST-001" | "MUT-TNS-STATIVE-DURATION-001";
 
 export type ArticleMutationId =
-  | "MUT-ART-INDEFINITE-001"
-  | "MUT-ART-SOUND-001"
-  | "MUT-ART-SUPERLATIVE-001"
-  | "MUT-ART-UNIQUE-001"
-  | "MUT-ART-ZERO-GENERAL-001"
-  | "MUT-ART-PROFESSION-001"
-  | "MUT-ART-INSTITUTION-001"
-  | "MUT-ART-GEOGRAPHY-001"
-  | "MUT-ART-COUNTABILITY-001"
-  | "MUT-ART-DETERMINER-NUMBER-001";
+  | "MUT-ART-INDEFINITE-001" | "MUT-ART-SOUND-001" | "MUT-ART-SUPERLATIVE-001" | "MUT-ART-UNIQUE-001"
+  | "MUT-ART-ZERO-GENERAL-001" | "MUT-ART-PROFESSION-001" | "MUT-ART-INSTITUTION-001" | "MUT-ART-GEOGRAPHY-001"
+  | "MUT-ART-COUNTABILITY-001" | "MUT-ART-DETERMINER-NUMBER-001";
 
 export type PronounMutationId =
-  | "MUT-PRN-SUBJECT-CASE-001"
-  | "MUT-PRN-OBJECT-CASE-001"
-  | "MUT-PRN-POSSESSIVE-FORM-001"
-  | "MUT-PRN-REFLEXIVE-COREFERENCE-001"
-  | "MUT-PRN-REFLEXIVE-MISUSE-001"
-  | "MUT-PRN-ANTECEDENT-NUMBER-001"
-  | "MUT-PRN-WHO-WHOM-001"
-  | "MUT-PRN-RELATIVE-PERSON-THING-001"
-  | "MUT-PRN-DEMONSTRATIVE-NUMBER-001"
-  | "MUT-PRN-WHOSE-WHOS-001";
+  | "MUT-PRN-SUBJECT-CASE-001" | "MUT-PRN-OBJECT-CASE-001" | "MUT-PRN-POSSESSIVE-FORM-001" | "MUT-PRN-REFLEXIVE-COREFERENCE-001"
+  | "MUT-PRN-REFLEXIVE-MISUSE-001" | "MUT-PRN-ANTECEDENT-NUMBER-001" | "MUT-PRN-WHO-WHOM-001" | "MUT-PRN-RELATIVE-PERSON-THING-001"
+  | "MUT-PRN-DEMONSTRATIVE-NUMBER-001" | "MUT-PRN-WHOSE-WHOS-001";
 
 export type PrepositionMutationId =
-  | "MUT-PRP-TIME-001"
-  | "MUT-PRP-PLACE-001"
-  | "MUT-PRP-SINCE-FOR-001"
-  | "MUT-PRP-BY-UNTIL-001"
-  | "MUT-PRP-BETWEEN-AMONG-001"
-  | "MUT-PRP-IN-INTO-001"
-  | "MUT-PRP-BESIDE-BESIDES-001"
-  | "MUT-PRP-ADJECTIVE-COMPLEMENT-001"
-  | "MUT-PRP-VERB-COMPLEMENT-001"
-  | "MUT-PRP-NOUN-COMPLEMENT-001";
+  | "MUT-PRP-TIME-001" | "MUT-PRP-PLACE-001" | "MUT-PRP-SINCE-FOR-001" | "MUT-PRP-BY-UNTIL-001" | "MUT-PRP-BETWEEN-AMONG-001"
+  | "MUT-PRP-IN-INTO-001" | "MUT-PRP-BESIDE-BESIDES-001" | "MUT-PRP-ADJECTIVE-COMPLEMENT-001" | "MUT-PRP-VERB-COMPLEMENT-001" | "MUT-PRP-NOUN-COMPLEMENT-001";
 
 export type ComparisonMutationId =
-  | "MUT-CMP-ADVERB-MANNER-001"
-  | "MUT-CMP-LINKING-ADJECTIVE-001"
-  | "MUT-CMP-AS-AS-001"
-  | "MUT-CMP-COMPARATIVE-THAN-001"
-  | "MUT-CMP-SUPERLATIVE-ARTICLE-001"
-  | "MUT-CMP-ONE-OF-SUPERLATIVE-001"
-  | "MUT-CMP-DOUBLE-COMPARATIVE-001"
-  | "MUT-CMP-DOUBLE-SUPERLATIVE-001"
-  | "MUT-CMP-COMPARATIVE-INTENSIFIER-001"
-  | "MUT-CMP-IRREGULAR-DEGREE-001";
+  | "MUT-CMP-ADVERB-MANNER-001" | "MUT-CMP-LINKING-ADJECTIVE-001" | "MUT-CMP-AS-AS-001" | "MUT-CMP-COMPARATIVE-THAN-001"
+  | "MUT-CMP-SUPERLATIVE-ARTICLE-001" | "MUT-CMP-ONE-OF-SUPERLATIVE-001" | "MUT-CMP-DOUBLE-COMPARATIVE-001"
+  | "MUT-CMP-DOUBLE-SUPERLATIVE-001" | "MUT-CMP-COMPARATIVE-INTENSIFIER-001" | "MUT-CMP-IRREGULAR-DEGREE-001";
 
-export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId | PrepositionMutationId | ComparisonMutationId;
+export type ConjunctionMutationId =
+  | "MUT-CON-COORDINATOR-001" | "MUT-CON-BOTH-AND-001" | "MUT-CON-EITHER-OR-001" | "MUT-CON-NEITHER-NOR-001"
+  | "MUT-CON-NOT-ONLY-BUT-ALSO-001" | "MUT-CON-ALTHOUGH-BUT-001" | "MUT-CON-BECAUSE-BECAUSE-OF-001"
+  | "MUT-CON-DESPITE-ALTHOUGH-001" | "MUT-CON-PARALLEL-LIST-001" | "MUT-CON-PARALLEL-CORRELATIVE-001";
+
+export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId | PrepositionMutationId | ComparisonMutationId | ConjunctionMutationId;
 
 export interface DifficultyDimensions {
   ruleComplexity: 1 | 2 | 3 | 4 | 5;
@@ -172,7 +91,7 @@ export interface DifficultyDimensions {
 
 export interface EnglishGrammarRule {
   ruleId: GrammarRuleId;
-  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns" | "prepositions" | "adjectives_adverbs_comparison";
+  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns" | "prepositions" | "adjectives_adverbs_comparison" | "conjunctions_parallelism";
   name: string;
   principle: string;
   mutationId: GrammarMutationId;
