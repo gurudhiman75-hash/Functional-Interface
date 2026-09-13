@@ -8,6 +8,7 @@ import { CP002_EDITORIAL_LOAN_A } from "./CP002-editorial-loan-a";
 import { CP002_EDITORIAL_LOAN_B } from "./CP002-editorial-loan-b";
 import { CP002_EDITORIAL_CLUSTERS } from "./CP002-editorial-clusters";
 import { hardenCP002Authority } from "./CP002-distractor-hardening";
+import { hardenCP002LoanwordAuthority } from "./CP002-loanword-hardening";
 import type { ExtendedSpellingCategory } from "./CP002-extended-types";
 
 export type ActiveSpellingAuthority = {
@@ -34,7 +35,9 @@ const RAW_CP002_ACTIVE_AUTHORITIES: readonly ActiveSpellingAuthority[] = [
 ] as const;
 
 export const CP002_ACTIVE_AUTHORITIES: readonly ActiveSpellingAuthority[] =
-  RAW_CP002_ACTIVE_AUTHORITIES.map((authority) => hardenCP002Authority(authority));
+  RAW_CP002_ACTIVE_AUTHORITIES
+    .map((authority) => hardenCP002Authority(authority))
+    .map((authority) => hardenCP002LoanwordAuthority(authority));
 
 export const CP002_CONTEXT_AUTHORITIES: readonly ActiveSpellingAuthority[] =
   CP002_ACTIVE_AUTHORITIES.filter((authority): authority is ActiveSpellingAuthority & { contextPa: string } =>
