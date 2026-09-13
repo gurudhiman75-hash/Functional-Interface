@@ -32,7 +32,7 @@ for (const qlId of qlIds) {
       );
       assert.doesNotMatch(
         explanationText,
-        /(?:विपरीत वर्णमाला अक्षर|ਉਲਟ ਵਰਣਮਾਲਾ ਅੱਖਰ)/u,
+        /(?:विपरीत वर्णमाला अक्षर|ਉਲਟ ਵਰਣਮਾਲਾ ਅੱਖਰ|वर्णमाला का उसका विपरीत अक्षर|ਵਰਣਮਾਲਾ ਦਾ ਉਸ ਦਾ ਉਲਟ ਅੱਖਰ)/u,
         `${qlId}/${locale}/${seed} uses awkward opposite-alphabet phrasing`,
       );
 
@@ -47,6 +47,9 @@ for (const qlId of qlIds) {
       }
 
       if (qlId === "COD-QL-203") {
+        if (locale === "hi-IN") assert.match(explanationText, /वर्णमाला में उसका विपरीत अक्षर/u);
+        else assert.match(explanationText, /ਵਰਣਮਾਲਾ ਵਿੱਚ ਉਸ ਦਾ ਉਲਟ ਅੱਖਰ/u);
+
         const mappingLines = strings(question.explanation).filter((line) => /→/u.test(line) && /[,:]/u.test(line));
         for (const line of mappingLines) {
           assert.doesNotMatch(line, /[A-Z0-9]\.$/u, `${qlId}/${locale}/${seed} ends a native mapping line with English full stop`);
