@@ -90,6 +90,10 @@ for (const id of qlIds) {
       assert.equal(localized.options.map(optionIsCorrect).filter(Boolean).length, 1);
       assert.equal(optionIsCorrect(localized.options[localized.correctIndex]), true);
 
+      const explanation = localized.explanation as Record<string, unknown>;
+      assert.equal(explanation.pedagogicalPresentation, undefined, `${id}/${locale}/${seed} received generic pedagogy contamination`);
+      assert.equal(explanation.schemaVersion, undefined, `${id}/${locale}/${seed} received generic pedagogy schema`);
+
       const text = instructionalText(localized);
       assert.ok(localized.stem.length >= 45, `${id}/${locale}/${seed} stem is too short`);
       assert.ok(stableStringify(localized.explanation).length >= 150, `${id}/${locale}/${seed} explanation is too thin`);
@@ -102,7 +106,7 @@ for (const id of qlIds) {
         assert.doesNotMatch(text, /[\u0A00-\u0A7F]/u, `${id}/${locale}/${seed} leaks Gurmukhi`);
       } else {
         assert.match(text, /[\u0A00-\u0A7F]/u, `${id}/${locale}/${seed} lacks Gurmukhi`);
-        assert.doesNotMatch(text, /[\u0900-\u097F]/u, `${id}/${locale}/${seed} leaks Devanagari`);
+        assert.doesNotMatch(text, /[\u0900-\u0963\u0970-\u097F]/u, `${id}/${locale}/${seed} leaks Devanagari letters`);
         assert.doesNotMatch(text, /(?:^|[\s।,:;!?])(?:ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ)(?=$|[\s।,:;!?])/u);
       }
 
@@ -141,6 +145,7 @@ console.log(JSON.stringify({
   solverPromptParity: true,
   optionParity: true,
   hiddenFingerprintParity: true,
+  genericPedagogyContamination: false,
   reviewOnly: true,
   questionStudioVisible: false,
   publiclyPublishable: false,
