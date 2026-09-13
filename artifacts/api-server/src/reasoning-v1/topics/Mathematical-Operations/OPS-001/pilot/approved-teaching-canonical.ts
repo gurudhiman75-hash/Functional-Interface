@@ -8,6 +8,10 @@ import {
   generateAuditMappingCandidate,
   supportsAuditGeneratedMappingCandidate,
 } from "./audit-generated-mappings";
+import {
+  generateAuditInterchangeCandidate,
+  supportsAuditGeneratedInterchangeCandidate,
+} from "./audit-generated-interchange";
 import { generateAuditCompoundCandidate } from "./audit-generated-compound";
 
 export { OPS_APPROVED_CANDIDATE_IDS };
@@ -22,6 +26,9 @@ export function generateApprovedOpsQuestion(
   }
   if (supportsAuditGeneratedMappingCandidate(candidateId)) {
     return generateAuditMappingCandidate(candidateId, seed);
+  }
+  if (supportsAuditGeneratedInterchangeCandidate(candidateId)) {
+    return generateAuditInterchangeCandidate(candidateId, seed);
   }
   if (candidateId === "OPS-CAND-028" || candidateId === "OPS-CAND-029") {
     return generateAuditCompoundCandidate(candidateId, seed);
