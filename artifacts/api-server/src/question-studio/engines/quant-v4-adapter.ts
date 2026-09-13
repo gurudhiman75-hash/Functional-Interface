@@ -7,6 +7,11 @@ import {
   isStat001QuestionStudioRequest,
   stat001QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-001/question-studio-adapter";
+import {
+  generateStat002QuestionStudioBatch,
+  isStat002QuestionStudioRequest,
+  stat002QuestionStudioPackageCard,
+} from "../../quant-v4/topics/Statistics/STAT-002/question-studio-adapter";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -79,6 +84,10 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
       typeof pkg.automaticStudentPublication === "boolean"
         ? pkg.automaticStudentPublication
         : undefined,
+    productionReleaseAuthorized:
+      typeof pkg.productionReleaseAuthorized === "boolean"
+        ? pkg.productionReleaseAuthorized
+        : undefined,
     manualApprovalRequired:
       typeof pkg.manualApprovalRequired === "boolean"
         ? pkg.manualApprovalRequired
@@ -94,7 +103,7 @@ function normalizeStatExamProfile(value: unknown) {
   return undefined;
 }
 
-function toStat001Request(request: QuestionStudioGenerationRequest) {
+function toStatRequest(request: QuestionStudioGenerationRequest) {
   return {
     packageId: request.packageId,
     patternId: request.patternId,
@@ -124,15 +133,25 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
         ),
       );
     }
+    if (!packages.some((pkg) => pkg.packageId === "STAT-002")) {
+      packages.push(
+        toSharedPackage(
+          stat002QuestionStudioPackageCard() as unknown as Record<string, unknown>,
+        ),
+      );
+    }
     return packages.sort((left, right) => left.packageId.localeCompare(right.packageId));
   },
 
   async generate(
     request: QuestionStudioGenerationRequest,
   ): Promise<QuestionStudioGenerationResult> {
-    const stat001Request = toStat001Request(request);
-    if (isStat001QuestionStudioRequest(stat001Request)) {
-      return generateStat001QuestionStudioBatch(stat001Request) as unknown as QuestionStudioGenerationResult;
+    const statRequest = toStatRequest(request);
+    if (isStat002QuestionStudioRequest(statRequest)) {
+      return generateStat002QuestionStudioBatch(statRequest) as unknown as QuestionStudioGenerationResult;
+    }
+    if (isStat001QuestionStudioRequest(statRequest)) {
+      return generateStat001QuestionStudioBatch(statRequest) as unknown as QuestionStudioGenerationResult;
     }
 
     const result = await generateQuantV4Question({

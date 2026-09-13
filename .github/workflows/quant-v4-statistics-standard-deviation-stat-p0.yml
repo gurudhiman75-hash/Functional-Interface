@@ -1,0 +1,59 @@
+name: Quant V4 Statistics standard deviation STAT P0
+
+on:
+  push:
+    branches:
+      - feature/stat-002-standard-deviation-p0
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-statistics-stat002-p0-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  statistics-standard-deviation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Package namespace and lifecycle guard
+        run: |
+          test -d artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002
+          ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002
+      - name: Standard deviation deterministic proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/standard-deviation.test.ts
+      - name: Question Studio controlled-review integration
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/question-studio-integration.test.ts
+      - name: Export deterministic human review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/export-review.ts STAT-002-REVIEW-P0.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stat-002-standard-deviation-review-p0
+          path: STAT-002-REVIEW-P0.md
+          if-no-files-found: error
+          retention-days: 30
+      - name: API server build
+        run: pnpm --filter @workspace/api-server build
+      - name: Patch hygiene
+        run: git diff --check
