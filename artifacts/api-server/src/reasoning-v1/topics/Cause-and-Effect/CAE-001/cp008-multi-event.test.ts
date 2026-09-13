@@ -79,6 +79,6 @@ assert.equal(studio.reviewOnly, true);
 
 assert.throws(
   () => generateReviewedCaeQuestion({ qlId: "CAE-QL-008", locale: "en-IN", seed: 8, questionProfile: "FIVE_WAY" }),
-  /does not support profile 'FIVE_WAY'/,
+  /question profile 'FIVE_WAY' is not allowed/,
   "CP008 is four-way-only; unsupported five-way requests must fail closed",
 );
