@@ -93,18 +93,21 @@ The follow-up micro-audit found that the original remediation had expanded CP006
 
 The CP006/CP007 gate measures visible `stem + options`; the CP005 gate directly measures source-word exposure because the governed word itself is the principal fatigue surface.
 
-### 6. Misconception-owned distractors
+### 6. Completed-state misconception distractors
 
-Advanced options retain the remediation that constructs wrong values together with their mistake labels rather than assigning a generic label after random selection.
+The follow-up micro-audit found that the first remediation still generated many wrong options from the **answer type** (`answer ± 1`, neighbouring alphabet letters, arbitrary pool values) and only attached better labels afterward. That did not fully close P1 #7.
 
-The final gate rejects the old post-hoc labels:
+The advanced runtime now uses `completion/distractors-v2.ts`. It receives the completed solve state and derives wrong answers from concrete learner mistakes before the final option order is shuffled. Representative models include:
 
-- `SOURCE_ROW_EARLY`;
-- `OPPOSITE_REFERENCE`;
-- `WRONG_FINAL_CONDITION`;
-- `DOMAIN_VALID_FALLBACK` in audited advanced output.
+- CP006: count only forward/backward qualifying pairs, ignore the direction restriction, miss/add one qualifying pair, or choose a visible pair whose row gap and natural-order gap disagree;
+- CP007: read the source letter before the class transformation, stop after the first stage, read a neighbouring final slot, count changed positions instead of unchanged positions, or count a sorted position from the wrong end;
+- CP008: count a digit from the wrong end, report an inverse position from the wrong end, read the same slot before sorting/reversal/swap, select a neighbouring final digit, or count moved positions instead of unchanged positions;
+- CP009: reverse the requested adjacency, forget a vowel/even-digit filter, count the requested category from the wrong end, or—in compound windows—check only the predecessor, only the successor, reverse the outer classes, or accept invalid same-class flanks;
+- CP010: read the original row instead of the transformed row, use a neighbouring final position, report the pre-grouping token position, count changed instead of unchanged positions, scan adjacency before the transform, or reverse the final adjacency order.
 
-For the new compound-window scans, distractor explanations are generated from the completed three-token scan and explicitly state that the wrong count omits or adds a qualifying window.
+For rare seeds where several misconception states collapse to the same visible value, the filler is restricted to a distinct token already visible in the generated source/final state; arbitrary alphabet/number neighbours are not invented. CP007 opposite-letter generation exposes both source and final visible tokens to this state-aware fallback, which removes the low-diversity failure found by the first adversarial run.
+
+The dedicated `alp-001-distractor-provenance.test.ts` gate now sweeps every advanced QL over 64 seeds, requires four distinct options, rejects the old generic answer-type/post-hoc labels, and separately proves representative misconception provenance for CP008 post-transform reads, CP009 direct positioning and compound windows, and CP010 in-place/composite transforms.
 
 ### 7. Question Studio controls
 
@@ -123,7 +126,8 @@ The ALP chapter workflow now proves:
 
 - CP005 governed reservoir size/uniqueness, odd/even depth and >=95/100 source-word exposure for every CP005 QL;
 - CP006/CP007 governed word-pool size/uniqueness and >=95/100 visible-fatigue diversity;
-- absence of legacy/fallback advanced distractor labels;
+- absence of legacy/fallback advanced distractor labels and completed-state provenance across every advanced QL over a 64-seed sweep;
+- explicit wrong-stage/wrong-end/window-condition provenance for representative CP008–CP010 families;
 - real instance-derived difficulty variation for composite QLs;
 - row length alone cannot promote difficulty, while CP005 no longer uses source-word length as an escalation lever;
 - mixed-row length/category-profile diversity;
@@ -135,7 +139,7 @@ The ALP chapter workflow now proves:
 - controlled SSC/Punjab generation satisfies requested difficulty/profile;
 - unsupported five-option Banking generation fails closed.
 
-The complete ALP-001 chapter workflow and retained CP001–CP005 regressions are green on the remediation branch. Lifecycle promotion is still deliberately blocked.
+The complete ALP-001 chapter workflow, the completed-state distractor provenance gate and retained CP001–CP005 regressions are green on the remediation branch. Lifecycle promotion is still deliberately blocked.
 
 ## Word-formation ownership gate
 
