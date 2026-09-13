@@ -93,7 +93,7 @@ const reviewLifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 assert.ok(eng001);
 assert.equal(eng001.engineId, "language-v1");
 assert.equal(eng001.enabled, true);
-assert.deepEqual(eng001.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005"]);
+assert.deepEqual(eng001.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006"]);
 assert.deepEqual(eng001.supportedLanguages, ["en"]);
 assert.deepEqual(eng001.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(eng001.runtimeMode, "review-only");
@@ -193,4 +193,21 @@ assert.equal(eng001Cp005Result.questions.every((question) => question.cpId === "
 assert.equal(eng001Cp005Result.questions.every((question) => String(question.ruleId).startsWith("GR-PRP-")), true);
 assert.equal(eng001Cp005Result.questions.every((question) => question.reviewOnly === true), true);
 
-console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005=review-only");
+const eng001Cp006Result = await generateQuestionStudioQuestions({
+  packageId: "ENG-001",
+  canonicalProblemId: "ENG-001-CP006",
+  subtopic: "Adjectives, Adverbs and Comparison",
+  language: "en",
+  difficulty: "Hard",
+  runtimeMode: "review-only",
+  count: 2,
+  seed: "engine-registry-eng001-cp006-smoke",
+});
+assert.equal(eng001Cp006Result.questions.length, 2);
+assert.equal(eng001Cp006Result.generationContext.cpId, "ENG-001-CP006");
+assert.equal(eng001Cp006Result.generationContext.questionBankWritable, false);
+assert.equal(eng001Cp006Result.questions.every((question) => question.cpId === "ENG-001-CP006"), true);
+assert.equal(eng001Cp006Result.questions.every((question) => String(question.ruleId).startsWith("GR-CMP-")), true);
+assert.equal(eng001Cp006Result.questions.every((question) => question.reviewOnly === true), true);
+
+console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006=review-only");

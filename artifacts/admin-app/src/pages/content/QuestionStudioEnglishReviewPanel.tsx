@@ -105,6 +105,19 @@ const PREPOSITION_RULES = [
   ['GR-PRP-010', 'Noun + preposition complements'],
 ] as const;
 
+const COMPARISON_RULES = [
+  ['GR-CMP-001', 'Adverb for manner after an action verb'],
+  ['GR-CMP-002', 'Adjective after a linking verb'],
+  ['GR-CMP-003', 'Positive degree in as ... as'],
+  ['GR-CMP-004', 'Comparative degree with than'],
+  ['GR-CMP-005', 'The with ordinary superlatives'],
+  ['GR-CMP-006', 'One of the + superlative + plural noun'],
+  ['GR-CMP-007', 'Avoid double comparatives'],
+  ['GR-CMP-008', 'Avoid double superlatives'],
+  ['GR-CMP-009', 'Standard comparative intensifiers'],
+  ['GR-CMP-010', 'Irregular degrees of comparison'],
+] as const;
+
 const CPS = [
   {
     id: 'ENG-001-CP001',
@@ -145,6 +158,14 @@ const CPS = [
     version: 'V1',
     ruleLabel: 'preposition',
     rules: PREPOSITION_RULES,
+  },
+  {
+    id: 'ENG-001-CP006',
+    label: 'CP006 · Adjectives, Adverbs and Comparison',
+    subtopic: 'Adjectives, Adverbs and Comparison',
+    version: 'V1',
+    ruleLabel: 'comparison',
+    rules: COMPARISON_RULES,
   },
 ] as const;
 
@@ -308,13 +329,13 @@ export function QuestionStudioEnglishReviewPanel() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="border-success/30 text-success">Human-approved content</Badge>
-            <Badge variant="outline">5 CPs · 3 QLs · 50 grammar rules</Badge>
+            <Badge variant="outline">6 CPs · 3 QLs · 60 grammar rules</Badge>
             <Badge variant="outline">Easy / Medium / Hard</Badge>
             <Badge variant="outline" className="border-warning/30 text-warning">Review-only</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          CP001, CP002, CP003, CP004 and CP005 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
+          CP001, CP002, CP003, CP004, CP005 and CP006 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
         </div>
       </CardHeader>
 
@@ -380,7 +401,7 @@ export function QuestionStudioEnglishReviewPanel() {
           <div className="mb-3 grid gap-3 md:grid-cols-[1fr_minmax(18rem,32rem)] md:items-end">
             <div>
               <p className="text-sm font-semibold">Recent ENG-001 review runs</p>
-              <p className="text-xs text-muted-foreground">CP001, CP002, CP003, CP004 and CP005 share this existing review surface. Approved items cannot enter Question Bank from this package.</p>
+              <p className="text-xs text-muted-foreground">CP001 through CP006 share this existing review surface. Approved items cannot enter Question Bank from this package.</p>
             </div>
             <Field label="Reason for Needs fix / Reject">
               <Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the grammar, wording, explanation, ambiguity, or difficulty issue" />
