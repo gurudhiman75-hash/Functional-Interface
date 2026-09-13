@@ -4,7 +4,8 @@ Status: **CLOSED FOR ENGLISH IDENTITY — FOUR PERMANENT QLs ALLOCATED; LOCALIZA
 
 Date: 2026-09-13
 
-Current allocation authority: `COD_SOURCE_GAP_DISCOVERY_FREEZE_V1` + `COD-001-MANIFEST-AMENDMENT-SOURCE-GAP-V1.md`
+Current allocation authority: `COD_SOURCE_GAP_DISCOVERY_FREEZE_V1` + `COD-001-MANIFEST-AMENDMENT-SOURCE-GAP-V1.md`  
+Allocation result: `COD-001-SOURCE-GAP-ALLOCATION-REPORT.md`
 
 This final-audit wave began from the earlier guarded source-gap prototype and has now completed source proof, merge/split, ownership, production-quality remediation, versioned discovery freeze and permanent English identity allocation.
 
