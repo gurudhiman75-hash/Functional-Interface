@@ -1,7 +1,7 @@
-import { generateGeoPhy001Cp007ReviewBatchV1 } from "./geo-phy-001-cp007-review-generator-v1";
+import { generateGeoPhy001Cp007ReviewBatchV2 } from "./geo-phy-001-cp007-review-generator-v2";
 
 export const GEO_PHY_001_CP007_REVIEW_BATCH_V1 = Object.freeze(
-  generateGeoPhy001Cp007ReviewBatchV1().map((question) => Object.freeze(question)),
+  generateGeoPhy001Cp007ReviewBatchV2().map((question) => Object.freeze(question)),
 );
 
 export const GEO_PHY_001_CP007_REQUIRED_FACTS_V1 = Object.freeze([
