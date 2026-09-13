@@ -9,7 +9,6 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
       - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
-      - ".github/workflows/quant-v4-statistics-central-tendency-stat-p0.yml"
   pull_request:
     branches:
       - New-main
@@ -17,7 +16,6 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
       - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
-      - ".github/workflows/quant-v4-statistics-central-tendency-stat-p0.yml"
   workflow_dispatch:
 
 concurrency:
