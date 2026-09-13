@@ -28,8 +28,12 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   qlAllocationStatus: CAE_001_MANIFEST.qlDiscovery.status,
   provisionalQlCount: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds.length,
   provisionalQlIds: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds,
-  scenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length + 1,
-  canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length + CP007_FALSE_CAUSATION_WORLDS.length,
+  /** Frozen-V3 architecture counts retained as regression metadata. */
+  scenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length,
+  canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length,
+  /** Review-layer counts include CP-007 editorial override authorities. */
+  reviewedScenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length + 1,
+  reviewedCanonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length + CP007_FALSE_CAUSATION_WORLDS.length,
   generationPlanCount: CAE_001_PROJECTION_AUTHORITIES.length,
   locales: CAE_001_MANIFEST.locales,
   sourceProfiles: CAE_SOURCE_PROFILE_IDS,
