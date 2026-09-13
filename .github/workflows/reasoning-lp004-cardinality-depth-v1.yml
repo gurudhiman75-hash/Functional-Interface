@@ -1,0 +1,31 @@
+name: Reasoning LP-004 Cardinality Depth V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-004-cardinality-depth-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-004-cardinality-depth-v1.test.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reasoning-lp004-cardinality-depth-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prove-depth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Prove LP-004 cardinality depth semantics
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-004-cardinality-depth-v1.test.ts
+      - name: Reprove frozen LP-001 to LP-008 authority
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-permanent-freeze-v1.test.ts
