@@ -16,6 +16,7 @@ export type LpCp04ChildV2 = {
   correctIndex: number;
   answer: string;
   temporaryCondition: TemporaryCondition;
+  parentStateCount: number;
   conditionedStateCount: number;
   explanation: { summary: string; lines: string[] };
 };
@@ -35,9 +36,9 @@ export const LP_CP04_COUNTERFACTUAL_V2 = Object.freeze({
   parentAuthorityId: "LP_CP03_POSSIBILITY_SET_V1" as const,
   supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"] as const),
   difficultyContract: Object.freeze({
-    Easy: "ADDITIONAL_CONDITION_LEAVES_ONE_VALID_STATE",
-    Medium: "PARENT_HAS_THREE_TO_FOUR_STATES_AND_CONDITION_LEAVES_TWO",
-    Hard: "PARENT_HAS_AT_LEAST_FIVE_STATES_AND_CONDITION_LEAVES_MULTIPLE_STATES_WITH_A_NEW_INVARIANT",
+    Easy: "PARENT_HAS_TWO_VALID_STATES_AND_CONDITION_REDUCES_TO_ONE",
+    Medium: "PARENT_HAS_THREE_TO_FOUR_VALID_STATES_AND_CONDITION_REDUCES_TO_ONE_OR_TWO",
+    Hard: "PARENT_HAS_AT_LEAST_FIVE_VALID_STATES_AND_CONDITION_REDUCES_TO_ONE_OR_TWO",
   }),
   answerDependencyContract: "CORRECT_PROPOSITION_NOT_MUST_BEFORE_CONDITION_BECOMES_MUST_AFTER_CONDITION" as const,
   distractorContract: "EACH_DISTRACTOR_WAS_POSSIBLE_BEFORE_CONDITION_AND_IS_NOT_MUST_AFTER_CONDITION" as const,
@@ -60,9 +61,10 @@ function targetDifficulty(index: number): LpCp04Difficulty {
 }
 
 function topologyMatchesDifficulty(difficulty: LpCp04Difficulty, caselet: LpCp03Caselet, conditionedStateCount: number): boolean {
-  if (difficulty === "Easy") return conditionedStateCount === 1;
-  if (difficulty === "Medium") return caselet.validStates.length >= 3 && caselet.validStates.length <= 4 && conditionedStateCount === 2;
-  return caselet.validStates.length >= 5 && conditionedStateCount >= 2;
+  const parentCount = caselet.validStates.length;
+  if (difficulty === "Easy") return parentCount === 2 && conditionedStateCount === 1;
+  if (difficulty === "Medium") return parentCount >= 3 && parentCount <= 4 && conditionedStateCount >= 1 && conditionedStateCount <= 2;
+  return parentCount >= 5 && conditionedStateCount >= 1 && conditionedStateCount <= 2;
 }
 
 function allPropositions(caselet: LpCp03Caselet): Proposition[] {
@@ -143,10 +145,12 @@ function makeChild(caselet: LpCp03Caselet, index: number, difficulty: LpCp04Diff
     correctIndex,
     answer: ordered[correctIndex]!.text,
     temporaryCondition: condition,
+    parentStateCount: caselet.validStates.length,
     conditionedStateCount: states.length,
     explanation: {
       summary: "The original clues do not force the answer by themselves. Apply the extra condition, retain every arrangement that still works, and compare the options across those arrangements.",
       lines: [
+        `Before the additional condition, the original clues allow ${caselet.validStates.length} valid arrangements.`,
         `**Additional condition:** ${condition.text}`,
         `After applying the additional condition, ${states.length} valid ${caseWord} remain${states.length === 1 ? "s" : ""}.`,
         ...states.map((state, stateIndex) => `**Remaining case ${stateIndex + 1}**\n\n${renderState(caselet, state)}`),
@@ -178,7 +182,7 @@ export function generateLpCp04BatchV2(seed = "lp-cp04-counterfactual-review-v2",
       }
     }
 
-    if (!built) throw new Error(`CP04 V2 could not build ${difficultyBand} caselet ${outputIndex + 1} with a condition-dependent answer and the required state topology.`);
+    if (!built) throw new Error(`CP04 V2 could not build ${difficultyBand} caselet ${outputIndex + 1} with a condition-dependent answer and the required ambiguity profile.`);
     result.push(built);
   }
   return result;
