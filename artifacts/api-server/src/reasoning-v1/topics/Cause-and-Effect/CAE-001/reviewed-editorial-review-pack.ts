@@ -6,7 +6,7 @@ import { CAE_PROVISIONAL_QL_IDS, type CaeDifficulty, type GeneratedCaeQuestion }
 const DIFFICULTY_ORDER: readonly CaeDifficulty[] = ["EASY", "MEDIUM", "HARD"];
 const LETTERS = ["A", "B", "C", "D", "E"] as const;
 const SATURATION_FAMILY_IDS = new Set([...CAE_001_SATURATION_WAVE1_FAMILIES, ...CAE_001_SATURATION_WAVE2_FAMILIES].map((family) => family.id));
-const CONTROLLED_SATURATION_QL_IDS = new Set(["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-008", "CAE-QL-009"] as const);
+const CONTROLLED_SATURATION_QL_IDS = new Set(["CAE-QL-003", "CAE-QL-004", "CAE-QL-005"] as const);
 const CONTROLLED_REVIEW_SATURATION_MAX = 2;
 
 export type Cae001ReviewedEditorialSample = Readonly<{
@@ -84,7 +84,7 @@ export function renderCae001ReviewedEditorialRealnessReview(): string {
   const lines = [
     "# CAE-001 reviewed editorial-realness pack",
     "",
-    "Deterministic English (`en-IN`) review-only samples. Ten distinct causal states are selected per CP/QL with difficulty, learner-operation and family breadth prioritised. QLs using controlled saturation keep that expansion to at most two of ten review samples so the pack mirrors the intended reviewed allocation. CP007 remains on its inference-calibrated specialised renderers. The frozen V3 regression pack remains separate.",
+    "Deterministic English (`en-IN`) review-only samples. Ten distinct causal states are selected per CP/QL with difficulty, learner-operation and family breadth prioritised. QL003/004/005 use controlled saturation and keep that expansion to at most two of ten review samples. CP007/008/009 remain on their inference- and operation-calibrated specialised renderers. The frozen V3 regression pack remains separate.",
   ];
   for (const qlId of CAE_PROVISIONAL_QL_IDS) {
     const samples = CAE_001_REVIEWED_EDITORIAL_REALNESS_REVIEW[qlId];
