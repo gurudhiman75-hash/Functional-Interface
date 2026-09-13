@@ -7,7 +7,7 @@ import { formatCodExplanationMarkdown } from "./explanation-markdown";
 const outputDirectory = process.argv[2] ?? "cod-multilingual-review-output";
 mkdirSync(outputDirectory, { recursive: true });
 
-const qlIds = Array.from({ length: 199 }, (_, index) => `COD-QL-${String(index + 1).padStart(3, "0")}`);
+const qlIds = Array.from({ length: 203 }, (_, index) => `COD-QL-${String(index + 1).padStart(3, "0")}`);
 const locales: readonly Cod001Locale[] = ["en-IN", "hi-IN", "pa-IN"];
 const localeLabels: Record<Cod001Locale, string> = {
   "en-IN": "English",

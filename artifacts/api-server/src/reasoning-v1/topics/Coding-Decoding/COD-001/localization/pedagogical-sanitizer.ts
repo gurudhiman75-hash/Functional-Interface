@@ -2,9 +2,17 @@ import { withCodPedagogicalExplanation } from "./pedagogical-explanation";
 
 interface QuestionLike {
   locale: string;
+  ruleId?: string;
   explanation: unknown;
   [key: string]: unknown;
 }
+
+const SOURCE_GAP_RULES = new Set([
+  "ALPHABETICAL_ASCENDING_SORT",
+  "INDEXED_SHIFT_THEN_REVERSE",
+  "REVERSE_THEN_UNIFORM_SHIFT",
+  "MIXED_CLASS_CODE",
+]);
 
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" ? value as Record<string, unknown> : {};
@@ -54,6 +62,14 @@ function mapStrings(value: unknown, locale: string): unknown {
 }
 
 export function finalizeCodPedagogicalQuestion<T extends QuestionLike>(question: T): T {
+  if (SOURCE_GAP_RULES.has(question.ruleId ?? "")) {
+    if (question.locale === "en-IN") return question;
+    return {
+      ...question,
+      explanation: mapStrings(asRecord(question.explanation), question.locale),
+    } as T;
+  }
+
   const enhanced = withCodPedagogicalExplanation(question);
   if (enhanced.locale === "en-IN") return enhanced;
   return {

@@ -6,12 +6,26 @@ import {
 
 interface QuestionLike {
   locale: string;
+  ruleId?: string;
   explanation: unknown;
   [key: string]: unknown;
 }
 
+const SOURCE_GAP_RULES = new Set([
+  "ALPHABETICAL_ASCENDING_SORT",
+  "INDEXED_SHIFT_THEN_REVERSE",
+  "REVERSE_THEN_UNIFORM_SHIFT",
+  "MIXED_CLASS_CODE",
+]);
+
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" ? value as Record<string, unknown> : {};
+}
+
+function strings(value: unknown): string[] {
+  if (typeof value === "string") return value.trim() ? [value.trim()] : [];
+  if (Array.isArray(value)) return value.flatMap(strings);
+  return [];
 }
 
 function headings(locale: CodPedagogyLocale) {
@@ -51,7 +65,30 @@ function renderVisual(block: string): string[] {
   return ["```text", block, "```"];
 }
 
+function formatSourceGapExplanation(question: QuestionLike): string[] {
+  const locale = question.locale as CodPedagogyLocale;
+  const title = headings(locale);
+  const explanation = asRecord(question.explanation);
+  const rule = String(explanation.ruleStatement ?? "").trim();
+  const demonstrations = strings(explanation.sourceDemonstration);
+  const applications = strings(explanation.targetApplication);
+  const conclusion = String(explanation.conclusion ?? "").trim();
+  const steps = [...demonstrations, ...applications, ...(conclusion ? [conclusion] : [])];
+
+  return [
+    `### ${title.core}`,
+    "",
+    rule,
+    "",
+    `### ${title.steps}`,
+    "",
+    ...steps.flatMap((step, index) => [`${index + 1}. ${step}`, ""]),
+  ];
+}
+
 export function formatCodExplanationMarkdown(question: QuestionLike): string[] {
+  if (SOURCE_GAP_RULES.has(question.ruleId ?? "")) return formatSourceGapExplanation(question);
+
   const locale = question.locale as CodPedagogyLocale;
   const title = headings(locale);
   const pedagogy = presentation(question);
