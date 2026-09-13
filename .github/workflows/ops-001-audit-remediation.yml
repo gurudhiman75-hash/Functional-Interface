@@ -53,12 +53,15 @@ jobs:
             src/question-studio/engines/reasoning-v1-adapter.ts \
             src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.ts \
             src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.test.ts \
-            src/question-studio/engine-registry.ts
+            src/question-studio/engine-registry.ts \
+            src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/ops-001-fatigue-audit.test.ts
       - name: Instance-derived difficulty proof
         run: pnpm dlx tsx ./artifacts/api-server/src/question-studio/engines/reasoning-v1-ops001-remediated-adapter.test.ts
       - name: Frozen QL registry proof
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/registry/ops-ql-registry.test.ts
       - name: Approved runtime regression
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-teaching-runtime.test.ts
+      - name: 100-question fatigue audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/ops-001-fatigue-audit.test.ts
       - name: API build
         run: pnpm --dir artifacts/api-server build
