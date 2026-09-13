@@ -12,6 +12,16 @@ assert.deepEqual(audit.difficultyCounts, { Easy: 18, Medium: 30, Hard: 6 });
 assert.deepEqual(audit.answerPositions, [14, 14, 13, 13]);
 assert.equal(new Set(GEO_PHY_001_CP004_REVIEW_BATCH_V1.map((question) => question.qlId)).size, 9);
 
+const usedFacts = new Set(GEO_PHY_001_CP004_REVIEW_BATCH_V1.flatMap((question) => question.sourceFactIds));
+for (const factId of [
+  "geo-phy-001-cp004-deccan-trap",
+  "geo-phy-001-cp004-central-highlands-rivers",
+  "geo-phy-001-cp004-deccan-eastern-extensions",
+  "geo-phy-001-cp004-deccan-northeast-fault",
+]) {
+  assert.ok(usedFacts.has(factId), `required CP004 fact is dormant: ${factId}`);
+}
+
 for (const question of GEO_PHY_001_CP004_REVIEW_BATCH_V1) {
   const learner = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
   assert.doesNotMatch(
