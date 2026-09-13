@@ -1,158 +1,141 @@
 # CAE-CP-010 — Final Saturation / Freeze Audit — 2026-09-13
 
-## Verdict
+## Final verdict
 
-**Implementation coverage is ready for final execution + human freeze review. Production freeze is NOT yet declared.**
+**CAE-001 architecture and reviewed content are approved for content freeze. Production promotion remains deliberately locked.**
 
-The approved V3 graph architecture remains frozen. CP-010 now evaluates the reviewed layer that Question Studio actually uses, while the original V3 generator remains available as an architecture regression reference.
+The V3 graph-first architecture was not reopened. Final work was confined to source/profile coverage, reviewed learner operations, editorial ambiguity fixes, learner-visible evidence, sampling, QA, and review-surface polish.
 
-## Source / learner-operation coverage now represented
+## Final execution evidence
 
-### Exam-core / strong target evidence
+PR `#1630` runs the dedicated `CAE-001 Final QA` workflow on the merge ref.
 
-- classic Bank five-relation paired-statement schema — exact source profile;
-- Punjab Police SI 2016 four-relation paired-statement schema — exact source profile;
-- SSC Selection Post 2025 direct-recognition form — dedicated CP-001 renderer;
-- conventional probable cause — CP-003;
-- conventional probable effect — CP-004;
-- common cause / independent effects — CP-002;
-- direct and indirect causal relationship — CP-001 / CP-006.
+Final reviewed run after the last CP-009 editorial polish:
 
-### Current-practice-validated supplemental forms
+- workflow run: `34746698179`;
+- head SHA: `303cf9d848569eaf0a24f16e618693daee0bf19c`;
+- frozen V3 regression: **PASS**;
+- reviewed final QA bundle: **PASS**;
+- reviewed final QA execution: **PASS**;
+- review-pack materialization: **PASS**;
+- review-pack artifact upload: **PASS**.
 
-Current 2026 Cause & Effect practice material exposes:
+The immediately preceding human-remediation run at `bb5d95b15f3b66324730136e412fdd697fa113dc` was also green and proved the CP-003/CP-007 regressions before the final CP-009 surface polish.
 
-- one observation + two possible causes with Only I / Only II / Both / Neither;
-- one cause + two possible effects with combination answers;
-- one cause + three possible effects with combination answers;
-- immediate/principal cause versus a causal event that is not immediate.
+## Final reviewed coverage
 
-Implementation:
+### Exam-core / source-profile coverage
 
-- `cp003004-combination.ts` adds graph-proven truth-vector renderers under CP-003/004;
-- the reviewed scheduler keeps the conventional one-of-four form and injects combination forms on a controlled share of seeds;
-- CP-004 includes both two-effect and three-effect reasoning;
-- `cp006-causal-distance.ts` adds source-aligned immediate-vs-remote causal classification while preserving the original indirect-chain form.
+- classic Bank five-relation paired-statement schema;
+- Punjab Police SI 2016 four-relation paired-statement schema;
+- SSC Selection Post direct-recognition form;
+- direct cause/effect;
+- common cause / independent relationships;
+- conventional probable cause/effect;
+- direct and indirect causal relationship.
 
-These are labelled **practice-validated supplemental coverage**, not falsely promoted as high-frequency official PYQ formats.
+### Practice-validated supplemental coverage
 
-## Advanced Examtree coverage
+- CP-003 two possible causes with Only I / Only II / Both / Neither;
+- CP-004 two-effect and three-effect combination forms;
+- CP-006 immediate/principal versus remote/non-immediate causal relationship.
 
-The following are retained as advanced / novel depth unless stronger official-paper prevalence evidence is later found:
+### Advanced Examtree coverage
 
 - CP-005 competing explanations by timing/scope/mechanism;
-- CP-007 false-causation/post-hoc discrimination;
-- CP-008 multi-event causal operations;
-- CP-009 graph completion / integrated causal reasoning.
+- CP-007 same-domain false-causation/post-hoc plus common-factor reasoning;
+- CP-008 multi-event causal reasoning;
+- CP-009 integrated graph completion/reconstruction/relation reasoning.
 
-They are intentionally not labelled as proven high-frequency SSC/Bank/Punjab PYQ patterns.
-
-## Reviewed checkpoint state
-
-| CP | Reviewed state |
-| --- | --- |
-| CP-001 | frozen V3 + SSC direct-recognition source profile |
-| CP-002 | frozen V3 + exact Bank/Punjab relationship profiles |
-| CP-003 | conventional probable cause + two-cause combination renderer |
-| CP-004 | conventional probable effect + two/three-effect combination renderers |
-| CP-005 | calibrated MEDIUM/HARD competing explanations |
-| CP-006 | indirect chain + immediate/remote causal-distance classification |
-| CP-007 | same-domain false causation + hidden common-factor discrimination |
-| CP-008 | sequence, immediate/remote cause/effect, root/final event, bridge role, invalid-link detection |
-| CP-009 | one/two-gap completion, indirect relation, connector-pair, next outcome, common-cause reconstruction |
-| CP-010 | automated saturation/freeze gate implemented; execution evidence pending |
+These advanced forms are retained as Examtree depth and are not falsely labelled as high-frequency official PYQ forms where prevalence evidence is weaker.
 
 ## CP-010 automated gate
 
-`cp010-freeze.test.ts` now performs a reviewed-generation sweep across all nine QLs.
+`cp010-freeze.test.ts` sweeps all nine QLs over 240 English seeds and checks:
 
-For 240 English seeds per QL it checks:
-
-- non-empty stem and explanation;
-- at least four options;
-- option-text uniqueness;
+- non-empty stems/explanations;
+- unique options;
 - exactly one semantic answer;
 - `correctIndex` / `answerId` consistency;
-- item identity retains causal-state identity;
-- review-only / non-persistable / non-public lifecycle locks;
-- minimum ten semantic causal states per QL;
-- reviewed editorial pack has ten distinct causal states per QL.
+- causal-state and item identity integrity;
+- review-only lifecycle locks;
+- minimum semantic-state coverage;
+- ten distinct causal states in every 10-item reviewed CP sample;
+- CP-specific learner-operation breadth.
 
-It also asserts the reviewed additions remain visible:
+A second EN/HI/PA pass checks identical semantic state, answer, answer position, difficulty and semantic option IDs.
 
-- CP-003 combination + conventional forms;
-- CP-004 two/three-effect combination + conventional forms;
-- CP-006 immediate + remote + legacy indirect-chain forms;
-- CP-007 both `CORRELATION_ONLY` and `COMMON_CAUSE` answers;
-- CP-008 broad multi-event operation coverage;
-- CP-009 broad integrated operation coverage.
+Dedicated reviewed QA additionally covers:
 
-A second cross-locale pass checks EN/HI/PA for identical:
+- CP-003/004 combination truth vectors;
+- CP-003 ambiguity regression for the pump/pressure-valve case;
+- CP-005 calibrated competing explanations;
+- CP-006 immediate/remote causal distance;
+- CP-007 false-causation/common-factor breadth;
+- CP-007 learner-visible independent-cause evidence;
+- CP-008 seven multi-event operations;
+- CP-009 six integrated operations;
+- CP-009 rejection of the answer-leading explicit `P → Q → R → S` cue.
 
-- `causalStateId`;
-- `answerId`;
-- answer position;
-- difficulty;
-- semantic option IDs.
+## Human editorial closure
 
-## Dedicated QA added in this final wave
+The regenerated 90-question reviewed pack and 30-question source-profile pack were reviewed after successful CI execution.
 
-- `cp003004-combination.test.ts`
-  - canonical graph must reproduce each declared truth vector;
-  - all four two-cause answer outcomes are exercised;
-  - CP-004 exercises two- and three-effect modes;
-  - conventional forms remain present;
-  - multilingual semantic parity.
+Three concrete final defects were found and fixed:
 
-- `cp006-causal-distance.test.ts`
-  - immediate and remote/non-immediate relationships are both reached;
-  - all four direction/directness answer states are reached;
-  - legacy indirect-chain generation remains present;
-  - multilingual semantic parity.
+1. **CP-003 ambiguous probable-cause distractor** — a pressure-control valve on the *main line* could independently explain the observed pressure fall. The distractor is now explicitly a **small side-branch** event, making its scope insufficient for the wider observation.
+2. **CP-007 hidden decisive evidence** — false-causation questions previously relied on independent causes shown only in the explanation. Reviewed CP-007 now presents those causal facts to the learner before asking for the relationship.
+3. **CP-009 answer-leading relation cue** — relation-type questions explicitly stated that the information established `P → Q → R → S`. That cue is removed; the learner must infer the indirect relationship from the event facts.
 
-## Question Studio boundary
+The final generated artifact confirms the CP-003 narrowed distractor, learner-visible CP-007 evidence, and zero occurrences of the removed CP-009 explicit-chain cue.
 
-Question Studio reviewed overrides now cover:
+No further blocking ambiguity, endpoint repetition, duplicate-answer, source-profile, or multi-operation defect was found in the final review pass.
 
-- CAE-QL-003
-- CAE-QL-004
-- CAE-QL-005
-- CAE-QL-006
-- CAE-QL-007
-- CAE-QL-008
-- CAE-QL-009
+## Reviewed checkpoint state
 
-CP-001/002 use the frozen generator unless an explicit source profile is requested.
+| CP | Final reviewed state |
+| --- | --- |
+| CP-001 | approved — direct cause/effect + source-profile direct recognition |
+| CP-002 | approved — common/independent relationships + Bank/Punjab profiles |
+| CP-003 | approved — conventional probable cause + two-cause combinations + ambiguity regression |
+| CP-004 | approved — conventional probable effect + two/three-effect combinations |
+| CP-005 | approved — calibrated MEDIUM/HARD competing explanations |
+| CP-006 | approved — indirect chain + immediate/remote causal distance |
+| CP-007 | approved — common-factor + learner-evidenced false causation/post-hoc |
+| CP-008 | approved — sequence, immediate/remote roles, root/final event, bridge, invalid link |
+| CP-009 | approved — one/two-gap, connector, relation, next outcome, common-cause reconstruction |
+| CP-010 | **execution green + human review approved** |
 
-All CAE content remains:
+## Freeze decision
 
-- review-only;
-- not writable to the question bank;
-- not mock/test eligible;
-- not publicly publishable.
+The current `CAE-QL-001..009` allocation is content-frozen. A future QL should be added only for a materially new, sourced learner operation that the existing graph/projection model cannot represent without distortion.
 
-## Non-blocking discovery items
+The following remain evidence-watch items, not freeze blockers:
 
-These remain evidence-watch items rather than reasons to reopen the architecture:
+- a `None of these` relationship outcome appearing in weaker/secondary recent bank memory-based evidence;
+- non-target KVS-style option schemas;
+- further dated SBI/IBPS/SSC/PSSSB/PPSC prevalence calibration.
 
-- the `None of these` relationship outcome seen in secondary recent bank memory-based evidence;
-- non-target KVS-style option schemas unless they become relevant to Examtree exam scope;
-- additional dated SBI/IBPS/SSC/PSSSB/PPSC examples for prevalence calibration.
+## Lifecycle boundary after content freeze
 
-A new exact source profile should be added only when the relationship set is verified strongly enough to justify it.
+Content freeze does **not** mean production release.
 
-## Remaining freeze gates
+CAE remains:
 
-The chapter must NOT be marked production-frozen until all of the following occur:
+- visible in Question Studio review;
+- `reviewOnly: true`;
+- `questionBankWritable: false`;
+- `testEligible: false`;
+- `mockEligible: false`;
+- `publicEligible: false`;
+- automatic publication disabled.
 
-1. execute the CAE reviewed tests, including the new CP-010 gate, and record green evidence;
-2. regenerate/materialize the current reviewed editorial Markdown from `reviewed-editorial-review-pack.ts`;
-3. human-review the regenerated 10-per-CP sample for exam-realness, ambiguity, distractor plausibility and beginner-readable explanations;
-4. fix any concrete defects found by that human review without reopening the canonical architecture unless the defect proves genuinely systemic;
-5. only then change lifecycle/manifest status from provisional review to frozen/release-approved.
+Promotion into question-bank/test/mock/public delivery remains a separate deliberate product-owner gate.
 
 ## Current status
 
 **CAE architecture: FROZEN / APPROVED**  
-**CAE reviewed content implementation: FINAL QA CANDIDATE**  
-**CAE production release: BLOCKED pending test execution + regenerated-pack human approval**
+**CAE QL/content allocation: FROZEN / APPROVED**  
+**CAE reviewed QA: GREEN**  
+**CAE final human editorial review: APPROVED**  
+**CAE production release: LOCKED pending explicit promotion**
