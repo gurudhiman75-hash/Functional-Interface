@@ -1,5 +1,6 @@
 import { CAE_001_MANIFEST } from "./chapter-manifest.ts";
 import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES } from "./causal-world-authorities.ts";
+import { CAE_001_SATURATION_WAVE1_FAMILIES, CAE_001_SATURATION_WAVE1_VARIANT_COUNT } from "./causal-world-saturation-wave1.ts";
 import { CAE_COMBINATION_WORLDS } from "./cp003004-combination.ts";
 import { CP005_COMPETING_SCENARIOS } from "./cp005-competing-explanations.ts";
 import { CP007_FALSE_CAUSATION_WORLDS } from "./cp007-false-causation.ts";
@@ -18,6 +19,10 @@ export type PreviewCae001QuestionStudioInput = Readonly<{
   sourceProfileId?: CaeSourceProfileId;
 }>;
 
+const SATURATION_WAVE1_FAMILY_COUNT = CAE_001_SATURATION_WAVE1_FAMILIES.length;
+const EFFECTIVE_CANONICAL_FAMILY_COUNT = CAE_001_SCENARIO_FAMILIES.length + SATURATION_WAVE1_FAMILY_COUNT;
+const EFFECTIVE_CANONICAL_VARIANT_COUNT = CAE_001_CAUSAL_WORLDS.length + CAE_001_SATURATION_WAVE1_VARIANT_COUNT;
+
 export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   packageId: CAE_001_QUESTION_STUDIO_PACKAGE_ID,
   chapterId: "CAE-001" as const,
@@ -28,10 +33,8 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   reviewStatus: "REVIEW_ONLY_GENERATIVE_CAUSAL_STATE_V3_ARCHITECTURE_CHECKPOINT" as const,
   /**
    * Compatibility contract for the frozen V3 Question Studio package.
-   * The original architecture checkpoint exposed this provisional allocation
-   * status and frozen-V3 regression consumers depend on it. Final CP-010
-   * content-freeze approval is therefore exposed separately below instead of
-   * mutating the legacy package contract.
+   * These legacy counts deliberately remain the original frozen source counts.
+   * Effective reviewed counts below expose the saturation overlay separately.
    */
   qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION" as const,
   contentFreezeStatus: CAE_001_MANIFEST.qlDiscovery.status,
@@ -39,9 +42,17 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   provisionalQlIds: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds,
   scenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length,
   canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length,
+  saturationWave1FamilyCount: SATURATION_WAVE1_FAMILY_COUNT,
+  saturationWave1VariantCount: CAE_001_SATURATION_WAVE1_VARIANT_COUNT,
+  effectiveScenarioFamilyCount: EFFECTIVE_CANONICAL_FAMILY_COUNT,
+  effectiveCanonicalScenarioVariantCount: EFFECTIVE_CANONICAL_VARIANT_COUNT,
+  saturationWave1ExpandedQlIds: ["CAE-QL-001", "CAE-QL-002", "CAE-QL-006", "CAE-QL-007", "CAE-QL-008"] as const,
+  saturationCandidateHeavyQlStatus: "GATED_PENDING_SCENARIO_SPECIFIC_DISTRACTOR_AUTHORITIES" as const,
   /** Reviewed authorities add two combination families plus CP005/CP007 authored families. CP006/008/009 reuse canonical worlds with richer projections. */
   reviewedScenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length + 4,
   reviewedCanonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length + CAE_COMBINATION_WORLDS.length + CP005_COMPETING_SCENARIOS.length + CP007_FALSE_CAUSATION_WORLDS.length,
+  effectiveReviewedScenarioFamilyCount: EFFECTIVE_CANONICAL_FAMILY_COUNT + 4,
+  effectiveReviewedCanonicalScenarioVariantCount: EFFECTIVE_CANONICAL_VARIANT_COUNT + CAE_COMBINATION_WORLDS.length + CP005_COMPETING_SCENARIOS.length + CP007_FALSE_CAUSATION_WORLDS.length,
   generationPlanCount: CAE_001_PROJECTION_AUTHORITIES.length,
   locales: CAE_001_MANIFEST.locales,
   sourceProfiles: CAE_SOURCE_PROFILE_IDS,
