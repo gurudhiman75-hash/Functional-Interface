@@ -21,7 +21,7 @@ assert.equal(profile.completeQuestionCount, 300);
 assert.equal(profile.nonWholeSectionCountableQuestionCount, 25);
 assert.equal(profile.undatedCountableQuestionCount, 10);
 assert.equal(profile.distinctSectionYearCount, 3);
-assert.equal(profile.packageCoverageCount, 28);
+assert.equal(profile.packageCoverageCount, 29);
 assert.equal(profile.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
 assert.deepEqual([...profile.blockers], []);
 assert.equal(profile.productionPromotionAuthorized, false);
@@ -47,13 +47,13 @@ assert.deepEqual(packageCounts, {
   "ALG-001": 28, "ALG-002": 7, "AVG-001": 7, "DI-001": 19, "DI-003": 8, "DI-004": 1, "DI-005": 6,
   "GEO-001": 16, "GEO-002": 18, "INT-001": 12, "MAL-001": 3, "MEN-001": 9, "MEN-002": 15, "NUM-001": 17,
   "PCT-001": 7, "PCT-002": 4, "PCT-007": 1, "PNL-001": 24, "RAP-001": 8, "RAP-002": 2, "RAP-003": 2, SAP: 5,
-  "SRI-001": 1, "SRI-002": 1, "TMW-001": 26, "TRG-001": 33, "TSD-001": 19, "TSD-002": 1,
+  "SRI-001": 1, "SRI-002": 1, "TMW-001": 26, "TRG-001": 32, "TRG-002": 1, "TSD-001": 19, "TSD-002": 1,
 });
 assert.equal(Object.values(packageCounts).reduce((sum, count) => sum + count, 0), 300);
 assert.equal(profile.packageWeights[0]?.packageId, "TRG-001");
-assert.equal(profile.packageWeights[0]?.questionCount, 33);
-assert.equal(profile.packageWeights[0]?.questionShare, 33 / 300);
-assert.equal(profile.packageWeights[0]?.meanQuestionsPerSection, 33 / 12);
+assert.equal(profile.packageWeights[0]?.questionCount, 32);
+assert.equal(profile.packageWeights[0]?.questionShare, 32 / 300);
+assert.equal(profile.packageWeights[0]?.meanQuestionsPerSection, 32 / 12);
 assert.ok(Math.abs(profile.packageWeights.reduce((sum, bucket) => sum + bucket.questionShare, 0) - 1) < 1e-12);
 assert.ok(Math.abs(profile.topicWeights.reduce((sum, bucket) => sum + bucket.questionShare, 0) - 1) < 1e-12);
 
@@ -62,7 +62,7 @@ const contaminated = buildQuantV4WholeSectionFrequencyProfile({ examId: "SSC_CGL
 assert.equal(contaminated.totalCountableQuestionCount, 326);
 assert.equal(contaminated.completeQuestionCount, 300);
 assert.equal(contaminated.nonWholeSectionCountableQuestionCount, 26);
-assert.equal(contaminated.packageCoverageCount, 28);
+assert.equal(contaminated.packageCoverageCount, 29);
 assert.equal(contaminated.packageWeights.some((bucket) => bucket.packageId === "ISOLATED-ONLY"), false);
 assert.deepEqual(contaminated.packageWeights.map((bucket) => [bucket.packageId, bucket.questionCount]), profile.packageWeights.map((bucket) => [bucket.packageId, bucket.questionCount]));
 
