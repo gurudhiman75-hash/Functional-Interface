@@ -11,24 +11,20 @@ export type Cae001ReviewedEditorialSample = Readonly<{
 
 function operationKey(question: GeneratedCaeQuestion): string {
   const parts = question.causalStructure.split(":");
-  // Reviewed CP006/008/009 encode learner-operation/directness in the leading
-  // causal-structure tokens. Other QLs are sufficiently identified by their
-  // projection ID.
   if (question.qlId === "CAE-QL-006") return `${question.projectionId}:${parts[0] ?? ""}`;
   if (question.qlId === "CAE-QL-008" || question.qlId === "CAE-QL-009") return `${question.projectionId}:${parts[1] ?? parts[0] ?? ""}`;
   return question.projectionId;
 }
 
 function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Cae001ReviewedEditorialSample[] {
+  // Keep presentation variants in the candidate pool. Some reviewed causal
+  // states legitimately render at different difficulty bands; semantic
+  // de-duplication belongs at selection time, not discovery time.
   const generated: Cae001ReviewedEditorialSample[] = [];
-  const seenCausalStates = new Set<string>();
   for (let seed = 0; seed < 5_000 && generated.length < 320; seed += 1) {
-    const question = generateReviewedCaeQuestion({ qlId, locale: "en-IN", seed });
-    if (!seenCausalStates.has(question.causalStateId)) {
-      seenCausalStates.add(question.causalStateId);
-      generated.push({ seed, question });
-    }
+    generated.push({ seed, question: generateReviewedCaeQuestion({ qlId, locale: "en-IN", seed }) });
   }
+
   const availableDifficulties = new Set(generated.map((entry) => entry.question.difficulty));
   const selected: Cae001ReviewedEditorialSample[] = [];
   const selectedCausalStates = new Set<string>();
@@ -39,15 +35,27 @@ function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Ca
       selectedCausalStates.add(entry.question.causalStateId);
     }
   };
+  const findUnseen = (predicate: (entry: Cae001ReviewedEditorialSample) => boolean) =>
+    generated.find((entry) => predicate(entry) && !selectedCausalStates.has(entry.question.causalStateId));
 
-  // 1. Make every available difficulty visible.
-  for (const difficulty of DIFFICULTY_ORDER) if (availableDifficulties.has(difficulty)) add(generated.find((entry) => entry.question.difficulty === difficulty));
-  // 2. Prioritise each reviewed learner operation/mode so deep CP008/009
-  // coverage cannot disappear from a superficially diverse sample.
-  for (const key of new Set(generated.map((entry) => operationKey(entry.question)))) add(generated.find((entry) => operationKey(entry.question) === key));
-  // 3. Then expose scenario-family breadth.
-  for (const familyId of new Set(generated.map((entry) => entry.question.scenarioFamilyId))) add(generated.find((entry) => entry.question.scenarioFamilyId === familyId));
-  // 4. Fill remaining slots with fresh semantic states.
+  // 1. Every generated difficulty band gets a semantically distinct example.
+  for (const difficulty of DIFFICULTY_ORDER) {
+    if (availableDifficulties.has(difficulty)) add(findUnseen((entry) => entry.question.difficulty === difficulty));
+  }
+
+  // 2. Every reviewed learner operation/mode gets priority. If the first
+  // presentation of an operation reused an already-selected causal state, find
+  // another state for that operation instead of silently losing the mode.
+  for (const key of new Set(generated.map((entry) => operationKey(entry.question)))) {
+    add(findUnseen((entry) => operationKey(entry.question) === key));
+  }
+
+  // 3. Expose family breadth with fresh states.
+  for (const familyId of new Set(generated.map((entry) => entry.question.scenarioFamilyId))) {
+    add(findUnseen((entry) => entry.question.scenarioFamilyId === familyId));
+  }
+
+  // 4. Fill remaining slots with fresh semantic states only.
   for (const entry of generated) add(entry);
 
   if (selected.length !== 10) throw new Error(`${qlId}: reviewed editorial selection did not reach ten distinct causal states.`);
