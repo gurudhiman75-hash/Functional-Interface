@@ -39,7 +39,7 @@ function assemble(input: { familyId: string; seed: number; difficulty: PunjabiDi
     correctIndex: options.findIndex((o) => o.isCorrect),
     explanation: input.explanation,
     difficulty: input.difficulty,
-    metadata: { engine: "punjabi-v1", packageId: "PUN-001", cpId: "PUN-001-CP013", familyId: input.familyId, difficulty: input.difficulty, language: "pa-Guru", seed: input.seed, authorityIds: input.authorityIds, generatorRevision: "2.0.0", fingerprint: `CP013-V2-${hashText(canonical)}` },
+    metadata: { engine: "punjabi-v1", packageId: "PUN-001", cpId: "PUN-001-CP013", familyId: input.familyId, difficulty: input.difficulty, language: "pa-Guru", seed: input.seed, authorityIds: input.authorityIds, generatorRevision: "2.0.1", fingerprint: `CP013-V2-${hashText(canonical)}` },
   };
   assertValidPunjabiQuestion(q);
   return q;
@@ -119,12 +119,14 @@ export function generateCP013V2F07(seed: number, difficulty: PunjabiDifficulty):
 
 export function generateCP013V2F08(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   const first = cls(seed + 809); const peers = distinctClassificationPeers(first, 3, seed + 811); const [second, altA, altB] = peers;
-  const correct = `${first.structureType} — ${second!.structureType}`;
+  const describe = (x: SentenceClassificationItem) => `${x.structureType}/${x.functionType}`;
+  const correct = `${describe(first)} — ${describe(second!)}`;
   const distractors = uniq([
-    `${second!.structureType} — ${first.structureType}`,
-    `${first.structureType} — ${altA!.structureType}`,
-    `${altB!.structureType} — ${second!.structureType}`,
-    `${altA!.structureType} — ${altB!.structureType}`,
+    `${describe(second!)} — ${describe(first)}`,
+    `${first.structureType}/${altA!.functionType} — ${second!.structureType}/${second!.functionType}`,
+    `${altB!.structureType}/${first.functionType} — ${second!.structureType}/${altB!.functionType}`,
+    `${describe(altA!)} — ${describe(altB!)}`,
+    `${altA!.structureType}/${second!.functionType} — ${altB!.structureType}/${first.functionType}`,
   ]);
-  return assemble({ familyId: "F08", seed, difficulty, stem: `ਹੇਠਲੇ ਦੋ ਵਾਕਾਂ ਦੀ ਬਣਤਰ ਕ੍ਰਮਵਾਰ ਪਛਾਣੋ:\n1. “${first.sentencePa}”\n2. “${second!.sentencePa}”`, correctAnswer: correct, distractors, explanation: `ਪਹਿਲਾ ਵਾਕ ‘${first.structureType}’ ਅਤੇ ਦੂਜਾ ‘${second!.structureType}’ ਹੈ।`, authorityIds: [first.id, ...peers.map((p) => p.id)] });
+  return assemble({ familyId: "F08", seed, difficulty, stem: `ਹੇਠਲੇ ਦੋ ਵਾਕਾਂ ਦਾ ਬਣਤਰ ਅਤੇ ਕਾਰਜ ਪੱਖੋਂ ਕ੍ਰਮਵਾਰ ਸਹੀ ਵਰਗੀਕਰਨ ਚੁਣੋ:\n1. “${first.sentencePa}”\n2. “${second!.sentencePa}”`, correctAnswer: correct, distractors, explanation: `ਪਹਿਲਾ ਵਾਕ ‘${first.structureType}’ ਅਤੇ ‘${first.functionType}’ ਹੈ; ਦੂਜਾ ਵਾਕ ‘${second!.structureType}’ ਅਤੇ ‘${second!.functionType}’ ਹੈ।`, authorityIds: [first.id, ...peers.map((p) => p.id)] });
 }
