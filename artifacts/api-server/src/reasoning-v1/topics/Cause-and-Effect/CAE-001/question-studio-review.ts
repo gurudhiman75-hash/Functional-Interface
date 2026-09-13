@@ -1,6 +1,7 @@
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { CAE_001_MANIFEST } from "./chapter-manifest.ts";
 import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES } from "./causal-world-authorities.ts";
+import { generateCaeSourceProfileQuestion, type CaeSourceProfileId } from "./source-profiles.ts";
 import type { CaeLocale, CaeQlId, CaeQuestionProfile } from "./types.ts";
 
 export const CAE_001_QUESTION_STUDIO_PACKAGE_ID = "CAE-001-V1-REVIEW" as const;
@@ -11,6 +12,8 @@ export type PreviewCae001QuestionStudioInput = Readonly<{
   locale: CaeLocale;
   seed: number;
   questionProfile?: CaeQuestionProfile;
+  /** Source-auditable exam renderer layered above the frozen causal-state engine. */
+  sourceProfileId?: CaeSourceProfileId;
 }>;
 
 export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
@@ -40,12 +43,20 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
 });
 
 export function previewCae001QuestionStudioReview(input: PreviewCae001QuestionStudioInput) {
+  const question = input.sourceProfileId
+    ? generateCaeSourceProfileQuestion({
+        qlId: input.qlId,
+        locale: input.locale,
+        seed: input.seed,
+        sourceProfileId: input.sourceProfileId,
+      })
+    : generateCaeQuestion(input);
   return Object.freeze({
     packageId: CAE_001_QUESTION_STUDIO_PACKAGE_ID,
     integrationAuthority: CAE_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
     lifecycleStatus: "REVIEW_ONLY" as const,
     reviewOnly: true as const,
-    question: generateCaeQuestion(input),
+    question,
   });
 }
 
