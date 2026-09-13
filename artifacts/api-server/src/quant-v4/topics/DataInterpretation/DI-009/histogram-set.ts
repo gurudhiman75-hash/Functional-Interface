@@ -50,6 +50,29 @@ function applyDifficultyPolicy(draft: Di009Draft): Di009Draft {
   return { ...draft, difficulty: TASK_DIFFICULTY[draft.kind] };
 }
 
+function formatOrdinal(value: number): string {
+  const mod100 = value % 100;
+  if (mod100 >= 11 && mod100 <= 13) return `${value}th`;
+  if (value % 10 === 1) return `${value}st`;
+  if (value % 10 === 2) return `${value}nd`;
+  if (value % 10 === 3) return `${value}rd`;
+  return `${value}th`;
+}
+
+function applyEditorialPolicy(draft: Di009Draft): Di009Draft {
+  if (draft.kind !== "KTH_OBSERVATION_CLASS") return draft;
+  const rank = Number(draft.evidence.rank);
+  if (!Number.isSafeInteger(rank) || rank < 1) return draft;
+  return { ...draft, stem: draft.stem.replaceAll(`${rank}th`, formatOrdinal(rank)) };
+}
+
+function hasCorrectKthLanguage(question: Di009Question): boolean {
+  if (question.kind !== "KTH_OBSERVATION_CLASS") return true;
+  const rank = Number(question.evidence.rank);
+  if (!Number.isSafeInteger(rank) || rank < 1) return false;
+  return question.stem.includes(formatOrdinal(rank)) || question.stem.includes(`observation number ${rank}`);
+}
+
 function numericRescueCandidates(answer: string): Di009Candidate[] {
   if (/^-?\d+(?:\.\d+)?%$/.test(answer)) {
     const value = Number(answer.slice(0, -1));
@@ -126,6 +149,7 @@ function validateSet(set: Omit<Di009QuestionSet, "validation">) {
   add("NO_REPEATED_TASK", new Set(set.questions.map((question) => question.kind)).size === set.questions.length, "A set must not repeat the same task family.");
   add("KNOWN_TASKS", set.questions.every((question) => ALL_TASK_KINDS.includes(question.kind)), "Every question must belong to the DI-009 V2 contract library.");
   add("DIFFICULTY_POLICY", set.questions.every((question) => question.difficulty === TASK_DIFFICULTY[question.kind]), "Every task family must use the calibrated DI-009 V2 difficulty policy.");
+  add("ORDINAL_LANGUAGE", set.questions.every(hasCorrectKthLanguage), "Kth-observation stems must use a grammatically correct ordinal or the neutral observation-number surface.");
   add("DIFFICULTY_MIX", set.questions.filter((question) => question.difficulty === "Easy").length === 1 && set.questions.filter((question) => question.difficulty === "Medium").length === 2 && set.questions.filter((question) => question.difficulty === "Hard").length === 2, "Each set must contain 1 Easy, 2 Medium and 2 Hard questions.");
   add("FOUR_UNIQUE_OPTIONS", set.questions.every((question) => question.options.length === 4 && new Set(question.options).size === 4), "Every question must expose four unique options.");
   add("ANSWER_INDEX_VALID", set.questions.every((question) => question.options[question.correctIndex] === question.answer), "Correct-index metadata must point to the exact answer.");
@@ -144,7 +168,7 @@ export function generateDi009HistogramSet(input: {
   const seed = input.seed.trim();
   if (!seed) throw new Error("DI-009 requires a non-empty deterministic seed.");
   const stimulus = buildDi009Stimulus(seed, input.examProfile);
-  const drafts = buildDi009Drafts(seed, stimulus).map(applyDifficultyPolicy);
+  const drafts = buildDi009Drafts(seed, stimulus).map(applyDifficultyPolicy).map(applyEditorialPolicy);
   const selected = chooseQuestionMix(seed, drafts);
   const setId = `DI-009-${input.examProfile}-${hashSeed(`${seed}:${input.examProfile}`).toString(16).padStart(8, "0")}`;
 
