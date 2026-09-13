@@ -2,13 +2,20 @@
   "cpId": "PUN-001-CP002",
   "status": "REVIEW_ONLY",
   "families": [
-    {"familyId":"F01","subtype":"CORRECT_FORM_RECOGNITION","difficulty":["Easy"]},
-    {"familyId":"F02","subtype":"SENTENCE_ERROR_CORRECTION","difficulty":["Medium"]},
-    {"familyId":"F03","subtype":"CONTEXTUAL_COMPLETION","difficulty":["Medium"]},
-    {"familyId":"F04","subtype":"MULTI_ERROR_SENTENCE_REPAIR","difficulty":["Hard"]},
-    {"familyId":"F05","subtype":"TWO_WORD_PRECISION","difficulty":["Hard"]}
+    {"familyId":"F01","subtype":"CORRECT_FORM_RECOGNITION","difficulty":["Easy"],"semanticCapacity":168},
+    {"familyId":"F02","subtype":"SENTENCE_ERROR_CORRECTION","difficulty":["Medium"],"semanticCapacity":135},
+    {"familyId":"F03","subtype":"CONTEXTUAL_COMPLETION","difficulty":["Medium"],"semanticCapacity":45},
+    {"familyId":"F04","subtype":"MULTI_ERROR_SENTENCE_REPAIR","difficulty":["Hard"],"semanticCapacity":8910},
+    {"familyId":"F05","subtype":"TWO_WORD_PRECISION","difficulty":["Hard"],"semanticCapacity":126252},
+    {"familyId":"F06","subtype":"INCORRECT_FORM_DETECTION","difficulty":["Medium"],"semanticCapacity":384226920},
+    {"familyId":"F07","subtype":"TWO_SENTENCE_SPELLING_DIAGNOSIS","difficulty":["Hard"],"semanticCapacity":15840}
   ],
-  "authorityCount": 45,
+  "authorityCount": 168,
+  "contextualAuthorityCount": 45,
+  "activeCategoryCount": 8,
+  "totalSemanticCapacity": 384378270,
+  "optionOrderCountedAsSemanticVariation": false,
+  "quarantinedDonorCategory": "TATSAM_TADBHAV",
   "authorityStatus": "REVIEW_PENDING",
   "productionPromotion": false
 }
