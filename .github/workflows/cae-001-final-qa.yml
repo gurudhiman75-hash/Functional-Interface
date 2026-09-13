@@ -7,6 +7,12 @@ on:
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Cause-and-Effect/CAE-001/**'
       - '.github/workflows/cae-001-final-qa.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Cause-and-Effect/CAE-001/**'
+      - '.github/workflows/cae-001-final-qa.yml'
   workflow_dispatch:
 
 permissions:
