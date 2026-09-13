@@ -6,69 +6,112 @@ Authority: `TRG-001-PYQ-COVERAGE-REMEDIATION-P2`
 
 ## Why this exists
 
-The Quant V4 whole-section audit found a real SSC CGL trigonometric form that was not explicitly represented in the current 144-QL TRG-001 authority surface:
+The Quant V4 whole-section audit found two places where internal TRG-001 completeness did not fully prove external SSC-paper fidelity.
+
+### 1. Cubic trigonometric factorization
+
+Real SSC CGL anchor: 09 Sep 2024 Shift 2.
+
+Observed form:
 
 `(sin³A − cos³A)/(sin A − cos A)`
 
-The intended solution uses:
+The intended solution requires difference-of-cubes factorization, cancellation under the stated domain condition, and `sin²A+cos²A=1`.
 
-1. `a³−b³=(a−b)(a²+ab+b²)`;
-2. cancellation of `sin A−cos A` under the stated non-zero-domain condition;
-3. `sin²A+cos²A=1`;
-4. final result `1+sin A cos A`.
+The current 144-QL authority has broad composite-expression coverage but no explicit cubic-factorization role.
 
-This is anchored to the normalized SSC CGL 2024-09-09 Shift 2 Quant observation.
+### 2. Acute-interval sine/cosine ordering
 
-## Remediation decision
+Real SSC CGL anchor: 10 Sep 2024 Shift 1.
 
-Do **not** grow TRG-001 beyond 144 permanent QLs.
+Observed concept: compare `sin θ` and `cos θ` when θ lies below or above 45° in the acute interval.
 
-Candidate permanent role: `TRG-001-QL-143`, inside the already locked `QL-142...144` `EQUIVALENCE_VERIFICATION_COMPOSITE` family.
+The current authority already has comparison roles, but the implemented comparison surface is driven mainly by a supplied tangent/right-triangle ratio. That covers the mathematical relationship but not the direct SSC interval construction.
+
+## Remediation decisions
+
+Do **not** increase the permanent 144-QL envelope.
+
+### `TRG-001-QL-024`
+
+Broaden the existing `RECIPROCAL_COMPARISON` role to include direct acute-interval comparison around the 45° equality boundary.
+
+Candidate solve mode:
+
+`compareSinCosFromAcuteInterval`
+
+The audit surface generates both:
+
+- `0° < θ < 45°` → `sin θ < cos θ`;
+- `45° < θ < 90°` → `sin θ > cos θ`.
+
+It uses compact exam-style stems, four plausible relation options and a short beginner-readable explanation based on the 45° comparison point.
+
+### `TRG-001-QL-143`
+
+Use the existing terminal `EQUIVALENCE_VERIFICATION_COMPOSITE` slot as the cubic-factorization candidate rather than adding `QL-145`.
 
 Reason:
 
 - `QL-142` is already a separately hardened composite-equivalence role;
 - `QL-144` owns a double-angle equivalence role;
-- the existing `QL-143` surface is another Pythagorean/reciprocal composite and overlaps more heavily with identity coverage already present earlier in TRG-001;
-- replacing that role preserves the 144-ID envelope and does not move the QL outside its locked CP-006 terminal composite family.
+- the current `QL-143` authority surface overlaps more strongly with Pythagorean/reciprocal identity coverage already present elsewhere;
+- replacing it preserves CP-006 and the permanent-ID envelope.
+
+Candidate solve mode:
+
+`simplifyTrigCubicFactorization`
+
+The first audit version only changed wording around one fixed difference-of-cubes expression. That was insufficient for Examtree's novelty requirement. The candidate now exposes a controlled family:
+
+- difference of cubes;
+- sum of cubes;
+- sine-first and cosine-first operand order;
+- at least two stem surfaces per mathematical construction.
+
+The exact SSC CGL difference-of-cubes construction remains explicitly reachable and tagged as the PYQ anchor.
 
 ## Candidate implementation
 
-Added audit overlay:
+Audit overlay:
 
 - `pyq-coverage-remediated-runtime-p2.ts`
 - `pyq-coverage-remediated-runtime-p2.test.ts`
 
-The overlay changes only `TRG-001-QL-143`. All other QLs delegate directly to the existing authority candidate.
+Only `QL-024` and `QL-143` are remediated. All other QLs delegate directly to the existing authority candidate.
 
-New solve mode:
+The test source checks, without claiming execution:
 
-`simplifyTrigDifferenceOfCubes`
+- package/CP/QL identity;
+- four unique options and one correct answer;
+- both acute interval directions;
+- both cubic operations;
+- both sine/cosine operand orders;
+- preservation of the exact SSC cubic anchor;
+- multiple distinct stems rather than wording-only duplication;
+- activation locks;
+- neighbouring `QL-142` and `QL-144` remain unchanged.
 
-Difficulty: `Medium`
+## Question Studio boundary
 
-Target: `RELATION`
+The live/internal Question Studio runtime currently calls the previously frozen post-freeze runtime, not this audit overlay.
 
-The candidate provides two compact SSC-style stem surfaces, four unique options, misconception-based distractors, a three-step beginner-readable explanation, an explicit domain restriction, and symbolic independent-verification metadata.
+That is intentional. This remediation must not silently mutate already approved/frozen content. A later authority amendment, review/freeze update and explicit Question Studio rebinding are required before these surfaces can become active.
 
-## Surgical-change guard
+## What this remediation does not change
 
-The regression test explicitly checks that `QL-142` and `QL-144` remain identical to the current authority candidate for sampled seeds.
-
-The remediation does not change:
-
-- package ID;
-- CP allocation;
-- total QL count;
-- Question Studio discovery;
+- package IDs;
+- CP counts;
+- total permanent QL count;
+- Question Studio activation;
 - test-builder eligibility;
-- question-bank storage;
+- question-bank writing;
 - public publication;
-- production-frequency authorization.
+- production frequency authorization.
 
 ## Evidence still required
 
-The new regression file is committed but has **not been executed in this chat environment**.
+The new/updated regression source is committed but has **not been executed in this chat environment**.
 
 Therefore this checkpoint does not claim:
 
@@ -80,4 +123,13 @@ Therefore this checkpoint does not claim:
 
 ## Next audit step
 
-Continue the external-realism matrix across the remaining TRG observations and inspect stem/distractor/explanation quality. If no stronger unique role is found for the old QL-143 surface, this remediation candidate should become the proposed permanent authority amendment before TRG-001 is refrozen.
+Continue real-PYQ comparison across already-covered TRG families and distinguish:
+
+- mathematically covered and exam-real;
+- mathematically covered but stem construction too narrow;
+- explanation too terse or unnecessarily complex;
+- distractors weaker than SSC-style alternatives;
+- difficulty label inconsistent with the transformations required;
+- genuine remaining archetype gaps.
+
+Only after that external-realism pass should a permanent TRG authority amendment be proposed.
