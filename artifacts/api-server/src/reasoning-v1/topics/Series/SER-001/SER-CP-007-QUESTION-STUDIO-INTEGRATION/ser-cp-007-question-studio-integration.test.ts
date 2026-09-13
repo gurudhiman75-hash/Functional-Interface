@@ -18,6 +18,9 @@ import {
   generateSerCp007QuestionStudioReviewSweep,
   SER_CP007_QUESTION_STUDIO_RUNTIME_STATE,
 } from "./ser-cp-007-question-studio-runtime";
+import {
+  SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1,
+} from "./ser-001-internal-test-builder-activation-v1";
 
 process.env.DATABASE_URL ??= "postgresql://test:test@127.0.0.1:5432/test";
 const {
@@ -60,6 +63,19 @@ assert.deepEqual(SER_CP007_QUESTION_STUDIO_RUNTIME_STATE, {
   testEligible: false,
   publiclyPublishable: false,
 });
+
+const activation = SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1;
+assert.equal(activation.status, "ACTIVE_INTERNAL_TEST_BUILDER");
+assert.equal(activation.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(activation.questionBankWritable, true);
+assert.equal(activation.testEligibility, "ELIGIBLE");
+assert.equal(activation.testEligible, true);
+assert.equal(activation.testBuilderEligible, true);
+assert.equal(activation.mockTestEligible, false);
+assert.equal(activation.publiclyPublishable, true);
+assert.equal(activation.publicReleaseAuthorized, false);
+assert.equal(activation.studentDeliveryAuthorized, false);
+assert.equal(activation.automaticStudentPublication, false);
 
 const sweep = generateSerCp007QuestionStudioReviewSweep(97);
 assert.equal(SER_CP007_FROZEN_TEMPLATE_AUTHORITIES.length, 140);
@@ -188,6 +204,10 @@ const bulkReviewRoute = readFileSync(
   "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts",
   "utf8",
 );
+const routeRegistry = readFileSync(
+  "artifacts/api-server/src/routes/admin-question-studio-registry.ts",
+  "utf8",
+);
 const routeIndex = readFileSync(
   "artifacts/api-server/src/routes/index.ts",
   "utf8",
@@ -198,19 +218,32 @@ const adminOperationsPage = readFileSync(
 );
 
 assert.match(seriesRoute, /SER_001_QUESTION_STUDIO_REVIEW_PACKAGE/);
+assert.match(seriesRoute, /SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1/);
 assert.match(seriesRoute, /\/reasoning\/series\/package/);
 assert.match(seriesRoute, /\/reasoning\/series\/preview/);
 assert.match(seriesRoute, /\/reasoning\/series\/runs/);
 assert.match(seriesRoute, /\/reasoning\/series\/status/);
-assert.match(seriesRoute, /questionBankWritable: false/);
-assert.match(seriesRoute, /testEligible: false/);
-assert.match(seriesRoute, /publiclyPublishable: false/);
-assert.match(routeIndex, /adminQuestionStudioSeriesRouter/);
+assert.match(seriesRoute, /questionBankWritable: true/);
+assert.match(seriesRoute, /testEligible: true/);
+assert.match(seriesRoute, /testBuilderEligible: true/);
+assert.match(seriesRoute, /mockTestEligible: false/);
+assert.match(seriesRoute, /publiclyPublishable: true/);
+assert.match(seriesRoute, /publicReleaseAuthorized: false/);
+assert.match(seriesRoute, /studentDeliveryAuthorized: false/);
+
+// The top-level index now mounts one canonical Question Studio registry. The
+// registry itself owns specialized Series routing and must place it before the
+// generic Question Studio fallback.
+assert.match(routeIndex, /adminQuestionStudioRegistryRouter/);
+assert.match(routeIndex, /router\.use\("\/admin\/question-studio", adminQuestionStudioRegistryRouter\)/);
+assert.match(routeRegistry, /adminQuestionStudioSeriesRouter/);
+assert.match(routeRegistry, /router\.use\(adminQuestionStudioSeriesRouter\)/);
 assert.ok(
-  routeIndex.indexOf("adminQuestionStudioSeriesRouter")
-    < routeIndex.indexOf("adminQuestionStudioRouter"),
-  "Series router must be mounted before the generic Question Studio router.",
+  routeRegistry.indexOf("router.use(adminQuestionStudioSeriesRouter)")
+    < routeRegistry.indexOf("router.use(adminQuestionStudioRouter)"),
+  "Series router must be mounted before the generic Question Studio fallback inside the canonical registry.",
 );
+
 assert.match(bulkReviewRoute, /getGeneratedItemApprovalDisposition/);
 assert.match(bulkReviewRoute, /disposition\.mode === "question_bank"/);
 assert.match(bulkReviewRoute, /reviewOnlyApprovedCount/);
@@ -219,7 +252,8 @@ assert.match(adminOperationsPage, /QuestionStudioSeriesReviewPanel/);
 console.log(JSON.stringify({
   status: "PASS_SER_CP007_CURRENT_MAIN_QUESTION_STUDIO_INTEGRATION",
   packageId: "SER-001",
-  runtimeMode: "FROZEN_REVIEW",
+  sourceRuntimeMode: "FROZEN_REVIEW",
+  activationStatus: activation.status,
   frozenTemplates: SER_CP007_FROZEN_TEMPLATE_AUTHORITIES.length,
   permanentQls: SER_CP007_PERMANENT_QL_IDS.length,
   multilingualPayloads: sweep.length,
@@ -229,11 +263,17 @@ console.log(JSON.stringify({
   deterministicBatchProofs,
   targetedQlProofs,
   reviewOnlyApprovalProofs: 1,
-  routeMountProofs: 1,
+  routeMountProofs: 2,
   adminPanelProofs: 1,
-  questionBankStatus: "NOT_STORED",
-  questionBankWritable: false,
-  testEligibility: "INELIGIBLE",
-  testEligible: false,
-  publiclyPublishable: false,
+  sourceQuestionBankStatus: "NOT_STORED",
+  sourceQuestionBankWritable: false,
+  activatedQuestionBankStatus: activation.questionBankStatus,
+  activatedQuestionBankWritable: activation.questionBankWritable,
+  activatedTestEligibility: activation.testEligibility,
+  activatedTestEligible: activation.testEligible,
+  activatedTestBuilderEligible: activation.testBuilderEligible,
+  mockTestEligible: activation.mockTestEligible,
+  publiclyPublishable: activation.publiclyPublishable,
+  publicReleaseAuthorized: activation.publicReleaseAuthorized,
+  studentDeliveryAuthorized: activation.studentDeliveryAuthorized,
 }, null, 2));
