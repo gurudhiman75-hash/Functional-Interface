@@ -119,15 +119,16 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): PolCp0
     used = [row];
   } else if (ql === 6) {
     const row = POL_CP002_COMMITTEE_ROWS_V1[rowIndex % POL_CP002_COMMITTEE_ROWS_V1.length];
+    const personPool = [...new Set([...POL_CP002_ROLE_ROWS_V1.map((item) => item.person), "Vallabhbhai Patel"])];
     stem = "Which of the following committee–chairperson pairs is correctly matched?";
     correct = `${row.committee} — ${row.chair}`;
     const wrongPairs = POL_CP002_COMMITTEE_ROWS_V1
       .filter((item) => item.id !== row.id)
       .map((item, offset) => {
-        const donor = POL_CP002_ROLE_ROWS_V1[(rowIndex + offset + 1) % POL_CP002_ROLE_ROWS_V1.length];
-        return `${item.committee} — ${donor.person}`;
-      })
-      .filter((pair) => !POL_CP002_COMMITTEE_ROWS_V1.some((item) => pair === `${item.committee} — ${item.chair}`));
+        const wrongPeople = personPool.filter((person) => person !== item.chair);
+        const wrongPerson = wrongPeople[(rowIndex + offset) % wrongPeople.length];
+        return `${item.committee} — ${wrongPerson}`;
+      });
     options = chooseFour([correct, ...wrongPairs], correct, `${qlId}:${row.id}`, correctTarget);
     explanation = `${row.committee} was chaired by ${row.chair}.`;
     used = [row];
@@ -189,17 +190,17 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): PolCp0
     const secondRole = roles[(rowIndex + 2) % roles.length];
     const falseAt = rowIndex % 3;
     const donorRole = roles[(rowIndex + 3) % roles.length];
-    const donorCommittee = committees[(rowIndex + 3) % committees.length];
+    const differentChair = committees.map((item) => item.chair).find((chair) => chair !== committee.chair)!;
     const statements = [
       falseAt === 0 ? `${role.person} was the ${donorRole.role.toLowerCase()}.` : `${role.person} was the ${role.role.toLowerCase()}.`,
-      falseAt === 1 ? `${committee.committee} was chaired by ${donorCommittee.chair}.` : `${committee.committee} was chaired by ${committee.chair}.`,
+      falseAt === 1 ? `${committee.committee} was chaired by ${differentChair}.` : `${committee.committee} was chaired by ${committee.chair}.`,
       falseAt === 2 ? `${secondRole.person} was the ${donorRole.role.toLowerCase()}.` : `${secondRole.person} was the ${secondRole.role.toLowerCase()}.`,
     ];
     stem = `Consider the following statements:\n1. ${statements[0]}\n2. ${statements[1]}\n3. ${statements[2]}\nHow many of the statements given above are correct?`;
     correct = "Only two";
     options = moveCorrect(["None", "Only one", "Only two", "All three"], correct, correctTarget);
     explanation = `${role.person}: ${role.role}; ${committee.committee}: chaired by ${committee.chair}; ${secondRole.person}: ${secondRole.role}.`;
-    used = [role, committee, secondRole, donorRole, donorCommittee];
+    used = [role, committee, secondRole, donorRole];
   } else if (ql === 12) {
     const start = rowIndex % 4;
     const selected = [
