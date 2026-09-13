@@ -3,12 +3,12 @@ import { strict as assert } from "node:assert";
 import { getGeneratedItemApprovalDisposition } from "../../lib/admin-question-studio-approval-policy";
 import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "../engine-registry";
 import {
-  ENG001_CP004_STANDARD_REVIEW_ONLY_PACKAGE_V1,
-  isEng001Cp004QuestionStudioRequestV1,
-  languageV1Eng001Cp004QuestionStudioAdapterV1,
-} from "./language-v1-eng001-cp004-adapter-v1";
+  ENG001_CP005_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+  isEng001Cp005QuestionStudioRequestV1,
+  languageV1Eng001Cp005QuestionStudioAdapterV1,
+} from "./language-v1-eng001-cp005-adapter-v1";
 
-const packageDef = ENG001_CP004_STANDARD_REVIEW_ONLY_PACKAGE_V1;
+const packageDef = ENG001_CP005_STANDARD_REVIEW_ONLY_PACKAGE_V1;
 assert.equal(packageDef.engineId, "language-v1");
 assert.equal(packageDef.packageId, "ENG-001");
 assert.equal(packageDef.questionBankWritable, false);
@@ -17,18 +17,18 @@ assert.equal(packageDef.mockTestEligible, false);
 assert.equal(packageDef.publiclyPublishable, false);
 assert.equal(packageDef.automaticStudentPublication, false);
 assert.equal(packageDef.productionReleaseAuthorized, false);
-assert.deepEqual(packageDef.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004"]);
+assert.deepEqual(packageDef.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005"]);
 assert.equal(packageDef.metadata?.humanReviewApproved, true);
 assert.equal(packageDef.metadata?.reviewOnly, true);
 
 const registered = listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001");
 assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005"]);
 
-assert.equal(isEng001Cp004QuestionStudioRequestV1({ packageId: "ENG-001" }), false);
-assert.equal(isEng001Cp004QuestionStudioRequestV1({ packageId: "ENG-001", canonicalProblemId: "ENG-001-CP004" }), true);
-assert.equal(isEng001Cp004QuestionStudioRequestV1({ canonicalProblemId: "GR-PRN-004" }), true);
-assert.equal(isEng001Cp004QuestionStudioRequestV1({ subject: "English", topic: "Error Spotting", subtopic: "Pronouns" }), true);
-assert.equal(isEng001Cp004QuestionStudioRequestV1({ packageId: "COM-001", canonicalProblemId: "ENG-001-CP004" }), false);
+assert.equal(isEng001Cp005QuestionStudioRequestV1({ packageId: "ENG-001" }), false);
+assert.equal(isEng001Cp005QuestionStudioRequestV1({ packageId: "ENG-001", canonicalProblemId: "ENG-001-CP005" }), true);
+assert.equal(isEng001Cp005QuestionStudioRequestV1({ canonicalProblemId: "GR-PRP-004" }), true);
+assert.equal(isEng001Cp005QuestionStudioRequestV1({ subject: "English", topic: "Error Spotting", subtopic: "Prepositions" }), true);
+assert.equal(isEng001Cp005QuestionStudioRequestV1({ packageId: "COM-001", canonicalProblemId: "ENG-001-CP005" }), false);
 
 const baseRequest = {
   engineId: "language-v1" as const,
@@ -36,7 +36,7 @@ const baseRequest = {
   language: "en" as const,
   difficulty: "Medium",
   count: 12,
-  seed: "eng001-cp004-question-studio-integration-test",
+  seed: "eng001-cp005-question-studio-integration-test",
   runtimeMode: "review-only",
 };
 
@@ -47,25 +47,25 @@ assert.equal(legacy.questions.every((question) => question.cpId === "ENG-001-CP0
 
 const request = {
   ...baseRequest,
-  canonicalProblemId: "ENG-001-CP004",
-  subtopic: "Pronouns",
+  canonicalProblemId: "ENG-001-CP005",
+  subtopic: "Prepositions",
 };
 const result = await generateQuestionStudioQuestions(request);
 const replay = await generateQuestionStudioQuestions(request);
 assert.deepEqual(result, replay);
 assert.equal(result.questions.length, 12);
 assert.equal(new Set(result.questions.map((question) => question.candidateId)).size, 12);
-assert.equal(result.generationContext?.cpId, "ENG-001-CP004");
-assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:3b2f805503203947071d50b8f6453785515b6355050a16f0fa777bcfb79df563");
-assert.equal(result.generationContext?.approvedGeneratorHeadSha, "8b92158f3085409a773f12d09897d1160b2c8c04");
+assert.equal(result.generationContext?.cpId, "ENG-001-CP005");
+assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:27a983dc368153145d488a5ff6614e9497a76baed8bbef852fdaa7f67dc3db4c");
+assert.equal(result.generationContext?.approvedGeneratorHeadSha, "24243c3e2001cbbf9ab01b2fa03d4d9eb16ae033");
 
 for (const question of result.questions) {
   assert.equal(question.packageId, "ENG-001");
-  assert.equal(question.cpId, "ENG-001-CP004");
-  assert.equal(question.subtopic, "Pronouns");
-  assert.match(String(question.ruleId), /^GR-PRN-/);
+  assert.equal(question.cpId, "ENG-001-CP005");
+  assert.equal(question.subtopic, "Prepositions");
+  assert.match(String(question.ruleId), /^GR-PRP-/);
   assert.equal(question.registrationStatus, "REGISTERED_REVIEW_ONLY");
-  assert.match(String(question.registrationAuthorityId), /ENG-001-CP004-HUMAN-EDITORIAL-APPROVAL-V1/);
+  assert.match(String(question.registrationAuthorityId), /ENG-001-CP005-HUMAN-EDITORIAL-APPROVAL-V1/);
   assert.equal(question.humanReviewApproved, true);
   assert.equal(question.reviewOnly, true);
   assert.equal(question.questionStudioDiscoverable, true);
@@ -82,47 +82,47 @@ for (const question of result.questions) {
 }
 
 for (const [qlId, ruleId, difficulty] of [
-  ["ENG-001-QL001", "GR-PRN-001", "Easy"],
-  ["ENG-001-QL002", "GR-PRN-004", "Hard"],
-  ["ENG-001-QL007", "GR-PRN-008", "Hard"],
+  ["ENG-001-QL001", "GR-PRP-001", "Easy"],
+  ["ENG-001-QL002", "GR-PRP-004", "Hard"],
+  ["ENG-001-QL007", "GR-PRP-009", "Hard"],
 ] as const) {
-  const selected = await languageV1Eng001Cp004QuestionStudioAdapterV1.generate({
+  const selected = await languageV1Eng001Cp005QuestionStudioAdapterV1.generate({
     ...baseRequest,
     difficulty,
     patternId: qlId,
     canonicalProblemId: ruleId,
     count: 1,
-    seed: `${qlId}:${ruleId}:cp004-filter`,
+    seed: `${qlId}:${ruleId}:cp005-filter`,
   });
   assert.equal(selected.questions.length, 1);
   assert.equal(selected.questions.every((question) => question.qlId === qlId), true);
   assert.equal(selected.questions.every((question) => question.ruleId === ruleId), true);
-  assert.equal(selected.questions.every((question) => question.cpId === "ENG-001-CP004"), true);
+  assert.equal(selected.questions.every((question) => question.cpId === "ENG-001-CP005"), true);
 }
 
 for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
-  const selected = await languageV1Eng001Cp004QuestionStudioAdapterV1.generate({
+  const selected = await languageV1Eng001Cp005QuestionStudioAdapterV1.generate({
     ...baseRequest,
     difficulty,
-    canonicalProblemId: "ENG-001-CP004",
+    canonicalProblemId: "ENG-001-CP005",
     count: 5,
-    seed: `eng001:cp004:${difficulty}:filter`,
+    seed: `eng001:cp005:${difficulty}:filter`,
   });
   assert.equal(selected.questions.every((question) => question.difficulty === difficulty), true);
-  assert.equal(selected.questions.every((question) => question.cpId === "ENG-001-CP004"), true);
+  assert.equal(selected.questions.every((question) => question.cpId === "ENG-001-CP005"), true);
 }
 
 await assert.rejects(
-  languageV1Eng001Cp004QuestionStudioAdapterV1.generate({ ...request, language: "hi" }),
+  languageV1Eng001Cp005QuestionStudioAdapterV1.generate({ ...request, language: "hi" }),
   /supports English only/i,
 );
 await assert.rejects(
-  languageV1Eng001Cp004QuestionStudioAdapterV1.generate({ ...request, runtimeMode: "bank-only" }),
+  languageV1Eng001Cp005QuestionStudioAdapterV1.generate({ ...request, runtimeMode: "bank-only" }),
   /only supports review-only runtime/i,
 );
 await assert.rejects(
-  languageV1Eng001Cp004QuestionStudioAdapterV1.generate({ ...request, difficulty: "Easy", canonicalProblemId: "GR-PRN-004" }),
-  /GR-PRN-004 is not approved for Easy difficulty/i,
+  languageV1Eng001Cp005QuestionStudioAdapterV1.generate({ ...request, difficulty: "Easy", canonicalProblemId: "GR-PRP-004" }),
+  /GR-PRP-004 is not approved for Easy difficulty/i,
 );
 
-console.log("ENG-001 CP004 Question Studio review-only integration tests passed.");
+console.log("ENG-001 CP005 Question Studio review-only integration tests passed.");

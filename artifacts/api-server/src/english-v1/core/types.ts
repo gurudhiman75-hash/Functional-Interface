@@ -9,7 +9,8 @@ export type Eng001CpId =
   | "ENG-001-CP001"
   | "ENG-001-CP002"
   | "ENG-001-CP003"
-  | "ENG-001-CP004";
+  | "ENG-001-CP004"
+  | "ENG-001-CP005";
 
 export type SvaRuleId =
   | "GR-SVA-001"
@@ -59,7 +60,19 @@ export type PronounRuleId =
   | "GR-PRN-009"
   | "GR-PRN-010";
 
-export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId;
+export type PrepositionRuleId =
+  | "GR-PRP-001"
+  | "GR-PRP-002"
+  | "GR-PRP-003"
+  | "GR-PRP-004"
+  | "GR-PRP-005"
+  | "GR-PRP-006"
+  | "GR-PRP-007"
+  | "GR-PRP-008"
+  | "GR-PRP-009"
+  | "GR-PRP-010";
+
+export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId | PrepositionRuleId;
 
 export type SvaMutationId =
   | "MUT-SVA-NUMBER-001"
@@ -109,7 +122,19 @@ export type PronounMutationId =
   | "MUT-PRN-DEMONSTRATIVE-NUMBER-001"
   | "MUT-PRN-WHOSE-WHOS-001";
 
-export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId;
+export type PrepositionMutationId =
+  | "MUT-PRP-TIME-001"
+  | "MUT-PRP-PLACE-001"
+  | "MUT-PRP-SINCE-FOR-001"
+  | "MUT-PRP-BY-UNTIL-001"
+  | "MUT-PRP-BETWEEN-AMONG-001"
+  | "MUT-PRP-IN-INTO-001"
+  | "MUT-PRP-BESIDE-BESIDES-001"
+  | "MUT-PRP-ADJECTIVE-COMPLEMENT-001"
+  | "MUT-PRP-VERB-COMPLEMENT-001"
+  | "MUT-PRP-NOUN-COMPLEMENT-001";
+
+export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId | PrepositionMutationId;
 
 export interface DifficultyDimensions {
   ruleComplexity: 1 | 2 | 3 | 4 | 5;
@@ -122,7 +147,7 @@ export interface DifficultyDimensions {
 
 export interface EnglishGrammarRule {
   ruleId: GrammarRuleId;
-  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns";
+  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns" | "prepositions";
   name: string;
   principle: string;
   mutationId: GrammarMutationId;

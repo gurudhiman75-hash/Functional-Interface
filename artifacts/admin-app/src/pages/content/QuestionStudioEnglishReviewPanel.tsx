@@ -92,6 +92,19 @@ const PRONOUN_RULES = [
   ['GR-PRN-010', "Whose / who's"],
 ] as const;
 
+const PREPOSITION_RULES = [
+  ['GR-PRP-001', 'Time: at / on / in'],
+  ['GR-PRP-002', 'Place: at / on / in'],
+  ['GR-PRP-003', 'Since / for'],
+  ['GR-PRP-004', 'By / until'],
+  ['GR-PRP-005', 'Between / among'],
+  ['GR-PRP-006', 'In / into'],
+  ['GR-PRP-007', 'Beside / besides'],
+  ['GR-PRP-008', 'Adjective + preposition complements'],
+  ['GR-PRP-009', 'Verb + preposition complements'],
+  ['GR-PRP-010', 'Noun + preposition complements'],
+] as const;
+
 const CPS = [
   {
     id: 'ENG-001-CP001',
@@ -124,6 +137,14 @@ const CPS = [
     version: 'V1',
     ruleLabel: 'pronoun',
     rules: PRONOUN_RULES,
+  },
+  {
+    id: 'ENG-001-CP005',
+    label: 'CP005 · Prepositions',
+    subtopic: 'Prepositions',
+    version: 'V1',
+    ruleLabel: 'preposition',
+    rules: PREPOSITION_RULES,
   },
 ] as const;
 
@@ -287,13 +308,13 @@ export function QuestionStudioEnglishReviewPanel() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="border-success/30 text-success">Human-approved content</Badge>
-            <Badge variant="outline">4 CPs · 3 QLs · 40 grammar rules</Badge>
+            <Badge variant="outline">5 CPs · 3 QLs · 50 grammar rules</Badge>
             <Badge variant="outline">Easy / Medium / Hard</Badge>
             <Badge variant="outline" className="border-warning/30 text-warning">Review-only</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          CP001, CP002, CP003 and CP004 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
+          CP001, CP002, CP003, CP004 and CP005 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
         </div>
       </CardHeader>
 
@@ -359,7 +380,7 @@ export function QuestionStudioEnglishReviewPanel() {
           <div className="mb-3 grid gap-3 md:grid-cols-[1fr_minmax(18rem,32rem)] md:items-end">
             <div>
               <p className="text-sm font-semibold">Recent ENG-001 review runs</p>
-              <p className="text-xs text-muted-foreground">CP001, CP002, CP003 and CP004 share this existing review surface. Approved items cannot enter Question Bank from this package.</p>
+              <p className="text-xs text-muted-foreground">CP001, CP002, CP003, CP004 and CP005 share this existing review surface. Approved items cannot enter Question Bank from this package.</p>
             </div>
             <Field label="Reason for Needs fix / Reject">
               <Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the grammar, wording, explanation, ambiguity, or difficulty issue" />
