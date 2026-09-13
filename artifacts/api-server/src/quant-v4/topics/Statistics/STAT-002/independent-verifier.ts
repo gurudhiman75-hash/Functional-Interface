@@ -19,31 +19,32 @@ function recomputePopulationSd(values: readonly number[]) {
   return root;
 }
 
+function momentSd(mean: number, meanOfSquares: number) {
+  const variance = meanOfSquares - mean * mean;
+  if (variance < 0) throw new Error("STAT-002 independent verifier found negative variance.");
+  const root = Math.sqrt(variance);
+  if (!Number.isInteger(root)) throw new Error("STAT-002 independent verifier found a non-exact moment state.");
+  return root;
+}
+
 export function independentlySolveStat002State(state: Stat002State): string {
   switch (state.kind) {
     case "RAW_POPULATION_SD":
       return String(recomputePopulationSd(state.values));
-    case "MEAN_AND_MEAN_SQUARES": {
-      const variance = state.meanOfSquares - state.mean * state.mean;
-      if (variance < 0) throw new Error("STAT-002 independent verifier found negative variance.");
-      const root = Math.sqrt(variance);
-      if (!Number.isInteger(root)) throw new Error("STAT-002 independent verifier found a non-exact mean-squares state.");
-      return String(root);
-    }
-    case "TRANSLATED_DATA": {
-      const translated = state.values.map((value) => value + state.additiveConstant);
-      return String(recomputePopulationSd(translated));
-    }
-    case "SCALED_DATA": {
-      const scaled = state.values.map((value) => value * state.multiplier);
-      return String(recomputePopulationSd(scaled));
-    }
+    case "MEAN_AND_MEAN_SQUARES":
+      return String(momentSd(state.mean, state.meanOfSquares));
+    case "TRANSLATED_DATA":
+      return String(recomputePopulationSd(state.values.map((value) => value + state.additiveConstant)));
+    case "SCALED_DATA":
+      return String(recomputePopulationSd(state.values.map((value) => value * state.multiplier)));
     case "REVERSE_SCALE": {
       if (state.originalStandardDeviation <= 0) throw new Error("STAT-002 reverse-scale original SD must be positive.");
       const ratio = state.transformedStandardDeviation / state.originalStandardDeviation;
       if (!Number.isInteger(ratio) || ratio <= 0) throw new Error("STAT-002 reverse-scale ratio must be a positive integer.");
       return String(ratio);
     }
+    case "AFFINE_FROM_MOMENTS":
+      return String(momentSd(state.mean, state.meanOfSquares) * Math.abs(state.multiplier));
   }
 }
 
