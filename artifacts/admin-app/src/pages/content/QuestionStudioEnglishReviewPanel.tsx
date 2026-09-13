@@ -41,94 +41,53 @@ const QLS = [
 ] as const;
 
 const SVA_RULES = [
-  ['GR-SVA-001', 'Basic singular / plural'],
-  ['GR-SVA-002', 'Each / every'],
-  ['GR-SVA-003', 'One of'],
-  ['GR-SVA-004', 'A number of / the number of'],
-  ['GR-SVA-005', 'Along with / together with / as well as'],
-  ['GR-SVA-006', 'Either-or / neither-nor'],
-  ['GR-SVA-007', 'Collective nouns'],
-  ['GR-SVA-008', 'More than one'],
-  ['GR-SVA-009', 'Many a/an'],
-  ['GR-SVA-010', 'Intervening phrase'],
+  ['GR-SVA-001', 'Basic singular / plural'], ['GR-SVA-002', 'Each / every'], ['GR-SVA-003', 'One of'],
+  ['GR-SVA-004', 'A number of / the number of'], ['GR-SVA-005', 'Along with / together with / as well as'],
+  ['GR-SVA-006', 'Either-or / neither-nor'], ['GR-SVA-007', 'Collective nouns'], ['GR-SVA-008', 'More than one'],
+  ['GR-SVA-009', 'Many a/an'], ['GR-SVA-010', 'Intervening phrase'],
 ] as const;
-
 const TENSE_RULES = [
-  ['GR-TNS-001', 'Finished past time → simple past'],
-  ['GR-TNS-002', 'Continuing action from past'],
-  ['GR-TNS-003', 'Habit / general action'],
-  ['GR-TNS-004', 'Action happening now'],
-  ['GR-TNS-005', 'Stative verb'],
-  ['GR-TNS-006', 'Did / did not + base form'],
-  ['GR-TNS-007', 'Earlier of two past actions'],
-  ['GR-TNS-008', 'Past action in progress + interruption'],
-  ['GR-TNS-009', 'Single completed past event'],
-  ['GR-TNS-010', 'Continuing stative state'],
+  ['GR-TNS-001', 'Finished past time → simple past'], ['GR-TNS-002', 'Continuing action from past'], ['GR-TNS-003', 'Habit / general action'],
+  ['GR-TNS-004', 'Action happening now'], ['GR-TNS-005', 'Stative verb'], ['GR-TNS-006', 'Did / did not + base form'],
+  ['GR-TNS-007', 'Earlier of two past actions'], ['GR-TNS-008', 'Past action in progress + interruption'],
+  ['GR-TNS-009', 'Single completed past event'], ['GR-TNS-010', 'Continuing stative state'],
 ] as const;
-
 const ARTICLE_RULES = [
-  ['GR-ART-001', 'Indefinite article with one countable noun'],
-  ['GR-ART-002', 'A / an by sound'],
-  ['GR-ART-003', 'The with superlatives'],
-  ['GR-ART-004', 'The for a specifically identified noun'],
-  ['GR-ART-005', 'Zero article for general reference'],
-  ['GR-ART-006', 'Article with professions and roles'],
-  ['GR-ART-007', 'Institutional zero article'],
-  ['GR-ART-008', 'Articles with geographical names'],
-  ['GR-ART-009', 'Countability with much / many / few / little'],
+  ['GR-ART-001', 'Indefinite article with one countable noun'], ['GR-ART-002', 'A / an by sound'], ['GR-ART-003', 'The with superlatives'],
+  ['GR-ART-004', 'The for a specifically identified noun'], ['GR-ART-005', 'Zero article for general reference'],
+  ['GR-ART-006', 'Article with professions and roles'], ['GR-ART-007', 'Institutional zero article'],
+  ['GR-ART-008', 'Articles with geographical names'], ['GR-ART-009', 'Countability with much / many / few / little'],
   ['GR-ART-010', 'Determiner and noun-number agreement'],
 ] as const;
-
 const PRONOUN_RULES = [
-  ['GR-PRN-001', 'Subject pronoun case'],
-  ['GR-PRN-002', 'Object pronoun case'],
-  ['GR-PRN-003', 'Possessive determiner / possessive pronoun'],
-  ['GR-PRN-004', 'Reflexive pronoun for coreference'],
-  ['GR-PRN-005', 'Avoid unnecessary reflexive pronouns'],
-  ['GR-PRN-006', 'Pronoun–antecedent number agreement'],
-  ['GR-PRN-007', 'Who / whom by grammatical case'],
-  ['GR-PRN-008', 'Relative pronoun for persons and things'],
-  ['GR-PRN-009', 'Demonstrative pronoun number'],
-  ['GR-PRN-010', "Whose / who's"],
+  ['GR-PRN-001', 'Subject pronoun case'], ['GR-PRN-002', 'Object pronoun case'], ['GR-PRN-003', 'Possessive determiner / possessive pronoun'],
+  ['GR-PRN-004', 'Reflexive pronoun for coreference'], ['GR-PRN-005', 'Avoid unnecessary reflexive pronouns'],
+  ['GR-PRN-006', 'Pronoun–antecedent number agreement'], ['GR-PRN-007', 'Who / whom by grammatical case'],
+  ['GR-PRN-008', 'Relative pronoun for persons and things'], ['GR-PRN-009', 'Demonstrative pronoun number'], ['GR-PRN-010', "Whose / who's"],
 ] as const;
-
 const PREPOSITION_RULES = [
-  ['GR-PRP-001', 'Time: at / on / in'],
-  ['GR-PRP-002', 'Place: at / on / in'],
-  ['GR-PRP-003', 'Since / for'],
-  ['GR-PRP-004', 'By / until'],
-  ['GR-PRP-005', 'Between / among'],
-  ['GR-PRP-006', 'In / into'],
-  ['GR-PRP-007', 'Beside / besides'],
-  ['GR-PRP-008', 'Adjective + preposition complements'],
-  ['GR-PRP-009', 'Verb + preposition complements'],
-  ['GR-PRP-010', 'Noun + preposition complements'],
+  ['GR-PRP-001', 'Time: at / on / in'], ['GR-PRP-002', 'Place: at / on / in'], ['GR-PRP-003', 'Since / for'], ['GR-PRP-004', 'By / until'],
+  ['GR-PRP-005', 'Between / among'], ['GR-PRP-006', 'In / into'], ['GR-PRP-007', 'Beside / besides'],
+  ['GR-PRP-008', 'Adjective + preposition complements'], ['GR-PRP-009', 'Verb + preposition complements'], ['GR-PRP-010', 'Noun + preposition complements'],
 ] as const;
-
 const COMPARISON_RULES = [
-  ['GR-CMP-001', 'Adverb for manner after an action verb'],
-  ['GR-CMP-002', 'Adjective after a linking verb'],
-  ['GR-CMP-003', 'Positive degree in as ... as'],
-  ['GR-CMP-004', 'Comparative degree with than'],
-  ['GR-CMP-005', 'The with ordinary superlatives'],
-  ['GR-CMP-006', 'One of the + superlative + plural noun'],
-  ['GR-CMP-007', 'Avoid double comparatives'],
-  ['GR-CMP-008', 'Avoid double superlatives'],
-  ['GR-CMP-009', 'Standard comparative intensifiers'],
-  ['GR-CMP-010', 'Irregular degrees of comparison'],
+  ['GR-CMP-001', 'Adverb for manner after an action verb'], ['GR-CMP-002', 'Adjective after a linking verb'],
+  ['GR-CMP-003', 'Positive degree in as ... as'], ['GR-CMP-004', 'Comparative degree with than'],
+  ['GR-CMP-005', 'The with ordinary superlatives'], ['GR-CMP-006', 'One of the + superlative + plural noun'],
+  ['GR-CMP-007', 'Avoid double comparatives'], ['GR-CMP-008', 'Avoid double superlatives'],
+  ['GR-CMP-009', 'Standard comparative intensifiers'], ['GR-CMP-010', 'Irregular degrees of comparison'],
 ] as const;
-
 const CONJUNCTION_RULES = [
-  ['GR-CON-001', 'Coordinating conjunction by relation'],
-  ['GR-CON-002', 'Both ... and'],
-  ['GR-CON-003', 'Either ... or'],
-  ['GR-CON-004', 'Neither ... nor'],
-  ['GR-CON-005', 'Not only ... but also'],
-  ['GR-CON-006', 'Although / though without redundant but'],
-  ['GR-CON-007', 'Because vs because of'],
-  ['GR-CON-008', 'Despite / in spite of vs although'],
-  ['GR-CON-009', 'Parallel structure in coordinated lists'],
-  ['GR-CON-010', 'Parallel structure after correlatives'],
+  ['GR-CON-001', 'Coordinating conjunction by relation'], ['GR-CON-002', 'Both ... and'], ['GR-CON-003', 'Either ... or'],
+  ['GR-CON-004', 'Neither ... nor'], ['GR-CON-005', 'Not only ... but also'], ['GR-CON-006', 'Although / though without redundant but'],
+  ['GR-CON-007', 'Because vs because of'], ['GR-CON-008', 'Despite / in spite of vs although'],
+  ['GR-CON-009', 'Parallel structure in coordinated lists'], ['GR-CON-010', 'Parallel structure after correlatives'],
+] as const;
+const NOUN_QUANTIFIER_RULES = [
+  ['GR-NQN-001', 'Many vs much'], ['GR-NQN-002', 'Few / a few with countable nouns'], ['GR-NQN-003', 'Little / a little with uncountable nouns'],
+  ['GR-NQN-004', 'Fewer vs less'], ['GR-NQN-005', 'Number vs amount'], ['GR-NQN-006', 'Uncountable nouns without ordinary plurals'],
+  ['GR-NQN-007', 'Irregular plural forms'], ['GR-NQN-008', 'Plural-only nouns and pair of'],
+  ['GR-NQN-009', 'Unit expressions with mass nouns'], ['GR-NQN-010', 'Each/one of the + plural group noun'],
 ] as const;
 
 const CPS = [
@@ -139,16 +98,14 @@ const CPS = [
   { id: 'ENG-001-CP005', label: 'CP005 · Prepositions', subtopic: 'Prepositions', version: 'V1', ruleLabel: 'preposition', rules: PREPOSITION_RULES },
   { id: 'ENG-001-CP006', label: 'CP006 · Adjectives, Adverbs and Comparison', subtopic: 'Adjectives, Adverbs and Comparison', version: 'V1', ruleLabel: 'comparison', rules: COMPARISON_RULES },
   { id: 'ENG-001-CP007', label: 'CP007 · Conjunctions & Parallelism', subtopic: 'Conjunctions & Parallelism', version: 'V1', ruleLabel: 'conjunction / parallelism', rules: CONJUNCTION_RULES },
+  { id: 'ENG-001-CP008', label: 'CP008 · Nouns & Quantifiers', subtopic: 'Nouns & Quantifiers', version: 'V1', ruleLabel: 'noun / quantifier', rules: NOUN_QUANTIFIER_RULES },
 ] as const;
 
 type CpId = (typeof CPS)[number]['id'];
-
 function asText(value: unknown) { return typeof value === 'string' ? value.trim() : ''; }
 function asStringArray(value: unknown) { return Array.isArray(value) ? value.map((entry) => String(entry ?? '').trim()).filter(Boolean) : []; }
 function asNumber(value: unknown) { const parsed = Number(value); return Number.isInteger(parsed) ? parsed : -1; }
-function isEnglishRun(run: QuestionStudioRun) {
-  return asText(run.requestSnapshot?.engineId) === ENGINE_ID && asText(run.requestSnapshot?.packageId) === PACKAGE_ID;
-}
+function isEnglishRun(run: QuestionStudioRun) { return asText(run.requestSnapshot?.engineId) === ENGINE_ID && asText(run.requestSnapshot?.packageId) === PACKAGE_ID; }
 
 export function QuestionStudioEnglishReviewPanel() {
   const { hasPermission } = useAdminPermissions();
@@ -167,7 +124,6 @@ export function QuestionStudioEnglishReviewPanel() {
   const [count, setCount] = useState(10);
   const [seed, setSeed] = useState('');
   const [reviewReason, setReviewReason] = useState('');
-
   const selectedCp = CPS.find((entry) => entry.id === cpId) ?? CPS[0];
 
   const refresh = useCallback(async () => {
@@ -192,19 +148,11 @@ export function QuestionStudioEnglishReviewPanel() {
     setGenerating(true);
     try {
       const result = await createGenerationRun({
-        engineId: ENGINE_ID,
-        exam: selectedExam?.name ?? exam,
-        subject: 'English',
-        topic: 'Error Spotting',
-        subtopic: selectedCp.subtopic,
-        difficulty,
-        count: Math.max(1, Math.min(50, count)),
-        packageId: PACKAGE_ID,
+        engineId: ENGINE_ID, exam: selectedExam?.name ?? exam, subject: 'English', topic: 'Error Spotting', subtopic: selectedCp.subtopic,
+        difficulty, count: Math.max(1, Math.min(50, count)), packageId: PACKAGE_ID,
         patternId: qlId === ALL_QLS ? undefined : qlId,
         canonicalProblemId: ruleId === ALL_RULES ? selectedCp.id : ruleId,
-        language: 'en',
-        seed: seed.trim() || undefined,
-        runtimeMode: RUNTIME_MODE,
+        language: 'en', seed: seed.trim() || undefined, runtimeMode: RUNTIME_MODE,
       });
       showToast.success('ENG-001 review batch created', `${result.publicCode} produced ${result.itemCount} ${difficulty} ${selectedCp.subtopic} review item(s).`);
       await refresh();
@@ -215,8 +163,7 @@ export function QuestionStudioEnglishReviewPanel() {
 
   const decide = async (item: QuestionStudioItem, status: GenerationItemStatus) => {
     if ((status === 'needs_fix' || status === 'rejected') && !reviewReason.trim()) {
-      showToast.error('Reason required', 'Describe the grammar, wording, explanation, or difficulty issue first.');
-      return;
+      showToast.error('Reason required', 'Describe the grammar, wording, explanation, or difficulty issue first.'); return;
     }
     setUpdatingItemId(item.id);
     try {
@@ -224,11 +171,8 @@ export function QuestionStudioEnglishReviewPanel() {
       if (status === 'approved') {
         if (result.convertedCount !== 0 || result.reviewOnlyApprovedCount !== 1) throw new Error('ENG-001 approval crossed the review-only Question Bank boundary.');
         showToast.success('Editorial review approved', 'The item remains in Question Studio only. No Question Bank, test, mock, or public write occurred.');
-      } else {
-        showToast.success('Review state updated', `Item moved to ${status.replace(/_/g, ' ')}.`);
-      }
-      setReviewReason('');
-      await refresh();
+      } else showToast.success('Review state updated', `Item moved to ${status.replace(/_/g, ' ')}.`);
+      setReviewReason(''); await refresh();
     } catch (caught) {
       showToast.error('ENG-001 review update failed', caught instanceof Error ? caught.message : 'Unable to update this review item.');
     } finally { setUpdatingItemId(null); }
@@ -244,16 +188,15 @@ export function QuestionStudioEnglishReviewPanel() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="border-success/30 text-success">Human-approved content</Badge>
-            <Badge variant="outline">7 CPs · 3 QLs · 70 grammar rules</Badge>
+            <Badge variant="outline">8 CPs · 3 QLs · 80 grammar rules</Badge>
             <Badge variant="outline">Easy / Medium / Hard</Badge>
             <Badge variant="outline" className="border-warning/30 text-warning">Review-only</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          CP001 through CP007 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
+          CP001 through CP008 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
         </div>
       </CardHeader>
-
       <CardContent className="space-y-5">
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-7">
           <Field label="Exam"><Select value={exam} onValueChange={setExam}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{EXAMS.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.name}</SelectItem>)}</SelectContent></Select></Field>
@@ -263,7 +206,6 @@ export function QuestionStudioEnglishReviewPanel() {
           <Field label="Difficulty"><Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{['Easy', 'Medium', 'Hard'].map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
           <Field label="Question count"><Input type="number" min={1} max={50} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
         </div>
-
         <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
           <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for the approved checkpoint default seed" /></Field>
           <div className="flex gap-2">
@@ -271,19 +213,14 @@ export function QuestionStudioEnglishReviewPanel() {
             <Button onClick={() => void generate()} disabled={!available || !canRun || loading || generating}>{generating ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}Generate English batch</Button>
           </div>
         </div>
-
         <div className="border-t pt-5">
           <div className="mb-3 grid gap-3 md:grid-cols-[1fr_minmax(18rem,32rem)] md:items-end">
-            <div><p className="text-sm font-semibold">Recent ENG-001 review runs</p><p className="text-xs text-muted-foreground">CP001 through CP007 share this existing review surface. Approved items cannot enter Question Bank from this package.</p></div>
+            <div><p className="text-sm font-semibold">Recent ENG-001 review runs</p><p className="text-xs text-muted-foreground">CP001 through CP008 share this review surface. Approved items cannot enter Question Bank from this package.</p></div>
             <Field label="Reason for Needs fix / Reject"><Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the grammar, wording, explanation, ambiguity, or difficulty issue" /></Field>
           </div>
-          {loading ? (
-            <div className="flex items-center justify-center gap-2 rounded-lg border p-8 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading English review runs…</div>
-          ) : recentRuns.length === 0 ? (
-            <div className="rounded-lg border border-dashed p-8 text-center text-sm text-muted-foreground">No ENG-001 review runs yet. Generate a batch above.</div>
-          ) : (
-            <div className="space-y-4">{recentRuns.map((run) => <EnglishRun key={run.id} run={run} canReview={canReview} updatingItemId={updatingItemId} onDecision={decide} />)}</div>
-          )}
+          {loading ? <div className="flex items-center justify-center gap-2 rounded-lg border p-8 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading English review runs…</div>
+            : recentRuns.length === 0 ? <div className="rounded-lg border border-dashed p-8 text-center text-sm text-muted-foreground">No ENG-001 review runs yet. Generate a batch above.</div>
+            : <div className="space-y-4">{recentRuns.map((run) => <EnglishRun key={run.id} run={run} canReview={canReview} updatingItemId={updatingItemId} onDecision={decide} />)}</div>}
         </div>
       </CardContent>
     </Card>
@@ -291,39 +228,14 @@ export function QuestionStudioEnglishReviewPanel() {
 }
 
 function EnglishRun({ run, canReview, updatingItemId, onDecision }: { run: QuestionStudioRun; canReview: boolean; updatingItemId: string | null; onDecision: (item: QuestionStudioItem, status: GenerationItemStatus) => Promise<void>; }) {
-  const selector = asText(run.requestSnapshot?.canonicalProblemId);
-  const subtopic = asText(run.requestSnapshot?.subtopic);
-  return (
-    <div className="space-y-3 rounded-lg border p-4">
-      <div className="flex flex-wrap items-center justify-between gap-2"><div><p className="text-sm font-semibold">{run.publicCode}</p><p className="text-xs text-muted-foreground">{subtopic || 'Error Spotting'} · {asText(run.requestSnapshot?.difficulty) || 'Medium'} · {asText(run.requestSnapshot?.patternId) || 'All QLs'} · {selector || 'All approved rules'}</p></div><Badge variant="outline">{run.status.replace(/_/g, ' ')}</Badge></div>
-      <div className="space-y-3">{run.items.map((item) => <EnglishItem key={item.id} item={item} canReview={canReview} updating={updatingItemId === item.id} onDecision={onDecision} />)}</div>
-    </div>
-  );
+  const selector = asText(run.requestSnapshot?.canonicalProblemId); const subtopic = asText(run.requestSnapshot?.subtopic);
+  return <div className="space-y-3 rounded-lg border p-4"><div className="flex flex-wrap items-center justify-between gap-2"><div><p className="text-sm font-semibold">{run.publicCode}</p><p className="text-xs text-muted-foreground">{subtopic || 'Error Spotting'} · {asText(run.requestSnapshot?.difficulty) || 'Medium'} · {asText(run.requestSnapshot?.patternId) || 'All QLs'} · {selector || 'All approved rules'}</p></div><Badge variant="outline">{run.status.replace(/_/g, ' ')}</Badge></div><div className="space-y-3">{run.items.map((item) => <EnglishItem key={item.id} item={item} canReview={canReview} updating={updatingItemId === item.id} onDecision={onDecision} />)}</div></div>;
 }
 
 function EnglishItem({ item, canReview, updating, onDecision }: { item: QuestionStudioItem; canReview: boolean; updating: boolean; onDecision: (item: QuestionStudioItem, status: GenerationItemStatus) => Promise<void>; }) {
-  const payload = item.payload ?? {};
-  const stem = asText(payload.stem);
-  const options = asStringArray(payload.options);
-  const correctIndex = asNumber(payload.correctIndex ?? payload.correct);
-  const explanation = asText(payload.explanation);
-  const correctedSentence = asText(payload.correctedSentence);
-  const ruleId = asText(payload.ruleId);
-  const qlId = asText(payload.qlId ?? payload.patternId);
-  const cpId = asText(payload.cpId);
-  return (
-    <div className="rounded-lg border bg-muted/10 p-4">
-      <div className="mb-3 flex flex-wrap items-center gap-2 text-xs"><Badge variant="outline">#{item.itemNumber}</Badge>{cpId && <Badge variant="outline">{cpId}</Badge>}{qlId && <Badge variant="outline">{qlId}</Badge>}{ruleId && <Badge variant="outline">{ruleId}</Badge>}<Badge variant="outline">{item.status.replace(/_/g, ' ')}</Badge></div>
-      <p className="text-sm font-medium">{stem}</p>
-      <div className="mt-3 space-y-1.5 text-sm">{options.map((option, index) => <div key={`${item.id}-${index}`} className={cn('rounded border px-3 py-2', index === correctIndex && 'border-success/40 bg-success/5')}><span className="mr-2 font-semibold">{String.fromCharCode(65 + index)}.</span>{option}</div>)}</div>
-      <div className="mt-3 rounded border bg-background p-3 text-xs"><p><strong>Answer:</strong> {correctIndex >= 0 ? String.fromCharCode(65 + correctIndex) : '—'}</p><p className="mt-1"><strong>Explanation:</strong> {explanation || '—'}</p>{correctedSentence && <p className="mt-1"><strong>Correct sentence:</strong> {correctedSentence}</p>}</div>
-      <div className="mt-3 flex flex-wrap gap-2">
-        <Button size="sm" variant="outline" disabled={!canReview || updating} onClick={() => void onDecision(item, 'approved')}>{updating ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />} Approve review</Button>
-        <Button size="sm" variant="outline" disabled={!canReview || updating} onClick={() => void onDecision(item, 'needs_fix')}>Needs fix</Button>
-        <Button size="sm" variant="outline" disabled={!canReview || updating} onClick={() => void onDecision(item, 'rejected')}><XCircle className="mr-1.5 h-3.5 w-3.5" /> Reject</Button>
-      </div>
-    </div>
-  );
+  const payload = item.payload ?? {}; const stem = asText(payload.stem); const options = asStringArray(payload.options); const correctIndex = asNumber(payload.correctIndex ?? payload.correct);
+  const explanation = asText(payload.explanation); const correctedSentence = asText(payload.correctedSentence); const ruleId = asText(payload.ruleId); const qlId = asText(payload.qlId ?? payload.patternId); const cpId = asText(payload.cpId);
+  return <div className="rounded-lg border bg-muted/10 p-4"><div className="mb-3 flex flex-wrap items-center gap-2 text-xs"><Badge variant="outline">#{item.itemNumber}</Badge>{cpId && <Badge variant="outline">{cpId}</Badge>}{qlId && <Badge variant="outline">{qlId}</Badge>}{ruleId && <Badge variant="outline">{ruleId}</Badge>}<Badge variant="outline">{item.status.replace(/_/g, ' ')}</Badge></div><p className="text-sm font-medium">{stem}</p><div className="mt-3 space-y-1.5 text-sm">{options.map((option, index) => <div key={`${item.id}-${index}`} className={cn('rounded border px-3 py-2', index === correctIndex && 'border-success/40 bg-success/5')}><span className="mr-2 font-semibold">{String.fromCharCode(65 + index)}.</span>{option}</div>)}</div><div className="mt-3 rounded border bg-background p-3 text-xs"><p><strong>Answer:</strong> {correctIndex >= 0 ? String.fromCharCode(65 + correctIndex) : '—'}</p><p className="mt-1"><strong>Explanation:</strong> {explanation || '—'}</p>{correctedSentence && <p className="mt-1"><strong>Correct sentence:</strong> {correctedSentence}</p>}</div><div className="mt-3 flex flex-wrap gap-2"><Button size="sm" variant="outline" disabled={!canReview || updating} onClick={() => void onDecision(item, 'approved')}>{updating ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />} Approve review</Button><Button size="sm" variant="outline" disabled={!canReview || updating} onClick={() => void onDecision(item, 'needs_fix')}>Needs fix</Button><Button size="sm" variant="outline" disabled={!canReview || updating} onClick={() => void onDecision(item, 'rejected')}><XCircle className="mr-1.5 h-3.5 w-3.5" /> Reject</Button></div></div>;
 }
 
 function Field({ label, children, className }: { label: string; children: React.ReactNode; className?: string }) {
