@@ -16,7 +16,6 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v8.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v8.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1-review-export.ts"
-      - ".github/workflows/reasoning-lp-ql047-localization-v1.yml"
   workflow_dispatch:
 
 permissions:
