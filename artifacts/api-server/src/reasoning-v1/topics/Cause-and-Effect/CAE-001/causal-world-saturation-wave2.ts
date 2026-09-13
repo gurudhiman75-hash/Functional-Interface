@@ -8,15 +8,17 @@ import { CAE_001_SATURATION_WAVE1_FAMILIES, CAE_001_SATURATION_WAVE1_VARIANT_COU
 import { CAE_001_SATURATION_WAVE2_GROUP_A } from "./causal-world-saturation-wave2-a.ts";
 import { CAE_001_SATURATION_WAVE2_GROUP_B } from "./causal-world-saturation-wave2-b.ts";
 import { CAE_001_SATURATION_WAVE2_GROUP_C } from "./causal-world-saturation-wave2-c.ts";
+import { CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS, withSaturationCandidateAuthorities } from "./saturation-candidate-authorities.ts";
 import type { CaeCausalWorld, CaeScenarioFamilyAuthority } from "./types.ts";
 
-/** Second aggressive saturation wave: nine additional families / forty-five variants. */
-export const CAE_001_SATURATION_WAVE2_FAMILIES: readonly CaeScenarioFamilyAuthority[] = Object.freeze([
+const RAW_WAVE2_FAMILIES: readonly CaeScenarioFamilyAuthority[] = Object.freeze([
   ...CAE_001_SATURATION_WAVE2_GROUP_A,
   ...CAE_001_SATURATION_WAVE2_GROUP_B,
   ...CAE_001_SATURATION_WAVE2_GROUP_C,
 ]);
 
+/** Nine additional families / forty-five variants; five chain families carry audited semantic candidate pools. */
+export const CAE_001_SATURATION_WAVE2_FAMILIES: readonly CaeScenarioFamilyAuthority[] = Object.freeze(RAW_WAVE2_FAMILIES.map(withSaturationCandidateAuthorities));
 export const CAE_001_SATURATION_WAVE2_FAMILY_IDS = Object.freeze(CAE_001_SATURATION_WAVE2_FAMILIES.map((family) => family.id));
 export const CAE_001_SATURATION_WAVE2_VARIANT_COUNT = CAE_001_SATURATION_WAVE2_FAMILIES.reduce((sum, family) => sum + family.variants.length, 0);
 export const CAE_001_SATURATION_EFFECTIVE_FAMILY_COUNT = 9 + CAE_001_SATURATION_WAVE1_FAMILIES.length + CAE_001_SATURATION_WAVE2_FAMILIES.length;
@@ -25,13 +27,18 @@ export const CAE_001_SATURATION_EFFECTIVE_VARIANT_COUNT = 27 + CAE_001_SATURATIO
 const CHAIN_FAMILY_IDS = Object.freeze(CAE_001_SATURATION_WAVE2_FAMILIES.filter((family) => family.topology === "DIRECT_CHAIN").map((family) => family.id));
 const COMMON_OR_INDEPENDENT_FAMILY_IDS = Object.freeze(CAE_001_SATURATION_WAVE2_FAMILIES.filter((family) => family.topology === "BRANCHING_COMMON_CAUSE" || family.topology === "PARALLEL_CHAINS").map((family) => family.id));
 const CORRELATION_FAMILY_IDS = Object.freeze(CAE_001_SATURATION_WAVE2_FAMILIES.filter((family) => family.topology === "PARALLEL_CHAINS").map((family) => family.id));
+const CANDIDATE_READY_IDS = Object.freeze(CHAIN_FAMILY_IDS.filter((id) => CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS.includes(id)));
 
 const ADDITIONS_BY_QL: Readonly<Record<string, readonly string[]>> = Object.freeze({
   "CAE-QL-001": CHAIN_FAMILY_IDS,
   "CAE-QL-002": COMMON_OR_INDEPENDENT_FAMILY_IDS,
+  "CAE-QL-003": CANDIDATE_READY_IDS,
+  "CAE-QL-004": CANDIDATE_READY_IDS,
+  "CAE-QL-005": CANDIDATE_READY_IDS,
   "CAE-QL-006": CHAIN_FAMILY_IDS,
   "CAE-QL-007": CORRELATION_FAMILY_IDS,
   "CAE-QL-008": CHAIN_FAMILY_IDS,
+  "CAE-QL-009": CANDIDATE_READY_IDS,
 });
 
 let installed = false;
@@ -57,11 +64,7 @@ function installWave2Only(): void {
   installed = true;
 }
 
-/**
- * Scoped reviewed overlay. Wave 1 is installed first, Wave 2 is layered on top,
- * and both are restored before returning so frozen/source-profile generation
- * remains deterministic and call-order independent.
- */
+/** Scoped reviewed overlay; both saturation waves are restored after every call. */
 export function withCae001SaturationWave2<T>(operation: () => T): T {
   return withCae001SaturationWave1(() => {
     if (installed) return operation();
