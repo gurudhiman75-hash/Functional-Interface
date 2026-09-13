@@ -21,8 +21,8 @@ const replacements: Readonly<Record<string, Partial<NounQuantifierSceneV1>>> = {
     correction: "very little progress.",
   },
   "NQN-M10": {
-    correctSegments: ["The monitoring system", "recorded during peak hours", "for the whole building", "the amount of electricity used."],
-    errorSegments: ["The monitoring system", "recorded during peak hours", "for the whole building", "the number of electricity used."],
+    correctSegments: ["During peak hours,", "for the whole building,", "the monitoring system measured", "the amount of electricity used."],
+    errorSegments: ["During peak hours,", "for the whole building,", "the monitoring system measured", "the number of electricity used."],
     errorIndex: 3,
     correction: "the amount of electricity used.",
   },
@@ -33,8 +33,8 @@ const replacements: Readonly<Record<string, Partial<NounQuantifierSceneV1>>> = {
     correction: "considerably less water.",
   },
   "NQN-H10": {
-    correctSegments: ["For each production unit,", "the review compared", "during normal operation", "the amount of fuel consumed."],
-    errorSegments: ["For each production unit,", "the review compared", "during normal operation", "the number of fuel consumed."],
+    correctSegments: ["For each production unit,", "during normal operation,", "the review measured", "the amount of fuel consumed."],
+    errorSegments: ["For each production unit,", "during normal operation,", "the review measured", "the number of fuel consumed."],
     errorIndex: 3,
     correction: "the amount of fuel consumed.",
   },
