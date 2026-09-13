@@ -8,12 +8,12 @@ The whole-section evidence phase has reached a useful decision threshold:
 
 - 12 complete SSC CGL Tier-I Quant sections
 - 300 complete-section questions
-- 28 represented packages
+- **29 represented packages** after correcting a Heights & Distances item from `TRG-001` to `TRG-002`
 - 3 exam years
 - 2024 / 2023 / 2022 section balance = 33.33% / 50.00% / 16.67%
-- top-four package order has remained `TRG-001 > ALG-001 > TMW-001 > PNL-001` across the latest expansions
-- top-three concentration fell from 32.50% at Wave 8 to 29.00% at Wave 12
-- Wave 11 -> Wave 12 largest meaningful package-share move was about 0.48 percentage points
+- top-four order remains `TRG-001 > ALG-001 > TMW-001 > PNL-001`
+- corrected top-three concentration fell from 32.50% at Wave 8 to **28.67%** at Wave 12
+- Wave 11 -> Wave 12 largest meaningful package-share move is about 0.48 percentage points
 
 This is enough to stop indiscriminate paper accumulation and begin targeted engine auditing. It is **not** enough to freeze exact production weights.
 
@@ -23,17 +23,28 @@ Keep:
 - `productionPromotionAuthorized=false`
 - `canPromoteWholeSectionFrequencyWeights(profile) === false`
 
+## Taxonomy lesson from the first package audit
+
+A 10 Sep 2024 pole/ground question had originally been counted under `TRG-001`. The current Trigonometry family authority explicitly assigns Heights & Distances to `TRG-002`. The observation was corrected.
+
+This demonstrates that frequency calibration cannot be trusted from topic labels alone. Every observed question must be checked against the **current package authority boundary** before its frequency is used.
+
+Consequences of the correction:
+
+- `TRG-001`: 33 -> **32** questions
+- `TRG-002`: 0 -> **1** question
+- package coverage: 28 -> **29**
+- Wave 12 top-three concentration: 29.00% -> **28.67%**
+
 ## Audit-only support classes
 
-The repository now exposes an audit-only support assessment. The thresholds describe evidence density only; they are not production quotas and do not authorize mock generation weights.
+The thresholds below describe evidence density only. They are not production quotas and do not authorize mock-generation weights.
 
 ### Core evidence — observed share >= 5%
 
-These packages have enough whole-section presence by question count to justify the deepest engine-realism audit first:
-
 | Package | Questions | Share | Mean / section |
 |---|---:|---:|---:|
-| TRG-001 | 33 | 11.00% | 2.75 |
+| TRG-001 | 32 | 10.67% | 2.67 |
 | ALG-001 | 28 | 9.33% | 2.33 |
 | TMW-001 | 26 | 8.67% | 2.17 |
 | PNL-001 | 24 | 8.00% | 2.00 |
@@ -44,7 +55,7 @@ These packages have enough whole-section presence by question count to justify t
 | GEO-001 | 16 | 5.33% | 1.33 |
 | MEN-002 | 15 | 5.00% | 1.25 |
 
-These ten packages account for 215/300 = **71.67%** of the observed whole-section corpus. Defects here have the largest effect on Examtree mock realism.
+These ten packages account for 214/300 = **71.33%** of the observed whole-section corpus. Defects here have the largest effect on Examtree mock realism.
 
 ### Established evidence — observed share >= 2% and < 5%
 
@@ -59,8 +70,6 @@ These ten packages account for 215/300 = **71.67%** of the observed whole-sectio
 | PCT-001 | 7 | 2.33% |
 | DI-005 | 6 | 2.00% |
 
-These packages are common enough to audit after the core tier, but their exact paper-level frequency remains less certain.
-
 ### Thin evidence — observed share < 2%
 
 | Package | Questions | Share |
@@ -74,6 +83,7 @@ These packages are common enough to audit after the core tier, but their exact p
 | PCT-007 | 1 | 0.33% |
 | SRI-001 | 1 | 0.33% |
 | SRI-002 | 1 | 0.33% |
+| TRG-002 | 1 | 0.33% |
 | TSD-002 | 1 | 0.33% |
 
 Low corpus frequency must **not** be interpreted as evidence that these packages are unnecessary. Their next step is targeted evidence and taxonomy validation, not removal and not forced down-weighting.
@@ -117,8 +127,9 @@ Audit in impact order:
 9. GEO-001
 10. MEN-002
 
-For every package compare the observed whole-section questions against the engine on:
+For every package compare observed questions against the engine on:
 
+- package-authority ownership first;
 - real question archetypes and CP coverage;
 - stem naturalness;
 - variable/object-pool breadth;
@@ -129,7 +140,7 @@ For every package compare the observed whole-section questions against the engin
 - multilingual parity where supported;
 - Question Studio/runtime reachability.
 
-A package is not considered ready merely because it can generate many seeds. It must cover the **types of questions actually seen in the evidence corpus**.
+A package is not ready merely because it can generate many seeds. It must cover the **types of questions actually seen in the evidence corpus**, and those questions must be assigned to the correct package authority.
 
 ### Phase B — established packages
 
@@ -159,19 +170,18 @@ Question share alone is insufficient. Before exact production calibration is rec
 - date/shift clustering;
 - consecutive-wave share movement.
 
-A package with 6% overall share but concentrated in a small number of sections must not be treated the same as a package appearing in almost every section.
-
 ## Promotion gate
 
 No automatic numeric threshold in this document opens production weighting. Promotion remains a separate deliberate authorization after:
 
-1. core-package realism and coverage audits pass;
-2. section-presence analysis is complete;
-3. legacy mutable-global regression tests are cleaned up;
-4. the audit branch is reconciled with current `New-main`;
-5. TypeScript/regression execution is actually run and passes;
-6. a human decision explicitly sets `productionPromotionAuthorized=true`.
+1. package-authority/taxonomy validation is complete;
+2. core-package realism and coverage audits pass;
+3. section-presence analysis is complete;
+4. legacy mutable-global regression tests are cleaned up;
+5. the audit branch is reconciled with current `New-main`;
+6. TypeScript/regression execution is actually run and passes;
+7. a human decision explicitly sets `productionPromotionAuthorized=true`.
 
 ## Immediate next checkpoint
 
-Start with **TRG-001**, because it is the most frequently observed package (33/300 = 11.00%). Perform a micro-level comparison between the 33 observed whole-section trigonometry questions and the TRG-001 CP/runtime library. Identify missing archetypes, overproduced archetypes, weak stems, explanation defects, difficulty gaps and novelty limitations before changing frequency behaviour.
+Continue the **TRG-001 / TRG-002 boundary audit**. Compare the remaining observed trigonometry questions against the family authority and the 144-QL TRG-001 ledger. Any heights/distance scene belongs under TRG-002. Then identify genuine TRG-001 archetype gaps such as interval-comparison, cubic-identity or other real-paper forms that are not explicitly represented by the locked QL families.
