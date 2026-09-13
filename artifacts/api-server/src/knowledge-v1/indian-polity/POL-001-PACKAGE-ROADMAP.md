@@ -5,7 +5,7 @@ This file is the chapter-level binding authority for CP promotion order.
 | CP | Title | Content status | Package binding |
 |---|---|---|---|
 | POL-CP-001 | Constitutional History | APPROVED / CONTENT-FROZEN | eligible |
-| POL-CP-002 | Constituent Assembly & Making of Constitution | pending | blocked |
+| POL-CP-002 | Constituent Assembly & Making of Constitution | REVIEW CANDIDATE — 50-question English batch ready | blocked pending approval |
 | POL-CP-003..027 | Blueprint-defined remaining CPs | pending | blocked |
 
 ## Binding rule
