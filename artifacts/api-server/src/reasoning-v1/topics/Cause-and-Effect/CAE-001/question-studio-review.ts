@@ -26,7 +26,15 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   version: "V3" as const,
   integrationAuthority: CAE_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
   reviewStatus: "REVIEW_ONLY_GENERATIVE_CAUSAL_STATE_V3_ARCHITECTURE_CHECKPOINT" as const,
-  qlAllocationStatus: CAE_001_MANIFEST.qlDiscovery.status,
+  /**
+   * Compatibility contract for the frozen V3 Question Studio package.
+   * The original architecture checkpoint exposed this provisional allocation
+   * status and frozen-V3 regression consumers depend on it. Final CP-010
+   * content-freeze approval is therefore exposed separately below instead of
+   * mutating the legacy package contract.
+   */
+  qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION" as const,
+  contentFreezeStatus: CAE_001_MANIFEST.qlDiscovery.status,
   provisionalQlCount: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds.length,
   provisionalQlIds: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds,
   scenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length,
