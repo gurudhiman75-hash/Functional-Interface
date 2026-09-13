@@ -6,7 +6,8 @@ import { buildCp009 } from "./completion/cp009";
 import { buildCp010 } from "./completion/cp010";
 import { renderCompletionEditorial } from "./completion/editorial";
 import { completionDifficulty } from "./completion/difficulty-v2";
-import { options, rank, track, type C } from "./completion/shared";
+import { completionOptions } from "./completion/distractors-v2";
+import { rank, track, type C } from "./completion/shared";
 
 function build(ql: AlpQuestionLogic, seed: number): C {
   switch (ql.checkpointId) {
@@ -188,7 +189,7 @@ function compoundWindowPresentation(
 export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number, locale: AlpLocale): GeneratedAlpQuestion {
   if (!Number.isInteger(seed)) throw new Error("ALP-001 completion seed must be an integer.");
   const completion = build(ql, seed);
-  const builtOptions = options(completion.answer, completion.pool, ql, seed);
+  const builtOptions = completionOptions(completion, ql, seed);
   const editorial = renderCompletionEditorial(ql, completion, builtOptions.out, builtOptions.correctIndex, locale);
   const distractorAnalyses = ensureVerifiedAnswerInTraps(editorial.distractorAnalyses, completion.answer, locale);
   const optionOnlyQuestion = ql.solveMode === "IDENTIFY_WORD_BY_ALPHA_PAIR_COUNT";
