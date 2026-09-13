@@ -33,8 +33,9 @@ let installed = false;
 
 /**
  * Extend the reviewed runtime registry while leaving the frozen V3 source
- * authorities untouched on disk. The arrays exported by V3 are intentionally
- * extended in-memory so existing solvers/renderers can consume the new worlds.
+ * authorities untouched on disk. Installation is explicit at generation time,
+ * so legacy freeze metadata remains stable while reviewed output uses the
+ * expanded family/world pool.
  */
 export function installCae001SaturationWave1(): void {
   if (installed) return;
@@ -70,7 +71,3 @@ export function installCae001SaturationWave1(): void {
 
   installed = true;
 }
-
-// Reviewed Question Studio imports this module before materializing package counts
-// or generating questions, so the expanded registry is available deterministically.
-installCae001SaturationWave1();
