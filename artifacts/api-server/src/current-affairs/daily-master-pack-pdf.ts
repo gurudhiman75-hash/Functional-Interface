@@ -10,122 +10,118 @@ const { PDFDocument, GlobalFonts } = nativeRequire("@napi-rs/canvas") as typeof 
 
 const W = 595.28;
 const H = 841.89;
-const MX = 16;
-const TOP = 24;
-const BOTTOM = 36;
+const MX = 24;
+const TOP = 30;
+const BOTTOM = 34;
 const CW = W - MX * 2;
-const BLUE = "#315FF4";
-const INK = "#111319";
-const MUTED = "#747B86";
-const RULE = "#E4E7EB";
-const CREAM = "#FFF6D9";
-const PALE = "#F5F6F8";
+const BLUE = "#2866D4";
+const GREEN = "#2B9364";
+const INK = "#172033";
+const MUTED = "#697386";
+const RULE = "#E4E8EF";
+const PALE = "#F5F7FB";
 const WHITE = "#FFFFFF";
 const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 const COPY = {
   en: {
     locale: "en-IN",
-    currentAffairs: "CURRENT AFFAIRS",
-    dailyBrief: "DAILY BRIEF",
-    whatMatters: "What matters today",
-    overview: (events: number, sections: number) => `${events} verified developments across ${sections} sections · built for quick recall`,
-    storyNote: "STORY NOTE",
-    why: "WHY IN NEWS",
-    memory: "EXAM MEMORY",
-    facts: "KEY FACTS",
-    recall: "ONE-LINE RECALL",
-    exam: "EXAM RELEVANCE",
-    source: "PRIMARY SOURCE",
-    rapid: "RAPID REVISION",
-    rapidTitle: (events: number, minutes: number) => `${events} stories. ${minutes} minutes.`,
-    rapidSub: "Only the associations most likely to matter in recall.",
-    refs: "SOURCES & REFERENCES",
-    refsSub: "Primary references for the stories in this daily pack.",
-    briefFooter: "SCAN → RECALL → REVISE",
-    detailFooter: "DETAIL PAGE · SAME VISUAL LANGUAGE, MORE DEPTH",
-    rapidFooter: "REVISION FIRST · MINIMAL DECORATION · CONSISTENT MEMORY CUES",
-    refsFooter: "SOURCE TRACE · PRIMARY REFERENCES",
+    header: "EXAMTREE - DAILY CURRENT AFFAIRS",
+    brand: "EXAMTREE / CURRENT AFFAIRS",
+    title: "Daily Current Affairs",
+    subtitle: "Related updates are grouped for faster revision, with sources kept at the end so the reading flow stays exam-focused.",
+    fastRecalls: (count: number) => `TODAY'S ${count} FAST RECALLS`,
+    sections: "SECTIONS",
+    developments: (count: number) => `${count} ${count === 1 ? "development" : "developments"}`,
+    grouped: (events: number, notes: number) => `${events} related updates grouped into ${notes} ${notes === 1 ? "note" : "notes"}`,
+    relatedUpdates: "updates",
+    quickRevision: "QUICK REVISION",
+    sourceNotes: "SOURCE NOTES",
     page: "Page",
+    factFallback: (label: string, value: string) => `${label}: ${value}.`,
+    factEffective: (value: string) => `Effective from ${value}.`,
+    factAmount: (value: string) => `Value involved: ${value}.`,
+    factPercentage: (value: string) => `Key figure: ${value}.`,
+    factHeadquarters: (value: string) => `Headquarters: ${value}.`,
+    factRegulator: (value: string) => `Regulator: ${value}.`,
+    factRank: (value: string) => `Rank: ${value}.`,
+    factWinner: (value: string) => `Winner: ${value}.`,
   },
   hi: {
     locale: "hi-IN",
-    currentAffairs: "करेंट अफेयर्स",
-    dailyBrief: "दैनिक संक्षेप",
-    whatMatters: "आज क्या महत्वपूर्ण है",
-    overview: (events: number, sections: number) => `${events} सत्यापित घटनाक्रम · ${sections} खंड · त्वरित पुनरावृत्ति के लिए`,
-    storyNote: "स्टोरी नोट",
-    why: "समाचार में क्यों",
-    memory: "परीक्षा स्मृति",
-    facts: "मुख्य तथ्य",
-    recall: "एक-पंक्ति पुनरावृत्ति",
-    exam: "परीक्षा प्रासंगिकता",
-    source: "प्राथमिक स्रोत",
-    rapid: "त्वरित पुनरावृत्ति",
-    rapidTitle: (events: number, minutes: number) => `${events} खबरें · ${minutes} मिनट`,
-    rapidSub: "केवल वे संबंध जो परीक्षा में याद रखने के लिए सबसे उपयोगी हैं।",
-    refs: "स्रोत एवं संदर्भ",
-    refsSub: "इस दैनिक पैक की खबरों के प्राथमिक संदर्भ।",
-    briefFooter: "स्कैन → याद → दोहराएँ",
-    detailFooter: "विस्तृत नोट · वही दृश्य भाषा · अधिक गहराई",
-    rapidFooter: "पुनरावृत्ति पहले · कम सजावट · स्पष्ट स्मृति संकेत",
-    refsFooter: "स्रोत ट्रेस · प्राथमिक संदर्भ",
+    header: "EXAMTREE - दैनिक करेंट अफेयर्स",
+    brand: "EXAMTREE / करेंट अफेयर्स",
+    title: "दैनिक करेंट अफेयर्स",
+    subtitle: "तेज़ पुनरावृत्ति के लिए संबंधित अपडेट एक साथ रखे गए हैं और स्रोत अंत में दिए गए हैं, ताकि पढ़ने का प्रवाह परीक्षा-केंद्रित रहे।",
+    fastRecalls: (count: number) => `आज की ${count} त्वरित पुनरावृत्तियाँ`,
+    sections: "खंड",
+    developments: (count: number) => `${count} घटनाक्रम`,
+    grouped: (events: number, notes: number) => `${events} संबंधित अपडेट को ${notes} नोट में समूहित किया गया`,
+    relatedUpdates: "संबंधित अपडेट",
+    quickRevision: "त्वरित पुनरावृत्ति",
+    sourceNotes: "स्रोत नोट्स",
     page: "पृष्ठ",
+    factFallback: (label: string, value: string) => `${label}: ${value}.`,
+    factEffective: (value: string) => `प्रभावी तिथि: ${value}.`,
+    factAmount: (value: string) => `राशि: ${value}.`,
+    factPercentage: (value: string) => `मुख्य आंकड़ा: ${value}.`,
+    factHeadquarters: (value: string) => `मुख्यालय: ${value}.`,
+    factRegulator: (value: string) => `नियामक: ${value}.`,
+    factRank: (value: string) => `रैंक: ${value}.`,
+    factWinner: (value: string) => `विजेता: ${value}.`,
   },
   pa: {
     locale: "pa-IN",
-    currentAffairs: "ਕਰੰਟ ਅਫੇਅਰਜ਼",
-    dailyBrief: "ਰੋਜ਼ਾਨਾ ਸੰਖੇਪ",
-    whatMatters: "ਅੱਜ ਕੀ ਮਹੱਤਵਪੂਰਨ ਹੈ",
-    overview: (events: number, sections: number) => `${events} ਪ੍ਰਮਾਣਿਤ ਘਟਨਾਵਾਂ · ${sections} ਭਾਗ · ਤੇਜ਼ ਦੁਹਰਾਈ ਲਈ`,
-    storyNote: "ਸਟੋਰੀ ਨੋਟ",
-    why: "ਖ਼ਬਰਾਂ ਵਿੱਚ ਕਿਉਂ",
-    memory: "ਪ੍ਰੀਖਿਆ ਯਾਦ",
-    facts: "ਮੁੱਖ ਤੱਥ",
-    recall: "ਇੱਕ-ਲਾਈਨ ਦੁਹਰਾਈ",
-    exam: "ਪ੍ਰੀਖਿਆ ਸੰਬੰਧਤਾ",
-    source: "ਮੁੱਖ ਸਰੋਤ",
-    rapid: "ਤੇਜ਼ ਦੁਹਰਾਈ",
-    rapidTitle: (events: number, minutes: number) => `${events} ਖ਼ਬਰਾਂ · ${minutes} ਮਿੰਟ`,
-    rapidSub: "ਕੇਵਲ ਉਹ ਸੰਬੰਧ ਜੋ ਪ੍ਰੀਖਿਆ ਲਈ ਯਾਦ ਰੱਖਣ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਮਦਦਗਾਰ ਹਨ।",
-    refs: "ਸਰੋਤ ਅਤੇ ਹਵਾਲੇ",
-    refsSub: "ਇਸ ਰੋਜ਼ਾਨਾ ਪੈਕ ਦੀਆਂ ਖ਼ਬਰਾਂ ਲਈ ਮੁੱਖ ਹਵਾਲੇ।",
-    briefFooter: "ਸਕੈਨ → ਯਾਦ → ਦੁਹਰਾਈ",
-    detailFooter: "ਵਿਸਤ੍ਰਿਤ ਨੋਟ · ਉਹੀ ਵਿਜ਼ੂਅਲ ਭਾਸ਼ਾ · ਹੋਰ ਗਹਿਰਾਈ",
-    rapidFooter: "ਦੁਹਰਾਈ ਪਹਿਲਾਂ · ਘੱਟ ਸਜਾਵਟ · ਸਪਸ਼ਟ ਯਾਦ ਸੰਕੇਤ",
-    refsFooter: "ਸਰੋਤ ਟ੍ਰੇਸ · ਮੁੱਖ ਹਵਾਲੇ",
+    header: "EXAMTREE - ਰੋਜ਼ਾਨਾ ਕਰੰਟ ਅਫੇਅਰਜ਼",
+    brand: "EXAMTREE / ਕਰੰਟ ਅਫੇਅਰਜ਼",
+    title: "ਰੋਜ਼ਾਨਾ ਕਰੰਟ ਅਫੇਅਰਜ਼",
+    subtitle: "ਤੇਜ਼ ਦੁਹਰਾਈ ਲਈ ਸੰਬੰਧਿਤ ਅਪਡੇਟ ਇਕੱਠੇ ਕੀਤੇ ਗਏ ਹਨ ਅਤੇ ਸਰੋਤ ਅੰਤ ਵਿੱਚ ਰੱਖੇ ਗਏ ਹਨ, ਤਾਂ ਜੋ ਪੜ੍ਹਨ ਦਾ ਪ੍ਰਵਾਹ ਪ੍ਰੀਖਿਆ-ਕੇਂਦਰਿਤ ਰਹੇ।",
+    fastRecalls: (count: number) => `ਅੱਜ ਦੀਆਂ ${count} ਤੇਜ਼ ਦੁਹਰਾਈਆਂ`,
+    sections: "ਭਾਗ",
+    developments: (count: number) => `${count} ਘਟਨਾਵਾਂ`,
+    grouped: (events: number, notes: number) => `${events} ਸੰਬੰਧਿਤ ਅਪਡੇਟ ${notes} ਨੋਟ ਵਿੱਚ ਸਮੂਹਿਤ`,
+    relatedUpdates: "ਸੰਬੰਧਿਤ ਅਪਡੇਟ",
+    quickRevision: "ਤੇਜ਼ ਦੁਹਰਾਈ",
+    sourceNotes: "ਸਰੋਤ ਨੋਟਸ",
     page: "ਪੰਨਾ",
+    factFallback: (label: string, value: string) => `${label}: ${value}.`,
+    factEffective: (value: string) => `ਲਾਗੂ ਮਿਤੀ: ${value}.`,
+    factAmount: (value: string) => `ਰਕਮ: ${value}.`,
+    factPercentage: (value: string) => `ਮੁੱਖ ਅੰਕੜਾ: ${value}.`,
+    factHeadquarters: (value: string) => `ਮੁੱਖ ਦਫ਼ਤਰ: ${value}.`,
+    factRegulator: (value: string) => `ਨਿਯਾਮਕ: ${value}.`,
+    factRank: (value: string) => `ਰੈਂਕ: ${value}.`,
+    factWinner: (value: string) => `ਜੇਤੂ: ${value}.`,
   },
 } satisfies Record<DailyMasterPackLanguage, {
   locale: string;
-  currentAffairs: string;
-  dailyBrief: string;
-  whatMatters: string;
-  overview: (events: number, sections: number) => string;
-  storyNote: string;
-  why: string;
-  memory: string;
-  facts: string;
-  recall: string;
-  exam: string;
-  source: string;
-  rapid: string;
-  rapidTitle: (events: number, minutes: number) => string;
-  rapidSub: string;
-  refs: string;
-  refsSub: string;
-  briefFooter: string;
-  detailFooter: string;
-  rapidFooter: string;
-  refsFooter: string;
+  header: string;
+  brand: string;
+  title: string;
+  subtitle: string;
+  fastRecalls: (count: number) => string;
+  sections: string;
+  developments: (count: number) => string;
+  grouped: (events: number, notes: number) => string;
+  relatedUpdates: string;
+  quickRevision: string;
+  sourceNotes: string;
   page: string;
+  factFallback: (label: string, value: string) => string;
+  factEffective: (value: string) => string;
+  factAmount: (value: string) => string;
+  factPercentage: (value: string) => string;
+  factHeadquarters: (value: string) => string;
+  factRegulator: (value: string) => string;
+  factRank: (value: string) => string;
+  factWinner: (value: string) => string;
 }>;
 
 const FACT_LABELS: Record<DailyMasterPackLanguage, Record<string, string>> = {
   en: {
     appointee: "Appointee",
     position: "Position",
-    effective_date: "Effective from",
+    effective_date: "Effective date",
     index_value: "Index value",
     percentage: "Key figure",
     amount: "Amount",
@@ -211,17 +207,23 @@ export type DailyMasterPackPdfRenderResult = {
   fontFamily: string;
 };
 
-type Ctx = any;
-type FlatStory = {
-  event: DailyMasterPackEvent;
-  sectionLabel: string;
+export type DailyMasterPackPdfNote = {
   sectionCategory: string;
-  number: number;
+  sectionLabel: string;
+  eventIds: string[];
+  publicCodes: string[];
+  title: string;
+  bullets: string[];
+  takeaway: string;
+  groupAnchor: string | null;
 };
 
-type PageEnv = {
-  ctx: Ctx;
-  page: number;
+type Ctx = any;
+type SectionNotes = {
+  category: string;
+  label: string;
+  eventCount: number;
+  notes: DailyMasterPackPdfNote[];
 };
 
 const clean = (value: unknown) => String(value ?? "").replace(/\s+/g, " ").trim();
@@ -278,6 +280,155 @@ function factLabel(language: DailyMasterPackLanguage, fact: DailyMasterPackEvent
   return FACT_LABELS[language][key] || clean(fact.label) || key.replace(/_/g, " ").replace(/^./, (char) => char.toUpperCase());
 }
 
+function factNote(language: DailyMasterPackLanguage, fact: DailyMasterPackEvent["facts"][number]) {
+  const c = COPY[language];
+  const key = clean(fact.key).toLowerCase();
+  const value = clean(fact.value).replace(/[.\s]+$/u, "");
+  if (!value) return "";
+  if (key === "effective_date") return c.factEffective(value);
+  if (key === "amount" || key.endsWith("_amount") || key === "scheme_outlay") return c.factAmount(value);
+  if (key === "percentage" || key.endsWith("_percentage") || key.endsWith("_share")) return c.factPercentage(value);
+  if (key === "headquarters") return c.factHeadquarters(value);
+  if (key === "regulator") return c.factRegulator(value);
+  if (key === "rank") return c.factRank(value);
+  if (key === "winner") return c.factWinner(value);
+  return c.factFallback(factLabel(language, fact), value);
+}
+
+const GROUP_STOPWORDS = new Set([
+  "the", "and", "for", "with", "from", "into", "under", "over", "after", "before", "through", "this", "that", "these", "those",
+  "announces", "announced", "launches", "launched", "issues", "issued", "releases", "released", "holds", "held", "approves", "approved",
+  "government", "india", "update", "updates", "annual", "monthly", "new", "first", "second", "third", "fourth",
+]);
+
+function sourceKey(event: DailyMasterPackEvent) {
+  const source = event.sources.find((item) => item.primary) ?? event.sources[0];
+  return normalized(source?.name ?? "");
+}
+
+function acronymTokens(event: DailyMasterPackEvent) {
+  const text = [event.title, event.summary, ...event.facts.map((fact) => clean(fact.value))].join(" ");
+  return Array.from(new Set(text.match(/\b[A-Z][A-Z0-9-]{2,}\b/g) ?? []));
+}
+
+function significantTitleWords(value: string) {
+  return normalized(value).split(" ").filter((token) => token.length >= 4 && !GROUP_STOPWORDS.has(token) && !/^\d/.test(token));
+}
+
+function titleJaccard(a: DailyMasterPackEvent, b: DailyMasterPackEvent) {
+  const left = new Set(significantTitleWords(a.title));
+  const right = new Set(significantTitleWords(b.title));
+  if (!left.size || !right.size) return 0;
+  let shared = 0;
+  for (const token of left) if (right.has(token)) shared += 1;
+  const union = new Set([...left, ...right]).size;
+  return union ? shared / union : 0;
+}
+
+function sharedAcronyms(events: DailyMasterPackEvent[]) {
+  if (!events.length) return [];
+  let shared = new Set(acronymTokens(events[0]!));
+  for (const event of events.slice(1)) {
+    const current = new Set(acronymTokens(event));
+    shared = new Set([...shared].filter((token) => current.has(token)));
+  }
+  return [...shared];
+}
+
+function groupAnchor(a: DailyMasterPackEvent, b: DailyMasterPackEvent) {
+  if (!sourceKey(a) || sourceKey(a) !== sourceKey(b)) return null;
+  const shared = sharedAcronyms([a, b]);
+  const strong = shared.filter((token) => token.replace(/-/g, "").length >= 4 && !["INDIA", "PRESS", "REPORT"].includes(token));
+  if (!strong.length) return null;
+  if (titleJaccard(a, b) < 0.17) return null;
+  return strong.sort((x, y) => y.length - x.length)[0] ?? null;
+}
+
+function commonDescriptor(events: DailyMasterPackEvent[], anchor: string) {
+  if (!events.length) return "";
+  let shared = new Set(significantTitleWords(events[0]!.title));
+  for (const event of events.slice(1)) {
+    const current = new Set(significantTitleWords(event.title));
+    shared = new Set([...shared].filter((token) => current.has(token)));
+  }
+  const normalizedAnchor = normalized(anchor);
+  const preferred = ["report", "reports", "auction", "auctions", "mission", "scheme", "index", "forum", "meeting", "operation", "operations", "policy", "initiative"];
+  const match = preferred.find((token) => shared.has(token) && token !== normalizedAnchor);
+  return match ?? [...shared].find((token) => token !== normalizedAnchor) ?? "";
+}
+
+function groupTitle(events: DailyMasterPackEvent[], anchor: string, language: DailyMasterPackLanguage) {
+  const acronyms = sharedAcronyms(events);
+  const entity = acronyms.find((token) => token !== anchor && token.length <= 6) ?? "";
+  const descriptor = commonDescriptor(events, anchor);
+  const parts = [entity, anchor, descriptor, COPY[language].relatedUpdates].filter(Boolean);
+  return parts.join(" ");
+}
+
+function combinedTakeaway(events: DailyMasterPackEvent[], title: string) {
+  const takeaways = events.map((event) => dailyMasterPackPdfTakeaway(event.oneLiner)).filter(Boolean);
+  const unique = Array.from(new Set(takeaways.map((value) => clean(value))));
+  if (!unique.length) return title;
+  if (unique.length === 1) return unique[0]!;
+  const compact = unique.join(" / ");
+  return compact.length <= 210 ? compact : title;
+}
+
+function eventBullets(language: DailyMasterPackLanguage, events: DailyMasterPackEvent[]) {
+  const bullets: string[] = [];
+  const seen = new Set<string>();
+  for (const event of events) {
+    const summary = clean(event.summary);
+    const ns = normalized(summary);
+    if (summary && !seen.has(ns)) {
+      bullets.push(summary);
+      seen.add(ns);
+    }
+  }
+  const factCandidates = events.flatMap((event) => visibleDailyMasterPackPdfFacts(event).map((fact) => factNote(language, fact)));
+  for (const candidate of factCandidates) {
+    if (bullets.length >= events.length + 2) break;
+    const nc = normalized(candidate);
+    if (!candidate || seen.has(nc) || bullets.some((bullet) => overlapRatio(bullet, candidate) >= 0.86)) continue;
+    bullets.push(candidate);
+    seen.add(nc);
+  }
+  return bullets.slice(0, Math.max(3, Math.min(events.length + 2, 5)));
+}
+
+export function buildDailyMasterPackPdfNotes(payload: DailyMasterPackPayload): SectionNotes[] {
+  return payload.sections.map((section) => {
+    const notes: DailyMasterPackPdfNote[] = [];
+    let index = 0;
+    while (index < section.events.length) {
+      const first = section.events[index]!;
+      const grouped = [first];
+      let anchor: string | null = null;
+      while (index + grouped.length < section.events.length && grouped.length < 3) {
+        const next = section.events[index + grouped.length]!;
+        const pairAnchor = groupAnchor(grouped[grouped.length - 1]!, next);
+        if (!pairAnchor) break;
+        if (anchor && pairAnchor !== anchor) break;
+        anchor = anchor ?? pairAnchor;
+        grouped.push(next);
+      }
+      const title = grouped.length > 1 && anchor ? groupTitle(grouped, anchor, payload.language) : clean(first.title);
+      notes.push({
+        sectionCategory: section.category,
+        sectionLabel: section.label,
+        eventIds: grouped.map((event) => event.id),
+        publicCodes: grouped.map((event) => event.publicCode),
+        title,
+        bullets: eventBullets(payload.language, grouped),
+        takeaway: combinedTakeaway(grouped, title),
+        groupAnchor: grouped.length > 1 ? anchor : null,
+      });
+      index += grouped.length;
+    }
+    return { category: section.category, label: section.label, eventCount: section.events.length, notes };
+  });
+}
+
 function fontDirs() {
   return [
     process.env.CURRENT_AFFAIRS_FONT_DIR,
@@ -304,44 +455,6 @@ function resolveFont(language: Exclude<DailyMasterPackLanguage, "en">) {
     return { ...data, buffer };
   }
   throw new Error(`${data.family} runtime font is unavailable. Run the verified Current Affairs font bootstrap before rendering localized PDFs.`);
-}
-
-function copyStrings(language: DailyMasterPackLanguage) {
-  const c = COPY[language];
-  return [
-    c.currentAffairs, c.dailyBrief, c.whatMatters, c.storyNote, c.why, c.memory, c.facts, c.recall,
-    c.exam, c.source, c.rapid, c.rapidSub, c.refs, c.refsSub, c.briefFooter, c.detailFooter,
-    c.rapidFooter, c.refsFooter, c.page,
-  ];
-}
-
-function scriptPoints(payload: DailyMasterPackPayload) {
-  if (payload.language === "en") return [];
-  const text = [
-    ...copyStrings(payload.language),
-    COPY[payload.language].overview(payload.eventCount, payload.categoryCount),
-    COPY[payload.language].rapidTitle(payload.eventCount, revisionMinutes(payload.eventCount)),
-    ...payload.sections.flatMap((section) => [
-      section.label,
-      ...section.events.flatMap((event) => [
-        event.title,
-        event.summary,
-        dailyMasterPackPdfTakeaway(event.oneLiner),
-        ...visibleDailyMasterPackPdfFacts(event).flatMap((fact) => [fact.label ?? "", fact.value]),
-        ...event.sources.map((source) => source.name),
-      ]),
-    ]),
-  ].join(" ");
-  const result = new Set<number>();
-  for (const char of Array.from(text)) {
-    const codePoint = char.codePointAt(0)!;
-    if (payload.language === "hi") {
-      if ((codePoint >= 0x0900 && codePoint <= 0x097f) || (codePoint >= 0xa8e0 && codePoint <= 0xa8ff)) result.add(codePoint);
-    } else if (codePoint >= 0x0a00 && codePoint <= 0x0a7f) {
-      result.add(codePoint);
-    }
-  }
-  return [...result];
 }
 
 type Cmap = { format: 4 | 12; offset: number; length: number };
@@ -375,11 +488,11 @@ function cmapSubtables(buffer: Buffer) {
     if (record + 8 > cmapOffset + cmapLength) break;
     const subtableOffset = cmapOffset + u32(buffer, record + 4);
     if (subtableOffset + 2 > buffer.length) continue;
-    const format = u16(buffer, subtableOffset);
-    if (format === 12) {
+    const formatNumber = u16(buffer, subtableOffset);
+    if (formatNumber === 12) {
       const length = u32(buffer, subtableOffset + 4);
       if (length >= 16 && subtableOffset + length <= buffer.length) result.push({ format: 12, offset: subtableOffset, length });
-    } else if (format === 4) {
+    } else if (formatNumber === 4) {
       const length = u16(buffer, subtableOffset + 2);
       if (length >= 16 && subtableOffset + length <= buffer.length) result.push({ format: 4, offset: subtableOffset, length });
     }
@@ -387,14 +500,14 @@ function cmapSubtables(buffer: Buffer) {
   return result.sort((a, b) => b.format - a.format);
 }
 
-function format12Supports(buffer: Buffer, subtable: Cmap, codePoint: number) {
-  const groupCount = u32(buffer, subtable.offset + 12);
+function format12Supports(buffer: Buffer, table: Cmap, codePoint: number) {
+  const groupCount = u32(buffer, table.offset + 12);
   let low = 0;
   let high = groupCount - 1;
   while (low <= high) {
     const middle = Math.floor((low + high) / 2);
-    const group = subtable.offset + 16 + middle * 12;
-    if (group + 12 > subtable.offset + subtable.length) return false;
+    const group = table.offset + 16 + middle * 12;
+    if (group + 12 > table.offset + table.length) return false;
     const start = u32(buffer, group);
     const end = u32(buffer, group + 4);
     if (codePoint < start) high = middle - 1;
@@ -404,10 +517,10 @@ function format12Supports(buffer: Buffer, subtable: Cmap, codePoint: number) {
   return false;
 }
 
-function format4Supports(buffer: Buffer, subtable: Cmap, codePoint: number) {
+function format4Supports(buffer: Buffer, table: Cmap, codePoint: number) {
   if (codePoint > 0xffff) return false;
-  const segmentCount = u16(buffer, subtable.offset + 6) / 2;
-  const endCodes = subtable.offset + 14;
+  const segmentCount = u16(buffer, table.offset + 6) / 2;
+  const endCodes = table.offset + 14;
   const startCodes = endCodes + segmentCount * 2 + 2;
   const deltas = startCodes + segmentCount * 2;
   const rangeOffsets = deltas + segmentCount * 2;
@@ -421,16 +534,36 @@ function format4Supports(buffer: Buffer, subtable: Cmap, codePoint: number) {
     const range = u16(buffer, rangeAddress);
     if (range === 0) return ((codePoint + delta) & 0xffff) !== 0;
     const glyphAddress = rangeAddress + range + (codePoint - start) * 2;
-    if (glyphAddress + 2 > subtable.offset + subtable.length) return false;
+    if (glyphAddress + 2 > table.offset + table.length) return false;
     const glyph = u16(buffer, glyphAddress);
     return glyph !== 0 && ((glyph + delta) & 0xffff) !== 0;
   }
   return false;
 }
 
-const supportsCodePoint = (buffer: Buffer, codePoint: number) => cmapSubtables(buffer).some((subtable) => (
-  subtable.format === 12 ? format12Supports(buffer, subtable, codePoint) : format4Supports(buffer, subtable, codePoint)
+const supportsCodePoint = (buffer: Buffer, codePoint: number) => cmapSubtables(buffer).some((table) => (
+  table.format === 12 ? format12Supports(buffer, table, codePoint) : format4Supports(buffer, table, codePoint)
 ));
+
+function scriptPoints(payload: DailyMasterPackPayload) {
+  if (payload.language === "en") return [];
+  const c = COPY[payload.language];
+  const notes = buildDailyMasterPackPdfNotes(payload);
+  const text = [
+    c.header, c.brand, c.title, c.subtitle, c.fastRecalls(5), c.sections, c.quickRevision, c.sourceNotes, c.relatedUpdates,
+    ...notes.flatMap((section) => [section.label, c.developments(section.eventCount), c.grouped(section.eventCount, section.notes.length), ...section.notes.flatMap((note) => [note.title, ...note.bullets, note.takeaway])]),
+  ].join(" ");
+  const result = new Set<number>();
+  for (const char of Array.from(text)) {
+    const codePoint = char.codePointAt(0)!;
+    if (payload.language === "hi") {
+      if ((codePoint >= 0x0900 && codePoint <= 0x097f) || (codePoint >= 0xa8e0 && codePoint <= 0xa8ff)) result.add(codePoint);
+    } else if (codePoint >= 0x0a00 && codePoint <= 0x0a7f) {
+      result.add(codePoint);
+    }
+  }
+  return [...result];
+}
 
 export function assertDailyMasterPackPdfFontCoverage(payload: DailyMasterPackPayload) {
   if (payload.language === "en") return { language: "en" as const, fontFamily: "sans-serif", checkedCodePoints: 0 };
@@ -458,8 +591,9 @@ function splitLongToken(ctx: Ctx, token: string, maxWidth: number) {
 }
 
 function wrap(ctx: Ctx, value: string, maxWidth: number) {
-  const rawWords = clean(value).split(" ").filter(Boolean);
-  const words = rawWords.flatMap((word) => ctx.measureText(word).width > maxWidth ? splitLongToken(ctx, word, maxWidth) : [word]);
+  const words = clean(value).split(" ").filter(Boolean).flatMap((word) => (
+    ctx.measureText(word).width > maxWidth ? splitLongToken(ctx, word, maxWidth) : [word]
+  ));
   const lines: string[] = [];
   let line = "";
   for (const word of words) {
@@ -479,86 +613,9 @@ function clippedLines(ctx: Ctx, value: string, maxWidth: number, maxLines: numbe
   if (lines.length <= maxLines) return lines;
   const result = lines.slice(0, maxLines);
   let last = result[maxLines - 1] ?? "";
-  while (last && ctx.measureText(`${last}…`).width > maxWidth) last = last.slice(0, -1);
-  result[maxLines - 1] = `${last.replace(/[\s,.;:-]+$/g, "")}…`;
+  while (last && ctx.measureText(`${last}...`).width > maxWidth) last = last.slice(0, -1);
+  result[maxLines - 1] = `${last.replace(/[\s,.;:-]+$/g, "")}...`;
   return result;
-}
-
-function dateLabel(date: string, language: DailyMasterPackLanguage) {
-  return new Intl.DateTimeFormat(COPY[language].locale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })
-    .format(new Date(`${date}T00:00:00Z`));
-}
-
-function dateTile(date: string, language: DailyMasterPackLanguage) {
-  const parsed = new Date(`${date}T00:00:00Z`);
-  return {
-    day: new Intl.DateTimeFormat(COPY[language].locale, { day: "2-digit", timeZone: "UTC" }).format(parsed),
-    month: new Intl.DateTimeFormat(COPY[language].locale, { month: "short", timeZone: "UTC" }).format(parsed).toUpperCase(),
-  };
-}
-
-function flattenStories(payload: DailyMasterPackPayload) {
-  const result: FlatStory[] = [];
-  let number = 1;
-  for (const section of payload.sections) {
-    for (const event of section.events) {
-      result.push({ event, sectionLabel: section.label, sectionCategory: section.category, number });
-      number += 1;
-    }
-  }
-  return result;
-}
-
-function revisionMinutes(eventCount: number) {
-  return Math.max(2, Math.round(eventCount * 0.45));
-}
-
-function categoryShort(category: string, label: string, language: DailyMasterPackLanguage) {
-  if (language !== "en") return clean(label);
-  const map: Record<string, string> = {
-    national: "NATIONAL",
-    economy_banking: "BANKING",
-    international: "INTERNATIONAL",
-    appointments: "APPOINTMENTS",
-    awards: "AWARDS",
-    reports_indices: "REPORTS",
-    sports: "SPORTS",
-    science_technology: "SCI-TECH",
-    space: "SPACE",
-    defence: "DEFENCE",
-    environment: "ENVIRONMENT",
-    books_authors: "BOOKS",
-    important_days: "IMPORTANT DAYS",
-    summits: "SUMMITS",
-    obituaries: "OBITUARIES",
-    punjab: "PUNJAB",
-  };
-  return map[category] ?? clean(label).toUpperCase();
-}
-
-function primarySource(event: DailyMasterPackEvent) {
-  return event.sources.find((source) => source.primary) ?? event.sources[0];
-}
-
-function shortSourceName(value: string) {
-  const source = clean(value);
-  if (/press information bureau/i.test(source)) return "PIB";
-  if (/reserve bank of india/i.test(source)) return "RBI";
-  if (/securities and exchange board of india/i.test(source)) return "SEBI";
-  return source;
-}
-
-function briefMeta(story: FlatStory) {
-  const source = primarySource(story.event);
-  const parts = [source ? shortSourceName(source.name) : "", ...story.event.examFamilies.slice(0, 2).map((value) => clean(value).toUpperCase())]
-    .filter(Boolean);
-  return parts.join(" · ");
-}
-
-function sectionSummary(payload: DailyMasterPackPayload) {
-  return payload.sections
-    .filter((section) => section.events.length > 0)
-    .map((section) => ({ label: categoryShort(section.category, section.label, payload.language), count: section.events.length }));
 }
 
 function setFont(ctx: Ctx, family: string, size: number, weight = 400, color = INK) {
@@ -567,12 +624,12 @@ function setFont(ctx: Ctx, family: string, size: number, weight = 400, color = I
 }
 
 function drawTextLines(ctx: Ctx, lines: string[], x: number, y: number, lineHeight: number) {
-  let currentY = y;
+  let cursor = y;
   for (const line of lines) {
-    ctx.fillText(line, x, currentY);
-    currentY += lineHeight;
+    ctx.fillText(line, x, cursor);
+    cursor += lineHeight;
   }
-  return currentY;
+  return cursor;
 }
 
 function drawRule(ctx: Ctx, y: number, x1 = MX, x2 = W - MX, color = RULE, width = 0.7) {
@@ -586,365 +643,241 @@ function drawRule(ctx: Ctx, y: number, x1 = MX, x2 = W - MX, color = RULE, width
   ctx.restore();
 }
 
-function header(ctx: Ctx, payload: DailyMasterPackPayload, family: string, right: string) {
-  setFont(ctx, family, 10.5, 700, INK);
-  ctx.fillText("examtree", MX, TOP);
-  setFont(ctx, family, 6.7, 500, MUTED);
-  ctx.fillText(COPY[payload.language].currentAffairs, MX, TOP + 16);
-  ctx.textAlign = "right";
-  setFont(ctx, family, 6.8, 500, MUTED);
-  ctx.fillText(right, W - MX, TOP + 2);
-  ctx.textAlign = "left";
-  drawRule(ctx, TOP + 28);
+function drawBullet(ctx: Ctx, x: number, y: number, color = INK) {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(x, y - 2.6, 1.7, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
-function footer(ctx: Ctx, payload: DailyMasterPackPayload, family: string, page: number, totalPages: number | undefined, leftText: string) {
-  drawRule(ctx, H - 28);
-  setFont(ctx, family, 6.3, 500, MUTED);
-  ctx.fillText(leftText, MX, H - 14);
+function dateLabel(date: string, language: DailyMasterPackLanguage) {
+  return new Intl.DateTimeFormat(COPY[language].locale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`));
+}
+
+function header(ctx: Ctx, payload: DailyMasterPackPayload, family: string, page: number) {
+  setFont(ctx, family, 6.5, 600, MUTED);
+  ctx.fillText(COPY[payload.language].header, MX, TOP);
   ctx.textAlign = "right";
-  const c = COPY[payload.language];
-  ctx.fillText(totalPages ? `${String(page).padStart(2, "0")} / ${String(totalPages).padStart(2, "0")}` : `${c.page} ${page}`, W - MX, H - 14);
+  ctx.fillText(`${dateLabel(payload.contentDate, payload.language).toLocaleUpperCase(COPY[payload.language].locale)}  |  ${page}`, W - MX, TOP);
   ctx.textAlign = "left";
 }
 
-function beginPage(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, page: number, totalPages: number | undefined, right: string, footerText: string): PageEnv {
+function footer(ctx: Ctx, payload: DailyMasterPackPayload, family: string, page: number, totalPages?: number) {
+  drawRule(ctx, H - 27, MX, W - MX, RULE, 0.6);
+  setFont(ctx, family, 6.1, 500, MUTED);
+  ctx.fillText(COPY[payload.language].header, MX, H - 13);
+  ctx.textAlign = "right";
+  ctx.fillText(`${dateLabel(payload.contentDate, payload.language).toLocaleUpperCase(COPY[payload.language].locale)}  |  ${totalPages ? `${page} / ${totalPages}` : page}`, W - MX, H - 13);
+  ctx.textAlign = "left";
+}
+
+function beginPage(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, page: number, totalPages?: number) {
   const ctx = doc.beginPage(W, H);
   ctx.fillStyle = WHITE;
   ctx.fillRect(0, 0, W, H);
-  header(ctx, payload, family, right);
-  footer(ctx, payload, family, page, totalPages, footerText);
-  return { ctx, page };
+  header(ctx, payload, family, page);
+  footer(ctx, payload, family, page, totalPages);
+  return ctx;
 }
 
 function endPage(doc: InstanceType<typeof PDFDocument>) {
   doc.endPage();
 }
 
-function drawOverviewHero(ctx: Ctx, payload: DailyMasterPackPayload, family: string) {
+function renderOverview(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, page: number, totalPages: number | undefined, sections: SectionNotes[]) {
   const c = COPY[payload.language];
-  const tile = dateTile(payload.contentDate, payload.language);
-  const y = 70;
-  ctx.fillStyle = BLUE;
-  ctx.fillRect(MX, y, 54, 50);
-  ctx.textAlign = "center";
-  setFont(ctx, family, 20, 700, WHITE);
-  ctx.fillText(tile.day, MX + 27, y + 23);
-  setFont(ctx, family, 6.5, 600, WHITE);
-  ctx.fillText(tile.month, MX + 27, y + 39);
-  ctx.textAlign = "left";
+  const ctx = beginPage(doc, payload, family, page, totalPages);
+  setFont(ctx, family, 7.3, 700, BLUE);
+  ctx.fillText(c.brand, MX, 62);
+  setFont(ctx, family, 25, 700, INK);
+  ctx.fillText(c.title, MX, 95);
+  setFont(ctx, family, 12.5, 700, INK);
+  ctx.fillText(dateLabel(payload.contentDate, payload.language), MX, 118);
+  setFont(ctx, family, 8.8, 400, MUTED);
+  const subtitleLines = clippedLines(ctx, c.subtitle, CW, 3);
+  let y = drawTextLines(ctx, subtitleLines, MX, 151, 13) + 14;
 
-  setFont(ctx, family, 23, 700, INK);
-  ctx.fillText(c.whatMatters, MX + 68, y + 21);
-  setFont(ctx, family, 8.4, 400, MUTED);
-  ctx.fillText(c.overview(payload.eventCount, payload.categoryCount), MX + 68, y + 44);
+  const notes = sections.flatMap((section) => section.notes);
+  const recalls = notes.slice(0, 5);
+  ctx.fillStyle = PALE;
+  ctx.fillRect(MX, y, CW, 29);
+  setFont(ctx, family, 7.1, 700, BLUE);
+  ctx.fillText(c.fastRecalls(recalls.length), MX + 8, y + 18);
+  y += 45;
+  recalls.forEach((note, index) => {
+    setFont(ctx, family, 8.4, 700, BLUE);
+    ctx.fillText(String(index + 1).padStart(2, "0"), MX + 8, y + 4);
+    setFont(ctx, family, 8.7, 500, INK);
+    const lines = clippedLines(ctx, note.title, CW - 60, 2);
+    drawTextLines(ctx, lines, MX + 62, y + 4, 11);
+    y += Math.max(31, lines.length * 11 + 15);
+    drawRule(ctx, y - 8, MX, W - MX);
+  });
 
-  const summary = sectionSummary(payload);
-  let x = MX;
-  let rowY = y + 76;
-  setFont(ctx, family, 6.6, 600, MUTED);
-  for (const item of summary) {
-    const text = `${item.label}  ${item.count}`;
-    const width = ctx.measureText(text).width + 26;
-    if (x + width > W - MX) {
-      x = MX;
-      rowY += 18;
-    }
-    ctx.fillStyle = BLUE;
-    ctx.fillText(item.label, x, rowY);
-    const labelWidth = ctx.measureText(item.label).width;
-    ctx.fillStyle = MUTED;
-    ctx.fillText(String(item.count), x + labelWidth + 5, rowY);
-    x += width;
-  }
-  drawRule(ctx, rowY + 13, MX, W - MX, BLUE, 1.2);
-  return rowY + 25;
+  y += 22;
+  setFont(ctx, family, 7.0, 700, BLUE);
+  ctx.fillText(c.sections, MX, y);
+  y += 24;
+  sections.forEach((section) => {
+    setFont(ctx, family, 8.8, 500, INK);
+    ctx.fillText(section.label, MX, y);
+    ctx.textAlign = "right";
+    setFont(ctx, family, 7.2, 500, MUTED);
+    ctx.fillText(String(section.notes.length), W - MX, y);
+    ctx.textAlign = "left";
+    y += 20;
+  });
+  endPage(doc);
 }
 
-function drawBriefContinuationHero(ctx: Ctx, payload: DailyMasterPackPayload, family: string, pageIndex: number) {
+function sectionSubtitle(payload: DailyMasterPackPayload, section: SectionNotes) {
   const c = COPY[payload.language];
-  setFont(ctx, family, 15, 700, INK);
-  ctx.fillText(c.whatMatters, MX, 75);
-  setFont(ctx, family, 7.5, 500, MUTED);
-  ctx.fillText(`${dateLabel(payload.contentDate, payload.language)} · ${pageIndex}`, MX, 93);
-  drawRule(ctx, 106, MX, W - MX, BLUE, 1.1);
-  return 120;
+  return section.notes.length < section.eventCount ? c.grouped(section.eventCount, section.notes.length) : c.developments(section.eventCount);
 }
 
-function drawBriefStory(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, y: number, height: number) {
-  const numberWidth = 36;
-  const recallWidth = 142;
-  const gap = 11;
-  const textX = MX + numberWidth + 10;
-  const recallX = W - MX - recallWidth;
-  const textWidth = recallX - gap - textX;
-  const category = categoryShort(story.sectionCategory, story.sectionLabel, payload.language);
+function drawSectionHeading(ctx: Ctx, payload: DailyMasterPackPayload, family: string, section: SectionNotes, y: number) {
+  setFont(ctx, family, 17, 700, INK);
+  ctx.fillText(section.label, MX, y);
+  setFont(ctx, family, 8.2, 400, MUTED);
+  ctx.fillText(sectionSubtitle(payload, section), MX, y + 22);
+  drawRule(ctx, y + 38, MX + 20, W - MX, BLUE, 2.2);
+  return y + 62;
+}
 
-  setFont(ctx, family, 8.2, 700, BLUE);
-  ctx.fillText(String(story.number).padStart(2, "0"), MX, y + 12);
-  setFont(ctx, family, 6.1, 500, MUTED);
-  const catLines = clippedLines(ctx, category, numberWidth, 2);
-  drawTextLines(ctx, catLines, MX, y + 29, 8.5);
-
+function noteHeight(ctx: Ctx, family: string, note: DailyMasterPackPdfNote) {
   setFont(ctx, family, 12.2, 700, INK);
-  const titleLines = clippedLines(ctx, story.event.title, textWidth, 2);
-  let cursorY = drawTextLines(ctx, titleLines, textX, y + 12, 15.5) + 7;
-
-  setFont(ctx, family, 8.3, 400, "#505762");
-  const summaryLines = clippedLines(ctx, story.event.summary, textWidth, 3);
-  cursorY = drawTextLines(ctx, summaryLines, textX, cursorY, 11.5) + 9;
-
-  setFont(ctx, family, 6.6, 500, MUTED);
-  const metaLines = clippedLines(ctx, briefMeta(story), textWidth, 1);
-  drawTextLines(ctx, metaLines, textX, Math.min(y + height - 14, cursorY), 9);
-
-  ctx.fillStyle = CREAM;
-  ctx.fillRect(recallX, y + 4, recallWidth, height - 13);
-  setFont(ctx, family, 6.1, 700, BLUE);
-  ctx.fillText(COPY[payload.language].memory, recallX + 12, y + 21);
-  const takeaway = dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title;
-  setFont(ctx, family, 8.9, 600, INK);
-  const memoryLines = clippedLines(ctx, takeaway, recallWidth - 24, 5);
-  drawTextLines(ctx, memoryLines, recallX + 12, y + 42, 11.5);
-
-  drawRule(ctx, y + height, MX, W - MX);
+  const titleLines = clippedLines(ctx, note.title, CW, 3);
+  let height = titleLines.length * 15 + 12;
+  setFont(ctx, family, 8.8, 400, INK);
+  for (const bullet of note.bullets) height += clippedLines(ctx, bullet, CW - 16, 4).length * 12 + 5;
+  setFont(ctx, family, 8.5, 700, GREEN);
+  height += clippedLines(ctx, note.takeaway, CW, 3).length * 12 + 25;
+  return height;
 }
 
-function renderBriefPages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, pageStart: number) {
-  const stories = flattenStories(payload);
-  const perPage = 5;
-  let page = pageStart;
-  for (let offset = 0, briefPage = 1; offset < stories.length; offset += perPage, briefPage += 1) {
-    page += 1;
-    const right = `${COPY[payload.language].dailyBrief} · ${dateLabel(payload.contentDate, payload.language)}`;
-    const { ctx } = beginPage(doc, payload, family, page, totalPages, right, COPY[payload.language].briefFooter);
-    const startY = briefPage === 1 ? drawOverviewHero(ctx, payload, family) : drawBriefContinuationHero(ctx, payload, family, briefPage);
-    const chunk = stories.slice(offset, offset + perPage);
-    const available = H - BOTTOM - 34 - startY;
-    const rowHeight = Math.min(119, available / Math.max(1, chunk.length));
-    chunk.forEach((story, index) => drawBriefStory(ctx, payload, family, story, startY + index * rowHeight, rowHeight));
-    endPage(doc);
+function drawNote(ctx: Ctx, family: string, note: DailyMasterPackPdfNote, y: number) {
+  setFont(ctx, family, 12.2, 700, INK);
+  const titleLines = clippedLines(ctx, note.title, CW, 3);
+  let cursor = drawTextLines(ctx, titleLines, MX, y, 15) + 8;
+  setFont(ctx, family, 8.8, 400, INK);
+  for (const bullet of note.bullets) {
+    const lines = clippedLines(ctx, bullet, CW - 16, 4);
+    drawBullet(ctx, MX + 4, cursor + 3, INK);
+    cursor = drawTextLines(ctx, lines, MX + 14, cursor + 3, 12) + 5;
   }
+  const takeawayLines = clippedLines(ctx, note.takeaway, CW, 3);
+  setFont(ctx, family, 8.5, 700, GREEN);
+  cursor = drawTextLines(ctx, takeawayLines, MX, cursor + 2, 12) + 10;
+  drawRule(ctx, cursor, MX, W - MX);
+  return cursor + 18;
+}
+
+function renderSectionPages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, startPage: number, totalPages: number | undefined, sections: SectionNotes[]) {
+  let page = startPage;
+  let ctx: Ctx | null = null;
+  let y = 0;
+  const openPage = () => {
+    if (ctx) endPage(doc);
+    page += 1;
+    ctx = beginPage(doc, payload, family, page, totalPages);
+    y = 68;
+  };
+
+  for (const section of sections) {
+    if (!ctx) openPage();
+    if (y > H - 180) openPage();
+    y = drawSectionHeading(ctx!, payload, family, section, y);
+    for (const note of section.notes) {
+      const needed = noteHeight(ctx!, family, note);
+      if (y + needed > H - 54) {
+        openPage();
+        y = drawSectionHeading(ctx!, payload, family, section, y);
+      }
+      y = drawNote(ctx!, family, note, y);
+    }
+    y += 12;
+  }
+  if (ctx) endPage(doc);
   return page;
 }
 
-function detailTitle(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory) {
-  const category = categoryShort(story.sectionCategory, story.sectionLabel, payload.language);
-  ctx.fillStyle = BLUE;
-  ctx.fillRect(MX, 74, 4, 45);
-  setFont(ctx, family, 7.2, 700, BLUE);
-  ctx.fillText(`${String(story.number).padStart(2, "0")} · ${category}`, MX + 17, 83);
-  setFont(ctx, family, 22, 700, INK);
-  const titleLines = clippedLines(ctx, story.event.title, CW - 24, 3);
-  const afterTitle = drawTextLines(ctx, titleLines, MX + 17, 108, 26.5);
-  setFont(ctx, family, 8.1, 400, MUTED);
-  ctx.fillText(dateLabel(story.event.eventDate || payload.contentDate, payload.language), MX + 17, afterTitle + 3);
-  const ruleY = Math.max(163, afterTitle + 23);
-  drawRule(ctx, ruleY);
-  return ruleY + 31;
+function primarySource(event: DailyMasterPackEvent) {
+  return event.sources.find((source) => source.primary) ?? event.sources[0];
 }
 
-function drawWhyAndMemory(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, y: number) {
-  const c = COPY[payload.language];
-  const leftX = MX + 17;
-  const rightW = 190;
-  const gap = 19;
-  const rightX = W - MX - rightW;
-  const leftW = rightX - gap - leftX;
-
-  setFont(ctx, family, 7.1, 700, BLUE);
-  ctx.fillText(c.why, leftX, y);
-  setFont(ctx, family, 10.1, 400, "#343A43");
-  const summaryLines = clippedLines(ctx, story.event.summary, leftW, 7);
-  const leftBottom = drawTextLines(ctx, summaryLines, leftX, y + 24, 15.2);
-
-  const boxTop = y - 9;
-  const boxH = Math.max(108, Math.min(148, 48 + Math.max(2, clippedLines(ctx, dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title, rightW - 30, 5).length) * 14));
-  ctx.fillStyle = CREAM;
-  ctx.fillRect(rightX, boxTop, rightW, boxH);
-  setFont(ctx, family, 6.8, 700, BLUE);
-  ctx.fillText(c.memory, rightX + 16, boxTop + 22);
-  setFont(ctx, family, 13.6, 700, INK);
-  const memoryLines = clippedLines(ctx, dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title, rightW - 32, 5);
-  drawTextLines(ctx, memoryLines, rightX + 16, boxTop + 50, 16.5);
-
-  const bottom = Math.max(leftBottom, boxTop + boxH) + 26;
-  drawRule(ctx, bottom - 11);
-  return bottom + 2;
-}
-
-function drawKeyFacts(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, y: number) {
-  const c = COPY[payload.language];
-  const facts = visibleDailyMasterPackPdfFacts(story.event);
-  if (!facts.length) return y;
-  setFont(ctx, family, 7.1, 700, BLUE);
-  ctx.fillText(c.facts, MX + 17, y);
-  let rowY = y + 23;
-  const labelW = 105;
-  const valueX = MX + 17 + labelW;
-  const valueW = W - MX - valueX;
-  for (const fact of facts) {
-    setFont(ctx, family, 6.5, 500, MUTED);
-    const labelLines = clippedLines(ctx, factLabel(payload.language, fact).toUpperCase(), labelW - 12, 2);
-    drawTextLines(ctx, labelLines, MX + 17, rowY + 3, 9.5);
-
-    setFont(ctx, family, 9.1, 500, INK);
-    const valueLines = clippedLines(ctx, fact.value, valueW, 3);
-    const valueBottom = drawTextLines(ctx, valueLines, valueX, rowY + 3, 12.5);
-    const rowH = Math.max(33, valueBottom - rowY + 9);
-    drawRule(ctx, rowY + rowH - 3, valueX, W - MX);
-    rowY += rowH;
+function compactSource(event: DailyMasterPackEvent) {
+  const source = primarySource(event);
+  if (!source) return "";
+  const name = clean(source.name);
+  const url = clean(source.url);
+  const prid = url.match(/[?&](?:PRID|prid)=([0-9]+)/)?.[1] ?? url.match(/PRID[=/]([0-9]+)/i)?.[1];
+  if (/press information bureau/i.test(name) && prid) return `PIB PRID ${prid}`;
+  if (/reserve bank of india/i.test(name)) {
+    const id = url.match(/(?:pressrelease|prid|id)[^0-9]*([0-9]{4,})/i)?.[1];
+    return id ? `RBI Press Release ${id}` : "Reserve Bank of India";
   }
-  return rowY + 8;
+  if (/securities and exchange board of india/i.test(name)) return "SEBI";
+  return url ? `${name} - ${url}` : name;
 }
 
-function drawRecallAndMeta(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, y: number) {
+function revisionHeight(ctx: Ctx, family: string, note: DailyMasterPackPdfNote) {
+  setFont(ctx, family, 8.7, 500, INK);
+  return clippedLines(ctx, note.takeaway, CW - 20, 3).length * 12 + 10;
+}
+
+function renderRevisionAndSources(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, startPage: number, totalPages: number | undefined, sections: SectionNotes[]) {
   const c = COPY[payload.language];
-  const recall = dailyMasterPackPdfTakeaway(story.event.oneLiner) || story.event.title;
-  const boxX = MX;
-  const boxW = CW;
-  setFont(ctx, family, 9.8, 600, WHITE);
-  const recallLines = clippedLines(ctx, recall, boxW - 34, 3);
-  const boxH = Math.max(55, 31 + recallLines.length * 14);
-  if (y + boxH + 86 > H - BOTTOM) y = H - BOTTOM - boxH - 86;
-
-  ctx.fillStyle = BLUE;
-  ctx.fillRect(boxX, y, boxW, boxH);
-  setFont(ctx, family, 6.6, 600, "#E8EEFF");
-  ctx.fillText(c.recall, boxX + 17, y + 18);
-  setFont(ctx, family, 9.8, 600, WHITE);
-  drawTextLines(ctx, recallLines, boxX + 17, y + 39, 14);
-
-  let metaY = y + boxH + 26;
-  setFont(ctx, family, 6.5, 500, MUTED);
-  ctx.fillText(c.exam, MX + 17, metaY);
-  setFont(ctx, family, 8.4, 600, INK);
-  ctx.fillText(story.event.examFamilies.map((value) => clean(value).toUpperCase()).join("  ·  ") || "—", MX + 123, metaY);
-  metaY += 30;
-  drawRule(ctx, metaY - 12);
-
-  const source = primarySource(story.event);
-  setFont(ctx, family, 6.5, 500, MUTED);
-  ctx.fillText(c.source, MX + 17, metaY + 7);
-  setFont(ctx, family, 8.1, 400, MUTED);
-  const sourceText = source ? clean(source.name) : "—";
-  const sourceLines = clippedLines(ctx, sourceText, W - MX - (MX + 123), 2);
-  drawTextLines(ctx, sourceLines, MX + 123, metaY + 7, 10.5);
-}
-
-function renderDetailPages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, pageStart: number) {
-  const stories = flattenStories(payload);
-  let page = pageStart;
-  for (const story of stories) {
+  const notes = sections.flatMap((section) => section.notes);
+  const events = payload.sections.flatMap((section) => section.events);
+  let page = startPage;
+  let ctx: Ctx | null = null;
+  let y = 0;
+  const openPage = () => {
+    if (ctx) endPage(doc);
     page += 1;
-    const category = categoryShort(story.sectionCategory, story.sectionLabel, payload.language);
-    const right = `${COPY[payload.language].storyNote} · ${category}`;
-    const { ctx } = beginPage(doc, payload, family, page, totalPages, right, COPY[payload.language].detailFooter);
-    let y = detailTitle(ctx, payload, family, story);
-    y = drawWhyAndMemory(ctx, payload, family, story, y);
-    y = drawKeyFacts(ctx, payload, family, story, y);
-    drawRecallAndMeta(ctx, payload, family, story, Math.min(y + 8, 650));
-    endPage(doc);
+    ctx = beginPage(doc, payload, family, page, totalPages);
+    y = 72;
+  };
+  openPage();
+  setFont(ctx!, family, 17, 700, INK);
+  ctx!.fillText(c.quickRevision, MX, y);
+  y += 35;
+  for (const note of notes) {
+    const needed = revisionHeight(ctx!, family, note);
+    if (y + needed > H - 72) {
+      openPage();
+      setFont(ctx!, family, 14, 700, INK);
+      ctx!.fillText(c.quickRevision, MX, y);
+      y += 30;
+    }
+    setFont(ctx!, family, 8.7, 500, INK);
+    const lines = clippedLines(ctx!, note.takeaway, CW - 20, 3);
+    drawBullet(ctx!, MX + 4, y + 3, BLUE);
+    y = drawTextLines(ctx!, lines, MX + 16, y + 3, 12) + 7;
   }
-  return page;
-}
 
-function revisionEntry(ctx: Ctx, payload: DailyMasterPackPayload, family: string, story: FlatStory, x: number, y: number, width: number, height: number) {
-  setFont(ctx, family, 7.6, 700, BLUE);
-  ctx.fillText(String(story.number).padStart(2, "0"), x, y);
-  setFont(ctx, family, 6, 500, MUTED);
-  ctx.fillText(categoryShort(story.sectionCategory, story.sectionLabel, payload.language), x + 31, y);
-
-  setFont(ctx, family, 11.2, 700, INK);
-  const titleLines = clippedLines(ctx, story.event.title, width - 31, 2);
-  drawTextLines(ctx, titleLines, x + 31, y + 25, 14);
-
-  setFont(ctx, family, 7.4, 400, MUTED);
-  const recallLines = clippedLines(ctx, dailyMasterPackPdfTakeaway(story.event.oneLiner), width - 31, 2);
-  drawTextLines(ctx, recallLines, x + 31, y + 58, 10.5);
-  drawRule(ctx, y + height - 7, x, x + width);
-}
-
-function renderRapidPages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, pageStart: number) {
-  const c = COPY[payload.language];
-  const stories = flattenStories(payload);
-  const perPage = 10;
-  let page = pageStart;
-  for (let offset = 0, rapidPage = 1; offset < stories.length; offset += perPage, rapidPage += 1) {
-    page += 1;
-    const { ctx } = beginPage(doc, payload, family, page, totalPages, `${c.rapid} · ${payload.eventCount}`, c.rapidFooter);
-    setFont(ctx, family, 23, 700, INK);
-    ctx.fillText(c.rapidTitle(payload.eventCount, revisionMinutes(payload.eventCount)), MX, 80);
-    setFont(ctx, family, 8.8, 400, MUTED);
-    ctx.fillText(rapidPage === 1 ? c.rapidSub : `${dateLabel(payload.contentDate, payload.language)} · ${rapidPage}`, MX, 104);
-    drawRule(ctx, 128, MX, W - MX, BLUE, 1.2);
-
-    const chunk = stories.slice(offset, offset + perPage);
-    const gap = 42;
-    const columnW = (CW - gap) / 2;
-    const entryH = 115;
-    chunk.forEach((story, index) => {
-      const column = index < 5 ? 0 : 1;
-      const row = index % 5;
-      const x = MX + column * (columnW + gap);
-      const y = 160 + row * entryH;
-      revisionEntry(ctx, payload, family, story, x, y, columnW, entryH);
-    });
-    endPage(doc);
+  if (y + 80 > H - 72) openPage();
+  y += 22;
+  setFont(ctx!, family, 7.2, 700, BLUE);
+  ctx!.fillText(c.sourceNotes, MX, y);
+  y += 21;
+  const sourceRows = events.map((event, index) => ({ index: index + 1, text: compactSource(event) })).filter((row) => row.text);
+  for (const row of sourceRows) {
+    setFont(ctx!, family, 6.9, 400, MUTED);
+    const text = `[${row.index}] ${row.text}`;
+    const lines = clippedLines(ctx!, text, CW, 3);
+    const needed = lines.length * 9 + 4;
+    if (y + needed > H - 55) {
+      openPage();
+      setFont(ctx!, family, 7.2, 700, BLUE);
+      ctx!.fillText(c.sourceNotes, MX, y);
+      y += 21;
+    }
+    y = drawTextLines(ctx!, lines, MX, y, 9) + 4;
   }
-  return page;
-}
-
-function referenceRows(payload: DailyMasterPackPayload) {
-  const rows: Array<{ number: number; name: string; url: string }> = [];
-  for (const story of flattenStories(payload)) {
-    const source = primarySource(story.event);
-    if (!source?.url) continue;
-    rows.push({ number: story.number, name: clean(source.name), url: clean(source.url) });
-  }
-  return rows;
-}
-
-function drawReferenceEntry(ctx: Ctx, family: string, row: { number: number; name: string; url: string }, x: number, y: number, width: number) {
-  setFont(ctx, family, 7.2, 700, BLUE);
-  ctx.fillText(String(row.number).padStart(2, "0"), x, y);
-  setFont(ctx, family, 8.6, 600, INK);
-  const nameLines = clippedLines(ctx, row.name, width - 30, 2);
-  let cursor = drawTextLines(ctx, nameLines, x + 30, y, 11.5) + 5;
-  setFont(ctx, family, 6.6, 400, MUTED);
-  const urlLines = clippedLines(ctx, row.url, width - 30, 3);
-  cursor = drawTextLines(ctx, urlLines, x + 30, cursor, 9.3);
-  drawRule(ctx, y + 75, x, x + width);
-  return cursor;
-}
-
-function renderReferencePages(doc: InstanceType<typeof PDFDocument>, payload: DailyMasterPackPayload, family: string, totalPages: number | undefined, pageStart: number) {
-  const c = COPY[payload.language];
-  const rows = referenceRows(payload);
-  if (!rows.length) return pageStart;
-  const perPage = 14;
-  let page = pageStart;
-  for (let offset = 0, refsPage = 1; offset < rows.length; offset += perPage, refsPage += 1) {
-    page += 1;
-    const { ctx } = beginPage(doc, payload, family, page, totalPages, `${c.refs} · ${dateLabel(payload.contentDate, payload.language)}`, c.refsFooter);
-    setFont(ctx, family, 21, 700, INK);
-    ctx.fillText(c.refs, MX, 80);
-    setFont(ctx, family, 8.4, 400, MUTED);
-    ctx.fillText(refsPage === 1 ? c.refsSub : `${dateLabel(payload.contentDate, payload.language)} · ${refsPage}`, MX, 102);
-    drawRule(ctx, 126, MX, W - MX, BLUE, 1.2);
-
-    const chunk = rows.slice(offset, offset + perPage);
-    const gap = 34;
-    const columnW = (CW - gap) / 2;
-    chunk.forEach((row, index) => {
-      const column = index < 7 ? 0 : 1;
-      const itemRow = index % 7;
-      const x = MX + column * (columnW + gap);
-      const y = 158 + itemRow * 88;
-      drawReferenceEntry(ctx, family, row, x, y, columnW);
-    });
-    endPage(doc);
-  }
+  if (ctx) endPage(doc);
   return page;
 }
 
@@ -958,17 +891,17 @@ export function assertDailyMasterPackPdfPayload(value: unknown): DailyMasterPack
 }
 
 function renderDoc(payload: DailyMasterPackPayload, family: string, totalPages?: number) {
+  const sections = buildDailyMasterPackPdfNotes(payload);
   const doc = new PDFDocument({
-    title: `Examtree ${COPY[payload.language].currentAffairs} - ${payload.contentDate}`,
+    title: `Examtree Daily Current Affairs - ${payload.contentDate}`,
     author: "Examtree",
     subject: "Daily Current Affairs",
     creator: "Examtree Current Affairs Studio",
   });
-  let page = 0;
-  page = renderBriefPages(doc, payload, family, totalPages, page);
-  page = renderDetailPages(doc, payload, family, totalPages, page);
-  page = renderRapidPages(doc, payload, family, totalPages, page);
-  page = renderReferencePages(doc, payload, family, totalPages, page);
+  let page = 1;
+  renderOverview(doc, payload, family, page, totalPages, sections);
+  page = renderSectionPages(doc, payload, family, page, totalPages, sections);
+  page = renderRevisionAndSources(doc, payload, family, page, totalPages, sections);
   return { buffer: doc.close(), pageCount: page };
 }
 
