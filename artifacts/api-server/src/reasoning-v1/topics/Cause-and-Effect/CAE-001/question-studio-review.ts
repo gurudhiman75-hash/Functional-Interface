@@ -1,5 +1,6 @@
 import { CAE_001_MANIFEST } from "./chapter-manifest.ts";
 import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES } from "./causal-world-authorities.ts";
+import { CP007_FALSE_CAUSATION_WORLDS } from "./cp007-false-causation.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import { CAE_SOURCE_PROFILE_IDS, generateCaeSourceProfileQuestion, type CaeSourceProfileId } from "./source-profiles.ts";
 import type { CaeLocale, CaeQlId, CaeQuestionProfile } from "./types.ts";
@@ -27,8 +28,8 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   qlAllocationStatus: CAE_001_MANIFEST.qlDiscovery.status,
   provisionalQlCount: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds.length,
   provisionalQlIds: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds,
-  scenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length,
-  canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length,
+  scenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length + 1,
+  canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length + CP007_FALSE_CAUSATION_WORLDS.length,
   generationPlanCount: CAE_001_PROJECTION_AUTHORITIES.length,
   locales: CAE_001_MANIFEST.locales,
   sourceProfiles: CAE_SOURCE_PROFILE_IDS,
