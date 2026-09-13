@@ -3,7 +3,7 @@ import { generateCaeCombinationQuestion } from "./cp003004-combination.ts";
 import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.ts";
 import { generateCp006CausalDistanceQuestion } from "./cp006-causal-distance.ts";
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
-import { generateCp007FalseCausationQuestion } from "./cp007-false-causation.ts";
+import { generateReviewedCp007FalseCausationQuestion } from "./cp007-reviewed-visible-evidence.ts";
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
 import { generateCp009IntegratedQuestion } from "./cp009-integrated.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
@@ -34,7 +34,7 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   if (input.qlId === "CAE-QL-007" && defaultFourWay) {
     return (input.seed >>> 0) % 4 === 0
       ? generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed })
-      : generateCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
+      : generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) {
     return generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
