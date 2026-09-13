@@ -15,15 +15,15 @@ export const CP010_EASY_SCENES_V1: readonly ModifierSceneV1[] = [
   }),
   modifierScene({
     id: "MOD-E03", difficulty: "easy", ruleId: "GR-MOD-002", domain: "office", errorIndex: 2,
-    correctSegments: ["Having checked the attendance sheet,", "before the meeting,", "the supervisor signed the register", "before the meeting began."],
-    errorSegments: ["Having checked the attendance sheet,", "before the meeting,", "the register was signed by the supervisor", "before the meeting began."],
-    reason: "The supervisor checked the sheet, so the main clause must keep the supervisor as its subject rather than making 'the register' the subject.",
+    correctSegments: ["Having checked the attendance sheet,", "and confirmed the absentees,", "the supervisor signed the register", "before the meeting began."],
+    errorSegments: ["Having checked the attendance sheet,", "and confirmed the absentees,", "the register was signed by the supervisor", "before the meeting began."],
+    reason: "The supervisor checked the sheet and confirmed the absentees, so the main clause must keep the supervisor as its subject rather than making 'the register' the subject.",
   }),
   modifierScene({
     id: "MOD-E04", difficulty: "easy", ruleId: "GR-MOD-002", domain: "exam-room", errorIndex: 3,
-    correctSegments: ["After being warned twice,", "during the final hour,", "for talking to another candidate,", "the candidate left the hall quietly."],
-    errorSegments: ["After being warned twice,", "during the final hour,", "for talking to another candidate,", "the hall was left quietly by the candidate."],
-    reason: "The person who was warned was the candidate, so the subject after the introductory modifiers must be 'the candidate', not 'the hall'.",
+    correctSegments: ["After being warned twice", "for talking to another candidate", "during the final hour,", "the candidate left the hall quietly."],
+    errorSegments: ["After being warned twice", "for talking to another candidate", "during the final hour,", "the hall was left quietly by the candidate."],
+    reason: "The person who was warned was the candidate, so the subject after the introductory modifier must be 'the candidate', not 'the hall'.",
   }),
   modifierScene({
     id: "MOD-E05", difficulty: "easy", ruleId: "GR-MOD-003", domain: "journey", errorIndex: 0,
@@ -39,15 +39,15 @@ export const CP010_EASY_SCENES_V1: readonly ModifierSceneV1[] = [
   }),
   modifierScene({
     id: "MOD-E07", difficulty: "easy", ruleId: "GR-MOD-004", domain: "library", errorIndex: 2,
-    correctSegments: ["The librarian returned", "the book", "that had a torn cover to the student", "at the counter."],
-    errorSegments: ["The librarian returned", "the book", "to the student that had a torn cover", "at the counter."],
+    correctSegments: ["The librarian handed", "the book", "that had a torn cover to the student", "at the counter."],
+    errorSegments: ["The librarian handed", "the book", "to the student that had a torn cover", "at the counter."],
     reason: "The relative clause 'that had a torn cover' describes the book, so it must follow 'book' rather than 'student'.",
   }),
   modifierScene({
     id: "MOD-E08", difficulty: "easy", ruleId: "GR-MOD-004", domain: "vehicle", errorIndex: 3,
-    correctSegments: ["The mechanic inspected", "the damaged car", "before preparing an estimate", "for the owner whose vehicle had a cracked windshield."],
-    errorSegments: ["The mechanic inspected", "the damaged car", "before preparing an estimate", "for the vehicle whose owner had a cracked windshield."],
-    reason: "The relative clause is meant to describe the vehicle, not the owner; its antecedent must be the noun that can logically have a cracked windshield.",
+    correctSegments: ["After the initial inspection,", "the mechanic showed the owner", "the windscreen", "that had a long crack before preparing the estimate."],
+    errorSegments: ["After the initial inspection,", "the mechanic showed the owner", "the windscreen", "before preparing the estimate that had a long crack."],
+    reason: "The relative clause 'that had a long crack' describes the windscreen, so it must follow 'windscreen' rather than 'estimate'.",
   }),
   modifierScene({
     id: "MOD-E09", difficulty: "easy", ruleId: "GR-MOD-005", domain: "clerical-work", errorIndex: 0,
@@ -93,9 +93,9 @@ export const CP010_EASY_SCENES_V1: readonly ModifierSceneV1[] = [
   }),
   modifierScene({
     id: "MOD-E16", difficulty: "easy", ruleId: "GR-MOD-008", domain: "records", errorIndex: 3,
-    correctSegments: ["The old files", "are never left", "on open desks", "after the records room closes."],
-    errorSegments: ["The old files", "are never left", "on open desks", "after never the records room closes."],
-    reason: "The frequency adverb belongs with the verb phrase it modifies; it cannot be inserted before the noun phrase 'the records room'.",
+    correctSegments: ["During routine inspections,", "after closing time,", "in the records section,", "staff members rarely leave confidential files on open desks."],
+    errorSegments: ["During routine inspections,", "after closing time,", "in the records section,", "staff members leave rarely confidential files on open desks."],
+    reason: "The frequency adverb 'rarely' should normally come before the main verb 'leave', not between the verb and its object.",
   }),
   modifierScene({
     id: "MOD-E17", difficulty: "easy", ruleId: "GR-MOD-009", domain: "instruction", errorIndex: 0,
@@ -117,8 +117,8 @@ export const CP010_EASY_SCENES_V1: readonly ModifierSceneV1[] = [
   }),
   modifierScene({
     id: "MOD-E20", difficulty: "easy", ruleId: "GR-MOD-010", domain: "transport", errorIndex: 3,
-    correctSegments: ["During the evening shift,", "before entry was allowed,", "for a document check,", "the guard stopped the truck carrying chemical drums near the main gate."],
-    errorSegments: ["During the evening shift,", "before entry was allowed,", "for a document check,", "the guard stopped the truck near the main gate carrying chemical drums."],
-    reason: "The participial phrase 'carrying chemical drums' describes the truck and should stay next to 'truck', not appear next to 'main gate'.",
+    correctSegments: ["During the evening shift,", "before allowing entry,", "the guard checked the papers", "of the truck carrying chemical drums near the main gate."],
+    errorSegments: ["During the evening shift,", "before allowing entry,", "the guard checked the papers", "of the truck near the main gate carrying chemical drums."],
+    reason: "The participial phrase 'carrying chemical drums' describes the truck and should stay next to 'truck', not next to 'main gate'.",
   }),
 ];
