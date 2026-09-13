@@ -10,6 +10,8 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v2.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v2.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v3.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v3.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1-review-export.ts"
       - ".github/workflows/reasoning-lp-ql047-localization-v1.yml"
   workflow_dispatch:
@@ -33,10 +35,12 @@ jobs:
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1.test.ts
       - name: Guard LP-QL-047 native editorial polish V2
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v2.test.ts
-      - name: Export LP-QL-047 localization V2 human review pack
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1-review-export.ts lp-cp04-localization-v2-review 9 lp-cp04-localization-v2-review.md > /dev/null
-      - name: Upload localization V2 review pack
+      - name: Guard LP-QL-047 compact native setup V3
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v3.test.ts
+      - name: Export LP-QL-047 localization V3 human review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1-review-export.ts lp-cp04-localization-v3-review 9 lp-cp04-localization-v3-review.md > /dev/null
+      - name: Upload localization V3 review pack
         uses: actions/upload-artifact@v4
         with:
-          name: lp-cp04-localization-v2-review
-          path: lp-cp04-localization-v2-review.md
+          name: lp-cp04-localization-v3-review
+          path: lp-cp04-localization-v3-review.md
