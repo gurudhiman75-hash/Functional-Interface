@@ -48,9 +48,6 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
   }
 
-  // Exactly one external seed in five is reserved for genuinely new authored
-  // saturation families. Remapping is deterministic and preserves the external
-  // seed while preventing the expanded pool from silently landing on old worlds.
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) {
     return reviewedSaturationQuestion(input, true);
   }
@@ -65,7 +62,9 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-007" && defaultFourWay) {
-    if (seed % 5 === 4) return reviewedSaturationQuestion(input, false);
+    // CP007 remains inference-calibrated MEDIUM/HARD. Expanded parallel worlds
+    // stay available to QL002/raw correlation audit until a dedicated CP007
+    // false-causation renderer is authored for them.
     return seed % 4 === 0
       ? generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed })
       : generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
