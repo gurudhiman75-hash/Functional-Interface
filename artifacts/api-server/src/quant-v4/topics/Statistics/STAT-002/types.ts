@@ -5,14 +5,16 @@ export type Stat002ContractId =
   | "STAT-002-TEMP-002-MEAN-SQUARES-SD"
   | "STAT-002-TEMP-003-TRANSLATION-INVARIANCE"
   | "STAT-002-TEMP-004-SCALE-TRANSFORMATION"
-  | "STAT-002-TEMP-005-REVERSE-SCALE";
+  | "STAT-002-TEMP-005-REVERSE-SCALE"
+  | "STAT-002-TEMP-006-AFFINE-FROM-MOMENTS";
 
 export type Stat002SolveMode =
   | "DIRECT_POPULATION_SD"
   | "SD_FROM_MEAN_AND_MEAN_SQUARES"
   | "TRANSLATION_INVARIANCE"
   | "SCALE_STANDARD_DEVIATION"
-  | "INFER_SCALE_FROM_STANDARD_DEVIATION";
+  | "INFER_SCALE_FROM_STANDARD_DEVIATION"
+  | "AFFINE_SD_FROM_MOMENTS";
 
 export type Stat002Difficulty = "Easy" | "Medium" | "Hard";
 
@@ -21,7 +23,14 @@ export type Stat002State =
   | Readonly<{ kind: "MEAN_AND_MEAN_SQUARES"; mean: number; meanOfSquares: number }>
   | Readonly<{ kind: "TRANSLATED_DATA"; values: readonly number[]; additiveConstant: number }>
   | Readonly<{ kind: "SCALED_DATA"; values: readonly number[]; multiplier: number }>
-  | Readonly<{ kind: "REVERSE_SCALE"; originalStandardDeviation: number; transformedStandardDeviation: number }>;
+  | Readonly<{ kind: "REVERSE_SCALE"; originalStandardDeviation: number; transformedStandardDeviation: number }>
+  | Readonly<{
+      kind: "AFFINE_FROM_MOMENTS";
+      mean: number;
+      meanOfSquares: number;
+      multiplier: number;
+      additiveConstant: number;
+    }>;
 
 export type Stat002Option = Readonly<{
   text: string;
