@@ -5,6 +5,7 @@ on:
     branches:
       - New-main
     paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-permanent-freeze-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1-review-export.ts"
