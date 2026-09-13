@@ -1,20 +1,20 @@
 import { writeFileSync } from "node:fs";
-import { generateLpCp04BatchV3, LP_CP04_COUNTERFACTUAL_V3 } from "./lp-cp04-counterfactual-v3.ts";
+import { generateLpCp04PermanentBatch, LP_CP04_ENGLISH_FREEZE_V1 } from "./lp-cp04-permanent-freeze-v1.ts";
 
 const seed = process.argv[2] || "lp-cp04-human-review-v3";
 const count = Math.min(12, Math.max(1, Number(process.argv[3] || 9)));
-const caselets = generateLpCp04BatchV3(seed, count);
+const caselets = generateLpCp04PermanentBatch(seed, count);
 
 const lines: string[] = [
   "# LP CP04 Counterfactual / Additional-Condition Review Pack V3",
   "",
-  `Authority: ${LP_CP04_COUNTERFACTUAL_V3.authorityId}`,
-  `Status: ${LP_CP04_COUNTERFACTUAL_V3.status}`,
-  "Permanent QL: UNALLOCATED",
+  `Authority: ${LP_CP04_ENGLISH_FREEZE_V1.authorityId}`,
+  "Status: ENGLISH FROZEN — REVIEW ONLY",
+  "Permanent QL: LP-QL-047",
   `Seed: ${seed}`,
   `Caselets: ${caselets.length}`,
   "",
-  "> Review purpose: inspect exam-realness, mixed-parent structural difficulty, usefulness of the temporary condition, option plausibility and explanation clarity before any permanent QL allocation.",
+  "> Review purpose: inspect the frozen English counterfactual/additional-condition family across Easy, Medium and Hard. Production remains blocked until localization and source-governance gates are separately completed.",
   "",
 ];
 
@@ -25,6 +25,7 @@ caselets.forEach((caselet: any, index) => {
   lines.push(`## Caselet ${index + 1} — ${caselet.difficultyBand}`);
   lines.push("");
   lines.push(`**Parent topology:** ${topology}`);
+  lines.push(`**QL:** ${child.qlId}`);
   lines.push("");
   lines.push(setupOnly);
   lines.push("");
