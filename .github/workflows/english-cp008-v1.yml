@@ -3,7 +3,7 @@ name: Validate English CP008 V1
 on:
   pull_request:
     branches: [New-main]
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/english-v1/**
       - artifacts/api-server/src/question-studio/**
