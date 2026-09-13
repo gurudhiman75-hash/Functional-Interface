@@ -17,12 +17,17 @@ import {
   CP008_V4_FAMILY_GENERATORS,
   type CP008V4FamilyId,
 } from "./CP008-v4_1-families";
+import { assertCP008V4AuthorityDepth } from "./CP008-v4-authority-guards";
 
 const CP008_V4_FAMILY_IDS = Object.keys(
   CP008_V4_FAMILY_GENERATORS
 ) as CP008V4FamilyId[];
 
 const CP008_DIFFICULTIES: PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
+
+// Fail closed at module load rather than silently weakening F05/F06 with
+// unrelated distractor families.
+assertCP008V4AuthorityDepth();
 
 export const PUN_001_CP008_DEFINITION: PunjabiCheckpointDefinition = {
   cpId: "PUN-001-CP008",
