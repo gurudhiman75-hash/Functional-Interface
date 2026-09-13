@@ -8,6 +8,7 @@ import {
   stat001QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-001/question-studio-adapter";
 import type {
+  QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
   QuestionStudioGenerationResult,
@@ -31,6 +32,18 @@ function asLanguageArray(value: unknown): QuestionStudioLanguage[] {
   );
 }
 
+function asDifficultyArray(value: unknown): QuestionStudioDifficulty[] {
+  const raw = Array.isArray(value) ? value.map(String) : [];
+  const normalized = raw.map((entry) => {
+    const lower = entry.trim().toLowerCase();
+    if (lower === "easy") return "Easy";
+    if (lower === "medium" || lower === "moderate") return "Medium";
+    if (lower === "hard") return "Hard";
+    return undefined;
+  });
+  return normalized.filter((entry): entry is QuestionStudioDifficulty => Boolean(entry));
+}
+
 function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDefinition {
   return {
     engineId: "quant-v4",
@@ -42,10 +55,7 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     enabled: Boolean(pkg.enabled),
     cpIds: asStringArray(pkg.cpIds),
     supportedLanguages: asLanguageArray(pkg.supportedLanguages),
-    supportedDifficulties: asStringArray(pkg.supportedDifficulties).filter(
-      (entry): entry is "Easy" | "Medium" | "Hard" =>
-        entry === "Easy" || entry === "Medium" || entry === "Hard",
-    ),
+    supportedDifficulties: asDifficultyArray(pkg.supportedDifficulties),
     runtimeMode: asString(pkg.runtimeMode) || undefined,
     supportedRuntimeModes: asStringArray(pkg.supportedRuntimeModes),
     dynamicCandidateCpIds: asStringArray(pkg.dynamicCandidateCpIds),
@@ -76,6 +86,14 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
   };
 }
 
+function normalizeStatExamProfile(value: unknown) {
+  const normalized = String(value ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ");
+  if (!normalized) return undefined;
+  if (normalized.includes("jso") || normalized.includes("statistics")) return "SSC_CGL_JSO";
+  if (normalized.includes("ssc") && normalized.includes("cgl")) return "SSC_CGL_TIER_II";
+  return undefined;
+}
+
 function toStat001Request(request: QuestionStudioGenerationRequest) {
   return {
     packageId: request.packageId,
@@ -88,7 +106,7 @@ function toStat001Request(request: QuestionStudioGenerationRequest) {
     count: request.count,
     canonicalProblemId: request.canonicalProblemId,
     questionLanguageId: request.questionLanguageId,
-    examProfile: request.exam,
+    examProfile: normalizeStatExamProfile(request.exam),
   };
 }
 
