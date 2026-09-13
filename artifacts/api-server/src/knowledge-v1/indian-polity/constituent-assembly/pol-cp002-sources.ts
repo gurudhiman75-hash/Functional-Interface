@@ -22,6 +22,13 @@ export const POL_CP002_SOURCES_V1: readonly PolCp002Source[] = Object.freeze([
     notes: "Primary debate record for the first sitting and temporary chairmanship.",
   },
   {
+    sourceId: "PARLIAMENT-RAJENDRA-PRASAD-EP",
+    sourceType: "official",
+    title: "Eminent Parliamentarians Series — Dr. Rajendra Prasad",
+    url: "https://eparlib.sansad.in/bitstream/123456789/58684/1/Eminent_Parliamentarians_Series_Rajendra_Prasad.pdf",
+    notes: "Parliamentary reference confirming Rajendra Prasad's election as President of the Constituent Assembly on 11 December 1946.",
+  },
+  {
     sourceId: "COI-CAD-1946-12-13",
     sourceType: "primary",
     title: "Constituent Assembly Debates, 13 December 1946",
@@ -29,11 +36,25 @@ export const POL_CP002_SOURCES_V1: readonly PolCp002Source[] = Object.freeze([
     notes: "Primary debate record for Jawaharlal Nehru moving the Objectives Resolution.",
   },
   {
+    sourceId: "PARLIAMENT-OBJECTIVES-RESOLUTION",
+    sourceType: "official",
+    title: "Parliament of India — Objectives Resolution reference",
+    url: "https://eparlib.sansad.in/bitstream/123456789/761916/1/India_And_Human_Rights_.pdf",
+    notes: "Parliamentary reference confirming that the Objectives Resolution was moved on 13 December 1946 and adopted on 22 January 1947.",
+  },
+  {
     sourceId: "COI-CAD-1947-08-29",
     sourceType: "primary",
     title: "Constituent Assembly Debates, 29 August 1947",
     url: "https://www.constitutionofindia.net/debates/29-aug-1947/",
     notes: "Primary debate record for appointment and initial membership of the Drafting Committee.",
+  },
+  {
+    sourceId: "PARLIAMENT-BN-RAU-ACKNOWLEDGEMENT",
+    sourceType: "official",
+    title: "Parliament of India — Select Proceedings / B. N. Rau acknowledgement",
+    url: "https://eparlib.sansad.in/bitstream/123456789/782459/1/Golden_Jubilee_Republic_of_India.pdf",
+    notes: "Parliamentary reproduction of Ambedkar's acknowledgement of B. N. Rau as Constitutional Adviser who prepared the rough draft considered by the Drafting Committee.",
   },
   {
     sourceId: "COI-DRAFT-1948-02-21",
