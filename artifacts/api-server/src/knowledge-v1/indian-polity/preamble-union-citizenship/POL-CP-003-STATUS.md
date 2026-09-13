@@ -18,16 +18,25 @@
 - Article 8 overseas Indian-origin registration path
 - 4 scenario rows for Articles 5–8
 - 18 genuine QLs
-- 58-question V2 review target
+- 58-question V2 review batch
 - structural/provenance QA
 - generic date-wrapper ban carried forward from CP-002
 - current citizenship-policy/current-affairs leakage blocked
 
-## Intended review distribution
+## Mechanical review QA
 
-- Easy: 14
-- Medium: 35
-- Hard: 9
+Independent review-batch construction passed:
+- 58 questions
+- 18/18 QLs represented
+- 14 Easy / 35 Medium / 9 Hard
+- exactly four unique options per question
+- canonical answer matches the recorded correct option in every question
+- all four answer positions used
+- no exact semantic duplicate signatures
+- no rejected `On which date did the following occur...` wrapper
+- Static constitutional scope preserved
+
+The repository-side V2 QA test checks the same structural, source-resolution and Article-map invariants. This is not a claim that the full repository CI suite has run.
 
 ## Deliberately gated
 
