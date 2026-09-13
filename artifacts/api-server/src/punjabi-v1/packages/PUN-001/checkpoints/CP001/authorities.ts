@@ -133,19 +133,20 @@ export const SUBJOINED_AUTHORITIES: readonly SubjoinedAuthority[] = [
 export interface WordOrthographyAuthority {
   id: string;
   word: string;
+  focus: string;
   testedFeature: "ਲਗ" | "ਲਗਾਖਰ";
   correctName: string;
   explanationPa: string;
 }
 
 export const WORD_ORTHOGRAPHY_AUTHORITIES: readonly WordOrthographyAuthority[] = [
-  { id: "CP001-WORD-KITAAB-SIHARI", word: "ਕਿਤਾਬ", testedFeature: "ਲਗ", correctName: "ਸਿਹਾਰੀ", explanationPa: "‘ਕਿਤਾਬ’ ਵਿੱਚ ਕ ਨਾਲ ਸਿਹਾਰੀ ਲੱਗੀ ਹੈ।" },
-  { id: "CP001-WORD-KITAAB-KANNA", word: "ਕਿਤਾਬ", testedFeature: "ਲਗ", correctName: "ਕੰਨਾ", explanationPa: "‘ਕਿਤਾਬ’ ਵਿੱਚ ਤ ਨਾਲ ਕੰਨਾ ਲੱਗਾ ਹੈ।" },
-  { id: "CP001-WORD-SCHOOL-DULANKAR", word: "ਸਕੂਲ", testedFeature: "ਲਗ", correctName: "ਦੁਲੈਂਕੜ", explanationPa: "‘ਸਕੂਲ’ ਵਿੱਚ ਕ ਨਾਲ ਦੁਲੈਂਕੜ ਲੱਗਾ ਹੈ।" },
-  { id: "CP001-WORD-MELA-LAAN", word: "ਮੇਲਾ", testedFeature: "ਲਗ", correctName: "ਲਾਂ", explanationPa: "‘ਮੇਲਾ’ ਵਿੱਚ ਮ ਨਾਲ ਲਾਂ ਲੱਗੀ ਹੈ।" },
-  { id: "CP001-WORD-GHORA-HORA", word: "ਘੋੜਾ", testedFeature: "ਲਗ", correctName: "ਹੋੜਾ", explanationPa: "‘ਘੋੜਾ’ ਵਿੱਚ ਘ ਨਾਲ ਹੋੜਾ ਲੱਗਾ ਹੈ।" },
-  { id: "CP001-WORD-KAUR-KANAURA", word: "ਕੌਰ", testedFeature: "ਲਗ", correctName: "ਕਨੌੜਾ", explanationPa: "‘ਕੌਰ’ ਵਿੱਚ ਕ ਨਾਲ ਕਨੌੜਾ ਲੱਗਾ ਹੈ।" },
-  { id: "CP001-WORD-MAA-BINDI", word: "ਮਾਂ", testedFeature: "ਲਗਾਖਰ", correctName: "ਬਿੰਦੀ", explanationPa: "‘ਮਾਂ’ ਵਿੱਚ ਨਾਸਕੀ ਧੁਨੀ ਲਈ ਬਿੰਦੀ ਵਰਤੀ ਗਈ ਹੈ।" },
-  { id: "CP001-WORD-PIND-TIPPI", word: "ਪਿੰਡ", testedFeature: "ਲਗਾਖਰ", correctName: "ਟਿੱਪੀ", explanationPa: "‘ਪਿੰਡ’ ਵਿੱਚ ਨਾਸਕੀ ਧੁਨੀ ਲਈ ਟਿੱਪੀ ਵਰਤੀ ਗਈ ਹੈ।" },
-  { id: "CP001-WORD-PAKKA-ADDAK", word: "ਪੱਕਾ", testedFeature: "ਲਗਾਖਰ", correctName: "ਅੱਧਕ", explanationPa: "‘ਪੱਕਾ’ ਵਿੱਚ ਅੱਧਕ ਅਗਲੇ ਕ ਦੀ ਧੁਨੀ ਨੂੰ ਦੋਹਰਾ ਕਰਦਾ ਹੈ।" },
+  { id: "CP001-WORD-KITAAB-SIHARI", word: "ਕਿਤਾਬ", focus: "ਕਿ", testedFeature: "ਲਗ", correctName: "ਸਿਹਾਰੀ", explanationPa: "‘ਕਿਤਾਬ’ ਦੇ ‘ਕਿ’ ਵਿੱਚ ਕ ਨਾਲ ਸਿਹਾਰੀ ਲੱਗੀ ਹੈ।" },
+  { id: "CP001-WORD-KITAAB-KANNA", word: "ਕਿਤਾਬ", focus: "ਤਾ", testedFeature: "ਲਗ", correctName: "ਕੰਨਾ", explanationPa: "‘ਕਿਤਾਬ’ ਦੇ ‘ਤਾ’ ਵਿੱਚ ਤ ਨਾਲ ਕੰਨਾ ਲੱਗਾ ਹੈ।" },
+  { id: "CP001-WORD-SCHOOL-DULANKAR", word: "ਸਕੂਲ", focus: "ਕੂ", testedFeature: "ਲਗ", correctName: "ਦੁਲੈਂਕੜ", explanationPa: "‘ਸਕੂਲ’ ਦੇ ‘ਕੂ’ ਵਿੱਚ ਕ ਨਾਲ ਦੁਲੈਂਕੜ ਲੱਗਾ ਹੈ।" },
+  { id: "CP001-WORD-MELA-LAAN", word: "ਮੇਲਾ", focus: "ਮੇ", testedFeature: "ਲਗ", correctName: "ਲਾਂ", explanationPa: "‘ਮੇਲਾ’ ਦੇ ‘ਮੇ’ ਵਿੱਚ ਮ ਨਾਲ ਲਾਂ ਲੱਗੀ ਹੈ।" },
+  { id: "CP001-WORD-GHORA-HORA", word: "ਘੋੜਾ", focus: "ਘੋ", testedFeature: "ਲਗ", correctName: "ਹੋੜਾ", explanationPa: "‘ਘੋੜਾ’ ਦੇ ‘ਘੋ’ ਵਿੱਚ ਘ ਨਾਲ ਹੋੜਾ ਲੱਗਾ ਹੈ।" },
+  { id: "CP001-WORD-KAUR-KANAURA", word: "ਕੌਰ", focus: "ਕੌ", testedFeature: "ਲਗ", correctName: "ਕਨੌੜਾ", explanationPa: "‘ਕੌਰ’ ਦੇ ‘ਕੌ’ ਵਿੱਚ ਕ ਨਾਲ ਕਨੌੜਾ ਲੱਗਾ ਹੈ।" },
+  { id: "CP001-WORD-MAA-BINDI", word: "ਮਾਂ", focus: "ਮਾਂ", testedFeature: "ਲਗਾਖਰ", correctName: "ਬਿੰਦੀ", explanationPa: "‘ਮਾਂ’ ਵਿੱਚ ਨਾਸਕੀ ਧੁਨੀ ਲਈ ਬਿੰਦੀ ਵਰਤੀ ਗਈ ਹੈ।" },
+  { id: "CP001-WORD-PIND-TIPPI", word: "ਪਿੰਡ", focus: "ਪਿੰ", testedFeature: "ਲਗਾਖਰ", correctName: "ਟਿੱਪੀ", explanationPa: "‘ਪਿੰਡ’ ਵਿੱਚ ਨਾਸਕੀ ਧੁਨੀ ਲਈ ਟਿੱਪੀ ਵਰਤੀ ਗਈ ਹੈ।" },
+  { id: "CP001-WORD-PAKKA-ADDAK", word: "ਪੱਕਾ", focus: "ਪੱ", testedFeature: "ਲਗਾਖਰ", correctName: "ਅੱਧਕ", explanationPa: "‘ਪੱਕਾ’ ਵਿੱਚ ਅੱਧਕ ਅਗਲੇ ਕ ਦੀ ਧੁਨੀ ਨੂੰ ਦੋਹਰਾ ਕਰਦਾ ਹੈ।" },
 ] as const;
