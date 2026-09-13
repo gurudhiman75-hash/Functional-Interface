@@ -1,6 +1,6 @@
 # ENG-001 CP007 — Conjunctions & Parallelism — Source Audit V1
 
-Status: `IMPLEMENTED_V1__AUTOMATED_VALIDATION_GREEN__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED__AUTOMATED_VALIDATION_GREEN__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__MERGE_READY`
 
 ## Scope
 
@@ -35,9 +35,18 @@ It does **not** own subject–verb agreement after either/or or neither/nor (CP0
 - full corrected sentence in explanations
 - curated V2 learner-facing part boundaries
 
+## Approved review authority
+
+Human editorial approval was explicitly given on 2026-09-13.
+
+- artifact: `ENG-001-CP007-REVIEW-V1.md`
+- artifact SHA-256: `c7443c9deaf95b91855d67c44d42f856e5eb916ef3cf41bc1578a29c444c8817`
+- approved content head: `5d8834a241c44b65ce1c95988afba7b05e054543`
+- authority: `ENG-001-CP007-HUMAN-EDITORIAL-APPROVAL-V1`
+
 ## Automated validation
 
-Final V2 gate is green:
+Final V2 and post-approval integration gates are green:
 - 9,000 deterministic stress generations across Easy/Medium/Hard
 - deterministic replay
 - rule × difficulty × QL matrix
@@ -45,13 +54,23 @@ Final V2 gate is green:
 - QL001 source-answer spread: A=7, B=22, C=17, D=14
 - QL002 answer positions exercise A, B and C
 - deterministic 60-question human-review artifact generated successfully
+- CP007 Question Studio adapter integration green
 - approved CP006 regression green
+- older ENG-001 package regressions updated and green
 - API build green
+- admin TypeScript check green
+- integrated-admin production safeguards and full build green
 
-Review artifact: `ENG-001-CP007-REVIEW-V1.md`.
+## Question Studio lifecycle
 
-## Quality contract
+CP007 is registered in the shared `language-v1 / ENG-001` package for review-only generation. The package now exposes CP001–CP007 and all ten `GR-CON-*` rules for CP007.
 
-Questions should read like normal SSC/Banking error-spotting sentences. Difficulty comes from structural dependency, sentence length and distractor similarity rather than obscure vocabulary. Explanations state the sentence-specific grammar reason and the full corrected sentence without option-by-option analysis or test-taking jargon.
+The following remain locked:
+- Question Bank writes
+- test eligibility
+- mock-test eligibility
+- public publication
+- automatic learner delivery
+- production release
 
-The automated gate is complete, but human editorial approval is still required. Question Studio registration, Question Bank writes, tests, mock tests and learner publication remain locked until the separate approval/integration gate is deliberately opened.
+Any future CP007 defect must be fixed in source/generator code and regenerated; the approved review artifact is immutable evidence of the reviewed candidate.
