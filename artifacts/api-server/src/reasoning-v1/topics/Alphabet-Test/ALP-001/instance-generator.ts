@@ -313,15 +313,24 @@ function wordTransformForMode(mode: AlpQuestionLogic["solveMode"], ql: AlpQuesti
 
 function pickWordForMode(ql: AlpQuestionLogic, seed: number): string {
   const candidates = WORD_BANK.filter((word) => {
+    if (word.length < 6) return false;
     if (ql.solveMode === "WORD_MIDDLE_SINGLE" && word.length % 2 !== 1) return false;
     if (ql.solveMode === "WORD_MIDDLE_PAIR" && word.length % 2 !== 0) return false;
     if (ql.solveMode.includes("VOWELS_FIRST") || ql.solveMode.includes("CONSONANTS_FIRST")) {
       const vowels = [...word].filter((letter) => "AEIOU".includes(letter)).length;
       if (vowels === 0 || vowels === word.length) return false;
     }
-    return word.length >= 6;
+    if (ql.solveMode === "WORD_IDENTIFY_UNCHANGED_ASC" && unchangedRefs(word, "ASC_SORT").length === 0) return false;
+    return true;
   });
-  return pick(candidates, seedKey(ql, seed, "word"));
+  if (!candidates.length) throw new Error(`${ql.qlId} has no eligible governed CP005 word.`);
+
+  // Cycle through the governed pool before repeating it. This keeps a seeded
+  // generator deterministic while preventing the old small-pool/birthday-
+  // collision fingerprint across ordinary 100-question fatigue checks.
+  const qlNumber = Number.parseInt(ql.qlId.slice(-3), 10) || 0;
+  const index = ((seed + qlNumber * 37) % candidates.length + candidates.length) % candidates.length;
+  return candidates[index]!;
 }
 
 function generateCp005(ql: AlpQuestionLogic, seed: number): AlpInstanceData {
@@ -360,7 +369,9 @@ function generateCp005(ql: AlpQuestionLogic, seed: number): AlpInstanceData {
       let transformedRefs = applyWordTransformRefs(word, wordTransformId, rangeStart, rangeEnd);
       let unchanged = unchangedRefs(word, wordTransformId, rangeStart, rangeEnd);
       if (ql.solveMode === "WORD_IDENTIFY_UNCHANGED_ASC" && unchanged.length === 0) {
-        const fallback = WORD_BANK.find((candidate) => unchangedRefs(candidate, "ASC_SORT").length > 0);
+        const eligibleFallbacks = WORD_BANK.filter((candidate) => candidate.length >= 6 && unchangedRefs(candidate, "ASC_SORT").length > 0);
+        const fallbackIndex = ((seed + Number.parseInt(ql.qlId.slice(-3), 10) * 37) % eligibleFallbacks.length + eligibleFallbacks.length) % eligibleFallbacks.length;
+        const fallback = eligibleFallbacks[fallbackIndex];
         if (!fallback) throw new Error("Word bank has no unchanged ascending-sort example.");
         word = fallback;
         transformedRefs = applyWordTransformRefs(word, wordTransformId, rangeStart, rangeEnd);
