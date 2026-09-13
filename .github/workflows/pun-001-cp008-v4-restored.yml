@@ -1,0 +1,52 @@
+name: Validate PUN-001 CP008 V4 Restored
+
+on:
+  pull_request:
+    branches:
+      - feature/punjabi-v1-content-engine
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+      - ".github/workflows/pun-001-cp008-v4-restored.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-cp008-v4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP008 V4 proof
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/punjabi-v1/packages/PUN-001/checkpoints/CP008/CP008.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/pun-001-cp008-v4.test.mjs
+
+      - name: Run CP008 V4 proof
+        working-directory: artifacts/api-server
+        run: node dist/pun-001-cp008-v4.test.mjs
+
+      - name: Run full Punjabi V1 regression
+        working-directory: artifacts/api-server
+        run: pnpm run test:punjabi-v1
+
+      - name: Build API server
+        working-directory: artifacts/api-server
+        run: pnpm run build
