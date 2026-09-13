@@ -7,7 +7,7 @@ import type { CaeLocale } from "./types.ts";
 
 const LOCALES: readonly CaeLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 
-assert.equal(CP005_COMPETING_SCENARIOS.length, 10, "reviewed CP005 must expose ten independently authored competing-explanation cases");
+assert.equal(CP005_COMPETING_SCENARIOS.length, 11, "reviewed CP005 must expose eleven independently authored competing-explanation cases");
 assert.ok(CP005_COMPETING_SCENARIOS.some((scenario) => scenario.difficulty === "MEDIUM"));
 assert.ok(CP005_COMPETING_SCENARIOS.some((scenario) => scenario.difficulty === "HARD"));
 for (const scenario of CP005_COMPETING_SCENARIOS) {
