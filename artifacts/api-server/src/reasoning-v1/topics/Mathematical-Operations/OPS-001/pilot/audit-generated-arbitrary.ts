@@ -11,7 +11,7 @@ import {
 
 const FAMILIES = [
   { display: ["M", "N"] as const, semantic: ["×", "+"] as const, tokenFamily: "LETTER_TOKEN" },
-  { display: ["P", "Q"] as const, semantic: ["−", "+"] as const, tokenFamily: "LETTER_TOKEN" },
+  { display: ["C", "D"] as const, semantic: ["−", "+"] as const, tokenFamily: "LETTER_TOKEN" },
   { display: ["#", "$" ] as const, semantic: ["×", "−"] as const, tokenFamily: "PUNCTUATION_TOKEN" },
   { display: ["◆", "●"] as const, semantic: ["−", "+"] as const, tokenFamily: "FONT_SAFE_SHAPE_TOKEN" },
 ] as const;
