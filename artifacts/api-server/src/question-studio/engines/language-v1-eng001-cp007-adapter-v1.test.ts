@@ -4,11 +4,12 @@ import { getGeneratedItemApprovalDisposition } from "../../lib/admin-question-st
 import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "../engine-registry";
 import { ENG001_CP007_STANDARD_REVIEW_ONLY_PACKAGE_V1, isEng001Cp007QuestionStudioRequestV1, languageV1Eng001Cp007QuestionStudioAdapterV1 } from "./language-v1-eng001-cp007-adapter-v1";
 
-const expectedCps = ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007"];
+const cp007Cps = ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007"];
+const registeredCps = [...cp007Cps, "ENG-001-CP008"];
 const packageDef = ENG001_CP007_STANDARD_REVIEW_ONLY_PACKAGE_V1;
 assert.equal(packageDef.engineId, "language-v1");
 assert.equal(packageDef.packageId, "ENG-001");
-assert.deepEqual(packageDef.cpIds, expectedCps);
+assert.deepEqual(packageDef.cpIds, cp007Cps);
 assert.equal(packageDef.questionBankWritable, false);
 assert.equal(packageDef.testEligible, false);
 assert.equal(packageDef.mockTestEligible, false);
@@ -17,7 +18,7 @@ assert.equal(packageDef.automaticStudentPublication, false);
 assert.equal(packageDef.productionReleaseAuthorized, false);
 assert.equal(packageDef.metadata?.humanReviewApproved, true);
 assert.equal(packageDef.metadata?.reviewOnly, true);
-assert.deepEqual(listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001")?.cpIds, expectedCps);
+assert.deepEqual(listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001")?.cpIds, registeredCps);
 
 assert.equal(isEng001Cp007QuestionStudioRequestV1({ packageId: "ENG-001" }), false);
 assert.equal(isEng001Cp007QuestionStudioRequestV1({ packageId: "ENG-001", canonicalProblemId: "ENG-001-CP007" }), true);
@@ -63,4 +64,4 @@ for (const [qlId, ruleId, difficulty] of [["ENG-001-QL001", "GR-CON-001", "Easy"
 }
 await assert.rejects(languageV1Eng001Cp007QuestionStudioAdapterV1.generate({ ...request, language: "hi" }), /supports English only/i);
 await assert.rejects(languageV1Eng001Cp007QuestionStudioAdapterV1.generate({ ...request, runtimeMode: "bank-only" }), /only supports review-only runtime/i);
-console.log("ENG-001 CP007 Question Studio review-only integration tests passed.");
+console.log("ENG-001 CP007 Question Studio review-only integration tests passed with CP008 registered globally.");
