@@ -9,6 +9,16 @@ export type Cae001ReviewedEditorialSample = Readonly<{
   question: GeneratedCaeQuestion;
 }>;
 
+function operationKey(question: GeneratedCaeQuestion): string {
+  const parts = question.causalStructure.split(":");
+  // Reviewed CP006/008/009 encode learner-operation/directness in the leading
+  // causal-structure tokens. Other QLs are sufficiently identified by their
+  // projection ID.
+  if (question.qlId === "CAE-QL-006") return `${question.projectionId}:${parts[0] ?? ""}`;
+  if (question.qlId === "CAE-QL-008" || question.qlId === "CAE-QL-009") return `${question.projectionId}:${parts[1] ?? parts[0] ?? ""}`;
+  return question.projectionId;
+}
+
 function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Cae001ReviewedEditorialSample[] {
   const generated: Cae001ReviewedEditorialSample[] = [];
   const seenCausalStates = new Set<string>();
@@ -23,17 +33,23 @@ function selectForQl(qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number]): readonly Ca
   const selected: Cae001ReviewedEditorialSample[] = [];
   const selectedCausalStates = new Set<string>();
   const add = (entry: Cae001ReviewedEditorialSample | undefined) => {
+    if (selected.length >= 10) return;
     if (entry && !selectedCausalStates.has(entry.question.causalStateId)) {
       selected.push(entry);
       selectedCausalStates.add(entry.question.causalStateId);
     }
   };
+
+  // 1. Make every available difficulty visible.
   for (const difficulty of DIFFICULTY_ORDER) if (availableDifficulties.has(difficulty)) add(generated.find((entry) => entry.question.difficulty === difficulty));
+  // 2. Prioritise each reviewed learner operation/mode so deep CP008/009
+  // coverage cannot disappear from a superficially diverse sample.
+  for (const key of new Set(generated.map((entry) => operationKey(entry.question)))) add(generated.find((entry) => operationKey(entry.question) === key));
+  // 3. Then expose scenario-family breadth.
   for (const familyId of new Set(generated.map((entry) => entry.question.scenarioFamilyId))) add(generated.find((entry) => entry.question.scenarioFamilyId === familyId));
-  for (const entry of generated) {
-    add(entry);
-    if (selected.length === 10) break;
-  }
+  // 4. Fill remaining slots with fresh semantic states.
+  for (const entry of generated) add(entry);
+
   if (selected.length !== 10) throw new Error(`${qlId}: reviewed editorial selection did not reach ten distinct causal states.`);
   return Object.freeze(selected);
 }
@@ -57,7 +73,7 @@ export function renderCae001ReviewedEditorialRealnessReview(): string {
   const lines = [
     "# CAE-001 reviewed editorial-realness pack",
     "",
-    "Deterministic English (`en-IN`) review-only samples. Ten distinct causal states are selected per CP/QL. CP-007 uses the reviewed false-causation/common-factor authorities while the frozen V3 regression pack remains separate.",
+    "Deterministic English (`en-IN`) review-only samples. Ten distinct causal states are selected per CP/QL with difficulty, learner-operation and family breadth prioritised. The frozen V3 regression pack remains separate.",
   ];
   for (const qlId of CAE_PROVISIONAL_QL_IDS) {
     const samples = CAE_001_REVIEWED_EDITORIAL_REALNESS_REVIEW[qlId];
@@ -76,6 +92,7 @@ export function renderCae001ReviewedEditorialRealnessReview(): string {
         `**Explanation:** ${question.explanation}`,
         "",
         `**Family / variant:** ${question.scenarioFamilyId} / ${question.scenarioVariantId}`,
+        `**Projection / operation:** ${question.projectionId} / ${operationKey(question)}`,
         `**causalStateId:** \`${question.causalStateId}\``,
         `**itemVariantId:** \`${question.itemVariantId}\``,
         `**Difficulty evidence:** ${difficultyEvidence(question)}`,
