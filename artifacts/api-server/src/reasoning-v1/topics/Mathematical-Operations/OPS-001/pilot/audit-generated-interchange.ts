@@ -143,7 +143,7 @@ function generate017(seed: number): ApprovedOpsQuestion {
     return {
       candidateId: "OPS-CAND-017", checkpointId: "OPS-CP-005", seed, locale: "en-IN",
       taskKind: "IDENTIFY_TWO_OPERATOR_PAIRS_TO_SWAP", solveMode: "identifyTwoOperatorPairSwapsForEquation", renderer: "TABLE_OR_GRID",
-      stem: `Which two operator pairs must be interchanged simultaneously to make ${printedEquation} correct?`,
+      stem: `Which two disjoint operator pairs must be interchanged simultaneously to make ${printedEquation} correct?`,
       options, correctIndex: options.findIndex((option) => option.errorLabel === null), answer,
       explanation: {
         ruleStatement: "Test all complete disjoint double-pair interchanges against the original equation and also exclude every simpler single-pair repair before accepting a two-pair answer.",
