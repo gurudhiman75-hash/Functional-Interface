@@ -70,9 +70,10 @@ for (let seed = 0; seed < 240; seed += 1) {
   }
   if (mode === "RELATION_TYPE") {
     assert.equal(question.answerId, "INDIRECT");
-    assert.equal(question.visibleContext.visibleNodeIds.length, 4, "relation-type item must expose the evidence-bearing chain");
+    assert.equal(question.visibleContext.visibleNodeIds.length, 4, "relation-type item must expose the evidence-bearing events");
     assert.equal(question.difficulty, "MEDIUM", "relation-type recognition should not be mislabeled HARD");
-    assert.match(question.stem, /P → Q → R → S/u, "relation-type stem must state the causal chain used for the inference");
+    assert.doesNotMatch(question.stem, /P\s*→\s*Q\s*→\s*R\s*→\s*S/u, "relation-type stem must not spell out the answer-bearing causal chain");
+    for (const label of ["P.", "Q.", "R.", "S."]) assert.ok(question.stem.includes(label), `${question.causalStateId}: relation-type stem must retain all event labels`);
   }
   if (mode === "COMMON_CAUSE_RECONSTRUCTION") {
     assert.equal(question.visibleContext.visibleNodeIds.length, 2);
