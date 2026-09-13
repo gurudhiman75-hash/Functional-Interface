@@ -4,6 +4,7 @@ import type { Assignment, GroupId, PersonId } from "./index.ts";
 export type LpCp04Difficulty = "Easy" | "Medium" | "Hard";
 
 type TemporaryCondition = { person: PersonId; group: GroupId; text: string };
+type ConditionedCandidate = { condition: TemporaryCondition; states: Assignment[] };
 
 export type LpCp04ChildV2 = {
   questionId: string;
@@ -55,32 +56,36 @@ function targetDifficulty(index: number): LpCp04Difficulty {
   return (["Easy", "Medium", "Hard"] as const)[index % 3]!;
 }
 
-function scoreForDifficulty(difficulty: LpCp04Difficulty, stateCount: number): number {
-  if (difficulty === "Easy") return Math.abs(stateCount - 1) * 100;
-  if (difficulty === "Medium") return Math.abs(stateCount - 2) * 100;
-  return stateCount >= 3 ? -stateCount : (3 - stateCount) * 100;
+function stateCountMatchesDifficulty(difficulty: LpCp04Difficulty, stateCount: number): boolean {
+  if (difficulty === "Easy") return stateCount === 1;
+  if (difficulty === "Medium") return stateCount === 2;
+  return stateCount >= 3;
 }
 
-function pickCondition(caselet: LpCp03Caselet, index: number, difficulty: LpCp04Difficulty): { condition: TemporaryCondition; states: Assignment[] } {
-  const candidates: Array<{ condition: TemporaryCondition; states: Assignment[]; score: number }> = [];
+function eligibleConditions(caselet: LpCp03Caselet, difficulty: LpCp04Difficulty): ConditionedCandidate[] {
+  const candidates: ConditionedCandidate[] = [];
   for (const person of caselet.people) for (const group of caselet.groups) {
     const states = caselet.validStates.filter((state) => state[person] === group);
     if (states.length === 0 || states.length === caselet.validStates.length) continue;
-    candidates.push({
-      condition: { person, group, text: propositionText(person, group, caselet) },
-      states,
-      score: scoreForDifficulty(difficulty, states.length),
-    });
+    if (!stateCountMatchesDifficulty(difficulty, states.length)) continue;
+    candidates.push({ condition: { person, group, text: propositionText(person, group, caselet) }, states });
   }
-  if (!candidates.length) throw new Error(`${caselet.caseletId}: no useful temporary condition.`);
-  candidates.sort((left, right) => left.score - right.score || left.condition.text.localeCompare(right.condition.text));
-  const bestScore = candidates[0]!.score;
-  const best = candidates.filter((candidate) => candidate.score === bestScore);
-  return best[index % best.length]!;
+  return candidates.sort((left, right) => left.condition.text.localeCompare(right.condition.text));
 }
 
-function makeChild(caselet: LpCp03Caselet, index: number, difficulty: LpCp04Difficulty): LpCp04ChildV2 {
-  const { condition, states } = pickCondition(caselet, index, difficulty);
+function pickCondition(caselet: LpCp03Caselet, index: number, difficulty: LpCp04Difficulty): ConditionedCandidate | null {
+  const candidates = eligibleConditions(caselet, difficulty);
+  if (!candidates.length) return null;
+  if (difficulty === "Hard") {
+    const widest = Math.max(...candidates.map((candidate) => candidate.states.length));
+    const strongest = candidates.filter((candidate) => candidate.states.length === widest);
+    return strongest[index % strongest.length]!;
+  }
+  return candidates[index % candidates.length]!;
+}
+
+function makeChild(caselet: LpCp03Caselet, index: number, difficulty: LpCp04Difficulty, selected: ConditionedCandidate): LpCp04ChildV2 {
+  const { condition, states } = selected;
   const propositions = caselet.people.flatMap((person) => caselet.groups.map((group) => ({ person, group, text: propositionText(person, group, caselet) })));
   const must = propositions.filter((item) => states.every((state) => state[item.person] === item.group));
   const notMust = propositions.filter((item) => !states.every((state) => state[item.person] === item.group));
@@ -118,9 +123,29 @@ function makeChild(caselet: LpCp03Caselet, index: number, difficulty: LpCp04Diff
 }
 
 export function generateLpCp04BatchV2(seed = "lp-cp04-counterfactual-review-v2", count = 9): LpCp04CaseletV2[] {
-  const parents = generateLpCp03Batch(`${seed}:parent`, count);
-  return parents.map((caselet, index) => {
-    const difficultyBand = targetDifficulty(index);
-    return { ...caselet, difficultyBand, counterfactualChild: makeChild(caselet, index, difficultyBand) };
-  });
+  const result: LpCp04CaseletV2[] = [];
+  for (let outputIndex = 0; outputIndex < count; outputIndex += 1) {
+    const difficultyBand = targetDifficulty(outputIndex);
+    let built: LpCp04CaseletV2 | null = null;
+
+    for (let attempt = 0; attempt < 40 && !built; attempt += 1) {
+      const pool = generateLpCp03Batch(`${seed}:candidate:${outputIndex}:${attempt}`, 4);
+      for (let parentIndex = 0; parentIndex < pool.length && !built; parentIndex += 1) {
+        const caselet = pool[parentIndex]!;
+        const selected = pickCondition(caselet, outputIndex + parentIndex + attempt, difficultyBand);
+        if (!selected) continue;
+        try {
+          const child = makeChild(caselet, outputIndex, difficultyBand, selected);
+          if (!stateCountMatchesDifficulty(difficultyBand, child.conditionedStateCount)) continue;
+          built = { ...caselet, difficultyBand, counterfactualChild: child };
+        } catch {
+          continue;
+        }
+      }
+    }
+
+    if (!built) throw new Error(`CP04 V2 could not build ${difficultyBand} caselet ${outputIndex + 1} with the required conditioned-state topology.`);
+    result.push(built);
+  }
+  return result;
 }
