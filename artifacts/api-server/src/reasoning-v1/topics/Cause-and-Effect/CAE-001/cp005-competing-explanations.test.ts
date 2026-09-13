@@ -76,8 +76,11 @@ assert.ok(review.every((entry) => entry.question.scenarioFamilyId === "CAE-FAM-R
 
 const reviewed = generateReviewedCaeQuestion({ qlId: "CAE-QL-005", locale: "en-IN", seed: 7 });
 assert.equal(reviewed.scenarioFamilyId, "CAE-FAM-REVIEWED-COMPETING");
-const legacyFiveWay = generateReviewedCaeQuestion({ qlId: "CAE-QL-005", locale: "en-IN", seed: 7, questionProfile: "FIVE_WAY" });
-assert.notEqual(legacyFiveWay.scenarioFamilyId, "CAE-FAM-REVIEWED-COMPETING", "explicit unsourced five-way CP005 requests remain on frozen V3");
+assert.throws(
+  () => generateReviewedCaeQuestion({ qlId: "CAE-QL-005", locale: "en-IN", seed: 7, questionProfile: "FIVE_WAY" }),
+  /does not support profile 'FIVE_WAY'/,
+  "CP005 is four-way-only; unsupported five-way requests must fail closed",
+);
 
 const studio = previewCae001QuestionStudioReview({ qlId: "CAE-QL-005", locale: "en-IN", seed: 21 });
 assert.equal(studio.question.scenarioFamilyId, "CAE-FAM-REVIEWED-COMPETING");
