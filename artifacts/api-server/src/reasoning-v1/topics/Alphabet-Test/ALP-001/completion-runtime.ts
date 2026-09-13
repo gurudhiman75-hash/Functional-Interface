@@ -43,13 +43,7 @@ function qualifyingWordPairs(items: readonly string[]) {
       const wordDistance = secondIndex - firstIndex;
       const alphabetDistance = Math.abs(rank(first) - rank(second));
       if (wordDistance !== alphabetDistance) continue;
-      pairs.push({
-        first,
-        second,
-        firstPosition: firstIndex + 1,
-        secondPosition: secondIndex + 1,
-        gap: wordDistance - 1,
-      });
+      pairs.push({ first, second, firstPosition: firstIndex + 1, secondPosition: secondIndex + 1, gap: wordDistance - 1 });
     }
   }
   return pairs;
@@ -57,16 +51,12 @@ function qualifyingWordPairs(items: readonly string[]) {
 
 function optionCountStem(completion: C, locale: AlpLocale): string {
   const count = qualifyingWordPairs(completion.source).length;
-  if (locale === "hi-IN") {
-    return count === 1
-      ? "किस विकल्प में अक्षरों का ठीक 1 ऐसा युग्म है जिसका शब्द-अंतर और वर्णमाला-अंतर समान है?"
-      : `किस विकल्प में अक्षरों के ठीक ${count} ऐसे युग्म हैं जिनका शब्द-अंतर और वर्णमाला-अंतर समान है?`;
-  }
-  if (locale === "pa-IN") {
-    return count === 1
-      ? "ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਅੱਖਰਾਂ ਦਾ ਠੀਕ 1 ਅਜਿਹਾ ਜੋੜਾ ਹੈ ਜਿਸਦਾ ਸ਼ਬਦ-ਫਰਕ ਅਤੇ ਵਰਣਮਾਲਾ-ਫਰਕ ਇੱਕੋ ਹੈ?"
-      : `ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਅੱਖਰਾਂ ਦੇ ਠੀਕ ${count} ਅਜੇਹੇ ਜੋੜੇ ਹਨ ਜਿਨ੍ਹਾਂ ਦਾ ਸ਼ਬਦ-ਫਰਕ ਅਤੇ ਵਰਣਮਾਲਾ-ਫਰਕ ਇੱਕੋ ਹੈ?`;
-  }
+  if (locale === "hi-IN") return count === 1
+    ? "किस विकल्प में अक्षरों का ठीक 1 ऐसा युग्म है जिसका शब्द-अंतर और वर्णमाला-अंतर समान है?"
+    : `किस विकल्प में अक्षरों के ठीक ${count} ऐसे युग्म हैं जिनका शब्द-अंतर और वर्णमाला-अंतर समान है?`;
+  if (locale === "pa-IN") return count === 1
+    ? "ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਅੱਖਰਾਂ ਦਾ ਠੀਕ 1 ਅਜਿਹਾ ਜੋੜਾ ਹੈ ਜਿਸਦਾ ਸ਼ਬਦ-ਫਰਕ ਅਤੇ ਵਰਣਮਾਲਾ-ਫਰਕ ਇੱਕੋ ਹੈ?"
+    : `ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਅੱਖਰਾਂ ਦੇ ਠੀਕ ${count} ਅਜੇਹੇ ਜੋੜੇ ਹਨ ਜਿਨ੍ਹਾਂ ਦਾ ਸ਼ਬਦ-ਫਰਕ ਅਤੇ ਵਰਣਮਾਲਾ-ਫਰਕ ਇੱਕੋ ਹੈ?`;
   return `Which option contains exactly ${count} qualifying letter ${count === 1 ? "pair" : "pairs"}, with the same gap in the word and in the English alphabet?`;
 }
 
@@ -74,48 +64,29 @@ function optionCountWorking(completion: C, locale: AlpLocale) {
   const pairs = qualifyingWordPairs(completion.source);
   const count = pairs.length;
   const pairList = pairs.map((pair) => `${pair.first}(${pair.firstPosition})–${pair.second}(${pair.secondPosition}) [${pair.gap}]`).join(", ");
-  if (locale === "hi-IN") {
-    return {
-      steps: [
-        "हर विकल्प के अक्षरों को बाईं ओर से क्रम संख्या दें।",
-        `${completion.answer} में सही ${count === 1 ? "युग्म" : "युग्म हैं"}: ${pairList}। कोष्ठक में दोनों स्थानों के बीच के अक्षरों की संख्या दी गई है।`,
-        `${completion.answer} में ठीक ${count} सही ${count === 1 ? "युग्म है" : "युग्म हैं"}, इसलिए यही विकल्प माँगी संख्या पूरी करता है।`,
-      ],
-      visualWorking: [
-        `जाँचा विकल्प: ${completion.answer}`,
-        `समान-अंतर युग्म: ${pairList}`,
-        `सत्यापित संख्या: ${count}`,
-        `उत्तर: ${completion.answer}`,
-      ],
-    };
-  }
-  if (locale === "pa-IN") {
-    return {
-      steps: [
-        "ਹਰ ਚੋਣ ਦੇ ਅੱਖਰਾਂ ਨੂੰ ਖੱਬੇ ਪਾਸੋਂ ਕ੍ਰਮ ਅੰਕ ਦਿਓ।",
-        `${completion.answer} ਵਿੱਚ ਸਹੀ ${count === 1 ? "ਜੋੜਾ ਹੈ" : "ਜੋੜੇ ਹਨ"}: ${pairList}। ਕੋਠੀਆਂ ਵਿੱਚ ਦੋਵੇਂ ਥਾਵਾਂ ਦੇ ਵਿਚਕਾਰ ਅੱਖਰਾਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਹੈ।`,
-        `${completion.answer} ਵਿੱਚ ਠੀਕ ${count} ਸਹੀ ${count === 1 ? "ਜੋੜਾ ਹੈ" : "ਜੋੜੇ ਹਨ"}, ਇਸ ਲਈ ਇਹੀ ਚੋਣ ਮੰਗੀ ਗਿਣਤੀ ਪੂਰੀ ਕਰਦੀ ਹੈ।`,
-      ],
-      visualWorking: [
-        `ਜਾਂਚੀ ਚੋਣ: ${completion.answer}`,
-        `ਇੱਕੋ-ਫਰਕ ਜੋੜੇ: ${pairList}`,
-        `ਜਾਂਚੀ ਗਿਣਤੀ: ${count}`,
-        `ਉੱਤਰ: ${completion.answer}`,
-      ],
-    };
-  }
+  if (locale === "hi-IN") return {
+    steps: [
+      "हर विकल्प के अक्षरों को बाईं ओर से क्रम संख्या दें।",
+      `${completion.answer} में सही ${count === 1 ? "युग्म" : "युग्म हैं"}: ${pairList}। कोष्ठक में दोनों स्थानों के बीच के अक्षरों की संख्या दी गई है।`,
+      `${completion.answer} में ठीक ${count} सही ${count === 1 ? "युग्म है" : "युग्म हैं"}, इसलिए यही विकल्प माँगी संख्या पूरी करता है।`,
+    ],
+    visualWorking: [`जाँचा विकल्प: ${completion.answer}`, `समान-अंतर युग्म: ${pairList}`, `सत्यापित संख्या: ${count}`, `उत्तर: ${completion.answer}`],
+  };
+  if (locale === "pa-IN") return {
+    steps: [
+      "ਹਰ ਚੋਣ ਦੇ ਅੱਖਰਾਂ ਨੂੰ ਖੱਬੇ ਪਾਸੋਂ ਕ੍ਰਮ ਅੰਕ ਦਿਓ।",
+      `${completion.answer} ਵਿੱਚ ਸਹੀ ${count === 1 ? "ਜੋੜਾ ਹੈ" : "ਜੋੜੇ ਹਨ"}: ${pairList}। ਕੋਠੀਆਂ ਵਿੱਚ ਦੋਵੇਂ ਥਾਵਾਂ ਦੇ ਵਿਚਕਾਰ ਅੱਖਰਾਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਹੈ।`,
+      `${completion.answer} ਵਿੱਚ ਠੀਕ ${count} ਸਹੀ ${count === 1 ? "ਜੋੜਾ ਹੈ" : "ਜੋੜੇ ਹਨ"}, ਇਸ ਲਈ ਇਹੀ ਚੋਣ ਮੰਗੀ ਗਿਣਤੀ ਪੂਰੀ ਕਰਦੀ ਹੈ।`,
+    ],
+    visualWorking: [`ਜਾਂਚੀ ਚੋਣ: ${completion.answer}`, `ਇੱਕੋ-ਫਰਕ ਜੋੜੇ: ${pairList}`, `ਜਾਂਚੀ ਗਿਣਤੀ: ${count}`, `ਉੱਤਰ: ${completion.answer}`],
+  };
   return {
     steps: [
       "Number the letters of each option from left to right.",
       `In ${completion.answer}, the qualifying ${count === 1 ? "pair is" : "pairs are"}: ${pairList}. The bracket shows the number of letters between the two positions.`,
       `${completion.answer} has exactly ${count} qualifying ${count === 1 ? "pair" : "pairs"}, so it matches the required count.`,
     ],
-    visualWorking: [
-      `Option checked: ${completion.answer}`,
-      `Equal-gap ${count === 1 ? "pair" : "pairs"}: ${pairList}`,
-      `Verified count: ${count}`,
-      `Answer: ${completion.answer}`,
-    ],
+    visualWorking: [`Option checked: ${completion.answer}`, `Equal-gap ${count === 1 ? "pair" : "pairs"}: ${pairList}`, `Verified count: ${count}`, `Answer: ${completion.answer}`],
   };
 }
 
@@ -124,14 +95,8 @@ function ensureVerifiedAnswerInTraps(
   answer: string,
   locale: AlpLocale,
 ): GeneratedAlpQuestion["explanation"]["distractorAnalyses"] {
-  const verification = locale === "hi-IN"
-    ? `सत्यापित उत्तर ${answer} है।`
-    : locale === "pa-IN"
-      ? `ਜਾਂਚਿਆ ਉੱਤਰ ${answer} ਹੈ।`
-      : `The verified answer is ${answer}.`;
-  return analyses.map((analysis) => analysis.explanation.includes(answer)
-    ? analysis
-    : { ...analysis, explanation: `${analysis.explanation} ${verification}` });
+  const verification = locale === "hi-IN" ? `सत्यापित उत्तर ${answer} है।` : locale === "pa-IN" ? `ਜਾਂਚਿਆ ਉੱਤਰ ${answer} ਹੈ।` : `The verified answer is ${answer}.`;
+  return analyses.map((analysis) => analysis.explanation.includes(answer) ? analysis : { ...analysis, explanation: `${analysis.explanation} ${verification}` });
 }
 
 function naturalizeCompletionText(text: string): string {
@@ -180,7 +145,10 @@ function compoundWindowPresentation(
     "तीन लगातार तत्त्वों के हर समूह को जाँचें; एक ही समूह में तीनों शर्तें पूरी होनी चाहिए।",
     "ਤਿੰਨ ਲਗਾਤਾਰ ਤੱਤਾਂ ਦੇ ਹਰ ਸਮੂਹ ਨੂੰ ਜਾਂਚੋ; ਇੱਕੋ ਸਮੂਹ ਵਿੱਚ ਤਿੰਨੇ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ।");
   const ruleStatement = literalZab
-    ? localText(locale, "Count only consecutive Z-A-B windows.", "केवल लगातार Z-A-B समूह गिनें।", "ਕੇਵਲ ਲਗਾਤਾਰ Z-A-B ਸਮੂਹ ਗਿਣੋ।")
+    ? localText(locale,
+      "Count only consecutive Z-A-B windows; A is valid only when Z is immediately before it and B is immediately after it.",
+      "केवल लगातार Z-A-B समूह गिनें; A तभी सही है जब उसके ठीक पहले Z और ठीक बाद B हो।",
+      "ਕੇਵਲ ਲਗਾਤਾਰ Z-A-B ਸਮੂਹ ਗਿਣੋ; A ਤਦੋਂ ਹੀ ਸਹੀ ਹੈ ਜਦੋਂ ਉਸਦੇ ਠੀਕ ਪਹਿਲਾਂ Z ਅਤੇ ਠੀਕ ਬਾਅਦ B ਹੋਵੇ।")
     : symbolLetterDigit
       ? localText(locale, "The centre element must be a letter, with a symbol immediately before it and a digit immediately after it.", "बीच का तत्त्व अक्षर हो; उसके ठीक पहले चिन्ह और ठीक बाद अंक हो।", "ਵਿਚਕਾਰਲਾ ਤੱਤ ਅੱਖਰ ਹੋਵੇ; ਉਸਦੇ ਠੀਕ ਪਹਿਲਾਂ ਨਿਸ਼ਾਨ ਅਤੇ ਠੀਕ ਬਾਅਦ ਅੰਕ ਹੋਵੇ।")
       : localText(locale, "The centre element must be a symbol and its two immediate neighbours must be one letter and one digit in either order.", "बीच का तत्त्व चिन्ह हो और उसके दोनों तुरंत पड़ोसी एक अक्षर तथा एक अंक हों, क्रम कोई भी हो।", "ਵਿਚਕਾਰਲਾ ਤੱਤ ਨਿਸ਼ਾਨ ਹੋਵੇ ਅਤੇ ਉਸਦੇ ਦੋਵੇਂ ਤੁਰੰਤ ਗੁਆਂਢੀ ਇੱਕ ਅੱਖਰ ਅਤੇ ਇੱਕ ਅੰਕ ਹੋਣ, ਕ੍ਰਮ ਕੋਈ ਵੀ ਹੋਵੇ।");
@@ -190,11 +158,7 @@ function compoundWindowPresentation(
     localText(locale, "Slide a three-element window one place at a time and keep only the windows satisfying every stated condition.", "तीन-तत्त्व की खिड़की को एक-एक स्थान आगे बढ़ाएँ और केवल वे समूह रखें जो सभी शर्तें पूरी करते हैं।", "ਤਿੰਨ-ਤੱਤ ਖਿੜਕੀ ਨੂੰ ਇੱਕ-ਇੱਕ ਥਾਂ ਅੱਗੇ ਵਧਾਓ ਅਤੇ ਕੇਵਲ ਉਹ ਸਮੂਹ ਰੱਖੋ ਜੋ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੇ ਹਨ।"),
     working,
   ];
-  const visualWorking = [
-    localText(locale, `Row: ${sequence}`, `पंक्ति: ${sequence}`, `ਕਤਾਰ: ${sequence}`),
-    working,
-    localText(locale, `Answer: ${completion.answer}`, `उत्तर: ${completion.answer}`, `ਉੱਤਰ: ${completion.answer}`),
-  ];
+  const visualWorking = [localText(locale, `Row: ${sequence}`, `पंक्ति: ${sequence}`, `ਕਤਾਰ: ${sequence}`), working, localText(locale, `Answer: ${completion.answer}`, `उत्तर: ${completion.answer}`, `ਉੱਤਰ: ${completion.answer}`)];
   const distractorAnalyses: GeneratedAlpQuestion["explanation"]["distractorAnalyses"] = opts
     .map((option, optionIndex) => ({ option, optionIndex }))
     .filter(({ optionIndex }) => optionIndex !== correctIndex)
@@ -232,9 +196,7 @@ export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number
   const compoundPresentation = compoundWindowPresentation(ql, completion, builtOptions.out, builtOptions.correctIndex, locale);
   const renderedStem = ql.solveMode === "DIGIT_COUNT_UNCHANGED_SELECTED_TRANSFORM"
     ? selectedDigitTransformStem(completion, locale)
-    : optionOnlyQuestion
-      ? optionCountStem(completion, locale)
-      : naturalizeCompletionText(editorial.stem);
+    : optionOnlyQuestion ? optionCountStem(completion, locale) : naturalizeCompletionText(editorial.stem);
 
   return {
     chapterId: "ALP-001",
@@ -266,10 +228,7 @@ export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number
       visualWorking: compoundPresentation?.visualWorking ?? optionOnlyWorking?.visualWorking ?? editorial.visualWorking.map(naturalizeCompletionText),
       examShortcut: compoundPresentation?.examShortcut ?? naturalizeCompletionText(editorial.examShortcut),
       conclusion: compoundPresentation?.conclusion ?? naturalizeCompletionText(editorial.conclusion),
-      distractorAnalyses: compoundPresentation?.distractorAnalyses ?? distractorAnalyses.map((analysis) => ({
-        ...analysis,
-        explanation: naturalizeCompletionText(analysis.explanation),
-      })),
+      distractorAnalyses: compoundPresentation?.distractorAnalyses ?? distractorAnalyses.map((analysis) => ({ ...analysis, explanation: naturalizeCompletionText(analysis.explanation) })),
       closestTrapRejection: compoundPresentation?.closestTrapRejection ?? naturalizeCompletionText(editorial.closestTrapRejection),
     },
     metadata: {
