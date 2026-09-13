@@ -1,0 +1,25 @@
+import { extendedAuthority, type ExtendedSpellingAuthority } from "./CP002-extended-types";
+
+export const CP002_EXTENDED_HALVANT: readonly ExtendedSpellingAuthority[] = [
+  extendedAuthority("HALVANT_PAIRIN", "SPL-134", "ਪ੍ਰਕਾਸ਼", ["ਪਰਕਾਸ਼", "ਪ੍ਰਕਾਸ", "ਪ੍ਰਕਾਸ਼ੁ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-135", "ਪ੍ਰਸ਼ਨ", ["ਪਰਸ਼ਨ", "ਪ੍ਰਸਨ", "ਪਰਸਨ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-137", "ਦ੍ਰਿੜ੍ਹ", ["ਦਿਰੜ", "ਦ੍ਰਿੜ", "ਦਿਰੜ੍ਹ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-138", "ਪ੍ਰੇਮ", ["ਪਰੇਮ", "ਪ੍ਰੈਮ", "ਪ੍ਰੇਮੁ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-139", "ਪ੍ਰਧਾਨ", ["ਪਰਧਾਨ", "ਪ੍ਰਥਾਨ", "ਪਰਥਾਨ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-144", "ਦ੍ਰਿਸ਼ਟੀ", ["ਦਿਰਸ਼ਟੀ", "ਦ੍ਰਿਸ਼ਟਿ", "ਦਿਰਸਟੀ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-145", "ਗ੍ਰੰਥ", ["ਗਰੰਥ", "ਗ੍ਰਿੰਥ", "ਗਰਿੰਥ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-146", "ਗ੍ਰਹਿ", ["ਗਰਹਿ", "ਗ੍ਰਿਹ", "ਗ੍ਰਹ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-147", "ਪ੍ਰਤੀਕ", ["ਪਰਤੀਕ", "ਪ੍ਰਤਿਕ", "ਪਰਤਿਕ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-148", "ਪ੍ਰਸੰਗ", ["ਪਰਸੰਗ", "ਪ੍ਰਸਂਗ", "ਪਰਸਂਗ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-149", "ਪ੍ਰਭਾਵ", ["ਪਰਭਾਵ", "ਪ੍ਰਭਾਉ", "ਪਰਭਾਉ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-151", "ਪ੍ਰਾਪਤ", ["ਪਰਾਪਤ", "ਪ੍ਰਾਪਿਤ", "ਪਰਾਪਿਤ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-152", "ਪ੍ਰਵੇਸ਼", ["ਪਰਵੇਸ਼", "ਪ੍ਰਵੇਸ", "ਪਰਵੇਸ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-153", "ਪ੍ਰਬੰਧ", ["ਪਰਬੰਧ", "ਪ੍ਰਬਂਧ", "ਪਰਬਂਧ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-154", "ਪ੍ਰਗਟ", ["ਪਰਗਟ", "ਪ੍ਰਗਟਿ", "ਪਰਗਟਿ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-156", "ਪ੍ਰਤੱਖ", ["ਪਰਤੱਖ", "ਪ੍ਰਤਖ", "ਪਰਤਖ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-157", "ਅੰਮ੍ਰਿਤ", ["ਅੰਮਿਰਤ", "ਅਮ੍ਰਿਤ", "ਅੰਮ੍ਰਿਤੁ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-158", "ਨਿਮਰਤਾ", ["ਨਮਰਤਾ", "ਨਿੰਮਰਤਾ", "ਨਿਮ੍ਰਤਾ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-163", "ਸ਼੍ਰੋਮਣੀ", ["ਸਰੋਮਣੀ", "ਸ਼੍ਰੋਮਨੀ", "ਸਰੋਮਨੀ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-164", "ਦ੍ਰਿਸ਼", ["ਦਰਿਸ਼", "ਦ੍ਰਿਸ", "ਦਰਿਸ"], "HALVANT_PAIRIN"),
+  extendedAuthority("HALVANT_PAIRIN", "SPL-167", "ਆਗਿਆ", ["ਆਗ੍ਯਾ", "ਆਗਿਯਾ", "ਅਗਿਆ"], "HALVANT_PAIRIN"),
+] as const;
