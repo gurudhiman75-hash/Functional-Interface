@@ -6,6 +6,7 @@
  * overrides without making the frozen regression depend on editorial layers.
  */
 import "./cae-001-source-profiles.test.ts";
+import "./cp005-competing-explanations.test.ts";
 import "./cp007-false-causation.test.ts";
 
 console.log("PASS_CAE_001_REVIEWED_LAYER");
