@@ -63,8 +63,20 @@ for (const profile of profiles) {
     assert(first.stimulus.kind === "HISTOGRAM", `${profile} ${seed} lost histogram semantics.`);
     assert(first.stimulus.bins.length >= 5 && first.stimulus.bins.length <= 9, `${profile} ${seed} has invalid class count.`);
     assert(first.stimulus.bins.every((bin, index) => index === 0 || first.stimulus.bins[index - 1]!.upper === bin.lower), `${profile} ${seed} has non-contiguous classes.`);
-    assert((first.stimulus.svg.match(/data-bin-index=/g)?.length ?? 0) === first.stimulus.bins.length, `${profile} ${seed} rendered wrong histogram rectangle count.`);
-    assert(first.stimulus.svg.includes('data-contiguous-bars="true"'), `${profile} ${seed} visual does not certify touching bars.`);
+
+    const svg = first.stimulus.svg;
+    assert((svg.match(/data-bin-index=/g)?.length ?? 0) === first.stimulus.bins.length, `${profile} ${seed} rendered wrong histogram rectangle count.`);
+    assert(svg.includes('data-contiguous-bars="true"'), `${profile} ${seed} visual does not certify touching bars.`);
+    assert(svg.includes('data-di-chart-theme="EXAMTREE_DI_WORLD_CLASS_V3"'), `${profile} ${seed} lost the approved ExamTree DI V3 chart theme.`);
+    assert(svg.includes('data-renderer-version="V3"'), `${profile} ${seed} lost the V3 renderer marker.`);
+    assert(svg.includes('data-plot-area="true"'), `${profile} ${seed} lost the chart plot-area contract.`);
+    assert((svg.match(/data-gridline=/g)?.length ?? 0) >= 4, `${profile} ${seed} has too few y-axis reading guides.`);
+    assert((svg.match(/data-class-interval-label=/g)?.length ?? 0) === first.stimulus.bins.length, `${profile} ${seed} must show one centered interval label per bar.`);
+    assert((svg.match(/data-boundary-tick=/g)?.length ?? 0) === first.stimulus.bins.length + 1, `${profile} ${seed} must retain all histogram class-boundary tick marks.`);
+    assert(svg.includes('preserveAspectRatio="xMidYMid meet"'), `${profile} ${seed} lost responsive SVG scaling metadata.`);
+    assert(svg.includes("<title>") && svg.includes("<desc>"), `${profile} ${seed} lost accessible SVG title/description metadata.`);
+    assert(!svg.includes("data-bar-value-label="), `${profile} ${seed} must not expose answer-helping bar value labels.`);
+
     assert(first.questions.length === 5 && new Set(first.questions.map((question) => question.kind)).size === 5, `${profile} ${seed} must contain five distinct task families.`);
     assert(first.questions.filter((question) => question.difficulty === "Easy").length === 1, `${profile} ${seed} lost Easy quota.`);
     assert(first.questions.filter((question) => question.difficulty === "Medium").length === 2, `${profile} ${seed} lost Medium quota.`);
@@ -109,7 +121,8 @@ for (const profile of profiles) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_DI_009_HISTOGRAM_V2",
+  status: "PASS_DI_009_HISTOGRAM_V3_VISUAL",
+  diagramTheme: "EXAMTREE_DI_WORLD_CLASS_V3",
   sets: setCount,
   questions: questionCount,
   deterministicReplays: setCount,

@@ -1,4 +1,4 @@
-name: Quant V4 Data Interpretation histogram DI V2
+name: Quant V4 Data Interpretation histogram DI V3
 
 on:
   push:
@@ -37,18 +37,18 @@ jobs:
         run: |
           test -d artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009
           ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009
-      - name: Histogram V2 deterministic, diversity and independent proof
+      - name: Histogram V3 deterministic, diversity, independent and visual proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/histogram-set.test.ts
-      - name: Export V2 Markdown review pack
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/export-review.ts DI-009-REVIEW-V2.md
-      - name: Export V2 standalone HTML review pack
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/export-review-html.ts DI-009-REVIEW-V2.html
+      - name: Export V3 Markdown review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/export-review.ts DI-009-REVIEW-V3.md
+      - name: Export V3 standalone HTML review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/export-review-html.ts DI-009-REVIEW-V3.html
       - uses: actions/upload-artifact@v4
         with:
-          name: di-009-histogram-review-v2
+          name: di-009-histogram-review-v3
           path: |
-            DI-009-REVIEW-V2.md
-            DI-009-REVIEW-V2.html
+            DI-009-REVIEW-V3.md
+            DI-009-REVIEW-V3.html
           if-no-files-found: error
           retention-days: 30
       - name: API server build

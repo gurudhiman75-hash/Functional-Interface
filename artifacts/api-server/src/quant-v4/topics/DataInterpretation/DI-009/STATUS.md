@@ -1,14 +1,28 @@
-# DI-009 Histogram — V2 Review Status
+# DI-009 Histogram — V3 Visual Review Status
 
 ## State
 
-`REVIEW_ONLY_V2` — not approved, not merged, not Question Studio discoverable, not Question Bank writable, and not eligible for tests/mocks/publication.
+`REVIEW_ONLY_V3_VISUAL` — the V3 diagram direction is approved, but DI-009 remains review-only: not Question Studio discoverable, not Question Bank writable, and not eligible for tests/mocks/publication.
 
-## Why V2 exists
+## What V3 changes
 
-P0 was mathematically correct but too repetitive: six fixed questions, one fixed six-class shape, and frequency states that could look mechanically shuffled. V2 replaces that review surface instead of promoting it.
+V2 fixed question depth and repetition. V3 keeps that question logic intact and replaces the plain histogram renderer with the approved ExamTree DI visual system.
 
-## V2 contract library (13)
+### Approved visual contract
+
+- `EXAMTREE_DI_WORLD_CLASS_V3` renderer marker.
+- Crisp responsive 900×480 SVG with `preserveAspectRatio` and geometric precision.
+- Clean plotting region and restrained neutral DI palette.
+- Light horizontal reading guides with rounded/nice y-axis steps.
+- Stronger axis hierarchy and typography.
+- Physically contiguous histogram rectangles; no category-style gaps.
+- One centered class-interval label beneath each bar.
+- Boundary ticks retained so continuous-class structure stays visually explicit.
+- No value labels above bars, preventing answer leakage.
+- SVG `<title>` and `<desc>` metadata for accessibility.
+- Review HTML uses a premium but restrained chart panel that remains mobile-scrollable and print-safe.
+
+## V2 content contract retained (13)
 
 1. Direct class frequency
 2. Total frequency
@@ -24,45 +38,28 @@ P0 was mathematically correct but too repetitive: six fixed questions, one fixed
 12. Approximate grouped mean using class marks
 13. Approximate grouped mode using neighbouring frequencies
 
-## Set construction
+## Set construction retained
 
-- Exactly 5 questions per set, not all contracts every time.
+- Exactly 5 questions per set.
 - Structural mix: 1 Easy + 2 Medium + 2 Hard.
-- Task order is deterministically shuffled.
-- 5, 6, 7, 8 or 9 continuous equal-width classes.
-- Six controlled distribution shapes: `UNIMODAL`, `RIGHT_SKEWED`, `LEFT_SKEWED`, `ASCENDING`, `DESCENDING`, `CONTROLLED_IRREGULAR`.
-- Histogram rectangles physically touch in SVG; axes use readable rounded tick steps.
-- Student/review question surface does not show a fallback frequency table beside the histogram.
-- Mean/median/kth/mode explanations may use compact working tables because those tables explain the calculation rather than reveal the stimulus.
+- Deterministically shuffled task order.
+- 5–9 continuous equal-width classes.
+- Six controlled distribution shapes.
+- Student/review stimulus does not show a fallback frequency table.
 
-## Language / explanation quality
+## V3 proof gate
 
-- Multiple stem surfaces per contract.
-- No generic shortcut/trap filler.
-- No `associated` boilerplate.
-- Explanations are question-specific and beginner-readable.
-- Distractors carry misconception ids and derivations.
+The existing 240-set / 1,200-question deterministic and independent-verification matrix remains mandatory. V3 adds renderer regression checks for:
 
-## Proof gate
-
-Offline exact TypeScript mirror before push:
-
-- 2 SSC profiles
-- 120 deterministic seeds per profile
-- 240 generated sets
-- 1,200 questions
-- 240 deterministic replay checks
-- 240 independent-verifier checks
-- 4,800 option checks
-- all 13 task families exercised in each profile
-- A/B/C/D correct-position coverage for every task family in each profile
-- at least 3 stem surfaces exercised for every task family in each profile
-- all six distribution shapes exercised in each profile
-- all class counts 5–9 exercised in each profile
-- at least 70 distinct five-question order signatures per profile
-
-GitHub CI must reproduce these gates before this checkpoint can be considered review-ready.
+- V3 visual-theme marker
+- responsive SVG metadata
+- plot-area marker
+- minimum y-gridline count
+- one interval label per class
+- all class-boundary ticks
+- SVG title/description accessibility metadata
+- no bar-value answer leakage
 
 ## Next gate
 
-Human review of the generated V2 HTML/Markdown pack. Only after explicit approval should DI-009 receive permanent review authority / Question Studio integration or merge to `New-main`.
+Run the dedicated DI-009 V3 workflow and inspect the CI-generated standalone HTML. Only after the full DI-009 package is explicitly approved should permanent review authority / Question Studio integration or merge to `New-main` occur.
