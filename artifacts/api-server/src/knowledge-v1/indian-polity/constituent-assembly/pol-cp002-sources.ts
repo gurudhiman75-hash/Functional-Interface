@@ -78,6 +78,20 @@ export const POL_CP002_SOURCES_V1: readonly PolCp002Source[] = Object.freeze([
     notes: "Authority for Jawaharlal Nehru chairing the Union Constitution Committee.",
   },
   {
+    sourceId: "COI-COMMITTEE-PROVINCIAL-CONSTITUTION",
+    sourceType: "primary",
+    title: "Provincial Constitution Committee",
+    url: "https://www.constitutionofindia.net/committees/provincial-constitution-committee/",
+    notes: "Committee record identifying Vallabhbhai Patel as chairperson and the committee's provincial-constitution remit.",
+  },
+  {
+    sourceId: "CAD-1947-04-29-ADVISORY-COMMITTEE",
+    sourceType: "primary",
+    title: "Constituent Assembly Debates, 29 April 1947 — Advisory Committee report",
+    url: "https://indiankanoon.org/doc/747690/",
+    notes: "Debate text reproducing the Advisory Committee report signed by Vallabhbhai Patel as Chairman.",
+  },
+  {
     sourceId: "BOMBAY-HC-CAD-READY-RECKONER",
     sourceType: "official",
     title: "Bombay High Court: Constituent Assembly Debates Ready Reckoner",
