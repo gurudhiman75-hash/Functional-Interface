@@ -17,31 +17,50 @@ interface ReviewRow {
   question: PunjabiGeneratedQuestion;
 }
 
+function spreadSeeds(count: number, capacity: number, phase = 0.5): number[] {
+  if (count <= 0 || capacity < count) throw new Error(`Invalid review spread count=${count} capacity=${capacity}`);
+  return Array.from({ length: count }, (_, index) => {
+    const position = ((index + phase) * capacity) / count;
+    return Math.min(capacity, Math.max(1, Math.floor(position) + 1));
+  });
+}
+
+const breadth = getCP002BreadthReport();
 const rows: ReviewRow[] = [];
 
-for (let seed = 1; seed <= 80; seed++) {
+// Easy: 80 targets distributed across the complete 375-authority corpus.
+for (const seed of spreadSeeds(80, breadth.capacities.F01)) {
   rows.push({ difficulty: "Easy", question: generateCP002F01(seed, "Easy") });
 }
-for (let seed = 1; seed <= 40; seed++) {
+
+// Medium: sentence correction and completion traverse the full contextual pool;
+// F06 samples the whole quartet-combination space rather than low-ranked quartets.
+for (const seed of spreadSeeds(40, breadth.capacities.F02, 0.31)) {
   rows.push({ difficulty: "Medium", question: generateCP002F02(seed, "Medium") });
 }
-for (let seed = 1; seed <= 20; seed++) {
-  rows.push({ difficulty: "Medium", question: generateCP002F03(seed + 80, "Medium") });
-  rows.push({ difficulty: "Medium", question: generateCP002F06(seed + 160, "Medium") });
+for (const seed of spreadSeeds(20, breadth.capacities.F03, 0.67)) {
+  rows.push({ difficulty: "Medium", question: generateCP002F03(seed, "Medium") });
 }
-for (let seed = 1; seed <= 30; seed++) {
+for (const seed of spreadSeeds(20, breadth.capacities.F06, 0.43)) {
+  rows.push({ difficulty: "Medium", question: generateCP002F06(seed, "Medium") });
+}
+
+// Hard: spread across the complete pair/state spaces for all three operations.
+for (const seed of spreadSeeds(30, breadth.capacities.F04, 0.23)) {
   rows.push({ difficulty: "Hard", question: generateCP002F04(seed, "Hard") });
-  rows.push({ difficulty: "Hard", question: generateCP002F05(seed + 120, "Hard") });
 }
-for (let seed = 1; seed <= 20; seed++) {
-  rows.push({ difficulty: "Hard", question: generateCP002F07(seed + 240, "Hard") });
+for (const seed of spreadSeeds(30, breadth.capacities.F05, 0.59)) {
+  rows.push({ difficulty: "Hard", question: generateCP002F05(seed, "Hard") });
+}
+for (const seed of spreadSeeds(20, breadth.capacities.F07, 0.79)) {
+  rows.push({ difficulty: "Hard", question: generateCP002F07(seed, "Hard") });
 }
 
 if (rows.length !== 240) throw new Error(`Expected 240 review questions, got ${rows.length}`);
 const fingerprints = new Set(rows.map((row) => row.question.metadata.fingerprint));
 if (fingerprints.size !== rows.length) throw new Error("Review pack contains duplicate semantic fingerprints");
 
-const breadth = getCP002BreadthReport();
+const reviewedAuthorityIds = new Set(rows.flatMap((row) => [...row.question.metadata.authorityIds]));
 const letters = ["A", "B", "C", "D"] as const;
 const out: string[] = [
   "# PUN-001 CP002 — Exhaustive-Breadth Forward-Port Review Pack",
@@ -53,6 +72,8 @@ const out: string[] = [
   `Active authorities: **${breadth.authorityCount}** · Contextual authorities: **${breadth.contextualAuthorityCount}** · Orthographic categories: **${breadth.categoryCount}** · Semantic families: **7**`,
   "",
   `Computed semantic capacity: **${breadth.totalSemanticCapacity.toLocaleString("en-US")}** content combinations (option-order permutations excluded).`,
+  "",
+  `Reviewer sampling: **stratified across each family's full semantic capacity** · Authorities touched in this pack: **${reviewedAuthorityIds.size}**`,
   "",
 ];
 
