@@ -1,7 +1,7 @@
-import { generateGeoPhy001Cp005ReviewBatchV1 } from "./geo-phy-001-cp005-review-generator-v1";
+import { generateGeoPhy001Cp005ReviewBatchV2 } from "./geo-phy-001-cp005-review-generator-v2";
 
 export const GEO_PHY_001_CP005_REVIEW_BATCH_V1 = Object.freeze(
-  generateGeoPhy001Cp005ReviewBatchV1().map((question) => Object.freeze(question)),
+  generateGeoPhy001Cp005ReviewBatchV2().map((question) => Object.freeze(question)),
 );
 
 export const GEO_PHY_001_CP005_REQUIRED_FACTS_V1 = Object.freeze([
@@ -20,6 +20,8 @@ export const GEO_PHY_001_CP005_REQUIRED_FACTS_V1 = Object.freeze([
   "geo-phy-001-cp005-inland-drainage",
   "geo-phy-001-cp005-playa-brackish-salt",
 ]);
+
+const COMPLEX_LANGUAGE = /\bgeomorphology\b|localized water-related|moisture conditions|gains greater prominence|most closely associated with extensive|in the Class 9 description|characteristic arid landform/i;
 
 export function auditGeoPhy001Cp005ReviewBatchV1() {
   const issues: string[] = [];
@@ -50,6 +52,7 @@ export function auditGeoPhy001Cp005ReviewBatchV1() {
     if (/\bNCERT\b|sourceFact|review-only|runtimeRegistered|generator|qualification gate/i.test(learner)) {
       issues.push(`LEARNER_META:${question.questionId}`);
     }
+    if (COMPLEX_LANGUAGE.test(learner)) issues.push(`COMPLEX_LANGUAGE:${question.questionId}`);
     if (/^This pair is (?:correct|incorrect)\.?$/i.test(question.explanation.trim())) issues.push(`WEAK_EXPLANATION:${question.questionId}`);
     if (question.explanation.trim().length < 45) issues.push(`SHORT_EXPLANATION:${question.questionId}`);
   }
