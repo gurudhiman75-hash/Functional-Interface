@@ -3,6 +3,7 @@ import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.t
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateCp007FalseCausationQuestion } from "./cp007-false-causation.ts";
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
+import { generateCp009IntegratedQuestion } from "./cp009-integrated.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
 
 export type GenerateReviewedCaeQuestionInput = Readonly<{
@@ -22,6 +23,9 @@ export type GenerateReviewedCaeQuestionInput = Readonly<{
  * - CP-007: false-causation/post-hoc cases plus hidden common-factor cases.
  * - CP-008: multi-event reasoning beyond simple ordering: immediate/remote
  *   cause/effect, bridge-role inference and invalid-link detection.
+ * - CP-009: integrated graph reasoning: single/double gap completion,
+ *   connector-pair inference, indirect relation, next-outcome prediction and
+ *   common-cause reconstruction.
  *
  * Explicit FIVE_WAY requests remain on V3 unless a checkpoint-specific sourced
  * five-way renderer has been separately approved.
@@ -38,6 +42,9 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) {
     return generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
+  }
+  if (input.qlId === "CAE-QL-009" && defaultFourWay) {
+    return generateCp009IntegratedQuestion({ locale: input.locale, seed: input.seed });
   }
   return generateCaeQuestion(input);
 }
