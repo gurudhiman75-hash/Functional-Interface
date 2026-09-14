@@ -1,4 +1,5 @@
 import { writeFileSync } from "node:fs";
+import { DI010_TASK_KINDS } from "./frequency-polygon-set";
 import { buildDi010ReviewSets, formatDi010WorkingTable } from "./review-utils";
 
 const outputPath = process.argv[2] ?? "DI-010-REVIEW-P0.md";
@@ -8,7 +9,7 @@ const lines: string[] = [
   "",
   "> Review-only. Not in Question Studio, Question Bank, tests, mocks or public publication.",
   "",
-  `This pack contains ${sets.length} deterministic sets and covers all 9 DI-010 task families across both SSC CGL Tier-I and Tier-II profiles.`,
+  `This pack contains ${sets.length} deterministic sets and covers all ${DI010_TASK_KINDS.length} DI-010 task families across both SSC CGL Tier-I and Tier-II profiles.`,
   "",
 ];
 
@@ -26,4 +27,4 @@ sets.forEach((set, setIndex) => {
 });
 
 writeFileSync(outputPath, lines.join("\n"), "utf8");
-console.log(JSON.stringify({ status: "EXPORTED_DI_010_REVIEW_P0_MD", outputPath, sets: sets.length, questions: sets.reduce((sum, set) => sum + set.questions.length, 0) }));
+console.log(JSON.stringify({ status: "EXPORTED_DI_010_REVIEW_P0_MD", outputPath, sets: sets.length, questions: sets.reduce((sum, set) => sum + set.questions.length, 0), taskFamilies: DI010_TASK_KINDS.length }));
