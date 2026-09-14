@@ -61,30 +61,40 @@ function concept(id: string) {
   return row;
 }
 
+function conceptExplanation(id: string) {
+  const explanations: Record<string, string> = {
+    inflation: "Inflation is a sustained rise in the general price level. It refers to broad price increases, not just a one-time rise in one item.",
+    deflation: "Deflation is a sustained fall in the general price level. It is the opposite of inflation because prices are falling overall.",
+    disinflation: "Disinflation means the inflation rate is falling. Prices may still be rising, but they are rising more slowly than before.",
+    "base-effect": "Base effect comes from the price level used for comparison. An unusually low or high base can make the current inflation rate look higher or lower.",
+  };
+  return explanations[id] ?? `${concept(id).term} means ${concept(id).compactMeaning}.`;
+}
+
 const purchasingCases = [
   {
     stem: "Prices rise while money income stays unchanged. Purchasing power will:",
     correct: "Fall",
     options: ["Fall", "Rise", "Stay unchanged", "Double"],
-    explanation: "The same money buys fewer goods and services when prices rise.",
+    explanation: "Purchasing power tells us how much a given amount of money can buy. If prices rise while income is unchanged, the same money buys fewer goods and services.",
   },
   {
     stem: "The general price level falls while money income stays unchanged. Purchasing power will:",
     correct: "Rise",
     options: ["Rise", "Fall", "Stay unchanged", "Become zero"],
-    explanation: "The same money can buy more when prices fall.",
+    explanation: "When prices fall, each unit of money can buy more. Therefore, unchanged money income has greater purchasing power.",
   },
   {
     stem: "A pension stays fixed while prices keep rising. The pensioner's real purchasing power will generally:",
     correct: "Fall",
     options: ["Fall", "Rise", "Stay exactly unchanged", "Equal the inflation rate"],
-    explanation: "A fixed money income buys less when prices rise.",
+    explanation: "The pension amount is fixed but goods and services cost more. So the pension can purchase less than before.",
   },
   {
     stem: "Money income rises by less than the general price level. Real purchasing power will generally:",
     correct: "Fall",
     options: ["Fall", "Rise", "Stay unchanged", "Become zero automatically"],
-    explanation: "If income rises more slowly than prices, real purchasing power falls.",
+    explanation: "Income has increased, but prices have increased by more. Since income has not kept pace with prices, real purchasing power falls.",
   },
 ] as const;
 
@@ -93,19 +103,19 @@ const effectCases = [
     stem: "A fixed salary is not adjusted while unexpected inflation rises. Who is directly hurt?",
     correct: "The fixed-income earner",
     options: ["The fixed-income earner", "A fixed-rate borrower", "A seller whose price rises", "No one"],
-    explanation: "A fixed money income loses purchasing power when prices rise.",
+    explanation: "The salary remains the same while prices rise. The fixed-income earner can therefore buy fewer goods and services with that salary.",
   },
   {
     stem: "Unexpected inflation occurs after a fixed-rate loan is made. Other things equal, who tends to benefit?",
     correct: "The borrower",
     options: ["The borrower", "The lender", "Both equally", "Neither"],
-    explanation: "The borrower repays in money with lower purchasing power.",
+    explanation: "The borrower repays the same fixed number of rupees, but those rupees have lower purchasing power. This reduces the real burden of repayment.",
   },
   {
     stem: "A lender will receive fixed rupee repayments. Unexpected inflation is higher than expected. The lender tends to:",
     correct: "Lose in real terms",
     options: ["Lose in real terms", "Gain in real terms", "Receive a higher real repayment automatically", "Be unaffected"],
-    explanation: "Higher unexpected inflation reduces the real value of fixed repayments.",
+    explanation: "The lender receives the agreed rupee amount, but inflation has reduced what that money can buy. So the real value of the repayment is lower.",
   },
   {
     stem: "A fixed-rate loan is agreed before an unexpected rise in inflation. Which statement is most accurate?",
@@ -116,7 +126,7 @@ const effectCases = [
       "Both must gain equally",
       "Inflation cannot affect fixed repayments in real terms",
     ],
-    explanation: "Unexpected inflation lowers the real value of fixed nominal repayments.",
+    explanation: "Unexpected inflation reduces the purchasing power of the fixed repayments. That lowers the borrower's real repayment burden and reduces the lender's real return.",
   },
 ] as const;
 
@@ -125,19 +135,19 @@ const headlineCoreCases = [
     stem: "Inflation measured using the full CPI basket is usually called:",
     correct: "Headline inflation",
     options: ["Headline inflation", "Core inflation", "Deflation", "WPI only"],
-    explanation: "Headline inflation uses the full selected basket.",
+    explanation: "Headline inflation uses the full selected basket, including items such as food and fuel. It therefore reflects the overall measured price movement of that basket.",
   },
   {
     stem: "CPI inflation excluding food and fuel is commonly used as a measure of:",
     correct: "Core inflation",
     options: ["Core inflation", "Headline inflation", "Deflation", "WPI only"],
-    explanation: "A common core measure excludes food and fuel.",
+    explanation: "A common core measure removes food and fuel because their prices can be highly volatile. This helps show more persistent underlying price pressure.",
   },
   {
     stem: "Food prices jump sharply while other prices change little. Which measure is more directly affected?",
     correct: "Headline inflation",
     options: ["Headline inflation", "Core inflation excluding food and fuel", "Neither measure", "GDP growth"],
-    explanation: "Headline inflation includes food, while this core measure excludes it.",
+    explanation: "Headline inflation includes food prices, so the food shock enters it directly. A core measure that excludes food and fuel removes that direct effect.",
   },
   {
     stem: "Why is core inflation examined separately from headline inflation?",
@@ -148,7 +158,7 @@ const headlineCoreCases = [
       "To remove all services from the price index",
       "To convert nominal GDP into GNP",
     ],
-    explanation: "Core measures help show more persistent underlying price pressure.",
+    explanation: "Core inflation removes selected volatile components, commonly food and fuel. This can make persistent underlying inflation easier to see.",
   },
 ] as const;
 
@@ -157,7 +167,7 @@ const distinctionCases = [
     stem: "Inflation falls from 8% to 5%, but prices are still rising. This is:",
     correct: "Disinflation",
     options: ["Disinflation", "Deflation", "Hyperinflation", "Revaluation"],
-    explanation: "Inflation has slowed but remains positive.",
+    explanation: "The inflation rate has fallen from 8% to 5%, so inflation has slowed. Because the rate is still positive, prices are still rising rather than falling.",
   },
   {
     stem: "Which statement correctly distinguishes deflation from disinflation?",
@@ -168,19 +178,19 @@ const distinctionCases = [
       "Deflation means prices rise faster; disinflation means prices fall to zero",
       "Disinflation can occur only when inflation is negative",
     ],
-    explanation: "Deflation is a fall in the price level. Disinflation is slower inflation.",
+    explanation: "Deflation means the general price level is actually falling. Disinflation means prices are still rising, but at a slower rate than before.",
   },
   {
     stem: "A high inflation reading partly reflects an unusually low price level in the comparison period. This illustrates:",
     correct: "Base effect",
     options: ["Base effect", "Cost-push inflation", "Purchasing power", "Core inflation"],
-    explanation: "The comparison-period price level can affect the measured inflation rate.",
+    explanation: "Inflation compares the current price level with an earlier one. If the earlier base is unusually low, the measured percentage increase can appear unusually high.",
   },
   {
     stem: "Two periods have the same current price increase but different inflation rates because their comparison bases differ. This is mainly due to:",
     correct: "Base effect",
     options: ["Base effect", "Demand-pull inflation", "WPI coverage", "Purchasing power"],
-    explanation: "Different comparison bases can change the measured inflation rate.",
+    explanation: "The inflation rate depends on the starting level used for comparison. Different base levels can therefore produce different percentage rates even when the current increase is similar.",
   },
 ] as const;
 
@@ -206,7 +216,7 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
     stem = row.stem;
     correct = fact.term;
     options = moveCorrect(["Inflation", "Deflation", "Disinflation", "Stagnation"], correct, correctTarget);
-    explanation = `${fact.term} means ${fact.compactMeaning}.`;
+    explanation = conceptExplanation(row.id);
     metadata = sourceBundle(fact);
   } else if (ql === 2) {
     const rows = [concept("inflation"), concept("deflation"), concept("disinflation"), concept("base-effect")];
@@ -214,7 +224,7 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
     stem = `What does ${row.term} mean?`;
     correct = row.compactMeaning;
     options = moveCorrect(rows.map((item) => item.compactMeaning), correct, correctTarget);
-    explanation = `${row.term} means ${row.compactMeaning}.`;
+    explanation = conceptExplanation(row.id);
     metadata = sourceBundle(row);
   } else if (ql === 3) {
     const row = ECO_CP005_DEMAND_SCENARIOS_V1[rowIndex % ECO_CP005_DEMAND_SCENARIOS_V1.length];
@@ -254,7 +264,11 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
           : "Which measure covers price change for final goods and services included in GDP?";
       correct = row.index;
       options = moveCorrect(["CPI", "WPI", "GDP deflator", "Core CPI"], correct, correctTarget);
-      explanation = `${row.index} focuses on ${row.focus}.`;
+      explanation = row.index === "CPI"
+        ? "CPI follows the prices of a basket of goods and services consumed by households. That makes it a consumer-level price measure."
+        : row.index === "WPI"
+          ? "WPI tracks price movement mainly at the wholesale level. It therefore differs from CPI, which focuses on household consumption prices."
+          : "The GDP deflator covers prices of domestically produced final goods and services included in GDP. Its coverage is broader than a fixed consumer basket.";
       metadata = sourceBundle(row);
     } else {
       stem = "Which statement is correct about CPI, WPI and the GDP deflator?";
@@ -265,7 +279,7 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
         "WPI and GDP deflator always cover exactly the same basket",
         "GDP deflator measures only imported consumer goods",
       ], correct, correctTarget);
-      explanation = "The three measures differ in coverage: household consumption, wholesale prices and GDP-covered output.";
+      explanation = "The three measures differ mainly in what prices they cover. CPI focuses on household consumption, WPI on wholesale prices, and the GDP deflator on final output included in GDP.";
       metadata = sourceBundle(...indices);
     }
   } else if (ql === 8) {
@@ -287,14 +301,26 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
       stem = "A price index is 150. If it rises by 8%, the new index is:";
       correct = "162";
       options = moveCorrect(["162", "158", "170", "142"], correct, correctTarget);
-      explanation = "8% of 150 is 12, so the new index is 162.";
+      explanation = "An 8% rise on 150 is 12. Adding this increase to the original index gives 150 + 12 = 162.";
     }
     metadata = sourceBundle(indices[0]);
   } else if (ql === 10) {
     const rows = [
-      { correct: "CPI — household consumption prices", source: indices[0] },
-      { correct: "WPI — wholesale price movement", source: indices[1] },
-      { correct: "Core inflation — commonly excludes food and fuel", source: concept("core") },
+      {
+        correct: "CPI — household consumption prices",
+        source: indices[0],
+        explanation: "CPI is correctly matched with household consumption prices because it tracks the prices of goods and services acquired by households for consumption.",
+      },
+      {
+        correct: "WPI — wholesale price movement",
+        source: indices[1],
+        explanation: "WPI is correctly matched with wholesale price movement because it measures price changes mainly at the wholesale level.",
+      },
+      {
+        correct: "Core inflation — commonly excludes food and fuel",
+        source: concept("core"),
+        explanation: "Core inflation is commonly calculated by excluding volatile items such as food and fuel. The aim is to see underlying price pressure more clearly.",
+      },
     ];
     const row = rows[rowIndex % rows.length];
     stem = "Which pair is correctly matched?";
@@ -305,7 +331,7 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
       "WPI — household services only",
       "Deflation — a slower positive inflation rate",
     ], correct, correctTarget);
-    explanation = `${row.correct} is correctly matched.`;
+    explanation = row.explanation;
     metadata = sourceBundle(row.source);
   } else if (ql === 11) {
     const rows = [
@@ -313,19 +339,19 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
         s1: "Inflation reduces purchasing power if money income does not keep pace with prices.",
         s2: "Deflation means a sustained fall in the general price level.",
         correct: "Both I and II",
-        explanation: "Both statements are correct.",
+        explanation: "Statement I is correct because money buys less when prices rise faster than income. Statement II is also correct because deflation is a sustained fall in the general price level.",
       },
       {
         s1: "Disinflation means inflation has slowed.",
         s2: "Disinflation necessarily means the general price level is falling.",
         correct: "I only",
-        explanation: "Disinflation is slower inflation; prices can still be rising.",
+        explanation: "Statement I is correct: disinflation means a lower inflation rate. Statement II is false because prices can still be rising, only more slowly.",
       },
       {
         s1: "Cost-push inflation can follow a broad rise in input costs.",
         s2: "Demand-pull inflation can arise when demand grows faster than available output.",
         correct: "Both I and II",
-        explanation: "Both statements correctly describe the two sources of inflation.",
+        explanation: "Statement I describes cost-push inflation because higher input costs raise production costs. Statement II describes demand-pull inflation because excess demand puts upward pressure on prices.",
       },
     ];
     const row = rows[rowIndex % rows.length];
