@@ -5,6 +5,7 @@ export const PGK_001_CP004_SOURCE_IDS = Object.freeze({
   rajpuraPlan: "PUDA-RAJPURA-GHAGGAR",
   jalandharPlan: "PUDA-JALANDHAR-HYDROGRAPHY",
   amritsarPlan: "PUDA-AMRITSAR-BEAS-RAVI",
+  psebClass9Geography: "PSEB-SOCIAL-SCIENCE-IX-PUNJAB-PLAINS-DOABS",
 } as const);
 
 export const PGK_001_CP004_SOURCE_REGISTRY = Object.freeze({
@@ -38,13 +39,32 @@ export const PGK_001_CP004_SOURCE_REGISTRY = Object.freeze({
     title: "Amritsar Master Plan",
     url: "https://puda.punjab.gov.in/sites/default/files/AMT_rpt_2011.pdf",
   },
+  [PGK_001_CP004_SOURCE_IDS.psebClass9Geography]: {
+    authority: "Punjab School Education Board",
+    title: "Social Science IX Part I — Plains of Punjab and Haryana",
+    url: "https://static.pseb.ac.in/media/1670479881_Social%20Science-9%28english%29%20Part-I.pdf",
+  },
 } as const);
 
 export const PGK_001_CP004_RIVER_SETS = Object.freeze({
   historicalFive: Object.freeze(["Sutlej", "Beas", "Ravi", "Chenab", "Jhelum"]),
-  presentPunjab: Object.freeze(["Sutlej", "Beas", "Ravi"]),
+  presentPunjabFromHistoricalFive: Object.freeze(["Sutlej", "Beas", "Ravi"]),
   easternRivers: Object.freeze(["Sutlej", "Beas", "Ravi"]),
 });
+
+export type Pgk001Cp004Doab = Readonly<{
+  id: string;
+  name: string;
+  rivers: readonly [string, string];
+}>;
+
+export const PGK_001_CP004_DOABS: readonly Pgk001Cp004Doab[] = Object.freeze([
+  { id: "bist-doab", name: "Bist Doab", rivers: ["Sutlej", "Beas"] },
+  { id: "bari-doab", name: "Bari Doab", rivers: ["Beas", "Ravi"] },
+  { id: "rachna-doab", name: "Rachna Doab", rivers: ["Ravi", "Chenab"] },
+  { id: "chaj-doab", name: "Chaj Doab", rivers: ["Chenab", "Jhelum"] },
+  { id: "sind-sagar-doab", name: "Sind Sagar Doab", rivers: ["Jhelum", "Indus"] },
+]);
 
 export const PGK_001_CP004_RELATIONS = Object.freeze({
   beasJoinsSutlejAt: "Harike",
@@ -56,11 +76,10 @@ export const PGK_001_CP004_RELATIONS = Object.freeze({
 
 export const PGK_001_CP004_FACT_IDS = Object.freeze([
   "historical-five-rivers",
-  "present-punjab-three-rivers",
+  "present-punjab-three-from-five",
   "eastern-rivers",
   "beas-sutlej-harike",
   "ghaggar-seasonal",
   "doab-meaning",
-  "doaba-beas-sutlej",
-  "bari-doab-ravi-beas",
+  ...PGK_001_CP004_DOABS.map((row) => row.id),
 ]);
