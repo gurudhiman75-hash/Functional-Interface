@@ -1,7 +1,7 @@
 # POL-CP-007 — President Status
 
 **Branch:** `feature/polity-cp007-president`  
-**Lifecycle:** REVIEW CANDIDATE — CLEAN EXPLANATIONS V4  
+**Lifecycle:** REVIEW CANDIDATE — PLAIN EXPLANATIONS V5  
 **Runtime registration:** BLOCKED pending human approval
 
 ## Implemented
@@ -23,8 +23,8 @@
 - 22 genuine QLs
 - 80-question review batch target
 - V2 simplified-language stems
-- V4 concise question-specific explanations
-- structural, provenance and explanation-clutter QA
+- canonical V5 short plain-language explanations
+- structural, provenance and wording QA
 
 ## Review profile
 
@@ -32,16 +32,15 @@
 - 42 Medium
 - 14 Hard
 
-## V4 explanation policy
+## V5 explanation policy
 
-- no stock opening such as `Correct answer:`
-- no generic closing sentence
-- answer the exact question directly
-- simple fact questions normally use one short sentence
-- tricky questions may use a second sentence only when it adds a useful distinction
+- use everyday wording around required constitutional terms
+- simple facts normally use one short sentence
+- remove formal wording where a simpler word works
+- no stock opening or generic ending
 - every explanation in the batch must be unique
-- explanation length target: 6–24 words
-- blocked clutter includes `This is the exact`, `nearby Articles`, `Match the topic`, and `Remember the word`
+- normal explanation target: 5–18 words
+- a longer explanation is allowed only when needed for an exam trap
 - no unnecessary option-by-option analysis
 
 ## Gated
@@ -51,4 +50,4 @@
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V4 is approved.
+These remain blocked until English V5 is approved.
