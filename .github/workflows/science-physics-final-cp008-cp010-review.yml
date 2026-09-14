@@ -1,4 +1,4 @@
-name: Validate Science Physics Exhaustive V2
+name: Validate Science Physics Exhaustive V2 and Depth V3
 
 on:
   pull_request:
@@ -10,13 +10,14 @@ on:
       - "artifacts/api-server/src/knowledge-v1/science/modern-physics/**"
       - "artifacts/api-server/src/knowledge-v1/science/sci-cp008-cp010-*"
       - "artifacts/api-server/src/knowledge-v1/science/physics-exhaustive-v2/**"
+      - "artifacts/api-server/src/knowledge-v1/science/physics-depth-v3/**"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: science-physics-exhaustive-v2-${{ github.event.pull_request.number || github.ref }}
+  group: science-physics-exhaustive-v2-depth-v3-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -45,6 +46,13 @@ jobs:
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/science/sci-physics-exhaustive-v2.test.mjs
           node artifacts/api-server/dist/science/sci-physics-exhaustive-v2.test.mjs
+      - name: Run Physics Depth V3 CP001-CP004 qualification gate
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/science/physics-depth-v3/sci-physics-depth-v3.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/science/sci-physics-depth-v3.test.mjs
+          node artifacts/api-server/dist/science/sci-physics-depth-v3.test.mjs
       - name: Materialize Physics exhaustive V2 review artifact
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
@@ -53,10 +61,23 @@ jobs:
             --outfile=dist/science/sci-physics-exhaustive-export-v2.mjs
           cd artifacts/api-server
           node dist/science/sci-physics-exhaustive-export-v2.mjs
+      - name: Materialize Physics Depth V3 review artifact
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/science/physics-depth-v3/sci-physics-depth-export-v3.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/science/sci-physics-depth-export-v3.mjs
+          cd artifacts/api-server
+          node dist/science/sci-physics-depth-export-v3.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: SCI-PHYSICS-EXHAUSTIVE-V2
           path: artifacts/api-server/dist/science-review/SCI-PHYSICS-EXHAUSTIVE-V2/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SCI-PHYSICS-DEPTH-V3-CP001-CP004
+          path: artifacts/api-server/dist/science-review/SCI-PHYSICS-DEPTH-V3/
           if-no-files-found: error
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
