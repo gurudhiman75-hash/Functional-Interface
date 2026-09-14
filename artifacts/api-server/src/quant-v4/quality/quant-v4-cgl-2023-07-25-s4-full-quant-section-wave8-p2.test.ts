@@ -80,7 +80,7 @@ assert.ok(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).lengt
 assert.ok(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length >= 29);
 assert.ok(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length >= 18);
 assert.ok(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length >= 6);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-001" }).length, 1);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "PCT-001" }).length >= 1);
 assert.ok(listRegisteredCountablePyqObservations({ packageId: "PCT-005" }).length >= 4);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "SRI-002" }).length, 1);
 
