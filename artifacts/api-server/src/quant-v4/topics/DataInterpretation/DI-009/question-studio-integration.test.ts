@@ -1,4 +1,4 @@
-import { quantV4QuestionStudioAdapter } from "../../../question-studio/engines/quant-v4-adapter";
+import { quantV4QuestionStudioAdapter } from "../../../../question-studio/engines/quant-v4-adapter";
 import {
   DI009_PERMANENT_QLS,
   DI009_PERMANENT_RELEASE_ID,
