@@ -1,0 +1,21 @@
+import type { KnowledgeV1Difficulty } from "../../types";
+import { HIS_CP011_FACTS_V1,HIS_CP011_FACT_BY_ID_V1,HIS_CP011_SOURCE_IDS_V1,HIS_CP011_SOURCES_V1 } from "./his-cp011-facts-v1";
+import { HIS_CP011_QL_NAMES_V1,HIS_CP011_SPECS_V1 } from "./his-cp011-review-specs-v1";
+
+export type HisCp011ReviewQuestion={questionId:string;chapterId:"HIS-001";cpId:"HIS-CP-011";qlId:string;qlName:string;difficulty:KnowledgeV1Difficulty;stem:string;options:string[];correctIndex:number;canonicalAnswer:string;explanation:string;sourceIds:string[];sourceFactIds:string[];reviewOnly:true;runtimeRegistered:false};
+const difficulty=(ql:number):KnowledgeV1Difficulty=>ql<=3?"Easy":ql<=8?"Medium":"Hard";
+const explain=(ids:readonly string[])=>ids.map(id=>{const f=HIS_CP011_FACT_BY_ID_V1.get(id);if(!f)throw new Error(`Unknown fact ${id}`);return f[1]}).join(" ");
+const sourceIds=(ids:readonly string[])=>[...new Set(ids.flatMap(id=>HIS_CP011_FACT_BY_ID_V1.get(id)?.[2]??[]))];
+const SOURCE_LEAK=/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i;
+const META_WORDING=/(?:school-level|this CP|review batch|internal wording)/i;
+
+export function generateHisCp011ReviewBatchV1():HisCp011ReviewQuestion[]{return HIS_CP011_SPECS_V1.map((s,i)=>{const[ql,stem,answer,distractors,factIds]=s;const base=[answer,...distractors];const shift=i%4;const options=[...base.slice(shift),...base.slice(0,shift)];const correctIndex=options.indexOf(answer);return{questionId:`HIS-CP011-V1-${String(i+1).padStart(3,"0")}`,chapterId:"HIS-001",cpId:"HIS-CP-011",qlId:`HIS-011-QL-${String(ql).padStart(3,"0")}`,qlName:HIS_CP011_QL_NAMES_V1[ql],difficulty:difficulty(ql),stem,options,correctIndex,canonicalAnswer:answer,explanation:explain(factIds),sourceIds:sourceIds(factIds),sourceFactIds:[...factIds],reviewOnly:true,runtimeRegistered:false};});}
+
+export const HIS_CP011_REVIEW_BATCH_V1=Object.freeze(generateHisCp011ReviewBatchV1().map(q=>Object.freeze(q)));
+export const HIS_CP011_REQUIRED_FACTS_V1=Object.freeze([...new Set(HIS_CP011_REVIEW_BATCH_V1.flatMap(q=>q.sourceFactIds))].sort());
+
+export function auditHisCp011ReviewBatchV1(){const issues:string[]=[];const ids=new Set<string>(),sem=new Set<string>();const qlCounts:Record<string,number>={};const answerPositions=[0,0,0,0];const difficultyCounts={Easy:0,Medium:0,Hard:0};
+for(const f of HIS_CP011_FACTS_V1)for(const s of f[2])if(!HIS_CP011_SOURCE_IDS_V1.has(s))issues.push(`UNKNOWN_SOURCE:${f[0]}:${s}`);
+for(const q of HIS_CP011_REVIEW_BATCH_V1){if(ids.has(q.questionId))issues.push(`DUPLICATE_ID:${q.questionId}`);ids.add(q.questionId);const k=JSON.stringify([q.qlId,q.stem,[...q.options].sort(),q.canonicalAnswer]);if(sem.has(k))issues.push(`DUPLICATE_SEMANTIC:${q.questionId}`);sem.add(k);qlCounts[q.qlId]=(qlCounts[q.qlId]??0)+1;difficultyCounts[q.difficulty]++;if(q.options.length!==4||new Set(q.options).size!==4)issues.push(`BAD_OPTIONS:${q.questionId}`);if(q.correctIndex<0||q.options[q.correctIndex]!==q.canonicalAnswer)issues.push(`BAD_ANSWER:${q.questionId}`);else answerPositions[q.correctIndex]++;if(!q.sourceIds.length||!q.sourceFactIds.length)issues.push(`MISSING_PROVENANCE:${q.questionId}`);if(SOURCE_LEAK.test(q.stem))issues.push(`SOURCE_NAME_IN_STEM:${q.questionId}`);if(SOURCE_LEAK.test(q.explanation))issues.push(`SOURCE_NAME_IN_EXPLANATION:${q.questionId}`);if(META_WORDING.test(q.stem))issues.push(`META_WORDING_IN_STEM:${q.questionId}`);if(META_WORDING.test(q.explanation))issues.push(`META_WORDING_IN_EXPLANATION:${q.questionId}`);if(!q.reviewOnly||q.runtimeRegistered)issues.push(`LIFECYCLE_BREACH:${q.questionId}`);}
+for(let i=1;i<=10;i++){const q=`HIS-011-QL-${String(i).padStart(3,"0")}`;if(qlCounts[q]!==6)issues.push(`QL_COUNT:${q}:${qlCounts[q]??0}`);}if(HIS_CP011_REVIEW_BATCH_V1.length!==60)issues.push(`QUESTION_COUNT:${HIS_CP011_REVIEW_BATCH_V1.length}`);if(sem.size!==60)issues.push(`SEMANTIC_COUNT:${sem.size}`);if(Math.max(...answerPositions)-Math.min(...answerPositions)>1)issues.push(`ANSWER_POSITION_IMBALANCE:${answerPositions.join(",")}`);
+return{valid:issues.length===0,questionCount:HIS_CP011_REVIEW_BATCH_V1.length,semanticCount:sem.size,qlCounts,difficultyCounts,answerPositions,requiredFactCount:HIS_CP011_REQUIRED_FACTS_V1.length,sourceCount:HIS_CP011_SOURCES_V1.length,canonicalFactCount:HIS_CP011_FACTS_V1.length,issues};}
