@@ -1,6 +1,6 @@
 # PGK-001 CP002 — Administrative Punjab
 
-Status: REVIEW CANDIDATE V2
+Status: REVIEW CANDIDATE V3
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-002 — Administrative Punjab`
 Permanent QLs: `PGK-001-QL-007` to `PGK-001-QL-013`
@@ -46,7 +46,7 @@ Administrative membership is mutable. `23 districts` and `5 divisions` are sourc
 
 Each QL exposes six semantic payloads, for 42 review questions total.
 
-## Stem rule — V2
+## Stem rule — V2+
 
 Learner stems must resemble actual Punjab recruitment-exam MCQs rather than generated database prompts.
 
@@ -72,10 +72,18 @@ The source year remains in the stem only when required to make a mutable adminis
 
 District questions must use district distractors; division questions use divisions; headquarters questions use plausible Punjab cities. Formation questions should use nearby years or similarly timed district-creation events.
 
-## Explanation rule
+## Explanation rule — V3
 
-Explanations should normally be 2–4 short sentences and state the decisive administrative relation. Formation explanations should include both date/year and parent district when verified.
+Explanations must sound like natural learner-facing teaching, not source notes or generator output.
+
+- Start with the decisive fact.
+- Add one useful relation, date, alias or distinction when it improves understanding.
+- Normally use 1–2 short sentences; never exceed 3 without a clear need.
+- Do not say `the correct answer is`, `the option`, `the other options`, `this question tests`, or similar meta-language.
+- Do not mechanically repeat the stem and answer.
+- Do not lead with source language such as `the official snapshot records...` unless the source year itself is the examinable point.
+- No routine option-by-option analysis.
 
 ## Lifecycle
 
-V2 is review-only. It is not registered for runtime Question Studio generation, Question Bank writes, tests, mocks or public publication until explicit human approval.
+V3 is review-only. It is not registered for runtime Question Studio generation, Question Bank writes, tests, mocks or public publication until explicit human approval.
