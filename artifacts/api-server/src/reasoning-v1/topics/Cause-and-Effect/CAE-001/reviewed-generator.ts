@@ -9,6 +9,7 @@ import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateReviewedCp007SaturationCommonFactorQuestion } from "./cp007-saturation-adapter.ts";
 import { generateReviewedCp007FalseCausationQuestion } from "./cp007-reviewed-visible-evidence.ts";
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
+import { generateCp008SaturationQuestion } from "./cp008-saturation-adapter.ts";
 import { generateReviewedCp009Question } from "./cp009-final-quality-guard.ts";
 import { CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS } from "./saturation-candidate-authorities.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
@@ -53,8 +54,6 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
   }
 
-  // Controlled saturation is exposed only through a projection/adapter that
-  // preserves the reviewed learner operation and its difficulty contract.
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) {
     return reviewedSaturationQuestion(input, true);
   }
@@ -74,7 +73,9 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) {
-    return generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
+    return seed % 8 === 7
+      ? generateCp008SaturationQuestion({ locale: input.locale, seed: input.seed })
+      : generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-009" && defaultFourWay) {
     return generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
