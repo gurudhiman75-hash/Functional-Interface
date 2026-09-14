@@ -6,6 +6,7 @@ import {
   SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES,
 } from "./sci-physics-localization-generator-v1";
 import { SCI_PHYSICS_EXPLANATION_QUALITY_V2 } from "./sci-physics-explanation-quality-v2";
+import { SCI_PHYSICS_CP003_CP004_EXPLANATIONS_V1 } from "./sci-physics-explanation-quality-cp003-cp004-v1";
 
 const bannedEnglishWords = /\b(which|what|the|is|are|distance|displacement|speed|velocity|acceleration|force|mass|momentum|friction|pressure|work|energy|temperature|statement|correct|incorrect)\b/i;
 const deprecatedPunjabiAcceleration = /ਤ੍ਵਰਨ/u;
@@ -14,6 +15,7 @@ const needlessEnglishizedPunjabi = /ਡਿਰਾਈਵਡ ਇਕਾਈ|ਫ੍ਰ
 const genuinelyAwkwardPunjabi = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਚਿਕਨਾਹਟ|ਕ੍ਰਿਆ ਅਤੇ ਪ੍ਰਤੀਕ੍ਰਿਆ|ਬਣਾਈ ਰੱਖਣ ਦੀ ਇਹ ਰੁਝਾਨ/u;
 
 assert.equal(Object.keys(SCI_PHYSICS_EXPLANATION_QUALITY_V2).length, 48, "Explanation-quality V2 must cover all 48 CP001-CP002 anchors");
+assert.equal(Object.keys(SCI_PHYSICS_CP003_CP004_EXPLANATIONS_V1).length, 48, "CP003-CP004 explanation layer must cover all 48 anchors");
 for (const [anchorId, localized] of Object.entries(SCI_PHYSICS_EXPLANATION_QUALITY_V2)) {
   for (const locale of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES) {
     const explanation = localized[locale];
@@ -89,6 +91,30 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
       assert.match(corpus, /ਗਤਿਜ ਊਰਜਾ/u, `${cpId}/pa: standard term ਗਤਿਜ ਊਰਜਾ missing`);
       assert.match(corpus, /ਅਲੱਗ-ਥਲੱਗ ਪ੍ਰਣਾਲੀ/u, `${cpId}/pa: standard term ਅਲੱਗ-ਥਲੱਗ ਪ੍ਰਣਾਲੀ missing`);
     }
+    if (locale === "pa" && cpId === "SCI-CP-003") {
+      const corpus = questions.map((q) => `${q.stem} ${q.options.join(" ")} ${q.explanation}`).join("\n");
+      assert.match(corpus, /ਕਾਰਜ/u, `${cpId}/pa: standard work term ਕਾਰਜ missing`);
+      assert.match(corpus, /ਗਤਿਜ ਊਰਜਾ/u, `${cpId}/pa: standard kinetic-energy term missing`);
+      assert.match(corpus, /ਸਥਿਤਿਜ ਊਰਜਾ/u, `${cpId}/pa: standard potential-energy term missing`);
+      assert.match(corpus, /ਸ਼ਕਤੀ/u, `${cpId}/pa: standard power term ਸ਼ਕਤੀ missing`);
+      assert.match(corpus, /ਯਾਂਤ੍ਰਿਕ ਲਾਭ/u, `${cpId}/pa: standard mechanical-advantage term missing`);
+      assert.match(corpus, /ਵੇਗ ਅਨੁਪਾਤ/u, `${cpId}/pa: standard velocity-ratio term missing`);
+      assert.match(corpus, /ਢਲਵਾਂ ਤਲ/u, `${cpId}/pa: standard inclined-plane wording missing`);
+    }
+    if (locale === "pa" && cpId === "SCI-CP-004") {
+      const corpus = questions.map((q) => `${q.stem} ${q.options.join(" ")} ${q.explanation}`).join("\n");
+      assert.match(corpus, /ਪੁੰਜ/u, `${cpId}/pa: standard mass term ਪੁੰਜ missing`);
+      assert.match(corpus, /ਭਾਰ-ਬਲ/u, `${cpId}/pa: weight must remain distinct from mass`);
+      assert.match(corpus, /ਮੁਕਤ ਪਤਨ/u, `${cpId}/pa: standard free-fall term missing`);
+      assert.match(corpus, /ਸਾਪੇਖ ਘਣਤਾ/u, `${cpId}/pa: standard relative-density term missing`);
+      assert.match(corpus, /ਵਾਯੂਮੰਡਲੀ ਦਬਾਅ/u, `${cpId}/pa: standard atmospheric-pressure term missing`);
+      assert.match(corpus, /ਪਾਸਕਲ ਦੇ ਨਿਯਮ|ਪਾਸਕਲ ਦਾ ਨਿਯਮ/u, `${cpId}/pa: Pascal-law terminology missing`);
+      assert.match(corpus, /ਉਛਾਲ ਬਲ/u, `${cpId}/pa: standard buoyancy wording missing`);
+      assert.match(corpus, /ਆਰਕਿਮਿਡੀਜ਼/u, `${cpId}/pa: Archimedes terminology missing`);
+      assert.match(corpus, /ਸਤਹ ਤਣਾਅ/u, `${cpId}/pa: standard surface-tension term missing`);
+      assert.match(corpus, /ਵਿਸਕੋਸਿਟੀ/u, `${cpId}/pa: exam-level viscosity term missing`);
+      assert.match(corpus, /ਬਰਨੌਲੀ/u, `${cpId}/pa: Bernoulli terminology missing`);
+    }
   }
 }
-console.log("SCI Physics localization V1 qualification passed: CP001-CP002 × EN/HI/PA with standard exam-level Punjabi V4");
+console.log("SCI Physics localization V1 qualification passed: CP001-CP004 × EN/HI/PA with explanation depth and standard exam-level Punjabi");
