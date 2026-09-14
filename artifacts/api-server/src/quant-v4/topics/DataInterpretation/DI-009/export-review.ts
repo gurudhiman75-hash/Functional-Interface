@@ -1,18 +1,20 @@
 import { writeFileSync } from "node:fs";
 import { markdownTable, selectDi009V2ReviewSets } from "./review-utils";
 
-const outputPath = process.argv[2] || "DI-009-REVIEW-V2.md";
+const outputPath = process.argv[2] || "DI-009-REVIEW-V4.md";
 const sets = selectDi009V2ReviewSets();
 const lines: string[] = [
-  "# DI-009 Histogram — V2 Review Pack",
+  "# DI-009 Histogram — V4 Review Pack",
   "",
-  "> Review-only checkpoint. The histogram is the question stimulus. The source frequency table is deliberately not shown beside it.",
+  "> Review-only checkpoint. V2 question logic is retained. V4 is the final diagram micro-audit and restrained color-system pass.",
   "",
   `- Sets: ${sets.length}`,
   `- Questions: ${sets.reduce((sum, set) => sum + set.questions.length, 0)}`,
   `- Contract library represented: ${new Set(sets.flatMap((set) => set.questions.map((question) => question.kind))).size} / 13`,
   `- Shapes represented: ${[...new Set(sets.map((set) => set.stimulus.shape))].join(", ")}`,
   `- Class counts represented: ${[...new Set(sets.map((set) => set.stimulus.bins.length))].sort((a, b) => a - b).join(", ")}`,
+  "- Visual theme: EXAMTREE_DI_WORLD_CLASS_V4",
+  "- Palette: EXAMTREE_BLUE_SINGLE_SERIES",
   "",
 ];
 
@@ -25,7 +27,6 @@ sets.forEach((set, setIndex) => {
   lines.push("");
   lines.push(set.stimulus.svg);
   lines.push("");
-
   set.questions.forEach((question, questionIndex) => {
     lines.push(`### Q${questionIndex + 1}. ${question.stem}`);
     lines.push("");
@@ -36,10 +37,7 @@ sets.forEach((set, setIndex) => {
     lines.push(`**Explanation:** ${question.explanation.keyIdea}`);
     lines.push("");
     question.explanation.steps.forEach((step, index) => lines.push(`${index + 1}. ${step}`));
-    if (question.explanation.workingTable) {
-      lines.push("");
-      lines.push(markdownTable(question.explanation.workingTable.headers, question.explanation.workingTable.rows));
-    }
+    if (question.explanation.workingTable) { lines.push(""); lines.push(markdownTable(question.explanation.workingTable.headers, question.explanation.workingTable.rows)); }
     lines.push("");
     lines.push(`_Family: ${question.kind} · Difficulty: ${question.difficulty}_`);
     lines.push("");
@@ -47,4 +45,4 @@ sets.forEach((set, setIndex) => {
 });
 
 writeFileSync(outputPath, lines.join("\n"), "utf8");
-console.log(JSON.stringify({ outputPath, sets: sets.length, questions: sets.reduce((sum, set) => sum + set.questions.length, 0) }));
+console.log(JSON.stringify({ outputPath, visualVersion: "V4", sets: sets.length, questions: sets.reduce((sum, set) => sum + set.questions.length, 0) }));
