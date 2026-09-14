@@ -81,10 +81,10 @@ for (let seed = 0; seed < 800; seed += 1) {
   else if (question.scenarioFamilyId === CP007_EXPANDED_FALSE_CAUSATION_FAMILY_ID) expandedFalseCausation += 1;
   else assert.fail(`${seed}: unexpected reviewed CP007 family ${question.scenarioFamilyId}`);
 }
-assert.equal(expandedCommon, 100, "Expanded common-factor allocation must remain one seed in eight.");
-assert.equal(legacyCommon, 100, "Legacy common-factor allocation must remain one seed in eight.");
-assert.equal(wave4Parallel, 200, "Wave 4 parallel false-causation allocation must remain two seeds in eight.");
-assert.equal(legacyFalseCausation, 200, "Legacy false-causation authority must retain two seeds in eight.");
-assert.equal(expandedFalseCausation, 200, "Expanded false-causation authority must receive two seeds in eight.");
+assert.equal(expandedCommon, 150, "Expanded common-factor authority must receive three seeds in sixteen.");
+assert.equal(legacyCommon, 50, "Legacy common-factor authority must remain visible at one seed in sixteen.");
+assert.equal(wave4Parallel, 200, "Wave 4 parallel false-causation allocation must remain four seeds in sixteen.");
+assert.equal(legacyFalseCausation, 200, "Legacy false-causation authority must retain four seeds in sixteen.");
+assert.equal(expandedFalseCausation, 200, "Expanded false-causation authority must retain four seeds in sixteen.");
 
-console.log(`CAE-001 CP007 Wave 4 saturation QA passed: ${CP007_SATURATION_COMMON_FACTOR_FAMILY_IDS.length} common-factor families / ${CP007_SATURATION_COMMON_FACTOR_WORLDS.length} worlds plus 5 parallel families / 20 worlds and balanced legacy/expanded false-causation lanes.`);
+console.log(`CAE-001 CP007 Wave 4 saturation QA passed: ${CP007_SATURATION_COMMON_FACTOR_FAMILY_IDS.length} common-factor families / ${CP007_SATURATION_COMMON_FACTOR_WORLDS.length} worlds plus 5 parallel families / 20 worlds and final 3:1 expanded/legacy common-factor rebalance.`);
