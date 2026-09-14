@@ -1,0 +1,112 @@
+name: Validate SER-001 final-audit remediation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-final-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-series-final-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for Series audit remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008-mixed.test.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/export-review.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/number-series-final.test.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/export-review-final.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/ser-cp-007-generated-difficulty-v8.test.ts
+
+      - name: Prove CP008 core source gaps, visible solving, multilingual parity and stress
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts | tee ser-cp008-final-audit.log
+
+      - name: Prove CP008 mixed-series source saturation and stress
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008-mixed.test.ts | tee ser-cp008-mixed-audit.log
+
+      - name: Prove CP009 pure number-series source saturation and stress
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/number-series-final.test.ts | tee ser-cp009-number-series-audit.log
+
+      - name: Prove CP007 generated-instance difficulty across frozen corpus
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/ser-cp-007-generated-difficulty-v8.test.ts | tee ser-cp007-generated-difficulty.log
+
+      - name: Reprove frozen CP007 Question Studio corpus is structurally unchanged
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/question-studio-review-adapter.test.ts | tee ser-cp007-regression.log
+
+      - name: Export CP008 manual review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/export-review.ts > SER-CP-008-FINAL-AUDIT-REVIEW.md
+
+      - name: Export CP009 number-series manual review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/export-review-final.ts > SER-CP-009-NUMBER-SERIES-REVIEW.md
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload Series audit logs and review packs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-final-audit-${{ github.run_id }}
+          path: |
+            ser-cp008-final-audit.log
+            ser-cp008-mixed-audit.log
+            ser-cp009-number-series-audit.log
+            ser-cp007-generated-difficulty.log
+            ser-cp007-regression.log
+            SER-CP-008-FINAL-AUDIT-REVIEW.md
+            SER-CP-009-NUMBER-SERIES-REVIEW.md
+          retention-days: 14
