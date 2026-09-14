@@ -34,6 +34,10 @@ function polish(question: PhysicsDepthWave2QuestionV3): PhysicsDepthWave2Questio
     };
   }
 
+  if (question.cpId === "SCI-CP-009" && question.familyId === "TRANSFORMER-VOLTAGE") {
+    return { ...question, difficulty: "Easy" };
+  }
+
   return question;
 }
 
