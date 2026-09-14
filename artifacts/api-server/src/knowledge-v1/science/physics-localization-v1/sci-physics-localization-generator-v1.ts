@@ -13,6 +13,7 @@ import {
   SCI_PHYSICS_CP002_HI_SURFACES_V1,
   SCI_PHYSICS_CP002_PA_SURFACES_V1,
 } from "./sci-physics-cp002-localization-data-v1";
+import { getPhysicsExplanationV2 } from "./sci-physics-explanation-quality-v2";
 import { applyPunjabiPhysicsEditorialV2 } from "./sci-physics-punjabi-editorial-v2";
 import {
   SCI_PHYSICS_LOCALIZATION_V1,
@@ -88,20 +89,44 @@ function localizedBase(question: PhysicsExhaustiveQuestionV2, locale: PhysicsLoc
   };
 }
 
+function localizeEnglishExplanation(question: PhysicsExhaustiveQuestionV2, cpId: SupportedCpV1): PhysicsLocalizedQuestionV1 {
+  const anchors = anchorMap(cpId);
+  const lead = anchors.get(question.anchorIds[0]);
+  if (!lead) throw new Error(`${question.questionId}: missing lead anchor`);
+  const leadExplanation = getPhysicsExplanationV2(lead.id, "en");
+
+  if (question.family === "direct-anchor" || question.family === "correct-statement") {
+    return localizedBase(question, "en", question.stem, [...question.options], question.canonicalAnswer, leadExplanation);
+  }
+  if (question.family === "incorrect-statement") {
+    return localizedBase(question, "en", question.stem, [...question.options], question.canonicalAnswer, `The identified statement is incorrect. ${leadExplanation}`);
+  }
+
+  const second = anchors.get(question.anchorIds[1]);
+  if (!second) throw new Error(`${question.questionId}: missing second anchor`);
+  const truthI = truthForStatement(question.stem, lead);
+  const truthII = truthForStatement(question.stem, second);
+  const secondExplanation = getPhysicsExplanationV2(second.id, "en");
+  const explanation = `Statement I is ${truthI ? "correct" : "incorrect"}. ${leadExplanation} Statement II is ${truthII ? "correct" : "incorrect"}. ${secondExplanation}`;
+  return localizedBase(question, "en", question.stem, [...question.options], question.canonicalAnswer, explanation);
+}
+
 export function localizePhysicsExhaustiveQuestionV1(question: PhysicsExhaustiveQuestionV2, locale: PhysicsLocaleV1): PhysicsLocalizedQuestionV1 {
-  if (locale === "en") return localizedBase(question, "en", question.stem, [...question.options], question.canonicalAnswer, question.explanation);
   if (question.cpId !== "SCI-CP-001" && question.cpId !== "SCI-CP-002") throw new Error(`Physics localization V1 currently supports CP001-CP002 only; received ${question.cpId}`);
   const cpId = question.cpId as SupportedCpV1;
+  if (locale === "en") return localizeEnglishExplanation(question, cpId);
+
   const anchors = anchorMap(cpId);
   const surfaces = surfaceMap(cpId, locale);
   const lead = anchors.get(question.anchorIds[0]);
   if (!lead) throw new Error(`${question.questionId}: missing lead anchor`);
   const leadSurface = surfaces[lead.id];
   if (!leadSurface) throw new Error(`${question.questionId}: missing ${locale} surface for ${lead.id}`);
+  const leadExplanation = getPhysicsExplanationV2(lead.id, locale);
 
   if (question.family === "direct-anchor") {
     const options = question.options.map((option) => mapDirectOption(option, lead, leadSurface));
-    return localizedBase(question, locale, leadSurface.stem, options, options[question.correctIndex], leadSurface.explanation);
+    return localizedBase(question, locale, leadSurface.stem, options, options[question.correctIndex], leadExplanation);
   }
 
   if (question.family === "correct-statement" || question.family === "incorrect-statement") {
@@ -118,7 +143,7 @@ export function localizePhysicsExhaustiveQuestionV1(question: PhysicsExhaustiveQ
     });
     const text = STATEMENT_STEMS[locale];
     const stem = question.family === "correct-statement" ? text.correct : text.incorrect;
-    const explanation = question.family === "correct-statement" ? leadSurface.explanation : `${text.incorrectLead} ${leadSurface.explanation}`;
+    const explanation = question.family === "correct-statement" ? leadExplanation : `${text.incorrectLead} ${leadExplanation}`;
     return localizedBase(question, locale, stem, options, options[question.correctIndex], explanation);
   }
 
@@ -136,7 +161,8 @@ export function localizePhysicsExhaustiveQuestionV1(question: PhysicsExhaustiveQ
     if (index < 0) throw new Error(`${question.questionId}: unknown pair option`);
     return text.pairOptions[index];
   });
-  const explanation = `${truthI ? text.iCorrect : text.iIncorrect} ${leadSurface.explanation} ${truthII ? text.iiCorrect : text.iiIncorrect} ${secondSurface.explanation}`;
+  const secondExplanation = getPhysicsExplanationV2(second.id, locale);
+  const explanation = `${truthI ? text.iCorrect : text.iIncorrect} ${leadExplanation} ${truthII ? text.iiCorrect : text.iiIncorrect} ${secondExplanation}`;
   return localizedBase(question, locale, `I. ${statementI}\nII. ${statementII}\n${text.pairEnd}`, options, options[question.correctIndex], explanation);
 }
 
