@@ -3,6 +3,11 @@ import {
   listQuantV4Packages,
 } from "../../quant-v4/generation-engine";
 import {
+  di009QuestionStudioPackageCard,
+  generateDi009QuestionStudioBatch,
+  isDi009QuestionStudioRequest,
+} from "../../quant-v4/topics/DataInterpretation/DI-009/question-studio-adapter";
+import {
   generateStat001QuestionStudioBatch,
   isStat001QuestionStudioRequest,
   stat001QuestionStudioPackageCard,
@@ -119,6 +124,22 @@ function toStatRequest(request: QuestionStudioGenerationRequest) {
   };
 }
 
+function toDi009Request(request: QuestionStudioGenerationRequest) {
+  return {
+    packageId: request.packageId,
+    patternId: request.patternId,
+    topic: request.topic,
+    subtopic: request.subtopic,
+    difficulty: request.difficulty,
+    language: request.language,
+    seed: request.seed,
+    count: request.count,
+    canonicalProblemId: request.canonicalProblemId,
+    questionLanguageId: request.questionLanguageId,
+    examProfile: request.exam,
+  };
+}
+
 export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "quant-v4",
 
@@ -126,6 +147,13 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     const packages = listQuantV4Packages().map((pkg) =>
       toSharedPackage(pkg as unknown as Record<string, unknown>),
     );
+    if (!packages.some((pkg) => pkg.packageId === "DI-009")) {
+      packages.push(
+        toSharedPackage(
+          di009QuestionStudioPackageCard() as unknown as Record<string, unknown>,
+        ),
+      );
+    }
     if (!packages.some((pkg) => pkg.packageId === "STAT-001")) {
       packages.push(
         toSharedPackage(
@@ -146,6 +174,11 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   async generate(
     request: QuestionStudioGenerationRequest,
   ): Promise<QuestionStudioGenerationResult> {
+    const di009Request = toDi009Request(request);
+    if (isDi009QuestionStudioRequest(di009Request)) {
+      return generateDi009QuestionStudioBatch(di009Request) as unknown as QuestionStudioGenerationResult;
+    }
+
     const statRequest = toStatRequest(request);
     if (isStat002QuestionStudioRequest(statRequest)) {
       return generateStat002QuestionStudioBatch(statRequest) as unknown as QuestionStudioGenerationResult;
