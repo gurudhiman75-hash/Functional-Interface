@@ -5,7 +5,7 @@ import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "../
 import { ENG001_CP010_STANDARD_REVIEW_ONLY_PACKAGE_V1, isEng001Cp010QuestionStudioRequestV1, languageV1Eng001Cp010QuestionStudioAdapterV1 } from "./language-v1-eng001-cp010-adapter-v1";
 
 const packageExpectedCps = ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008", "ENG-001-CP009", "ENG-001-CP010"];
-const registeredExpectedCps = [...packageExpectedCps, "ENG-001-CP011", "ENG-001-CP012"];
+const registeredExpectedCps = [...packageExpectedCps, "ENG-001-CP011", "ENG-001-CP012", "ENG-001-CP013"];
 const packageDef = ENG001_CP010_STANDARD_REVIEW_ONLY_PACKAGE_V1;
 assert.equal(packageDef.engineId, "language-v1");
 assert.equal(packageDef.packageId, "ENG-001");
@@ -74,4 +74,4 @@ for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
 await assert.rejects(languageV1Eng001Cp010QuestionStudioAdapterV1.generate({ ...request, count: 21 }), /count between 1 and 20/i);
 await assert.rejects(languageV1Eng001Cp010QuestionStudioAdapterV1.generate({ ...request, language: "hi" }), /supports English only/i);
 await assert.rejects(languageV1Eng001Cp010QuestionStudioAdapterV1.generate({ ...request, runtimeMode: "bank-only" }), /only supports review-only runtime/i);
-console.log("ENG-001 CP010 Question Studio review-only integration tests passed with CP012 registered globally.");
+console.log("ENG-001 CP010 Question Studio review-only integration tests passed with CP013 registered globally.");
