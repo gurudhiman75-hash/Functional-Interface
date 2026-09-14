@@ -11,12 +11,13 @@ const outDir = path.resolve(process.cwd(), "dist/geography-review/GEO-PHY-001-CP
 fs.mkdirSync(outDir, { recursive: true });
 const letters = ["A", "B", "C", "D"];
 const lines: string[] = [
-  "# GEO-PHY-001 CP013 — Mixed Physiography Mastery — Review Batch V1",
+  "# GEO-PHY-001 CP013 — Exhaustive Physiography Master Review V1",
   "",
   `**Questions:** ${audit.questionCount}  `,
+  `**Permanent QLs covered:** ${audit.permanentQlBreadth} / 108  `,
+  `**Owning checkpoints represented:** ${audit.sourceCheckpointBreadth} / 12  `,
   `**Difficulty:** Easy ${audit.difficultyCounts.Easy} · Medium ${audit.difficultyCounts.Medium} · Hard ${audit.difficultyCounts.Hard}  `,
-  `**Answer positions:** A ${audit.answerPositions[0]} · B ${audit.answerPositions[1]} · C ${audit.answerPositions[2]} · D ${audit.answerPositions[3]}  `,
-  `**Existing QL breadth:** ${audit.existingQlBreadth} QLs represented`,
+  `**Answer positions:** A ${audit.answerPositions[0]} · B ${audit.answerPositions[1]} · C ${audit.answerPositions[2]} · D ${audit.answerPositions[3]}`,
   "",
   "---",
   "",
@@ -34,7 +35,7 @@ GEO_PHY_001_CP013_REVIEW_BATCH_V1.forEach((question, index) => {
     "",
     `**Difficulty:** ${question.difficulty}`,
     "",
-    `**QL:** ${question.qlId} — ${question.qlName}`,
+    `**QL:** ${question.qlId}`,
     "",
     "---",
     "",
@@ -42,10 +43,14 @@ GEO_PHY_001_CP013_REVIEW_BATCH_V1.forEach((question, index) => {
 });
 
 const closureLines = [
-  "# GEO-PHY-001 — Chapter Closure Readiness V1",
+  "# GEO-PHY-001 — Exhaustive Chapter Closure Report V1",
   "",
-  `**Permanent QLs:** ${closure.permanentQlCount} (${String(closure.firstQl).padStart(3, "0")}–${String(closure.lastQl).padStart(3, "0")})  `,
-  `**Checkpoints:** ${closure.checkpointCount}  `,
+  `**Permanent QLs:** ${closure.permanentQlCount} (QL001–QL108)  `,
+  `**Owning checkpoints:** ${closure.owningCheckpointCount}  `,
+  `**Qualified owning questions:** ${closure.owningQuestionCount}  `,
+  `**Payloads per permanent QL:** ${closure.payloadsPerPermanentQl}  `,
+  `**Exhaustive master questions:** ${closure.exhaustiveMasterQuestionCount}  `,
+  `**Master QLs covered:** ${closure.exhaustiveMasterQlBreadth} / 108  `,
   `**CP013 adds permanent QLs:** ${closure.cp013AddsPermanentQls ? "Yes" : "No"}  `,
   `**Status:** ${closure.readiness}`,
   "",
@@ -55,7 +60,9 @@ const closureLines = [
     `| ${row.checkpoint} | ${row.newPermanentQls ? `QL${String(row.firstQl).padStart(3, "0")}–QL${String(row.lastQl).padStart(3, "0")}` : "No new permanent QLs"} |`
   ),
   "",
-  "This is a readiness audit only. Final CP013 approval is still required before any chapter-level promotion or publication decision.",
+  "All QL001–QL108 retain six unique owning payloads. CP013 covers every permanent QL once in the final master review. No QL109+ is created.",
+  "",
+  "Content closure does not by itself publish questions to public tests or production runtime; publication remains separately governed.",
 ];
 
 const baseName = "GEO-PHY-001-CP013-REVIEW-BATCH-V1";
