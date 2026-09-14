@@ -34,7 +34,7 @@ const rawFacts: Readonly<Record<string, string>> = Object.freeze({
   "guru": "Guru Shikhar is the highest peak of the Aravali Range and lies in Rajasthan.",
   "zoji": "Zoji La links the Kashmir Valley with Ladakh on the Srinagar-Leh route.",
   "rohtang": "Rohtang Pass links Kullu Valley with Lahaul-Spiti in Himachal Pradesh.",
-  "nathu": "Nathu La is a Himalayan pass in Sikkim.",
+  "nathu": "Nathu La is a Himalayan pass in Sikkim on the route towards Tibet.",
   "palghat": "Palghat Gap lies between the Nilgiri and Anaimalai Hills and gives a route between Kerala and Tamil Nadu.",
   "kashmir": "Kashmir Valley lies between the Greater Himalaya and the Pir Panjal range.",
   "kullu": "Kullu Valley lies along the Beas River in Himachal Pradesh.",
