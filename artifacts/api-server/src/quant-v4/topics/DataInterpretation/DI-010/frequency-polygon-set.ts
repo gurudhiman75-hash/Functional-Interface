@@ -1,5 +1,6 @@
 import { hashSeed, seededRandom, shuffle } from "../DI-001/exact";
 import { buildDi010Stimulus } from "./frequency-polygon-state";
+import { buildDi010RangeRatioDraft } from "./range-ratio-task";
 import { buildDi010Drafts, type Di010Candidate, type Di010Draft } from "./task-builders";
 import type { Di010Difficulty, Di010ExamProfile, Di010Option, Di010Question, Di010QuestionSet, Di010TaskKind, Di010ValidationCheck } from "./types";
 
@@ -16,6 +17,7 @@ export const DI010_TASK_KINDS: readonly Di010TaskKind[] = [
   "MODAL_CLASS_FROM_POLYGON",
   "FREQUENCY_DIFFERENCE_BETWEEN_CLASSES",
   "COMBINED_RANGE_TOTAL_FROM_POLYGON",
+  "RANGE_RATIO_FROM_POLYGON",
 ];
 
 export const DI010_DIFFICULTY_BY_TASK: Readonly<Record<Di010TaskKind, Di010Difficulty>> = {
@@ -27,8 +29,13 @@ export const DI010_DIFFICULTY_BY_TASK: Readonly<Record<Di010TaskKind, Di010Diffi
   TOTAL_FREQUENCY_FROM_POLYGON: "Medium",
   MODAL_CLASS_FROM_POLYGON: "Easy",
   FREQUENCY_DIFFERENCE_BETWEEN_CLASSES: "Medium",
-  COMBINED_RANGE_TOTAL_FROM_POLYGON: "Hard",
+  COMBINED_RANGE_TOTAL_FROM_POLYGON: "Medium",
+  RANGE_RATIO_FROM_POLYGON: "Hard",
 };
+
+function applyDifficultyPolicy(draft: Di010Draft): Di010Draft {
+  return { ...draft, difficulty: DI010_DIFFICULTY_BY_TASK[draft.kind] };
+}
 
 function numericRescue(answer: string): Di010Candidate[] {
   if (!/^-?\d+(?:\.\d+)?$/.test(answer)) return [];
@@ -83,6 +90,19 @@ function coordinateRescue(answer: string): Di010Candidate[] {
   }));
 }
 
+function ratioRescue(answer: string): Di010Candidate[] {
+  const match = answer.match(/^(\d+):(\d+)$/);
+  if (!match) return [];
+  const left = Number(match[1]);
+  const right = Number(match[2]);
+  return [
+    { text: `${right}:${left}`, misconceptionId: "RATIO_RESCUE_REVERSED", derivation: "Reverses the requested order of the two range totals." },
+    { text: `${left + 1}:${right}`, misconceptionId: "RATIO_RESCUE_LEFT_NEARBY", derivation: "Uses a nearby first ratio term after a small range-total reading error." },
+    { text: `${left}:${right + 1}`, misconceptionId: "RATIO_RESCUE_RIGHT_NEARBY", derivation: "Uses a nearby second ratio term after a small range-total reading error." },
+    { text: `${left + 1}:${right + 1}`, misconceptionId: "RATIO_RESCUE_BOTH_NEARBY", derivation: "Shifts both simplified ratio terms after two nearby reading errors." },
+  ];
+}
+
 function buildOptions(seed: string, answer: string, candidates: readonly Di010Candidate[]) {
   const retained: Di010Option[] = [];
   const seen = new Set<string>();
@@ -98,6 +118,7 @@ function buildOptions(seed: string, answer: string, candidates: readonly Di010Ca
   intervalRescue(answer).forEach(add);
   endpointRescue(answer).forEach(add);
   coordinateRescue(answer).forEach(add);
+  ratioRescue(answer).forEach(add);
   if (retained.length < OPTION_COUNT) throw new Error(`DI-010 ${seed} constructed only ${retained.length} unique options for '${answer}'.`);
   const shuffled = shuffle(seededRandom(`${seed}:options`), retained.slice(0, OPTION_COUNT));
   const correctIndex = shuffled.findIndex((option) => option.misconceptionId === "CORRECT");
@@ -128,7 +149,7 @@ function validateSet(set: Omit<Di010QuestionSet, "validation">) {
   add("FIVE_QUESTION_MIX", set.questions.length === QUESTIONS_PER_SET, "Each DI-010 set must contain exactly five questions.");
   add("NO_REPEATED_TASK", new Set(set.questions.map((question) => question.kind)).size === set.questions.length, "A set must not repeat a task family.");
   add("KNOWN_TASKS", set.questions.every((question) => DI010_TASK_KINDS.includes(question.kind)), "Every question must belong to the DI-010 task library.");
-  add("DIFFICULTY_POLICY", set.questions.every((question) => question.difficulty === DI010_DIFFICULTY_BY_TASK[question.kind]), "Every task family must use the DI-010 difficulty policy.");
+  add("DIFFICULTY_POLICY", set.questions.every((question) => question.difficulty === DI010_DIFFICULTY_BY_TASK[question.kind]), "Every task family must use the calibrated DI-010 difficulty policy.");
   add("DIFFICULTY_MIX", set.questions.filter((question) => question.difficulty === "Easy").length === 1 && set.questions.filter((question) => question.difficulty === "Medium").length === 2 && set.questions.filter((question) => question.difficulty === "Hard").length === 2, "Each set must contain 1 Easy, 2 Medium and 2 Hard questions.");
   add("FOUR_UNIQUE_OPTIONS", set.questions.every((question) => question.options.length === 4 && new Set(question.options).size === 4), "Every question must expose four unique options.");
   add("ANSWER_INDEX_VALID", set.questions.every((question) => question.options[question.correctIndex] === question.answer), "Correct-index metadata must point to the exact answer.");
@@ -142,7 +163,7 @@ export function generateDi010FrequencyPolygonSet(input: { seed: string; examProf
   const seed = input.seed.trim();
   if (!seed) throw new Error("DI-010 requires a non-empty deterministic seed.");
   const stimulus = buildDi010Stimulus(seed, input.examProfile);
-  const drafts = buildDi010Drafts(seed, stimulus);
+  const drafts = [...buildDi010Drafts(seed, stimulus), buildDi010RangeRatioDraft(seed, stimulus)].map(applyDifficultyPolicy);
   const selected = chooseQuestionMix(seed, drafts);
   const setId = `DI-010-${input.examProfile}-${hashSeed(`${seed}:${input.examProfile}`).toString(16).padStart(8, "0")}`;
   const questions: Di010Question[] = selected.map((draft, index) => {
