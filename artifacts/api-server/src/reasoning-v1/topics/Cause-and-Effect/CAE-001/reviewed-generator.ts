@@ -6,6 +6,7 @@ import { generateReviewedCaeCombinationQuestion } from "./cp003004-reviewed-poli
 import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.ts";
 import { generateCp006CausalDistanceQuestion } from "./cp006-causal-distance.ts";
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
+import { generateReviewedCp007SaturationCommonFactorQuestion } from "./cp007-saturation-adapter.ts";
 import { generateReviewedCp007FalseCausationQuestion } from "./cp007-reviewed-visible-evidence.ts";
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
 import { generateReviewedCp009Question } from "./cp009-final-quality-guard.ts";
@@ -52,9 +53,8 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
   }
 
-  // Controlled saturation is exposed where the reviewed learner operation is
-  // the same as the graph-native projection. CP007/008/009 keep specialised
-  // inference/operation renderers until dedicated saturation adapters exist.
+  // Controlled saturation is exposed only through a projection/adapter that
+  // preserves the reviewed learner operation and its difficulty contract.
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) {
     return reviewedSaturationQuestion(input, true);
   }
@@ -69,9 +69,9 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-007" && defaultFourWay) {
-    return seed % 4 === 0
-      ? generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed })
-      : generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
+    if (seed % 8 === 0) return generateReviewedCp007SaturationCommonFactorQuestion({ locale: input.locale, seed: input.seed });
+    if (seed % 8 === 4) return generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed });
+    return generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) {
     return generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
