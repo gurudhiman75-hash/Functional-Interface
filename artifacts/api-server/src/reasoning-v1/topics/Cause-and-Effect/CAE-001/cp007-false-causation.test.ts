@@ -22,7 +22,6 @@ const falseVariants = new Set<string>();
 let hardCount = 0;
 let mediumCount = 0;
 
-// Frozen false-causation corpus: same-domain outcomes, separate supported causes.
 for (let seed = 0; seed < 240; seed += 1) {
   const question = generateCp007FalseCausationQuestion({ locale: "en-IN", seed });
   falseStates.add(question.causalStateId);
@@ -63,7 +62,6 @@ assert.ok(falseStates.size >= 12, `CP007 needs substantial semantic-direction di
 assert.ok(hardCount > 0, "CP007 should include post-hoc HARD items");
 assert.ok(mediumCount > 0, "CP007 should include co-movement MEDIUM items");
 
-// Expanded false-causation corpus: visible independent causes are part of the learner evidence.
 assert.equal(CP007_EXPANDED_FALSE_CAUSATION_SCENARIOS.length, 10, "expanded CP007 false-causation authority must expose ten authored scenarios");
 assert.equal(new Set(CP007_EXPANDED_FALSE_CAUSATION_SCENARIOS.map((scenario) => scenario.id)).size, 10);
 assert.deepEqual(new Set(CP007_EXPANDED_FALSE_CAUSATION_SCENARIOS.map((scenario) => scenario.pattern)), new Set(["CO_MOVEMENT", "POST_HOC"]));
@@ -107,7 +105,6 @@ assert.equal(expandedVariants.size, 10, "expanded CP007 sweep must reach all ten
 assert.ok(expandedStates.size >= 18, `expanded CP007 must expose both statement directions; saw ${expandedStates.size}`);
 assert.deepEqual(expandedDifficulties, new Set(["MEDIUM", "HARD"]));
 
-// Common-factor corpus: visible outcomes share one hidden cause; correlation-only is a distractor.
 for (let seed = 0; seed < 60; seed += 1) {
   const question = generateCp007CommonFactorQuestion({ locale: "en-IN", seed });
   assert.equal(question.answerId, "COMMON_CAUSE");
@@ -124,7 +121,6 @@ for (let seed = 0; seed < 60; seed += 1) {
   assert.equal(causalPath(world, second, first), null);
 }
 
-// Reviewed CP007 allocation remains balanced by skill; only the legacy false-causation half is split.
 const reviewedStates = new Set<string>();
 const reviewedAnswers = new Set<string>();
 const reviewedFamilies = new Set<string>();
@@ -136,11 +132,10 @@ for (let seed = 0; seed < 240; seed += 1) {
   reviewedFamilies.add(question.scenarioFamilyId);
   assert.ok(question.answerId === "CORRELATION_ONLY" || question.answerId === "COMMON_CAUSE");
 
-  const remainder = seed % 8;
-  if (remainder === 0) counts.commonExpanded += 1;
-  else if (remainder === 4) counts.commonLegacy += 1;
-  else if (remainder === 2 || remainder === 6) counts.parallel += 1;
-  else if (remainder === 3 || remainder === 7) {
+  if (seed % 8 === 0 || seed % 16 === 12) counts.commonExpanded += 1;
+  else if (seed % 16 === 4) counts.commonLegacy += 1;
+  else if (seed % 8 === 2 || seed % 8 === 6) counts.parallel += 1;
+  else if (seed % 8 === 3 || seed % 8 === 7) {
     counts.expandedFalse += 1;
     assert.equal(question.scenarioFamilyId, CP007_EXPANDED_FALSE_CAUSATION_FAMILY_ID, `${seed}: expanded false-causation slot drifted`);
   } else {
@@ -148,7 +143,7 @@ for (let seed = 0; seed < 240; seed += 1) {
     assert.equal(question.scenarioFamilyId, "CAE-FAM-FALSE-CAUSATION", `${seed}: legacy false-causation slot drifted`);
   }
 }
-assert.deepEqual(counts, { legacyFalse: 60, expandedFalse: 60, parallel: 60, commonExpanded: 30, commonLegacy: 30 });
+assert.deepEqual(counts, { legacyFalse: 60, expandedFalse: 60, parallel: 60, commonExpanded: 45, commonLegacy: 15 });
 assert.ok(reviewedStates.size >= 30, `reviewed CP007 needs broad semantic coverage; saw ${reviewedStates.size}`);
 assert.deepEqual(reviewedAnswers, new Set(["COMMON_CAUSE", "CORRELATION_ONLY"]));
 assert.ok(reviewedFamilies.has("CAE-FAM-FALSE-CAUSATION"));
@@ -180,6 +175,8 @@ const expandedReviewed = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", local
 assert.equal(expandedReviewed.scenarioFamilyId, CP007_EXPANDED_FALSE_CAUSATION_FAMILY_ID);
 const commonReviewed = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", locale: "en-IN", seed: 12 });
 assert.equal(commonReviewed.answerId, "COMMON_CAUSE");
+const legacyCommonReviewed = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", locale: "en-IN", seed: 20 });
+assert.equal(legacyCommonReviewed.scenarioFamilyId, "CAE-FAM-SHARED-PRESSURE");
 const legacyFiveWay = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", locale: "en-IN", seed: 11, questionProfile: "FIVE_WAY" });
 assert.notEqual(legacyFiveWay.scenarioFamilyId, "CAE-FAM-FALSE-CAUSATION", "explicit unsourced five-way CP007 requests remain on frozen V3 until separately approved");
 assert.notEqual(legacyFiveWay.scenarioFamilyId, CP007_EXPANDED_FALSE_CAUSATION_FAMILY_ID);
