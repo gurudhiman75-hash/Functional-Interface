@@ -17,32 +17,16 @@ const lines: string[] = [
   "- Palette: EXAMTREE_BLUE_SINGLE_SERIES",
   "",
 ];
-
 sets.forEach((set, setIndex) => {
-  lines.push(`## Set ${setIndex + 1} — ${set.examProfile}`);
-  lines.push("");
-  lines.push(`**Shape:** ${set.stimulus.shape}  `);
-  lines.push(`**Class intervals:** ${set.stimulus.bins.length}  `);
-  lines.push(`**Context:** ${set.stimulus.title}`);
-  lines.push("");
-  lines.push(set.stimulus.svg);
-  lines.push("");
+  lines.push(`## Set ${setIndex + 1} — ${set.examProfile}`, "", `**Shape:** ${set.stimulus.shape}  `, `**Class intervals:** ${set.stimulus.bins.length}  `, `**Context:** ${set.stimulus.title}`, "", set.stimulus.svg, "");
   set.questions.forEach((question, questionIndex) => {
-    lines.push(`### Q${questionIndex + 1}. ${question.stem}`);
-    lines.push("");
+    lines.push(`### Q${questionIndex + 1}. ${question.stem}`, "");
     question.options.forEach((option, index) => lines.push(`${String.fromCharCode(65 + index)}. ${option}`));
-    lines.push("");
-    lines.push(`**Answer:** ${String.fromCharCode(65 + question.correctIndex)}. ${question.answer}`);
-    lines.push("");
-    lines.push(`**Explanation:** ${question.explanation.keyIdea}`);
-    lines.push("");
+    lines.push("", `**Answer:** ${String.fromCharCode(65 + question.correctIndex)}. ${question.answer}`, "", `**Explanation:** ${question.explanation.keyIdea}`, "");
     question.explanation.steps.forEach((step, index) => lines.push(`${index + 1}. ${step}`));
-    if (question.explanation.workingTable) { lines.push(""); lines.push(markdownTable(question.explanation.workingTable.headers, question.explanation.workingTable.rows)); }
-    lines.push("");
-    lines.push(`_Family: ${question.kind} · Difficulty: ${question.difficulty}_`);
-    lines.push("");
+    if (question.explanation.workingTable) { lines.push("", markdownTable(question.explanation.workingTable.headers, question.explanation.workingTable.rows)); }
+    lines.push("", `_Family: ${question.kind} · Difficulty: ${question.difficulty}_`, "");
   });
 });
-
 writeFileSync(outputPath, lines.join("\n"), "utf8");
 console.log(JSON.stringify({ outputPath, visualVersion: "V4", sets: sets.length, questions: sets.reduce((sum, set) => sum + set.questions.length, 0) }));
