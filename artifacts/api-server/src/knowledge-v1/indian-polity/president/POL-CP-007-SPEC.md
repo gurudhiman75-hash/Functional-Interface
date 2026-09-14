@@ -1,6 +1,6 @@
 # POL-CP-007 — President
 
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** REVIEW CANDIDATE — SIMPLIFIED LANGUAGE V2  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -30,16 +30,21 @@ This CP covers the President as a constitutional office without drifting into cu
 - 22 genuine QLs
 - 80 English review questions
 - 24 Easy / 42 Medium / 14 Hard
+- V2 generator is canonical for English review
 - compact exam-style stems
-- direct stems capped at 34 words
+- ordinary direct stems capped at 28 words
 - four unique options
-- teaching explanations of at least 20 words
+- simple teaching explanations of at least 20 words
 - no current President/current-affairs questions
+
+## Language standard
+
+Keep constitutional terms that are needed for exam accuracy, but simplify the English around them. Prefer short direct stems, familiar verbs and short sentences. Avoid formal wording when a simpler phrase gives the same meaning.
 
 ## Explanation standard
 
-Each explanation states the constitutional rule, explains why it produces the answer and highlights a useful distinction where needed. Major traps include elected vs nominated electors, impeachment thresholds, casual-vacancy term, ministerial advice, Bill reconsideration and Ordinance expiry.
+Each explanation states the rule in simple language and gives the main distinction needed to understand the answer. It should teach the point without becoming a long legal note or an option-by-option analysis.
 
 ## Gate
 
-Question Studio exposure, localization and production registration remain blocked until the English batch is approved.
+Question Studio exposure, localization and production registration remain blocked until simplified English V2 is approved.
