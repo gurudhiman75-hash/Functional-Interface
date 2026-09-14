@@ -40,7 +40,7 @@ function assemble(input: { seed: number; difficulty: PunjabiDifficulty; familyId
   const selected = rng.pickDistinct(distractors, 3);
   const options = rng.shuffle([correct, ...selected]);
   const fingerprint = `CP003-${semanticHash([input.familyId, input.subtype, input.difficulty, norm(input.stem), correct, [...selected].sort().join("|"), [...input.authorityIds].sort().join(",")])}`;
-  return { id: `PUN-001-CP003-${input.familyId}-${fingerprint}`, stem: norm(input.stem), options, correctIndex: options.indexOf(correct), explanation: norm(input.explanation), difficulty: input.difficulty, metadata: { engine: "punjabi-v1", packageId: "PUN-001", cpId: "PUN-001-CP003", familyId: input.familyId, subtype: input.subtype, difficulty: input.difficulty, language: "pa-Guru", seed: input.seed, authorityIds: input.authorityIds, generatorRevision: "2.0.0-forward-port", fingerprint, lifecycle: "REVIEW_ONLY" } };
+  return { id: `PUN-001-CP003-${input.familyId}-${fingerprint}`, stem: norm(input.stem), options, correctIndex: options.indexOf(correct), explanation: norm(input.explanation), difficulty: input.difficulty, metadata: { engine: "punjabi-v1", packageId: "PUN-001", cpId: "PUN-001-CP003", familyId: input.familyId, subtype: input.subtype, difficulty: input.difficulty, language: "pa-Guru", seed: input.seed, authorityIds: input.authorityIds, generatorRevision: "2.1.0-forward-port", fingerprint, lifecycle: "REVIEW_ONLY" } };
 }
 
 const NOUN_CATEGORIES = Object.keys(CP003_NOUN_CATEGORY_NAMES) as CP003NounCategory[];
@@ -49,6 +49,7 @@ const NOUN_CATEGORY_LABELS = NOUN_CATEGORIES.map((x) => CP003_NOUN_CATEGORY_NAME
 const PRONOUN_CATEGORY_LABELS = PRONOUN_CATEGORIES.map((x) => CP003_PRONOUN_CATEGORY_NAMES[x]);
 const nounsByCategory = new Map<CP003NounCategory, CP003NounAuthority[]>(NOUN_CATEGORIES.map((c) => [c, CP003_NOUN_AUTHORITIES.filter((x) => x.category === c)]));
 const pronounsByCategory = new Map(PRONOUN_CATEGORIES.map((c) => [c, CP003_PRONOUN_CONTEXTS.filter((x) => x.category === c)]));
+const PERSON_NUMBER_PARADIGMS = CP003_PRONOUN_PARADIGMS.slice(0, 4);
 const RELATIONS = Object.keys(CP003_PRONOUN_RELATION_NAMES) as CP003PronounRelation[];
 const NON_KARTA_RELATIONS = RELATIONS.filter((x) => x !== "KARTA");
 const INFLECTIONS = CP003_PRONOUN_PARADIGMS.flatMap((p) => RELATIONS.map((r) => ({ id: `${p.id}-${r}`, paradigm: p, relation: r, relationNamePa: CP003_PRONOUN_RELATION_NAMES[r], form: p.forms[r] })));
@@ -66,9 +67,9 @@ export function generateCP003F02(seed: number, difficulty: PunjabiDifficulty): P
 }
 export function generateCP003F03(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   if (difficulty !== "Easy") throw new Error("CP003 F03 supports Easy only");
-  const t = CP003_PRONOUN_PARADIGMS[ordinal(seed, 8)]!;
+  const t = PERSON_NUMBER_PARADIGMS[ordinal(seed, PERSON_NUMBER_PARADIGMS.length)]!;
   const correct = `${t.personPa} — ${t.numberPa}`;
-  return assemble({ seed, difficulty, familyId: "F03", subtype: "PRONOUN_PERSON_NUMBER", stem: `ਪੜਨਾਂਵ ‘${t.labelPa}’ ਦਾ ਪੁਰਖ ਅਤੇ ਵਚਨ ਚੁਣੋ।`, correctAnswer: correct, distractors: CP003_PRONOUN_PARADIGMS.map((x) => `${x.personPa} — ${x.numberPa}`).filter((x) => x !== correct), explanation: `‘${t.labelPa}’ ${t.personPa} ਦਾ ${t.numberPa} ਰੂਪ ਹੈ।`, authorityIds: [t.id] });
+  return assemble({ seed, difficulty, familyId: "F03", subtype: "PRONOUN_PERSON_NUMBER", stem: `ਪੜਨਾਂਵ ‘${t.labelPa}’ ਦਾ ਪੁਰਖ ਅਤੇ ਵਚਨ ਚੁਣੋ।`, correctAnswer: correct, distractors: PERSON_NUMBER_PARADIGMS.map((x) => `${x.personPa} — ${x.numberPa}`).filter((x) => x !== correct), explanation: `‘${t.labelPa}’ ${t.personPa} ਦਾ ${t.numberPa} ਰੂਪ ਹੈ।`, authorityIds: [t.id] });
 }
 export function generateCP003F04(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   if (difficulty !== "Medium") throw new Error("CP003 F04 supports Medium only");
@@ -99,8 +100,7 @@ export function generateCP003F07(seed: number, difficulty: PunjabiDifficulty): P
 export function generateCP003F08(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   if (difficulty !== "Medium") throw new Error("CP003 F08 supports Medium only");
   const t = REVERSE_INFLECTIONS[ordinal(seed, REVERSE_INFLECTIONS.length)]!;
-  const correct = `${t.paradigm.labelPa} — ${t.paradigm.personPa} — ${t.paradigm.numberPa}`;
-  return assemble({ seed, difficulty, familyId: "F08", subtype: "PRONOUN_INFLECTION_REVERSE", stem: `‘${t.form}’ ਰੂਪ ਕਿਸ ਪੜਨਾਂਵ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ?`, correctAnswer: correct, distractors: CP003_PRONOUN_PARADIGMS.filter((x) => x.id !== t.paradigm.id).map((x) => `${x.labelPa} — ${x.personPa} — ${x.numberPa}`), explanation: `‘${t.form}’ ‘${t.paradigm.labelPa}’ ਦਾ ${t.relationNamePa} ਹੈ।`, authorityIds: [t.id] });
+  return assemble({ seed, difficulty, familyId: "F08", subtype: "PRONOUN_INFLECTION_REVERSE", stem: `‘${t.form}’ ਰੂਪ ਕਿਸ ਪੜਨਾਂਵ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ?`, correctAnswer: t.paradigm.labelPa, distractors: CP003_PRONOUN_PARADIGMS.filter((x) => x.id !== t.paradigm.id).map((x) => x.labelPa), explanation: `‘${t.form}’ ‘${t.paradigm.labelPa}’ ਦਾ ${t.relationNamePa} ਹੈ।`, authorityIds: [t.id] });
 }
 export function generateCP003F09(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   if (difficulty !== "Hard") throw new Error("CP003 F09 supports Hard only");
@@ -136,7 +136,7 @@ export function generateCP003F12(seed: number, difficulty: PunjabiDifficulty): P
 }
 
 export function getCP003BreadthReport() {
-  const capacities = { F01: 225, F02: 60, F03: 8, F04: 225, F05: 5 * choose(45, 3) * 180, F06: 60, F07: CP003_PRONOUN_INFLECTION_AUTHORITY_COUNT, F08: REVERSE_INFLECTIONS.length, F09: 5 * choose(45, 2), F10: 1500, F11: 225 * 60, F12: choose(5, 3) * 45 * 45 * 45 } as const;
+  const capacities = { F01: 225, F02: 60, F03: PERSON_NUMBER_PARADIGMS.length, F04: 225, F05: 5 * choose(45, 3) * 180, F06: 60, F07: CP003_PRONOUN_INFLECTION_AUTHORITY_COUNT, F08: REVERSE_INFLECTIONS.length, F09: 5 * choose(45, 2), F10: 1500, F11: 225 * 60, F12: choose(5, 3) * 45 * 45 * 45 } as const;
   return { nounAuthorityCount: CP003_NOUN_AUTHORITIES.length, pronounContextAuthorityCount: CP003_PRONOUN_CONTEXTS.length, pronounInflectionAuthorityCount: CP003_PRONOUN_INFLECTION_AUTHORITY_COUNT, totalAtomicAuthorities: CP003_NOUN_AUTHORITIES.length + CP003_PRONOUN_CONTEXTS.length + CP003_PRONOUN_INFLECTION_AUTHORITY_COUNT, nounCategoryCount: NOUN_CATEGORIES.length, pronounCategoryCount: PRONOUN_CATEGORIES.length, familyCount: 12, capacities, totalSemanticCapacity: Object.values(capacities).reduce((sum, value) => sum + value, 0) } as const;
 }
 
