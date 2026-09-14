@@ -7,8 +7,8 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 function parseBarGeometry(svg: string) {
-  return [...svg.matchAll(/<rect data-bin-index="(\d+)" x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)"/g)].map((match) => ({
-    index: Number(match[1]), x: Number(match[2]), y: Number(match[3]), width: Number(match[4]), height: Number(match[5]),
+  return [...svg.matchAll(/<rect data-bin-index="(\d+)"[^>]* x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)"[^>]* fill="([^"]+)"/g)].map((match) => ({
+    index: Number(match[1]), x: Number(match[2]), y: Number(match[3]), width: Number(match[4]), height: Number(match[5]), fill: match[6]!,
   }));
 }
 
@@ -47,19 +47,23 @@ for (const profile of profiles) {
     const bars = parseBarGeometry(svg);
     assert(bars.length === first.stimulus.bins.length, `${profile} ${seed} rendered wrong histogram rectangle count.`);
     assert(svg.includes('data-contiguous-bars="true"'), `${profile} ${seed} visual does not certify touching bars.`);
-    assert(svg.includes('data-di-chart-theme="EXAMTREE_DI_WORLD_CLASS_V4"'), `${profile} ${seed} lost the V4 theme.`);
-    assert(svg.includes('data-renderer-version="V4"'), `${profile} ${seed} lost the V4 renderer marker.`);
-    assert(svg.includes('data-color-palette="EXAMTREE_BLUE_SINGLE_SERIES"'), `${profile} ${seed} lost the color contract.`);
+    assert(svg.includes('data-di-chart-theme="EXAMTREE_DI_MULTICOLOUR_CLEAN_AXIS_V5"'), `${profile} ${seed} lost the accepted V5 theme.`);
+    assert(svg.includes('data-renderer-version="V5"'), `${profile} ${seed} lost the V5 renderer marker.`);
+    assert(svg.includes('data-color-palette="EXAMTREE_BALANCED_MULTICOLOUR"'), `${profile} ${seed} lost the multicolour palette contract.`);
+    assert(svg.includes('data-clean-axis="true"'), `${profile} ${seed} lost the clean-axis contract.`);
+    assert(svg.includes('data-vertical-axis-spine="none"') && svg.includes('data-boundary-ticks="none"'), `${profile} ${seed} lost no-protruding-line metadata.`);
     assert(svg.includes('data-plot-headroom="true"'), `${profile} ${seed} lost visual headroom.`);
-    assert(svg.includes('data-axis="y"') && svg.includes('data-axis="x"'), `${profile} ${seed} lost explicit axis ownership.`);
-    assert(svg.includes('data-baseline-owned-by-axis="true"'), `${profile} ${seed} baseline ownership is ambiguous.`);
-    assert((svg.match(/data-gridline=/g)?.length ?? 0) >= 4, `${profile} ${seed} has too few reading guides.`);
-    assert((svg.match(/data-y-tick=/g)?.length ?? 0) >= 5, `${profile} ${seed} has too few y-axis ticks.`);
+    assert(svg.includes('data-axis="x"') && svg.includes('data-baseline-owned-by-axis="true"'), `${profile} ${seed} lost baseline ownership.`);
+    assert(!svg.includes('data-axis="y"'), `${profile} ${seed} reintroduced the rejected vertical y-axis spine.`);
+    assert(!svg.includes("data-y-tick="), `${profile} ${seed} reintroduced y-axis tick lines.`);
+    assert(!svg.includes("data-boundary-tick="), `${profile} ${seed} reintroduced downward class-boundary ticks.`);
+    const gridlineCount = svg.match(/data-gridline=/g)?.length ?? 0;
+    const lineCount = svg.match(/<line /g)?.length ?? 0;
+    assert(gridlineCount >= 4, `${profile} ${seed} has too few horizontal reading guides.`);
+    assert(lineCount === gridlineCount + 1, `${profile} ${seed} contains an unexpected line beyond horizontal guides and the baseline.`);
     assert((svg.match(/data-class-interval-label=/g)?.length ?? 0) === first.stimulus.bins.length, `${profile} ${seed} must show one interval label per bar.`);
-    assert((svg.match(/data-boundary-tick=/g)?.length ?? 0) === first.stimulus.bins.length, `${profile} ${seed} must use the y-axis as left boundary and retain remaining boundary ticks.`);
-    assert(!svg.includes('data-boundary-tick="0"'), `${profile} ${seed} duplicated the y-axis with a downward left-boundary tick.`);
-    assert(!svg.includes("data-bar-top="), `${profile} ${seed} leaked decorative bar-top highlights.`);
-    assert(!svg.includes("data-bar-value-label="), `${profile} ${seed} must not expose bar values.`);
+    assert(new Set(bars.map((bar) => bar.fill)).size === bars.length, `${profile} ${seed} did not render distinct class colours.`);
+    assert(!svg.includes("data-bar-top=") && !svg.includes("data-bar-value-label="), `${profile} ${seed} leaked decorative or answer-helping bar labels.`);
     assert(svg.includes('preserveAspectRatio="xMidYMid meet"') && svg.includes("<title>") && svg.includes("<desc>"), `${profile} ${seed} lost responsive/accessibility metadata.`);
     for (let index = 1; index < bars.length; index += 1) {
       const previousRight = bars[index - 1]!.x + bars[index - 1]!.width;
@@ -67,7 +71,7 @@ for (const profile of profiles) {
     }
     const plotTopMatch = svg.match(/data-plot-area="true" x="[\d.]+" y="([\d.]+)"/);
     assert(plotTopMatch, `${profile} ${seed} could not read plot top.`);
-    assert(Math.min(...bars.map((bar) => bar.y)) > Number(plotTopMatch[1]), `${profile} ${seed} tallest bar touches the plot ceiling.`);
+    assert(Math.min(...bars.map((bar) => bar.y)) > Number(plotTopMatch[1]), `${profile} ${seed} tallest bar touches the chart ceiling.`);
 
     assert(first.questions.length === 5 && new Set(first.questions.map((question) => question.kind)).size === 5, `${profile} ${seed} must contain five distinct task families.`);
     assert(first.questions.filter((question) => question.difficulty === "Easy").length === 1, `${profile} ${seed} lost Easy quota.`);
@@ -95,4 +99,4 @@ for (const profile of profiles) {
   for (const task of taskKinds) { const key = `${profile}:${task}`; assert(taskCount.get(key)! >= 8, `${key} appeared too rarely.`); assert(positionCoverage.get(key)!.size === 4, `${key} did not cover A/B/C/D.`); assert(surfaceCoverage.get(key)!.size >= 3, `${key} did not exercise three stem surfaces.`); }
 }
 
-console.log(JSON.stringify({ status: "PASS_DI_009_HISTOGRAM_V4_VISUAL", diagramTheme: "EXAMTREE_DI_WORLD_CLASS_V4", colorPalette: "EXAMTREE_BLUE_SINGLE_SERIES", sets: setCount, questions: questionCount, deterministicReplays: setCount, independentVerifications: setCount, optionChecks: questionCount * 4, profiles, taskKinds, shapes, classCounts: [5, 6, 7, 8, 9] }));
+console.log(JSON.stringify({ status: "PASS_DI_009_HISTOGRAM_V5_VISUAL", diagramTheme: "EXAMTREE_DI_MULTICOLOUR_CLEAN_AXIS_V5", colorPalette: "EXAMTREE_BALANCED_MULTICOLOUR", sets: setCount, questions: questionCount, deterministicReplays: setCount, independentVerifications: setCount, optionChecks: questionCount * 4, profiles, taskKinds, shapes, classCounts: [5, 6, 7, 8, 9] }));
