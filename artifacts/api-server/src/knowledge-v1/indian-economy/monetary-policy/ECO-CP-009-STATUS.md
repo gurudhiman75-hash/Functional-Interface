@@ -1,11 +1,11 @@
 # ECO-CP-009 Status
 
 **CP:** ECO-CP-009 Monetary Policy  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
-## Implemented
+## Implemented and approved
 
 - official RBI source registry;
 - static scope and exclusions;
@@ -21,7 +21,8 @@
 - expansionary/contractionary direction and introductory transmission;
 - QA for source resolution, option validity, duplicates, corridor logic, liquidity direction and difficulty spread;
 - QA blocking current rate/stance/member leakage;
-- 24-question human review Markdown set.
+- 24-question human review Markdown set;
+- English V1 human review approved and frozen.
 
 ## Static boundary
 
@@ -34,10 +35,8 @@ Excluded from this CP:
 - detailed variable-rate auction operations;
 - detailed commercial-bank credit creation reserved for ECO-CP-010.
 
-## Promotion steps
+## Next promotion steps
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behavior.
-4. Add localisation layer in the localisation phase.
-5. Register with runtime/Question Studio only after separate promotion approval.
+1. Preserve the approved English behavior.
+2. Add localisation layer in the localisation phase.
+3. Register with runtime/Question Studio only after separate promotion approval.
