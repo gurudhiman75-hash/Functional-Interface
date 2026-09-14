@@ -61,19 +61,19 @@ assert.equal(packageByQuestion["71"], "PCT-005"); // equal rise/fall is successi
 // Representative source-math checks across the section.
 assert.equal(Math.sqrt(12 ** 2 - 4 * 32), 4); // Q51 |a-b|.
 assert.equal(4 * (12 ** 2 - 32), 448); // Q51 positive difference of cubes.
-assert.equal(220 / (0.51 - 0.40), 2_000); // Q55 bill from discount-method difference.
+assert.equal(220 * 100 / 11, 2_000); // Q55 bill from an 11 percentage-point discount-method difference.
 assert.equal(52 ** 2 - 2, 2_702); // Q56 reciprocal sixth power.
-assert.equal(500 * 0.9 * 1.2, 540); // Q59 successive percentage reverse check.
+assert.equal(500 * 9 * 12 / 100, 540); // Q59 successive percentage reverse check.
 assert.equal(0.5 * 8 * 12, 48); // Q58 sector area from radius and arc length.
-assert.equal((22 / 7) * 35 ** 2 * 12, 46_200); // Q60 cylinder volume.
+assert.equal(22 * 35 ** 2 * 12 / 7, 46_200); // Q60 cylinder volume.
 assert.equal(32 * 13 / 8, 52); // Q62 fourth proportional.
 assert.equal((-1) ** 17 + 1, 0); // Q64 remainder theorem.
 assert.equal((10 + 7) / (10 - 7), 17 / 3); // Q65 boat:current ratio.
 assert.equal((35 * 2 + 38 + 51 * 2) / 5, 42); // Q66 weighted mixture.
-assert.equal(9 ** 2 - (6 - 3) ** 2, (6 * Math.sqrt(2)) ** 2); // Q67 common tangent.
-assert.equal((20.8 - 15.2) / 2, 2.8); // Q69 current speed.
-assert.equal(1.3 * 0.7, 0.91); // Q71 equal rise/fall leaves 91%.
-assert.equal(1 / 3.5 - 1 / 14, 3 / 14); // Q73 second worker rate.
+assert.ok(Math.abs((9 ** 2 - (6 - 3) ** 2) - (6 * Math.sqrt(2)) ** 2) < 1e-12); // Q67 common tangent.
+assert.ok(Math.abs((20.8 - 15.2) / 2 - 2.8) < 1e-12); // Q69 current speed.
+assert.ok(Math.abs(1.3 * 0.7 - 0.91) < 1e-12); // Q71 equal rise/fall leaves 91%.
+assert.ok(Math.abs((1 / 3.5 - 1 / 14) - 3 / 14) < 1e-12); // Q73 second worker rate.
 
 assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 233);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 30);
