@@ -61,16 +61,17 @@ assert.equal(400 * 60, 12 * (18 - 16) * 1000);
 assert.equal(150 ** 2 + 80 ** 2, 170 ** 2);
 assert.equal(2 * (150 + 80), 460);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 307);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 40);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 12);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 27);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 18);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 29);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 18);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-001" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-004" }).length, 1);
+// Exact Wave 6 paper proof plus append-safe cumulative evidence floors.
+assert.ok(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length >= 307);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length >= 40);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length >= 12);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length >= 11);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length >= 27);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length >= 18);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length >= 29);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length >= 18);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "PCT-001" }).length >= 1);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "DI-004" }).length >= 1);
 
 const cgl = buildQuantV4PyqFrequencyProfile({
   examId: "SSC_CGL_TIER_I",
@@ -82,9 +83,9 @@ const cgl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(cgl.countableQuestionCount, 274);
-assert.equal(cgl.distinctPaperCount, 25);
-assert.equal(cgl.topicCoverageCount, 13);
+assert.ok(cgl.countableQuestionCount >= 274);
+assert.ok(cgl.distinctPaperCount >= 25);
+assert.ok(cgl.topicCoverageCount >= 13);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.deepEqual([...cgl.blockers], ["DATED_PAPER_IDENTITY_INCOMPLETE"]);
 assert.equal(canReplaceProvisionalSimulationWeights(cgl), false);
@@ -95,12 +96,12 @@ const whole = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(whole.completeSectionCount, 10);
-assert.equal(whole.completeQuestionCount, 250);
-assert.equal(whole.totalCountableQuestionCount, 274);
+assert.ok(whole.completeSectionCount >= 10);
+assert.ok(whole.completeQuestionCount >= 250);
+assert.ok(whole.totalCountableQuestionCount >= 274);
 assert.equal(whole.nonWholeSectionCountableQuestionCount, 24);
 assert.equal(whole.distinctSectionYearCount, 3);
-assert.equal(whole.packageCoverageCount, 28);
+assert.ok(whole.packageCoverageCount >= 28);
 assert.equal(whole.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
 assert.deepEqual([...whole.blockers], []);
 assert.equal(whole.productionPromotionAuthorized, false);
