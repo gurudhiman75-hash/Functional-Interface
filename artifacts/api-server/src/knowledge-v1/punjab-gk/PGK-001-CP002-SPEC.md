@@ -1,6 +1,6 @@
 # PGK-001 CP002 — Administrative Punjab
 
-Status: REVIEW CANDIDATE V3
+Status: HUMAN APPROVED / FROZEN V3
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-002 — Administrative Punjab`
 Permanent QLs: `PGK-001-QL-007` to `PGK-001-QL-013`
@@ -84,6 +84,6 @@ Explanations must sound like natural learner-facing teaching, not source notes o
 - Do not lead with source language such as `the official snapshot records...` unless the source year itself is the examinable point.
 - No routine option-by-option analysis.
 
-## Lifecycle
+## Approval and lifecycle
 
-V3 is review-only. It is not registered for runtime Question Studio generation, Question Bank writes, tests, mocks or public publication until explicit human approval.
+Human-approved on 14 September 2026 after V2 stem correction and V3 explanation correction. CP002 is frozen as the accepted review authority. Runtime Question Studio registration remains a separate integration step and is not implied by this approval.
