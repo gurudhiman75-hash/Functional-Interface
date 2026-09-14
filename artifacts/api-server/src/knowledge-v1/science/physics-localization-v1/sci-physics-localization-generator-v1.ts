@@ -14,7 +14,10 @@ import {
   SCI_PHYSICS_CP002_PA_SURFACES_V1,
 } from "./sci-physics-cp002-localization-data-v1";
 import { getPhysicsExplanationV2 } from "./sci-physics-explanation-quality-v2";
-import { applyPunjabiPhysicsEditorialV2 } from "./sci-physics-punjabi-editorial-v2";
+import {
+  applyPunjabiPhysicsEditorialV2,
+  naturalizePunjabiPhysicsTextV3,
+} from "./sci-physics-punjabi-editorial-v2";
 import {
   SCI_PHYSICS_LOCALIZATION_V1,
   type PhysicsLocaleV1,
@@ -40,13 +43,13 @@ const STATEMENT_STEMS = {
     pairOptions: ["I और II दोनों", "केवल I", "केवल II", "न तो I, न II"],
   },
   pa: {
-    correct: "ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
-    incorrect: "ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕਥਨ ਗਲਤ ਹੈ?",
-    pairEnd: "ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ।",
-    iCorrect: "ਕਥਨ I ਸਹੀ ਹੈ।", iIncorrect: "ਕਥਨ I ਗਲਤ ਹੈ।",
-    iiCorrect: "ਕਥਨ II ਸਹੀ ਹੈ।", iiIncorrect: "ਕਥਨ II ਗਲਤ ਹੈ।",
-    incorrectLead: "ਇਹ ਕਥਨ ਗਲਤ ਹੈ।",
-    pairOptions: ["I ਅਤੇ II ਦੋਵੇਂ", "ਕੇਵਲ I", "ਕੇਵਲ II", "ਨਾ I, ਨਾ II"],
+    correct: "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?",
+    incorrect: "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਬਿਆਨ ਗਲਤ ਹੈ?",
+    pairEnd: "ਸਹੀ ਉੱਤਰ ਚੁਣੋ।",
+    iCorrect: "ਬਿਆਨ I ਸਹੀ ਹੈ।", iIncorrect: "ਬਿਆਨ I ਗਲਤ ਹੈ।",
+    iiCorrect: "ਬਿਆਨ II ਸਹੀ ਹੈ।", iiIncorrect: "ਬਿਆਨ II ਗਲਤ ਹੈ।",
+    incorrectLead: "ਇਹ ਬਿਆਨ ਗਲਤ ਹੈ।",
+    pairOptions: ["I ਅਤੇ II ਦੋਵੇਂ", "ਸਿਰਫ਼ I", "ਸਿਰਫ਼ II", "ਨਾ I, ਨਾ II"],
   },
 } as const;
 
@@ -89,11 +92,16 @@ function localizedBase(question: PhysicsExhaustiveQuestionV2, locale: PhysicsLoc
   };
 }
 
+function explanationFor(anchorId: string, locale: PhysicsLocaleV1): string {
+  const explanation = getPhysicsExplanationV2(anchorId, locale);
+  return locale === "pa" ? naturalizePunjabiPhysicsTextV3(anchorId, explanation) : explanation;
+}
+
 function localizeEnglishExplanation(question: PhysicsExhaustiveQuestionV2, cpId: SupportedCpV1): PhysicsLocalizedQuestionV1 {
   const anchors = anchorMap(cpId);
   const lead = anchors.get(question.anchorIds[0]);
   if (!lead) throw new Error(`${question.questionId}: missing lead anchor`);
-  const leadExplanation = getPhysicsExplanationV2(lead.id, "en");
+  const leadExplanation = explanationFor(lead.id, "en");
 
   if (question.family === "direct-anchor" || question.family === "correct-statement") {
     return localizedBase(question, "en", question.stem, [...question.options], question.canonicalAnswer, leadExplanation);
@@ -106,7 +114,7 @@ function localizeEnglishExplanation(question: PhysicsExhaustiveQuestionV2, cpId:
   if (!second) throw new Error(`${question.questionId}: missing second anchor`);
   const truthI = truthForStatement(question.stem, lead);
   const truthII = truthForStatement(question.stem, second);
-  const secondExplanation = getPhysicsExplanationV2(second.id, "en");
+  const secondExplanation = explanationFor(second.id, "en");
   const explanation = `Statement I is ${truthI ? "correct" : "incorrect"}. ${leadExplanation} Statement II is ${truthII ? "correct" : "incorrect"}. ${secondExplanation}`;
   return localizedBase(question, "en", question.stem, [...question.options], question.canonicalAnswer, explanation);
 }
@@ -122,7 +130,7 @@ export function localizePhysicsExhaustiveQuestionV1(question: PhysicsExhaustiveQ
   if (!lead) throw new Error(`${question.questionId}: missing lead anchor`);
   const leadSurface = surfaces[lead.id];
   if (!leadSurface) throw new Error(`${question.questionId}: missing ${locale} surface for ${lead.id}`);
-  const leadExplanation = getPhysicsExplanationV2(lead.id, locale);
+  const leadExplanation = explanationFor(lead.id, locale);
 
   if (question.family === "direct-anchor") {
     const options = question.options.map((option) => mapDirectOption(option, lead, leadSurface));
@@ -161,7 +169,7 @@ export function localizePhysicsExhaustiveQuestionV1(question: PhysicsExhaustiveQ
     if (index < 0) throw new Error(`${question.questionId}: unknown pair option`);
     return text.pairOptions[index];
   });
-  const secondExplanation = getPhysicsExplanationV2(second.id, locale);
+  const secondExplanation = explanationFor(second.id, locale);
   const explanation = `${truthI ? text.iCorrect : text.iIncorrect} ${leadExplanation} ${truthII ? text.iiCorrect : text.iiIncorrect} ${secondExplanation}`;
   return localizedBase(question, locale, `I. ${statementI}\nII. ${statementII}\n${text.pairEnd}`, options, options[question.correctIndex], explanation);
 }
