@@ -26,9 +26,17 @@ const qlNames: Record<number, string> = {
   12: "Distinguish closely related concepts",
 };
 
-const difficultyForQl = (ql: number): KnowledgeV1Difficulty => {
-  if ([1, 2, 3, 4].includes(ql)) return "Easy";
-  if ([5, 6, 7, 8, 9, 10].includes(ql)) return "Medium";
+const difficultyForVariant = (ql: number, rowIndex: number): KnowledgeV1Difficulty => {
+  if (ql === 1) return rowIndex === 1 ? "Medium" : "Easy";
+  if (ql === 2) return rowIndex === 3 ? "Medium" : "Easy";
+  if ([3, 4].includes(ql)) return "Easy";
+  if (ql === 5) return rowIndex < 2 ? "Easy" : "Medium";
+  if (ql === 6) return rowIndex < 2 ? "Medium" : "Hard";
+  if (ql === 7) return rowIndex < 2 ? "Easy" : "Medium";
+  if (ql === 8) return rowIndex === 0 ? "Easy" : "Medium";
+  if (ql === 9) return rowIndex === 0 ? "Easy" : "Medium";
+  if (ql === 10) return "Medium";
+  if (ql === 11) return rowIndex === 0 ? "Medium" : "Hard";
   return "Hard";
 };
 
@@ -158,7 +166,7 @@ function conceptById(id: string) {
 function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp001ReviewQuestion {
   const qlId = `ECO-001-QL-${String(ql).padStart(3, "0")}`;
   const correctTarget = globalIndex % 4;
-  const difficulty = difficultyForQl(ql);
+  const difficulty = difficultyForVariant(ql, rowIndex);
   let stem = "";
   let correct = "";
   let options: string[] = [];
