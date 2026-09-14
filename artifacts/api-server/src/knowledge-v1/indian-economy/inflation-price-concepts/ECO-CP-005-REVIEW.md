@@ -1,5 +1,5 @@
 # ECO-CP-005 — Inflation & Price Concepts
-## Human Review Set V1
+## Human Review Set V2 — Improved Explanations
 
 **Status:** REVIEW ONLY — not runtime registered  
 **Difficulty:** assigned per question variant
@@ -16,7 +16,7 @@ D. Stagnation
 
 **Answer:** B. Inflation
 
-**Explanation:** Inflation means a sustained rise in the general price level.
+**Explanation:** Inflation is a sustained rise in the general price level. It refers to prices rising broadly in the economy, not just the price of one item.
 
 ---
 
@@ -30,7 +30,7 @@ D. Reflation
 
 **Answer:** C. Deflation
 
-**Explanation:** Deflation means the general price level keeps falling.
+**Explanation:** Deflation means the general price level keeps falling. It is the opposite of inflation, where the overall price level rises.
 
 ---
 
@@ -44,7 +44,7 @@ D. Revaluation
 
 **Answer:** B. Disinflation
 
-**Explanation:** Inflation has slowed but remains positive.
+**Explanation:** The inflation rate has fallen from 8% to 5%, so inflation has slowed. Prices are still rising because the inflation rate remains positive.
 
 ---
 
@@ -58,7 +58,7 @@ D. Disinflation
 
 **Answer:** B. Demand-pull inflation
 
-**Explanation:** Excess demand puts upward pressure on prices.
+**Explanation:** Demand is increasing faster than available output. Buyers compete for limited goods and services, which puts upward pressure on prices.
 
 ---
 
@@ -72,7 +72,7 @@ D. Falling purchasing power because of deflation
 
 **Answer:** A. Demand-pull inflation
 
-**Explanation:** Spending is rising faster than available output.
+**Explanation:** With little spare capacity, production cannot rise quickly. Extra spending therefore increases demand faster than supply and pushes prices upward.
 
 ---
 
@@ -86,7 +86,7 @@ D. Disinflation
 
 **Answer:** B. Cost-push inflation
 
-**Explanation:** Higher input costs can push selling prices up.
+**Explanation:** Fuel and transport are important production costs for many firms. When these costs rise, firms may increase selling prices to cover the higher cost.
 
 ---
 
@@ -100,7 +100,7 @@ D. Base effect
 
 **Answer:** B. Cost-push inflation
 
-**Explanation:** The price pressure comes from higher production costs.
+**Explanation:** Demand has not increased, so excess demand is not the cause. The supply disruption raises production costs, which can push final prices upward.
 
 ---
 
@@ -114,7 +114,7 @@ D. Double
 
 **Answer:** B. Fall
 
-**Explanation:** The same money now buys fewer goods and services.
+**Explanation:** Purchasing power means how much a given amount of money can buy. If prices rise while income stays unchanged, the same money buys fewer goods and services.
 
 ---
 
@@ -128,7 +128,7 @@ D. Become zero
 
 **Answer:** B. Fall
 
-**Explanation:** Income is rising more slowly than prices.
+**Explanation:** Income has increased, but prices have increased by more. Because income has not kept pace with the price rise, real purchasing power falls.
 
 ---
 
@@ -142,7 +142,7 @@ D. Deflation occurs
 
 **Answer:** A. Purchasing power falls
 
-**Explanation:** A fixed money income buys less when prices rise.
+**Explanation:** The pension amount remains unchanged while goods and services become more expensive. The pensioner can therefore buy less with the same income.
 
 ---
 
@@ -156,7 +156,7 @@ D. Neither
 
 **Answer:** B. The borrower
 
-**Explanation:** The borrower repays in money with lower purchasing power.
+**Explanation:** The borrower repays the same fixed number of rupees, but those rupees now have lower purchasing power. This reduces the real burden of repayment.
 
 ---
 
@@ -170,7 +170,7 @@ D. Inflation cannot affect fixed repayments in real terms
 
 **Answer:** B. The borrower gains and the lender loses in real terms
 
-**Explanation:** Unexpected inflation lowers the real value of fixed nominal repayments.
+**Explanation:** Unexpected inflation lowers the purchasing power of the fixed repayments. The borrower repays a smaller real value, while the lender receives a smaller real return.
 
 ---
 
@@ -184,7 +184,7 @@ D. IIP
 
 **Answer:** A. CPI
 
-**Explanation:** CPI tracks prices of goods and services bought by households for consumption.
+**Explanation:** CPI tracks the prices of goods and services bought by households for consumption. It is therefore mainly a consumer-level price measure.
 
 ---
 
@@ -198,7 +198,7 @@ D. IIP
 
 **Answer:** B. WPI
 
-**Explanation:** WPI measures price movement at the wholesale level.
+**Explanation:** WPI measures price movement mainly at the wholesale level. This differs from CPI, which focuses on prices faced by households.
 
 ---
 
@@ -212,7 +212,7 @@ D. Core CPI only
 
 **Answer:** C. GDP deflator
 
-**Explanation:** The GDP deflator reflects prices of output covered by GDP.
+**Explanation:** The GDP deflator reflects price changes in domestically produced final goods and services included in GDP. Its coverage is not limited to a household consumption basket.
 
 ---
 
@@ -226,7 +226,7 @@ D. GDP deflator measures only imported consumer goods.
 
 **Answer:** A. CPI focuses on household consumption, WPI on wholesale prices, and the GDP deflator on output covered by GDP.
 
-**Explanation:** The three measures differ mainly in their coverage.
+**Explanation:** The three measures differ mainly in their coverage. CPI focuses on household consumption, WPI on wholesale prices, and the GDP deflator on final output included in GDP.
 
 ---
 
@@ -240,7 +240,7 @@ D. WPI inflation
 
 **Answer:** B. Core inflation
 
-**Explanation:** A common core measure excludes food and fuel.
+**Explanation:** A common core-inflation measure excludes food and fuel because their prices can be highly volatile. This helps show more persistent underlying price pressure.
 
 ---
 
@@ -254,7 +254,7 @@ D. GDP growth
 
 **Answer:** A. Headline inflation
 
-**Explanation:** Headline inflation includes food, while this core measure does not.
+**Explanation:** Headline inflation includes food prices, so the food-price rise directly affects it. A core measure that excludes food and fuel removes that direct effect.
 
 ---
 
@@ -268,7 +268,7 @@ D. 16%
 
 **Answer:** B. 8%
 
-**Explanation:** (108 - 100) / 100 × 100 = 8%.
+**Explanation:** The index has risen by 8 points from a base of 100. Therefore, (108 - 100) / 100 × 100 = 8%.
 
 ---
 
@@ -282,7 +282,7 @@ D. 142
 
 **Answer:** B. 162
 
-**Explanation:** 8% of 150 is 12, so the new index is 162.
+**Explanation:** An 8% rise on 150 is 12. Adding this increase to the original index gives 150 + 12 = 162.
 
 ---
 
@@ -296,7 +296,7 @@ D. Deflation — slower positive inflation
 
 **Answer:** C. Core inflation — commonly excludes food and fuel
 
-**Explanation:** Excluding food and fuel is a common core-inflation measure.
+**Explanation:** Core inflation is commonly measured after excluding volatile items such as food and fuel. Deflation, in contrast, means the general price level is falling.
 
 ---
 
@@ -315,7 +315,7 @@ D. Neither I nor II
 
 **Answer:** C. Both I and II
 
-**Explanation:** Both statements are correct.
+**Explanation:** Statement I is correct because money buys less when prices rise faster than income. Statement II is also correct because deflation means a sustained fall in the general price level.
 
 ---
 
@@ -334,7 +334,7 @@ D. Neither I nor II
 
 **Answer:** A. I only
 
-**Explanation:** During disinflation, prices can still be rising, but at a slower rate.
+**Explanation:** Statement I is correct because disinflation means a lower inflation rate. Statement II is false because prices can still be rising, only at a slower rate.
 
 ---
 
@@ -348,15 +348,15 @@ D. Purchasing power
 
 **Answer:** B. Base effect
 
-**Explanation:** The comparison-period price level can affect the measured inflation rate.
+**Explanation:** Inflation compares the current price level with an earlier one. If the earlier base is unusually low, the measured percentage increase can appear unusually high.
 
 ---
 
 ## Review focus
 
 Please check:
+- whether the explanations now give enough reasoning without becoming long;
 - whether Easy/Medium/Hard labels match the reasoning required;
-- whether stems and explanations are simple enough;
 - whether borrower/lender questions are clear rather than overly theoretical;
-- whether CPI/WPI/GDP-deflator distractors are close but unambiguous;
-- whether any question feels more like a textbook definition than a real exam item.
+- whether CPI/WPI/GDP-deflator distinctions are easy to learn from the explanation;
+- whether any explanation still only repeats the answer instead of teaching the deciding rule.
