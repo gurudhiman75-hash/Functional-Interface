@@ -109,6 +109,21 @@ jobs:
           --outfile=dist/reasoning-v1/cae-001/cae-001-reviewed-final-qa.mjs
       - name: Run reviewed final QA
         run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-reviewed-final-qa.mjs
+      - name: Bundle semantic saturation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/semantic-saturation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/semantic-saturation-audit.mjs
+      - name: Run 45k-question semantic saturation audit
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/cae-001/semantic-saturation-audit.mjs
+      - name: Upload semantic saturation audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: cae-001-semantic-saturation-audit
+          path: artifacts/api-server/dist/reasoning-v1/cae-001/CAE-001-SEMANTIC-SATURATION-AUDIT.md
+          if-no-files-found: error
       - name: Create review export entrypoint
         shell: bash
         run: |
