@@ -10,7 +10,7 @@ import { SCI_PHYSICS_EXPLANATION_QUALITY_V2 } from "./sci-physics-explanation-qu
 const bannedEnglishWords = /\b(which|what|the|is|are|distance|displacement|speed|velocity|acceleration|force|mass|momentum|friction|pressure|work|energy|temperature|statement|correct|incorrect)\b/i;
 const deprecatedPunjabiAcceleration = /ਤ੍ਵਰਨ/u;
 const massAsWeightMisuse = /ਸਥਿਰ ਭਾਰ|ਭਾਰ ਅਤੇ ਵੇਗ|ਭਾਰ ਅਤੇ ਪ੍ਰਵੇਗ|ਪ੍ਰਤੀ ਇਕਾਈ ਭਾਰ|ਘਣਤਾ = ਭਾਰ\/|ਕੇਵਲ ਭਾਰ ਤੇ|ਭਾਰ ਬਦਲਦਾ|ਭਾਰ ਵਾਲੀ ਵਸਤੂ|ਭਾਰ ਘਟਾਉਂਦੀ ਹੈ|ਕੁੱਲ ਬਲ ਉਸ ਦੇ ਭਾਰ ਦੇ ਬਰਾਬਰ/u;
-const hindiCalquePunjabi = /ਆਵ੍ਰਿਤੀ|ਅਲਪਤਮ ਅੰਕ|ਯਾਦ੍ਰਿਚਛਿਕ|ਪ੍ਰਣਾਲੀਗਤ ਗਲਤੀ|ਪ੍ਰਣਾਲੀਬੱਧ ਗਲਤੀ|ਆਯਾਮੀ ਸੂਤਰ|ਵਿਉਤਪੰਨ ਇਕਾਈ|ਉਤਪੰਨ ਇਕਾਈ|ਊਸ਼ਮਾਗਤਿਕ|ਤਾਪਗਤਿਕ|ਅਭਿਕੇਂਦਰੀ ਬਲ|ਕੇਂਦਰਾਭਿਮੁਖ|ਪ੍ਰਤਿਕਸ਼ੇਪ|ਸੀਮਾਂਤ|ਪਰਿਪਥ|ਵਿਦਿਉਤ|ਪਰਿਸ਼ੁੱਧਤਾ|ਯਥਾਰਥਤਾ|ਵਿਗਿਆਨਕ ਸੰਕੇਤਨ|ਸਾਪੇਖ ਘਣਤਾ|ਸਦਿਸ਼|ਅਦਿਸ਼|ਆਵੇਗ|ਪਰਸਪਰ|ਪ੍ਰਵਿਰਤੀ|ਵਿਸ਼ਰਾਮ|ਬੀਜਗਣਿਤੀ|ਅਣੂਈ|ਸੰਰਕਸ਼ਣ|ਸਪਰਸ਼ ਰੇਖਾ|ਸਮਾਨ ਸਰਕੁਲਰ ਗਤੀ|ਰੇਖੀ ਸੰਵੇਗ/u;
+const hindiCalquePunjabi = /ਆਵ੍ਰਿਤੀ|ਅਲਪਤਮ ਅੰਕ|ਯਾਦ੍ਰਿਚਛਿਕ|ਪ੍ਰਣਾਲੀਗਤ ਗਲਤੀ|ਪ੍ਰਣਾਲੀਬੱਧ ਗਲਤੀ|ਆਯਾਮੀ ਸੂਤਰ|ਵਿਉਤਪੰਨ ਇਕਾਈ|ਉਤਪੰਨ ਇਕਾਈ|ਊਸ਼ਮਾਗਤਿਕ|ਤਾਪਗਤਿਕ|ਅਭਿਕੇਂਦਰੀ ਬਲ|ਕੇਂਦਰਾਭਿਮੁਖ|ਪ੍ਰਤਿਕਸ਼ੇਪ|ਸੀਮਾਂਤ|ਪਰਿਪਥ|ਵਿਦਿਉਤ|ਪਰਿਸ਼ੁੱਧਤਾ|ਯਥਾਰਥਤਾ|ਵਿਗਿਆਨਕ ਸੰਕੇਤਨ|ਸਾਪੇਖ ਘਣਤਾ|ਸਦਿਸ਼|ਅਦਿਸ਼|ਆਵੇਗ|ਪਰਸਪਰ|ਪ੍ਰਵਿਰਤੀ|ਵਿਸ਼ਰਾਮ|ਬੀਜਗਣਿਤੀ|ਅਣੂਈ|ਸੰਰਕਸ਼ਣ|ਸਪਰਸ਼ ਰੇਖਾ|ਸਮਾਨ ਸਰਕੁਲਰ ਗਤੀ|ਰੇਖੀ ਸੰਵੇਗ|ਆਵੇਸ਼|ਪ੍ਰਵਾਹ|ਅਵਸਥਾ/u;
 const hindiShapedExamPunjabi = /ਕਥਨ|ਕੇਵਲ|ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ/u;
 const punjabiGrammarArtifacts = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਵਰਤੁਲ|ਚਿਕਨਾਹਟ|ਕ੍ਰਿਆ ਅਤੇ ਪ੍ਰਤੀਕ੍ਰਿਆ/u;
 
@@ -71,6 +71,11 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
       assert.match(corpus, /ਸਿਰਫ਼/u, `${cpId}/pa: natural Punjabi restrictive term ਸਿਰਫ਼ missing`);
       assert.match(corpus, /ਲੀਸਟ ਕਾਊਂਟ|ਫ੍ਰਿਕਵੈਂਸੀ|ਡਾਇਮੈਂਸ਼ਨਲ ਫਾਰਮੂਲਾ|ਸਾਇੰਟਿਫਿਕ ਨੋਟੇਸ਼ਨ|ਇੰਪਲਸ/u, `${cpId}/pa: expected natural technical register missing`);
     }
+    if (locale === "pa" && cpId === "SCI-CP-001") {
+      const corpus = questions.map((q) => `${q.stem} ${q.options.join(" ")} ${q.explanation}`).join("\n");
+      assert.match(corpus, /ਬਿਜਲੀ ਚਾਰਜ/u, `${cpId}/pa: natural electric-charge term missing`);
+      assert.match(corpus, /ਵਹਾਅ/u, `${cpId}/pa: natural flow wording missing`);
+    }
     if (locale === "pa" && cpId === "SCI-CP-002") {
       const corpus = questions.map((q) => `${q.stem} ${q.options.join(" ")} ${q.explanation}`).join("\n");
       assert.match(corpus, /ਪੁੰਜ/u, `${cpId}/pa: Punjabi mass term ਪੁੰਜ missing`);
@@ -78,6 +83,7 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
       assert.match(corpus, /ਭਾਰ-ਬਲ/u, `${cpId}/pa: genuine weight terminology should remain distinct`);
       assert.match(corpus, /ਸੈਂਟ੍ਰਿਪੀਟਲ ਬਲ/u, `${cpId}/pa: natural centripetal-force term missing`);
       assert.match(corpus, /ਇਕਸਾਰ ਗੋਲ ਗਤੀ/u, `${cpId}/pa: natural circular-motion wording missing`);
+      assert.match(corpus, /ਮੌਜੂਦਾ ਹਾਲਤ/u, `${cpId}/pa: natural state wording missing`);
     }
   }
 }
