@@ -12,6 +12,7 @@ import { generateCp006BridgeDistanceQuestion } from "./cp006-bridge-distance.ts"
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateReviewedCp007SaturationCommonFactorQuestion } from "./cp007-saturation-adapter.ts";
 import { generateReviewedCp007FalseCausationQuestion } from "./cp007-reviewed-visible-evidence.ts";
+import { generateCp007ExpandedFalseCausationQuestion } from "./cp007-expanded-false-causation.ts";
 import { generateReviewedCp007Wave4ParallelQuestion } from "./cp007-wave4-parallel-adapter.ts";
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
 import { generateCp008SaturationQuestion } from "./cp008-saturation-adapter.ts";
@@ -86,6 +87,7 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     if (seed % 8 === 0) return generateReviewedCp007SaturationCommonFactorQuestion({ locale: input.locale, seed: input.seed });
     if (seed % 8 === 4) return generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed });
     if (seed % 8 === 2 || seed % 8 === 6) return generateReviewedCp007Wave4ParallelQuestion({ locale: input.locale, seed: input.seed });
+    if (seed % 8 === 3 || seed % 8 === 7) return generateCp007ExpandedFalseCausationQuestion({ locale: input.locale, seed: input.seed });
     return generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) return seed % 8 === 7 ? generateCp008SaturationQuestion({ locale: input.locale, seed: input.seed }) : generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
