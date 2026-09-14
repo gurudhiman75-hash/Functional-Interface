@@ -66,7 +66,7 @@ function reviewedCp009Specialized(input: Readonly<{ locale: CaeLocale; seed: num
 export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionInput): GeneratedCaeQuestion {
   const defaultFourWay = input.questionProfile === undefined || input.questionProfile === "FOUR_WAY";
   const seed = input.seed >>> 0;
-  if (input.qlId === "CAE-QL-001" && defaultFourWay) return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
+  if (input.qlId === "CAE-QL-001") return generateReviewedCp001Question({ locale: input.locale, seed: input.seed, questionProfile: input.questionProfile });
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) return reviewedSaturationQuestion(input, true);
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 3 === 0) {
     return seed % 6 === 0
@@ -96,6 +96,6 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     if (seed % 8 === 6) return generateCp009SaturationQuestion({ locale: input.locale, seed: input.seed });
     return reviewedCp009Specialized({ locale: input.locale, seed: input.seed });
   }
-  const graphNativeSaturationEligible = input.qlId === "CAE-QL-001" || input.qlId === "CAE-QL-002";
+  const graphNativeSaturationEligible = input.qlId === "CAE-QL-002";
   return graphNativeSaturationEligible ? saturatedBase(input) : generateCaeQuestion(input);
 }
