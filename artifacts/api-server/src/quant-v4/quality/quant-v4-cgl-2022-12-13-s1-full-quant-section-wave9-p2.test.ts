@@ -69,32 +69,31 @@ assert.deepEqual(sectionPackageCounts, {
 });
 assert.equal(Object.values(sectionPackageCounts).reduce((sum, count) => sum + count, 0), 25);
 
-// Representative source-math proofs across the section.
-assert.equal(4, 4); // Q52: 2×CSA=volume => 4πrh=πr²h => r=4.
-assert.equal(Math.round(((8_400 * 0.75 * 0.85 - 4_000) / 4_000) * 100), 34); // Q54.
-assert.equal(330 / (2 * (22 / 7)) - 110 / (2 * (22 / 7)), 35); // Q55.
-assert.equal((5_000 * (7 - 5)) / (5 * 5 - 7 * 3), 2_500); // Q58 salary base x.
-assert.ok(Math.abs(1 / (5 / (6 * 29) + 1 / 29) - 174 / 11) < 1e-12); // Q61 combined time.
-assert.equal(((-1) ** 12 - 1), 0); // Q62 remainder at m=-1.
-assert.equal(15 / 10, 3 / 2); // Q66 ratio of percentage decreases.
-assert.equal((30_000 * 5 * 3 / 100) / 18_000, 0.25); // Q67.
-assert.equal(9 * 14 * 19, 2_394); // Q68 LCM.
-assert.equal(6 * 32 / 12, 16); // Q70 similar-triangle scale.
-assert.ok(Math.abs((120 / 360) * Math.PI * 6 ** 2 - 12 * Math.PI) < 1e-12); // Q72.
-const x = 3 + 2 * Math.sqrt(2); // one positive root satisfying x+1/x=6.
-assert.ok(Math.abs((3 * x) / (2 * x ** 2 - 5 * x + 2) - 3 / 7) < 1e-12); // Q73.
+assert.equal(4, 4);
+assert.equal(Math.round(((8_400 * 0.75 * 0.85 - 4_000) / 4_000) * 100), 34);
+assert.equal(330 / (2 * (22 / 7)) - 110 / (2 * (22 / 7)), 35);
+assert.equal((5_000 * (7 - 5)) / (5 * 5 - 7 * 3), 2_500);
+assert.ok(Math.abs(1 / (5 / (6 * 29) + 1 / 29) - 174 / 11) < 1e-12);
+assert.equal(((-1) ** 12 - 1), 0);
+assert.equal(15 / 10, 3 / 2);
+assert.equal((30_000 * 5 * 3 / 100) / 18_000, 0.25);
+assert.equal(9 * 14 * 19, 2_394);
+assert.equal(6 * 32 / 12, 16);
+assert.ok(Math.abs((120 / 360) * Math.PI * 6 ** 2 - 12 * Math.PI) < 1e-12);
+const x = 3 + 2 * Math.sqrt(2);
+assert.ok(Math.abs((3 * x) / (2 * x ** 2 - 5 * x + 2) - 3 / 7) < 1e-12);
 const runningAverageBase = 50;
 const runningAverages = [0, 1, 2, 3, 4].map((index) => runningAverageBase + 2 * index);
 const runningTotals = runningAverages.map((average, index) => average * (index + 1));
 const members = runningTotals.map((total, index) => total - (index ? runningTotals[index - 1]! : 0));
-assert.equal(members[4]! - members[0]!, 16); // Q74.
+assert.equal(members[4]! - members[0]!, 16);
 const chairCost = (540 - 0.08 * 3_900) / 0.08;
 const tableCost = 3_900 - chairCost;
-assert.equal(Math.abs(chairCost - tableCost), 1_800); // Q75.
+assert.equal(Math.abs(chairCost - tableCost), 1_800);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 283);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 307);
 const cgl = listRegisteredCountablePyqObservations({ examIds: ["SSC_CGL_TIER_I"] });
-assert.equal(cgl.length, 250);
+assert.equal(cgl.length, 274);
 assert.equal(cgl.filter((entry) => entry.paperId === PAPER_ID).length, 25);
 
 const whole = buildQuantV4WholeSectionFrequencyProfile({
@@ -103,11 +102,11 @@ const whole = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 9);
-assert.equal(whole.totalCountableQuestionCount, 250);
-assert.equal(whole.completeSectionCount, 9);
-assert.equal(whole.completeQuestionCount, 225);
-assert.equal(whole.nonWholeSectionCountableQuestionCount, 25);
+assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 10);
+assert.equal(whole.totalCountableQuestionCount, 274);
+assert.equal(whole.completeSectionCount, 10);
+assert.equal(whole.completeQuestionCount, 250);
+assert.equal(whole.nonWholeSectionCountableQuestionCount, 24);
 assert.equal(whole.packageCoverageCount, 28);
 assert.equal(whole.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
 assert.deepEqual([...whole.blockers], []);
@@ -121,9 +120,9 @@ const stability = buildQuantV4WholeSectionFrequencyStabilityProfile({
   wholeSectionPolicy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
   stabilityPolicy: QUANT_V4_CGL_TIER_I_STABILITY_P2_AUDIT_POLICY,
 });
-assert.equal(stability.completeSectionCount, 9);
-assert.equal(stability.completeQuestionCount, 225);
-assert.equal(stability.balancedYearCount, 2);
+assert.equal(stability.completeSectionCount, 10);
+assert.equal(stability.completeQuestionCount, 250);
+assert.equal(stability.balancedYearCount, 3);
 assert.equal(stability.status, "STABILITY_HOLD");
 const year2022 = stability.yearProfiles.find((year) => year.year === "2022");
 assert.equal(year2022?.sectionCount, 2);
