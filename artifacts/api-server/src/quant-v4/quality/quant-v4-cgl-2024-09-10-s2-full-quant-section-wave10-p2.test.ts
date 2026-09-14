@@ -96,7 +96,7 @@ assert.equal((3 * tan - 2) / (3 * tan + 2), 5 / 13); // Q60.
 assert.equal((5 / 4) * (25 / 9) / ((5 / 3) ** 3), 3 / 4); // Q61.
 assert.ok(Math.abs((Math.PI * 4 ** 2 * 3) / 3 - 16 * Math.PI) < 1e-12); // Q62.
 assert.equal(7 ** 2 - 2, 47); // Q63.
-assert.equal(100 * (1 - 0.6 * 0.7), 58); // Q64.
+assert.ok(Math.abs(100 * (1 - 0.6 * 0.7) - 58) < 1e-12); // Q64.
 assert.equal((1.5 ** 2 - 1) * 100, 125); // Q65.
 assert.equal(45 + 65, 110); // Q66 exterior angle.
 assert.ok(Math.abs((200 - 100) / 0.3 - 1000 / 3) < 1e-12); // Q67.
