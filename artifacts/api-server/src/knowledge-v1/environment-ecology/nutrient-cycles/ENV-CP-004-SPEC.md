@@ -2,8 +2,9 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-004 Nutrient Cycles  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Approved review version:** V1  
+**Runtime registration:** eligible for shared Environment package binding  
 
 ## Scope
 
@@ -34,7 +35,7 @@ Deferred:
 5. Water-cycle questions use standard processes such as evaporation, condensation, precipitation and transpiration.
 6. Carbon/oxygen questions stay at school-level ecology depth.
 7. No numerical flux values or obscure microbial species are required.
-8. All questions remain `runtimeRegistered: false` until approval.
+8. V1 is the approved learner-facing wording baseline.
 
 ## QL inventory
 
@@ -53,8 +54,9 @@ Deferred:
 | ENV-004-QL-011 | Statement evaluation | Hard |
 | ENV-004-QL-012 | Applied cycle analysis | Hard |
 
-## Review gate
+## Approved review gate
 
+The approved V1 surface satisfies:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
@@ -63,7 +65,9 @@ Deferred:
 - source IDs and source-fact IDs retained;
 - concise stems and explanations;
 - no `associated with` filler;
-- runtime blocked until project-owner approval.
+- project-owner approval on 2026-09-14.
+
+Review-only generators may remain `runtimeRegistered: false`; production/package binding is handled separately from review rendering.
 
 ## Source policy
 
