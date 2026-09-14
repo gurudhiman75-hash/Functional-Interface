@@ -34,18 +34,28 @@ jobs:
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/science/sci-physics-localization-v1.test.mjs
           node artifacts/api-server/dist/science/sci-physics-localization-v1.test.mjs
-      - name: Materialize multilingual review
+      - name: Materialize multilingual reviews
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/knowledge-v1/science/physics-localization-v1/sci-physics-localization-export-v1.ts \
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/science/sci-physics-localization-export-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/science/physics-localization-v1/sci-physics-localization-export-cp003-cp004-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/science/sci-physics-localization-export-cp003-cp004-v1.mjs
           cd artifacts/api-server
           node dist/science/sci-physics-localization-export-v1.mjs
+          node dist/science/sci-physics-localization-export-cp003-cp004-v1.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: SCI-PHYSICS-MULTILINGUAL-V1-CP001-CP002
-          path: artifacts/api-server/dist/science-review/SCI-PHYSICS-MULTILINGUAL-V1/
+          path: artifacts/api-server/dist/science-review/SCI-PHYSICS-MULTILINGUAL-V1/SCI-PHYSICS-MULTILINGUAL-V1-CP001-CP002-REVIEW.md
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SCI-PHYSICS-MULTILINGUAL-V1-CP003-CP004
+          path: artifacts/api-server/dist/science-review/SCI-PHYSICS-MULTILINGUAL-V1/SCI-PHYSICS-MULTILINGUAL-V1-CP003-CP004-REVIEW.md
           if-no-files-found: error
       - name: Build API server
         run: pnpm --dir artifacts/api-server build

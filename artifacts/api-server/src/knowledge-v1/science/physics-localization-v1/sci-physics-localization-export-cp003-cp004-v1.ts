@@ -1,16 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
-import {
-  generatePhysicsLocalizedBalancedReviewV1,
-  SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES,
-} from "./sci-physics-localization-generator-v1";
+import { generatePhysicsLocalizedBalancedReviewV1, SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES } from "./sci-physics-localization-generator-v1";
 
 const labels = { en: "English", hi: "Hindi", pa: "Punjabi" } as const;
-const cps = ["SCI-CP-001", "SCI-CP-002"] as const;
+const cps = ["SCI-CP-003", "SCI-CP-004"] as const;
 const out: string[] = [
-  "# SCI Physics Multilingual V1 — CP001–CP002 Review",
+  "# SCI Physics Multilingual V1 — CP003–CP004 Review",
   "",
-  "Review-only candidate. English is the semantic authority; Hindi and Punjabi must preserve the same answer index and facts.",
+  "Review-only candidate. English remains the semantic authority; Hindi and Punjabi preserve answer index, facts, difficulty and provenance.",
+  "",
+  "Punjabi uses standard Punjabi-medium competitive-exam terminology; established Punjabi scientific terms are not replaced merely because Hindi has cognates.",
   "",
 ];
 for (const cpId of cps) {
@@ -28,6 +27,6 @@ for (const cpId of cps) {
 }
 const targetDir = path.resolve("dist/science-review/SCI-PHYSICS-MULTILINGUAL-V1");
 fs.mkdirSync(targetDir, { recursive: true });
-const target = path.join(targetDir, "SCI-PHYSICS-MULTILINGUAL-V1-CP001-CP002-REVIEW.md");
+const target = path.join(targetDir, "SCI-PHYSICS-MULTILINGUAL-V1-CP003-CP004-REVIEW.md");
 fs.writeFileSync(target, out.join("\n"));
 console.log(target);
