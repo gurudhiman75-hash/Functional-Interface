@@ -96,23 +96,23 @@ assert.ok(!priorPackages.has("RAP-001"));
 assert.ok(!priorPackages.has("RAP-003"));
 assert.ok(!priorPackages.has("DI-003"));
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 233);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 30);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 24);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 12);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 24);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 13);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 258);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 34);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 25);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 14);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 27);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 15);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "SAP" }).length, 5);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "RAP-001" }).length, 4);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "RAP-003" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-003" }).length, 4);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-003" }).length, 5);
 
 const numCgl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
-assert.equal(numCgl.normalizedCountableObservationCount, 18);
+assert.equal(numCgl.normalizedCountableObservationCount, 19);
 assert.equal(numCgl.profileSelectionCalibrated, false);
 assert.equal(numCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 const tmwCgl = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(tmwCgl.normalizedCountableObservationCount, 19);
+assert.equal(tmwCgl.normalizedCountableObservationCount, 22);
 assert.equal(tmwCgl.profileSelectionCalibrated, false);
 assert.equal(tmwCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 
@@ -121,8 +121,8 @@ const cgl = buildQuantV4PyqFrequencyProfile({
   observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
   policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
 });
-assert.equal(cgl.countableQuestionCount, 200);
-assert.equal(cgl.distinctPaperCount, 23);
+assert.equal(cgl.countableQuestionCount, 225);
+assert.equal(cgl.distinctPaperCount, 24);
 assert.equal(cgl.topicCoverageCount, 13);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.deepEqual([...cgl.blockers], ["DATED_PAPER_IDENTITY_INCOMPLETE"]);
