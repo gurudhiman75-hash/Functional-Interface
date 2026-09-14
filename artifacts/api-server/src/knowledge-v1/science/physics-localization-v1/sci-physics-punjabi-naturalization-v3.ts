@@ -44,6 +44,12 @@ const GLOBAL_PATCHES: readonly Patch[] = Object.freeze([
   { from: "ਉਸ ਤੇ", to: "ਉਸ ਉੱਤੇ" },
   { from: "ਵਸਤੂ ਤੇ", to: "ਵਸਤੂ ਉੱਤੇ" },
   { from: "ਚਾਲ ਤੇ", to: "ਚਾਲ ਉੱਤੇ" },
+  { from: "ਕੇਂਦਰਾਭਿਮੁਖ ਬਲ", to: "ਸੈਂਟ੍ਰਿਪੀਟਲ ਬਲ" },
+  { from: "ਸਪਰਸ਼ ਰੇਖਾ ਦੀ ਦਿਸ਼ਾ", to: "ਟੈਂਜੈਂਟ ਦੀ ਦਿਸ਼ਾ" },
+  { from: "ਸਮਾਨ ਸਰਕੁਲਰ ਗਤੀ", to: "ਇਕਸਾਰ ਗੋਲ ਗਤੀ" },
+  { from: "ਰੇਖੀ ਸੰਵੇਗ", to: "ਸੰਵੇਗ" },
+  { from: "ਪ੍ਰਤੀ ਇਕਾਈ ਸਮੇਂ", to: "ਇੱਕ ਇਕਾਈ ਸਮੇਂ ਵਿੱਚ" },
+  { from: "ਸਮਾਨ ਵੇਗ", to: "ਇਕਸਾਰ ਵੇਗ" },
 ]);
 
 const PATCHES_BY_ANCHOR: Readonly<Record<string, readonly Patch[]>> = Object.freeze({
@@ -87,6 +93,7 @@ const PATCHES_BY_ANCHOR: Readonly<Record<string, readonly Patch[]>> = Object.fre
   "SCI-CP002-EXH-A09": [
     { from: "ਵਿਸ਼ਰਾਮ ਵਿੱਚ ਰਹਿੰਦੀ ਹੈ", to: "ਟਿਕੀ ਹੋਈ ਹਾਲਤ ਵਿੱਚ ਰਹਿੰਦੀ ਹੈ" },
     { from: "ਵਿਰੋਧ ਕਰਨ ਦੀ ਰੁਝਾਨ", to: "ਵਿਰੋਧ ਕਰਨ ਦਾ ਰੁਝਾਨ" },
+    { from: "ਨਿਊਟਨ ਦਾ ਪਹਿਲਾ ਨਿਯਮ ਕਿਹੜੀ ਧਾਰਨਾ ਨਾਲ ਸਭ ਤੋਂ ਵੱਧ ਸੰਬੰਧਿਤ ਹੈ?", to: "ਨਿਊਟਨ ਦਾ ਪਹਿਲਾ ਨਿਯਮ ਕਿਹੜੀ ਧਾਰਨਾ ਨਾਲ ਜੁੜਿਆ ਹੈ?" },
   ],
   "SCI-CP002-EXH-A11": [
     { from: "ਪਰਸਪਰ ਕਿਰਿਆ ਕਰਨ ਵਾਲੀਆਂ ਦੋ ਵਸਤੂਆਂ", to: "ਇੱਕ-ਦੂਜੇ ਨਾਲ ਕਿਰਿਆ ਕਰਨ ਵਾਲੀਆਂ ਦੋ ਵਸਤੂਆਂ" },
