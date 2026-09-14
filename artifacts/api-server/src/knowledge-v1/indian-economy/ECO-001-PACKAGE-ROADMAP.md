@@ -12,7 +12,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 6. `ECO-CP-006` Employment, Unemployment & Poverty — ENGLISH APPROVED V1 / FROZEN
 7. `ECO-CP-007` Money & Monetary System — ENGLISH APPROVED V1 / FROZEN
 8. `ECO-CP-008` Reserve Bank of India — ENGLISH APPROVED V1 / FROZEN
-9. `ECO-CP-009` Monetary Policy — REVIEW CANDIDATE V1
+9. `ECO-CP-009` Monetary Policy — ENGLISH APPROVED V1 / FROZEN
 10. `ECO-CP-010` Banking System
 11. `ECO-CP-011` Financial Institutions
 12. `ECO-CP-012` Public Finance & Fiscal Policy
