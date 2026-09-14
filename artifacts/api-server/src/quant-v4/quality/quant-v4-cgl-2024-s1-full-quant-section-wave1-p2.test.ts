@@ -62,13 +62,13 @@ assert.equal((9 / 16) * (16 / 9) * (25 / 9), 25 / 9);
 assert.equal(1 * 1 - 11 * 1 + 10, 0);
 assert.equal(10 * 10 - 11 * 10 + 10, 0);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 26);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 233);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 30);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 12);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 10);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 24);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 21);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 12);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 24);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 13);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 9);
 
@@ -81,7 +81,7 @@ assert.equal(numCgl.normalizedCountableObservationCount, 18);
 assert.equal(numCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 assert.ok(numCgl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 const tmwCgl = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(tmwCgl.normalizedCountableObservationCount, 16);
+assert.equal(tmwCgl.normalizedCountableObservationCount, 19);
 assert.equal(tmwCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 assert.ok(!tmwCgl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 
@@ -90,8 +90,8 @@ const cgl = buildQuantV4PyqFrequencyProfile({
   observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
   policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
 });
-assert.equal(cgl.countableQuestionCount, 175);
-assert.equal(cgl.distinctPaperCount, 22);
+assert.equal(cgl.countableQuestionCount, 200);
+assert.equal(cgl.distinctPaperCount, 23);
 assert.equal(cgl.topicCoverageCount, 13);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.deepEqual([...cgl.blockers], ["DATED_PAPER_IDENTITY_INCOMPLETE"]);

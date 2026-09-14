@@ -10,10 +10,10 @@ import {
   listRegisteredCountablePyqObservations,
 } from "./quant-v4-pyq-observation-registry-p2";
 import {
-  QUANT_V4_CGL_2023_07_25_S1_FULL_QUANT_SECTION_WAVE6_AUTHORITY,
-  QUANT_V4_CGL_2023_07_25_S1_FULL_QUANT_SECTION_WAVE6_COUNTABLE_PYQ_OBSERVATIONS,
-  QUANT_V4_CGL_2023_07_25_S1_FULL_QUANT_SECTION_WAVE6_SOURCE_LIMITATIONS,
-} from "./quant-v4-pyq-observations-cgl-2023-07-25-s1-full-quant-section-wave6-p2";
+  QUANT_V4_CGL_2023_07_25_S3_FULL_QUANT_SECTION_WAVE7_AUTHORITY,
+  QUANT_V4_CGL_2023_07_25_S3_FULL_QUANT_SECTION_WAVE7_COUNTABLE_PYQ_OBSERVATIONS,
+  QUANT_V4_CGL_2023_07_25_S3_FULL_QUANT_SECTION_WAVE7_SOURCE_LIMITATIONS,
+} from "./quant-v4-pyq-observations-cgl-2023-07-25-s3-full-quant-section-wave7-p2";
 import {
   QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
@@ -21,12 +21,12 @@ import {
   canPromoteWholeSectionFrequencyWeights,
 } from "./quant-v4-whole-section-frequency-calibration-p2";
 
-const observations = QUANT_V4_CGL_2023_07_25_S1_FULL_QUANT_SECTION_WAVE6_COUNTABLE_PYQ_OBSERVATIONS;
-const paperId = "SSC-CGL-2023-TIER-I-2023-07-25-S1";
+const observations = QUANT_V4_CGL_2023_07_25_S3_FULL_QUANT_SECTION_WAVE7_COUNTABLE_PYQ_OBSERVATIONS;
+const paperId = "SSC-CGL-2023-TIER-I-2023-07-25-S3";
 
 assert.equal(
-  QUANT_V4_CGL_2023_07_25_S1_FULL_QUANT_SECTION_WAVE6_AUTHORITY,
-  "QUANT-V4-CGL-2023-07-25-S1-FULL-QUANT-SECTION-WAVE6-P2",
+  QUANT_V4_CGL_2023_07_25_S3_FULL_QUANT_SECTION_WAVE7_AUTHORITY,
+  "QUANT-V4-CGL-2023-07-25-S3-FULL-QUANT-SECTION-WAVE7-P2",
 );
 assert.equal(observations.length, 25);
 validatePyqObservationSet(observations);
@@ -34,10 +34,10 @@ assert.ok(observations.every((entry) => entry.examId === "SSC_CGL_TIER_I"));
 assert.ok(observations.every((entry) => entry.evidenceKind === "VERIFIED_PYQ_COLLECTION"));
 assert.ok(observations.every((entry) => entry.paperId === paperId));
 assert.ok(observations.every((entry) => entry.heldDate === "2023-07-25"));
-assert.ok(observations.every((entry) => entry.shift === "Shift 1"));
+assert.ok(observations.every((entry) => entry.shift === "Shift 3"));
 assert.ok(observations.every((entry) => entry.packageId && entry.packageId !== "UNMAPPED_PACKAGE"));
-assert.equal(QUANT_V4_CGL_2023_07_25_S1_FULL_QUANT_SECTION_WAVE6_SOURCE_LIMITATIONS.wholeSectionNormalized, true);
-assert.equal(QUANT_V4_CGL_2023_07_25_S1_FULL_QUANT_SECTION_WAVE6_SOURCE_LIMITATIONS.productionPromotionAuthorized, false);
+assert.equal(QUANT_V4_CGL_2023_07_25_S3_FULL_QUANT_SECTION_WAVE7_SOURCE_LIMITATIONS.wholeSectionNormalized, true);
+assert.equal(QUANT_V4_CGL_2023_07_25_S3_FULL_QUANT_SECTION_WAVE7_SOURCE_LIMITATIONS.productionPromotionAuthorized, false);
 
 const paperRows = QUANT_V4_REGISTERED_PYQ_OBSERVATIONS
   .filter((entry) => entry.paperId === paperId)
@@ -49,18 +49,31 @@ assert.deepEqual(
 );
 assert.equal(new Set(paperRows.map((entry) => `${entry.paperId}:${entry.questionRef}`)).size, 25);
 
+// Guard the ownership corrections that distinguish a live package from a merely adjacent topic label.
+const packageByQuestion = Object.fromEntries(observations.map((entry) => [entry.questionRef?.match(/Q(\d+)$/u)?.[1], entry.packageId]));
+assert.equal(packageByQuestion["52"], "ALG-001"); // factorisation, not rational-equation solving.
+assert.equal(packageByQuestion["59"], "PCT-005"); // successive percentage change.
+assert.equal(packageByQuestion["61"], "SAP"); // BODMAS simplification, not Number System.
+assert.equal(packageByQuestion["65"], "TSD-002"); // boats and streams.
+assert.equal(packageByQuestion["69"], "TSD-002"); // boats and streams.
+assert.equal(packageByQuestion["71"], "PCT-005"); // equal rise/fall is successive change.
+
 // Representative source-math checks across the section.
-assert.equal(13_500 / 0.25, 54_000); // Q51 principal.
-assert.equal(54_000 * 0.125 * 6, 40_500); // Q51 SI.
-assert.equal(20 * 67 - 19 * 65, 105); // Q53 target innings.
-assert.equal(12 ** 3 - 6 ** 3 - 8 ** 3, 10 ** 3); // Q54 recast cube.
-assert.equal((8 ** 8 + 6) % 7, 0); // Q59 remainder.
-assert.equal(39 * 6, 234); // Q61 divisor.
-assert.equal(234 * 18 + 39, 4_251); // Q61 dividend.
-assert.equal(29 ** 2 - (25 - 4) ** 2, 20 ** 2); // Q64 direct tangent.
-assert.equal(400 * 60, 12 * (18 - 16) * 1000); // Q67 catch time = 12 minutes, exact integer identity.
-assert.equal(150 ** 2 + 80 ** 2, 170 ** 2); // Q72 diagonal.
-assert.equal(2 * (150 + 80), 460); // Q72 perimeter.
+assert.equal(Math.sqrt(12 ** 2 - 4 * 32), 4); // Q51 |a-b|.
+assert.equal(4 * (12 ** 2 - 32), 448); // Q51 positive difference of cubes.
+assert.equal(220 * 100 / 11, 2_000); // Q55 bill from an 11 percentage-point discount-method difference.
+assert.equal(52 ** 2 - 2, 2_702); // Q56 reciprocal sixth power.
+assert.equal(500 * 9 * 12 / 100, 540); // Q59 successive percentage reverse check.
+assert.equal(0.5 * 8 * 12, 48); // Q58 sector area from radius and arc length.
+assert.equal(22 * 35 ** 2 * 12 / 7, 46_200); // Q60 cylinder volume.
+assert.equal(32 * 13 / 8, 52); // Q62 fourth proportional.
+assert.equal((-1) ** 17 + 1, 0); // Q64 remainder theorem.
+assert.equal((10 + 7) / (10 - 7), 17 / 3); // Q65 boat:current ratio.
+assert.equal((35 * 2 + 38 + 51 * 2) / 5, 42); // Q66 weighted mixture.
+assert.ok(Math.abs((9 ** 2 - (6 - 3) ** 2) - (6 * Math.sqrt(2)) ** 2) < 1e-12); // Q67 common tangent.
+assert.ok(Math.abs((20.8 - 15.2) / 2 - 2.8) < 1e-12); // Q69 current speed.
+assert.ok(Math.abs(1.3 * 0.7 - 0.91) < 1e-12); // Q71 equal rise/fall leaves 91%.
+assert.ok(Math.abs((1 / 3.5 - 1 / 14) - 3 / 14) < 1e-12); // Q73 second worker rate.
 
 assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 233);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 30);
@@ -70,8 +83,9 @@ assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).le
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 12);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 24);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 13);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 6);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-001" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-004" }).length, 1);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-005" }).length, 2);
 
 const cgl = buildQuantV4PyqFrequencyProfile({
   examId: "SSC_CGL_TIER_I",
@@ -108,8 +122,8 @@ assert.equal(whole.productionPromotionAuthorized, false);
 assert.equal(canPromoteWholeSectionFrequencyWeights(whole), false);
 
 console.log(JSON.stringify({
-  status: "PASS_QUANT_V4_CGL_2023_07_25_S1_FULL_QUANT_SECTION_WAVE6_P2",
-  authority: QUANT_V4_CGL_2023_07_25_S1_FULL_QUANT_SECTION_WAVE6_AUTHORITY,
+  status: "PASS_QUANT_V4_CGL_2023_07_25_S3_FULL_QUANT_SECTION_WAVE7_P2",
+  authority: QUANT_V4_CGL_2023_07_25_S3_FULL_QUANT_SECTION_WAVE7_AUTHORITY,
   newObservations: observations.length,
   registryObservations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length,
   cglCountableQuestions: cgl.countableQuestionCount,
