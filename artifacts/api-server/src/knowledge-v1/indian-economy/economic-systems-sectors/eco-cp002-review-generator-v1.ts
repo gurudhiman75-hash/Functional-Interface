@@ -26,9 +26,14 @@ const qlNames: Record<number, string> = {
   10: "Distinguish nearby classification concepts",
 };
 
-const difficultyForQl = (ql: number): KnowledgeV1Difficulty => {
-  if ([1, 2, 3, 4].includes(ql)) return "Easy";
-  if ([5, 6, 7, 8].includes(ql)) return "Medium";
+const difficultyForVariant = (ql: number, rowIndex: number): KnowledgeV1Difficulty => {
+  if ([1, 2, 4].includes(ql)) return "Easy";
+  if (ql === 3) return rowIndex < 4 ? "Easy" : "Medium";
+  if (ql === 5) return rowIndex < 2 ? "Easy" : "Medium";
+  if (ql === 6) return rowIndex < 2 ? "Medium" : "Hard";
+  if (ql === 7) return "Medium";
+  if (ql === 8) return rowIndex < 2 ? "Medium" : "Hard";
+  if (ql === 9) return rowIndex < 2 ? "Medium" : "Hard";
   return "Hard";
 };
 
@@ -97,7 +102,7 @@ const distinctionRows = Object.freeze([
 function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp002ReviewQuestion {
   const qlId = `ECO-002-QL-${String(ql).padStart(3, "0")}`;
   const correctTarget = globalIndex % 4;
-  const difficulty = difficultyForQl(ql);
+  const difficulty = difficultyForVariant(ql, rowIndex);
   let stem = "";
   let correct = "";
   let options: string[] = [];
