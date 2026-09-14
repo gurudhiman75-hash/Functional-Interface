@@ -21,12 +21,13 @@ assert(WFM_SOURCE_WORDS.length >= 18, "WFM direct source pool must remain broad.
 assert.equal(new Set(WFM_SOURCE_WORDS).size, WFM_SOURCE_WORDS.length);
 assert.equal(WFM_001_QL_IDS.length, 4);
 assert.equal(WFM_SELECTED_LETTER_FIXTURES.length >= 12, true);
-assert.equal(WFM_REARRANGEMENT_FIXTURES.length >= 12, true);
+assert.equal(WFM_REARRANGEMENT_FIXTURES.length >= 15, true);
 
 for (const difficulty of DIFFICULTIES) {
   assert(WFM_SELECTED_LETTER_FIXTURES.some((fixture) => selectedFixtureDifficulty(fixture) === difficulty), `Selected-letter authority misses ${difficulty}.`);
   assert(WFM_REARRANGEMENT_FIXTURES.some((fixture) => rearrangementFixtureDifficulty(fixture) === difficulty), `Rearrangement authority misses ${difficulty}.`);
 }
+assert(WFM_REARRANGEMENT_FIXTURES.filter((fixture) => rearrangementFixtureDifficulty(fixture) === "EASY").length >= 4, "Easy rearrangement authority is too narrow.");
 assert(WFM_REARRANGEMENT_FIXTURES.some((fixture) => fixture.mode === "JUMBLED_WORD"));
 assert(WFM_REARRANGEMENT_FIXTURES.some((fixture) => fixture.mode === "NUMBERED_SEQUENCE"));
 
@@ -73,6 +74,9 @@ for (const qlId of WFM_001_QL_IDS) {
   const answerPositions = [0, 0, 0, 0];
   const visible = new Set<string>();
   const sources = new Set<string>();
+  const sourcesByDifficulty: Record<WfmDifficulty, Set<string>> = {
+    EASY: new Set(), MEDIUM: new Set(), HARD: new Set(),
+  };
   const renderers = new Set<string>();
   const reachedDifficulties = new Set<WfmDifficulty>();
   let generated = 0;
@@ -100,18 +104,26 @@ for (const qlId of WFM_001_QL_IDS) {
       if (qlId === "WFM-QL-001" || qlId === "WFM-QL-002") {
         assert(question.sourceWord);
         sources.add(question.sourceWord!);
-        const lengths = question.options.map((option) => option.text.length);
-        assert(Math.max(...lengths) - Math.min(...lengths) <= 4, `${qlId}/${seed} exposes an excessive option-length cue.`);
+        sourcesByDifficulty[difficulty].add(question.sourceWord!);
+        const correctLength = question.options[solved].text.length;
+        assert(
+          question.options.every((option) => Math.abs(option.text.length - correctLength) <= 2),
+          `${qlId}/${seed} exposes an option-length cue beyond the ±2 policy.`,
+        );
       }
       if (qlId === "WFM-QL-003") {
         const prompt = question.structuredPrompt as { positions: readonly number[]; selectedLetters: string; acceptedCommonWords: readonly string[] };
         assert.equal(prompt.positions.length, prompt.selectedLetters.length);
         assert.equal(prompt.acceptedCommonWords.length, Number(question.options[solved].text));
-        sources.add(`${question.sourceWord}:${prompt.positions.join("-")}`);
+        const sourceKey = `${question.sourceWord}:${prompt.positions.join("-")}`;
+        sources.add(sourceKey);
+        sourcesByDifficulty[difficulty].add(sourceKey);
+        if (difficulty === "HARD") assert(prompt.selectedLetters.length >= 4, `${qlId}/${seed} hard selected-count item is too shallow.`);
       }
       if (qlId === "WFM-QL-004") {
         const prompt = question.structuredPrompt as { mode: string; targetWord: string };
         sources.add(prompt.targetWord);
+        sourcesByDifficulty[difficulty].add(prompt.targetWord);
         renderers.add(question.renderer);
       }
 
@@ -126,23 +138,39 @@ for (const qlId of WFM_001_QL_IDS) {
   assert.deepEqual([...reachedDifficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
   assert(answerPositions.every((count) => count >= 25), `${qlId} answer positions are too skewed: ${answerPositions.join("/")}.`);
   assert(visible.size >= generated * 0.65, `${qlId} visible diversity is too low: ${visible.size}/${generated}.`);
-  if (qlId === "WFM-QL-001" || qlId === "WFM-QL-002") assert(sources.size >= 12, `${qlId} direct source diversity is too low.`);
-  if (qlId === "WFM-QL-003") assert(sources.size >= 8, `${qlId} selected-position fixture diversity is too low.`);
+  if (qlId === "WFM-QL-001" || qlId === "WFM-QL-002") {
+    assert(sources.size >= 12, `${qlId} direct source diversity is too low.`);
+    for (const difficulty of DIFFICULTIES) assert(sourcesByDifficulty[difficulty].size >= 12, `${qlId}/${difficulty} source diversity is too low.`);
+  }
+  if (qlId === "WFM-QL-003") {
+    assert(sources.size >= 8, `${qlId} selected-position fixture diversity is too low.`);
+    assert(sourcesByDifficulty.EASY.size >= 3, `${qlId}/EASY fixture diversity is too low.`);
+    assert(sourcesByDifficulty.MEDIUM.size >= 3, `${qlId}/MEDIUM fixture diversity is too low.`);
+    assert(sourcesByDifficulty.HARD.size >= 3, `${qlId}/HARD fixture diversity is too low.`);
+  }
   if (qlId === "WFM-QL-004") {
-    assert(sources.size >= 6, `${qlId} rearrangement target diversity is too low.`);
+    assert(sources.size >= 9, `${qlId} rearrangement target diversity is too low.`);
+    assert(sourcesByDifficulty.EASY.size >= 4, `${qlId}/EASY target diversity is too low.`);
+    assert(sourcesByDifficulty.MEDIUM.size >= 4, `${qlId}/MEDIUM target diversity is too low.`);
+    assert(sourcesByDifficulty.HARD.size >= 3, `${qlId}/HARD target diversity is too low.`);
     assert(renderers.has("JUMBLED_WORD") && renderers.has("NUMBERED_SEQUENCE"), "WFM-QL-004 must exercise both source-backed renderers.");
   }
 
-  summary[qlId] = { generated, answerPositions, visible: visible.size, sources: sources.size, renderers: [...renderers].sort() };
+  summary[qlId] = {
+    generated,
+    answerPositions,
+    visible: visible.size,
+    sources: sources.size,
+    sourcesByDifficulty: Object.fromEntries(DIFFICULTIES.map((difficulty) => [difficulty, sourcesByDifficulty[difficulty].size])),
+    renderers: [...renderers].sort(),
+  };
 }
 
-// Validate selected-position authority itself, not only rendered questions.
 for (const fixture of WFM_SELECTED_LETTER_FIXTURES) {
   const letters = selectedFixtureLetters(fixture);
   for (const word of fixture.acceptedWords) assert(independentAnagram(letters, word), `${fixture.sourceWord}/${word} is not a true selected-letter anagram.`);
 }
 
-// Native shells must preserve Latin evidence while avoiding English instructional leakage.
 for (const qlId of WFM_001_QL_IDS) {
   for (const language of ["hi-IN", "pa-IN"] as const) {
     for (const difficulty of DIFFICULTIES) {
@@ -150,8 +178,13 @@ for (const qlId of WFM_001_QL_IDS) {
       const learnerText = `${question.stem} ${question.explanation}`;
       assert(learnerText.length > 80);
       assert(!/\b(?:which|using|meaningful|letters|needed|available|correct answer|common trap|rearrange|sequence)\b/iu.test(learnerText), `${qlId}/${language}/${difficulty} leaks English instructional prose.`);
-      if (language === "hi-IN") assert(/[\u0900-\u097F]/u.test(learnerText));
-      else assert(/[\u0A00-\u0A7F]/u.test(learnerText));
+      if (language === "hi-IN") {
+        assert(/[\u0900-\u097F]/u.test(learnerText));
+        if (qlId === "WFM-QL-003") assert(!/\d+वें/u.test(question.stem), `${qlId}/${language}/${difficulty} uses mechanical numeric ordinals.`);
+      } else {
+        assert(/[\u0A00-\u0A7F]/u.test(learnerText));
+        if (qlId === "WFM-QL-003") assert(!/\d+ਵੇਂ/u.test(question.stem), `${qlId}/${language}/${difficulty} uses mechanical numeric ordinals.`);
+      }
     }
   }
 }
