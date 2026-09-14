@@ -18,7 +18,7 @@ export function toAlpLearnerExplanation(explanation: AlpExplanation): AlpLearner
   };
 }
 
-export function toAlpReviewQuestion(question: GeneratedAlpQuestion) {
+export function toAlpReviewQuestion<T extends GeneratedAlpQuestion>(question: T): Omit<T, "explanation"> & { readonly explanation: AlpLearnerExplanation } {
   return {
     ...question,
     explanation: toAlpLearnerExplanation(question.explanation),
