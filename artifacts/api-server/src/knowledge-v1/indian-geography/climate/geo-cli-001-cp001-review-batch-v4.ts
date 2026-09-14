@@ -39,7 +39,7 @@ const STEM_PATCHES: Readonly<Record<string, string>> = Object.freeze({
   "GEO-CLI-001-CP001-Q032": "A warm ocean current near a coast is most likely to have which effect?",
   "GEO-CLI-001-CP001-Q033": "A cold ocean current near a coast is most likely to have which effect?",
   "GEO-CLI-001-CP001-Q034": "The influence of an ocean current on nearby land is strongest under which condition?",
-  "GEO-CLI-001-CP001-Q035": "Which of the following pairs is correctly matched?",
+  "GEO-CLI-001-CP001-Q035": "Which pair correctly matches an ocean current with its likely coastal effect?",
   "GEO-CLI-001-CP001-Q036": "Consider these statements:\nI. Warm and cold ocean currents can affect nearby coastal temperatures.\nII. Onshore winds can carry this influence toward land.\nWhich statement(s) are correct?",
   "GEO-CLI-001-CP001-Q037": "Air generally moves from which pressure condition to which?",
   "GEO-CLI-001-CP001-Q038": "Why can seasonal pressure changes alter the prevailing wind direction over India?",
