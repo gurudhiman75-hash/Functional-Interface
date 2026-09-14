@@ -12,7 +12,7 @@ const NOTES: Record<string, string> = {
   "POL-007-QL-008": "Article 59 keeps the presidential office separate from Parliament, State Legislatures and other offices of profit. A legislative seat is vacated when the person enters office as President.",
   "POL-007-QL-009": "Article 60 places the oath before the Chief Justice of India, or the senior-most available Supreme Court judge if the Chief Justice is unavailable. The oath includes preserving, protecting and defending the Constitution.",
   "POL-007-QL-010": "Article 61 allows impeachment only for violation of the Constitution. Either House may start the charge and the other House investigates it; there is no joint sitting.",
-  "POL-007-QL-011": "Impeachment requires at least 14 days' notice, signatures of at least one-fourth of the initiating House, and at least two-thirds of its total membership at the required stages.",
+  "POL-007-QL-011": "Impeachment requires at least 14 days' notice, signatures of at least one-fourth of the initiating House, and at least two-thirds of total membership at the required stages.",
   "POL-007-QL-012": "Article 62 requires a casual presidential vacancy to be filled within six months. The newly elected President receives a fresh five-year term, not merely the previous term's remainder.",
   "POL-007-QL-013": "Article 71 gives the Supreme Court final authority over President and Vice-President election disputes. A vacancy in the electoral college alone does not invalidate the election.",
   "POL-007-QL-014": "Article 72 covers Court Martial sentences, offences within Union executive power and every death-sentence case. These are the key constitutional categories for presidential clemency.",
@@ -32,6 +32,11 @@ function questionSpecificNote(q: PolCp007ReviewQuestion) {
       ? "A President cannot simultaneously remain a State MLA; the legislative seat is vacated on entering the presidential office."
       : "A President cannot hold another office of profit during the term because Article 59 keeps the office constitutionally separate.";
   }
+  if (q.qlId === "POL-007-QL-011" && q.canonicalAnswer.includes("two-thirds of its total membership")) {
+    return q.stem.includes("initiating House")
+      ? "The House that starts impeachment must pass the charge by at least two-thirds of its total membership; this is not merely two-thirds of members present and voting."
+      : "After investigation, the other House must also sustain the charge by at least two-thirds of its total membership for the President to be removed.";
+  }
   if (q.qlId === "POL-007-QL-021") {
     if (q.stem.includes("elected indirectly")) return "All three statements are correct: the election is indirect, the normal term is five years and re-election is allowed.";
     if (q.stem.includes("Only elected MPs")) return "All three statements are correct: only elected MPs vote from Parliament, nominated MPs do not vote and State Legislative Council members do not vote.";
@@ -41,8 +46,7 @@ function questionSpecificNote(q: PolCp007ReviewQuestion) {
 }
 
 function explain(q: PolCp007ReviewQuestion) {
-  const note = questionSpecificNote(q);
-  return `Correct answer: ${q.canonicalAnswer}. ${note}`;
+  return `Correct answer: ${q.canonicalAnswer}. ${questionSpecificNote(q)}`;
 }
 
 export function generatePolCp007ReviewBatchV3() {
