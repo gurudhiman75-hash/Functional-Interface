@@ -7,13 +7,13 @@ Permanent QLs: `PGK-001-QL-021` to `PGK-001-QL-027`
 
 ## Scope
 
-CP004 builds the river and doab relation layer of Punjab GK. It covers the five-river name set, the rivers flowing through present-day Punjab, the Ravi-Beas-Sutlej relation, Harike confluence, Ghaggar as a seasonal river, doab meaning and high-value river-bounded regional relations.
+CP004 builds the river and doab relation layer of Punjab GK. It covers the five-river name set, the rivers flowing through present-day Punjab, the Ravi-Beas-Sutlej relation, Harike confluence, Ghaggar as a seasonal river, doab meaning and the standard named doabs of the Punjab plains.
 
 Dams, barrages, canals and irrigation projects belong primarily to CP005. CP004 may mention Harike only as a river-confluence fact; barrage/project depth is deferred.
 
 ## Learner-facing rules
 
-- Do not cite source names, websites, departments, master plans or reports in stems or explanations.
+- Do not cite source names, websites, departments, textbooks, master plans or reports in stems or explanations.
 - Use Majha, Doaba and Malwa only when regional context is needed.
 - Keep explanations natural: decisive fact first, then one useful relation.
 - Do not use Puadh.
@@ -22,26 +22,29 @@ Dams, barrages, canals and irrigation projects belong primarily to CP005. CP004 
 ## Qualified coverage
 
 - Historical five-river set: Sutlej, Beas, Ravi, Chenab and Jhelum.
-- Present-day Punjab: Sutlej, Beas and Ravi flow through the state.
-- Ravi, Beas and Sutlej are the three eastern rivers associated with Indian Punjab.
+- Of that traditional set, Sutlej, Beas and Ravi flow through present-day Indian Punjab.
+- Ravi, Beas and Sutlej form the three eastern rivers.
 - Beas joins Sutlej at Harike.
 - Ghaggar is a seasonal river in Punjab and becomes much fuller during the rainy season.
 - `Doab` means land between two rivers.
-- Doaba/Jalandhar Doab is the tract associated with the Beas-Sutlej river pair.
-- Bari Doab is associated with the Ravi-Beas river pair.
+- Bist Doab: Sutlej-Beas.
+- Bari Doab: Beas-Ravi.
+- Rachna Doab: Ravi-Chenab.
+- Chaj Doab: Chenab-Jhelum.
+- Sind Sagar Doab: Jhelum-Indus side of the Punjab plains.
 - Region-place relations are used only where already accepted in CP003.
 
 ## QL design
 
 | QL | Focus | Difficulty |
 | --- | --- | --- |
-| PGK-001-QL-021 | Five rivers and present-day river set | Easy / Medium |
+| PGK-001-QL-021 | Five rivers and present-day distinction | Easy / Medium |
 | PGK-001-QL-022 | Ravi, Beas and Sutlej relations | Easy / Medium |
-| PGK-001-QL-023 | Harike and river-confluence relations | Medium |
+| PGK-001-QL-023 | Harike river confluence | Easy / Medium |
 | PGK-001-QL-024 | Ghaggar and seasonal drainage | Easy / Medium |
-| PGK-001-QL-025 | Meaning and structure of doabs | Easy / Medium |
-| PGK-001-QL-026 | Doaba/Bari Doab river-pair relations | Medium / Hard |
-| PGK-001-QL-027 | Multi-statement river-doab synthesis | Hard |
+| PGK-001-QL-025 | Doab meaning and structure | Easy / Medium |
+| PGK-001-QL-026 | Named doabs and river pairs | Medium / Hard |
+| PGK-001-QL-027 | River-doab synthesis | Hard |
 
 Each QL exposes six semantic payloads, for 42 review questions total.
 
@@ -55,7 +58,7 @@ Explanations should normally be 1–2 short sentences. They should clarify a riv
 
 ## Source authority
 
-Primary verification is kept internally against Government of Punjab, Punjab Water Resources/official planning documents and BBMB material. Source labels are never learner-facing.
+Primary verification is kept internally against Government of Punjab, BBMB, official Punjab planning/water-resource material and Punjab School Education Board geography material. Source labels are never learner-facing.
 
 ## Lifecycle
 
