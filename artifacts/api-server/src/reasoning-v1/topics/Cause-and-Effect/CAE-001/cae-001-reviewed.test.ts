@@ -8,6 +8,7 @@
 import "./cae-001-source-profiles.test.ts";
 import "./ql001-structural-completeness.test.ts";
 import "./ql002-structural-completeness.test.ts";
+import "./ql003-structural-coverage.test.ts";
 import "./ql004-structural-coverage.test.ts";
 import "./ql006-authority-coverage.test.ts";
 import "./ql007-authority-coverage.test.ts";
