@@ -100,7 +100,7 @@ export function generateCp006BridgeDistanceQuestion(input: Readonly<{ locale: Ca
 
     const chosenDistractors = shuffled(siblingCandidates, selectionSeed ^ 0xd157).slice(0, 3);
     const rendered: readonly CaeRenderedOption[] = shuffled([
-      { id: `CORRECT:${correctNode.semanticSlot}`, text: correctNode.text[input.locale], isCorrect: true },
+      { id: mode, text: correctNode.text[input.locale], isCorrect: true },
       ...chosenDistractors.map((node, index) => ({
         id: `SAME_FAMILY_BRIDGE_${index + 1}`,
         text: node.text[input.locale],
