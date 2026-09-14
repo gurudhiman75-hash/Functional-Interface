@@ -64,25 +64,23 @@ assert.deepEqual(sectionPackageCounts, {
 });
 assert.equal(Object.values(sectionPackageCounts).reduce((sum, count) => sum + count, 0), 25);
 
-// Representative source-math checks across the section.
-// Q51: 11/16 syrup remains after replacing 7/55 of the mixture; prove the resulting 3/5 ratio exactly.
 assert.equal(11 * (55 - 7) * 5, 3 * 16 * 55);
-assert.equal(12 * 9 / 4, 27); // Q53 triangle similarity.
-assert.equal(66, 64 + 2); // Q54 reciprocal-square identity.
-assert.equal(20 / 2, 10); // Q60 catch time basis in tenths of an hour.
-assert.equal(15 * 420 - 16 * (14 * 15 / 2), 11 * 420); // Q61 workforce attrition.
-assert.equal((22 / 7) * 21 * 60, 3960); // Q64 cone CSA.
-assert.equal(1755 / 39 * (8 - 28 / 4) - 2, 43); // Q65 simplification.
-assert.equal(2 - 0.5, 1.5); // Q67 exact trig.
-assert.ok(Math.abs((88 / (82 / 1.3) - 1) * 100 - 39.512195121951216) < 1e-12); // Q69.
-assert.equal(Math.min(0.12 * 625, 0.15 * 555, 0.10 * 720, 0.09 * 845), 72); // Q70.
-assert.equal(21 / 125 * 100, 16.8); // Q71.
-assert.equal(0.175 * 880 * 1.25, 192.5); // Q73.
-assert.equal(200 / 16, 12.5); // Q75.
+assert.equal(12 * 9 / 4, 27);
+assert.equal(66, 64 + 2);
+assert.equal(20 / 2, 10);
+assert.equal(15 * 420 - 16 * (14 * 15 / 2), 11 * 420);
+assert.equal((22 / 7) * 21 * 60, 3960);
+assert.equal(1755 / 39 * (8 - 28 / 4) - 2, 43);
+assert.equal(2 - 0.5, 1.5);
+assert.ok(Math.abs((88 / (82 / 1.3) - 1) * 100 - 39.512195121951216) < 1e-12);
+assert.equal(Math.min(0.12 * 625, 0.15 * 555, 0.10 * 720, 0.09 * 845), 72);
+assert.equal(21 / 125 * 100, 16.8);
+assert.equal(0.175 * 880 * 1.25, 192.5);
+assert.equal(200 / 16, 12.5);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 233);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 258);
 const cgl = listRegisteredCountablePyqObservations({ examIds: ["SSC_CGL_TIER_I"] });
-assert.equal(cgl.length, 200);
+assert.equal(cgl.length, 225);
 assert.equal(cgl.filter((entry) => entry.paperId === "SSC-CGL-2023-TIER-I-2023-07-26-S1").length, 25);
 
 const whole = buildQuantV4WholeSectionFrequencyProfile({
@@ -91,22 +89,22 @@ const whole = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 7);
-assert.equal(whole.totalCountableQuestionCount, 200);
-assert.equal(whole.completeSectionCount, 7);
-assert.equal(whole.completeQuestionCount, 175);
+assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 8);
+assert.equal(whole.totalCountableQuestionCount, 225);
+assert.equal(whole.completeSectionCount, 8);
+assert.equal(whole.completeQuestionCount, 200);
 assert.equal(whole.nonWholeSectionCountableQuestionCount, 25);
 assert.equal(whole.undatedCountableQuestionCount, 10);
 assert.equal(whole.distinctSectionYearCount, 3);
-assert.equal(whole.packageCoverageCount, 26);
-assert.equal(whole.evidenceStatus, "SECTION_EVIDENCE_ACCUMULATING");
-assert.deepEqual([...whole.blockers], ["COMPLETE_SECTION_SAMPLE_BELOW_POLICY"]);
+assert.equal(whole.packageCoverageCount, 27);
+assert.equal(whole.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
+assert.deepEqual([...whole.blockers], []);
 assert.equal(whole.productionPromotionAuthorized, false);
 assert.equal(canPromoteWholeSectionFrequencyWeights(whole), false);
 assert.ok(whole.sectionSnapshots.every((section) => section.complete));
 
 const malCgl = getQuantV4SpecializedProfileSelectionContract("MAL-001", "SSC_CGL_TIER_I");
-assert.equal(malCgl.normalizedCountableObservationCount, 2);
+assert.equal(malCgl.normalizedCountableObservationCount, 3);
 assert.equal(malCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 assert.equal(malCgl.profileSelectionCalibrated, false);
 assert.ok(!malCgl.blockers.includes("NO_NORMALIZED_COUNTABLE_PYQ_EVIDENCE"));
@@ -114,8 +112,8 @@ assert.ok(!malCgl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 
 const numCgl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
 const tmwCgl = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(numCgl.normalizedCountableObservationCount, 18);
-assert.equal(tmwCgl.normalizedCountableObservationCount, 19);
+assert.equal(numCgl.normalizedCountableObservationCount, 19);
+assert.equal(tmwCgl.normalizedCountableObservationCount, 22);
 assert.equal(numCgl.profileSelectionCalibrated, false);
 assert.equal(tmwCgl.profileSelectionCalibrated, false);
 
@@ -128,6 +126,7 @@ console.log(JSON.stringify({
   completeSections: whole.completeSectionCount,
   completeSectionQuestions: whole.completeQuestionCount,
   packageCoverage: whole.packageCoverageCount,
+  evidenceStatus: whole.evidenceStatus,
   blockers: whole.blockers,
   empiricalWeightingPromoted: false,
 }));
