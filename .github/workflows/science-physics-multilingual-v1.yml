@@ -6,7 +6,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/knowledge-v1/science/physics-localization-v1/**"
-      - ".github/workflows/science-physics-multilingual-v1.yml"
   workflow_dispatch:
 
 permissions:
