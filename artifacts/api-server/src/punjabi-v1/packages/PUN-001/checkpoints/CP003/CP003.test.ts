@@ -81,6 +81,7 @@ for (const family of CP003_FAMILIES) {
       assert(!/[A-Za-z]/.test(q.stem), `${q.id}: English leakage in stem`);
       assert(!/[A-Za-z]/.test(q.explanation), `${q.id}: English leakage in explanation`);
       assert(!q.explanation.includes("ਬਾਕੀ ਵਿਕਲਪ"), `${q.id}: option-analysis filler leaked`);
+      assert(!q.explanation.includes("ਬਾਕੀ ਤਿੰਨੇ"), `${q.id}: option-by-option explanation analysis leaked`);
       assert(!q.stem.includes("ਟਕਸਾਲੀ"), `${q.id}: unnecessary formal wording`);
       assert(!q.stem.includes("ਪ੍ਰਮਾਣਿਤ"), `${q.id}: unnecessary formal wording`);
       assert(!/^FINGERPRINT-/.test(q.metadata.fingerprint), `${q.id}: seed-only fingerprint leaked`);
