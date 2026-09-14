@@ -1,6 +1,6 @@
 # POL-CP-008 — Vice-President
 
-**Lifecycle:** REVIEW CANDIDATE — PLAIN EXPLANATIONS V5  
+**Lifecycle:** REVIEW CANDIDATE — BALANCED EXPLANATIONS V6  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -23,26 +23,24 @@ This CP covers Articles 63–71 with emphasis on Vice-President-specific exam tr
 - 17 genuine QLs
 - 60 English review questions
 - 20 Easy / 31 Medium / 9 Hard
-- V5 generator is canonical for English review
+- V6 generator is canonical for English review
 - simplified exam-style stems from V2
 - ordinary direct stems capped at 28 words
 - four unique options
 
 ## Language standard
 
-Keep required exam terms such as electoral college, Rajya Sabha and removal resolution, but use simple words around them.
+Keep required terms such as electoral college, Rajya Sabha and removal resolution, but use simple English around them. Avoid both legal-heavy wording and overly short note-like explanations.
 
 ## Explanation standard
 
-Use the shortest wording that still teaches the answer. Most explanations should be one sentence. Add another sentence only for a real President/Vice-President trap.
+Use a balanced teaching style. Explain the answer directly and give enough context to understand the rule. Use a second short sentence only when a President/Vice-President distinction or another exam trap genuinely helps.
 
 Mechanical gates:
 - every explanation in the 60-question review must be unique;
-- normal target length: 4–18 words;
+- normal explanation range: 11–24 words;
 - no stock prefix or generic closing sentence;
-- avoid formal wording when a simpler word works;
-- blocked clutter includes `Correct answer`, `exact subject`, `nearby Articles`, `Match the topic`, `Remember the word`, `constitutionally vested`, and `to the extent granted`;
-- repeated answers such as `No` still get question-specific wording;
+- repeated answers such as `No` must still receive question-specific reasoning;
 - no unnecessary option-by-option analysis.
 
 ## High-yield distinctions
@@ -57,4 +55,4 @@ Mechanical gates:
 
 ## Gate
 
-Question Studio exposure, localization and production registration remain blocked until English V5 is approved.
+Question Studio exposure, localization and production registration remain blocked until English V6 is approved.
