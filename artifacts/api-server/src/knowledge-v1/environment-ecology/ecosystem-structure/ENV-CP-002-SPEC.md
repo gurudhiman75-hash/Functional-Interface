@@ -34,8 +34,9 @@ Explicitly deferred:
 5. Detritivores ingest and fragment detritus; microbial decomposers chemically break down dead organic matter.
 6. Abiotic factors remain non-living physical or chemical components.
 7. Review distractors stay inside the same conceptual neighbourhood and avoid obvious joke options where possible.
-8. No question depends on mutable counts, notifications or current conservation status.
-9. All review questions remain `runtimeRegistered: false` until human approval.
+8. Standard instruction stems may repeat, but the underlying tested relation must not be duplicated.
+9. No question depends on mutable counts, notifications or current conservation status.
+10. All review questions remain `runtimeRegistered: false` until human approval.
 
 ## QL inventory
 
@@ -64,7 +65,8 @@ Before approval:
 - four unique options per question;
 - canonical answer must equal the option at `correctIndex`;
 - source IDs and source-fact IDs required;
-- no duplicate question stems;
+- no duplicate semantic question signatures;
+- repeated standard instruction stems are allowed when the tested answer/relation differs;
 - no `associated with` filler;
 - no option-by-option explanation clutter;
 - human review confirms exam realism, factual accuracy and wording quality.
