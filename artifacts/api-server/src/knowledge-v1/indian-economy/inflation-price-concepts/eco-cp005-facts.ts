@@ -111,19 +111,19 @@ export const ECO_CP005_DEMAND_SCENARIOS_V1 = Object.freeze([
     id: "demand-1",
     stem: "Household and business spending rises strongly while output cannot increase quickly.",
     answer: "Demand-pull inflation",
-    explanation: "Demand rises faster than available output, putting upward pressure on prices.",
+    explanation: "Demand is rising faster than available output. Buyers compete for limited output, so prices tend to rise.",
   },
   {
     id: "demand-2",
     stem: "Total demand rises sharply in an economy already operating near full capacity.",
     answer: "Demand-pull inflation",
-    explanation: "Strong demand with limited spare capacity can push the general price level up.",
+    explanation: "Near full capacity, production cannot expand quickly. Extra demand therefore creates upward pressure on prices.",
   },
   {
     id: "demand-3",
     stem: "Consumers and firms increase spending faster than producers can expand supply.",
     answer: "Demand-pull inflation",
-    explanation: "Demand is increasing faster than supply, which is a demand-pull situation.",
+    explanation: "Spending is growing faster than supply. This excess demand pushes the general price level upward.",
   },
 ] as const);
 
@@ -132,25 +132,25 @@ export const ECO_CP005_COST_SCENARIOS_V1 = Object.freeze([
     id: "cost-1",
     stem: "Fuel and transport costs rise sharply, increasing production costs across many industries.",
     answer: "Cost-push inflation",
-    explanation: "Higher input costs can push selling prices upward.",
+    explanation: "Fuel and transport are production costs for many firms. When these costs rise, firms may raise prices to cover them.",
   },
   {
     id: "cost-2",
     stem: "A supply disruption makes a key industrial input much more expensive.",
     answer: "Cost-push inflation",
-    explanation: "An adverse supply shock raises production costs and can raise prices.",
+    explanation: "The supply disruption raises the cost of an important input. Higher production costs can then push final prices upward.",
   },
   {
     id: "cost-3",
     stem: "Widespread input costs rise even though demand has not increased.",
     answer: "Cost-push inflation",
-    explanation: "The price pressure comes from costs, not excess demand.",
+    explanation: "Demand is not the source of the pressure here. Prices rise because firms face higher costs of production.",
   },
 ] as const);
 
 export const ECO_CP005_INDEX_CASES_V1 = Object.freeze([
-  { id: "index-1", oldIndex: 100, newIndex: 108, answer: "8%", explanation: "Inflation = (108 - 100) / 100 × 100 = 8%." },
-  { id: "index-2", oldIndex: 120, newIndex: 126, answer: "5%", explanation: "Inflation = (126 - 120) / 120 × 100 = 5%." },
-  { id: "index-3", oldIndex: 200, newIndex: 210, answer: "5%", explanation: "Inflation = (210 - 200) / 200 × 100 = 5%." },
-  { id: "index-4", oldIndex: 150, newIndex: 162, answer: "8%", explanation: "Inflation = (162 - 150) / 150 × 100 = 8%." },
+  { id: "index-1", oldIndex: 100, newIndex: 108, answer: "8%", explanation: "The index increased by 8 points from a base of 100. So, (108 - 100) / 100 × 100 = 8%." },
+  { id: "index-2", oldIndex: 120, newIndex: 126, answer: "5%", explanation: "The index increased by 6 points from a base of 120. So, (126 - 120) / 120 × 100 = 5%." },
+  { id: "index-3", oldIndex: 200, newIndex: 210, answer: "5%", explanation: "The index increased by 10 points from a base of 200. So, (210 - 200) / 200 × 100 = 5%." },
+  { id: "index-4", oldIndex: 150, newIndex: 162, answer: "8%", explanation: "The index increased by 12 points from a base of 150. So, (162 - 150) / 150 × 100 = 8%." },
 ] as const);
