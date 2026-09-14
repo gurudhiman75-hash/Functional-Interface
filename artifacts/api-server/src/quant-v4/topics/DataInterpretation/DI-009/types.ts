@@ -31,6 +31,10 @@ export type Di009HistogramBin = Readonly<{
   frequency: number;
 }>;
 
+/**
+ * Semantic histogram stimulus only. Presentation surfaces render this model
+ * through the shared DataInterpretation visual layer.
+ */
 export type Di009Stimulus = Readonly<{
   kind: "HISTOGRAM";
   title: string;
@@ -41,7 +45,6 @@ export type Di009Stimulus = Readonly<{
   xAxisLabel: string;
   yAxisLabel: string;
   unit: string;
-  svg: string;
 }>;
 
 export type Di009Option = Readonly<{
@@ -101,7 +104,9 @@ export type Di009QuestionSet = Readonly<{
     groupedBarSibling: "DI-003";
     statisticsSibling: "STAT-003";
     frequencyPolygonSibling: "DI-010_PLANNED";
-    setContractVersion: "DI-009-SET-CONTRACT-V2";
+    presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS";
+    questionLogicVersion: "DI-009-QUESTION-LOGIC-V2";
+    setContractVersion: "DI-009-SET-CONTRACT-V3";
     arithmeticAuthority: "EXACT_INTEGER_RATIONAL";
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
