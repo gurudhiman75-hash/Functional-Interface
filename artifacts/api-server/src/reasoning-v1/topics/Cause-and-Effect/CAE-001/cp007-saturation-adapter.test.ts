@@ -5,6 +5,7 @@ import {
   generateReviewedCp007SaturationCommonFactorQuestion,
 } from "./cp007-saturation-adapter.ts";
 import { CP007_WAVE4_PARALLEL_FAMILY_IDS, generateReviewedCp007Wave4ParallelQuestion } from "./cp007-wave4-parallel-adapter.ts";
+import { CP007_EXPANDED_FALSE_CAUSATION_FAMILY_ID } from "./cp007-expanded-false-causation.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import type { CaeLocale } from "./types.ts";
 
@@ -69,6 +70,7 @@ let expandedCommon = 0;
 let legacyCommon = 0;
 let wave4Parallel = 0;
 let legacyFalseCausation = 0;
+let expandedFalseCausation = 0;
 for (let seed = 0; seed < 800; seed += 1) {
   const question = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", locale: "en-IN", seed });
   assert.notEqual(question.difficulty, "EASY");
@@ -76,11 +78,13 @@ for (let seed = 0; seed < 800; seed += 1) {
   else if (question.scenarioFamilyId === "CAE-FAM-SHARED-PRESSURE") legacyCommon += 1;
   else if (CP007_WAVE4_PARALLEL_FAMILY_IDS.includes(question.scenarioFamilyId)) wave4Parallel += 1;
   else if (question.scenarioFamilyId === "CAE-FAM-FALSE-CAUSATION") legacyFalseCausation += 1;
+  else if (question.scenarioFamilyId === CP007_EXPANDED_FALSE_CAUSATION_FAMILY_ID) expandedFalseCausation += 1;
   else assert.fail(`${seed}: unexpected reviewed CP007 family ${question.scenarioFamilyId}`);
 }
 assert.equal(expandedCommon, 100, "Expanded common-factor allocation must remain one seed in eight.");
 assert.equal(legacyCommon, 100, "Legacy common-factor allocation must remain one seed in eight.");
 assert.equal(wave4Parallel, 200, "Wave 4 parallel false-causation allocation must remain two seeds in eight.");
-assert.equal(legacyFalseCausation, 400, "Legacy false-causation authority must remain dominant at four seeds in eight.");
+assert.equal(legacyFalseCausation, 200, "Legacy false-causation authority must retain two seeds in eight.");
+assert.equal(expandedFalseCausation, 200, "Expanded false-causation authority must receive two seeds in eight.");
 
-console.log(`CAE-001 CP007 Wave 4 saturation QA passed: ${CP007_SATURATION_COMMON_FACTOR_FAMILY_IDS.length} common-factor families / ${CP007_SATURATION_COMMON_FACTOR_WORLDS.length} worlds plus 5 parallel families / 20 worlds.`);
+console.log(`CAE-001 CP007 Wave 4 saturation QA passed: ${CP007_SATURATION_COMMON_FACTOR_FAMILY_IDS.length} common-factor families / ${CP007_SATURATION_COMMON_FACTOR_WORLDS.length} worlds plus 5 parallel families / 20 worlds and balanced legacy/expanded false-causation lanes.`);
