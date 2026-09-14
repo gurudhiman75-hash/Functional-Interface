@@ -58,13 +58,21 @@ function structuralDifficulty(question: GeneratedSerCp009Question): SerCp009Diff
   const features = question.structuralFeatures;
   const layers = Number(features.reasoningLayers ?? features.layers ?? 1);
   const channels = Number(features.channels ?? 1);
-  const score = layers
+
+  // Count independently visible burdens once. Pattern-family markers such as
+  // figurate differences, alternating operations and prime strides identify a
+  // non-trivial inference family, but they must not add a second point on top
+  // of reasoningLayers that already encodes the recognition burden.
+  const baseScore = layers
     + Math.max(0, channels - 1)
     + (features.internalGap === true ? 1 : 0)
-    + (features.diagnostic === true ? 1 : 0)
-    + (typeof features.figurateKind === "string" ? 1 : 0)
-    + (typeof features.operationCycle === "string" ? 1 : 0)
-    + (typeof features.primeStride === "number" ? 1 : 0);
+    + (features.diagnostic === true ? 1 : 0);
+  const needsPatternRecognition =
+    typeof features.figurateKind === "string"
+    || typeof features.operationCycle === "string"
+    || typeof features.primeStride === "number";
+  const score = Math.max(baseScore, needsPatternRecognition ? 3 : 0);
+
   if (score >= 4) return "HARD";
   if (score >= 3) return "MEDIUM";
   return "EASY";
@@ -179,7 +187,7 @@ export function generateSerCp009AuditedNumberSeries(
     difficulty,
     structuralFeatures: Object.freeze({
       ...editorial.structuralFeatures,
-      auditedDifficultyScoreModel: "STRUCTURAL_V2",
+      auditedDifficultyScoreModel: "STRUCTURAL_V3_NO_DOUBLE_COUNT",
     }),
   });
 }
