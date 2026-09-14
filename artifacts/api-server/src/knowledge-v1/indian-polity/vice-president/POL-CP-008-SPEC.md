@@ -1,7 +1,8 @@
 # POL-CP-008 — Vice-President
 
-**Lifecycle:** REVIEW CANDIDATE — BALANCED EXPLANATIONS V6  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V6  
+**Approved:** 14 September 2026  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
 ## Scope
 
@@ -18,30 +19,30 @@ This CP covers Articles 63–71 with emphasis on Vice-President-specific exam tr
 - Article 70 other contingencies
 - Article 71 election disputes
 
-## Review design
+## Approved review design
 
 - 17 genuine QLs
 - 60 English review questions
 - 20 Easy / 31 Medium / 9 Hard
-- V6 generator is canonical for English review
+- V6 generator is canonical
 - simplified exam-style stems from V2
 - ordinary direct stems capped at 28 words
 - four unique options
 
 ## Language standard
 
-Keep required terms such as electoral college, Rajya Sabha and removal resolution, but use simple English around them. Avoid both legal-heavy wording and overly short note-like explanations.
+Keep required terms such as electoral college, Rajya Sabha and removal resolution, but use simple English around them. Avoid legal-heavy wording and avoid explanations that become too short to teach the rule.
 
-## Explanation standard
+## Frozen explanation standard
 
 Use a balanced teaching style. Explain the answer directly and give enough context to understand the rule. Use a second short sentence only when a President/Vice-President distinction or another exam trap genuinely helps.
 
-Mechanical gates:
-- every explanation in the 60-question review must be unique;
-- normal explanation range: 11–24 words;
+Quality gates:
+- explanations are question-specific and non-generic;
 - no stock prefix or generic closing sentence;
-- repeated answers such as `No` must still receive question-specific reasoning;
-- no unnecessary option-by-option analysis.
+- repeated answers such as `No` still receive question-specific reasoning;
+- no unnecessary option-by-option analysis;
+- answer alignment and four-option uniqueness remain required.
 
 ## High-yield distinctions
 
@@ -53,6 +54,10 @@ Mechanical gates:
 - casual vacancy gives a fresh full five-year term
 - while acting as President, the Vice-President does not perform Rajya Sabha Chairman duties
 
-## Gate
+## Change control
 
-Question Studio exposure, localization and production registration remain blocked until English V6 is approved.
+V6 is the frozen English authority for POL-CP-008. Any future content change must be made at source/fact/generator level and re-reviewed before replacing V6.
+
+## Deferred to chapter integration
+
+Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
