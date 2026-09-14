@@ -150,21 +150,36 @@ function directBuckets(sourceWord: string): DirectBuckets {
   return buckets;
 }
 
-function nearLength(values: readonly string[], length: number): string[] {
-  const near = values.filter((word) => Math.abs(word.length - length) <= 1);
-  return near.length >= 3 ? near : [...values];
+function nearbyLength(values: readonly string[], length: number, delta = 2): string[] {
+  return values.filter((word) => Math.abs(word.length - length) <= delta);
+}
+
+function canBuildDirectCan(b: DirectBuckets, difficulty: WfmDifficulty): boolean {
+  return b.valid.some((correct) => {
+    const absentPool = difficulty === "EASY" ? b.absentEasy : [...b.absentNear, ...b.absentEasy];
+    const absent = nearbyLength(absentPool, correct.length);
+    const multiplicity = nearbyLength(b.multiplicityNear, correct.length);
+    if (difficulty === "EASY") return absent.length >= 3;
+    if (difficulty === "MEDIUM") return multiplicity.length >= 1 && absent.length >= 2;
+    return multiplicity.length >= 2 && absent.length >= 1;
+  });
+}
+
+function invalidPoolFor(b: DirectBuckets, difficulty: WfmDifficulty): readonly string[] {
+  return difficulty === "HARD"
+    ? b.multiplicityNear
+    : difficulty === "MEDIUM"
+      ? b.absentNear
+      : b.absentEasy;
+}
+
+function canBuildDirectCannot(b: DirectBuckets, difficulty: WfmDifficulty): boolean {
+  return invalidPoolFor(b, difficulty).some((invalid) => nearbyLength(b.valid, invalid.length).length >= 3);
 }
 
 function supportsDirect(b: DirectBuckets, task: WfmTask, difficulty: WfmDifficulty): boolean {
   if (b.valid.length < 4) return false;
-  if (task === "CAN_FORM") {
-    if (difficulty === "EASY") return b.absentEasy.length >= 3;
-    if (difficulty === "MEDIUM") return b.multiplicityNear.length >= 1 && b.absentNear.length + b.absentEasy.length >= 2;
-    return b.multiplicityNear.length >= 2 && b.absentNear.length + b.absentEasy.length >= 1;
-  }
-  if (difficulty === "EASY") return b.absentEasy.length >= 1;
-  if (difficulty === "MEDIUM") return b.absentNear.length >= 1;
-  return b.multiplicityNear.length >= 1;
+  return task === "CAN_FORM" ? canBuildDirectCan(b, difficulty) : canBuildDirectCannot(b, difficulty);
 }
 
 function chooseDirectSource(seed: number, task: WfmTask, difficulty: WfmDifficulty): { sourceWord: string; buckets: DirectBuckets } {
@@ -185,11 +200,23 @@ function directProvenance(sourceWord: string, word: string): WfmOption["provenan
     : "IGNORED_MISSING_LETTER";
 }
 
+function viableCanCorrects(buckets: DirectBuckets, difficulty: WfmDifficulty): string[] {
+  return buckets.valid.filter((correct) => {
+    const absentPool = difficulty === "EASY" ? buckets.absentEasy : [...buckets.absentNear, ...buckets.absentEasy];
+    const absent = nearbyLength(absentPool, correct.length);
+    const multiplicity = nearbyLength(buckets.multiplicityNear, correct.length);
+    if (difficulty === "EASY") return absent.length >= 3;
+    if (difficulty === "MEDIUM") return multiplicity.length >= 1 && absent.length >= 2;
+    return multiplicity.length >= 2 && absent.length >= 1;
+  });
+}
+
 function buildDirectEntries(sourceWord: string, buckets: DirectBuckets, task: WfmTask, difficulty: WfmDifficulty, seed: number) {
   if (task === "CAN_FORM") {
-    const correct = takeDistinct(buckets.valid, 1, seed + 101)[0];
-    const absent = nearLength(difficulty === "EASY" ? buckets.absentEasy : [...buckets.absentNear, ...buckets.absentEasy], correct.length);
-    const multiplicity = nearLength(buckets.multiplicityNear, correct.length);
+    const correct = takeDistinct(viableCanCorrects(buckets, difficulty), 1, seed + 101)[0];
+    const absentPool = difficulty === "EASY" ? buckets.absentEasy : [...buckets.absentNear, ...buckets.absentEasy];
+    const absent = nearbyLength(absentPool, correct.length);
+    const multiplicity = nearbyLength(buckets.multiplicityNear, correct.length);
     const wrongs = difficulty === "EASY"
       ? takeDistinct(absent, 3, seed + 211)
       : difficulty === "MEDIUM"
@@ -201,13 +228,9 @@ function buildDirectEntries(sourceWord: string, buckets: DirectBuckets, task: Wf
     ];
   }
 
-  const invalidPool = difficulty === "HARD"
-    ? buckets.multiplicityNear
-    : difficulty === "MEDIUM"
-      ? buckets.absentNear
-      : buckets.absentEasy;
-  const correctInvalid = takeDistinct(invalidPool, 1, seed + 809)[0];
-  const valids = nearLength(buckets.valid, correctInvalid.length);
+  const viableInvalid = invalidPoolFor(buckets, difficulty).filter((word) => nearbyLength(buckets.valid, word.length).length >= 3);
+  const correctInvalid = takeDistinct(viableInvalid, 1, seed + 809)[0];
+  const valids = nearbyLength(buckets.valid, correctInvalid.length);
   return [
     { text: correctInvalid, provenance: directProvenance(sourceWord, correctInvalid) },
     ...takeDistinct(valids, 3, seed + 701).map((word) => ({ text: word, provenance: "VALID_LETTER_MULTISET" as const })),
@@ -285,11 +308,26 @@ function chooseSelectedFixture(seed: number, difficulty: WfmDifficulty): WfmSele
   return candidates[mod(seed * 13 + 3, candidates.length)];
 }
 
+const HI_ORDINALS: Readonly<Record<number, string>> = {
+  1: "पहले", 2: "दूसरे", 3: "तीसरे", 4: "चौथे", 5: "पाँचवें", 6: "छठे",
+  7: "सातवें", 8: "आठवें", 9: "नौवें", 10: "दसवें", 11: "ग्यारहवें", 12: "बारहवें",
+};
+const PA_ORDINALS: Readonly<Record<number, string>> = {
+  1: "ਪਹਿਲੇ", 2: "ਦੂਜੇ", 3: "ਤੀਜੇ", 4: "ਚੌਥੇ", 5: "ਪੰਜਵੇਂ", 6: "ਛੇਵੇਂ",
+  7: "ਸੱਤਵੇਂ", 8: "ਅੱਠਵੇਂ", 9: "ਨੌਵੇਂ", 10: "ਦਸਵੇਂ", 11: "ਗਿਆਰਵੇਂ", 12: "ਬਾਰ੍ਹਵੇਂ",
+};
+
+function joinNatural(parts: readonly string[], conjunction: string): string {
+  if (parts.length <= 1) return parts[0] ?? "";
+  if (parts.length === 2) return `${parts[0]} ${conjunction} ${parts[1]}`;
+  return `${parts.slice(0, -1).join(", ")} ${conjunction} ${parts[parts.length - 1]}`;
+}
+
 function ordinalList(language: WfmLanguage, positions: readonly number[]): string {
-  if (language === "hi-IN") return positions.map((n) => `${n}वें`).join(", ");
-  if (language === "pa-IN") return positions.map((n) => `${n}ਵੇਂ`).join(", ");
+  if (language === "hi-IN") return joinNatural(positions.map((n) => HI_ORDINALS[n] ?? `${n}वें`), "और");
+  if (language === "pa-IN") return joinNatural(positions.map((n) => PA_ORDINALS[n] ?? `${n}ਵੇਂ`), "ਅਤੇ");
   const suffix = (n: number) => n % 10 === 1 && n % 100 !== 11 ? "st" : n % 10 === 2 && n % 100 !== 12 ? "nd" : n % 10 === 3 && n % 100 !== 13 ? "rd" : "th";
-  return positions.map((n) => `${n}${suffix(n)}`).join(", ");
+  return joinNatural(positions.map((n) => `${n}${suffix(n)}`), "and");
 }
 
 function selectedStem(language: WfmLanguage, fixture: WfmSelectedLetterFixture): string {
