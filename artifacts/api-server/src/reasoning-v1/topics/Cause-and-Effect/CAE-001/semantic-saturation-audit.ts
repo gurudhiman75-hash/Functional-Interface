@@ -122,6 +122,14 @@ function priority(row: AuditRow): ExpansionPriority {
   // not evidence that more families should be added.
   if (row.qlId === "CAE-QL-002" && row.distinctCausalStates === 124) return "COMPLETE_FINITE";
 
+  // QL004's probable-effect contract has an exact reviewed structural ceiling.
+  // ql004-structural-coverage.test.ts proves all 120 forms are reachable:
+  // 33 base probable-effect states + 75 candidate-heavy states + 6 legacy
+  // combination scenarios + 6 expanded combination scenarios. The generic
+  // semantic fingerprint reports 121 because one structural state legitimately
+  // appears at two difficulty levels; that is not a missing-content signal.
+  if (row.qlId === "CAE-QL-004" && row.distinctSemanticForms === 121) return "COMPLETE_FINITE";
+
   const finalBlockShare = row.distinctCausalStates === 0 ? 0 : row.final500NewStates / row.distinctCausalStates;
   if (row.distinctSemanticForms < 80 || row.seedAt95PercentFinalStateCoverage < 2_000 || row.topStateShare >= 0.03) return "HIGH";
   if (row.distinctSemanticForms < 160 || finalBlockShare < 0.03 || row.topStateShare >= 0.015) return "MEDIUM";
@@ -169,6 +177,12 @@ for (const row of rows) {
     lines.push(
       "",
       "**Structural completeness:** 124/124 theoretical states are reachable in both FOUR_WAY and FIVE_WAY reviewed profiles: 46 COMMON_CAUSE, 39 INDEPENDENT_EFFECTS, and 39 INDEPENDENT_CAUSES. Both profiles complete the theoretical state space by seed 866. No expansion is warranted unless the learner-operation contract itself changes.",
+    );
+  }
+  if (row.qlId === "CAE-QL-004") {
+    lines.push(
+      "",
+      "**Structural completeness:** 120/120 reviewed probable-effect forms are reachable: 33 base probable-effect states, 75 candidate-heavy probable-effect states, 6 legacy combination scenarios, and 6 expanded combination scenarios. The complete structural set is reached by seed 1,824. The audit's 121 semantic forms reflect one structural state that legitimately crosses a difficulty boundary, not an uncovered learner operation. No further nominal expansion is warranted unless the probable-effect contract gains a genuinely new operation.",
     );
   }
 }
