@@ -10,9 +10,8 @@ import { SCI_PHYSICS_EXPLANATION_QUALITY_V2 } from "./sci-physics-explanation-qu
 const bannedEnglishWords = /\b(which|what|the|is|are|distance|displacement|speed|velocity|acceleration|force|mass|momentum|friction|pressure|work|energy|temperature|statement|correct|incorrect)\b/i;
 const deprecatedPunjabiAcceleration = /ਤ੍ਵਰਨ/u;
 const massAsWeightMisuse = /ਸਥਿਰ ਭਾਰ|ਭਾਰ ਅਤੇ ਵੇਗ|ਭਾਰ ਅਤੇ ਪ੍ਰਵੇਗ|ਪ੍ਰਤੀ ਇਕਾਈ ਭਾਰ|ਘਣਤਾ = ਭਾਰ\/|ਕੇਵਲ ਭਾਰ ਤੇ|ਭਾਰ ਬਦਲਦਾ|ਭਾਰ ਵਾਲੀ ਵਸਤੂ|ਭਾਰ ਘਟਾਉਂਦੀ ਹੈ|ਕੁੱਲ ਬਲ ਉਸ ਦੇ ਭਾਰ ਦੇ ਬਰਾਬਰ/u;
-const hindiCalquePunjabi = /ਆਵ੍ਰਿਤੀ|ਅਲਪਤਮ ਅੰਕ|ਯਾਦ੍ਰਿਚਛਿਕ|ਪ੍ਰਣਾਲੀਗਤ ਗਲਤੀ|ਪ੍ਰਣਾਲੀਬੱਧ ਗਲਤੀ|ਆਯਾਮੀ ਸੂਤਰ|ਵਿਉਤਪੰਨ ਇਕਾਈ|ਉਤਪੰਨ ਇਕਾਈ|ਊਸ਼ਮਾਗਤਿਕ|ਤਾਪਗਤਿਕ|ਅਭਿਕੇਂਦਰੀ ਬਲ|ਕੇਂਦਰਾਭਿਮੁਖ|ਪ੍ਰਤਿਕਸ਼ੇਪ|ਸੀਮਾਂਤ|ਪਰਿਪਥ|ਵਿਦਿਉਤ|ਪਰਿਸ਼ੁੱਧਤਾ|ਯਥਾਰਥਤਾ|ਵਿਗਿਆਨਕ ਸੰਕੇਤਨ|ਸਾਪੇਖ ਘਣਤਾ|ਸਦਿਸ਼|ਅਦਿਸ਼|ਆਵੇਗ|ਪਰਸਪਰ|ਪ੍ਰਵਿਰਤੀ|ਵਿਸ਼ਰਾਮ|ਬੀਜਗਣਿਤੀ|ਅਣੂਈ|ਸੰਰਕਸ਼ਣ|ਸਪਰਸ਼ ਰੇਖਾ|ਸਮਾਨ ਸਰਕੁਲਰ ਗਤੀ|ਰੇਖੀ ਸੰਵੇਗ|ਆਵੇਸ਼|ਪ੍ਰਵਾਹ|ਅਵਸਥਾ/u;
-const hindiShapedExamPunjabi = /ਕਥਨ|ਕੇਵਲ|ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ/u;
-const punjabiGrammarArtifacts = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਵਰਤੁਲ|ਚਿਕਨਾਹਟ|ਕ੍ਰਿਆ ਅਤੇ ਪ੍ਰਤੀਕ੍ਰਿਆ|ਬਣਾਈ ਰੱਖਣ ਦੀ ਇਹ ਰੁਝਾਨ/u;
+const needlessEnglishizedPunjabi = /ਡਿਰਾਈਵਡ ਇਕਾਈ|ਫ੍ਰਿਕਵੈਂਸੀ|ਲੀਸਟ ਕਾਊਂਟ|ਸਿਸਟਮੈਟਿਕ ਗਲਤੀ|ਰੈਂਡਮ ਗਲਤੀ|ਡਾਇਮੈਂਸ਼ਨਲ ਫਾਰਮੂਲਾ|ਸਾਇੰਟਿਫਿਕ ਨੋਟੇਸ਼ਨ|ਸਿਗਨਿਫਿਕੈਂਟ ਫਿਗਰ|ਪ੍ਰੀਫਿਕਸ|ਰਿਲੇਟਿਵ ਡੈਨਸਿਟੀ|ਵੇਕਟਰ ਮਾਤਰਾ|ਵੇਕਟਰ ਰਾਸ਼ੀ|ਸਕੇਲਰ ਮਾਤਰਾ|ਸਕੇਲਰ ਰਾਸ਼ੀ|ਇੰਪਲਸ|ਸੈਂਟ੍ਰਿਪੀਟਲ ਬਲ|ਸਰਕੁਲਰ ਗਤੀ|ਕਾਇਨੇਟਿਕ ਊਰਜਾ|ਪੋਟੈਂਸ਼ਲ ਊਰਜਾ|ਪਾਜ਼ਿਟਿਵ|ਨੈਗੇਟਿਵ|ਗ੍ਰੈਵਿਟੀ|ਨੈੱਟ ਵਿਸਥਾਪਨ|ਨਾਰਮਲ ਬਲ/u;
+const genuinelyAwkwardPunjabi = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਚਿਕਨਾਹਟ|ਕ੍ਰਿਆ ਅਤੇ ਪ੍ਰਤੀਕ੍ਰਿਆ|ਬਣਾਈ ਰੱਖਣ ਦੀ ਇਹ ਰੁਝਾਨ/u;
 
 assert.equal(Object.keys(SCI_PHYSICS_EXPLANATION_QUALITY_V2).length, 48, "Explanation-quality V2 must cover all 48 CP001-CP002 anchors");
 for (const [anchorId, localized] of Object.entries(SCI_PHYSICS_EXPLANATION_QUALITY_V2)) {
@@ -57,34 +56,38 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
       if (locale === "pa") {
         const learnerText = `${question.stem} ${question.options.join(" ")} ${question.explanation}`;
         assert.match(question.stem + question.explanation, /[\u0A00-\u0A7F]/u, `${question.questionId}: Punjabi script missing`);
-        assert.equal(bannedEnglishWords.test(question.stem + " " + question.explanation), false, `${question.questionId}: English leakage in Punjabi`);
-        assert.equal(deprecatedPunjabiAcceleration.test(learnerText), false, `${question.questionId}: deprecated Punjabi acceleration term leaked`);
+        assert.equal(bannedEnglishWords.test(question.stem + " " + question.explanation), false, `${question.questionId}: English prose leakage in Punjabi`);
+        assert.equal(deprecatedPunjabiAcceleration.test(learnerText), false, `${question.questionId}: deprecated acceleration spelling leaked`);
         assert.equal(massAsWeightMisuse.test(learnerText), false, `${question.questionId}: mass/weight terminology conflated`);
-        assert.equal(hindiCalquePunjabi.test(learnerText), false, `${question.questionId}: Hindi-calque Punjabi terminology leaked`);
-        assert.equal(hindiShapedExamPunjabi.test(learnerText), false, `${question.questionId}: Hindi-shaped exam instruction leaked`);
-        assert.equal(punjabiGrammarArtifacts.test(learnerText), false, `${question.questionId}: Punjabi grammar artifact leaked`);
+        assert.equal(needlessEnglishizedPunjabi.test(learnerText), false, `${question.questionId}: established Punjabi exam term was unnecessarily Englishized`);
+        assert.equal(genuinelyAwkwardPunjabi.test(learnerText), false, `${question.questionId}: Punjabi grammar/editorial artifact leaked`);
       }
     });
     if (locale === "pa") {
       const corpus = questions.map((q) => `${q.stem} ${q.options.join(" ")} ${q.explanation}`).join("\n");
-      assert.match(corpus, /ਬਿਆਨ/u, `${cpId}/pa: natural Punjabi statement term ਬਿਆਨ missing`);
-      assert.match(corpus, /ਸਿਰਫ਼/u, `${cpId}/pa: natural Punjabi restrictive term ਸਿਰਫ਼ missing`);
-      assert.match(corpus, /ਲੀਸਟ ਕਾਊਂਟ|ਫ੍ਰਿਕਵੈਂਸੀ|ਡਾਇਮੈਂਸ਼ਨਲ ਫਾਰਮੂਲਾ|ਸਾਇੰਟਿਫਿਕ ਨੋਟੇਸ਼ਨ|ਇੰਪਲਸ/u, `${cpId}/pa: expected natural technical register missing`);
+      assert.match(corpus, /ਬਿਆਨ/u, `${cpId}/pa: Punjabi exam instruction ਬਿਆਨ missing`);
+      assert.match(corpus, /ਸਿਰਫ਼/u, `${cpId}/pa: Punjabi restrictive term ਸਿਰਫ਼ missing`);
     }
     if (locale === "pa" && cpId === "SCI-CP-001") {
       const corpus = questions.map((q) => `${q.stem} ${q.options.join(" ")} ${q.explanation}`).join("\n");
-      assert.match(corpus, /ਬਿਜਲੀ ਚਾਰਜ/u, `${cpId}/pa: natural electric-charge term missing`);
-      assert.match(corpus, /ਵਹਾਅ/u, `${cpId}/pa: natural flow wording missing`);
+      assert.match(corpus, /ਵਿਉਤਪੰਨ ਇਕਾਈ/u, `${cpId}/pa: standard term ਵਿਉਤਪੰਨ ਇਕਾਈ missing`);
+      assert.match(corpus, /ਆਵਿਰਤੀ/u, `${cpId}/pa: standard term ਆਵਿਰਤੀ missing`);
+      assert.match(corpus, /ਸਾਰਥਕ ਅੰਕ/u, `${cpId}/pa: standard term ਸਾਰਥਕ ਅੰਕ missing`);
+      assert.match(corpus, /ਆਯਾਮੀ ਸੂਤਰ/u, `${cpId}/pa: standard term ਆਯਾਮੀ ਸੂਤਰ missing`);
+      assert.match(corpus, /ਸਾਪੇਖ ਘਣਤਾ/u, `${cpId}/pa: standard term ਸਾਪੇਖ ਘਣਤਾ missing`);
+      assert.match(corpus, /ਸਦਿਸ਼ ਰਾਸ਼ੀ/u, `${cpId}/pa: standard term ਸਦਿਸ਼ ਰਾਸ਼ੀ missing`);
+      assert.match(corpus, /ਅਦਿਸ਼ ਰਾਸ਼ੀ/u, `${cpId}/pa: standard term ਅਦਿਸ਼ ਰਾਸ਼ੀ missing`);
     }
     if (locale === "pa" && cpId === "SCI-CP-002") {
       const corpus = questions.map((q) => `${q.stem} ${q.options.join(" ")} ${q.explanation}`).join("\n");
       assert.match(corpus, /ਪੁੰਜ/u, `${cpId}/pa: Punjabi mass term ਪੁੰਜ missing`);
       assert.match(corpus, /ਪ੍ਰਵੇਗ/u, `${cpId}/pa: Punjabi acceleration term ਪ੍ਰਵੇਗ missing`);
       assert.match(corpus, /ਭਾਰ-ਬਲ/u, `${cpId}/pa: genuine weight terminology should remain distinct`);
-      assert.match(corpus, /ਸੈਂਟ੍ਰਿਪੀਟਲ ਬਲ/u, `${cpId}/pa: natural centripetal-force term missing`);
-      assert.match(corpus, /ਇਕਸਾਰ ਗੋਲ ਗਤੀ/u, `${cpId}/pa: natural circular-motion wording missing`);
-      assert.match(corpus, /ਮੌਜੂਦਾ ਹਾਲਤ/u, `${cpId}/pa: natural state wording missing`);
+      assert.match(corpus, /ਆਵੇਗ/u, `${cpId}/pa: standard term ਆਵੇਗ missing`);
+      assert.match(corpus, /ਕੇਂਦਰਗਾਮੀ ਬਲ/u, `${cpId}/pa: standard term ਕੇਂਦਰਗਾਮੀ ਬਲ missing`);
+      assert.match(corpus, /ਇਕਸਾਰ ਵਰਤੂਲ ਗਤੀ/u, `${cpId}/pa: standard term ਇਕਸਾਰ ਵਰਤੂਲ ਗਤੀ missing`);
+      assert.match(corpus, /ਗਤਿਜ ਊਰਜਾ/u, `${cpId}/pa: standard term ਗਤਿਜ ਊਰਜਾ missing`);
     }
   }
 }
-console.log("SCI Physics localization V1 qualification passed: CP001-CP002 × EN/HI/PA with explanation-depth V2 and Punjabi-naturalization V3");
+console.log("SCI Physics localization V1 qualification passed: CP001-CP002 × EN/HI/PA with standard exam-level Punjabi V4");
