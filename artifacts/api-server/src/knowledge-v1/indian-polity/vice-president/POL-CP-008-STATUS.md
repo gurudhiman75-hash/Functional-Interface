@@ -1,7 +1,7 @@
 # POL-CP-008 — Vice-President Status
 
 **Branch:** `feature/polity-cp008-vice-president`  
-**Lifecycle:** REVIEW CANDIDATE — SIMPLIFIED LANGUAGE V2  
+**Lifecycle:** REVIEW CANDIDATE — HELPFUL EXPLANATIONS V3  
 **Runtime registration:** BLOCKED pending human approval
 
 ## Implemented
@@ -20,8 +20,9 @@
 - oath and election disputes
 - 17 genuine QLs
 - 60-question review batch target
-- canonical V2 language overlay
-- explanation-quality, structural and provenance QA
+- V2 simplified-language layer
+- canonical V3 question-specific explanation layer
+- explanation-specificity, structural and provenance QA
 
 ## Review profile
 
@@ -29,15 +30,16 @@
 - 31 Medium
 - 9 Hard
 
-## V2 language policy
+## V3 explanation policy
 
-- keep constitutional terms used in exams
-- simplify surrounding English
-- ordinary direct stems capped at 28 words
-- use short forms such as `acts`, `gets`, `can`, `is under`
-- remove formal wording such as `temporarily unable to discharge functions`, `states which specific ground`, and `bear true faith and allegiance`
-- explanations use short sentences and plain vocabulary
-- explanations remain at least 20 words and still teach the key distinction
+- state the exact correct answer first
+- explain the constitutional rule that makes it correct
+- add one useful distinction or trap where helpful
+- no single generic paragraph reused for several questions in a QL
+- repeated answers such as `No` must still get question-specific explanations
+- use plain language and short sentences
+- avoid option-by-option analysis unless needed
+- minimum explanation floor: 18 words
 
 ## Gated
 
@@ -46,4 +48,4 @@
 - localization
 - chapter-wide production registration
 
-These remain blocked until simplified English V2 is approved.
+These remain blocked until English V3 is approved.
