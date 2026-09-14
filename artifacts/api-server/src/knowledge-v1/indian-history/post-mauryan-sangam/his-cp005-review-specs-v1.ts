@@ -1,0 +1,73 @@
+export const HIS_CP005_QL_NAMES_V1:Record<number,string>={1:"Post-Mauryan political transition",2:"Shakas, Parthians and Kushanas",3:"Kushana contributions and cultural contacts",4:"Kalinga and Satavahanas",5:"Satavahana administration and trade routes",6:"Indo-Roman trade and ports",7:"Sangam literature and political centres",8:"Sangam ecology and economy",9:"Association, comparison and regional reasoning",10:"Multi-statement synthesis"};
+export type HisCp005Spec=readonly[ql:number,stem:string,answer:string,distractors:readonly[string,string,string],factIds:readonly string[]];
+export const HIS_CP005_SPECS_V1:readonly HisCp005Spec[]=[
+[1,"Who founded the Shunga dynasty after the Mauryas?","Pushyamitra Shunga",["Kharavela","Gautamiputra Satakarni","Kanishka"],["pm-shunga-founder"]],
+[1,"Who is identified as the last Mauryan ruler?","Brihadratha",["Bhagabhadra","Nahapana","Gondophares"],["pm-last-mauryan"]],
+[1,"Heliodorus came to the court of Bhagabhadra as the envoy of which ruler?","Antialkidas",["Menander","Rudradaman","Kanishka"],["pm-heliodorus"]],
+[1,"The Besnagar inscription describes Heliodorus as a devotee of whom?","Vasudeva-Krishna",["Buddha","Mahavira","Murugan"],["pm-heliodorus-devotee"]],
+[1,"Which Indo-Greek ruler is identified with King Milinda of the Milindapanho?","Menander",["Demetrius","Antialkidas","Gondophares"],["pm-menander-milinda"]],
+[1,"The Shakas originally came from which broad region?","Central Asia",["South India","Arabian Peninsula","Southeast Asia"],["pm-shaka-origin"]],
+
+[2,"Which Shaka ruler is closely associated with western India?","Rudradaman",["Kujula Kadphises","Kharavela","Pushyamitra Shunga"],["pm-rudradaman"]],
+[2,"The Junagadh or Girnar inscription is associated with which ruler?","Rudradaman",["Gondophares","Menander","Kanishka"],["pm-rudradaman-inscription"]],
+[2,"The Takht-i-Bahi inscription refers to which Parthian ruler?","Gondophares",["Nahapana","Antialkidas","Bhagabhadra"],["pm-parthian-gondophares"]],
+[2,"Who was the first prominent Kushana ruler in the standard dynastic sequence?","Kujula Kadphises",["Kanishka","Rudradaman","Nahapana"],["ku-kujula"]],
+[2,"Under which ruler did Kushana power reach its greatest extent?","Kanishka",["Menander","Kharavela","Pushyamitra Shunga"],["ku-kanishka"]],
+[2,"Purushapura, present-day Peshawar, is especially associated with which Kushana ruler?","Kanishka",["Rudradaman","Gautamiputra Satakarni","Bhagabhadra"],["ku-purushapura"]],
+
+[3,"What did the Kushana royal title 'devaputra' mean?","Son of god",["Lord of merchants","Protector of villages","Master of ports"],["ku-devaputra"]],
+[3,"Which coinage best reflects Kushana economic prosperity?","Large issues of gold and copper coins",["Only lead coins","Only punch-marked silver pieces","Only iron tokens"],["ku-coins"]],
+[3,"Which two schools of sculpture received Kushana patronage?","Gandhara and Mathura",["Amaravati and Sanchi","Nagara and Dravida","Pala and Sena"],["ku-art"]],
+[3,"Charaka is associated with which work?","Charakasamhita",["Buddhacharita","Milindapanho","Arthashastra"],["ku-charaka"]],
+[3,"Who wrote Buddhacharita?","Ashvaghosha",["Charaka","Nagasena","Patanjali"],["ku-asvaghosha"]],
+[3,"One major result of Kushana rule was the closer integration of north India with which region?","Central Asia",["Sri Lanka","Southeast Asia only","Arabian Peninsula only"],["ku-central-north"]],
+
+[4,"Kharavela was an important ruler of which region?","Kalinga",["Gandhara","Mathura","Avanti"],["ka-kharavela"]],
+[4,"Which inscription records the achievements of Kharavela?","Hathigumpha inscription",["Junagadh inscription","Besnagar inscription","Takht-i-Bahi inscription"],["ka-hathigumpha"]],
+[4,"Kharavela is presented in his inscription as a follower of which religion?","Jainism",["Buddhism","Shaivism","Vaishnavism"],["ka-jain"]],
+[4,"Gautamiputra Satakarni defeated which Shaka ruler?","Nahapana",["Rudradaman","Gondophares","Antialkidas"],["sat-gautamiputra"]],
+[4,"Which city was an important Satavahana capital?","Pratishthana",["Taxila","Sravasti","Uraiyur"],["sat-capital"]],
+[4,"Satavahana territorial divisions were known as what?","Aharas or rashtras",["Bhuktis or vishayas","Iqtas or shiqs","Nadus or valanadus"],["sat-districts"]],
+
+[5,"Who headed the grama in Satavahana administration?","Gramika",["Amatya","Mahakshatrapa","Purohita"],["sat-grama"]],
+[5,"What was the role of an amatya under the Satavahanas?","An important official or adviser",["A village head only","A foreign ambassador only","A port merchant only"],["sat-amatya"]],
+[5,"How was Satavahana revenue collected?","In both cash and kind",["Only in gold","Only in grain","Only through forced labour"],["sat-revenue"]],
+[5,"Which practice is associated with Satavahana rulers?","Tax-free land grants to religious beneficiaries",["Abolition of all land grants","Payment of taxes only in Roman coins","Permanent ban on religious donations"],["sat-land-grants"]],
+[5,"Which route linked northern and eastern India with the northwest?","Uttarapatha",["Dakshinapatha","Silk Route only","Grand Trunk Road"],["trade-uttarapatha"]],
+[5,"Which route linked peninsular India with western and northern India?","Dakshinapatha",["Uttarapatha","Khyber route","Royal Road of Persia"],["trade-dakshinapatha"]],
+
+[6,"Bhrigukaccha, or Broach, was important mainly as what?","A western Indian port",["A Kushana capital","A Sangam hill settlement","A Buddhist council site"],["trade-bhrigukaccha"]],
+[6,"Which work is an important account of Indo-Roman maritime trade?","Periplus of the Erythraean Sea",["Milindapanho","Buddhacharita","Charakasamhita"],["trade-periplus"]],
+[6,"Which product was in strong Roman demand from India?","Pepper",["Tea","Potato","Tobacco"],["trade-roman-demand"]],
+[6,"What did Roman trade bring into India in large quantities?","Gold and silver",["Iron and coal","Tea and silk","Horses only"],["trade-roman-gold"]],
+[6,"Which Tamil-coast site is associated with overseas trade?","Arikamedu",["Rajagriha","Sarnath","Taxila"],["trade-arikamedu"]],
+[6,"Which port was especially associated with the Cheras and pepper trade?","Muziris",["Korkai","Puhar","Bhrigukaccha"],["trade-muziris"]],
+
+[7,"What does the term 'Sangam' mean in this historical context?","An assembly of Tamil poets",["A royal tax office","A military camp","A merchant guild"],["sangam-meaning"]],
+[7,"Sangam literature was composed mainly in which language?","Tamil",["Pali","Prakrit","Persian"],["sangam-language"]],
+[7,"Sangam literature is broadly placed in which period?","c. 300 BCE–300 CE",["c. 1500–1000 BCE","c. 600–300 BCE only","c. 750–1200 CE"],["sangam-period"]],
+[7,"What is the name of the eight major collections of Sangam poems?","Ettutogai",["Tripitaka","Vedanga","Nikaya"],["sangam-ettutogai"]],
+[7,"Uraiyur was associated with which Sangam polity?","Cholas",["Cheras","Pandyas","Satavahanas"],["sangam-chola"]],
+[7,"Vanji, near Karur, was associated with which Sangam polity?","Cheras",["Cholas","Pandyas","Kushanas"],["sangam-chera"]],
+
+[8,"Madurai was associated with which Sangam polity?","Pandyas",["Cheras","Cholas","Shakas"],["sangam-pandya"]],
+[8,"How many main ecological zones or tinais are described in Sangam literature?","Five",["Three","Four","Seven"],["sangam-tinais"]],
+[8,"Which activity is associated with the kurinji zone?","Hunting and gathering",["Fishing and salt-making","Plough agriculture","Animal husbandry"],["sangam-kurinji"]],
+[8,"Which activity is associated with the mullai zone?","Animal husbandry",["Plough agriculture","Fishing and salt-making","Pearl diving only"],["sangam-mullai"]],
+[8,"Which activity is associated with the marudam zone?","Plough agriculture",["Hunting and gathering","Animal husbandry","Fishing and salt-making"],["sangam-marudam"]],
+[8,"Which activity is associated with the neital zone?","Fishing and salt-making",["Plough agriculture","Hunting and gathering","Animal husbandry"],["sangam-neital"]],
+
+[9,"Which set is correctly matched?","Cholas — Uraiyur; Cheras — Vanji; Pandyas — Madurai",["Cholas — Madurai; Cheras — Uraiyur; Pandyas — Vanji","Cholas — Vanji; Cheras — Madurai; Pandyas — Uraiyur","Cholas — Taxila; Cheras — Ujjain; Pandyas — Kaushambi"],["sangam-chola","sangam-chera","sangam-pandya"]],
+[9,"Which set correctly matches Sangam ports with their associations?","Muziris — Cheras; Korkai — Pandyas; Puhar — Cholas",["Muziris — Pandyas; Korkai — Cholas; Puhar — Cheras","Muziris — Cholas; Korkai — Cheras; Puhar — Pandyas","Muziris — Kushanas; Korkai — Shakas; Puhar — Satavahanas"],["trade-muziris","sangam-korkai","sangam-puhar"]],
+[9,"Which comparison of the two major land routes is correct?","Uttarapatha linked the northwest with north/east India, while Dakshinapatha linked the peninsula with western/northern India",["Both routes connected only coastal Tamilakam","Uttarapatha was a sea route and Dakshinapatha a Himalayan pass","Dakshinapatha linked only Gandhara with Bactria"],["trade-uttarapatha","trade-dakshinapatha"]],
+[9,"Which pair is correctly matched with both ruler and evidence?","Kharavela — Hathigumpha; Rudradaman — Junagadh",["Kharavela — Junagadh; Rudradaman — Hathigumpha","Kharavela — Besnagar; Rudradaman — Takht-i-Bahi","Kharavela — Takht-i-Bahi; Rudradaman — Besnagar"],["ka-hathigumpha","pm-rudradaman-inscription"]],
+[9,"Which combined statement about Satavahana rule is correct?","Pratishthana was a capital, Gautamiputra defeated Nahapana, and districts were called aharas or rashtras",["Taxila was the capital, Gautamiputra defeated Kanishka, and districts were called iqtas","Madurai was the capital, Nahapana defeated Gautamiputra, and districts were called nadus","Purushapura was the capital, Gautamiputra defeated Menander, and districts were called bhuktis"],["sat-capital","sat-gautamiputra","sat-districts"]],
+[9,"Which statement best explains the wider economic setting of the period?","Long-distance routes, active ports and Indo-Roman exchange linked inland production with overseas markets",["Trade declined because inland and sea routes disappeared","Roman contact ended the use of Indian ports","Economic life depended only on pastoralism"],["trade-uttarapatha","trade-dakshinapatha","trade-periplus","trade-roman-gold"]],
+
+[10,"Consider the statements: 1. Pushyamitra founded the Shunga dynasty. 2. Menander is identified with Milinda. 3. The Shakas came from Central Asia. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["pm-shunga-founder","pm-menander-milinda","pm-shaka-origin"]],
+[10,"Consider the statements about the Kushanas: 1. Kanishka was a major ruler. 2. Kushana rulers used the title devaputra. 3. They patronised Gandhara and Mathura art. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["ku-kanishka","ku-devaputra","ku-art"]],
+[10,"Consider the statements about the Satavahanas: 1. Pratishthana was an important capital. 2. Revenue could be collected in cash and kind. 3. The grama was headed by a gramika. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["sat-capital","sat-revenue","sat-grama"]],
+[10,"Consider the statements about Sangam ecological zones: 1. Kurinji is linked with hunting and gathering. 2. Mullai is linked with animal husbandry. 3. Marudam is linked with plough agriculture. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["sangam-kurinji","sangam-mullai","sangam-marudam"]],
+[10,"Consider the statements about Sangam trade: 1. Muziris was linked with the Cheras. 2. Korkai was noted for pearls. 3. Roman gold coins support evidence of Indo-Roman exchange. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["trade-muziris","sangam-korkai","sangam-roman-coins"]],
+[10,"Consider the statements: 1. Sangam poems include love and war themes. 2. Nadukal or virukkal commemorated fallen warriors. 3. Murugan was an important deity of the hill people. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["sangam-themes","sangam-hero-stones","sangam-murugan"]],
+];
