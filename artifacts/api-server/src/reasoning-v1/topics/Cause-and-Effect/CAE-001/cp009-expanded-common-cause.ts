@@ -76,9 +76,10 @@ export function generateCp009ExpandedCommonCauseQuestion(input: Readonly<{ local
     .filter((node) => node.text[input.locale] !== cause.text[input.locale]);
   if (siblingCauses.length < 3) throw new Error(`${world.scenarioFamilyId}: expanded CP009 common-cause needs three same-family alternatives.`);
 
+  const answerId = "COMMON_CAUSE_RECONSTRUCTION_EXPANDED" as const;
   const wrong = shuffled(siblingCauses, selectionSeed ^ 0x33).slice(0, 3);
   const options: readonly CaeRenderedOption[] = shuffled([
-    { id: cause.id, text: cause.text[input.locale], isCorrect: true },
+    { id: answerId, text: cause.text[input.locale], isCorrect: true },
     ...wrong.map((node, index) => ({
       id: `EXPANDED_COMMON_ALT:${world.scenarioFamilyId}:${index + 1}`,
       text: node.text[input.locale],
@@ -128,7 +129,7 @@ export function generateCp009ExpandedCommonCauseQuestion(input: Readonly<{ local
     stem: `${copy.prompt}\n\n${copy.one}: ${effects[0]!.text[input.locale]}\n\n${copy.two}: ${effects[1]!.text[input.locale]}`,
     options: options.map((option) => option.text),
     correctIndex,
-    answerId: "COMMON_CAUSE_RECONSTRUCTION_EXPANDED",
+    answerId,
     explanation: `${trim(cause.text[input.locale])} → ${trim(effects[0]!.text[input.locale])} / ${trim(effects[1]!.text[input.locale])}. ${copy.explanation}`,
     causalTrace: [cause.id, effects[0]!.id, effects[1]!.id],
     distractorMechanisms: options.flatMap((option) => option.distractorRole ? [option.distractorRole] : []),
