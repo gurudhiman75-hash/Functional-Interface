@@ -26,10 +26,16 @@ Excluded:
 - forecasts;
 - arbitrary percentage cut-offs for creeping/walking/running inflation where sources vary.
 
-## Language rules
+## Language and explanation rules
 
 - Keep stems short and exam-like.
-- Explanations should normally be one or two simple sentences.
+- Explanations should normally be one or two short, clear sentences.
+- Do not merely repeat the correct option.
+- Prefer **rule + reason**: state the key idea, then connect it to the question when useful.
+- For close concepts, explicitly state the difference that decides the answer.
+- For statement questions, explain why the relevant statement is true or false instead of writing only "both are correct" or "I only".
+- For numerical questions, show the small calculation or relationship used.
+- Keep explanations beginner-friendly; extra detail must clarify the answer, not add unrelated facts.
 - Do not make wording harder to manufacture difficulty.
 - Use same-domain distractors.
 - Avoid unnecessary textbook introductions.
@@ -68,6 +74,8 @@ Statement format alone does not make a question Hard. Numerical format alone doe
 - all four answer positions used;
 - Easy, Medium and Hard all represented;
 - major application QLs span more than one difficulty band;
+- explanations must give a reason, distinction or working rather than only restating the answer;
+- statement explanations must identify why the relevant statement(s) are true or false;
 - no duplicate semantic review signatures;
 - no current-value leakage;
 - every item carries source IDs and source-fact IDs;
