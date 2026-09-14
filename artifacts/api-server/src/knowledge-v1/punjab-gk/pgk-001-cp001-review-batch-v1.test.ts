@@ -37,10 +37,17 @@ for (const question of districtQuestions) {
   );
 }
 
-const bannedBoilerplate = ["which of the following is associated with", "with reference to punjab"];
+const bannedStemPhrases = [
+  "which of the following is associated with",
+  "with reference to punjab",
+  "in the punjab gk engine",
+  "review batch",
+  "generator",
+  "source fact",
+];
 for (const question of PGK_001_CP001_REVIEW_BATCH_V1) {
   const lowerStem = question.stem.toLowerCase();
-  for (const banned of bannedBoilerplate) {
-    assert.equal(lowerStem.includes(banned), false, `${question.questionId} contains banned boilerplate: ${banned}`);
+  for (const banned of bannedStemPhrases) {
+    assert.equal(lowerStem.includes(banned), false, `${question.questionId} contains banned learner-facing terminology: ${banned}`);
   }
 }
