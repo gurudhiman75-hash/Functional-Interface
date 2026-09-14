@@ -8,6 +8,7 @@
 import "./cae-001-source-profiles.test.ts";
 import "./ql001-structural-completeness.test.ts";
 import "./ql002-structural-completeness.test.ts";
+import "./ql004-structural-coverage.test.ts";
 import "./cp003004-combination.test.ts";
 import "./cp003-editorial-safety.test.ts";
 import "./cp005-competing-explanations.test.ts";
