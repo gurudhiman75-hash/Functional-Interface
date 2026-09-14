@@ -1,20 +1,34 @@
-# GEO-PHY-001 CP013 — Mixed Physiography Mastery
+# GEO-PHY-001 CP013 — Exhaustive Mixed Physiography Mastery
 
 ## Status
-Final review-only mastery checkpoint. CP013 creates no new permanent QLs.
+Final content-closure checkpoint. CP013 creates no new permanent QLs.
 
 ## Purpose
-Test the full GEO-PHY-001 chapter as an exam-style mixed paper after CP001–CP012 have established and integrated the permanent QLs.
+Close GEO-PHY-001 only after the complete chapter has been checked at both levels: six qualified owning payloads for every permanent QL and one plain, exam-style representative for every QL in the final master review.
 
-## Contract
-- 54 review questions.
-- Easy 18, Medium 30, Hard 6.
-- Answer positions A14 / B14 / C13 / D13.
-- Uses existing permanent QL IDs only; CP013 must not create QL109 or any later GEO-PHY-001 QL.
-- Mix direct, reverse, pair, two-clue, statement and matching forms.
-- Hard questions must combine already-qualified chapter facts.
-- Simple learner-facing language; no source/review/generator terminology in questions or explanations.
-- Review-only; no Question Studio/publication registration until explicit approval.
+## Exhaustive contract
+- CP001–CP012 own QL001–QL108.
+- Each permanent QL must retain exactly 6 semantically distinct owning payloads.
+- The owning layer therefore contains 648 qualified review questions.
+- CP013 contains exactly 108 master-review questions: one representative for every QL001–QL108.
+- CP013 reuses qualified facts/questions; it creates no QL109+ and adds no new trivia layer.
+- Answer positions in the 108-question master are exactly A27 / B27 / C27 / D27.
+- Difficulty is preserved from the approved owning QL rather than forced into a synthetic split.
+- Representatives are chosen for concise learner wording while retaining the tested fact and difficulty.
+- Questions, options and explanations must contain no source/review/generator metadata.
+- Explanations state the decisive fact directly.
 
-## Closure companion
-The CP013 CI also emits a chapter-readiness report. It verifies the permanent checkpoint ownership map is contiguous from QL001 through QL108 with no gaps, overlaps or CP013 additions.
+## Closure gates
+The final CI must verify:
+1. all 12 owning checkpoints contain 54 questions;
+2. each owns exactly 9 permanent QLs;
+3. every QL001–QL108 has exactly 6 unique payloads and exactly one owner;
+4. all owning questions preserve answer integrity, provenance and review-only lifecycle;
+5. the owning total is exactly 648 questions;
+6. CP013 covers all 108 permanent QLs exactly once;
+7. CP013 uses all 12 owning checkpoints and creates no new permanent QL;
+8. the master answer balance is A27 / B27 / C27 / D27;
+9. dedicated CP013 CI, API build and Geography validation pass.
+
+## Lifecycle
+This checkpoint closes the GEO-PHY-001 content chapter after successful validation and merge. Public test publication or production runtime promotion remains separately governed.
