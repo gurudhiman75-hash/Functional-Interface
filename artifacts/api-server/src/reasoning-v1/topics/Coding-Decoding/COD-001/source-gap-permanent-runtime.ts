@@ -32,14 +32,14 @@ export interface GeneratedCodSourceGapQuestion {
   readonly explanation: ExplanationTrace;
   readonly prototypeOnly: false;
   readonly reviewOnly: true;
-  readonly questionStudioVisible: false;
+  readonly questionStudioVisible: true;
   readonly publiclyPublishable: false;
   readonly metadata: {
     readonly runtimeVersion: "cod-001-source-gap-permanent-v1";
     readonly maturity: "ENGLISH_RUNTIME_PROOF";
     readonly reviewOnly: true;
     readonly publiclyPublishable: false;
-    readonly questionStudioDiscoverable: false;
+    readonly questionStudioDiscoverable: true;
     readonly questionBankWritable: false;
     readonly mockTestEligible: false;
     readonly sourceGapFreezeVersion: typeof COD_SOURCE_GAP_DISCOVERY_FREEZE_VERSION;
@@ -121,14 +121,14 @@ export function generateCodSourceGapPermanentQuestion(qlId: CodSourceGapQlId, se
     explanation: explanation(candidate),
     prototypeOnly: false,
     reviewOnly: true,
-    questionStudioVisible: false,
+    questionStudioVisible: true,
     publiclyPublishable: false,
     metadata: {
       runtimeVersion: "cod-001-source-gap-permanent-v1",
       maturity: "ENGLISH_RUNTIME_PROOF",
       reviewOnly: true,
       publiclyPublishable: false,
-      questionStudioDiscoverable: false,
+      questionStudioDiscoverable: true,
       questionBankWritable: false,
       mockTestEligible: false,
       sourceGapFreezeVersion: COD_SOURCE_GAP_DISCOVERY_FREEZE_VERSION,

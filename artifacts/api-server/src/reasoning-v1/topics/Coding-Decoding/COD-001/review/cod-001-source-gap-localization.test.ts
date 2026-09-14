@@ -111,9 +111,9 @@ for (const id of qlIds) {
       }
 
       assert.equal(localized.reviewOnly, true);
-      assert.equal(localized.questionStudioVisible, false);
+      assert.equal(localized.questionStudioVisible, true);
       assert.equal(localized.publiclyPublishable, false);
-      assert.equal(localized.metadata?.questionStudioDiscoverable, false);
+      assert.equal(localized.metadata?.questionStudioDiscoverable, true);
       assert.equal(localized.metadata?.questionBankWritable, false);
       assert.equal(localized.metadata?.mockTestEligible, false);
       assert.equal(localized.metadata?.publiclyPublishable, false);
@@ -147,6 +147,6 @@ console.log(JSON.stringify({
   hiddenFingerprintParity: true,
   genericPedagogyContamination: false,
   reviewOnly: true,
-  questionStudioVisible: false,
+  questionStudioVisible: true,
   publiclyPublishable: false,
 }, null, 2));
