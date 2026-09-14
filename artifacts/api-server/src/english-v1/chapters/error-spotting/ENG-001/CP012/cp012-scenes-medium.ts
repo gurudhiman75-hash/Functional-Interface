@@ -94,7 +94,7 @@ export const CP012_MEDIUM_SCENES_V1: readonly VoiceNarrationSceneV1[] = [
     errorSegments: ["After the call,", "Neha", "said me that the meeting had been postponed", "until Friday."],
     reason: "'Tell' can take a personal object directly ('told me'), whereas 'say' cannot be used as 'said me'." }),
   voiceNarrationScene({ id: "VNR-M-024", difficulty: "medium", ruleId: "GR-VNR-012", domain: "told-without-object", errorIndex: 3,
-    correctSegments: ["At the briefing,", "the officer addressed the group", "and said that", "the gate would close at six."],
-    errorSegments: ["At the briefing,", "the officer addressed the group", "and told that", "the gate would close at six."],
+    correctSegments: ["At the briefing,", "the officer addressed the group", "and then", "said that the gate would close at six."],
+    errorSegments: ["At the briefing,", "the officer addressed the group", "and then", "told that the gate would close at six."],
     reason: "Active 'tell' normally needs a personal object; with no object here, 'said that' is the correct reporting pattern." }),
 ];
