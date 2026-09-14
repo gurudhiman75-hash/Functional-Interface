@@ -6,7 +6,7 @@ import {
 } from "./causal-world-authorities.ts";
 import { withCae001SaturationWave2 } from "./causal-world-saturation-wave2.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
-import { generateCaeSourceProfileQuestion } from "./source-profiles.ts";
+import { generateReviewedCaeSourceProfileQuestion } from "./reviewed-source-profiles.ts";
 import type { CaeQuestionProfile } from "./types.ts";
 
 const QL_ID = "CAE-QL-001" as const;
@@ -15,7 +15,9 @@ const SWEEP = 10_000;
 const REJECTED_FRAGMENT = "variant:drill|graph:HIDDEN_CHAIN|direction:bridge>effect";
 
 function structuralId(question: Readonly<{ causalStateId: string }>): string {
-  return question.causalStateId.replace(/\|editorial-remap:\d+->\d+$/u, "");
+  return question.causalStateId
+    .replace(/\|editorial-remap:\d+->\d+$/u, "")
+    .replace(/\|source-profile-editorial-remap:\d+->\d+$/u, "");
 }
 
 function stateIdFor(
@@ -107,8 +109,8 @@ const SOURCE_PROFILES = [
 ] as const;
 for (const sourceProfileId of SOURCE_PROFILES) {
   for (let seed = 0; seed < 2_000; seed += 1) {
-    const question = generateCaeSourceProfileQuestion({ qlId: QL_ID, locale: "en-IN", seed, sourceProfileId });
-    assert.ok(!question.causalStateId.includes(REJECTED_FRAGMENT), `${sourceProfileId}/${seed}: source-profile renderer resurfaced rejected QL001 drill bridge→effect state`);
+    const question = generateReviewedCaeSourceProfileQuestion({ qlId: QL_ID, locale: "en-IN", seed, sourceProfileId });
+    assert.ok(!structuralId(question).includes(REJECTED_FRAGMENT), `${sourceProfileId}/${seed}: reviewed source-profile facade resurfaced rejected QL001 drill bridge→effect state`);
   }
 }
 
