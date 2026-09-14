@@ -29,9 +29,7 @@ export type GeoPhy001Cp013ReviewQuestion = {
   runtimeRegistered: false;
 };
 
-type SourceQuestion = Omit<GeoPhy001Cp013ReviewQuestion, "questionId" | "sourceCheckpoint"> & {
-  questionId: string;
-};
+type SourceQuestion = Omit<GeoPhy001Cp013ReviewQuestion, "questionId" | "sourceCheckpoint"> & { questionId: string };
 
 export const GEO_PHY_001_CP013_SOURCE_BATCHES_V1: readonly {
   checkpoint: string;
@@ -60,11 +58,28 @@ function wordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
-function learnerText(question: SourceQuestion): string {
+function learnerText(question: Pick<SourceQuestion, "stem" | "options" | "explanation">): string {
   return `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
 }
 
-function isSoundCandidate(question: SourceQuestion): boolean {
+function simplifyLearnerText(text: string): string {
+  return text
+    .replace(/physiographic divisions/gi, "major physical regions")
+    .replace(/physiographic division/gi, "major physical region")
+    .replace(/physiographic/gi, "physical")
+    .replace(/physical division/gi, "physical region")
+    .replace(/geologically/gi, "by age and formation")
+    .replace(/correctly classified/gi, "correctly matched")
+    .replace(/incorrectly classified/gi, "wrongly matched")
+    .replace(/structurally folded/gi, "folded")
+    .replace(/depositional surface/gi, "plain surface")
+    .replace(/structural continuity/gi, "continuity")
+    .replace(/relief contrast/gi, "landform contrast")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+function isSoundSource(question: SourceQuestion): boolean {
   return question.options.length === 4
     && new Set(question.options).size === 4
     && question.options[question.correctIndex] === question.canonicalAnswer
@@ -72,19 +87,36 @@ function isSoundCandidate(question: SourceQuestion): boolean {
     && question.sourceFactIds.length > 0
     && question.reviewOnly === true
     && question.runtimeRegistered === false
-    && !metaLanguage.test(learnerText(question))
-    && !heavyPhrasing.test(learnerText(question));
+    && !metaLanguage.test(learnerText(question));
 }
 
 function candidateScore(question: SourceQuestion, rotation: number): number {
-  const lengthPenalty = wordCount(question.stem) * 4 + wordCount(question.explanation);
-  return lengthPenalty + rotation;
+  const heavyPenalty = heavyPhrasing.test(learnerText(question)) ? 200 : 0;
+  return heavyPenalty + wordCount(question.stem) * 4 + wordCount(question.explanation) + rotation;
 }
 
 function sourceCheckpointForQl(ql: number) {
   const owner = GEO_PHY_001_CP013_SOURCE_BATCHES_V1.find((batch) => ql >= batch.firstQl && ql <= batch.lastQl);
   if (!owner) throw new Error(`No owner for QL${String(ql).padStart(3, "0")}`);
   return owner;
+}
+
+function buildRepresentative(source: SourceQuestion, targetIndex: number) {
+  const canonicalAnswer = simplifyLearnerText(source.canonicalAnswer);
+  const distractors = source.options
+    .filter((option) => option !== source.canonicalAnswer)
+    .map((option) => simplifyLearnerText(option));
+  if (distractors.length !== 3) return null;
+  const options = [...distractors];
+  options.splice(targetIndex, 0, canonicalAnswer);
+  if (new Set(options).size !== 4) return null;
+
+  const stem = simplifyLearnerText(source.stem);
+  const explanation = simplifyLearnerText(source.explanation);
+  const learner = `${stem}\n${options.join("\n")}\n${explanation}`;
+  if (metaLanguage.test(learner) || heavyPhrasing.test(learner)) return null;
+
+  return { stem, options, canonicalAnswer, explanation };
 }
 
 export function generateGeoPhy001Cp013ReviewBatchV1(): GeoPhy001Cp013ReviewQuestion[] {
@@ -99,31 +131,33 @@ export function generateGeoPhy001Cp013ReviewBatchV1(): GeoPhy001Cp013ReviewQuest
     const rotationStart = (ql - 1) % candidates.length;
     const ranked = candidates
       .map((question, index) => ({ question, rotation: (index - rotationStart + candidates.length) % candidates.length }))
-      .filter(({ question }) => isSoundCandidate(question))
+      .filter(({ question }) => isSoundSource(question))
       .sort((a, b) => candidateScore(a.question, a.rotation) - candidateScore(b.question, b.rotation));
 
-    const source = ranked[0]?.question;
-    if (!source) throw new Error(`${qlId} has no sound plain-language representative question`);
-
     const targetIndex = (ql - 1) % 4;
-    const distractors = source.options.filter((option) => option !== source.canonicalAnswer);
-    if (distractors.length !== 3) throw new Error(`${qlId} has invalid option structure`);
-    const options = [...distractors];
-    options.splice(targetIndex, 0, source.canonicalAnswer);
+    let selected: { source: SourceQuestion; built: NonNullable<ReturnType<typeof buildRepresentative>> } | null = null;
+    for (const { question } of ranked) {
+      const built = buildRepresentative(question, targetIndex);
+      if (built) {
+        selected = { source: question, built };
+        break;
+      }
+    }
+    if (!selected) throw new Error(`${qlId} has no sound representative after learner-language normalization`);
 
     output.push({
       questionId: `GEO-PHY-001-CP013-Q${String(ql).padStart(3, "0")}`,
-      qlId: source.qlId,
-      qlName: source.qlName,
+      qlId: selected.source.qlId,
+      qlName: simplifyLearnerText(selected.source.qlName),
       sourceCheckpoint: owner.checkpoint,
-      difficulty: source.difficulty,
-      stem: source.stem,
-      options: Object.freeze(options),
+      difficulty: selected.source.difficulty,
+      stem: selected.built.stem,
+      options: Object.freeze(selected.built.options),
       correctIndex: targetIndex,
-      canonicalAnswer: source.canonicalAnswer,
-      explanation: source.explanation,
-      sourceIds: Object.freeze([...source.sourceIds]),
-      sourceFactIds: Object.freeze([...source.sourceFactIds]),
+      canonicalAnswer: selected.built.canonicalAnswer,
+      explanation: selected.built.explanation,
+      sourceIds: Object.freeze([...selected.source.sourceIds]),
+      sourceFactIds: Object.freeze([...selected.source.sourceFactIds]),
       reviewOnly: true,
       runtimeRegistered: false,
     });
