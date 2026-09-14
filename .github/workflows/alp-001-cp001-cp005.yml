@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Alphabet-Test/ALP-001/**
-      - .github/workflows/alp-001-cp001-cp005.yml
   workflow_dispatch:
 
 permissions:
@@ -47,7 +46,7 @@ jobs:
           STATUS=0
           mkdir -p artifacts/api-server/$OUT
           : > artifacts/api-server/$LOG
-          for TEST in alp-001.test alp-001-completion.test alp-001-localized.test alp-001-editorial-v2.test; do
+          for TEST in alp-001.test alp-001-completion.test alp-001-localized.test alp-001-editorial-v2.test alp-001-learner-explanation.test alp-001-final-audit.test alp-001-distractor-provenance.test alp-wfm-ownership-boundary.test; do
             {
               echo "===== $TEST ====="
               pnpm --dir artifacts/api-server exec esbuild \
@@ -107,7 +106,8 @@ jobs:
           Punjabi: 156 QLs × 2 seeds = 312 questions
           Total: 1,092 questions
 
-          Review state: implemented chapter-complete candidate; not stored, test-eligible or publicly publishable.
+          Learner/reviewer explanation surface: core concept + worked steps + position tracking where useful + conclusion. Shortcut/trap diagnostics remain internal QA data and are not automatically rendered.
+          Review state: current-main final-audit candidate; not stored, test-eligible or publicly publishable.
           EOF
       - name: Upload complete chapter evidence
         if: always()
