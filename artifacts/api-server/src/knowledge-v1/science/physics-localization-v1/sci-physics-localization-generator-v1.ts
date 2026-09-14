@@ -23,6 +23,7 @@ import {
 } from "./sci-physics-cp004-localization-data-v1";
 import { getPhysicsExplanationV2 } from "./sci-physics-explanation-quality-v2";
 import { getPhysicsCp003Cp004ExplanationV1 } from "./sci-physics-explanation-quality-cp003-cp004-v1";
+import { extendPhysicsCp003Cp004ExplanationV1 } from "./sci-physics-explanation-supplements-cp003-cp004-v1";
 import {
   applyPunjabiPhysicsEditorialV2,
   naturalizePunjabiPhysicsTextV3,
@@ -116,9 +117,13 @@ function localizedBase(question: PhysicsExhaustiveQuestionV2, locale: PhysicsLoc
 }
 
 function explanationFor(anchorId: string, locale: PhysicsLocaleV1): string {
-  const explanation = anchorId.startsWith("SCI-CP003-") || anchorId.startsWith("SCI-CP004-")
+  const isNewCheckpoint = anchorId.startsWith("SCI-CP003-") || anchorId.startsWith("SCI-CP004-");
+  const base = isNewCheckpoint
     ? getPhysicsCp003Cp004ExplanationV1(anchorId, locale)
     : getPhysicsExplanationV2(anchorId, locale);
+  const explanation = isNewCheckpoint
+    ? extendPhysicsCp003Cp004ExplanationV1(anchorId, locale, base)
+    : base;
   if (locale !== "pa") return explanation;
   const editorial = naturalizePunjabiPhysicsTextV3(anchorId, explanation);
   const natural = naturalizePunjabiPhysicsTextFinalV3(anchorId, editorial);
