@@ -1,7 +1,7 @@
 # POL-CP-007 — President Status
 
 **Branch:** `feature/polity-cp007-president`  
-**Lifecycle:** REVIEW CANDIDATE — PLAIN EXPLANATIONS V5  
+**Lifecycle:** REVIEW CANDIDATE — BALANCED EXPLANATIONS V6  
 **Runtime registration:** BLOCKED pending human approval
 
 ## Implemented
@@ -23,8 +23,8 @@
 - 22 genuine QLs
 - 80-question review batch target
 - V2 simplified-language stems
-- canonical V5 short plain-language explanations
-- structural, provenance and wording QA
+- canonical V6 balanced teaching explanations
+- structural, provenance and explanation-wording QA
 
 ## Review profile
 
@@ -32,15 +32,15 @@
 - 42 Medium
 - 14 Hard
 
-## V5 explanation policy
+## V6 explanation policy
 
-- use everyday wording around required constitutional terms
-- simple facts normally use one short sentence
-- remove formal wording where a simpler word works
+- simple wording, but not ultra-short
+- explain the answer enough to teach the rule
+- most explanations use one fuller sentence or two short sentences
+- add a distinction only when it helps prevent an exam mistake
 - no stock opening or generic ending
 - every explanation in the batch must be unique
-- normal explanation target: 5–18 words
-- a longer explanation is allowed only when needed for an exam trap
+- normal explanation range: 11–24 words
 - no unnecessary option-by-option analysis
 
 ## Gated
@@ -50,4 +50,4 @@
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V5 is approved.
+These remain blocked until English V6 is approved.
