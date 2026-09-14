@@ -6,7 +6,7 @@ Status: **REVIEW-ONLY CANDIDATE**
 
 - English (`en`) — frozen semantic authority
 - Hindi (`hi`) — native editorial surface
-- Punjabi (`pa`) — native editorial surface
+- Punjabi (`pa`) — Punjabi-first native editorial surface
 
 ## Scope
 
@@ -23,14 +23,31 @@ Localization must preserve English semantic identity, CP/question family, anchor
 
 Formulas, standard symbols and units such as `F = ma`, `kg`, `m/s`, `m/s²`, `SI` and dimensional formulae remain language-neutral.
 
+## Explanation-quality contract
+
+- Explanations must teach the underlying idea instead of merely repeating the correct answer.
+- Each base explanation contains at least two meaningful teaching sentences.
+- Explanations should add a reason, formula, relation, contrast or application where useful.
+- Numerical items show the relevant relation and calculation.
+- The explanation-depth gate covers all 48 anchors in all three locales and the rendered direct-question corpus.
+
+## Punjabi-first editorial contract
+
+Punjabi is not produced by mechanically translating Hindi vocabulary into Gurmukhi. The learner surface should read as if it was originally written for a Punjabi-medium exam candidate.
+
+- Prefer normal Punjabi sentence structure over Hindi-shaped syntax.
+- Use familiar Punjabi terms where they are natural and well understood.
+- When a Sanskrit/Hindi-derived technical term sounds forced in Punjabi, prefer the familiar exam/science English term written in Gurmukhi where that is clearer, for example `ਫ੍ਰਿਕਵੈਂਸੀ`, `ਲੀਸਟ ਕਾਊਂਟ`, `ਡਾਇਮੈਂਸ਼ਨਲ ਫਾਰਮੂਲਾ`, `ਸਾਇੰਟਿਫਿਕ ਨੋਟੇਸ਼ਨ`, `ਇੰਪਲਸ` and `ਸੈਂਟ੍ਰਿਪੀਟਲ ਬਲ`.
+- Keep established Punjabi science terms where they are natural, including `ਪੁੰਜ`, `ਪ੍ਰਵੇਗ`, `ਸੰਵੇਗ`, `ਜੜਤਾ` and `ਘਰਸ਼ਣ`.
+- Keep `ਪੁੰਜ` (mass) distinct from `ਭਾਰ-ਬਲ` (weight).
+- Use native exam instructions such as `ਬਿਆਨ`, `ਸਿਰਫ਼` and `ਸਹੀ ਉੱਤਰ ਚੁਣੋ` rather than Hindi-shaped equivalents.
+- Automated guards reject known Hindi-calque terms, deprecated terminology, mass/weight conflation and known Punjabi grammar artifacts in the final rendered corpus.
+
 ## Editorial rules
 
-- Native stems should read like real exam questions, not literal English translations.
-- Explanations must teach the reason, relation, formula, contrast or application behind the answer instead of merely restating the correct option.
-- Every base anchor explanation in English, Hindi and Punjabi must contain at least two meaningful teaching sentences and pass the automated minimum-content gate.
-- Numerical explanations must show the relevant relation and substitution/calculation where the question requires it.
+- Native stems should read like real exam questions, not literal English or Hindi translations.
 - Hindi uses Devanagari; Punjabi uses Gurmukhi.
-- No unnecessary English prose may leak into native questions.
+- No unnecessary English prose may leak into native questions; familiar technical terms written in native script are allowed deliberately.
 - Scientific symbols, formulae, standard unit abbreviations and Roman statement labels `I/II` are allowed.
 - Distractors remain semantically identical to English and in the same option position.
 
