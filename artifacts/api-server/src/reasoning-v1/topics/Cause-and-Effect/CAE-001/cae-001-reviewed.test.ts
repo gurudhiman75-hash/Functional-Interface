@@ -6,6 +6,7 @@
  * checkpoint override and the CP-010 final freeze gate.
  */
 import "./cae-001-source-profiles.test.ts";
+import "./ql002-structural-completeness.test.ts";
 import "./cp003004-combination.test.ts";
 import "./cp003-editorial-safety.test.ts";
 import "./cp005-competing-explanations.test.ts";
