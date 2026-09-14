@@ -14,10 +14,12 @@ import type { CaeLocale, CaeQlId } from "./types.ts";
 
 assert.equal(CAE_001_SATURATION_WAVE2_FAMILIES.length, 9, "Wave 2 must keep all nine authored families.");
 assert.equal(CAE_001_SATURATION_WAVE2_VARIANT_COUNT, 45, "Wave 2 must keep all 45 authored variants.");
-assert.equal(CAE_001_SATURATION_EFFECTIVE_FAMILY_COUNT, 30, "Effective saturation floor must be 30 families.");
-assert.equal(CAE_001_SATURATION_EFFECTIVE_VARIANT_COUNT, 120, "Effective saturation floor must be 120 canonical variants.");
-assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.effectiveScenarioFamilyCount, 30, "Question Studio must expose 30 effective families.");
-assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.effectiveCanonicalScenarioVariantCount, 120, "Question Studio must expose 120 effective canonical variants.");
+assert.equal(CAE_001_SATURATION_EFFECTIVE_FAMILY_COUNT, 30, "Wave 2's own effective floor must remain 30 families.");
+assert.equal(CAE_001_SATURATION_EFFECTIVE_VARIANT_COUNT, 120, "Wave 2's own effective floor must remain 120 canonical variants.");
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.saturationWave2FamilyCount, 9, "Question Studio must preserve the Wave 2 family contribution.");
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.saturationWave2VariantCount, 45, "Question Studio must preserve the Wave 2 variant contribution.");
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.effectiveScenarioFamilyCount, 40, "Current Question Studio package must expose the Wave 4 40-family effective universe.");
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.effectiveCanonicalScenarioVariantCount, 160, "Current Question Studio package must expose the Wave 4 160-variant effective universe.");
 
 assert.equal(CAE_001_SCENARIO_FAMILIES.length, 9, "Wave 2 module import leaked into frozen family registry.");
 assert.equal(CAE_001_CAUSAL_WORLDS.length, 27, "Wave 2 module import leaked into frozen world registry.");
@@ -68,8 +70,6 @@ for (const family of CAE_001_SATURATION_WAVE2_FAMILIES) {
   }
 }
 
-// Hard projections may contain only the explicitly candidate-ready Wave 2
-// families. The remaining four Wave 2 families stay gated.
 withCae001SaturationWave2(() => {
   for (const qlId of ["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-009"] as const) {
     const plan = CAE_001_PROJECTION_AUTHORITIES.find((entry) => entry.qlId === qlId)!;
@@ -81,4 +81,4 @@ withCae001SaturationWave2(() => {
 assert.equal(CAE_001_SCENARIO_FAMILIES.length, 9, "Wave 2 scope did not restore frozen family registry.");
 assert.equal(CAE_001_CAUSAL_WORLDS.length, 27, "Wave 2 scope did not restore frozen world registry.");
 
-console.log("CAE-001 saturation wave 2 QA passed: 30 effective families / 120 effective canonical variants.");
+console.log("CAE-001 saturation wave 2 QA passed: Wave 2 remains frozen at 30/120 while the current Question Studio package advances independently.");
