@@ -73,17 +73,17 @@ assert.ok(Math.abs((20.8 - 15.2) / 2 - 2.8) < 1e-12);
 assert.ok(Math.abs(1.3 * 0.7 - 0.91) < 1e-12);
 assert.ok(Math.abs((1 / 3.5 - 1 / 14) - 3 / 14) < 1e-12);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 283);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 38);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 307);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 40);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 12);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 26);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 16);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 28);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 16);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 27);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 18);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 29);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 18);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 6);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-001" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-005" }).length, 3);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-005" }).length, 4);
 
 const cgl = buildQuantV4PyqFrequencyProfile({
   examId: "SSC_CGL_TIER_I",
@@ -95,7 +95,7 @@ const cgl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(cgl.countableQuestionCount, 250);
+assert.equal(cgl.countableQuestionCount, 274);
 assert.equal(cgl.distinctPaperCount, 25);
 assert.equal(cgl.topicCoverageCount, 13);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
@@ -108,10 +108,10 @@ const whole = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(whole.completeSectionCount, 9);
-assert.equal(whole.completeQuestionCount, 225);
-assert.equal(whole.totalCountableQuestionCount, 250);
-assert.equal(whole.nonWholeSectionCountableQuestionCount, 25);
+assert.equal(whole.completeSectionCount, 10);
+assert.equal(whole.completeQuestionCount, 250);
+assert.equal(whole.totalCountableQuestionCount, 274);
+assert.equal(whole.nonWholeSectionCountableQuestionCount, 24);
 assert.equal(whole.distinctSectionYearCount, 3);
 assert.equal(whole.packageCoverageCount, 28);
 assert.equal(whole.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");

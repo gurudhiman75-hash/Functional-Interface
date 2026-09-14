@@ -28,33 +28,32 @@ assert.equal(
   QUANT_V4_WHOLE_SECTION_FREQUENCY_STABILITY_AUTHORITY,
   "QUANT-V4-WHOLE-SECTION-FREQUENCY-STABILITY-P2",
 );
-assert.equal(profile.completeSectionCount, 9);
-assert.equal(profile.completeQuestionCount, 225);
+assert.equal(profile.completeSectionCount, 10);
+assert.equal(profile.completeQuestionCount, 250);
 assert.equal(profile.wholeSectionProfile.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
 assert.deepEqual([...profile.wholeSectionProfile.blockers], []);
 assert.equal(profile.wholeSectionProfile.packageCoverageCount, 28);
 assert.equal(profile.status, "STABILITY_HOLD");
 assert.deepEqual([...profile.blockers], [
-  "BALANCED_YEAR_SAMPLE_BELOW_POLICY",
-  "SINGLE_YEAR_SECTION_CONCENTRATION_HIGH",
   "SINGLE_DATE_SECTION_CONCENTRATION_HIGH",
   "CONCENTRATED_DATE_SUPPORT_LOSS_HIGH",
 ]);
 assert.equal(profile.productionPromotionAuthorized, false);
 assert.equal(canPromoteQuantV4WholeSectionFrequencyFromStability(profile), false);
 
-// Wave 9 adds a second 2022 section. This materially improves balance, but 2024
-// still has only one complete section and 2023 still exceeds the 60% year cap.
+// Wave 10 adds a second 2024 section. All three represented years now have at
+// least two complete sections and 2023 sits exactly at, rather than above, the
+// conservative 60% year-concentration ceiling.
 assert.equal(profile.distinctYearCount, 3);
-assert.equal(profile.balancedYearCount, 2);
+assert.equal(profile.balancedYearCount, 3);
 assert.equal(profile.maxSingleYear, "2023");
-approx(profile.maxSingleYearSectionShare, 6 / 9);
+approx(profile.maxSingleYearSectionShare, 6 / 10);
 assert.deepEqual(
   profile.yearProfiles.map((year) => [year.year, year.sectionCount, year.questionCount, year.packageCoverageCount]),
   [
     ["2022", 2, 50, 18],
     ["2023", 6, 150, 27],
-    ["2024", 1, 25, 14],
+    ["2024", 2, 50, 19],
   ],
 );
 const year2022 = profile.yearProfiles.find((year) => year.year === "2022");
@@ -68,39 +67,43 @@ assert.deepEqual(
 );
 const year2024 = profile.yearProfiles.find((year) => year.year === "2024");
 assert.equal(year2024?.packageFrequencies[0]?.packageId, "DI-001");
-assert.equal(year2024?.packageFrequencies[0]?.questionCount, 4);
+assert.equal(year2024?.packageFrequencies[0]?.questionCount, 6);
+assert.equal(year2024?.packageFrequencies[1]?.packageId, "TRG-001");
+assert.equal(year2024?.packageFrequencies[1]?.questionCount, 6);
 
-// Concentration after Wave 9: the additional 2022 paper lowers concentration
-// while preserving the same leading package families.
-assert.equal(profile.top3QuestionCount, 75);
-approx(profile.top3QuestionShare, 75 / 225);
-assert.equal(profile.top5QuestionCount, 105);
-approx(profile.top5QuestionShare, 105 / 225);
-assert.equal(profile.top10QuestionCount, 163);
-approx(profile.top10QuestionShare, 163 / 225);
+// Concentration after Wave 10 remains led by Algebra, Trigonometry and Time & Work,
+// but is now measured over ten complete sections rather than nine.
+assert.equal(profile.top3QuestionCount, 81);
+approx(profile.top3QuestionShare, 81 / 250);
+assert.equal(profile.top5QuestionCount, 115);
+approx(profile.top5QuestionShare, 115 / 250);
+assert.equal(profile.top10QuestionCount, 180);
+approx(profile.top10QuestionShare, 180 / 250);
 
 // Leave-one-section-out must stay inside the conservative 2pp stability bound.
-// Avoid freezing one incidental tie/rank ordering as a permanent contract.
-assert.equal(profile.leaveOneSectionOut.length, 9);
-assert.ok(profile.leaveOneSectionOut.every((entry) => entry.remainingSectionCount === 8));
-assert.ok(profile.leaveOneSectionOut.every((entry) => entry.remainingQuestionCount === 200));
+assert.equal(profile.leaveOneSectionOut.length, 10);
+assert.ok(profile.leaveOneSectionOut.every((entry) => entry.remainingSectionCount === 9));
+assert.ok(profile.leaveOneSectionOut.every((entry) => entry.remainingQuestionCount === 225));
 assert.ok(profile.maxLeaveOneOutShareDeltaPoints <= QUANT_V4_CGL_TIER_I_STABILITY_P2_AUDIT_POLICY.maxLeaveOneOutShareDeltaPoints + 1e-12);
 assert.ok(profile.maxLeaveOneOutRankMovement >= 0);
 
-// The largest same-date cluster remains 25 Jul 2023. Its relative share drops
-// from 3/8 to 3/9, but four package families still depend entirely on that date.
+// The largest same-date cluster remains 25 Jul 2023. Its share falls to 30%.
+// Wave 10 supplies independent PCT-005 support, so three—not four—package
+// families remain wholly dependent on that concentrated date.
 assert.equal(profile.maxSingleDate, "2023-07-25");
-approx(profile.maxSingleDateSectionShare, 3 / 9);
+approx(profile.maxSingleDateSectionShare, 3 / 10);
 const window = profile.concentratedDateSensitivity;
 assert.ok(window);
 assert.equal(window.heldDate, "2023-07-25");
 assert.equal(window.removedSectionCount, 3);
-approx(window.removedSectionShare, 3 / 9);
+approx(window.removedSectionShare, 3 / 10);
 assert.equal(window.removedQuestionCount, 75);
-assert.equal(window.remainingSectionCount, 6);
-assert.equal(window.remainingQuestionCount, 150);
-assert.equal(window.remainingPackageCoverageCount, 24);
-assert.deepEqual([...window.packagesLostFromSupport], ["DI-004", "PCT-001", "PCT-005", "SRI-002"]);
+assert.equal(window.remainingSectionCount, 7);
+assert.equal(window.remainingQuestionCount, 175);
+assert.equal(window.remainingPackageCoverageCount, 25);
+assert.deepEqual([...window.packagesLostFromSupport], ["DI-004", "PCT-001", "SRI-002"]);
+approx(window.maxAbsoluteShareDeltaPoints, 1.6);
+assert.equal(window.maxAbsoluteShareDeltaPackageId, "DI-001");
 assert.ok(window.maxAbsoluteShareDeltaPoints <= QUANT_V4_CGL_TIER_I_STABILITY_P2_AUDIT_POLICY.maxConcentratedDateRemovalShareDeltaPoints + 1e-12);
 
 // Relaxing evidence-stability thresholds alone never authorizes production.

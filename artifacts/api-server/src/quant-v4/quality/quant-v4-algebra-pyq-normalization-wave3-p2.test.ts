@@ -50,14 +50,14 @@ for (const value of [-7, -2, 0, 3, 11]) assert.equal(16 * value * value + 40 * v
 assert.equal(40 * 12, 30 * 16);
 assert.notEqual(40 * 340, 30 * 170);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 283);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 307);
 const alg001 = listRegisteredCountablePyqObservations({ packageId: "ALG-001" });
 const alg002 = listRegisteredCountablePyqObservations({ packageId: "ALG-002" });
-assert.equal(alg001.length, 38);
+assert.equal(alg001.length, 40);
 assert.equal(alg002.length, 12);
 const algebraAll = [...alg001, ...alg002];
-assert.equal(algebraAll.length, 50);
-assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 45);
+assert.equal(algebraAll.length, 52);
+assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 47);
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CHSL").length, 3);
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_II").length, 2);
 
@@ -66,7 +66,7 @@ const cgl = buildQuantV4PyqFrequencyProfile({
   observations: algebraAll,
   policy: { minDistinctPapers: 1, minCountableQuestions: 1, minTopicCoverage: 2, requireDatedPaperIdentity: true },
 });
-assert.equal(cgl.countableQuestionCount, 45);
+assert.equal(cgl.countableQuestionCount, 47);
 assert.equal(cgl.distinctPaperCount, 24);
 assert.equal(cgl.topicCoverageCount, 1);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
@@ -78,6 +78,6 @@ console.log(JSON.stringify({
   authority: QUANT_V4_ALGEBRA_WAVE3_PYQ_MIGRATION_AUTHORITY,
   wave3ObservationCount: observations.length,
   algebraRegisteredObservationCount: algebraAll.length,
-  profileCounts: { SSC_CGL_TIER_I: 45, SSC_CHSL: 3, SSC_CGL_TIER_II: 2 },
+  profileCounts: { SSC_CGL_TIER_I: 47, SSC_CHSL: 3, SSC_CGL_TIER_II: 2 },
   wholeSectionWeightReady: false,
 }));
