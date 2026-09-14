@@ -26,10 +26,16 @@ const qlNames: Record<number, string> = {
   12: "Apply market price and factor cost relationships",
 };
 
-const difficultyForQl = (ql: number): KnowledgeV1Difficulty => {
-  if ([1, 2, 3].includes(ql)) return "Easy";
-  if ([4, 5, 6, 7, 8, 9].includes(ql)) return "Medium";
-  return "Hard";
+const difficultyForVariant = (ql: number, rowIndex: number): KnowledgeV1Difficulty => {
+  if (ql === 1) return rowIndex < 2 ? "Easy" : "Medium";
+  if (ql === 2) return rowIndex < 2 ? "Easy" : "Medium";
+  if (ql === 3) return rowIndex < 2 ? "Easy" : "Medium";
+  if (ql === 4) return rowIndex < 2 ? "Medium" : "Hard";
+  if (ql === 5) return rowIndex < 2 ? "Easy" : "Medium";
+  if ([6, 7, 8, 9].includes(ql)) return "Medium";
+  if (ql === 10) return rowIndex === 0 ? "Medium" : "Hard";
+  if (ql === 11) return "Hard";
+  return "Medium";
 };
 
 function moveCorrect(options: string[], correct: string, target: number) {
@@ -112,7 +118,7 @@ const distinctionRows = Object.freeze([
 function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp003ReviewQuestion {
   const qlId = `ECO-003-QL-${String(ql).padStart(3, "0")}`;
   const correctTarget = globalIndex % 4;
-  const difficulty = difficultyForQl(ql);
+  const difficulty = difficultyForVariant(ql, rowIndex);
   let stem = "";
   let correct = "";
   let options: string[] = [];
