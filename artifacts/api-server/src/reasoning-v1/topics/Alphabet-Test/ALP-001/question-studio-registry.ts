@@ -1,4 +1,5 @@
 import { ALP_001_CHECKPOINTS, ALP_001_QLS, alp001QlsForCheckpoint } from "./ql-registry";
+import { toAlpReviewQuestion } from "./learner-explanation";
 import { generateAlp001Question } from "./runtime";
 import type { AlpCheckpointId, AlpDifficulty, AlpLocale } from "./types";
 
@@ -60,7 +61,7 @@ function generateControlled(request: AlpControlledGenerationRequest) {
     const question = generateAlp001Question(ql.qlId, candidateSeed, request.locale);
     if (request.difficulty && question.difficulty !== request.difficulty) continue;
     if (question.options.length !== profile.optionCount) throw new Error(`${request.examProfile} option-count contract failed.`);
-    return {
+    return toAlpReviewQuestion({
       ...question,
       deliveryProfile: {
         examProfile: request.examProfile,
@@ -69,7 +70,7 @@ function generateControlled(request: AlpControlledGenerationRequest) {
         timePressure: profile.timePressure,
         requestedDifficulty: request.difficulty ?? null,
       },
-    };
+    });
   }
 
   throw new Error(`ALP-001 cannot satisfy requested difficulty ${request.difficulty ?? "ANY"} inside the requested QL/checkpoint scope.`);
@@ -82,7 +83,8 @@ export const ALP_001_QUESTION_STUDIO_REGISTRY = {
   chapterId: "ALP-001",
   chapterTitle: "Alphabet Test",
   runtimeVersion: "ALP-001-RUNTIME-V3",
-  editorialSchema: "ALP-001-PEDAGOGY-V2",
+  editorialSchema: "ALP-001-LEARNER-EXPLANATION-V1",
+  diagnosticSchema: "ALP-001-PEDAGOGY-V2",
   locales: ["en-IN", "hi-IN", "pa-IN"] as const,
   status: "CHAPTER_COMPLETE_REVIEW_CP001_CP010",
   qlCount: ALP_001_QLS.length,
@@ -92,7 +94,7 @@ export const ALP_001_QUESTION_STUDIO_REGISTRY = {
     return checkpointId ? alp001QlsForCheckpoint(checkpointId) : ALP_001_QLS;
   },
   generate(qlId: string, seed: number, locale: AlpLocale) {
-    return generateAlp001Question(qlId, seed, locale);
+    return toAlpReviewQuestion(generateAlp001Question(qlId, seed, locale));
   },
   generateControlled,
 } as const;
