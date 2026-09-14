@@ -1,0 +1,76 @@
+export type HisCp008Fact=readonly[id:string,explanation:string,sourceIds:readonly string[]];
+
+export const HIS_CP008_SOURCES_V1=[
+  {id:"NIOS-HISTORY-315-LESSON9-DELHI-SULTANATE",label:"NIOS History 315 Lesson 9 — Establishment and Expansion of the Delhi Sultanate",url:"https://digital.nios.ac.in/content/315en/315_History_Eng_Lesson9.pdf"},
+  {id:"NIOS-HISTORY-315-LESSON12-ADMINISTRATION",label:"NIOS History 315 Lesson 12 — Administrative System and Institutions",url:"https://digital.nios.ac.in/content/315en/315_History_Eng_Lesson12.pdf"},
+  {id:"NCERT-DELHI-12TH-15TH",label:"NCERT — Delhi: 12th to 15th Century",url:"https://ncert.nic.in/textbook/pdf/gess103.pdf"},
+] as const;
+
+export const HIS_CP008_SOURCE_IDS_V1=new Set(HIS_CP008_SOURCES_V1.map(s=>s.id));
+const L9=["NIOS-HISTORY-315-LESSON9-DELHI-SULTANATE"] as const;
+const L12=["NIOS-HISTORY-315-LESSON12-ADMINISTRATION"] as const;
+const L9N=["NIOS-HISTORY-315-LESSON9-DELHI-SULTANATE","NCERT-DELHI-12TH-15TH"] as const;
+
+export const HIS_CP008_FACTS_V1:readonly HisCp008Fact[]=[
+  ["mamluk-aibak-founder","Qutbuddin Aibak became the first Sultan of the Delhi Sultanate after Muhammad Ghori's death in 1206.",L9N],
+  ["mamluk-aibak-lakhbaksh","Qutbuddin Aibak was known as Lakh Baksh because of his generosity.",L9],
+  ["mamluk-aibak-chaugan","Qutbuddin Aibak died after injuries suffered in a fall from his horse while playing chaugan, or polo.",L9],
+  ["mamluk-iltutmish-consolidation","Iltutmish consolidated and organised the Delhi Sultanate after defeating major rivals and reasserting control over several regions.",L9N],
+  ["mamluk-forty","Iltutmish organised trusted Turkish nobles into the Turkan-i-Chahalgani, commonly called the Group of Forty.",L9],
+  ["mamluk-coins","Iltutmish issued the silver tanka and copper jittal as important Sultanate coins.",L9],
+  ["mamluk-investiture","Iltutmish received a letter of investiture from the Abbasid Caliph in 1229, strengthening his political legitimacy.",L9],
+  ["mamluk-iqta-expansion","Iltutmish expanded the use of iqtas, assigning territories to officers in place of cash salaries.",L9],
+  ["raziya-nominated","Iltutmish nominated his daughter Raziya as his successor because he did not consider his sons suitable for the throne.",L9],
+  ["raziya-nobles","Raziya faced strong opposition from Turkish nobles, especially when she promoted some non-Turks to important posts.",L9],
+  ["balban-chahalgani","Balban broke the political power of the Chahalgani and brought the nobility more firmly under the Sultan's control.",L9N],
+  ["balban-kingship","Balban strengthened the authority and dignity of the Sultan through a strict theory of kingship.",L9],
+  ["balban-spies","Balban used an extensive spy system to keep watch over officials and nobles.",L9],
+  ["balban-military","Balban reorganised the Diwan-i-Arz and maintained a strong central army to suppress rebellions and resist Mongol pressure.",L9],
+  ["balban-court","Balban insisted on court practices such as sijada and paibos to emphasise royal authority.",L9],
+  ["khalji-jalaluddin-founder","Jalaluddin Khalji founded the Khalji dynasty in 1290.",L9N],
+  ["khalji-alauddin-standing-army","Alauddin Khalji maintained a large permanent standing army for conquest and defence against Mongol attacks.",L9],
+  ["khalji-anti-rebellion","Alauddin Khalji tightened the spy system, restricted drinking and noble gatherings, and curbed excess wealth to reduce rebellions.",L9],
+  ["khalji-market-purpose","Alauddin Khalji's market controls helped him maintain a large army at relatively low cost by keeping essential prices stable.",L9],
+  ["khalji-three-markets","Alauddin Khalji organised separate Delhi markets for grain, cloth and expensive goods, and horses, slaves and cattle.",L9],
+  ["khalji-shahna","The Shahna-i-Mandi supervised market regulation under Alauddin Khalji.",L9],
+  ["khalji-market-intelligence","Barids and munhiyans supplied independent reports that helped enforce Alauddin Khalji's market rules.",L9],
+  ["khalji-gujarat","Alauddin Khalji's forces conquered Gujarat in 1299.",L9],
+  ["khalji-ranthambore","Alauddin Khalji captured Ranthambore in 1301.",L9],
+  ["khalji-chittor","Alauddin Khalji captured Chittor in 1303; later romantic legends about the campaign should not be treated as settled historical fact.",L9],
+  ["khalji-malik-kafur","Malik Kafur led major Deccan and South Indian expeditions for Alauddin Khalji.",L9],
+  ["khalji-deccan-tribute","Alauddin Khalji generally sought submission, tribute and wealth from several southern kingdoms rather than immediately converting all of them into directly administered provinces.",L9],
+  ["tughlaq-founder","Ghazi Malik founded the Tughlaq dynasty in 1320 under the title Ghiyasuddin Tughlaq.",L9N],
+  ["tughlaq-muhammad-juna","Muhammad Tughlaq was known as Juna Khan before becoming Sultan.",L9],
+  ["tughlaq-deccan-annex","Under the Tughlaqs, important Deccan territories were brought under more direct Sultanate control than under Alauddin Khalji's tribute-based arrangements.",L9],
+  ["tughlaq-daulatabad","Muhammad Tughlaq transferred the capital towards Deogir, renamed Daulatabad, but later abandoned the scheme.",L9],
+  ["tughlaq-diwani-kohi","Muhammad Tughlaq created the Diwan-i-Kohi to promote agriculture and provide support to cultivators.",L9],
+  ["tughlaq-token","Muhammad Tughlaq introduced token currency to address a shortage of silver.",L9],
+  ["tughlaq-token-failure","Muhammad Tughlaq's token currency failed largely because large-scale counterfeiting could not be controlled.",L9],
+  ["tughlaq-firuz-successor","Firuz Tughlaq succeeded Muhammad Tughlaq.",L9N],
+  ["tughlaq-decline","Political control weakened after Firuz Tughlaq, and many regions moved towards independence.",L9],
+  ["admin-sultan","The Sultan stood at the head of civil administration, the army and the highest level of judicial authority.",L12],
+  ["admin-wizarat","The Diwan-i-Wizarat, headed by the wazir, supervised state finance and advised the Sultan.",L12],
+  ["admin-arz","The Diwan-i-Arz managed military organisation and was headed by the Ariz-i-Mumalik.",L12],
+  ["admin-dagh-huliya","Alauddin Khalji used dagh, branding of horses, and huliya, descriptive rolls of soldiers, to tighten military control.",L12],
+  ["admin-insha","The Diwan-i-Insha handled state correspondence and royal orders.",L12],
+  ["admin-barid","The Barid-i-Mumalik headed the state intelligence and news-gathering system.",L12],
+  ["admin-rasalat","The Diwan-i-Rasalat dealt with justice and religious-charitable matters under the Sadr-us-Sadr.",L12],
+  ["iqta-definition","An iqta was a territorial assignment given to officers who collected revenue and performed administrative and military duties.",L12],
+  ["iqta-holder","The holder of an iqta was called an iqtadar or muqti.",L12],
+  ["iqta-fawazil","From Balban's time, a muqti was expected to send the balance of iqta income, called fawazil, to the centre after approved expenses.",L12],
+  ["iqta-control-alauddin","Central supervision over muqtis and iqta revenue became stricter under Alauddin Khalji.",L12],
+  ["local-village-officials","Important village functionaries included the khut, muqaddam and patwari.",L12],
+  ["local-shiq","In the fourteenth century, provinces could be divided into shiqs administered by shiqdars.",L12],
+  ["late-timur","Timur invaded Delhi in 1398, badly weakening the Sultanate and encouraging provincial independence.",L9],
+  ["late-sayyid-founder","Khizr Khan founded the Sayyid dynasty after occupying Delhi.",L9N],
+  ["late-lodi-founder","Bahlol Lodi founded the Lodi dynasty in 1451.",L9N],
+  ["late-lodi-afghan","The Lodis were Afghan rulers and the last dynasty of the Delhi Sultanate.",L9N],
+  ["late-bahlol-nobles","Bahlol Lodi treated powerful Afghan nobles as peers to gain their cooperation.",L9],
+  ["late-sikandar-authority","Sikandar Lodi tried to strengthen the superior position of the Sultan over the Afghan nobles.",L9],
+  ["late-ibrahim-panipat","Ibrahim Lodi was defeated by Babur in the First Battle of Panipat in 1526, ending the Delhi Sultanate.",L9N],
+  ["decline-mongol-pressure","Repeated Mongol attacks consumed major military and financial resources of the Delhi Sultanate.",L9],
+  ["decline-noble-conflict","Repeated conflict between Sultans and nobles, especially over succession, weakened political stability.",L9],
+  ["decline-provinces","The rise of independent provincial kingdoms reduced the territorial control of Delhi.",L9],
+];
+
+export const HIS_CP008_FACT_BY_ID_V1=new Map(HIS_CP008_FACTS_V1.map(f=>[f[0],f]));

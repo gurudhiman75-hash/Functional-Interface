@@ -1,0 +1,7 @@
+import type { HisCp008Spec } from "./his-cp008-review-specs-v1";
+
+export const HIS_CP008_ITEM_OVERRIDES_V1:Readonly<Record<number,HisCp008Spec>>={
+  25:[5,"Which Tughlaq ruler-policy set is fully correct?","Ghiyasuddin Tughlaq — founded the dynasty; Muhammad Tughlaq — Diwan-i-Kohi; Firuz Tughlaq — succeeded Muhammad Tughlaq",["Ghiyasuddin Tughlaq — token currency; Muhammad Tughlaq — founded the dynasty; Firuz Tughlaq — Group of Forty","Ghiyasuddin Tughlaq — market control; Muhammad Tughlaq — tanka and jittal; Firuz Tughlaq — founded the Khalji dynasty","Ghiyasuddin Tughlaq — Diwan-i-Arz; Muhammad Tughlaq — Lakh Baksh; Firuz Tughlaq — founded the Sayyid dynasty"],["tughlaq-founder","tughlaq-diwani-kohi","tughlaq-firuz-successor"]],
+  26:[5,"Which combination correctly identifies Muhammad Tughlaq?","Juna Khan; capital transfer towards Daulatabad; Diwan-i-Kohi",["Ghazi Malik; market-control system; Group of Forty","Ulugh Khan; tanka and jittal; Shahna-i-Mandi","Khizr Khan; sijada and paibos; Diwan-i-Insha"],["tughlaq-muhammad-juna","tughlaq-daulatabad","tughlaq-diwani-kohi"]],
+  27:[5,"Which two major experiments are correctly associated with Muhammad Tughlaq?","Capital transfer towards Daulatabad and token currency",["Market-price control and dagh-huliya","Group of Forty and silver tanka","Sijada-paibos and the Lakh Baksh title"],["tughlaq-daulatabad","tughlaq-token"]],
+};
