@@ -1,0 +1,54 @@
+name: Validate Science Physics Final CP008 CP010 Review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/science/electricity/**"
+      - "artifacts/api-server/src/knowledge-v1/science/magnetism-electromagnetism/**"
+      - "artifacts/api-server/src/knowledge-v1/science/modern-physics/**"
+      - "artifacts/api-server/src/knowledge-v1/science/sci-cp008-cp010-*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: science-physics-final-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run qualification gate
+        run: |
+          mkdir -p artifacts/api-server/dist/science
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/science/sci-cp008-cp010-review-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/science/sci-cp008-cp010-review-v1.test.mjs
+          node artifacts/api-server/dist/science/sci-cp008-cp010-review-v1.test.mjs
+      - name: Materialize review artifact
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/science/sci-cp008-cp010-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/science/sci-cp008-cp010-export-review-v1.mjs
+          cd artifacts/api-server
+          node dist/science/sci-cp008-cp010-export-review-v1.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SCI-PHYSICS-FINAL-CP008-CP010-REVIEW-V1
+          path: artifacts/api-server/dist/science-review/SCI-PHYSICS-FINAL-V1/
+          if-no-files-found: error
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
