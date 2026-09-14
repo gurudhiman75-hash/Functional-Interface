@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
 import { generateCp009SaturationQuestion } from "./cp009-saturation-adapter.ts";
+import { CP009_EXPANDED_COMMON_CAUSE_FAMILY_IDS } from "./cp009-expanded-common-cause.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import { CAE_001_SATURATION_WAVE1_FAMILIES } from "./causal-world-saturation-wave1.ts";
 import { CAE_001_SATURATION_WAVE2_FAMILIES } from "./causal-world-saturation-wave2.ts";
 
 const saturationIds = new Set([...CAE_001_SATURATION_WAVE1_FAMILIES, ...CAE_001_SATURATION_WAVE2_FAMILIES].map((family) => family.id));
+const expandedCommonCauseIds = new Set(CP009_EXPANDED_COMMON_CAUSE_FAMILY_IDS);
 const expectedModes = new Set(["MISSING_SINGLE", "MISSING_PAIR", "RELATION_TYPE", "CONNECTOR_PAIR", "NEXT_OUTCOME", "COMMON_CAUSE_RECONSTRUCTION"]);
 const seenModes = new Set<string>();
 const seenFamilies = new Set<string>();
@@ -57,12 +59,40 @@ assert.deepEqual(seenModes, expectedModes, "CP009 saturation must preserve all s
 assert.ok(seenFamilies.size >= 7, `CP009 saturation should reach broad family coverage; saw ${seenFamilies.size}.`);
 assert.ok(medium > 0 && hard > 0, "CP009 saturation must retain MEDIUM and HARD content.");
 
-let reviewedSaturation = 0;
+let reviewedLegacySaturation = 0;
+let reviewedExpandedCommon = 0;
+const expandedFamiliesReached = new Set<string>();
 for (let seed = 0; seed < 800; seed += 1) {
   const question = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "en-IN", seed });
-  if (saturationIds.has(question.scenarioFamilyId)) reviewedSaturation += 1;
+  if (saturationIds.has(question.scenarioFamilyId) && seed % 8 === 6) reviewedLegacySaturation += 1;
+  if (seed % 8 === 2) {
+    reviewedExpandedCommon += 1;
+    expandedFamiliesReached.add(question.scenarioFamilyId);
+    assert.ok(expandedCommonCauseIds.has(question.scenarioFamilyId), `${seed}: expanded CP009 common-cause slot used an unapproved family.`);
+    assert.equal(question.answerId, "COMMON_CAUSE_RECONSTRUCTION_EXPANDED");
+    assert.equal(question.difficulty, "HARD");
+    assert.equal(question.visibleContext.visibleNodeIds.length, 2);
+    assert.equal(question.visibleContext.hiddenNodeIds.length, 1);
+    assert.equal(question.causalTrace.length, 3);
+  }
   assert.notEqual(question.difficulty, "EASY");
 }
-assert.equal(reviewedSaturation, 100, `CP009 reviewed saturation allocation drifted: ${reviewedSaturation}/800.`);
+assert.equal(reviewedLegacySaturation, 100, `CP009 legacy integrated saturation allocation drifted: ${reviewedLegacySaturation}/800.`);
+assert.equal(reviewedExpandedCommon, 100, `CP009 expanded common-cause allocation drifted: ${reviewedExpandedCommon}/800.`);
+assert.ok(expandedFamiliesReached.size >= 7, `CP009 expanded common-cause family breadth is too narrow (${expandedFamiliesReached.size}).`);
 
-console.log(`CAE-001 CP009 Wave 3 saturation QA passed: ${seenFamilies.size} families / all six integrated operations.`);
+for (let seed = 2; seed < 130; seed += 8) {
+  const en = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "en-IN", seed });
+  const hi = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "hi-IN", seed });
+  const pa = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "pa-IN", seed });
+  assert.equal(hi.scenarioFamilyId, en.scenarioFamilyId);
+  assert.equal(pa.scenarioFamilyId, en.scenarioFamilyId);
+  assert.equal(hi.scenarioVariantId, en.scenarioVariantId);
+  assert.equal(pa.scenarioVariantId, en.scenarioVariantId);
+  assert.equal(hi.answerId, en.answerId);
+  assert.equal(pa.answerId, en.answerId);
+  assert.equal(hi.correctIndex, en.correctIndex);
+  assert.equal(pa.correctIndex, en.correctIndex);
+}
+
+console.log(`CAE-001 CP009 QA passed: ${seenFamilies.size} legacy saturation families / ${expandedFamiliesReached.size} expanded common-cause families / all six integrated operations preserved.`);
