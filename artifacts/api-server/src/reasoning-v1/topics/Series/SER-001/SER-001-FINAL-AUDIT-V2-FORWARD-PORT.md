@@ -9,12 +9,14 @@ This checkpoint replaces the stale `audit-remediation/ser-001-v1-20260912` histo
 This branch does **not** replace or rewind:
 
 - the permanent `SER-QL-001..013` registry;
-- the frozen CP007 Question Studio package;
-- the current internal Test Builder activation authority;
+- the frozen CP007 Question Studio review package;
+- the separately approved CP007 internal Test Builder activation authority;
 - current Series routes, shared registry wiring or admin UI;
-- current question-bank/test lifecycle decisions for already-approved CP007 content.
+- current Question Bank/Test Builder lifecycle decisions for already-approved CP007 content.
 
-Only chapter-local audit remediation is added.
+The CP007 review source remains review-only. The downstream internal activation can write reviewed CP007 items to Question Bank and use them in the internal Test Builder, while mock release, public release authorization, student delivery and automatic publication remain blocked. The continuity gate verifies both layers independently.
+
+Only chapter-local audit remediation is added for the new gap families.
 
 ## Forward-ported remediation
 
@@ -37,7 +39,15 @@ Lifecycle remains:
 
 ### CP009 — SSC Reasoning number series
 
-`SER-QL-029..042` remain **provisional audit identities**, not permanent QLs. CP009 owns only SSC-style four-option Reasoning number-series questions.
+The **audited Series candidate is `SER-QL-029..041` (13 provisional identities)**. CP009 owns only SSC-style four-option Reasoning number-series questions.
+
+The source-gap experiment originally included `SER-QL-042 / INTERNAL_DIGIT_RELATION_OPTION_SERIES`. Final ownership review rejects it because its values do not form a cross-term progression; each value merely obeys the same internal digit relation. That is number-relation/classification logic, not Series. `SER-QL-042` is therefore not reserved and cannot be promoted from this checkpoint.
+
+The audited CP009 layer also:
+
+- forbids leading-zero pseudo-numbers in digit-rotation items;
+- recalibrates difficulty from structural burden so figurate-difference, alternating-operation and prime-difference recognition are not under-rated merely because the numerals are small;
+- retains visible-state independent solving, misconception-labelled distractors and multilingual parity.
 
 The separate Quant V4 package `BNS-001` continues to own Banking Prelims five-option Speed Mathematics number series. Shared arithmetic primitives do not imply shared product ownership.
 
@@ -52,8 +62,12 @@ The boundary is executable:
 
 ## Anti-inflation rule
 
-A provisional QL is justified only by a distinct learner-visible solve contract, not by a different stem shell, number size, option placement, locale or renderer-only variation. CP008/CP009 remain provisional until source-coverage, collision and merge/split audits explicitly approve their permanent identities.
+A provisional QL is justified only by a distinct learner-visible solve contract, not by a different stem shell, number size, option placement, locale or renderer-only variation. CP008 and the audited CP009 identities remain provisional until source-coverage, collision and merge/split audits explicitly approve their permanent identities.
+
+A source-backed question may still be rejected from a chapter when its actual learner solve contract belongs elsewhere; QL042 is the explicit proof of that rule.
 
 ## Safety
 
-This forward port does not authorize promotion of `SER-QL-014..042`. It creates a current-main audit surface only. Any permanent QL allocation, shared Question Studio registration, Question Bank storage, test/mock eligibility or public release for these new families requires a separate approval checkpoint.
+This forward port does not authorize promotion of `SER-QL-014..041`. It creates a current-main audit surface only. Any permanent QL allocation, shared Question Studio registration, Question Bank storage, test/mock eligibility or public release for these new families requires a separate approval checkpoint.
+
+`SER-QL-042` is rejected rather than reserved.
