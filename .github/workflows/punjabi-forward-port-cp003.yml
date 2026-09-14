@@ -1,0 +1,50 @@
+name: Validate Punjabi Forward Port CP003
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+      - ".github/workflows/punjabi-forward-port-cp003.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-cp003:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP003 semantic proof
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/punjabi-v1/packages/PUN-001/checkpoints/CP003/CP003.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/punjabi-forward-port-cp003.test.mjs
+      - name: Run CP003 semantic proof
+        working-directory: artifacts/api-server
+        run: node dist/punjabi-forward-port-cp003.test.mjs
+      - name: Bundle CP003 review exporter
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/punjabi-v1/packages/PUN-001/checkpoints/CP003/export-review.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/punjabi-forward-port-cp003-review.mjs
+      - name: Generate 240-question CP003 review pack
+        working-directory: artifacts/api-server
+        run: node dist/punjabi-forward-port-cp003-review.mjs
+      - name: Upload CP003 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: PUN-001-CP003-FORWARD-PORT-REVIEW-240
+          path: artifacts/api-server/review-output/PUN-001-CP003-FORWARD-PORT-REVIEW-240.md
+          if-no-files-found: error
+      - name: Build API server
+        working-directory: artifacts/api-server
+        run: pnpm run build
