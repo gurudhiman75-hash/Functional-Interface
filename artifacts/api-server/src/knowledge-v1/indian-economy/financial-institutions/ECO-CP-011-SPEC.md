@@ -33,8 +33,8 @@ Build a Static-GK question pool on major Indian development financial institutio
 
 12 QLs / 44 generated English review questions:
 
-1. DFI concept and long-term finance — 4
-2. IFCI history and role — 4
+1. DFI concept and long-term finance — 3
+2. IFCI history and role — 3
 3. NABARD history and role — 4
 4. SIDBI history and role — 4
 5. EXIM Bank history and role — 4
