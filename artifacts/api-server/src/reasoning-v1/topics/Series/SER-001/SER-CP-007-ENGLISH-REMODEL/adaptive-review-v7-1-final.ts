@@ -5,6 +5,7 @@ import {
   type SerCp007AdaptiveReviewV71,
   type SerCp007ExamSuitabilityV71,
 } from "./adaptive-review-v7-1";
+import { analyzeSerCp007GeneratedDifficultyV8 } from "./generated-instance-difficulty-v8";
 
 function isUnderEvidencedInterleaved(question: SerCp007EditorialQuestion): boolean {
   return (
@@ -50,10 +51,30 @@ function standardSuitability(
   return tags;
 }
 
+function withGeneratedInstanceDifficulty(
+  question: SerCp007EditorialQuestion,
+  review: SerCp007AdaptiveReviewV71,
+): SerCp007AdaptiveReviewV71 {
+  const generatedDifficulty = analyzeSerCp007GeneratedDifficultyV8(question, review).difficulty;
+  return {
+    ...review,
+    difficulty: generatedDifficulty,
+    examSuitability:
+      review.releaseTier === "STANDARD_MOCK"
+        ? standardSuitability(
+            generatedDifficulty,
+            review.maximumTermLength,
+            review.visibleCharacterLoad,
+          )
+        : review.examSuitability,
+  };
+}
+
 export function buildAdaptiveSerCp007ReviewV71Final(
   question: SerCp007EditorialQuestion,
 ): SerCp007AdaptiveReviewV71 {
-  const review = buildAdaptiveSerCp007ReviewV71(question);
+  const baseReview = buildAdaptiveSerCp007ReviewV71(question);
+  const review = withGeneratedInstanceDifficulty(question, baseReview);
   const v7 = buildAdaptiveSerCp007ReviewV7Final(question);
 
   if (isUnderEvidencedInterleaved(question)) {
