@@ -1,6 +1,6 @@
 # POL-CP-006 — Amendments, Basic Structure & Schedules
 
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** REVIEW CANDIDATE — EXPLANATION V3  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -53,11 +53,28 @@ Includes selected exam-relevant amendments from the First through the One Hundre
 - 26 genuine QLs
 - 90 review questions
 - 27 Easy / 46 Medium / 17 Hard
-- V2 generator is canonical
+- V3 generator is canonical
 - compact exam-style stems
 - slightly simple English
-- beginner-friendly explanations
 - same-domain distractors where possible
+
+## Explanation standard
+
+Every explanation must do more than restate the correct option. It should normally:
+
+1. state the governing constitutional rule or case principle;
+2. explain why that rule leads to the answer;
+3. mention the key distinction or common trap where it improves understanding;
+4. stay concise and beginner-friendly rather than becoming a mini legal note.
+
+Mechanical explanation gates:
+- minimum 20 words;
+- explanation must not equal the canonical answer;
+- Article 368 special-majority explanations must mention both `total membership` and `present and voting`;
+- Amendment Bill procedure must preserve the `no joint sitting` distinction;
+- Fifth/Sixth Schedule explanations must distinguish the two frameworks;
+- Eleventh/Twelfth Schedule explanations must distinguish Panchayats/29 subjects from Municipalities/18 subjects;
+- legalistic boilerplate is blocked.
 
 ## Safety/accuracy boundaries
 
@@ -68,4 +85,4 @@ Includes selected exam-relevant amendments from the First through the One Hundre
 
 ## Gate
 
-Question Studio exposure, localization and production registration remain blocked until the English review batch is approved.
+Question Studio exposure, localization and production registration remain blocked until the revised English review batch is approved.
