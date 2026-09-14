@@ -5,6 +5,7 @@ import { generateCaeQuestion } from "./chapter-generator.ts";
 import { generateReviewedCp001Question } from "./cp001-reviewed-quality-guard.ts";
 import { generateReviewedCaeCombinationQuestion } from "./cp003004-reviewed-polish.ts";
 import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.ts";
+import { generateCp005EvidenceFitQuestion } from "./cp005-evidence-fit.ts";
 import { generateCp006CausalDistanceQuestion } from "./cp006-causal-distance.ts";
 import { generateCp006BridgeDistanceQuestion } from "./cp006-bridge-distance.ts";
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
@@ -66,7 +67,13 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   if (input.qlId === "CAE-QL-001" && defaultFourWay) return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) return reviewedSaturationQuestion(input, true);
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 3 === 0) return generateReviewedCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
-  if (input.qlId === "CAE-QL-005" && defaultFourWay) return seed % 5 === 4 ? reviewedSaturationQuestion(input, true) : generateCp005CompetingQuestion({ locale: input.locale, seed: input.seed });
+  if (input.qlId === "CAE-QL-005" && defaultFourWay) {
+    if (seed % 5 === 4) return reviewedSaturationQuestion(input, true);
+    if (seed % 10 === 1 || seed % 10 === 3 || seed % 10 === 6 || seed % 10 === 8) {
+      return generateCp005EvidenceFitQuestion({ locale: input.locale, seed: input.seed });
+    }
+    return generateCp005CompetingQuestion({ locale: input.locale, seed: input.seed });
+  }
   if (input.qlId === "CAE-QL-006" && defaultFourWay) return seed % 3 === 2
     ? generateCp006BridgeDistanceQuestion({ locale: input.locale, seed: input.seed })
     : generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
