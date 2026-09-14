@@ -1,5 +1,5 @@
 import { hashSeed, seededRandom, shuffle } from "../DI-001/exact";
-import { buildDi009Stimulus, renderDi009HistogramSvg } from "./histogram-shapes";
+import { buildDi009Stimulus } from "./histogram-shapes";
 import { buildDi009Drafts, type Di009Candidate, type Di009Draft } from "./task-builders";
 import type {
   Di009Difficulty,
@@ -139,13 +139,12 @@ function validateSet(set: Omit<Di009QuestionSet, "validation">) {
   const bins = set.stimulus.bins;
 
   add("HISTOGRAM_KIND", set.stimulus.kind === "HISTOGRAM", "DI-009 must expose genuine histogram semantics.");
+  add("SEMANTIC_STIMULUS_ONLY", !("svg" in set.stimulus), "DI-009 stimulus must not embed presentation markup.");
   add("VARIABLE_CLASS_COUNT", bins.length >= 5 && bins.length <= 9, "DI-009 V2 requires 5–9 continuous class intervals.");
   add("CONTIGUOUS_CLASSES", bins.every((bin, index) => index === 0 || bins[index - 1]!.upper === bin.lower), "Histogram classes must be contiguous.");
   add("EQUAL_CLASS_WIDTH", bins.every((bin) => bin.upper - bin.lower === set.stimulus.classWidth), "DI-009 V2 currently requires equal class widths.");
   add("POSITIVE_FREQUENCIES", bins.every((bin) => Number.isSafeInteger(bin.frequency) && bin.frequency > 0), "All histogram frequencies must be positive integers.");
-  add("SVG_RECTANGLE_COUNT", (set.stimulus.svg.match(/data-bin-index=/g)?.length ?? 0) === bins.length, "SVG must contain one rectangle per class interval.");
-  add("TOUCHING_BAR_MARKER", set.stimulus.svg.includes('data-contiguous-bars="true"'), "SVG must certify contiguous histogram bars.");
-  add("FIVE_QUESTION_MIX", set.questions.length === QUESTIONS_PER_SET, "Each V2 histogram set must contain exactly five questions.");
+  add("FIVE_QUESTION_MIX", set.questions.length === QUESTIONS_PER_SET, "Each histogram set must contain exactly five questions.");
   add("NO_REPEATED_TASK", new Set(set.questions.map((question) => question.kind)).size === set.questions.length, "A set must not repeat the same task family.");
   add("KNOWN_TASKS", set.questions.every((question) => ALL_TASK_KINDS.includes(question.kind)), "Every question must belong to the DI-009 V2 contract library.");
   add("DIFFICULTY_POLICY", set.questions.every((question) => question.difficulty === TASK_DIFFICULTY[question.kind]), "Every task family must use the calibrated DI-009 V2 difficulty policy.");
@@ -206,7 +205,9 @@ export function generateDi009HistogramSet(input: {
       groupedBarSibling: "DI-003" as const,
       statisticsSibling: "STAT-003" as const,
       frequencyPolygonSibling: "DI-010_PLANNED" as const,
-      setContractVersion: "DI-009-SET-CONTRACT-V2" as const,
+      presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS" as const,
+      questionLogicVersion: "DI-009-QUESTION-LOGIC-V2" as const,
+      setContractVersion: "DI-009-SET-CONTRACT-V3" as const,
       arithmeticAuthority: "EXACT_INTEGER_RATIONAL" as const,
       reviewStatus: "UNREVIEWED" as const,
       questionStudioDiscoverable: false as const,
@@ -223,5 +224,3 @@ export function generateDi009HistogramSet(input: {
   }
   return { ...base, validation };
 }
-
-export { renderDi009HistogramSvg };
