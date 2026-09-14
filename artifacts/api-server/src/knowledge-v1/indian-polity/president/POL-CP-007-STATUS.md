@@ -1,7 +1,7 @@
 # POL-CP-007 — President Status
 
 **Branch:** `feature/polity-cp007-president`  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** REVIEW CANDIDATE — SIMPLIFIED LANGUAGE V2  
 **Runtime registration:** BLOCKED pending human approval
 
 ## Implemented
@@ -22,6 +22,7 @@
 - Article 123 Ordinance rules
 - 22 genuine QLs
 - 80-question review batch target
+- canonical V2 language overlay
 - explanation-quality, structural and provenance QA
 
 ## Review profile
@@ -30,6 +31,16 @@
 - 42 Medium
 - 14 Hard
 
+## V2 language policy
+
+- keep constitutional terms used in exams
+- simplify the surrounding English
+- shorten ordinary direct stems to a maximum of 28 words
+- prefer short forms such as `Who can start...`, `gets`, `can`, `is under`
+- remove unnecessarily formal phrases such as `may be preferred by`, `promulgated`, and `challenged merely because`
+- explanations use short sentences and plain vocabulary
+- explanations remain at least 20 words and still teach the rule or main distinction
+
 ## Gated
 
 - merge to `New-main`
@@ -37,4 +48,4 @@
 - localization
 - chapter-wide production registration
 
-These remain blocked until English review approval.
+These remain blocked until simplified English V2 is approved.
