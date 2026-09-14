@@ -110,6 +110,14 @@ const CONDITIONAL_RULES = [
   ['GR-CND-007', 'Mixed conditional: present → past'], ['GR-CND-008', 'Unless and single negative condition'],
   ['GR-CND-009', 'Had inversion'], ['GR-CND-010', 'Should / were inversion'],
 ] as const;
+const VOICE_NARRATION_RULES = [
+  ['GR-VNR-001', 'Passive requires past participle'], ['GR-VNR-002', 'Passive tense / aspect auxiliary chain'],
+  ['GR-VNR-003', 'Transitivity and impossible passive'], ['GR-VNR-004', 'Modal passive'],
+  ['GR-VNR-005', 'Passive argument mapping'], ['GR-VNR-006', 'Reported statement backshift'],
+  ['GR-VNR-007', 'Reported pronoun reference'], ['GR-VNR-008', 'Reported time / place reference'],
+  ['GR-VNR-009', 'Reported questions'], ['GR-VNR-010', 'Reported commands / requests'],
+  ['GR-VNR-011', 'Universal truth retains present'], ['GR-VNR-012', 'Reporting-verb complement pattern'],
+] as const;
 
 const CPS = [
   { id: 'ENG-001-CP001', label: 'CP001 · Subject–Verb Agreement', subtopic: 'Subject–Verb Agreement', version: 'V4', ruleLabel: 'SVA', rules: SVA_RULES },
@@ -123,6 +131,7 @@ const CPS = [
   { id: 'ENG-001-CP009', label: 'CP009 · Gerunds, Infinitives & Participles', subtopic: 'Gerunds, Infinitives & Participles', version: 'V1', ruleLabel: 'gerund / infinitive / participle', rules: GERUND_INFINITIVE_PARTICIPLE_RULES },
   { id: 'ENG-001-CP010', label: 'CP010 · Modifiers', subtopic: 'Modifiers', version: 'V1', ruleLabel: 'modifier', rules: MODIFIER_RULES },
   { id: 'ENG-001-CP011', label: 'CP011 · Conditionals', subtopic: 'Conditionals', version: 'V1', ruleLabel: 'conditional', rules: CONDITIONAL_RULES },
+  { id: 'ENG-001-CP012', label: 'CP012 · Voice & Narration', subtopic: 'Voice & Narration', version: 'V1', ruleLabel: 'voice / narration', rules: VOICE_NARRATION_RULES },
 ] as const;
 
 type CpId = (typeof CPS)[number]['id'];
@@ -149,7 +158,7 @@ export function QuestionStudioEnglishReviewPanel() {
   const [seed, setSeed] = useState('');
   const [reviewReason, setReviewReason] = useState('');
   const selectedCp = CPS.find((entry) => entry.id === cpId) ?? CPS[0];
-  const maxBatchCount = selectedCp.id === 'ENG-001-CP009' || selectedCp.id === 'ENG-001-CP010' || selectedCp.id === 'ENG-001-CP011' ? 20 : 50;
+  const maxBatchCount = selectedCp.id === 'ENG-001-CP009' || selectedCp.id === 'ENG-001-CP010' || selectedCp.id === 'ENG-001-CP011' || selectedCp.id === 'ENG-001-CP012' ? 20 : 50;
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -213,13 +222,13 @@ export function QuestionStudioEnglishReviewPanel() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="border-success/30 text-success">Human-approved content</Badge>
-            <Badge variant="outline">11 CPs · 3 QLs · 110 grammar rules</Badge>
+            <Badge variant="outline">12 CPs · 3 QLs · 122 grammar rules</Badge>
             <Badge variant="outline">Easy / Medium / Hard</Badge>
             <Badge variant="outline" className="border-warning/30 text-warning">Review-only</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          CP001 through CP011 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
+          CP001 through CP012 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -240,7 +249,7 @@ export function QuestionStudioEnglishReviewPanel() {
         </div>
         <div className="border-t pt-5">
           <div className="mb-3 grid gap-3 md:grid-cols-[1fr_minmax(18rem,32rem)] md:items-end">
-            <div><p className="text-sm font-semibold">Recent ENG-001 review runs</p><p className="text-xs text-muted-foreground">CP001 through CP011 share this review surface. Approved items cannot enter Question Bank from this package.</p></div>
+            <div><p className="text-sm font-semibold">Recent ENG-001 review runs</p><p className="text-xs text-muted-foreground">CP001 through CP012 share this review surface. Approved items cannot enter Question Bank from this package.</p></div>
             <Field label="Reason for Needs fix / Reject"><Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the grammar, wording, explanation, ambiguity, or difficulty issue" /></Field>
           </div>
           {loading ? <div className="flex items-center justify-center gap-2 rounded-lg border p-8 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading English review runs…</div>
