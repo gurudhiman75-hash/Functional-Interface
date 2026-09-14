@@ -1,8 +1,9 @@
 # POL-CP-008 — Vice-President Status
 
 **Branch:** `feature/polity-cp008-vice-president`  
-**Lifecycle:** REVIEW CANDIDATE — BALANCED EXPLANATIONS V6  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V6  
+**Approved:** 14 September 2026  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
 ## Implemented
 
@@ -19,34 +20,35 @@
 - casual-vacancy fresh term
 - oath and election disputes
 - 17 genuine QLs
-- 60-question review batch target
+- 60-question review batch
 - V2 simplified-language stems
 - canonical V6 balanced teaching explanations
 - structural, provenance and explanation-wording QA
 
-## Review profile
+## Approved review profile
 
 - 20 Easy
 - 31 Medium
 - 9 Hard
 
-## V6 explanation policy
+## Frozen V6 explanation policy
 
-- simple wording, but not ultra-short
-- explain the answer enough to teach the rule
-- most explanations use one fuller sentence or two short sentences
-- add a President/Vice-President contrast only when useful
+- simple wording without becoming note-like or too short
+- enough context to teach the rule
+- one fuller sentence or two short sentences where useful
+- add a President/Vice-President contrast only when it helps prevent an exam mistake
 - no stock opening or generic ending
-- every explanation in the batch must be unique
-- normal explanation range: 11–24 words
-- repeated answers such as `No` still get question-specific reasoning
+- question-specific explanations
 - no unnecessary option-by-option analysis
 
-## Gated
+## Post-approval rule
 
-- merge to `New-main`
+Any future factual, stem, distractor or explanation change must be made at source/fact/generator level and must pass a fresh review before replacing V6.
+
+## Deferred to chapter integration
+
 - Question Studio exposure
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V6 is approved.
+POL-CP-008 English V6 is approved and content-frozen.
