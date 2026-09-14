@@ -5,6 +5,9 @@ type Patch = Readonly<{ from: string; to: string }>;
 // Punjabi-medium exam register: keep accepted Punjabi scientific terminology.
 // Do not replace valid Punjabi terms merely because cognates also exist in Hindi.
 const STANDARD_EXAM_PATCHES: readonly Patch[] = Object.freeze([
+  { from: "ਬਿਜਲੀ ਧਾਰਾ", to: "ਬਿਜਲਈ ਧਾਰਾ" },
+  { from: "ਹਵਾਈ ਦਬਾਅ", to: "ਵਾਯੂਮੰਡਲੀ ਦਬਾਅ" },
+  { from: "ਕੇਲਵਿਨ", to: "ਕੈਲਵਿਨ" },
   { from: "ਡਿਰਾਈਵਡ ਇਕਾਈ", to: "ਵਿਉਤਪੰਨ ਇਕਾਈ" },
   { from: "ਫ੍ਰਿਕਵੈਂਸੀ", to: "ਆਵਿਰਤੀ" },
   { from: "ਲੀਸਟ ਕਾਊਂਟ", to: "ਘੱਟੋ-ਘੱਟ ਮਾਪ" },
@@ -14,6 +17,7 @@ const STANDARD_EXAM_PATCHES: readonly Patch[] = Object.freeze([
   { from: "ਰੈਂਡਮ", to: "ਬੇਤਰਤੀਬ" },
   { from: "ਡਾਇਮੈਂਸ਼ਨਲ ਫਾਰਮੂਲਾ", to: "ਆਯਾਮੀ ਸੂਤਰ" },
   { from: "ਬਿਨਾ ਡਾਇਮੈਂਸ਼ਨ ਦੇ", to: "ਆਯਾਮ-ਰਹਿਤ" },
+  { from: "ਡਾਇਮੈਂਸ਼ਨ", to: "ਆਯਾਮ" },
   { from: "ਸਾਇੰਟਿਫਿਕ ਨੋਟੇਸ਼ਨ", to: "ਵਿਗਿਆਨਕ ਸੰਕੇਤਨ" },
   { from: "ਸਿਗਨਿਫਿਕੈਂਟ ਫਿਗਰ", to: "ਸਾਰਥਕ ਅੰਕ" },
   { from: "ਸਿਗਨਿਫਿਕੈਂਟ ਮੰਨੇ ਜਾਂਦੇ ਹਨ", to: "ਸਾਰਥਕ ਮੰਨੇ ਜਾਂਦੇ ਹਨ" },
@@ -54,9 +58,6 @@ const STANDARD_EXAM_PATCHES: readonly Patch[] = Object.freeze([
 ]);
 
 const ANCHOR_PATCHES: Readonly<Record<string, readonly Patch[]>> = Object.freeze({
-  "SCI-CP001-EXH-A02": [
-    { from: "ਬਿਜਲੀ ਧਾਰਾ", to: "ਬਿਜਲਈ ਧਾਰਾ" },
-  ],
   "SCI-CP001-EXH-A10": [
     { from: "ਘੱਟੋ-ਘੱਟ ਮਾਪ ਉਹ ਸਭ ਤੋਂ ਛੋਟਾ ਮਾਨ", to: "ਯੰਤਰ ਦਾ ਘੱਟੋ-ਘੱਟ ਮਾਪ ਉਹ ਸਭ ਤੋਂ ਛੋਟਾ ਮਾਨ" },
   ],
