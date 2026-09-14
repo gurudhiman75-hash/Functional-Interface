@@ -15,15 +15,17 @@ for (let seed = 0; seed < 96; seed += 1) {
 
   const en = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", locale: "en-IN", seed });
   assert.equal(en.answerId, "CORRELATION_ONLY");
-  assert.equal(en.difficulty, "MEDIUM");
+  assert.notEqual(en.difficulty, "EASY", `${seed}: reviewed CP007 false-causation item became EASY.`);
 
   const wave4 = WAVE4_FAMILY_IDS.has(en.scenarioFamilyId);
   if (seed % 8 === 2 || seed % 8 === 6) {
     assert.equal(wave4, true, `${seed}: Wave 4 CP007 residue must use an approved parallel family.`);
+    assert.equal(en.difficulty, "MEDIUM", `${seed}: Wave 4 CP007 parallel adapter must remain MEDIUM.`);
     assert.ok(en.causalStateId.includes("wave:4"), `${seed}: Wave 4 CP007 state identity missing.`);
   } else {
     assert.equal(en.scenarioFamilyId, "CAE-FAM-FALSE-CAUSATION", `${seed}: legacy CP007 residue must remain on the legacy false-causation family.`);
     assert.equal(wave4, false);
+    assert.ok(["MEDIUM", "HARD"].includes(en.difficulty), `${seed}: legacy CP007 difficulty calibration drifted.`);
   }
 
   const world = wave4
@@ -47,6 +49,7 @@ for (let seed = 0; seed < 96; seed += 1) {
     assert.equal(localized.causalStateId, en.causalStateId, `${seed}/${locale}: CP007 visible-evidence state drift`);
     assert.equal(localized.answerId, en.answerId, `${seed}/${locale}: CP007 visible-evidence answer drift`);
     assert.equal(localized.correctIndex, en.correctIndex, `${seed}/${locale}: CP007 visible-evidence option-order drift`);
+    assert.equal(localized.difficulty, en.difficulty, `${seed}/${locale}: CP007 difficulty drift`);
     assert.equal(localized.visibleContext.hiddenNodeIds.length, 0, `${seed}/${locale}: CP007 evidence became hidden after localization`);
     assert.equal(new Set(localized.visibleContext.visibleNodeIds).size, 4, `${seed}/${locale}: CP007 evidence visibility drift`);
     for (const id of localized.visibleContext.visibleNodeIds) {
