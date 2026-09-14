@@ -1,7 +1,7 @@
 # POL-CP-007 — President Status
 
 **Branch:** `feature/polity-cp007-president`  
-**Lifecycle:** REVIEW CANDIDATE — SIMPLIFIED LANGUAGE V2  
+**Lifecycle:** REVIEW CANDIDATE — HELPFUL EXPLANATIONS V3  
 **Runtime registration:** BLOCKED pending human approval
 
 ## Implemented
@@ -22,8 +22,9 @@
 - Article 123 Ordinance rules
 - 22 genuine QLs
 - 80-question review batch target
-- canonical V2 language overlay
-- explanation-quality, structural and provenance QA
+- V2 simplified-language layer
+- canonical V3 question-specific explanation layer
+- explanation-specificity, structural and provenance QA
 
 ## Review profile
 
@@ -31,15 +32,16 @@
 - 42 Medium
 - 14 Hard
 
-## V2 language policy
+## V3 explanation policy
 
-- keep constitutional terms used in exams
-- simplify the surrounding English
-- shorten ordinary direct stems to a maximum of 28 words
-- prefer short forms such as `Who can start...`, `gets`, `can`, `is under`
-- remove unnecessarily formal phrases such as `may be preferred by`, `promulgated`, and `challenged merely because`
-- explanations use short sentences and plain vocabulary
-- explanations remain at least 20 words and still teach the rule or main distinction
+- state the exact correct answer first
+- explain the constitutional rule that makes it correct
+- add one useful distinction or trap where it helps understanding
+- do not reuse one generic paragraph across several questions in the same QL
+- repeated answer values such as `No` or identical impeachment majorities must still receive question-specific explanations
+- use plain language and short sentences
+- avoid option-by-option analysis unless genuinely needed
+- minimum explanation floor: 18 words
 
 ## Gated
 
@@ -48,4 +50,4 @@
 - localization
 - chapter-wide production registration
 
-These remain blocked until simplified English V2 is approved.
+These remain blocked until English V3 is approved.
