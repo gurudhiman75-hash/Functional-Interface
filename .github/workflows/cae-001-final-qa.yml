@@ -61,6 +61,14 @@ jobs:
           --outfile=dist/reasoning-v1/cae-001/cae-001-saturation-wave2.mjs
       - name: Run saturation wave 2 regression
         run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-saturation-wave2.mjs
+      - name: Bundle saturation wave 4 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-saturation-wave4.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-001-saturation-wave4.mjs
+      - name: Run saturation wave 4 regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-saturation-wave4.mjs
       - name: Bundle candidate-heavy saturation regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -69,13 +77,13 @@ jobs:
           --outfile=dist/reasoning-v1/cae-001/cae-001-saturation-candidate.mjs
       - name: Run candidate-heavy saturation regression
         run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-saturation-candidate.mjs
-      - name: Bundle CP007 Wave 3 saturation regression
+      - name: Bundle CP007 Wave 4 saturation regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cp007-saturation-adapter.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/cae-001/cp007-saturation-adapter.mjs
-      - name: Run CP007 Wave 3 saturation regression
+      - name: Run CP007 Wave 4 saturation regression
         run: node artifacts/api-server/dist/reasoning-v1/cae-001/cp007-saturation-adapter.mjs
       - name: Bundle CP008 Wave 3 saturation regression
         run: >-
