@@ -107,6 +107,13 @@ function auditQl(qlId: CaeQlId): AuditRow {
 }
 
 function priority(row: AuditRow): ExpansionPriority {
+  // QL001 is intentionally finite at the reviewed learner-semantic layer.
+  // ql001-structural-completeness.test.ts enumerates 394 safe direct states
+  // across 16 families / 66 variants and proves FOUR_WAY + FIVE_WAY both reach
+  // all 394. Strict causalStateId count can be higher because deterministic
+  // editorial remap markers preserve external seed identity.
+  if (row.qlId === "CAE-QL-001" && row.distinctSemanticForms === 394) return "COMPLETE_FINITE";
+
   // QL002 is intentionally finite: its graph-native COMMON_OR_INDEPENDENT
   // authority has 124 theoretical states across the current 21-family corpus.
   // ql002-structural-completeness.test.ts proves both FOUR_WAY and FIVE_WAY
@@ -128,9 +135,9 @@ const lines: string[] = [
   "",
   `Reviewed English generation sampled at **${SEEDS_PER_QL.toLocaleString()} seeds per QL** (${(SEEDS_PER_QL * CAE_PROVISIONAL_QL_IDS.length).toLocaleString()} total questions).`,
   "",
-  "This audit measures semantic-state repetition separately from presentation shuffling. `causalStateId` is the strict semantic-state identity; `semantic forms` collapse presentation and retain QL, operation, family/variant, keyed answer and difficulty.",
+  "This audit measures semantic-state repetition separately from presentation shuffling. `causalStateId` is the strict semantic-state identity; `semantic forms` collapse presentation and retain QL, operation, family/variant, keyed answer and difficulty. Strict state counts may exceed a proven structural ceiling when deterministic editorial-remap markers are appended to preserve the external seed.",
   "",
-  "`COMPLETE_FINITE` means a separate graph-enumeration regression has proved the reviewed generator reaches the full theoretical state space; an early plateau is expected and is not an expansion signal.",
+  "`COMPLETE_FINITE` means a separate graph-enumeration regression has proved the reviewed generator reaches the full theoretical safe state space; an early plateau is expected and is not an expansion signal.",
   "",
   "| QL | causal states | semantic forms | item variants | families | variants | first collision | 95% states seen by | new states in final 500 | top-state share | expansion priority |",
   "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|",
@@ -152,6 +159,12 @@ for (const row of rows) {
     "**Most repeated causal states:**",
     ...row.topStates.map(([id, count]) => `- ${count}× — \`${id}\``),
   );
+  if (row.qlId === "CAE-QL-001") {
+    lines.push(
+      "",
+      "**Structural completeness:** 394/394 editorially safe direct-relation states are reachable across 16 families / 66 variants in both FOUR_WAY and FIVE_WAY reviewed profiles. Both profiles complete the safe state space by seed 2,627. The raw 396-edge-order combinations contain two rejected `drill` bridge→effect presentations; the reviewed quality guard excludes them. All three reviewed source-profile paths (Classic Bank five-relation, Punjab Police four-relation, and SSC direct-recognition) are also swept through the same deterministic safety facade. The frozen raw source authority remains unchanged underneath. No nominal family/variant expansion is warranted unless the source/exam contract adds a genuinely new direct-relation learner operation.",
+    );
+  }
   if (row.qlId === "CAE-QL-002") {
     lines.push(
       "",
