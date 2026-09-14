@@ -1,6 +1,6 @@
 # POL-CP-007 — President
 
-**Lifecycle:** REVIEW CANDIDATE — CLEAN EXPLANATIONS V4  
+**Lifecycle:** REVIEW CANDIDATE — PLAIN EXPLANATIONS V5  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -30,7 +30,7 @@ This CP covers the President as a constitutional office without drifting into cu
 - 22 genuine QLs
 - 80 English review questions
 - 24 Easy / 42 Medium / 14 Hard
-- V4 generator is canonical for English review
+- V5 generator is canonical for English review
 - simplified exam-style stems from V2
 - ordinary direct stems capped at 28 words
 - four unique options
@@ -38,20 +38,20 @@ This CP covers the President as a constitutional office without drifting into cu
 
 ## Language standard
 
-Keep constitutional terms needed for exam accuracy, but use simple English around them. Prefer short direct stems and familiar verbs.
+Keep required exam terms, but use simple words around them. Prefer direct verbs such as `gives`, `covers`, `starts`, `ends`, `votes`, and `takes office`.
 
 ## Explanation standard
 
-Explanations must read like a short teacher note, not a template. A simple fact normally needs one clean sentence. Add a second sentence only when a distinction is genuinely useful.
+Use the shortest wording that still teaches the fact. Most explanations should be one sentence. Do not add a second sentence unless it prevents a real exam mistake.
 
 Mechanical gates:
 - every explanation in the 80-question review must be unique;
-- target length is 6–24 words;
-- no stock prefix such as `Correct answer:`;
-- no generic ending added merely to reach a word count;
-- blocked phrases include `This is the exact`, `nearby Articles`, `Match the topic`, and `Remember the word`;
+- normal target length: 5–18 words;
+- no stock prefix or generic closing sentence;
+- avoid formal wording when a simpler word says the same thing;
+- blocked clutter includes `Correct answer`, `exact subject`, `nearby Articles`, `Match the topic`, `Remember the word`, `constitutionally vested`, and `to the extent granted`;
 - no unnecessary option-by-option analysis.
 
 ## Gate
 
-Question Studio exposure, localization and production registration remain blocked until English V4 is approved.
+Question Studio exposure, localization and production registration remain blocked until English V5 is approved.
