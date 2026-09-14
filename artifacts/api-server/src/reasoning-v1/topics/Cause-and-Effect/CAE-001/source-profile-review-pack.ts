@@ -1,7 +1,7 @@
+import { generateReviewedCaeSourceProfileQuestion } from "./reviewed-source-profiles.ts";
 import {
   CAE_SOURCE_PROFILE_AUTHORITIES,
   CaeSourceProfileIncompatibleError,
-  generateCaeSourceProfileQuestion,
   type CaeSourceProfileId,
   type GeneratedCaeSourceProfileQuestion,
 } from "./source-profiles.ts";
@@ -26,7 +26,7 @@ function collect(profileId: CaeSourceProfileId): readonly Cae001SourceProfileRev
   for (const qlId of QL_BY_PROFILE[profileId]) {
     for (let seed = 0; seed < 5_000 && pool.length < 200; seed += 1) {
       try {
-        const question = generateCaeSourceProfileQuestion({ qlId, locale: "en-IN", seed, sourceProfileId: profileId });
+        const question = generateReviewedCaeSourceProfileQuestion({ qlId, locale: "en-IN", seed, sourceProfileId: profileId });
         if (!seenStates.has(question.causalStateId)) {
           seenStates.add(question.causalStateId);
           pool.push({ seed, question });
