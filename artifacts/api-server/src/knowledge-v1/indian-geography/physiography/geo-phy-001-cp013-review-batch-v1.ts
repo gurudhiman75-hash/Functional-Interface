@@ -64,6 +64,10 @@ function learnerText(question: Pick<SourceQuestion, "stem" | "options" | "explan
 
 function simplifyLearnerText(text: string): string {
   return text
+    .replace(/Consider the following statements:/gi, "Consider these statements:")
+    .replace(/Which of the statements given above is\/are correct\?/gi, "Which statement(s) are correct?")
+    .replace(/Which of the statements given above are correct\?/gi, "Which statements are correct?")
+    .replace(/How many of the statements given above are correct\?/gi, "How many statements are correct?")
     .replace(/physiographic divisions/gi, "major physical regions")
     .replace(/physiographic division/gi, "major physical region")
     .replace(/physiographic/gi, "physical")
