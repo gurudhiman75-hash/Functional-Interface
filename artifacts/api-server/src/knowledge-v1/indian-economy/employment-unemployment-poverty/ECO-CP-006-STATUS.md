@@ -1,12 +1,15 @@
 # ECO-CP-006 Status
 
 **CP:** ECO-CP-006 Employment, Unemployment & Poverty  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
-## Implemented
+## Approved English baseline
 
+Human review approved on 2026-09-14. The V1 English behavior is frozen as the accepted baseline.
+
+Approved implementation includes:
 - official/static source registry;
 - canonical labour-force, unemployment and poverty concepts;
 - employment-status scenario pool;
@@ -14,7 +17,7 @@
 - 12 QLs;
 - deterministic 44-question English review generator;
 - per-variant Easy/Medium/Hard classification;
-- improved explanation style using rule + reason/application;
+- explanation style using rule + reason/application;
 - QA for formulas, committee sequence, sources, duplicate prevention, option validity and difficulty spread;
 - QA blocking current unemployment/poverty/MPI/MGNREGA values;
 - human review Markdown set.
@@ -28,10 +31,8 @@ Excluded from this CP:
 - current MGNREGA wage rates, beneficiary counts and Budget allocations;
 - current state rankings or scheme performance.
 
-## Promotion steps
+## Remaining promotion steps
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behavior.
-4. Add localisation layer.
-5. Register with runtime/Question Studio only after promotion approval.
+1. Preserve the approved English baseline.
+2. Add localisation layer in the localisation phase.
+3. Register with runtime/Question Studio only after separate promotion approval.
