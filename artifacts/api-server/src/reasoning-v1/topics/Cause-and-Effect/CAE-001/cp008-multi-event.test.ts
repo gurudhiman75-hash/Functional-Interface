@@ -3,18 +3,12 @@ import { CAE_001_REVIEWED_EDITORIAL_REALNESS_REVIEW } from "./reviewed-editorial
 import { previewCae001QuestionStudioReview } from "./question-studio-review.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import { CP008_MULTI_EVENT_WORLDS } from "./cp008-multi-event.ts";
+import { CAE_001_CAUSAL_WORLDS } from "./causal-world-authorities.ts";
+import { withCae001SaturationWave2 } from "./causal-world-saturation-wave2.ts";
 import type { CaeLocale } from "./types.ts";
 
 const LOCALES: readonly CaeLocale[] = ["en-IN", "hi-IN", "pa-IN"];
-const expectedModes = new Set([
-  "SEQUENCE",
-  "IMMEDIATE_CAUSE",
-  "IMMEDIATE_EFFECT",
-  "EARLIEST_CAUSE",
-  "FINAL_EFFECT",
-  "BRIDGE_ROLE",
-  "INVALID_RELATION",
-]);
+const expectedModes = new Set(["SEQUENCE", "IMMEDIATE_CAUSE", "IMMEDIATE_EFFECT", "EARLIEST_CAUSE", "FINAL_EFFECT", "BRIDGE_ROLE", "INVALID_RELATION"]);
 const seenModes = new Set<string>();
 const seenStates = new Set<string>();
 const seenLabelSignatures = new Set<string>();
@@ -23,21 +17,24 @@ let medium = 0;
 let hard = 0;
 
 function labelSignature(question: ReturnType<typeof generateReviewedCaeQuestion>): string {
-  const world = CP008_MULTI_EVENT_WORLDS.find((entry) => entry.id === question.causalWorldId);
-  assert.ok(world, `${question.causalWorldId}: CP008 world must exist`);
-  const display = new Map(
-    question.stem
-      .split("\n")
-      .filter((line) => /^[PQRS]\.\s/u.test(line))
-      .map((line) => [line.slice(0, 1), line.slice(3)] as const),
-  );
-  assert.equal(display.size, 4, `${question.causalStateId}: CP008 must display P/Q/R/S exactly once`);
-  return question.causalTrace.map((id) => {
-    const event = world.nodes.find((node) => node.id === id)!.text[question.locale];
-    const label = [...display.entries()].find(([, text]) => text === event)?.[0];
-    assert.ok(label, `${question.causalStateId}: every causal node must have a learner label`);
-    return label;
-  }).join("");
+  return withCae001SaturationWave2(() => {
+    const world = CP008_MULTI_EVENT_WORLDS.find((entry) => entry.id === question.causalWorldId)
+      ?? CAE_001_CAUSAL_WORLDS.find((entry) => entry.id === question.causalWorldId);
+    assert.ok(world, `${question.causalWorldId}: CP008 world must exist`);
+    const display = new Map(
+      question.stem
+        .split("\n")
+        .filter((line) => /^[PQRS]\.\s/u.test(line))
+        .map((line) => [line.slice(0, 1), line.slice(3)] as const),
+    );
+    assert.equal(display.size, 4, `${question.causalStateId}: CP008 must display P/Q/R/S exactly once`);
+    return question.causalTrace.map((id) => {
+      const event = world.nodes.find((node) => node.id === id)!.text[question.locale];
+      const label = [...display.entries()].find(([, text]) => text === event)?.[0];
+      assert.ok(label, `${question.causalStateId}: every causal node must have a learner label`);
+      return label;
+    }).join("");
+  });
 }
 
 for (let seed = 0; seed < 240; seed += 1) {
