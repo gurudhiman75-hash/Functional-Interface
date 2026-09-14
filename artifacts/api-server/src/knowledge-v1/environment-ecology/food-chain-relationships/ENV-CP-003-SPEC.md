@@ -2,8 +2,9 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-003 Food Chain & Ecological Relationships  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Approved review version:** V1  
+**Runtime registration:** eligible for shared Environment package binding  
 
 ## Scope
 
@@ -31,7 +32,7 @@ Deferred:
 5. The pyramid of energy is always upright; number and biomass may vary by ecosystem.
 6. Energy flow is one-way through trophic levels.
 7. Standard instruction stems may repeat when the tested relation differs.
-8. All questions remain `runtimeRegistered: false` until approval.
+8. V1 is the approved learner-facing wording baseline.
 
 ## QL inventory
 
@@ -50,8 +51,9 @@ Deferred:
 | ENV-003-QL-011 | Statement evaluation | Hard |
 | ENV-003-QL-012 | Applied chain analysis | Hard |
 
-## Review gate
+## Approved review gate
 
+The approved V1 surface satisfies:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
@@ -60,7 +62,9 @@ Deferred:
 - source IDs and source-fact IDs retained;
 - concise stems and explanations;
 - no `associated with` filler;
-- runtime blocked until project-owner approval.
+- project-owner approval on 2026-09-14.
+
+Review-only generators may remain `runtimeRegistered: false`; production/package binding is handled separately from review rendering.
 
 ## Source policy
 
