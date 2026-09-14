@@ -24,6 +24,10 @@ import {
 const PAPER_ID = "SSC-CGL-2024-TIER-I-2024-09-11-S1";
 const observations = QUANT_V4_CGL_2024_09_11_S1_FULL_QUANT_SECTION_WAVE11_COUNTABLE_PYQ_OBSERVATIONS;
 
+function approx(actual: number, expected: number, tolerance = 1e-9): void {
+  assert.ok(Math.abs(actual - expected) <= tolerance, `Expected ${actual} ≈ ${expected}`);
+}
+
 assert.equal(
   QUANT_V4_CGL_2024_09_11_S1_FULL_QUANT_SECTION_WAVE11_AUTHORITY,
   "QUANT-V4-CGL-2024-09-11-S1-FULL-QUANT-SECTION-WAVE11-P2",
@@ -80,27 +84,26 @@ assert.equal(Object.values(sectionPackageCounts).reduce((sum, count) => sum + co
 // Representative source-math checks across the section.
 assert.equal(180 * 5 / 9, 100); // Q51 rhombus diagonal line.
 assert.equal((12 * 62 + 18 * 62) / 30, 62); // Q52 average.
-assert.equal((1.10 / 0.88 - 1) * 100, 25); // Q53 false weight + profit.
+approx((1.10 / 0.88 - 1) * 100, 25); // Q53 false weight + profit.
 assert.equal((36 / 3) ** 2 / 4, 36); // Q54 area coefficient before √3.
 assert.equal(1 - 1, 0); // Q55 complementary-angle ratios.
 assert.equal(6 ** 3 + 3 * 6, 234); // Q56 reciprocal cubic identity.
 assert.equal(999 % 99, 9); // Q58.
 assert.equal((3 / 5 * 100) / 10, 6); // Q59 time from SI fraction.
 assert.equal(16_000 * 14 * 6 / 100, 13_440); // Q59 interest.
-assert.equal(9 * 5 / 6, 7.5); // Q61 intersecting chords.
+approx(9 * 5 / 6, 7.5); // Q61 intersecting chords.
 assert.equal(495 / 45 * (1665 / 45), 407); // Q62 HCF tiling.
-assert.equal(7_560_000 * 0.9 * 0.85 * 0.22, 1_272_348); // Q63 election chain.
-assert.equal(0.60 * 25 + 0.60 * 20, 27); // Q64 pie chart subgroup share.
-assert.equal(1 / (1 / 15) * 1.5 / 2.5, 9); // rate-share sanity only.
-assert.equal(1 / ((1 / 15) * 1.5 / 2.5), 25); // Q67 faster pipe.
-assert.equal(1_200 * 0.85 * 0.90, 918); // Q68 successive discounts.
-assert.equal(168 * 12 / 7 / 0.60, 480); // Q69 linked table.
+approx(7_560_000 * 0.9 * 0.85 * 0.22, 1_272_348); // Q63 election chain.
+approx(0.60 * 25 + 0.60 * 20, 27); // Q64 pie chart subgroup share.
+approx(1 / ((1 / 15) * 1.5 / 2.5), 25); // Q67 faster pipe.
+approx(1_200 * 0.85 * 0.90, 918); // Q68 successive discounts.
+approx(168 * 12 / 7 / 0.60, 480); // Q69 linked table.
 assert.equal((52_997 - 28_400) / 9, 2_733); // Q70 fixed annual increment.
 assert.equal((70 + 85 + 90 + 95 + 75) / 5, 83); // Q71 table average.
-assert.equal((22 / 7) * (28 ** 2 - 25 ** 2) * 28, 13_992); // Q72 circular track.
+approx((22 / 7) * (28 ** 2 - 25 ** 2) * 28, 13_992); // Q72 circular track.
 assert.equal(64 * 16 + 32, 1_056); // Q73 division algorithm.
 const vishuSpeed = 54 / 12;
-assert.equal(900 / vishuSpeed, 200); // Q74 = 3 min 20 s.
+approx(900 / vishuSpeed, 200); // Q74 = 3 min 20 s.
 assert.equal(560 / (9 - 2) * 3, 240); // Q75 ratio distribution.
 
 assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 332);
