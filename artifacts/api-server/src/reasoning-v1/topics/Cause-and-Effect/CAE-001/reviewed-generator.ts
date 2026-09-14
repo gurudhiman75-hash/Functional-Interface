@@ -84,8 +84,8 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     ? generateCp006BridgeDistanceQuestion({ locale: input.locale, seed: input.seed })
     : generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
   if (input.qlId === "CAE-QL-007" && defaultFourWay) {
-    if (seed % 8 === 0) return generateReviewedCp007SaturationCommonFactorQuestion({ locale: input.locale, seed: input.seed });
-    if (seed % 8 === 4) return generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed });
+    if (seed % 8 === 0 || seed % 16 === 12) return generateReviewedCp007SaturationCommonFactorQuestion({ locale: input.locale, seed: input.seed });
+    if (seed % 16 === 4) return generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed });
     if (seed % 8 === 2 || seed % 8 === 6) return generateReviewedCp007Wave4ParallelQuestion({ locale: input.locale, seed: input.seed });
     if (seed % 8 === 3 || seed % 8 === 7) return generateCp007ExpandedFalseCausationQuestion({ locale: input.locale, seed: input.seed });
     return generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
