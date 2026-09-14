@@ -13,6 +13,18 @@ function coordinate(x: number, y: number) {
   return `(${fmt(x)}, ${fmt(y)})`;
 }
 
+function gcd(left: number, right: number): number {
+  let a = Math.abs(left);
+  let b = Math.abs(right);
+  while (b !== 0) [a, b] = [b, a % b];
+  return a || 1;
+}
+
+function ratio(left: number, right: number) {
+  const divisor = gcd(left, right);
+  return `${left / divisor}:${right / divisor}`;
+}
+
 function expectedAnswer(set: Di010QuestionSet, question: Di010Question): string {
   const classes = set.stimulus.classes;
   switch (question.kind) {
@@ -39,6 +51,13 @@ function expectedAnswer(set: Di010QuestionSet, question: Di010Question): string 
     case "COMBINED_RANGE_TOTAL_FROM_POLYGON": {
       const start = Number(question.evidence.startIndex), end = Number(question.evidence.endIndex);
       return String(classes.slice(start, end + 1).reduce((sum, item) => sum + item.frequency, 0));
+    }
+    case "RANGE_RATIO_FROM_POLYGON": {
+      const leftStart = Number(question.evidence.leftStart);
+      const rightStart = Number(question.evidence.rightStart);
+      const leftTotal = classes.slice(leftStart, leftStart + 2).reduce((sum, item) => sum + item.frequency, 0);
+      const rightTotal = classes.slice(rightStart, rightStart + 2).reduce((sum, item) => sum + item.frequency, 0);
+      return ratio(leftTotal, rightTotal);
     }
   }
 }
