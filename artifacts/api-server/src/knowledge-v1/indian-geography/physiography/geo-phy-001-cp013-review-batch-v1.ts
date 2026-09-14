@@ -1,119 +1,198 @@
 import type { KnowledgeV1Difficulty } from "../../types";
-import { GEO_PHY_001_CP013_FACTS_V1 as facts } from "./geo-phy-001-cp013-facts";
-import { GEO_PHY_001_CP013_ROWS_1_3 } from "./geo-phy-001-cp013-rows-1-3";
-import { GEO_PHY_001_CP013_ROWS_4_6 } from "./geo-phy-001-cp013-rows-4-6";
-import { GEO_PHY_001_CP013_ROWS_7_9 } from "./geo-phy-001-cp013-rows-7-9";
+import { GEO_PHY_001_CP001_REVIEW_BATCH_V1 as cp001 } from "./geo-phy-001-cp001-review-batch-v1";
+import { GEO_PHY_001_CP002_REVIEW_BATCH_V1 as cp002 } from "./geo-phy-001-cp002-review-batch-v1";
+import { GEO_PHY_001_CP003_REVIEW_BATCH_V1 as cp003 } from "./geo-phy-001-cp003-review-batch-v1";
+import { GEO_PHY_001_CP004_REVIEW_BATCH_V1 as cp004 } from "./geo-phy-001-cp004-review-batch-v1";
+import { GEO_PHY_001_CP005_REVIEW_BATCH_V1 as cp005 } from "./geo-phy-001-cp005-review-batch-v1";
+import { GEO_PHY_001_CP006_REVIEW_BATCH_V1 as cp006 } from "./geo-phy-001-cp006-review-batch-v1";
+import { GEO_PHY_001_CP007_REVIEW_BATCH_V1 as cp007 } from "./geo-phy-001-cp007-review-batch-v1";
+import { GEO_PHY_001_CP008_REVIEW_BATCH_V1 as cp008 } from "./geo-phy-001-cp008-review-batch-v1";
+import { GEO_PHY_001_CP009_REVIEW_BATCH_V1 as cp009 } from "./geo-phy-001-cp009-review-batch-v1";
+import { GEO_PHY_001_CP010_REVIEW_BATCH_V1 as cp010 } from "./geo-phy-001-cp010-review-batch-v1";
+import { GEO_PHY_001_CP011_REVIEW_BATCH_V4 as cp011 } from "./geo-phy-001-cp011-review-batch-v4";
+import { GEO_PHY_001_CP012_REVIEW_BATCH_V1 as cp012 } from "./geo-phy-001-cp012-review-batch-v1";
 
 export type GeoPhy001Cp013ReviewQuestion = {
-  questionId: string; qlId: string; qlName: string; difficulty: KnowledgeV1Difficulty;
-  stem: string; options: readonly string[]; correctIndex: number; canonicalAnswer: string;
-  explanation: string; sourceIds: readonly string[]; sourceFactIds: readonly string[];
-  reviewOnly: true; runtimeRegistered: false;
+  questionId: string;
+  qlId: string;
+  qlName: string;
+  sourceCheckpoint: string;
+  difficulty: KnowledgeV1Difficulty;
+  stem: string;
+  options: readonly string[];
+  correctIndex: number;
+  canonicalAnswer: string;
+  explanation: string;
+  sourceIds: readonly string[];
+  sourceFactIds: readonly string[];
+  reviewOnly: true;
+  runtimeRegistered: false;
 };
 
-const qlNames: Record<string, string> = {
-  "GEO-PHY-001-QL-001": "Major physiographic divisions",
-  "GEO-PHY-001-QL-002": "Northern Plains formation",
-  "GEO-PHY-001-QL-003": "Peninsular Plateau character",
-  "GEO-PHY-001-QL-004": "Indian Desert location",
-  "GEO-PHY-001-QL-005": "Coastal Plains overview",
-  "GEO-PHY-001-QL-006": "Island groups overview",
-  "GEO-PHY-001-QL-010": "Great Himalaya or Himadri",
-  "GEO-PHY-001-QL-011": "Lesser Himalaya or Himachal",
-  "GEO-PHY-001-QL-012": "Shiwalik range",
-  "GEO-PHY-001-QL-019": "Bhabar belt",
-  "GEO-PHY-001-QL-020": "Terai belt",
-  "GEO-PHY-001-QL-022": "Khadar and Bhangar",
-  "GEO-PHY-001-QL-028": "Central Highlands",
-  "GEO-PHY-001-QL-029": "Deccan Plateau",
-  "GEO-PHY-001-QL-038": "Indian Desert drainage",
-  "GEO-PHY-001-QL-046": "Western Coastal Plain",
-  "GEO-PHY-001-QL-050": "Eastern Coastal Plain and deltas",
-  "GEO-PHY-001-QL-055": "Lakshadweep location",
-  "GEO-PHY-001-QL-056": "Andaman and Nicobar location",
-  "GEO-PHY-001-QL-057": "Lakshadweep character",
-  "GEO-PHY-001-QL-058": "Andaman and Nicobar chain",
-  "GEO-PHY-001-QL-066": "Nilgiri Hills",
-  "GEO-PHY-001-QL-068": "Anamudi",
-  "GEO-PHY-001-QL-069": "Guru Shikhar",
-  "GEO-PHY-001-QL-073": "Zoji La",
-  "GEO-PHY-001-QL-074": "Rohtang Pass",
-  "GEO-PHY-001-QL-075": "Nathu La",
-  "GEO-PHY-001-QL-076": "Kashmir Valley",
-  "GEO-PHY-001-QL-077": "Kullu Valley",
-  "GEO-PHY-001-QL-078": "Palghat Gap",
-  "GEO-PHY-001-QL-082": "Malwa Plateau",
-  "GEO-PHY-001-QL-084": "Chota Nagpur Plateau",
-  "GEO-PHY-001-QL-085": "Meghalaya Plateau",
-  "GEO-PHY-001-QL-086": "Karbi Anglong and North Cachar",
-  "GEO-PHY-001-QL-087": "Bastar Plateau",
-  "GEO-PHY-001-QL-089": "Plateau-hill-state pairs",
-  "GEO-PHY-001-QL-090": "State association synthesis",
-  "GEO-PHY-001-QL-093": "Northern Plains classification comparison",
-  "GEO-PHY-001-QL-094": "Western vs Eastern Ghats",
-  "GEO-PHY-001-QL-095": "Western vs Eastern Coastal Plains",
-  "GEO-PHY-001-QL-097": "Island-group comparison",
-  "GEO-PHY-001-QL-098": "Cross-division classification",
-  "GEO-PHY-001-QL-107": "Cross-topic matching",
-  "GEO-PHY-001-QL-108": "Whole-chapter statement synthesis"
+type SourceQuestion = Omit<GeoPhy001Cp013ReviewQuestion, "questionId" | "sourceCheckpoint"> & {
+  questionId: string;
 };
-type Row = readonly [string, string, readonly string[], readonly string[], string];
-const rowsByGroup: Record<number, readonly Row[]> = { ...GEO_PHY_001_CP013_ROWS_1_3, ...GEO_PHY_001_CP013_ROWS_4_6, ...GEO_PHY_001_CP013_ROWS_7_9 };
-const factMap = new Map(facts.map((fact) => [fact.id, fact]));
-const difficultyForGroup = (group: number): KnowledgeV1Difficulty => group <= 3 ? "Easy" : group <= 8 ? "Medium" : "Hard";
+
+export const GEO_PHY_001_CP013_SOURCE_BATCHES_V1: readonly {
+  checkpoint: string;
+  firstQl: number;
+  lastQl: number;
+  questions: readonly SourceQuestion[];
+}[] = Object.freeze([
+  { checkpoint: "CP001", firstQl: 1, lastQl: 9, questions: cp001 },
+  { checkpoint: "CP002", firstQl: 10, lastQl: 18, questions: cp002 },
+  { checkpoint: "CP003", firstQl: 19, lastQl: 27, questions: cp003 },
+  { checkpoint: "CP004", firstQl: 28, lastQl: 36, questions: cp004 },
+  { checkpoint: "CP005", firstQl: 37, lastQl: 45, questions: cp005 },
+  { checkpoint: "CP006", firstQl: 46, lastQl: 54, questions: cp006 },
+  { checkpoint: "CP007", firstQl: 55, lastQl: 63, questions: cp007 },
+  { checkpoint: "CP008", firstQl: 64, lastQl: 72, questions: cp008 },
+  { checkpoint: "CP009", firstQl: 73, lastQl: 81, questions: cp009 },
+  { checkpoint: "CP010", firstQl: 82, lastQl: 90, questions: cp010 },
+  { checkpoint: "CP011", firstQl: 91, lastQl: 99, questions: cp011 },
+  { checkpoint: "CP012", firstQl: 100, lastQl: 108, questions: cp012 },
+]);
+
+const metaLanguage = /\bNCERT\b|sourceFact|review-only|runtimeRegistered|generator|qualification gate|provenance|administrative dataset/i;
+const heavyPhrasing = /physiographic|physical division|geologically|correctly classified|incorrectly classified|structurally folded|depositional surface|structural continuity|relief contrast/i;
+
+function wordCount(text: string): number {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function learnerText(question: SourceQuestion): string {
+  return `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
+}
+
+function isSoundCandidate(question: SourceQuestion): boolean {
+  return question.options.length === 4
+    && new Set(question.options).size === 4
+    && question.options[question.correctIndex] === question.canonicalAnswer
+    && question.sourceIds.length > 0
+    && question.sourceFactIds.length > 0
+    && question.reviewOnly === true
+    && question.runtimeRegistered === false
+    && !metaLanguage.test(learnerText(question));
+}
+
+function candidateScore(question: SourceQuestion, rotation: number): number {
+  const learner = learnerText(question);
+  const wordingPenalty = heavyPhrasing.test(learner) ? 10000 : 0;
+  const lengthPenalty = wordCount(question.stem) * 4 + wordCount(question.explanation);
+  const sourceOrderPenalty = rotation;
+  return wordingPenalty + lengthPenalty + sourceOrderPenalty;
+}
+
+function sourceCheckpointForQl(ql: number) {
+  const owner = GEO_PHY_001_CP013_SOURCE_BATCHES_V1.find((batch) => ql >= batch.firstQl && ql <= batch.lastQl);
+  if (!owner) throw new Error(`No owner for QL${String(ql).padStart(3, "0")}`);
+  return owner;
+}
 
 export function generateGeoPhy001Cp013ReviewBatchV1(): GeoPhy001Cp013ReviewQuestion[] {
   const output: GeoPhy001Cp013ReviewQuestion[] = [];
-  let globalIndex = 0;
-  for (let group = 1; group <= 9; group += 1) {
-    for (const [stem, canonical, rawOptions, factIds, qlId] of rowsByGroup[group]) {
-      if (!rawOptions.includes(canonical)) throw new Error(`CP013 malformed row: ${stem}`);
-      if (!/^GEO-PHY-001-QL-(?:00[1-9]|0[1-9][0-9]|10[0-8])$/.test(qlId)) throw new Error(`CP013 invalid existing QL: ${qlId}`);
-      const targetIndex = globalIndex % 4;
-      const distractors = rawOptions.filter((option) => option !== canonical);
-      if (distractors.length !== 3 || new Set(rawOptions).size !== 4) throw new Error(`CP013 option defect: ${stem}`);
-      const options = [...distractors]; options.splice(targetIndex, 0, canonical);
-      const resolved = factIds.map((id) => factMap.get(id));
-      if (resolved.some((fact) => !fact)) throw new Error(`CP013 missing fact: ${stem}`);
-      const factRows = resolved.filter((fact): fact is NonNullable<typeof fact> => Boolean(fact));
-      output.push({
-        questionId: `GEO-PHY-001-CP013-Q${String(globalIndex + 1).padStart(3, "0")}`,
-        qlId, qlName: qlNames[qlId] ?? "Existing chapter QL", difficulty: difficultyForGroup(group),
-        stem, options: Object.freeze(options), correctIndex: targetIndex, canonicalAnswer: canonical,
-        explanation: factRows.map((fact) => fact.fact).join(" "),
-        sourceIds: Object.freeze([...new Set(factRows.flatMap((fact) => fact.sourceIds))]),
-        sourceFactIds: Object.freeze([...new Set(factRows.flatMap((fact) => fact.sourceFactIds))]),
-        reviewOnly: true, runtimeRegistered: false,
-      });
-      globalIndex += 1;
-    }
+
+  for (let ql = 1; ql <= 108; ql += 1) {
+    const qlId = `GEO-PHY-001-QL-${String(ql).padStart(3, "0")}`;
+    const owner = sourceCheckpointForQl(ql);
+    const candidates = owner.questions.filter((question) => question.qlId === qlId);
+    if (candidates.length !== 6) throw new Error(`${qlId} must expose exactly 6 owning payloads; found ${candidates.length}`);
+
+    const rotationStart = (ql - 1) % candidates.length;
+    const ranked = candidates
+      .map((question, index) => ({ question, rotation: (index - rotationStart + candidates.length) % candidates.length }))
+      .filter(({ question }) => isSoundCandidate(question))
+      .sort((a, b) => candidateScore(a.question, a.rotation) - candidateScore(b.question, b.rotation));
+
+    const source = ranked[0]?.question;
+    if (!source) throw new Error(`${qlId} has no valid representative question`);
+    if (heavyPhrasing.test(learnerText(source))) throw new Error(`${qlId} has no plain-language representative question`);
+
+    const targetIndex = (ql - 1) % 4;
+    const distractors = source.options.filter((option) => option !== source.canonicalAnswer);
+    if (distractors.length !== 3) throw new Error(`${qlId} has invalid option structure`);
+    const options = [...distractors];
+    options.splice(targetIndex, 0, source.canonicalAnswer);
+
+    output.push({
+      questionId: `GEO-PHY-001-CP013-Q${String(ql).padStart(3, "0")}`,
+      qlId: source.qlId,
+      qlName: source.qlName,
+      sourceCheckpoint: owner.checkpoint,
+      difficulty: source.difficulty,
+      stem: source.stem,
+      options: Object.freeze(options),
+      correctIndex: targetIndex,
+      canonicalAnswer: source.canonicalAnswer,
+      explanation: source.explanation,
+      sourceIds: Object.freeze([...source.sourceIds]),
+      sourceFactIds: Object.freeze([...source.sourceFactIds]),
+      reviewOnly: true,
+      runtimeRegistered: false,
+    });
   }
+
   return output;
 }
-export const GEO_PHY_001_CP013_REVIEW_BATCH_V1 = Object.freeze(generateGeoPhy001Cp013ReviewBatchV1().map((q) => Object.freeze(q)));
-const forbiddenLearnerLanguage = /\bNCERT\b|sourceFact|review-only|runtimeRegistered|generator|qualification gate|geographical provenance|administrative dataset|physiographic framework|depositional surface|structural continuity|relief contrast/i;
+
+export const GEO_PHY_001_CP013_REVIEW_BATCH_V1 = Object.freeze(
+  generateGeoPhy001Cp013ReviewBatchV1().map((question) => Object.freeze(question)),
+);
+
 export function auditGeoPhy001Cp013ReviewBatchV1() {
-  const issues: string[] = [], ids = new Set<string>(), semantics = new Set<string>(), qlIds = new Set<string>();
-  const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 }, answerPositions = [0, 0, 0, 0];
+  const issues: string[] = [];
+  const semantics = new Set<string>();
+  const qlCounts = new Map<string, number>();
+  const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
+  const answerPositions = [0, 0, 0, 0];
+  const sourceCheckpoints = new Set<string>();
+  const hardAnswers = new Set<string>();
+
   for (const question of GEO_PHY_001_CP013_REVIEW_BATCH_V1) {
-    if (ids.has(question.questionId)) issues.push(`DUPLICATE_ID:${question.questionId}`); ids.add(question.questionId);
-    const semantic = `${question.stem}::${question.canonicalAnswer}`; if (semantics.has(semantic)) issues.push(`DUPLICATE_SEMANTIC:${question.questionId}`); semantics.add(semantic);
-    difficultyCounts[question.difficulty] += 1; answerPositions[question.correctIndex] += 1; qlIds.add(question.qlId);
+    const qlNumber = Number(question.qlId.slice(-3));
+    const semantic = `${question.stem.trim().toLowerCase()}::${question.canonicalAnswer.trim().toLowerCase()}`;
+    if (semantics.has(semantic)) issues.push(`DUPLICATE_SEMANTIC:${question.questionId}`);
+    semantics.add(semantic);
+    qlCounts.set(question.qlId, (qlCounts.get(question.qlId) ?? 0) + 1);
+    difficultyCounts[question.difficulty] += 1;
+    answerPositions[question.correctIndex] += 1;
+    sourceCheckpoints.add(question.sourceCheckpoint);
+    if (question.difficulty === "Hard") hardAnswers.add(question.canonicalAnswer);
+
+    if (!Number.isInteger(qlNumber) || qlNumber < 1 || qlNumber > 108) issues.push(`OUT_OF_RANGE_QL:${question.questionId}`);
     if (question.options.length !== 4 || new Set(question.options).size !== 4) issues.push(`OPTIONS:${question.questionId}`);
     if (question.options[question.correctIndex] !== question.canonicalAnswer) issues.push(`ANSWER:${question.questionId}`);
     if (!question.sourceIds.length || !question.sourceFactIds.length) issues.push(`PROVENANCE:${question.questionId}`);
     if (!question.reviewOnly || question.runtimeRegistered) issues.push(`LIFECYCLE:${question.questionId}`);
-    if (/GEO-PHY-001-QL-(?:109|1[1-9][0-9]|[2-9][0-9]{2,})/.test(question.qlId)) issues.push(`NEW_QL:${question.qlId}`);
     const learner = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
-    if (forbiddenLearnerLanguage.test(learner)) issues.push(`LEARNER_LANGUAGE:${question.questionId}`);
-    if (question.explanation.trim().length < 40) issues.push(`SHORT_EXPLANATION:${question.questionId}`);
+    if (metaLanguage.test(learner)) issues.push(`META_LANGUAGE:${question.questionId}`);
+    if (heavyPhrasing.test(learner)) issues.push(`HEAVY_WORDING:${question.questionId}`);
+    if (wordCount(question.stem) > (question.difficulty === "Hard" ? 55 : 30)) issues.push(`LONG_STEM:${question.questionId}`);
+    if (wordCount(question.explanation) > 45) issues.push(`LONG_EXPLANATION:${question.questionId}`);
   }
-  if (GEO_PHY_001_CP013_REVIEW_BATCH_V1.length !== 54) issues.push(`COUNT:${GEO_PHY_001_CP013_REVIEW_BATCH_V1.length}`);
-  if (semantics.size !== 54) issues.push(`SEMANTIC_COUNT:${semantics.size}`);
-  if (difficultyCounts.Easy !== 18 || difficultyCounts.Medium !== 30 || difficultyCounts.Hard !== 6) issues.push(`DIFFICULTY:${difficultyCounts.Easy}/${difficultyCounts.Medium}/${difficultyCounts.Hard}`);
-  if (answerPositions.join(",") !== "14,14,13,13") issues.push(`ANSWER_POSITIONS:${answerPositions.join(",")}`);
-  const hardAnswers = new Set(GEO_PHY_001_CP013_REVIEW_BATCH_V1.filter((q) => q.difficulty === "Hard").map((q) => q.canonicalAnswer));
-  if (hardAnswers.size < 3) issues.push(`HARD_ANSWER_VARIETY:${hardAnswers.size}`);
-  if (qlIds.size < 30) issues.push(`QL_BREADTH:${qlIds.size}`);
-  return { valid: issues.length === 0, issues, questionCount: 54, semanticCount: semantics.size, difficultyCounts, answerPositions, hardAnswerVariety: hardAnswers.size, existingQlBreadth: qlIds.size };
+
+  if (GEO_PHY_001_CP013_REVIEW_BATCH_V1.length !== 108) issues.push(`COUNT:${GEO_PHY_001_CP013_REVIEW_BATCH_V1.length}`);
+  if (semantics.size !== 108) issues.push(`SEMANTIC_COUNT:${semantics.size}`);
+  if (qlCounts.size !== 108) issues.push(`QL_BREADTH:${qlCounts.size}`);
+  for (let ql = 1; ql <= 108; ql += 1) {
+    const qlId = `GEO-PHY-001-QL-${String(ql).padStart(3, "0")}`;
+    if (qlCounts.get(qlId) !== 1) issues.push(`QL_REPRESENTATION:${qlId}:${qlCounts.get(qlId) ?? 0}`);
+  }
+  if (answerPositions.join(",") !== "27,27,27,27") issues.push(`ANSWER_POSITIONS:${answerPositions.join(",")}`);
+  if (sourceCheckpoints.size !== 12) issues.push(`SOURCE_CHECKPOINT_BREADTH:${sourceCheckpoints.size}`);
+  if (difficultyCounts.Easy + difficultyCounts.Medium + difficultyCounts.Hard !== 108) issues.push("DIFFICULTY_TOTAL");
+  if (difficultyCounts.Hard < 10) issues.push(`HARD_DEPTH:${difficultyCounts.Hard}`);
+  if (hardAnswers.size < 6) issues.push(`HARD_ANSWER_VARIETY:${hardAnswers.size}`);
+
+  return {
+    valid: issues.length === 0,
+    issues,
+    questionCount: GEO_PHY_001_CP013_REVIEW_BATCH_V1.length,
+    semanticCount: semantics.size,
+    permanentQlBreadth: qlCounts.size,
+    sourceCheckpointBreadth: sourceCheckpoints.size,
+    difficultyCounts,
+    answerPositions,
+    hardAnswerVariety: hardAnswers.size,
+  };
 }
