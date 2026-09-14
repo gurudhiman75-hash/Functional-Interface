@@ -53,9 +53,12 @@ Later CPs may integrate earlier facts but must not take ownership away from the 
 
 ## 5. Question-quality rules
 
+- Stems must read like real SSC, Banking, Railway or similar objective-exam questions; textbook/generator wording is not acceptable.
+- Keep stems concise, natural and self-contained. Hard questions must be hard because of relation depth, not difficult English.
 - Standard exam instructions may repeat; semantic payloads must not.
 - Every permanent QL must retain six semantically distinct owning payloads where the source supports them.
-- Stems must be concise and sound like real competitive-exam questions.
+- Use direct questions, applied situations, bounded pair questions and statement tasks in a balanced mix.
+- Avoid filler such as `associated with`, `described as`, `in the context of`, vague `Which is correct?` prompts, and internal source/review terminology.
 - Explanations must state the decisive fact directly in simple language.
 - Do not use option-by-option analysis unless a question genuinely needs it.
 - Avoid obscure weather trivia merely to make a question hard.
@@ -87,4 +90,4 @@ Every owning CP is review-only until explicit human approval. Question Studio re
 
 ## 9. Current state
 
-`GEO-CLI-001` is under implementation. CP001 starts the permanent map with QL001–QL009.
+`GEO-CLI-001` is under implementation. CP001 starts the permanent map with QL001–QL009 and uses the chapter-wide exam-grade stem contract from its V4 review candidate onward.
