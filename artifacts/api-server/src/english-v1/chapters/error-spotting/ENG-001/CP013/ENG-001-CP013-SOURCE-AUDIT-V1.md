@@ -1,6 +1,6 @@
 # ENG-001 CP013 — Common Usage / Idiomatic Grammar — Source Audit V1
 
-Status: `REVIEW_CANDIDATE_V1_SOURCE_AUDITED__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__PRODUCTION_LOCKED`
 
 ## Blueprint boundary
 
@@ -85,4 +85,4 @@ Every explanation must:
 
 ## Lifecycle
 
-CP013 remains **human-review pending**. This checkpoint is not registered in Question Studio, cannot write to Question Bank, is not test/mock eligible, is not publicly publishable, and has no automatic learner delivery or production-release authority until a separate explicit approval step.
+CP013 received explicit human editorial approval on 2026-09-14. The exact approved review artifact is pinned by SHA-256 in `eng-001-cp013-human-approval-v1.ts`, and the checkpoint is registered in Question Studio **review-only** under `ENG-001-CP013-HUMAN-EDITORIAL-APPROVAL-V1`. Question Bank writes, test/mock eligibility, public publication, automatic learner delivery and production release remain locked.
