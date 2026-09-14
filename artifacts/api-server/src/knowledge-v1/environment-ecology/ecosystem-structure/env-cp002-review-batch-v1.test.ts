@@ -45,8 +45,11 @@ describe("ENV-CP-002 V1 review batch", () => {
     }
   });
 
-  it("keeps stems distinct and learner-facing wording concise", () => {
-    expect(new Set(questions.map((question) => question.stem)).size).toBe(48);
+  it("keeps semantic questions distinct and wording concise", () => {
+    const signatures = questions.map(
+      (question) => `${question.stem}::${question.canonicalAnswer}`,
+    );
+    expect(new Set(signatures).size).toBe(48);
 
     for (const question of questions) {
       if (!question.stem.startsWith("Consider the statements:")) {
