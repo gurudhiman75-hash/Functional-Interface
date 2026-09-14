@@ -2,18 +2,18 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   generatePhysicsLocalizedBalancedReviewV1,
-  SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS,
   SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES,
 } from "./sci-physics-localization-generator-v1";
 
 const labels = { en: "English", hi: "Hindi", pa: "Punjabi" } as const;
+const cps = ["SCI-CP-001", "SCI-CP-002"] as const;
 const out: string[] = [
   "# SCI Physics Multilingual V1 — CP001–CP002 Review",
   "",
   "Review-only candidate. English is the semantic authority; Hindi and Punjabi must preserve the same answer index and facts.",
   "",
 ];
-for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
+for (const cpId of cps) {
   out.push(`## ${cpId}`, "");
   for (const locale of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES) {
     out.push(`### ${labels[locale]}`, "");
