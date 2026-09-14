@@ -9,6 +9,7 @@ interface ReviewRow {
 }
 
 function spreadSeeds(count: number, capacity: number): number[] {
+  if (count > capacity) throw new Error(`Cannot sample ${count} unique items from CP001 capacity ${capacity}`);
   return Array.from({ length: count }, (_, index) => Math.floor((index * capacity) / count) + 1);
 }
 
@@ -26,9 +27,10 @@ const add = (familyId: string, difficulty: PunjabiDifficulty, count: number) => 
   for (const seed of spreadSeeds(count, capacity)) rows.push({ difficulty, question: f.generate(seed, difficulty) });
 };
 
-add("F01", "Easy", 30);
-add("F02", "Easy", 30);
-add("F04", "Easy", 20);
+// Easy: use the full 10-item carrier-composition family and spread the rest across sequence/classification.
+add("F01", "Easy", 35);
+add("F02", "Easy", 35);
+add("F04", "Easy", 10);
 
 add("F03", "Medium", 15);
 add("F05", "Medium", 15);
