@@ -1,4 +1,3 @@
-import { deterministicShuffle } from "../../deterministic";
 import type { KnowledgeV1Difficulty } from "../../types";
 import {
   ECO_CP005_CONCEPT_ROWS_V1,
@@ -28,8 +27,7 @@ const qlNames: Record<number, string> = {
 };
 
 function difficultyForVariant(ql: number, rowIndex: number): KnowledgeV1Difficulty {
-  if (ql === 1) return rowIndex < 2 ? "Easy" : "Medium";
-  if (ql === 2) return rowIndex < 2 ? "Easy" : "Medium";
+  if (ql === 1 || ql === 2) return rowIndex < 2 ? "Easy" : "Medium";
   if (ql === 3 || ql === 4) return rowIndex === 0 ? "Easy" : "Medium";
   if (ql === 5) return rowIndex < 2 ? "Easy" : "Medium";
   if (ql === 6) return rowIndex < 2 ? "Medium" : "Hard";
@@ -48,15 +46,9 @@ function moveCorrect(options: string[], correct: string, target: number) {
   return options;
 }
 
-function chooseFour(values: readonly string[], correct: string, seed: string, target: number) {
-  const distractors = deterministicShuffle([...new Set(values)], seed)
-    .filter((value) => value !== correct)
-    .slice(0, 3);
-  if (distractors.length !== 3) throw new Error(`Insufficient distractors for ${correct}`);
-  return moveCorrect(deterministicShuffle([...distractors, correct], `${seed}:final`), correct, target);
-}
-
-function sources(...rows: readonly { sourceIds: readonly string[]; sourceFactIds: readonly string[] }[]) {
+function sourceBundle(
+  ...rows: readonly { sourceIds: readonly string[]; sourceFactIds: readonly string[] }[]
+) {
   return {
     sourceIds: [...new Set(rows.flatMap((row) => row.sourceIds))],
     sourceFactIds: [...new Set(rows.flatMap((row) => row.sourceFactIds))],
@@ -69,119 +61,128 @@ function concept(id: string) {
   return row;
 }
 
-const purchasingCases = Object.freeze([
+const purchasingCases = [
   {
-    stem: "Prices rise while a person's money income stays unchanged. What happens to purchasing power?",
-    answer: "It falls",
-    options: ["It falls", "It rises", "It must double", "It is unaffected"],
-    explanation: "When prices rise and money income is unchanged, the same money buys fewer goods and services.",
+    stem: "Prices rise while money income stays unchanged. Purchasing power will:",
+    correct: "Fall",
+    options: ["Fall", "Rise", "Stay unchanged", "Double"],
+    explanation: "The same money buys fewer goods and services when prices rise.",
   },
   {
-    stem: "The general price level falls while money income is unchanged. What happens to purchasing power?",
-    answer: "It rises",
-    options: ["It rises", "It falls", "It becomes zero", "It is unaffected"],
-    explanation: "Lower prices allow the same money income to buy more goods and services.",
+    stem: "The general price level falls while money income stays unchanged. Purchasing power will:",
+    correct: "Rise",
+    options: ["Rise", "Fall", "Stay unchanged", "Become zero"],
+    explanation: "The same money can buy more when prices fall.",
   },
   {
     stem: "A pension stays fixed while prices keep rising. The pensioner's real purchasing power will generally:",
-    answer: "Fall",
-    options: ["Fall", "Rise", "Stay exactly unchanged", "Become equal to inflation"],
-    explanation: "A fixed money income buys less when the general price level rises.",
+    correct: "Fall",
+    options: ["Fall", "Rise", "Stay exactly unchanged", "Equal the inflation rate"],
+    explanation: "A fixed money income buys less when prices rise.",
   },
   {
-    stem: "Money income rises by less than the rise in the general price level. Real purchasing power will generally:",
-    answer: "Fall",
+    stem: "Money income rises by less than the general price level. Real purchasing power will generally:",
+    correct: "Fall",
     options: ["Fall", "Rise", "Stay unchanged", "Become zero automatically"],
     explanation: "If income rises more slowly than prices, real purchasing power falls.",
   },
-]);
+] as const;
 
-const effectCases = Object.freeze([
+const effectCases = [
   {
-    stem: "A worker receives a fixed salary with no adjustment while unexpected inflation rises. Who is directly hurt?",
-    answer: "The fixed-income earner",
-    options: ["The fixed-income earner", "A borrower repaying a fixed nominal debt", "A seller whose price rises with inflation", "No one"],
+    stem: "A fixed salary is not adjusted while unexpected inflation rises. Who is directly hurt?",
+    correct: "The fixed-income earner",
+    options: ["The fixed-income earner", "A fixed-rate borrower", "A seller whose price rises", "No one"],
     explanation: "A fixed money income loses purchasing power when prices rise.",
   },
   {
-    stem: "Unexpected inflation occurs after a loan is made at a fixed nominal interest rate. Other things equal, who tends to benefit?",
-    answer: "The borrower",
-    options: ["The borrower", "The lender", "Both equally", "Neither can be affected"],
-    explanation: "The borrower repays in money with lower purchasing power, so unexpected inflation can benefit the borrower.",
+    stem: "Unexpected inflation occurs after a fixed-rate loan is made. Other things equal, who tends to benefit?",
+    correct: "The borrower",
+    options: ["The borrower", "The lender", "Both equally", "Neither"],
+    explanation: "The borrower repays in money with lower purchasing power.",
   },
   {
-    stem: "A lender will receive fixed rupee repayments. Unexpected inflation turns out higher than expected. Other things equal, the lender tends to:",
-    answer: "Lose in real terms",
-    options: ["Lose in real terms", "Gain in real terms", "Receive a higher real repayment automatically", "Be unaffected by purchasing power"],
-    explanation: "Higher unexpected inflation reduces the real value of fixed nominal repayments.",
+    stem: "A lender will receive fixed rupee repayments. Unexpected inflation is higher than expected. The lender tends to:",
+    correct: "Lose in real terms",
+    options: ["Lose in real terms", "Gain in real terms", "Receive a higher real repayment automatically", "Be unaffected"],
+    explanation: "Higher unexpected inflation reduces the real value of fixed repayments.",
   },
   {
-    stem: "A fixed-rate borrower and lender agree on a loan before an unexpected rise in inflation. Which statement is most accurate?",
-    answer: "The borrower tends to gain and the lender tends to lose in real terms",
+    stem: "A fixed-rate loan is agreed before an unexpected rise in inflation. Which statement is most accurate?",
+    correct: "The borrower tends to gain and the lender tends to lose in real terms",
     options: [
       "The borrower tends to gain and the lender tends to lose in real terms",
       "The lender tends to gain and the borrower tends to lose in real terms",
       "Both must gain equally",
-      "Inflation cannot affect the real value of fixed repayments",
+      "Inflation cannot affect fixed repayments in real terms",
     ],
-    explanation: "Unexpected inflation lowers the real value of fixed nominal repayments, helping the borrower and hurting the lender.",
+    explanation: "Unexpected inflation lowers the real value of fixed nominal repayments.",
   },
-]);
+] as const;
 
-const headlineCoreCases = Object.freeze([
+const headlineCoreCases = [
   {
     stem: "Inflation measured using the full CPI basket is usually called:",
-    answer: "Headline inflation",
+    correct: "Headline inflation",
+    options: ["Headline inflation", "Core inflation", "Deflation", "WPI only"],
     explanation: "Headline inflation uses the full selected basket.",
   },
   {
     stem: "CPI inflation excluding food and fuel is commonly used as a measure of:",
-    answer: "Core inflation",
-    explanation: "A common exclusion-based core measure removes food and fuel.",
+    correct: "Core inflation",
+    options: ["Core inflation", "Headline inflation", "Deflation", "WPI only"],
+    explanation: "A common core measure excludes food and fuel.",
   },
   {
-    stem: "Food prices jump sharply but other prices change little. Which measure is more directly affected by the food shock?",
-    answer: "Headline inflation",
-    explanation: "Headline inflation includes food, while a common core measure excludes food and fuel.",
+    stem: "Food prices jump sharply while other prices change little. Which measure is more directly affected?",
+    correct: "Headline inflation",
+    options: ["Headline inflation", "Core inflation excluding food and fuel", "Neither measure", "GDP growth"],
+    explanation: "Headline inflation includes food, while this core measure excludes it.",
   },
   {
     stem: "Why is core inflation examined separately from headline inflation?",
-    answer: "To study underlying price pressure after excluding some volatile components",
-    explanation: "Core measures try to show more persistent underlying inflation by excluding selected volatile items.",
+    correct: "To study underlying price pressure after excluding some volatile components",
+    options: [
+      "To study underlying price pressure after excluding some volatile components",
+      "To measure only wholesale prices",
+      "To remove all services from the price index",
+      "To convert nominal GDP into GNP",
+    ],
+    explanation: "Core measures help show more persistent underlying price pressure.",
   },
-]);
+] as const;
 
-const distinctionCases = Object.freeze([
+const distinctionCases = [
   {
     stem: "Inflation falls from 8% to 5%, but prices are still rising. This is:",
-    answer: "Disinflation",
+    correct: "Disinflation",
     options: ["Disinflation", "Deflation", "Hyperinflation", "Revaluation"],
-    explanation: "The inflation rate has fallen, but it is still positive. That is disinflation.",
+    explanation: "Inflation has slowed but remains positive.",
   },
   {
     stem: "Which statement correctly distinguishes deflation from disinflation?",
-    answer: "Deflation means the general price level falls; disinflation means inflation slows",
+    correct: "Deflation means the price level falls; disinflation means inflation slows",
     options: [
-      "Deflation means the general price level falls; disinflation means inflation slows",
+      "Deflation means the price level falls; disinflation means inflation slows",
       "Deflation and disinflation always mean the same thing",
       "Deflation means prices rise faster; disinflation means prices fall to zero",
-      "Disinflation can occur only when CPI is negative",
+      "Disinflation can occur only when inflation is negative",
     ],
-    explanation: "Deflation is a fall in the price level. Disinflation is a lower positive rate of inflation.",
+    explanation: "Deflation is a fall in the price level. Disinflation is slower inflation.",
   },
   {
     stem: "A high inflation reading partly reflects an unusually low price level in the comparison period. This illustrates:",
-    answer: "Base effect",
+    correct: "Base effect",
     options: ["Base effect", "Cost-push inflation", "Purchasing power", "Core inflation"],
-    explanation: "The measured rate can be affected by the level of prices in the comparison period.",
+    explanation: "The comparison-period price level can affect the measured inflation rate.",
   },
   {
-    stem: "Two periods have the same current price increase, but different inflation rates because their comparison-period prices differ. The difference is mainly due to:",
-    answer: "Base effect",
+    stem: "Two periods have the same current price increase but different inflation rates because their comparison bases differ. This is mainly due to:",
+    correct: "Base effect",
     options: ["Base effect", "Demand-pull inflation", "WPI coverage", "Purchasing power"],
-    explanation: "Different comparison bases can produce different measured inflation rates.",
+    explanation: "Different comparison bases can change the measured inflation rate.",
   },
-]);
+] as const;
 
 function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp005ReviewQuestion {
   const qlId = `ECO-005-QL-${String(ql).padStart(3, "0")}`;
@@ -191,70 +192,70 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
   let correct = "";
   let options: string[] = [];
   let explanation = "";
-  let metadata = sources(concept("inflation"));
+  let metadata = sourceBundle(concept("inflation"));
 
   if (ql === 1) {
-    const rows = [concept("inflation"), concept("deflation"), concept("disinflation"), concept("inflation")];
-    const row = rows[rowIndex % rows.length];
     const variants = [
-      `A sustained rise in the general price level is called:`,
-      `A sustained fall in the general price level is called:`,
-      `The inflation rate falls but remains positive. This is called:`,
-      `Prices of many goods and services keep rising over time. The general situation is:`,
+      { stem: "A sustained rise in the general price level is called:", id: "inflation" },
+      { stem: "A sustained fall in the general price level is called:", id: "deflation" },
+      { stem: "The inflation rate falls but remains positive. This is called:", id: "disinflation" },
+      { stem: "Prices of many goods and services keep rising over time. This situation is:", id: "inflation" },
     ];
-    stem = variants[rowIndex % variants.length];
-    correct = row.term;
+    const row = variants[rowIndex % variants.length];
+    const fact = concept(row.id);
+    stem = row.stem;
+    correct = fact.term;
     options = moveCorrect(["Inflation", "Deflation", "Disinflation", "Stagnation"], correct, correctTarget);
-    explanation = `${row.term} means ${row.compactMeaning}.`;
-    metadata = sources(row);
+    explanation = `${fact.term} means ${fact.compactMeaning}.`;
+    metadata = sourceBundle(fact);
   } else if (ql === 2) {
     const rows = [concept("inflation"), concept("deflation"), concept("disinflation"), concept("base-effect")];
     const row = rows[rowIndex % rows.length];
     stem = `What does ${row.term} mean?`;
     correct = row.compactMeaning;
-    options = chooseFour(rows.map((item) => item.compactMeaning), correct, `${qlId}:${row.id}`, correctTarget);
+    options = moveCorrect(rows.map((item) => item.compactMeaning), correct, correctTarget);
     explanation = `${row.term} means ${row.compactMeaning}.`;
-    metadata = sources(row);
+    metadata = sourceBundle(row);
   } else if (ql === 3) {
     const row = ECO_CP005_DEMAND_SCENARIOS_V1[rowIndex % ECO_CP005_DEMAND_SCENARIOS_V1.length];
     stem = `${row.stem} This mainly causes:`;
     correct = row.answer;
     options = moveCorrect(["Demand-pull inflation", "Cost-push inflation", "Deflation", "Disinflation"], correct, correctTarget);
     explanation = row.explanation;
-    metadata = sources(concept("demand-pull"));
+    metadata = sourceBundle(concept("demand-pull"));
   } else if (ql === 4) {
     const row = ECO_CP005_COST_SCENARIOS_V1[rowIndex % ECO_CP005_COST_SCENARIOS_V1.length];
     stem = `${row.stem} This mainly causes:`;
     correct = row.answer;
     options = moveCorrect(["Cost-push inflation", "Demand-pull inflation", "Deflation", "Disinflation"], correct, correctTarget);
     explanation = row.explanation;
-    metadata = sources(concept("cost-push"));
+    metadata = sourceBundle(concept("cost-push"));
   } else if (ql === 5) {
     const row = purchasingCases[rowIndex % purchasingCases.length];
     stem = row.stem;
-    correct = row.answer;
+    correct = row.correct;
     options = moveCorrect([...row.options], correct, correctTarget);
     explanation = row.explanation;
-    metadata = sources(concept("purchasing-power"), concept("inflation"));
+    metadata = sourceBundle(concept("purchasing-power"), concept("inflation"));
   } else if (ql === 6) {
     const row = effectCases[rowIndex % effectCases.length];
     stem = row.stem;
-    correct = row.answer;
+    correct = row.correct;
     options = moveCorrect([...row.options], correct, correctTarget);
     explanation = row.explanation;
-    metadata = sources(concept("inflation"), concept("purchasing-power"));
+    metadata = sourceBundle(concept("inflation"), concept("purchasing-power"));
   } else if (ql === 7) {
-    const row = indices[rowIndex % indices.length];
     if (rowIndex < 3) {
+      const row = indices[rowIndex];
       stem = rowIndex === 0
         ? "Which index tracks prices of a household consumption basket?"
         : rowIndex === 1
           ? "Which index tracks price movement at the wholesale level?"
-          : "Which measure covers price changes for final goods and services included in GDP?";
+          : "Which measure covers price change for final goods and services included in GDP?";
       correct = row.index;
       options = moveCorrect(["CPI", "WPI", "GDP deflator", "Core CPI"], correct, correctTarget);
       explanation = `${row.index} focuses on ${row.focus}.`;
-      metadata = sources(row);
+      metadata = sourceBundle(row);
     } else {
       stem = "Which statement is correct about CPI, WPI and the GDP deflator?";
       correct = "CPI focuses on household consumption, WPI on wholesale prices, and the GDP deflator on output covered by GDP";
@@ -264,26 +265,19 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
         "WPI and GDP deflator always cover exactly the same basket",
         "GDP deflator measures only imported consumer goods",
       ], correct, correctTarget);
-      explanation = "The three measures differ mainly in coverage: household consumption, wholesale prices, and GDP-covered output.",
-      metadata = sources(...indices);
+      explanation = "The three measures differ in coverage: household consumption, wholesale prices and GDP-covered output.";
+      metadata = sourceBundle(...indices);
     }
   } else if (ql === 8) {
     const row = headlineCoreCases[rowIndex % headlineCoreCases.length];
     stem = row.stem;
-    correct = row.answer;
-    options = rowIndex === 3
-      ? moveCorrect([
-          correct,
-          "To measure only wholesale prices",
-          "To remove all services from the price index",
-          "To convert nominal GDP directly into GNP",
-        ], correct, correctTarget)
-      : moveCorrect(["Headline inflation", "Core inflation", "Deflation", "WPI inflation only"], correct, correctTarget);
+    correct = row.correct;
+    options = moveCorrect([...row.options], correct, correctTarget);
     explanation = row.explanation;
-    metadata = sources(concept("headline"), concept("core"));
+    metadata = sourceBundle(concept("headline"), concept("core"));
   } else if (ql === 9) {
-    const row = ECO_CP005_INDEX_CASES_V1[rowIndex % ECO_CP005_INDEX_CASES_V1.length];
     if (rowIndex < 3) {
+      const row = ECO_CP005_INDEX_CASES_V1[rowIndex];
       stem = `A price index rises from ${row.oldIndex} to ${row.newIndex}. The inflation rate is:`;
       correct = row.answer;
       const n = Number(row.answer.replace("%", ""));
@@ -295,58 +289,58 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
       options = moveCorrect(["162", "158", "170", "142"], correct, correctTarget);
       explanation = "8% of 150 is 12, so the new index is 162.";
     }
-    metadata = sources(indices[0]);
+    metadata = sourceBundle(indices[0]);
   } else if (ql === 10) {
-    const pairs = [
-      { correct: "CPI — household consumption prices", sourceRows: [indices[0]] },
-      { correct: "WPI — wholesale price movement", sourceRows: [indices[1]] },
-      { correct: "Core inflation — commonly excludes food and fuel", sourceRows: [concept("core")] },
+    const rows = [
+      { correct: "CPI — household consumption prices", source: indices[0] },
+      { correct: "WPI — wholesale price movement", source: indices[1] },
+      { correct: "Core inflation — commonly excludes food and fuel", source: concept("core") },
     ];
-    const row = pairs[rowIndex % pairs.length];
+    const row = rows[rowIndex % rows.length];
     stem = "Which pair is correctly matched?";
+    correct = row.correct;
     options = moveCorrect([
       row.correct,
       "CPI — only wholesale prices",
       "WPI — household services only",
       "Deflation — a slower positive inflation rate",
-    ], row.correct, correctTarget);
-    correct = row.correct;
+    ], correct, correctTarget);
     explanation = `${row.correct} is correctly matched.`;
-    metadata = sources(...row.sourceRows);
+    metadata = sourceBundle(row.source);
   } else if (ql === 11) {
-    const cases = [
+    const rows = [
       {
         s1: "Inflation reduces purchasing power if money income does not keep pace with prices.",
         s2: "Deflation means a sustained fall in the general price level.",
-        answer: "Both I and II",
+        correct: "Both I and II",
         explanation: "Both statements are correct.",
       },
       {
         s1: "Disinflation means inflation has slowed.",
         s2: "Disinflation necessarily means the general price level is falling.",
-        answer: "I only",
+        correct: "I only",
         explanation: "Disinflation is slower inflation; prices can still be rising.",
       },
       {
         s1: "Cost-push inflation can follow a broad rise in input costs.",
         s2: "Demand-pull inflation can arise when demand grows faster than available output.",
-        answer: "Both I and II",
+        correct: "Both I and II",
         explanation: "Both statements correctly describe the two sources of inflation.",
       },
     ];
-    const row = cases[rowIndex % cases.length];
+    const row = rows[rowIndex % rows.length];
     stem = `Consider the statements:\nI. ${row.s1}\nII. ${row.s2}\nWhich is correct?`;
-    correct = row.answer;
+    correct = row.correct;
     options = moveCorrect(["I only", "II only", "Both I and II", "Neither I nor II"], correct, correctTarget);
     explanation = row.explanation;
-    metadata = sources(concept("inflation"), concept("deflation"), concept("disinflation"), concept("demand-pull"), concept("cost-push"));
+    metadata = sourceBundle(concept("inflation"), concept("deflation"), concept("disinflation"), concept("demand-pull"), concept("cost-push"));
   } else {
     const row = distinctionCases[rowIndex % distinctionCases.length];
     stem = row.stem;
-    correct = row.answer;
+    correct = row.correct;
     options = moveCorrect([...row.options], correct, correctTarget);
     explanation = row.explanation;
-    metadata = sources(concept(row.answer === "Base effect" ? "base-effect" : row.answer === "Disinflation" ? "disinflation" : "deflation"));
+    metadata = sourceBundle(concept("deflation"), concept("disinflation"), concept("base-effect"));
   }
 
   return {
