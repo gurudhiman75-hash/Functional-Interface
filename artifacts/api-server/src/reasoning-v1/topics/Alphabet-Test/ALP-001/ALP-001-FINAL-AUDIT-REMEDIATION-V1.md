@@ -1,167 +1,112 @@
-# ALP-001 — Reasoning V1 Final-Audit Remediation V1
+# ALP-001 — Reasoning V1 Final-Audit Remediation V2
 
-Status: `IMPLEMENTED_ON_REVIEW_BRANCH__CI_GREEN__NO_PUBLIC_PROMOTION`
+Status: `REVIEW_ONLY_CURRENT_MAIN_CANDIDATE`
 
-## Why this remediation exists
+This checkpoint forward-ports the still-valid ALP-001 P1 remediation from the stale 2026-09-12 audit branch onto current `New-main`. It does not promote ALP-001 or open learner delivery.
 
-The final Reasoning V1 audit found no P0 logical failure, but it did find several P1 weaknesses that must be closed before ALP-001 can be treated as final-release ready. The original version of this remediation note covered only four of them; this revision reconciles the branch with the complete audit and the follow-up micro-audit of the remediation itself.
+## P1 weaknesses closed by this remediation
 
-The audited P1 set is:
+1. Difficulty was seed-driven or fixed by QL instead of being derived from the generated reasoning state.
+2. CP009 lacked source-backed compound three-token neighbourhood scans.
+3. CP010 could sort letters in place and count unchanged positions, but could not compose the two operations.
+4. CP008–CP010 had a generator fingerprint from fixed row lengths/category ratios and insufficient repeated-token exposure.
+5. CP005–CP007 word reservoirs were too small for production fatigue resistance.
+6. CP009 contained semantic duplicate QLs.
+7. CP006–CP010 distractors were not consistently derived from explicit misconception states.
 
-1. difficulty was seed-driven or fixed by QL instead of being derived from the generated reasoning state;
-2. CP009 lacked source-backed compound three-token neighbourhood scans;
-3. CP010 could sort letters in place and could count unchanged positions, but could not compose those two operations;
-4. CP008–CP010 source rows had a strong generator fingerprint: fixed lengths/category ratios and no repeated visible tokens;
-5. CP005–CP007 word reservoirs were too small for production fatigue resistance;
-6. CP009 contained two pairs of semantic duplicate QLs;
-7. CP006–CP010 distractors were not consistently constructed from explicit misconception states.
+## Implemented remediation
 
-A separate cross-chapter source audit also found classic meaningful-word formation (can/cannot be formed from the letters of one source word) without a confirmed Reasoning V1 owner. That ownership decision remains a release gate; it is not silently forced into ALP-001 by this patch.
+### Generated-state difficulty
 
-## Implemented changes
+CP001–CP005 retain the removal of seed-cycle bonuses. CP005 no longer promotes difficulty merely because the source word is longer. CP006–CP010 use `completion/difficulty-v2.ts`, where difficulty follows completed learner-visible reasoning features such as inverse lookup, pair density, multi-stage transformation, compound-window reasoning, transform-then-count composition and genuine repeated-token burden.
 
-### 1. Generated-state difficulty
+Raw seed, arbitrary number magnitude, row length by itself and source-word length by itself are not difficulty escalators.
 
-CP001–CP005 retain their earlier removal of seed-cycle bonuses. The follow-up micro-audit also removed the remaining CP005 word-length bonus, because a longer source word must not be the deciding reason an otherwise equivalent item becomes Hard. CP006–CP010 use `completion/difficulty-v2.ts`, which receives the completed solve state rather than the raw seed.
+### CP009 compound neighbourhood scans
 
-Difficulty can use actual reasoning features such as:
+Permanent IDs are preserved, but the duplicate semantics are corrected before freeze:
 
-- direct versus inverse lookup;
-- pair density and repeated-letter burden where they affect reasoning;
-- one-stage versus multi-stage transformations;
-- compound three-token predicates;
-- transform-then-count composition;
-- repeated-token burden only for scan/inverse tasks where repetition actually matters.
+- `ALP-QL-138` owns generalized three-token windows, including symbol-letter-digit and literal Z-A-B style neighbourhoods.
+- `ALP-QL-140` owns the centre-symbol condition where the two immediate neighbours are one letter and one digit in either order.
 
-Raw seed, number magnitude, mixed-row length and single-word length are deliberately absent as difficulty escalators. The executable gate also compares otherwise identical direct-position states of different lengths and requires the same difficulty.
+Runtime rule/task identities, stems and explanations follow those corrected semantics. Legacy solve-mode strings remain only for wire compatibility.
 
-Some QLs are intentionally allowed to span more than one difficulty when their generated transform structure changes. This replaces the earlier, incorrect gate that required every advanced QL to have exactly one difficulty across all seeds.
+### CP010 transform → query composition
 
-### 2. Compound neighbourhood scans
+`MIXED_COUNT_UNCHANGED_AFTER_TRANSFORM` can now compose unchanged-position counting with grouping, adjacent swap, full reversal, sort-letters-in-place and sort-digits-in-place. This closes the source-backed sort-in-place → unchanged-count gap without inflating the QL taxonomy.
 
-`ALP-QL-138` and `ALP-QL-140` were previously semantic duplicates of `ALP-QL-137` and `ALP-QL-139` respectively.
+### Variable rows and repeated occurrences
 
-Their permanent IDs are preserved, but before chapter freeze their canonical rule/task identities are corrected:
+`completion/mixed-row.ts` varies row length, category counts and category ratios, with controlled repeated occurrences. CP010 inverse-position tasks select a uniquely occurring target. CP008 digit rows vary in length and allow repeated digits only where the solve contract remains occurrence-safe.
 
-- `ALP-QL-138` now owns a generalized three-token window family, including source-backed `symbol → letter → digit` windows and literal `Z-A-B` neighbourhoods;
-- `ALP-QL-140` now owns the source-backed centre-symbol condition where the two immediate neighbours are one letter and one digit in either order.
+### Fatigue resistance
 
-The legacy solve-mode strings are retained only as wire-compatibility identifiers. Runtime semantics, rule IDs, task kinds, presentation modes, stems and pedagogy now reflect the canonical compound-window identities.
-
-The generator deliberately embeds at least one valid source-shaped window, then independently scans the full row so accidental additional matches are still counted correctly.
-
-### 3. Transform → query composition
-
-`MIXED_COUNT_UNCHANGED_AFTER_TRANSFORM` now includes:
-
-- group letters/digits/symbols;
-- adjacent-pair swap;
-- reverse complete row;
-- **sort only letters within existing letter positions**;
-- sort only digits within existing digit positions.
-
-This closes the source-backed `sort letters in place → count unchanged positions` fake/partial coverage gap without creating a separate QL merely for the composition.
-
-### 4. Variable rows and repeated occurrences
-
-A new `completion/mixed-row.ts` builder replaces the old fixed 8-letter + 8-digit + 8-symbol all-unique topology for CP009/CP010.
-
-It now varies:
-
-- row length;
-- letter/digit/symbol counts independently;
-- category ratio;
-- zero/one/two repeated occurrences per category.
-
-CP010 inverse-position questions select a token that occurs exactly once, so repetition never creates an ambiguous target.
-
-CP008 digit rows also vary from 7–9 digits and permit controlled repeated digits for occurrence-safe tasks. `IDENTIFY_DIGIT_GAP_PAIR` remains distinct-token-only, while inverse digit-position questions explicitly select a unique occurrence.
-
-### 5. Fatigue resistance
-
-The follow-up micro-audit found that the original remediation had expanded CP006/CP007 but had accidentally left the old 24-word CP005 reservoir in place. That residual P1 is now closed.
-
-- CP005 now has 270 unique governed exam-neutral words; 256 are six-plus-letter words eligible for the ordinary CP005 surfaces.
-- the CP005 reservoir has at least 120 eligible odd-length and at least 120 eligible even-length words, so middle-letter and middle-pair tasks do not collapse into small sub-pools;
-- CP005 now cycles through each QL's eligible governed pool before repeating a word, rather than relying on collision-prone random picks;
-- `WORD_IDENTIFY_UNCHANGED_ASC` filters for valid unchanged-position words before selection, eliminating the old constant-fallback fingerprint;
-- every CP005 QL must expose at least 95 distinct source words across seeds 0–99;
-- CP006 source vocabulary is above 180 unique exam-neutral words;
-- CP007 class-transformation vocabulary is above 160 eligible words;
-- deterministic cycling is retained for CP006/CP007;
+- CP005 has 270 unique governed exam-neutral words, with deep odd/even eligible sub-pools.
+- CP005 selection cycles through each QL's eligible pool before repeating.
+- each CP005 QL must expose at least 95 distinct source words across seeds 0–99.
+- CP006 vocabulary exceeds 180 unique words.
+- CP007 transformation vocabulary exceeds 160 eligible words.
 - every CP006/CP007 QL must produce at least 95 distinct visible questions across seeds 0–99.
 
-The CP006/CP007 gate measures visible `stem + options`; the CP005 gate directly measures source-word exposure because the governed word itself is the principal fatigue surface.
+### Completed-state misconception distractors
 
-### 6. Completed-state misconception distractors
+`completion/distractors-v2.ts` generates wrong options from concrete learner mistakes rather than generic answer-neighbour arithmetic. Covered misconceptions include wrong direction, wrong end, wrong transformation stage, pre-transform versus post-transform reading, changed-versus-unchanged counting, wrong category filtering, reversed adjacency and partial compound-window checks.
 
-The follow-up micro-audit found that the first remediation still generated many wrong options from the **answer type** (`answer ± 1`, neighbouring alphabet letters, arbitrary pool values) and only attached better labels afterward. That did not fully close P1 #7.
+The provenance gate sweeps every advanced QL over 64 seeds, requires four distinct options, rejects legacy generic labels and proves representative misconception provenance for CP008–CP010.
 
-The advanced runtime now uses `completion/distractors-v2.ts`. It receives the completed solve state and derives wrong answers from concrete learner mistakes before the final option order is shuffled. Representative models include:
+### Question Studio controls
 
-- CP006: count only forward/backward qualifying pairs, ignore the direction restriction, miss/add one qualifying pair, or choose a visible pair whose row gap and natural-order gap disagree;
-- CP007: read the source letter before the class transformation, stop after the first stage, read a neighbouring final slot, count changed positions instead of unchanged positions, or count a sorted position from the wrong end;
-- CP008: count a digit from the wrong end, report an inverse position from the wrong end, read the same slot before sorting/reversal/swap, select a neighbouring final digit, or count moved positions instead of unchanged positions;
-- CP009: reverse the requested adjacency, forget a vowel/even-digit filter, count the requested category from the wrong end, or—in compound windows—check only the predecessor, only the successor, reverse the outer classes, or accept invalid same-class flanks;
-- CP010: read the original row instead of the transformed row, use a neighbouring final position, report the pre-grouping token position, count changed instead of unchanged positions, scan adjacency before the transform, or reverse the final adjacency order.
+The chapter-local registry retains `generate(qlId, seed, locale)` and adds controlled generation with checkpoint/QL scope, requested difficulty and explicit exam profile.
 
-For rare seeds where several misconception states collapse to the same visible value, the filler is restricted to a distinct token already visible in the generated source/final state; arbitrary alphabet/number neighbours are not invented. CP007 opposite-letter generation exposes both source and final visible tokens to this state-aware fallback, which removes the low-diversity failure found by the first adversarial run.
+Supported local profiles:
 
-The dedicated `alp-001-distractor-provenance.test.ts` gate now sweeps every advanced QL over 64 seeds, requires four distinct options, rejects the old generic answer-type/post-hoc labels, and separately proves representative misconception provenance for CP008 post-transform reads, CP009 direct positioning and compound windows, and CP010 in-place/composite transforms.
+- `SSC_CGL_TIER_I` — 4 options
+- `PUNJAB_STATE_4_OPTION` — 4 options
 
-### 7. Question Studio controls
+`BANKING_GENERIC_5_OPTION` fails closed because this ALP runtime remains four-option. A five-option Banking presentation is not silently synthesized.
 
-The chapter-local registry retains backward-compatible `generate(qlId, seed, locale)` and adds `generateControlled(...)` with optional checkpoint/QL scope, requested difficulty and explicit exam profile.
+## ALP ↔ WFM ownership boundary
 
-Supported local profiles remain:
+The earlier audit branch correctly detected a Word Formation ownership gap, but that historical statement is no longer current. `WFM-001` now exists as the dedicated semantic owner for meaningful-word formation.
 
-- `SSC_CGL_TIER_I` — 4 options;
-- `PUNJAB_STATE_4_OPTION` — 4 options.
+The boundary is:
 
-`BANKING_GENERIC_5_OPTION` fails closed because the current ALP runtime remains four-option. Five-option Banking delivery is still a shared Reasoning exam-profile product gate.
+- **ALP-001 owns** alphabet positions, relative positions, gaps, pair relations, alphabet/letter-class transformations, digit/alphanumeric/symbol scans, and rearrangement questions whose final learner task is an alphabet/position/rearrangement property.
+- **WFM-001 owns** can-form/cannot-form from a letter multiset, multiplicity-sensitive meaningful-word feasibility, selected-position meaningful-word counting, and rearranging a supplied multiset into a meaningful word.
+- A selected-position task belongs to WFM when the final task is meaningful-word formation/counting; ordinary selected-position alphabet reasoning remains ALP.
+- **WOR-001** continues to own dictionary ordering.
+- **COD-001** continues to own hidden coding/decoding inference.
 
-## Executable release gate
+`alp-wfm-ownership-boundary.test.ts` makes this semantic boundary executable and verifies that no existing ALP QL is moved or newly allocated by this checkpoint.
 
-The ALP chapter workflow now proves:
+WFM V2 content is already present on `New-main`; its separate wider governance/shared-Question-Studio work remains independently gated and is not treated as merged by this ALP checkpoint.
 
-- CP005 governed reservoir size/uniqueness, odd/even depth and >=95/100 source-word exposure for every CP005 QL;
-- CP006/CP007 governed word-pool size/uniqueness and >=95/100 visible-fatigue diversity;
-- absence of legacy/fallback advanced distractor labels and completed-state provenance across every advanced QL over a 64-seed sweep;
-- explicit wrong-stage/wrong-end/window-condition provenance for representative CP008–CP010 families;
-- real instance-derived difficulty variation for composite QLs;
-- row length alone cannot promote difficulty, while CP005 no longer uses source-word length as an escalation lever;
-- mixed-row length/category-profile diversity;
-- repeated-token exposure in mixed rows and digit rows;
-- CP009 duplicate-QL identities have been replaced by compound-window identities;
-- both source-backed QL-138 window variants are reachable;
-- QL-140 centre-flank semantics render correctly;
-- CP010 can generate sort-letters-in-place → unchanged-count and its digit analogue;
-- controlled SSC/Punjab generation satisfies requested difficulty/profile;
-- unsupported five-option Banking generation fails closed.
+## Executable review gate
 
-The complete ALP-001 chapter workflow, the completed-state distractor provenance gate and retained CP001–CP005 regressions are green on the remediation branch. Lifecycle promotion is still deliberately blocked.
+The ALP workflow must prove:
 
-## Word-formation ownership gate
-
-Repository-wide ownership search found no dedicated Reasoning V1 authority for classic source-letter inventory feasibility such as:
-
-- which option can be formed from the letters of a supplied word;
-- which option cannot be formed;
-- multiplicity-sensitive use of repeated letters.
-
-WOR-001 owns dictionary ordering of multiple words/clusters and explicitly delegates single-word letter operations away from itself. COD-001 owns hidden coding inference. ALP-001 currently excludes meaningful-word formation in its frozen ownership notes.
-
-Therefore this is a genuine cross-chapter ownership gap, not evidence that the existing 156 ALP QLs already cover it. A deliberate ownership decision and implementation must be completed before the overall Reasoning V1 release gate can close. This branch does not counterfeit coverage by relabelling an unrelated ALP QL.
+- CP005 pool depth, uniqueness and >=95/100 source exposure per QL;
+- CP006/CP007 pool depth and >=95/100 visible diversity per QL;
+- advanced distractor provenance across the 64-seed sweep;
+- generated-state difficulty and absence of row/word-length inflation;
+- mixed-row and repeated-token diversity;
+- corrected QL138/QL140 compound-window semantics;
+- CP010 in-place sort → unchanged-count composition;
+- controlled SSC/Punjab generation;
+- five-option Banking fail-closed behavior;
+- ALP/WFM/WOR/COD ownership separation;
+- retained CP001–CP005 regressions;
+- API build and multilingual review-pack generation.
 
 ## Lifecycle
 
 This remediation does **not** promote the chapter:
 
 ```text
-questionStudioDiscoverable:  chapter-local adapter only
+questionStudioDiscoverable:  chapter-local review adapter only
 questionBankStatus:          NOT_STORED
 testEligibility:             INELIGIBLE
-publiclyPublishable:         false
+mock/public delivery:        false
 ```
 
-No merge, editorial freeze, Question Bank write, mock-test eligibility or public publication is authorized by this remediation branch.
+No permanent taxonomy change, Question Bank write, mock eligibility, student delivery or public publication is authorized by this checkpoint.
