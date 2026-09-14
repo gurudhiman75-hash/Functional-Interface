@@ -11,6 +11,7 @@ import { generateReviewedCp007FalseCausationQuestion } from "./cp007-reviewed-vi
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
 import { generateCp008SaturationQuestion } from "./cp008-saturation-adapter.ts";
 import { generateReviewedCp009Question } from "./cp009-final-quality-guard.ts";
+import { generateCp009SaturationQuestion } from "./cp009-saturation-adapter.ts";
 import { CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS } from "./saturation-candidate-authorities.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
 
@@ -33,7 +34,6 @@ function reviewedSaturationQuestion(input: GenerateReviewedCaeQuestionInput, can
     const eligible = candidateHeavy ? CANDIDATE_READY_IDS.has(question.scenarioFamilyId) : SATURATION_FAMILY_IDS.has(question.scenarioFamilyId);
     if (!eligible) continue;
     if (offset === 0) return question;
-
     const remapMarker = `reviewed-saturation-remap:${externalSeed}->${internalSeed}`;
     const causalStateId = `${question.causalStateId}|${remapMarker}`;
     const itemSuffix = question.itemVariantId.startsWith(question.causalStateId)
@@ -45,42 +45,21 @@ function reviewedSaturationQuestion(input: GenerateReviewedCaeQuestionInput, can
   throw new Error(`${input.qlId} seed ${externalSeed}: no eligible reviewed saturation family found.`);
 }
 
-/** Review-facing facade layered over the frozen V3 causal architecture. */
 export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionInput): GeneratedCaeQuestion {
   const defaultFourWay = input.questionProfile === undefined || input.questionProfile === "FOUR_WAY";
   const seed = input.seed >>> 0;
-
-  if (input.qlId === "CAE-QL-001" && defaultFourWay) {
-    return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
-  }
-
-  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) {
-    return reviewedSaturationQuestion(input, true);
-  }
-  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 3 === 0) {
-    return generateReviewedCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
-  }
-  if (input.qlId === "CAE-QL-005" && defaultFourWay) {
-    return seed % 5 === 4 ? reviewedSaturationQuestion(input, true) : generateCp005CompetingQuestion({ locale: input.locale, seed: input.seed });
-  }
-
-  if (input.qlId === "CAE-QL-006" && defaultFourWay && seed % 3 !== 2) {
-    return generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
-  }
+  if (input.qlId === "CAE-QL-001" && defaultFourWay) return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
+  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) return reviewedSaturationQuestion(input, true);
+  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 3 === 0) return generateReviewedCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
+  if (input.qlId === "CAE-QL-005" && defaultFourWay) return seed % 5 === 4 ? reviewedSaturationQuestion(input, true) : generateCp005CompetingQuestion({ locale: input.locale, seed: input.seed });
+  if (input.qlId === "CAE-QL-006" && defaultFourWay && seed % 3 !== 2) return generateCp006CausalDistanceQuestion({ locale: input.locale, seed: input.seed });
   if (input.qlId === "CAE-QL-007" && defaultFourWay) {
     if (seed % 8 === 0) return generateReviewedCp007SaturationCommonFactorQuestion({ locale: input.locale, seed: input.seed });
     if (seed % 8 === 4) return generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed });
     return generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
-  if (input.qlId === "CAE-QL-008" && defaultFourWay) {
-    return seed % 8 === 7
-      ? generateCp008SaturationQuestion({ locale: input.locale, seed: input.seed })
-      : generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
-  }
-  if (input.qlId === "CAE-QL-009" && defaultFourWay) {
-    return generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
-  }
-
+  if (input.qlId === "CAE-QL-008" && defaultFourWay) return seed % 8 === 7 ? generateCp008SaturationQuestion({ locale: input.locale, seed: input.seed }) : generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
+  if (input.qlId === "CAE-QL-009" && defaultFourWay) return seed % 8 === 6 ? generateCp009SaturationQuestion({ locale: input.locale, seed: input.seed }) : generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
   const graphNativeSaturationEligible = input.qlId === "CAE-QL-001" || input.qlId === "CAE-QL-002" || input.qlId === "CAE-QL-006";
   return graphNativeSaturationEligible ? saturatedBase(input) : generateCaeQuestion(input);
 }
