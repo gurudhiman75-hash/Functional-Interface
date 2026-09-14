@@ -1,5 +1,5 @@
 import { strict as assert } from "node:assert";
-import { CONDITIONAL_RULES_V1, type ConditionalRuleId } from "../grammar/conditionals";
+import { CONDITIONAL_RULE_BY_ID, CONDITIONAL_RULES_V1, type ConditionalRuleId } from "../grammar/conditionals";
 import { CP011_SCENES_BY_DIFFICULTY_V1, CP011_SCENES_V1 } from "../chapters/error-spotting/ENG-001/CP011/cp011-catalog-v1";
 import { generateEng001Cp011QuestionV1, rulesForDifficultyCp011V1 } from "../chapters/error-spotting/ENG-001/CP011/eng-001-cp011-v1";
 import { assertValidEng001Cp011QuestionV1 } from "../chapters/error-spotting/ENG-001/CP011/eng-001-cp011-v1-validator";
@@ -20,6 +20,7 @@ for (const scene of CP011_SCENES_V1) {
   const changed = scene.correctSegments.reduce<number[]>((out, segment, index) => { if (segment !== scene.errorSegments[index]) out.push(index); return out; }, []);
   assert.equal(changed.length, 1, `${scene.id} must change exactly one canonical segment`);
   assert.equal(changed[0], scene.errorIndex, `${scene.id} changed segment must equal errorIndex`);
+  assert.equal(CONDITIONAL_RULE_BY_ID[scene.ruleId].allowedDifficulties.includes(scene.difficulty), true, `${scene.id} uses ${scene.ruleId} outside its approved difficulty range`);
   perDifficultyAnswerCounts[scene.difficulty][scene.errorIndex] += 1;
   perDifficultyRuleCounts[scene.difficulty].set(scene.ruleId, (perDifficultyRuleCounts[scene.difficulty].get(scene.ruleId) ?? 0) + 1);
 
@@ -38,12 +39,19 @@ for (const scene of CP011_SCENES_V1) {
 
 for (const difficulty of ["easy", "medium", "hard"] as const) {
   assert.deepEqual(perDifficultyAnswerCounts[difficulty], [5, 5, 5, 5], `${difficulty} source answers must be A=5/B=5/C=5/D=5`);
+}
+assert.deepEqual(Object.fromEntries(perDifficultyRuleCounts.easy), {
+  "GR-CND-001": 4, "GR-CND-002": 3, "GR-CND-003": 3,
+  "GR-CND-004": 3, "GR-CND-005": 3, "GR-CND-008": 4,
+});
+for (const difficulty of ["medium", "hard"] as const) {
   assert.equal(perDifficultyRuleCounts[difficulty].size, 10, `${difficulty} must contain all ten conditional rules`);
   for (const count of perDifficultyRuleCounts[difficulty].values()) assert.equal(count, 2, `${difficulty} must contain two scenes per rule`);
 }
 
 const difficulties: readonly EnglishDifficulty[] = ["easy", "medium", "hard"];
 const qls: readonly Eng001QlId[] = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"];
+const expectedRuleDiversity: Record<EnglishDifficulty, number> = { easy: 6, medium: 10, hard: 10 };
 
 for (const difficulty of difficulties) {
   const surfaces = new Set<string>(); const rules = new Set<string>(); const domains = new Set<string>();
@@ -59,7 +67,7 @@ for (const difficulty of difficulties) {
     domains.add(CP011_SCENES_V1.find((entry) => entry.id === sceneId)!.domain);
   }
   assert.equal(surfaces.size >= 15, true, `${difficulty} surface diversity too low`);
-  assert.equal(rules.size, 10, `${difficulty} must exercise all ten rules`);
+  assert.equal(rules.size, expectedRuleDiversity[difficulty], `${difficulty} rule diversity mismatch`);
   assert.equal(domains.size >= 15, true, `${difficulty} domain diversity too low`);
 }
 
@@ -74,6 +82,9 @@ for (const difficulty of difficulties) {
     }
   }
 }
+for (const advancedRule of ["GR-CND-006", "GR-CND-007", "GR-CND-009", "GR-CND-010"] as const) {
+  assert.throws(() => generateEng001Cp011QuestionV1({ seed: `easy-block:${advancedRule}`, difficulty: "easy", qlId: "ENG-001-QL001", ruleId: advancedRule }), /No CP011 easy scene is available/);
+}
 
 const ql002AnswerLabels = new Set<string>();
 for (const scene of CP011_SCENES_V1) {
@@ -85,4 +96,4 @@ for (const scene of CP011_SCENES_V1) {
 }
 assert.deepEqual([...ql002AnswerLabels].sort(), ["A", "B", "C"]);
 
-console.log(JSON.stringify({ status: "PASS_ENG_001_CP011_V1", scenes: CP011_SCENES_V1.length, rules: CONDITIONAL_RULES_V1.length, ql001SourceAnswerCountsByDifficulty: perDifficultyAnswerCounts, ql002AnswerLabels: [...ql002AnswerLabels].sort() }, null, 2));
+console.log(JSON.stringify({ status: "PASS_ENG_001_CP011_V1", scenes: CP011_SCENES_V1.length, rules: CONDITIONAL_RULES_V1.length, easyRuleIds: rulesForDifficultyCp011V1("easy"), mediumRuleIds: rulesForDifficultyCp011V1("medium"), hardRuleIds: rulesForDifficultyCp011V1("hard"), ql001SourceAnswerCountsByDifficulty: perDifficultyAnswerCounts, ql002AnswerLabels: [...ql002AnswerLabels].sort() }, null, 2));
