@@ -19,7 +19,10 @@ export function validateEng001Cp011QuestionV1(question: Eng001Question): Validat
 
   const rule = CONDITIONAL_RULE_BY_ID[ruleId];
   if (!rule) issues.push(issue("RULE_MUTATION_MISMATCH", `Unknown CP011 rule ${ruleId}.`));
-  else if (rule.mutationId !== mutationId) issues.push(issue("RULE_MUTATION_MISMATCH", `${ruleId} must map to ${rule.mutationId}.`));
+  else {
+    if (rule.mutationId !== mutationId) issues.push(issue("RULE_MUTATION_MISMATCH", `${ruleId} must map to ${rule.mutationId}.`));
+    if (!rule.allowedDifficulties.includes(metadata.difficulty)) issues.push(issue("RULE_MUTATION_MISMATCH", `${ruleId} is not approved for ${metadata.difficulty} difficulty.`));
+  }
 
   if (question.segments.length !== (metadata.qlId === "ENG-001-QL002" ? 3 : 4)) issues.push(issue("SEGMENT_COUNT", `${metadata.qlId} has ${question.segments.length} learner-visible segments.`));
   if (question.segments.some((segment) => !segment.trim())) issues.push(issue("EMPTY_SEGMENT", "Question contains an empty segment."));
