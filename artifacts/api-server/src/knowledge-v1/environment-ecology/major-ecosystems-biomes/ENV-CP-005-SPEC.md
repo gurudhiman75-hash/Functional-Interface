@@ -2,8 +2,9 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-005 Major Ecosystems & Biomes  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Approved review version:** V1  
+**Runtime registration:** eligible for shared Environment package binding  
 
 ## Scope
 
@@ -32,7 +33,7 @@ Deferred:
 6. Freshwater has low salinity; marine ecosystems have high salinity and include seas and oceans.
 7. Grasslands are dominated mainly by grasses; forests by tree cover.
 8. Standard instruction stems may repeat when the tested relation differs.
-9. All review questions remain `runtimeRegistered: false` until approval.
+9. Review-only generators may remain `runtimeRegistered: false`; package/runtime binding is handled separately after approval.
 
 ## QL inventory
 
@@ -51,19 +52,20 @@ Deferred:
 | ENV-005-QL-011 | Statement evaluation | Hard |
 | ENV-005-QL-012 | Applied biome identification | Hard |
 
-## Review gate
+## Approved review gate
 
+The approved V1 review surface contains:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
 - all four answer positions used within each four-question QL set;
 - four unique options per question;
-- canonical answer equals the option at `correctIndex`;
+- canonical answer equal to the option at `correctIndex`;
 - source IDs and source-fact IDs retained;
 - no duplicate semantic question signatures;
 - concise stems and explanations;
 - no `associated with` filler;
-- runtime blocked until project-owner approval.
+- human approval recorded on 2026-09-14.
 
 ## Source policy
 
