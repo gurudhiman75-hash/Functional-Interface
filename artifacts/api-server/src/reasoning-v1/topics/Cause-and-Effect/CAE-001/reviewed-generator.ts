@@ -53,6 +53,13 @@ function reviewedSaturationQuestion(input: GenerateReviewedCaeQuestionInput, can
   throw new Error(`${input.qlId} seed ${externalSeed}: no eligible reviewed saturation family found.`);
 }
 
+function reviewedCp009Specialized(input: Readonly<{ locale: CaeLocale; seed: number }>): GeneratedCaeQuestion {
+  const specialised = generateReviewedCp009Question(input);
+  return specialised.causalStructure.split(":")[1] === "COMMON_CAUSE_RECONSTRUCTION"
+    ? generateCp009ExpandedCommonCauseQuestion(input)
+    : specialised;
+}
+
 export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionInput): GeneratedCaeQuestion {
   const defaultFourWay = input.questionProfile === undefined || input.questionProfile === "FOUR_WAY";
   const seed = input.seed >>> 0;
@@ -73,7 +80,7 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   if (input.qlId === "CAE-QL-009" && defaultFourWay) {
     if (seed % 8 === 2) return generateCp009ExpandedCommonCauseQuestion({ locale: input.locale, seed: input.seed });
     if (seed % 8 === 6) return generateCp009SaturationQuestion({ locale: input.locale, seed: input.seed });
-    return generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
+    return reviewedCp009Specialized({ locale: input.locale, seed: input.seed });
   }
   const graphNativeSaturationEligible = input.qlId === "CAE-QL-001" || input.qlId === "CAE-QL-002";
   return graphNativeSaturationEligible ? saturatedBase(input) : generateCaeQuestion(input);
