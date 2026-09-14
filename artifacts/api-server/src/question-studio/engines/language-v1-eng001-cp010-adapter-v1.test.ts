@@ -4,11 +4,12 @@ import { getGeneratedItemApprovalDisposition } from "../../lib/admin-question-st
 import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "../engine-registry";
 import { ENG001_CP010_STANDARD_REVIEW_ONLY_PACKAGE_V1, isEng001Cp010QuestionStudioRequestV1, languageV1Eng001Cp010QuestionStudioAdapterV1 } from "./language-v1-eng001-cp010-adapter-v1";
 
-const expectedCps = ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008", "ENG-001-CP009", "ENG-001-CP010"];
+const packageExpectedCps = ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008", "ENG-001-CP009", "ENG-001-CP010"];
+const registeredExpectedCps = [...packageExpectedCps, "ENG-001-CP011"];
 const packageDef = ENG001_CP010_STANDARD_REVIEW_ONLY_PACKAGE_V1;
 assert.equal(packageDef.engineId, "language-v1");
 assert.equal(packageDef.packageId, "ENG-001");
-assert.deepEqual(packageDef.cpIds, expectedCps);
+assert.deepEqual(packageDef.cpIds, packageExpectedCps);
 assert.equal(packageDef.questionBankWritable, false);
 assert.equal(packageDef.testEligible, false);
 assert.equal(packageDef.mockTestEligible, false);
@@ -17,7 +18,7 @@ assert.equal(packageDef.automaticStudentPublication, false);
 assert.equal(packageDef.productionReleaseAuthorized, false);
 assert.equal(packageDef.metadata?.humanReviewApproved, true);
 assert.equal(packageDef.metadata?.reviewOnly, true);
-assert.deepEqual(listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001")?.cpIds, expectedCps);
+assert.deepEqual(listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001")?.cpIds, registeredExpectedCps);
 
 assert.equal(isEng001Cp010QuestionStudioRequestV1({ packageId: "ENG-001" }), false);
 assert.equal(isEng001Cp010QuestionStudioRequestV1({ packageId: "ENG-001", canonicalProblemId: "ENG-001-CP010" }), true);

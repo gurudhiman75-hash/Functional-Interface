@@ -22,7 +22,7 @@ assert.equal(packageDef.metadata?.humanReviewApproved, true);
 assert.equal(packageDef.metadata?.reviewOnly, true);
 
 const registered = listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001");
-assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008", "ENG-001-CP009", "ENG-001-CP010"]);
+assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008", "ENG-001-CP009", "ENG-001-CP010", "ENG-001-CP011"]);
 
 assert.equal(isEng001Cp005QuestionStudioRequestV1({ packageId: "ENG-001" }), false);
 assert.equal(isEng001Cp005QuestionStudioRequestV1({ packageId: "ENG-001", canonicalProblemId: "ENG-001-CP005" }), true);
@@ -64,4 +64,4 @@ for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
 await assert.rejects(languageV1Eng001Cp005QuestionStudioAdapterV1.generate({ ...request, language: "hi" }), /supports English only/i);
 await assert.rejects(languageV1Eng001Cp005QuestionStudioAdapterV1.generate({ ...request, runtimeMode: "bank-only" }), /only supports review-only runtime/i);
 await assert.rejects(languageV1Eng001Cp005QuestionStudioAdapterV1.generate({ ...request, difficulty: "Easy", canonicalProblemId: "GR-PRP-004" }), /GR-PRP-004 is not approved for Easy difficulty/i);
-console.log("ENG-001 CP005 Question Studio review-only integration tests passed with CP010 registered globally.");
+console.log("ENG-001 CP005 Question Studio review-only integration tests passed with CP011 registered globally.");
