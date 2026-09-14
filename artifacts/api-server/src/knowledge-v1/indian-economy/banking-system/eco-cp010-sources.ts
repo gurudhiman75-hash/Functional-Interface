@@ -7,6 +7,13 @@ export const ECO_CP010_SOURCES_V1 = Object.freeze([
     notes: "A scheduled bank is a bank included in the Second Schedule of the Reserve Bank of India Act, 1934.",
   },
   {
+    id: "NCERT-MONEY-BANKING",
+    authority: "NCERT",
+    title: "Introductory Macroeconomics — Money and Banking",
+    url: "https://www.ncert.nic.in/textbook/pdf/leec103.pdf",
+    notes: "Explains deposit-taking, bank lending, reserve retention and the multiple-deposit/credit-creation mechanism at introductory level.",
+  },
+  {
     id: "RBI-SFB-GUIDELINES",
     authority: "Reserve Bank of India",
     title: "Guidelines for Licensing of Small Finance Banks in the Private Sector",
