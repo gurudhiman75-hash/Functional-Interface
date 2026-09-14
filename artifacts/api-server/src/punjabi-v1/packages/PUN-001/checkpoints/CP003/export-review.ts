@@ -21,9 +21,9 @@ const add = (familyId: string, difficulty: PunjabiDifficulty, count: number) => 
   for (const seed of spreadSeeds(count, capacity)) rows.push({ difficulty, question: f.generate(seed, difficulty) });
 };
 
-add("F01", "Easy", 36);
-add("F02", "Easy", 36);
-add("F03", "Easy", 8);
+add("F01", "Easy", 38);
+add("F02", "Easy", 38);
+add("F03", "Easy", 4);
 
 add("F04", "Medium", 16);
 add("F05", "Medium", 20);
