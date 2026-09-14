@@ -1,6 +1,7 @@
 import { intBetween, pick } from "../foundation/prng";
 import type { AlpQuestionLogic } from "../types";
-import { adj, digit, key, letter, mixed, nums, swap, symbol, type C, type L } from "./shared";
+import { adj, digit, key, letter, nums, swap, symbol, type C, type L } from "./shared";
+import { mixedRow } from "./mixed-row";
 
 const group = (tokens: readonly string[], order: Array<"L" | "D" | "S">) => order.flatMap((kind) => tokens.filter(kind === "L" ? letter : kind === "D" ? digit : symbol));
 const inPlace = (tokens: readonly string[], predicate: (token: string) => boolean, kind: "SORT" | "REV") => {
@@ -11,8 +12,8 @@ const inPlace = (tokens: readonly string[], predicate: (token: string) => boolea
 };
 
 export function buildCp010(ql: AlpQuestionLogic, seed: number): C {
-  const source = mixed(ql, seed).slice(0, 18);
-  const requestedPosition = intBetween(2, 17, key(ql, seed, "position"));
+  const source = mixedRow(ql, seed);
+  const requestedPosition = intBetween(2, source.length - 1, key(ql, seed, "position"));
   let changed: string[];
   let operationName = "";
   switch (ql.solveMode) {
@@ -31,9 +32,17 @@ export function buildCp010(ql: AlpQuestionLogic, seed: number): C {
     }
     case "MIXED_POSITION_OF_TOKEN_AFTER_GROUP": changed = group(source, ["L", "D", "S"]); operationName = "group letters, then digits, then symbols"; break;
     case "MIXED_COUNT_UNCHANGED_AFTER_TRANSFORM": {
-      const kind = pick(["G", "SW", "R"] as const, key(ql, seed, "kind"));
-      changed = kind === "G" ? group(source, ["L", "D", "S"]) : kind === "SW" ? swap(source) : [...source].reverse();
-      operationName = kind === "G" ? "group letters, then digits, then symbols" : kind === "SW" ? "interchange every adjacent pair" : "reverse the complete sequence";
+      const kind = pick(["G", "SW", "R", "SL", "SD"] as const, key(ql, seed, "kind"));
+      changed = kind === "G" ? group(source, ["L", "D", "S"])
+        : kind === "SW" ? swap(source)
+          : kind === "R" ? [...source].reverse()
+            : kind === "SL" ? inPlace(source, letter, "SORT")
+              : inPlace(source, digit, "SORT");
+      operationName = kind === "G" ? "group letters, then digits, then symbols"
+        : kind === "SW" ? "interchange every adjacent pair"
+          : kind === "R" ? "reverse the complete sequence"
+            : kind === "SL" ? "sort only the letters in their letter positions"
+              : "sort only the digits in their digit positions";
       break;
     }
     default: changed = group(source, ["S", "L", "D"]); operationName = "group symbols, then letters, then digits before the scan"; break;
@@ -45,7 +54,9 @@ export function buildCp010(ql: AlpQuestionLogic, seed: number): C {
   let query: L;
 
   if (ql.solveMode === "MIXED_POSITION_OF_TOKEN_AFTER_GROUP") {
-    const target = pick(source, key(ql, seed, "target"));
+    const uniqueTargets = source.filter((token, index) => source.indexOf(token) === index && source.lastIndexOf(token) === index);
+    if (!uniqueTargets.length) throw new Error(`${ql.qlId} needs at least one unique token for an unambiguous inverse-position query.`);
+    const target = pick(uniqueTargets, key(ql, seed, "target"));
     const position = changed.indexOf(target) + 1;
     answer = String(position); pool = nums(position, changed.length);
     query = { en: `find the final position of ${target}`, hi: `${target} का अंतिम स्थान खोजें`, pa: `${target} ਦੀ ਅੰਤਿਮ ਥਾਂ ਲੱਭੋ` };

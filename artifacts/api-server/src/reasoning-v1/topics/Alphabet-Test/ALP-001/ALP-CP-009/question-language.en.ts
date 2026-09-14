@@ -12,9 +12,12 @@ export const ALP_CP009_QLS: readonly AlpQuestionLogic[] = [
   make("ALP-QL-135", "ALP009-MIXED-RIGHT-FROM-RIGHT", "mixed-relative-right-from-right", "MIXED_RELATIVE_RIGHT_FROM_RIGHT", "RELATIVE", "TOKEN", "TOKEN_ROW"),
   make("ALP-QL-136", "ALP009-MIXED-LEFT-FROM-RIGHT", "mixed-relative-left-from-right", "MIXED_RELATIVE_LEFT_FROM_RIGHT", "RELATIVE", "TOKEN", "TOKEN_ROW"),
   make("ALP-QL-137", "ALP009-LETTER-FOLLOWED-SYMBOL", "count-letter-followed-symbol", "COUNT_LETTER_FOLLOWED_BY_SYMBOL", "ADJACENCY_COUNT", "NUMBER", "TOKEN_ROW"),
-  make("ALP-QL-138", "ALP009-SYMBOL-PRECEDED-LETTER", "count-symbol-preceded-letter", "COUNT_SYMBOL_PRECEDED_BY_LETTER", "ADJACENCY_COUNT", "NUMBER", "TOKEN_ROW"),
+  // Permanent ID retained. The legacy solve-mode string is kept for wire compatibility,
+  // but this QL now owns the source-backed generalized three-token neighbourhood scan.
+  make("ALP-QL-138", "ALP009-COMPOUND-THREE-TOKEN-WINDOW", "count-compound-three-token-window", "COUNT_SYMBOL_PRECEDED_BY_LETTER", "COMPOUND_WINDOW", "NUMBER", "TOKEN_ROW"),
   make("ALP-QL-139", "ALP009-DIGIT-FOLLOWED-LETTER", "count-digit-followed-letter", "COUNT_DIGIT_FOLLOWED_BY_LETTER", "ADJACENCY_COUNT", "NUMBER", "TOKEN_ROW"),
-  make("ALP-QL-140", "ALP009-LETTER-PRECEDED-DIGIT", "count-letter-preceded-digit", "COUNT_LETTER_PRECEDED_BY_DIGIT", "ADJACENCY_COUNT", "NUMBER", "TOKEN_ROW"),
+  // Permanent ID retained. This replaces the old semantic duplicate of QL-139.
+  make("ALP-QL-140", "ALP009-SYMBOL-FLANKED-LETTER-DIGIT", "count-symbol-flanked-letter-digit", "COUNT_LETTER_PRECEDED_BY_DIGIT", "CENTRE_FLANK_WINDOW", "NUMBER", "TOKEN_ROW"),
   make("ALP-QL-141", "ALP009-VOWEL-FOLLOWED-DIGIT", "count-vowel-followed-digit", "COUNT_VOWEL_FOLLOWED_BY_DIGIT", "FILTERED_ADJACENCY", "NUMBER", "TOKEN_ROW"),
   make("ALP-QL-142", "ALP009-EVEN-DIGIT-PRECEDED-SYMBOL", "count-even-digit-preceded-symbol", "COUNT_EVEN_DIGIT_PRECEDED_BY_SYMBOL", "FILTERED_ADJACENCY", "NUMBER", "TOKEN_ROW"),
   make("ALP-QL-143", "ALP009-NTH-LETTER", "nth-letter-from-left", "NTH_LETTER_FROM_LEFT", "CATEGORY_POSITION", "TOKEN", "TOKEN_ROW"),

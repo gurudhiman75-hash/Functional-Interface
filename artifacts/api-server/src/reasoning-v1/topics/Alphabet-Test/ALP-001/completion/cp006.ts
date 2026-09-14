@@ -1,9 +1,8 @@
-import { pick } from "../foundation/prng";
 import type { AlpQuestionLogic } from "../types";
-import { WORDS, allPairs, key, nums, wordPairs, type C, type L } from "./shared";
+import { WORDS, allPairs, cyclePick, nums, wordPairs, type C, type L } from "./shared";
 
 export function buildCp006(ql: AlpQuestionLogic, seed: number): C {
-  let word = pick(WORDS, key(ql, seed, "word"));
+  let word = cyclePick(WORDS, ql, seed, "word");
   let direction: "BOTH" | "FORWARD" | "BACKWARD" = "BOTH";
   if (ql.solveMode === "COUNT_WORD_ALPHA_PAIRS_FORWARD") direction = "FORWARD";
   if (ql.solveMode === "COUNT_WORD_ALPHA_PAIRS_BACKWARD") direction = "BACKWARD";
@@ -19,8 +18,9 @@ export function buildCp006(ql: AlpQuestionLogic, seed: number): C {
   };
 
   if (ql.solveMode === "IDENTIFY_WORD_ALPHA_PAIR") {
-    word = pick(WORDS.filter((candidate) => wordPairs(candidate).length), key(ql, seed, "eligible-word"));
-    const pair = pick(wordPairs(word), key(ql, seed, "pair"));
+    const eligible = WORDS.filter((candidate) => wordPairs(candidate).length > 0);
+    word = cyclePick(eligible, ql, seed, "eligible-word");
+    const pair = cyclePick(wordPairs(word), ql, seed, "pair");
     const answer = `${pair[0]} : ${pair[1]}`;
     const valid = new Set(wordPairs(word).map((candidate) => `${candidate[0]} : ${candidate[1]}`));
     return {
@@ -32,7 +32,8 @@ export function buildCp006(ql: AlpQuestionLogic, seed: number): C {
 
   if (ql.solveMode === "IDENTIFY_WORD_BY_ALPHA_PAIR_COUNT") {
     const rows = WORDS.map((candidate) => ({ word: candidate, count: wordPairs(candidate).length }));
-    const selected = pick(rows.filter((row) => rows.filter((other) => other.count !== row.count).length >= 3), key(ql, seed, "count-word"));
+    const eligible = rows.filter((row) => rows.filter((other) => other.count !== row.count).length >= 3);
+    const selected = cyclePick(eligible, ql, seed, "count-word");
     return {
       source: [...selected.word], word: selected.word, answer: selected.word,
       pool: rows.filter((row) => row.count !== selected.count).map((row) => row.word), operation,
