@@ -72,15 +72,13 @@ function isSoundCandidate(question: SourceQuestion): boolean {
     && question.sourceFactIds.length > 0
     && question.reviewOnly === true
     && question.runtimeRegistered === false
-    && !metaLanguage.test(learnerText(question));
+    && !metaLanguage.test(learnerText(question))
+    && !heavyPhrasing.test(learnerText(question));
 }
 
 function candidateScore(question: SourceQuestion, rotation: number): number {
-  const learner = learnerText(question);
-  const wordingPenalty = heavyPhrasing.test(learner) ? 10000 : 0;
   const lengthPenalty = wordCount(question.stem) * 4 + wordCount(question.explanation);
-  const sourceOrderPenalty = rotation;
-  return wordingPenalty + lengthPenalty + sourceOrderPenalty;
+  return lengthPenalty + rotation;
 }
 
 function sourceCheckpointForQl(ql: number) {
@@ -105,8 +103,7 @@ export function generateGeoPhy001Cp013ReviewBatchV1(): GeoPhy001Cp013ReviewQuest
       .sort((a, b) => candidateScore(a.question, a.rotation) - candidateScore(b.question, b.rotation));
 
     const source = ranked[0]?.question;
-    if (!source) throw new Error(`${qlId} has no valid representative question`);
-    if (heavyPhrasing.test(learnerText(source))) throw new Error(`${qlId} has no plain-language representative question`);
+    if (!source) throw new Error(`${qlId} has no sound plain-language representative question`);
 
     const targetIndex = (ql - 1) % 4;
     const distractors = source.options.filter((option) => option !== source.canonicalAnswer);
