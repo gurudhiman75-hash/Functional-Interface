@@ -15,7 +15,7 @@ The P0 contract is anchored to verified previous-paper representations:
 
 ## Semantic stimulus
 
-`Di010Stimulus` will contain no SVG. It will own only:
+`Di010Stimulus` contains no SVG. It owns only:
 
 - `kind: "FREQUENCY_POLYGON"`
 - title and instruction
@@ -26,7 +26,7 @@ The P0 contract is anchored to verified previous-paper representations:
 - x/y axis labels and unit
 - derived class marks
 
-The shared renderer will derive polygon points as `(class mark, frequency)` and zero-frequency closing points at one class width before/after the first/last class mark.
+The shared renderer derives polygon points as `(class mark, frequency)` and zero-frequency closing points at one class width before/after the first/last class mark.
 
 ## P0 task library
 
@@ -39,6 +39,7 @@ The shared renderer will derive polygon points as `(class mark, frequency)` and 
 7. `MODAL_CLASS_FROM_POLYGON` — identify the class interval corresponding to the highest point.
 8. `FREQUENCY_DIFFERENCE_BETWEEN_CLASSES` — compare two plotted class frequencies.
 9. `COMBINED_RANGE_TOTAL_FROM_POLYGON` — aggregate frequencies across consecutive classes.
+10. `RANGE_RATIO_FROM_POLYGON` — add two separate two-class ranges and simplify the ratio of their totals.
 
 ## Difficulty policy
 
@@ -52,16 +53,19 @@ Medium:
 - point coordinate for class
 - total frequency
 - frequency difference
+- combined range total
 
 Hard:
 - zero closing endpoints
-- combined range total
+- range ratio from two separate class ranges
 
-Each P0 set will emit five distinct families with exactly 1 Easy + 2 Medium + 2 Hard and deterministic ordering.
+The combined-range family was deliberately moved from Hard to Medium during human output review because simple addition of two or three plotted frequencies does not justify a Hard label. The range-ratio family supplies a genuine multi-step Hard route.
+
+Each P0 set emits five distinct families with exactly 1 Easy + 2 Medium + 2 Hard and deterministic ordering.
 
 ## Visual contract
 
-Create `DataInterpretation/visuals/frequency-polygon-svg.ts` rather than embedding SVG in DI-010.
+Use `DataInterpretation/visuals/frequency-polygon-svg.ts` rather than embedding SVG in DI-010.
 
 Renderer requirements:
 - connected straight segments through class-mark points
@@ -77,23 +81,27 @@ Renderer requirements:
 
 ## Distractors
 
-Every distractor must own a misconception, e.g.:
+Every distractor owns a misconception, including:
 - using class boundaries instead of class marks
 - swapping x/y coordinates
 - using half a class width instead of a full class width for closure
 - closing at the first/last class mark instead of one class width outside
 - using a neighboring point's frequency
+- reversing a requested range ratio
+- omitting one class from a two-class range
 - confusing frequency polygon with ogive/cumulative frequency
 
 ## Explanations
 
-Explanations must be short, beginner-readable and question-specific. Construction questions should explicitly show:
+Explanations must be short, beginner-readable and question-specific. Construction questions explicitly show:
 
 `class mark = (lower limit + upper limit) / 2`
 
 and for closure:
 
 `left endpoint = first class mark - class width`, `right endpoint = last class mark + class width`, both with frequency `0`.
+
+Range-ratio questions first show the two separate range totals and then simplify the resulting ratio.
 
 ## Lifecycle
 
