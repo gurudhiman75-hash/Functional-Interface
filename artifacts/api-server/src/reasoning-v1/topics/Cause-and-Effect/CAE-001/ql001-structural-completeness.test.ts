@@ -6,6 +6,7 @@ import {
 } from "./causal-world-authorities.ts";
 import { withCae001SaturationWave2 } from "./causal-world-saturation-wave2.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
+import { generateCaeSourceProfileQuestion } from "./source-profiles.ts";
 import type { CaeQuestionProfile } from "./types.ts";
 
 const QL_ID = "CAE-QL-001" as const;
@@ -99,10 +100,23 @@ assert.ok(fiveWay.completeSeed !== null, "QL001 five-way did not complete the fi
 assert.deepEqual(fiveWay.families, fourWay.families, "QL001 profile choice changed family coverage");
 assert.deepEqual(fiveWay.variants, fourWay.variants, "QL001 profile choice changed variant coverage");
 
+const SOURCE_PROFILES = [
+  "CLASSIC_BANK_FIVE_RELATION",
+  "PUNJAB_POLICE_SI_2016_FOUR_RELATION",
+  "SSC_SELECTION_POST_DIRECT_RECOGNITION",
+] as const;
+for (const sourceProfileId of SOURCE_PROFILES) {
+  for (let seed = 0; seed < 2_000; seed += 1) {
+    const question = generateCaeSourceProfileQuestion({ qlId: QL_ID, locale: "en-IN", seed, sourceProfileId });
+    assert.ok(!question.causalStateId.includes(REJECTED_FRAGMENT), `${sourceProfileId}/${seed}: source-profile renderer resurfaced rejected QL001 drill bridge→effect state`);
+  }
+}
+
 console.log("PASS_CAE_QL001_STRUCTURAL_COMPLETENESS", {
   theoreticalSafeStates: expectedSet.size,
   families: fourWay.families.size,
   variants: fourWay.variants.size,
   fourWayCompleteSeed: fourWay.completeSeed,
   fiveWayCompleteSeed: fiveWay.completeSeed,
+  sourceProfilesChecked: SOURCE_PROFILES.length,
 });
