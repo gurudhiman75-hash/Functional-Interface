@@ -6,6 +6,8 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/**"
+      - "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/**"
+      - ".github/workflows/reasoning-ser-001-final-audit-remediation.yml"
   workflow_dispatch:
 
 permissions:
@@ -54,6 +56,7 @@ jobs:
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008-mixed.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/export-review.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/number-series-final.test.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/ser-bns-ownership-boundary.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/export-review-final.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/ser-cp-007-generated-difficulty-v8.test.ts
 
@@ -74,6 +77,12 @@ jobs:
         run: |
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/number-series-final.test.ts | tee ser-cp009-number-series-audit.log
+
+      - name: Prove SSC Reasoning vs Banking Number Series ownership boundary
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/ser-bns-ownership-boundary.test.ts | tee ser-bns-ownership-boundary.log
 
       - name: Prove CP007 generated-instance difficulty across frozen corpus
         shell: bash
@@ -105,6 +114,7 @@ jobs:
             ser-cp008-final-audit.log
             ser-cp008-mixed-audit.log
             ser-cp009-number-series-audit.log
+            ser-bns-ownership-boundary.log
             ser-cp007-generated-difficulty.log
             ser-cp007-regression.log
             SER-CP-008-FINAL-AUDIT-REVIEW.md
