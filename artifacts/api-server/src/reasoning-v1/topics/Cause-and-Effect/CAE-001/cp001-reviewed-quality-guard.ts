@@ -1,3 +1,4 @@
+import { withCae001SaturationWave2 } from "./causal-world-saturation-wave2.ts";
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import type { CaeLocale, GeneratedCaeQuestion } from "./types.ts";
 
@@ -12,14 +13,15 @@ function isEditoriallySafe(question: GeneratedCaeQuestion): boolean {
 /**
  * Review-only CP001 quality gate. The frozen V3 graph remains unchanged, but
  * two-statement review output must not overclaim a direct edge when the pair
- * still depends on an omitted initiating event.
+ * still depends on an omitted initiating event. Saturation overlays are scoped
+ * to each synchronous generation attempt and restored immediately afterwards.
  */
 export function generateReviewedCp001Question(
   input: Readonly<{ locale: CaeLocale; seed: number }>,
 ): GeneratedCaeQuestion {
   for (let offset = 0; offset < 32; offset += 1) {
     const internalSeed = (input.seed + offset) >>> 0;
-    const question = generateCaeQuestion({ qlId: "CAE-QL-001", locale: input.locale, seed: internalSeed });
+    const question = withCae001SaturationWave2(() => generateCaeQuestion({ qlId: "CAE-QL-001", locale: input.locale, seed: internalSeed }));
     if (!isEditoriallySafe(question)) continue;
     if (offset === 0) return question;
 

@@ -1,5 +1,6 @@
 import { CAE_001_CAUSAL_WORLDS } from "./causal-world-authorities.ts";
 import type {
+  CaeCausalWorld,
   CaeDifficultyEvidence,
   CaeLocale,
   CaeRenderedOption,
@@ -84,10 +85,14 @@ const DIFFICULTY_EVIDENCE: CaeDifficultyEvidence = Object.freeze({
   score: 12,
 });
 
-export function generateCp007CommonFactorQuestion(input: Readonly<{ locale: CaeLocale; seed: number }>): GeneratedCaeQuestion {
-  if (CP007_COMMON_FACTOR_WORLDS.length === 0) throw new Error("CAE CP007: no shared-pressure worlds available for common-factor review.");
+/** Shared CP007 renderer. The supplied worlds must be one-cause/two-effect branching worlds. */
+export function generateCp007CommonFactorFromWorlds(
+  input: Readonly<{ locale: CaeLocale; seed: number }>,
+  worlds: readonly CaeCausalWorld[],
+): GeneratedCaeQuestion {
+  if (worlds.length === 0) throw new Error("CAE CP007: no common-factor worlds available for review.");
   const selectionSeed = mix32((input.seed >>> 0) ^ 0x7c07c0de);
-  const world = CP007_COMMON_FACTOR_WORLDS[selectionSeed % CP007_COMMON_FACTOR_WORLDS.length]!;
+  const world = worlds[selectionSeed % worlds.length]!;
   const cause = world.nodes.find((node) => node.role === "CAUSE");
   const effects = world.nodes.filter((node) => node.role === "EFFECT");
   if (!cause || effects.length !== 2) throw new Error(`${world.id}: CP007 common-factor world must contain one cause and two visible effects.`);
@@ -160,4 +165,8 @@ export function generateCp007CommonFactorQuestion(input: Readonly<{ locale: CaeL
       publicEligible: false,
     },
   });
+}
+
+export function generateCp007CommonFactorQuestion(input: Readonly<{ locale: CaeLocale; seed: number }>): GeneratedCaeQuestion {
+  return generateCp007CommonFactorFromWorlds(input, CP007_COMMON_FACTOR_WORLDS);
 }

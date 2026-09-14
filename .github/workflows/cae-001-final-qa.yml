@@ -27,41 +27,88 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup Node 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Enable pnpm
         run: corepack enable
-
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Prepare CAE QA output
         run: mkdir -p artifacts/api-server/dist/reasoning-v1/cae-001
-
       - name: Bundle frozen V3 regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/cae-001/cae-001-v3-regression.mjs
-
       - name: Run frozen V3 regression
         run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-v3-regression.mjs
-
+      - name: Bundle saturation wave 1 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-saturation-wave1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-001-saturation-wave1.mjs
+      - name: Run saturation wave 1 regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-saturation-wave1.mjs
+      - name: Bundle saturation wave 2 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-saturation-wave2.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-001-saturation-wave2.mjs
+      - name: Run saturation wave 2 regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-saturation-wave2.mjs
+      - name: Bundle candidate-heavy saturation regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-saturation-candidate.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-001-saturation-candidate.mjs
+      - name: Run candidate-heavy saturation regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-saturation-candidate.mjs
+      - name: Bundle CP007 Wave 3 saturation regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cp007-saturation-adapter.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cp007-saturation-adapter.mjs
+      - name: Run CP007 Wave 3 saturation regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cp007-saturation-adapter.mjs
+      - name: Bundle CP008 Wave 3 saturation regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cp008-saturation-adapter.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cp008-saturation-adapter.mjs
+      - name: Run CP008 Wave 3 saturation regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cp008-saturation-adapter.mjs
+      - name: Bundle CP009 Wave 3 saturation regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cp009-saturation-adapter.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cp009-saturation-adapter.mjs
+      - name: Run CP009 Wave 3 saturation regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cp009-saturation-adapter.mjs
+      - name: Bundle reviewed saturation sampling regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-reviewed-saturation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-001-reviewed-saturation.mjs
+      - name: Run reviewed saturation sampling regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-reviewed-saturation.mjs
       - name: Bundle reviewed final QA
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-reviewed.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/cae-001/cae-001-reviewed-final-qa.mjs
-
       - name: Run reviewed final QA
         run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-reviewed-final-qa.mjs
-
       - name: Create review export entrypoint
         shell: bash
         run: |
@@ -72,18 +119,15 @@ jobs:
           writeFileSync("dist/reasoning-v1/cae-001/CAE-001-REVIEWED-90.md", renderCae001ReviewedEditorialRealnessReview());
           writeFileSync("dist/reasoning-v1/cae-001/CAE-001-SOURCE-PROFILE-30.md", renderCae001SourceProfileReview());
           TS
-
       - name: Bundle review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Cause-and-Effect/CAE-001/__cae-review-export.ts
           --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/cae-001/cae-review-export.mjs
-
       - name: Materialize review packs
         working-directory: artifacts/api-server
         run: node dist/reasoning-v1/cae-001/cae-review-export.mjs
-
       - name: Upload CAE final-review packs
         uses: actions/upload-artifact@v4
         with:

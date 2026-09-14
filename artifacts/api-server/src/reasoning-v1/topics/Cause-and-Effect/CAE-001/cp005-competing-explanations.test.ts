@@ -3,6 +3,7 @@ import { CP005_COMPETING_SCENARIOS, generateCp005CompetingQuestion } from "./cp0
 import { previewCae001QuestionStudioReview } from "./question-studio-review.ts";
 import { CAE_001_REVIEWED_EDITORIAL_REALNESS_REVIEW } from "./reviewed-editorial-review-pack.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
+import { CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS } from "./saturation-candidate-authorities.ts";
 import type { CaeLocale } from "./types.ts";
 
 const LOCALES: readonly CaeLocale[] = ["en-IN", "hi-IN", "pa-IN"];
@@ -72,7 +73,11 @@ assert.equal(review.length, 10);
 assert.equal(new Set(review.map((entry) => entry.question.causalStateId)).size, 10);
 assert.ok(review.some((entry) => entry.question.difficulty === "MEDIUM"));
 assert.ok(review.some((entry) => entry.question.difficulty === "HARD"));
-assert.ok(review.every((entry) => entry.question.scenarioFamilyId === "CAE-FAM-REVIEWED-COMPETING"));
+const specialisedReview = review.filter((entry) => entry.question.scenarioFamilyId === "CAE-FAM-REVIEWED-COMPETING");
+const saturationReview = review.filter((entry) => CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS.includes(entry.question.scenarioFamilyId));
+assert.ok(specialisedReview.length >= 6, "CP005 review pack must remain dominated by the specialised competing-explanation authority.");
+assert.ok(saturationReview.length >= 1, "CP005 review pack must expose at least one audited saturation family.");
+assert.equal(specialisedReview.length + saturationReview.length, review.length, "CP005 review pack contains an unaudited family.");
 
 const reviewed = generateReviewedCaeQuestion({ qlId: "CAE-QL-005", locale: "en-IN", seed: 7 });
 assert.equal(reviewed.scenarioFamilyId, "CAE-FAM-REVIEWED-COMPETING");

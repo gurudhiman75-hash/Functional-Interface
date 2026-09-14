@@ -46,7 +46,7 @@ for (const qlId of ["CAE-QL-003", "CAE-QL-004"] as const) {
   }
 
   assert.equal(sawCombination, true, `${qlId}: reviewed generation must expose combination form`);
-  assert.equal(sawConventional, true, `${qlId}: conventional one-of-four form must remain represented`);
+  assert.equal(sawConventional, true, `${qlId}: conventional/saturation one-of-four form must remain represented`);
   const authoredCount = CAE_COMBINATION_SCENARIOS.filter((scenario) => scenario.qlId === qlId).length;
   assert.equal(seenVariants.size, authoredCount, `${qlId}: 240 seeds must reach every combination scenario`);
   assert.ok(seenAnswers.size >= 3, `${qlId}: answer patterns must not collapse to one combination`);
@@ -63,10 +63,13 @@ for (let seed = 0; seed < 240; seed += 1) cp004Structures.add(generateCaeCombina
 assert.ok(cp004Structures.has("EFFECT_TWO"));
 assert.ok(cp004Structures.has("EFFECT_THREE"));
 
+// Locale parity is tested only on seeds allocated to the combination renderer.
+// Seeds with seed % 5 === 4 are intentionally reserved for reviewed saturation.
 for (const qlId of ["CAE-QL-003", "CAE-QL-004"] as const) {
-  for (let seed = 0; seed < 36; seed += 3) {
+  for (let seed = 0; seed < 60; seed += 3) {
+    if ((seed >>> 0) % 5 === 4) continue;
     const en = generateReviewedCaeQuestion({ qlId, locale: "en-IN", seed });
-    assert.ok(en.projectionId.includes("COMBINATION"));
+    assert.ok(en.projectionId.includes("COMBINATION"), `${qlId}/${seed}: combination allocation drifted.`);
     for (const locale of LOCALES) {
       const localized = generateReviewedCaeQuestion({ qlId, locale, seed });
       assert.equal(localized.causalStateId, en.causalStateId, `${qlId}/${seed}/${locale}: causal-state drift`);

@@ -1,36 +1,29 @@
 import assert from "node:assert/strict";
 import { CAE_001_CAUSAL_WORLDS } from "./causal-world-authorities.ts";
+import { withCae001SaturationWave2 } from "./causal-world-saturation-wave2.ts";
 import { CAE_001_REVIEWED_EDITORIAL_REALNESS_REVIEW } from "./reviewed-editorial-review-pack.ts";
 import { previewCae001QuestionStudioReview } from "./question-studio-review.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import type { CaeLocale } from "./types.ts";
 
 const LOCALES: readonly CaeLocale[] = ["en-IN", "hi-IN", "pa-IN"];
-const expectedModes = new Set([
-  "MISSING_SINGLE",
-  "MISSING_PAIR",
-  "RELATION_TYPE",
-  "CONNECTOR_PAIR",
-  "NEXT_OUTCOME",
-  "COMMON_CAUSE_RECONSTRUCTION",
-]);
+const expectedModes = new Set(["MISSING_SINGLE", "MISSING_PAIR", "RELATION_TYPE", "CONNECTOR_PAIR", "NEXT_OUTCOME", "COMMON_CAUSE_RECONSTRUCTION"]);
 const seenModes = new Set<string>();
 const seenStates = new Set<string>();
 let medium = 0;
 let hard = 0;
 
-function trim(value: string): string {
-  return value.replace(/[.।]+$/u, "");
-}
+function trim(value: string): string { return value.replace(/[.।]+$/u, ""); }
+function worldFor(id: string) { return withCae001SaturationWave2(() => CAE_001_CAUSAL_WORLDS.find((world) => world.id === id)); }
 
 function assertExternalDistractorDomain(question: ReturnType<typeof generateReviewedCaeQuestion>): void {
-  const currentWorld = CAE_001_CAUSAL_WORLDS.find((world) => world.id === question.causalWorldId);
+  const currentWorld = worldFor(question.causalWorldId);
   assert.ok(currentWorld, `${question.causalWorldId}: current CP009 world missing`);
   for (const option of question.optionMetadata) {
     const match = option.id.match(/^(?:NEAR_PAIR:)?(?:ALT|ALT_PAIR):([^:]+)/u);
     if (!match) continue;
     const altWorldId = match[1]!;
-    const altWorld = CAE_001_CAUSAL_WORLDS.find((world) => world.id === altWorldId);
+    const altWorld = worldFor(altWorldId);
     assert.ok(altWorld, `${option.id}: external CP009 distractor world missing`);
     assert.equal(altWorld.domain, currentWorld.domain, `${question.causalStateId}: external distractor must stay in the same domain`);
   }
@@ -63,7 +56,7 @@ for (let seed = 0; seed < 240; seed += 1) {
   if (mode === "MISSING_PAIR" || mode === "CONNECTOR_PAIR") {
     assert.ok(question.answerId.includes("|"));
     assert.equal(question.visibleContext.visibleNodeIds.length, 2);
-    const world = CAE_001_CAUSAL_WORLDS.find((entry) => entry.id === question.causalWorldId)!;
+    const world = worldFor(question.causalWorldId)!;
     const visibleTexts = question.visibleContext.visibleNodeIds.map((id) => trim(world.nodes.find((node) => node.id === id)!.text[question.locale]));
     const connectorTexts = question.causalTrace.slice(1, 3).map((id) => trim(world.nodes.find((node) => node.id === id)!.text[question.locale]));
     for (const option of question.optionMetadata.filter((entry) => !entry.isCorrect)) {
