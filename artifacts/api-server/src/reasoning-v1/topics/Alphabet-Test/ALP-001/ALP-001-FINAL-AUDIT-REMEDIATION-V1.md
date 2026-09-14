@@ -13,6 +13,7 @@ This checkpoint forward-ports the still-valid ALP-001 P1 remediation from the st
 5. CP005–CP007 word reservoirs were too small for production fatigue resistance.
 6. CP009 contained semantic duplicate QLs.
 7. CP006–CP010 distractors were not consistently derived from explicit misconception states.
+8. The review/learner explanation surface rendered shortcut and option-by-option trap sections on every question, creating unnecessary boilerplate.
 
 ## Implemented remediation
 
@@ -54,6 +55,28 @@ Runtime rule/task identities, stems and explanations follow those corrected sema
 
 The provenance gate sweeps every advanced QL over 64 seeds, requires four distinct options, rejects legacy generic labels and proves representative misconception provenance for CP008–CP010.
 
+These misconception records remain **internal QA diagnostics**. They are not automatically shown to learners or rendered as an option-by-option explanation section.
+
+### Clean learner/reviewer explanation surface
+
+The raw runtime retains the richer diagnostic `ALP-001-PEDAGOGY-V2` object so audits can inspect rule statements, misconception provenance, shortcut notes and closest-trap rejection.
+
+The Question Studio/review surface now uses the separate `ALP-001-LEARNER-EXPLANATION-V1` contract containing only:
+
+1. a simple core concept;
+2. worked steps;
+3. position/sequence tracking when useful;
+4. a direct conclusion containing the answer.
+
+`learner-explanation.ts` performs this projection. `question-studio-registry.ts` applies it to both normal and controlled generation, and `export-review.ts` uses the same surface. Therefore learner/reviewer output no longer forces:
+
+- “Exam-Speed Shortcut” sections;
+- “Common Trap Analysis” sections;
+- three option-by-option rejection paragraphs;
+- duplicate rule/shortcut boilerplate after a complete worked solution.
+
+`alp-001-learner-explanation.test.ts` sweeps all 156 QLs across English, Hindi and Punjabi and fails if these diagnostic-only fields leak back into the learner/Question Studio explanation surface.
+
 ### Question Studio controls
 
 The chapter-local registry retains `generate(qlId, seed, locale)` and adds controlled generation with checkpoint/QL scope, requested difficulty and explicit exam profile.
@@ -88,6 +111,7 @@ The ALP workflow must prove:
 - CP005 pool depth, uniqueness and >=95/100 source exposure per QL;
 - CP006/CP007 pool depth and >=95/100 visible diversity per QL;
 - advanced distractor provenance across the 64-seed sweep;
+- concise learner/reviewer explanation separation across all QLs/locales;
 - generated-state difficulty and absence of row/word-length inflation;
 - mixed-row and repeated-token diversity;
 - corrected QL138/QL140 compound-window semantics;
