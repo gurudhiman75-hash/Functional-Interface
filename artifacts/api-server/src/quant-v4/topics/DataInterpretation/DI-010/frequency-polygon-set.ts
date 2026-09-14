@@ -40,6 +40,18 @@ function numericRescue(answer: string): Di010Candidate[] {
     .map((candidate, index) => ({ text: String(Number(candidate.toFixed(2))), misconceptionId: `NEARBY_NUMERIC_${index}`, derivation: "Represents a nearby result from a small reading or arithmetic error." }));
 }
 
+function intervalRescue(answer: string): Di010Candidate[] {
+  const match = answer.match(/^(-?\d+(?:\.\d+)?)–(-?\d+(?:\.\d+)?)$/);
+  if (!match) return [];
+  const lower = Number(match[1]);
+  const upper = Number(match[2]);
+  const width = upper - lower;
+  if (!(width > 0)) return [];
+  return [-2, -1, 1, 2]
+    .map((shift) => ({ lower: lower + shift * width, upper: upper + shift * width }))
+    .map((item, index) => ({ text: `${Number(item.lower.toFixed(2))}–${Number(item.upper.toFixed(2))}`, misconceptionId: `NEARBY_CLASS_RESCUE_${index}`, derivation: "Chooses a nearby class interval instead of the class represented by the required polygon point." }));
+}
+
 function buildOptions(seed: string, answer: string, candidates: readonly Di010Candidate[]) {
   const retained: Di010Option[] = [];
   const seen = new Set<string>();
@@ -52,6 +64,7 @@ function buildOptions(seed: string, answer: string, candidates: readonly Di010Ca
   add({ text: answer, misconceptionId: "CORRECT", derivation: "Exact recomputation from the DI-010 semantic frequency-polygon state." });
   candidates.forEach(add);
   numericRescue(answer).forEach(add);
+  intervalRescue(answer).forEach(add);
   if (retained.length < OPTION_COUNT) throw new Error(`DI-010 ${seed} constructed only ${retained.length} unique options for '${answer}'.`);
   const shuffled = shuffle(seededRandom(`${seed}:options`), retained.slice(0, OPTION_COUNT));
   const correctIndex = shuffled.findIndex((option) => option.misconceptionId === "CORRECT");
