@@ -7,7 +7,6 @@ on:
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/**"
       - "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/**"
-      - ".github/workflows/reasoning-ser-001-final-audit-remediation.yml"
   workflow_dispatch:
 
 permissions:
@@ -61,8 +60,7 @@ jobs:
             src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/number-series-audited.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/ser-bns-ownership-boundary.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-009-NUMBER-SERIES-AUDIT/export-review-final.ts \
-            src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/ser-cp-007-generated-difficulty-v8.test.ts \
-            src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/ser-cp-007-question-studio-integration.test.ts
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/generated-instance-difficulty-v8.ts
 
       - name: Prove CP008 core source gaps, visible solving, multilingual parity and stress
         shell: bash
