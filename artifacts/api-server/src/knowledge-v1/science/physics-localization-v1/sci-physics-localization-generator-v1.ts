@@ -13,6 +13,7 @@ import {
   SCI_PHYSICS_CP002_HI_SURFACES_V1,
   SCI_PHYSICS_CP002_PA_SURFACES_V1,
 } from "./sci-physics-cp002-localization-data-v1";
+import { applyPunjabiPhysicsEditorialV2 } from "./sci-physics-punjabi-editorial-v2";
 import {
   SCI_PHYSICS_LOCALIZATION_V1,
   type PhysicsLocaleV1,
@@ -53,8 +54,12 @@ function cpMeta(cpId: SupportedCpV1) {
   if (!meta) throw new Error(`Missing Physics CP metadata: ${cpId}`);
   return meta;
 }
-function surfaceMap(cpId: SupportedCpV1, locale: Exclude<PhysicsLocaleV1, "en">) {
-  return SURFACES[cpId][locale] as Readonly<Record<string, PhysicsLocalizedAnchorSurfaceV1>>;
+function surfaceMap(cpId: SupportedCpV1, locale: Exclude<PhysicsLocaleV1, "en">): Readonly<Record<string, PhysicsLocalizedAnchorSurfaceV1>> {
+  const raw = SURFACES[cpId][locale] as Readonly<Record<string, PhysicsLocalizedAnchorSurfaceV1>>;
+  if (locale === "hi") return raw;
+  return Object.fromEntries(
+    Object.entries(raw).map(([anchorId, surface]) => [anchorId, applyPunjabiPhysicsEditorialV2(anchorId, surface)]),
+  );
 }
 function anchorMap(cpId: SupportedCpV1) {
   return new Map(cpMeta(cpId).anchors.map((anchor) => [anchor.id, anchor]));
