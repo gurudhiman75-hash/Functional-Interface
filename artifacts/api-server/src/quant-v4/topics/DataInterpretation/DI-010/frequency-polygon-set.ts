@@ -52,6 +52,19 @@ function intervalRescue(answer: string): Di010Candidate[] {
     .map((item, index) => ({ text: `${Number(item.lower.toFixed(2))}–${Number(item.upper.toFixed(2))}`, misconceptionId: `NEARBY_CLASS_RESCUE_${index}`, derivation: "Chooses a nearby class interval instead of the class represented by the required polygon point." }));
 }
 
+function endpointRescue(answer: string): Di010Candidate[] {
+  const match = answer.match(/^\((-?\d+(?:\.\d+)?), 0\) and \((-?\d+(?:\.\d+)?), 0\)$/);
+  if (!match) return [];
+  const left = Number(match[1]);
+  const right = Number(match[2]);
+  const shifts = [5, 10];
+  return shifts.map((shift, index) => ({
+    text: `(${Number((left - shift).toFixed(2))}, 0) and (${Number((right + shift).toFixed(2))}, 0)`,
+    misconceptionId: `OVEREXTEND_CLOSURE_${index}`,
+    derivation: "Moves the zero-frequency endpoints too far beyond the required one-class-width closure positions.",
+  }));
+}
+
 function buildOptions(seed: string, answer: string, candidates: readonly Di010Candidate[]) {
   const retained: Di010Option[] = [];
   const seen = new Set<string>();
@@ -65,6 +78,7 @@ function buildOptions(seed: string, answer: string, candidates: readonly Di010Ca
   candidates.forEach(add);
   numericRescue(answer).forEach(add);
   intervalRescue(answer).forEach(add);
+  endpointRescue(answer).forEach(add);
   if (retained.length < OPTION_COUNT) throw new Error(`DI-010 ${seed} constructed only ${retained.length} unique options for '${answer}'.`);
   const shuffled = shuffle(seededRandom(`${seed}:options`), retained.slice(0, OPTION_COUNT));
   const correctIndex = shuffled.findIndex((option) => option.misconceptionId === "CORRECT");
