@@ -1,8 +1,9 @@
 # ECO-CP-011 Status
 
 **CP:** ECO-CP-011 Financial Institutions  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1  
+**English baseline:** FROZEN_V1  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
 ## Implemented
@@ -42,10 +43,8 @@ Excluded from this CP:
 - NHB remains a housing-finance development institution, but HFC regulatory powers are assigned to RBI after the 2019 transfer.
 - DFI describes a development-finance mandate, while NBFC describes a non-banking financial-company legal/regulatory category; they are not treated as synonyms.
 
-## Promotion steps
+## Approval
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behavior.
-4. Add localisation layer in the localisation phase.
-5. Register with runtime/Question Studio only after separate promotion approval.
+- English human review: APPROVED.
+- English V1 behavior: FROZEN.
+- Runtime/Question Studio registration remains a separate promotion decision.
