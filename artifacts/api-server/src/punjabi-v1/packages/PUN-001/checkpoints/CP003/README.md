@@ -31,11 +31,19 @@ Interrogative adverbs such as `ਕਿੱਥੋਂ`, `ਕਦੋਂ`, and `ਕਿ�
 
 - 225 noun authorities — 45 in each noun class;
 - 60 contextual pronoun authorities — 10 in each pronoun class;
-- 40 pronoun-inflection relations across 8 core person/number paradigms;
+- 40 pronoun-inflection relations across 8 core inflection paradigms;
 - 325 total atomic linguistic authorities;
 - 12 operation-specific semantic families;
-- 13,702,850 computed semantic content combinations;
+- 13,702,846 computed semantic content combinations;
 - option-order permutations are excluded from the capacity number.
+
+## Ambiguity hardening
+
+- bare `ਇਹ` and `ਉਹ` are not used to claim singular/plural person-number contrasts;
+- direct person-number questions are restricted to `ਮੈਂ`, `ਅਸੀਂ`, `ਤੂੰ`, and `ਤੁਸੀਂ`;
+- third-person near/far forms remain available in contextual and inflection families, where number is made explicit by the derived form or label;
+- demonstrative examples use deictic contrast so personal and demonstrative readings are not silently conflated;
+- context-sensitive collective nouns are excluded from isolated classification questions.
 
 ## Difficulty contract
 
