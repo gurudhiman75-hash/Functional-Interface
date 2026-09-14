@@ -1,6 +1,6 @@
 # POL-CP-007 — President
 
-**Lifecycle:** REVIEW CANDIDATE — SIMPLIFIED LANGUAGE V2  
+**Lifecycle:** REVIEW CANDIDATE — HELPFUL EXPLANATIONS V3  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -30,21 +30,27 @@ This CP covers the President as a constitutional office without drifting into cu
 - 22 genuine QLs
 - 80 English review questions
 - 24 Easy / 42 Medium / 14 Hard
-- V2 generator is canonical for English review
-- compact exam-style stems
+- V3 generator is canonical for English review
+- simplified exam-style stems from V2
 - ordinary direct stems capped at 28 words
 - four unique options
-- simple teaching explanations of at least 20 words
 - no current President/current-affairs questions
 
 ## Language standard
 
-Keep constitutional terms that are needed for exam accuracy, but simplify the English around them. Prefer short direct stems, familiar verbs and short sentences. Avoid formal wording when a simpler phrase gives the same meaning.
+Keep constitutional terms that are needed for exam accuracy, but simplify the English around them. Prefer short direct stems, familiar verbs and short sentences.
 
 ## Explanation standard
 
-Each explanation states the rule in simple language and gives the main distinction needed to understand the answer. It should teach the point without becoming a long legal note or an option-by-option analysis.
+Every question receives its own explanation. The explanation first identifies the exact correct answer, then gives the constitutional rule that makes it correct. A useful comparison or common trap is added only when it improves understanding. Generic QL-level paragraphs are not accepted, even when two questions have the same answer wording.
+
+Mechanical gates:
+- explanation minimum 18 words;
+- exact answer must appear in the explanation;
+- explanations inside the same QL must be unique;
+- President/Vice-President contrasts must stay explicit where relevant;
+- no unnecessary option-by-option analysis.
 
 ## Gate
 
-Question Studio exposure, localization and production registration remain blocked until simplified English V2 is approved.
+Question Studio exposure, localization and production registration remain blocked until English V3 is approved.
