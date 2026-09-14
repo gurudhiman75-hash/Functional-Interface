@@ -18,8 +18,8 @@ export const ECO_CP010_FACTS_V1: EcoCp010Fact[] = [
     id: "intermediation",
     label: "Financial intermediation",
     explanation: "Banks collect deposits from savers and extend loans or advances to borrowers, linking surplus and deficit units.",
-    sourceIds: ["RBI-SCHEDULED-BANK"],
-    sourceFactIds: ["banking-function"],
+    sourceIds: ["NCERT-MONEY-BANKING"],
+    sourceFactIds: ["deposit-lending-function"],
   },
   {
     id: "savings-deposit",
@@ -122,9 +122,9 @@ export const ECO_CP010_FACTS_V1: EcoCp010Fact[] = [
   {
     id: "credit-creation",
     label: "Bank credit creation",
-    explanation: "When a bank lends part of deposits while retaining required or desired reserves, the loan can return to the banking system as a new deposit and support multiple deposit expansion.",
-    sourceIds: ["RBI-SCHEDULED-BANK"],
-    sourceFactIds: ["bank-credit-creation"],
+    explanation: "When a bank lends part of deposits while retaining reserves, the loan can return to the banking system as a new deposit and support multiple deposit expansion.",
+    sourceIds: ["NCERT-MONEY-BANKING"],
+    sourceFactIds: ["reserve-lending-process", "multiple-deposit-expansion"],
   },
   {
     id: "npa-basic",
