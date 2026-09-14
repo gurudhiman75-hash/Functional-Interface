@@ -44,9 +44,10 @@ export function selectedFixtureLetters(fixture: WfmSelectedLetterFixture): strin
 
 export function selectedFixtureDifficulty(fixture: WfmSelectedLetterFixture): WfmDifficulty {
   const count = fixture.acceptedWords.length;
+  const selectedLength = selectedLetters(fixture).length;
   if (count <= 1) return "EASY";
   if (count === 2) return "MEDIUM";
-  return "HARD";
+  return selectedLength >= 4 ? "HARD" : "MEDIUM";
 }
 
 for (const fixture of WFM_SELECTED_LETTER_FIXTURES) {
