@@ -97,12 +97,15 @@ function priority(row: AuditRow): ExpansionPriority {
   if (row.qlId === "CAE-QL-001" && row.distinctSemanticForms === 394) return "COMPLETE_FINITE";
   if (row.qlId === "CAE-QL-002" && row.distinctCausalStates === 124) return "COMPLETE_FINITE";
   if (row.qlId === "CAE-QL-004" && row.distinctSemanticForms === 121) return "COMPLETE_FINITE";
-
-  // QL006 has two finite reviewed authorities. ql006-authority-coverage.test.ts
-  // independently enumerates 252 causal-distance forms plus 114 bridge-distance
-  // forms and proves reviewed routing reaches the complete 366-form union by
-  // seed 1,950. All six learner answer/operation kinds remain reachable.
   if (row.qlId === "CAE-QL-006" && row.distinctSemanticForms === 366) return "COMPLETE_FINITE";
+
+  // QL007 is a finite reviewed union of five calibrated authorities.
+  // ql007-authority-coverage.test.ts proves reviewed routing reaches all 142
+  // intended forms by seed 872: 6 legacy common-factor + 60 expanded common-
+  // factor + 40 Wave-4 parallel + 20 expanded false-causation + 16 legacy
+  // false-causation. COMMON_CAUSE/CORRELATION_ONLY and CO_MOVEMENT/POST_HOC
+  // remain reachable, with no EASY reviewed leakage.
+  if (row.qlId === "CAE-QL-007" && row.distinctCausalStates === 142) return "COMPLETE_FINITE";
 
   if (row.qlId === "CAE-QL-009") return "COMPLETE_FINITE";
 
@@ -131,15 +134,11 @@ for (const row of rows) lines.push(`| ${row.qlId} | ${row.distinctCausalStates} 
 
 for (const row of rows) {
   lines.push("", `## ${row.qlId}`, "", `**Novel causal states per 500-seed block:** ${row.blockNewStates.join(" → ")}`, "", `**Top families by frequency:** ${row.topFamilies.map(([id, count]) => `${id} (${count})`).join(", ")}`, "", "**Most repeated causal states:**", ...row.topStates.map(([id, count]) => `- ${count}× — \`${id}\``));
-
   if (row.qlId === "CAE-QL-001") lines.push("", "**Structural completeness:** 394/394 editorially safe direct-relation states are reachable across 16 families / 66 variants in both FOUR_WAY and FIVE_WAY reviewed profiles. Both profiles complete the safe state space by seed 2,627. The raw 396-edge-order combinations contain two rejected `drill` bridge→effect presentations; the reviewed quality guard excludes them. All three reviewed source-profile paths (Classic Bank five-relation, Punjab Police four-relation, and SSC direct-recognition) are also swept through the same deterministic safety facade. The frozen raw source authority remains unchanged underneath. No nominal family/variant expansion is warranted unless the source/exam contract adds a genuinely new direct-relation learner operation.");
-
   if (row.qlId === "CAE-QL-002") lines.push("", "**Structural completeness:** 124/124 theoretical states are reachable in both FOUR_WAY and FIVE_WAY reviewed profiles: 46 COMMON_CAUSE, 39 INDEPENDENT_EFFECTS, and 39 INDEPENDENT_CAUSES. Both profiles complete the theoretical state space by seed 866. No expansion is warranted unless the learner-operation contract itself changes.");
-
   if (row.qlId === "CAE-QL-004") lines.push("", "**Structural completeness:** 120/120 reviewed probable-effect forms are reachable: 33 base probable-effect states, 75 candidate-heavy probable-effect states, 6 legacy combination scenarios, and 6 expanded combination scenarios. The complete structural set is reached by seed 1,824. The audit's 121 semantic forms reflect one structural state that legitimately crosses a difficulty boundary, not an uncovered learner operation. No further nominal expansion is warranted unless the probable-effect contract gains a genuinely new operation.");
-
   if (row.qlId === "CAE-QL-006") lines.push("", "**Authority completeness:** the reviewed causal-distance contract contains 366 intended finite forms: 252 immediate/remote relationship forms plus 114 bridge-distance forms. `ql006-authority-coverage.test.ts` proves reviewed routing reaches all 366/366 by seed 1,950 while retaining all six answer/operation kinds: FIRST_EFFECT_SECOND_IMMEDIATE, SECOND_EFFECT_FIRST_IMMEDIATE, FIRST_EFFECT_SECOND_REMOTE, SECOND_EFFECT_FIRST_REMOTE, FIRST_BRIDGE and FINAL_BRIDGE. The early 5k plateau is therefore completion, not a reason for more scenario families.");
-
+  if (row.qlId === "CAE-QL-007") lines.push("", "**Authority completeness:** the reviewed correlation/false-causation contract contains 142 intended finite forms: 6 legacy common-factor, 60 expanded common-factor, 40 Wave-4 parallel, 20 expanded false-causation and 16 legacy false-causation. `ql007-authority-coverage.test.ts` proves reviewed routing reaches all 142/142 by seed 872. Both COMMON_CAUSE and CORRELATION_ONLY answers remain reachable, CO_MOVEMENT and POST_HOC false-causation patterns remain represented, and reviewed delivery has no EASY leakage. No further expansion is warranted unless CP007 gains a genuinely new learner operation.");
   if (row.qlId === "CAE-QL-009") lines.push("", "**Authority completeness:** the reviewed CP009 contract contains 283 intended structural forms: 108 legacy integrated forms (excluding the deliberately replaced frozen legacy common-cause surface), 140 saturation forms, and 35 expanded common-cause forms. `ql009-authority-coverage.test.ts` proves reviewed routing reaches all 283/283 forms by seed 7,734 while preserving all seven learner-visible operations. The ordinary 5,000-seed audit sees 279 because four rare forms occur later; this is sample-horizon truncation, not a content gap. No further expansion is warranted unless CP009 gains a genuinely new integrated learner operation.");
 }
 
