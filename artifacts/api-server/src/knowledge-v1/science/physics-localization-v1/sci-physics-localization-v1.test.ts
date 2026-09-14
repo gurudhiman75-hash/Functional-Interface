@@ -5,10 +5,21 @@ import {
   SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS,
   SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES,
 } from "./sci-physics-localization-generator-v1";
+import { SCI_PHYSICS_EXPLANATION_QUALITY_V2 } from "./sci-physics-explanation-quality-v2";
 
 const bannedEnglishWords = /\b(which|what|the|is|are|distance|displacement|speed|velocity|acceleration|force|mass|momentum|friction|pressure|work|energy|temperature|statement|correct|incorrect)\b/i;
 const deprecatedPunjabiAcceleration = /ਤ੍ਵਰਨ/u;
 const massAsWeightMisuse = /ਸਥਿਰ ਭਾਰ|ਭਾਰ ਅਤੇ ਵੇਗ|ਭਾਰ ਅਤੇ ਪ੍ਰਵੇਗ|ਪ੍ਰਤੀ ਇਕਾਈ ਭਾਰ|ਘਣਤਾ = ਭਾਰ\/|ਕੇਵਲ ਭਾਰ ਤੇ|ਭਾਰ ਬਦਲਦਾ|ਭਾਰ ਵਾਲੀ ਵਸਤੂ|ਭਾਰ ਘਟਾਉਂਦੀ ਹੈ|ਕੁੱਲ ਬਲ ਉਸ ਦੇ ਭਾਰ ਦੇ ਬਰਾਬਰ/u;
+
+assert.equal(Object.keys(SCI_PHYSICS_EXPLANATION_QUALITY_V2).length, 48, "Explanation-quality V2 must cover all 48 CP001-CP002 anchors");
+for (const [anchorId, localized] of Object.entries(SCI_PHYSICS_EXPLANATION_QUALITY_V2)) {
+  for (const locale of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES) {
+    const explanation = localized[locale];
+    const sentenceCount = (explanation.match(/[.!?।]/gu) ?? []).length;
+    assert.ok(explanation.length >= 70, `${anchorId}/${locale}: explanation is still too short`);
+    assert.ok(sentenceCount >= 2, `${anchorId}/${locale}: explanation must teach in at least two sentences`);
+  }
+}
 
 for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
   const english = generatePhysicsLocalizedCpV1(cpId, "en");
@@ -31,6 +42,11 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
       assert.equal(question.options[question.correctIndex], question.canonicalAnswer, `${question.questionId}: answer key`);
       assert.equal(question.reviewOnly, true, `${question.questionId}: review lock`);
       assert.equal(question.runtimeRegistered, false, `${question.questionId}: runtime lock`);
+      assert.ok(question.explanation.length >= 70, `${question.questionId}: rendered explanation is too short`);
+      if (question.family === "direct-anchor") {
+        const sentenceCount = (question.explanation.match(/[.!?।]/gu) ?? []).length;
+        assert.ok(sentenceCount >= 2, `${question.questionId}: direct explanation must contain at least two teaching sentences`);
+      }
       if (locale === "hi") {
         assert.match(question.stem + question.explanation, /[\u0900-\u097F]/u, `${question.questionId}: Hindi script missing`);
         assert.equal(bannedEnglishWords.test(question.stem + " " + question.explanation), false, `${question.questionId}: English leakage in Hindi`);
@@ -51,4 +67,4 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
     }
   }
 }
-console.log("SCI Physics localization V1 qualification passed: CP001-CP002 × EN/HI/PA");
+console.log("SCI Physics localization V1 qualification passed: CP001-CP002 × EN/HI/PA with explanation-depth V2");
