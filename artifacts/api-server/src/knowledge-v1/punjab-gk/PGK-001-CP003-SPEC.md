@@ -1,39 +1,40 @@
 # PGK-001 CP003 — Physical Regions & Relief
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-003 — Physical Regions & Relief`
 Permanent QLs: `PGK-001-QL-014` to `PGK-001-QL-020`
 
 ## Scope
 
-CP003 builds the physical-region and relief layer of Punjab. It covers broad regional classifications, representative region-place relations, elevation pattern, Punjab/Indo-Gangetic alluvial plains, Shivalik and Kandi foothill geography, piedmont/upland/floodplain landforms and compact synthesis questions.
+CP003 builds the physical-region and relief layer of Punjab. Learner-facing regional content uses the three broad regions `Majha`, `Doaba` and `Malwa`, together with representative place-region relations, elevation pattern, Punjab's alluvial plains, Shivalik/Kandi geography and selected upland/floodplain landforms.
 
-Rivers as named systems, doabs as river-bounded tracts, tributaries and river courses belong primarily to CP004. CP003 uses river names only when they are necessary to define a landform or an official regional example.
+Named river systems, doabs as river-bounded tracts, tributaries and river courses belong primarily to CP004. CP003 uses a river or doab name only where it is necessary to explain a physical landform.
 
-## Classification guard
+## Regional standard
 
-Punjab is described through more than one official regional scheme. The Government of Punjab `Know Punjab` portal groups the state into three broad regions: Majha, Doaba and Malwa. A PUDA Greater Mohali Regional Plan describes four natural regions: Majha, Doaba, Malwa and Puadh.
-
-Therefore learner-facing questions must never ask an unqualified `How many regions does Punjab have?`. The source/scheme must be clear whenever the count itself is tested.
+- Learner-facing Punjab-region questions use `Majha`, `Doaba` and `Malwa` only.
+- Do not introduce alternate regional schemes into questions, options or explanations.
+- Do not expose source names, portal names, document names or source citations in learner-facing text.
+- Source provenance remains internal in the fact library for verification and audit.
 
 ## Qualified coverage
 
-- Government of Punjab broad-region scheme: Majha, Doaba and Malwa
-- PUDA natural-region scheme: Majha, Doaba, Malwa and Puadh
-- Official planning examples: Tarn Taran — Majha; Jalandhar and Nawanshahr — Doaba; Ludhiana, Bathinda, Sangrur and Abohar — Malwa
-- Government of Punjab relief profile: average elevation about 300 m; around 180 m in the southwest and more than 500 m near the northeast border
-- Punjab plain as part of the great/Indo-Gangetic alluvial plain; generally flat to gently sloping and alluvial in origin
-- Shivalik foothill / Kandi relation, including the PAU Ballowal Saunkhri research station in the Shivalik foothills and the heart of Kandi area
-- Pathankot physical subdivision into sub-mountainous, Kandi and plain tracts in its official master plan
-- PUDA landform vocabulary: Shivalik Hills, Piedmont Plain, Old Alluvial Plain, Recent Alluvial Plain, upland plain, choe-infested foothill plain and floodplain
-- Floodplain relation: lower than upland/foothill surfaces and renewed by river silt where flooding occurs
+- Broad regions: Majha, Doaba and Malwa
+- Representative relations: Tarn Taran — Majha; Jalandhar and Nawanshahr — Doaba; Ludhiana, Bathinda, Sangrur and Abohar — Malwa
+- Average elevation about 300 m; roughly 180 m in the southwest and more than 500 m near the north-eastern border
+- Punjab plain as part of the Indo-Gangetic alluvial plain; generally flat to gently sloping
+- Shivalik foothill / Kandi relation
+- Pathankot physical tracts: Sub-Mountainous, Kandi and Plain
+- Shivalik Hills, Piedmont Plain, Old Alluvial Plain and Recent Alluvial Plain as useful physiographic vocabulary
+- Upland plain, choe-infested foothill plain and floodplain relief relations
+- Floodplain silt deposition and renewal of the soil surface
 
 ## QL design
 
 | QL | Focus | Difficulty |
 | --- | --- | --- |
-| PGK-001-QL-014 | Official regional classification schemes | Easy / Medium |
+| PGK-001-QL-014 | Majha, Doaba and Malwa regions | Easy / Medium |
 | PGK-001-QL-015 | Region-place identification | Easy / Medium |
 | PGK-001-QL-016 | Elevation and relief pattern | Easy / Medium |
 | PGK-001-QL-017 | Punjab alluvial plain | Medium |
@@ -45,24 +46,23 @@ Each QL exposes six semantic payloads, for 42 review questions total.
 
 ## Stem rule
 
-Use the CP002-approved exam style from the first draft: direct recall, region identification, correct/incorrect pairs, compact numbered statements and relation questions. Do not use riddle-style stems such as `This area is... identify it` or database/source-note language.
+Use direct Punjab recruitment-exam language: short recall, place-region identification, correct/incorrect pairs, chronology/ordering where relevant, compact numbered statements and relational questions. Do not use source-note wording, document citations or riddle-style stems.
 
 ## Distractor rule
 
-- Region questions use region names as distractors.
-- Place-region questions use plausible Punjab regions.
+- Region questions should stay within recognisable Punjab geography terms.
+- Place-region distractors must remain plausible.
 - Relief questions use physically plausible alternatives.
-- Landform questions must not mix unrelated administrative or cultural terms.
-- Difficulty must come from relations and classification distinctions, not obscure local trivia.
+- Difficulty comes from relations and synthesis, not obscure local trivia.
 
 ## Explanation rule
 
-Use the CP002 V3 standard: decisive fact first, followed by one useful relation or distinction. Normally 1–2 short natural sentences. No `correct option`, source-note tone, generator language or routine option analysis.
+Use the CP002 V3 standard: decisive fact first, followed by one useful relation or distinction. Normally 1–2 short natural sentences. No source-note tone, generator language, option analysis or document citations.
 
-## Source authority
+## Internal source authority
 
-Primary sources are Government of Punjab and Punjab Urban Planning & Development Authority documents. Punjab Agricultural University is used for the Kandi/Shivalik foothill relation. Source labels remain in the fact library; learner wording stays natural.
+Primary evidence remains stored internally from Punjab government/official planning documents and Punjab Agricultural University where relevant. These source labels are for verification only and must not appear in learner-facing questions or explanations.
 
 ## Lifecycle
 
-CP003 is review-only. It must not be registered for runtime Question Studio generation, Question Bank writes, tests, mocks or public publication before explicit human approval.
+CP003 V2 is review-only. It must not be registered for runtime Question Studio generation, Question Bank writes, tests, mocks or public publication before explicit human approval.
