@@ -4,6 +4,7 @@ import { CAE_001_SATURATION_WAVE4_FAMILIES, withCae001SaturationWave4 } from "./
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { generateReviewedCp001Question } from "./cp001-reviewed-quality-guard.ts";
 import { generateReviewedCaeCombinationQuestion } from "./cp003004-reviewed-polish.ts";
+import { generateExpandedCaeCombinationQuestion } from "./cp003004-expanded-combination.ts";
 import { generateCp005CompetingQuestion } from "./cp005-competing-explanations.ts";
 import { generateCp005EvidenceFitQuestion } from "./cp005-evidence-fit.ts";
 import { generateCp006CausalDistanceQuestion } from "./cp006-causal-distance.ts";
@@ -66,7 +67,11 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   const seed = input.seed >>> 0;
   if (input.qlId === "CAE-QL-001" && defaultFourWay) return generateReviewedCp001Question({ locale: input.locale, seed: input.seed });
   if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 5 === 4) return reviewedSaturationQuestion(input, true);
-  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 3 === 0) return generateReviewedCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
+  if (defaultFourWay && (input.qlId === "CAE-QL-003" || input.qlId === "CAE-QL-004") && seed % 3 === 0) {
+    return seed % 6 === 0
+      ? generateExpandedCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed })
+      : generateReviewedCaeCombinationQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed });
+  }
   if (input.qlId === "CAE-QL-005" && defaultFourWay) {
     if (seed % 5 === 4) return reviewedSaturationQuestion(input, true);
     if (seed % 10 === 1 || seed % 10 === 3 || seed % 10 === 6 || seed % 10 === 8) {
