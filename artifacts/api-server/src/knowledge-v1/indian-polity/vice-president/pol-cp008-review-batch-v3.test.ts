@@ -20,7 +20,7 @@ describe("POL-CP-008 Vice-President V3 explanation quality", () => {
   it("uses question-specific teaching explanations", () => {
     for (const q of questions) {
       expect(q.explanation.trim().split(/\s+/).length).toBeGreaterThanOrEqual(18);
-      expect(q.explanation.trim().toLowerCase()).not.toBe(q.canonicalAnswer.trim().toLowerCase());
+      expect(q.explanation).toContain(q.canonicalAnswer);
     }
     for (const qlId of new Set(questions.map(q => q.qlId))) {
       const group = questions.filter(q => q.qlId === qlId);
@@ -35,6 +35,6 @@ describe("POL-CP-008 Vice-President V3 explanation quality", () => {
     expect(text).toMatch(/Rajya Sabha/i);
     expect(text).toMatch(/not impeached/i);
     expect(text).toMatch(/fresh five-year term/i);
-    expect(text).toMatch(/six-month limit/i);
+    expect(text).toMatch(/as soon as possible/i);
   });
 });
