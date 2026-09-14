@@ -37,6 +37,11 @@ Excluded from this CP:
 - detailed insurance, pension and mutual-fund institutions reserved for later financial-market coverage;
 - international institutions reserved for ECO-CP-021.
 
+## Review note
+
+- NHB remains a housing-finance development institution, but HFC regulatory powers are assigned to RBI after the 2019 transfer.
+- DFI describes a development-finance mandate, while NBFC describes a non-banking financial-company legal/regulatory category; they are not treated as synonyms.
+
 ## Promotion steps
 
 1. Human review of English questions and explanations.
