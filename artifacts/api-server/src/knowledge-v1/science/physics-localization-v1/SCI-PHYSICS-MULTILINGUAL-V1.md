@@ -26,7 +26,9 @@ Formulas, standard symbols and units such as `F = ma`, `kg`, `m/s`, `m/s²`, `SI
 ## Editorial rules
 
 - Native stems should read like real exam questions, not literal English translations.
-- Explanations stay short and useful.
+- Explanations must teach the reason, relation, formula, contrast or application behind the answer instead of merely restating the correct option.
+- Every base anchor explanation in English, Hindi and Punjabi must contain at least two meaningful teaching sentences and pass the automated minimum-content gate.
+- Numerical explanations must show the relevant relation and substitution/calculation where the question requires it.
 - Hindi uses Devanagari; Punjabi uses Gurmukhi.
 - No unnecessary English prose may leak into native questions.
 - Scientific symbols, formulae, standard unit abbreviations and Roman statement labels `I/II` are allowed.
