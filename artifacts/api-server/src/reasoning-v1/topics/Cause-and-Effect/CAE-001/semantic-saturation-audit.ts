@@ -33,23 +33,11 @@ function increment(counter: Counter, key: string): number {
 }
 
 function semanticForm(question: GeneratedCaeQuestion): string {
-  // Presentation order and locale are intentionally excluded. This fingerprint
-  // measures learner-visible semantic state rather than cosmetic shuffling.
   const operation = question.causalStructure.split(":").slice(0, 3).join(":");
-  return [
-    question.qlId,
-    question.projectionId,
-    operation,
-    question.scenarioFamilyId,
-    question.scenarioVariantId,
-    question.answerId,
-    question.difficulty,
-  ].join("|");
+  return [question.qlId, question.projectionId, operation, question.scenarioFamilyId, question.scenarioVariantId, question.answerId, question.difficulty].join("|");
 }
 
-function pct(value: number): string {
-  return `${(value * 100).toFixed(2)}%`;
-}
+function pct(value: number): string { return `${(value * 100).toFixed(2)}%`; }
 
 function auditQl(qlId: CaeQlId): AuditRow {
   const stateCounts: Counter = new Map();
@@ -73,7 +61,6 @@ function auditQl(qlId: CaeQlId): AuditRow {
     seenStates.add(q.causalStateId);
     if (stateCount === 2 && firstCollisionSeed === null) firstCollisionSeed = seed;
     cumulativeUniqueBySeed.push(seenStates.size);
-
     if ((seed + 1) % BLOCK === 0) {
       blockNewStates.push(seenStates.size - blockStartUnique);
       blockStartUnique = seenStates.size;
@@ -107,35 +94,16 @@ function auditQl(qlId: CaeQlId): AuditRow {
 }
 
 function priority(row: AuditRow): ExpansionPriority {
-  // QL001 is intentionally finite at the reviewed learner-semantic layer.
-  // ql001-structural-completeness.test.ts enumerates 394 safe direct states
-  // across 16 families / 66 variants and proves FOUR_WAY + FIVE_WAY both reach
-  // all 394. Strict causalStateId count can be higher because deterministic
-  // editorial remap markers preserve external seed identity.
   if (row.qlId === "CAE-QL-001" && row.distinctSemanticForms === 394) return "COMPLETE_FINITE";
-
-  // QL002 is intentionally finite: its graph-native COMMON_OR_INDEPENDENT
-  // authority has 124 theoretical states across the current 21-family corpus.
-  // ql002-structural-completeness.test.ts proves both FOUR_WAY and FIVE_WAY
-  // reviewed generation reach all 124 states (46 common-cause, 39 independent
-  // effects, 39 independent causes). Early saturation is therefore completion,
-  // not evidence that more families should be added.
   if (row.qlId === "CAE-QL-002" && row.distinctCausalStates === 124) return "COMPLETE_FINITE";
-
-  // QL004's probable-effect contract has an exact reviewed structural ceiling.
-  // ql004-structural-coverage.test.ts proves all 120 forms are reachable:
-  // 33 base probable-effect states + 75 candidate-heavy states + 6 legacy
-  // combination scenarios + 6 expanded combination scenarios. The generic
-  // semantic fingerprint reports 121 because one structural state legitimately
-  // appears at two difficulty levels; that is not a missing-content signal.
   if (row.qlId === "CAE-QL-004" && row.distinctSemanticForms === 121) return "COMPLETE_FINITE";
 
-  // QL009 has a finite reviewed authority union rather than an open-ended
-  // semantic surface. ql009-authority-coverage.test.ts independently sweeps the
-  // three intended authorities and proves reviewed routing reaches the complete
-  // 283-form union: 108 legacy integrated + 140 saturation + 35 expanded
-  // common-cause forms. The ordinary 5k audit sees only 279 because the last
-  // four forms appear after seed 5,000; full coverage is reached by seed 7,734.
+  // QL006 has two finite reviewed authorities. ql006-authority-coverage.test.ts
+  // independently enumerates 252 causal-distance forms plus 114 bridge-distance
+  // forms and proves reviewed routing reaches the complete 366-form union by
+  // seed 1,950. All six learner answer/operation kinds remain reachable.
+  if (row.qlId === "CAE-QL-006" && row.distinctSemanticForms === 366) return "COMPLETE_FINITE";
+
   if (row.qlId === "CAE-QL-009") return "COMPLETE_FINITE";
 
   const finalBlockShare = row.distinctCausalStates === 0 ? 0 : row.final500NewStates / row.distinctCausalStates;
@@ -159,64 +127,27 @@ const lines: string[] = [
   "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|",
 ];
 
-for (const row of rows) {
-  lines.push(`| ${row.qlId} | ${row.distinctCausalStates} | ${row.distinctSemanticForms} | ${row.distinctItemVariants} | ${row.families} | ${row.variants} | ${row.firstCollisionSeed ?? "none"} | ${row.seedAt95PercentFinalStateCoverage} | ${row.final500NewStates} | ${pct(row.topStateShare)} | **${priority(row)}** |`);
-}
+for (const row of rows) lines.push(`| ${row.qlId} | ${row.distinctCausalStates} | ${row.distinctSemanticForms} | ${row.distinctItemVariants} | ${row.families} | ${row.variants} | ${row.firstCollisionSeed ?? "none"} | ${row.seedAt95PercentFinalStateCoverage} | ${row.final500NewStates} | ${pct(row.topStateShare)} | **${priority(row)}** |`);
 
 for (const row of rows) {
-  lines.push(
-    "",
-    `## ${row.qlId}`,
-    "",
-    `**Novel causal states per 500-seed block:** ${row.blockNewStates.join(" → ")}`,
-    "",
-    `**Top families by frequency:** ${row.topFamilies.map(([id, count]) => `${id} (${count})`).join(", ")}`,
-    "",
-    "**Most repeated causal states:**",
-    ...row.topStates.map(([id, count]) => `- ${count}× — \`${id}\``),
-  );
-  if (row.qlId === "CAE-QL-001") {
-    lines.push(
-      "",
-      "**Structural completeness:** 394/394 editorially safe direct-relation states are reachable across 16 families / 66 variants in both FOUR_WAY and FIVE_WAY reviewed profiles. Both profiles complete the safe state space by seed 2,627. The raw 396-edge-order combinations contain two rejected `drill` bridge→effect presentations; the reviewed quality guard excludes them. All three reviewed source-profile paths (Classic Bank five-relation, Punjab Police four-relation, and SSC direct-recognition) are also swept through the same deterministic safety facade. The frozen raw source authority remains unchanged underneath. No nominal family/variant expansion is warranted unless the source/exam contract adds a genuinely new direct-relation learner operation.",
-    );
-  }
-  if (row.qlId === "CAE-QL-002") {
-    lines.push(
-      "",
-      "**Structural completeness:** 124/124 theoretical states are reachable in both FOUR_WAY and FIVE_WAY reviewed profiles: 46 COMMON_CAUSE, 39 INDEPENDENT_EFFECTS, and 39 INDEPENDENT_CAUSES. Both profiles complete the theoretical state space by seed 866. No expansion is warranted unless the learner-operation contract itself changes.",
-    );
-  }
-  if (row.qlId === "CAE-QL-004") {
-    lines.push(
-      "",
-      "**Structural completeness:** 120/120 reviewed probable-effect forms are reachable: 33 base probable-effect states, 75 candidate-heavy probable-effect states, 6 legacy combination scenarios, and 6 expanded combination scenarios. The complete structural set is reached by seed 1,824. The audit's 121 semantic forms reflect one structural state that legitimately crosses a difficulty boundary, not an uncovered learner operation. No further nominal expansion is warranted unless the probable-effect contract gains a genuinely new operation.",
-    );
-  }
-  if (row.qlId === "CAE-QL-009") {
-    lines.push(
-      "",
-      "**Authority completeness:** the reviewed CP009 contract contains 283 intended structural forms: 108 legacy integrated forms (excluding the deliberately replaced frozen legacy common-cause surface), 140 saturation forms, and 35 expanded common-cause forms. `ql009-authority-coverage.test.ts` proves reviewed routing reaches all 283/283 forms by seed 7,734 while preserving all seven learner-visible operations. The ordinary 5,000-seed audit sees 279 because four rare forms occur later; this is sample-horizon truncation, not a content gap. No further expansion is warranted unless CP009 gains a genuinely new integrated learner operation.",
-    );
-  }
+  lines.push("", `## ${row.qlId}`, "", `**Novel causal states per 500-seed block:** ${row.blockNewStates.join(" → ")}`, "", `**Top families by frequency:** ${row.topFamilies.map(([id, count]) => `${id} (${count})`).join(", ")}`, "", "**Most repeated causal states:**", ...row.topStates.map(([id, count]) => `- ${count}× — \`${id}\``));
+
+  if (row.qlId === "CAE-QL-001") lines.push("", "**Structural completeness:** 394/394 editorially safe direct-relation states are reachable across 16 families / 66 variants in both FOUR_WAY and FIVE_WAY reviewed profiles. Both profiles complete the safe state space by seed 2,627. The raw 396-edge-order combinations contain two rejected `drill` bridge→effect presentations; the reviewed quality guard excludes them. All three reviewed source-profile paths (Classic Bank five-relation, Punjab Police four-relation, and SSC direct-recognition) are also swept through the same deterministic safety facade. The frozen raw source authority remains unchanged underneath. No nominal family/variant expansion is warranted unless the source/exam contract adds a genuinely new direct-relation learner operation.");
+
+  if (row.qlId === "CAE-QL-002") lines.push("", "**Structural completeness:** 124/124 theoretical states are reachable in both FOUR_WAY and FIVE_WAY reviewed profiles: 46 COMMON_CAUSE, 39 INDEPENDENT_EFFECTS, and 39 INDEPENDENT_CAUSES. Both profiles complete the theoretical state space by seed 866. No expansion is warranted unless the learner-operation contract itself changes.");
+
+  if (row.qlId === "CAE-QL-004") lines.push("", "**Structural completeness:** 120/120 reviewed probable-effect forms are reachable: 33 base probable-effect states, 75 candidate-heavy probable-effect states, 6 legacy combination scenarios, and 6 expanded combination scenarios. The complete structural set is reached by seed 1,824. The audit's 121 semantic forms reflect one structural state that legitimately crosses a difficulty boundary, not an uncovered learner operation. No further nominal expansion is warranted unless the probable-effect contract gains a genuinely new operation.");
+
+  if (row.qlId === "CAE-QL-006") lines.push("", "**Authority completeness:** the reviewed causal-distance contract contains 366 intended finite forms: 252 immediate/remote relationship forms plus 114 bridge-distance forms. `ql006-authority-coverage.test.ts` proves reviewed routing reaches all 366/366 by seed 1,950 while retaining all six answer/operation kinds: FIRST_EFFECT_SECOND_IMMEDIATE, SECOND_EFFECT_FIRST_IMMEDIATE, FIRST_EFFECT_SECOND_REMOTE, SECOND_EFFECT_FIRST_REMOTE, FIRST_BRIDGE and FINAL_BRIDGE. The early 5k plateau is therefore completion, not a reason for more scenario families.");
+
+  if (row.qlId === "CAE-QL-009") lines.push("", "**Authority completeness:** the reviewed CP009 contract contains 283 intended structural forms: 108 legacy integrated forms (excluding the deliberately replaced frozen legacy common-cause surface), 140 saturation forms, and 35 expanded common-cause forms. `ql009-authority-coverage.test.ts` proves reviewed routing reaches all 283/283 forms by seed 7,734 while preserving all seven learner-visible operations. The ordinary 5,000-seed audit sees 279 because four rare forms occur later; this is sample-horizon truncation, not a content gap. No further expansion is warranted unless CP009 gains a genuinely new integrated learner operation.");
 }
 
 const high = rows.filter((row) => priority(row) === "HIGH").map((row) => row.qlId);
 const medium = rows.filter((row) => priority(row) === "MEDIUM").map((row) => row.qlId);
 const low = rows.filter((row) => priority(row) === "LOW").map((row) => row.qlId);
 const completeFinite = rows.filter((row) => priority(row) === "COMPLETE_FINITE").map((row) => row.qlId);
-lines.push(
-  "",
-  "## Expansion decision",
-  "",
-  `- **High priority:** ${high.join(", ") || "none"}`,
-  `- **Medium priority:** ${medium.join(", ") || "none"}`,
-  `- **Low priority:** ${low.join(", ") || "none"}`,
-  `- **Structurally complete finite:** ${completeFinite.join(", ") || "none"}`,
-  "",
-  "Interpretation: high-priority QLs should receive new semantic structures/families before cosmetic variants. Medium-priority QLs may benefit from targeted family/operation expansion. Low-priority QLs should not be expanded merely to increase nominal counts. COMPLETE_FINITE QLs should remain frozen unless the exam/source-profile contract adds a genuinely new learner operation.",
-  "",
-);
+lines.push("", "## Expansion decision", "", `- **High priority:** ${high.join(", ") || "none"}`, `- **Medium priority:** ${medium.join(", ") || "none"}`, `- **Low priority:** ${low.join(", ") || "none"}`, `- **Structurally complete finite:** ${completeFinite.join(", ") || "none"}`, "", "Interpretation: high-priority QLs should receive new semantic structures/families before cosmetic variants. Medium-priority QLs may benefit from targeted family/operation expansion. Low-priority QLs should not be expanded merely to increase nominal counts. COMPLETE_FINITE QLs should remain frozen unless the exam/source-profile contract adds a genuinely new learner operation.", "");
 
 const report = lines.join("\n");
 writeFileSync("dist/reasoning-v1/cae-001/CAE-001-SEMANTIC-SATURATION-AUDIT.md", `${report}\n`);
