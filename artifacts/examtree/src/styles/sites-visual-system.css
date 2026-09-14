@@ -20,7 +20,8 @@ body { background: var(--site-page); color: var(--site-ink); }
 .home-reference-footer { background: var(--site-navy) !important; }
 
 /* Home */
-.home-page { min-height: 100%; overflow: hidden; background: var(--site-page); color: var(--site-ink); font-family: Inter, "Examtree Geist", Arial, sans-serif; }
+.home-page, .et-page-surface { font-family: Manrope, Inter, "Examtree Geist", Arial, sans-serif; }
+.home-page { min-height: 100%; overflow: hidden; background: var(--site-page); color: var(--site-ink); }
 .home-page button { font: inherit; }
 .home-hero { max-width: 1180px; margin: 0 auto; min-height: 550px; padding: 68px 24px 54px; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 55px; position: relative; }
 .hero-glow { position: absolute; border-radius: 50%; filter: blur(70px); z-index: 0; pointer-events: none; }
