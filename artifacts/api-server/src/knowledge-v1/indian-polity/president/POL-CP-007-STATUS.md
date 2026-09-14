@@ -1,7 +1,7 @@
 # POL-CP-007 — President Status
 
 **Branch:** `feature/polity-cp007-president`  
-**Lifecycle:** REVIEW CANDIDATE — HELPFUL EXPLANATIONS V3  
+**Lifecycle:** REVIEW CANDIDATE — CLEAN EXPLANATIONS V4  
 **Runtime registration:** BLOCKED pending human approval
 
 ## Implemented
@@ -22,9 +22,9 @@
 - Article 123 Ordinance rules
 - 22 genuine QLs
 - 80-question review batch target
-- V2 simplified-language layer
-- canonical V3 question-specific explanation layer
-- explanation-specificity, structural and provenance QA
+- V2 simplified-language stems
+- V4 concise question-specific explanations
+- structural, provenance and explanation-clutter QA
 
 ## Review profile
 
@@ -32,16 +32,17 @@
 - 42 Medium
 - 14 Hard
 
-## V3 explanation policy
+## V4 explanation policy
 
-- state the exact correct answer first
-- explain the constitutional rule that makes it correct
-- add one useful distinction or trap where it helps understanding
-- do not reuse one generic paragraph across several questions in the same QL
-- repeated answer values such as `No` or identical impeachment majorities must still receive question-specific explanations
-- use plain language and short sentences
-- avoid option-by-option analysis unless genuinely needed
-- minimum explanation floor: 18 words
+- no stock opening such as `Correct answer:`
+- no generic closing sentence
+- answer the exact question directly
+- simple fact questions normally use one short sentence
+- tricky questions may use a second sentence only when it adds a useful distinction
+- every explanation in the batch must be unique
+- explanation length target: 6–24 words
+- blocked clutter includes `This is the exact`, `nearby Articles`, `Match the topic`, and `Remember the word`
+- no unnecessary option-by-option analysis
 
 ## Gated
 
@@ -50,4 +51,4 @@
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V3 is approved.
+These remain blocked until English V4 is approved.
