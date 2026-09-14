@@ -8,7 +8,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 2. `ECO-CP-002` Economic Systems & Sectors — REVIEW CANDIDATE
 3. `ECO-CP-003` National Income & Aggregates — REVIEW CANDIDATE
 4. `ECO-CP-004` National Income Measurement in India — REVIEW CANDIDATE
-5. `ECO-CP-005` Inflation & Price Concepts — REVIEW CANDIDATE
+5. `ECO-CP-005` Inflation & Price Concepts — REVIEW CANDIDATE V2
 6. `ECO-CP-006` Employment, Unemployment & Poverty
 7. `ECO-CP-007` Money & Monetary System
 8. `ECO-CP-008` Reserve Bank of India
@@ -34,5 +34,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Each CP is review-only until English editorial approval.
 - Runtime registration is a separate promotion step after approval.
 - Facts are locale-neutral; localisation is layered later.
-- Questions must use short exam-like stems, plausible same-domain distractors and simple beginner-friendly explanations.
+- Questions must use short exam-like stems and plausible same-domain distractors.
+- Explanations must be simple and beginner-friendly but should normally give the deciding rule plus a short reason or application; they must not merely repeat the correct option.
+- Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
 - Difficulty is assigned per generated variant under `ECO-DIFFICULTY-POLICY.md`, not permanently by QL or question format.
