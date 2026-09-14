@@ -97,7 +97,7 @@ for (let seed = 0; seed < 500; seed += 1) {
     assert.ok(question.causalStateId.includes("wave:4"));
   }
 }
-assert.ok(cp007CommonCount >= 55 && cp007CommonCount <= 70, `CAE-QL-007 expanded common-factor share drifted (${cp007CommonCount}/500).`);
+assert.equal(cp007CommonCount, 94, `CAE-QL-007 expanded common-factor share drifted (${cp007CommonCount}/500).`);
 assert.ok(cp007ParallelCount >= 120 && cp007ParallelCount <= 130, `CAE-QL-007 Wave 4 parallel share drifted (${cp007ParallelCount}/500).`);
 
 let cp008SaturationCount = 0;
@@ -161,7 +161,9 @@ for (const qlId of controlledHardQls) {
 }
 
 for (let seed = 0; seed < 104; seed += 1) {
-  if (seed % 8 !== 0 && seed % 8 !== 2 && seed % 8 !== 6) continue;
+  const commonSlot = seed % 8 === 0 || seed % 16 === 12;
+  const parallelSlot = seed % 8 === 2 || seed % 8 === 6;
+  if (!commonSlot && !parallelSlot) continue;
   const en = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", locale: "en-IN", seed });
   const hi = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", locale: "hi-IN", seed });
   const pa = generateReviewedCaeQuestion({ qlId: "CAE-QL-007", locale: "pa-IN", seed });
@@ -205,4 +207,4 @@ for (let seed = 2; seed < 104; seed += 4) {
   assert.equal(pa.causalStructure, en.causalStructure);
 }
 
-console.log("CAE-001 reviewed saturation QA passed: QL003/004/005 guarded; CP006 bridge-distance operations calibrated; CP007 Wave 4 common/parallel expansion calibrated; CP008 specialised contract preserved; CP009 expanded common-cause path calibrated alongside six existing modes.");
+console.log("CAE-001 reviewed saturation QA passed: QL003/004/005 guarded; CP006 bridge-distance operations calibrated; CP007 final common/parallel/false-causation allocation calibrated; CP008 specialised contract preserved; CP009 expanded common-cause path calibrated alongside six existing modes.");
