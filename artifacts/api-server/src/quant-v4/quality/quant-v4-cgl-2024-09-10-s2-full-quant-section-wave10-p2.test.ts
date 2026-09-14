@@ -101,12 +101,12 @@ assert.equal((1.5 ** 2 - 1) * 100, 125); // Q65.
 assert.equal(45 + 65, 110); // Q66 exterior angle.
 assert.ok(Math.abs((200 - 100) / 0.3 - 1000 / 3) < 1e-12); // Q67.
 assert.equal(((-1) ** 77 - 1 + 78) % 78, 76); // Q68.
-assert.equal(26_160 / (1.18 + 1.12 + 1.06 + 1), 6_000); // Q69.
+assert.ok(Math.abs(26_160 / (1.18 + 1.12 + 1.06 + 1) - 6_000) < 1e-9); // Q69.
 assert.equal(4, 4); // Q70: p=2sinA, q=cosA => p²+4q²=4.
 assert.equal([35, 50, 70, 90, 40, 60, 30].filter((value) => value > 375 / 7).length, 3); // Q72.
 assert.equal(2 * Math.sqrt((5 * Math.sqrt(13)) ** 2 - 10 ** 2), 30); // Q73.
 assert.deepEqual([(100 + 20) / 2, (100 - 20) / 2], [60, 40]); // Q74.
-assert.equal(21 - (6 + 7 - (3.22 - 1.1 * 0.2)), 11); // Q75.
+assert.ok(Math.abs(21 - (6 + 7 - (3.22 - 1.1 * 0.2)) - 11) < 1e-12); // Q75.
 
 assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 307);
 const cgl = listRegisteredCountablePyqObservations({ examIds: ["SSC_CGL_TIER_I"] });
