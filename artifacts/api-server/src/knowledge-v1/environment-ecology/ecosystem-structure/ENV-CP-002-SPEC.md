@@ -2,8 +2,9 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-002 Ecosystem Structure  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Approved review version:** V1  
+**Runtime registration:** eligible for shared Environment package binding  
 **Languages in this checkpoint:** English review surface only; canonical facts are locale-neutral.
 
 ## Scope
@@ -36,7 +37,7 @@ Explicitly deferred:
 7. Review distractors stay inside the same conceptual neighbourhood and avoid obvious joke options where possible.
 8. Standard instruction stems may repeat, but the underlying tested relation must not be duplicated.
 9. No question depends on mutable counts, notifications or current conservation status.
-10. All review questions remain `runtimeRegistered: false` until human approval.
+10. V1 is the approved learner-facing wording baseline.
 
 ## QL inventory
 
@@ -55,21 +56,23 @@ Explicitly deferred:
 | ENV-002-QL-011 | Three-statement count | evaluate three concepts | Hard |
 | ENV-002-QL-012 | Applied ecosystem structure | apply roles to a short scenario | Hard |
 
-## Review gate
+## Approved review gate
 
-Before approval:
+The approved V1 surface satisfies:
 - exactly 48 review questions;
 - four questions per QL;
 - Easy, Medium and Hard bands represented;
 - all four correct-option positions represented inside every four-question QL set;
 - four unique options per question;
-- canonical answer must equal the option at `correctIndex`;
-- source IDs and source-fact IDs required;
+- canonical answer equals the option at `correctIndex`;
+- source IDs and source-fact IDs retained;
 - no duplicate semantic question signatures;
-- repeated standard instruction stems are allowed when the tested answer/relation differs;
+- repeated standard instruction stems allowed when the tested relation differs;
 - no `associated with` filler;
 - no option-by-option explanation clutter;
-- human review confirms exam realism, factual accuracy and wording quality.
+- project-owner approval on 2026-09-14.
+
+Review-only artifacts may continue to carry `runtimeRegistered: false`; production/package registration is handled separately from review rendering.
 
 ## Source policy
 
