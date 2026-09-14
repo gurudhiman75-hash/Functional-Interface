@@ -15,6 +15,7 @@ import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
 import { generateCp008SaturationQuestion } from "./cp008-saturation-adapter.ts";
 import { generateReviewedCp009Question } from "./cp009-final-quality-guard.ts";
 import { generateCp009SaturationQuestion } from "./cp009-saturation-adapter.ts";
+import { generateCp009ExpandedCommonCauseQuestion } from "./cp009-expanded-common-cause.ts";
 import { CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS } from "./saturation-candidate-authorities.ts";
 import type { CaeLocale, CaeProjectionAuthority, CaeQuestionProfile, GeneratedCaeQuestion } from "./types.ts";
 
@@ -69,7 +70,11 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
     return generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) return seed % 8 === 7 ? generateCp008SaturationQuestion({ locale: input.locale, seed: input.seed }) : generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
-  if (input.qlId === "CAE-QL-009" && defaultFourWay) return seed % 8 === 6 ? generateCp009SaturationQuestion({ locale: input.locale, seed: input.seed }) : generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
+  if (input.qlId === "CAE-QL-009" && defaultFourWay) {
+    if (seed % 8 === 2) return generateCp009ExpandedCommonCauseQuestion({ locale: input.locale, seed: input.seed });
+    if (seed % 8 === 6) return generateCp009SaturationQuestion({ locale: input.locale, seed: input.seed });
+    return generateReviewedCp009Question({ locale: input.locale, seed: input.seed });
+  }
   const graphNativeSaturationEligible = input.qlId === "CAE-QL-001" || input.qlId === "CAE-QL-002";
   return graphNativeSaturationEligible ? saturatedBase(input) : generateCaeQuestion(input);
 }
