@@ -1,11 +1,13 @@
 # ECO-CP-008 Status
 
 **CP:** ECO-CP-008 Reserve Bank of India  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
-## Implemented
+## Approved English baseline
+
+Human review approved the V1 English surface. The following are now frozen as the accepted English behavior:
 
 - official RBI source registry;
 - canonical history, function and currency-responsibility fact pools;
@@ -35,8 +37,6 @@ Excluded from this CP:
 
 ## Promotion steps
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behavior.
-4. Add localisation layer in the localisation phase.
-5. Register with runtime/Question Studio only after separate promotion approval.
+1. English V1 review approved and frozen.
+2. Add localisation layer in the localisation phase.
+3. Register with runtime/Question Studio only after separate promotion approval.
