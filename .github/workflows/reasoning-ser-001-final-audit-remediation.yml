@@ -53,6 +53,8 @@ jobs:
             --noImplicitReturns \
             --skipLibCheck \
             --types node \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/audited-candidate.ts \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/audited-candidate.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008-mixed.test.ts \
             src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/export-review.ts \
@@ -68,11 +70,17 @@ jobs:
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008.test.ts | tee ser-cp008-final-audit.log
 
-      - name: Prove CP008 mixed-series source saturation and stress
+      - name: Prove CP008 mixed source experiments and stress
         shell: bash
         run: |
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/ser-cp-008-mixed.test.ts | tee ser-cp008-mixed-audit.log
+
+      - name: Prove audited CP008 Series ownership selection
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/audited-candidate.test.ts | tee ser-cp008-audited-ownership.log
 
       - name: Prove audited CP009 SSC number-series saturation and ownership rejection
         shell: bash
@@ -104,7 +112,7 @@ jobs:
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/ser-cp-007-question-studio-integration.test.ts | tee ser-cp007-activation-continuity.log
 
-      - name: Export CP008 manual review pack
+      - name: Export audited CP008 manual review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-008-AUDIT-REMEDIATION/export-review.ts > SER-CP-008-FINAL-AUDIT-REVIEW.md
 
       - name: Export audited CP009 number-series manual review pack
@@ -121,6 +129,7 @@ jobs:
           path: |
             ser-cp008-final-audit.log
             ser-cp008-mixed-audit.log
+            ser-cp008-audited-ownership.log
             ser-cp009-number-series-audit.log
             ser-bns-ownership-boundary.log
             ser-cp007-generated-difficulty.log
