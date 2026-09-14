@@ -16,14 +16,17 @@ describe("ECO-CP-005 inflation and price concepts review batch", () => {
 
   it("contains the core static concept inventory", () => {
     const terms = new Set(ECO_CP005_CONCEPT_ROWS_V1.map((row) => row.term));
-    expect(terms).toEqual(expect.objectContaining ? terms : terms);
-    expect(terms.has("Inflation")).toBe(true);
-    expect(terms.has("Deflation")).toBe(true);
-    expect(terms.has("Disinflation")).toBe(true);
-    expect(terms.has("Demand-pull inflation")).toBe(true);
-    expect(terms.has("Cost-push inflation")).toBe(true);
-    expect(terms.has("Headline inflation")).toBe(true);
-    expect(terms.has("Core inflation")).toBe(true);
+    for (const term of [
+      "Inflation",
+      "Deflation",
+      "Disinflation",
+      "Demand-pull inflation",
+      "Cost-push inflation",
+      "Headline inflation",
+      "Core inflation",
+    ]) {
+      expect(terms.has(term)).toBe(true);
+    }
   });
 
   it("keeps CPI, WPI and GDP deflator distinct", () => {
