@@ -1,6 +1,6 @@
 # GEO-PHY-001 — Indian Physiography & Physical Divisions
 
-Status: FOUNDATION BLUEPRINT V1
+Status: CONTENT CLOSED V1
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-PHY-001`
@@ -29,7 +29,7 @@ Primary educational authority: NCERT `Contemporary India-I`, Chapter 2 — Physi
 | CP010 | Plateau–Hill–State Associations | QL082–QL090 |
 | CP011 | Comparative Physiography & Classification | QL091–QL099 |
 | CP012 | Multi-fact / Statement / Match Integration | QL100–QL108 |
-| CP013 | Mixed Physiography Mastery | no new permanent QLs |
+| CP013 | Exhaustive Mixed Physiography Mastery | no new permanent QLs |
 
 ## 4. Major physical divisions used as the chapter spine
 
@@ -45,7 +45,7 @@ These six divisions are the canonical high-level learner categories. Subdivision
 ## 5. Question-quality rules
 
 - Standard exam instructions may repeat; semantic question payloads must not.
-- Every CP review batch should expose at least six distinct payloads per QL where the source corpus supports it.
+- Every permanent QL must retain six semantically distinct owning payloads.
 - Explanations must state the decisive fact directly, not discuss option-analysis strategy.
 - No internal source/generator/review terminology in learner-facing content.
 - Avoid obscure trivia merely to manufacture difficulty.
@@ -61,8 +61,18 @@ These six divisions are the canonical high-level learner categories. Subdivision
 
 ## 7. Lifecycle
 
-Each CP is review-only until explicit human approval. Approval may freeze the CP into Question Studio review-only authority. Question Bank writes, test/mock eligibility, public publication and production release remain separately governed.
+The content chapter is closed after the exhaustive CP013 gate. Question Bank writes, test/mock eligibility, public publication and production release remain separately governed.
 
-## 8. CP001 target
+## 8. Closure contract
 
-`GEO-PHY-001-CP001 — Major Physiographic Divisions` establishes the six-division framework, basic formation/character descriptions, and major contrast relations used by later checkpoints. It must not pre-empt detailed range, plateau, coastal or island facts owned by later CPs.
+- CP001–CP012 own the complete permanent map QL001–QL108.
+- Each of the 108 permanent QLs retains exactly six unique owning payloads.
+- The owning review layer therefore contains 648 qualified questions.
+- CP013 creates no new permanent QLs and provides a 108-question exhaustive master review with one representative for every QL.
+- The final master is balanced to A27 / B27 / C27 / D27 while preserving each selected question's approved difficulty.
+- The chapter closes only when the dedicated CP013/closure gate, API build and main Geography validation pass.
+- Closure means content-authority completion; it does not itself publish questions to public tests or production runtime.
+
+## 9. Closure state
+
+`GEO-PHY-001` is **CONTENT CLOSED V1**. There is no CP014 in this blueprint. Any future change must be treated as a deliberate revision of the closed chapter rather than normal checkpoint continuation.
