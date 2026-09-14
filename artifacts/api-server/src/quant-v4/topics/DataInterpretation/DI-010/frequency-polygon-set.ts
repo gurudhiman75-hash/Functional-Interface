@@ -65,6 +65,24 @@ function endpointRescue(answer: string): Di010Candidate[] {
   }));
 }
 
+function coordinateRescue(answer: string): Di010Candidate[] {
+  const match = answer.match(/^\((-?\d+(?:\.\d+)?), (-?\d+(?:\.\d+)?)\)$/);
+  if (!match) return [];
+  const x = Number(match[1]);
+  const y = Number(match[2]);
+  const nearby = [
+    { x: x + 5, y, id: "NEXT_CLASS_MARK", derivation: "Uses a nearby class mark while keeping the observed frequency." },
+    { x: x - 5, y, id: "PREVIOUS_CLASS_MARK", derivation: "Uses the previous nearby class mark while keeping the observed frequency." },
+    { x, y: y + 5, id: "HIGHER_GRID_READING", derivation: "Uses the correct class mark but reads the next higher frequency level." },
+    { x, y: y - 5, id: "LOWER_GRID_READING", derivation: "Uses the correct class mark but reads the next lower frequency level." },
+  ].filter((item) => item.x >= 0 && item.y >= 0);
+  return nearby.map((item, index) => ({
+    text: `(${Number(item.x.toFixed(2))}, ${Number(item.y.toFixed(2))})`,
+    misconceptionId: `COORDINATE_RESCUE_${item.id}_${index}`,
+    derivation: item.derivation,
+  }));
+}
+
 function buildOptions(seed: string, answer: string, candidates: readonly Di010Candidate[]) {
   const retained: Di010Option[] = [];
   const seen = new Set<string>();
@@ -79,6 +97,7 @@ function buildOptions(seed: string, answer: string, candidates: readonly Di010Ca
   numericRescue(answer).forEach(add);
   intervalRescue(answer).forEach(add);
   endpointRescue(answer).forEach(add);
+  coordinateRescue(answer).forEach(add);
   if (retained.length < OPTION_COUNT) throw new Error(`DI-010 ${seed} constructed only ${retained.length} unique options for '${answer}'.`);
   const shuffled = shuffle(seededRandom(`${seed}:options`), retained.slice(0, OPTION_COUNT));
   const correctIndex = shuffled.findIndex((option) => option.misconceptionId === "CORRECT");
