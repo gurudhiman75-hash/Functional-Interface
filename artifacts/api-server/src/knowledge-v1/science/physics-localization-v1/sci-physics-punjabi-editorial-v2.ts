@@ -32,6 +32,7 @@ const MASS_PATCHES_BY_ANCHOR: Readonly<Record<string, readonly Patch[]>> = Objec
   "SCI-CP002-EXH-A13": [
     { from: "ਭਾਰ ਅਤੇ ਵੇਗ", to: "ਪੁੰਜ ਅਤੇ ਵੇਗ" },
     { from: "ਭਾਰ ਅਤੇ ਤ੍ਵਰਨ", to: "ਪੁੰਜ ਅਤੇ ਪ੍ਰਵੇਗ" },
+    { from: "ਭਾਰ ਅਤੇ ਪ੍ਰਵੇਗ", to: "ਪੁੰਜ ਅਤੇ ਪ੍ਰਵੇਗ" },
   ],
   "SCI-CP002-EXH-A14": [
     { from: "ਭਾਰ", to: "ਪੁੰਜ" },
@@ -41,6 +42,9 @@ const MASS_PATCHES_BY_ANCHOR: Readonly<Record<string, readonly Patch[]>> = Objec
   ],
   "SCI-CP002-EXH-A19": [
     { from: "ਭਾਰ ਬਦਲਦਾ ਰਹਿੰਦਾ ਹੈ", to: "ਪੁੰਜ ਬਦਲਦਾ ਰਹਿੰਦਾ ਹੈ" },
+  ],
+  "SCI-CP002-EXH-A22": [
+    { from: "ਭਾਰ ਘਟਾਉਂਦੀ ਹੈ", to: "ਪੁੰਜ ਘਟਾਉਂਦੀ ਹੈ" },
   ],
   "SCI-CP002-EXH-A23": [
     { from: "ਕੁੱਲ ਬਲ ਉਸ ਦੇ ਭਾਰ ਦੇ ਬਰਾਬਰ ਹੋਵੇ", to: "ਕੁੱਲ ਬਲ ਉਸ ਦੇ ਪੁੰਜ ਦੇ ਬਰਾਬਰ ਹੋਵੇ" },
