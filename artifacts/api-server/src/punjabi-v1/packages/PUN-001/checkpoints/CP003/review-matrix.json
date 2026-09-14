@@ -11,7 +11,7 @@
   "families": [
     {"familyId":"F01","subtype":"NOUN_CATEGORY_RECOGNITION","difficulty":["Easy"],"semanticCapacity":225},
     {"familyId":"F02","subtype":"PRONOUN_CATEGORY_IN_CONTEXT","difficulty":["Easy"],"semanticCapacity":60},
-    {"familyId":"F03","subtype":"PRONOUN_PERSON_NUMBER","difficulty":["Easy"],"semanticCapacity":8},
+    {"familyId":"F03","subtype":"PRONOUN_PERSON_NUMBER","difficulty":["Easy"],"semanticCapacity":4},
     {"familyId":"F04","subtype":"NOUN_CATEGORY_MEMBERSHIP","difficulty":["Medium"],"semanticCapacity":225},
     {"familyId":"F05","subtype":"NOUN_ODD_ONE_OUT","difficulty":["Medium"],"semanticCapacity":12771000},
     {"familyId":"F06","subtype":"PRONOUN_CATEGORY_SENTENCE_SELECTION","difficulty":["Medium"],"semanticCapacity":60},
@@ -22,7 +22,7 @@
     {"familyId":"F11","subtype":"MIXED_NOUN_PRONOUN_CLASSIFICATION","difficulty":["Hard"],"semanticCapacity":13500},
     {"familyId":"F12","subtype":"THREE_NOUN_CLASSIFICATION","difficulty":["Hard"],"semanticCapacity":911250}
   ],
-  "totalSemanticCapacity": 13702850,
+  "totalSemanticCapacity": 13702846,
   "optionOrderCountedAsSemanticVariation": false,
   "authorityStatus": "REVIEW_PENDING",
   "productionPromotion": false
