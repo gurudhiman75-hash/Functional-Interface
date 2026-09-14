@@ -6,6 +6,7 @@ export const PGK_001_CP004_SOURCE_IDS = Object.freeze({
   jalandharPlan: "PUDA-JALANDHAR-HYDROGRAPHY",
   amritsarPlan: "PUDA-AMRITSAR-BEAS-RAVI",
   psebClass9Geography: "PSEB-SOCIAL-SCIENCE-IX-PUNJAB-PLAINS-DOABS",
+  psebClass9PunjabIntro: "PSEB-SOCIAL-SCIENCE-IX-PUNJAB-INTRO-RIVER-NAMES",
 } as const);
 
 export const PGK_001_CP004_SOURCE_REGISTRY = Object.freeze({
@@ -44,6 +45,11 @@ export const PGK_001_CP004_SOURCE_REGISTRY = Object.freeze({
     title: "Social Science IX Part I — Plains of Punjab and Haryana",
     url: "https://static.pseb.ac.in/media/1670479881_Social%20Science-9%28english%29%20Part-I.pdf",
   },
+  [PGK_001_CP004_SOURCE_IDS.psebClass9PunjabIntro]: {
+    authority: "Punjab School Education Board",
+    title: "Social Science IX Part I — Punjab: An Introduction",
+    url: "https://static.pseb.ac.in/media/1670479881_Social%20Science-9%28english%29%20Part-I.pdf",
+  },
 } as const);
 
 export const PGK_001_CP004_RIVER_SETS = Object.freeze({
@@ -51,6 +57,46 @@ export const PGK_001_CP004_RIVER_SETS = Object.freeze({
   presentPunjabFromHistoricalFive: Object.freeze(["Sutlej", "Beas", "Ravi"]),
   easternRivers: Object.freeze(["Sutlej", "Beas", "Ravi"]),
 });
+
+export type Pgk001Cp004AncientRiverName = Readonly<{
+  id: string;
+  modernName: string;
+  canonicalAncientName: string;
+  acceptedAncientSpellings: readonly string[];
+}>;
+
+export const PGK_001_CP004_ANCIENT_RIVER_NAMES: readonly Pgk001Cp004AncientRiverName[] = Object.freeze([
+  {
+    id: "ancient-sutlej-shutudri",
+    modernName: "Sutlej",
+    canonicalAncientName: "Shutudri",
+    acceptedAncientSpellings: Object.freeze(["Shutudri", "Sutudri", "Shatudri", "Shatadru"]),
+  },
+  {
+    id: "ancient-beas-vipasa",
+    modernName: "Beas",
+    canonicalAncientName: "Vipasa",
+    acceptedAncientSpellings: Object.freeze(["Vipasa", "Vipasha", "Vipas"]),
+  },
+  {
+    id: "ancient-ravi-purushni",
+    modernName: "Ravi",
+    canonicalAncientName: "Purushni",
+    acceptedAncientSpellings: Object.freeze(["Purushni", "Parushni"]),
+  },
+  {
+    id: "ancient-chenab-askini",
+    modernName: "Chenab",
+    canonicalAncientName: "Askini",
+    acceptedAncientSpellings: Object.freeze(["Askini", "Asikni"]),
+  },
+  {
+    id: "ancient-jhelum-vitista",
+    modernName: "Jhelum",
+    canonicalAncientName: "Vitista",
+    acceptedAncientSpellings: Object.freeze(["Vitista", "Vitasta"]),
+  },
+]);
 
 export type Pgk001Cp004Doab = Readonly<{
   id: string;
@@ -81,5 +127,6 @@ export const PGK_001_CP004_FACT_IDS = Object.freeze([
   "beas-sutlej-harike",
   "ghaggar-seasonal",
   "doab-meaning",
+  ...PGK_001_CP004_ANCIENT_RIVER_NAMES.map((row) => row.id),
   ...PGK_001_CP004_DOABS.map((row) => row.id),
 ]);
