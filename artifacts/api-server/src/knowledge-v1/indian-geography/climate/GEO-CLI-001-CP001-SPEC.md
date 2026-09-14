@@ -1,6 +1,6 @@
 # GEO-CLI-001 CP001 — Climate Controls & Monsoon Character
 
-Status: REVIEW CANDIDATE V2
+Status: REVIEW CANDIDATE V3
 Parent blueprint: `GEO-CLI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-CLI-001-QL-001` to `GEO-CLI-001-QL-009`
 
