@@ -1,6 +1,6 @@
 # PGK-001 CP002 — Administrative Punjab
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-002 — Administrative Punjab`
 Permanent QLs: `PGK-001-QL-007` to `PGK-001-QL-013`
@@ -41,14 +41,32 @@ Administrative membership is mutable. `23 districts` and `5 divisions` are sourc
 | PGK-001-QL-009 | District-to-division membership | Medium |
 | PGK-001-QL-010 | District formation and parent-district history | Medium |
 | PGK-001-QL-011 | Correct/incorrect administrative pairs | Medium |
-| PGK-001-QL-012 | Two-clue district identification | Medium / Hard |
+| PGK-001-QL-012 | Multi-clue district identification | Medium / Hard |
 | PGK-001-QL-013 | Multi-statement administrative synthesis | Hard |
 
 Each QL exposes six semantic payloads, for 42 review questions total.
 
-## Stem rule
+## Stem rule — V2
 
-Use direct Punjab-exam language. Avoid repeatedly starting with `Which of the following is associated with...` or adding `with reference to Punjab` when the context is already obvious.
+Learner stems must resemble actual Punjab recruitment-exam MCQs rather than generated database prompts.
+
+Preferred forms:
+
+- `Which of the following ...?`
+- `X is the headquarters of:`
+- `X district is part of which division?`
+- `Which pair is correctly/incorrectly matched?`
+- `Arrange the following ... in chronological order.`
+- properly numbered `Consider the following statements/pairs` questions
+
+Avoid learner-facing riddle or generator language such as:
+
+- `This district was ... Identify it.`
+- `Its headquarters is ... Which district is it?`
+- `Which list gives ...`
+- verbose source-description phrases when a short exam stem works
+
+The source year remains in the stem only when required to make a mutable administrative count unambiguous.
 
 ## Distractor rule
 
@@ -60,4 +78,4 @@ Explanations should normally be 2–4 short sentences and state the decisive adm
 
 ## Lifecycle
 
-This checkpoint is review-only. It is not registered for runtime Question Studio generation, Question Bank writes, tests, mocks or public publication until explicit human approval.
+V2 is review-only. It is not registered for runtime Question Studio generation, Question Bank writes, tests, mocks or public publication until explicit human approval.
