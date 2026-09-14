@@ -23,6 +23,10 @@ import {
   naturalizePunjabiPhysicsTextFinalV3,
 } from "./sci-physics-punjabi-naturalization-v3";
 import {
+  applyPunjabiPhysicsStandardExamV4,
+  standardizePunjabiPhysicsExamTextV4,
+} from "./sci-physics-punjabi-standard-exam-v4";
+import {
   SCI_PHYSICS_LOCALIZATION_V1,
   type PhysicsLocaleV1,
   type PhysicsLocalizedAnchorSurfaceV1,
@@ -68,7 +72,8 @@ function surfaceMap(cpId: SupportedCpV1, locale: Exclude<PhysicsLocaleV1, "en">)
   return Object.fromEntries(
     Object.entries(raw).map(([anchorId, surface]) => {
       const editorial = applyPunjabiPhysicsEditorialV2(anchorId, surface);
-      return [anchorId, applyPunjabiPhysicsNaturalizationV3(anchorId, editorial)];
+      const natural = applyPunjabiPhysicsNaturalizationV3(anchorId, editorial);
+      return [anchorId, applyPunjabiPhysicsStandardExamV4(anchorId, natural)];
     }),
   );
 }
@@ -102,7 +107,9 @@ function localizedBase(question: PhysicsExhaustiveQuestionV2, locale: PhysicsLoc
 function explanationFor(anchorId: string, locale: PhysicsLocaleV1): string {
   const explanation = getPhysicsExplanationV2(anchorId, locale);
   if (locale !== "pa") return explanation;
-  return naturalizePunjabiPhysicsTextFinalV3(anchorId, naturalizePunjabiPhysicsTextV3(anchorId, explanation));
+  const editorial = naturalizePunjabiPhysicsTextV3(anchorId, explanation);
+  const natural = naturalizePunjabiPhysicsTextFinalV3(anchorId, editorial);
+  return standardizePunjabiPhysicsExamTextV4(anchorId, natural);
 }
 
 function localizeEnglishExplanation(question: PhysicsExhaustiveQuestionV2, cpId: SupportedCpV1): PhysicsLocalizedQuestionV1 {
