@@ -1,11 +1,11 @@
 # ECO-CP-007 Status
 
 **CP:** ECO-CP-007 Money & Monetary System  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
-## Implemented
+## Approved English baseline
 
 - static scope and exclusions;
 - NCERT/RBI source registry;
@@ -31,10 +31,6 @@ Excluded from this CP:
 - detailed commercial-bank credit creation;
 - current digital-payment usage data.
 
-## Promotion steps
+## Freeze note
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behavior.
-4. Add localisation layer in the localisation phase.
-5. Register with runtime/Question Studio only after separate promotion approval.
+Human review approved the V1 English surface on 2026-09-14. The English behavior is frozen. Runtime registration, localisation and Question Studio promotion remain separate steps and are not implied by editorial approval.
