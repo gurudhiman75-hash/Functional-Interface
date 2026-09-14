@@ -53,7 +53,7 @@ const EXPLANATIONS: Record<string, string> = {
   "POL-CP008-V4-050": "The new Vice-President gets a fresh five-year term.",
   "POL-CP008-V4-051": "For normal expiry, the election must finish before the term ends.",
   "POL-CP008-V4-052": "The oath is taken before the President or the President's nominee.",
-  "POL-CP008-V4-053": "Article 69 gives the Vice-President's oath.",
+  "POL-CP008-V4-053": "Article 69 contains the Vice-President's oath.",
   "POL-CP008-V4-054": "The oath requires loyalty to the Constitution of India.",
   "POL-CP008-V4-055": "The Supreme Court decides Vice-Presidential election disputes.",
   "POL-CP008-V4-056": "The Supreme Court's decision is final.",
