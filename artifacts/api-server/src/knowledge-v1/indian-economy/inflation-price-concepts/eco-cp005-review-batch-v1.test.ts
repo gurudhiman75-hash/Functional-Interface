@@ -42,11 +42,27 @@ describe("ECO-CP-005 inflation and price concepts review batch", () => {
       expect(question.correctIndex).toBeLessThan(4);
       expect(question.options[question.correctIndex]).toBe(question.canonicalAnswer);
       expect(question.stem.trim().length).toBeGreaterThan(10);
-      expect(question.explanation.trim().length).toBeGreaterThan(5);
+      expect(question.explanation.trim().length).toBeGreaterThan(35);
       expect(question.sourceIds.length).toBeGreaterThan(0);
       expect(question.sourceFactIds.length).toBeGreaterThan(0);
       expect(question.reviewOnly).toBe(true);
       expect(question.runtimeRegistered).toBe(false);
+    }
+  });
+
+  it("keeps explanations useful instead of answer-only", () => {
+    for (const question of questions) {
+      expect(question.explanation.trim()).not.toBe(question.canonicalAnswer.trim());
+      expect(question.explanation).not.toMatch(/^both statements are correct\.?$/i);
+      expect(question.explanation).not.toMatch(/^.+ is correctly matched\.?$/i);
+    }
+
+    for (const question of questions.filter((q) => q.qlId === "ECO-005-QL-011")) {
+      expect(question.explanation).toMatch(/statement i|statement ii|because|means|describes/i);
+    }
+
+    for (const question of questions.filter((q) => q.qlId === "ECO-005-QL-009")) {
+      expect(question.explanation).toMatch(/=|increase|adding|base/i);
     }
   });
 
