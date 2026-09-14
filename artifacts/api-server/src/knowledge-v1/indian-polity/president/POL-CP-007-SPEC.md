@@ -1,6 +1,6 @@
 # POL-CP-007 — President
 
-**Lifecycle:** REVIEW CANDIDATE — HELPFUL EXPLANATIONS V3  
+**Lifecycle:** REVIEW CANDIDATE — CLEAN EXPLANATIONS V4  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -30,7 +30,7 @@ This CP covers the President as a constitutional office without drifting into cu
 - 22 genuine QLs
 - 80 English review questions
 - 24 Easy / 42 Medium / 14 Hard
-- V3 generator is canonical for English review
+- V4 generator is canonical for English review
 - simplified exam-style stems from V2
 - ordinary direct stems capped at 28 words
 - four unique options
@@ -38,19 +38,20 @@ This CP covers the President as a constitutional office without drifting into cu
 
 ## Language standard
 
-Keep constitutional terms that are needed for exam accuracy, but simplify the English around them. Prefer short direct stems, familiar verbs and short sentences.
+Keep constitutional terms needed for exam accuracy, but use simple English around them. Prefer short direct stems and familiar verbs.
 
 ## Explanation standard
 
-Every question receives its own explanation. The explanation first identifies the exact correct answer, then gives the constitutional rule that makes it correct. A useful comparison or common trap is added only when it improves understanding. Generic QL-level paragraphs are not accepted, even when two questions have the same answer wording.
+Explanations must read like a short teacher note, not a template. A simple fact normally needs one clean sentence. Add a second sentence only when a distinction is genuinely useful.
 
 Mechanical gates:
-- explanation minimum 18 words;
-- exact answer must appear in the explanation;
-- explanations inside the same QL must be unique;
-- President/Vice-President contrasts must stay explicit where relevant;
+- every explanation in the 80-question review must be unique;
+- target length is 6–24 words;
+- no stock prefix such as `Correct answer:`;
+- no generic ending added merely to reach a word count;
+- blocked phrases include `This is the exact`, `nearby Articles`, `Match the topic`, and `Remember the word`;
 - no unnecessary option-by-option analysis.
 
 ## Gate
 
-Question Studio exposure, localization and production registration remain blocked until English V3 is approved.
+Question Studio exposure, localization and production registration remain blocked until English V4 is approved.
