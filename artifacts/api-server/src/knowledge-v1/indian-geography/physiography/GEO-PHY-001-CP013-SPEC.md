@@ -11,10 +11,10 @@ Close GEO-PHY-001 only after the complete chapter has been checked at both level
 - Each permanent QL must retain exactly 6 semantically distinct owning payloads.
 - The owning layer therefore contains 648 qualified review questions.
 - CP013 contains exactly 108 master-review questions: one representative for every QL001–QL108.
-- CP013 reuses qualified facts/questions; it creates no QL109+ and adds no new trivia layer.
+- CP013 reuses qualified questions/facts; it creates no QL109+ and adds no parallel trivia layer.
+- For each QL, CP013 chooses the shortest sound representative that avoids heavy/meta wording; it does not rewrite the approved fact.
 - Answer positions in the 108-question master are exactly A27 / B27 / C27 / D27.
-- Difficulty is preserved from the approved owning QL rather than forced into a synthetic split.
-- Representatives are chosen for concise learner wording while retaining the tested fact and difficulty.
+- Difficulty is preserved from the selected approved owning question rather than forced into a synthetic split.
 - Questions, options and explanations must contain no source/review/generator metadata.
 - Explanations state the decisive fact directly.
 
