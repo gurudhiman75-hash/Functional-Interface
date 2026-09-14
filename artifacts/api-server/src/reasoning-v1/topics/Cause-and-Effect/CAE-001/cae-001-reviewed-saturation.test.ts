@@ -32,6 +32,51 @@ for (const qlId of controlledHardQls) {
   assert.ok(specialisedCount >= 350);
 }
 
+const cp006BridgeModes = new Set<string>();
+const cp006BridgeFamilies = new Set<string>();
+let cp006BridgeCount = 0;
+let cp006LegacyCount = 0;
+for (let seed = 0; seed < 600; seed += 1) {
+  const question = generateReviewedCaeQuestion({ qlId: "CAE-QL-006", locale: "en-IN", seed });
+  assert.notEqual(question.difficulty, "EASY", `CAE-QL-006/${seed}: reviewed CP006 became EASY.`);
+  if (seed % 3 === 2) {
+    cp006BridgeCount += 1;
+    cp006BridgeModes.add(question.answerId);
+    cp006BridgeFamilies.add(question.scenarioFamilyId);
+    assert.ok(["FIRST_BRIDGE", "FINAL_BRIDGE"].includes(question.answerId), `${seed}: CP006 bridge slot escaped the bridge-distance authority.`);
+    assert.ok(question.causalStructure.startsWith("CAUSAL_DISTANCE:"));
+    assert.equal(question.visibleContext.visibleNodeIds.length, 2);
+    assert.equal(question.visibleContext.hiddenNodeIds.length, 2);
+    assert.equal(question.causalTrace.length, 4);
+    assert.equal(question.options.length, 4);
+    assert.equal(new Set(question.options).size, 4);
+    assert.ok(question.explanation.includes("→"));
+  } else {
+    cp006LegacyCount += 1;
+    assert.ok(["FIRST_EFFECT_SECOND_IMMEDIATE", "SECOND_EFFECT_FIRST_IMMEDIATE", "FIRST_EFFECT_SECOND_REMOTE", "SECOND_EFFECT_FIRST_REMOTE"].includes(question.answerId));
+  }
+}
+assert.equal(cp006BridgeCount, 200, "CP006 bridge-distance allocation must remain exactly one seed in three.");
+assert.equal(cp006LegacyCount, 400, "CP006 legacy distance classification must remain exactly two seeds in three.");
+assert.deepEqual(cp006BridgeModes, new Set(["FIRST_BRIDGE", "FINAL_BRIDGE"]), "CP006 must expose both bridge-distance operations.");
+assert.ok(cp006BridgeFamilies.size >= 10, `CP006 bridge-distance family breadth is too narrow (${cp006BridgeFamilies.size}).`);
+
+for (let seed = 2; seed < 120; seed += 3) {
+  const en = generateReviewedCaeQuestion({ qlId: "CAE-QL-006", locale: "en-IN", seed });
+  const hi = generateReviewedCaeQuestion({ qlId: "CAE-QL-006", locale: "hi-IN", seed });
+  const pa = generateReviewedCaeQuestion({ qlId: "CAE-QL-006", locale: "pa-IN", seed });
+  assert.equal(hi.scenarioFamilyId, en.scenarioFamilyId);
+  assert.equal(pa.scenarioFamilyId, en.scenarioFamilyId);
+  assert.equal(hi.scenarioVariantId, en.scenarioVariantId);
+  assert.equal(pa.scenarioVariantId, en.scenarioVariantId);
+  assert.equal(hi.answerId, en.answerId);
+  assert.equal(pa.answerId, en.answerId);
+  assert.equal(hi.correctIndex, en.correctIndex);
+  assert.equal(pa.correctIndex, en.correctIndex);
+  assert.equal(hi.causalStructure, en.causalStructure);
+  assert.equal(pa.causalStructure, en.causalStructure);
+}
+
 const cp007Common = new Set(CP007_SATURATION_COMMON_FACTOR_FAMILY_IDS);
 const cp007Parallel = new Set(CP007_WAVE4_PARALLEL_FAMILY_IDS);
 let cp007CommonCount = 0;
@@ -144,4 +189,4 @@ for (let seed = 6; seed < 104; seed += 8) {
   assert.equal(pa.causalStructure, en.causalStructure);
 }
 
-console.log("CAE-001 reviewed saturation QA passed: QL003/004/005 guarded; CP007 Wave 4 common/parallel expansion calibrated; CP008/009 specialised contracts preserved.");
+console.log("CAE-001 reviewed saturation QA passed: QL003/004/005 guarded; CP006 bridge-distance operations calibrated; CP007 Wave 4 common/parallel expansion calibrated; CP008/009 specialised contracts preserved.");
