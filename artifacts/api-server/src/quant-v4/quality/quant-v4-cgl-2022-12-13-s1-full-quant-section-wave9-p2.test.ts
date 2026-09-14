@@ -74,7 +74,7 @@ assert.equal(4, 4); // Q52: 2×CSA=volume => 4πrh=πr²h => r=4.
 assert.equal(Math.round(((8_400 * 0.75 * 0.85 - 4_000) / 4_000) * 100), 34); // Q54.
 assert.equal(330 / (2 * (22 / 7)) - 110 / (2 * (22 / 7)), 35); // Q55.
 assert.equal((5_000 * (7 - 5)) / (5 * 5 - 7 * 3), 2_500); // Q58 salary base x.
-assert.equal(1 / (6 / (5 * 29) + 1 / 29), 174 / 11); // Q61 combined time.
+assert.equal(1 / (5 / (6 * 29) + 1 / 29), 174 / 11); // Q61 combined time.
 assert.equal(((-1) ** 12 - 1), 0); // Q62 remainder at m=-1.
 assert.equal(15 / 10, 3 / 2); // Q66 ratio of percentage decreases.
 assert.equal((30_000 * 5 * 3 / 100) / 18_000, 0.25); // Q67.
