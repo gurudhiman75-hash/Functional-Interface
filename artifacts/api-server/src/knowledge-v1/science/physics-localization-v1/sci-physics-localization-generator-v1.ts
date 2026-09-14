@@ -19,6 +19,10 @@ import {
   naturalizePunjabiPhysicsTextV3,
 } from "./sci-physics-punjabi-editorial-v2";
 import {
+  applyPunjabiPhysicsNaturalizationV3,
+  naturalizePunjabiPhysicsTextFinalV3,
+} from "./sci-physics-punjabi-naturalization-v3";
+import {
   SCI_PHYSICS_LOCALIZATION_V1,
   type PhysicsLocaleV1,
   type PhysicsLocalizedAnchorSurfaceV1,
@@ -62,7 +66,10 @@ function surfaceMap(cpId: SupportedCpV1, locale: Exclude<PhysicsLocaleV1, "en">)
   const raw = SURFACES[cpId][locale] as Readonly<Record<string, PhysicsLocalizedAnchorSurfaceV1>>;
   if (locale === "hi") return raw;
   return Object.fromEntries(
-    Object.entries(raw).map(([anchorId, surface]) => [anchorId, applyPunjabiPhysicsEditorialV2(anchorId, surface)]),
+    Object.entries(raw).map(([anchorId, surface]) => {
+      const editorial = applyPunjabiPhysicsEditorialV2(anchorId, surface);
+      return [anchorId, applyPunjabiPhysicsNaturalizationV3(anchorId, editorial)];
+    }),
   );
 }
 function anchorMap(cpId: SupportedCpV1) {
@@ -94,7 +101,8 @@ function localizedBase(question: PhysicsExhaustiveQuestionV2, locale: PhysicsLoc
 
 function explanationFor(anchorId: string, locale: PhysicsLocaleV1): string {
   const explanation = getPhysicsExplanationV2(anchorId, locale);
-  return locale === "pa" ? naturalizePunjabiPhysicsTextV3(anchorId, explanation) : explanation;
+  if (locale !== "pa") return explanation;
+  return naturalizePunjabiPhysicsTextFinalV3(anchorId, naturalizePunjabiPhysicsTextV3(anchorId, explanation));
 }
 
 function localizeEnglishExplanation(question: PhysicsExhaustiveQuestionV2, cpId: SupportedCpV1): PhysicsLocalizedQuestionV1 {
