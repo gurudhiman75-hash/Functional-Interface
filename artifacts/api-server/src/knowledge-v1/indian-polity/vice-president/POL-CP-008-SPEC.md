@@ -1,6 +1,6 @@
 # POL-CP-008 — Vice-President
 
-**Lifecycle:** REVIEW CANDIDATE — CLEAN EXPLANATIONS V4  
+**Lifecycle:** REVIEW CANDIDATE — PLAIN EXPLANATIONS V5  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -23,26 +23,26 @@ This CP covers Articles 63–71 with emphasis on Vice-President-specific exam tr
 - 17 genuine QLs
 - 60 English review questions
 - 20 Easy / 31 Medium / 9 Hard
-- V4 generator is canonical for English review
+- V5 generator is canonical for English review
 - simplified exam-style stems from V2
 - ordinary direct stems capped at 28 words
 - four unique options
 
 ## Language standard
 
-Keep necessary constitutional terms such as electoral college, Rajya Sabha and removal resolution, but use simple English around them.
+Keep required exam terms such as electoral college, Rajya Sabha and removal resolution, but use simple words around them.
 
 ## Explanation standard
 
-Explanations must answer the exact question directly. Simple facts normally use one short sentence. Add a second sentence only for a useful President/Vice-President distinction or another genuine exam trap.
+Use the shortest wording that still teaches the answer. Most explanations should be one sentence. Add another sentence only for a real President/Vice-President trap.
 
 Mechanical gates:
 - every explanation in the 60-question review must be unique;
-- target length is 6–24 words;
-- no stock prefix such as `Correct answer:`;
-- no generic ending used only to make the explanation longer;
-- blocked phrases include `This is the exact`, `nearby Articles`, `Match the topic`, and `Remember the word`;
-- repeated answers such as `No` must still receive different question-specific explanations;
+- normal target length: 4–18 words;
+- no stock prefix or generic closing sentence;
+- avoid formal wording when a simpler word works;
+- blocked clutter includes `Correct answer`, `exact subject`, `nearby Articles`, `Match the topic`, `Remember the word`, `constitutionally vested`, and `to the extent granted`;
+- repeated answers such as `No` still get question-specific wording;
 - no unnecessary option-by-option analysis.
 
 ## High-yield distinctions
@@ -57,4 +57,4 @@ Mechanical gates:
 
 ## Gate
 
-Question Studio exposure, localization and production registration remain blocked until English V4 is approved.
+Question Studio exposure, localization and production registration remain blocked until English V5 is approved.
