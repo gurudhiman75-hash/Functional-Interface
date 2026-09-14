@@ -1,0 +1,76 @@
+export type HisCp009Fact=readonly[id:string,explanation:string,sourceIds:readonly string[]];
+
+export const HIS_CP009_SOURCES_V1=[
+  {id:"NIOS-HISTORY-315-LESSON11-REGIONAL-STATES",label:"NIOS History 315 Lesson 11 — Emergence of Regional States in India",url:"https://digital.nios.ac.in/content/315en/315_History_Eng_Lesson11.pdf"},
+  {id:"NCERT-THEME7-VIJAYANAGARA",label:"NCERT Themes in Indian History II — An Imperial Capital: Vijayanagara",url:"https://www.ncert.nic.in/textbook/pdf/lehs203.pdf"},
+] as const;
+
+export const HIS_CP009_SOURCE_IDS_V1=new Set(HIS_CP009_SOURCES_V1.map(s=>s.id));
+const N=["NIOS-HISTORY-315-LESSON11-REGIONAL-STATES"] as const;
+const NC=["NCERT-THEME7-VIJAYANAGARA"] as const;
+const BOTH=["NIOS-HISTORY-315-LESSON11-REGIONAL-STATES","NCERT-THEME7-VIJAYANAGARA"] as const;
+
+export const HIS_CP009_FACTS_V1:readonly HisCp009Fact[]=[
+  ["bah-founder","The Bahmani Sultanate was founded in 1347 by Alauddin Hasan Bahman Shah after Deccan officers broke away from Delhi rule.",N],
+  ["bah-capital","Gulbarga was the first capital of the Bahmani Sultanate.",N],
+  ["bah-taraf","The Bahmani kingdom was divided into provinces called tarafs.",N],
+  ["bah-tarafdar","A Bahmani province was governed by a tarafdar, also called a subedar.",N],
+  ["bah-khalisa","Khalisa land was kept under direct royal control to meet expenses of the ruler and royal household.",N],
+  ["bah-dabhol","Control of Dabhol gave the Bahmani Sultanate access to an important west-coast port.",N],
+  ["gawan-iran","Mahmud Gawan was Iranian by birth and first came to the Deccan as a trader.",N],
+  ["gawan-malik","Mahmud Gawan received the title Malik-ut-Tujjar, meaning Chief of the Merchants.",N],
+  ["gawan-wazir","Mahmud Gawan became wazir and emerged as the leading administrator of the Bahmani state.",N],
+  ["gawan-forts","Mahmud Gawan limited the military power of tarafdars by placing most provincial forts under centrally appointed qiladars.",N],
+  ["gawan-ports","Under Mahmud Gawan, Bahmani forces gained Goa and Dabhol, strengthening overseas trade links.",N],
+  ["bah-factions","Bahmani politics was weakened by rivalry between Deccani nobles and Afaquis, or newer immigrants from regions such as Iran and Central Asia.",N],
+  ["bah-breakup","The Bahmani kingdom later broke into the Sultanates of Ahmadnagar, Bijapur, Golconda, Berar and Bidar.",N],
+  ["vij-founders","Harihara and Bukka are associated with the foundation of the Vijayanagara Empire in the fourteenth century.",BOTH],
+  ["vij-river","The Vijayanagara capital stood on the banks of the Tungabhadra River.",N],
+  ["vij-sangama","The first ruling dynasty of Vijayanagara was the Sangama dynasty.",BOTH],
+  ["vij-saluva","The Saluvas replaced the Sangamas in the late fifteenth century.",BOTH],
+  ["vij-tuluva","The Tuluvas succeeded the Saluvas, and Krishnadeva Raya belonged to the Tuluva dynasty.",BOTH],
+  ["vij-aravidu","The Aravidu lineage became dominant after the Tuluvas and continued Vijayanagara rule from eastern centres.",BOTH],
+  ["vij-travellers","Travellers such as Domingo Paes, Abdur Razzaq and Nicolo Conti left accounts of Vijayanagara.",N],
+  ["kdr-famous","Krishnadeva Raya, who ruled from 1509 to 1529, was the most famous ruler of Vijayanagara.",NC],
+  ["kdr-amukta","Krishnadeva Raya composed the Telugu work on statecraft known as Amuktamalyada.",NC],
+  ["kdr-expansion","Krishnadeva Raya's reign saw the acquisition of the Raichur doab, victories over the rulers of Orissa and a major defeat of Bijapur.",NC],
+  ["kdr-nagalapuram","Krishnadeva Raya founded the suburban township of Nagalapuram near Vijayanagara.",BOTH],
+  ["vij-postkdr","After Krishnadeva Raya's death, rebellious nayakas and succession struggles strained the imperial structure.",NC],
+  ["vij-ramaraya","Rama Raya became the dominant political figure at Vijayanagara before the battle of 1565.",BOTH],
+  ["vij-talikota","In 1565 Vijayanagara forces were defeated at Rakshasi-Tangadi, also called Talikota, by an alliance of Deccan Sultanates.",BOTH],
+  ["vij-east","After the sack of Vijayanagara, the political centre shifted east under the Aravidu rulers, including to Penukonda and later Chandragiri.",N],
+  ["vij-horses","Effective cavalry made the import of high-quality horses from Arabia and other western regions important to Vijayanagara warfare.",BOTH],
+  ["vij-firearms","Vijayanagara used firearms and employed foreign specialists, including Turkish and Portuguese experts, in military training.",N],
+  ["vij-devaraya2","Deva Raya II recruited Muslims into his armed forces and provided facilities for them in the capital.",N],
+  ["vij-amaranayaka","Under the amara-nayaka system, military commanders received territories to administer and maintained forces for the raya.",N],
+  ["vij-nayaka-duties","Amara-nayakas collected revenue, promoted agriculture, maintained troops and contributed to irrigation and temple upkeep.",N],
+  ["vij-nayaka-loyalty","Amara-nayakas sent annual tribute and appeared at court with gifts as signs of loyalty to the ruler.",N],
+  ["raichur-location","The Raichur doab lies between the Krishna and Tungabhadra rivers.",N],
+  ["raichur-value","The Raichur doab was contested because it was fertile and rich in valuable resources.",N],
+  ["conflict-other","Marathwada and the Krishna-Godavari delta were also important zones of Bahmani-Vijayanagara rivalry.",N],
+  ["conflict-trade","Ports and horse-trade routes added an economic dimension to rivalry in the western Deccan and coastal regions.",N],
+  ["conflict-notreligious","The Bahmani-Vijayanagara struggle was driven mainly by territorial and economic interests rather than by religion alone.",BOTH],
+  ["conflict-cost","Long warfare weakened both powers and coincided with the growing influence of the Portuguese on the western coast.",N],
+  ["jaunpur-malik","Malik Sarwar established an independent power at Jaunpur after the weakening of Delhi following Timur's invasion.",N],
+  ["jaunpur-sharqi","The rulers of Jaunpur are known as the Sharqi Sultans.",N],
+  ["jaunpur-ibrahim","Ibrahim Shah Sharqi was noted as a scholar and patron of music, fine arts and architecture.",N],
+  ["jaunpur-end","Sikandar Lodi ultimately annexed Jaunpur and ended Sharqi rule.",N],
+  ["kashmir-shams","Shamsuddin Shah established Muslim rule in Kashmir in the fourteenth century.",N],
+  ["kashmir-zain","Zain-ul-Abidin was an important ruler of Kashmir known for conciliatory policies and economic development.",N],
+  ["kashmir-bud","Zain-ul-Abidin was popularly known as Bud Shah, meaning the great king.",N],
+  ["kashmir-reforms","Zain-ul-Abidin abolished jaziya, encouraged the return of displaced Hindus and promoted agriculture and handicrafts.",N],
+  ["bengal-ilyas","Haji Ilyas Khan united Bengal and ruled as Shams-ud-din Ilyas Shah, founding the Ilyas Shah dynasty.",N],
+  ["bengal-azam","Ghiyasuddin Azam Shah promoted Persian literature and maintained cordial relations with China.",N],
+  ["bengal-chittagong","Chittagong was an important port in Bengal's trade with China.",N],
+  ["bengal-capitals","Pandua and Gaur served as important capitals of medieval Bengal.",N],
+  ["gujarat-zafar","Zafar Khan asserted independence in Gujarat and later assumed the title Muzaffar Shah.",N],
+  ["gujarat-ahmad","Ahmad Shah founded Ahmedabad and made it an important capital of Gujarat.",N],
+  ["gujarat-begarha","Mahmud Begarha strengthened Gujarat and is especially associated with the capture of Girnar and Champaner.",N],
+  ["gujarat-ports","Gujarat's prosperity rested in part on fertile land, handicrafts and flourishing seaports.",N],
+  ["regional-rise","Many regional kingdoms gained strength as the Delhi Sultanate weakened and provincial elites asserted independence.",N],
+  ["regional-exchange","Regional states fought each other but also exchanged ideas through trade, migration, politics, art and architecture.",N],
+  ["regional-languages","Regional languages increasingly appeared in literary and official use during the medieval period, alongside Sanskrit and Persian.",N],
+  ["regional-trade","Agricultural surplus and overland or maritime trade were major economic bases for the rise of regional states.",N],
+];
+
+export const HIS_CP009_FACT_BY_ID_V1=new Map(HIS_CP009_FACTS_V1.map(f=>[f[0],f]));
