@@ -1,9 +1,10 @@
 import {
-  generateSerCp009NumberSeries,
-  SER_CP009_NUMBER_SERIES_QL_IDS,
-} from "./number-series-final";
+  SER_CP009_AUDITED_QL_IDS,
+  SER_CP009_REJECTED_SOURCE_GAP,
+  generateSerCp009AuditedNumberSeries,
+} from "./number-series-audited";
 
-const titles: Record<(typeof SER_CP009_NUMBER_SERIES_QL_IDS)[number], string> = {
+const titles: Record<(typeof SER_CP009_AUDITED_QL_IDS)[number], string> = {
   "SER-QL-029": "Fixed difference",
   "SER-QL-030": "Progressive difference",
   "SER-QL-031": "Figurate differences",
@@ -17,13 +18,18 @@ const titles: Record<(typeof SER_CP009_NUMBER_SERIES_QL_IDS)[number], string> = 
   "SER-QL-039": "Digit-block rotation",
   "SER-QL-040": "Wrong term in power series",
   "SER-QL-041": "Grouped multi-missing series",
-  "SER-QL-042": "Internal digit relation",
 };
 
 const lines = [
-  "# SER-CP-009 — Pure Number Series review pack",
+  "# SER-CP-009 — Audited SSC Reasoning Number Series review pack",
   "",
   "> Review-only provisional content. No QL in this pack is Question-Studio discoverable, Question-Bank writable, mock eligible or publicly publishable.",
+  "",
+  "## Final ownership decision",
+  "",
+  `- Audited Series candidates: \`${SER_CP009_AUDITED_QL_IDS[0]}..${SER_CP009_AUDITED_QL_IDS.at(-1)}\` (${SER_CP009_AUDITED_QL_IDS.length} QLs).`,
+  `- \`${SER_CP009_REJECTED_SOURCE_GAP.qlId}\` is rejected: ${SER_CP009_REJECTED_SOURCE_GAP.reason}`,
+  "- The rejected identity is not reserved and cannot be promoted from this checkpoint.",
   "",
   "## Recent SSC source anchors",
   "",
@@ -31,13 +37,13 @@ const lines = [
   "- SSC CGL 2023: `232, 221, 199, ?, 122, 67` → `166`.",
   "- SSC CGL 2024: `1, 3, 10, 41, ?, 1237` → `206`.",
   "",
-  "The runtime below is scoped to the SSC Reasoning presentation profile. The separate Banking Number Series / Speed Maths product family remains a separate owner.",
+  "This candidate is scoped to SSC Reasoning with four options. Banking Number Series / Speed Mathematics remains a separate five-option Banking owner.",
   "",
 ];
 
-for (const qlId of SER_CP009_NUMBER_SERIES_QL_IDS) {
+for (const qlId of SER_CP009_AUDITED_QL_IDS) {
   const seed = Number(qlId.slice(-3)) * 7 + 3;
-  const q = generateSerCp009NumberSeries(qlId, seed, "en-IN");
+  const q = generateSerCp009AuditedNumberSeries(qlId, seed, "en-IN");
   lines.push(`## ${qlId} — ${titles[qlId]}`);
   lines.push("");
   lines.push(`**Difficulty:** ${q.difficulty}  `);
