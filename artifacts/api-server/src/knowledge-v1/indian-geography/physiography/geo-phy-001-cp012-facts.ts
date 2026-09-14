@@ -1,0 +1,64 @@
+export const GEO_PHY_001_CP012_SOURCE_IDS = Object.freeze({
+  class9: "NCERT-CONTEMPORARY-INDIA-I-PHYSICAL-FEATURES",
+  class11: "NCERT-INDIA-PHYSICAL-ENVIRONMENT-STRUCTURE-PHYSIOGRAPHY",
+  govt: "GOVT-INDIA-GEOGRAPHY-REGIONAL-LOCATION",
+} as const);
+
+export type GeoPhy001Cp012FactRow = {
+  id: string;
+  fact: string;
+  sourceIds: readonly string[];
+  sourceFactIds: readonly string[];
+};
+
+const sourceIds = Object.freeze([
+  GEO_PHY_001_CP012_SOURCE_IDS.class9,
+  GEO_PHY_001_CP012_SOURCE_IDS.class11,
+  GEO_PHY_001_CP012_SOURCE_IDS.govt,
+]);
+
+const rawFacts: Readonly<Record<string, string>> = Object.freeze({
+  "himalaya": "The Himalayas form a young mountain system along northern India.",
+  "plains": "The Northern Plains were built by river deposits from the Indus, Ganga and Brahmaputra systems.",
+  "plateau": "The Peninsular Plateau is an old, stable landmass covering much of central and southern India.",
+  "desert": "The Indian Desert lies mainly west of the Aravali Range and has many sand dunes.",
+  "westcoast": "The Western Coastal Plain is narrow and lies between the Western Ghats and the Arabian Sea.",
+  "eastcoast": "The Eastern Coastal Plain is broader and lies between the Eastern Ghats and the Bay of Bengal.",
+  "eastdelta": "Large east-flowing rivers such as the Mahanadi, Godavari, Krishna and Kaveri form deltas on the eastern coast.",
+  "lakshadweep": "Lakshadweep lies in the Arabian Sea and is known for coral islands.",
+  "andaman": "The Andaman and Nicobar Islands lie in the Bay of Bengal in a long north-south chain.",
+  "wg": "The Western Ghats are generally higher and more continuous than the Eastern Ghats.",
+  "eg": "The Eastern Ghats are broken in places by rivers flowing towards the Bay of Bengal.",
+  "nilgiri": "The Nilgiri Hills lie where the Western and Eastern Ghats meet.",
+  "anamu": "Anamudi is a high peak in the Western Ghats of Kerala.",
+  "guru": "Guru Shikhar is the highest peak of the Aravali Range and lies in Rajasthan.",
+  "zoji": "Zoji La links the Kashmir Valley with Ladakh on the Srinagar-Leh route.",
+  "rohtang": "Rohtang Pass links Kullu Valley with Lahaul-Spiti in Himachal Pradesh.",
+  "nathu": "Nathu La is a Himalayan pass in Sikkim on the route towards Tibet.",
+  "palghat": "Palghat Gap lies between the Nilgiri and Anaimalai Hills and gives a route between Kerala and Tamil Nadu.",
+  "kashmir": "Kashmir Valley lies between the Greater Himalaya and the Pir Panjal range.",
+  "kullu": "Kullu Valley lies along the Beas River in Himachal Pradesh.",
+  "dehradun": "Dehra Dun lies between the Lesser Himalaya and the Shiwalik range.",
+  "malwa": "The Malwa Plateau lies mainly in Madhya Pradesh and extends into Rajasthan.",
+  "chota": "The Chota Nagpur Plateau lies mainly in Jharkhand.",
+  "meghalaya": "The Meghalaya Plateau includes the Garo, Khasi and Jaintia Hills.",
+  "karbi": "Karbi Anglong and the North Cachar Hills are in Assam.",
+  "bastar": "The Bastar Plateau lies mainly in Chhattisgarh.",
+  "anaimalai": "The Anaimalai Hills lie along the Tamil Nadu-Kerala border region.",
+  "cardamom": "The Cardamom Hills lie mainly in Kerala.",
+  "jhelum": "The Jhelum River flows through Kashmir Valley.",
+  "kangra": "Kangra Valley lies between the Dhauladhar and Shiwalik ranges in Himachal Pradesh.",
+  "bhor": "Bhor Ghat is on the Mumbai-Pune route through the Western Ghats.",
+  "thal": "Thal Ghat is on the Mumbai-Nashik route through the Western Ghats."
+});
+
+export const GEO_PHY_001_CP012_FACTS_V1: readonly GeoPhy001Cp012FactRow[] = Object.freeze(
+  Object.entries(rawFacts).map(([id, fact]) =>
+    Object.freeze({
+      id,
+      fact,
+      sourceIds,
+      sourceFactIds: Object.freeze([`geo-phy-001-cp012-${id}`]),
+    }),
+  ),
+);
