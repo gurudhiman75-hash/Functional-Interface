@@ -1,0 +1,60 @@
+name: Quant V4 Data Interpretation frequency polygon DI P0
+
+on:
+  push:
+    branches:
+      - feature/di-010-frequency-polygon-p0
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/frequency-polygon-svg.ts"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/frequency-polygon-svg.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di010-frequency-polygon-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  frequency-polygon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Review-only lifecycle guard
+        run: |
+          test -d artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/frequency-polygon-svg.ts
+          ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010
+      - name: Frequency-polygon deterministic, diversity, independent and visual proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/frequency-polygon-set.test.ts
+      - name: Export Markdown review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/export-review.ts DI-010-REVIEW-P0.md
+      - name: Export standalone HTML review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/export-review-html.ts DI-010-REVIEW-P0.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: di-010-frequency-polygon-review-p0
+          path: |
+            DI-010-REVIEW-P0.md
+            DI-010-REVIEW-P0.html
+          if-no-files-found: error
+          retention-days: 30
+      - name: API server build
+        run: pnpm --filter @workspace/api-server build
+      - name: Patch hygiene
+        run: git diff --check
