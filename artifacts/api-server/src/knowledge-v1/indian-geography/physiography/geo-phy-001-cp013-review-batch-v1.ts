@@ -52,7 +52,7 @@ export const GEO_PHY_001_CP013_SOURCE_BATCHES_V1: readonly {
 ]);
 
 const metaLanguage = /\bNCERT\b|sourceFact|review-only|runtimeRegistered|generator|qualification gate|provenance|administrative dataset/i;
-const heavyPhrasing = /physiographic|physical division|geologically|correctly classified|incorrectly classified|structurally folded|depositional surface|structural continuity|relief contrast/i;
+const heavyPhrasing = /physiographic|physical division|geologically|correctly classified|incorrectly classified|structurally fold|depositional surface|alluvial depositional|structural continuity|relief contrast|offshore island|major major/i;
 
 function wordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
@@ -68,6 +68,16 @@ function simplifyLearnerText(text: string): string {
     .replace(/Which of the statements given above is\/are correct\?/gi, "Which statement(s) are correct?")
     .replace(/Which of the statements given above are correct\?/gi, "Which statements are correct?")
     .replace(/How many of the statements given above are correct\?/gi, "How many statements are correct?")
+    .replace(/Which major physiographic division of India is described as /gi, "Which major physical region of India matches this description: ")
+    .replace(/Which major physical region of India is described as /gi, "Which major physical region of India matches this description: ")
+    .replace(/geologically young and structurally fold(?:ed)? mountains/gi, "young fold mountains")
+    .replace(/structurally fold(?:ed)? mountains/gi, "fold mountains")
+    .replace(/alluvial depositional plain/gi, "river-built plain")
+    .replace(/offshore island groups/gi, "island groups")
+    .replace(/offshore island region/gi, "island groups in the surrounding seas")
+    .replace(/arid sandy region/gi, "dry sandy region")
+    .replace(/young fold-mountain region/gi, "young fold mountains")
+    .replace(/old stable tableland/gi, "old stable plateau")
     .replace(/physiographic divisions/gi, "major physical regions")
     .replace(/physiographic division/gi, "major physical region")
     .replace(/physiographic/gi, "physical")
@@ -79,6 +89,16 @@ function simplifyLearnerText(text: string): string {
     .replace(/depositional surface/gi, "plain surface")
     .replace(/structural continuity/gi, "continuity")
     .replace(/relief contrast/gi, "landform contrast")
+    .replace(/\bmajor major\b/gi, "major")
+    .replace(/\bis broadly associated with\b/gi, "is found mainly in")
+    .replace(/\bare broadly associated with\b/gi, "are found mainly in")
+    .replace(/The Coastal Plains are described as a coastal lowland region/gi, "The Coastal Plains form a coastal lowland region")
+    .replace(/The Islands are described as an? island groups in the surrounding seas/gi, "The Islands form island groups in the surrounding seas")
+    .replace(/The Islands are described as an? island region/gi, "The Islands form island groups")
+    .replace(/\bis described as an?\b/gi, "is")
+    .replace(/\bare described as an?\b/gi, "are")
+    .replace(/This description identifies The /g, "This describes the ")
+    .replace(/\boffshore\b/gi, "")
     .replace(/\s{2,}/g, " ")
     .trim();
 }
