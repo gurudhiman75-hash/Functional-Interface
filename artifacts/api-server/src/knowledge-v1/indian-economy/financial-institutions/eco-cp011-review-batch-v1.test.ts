@@ -20,13 +20,13 @@ describe("ECO-CP-011 review batch V1", () => {
     }
   });
 
-  it("resolves every source and fact reference", () => {
-    const sourceIds = new Set(ECO_CP011_SOURCE_IDS_V1);
+  it("resolves every source and keeps a unique canonical fact registry", () => {
+    const sourceIds = new Set<string>(ECO_CP011_SOURCE_IDS_V1);
     const factIds = new Set(ECO_CP011_FACTS_V1.map((fact) => fact.id));
     for (const q of ECO_CP011_REVIEW_V1) {
       expect(q.sourceIds.length).toBeGreaterThan(0);
       expect(q.sourceFactIds.length).toBeGreaterThan(0);
-      q.sourceIds.forEach((id) => expect(sourceIds.has(id as never)).toBe(true));
+      q.sourceIds.forEach((id) => expect(sourceIds.has(id)).toBe(true));
     }
     expect(factIds.size).toBe(ECO_CP011_FACTS_V1.length);
   });
