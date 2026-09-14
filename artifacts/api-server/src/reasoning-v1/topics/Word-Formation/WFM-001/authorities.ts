@@ -64,7 +64,7 @@ export const WFM_REARRANGEMENT_FIXTURES: readonly WfmRearrangementFixture[] = [
   { mode: "JUMBLED_WORD", targetWord: "HOSPITAL", distractorWords: ["TRIANGLE", "NOTEBOOK", "LANGUAGE"] },
   { mode: "JUMBLED_WORD", targetWord: "COMPUTER", distractorWords: ["COMPLETE", "CONVINCE", "BUILDING"] },
   { mode: "JUMBLED_WORD", targetWord: "PAINTING", distractorWords: ["TEACHING", "BUILDING", "CROSSING"] },
-  { mode: "JUMBLED_WORD", targetWord: "CONSERVATION", distractorWords: ["CONVERSATION", "CONSTRUCTION", "DISTRIBUTION"] },
+  { mode: "JUMBLED_WORD", targetWord: "CONSERVATION", distractorWords: ["CONFIRMATION", "CONSTRUCTION", "DISTRIBUTION"] },
   { mode: "NUMBERED_SEQUENCE", targetWord: "GARDEN" },
   { mode: "NUMBERED_SEQUENCE", targetWord: "SILVER" },
   { mode: "NUMBERED_SEQUENCE", targetWord: "PLANET" },
