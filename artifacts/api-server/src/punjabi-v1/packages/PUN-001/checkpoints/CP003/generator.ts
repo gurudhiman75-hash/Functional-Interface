@@ -40,7 +40,7 @@ function assemble(input: { seed: number; difficulty: PunjabiDifficulty; familyId
   const selected = rng.pickDistinct(distractors, 3);
   const options = rng.shuffle([correct, ...selected]);
   const fingerprint = `CP003-${semanticHash([input.familyId, input.subtype, input.difficulty, norm(input.stem), correct, [...selected].sort().join("|"), [...input.authorityIds].sort().join(",")])}`;
-  return { id: `PUN-001-CP003-${input.familyId}-${fingerprint}`, stem: norm(input.stem), options, correctIndex: options.indexOf(correct), explanation: norm(input.explanation), difficulty: input.difficulty, metadata: { engine: "punjabi-v1", packageId: "PUN-001", cpId: "PUN-001-CP003", familyId: input.familyId, subtype: input.subtype, difficulty: input.difficulty, language: "pa-Guru", seed: input.seed, authorityIds: input.authorityIds, generatorRevision: "2.1.0-forward-port", fingerprint, lifecycle: "REVIEW_ONLY" } };
+  return { id: `PUN-001-CP003-${input.familyId}-${fingerprint}`, stem: norm(input.stem), options, correctIndex: options.indexOf(correct), explanation: norm(input.explanation), difficulty: input.difficulty, metadata: { engine: "punjabi-v1", packageId: "PUN-001", cpId: "PUN-001-CP003", familyId: input.familyId, subtype: input.subtype, difficulty: input.difficulty, language: "pa-Guru", seed: input.seed, authorityIds: input.authorityIds, generatorRevision: "2.2.0-forward-port", fingerprint, lifecycle: "REVIEW_ONLY" } };
 }
 
 const NOUN_CATEGORIES = Object.keys(CP003_NOUN_CATEGORY_NAMES) as CP003NounCategory[];
@@ -83,7 +83,7 @@ export function generateCP003F05(seed: number, difficulty: PunjabiDifficulty): P
   const category = NOUN_CATEGORIES[Math.floor(rank / perCategory)]!; const local = rank % perCategory;
   const trio = combinationAt(nounsByCategory.get(category)!, 3, Math.floor(local / 180));
   const outlier = CP003_NOUN_AUTHORITIES.filter((x) => x.category !== category)[local % 180]!;
-  return assemble({ seed, difficulty, familyId: "F05", subtype: "NOUN_ODD_ONE_OUT", stem: "ਕਿਹੜਾ ਸ਼ਬਦ ਬਾਕੀ ਤਿੰਨਾਂ ਤੋਂ ਵੱਖਰੀ ਕਿਸਮ ਦਾ ਨਾਂਵ ਹੈ?", correctAnswer: outlier.word, distractors: trio.map((x) => x.word), explanation: `ਬਾਕੀ ਤਿੰਨੇ ${CP003_NOUN_CATEGORY_NAMES[category]} ਹਨ, ਜਦਕਿ ‘${outlier.word}’ ${outlier.categoryNamePa} ਹੈ।`, authorityIds: [...trio.map((x) => x.id), outlier.id] });
+  return assemble({ seed, difficulty, familyId: "F05", subtype: "NOUN_ODD_ONE_OUT", stem: "ਕਿਹੜਾ ਸ਼ਬਦ ਬਾਕੀ ਤਿੰਨਾਂ ਤੋਂ ਵੱਖਰੀ ਕਿਸਮ ਦਾ ਨਾਂਵ ਹੈ?", correctAnswer: outlier.word, distractors: trio.map((x) => x.word), explanation: `‘${outlier.word}’ ${outlier.categoryNamePa} ਹੈ।`, authorityIds: [...trio.map((x) => x.id), outlier.id] });
 }
 export function generateCP003F06(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   if (difficulty !== "Medium") throw new Error("CP003 F06 supports Medium only");
