@@ -156,10 +156,20 @@ export const QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS = Object.freeze([
     questionEnd: 75,
     expectedQuestionCount: 25,
   }),
+  Object.freeze({
+    sectionId: "SSC-CGL-T1-2022-12-13-S1-QUANT",
+    examId: "SSC_CGL_TIER_I",
+    paperId: "SSC-CGL-2022-TIER-I-2022-12-13-S1",
+    heldDate: "2022-12-13",
+    shift: "Shift 1",
+    questionStart: 51,
+    questionEnd: 75,
+    expectedQuestionCount: 25,
+  }),
 ] satisfies readonly QuantV4CompleteSectionSpec[]);
 
 // P2 audit policy only. It deliberately does not authorize production promotion.
-// Eight complete sections means chapter/package weights are based on whole papers,
+// Complete sections mean chapter/package weights are based on whole papers,
 // not on isolated PYQs selected for chapter audits.
 export const QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY: QuantV4WholeSectionFrequencyPolicy = Object.freeze({
   minCompleteSections: 8,

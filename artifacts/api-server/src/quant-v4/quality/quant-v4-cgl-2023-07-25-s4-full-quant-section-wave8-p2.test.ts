@@ -51,35 +51,34 @@ assert.deepEqual(
 assert.equal(new Set(paperRows.map((entry) => `${entry.paperId}:${entry.questionRef}`)).size, 25);
 
 const packageByQuestion = Object.fromEntries(observations.map((entry) => [entry.questionRef?.match(/Q(\d+)$/u)?.[1], entry.packageId]));
-assert.equal(packageByQuestion["60"], "PCT-005"); // chained percentage change, not fundamentals.
-assert.equal(packageByQuestion["61"], "ALG-001"); // factorisation/cancellation, not rational-equation solving.
-assert.equal(packageByQuestion["65"], "GEO-002"); // circle common-tangent geometry.
-assert.equal(packageByQuestion["73"], "GEO-001"); // right-triangle/incircle geometry.
-assert.equal(packageByQuestion["75"], "SRI-002"); // surds and rationalisation.
+assert.equal(packageByQuestion["60"], "PCT-005");
+assert.equal(packageByQuestion["61"], "ALG-001");
+assert.equal(packageByQuestion["65"], "GEO-002");
+assert.equal(packageByQuestion["73"], "GEO-001");
+assert.equal(packageByQuestion["75"], "SRI-002");
 
-// Representative source-math checks across the section.
-assert.equal(7 ** 3, 343); // Q51 cube volume.
-assert.equal(15 * (42 - 14), 10 * 42); // Q53 daily attrition work total.
-assert.equal(4 * 18 / 12 - 4, 2); // Q54 additional men.
-assert.equal(500 / (6 + 10), 31.25); // Q56 first meeting time.
-assert.equal(2 * (4 * 6 + 6 * 8 + 8 * 4), 208); // Q57 cuboid total surface area.
-assert.equal((5_200 - 0.08 * 50_000) / 0.04, 30_000); // Q58 amount at 12%.
-assert.ok(Math.abs(2_695 / (1.1 * 1.4) - 1_750) < 1e-12); // Q60 chained percentage reverse base.
-assert.equal((900 * 15 + 700 * 14 - 1_600 * 10) * 100 / (1_600 * 10), 45.625); // Q63 gain%.
-assert.equal(10 / 50 * 100, 20); // Q68 dilution.
-assert.equal((15_990 - 12_792) * 100 / 15_990, 20); // Q70 discount.
-assert.equal(54_736 % 44, 0); // Q74 divisibility.
+assert.equal(7 ** 3, 343);
+assert.equal(15 * (42 - 14), 10 * 42);
+assert.equal(4 * 18 / 12 - 4, 2);
+assert.equal(500 / (6 + 10), 31.25);
+assert.equal(2 * (4 * 6 + 6 * 8 + 8 * 4), 208);
+assert.equal((5_200 - 0.08 * 50_000) / 0.04, 30_000);
+assert.ok(Math.abs(2_695 / (1.1 * 1.4) - 1_750) < 1e-12);
+assert.equal((900 * 15 + 700 * 14 - 1_600 * 10) * 100 / (1_600 * 10), 45.625);
+assert.equal(10 / 50 * 100, 20);
+assert.equal((15_990 - 12_792) * 100 / 15_990, 20);
+assert.equal(54_736 % 44, 0);
 const q75 = (Math.sqrt(2) - Math.sqrt(3)) / (Math.sqrt(2) + Math.sqrt(3));
-assert.ok(Math.abs(q75 - (2 * Math.sqrt(6) - 5)) < 1e-12); // Q75 rationalisation sign check.
+assert.ok(Math.abs(q75 - (2 * Math.sqrt(6) - 5)) < 1e-12);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 258);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 34);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 283);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 38);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 12);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 10);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 25);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 14);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 27);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 15);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 11);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 26);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 16);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 28);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 16);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 6);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-001" }).length, 1);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-005" }).length, 3);
@@ -95,8 +94,8 @@ const cgl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(cgl.countableQuestionCount, 225);
-assert.equal(cgl.distinctPaperCount, 24);
+assert.equal(cgl.countableQuestionCount, 250);
+assert.equal(cgl.distinctPaperCount, 25);
 assert.ok(cgl.topicCoverageCount >= 13);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.deepEqual([...cgl.blockers], ["DATED_PAPER_IDENTITY_INCOMPLETE"]);
@@ -108,12 +107,12 @@ const whole = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(whole.completeSectionCount, 8);
-assert.equal(whole.completeQuestionCount, 200);
-assert.equal(whole.totalCountableQuestionCount, 225);
+assert.equal(whole.completeSectionCount, 9);
+assert.equal(whole.completeQuestionCount, 225);
+assert.equal(whole.totalCountableQuestionCount, 250);
 assert.equal(whole.nonWholeSectionCountableQuestionCount, 25);
 assert.equal(whole.distinctSectionYearCount, 3);
-assert.equal(whole.packageCoverageCount, 27);
+assert.equal(whole.packageCoverageCount, 28);
 assert.equal(whole.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
 assert.deepEqual([...whole.blockers], []);
 assert.equal(whole.productionPromotionAuthorized, false);

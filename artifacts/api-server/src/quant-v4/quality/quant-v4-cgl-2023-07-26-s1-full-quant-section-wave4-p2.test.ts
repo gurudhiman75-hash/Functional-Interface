@@ -78,9 +78,9 @@ assert.equal(21 / 125 * 100, 16.8);
 assert.equal(0.175 * 880 * 1.25, 192.5);
 assert.equal(200 / 16, 12.5);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 258);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 283);
 const cgl = listRegisteredCountablePyqObservations({ examIds: ["SSC_CGL_TIER_I"] });
-assert.equal(cgl.length, 225);
+assert.equal(cgl.length, 250);
 assert.equal(cgl.filter((entry) => entry.paperId === "SSC-CGL-2023-TIER-I-2023-07-26-S1").length, 25);
 
 const whole = buildQuantV4WholeSectionFrequencyProfile({
@@ -89,14 +89,14 @@ const whole = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 8);
-assert.equal(whole.totalCountableQuestionCount, 225);
-assert.equal(whole.completeSectionCount, 8);
-assert.equal(whole.completeQuestionCount, 200);
+assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 9);
+assert.equal(whole.totalCountableQuestionCount, 250);
+assert.equal(whole.completeSectionCount, 9);
+assert.equal(whole.completeQuestionCount, 225);
 assert.equal(whole.nonWholeSectionCountableQuestionCount, 25);
 assert.equal(whole.undatedCountableQuestionCount, 10);
 assert.equal(whole.distinctSectionYearCount, 3);
-assert.equal(whole.packageCoverageCount, 27);
+assert.equal(whole.packageCoverageCount, 28);
 assert.equal(whole.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
 assert.deepEqual([...whole.blockers], []);
 assert.equal(whole.productionPromotionAuthorized, false);
@@ -112,8 +112,8 @@ assert.ok(!malCgl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 
 const numCgl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
 const tmwCgl = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(numCgl.normalizedCountableObservationCount, 19);
-assert.equal(tmwCgl.normalizedCountableObservationCount, 22);
+assert.equal(numCgl.normalizedCountableObservationCount, 20);
+assert.equal(tmwCgl.normalizedCountableObservationCount, 23);
 assert.equal(numCgl.profileSelectionCalibrated, false);
 assert.equal(tmwCgl.profileSelectionCalibrated, false);
 
