@@ -1,7 +1,8 @@
 # POL-CP-007 — President
 
-**Lifecycle:** REVIEW CANDIDATE — BALANCED EXPLANATIONS V6  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V6  
+**Approved:** 14 September 2026  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
 ## Scope
 
@@ -25,12 +26,12 @@ This CP covers the President as a constitutional office without drifting into cu
 - Article 111 assent to Bills
 - Article 123 Ordinances
 
-## Review design
+## Approved review design
 
 - 22 genuine QLs
 - 80 English review questions
 - 24 Easy / 42 Medium / 14 Hard
-- V6 generator is canonical for English review
+- V6 generator is canonical
 - simplified exam-style stems from V2
 - ordinary direct stems capped at 28 words
 - four unique options
@@ -38,19 +39,23 @@ This CP covers the President as a constitutional office without drifting into cu
 
 ## Language standard
 
-Keep required constitutional terms, but use simple English around them. Avoid both legal-heavy wording and overly short note-like explanations.
+Keep required constitutional terms, but use simple English around them. Avoid legal-heavy wording and avoid explanations that become too short to teach the rule.
 
-## Explanation standard
+## Frozen explanation standard
 
 Use a balanced teaching style. The explanation should answer the question directly and give enough context to understand the rule. One fuller sentence is usually enough; use a second short sentence only for a useful distinction or exam trap.
 
-Mechanical gates:
-- every explanation in the 80-question review must be unique;
-- normal explanation range: 11–24 words;
+Quality gates:
+- explanations are question-specific and non-generic;
 - no stock prefix or generic closing sentence;
 - avoid formal wording where a simpler phrase works;
-- no unnecessary option-by-option analysis.
+- no unnecessary option-by-option analysis;
+- answer alignment and four-option uniqueness remain required.
 
-## Gate
+## Change control
 
-Question Studio exposure, localization and production registration remain blocked until English V6 is approved.
+V6 is the frozen English authority for POL-CP-007. Any future content change must be made at source/fact/generator level and re-reviewed before replacing V6.
+
+## Deferred to chapter integration
+
+Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
