@@ -24,18 +24,18 @@ The external examples were used only to audit rule coverage and exam presentatio
 
 ## Coverage findings
 
-| Rule | Coverage target | Key learner-visible contrast | Ambiguity guard |
-|---|---|---|---|
-| GR-CND-001 | Zero conditional / standing rule | present general condition vs inappropriate past/hypothetical form | Explicit rule, regular-behaviour or whenever meaning |
-| GR-CND-002 | First conditional result | real future `will/can/may` result vs unreal `would` | Condition must be genuinely possible |
-| GR-CND-003 | Neutral future reference inside if-clause | present simple vs `will` in the condition | No willingness, insistence or volitional `will` |
-| GR-CND-004 | Second conditional | unreal present/future: past condition + `would/could` result | Context must be clearly hypothetical |
-| GR-CND-005 | Third conditional | past perfect condition + perfect conditional result | Both events anchored in the past |
-| GR-CND-006 | Mixed past → present | past-perfect condition + present unreal result | Explicit `now/today` cue |
-| GR-CND-007 | Mixed present → past | continuing unreal state + past unreal result | Stable state/characteristic + past result cue |
-| GR-CND-008 | Unless | `unless + positive clause` for a single negative condition | Extra negative must clearly reverse intended meaning |
-| GR-CND-009 | `Had` inversion | `Had + subject + past participle` | Mutation targets inversion itself |
-| GR-CND-010 | `Should/Were` inversion | formal inversion without `if` | No stylistic keys; mutation creates structurally invalid `if should/if were` |
+| Rule | Coverage target | Approved difficulty | Key learner-visible contrast | Ambiguity guard |
+|---|---|---|---|---|
+| GR-CND-001 | Zero conditional / standing rule | Easy–Hard | present general condition/result vs inappropriate future/past form | Explicit rule, regular-behaviour or whenever meaning |
+| GR-CND-002 | First conditional result | Easy–Hard | real future `will/can/may` result vs unreal `would` | Condition must be genuinely possible |
+| GR-CND-003 | Neutral future reference inside if-clause | Easy–Hard | present simple vs `will` in the condition | No willingness, insistence or volitional `will` |
+| GR-CND-004 | Second conditional | Easy–Hard | unreal present/future: past condition + `would/could` result | Context must be clearly hypothetical |
+| GR-CND-005 | Third conditional | Easy–Hard | past perfect condition + perfect conditional result | Both events anchored in the past |
+| GR-CND-006 | Mixed past → present | Medium–Hard | past-perfect condition + present unreal result | Explicit `now/today` cue |
+| GR-CND-007 | Mixed present → past | Medium–Hard | continuing unreal state + perfect conditional past result | Stable state/characteristic + explicit past result cue |
+| GR-CND-008 | Unless | Easy–Hard | `unless + positive clause` for a single negative condition | Extra negative must clearly reverse intended meaning |
+| GR-CND-009 | `Had` inversion | Medium–Hard | `Had + subject + past participle` | Mutation targets inversion itself |
+| GR-CND-010 | `Should/Were` inversion | Medium–Hard | formal inversion without `if` | No stylistic keys; mutation creates structurally invalid `if should/if were` |
 
 ## Deliberate exclusions
 
@@ -43,12 +43,13 @@ The external examples were used only to audit rule coverage and exam presentatio
 - **If + will** is keyed only for neutral future reference. Volitional or willingness uses are excluded.
 - Conditional linkers such as `provided that`, `as long as`, `even if` and `in case` are not used as synonym-selection traps here because that would overlap CP007 and introduce semantic ambiguity.
 - Counterfactual meaning is never inferred from obscure vocabulary alone; temporal and factual cues must carry the distinction.
+- Mixed conditionals and formal inversion are deliberately excluded from Easy. A short sentence does not make an advanced conditional relationship an Easy question.
 
 ## Difficulty model
 
-**Easy:** short clauses, direct time cues, one obvious conditional dependency.  
-**Medium:** longer noun phrases, passive forms, embedded reporting and wider dependency distance.  
-**Hard:** mixed temporal relations, institutional contexts, passive/perfect forms, formal inversion and longer but still natural exam-style sentences.
+**Easy:** core zero/first/second/third/`unless` patterns only; short clauses, direct factual or time cues and one obvious dependency.  
+**Medium:** all ten rule families are available; mixed time relations and conditional inversion enter here, with wider dependency distance and moderately longer prose.  
+**Hard:** all ten rule families remain available, but use institutional contexts, passive/perfect forms, longer dependencies and more demanding mixed/inverted structures while keeping one defensible answer.
 
 Lexical obscurity is not used to manufacture difficulty.
 
@@ -56,7 +57,9 @@ Lexical obscurity is not used to manufacture difficulty.
 
 - 60 authored semantic scenes.
 - 20 Easy / 20 Medium / 20 Hard.
-- Exactly 2 scenes per rule at each difficulty.
+- Easy uses 6 core rule families (`001–005`, `008`); mixed and inversion families are fail-closed at Easy.
+- Medium and Hard each contain exactly 2 scenes for every one of the 10 rule families.
+- All 60 scene domains are distinct.
 - QL001 source answer positions are exactly balanced at each difficulty: A=5, B=5, C=5, D=5.
 - QL002 merges a non-keyed boundary and retains exactly one keyed error.
 - QL007 exposes the canonical correct sentence and keys **No error**.
