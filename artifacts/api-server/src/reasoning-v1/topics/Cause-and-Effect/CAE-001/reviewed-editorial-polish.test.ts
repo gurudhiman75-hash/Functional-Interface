@@ -9,7 +9,7 @@ const REMEDIATED_COMBINATION_VARIANTS = new Set([
   "late-deliveries-second-cause",
   "library-visits-neither-cause",
   "bridge-closure-one-effect",
-  "server-load-three-effects".replace("three", "one"),
+  "server-load-second-effect",
   "power-failure-three-effects",
 ]);
 const BANNED_ENGLISH_FRAGMENTS = [
