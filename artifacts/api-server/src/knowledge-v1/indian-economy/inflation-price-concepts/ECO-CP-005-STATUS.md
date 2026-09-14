@@ -1,11 +1,12 @@
 # ECO-CP-005 Status
 
 **CP:** ECO-CP-005 Inflation & Price Concepts  
-**Lifecycle:** REVIEW_CANDIDATE_V2  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V2  
+**English baseline:** FROZEN_V2  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
-## Implemented
+## Approved implementation
 
 - static scope and exclusions;
 - official source registry;
@@ -19,7 +20,7 @@
 - QA for source resolution, duplicates, option validity, difficulty spread and static-data boundary;
 - Human Review Set V2 with improved explanations.
 
-## Explanation standard
+## Frozen explanation standard
 
 - normally one or two short sentences;
 - state the deciding rule rather than only repeat the answer;
@@ -36,10 +37,9 @@
 - forecasts and current food/fuel contributions;
 - arbitrary creeping/walking/running percentage bands.
 
-## Promotion steps
+## Promotion state
 
-1. Human review of English questions and V2 explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behavior.
-4. Add localisation layer.
-5. Register with runtime/Question Studio only after promotion approval.
+1. English human review — APPROVED.
+2. English V2 behavior — FROZEN.
+3. Localisation — not started.
+4. Runtime/Question Studio registration — blocked until separate promotion approval.
