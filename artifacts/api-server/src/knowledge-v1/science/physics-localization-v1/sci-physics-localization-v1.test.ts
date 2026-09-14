@@ -10,8 +10,9 @@ import { SCI_PHYSICS_EXPLANATION_QUALITY_V2 } from "./sci-physics-explanation-qu
 const bannedEnglishWords = /\b(which|what|the|is|are|distance|displacement|speed|velocity|acceleration|force|mass|momentum|friction|pressure|work|energy|temperature|statement|correct|incorrect)\b/i;
 const deprecatedPunjabiAcceleration = /ਤ੍ਵਰਨ/u;
 const massAsWeightMisuse = /ਸਥਿਰ ਭਾਰ|ਭਾਰ ਅਤੇ ਵੇਗ|ਭਾਰ ਅਤੇ ਪ੍ਰਵੇਗ|ਪ੍ਰਤੀ ਇਕਾਈ ਭਾਰ|ਘਣਤਾ = ਭਾਰ\/|ਕੇਵਲ ਭਾਰ ਤੇ|ਭਾਰ ਬਦਲਦਾ|ਭਾਰ ਵਾਲੀ ਵਸਤੂ|ਭਾਰ ਘਟਾਉਂਦੀ ਹੈ|ਕੁੱਲ ਬਲ ਉਸ ਦੇ ਭਾਰ ਦੇ ਬਰਾਬਰ/u;
-const hindiCalquePunjabi = /ਆਵ੍ਰਿਤੀ|ਅਲਪਤਮ ਅੰਕ|ਯਾਦ੍ਰਿਚਛਿਕ|ਪ੍ਰਣਾਲੀਗਤ ਗਲਤੀ|ਪ੍ਰਣਾਲੀਬੱਧ ਗਲਤੀ|ਆਯਾਮੀ ਸੂਤਰ|ਵਿਉਤਪੰਨ ਇਕਾਈ|ਉਤਪੰਨ ਇਕਾਈ|ਊਸ਼ਮਾਗਤਿਕ|ਤਾਪਗਤਿਕ|ਅਭਿਕੇਂਦਰੀ ਬਲ|ਪ੍ਰਤਿਕਸ਼ੇਪ|ਸੀਮਾਂਤ ਚਾਲ|ਪਰਿਪਥ|ਵਿਦਿਉਤ|ਪਰਿਸ਼ੁੱਧਤਾ|ਯਥਾਰਥਤਾ|ਵਿਗਿਆਨਕ ਸੰਕੇਤਨ|ਸਾਪੇਖ ਘਣਤਾ|ਸਦਿਸ਼|ਅਦਿਸ਼|ਆਵੇਗ/u;
-const hindiShapedExamPunjabi = /ਕਥਨ|ਕੇਵਲ I|ਕੇਵਲ II|ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ/u;
+const hindiCalquePunjabi = /ਆਵ੍ਰਿਤੀ|ਅਲਪਤਮ ਅੰਕ|ਯਾਦ੍ਰਿਚਛਿਕ|ਪ੍ਰਣਾਲੀਗਤ ਗਲਤੀ|ਪ੍ਰਣਾਲੀਬੱਧ ਗਲਤੀ|ਆਯਾਮੀ ਸੂਤਰ|ਵਿਉਤਪੰਨ ਇਕਾਈ|ਉਤਪੰਨ ਇਕਾਈ|ਊਸ਼ਮਾਗਤਿਕ|ਤਾਪਗਤਿਕ|ਅਭਿਕੇਂਦਰੀ ਬਲ|ਪ੍ਰਤਿਕਸ਼ੇਪ|ਸੀਮਾਂਤ|ਪਰਿਪਥ|ਵਿਦਿਉਤ|ਪਰਿਸ਼ੁੱਧਤਾ|ਯਥਾਰਥਤਾ|ਵਿਗਿਆਨਕ ਸੰਕੇਤਨ|ਸਾਪੇਖ ਘਣਤਾ|ਸਦਿਸ਼|ਅਦਿਸ਼|ਆਵੇਗ|ਪਰਸਪਰ|ਪ੍ਰਵਿਰਤੀ|ਵਿਸ਼ਰਾਮ|ਬੀਜਗਣਿਤੀ|ਅਣੂਈ|ਸੰਰਕਸ਼ਣ/u;
+const hindiShapedExamPunjabi = /ਕਥਨ|ਕੇਵਲ|ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ/u;
+const punjabiGrammarArtifacts = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਵਰਤੁਲ/u;
 
 assert.equal(Object.keys(SCI_PHYSICS_EXPLANATION_QUALITY_V2).length, 48, "Explanation-quality V2 must cover all 48 CP001-CP002 anchors");
 for (const [anchorId, localized] of Object.entries(SCI_PHYSICS_EXPLANATION_QUALITY_V2)) {
@@ -61,6 +62,7 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
         assert.equal(massAsWeightMisuse.test(learnerText), false, `${question.questionId}: mass/weight terminology conflated`);
         assert.equal(hindiCalquePunjabi.test(learnerText), false, `${question.questionId}: Hindi-calque Punjabi terminology leaked`);
         assert.equal(hindiShapedExamPunjabi.test(learnerText), false, `${question.questionId}: Hindi-shaped exam instruction leaked`);
+        assert.equal(punjabiGrammarArtifacts.test(learnerText), false, `${question.questionId}: Punjabi grammar artifact leaked`);
       }
     });
     if (locale === "pa") {
