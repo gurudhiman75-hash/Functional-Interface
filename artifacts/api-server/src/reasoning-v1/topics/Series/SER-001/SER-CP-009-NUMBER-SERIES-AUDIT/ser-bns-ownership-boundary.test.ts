@@ -1,13 +1,16 @@
 import assert from "node:assert/strict";
 
 import { generateBns001Question } from "../../../../../quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001";
-import { generateSerCp009NumberSeries } from "./number-series-final";
-import { SER_CP009_NUMBER_SERIES_QL_IDS } from "./number-series";
+import {
+  SER_CP009_AUDITED_QL_IDS,
+  SER_CP009_REJECTED_SOURCE_GAP,
+  generateSerCp009AuditedNumberSeries,
+} from "./number-series-audited";
 
 // SER-001 may use arithmetic grammars that resemble banking number-series
 // primitives, but it owns only the SSC-style Reasoning presentation/lifecycle.
-for (const qlId of SER_CP009_NUMBER_SERIES_QL_IDS) {
-  const question = generateSerCp009NumberSeries(qlId, 1709, "en-IN");
+for (const qlId of SER_CP009_AUDITED_QL_IDS) {
+  const question = generateSerCp009AuditedNumberSeries(qlId, 1709, "en-IN");
   assert.equal(question.packageId, "SER-001");
   assert.equal(question.checkpointId, "SER-CP-009");
   assert.equal(question.examProfile, "SSC_REASONING");
@@ -20,6 +23,9 @@ for (const qlId of SER_CP009_NUMBER_SERIES_QL_IDS) {
   assert.equal(question.mockTestEligible, false);
   assert.equal(question.publiclyPublishable, false);
 }
+assert.equal(SER_CP009_REJECTED_SOURCE_GAP.qlId, "SER-QL-042");
+assert.equal(SER_CP009_REJECTED_SOURCE_GAP.auditDecision, "REJECT_WRONG_CHAPTER_OWNERSHIP");
+assert.equal(SER_CP009_REJECTED_SOURCE_GAP.permanentQlReserved, false);
 
 // BNS-001 remains a separate Speed Mathematics package for Banking Prelims.
 for (const patternKind of [
@@ -53,7 +59,8 @@ console.log(JSON.stringify({
     checkpointId: "SER-CP-009",
     examProfile: "SSC_REASONING",
     optionCount: 4,
-    provisionalQlCount: SER_CP009_NUMBER_SERIES_QL_IDS.length,
+    provisionalAuditedQlCount: SER_CP009_AUDITED_QL_IDS.length,
+    rejectedWrongOwnerQl: SER_CP009_REJECTED_SOURCE_GAP.qlId,
     lifecycle: "REVIEW_ONLY",
   },
   banking: {
