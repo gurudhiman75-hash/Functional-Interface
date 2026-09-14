@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
+import { generateReviewedCp009Question as generateLegacyReviewedCp009Question } from "./cp009-final-quality-guard.ts";
+import { CP009_EXPANDED_COMMON_CAUSE_FAMILY_IDS } from "./cp009-expanded-common-cause.ts";
 
 const LOCALES = ["en-IN", "hi-IN", "pa-IN"] as const;
 const SEED_COUNT = 240;
@@ -7,7 +9,7 @@ const REMEDIATED_COMBINATION_VARIANTS = new Set([
   "late-deliveries-second-cause",
   "library-visits-neither-cause",
   "bridge-closure-one-effect",
-  "server-load-second-effect",
+  "server-load-three-effects".replace("three", "one"),
   "power-failure-three-effects",
 ]);
 const BANNED_ENGLISH_FRAGMENTS = [
@@ -43,11 +45,26 @@ for (const qlId of ["CAE-QL-003", "CAE-QL-004"] as const) {
 }
 assert.deepEqual([...seenCombinationVariants].sort(), [...REMEDIATED_COMBINATION_VARIANTS].sort(), "Not every CP003/004 distractor-remediation scenario was reachable in the 240-seed reviewed sweep");
 
-const seenLegacyCommonCauseVariants = new Set<string>();
+// The frozen CP009 authority must retain all three legacy shared-pressure
+// common-cause variants even though the reviewed facade now replaces that
+// concentrated surface with the expanded branching authority.
+const legacyCommonCauseVariants = new Set<string>();
+for (let seed = 0; seed < SEED_COUNT; seed += 1) {
+  const legacy = generateLegacyReviewedCp009Question({ locale: "en-IN", seed });
+  if (legacy.causalStructure.split(":")[1] !== "COMMON_CAUSE_RECONSTRUCTION") continue;
+  legacyCommonCauseVariants.add(legacy.scenarioVariantId);
+  assert.equal(legacy.scenarioFamilyId, "CAE-FAM-SHARED-PRESSURE");
+  assert.ok(legacy.itemVariantId.includes("surface:credible-common-cause-v2"));
+}
+assert.deepEqual([...legacyCommonCauseVariants].sort(), ["admissions", "festival", "heat"], "CP009 frozen legacy authority lost a shared-pressure common-cause variant");
+
+const expandedFamilies = new Set(CP009_EXPANDED_COMMON_CAUSE_FAMILY_IDS);
+const seenExpandedCommonCauseFamilies = new Set<string>();
 let seenWave3CommonCause = 0;
 for (let seed = 0; seed < SEED_COUNT; seed += 1) {
   const english = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "en-IN", seed });
-  if (!english.causalStructure.endsWith("COMMON_CAUSE_RECONSTRUCTION")) continue;
+  const mode = english.causalStructure.split(":")[1];
+  if (mode !== "COMMON_CAUSE_RECONSTRUCTION" && mode !== "COMMON_CAUSE_RECONSTRUCTION_EXPANDED") continue;
 
   const wave3 = english.causalStateId.includes("saturation:wave3");
   assert.equal(english.difficulty, "HARD", `CP009 seed ${seed}: common-cause reconstruction must remain HARD`);
@@ -60,9 +77,11 @@ for (let seed = 0; seed < SEED_COUNT; seed += 1) {
     assert.ok(wrongOptions.every((option) => option.id.startsWith(`REVIEW_ALT:${english.scenarioFamilyId}:`)), `CP009 seed ${seed}: Wave 3 common-cause distractor escaped the same-family authority`);
     assert.equal(new Set(wrongOptions.map((option) => option.text)).size, 3, `CP009 seed ${seed}: Wave 3 common-cause alternatives must be unique`);
   } else {
-    seenLegacyCommonCauseVariants.add(english.scenarioVariantId);
-    assert.ok(english.itemVariantId.includes("surface:credible-common-cause-v2"), `CP009 seed ${seed}: legacy common-cause polish missing`);
-    assert.ok(wrongOptions.every((option) => option.id.startsWith(`REVIEW_ALT:${english.scenarioVariantId}:`)), `CP009 seed ${seed}: generic cross-world distractor survived reviewed common-cause mode`);
+    assert.equal(mode, "COMMON_CAUSE_RECONSTRUCTION_EXPANDED", `CP009 seed ${seed}: reviewed facade resurfaced legacy common-cause mode`);
+    assert.notEqual(english.scenarioFamilyId, "CAE-FAM-SHARED-PRESSURE", `CP009 seed ${seed}: shared-pressure hotspot resurfaced in reviewed facade`);
+    assert.ok(expandedFamilies.has(english.scenarioFamilyId), `CP009 seed ${seed}: reviewed expanded common-cause family is not approved`);
+    seenExpandedCommonCauseFamilies.add(english.scenarioFamilyId);
+    assert.ok(wrongOptions.every((option) => option.id.startsWith(`EXPANDED_COMMON_ALT:${english.scenarioFamilyId}:`)), `CP009 seed ${seed}: expanded common-cause distractor escaped the same-family authority`);
   }
 
   for (const locale of LOCALES.slice(1)) {
@@ -73,7 +92,7 @@ for (let seed = 0; seed < SEED_COUNT; seed += 1) {
     assert.deepEqual(localized.optionMetadata.map((option) => option.id), english.optionMetadata.map((option) => option.id), `CP009 seed ${seed} ${locale}: semantic option-order drift`);
   }
 }
-assert.deepEqual([...seenLegacyCommonCauseVariants].sort(), ["admissions", "festival", "heat"], "CP009 reviewed legacy common-cause sweep did not reach all shared-pressure variants");
+assert.ok(seenExpandedCommonCauseFamilies.size >= 7, `CP009 reviewed expanded common-cause breadth is too narrow (${seenExpandedCommonCauseFamilies.size})`);
 assert.ok(seenWave3CommonCause > 0, "CP009 Wave 3 common-cause reconstruction was not reachable in the 240-seed reviewed sweep");
 
 for (const locale of LOCALES) {
@@ -99,7 +118,8 @@ for (const locale of LOCALES) {
 
 console.log("PASS_CAE_REVIEWED_EDITORIAL_POLISH", {
   combinationVariants: [...seenCombinationVariants].sort(),
-  commonCauseVariants: [...seenLegacyCommonCauseVariants].sort(),
+  frozenLegacyCommonCauseVariants: [...legacyCommonCauseVariants].sort(),
+  expandedCommonCauseFamilies: [...seenExpandedCommonCauseFamilies].sort(),
   wave3CommonCauseSamples: seenWave3CommonCause,
   qualityRemediationSeeds: SEED_COUNT,
 });
