@@ -1,6 +1,6 @@
 # POL-CP-008 — Vice-President
 
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** REVIEW CANDIDATE — SIMPLIFIED LANGUAGE V2  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -23,10 +23,15 @@ This CP covers Articles 63–71 with emphasis on Vice-President-specific exam tr
 - 17 genuine QLs
 - 60 English review questions
 - 20 Easy / 31 Medium / 9 Hard
+- V2 generator is canonical for English review
 - compact exam-style stems
 - four unique options
-- direct stems capped at 34 words
-- teaching explanations of at least 20 words
+- ordinary direct stems capped at 28 words
+- simple teaching explanations of at least 20 words
+
+## Language standard
+
+Keep necessary constitutional terms such as electoral college, Rajya Sabha and removal resolution, but simplify the English around them. Prefer direct questions, common verbs and short sentences.
 
 ## High-yield distinctions
 
@@ -40,4 +45,4 @@ This CP covers Articles 63–71 with emphasis on Vice-President-specific exam tr
 
 ## Gate
 
-Question Studio exposure, localization and production registration remain blocked until the English batch is approved.
+Question Studio exposure, localization and production registration remain blocked until simplified English V2 is approved.
