@@ -1,7 +1,7 @@
 # POL-CP-008 — Vice-President Status
 
 **Branch:** `feature/polity-cp008-vice-president`  
-**Lifecycle:** REVIEW CANDIDATE — HELPFUL EXPLANATIONS V3  
+**Lifecycle:** REVIEW CANDIDATE — CLEAN EXPLANATIONS V4  
 **Runtime registration:** BLOCKED pending human approval
 
 ## Implemented
@@ -20,9 +20,9 @@
 - oath and election disputes
 - 17 genuine QLs
 - 60-question review batch target
-- V2 simplified-language layer
-- canonical V3 question-specific explanation layer
-- explanation-specificity, structural and provenance QA
+- V2 simplified-language stems
+- V4 concise question-specific explanations
+- structural, provenance and explanation-clutter QA
 
 ## Review profile
 
@@ -30,16 +30,18 @@
 - 31 Medium
 - 9 Hard
 
-## V3 explanation policy
+## V4 explanation policy
 
-- state the exact correct answer first
-- explain the constitutional rule that makes it correct
-- add one useful distinction or trap where helpful
-- no single generic paragraph reused for several questions in a QL
-- repeated answers such as `No` must still get question-specific explanations
-- use plain language and short sentences
-- avoid option-by-option analysis unless needed
-- minimum explanation floor: 18 words
+- no stock opening such as `Correct answer:`
+- no generic closing sentence
+- answer the exact question directly
+- simple fact questions normally use one short sentence
+- tricky questions may use a second sentence only when useful
+- every explanation in the batch must be unique
+- explanation length target: 6–24 words
+- blocked clutter includes `This is the exact`, `nearby Articles`, `Match the topic`, and `Remember the word`
+- repeated answers such as `No` still get explanation text specific to the question
+- no unnecessary option-by-option analysis
 
 ## Gated
 
@@ -48,4 +50,4 @@
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V3 is approved.
+These remain blocked until English V4 is approved.
