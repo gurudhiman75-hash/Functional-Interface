@@ -10,9 +10,9 @@ import { SCI_PHYSICS_EXPLANATION_QUALITY_V2 } from "./sci-physics-explanation-qu
 const bannedEnglishWords = /\b(which|what|the|is|are|distance|displacement|speed|velocity|acceleration|force|mass|momentum|friction|pressure|work|energy|temperature|statement|correct|incorrect)\b/i;
 const deprecatedPunjabiAcceleration = /ਤ੍ਵਰਨ/u;
 const massAsWeightMisuse = /ਸਥਿਰ ਭਾਰ|ਭਾਰ ਅਤੇ ਵੇਗ|ਭਾਰ ਅਤੇ ਪ੍ਰਵੇਗ|ਪ੍ਰਤੀ ਇਕਾਈ ਭਾਰ|ਘਣਤਾ = ਭਾਰ\/|ਕੇਵਲ ਭਾਰ ਤੇ|ਭਾਰ ਬਦਲਦਾ|ਭਾਰ ਵਾਲੀ ਵਸਤੂ|ਭਾਰ ਘਟਾਉਂਦੀ ਹੈ|ਕੁੱਲ ਬਲ ਉਸ ਦੇ ਭਾਰ ਦੇ ਬਰਾਬਰ/u;
-const hindiCalquePunjabi = /ਆਵ੍ਰਿਤੀ|ਅਲਪਤਮ ਅੰਕ|ਯਾਦ੍ਰਿਚਛਿਕ|ਪ੍ਰਣਾਲੀਗਤ ਗਲਤੀ|ਪ੍ਰਣਾਲੀਬੱਧ ਗਲਤੀ|ਆਯਾਮੀ ਸੂਤਰ|ਵਿਉਤਪੰਨ ਇਕਾਈ|ਉਤਪੰਨ ਇਕਾਈ|ਊਸ਼ਮਾਗਤਿਕ|ਤਾਪਗਤਿਕ|ਅਭਿਕੇਂਦਰੀ ਬਲ|ਪ੍ਰਤਿਕਸ਼ੇਪ|ਸੀਮਾਂਤ|ਪਰਿਪਥ|ਵਿਦਿਉਤ|ਪਰਿਸ਼ੁੱਧਤਾ|ਯਥਾਰਥਤਾ|ਵਿਗਿਆਨਕ ਸੰਕੇਤਨ|ਸਾਪੇਖ ਘਣਤਾ|ਸਦਿਸ਼|ਅਦਿਸ਼|ਆਵੇਗ|ਪਰਸਪਰ|ਪ੍ਰਵਿਰਤੀ|ਵਿਸ਼ਰਾਮ|ਬੀਜਗਣਿਤੀ|ਅਣੂਈ|ਸੰਰਕਸ਼ਣ/u;
+const hindiCalquePunjabi = /ਆਵ੍ਰਿਤੀ|ਅਲਪਤਮ ਅੰਕ|ਯਾਦ੍ਰਿਚਛਿਕ|ਪ੍ਰਣਾਲੀਗਤ ਗਲਤੀ|ਪ੍ਰਣਾਲੀਬੱਧ ਗਲਤੀ|ਆਯਾਮੀ ਸੂਤਰ|ਵਿਉਤਪੰਨ ਇਕਾਈ|ਉਤਪੰਨ ਇਕਾਈ|ਊਸ਼ਮਾਗਤਿਕ|ਤਾਪਗਤਿਕ|ਅਭਿਕੇਂਦਰੀ ਬਲ|ਕੇਂਦਰਾਭਿਮੁਖ|ਪ੍ਰਤਿਕਸ਼ੇਪ|ਸੀਮਾਂਤ|ਪਰਿਪਥ|ਵਿਦਿਉਤ|ਪਰਿਸ਼ੁੱਧਤਾ|ਯਥਾਰਥਤਾ|ਵਿਗਿਆਨਕ ਸੰਕੇਤਨ|ਸਾਪੇਖ ਘਣਤਾ|ਸਦਿਸ਼|ਅਦਿਸ਼|ਆਵੇਗ|ਪਰਸਪਰ|ਪ੍ਰਵਿਰਤੀ|ਵਿਸ਼ਰਾਮ|ਬੀਜਗਣਿਤੀ|ਅਣੂਈ|ਸੰਰਕਸ਼ਣ|ਸਪਰਸ਼ ਰੇਖਾ|ਸਮਾਨ ਸਰਕੁਲਰ ਗਤੀ|ਰੇਖੀ ਸੰਵੇਗ/u;
 const hindiShapedExamPunjabi = /ਕਥਨ|ਕੇਵਲ|ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ/u;
-const punjabiGrammarArtifacts = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਵਰਤੁਲ/u;
+const punjabiGrammarArtifacts = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਵਰਤੁਲ|ਚਿਕਨਾਹਟ|ਕ੍ਰਿਆ ਅਤੇ ਪ੍ਰਤੀਕ੍ਰਿਆ/u;
 
 assert.equal(Object.keys(SCI_PHYSICS_EXPLANATION_QUALITY_V2).length, 48, "Explanation-quality V2 must cover all 48 CP001-CP002 anchors");
 for (const [anchorId, localized] of Object.entries(SCI_PHYSICS_EXPLANATION_QUALITY_V2)) {
@@ -76,6 +76,8 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
       assert.match(corpus, /ਪੁੰਜ/u, `${cpId}/pa: Punjabi mass term ਪੁੰਜ missing`);
       assert.match(corpus, /ਪ੍ਰਵੇਗ/u, `${cpId}/pa: Punjabi acceleration term ਪ੍ਰਵੇਗ missing`);
       assert.match(corpus, /ਭਾਰ-ਬਲ/u, `${cpId}/pa: genuine weight terminology should remain distinct`);
+      assert.match(corpus, /ਸੈਂਟ੍ਰਿਪੀਟਲ ਬਲ/u, `${cpId}/pa: natural centripetal-force term missing`);
+      assert.match(corpus, /ਇਕਸਾਰ ਗੋਲ ਗਤੀ/u, `${cpId}/pa: natural circular-motion wording missing`);
     }
   }
 }
