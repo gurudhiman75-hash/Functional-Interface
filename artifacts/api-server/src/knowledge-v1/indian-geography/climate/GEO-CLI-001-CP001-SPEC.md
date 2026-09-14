@@ -1,6 +1,6 @@
 # GEO-CLI-001 CP001 — Climate Controls & Monsoon Character
 
-Status: REVIEW CANDIDATE V3
+Status: REVIEW CANDIDATE V4 — EXAM-GRADE STEM PASS
 Parent blueprint: `GEO-CLI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-CLI-001-QL-001` to `GEO-CLI-001-QL-009`
 
@@ -28,18 +28,31 @@ The checkpoint must cover the standard climate controls at least once: latitude,
 - CP001 may state that warm or cold ocean currents can modify nearby coastal temperatures, especially with onshore winds; it does not require obscure current names.
 - CP001 may use seasonal pressure change only as a basic control. Detailed ITCZ, jet-stream and ENSO mechanism belongs to later CPs.
 
+## Exam-grade stem contract
+
+- Every stem must read like a real SSC, Banking, Railway or similar objective-exam question.
+- Keep wording direct and natural; difficulty must come from the fact relation, not difficult English.
+- Applied stems should give only the clues needed to solve the question.
+- Standard statement instructions are allowed, but statement format must not dominate the batch.
+- Do not use generator-like filler such as `associated with`, `described as`, `in the context of`, `with reference to the above`, or vague prompts such as `Which is correct?` without a clear object.
+- Every V4 stem must be unique, end as a complete question, and remain within the review length limit.
+- Easy stems are direct but not childish; Medium stems use comparison/application; Hard stems combine two or three already-qualified controls.
+
 ## Review contract
 
 - 54 questions
 - exactly 6 questions per QL
 - 18 Easy / 30 Medium / 6 Hard
 - 54 unique semantic payloads
+- 54 unique learner-facing stems
 - A14 / B14 / C13 / D13 answer-position split
 - at least three distinct canonical answers among Hard questions
 - four plausible options drawn from the same broad semantic class wherever possible
 - review-only; runtime registration disabled
 - learner-facing text contains no source/generator/review terminology
 - simple explanations with the decisive fact
+- stem length 28–220 characters
+- no more than 10 statement-format stems
 
 ## Source authority
 
