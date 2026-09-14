@@ -6,6 +6,7 @@ const SEEDS_PER_QL = 5_000;
 const BLOCK = 500;
 
 type Counter = Map<string, number>;
+type ExpansionPriority = "HIGH" | "MEDIUM" | "LOW" | "COMPLETE_FINITE";
 
 type AuditRow = Readonly<{
   qlId: CaeQlId;
@@ -105,7 +106,15 @@ function auditQl(qlId: CaeQlId): AuditRow {
   };
 }
 
-function priority(row: AuditRow): "HIGH" | "MEDIUM" | "LOW" {
+function priority(row: AuditRow): ExpansionPriority {
+  // QL002 is intentionally finite: its graph-native COMMON_OR_INDEPENDENT
+  // authority has 124 theoretical states across the current 21-family corpus.
+  // ql002-structural-completeness.test.ts proves both FOUR_WAY and FIVE_WAY
+  // reviewed generation reach all 124 states (46 common-cause, 39 independent
+  // effects, 39 independent causes). Early saturation is therefore completion,
+  // not evidence that more families should be added.
+  if (row.qlId === "CAE-QL-002" && row.distinctCausalStates === 124) return "COMPLETE_FINITE";
+
   const finalBlockShare = row.distinctCausalStates === 0 ? 0 : row.final500NewStates / row.distinctCausalStates;
   if (row.distinctSemanticForms < 80 || row.seedAt95PercentFinalStateCoverage < 2_000 || row.topStateShare >= 0.03) return "HIGH";
   if (row.distinctSemanticForms < 160 || finalBlockShare < 0.03 || row.topStateShare >= 0.015) return "MEDIUM";
@@ -120,6 +129,8 @@ const lines: string[] = [
   `Reviewed English generation sampled at **${SEEDS_PER_QL.toLocaleString()} seeds per QL** (${(SEEDS_PER_QL * CAE_PROVISIONAL_QL_IDS.length).toLocaleString()} total questions).`,
   "",
   "This audit measures semantic-state repetition separately from presentation shuffling. `causalStateId` is the strict semantic-state identity; `semantic forms` collapse presentation and retain QL, operation, family/variant, keyed answer and difficulty.",
+  "",
+  "`COMPLETE_FINITE` means a separate graph-enumeration regression has proved the reviewed generator reaches the full theoretical state space; an early plateau is expected and is not an expansion signal.",
   "",
   "| QL | causal states | semantic forms | item variants | families | variants | first collision | 95% states seen by | new states in final 500 | top-state share | expansion priority |",
   "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|",
@@ -141,11 +152,18 @@ for (const row of rows) {
     "**Most repeated causal states:**",
     ...row.topStates.map(([id, count]) => `- ${count}× — \`${id}\``),
   );
+  if (row.qlId === "CAE-QL-002") {
+    lines.push(
+      "",
+      "**Structural completeness:** 124/124 theoretical states are reachable in both FOUR_WAY and FIVE_WAY reviewed profiles: 46 COMMON_CAUSE, 39 INDEPENDENT_EFFECTS, and 39 INDEPENDENT_CAUSES. Both profiles complete the theoretical state space by seed 866. No expansion is warranted unless the learner-operation contract itself changes.",
+    );
+  }
 }
 
 const high = rows.filter((row) => priority(row) === "HIGH").map((row) => row.qlId);
 const medium = rows.filter((row) => priority(row) === "MEDIUM").map((row) => row.qlId);
 const low = rows.filter((row) => priority(row) === "LOW").map((row) => row.qlId);
+const completeFinite = rows.filter((row) => priority(row) === "COMPLETE_FINITE").map((row) => row.qlId);
 lines.push(
   "",
   "## Expansion decision",
@@ -153,8 +171,9 @@ lines.push(
   `- **High priority:** ${high.join(", ") || "none"}`,
   `- **Medium priority:** ${medium.join(", ") || "none"}`,
   `- **Low priority:** ${low.join(", ") || "none"}`,
+  `- **Structurally complete finite:** ${completeFinite.join(", ") || "none"}`,
   "",
-  "Interpretation: high-priority QLs should receive new semantic structures/families before adding cosmetic variants. Medium-priority QLs may benefit from targeted family/operation expansion. Low-priority QLs should not be expanded merely to increase nominal counts.",
+  "Interpretation: high-priority QLs should receive new semantic structures/families before cosmetic variants. Medium-priority QLs may benefit from targeted family/operation expansion. Low-priority QLs should not be expanded merely to increase nominal counts. COMPLETE_FINITE QLs should remain frozen unless the exam/source-profile contract adds a genuinely new learner operation.",
   "",
 );
 
