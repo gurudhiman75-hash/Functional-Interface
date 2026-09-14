@@ -11,6 +11,72 @@ const inPlace = (tokens: readonly string[], predicate: (token: string) => boolea
   return tokens.map((token) => predicate(token) ? changed[index++]! : token);
 };
 
+function operationInstruction(operationName: string): L {
+  switch (operationName) {
+    case "group letters, then digits, then symbols":
+      return {
+        en: "group all letters first, digits next and symbols last, retaining the order within each group",
+        hi: "पहले सभी अक्षर, फिर अंक और अंत में प्रतीक रखें तथा हर समूह का आपसी क्रम बनाए रखें",
+        pa: "ਪਹਿਲਾਂ ਸਾਰੇ ਅੱਖਰ, ਫਿਰ ਅੰਕ ਅਤੇ ਅੰਤ ਵਿੱਚ ਨਿਸ਼ਾਨ ਰੱਖੋ ਅਤੇ ਹਰ ਸਮੂਹ ਦਾ ਆਪਸੀ ਕ੍ਰਮ ਬਣਾਈ ਰੱਖੋ",
+      };
+    case "group symbols, then digits, then letters":
+      return {
+        en: "group all symbols first, digits next and letters last, retaining the order within each group",
+        hi: "पहले सभी प्रतीक, फिर अंक और अंत में अक्षर रखें तथा हर समूह का आपसी क्रम बनाए रखें",
+        pa: "ਪਹਿਲਾਂ ਸਾਰੇ ਨਿਸ਼ਾਨ, ਫਿਰ ਅੰਕ ਅਤੇ ਅੰਤ ਵਿੱਚ ਅੱਖਰ ਰੱਖੋ ਅਤੇ ਹਰ ਸਮੂਹ ਦਾ ਆਪਸੀ ਕ੍ਰਮ ਬਣਾਈ ਰੱਖੋ",
+      };
+    case "sort only the letters in their letter positions":
+      return {
+        en: "sort only the letters alphabetically within the letter positions, leaving all other elements fixed",
+        hi: "केवल अक्षरों को उनके अक्षर वाले स्थानों में वर्णमाला क्रम में सजाएँ और बाकी सभी चिह्न स्थिर रखें",
+        pa: "ਕੇਵਲ ਅੱਖਰਾਂ ਨੂੰ ਉਹਨਾਂ ਦੀਆਂ ਅੱਖਰ ਵਾਲੀਆਂ ਥਾਵਾਂ ਵਿੱਚ ਵਰਣਮਾਲਾ ਕ੍ਰਮ ਵਿੱਚ ਲਗਾਓ ਅਤੇ ਬਾਕੀ ਸਾਰੇ ਚਿੰਨ੍ਹ ਅਡੋਲ ਰੱਖੋ",
+      };
+    case "sort only the digits in their digit positions":
+      return {
+        en: "sort only the digits in ascending order within the digit positions, leaving all other elements fixed",
+        hi: "केवल अंकों को उनके अंक वाले स्थानों में बढ़ते क्रम में सजाएँ और बाकी सभी चिह्न स्थिर रखें",
+        pa: "ਕੇਵਲ ਅੰਕਾਂ ਨੂੰ ਉਹਨਾਂ ਦੀਆਂ ਅੰਕ ਵਾਲੀਆਂ ਥਾਵਾਂ ਵਿੱਚ ਵੱਧਦੇ ਕ੍ਰਮ ਵਿੱਚ ਲਗਾਓ ਅਤੇ ਬਾਕੀ ਸਾਰੇ ਚਿੰਨ੍ਹ ਅਡੋਲ ਰੱਖੋ",
+      };
+    case "reverse only the letters in their letter positions":
+      return {
+        en: "reverse only the letters within the letter positions, leaving all other elements fixed",
+        hi: "केवल अक्षरों का क्रम उनके अक्षर वाले स्थानों में उलटें और बाकी सभी चिह्न स्थिर रखें",
+        pa: "ਕੇਵਲ ਅੱਖਰਾਂ ਦਾ ਕ੍ਰਮ ਉਹਨਾਂ ਦੀਆਂ ਅੱਖਰ ਵਾਲੀਆਂ ਥਾਵਾਂ ਵਿੱਚ ਉਲਟੋ ਅਤੇ ਬਾਕੀ ਸਾਰੇ ਚਿੰਨ੍ਹ ਅਡੋਲ ਰੱਖੋ",
+      };
+    case "reverse only the digits in their digit positions":
+      return {
+        en: "reverse only the digits within the digit positions, leaving all other elements fixed",
+        hi: "केवल अंकों का क्रम उनके अंक वाले स्थानों में उलटें और बाकी सभी चिह्न स्थिर रखें",
+        pa: "ਕੇਵਲ ਅੰਕਾਂ ਦਾ ਕ੍ਰਮ ਉਹਨਾਂ ਦੀਆਂ ਅੰਕ ਵਾਲੀਆਂ ਥਾਵਾਂ ਵਿੱਚ ਉਲਟੋ ਅਤੇ ਬਾਕੀ ਸਾਰੇ ਚਿੰਨ੍ਹ ਅਡੋਲ ਰੱਖੋ",
+      };
+    case "interchange every adjacent pair":
+      return {
+        en: "interchange every adjacent pair: 1st with 2nd, 3rd with 4th, and so on",
+        hi: "हर पास-पास की जोड़ी को आपस में बदलें: पहला चिह्न दूसरे से, तीसरा चौथे से और इसी प्रकार आगे",
+        pa: "ਹਰ ਨਾਲ-ਨਾਲ ਜੋੜੇ ਨੂੰ ਆਪਸ ਵਿੱਚ ਬਦਲੋ: ਪਹਿਲਾ ਚਿੰਨ੍ਹ ਦੂਜੇ ਨਾਲ, ਤੀਜਾ ਚੌਥੇ ਨਾਲ ਅਤੇ ਇਸੇ ਤਰ੍ਹਾਂ ਅੱਗੇ",
+      };
+    case "reverse the complete sequence":
+      return {
+        en: "reverse the complete sequence",
+        hi: "पूरी श्रृंखला को उलटें",
+        pa: "ਪੂਰੀ ਲੜੀ ਨੂੰ ਉਲਟੋ",
+      };
+    case "group symbols, then letters, then digits before the scan":
+      return {
+        en: "group all symbols first, letters next and digits last, retaining the order within each group",
+        hi: "पहले सभी प्रतीक, फिर अक्षर और अंत में अंक रखें तथा हर समूह का आपसी क्रम बनाए रखें",
+        pa: "ਪਹਿਲਾਂ ਸਾਰੇ ਨਿਸ਼ਾਨ, ਫਿਰ ਅੱਖਰ ਅਤੇ ਅੰਤ ਵਿੱਚ ਅੰਕ ਰੱਖੋ ਅਤੇ ਹਰ ਸਮੂਹ ਦਾ ਆਪਸੀ ਕ੍ਰਮ ਬਣਾਈ ਰੱਖੋ",
+      };
+    default: {
+      const category = operationName.match(/^remove category ([LDS])$/)?.[1];
+      if (category === "L") return { en: "remove all letters", hi: "सभी अक्षर हटा दें", pa: "ਸਾਰੇ ਅੱਖਰ ਹਟਾ ਦਿਓ" };
+      if (category === "D") return { en: "remove all digits", hi: "सभी अंक हटा दें", pa: "ਸਾਰੇ ਅੰਕ ਹਟਾ ਦਿਓ" };
+      if (category === "S") return { en: "remove all symbols", hi: "सभी प्रतीक हटा दें", pa: "ਸਾਰੇ ਨਿਸ਼ਾਨ ਹਟਾ ਦਿਓ" };
+      throw new Error(`Unsupported CP010 operation instruction: ${operationName}`);
+    }
+  }
+}
+
 export function buildCp010(ql: AlpQuestionLogic, seed: number): C {
   const source = mixedRow(ql, seed);
   const requestedPosition = intBetween(2, source.length - 1, key(ql, seed, "position"));
@@ -47,7 +113,7 @@ export function buildCp010(ql: AlpQuestionLogic, seed: number): C {
     }
     default: changed = group(source, ["S", "L", "D"]); operationName = "group symbols, then letters, then digits before the scan"; break;
   }
-  const operation: L = { en: `apply the explicit mixed-row operation: ${operationName}`, hi: "दिए गए नियम के अनुसार श्रृंखला को पूरी तरह पुनर्व्यवस्थित करें", pa: "ਦਿੱਤੇ ਨਿਯਮ ਅਨੁਸਾਰ ਲੜੀ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਮੁੜ ਵਿਵਸਥਿਤ ਕਰੋ" };
+  const operation = operationInstruction(operationName);
   const shortcut: L = { en: "Mark categories above the original row and move only the named tokens; compare or scan only after the final row is complete.", hi: "मूल श्रृंखला के ऊपर श्रेणियाँ चिन्हित करें, केवल बताए चिह्न चलाएँ और अंतिम श्रृंखला बनने के बाद ही तुलना या जाँच करें।", pa: "ਮੂਲ ਲੜੀ ਉੱਤੇ ਕਿਸਮਾਂ ਨਿਸ਼ਾਨ ਲਗਾਓ, ਕੇਵਲ ਦੱਸੇ ਚਿੰਨ੍ਹ ਹਿਲਾਓ ਅਤੇ ਅੰਤਿਮ ਲੜੀ ਬਣਨ ਤੋਂ ਬਾਅਦ ਹੀ ਮਿਲਾਣ ਜਾਂ ਜਾਂਚ ਕਰੋ।" };
   let answer = "";
   let pool: string[] = [];
