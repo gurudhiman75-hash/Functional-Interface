@@ -1,5 +1,4 @@
 export type CP001LetterClass = "VOWEL_CARRIER" | "BASIC_CONSONANT" | "SUPPLEMENTARY_CONSONANT";
-export type CP001Difficulty = "Easy" | "Medium" | "Hard";
 
 export interface LetterAuthority {
   id: string;
@@ -21,7 +20,7 @@ const basicRows = [
   ["ਯ", "ਯੱਯਾ"], ["ਰ", "ਰਾਰਾ"], ["ਲ", "ਲੱਲਾ"], ["ਵ", "ਵਾਵਾ"], ["ੜ", "ੜਾੜਾ"],
 ] as const;
 
-const groupForOrder = (order: number): string => {
+function groupForOrder(order: number): string {
   if (order <= 5) return "ਮੁੱਖ ਟੋਲੀ";
   if (order <= 10) return "ਕ-ਵਰਗ";
   if (order <= 15) return "ਚ-ਵਰਗ";
@@ -29,7 +28,12 @@ const groupForOrder = (order: number): string => {
   if (order <= 25) return "ਤ-ਵਰਗ";
   if (order <= 30) return "ਪ-ਵਰਗ";
   return "ਅੰਤਿਮ ਟੋਲੀ";
-};
+}
+
+const supplementaryRows = [
+  ["ਸ਼", "ਸ਼ਸ਼ਾ ਪੈਰ ਬਿੰਦੀ"], ["ਖ਼", "ਖੱਖਾ ਪੈਰ ਬਿੰਦੀ"], ["ਗ਼", "ਗੱਗਾ ਪੈਰ ਬਿੰਦੀ"],
+  ["ਜ਼", "ਜੱਜਾ ਪੈਰ ਬਿੰਦੀ"], ["ਫ਼", "ਫੱਫਾ ਪੈਰ ਬਿੰਦੀ"], ["ਲ਼", "ਲੱਲਾ ਪੈਰ ਬਿੰਦੀ"],
+] as const;
 
 export const CP001_LETTERS: readonly LetterAuthority[] = [
   ...basicRows.map(([letter, namePa], index) => ({
@@ -41,12 +45,15 @@ export const CP001_LETTERS: readonly LetterAuthority[] = [
     namePa,
     sourceStatus: "REVIEW_PENDING" as const,
   })),
-  { id: "LTR-36", letter: "ਸ਼", order: 36, groupPa: "ਨਵੀਨ ਟੋਲੀ", class: "SUPPLEMENTARY_CONSONANT", namePa: "ਸ਼ਸ਼ਾ ਪੈਰ ਬਿੰਦੀ", sourceStatus: "REVIEW_PENDING" },
-  { id: "LTR-37", letter: "ਖ਼", order: 37, groupPa: "ਨਵੀਨ ਟੋਲੀ", class: "SUPPLEMENTARY_CONSONANT", namePa: "ਖੱਖਾ ਪੈਰ ਬਿੰਦੀ", sourceStatus: "REVIEW_PENDING" },
-  { id: "LTR-38", letter: "ਗ਼", order: 38, groupPa: "ਨਵੀਨ ਟੋਲੀ", class: "SUPPLEMENTARY_CONSONANT", namePa: "ਗੱਗਾ ਪੈਰ ਬਿੰਦੀ", sourceStatus: "REVIEW_PENDING" },
-  { id: "LTR-39", letter: "ਜ਼", order: 39, groupPa: "ਨਵੀਨ ਟੋਲੀ", class: "SUPPLEMENTARY_CONSONANT", namePa: "ਜੱਜਾ ਪੈਰ ਬਿੰਦੀ", sourceStatus: "REVIEW_PENDING" },
-  { id: "LTR-40", letter: "ਫ਼", order: 40, groupPa: "ਨਵੀਨ ਟੋਲੀ", class: "SUPPLEMENTARY_CONSONANT", namePa: "ਫੱਫਾ ਪੈਰ ਬਿੰਦੀ", sourceStatus: "REVIEW_PENDING" },
-  { id: "LTR-41", letter: "ਲ਼", order: 41, groupPa: "ਨਵੀਨ ਟੋਲੀ", class: "SUPPLEMENTARY_CONSONANT", namePa: "ਲੱਲਾ ਪੈਰ ਬਿੰਦੀ", sourceStatus: "REVIEW_PENDING" },
+  ...supplementaryRows.map(([letter, namePa], index) => ({
+    id: `LTR-${String(index + 36).padStart(2, "0")}`,
+    letter,
+    order: index + 36,
+    groupPa: "ਨਵੀਨ ਟੋਲੀ",
+    class: "SUPPLEMENTARY_CONSONANT" as const,
+    namePa,
+    sourceStatus: "REVIEW_PENDING" as const,
+  })),
 ] as const;
 
 export interface GroupAuthority {
@@ -64,7 +71,7 @@ export const CP001_GROUPS: readonly GroupAuthority[] = [
   { id: "GRP-05", namePa: "ਤ-ਵਰਗ", letters: ["ਤ", "ਥ", "ਦ", "ਧ", "ਨ"], sourceStatus: "REVIEW_PENDING" },
   { id: "GRP-06", namePa: "ਪ-ਵਰਗ", letters: ["ਪ", "ਫ", "ਬ", "ਭ", "ਮ"], sourceStatus: "REVIEW_PENDING" },
   { id: "GRP-07", namePa: "ਅੰਤਿਮ ਟੋਲੀ", letters: ["ਯ", "ਰ", "ਲ", "ਵ", "ੜ"], sourceStatus: "REVIEW_PENDING" },
-  { id: "GRP-08", namePa: "ਨਵੀਨ ਟੋਲੀ", letters: ["ਸ਼", "ਖ਼", "ਗ਼", "ਜ਼", "ਫ਼", "ਲ਼"], sourceStatus: "REVIEW_PENDING" },
+  { id: "GRP-08", namePa: "ਨਵੀਨ ਟੋਲੀ", letters: ["ਸ਼", "ਖ਼", "ਗ਼", "ਜ਼", "ਫ਼", "ਲ਼"], sourceStatus: "REVIEW_PENDING" },
 ] as const;
 
 export interface ArticulationAuthority {
@@ -146,10 +153,11 @@ export interface DuttAuthority {
 }
 
 export const CP001_DUTT: readonly DuttAuthority[] = [
-  { id: "DUT-01", baseLetter: "ਹ", namePa: "ਪੈਰੀਂ ਹਾਹਾ", symbol: "ੵ", sourceStatus: "REVIEW_PENDING" },
+  { id: "DUT-01", baseLetter: "ਹ", namePa: "ਪੈਰੀਂ ਹਾਹਾ", symbol: "੍ਹ", sourceStatus: "REVIEW_PENDING" },
   { id: "DUT-02", baseLetter: "ਰ", namePa: "ਪੈਰੀਂ ਰਾਰਾ", symbol: "੍ਰ", sourceStatus: "REVIEW_PENDING" },
   { id: "DUT-03", baseLetter: "ਵ", namePa: "ਪੈਰੀਂ ਵਾਵਾ", symbol: "੍ਵ", sourceStatus: "REVIEW_PENDING" },
 ] as const;
 
+// 90 explicit rows + 10 carrier-to-independent-vowel relations represented by CP001_LAGAAN.
 export const CP001_SYSTEM_AUTHORITY_COUNT =
   CP001_LETTERS.length + CP001_GROUPS.length + CP001_ARTICULATION.length + CP001_LAGAAN.length + CP001_LAGAAN.length + CP001_LAGAKHARS.length + CP001_DUTT.length;
