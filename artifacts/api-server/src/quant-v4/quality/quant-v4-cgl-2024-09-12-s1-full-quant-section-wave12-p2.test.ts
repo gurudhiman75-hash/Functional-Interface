@@ -92,7 +92,7 @@ assert.deepEqual(
   [10 * incomeUnit - 12 * expenseUnit, 12 * incomeUnit - 15 * expenseUnit, 9 * incomeUnit - 8 * expenseUnit],
   [14, 15, 21],
 ); // Q55 savings ratio.
-assert.equal(1 / (1 / 10 + 1 / 20 - 1 / 30), 60 / 7); // Q58 all-three pipe rate reciprocal.
+assert.ok(Math.abs(1 / (1 / 10 + 1 / 20 - 1 / 30) - 60 / 7) < 1e-12); // Q58 all-three pipe rate reciprocal.
 assert.equal(8 + 2 + 15, 25); // Q59 coin counts.
 assert.equal(8 * 10 + 2 * 5 + 15 * 2, 120); // Q59 coin value.
 assert.ok(Math.abs(Math.sqrt(28.9 * 36.1) - 32.3) < 1e-12); // Q60.
