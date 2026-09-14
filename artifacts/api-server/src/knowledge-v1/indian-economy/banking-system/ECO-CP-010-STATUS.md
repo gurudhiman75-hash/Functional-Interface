@@ -1,8 +1,9 @@
 # ECO-CP-010 Status
 
 **CP:** ECO-CP-010 Banking System  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1  
+**English baseline:** FROZEN_V1  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
 ## Implemented
@@ -27,6 +28,11 @@
 - QA blocking current bank counts, rates, PSL percentages, DICGC limit and NPA ratios;
 - 24-question human review Markdown set.
 
+## Human review
+
+- English V1 approved on 2026-09-14.
+- Approved English behavior is frozen; later edits require a new reviewed version.
+
 ## Static boundary
 
 Excluded from this CP:
@@ -40,8 +46,5 @@ Excluded from this CP:
 
 ## Promotion steps
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behavior.
-4. Add localisation layer in the localisation phase.
-5. Register with runtime/Question Studio only after separate promotion approval.
+1. Add localisation layer in the localisation phase.
+2. Register with runtime/Question Studio only after separate promotion approval.
