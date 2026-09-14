@@ -1,0 +1,7 @@
+import type { HisCp006Spec } from "./his-cp006-review-specs-v1";
+
+export const HIS_CP006_ITEM_OVERRIDES_V1:Readonly<Record<number,HisCp006Spec>>={
+  50:[9,"Which combined source attribution is correct?","Samudragupta — Prayaga Prashasti by Harisena; Harsha — Harshacharita by Banabhatta",["Samudragupta — Harshacharita by Banabhatta; Harsha — Prayaga Prashasti by Harisena","Samudragupta — Junagadh inscription by Kalidasa; Harsha — Hathigumpha inscription by Aryabhata","Samudragupta — Mudrarakshasa by Vishakhadatta; Harsha — Aryabhatiya by Varahamihira"],["gu-samudra-prashasti","gu-harisena","gu-harsha-sources","gu-banabhatta"]],
+  51:[9,"Which pair of traveller–ruler associations is correct?","Fa Hien — Chandragupta II; Hsuan Tsang — Harsha",["Fa Hien — Harsha; Hsuan Tsang — Chandragupta II","Fa Hien — Samudragupta; Hsuan Tsang — Kumaragupta","Fa Hien — Kumaragupta; Hsuan Tsang — Samudragupta"],["gu-fahien","gu-harsha-sources"]],
+  52:[9,"Which administrative hierarchy is correctly matched?","Bhukti — uparika; vishaya — vishayapati; village — gramadhyaksha",["Bhukti — vishayapati; vishaya — uparika; village — kumaramatya","Bhukti — gramadhyaksha; vishaya — kumaramatya; village — uparika","Bhukti — kumaramatya; vishaya — gramadhyaksha; village — vishayapati"],["gu-admin-provinces","gu-admin-vishaya","gu-admin-village"]],
+};
