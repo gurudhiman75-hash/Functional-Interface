@@ -55,6 +55,8 @@ const STANDARD_EXAM_PATCHES: readonly Patch[] = Object.freeze([
   { from: "ਅਲੱਗ-ਥਲੱਗ ਸਿਸਟਮ", to: "ਅਲੱਗ-ਥਲੱਗ ਪ੍ਰਣਾਲੀ" },
   { from: "ਅਲੱਗ ਸਿਸਟਮ", to: "ਅਲੱਗ ਪ੍ਰਣਾਲੀ" },
   { from: "ਸਿਸਟਮ", to: "ਪ੍ਰਣਾਲੀ" },
+  { from: "MA = Load/Effort", to: "MA = ਭਾਰ/ਯਤਨ ਬਲ" },
+  { from: "ਇੱਕ ਇਕਾਈ ਸਮੇਂ ਵਿੱਚ ਵਿੱਚ", to: "ਇੱਕ ਇਕਾਈ ਸਮੇਂ ਵਿੱਚ" },
 ]);
 
 const ANCHOR_PATCHES: Readonly<Record<string, readonly Patch[]>> = Object.freeze({
