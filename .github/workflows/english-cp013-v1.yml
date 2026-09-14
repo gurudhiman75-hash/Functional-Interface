@@ -7,13 +7,11 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-cp013-v1.yml
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-cp013-v1.yml
   workflow_dispatch:
 
 permissions:
