@@ -62,13 +62,13 @@ assert.equal(400 * 60, 12 * (18 - 16) * 1000); // Q67 catch time = 12 minutes, e
 assert.equal(150 ** 2 + 80 ** 2, 170 ** 2); // Q72 diagonal.
 assert.equal(2 * (150 + 80), 460); // Q72 perimeter.
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 26);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 233);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 30);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 12);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 10);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 24);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 21);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 12);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 24);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 13);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-001" }).length, 1);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-004" }).length, 1);
@@ -83,8 +83,8 @@ const cgl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(cgl.countableQuestionCount, 175);
-assert.equal(cgl.distinctPaperCount, 22);
+assert.equal(cgl.countableQuestionCount, 200);
+assert.equal(cgl.distinctPaperCount, 23);
 assert.equal(cgl.topicCoverageCount, 13);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.deepEqual([...cgl.blockers], ["DATED_PAPER_IDENTITY_INCOMPLETE"]);
@@ -96,12 +96,12 @@ const whole = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(whole.completeSectionCount, 6);
-assert.equal(whole.completeQuestionCount, 150);
-assert.equal(whole.totalCountableQuestionCount, 175);
+assert.equal(whole.completeSectionCount, 7);
+assert.equal(whole.completeQuestionCount, 175);
+assert.equal(whole.totalCountableQuestionCount, 200);
 assert.equal(whole.nonWholeSectionCountableQuestionCount, 25);
 assert.equal(whole.distinctSectionYearCount, 3);
-assert.equal(whole.packageCoverageCount, 25);
+assert.equal(whole.packageCoverageCount, 26);
 assert.equal(whole.evidenceStatus, "SECTION_EVIDENCE_ACCUMULATING");
 assert.deepEqual([...whole.blockers], ["COMPLETE_SECTION_SAMPLE_BELOW_POLICY"]);
 assert.equal(whole.productionPromotionAuthorized, false);
