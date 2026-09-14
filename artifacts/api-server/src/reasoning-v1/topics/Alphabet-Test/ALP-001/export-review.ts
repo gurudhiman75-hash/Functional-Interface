@@ -1,5 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { ALP_001_QLS } from "./ql-registry";
+import { toAlpLearnerExplanation } from "./learner-explanation";
 import { generateAlp001Question } from "./runtime";
 import type { AlpLocale } from "./types";
 
@@ -13,31 +14,24 @@ for (const ql of ALP_001_QLS) {
   lines.push(`## ${ql.qlId} — ${ql.solveMode}`, "");
   for (let seed = 0; seed < samplesPerQl; seed += 1) {
     const question = generateAlp001Question(ql.qlId, seed, locale);
+    const explanation = toAlpLearnerExplanation(question.explanation);
     lines.push(`### Seed ${seed} · ${question.difficulty} · ${question.renderer}`, "", question.stem, "");
     question.options.forEach((option, index) => lines.push(`${index + 1}. ${option.value}${index === question.correctIndex ? "  **✓**" : ""}`));
 
     lines.push(
       "",
       `#### ${label("📌 Core Concept", "📌 मुख्य अवधारणा", "📌 ਮੁੱਖ ਧਾਰਨਾ")}`,
-      question.explanation.coreConcept,
+      explanation.coreConcept,
       "",
       `#### ${label("📝 Step-by-Step Solution", "📝 चरण-दर-चरण समाधान", "📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ")}`,
     );
-    question.explanation.steps.forEach((step, index) => lines.push(`${index + 1}. ${step}`));
+    explanation.steps.forEach((step, index) => lines.push(`${index + 1}. ${step}`));
 
-    if (question.explanation.visualWorking.length > 0) {
-      lines.push("", `#### ${label("Position Tracking", "स्थान-ट्रैकिंग", "ਥਾਂ-ਟ੍ਰੈਕਿੰਗ")}`, "", "```text", ...question.explanation.visualWorking, "```");
+    if (explanation.visualWorking.length > 0) {
+      lines.push("", `#### ${label("Position Tracking", "स्थान-ट्रैकिंग", "ਥਾਂ-ਟ੍ਰੈਕਿੰਗ")}`, "", "```text", ...explanation.visualWorking, "```");
     }
 
-    lines.push(
-      "",
-      `#### ${label("💡 Exam-Speed Shortcut", "💡 परीक्षा शॉर्टकट", "💡 ਪ੍ਰੀਖਿਆ ਸ਼ਾਰਟਕੱਟ")}`,
-      question.explanation.examShortcut,
-      "",
-      `#### ${label("⚠️ Common Trap Analysis", "⚠️ सामान्य गलती विश्लेषण", "⚠️ ਆਮ ਗਲਤੀ ਵਿਸ਼ਲੇਸ਼ਣ")}`,
-    );
-    question.explanation.distractorAnalyses.forEach((analysis) => lines.push(`- ${analysis.explanation}`));
-    lines.push("", `**${question.explanation.conclusion}**`, "");
+    lines.push("", `**${explanation.conclusion}**`, "");
   }
 }
 
