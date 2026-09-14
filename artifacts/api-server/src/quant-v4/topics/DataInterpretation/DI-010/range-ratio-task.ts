@@ -40,10 +40,14 @@ export function buildDi010RangeRatioDraft(seed: string, stimulus: Di010Stimulus)
   const rightFirst = stimulus.classes[chosen.rightStart]!.frequency;
   const leftOmit = stimulus.classes[chosen.leftStart + 1]!.frequency;
   const rightOmit = stimulus.classes[chosen.rightStart + 1]!.frequency;
+  const leftA = interval(stimulus, chosen.leftStart);
+  const leftB = interval(stimulus, chosen.leftStart + 1);
+  const rightA = interval(stimulus, chosen.rightStart);
+  const rightB = interval(stimulus, chosen.rightStart + 1);
   const surfaces = [
-    `What is the ratio of the combined frequency from ${interval(stimulus, chosen.leftStart)} to ${interval(stimulus, chosen.leftStart + 1)} to the combined frequency from ${interval(stimulus, chosen.rightStart)} to ${interval(stimulus, chosen.rightStart + 1)}?`,
-    `Find the ratio: total frequency of classes ${interval(stimulus, chosen.leftStart)} and ${interval(stimulus, chosen.leftStart + 1)} : total frequency of classes ${interval(stimulus, chosen.rightStart)} and ${interval(stimulus, chosen.rightStart + 1)}.`,
-    `Compare the two class-pairs ${interval(stimulus, chosen.leftStart)}–${interval(stimulus, chosen.leftStart + 1)} and ${interval(stimulus, chosen.rightStart)}–${interval(stimulus, chosen.rightStart + 1)}. What is the ratio of their total frequencies?`,
+    `The combined frequency of classes ${leftA} and ${leftB} is compared with that of classes ${rightA} and ${rightB}. What is the ratio, in the same order?`,
+    `Find the ratio of the total frequencies in classes ${leftA} and ${leftB} to the total frequencies in classes ${rightA} and ${rightB}.`,
+    `Add the frequencies of ${leftA} and ${leftB}. Then add the frequencies of ${rightA} and ${rightB}. What is the ratio of the first total to the second?`,
   ] as const;
   const surfaceId = Math.floor(random() * surfaces.length);
   const candidates: Di010Candidate[] = [
