@@ -1,46 +1,82 @@
-# DI-009 Histogram — Original DI Architecture Alignment
+# DI-009 Histogram — Permanent English Controlled Review
 
-`REVIEW_ONLY_ARCHITECTURE_V6` — DI-009 now follows the same data-first architecture as the original DI packages. The question generator stores semantic histogram data only; SVG/presentation markup is generated separately by the shared Data Interpretation visual layer.
+`APPROVED_CONTROLLED_REVIEW_P1` — the user-approved DI-009 histogram package has been promoted to permanent English Question Studio review authority. Question Bank writes, test/mock eligibility, public publication and automatic student publication remain disabled.
+
+## Permanent authority
+
+- Release: `DI-009-PERMANENT-ENGLISH-REVIEW-P1`
+- Canonical problem: `DI-CP-009`
+- Question Studio runtime: `DI009_PERMANENT_ENGLISH_REVIEW_P1`
+- Permanent QLs: `DI-QL-001` through `DI-QL-013`
+- Question Studio discovery: enabled in `CONTROLLED_REVIEW`
+- English editorial status: `ENGLISH_REVIEW_APPROVED`
+- Localization: `NOT_STARTED`
 
 ## Architecture contract
 
-- Question logic remains `DI-009-QUESTION-LOGIC-V2`.
-- Set/stimulus contract is `DI-009-SET-CONTRACT-V3`.
-- Presentation authority is `DATA_INTERPRETATION_SHARED_VISUALS`.
-- `Di009Stimulus` contains title, instruction, bins, class width, distribution shape, axis labels and unit only.
-- No SVG or other presentation markup is stored in the question set.
-- Review exports call `DataInterpretation/visuals/histogram-svg.ts` at presentation time.
-- This mirrors the original DI-003/DI-004 pattern where the generator owns semantic chart data rather than a bespoke renderer payload.
+DI-009 keeps the original-DI data-first architecture accepted at V6:
+- question logic remains `DI-009-QUESTION-LOGIC-V2`
+- set/stimulus contract remains `DI-009-SET-CONTRACT-V3`
+- presentation authority is `DATA_INTERPRETATION_SHARED_VISUALS`
+- `Di009Stimulus` stores semantic histogram data only
+- no SVG or other presentation markup is stored in the question set
+- Question Studio and review exports render the histogram through `DataInterpretation/visuals/histogram-svg.ts`
 
-## Question engine retained
+## Permanent QL ownership
 
-The approved V2 content engine is unchanged:
+- `DI-QL-001` direct class frequency
+- `DI-QL-002` total frequency
+- `DI-QL-003` combined range total
+- `DI-QL-004` above-boundary total
+- `DI-QL-005` below-boundary total
+- `DI-QL-006` range ratio
+- `DI-QL-007` class share of total
+- `DI-QL-008` frequency difference between classes
+- `DI-QL-009` modal class identification
+- `DI-QL-010` median class identification
+- `DI-QL-011` kth-observation class
+- `DI-QL-012` approximate grouped mean from histogram
+- `DI-QL-013` approximate grouped mode from histogram
+
+## Question engine
+
+The approved V2 engine remains unchanged in scope:
 - 13 histogram task families
-- 5-question mixed sets
-- 1 Easy + 2 Medium + 2 Hard
+- 5-question mixed sets with 1 Easy + 2 Medium + 2 Hard
 - 5–9 continuous equal-width classes
 - six controlled distribution shapes
 - cumulative-frequency, grouped mean and grouped mode reasoning
 - misconception-owned distractors
 - beginner-readable question-specific explanations
 
-## Shared histogram presentation checkpoint
+## Shared histogram presentation
 
-The current accepted-for-now histogram presentation remains in the shared visual layer rather than the question generator:
+The accepted-for-now visual remains presentation-only:
 - balanced multicolour contiguous bars
 - horizontal reading guides
 - one horizontal baseline
-- no vertical y-axis spine
-- no y-axis tick lines
+- no vertical y-axis spine or y-axis tick lines
 - no downward class-boundary ticks
 - centered class-interval labels
-- headroom above tallest bar
+- headroom above the tallest bar
 - no bar-value labels
 
-This visual is not considered permanently frozen; future DI-family styling changes can now happen in one presentation layer without mutating question semantics.
+The presentation can be refined later without changing question semantics or permanent QL ownership.
+
+## Lifecycle locks
+
+- `questionStudioDiscoverable: true` via the permanent Question Studio adapter
+- `questionStudioMode: CONTROLLED_REVIEW`
+- `questionBankStatus: NOT_STORED`
+- `questionBankWritable: false`
+- `testEligibility: INELIGIBLE`
+- `testEligible: false`
+- `mockTestEligible: false`
+- `publiclyPublishable: false`
+- `automaticStudentPublication: false`
+- `productionReleaseAuthorized: false`
+- manual review/approval remains required before any future authority expansion
 
 ## Proof
 
-The dedicated gate retains the 240-set / 1,200-question deterministic and independent-verification matrix and separately validates the shared renderer. It also asserts that semantic stimuli do not contain an `svg` property.
-
-DI-009 remains unmerged/unpromoted. Question Studio discovery, Question Bank writes, test/mock eligibility, automatic publication and public publication remain disabled.
+The promotion keeps the 240-set / 1,200-question deterministic and independent-verification matrix, separately validates the shared renderer, and adds a Question Studio integration gate covering all 13 permanent QLs, deterministic fixed-seed previews, semantic-stimulus purity, shared-renderer usage, and lifecycle locks.
