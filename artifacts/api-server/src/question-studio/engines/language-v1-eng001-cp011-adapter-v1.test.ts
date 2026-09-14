@@ -5,6 +5,7 @@ import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "../
 import { ENG001_CP011_STANDARD_REVIEW_ONLY_PACKAGE_V1, isEng001Cp011QuestionStudioRequestV1, languageV1Eng001Cp011QuestionStudioAdapterV1 } from "./language-v1-eng001-cp011-adapter-v1";
 
 const expectedCps = ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008", "ENG-001-CP009", "ENG-001-CP010", "ENG-001-CP011"];
+const registeredExpectedCps = [...expectedCps, "ENG-001-CP012"];
 const packageDef = ENG001_CP011_STANDARD_REVIEW_ONLY_PACKAGE_V1;
 assert.equal(packageDef.engineId, "language-v1");
 assert.equal(packageDef.packageId, "ENG-001");
@@ -17,7 +18,7 @@ assert.equal(packageDef.automaticStudentPublication, false);
 assert.equal(packageDef.productionReleaseAuthorized, false);
 assert.equal(packageDef.metadata?.humanReviewApproved, true);
 assert.equal(packageDef.metadata?.reviewOnly, true);
-assert.deepEqual(listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001")?.cpIds, expectedCps);
+assert.deepEqual(listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001")?.cpIds, registeredExpectedCps);
 
 assert.equal(isEng001Cp011QuestionStudioRequestV1({ packageId: "ENG-001" }), false);
 assert.equal(isEng001Cp011QuestionStudioRequestV1({ packageId: "ENG-001", canonicalProblemId: "ENG-001-CP011" }), true);
@@ -78,4 +79,4 @@ await assert.rejects(languageV1Eng001Cp011QuestionStudioAdapterV1.generate({ ...
 await assert.rejects(languageV1Eng001Cp011QuestionStudioAdapterV1.generate({ ...request, count: 21 }), /count between 1 and 20/i);
 await assert.rejects(languageV1Eng001Cp011QuestionStudioAdapterV1.generate({ ...request, language: "hi" }), /supports English only/i);
 await assert.rejects(languageV1Eng001Cp011QuestionStudioAdapterV1.generate({ ...request, runtimeMode: "bank-only" }), /only supports review-only runtime/i);
-console.log("ENG-001 CP011 Question Studio review-only integration tests passed.");
+console.log("ENG-001 CP011 Question Studio review-only integration tests passed with CP012 registered globally.");
