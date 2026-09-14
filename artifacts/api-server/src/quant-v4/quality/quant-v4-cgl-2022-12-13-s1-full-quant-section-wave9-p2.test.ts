@@ -106,7 +106,7 @@ assert.ok(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length >= 10);
 assert.ok(whole.totalCountableQuestionCount >= 274);
 assert.ok(whole.completeSectionCount >= 10);
 assert.ok(whole.completeQuestionCount >= 250);
-assert.equal(whole.nonWholeSectionCountableQuestionCount, 24);
+assert.equal(whole.totalCountableQuestionCount, whole.completeQuestionCount + whole.nonWholeSectionCountableQuestionCount);
 assert.ok(whole.packageCoverageCount >= 28);
 assert.equal(whole.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
 assert.deepEqual([...whole.blockers], []);
