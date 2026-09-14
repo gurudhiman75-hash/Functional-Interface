@@ -61,6 +61,9 @@ for (const fixture of WFM_SELECTED_LETTER_FIXTURES) {
 
 export const WFM_REARRANGEMENT_FIXTURES: readonly WfmRearrangementFixture[] = [
   { mode: "JUMBLED_WORD", targetWord: "CANDLE", distractorWords: ["GARDEN", "SILVER", "PLANET"] },
+  { mode: "JUMBLED_WORD", targetWord: "GARDEN", distractorWords: ["CANDLE", "SILVER", "PLANET"] },
+  { mode: "JUMBLED_WORD", targetWord: "SILVER", distractorWords: ["CANDLE", "GARDEN", "PLANET"] },
+  { mode: "JUMBLED_WORD", targetWord: "PLANET", distractorWords: ["CANDLE", "GARDEN", "SILVER"] },
   { mode: "JUMBLED_WORD", targetWord: "ORANGE", distractorWords: ["CANDLE", "GARDEN", "SILVER"] },
   { mode: "JUMBLED_WORD", targetWord: "HOSPITAL", distractorWords: ["TRIANGLE", "NOTEBOOK", "LANGUAGE"] },
   { mode: "JUMBLED_WORD", targetWord: "COMPUTER", distractorWords: ["COMPLETE", "CONVINCE", "BUILDING"] },
