@@ -56,6 +56,7 @@ const GLOBAL_PATCHES: readonly Patch[] = Object.freeze([
   { from: "ਗਤੀ-ਅਵਸਥਾ", to: "ਗਤੀ ਦੀ ਹਾਲਤ" },
   { from: "ਮੌਜੂਦਾ ਅਵਸਥਾ", to: "ਮੌਜੂਦਾ ਹਾਲਤ" },
   { from: "ਸਹੀਪਣ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦੇ ਹਨ", to: "ਸਹੀਪਣ ਉੱਤੇ ਅਸਰ ਪਾਂਦੇ ਹਨ" },
+  { from: "ਗਤੀ ਦੀ ਮੌਜੂਦਾ ਹਾਲਤ ਬਣਾਈ ਰੱਖਣ ਦੀ ਇਹ ਰੁਝਾਨ", to: "ਗਤੀ ਦੀ ਮੌਜੂਦਾ ਹਾਲਤ ਬਣਾਈ ਰੱਖਣ ਦਾ ਇਹ ਰੁਝਾਨ" },
 ]);
 
 const PATCHES_BY_ANCHOR: Readonly<Record<string, readonly Patch[]>> = Object.freeze({
