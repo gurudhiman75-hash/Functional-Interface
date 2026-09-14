@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { ALP_001_QLS } from "./ql-registry";
-import { toAlpLearnerExplanation } from "./learner-explanation";
+import { toAlpReviewQuestion } from "./learner-explanation";
 import { generateAlp001Question } from "./runtime";
 import type { AlpLocale } from "./types";
 
@@ -13,8 +13,8 @@ const lines: string[] = [`# ALP-001 CP-001–CP-010 Complete Chapter Review — 
 for (const ql of ALP_001_QLS) {
   lines.push(`## ${ql.qlId} — ${ql.solveMode}`, "");
   for (let seed = 0; seed < samplesPerQl; seed += 1) {
-    const question = generateAlp001Question(ql.qlId, seed, locale);
-    const explanation = toAlpLearnerExplanation(question.explanation);
+    const question = toAlpReviewQuestion(generateAlp001Question(ql.qlId, seed, locale));
+    const explanation = question.explanation;
     lines.push(`### Seed ${seed} · ${question.difficulty} · ${question.renderer}`, "", question.stem, "");
     question.options.forEach((option, index) => lines.push(`${index + 1}. ${option.value}${index === question.correctIndex ? "  **✓**" : ""}`));
 
