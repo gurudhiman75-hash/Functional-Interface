@@ -82,6 +82,16 @@ jobs:
       - name: Run candidate-heavy saturation regression
         run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-saturation-candidate.mjs
 
+      - name: Bundle CP007 Wave 3 saturation regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cp007-saturation-adapter.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cp007-saturation-adapter.mjs
+
+      - name: Run CP007 Wave 3 saturation regression
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cp007-saturation-adapter.mjs
+
       - name: Bundle reviewed saturation sampling regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
