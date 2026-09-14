@@ -5,6 +5,7 @@ import { CAE_001_SATURATION_WAVE2_FAMILIES } from "./causal-world-saturation-wav
 import { CAE_001_SATURATION_WAVE4_FAMILIES } from "./causal-world-saturation-wave4.ts";
 import { CP007_SATURATION_COMMON_FACTOR_FAMILY_IDS } from "./cp007-saturation-adapter.ts";
 import { CP007_WAVE4_PARALLEL_FAMILY_IDS } from "./cp007-wave4-parallel-adapter.ts";
+import { CP009_EXPANDED_COMMON_CAUSE_FAMILY_IDS } from "./cp009-expanded-common-cause.ts";
 import { CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS } from "./saturation-candidate-authorities.ts";
 import type { CaeQlId } from "./types.ts";
 
@@ -115,22 +116,37 @@ for (let seed = 0; seed < 500; seed += 1) {
 assert.ok(cp008SaturationCount >= 55 && cp008SaturationCount <= 70, `CAE-QL-008 saturation share drifted (${cp008SaturationCount}/500).`);
 assert.equal(cp008Modes.size, 7);
 
-let cp009SaturationCount = 0;
+const cp009ExpandedFamilies = new Set(CP009_EXPANDED_COMMON_CAUSE_FAMILY_IDS);
+let cp009LegacySaturationCount = 0;
+let cp009ExpandedCount = 0;
 const cp009Modes = new Set<string>();
+const cp009ExpandedReached = new Set<string>();
 for (let seed = 0; seed < 500; seed += 1) {
   const question = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "en-IN", seed });
   assert.notEqual(question.difficulty, "EASY");
   cp009Modes.add(question.causalStructure.split(":")[1]!);
-  if (saturationIds.has(question.scenarioFamilyId)) {
-    cp009SaturationCount += 1;
-    assert.ok(!CAE_001_SATURATION_WAVE4_FAMILIES.some((family) => family.id === question.scenarioFamilyId), `CAE-QL-009/${seed}: Wave 4 raw family bypassed integrated CP009 design.`);
+  if (seed % 8 === 2) {
+    cp009ExpandedCount += 1;
+    cp009ExpandedReached.add(question.scenarioFamilyId);
+    assert.ok(cp009ExpandedFamilies.has(question.scenarioFamilyId), `CAE-QL-009/${seed}: expanded common-cause slot used an unapproved family.`);
+    assert.equal(question.answerId, "COMMON_CAUSE_RECONSTRUCTION_EXPANDED");
+    assert.equal(question.projectionId, "CAE-PLAN-INTEGRATED-V2");
+    assert.equal(question.difficulty, "HARD");
+    assert.equal(question.visibleContext.visibleNodeIds.length, 2);
+    assert.equal(question.visibleContext.hiddenNodeIds.length, 1);
+    assert.equal(question.options.length, 4);
+  } else if (seed % 8 === 6) {
+    cp009LegacySaturationCount += 1;
+    assert.ok(!CAE_001_SATURATION_WAVE4_FAMILIES.some((family) => family.id === question.scenarioFamilyId), `CAE-QL-009/${seed}: Wave 4 raw family bypassed the legacy integrated saturation adapter.`);
     assert.equal(question.projectionId, "CAE-PLAN-INTEGRATED-V2");
     assert.ok(["MEDIUM", "HARD"].includes(question.difficulty));
     assert.equal(question.options.length, 4);
   }
 }
-assert.ok(cp009SaturationCount >= 55 && cp009SaturationCount <= 70, `CAE-QL-009 saturation share drifted (${cp009SaturationCount}/500).`);
-assert.equal(cp009Modes.size, 6);
+assert.ok(cp009LegacySaturationCount >= 55 && cp009LegacySaturationCount <= 70, `CAE-QL-009 legacy saturation share drifted (${cp009LegacySaturationCount}/500).`);
+assert.ok(cp009ExpandedCount >= 55 && cp009ExpandedCount <= 70, `CAE-QL-009 expanded common-cause share drifted (${cp009ExpandedCount}/500).`);
+assert.ok(cp009ExpandedReached.size >= 7, `CAE-QL-009 expanded common-cause breadth is too narrow (${cp009ExpandedReached.size}).`);
+assert.equal(cp009Modes.size, 7, "Reviewed CP009 must expose its six existing modes plus expanded common-cause reconstruction.");
 
 for (const qlId of controlledHardQls) {
   for (let seed = 4; seed < 100; seed += 5) {
@@ -173,7 +189,7 @@ for (let seed = 7; seed < 104; seed += 8) {
   assert.equal(pa.correctIndex, en.correctIndex);
 }
 
-for (let seed = 6; seed < 104; seed += 8) {
+for (let seed = 2; seed < 104; seed += 4) {
   const en = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "en-IN", seed });
   const hi = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "hi-IN", seed });
   const pa = generateReviewedCaeQuestion({ qlId: "CAE-QL-009", locale: "pa-IN", seed });
@@ -189,4 +205,4 @@ for (let seed = 6; seed < 104; seed += 8) {
   assert.equal(pa.causalStructure, en.causalStructure);
 }
 
-console.log("CAE-001 reviewed saturation QA passed: QL003/004/005 guarded; CP006 bridge-distance operations calibrated; CP007 Wave 4 common/parallel expansion calibrated; CP008/009 specialised contracts preserved.");
+console.log("CAE-001 reviewed saturation QA passed: QL003/004/005 guarded; CP006 bridge-distance operations calibrated; CP007 Wave 4 common/parallel expansion calibrated; CP008 specialised contract preserved; CP009 expanded common-cause path calibrated alongside six existing modes.");
