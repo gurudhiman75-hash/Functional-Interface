@@ -1,5 +1,6 @@
 import { CAE_001_SATURATION_WAVE1_FAMILIES } from "./causal-world-saturation-wave1.ts";
-import { CAE_001_SATURATION_WAVE2_FAMILIES, withCae001SaturationWave2 } from "./causal-world-saturation-wave2.ts";
+import { CAE_001_SATURATION_WAVE2_FAMILIES } from "./causal-world-saturation-wave2.ts";
+import { CAE_001_SATURATION_WAVE4_FAMILIES, withCae001SaturationWave4 } from "./causal-world-saturation-wave4.ts";
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { generateReviewedCp001Question } from "./cp001-reviewed-quality-guard.ts";
 import { generateReviewedCaeCombinationQuestion } from "./cp003004-reviewed-polish.ts";
@@ -8,6 +9,7 @@ import { generateCp006CausalDistanceQuestion } from "./cp006-causal-distance.ts"
 import { generateCp007CommonFactorQuestion } from "./cp007-common-factor.ts";
 import { generateReviewedCp007SaturationCommonFactorQuestion } from "./cp007-saturation-adapter.ts";
 import { generateReviewedCp007FalseCausationQuestion } from "./cp007-reviewed-visible-evidence.ts";
+import { generateReviewedCp007Wave4ParallelQuestion } from "./cp007-wave4-parallel-adapter.ts";
 import { generateReviewedCp008Question } from "./cp008-reviewed.ts";
 import { generateCp008SaturationQuestion } from "./cp008-saturation-adapter.ts";
 import { generateReviewedCp009Question } from "./cp009-final-quality-guard.ts";
@@ -22,9 +24,13 @@ export type GenerateReviewedCaeQuestionInput = Readonly<{
   questionProfile?: CaeQuestionProfile;
 }>;
 
-const SATURATION_FAMILY_IDS = new Set([...CAE_001_SATURATION_WAVE1_FAMILIES, ...CAE_001_SATURATION_WAVE2_FAMILIES].map((family) => family.id));
+const SATURATION_FAMILY_IDS = new Set([
+  ...CAE_001_SATURATION_WAVE1_FAMILIES,
+  ...CAE_001_SATURATION_WAVE2_FAMILIES,
+  ...CAE_001_SATURATION_WAVE4_FAMILIES,
+].map((family) => family.id));
 const CANDIDATE_READY_IDS = new Set(CAE_001_SATURATION_CANDIDATE_READY_FAMILY_IDS);
-const saturatedBase = (input: GenerateReviewedCaeQuestionInput) => withCae001SaturationWave2(() => generateCaeQuestion(input));
+const saturatedBase = (input: GenerateReviewedCaeQuestionInput) => withCae001SaturationWave4(() => generateCaeQuestion(input));
 
 function reviewedSaturationQuestion(input: GenerateReviewedCaeQuestionInput, candidateHeavy: boolean): GeneratedCaeQuestion {
   const externalSeed = input.seed >>> 0;
@@ -56,6 +62,7 @@ export function generateReviewedCaeQuestion(input: GenerateReviewedCaeQuestionIn
   if (input.qlId === "CAE-QL-007" && defaultFourWay) {
     if (seed % 8 === 0) return generateReviewedCp007SaturationCommonFactorQuestion({ locale: input.locale, seed: input.seed });
     if (seed % 8 === 4) return generateCp007CommonFactorQuestion({ locale: input.locale, seed: input.seed });
+    if (seed % 8 === 2 || seed % 8 === 6) return generateReviewedCp007Wave4ParallelQuestion({ locale: input.locale, seed: input.seed });
     return generateReviewedCp007FalseCausationQuestion({ locale: input.locale, seed: input.seed });
   }
   if (input.qlId === "CAE-QL-008" && defaultFourWay) return seed % 8 === 7 ? generateCp008SaturationQuestion({ locale: input.locale, seed: input.seed }) : generateReviewedCp008Question({ locale: input.locale, seed: input.seed });
