@@ -24,6 +24,8 @@ const SUPPLEMENTS: Readonly<Record<string, Readonly<Record<PhysicsLocaleV1, stri
 });
 
 export function extendPhysicsCp003Cp004ExplanationV1(anchorId: string, locale: PhysicsLocaleV1, base: string): string {
+  let explanation = base;
+  if (locale === "hi") explanation = explanation.replaceAll("MA = Load/Effort", "MA = भार/प्रयास");
   const supplement = SUPPLEMENTS[anchorId]?.[locale];
-  return supplement ? `${base} ${supplement}` : base;
+  return supplement ? `${explanation} ${supplement}` : explanation;
 }
