@@ -24,7 +24,22 @@ const SHAPES: readonly Di009DistributionShape[] = [
   "CONTROLLED_IRREGULAR",
 ];
 
-const DIAGRAM_THEME = "EXAMTREE_DI_WORLD_CLASS_V3" as const;
+const DIAGRAM_THEME = "EXAMTREE_DI_WORLD_CLASS_V4" as const;
+const DIAGRAM_PALETTE = "EXAMTREE_BLUE_SINGLE_SERIES" as const;
+const COLORS = {
+  canvas: "#ffffff",
+  plot: "#f7fafe",
+  plotBorder: "#dce6f0",
+  grid: "#dce6f0",
+  axis: "#294c6f",
+  yTick: "#365b7d",
+  tickText: "#61758a",
+  title: "#102a43",
+  axisLabel: "#173a5e",
+  barFill: "#cfe1f5",
+  barStroke: "#355c86",
+  intervalText: "#294c6f",
+} as const;
 
 function ensurePositiveMultipleOfFive(value: number) {
   return Math.max(5, Math.round(value / 5) * 5);
@@ -114,60 +129,68 @@ function intervalLabel(bin: Di009HistogramBin) {
 export function renderDi009HistogramSvg(stimulus: Omit<Di009Stimulus, "svg">): string {
   const width = 900;
   const height = 480;
-  const left = 90;
-  const right = 32;
-  const top = 66;
-  const bottom = 98;
+  const left = 92;
+  const right = 34;
+  const top = 72;
+  const bottom = 96;
   const plotWidth = width - left - right;
   const plotHeight = height - top - bottom;
+  const plotRight = left + plotWidth;
   const plotBottom = top + plotHeight;
   const maxFrequency = Math.max(...stimulus.bins.map((bin) => bin.frequency));
   const yStep = niceYAxisStep(maxFrequency);
-  const yMax = yStep * Math.ceil(maxFrequency / yStep);
-  const barWidth = plotWidth / stimulus.bins.length;
+  const roundedYMax = yStep * Math.ceil(maxFrequency / yStep);
+  const yMax = roundedYMax === maxFrequency ? roundedYMax + yStep : roundedYMax;
+  const boundaryPositions = Array.from({ length: stimulus.bins.length + 1 }, (_, index) =>
+    Number((left + (plotWidth * index) / stimulus.bins.length).toFixed(3)),
+  );
   const safeTitle = escapeSvgText(stimulus.title);
   const safeXAxis = escapeSvgText(stimulus.xAxisLabel);
   const safeYAxis = escapeSvgText(stimulus.yAxisLabel);
   const parts: string[] = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-chart-theme="${DIAGRAM_THEME}" shape-rendering="geometricPrecision">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-chart-theme="${DIAGRAM_THEME}" data-color-palette="${DIAGRAM_PALETTE}" data-plot-headroom="true" shape-rendering="geometricPrecision">`,
     `<title>${safeTitle}</title>`,
     `<desc>Continuous equal-width histogram with ${stimulus.bins.length} class intervals. Frequency is represented by bar height.</desc>`,
-    `<rect x="0" y="0" width="${width}" height="${height}" fill="#ffffff"/>`,
-    `<text x="${width / 2}" y="34" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#101828">${safeTitle}</text>`,
-    `<rect data-plot-area="true" x="${left}" y="${top}" width="${plotWidth}" height="${plotHeight}" rx="10" fill="#fbfcfe" stroke="#eaecf0" stroke-width="1"/>`,
+    `<rect x="0" y="0" width="${width}" height="${height}" fill="${COLORS.canvas}"/>`,
+    `<text x="${width / 2}" y="35" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="${COLORS.title}">${safeTitle}</text>`,
+    `<rect data-plot-area="true" x="${left}" y="${top}" width="${plotWidth}" height="${plotHeight}" rx="8" fill="${COLORS.plot}" stroke="${COLORS.plotBorder}" stroke-width="1"/>`,
   ];
 
   for (let value = 0, tickIndex = 0; value <= yMax; value += yStep, tickIndex += 1) {
     const y = plotBottom - (value / yMax) * plotHeight;
-    parts.push(`<line data-gridline="${tickIndex}" x1="${left}" y1="${y.toFixed(2)}" x2="${left + plotWidth}" y2="${y.toFixed(2)}" stroke="${value === 0 ? "#d0d5dd" : "#e4e7ec"}" stroke-width="${value === 0 ? "1.2" : "1"}"${value === 0 ? "" : ' stroke-dasharray="4 5"'}/>`);
-    parts.push(`<text x="${left - 13}" y="${(y + 4).toFixed(2)}" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="12" fill="#667085">${value}</text>`);
+    if (value > 0) {
+      parts.push(`<line data-gridline="${tickIndex}" x1="${left}" y1="${y.toFixed(2)}" x2="${plotRight}" y2="${y.toFixed(2)}" stroke="${COLORS.grid}" stroke-width="1" stroke-dasharray="3 5"/>`);
+    }
+    parts.push(`<line data-y-tick="${tickIndex}" x1="${left - 5}" y1="${y.toFixed(2)}" x2="${left}" y2="${y.toFixed(2)}" stroke="${COLORS.yTick}" stroke-width="1" vector-effect="non-scaling-stroke"/>`);
+    parts.push(`<text x="${left - 13}" y="${(y + 4).toFixed(2)}" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="12" fill="${COLORS.tickText}">${value}</text>`);
   }
 
-  parts.push(`<line x1="${left}" y1="${top}" x2="${left}" y2="${plotBottom}" stroke="#344054" stroke-width="1.6" vector-effect="non-scaling-stroke"/>`);
-  parts.push(`<line x1="${left}" y1="${plotBottom}" x2="${left + plotWidth}" y2="${plotBottom}" stroke="#344054" stroke-width="1.6" vector-effect="non-scaling-stroke"/>`);
-  parts.push(`<g data-contiguous-bars="true" data-renderer-version="V3">`);
+  parts.push(`<line data-axis="y" x1="${left}" y1="${top}" x2="${left}" y2="${plotBottom}" stroke="${COLORS.axis}" stroke-width="1.7" vector-effect="non-scaling-stroke"/>`);
+  parts.push(`<line data-axis="x" data-baseline-owned-by-axis="true" x1="${left}" y1="${plotBottom}" x2="${plotRight}" y2="${plotBottom}" stroke="${COLORS.axis}" stroke-width="1.7" vector-effect="non-scaling-stroke"/>`);
+  parts.push(`<g data-contiguous-bars="true" data-renderer-version="V4" data-bar-palette="${DIAGRAM_PALETTE}">`);
 
   stimulus.bins.forEach((bin, index) => {
-    const x = left + index * barWidth;
+    const x = boundaryPositions[index]!;
+    const nextX = boundaryPositions[index + 1]!;
+    const barWidth = nextX - x;
     const h = (bin.frequency / yMax) * plotHeight;
     const y = plotBottom - h;
-    parts.push(`<rect data-bin-index="${index}" x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${h.toFixed(2)}" fill="#dbe4f0" stroke="#344054" stroke-width="1.25" vector-effect="non-scaling-stroke"/>`);
-    parts.push(`<line data-bar-top="${index}" x1="${(x + 1.5).toFixed(2)}" y1="${(y + 1.5).toFixed(2)}" x2="${(x + barWidth - 1.5).toFixed(2)}" y2="${(y + 1.5).toFixed(2)}" stroke="#ffffff" stroke-opacity="0.78" stroke-width="1" vector-effect="non-scaling-stroke"/>`);
+    parts.push(`<rect data-bin-index="${index}" x="${x.toFixed(3)}" y="${y.toFixed(2)}" width="${barWidth.toFixed(3)}" height="${h.toFixed(2)}" fill="${COLORS.barFill}" stroke="${COLORS.barStroke}" stroke-width="1.15" vector-effect="non-scaling-stroke"/>`);
   });
   parts.push(`</g>`);
 
-  for (let boundaryIndex = 0; boundaryIndex <= stimulus.bins.length; boundaryIndex += 1) {
-    const x = left + boundaryIndex * barWidth;
-    parts.push(`<line data-boundary-tick="${boundaryIndex}" x1="${x.toFixed(2)}" y1="${plotBottom}" x2="${x.toFixed(2)}" y2="${plotBottom + 6}" stroke="#344054" stroke-width="1" vector-effect="non-scaling-stroke"/>`);
+  for (let boundaryIndex = 1; boundaryIndex <= stimulus.bins.length; boundaryIndex += 1) {
+    const x = boundaryPositions[boundaryIndex]!;
+    parts.push(`<line data-boundary-tick="${boundaryIndex}" x1="${x.toFixed(3)}" y1="${plotBottom}" x2="${x.toFixed(3)}" y2="${plotBottom + 6}" stroke="${COLORS.barStroke}" stroke-width="1" vector-effect="non-scaling-stroke"/>`);
   }
 
   stimulus.bins.forEach((bin, index) => {
-    const x = left + (index + 0.5) * barWidth;
-    parts.push(`<text data-class-interval-label="${index}" x="${x.toFixed(2)}" y="${plotBottom + 27}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11.5" font-weight="500" fill="#344054">${escapeSvgText(intervalLabel(bin))}</text>`);
+    const x = (boundaryPositions[index]! + boundaryPositions[index + 1]!) / 2;
+    parts.push(`<text data-class-interval-label="${index}" x="${x.toFixed(3)}" y="${plotBottom + 28}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11.5" font-weight="550" fill="${COLORS.intervalText}">${escapeSvgText(intervalLabel(bin))}</text>`);
   });
 
-  parts.push(`<text x="${left + plotWidth / 2}" y="${height - 23}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="600" fill="#101828">${safeXAxis}</text>`);
-  parts.push(`<text x="27" y="${top + plotHeight / 2}" text-anchor="middle" transform="rotate(-90 27 ${top + plotHeight / 2})" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="600" fill="#101828">${safeYAxis}</text>`);
+  parts.push(`<text x="${left + plotWidth / 2}" y="${height - 21}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" fill="${COLORS.axisLabel}">${safeXAxis}</text>`);
+  parts.push(`<text x="27" y="${top + plotHeight / 2}" text-anchor="middle" transform="rotate(-90 27 ${top + plotHeight / 2})" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="650" fill="${COLORS.axisLabel}">${safeYAxis}</text>`);
   parts.push(`</svg>`);
   return parts.join("");
 }
