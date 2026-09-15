@@ -1,6 +1,6 @@
 # PGK-001 CP006 — Climate, Soils & Natural Resources
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-006 — Climate, Soils & Natural Resources`
 Permanent QLs: `PGK-001-QL-035` to `PGK-001-QL-041`
@@ -18,6 +18,7 @@ Forests, wildlife, wetlands and biodiversity belong to CP007. Agriculture and cr
 - Explanations should normally be 1–2 short natural sentences.
 - Do not turn exact mutable statistics into static facts unless versioned and necessary.
 - Prefer stable spatial relations over fragile annual figures.
+- QA checks specific source-label leakage rather than banning ordinary words such as `resource` or `water source`.
 
 ## Qualified coverage
 
@@ -61,4 +62,4 @@ Verification is kept internally against Government of Punjab climate/material, P
 
 ## Lifecycle
 
-CP006 is review-only. It must not be registered for runtime Question Studio generation, Question Bank writes, mocks, tests or public publication before explicit human approval.
+CP006 V2 is review-only. It must not be registered for runtime Question Studio generation, Question Bank writes, mocks, tests or public publication before explicit human approval.
