@@ -51,6 +51,13 @@ const replacements: Readonly<Record<string, IdiomaticUsageSceneV1>> = {
   }),
 };
 
+const simplifiedReasons: Readonly<Record<string, string>> = {
+  "USG-H-005": "The two sampling methods are being compared, so use 'different from'. 'Different with' is incorrect here.",
+  "USG-H-006": "The final clause is being compared with the earlier wording, so use 'different from', not 'different with'.",
+};
+
 export function remediateCp013SceneForClosureV1(scene: IdiomaticUsageSceneV1): IdiomaticUsageSceneV1 {
-  return replacements[scene.id] ?? scene;
+  const remediated = replacements[scene.id] ?? scene;
+  const reason = simplifiedReasons[remediated.id];
+  return reason ? { ...remediated, reason } : remediated;
 }
