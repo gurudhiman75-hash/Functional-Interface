@@ -1,12 +1,15 @@
 import { strict as assert } from "node:assert";
 
 import { CP004_PRONOUN_SCENES_V1, CP004_SCENES_BY_DIFFICULTY_V1 } from "../chapters/error-spotting/ENG-001/CP004/cp004-catalog-v1";
+import { remediateCp004SceneForClosureV1 } from "../chapters/error-spotting/ENG-001/CP004/cp004-closure-remediation-v1";
 import { generateEng001Cp004QuestionV1, rulesForDifficultyCp004V1 } from "../chapters/error-spotting/ENG-001/CP004/eng-001-cp004-v1";
 import { validateEng001Cp004QuestionV1 } from "../chapters/error-spotting/ENG-001/CP004/eng-001-cp004-v1-validator";
 import { PRONOUN_RULES_V1 } from "../grammar/pronouns";
 import type { Eng001QlId, EnglishDifficulty } from "../core/types";
 
-assert.equal(CP004_PRONOUN_SCENES_V1.length, 60);
+const effectiveScenes = CP004_PRONOUN_SCENES_V1.map(remediateCp004SceneForClosureV1);
+
+assert.equal(effectiveScenes.length, 60);
 assert.equal(CP004_SCENES_BY_DIFFICULTY_V1.easy.length, 20);
 assert.equal(CP004_SCENES_BY_DIFFICULTY_V1.medium.length, 20);
 assert.equal(CP004_SCENES_BY_DIFFICULTY_V1.hard.length, 20);
@@ -15,7 +18,7 @@ assert.deepEqual(rulesForDifficultyCp004V1("easy"), ["GR-PRN-001", "GR-PRN-002",
 assert.deepEqual(rulesForDifficultyCp004V1("medium"), ["GR-PRN-001", "GR-PRN-002", "GR-PRN-003", "GR-PRN-004", "GR-PRN-005", "GR-PRN-006", "GR-PRN-007", "GR-PRN-008", "GR-PRN-009", "GR-PRN-010"]);
 assert.deepEqual(rulesForDifficultyCp004V1("hard"), ["GR-PRN-002", "GR-PRN-004", "GR-PRN-005", "GR-PRN-006", "GR-PRN-007", "GR-PRN-008", "GR-PRN-010"]);
 
-for (const scene of CP004_PRONOUN_SCENES_V1) {
+for (const scene of effectiveScenes) {
   const changed = scene.correctSegments.reduce<number[]>((out, segment, index) => {
     if (segment !== scene.errorSegments[index]) out.push(index);
     return out;
@@ -26,7 +29,7 @@ for (const scene of CP004_PRONOUN_SCENES_V1) {
 }
 
 const qls: readonly Eng001QlId[] = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"];
-for (const [index, scene] of CP004_PRONOUN_SCENES_V1.entries()) {
+for (const [index, scene] of effectiveScenes.entries()) {
   for (const qlId of qls) {
     const question = generateEng001Cp004QuestionV1({
       seed: `cp004:scene:${index}:${qlId}`,
@@ -74,7 +77,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert.equal(result.ok, true, `${difficulty}/${i}: ${result.issues.map((issue) => issue.message).join(" | ")}`);
     diversity[difficulty].candidates.add(question.metadata.candidateId);
     diversity[difficulty].rules.add(String(question.metadata.ruleId));
-    const scene = CP004_PRONOUN_SCENES_V1.find((entry) => `PRN-V1:${entry.id}` === question.metadata.candidateId)!;
+    const scene = effectiveScenes.find((entry) => `PRN-V1:${entry.id}` === question.metadata.candidateId)!;
     diversity[difficulty].domains.add(scene.domain);
     diversity[difficulty].explanationStarts.add(question.explanation.split(".")[0] ?? question.explanation);
   }
