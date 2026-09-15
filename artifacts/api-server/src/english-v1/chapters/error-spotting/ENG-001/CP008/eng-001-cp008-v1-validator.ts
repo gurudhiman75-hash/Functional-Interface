@@ -1,6 +1,6 @@
 import type { Eng001Question, NounQuantifierRuleId, ValidationIssue, ValidationResult } from "../../../../core/types";
 import { NOUN_QUANTIFIER_RULE_BY_ID } from "../../../../grammar/nouns-quantifiers";
-import { CP008_SCENES_V2 } from "./cp008-catalog-v2";
+import { CP008_SCENES_V3 } from "./cp008-catalog-v3";
 
 const plainWordBan = /\b(?:aforementioned|thereof|wherein|hitherto|pursuant|therewith|hereinafter)\b/i;
 const awkwardExplanationBan = /\b(?:trap|shortcut|eliminate options|test-taker|distractor logic)\b/i;
@@ -25,7 +25,7 @@ export function validateEng001Cp008QuestionV1(question: Eng001Question): Validat
     if (!metadata.hasNoError || question.correctOptionIndex !== noErrorIndex) issues.push(issue("NO_ERROR_CONTRACT", "QL007 must key No error."));
   } else if (metadata.hasNoError) issues.push(issue("NO_ERROR_CONTRACT", `${metadata.qlId} must contain a keyed error.`));
 
-  const scene = CP008_SCENES_V2.find((entry) => entry.id === sceneIdFromCandidateId(metadata.candidateId));
+  const scene = CP008_SCENES_V3.find((entry) => entry.id === sceneIdFromCandidateId(metadata.candidateId));
   if (!scene) issues.push(issue("ERROR_INDEX", `Unknown CP008 candidate ${metadata.candidateId}.`));
   else {
     if (scene.ruleId !== metadata.ruleId) issues.push(issue("RULE_MUTATION_MISMATCH", `Scene ${scene.id} belongs to ${scene.ruleId}.`));
