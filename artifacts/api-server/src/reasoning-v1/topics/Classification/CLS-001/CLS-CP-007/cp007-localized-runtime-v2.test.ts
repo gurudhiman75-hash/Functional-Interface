@@ -18,13 +18,14 @@ const PROTOTYPES: readonly ClsCp007PrototypeId[] = [
   "CLS-CP007-PROT-013",
 ];
 const LOCALES: readonly ClsCp007LocalizedLocale[] = ["hi-IN", "pa-IN"];
-const FORBIDDEN = /परिमाण|घटाया हुआ अंतर-अनुपात|घटाया अनुपात|ਪਰਿਮਾਣ|ਘਟਾਇਆ ਹੋਇਆ ਅੰਤਰ-ਅਨੁਪਾਤ|ਘਟਾਇਆ ਅਨੁਪਾਤ|ਵਿਰੋਧੀ/;
+const FORBIDDEN = /परिमाण|घटाया हुआ अंतर-अनुपात|घटाया अनुपात|आंतरिक वर्णक्रम|अंतर-समानता क्रम|समानता क्रम|समान वर्णमाला संबंध|ਪਰਿਮਾਣ|ਘਟਾਇਆ ਹੋਇਆ ਅੰਤਰ-ਅਨੁਪਾਤ|ਘਟਾਇਆ ਅਨੁਪਾਤ|ਅੰਦਰੂਨੀ ਵਰਣ-ਕ੍ਰਮ|ਅੰਤਰ-ਸਮਾਨਤਾ ਕ੍ਰਮ|ਸਮਾਨਤਾ ਕ੍ਰਮ|ਸਾਂਝੇ ਵਰਣਮਾਲਾ ਸੰਬੰਧ|ਵਿਰੋਧੀ/;
 
 let checked = 0;
 let simplifiedAbsoluteGap = 0;
 let simplifiedRatio = 0;
 let simplifiedPunjabiOpposite = 0;
 let clarifiedPairOutlier = 0;
+let simplifiedPatternLanguage = 0;
 
 function learnerText(question: {
   readonly stem: string;
@@ -69,11 +70,18 @@ for (const locale of LOCALES) {
       assert.ok(!FORBIDDEN.test(text), `${locale}/${prototypeId}/${seed}: technical native wording leaked`);
       if (v2.intendedRuleId === "CLUSTER_ABSOLUTE_GAP_VECTOR") {
         simplifiedAbsoluteGap += 1;
-        assert.ok(locale === "hi-IN" ? text.includes("+/− चिह्न हटाकर") : text.includes("+/− ਨਿਸ਼ਾਨ ਹਟਾ ਕੇ"));
+        assert.ok(locale === "hi-IN" ? text.includes("+/− चिह्न हटाने पर") : text.includes("+/− ਨਿਸ਼ਾਨ ਹਟਾਉਣ ਤੇ"));
       }
       if (v2.intendedRuleId === "CLUSTER_NORMALIZED_SIGNED_GAP_RATIO") {
         simplifiedRatio += 1;
         assert.ok(locale === "hi-IN" ? text.includes("सरल अनुपात") : text.includes("ਸਰਲ ਅਨੁਪਾਤ"));
+      }
+      if (v2.intendedRuleId === "CLUSTER_GAP_EQUALITY_PATTERN") {
+        simplifiedPatternLanguage += 1;
+        assert.ok(locale === "hi-IN" ? text.includes("अंतर की बनावट") : text.includes("ਅੰਤਰਾਂ ਦੀ ਬਣਤਰ"));
+      }
+      if (v2.intendedRuleId === "CLUSTER_REPEAT_PATTERN") {
+        assert.ok(locale === "hi-IN" ? text.includes("अक्षरों के दोहराव का क्रम") : text.includes("ਅੱਖਰਾਂ ਦੀ ਦੁਹਰਾਈ ਦਾ ਕ੍ਰਮ"));
       }
       if (locale === "pa-IN" && (
         v2.intendedRuleId === "CLUSTER_OPPOSITE_PAIRING_13_24_STATUS" ||
@@ -115,6 +123,7 @@ for (const locale of LOCALES) {
 assert.equal(checked, LOCALES.length * (PROTOTYPES.length * 10 + 100));
 assert.ok(simplifiedAbsoluteGap > 0);
 assert.ok(simplifiedRatio > 0);
+assert.ok(simplifiedPatternLanguage > 0);
 assert.ok(simplifiedPunjabiOpposite > 0);
 assert.ok(clarifiedPairOutlier > 0);
 
@@ -122,6 +131,7 @@ console.log("CLS-CP-007 simple native-language V2 audit passed.", {
   checked,
   simplifiedAbsoluteGap,
   simplifiedRatio,
+  simplifiedPatternLanguage,
   simplifiedPunjabiOpposite,
   clarifiedPairOutlier,
   mathematicalStateChanges: 0,
