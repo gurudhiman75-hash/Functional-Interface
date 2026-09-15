@@ -6,13 +6,13 @@ const replacements: Readonly<Record<string, ModifierSceneV1>> = {
     correctSegments: [
       "Because the original file contained no signatures,",
       "the reviewing officer retained the annexure",
-      "that contained the disputed signatures",
-      "with the original file until the handwriting report arrived.",
+      "that contained the disputed signatures, together with the original file,",
+      "until the handwriting report arrived.",
     ],
     errorSegments: [
       "Because the original file contained no signatures,",
       "the reviewing officer retained the annexure",
-      "with the original file that contained the disputed signatures",
+      "with the original file that contained the disputed signatures,",
       "until the handwriting report arrived.",
     ],
     reason: "The opening clause states that the original file contained no signatures, so the relative clause about the disputed signatures must modify 'the annexure', not 'the original file'.",
@@ -22,13 +22,13 @@ const replacements: Readonly<Record<string, ModifierSceneV1>> = {
     correctSegments: [
       "Because the covering letter contained no tax figures,",
       "the audit team requested",
-      "a replacement copy of the invoice that showed the revised tax amount",
-      "together with the covering letter for the file.",
+      "a replacement copy of the invoice that showed the revised tax amount, together with the covering letter,",
+      "for the file.",
     ],
     errorSegments: [
       "Because the covering letter contained no tax figures,",
       "the audit team requested",
-      "a replacement copy of the invoice with the covering letter that showed the revised tax amount",
+      "a replacement copy of the invoice with the covering letter that showed the revised tax amount,",
       "for the file.",
     ],
     reason: "The opening clause rules out the covering letter as the source of the tax figure, so the relative clause must stay next to 'invoice'.",
