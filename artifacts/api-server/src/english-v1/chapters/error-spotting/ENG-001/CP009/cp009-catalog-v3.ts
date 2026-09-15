@@ -4,10 +4,10 @@ import { CP009_SCENES_V2 } from "./cp009-catalog-v2";
 
 const patches: Readonly<Record<string, Partial<GerundInfinitiveParticipleSceneV1>>> = {
   "GIP-H02": {
-    correctSegments: ["Although the branch agreed to meet the auditors again, the audit team recommended reviewing the disputed entries first", "before the report was sent", "to the finance committee", "for final consideration."],
-    errorSegments: ["Although the branch agreed to meet the auditors again, the audit team recommended to review the disputed entries first", "before the report was sent", "to the finance committee", "for final consideration."],
+    correctSegments: ["Although the branch agreed to meet again, the audit team recommended reviewing the disputed entries first", "before the report was sent", "to the finance committee", "for final consideration."],
+    errorSegments: ["Although the branch agreed to meet again, the audit team recommended to review the disputed entries first", "before the report was sent", "to the finance committee", "for final consideration."],
     errorIndex: 0,
-    correction: "Although the branch agreed to meet the auditors again, the audit team recommended reviewing the disputed entries first",
+    correction: "Although the branch agreed to meet again, the audit team recommended reviewing the disputed entries first",
   },
   "GIP-H04": {
     correctSegments: ["After considering postponing the vote, the board eventually agreed to reconsider", "the third proposal", "during its closing session", "before members left."],
