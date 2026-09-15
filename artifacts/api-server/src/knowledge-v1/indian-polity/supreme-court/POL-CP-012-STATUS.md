@@ -1,7 +1,7 @@
 # POL-CP-012 — Supreme Court Status
 
 **Branch:** `feature/polity-cp012-supreme-court`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
+**Lifecycle:** REVIEW CANDIDATE — EXAM-GRADE STEMS V2  
 **Runtime registration:** BLOCKED pending human approval
 
 ## Implemented
@@ -24,7 +24,8 @@
 - current collegium/NJAC guardrail
 - 20 genuine QLs
 - 80-question review target
-- structural, source, answer-alignment and explanation QA files
+- V2 canonical exam-grade stem layer over the verified V1 fact/option/explanation bank
+- structural, source, answer-alignment, explanation and stem-style QA files
 
 ## Review profile
 
@@ -32,10 +33,20 @@
 - 40 Medium
 - 16 Hard
 
-## Language and explanation policy
+## V2 stem policy
 
-- simple exam-style stems
-- helpful explanations from V1, not ultra-short notes
+- stems must read like real SSC, Banking, Railway or State-exam polity questions
+- use natural forms such as `Which Article...?`, `Who...?`, `Under the Constitution...?`, and short application questions
+- avoid database-style fragments such as `Article 124 mainly deals with:` or `... is mainly under:`
+- direct stems normally end as complete questions
+- direct stems capped at 30 words
+- integrated statement questions may be longer where necessary
+- question difficulty comes from the concept/trap, not from awkward wording
+- standard question instructions may repeat; substantive question content should not
+
+## Explanation policy
+
+- helpful explanations retained from V1
 - exact rule plus one useful distinction or exam trap where helpful
 - normal explanation range: 13–32 words
 - no stock opening or generic filler
@@ -48,4 +59,4 @@
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V1 is approved.
+These remain blocked until English V2 is approved.
