@@ -1,10 +1,10 @@
 # POL-CP-010 — Parliament Structure & Officers Status
 
 **Branch:** `feature/polity-cp010-parliament-structure-officers`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
-## Implemented
+## Approved implementation
 
 - official Legislative Department Constitution source
 - Articles 79–98 constitutional map
@@ -21,16 +21,16 @@
 - complete Lok Sabha presiding-officer block under Articles 93–96
 - Article 97 salaries and Article 98 secretariat rules
 - 20 genuine QLs
-- 80-question review target
+- 80-question review batch
 - structural, provenance, answer-alignment and explanation QA
 
-## Review profile
+## Approved review profile
 
 - 24 Easy
 - 44 Medium
 - 12 Hard
 
-## Language and explanation policy
+## Frozen language and explanation standard
 
 - simple exam-style stems
 - direct stems capped at 28 words
@@ -49,11 +49,10 @@
 - financial Bills
 - Budget and financial procedure
 
-## Gated
+## Deferred integration work
 
-- merge to `New-main`
 - Question Studio exposure
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V1 is approved.
+English V1 was approved by the project owner on 15 September 2026 and is now the canonical frozen authority for POL-CP-010.
