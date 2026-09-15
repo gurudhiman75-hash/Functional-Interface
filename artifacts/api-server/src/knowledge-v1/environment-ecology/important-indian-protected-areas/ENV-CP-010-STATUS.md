@@ -1,10 +1,10 @@
 # ENV-CP-010 Status
 
-- Lifecycle: REVIEW CANDIDATE.
+- Lifecycle: APPROVED / CONTENT-FROZEN.
 - Review version: V1.
-- Runtime registration: blocked.
-- Human approval: pending.
-- Merge into `New-main`: blocked until project-owner approval.
+- Human approval: 2026-09-15.
+- Runtime package binding: eligible; review generator remains `runtimeRegistered: false`.
+- Merge into `New-main`: approved.
 - Review surface: 48 questions across 12 QLs.
 - Exam-language baseline: direct competitive-exam stems with short explanations.
 - Coverage: Corbett, Kaziranga, Gir, Keoladeo, Sundarbans, Great Himalayan, Silent Valley, Kanha, Ranthambore and Hemis.
