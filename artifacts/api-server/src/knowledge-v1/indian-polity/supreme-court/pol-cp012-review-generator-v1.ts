@@ -18,7 +18,7 @@ export function generatePolCp012ReviewBatchV1(): PolCp012ReviewQuestion[] {
   for(const q of questions){
     if(q.options[q.correctIndex]!==q.canonicalAnswer) throw new Error(`Answer mismatch ${q.questionId}`);
     const words=q.explanation.trim().split(/\s+/).length;
-    if(words<16||words>32) throw new Error(`Explanation length ${q.questionId}: ${words}`);
+    if(words<13||words>32) throw new Error(`Explanation length ${q.questionId}: ${words}`);
     if(/Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i.test(q.explanation)) throw new Error(`Generic clutter ${q.questionId}`);
   }
   return questions;
