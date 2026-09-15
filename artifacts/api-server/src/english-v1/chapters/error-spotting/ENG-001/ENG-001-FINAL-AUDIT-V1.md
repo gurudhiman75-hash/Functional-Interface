@@ -84,6 +84,28 @@ Composition:
 - 3 permanent QL surfaces per difficulty;
 - 117 deterministic review questions in total.
 
+## Audit finding 3 — predictable error-position bias
+
+Manual review of the first whole-chapter master pack exposed a suspicious concentration of keyed errors in Part B. A separate 3,900-question deterministic diagnostic confirmed that this was a real presentation-level pattern rather than a one-pack sampling accident:
+
+- overall Part B: **56.38%** of error-bearing questions;
+- `ENG-001-QL002` Part B: **69.85%**;
+- several early checkpoints were much more concentrated, including CP005 at **92% Part B** in the diagnostic sample.
+
+This is a closure blocker because learners could exploit answer-position regularity without solving the grammar.
+
+The approved grammar corpora themselves are not rewritten. Instead, the shared `language-v1` Question Studio boundary now applies `ENG-001-ANSWER-POSITION-NORMALIZATION-V1` to error-bearing QL001/QL002 questions. The normalization:
+
+- preserves the exact sentence word order;
+- preserves the exact authored error phrase as one indivisible segment;
+- preserves the grammar rule, mutation, candidate identity, corrected sentence and semantic content;
+- repartitions only the surrounding non-error text into contiguous exam-style parts;
+- chooses among feasible error positions deterministically from the generation seed;
+- updates the learner-facing Part label in the explanation to match the new segmentation;
+- leaves QL007 no-error questions unchanged.
+
+A dedicated multi-seed diagnostic reruns after this normalization. Chapter closure remains blocked until the post-remediation distribution is acceptably non-predictable and the regenerated master review is manually inspected for natural segmentation.
+
 ## Frozen checkpoint evidence
 
 Historical per-CP review artifacts are intentionally not rewritten merely to update old lifecycle wording. Several are pinned by exact SHA-256/blob authority, and changing those files would invalidate the human-approval provenance.
@@ -107,9 +129,10 @@ ENG-001 may be marked `CONTENT_CLOSED_V1` only after all of the following are tr
 
 1. the final-audit workflow is green on the exact branch head;
 2. the API build and admin typecheck remain green;
-3. the 117-question master review artifact is manually reviewed;
-4. any genuine wording, ambiguity, explanation or difficulty defect found in that pack is corrected at the source generator and the affected checkpoint is regenerated/re-approved as required;
-5. explicit project-owner approval is recorded for chapter closure.
+3. the 3,900-question answer-position diagnostic confirms the error location is no longer predictably concentrated;
+4. the regenerated 117-question master review artifact is manually reviewed, including segmentation quality;
+5. any genuine wording, ambiguity, explanation or difficulty defect found in that pack is corrected at the source generator and the affected checkpoint is regenerated/re-approved as required;
+6. explicit project-owner approval is recorded for chapter closure.
 
 Until that approval, the correct state is:
 
