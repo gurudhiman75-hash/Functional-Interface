@@ -26,7 +26,7 @@
 - QA for exact batch count, sources, options, duplicates, formulas, classification logic and difficulty spread;
 - V2 QA requiring complete question-style stems and blocking terminal-colon prompt fragments;
 - QA blocking current deficit/debt ratios, live Budget allocations, current tax slabs and current FRBM numerical targets;
-- 24-question human review set regenerated with V2 stems.
+- V2 stem-change notes for human review.
 
 ## V2 stem-quality rule
 
