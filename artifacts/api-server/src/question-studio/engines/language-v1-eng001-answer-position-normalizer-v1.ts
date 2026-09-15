@@ -2,6 +2,7 @@ import type { QuestionStudioGenerationResult } from "../engine-types";
 
 export const ENG001_ANSWER_POSITION_NORMALIZATION_ID_V1 = "ENG-001-ANSWER-POSITION-NORMALIZATION-V1" as const;
 
+const MIN_GENERATED_PART_WORDS = 2;
 const text = (value: unknown) => typeof value === "string" ? value.trim() : "";
 const strings = (value: unknown) => Array.isArray(value) ? value.map((entry) => String(entry ?? "").trim()) : [];
 
@@ -20,13 +21,19 @@ function wordsOf(value: string) {
 
 function partitionWords(words: readonly string[], groupCount: number): string[] | null {
   if (groupCount === 0) return [];
-  if (words.length < groupCount) return null;
+  if (words.length < groupCount * MIN_GENERATED_PART_WORDS) return null;
+
   const out: string[] = [];
   let cursor = 0;
   for (let group = 0; group < groupCount; group += 1) {
     const remainingWords = words.length - cursor;
     const remainingGroups = groupCount - group;
-    const take = Math.ceil(remainingWords / remainingGroups);
+    const minimumForLaterGroups = (remainingGroups - 1) * MIN_GENERATED_PART_WORDS;
+    const ideal = Math.ceil(remainingWords / remainingGroups);
+    const take = Math.max(
+      MIN_GENERATED_PART_WORDS,
+      Math.min(ideal, remainingWords - minimumForLaterGroups),
+    );
     out.push(words.slice(cursor, cursor + take).join(" "));
     cursor += take;
   }
@@ -45,7 +52,8 @@ function normalizeQuestion(question: Record<string, unknown>) {
   // Keep the exact authored error-bearing text intact. Only option boundaries
   // around it are redrawn, so sentence order and the grammatical mutation are
   // unchanged. At an edge position the target option may absorb the correct
-  // words that precede/follow the error-bearing text.
+  // words that precede/follow the error-bearing text. Any newly generated
+  // non-error part must contain at least two words to avoid mechanical splits.
   const errorSegment = segments[currentIndex]!;
   const prefixWords = wordsOf(segments.slice(0, currentIndex).join(" "));
   const suffixWords = wordsOf(segments.slice(currentIndex + 1).join(" "));
@@ -55,7 +63,8 @@ function normalizeQuestion(question: Record<string, unknown>) {
     const suffixGroups = segments.length - target - 1;
     return { target, prefixGroups, suffixGroups };
   }).filter(({ prefixGroups, suffixGroups }) => (
-    prefixWords.length >= prefixGroups && suffixWords.length >= suffixGroups
+    prefixWords.length >= prefixGroups * MIN_GENERATED_PART_WORDS
+    && suffixWords.length >= suffixGroups * MIN_GENERATED_PART_WORDS
   ));
   if (feasibleTargets.length < 2) return question;
 
