@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-009 Protected Areas of India  
-**Lifecycle:** REVIEW CANDIDATE  
-**Review version:** V1  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Approved review version:** V1  
+**Runtime registration:** eligible for shared Environment package binding; review generator remains review-only  
+**Human approval recorded:** 2026-09-15  
 
 ## Scope
 
@@ -39,7 +40,7 @@ Explicitly deferred:
 8. A community reserve management committee is responsible for conserving, maintaining and managing the community reserve.
 9. Biosphere reserve is not one of the four categories in the Act's statutory definition of protected area.
 10. No learner question relies on changing national totals.
-11. Review generators remain `runtimeRegistered: false` until approval.
+11. Review-only generator may remain `runtimeRegistered: false` after approval.
 
 ## QL inventory
 
@@ -60,7 +61,7 @@ Explicitly deferred:
 
 ## Review gate
 
-Before approval:
+Approved V1 satisfied:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
