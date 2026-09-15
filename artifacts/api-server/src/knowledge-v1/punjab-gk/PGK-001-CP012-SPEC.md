@@ -1,6 +1,6 @@
 # PGK-001 CP012 — Sikh Gurus & Punjab
 
-Status: REVIEW CANDIDATE V2
+Status: HUMAN APPROVED / FROZEN V2
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-012 — Sikh Gurus & Punjab`
 Permanent QLs: `PGK-001-QL-077` to `PGK-001-QL-083`
@@ -65,6 +65,10 @@ State the decisive historical fact first, then one useful succession, place, ins
 
 Verification remains internal against Punjab School Education Board Punjab History & Culture material, SGPC historical material and other high-quality historical references where needed. Learner text remains source-free.
 
+## Approval
+
+Human approved on 15 September 2026. Accepted review authority is V2. Learner-facing wording, historical scope and lifecycle are frozen for CP012; runtime integration remains a separate Question Studio step.
+
 ## Lifecycle
 
-CP012 V2 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP012 V2 is HUMAN APPROVED / FROZEN. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication until the separate runtime-integration workflow deliberately enables it.
