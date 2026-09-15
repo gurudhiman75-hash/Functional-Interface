@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-010 Important Indian Protected Areas  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V1  
-**Runtime registration:** blocked pending human approval  
+**Human approval:** 2026-09-15  
+**Runtime registration:** eligible for runtime package binding; review generator remains review-only  
 
 ## Scope
 
@@ -32,7 +33,7 @@ Explicitly deferred:
 5. A named species is used only as a stable identity association, not for current conservation-status trivia.
 6. Reverse questions must test the same fact naturally rather than merely rewording the forward stem.
 7. Hard questions combine multiple protected-area clues or statements.
-8. Review generators remain `runtimeRegistered: false` until project-owner approval.
+8. Review generators remain `runtimeRegistered: false`; approved facts are eligible for runtime package binding.
 
 ## QL inventory
 
@@ -51,9 +52,8 @@ Explicitly deferred:
 | ENV-010-QL-011 | Statement evaluation | Hard |
 | ENV-010-QL-012 | Applied protected-area clues | Hard |
 
-## Review gate
+## Frozen V1 review gate
 
-Before approval:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
