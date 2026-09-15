@@ -2,53 +2,73 @@ import assert from "node:assert/strict";
 import { generateClsCp004LocalizedQuestion } from "./cp004-localized-runtime";
 import { generateClsCp004LocalizedReviewQuestion } from "./cp004-localized-review-runtime";
 
-let checked = 0;
+let checkedPunjabi = 0;
 let parityQuestions = 0;
 let compositionQuestions = 0;
+let checkedHindi = 0;
+let repairedHindiStemCount = 0;
 
 for (let seed = 0; seed < 2000; seed += 1) {
-  const base = generateClsCp004LocalizedQuestion("pa-IN", seed);
-  const question = generateClsCp004LocalizedReviewQuestion("pa-IN", seed);
+  const basePunjabi = generateClsCp004LocalizedQuestion("pa-IN", seed);
+  const punjabi = generateClsCp004LocalizedReviewQuestion("pa-IN", seed);
 
-  assert.equal(question.qlId, base.qlId, `${seed} QL drift`);
-  assert.equal(question.prototypeId, base.prototypeId, `${seed} prototype drift`);
-  assert.equal(question.intendedRuleId, base.intendedRuleId, `${seed} rule drift`);
-  assert.equal(question.intendedRuleValue, base.intendedRuleValue, `${seed} rule-value drift`);
-  assert.deepEqual(question.numbers, base.numbers, `${seed} number-state drift`);
-  assert.deepEqual(question.options, base.options, `${seed} options drift`);
-  assert.equal(question.correctIndex, base.correctIndex, `${seed} correct-index drift`);
-  assert.equal(question.answer, base.answer, `${seed} answer drift`);
-  assert.equal(question.difficulty, base.difficulty, `${seed} difficulty drift`);
-  assert.deepEqual(question.ambiguityAudit, base.ambiguityAudit, `${seed} ambiguity audit drift`);
+  assert.equal(punjabi.qlId, basePunjabi.qlId, `${seed} QL drift`);
+  assert.equal(punjabi.prototypeId, basePunjabi.prototypeId, `${seed} prototype drift`);
+  assert.equal(punjabi.intendedRuleId, basePunjabi.intendedRuleId, `${seed} rule drift`);
+  assert.equal(punjabi.intendedRuleValue, basePunjabi.intendedRuleValue, `${seed} rule-value drift`);
+  assert.deepEqual(punjabi.numbers, basePunjabi.numbers, `${seed} number-state drift`);
+  assert.deepEqual(punjabi.options, basePunjabi.options, `${seed} options drift`);
+  assert.equal(punjabi.correctIndex, basePunjabi.correctIndex, `${seed} correct-index drift`);
+  assert.equal(punjabi.answer, basePunjabi.answer, `${seed} answer drift`);
+  assert.equal(punjabi.difficulty, basePunjabi.difficulty, `${seed} difficulty drift`);
+  assert.deepEqual(punjabi.ambiguityAudit, basePunjabi.ambiguityAudit, `${seed} ambiguity audit drift`);
 
-  assert.equal(question.metadata.runtimeVersion, "cls-cp004-multilingual-review-v2");
-  assert.equal(question.metadata.languageReviewVersion, "punjabi-math-terms-v2");
+  assert.equal(punjabi.metadata.runtimeVersion, "cls-cp004-multilingual-review-v3");
+  assert.equal(punjabi.metadata.languageReviewVersion, "native-language-v3");
 
-  const learnerText = [
-    question.stem,
-    ...question.evidenceByOption,
-    ...question.explanation.coreConcept,
-    ...question.explanation.stepByStep,
+  const punjabiLearnerText = [
+    punjabi.stem,
+    ...punjabi.evidenceByOption,
+    ...punjabi.explanation.coreConcept,
+    ...punjabi.explanation.stepByStep,
   ].join("\n");
 
-  assert.ok(!/ਜੁੜੀ ਸੰਖਿਆ|ਸਾਰੇ ਅੰਕ ਜੁੜੇ|ਅੰਕਾਂ ਵਿੱਚ ਜੁੜੇ ਅਤੇ ਟਾਂਕ/.test(learnerText), `${seed} non-standard Punjabi parity wording leaked`);
+  assert.ok(!/ਜੁੜੀ ਸੰਖਿਆ|ਸਾਰੇ ਅੰਕ ਜੁੜੇ|ਅੰਕਾਂ ਵਿੱਚ ਜੁੜੇ ਅਤੇ ਟਾਂਕ/.test(punjabiLearnerText), `${seed} non-standard Punjabi parity wording leaked`);
 
-  if (question.intendedRuleId === "PARITY") {
+  if (punjabi.intendedRuleId === "PARITY") {
     parityQuestions += 1;
-    assert.ok(/ਜਿਸਤ ਸੰਖਿਆ|ਟਾਂਕ ਸੰਖਿਆ/.test(learnerText), `${seed} standard Punjabi parity term missing`);
+    assert.ok(/ਜਿਸਤ ਸੰਖਿਆ|ਟਾਂਕ ਸੰਖਿਆ/.test(punjabiLearnerText), `${seed} standard Punjabi parity term missing`);
   }
-  if (question.intendedRuleId === "DIGIT_PARITY_COMPOSITION") {
+  if (punjabi.intendedRuleId === "DIGIT_PARITY_COMPOSITION") {
     compositionQuestions += 1;
-    assert.ok(/ਜਿਸਤ|ਟਾਂਕ/.test(learnerText), `${seed} digit-parity terminology missing`);
+    assert.ok(/ਜਿਸਤ|ਟਾਂਕ/.test(punjabiLearnerText), `${seed} digit-parity terminology missing`);
   }
-  checked += 1;
+  checkedPunjabi += 1;
+
+  const baseHindi = generateClsCp004LocalizedQuestion("hi-IN", seed);
+  const hindi = generateClsCp004LocalizedReviewQuestion("hi-IN", seed);
+  assert.deepEqual(hindi.numbers, baseHindi.numbers, `${seed} Hindi number-state drift`);
+  assert.deepEqual(hindi.options, baseHindi.options, `${seed} Hindi option drift`);
+  assert.equal(hindi.answer, baseHindi.answer, `${seed} Hindi answer drift`);
+  assert.equal(hindi.correctIndex, baseHindi.correctIndex, `${seed} Hindi correct-index drift`);
+  assert.equal(hindi.metadata.runtimeVersion, "cls-cp004-multilingual-review-v3");
+  assert.equal(hindi.metadata.languageReviewVersion, "native-language-v3");
+  assert.ok(!hindi.stem.includes("विषम संख्या चुनिए"), `${seed} ambiguous Hindi parity wording leaked into classification stem`);
+  if (baseHindi.stem.includes("विषम संख्या चुनिए")) {
+    repairedHindiStemCount += 1;
+    assert.ok(hindi.stem.includes("अलग संख्या चुनिए"), `${seed} Hindi classification stem was not repaired`);
+  }
+  checkedHindi += 1;
 }
 
 assert.ok(parityQuestions > 0, "PARITY questions were not exercised");
 assert.ok(compositionQuestions > 0, "DIGIT_PARITY_COMPOSITION questions were not exercised");
+assert.ok(repairedHindiStemCount > 0, "Ambiguous Hindi stem variant was not exercised");
 
-console.log("CLS-CP-004 Punjabi mathematical terminology audit passed.", {
-  checked,
+console.log("CLS-CP-004 native mathematical terminology audit passed.", {
+  checkedPunjabi,
+  checkedHindi,
   parityQuestions,
   compositionQuestions,
+  repairedHindiStemCount,
 });
