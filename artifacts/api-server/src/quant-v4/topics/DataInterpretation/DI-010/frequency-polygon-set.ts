@@ -1,36 +1,41 @@
 import { hashSeed, seededRandom, shuffle } from "../DI-001/exact";
 import { buildDi010Stimulus } from "./frequency-polygon-state";
-import { buildDi010RangeRatioDraft } from "./range-ratio-task";
-import { buildDi010Drafts, type Di010Candidate, type Di010Draft } from "./task-builders";
+import { buildDi010DraftsV2, type Di010Candidate, type Di010Draft } from "./task-builders-v2";
 import type { Di010Difficulty, Di010ExamProfile, Di010Option, Di010Question, Di010QuestionSet, Di010TaskKind, Di010ValidationCheck } from "./types";
 
 const OPTION_COUNT = 4 as const;
 const QUESTIONS_PER_SET = 5 as const;
 
 export const DI010_TASK_KINDS: readonly Di010TaskKind[] = [
-  "GRAPH_TYPE_IDENTIFICATION",
-  "CLASS_MARK_FROM_INTERVAL",
-  "POINT_COORDINATE_FOR_CLASS",
-  "READ_FREQUENCY_AT_CLASS_MARK",
-  "ZERO_CLOSING_ENDPOINTS",
-  "TOTAL_FREQUENCY_FROM_POLYGON",
+  "CONSTRUCTION_PROPERTY",
+  "READ_CLASS_FREQUENCY_CONTEXT",
   "MODAL_CLASS_FROM_POLYGON",
-  "FREQUENCY_DIFFERENCE_BETWEEN_CLASSES",
-  "COMBINED_RANGE_TOTAL_FROM_POLYGON",
+  "CLASS_INTERVAL_FROM_MARK",
+  "TOTAL_FREQUENCY_FROM_POLYGON",
+  "CONSECUTIVE_RANGE_TOTAL_CONTEXT",
+  "FREQUENCY_DIFFERENCE_CONTEXT",
+  "CLASS_SHARE_OF_TOTAL",
+  "HISTOGRAM_BAR_HEIGHT_FROM_POLYGON",
+  "ZERO_CLOSING_ENDPOINTS",
   "RANGE_RATIO_FROM_POLYGON",
+  "GROUPED_MEAN_FROM_POLYGON",
+  "MEDIAN_CLASS_FROM_POLYGON",
 ];
 
 export const DI010_DIFFICULTY_BY_TASK: Readonly<Record<Di010TaskKind, Di010Difficulty>> = {
-  GRAPH_TYPE_IDENTIFICATION: "Easy",
-  CLASS_MARK_FROM_INTERVAL: "Easy",
-  POINT_COORDINATE_FOR_CLASS: "Medium",
-  READ_FREQUENCY_AT_CLASS_MARK: "Easy",
-  ZERO_CLOSING_ENDPOINTS: "Hard",
-  TOTAL_FREQUENCY_FROM_POLYGON: "Medium",
+  CONSTRUCTION_PROPERTY: "Easy",
+  READ_CLASS_FREQUENCY_CONTEXT: "Easy",
   MODAL_CLASS_FROM_POLYGON: "Easy",
-  FREQUENCY_DIFFERENCE_BETWEEN_CLASSES: "Medium",
-  COMBINED_RANGE_TOTAL_FROM_POLYGON: "Medium",
+  CLASS_INTERVAL_FROM_MARK: "Easy",
+  TOTAL_FREQUENCY_FROM_POLYGON: "Medium",
+  CONSECUTIVE_RANGE_TOTAL_CONTEXT: "Medium",
+  FREQUENCY_DIFFERENCE_CONTEXT: "Medium",
+  CLASS_SHARE_OF_TOTAL: "Medium",
+  HISTOGRAM_BAR_HEIGHT_FROM_POLYGON: "Medium",
+  ZERO_CLOSING_ENDPOINTS: "Hard",
   RANGE_RATIO_FROM_POLYGON: "Hard",
+  GROUPED_MEAN_FROM_POLYGON: "Hard",
+  MEDIAN_CLASS_FROM_POLYGON: "Hard",
 };
 
 function applyDifficultyPolicy(draft: Di010Draft): Di010Draft {
@@ -56,7 +61,7 @@ function intervalRescue(answer: string): Di010Candidate[] {
   if (!(width > 0)) return [];
   return [-2, -1, 1, 2]
     .map((shift) => ({ lower: lower + shift * width, upper: upper + shift * width }))
-    .map((item, index) => ({ text: `${Number(item.lower.toFixed(2))}–${Number(item.upper.toFixed(2))}`, misconceptionId: `NEARBY_CLASS_RESCUE_${index}`, derivation: "Chooses a nearby class interval instead of the class represented by the required polygon point." }));
+    .map((item, index) => ({ text: `${Number(item.lower.toFixed(2))}–${Number(item.upper.toFixed(2))}`, misconceptionId: `NEARBY_CLASS_RESCUE_${index}`, derivation: "Chooses a nearby class interval instead of the required class." }));
 }
 
 function endpointRescue(answer: string): Di010Candidate[] {
@@ -64,29 +69,10 @@ function endpointRescue(answer: string): Di010Candidate[] {
   if (!match) return [];
   const left = Number(match[1]);
   const right = Number(match[2]);
-  const shifts = [5, 10];
-  return shifts.map((shift, index) => ({
+  return [5, 10].map((shift, index) => ({
     text: `(${Number((left - shift).toFixed(2))}, 0) and (${Number((right + shift).toFixed(2))}, 0)`,
     misconceptionId: `OVEREXTEND_CLOSURE_${index}`,
-    derivation: "Moves the zero-frequency endpoints too far beyond the required one-class-width closure positions.",
-  }));
-}
-
-function coordinateRescue(answer: string): Di010Candidate[] {
-  const match = answer.match(/^\((-?\d+(?:\.\d+)?), (-?\d+(?:\.\d+)?)\)$/);
-  if (!match) return [];
-  const x = Number(match[1]);
-  const y = Number(match[2]);
-  const nearby = [
-    { x: x + 5, y, id: "NEXT_CLASS_MARK", derivation: "Uses a nearby class mark while keeping the observed frequency." },
-    { x: x - 5, y, id: "PREVIOUS_CLASS_MARK", derivation: "Uses the previous nearby class mark while keeping the observed frequency." },
-    { x, y: y + 5, id: "HIGHER_GRID_READING", derivation: "Uses the correct class mark but reads the next higher frequency level." },
-    { x, y: y - 5, id: "LOWER_GRID_READING", derivation: "Uses the correct class mark but reads the next lower frequency level." },
-  ].filter((item) => item.x >= 0 && item.y >= 0);
-  return nearby.map((item, index) => ({
-    text: `(${Number(item.x.toFixed(2))}, ${Number(item.y.toFixed(2))})`,
-    misconceptionId: `COORDINATE_RESCUE_${item.id}_${index}`,
-    derivation: item.derivation,
+    derivation: "Moves the zero-frequency endpoints too far beyond the required adjoining-class positions.",
   }));
 }
 
@@ -97,9 +83,8 @@ function ratioRescue(answer: string): Di010Candidate[] {
   const right = Number(match[2]);
   return [
     { text: `${right}:${left}`, misconceptionId: "RATIO_RESCUE_REVERSED", derivation: "Reverses the requested order of the two range totals." },
-    { text: `${left + 1}:${right}`, misconceptionId: "RATIO_RESCUE_LEFT_NEARBY", derivation: "Uses a nearby first ratio term after a small range-total reading error." },
-    { text: `${left}:${right + 1}`, misconceptionId: "RATIO_RESCUE_RIGHT_NEARBY", derivation: "Uses a nearby second ratio term after a small range-total reading error." },
-    { text: `${left + 1}:${right + 1}`, misconceptionId: "RATIO_RESCUE_BOTH_NEARBY", derivation: "Shifts both simplified ratio terms after two nearby reading errors." },
+    { text: `${left + 1}:${right}`, misconceptionId: "RATIO_RESCUE_LEFT_NEARBY", derivation: "Uses a nearby first ratio term after a small reading error." },
+    { text: `${left}:${right + 1}`, misconceptionId: "RATIO_RESCUE_RIGHT_NEARBY", derivation: "Uses a nearby second ratio term after a small reading error." },
   ];
 }
 
@@ -117,7 +102,6 @@ function buildOptions(seed: string, answer: string, candidates: readonly Di010Ca
   numericRescue(answer).forEach(add);
   intervalRescue(answer).forEach(add);
   endpointRescue(answer).forEach(add);
-  coordinateRescue(answer).forEach(add);
   ratioRescue(answer).forEach(add);
   if (retained.length < OPTION_COUNT) throw new Error(`DI-010 ${seed} constructed only ${retained.length} unique options for '${answer}'.`);
   const shuffled = shuffle(seededRandom(`${seed}:options`), retained.slice(0, OPTION_COUNT));
@@ -155,7 +139,7 @@ function validateSet(set: Omit<Di010QuestionSet, "validation">) {
   add("ANSWER_INDEX_VALID", set.questions.every((question) => question.options[question.correctIndex] === question.answer), "Correct-index metadata must point to the exact answer.");
   add("MISCONCEPTION_OWNED_DISTRACTORS", set.questions.every((question) => question.optionMetadata.filter((option) => option.misconceptionId !== "CORRECT").every((option) => option.misconceptionId.length > 3 && option.derivation.length > 12)), "Every distractor must carry misconception ownership.");
   add("EXPLANATION_PRESENT", set.questions.every((question) => question.explanation.keyIdea.length > 15 && question.explanation.steps.length >= 1), "Every question needs a beginner-readable explanation.");
-  add("REVIEW_ONLY", !set.traceability.questionStudioDiscoverable && set.traceability.questionBankStatus === "NOT_STORED" && !set.traceability.questionBankWritable && set.traceability.testEligibility === "INELIGIBLE" && !set.traceability.testEligible && !set.traceability.mockTestEligible && !set.traceability.publiclyPublishable && !set.traceability.automaticStudentPublication && !set.traceability.productionReleaseAuthorized, "DI-010 P0 must remain fully review-only.");
+  add("REVIEW_ONLY", !set.traceability.questionStudioDiscoverable && set.traceability.questionBankStatus === "NOT_STORED" && !set.traceability.questionBankWritable && set.traceability.testEligibility === "INELIGIBLE" && !set.traceability.testEligible && !set.traceability.mockTestEligible && !set.traceability.publiclyPublishable && !set.traceability.automaticStudentPublication && !set.traceability.productionReleaseAuthorized, "DI-010 P1 must remain fully review-only.");
   return { valid: checks.every((check) => check.passed), checks } as const;
 }
 
@@ -163,7 +147,7 @@ export function generateDi010FrequencyPolygonSet(input: { seed: string; examProf
   const seed = input.seed.trim();
   if (!seed) throw new Error("DI-010 requires a non-empty deterministic seed.");
   const stimulus = buildDi010Stimulus(seed, input.examProfile);
-  const drafts = [...buildDi010Drafts(seed, stimulus), buildDi010RangeRatioDraft(seed, stimulus)].map(applyDifficultyPolicy);
+  const drafts = buildDi010DraftsV2(seed, stimulus).map(applyDifficultyPolicy);
   const selected = chooseQuestionMix(seed, drafts);
   const setId = `DI-010-${input.examProfile}-${hashSeed(`${seed}:${input.examProfile}`).toString(16).padStart(8, "0")}`;
   const questions: Di010Question[] = selected.map((draft, index) => {
@@ -186,8 +170,8 @@ export function generateDi010FrequencyPolygonSet(input: { seed: string; examProf
       histogramSibling: "DI-009" as const,
       statisticsSibling: "STAT-003" as const,
       presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS" as const,
-      questionLogicVersion: "DI-010-QUESTION-LOGIC-P0" as const,
-      setContractVersion: "DI-010-SET-CONTRACT-P0" as const,
+      questionLogicVersion: "DI-010-QUESTION-LOGIC-P1" as const,
+      setContractVersion: "DI-010-SET-CONTRACT-P1" as const,
       arithmeticAuthority: "EXACT_INTEGER_MIDPOINT" as const,
       reviewStatus: "UNREVIEWED" as const,
       questionStudioDiscoverable: false as const,
@@ -202,6 +186,6 @@ export function generateDi010FrequencyPolygonSet(input: { seed: string; examProf
     },
   };
   const validation = validateSet(base);
-  if (!validation.valid) throw new Error(`DI-010 P0 validation failed: ${validation.checks.filter((check) => !check.passed).map((check) => check.id).join(", ")}`);
+  if (!validation.valid) throw new Error(`DI-010 P1 validation failed: ${validation.checks.filter((check) => !check.passed).map((check) => check.id).join(", ")}`);
   return { ...base, validation };
 }
