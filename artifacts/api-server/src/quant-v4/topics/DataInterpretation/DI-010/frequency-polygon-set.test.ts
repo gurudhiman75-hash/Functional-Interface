@@ -21,7 +21,7 @@ let optionChecks = 0;
 
 for (const profile of profiles) {
   for (let index = 0; index < 120; index += 1) {
-    const seed = `DI010-P1-${profile}-${String(index + 1).padStart(3, "0")}`;
+    const seed = `DI010-P2-${profile}-${String(index + 1).padStart(3, "0")}`;
     const first = generateDi010FrequencyPolygonSet({ seed, examProfile: profile });
     const replay = generateDi010FrequencyPolygonSet({ seed, examProfile: profile });
     assert(JSON.stringify(first) === JSON.stringify(replay), `${seed}: deterministic replay failed.`);
@@ -56,7 +56,8 @@ for (const profile of profiles) {
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${question.questionId}: invalid options.`);
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId}: answer index mismatch.`);
       assert(!/associated|shortcut|common trap|\btrap\b/i.test(question.stem), `${question.questionId}: banned machine-like wording leaked into stem.`);
-      assert(!/^What class mark is used|^What is the coordinate of the point|absolute difference between the plotted frequencies/i.test(question.stem), `${question.questionId}: rejected P0-style mechanical stem leaked into P1.`);
+      assert(!/^What class mark is used|^What is the coordinate of the point|absolute difference between the plotted frequencies/i.test(question.stem), `${question.questionId}: rejected P0-style mechanical stem leaked into P2.`);
+      assert(!/\d+(?:\.\d+)?–\d+(?:\.\d+)?–\d+(?:\.\d+)?–\d+(?:\.\d+)?/.test(question.stem), `${question.questionId}: concatenated class intervals leaked into the stem.`);
       if (question.kind === "GROUPED_MEAN_FROM_POLYGON" || question.kind === "MEDIAN_CLASS_FROM_POLYGON") {
         assert(Boolean(question.explanation.workingTable), `${question.questionId}: grouped-data hard question requires a working table.`);
       }
@@ -76,7 +77,7 @@ for (const kind of DI010_TASK_KINDS) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_DI_010_FREQUENCY_POLYGON_P1",
+  status: "PASS_DI_010_FREQUENCY_POLYGON_P2",
   sets,
   questions,
   deterministicReplays: sets,
