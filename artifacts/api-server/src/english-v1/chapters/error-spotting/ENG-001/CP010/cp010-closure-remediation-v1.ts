@@ -17,6 +17,22 @@ const replacements: Readonly<Record<string, ModifierSceneV1>> = {
     ],
     reason: "The inquiry officer examined the registers, so the opening participial phrase must attach to the officer rather than to 'a late correction'.",
   }),
+  "MOD-H05": modifierScene({
+    id: "MOD-H05", difficulty: "hard", ruleId: "GR-MOD-003", domain: "policy", errorIndex: 0,
+    correctSegments: [
+      "Concerned about rising pending cases, the regional manager asked each unit for a weekly disposal plan",
+      "before the next review meeting",
+      "scheduled for Friday",
+      "at the zonal office.",
+    ],
+    errorSegments: [
+      "Concerned about rising pending cases, a weekly disposal plan was requested from each unit by the regional manager",
+      "before the next review meeting",
+      "scheduled for Friday",
+      "at the zonal office.",
+    ],
+    reason: "The regional manager is concerned about the pending cases, so the opening adjective phrase must attach to the manager rather than to 'a weekly disposal plan'.",
+  }),
   "MOD-H07": modifierScene({
     id: "MOD-H07", difficulty: "hard", ruleId: "GR-MOD-004", domain: "legal-file", errorIndex: 2,
     correctSegments: [
