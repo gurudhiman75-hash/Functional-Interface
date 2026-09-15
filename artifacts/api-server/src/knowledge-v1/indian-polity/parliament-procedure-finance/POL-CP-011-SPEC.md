@@ -1,6 +1,6 @@
 # POL-CP-011 — Parliament Procedure, Bills & Financial Business
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
+**Lifecycle:** REVIEW CANDIDATE — MORE HELPFUL EXPLANATIONS V2  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -35,20 +35,31 @@ This CP covers the parliamentary law-making and financial-procedure block centre
 - 22 genuine QLs
 - 88 English review questions
 - 24 Easy / 48 Medium / 16 Hard
+- V2 generator is canonical for English review
 - four unique options
 - compact exam-style stems
-- balanced question-specific explanations
+- simple English
 - no current office-holder or current Budget figures
 
-## Explanation standard
+## V2 explanation standard
 
-Continue the approved Polity standard:
-- simple wording, but not ultra-short;
-- normally one fuller sentence or two short sentences;
-- explain the exact rule behind the answer;
-- add a contrast only where it prevents a real exam mistake;
+Continue the approved Polity style, but make the explanation slightly more useful for revision:
+- start with the exact rule behind the answer;
+- add one short reason, distinction or exam trap where it helps understanding;
+- keep simple wording and avoid legal-heavy prose;
+- normal explanation range: 18–32 words;
+- do not add filler merely to reach a length target;
+- every explanation in the 88-question review remains unique;
 - no stock opening or generic filler ending;
 - no unnecessary option-by-option analysis.
+
+Typical useful additions include:
+- why a Bill lapses or survives on dissolution/prorogation;
+- why Rajya Sabha has a limited role on Money Bills;
+- the difference between supplementary, additional and excess grants;
+- the distinction between discussion and voting of charged expenditure;
+- the timing difference between vote on account and excess grant;
+- the separate Article 117 recommendation rules.
 
 ## Accuracy guardrails
 
@@ -69,4 +80,4 @@ Continue the approved Polity standard:
 
 ## Gate
 
-Merge, Question Studio exposure, localization and production registration remain blocked until English V1 is approved.
+Merge, Question Studio exposure, localization and production registration remain blocked until English V2 is approved.
