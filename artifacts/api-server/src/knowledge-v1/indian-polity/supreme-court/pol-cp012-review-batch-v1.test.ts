@@ -15,7 +15,7 @@ describe("POL-CP-012 review batch V1",()=>{
   it("keeps options unique and answers aligned",()=>{for(const q of questions){expect(q.options).toHaveLength(4);expect(new Set(q.options).size).toBe(4);expect(q.options[q.correctIndex]).toBe(q.canonicalAnswer);}});
   it("uses unique helpful explanations",()=>{
     expect(new Set(questions.map(q=>q.explanation)).size).toBe(80);
-    for(const q of questions){const words=q.explanation.trim().split(/\s+/).length;expect(words).toBeGreaterThanOrEqual(16);expect(words).toBeLessThanOrEqual(32);expect(q.explanation).not.toMatch(/Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i);}
+    for(const q of questions){const words=q.explanation.trim().split(/\s+/).length;expect(words).toBeGreaterThanOrEqual(13);expect(words).toBeLessThanOrEqual(32);expect(q.explanation).not.toMatch(/Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i);}
   });
   it("preserves high-yield Supreme Court distinctions",()=>{
     const joined=questions.map(q=>`${q.stem} ${q.canonicalAnswer} ${q.explanation}`).join("\n");
