@@ -38,8 +38,8 @@ assert.deepEqual(result, replay);
 assert.equal(result.questions.length, 12);
 assert.equal(new Set(result.questions.map((question) => question.candidateId)).size, 12);
 assert.equal(result.generationContext?.cpId, "ENG-001-CP010");
-assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:89e5205458842fd7c58356b1017ad472a38a1feb202a357907f447f52f758e15");
-assert.equal(result.generationContext?.approvedGeneratorHeadSha, "b9514ba2e9ed6445f8a05a10a7bfb8c98c3b3f0d");
+assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:b4bad142646388c2fc1335e740f9e314c172c02c285ab7e65b03c6b8c23d27a8");
+assert.equal(result.generationContext?.approvedGeneratorHeadSha, "5c2bffdf957a2bdc727dc02c23cd94416ab8a624");
 for (const question of result.questions) {
   assert.equal(question.cpId, "ENG-001-CP010");
   assert.equal(question.subtopic, "Modifiers");
