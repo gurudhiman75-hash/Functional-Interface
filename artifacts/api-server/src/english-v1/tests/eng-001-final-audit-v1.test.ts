@@ -23,8 +23,8 @@ const CPS = [
 
 const QLS = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"] as const;
 const DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
+const MAX_DISTINCT_RULE_ATTEMPTS = 32;
 
-// Compile-time proof that the shared core model now owns the later checkpoints too.
 const LATE_RULE_TYPE_PROOF = ["GR-MOD-001", "GR-CND-001", "GR-VNR-001", "GR-USG-001"] as const satisfies readonly GrammarRuleId[];
 const LATE_MUTATION_TYPE_PROOF = [
   "MUT-MOD-DANGLING-PRESENT-001",
@@ -80,23 +80,39 @@ const reviewRows: Array<{
 
 for (const [cpId, cpLabel] of CPS) {
   for (const difficulty of DIFFICULTIES) {
+    const usedRules = new Set<string>();
     for (const qlId of QLS) {
-      const seed = `eng001-final-audit-v1:${cpId}:${difficulty}:${qlId}`;
-      const request = {
-        engineId: "language-v1" as const,
-        packageId: "ENG-001",
-        canonicalProblemId: cpId,
-        patternId: qlId,
-        language: "en" as const,
-        difficulty,
-        count: 1,
-        runtimeMode: "review-only",
-        seed,
-      };
-      const result = await generateQuestionStudioQuestions(request);
-      const replay = await generateQuestionStudioQuestions(request);
+      const baseSeed = `eng001-final-audit-v1:${cpId}:${difficulty}:${qlId}`;
+      let selectedRequest: Parameters<typeof generateQuestionStudioQuestions>[0] | undefined;
+      let selectedResult: Awaited<ReturnType<typeof generateQuestionStudioQuestions>> | undefined;
+
+      for (let attempt = 0; attempt < MAX_DISTINCT_RULE_ATTEMPTS; attempt += 1) {
+        const seed = `${baseSeed}:rule-diversity:${attempt}`;
+        const request = {
+          engineId: "language-v1" as const,
+          packageId: "ENG-001",
+          canonicalProblemId: cpId,
+          patternId: qlId,
+          language: "en" as const,
+          difficulty,
+          count: 1,
+          runtimeMode: "review-only",
+          seed,
+        };
+        const result = await generateQuestionStudioQuestions(request);
+        assert.equal(result.questions.length, 1, `${cpId}/${difficulty}/${qlId} did not return one question`);
+        const candidateRule = text(result.questions[0]?.ruleId);
+        if (!usedRules.has(candidateRule) || attempt === MAX_DISTINCT_RULE_ATTEMPTS - 1) {
+          selectedRequest = request;
+          selectedResult = result;
+          break;
+        }
+      }
+
+      assert.ok(selectedRequest && selectedResult, `${cpId}/${difficulty}/${qlId} did not produce a review sample`);
+      const result = selectedResult;
+      const replay = await generateQuestionStudioQuestions(selectedRequest);
       assert.deepEqual(result, replay, `${cpId}/${difficulty}/${qlId} is not deterministic`);
-      assert.equal(result.questions.length, 1, `${cpId}/${difficulty}/${qlId} did not return one question`);
 
       const question = result.questions[0]!;
       const stem = text(question.stem);
@@ -106,6 +122,7 @@ for (const [cpId, cpLabel] of CPS) {
       const correctedSentence = text(question.correctedSentence);
       const ruleId = text(question.ruleId);
       const candidateId = text(question.candidateId);
+      usedRules.add(ruleId);
 
       assert.equal(text(question.cpId), cpId);
       assert.equal(text(question.qlId), qlId);
@@ -146,6 +163,7 @@ assert.equal(new Set(reviewRows.map((row) => row.candidateId)).size, 117, "Whole
 const answerCounts = [0, 0, 0, 0, 0];
 for (const row of reviewRows) answerCounts[row.correctIndex] = (answerCounts[row.correctIndex] ?? 0) + 1;
 
+const distinctReviewRules = new Set(reviewRows.map((row) => row.ruleId));
 const out: string[] = [
   "# ENG-001 — Whole-Chapter Final Audit Master Review V1",
   "",
@@ -155,8 +173,10 @@ const out: string[] = [
   "",
   `- Checkpoints: ${CPS.length} (CP001–CP013)`,
   `- Registered grammar rules: ${registeredRuleIds.length}`,
+  `- Distinct grammar rules represented in this 117-question sample: ${distinctReviewRules.size}`,
   `- Review questions: ${reviewRows.length} (13 CPs × 3 difficulties × 3 QLs)`,
   "- QLs: ENG-001-QL001, ENG-001-QL002, ENG-001-QL007",
+  "- Sampling: deterministically prefers distinct rules across the three QLs inside each CP × difficulty block when eligible pools allow it",
   "- Lifecycle: review-only; Question Bank/test/mock/public/automatic learner release remains locked",
   `- Answer positions in this review sample: A ${answerCounts[0]} / B ${answerCounts[1]} / C ${answerCounts[2]} / D ${answerCounts[3]} / E ${answerCounts[4]}`,
   "",
@@ -196,6 +216,7 @@ console.log(JSON.stringify({
   status: "PASS_ENG_001_FINAL_AUDIT_V1",
   checkpoints: CPS.length,
   registeredRules: registeredRuleIds.length,
+  distinctReviewRules: distinctReviewRules.size,
   reviewQuestions: reviewRows.length,
   answerCounts,
   outputPath,
