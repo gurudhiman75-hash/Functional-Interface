@@ -3,6 +3,7 @@
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-007 Biodiversity Hotspots & India  
 **Lifecycle:** REVIEW CANDIDATE  
+**Current review version:** V2  
 **Runtime registration:** blocked pending human approval  
 **Languages in this checkpoint:** English review surface only; canonical facts are locale-neutral.
 
@@ -23,20 +24,27 @@ Explicitly deferred:
 - detailed protected-area locations (ENV-CP-010)
 - mutable global hotspot counts as direct learner questions
 
-## Design rules
+## V2 learner-facing baseline
 
-1. Stems stay short and competitive-exam like.
-2. Explanations state the exact criterion or India linkage being tested.
-3. A hotspot must satisfy both qualifying criteria, not either one alone.
-4. Criterion 1: at least 1,500 endemic vascular plant species.
-5. Criterion 2: at least 70% of original natural vegetation already lost, leaving 30% or less.
-6. India is represented in four global hotspot regions: Himalaya, Indo-Burma, Western Ghats–Sri Lanka and Sundaland.
-7. Western Ghats in India are part of the Western Ghats–Sri Lanka hotspot.
-8. Parts of north-eastern India are part of the Indo-Burma hotspot.
-9. Nicobar Islands are the Indian representation of the Sundaland hotspot.
-10. Standard instruction stems may repeat when the tested relation differs.
-11. No question relies on the mutable worldwide hotspot count.
-12. All review questions remain `runtimeRegistered: false` until approval.
+1. Stems use competitive-exam formats: direct fact, correct/incorrect pair, statement evaluation and applied criteria.
+2. Teaching-style prompts such as “what can be concluded” and meta wording such as “which hotspot should be selected in an exam” are not used.
+3. Explanations are short and state only the fact or distinction needed to understand the answer.
+4. Easy questions test the two hotspot criteria directly.
+5. Medium questions test India–hotspot mapping in both directions.
+6. Hard questions combine both hotspot criteria or multiple India–hotspot statements.
+
+## Content rules
+
+1. A hotspot must satisfy both qualifying criteria, not either one alone.
+2. Criterion 1: at least 1,500 endemic vascular plant species.
+3. Criterion 2: at least 70% of original natural vegetation already lost, leaving 30% or less.
+4. India is represented in four global hotspot regions: Himalaya, Indo-Burma, Western Ghats–Sri Lanka and Sundaland.
+5. Western Ghats in India are part of the Western Ghats–Sri Lanka hotspot.
+6. Parts of north-eastern India are part of the Indo-Burma hotspot.
+7. Nicobar Islands are the Indian representation of the Sundaland hotspot.
+8. Standard instruction stems may repeat when the tested relation differs.
+9. No question relies on the mutable worldwide hotspot count.
+10. All review questions remain `runtimeRegistered: false` until approval.
 
 ## QL inventory
 
@@ -53,7 +61,7 @@ Explicitly deferred:
 | ENV-007-QL-009 | Correct hotspot pair | Medium |
 | ENV-007-QL-010 | Incorrect hotspot pair | Medium |
 | ENV-007-QL-011 | Statement evaluation | Hard |
-| ENV-007-QL-012 | Applied hotspot identification | Hard |
+| ENV-007-QL-012 | Applied hotspot criteria | Hard |
 
 ## Review gate
 
@@ -67,6 +75,8 @@ Before approval:
 - source IDs and source-fact IDs required;
 - no duplicate semantic question signatures;
 - no mutable worldwide hotspot-count question;
+- no teaching/meta stem wording;
+- explanations kept to one short fact or distinction;
 - no `associated with` filler;
 - no option-by-option explanation clutter;
 - human review confirms exam realism, geographic accuracy and wording quality.
