@@ -12,7 +12,8 @@ const bannedEnglishWords = /\b(which|what|the|is|are|distance|displacement|speed
 const deprecatedPunjabiAcceleration = /ਤ੍ਵਰਨ/u;
 const massAsWeightMisuse = /ਸਥਿਰ ਭਾਰ|ਭਾਰ ਅਤੇ ਵੇਗ|ਭਾਰ ਅਤੇ ਪ੍ਰਵੇਗ|ਪ੍ਰਤੀ ਇਕਾਈ ਭਾਰ|ਘਣਤਾ = ਭਾਰ\/|ਕੇਵਲ ਭਾਰ ਤੇ|ਭਾਰ ਬਦਲਦਾ|ਭਾਰ ਵਾਲੀ ਵਸਤੂ|ਭਾਰ ਘਟਾਉਂਦੀ ਹੈ|ਕੁੱਲ ਬਲ ਉਸ ਦੇ ਭਾਰ ਦੇ ਬਰਾਬਰ/u;
 const needlessEnglishizedPunjabi = /ਡਿਰਾਈਵਡ ਇਕਾਈ|ਫ੍ਰਿਕਵੈਂਸੀ|ਲੀਸਟ ਕਾਊਂਟ|ਸਿਸਟਮੈਟਿਕ ਗਲਤੀ|ਰੈਂਡਮ ਗਲਤੀ|ਡਾਇਮੈਂਸ਼ਨਲ ਫਾਰਮੂਲਾ|ਸਾਇੰਟਿਫਿਕ ਨੋਟੇਸ਼ਨ|ਸਿਗਨਿਫਿਕੈਂਟ ਫਿਗਰ|ਪ੍ਰੀਫਿਕਸ|ਰਿਲੇਟਿਵ ਡੈਨਸਿਟੀ|ਵੇਕਟਰ|ਸਕੇਲਰ|ਇੰਪਲਸ|ਸੈਂਟ੍ਰਿਪੀਟਲ ਬਲ|ਸਰਕੁਲਰ ਗਤੀ|ਕਾਇਨੇਟਿਕ ਊਰਜਾ|ਪੋਟੈਂਸ਼ਲ ਊਰਜਾ|ਪਾਜ਼ਿਟਿਵ|ਨੈਗੇਟਿਵ|ਗ੍ਰੈਵਿਟੀ|ਨੈੱਟ ਵਿਸਥਾਪਨ|ਨਾਰਮਲ ਬਲ|ਟਰਮੀਨਲ ਚਾਲ|ਜ਼ੀਰੋ ਐਰਰ|ਸਿਸਟਮ/u;
-const genuinelyAwkwardPunjabi = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਚਿਕਨਾਹਟ|ਕ੍ਰਿਆ ਅਤੇ ਪ੍ਰਤੀਕ੍ਰਿਆ|ਬਣਾਈ ਰੱਖਣ ਦੀ ਇਹ ਰੁਝਾਨ/u;
+const genuinelyAwkwardPunjabi = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਚਿਕਨਾਹਟ|ਕ੍ਰਿਆ ਅਤੇ ਪ੍ਰਤੀਕ੍ਰਿਆ|ਬਣਾਈ ਰੱਖਣ ਦੀ ਇਹ ਰੁਝਾਨ|ਗਹਿਰਾਈ|ਲਾਭਕਾਰੀ ਨਿਕਾਸੀ|ਵੱਡੀ ਅਰਧ-ਵਿਆਸ|ਵੱਡੇ ਪਹੀਏ ਦੀ ਅਰਧ-ਵਿਆਸ|ਬਲ-ਲਗਾਇਆ ਦੋਲਨ|ਘਣਤਾ ਕਿਸ ਪ੍ਰਤੀ ਇਕਾਈ ਪੁੰਜ|ਦਬਾਅ ਕਿਸ ਪ੍ਰਤੀ ਇਕਾਈ ਬਲ/u;
+const awkwardHindiExamPhrasing = /मशीन की दक्षता उपयोगी निर्गत कार्य और किसके अनुपात|सरल मशीन का वेग अनुपात प्रयास द्वारा चली दूरी और किसके द्वारा चली दूरी|ढलवाँ तल आवश्यक प्रयास को किसे बढ़ाकर|घनत्व किसके प्रति इकाई द्रव्यमान|दाब किसके प्रति इकाई बल/u;
 
 function qualifyExplanationSet(label: string, set: Readonly<Record<string, Readonly<Record<string, string>>>>, expected: number) {
   assert.equal(Object.keys(set).length, expected, `${label}: explanation anchor count drift`);
@@ -57,8 +58,10 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
         assert.ok(sentenceCount >= 2, `${question.questionId}: direct explanation must contain at least two teaching sentences`);
       }
       if (locale === "hi") {
+        const learnerText = `${question.stem} ${question.options.join(" ")} ${question.explanation}`;
         assert.match(question.stem + question.explanation, /[\u0900-\u097F]/u, `${question.questionId}: Hindi script missing`);
         assert.equal(bannedEnglishWords.test(question.stem + " " + question.explanation), false, `${question.questionId}: English leakage in Hindi`);
+        assert.equal(awkwardHindiExamPhrasing.test(learnerText), false, `${question.questionId}: awkward Hindi exam phrasing leaked`);
       }
       if (locale === "pa") {
         const learnerText = `${question.stem} ${question.options.join(" ")} ${question.explanation}`;
@@ -102,4 +105,4 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
     }
   }
 }
-console.log("SCI Physics localization V1 qualification passed: CP001-CP004 × EN/HI/PA with explanation depth and standard exam-level Punjabi");
+console.log("SCI Physics localization V1 qualification passed: CP001-CP004 × EN/HI/PA with explanation depth and native exam-level Hindi/Punjabi");
