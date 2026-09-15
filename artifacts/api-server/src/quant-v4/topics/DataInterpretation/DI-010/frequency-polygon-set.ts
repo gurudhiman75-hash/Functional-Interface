@@ -88,6 +88,16 @@ function ratioRescue(answer: string): Di010Candidate[] {
   ];
 }
 
+function percentageRescue(answer: string): Di010Candidate[] {
+  const match = answer.match(/^(\d+(?:\.\d+)?)%$/);
+  if (!match) return [];
+  const value = Number(match[1]);
+  return [-10, -5, 5, 10]
+    .map((shift) => value + shift)
+    .filter((candidate) => candidate > 0 && candidate < 100)
+    .map((candidate, index) => ({ text: `${Number(candidate.toFixed(2))}%`, misconceptionId: `NEARBY_PERCENT_${index}`, derivation: "Represents a nearby percentage caused by using the wrong class frequency or denominator." }));
+}
+
 function buildOptions(seed: string, answer: string, candidates: readonly Di010Candidate[]) {
   const retained: Di010Option[] = [];
   const seen = new Set<string>();
@@ -103,6 +113,7 @@ function buildOptions(seed: string, answer: string, candidates: readonly Di010Ca
   intervalRescue(answer).forEach(add);
   endpointRescue(answer).forEach(add);
   ratioRescue(answer).forEach(add);
+  percentageRescue(answer).forEach(add);
   if (retained.length < OPTION_COUNT) throw new Error(`DI-010 ${seed} constructed only ${retained.length} unique options for '${answer}'.`);
   const shuffled = shuffle(seededRandom(`${seed}:options`), retained.slice(0, OPTION_COUNT));
   const correctIndex = shuffled.findIndex((option) => option.misconceptionId === "CORRECT");
