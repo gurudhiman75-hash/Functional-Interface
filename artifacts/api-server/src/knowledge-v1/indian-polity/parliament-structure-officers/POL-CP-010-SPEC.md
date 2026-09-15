@@ -1,7 +1,7 @@
 # POL-CP-010 — Parliament Structure & Officers
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -23,7 +23,7 @@ This CP covers Articles 79–98: constitutional structure of Parliament, basic m
 - Article 97 — salaries and allowances of presiding officers
 - Article 98 — Parliament secretariat
 
-## Review design
+## Frozen review design
 
 - 20 genuine QLs
 - 80 English review questions
@@ -34,9 +34,8 @@ This CP covers Articles 79–98: constitutional structure of Parliament, basic m
 - balanced explanations: enough to teach the rule without generic filler
 - no current office-holder questions
 
-## Explanation standard
+## Frozen explanation standard
 
-Continue the approved Polity explanation style:
 - simple wording, but not ultra-short;
 - answer the exact question directly;
 - usually one fuller sentence or two short sentences;
@@ -57,6 +56,8 @@ Continue the approved Polity explanation style:
 - the Chairman's no-vote rule during Vice-President removal is kept distinct from the Speaker's first-instance vote during Speaker removal;
 - Bills, Money Bills, joint-sitting procedure, Budget and financial procedure are deferred to POL-CP-011.
 
-## Gate
+## Deferred integration work
 
-Question Studio exposure, localization, merge and production registration remain blocked until English V1 is approved.
+Question Studio exposure, localization and production registration remain deferred to the Polity integration checkpoint.
+
+English V1 was approved by the project owner on 15 September 2026 and is the canonical frozen authority for this CP.
