@@ -1,0 +1,86 @@
+export const HIS_CP013_QL_NAMES_V1:Record<number,string>={
+  1:"Permanent Settlement and revenue farming",
+  2:"Ryotwari and Mahalwari systems",
+  3:"Regulating and Charter Acts",
+  4:"Company civil administration",
+  5:"Judicial administration",
+  6:"Colonial economic phases and free trade",
+  7:"Commercialization of agriculture",
+  8:"Railways, deindustrialisation and drain",
+  9:"Chronology, comparison and matching",
+  10:"Multi-statement synthesis",
+};
+
+export type HisCp013Spec=readonly[ql:number,stem:string,answer:string,distractors:readonly[string,string,string],factIds:readonly string[]];
+
+export const HIS_CP013_SPECS_V1:readonly HisCp013Spec[]=[
+  [1,"Who introduced revenue farming in Bengal in 1772?","Warren Hastings",["Lord Cornwallis","William Bentinck","Lord Wellesley"],["rev-farming-1772"]],
+  [1,"Why did the revenue-farming experiment in Bengal fail?","Revenue demands were often too high and cultivators suffered",["Revenue was permanently fixed at a low rate","Cultivators were exempted from land revenue","The Company stopped collecting agricultural revenue"],["rev-farming-failure"]],
+  [1,"Who introduced the Permanent Settlement in 1793?","Lord Cornwallis",["Warren Hastings","Lord Wellesley","William Bentinck"],["perm-1793"]],
+  [1,"Under the Permanent Settlement, who was recognised as the landowner?","Zamindar",["Ryot","Village panchayat","District magistrate"],["perm-zamindar-owner"]],
+  [1,"What was permanently fixed under the Permanent Settlement?","The state's land-revenue demand",["The rent paid by every tenant","The market price of crops","The wages of agricultural labourers"],["perm-fixed-revenue"]],
+  [1,"What could happen if a zamindar failed to pay the fixed revenue on time?","The estate could be auctioned",["The revenue demand was automatically cancelled","The cultivators became Company officers","The estate became tax-free"],["perm-auction"]],
+
+  [2,"What was one political aim of the Permanent Settlement?","To create a landed class with an interest in supporting British rule",["To remove all landowners from Bengal","To transfer revenue collection to village panchayats","To end private ownership of land"],["perm-loyal-class"]],
+  [2,"Which group often faced greater pressure under the Permanent Settlement?","Tenant cultivators",["Company directors in London","European merchants","Presidency governors"],["perm-tenant-burden"]],
+  [2,"What did subinfeudation under the Permanent Settlement create?","More layers of intermediaries between zamindars and cultivators",["Direct settlement between the state and every ryot","A single tax-free village authority","A uniform judicial code"],["perm-subinfeudation"]],
+  [2,"Who is associated with the early Ryotwari settlement in Madras in 1792?","Alexander Read",["Thomas Macaulay","Charles Metcalfe","John Shore"],["ryot-read-1792"]],
+  [2,"Besides Madras, the Ryotwari system was later used widely in which presidency?","Bombay",["Bengal","Punjab","Awadh"],["ryot-bombay"]],
+  [2,"Under Ryotwari, land revenue was assessed directly on whom?","The cultivator or ryot",["The zamindar only","The British Resident","The village priest"],["ryot-direct"]],
+
+  [3,"Under Ryotwari, who was recognised as the property holder?","The cultivator",["The zamindar","The Company judge","The taluqdaar in every case"],["ryot-property"]],
+  [3,"What was a major problem with Ryotwari assessments?","They could place a heavy tax burden on peasants",["They removed land revenue completely","They fixed all crop prices permanently","They exempted cultivators from payment after one year"],["ryot-high-assessment"]],
+  [3,"Where was the Mahalwari settlement mainly used after 1822?","North and north-western India",["Only Bengal and Bihar","Only coastal Madras","Only the Bombay islands"],["mahal-after-1822"]],
+  [3,"With whom was revenue settlement commonly made under Mahalwari?","The village community or sometimes a traditional taluqdaar",["Only individual European merchants","Only zamindars of Bengal","Only the Mughal emperor"],["mahal-community"]],
+  [3,"What was a revenue unit called under the Mahalwari system?","Mahal",["Dastak","Jagir","Sarkar"],["mahal-unit"]],
+  [3,"Which type of rights received some recognition under Mahalwari?","Collective proprietary rights",["Only Company shareholders' rights","Only royal monopoly rights","Only military service rights"],["mahal-collective-rights"]],
+
+  [4,"Which group became more influential in many rural areas under colonial revenue policies?","Moneylenders and revenue intermediaries",["Only village artisans","Only European missionaries","Only naval officers"],["revenue-moneylender"]],
+  [4,"What was one broad effect of high and rigid land-revenue demands?","Agricultural stagnation and greater peasant insecurity",["Complete removal of rural debt","Rapid industrial growth in villages","End of moneylending"],["revenue-agri-stagnation"]],
+  [4,"Which Act of 1773 was the first major parliamentary measure to control the East India Company?","Regulating Act",["Charter Act","Pitt's India Act","Government of India Act"],["regulating-1773"]],
+  [4,"What administrative change was made by the Regulating Act of 1773?","The presidencies were placed under the authority of the Governor of Bengal as Governor-General",["All presidencies became fully independent","The Company lost all revenue powers immediately","The Mughal emperor regained control of the presidencies"],["regulating-unify"]],
+  [4,"Who became the first Governor-General of Bengal under the new arrangement?","Warren Hastings",["Lord Cornwallis","Lord Wellesley","William Bentinck"],["hastings-first-gg"]],
+  [4,"Which body was created by Pitt's India Act of 1784?","Board of Control",["Federal Court","Public Service Commission","Council of Princes"],["pitts-board"]],
+
+  [5,"Which Governor-General is closely associated with professionalising Company administration?","Lord Cornwallis",["Lord Dalhousie","Lord Wellesley","Lord Ripon"],["cornwallis-professional"]],
+  [5,"What did Cornwallis prohibit Company employees from doing?","Private trade",["Receiving salaries","Serving as magistrates","Working in districts"],["cornwallis-no-private-trade"]],
+  [5,"Which two functions of the Company did Cornwallis try to separate?","Commercial and administrative functions",["Military and naval functions","Judicial and religious functions","Village and municipal functions"],["cornwallis-separate-functions"]],
+  [5,"Who were largely excluded from high-level Company posts under the early colonial bureaucracy?","Indians",["British officials","Company directors","European judges"],["service-british-posts"]],
+  [5,"Which two roles were commonly combined in British district administration in Bengal?","Revenue collector and magistrate",["Governor-General and naval commander","Resident and factory owner","Judge and Company director in London"],["district-officials"]],
+  [5,"Where were Company recruits trained from 1806?","Haileybury College near London",["Fort William College in Calcutta","Oxford University","The Asiatic Society"],["haileybury-1806"]],
+
+  [6,"What changed in Company recruitment after 1853?","Selection was based on merit through an examination open to British candidates",["All posts became hereditary","Recruitment was limited to zamindars","Appointments were made only by Indian rulers"],["service-1853-merit"]],
+  [6,"What did the Charter Act of 1813 end?","The Company's monopoly over trade with India",["The Company's rule in Bengal","The Permanent Settlement","The office of Governor-General"],["charter-1813"]],
+  [6,"What did the Charter Act of 1833 end?","The Company's monopoly of the China trade",["The Ryotwari system","The Supreme Court at Calcutta","The Board of Control"],["charter-1833-china"]],
+  [6,"What happened to legislative power under the Charter Act of 1833?","It was concentrated in the Governor-General and his council",["It was transferred entirely to village councils","Each presidency received complete law-making independence","It was returned to the Mughal emperor"],["charter-1833-legislation"]],
+  [6,"What was the main function of the Mayor's Courts established in 1727?","To hear civil cases in the presidency towns",["To collect land revenue in villages","To command Company armies","To regulate overseas trade only"],["mayors-court-1727"]],
+  [6,"What did the adalat system established in 1772 provide?","Separate civil and criminal jurisdictions",["A single military court for all cases","Only village-level revenue tribunals","A court system limited to Europeans"],["adalat-1772"]],
+
+  [7,"Who assisted British judges in interpreting Hindu and Muslim customary laws?","Pandits and qazis",["Zamindars and ryots","Residents and collectors","Sepoys and merchants"],["pandit-qazi"]],
+  [7,"Which two principles were formally associated with the British judicial system?","Rule of Law and Equality before Law",["Doctrine of Lapse and Subsidiary Alliance","Permanent Settlement and Ryotwari","Free Trade and Mercantilism"],["rule-equality"]],
+  [7,"What is the basic idea of habeas corpus?","A person cannot be detained without legal authority",["A zamindar cannot sell land","A ruler cannot adopt an heir","A trader cannot import goods"],["habeas-corpus"]],
+  [7,"Where was a Supreme Court created under the Regulating Act of 1773?","Calcutta",["Bombay","Madras","Delhi"],["supreme-calcutta"]],
+  [7,"Which duties did Cornwallis separate at the district level?","Executive and judicial duties",["Commercial and naval duties","Military and religious duties","Revenue and trading duties in London"],["cornwallis-judicial-separation"]],
+  [7,"What did William Bentinck do to the Provincial civil and criminal courts in 1831?","He abolished them and reassigned their work",["He made them independent kingdoms","He transferred them to the Mughal emperor","He converted them into trading companies"],["bentinck-1831"]],
+
+  [8,"The period from about 1757 to 1813 is commonly described as which phase of colonialism?","Mercantilist phase",["Free-trade phase","Finance-imperialism phase","Swadeshi phase"],["phase1-mercantilism"]],
+  [8,"How were Indian revenues used by the Company during the first colonial phase?","To buy Indian goods for export to Britain",["To end all overseas trade","To finance only village schools","To replace land revenue with customs duties"],["phase1-revenue-buy-goods"]],
+  [8,"Which economic policy became important after the Charter Act of 1813?","Free trade",["Mercantilist monopoly","Closed village economy","State socialism"],["phase2-free-trade"]],
+  [8,"What happened to British machine-made goods under the free-trade system?","They entered Indian markets with few tariff barriers",["They were completely banned in India","They faced higher duties than Indian textiles","They could be sold only in port towns"],["free-trade-british-goods"]],
+  [8,"What difficulty did Indian manufactured goods face in the British market?","High tariff barriers",["A complete shortage of ships","A ban on cotton cultivation in India","Free entry without duties"],["free-trade-indian-tariffs"]],
+  [8,"Which description best fits India's changing role in the colonial economy?","A market for British manufactures and a source of raw materials",["A protected industrial rival of Britain","A country cut off from overseas trade","A supplier only of military recruits"],["india-market-raw-material"]],
+
+  [9,"Which change best describes the commercialization of agriculture under colonial rule?","Crop choices became more closely tied to market demand",["Food crops completely disappeared from India","Land revenue was abolished in cash-crop areas","Cultivators no longer depended on prices"],["commercialization","cash-crops"]],
+  [9,"Which set contains important nineteenth-century cash crops?","Indigo, opium, cotton and silk",["Wheat, rice, gram and bajra only","Tea, coffee, coal and iron","Salt, timber, copper and jute only"],["cash-crops","commercialization"]],
+  [9,"Why did the spread of railways support colonial trade?","They linked producing areas and interior markets more closely with ports",["They ended overseas trade","They prevented raw materials from reaching ports","They were built mainly to isolate rural markets"],["railways-trade-network","railway-colonial-purpose"]],
+  [9,"Why could commercial agriculture be risky for cultivators?","Their incomes became exposed to changing world prices with little protection",["Crop prices were permanently fixed by law","All debts were cancelled in bad years","The state guaranteed profits on every crop"],["commercial-price-risk","cash-pressure"]],
+  [9,"Why did many cultivators turn towards cash crops?","They needed cash to meet revenue, rent and debt payments",["Food crops were legally prohibited","The Company paid no land revenue on cash crops","Village communities stopped using money"],["cash-pressure","commercialization"]],
+  [9,"What danger could follow a large shift from food crops to cash crops?","Food shortages could become more severe in famine years",["Land revenue automatically fell to zero","Industrial wages rose immediately","Imports of British textiles stopped"],["cash-food-risk","commercialization"]],
+
+  [10,"Which sequence is correct?","Permanent Settlement (1793) → Charter Act (1813) → Mahalwari settlement after 1822",["Charter Act (1813) → Permanent Settlement (1793) → Mahalwari settlement after 1822","Mahalwari settlement after 1822 → Permanent Settlement (1793) → Charter Act (1813)","Permanent Settlement (1793) → Mahalwari settlement after 1822 → Charter Act (1813)"],["perm-1793","charter-1813","mahal-after-1822"]],
+  [10,"Which statement correctly compares Permanent Settlement and Ryotwari?","Permanent Settlement dealt mainly through zamindars, while Ryotwari assessed cultivators directly",["Both systems settled revenue only with village communities","Ryotwari made zamindars the sole landowners","Permanent Settlement assessed every cultivator directly"],["perm-zamindar-owner","ryot-direct","ryot-property"]],
+  [10,"Which combination correctly describes the Charter Acts of 1813 and 1833?","1813 ended the India-trade monopoly; 1833 ended the China-trade monopoly and centralised legislation",["1813 created the Board of Control; 1833 introduced Permanent Settlement","1813 ended Company rule; 1833 restored presidency law-making autonomy","1813 created the Supreme Court; 1833 introduced Ryotwari"],["charter-1813","charter-1833-china","charter-1833-legislation"]],
+  [10,"Which combination best explains deindustrialisation in nineteenth-century India?","Cheap machine-made imports, unequal tariffs and deeper market penetration",["Protection for Indian handicrafts and high duties on British goods","A ban on railways and overseas trade","Rapid growth of Indian heavy industry before 1813"],["deindustrialization-tariff","deindustrialization-railways","free-trade-british-goods"]],
+  [10,"Which statement best describes the colonial purpose of early railway expansion?","It helped move raw materials and goods between the interior and port cities for trade",["It was designed mainly to protect Indian handicrafts from imports","It disconnected producing regions from ports","It was financed only by Indian village councils"],["railway-1853-dalhousie","railway-colonial-purpose","railway-guarantee"]],
+  [10,"Which statement best reflects Dadabhai Naoroji's drain-of-wealth critique?","A part of India's resources was transferred to Britain through colonial payments and remittances",["India received more wealth from Britain than it exported","The drain referred only to loss of agricultural land","The theory argued that tariffs had no effect on India"],["drain-naoroji","railway-guarantee","phase1-revenue-buy-goods"]],
+];
