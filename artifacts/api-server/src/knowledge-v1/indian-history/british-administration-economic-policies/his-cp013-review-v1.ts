@@ -1,6 +1,7 @@
 import type { KnowledgeV1Difficulty } from "../../types";
 import { HIS_CP013_FACTS_V1,HIS_CP013_FACT_BY_ID_V1,HIS_CP013_SOURCE_IDS_V1,HIS_CP013_SOURCES_V1 } from "./his-cp013-facts-v1";
-import { HIS_CP013_QL_NAMES_V1,HIS_CP013_SPECS_V1 } from "./his-cp013-review-specs-v1";
+import { HIS_CP013_SPECS_V1 } from "./his-cp013-review-specs-v1";
+import { HIS_CP013_QL_NAMES_V1 } from "./his-cp013-ql-names-v1";
 import { HIS_CP013_ITEM_OVERRIDES_V1 } from "./his-cp013-item-overrides-v1";
 
 export type HisCp013ReviewQuestion={questionId:string;chapterId:"HIS-001";cpId:"HIS-CP-013";qlId:string;qlName:string;difficulty:KnowledgeV1Difficulty;stem:string;options:string[];correctIndex:number;canonicalAnswer:string;explanation:string;sourceIds:string[];sourceFactIds:string[];reviewOnly:true;runtimeRegistered:false};
