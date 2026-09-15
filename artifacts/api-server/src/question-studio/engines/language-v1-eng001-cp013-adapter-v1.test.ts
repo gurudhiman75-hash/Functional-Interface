@@ -36,8 +36,8 @@ assert.deepEqual(result, replay);
 assert.equal(result.questions.length, 12);
 assert.equal(new Set(result.questions.map((question) => question.candidateId)).size, 12);
 assert.equal(result.generationContext?.cpId, "ENG-001-CP013");
-assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:e2cfdd56f74a77f7b71832a23ea83ac0fc45446c0758949c09a3f84664f31bee");
-assert.equal(result.generationContext?.approvedGeneratorHeadSha, "e58580a959544c46ce3a7432b71e4cb337d002c6");
+assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:3814f221e715a8c3d7702e7930af020e5ea1cc270210a9b257da96ceb9c611c9");
+assert.equal(result.generationContext?.approvedGeneratorHeadSha, "5c2bffdf957a2bdc727dc02c23cd94416ab8a624");
 for (const question of result.questions) {
   assert.equal(question.cpId, "ENG-001-CP013");
   assert.equal(question.subtopic, "Common Usage / Idiomatic Grammar");
