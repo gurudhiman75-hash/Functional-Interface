@@ -2,8 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-006 Biodiversity Fundamentals  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Approved review version:** V1  
+**Approval date:** 2026-09-15  
+**Runtime registration:** review generator remains blocked; shared runtime integration is separate  
 
 ## Scope
 
@@ -39,7 +41,7 @@ Deferred:
 8. Flagship species are selected as symbols to build public support for conservation; flagship status does not itself imply a keystone ecological role.
 9. Species richness means the number of species present in an area.
 10. Standard instruction stems may repeat when the tested relation differs.
-11. All review questions remain `runtimeRegistered: false` until approval.
+11. The approved V1 review content is frozen; later changes require an explicit new review version.
 
 ## QL inventory
 
@@ -60,6 +62,7 @@ Deferred:
 
 ## Review gate
 
+Approved V1 satisfied:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
@@ -70,8 +73,7 @@ Deferred:
 - no duplicate semantic question signatures;
 - concise learner-facing stems and explanations;
 - no `associated with` filler;
-- no option-by-option explanation clutter;
-- runtime blocked until project-owner approval.
+- no option-by-option explanation clutter.
 
 ## Source policy
 
