@@ -1,8 +1,10 @@
-# DI-010 Frequency Polygon — P1 Status
+# DI-010 Frequency Polygon — P2 Status
 
-`REVIEW_ONLY_P1_QUESTION_REWORK` — diagram direction retained; question engine rebuilt after human review rejected P0 question quality.
+`REVIEW_ONLY_P2_QUESTION_QUALITY` — the diagram direction is retained; the question engine has been rebuilt again after the P0 review rejected question quality.
 
-## What stays
+## Diagram status
+
+The accepted diagram system is unchanged:
 
 - semantic-only frequency-polygon stimulus; no SVG stored in question data
 - shared presentation renderer: `DataInterpretation/visuals/frequency-polygon-svg.ts`
@@ -12,11 +14,9 @@
 - 5–8 equal-width continuous classes
 - six controlled distribution shapes
 
-## P1 question architecture
+## P2 question architecture
 
-P0 overused mechanical prompts such as direct coordinate recovery, direct class-mark calculation and generic frequency arithmetic. P1 replaces that question layer while leaving the diagram system unchanged.
-
-P1 has 13 task families:
+P2 removes the mechanical feel of the earlier question layer. Direct coordinate drills and repetitive textbook wording are not part of the active task library. Questions now use natural context wherever the data context supports it and include interpretation, range aggregation, percentages, ratios, representation conversion and grouped-data reasoning.
 
 ### Easy
 1. `CONSTRUCTION_PROPERTY`
@@ -37,19 +37,19 @@ P1 has 13 task families:
 12. `GROUPED_MEAN_FROM_POLYGON`
 13. `MEDIAN_CLASS_FROM_POLYGON`
 
-Each set still emits exactly 5 distinct families with 1 Easy + 2 Medium + 2 Hard, but the hard layer now requires genuine construction or grouped-data reasoning rather than relabelling simple arithmetic as Hard.
+Each generated set contains five distinct families with exactly 1 Easy + 2 Medium + 2 Hard.
 
-## Quality rules
+## P2 quality rules
 
-- context-first exam wording where the context supports it
-- representation-conversion questions between frequency polygon and histogram
-- direct coordinate/class-mark drills removed from the production mix
+- context-first exam wording
+- no direct coordinate-recovery drill
+- no direct "find the class mark" drill
+- no concatenated interval strings such as `30–40–40–50`
+- histogram ↔ frequency-polygon representation conversion retained
 - misconception-owned distractors
-- beginner-readable explanations
 - grouped mean and median-class explanations include working tables
 - independent answer verifier
 - deterministic/diversity/shared-renderer proof
-- standalone Markdown and HTML review exports
 
 ## Lifecycle locks
 
@@ -63,4 +63,4 @@ Each set still emits exactly 5 distinct families with 1 Easy + 2 Medium + 2 Hard
 - `automaticStudentPublication: false`
 - `productionReleaseAuthorized: false`
 
-No permanent QLs are allocated. Promotion requires explicit human approval of the P1 generated questions. The diagram direction is retained from the accepted review.
+No permanent QLs are allocated. Promotion requires explicit human approval of the P2 questions. The diagram direction remains accepted.
