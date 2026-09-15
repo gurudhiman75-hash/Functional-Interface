@@ -1,11 +1,11 @@
 # ECO-CP-016 Status
 
 **CP:** ECO-CP-016 Economic Reforms of 1991  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
-## Implemented
+## Approved English V1
 
 - official NCERT/RBI/DPIIT source registry;
 - 1991 balance-of-payments crisis and reform background;
@@ -43,10 +43,6 @@ Excluded from this CP:
 - current banking ratios or live financial-sector regulation values;
 - current trade restrictions and latest policy notifications.
 
-## Promotion steps
+## Freeze
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer later.
-5. Register with runtime/Question Studio only after separate promotion approval.
+English V1 was human-approved and is frozen. Runtime registration remains a separate promotion step.
