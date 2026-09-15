@@ -14,15 +14,15 @@ const replacements: Readonly<Record<string, IdiomaticUsageSceneV1>> = {
     reason: "The nearby phrase 'able to trace' is correct, but 'capable' takes 'of + -ing': 'capable of identifying'.",
   }),
   "USG-H-009": idiomaticUsageScene({
-    id: "USG-H-009", difficulty: "hard", ruleId: "GR-USG-005", domain: "audit-reconciliation", errorIndex: 1,
-    correctSegments: ["Although the branch had asked for extra time to prepare a written explanation,", "the external auditors insisted on reconciling every unmatched transaction before signing the report", "because the temporary difference", "still appeared in the ledger."],
-    errorSegments: ["Although the branch had asked for extra time to prepare a written explanation,", "the external auditors insisted for reconciling every unmatched transaction before signing the report", "because the temporary difference", "still appeared in the ledger."],
-    reason: "'Ask for' is correct in the opening clause, but the verb 'insist' takes 'on' before an activity: 'insisted on reconciling'.",
+    id: "USG-H-009", difficulty: "hard", ruleId: "GR-USG-005", domain: "audit-reconciliation", errorIndex: 0,
+    correctSegments: ["Although the branch asked for extra time, the external auditors insisted on reconciling every unmatched transaction", "before signing the report", "because the temporary difference", "still appeared in the ledger."],
+    errorSegments: ["Although the branch asked for extra time, the external auditors insisted for reconciling every unmatched transaction", "before signing the report", "because the temporary difference", "still appeared in the ledger."],
+    reason: "'Ask for' is correct in the opening contrast, but the verb 'insist' takes 'on' before an activity: 'insisted on reconciling'.",
   }),
   "USG-H-010": idiomaticUsageScene({
-    id: "USG-H-010", difficulty: "hard", ruleId: "GR-USG-005", domain: "quality-certificate", errorIndex: 2,
-    correctSegments: ["The supplier had applied for a fresh laboratory test after the earlier failure,", "but before accepting the replacement batch", "the procurement unit insisted on an independent quality certificate", "from a separate testing agency."],
-    errorSegments: ["The supplier had applied for a fresh laboratory test after the earlier failure,", "but before accepting the replacement batch", "the procurement unit insisted for an independent quality certificate", "from a separate testing agency."],
+    id: "USG-H-010", difficulty: "hard", ruleId: "GR-USG-005", domain: "quality-certificate", errorIndex: 1,
+    correctSegments: ["After the supplier applied for a fresh laboratory test,", "the procurement unit insisted on an independent quality certificate", "before accepting the replacement batch", "from a separate testing agency."],
+    errorSegments: ["After the supplier applied for a fresh laboratory test,", "the procurement unit insisted for an independent quality certificate", "before accepting the replacement batch", "from a separate testing agency."],
     reason: "'Apply for' is correct with the noun phrase in the opening clause. With 'insist', the standard complement is 'on': 'insisted on an independent quality certificate'.",
   }),
   "USG-H-011": idiomaticUsageScene({
@@ -38,9 +38,9 @@ const replacements: Readonly<Record<string, IdiomaticUsageSceneV1>> = {
     reason: "The opening clause correctly uses 'allow + object + to-infinitive'. The prevention pattern is 'prevent + object + from + -ing'.",
   }),
   "USG-H-013": idiomaticUsageScene({
-    id: "USG-H-013", difficulty: "hard", ruleId: "GR-USG-007", domain: "budget-release", errorIndex: 2,
-    correctSegments: ["In spite of repeated requests for a longer extension,", "the finance division completed the verification", "and released the grant despite continued pressure for another delay", "from several participating units."],
-    errorSegments: ["In spite of repeated requests for a longer extension,", "the finance division completed the verification", "and released the grant despite of continued pressure for another delay", "from several participating units."],
+    id: "USG-H-013", difficulty: "hard", ruleId: "GR-USG-007", domain: "budget-release", errorIndex: 0,
+    correctSegments: ["In spite of repeated requests, the finance division released the grant despite continued pressure for another delay", "after completing the verification", "of every supporting document", "from the participating units."],
+    errorSegments: ["In spite of repeated requests, the finance division released the grant despite of continued pressure for another delay", "after completing the verification", "of every supporting document", "from the participating units."],
     reason: "'In spite of' correctly includes 'of'. By contrast, 'despite' takes its noun phrase directly, so 'despite continued pressure' is required.",
   }),
   "USG-H-014": idiomaticUsageScene({
