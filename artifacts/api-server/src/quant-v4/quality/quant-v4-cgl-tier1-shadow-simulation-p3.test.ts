@@ -49,17 +49,21 @@ assert.deepEqual(
 
 const probeAlgebra = probe.records.filter((record) => record.slotKind === "ALGEBRA");
 const probeTrig = probe.records.filter((record) => record.slotKind === "TRIGONOMETRY");
+console.log("SHADOW_ADVANCED_MATH_PROBE", JSON.stringify({
+  algebra: probeAlgebra,
+  trigonometry: probeTrig,
+}));
 assert.equal(probeAlgebra.length, 3);
 assert.equal(probeTrig.length, 3);
-assert.ok(probeAlgebra.every((record) => record.sourceKind === "RUNTIME_GENERATED"));
-assert.ok(probeAlgebra.every((record) => record.packageId.toUpperCase().includes("ALG")));
-assert.ok(probeAlgebra.every((record) => record.bankOnly === true));
-assert.ok(probeAlgebra.every((record) => record.testEligible === false));
-assert.ok(probeAlgebra.every((record) => record.publiclyPublishable === false));
-assert.ok(probeTrig.every((record) => record.sourceKind === "RUNTIME_GENERATED"));
-assert.ok(probeTrig.every((record) => record.packageId === "TRG-001" || record.packageId === "TRG-002"));
-assert.ok(probeTrig.every((record) => record.testEligible === true));
-assert.ok(probeTrig.every((record) => record.publiclyPublishable === false));
+assert.ok(probeAlgebra.every((record) => record.sourceKind === "RUNTIME_GENERATED"), "All Algebra probe slots must use the merged runtime adapter.");
+assert.ok(probeAlgebra.every((record) => record.packageId.toUpperCase().includes("ALG")), "Every Algebra probe package id must identify the Algebra family.");
+assert.ok(probeAlgebra.every((record) => record.bankOnly === true), "Every Algebra probe record must preserve BANK_ONLY lifecycle state.");
+assert.ok(probeAlgebra.every((record) => record.testEligible === false), "Every Algebra probe record must remain test-ineligible.");
+assert.ok(probeAlgebra.every((record) => record.publiclyPublishable === false), "Every Algebra probe record must remain public-release locked.");
+assert.ok(probeTrig.every((record) => record.sourceKind === "RUNTIME_GENERATED"), "All Trigonometry probe slots must use the merged runtime adapter.");
+assert.ok(probeTrig.every((record) => record.packageId === "TRG-001" || record.packageId === "TRG-002"), "Every Trigonometry probe package must be TRG-001 or TRG-002.");
+assert.ok(probeTrig.every((record) => record.testEligible === true), "Every Trigonometry probe record must preserve internal test eligibility.");
+assert.ok(probeTrig.every((record) => record.publiclyPublishable === false), "Every Trigonometry probe record must remain public-release locked.");
 assert.equal(probe.records.filter((record) => record.sourceKind === "CAPABILITY_GAP").length, 0);
 assert.equal(probe.records.filter((record) => record.slotKind === "PROBABILITY").length, 0);
 
@@ -67,6 +71,7 @@ const audit = await runQuantV4CglTier1ShadowSimulationAudit({
   sections: 20,
   seedPrefix: "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-CI",
 });
+console.log("SHADOW_ADVANCED_MATH_AUDIT", JSON.stringify(audit));
 
 // Existing Advanced Mathematics adapters close the former section-assembly gaps,
 // but Algebra deliberately remains BANK_ONLY and therefore cannot be promoted
