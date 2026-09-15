@@ -1,8 +1,8 @@
 # POL-CP-011 — Parliament Procedure, Bills & Financial Business Status
 
 **Branch:** `feature/polity-cp011-parliament-procedure-finance`  
-**Lifecycle:** REVIEW CANDIDATE — MORE HELPFUL EXPLANATIONS V2  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V2  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Implemented
 
@@ -26,7 +26,7 @@
 - guillotine of outstanding demands for grants
 - Article 117 financial-Bill distinctions
 - 22 genuine QLs
-- 88-question review target
+- 88-question review batch
 - canonical V2 explanation layer
 - structural, provenance, answer-alignment and explanation QA files
 
@@ -36,7 +36,7 @@
 - 48 Medium
 - 16 Hard
 
-## V2 language and explanation policy
+## Approved V2 explanation policy
 
 - compact exam-style stems
 - simple English around necessary parliamentary terms
@@ -48,11 +48,14 @@
 - no generic closing filler
 - no unnecessary option-by-option analysis
 
-## Gated
+## Approval
 
-- merge to `New-main`
+English V2 was approved by the project owner on 15 September 2026 and is frozen as the canonical CP-011 English review authority.
+
+## Deferred
+
 - Question Studio exposure
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V2 is approved.
+These remain deferred to the Polity integration checkpoint.
