@@ -1,6 +1,6 @@
 # GEO-CLI-001 CP002 — Monsoon Mechanism & Seasonal Wind Reversal
 
-Status: REVIEW CANDIDATE V2 — LEARNER-TEXT CLEAN
+Status: REVIEW CANDIDATE V3 — EXAM-GRADE STEM PASS
 Parent blueprint: `GEO-CLI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-CLI-001-QL-010` to `GEO-CLI-001-QL-018`
 
@@ -40,11 +40,14 @@ No live weather, current forecast, current cyclone, annual rainfall record or ch
 
 ## Exam-grade stem contract
 
-- Stems must read like normal SSC, Banking, Railway or similar objective-exam questions.
-- Easy questions test one clear mechanism fact; Medium questions test a relation, direction or two-step sequence; Hard questions integrate the complete mechanism.
-- Difficulty comes from relation depth, not difficult English.
+- Every learner-facing stem must read like a normal SSC, Banking, Railway or similar objective-exam question.
+- Easy questions use direct factual wording without sounding childish or note-like.
+- Medium questions use a clear relation, direction, pressure pattern, sequence or short applied situation.
+- Hard questions integrate the monsoon mechanism; difficult English is never used to manufacture difficulty.
 - Standard statement instructions may repeat, but statement format must not dominate the batch.
 - Avoid generator-like filler such as `associated with`, `described as`, `in the context of`, `with reference to the above`, and vague `Which is correct?` prompts without a clear object.
+- Applied stems must contain only clues needed to solve the item.
+- V3 explicitly replaces all 54 learner-facing stems; no older stem may silently pass through unchanged.
 - Explanations must give the decisive mechanism in simple connected language; no option-by-option analysis unless genuinely needed.
 - Learner-facing text must not contain source names, review-state terminology or generator language.
 
@@ -55,6 +58,7 @@ No live weather, current forecast, current cyclone, annual rainfall record or ch
 - 18 Easy / 30 Medium / 6 Hard
 - 54 unique learner-facing stems
 - 54 unique semantic payloads
+- all 54 question IDs explicitly covered by the V3 stem map
 - A14 / B14 / C13 / D13 answer-position split
 - at least three distinct canonical answers among Hard questions
 - four unique options per item
@@ -66,3 +70,7 @@ No live weather, current forecast, current cyclone, annual rainfall record or ch
 ## V2 editorial correction
 
 V2 removes source-name leakage from the learner-facing explanation layer while preserving the V1 stems, options, answers, difficulty labels and provenance. The V2 learner-text gate explicitly rejects source and internal workflow terminology.
+
+## V3 stem correction
+
+V3 replaces every learner-facing stem with an explicit exam-grade version while preserving V2 options, correct answers, answer positions, difficulty labels, QL ownership, explanations and provenance. The qualification gate fails if even one of the 54 question IDs lacks an explicit V3 stem patch.
