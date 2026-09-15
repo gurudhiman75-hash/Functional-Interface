@@ -1,6 +1,6 @@
 # PGK-001 CP010 — Ancient Punjab
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-010 — Ancient Punjab`
 Permanent QLs: `PGK-001-QL-063` to `PGK-001-QL-069`
@@ -62,6 +62,10 @@ State the decisive historical fact first, followed by one useful place, river, d
 
 Verification remains internal against Punjab School Education Board history/social-science material, Archaeological Survey of India, National Monuments Authority/National Mission on Monuments and Antiquities and high-quality historical reference works where needed. Learner text remains source-free.
 
+## Approval
+
+Human approved on 15 Sep 2026. V1 is frozen as the accepted review authority. Runtime integration remains a separate later step.
+
 ## Lifecycle
 
-CP010 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP010 V1 is frozen for content review. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication until the separate integration stage.
