@@ -4,6 +4,7 @@ export const HIS_CP015_SOURCES_V1=Object.freeze([
   {id:"NIOS-HIS-315-L21",label:"NIOS History 315 Lesson 21 — Indian National Movement",url:"https://digital.nios.ac.in/content/315en/315_History_Eng_Lesson21.pdf"},
   {id:"NIOS-SS-213-L08",label:"NIOS Social Science 213 Lesson 8 — Indian National Movement",url:"https://digital.nios.ac.in/content/213en/Lesson-08.pdf"},
   {id:"GOI-IC-LUCKNOW-1916",label:"Ministry of Culture / Indian Culture Portal — Lucknow Pact of 1916",url:"https://amritmahotsav.nic.in/district-reopsitory-detail.htm?6264="},
+  {id:"GHP-SABARMATI-1917",label:"Gandhi Heritage Portal — Sabarmati Ashram chronology",url:"https://www.gandhiheritageportal.org/gu/gandhi_heritage_site/writeup/MTA%3D"},
 ] as const);
 export const HIS_CP015_SOURCE_IDS_V1=new Set(HIS_CP015_SOURCES_V1.map(s=>s.id));
 
@@ -65,7 +66,7 @@ export const HIS_CP015_FACTS_V1:readonly HisCp015Fact[]=[
   ["gandhi-return","Mahatma Gandhi returned to India from South Africa in 1915.",["NIOS-SS-213-L08"]],
 
   ["satyagraha-south-africa","Gandhi developed satyagraha as a method of non-violent insistence on truth and justice during his South African struggle.",["NIOS-SS-213-L08"]],
-  ["sabarmati-1916","Gandhi established the Sabarmati Ashram at Ahmedabad in 1916.",["NIOS-SS-213-L08"]],
+  ["sabarmati-1917","The Ahmedabad ashram was shifted from Kochrab to Sabarmati on 17 June 1917.",["GHP-SABARMATI-1917"]],
   ["champaran-1917","Gandhi's first major satyagraha in India was at Champaran in 1917 against oppressive plantation conditions.",["NIOS-SS-213-L08"]],
   ["kheda","Gandhi supported peasants in Kheda who could not pay revenue after crop failure and epidemics.",["NIOS-SS-213-L08"]],
   ["ahmedabad-workers","Gandhi organized a movement among Ahmedabad cotton mill workers.",["NIOS-SS-213-L08"]],
