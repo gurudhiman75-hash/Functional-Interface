@@ -1,59 +1,32 @@
-# DI-010 Frequency Polygon — P2 Status
+# DI-010 Frequency Polygon — Permanent English Controlled Review
 
-`REVIEW_ONLY_P2_QUESTION_QUALITY` — the diagram direction is retained; the question engine has been rebuilt again after the P0 review rejected question quality.
+`PERMANENT_ENGLISH_CONTROLLED_REVIEW` — P2 questions and the shared frequency-polygon diagram were explicitly approved and promoted to permanent Question Studio review authority.
 
-## Diagram status
+## Authority
 
-The accepted diagram system is unchanged:
+- Release: `DI-010-PERMANENT-ENGLISH-REVIEW-P1`
+- Canonical problem: `DI-CP-010`
+- Question Studio runtime: `DI010_PERMANENT_ENGLISH_REVIEW_P1`
+- Permanent QLs: `DI-QL-014` through `DI-QL-026`
+- Question Studio discovery: enabled in `CONTROLLED_REVIEW`
+- English editorial status: `ENGLISH_REVIEW_APPROVED`
+- Localization: not started
 
-- semantic-only frequency-polygon stimulus; no SVG stored in question data
-- shared presentation renderer: `DataInterpretation/visuals/frequency-polygon-svg.ts`
-- genuine class-mark points joined by straight segments
-- zero-frequency closing endpoints one class width outside the first/last class mark
-- endpoint x-coordinate labels intentionally omitted from the student stimulus
-- 5–8 equal-width continuous classes
-- six controlled distribution shapes
+## Certified P2 task families
 
-## P2 question architecture
+Easy: construction property, contextual class-frequency reading, modal class, class interval from class mark.
 
-P2 removes the mechanical feel of the earlier question layer. Direct coordinate drills and repetitive textbook wording are not part of the active task library. Questions now use natural context wherever the data context supports it and include interpretation, range aggregation, percentages, ratios, representation conversion and grouped-data reasoning.
+Medium: total frequency, consecutive-range total, frequency difference, class share of total, histogram bar-height translation.
 
-### Easy
-1. `CONSTRUCTION_PROPERTY`
-2. `READ_CLASS_FREQUENCY_CONTEXT`
-3. `MODAL_CLASS_FROM_POLYGON`
-4. `CLASS_INTERVAL_FROM_MARK`
+Hard: zero closing endpoints, range ratio, grouped mean, median class.
 
-### Medium
-5. `TOTAL_FREQUENCY_FROM_POLYGON`
-6. `CONSECUTIVE_RANGE_TOTAL_CONTEXT`
-7. `FREQUENCY_DIFFERENCE_CONTEXT`
-8. `CLASS_SHARE_OF_TOTAL`
-9. `HISTOGRAM_BAR_HEIGHT_FROM_POLYGON`
+## Presentation
 
-### Hard
-10. `ZERO_CLOSING_ENDPOINTS`
-11. `RANGE_RATIO_FROM_POLYGON`
-12. `GROUPED_MEAN_FROM_POLYGON`
-13. `MEDIAN_CLASS_FROM_POLYGON`
-
-Each generated set contains five distinct families with exactly 1 Easy + 2 Medium + 2 Hard.
-
-## P2 quality rules
-
-- context-first exam wording
-- no direct coordinate-recovery drill
-- no direct "find the class mark" drill
-- no concatenated interval strings such as `30–40–40–50`
-- histogram ↔ frequency-polygon representation conversion retained
-- misconception-owned distractors
-- grouped mean and median-class explanations include working tables
-- independent answer verifier
-- deterministic/diversity/shared-renderer proof
+The question state remains semantic-only. `DataInterpretation/visuals/frequency-polygon-svg.ts` is the shared presentation authority and keeps straight class-mark segments, zero-frequency closing endpoints and non-leaking labels.
 
 ## Lifecycle locks
 
-- `questionStudioDiscoverable: false`
+- `questionStudioDiscoverable: true` in controlled-review mode only
 - `questionBankStatus: NOT_STORED`
 - `questionBankWritable: false`
 - `testEligibility: INELIGIBLE`
@@ -63,4 +36,4 @@ Each generated set contains five distinct families with exactly 1 Easy + 2 Mediu
 - `automaticStudentPublication: false`
 - `productionReleaseAuthorized: false`
 
-No permanent QLs are allocated. Promotion requires explicit human approval of the P2 questions. The diagram direction remains accepted.
+Promotion to controlled Question Studio review does not authorize Question Bank writes, tests, mocks, public publication or automatic student publication.
