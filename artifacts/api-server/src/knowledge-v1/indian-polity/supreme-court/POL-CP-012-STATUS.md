@@ -1,8 +1,8 @@
 # POL-CP-012 — Supreme Court Status
 
 **Branch:** `feature/polity-cp012-supreme-court`  
-**Lifecycle:** REVIEW CANDIDATE — EXAM-GRADE STEMS V2  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — EXAM-GRADE STEMS V2  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
 ## Implemented
 
@@ -35,14 +35,13 @@
 
 ## V2 stem policy
 
-- stems must read like real SSC, Banking, Railway or State-exam polity questions
-- use natural forms such as `Which Article...?`, `Who...?`, `Under the Constitution...?`, and short application questions
-- avoid database-style fragments such as `Article 124 mainly deals with:` or `... is mainly under:`
+- stems read like real SSC, Banking, Railway or State-exam polity questions
+- natural forms such as `Which Article...?`, `Who...?`, `Under the Constitution...?`, and short application questions
+- no database-style fragments such as `Article 124 mainly deals with:` or `... is mainly under:`
 - direct stems normally end as complete questions
 - direct stems capped at 30 words
 - integrated statement questions may be longer where necessary
 - question difficulty comes from the concept/trap, not from awkward wording
-- standard question instructions may repeat; substantive question content should not
 
 ## Explanation policy
 
@@ -52,11 +51,8 @@
 - no stock opening or generic filler
 - no unnecessary option-by-option analysis
 
-## Gated
+## Approval
 
-- merge to `New-main`
-- Question Studio exposure
-- localization
-- chapter-wide production registration
+Project owner approved English V2 on 15 September 2026. V2 is frozen as the canonical English authority for POL-CP-012.
 
-These remain blocked until English V2 is approved.
+Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
