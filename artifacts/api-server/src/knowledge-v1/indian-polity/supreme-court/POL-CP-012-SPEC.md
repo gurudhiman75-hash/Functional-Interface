@@ -1,6 +1,6 @@
 # POL-CP-012 — Supreme Court
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
+**Lifecycle:** REVIEW CANDIDATE — EXAM-GRADE STEMS V2  
 **Runtime registration:** BLOCKED pending English approval
 
 ## Scope
@@ -33,8 +33,22 @@ The official 2026 Constitution edition retains amendment-history text relating t
 - 80 English review questions
 - 24 Easy / 40 Medium / 16 Hard
 - four unique options
-- simple exam-style stems
+- V2 generator is canonical for English review
 - no current office-holder or vacancy questions
+
+## V2 exam-grade stem standard
+
+V1 facts, options and explanations remain authoritative, but V2 replaces weak prompt-like stems with exam-grade wording.
+
+- use complete, natural competitive-exam questions;
+- prefer standard forms such as `Which Article...?`, `Who...?`, `Under which Article...?`, `Which of the following...?`, and short scenario/application questions;
+- avoid database or flashcard fragments such as `Article 124 mainly deals with:`;
+- avoid unnatural endings such as `... is mainly under:` or `... is a:`;
+- direct stems should normally end with a question mark;
+- direct stems should normally remain within 30 words;
+- statement-based integrated questions may be longer where the format requires it;
+- stem difficulty must come from constitutional reasoning or distinctions, not verbose wording;
+- repeated standard instruction wording is acceptable where it is genuinely an exam instruction.
 
 ## Explanation standard
 
@@ -61,4 +75,4 @@ Use the approved helpful Polity style:
 
 ## Gate
 
-Merge, Question Studio exposure, localization and production registration remain blocked until English V1 is approved.
+Merge, Question Studio exposure, localization and production registration remain blocked until English V2 is approved.
