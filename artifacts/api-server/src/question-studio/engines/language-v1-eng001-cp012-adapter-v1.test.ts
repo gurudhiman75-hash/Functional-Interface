@@ -37,8 +37,8 @@ assert.deepEqual(result, replay);
 assert.equal(result.questions.length, 12);
 assert.equal(new Set(result.questions.map((question) => question.candidateId)).size, 12);
 assert.equal(result.generationContext?.cpId, "ENG-001-CP012");
-assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:87051e31bf3a8d8b45e6dddd125d10ded137465c0304260a2b07934be66897db");
-assert.equal(result.generationContext?.approvedGeneratorHeadSha, "80582409f12bfcaa42962fa5f2d45dea9aa6d457");
+assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:afaedd78c49c31c08d480c00845d5a80f83406d3c0962695dcdebf6d4a01528d");
+assert.equal(result.generationContext?.approvedGeneratorHeadSha, "5c2bffdf957a2bdc727dc02c23cd94416ab8a624");
 for (const question of result.questions) {
   assert.equal(question.cpId, "ENG-001-CP012");
   assert.equal(question.subtopic, "Voice & Narration");
