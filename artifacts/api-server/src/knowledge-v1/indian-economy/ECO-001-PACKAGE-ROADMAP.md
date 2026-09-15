@@ -21,8 +21,8 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 15. `ECO-CP-015` Economic Planning in India — ENGLISH APPROVED V2 / FROZEN
 16. `ECO-CP-016` Economic Reforms of 1991 — ENGLISH APPROVED V1 / FROZEN
 17. `ECO-CP-017` Agriculture & Indian Economy — ENGLISH APPROVED V1 / FROZEN
-18. `ECO-CP-018` Industry & Industrial Development — REVIEW CANDIDATE V1
-19. `ECO-CP-019` Financial Markets
+18. `ECO-CP-018` Industry & Industrial Development — ENGLISH APPROVED V1 / FROZEN
+19. `ECO-CP-019` Financial Markets — REVIEW CANDIDATE V1
 20. `ECO-CP-020` External Sector & Balance of Payments
 21. `ECO-CP-021` International Economic Institutions
 22. `ECO-CP-022` Human Development & Development Economics
