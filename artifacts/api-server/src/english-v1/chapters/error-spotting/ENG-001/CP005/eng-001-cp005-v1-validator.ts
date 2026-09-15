@@ -1,7 +1,7 @@
 import type { Eng001Question, PrepositionRuleId, ValidationIssue, ValidationResult } from "../../../../core/types";
 import { PREPOSITION_RULE_BY_ID } from "../../../../grammar/prepositions";
 import { CP005_ALL_SCENES_V1 } from "./cp005-catalog-v1";
-import { remediateCp005SceneForClosureV1 } from "./cp005-closure-remediation-v1";
+import { remediateCp005SceneForClosureV2 } from "./cp005-closure-remediation-v2";
 
 const plainWordBan = /\b(?:aforementioned|thereof|wherein|hitherto|notwithstanding|pursuant|therewith|hereinafter)\b/i;
 const awkwardExplanationBan = /\b(?:trap|shortcut|eliminate options|test-taker|distractor logic)\b/i;
@@ -30,7 +30,7 @@ export function validateEng001Cp005QuestionV1(question: Eng001Question): Validat
   } else if (metadata.hasNoError) issues.push(issue("NO_ERROR_CONTRACT", `${metadata.qlId} must contain a keyed error.`));
 
   const rawScene = CP005_ALL_SCENES_V1.find((entry) => entry.id === sceneIdFromCandidateId(metadata.candidateId));
-  const scene = rawScene ? remediateCp005SceneForClosureV1(rawScene) : undefined;
+  const scene = rawScene ? remediateCp005SceneForClosureV2(rawScene) : undefined;
   if (!scene) {
     issues.push(issue("ERROR_INDEX", `Unknown CP005 candidate ${metadata.candidateId}.`));
   } else {
