@@ -15,7 +15,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 9. `ECO-CP-009` Monetary Policy — ENGLISH APPROVED V1 / FROZEN
 10. `ECO-CP-010` Banking System — ENGLISH APPROVED V1 / FROZEN
 11. `ECO-CP-011` Financial Institutions — ENGLISH APPROVED V1 / FROZEN
-12. `ECO-CP-012` Public Finance & Fiscal Policy — REVIEW CANDIDATE V1
+12. `ECO-CP-012` Public Finance & Fiscal Policy — REVIEW CANDIDATE V2
 13. `ECO-CP-013` Government Budget
 14. `ECO-CP-014` Taxation
 15. `ECO-CP-015` Economic Planning in India
@@ -35,6 +35,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Runtime registration is a separate promotion step after approval.
 - Facts are locale-neutral; localisation is layered later.
 - Questions must use short exam-like stems and plausible same-domain distractors.
+- Normal MCQ stems must be complete questions; avoid label-like prompts ending in a colon such as `classified as:` or `calculated as:` unless a colon is structurally required inside a statement-format question.
 - Explanations must be simple and beginner-friendly but should normally give the deciding rule plus a short reason or application; they must not merely repeat the correct option.
 - Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
 - Difficulty is assigned per generated variant under `ECO-DIFFICULTY-POLICY.md`, not permanently by QL or question format.
