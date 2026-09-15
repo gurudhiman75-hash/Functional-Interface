@@ -9,8 +9,8 @@ const replacements: Readonly<Record<string, IdiomaticUsageSceneV1>> = {
   }),
   "USG-H-007": idiomaticUsageScene({
     id: "USG-H-007", difficulty: "hard", ruleId: "GR-USG-004", domain: "diagnostic-system", errorIndex: 2,
-    correctSegments: ["Although the older unit is able to detect large pressure changes,", "the upgraded diagnostic system has proved more sensitive", "and is capable of identifying very small variations", "before they affect the final reading."],
-    errorSegments: ["Although the older unit is able to detect large pressure changes,", "the upgraded diagnostic system has proved more sensitive", "and is capable to identify very small variations", "before they affect the final reading."],
+    correctSegments: ["Although the older unit is able to detect large pressure changes,", "the upgraded system has proved more sensitive", "and is capable of identifying very small variations", "before they affect the final reading."],
+    errorSegments: ["Although the older unit is able to detect large pressure changes,", "the upgraded system has proved more sensitive", "and is capable to identify very small variations", "before they affect the final reading."],
     reason: "'Able to detect' is correct with 'able'. The adjective 'capable' follows a different pattern: 'capable of + -ing', so 'capable of identifying' is required.",
   }),
   "USG-H-008": idiomaticUsageScene({
