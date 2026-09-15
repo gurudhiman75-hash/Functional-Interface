@@ -37,8 +37,8 @@ assert.deepEqual(result, replay);
 assert.equal(result.questions.length, 12);
 assert.equal(new Set(result.questions.map((question) => question.candidateId)).size, 12);
 assert.equal(result.generationContext?.cpId, "ENG-001-CP009");
-assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:6a59e8cdbc1b1b061205a55690e68fc76724ffd7b24f2cecfdce8de5368e465f");
-assert.equal(result.generationContext?.approvedGeneratorHeadSha, "044ec531bbe9f3c0efd6a39596359bab4bd30857");
+assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:437951a6128dc4366fdacc6ec4830d4179fd6918063fb0111b3cddee76cf935a");
+assert.equal(result.generationContext?.approvedGeneratorHeadSha, "5c2bffdf957a2bdc727dc02c23cd94416ab8a624");
 for (const question of result.questions) {
   assert.equal(question.cpId, "ENG-001-CP009");
   assert.equal(question.subtopic, "Gerunds, Infinitives & Participles");
