@@ -1,6 +1,12 @@
 import { idiomaticUsageScene, type IdiomaticUsageSceneV1 } from "./cp013-scene-types";
 
 const replacements: Readonly<Record<string, IdiomaticUsageSceneV1>> = {
+  "USG-H-003": idiomaticUsageScene({
+    id: "USG-H-003", difficulty: "hard", ruleId: "GR-USG-002", domain: "administrative-grade", errorIndex: 2,
+    correctSegments: ["Although Vikram joined later than Priya,", "the promotion order placed him in a higher grade,", "so he is senior to her", "for administrative reporting."],
+    errorSegments: ["Although Vikram joined later than Priya,", "the promotion order placed him in a higher grade,", "so he is senior than her", "for administrative reporting."],
+    reason: "The sentence separates joining date from official grade. For formal rank, 'senior' takes 'to', so 'senior to her' is required.",
+  }),
   "USG-H-007": idiomaticUsageScene({
     id: "USG-H-007", difficulty: "hard", ruleId: "GR-USG-004", domain: "diagnostic-system", errorIndex: 2,
     correctSegments: ["Although the older unit is able to detect large pressure changes,", "the upgraded diagnostic system has proved more sensitive", "and is capable of identifying very small variations", "before they affect the final reading."],
