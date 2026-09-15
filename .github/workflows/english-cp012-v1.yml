@@ -52,8 +52,7 @@ jobs:
         run: node artifacts/api-server/dist/english-v1/eng-001-cp012-v1-review.test.mjs
       - name: Verify exact approved CP012 V1 review SHA-256
         run: |
-          sha256sum dist/english-v1/ENG-001-CP012-REVIEW-V1.md
-          echo "87051e31bf3a8d8b45e6dddd125d10ded137465c0304260a2b07934be66897db  dist/english-v1/ENG-001-CP012-REVIEW-V1.md" | sha256sum --check --strict
+          echo "afaedd78c49c31c08d480c00845d5a80f83406d3c0962695dcdebf6d4a01528d  dist/english-v1/ENG-001-CP012-REVIEW-V1.md" | sha256sum --check --strict
       - name: Upload approved CP012 V1 review artifact
         uses: actions/upload-artifact@v4
         with:
