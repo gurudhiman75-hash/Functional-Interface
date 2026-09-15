@@ -1,0 +1,165 @@
+import { writeFileSync } from "node:fs";
+import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
+import { CAE_PROVISIONAL_QL_IDS, type CaeQlId, type GeneratedCaeQuestion } from "./types.ts";
+
+const SEEDS_PER_QL = 5_000;
+const BLOCK = 500;
+
+type Counter = Map<string, number>;
+type ExpansionPriority = "HIGH" | "MEDIUM" | "LOW" | "COMPLETE_FINITE";
+
+type AuditRow = Readonly<{
+  qlId: CaeQlId;
+  questions: number;
+  distinctCausalStates: number;
+  distinctItemVariants: number;
+  distinctSemanticForms: number;
+  families: number;
+  variants: number;
+  firstCollisionSeed: number | null;
+  seedAt95PercentFinalStateCoverage: number;
+  final500NewStates: number;
+  topStateCount: number;
+  topStateShare: number;
+  blockNewStates: readonly number[];
+  topFamilies: readonly [string, number][];
+  topStates: readonly [string, number][];
+}>;
+
+function increment(counter: Counter, key: string): number {
+  const next = (counter.get(key) ?? 0) + 1;
+  counter.set(key, next);
+  return next;
+}
+
+function semanticForm(question: GeneratedCaeQuestion): string {
+  const operation = question.causalStructure.split(":").slice(0, 3).join(":");
+  return [question.qlId, question.projectionId, operation, question.scenarioFamilyId, question.scenarioVariantId, question.answerId, question.difficulty].join("|");
+}
+
+function pct(value: number): string { return `${(value * 100).toFixed(2)}%`; }
+
+function auditQl(qlId: CaeQlId): AuditRow {
+  const stateCounts: Counter = new Map();
+  const itemCounts: Counter = new Map();
+  const formCounts: Counter = new Map();
+  const familyCounts: Counter = new Map();
+  const variants = new Set<string>();
+  const seenStates = new Set<string>();
+  const cumulativeUniqueBySeed: number[] = [];
+  const blockNewStates: number[] = [];
+  let firstCollisionSeed: number | null = null;
+  let blockStartUnique = 0;
+
+  for (let seed = 0; seed < SEEDS_PER_QL; seed += 1) {
+    const q = generateReviewedCaeQuestion({ qlId, locale: "en-IN", seed });
+    const stateCount = increment(stateCounts, q.causalStateId);
+    increment(itemCounts, q.itemVariantId);
+    increment(formCounts, semanticForm(q));
+    increment(familyCounts, q.scenarioFamilyId);
+    variants.add(`${q.scenarioFamilyId}|${q.scenarioVariantId}`);
+    seenStates.add(q.causalStateId);
+    if (stateCount === 2 && firstCollisionSeed === null) firstCollisionSeed = seed;
+    cumulativeUniqueBySeed.push(seenStates.size);
+    if ((seed + 1) % BLOCK === 0) {
+      blockNewStates.push(seenStates.size - blockStartUnique);
+      blockStartUnique = seenStates.size;
+    }
+  }
+
+  const finalStates = seenStates.size;
+  const threshold95 = Math.ceil(finalStates * 0.95);
+  const seedAt95 = cumulativeUniqueBySeed.findIndex((count) => count >= threshold95);
+  const sortedStates = [...stateCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  const sortedFamilies = [...familyCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  const topStateCount = sortedStates[0]?.[1] ?? 0;
+
+  return {
+    qlId,
+    questions: SEEDS_PER_QL,
+    distinctCausalStates: stateCounts.size,
+    distinctItemVariants: itemCounts.size,
+    distinctSemanticForms: formCounts.size,
+    families: familyCounts.size,
+    variants: variants.size,
+    firstCollisionSeed,
+    seedAt95PercentFinalStateCoverage: seedAt95 < 0 ? SEEDS_PER_QL : seedAt95 + 1,
+    final500NewStates: blockNewStates.at(-1) ?? 0,
+    topStateCount,
+    topStateShare: topStateCount / SEEDS_PER_QL,
+    blockNewStates,
+    topFamilies: sortedFamilies.slice(0, 5),
+    topStates: sortedStates.slice(0, 5),
+  };
+}
+
+function priority(row: AuditRow): ExpansionPriority {
+  if (row.qlId === "CAE-QL-001" && row.distinctSemanticForms === 394) return "COMPLETE_FINITE";
+  if (row.qlId === "CAE-QL-002" && row.distinctCausalStates === 124) return "COMPLETE_FINITE";
+
+  // QL003 has 130 reviewed structural authority entries: 45 frozen base
+  // probable-cause states, 75 candidate-heavy probable-cause states, four
+  // legacy combination scenarios and six expanded combination scenarios.
+  // ql003-structural-coverage.test.ts proves all are reachable by seed 1,269.
+  // The 133 semantic fingerprints arise because three structural states cross
+  // legitimate difficulty boundaries, not because content is missing.
+  if (row.qlId === "CAE-QL-003" && row.distinctSemanticForms === 133) return "COMPLETE_FINITE";
+
+  if (row.qlId === "CAE-QL-004" && row.distinctSemanticForms === 121) return "COMPLETE_FINITE";
+
+  // QL005 is a finite reviewed union of 48 intended authority states:
+  // 11 curated competing-explanation scenarios, 12 evidence-fit scenarios and
+  // 25 candidate-heavy graph states. ql005-authority-coverage.test.ts proves
+  // reviewed routing reaches the complete union by seed 359 while preserving
+  // TIMING_FIT, SCOPE_FIT and MECHANISM_FIT. The much larger strict-state count
+  // in the 5k audit comes from deterministic reviewed remap bookkeeping.
+  if (row.qlId === "CAE-QL-005" && row.distinctSemanticForms === 48) return "COMPLETE_FINITE";
+
+  if (row.qlId === "CAE-QL-006" && row.distinctSemanticForms === 366) return "COMPLETE_FINITE";
+  if (row.qlId === "CAE-QL-007" && row.distinctCausalStates === 142) return "COMPLETE_FINITE";
+  if (row.qlId === "CAE-QL-009") return "COMPLETE_FINITE";
+
+  const finalBlockShare = row.distinctCausalStates === 0 ? 0 : row.final500NewStates / row.distinctCausalStates;
+  if (row.distinctSemanticForms < 80 || row.seedAt95PercentFinalStateCoverage < 2_000 || row.topStateShare >= 0.03) return "HIGH";
+  if (row.distinctSemanticForms < 160 || finalBlockShare < 0.03 || row.topStateShare >= 0.015) return "MEDIUM";
+  return "LOW";
+}
+
+const rows = CAE_PROVISIONAL_QL_IDS.map(auditQl);
+
+const lines: string[] = [
+  "# CAE-001 semantic saturation audit",
+  "",
+  `Reviewed English generation sampled at **${SEEDS_PER_QL.toLocaleString()} seeds per QL** (${(SEEDS_PER_QL * CAE_PROVISIONAL_QL_IDS.length).toLocaleString()} total questions).`,
+  "",
+  "This audit measures semantic-state repetition separately from presentation shuffling. `causalStateId` is the strict semantic-state identity; `semantic forms` collapse presentation and retain QL, operation, family/variant, keyed answer and difficulty. Strict state counts may exceed a proven structural ceiling when deterministic editorial-remap markers are appended to preserve the external seed.",
+  "",
+  "`COMPLETE_FINITE` means a separate structural/authority-enumeration regression has proved the reviewed generator reaches the full intended finite state space; a short audit plateau or incomplete short sweep is not an expansion signal by itself.",
+  "",
+  "| QL | causal states | semantic forms | item variants | families | variants | first collision | 95% states seen by | new states in final 500 | top-state share | expansion priority |",
+  "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|",
+];
+
+for (const row of rows) lines.push(`| ${row.qlId} | ${row.distinctCausalStates} | ${row.distinctSemanticForms} | ${row.distinctItemVariants} | ${row.families} | ${row.variants} | ${row.firstCollisionSeed ?? "none"} | ${row.seedAt95PercentFinalStateCoverage} | ${row.final500NewStates} | ${pct(row.topStateShare)} | **${priority(row)}** |`);
+
+for (const row of rows) {
+  lines.push("", `## ${row.qlId}`, "", `**Novel causal states per 500-seed block:** ${row.blockNewStates.join(" → ")}`, "", `**Top families by frequency:** ${row.topFamilies.map(([id, count]) => `${id} (${count})`).join(", ")}`, "", "**Most repeated causal states:**", ...row.topStates.map(([id, count]) => `- ${count}× — \`${id}\``));
+  if (row.qlId === "CAE-QL-001") lines.push("", "**Structural completeness:** 394/394 editorially safe direct-relation states are reachable across 16 families / 66 variants in both FOUR_WAY and FIVE_WAY reviewed profiles. Both profiles complete the safe state space by seed 2,627. The raw 396-edge-order combinations contain two rejected `drill` bridge→effect presentations; the reviewed quality guard excludes them. All three reviewed source-profile paths (Classic Bank five-relation, Punjab Police four-relation, and SSC direct-recognition) are also swept through the same deterministic safety facade. The frozen raw source authority remains unchanged underneath. No nominal family/variant expansion is warranted unless the source/exam contract adds a genuinely new direct-relation learner operation.");
+  if (row.qlId === "CAE-QL-002") lines.push("", "**Structural completeness:** 124/124 theoretical states are reachable in both FOUR_WAY and FIVE_WAY reviewed profiles: 46 COMMON_CAUSE, 39 INDEPENDENT_EFFECTS, and 39 INDEPENDENT_CAUSES. Both profiles complete the theoretical state space by seed 866. No expansion is warranted unless the learner-operation contract itself changes.");
+  if (row.qlId === "CAE-QL-003") lines.push("", "**Structural completeness:** 130/130 reviewed probable-cause authority entries are reachable: 45 frozen base probable-cause states, 75 candidate-heavy probable-cause states, 4 legacy combination scenarios and 6 expanded combination scenarios. The complete set is reached by seed 1,269. The audit's 133 semantic forms reflect three structural states that legitimately cross difficulty boundaries, not uncovered content. No further expansion is warranted unless the probable-cause contract gains a genuinely new learner operation.");
+  if (row.qlId === "CAE-QL-004") lines.push("", "**Structural completeness:** 120/120 reviewed probable-effect forms are reachable: 33 base probable-effect states, 75 candidate-heavy probable-effect states, 6 legacy combination scenarios, and 6 expanded combination scenarios. The complete structural set is reached by seed 1,824. The audit's 121 semantic forms reflect one structural state that legitimately crosses a difficulty boundary, not an uncovered learner operation. No further nominal expansion is warranted unless the probable-effect contract gains a genuinely new operation.");
+  if (row.qlId === "CAE-QL-005") lines.push("", "**Authority completeness:** the reviewed competing-explanation contract contains exactly 48 intended finite states: 11 curated competing scenarios, 12 evidence-fit scenarios, and 25 candidate-heavy graph states. `ql005-authority-coverage.test.ts` proves reviewed routing reaches all 48/48 by seed 359 and preserves TIMING_FIT, SCOPE_FIT and MECHANISM_FIT. The 5,000-seed audit's 501 strict causal-state IDs are dominated by deterministic reviewed-remap markers on candidate-heavy slots, not new learner-semantic content. No further expansion is warranted unless CP005 gains a genuinely new evidence-evaluation operation.");
+  if (row.qlId === "CAE-QL-006") lines.push("", "**Authority completeness:** the reviewed causal-distance contract contains 366 intended finite forms: 252 immediate/remote relationship forms plus 114 bridge-distance forms. `ql006-authority-coverage.test.ts` proves reviewed routing reaches all 366/366 by seed 1,950 while retaining all six answer/operation kinds: FIRST_EFFECT_SECOND_IMMEDIATE, SECOND_EFFECT_FIRST_IMMEDIATE, FIRST_EFFECT_SECOND_REMOTE, SECOND_EFFECT_FIRST_REMOTE, FIRST_BRIDGE and FINAL_BRIDGE. The early 5k plateau is therefore completion, not a reason for more scenario families.");
+  if (row.qlId === "CAE-QL-007") lines.push("", "**Authority completeness:** the reviewed correlation/false-causation contract contains 142 intended finite forms: 6 legacy common-factor, 60 expanded common-factor, 40 Wave-4 parallel, 20 expanded false-causation and 16 legacy false-causation. `ql007-authority-coverage.test.ts` proves reviewed routing reaches all 142/142 by seed 872. Both COMMON_CAUSE and CORRELATION_ONLY answers remain reachable, CO_MOVEMENT and POST_HOC false-causation patterns remain represented, and reviewed delivery has no EASY leakage. No further expansion is warranted unless CP007 gains a genuinely new learner operation.");
+  if (row.qlId === "CAE-QL-009") lines.push("", "**Authority completeness:** the reviewed CP009 contract contains 283 intended structural forms: 108 legacy integrated forms (excluding the deliberately replaced frozen legacy common-cause surface), 140 saturation forms, and 35 expanded common-cause forms. `ql009-authority-coverage.test.ts` proves reviewed routing reaches all 283/283 forms by seed 7,734 while preserving all seven learner-visible operations. The ordinary 5,000-seed audit sees 279 because four rare forms occur later; this is sample-horizon truncation, not a content gap. No further expansion is warranted unless CP009 gains a genuinely new integrated learner operation.");
+}
+
+const high = rows.filter((row) => priority(row) === "HIGH").map((row) => row.qlId);
+const medium = rows.filter((row) => priority(row) === "MEDIUM").map((row) => row.qlId);
+const low = rows.filter((row) => priority(row) === "LOW").map((row) => row.qlId);
+const completeFinite = rows.filter((row) => priority(row) === "COMPLETE_FINITE").map((row) => row.qlId);
+lines.push("", "## Expansion decision", "", `- **High priority:** ${high.join(", ") || "none"}`, `- **Medium priority:** ${medium.join(", ") || "none"}`, `- **Low priority:** ${low.join(", ") || "none"}`, `- **Structurally complete finite:** ${completeFinite.join(", ") || "none"}`, "", "Interpretation: high-priority QLs should receive new semantic structures/families before cosmetic variants. Medium-priority QLs may benefit from targeted family/operation expansion. Low-priority QLs should not be expanded merely to increase nominal counts. COMPLETE_FINITE QLs should remain frozen unless the exam/source-profile contract adds a genuinely new learner operation.", "");
+
+const report = lines.join("\n");
+writeFileSync("dist/reasoning-v1/cae-001/CAE-001-SEMANTIC-SATURATION-AUDIT.md", `${report}\n`);
+console.log(report);

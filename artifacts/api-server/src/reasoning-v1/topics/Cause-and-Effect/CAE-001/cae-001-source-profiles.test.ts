@@ -4,6 +4,7 @@ import { CAE_001_CAUSAL_WORLDS } from "./causal-world-authorities.ts";
 import { generateCaeQuestion } from "./chapter-generator.ts";
 import { CAE_001_EDITORIAL_REALNESS_REVIEW } from "./editorial-review-pack.ts";
 import { previewCae001QuestionStudioReview } from "./question-studio-review.ts";
+import { generateReviewedCaeSourceProfileQuestion } from "./reviewed-source-profiles.ts";
 import { CAE_001_SOURCE_PROFILE_REVIEW, renderCae001SourceProfileReview } from "./source-profile-review-pack.ts";
 import {
   CAE_SOURCE_PROFILE_AUTHORITIES,
@@ -63,7 +64,7 @@ for (const profileId of Object.keys(CAE_001_SOURCE_PROFILE_REVIEW) as CaeSourceP
   }
 }
 
-// Presentation/source profile may alter options, never the selected causal state.
+// Frozen presentation authority remains state-preserving underneath the reviewed facade.
 for (const profileId of ["CLASSIC_BANK_FIVE_RELATION", "PUNJAB_POLICE_SI_2016_FOUR_RELATION", "SSC_SELECTION_POST_DIRECT_RECOGNITION"] as const) {
   const authority = CAE_SOURCE_PROFILE_AUTHORITIES[profileId];
   let checked = 0;
@@ -72,7 +73,7 @@ for (const profileId of ["CLASSIC_BANK_FIVE_RELATION", "PUNJAB_POLICE_SI_2016_FO
       try {
         const profiled = generateCaeSourceProfileQuestion({ qlId, locale: "en-IN", seed, sourceProfileId: profileId });
         const base = generateCaeQuestion({ qlId, locale: "en-IN", seed, questionProfile: authority.baseQuestionProfile });
-        assert.equal(profiled.causalStateId, base.causalStateId, `${profileId}/${qlId}/${seed}: presentation profile changed causal state`);
+        assert.equal(profiled.causalStateId, base.causalStateId, `${profileId}/${qlId}/${seed}: frozen presentation authority changed causal state`);
         checked += 1;
       } catch (error) {
         if (!(error instanceof CaeSourceProfileIncompatibleError)) throw error;
@@ -82,12 +83,13 @@ for (const profileId of ["CLASSIC_BANK_FIVE_RELATION", "PUNJAB_POLICE_SI_2016_FO
   assert.ok(checked >= 20, `${profileId}: insufficient compatible states for profile parity QA`);
 }
 
-// Locale rendering must keep semantic state, answer ID and presentation order fixed.
+// Reviewed source-profile locale rendering must keep semantic state, answer ID and presentation order fixed,
+// including deterministic QL001 editorial remaps.
 for (const profileId of ["CLASSIC_BANK_FIVE_RELATION", "PUNJAB_POLICE_SI_2016_FOUR_RELATION", "SSC_SELECTION_POST_DIRECT_RECOGNITION"] as const) {
   const first = CAE_001_SOURCE_PROFILE_REVIEW[profileId][0]!;
-  const en = generateCaeSourceProfileQuestion({ qlId: first.question.qlId, locale: "en-IN", seed: first.seed, sourceProfileId: profileId });
+  const en = generateReviewedCaeSourceProfileQuestion({ qlId: first.question.qlId, locale: "en-IN", seed: first.seed, sourceProfileId: profileId });
   for (const locale of LOCALES) {
-    const localized = generateCaeSourceProfileQuestion({ qlId: first.question.qlId, locale, seed: first.seed, sourceProfileId: profileId });
+    const localized = generateReviewedCaeSourceProfileQuestion({ qlId: first.question.qlId, locale, seed: first.seed, sourceProfileId: profileId });
     assert.equal(localized.causalStateId, en.causalStateId, `${profileId}/${locale}: causal state drift`);
     assert.equal(localized.answerId, en.answerId, `${profileId}/${locale}: answer drift`);
     assert.equal(localized.correctIndex, en.correctIndex, `${profileId}/${locale}: option-order drift`);

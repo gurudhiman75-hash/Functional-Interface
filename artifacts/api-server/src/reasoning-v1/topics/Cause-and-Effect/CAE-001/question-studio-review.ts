@@ -2,11 +2,13 @@ import { CAE_001_MANIFEST } from "./chapter-manifest.ts";
 import { CAE_001_CAUSAL_WORLDS, CAE_001_PROJECTION_AUTHORITIES, CAE_001_SCENARIO_FAMILIES } from "./causal-world-authorities.ts";
 import { CAE_001_SATURATION_WAVE1_FAMILIES, CAE_001_SATURATION_WAVE1_VARIANT_COUNT } from "./causal-world-saturation-wave1.ts";
 import { CAE_001_SATURATION_WAVE2_FAMILIES, CAE_001_SATURATION_WAVE2_VARIANT_COUNT } from "./causal-world-saturation-wave2.ts";
+import { CAE_001_SATURATION_WAVE4_FAMILIES, CAE_001_SATURATION_WAVE4_VARIANT_COUNT } from "./causal-world-saturation-wave4.ts";
 import { CAE_COMBINATION_WORLDS } from "./cp003004-combination.ts";
 import { CP005_COMPETING_SCENARIOS } from "./cp005-competing-explanations.ts";
 import { CP007_FALSE_CAUSATION_WORLDS } from "./cp007-false-causation.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
-import { CAE_SOURCE_PROFILE_IDS, generateCaeSourceProfileQuestion, type CaeSourceProfileId } from "./source-profiles.ts";
+import { generateReviewedCaeSourceProfileQuestion } from "./reviewed-source-profiles.ts";
+import { CAE_SOURCE_PROFILE_IDS, type CaeSourceProfileId } from "./source-profiles.ts";
 import type { CaeLocale, CaeQlId, CaeQuestionProfile } from "./types.ts";
 
 export const CAE_001_QUESTION_STUDIO_PACKAGE_ID = "CAE-001-V1-REVIEW" as const;
@@ -22,8 +24,9 @@ export type PreviewCae001QuestionStudioInput = Readonly<{
 
 const SATURATION_WAVE1_FAMILY_COUNT = CAE_001_SATURATION_WAVE1_FAMILIES.length;
 const SATURATION_WAVE2_FAMILY_COUNT = CAE_001_SATURATION_WAVE2_FAMILIES.length;
-const EFFECTIVE_CANONICAL_FAMILY_COUNT = CAE_001_SCENARIO_FAMILIES.length + SATURATION_WAVE1_FAMILY_COUNT + SATURATION_WAVE2_FAMILY_COUNT;
-const EFFECTIVE_CANONICAL_VARIANT_COUNT = CAE_001_CAUSAL_WORLDS.length + CAE_001_SATURATION_WAVE1_VARIANT_COUNT + CAE_001_SATURATION_WAVE2_VARIANT_COUNT;
+const SATURATION_WAVE4_FAMILY_COUNT = CAE_001_SATURATION_WAVE4_FAMILIES.length;
+const EFFECTIVE_CANONICAL_FAMILY_COUNT = CAE_001_SCENARIO_FAMILIES.length + SATURATION_WAVE1_FAMILY_COUNT + SATURATION_WAVE2_FAMILY_COUNT + SATURATION_WAVE4_FAMILY_COUNT;
+const EFFECTIVE_CANONICAL_VARIANT_COUNT = CAE_001_CAUSAL_WORLDS.length + CAE_001_SATURATION_WAVE1_VARIANT_COUNT + CAE_001_SATURATION_WAVE2_VARIANT_COUNT + CAE_001_SATURATION_WAVE4_VARIANT_COUNT;
 
 export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   packageId: CAE_001_QUESTION_STUDIO_PACKAGE_ID,
@@ -44,9 +47,12 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   saturationWave1VariantCount: CAE_001_SATURATION_WAVE1_VARIANT_COUNT,
   saturationWave2FamilyCount: SATURATION_WAVE2_FAMILY_COUNT,
   saturationWave2VariantCount: CAE_001_SATURATION_WAVE2_VARIANT_COUNT,
+  saturationWave4FamilyCount: SATURATION_WAVE4_FAMILY_COUNT,
+  saturationWave4VariantCount: CAE_001_SATURATION_WAVE4_VARIANT_COUNT,
   effectiveScenarioFamilyCount: EFFECTIVE_CANONICAL_FAMILY_COUNT,
   effectiveCanonicalScenarioVariantCount: EFFECTIVE_CANONICAL_VARIANT_COUNT,
   saturationExpandedQlIds: ["CAE-QL-001", "CAE-QL-002", "CAE-QL-006", "CAE-QL-007", "CAE-QL-008"] as const,
+  saturationWave4TargetQlIds: ["CAE-QL-002", "CAE-QL-007"] as const,
   saturationCandidateHeavyQlStatus: "GATED_PENDING_SCENARIO_SPECIFIC_DISTRACTOR_AUTHORITIES" as const,
   /** Reviewed authorities add combination/CP005/CP007 authored families beyond the canonical saturation pool. */
   reviewedScenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length + 4,
@@ -56,7 +62,7 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   generationPlanCount: CAE_001_PROJECTION_AUTHORITIES.length,
   locales: CAE_001_MANIFEST.locales,
   sourceProfiles: CAE_SOURCE_PROFILE_IDS,
-  reviewedQlOverrides: ["CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-006", "CAE-QL-007", "CAE-QL-008", "CAE-QL-009"] as const,
+  reviewedQlOverrides: ["CAE-QL-001", "CAE-QL-003", "CAE-QL-004", "CAE-QL-005", "CAE-QL-006", "CAE-QL-007", "CAE-QL-008", "CAE-QL-009"] as const,
   enabled: true as const,
   questionStudioVisible: true as const,
   reviewOnly: true as const,
@@ -70,7 +76,7 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
 
 export function previewCae001QuestionStudioReview(input: PreviewCae001QuestionStudioInput) {
   const question = input.sourceProfileId
-    ? generateCaeSourceProfileQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed, sourceProfileId: input.sourceProfileId })
+    ? generateReviewedCaeSourceProfileQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed, sourceProfileId: input.sourceProfileId })
     : generateReviewedCaeQuestion(input);
   return Object.freeze({
     packageId: CAE_001_QUESTION_STUDIO_PACKAGE_ID,

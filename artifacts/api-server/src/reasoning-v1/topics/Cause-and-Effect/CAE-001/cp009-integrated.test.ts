@@ -1,20 +1,25 @@
 import assert from "node:assert/strict";
-import { CAE_001_CAUSAL_WORLDS } from "./causal-world-authorities.ts";
+import { CAE_001_CAUSAL_WORLDS, materializeCae001World } from "./causal-world-authorities.ts";
 import { withCae001SaturationWave2 } from "./causal-world-saturation-wave2.ts";
+import { CAE_001_SATURATION_WAVE4_FAMILIES } from "./causal-world-saturation-wave4.ts";
 import { CAE_001_REVIEWED_EDITORIAL_REALNESS_REVIEW } from "./reviewed-editorial-review-pack.ts";
 import { previewCae001QuestionStudioReview } from "./question-studio-review.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import type { CaeLocale } from "./types.ts";
 
 const LOCALES: readonly CaeLocale[] = ["en-IN", "hi-IN", "pa-IN"];
-const expectedModes = new Set(["MISSING_SINGLE", "MISSING_PAIR", "RELATION_TYPE", "CONNECTOR_PAIR", "NEXT_OUTCOME", "COMMON_CAUSE_RECONSTRUCTION"]);
+const expectedModes = new Set(["MISSING_SINGLE", "MISSING_PAIR", "RELATION_TYPE", "CONNECTOR_PAIR", "NEXT_OUTCOME", "COMMON_CAUSE_RECONSTRUCTION", "COMMON_CAUSE_RECONSTRUCTION_EXPANDED"]);
 const seenModes = new Set<string>();
 const seenStates = new Set<string>();
 let medium = 0;
 let hard = 0;
 
+const WAVE4_WORLDS = CAE_001_SATURATION_WAVE4_FAMILIES.flatMap((family) => family.variants.map((variant) => materializeCae001World(family, variant)));
 function trim(value: string): string { return value.replace(/[.।]+$/u, ""); }
-function worldFor(id: string) { return withCae001SaturationWave2(() => CAE_001_CAUSAL_WORLDS.find((world) => world.id === id)); }
+function worldFor(id: string) {
+  const legacyOrWave2 = withCae001SaturationWave2(() => CAE_001_CAUSAL_WORLDS.find((world) => world.id === id));
+  return legacyOrWave2 ?? WAVE4_WORLDS.find((world) => world.id === id);
+}
 
 function assertExternalDistractorDomain(question: ReturnType<typeof generateReviewedCaeQuestion>): void {
   const currentWorld = worldFor(question.causalWorldId);
@@ -77,14 +82,14 @@ for (let seed = 0; seed < 240; seed += 1) {
     assert.doesNotMatch(question.stem, /P\s*→\s*Q\s*→\s*R\s*→\s*S/u, "relation-type stem must not spell out the answer-bearing causal chain");
     for (const label of ["P.", "Q.", "R.", "S."]) assert.ok(question.stem.includes(label), `${question.causalStateId}: relation-type stem must retain all event labels`);
   }
-  if (mode === "COMMON_CAUSE_RECONSTRUCTION") {
+  if (mode === "COMMON_CAUSE_RECONSTRUCTION" || mode === "COMMON_CAUSE_RECONSTRUCTION_EXPANDED") {
     assert.equal(question.visibleContext.visibleNodeIds.length, 2);
     assert.equal(question.causalTrace.length, 3);
   }
 }
 
-assert.deepEqual(seenModes, expectedModes, "240-seed CP009 QA must reach every integrated learner operation");
-assert.ok(seenStates.size >= 24, `CP009 needs broad integrated semantic coverage; saw ${seenStates.size} states`);
+assert.deepEqual(seenModes, expectedModes, "240-seed CP009 QA must reach every integrated learner operation plus expanded common-cause reconstruction");
+assert.ok(seenStates.size >= 40, `CP009 needs broad integrated semantic coverage after expansion; saw ${seenStates.size} states`);
 assert.ok(medium > 0 && hard > 0, "CP009 must retain both MEDIUM and HARD reviewed content");
 
 for (let seed = 0; seed < 40; seed += 1) {
