@@ -1,172 +1,182 @@
 # ENG-001 — Exhaustive Closure Audit V1
 
-Status: `CLOSURE_BLOCKED__REMEDIATION_REQUIRED__REVIEW_ONLY`
+Status: `REMEDIATION_COMPLETE__HUMAN_REAPPROVAL_PENDING__REVIEW_ONLY`
 
 ## Scope
 
-This is the chapter-closing audit for ENG-001 after CP001–CP013. It goes beyond per-CP validator success and the 117-question final-audit showcase.
+This is the chapter-closing audit for ENG-001 after CP001–CP013. It goes beyond individual checkpoint validation and uses both large deterministic generation audits and a final learner-facing review pack.
 
 The audit covers:
 
 - all 13 implemented checkpoints;
-- all 131 registered grammar-rule families;
-- Easy / Medium / Hard calibration;
+- all 131 registered grammar rules;
+- Easy / Medium / Hard generation;
 - QL001 / QL002 / QL007 contracts;
-- grammatical correctness and single-defensible-error quality;
-- no-error validity;
+- single-defensible-error quality and no-error validity;
 - natural exam-style wording;
 - explanation usefulness and corrected-sentence accuracy;
-- repetition and mechanical template leakage;
 - answer-position predictability;
-- option/part segmentation quality;
-- deterministic generation;
-- candidate/rule/surface depth;
-- Question Studio cumulative integration;
+- learner-facing part segmentation;
+- deterministic generation and rule/candidate/surface breadth;
+- cumulative Question Studio integration;
 - review-only lifecycle locks.
 
-## Evidence layers
+## Final exact-head evidence
 
-### Layer A — 117-question master review
+Final audited content head before this record update: `5c2bffdf957a2bdc727dc02c23cd94416ab8a624`.
 
-The deterministic master pack samples every `CP × difficulty × permanent QL` combination.
+### 117-question master review
 
-Important limitation discovered during this audit: the 117 questions exercise only **77 distinct rule IDs out of 131**. It is therefore a strong cross-surface review pack, but it is not by itself exhaustive rule coverage.
+The deterministic master pack samples every `CP × difficulty × permanent QL` combination:
 
-### Layer B — answer-position diagnostic
+- 13 checkpoints;
+- 117 questions;
+- 131 registered rules in the chapter;
+- 82 distinct rules represented in the review sample;
+- QL001 / QL002 / QL007 at Easy / Medium / Hard;
+- lifecycle remains review-only.
 
-A 3,900-question diagnostic exposed a genuine Part-B bias in the pre-remediation Question Studio surface. The chapter-level normalizer removes that predictable position pattern without changing the authored grammatical mutation or corrected sentence.
+The master pack itself passed its structural audit and was regenerated after the final CP003 article-family remediation.
 
-The normalizer is now additionally constrained to reject redraws that would create tiny generated non-error parts or overlong normalized parts. When a clean redraw is not possible, authored segmentation is preserved.
+### 7,020-question exhaustive closure soak
 
-### Layer C — exhaustive closure soak
+`eng-001-closure-soak-v1.test.ts` passed on the exact audited head.
 
-`eng-001-closure-soak-v1.test.ts` generates **7,020 questions** (`13 CPs × 3 difficulties × 3 QLs × 60 seeds`) and performs deterministic replays at three seed positions in every cell.
+It generated `13 CPs × 3 difficulties × 3 QLs × 60 seeds = 7,020` questions and checked:
 
-The soak checks:
-
-- exact package and lifecycle identity;
-- rule ownership and registration;
-- all 131 rule families exercised chapter-wide;
-- every checkpoint rule exercised through both error-producing surfaces (QL001 and QL002) across its applicable difficulties;
-- QL007 restricted to its intentionally calibrated no-error pool, with meaningful rule/candidate/surface breadth at each difficulty;
-- meaningful rule breadth inside every difficulty/QL cell without defeating intentional difficulty gating;
-- candidate depth and learner-surface depth;
+- exact package/lifecycle identity;
+- all 131 registered rules exercised chapter-wide;
+- complete rule exercise through both error-producing QLs across applicable difficulties;
+- calibrated QL007 no-error breadth;
+- candidate and learner-surface breadth;
 - answer bounds and option uniqueness;
-- QL001 / QL002 / QL007 no-error contracts;
-- complete corrected sentence inside explanations;
+- QL contracts;
+- corrected-sentence presence in explanations;
 - no internal metadata leakage;
 - no option-by-option analysis;
-- explanation Part A–D references agree with the actual answer;
-- sentence-part length guardrails, with tighter limits on generated resegmentation than on authored parts;
+- explanation Part references matching the keyed answer;
+- authored and normalized part-length guardrails;
 - deterministic replay.
 
-## Manual learner-facing audit findings
+Result: **PASS**.
 
-The complete 117-question pack was reviewed across CP001–CP013. Most questions are grammatically sound and explanations are generally simple and useful. The following findings prevent chapter closure.
+### 3,900-question answer-position audit
 
-### BLOCKER 1 — CP004 reflexive-pronoun ambiguity
+The chapter-level answer-position diagnostic passed on the exact audited head after the constrained Question Studio normalization layer was applied.
 
-A sampled item treats:
+The earlier exploitable Part-B bias is no longer present, while the normalizer still preserves the authored grammatical mutation and rejects poor generated segmentations.
 
-`The reporter reminded her to verify the figures before filing the story.`
+Result: **PASS**.
 
-as necessarily wrong and requires `herself`.
+### Cumulative integration/build evidence
 
-That is not uniquely defensible: `her` can grammatically refer to another woman. The explanation assumes coreference that the sentence never establishes.
+The exact-head final-audit workflow also passed:
 
-Source inspection shows the same design risk elsewhere in the reflexive family, including constructions equivalent to `the captain blamed her` and `the technician reminded him`. These ordinary object pronouns can be grammatical under a different referent.
+- latest cumulative CP013 Question Studio regression;
+- API server build;
+- admin app typecheck.
 
-Required remediation: redesign GR-PRN-004/related reflexive error scenes so the wrong form is syntactically or agreement-wise wrong without depending on an unstated referent. Emphatic-reflexive constructions or explicit agreement mismatches are safer.
+CI hygiene and pull-request branch topology checks also pass.
 
-### BLOCKER 2 — CP007 coordinator-choice ambiguity
+## Closure blockers found and resolved
 
-A sampled item treats:
+### CP004 — reflexive-pronoun ambiguity
 
-`The report was brief, so it covered all the main findings clearly.`
+The original reflexive family allowed ordinary object pronouns such as `reminded her`, `blamed her`, or `reminded him` to survive under an alternative referent.
 
-as grammatically wrong and requires `but`.
+Resolution: ambiguous reflexive/object-pronoun scenes were redesigned so the intended correction no longer depends on unstated coreference.
 
-The intended contrast is understandable, but `so` is not inherently ungrammatical; a causal interpretation can be constructed. Source inspection also shows a Hard GR-CON-001 item where `so` versus `yet` is decided mainly by intended discourse relation.
+Status: **resolved**.
 
-Required remediation: make GR-CON-001 contexts contain an unmistakable contrast/result cue so only one coordinator is defensible, or move purely discourse-semantic choices away from single-error grammar items.
+### CP007 — coordinator-choice ambiguity
 
-### BLOCKER 3 — CP010 misplaced-modifier / antecedent ambiguity
+The original coordinator items could make alternatives such as `so` versus `but/yet` depend on an intended discourse relation rather than a uniquely defensible error.
 
-A Hard item treats:
+Resolution: coordinator contexts were strengthened/reworked so contrast/result logic is explicit and the learner-facing error is defensible.
 
-`...the invoice supplied by the vendor that showed the revised tax amount...`
+Status: **resolved**.
 
-as necessarily wrong because `that showed...` is intended to modify `invoice` rather than `vendor`.
+### CP010 — modifier/relative-clause attachment ambiguity
 
-The existing wording permits the alternative reading that the vendor showed the revised amount. This is an attachment ambiguity, not a uniquely demonstrable grammatical error.
+The original relative-clause attachment item allowed a second grammatically possible antecedent.
 
-Required remediation: rewrite these modifier scenes so world knowledge or explicit context makes the intended antecedent unavoidable, and the erroneous attachment creates a clearly impossible or contradictory reading.
+Resolution: the attachment scenes now include explicit contradiction/antecedent guards; later soak-driven edits also tightened authored part lengths without changing the grammar targets.
 
-### BLOCKER 4 — difficulty calibration is uneven
+Status: **resolved**.
 
-Sentence length does rise across the reviewed pack (Hard questions are generally longer), but several Hard items still test the same direct local substitution seen at Easy/Medium level. Examples include very visible forms such as:
+### Hard calibration — CP005 / CP008 / CP009 / CP012 / CP013
 
-- `without to check`;
-- `agreed reconsidering`;
-- `much local organisations`;
-- `a few moisture`;
-- `explained us`;
-- `in spite several...`.
+Several Hard pools originally relied too heavily on longer sentences around locally obvious substitutions.
 
-Longer surrounding context alone is not sufficient Hard calibration.
+Resolution: affected Hard scenes now include nearby competing correct patterns, longer dependency/scope, or contrastive cues while keeping vocabulary simple. Authored answer-position spreads were also rebalanced where remediation clustered the keyed part.
 
-Required remediation: retain simple vocabulary but increase dependency distance, competing cues, clause interaction, or structurally plausible distractor pressure for Hard pools in the affected CPs, especially CP005, CP008, CP009, CP012 and CP013.
+Status: **resolved to review standard**. Some Hard samples remain locally accessible once the decisive rule is recognized, but they no longer rely on sentence length alone and are acceptable for final human review.
 
-## Significant quality findings (must be resolved or explicitly accepted before closure)
+## Secondary findings resolved
 
-### CP001 — secondary tense risk in an SVA item
+- CP001 SVA item no longer introduces a secondary tense dispute.
+- CP003 `much water` wording was naturalized.
+- CP005 awkward guideline/personification wording was removed during Hard remediation.
+- CP006 final-review sampling now prefers distinct rules across QLs where the eligible pool allows it.
+- CP011 `unless + not` scenes now state the positive requirement explicitly, preventing the wrong form from surviving under an unintended reading.
+- CP013 learner explanations no longer use internal/editorial wording such as `controlled exam surface`.
+- Soak-discovered overlong authored parts in CP005, CP009, CP010, CP011, CP012 and CP013 were tightened at source rather than weakening the audit threshold.
 
-`One of the homeowners has repaired the loose door handle before it broke completely.` is awkward because the present perfect is paired with a completed past-time boundary. An SVA question should not introduce a separate tense debate after the verb-number correction.
+## Final human-review finding — CP003 definite-article specificity
 
-### CP003 — naturalness
+After the automated gates first turned green, the human 117-pack review found a remaining ambiguity in `GR-ART-004`: forms such as `an application submitted yesterday` or `a computer that had stopped responding` can still be grammatical under a different reference, even when the intended answer is `the`.
 
-`There is much water in the tank after the rain.` is grammatically possible but noticeably less natural than ordinary exam prose. This is not a keying error, but source wording should be improved during the closure cleanup.
+Resolution: all six `GR-ART-004` specificity scenes were remediated so the error surface omits the determiner on the explicitly identified singular count noun. The error is now genuinely grammatical (for example, `signed application submitted yesterday`), while the context still explains why the correction is specifically `the application`.
 
-### CP005 — semantic naturalness and Hard depth
+The 117 audit, 7,020 soak, cumulative regression/build/typecheck, and 3,900 answer-position audit were rerun after this change and all passed.
 
-`The revised guidelines insist on recording every exception` personifies `guidelines` in an avoidably awkward way. Other Hard preposition errors remain too locally obvious.
+Status: **resolved**.
 
-### CP006 — repeated hard pattern in the review sample
+## Final manual review result
 
-Two Hard review questions independently use the same `as more ... as` mutation. The full generator may have broader depth, but closure sampling should avoid presenting near-identical hard logic back-to-back across QLs.
+The regenerated 117-question master pack was reviewed across CP001–CP013 after the final semantic remediation.
 
-### CP011 — `unless + not` semantics
+Findings:
 
-`You cannot borrow these books unless you do not show your membership card` is logically perverse but syntactically interpretable. Because the chapter promises one defensible grammar error, this family should be reviewed to ensure the wrong form cannot survive under an unintended meaning.
+- sampled QL007 no-error questions are grammatical;
+- sampled error items have a defensible keyed error;
+- explanations remain simple, question-specific, and include the full corrected sentence;
+- no option-by-option analysis is present;
+- no Question Studio/runtime/candidate metadata leaks into learner-facing text;
+- standardized instruction repetition is intentional and acceptable;
+- Easy / Medium / Hard progression is acceptable for final re-approval;
+- no remaining closure-level ambiguity comparable to the original CP003/CP004/CP007/CP010 blockers was found.
 
-## Findings that passed manual review
+## Approval hashes and checkpoint workflow state
 
-- QL007 sampled no-error questions are genuinely grammatical; no false no-error key was found in the 39-item master sample.
-- Explanations generally identify the decisive rule and provide a complete corrected sentence.
-- No option-by-option explanation style was found in the master sample.
-- No Question Studio/runtime/candidate metadata leakage was found in the master sample.
-- The standardized instruction stem is repetitive by design and is not treated as a defect.
-- Hard items are on average longer than Medium, and Medium longer than Easy; the remaining issue is grammatical reasoning depth, not raw sentence length.
+Learner-facing remediation intentionally invalidates historical frozen review artifacts. The approval boundary is therefore being preserved rather than bypassed.
+
+On the exact audited head:
+
+- CP003 generation/validation passes; its frozen review/freeze check fails because the reviewed artifact changed.
+- CP009 generation/validation passes; its previously approved review artifact no longer matches.
+- CP010 generation/validation passes; its previously approved SHA-256 no longer matches.
+- CP011 generation/validation passes; its previously approved SHA-256 no longer matches.
+- CP012 generation/validation passes; its previously approved SHA-256 no longer matches.
+- CP013 generation/validation passes; its previously approved SHA-256 no longer matches.
+
+These are **human re-approval gates**, not unresolved content defects. The old hashes must not be updated merely to make CI green.
 
 ## Closure decision
 
-ENG-001 is **not ready for `CONTENT_CLOSED_V1`**.
+ENG-001 is now a **remediation-complete closure candidate**, but it is **not yet `CONTENT_CLOSED_V1`** because the changed learner-facing review artifacts require explicit project-owner approval.
 
-Do not merge the closure PR or open Question Bank/test/mock/public/automatic learner release while the blockers above remain.
+Before final closure:
 
-The chapter may advance to a final closure candidate only after:
+1. present the regenerated 117-question master pack for final owner review;
+2. receive explicit approval for the remediated ENG-001 content;
+3. intentionally refreeze/update the affected approved review artifacts/hashes;
+4. rerun the affected checkpoint workflows so approval gates are green;
+5. rerun/confirm the chapter-wide final audit and answer-position gates on the post-approval head;
+6. merge only after explicit closure approval.
 
-1. CP004 reflexive ambiguity is removed at source;
-2. CP007 coordinator contexts are uniquely defensible;
-3. CP010 modifier-attachment ambiguity is removed;
-4. affected Hard pools are recalibrated beyond sentence-length inflation;
-5. the secondary wording/semantic findings are cleaned up;
-6. the 7,020-question closure soak passes on the exact PR head;
-7. the 3,900-question answer-position audit still passes after segmentation-quality constraints;
-8. all existing CP workflows, API build, admin typecheck, CI hygiene and topology checks are green;
-9. a regenerated 117-question pack receives a final human review;
-10. explicit project-owner closure approval is recorded.
+Question Bank/test/mock/public/automatic learner release remains locked throughout this process.
 
-Until then, lifecycle remains review-only and the correct chapter state is:
+Current chapter state:
 
-`CP001–CP013_IMPLEMENTED__HISTORICALLY_HUMAN_APPROVED__EXHAUSTIVE_CLOSURE_AUDIT_FOUND_REMEDIATION_BLOCKERS__NOT_CONTENT_CLOSED`
+`CP001–CP013_IMPLEMENTED__REMEDIATION_COMPLETE__FINAL_HUMAN_REAPPROVAL_PENDING__REVIEW_ONLY__NOT_CONTENT_CLOSED`
