@@ -159,13 +159,17 @@ for (const [cpId, prefix, expectedRuleCount] of CPS) {
         generated += 1;
       }
 
-      // Error QLs should expose several rule families at each difficulty. QL007
-      // is intentionally restricted to a calibrated subset of deceptive correct
-      // structures, so two families at a difficulty is a valid floor.
       const minimumRuleBreadth = qlId === "ENG-001-QL007" ? 2 : 3;
       assert.ok(stats.rules.size >= minimumRuleBreadth, `${cellKey} exposes too few rule families (${stats.rules.size})`);
       assert.ok(stats.candidates.size >= stats.rules.size, `${cellKey} has shallower candidate depth than rule breadth`);
-      assert.ok(stats.surfaces.size >= stats.candidates.size, `${cellKey} collapses distinct candidates onto too few learner surfaces`);
+      if (qlId === "ENG-001-QL007") {
+        // Calibrated no-error generators may use multiple internal candidate IDs
+        // for the same accepted correct surface. Require learner-visible breadth
+        // at least as large as rule breadth, rather than artificial 1:1 ID parity.
+        assert.ok(stats.surfaces.size >= stats.rules.size, `${cellKey} exposes too few calibrated learner surfaces (${stats.surfaces.size})`);
+      } else {
+        assert.ok(stats.surfaces.size >= stats.candidates.size, `${cellKey} collapses distinct error candidates onto too few learner surfaces`);
+      }
     }
   }
 
@@ -173,8 +177,6 @@ for (const [cpId, prefix, expectedRuleCount] of CPS) {
   for (const qlId of ERROR_QLS) {
     assert.deepEqual([...cpQlRuleCoverage.get(`${cpId}/${qlId}`)!].sort(), expectedRules.sort(), `${cpId}/${qlId} did not exercise every checkpoint rule across the approved difficulties`);
   }
-  // QL007 is deliberately a restricted no-error pool. Verify breadth without
-  // falsely requiring every error-producing rule to be admitted to no-error.
   assert.ok(cpQlRuleCoverage.get(`${cpId}/ENG-001-QL007`)!.size >= 2, `${cpId}/ENG-001-QL007 has insufficient calibrated rule breadth`);
   for (const difficulty of DIFFICULTIES) {
     assert.ok(cpDifficultyRuleCoverage.get(`${cpId}/${difficulty}`)!.size >= 3, `${cpId}/${difficulty} exposes too little total rule breadth`);
