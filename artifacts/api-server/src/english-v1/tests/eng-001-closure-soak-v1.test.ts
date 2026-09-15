@@ -22,7 +22,7 @@ const DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
 const QLS = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"] as const;
 const ERROR_QLS = ["ENG-001-QL001", "ENG-001-QL002"] as const;
 const SAMPLES_PER_CELL = 60;
-const INTERNAL_LEAKAGE = /\b(?:candidateId|mutationId|generationSeed|review[- ]only|Question Studio|runtimeMode|packageId)\b/i;
+const INTERNAL_LEAKAGE = /\b(?:candidateId|mutationId|generationSeed|review-only|Question Studio|runtimeMode|packageId)\b/i;
 
 const asText = (value: unknown) => typeof value === "string" ? value.trim() : "";
 const asStrings = (value: unknown) => Array.isArray(value) ? value.map((entry) => String(entry ?? "").trim()) : [];
@@ -163,9 +163,6 @@ for (const [cpId, prefix, expectedRuleCount] of CPS) {
       assert.ok(stats.rules.size >= minimumRuleBreadth, `${cellKey} exposes too few rule families (${stats.rules.size})`);
       assert.ok(stats.candidates.size >= stats.rules.size, `${cellKey} has shallower candidate depth than rule breadth`);
       if (qlId === "ENG-001-QL007") {
-        // Calibrated no-error generators may use multiple internal candidate IDs
-        // for the same accepted correct surface. Require learner-visible breadth
-        // at least as large as rule breadth, rather than artificial 1:1 ID parity.
         assert.ok(stats.surfaces.size >= stats.rules.size, `${cellKey} exposes too few calibrated learner surfaces (${stats.surfaces.size})`);
       } else {
         assert.ok(stats.surfaces.size >= stats.candidates.size, `${cellKey} collapses distinct error candidates onto too few learner surfaces`);
