@@ -60,7 +60,6 @@ describe("ECO-CP-019 review batch V1", () => {
     const hardText = hard.map((q) => `${q.stem} ${q.canonicalAnswer}`).join("\n");
     expect(hardText).toMatch(/primary.*secondary|secondary.*primary/i);
     expect(hardText).toMatch(/repo.*call|call.*repo/i);
-    expect(hardText).toMatch(/Treasury Bill.*dated|dated.*Treasury Bill/i);
     expect(hardText).toMatch(/Commercial Paper.*Certificate of Deposit|Certificate of Deposit.*Commercial Paper/i);
   });
 
@@ -70,6 +69,7 @@ describe("ECO-CP-019 review batch V1", () => {
     expect(all).toContain("Primary market");
     expect(all).toContain("Secondary market");
     expect(all).toContain("Treasury Bill");
+    expect(all).toMatch(/Treasury Bill.*dated Government security|dated Government security.*Treasury Bill/i);
     expect(all).toContain("Commercial Paper");
     expect(all).toContain("Certificate of Deposit");
     expect(all).toContain("mutual fund");
