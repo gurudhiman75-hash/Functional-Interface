@@ -20,6 +20,11 @@ export const PGK_001_CP013_FACTS = Object.freeze({
     mentor: "Guru Gobind Singh",
     mission: "Proceed to Punjab and lead the struggle against Mughal provincial power",
   },
+  hukamnamaSupport: {
+    id: "banda-hukamnama-support",
+    instruction: "Punjab Sikhs were asked to accept Banda Singh Bahadur as leader in the struggle against the Mughals",
+    earlySuccessFactors: Object.freeze(["Guru Gobind Singh's hukamnamas", "Sikh military support", "Support from sections of the local population"]),
+  },
   sonipat1709: {
     id: "banda-sonipat-1709",
     place: "Sonipat",
@@ -67,6 +72,7 @@ export const PGK_001_CP013_FACTS = Object.freeze({
   coinage: {
     id: "banda-first-sikh-coinage",
     issuer: "Banda Singh Bahadur",
+    issuedInNamesOf: Object.freeze(["Guru Nanak Dev", "Guru Gobind Singh"]),
     note: "Punjab school-history material treats him as the first issuer of coins of the Sikh Panth.",
   },
   agrarianReform: {
@@ -77,7 +83,13 @@ export const PGK_001_CP013_FACTS = Object.freeze({
     id: "gurdas-nangal-1715",
     place: "Gurdas Nangal",
     year: 1715,
+    commanderWhoCaptured: "Abdus Samad Khan",
+    siegeWeakness: "Shortage of food supplies during the long siege",
     note: "Site of Banda Singh Bahadur's final major siege and capture.",
+  },
+  finalSetbackFactors: {
+    id: "banda-final-setback-factors",
+    factors: Object.freeze(["Sustained Mughal pressure", "Differences with Baba Binod Singh", "Exhaustion and supply shortage during the Gurdas Nangal siege"]),
   },
   captureToDelhi: {
     id: "banda-captured-taken-delhi",
