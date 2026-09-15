@@ -1,9 +1,14 @@
 # ECO-CP-014 Status
 
 **CP:** ECO-CP-014 Taxation  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
+
+## Approval baseline
+
+- English V1 approved by human review on 2026-09-15.
+- Approved stems, answers, explanations, source mappings and difficulty behaviour are frozen pending later localisation and separate runtime promotion approval.
 
 ## Implemented
 
@@ -44,8 +49,6 @@ Excluded from this CP:
 
 ## Promotion steps
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer in the localisation phase.
-5. Register with runtime/Question Studio only after separate promotion approval.
+1. Keep approved English V1 frozen.
+2. Add localisation layer in the localisation phase.
+3. Register with runtime/Question Studio only after separate promotion approval.
