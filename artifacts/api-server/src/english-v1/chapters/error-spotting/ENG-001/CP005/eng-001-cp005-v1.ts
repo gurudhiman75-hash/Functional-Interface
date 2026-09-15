@@ -3,7 +3,7 @@ import { classifyEnglishDifficulty } from "../../../../core/difficulty";
 import type { DifficultyDimensions, Eng001QlId, Eng001Question, Eng001SentenceCandidate, EnglishDifficulty, PrepositionRuleId } from "../../../../core/types";
 import { PREPOSITION_RULE_BY_ID } from "../../../../grammar/prepositions";
 import { CP005_SCENES_BY_DIFFICULTY_V1, type PrepositionSceneV1 } from "./cp005-catalog-v1";
-import { remediateCp005SceneForClosureV1 } from "./cp005-closure-remediation-v1";
+import { remediateCp005SceneForClosureV2 } from "./cp005-closure-remediation-v2";
 
 const STEMS: Record<Eng001QlId, string> = {
   "ENG-001-QL001": "Identify the part of the sentence that contains an error.",
@@ -32,7 +32,7 @@ export function buildEng001Cp005CandidateV1(input: { seed: string; difficulty: E
   const pool = cp005ScenePoolV1(input.difficulty, input.ruleId);
   const rawScene = input.sceneId ? pool.find((candidate) => candidate.id === input.sceneId) : deterministicPick(`${input.seed}:cp005:scene`, pool);
   if (!rawScene) throw new Error(`Unknown CP005 ${input.difficulty} scene ${input.sceneId}.`);
-  const selected = remediateCp005SceneForClosureV1(rawScene);
+  const selected = remediateCp005SceneForClosureV2(rawScene);
   const dimensions = dims(input.difficulty);
   const derived = classifyEnglishDifficulty(dimensions);
   if (derived !== input.difficulty) throw new Error(`${selected.id} difficulty mismatch: ${derived}`);
