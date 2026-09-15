@@ -52,6 +52,10 @@ jobs:
           name: ENG-001-FINAL-AUDIT-MASTER-REVIEW-V1
           path: dist/english-v1/ENG-001-FINAL-AUDIT-MASTER-REVIEW-V1.md
           if-no-files-found: error
+      - name: Compile ENG-001 exhaustive closure soak
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-001-closure-soak-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-001-closure-soak-v1.test.mjs
+      - name: Run ENG-001 exhaustive closure soak
+        run: node artifacts/api-server/dist/english-v1/eng-001-closure-soak-v1.test.mjs
       - name: Compile latest cumulative Question Studio regression
         run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng001-cp013-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/language-v1-eng001-cp013-adapter-v1-regression.test.mjs
       - name: Run latest cumulative Question Studio regression
