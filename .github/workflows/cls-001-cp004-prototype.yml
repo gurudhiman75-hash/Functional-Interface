@@ -46,6 +46,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004-english-runtime.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004-localized-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004-localized-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004-punjabi-terminology.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004-punjabi-terminology.test.mjs"
 
       - name: Run CLS-CP-004 audits
         id: cp004_audit
@@ -55,7 +56,7 @@ jobs:
           DIAG=$OUT/diagnostics
           mkdir -p "$DIAG"
           STATUS=0
-          for TEST in prototype.test cp004-english-runtime.test cp004-localized-runtime.test; do
+          for TEST in prototype.test cp004-english-runtime.test cp004-localized-runtime.test cp004-punjabi-terminology.test; do
             (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp004/$TEST.mjs") >"$DIAG/$TEST.log" 2>&1
             CODE=$?
             if [ "$CODE" -ne 0 ]; then STATUS=$CODE; break; fi
