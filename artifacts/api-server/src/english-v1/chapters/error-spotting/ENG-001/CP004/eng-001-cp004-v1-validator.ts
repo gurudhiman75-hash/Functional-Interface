@@ -1,6 +1,7 @@
 import type { Eng001Question, PronounRuleId, ValidationIssue, ValidationResult } from "../../../../core/types";
 import { PRONOUN_RULE_BY_ID } from "../../../../grammar/pronouns";
 import { CP004_PRONOUN_SCENES_V1 } from "./cp004-catalog-v1";
+import { remediateCp004SceneForClosureV1 } from "./cp004-closure-remediation-v1";
 
 const plainWordBan = /\b(?:aforementioned|thereof|wherein|hitherto|notwithstanding|pursuant|therewith|hereinafter)\b/i;
 const awkwardExplanationBan = /\b(?:trap|shortcut|eliminate options|test-taker|distractor logic)\b/i;
@@ -37,7 +38,8 @@ export function validateEng001Cp004QuestionV1(question: Eng001Question): Validat
     issues.push(issue("NO_ERROR_CONTRACT", `${metadata.qlId} must contain a keyed error.`));
   }
 
-  const scene = CP004_PRONOUN_SCENES_V1.find((entry) => entry.id === sceneIdFromCandidateId(metadata.candidateId));
+  const rawScene = CP004_PRONOUN_SCENES_V1.find((entry) => entry.id === sceneIdFromCandidateId(metadata.candidateId));
+  const scene = rawScene ? remediateCp004SceneForClosureV1(rawScene) : undefined;
   if (!scene) {
     issues.push(issue("ERROR_INDEX", `Unknown CP004 candidate ${metadata.candidateId}.`));
   } else {
