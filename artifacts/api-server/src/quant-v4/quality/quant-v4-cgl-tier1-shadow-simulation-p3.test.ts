@@ -46,8 +46,21 @@ assert.deepEqual(
     ALGEBRA: 3,
   },
 );
-assert.equal(probe.records.filter((record) => record.slotKind === "TRIGONOMETRY" && record.sourceKind === "CAPABILITY_GAP").length, 3);
-assert.equal(probe.records.filter((record) => record.slotKind === "ALGEBRA" && record.sourceKind === "CAPABILITY_GAP").length, 3);
+
+const probeAlgebra = probe.records.filter((record) => record.slotKind === "ALGEBRA");
+const probeTrig = probe.records.filter((record) => record.slotKind === "TRIGONOMETRY");
+assert.equal(probeAlgebra.length, 3);
+assert.equal(probeTrig.length, 3);
+assert.ok(probeAlgebra.every((record) => record.sourceKind === "RUNTIME_GENERATED"));
+assert.ok(probeAlgebra.every((record) => record.packageId === "ALG-001"));
+assert.ok(probeAlgebra.every((record) => record.bankOnly === true));
+assert.ok(probeAlgebra.every((record) => record.testEligible === false));
+assert.ok(probeAlgebra.every((record) => record.publiclyPublishable === false));
+assert.ok(probeTrig.every((record) => record.sourceKind === "RUNTIME_GENERATED"));
+assert.ok(probeTrig.every((record) => record.packageId === "TRG-001" || record.packageId === "TRG-002"));
+assert.ok(probeTrig.every((record) => record.testEligible === true));
+assert.ok(probeTrig.every((record) => record.publiclyPublishable === false));
+assert.equal(probe.records.filter((record) => record.sourceKind === "CAPABILITY_GAP").length, 0);
 assert.equal(probe.records.filter((record) => record.slotKind === "PROBABILITY").length, 0);
 
 const audit = await runQuantV4CglTier1ShadowSimulationAudit({
@@ -55,16 +68,28 @@ const audit = await runQuantV4CglTier1ShadowSimulationAudit({
   seedPrefix: "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-CI",
 });
 
+// Existing Advanced Mathematics adapters close the former section-assembly gaps,
+// but Algebra deliberately remains BANK_ONLY and therefore cannot be promoted
+// into a scored SSC CGL test section by this audit.
 assert.equal(audit.status, "SHADOW_SIMULATION_HOLD");
 assert.equal(audit.sectionsGenerated, 20);
 assert.equal(audit.questionsExpected, 500);
 assert.equal(audit.recordsGenerated, 500);
-assert.equal(audit.structuralCapabilityGapsPerSection, 6);
-assert.equal(audit.currentStructuralCapabilityGapsPerSection, 5);
-assert.equal(audit.structuralCapabilityGapCount, 120);
-assert.ok(audit.capabilityGapCount >= 120);
-assert.ok(audit.runtimeGeneratedCount <= 380);
-assert.equal(audit.runtimeGeneratedCount + audit.capabilityGapCount, 500);
+assert.equal(audit.runtimeGeneratedCount, 500);
+assert.equal(audit.capabilityGapCount, 0);
+assert.equal(audit.advancedMathCapabilityGapCount, 0);
+assert.equal(audit.structuralCapabilityGapCount, 0);
+assert.equal(audit.structuralCapabilityGapsPerSection, 0);
+assert.equal(audit.currentStructuralCapabilityGapsPerSection, 0);
+assert.equal(audit.baseSimulatorHistoricalAdvancedMathGapsPerSection, 5);
+assert.equal(audit.currentBaselineCapabilityGapCount, 0);
+assert.equal(audit.currentBaselineAlgebraBankOnlyCount, 40);
+assert.equal(audit.algebraRecordCount, 60);
+assert.equal(audit.algebraBankOnlyCount, 60);
+assert.equal(audit.trigonometryRecordCount, 60);
+assert.equal(audit.trigonometryTestEligibleCount, 60);
+assert.equal(audit.optionMismatchCount, 0);
+assert.equal(audit.emptyExplanationCount, 0);
 assert.deepEqual(audit.slotDistribution, {
   ALGEBRA: 60,
   ARITHMETIC_CORE: 220,
@@ -72,8 +97,16 @@ assert.deepEqual(audit.slotDistribution, {
   GEOMETRY_MENSURATION: 100,
   TRIGONOMETRY: 60,
 });
-assert.ok(audit.blockers.includes("SHADOW_CAPABILITY_GAPS_PRESENT"));
-assert.ok(audit.blockers.includes("SHADOW_STRUCTURAL_GAPS_EXCEED_CURRENT_BLUEPRINT"));
+assert.equal(audit.packageDistribution["ALG-001"], 60);
+assert.equal((audit.packageDistribution["TRG-001"] ?? 0) + (audit.packageDistribution["TRG-002"] ?? 0), 60);
+
+assert.ok(audit.blockers.includes("ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK"));
+assert.equal(audit.blockers.includes("SHADOW_CAPABILITY_GAPS_PRESENT"), false);
+assert.equal(audit.blockers.includes("SHADOW_ADVANCED_MATH_CAPABILITY_GAPS_PRESENT"), false);
+assert.equal(audit.blockers.includes("CURRENT_INTEGRATED_BASELINE_CAPABILITY_GAPS_PRESENT"), false);
+assert.equal(audit.blockers.includes("ADVANCED_MATH_LIFECYCLE_CONTRACT_BREACH"), false);
+assert.equal(audit.blockers.includes("SHADOW_OPTION_COUNT_PROFILE_DRIFT"), false);
+assert.equal(audit.blockers.includes("SHADOW_EMPTY_EXPLANATIONS_PRESENT"), false);
 assert.equal(audit.productionPromotionAuthorized, false);
 assert.equal(audit.runtimeBlueprintMutationAuthorized, false);
 
@@ -93,9 +126,15 @@ console.log(JSON.stringify({
   sectionsGenerated: audit.sectionsGenerated,
   runtimeGeneratedCount: audit.runtimeGeneratedCount,
   capabilityGapCount: audit.capabilityGapCount,
+  advancedMathCapabilityGapCount: audit.advancedMathCapabilityGapCount,
   currentBaselineCapabilityGapCount: audit.currentBaselineCapabilityGapCount,
+  currentBaselineAlgebraBankOnlyCount: audit.currentBaselineAlgebraBankOnlyCount,
   structuralCapabilityGapsPerSection: audit.structuralCapabilityGapsPerSection,
-  currentStructuralCapabilityGapsPerSection: audit.currentStructuralCapabilityGapsPerSection,
+  baseSimulatorHistoricalAdvancedMathGapsPerSection: audit.baseSimulatorHistoricalAdvancedMathGapsPerSection,
+  algebraRecordCount: audit.algebraRecordCount,
+  algebraBankOnlyCount: audit.algebraBankOnlyCount,
+  trigonometryRecordCount: audit.trigonometryRecordCount,
+  trigonometryTestEligibleCount: audit.trigonometryTestEligibleCount,
   optionMismatchCount: audit.optionMismatchCount,
   emptyExplanationCount: audit.emptyExplanationCount,
   exactStemDuplicateRate: audit.exactStemDuplicateRate,
