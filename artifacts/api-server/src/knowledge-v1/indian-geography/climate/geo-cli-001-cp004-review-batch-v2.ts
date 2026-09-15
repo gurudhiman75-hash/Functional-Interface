@@ -6,7 +6,7 @@ import {
 
 const STEM_PATCHES: Readonly<Record<string, string>> = Object.freeze({
   "GEO-CLI-001-CP004-Q041": "Which blossom-shower relation is correctly matched for southern India?",
-  "GEO-CLI-001-CP004-Q053": "Which statement set correctly describes India's hot weather season?\nI. Pressure falls over much of northern India.\nII. Loo winds affect the northern plains.\nIII. Mango showers occur along parts of the southwest coast.\nWhich statements are correct?",
+  "GEO-CLI-001-CP004-Q053": "Consider these hot-weather statements:\nI. Pressure falls over much of northern India.\nII. Loo winds affect the northern plains.\nIII. Mango showers occur on parts of the southwest coast.\nWhich statements are correct?",
 });
 
 export const GEO_CLI_001_CP004_REVIEW_BATCH_V2: readonly GeoCli001Cp004Question[] = Object.freeze(
