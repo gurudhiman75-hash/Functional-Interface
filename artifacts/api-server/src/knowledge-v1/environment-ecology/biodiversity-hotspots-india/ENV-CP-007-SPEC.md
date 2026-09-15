@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-007 Biodiversity Hotspots & India  
-**Lifecycle:** REVIEW CANDIDATE  
-**Current review version:** V2  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Approved review version:** V2  
+**Human approval:** 2026-09-15  
+**Runtime registration:** eligible for shared Environment package binding; review generator remains non-runtime by design  
 **Languages in this checkpoint:** English review surface only; canonical facts are locale-neutral.
 
 ## Scope
@@ -19,19 +20,20 @@ Included:
 - close region-to-hotspot distinctions
 
 Explicitly deferred:
-- IUCN Red List categories and species status (ENV-CP-008)
+- IUCN Red List categories and species conservation (ENV-CP-008)
 - protected-area categories (ENV-CP-009)
 - detailed protected-area locations (ENV-CP-010)
 - mutable global hotspot counts as direct learner questions
 
-## V2 learner-facing baseline
+## Approved learner-facing baseline
 
-1. Stems use competitive-exam formats: direct fact, correct/incorrect pair, statement evaluation and applied criteria.
-2. Teaching-style prompts such as “what can be concluded” and meta wording such as “which hotspot should be selected in an exam” are not used.
-3. Explanations are short and state only the fact or distinction needed to understand the answer.
-4. Easy questions test the two hotspot criteria directly.
-5. Medium questions test India–hotspot mapping in both directions.
-6. Hard questions combine both hotspot criteria or multiple India–hotspot statements.
+1. V2 is the approved learner-facing wording baseline.
+2. Stems use competitive-exam formats: direct fact, correct/incorrect pair, statement evaluation and applied criteria.
+3. Teaching-style and meta wording are excluded.
+4. Explanations are short and state only the fact or distinction needed to understand the answer.
+5. Easy questions test the two hotspot criteria directly.
+6. Medium questions test India–hotspot mapping in both directions.
+7. Hard questions combine both hotspot criteria or multiple India–hotspot statements.
 
 ## Content rules
 
@@ -44,7 +46,7 @@ Explicitly deferred:
 7. Nicobar Islands are the Indian representation of the Sundaland hotspot.
 8. Standard instruction stems may repeat when the tested relation differs.
 9. No question relies on the mutable worldwide hotspot count.
-10. All review questions remain `runtimeRegistered: false` until approval.
+10. Review generators remain `runtimeRegistered: false`; shared production binding is handled separately.
 
 ## QL inventory
 
@@ -63,23 +65,22 @@ Explicitly deferred:
 | ENV-007-QL-011 | Statement evaluation | Hard |
 | ENV-007-QL-012 | Applied hotspot criteria | Hard |
 
-## Review gate
+## Approved review gate
 
-Before approval:
-- exactly 48 review questions;
+- 48 review questions across 12 QLs;
 - four questions per QL;
 - Easy, Medium and Hard represented;
 - all four correct-option positions represented in every QL;
 - four unique options per question;
-- canonical answer must equal the option at `correctIndex`;
-- source IDs and source-fact IDs required;
+- canonical answer equals the option at `correctIndex`;
+- source IDs and source-fact IDs retained;
 - no duplicate semantic question signatures;
 - no mutable worldwide hotspot-count question;
 - no teaching/meta stem wording;
-- explanations kept to one short fact or distinction;
+- explanations use one short fact or distinction;
 - no `associated with` filler;
 - no option-by-option explanation clutter;
-- human review confirms exam realism, geographic accuracy and wording quality.
+- project-owner approval recorded on 2026-09-15.
 
 ## Source policy
 
