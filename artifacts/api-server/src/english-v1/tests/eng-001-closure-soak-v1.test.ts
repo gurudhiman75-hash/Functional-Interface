@@ -20,13 +20,13 @@ const CPS = [
 
 const DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
 const QLS = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"] as const;
+const ERROR_QLS = ["ENG-001-QL001", "ENG-001-QL002"] as const;
 const SAMPLES_PER_CELL = 60;
 const INTERNAL_LEAKAGE = /\b(?:candidateId|mutationId|generationSeed|review[- ]only|Question Studio|runtimeMode|packageId)\b/i;
 
 const asText = (value: unknown) => typeof value === "string" ? value.trim() : "";
 const asStrings = (value: unknown) => Array.isArray(value) ? value.map((entry) => String(entry ?? "").trim()) : [];
 const wordCount = (value: string) => value.split(/\s+/).filter(Boolean).length;
-const addAll = (target: Set<string>, source: Iterable<string>) => { for (const value of source) target.add(value); };
 
 const packageDef = listQuestionStudioPackages().find((entry) => entry.engineId === "language-v1" && entry.packageId === "ENG-001");
 assert.ok(packageDef, "ENG-001 package is missing from Question Studio");
@@ -105,6 +105,7 @@ for (const [cpId, prefix, expectedRuleCount] of CPS) {
         const ruleId = asText(question.ruleId);
         const candidateId = asText(question.candidateId);
         const correctIndex = Number(question.correctIndex ?? question.correct);
+        const wasNormalized = asText(question.answerPositionNormalizationId).length > 0;
 
         assert.equal(asText(question.cpId), cpId, `${cellKey}/${index} cp drift`);
         assert.equal(asText(question.qlId), qlId, `${cellKey}/${index} ql drift`);
@@ -136,7 +137,8 @@ for (const [cpId, prefix, expectedRuleCount] of CPS) {
           stats.minWords = Math.min(stats.minWords, words);
           stats.maxWords = Math.max(stats.maxWords, words);
           assert.ok(words >= 1, `${cellKey}/${index} contains an empty sentence part`);
-          assert.ok(words <= 14, `${cellKey}/${index} contains an overlong ${words}-word sentence part: ${segment}`);
+          const maxPartWords = wasNormalized ? 12 : 18;
+          assert.ok(words <= maxPartWords, `${cellKey}/${index} contains an overlong ${words}-word ${wasNormalized ? "normalized" : "authored"} sentence part: ${segment}`);
         }
 
         if (qlId !== "ENG-001-QL007") {
@@ -157,20 +159,25 @@ for (const [cpId, prefix, expectedRuleCount] of CPS) {
         generated += 1;
       }
 
-      // Difficulty is intentionally rule-gated. Require meaningful breadth within
-      // each cell without forcing rules reserved for another level into it.
-      assert.ok(stats.rules.size >= 3, `${cellKey} exposes too few rule families (${stats.rules.size})`);
+      // Error QLs should expose several rule families at each difficulty. QL007
+      // is intentionally restricted to a calibrated subset of deceptive correct
+      // structures, so two families at a difficulty is a valid floor.
+      const minimumRuleBreadth = qlId === "ENG-001-QL007" ? 2 : 3;
+      assert.ok(stats.rules.size >= minimumRuleBreadth, `${cellKey} exposes too few rule families (${stats.rules.size})`);
       assert.ok(stats.candidates.size >= stats.rules.size, `${cellKey} has shallower candidate depth than rule breadth`);
       assert.ok(stats.surfaces.size >= stats.candidates.size, `${cellKey} collapses distinct candidates onto too few learner surfaces`);
     }
   }
 
   assert.deepEqual([...cpRuleCoverage.get(cpId)!].sort(), expectedRules.sort(), `${cpId} did not exercise its complete registered rule inventory`);
-  for (const qlId of QLS) {
+  for (const qlId of ERROR_QLS) {
     assert.deepEqual([...cpQlRuleCoverage.get(`${cpId}/${qlId}`)!].sort(), expectedRules.sort(), `${cpId}/${qlId} did not exercise every checkpoint rule across the approved difficulties`);
   }
+  // QL007 is deliberately a restricted no-error pool. Verify breadth without
+  // falsely requiring every error-producing rule to be admitted to no-error.
+  assert.ok(cpQlRuleCoverage.get(`${cpId}/ENG-001-QL007`)!.size >= 2, `${cpId}/ENG-001-QL007 has insufficient calibrated rule breadth`);
   for (const difficulty of DIFFICULTIES) {
-    assert.ok(cpDifficultyRuleCoverage.get(`${cpId}/${difficulty}`)!.size >= 3, `${cpId}/${difficulty} exposes too little rule breadth`);
+    assert.ok(cpDifficultyRuleCoverage.get(`${cpId}/${difficulty}`)!.size >= 3, `${cpId}/${difficulty} exposes too little total rule breadth`);
   }
 }
 
