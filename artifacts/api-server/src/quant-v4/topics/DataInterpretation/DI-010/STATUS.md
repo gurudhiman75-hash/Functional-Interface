@@ -1,8 +1,8 @@
-# DI-010 Frequency Polygon — P0 Status
+# DI-010 Frequency Polygon — P1 Status
 
-`REVIEW_ONLY_P0` — implemented for human review; not promoted.
+`REVIEW_ONLY_P1_QUESTION_REWORK` — diagram direction retained; question engine rebuilt after human review rejected P0 question quality.
 
-## Implemented
+## What stays
 
 - semantic-only frequency-polygon stimulus; no SVG stored in question data
 - shared presentation renderer: `DataInterpretation/visuals/frequency-polygon-svg.ts`
@@ -11,28 +11,45 @@
 - endpoint x-coordinate labels intentionally omitted from the student stimulus
 - 5–8 equal-width continuous classes
 - six controlled distribution shapes
-- 10 task families
-- deterministic 5-question sets with 1 Easy + 2 Medium + 2 Hard
+
+## P1 question architecture
+
+P0 overused mechanical prompts such as direct coordinate recovery, direct class-mark calculation and generic frequency arithmetic. P1 replaces that question layer while leaving the diagram system unchanged.
+
+P1 has 13 task families:
+
+### Easy
+1. `CONSTRUCTION_PROPERTY`
+2. `READ_CLASS_FREQUENCY_CONTEXT`
+3. `MODAL_CLASS_FROM_POLYGON`
+4. `CLASS_INTERVAL_FROM_MARK`
+
+### Medium
+5. `TOTAL_FREQUENCY_FROM_POLYGON`
+6. `CONSECUTIVE_RANGE_TOTAL_CONTEXT`
+7. `FREQUENCY_DIFFERENCE_CONTEXT`
+8. `CLASS_SHARE_OF_TOTAL`
+9. `HISTOGRAM_BAR_HEIGHT_FROM_POLYGON`
+
+### Hard
+10. `ZERO_CLOSING_ENDPOINTS`
+11. `RANGE_RATIO_FROM_POLYGON`
+12. `GROUPED_MEAN_FROM_POLYGON`
+13. `MEDIAN_CLASS_FROM_POLYGON`
+
+Each set still emits exactly 5 distinct families with 1 Easy + 2 Medium + 2 Hard, but the hard layer now requires genuine construction or grouped-data reasoning rather than relabelling simple arithmetic as Hard.
+
+## Quality rules
+
+- context-first exam wording where the context supports it
+- representation-conversion questions between frequency polygon and histogram
+- direct coordinate/class-mark drills removed from the production mix
 - misconception-owned distractors
-- beginner-readable question-specific explanations
+- beginner-readable explanations
+- grouped mean and median-class explanations include working tables
 - independent answer verifier
 - deterministic/diversity/shared-renderer proof
 - standalone Markdown and HTML review exports
-
-## P0 task families
-
-1. `GRAPH_TYPE_IDENTIFICATION` — Easy
-2. `CLASS_MARK_FROM_INTERVAL` — Easy
-3. `POINT_COORDINATE_FOR_CLASS` — Medium
-4. `READ_FREQUENCY_AT_CLASS_MARK` — Easy
-5. `ZERO_CLOSING_ENDPOINTS` — Hard
-6. `TOTAL_FREQUENCY_FROM_POLYGON` — Medium
-7. `MODAL_CLASS_FROM_POLYGON` — Easy
-8. `FREQUENCY_DIFFERENCE_BETWEEN_CLASSES` — Medium
-9. `COMBINED_RANGE_TOTAL_FROM_POLYGON` — Medium
-10. `RANGE_RATIO_FROM_POLYGON` — Hard
-
-`COMBINED_RANGE_TOTAL_FROM_POLYGON` was deliberately calibrated down to Medium during human output review. `RANGE_RATIO_FROM_POLYGON` was added as the second genuinely multi-step Hard family, so difficulty is not inflated merely to satisfy the 1/2/2 set mix.
 
 ## Lifecycle locks
 
@@ -46,4 +63,4 @@
 - `automaticStudentPublication: false`
 - `productionReleaseAuthorized: false`
 
-No permanent QLs are allocated at P0. Promotion requires explicit human approval of both generated questions and the shared frequency-polygon visual.
+No permanent QLs are allocated. Promotion requires explicit human approval of the P1 generated questions. The diagram direction is retained from the accepted review.
