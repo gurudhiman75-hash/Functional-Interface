@@ -27,27 +27,27 @@ const replacements: Readonly<Record<string, ConditionalSceneV1>> = {
   }),
   "CND-M15": conditionalScene({
     id: "CND-M15", difficulty: "medium", ruleId: "GR-CND-008", domain: "entry-pass", errorIndex: 2,
-    correctSegments: ["Security instructions permit entry only to visitors carrying a valid pass,", "so visitors will not be admitted to the research wing", "unless they carry", "a valid entry pass."],
-    errorSegments: ["Security instructions permit entry only to visitors carrying a valid pass,", "so visitors will not be admitted to the research wing", "unless they do not carry", "a valid entry pass."],
+    correctSegments: ["Security rules admit only visitors with a valid pass,", "so entry to the research wing will be refused", "unless they carry", "a valid entry pass."],
+    errorSegments: ["Security rules admit only visitors with a valid pass,", "so entry to the research wing will be refused", "unless they do not carry", "a valid entry pass."],
     reason: "The access requirement is explicitly stated in the opening clause. Because 'unless' means 'if not', a second negative would reverse the rule; use 'unless they carry'.",
   }),
   "CND-M16": conditionalScene({
     id: "CND-M16", difficulty: "medium", ruleId: "GR-CND-008", domain: "backup-policy", errorIndex: 3,
-    correctSegments: ["The recovery policy protects current files only when a recent backup is kept,", "so the files may be lost", "during a system failure", "unless a current backup is kept."],
-    errorSegments: ["The recovery policy protects current files only when a recent backup is kept,", "so the files may be lost", "during a system failure", "unless a current backup is not kept."],
+    correctSegments: ["The recovery policy protects files only when a current backup is kept,", "so files may be lost", "during a system failure", "unless a current backup is kept."],
+    errorSegments: ["The recovery policy protects files only when a current backup is kept,", "so files may be lost", "during a system failure", "unless a current backup is not kept."],
     reason: "The policy explicitly requires a backup. 'Unless' already expresses the negative condition, so the following clause must be positive: 'unless a current backup is kept'.",
   }),
   "CND-H15": conditionalScene({
     id: "CND-H15", difficulty: "hard", ruleId: "GR-CND-008", domain: "data-disclosure", errorIndex: 2,
-    correctSegments: ["The disclosure protocol states that outside access requires approved ethics clearance,", "so the agency cannot release the dataset to an external researcher", "unless the applicant obtains", "the required clearance before access is granted."],
-    errorSegments: ["The disclosure protocol states that outside access requires approved ethics clearance,", "so the agency cannot release the dataset to an external researcher", "unless the applicant does not obtain", "the required clearance before access is granted."],
-    reason: "The first clause fixes the intended condition: clearance is required. Since 'unless' already means 'if not', adding 'does not' would reverse that requirement; use 'unless the applicant obtains'.",
+    correctSegments: ["Outside access requires approved ethics clearance,", "so the agency cannot release data to an external researcher", "unless the applicant obtains", "the required clearance before access is granted."],
+    errorSegments: ["Outside access requires approved ethics clearance,", "so the agency cannot release data to an external researcher", "unless the applicant does not obtain", "the required clearance before access is granted."],
+    reason: "The opening clause fixes the intended condition: clearance is required. Since 'unless' already means 'if not', adding 'does not' would reverse that requirement; use 'unless the applicant obtains'.",
   }),
   "CND-H16": conditionalScene({
     id: "CND-H16", difficulty: "hard", ruleId: "GR-CND-008", domain: "contract-renewal", errorIndex: 3,
-    correctSegments: ["The renewal clause states that the agreement continues only after both parties confirm renewal in writing,", "so it will lapse automatically", "at the end of the current term", "unless both parties renew it in writing."],
-    errorSegments: ["The renewal clause states that the agreement continues only after both parties confirm renewal in writing,", "so it will lapse automatically", "at the end of the current term", "unless both parties do not renew it in writing."],
-    reason: "The contract itself establishes renewal as the condition for continuation. 'Unless' supplies the negative meaning, so the clause must be 'unless both parties renew it in writing'.",
+    correctSegments: ["The agreement continues only after both parties confirm renewal in writing,", "so it otherwise lapses automatically", "at the end of the current term", "unless both parties renew it in writing."],
+    errorSegments: ["The agreement continues only after both parties confirm renewal in writing,", "so it otherwise lapses automatically", "at the end of the current term", "unless both parties do not renew it in writing."],
+    reason: "The agreement itself establishes renewal as the condition for continuation. 'Unless' supplies the negative meaning, so the clause must be 'unless both parties renew it in writing'.",
   }),
 };
 
