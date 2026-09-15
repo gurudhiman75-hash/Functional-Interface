@@ -2,6 +2,18 @@ import type { EnglishDifficulty } from "../../../../core/types";
 import { CP007_SCENES_V1, type ConjunctionSceneV1 } from "./cp007-catalog-v1";
 
 const replacements: Readonly<Record<string, ConjunctionSceneV1>> = {
+  "CON-E01": {
+    id: "CON-E01", difficulty: "easy", ruleId: "GR-CON-001", domain: "office",
+    correctSegments: ["The report was", "not brief but detailed,", "covering all the main findings", "in clear language."],
+    errorSegments: ["The report was", "not brief so detailed,", "covering all the main findings", "in clear language."],
+    errorIndex: 1, correction: "not brief but detailed,", reason: "The contrast is built with the fixed structure 'not ... but', so 'but' must introduce the second description.",
+  },
+  "CON-E02": {
+    id: "CON-E02", difficulty: "easy", ruleId: "GR-CON-001", domain: "weather",
+    correctSegments: ["The road was blocked,", "and so the match", "was postponed", "until Sunday."],
+    errorSegments: ["The road was blocked,", "and but the match", "was postponed", "until Sunday."],
+    errorIndex: 1, correction: "and so the match", reason: "The second clause states the result of the blockage; after 'and', 'so' can introduce that result, whereas 'and but' is not a valid coordinator sequence here.",
+  },
   "CON-E03": {
     id: "CON-E03", difficulty: "easy", ruleId: "GR-CON-002", domain: "school",
     correctSegments: ["During the school drive,", "teachers and students", "supported the campaign", "both in class and online."],
@@ -32,6 +44,18 @@ const replacements: Readonly<Record<string, ConjunctionSceneV1>> = {
     errorSegments: ["Her daily routine", "is simple", "and easy to follow:", "walking in the morning, to stretch after lunch, and cycling in the evening."],
     errorIndex: 3, correction: "walking in the morning, stretching after lunch, and cycling in the evening.", reason: "Items in a coordinated list should use the same grammatical form; all three are gerunds here.",
   },
+  "CON-M01": {
+    id: "CON-M01", difficulty: "medium", ruleId: "GR-CON-001", domain: "research",
+    correctSegments: ["The sample was", "not large but carefully selected,", "so the researchers", "could still compare the two groups fairly."],
+    errorSegments: ["The sample was", "not large so carefully selected,", "so the researchers", "could still compare the two groups fairly."],
+    errorIndex: 1, correction: "not large but carefully selected,", reason: "The sentence contrasts two descriptions after 'not', so the required structure is 'not ... but'.",
+  },
+  "CON-M02": {
+    id: "CON-M02", difficulty: "medium", ruleId: "GR-CON-001", domain: "finance",
+    correctSegments: ["The company reduced operating costs,", "and so its margin", "improved during", "the next quarter."],
+    errorSegments: ["The company reduced operating costs,", "and but its margin", "improved during", "the next quarter."],
+    errorIndex: 1, correction: "and so its margin", reason: "The margin improvement is presented as the result of lower costs; 'and so' expresses that result, while 'and but' is not a valid coordinator sequence here.",
+  },
   "CON-M03": {
     id: "CON-M03", difficulty: "medium", ruleId: "GR-CON-002", domain: "public-service",
     correctSegments: ["Under the revised scheme,", "the assistance", "is available", "both to rural workers and to small farmers."],
@@ -61,6 +85,18 @@ const replacements: Readonly<Record<string, ConjunctionSceneV1>> = {
     correctSegments: ["In this role,", "the supervisor", "handles three regular duties:", "planning weekly schedules, reviewing team performance, and resolving customer complaints."],
     errorSegments: ["In this role,", "the supervisor", "handles three regular duties:", "planning weekly schedules, to review team performance, and resolving customer complaints."],
     errorIndex: 3, correction: "planning weekly schedules, reviewing team performance, and resolving customer complaints.", reason: "All three duties should be expressed as parallel gerund phrases.",
+  },
+  "CON-H01": {
+    id: "CON-H01", difficulty: "hard", ruleId: "GR-CON-001", domain: "policy",
+    correctSegments: ["Although compliance costs rose during the transition,", "several firms said the problem arose", "not because the filing rules were stricter but because staff needed time", "to learn the new portal."],
+    errorSegments: ["Although compliance costs rose during the transition,", "several firms said the problem arose", "not because the filing rules were stricter so because staff needed time", "to learn the new portal."],
+    errorIndex: 2, correction: "not because the filing rules were stricter but because staff needed time", reason: "The sentence contrasts two possible causes with the structure 'not because ... but because'; 'so because' cannot complete that contrast.",
+  },
+  "CON-H02": {
+    id: "CON-H02", difficulty: "hard", ruleId: "GR-CON-001", domain: "research",
+    correctSegments: ["After the revised method reduced measurement error,", "the three laboratories obtained more consistent estimates,", "and so they adopted the procedure", "for the next phase of the study."],
+    errorSegments: ["After the revised method reduced measurement error,", "the three laboratories obtained more consistent estimates,", "and but they adopted the procedure", "for the next phase of the study."],
+    errorIndex: 2, correction: "and so they adopted the procedure", reason: "The final action follows as a result of the improved estimates; 'and so' is grammatical, while 'and but' is not a valid coordinator sequence here.",
   },
   "CON-H03": {
     id: "CON-H03", difficulty: "hard", ruleId: "GR-CON-002", domain: "governance",

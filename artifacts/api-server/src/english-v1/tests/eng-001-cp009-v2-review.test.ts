@@ -4,7 +4,7 @@ import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { renderEng001Cp009ReviewV2, writeEng001Cp009ReviewV2 } from "../chapters/error-spotting/ENG-001/CP009/eng-001-cp009-review-v2-export";
 
-const APPROVED_SHA256 = "6a59e8cdbc1b1b061205a55690e68fc76724ffd7b24f2cecfdce8de5368e465f";
+const APPROVED_SHA256 = "437951a6128dc4366fdacc6ec4830d4179fd6918063fb0111b3cddee76cf935a";
 const rendered = renderEng001Cp009ReviewV2();
 assert.equal((rendered.match(/^### GIP-/gm) ?? []).length, 60);
 assert.equal((rendered.match(/^\*\*Answer:\*\*/gm) ?? []).length, 60);

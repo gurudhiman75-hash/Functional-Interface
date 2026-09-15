@@ -1,20 +1,25 @@
 import type { EnglishDifficulty } from "../../../../core/types";
 import type { ConditionalRuleId } from "../../../../grammar/conditionals";
+import { remediateCp011SceneForClosureV1 } from "./cp011-closure-remediation-v1";
 import { CP011_EASY_SCENES_V1 } from "./cp011-scenes-easy";
 import { CP011_HARD_SCENES_V1 } from "./cp011-scenes-hard";
 import { CP011_MEDIUM_SCENES_V1 } from "./cp011-scenes-medium";
 import type { ConditionalSceneV1 } from "./cp011-scene-types";
 
+const easy = CP011_EASY_SCENES_V1.map(remediateCp011SceneForClosureV1);
+const medium = CP011_MEDIUM_SCENES_V1.map(remediateCp011SceneForClosureV1);
+const hard = CP011_HARD_SCENES_V1.map(remediateCp011SceneForClosureV1);
+
 export const CP011_SCENES_BY_DIFFICULTY_V1: Readonly<Record<EnglishDifficulty, readonly ConditionalSceneV1[]>> = {
-  easy: CP011_EASY_SCENES_V1,
-  medium: CP011_MEDIUM_SCENES_V1,
-  hard: CP011_HARD_SCENES_V1,
+  easy,
+  medium,
+  hard,
 };
 
 export const CP011_SCENES_V1: readonly ConditionalSceneV1[] = [
-  ...CP011_EASY_SCENES_V1,
-  ...CP011_MEDIUM_SCENES_V1,
-  ...CP011_HARD_SCENES_V1,
+  ...easy,
+  ...medium,
+  ...hard,
 ];
 
 export const CP011_RULE_IDS_V1: readonly ConditionalRuleId[] = [

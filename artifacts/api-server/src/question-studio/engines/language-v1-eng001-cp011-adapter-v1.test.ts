@@ -37,8 +37,8 @@ assert.deepEqual(result, replay);
 assert.equal(result.questions.length, 12);
 assert.equal(new Set(result.questions.map((question) => question.candidateId)).size, 12);
 assert.equal(result.generationContext?.cpId, "ENG-001-CP011");
-assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:66c921b07f08e29d26d21a50ff7f592b7968998c1638e0056e47309695e77ea5");
-assert.equal(result.generationContext?.approvedGeneratorHeadSha, "4f2c4915077da5a1bb2f24bfd3d4b0f12329d2b8");
+assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:0dbaaaa1228f1cdd96f58031c70c6ca3115e7839722f80da83fe2a7bc22f399f");
+assert.equal(result.generationContext?.approvedGeneratorHeadSha, "5c2bffdf957a2bdc727dc02c23cd94416ab8a624");
 for (const question of result.questions) {
   assert.equal(question.cpId, "ENG-001-CP011");
   assert.equal(question.subtopic, "Conditionals");

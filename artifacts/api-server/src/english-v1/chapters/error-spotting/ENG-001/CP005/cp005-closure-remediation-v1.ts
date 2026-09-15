@@ -1,0 +1,148 @@
+import type { PrepositionSceneV1 } from "./cp005-catalog-v1";
+
+const replacements: Readonly<Record<string, PrepositionSceneV1>> = {
+  "PRP-H01": {
+    id: "PRP-H01", domain: "audit", ruleId: "GR-PRP-001", difficulty: "hard",
+    correctSegments: ["At a review meeting held in September,", "the finance division confirmed that the final accounts would go before the board on 30 September", "after the internal review", "was completed."],
+    errorSegments: ["At a review meeting held in September,", "the finance division confirmed that the final accounts would go before the board in 30 September", "after the internal review", "was completed."],
+    errorIndex: 1, correction: "the finance division confirmed that the final accounts would go before the board on 30 September",
+    reason: "'In September' correctly names a month, but a specific calendar date takes 'on': 'on 30 September'.",
+  },
+  "PRP-H02": {
+    id: "PRP-H02", domain: "astronomy", ruleId: "GR-PRP-001", difficulty: "hard",
+    correctSegments: ["On Tuesday,", "the observation window will open at 3:30 a.m.", "if the sky remains clear", "according to the revised schedule."],
+    errorSegments: ["On Tuesday,", "the observation window will open on 3:30 a.m.", "if the sky remains clear", "according to the revised schedule."],
+    errorIndex: 1, correction: "the observation window will open at 3:30 a.m.",
+    reason: "'On' is correct with the day 'Tuesday', but an exact clock time takes 'at'.",
+  },
+  "PRP-H03": {
+    id: "PRP-H03", domain: "infrastructure", ruleId: "GR-PRP-002", difficulty: "hard",
+    correctSegments: ["Although the spare barriers are stored in the depot,", "a warning sign has been fixed on the outer gate", "so that approaching drivers", "can see it from a distance."],
+    errorSegments: ["Although the spare barriers are stored in the depot,", "a warning sign has been fixed in the outer gate", "so that approaching drivers", "can see it from a distance."],
+    errorIndex: 1, correction: "a warning sign has been fixed on the outer gate",
+    reason: "'In' correctly marks storage inside the depot, but a sign attached to the surface of the gate is 'on' the gate.",
+  },
+  "PRP-H04": {
+    id: "PRP-H04", domain: "records", ruleId: "GR-PRP-002", difficulty: "hard",
+    correctSegments: ["A notice is pasted on the cabinet door,", "but the original certificates are kept in the locked cabinet", "whose key remains with the registrar", "during office hours."],
+    errorSegments: ["A notice is pasted on the cabinet door,", "but the original certificates are kept on the locked cabinet", "whose key remains with the registrar", "during office hours."],
+    errorIndex: 1, correction: "but the original certificates are kept in the locked cabinet",
+    reason: "The notice is correctly 'on' a surface, whereas documents stored inside an enclosed cabinet are kept 'in' it.",
+  },
+  "PRP-H05": {
+    id: "PRP-H05", domain: "education", ruleId: "GR-PRP-003", difficulty: "hard",
+    correctSegments: ["After a trial that ran for two weeks,", "the scholarship portal has remained active since the first week of August", "so that eligible students can upload", "their pending documents."],
+    errorSegments: ["After a trial that ran for two weeks,", "the scholarship portal has remained active for the first week of August", "so that eligible students can upload", "their pending documents."],
+    errorIndex: 1, correction: "the scholarship portal has remained active since the first week of August",
+    reason: "'For two weeks' correctly expresses duration; 'the first week of August' marks the starting point here, so it requires 'since'.",
+  },
+  "PRP-H06": {
+    id: "PRP-H06", domain: "utilities", ruleId: "GR-PRP-003", difficulty: "hard",
+    correctSegments: ["Since the repair began shortly after dawn,", "the crew has been working for more than six hours", "because the damaged line supplies power", "to several public buildings."],
+    errorSegments: ["Since the repair began shortly after dawn,", "the crew has been working since more than six hours", "because the damaged line supplies power", "to several public buildings."],
+    errorIndex: 1, correction: "the crew has been working for more than six hours",
+    reason: "'Since' correctly introduces the starting event; a length of time such as 'more than six hours' takes 'for'.",
+  },
+  "PRP-H07": {
+    id: "PRP-H07", domain: "procurement", ruleId: "GR-PRP-004", difficulty: "hard",
+    correctSegments: ["Although the receiving office will remain open until 5 p.m.,", "the selected supplier must deliver all listed equipment by 5 p.m.", "if installation is to begin", "the following morning."],
+    errorSegments: ["Although the receiving office will remain open until 5 p.m.,", "the selected supplier must deliver all listed equipment until 5 p.m.", "if installation is to begin", "the following morning."],
+    errorIndex: 1, correction: "the selected supplier must deliver all listed equipment by 5 p.m.",
+    reason: "'Until' correctly describes how long the office remains open; a completion deadline for delivery requires 'by'.",
+  },
+  "PRP-H08": {
+    id: "PRP-H08", domain: "healthcare", ruleId: "GR-PRP-004", difficulty: "hard",
+    correctSegments: ["The replacement team is expected by midnight,", "but the emergency counter will remain staffed until the team arrives", "so that patients are not left", "without assistance."],
+    errorSegments: ["The replacement team is expected by midnight,", "but the emergency counter will remain staffed by the team arrives", "so that patients are not left", "without assistance."],
+    errorIndex: 1, correction: "but the emergency counter will remain staffed until the team arrives",
+    reason: "'By midnight' correctly marks a deadline, while a continuing state up to an event is expressed with 'until the team arrives'.",
+  },
+  "PRP-H09": {
+    id: "PRP-H09", domain: "law", ruleId: "GR-PRP-005", difficulty: "hard",
+    correctSegments: ["After consultation among several departments,", "the dispute was finally settled between the company and the insurer", "when both named parties accepted", "the revised terms."],
+    errorSegments: ["After consultation among several departments,", "the dispute was finally settled among the company and the insurer", "when both named parties accepted", "the revised terms."],
+    errorIndex: 1, correction: "the dispute was finally settled between the company and the insurer",
+    reason: "'Among' correctly refers to the larger group of departments, but two separately named parties take 'between'.",
+  },
+  "PRP-H10": {
+    id: "PRP-H10", domain: "relief", ruleId: "GR-PRP-005", difficulty: "hard",
+    correctSegments: ["After the arrangement between the two relief agencies was finalised,", "the additional blankets were shared among the families waiting outside", "because the night temperature", "had fallen sharply."],
+    errorSegments: ["After the arrangement between the two relief agencies was finalised,", "the additional blankets were shared between the families waiting outside", "because the night temperature", "had fallen sharply."],
+    errorIndex: 1, correction: "the additional blankets were shared among the families waiting outside",
+    reason: "'Between' is correct for the two named agencies, whereas distribution within a group of families is expressed with 'among'.",
+  },
+  "PRP-H11": {
+    id: "PRP-H11", domain: "emergency-service", ruleId: "GR-PRP-006", difficulty: "hard",
+    correctSegments: ["While staff remained in the control room,", "fresh air from outside was drawn into the building", "through an open service door", "during the evacuation."],
+    errorSegments: ["While staff remained in the control room,", "fresh air from outside was drawn in the building", "through an open service door", "during the evacuation."],
+    errorIndex: 1, correction: "fresh air from outside was drawn into the building",
+    reason: "'In' correctly describes the staff's position; movement from outside to the interior of the building requires 'into'.",
+  },
+  "PRP-H12": {
+    id: "PRP-H12", domain: "laboratory", ruleId: "GR-PRP-006", difficulty: "hard",
+    correctSegments: ["After the probe was lowered into the solution,", "it remained in the liquid throughout the trial", "while the temperature was recorded", "at regular intervals."],
+    errorSegments: ["After the probe was lowered into the solution,", "it remained into the liquid throughout the trial", "while the temperature was recorded", "at regular intervals."],
+    errorIndex: 1, correction: "it remained in the liquid throughout the trial",
+    reason: "'Into' correctly marks the earlier movement; after 'remained', the sentence describes position and therefore needs 'in'.",
+  },
+  "PRP-H13": {
+    id: "PRP-H13", domain: "project-management", ruleId: "GR-PRP-008", difficulty: "hard",
+    correctSegments: ["Although the senior engineer is familiar with the testing software,", "she is also responsible for ensuring that each unit", "meets the prescribed load standard", "before dispatch."],
+    errorSegments: ["Although the senior engineer is familiar with the testing software,", "she is also responsible to ensuring that each unit", "meets the prescribed load standard", "before dispatch."],
+    errorIndex: 1, correction: "she is also responsible for ensuring that each unit",
+    reason: "'Familiar with' is correct in the opening clause; before an activity or duty, the standard complement is 'responsible for'.",
+  },
+  "PRP-H14": {
+    id: "PRP-H14", domain: "training", ruleId: "GR-PRP-008", difficulty: "hard",
+    correctSegments: ["Although responsible for screening difficult applications,", "the newly appointed officer is already familiar with the procedure", "used for cases", "that require manual review."],
+    errorSegments: ["Although responsible for screening difficult applications,", "the newly appointed officer is already familiar to the procedure", "used for cases", "that require manual review."],
+    errorIndex: 1, correction: "the newly appointed officer is already familiar with the procedure",
+    reason: "'Responsible for' is correct before the activity 'screening'; the adjective 'familiar' takes 'with'.",
+  },
+  "PRP-H15": {
+    id: "PRP-H15", domain: "policy", ruleId: "GR-PRP-009", difficulty: "hard",
+    correctSegments: ["Although the written guidelines call for a record of every exception,", "the review committee also insists on recording the reason for each departure", "so that later decisions can be checked", "against the same standard."],
+    errorSegments: ["Although the written guidelines call for a record of every exception,", "the review committee also insists for recording the reason for each departure", "so that later decisions can be checked", "against the same standard."],
+    errorIndex: 1, correction: "the review committee also insists on recording the reason for each departure",
+    reason: "'Call for' is correctly used in the opening clause, while the verb 'insist' takes 'on' before the required action.",
+  },
+  "PRP-H16": {
+    id: "PRP-H16", domain: "safety", ruleId: "GR-PRP-009", difficulty: "hard",
+    correctSegments: ["While authorised contractors are allowed to enter through the service gate,", "the temporary barrier prevents visitors from entering the restricted area", "until repair work", "is complete."],
+    errorSegments: ["While authorised contractors are allowed to enter through the service gate,", "the temporary barrier prevents visitors to enter the restricted area", "until repair work", "is complete."],
+    errorIndex: 1, correction: "the temporary barrier prevents visitors from entering the restricted area",
+    reason: "'Allow' correctly takes object + to-infinitive, but the standard pattern is 'prevent someone from doing something'.",
+  },
+  "PRP-H17": {
+    id: "PRP-H17", domain: "compliance", ruleId: "GR-PRP-009", difficulty: "hard",
+    correctSegments: ["Although the site manager is responsible for daily supervision,", "every licensed operator must comply with the conditions stated in the permit", "even when work is carried out", "through a subcontractor."],
+    errorSegments: ["Although the site manager is responsible for daily supervision,", "every licensed operator must comply to the conditions stated in the permit", "even when work is carried out", "through a subcontractor."],
+    errorIndex: 1, correction: "every licensed operator must comply with the conditions stated in the permit",
+    reason: "'Responsible for' is correct in the first clause; the standard verb complement is 'comply with'.",
+  },
+  "PRP-H18": {
+    id: "PRP-H18", domain: "economics", ruleId: "GR-PRP-010", difficulty: "hard",
+    correctSegments: ["The sudden increase in fuel costs", "was one reason for the revision of the transport allowance", "during the financial year", "despite stable wage rates."],
+    errorSegments: ["The sudden increase in fuel costs", "was one reason of the revision of the transport allowance", "during the financial year", "despite stable wage rates."],
+    errorIndex: 1, correction: "was one reason for the revision of the transport allowance",
+    reason: "'Increase in' and 'revision of' are correct noun complements here; the standard expression is 'reason for'.",
+  },
+  "PRP-H19": {
+    id: "PRP-H19", domain: "planning", ruleId: "GR-PRP-010", difficulty: "hard",
+    correctSegments: ["After identifying the reason for the shortage,", "the committee proposed a practical solution to the problem", "without reducing the number of services", "available to the public."],
+    errorSegments: ["After identifying the reason for the shortage,", "the committee proposed a practical solution of the problem", "without reducing the number of services", "available to the public."],
+    errorIndex: 1, correction: "the committee proposed a practical solution to the problem",
+    reason: "'Reason for' is correct in the opening phrase; the standard noun complement is 'solution to a problem'.",
+  },
+  "PRP-H20": {
+    id: "PRP-H20", domain: "labour", ruleId: "GR-PRP-010", difficulty: "hard",
+    correctSegments: ["Because demand for trained technicians has grown sharply,", "the recent rise in vacancies", "has affected several units", "during the expansion phase."],
+    errorSegments: ["Because demand for trained technicians has grown sharply,", "the recent rise on vacancies", "has affected several units", "during the expansion phase."],
+    errorIndex: 1, correction: "the recent rise in vacancies",
+    reason: "'Demand for' is correct in the first clause; when naming what has risen, the noun 'rise' takes 'in'.",
+  },
+};
+
+export function remediateCp005SceneForClosureV1(scene: PrepositionSceneV1): PrepositionSceneV1 {
+  return replacements[scene.id] ?? scene;
+}
