@@ -2,6 +2,7 @@ import type { KnowledgeV1Difficulty } from "../../types";
 import { HIS_CP014_FACTS_V1,HIS_CP014_FACT_BY_ID_V1,HIS_CP014_SOURCE_IDS_V1,HIS_CP014_SOURCES_V1 } from "./his-cp014-facts-v1";
 import { HIS_CP014_QL_NAMES_V1,HIS_CP014_SPECS_V1 } from "./his-cp014-review-specs-v1";
 import { HIS_CP014_ITEM_OVERRIDES_V1 } from "./his-cp014-item-overrides-v1";
+import { HIS_CP014_STEM_OVERRIDES_V1 } from "./his-cp014-stem-overrides-v1";
 
 export type HisCp014ReviewQuestion={questionId:string;chapterId:"HIS-001";cpId:"HIS-CP-014";qlId:string;qlName:string;difficulty:KnowledgeV1Difficulty;stem:string;options:string[];correctIndex:number;canonicalAnswer:string;explanation:string;sourceIds:string[];sourceFactIds:string[];reviewOnly:true;runtimeRegistered:false};
 const difficulty=(ql:number):KnowledgeV1Difficulty=>ql<=3?"Easy":ql<=8?"Medium":"Hard";
@@ -11,7 +12,7 @@ const SOURCE_LEAK=/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i;
 const META_WORDING=/(?:school-level|this CP|review batch|internal wording)/i;
 const AWKWARD_STEM=/(?:which military condition formed part|which settlement followed|which correctly identifies|which action by the company increased tensions)/i;
 
-export function generateHisCp014ReviewBatchV1():HisCp014ReviewQuestion[]{return HIS_CP014_SPECS_V1.map((baseSpec,i)=>{const s=HIS_CP014_ITEM_OVERRIDES_V1[i+1]??baseSpec;const[ql,stem,answer,distractors,factIds]=s;const base=[answer,...distractors];const shift=i%4;const options=[...base.slice(shift),...base.slice(0,shift)];const correctIndex=options.indexOf(answer);return{questionId:`HIS-CP014-V1-${String(i+1).padStart(3,"0")}`,chapterId:"HIS-001",cpId:"HIS-CP-014",qlId:`HIS-014-QL-${String(ql).padStart(3,"0")}`,qlName:HIS_CP014_QL_NAMES_V1[ql],difficulty:difficulty(ql),stem,options,correctIndex,canonicalAnswer:answer,explanation:explain(factIds),sourceIds:sourceIds(factIds),sourceFactIds:[...factIds],reviewOnly:true,runtimeRegistered:false};});}
+export function generateHisCp014ReviewBatchV1():HisCp014ReviewQuestion[]{return HIS_CP014_SPECS_V1.map((baseSpec,i)=>{const s=HIS_CP014_ITEM_OVERRIDES_V1[i+1]??baseSpec;const[ql,baseStem,answer,distractors,factIds]=s;const stem=HIS_CP014_STEM_OVERRIDES_V1[i+1]??baseStem;const base=[answer,...distractors];const shift=i%4;const options=[...base.slice(shift),...base.slice(0,shift)];const correctIndex=options.indexOf(answer);return{questionId:`HIS-CP014-V1-${String(i+1).padStart(3,"0")}`,chapterId:"HIS-001",cpId:"HIS-CP-014",qlId:`HIS-014-QL-${String(ql).padStart(3,"0")}`,qlName:HIS_CP014_QL_NAMES_V1[ql],difficulty:difficulty(ql),stem,options,correctIndex,canonicalAnswer:answer,explanation:explain(factIds),sourceIds:sourceIds(factIds),sourceFactIds:[...factIds],reviewOnly:true,runtimeRegistered:false};});}
 
 export const HIS_CP014_REVIEW_BATCH_V1=Object.freeze(generateHisCp014ReviewBatchV1().map(q=>Object.freeze(q)));
 export const HIS_CP014_REQUIRED_FACTS_V1=Object.freeze([...new Set(HIS_CP014_REVIEW_BATCH_V1.flatMap(q=>q.sourceFactIds))].sort());
