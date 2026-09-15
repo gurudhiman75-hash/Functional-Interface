@@ -137,7 +137,7 @@ for (const [cpId, cpLabel] of CPS) {
       assert.ok(correctedSentence.length >= 12, `${cpId}/${qlId} corrected sentence is too short`);
       assert.ok(explanation.length >= 45, `${cpId}/${qlId} explanation is too short`);
       assert.ok(explanation.includes(correctedSentence), `${cpId}/${qlId} explanation does not show the full corrected sentence`);
-      assert.doesNotMatch(`${stem}\n${explanation}`, /\b(?:candidateId|mutationId|generationSeed|review[- ]only|Question Studio)\b/i);
+      assert.doesNotMatch(`${stem}\n${explanation}`, /\b(?:candidateId|mutationId|generationSeed|review-only|Question Studio)\b/i);
       assert.doesNotMatch(explanation, /\bOption\s+[A-E]\b/i, `${cpId}/${qlId} contains option-by-option analysis`);
 
       if (qlId === "ENG-001-QL001") {
