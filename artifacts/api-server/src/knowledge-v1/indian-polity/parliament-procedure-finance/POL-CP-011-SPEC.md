@@ -1,7 +1,7 @@
 # POL-CP-011 — Parliament Procedure, Bills & Financial Business
 
-**Lifecycle:** REVIEW CANDIDATE — MORE HELPFUL EXPLANATIONS V2  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V2  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -41,9 +41,8 @@ This CP covers the parliamentary law-making and financial-procedure block centre
 - simple English
 - no current office-holder or current Budget figures
 
-## V2 explanation standard
+## Approved V2 explanation standard
 
-Continue the approved Polity style, but make the explanation slightly more useful for revision:
 - start with the exact rule behind the answer;
 - add one short reason, distinction or exam trap where it helps understanding;
 - keep simple wording and avoid legal-heavy prose;
@@ -78,6 +77,8 @@ Typical useful additions include:
 - cut-motion amounts remain Re. 1 for Policy Cut and Rs. 100 for Token Cut;
 - Article 117 distinctions are stated without treating textbook category labels as constitutional wording.
 
-## Gate
+## Approval
 
-Merge, Question Studio exposure, localization and production registration remain blocked until English V2 is approved.
+English V2 was approved by the project owner on 15 September 2026 and is frozen as the canonical CP-011 English authority.
+
+Question Studio exposure, localization and production registration remain deferred to the Polity integration checkpoint.
