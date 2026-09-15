@@ -1,7 +1,7 @@
 # POL-CP-009 — Prime Minister & Union Council of Ministers
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
 ## Scope
 
@@ -44,7 +44,7 @@ This CP covers the Prime Minister and Union Council of Ministers as constitution
 - balanced explanations: enough to teach the rule without generic filler
 - no current Prime Minister/current Ministers questions
 
-## Explanation standard
+## Frozen explanation standard
 
 Use the approved V6-style standard from the preceding Polity CPs:
 - simple wording, but not ultra-short;
@@ -64,6 +64,8 @@ Use the approved V6-style standard from the preceding Polity CPs:
 - the pleasure clause is kept within the parliamentary-system context;
 - current office-holders and current ministry size are excluded.
 
-## Gate
+## Approval and freeze
 
-Question Studio exposure, localization, merge and production registration remain blocked until the English V1 review is approved.
+English V1 was approved on 15 September 2026. `pol-cp009-review-generator-v1.ts` is the canonical English review authority.
+
+Question Studio exposure, localization and production registration remain deferred to the Polity integration checkpoint.
