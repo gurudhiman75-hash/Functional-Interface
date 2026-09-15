@@ -42,7 +42,7 @@ Use the approved helpful Polity style:
 - state the exact rule first;
 - add one short reason, distinction or exam trap where useful;
 - keep simple wording around necessary constitutional terms;
-- normal explanation range: 16–32 words;
+- normal explanation range: 13–32 words;
 - no generic filler ending;
 - no stock `Correct answer` opening;
 - no unnecessary option-by-option analysis.
