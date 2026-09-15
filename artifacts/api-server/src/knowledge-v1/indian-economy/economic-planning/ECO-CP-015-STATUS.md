@@ -1,8 +1,8 @@
 # ECO-CP-015 Status
 
 **CP:** ECO-CP-015 Economic Planning in India  
-**Lifecycle:** REVIEW_CANDIDATE_V2  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V2_FROZEN  
+**Runtime:** BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
 ## Implemented
@@ -33,12 +33,11 @@
 - QA blocking current NITI office-holders, live Governing Council details, current NITI schemes/rankings and plan growth/outlay values;
 - revised 24-question human review Markdown set.
 
-## V2 editorial rule
+## Frozen editorial rule
 
-- Stems should look like real SSC/Banking/State-exam questions, not editorial prompts or review notes.
-- Prefer direct forms such as `Which... ?`, `What... ?`, `Why... ?` and short comparison questions.
-- Avoid artificial framing such as `A question contrasts...`, `What broad objective...` and similar wording.
-- Explanations should normally be 1-2 short sentences: state the answer-deciding fact, then only the minimum reason needed.
+- Stems use direct SSC/Banking/State-exam wording.
+- Avoid editorial framing such as `A question contrasts...`.
+- Explanations normally use 1-2 short sentences: the deciding fact plus only the minimum reason needed.
 
 ## Static boundary
 
@@ -52,8 +51,6 @@ Excluded from this CP:
 
 ## Promotion steps
 
-1. Human review of English V2 questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer in the localisation phase.
-5. Register with runtime/Question Studio only after separate promotion approval.
+1. English V2 human review approved and frozen.
+2. Add localisation layer in the localisation phase.
+3. Register with runtime/Question Studio only after separate promotion approval.
