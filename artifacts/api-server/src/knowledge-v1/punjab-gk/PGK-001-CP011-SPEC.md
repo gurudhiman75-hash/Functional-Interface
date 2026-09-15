@@ -1,6 +1,6 @@
 # PGK-001 CP011 — Medieval Punjab
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-011 — Medieval Punjab`
 Permanent QLs: `PGK-001-QL-070` to `PGK-001-QL-076`
@@ -64,6 +64,10 @@ State the decisive fact first, then one useful chronology, dynasty, place or mon
 
 Verification remains internal against Punjab School Education Board Punjab History & Culture material, Government of Punjab historical material, Lahore government historical records, IGNCA/ASI historical works and high-quality standard references where needed. Learner text remains source-free.
 
+## Approval
+
+Human-approved on 15 September 2026. Accepted review authority: CP011 Review V1. Runtime integration remains separate.
+
 ## Lifecycle
 
-CP011 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP011 V1 is frozen as the accepted review authority. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication until the later integration workflow deliberately enables it.
