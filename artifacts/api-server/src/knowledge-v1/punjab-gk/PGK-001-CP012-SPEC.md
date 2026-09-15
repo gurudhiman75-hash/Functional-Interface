@@ -1,6 +1,6 @@
 # PGK-001 CP012 — Sikh Gurus & Punjab
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-012 — Sikh Gurus & Punjab`
 Permanent QLs: `PGK-001-QL-077` to `PGK-001-QL-083`
@@ -14,7 +14,7 @@ This CP is historical GK, not theology. CP013 begins Banda Singh Bahadur and the
 ## Learner-facing rules
 
 - Use short, direct recruitment-exam stems.
-- Do not use filler such as `associated with`, `linked with`, `known for` or `closely related to`.
+- Do not use filler such as `associated with`, `linked with`, `linked historically with`, `known for`, `closely associated with` or `closely related to`.
 - Do not cite SGPC, PSEB, departments, websites or source names in learner text.
 - Keep explanations natural and normally 1–2 sentences.
 - Avoid devotional interpretation, doctrinal testing and sectarian framing.
@@ -49,6 +49,10 @@ This CP is historical GK, not theology. CP013 begins Banda Singh Bahadur and the
 
 Each QL exposes six semantic payloads, for 42 review questions total.
 
+## V2 wording correction
+
+The V2 review candidate removes the remaining indirect Miri-Piri wording and uses the direct exam-grade stem `Which Guru introduced the Miri-Piri tradition?`.
+
 ## Distractor rule
 
 Use Gurus against Gurus, places against plausible Guru-period places, institutions against related institutions and dates against nearby major dates. Avoid trivial unrelated filler.
@@ -63,4 +67,4 @@ Verification remains internal against Punjab School Education Board Punjab Histo
 
 ## Lifecycle
 
-CP012 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP012 V2 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
