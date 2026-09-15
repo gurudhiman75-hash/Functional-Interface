@@ -6,7 +6,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/knowledge-v1/indian-geography/climate/**"
-      - ".github/workflows/geography-cli-cp003-review.yml"
   workflow_dispatch:
 
 permissions:
