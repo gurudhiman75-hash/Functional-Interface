@@ -65,7 +65,7 @@ const DETAILS: readonly string[] = Object.freeze([
   "This is one reason Lok Sabha has the stronger role in financial control.",
   "A reduction may be used to express policy, economy or grievance concerns.",
   "The recommendation is required before the demand is formally made.",
-  "Rajya Sabha may discuss financial matters but does not vote on these demands.",
+  "Rajya Sabha may discuss them, but cannot vote on them.",
   "The grant vote comes first; appropriation gives legal authority to withdraw funds.",
   "Approval of grants alone does not authorise withdrawal from the Consolidated Fund.",
   "Parliament cannot reopen the voted amount through an Appropriation Bill amendment.",
@@ -87,7 +87,7 @@ const DETAILS: readonly string[] = Object.freeze([
   "Reducing or abolishing a tax is the express exception to that recommendation rule.",
   "Here the recommendation concerns consideration before passage, not necessarily introduction.",
   "The trap is that Rajya Sabha may recommend, but cannot block a Money Bill indefinitely.",
-  "Dissolution and prorogation have different effects; Money Bill origin is another separate rule.",
+  "Dissolution and prorogation affect Bills differently.",
   "This shows why financial discussion and financial voting must not be confused.",
   "The timing is the key distinction: advance funding versus later regularisation.",
 ]);
