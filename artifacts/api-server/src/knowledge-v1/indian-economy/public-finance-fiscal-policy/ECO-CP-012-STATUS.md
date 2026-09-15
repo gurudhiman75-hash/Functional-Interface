@@ -1,11 +1,13 @@
 # ECO-CP-012 Status
 
 **CP:** ECO-CP-012 Public Finance & Fiscal Policy  
-**Lifecycle:** REVIEW_CANDIDATE_V2  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V2_FROZEN  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
-## Implemented
+## Approved English baseline
+
+Human review approved on 2026-09-15.
 
 - NCERT/Union Budget/FRBM official-source registry;
 - public-finance and fiscal-policy concepts;
@@ -25,10 +27,9 @@
 - stronger rule + reason/application explanations;
 - QA for exact batch count, sources, options, duplicates, formulas, classification logic and difficulty spread;
 - V2 QA requiring complete question-style stems and blocking terminal-colon prompt fragments;
-- QA blocking current deficit/debt ratios, live Budget allocations, current tax slabs and current FRBM numerical targets;
-- V2 stem-change notes for human review.
+- QA blocking current deficit/debt ratios, live Budget allocations, current tax slabs and current FRBM numerical targets.
 
-## V2 stem-quality rule
+## Frozen V2 stem-quality rule
 
 - Normal MCQ stems must read as complete exam questions rather than label-like prompts.
 - Avoid endings such as `classified as:`, `calculated as:`, `stands for:`, `means:` and similar prompt fragments.
@@ -46,10 +47,6 @@ Excluded from this CP:
 - detailed Budget procedure/documents reserved for ECO-CP-013;
 - detailed tax-system classification reserved for ECO-CP-014.
 
-## Promotion steps
+## Promotion state
 
-1. Human review of English V2 questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behavior.
-4. Add localisation layer in the localisation phase.
-5. Register with runtime/Question Studio only after separate promotion approval.
+English V2 is frozen. Localisation and runtime/Question Studio registration remain separate promotion steps and are not authorised by this approval.
