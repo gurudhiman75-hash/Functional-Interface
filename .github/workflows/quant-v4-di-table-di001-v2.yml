@@ -1,27 +1,29 @@
-name: Quant V4 Data Interpretation table DI V2
+name: Quant V4 Data Interpretation table DI controlled review
 
 on:
   push:
     branches:
-      - feature/di-001-table-v2-review
+      - feature/di-001-table-promotion-v1
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   workflow_dispatch:
 
 concurrency:
-  group: quant-v4-di001-table-v2-${{ github.workflow }}-${{ github.ref }}
+  group: quant-v4-di001-table-controlled-review-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  table-v2:
+  table-controlled-review:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,20 +35,31 @@ jobs:
           version: 10.33.0
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Review-only lifecycle guard
+      - name: Controlled-review lifecycle guard
         run: |
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/table-set-v2.ts
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/table-v2-types.ts
-          ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/table-set-v2.ts artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/table-v2-types.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/permanent-ql-registry.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/permanent-question-generator.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/question-studio-adapter.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/question-studio-integration.test.ts
+          grep -q 'questionStudioDiscoverable: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/permanent-ql-registry.ts
+          grep -q 'questionStudioMode: "CONTROLLED_REVIEW"' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/permanent-ql-registry.ts
+          ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/permanent-ql-registry.ts \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/permanent-question-generator.ts \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/question-studio-adapter.ts
       - name: DI-001 V2 deterministic, diversity and independent proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/table-set-v2.test.ts
+      - name: DI-001 Question Studio controlled-review proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/question-studio-integration.test.ts
       - name: Export Markdown review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/export-review-v2.ts DI-001-REVIEW-V2.md
       - name: Export standalone HTML review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/export-review-v2-html.ts DI-001-REVIEW-V2.html
       - uses: actions/upload-artifact@v4
         with:
-          name: di-001-table-review-v2
+          name: di-001-table-controlled-review
           path: |
             DI-001-REVIEW-V2.md
             DI-001-REVIEW-V2.html
