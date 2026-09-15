@@ -66,10 +66,10 @@ describe("ECO-CP-017 review batch V1", () => {
     expect(all).toContain("Green Revolution");
     expect(all).toContain("Commission for Agricultural Costs and Prices");
     expect(all).toContain("Food Corporation of India");
+    expect(all).toContain("Public Distribution System");
     expect(all).toContain("NABARD");
     expect(all).toContain("crop insurance");
     expect(all).toContain("e-NAM");
-    expect(all).toContain("Plan Holiday");
   });
 
   it("blocks volatile current agriculture values", () => {
