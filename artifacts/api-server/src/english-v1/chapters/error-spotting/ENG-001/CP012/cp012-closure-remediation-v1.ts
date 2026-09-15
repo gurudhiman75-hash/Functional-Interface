@@ -13,6 +13,12 @@ const replacements: Readonly<Record<string, VoiceNarrationSceneV1>> = {
     errorSegments: ["After the department withdrew the first draft,", "the notices were withdrew after a second review", "by the same officials", "before the revised order was issued."],
     reason: "'Withdrew' is correct as an active past-tense verb in the opening clause, but the passive construction requires 'were withdrawn'.",
   }),
+  "VNR-H-013": voiceNarrationScene({
+    id: "VNR-H-013", difficulty: "hard", ruleId: "GR-VNR-007", domain: "quoted-file-desk", errorIndex: 0,
+    correctSegments: ["After Anita told Raj, \"I left your file here,\" the note recorded that she had left his file", "on his desk", "before the office closed", "that evening."],
+    errorSegments: ["After Anita told Raj, \"I left your file here,\" the note recorded that she had left her file", "on his desk", "before the office closed", "that evening."],
+    reason: "In Anita's original words, 'your file' refers to Raj's file, so the indirect report must use 'his file', not 'her file'.",
+  }),
   "VNR-H-023": voiceNarrationScene({
     id: "VNR-H-023", difficulty: "hard", ruleId: "GR-VNR-012", domain: "explain-to-us", errorIndex: 2,
     correctSegments: ["After the supervisor informed us that the inspection was complete,", "the engineer checked the damaged unit", "and explained to us that the sensor had failed", "because of a loose connection."],
