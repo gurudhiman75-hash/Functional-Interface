@@ -1,0 +1,86 @@
+export const HIS_CP015_QL_NAMES_V1:Record<number,string>={
+  1:"Congress formation and early nationalism",
+  2:"Moderate politics and demands",
+  3:"Partition of Bengal and Swadeshi",
+  4:"Radical nationalism and Surat split",
+  5:"Muslim League and Morley–Minto reforms",
+  6:"Revolutionary movement and Ghadar",
+  7:"First World War and Home Rule",
+  8:"Lucknow, 1919 reforms and Gandhi's return",
+  9:"Early Gandhian transition and chronology",
+  10:"Comparison and multi-statement synthesis",
+};
+
+export type HisCp015Spec=readonly[ql:number,stem:string,answer:string,distractors:readonly[string,string,string],factIds:readonly string[]];
+
+export const HIS_CP015_SPECS_V1:readonly HisCp015Spec[]=[
+  [1,"In which year was the Indian National Congress formed?","1885",["1881","1892","1905"],["inc-1885"]],
+  [1,"Who played a major role in the formation of the Indian National Congress?","A.O. Hume",["Lord Curzon","Lord Minto","Thomas Macaulay"],["hume-role"]],
+  [1,"Who was the first president of the Indian National Congress?","W.C. Bonnerji",["Dadabhai Naoroji","Badruddin Tyabji","Gopal Krishna Gokhale"],["wc-president"]],
+  [1,"How many delegates attended the first Congress session in 1885?","72",["52","60","90"],["inc-72"]],
+  [1,"Which body existed before the Congress as a regional political association?","Poona Sarvajanik Sabha",["Home Rule League","Ghadar Party","Swaraj Party"],["regional-associations"]],
+  [1,"What made the Congress different from many earlier regional associations?","It tried to provide a common political platform for Indians",["It worked only for one presidency","It was formed as a secret society","It rejected all constitutional politics from the start"],["common-platform"]],
+
+  [2,"The period from 1885 to 1905 is generally known as the phase of the: ","Moderates",["Home Rulers","Ghadarites","Non-Cooperators"],["moderate-period"]],
+  [2,"Which method was most closely associated with the early Moderate leaders?","Petitions and constitutional agitation",["Armed insurrection","Boycott of all elections from 1885","Secret military cells"],["moderate-method"]],
+  [2,"Which leader is closely linked with the early economic critique of British rule?","Dadabhai Naoroji",["Khudiram Bose","Sohan Singh Bhakna","Prafulla Chaki"],["economic-critique"]],
+  [2,"Which demand was raised by the Moderates?","Greater Indian representation in legislative councils",["Immediate abolition of all legislatures","Rule by secret revolutionary committees","Permanent boycott of every council"],["council-reform"]],
+  [2,"What did the Moderates demand regarding the civil services?","Greater Indianization and simultaneous ICS examinations",["Complete closure of the civil services","Recruitment only through provincial armies","Reservation of all senior posts for Europeans"],["ics-demand"]],
+  [2,"What was an important long-term contribution of Moderate politics?","It helped create national awareness and political training",["It ended British rule by 1905","It abolished land revenue across India","It created provincial autonomy in 1885"],["moderate-training"]],
+
+  [3,"Who announced the partition of Bengal in 1905?","Lord Curzon",["Lord Minto","Lord Ripon","Lord Wellesley"],["partition-1905"]],
+  [3,"When was the Swadeshi movement formally proclaimed at Calcutta Town Hall?","7 August 1905",["16 October 1905","30 December 1906","26 December 1907"],["swadeshi-aug7"]],
+  [3,"On which date did the partition of Bengal come into effect?","16 October 1905",["7 August 1905","1 January 1906","12 December 1911"],["partition-oct16"]],
+  [3,"Which action was a major part of the Swadeshi movement?","Boycott of foreign goods",["Support for imported British cloth","Withdrawal from all public meetings","Opposition to Indian industries"],["swadeshi-methods"]],
+  [3,"Who helped spread the Swadeshi message in western India?","Bal Gangadhar Tilak",["A.O. Hume","Lord Minto","W.C. Bonnerji"],["swadeshi-spread"]],
+  [3,"At which Congress session did Dadabhai Naoroji declare self-government or swaraj as the goal?","Calcutta session of 1906",["Surat session of 1907","Lucknow session of 1916","Bombay session of 1885"],["swaraj-1906"]],
+
+  [4,"Which group is popularly associated with Lal-Bal-Pal?","Radical nationalists",["Early Moderates","Home Rule constitutionalists only","Members of the Ghadar movement"],["extremist-leaders"]],
+  [4,"How did radical nationalist methods differ from Moderate methods?","They placed greater stress on mass protest, boycott and Swadeshi",["They relied only on private petitions","They opposed public mobilization","They accepted colonial policy without protest"],["extremist-methods"]],
+  [4,"At which Congress session did the Moderate-Extremist split occur?","Surat, 1907",["Calcutta, 1906","Lucknow, 1916","Bombay, 1885"],["surat-1907"]],
+  [4,"What happened to the partition of Bengal in 1911?","It was annulled",["It was extended to Punjab","It was made permanent","It was replaced by the Partition of Bombay"],["partition-annulled"]],
+  [4,"Which major administrative change accompanied the 1911 settlement?","The imperial capital was shifted to Delhi",["The capital was shifted to Bombay","Calcutta became the capital of all Asia","Delhi was made part of Bengal"],["capital-delhi"]],
+  [4,"Many revolutionary secret groups of the period grew out of which earlier network?","Swadeshi-era samitis",["Municipal boards","District courts","Provincial revenue offices"],["secret-samitis"]],
+
+  [5,"When was the All India Muslim League founded?","30 December 1906",["28 December 1885","26 December 1907","1 April 1916"],["league-1906"]],
+  [5,"Who raised the idea of a Muslim political association at the Dacca conference of 1906?","Nawab Salim Ullah Khan",["Gopal Krishna Gokhale","Bipin Chandra Pal","Ras Behari Bose"],["salimullah"]],
+  [5,"Who was chosen as an early president of the Muslim League?","Aga Khan",["W.C. Bonnerji","Bal Gangadhar Tilak","Sohan Singh Bhakna"],["aga-khan"]],
+  [5,"What was an early objective of the Muslim League?","To protect Muslim political interests and represent them to the government",["To organize the Swadeshi boycott in Bengal","To launch the Ghadar uprising","To abolish all legislative councils"],["league-objective"]],
+  [5,"The Indian Councils Act of 1909 is better known as the: ","Morley-Minto Reforms",["Montagu-Chelmsford Reforms","Ilbert Bill","Regulating Act"],["morley-minto"]],
+  [5,"What major electoral feature was introduced by the 1909 reforms?","Separate electorates for Muslims",["Universal adult franchise","Direct election of the Viceroy","Abolition of communal representation"],["separate-electorates"]],
+
+  [6,"Who were involved in the Muzaffarpur bomb attempt of 1908?","Khudiram Bose and Prafulla Chaki",["Tilak and Gokhale","Hume and Bonnerji","Sohan Singh Bhakna and Annie Besant"],["khudiram-prafulla"]],
+  [6,"Which pair was associated with revolutionary activity in Bengal?","Anushilan and Yugantar",["Home Rule and Prarthana Samaj","Congress and Justice Party","Poona Sabha and Muslim League"],["anushilan-yugantar"]],
+  [6,"Who built a revolutionary network across parts of northern India?","Ras Behari Bose and Sachindranath Sanyal",["Naoroji and Gokhale","Hume and Bonnerji","Minto and Morley"],["rasbehari-sanyal"]],
+  [6,"Where did the Ghadar Movement begin in 1913?","San Francisco",["Calcutta","Lucknow","Dacca"],["ghadar-1913"]],
+  [6,"Which pair is linked with the early Ghadar Movement?","Sohan Singh Bhakna and Har Dayal",["Gokhale and Ranade","Curzon and Minto","Bonnerji and Hume"],["ghadar-leaders"]],
+  [6,"Which 1914 incident intensified nationalist anger among Indians overseas?","Komagata Maru incident",["Surat split","Partition of Bengal","Ilbert Bill controversy"],["komagata-1914"]],
+
+  [7,"Why did revolutionaries see the First World War as an opportunity?","Britain was heavily occupied by the war",["Britain had already granted complete independence","All colonial laws had been withdrawn","The Congress had dissolved itself"],["wwi-opportunity"]],
+  [7,"What happened to many Ghadar activists who returned to India during the war?","They were arrested and their plans were suppressed",["They were appointed to the Viceroy's Council","They formed provincial governments","They were sent to lead the Home Rule Leagues"],["ghadar-repression"]],
+  [7,"When did Tilak establish his Home Rule League?","April 1916",["September 1916","December 1906","August 1905"],["tilak-home-rule"]],
+  [7,"When did Annie Besant establish her Home Rule League?","September 1916",["April 1916","October 1905","December 1907"],["besant-home-rule"]],
+  [7,"Which statement best compares the two Home Rule Leagues?","Tilak was stronger in Maharashtra-Karnataka, while Besant had a wider all-India network",["Both operated only in Bengal","Besant worked only in Punjab while Tilak worked only in Assam","Both were confined to Dacca"],["home-rule-regions"]],
+  [7,"How did the Home Rule Leagues spread their message?","Through lectures, pamphlets, discussions and reading rooms",["Only through armed attacks","Only through secret military drills","By avoiding public political education"],["home-rule-methods"]],
+
+  [8,"What was the main political aim of the Home Rule Movement?","A substantial measure of self-government",["Immediate complete independence by armed revolt","Restoration of Mughal rule","End of all representative institutions"],["home-rule-goal"]],
+  [8,"What happened within the Congress at Lucknow in 1916?","Moderates and radicals reunited",["The Congress permanently split again","The Congress dissolved the Home Rule Leagues","The Congress rejected all self-government demands"],["congress-reunion"]],
+  [8,"Which two organizations reached the Lucknow Pact in 1916?","Indian National Congress and All India Muslim League",["Congress and Ghadar Party","Muslim League and Home Rule League","Congress and Anushilan Samiti"],["lucknow-pact"]],
+  [8,"Which demand formed part of the Lucknow Pact programme?","Expanded elected legislatures with greater Indian participation",["Abolition of all legislatures","Rule by provincial military councils","Restoration of Company rule"],["lucknow-demands"]],
+  [8,"Which system was introduced in the provinces by the 1919 reforms?","Dyarchy",["Permanent Settlement","Subsidiary Alliance","Dual Government of Bengal"],["montagu-chelmsford"]],
+  [8,"When did Mahatma Gandhi return to India from South Africa?","1915",["1905","1911","1919"],["gandhi-return"]],
+
+  [9,"Gandhi's idea of satyagraha was first developed during his struggle in: ","South Africa",["Bengal","Punjab","Bombay Presidency"],["satyagraha-south-africa","gandhi-return"]],
+  [9,"Which sequence is correct?","Gandhi returned to India → Sabarmati Ashram → Champaran Satyagraha",["Champaran Satyagraha → Gandhi returned to India → Sabarmati Ashram","Sabarmati Ashram → Champaran Satyagraha → Gandhi returned to India","Champaran Satyagraha → Sabarmati Ashram → Gandhi returned to India"],["gandhi-return","sabarmati-1916","champaran-1917"]],
+  [9,"Which movement is correctly matched with its social base?","Champaran — plantation peasants",["Champaran — Bombay mill owners","Kheda — European planters","Ahmedabad — zamindars of Bengal"],["champaran-1917"]],
+  [9,"Why did Gandhi support the Kheda peasants?","Crop failure and epidemics had left many unable to pay revenue",["They demanded separate electorates","They opposed the partition of Bengal","They sought entry into the ICS"],["kheda"]],
+  [9,"Which early Gandhian struggle involved industrial workers?","Ahmedabad mill workers' movement",["Champaran indigo struggle","Kheda peasant struggle","Lucknow Pact campaign"],["ahmedabad-workers"]],
+  [9,"Which wartime combination increased popular discontent in India?","Higher prices, taxes, rents and recruitment pressure",["Falling taxes and lower prices","Universal suffrage and free education","Removal of land revenue and military recruitment"],["wwi-burdens"]],
+
+  [10,"Which feature best distinguishes Swadeshi politics from earlier Moderate politics?","Wider use of boycott, picketing, strikes and public mobilization",["Complete rejection of all public meetings","Exclusive reliance on petitions","Avoidance of indigenous goods"],["swadeshi-new-forms","moderate-method"]],
+  [10,"Why was the Home Rule Movement important after 1914?","It revived political agitation when earlier methods had lost momentum",["It ended the national movement until 1920","It replaced all political organizations with secret societies","It restored the partition of Bengal"],["home-rule-revival","home-rule-methods"]],
+  [10,"Which statement about the Lucknow developments of 1916 is correct?","Congress reunited internally and also joined the League in demanding self-government",["Congress split again and rejected cooperation with the League","The League dissolved and merged completely into Congress","Both organizations abandoned representative government"],["congress-reunion","lucknow-pact","lucknow-selfgov"]],
+  [10,"Which assessment of the 1919 reforms is most accurate?","They introduced dyarchy but left strong executive powers outside elected control",["They created full responsible government in India","They abolished provincial governors","They introduced universal adult franchise"],["montagu-chelmsford","montagu-limits"]],
+  [10,"Which comparison of Moderates and radical nationalists is correct?","Moderates stressed constitutional persuasion; radicals stressed mass action and boycott",["Both rejected all public political activity","Radicals relied only on petitions while Moderates favoured boycott","Both supported identical methods throughout"],["moderate-extremist-contrast","moderate-method","extremist-methods"]],
+  [10,"Which combination best describes the transition before 1919?","Home Rule, revolutionary activity and early Gandhian satyagrahas broadened nationalist politics",["Nationalist politics disappeared after 1907","Only legislative petitions remained active after 1914","All movements accepted colonial rule as permanent"],["pre1919-transition","home-rule-revival","satyagraha-south-africa"]],
+];
