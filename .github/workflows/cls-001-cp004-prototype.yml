@@ -12,6 +12,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: cls-001-cp004-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-number-property-classification:
     runs-on: ubuntu-latest
