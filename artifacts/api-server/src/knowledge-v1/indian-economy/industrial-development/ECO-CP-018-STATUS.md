@@ -1,8 +1,9 @@
 # ECO-CP-018 Status
 
 **CP:** ECO-CP-018 Industry & Industrial Development  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1  
+**English baseline:** FROZEN_V1  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
 ## Implemented
@@ -28,6 +29,11 @@
 - QA blocking current IIP/core-industry values, current MSME thresholds, current FDI caps, current SEZ/corridor figures and current scheme statistics;
 - 24-question human review Markdown set.
 
+## Approval
+
+- English V1 approved and frozen on 2026-09-15.
+- Runtime/Question Studio registration remains a separate promotion step.
+
 ## Static boundary
 
 Excluded from this CP:
@@ -39,11 +45,3 @@ Excluded from this CP:
 - current industrial-corridor project values;
 - current Make in India performance statistics;
 - current industrial scheme allocations.
-
-## Promotion steps
-
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer later.
-5. Register with runtime/Question Studio only after separate promotion approval.
