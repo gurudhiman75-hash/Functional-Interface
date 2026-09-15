@@ -46,10 +46,10 @@ const balancedHard: Readonly<Record<string, PrepositionSceneV1>> = {
   },
   "PRP-H10": {
     id: "PRP-H10", domain: "relief", ruleId: "GR-PRP-005", difficulty: "hard",
-    correctSegments: ["After the arrangement between the two relief agencies was finalised, the additional blankets were shared among the families waiting outside", "because the night", "temperature had", "fallen sharply."],
-    errorSegments: ["After the arrangement between the two relief agencies was finalised, the additional blankets were shared between the families waiting outside", "because the night", "temperature had", "fallen sharply."],
-    errorIndex: 0, correction: "After the arrangement between the two relief agencies was finalised, the additional blankets were shared among the families waiting outside",
-    reason: "'Between' is correct for the two named agencies, whereas distribution within a group of families is expressed with 'among'.",
+    correctSegments: ["After the two relief agencies finalised their arrangement, blankets were shared among the families waiting outside", "because the night", "temperature had", "fallen sharply."],
+    errorSegments: ["After the two relief agencies finalised their arrangement, blankets were shared between the families waiting outside", "because the night", "temperature had", "fallen sharply."],
+    errorIndex: 0, correction: "After the two relief agencies finalised their arrangement, blankets were shared among the families waiting outside",
+    reason: "The arrangement is between two named agencies, whereas distribution within a group of families is expressed with 'among'.",
   },
   "PRP-H11": {
     id: "PRP-H11", domain: "emergency-service", ruleId: "GR-PRP-006", difficulty: "hard",
