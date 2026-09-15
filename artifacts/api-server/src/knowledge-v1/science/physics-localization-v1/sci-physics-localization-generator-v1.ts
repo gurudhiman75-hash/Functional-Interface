@@ -19,8 +19,15 @@ import {
   SCI_PHYSICS_CP004_HI_SURFACES_V1,
   SCI_PHYSICS_CP004_PA_SURFACES_V1,
 } from "./sci-physics-cp003-cp004-localization-data-v1";
+import {
+  SCI_PHYSICS_CP005_HI_SURFACES_V1,
+  SCI_PHYSICS_CP005_PA_SURFACES_V1,
+  SCI_PHYSICS_CP006_HI_SURFACES_V1,
+  SCI_PHYSICS_CP006_PA_SURFACES_V1,
+} from "./sci-physics-cp005-cp006-localization-data-v1";
 import { getPhysicsExplanationV2 } from "./sci-physics-explanation-quality-v2";
 import { getPhysicsExplanationV3 } from "./sci-physics-explanation-quality-v3";
+import { getPhysicsExplanationV4 } from "./sci-physics-explanation-quality-v4";
 import {
   applyHindiPhysicsExamPolishV1,
   polishHindiPhysicsTextV1,
@@ -44,13 +51,15 @@ import {
   type PhysicsLocalizedQuestionV1,
 } from "./sci-physics-localization-types-v1";
 
-type SupportedCpV1 = "SCI-CP-001" | "SCI-CP-002" | "SCI-CP-003" | "SCI-CP-004";
+type SupportedCpV1 = "SCI-CP-001" | "SCI-CP-002" | "SCI-CP-003" | "SCI-CP-004" | "SCI-CP-005" | "SCI-CP-006";
 
 const SURFACES = {
   "SCI-CP-001": { hi: SCI_PHYSICS_CP001_HI_SURFACES_V1, pa: SCI_PHYSICS_CP001_PA_SURFACES_V1 },
   "SCI-CP-002": { hi: SCI_PHYSICS_CP002_HI_SURFACES_V1, pa: SCI_PHYSICS_CP002_PA_SURFACES_V1 },
   "SCI-CP-003": { hi: SCI_PHYSICS_CP003_HI_SURFACES_V1, pa: SCI_PHYSICS_CP003_PA_SURFACES_V1 },
   "SCI-CP-004": { hi: SCI_PHYSICS_CP004_HI_SURFACES_V1, pa: SCI_PHYSICS_CP004_PA_SURFACES_V1 },
+  "SCI-CP-005": { hi: SCI_PHYSICS_CP005_HI_SURFACES_V1, pa: SCI_PHYSICS_CP005_PA_SURFACES_V1 },
+  "SCI-CP-006": { hi: SCI_PHYSICS_CP006_HI_SURFACES_V1, pa: SCI_PHYSICS_CP006_PA_SURFACES_V1 },
 } as const;
 
 const STATEMENT_STEMS = {
@@ -124,7 +133,9 @@ function localizedBase(question: PhysicsExhaustiveQuestionV2, locale: PhysicsLoc
 function explanationFor(anchorId: string, locale: PhysicsLocaleV1): string {
   const explanation = anchorId.startsWith("SCI-CP001-") || anchorId.startsWith("SCI-CP002-")
     ? getPhysicsExplanationV2(anchorId, locale)
-    : getPhysicsExplanationV3(anchorId, locale);
+    : anchorId.startsWith("SCI-CP003-") || anchorId.startsWith("SCI-CP004-")
+      ? getPhysicsExplanationV3(anchorId, locale)
+      : getPhysicsExplanationV4(anchorId, locale);
   if (locale === "hi") return polishHindiPhysicsTextV1(anchorId, explanation);
   if (locale !== "pa") return explanation;
   const editorial = naturalizePunjabiPhysicsTextV3(anchorId, explanation);
@@ -156,7 +167,7 @@ function localizeEnglishExplanation(question: PhysicsExhaustiveQuestionV2, cpId:
 
 export function localizePhysicsExhaustiveQuestionV1(question: PhysicsExhaustiveQuestionV2, locale: PhysicsLocaleV1): PhysicsLocalizedQuestionV1 {
   if (!SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS.includes(question.cpId as SupportedCpV1)) {
-    throw new Error(`Physics localization V1 currently supports CP001-CP004 only; received ${question.cpId}`);
+    throw new Error(`Physics localization V1 currently supports CP001-CP006 only; received ${question.cpId}`);
   }
   const cpId = question.cpId as SupportedCpV1;
   if (locale === "en") return localizeEnglishExplanation(question, cpId);
@@ -217,5 +228,5 @@ export function generatePhysicsLocalizedCpV1(cpId: SupportedCpV1, locale: Physic
 export function generatePhysicsLocalizedBalancedReviewV1(cpId: SupportedCpV1, locale: PhysicsLocaleV1): PhysicsLocalizedQuestionV1[] {
   return generatePhysicsExhaustiveBalancedReviewV2(cpId).map((question) => localizePhysicsExhaustiveQuestionV1(question, locale));
 }
-export const SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS = ["SCI-CP-001", "SCI-CP-002", "SCI-CP-003", "SCI-CP-004"] as const;
+export const SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS = ["SCI-CP-001", "SCI-CP-002", "SCI-CP-003", "SCI-CP-004", "SCI-CP-005", "SCI-CP-006"] as const;
 export const SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES = ["en", "hi", "pa"] as const;
