@@ -8,6 +8,7 @@ import type { ClsCp007PrototypeId } from "./types";
 function simplifyHindi(value: string): string {
   return value
     .replaceAll("क्रमिक अंतर के परिमाण", "क्रमिक अंतर, +/− चिह्न हटाकर")
+    .replaceAll("अंतर के परिमाण", "अंतर, +/− चिह्न हटाकर")
     .replaceAll("घटाया हुआ अंतर-अनुपात", "अंतर का सरल अनुपात")
     .replaceAll("घटाया अनुपात", "सरल अनुपात")
     .replaceAll("हर संबंधित जोड़ी का योग 27 नहीं है।", "कम-से-कम एक संबंधित जोड़ी का योग 27 नहीं है।");
@@ -16,6 +17,7 @@ function simplifyHindi(value: string): string {
 function simplifyPunjabi(value: string): string {
   return value
     .replaceAll("ਲੜੀਵਾਰ ਅੰਤਰਾਂ ਦੇ ਪਰਿਮਾਣ", "ਲੜੀਵਾਰ ਅੰਤਰ, +/− ਨਿਸ਼ਾਨ ਹਟਾ ਕੇ")
+    .replaceAll("ਅੰਤਰਾਂ ਦੇ ਪਰਿਮਾਣ", "ਅੰਤਰ, +/− ਨਿਸ਼ਾਨ ਹਟਾ ਕੇ")
     .replaceAll("ਘਟਾਇਆ ਹੋਇਆ ਅੰਤਰ-ਅਨੁਪਾਤ", "ਅੰਤਰਾਂ ਦਾ ਸਰਲ ਅਨੁਪਾਤ")
     .replaceAll("ਘਟਾਇਆ ਅਨੁਪਾਤ", "ਸਰਲ ਅਨੁਪਾਤ")
     .replaceAll("ਵਿਰੋਧੀ", "ਉਲਟ")
