@@ -22,6 +22,10 @@ import {
 import { getPhysicsExplanationV2 } from "./sci-physics-explanation-quality-v2";
 import { getPhysicsExplanationV3 } from "./sci-physics-explanation-quality-v3";
 import {
+  applyHindiPhysicsExamPolishV1,
+  polishHindiPhysicsTextV1,
+} from "./sci-physics-hindi-exam-polish-v1";
+import {
   applyPunjabiPhysicsEditorialV2,
   naturalizePunjabiPhysicsTextV3,
 } from "./sci-physics-punjabi-editorial-v2";
@@ -77,7 +81,11 @@ function cpMeta(cpId: SupportedCpV1) {
 }
 function surfaceMap(cpId: SupportedCpV1, locale: Exclude<PhysicsLocaleV1, "en">): Readonly<Record<string, PhysicsLocalizedAnchorSurfaceV1>> {
   const raw = SURFACES[cpId][locale] as Readonly<Record<string, PhysicsLocalizedAnchorSurfaceV1>>;
-  if (locale === "hi") return raw;
+  if (locale === "hi") {
+    return Object.fromEntries(
+      Object.entries(raw).map(([anchorId, surface]) => [anchorId, applyHindiPhysicsExamPolishV1(anchorId, surface)]),
+    );
+  }
   return Object.fromEntries(
     Object.entries(raw).map(([anchorId, surface]) => {
       const editorial = applyPunjabiPhysicsEditorialV2(anchorId, surface);
@@ -117,6 +125,7 @@ function explanationFor(anchorId: string, locale: PhysicsLocaleV1): string {
   const explanation = anchorId.startsWith("SCI-CP001-") || anchorId.startsWith("SCI-CP002-")
     ? getPhysicsExplanationV2(anchorId, locale)
     : getPhysicsExplanationV3(anchorId, locale);
+  if (locale === "hi") return polishHindiPhysicsTextV1(anchorId, explanation);
   if (locale !== "pa") return explanation;
   const editorial = naturalizePunjabiPhysicsTextV3(anchorId, explanation);
   const natural = naturalizePunjabiPhysicsTextFinalV3(anchorId, editorial);
