@@ -19,7 +19,7 @@ function wordsOf(value: string) {
 }
 
 function partitionWords(words: readonly string[], groupCount: number): string[] | null {
-  if (groupCount === 0) return words.length === 0 ? [] : null;
+  if (groupCount === 0) return [];
   if (words.length < groupCount) return null;
   const out: string[] = [];
   let cursor = 0;
@@ -42,27 +42,40 @@ function normalizeQuestion(question: Record<string, unknown>) {
   if (!Number.isInteger(currentIndex) || currentIndex < 0 || currentIndex >= segments.length) return question;
   if (segments.length < 2) return question;
 
+  // Keep the exact authored error-bearing text intact. Only option boundaries
+  // around it are redrawn, so sentence order and the grammatical mutation are
+  // unchanged. At an edge position the target option may absorb the correct
+  // words that precede/follow the error-bearing text.
   const errorSegment = segments[currentIndex]!;
   const prefixWords = wordsOf(segments.slice(0, currentIndex).join(" "));
   const suffixWords = wordsOf(segments.slice(currentIndex + 1).join(" "));
-  const feasibleTargets = Array.from({ length: segments.length }, (_, index) => index).filter((target) => {
+
+  const feasibleTargets = Array.from({ length: segments.length }, (_, target) => {
     const prefixGroups = target;
     const suffixGroups = segments.length - target - 1;
-    return prefixWords.length >= prefixGroups && suffixWords.length >= suffixGroups;
-  });
+    return { target, prefixGroups, suffixGroups };
+  }).filter(({ prefixGroups, suffixGroups }) => (
+    prefixWords.length >= prefixGroups && suffixWords.length >= suffixGroups
+  ));
   if (feasibleTargets.length < 2) return question;
 
   const seed = text(question.generationSeed) || text(question.questionId) || text(question.id);
-  const target = feasibleTargets[stableHash(`${seed}:${qlId}:${ENG001_ANSWER_POSITION_NORMALIZATION_ID_V1}`) % feasibleTargets.length]!;
-  const prefix = partitionWords(prefixWords, target);
-  const suffix = partitionWords(suffixWords, segments.length - target - 1);
+  const selected = feasibleTargets[stableHash(`${seed}:${qlId}:${ENG001_ANSWER_POSITION_NORMALIZATION_ID_V1}`) % feasibleTargets.length]!;
+
+  const prefix = selected.prefixGroups === 0 ? [] : partitionWords(prefixWords, selected.prefixGroups);
+  const suffix = selected.suffixGroups === 0 ? [] : partitionWords(suffixWords, selected.suffixGroups);
   if (!prefix || !suffix) return question;
 
-  const normalizedSegments = [...prefix, errorSegment, ...suffix];
+  const targetPrefix = selected.prefixGroups === 0 ? prefixWords.join(" ") : "";
+  const targetSuffix = selected.suffixGroups === 0 ? suffixWords.join(" ") : "";
+  const targetSegment = [targetPrefix, errorSegment, targetSuffix].filter(Boolean).join(" ");
+  const normalizedSegments = [...prefix, targetSegment, ...suffix];
+  if (normalizedSegments.length !== segments.length || normalizedSegments.some((segment) => segment.length === 0)) return question;
+
   const existingOptions = strings(question.options);
   const includeNoError = existingOptions.at(-1) === "No error";
   const normalizedOptions = [...normalizedSegments, ...(includeNoError ? ["No error"] : [])];
-  const answerSegment = String.fromCharCode(65 + target);
+  const answerSegment = String.fromCharCode(65 + selected.target);
   const stem = text(question.stem);
   const explanation = text(question.explanation).replace(/\bPart [A-D]\b/g, `Part ${answerSegment}`);
   const learnerText = [stem, ...normalizedOptions.map((option, index) => `${String.fromCharCode(65 + index)}. ${option}`)].join("\n");
@@ -71,8 +84,8 @@ function normalizeQuestion(question: Record<string, unknown>) {
     ...question,
     segments: normalizedSegments,
     options: normalizedOptions,
-    correctIndex: target,
-    correct: target,
+    correctIndex: selected.target,
+    correct: selected.target,
     answerSegment,
     explanation,
     text: learnerText,
