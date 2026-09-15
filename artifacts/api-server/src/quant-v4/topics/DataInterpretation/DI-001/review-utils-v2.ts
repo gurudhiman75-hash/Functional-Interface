@@ -21,12 +21,13 @@ export function buildDi001V2ReviewSets(): readonly Di001V2Set[] {
   const uncovered = new Set<Di001V2TaskKind>(DI001_V2_TASK_KINDS);
   const selected: Di001V2Set[] = [];
   const selectedIds = new Set<string>();
+  const profileCount = (profile: Di001ExamProfile) => selected.filter((set) => set.examProfile === profile).length;
 
   while (uncovered.size > 0 && selected.length < DI001_V2_REVIEW_TARGET_SETS) {
     let best: Di001V2Set | undefined;
     let bestGain = -1;
     for (const candidate of candidates) {
-      if (selectedIds.has(candidate.setId)) continue;
+      if (selectedIds.has(candidate.setId) || profileCount(candidate.examProfile) >= 4) continue;
       const gain = candidate.questions.filter((question) => uncovered.has(question.kind)).length;
       if (gain > bestGain) {
         best = candidate;
@@ -41,9 +42,7 @@ export function buildDi001V2ReviewSets(): readonly Di001V2Set[] {
 
   for (const candidate of candidates) {
     if (selected.length >= DI001_V2_REVIEW_TARGET_SETS) break;
-    if (selectedIds.has(candidate.setId)) continue;
-    const profileCount = selected.filter((set) => set.examProfile === candidate.examProfile).length;
-    if (profileCount >= DI001_V2_REVIEW_TARGET_SETS / 2) continue;
+    if (selectedIds.has(candidate.setId) || profileCount(candidate.examProfile) >= 4) continue;
     selected.push(candidate);
     selectedIds.add(candidate.setId);
   }
@@ -54,9 +53,7 @@ export function buildDi001V2ReviewSets(): readonly Di001V2Set[] {
   if (uncovered.size > 0) {
     throw new Error(`DI-001 V2 review selector missed task families: ${[...uncovered].join(", ")}`);
   }
-  const profileCounts = new Map<Di001ExamProfile, number>();
-  selected.forEach((set) => profileCounts.set(set.examProfile, (profileCounts.get(set.examProfile) ?? 0) + 1));
-  if (profileCounts.get("SSC_CGL_TIER_I") !== 4 || profileCounts.get("BANKING_PRELIMS") !== 4) {
+  if (profileCount("SSC_CGL_TIER_I") !== 4 || profileCount("BANKING_PRELIMS") !== 4) {
     throw new Error("DI-001 V2 review pack must contain four SSC and four Banking sets.");
   }
 
