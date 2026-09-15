@@ -1,6 +1,6 @@
 # PGK-001 CP007 — Forests, Wildlife & Wetlands
 
-Status: REVIEW CANDIDATE V2
+Status: HUMAN APPROVED / FROZEN V2
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-007 — Forests, Wildlife & Wetlands`
 Permanent QLs: `PGK-001-QL-042` to `PGK-001-QL-048`
@@ -24,7 +24,6 @@ Do not turn this CP into a species catalogue. Current forest-cover totals, Ramsa
 Stems must read like real Punjab recruitment-exam MCQs: short, direct and fact-focused.
 
 Preferred forms include:
-
 - `X is located in which district?`
 - `X lies on which river?`
 - `Which pair is correctly matched?`
@@ -33,7 +32,6 @@ Preferred forms include:
 - numbered `Consider the following statements/pairs` questions
 
 Avoid relation-filler or generator wording such as:
-
 - `associated with`
 - `closely associated with`
 - `linked with`
@@ -87,4 +85,4 @@ Primary verification stays internal against MoEFCC/Forest Survey material, Punja
 
 ## Lifecycle
 
-CP007 V2 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP007 V2 was human-approved on 15 September 2026 after the exam-grade stem rewrite. V2 is frozen as the accepted review authority. Question Studio runtime registration remains a separate later step.
