@@ -1,9 +1,9 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import {
-  generateClsCp004LocalizedQuestion,
-  type ClsCp004TranslatedLocale,
-} from "./cp004-localized-runtime";
+  generateClsCp004LocalizedReviewQuestion,
+} from "./cp004-localized-review-runtime";
+import type { ClsCp004TranslatedLocale } from "./cp004-localized-runtime";
 import { CLS_CP004_RULE_IDS } from "./number-domain";
 
 const outputDir = path.resolve(process.cwd(), "dist/reasoning-v1/cls-001/cp004-localisation-review");
@@ -13,12 +13,12 @@ const locales: readonly ClsCp004TranslatedLocale[] = ["hi-IN", "pa-IN"];
 const samplesPerRule = 2;
 
 for (const locale of locales) {
-  const selected = new Map<string, ReturnType<typeof generateClsCp004LocalizedQuestion>[]>(
+  const selected = new Map<string, ReturnType<typeof generateClsCp004LocalizedReviewQuestion>[]>(
     CLS_CP004_RULE_IDS.map((ruleId) => [ruleId, []]),
   );
 
   for (let seed = 0; seed < 5000; seed += 1) {
-    const question = generateClsCp004LocalizedQuestion(locale, seed);
+    const question = generateClsCp004LocalizedReviewQuestion(locale, seed);
     const bucket = selected.get(question.intendedRuleId)!;
     if (bucket.length < samplesPerRule) bucket.push(question);
     if ([...selected.values()].every((questions) => questions.length >= samplesPerRule)) break;
