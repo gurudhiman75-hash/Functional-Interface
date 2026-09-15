@@ -1,6 +1,6 @@
 # GEO-CLI-001 CP003 — Cold Weather Season
 
-Status: REVIEW CANDIDATE V1 — EXAM-GRADE BASELINE
+Status: REVIEW CANDIDATE V2 — EXAM-GRADE + CUSTOM EXPLANATIONS
 Parent blueprint: `GEO-CLI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-CLI-001-QL-019` to `GEO-CLI-001-QL-027`
 
@@ -45,6 +45,7 @@ The checkpoint uses only stable climatological facts. Live forecasts, current-se
 - Standard statement instructions may repeat, but statement format must not dominate the batch.
 - Avoid generator-like filler such as `associated with`, `described as`, `in the context of`, `with reference to the above`, or vague prompts such as `Which is correct?`.
 - Explanations must state the decisive fact in simple connected language; avoid option-by-option analysis unless genuinely necessary.
+- Every V2 question has an explicit, question-specific explanation rather than a shared QL explanation template.
 - Learner-facing text must not contain source names, internal review terminology or generator language.
 
 ## Review contract
@@ -54,6 +55,7 @@ The checkpoint uses only stable climatological facts. Live forecasts, current-se
 - 18 Easy / 30 Medium / 6 Hard
 - 54 unique learner-facing stems
 - 54 unique semantic payloads
+- 54 unique question-specific explanations
 - A14 / B14 / C13 / D13 answer-position split
 - at least three distinct canonical answers among Hard questions
 - four unique options per item
@@ -61,3 +63,7 @@ The checkpoint uses only stable climatological facts. Live forecasts, current-se
 - no more than 10 statement-format stems
 - source/fact provenance on every question
 - review-only; runtime registration disabled
+
+## V2 editorial correction
+
+V2 fixes the two overlong V1 statement stems caught by CI and adds a direct final prompt to the integrated three-statement item. It also replaces the shared QL explanation layer with 54 explicit question-specific explanations while preserving QL ownership, correct answers, difficulty and provenance.
