@@ -1,6 +1,22 @@
 import { modifierScene, type ModifierSceneV1 } from "./cp010-scene-types";
 
 const replacements: Readonly<Record<string, ModifierSceneV1>> = {
+  "MOD-H01": modifierScene({
+    id: "MOD-H01", difficulty: "hard", ruleId: "GR-MOD-001", domain: "inquiry", errorIndex: 0,
+    correctSegments: [
+      "Examining entries in three registers, the inquiry officer traced the mismatch to a late correction",
+      "during a routine reconciliation",
+      "before the external review",
+      "began the following week.",
+    ],
+    errorSegments: [
+      "Examining entries in three registers, a late correction was traced by the inquiry officer",
+      "during a routine reconciliation",
+      "before the external review",
+      "began the following week.",
+    ],
+    reason: "The inquiry officer examined the registers, so the opening participial phrase must attach to the officer rather than to 'a late correction'.",
+  }),
   "MOD-H07": modifierScene({
     id: "MOD-H07", difficulty: "hard", ruleId: "GR-MOD-004", domain: "legal-file", errorIndex: 2,
     correctSegments: [
