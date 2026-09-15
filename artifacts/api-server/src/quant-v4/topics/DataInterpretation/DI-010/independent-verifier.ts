@@ -33,7 +33,7 @@ function expectedAnswer(set: Di010QuestionSet, question: Di010Question): string 
   const classes = set.stimulus.classes;
   switch (question.kind) {
     case "CONSTRUCTION_PROPERTY":
-      return "Frequencies are plotted against class marks.";
+      return "Class marks (midpoints)";
     case "READ_CLASS_FREQUENCY_CONTEXT":
       return String(classes[Number(question.evidence.targetIndex)]!.frequency);
     case "MODAL_CLASS_FROM_POLYGON": {
