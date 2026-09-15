@@ -1,11 +1,12 @@
 # ENV-CP-007 Status
 
-- Lifecycle: REVIEW CANDIDATE.
-- Review version: V2.
-- Runtime registration: blocked.
-- Human approval: pending.
-- Merge into `New-main`: blocked until project-owner approval.
+- Lifecycle: APPROVED / CONTENT-FROZEN.
+- Approved review version: V2.
+- Human approval: 2026-09-15.
 - Review surface: 48 questions across 12 QLs.
-- V2 change: all stems rewritten toward competitive-exam style and explanations simplified.
-- Hard questions now combine hotspot criteria or multiple India-hotspot statements.
-- Worldwide hotspot-count trivia: intentionally excluded from learner questions.
+- Canonical facts and English learner-facing QL layer: content-frozen.
+- Runtime/package binding: eligible for shared Environment integration.
+- Review generator remains `runtimeRegistered: false` by design.
+- V2 baseline: competitive-exam stems with simplified one-point explanations.
+- Worldwide hotspot-count trivia: excluded from learner questions.
+- Next target: ENV-CP-008 Species Conservation.
