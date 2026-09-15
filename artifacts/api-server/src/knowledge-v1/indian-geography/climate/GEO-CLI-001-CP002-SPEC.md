@@ -1,6 +1,6 @@
 # GEO-CLI-001 CP002 — Monsoon Mechanism & Seasonal Wind Reversal
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2 — LEARNER-TEXT CLEAN
 Parent blueprint: `GEO-CLI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-CLI-001-QL-010` to `GEO-CLI-001-QL-018`
 
@@ -46,6 +46,7 @@ No live weather, current forecast, current cyclone, annual rainfall record or ch
 - Standard statement instructions may repeat, but statement format must not dominate the batch.
 - Avoid generator-like filler such as `associated with`, `described as`, `in the context of`, `with reference to the above`, and vague `Which is correct?` prompts without a clear object.
 - Explanations must give the decisive mechanism in simple connected language; no option-by-option analysis unless genuinely needed.
+- Learner-facing text must not contain source names, review-state terminology or generator language.
 
 ## Review contract
 
@@ -61,3 +62,7 @@ No live weather, current forecast, current cyclone, annual rainfall record or ch
 - no more than 10 statement-format stems
 - source/fact provenance on every question
 - review-only; runtime registration disabled
+
+## V2 editorial correction
+
+V2 removes source-name leakage from the learner-facing explanation layer while preserving the V1 stems, options, answers, difficulty labels and provenance. The V2 learner-text gate explicitly rejects source and internal workflow terminology.
