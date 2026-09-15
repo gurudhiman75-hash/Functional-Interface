@@ -48,12 +48,40 @@ const percentages = (counts: Record<string, number>) => {
   return Object.fromEntries(Object.entries(counts).map(([key, value]) => [key, Number((value * 100 / denominator).toFixed(2))]));
 };
 
+const perQlPct = Object.fromEntries(Object.entries(perQl).map(([key, value]) => [key, percentages(value)]));
+const perCpPct = Object.fromEntries(Object.entries(perCp).map(([key, value]) => [key, percentages(value)]));
+
+const assertRange = (value: number, minimum: number, maximum: number, label: string) => {
+  assert.ok(value >= minimum && value <= maximum, `${label} = ${value}% is outside ${minimum}–${maximum}%`);
+};
+
+// QL001 has four eligible error positions. Do not demand mathematical 25/25/25/25
+// equality because authored sentence shape constrains some segment boundaries, but
+// no position may become an exploitable dominant answer cue.
+for (const label of ["A", "B", "C", "D"] as const) {
+  assertRange(perQlPct["ENG-001-QL001"]![label]!, 15, 35, `QL001 Part ${label}`);
+}
+
+// QL002 reserves the final option for No error, so error-bearing questions use
+// A/B/C only. Each must remain materially represented and none may dominate.
+for (const label of ["A", "B", "C"] as const) {
+  assertRange(perQlPct["ENG-001-QL002"]![label]!, 20, 45, `QL002 Part ${label}`);
+}
+assert.equal(perQl["ENG-001-QL002"]!.D, 0, "QL002 must not key the No error slot in this error-bearing diagnostic");
+
+// At checkpoint level, reject any recurrence of the historical 60–90% single-
+// position concentration even when QL001 and QL002 are pooled together.
+for (const cpId of CPS) {
+  const maximumShare = Math.max(...Object.values(perCpPct[cpId]!));
+  assert.ok(maximumShare <= 50, `${cpId} has a predictable error-position share of ${maximumShare}%`);
+}
+
 console.log(JSON.stringify({
-  status: "PASS_ENG_001_ANSWER_POSITION_DIAGNOSTIC_V1",
+  status: "PASS_ENG_001_ANSWER_POSITION_DIAGNOSTIC_V1_BALANCED",
   samplesPerCell: SAMPLES_PER_CELL,
   total,
   overall,
   overallPct: percentages(overall),
-  perQl: Object.fromEntries(Object.entries(perQl).map(([key, value]) => [key, { counts: value, pct: percentages(value) }])),
-  perCp: Object.fromEntries(Object.entries(perCp).map(([key, value]) => [key, { counts: value, pct: percentages(value) }])),
+  perQl: Object.fromEntries(Object.entries(perQl).map(([key, value]) => [key, { counts: value, pct: perQlPct[key] }])),
+  perCp: Object.fromEntries(Object.entries(perCp).map(([key, value]) => [key, { counts: value, pct: perCpPct[key] }])),
 }, null, 2));
