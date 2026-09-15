@@ -1,6 +1,6 @@
 # PGK-001 CP009 — Economy & Industries
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-009 — Economy & Industries`
 Permanent QLs: `PGK-001-QL-056` to `PGK-001-QL-062`
@@ -60,4 +60,4 @@ Verification remains internal against Government of Punjab Industries & Commerce
 
 ## Lifecycle
 
-CP009 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP009 V1 was human-approved on 15 September 2026 and is frozen as the accepted review authority. Runtime Question Studio registration remains a separate later step; approval does not imply runtime registration or merge to `New-main`.
