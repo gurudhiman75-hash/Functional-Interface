@@ -1,8 +1,8 @@
 # ECO-CP-013 Status
 
 **CP:** ECO-CP-013 Government Budget  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
 ## Implemented
@@ -27,6 +27,10 @@
 - QA blocking current Budget allocations, current tax proposals/rates, current deficit/debt values, current Contingency Fund corpus and current number of Demands for Grants;
 - 24-question human review Markdown set.
 
+## Freeze note
+
+Human review approved the V1 English surface on 2026-09-15. English behaviour is frozen pending localisation and a separate runtime/Question Studio promotion decision.
+
 ## Static boundary
 
 Excluded from this CP:
@@ -40,8 +44,6 @@ Excluded from this CP:
 
 ## Promotion steps
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behavior.
-4. Add localisation layer in the localisation phase.
-5. Register with runtime/Question Studio only after separate promotion approval.
+1. English V1 approved and frozen.
+2. Add localisation layer in the localisation phase.
+3. Register with runtime/Question Studio only after separate promotion approval.
