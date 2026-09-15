@@ -35,4 +35,11 @@ export const POL_CP011_SOURCES_V1: readonly PolCp011Source[] = Object.freeze([
     url: "https://sansad.in/ls/faq",
     notes: "Official Lok Sabha source for joint-sitting presiding officer and related parliamentary procedure facts.",
   },
+  {
+    sourceId: "LOK-SABHA-MANUAL-PROCEDURE",
+    sourceType: "official",
+    title: "Manual of Parliamentary Procedures in the Government of India",
+    url: "https://sansad.in/uploads/English_Manual_GOI_E_ccb7bb7ef7.pdf?updated_at=2022-09-13T06%3A19%3A45.349Z",
+    notes: "Official parliamentary manual source for the term and operation of guillotine in demands-for-grants procedure.",
+  },
 ]);
