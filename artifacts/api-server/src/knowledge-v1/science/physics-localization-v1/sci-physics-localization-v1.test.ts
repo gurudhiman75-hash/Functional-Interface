@@ -116,8 +116,8 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
       }
       if (cpId === "SCI-CP-008") {
         assert.match(corpus, /ਬਿਜਲਈ ਚਾਰਜ/u); assert.match(corpus, /ਬਿਜਲਈ ਧਾਰਾ/u); assert.match(corpus, /ਵਿਭਵ ਅੰਤਰ/u);
-        assert.match(corpus, /ਪ੍ਰਤੀਰੋਧ/u); assert.match(corpus, /ਪ੍ਰਤੀਰੋਧਕਤਾ/u); assert.match(corpus, /ਲੜੀਵਾਰ ਪਰਿਪਥ/u);
-        assert.match(corpus, /ਸਮਾਂਤਰ ਪਰਿਪਥ/u); assert.match(corpus, /ਬਿਜਲਈ ਸ਼ਕਤੀ/u); assert.match(corpus, /ਕਿਲੋਵਾਟ-ਘੰਟਾ/u); assert.match(corpus, /ਭੂ-ਸੰਪਰਕ/u);
+        assert.match(corpus, /ਪ੍ਰਤੀਰੋਧ/u); assert.match(corpus, /ਪ੍ਰਤੀਰੋਧਕਤਾ/u); assert.match(corpus, /ਲੜੀਵਾਰ ਸਰਕਟ/u);
+        assert.match(corpus, /ਸਮਾਂਤਰ ਸਰਕਟ/u); assert.match(corpus, /ਬਿਜਲਈ ਸ਼ਕਤੀ/u); assert.match(corpus, /ਕਿਲੋਵਾਟ-ਘੰਟਾ/u); assert.match(corpus, /ਭੂ-ਸੰਪਰਕ/u);
       }
     }
   }
