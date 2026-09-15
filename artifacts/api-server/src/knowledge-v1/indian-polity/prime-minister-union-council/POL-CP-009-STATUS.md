@@ -1,8 +1,8 @@
 # POL-CP-009 — Prime Minister & Union Council of Ministers Status
 
 **Branch:** `feature/polity-cp009-prime-minister-union-council`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
 ## Implemented
 
@@ -32,7 +32,7 @@
 - 40 Medium
 - 12 Hard
 
-## Language and explanation policy
+## Frozen language and explanation policy
 
 - simple exam-style stems
 - direct stems capped at 28 words
@@ -42,11 +42,14 @@
 - no unnecessary option-by-option analysis
 - important President/Prime Minister/Council distinctions stated only where useful
 
-## Gated
+## Approval
 
-- merge to `New-main`
+English V1 was approved by the project owner on 15 September 2026 and is the canonical English authority for POL-CP-009.
+
+Any later source/fact/generator change requires re-review before replacing the frozen content.
+
+## Deferred to Polity integration checkpoint
+
 - Question Studio exposure
 - localization
 - chapter-wide production registration
-
-These remain blocked until English V1 is approved.
