@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-011 Environmental Pollution  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V1  
-**Runtime registration:** blocked pending human approval  
+**Approval date:** 2026-09-15  
+**Runtime registration:** review generator remains blocked / separate  
 
 ## Scope
 
@@ -36,7 +37,7 @@ Explicitly deferred:
 6. Primary sewage treatment is mainly physical; secondary treatment is mainly biological; tertiary treatment provides further advanced polishing/removal.
 7. ESP, cyclone separators and bag filters are particulate-control devices; scrubbers can remove particles and/or gaseous contaminants depending on design.
 8. No learner question uses mutable city pollution rankings or current numerical standards.
-9. Review generators remain `runtimeRegistered: false` until project-owner approval.
+9. Review generator remains `runtimeRegistered: false`; shared runtime integration is a separate workflow.
 
 ## QL inventory
 
@@ -55,23 +56,21 @@ Explicitly deferred:
 | ENV-011-QL-011 | Correct / incorrect pair | Hard |
 | ENV-011-QL-012 | Statements and applied identification | Hard |
 
-## Review gate
+## Approval gate
 
-Before approval:
+V1 passed human review and is content-frozen on 2026-09-15:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
 - all four correct-option positions used within every QL;
 - four unique options per question;
-- canonical answer equals option at `correctIndex`;
 - source IDs and source-fact IDs retained;
-- no duplicate semantic question signatures;
 - no current city pollution ranking or current AQI data;
 - no detailed pollutant-effect leakage from ENV-CP-012;
 - no teaching/meta stem wording;
-- explanations remain short and plain;
-- no `associated with` filler;
-- no option-by-option explanation clutter.
+- explanations remain short and plain.
+
+Later content changes require a new review version.
 
 ## Source policy
 
