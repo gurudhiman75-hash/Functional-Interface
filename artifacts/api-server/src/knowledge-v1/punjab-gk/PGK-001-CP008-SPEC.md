@@ -1,6 +1,6 @@
 # PGK-001 CP008 — Agriculture of Punjab
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-008 — Agriculture of Punjab`
 Permanent QLs: `PGK-001-QL-049` to `PGK-001-QL-055`
@@ -62,4 +62,4 @@ Verification remains internal against Punjab Agricultural University, Government
 
 ## Lifecycle
 
-CP008 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+Human-approved on 15 September 2026. V1 is the frozen review authority for CP008. Runtime Question Studio registration remains a separate later step and is not implied by this approval.
