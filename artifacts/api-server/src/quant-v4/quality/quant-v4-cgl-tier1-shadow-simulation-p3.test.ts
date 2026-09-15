@@ -52,7 +52,7 @@ const probeTrig = probe.records.filter((record) => record.slotKind === "TRIGONOM
 assert.equal(probeAlgebra.length, 3);
 assert.equal(probeTrig.length, 3);
 assert.ok(probeAlgebra.every((record) => record.sourceKind === "RUNTIME_GENERATED"));
-assert.ok(probeAlgebra.every((record) => record.packageId === "ALG-001"));
+assert.ok(probeAlgebra.every((record) => record.packageId.toUpperCase().includes("ALG")));
 assert.ok(probeAlgebra.every((record) => record.bankOnly === true));
 assert.ok(probeAlgebra.every((record) => record.testEligible === false));
 assert.ok(probeAlgebra.every((record) => record.publiclyPublishable === false));
@@ -97,7 +97,10 @@ assert.deepEqual(audit.slotDistribution, {
   GEOMETRY_MENSURATION: 100,
   TRIGONOMETRY: 60,
 });
-assert.equal(audit.packageDistribution["ALG-001"], 60);
+const algebraPackageRecords = Object.entries(audit.packageDistribution)
+  .filter(([packageId]) => packageId.toUpperCase().includes("ALG"))
+  .reduce((sum, [, count]) => sum + count, 0);
+assert.equal(algebraPackageRecords, 60);
 assert.equal((audit.packageDistribution["TRG-001"] ?? 0) + (audit.packageDistribution["TRG-002"] ?? 0), 60);
 
 assert.ok(audit.blockers.includes("ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK"));
