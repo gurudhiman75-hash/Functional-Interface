@@ -1,6 +1,6 @@
 import { hashSeed, seededRandom, shuffle } from "../DI-001/exact";
 import { buildDi010Stimulus } from "./frequency-polygon-state";
-import { buildDi010DraftsV2, type Di010Candidate, type Di010Draft } from "./task-builders-v2";
+import { buildDi010DraftsV3, type Di010Candidate, type Di010Draft } from "./task-builders-v3";
 import type { Di010Difficulty, Di010ExamProfile, Di010Option, Di010Question, Di010QuestionSet, Di010TaskKind, Di010ValidationCheck } from "./types";
 
 const OPTION_COUNT = 4 as const;
@@ -150,7 +150,7 @@ function validateSet(set: Omit<Di010QuestionSet, "validation">) {
   add("ANSWER_INDEX_VALID", set.questions.every((question) => question.options[question.correctIndex] === question.answer), "Correct-index metadata must point to the exact answer.");
   add("MISCONCEPTION_OWNED_DISTRACTORS", set.questions.every((question) => question.optionMetadata.filter((option) => option.misconceptionId !== "CORRECT").every((option) => option.misconceptionId.length > 3 && option.derivation.length > 12)), "Every distractor must carry misconception ownership.");
   add("EXPLANATION_PRESENT", set.questions.every((question) => question.explanation.keyIdea.length > 15 && question.explanation.steps.length >= 1), "Every question needs a beginner-readable explanation.");
-  add("REVIEW_ONLY", !set.traceability.questionStudioDiscoverable && set.traceability.questionBankStatus === "NOT_STORED" && !set.traceability.questionBankWritable && set.traceability.testEligibility === "INELIGIBLE" && !set.traceability.testEligible && !set.traceability.mockTestEligible && !set.traceability.publiclyPublishable && !set.traceability.automaticStudentPublication && !set.traceability.productionReleaseAuthorized, "DI-010 P1 must remain fully review-only.");
+  add("REVIEW_ONLY", !set.traceability.questionStudioDiscoverable && set.traceability.questionBankStatus === "NOT_STORED" && !set.traceability.questionBankWritable && set.traceability.testEligibility === "INELIGIBLE" && !set.traceability.testEligible && !set.traceability.mockTestEligible && !set.traceability.publiclyPublishable && !set.traceability.automaticStudentPublication && !set.traceability.productionReleaseAuthorized, "DI-010 P2 must remain fully review-only.");
   return { valid: checks.every((check) => check.passed), checks } as const;
 }
 
@@ -158,7 +158,7 @@ export function generateDi010FrequencyPolygonSet(input: { seed: string; examProf
   const seed = input.seed.trim();
   if (!seed) throw new Error("DI-010 requires a non-empty deterministic seed.");
   const stimulus = buildDi010Stimulus(seed, input.examProfile);
-  const drafts = buildDi010DraftsV2(seed, stimulus).map(applyDifficultyPolicy);
+  const drafts = buildDi010DraftsV3(seed, stimulus).map(applyDifficultyPolicy);
   const selected = chooseQuestionMix(seed, drafts);
   const setId = `DI-010-${input.examProfile}-${hashSeed(`${seed}:${input.examProfile}`).toString(16).padStart(8, "0")}`;
   const questions: Di010Question[] = selected.map((draft, index) => {
@@ -181,8 +181,8 @@ export function generateDi010FrequencyPolygonSet(input: { seed: string; examProf
       histogramSibling: "DI-009" as const,
       statisticsSibling: "STAT-003" as const,
       presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS" as const,
-      questionLogicVersion: "DI-010-QUESTION-LOGIC-P1" as const,
-      setContractVersion: "DI-010-SET-CONTRACT-P1" as const,
+      questionLogicVersion: "DI-010-QUESTION-LOGIC-P2" as const,
+      setContractVersion: "DI-010-SET-CONTRACT-P2" as const,
       arithmeticAuthority: "EXACT_INTEGER_MIDPOINT" as const,
       reviewStatus: "UNREVIEWED" as const,
       questionStudioDiscoverable: false as const,
@@ -197,6 +197,6 @@ export function generateDi010FrequencyPolygonSet(input: { seed: string; examProf
     },
   };
   const validation = validateSet(base);
-  if (!validation.valid) throw new Error(`DI-010 P1 validation failed: ${validation.checks.filter((check) => !check.passed).map((check) => check.id).join(", ")}`);
+  if (!validation.valid) throw new Error(`DI-010 P2 validation failed: ${validation.checks.filter((check) => !check.passed).map((check) => check.id).join(", ")}`);
   return { ...base, validation };
 }
