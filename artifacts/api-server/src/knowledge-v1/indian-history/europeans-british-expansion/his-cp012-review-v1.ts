@@ -2,6 +2,7 @@ import type { KnowledgeV1Difficulty } from "../../types";
 import { HIS_CP012_FACTS_V1,HIS_CP012_FACT_BY_ID_V1,HIS_CP012_SOURCE_IDS_V1,HIS_CP012_SOURCES_V1 } from "./his-cp012-facts-v1";
 import { HIS_CP012_QL_NAMES_V1,HIS_CP012_SPECS_V1 } from "./his-cp012-review-specs-v1";
 import { HIS_CP012_ITEM_OVERRIDES_V1 } from "./his-cp012-item-overrides-v1";
+import { HIS_CP012_LANGUAGE_OVERRIDES_V1 } from "./his-cp012-language-overrides-v1";
 
 export type HisCp012ReviewQuestion={questionId:string;chapterId:"HIS-001";cpId:"HIS-CP-012";qlId:string;qlName:string;difficulty:KnowledgeV1Difficulty;stem:string;options:string[];correctIndex:number;canonicalAnswer:string;explanation:string;sourceIds:string[];sourceFactIds:string[];reviewOnly:true;runtimeRegistered:false};
 const difficulty=(ql:number):KnowledgeV1Difficulty=>ql<=3?"Easy":ql<=8?"Medium":"Hard";
@@ -10,7 +11,7 @@ const sourceIds=(ids:readonly string[])=>[...new Set(ids.flatMap(id=>HIS_CP012_F
 const SOURCE_LEAK=/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i;
 const META_WORDING=/(?:school-level|this CP|review batch|internal wording)/i;
 
-export function generateHisCp012ReviewBatchV1():HisCp012ReviewQuestion[]{return HIS_CP012_SPECS_V1.map((baseSpec,i)=>{const s=HIS_CP012_ITEM_OVERRIDES_V1[i+1]??baseSpec;const[ql,stem,answer,distractors,factIds]=s;const base=[answer,...distractors];const shift=i%4;const options=[...base.slice(shift),...base.slice(0,shift)];const correctIndex=options.indexOf(answer);return{questionId:`HIS-CP012-V1-${String(i+1).padStart(3,"0")}`,chapterId:"HIS-001",cpId:"HIS-CP-012",qlId:`HIS-012-QL-${String(ql).padStart(3,"0")}`,qlName:HIS_CP012_QL_NAMES_V1[ql],difficulty:difficulty(ql),stem,options,correctIndex,canonicalAnswer:answer,explanation:explain(factIds),sourceIds:sourceIds(factIds),sourceFactIds:[...factIds],reviewOnly:true,runtimeRegistered:false};});}
+export function generateHisCp012ReviewBatchV1():HisCp012ReviewQuestion[]{return HIS_CP012_SPECS_V1.map((baseSpec,i)=>{const n=i+1;const s=HIS_CP012_ITEM_OVERRIDES_V1[n]??baseSpec;const[ql,baseStem,answer,distractors,factIds]=s;const language=HIS_CP012_LANGUAGE_OVERRIDES_V1[n];const stem=language?.stem??baseStem;const base=[answer,...distractors];const shift=i%4;const options=[...base.slice(shift),...base.slice(0,shift)];const correctIndex=options.indexOf(answer);return{questionId:`HIS-CP012-V1-${String(n).padStart(3,"0")}`,chapterId:"HIS-001",cpId:"HIS-CP-012",qlId:`HIS-012-QL-${String(ql).padStart(3,"0")}`,qlName:HIS_CP012_QL_NAMES_V1[ql],difficulty:difficulty(ql),stem,options,correctIndex,canonicalAnswer:answer,explanation:language?.explanation??explain(factIds),sourceIds:sourceIds(factIds),sourceFactIds:[...factIds],reviewOnly:true,runtimeRegistered:false};});}
 
 export const HIS_CP012_REVIEW_BATCH_V1=Object.freeze(generateHisCp012ReviewBatchV1().map(q=>Object.freeze(q)));
 export const HIS_CP012_REQUIRED_FACTS_V1=Object.freeze([...new Set(HIS_CP012_REVIEW_BATCH_V1.flatMap(q=>q.sourceFactIds))].sort());
