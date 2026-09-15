@@ -6,6 +6,8 @@ type Patch = Readonly<{ from: string; to: string }>;
 // in NCERT/PSEB Hindi material and keep resonance (अनुनाद) distinct from
 // reverberation (अनुरणन).
 const HINDI_COMMON_PATCHES: readonly Patch[] = Object.freeze([
+  { from: "ध्वनि की तारता", to: "ध्वनि का तारत्व" },
+  { from: "स्रोत की तारता", to: "स्रोत का तारत्व" },
   { from: "तारता", to: "तारत्व" },
   { from: "अनुनादिता", to: "अनुरणन" },
 ]);
