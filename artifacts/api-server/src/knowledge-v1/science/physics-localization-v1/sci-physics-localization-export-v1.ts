@@ -9,7 +9,9 @@ const labels = { en: "English", hi: "Hindi", pa: "Punjabi" } as const;
 const targetDir = path.resolve("dist/science-review/SCI-PHYSICS-MULTILINGUAL-V1");
 fs.mkdirSync(targetDir, { recursive: true });
 
-function materialize(cps: readonly ("SCI-CP-001" | "SCI-CP-002" | "SCI-CP-003" | "SCI-CP-004")[], title: string, filename: string) {
+type ReviewCp = "SCI-CP-001" | "SCI-CP-002" | "SCI-CP-003" | "SCI-CP-004" | "SCI-CP-005" | "SCI-CP-006";
+
+function materialize(cps: readonly ReviewCp[], title: string, filename: string) {
   const out: string[] = [
     `# SCI Physics Multilingual V1 — ${title} Review`,
     "",
@@ -36,3 +38,4 @@ function materialize(cps: readonly ("SCI-CP-001" | "SCI-CP-002" | "SCI-CP-003" |
 
 materialize(["SCI-CP-001", "SCI-CP-002"], "CP001–CP002", "SCI-PHYSICS-MULTILINGUAL-V1-CP001-CP002-REVIEW.md");
 materialize(["SCI-CP-003", "SCI-CP-004"], "CP003–CP004", "SCI-PHYSICS-MULTILINGUAL-V1-CP003-CP004-REVIEW.md");
+materialize(["SCI-CP-005", "SCI-CP-006"], "CP005–CP006", "SCI-PHYSICS-MULTILINGUAL-V1-CP005-CP006-REVIEW.md");

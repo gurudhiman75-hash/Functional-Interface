@@ -2,6 +2,20 @@ import type { PhysicsLocalizedAnchorSurfaceV1 } from "./sci-physics-localization
 
 type Patch = Readonly<{ from: string; to: string }>;
 
+// Common Hindi school-science register. These forms match the terminology used
+// in NCERT/PSEB Hindi material and keep resonance (अनुनाद) distinct from
+// reverberation (अनुरणन).
+const HINDI_COMMON_PATCHES: readonly Patch[] = Object.freeze([
+  { from: "ध्वनि की तारता", to: "ध्वनि का तारत्व" },
+  { from: "स्रोत की तारता", to: "स्रोत का तारत्व" },
+  { from: "तारता", to: "तारत्व" },
+  { from: "तारत्व मुख्यतः किस पर निर्भर करती है?", to: "तारत्व मुख्यतः किस पर निर्भर करता है?" },
+  { from: "तारत्व मुख्यतः उसकी आवृत्ति पर निर्भर करती है।", to: "तारत्व मुख्यतः उसकी आवृत्ति पर निर्भर करता है।" },
+  { from: "तारत्व मुख्यतः आयाम पर निर्भर करती है।", to: "तारत्व मुख्यतः आयाम पर निर्भर करता है।" },
+  { from: "आवृत्ति मुख्यतः तारत्व बदलती है", to: "आवृत्ति मुख्यतः तारत्व को प्रभावित करती है" },
+  { from: "अनुनादिता", to: "अनुरणन" },
+]);
+
 const HINDI_PATCHES_BY_ANCHOR: Readonly<Record<string, readonly Patch[]>> = Object.freeze({
   "SCI-CP003-EXH-A11": [
     { from: "मशीन की दक्षता उपयोगी निर्गत कार्य और किसके अनुपात से मिलती है?", to: "मशीन की दक्षता उपयोगी कार्य का किससे अनुपात लेकर निकाली जाती है?" },
@@ -29,6 +43,7 @@ const HINDI_PATCHES_BY_ANCHOR: Readonly<Record<string, readonly Patch[]>> = Obje
 
 export function polishHindiPhysicsTextV1(anchorId: string, text: string): string {
   let out = text;
+  for (const patch of HINDI_COMMON_PATCHES) out = out.replaceAll(patch.from, patch.to);
   for (const patch of HINDI_PATCHES_BY_ANCHOR[anchorId] ?? []) out = out.replaceAll(patch.from, patch.to);
   return out;
 }
