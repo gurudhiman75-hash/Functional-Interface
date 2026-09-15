@@ -1,9 +1,13 @@
 # ECO-CP-017 Status
 
 **CP:** ECO-CP-017 Agriculture & Indian Economy  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
+
+## Approved English V1
+
+Human review approved. English V1 is frozen for editorial behaviour and content scope.
 
 ## Implemented
 
@@ -24,10 +28,7 @@
 - Easy/Medium/Hard per-variant classification;
 - short SSC/Banking/State-exam style stems;
 - simple 1-2 sentence explanations;
-- QA for exact count, source resolution, unique options, duplicates and difficulty spread;
-- QA blocking terminal-colon/review-like stems and excessive stem length;
-- QA for MSP/procurement, NABARD/retail-credit, FCI/PDS, crop-insurance/MSP and e-NAM/APMC distinctions;
-- QA blocking volatile current MSP, production, procurement, PMFBY, e-NAM, NABARD and buffer-stock values;
+- structural/editorial QA and volatile-value guards;
 - 24-question human review Markdown set.
 
 ## Static boundary
@@ -42,10 +43,6 @@ Excluded from this CP:
 - current buffer-stock quantities, issue prices or live PDS allocations;
 - live scheme budgets or beneficiary counts.
 
-## Promotion steps
+## Promotion status
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer later.
-5. Register with runtime/Question Studio only after separate promotion approval.
+English editorial approval does not register this CP with runtime/Question Studio. Runtime promotion remains a separate explicit approval step.
