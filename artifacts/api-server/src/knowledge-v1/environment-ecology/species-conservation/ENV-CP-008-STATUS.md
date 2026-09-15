@@ -5,6 +5,7 @@
 - Runtime registration: blocked.
 - Human approval: pending.
 - Merge into `New-main`: blocked until project-owner approval.
-- Review surface target: 48 questions across 12 QLs.
+- Review surface: 48 questions across 12 QLs.
+- Exam-language baseline: direct competitive-exam stems with short explanations.
 - Named-species current IUCN status: excluded from learner questions.
 - Source verification date: 2026-09-15.
