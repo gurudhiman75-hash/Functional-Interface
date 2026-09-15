@@ -39,6 +39,9 @@ const HINDI_PATCHES_BY_ANCHOR: Readonly<Record<string, readonly Patch[]>> = Obje
   "SCI-CP004-EXH-A09": [
     { from: "दाब किसके प्रति इकाई बल है?", to: "दाब के सूत्र P = F/A में बल को किस राशि से भाग दिया जाता है?" },
   ],
+  "SCI-CP008-EXH-A02": [
+    { from: "विद्युत धारा आवेश के किसके प्रति प्रवाह की दर है?", to: "विद्युत धारा में आवेश के प्रवाह को किसके प्रति मापा जाता है?" },
+  ],
 });
 
 export function polishHindiPhysicsTextV1(anchorId: string, text: string): string {
