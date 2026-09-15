@@ -1,11 +1,12 @@
 # POL-CP-013 — High Courts, Subordinate Judiciary & Writs
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Approval date:** 15 September 2026  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
-This CP covers Articles 214–237: High Courts, writ jurisdiction, supervisory powers, and the subordinate judiciary. It follows POL-CP-012 Supreme Court and deliberately keeps current office-holder, vacancy and sanctioned-strength facts out of the bank.
+This CP covers Articles 214–237: High Courts, writ jurisdiction, supervisory powers, and the subordinate judiciary. Current office-holder, vacancy and sanctioned-strength facts remain excluded.
 
 ## Core constitutional coverage
 
@@ -24,17 +25,17 @@ This CP covers Articles 214–237: High Courts, writ jurisdiction, supervisory p
 - Article 235 — High Court control over subordinate courts
 - Articles 236–237 — definitions and application to classes of magistrates
 
-## Review design
+## Frozen review design
 
 - 20 genuine QLs
 - 80 English review questions
 - 24 Easy / 40 Medium / 16 Hard
 - four unique options per question
-- V1 stems are exam-grade from source; no later cosmetic stem overlay is intended
+- V1 stems are exam-grade from source
 - direct stems normally end in a question mark and remain within 30 words
 - statement-based questions may be longer where the format requires it
 
-## Stem standard
+## Frozen stem standard
 
 Use proper SSC/Banking/Railway/State-exam wording:
 - `Which Article...?`
@@ -45,7 +46,7 @@ Use proper SSC/Banking/Railway/State-exam wording:
 
 Avoid database-style fragments such as `Article 226 deals with:` or unnatural stem endings.
 
-## Explanation standard
+## Frozen explanation standard
 
 - simple but useful;
 - exact constitutional rule first;
@@ -67,6 +68,6 @@ Avoid database-style fragments such as `Article 226 deals with:` or unnatural st
 - Article 234 consultation requires State PSC and High Court;
 - Article 235 vests subordinate-judiciary control in the High Court.
 
-## Gate
+## Deferred
 
-Merge, Question Studio exposure, localization and chapter-wide production registration remain blocked until English V1 is approved.
+Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
