@@ -1,10 +1,11 @@
 # POL-CP-013 — High Courts, Subordinate Judiciary & Writs Status
 
 **Branch:** `feature/polity-cp013-high-courts-subordinate-judiciary-writs`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Approval date:** 15 September 2026  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
-## Implemented
+## Approved implementation
 
 - current Legislative Department Constitution source as on 1 May 2026
 - official Supreme Court jurisdiction overview
@@ -26,17 +27,19 @@
 - Articles 234–235 recruitment and High Court control of subordinate judiciary
 - Articles 236–237 definitions and magistrate application
 - 20 genuine QLs
-- 80-question review target
+- 80-question English review bank
 - exam-grade stem rules built into V1 generator
-- structural, source, answer-alignment, explanation and stem-style QA files
 
-## Review profile
+## Frozen review profile
 
 - 24 Easy
 - 40 Medium
 - 16 Hard
+- 80 unique exam-grade stems
+- 80 unique explanations
+- four unique options with answer alignment
 
-## Language policy
+## Frozen language standard
 
 - real competitive-exam stem style from V1
 - direct questions normally capped at 30 words
@@ -45,11 +48,10 @@
 - no database-style prompt fragments
 - no current office-holder questions
 
-## Gated
+## Deferred
 
-- merge to `New-main`
 - Question Studio exposure
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V1 is approved.
+These remain deferred to the Polity integration checkpoint.
