@@ -14,4 +14,7 @@ assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)
 assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.explanation)),false);
 assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/(?:school-level|this CP|review batch|internal wording)/i.test(q.stem)),false);
 assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/(?:school-level|this CP|review batch|internal wording)/i.test(q.explanation)),false);
+const AWKWARD_STEM=/(?:in relation to Company expansion|Which military condition formed part|Which settlement followed|Which correctly identifies|What followed the death of Ranjit Singh in relation to)/i;
+assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>AWKWARD_STEM.test(q.stem)),false);
+assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>q.stem.length>180),false);
 console.log(JSON.stringify(audit,null,2));
