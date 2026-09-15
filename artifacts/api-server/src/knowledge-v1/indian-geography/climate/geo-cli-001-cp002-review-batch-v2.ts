@@ -8,11 +8,17 @@ const LEARNER_EXPLANATION_PATCH =
   "Southern Hemisphere southeast trade winds cross the Equator toward India's summer low-pressure area. These winds cross the Equator mainly between about 40°E and 60°E.";
 
 export const GEO_CLI_001_CP002_REVIEW_BATCH_V2: readonly GeoCli001Cp002Question[] = Object.freeze(
-  GEO_CLI_001_CP002_REVIEW_BATCH_V1.map((question) =>
-    question.qlId === "GEO-CLI-001-QL-013"
-      ? Object.freeze({ ...question, explanation: `${question.canonicalAnswer}. ${LEARNER_EXPLANATION_PATCH}` })
-      : question,
-  ),
+  GEO_CLI_001_CP002_REVIEW_BATCH_V1.map((question) => {
+    const explanation = question.qlId === "GEO-CLI-001-QL-013"
+      ? `${question.canonicalAnswer}. ${LEARNER_EXPLANATION_PATCH}`
+      : question.explanation;
+    const options = question.questionId === "GEO-CLI-001-CP002-Q035"
+      ? Object.freeze(question.options.map((option) =>
+          option === "Vegetation and population density" ? "Vegetation and river direction" : option,
+        ))
+      : question.options;
+    return Object.freeze({ ...question, explanation, options });
+  }),
 );
 
 const BANNED_LEARNER_TEXT =
