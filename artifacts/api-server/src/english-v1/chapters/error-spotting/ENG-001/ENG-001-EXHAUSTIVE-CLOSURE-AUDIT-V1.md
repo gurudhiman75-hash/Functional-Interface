@@ -47,7 +47,8 @@ The soak checks:
 - exact package and lifecycle identity;
 - rule ownership and registration;
 - all 131 rule families exercised chapter-wide;
-- every checkpoint rule exercised through each permanent QL across its applicable difficulties;
+- every checkpoint rule exercised through both error-producing surfaces (QL001 and QL002) across its applicable difficulties;
+- QL007 restricted to its intentionally calibrated no-error pool, with meaningful rule/candidate/surface breadth at each difficulty;
 - meaningful rule breadth inside every difficulty/QL cell without defeating intentional difficulty gating;
 - candidate depth and learner-surface depth;
 - answer bounds and option uniqueness;
@@ -56,7 +57,7 @@ The soak checks:
 - no internal metadata leakage;
 - no option-by-option analysis;
 - explanation Part A–D references agree with the actual answer;
-- sentence-part length guardrails;
+- sentence-part length guardrails, with tighter limits on generated resegmentation than on authored parts;
 - deterministic replay.
 
 ## Manual learner-facing audit findings
