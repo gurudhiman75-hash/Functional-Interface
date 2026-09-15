@@ -1,4 +1,4 @@
-name: Quant V4 Data Interpretation frequency polygon DI P1
+name: Quant V4 Data Interpretation frequency polygon DI P2
 
 on:
   push:
@@ -43,15 +43,15 @@ jobs:
       - name: Frequency-polygon deterministic, diversity, independent and visual proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/frequency-polygon-set.test.ts
       - name: Export Markdown review pack
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/export-review.ts DI-010-REVIEW-P1.md
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/export-review.ts DI-010-REVIEW-P2.md
       - name: Export standalone HTML review pack
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/export-review-html.ts DI-010-REVIEW-P1.html
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/export-review-html.ts DI-010-REVIEW-P2.html
       - uses: actions/upload-artifact@v4
         with:
-          name: di-010-frequency-polygon-review-p1
+          name: di-010-frequency-polygon-review-p2
           path: |
-            DI-010-REVIEW-P1.md
-            DI-010-REVIEW-P1.html
+            DI-010-REVIEW-P2.md
+            DI-010-REVIEW-P2.html
           if-no-files-found: error
           retention-days: 30
       - name: API server build
