@@ -37,7 +37,7 @@
 - simple exam-style stems
 - helpful explanations from V1, not ultra-short notes
 - exact rule plus one useful distinction or exam trap where helpful
-- normal explanation range: 16–32 words
+- normal explanation range: 13–32 words
 - no stock opening or generic filler
 - no unnecessary option-by-option analysis
 
