@@ -6,11 +6,13 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
       - .github/workflows/english-eng002-cp006-v1.yml
   push:
     branches: [New-main]
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
       - .github/workflows/english-eng002-cp006-v1.yml
   workflow_dispatch:
 
@@ -42,6 +44,10 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-002-cp006-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-002-cp006-v1.test.mjs
       - name: Run ENG-002 CP006 deterministic stress and review test
         run: node artifacts/api-server/dist/english-v1/eng-002-cp006-v1.test.mjs
+      - name: Compile ENG-002 CP006 Question Studio adapter test
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng002-cp006-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/language-v1-eng002-cp006-adapter-v1.test.mjs
+      - name: Run ENG-002 CP006 Question Studio adapter test
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng002-cp006-adapter-v1.test.mjs
       - name: Compile ENG-002 CP006 review materializer
         run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/sentence-improvement/ENG-002/CP006/eng-002-cp006-review-v1-materialize.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-002-cp006-review-v1-materialize.mjs
       - name: Materialize ENG-002 CP006 review Markdown
