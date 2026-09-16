@@ -1,14 +1,16 @@
 # ECO-CP-022 Status
 
 **CP:** ECO-CP-022 Human Development & Development Economics  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
-## Implemented
+## Approved English V1
 
-- official UNDP and World Bank source registry;
-- human-development concept and 1990 Human Development Report;
+Human review approved the V1 English surface on 2026-09-16.
+
+Frozen scope includes:
+- human-development concept and the 1990 Human Development Report;
 - Mahbub ul Haq / capability-approach context;
 - HDI purpose, three dimensions and component indicators;
 - life expectancy, mean years of schooling, expected years of schooling and GNI-per-capita distinctions;
@@ -20,14 +22,7 @@
 - Multidimensional Poverty Index concept, dimensions, incidence and intensity;
 - human capital versus broader human-development approach;
 - 12 QLs and deterministic 44-question English review generator;
-- Easy/Medium/Hard per-variant classification;
-- short direct SSC/Banking/State-exam style stems from the outset;
-- simple 1-2 sentence explanations;
-- QA for count, option uniqueness, source/fact resolution and difficulty spread;
-- QA for HDI, growth/development, Gini/Lorenz, poverty and MPI distinctions;
-- QA blocking terminal-colon/review-like stems and excessive stem length;
-- QA blocking current HDI/MPI rankings, scores, Gini values, poverty rates, GNI values and current health/education statistics;
-- 24-question human review Markdown set.
+- short direct exam-grade stems and simple 1-2 sentence explanations.
 
 ## Static boundary
 
@@ -40,10 +35,8 @@ Excluded from this CP:
 - current life-expectancy or schooling values;
 - current UNDP/World Bank annual rankings.
 
-## Promotion steps
+## Post-freeze boundary
 
-1. Human review of English V1 questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer later.
-5. Register with runtime/Question Studio only after separate promotion approval.
+- English V1 behaviour is frozen.
+- Localisation is a later layer.
+- Runtime / Question Studio registration remains blocked until separate explicit promotion approval.
