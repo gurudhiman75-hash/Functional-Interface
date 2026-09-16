@@ -837,7 +837,7 @@ export const GEO_CLI_001_CP007_REVIEW_BATCH_V1: readonly GeoCli001Cp007Question[
   }),
 ]);
 
-const BANNED_LEARNER_TEXT = /sourceFact|review-only|runtimeRegistered|generator|qualification gate|truth authority|NCERT/i;
+const BANNED_LEARNER_TEXT = /sourceFact|review-only|runtimeRegistered|generator|qualification gate|truth authority|\bNCERT\b/i;
 const BANNED_STEM_TEXT = /associated with|described as|in the context of|with reference to the above|what is a key feature|which is correct\?|which statement is correct\?|what broad effect can it have|which climate control best explains/i;
 
 export function auditGeoCli001Cp007ReviewBatchV1() {
