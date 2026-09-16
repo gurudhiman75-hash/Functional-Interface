@@ -28,6 +28,8 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(first.correctOptionIndex >= 0 && first.correctOptionIndex < 4, `${first.questionId} has an invalid answer index`);
     assert(first.targetIndex >= 0 && first.targetIndex < first.segments.length, `${first.questionId} has an invalid target index`);
     assert(first.targetText === first.segments[first.targetIndex]!.trim(), `${first.questionId} target text is not the underlined segment`);
+    assert(first.explanation.includes("Concept:"), `${first.questionId} explanation must teach the underlying concept`);
+    assert(first.explanation.includes("Here,"), `${first.questionId} explanation must apply the concept to the sentence`);
     assert(first.explanation.includes(first.correctedSentence), `${first.questionId} explanation must show the corrected sentence`);
     assert(first.metadata.reviewOnly === true, `${first.questionId} must remain review-only`);
     assert(first.metadata.chapterId === "ENG-002", `${first.questionId} has the wrong chapter id`);
@@ -38,10 +40,12 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
       noImprovementCount += 1;
       assert(first.correctOptionIndex === 3, `${first.questionId} no-improvement item must key D`);
       assert(first.sentence === first.correctedSentence, `${first.questionId} no-improvement surface must already be correct`);
+      assert(first.explanation.startsWith("No error:"), `${first.questionId} must state that there is no error before teaching the concept`);
     } else {
       assert(first.correctOptionIndex !== 3, `${first.questionId} improvement item cannot key No improvement`);
       assert(first.sentence !== first.correctedSentence, `${first.questionId} improvement item must actually change the sentence`);
       assert(first.options[first.correctOptionIndex] !== first.targetText, `${first.questionId} replacement must differ from the underlined error`);
+      assert(first.explanation.startsWith("Error:"), `${first.questionId} must state the error before teaching the concept`);
     }
 
     domains.add(first.metadata.semanticDomain);
