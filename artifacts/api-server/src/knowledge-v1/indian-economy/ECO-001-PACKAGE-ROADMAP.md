@@ -24,7 +24,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 18. `ECO-CP-018` Industry & Industrial Development — ENGLISH APPROVED V1 / FROZEN
 19. `ECO-CP-019` Financial Markets — ENGLISH APPROVED V1 / FROZEN
 20. `ECO-CP-020` External Sector & Balance of Payments — ENGLISH APPROVED V1 / FROZEN
-21. `ECO-CP-021` International Economic Institutions — REVIEW CANDIDATE V1
+21. `ECO-CP-021` International Economic Institutions — REVIEW CANDIDATE V2
 22. `ECO-CP-022` Human Development & Development Economics
 23. `ECO-CP-023` Important Economic Events & Milestones
 
@@ -37,6 +37,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Questions must use short, natural SSC/Banking/State-exam style stems with plausible same-domain distractors.
 - Normal MCQ stems must be complete questions; avoid label-like prompts ending in a colon such as `classified as:` or `calculated as:` unless a colon is structurally required inside a statement-format question.
 - Avoid editorial or review-like framing such as `A question contrasts...`; ask the tested fact directly.
+- Avoid putting the explanation into the stem. Prefer direct exam wording such as `What is...?`, `Why was...?`, `Which institution...?`, `In which year...?`, or a short comparison question.
 - Explanations must be simple and beginner-friendly. Normally use 1-2 short sentences: the deciding fact plus only the minimum reason or distinction needed.
 - Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
 - Difficulty is assigned per generated variant under `ECO-DIFFICULTY-POLICY.md`, not permanently by QL or question format.
