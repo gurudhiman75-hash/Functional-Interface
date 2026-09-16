@@ -60,7 +60,7 @@ function assemble(input: {
       language: "pa-Guru",
       seed: input.seed,
       authorityIds: input.authorityIds,
-      generatorRevision: "1.1.0-forward-port",
+      generatorRevision: "1.2.0-forward-port",
       fingerprint,
       lifecycle: "REVIEW_ONLY",
     },
@@ -71,41 +71,45 @@ function requireDifficulty(actual: PunjabiDifficulty, expected: PunjabiDifficult
   if (actual !== expected) throw new Error(`CP004 ${familyId} supports ${expected} only`);
 }
 
-/**
- * Direct-form distractors must themselves be attested canonical words from the
- * CP004 authority layer. Prefer the same semantic domain/rule, then broaden.
- * This prevents fabricated pseudo-forms from appearing as easy throwaway options.
- */
+function sameDomainGenderPairs(pair: (typeof CP004_GENDER_PAIRS)[number]) {
+  return CP004_GENDER_PAIRS.filter((x) => x.id !== pair.id && x.domain === pair.domain);
+}
+
+/** Direct gender distractors are attested words from the same semantic domain. */
 function genderDistractors(
   pair: (typeof CP004_GENDER_PAIRS)[number],
   target: "masculine" | "feminine",
 ): string[] {
-  const others = CP004_GENDER_PAIRS.filter((x) => x.id !== pair.id);
-  const ordered = [
-    ...others.filter((x) => x.domain === pair.domain && x.rule === pair.rule),
-    ...others.filter((x) => x.domain === pair.domain && x.rule !== pair.rule),
-    ...others.filter((x) => x.domain !== pair.domain && x.rule === pair.rule),
-    ...others.filter((x) => x.domain !== pair.domain && x.rule !== pair.rule),
-  ];
-  return unique(ordered.map((x) => x[target]));
+  const sameDomain = sameDomainGenderPairs(pair);
+  if (sameDomain.length < 3) throw new Error(`CP004 ${pair.id}: insufficient same-domain gender distractors`);
+  return unique(sameDomain.map((x) => x[target]));
 }
 
-/**
- * Number distractors are other canonical singular/plural authorities, never an
- * oblique form or a made-up suffix variant of the same noun. That keeps the
- * direct question single-truth even where Punjabi case inflection has other
- * legitimate surface forms.
- */
+function sameRuleNumberPairs(pair: (typeof CP004_NUMBER_PAIRS)[number]) {
+  const sameRule = CP004_NUMBER_PAIRS.filter((x) => x.id !== pair.id && x.rule === pair.rule);
+  if (sameRule.length >= 3) return sameRule;
+  if (pair.rule === "IRREGULAR" || pair.rule === "VOWEL_TO_VAAN") {
+    return CP004_NUMBER_PAIRS.filter((x) =>
+      x.id !== pair.id && (x.rule === "IRREGULAR" || x.rule === "VOWEL_TO_VAAN"),
+    );
+  }
+  return sameRule;
+}
+
+/** Direct number distractors are canonical forms following the same rule group. */
 function numberDistractors(
   pair: (typeof CP004_NUMBER_PAIRS)[number],
   target: "singular" | "plural",
 ): string[] {
-  const others = CP004_NUMBER_PAIRS.filter((x) => x.id !== pair.id);
-  const ordered = [
-    ...others.filter((x) => x.rule === pair.rule),
-    ...others.filter((x) => x.rule !== pair.rule),
-  ];
-  return unique(ordered.map((x) => x[target]));
+  const peers = sameRuleNumberPairs(pair);
+  if (peers.length < 3) throw new Error(`CP004 ${pair.id}: insufficient rule-neighbour number distractors`);
+  return unique(peers.map((x) => x[target]));
+}
+
+function genderMismatchCases() {
+  return CP004_GENDER_PAIRS.flatMap((pair) =>
+    sameDomainGenderPairs(pair).map((wrongFeminine) => ({ pair, wrongFeminine })),
+  );
 }
 
 export function generateCP004F01(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
@@ -131,7 +135,7 @@ export function generateCP004F02(seed: number, difficulty: PunjabiDifficulty): P
   requireDifficulty(difficulty, "Easy", "F02");
   const index = ordinal(seed, CP004_GENDER_PAIRS.length);
   const pair = CP004_GENDER_PAIRS[index]!;
-  const distractors = [1, 2, 3].map((offset) => `${pair.masculine} — ${CP004_GENDER_PAIRS[(index + offset) % CP004_GENDER_PAIRS.length]!.feminine}`);
+  const distractors = sameDomainGenderPairs(pair).map((other) => `${pair.masculine} — ${other.feminine}`);
   return assemble({
     seed, difficulty, familyId: "F02", subtype: "CORRECT_GENDER_PAIR",
     stem: "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਸਹੀ ਲਿੰਗ-ਜੋੜਾ ਚੁਣੋ।",
@@ -144,15 +148,13 @@ export function generateCP004F02(seed: number, difficulty: PunjabiDifficulty): P
 
 export function generateCP004F03(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   requireDifficulty(difficulty, "Medium", "F03");
-  const n = CP004_GENDER_PAIRS.length;
-  const rank = ordinal(seed, n * (n - 1));
-  const masculineIndex = Math.floor(rank / (n - 1));
-  const local = rank % (n - 1);
-  const feminineIndex = local >= masculineIndex ? local + 1 : local;
-  const masculinePair = CP004_GENDER_PAIRS[masculineIndex]!;
-  const wrongFeminine = CP004_GENDER_PAIRS[feminineIndex]!;
-  const truePairIndices = [masculineIndex, (masculineIndex + 1) % n, (masculineIndex + 2) % n];
-  const distractors = truePairIndices.map((i) => `${CP004_GENDER_PAIRS[i]!.masculine} — ${CP004_GENDER_PAIRS[i]!.feminine}`);
+  const cases = genderMismatchCases();
+  const current = cases[ordinal(seed, cases.length)]!;
+  const masculinePair = current.pair;
+  const wrongFeminine = current.wrongFeminine;
+  const distractors = CP004_GENDER_PAIRS
+    .filter((x) => x.domain === masculinePair.domain)
+    .map((x) => `${x.masculine} — ${x.feminine}`);
   return assemble({
     seed, difficulty, familyId: "F03", subtype: "MISMATCHED_GENDER_PAIR",
     stem: "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਗਲਤ ਲਿੰਗ-ਜੋੜਾ ਚੁਣੋ।",
@@ -193,7 +195,7 @@ export function generateCP004F06(seed: number, difficulty: PunjabiDifficulty): P
   requireDifficulty(difficulty, "Medium", "F06");
   const index = ordinal(seed, CP004_NUMBER_PAIRS.length);
   const pair = CP004_NUMBER_PAIRS[index]!;
-  const distractors = [1, 2, 3].map((offset) => `${pair.singular} — ${CP004_NUMBER_PAIRS[(index + offset) % CP004_NUMBER_PAIRS.length]!.plural}`);
+  const distractors = sameRuleNumberPairs(pair).map((other) => `${pair.singular} — ${other.plural}`);
   return assemble({
     seed, difficulty, familyId: "F06", subtype: "CORRECT_NUMBER_PAIR",
     stem: "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਸਹੀ ਇਕਵਚਨ-ਬਹੁਵਚਨ ਜੋੜਾ ਚੁਣੋ।",
@@ -209,7 +211,7 @@ export function generateCP004F07(seed: number, difficulty: PunjabiDifficulty): P
   const context = CP004_AGREEMENT_CONTEXTS[ordinal(seed, CP004_AGREEMENT_CONTEXTS.length)]!;
   return assemble({
     seed, difficulty, familyId: "F07", subtype: "CONTEXTUAL_GENDER_NUMBER_USAGE",
-    stem: `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ${context.targetPa} ਦਾ ਸਹੀ ਮਿਲਾਪ ਵਾਲਾ ਵਾਕ ਚੁਣੋ।`,
+    stem: `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ${context.targetPa} ਵਾਲਾ ਸਹੀ ਵਾਕ ਚੁਣੋ।`,
     correctAnswer: context.correct,
     distractors: context.incorrect,
     explanation: context.principlePa,
@@ -276,10 +278,11 @@ export function generateCP004F09(seed: number, difficulty: PunjabiDifficulty): P
 export function getCP004BreadthReport() {
   const nGender = CP004_GENDER_PAIRS.length;
   const nContext = CP004_AGREEMENT_CONTEXTS.length;
+  const f03Capacity = genderMismatchCases().length;
   const capacities = {
     F01: CP004_TRANSFORM_SAFE_GENDER_PAIRS.length * 2,
     F02: nGender,
-    F03: nGender * (nGender - 1),
+    F03: f03Capacity,
     F04: CP004_NUMBER_PAIRS.length,
     F05: CP004_NUMBER_PAIRS.length,
     F06: CP004_NUMBER_PAIRS.length,
