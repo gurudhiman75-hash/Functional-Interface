@@ -225,8 +225,7 @@ function easyConcept(ruleId: TenseRuleId): string {
 }
 
 function easyApplication(candidate: Eng001SentenceCandidate): string {
-  const text = candidate.explanationApplication.trim().replace(/^[“\"]?/, "");
-  return text.charAt(0).toUpperCase() + text.slice(1);
+  return candidate.explanationApplication.trim();
 }
 
 export function generateEng002Cp002QuestionV1(input: GenerateEng002Cp002V1Input): Eng002Cp002QuestionV1 {
