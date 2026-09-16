@@ -1,14 +1,14 @@
 # ECO-CP-003 Status
 
 - CP: `ECO-CP-003` — National Income & Aggregates
-- Lifecycle: `REVIEW_CANDIDATE_V2`
-- English review generator: V2 implemented
+- Lifecycle: `ENGLISH_APPROVED_V2_FROZEN`
+- English review generator: V2 implemented and approved
 - Generated review batch: 44 questions across 12 QLs
 - Human review surface: 24 questions
-- Runtime registration: `BLOCKED_PENDING_HUMAN_APPROVAL`
+- Runtime registration: `BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL`
 - Localisation: not started
 
-## V2 closure-audit changes
+## Approved V2 closure-audit changes
 
 - replaced legacy answer-label / terminal-colon stems with complete exam-grade questions;
 - retained the GDP/GNP/NDP/NNP relationships and one-step numerical logic;
@@ -24,6 +24,6 @@
 
 Excluded: current GDP/GNI values, growth rates, current base year, current per-capita values and other live national-account statistics.
 
-## Promotion gate
+## Freeze state
 
-Human approval of English V2 is required before freezing. Runtime / Question Studio registration remains a separate promotion step.
+English V2 is human-approved and frozen. Runtime / Question Studio registration remains a separate promotion step and is still blocked.
