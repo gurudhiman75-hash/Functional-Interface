@@ -225,7 +225,11 @@ function easyConcept(ruleId: TenseRuleId): string {
 }
 
 function easyApplication(candidate: Eng001SentenceCandidate): string {
-  return candidate.explanationApplication.trim();
+  const normalized = candidate.explanationApplication
+    .trim()
+    .replace(/“currently”/gi, "“at the moment”")
+    .replace(/\bcurrently\b/gi, "at the moment");
+  return normalized.replace(/^([A-Z])/, (letter) => letter.toLowerCase());
 }
 
 export function generateEng002Cp002QuestionV1(input: GenerateEng002Cp002V1Input): Eng002Cp002QuestionV1 {
