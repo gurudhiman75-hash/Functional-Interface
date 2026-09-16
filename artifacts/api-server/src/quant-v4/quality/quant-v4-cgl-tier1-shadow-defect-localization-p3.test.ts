@@ -75,6 +75,7 @@ const baselineGaps = baselineQuestions.filter((question) => question.sourceKind 
 const baselineAdvancedMathGaps = baselineGaps.filter(
   (question) => question.slotKind === "ALGEBRA" || question.slotKind === "TRIGONOMETRY",
 );
+const baselineProbabilityGaps = baselineGaps.filter((question) => question.slotKind === "PROBABILITY");
 
 const baselineGapSlotDistribution = countBy(baselineGaps, (question) => String(question.slotKind));
 const baselineGapReasonDistribution = countBy(
@@ -107,10 +108,11 @@ const slotsByDuplicateRate = Object.entries(stemDuplicationBySlot)
 assert.equal(shadowRecords.length, 500);
 assert.equal(runtimeShadowRecords.length, 500);
 assert.equal(baselineQuestions.length, 500);
-assert.ok(baselineGaps.length > 0, "The current baseline gap defect should remain visible until localized/remediated.");
+assert.equal(baselineGaps.length, 0, "Integrated CGL Tier-I baseline must not contain capability gaps after eligibility-aware Probability selection.");
 assert.equal(baselineAdvancedMathGaps.length, 0, "Algebra/Trigonometry must not reappear as baseline capability gaps after integration.");
-assert.equal(sumCounts(baselineGapSlotDistribution), baselineGaps.length);
-assert.equal(sumCounts(baselineGapReasonDistribution), baselineGaps.length);
+assert.equal(baselineProbabilityGaps.length, 0, "Probability must select a profile+difficulty eligible registry entry rather than emitting a false capability gap.");
+assert.equal(sumCounts(baselineGapSlotDistribution), 0);
+assert.equal(sumCounts(baselineGapReasonDistribution), 0);
 assert.ok(globalStemDuplication.duplicateRate > 0.05, "The current shadow repetition defect should remain visible until remediated.");
 assert.equal(globalStemDuplication.records, 500);
 assert.equal(
@@ -128,6 +130,7 @@ console.log("QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3", JSON.stringify({
     records: baselineQuestions.length,
     capabilityGaps: baselineGaps.length,
     advancedMathCapabilityGaps: baselineAdvancedMathGaps.length,
+    probabilityCapabilityGaps: baselineProbabilityGaps.length,
     gapSlotDistribution: baselineGapSlotDistribution,
     gapReasonDistribution: baselineGapReasonDistribution,
   },
