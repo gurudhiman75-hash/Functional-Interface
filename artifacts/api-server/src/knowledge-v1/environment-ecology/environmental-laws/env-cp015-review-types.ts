@@ -12,5 +12,8 @@ export type EnvCp015ReviewQuestion = {
   correctIndex: number;
   canonicalAnswer: string;
   explanation: string;
-  provenance: string[];
+  sourceIds: string[];
+  sourceFactIds: string[];
+  reviewOnly: true;
+  runtimeRegistered: false;
 };
