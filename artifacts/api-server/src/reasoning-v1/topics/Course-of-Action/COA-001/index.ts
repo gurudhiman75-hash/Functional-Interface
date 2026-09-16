@@ -4,5 +4,8 @@ export * from "./cp001-english-authorities.ts";
 export * from "./cp001-editorial-v2.ts";
 export * from "./cp002-direct-preventive-expansion.ts";
 export * from "./cp002-editorial-v2.ts";
+export * from "./cp003-verification-administrative-expansion.ts";
+export * from "./cp003-editorial-v2.ts";
 export * from "./english-authorities.ts";
 export * from "./cp002-generator.ts";
+export * from "./cp003-generator.ts";
