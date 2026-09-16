@@ -1,0 +1,145 @@
+import assert from "node:assert/strict";
+
+import {
+  generateQuantV4CglTier1ShadowSection,
+} from "./quant-v4-cgl-tier1-shadow-simulation-p3";
+import {
+  generateQuantV4RealExamSectionWithAdvancedMath,
+} from "./quant-v4-real-exam-advanced-math-integration-p2";
+
+const SECTIONS = 20;
+const SEED_PREFIX = "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-CI";
+
+function countBy<T>(items: readonly T[], key: (item: T) => string): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const item of items) {
+    const value = key(item);
+    counts[value] = (counts[value] ?? 0) + 1;
+  }
+  return Object.fromEntries(Object.entries(counts).sort(([left], [right]) => left.localeCompare(right)));
+}
+
+function sumCounts(counts: Readonly<Record<string, number>>): number {
+  return Object.values(counts).reduce((sum, value) => sum + value, 0);
+}
+
+function duplicateSummary<T>(items: readonly T[], signature: (item: T) => string) {
+  const signatures = items.map(signature).filter(Boolean);
+  const counts = countBy(signatures, (entry) => entry);
+  const duplicateItems = Object.values(counts).reduce((sum, count) => sum + Math.max(0, count - 1), 0);
+  return {
+    records: signatures.length,
+    uniqueSignatures: Object.keys(counts).length,
+    duplicateItems,
+    duplicateRate: signatures.length ? duplicateItems / signatures.length : 0,
+  };
+}
+
+function duplicateBreakdown<T>(
+  items: readonly T[],
+  group: (item: T) => string,
+  signature: (item: T) => string,
+) {
+  const groups = new Map<string, T[]>();
+  for (const item of items) {
+    const key = group(item);
+    const current = groups.get(key) ?? [];
+    current.push(item);
+    groups.set(key, current);
+  }
+  return Object.fromEntries(
+    [...groups.entries()]
+      .map(([key, records]) => [key, duplicateSummary(records, signature)] as const)
+      .sort(([left], [right]) => left.localeCompare(right)),
+  );
+}
+
+const shadowSections = [];
+const baselineSections = [];
+for (let sectionIndex = 1; sectionIndex <= SECTIONS; sectionIndex += 1) {
+  shadowSections.push(await generateQuantV4CglTier1ShadowSection({
+    sectionIndex,
+    seed: `${SEED_PREFIX}:shadow:${sectionIndex}`,
+  }));
+  baselineSections.push(await generateQuantV4RealExamSectionWithAdvancedMath({
+    examId: "SSC_CGL_TIER_I",
+    sectionIndex,
+    seed: `${SEED_PREFIX}:baseline-integrated:${sectionIndex}`,
+  }));
+}
+
+const shadowRecords = shadowSections.flatMap((section) => section.records);
+const runtimeShadowRecords = shadowRecords.filter((record) => record.sourceKind === "RUNTIME_GENERATED");
+const baselineQuestions = baselineSections.flatMap((section) => section.questions);
+const baselineGaps = baselineQuestions.filter((question) => question.sourceKind === "CAPABILITY_GAP");
+const baselineAdvancedMathGaps = baselineGaps.filter(
+  (question) => question.slotKind === "ALGEBRA" || question.slotKind === "TRIGONOMETRY",
+);
+
+const baselineGapSlotDistribution = countBy(baselineGaps, (question) => String(question.slotKind));
+const baselineGapReasonDistribution = countBy(
+  baselineGaps,
+  (question) => String(question.gapReason ?? "UNKNOWN_GAP_REASON"),
+);
+
+const globalStemDuplication = duplicateSummary(
+  runtimeShadowRecords,
+  (record) => record.normalizedStemSignature,
+);
+const stemDuplicationBySlot = duplicateBreakdown(
+  runtimeShadowRecords,
+  (record) => record.slotKind,
+  (record) => record.normalizedStemSignature,
+);
+const stemDuplicationByPackage = duplicateBreakdown(
+  runtimeShadowRecords,
+  (record) => record.packageId,
+  (record) => record.normalizedStemSignature,
+);
+
+const packagesByDuplicateRate = Object.entries(stemDuplicationByPackage)
+  .map(([packageId, summary]) => ({ packageId, ...summary }))
+  .sort((left, right) => right.duplicateRate - left.duplicateRate || right.duplicateItems - left.duplicateItems || left.packageId.localeCompare(right.packageId));
+const slotsByDuplicateRate = Object.entries(stemDuplicationBySlot)
+  .map(([slotKind, summary]) => ({ slotKind, ...summary }))
+  .sort((left, right) => right.duplicateRate - left.duplicateRate || right.duplicateItems - left.duplicateItems || left.slotKind.localeCompare(right.slotKind));
+
+assert.equal(shadowRecords.length, 500);
+assert.equal(runtimeShadowRecords.length, 500);
+assert.equal(baselineQuestions.length, 500);
+assert.ok(baselineGaps.length > 0, "The current baseline gap defect should remain visible until localized/remediated.");
+assert.equal(baselineAdvancedMathGaps.length, 0, "Algebra/Trigonometry must not reappear as baseline capability gaps after integration.");
+assert.equal(sumCounts(baselineGapSlotDistribution), baselineGaps.length);
+assert.equal(sumCounts(baselineGapReasonDistribution), baselineGaps.length);
+assert.ok(globalStemDuplication.duplicateRate > 0.05, "The current shadow repetition defect should remain visible until remediated.");
+assert.equal(globalStemDuplication.records, 500);
+assert.equal(
+  Object.values(stemDuplicationBySlot).reduce((sum, summary) => sum + summary.records, 0),
+  500,
+);
+assert.equal(
+  Object.values(stemDuplicationByPackage).reduce((sum, summary) => sum + summary.records, 0),
+  500,
+);
+
+console.log("QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3", JSON.stringify({
+  sections: SECTIONS,
+  baseline: {
+    records: baselineQuestions.length,
+    capabilityGaps: baselineGaps.length,
+    advancedMathCapabilityGaps: baselineAdvancedMathGaps.length,
+    gapSlotDistribution: baselineGapSlotDistribution,
+    gapReasonDistribution: baselineGapReasonDistribution,
+  },
+  repetition: {
+    global: globalStemDuplication,
+    slotsByDuplicateRate,
+    packagesByDuplicateRate,
+  },
+  lifecycle: {
+    productionPromotionAuthorized: false,
+    runtimeBlueprintMutationAuthorized: false,
+  },
+}));
+
+console.log("PASS_QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3");
