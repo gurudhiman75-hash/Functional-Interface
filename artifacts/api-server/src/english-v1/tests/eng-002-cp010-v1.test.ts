@@ -4,7 +4,7 @@ import { buildEng002Cp010ReviewV1 } from "../chapters/sentence-improvement/ENG-0
 import { ENG002_CP010_STEM, generateEng002Cp010QuestionV1 } from "../chapters/sentence-improvement/ENG-002/CP010/eng-002-cp010-v1";
 import type { EnglishDifficulty } from "../core/types";
 
-const mechanicalOption = /^(?:Apparently|Still|Evidently|Also),\s|\b(?:still|also)\s+with\b|\b(?:still|also)\s+(?:carrying|containing|wearing|holding|showing)\b/i;
+const mechanicalOption = /^(?:Apparently|Still|Evidently|Also),\s|\b(?:still|also)\s+with\b|\b(?:still|also)\s+(?:carrying|containing|wearing|holding|showing)\b|^Even\s+(?:The|Several|A|An|Some)\b/i;
 function assertCleanOptions(options: readonly string[]) {
   for (const option of options.slice(0, 3)) {
     assert.equal(mechanicalOption.test(option), false, `mechanical modifier distractor: ${option}`);
