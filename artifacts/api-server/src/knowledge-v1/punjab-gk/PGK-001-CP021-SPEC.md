@@ -1,6 +1,6 @@
 # PGK-001 CP021 — Punjabi Language & Gurmukhi
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-021 — Punjabi Language & Gurmukhi`
 Permanent QLs: `PGK-001-QL-140` to `PGK-001-QL-146`
@@ -63,4 +63,4 @@ Internal verification prioritises the Punjab Official Language Act on India Code
 
 ## Lifecycle
 
-CP021 V1 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication before explicit human approval.
+CP021 V1 was explicitly human-approved and is frozen. It remains review-only and is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication until the separate integration stage.
