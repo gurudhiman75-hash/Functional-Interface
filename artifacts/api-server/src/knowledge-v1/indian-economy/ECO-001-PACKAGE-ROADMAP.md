@@ -7,7 +7,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 1. `ECO-CP-001` Basic Economic Concepts — ENGLISH APPROVED V2 / FROZEN
 2. `ECO-CP-002` Economic Systems & Sectors — ENGLISH APPROVED V2 / FROZEN
 3. `ECO-CP-003` National Income & Aggregates — ENGLISH APPROVED V2 / FROZEN
-4. `ECO-CP-004` National Income Measurement in India — REVIEW CANDIDATE
+4. `ECO-CP-004` National Income Measurement in India — REVIEW CANDIDATE V2
 5. `ECO-CP-005` Inflation & Price Concepts — ENGLISH APPROVED V2 / FROZEN
 6. `ECO-CP-006` Employment, Unemployment & Poverty — ENGLISH APPROVED V1 / FROZEN
 7. `ECO-CP-007` Money & Monetary System — ENGLISH APPROVED V1 / FROZEN
@@ -40,6 +40,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Avoid putting the explanation into the stem. Prefer direct exam wording such as `What is...?`, `Why was...?`, `Which institution...?`, `In which year...?`, or a short comparison question.
 - Keep distractors on the same conceptual axis wherever the question tests a classification. Do not mix activity, ownership and employment-condition classifications unless the question explicitly tests the distinction between those axes.
 - For legacy national-income formulas that are retained for exam preparation, label historical/traditional relationships clearly when current official presentation differs.
+- National-income measurement questions should distinguish final/intermediate use from expenditure or income components; do not use unrelated accounting families as easy distractors unless the distinction itself is being tested.
 - Explanations must be simple and beginner-friendly. Normally use 1-2 short sentences: the deciding fact plus only the minimum reason or distinction needed.
 - Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
 - Difficulty is assigned per generated variant under `ECO-DIFFICULTY-POLICY.md`, not permanently by QL or question format.
