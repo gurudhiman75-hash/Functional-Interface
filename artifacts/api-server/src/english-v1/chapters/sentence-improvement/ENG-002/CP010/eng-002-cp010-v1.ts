@@ -170,20 +170,20 @@ function wrongAttachmentTenseVariants(text: string) {
   const prefix = comma >= 0 ? text.slice(0, comma + 1) : "";
   const clause = comma >= 0 ? text.slice(comma + 1).trim() : text;
   const rebuild = (next: string) => prefix ? `${prefix} ${next}` : next;
-  if (/\b(was|were)\s+([A-Za-z]+ed)\b/i.test(clause)) {
-    variants.push(rebuild(clause.replace(/\b(?:was|were)\s+([A-Za-z]+ed)\b/i, "had been $1")));
-    variants.push(rebuild(clause.replace(/\b(was|were)\s+([A-Za-z]+ed)\b/i, "$1 being $2")));
+  if (/\b(was|were)\s+([A-Za-z]+)\b/i.test(clause)) {
+    variants.push(rebuild(clause.replace(/\b(?:was|were)\s+([A-Za-z]+)\b/i, "had been $1")));
+    variants.push(rebuild(clause.replace(/\b(was|were)\s+([A-Za-z]+)\b/i, "$1 being $2")));
   }
-  if (/\b(is|are)\s+([A-Za-z]+ed)\b/i.test(clause)) {
-    variants.push(rebuild(clause.replace(/\b(?:is|are)\s+([A-Za-z]+ed)\b/i, "has been $1")));
-    variants.push(rebuild(clause.replace(/\b(is|are)\s+([A-Za-z]+ed)\b/i, "$1 being $2")));
+  if (/\b(is|are)\s+([A-Za-z]+)\b/i.test(clause)) {
+    variants.push(rebuild(clause.replace(/\b(?:is|are)\s+([A-Za-z]+)\b/i, "has been $1")));
+    variants.push(rebuild(clause.replace(/\b(is|are)\s+([A-Za-z]+)\b/i, "$1 being $2")));
   }
   if (!variants.length && /\b([A-Za-z]+ed)\b/i.test(clause)) {
     variants.push(rebuild(clause.replace(/\b([A-Za-z]+ed)\b/i, "had $1")));
     variants.push(rebuild(clause.replace(/\b([A-Za-z]+ed)\b/i, "still $1")));
   }
   if (variants.length < 2) {
-    const finite = /\b(looks?|seems?|appears?|welcomes?|contains?|carries|holds?|shows?|includes?|remains?|stands?|sits?|lies|finds?|changes?|checks?|returns?|opens?|discusses?|answers?|places?|explains?)\b/i;
+    const finite = /\b(looks?|seems?|appears?|welcomes?|contains?|carries|holds?|shows?|includes?|remains?|stands?|sits?|lies|finds?|changes?|checks?|returns?|opens?|discusses?|answers?|places?|explains?|leaves?)\b/i;
     if (finite.test(clause)) {
       variants.push(rebuild(clause.replace(finite, "still $1")));
       variants.push(rebuild(clause.replace(finite, "also $1")));
