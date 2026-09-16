@@ -30,6 +30,8 @@ CP004 implements the nine blueprint families for Punjabi gender and number witho
 - direct gender options now use canonical forms from the same semantic domain
 - direct number options now use canonical forms from the same inflection-rule group
 - `F03` wrong gender pairs are constrained to the same semantic domain instead of arbitrary cross-category mismatches
+- all nine families use deterministic pools of natural exam-style stem instructions instead of repeating one fixed instruction
+- direct gender and number families rotate forms such as `‘X’ ਦਾ ... ਕਿਹੜਾ ਹੈ?`, `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ... ਚੁਣੋ`, `‘X’ ਸ਼ਬਦ ਦਾ ... ਕੀ ਹੈ?`, and `... ਪਛਾਣੋ`
 - contextual families remain sentence-derived and Punjabi-only
 
 ## Quality gates
