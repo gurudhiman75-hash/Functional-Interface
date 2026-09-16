@@ -5,7 +5,11 @@
 - English roadmap: COMPLETE
 - English CPs approved/frozen: 23 / 23
 - CP range: `ECO-CP-001` through `ECO-CP-023`
-- Runtime / Question Studio registration: BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL
+- Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY`
+- Question Studio package: `ECO-001`
+- Question Bank storage: NOT ENABLED
+- Test / mock-test eligibility: NOT ENABLED
+- Public / automatic student publication: NOT ENABLED
 - Localisation: NOT_STARTED
 
 ## Closure audit
@@ -19,6 +23,22 @@ The final closure audit revisited the earliest review candidates before declarin
 
 The audit removed legacy label/colon-style stems, tightened classification-axis distractors, corrected generator construction defects where found, preserved Static-GK boundaries, and aligned early packs with the later chapter editorial standard.
 
+## Question Studio registration
+
+The separately approved runtime promotion registers the completed English chapter through the shared `knowledge-v1` Question Studio engine as package `ECO-001`.
+
+Registration properties:
+- lifecycle: `QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1`;
+- runtime mode: `review-only`;
+- all 23 frozen CPs available through CP and QL selectors;
+- English only until localisation is separately approved;
+- Easy / Medium / Hard / Mixed review generation supported;
+- deterministic selection without replacement;
+- source questions remain frozen and are not silently mutated by runtime registration;
+- generated review wrappers are marked `REGISTERED_REVIEW_ONLY`.
+
+Review-only registration does **not** authorize canonical Question Bank persistence, test/mock-test use, public publication, automatic student release, or production release.
+
 ## Frozen editorial standard
 
 - short, natural SSC/Banking/State-exam style stems;
@@ -29,16 +49,8 @@ The audit removed legacy label/colon-style stems, tightened classification-axis 
 - Hard questions based on real distinctions, chronology or application rather than verbosity;
 - no volatile current figures unless a future separately sourced/current-affairs workflow explicitly requires them.
 
-## Promotion boundary
+## Next promotion boundary
 
-English editorial completion does **not** imply runtime registration.
-
-Do not:
-- register Indian Economy in Question Studio;
-- enable runtime generation;
-- start localisation;
-- merge solely because the English chapter is frozen;
-
-unless the relevant separate approval is explicitly given.
+Any move beyond review-only Question Studio generation requires another explicit gate. In particular, do not enable Question Bank storage, BANK_ONLY lifecycle, tests/mocks, public publication, localisation, or production release without separate approval.
 
 Any future changes to frozen English content should be handled as a documented hardening/revision pass rather than silent edits.
