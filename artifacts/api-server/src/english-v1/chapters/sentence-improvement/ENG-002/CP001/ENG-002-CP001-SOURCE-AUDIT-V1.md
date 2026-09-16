@@ -25,7 +25,7 @@ Each question contains:
 3. three replacement choices;
 4. `No improvement` as option D;
 5. one uniquely keyed answer;
-6. a short explanation that states the governing SVA rule and shows the corrected sentence.
+6. a short teaching-oriented explanation.
 
 The instruction is fixed and exam-grade:
 
@@ -71,15 +71,22 @@ After human review identified malformed forms such as artificial spellings/stems
 
 ## Explanation policy
 
-Explanations are deliberately simple and slightly helpful rather than technical.
+Every explanation must teach the learner, not merely reveal the correct option.
 
-They must:
+The required order is:
 
-- name the needed replacement when an improvement is required;
-- state the SVA rule in ordinary language;
-- explain why the visible phrase is wrong or why no improvement is needed;
-- show the complete corrected sentence;
-- avoid option-by-option analysis and generic closing clutter.
+1. **State the error first.** Identify the incorrect underlined form and give the needed correction. If the sentence is already correct, clearly state that there is no error.
+2. **Teach the underlying concept in very easy language.** Explain the SVA rule as if the learner is seeing it for the first time.
+3. **Apply that concept to this sentence.** Point out the main subject or the relevant agreement cue and explain why the chosen verb form matches it.
+4. **Show the complete corrected sentence.**
+
+The teaching language should be concrete and simple. Examples of the intended level include:
+
+- “First find the main subject. A singular subject takes a singular verb, while a plural subject takes a plural verb.”
+- “In ‘one of the ...’, the real subject is ‘one’, not the plural noun after ‘of’.”
+- “With ‘either...or’ and ‘neither...nor’, the verb agrees with the subject nearest to it.”
+
+Explanations must avoid option-by-option analysis, technical jargon and generic closing clutter.
 
 ## Reuse and regression boundary
 
@@ -105,7 +112,10 @@ V1 requires:
 - broadly balanced A/B/C/D answer positions;
 - rule/difficulty compatibility;
 - exam-grade instruction surface;
-- explanation includes corrected sentence;
+- explanation begins by stating error/no-error status;
+- explanation explicitly teaches the underlying concept;
+- explanation applies the concept to the current sentence;
+- explanation includes the corrected sentence;
 - review-only lifecycle lock.
 
 ## Lifecycle
