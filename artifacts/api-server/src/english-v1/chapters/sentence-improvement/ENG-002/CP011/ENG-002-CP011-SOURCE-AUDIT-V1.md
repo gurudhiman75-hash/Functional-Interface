@@ -1,12 +1,12 @@
 # ENG-002 CP011 — Sentence Improvement: Conditionals — Source Audit V1
 
-Status: `IMPLEMENTED__AUTOMATED_REVIEW_GATE_PENDING__HUMAN_REVIEW_REQUIRED__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__POST_APPROVAL_GATE_PENDING`
 
 ## Grammar authority
 
-ENG-002 CP011 reuses the canonical human-approved ENG-001 CP011 conditional grammar and its 60 closure-remediated semantic scenes. The older ENG-001 source-audit status text is stale; the canonical authority is `ENG-001-CP011-HUMAN-EDITORIAL-APPROVAL-V1`, which pins the approved donor generator/review and authorizes Question Studio review-only use.
+ENG-002 CP011 reuses the canonical human-approved ENG-001 CP011 conditional grammar and its 60 closure-remediated semantic scenes. The canonical donor authority is `ENG-001-CP011-HUMAN-EDITORIAL-APPROVAL-V1`.
 
-ENG-001 owns the grammar/scene authority. ENG-002 owns the intact-sentence improvement surface, replacement distractors, No improvement balance, explanations and review artifact.
+ENG-001 owns the grammar/scene authority. ENG-002 owns the intact-sentence improvement surface, replacement distractors, No improvement balance, explanations and review artifact. Question Studio uses the reviewed/remediated CP011 generator so the source-level fixes accepted in human review remain active at runtime.
 
 ## Covered rule families
 
@@ -33,7 +33,7 @@ Easy uses only the donor-approved core families `001–005` and `008`. Mixed con
 
 ## Distractor policy
 
-Distractors stay within the conditional relationship being tested. They vary tense/modal structure, time relation, `unless` polarity or inversion structure. Alternative forms that would create a defensible second interpretation must be rejected during learner-facing review and fixed in the generator source before regeneration.
+Distractors stay within the conditional relationship being tested. They vary tense/modal structure, time relation, `unless` polarity or inversion structure. Learner-facing review identified malformed mixed/inversion transformations in early artifacts; these were fixed in source and regression-locked before approval. The approved corpus is generated only after that remediation layer.
 
 ## Explanation standard
 
@@ -43,6 +43,8 @@ Every explanation follows: error/no-improvement → simple conditional concept �
 
 The deterministic review uses all 60 approved donor scenes: 20 Easy, 20 Medium and 20 Hard. Stress validation generates 2,000 questions per difficulty and checks deterministic replay, four unique options, No-improvement distribution, answer-position balance, rule/domain reachability and explanation/learner-surface integrity.
 
+The exact human-approved review is pinned by `ENG002_CP011_HUMAN_EDITORIAL_APPROVAL_V1` to reviewed generator head `6675cae8bc153173a82c7d51a3661622b6d85bf6`, Markdown SHA-256 `926e2b5589e1bb573d820e9bc3e9b3994e5754f37dce38e1d916283025468d98`, and workflow artifact digest `sha256:c5c12b905365763ae3bc5084470bfb507d5064ad85322d701888df2183db3cb9`.
+
 ## Lifecycle
 
-Review-only until explicit human editorial approval of the generated ENG-002 CP011 review artifact. CP011 must not be registered in Question Studio, written to Question Bank, used in tests/mocks, published publicly or released to production before that approval. Revisions are source-generator-only.
+Explicit human editorial approval was granted on 2026-09-16. Question Studio registration is review-only under `SOURCE_GENERATOR_ONLY`; Question Bank writes, tests, mocks, public publication, automatic student publication and production release remain locked. Merge remains gated on the post-approval generator + adapter + API validation.
