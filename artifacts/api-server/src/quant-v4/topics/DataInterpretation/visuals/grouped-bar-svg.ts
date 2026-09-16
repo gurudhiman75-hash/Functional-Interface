@@ -28,12 +28,29 @@ const COLORS = {
   seriesB: { fill: "#62c6b0", stroke: "#3d927f" },
 } as const;
 
+function gcd(a: number, b: number) {
+  let x = Math.abs(Math.round(a));
+  let y = Math.abs(Math.round(b));
+  while (y !== 0) {
+    const next = x % y;
+    x = y;
+    y = next;
+  }
+  return x || 1;
+}
+
 function niceYAxisStep(maxValue: number) {
   const rough = Math.max(1, maxValue / 6);
   const magnitude = 10 ** Math.floor(Math.log10(rough));
   const normalized = rough / magnitude;
   const nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 2.5 ? 2.5 : normalized <= 5 ? 5 : 10;
   return nice * magnitude;
+}
+
+function readableYAxisStep(values: readonly number[], maxValue: number) {
+  const commonUnit = values.filter((value) => value > 0).reduce((current, value) => gcd(current, value), 0);
+  if (commonUnit > 0 && maxValue / commonUnit <= 10) return commonUnit;
+  return niceYAxisStep(maxValue);
 }
 
 function escapeSvgText(value: string) {
@@ -62,8 +79,9 @@ export function renderDiGroupedBarSvg(model: DiGroupedBarVisualModel): string {
   const plotHeight = height - top - bottom;
   const plotRight = left + plotWidth;
   const plotBottom = top + plotHeight;
-  const maxValue = Math.max(...model.points.flatMap((point) => [point.seriesA, point.seriesB]), 1);
-  const yStep = niceYAxisStep(maxValue);
+  const values = model.points.flatMap((point) => [point.seriesA, point.seriesB]);
+  const maxValue = Math.max(...values, 1);
+  const yStep = readableYAxisStep(values, maxValue);
   const roundedYMax = yStep * Math.ceil(maxValue / yStep);
   const yMax = roundedYMax === maxValue ? roundedYMax + yStep : roundedYMax;
   const groupWidth = plotWidth / model.points.length;
