@@ -1,10 +1,10 @@
 # ENV-CP-015 Status
 
-- Lifecycle: REVIEW CANDIDATE.
-- Review version: V1.
-- Runtime registration: blocked.
-- Human approval: pending.
-- Merge into `New-main`: blocked until project-owner approval.
+- Lifecycle: APPROVED / CONTENT-FROZEN.
+- Approved review version: V1.
+- Human approval: granted on 2026-09-16.
+- Runtime registration: remains blocked; Question Studio/runtime integration is a separate chapter workflow.
+- Merge into `New-main`: authorized.
 - Review surface: 48 questions across 12 QLs.
 - Stem baseline: short, simple SSC/Banking-style question wording.
 - Explanation baseline: simple and slightly explanatory; each answer adds a useful legal purpose, distinction or application.
