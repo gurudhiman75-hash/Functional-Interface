@@ -1,6 +1,6 @@
 # PGK-001 CP013 — Banda Singh Bahadur & Sikh Struggle
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-013 — Banda Singh Bahadur & Sikh Struggle`
 Permanent QLs: `PGK-001-QL-084` to `PGK-001-QL-090`
@@ -66,6 +66,10 @@ State the decisive historical fact first, then one useful campaign, place, offic
 
 Verification remains internal against Punjab School Education Board Punjab History & Culture material, SGPC historical material, Government of India/Ministry of Culture historical summaries and high-quality standard historical references where needed. Learner text remains source-free.
 
+## Approval
+
+Human approved on 16 September 2026. Review Candidate V1 is frozen as the accepted learner-facing authority for CP013. Runtime registration remains a separate workflow.
+
 ## Lifecycle
 
-CP013 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP013 V1 is human approved and frozen for content review. It is not yet registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication.
