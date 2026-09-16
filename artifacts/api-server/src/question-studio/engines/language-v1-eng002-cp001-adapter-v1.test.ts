@@ -37,7 +37,7 @@ for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
     assert.match(String(question.sentence), /<u>.+<\/u>/);
     assert.equal(String(question.sentence).includes(" / "), false);
     assert.match(String(question.explanation), /Concept:/);
-    assert.match(String(question.explanation), /Here:/);
+    assert.match(String(question.explanation), /Here[:,]/);
     assert.match(String(question.explanation), /Correct sentence:/);
   }
 }
