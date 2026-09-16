@@ -1,6 +1,6 @@
 # PGK-001 CP020 — Census & Demography
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-020 — Census & Demography`
 Permanent QLs: `PGK-001-QL-133` to `PGK-001-QL-139`
@@ -63,4 +63,4 @@ Internal verification prioritises Office of the Registrar General & Census Commi
 
 ## Lifecycle
 
-CP020 V1 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication before explicit human approval.
+CP020 V1 is HUMAN APPROVED / FROZEN. It remains review-only and is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication until the separate integration stage is explicitly opened.
