@@ -34,6 +34,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - English CPs frozen: 23 / 23
 - Runtime / Question Studio registration: BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL
 - Localisation: NOT_STARTED / separate post-English workflow
+- Closure record: `ECO-001-CHAPTER-STATUS.md`
 
 ## Binding rules
 
