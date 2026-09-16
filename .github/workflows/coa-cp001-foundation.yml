@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Course-of-Action/COA-001/**
-      - .github/workflows/coa-cp001-foundation.yml
   workflow_dispatch:
 
 permissions:
