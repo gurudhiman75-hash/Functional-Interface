@@ -17,6 +17,10 @@ function ordinal(seed: number, capacity: number): number {
 function unique(values: readonly string[]): string[] {
   return [...new Set(values.map(norm).filter(Boolean))];
 }
+function variant(values: readonly string[], selector: number): string {
+  if (values.length === 0) throw new Error("CP004 stem variant pool is empty");
+  return values[((selector % values.length) + values.length) % values.length]!;
+}
 function assemble(input: {
   seed: number;
   difficulty: PunjabiDifficulty;
@@ -60,7 +64,7 @@ function assemble(input: {
       language: "pa-Guru",
       seed: input.seed,
       authorityIds: input.authorityIds,
-      generatorRevision: "1.2.0-forward-port",
+      generatorRevision: "1.3.0-forward-port",
       fingerprint,
       lifecycle: "REVIEW_ONLY",
     },
@@ -112,6 +116,26 @@ function genderMismatchCases() {
   );
 }
 
+function directGenderStem(word: string, target: "ਪੁਲਿੰਗ" | "ਇਸਤਰੀ ਲਿੰਗ", selector: number): string {
+  return variant([
+    `‘${word}’ ਦਾ ${target} ਕਿਹੜਾ ਹੈ?`,
+    `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ‘${word}’ ਦਾ ${target} ਚੁਣੋ।`,
+    `‘${word}’ ਸ਼ਬਦ ਦਾ ${target} ਕੀ ਹੈ?`,
+    `‘${word}’ ਦਾ ਸਹੀ ${target} ਦੱਸੋ।`,
+    `ਹੇਠ ਦਿੱਤੇ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ‘${word}’ ਦਾ ${target} ਪਛਾਣੋ।`,
+  ], selector);
+}
+
+function directNumberStem(word: string, target: "ਇਕਵਚਨ" | "ਬਹੁਵਚਨ", selector: number): string {
+  return variant([
+    `‘${word}’ ਦਾ ${target} ਕਿਹੜਾ ਹੈ?`,
+    `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ‘${word}’ ਦਾ ${target} ਚੁਣੋ।`,
+    `‘${word}’ ਸ਼ਬਦ ਦਾ ${target} ਕੀ ਹੈ?`,
+    `‘${word}’ ਦਾ ਸਹੀ ${target} ਦੱਸੋ।`,
+    `ਹੇਠ ਦਿੱਤੇ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ‘${word}’ ਦਾ ${target} ਪਛਾਣੋ।`,
+  ], selector);
+}
+
 export function generateCP004F01(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   requireDifficulty(difficulty, "Easy", "F01");
   const rank = ordinal(seed, CP004_TRANSFORM_SAFE_GENDER_PAIRS.length * 2);
@@ -119,9 +143,7 @@ export function generateCP004F01(seed: number, difficulty: PunjabiDifficulty): P
   const toFeminine = rank % 2 === 0;
   return assemble({
     seed, difficulty, familyId: "F01", subtype: "GENDER_CHANGE",
-    stem: toFeminine
-      ? `‘${pair.masculine}’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ਕਿਹੜਾ ਹੈ?`
-      : `‘${pair.feminine}’ ਦਾ ਪੁਲਿੰਗ ਕਿਹੜਾ ਹੈ?`,
+    stem: directGenderStem(pair[toFeminine ? "masculine" : "feminine"], toFeminine ? "ਇਸਤਰੀ ਲਿੰਗ" : "ਪੁਲਿੰਗ", rank),
     correctAnswer: toFeminine ? pair.feminine : pair.masculine,
     distractors: genderDistractors(pair, toFeminine ? "feminine" : "masculine"),
     explanation: toFeminine
@@ -136,9 +158,15 @@ export function generateCP004F02(seed: number, difficulty: PunjabiDifficulty): P
   const index = ordinal(seed, CP004_GENDER_PAIRS.length);
   const pair = CP004_GENDER_PAIRS[index]!;
   const distractors = sameDomainGenderPairs(pair).map((other) => `${pair.masculine} — ${other.feminine}`);
+  const stem = variant([
+    "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਸਹੀ ਲਿੰਗ-ਜੋੜਾ ਚੁਣੋ।",
+    "ਕਿਹੜਾ ਲਿੰਗ-ਜੋੜਾ ਸਹੀ ਹੈ?",
+    "ਹੇਠ ਦਿੱਤੇ ਲਿੰਗ-ਜੋੜਿਆਂ ਵਿੱਚੋਂ ਸਹੀ ਜੋੜਾ ਪਛਾਣੋ।",
+    "ਸਹੀ ਪੁਲਿੰਗ-ਇਸਤਰੀ ਲਿੰਗ ਜੋੜਾ ਚੁਣੋ।",
+  ], index);
   return assemble({
     seed, difficulty, familyId: "F02", subtype: "CORRECT_GENDER_PAIR",
-    stem: "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਸਹੀ ਲਿੰਗ-ਜੋੜਾ ਚੁਣੋ।",
+    stem,
     correctAnswer: `${pair.masculine} — ${pair.feminine}`,
     distractors,
     explanation: `‘${pair.masculine}’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ‘${pair.feminine}’ ਹੈ।`,
@@ -149,15 +177,22 @@ export function generateCP004F02(seed: number, difficulty: PunjabiDifficulty): P
 export function generateCP004F03(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   requireDifficulty(difficulty, "Medium", "F03");
   const cases = genderMismatchCases();
-  const current = cases[ordinal(seed, cases.length)]!;
+  const caseIndex = ordinal(seed, cases.length);
+  const current = cases[caseIndex]!;
   const masculinePair = current.pair;
   const wrongFeminine = current.wrongFeminine;
   const distractors = CP004_GENDER_PAIRS
     .filter((x) => x.domain === masculinePair.domain)
     .map((x) => `${x.masculine} — ${x.feminine}`);
+  const stem = variant([
+    "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਗਲਤ ਲਿੰਗ-ਜੋੜਾ ਚੁਣੋ।",
+    "ਕਿਹੜਾ ਲਿੰਗ-ਜੋੜਾ ਗਲਤ ਹੈ?",
+    "ਹੇਠ ਦਿੱਤੇ ਜੋੜਿਆਂ ਵਿੱਚੋਂ ਗਲਤ ਪੁਲਿੰਗ-ਇਸਤਰੀ ਲਿੰਗ ਜੋੜਾ ਪਛਾਣੋ।",
+    "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਲਿੰਗ-ਜੋੜਾ ਠੀਕ ਨਹੀਂ ਹੈ?",
+  ], caseIndex);
   return assemble({
     seed, difficulty, familyId: "F03", subtype: "MISMATCHED_GENDER_PAIR",
-    stem: "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਗਲਤ ਲਿੰਗ-ਜੋੜਾ ਚੁਣੋ।",
+    stem,
     correctAnswer: `${masculinePair.masculine} — ${wrongFeminine.feminine}`,
     distractors,
     explanation: `‘${masculinePair.masculine}’ ਦਾ ਸਹੀ ਇਸਤਰੀ ਲਿੰਗ ‘${masculinePair.feminine}’ ਹੈ।`,
@@ -167,10 +202,11 @@ export function generateCP004F03(seed: number, difficulty: PunjabiDifficulty): P
 
 export function generateCP004F04(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   requireDifficulty(difficulty, "Easy", "F04");
-  const pair = CP004_NUMBER_PAIRS[ordinal(seed, CP004_NUMBER_PAIRS.length)]!;
+  const index = ordinal(seed, CP004_NUMBER_PAIRS.length);
+  const pair = CP004_NUMBER_PAIRS[index]!;
   return assemble({
     seed, difficulty, familyId: "F04", subtype: "SINGULAR_TO_PLURAL",
-    stem: `‘${pair.singular}’ ਦਾ ਬਹੁਵਚਨ ਕਿਹੜਾ ਹੈ?`,
+    stem: directNumberStem(pair.singular, "ਬਹੁਵਚਨ", index),
     correctAnswer: pair.plural,
     distractors: numberDistractors(pair, "plural"),
     explanation: `‘${pair.singular}’ ਦਾ ਬਹੁਵਚਨ ‘${pair.plural}’ ਹੈ।`,
@@ -180,10 +216,11 @@ export function generateCP004F04(seed: number, difficulty: PunjabiDifficulty): P
 
 export function generateCP004F05(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   requireDifficulty(difficulty, "Easy", "F05");
-  const pair = CP004_NUMBER_PAIRS[ordinal(seed, CP004_NUMBER_PAIRS.length)]!;
+  const index = ordinal(seed, CP004_NUMBER_PAIRS.length);
+  const pair = CP004_NUMBER_PAIRS[index]!;
   return assemble({
     seed, difficulty, familyId: "F05", subtype: "PLURAL_TO_SINGULAR",
-    stem: `‘${pair.plural}’ ਦਾ ਇਕਵਚਨ ਕਿਹੜਾ ਹੈ?`,
+    stem: directNumberStem(pair.plural, "ਇਕਵਚਨ", index + 2),
     correctAnswer: pair.singular,
     distractors: numberDistractors(pair, "singular"),
     explanation: `‘${pair.plural}’ ਦਾ ਇਕਵਚਨ ‘${pair.singular}’ ਹੈ।`,
@@ -196,9 +233,15 @@ export function generateCP004F06(seed: number, difficulty: PunjabiDifficulty): P
   const index = ordinal(seed, CP004_NUMBER_PAIRS.length);
   const pair = CP004_NUMBER_PAIRS[index]!;
   const distractors = sameRuleNumberPairs(pair).map((other) => `${pair.singular} — ${other.plural}`);
+  const stem = variant([
+    "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਸਹੀ ਇਕਵਚਨ-ਬਹੁਵਚਨ ਜੋੜਾ ਚੁਣੋ।",
+    "ਕਿਹੜਾ ਇਕਵਚਨ-ਬਹੁਵਚਨ ਜੋੜਾ ਸਹੀ ਹੈ?",
+    "ਹੇਠ ਦਿੱਤੇ ਵਚਨ-ਜੋੜਿਆਂ ਵਿੱਚੋਂ ਸਹੀ ਜੋੜਾ ਪਛਾਣੋ।",
+    "ਸਹੀ ਇਕਵਚਨ ਅਤੇ ਬਹੁਵਚਨ ਵਾਲਾ ਜੋੜਾ ਚੁਣੋ।",
+  ], index);
   return assemble({
     seed, difficulty, familyId: "F06", subtype: "CORRECT_NUMBER_PAIR",
-    stem: "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਸਹੀ ਇਕਵਚਨ-ਬਹੁਵਚਨ ਜੋੜਾ ਚੁਣੋ।",
+    stem,
     correctAnswer: `${pair.singular} — ${pair.plural}`,
     distractors,
     explanation: `‘${pair.singular}’ ਦਾ ਬਹੁਵਚਨ ‘${pair.plural}’ ਹੈ।`,
@@ -208,10 +251,17 @@ export function generateCP004F06(seed: number, difficulty: PunjabiDifficulty): P
 
 export function generateCP004F07(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   requireDifficulty(difficulty, "Medium", "F07");
-  const context = CP004_AGREEMENT_CONTEXTS[ordinal(seed, CP004_AGREEMENT_CONTEXTS.length)]!;
+  const index = ordinal(seed, CP004_AGREEMENT_CONTEXTS.length);
+  const context = CP004_AGREEMENT_CONTEXTS[index]!;
+  const stem = variant([
+    `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ${context.targetPa} ਵਾਲਾ ਸਹੀ ਵਾਕ ਚੁਣੋ।`,
+    `${context.targetPa} ਦਾ ਸਹੀ ਮਿਲਾਪ ਕਿਸ ਵਾਕ ਵਿੱਚ ਹੈ?`,
+    `ਕਿਹੜੇ ਵਾਕ ਵਿੱਚ ${context.targetPa} ਦਾ ਮਿਲਾਪ ਸਹੀ ਹੈ?`,
+    `ਹੇਠ ਦਿੱਤੇ ਵਾਕਾਂ ਵਿੱਚੋਂ ${context.targetPa} ਅਨੁਸਾਰ ਸਹੀ ਵਾਕ ਪਛਾਣੋ।`,
+  ], index);
   return assemble({
     seed, difficulty, familyId: "F07", subtype: "CONTEXTUAL_GENDER_NUMBER_USAGE",
-    stem: `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ${context.targetPa} ਵਾਲਾ ਸਹੀ ਵਾਕ ਚੁਣੋ।`,
+    stem,
     correctAnswer: context.correct,
     distractors: context.incorrect,
     explanation: context.principlePa,
@@ -225,9 +275,15 @@ export function generateCP004F08(seed: number, difficulty: PunjabiDifficulty): P
   const context = CP004_AGREEMENT_CONTEXTS[Math.floor(rank / 4)]!;
   const wrongIndex = rank % 4;
   const wrong = context.incorrect[wrongIndex]!;
+  const stem = variant([
+    `ਹੇਠਲੇ ਵਾਕ ਦਾ ਸਹੀ ਰੂਪ ਚੁਣੋ:\n‘${wrong}’`,
+    `ਦਿੱਤੇ ਵਾਕ ਨੂੰ ਠੀਕ ਕਰਕੇ ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ:\n‘${wrong}’`,
+    `ਹੇਠ ਦਿੱਤੇ ਵਾਕ ਦਾ ਸਹੀ ਰੂਪ ਕਿਹੜਾ ਹੈ?\n‘${wrong}’`,
+    `ਇਸ ਵਾਕ ਵਿੱਚ ਲਿੰਗ-ਵਚਨ ਦਾ ਮਿਲਾਪ ਠੀਕ ਕਰਕੇ ਸਹੀ ਰੂਪ ਚੁਣੋ:\n‘${wrong}’`,
+  ], rank);
   return assemble({
     seed, difficulty, familyId: "F08", subtype: "AGREEMENT_ERROR_CORRECTION",
-    stem: `ਹੇਠਲੇ ਵਾਕ ਦਾ ਸਹੀ ਰੂਪ ਚੁਣੋ:\n‘${wrong}’`,
+    stem,
     correctAnswer: context.correct,
     distractors: context.incorrect.filter((_, i) => i !== wrongIndex),
     explanation: context.principlePa,
@@ -265,9 +321,14 @@ export function generateCP004F09(seed: number, difficulty: PunjabiDifficulty): P
       : secondTrue
         ? "ਦੂਜੇ ਕਥਨ ਵਿੱਚ ਮਿਲਾਪ ਸਹੀ ਹੈ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਲਿੰਗ ਜਾਂ ਵਚਨ ਦਾ ਮਿਲਾਪ ਗਲਤ ਹੈ।"
         : "ਦੋਵੇਂ ਕਥਨਾਂ ਵਿੱਚ ਲਿੰਗ ਜਾਂ ਵਚਨ ਦੇ ਮਿਲਾਪ ਦੀ ਗਲਤੀ ਹੈ।";
+  const instruction = variant([
+    "ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ।",
+    "ਦੋਵੇਂ ਕਥਨਾਂ ਨੂੰ ਪੜ੍ਹ ਕੇ ਠੀਕ ਵਿਕਲਪ ਚੁਣੋ।",
+    "ਕਥਨਾਂ ਦੀ ਸਹੀਤਾ ਅਨੁਸਾਰ ਜਵਾਬ ਚੁਣੋ।",
+  ], rank);
   return assemble({
     seed, difficulty, familyId: "F09", subtype: "STATEMENT_PAIR_CORRECTNESS",
-    stem: `ਕਥਨ 1: ${firstStatement}\nਕਥਨ 2: ${secondStatement}\n\nਸਹੀ ਵਿਕਲਪ ਚੁਣੋ।`,
+    stem: `ਕਥਨ 1: ${firstStatement}\nਕਥਨ 2: ${secondStatement}\n\n${instruction}`,
     correctAnswer: STATEMENT_ANSWERS[correctIndex]!,
     distractors: STATEMENT_ANSWERS.filter((_, i) => i !== correctIndex),
     explanation,
