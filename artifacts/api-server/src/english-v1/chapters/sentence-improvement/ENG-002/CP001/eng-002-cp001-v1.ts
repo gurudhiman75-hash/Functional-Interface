@@ -108,101 +108,6 @@ function chooseRule(input: GenerateEng002Cp001V1Input): SvaRuleId {
   return deterministicPick(`${input.seed}:eng002:rule:${input.difficulty}`, allowed);
 }
 
-const IRREGULAR_BASE: Record<string, string> = {
-  fallen: "fall",
-  paid: "pay",
-  made: "make",
-  done: "do",
-  gone: "go",
-  written: "write",
-  taken: "take",
-  kept: "keep",
-  built: "build",
-  sent: "send",
-  lost: "lose",
-  found: "find",
-  shown: "show",
-  grown: "grow",
-  known: "know",
-  run: "run",
-  begun: "begin",
-};
-
-const EXPLICIT_REGULAR_BASE: Record<string, string> = {
-  arranged: "arrange",
-  changed: "change",
-  checked: "check",
-  closed: "close",
-  collected: "collect",
-  compared: "compare",
-  completed: "complete",
-  improved: "improve",
-  installed: "install",
-  managed: "manage",
-  marked: "mark",
-  moved: "move",
-  offered: "offer",
-  prepared: "prepare",
-  processed: "process",
-  published: "publish",
-  received: "receive",
-  recorded: "record",
-  removed: "remove",
-  reported: "report",
-  required: "require",
-  reviewed: "review",
-  saved: "save",
-  scheduled: "schedule",
-  selected: "select",
-  stored: "store",
-  survived: "survive",
-  thanked: "thank",
-  used: "use",
-  worsened: "worsen",
-};
-
-function lexicalBaseFromPhrase(phrase: string): string {
-  const words = phrase.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  while (["am", "is", "are", "was", "were", "has", "have", "had", "do", "does", "did", "been", "being"].includes(words[0] ?? "")) {
-    words.shift();
-  }
-  const word = (words[0] ?? "do").replace(/[^a-z'-]/g, "");
-  if (IRREGULAR_BASE[word]) return IRREGULAR_BASE[word]!;
-  if (EXPLICIT_REGULAR_BASE[word]) return EXPLICIT_REGULAR_BASE[word]!;
-  if (word.endsWith("ying") && word.length > 4) return `${word.slice(0, -4)}ie`;
-  if (word.endsWith("ing") && word.length > 5) {
-    const stem = word.slice(0, -3);
-    if (/(at|it|iz|ur|ov|ak|ik)$/.test(stem)) return `${stem}e`;
-    return stem.replace(/([bcdfghjklmnpqrstvwxyz])\1$/, "$1");
-  }
-  if (word.endsWith("ied") && word.length > 4) return `${word.slice(0, -3)}y`;
-  if (word.endsWith("ed") && word.length > 4) {
-    const stem = word.slice(0, -2);
-    if (stem.endsWith("at") || stem.endsWith("iz")) return `${stem}e`;
-    if (stem.endsWith("v")) return `${stem}e`;
-    return stem.replace(/([bcdfghjklmnpqrstvwxyz])\1$/, "$1");
-  }
-  if (word.endsWith("ies") && word.length > 4) return `${word.slice(0, -3)}y`;
-  if (word.endsWith("es") && /(ches|shes|sses|xes|zes|oes)$/.test(word)) return word.slice(0, -2);
-  if (word.endsWith("s") && !word.endsWith("ss") && word.length > 3) return word.slice(0, -1);
-  return word;
-}
-
-function toGerund(base: string): string {
-  if (base.endsWith("ie")) return `${base.slice(0, -2)}ying`;
-  if (base.endsWith("e") && !base.endsWith("ee")) return `${base.slice(0, -1)}ing`;
-  if (/[^aeiou][aeiou][bcdfgklmnprstvz]$/.test(base)) return `${base}${base.slice(-1)}ing`;
-  return `${base}ing`;
-}
-
-function wrongNumberOf(phrase: string): "singular" | "plural" {
-  const first = phrase.trim().toLowerCase().split(/\s+/)[0] ?? "";
-  if (["is", "was", "has", "does"].includes(first)) return "singular";
-  if (["are", "were", "have", "do"].includes(first)) return "plural";
-  if (first.endsWith("s") && !first.endsWith("ss")) return "singular";
-  return "plural";
-}
-
 function insertAgreementPreservingAdverb(phrase: string, adverb: string): string {
   const words = phrase.trim().split(/\s+/).filter(Boolean);
   if (words.length === 0) return phrase;
@@ -250,19 +155,39 @@ function shuffleThree(seed: string, values: readonly string[]): string[] {
   return out;
 }
 
-function ruleReason(candidate: Eng001SentenceCandidate): string {
+function ruleLesson(candidate: Eng001SentenceCandidate): string {
   switch (candidate.ruleId as SvaRuleId) {
-    case "GR-SVA-001": return "The verb must agree with the main subject in number.";
-    case "GR-SVA-002": return candidate.correctSegments[0]?.startsWith("Each") ? "“Each” takes a singular verb." : "“Every” takes a singular verb.";
-    case "GR-SVA-003": return "In “one of ...”, the head word “one” is singular.";
-    case "GR-SVA-004": return candidate.tags.includes("pattern:a-number-of") ? "“A number of” means several and takes a plural verb." : "“The number of” refers to one total and takes a singular verb.";
-    case "GR-SVA-005": return "A phrase such as “along with”, “together with” or “as well as” does not change the number of the main subject.";
-    case "GR-SVA-006": return "With “either...or” and “neither...nor”, the verb agrees with the nearer subject.";
-    case "GR-SVA-007": return candidate.tags.includes("pattern:collective-members") ? "Here the members act separately, so the plural reading is required." : "Here the group acts as one unit, so the singular reading is required.";
-    case "GR-SVA-008": return "“More than one” takes a singular verb in this pattern.";
-    case "GR-SVA-009": return "“Many a/an” takes a singular verb.";
-    case "GR-SVA-010": return `The main subject is “${candidate.subjectHead}”; the nearby plural noun does not control the verb.`;
+    case "GR-SVA-001":
+      return "Concept: First find the main subject. A singular subject takes a singular verb, while a plural subject takes a plural verb.";
+    case "GR-SVA-002":
+      return candidate.correctSegments[0]?.startsWith("Each")
+        ? "Concept: 'Each' talks about members one at a time, so it normally takes a singular verb."
+        : "Concept: 'Every' treats the members one at a time, so it normally takes a singular verb.";
+    case "GR-SVA-003":
+      return "Concept: In 'one of the ...', the real subject is 'one', not the plural noun after 'of'. Therefore, the verb is singular.";
+    case "GR-SVA-004":
+      return candidate.tags.includes("pattern:a-number-of")
+        ? "Concept: 'A number of' means 'several', so we use a plural verb."
+        : "Concept: 'The number of' means one total or figure, so we use a singular verb.";
+    case "GR-SVA-005":
+      return "Concept: Words added with 'along with', 'together with' or 'as well as' do not change the main subject. Make the verb agree with the main subject only.";
+    case "GR-SVA-006":
+      return "Concept: With 'either...or' and 'neither...nor', look at the subject nearest to the verb. The verb agrees with that nearer subject.";
+    case "GR-SVA-007":
+      return candidate.tags.includes("pattern:collective-members")
+        ? "Concept: A collective noun can take a plural verb when its members are acting separately."
+        : "Concept: A collective noun takes a singular verb when the whole group is acting as one unit.";
+    case "GR-SVA-008":
+      return "Concept: Although 'more than one' sounds plural, standard agreement in this pattern uses a singular verb.";
+    case "GR-SVA-009":
+      return "Concept: 'Many a' or 'many an' is followed by a singular noun and takes a singular verb.";
+    case "GR-SVA-010":
+      return "Concept: Do not match the verb with the nearest noun automatically. First identify the main subject; words inside an added phrase do not control the verb.";
   }
+}
+
+function explanationApplication(candidate: Eng001SentenceCandidate, correctTarget: string): string {
+  return `Here, the main subject is “${candidate.subjectHead}”, so “${correctTarget}” is the correct verb form.`;
 }
 
 export function generateEng002Cp001QuestionV1(input: GenerateEng002Cp001V1Input): Eng002Cp001QuestionV1 {
@@ -301,10 +226,11 @@ export function generateEng002Cp001QuestionV1(input: GenerateEng002Cp001V1Input)
 
   const correctedSentence = sentenceFromSegments(correctSegments);
   const sentence = sentenceFromSegments(visibleSegments);
-  const reason = ruleReason(candidate);
+  const lesson = ruleLesson(candidate);
+  const application = explanationApplication(candidate, correctTarget);
   const explanation = noImprovement
-    ? `No improvement is needed. ${reason} “${correctTarget}” already agrees correctly with the subject. Correct sentence: ${correctedSentence}`
-    : `Use “${correctTarget}”. ${reason} The underlined verb phrase does not agree with the subject. Correct sentence: ${correctedSentence}`;
+    ? `No error: “${targetText}” already agrees with the subject, so no improvement is needed. ${lesson} ${application} Correct sentence: ${correctedSentence}`
+    : `Error: “${targetText}” does not agree with the subject; use “${correctTarget}”. ${lesson} ${application} Correct sentence: ${correctedSentence}`;
   const semanticDomain = semanticDomainOfV4(candidate);
   if (!semanticDomain) throw new Error(`${candidate.candidateId} lacks a semantic domain`);
 
