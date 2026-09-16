@@ -66,12 +66,20 @@ assert.equal(CP004_FAMILIES.length, 9);
 const breadth = getCP004BreadthReport();
 const sampleSizes: Record<string, number> = { ...breadth.capacities };
 const globalFingerprints = new Set<string>();
+const stemPatternsByFamily = new Map<string, Set<string>>();
 for (const family of CP004_FAMILIES) {
   for (const difficulty of family.targetDifficulties) {
     const local = new Set<string>();
+    const familyStemPatterns = stemPatternsByFamily.get(family.familyId) ?? new Set<string>();
+    stemPatternsByFamily.set(family.familyId, familyStemPatterns);
     const sampleSize = sampleSizes[family.familyId]!;
     for (let seed = 1; seed <= sampleSize; seed++) {
       const q = family.generate(seed, difficulty);
+      const stemPattern = q.stem
+        .replace(/[‘’][^‘’]+[‘’]/g, "‘X’")
+        .replace(/ਕਥਨ 1:[^\n]+/g, "ਕਥਨ 1: X")
+        .replace(/ਕਥਨ 2:[^\n]+/g, "ਕਥਨ 2: X");
+      familyStemPatterns.add(stemPattern);
       assert.equal(q.options.length, 4, `${q.id}: expected four options`);
       assert.equal(new Set(q.options).size, 4, `${q.id}: options must be unique`);
       assert(q.correctIndex >= 0 && q.correctIndex < 4, `${q.id}: invalid correct index`);
@@ -94,6 +102,10 @@ for (const family of CP004_FAMILIES) {
     }
     assert.equal(local.size, sampleSize, `${family.familyId}: semantic sample must be unique`);
   }
+}
+
+for (const familyId of ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09"]) {
+  assert((stemPatternsByFamily.get(familyId)?.size ?? 0) > 1, `${familyId}: fixed stem instruction repetition is not allowed`);
 }
 
 const f01 = CP004_FAMILIES.find((x) => x.familyId === "F01")!;
@@ -152,4 +164,4 @@ assert.equal(breadth.capacities.F09, 528);
 assert.equal(breadth.totalSemanticCapacity, 904);
 
 console.log(`CP004 exhaustive semantic gates passed: ${globalFingerprints.size} generated proof questions`);
-console.log(JSON.stringify(breadth, null, 2));
+console.log(JSON.stringify({ ...breadth, stemPatternCounts: Object.fromEntries([...stemPatternsByFamily].map(([id, stems]) => [id, stems.size])) }, null, 2));
