@@ -23,6 +23,8 @@ import { isEng002Cp005QuestionStudioRequestV1, languageV1Eng002Cp005QuestionStud
 import { isEng002Cp006QuestionStudioRequestV1, languageV1Eng002Cp006QuestionStudioAdapterV1 } from "./language-v1-eng002-cp006-adapter-v1";
 import { isEng002Cp007QuestionStudioRequestV1, isEng002Cp008QuestionStudioRequestV1, languageV1Eng002Cp007Cp008QuestionStudioAdapterV1 } from "./language-v1-eng002-cp007-cp008-adapter-v1";
 import { isEng002Cp009QuestionStudioRequestV1, languageV1Eng002Cp009QuestionStudioAdapterV1 } from "./language-v1-eng002-cp009-adapter-v1";
+import { isEng002Cp010QuestionStudioRequestV1, languageV1Eng002Cp010QuestionStudioAdapterV1 } from "./language-v1-eng002-cp010-adapter-v1";
+import { isEng002Cp011QuestionStudioRequestV1, languageV1Eng002Cp011QuestionStudioAdapterV1 } from "./language-v1-eng002-cp011-adapter-v1";
 
 /** Composite adapter for approved English review-only generators. */
 export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
@@ -30,10 +32,12 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   listPackages() {
     return [
       ...languageV1Eng001Cp013QuestionStudioAdapterV1.listPackages(),
-      ...languageV1Eng002Cp009QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng002Cp011QuestionStudioAdapterV1.listPackages(),
     ];
   },
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isEng002Cp011QuestionStudioRequestV1(request)) return languageV1Eng002Cp011QuestionStudioAdapterV1.generate(request);
+    if (isEng002Cp010QuestionStudioRequestV1(request)) return languageV1Eng002Cp010QuestionStudioAdapterV1.generate(request);
     if (isEng002Cp009QuestionStudioRequestV1(request)) return languageV1Eng002Cp009QuestionStudioAdapterV1.generate(request);
     if (isEng002Cp008QuestionStudioRequestV1(request) || isEng002Cp007QuestionStudioRequestV1(request)) return languageV1Eng002Cp007Cp008QuestionStudioAdapterV1.generate(request);
     if (isEng002Cp006QuestionStudioRequestV1(request)) return languageV1Eng002Cp006QuestionStudioAdapterV1.generate(request);
