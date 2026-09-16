@@ -1,6 +1,17 @@
 # COA-001 / COA-CP-001 Status
 
-Status: **IMPLEMENTED / HUMAN EDITORIAL REVIEW PENDING**
+Status: **EDITORIALLY APPROVED / FROZEN FOR DOWNSTREAM EXPANSION**
+
+## Approval
+
+The product owner explicitly approved the CP001 English review pack in project chat on **2026-09-16**.
+
+Approved review authority:
+
+- `COA-CP-001-ENGLISH-REVIEW.md`
+- editorial authority: `CP001_V2`
+
+The approval freezes the CP001 calibration surfaces as the baseline for later COA work. Later checkpoints may add new semantic authorities and reviewed surfaces, but must not silently mutate the approved CP001 calibration questions.
 
 ## Implemented
 
@@ -11,19 +22,16 @@ Status: **IMPLEMENTED / HUMAN EDITORIAL REVIEW PENDING**
 - answer classes balanced exactly: Only I 6 / Only II 6 / Both 6 / Neither 6;
 - independent semantic action evaluator;
 - executable CP001 proof;
-- human review Markdown materialized;
-- dedicated CI workflow added.
+- Editorial V2 distractor hardening;
+- dedicated CI workflow.
 
 ## Lifecycle
 
+- English CP001 calibration: APPROVED
 - Question Studio: CLOSED
 - Question Bank writes: CLOSED
 - test/mock eligibility: CLOSED
 - Hindi/Punjabi: NOT STARTED
 - public/student delivery: CLOSED
 
-## Review authority
-
-`COA-CP-001-ENGLISH-REVIEW.md`
-
-CP002 must not freeze or expand QL001–QL002 learner-facing English until CP001 editorial feedback is incorporated or CP001 is explicitly approved.
+Approval of CP001 authorizes COA-CP-002 implementation. It does not authorize Question Studio persistence or learner release.
