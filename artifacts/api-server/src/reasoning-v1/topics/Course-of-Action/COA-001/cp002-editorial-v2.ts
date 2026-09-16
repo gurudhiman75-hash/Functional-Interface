@@ -18,6 +18,13 @@ const ACTION_PATCHES: Readonly<Record<string, ActionPatch>> = Object.freeze({
     expectedUtility: "LOW",
     reasonCodes: ["TOO_WEAK_TO_ADDRESS_PROBLEM"],
   },
+  "COA-SC-032-I": {
+    text: "The company should send an apology message after every damaged delivery without changing the conveyor process.",
+    explanation: "An apology acknowledges the complaint, but by itself it leaves the damaged guide rail unchanged and does not stop the same parcel damage from recurring.",
+    proportionality: "INSUFFICIENT",
+    expectedUtility: "LOW",
+    reasonCodes: ["SYMBOLIC_BUT_INEFFECTIVE"],
+  },
   "COA-SC-033-II": {
     text: "The terminal should add staff to explain ticket-print failures to passengers while continuing to use the faulty machine without repair.",
     explanation: "Extra staff may explain the problem after it occurs, but they do not correct the paper-feed fault or stop further failed ticket prints.",
