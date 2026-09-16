@@ -1,13 +1,15 @@
 # ENV-CP-015 Status
 
-- Lifecycle: IMPLEMENTATION IN PROGRESS.
+- Lifecycle: REVIEW CANDIDATE.
 - Review version: V1.
 - Runtime registration: blocked.
 - Human approval: pending.
 - Merge into `New-main`: blocked until project-owner approval.
-- Planned review surface: 48 questions across 12 QLs.
+- Review surface: 48 questions across 12 QLs.
 - Stem baseline: short, simple SSC/Banking-style question wording.
-- Explanation baseline: simple and slightly explanatory; each answer should add a useful legal purpose, distinction or application.
-- Planned coverage: Environment (Protection) Act, Water Act, Air Act, Wildlife (Protection) Act, forest-conservation law, Biological Diversity Act, NGT, CPCB/SPCB roles, and act/institution matching.
+- Explanation baseline: simple and slightly explanatory; each answer adds a useful legal purpose, distinction or application.
+- Coverage: Environment (Protection) Act, Water Act, Air Act, Wild Life (Protection) Act, current/historical naming of the 1980 forest-conservation law, Biological Diversity Act, NGT, CPCB/SPCB roles, act-year matching, act-purpose matching and applied institution-law identification.
 - International treaty mechanics: deferred to ENV-CP-017.
 - Mutable standards, office-holders, current notification lists, recent-case trivia and current counts: excluded.
+- Source verification date: 2026-09-16.
+- Source baseline: India Code for the seven principal Acts and CPCB's statutory mandate material for CPCB/SPCB role distinctions.
