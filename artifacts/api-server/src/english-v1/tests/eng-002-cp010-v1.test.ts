@@ -26,6 +26,7 @@ function verify(seed: string, difficulty: EnglishDifficulty) {
   assert.match(q.explanation, /Correct sentence:/);
   assert.equal(q.metadata.reviewOnly, true);
   assertCleanOptions(q.options);
+  if (q.metadata.ruleId === "GR-MOD-007") assert.equal(q.metadata.noImprovement, false);
   if (q.metadata.noImprovement) assert.equal(q.correctOptionIndex, 3); else assert.notEqual(q.correctOptionIndex, 3);
   return q;
 }
@@ -52,7 +53,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     for (const noImprovement of [false, true]) {
       const q = generateEng002Cp010QuestionV1({ seed: `eng002-cp010-rule:${difficulty}:${ruleId}:${noImprovement}`, difficulty, ruleId, sceneId: scene.id, noImprovement });
       assert.equal(q.metadata.ruleId, ruleId);
-      assert.equal(q.metadata.noImprovement, noImprovement);
+      assert.equal(q.metadata.noImprovement, ruleId === "GR-MOD-007" ? false : noImprovement);
       assert.equal(new Set(q.options.map((option) => option.toLowerCase())).size, 4);
       assertCleanOptions(q.options);
     }
@@ -66,6 +67,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
   assert.equal(slice.length, 20);
   assert.equal(slice.filter((item) => item.question.metadata.noImprovement).length, 5);
 }
+assert.equal(review.filter((item) => item.question.metadata.ruleId === "GR-MOD-007").some((item) => item.question.metadata.noImprovement), false);
 assert.equal(new Set(review.map((item) => item.question.metadata.ruleId)).size, 10);
 assert.ok(new Set(review.map((item) => item.question.metadata.semanticDomain)).size >= 20);
 assert.equal(review.every((item) => item.question.options.length === 4 && item.question.options[3] === "No improvement"), true);
