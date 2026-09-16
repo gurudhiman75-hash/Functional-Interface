@@ -1,0 +1,33 @@
+import type { PolCp014Seed } from "./pol-cp014-review-seed-types";
+
+const C = "LEGISLATIVE-DEPT-CONSTITUTION-2026";
+const q = (ql:number, stem:string, canonicalAnswer:string, distractors:[string,string,string], explanation:string, fact:string):PolCp014Seed => ({
+  qlId:`POL-014-QL-${String(ql).padStart(3,"0")}`, difficulty:"Easy", stem, canonicalAnswer, distractors, explanation, sourceIds:[C], sourceFactIds:[fact]
+});
+
+export const POL_CP014_SEEDS_A: readonly PolCp014Seed[] = Object.freeze([
+  q(1,"Which Article provides for a Governor for each State?","Article 153",["Article 154","Article 155","Article 156"],"Article 153 provides for a Governor for each State and also permits the same person to serve as Governor of multiple States.","pol-cp014-art153"),
+  q(1,"Under which Article is the executive power of a State vested in the Governor?","Article 154",["Article 153","Article 155","Article 162"],"Article 154 vests State executive power in the Governor, to be exercised directly or through subordinate officers in accordance with the Constitution.","pol-cp014-art154"),
+  q(1,"Which Article deals with the appointment of a State Governor?","Article 155",["Article 153","Article 156","Article 157"],"Article 155 provides that the Governor is appointed by the President through a warrant under the President's hand and seal.","pol-cp014-art155"),
+  q(1,"Which Article mainly governs the term of office of a Governor?","Article 156",["Article 155","Article 157","Article 159"],"Article 156 combines the five-year term with the President's pleasure, resignation to the President and continuation until a successor enters office.","pol-cp014-art156"),
+
+  q(2,"Which Article lays down the qualifications for appointment as Governor?","Article 157",["Article 156","Article 158","Article 159"],"Article 157 gives the two basic constitutional qualifications: Indian citizenship and completion of thirty-five years of age.","pol-cp014-art157"),
+  q(2,"The conditions of a Governor's office are mainly provided in which Article?","Article 158",["Article 157","Article 159","Article 160"],"Article 158 deals with legislative membership, office of profit, official residence, emoluments and related conditions of the Governor's office.","pol-cp014-art158"),
+  q(2,"Under which Article does the Governor take the constitutional oath or affirmation?","Article 159",["Article 157","Article 160","Article 161"],"Article 159 prescribes the Governor's oath, including the duty to preserve, protect and defend the Constitution and the law.","pol-cp014-art159"),
+  q(2,"Which Article empowers the President to provide for discharge of a Governor's functions in an unforeseen contingency?","Article 160",["Article 158","Article 159","Article 162"],"Article 160 lets the President make suitable provision for a contingency concerning the Governor's functions that the Chapter does not otherwise cover.","pol-cp014-art160"),
+
+  q(3,"The Governor's constitutional clemency power is provided under which Article?","Article 161",["Article 160","Article 162","Article 163"],"Article 161 grants pardoning and related powers for offences against laws concerning matters to which the State's executive power extends.","pol-cp014-art161"),
+  q(3,"Which Article defines the general extent of the executive power of a State?","Article 162",["Article 154","Article 161","Article 163"],"Article 162 generally links State executive power to matters on which the State Legislature has law-making power, subject to constitutional limits.","pol-cp014-art162"),
+  q(3,"Which Article provides for a Council of Ministers to aid and advise the Governor?","Article 163",["Article 162","Article 164","Article 165"],"Article 163 provides for a Council of Ministers headed by the Chief Minister to aid and advise the Governor, except where discretion is constitutionally required.","pol-cp014-art163"),
+  q(3,"Other constitutional provisions relating to State Ministers are mainly contained in which Article?","Article 164",["Article 163","Article 165","Article 166"],"Article 164 covers appointment of the Chief Minister and other Ministers, collective responsibility, ministerial size limits, oaths and the six-month rule.","pol-cp014-art164"),
+
+  q(4,"Who appoints the Governor of a State?","President",["Prime Minister","Chief Justice of India","State Legislature"],"The President formally appoints the Governor under Article 155; the office is therefore not filled by direct or indirect election.","pol-cp014-art155"),
+  q(4,"By which formal instrument is a Governor appointed?","Warrant under the President's hand and seal",["Resolution of the State Legislature","Order of the Chief Minister","Notification of the Chief Justice"],"Article 155 specifies a presidential warrant under hand and seal, making the President the formal constitutional appointing authority.","pol-cp014-art155"),
+  q(4,"A Governor normally holds office for a term of how many years?","Five years",["Four years","Six years","Seven years"],"Article 156 states a five-year term, but that term remains subject to the Governor holding office during the President's pleasure.","pol-cp014-art156"),
+  q(4,"To whom does a Governor submit a resignation?","President",["Prime Minister","Chief Minister","Chief Justice of the High Court"],"Article 156 requires the Governor's resignation to be addressed to the President, matching the President's formal role in the appointment.","pol-cp014-art156"),
+
+  q(5,"What is the minimum age for appointment as Governor?","35 years",["30 years","40 years","45 years"],"Article 157 requires a person to have completed thirty-five years of age before becoming constitutionally eligible for appointment as Governor.","pol-cp014-art157"),
+  q(5,"Which citizenship condition applies to appointment as Governor?","The person must be a citizen of India",["The person must be a natural-born citizen only","The person must be a resident of the State","The person must be a Member of Parliament"],"Indian citizenship is compulsory under Article 157; residence in the State and legislative membership are not appointment qualifications.","pol-cp014-art157"),
+  q(5,"Can a Governor continue as a member of Parliament after entering office?","No",["Yes","Only in Rajya Sabha","Only with presidential permission"],"Article 158 provides that a legislator appointed Governor is deemed to vacate that legislative seat on entering the Governor's office.","pol-cp014-art158"),
+  q(5,"Can a Governor hold another office of profit while serving as Governor?","No",["Yes","Only under the State Government","Only if unpaid"],"Article 158 expressly bars the Governor from holding any other office of profit during the tenure of the constitutional office.","pol-cp014-art158")
+]);
