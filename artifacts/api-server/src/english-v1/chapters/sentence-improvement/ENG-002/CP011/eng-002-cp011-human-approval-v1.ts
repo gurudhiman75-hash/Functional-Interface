@@ -7,6 +7,7 @@ export const ENG002_CP011_HUMAN_EDITORIAL_APPROVAL_V1 = Object.freeze({
   approvedWorkflowArtifactDigest: "sha256:c5c12b905365763ae3bc5084470bfb507d5064ad85322d701888df2183db3cb9" as const,
   approvedGeneratorHeadSha: "6675cae8bc153173a82c7d51a3661622b6d85bf6" as const,
   approvedOn: "2026-09-16" as const,
+  approvalRecordedAt: "2026-09-16T22:52:00+05:30" as const,
   approvalKind: "EXPLICIT_HUMAN_EDITORIAL_APPROVAL" as const,
   questionStudioReviewOnlyAuthorized: true as const,
   questionBankWritable: false as const,
