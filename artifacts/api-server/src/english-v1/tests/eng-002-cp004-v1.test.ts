@@ -17,10 +17,12 @@ function verifyQuestion(seed: string, difficulty: EnglishDifficulty) {
   assert.equal(question.metadata.reviewOnly, true);
   if (question.metadata.noImprovement) {
     assert.equal(question.correctOptionIndex, 3);
+    assert.equal(question.sentence, question.correctedSentence);
     assert.equal(question.options.slice(0, 3).some((option) => option.toLowerCase() === question.targetText.toLowerCase()), false);
   } else {
     assert.notEqual(question.correctOptionIndex, 3);
-    assert.equal(question.options[question.correctOptionIndex], question.segments[question.targetIndex] === question.correctedSentence ? question.options[question.correctOptionIndex] : question.options[question.correctOptionIndex]);
+    assert.notEqual(question.sentence, question.correctedSentence);
+    assert.notEqual(question.options[question.correctOptionIndex]!.toLowerCase(), question.targetText.toLowerCase());
   }
   return question;
 }
