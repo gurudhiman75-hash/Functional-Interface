@@ -1,7 +1,8 @@
-# COA-001 / COA-CP-001 — English Review Pack
+# COA-001 / COA-CP-001 — English Review Pack V2
 
 Status: **HUMAN REVIEW REQUIRED**  
 Scope: 24 calibration questions across COA-QL-001..009.  
+Editorial authority: `CP001_V2` — trivial V1 distractors replaced with realistic near-misses.  
 Lifecycle: review only; Question Studio, Question Bank, tests, mocks and student delivery remain closed.
 
 ## Common answer codes
@@ -30,12 +31,12 @@ II. The department should conduct a survey of household electricity use in the s
 **Statement:** Customers at a bank branch are receiving unreadable deposit receipts because the receipt printer has developed a mechanical fault.
 
 **Courses of Action:**  
-I. The branch should stop all customer services for one month until every office machine has been inspected.  
+I. The branch should suspend deposit-counter service until all office equipment, not only the receipt printer, has been inspected.  
 II. The branch should repair or replace the faulty printer and provide clear replacement receipts where required.
 
 **Answer: B — Only II follows.**
 
-**Explanation:** The problem is limited to a faulty printer. Repairing or replacing it is a direct and proportionate response. Closing all branch services for a month is excessive.
+**Explanation:** The identified problem is the receipt printer. Repairing or replacing it directly solves the fault. Suspending deposit service for a broad equipment inspection is more disruptive than the stated problem requires.
 
 ## Q3 — COA-QL-001 — Medium
 
@@ -54,12 +55,12 @@ II. The examination body should provide a short deadline extension for applicant
 **Statement:** Several minor reversing incidents have occurred inside a bus depot because warning alarms on some buses are not working.
 
 **Courses of Action:**  
-I. The depot should repaint the administrative office so that staff take safety more seriously.  
-II. The depot should permanently withdraw every bus from service because some warning alarms have failed.
+I. Until the faulty alarms are repaired, the depot should only instruct drivers to reverse more slowly and otherwise continue normal reversing operations.  
+II. The depot should permanently prohibit all reversing movements, including by buses whose warning alarms are working correctly.
 
 **Answer: D — Neither I nor II follows.**
 
-**Explanation:** Repainting the office does not reduce the risk caused by defective warning alarms. Permanently withdrawing the entire fleet is also excessive when the faulty alarms can be identified and repaired.
+**Explanation:** Driving more slowly does not correct the known warning-alarm failure and is too weak as the only response. A permanent ban on all reversing is excessive because the faulty buses can instead be identified and repaired.
 
 ## Q5 — COA-QL-002 — Medium
 
@@ -78,12 +79,12 @@ II. The depot should organise a general motivational programme for all employees
 **Statement:** Students entering a school laboratory without understanding basic safety rules have caused repeated avoidable equipment incidents.
 
 **Courses of Action:**  
-I. The school should stop all laboratory classes for the entire academic year.  
+I. The school should replace practical laboratory sessions with teacher demonstrations for all students for the rest of the term.  
 II. The school should require a short safety briefing and appropriate supervision before students use the laboratory.
 
 **Answer: B — Only II follows.**
 
-**Explanation:** The problem calls for better safety practice, not the loss of laboratory teaching for the whole year. A briefing and supervision directly reduce the stated risk.
+**Explanation:** The issue is lack of safety understanding. Removing practical work for every student for the rest of the term goes beyond the targeted correction needed. A safety briefing and supervision directly address the stated risk.
 
 ## Q7 — COA-QL-003 — Medium
 
@@ -115,23 +116,23 @@ II. The examination body should ignore the alert completely because misconduct h
 
 **Courses of Action:**  
 I. The organisation should reconcile the tool inventory and review available access or issue records before taking disciplinary action against any individual.  
-II. The organisation should suspend every employee who had access to the workshop until one of them accepts responsibility.
+II. The organisation should place every employee named in the incomplete access records under disciplinary suspension before checking the inventory and issue records further.
 
 **Answer: A — Only I follows.**
 
-**Explanation:** The loss is established but responsibility is not. The records should be checked before disciplinary action. Suspending everyone would punish people without evidence and is disproportionate.
+**Explanation:** The loss is established but responsibility is not. Course I verifies the available evidence first. The incomplete records do not justify disciplinary suspension before further checking.
 
 ## Q10 — COA-QL-004 — Easy
 
 **Statement:** Passenger queues at a railway station have become unusually long because one staffed ticket counter is closed during the evening rush.
 
 **Courses of Action:**  
-I. The station manager should ask the foreign affairs department to investigate the ticket-counter staffing problem.  
+I. The station manager should wait for a permanent staffing sanction from headquarters before making any temporary arrangement at the closed counter.  
 II. The station administration should, where trained staff are available, reassign staff temporarily to reopen the counter during the evening rush.
 
 **Answer: B — Only II follows.**
 
-**Explanation:** The staffing issue belongs to station administration, not an unrelated department. Temporarily reassigning available trained staff directly addresses the closed counter and the queue.
+**Explanation:** A permanent staffing decision may be useful later, but waiting for it does not address the immediate queue. A temporary reassignment of available trained staff directly deals with the current problem.
 
 ## Q11 — COA-QL-004 — Medium
 
@@ -150,12 +151,12 @@ II. The school should give affected students a temporary acknowledgement so that
 **Statement:** Visitors to a government office are repeatedly going to the wrong rooms after several departments were moved to different floors.
 
 **Courses of Action:**  
-I. The office should close all public services for a week so that visitors cannot go to the wrong rooms.  
-II. The office should transfer responsibility for directing visitors to a nearby private sports club.
+I. The office should issue a general notice that departments have shifted, without showing the new floors or room numbers.  
+II. The office should leave the old directions unchanged and wait for regular visitors to learn the new locations over time.
 
 **Answer: D — Neither I nor II follows.**
 
-**Explanation:** Closing all services is an excessive response to a navigation problem. An unrelated private club also has no proper role in directing visitors inside the government office.
+**Explanation:** A notice without the new locations does not give visitors enough information to find the departments. Leaving old directions in place and waiting for people to learn over time also fails to solve the current navigation problem.
 
 ## Q13 — COA-QL-005 — Medium
 
@@ -222,12 +223,12 @@ II. The organisation should immediately prohibit all printing in every office, i
 **Statement:** Passengers have made several complaints that the sign for one bus stop is difficult to see from the road.
 
 **Courses of Action:**  
-I. The transport authority should cancel the entire bus route permanently.  
+I. The transport authority should remove the poorly marked stop from the route instead of changing or repositioning its sign.  
 II. The authority should replace or reposition the unclear sign and check nearby route signs for the same visibility problem.
 
 **Answer: B — Only II follows.**
 
-**Explanation:** A visibility problem at one stop does not justify cancelling the entire route. Correcting the sign is direct and proportionate, and checking nearby signs is a reasonable preventive step.
+**Explanation:** The complaint is about visibility of the sign, not the need for the stop. Removing the stop is disproportionate. Correcting the sign is direct, and checking nearby signs is a reasonable preventive step.
 
 ## Q19 — COA-QL-007 — Medium
 
@@ -246,12 +247,12 @@ II. The company should give customers a clear refund status and an escalation ro
 **Statement:** Users of an online service are unable to sign in because a system certificate expired overnight.
 
 **Courses of Action:**  
-I. The service provider should launch a general advertising campaign about the benefits of using the platform.  
-II. The service provider should permanently delete every user account that fails to sign in today.
+I. The service provider should send password-reset instructions to all users and ask them to try signing in again.  
+II. The service provider should force every account to reset its password before checking or renewing the expired certificate.
 
 **Answer: D — Neither I nor II follows.**
 
-**Explanation:** Advertising does not restore access. Deleting user accounts targets the wrong thing because the known problem is the expired service certificate, not the accounts.
+**Explanation:** The statement identifies the expired certificate as the cause. Both courses focus on user passwords instead of the known service-side fault; Course II also puts that unnecessary step before fixing the actual problem.
 
 ## Q21 — COA-QL-008 — Hard
 
@@ -294,17 +295,17 @@ II. The branch should keep unaffected services open and provide a clear correcti
 **Statement:** A public office receives repeated complaints that service has become slower, but it has not yet established whether the cause is staffing, process delay or a technical problem.
 
 **Courses of Action:**  
-I. The office should immediately dismiss all counter staff because the slower service must have been caused by them.  
-II. The office should immediately construct a new building because more floor space must be the reason for the delay.
+I. The office should transfer all current counter staff to other sections and replace them before checking where the service delay is occurring.  
+II. The office should purchase new computer terminals for every counter on the assumption that old hardware is causing the delay.
 
 **Answer: D — Neither I nor II follows.**
 
-**Explanation:** The cause has not yet been established. Dismissing staff assumes blame without evidence, while constructing a new building assumes a cause that the statement does not support. Both are disproportionate.
+**Explanation:** The cause has not been identified. Course I assumes the staff are responsible, while Course II assumes the hardware is responsible. Both commit to a major response before finding the actual bottleneck.
 
 ---
 
 ## CP001 review checklist
 
-Reviewers should check whether the questions feel like real exam questions, whether both actions are independently judged, whether the rejected action is a plausible near-miss rather than nonsense, whether the explanation names the decisive reason in simple language, and whether any question depends on outside specialist knowledge.
+Review whether the questions feel like real exam questions, whether both actions are judged independently, whether rejected actions are plausible near-misses rather than nonsense, whether explanations identify the decisive reason in simple language, and whether any question depends on outside specialist knowledge.
 
-No CP001 learner-facing wording is frozen until this review is approved.
+No CP001 learner-facing wording is frozen until this V2 review is approved.
