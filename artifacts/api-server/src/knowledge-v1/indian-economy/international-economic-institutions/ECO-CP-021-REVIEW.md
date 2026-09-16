@@ -1,11 +1,11 @@
 # ECO-CP-021 — International Economic Institutions
-## Human Review Set V1
+## Human Review Set V2
 
 **Status:** REVIEW ONLY — not runtime registered  
 **Generated batch:** 44 questions / 12 QLs
 
 ### 1. Easy
-Which two institutions were conceived at the Bretton Woods Conference in 1944?
+Which pair is associated with the Bretton Woods Conference of 1944?
 
 A. IMF and IBRD  
 B. WTO and ADB  
@@ -17,7 +17,7 @@ D. WTO and IMF
 **Explanation:** The IMF and IBRD were conceived at Bretton Woods in 1944.
 
 ### 2. Medium
-What was a major reason for creating the IMF?
+Why was the IMF established?
 
 A. To promote monetary cooperation and reduce harmful exchange-rate instability  
 B. To regulate all world stock exchanges  
@@ -29,7 +29,7 @@ D. To finance only infrastructure projects
 **Explanation:** The IMF was created to support monetary cooperation and financial stability.
 
 ### 3. Hard
-Which statement correctly distinguishes the Bretton Woods roles of the IMF and IBRD?
+Which option correctly matches the original roles of the IMF and IBRD?
 
 A. IMF focused on monetary stability, while IBRD focused on reconstruction and development finance  
 B. IMF handled trade disputes, while IBRD fixed exchange rates  
@@ -41,7 +41,7 @@ D. Both were created only to regulate stock markets
 **Explanation:** The IMF focused on monetary cooperation. IBRD focused on reconstruction and development finance.
 
 ### 4. Easy
-Which institution mainly promotes international monetary cooperation and financial stability?
+Which institution promotes international monetary cooperation and financial stability?
 
 A. International Monetary Fund  
 B. World Trade Organization  
@@ -53,7 +53,7 @@ D. New Development Bank
 **Explanation:** The IMF focuses on monetary cooperation and financial stability.
 
 ### 5. Medium
-What does IMF surveillance mainly involve?
+What is meant by IMF surveillance?
 
 A. Monitoring economies and advising on economic and financial policies  
 B. Running stock exchanges  
@@ -65,7 +65,7 @@ D. Financing only private companies
 **Explanation:** IMF surveillance monitors economic developments and gives policy advice.
 
 ### 6. Easy
-What is an SDR in the IMF system?
+What is an SDR?
 
 A. An international reserve asset created by the IMF  
 B. A world currency used by the public  
@@ -77,7 +77,7 @@ D. A World Bank infrastructure bond
 **Explanation:** An SDR is an IMF-created reserve asset. It is not ordinary public currency.
 
 ### 7. Easy
-Which two institutions together form the World Bank?
+Which two institutions together constitute the World Bank?
 
 A. IBRD and IDA  
 B. IMF and IBRD  
@@ -89,7 +89,7 @@ D. ADB and AIIB
 **Explanation:** The World Bank consists of IBRD and IDA.
 
 ### 8. Medium
-Which statement correctly compares IBRD and IDA?
+Which option correctly distinguishes IBRD from IDA?
 
 A. IBRD mainly lends to middle-income and creditworthy countries, while IDA provides concessional finance to poorer countries  
 B. IBRD settles trade disputes, while IDA sets exchange rates  
@@ -101,7 +101,7 @@ D. Both have identical lending terms and target groups
 **Explanation:** IBRD and IDA serve different borrower groups and use different financing terms.
 
 ### 9. Hard
-A low-income country lacks creditworthiness for normal IBRD borrowing. Which institution is designed for this case?
+Which World Bank institution mainly supports low-income countries with limited creditworthiness?
 
 A. IDA  
 B. WTO  
@@ -113,7 +113,7 @@ D. AIIB only
 **Explanation:** IDA provides concessional support to low-income countries with limited borrowing capacity.
 
 ### 10. Easy
-When was the World Trade Organization established?
+The World Trade Organization was established on which date?
 
 A. 1 January 1995  
 B. 1 January 1945  
@@ -125,7 +125,7 @@ D. 1 January 2016
 **Explanation:** The WTO was established on 1 January 1995 after the Uruguay Round.
 
 ### 11. Medium
-Which is a core function of the WTO?
+Which of the following is a function of the WTO?
 
 A. Handling disputes related to trade agreements  
 B. Issuing SDRs  
@@ -137,7 +137,7 @@ D. Managing national foreign-exchange reserves
 **Explanation:** The WTO administers trade agreements and handles trade disputes.
 
 ### 12. Hard
-Which statement correctly distinguishes the WTO from the IMF?
+Which option correctly distinguishes the WTO from the IMF?
 
 A. WTO deals with trade rules and disputes, while IMF deals with monetary cooperation and financial stability  
 B. WTO provides BoP loans, while IMF settles trade disputes  
@@ -149,7 +149,7 @@ D. IMF sets global tariffs, while WTO creates SDRs
 **Explanation:** The WTO focuses on trade rules. The IMF focuses on monetary and financial stability.
 
 ### 13. Easy
-In which year was the Asian Development Bank founded?
+ADB was established in which year?
 
 A. 1966  
 B. 1944  
@@ -161,7 +161,7 @@ D. 2016
 **Explanation:** ADB was founded in 1966.
 
 ### 14. Medium
-Which form of support can ADB provide?
+Which of the following can ADB provide to its members?
 
 A. Loans, grants and technical assistance  
 B. Only currency notes  
@@ -173,7 +173,7 @@ D. Only stock-exchange licences
 **Explanation:** ADB uses loans, grants and technical assistance for development.
 
 ### 15. Easy
-In which year did AIIB begin operations?
+AIIB began operations in which year?
 
 A. 2016  
 B. 1944  
@@ -185,7 +185,7 @@ D. 1995
 **Explanation:** AIIB began operations in 2016.
 
 ### 16. Hard
-Which statement correctly distinguishes AIIB from ADB?
+Which statement correctly compares AIIB and ADB?
 
 A. AIIB has a strong infrastructure-financing focus, while ADB has a broader Asia-Pacific development mandate  
 B. AIIB settles trade disputes, while ADB issues SDRs  
@@ -209,7 +209,7 @@ D. European Union alone
 **Explanation:** The NDB was established by the BRICS countries.
 
 ### 18. Medium
-What is a major purpose of the New Development Bank?
+What is a major objective of the New Development Bank?
 
 A. Financing infrastructure and sustainable development projects  
 B. Settling global trade disputes  
@@ -221,7 +221,7 @@ D. Setting global tax rates
 **Explanation:** NDB mobilises resources for infrastructure and sustainable development.
 
 ### 19. Medium
-Which institution-function pair is correctly matched?
+Which of the following institution-function pairs is correctly matched?
 
 A. IMF—international monetary cooperation  
 B. WTO—issue SDRs  
@@ -233,7 +233,7 @@ D. AIIB—conduct monetary policy
 **Explanation:** International monetary cooperation is a core IMF purpose.
 
 ### 20. Hard
-Which set is correctly matched?
+Which set of institutions and functions is correctly matched?
 
 A. IMF—monetary stability; WTO—trade rules; IDA—concessional development finance  
 B. IMF—trade court; WTO—reserve asset; IDA—monetary policy  
@@ -245,7 +245,7 @@ D. IMF—stock exchange; WTO—currency issue; IDA—trade surveillance
 **Explanation:** The three institutions have distinct monetary, trade and development-finance roles.
 
 ### 21. Hard
-Which comparison among development banks is correct?
+Which option correctly compares IBRD, IDA and AIIB?
 
 A. IBRD serves many middle-income borrowers, IDA serves poorer countries on concessional terms, and AIIB focuses strongly on infrastructure  
 B. IBRD settles trade disputes, IDA issues SDRs, and AIIB sets exchange rates  
@@ -257,7 +257,7 @@ D. AIIB is a monetary authority
 **Explanation:** These institutions differ by borrower group, financing terms and institutional focus.
 
 ### 22. Medium
-Consider the statements. I. The WTO was established in 1995. II. The IMF was conceived at Bretton Woods in 1944. Which option is correct?
+Consider the statements. I. WTO was established in 1995. II. IMF was conceived at Bretton Woods in 1944. Which option is correct?
 
 A. Both I and II  
 B. I only  
@@ -269,7 +269,7 @@ D. Neither I nor II
 **Explanation:** Both statements are correct.
 
 ### 23. Hard
-A low-income country seeks concessional development finance, while another country wants a forum for a trade dispute. Which pair is correct?
+A low-income country needs concessional finance, while another seeks settlement of a trade dispute. Which pair is correct?
 
 A. IDA for concessional finance; WTO for the trade dispute  
 B. IMF for both  
@@ -281,7 +281,7 @@ D. IBRD for the dispute; SDR for development finance
 **Explanation:** IDA provides concessional development finance. WTO provides the multilateral framework for trade disputes.
 
 ### 24. Hard
-Which sequence is chronologically correct?
+Which of the following sequences is chronologically correct?
 
 A. IMF/IBRD 1944 → ADB 1966 → WTO 1995 → NDB 2015 → AIIB 2016  
 B. WTO 1944 → IMF 1966 → ADB 1995 → AIIB 2015 → NDB 2016  
