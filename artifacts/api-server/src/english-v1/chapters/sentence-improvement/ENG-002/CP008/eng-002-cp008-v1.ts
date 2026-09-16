@@ -36,38 +36,74 @@ function focusedDifference(correctSegment: string, wrongSegment: string): Focus 
   if (!correctTarget || !wrongTarget || correctTarget.toLowerCase() === wrongTarget.toLowerCase()) throw new Error(`CP008 could not isolate target: ${correctSegment} <> ${wrongSegment}`);
   return { prefix, correctTarget, wrongTarget, suffix };
 }
+function wholeSegmentFocus(correctSegment: string, wrongSegment: string): Focus {
+  const punctuation = correctSegment.match(/([,.;:!?]+)$/)?.[1] ?? "";
+  return { prefix: "", correctTarget: clean(correctSegment).replace(/[,.;:!?]+$/, ""), wrongTarget: clean(wrongSegment).replace(/[,.;:!?]+$/, ""), suffix: punctuation };
+}
 function targetForRule(ruleId: NounQuantifierRuleId, correctSegment: string, wrongSegment: string): Focus {
-  if (["GR-NQN-006", "GR-NQN-007", "GR-NQN-008", "GR-NQN-009"].includes(ruleId)) {
-    const punctuation = correctSegment.match(/([,.;:!?]+)$/)?.[1] ?? "";
-    const correctTarget = clean(correctSegment).replace(/[,.;:!?]+$/, ""), wrongTarget = clean(wrongSegment).replace(/[,.;:!?]+$/, "");
-    return { prefix: "", correctTarget, wrongTarget, suffix: punctuation };
-  }
+  if (["GR-NQN-002", "GR-NQN-003", "GR-NQN-005", "GR-NQN-006", "GR-NQN-007", "GR-NQN-008", "GR-NQN-009", "GR-NQN-010"].includes(ruleId)) return wholeSegmentFocus(correctSegment, wrongSegment);
   return focusedDifference(correctSegment, wrongSegment);
 }
+function matchInitialCase(reference: string, value: string) { return /^[A-Z]/.test(reference) ? value.replace(/^./, (c) => c.toUpperCase()) : value; }
 function singularizedRegularError(text: string) { return text.replace(/\b([A-Za-z]+)s(?=\b|[,.;:!?])/g, "$1"); }
-function massName(text: string) { return (text.match(/\b(advice|information|furniture|equipment|luggage|paperwork|progress|water|fuel|sugar|rainwater|electricity|waste)\b/i)?.[1] ?? "material").toLowerCase(); }
-function incorrectVariants(ruleId: NounQuantifierRuleId, correctTarget: string, wrongTarget: string) {
-  const correct = clean(correctTarget), wrong = clean(wrongTarget); let variants: string[] = [wrong]; const lower = correct.toLowerCase();
-  switch (ruleId) {
-    case "GR-NQN-001": variants.push(/\bmany\b/i.test(correct) ? correct.replace(/\bmany\b/i, "a little") : correct.replace(/\bmuch\b/i, "a few"), /\bmany\b/i.test(correct) ? correct.replace(/\bmany\b/i, "amount of") : correct.replace(/\bmuch\b/i, "number of")); break;
-    case "GR-NQN-002": variants.push(correct.replace(/\b(a )?few\b/i, "little"), correct.replace(/\b(a )?few\b/i, "much")); break;
-    case "GR-NQN-003": variants.push(correct.replace(/\b(a )?little\b/i, "few"), correct.replace(/\b(a )?little\b/i, "many")); break;
-    case "GR-NQN-004": variants.push(/\bfewer\b/i.test(correct) ? correct.replace(/\bfewer\b/i, "much") : correct.replace(/\bless\b/i, "many"), /\bfewer\b/i.test(correct) ? correct.replace(/\bfewer\b/i, "a little") : correct.replace(/\bless\b/i, "a few")); break;
-    case "GR-NQN-005": variants.push(/\bnumber\b/i.test(correct) ? correct.replace(/\bnumber\b/i, "amount") : correct.replace(/\bamount\b/i, "number"), /\bnumber\b/i.test(correct) ? correct.replace(/\bnumber\b/i, "much") : correct.replace(/\bamount\b/i, "many")); break;
-    case "GR-NQN-006": { const mass = massName(correct); variants.push(`many ${correct}`, `several ${correct}`, correct.replace(new RegExp(`\\b${mass}\\b`, "i"), `${mass}s`)); break; }
-    case "GR-NQN-007": { const singular = singularizedRegularError(wrong); variants.push(singular, `${singular}'s`); break; }
-    case "GR-NQN-008": variants.push(singularizedRegularError(correct), `one ${singularizedRegularError(correct)}`); break;
-    case "GR-NQN-009": { const mass = massName(correct); variants.push(wrong, `one ${mass}`, `two ${mass}`); break; }
-    case "GR-NQN-010": variants.push(singularizedRegularError(wrong), `${singularizedRegularError(wrong)}'s`); break;
+function addPossessive(text: string) { const punctuation = text.match(/([,.;:!?]+)$/)?.[1] ?? ""; const bare = punctuation ? text.slice(0, -punctuation.length) : text; return `${bare}'s${punctuation}`; }
+function massName(text: string) { return (text.match(/\b(advice|information|furniture|equipment|luggage|paperwork|progress|water|fuel|sugar|rainwater|electricity|waste|evidence|moisture)\b/i)?.[1] ?? "material").toLowerCase(); }
+function indefiniteArticle(word: string) { return /^[aeiou]/i.test(word) ? "an" : "a"; }
+
+function pluralOnlyVariants(correct: string, wrong: string) {
+  const variants = [wrong];
+  if (/\bpairs of\b/i.test(correct)) {
+    variants.push(correct.replace(/\bpairs of\b/i, "pair of"));
+    variants.push(correct.replace(/\bpairs of\s+/i, "pairs "));
+  } else if (/\bpair of\b/i.test(correct)) {
+    variants.push(correct.replace(/\bpair of\s+/i, ""));
+    variants.push(correct.replace(/\bpair of\b/i, "pair"));
+  } else {
+    const singular = singularizedRegularError(wrong);
+    variants.push(singular, `one ${singular}`);
   }
-  variants = unique(variants).filter((value) => value.toLowerCase() !== lower);
-  if (variants.length < 3) variants.push(`many ${wrong}`, `much ${wrong}`, `one ${wrong}`);
-  return unique(variants).filter((value) => value.toLowerCase() !== lower);
+  return variants;
+}
+function unitExpressionVariants(correct: string, wrong: string) {
+  const stripped = correct.replace(/\b(?:piece|pieces|item|items) of\s+/i, "");
+  const mismatchedUnit = /\bpieces of\b/i.test(correct) ? correct.replace(/\bpieces of\b/i, "piece of")
+    : /\bpiece of\b/i.test(correct) ? correct.replace(/\bpiece of\b/i, "pieces of")
+      : /\bitems of\b/i.test(correct) ? correct.replace(/\bitems of\b/i, "item of")
+        : /\bitem of\b/i.test(correct) ? correct.replace(/\bitem of\b/i, "items of") : `one ${massName(correct)}`;
+  return [wrong, stripped, mismatchedUnit];
+}
+function numberAmountVariants(correct: string, wrong: string) {
+  const numberPattern = /\b(?:the\s+|a\s+large\s+)?number of\b/i;
+  const amountPattern = /\b(?:the\s+|a\s+large\s+|an?\s+)?amount of\b/i;
+  if (/\bnumber of\b/i.test(correct)) return [wrong, correct.replace(numberPattern, "much"), correct.replace(numberPattern, "a little")];
+  return [wrong, correct.replace(amountPattern, "many"), correct.replace(amountPattern, "a few")];
+}
+function incorrectVariants(ruleId: NounQuantifierRuleId, correctTarget: string, wrongTarget: string) {
+  const correct = clean(correctTarget), wrong = clean(wrongTarget); let variants: string[] = [wrong];
+  switch (ruleId) {
+    case "GR-NQN-001":
+      variants = /\bmany\b/i.test(correct)
+        ? [wrong, matchInitialCase(correct, "a large amount of"), matchInitialCase(correct, "much")]
+        : [wrong, matchInitialCase(correct, "a large number of"), matchInitialCase(correct, "many")];
+      break;
+    case "GR-NQN-002": variants.push(correct.replace(/\b(?:a\s+)?few\b/i, "much"), correct.replace(/\b(?:a\s+)?few\b/i, "less")); break;
+    case "GR-NQN-003": variants.push(correct.replace(/\b(?:a\s+)?little\b/i, "many"), correct.replace(/\b(?:a\s+)?little\b/i, "fewer")); break;
+    case "GR-NQN-004": variants = /\bfewer\b/i.test(correct) ? [wrong, "much", "a little"] : [wrong, "many", "a few"]; break;
+    case "GR-NQN-005": variants = numberAmountVariants(correct, wrong); break;
+    case "GR-NQN-006": { const mass = massName(correct); variants = [wrong, `several ${mass}`, `${indefiniteArticle(mass)} ${mass}`]; break; }
+    case "GR-NQN-007": { const singular = singularizedRegularError(wrong); variants = [wrong, singular, addPossessive(singular)]; break; }
+    case "GR-NQN-008": variants = pluralOnlyVariants(correct, wrong); break;
+    case "GR-NQN-009": variants = unitExpressionVariants(correct, wrong); break;
+    case "GR-NQN-010": variants = [wrong, correct.replace(/\bof the\b/i, "of"), addPossessive(wrong)]; break;
+  }
+  variants = unique(variants).filter((value) => value.toLowerCase() !== correct.toLowerCase());
+  if (variants.length < 3) throw new Error(`${ruleId} has only ${variants.length} safe distractors for ${correct}`);
+  return variants;
 }
 function replacementChoices(ruleId: NounQuantifierRuleId, correctTarget: string, wrongTarget: string, targetText: string, noImprovement: boolean) {
   const wrongs = incorrectVariants(ruleId, correctTarget, wrongTarget).filter((v) => v.toLowerCase() !== targetText.toLowerCase() && v.toLowerCase() !== correctTarget.toLowerCase());
   const values = noImprovement ? wrongs.slice(0, 3) : unique([correctTarget, ...wrongs]).slice(0, 3);
-  if (values.length !== 3) throw new Error(`${ruleId} could not build three choices for ${correctTarget}`); return values;
+  if (values.length !== 3) throw new Error(`${ruleId} could not build three safe choices for ${correctTarget}`); return values;
 }
 function shuffleThree(seed: string, values: readonly string[]) { const out = [...values]; for (let i = out.length - 1; i > 0; i -= 1) { const j = deterministicIndex(`${seed}:shuffle:${i}`, i + 1); [out[i], out[j]] = [out[j]!, out[i]!]; } return out; }
 function concept(ruleId: NounQuantifierRuleId) {
@@ -86,12 +122,27 @@ function concept(ruleId: NounQuantifierRuleId) {
 }
 function tag(candidate: ReturnType<typeof buildEng001Cp008CandidateV1>, prefix: string) { const value = candidate.tags.find((entry) => entry.startsWith(prefix))?.slice(prefix.length); if (!value) throw new Error(`${candidate.candidateId} lacks ${prefix}`); return value; }
 function lowerLeading(text: string) { return text.replace(/^([A-Z])/, (m) => m.toLowerCase()); }
-function focusedSegments(base: readonly string[], sourceIndex: number, focus: Focus, targetText: string) { const out: string[] = []; let targetIndex = -1; base.forEach((segment, index) => { if (index !== sourceIndex) out.push(segment); else { if (focus.prefix) out.push(focus.prefix); targetIndex = out.length; out.push(targetText); if (focus.suffix) out.push(focus.suffix); } }); if (targetIndex < 0) throw new Error("CP008 lost target index"); return { segments: out, targetIndex }; }
+function normalizeSurface(ruleId: NounQuantifierRuleId, correctSegments: string[], errorSegments: string[], sourceIndex: number) {
+  let index = sourceIndex;
+  if (ruleId === "GR-NQN-008" && index > 0 && /\b(?:pair|pairs) of\s*$/i.test(clean(correctSegments[index - 1]!))) {
+    correctSegments[index - 1] = `${clean(correctSegments[index - 1]!)} ${clean(correctSegments[index]!)}`;
+    errorSegments[index - 1] = `${clean(errorSegments[index - 1]!)} ${clean(errorSegments[index]!)}`;
+    correctSegments[index] = ""; errorSegments[index] = ""; index -= 1;
+  }
+  if (ruleId === "GR-NQN-009" && index + 1 < correctSegments.length && /^of\s+/i.test(clean(correctSegments[index + 1]!)) && /\b(?:piece|pieces|item|items)\s*$/i.test(clean(correctSegments[index]!))) {
+    correctSegments[index] = `${clean(correctSegments[index]!)} ${clean(correctSegments[index + 1]!)}`;
+    correctSegments[index + 1] = "";
+    errorSegments[index + 1] = "";
+  }
+  return index;
+}
+function focusedSegments(base: readonly string[], sourceIndex: number, focus: Focus, targetText: string) { const out: string[] = []; let targetIndex = -1; base.forEach((segment, index) => { if (index !== sourceIndex) { if (segment.trim()) out.push(segment); } else { if (focus.prefix) out.push(focus.prefix); targetIndex = out.length; out.push(targetText); if (focus.suffix) out.push(focus.suffix); } }); if (targetIndex < 0) throw new Error("CP008 lost target index"); return { segments: out, targetIndex }; }
 
 export function generateEng002Cp008QuestionV1(input: GenerateEng002Cp008V1Input): Eng002Cp008QuestionV1 {
   const candidate = buildEng001Cp008CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: input.ruleId, sceneId: input.sceneId });
   if (candidate.errorIndex === null) throw new Error(`${candidate.candidateId} has no noun/quantifier target`);
-  const correctSegments = [...candidate.correctSegments], errorSegments = [...candidate.errorSegments], sourceIndex = candidate.errorIndex, ruleId = candidate.ruleId as NounQuantifierRuleId;
+  const correctSegments = [...candidate.correctSegments], errorSegments = [...candidate.errorSegments], ruleId = candidate.ruleId as NounQuantifierRuleId;
+  const sourceIndex = normalizeSurface(ruleId, correctSegments, errorSegments, candidate.errorIndex);
   const focus = targetForRule(ruleId, correctSegments[sourceIndex]!, errorSegments[sourceIndex]!);
   const noImprovement = input.noImprovement ?? deterministicBoolean(`${input.seed}:eng002:cp008:no-improvement`, 0.25);
   const targetText = noImprovement ? focus.correctTarget : focus.wrongTarget;
