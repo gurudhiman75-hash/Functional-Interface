@@ -93,9 +93,18 @@ function focusDifference(correctSegment: string, wrongSegment: string): FocusedT
   }
 
   const prefix = correct.slice(0, prefixCount).join(" ");
-  const suffix = suffixCount ? correct.slice(correct.length - suffixCount).join(" ") : "";
-  const correctTarget = correctMid.join(" ");
-  const wrongTarget = wrongMid.join(" ");
+  let suffix = suffixCount ? correct.slice(correct.length - suffixCount).join(" ") : "";
+  let correctTarget = correctMid.join(" ");
+  let wrongTarget = wrongMid.join(" ");
+
+  const correctPunctuation = correctTarget.match(/([,.;:!?]+)$/)?.[1] ?? "";
+  const wrongPunctuation = wrongTarget.match(/([,.;:!?]+)$/)?.[1] ?? "";
+  if (correctPunctuation && correctPunctuation === wrongPunctuation) {
+    correctTarget = correctTarget.slice(0, -correctPunctuation.length);
+    wrongTarget = wrongTarget.slice(0, -wrongPunctuation.length);
+    suffix = suffix ? `${correctPunctuation} ${suffix}` : correctPunctuation;
+  }
+
   if (!correctTarget || !wrongTarget || correctTarget.toLowerCase() === wrongTarget.toLowerCase()) {
     throw new Error(`CP006 could not isolate a useful target: ${correctSegment} <> ${wrongSegment}`);
   }
@@ -107,6 +116,19 @@ function preserveTerminalPunctuation(source: string, replacement: string) {
   const bare = replacement.replace(/[,.;:!?]+$/, "");
   return `${bare}${punctuation}`;
 }
+
+const COMPARATIVE_FORMS: Readonly<Record<string, { base: string; superlative: string }>> = Object.freeze({
+  easier: { base: "easy", superlative: "easiest" },
+  brighter: { base: "bright", superlative: "brightest" },
+  simpler: { base: "simple", superlative: "simplest" },
+  faster: { base: "fast", superlative: "fastest" },
+  shorter: { base: "short", superlative: "shortest" },
+  larger: { base: "large", superlative: "largest" },
+  safer: { base: "safe", superlative: "safest" },
+  wider: { base: "wide", superlative: "widest" },
+  drier: { base: "dry", superlative: "driest" },
+  quicker: { base: "quick", superlative: "quickest" },
+});
 
 function irregularVariants(correctTarget: string): string[] {
   const lower = correctTarget.toLowerCase();
@@ -125,6 +147,19 @@ function irregularVariants(correctTarget: string): string[] {
   return [];
 }
 
+function comparativeAlternatives(correct: string, wrong: string) {
+  if (correct.toLowerCase() === "more") return [wrong, "very", "much"];
+  const form = COMPARATIVE_FORMS[correct.toLowerCase()];
+  if (form) return [wrong, form.superlative, `very ${form.base}`];
+  return [wrong, `more ${correct}`, `very ${correct}`];
+}
+
+function doubleComparativeAlternatives(correct: string, wrong: string) {
+  const form = COMPARATIVE_FORMS[correct.toLowerCase()];
+  if (form) return [wrong, form.superlative, `very ${form.base}`];
+  return [wrong, `most ${correct}`, `very ${correct}`];
+}
+
 function incorrectVariants(ruleId: ComparisonRuleId, correctTarget: string, wrongTarget: string): string[] {
   const correct = clean(correctTarget);
   const wrong = clean(wrongTarget);
@@ -135,14 +170,10 @@ function incorrectVariants(ruleId: ComparisonRuleId, correctTarget: string, wron
       variants.push(`very ${wrong}`, `more ${wrong}`);
       break;
     case "GR-CMP-003":
-      variants.push(`very ${correct}`, `most ${correct}`);
+      variants.push(`most ${correct}`, `less ${correct}`);
       break;
     case "GR-CMP-004":
-      if (/^more\s+/i.test(correct)) {
-        variants.push(`very ${correct}`, correct.replace(/^more\s+/i, "most "));
-      } else {
-        variants.push(`more ${correct}`, `most ${correct}`);
-      }
+      variants.push(...comparativeAlternatives(correct, wrong));
       break;
     case "GR-CMP-005": {
       const withoutThe = correct.replace(/^the\s+/i, "");
@@ -156,7 +187,7 @@ function incorrectVariants(ruleId: ComparisonRuleId, correctTarget: string, wron
       break;
     }
     case "GR-CMP-007":
-      variants.push(`most ${correct}`, `very ${correct}`);
+      variants.push(...doubleComparativeAlternatives(correct, wrong));
       break;
     case "GR-CMP-008":
       variants.push(`more ${correct}`, `much ${correct}`);
