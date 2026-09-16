@@ -185,6 +185,11 @@ function wrongAttachmentTenseVariants(text: string) {
   const prefix = comma >= 0 ? text.slice(0, comma + 1) : "";
   const clause = comma >= 0 ? text.slice(comma + 1).trim() : text;
   const rebuild = (next: string) => prefix ? `${prefix} ${next}` : next;
+  if (/\bbegan being ([A-Za-z]+) by\b/i.test(clause)) {
+    variants.push(rebuild(clause.replace(/\bbegan being ([A-Za-z]+) by\b/i, "were being $1 by")));
+    variants.push(rebuild(clause.replace(/\bbegan being ([A-Za-z]+) by\b/i, "had begun to be $1 by")));
+    return variants;
+  }
   if (/\b(was|were)\s+([A-Za-z]+)\b/i.test(clause)) {
     variants.push(rebuild(clause.replace(/\b(?:was|were)\s+([A-Za-z]+)\b/i, "had been $1")));
     variants.push(rebuild(clause.replace(/\b(was|were)\s+([A-Za-z]+)\b/i, "$1 being $2")));
@@ -221,11 +226,21 @@ function attachmentVariants(ruleId: ModifierRuleId, correct: string, wrong: stri
       variants.push(wrong.replace(/\bwith\b/i, "which had"));
       variants.push(wrong.replace(/\bwith\b/i, "that had"));
     } else {
-      const participle = wrong.match(/\b(carrying|containing|wearing|holding|showing|mark(?:ed)?|labelled|sealed|damaged)\b/i)?.[1];
-      if (participle) {
-        variants.push(wrong.replace(new RegExp(`\\b${participle}\\b`, "i"), `which was ${participle}`));
-        variants.push(wrong.replace(new RegExp(`\\b${participle}\\b`, "i"), `that was ${participle}`));
-      } else variants.push(...wrongAttachmentTenseVariants(wrong));
+      const active = wrong.match(/\b(carrying|containing|wearing|holding|showing)\b/i)?.[1];
+      if (active) {
+        const finite: Readonly<Record<string, string>> = {
+          carrying: "carried", containing: "contained", wearing: "wore", holding: "held", showing: "showed",
+        };
+        const verb = finite[active.toLowerCase()]!;
+        variants.push(wrong.replace(new RegExp(`\\b${active}\\b`, "i"), `which ${verb}`));
+        variants.push(wrong.replace(new RegExp(`\\b${active}\\b`, "i"), `that ${verb}`));
+      } else {
+        const passive = wrong.match(/\b(marked|labelled|sealed|damaged)\b/i)?.[1];
+        if (passive) {
+          variants.push(wrong.replace(new RegExp(`\\b${passive}\\b`, "i"), `which was ${passive}`));
+          variants.push(wrong.replace(new RegExp(`\\b${passive}\\b`, "i"), `that was ${passive}`));
+        } else variants.push(...wrongAttachmentTenseVariants(wrong));
+      }
     }
   }
   return variants;
@@ -252,8 +267,16 @@ function placementVariants(ruleId: ModifierRuleId, correct: string, wrong: strin
     for (const alternative of frequencyAlternatives(token)) variants.push(replaceWord(wrong, token, alternative));
     variants.push(moveToken(wrong, token, "end"));
   } else if (ruleId === "GR-MOD-009" && token) {
-    variants.push(...moveWordVariants(correct, token));
-    variants.push(correct.replace(new RegExp(`\\b${token}\\b`, "i"), adjectiveFromAdverb(token)));
+    const escaped = token.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
+    const match = correct.match(new RegExp(`^(.*?)\\s+${escaped}$`, "i"));
+    if (match) {
+      const object = clean(match[1]!);
+      const adjective = adjectiveFromAdverb(token);
+      variants.push(`${adjective} ${object}`, `${object} ${adjective}`);
+    } else {
+      variants.push(...moveWordVariants(correct, token));
+      variants.push(correct.replace(new RegExp(`\\b${escaped}\\b`, "i"), adjectiveFromAdverb(token)));
+    }
   }
   return variants;
 }
