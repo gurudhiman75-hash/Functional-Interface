@@ -18,7 +18,8 @@ function assertClean(q: ReturnType<typeof generateEng002Cp012CuratedQuestionV1>)
   assert.equal(q.metadata.reviewOnly, true);
   for (const option of q.options.slice(0, 3)) {
     assert.equal(/\b(was|were|is|are|has|have|had|will|would|can|could|may|might|must|should)\s+\1\b/i.test(option), false, `duplicated auxiliary: ${option}`);
-    assert.equal(/\b(?:had|would)\s+(?:qualify|complete|identify|finish|join)\b/i.test(option), false, `malformed tense sequence: ${option}`);
+    assert.equal(/\bhad\s+(?:qualify|complete|identify|finish|join)\b/i.test(option), false, `malformed perfect sequence: ${option}`);
+    assert.equal(/\bwould\s+(?:qualified|completed|identified|finished|joined)\b/i.test(option), false, `malformed modal sequence: ${option}`);
   }
   if (q.metadata.noImprovement) assert.equal(q.correctOptionIndex, 3); else assert.notEqual(q.correctOptionIndex, 3);
 }
