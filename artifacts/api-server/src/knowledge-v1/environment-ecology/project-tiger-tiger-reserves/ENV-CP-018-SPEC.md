@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-018 Project Tiger & Tiger Reserves  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V1  
-**Runtime registration:** blocked pending project-owner approval
+**Human approval:** 2026-09-16  
+**Runtime registration:** blocked; separate integration workflow
 
 ## Scope
 
@@ -46,7 +47,7 @@ ENV-CP-009 owns protected-area categories. ENV-CP-010 owns important protected a
 - no option-by-option explanation filler
 - Hard items use close reserve-state, core-buffer, institution-function or monitoring distinctions rather than obscure trivia
 
-## Review contract
+## Frozen review contract
 
 - 12 QLs
 - 4 questions per QL
@@ -55,4 +56,4 @@ ENV-CP-009 owns protected-area categories. ENV-CP-010 owns important protected a
 - all four answer positions inside every QL
 - deterministic generation
 - source/fact provenance on every item
-- review-only; no Question Studio/runtime registration before explicit project-owner approval
+- content approved and frozen; Question Studio/runtime registration remains a separate workflow
