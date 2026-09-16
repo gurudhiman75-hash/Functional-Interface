@@ -7,10 +7,36 @@ export interface Eng002Cp003ReviewItemV1 {
   question: Eng002Cp003QuestionV1;
 }
 
+function reviewScenes(difficulty: EnglishDifficulty) {
+  const pool = [...cp003ScenePoolV1(difficulty)];
+  const selected: typeof pool = [];
+  const selectedIds = new Set<string>();
+  const representedRules = new Set<string>();
+
+  // First guarantee one scene for every rule family available at this difficulty.
+  for (const scene of pool) {
+    if (representedRules.has(scene.ruleId)) continue;
+    selected.push(scene);
+    selectedIds.add(scene.id);
+    representedRules.add(scene.ruleId);
+  }
+
+  // Then fill the review slice in stable donor order without duplicating scenes.
+  for (const scene of pool) {
+    if (selected.length >= 20) break;
+    if (selectedIds.has(scene.id)) continue;
+    selected.push(scene);
+    selectedIds.add(scene.id);
+  }
+
+  if (selected.length !== 20) {
+    throw new Error(`ENG-002 CP003 needs 20 ${difficulty} review scenes; received ${selected.length}`);
+  }
+  return selected;
+}
+
 function buildSlice(difficulty: EnglishDifficulty): Eng002Cp003ReviewItemV1[] {
-  const scenes = cp003ScenePoolV1(difficulty).slice(0, 20);
-  if (scenes.length !== 20) throw new Error(`ENG-002 CP003 needs 20 ${difficulty} review scenes; received ${scenes.length}`);
-  return scenes.map((scene, index) => ({
+  return reviewScenes(difficulty).map((scene, index) => ({
     difficulty,
     question: generateEng002Cp003QuestionV1({
       difficulty,
