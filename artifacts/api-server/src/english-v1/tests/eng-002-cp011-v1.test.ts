@@ -1,10 +1,13 @@
 import assert from "node:assert/strict";
 import { cp011ScenePoolV1, rulesForDifficultyCp011V1 } from "../chapters/error-spotting/ENG-001/CP011/eng-001-cp011-v1";
 import { buildEng002Cp011ReviewV1 } from "../chapters/sentence-improvement/ENG-002/CP011/eng-002-cp011-review-v1-export";
-import { ENG002_CP011_STEM, generateEng002Cp011QuestionV1 } from "../chapters/sentence-improvement/ENG-002/CP011/eng-002-cp011-v1";
+import { ENG002_CP011_STEM } from "../chapters/sentence-improvement/ENG-002/CP011/eng-002-cp011-v1";
+import { generateEng002Cp011ReviewedQuestionV1 } from "../chapters/sentence-improvement/ENG-002/CP011/eng-002-cp011-reviewed-v1";
 import type { EnglishDifficulty } from "../core/types";
 
-function assertClean(q: ReturnType<typeof generateEng002Cp011QuestionV1>) {
+const malformed = /\bhad\s+(?:qualify|lead|handle|back|complete|identify)\b|\bwould\s+(?:completed|identified|handled|backed)\b|^(?:If|if)\s+.+?\s+been\s+(?:sealed|issued|preserved)\b/i;
+
+function assertClean(q: ReturnType<typeof generateEng002Cp011ReviewedQuestionV1>) {
   assert.equal(q.stem, ENG002_CP011_STEM);
   assert.equal(q.options.length, 4);
   assert.equal(q.options[3], "No improvement");
@@ -16,7 +19,10 @@ function assertClean(q: ReturnType<typeof generateEng002Cp011QuestionV1>) {
   assert.match(q.explanation, /Here:/);
   assert.match(q.explanation, /Correct sentence:/);
   assert.equal(q.metadata.reviewOnly, true);
-  assert.equal(/\b(if|unless|had|should|were|would|will|could|might)\s+\1\b/i.test(q.options.slice(0, 3).join("\n")), false);
+  for (const option of q.options.slice(0, 3)) {
+    assert.equal(/\b(if|unless|had|should|were|would|will|could|might)\s+\1\b/i.test(option), false, `duplicated conditional marker: ${option}`);
+    assert.equal(malformed.test(option), false, `malformed conditional distractor: ${option}`);
+  }
   if (q.metadata.noImprovement) assert.equal(q.correctOptionIndex, 3); else assert.notEqual(q.correctOptionIndex, 3);
 }
 
@@ -27,9 +33,9 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
   const answerCounts = [0, 0, 0, 0];
   for (let index = 0; index < 2000; index += 1) {
     const seed = `eng002-cp011-stress:${difficulty}:${index}`;
-    const first = generateEng002Cp011QuestionV1({ seed, difficulty });
+    const first = generateEng002Cp011ReviewedQuestionV1({ seed, difficulty });
     assertClean(first);
-    assert.deepEqual(generateEng002Cp011QuestionV1({ seed, difficulty }), first);
+    assert.deepEqual(generateEng002Cp011ReviewedQuestionV1({ seed, difficulty }), first);
     seenDomains.add(first.metadata.semanticDomain);
     seenRules.add(first.metadata.ruleId);
     answerCounts[first.correctOptionIndex] += 1;
@@ -41,7 +47,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
   for (const ruleId of rulesForDifficultyCp011V1(difficulty)) {
     const scene = cp011ScenePoolV1(difficulty, ruleId)[0]!;
     for (const noImprovement of [false, true]) {
-      const q = generateEng002Cp011QuestionV1({ seed: `eng002-cp011-rule:${difficulty}:${ruleId}:${noImprovement}`, difficulty, ruleId, sceneId: scene.id, noImprovement });
+      const q = generateEng002Cp011ReviewedQuestionV1({ seed: `eng002-cp011-rule:${difficulty}:${ruleId}:${noImprovement}`, difficulty, ruleId, sceneId: scene.id, noImprovement });
       assert.equal(q.metadata.ruleId, ruleId);
       assert.equal(q.metadata.noImprovement, noImprovement);
       assertClean(q);
