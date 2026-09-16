@@ -21,7 +21,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     const second = generateEng002Cp001QuestionV1(input);
 
     assert(stable(first) === stable(second), `${first.questionId} is not deterministic`);
-    assert(first.stem.includes("best replacement"), `${first.questionId} has the wrong instruction surface`);
+    assert(first.stem.includes("most appropriate option") && first.stem.includes("underlined part"), `${first.questionId} has the wrong instruction surface`);
     assert(first.options.length === 4, `${first.questionId} must expose exactly four options`);
     assert(first.options[3] === "No improvement", `${first.questionId} must keep No improvement as option D`);
     assert(new Set(first.options.map((option) => option.toLowerCase())).size === 4, `${first.questionId} has duplicate options`);
