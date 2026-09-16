@@ -6,11 +6,13 @@ import {
 } from "../../generation-engine-core";
 import {
   getPrb001ActiveCanonicalProblemIds,
+  listPrb001QuestionEntries,
   runPrb001Pipeline,
   type Prb001CanonicalProblemId,
 } from "./PRB-001";
 import {
   getPrb002ActiveCanonicalProblemIds,
+  listPrb002QuestionEntries,
   runPrb002Pipeline,
   type Prb002CanonicalProblemId,
 } from "./PRB-002";
@@ -21,10 +23,14 @@ import {
   PROBABILITY_NATIVE_REVIEW_RUNTIME_MODE,
   type ProbabilityNativeReviewLanguage,
 } from "./native-review-adapter";
-import type {
-  ProbabilityCanonicalProblemId,
-  ProbabilityExamProfile,
-  ProbabilityPackageId,
+import {
+  calibrateEntryDifficulty,
+  isEntryAllowedForExamProfile,
+  resolveProbabilityExamProfile,
+  type ProbabilityCanonicalProblemId,
+  type ProbabilityExamProfile,
+  type ProbabilityPackageId,
+  type ProbabilityTaskRegistryEntry,
 } from "./shared";
 
 export const PROBABILITY_STANDARD_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
@@ -241,6 +247,38 @@ function resolveCpId(
   return pkg.cpIds[0]! as ProbabilityCanonicalProblemId;
 }
 
+function registryEntriesForPackage(packageId: ProbabilityPackageId): readonly ProbabilityTaskRegistryEntry[] {
+  return packageId === "PRB-001"
+    ? listPrb001QuestionEntries()
+    : listPrb002QuestionEntries();
+}
+
+function eligibleEnglishEntries(
+  pkg: ProbabilityRuntimeDefinition,
+  request: ProbabilityStandardQuestionStudioRequest,
+  difficulty: QuantV4Difficulty | undefined,
+) {
+  const explicitCp = String(request.canonicalProblemId ?? request.cpId ?? "").trim();
+  const requestedQlId = String(request.questionLanguageId ?? "").trim();
+  const entries = registryEntriesForPackage(pkg.packageId).filter((entry) => {
+    if (explicitCp && entry.cpId !== explicitCp) return false;
+    if (requestedQlId && entry.qlId !== requestedQlId) return false;
+    const profile = resolveProbabilityExamProfile(request.examProfile, pkg.packageId, entry.cpId);
+    if (!isEntryAllowedForExamProfile(entry, profile)) return false;
+    if (difficulty && calibrateEntryDifficulty(entry) !== difficulty) return false;
+    return true;
+  });
+
+  if (!entries.length) {
+    const cpText = explicitCp || "mixed CPs";
+    const qlText = requestedQlId || "mixed QLs";
+    throw new Error(
+      `No ${pkg.packageId} English Probability entries match ${cpText}, ${qlText}, difficulty=${difficulty ?? "mixed"}, profile=${request.examProfile ?? "default"}.`,
+    );
+  }
+  return entries;
+}
+
 function toEnglishStandardQuestion(
   pkg: ProbabilityRuntimeDefinition,
   source: any,
@@ -366,17 +404,26 @@ function generateEnglishBatch(
 ) {
   const difficulty = normalizeDifficulty(request.difficulty);
   const explicitCp = String(request.canonicalProblemId ?? request.cpId ?? "").trim();
-  const cpIds = explicitCp ? [resolveCpId(pkg, request)] : [...pkg.cpIds] as ProbabilityCanonicalProblemId[];
-  const cpOffset = seedHash(`${batchSeed}:${pkg.packageId}:cp-offset`) % cpIds.length;
+  if (explicitCp) resolveCpId(pkg, request);
+
+  // Select only registry entries that are actually valid for the requested
+  // profile+difficulty before choosing a CP. The old CP-first round-robin could
+  // select a CP with no eligible QL and create false capability gaps even though
+  // the package contained valid items for the same exam profile and difficulty.
+  const eligibleEntries = stableOrder(
+    eligibleEnglishEntries(pkg, request, difficulty),
+    `${batchSeed}:${pkg.packageId}:eligible-entry-order`,
+  );
   const questions: any[] = [];
   const questionPackages: any[] = [];
 
   for (let index = 0; index < count; index += 1) {
-    const cpId = cpIds[(cpOffset + index) % cpIds.length]!;
-    const seed = `${batchSeed}:${cpId}:${index}`;
-    const source = pkg.run(cpId, {
+    const entry = eligibleEntries[index % eligibleEntries.length]!;
+    const cycle = Math.floor(index / eligibleEntries.length);
+    const seed = `${batchSeed}:${entry.cpId}:${entry.qlId}:${cycle}`;
+    const source = pkg.run(entry.cpId, {
       difficulty,
-      questionLanguageId: request.questionLanguageId,
+      questionLanguageId: entry.qlId,
       examProfile: request.examProfile,
       seed,
     });
