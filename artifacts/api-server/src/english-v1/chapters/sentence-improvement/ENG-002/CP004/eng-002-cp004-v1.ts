@@ -79,26 +79,17 @@ function mappedVariants(text: string, mapping: Readonly<Record<string, readonly 
 }
 
 const SUBJECT_ALTERNATIVES: Readonly<Record<string, readonly string[]>> = {
-  I: ["me", "myself", "mine"],
-  he: ["him", "himself", "his"],
-  she: ["her", "herself", "hers"],
-  we: ["us", "ourselves", "ours"],
-  they: ["them", "themselves", "theirs"],
+  I: ["me", "myself", "mine"], he: ["him", "himself", "his"], she: ["her", "herself", "hers"],
+  we: ["us", "ourselves", "ours"], they: ["them", "themselves", "theirs"],
 };
 const OBJECT_ALTERNATIVES: Readonly<Record<string, readonly string[]>> = {
-  me: ["I", "myself", "mine"],
-  him: ["he", "himself", "his"],
-  her: ["she", "herself", "hers"],
-  us: ["we", "ourselves", "ours"],
-  them: ["they", "themselves", "theirs"],
+  me: ["I", "myself", "mine"], him: ["he", "himself", "his"], her: ["she", "herself", "hers"],
+  us: ["we", "ourselves", "ours"], them: ["they", "themselves", "theirs"],
 };
 const POSSESSIVE_ALTERNATIVES: Readonly<Record<string, readonly string[]>> = {
-  my: ["mine", "me", "myself"], mine: ["my", "me", "myself"],
-  your: ["yours", "you", "yourself"], yours: ["your", "you", "yourself"],
-  his: ["him", "he", "himself"],
-  her: ["hers", "she", "herself"], hers: ["her", "she", "herself"],
-  our: ["ours", "us", "ourselves"], ours: ["our", "us", "ourselves"],
-  their: ["theirs", "them", "themselves"], theirs: ["their", "them", "themselves"],
+  my: ["mine", "me", "myself"], mine: ["my", "me", "myself"], your: ["yours", "you", "yourself"], yours: ["your", "you", "yourself"],
+  his: ["him", "he", "himself"], her: ["hers", "she", "herself"], hers: ["her", "she", "herself"],
+  our: ["ours", "us", "ourselves"], ours: ["our", "us", "ourselves"], their: ["theirs", "them", "themselves"], theirs: ["their", "them", "themselves"],
 };
 const REFLEXIVE_ALTERNATIVES: Readonly<Record<string, readonly string[]>> = {
   myself: ["me", "I", "mine"], himself: ["him", "he", "his"], herself: ["her", "she", "hers"],
@@ -124,7 +115,7 @@ function distractorPool(ruleId: PronounRuleId, correctTarget: string, wrongTarge
     case "GR-PRN-004": generated = mappedVariants(correctTarget, REFLEXIVE_ALTERNATIVES); break;
     case "GR-PRN-005": generated = mappedVariants(correctTarget, OBJECT_ALTERNATIVES); break;
     case "GR-PRN-006": generated = agreementVariants(correctTarget); break;
-    case "GR-PRN-007": generated = [swapInitialRelative(correctTarget, correctTarget.toLowerCase().startsWith("who ") || correctTarget.toLowerCase() === "who" ? "whom" : "who"), swapInitialRelative(correctTarget, "which"), swapInitialRelative(correctTarget, "whose")]; break;
+    case "GR-PRN-007": generated = [swapInitialRelative(correctTarget, correctTarget.toLowerCase() === "who" ? "whom" : "who"), swapInitialRelative(correctTarget, "which"), swapInitialRelative(correctTarget, "whose")]; break;
     case "GR-PRN-008": generated = [swapInitialRelative(correctTarget, correctTarget.toLowerCase().startsWith("who") ? "which" : "who"), swapInitialRelative(correctTarget, "whom"), swapInitialRelative(correctTarget, "whose")]; break;
     case "GR-PRN-009": generated = ["this", "that", "these", "those"].map((form) => swapWord(correctTarget, correctTarget.split(/\s+/)[0]!, form)!).filter(Boolean); break;
     case "GR-PRN-010": {
@@ -175,6 +166,10 @@ function tag(candidate: ReturnType<typeof buildEng001Cp004CandidateV1>, prefix: 
   return value;
 }
 
+function lowerLeadingWord(text: string): string {
+  return text.replace(/^([A-Z])/, (letter) => letter.toLowerCase());
+}
+
 export function generateEng002Cp004QuestionV1(input: GenerateEng002Cp004V1Input): Eng002Cp004QuestionV1 {
   const candidate = buildEng001Cp004CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: input.ruleId, sceneId: input.sceneId });
   if (candidate.errorIndex === null) throw new Error(`${candidate.candidateId} has no pronoun mutation target`);
@@ -195,9 +190,10 @@ export function generateEng002Cp004QuestionV1(input: GenerateEng002Cp004V1Input)
 
   const sentence = sentenceFromSegments(visibleSegments);
   const correctedSentence = sentenceFromSegments(correctSegments);
+  const application = lowerLeadingWord(candidate.explanationApplication);
   const explanation = noImprovement
-    ? `No improvement is needed because “${correctTarget}” is already correct. ${concept(ruleId)} Here, ${candidate.explanationApplication} Correct sentence: ${correctedSentence}`
-    : `The underlined part is incorrect; use “${correctTarget}”. ${concept(ruleId)} Here, ${candidate.explanationApplication} Correct sentence: ${correctedSentence}`;
+    ? `No improvement is needed. “${correctTarget}” is already correct. ${concept(ruleId)} In this sentence, ${application} Correct sentence: ${correctedSentence}`
+    : `Use “${correctTarget}” in the underlined part. ${concept(ruleId)} In this sentence, ${application} Correct sentence: ${correctedSentence}`;
 
   return {
     questionId: `ENG-002-CP004-V1:${ruleId}:${candidate.candidateId}:${input.seed}:${noImprovement ? "NI" : "IMP"}`,
