@@ -1,0 +1,145 @@
+name: Validate Economy Content Engine V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-economy/**"
+      - "artifacts/api-server/src/knowledge-v1/deterministic.ts"
+      - "artifacts/api-server/src/question-studio/engine-registry.ts"
+      - "artifacts/api-server/src/question-studio/engine-types.ts"
+      - "artifacts/api-server/src/question-studio/standard-lifecycle.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-eco001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-eco001-adapter-v1.test.ts"
+      - ".github/workflows/economy-content-engine-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: economy-content-engine-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-economy-content-engine:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle ECO-001 adapter and composite registry
+        run: |
+          mkdir -p artifacts/api-server/dist/economy
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engines/knowledge-v1-eco001-adapter-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/economy/knowledge-v1-eco001-adapter-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engines/knowledge-v1-adapter.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/economy/knowledge-v1-adapter.mjs
+
+      - name: Run ECO-001 runtime contract smoke test
+        working-directory: artifacts/api-server
+        run: |
+          node --input-type=module <<'NODE'
+          import {
+            ECO_001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+            knowledgeV1Eco001QuestionStudioAdapterV1,
+          } from './dist/economy/knowledge-v1-eco001-adapter-v1.mjs';
+
+          const assert = (condition, message) => {
+            if (!condition) throw new Error(message);
+          };
+
+          const pkg = ECO_001_STANDARD_REVIEW_ONLY_PACKAGE_V1;
+          assert(pkg.packageId === 'ECO-001', 'ECO-001 package id mismatch');
+          assert(pkg.engineId === 'knowledge-v1', 'ECO-001 engine mismatch');
+          assert(pkg.enabled === true, 'ECO-001 package must be enabled');
+          assert(pkg.cpIds.length === 23, `Expected 23 CPs, found ${pkg.cpIds.length}`);
+          assert(new Set(pkg.cpIds).size === 23, 'ECO-001 CP ids must be unique');
+          assert(pkg.lifecycleStage === 'REVIEW_ONLY', 'ECO-001 must remain REVIEW_ONLY');
+          assert(pkg.questionBankWritable === false, 'Question Bank writes must remain disabled');
+          assert(pkg.testEligible === false, 'Test eligibility must remain disabled');
+          assert(pkg.mockTestEligible === false, 'Mock-test eligibility must remain disabled');
+          assert(pkg.publiclyPublishable === false, 'Public publication must remain disabled');
+          assert(pkg.automaticStudentPublication === false, 'Automatic student publication must remain disabled');
+          assert(pkg.productionReleaseAuthorized === false, 'Production release must remain disabled');
+
+          const request = {
+            packageId: 'ECO-001',
+            language: 'en',
+            difficulty: 'Mixed',
+            count: 20,
+            seed: 'eco001-ci-contract',
+          };
+          const first = await knowledgeV1Eco001QuestionStudioAdapterV1.generate(request);
+          const second = await knowledgeV1Eco001QuestionStudioAdapterV1.generate(request);
+          const firstIds = first.questions.map((q) => q.questionId);
+          const secondIds = second.questions.map((q) => q.questionId);
+          assert(first.questions.length === 20, 'Mixed review generation did not return 20 questions');
+          assert(JSON.stringify(firstIds) === JSON.stringify(secondIds), 'Seeded generation is not deterministic');
+          assert(new Set(firstIds).size === 20, 'Generated review batch contains duplicate question ids');
+          for (const question of first.questions) {
+            assert(question.packageId === 'ECO-001', 'Generated question package mismatch');
+            assert(question.reviewOnly === true, 'Generated question escaped review-only boundary');
+            assert(question.runtimeRegistered === true, 'Generated question missing runtime registration marker');
+            assert(question.questionBankWritable === false, 'Generated question became Question Bank writable');
+            assert(question.testEligible === false, 'Generated question became test eligible');
+          }
+
+          const cpResult = await knowledgeV1Eco001QuestionStudioAdapterV1.generate({
+            packageId: 'ECO-001',
+            patternId: 'ECO-CP-004',
+            count: 5,
+            seed: 'eco001-ci-cp004',
+          });
+          assert(cpResult.questions.length === 5, 'CP selector did not return requested count');
+          assert(cpResult.questions.every((q) => q.cpId === 'ECO-CP-004'), 'CP selector leaked another CP');
+
+          const hard = await knowledgeV1Eco001QuestionStudioAdapterV1.generate({
+            packageId: 'ECO-001',
+            difficulty: 'Hard',
+            count: 10,
+            seed: 'eco001-ci-hard',
+          });
+          assert(hard.questions.length === 10, 'Hard filter did not return requested count');
+          assert(hard.questions.every((q) => q.difficulty === 'Hard'), 'Hard filter leaked another difficulty');
+
+          let rejectedHindi = false;
+          try {
+            await knowledgeV1Eco001QuestionStudioAdapterV1.generate({ packageId: 'ECO-001', language: 'hi' });
+          } catch {
+            rejectedHindi = true;
+          }
+          assert(rejectedHindi, 'Unsupported Hindi generation was not rejected');
+          NODE
+
+      - name: Verify composite knowledge-v1 registry exposes ECO-001 once
+        working-directory: artifacts/api-server
+        run: |
+          node --input-type=module <<'NODE'
+          import { knowledgeV1QuestionStudioAdapter } from './dist/economy/knowledge-v1-adapter.mjs';
+          const matches = knowledgeV1QuestionStudioAdapter.listPackages().filter((pkg) => pkg.packageId === 'ECO-001');
+          if (matches.length !== 1) {
+            throw new Error(`Expected ECO-001 exactly once in knowledge-v1 registry; found ${matches.length}`);
+          }
+          NODE
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
