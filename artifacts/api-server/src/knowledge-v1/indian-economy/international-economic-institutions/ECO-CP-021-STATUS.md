@@ -1,9 +1,13 @@
 # ECO-CP-021 Status
 
 **CP:** ECO-CP-021 International Economic Institutions  
-**Lifecycle:** REVIEW_CANDIDATE_V2  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V2_FROZEN  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
+
+## Approved and frozen
+
+Human review approved the V2 English behaviour. The V2 stem overlay is now frozen.
 
 ## Implemented
 
@@ -52,8 +56,6 @@ Excluded from this CP:
 
 ## Promotion steps
 
-1. Human review of English V2 questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer later.
-5. Register with runtime/Question Studio only after separate promotion approval.
+1. English V2 approved and frozen.
+2. Add localisation layer later.
+3. Register with runtime/Question Studio only after separate promotion approval.
