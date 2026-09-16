@@ -16,14 +16,7 @@ export interface GenerateEng002Cp005V1Input { seed: string; difficulty: EnglishD
 const sentenceFromSegments = (segments: readonly string[]) => segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 function unique(values: readonly string[]) { const seen = new Set<string>(); const out: string[] = []; for (const raw of values) { const value = raw.replace(/\s+/g, " ").trim(); const key = value.toLowerCase(); if (value && !seen.has(key)) { seen.add(key); out.push(value); } } return out; }
 function tokenParts(text: string) { return text.split(/\s+/); }
-function changedToken(correctTarget: string, wrongTarget: string) {
-  const correct = tokenParts(correctTarget), wrong = tokenParts(wrongTarget);
-  if (correct.length !== wrong.length) throw new Error(`CP005 target token count changed: ${correctTarget} <> ${wrongTarget}`);
-  const indices = correct.map((token, index) => token.toLowerCase() === wrong[index]?.toLowerCase() ? -1 : index).filter((index) => index >= 0);
-  if (indices.length !== 1) throw new Error(`CP005 expected one changed preposition token: ${correctTarget} <> ${wrongTarget}`);
-  return { index: indices[0]!, correct, wrong };
-}
-function replaceToken(tokens: readonly string[], index: number, replacement: string) { const copy = [...tokens]; const original = copy[index]!; const punctuation = original.match(/[,.;:!?]+$/)?.[0] ?? ""; copy[index] = `${replacement}${punctuation}`; return copy.join(" "); }
+const bare = (token: string) => token.toLowerCase().replace(/^[^a-z]+|[^a-z]+$/g, "");
 
 const ALT: Record<PrepositionRuleId, readonly string[]> = {
   "GR-PRP-001": ["at", "on", "in", "during", "from"],
@@ -37,8 +30,20 @@ const ALT: Record<PrepositionRuleId, readonly string[]> = {
   "GR-PRP-009": ["on", "with", "from", "to", "of", "for", "in"],
   "GR-PRP-010": ["for", "to", "in", "of", "on", "with", "from"],
 };
+
+function changedToken(ruleId: PrepositionRuleId, correctTarget: string, wrongTarget: string) {
+  const correct = tokenParts(correctTarget), wrong = tokenParts(wrongTarget);
+  const limit = Math.min(correct.length, wrong.length);
+  const differing = Array.from({ length: limit }, (_, index) => index).filter((index) => bare(correct[index]!) !== bare(wrong[index]!));
+  const direct = differing.length === 1 ? differing[0] : undefined;
+  const prepositionDiff = differing.find((index) => ALT[ruleId].includes(bare(correct[index]!)));
+  const index = direct ?? prepositionDiff;
+  if (index == null) throw new Error(`CP005 could not isolate the preposition change: ${correctTarget} <> ${wrongTarget}`);
+  return { index, correct };
+}
+function replaceToken(tokens: readonly string[], index: number, replacement: string) { const copy = [...tokens]; const original = copy[index]!; const prefix = original.match(/^[^A-Za-z]+/)?.[0] ?? ""; const punctuation = original.match(/[^A-Za-z]+$/)?.[0] ?? ""; copy[index] = `${prefix}${replacement}${punctuation}`; return copy.join(" "); }
 function distractorPool(ruleId: PrepositionRuleId, correctTarget: string, wrongTarget: string) {
-  const diff = changedToken(correctTarget, wrongTarget);
+  const diff = changedToken(ruleId, correctTarget, wrongTarget);
   return unique([wrongTarget, ...ALT[ruleId].map((prep) => replaceToken(diff.correct, diff.index, prep))]);
 }
 function replacementChoices(ruleId: PrepositionRuleId, correctTarget: string, wrongTarget: string, targetText: string, noImprovement: boolean) {
