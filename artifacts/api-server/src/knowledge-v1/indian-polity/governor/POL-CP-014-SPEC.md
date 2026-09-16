@@ -1,7 +1,8 @@
 # POL-CP-014 — Governor
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Approval date:** 16 September 2026  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -21,7 +22,7 @@ This CP covers the Governor as the constitutional head of the State executive, c
 - Articles 200–201 — assent, reconsideration and reservation of State Bills
 - Article 213 — Governor's Ordinance power
 
-## Review design
+## Frozen review design
 
 - 20 genuine QLs
 - 80 English review questions
@@ -32,7 +33,7 @@ This CP covers the Governor as the constitutional head of the State executive, c
 - statement/application questions carry the harder constitutional distinctions
 - no current Governor names or current office-holder facts
 
-## Stem standard
+## Frozen stem standard
 
 Use natural competitive-exam wording from the source bank:
 - `Which Article...?`
@@ -43,7 +44,7 @@ Use natural competitive-exam wording from the source bank:
 
 Avoid database-style fragments and difficulty through verbosity.
 
-## Explanation standard
+## Frozen explanation standard
 
 - simple but useful;
 - exact constitutional rule first;
@@ -69,6 +70,6 @@ Avoid database-style fragments and difficulty through verbosity.
 - Article 213 can operate in a bicameral State when both Houses are not simultaneously in session;
 - Ordinances normally cease six weeks after reassembly, counted from the later date where the two Houses reassemble on different dates.
 
-## Gate
+## Deferred integration
 
-Merge, Question Studio exposure, localization and production registration remain blocked until English V1 is approved.
+Question Studio exposure, localization and production registration remain deferred to the Polity integration checkpoint. English V1 is the approved canonical content version.
