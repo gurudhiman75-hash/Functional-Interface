@@ -44,13 +44,23 @@ function rebuildOptions(set: Di005V2QuestionSet, question: Di005V2Question) {
     const first = countFor(firstIndex);
     const second = countFor(secondIndex);
     const correct = Math.abs(first - second);
+    const otherSectorCounts: Candidate[] = set.stimulus.slices
+      .map((slice, index) => ({ slice, index }))
+      .filter(({ index }) => index !== firstIndex && index !== secondIndex)
+      .map(({ slice, index }) => ({
+        text: String(countFor(index)),
+        misconceptionId: `READ_THIRD_SECTOR_COUNT_${index + 1}`,
+        derivation: `Uses the count represented by ${slice.category} instead of subtracting the two named sectors.`,
+      }));
     candidates = [
       { text: String(first + second), misconceptionId: "ADD_COUNTS", derivation: "Adds the two category counts instead of finding their difference." },
       { text: String(Math.max(first, second)), misconceptionId: "USE_LARGER_COUNT_ONLY", derivation: "Reports the larger category count without subtracting." },
       { text: String(Math.min(first, second)), misconceptionId: "USE_SMALLER_COUNT_ONLY", derivation: "Reports the smaller category count without subtracting." },
       { text: String(correct + step), misconceptionId: "ONE_SCALE_STEP_HIGH", derivation: "Moves one five-percent count step above the correct difference." },
       { text: String(Math.max(0, correct - step)), misconceptionId: "ONE_SCALE_STEP_LOW", derivation: "Moves one five-percent count step below the correct difference." },
+      ...otherSectorCounts,
       { text: String(correct + 2 * step), misconceptionId: "TWO_SCALE_STEPS_HIGH", derivation: "Moves two five-percent count steps above the correct difference." },
+      { text: String(correct + 3 * step), misconceptionId: "THREE_SCALE_STEPS_HIGH", derivation: "Moves three five-percent count steps above the correct difference." },
     ];
   }
 
