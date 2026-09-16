@@ -15,7 +15,7 @@ const bannedEnglishWords = /\b(which|what|the|is|are|distance|displacement|speed
 const deprecatedPunjabiAcceleration = /ਤ੍ਵਰਨ/u;
 const massAsWeightMisuse = /ਸਥਿਰ ਭਾਰ|ਭਾਰ ਅਤੇ ਵੇਗ|ਭਾਰ ਅਤੇ ਪ੍ਰਵੇਗ|ਪ੍ਰਤੀ ਇਕਾਈ ਭਾਰ|ਘਣਤਾ = ਭਾਰ\/|ਕੇਵਲ ਭਾਰ ਤੇ|ਭਾਰ ਬਦਲਦਾ|ਭਾਰ ਵਾਲੀ ਵਸਤੂ|ਭਾਰ ਘਟਾਉਂਦੀ ਹੈ|ਕੁੱਲ ਬਲ ਉਸ ਦੇ ਭਾਰ ਦੇ ਬਰਾਬਰ/u;
 const needlessEnglishizedPunjabi = /ਡਿਰਾਈਵਡ ਇਕਾਈ|ਫ੍ਰਿਕਵੈਂਸੀ|ਲੀਸਟ ਕਾਊਂਟ|ਸਿਸਟਮੈਟਿਕ ਗਲਤੀ|ਰੈਂਡਮ ਗਲਤੀ|ਡਾਇਮੈਂਸ਼ਨਲ ਫਾਰਮੂਲਾ|ਸਾਇੰਟਿਫਿਕ ਨੋਟੇਸ਼ਨ|ਸਿਗਨਿਫਿਕੈਂਟ ਫਿਗਰ|ਪ੍ਰੀਫਿਕਸ|ਰਿਲੇਟਿਵ ਡੈਨਸਿਟੀ|ਵੇਕਟਰ|ਸਕੇਲਰ|ਇੰਪਲਸ|ਸੈਂਟ੍ਰਿਪੀਟਲ ਬਲ|ਸਰਕੁਲਰ ਗਤੀ|ਕਾਇਨੇਟਿਕ ਊਰਜਾ|ਪੋਟੈਂਸ਼ਲ ਊਰਜਾ|ਪਾਜ਼ਿਟਿਵ|ਨੈਗੇਟਿਵ|ਗ੍ਰੈਵਿਟੀ|ਨੈੱਟ ਵਿਸਥਾਪਨ|ਨਾਰਮਲ ਬਲ|ਟਰਮੀਨਲ ਚਾਲ|ਜ਼ੀਰੋ ਐਰਰ|ਸਿਸਟਮ|ਰਿਫ੍ਰੈਕਸ਼ਨ|ਰਿਫਲੈਕਸ਼ਨ|ਰਿਫ੍ਰੈਕਟਿਵ ਇੰਡੈਕਸ|ਰੇਜ਼ਿਸਟੈਂਸ|ਰਜ਼ਿਸਟਿਵਿਟੀ|ਪੋਟੈਂਸ਼ਲ ਡਿਫਰੈਂਸ|ਇਲੈਕਟ੍ਰਿਕ ਕਰੰਟ|ਸੀਰੀਜ਼ ਸਰਕਟ|ਪੈਰਲਲ ਸਰਕਟ/u;
-const genuinelyAwkwardPunjabi = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਚਿਕਨਾਹਟ|ਕ੍ਰਿਆ ਅਤੇ ਪ੍ਰਤੀਕ੍ਰਿਆ|ਬਣਾਈ ਰੱਖਣ ਦੀ ਇਹ ਰੁਝਾਨ|ਗਹਿਰਾਈ|ਲਾਭਕਾਰੀ ਨਿਕਾਸੀ|ਵੱਡੀ ਅਰਧ-ਵਿਆਸ|ਵੱਡੇ ਪਹੀਏ ਦੀ ਅਰਧ-ਵਿਆਸ|ਬਲ-ਲਗਾਇਆ ਦੋਲਨ|ਘਣਤਾ ਕਿਸ ਪ੍ਰਤੀ ਇਕਾਈ ਪੁੰਜ|ਦਬਾਅ ਕਿਸ ਪ੍ਰਤੀ ਇਕਾਈ ਬਲ|ਪ੍ਰਤਿਧੁਨੀ-ਸਥਾਇਤਾ|ਅਵਸ਼੍ਰਵਣ|ਪਰਾਸ਼੍ਰਵਣ|ਤਾਰਤਾ|ਕਲੀਨੀਕਲ ਥਰਮਾਮੀਟਰ ਦਾ ਮੁੱਖ ਵਰਤੋਂ/u;
+const genuinelyAwkwardPunjabi = /ਮਾਤਰਾਆਂ|ਦਾ ਮਾਤਰਾ|ਦੇ ਮਾਤਰਾ|ਦਿਸ਼ਾਵਾਂ ਬਦਲਾਅ|ਸ਼ੁੱਧ ਬਾਹਰੀ ਬਲ|ਸ਼ੁੱਧ ਅੰਦਰ ਵੱਲ ਬਲ|ਚਿਕਨਾਹਟ|ਕ੍ਰਿਆ ਅਤੇ ਪ੍ਰਤੀਕ੍ਰਿਆ|ਬਣਾਈ ਰੱਖਣ ਦੀ ਇਹ ਰੁਝਾਨ|ਗਹਿਰਾਈ|ਲਾਭਕਾਰੀ ਨਿਕਾਸੀ|ਵੱਡੀ ਅਰਧ-ਵਿਆਸ|ਵੱਡੇ ਪਹੀਏ ਦੀ ਅਰਧ-ਵਿਆਸ|ਬਲ-ਲਗਾਇਆ ਦੋਲਨ|ਘਣਤਾ ਕਿਸ ਪ੍ਰਤੀ ਇਕਾਈ ਪੁੰਜ|ਦਬਾਅ ਕਿਸ ਪ੍ਰਤੀ ਇਕਾਈ ਬਲ|ਪ੍ਰਤਿਧੁਨੀ-ਸਥਾਇਤਾ|ਅਵਸ਼੍ਰਵਣ|ਪਰਾਸ਼੍ਰਵਣ|ਤਾਰਤਾ|ਕਲੀਨੀਕਲ ਥਰਮਾਮੀਟਰ ਦਾ ਮੁੱਖ ਵਰਤੋਂ|ਸੋਲੇਨਾਇਡ|ਬਿਜਲਈ-ਚੁੰਬਕੀ ਪ੍ਰੇਰਣ|ਬਿਜਲਈ-ਚੁੰਬਕੀ ਸਪੈਕਟ੍ਰਮ|ਪ੍ਰਤਿਆਵਰਤੀ ਧਾਰਾ|ਦਿਸ਼ਟ ਧਾਰਾ|ਪਰਾਬੈਂਗਨੀ|ਸੰਧਾਰਿਤਰ|ਸਮਕੇਂਦਰੀ ਵਰਤੂਲ|ਰੈਕਟੀਫਿਕੇਸ਼ਨ/u;
 const awkwardHindiExamPhrasing = /मशीन की दक्षता उपयोगी निर्गत कार्य और किसके अनुपात|सरल मशीन का वेग अनुपात प्रयास द्वारा चली दूरी और किसके द्वारा चली दूरी|ढलवाँ तल आवश्यक प्रयास को किसे बढ़ाकर|घनत्व किसके प्रति इकाई द्रव्यमान|दाब किसके प्रति इकाई बल|तारता|अनुनादिता/u;
 
 function qualifyExplanationSet(label: string, set: Readonly<Record<string, Readonly<Record<string, string>>>>, expected: number) {
@@ -123,14 +123,14 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
         assert.match(corpus, /ਸਮਾਂਤਰ ਸਰਕਟ/u); assert.match(corpus, /ਬਿਜਲਈ ਸ਼ਕਤੀ/u); assert.match(corpus, /ਕਿਲੋਵਾਟ-ਘੰਟਾ/u); assert.match(corpus, /ਭੂ-ਸੰਪਰਕ/u);
       }
       if (cpId === "SCI-CP-009") {
-        assert.match(corpus, /ਚੁੰਬਕੀ ਖੇਤਰ/u); assert.match(corpus, /ਬਿਜਲਈ ਚੁੰਬਕ/u); assert.match(corpus, /ਸੋਲੇਨਾਇਡ/u);
-        assert.match(corpus, /ਬਿਜਲਈ-ਚੁੰਬਕੀ ਪ੍ਰੇਰਣ/u); assert.match(corpus, /ਪ੍ਰਤਿਆਵਰਤੀ ਧਾਰਾ/u); assert.match(corpus, /ਦਿਸ਼ਟ ਧਾਰਾ/u);
+        assert.match(corpus, /ਚੁੰਬਕੀ ਖੇਤਰ/u); assert.match(corpus, /ਬਿਜਲਈ ਚੁੰਬਕ/u); assert.match(corpus, /ਸੋਲੀਨਾਇਡ/u);
+        assert.match(corpus, /ਬਿਜਲ ਚੁੰਬਕੀ ਪ੍ਰੇਰਣ/u); assert.match(corpus, /ਪ੍ਰਤਿਵਰਤੀ ਧਾਰਾ/u); assert.match(corpus, /ਸਿੱਧੀ ਧਾਰਾ/u);
         assert.match(corpus, /ਟ੍ਰਾਂਸਫਾਰਮਰ/u); assert.match(corpus, /ਚੁੰਬਕੀ ਫਲਕਸ/u); assert.match(corpus, /ਜਨਰੇਟਰ/u);
       }
       if (cpId === "SCI-CP-010") {
         assert.match(corpus, /ਰੇਡੀਓਧਰਮਿਤਾ/u); assert.match(corpus, /ਅਰਧ-ਆਯੁ/u); assert.match(corpus, /ਨਾਭਿਕੀ ਵਿਖੰਡਨ/u);
         assert.match(corpus, /ਨਾਭਿਕੀ ਸੰਲਯਨ/u); assert.match(corpus, /ਅਰਧਚਾਲਕ/u); assert.match(corpus, /ਪ੍ਰਕਾਸ਼-ਬਿਜਲਈ ਪ੍ਰਭਾਵ/u);
-        assert.match(corpus, /ਸੂਰਜੀ ਸੈੱਲ/u); assert.match(corpus, /ਲੇਜ਼ਰ/u); assert.match(corpus, /ਬਿਜਲਈ-ਚੁੰਬਕੀ ਸਪੈਕਟ੍ਰਮ/u);
+        assert.match(corpus, /ਸੂਰਜੀ ਸੈੱਲ/u); assert.match(corpus, /ਲੇਜ਼ਰ/u); assert.match(corpus, /ਬਿਜਲ ਚੁੰਬਕੀ ਸਪੈਕਟ੍ਰਮ/u); assert.match(corpus, /ਪਰਾਬੈਂਗਣੀ/u);
       }
     }
   }
