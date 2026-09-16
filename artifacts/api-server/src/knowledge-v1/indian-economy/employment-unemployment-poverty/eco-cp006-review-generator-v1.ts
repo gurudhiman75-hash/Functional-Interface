@@ -269,7 +269,7 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
       {
         stem: "Which combination best describes a broad anti-poverty strategy discussed in NCERT?",
         correct: "Economic growth plus targeted anti-poverty programmes",
-        options: [correct, "Only higher taxes", "Only price controls", "Only foreign borrowing"],
+        options: ["Economic growth plus targeted anti-poverty programmes", "Only higher taxes", "Only price controls", "Only foreign borrowing"],
         explanation: "Poverty reduction can be supported by broader economic growth and by programmes targeted at vulnerable groups. The two approaches work through different channels.",
       },
     ];
@@ -400,3 +400,5 @@ export function generateEcoCp006ReviewBatchV1() {
   }
   return questions;
 }
+
+export const ECO_CP006_REVIEW_V1 = generateEcoCp006ReviewBatchV1();
