@@ -1,9 +1,13 @@
 # ECO-CP-023 Status
 
 **CP:** ECO-CP-023 Important Economic Events & Milestones  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1_FROZEN  
+**Runtime:** BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
+
+## Approved / frozen
+
+Human review approved the V1 English surface on 2026-09-16. The reviewed English behaviour is frozen.
 
 ## Implemented
 
@@ -41,10 +45,8 @@ Excluded from this CP:
 - current NITI Aayog office-holders;
 - current economic rankings or live macroeconomic figures.
 
-## Promotion steps
+## Promotion boundary
 
-1. Human review of English V1 questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer later.
-5. Register with runtime/Question Studio only after separate promotion approval.
+- English V1 is frozen.
+- Localisation is still pending.
+- Runtime / Question Studio registration remains blocked until separate explicit promotion approval.
