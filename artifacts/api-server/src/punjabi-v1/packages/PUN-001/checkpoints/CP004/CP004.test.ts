@@ -99,22 +99,41 @@ for (const family of CP004_FAMILIES) {
 const f01 = CP004_FAMILIES.find((x) => x.familyId === "F01")!;
 for (let seed = 1; seed <= breadth.capacities.F01; seed++) {
   const q = f01.generate(seed, "Easy");
-  assert(q.metadata.authorityIds.every((id) => CP004_TRANSFORM_SAFE_GENDER_PAIRS.some((x) => x.id === id)), `${q.id}: lexical-only counterpart leaked into transformation family`);
-  const allMasculine = q.options.every((option) => masculine.has(option));
-  const allFeminine = q.options.every((option) => feminine.has(option));
-  assert(allMasculine || allFeminine, `${q.id}: fabricated gender form leaked into direct options`);
+  const authority = CP004_GENDER_PAIRS.find((x) => x.id === q.metadata.authorityIds[0])!;
+  assert(authority.transformSafe, `${q.id}: lexical-only counterpart leaked into transformation family`);
+  const domainMasculine = new Set(CP004_GENDER_PAIRS.filter((x) => x.domain === authority.domain).map((x) => x.masculine));
+  const domainFeminine = new Set(CP004_GENDER_PAIRS.filter((x) => x.domain === authority.domain).map((x) => x.feminine));
+  const allMasculine = q.options.every((option) => domainMasculine.has(option));
+  const allFeminine = q.options.every((option) => domainFeminine.has(option));
+  assert(allMasculine || allFeminine, `${q.id}: cross-domain or fabricated gender form leaked into direct options`);
 }
+
+const f03 = CP004_FAMILIES.find((x) => x.familyId === "F03")!;
+for (let seed = 1; seed <= breadth.capacities.F03; seed++) {
+  const q = f03.generate(seed, "Medium");
+  const authorities = q.metadata.authorityIds.map((id) => CP004_GENDER_PAIRS.find((x) => x.id === id)!);
+  assert.equal(authorities[0]!.domain, authorities[1]!.domain, `${q.id}: cross-domain wrong gender pair leaked`);
+}
+
+const allowedNumberPeer = (authority: (typeof CP004_NUMBER_PAIRS)[number], option: string, target: "singular" | "plural") => {
+  const allowedRules = authority.rule === "IRREGULAR" || authority.rule === "VOWEL_TO_VAAN"
+    ? new Set(["IRREGULAR", "VOWEL_TO_VAAN"])
+    : new Set([authority.rule]);
+  return CP004_NUMBER_PAIRS.some((x) => allowedRules.has(x.rule) && x[target] === option);
+};
 
 const f04 = CP004_FAMILIES.find((x) => x.familyId === "F04")!;
 for (let seed = 1; seed <= breadth.capacities.F04; seed++) {
   const q = f04.generate(seed, "Easy");
-  assert(q.options.every((option) => plurals.has(option)), `${q.id}: non-canonical plural leaked into direct options`);
+  const authority = CP004_NUMBER_PAIRS.find((x) => x.id === q.metadata.authorityIds[0])!;
+  assert(q.options.every((option) => allowedNumberPeer(authority, option, "plural")), `${q.id}: unrelated or non-canonical plural leaked into direct options`);
 }
 
 const f05 = CP004_FAMILIES.find((x) => x.familyId === "F05")!;
 for (let seed = 1; seed <= breadth.capacities.F05; seed++) {
   const q = f05.generate(seed, "Easy");
-  assert(q.options.every((option) => singulars.has(option)), `${q.id}: non-canonical singular leaked into direct options`);
+  const authority = CP004_NUMBER_PAIRS.find((x) => x.id === q.metadata.authorityIds[0])!;
+  assert(q.options.every((option) => allowedNumberPeer(authority, option, "singular")), `${q.id}: unrelated or non-canonical singular leaked into direct options`);
 }
 
 const easy = CP004_FAMILIES.find((x) => x.familyId === "F01")!.generate(1, "Easy");
@@ -128,9 +147,9 @@ assert.equal(breadth.agreementContextCount, 12);
 assert.equal(breadth.totalAtomicAuthorities, 70);
 assert.equal(breadth.familyCount, 9);
 assert.equal(breadth.capacities.F01, 40);
-assert.equal(breadth.capacities.F03, 650);
+assert.equal(breadth.capacities.F03, 154);
 assert.equal(breadth.capacities.F09, 528);
-assert.equal(breadth.totalSemanticCapacity, 1400);
+assert.equal(breadth.totalSemanticCapacity, 904);
 
 console.log(`CP004 exhaustive semantic gates passed: ${globalFingerprints.size} generated proof questions`);
 console.log(JSON.stringify(breadth, null, 2));
