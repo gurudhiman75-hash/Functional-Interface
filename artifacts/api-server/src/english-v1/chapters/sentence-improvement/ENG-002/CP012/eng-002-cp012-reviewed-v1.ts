@@ -57,6 +57,28 @@ function deicticWrongs(correct: string, authoredWrong: string) {
   return unique(raw).filter((value) => value.toLowerCase() !== correct.toLowerCase());
 }
 
+function commandWrongs(correct: string, authoredWrong: string) {
+  const raw = [authoredWrong];
+  const negative = correct.match(/\bnot to\s+(close|touch|bring|enter|disclose|send)\b/i);
+  if (negative) {
+    const base = negative[1]!.toLowerCase();
+    const ing: Readonly<Record<string, string>> = { close: "closing", touch: "touching", bring: "bringing", enter: "entering", disclose: "disclosing", send: "sending" };
+    raw.push(correct.replace(new RegExp(`\\bnot to\\s+${base}\\b`, "i"), `not ${ing[base]}`));
+    raw.push(correct.replace(new RegExp(`\\bnot to\\s+${base}\\b`, "i"), `not ${base}`));
+    raw.push(correct.replace(new RegExp(`\\bnot to\\s+${base}\\b`, "i"), `not to ${ing[base]}`));
+  } else {
+    const positive = correct.match(/\bto\s+(close|touch|bring|enter|disclose|send)\b/i);
+    if (positive) {
+      const base = positive[1]!.toLowerCase();
+      const ing: Readonly<Record<string, string>> = { close: "closing", touch: "touching", bring: "bringing", enter: "entering", disclose: "disclosing", send: "sending" };
+      raw.push(correct.replace(new RegExp(`\\bto\\s+${base}\\b`, "i"), ing[base]!));
+      raw.push(correct.replace(new RegExp(`\\bto\\s+${base}\\b`, "i"), `to ${ing[base]}`));
+      raw.push(correct.replace(new RegExp(`\\bto\\s+${base}\\b`, "i"), `for ${ing[base]}`));
+    }
+  }
+  return unique(raw).filter((value) => value.toLowerCase() !== correct.toLowerCase());
+}
+
 function generateFromWrongs(input: GenerateEng002Cp012V1Input, forcedRuleId: VoiceNarrationRuleId, wrongFactory: (correct: string, authoredWrong: string) => string[]): Eng002Cp012QuestionV1 {
   const candidate = buildEng001Cp012CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: forcedRuleId, sceneId: input.sceneId });
   const correctSegments = [...candidate.correctSegments];
@@ -102,6 +124,7 @@ function generateFromWrongs(input: GenerateEng002Cp012V1Input, forcedRuleId: Voi
 export function generateEng002Cp012ReviewedQuestionV1(input: GenerateEng002Cp012V1Input): Eng002Cp012QuestionV1 {
   if (input.ruleId === "GR-VNR-006") return generateFromWrongs(input, "GR-VNR-006", backshiftWrongs);
   if (input.ruleId === "GR-VNR-008") return generateFromWrongs(input, "GR-VNR-008", deicticWrongs);
+  if (input.ruleId === "GR-VNR-010") return generateFromWrongs(input, "GR-VNR-010", commandWrongs);
   try {
     return generateEng002Cp012QuestionV1(input);
   } catch (error) {
@@ -109,6 +132,7 @@ export function generateEng002Cp012ReviewedQuestionV1(input: GenerateEng002Cp012
     const sceneId = tag(candidate, "scene:");
     if (candidate.ruleId === "GR-VNR-006") return generateFromWrongs({ ...input, ruleId: "GR-VNR-006", sceneId }, "GR-VNR-006", backshiftWrongs);
     if (candidate.ruleId === "GR-VNR-008") return generateFromWrongs({ ...input, ruleId: "GR-VNR-008", sceneId }, "GR-VNR-008", deicticWrongs);
+    if (candidate.ruleId === "GR-VNR-010") return generateFromWrongs({ ...input, ruleId: "GR-VNR-010", sceneId }, "GR-VNR-010", commandWrongs);
     throw error;
   }
 }
