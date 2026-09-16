@@ -4,6 +4,14 @@ import { buildEng002Cp010ReviewV1 } from "../chapters/sentence-improvement/ENG-0
 import { ENG002_CP010_STEM, generateEng002Cp010QuestionV1 } from "../chapters/sentence-improvement/ENG-002/CP010/eng-002-cp010-v1";
 import type { EnglishDifficulty } from "../core/types";
 
+const mechanicalOption = /^(?:Apparently|Still|Evidently|Also),\s|\b(?:still|also)\s+with\b|\b(?:still|also)\s+(?:carrying|containing|wearing|holding|showing)\b/i;
+function assertCleanOptions(options: readonly string[]) {
+  for (const option of options.slice(0, 3)) {
+    assert.equal(mechanicalOption.test(option), false, `mechanical modifier distractor: ${option}`);
+    assert.equal(/\b(only|almost|nearly|even|usually|rarely|clearly|carefully)\s+\1\b/i.test(option), false, `duplicated modifier: ${option}`);
+  }
+}
+
 function verify(seed: string, difficulty: EnglishDifficulty) {
   const q = generateEng002Cp010QuestionV1({ seed, difficulty });
   assert.equal(q.stem, ENG002_CP010_STEM);
@@ -17,7 +25,7 @@ function verify(seed: string, difficulty: EnglishDifficulty) {
   assert.match(q.explanation, /Here:/);
   assert.match(q.explanation, /Correct sentence:/);
   assert.equal(q.metadata.reviewOnly, true);
-  q.options.slice(0, 3).forEach((option) => assert.equal(/\b(only|almost|nearly|even|usually|rarely|clearly|carefully)\s+\1\b/i.test(option), false));
+  assertCleanOptions(q.options);
   if (q.metadata.noImprovement) assert.equal(q.correctOptionIndex, 3); else assert.notEqual(q.correctOptionIndex, 3);
   return q;
 }
@@ -46,6 +54,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
       assert.equal(q.metadata.ruleId, ruleId);
       assert.equal(q.metadata.noImprovement, noImprovement);
       assert.equal(new Set(q.options.map((option) => option.toLowerCase())).size, 4);
+      assertCleanOptions(q.options);
     }
   }
 }
@@ -62,4 +71,5 @@ assert.ok(new Set(review.map((item) => item.question.metadata.semanticDomain)).s
 assert.equal(review.every((item) => item.question.options.length === 4 && item.question.options[3] === "No improvement"), true);
 assert.equal(review.every((item) => !item.question.sentence.includes(" / ")), true);
 assert.equal(review.every((item) => item.question.explanation.includes("Concept:") && item.question.explanation.includes("Here:") && item.question.explanation.includes("Correct sentence:")), true);
+review.forEach((item) => assertCleanOptions(item.question.options));
 console.log("ENG-002 CP010 deterministic stress and review tests passed.");
