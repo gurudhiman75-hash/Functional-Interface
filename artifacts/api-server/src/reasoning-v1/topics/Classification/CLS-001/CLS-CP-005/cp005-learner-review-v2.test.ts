@@ -13,6 +13,7 @@ const qls: readonly ClsCp005EnglishQlId[] = [
   CLS_CP005_EQUIVALENT_TUPLE_QL_ID,
 ];
 const locales: readonly ClsCp005TranslatedLocale[] = ["hi-IN", "pa-IN"];
+const FORBIDDEN_LEARNER_NOTATION = /✅|❌|\\operatorname|\\mathbb|D_[123]|\\bmod|\\frac/;
 
 let checked = 0;
 for (const qlId of qls) {
@@ -41,16 +42,24 @@ for (const qlId of qls) {
         assert.equal(learner.metadata.learnerEditorialVersion, "compact-native-explanation-v2");
         assert.ok(!learner.stem.includes("विषम (अलग) विकल्प"));
 
+        const learnerText = [
+          learner.stem,
+          ...learner.explanation.coreConcept,
+          ...learner.explanation.stepByStep,
+        ].join("\n");
+        assert.ok(
+          !FORBIDDEN_LEARNER_NOTATION.test(learnerText),
+          `${qlId}/${locale}/${seed}/${optionCount}: internal QA notation leaked into learner explanation`,
+        );
+
         const exactEvidenceLinesInLearner = learner.evidenceByOption.filter((line) =>
           learner.explanation.stepByStep.includes(line),
         ).length;
-        assert.ok(
-          exactEvidenceLinesInLearner <= 2,
-          `${qlId}/${locale}/${seed}/${optionCount}: routine option-by-option evidence leaked`,
+        assert.equal(
+          exactEvidenceLinesInLearner,
+          0,
+          `${qlId}/${locale}/${seed}/${optionCount}: raw per-option QA evidence leaked into learner explanation`,
         );
-        if (qlId === CLS_CP005_EQUIVALENT_TUPLE_QL_ID) {
-          assert.equal(exactEvidenceLinesInLearner, 1);
-        }
         assert.ok(learner.explanation.stepByStep.at(-1)?.includes(learner.answer));
         checked += 1;
       }
@@ -63,5 +72,6 @@ console.log("CLS-CP-005 compact native learner review V2 audit passed.", {
   checked,
   frozenStateChanges: 0,
   shortcutTrapLearnerSections: false,
+  rawQaNotationInLearnerSurface: false,
   routineOptionByOptionLearnerAnalysis: false,
 });
