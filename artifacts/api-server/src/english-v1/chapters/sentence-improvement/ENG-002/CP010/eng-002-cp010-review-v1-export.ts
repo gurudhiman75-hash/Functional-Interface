@@ -4,6 +4,8 @@ import { ENG002_CP010_STEM, generateEng002Cp010QuestionV1, type Eng002Cp010Quest
 
 export interface Eng002Cp010ReviewItemV1 { number: number; difficulty: EnglishDifficulty; question: Eng002Cp010QuestionV1 }
 
+const NO_IMPROVEMENT_REVIEW_INDICES = new Set([0, 4, 8, 12, 16]);
+
 export function buildEng002Cp010ReviewV1(): Eng002Cp010ReviewItemV1[] {
   const items: Eng002Cp010ReviewItemV1[] = [];
   let number = 1;
@@ -17,7 +19,7 @@ export function buildEng002Cp010ReviewV1(): Eng002Cp010ReviewItemV1[] {
           difficulty,
           ruleId: scene.ruleId,
           sceneId: scene.id,
-          noImprovement: index % 4 === 3,
+          noImprovement: NO_IMPROVEMENT_REVIEW_INDICES.has(index),
         }),
       });
       number += 1;
