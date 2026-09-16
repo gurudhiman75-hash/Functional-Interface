@@ -21,8 +21,13 @@ function remediateOption(ruleId: Eng002Cp011QuestionV1["metadata"]["ruleId"], op
     value = value.replace(/\bwould\s+(completed|identified|handled|backed)\b/gi, (_match, participle: string) => `had ${participle.toLowerCase()}`);
   }
 
-  if (ruleId === "GR-CND-009") {
-    value = value.replace(/^(If|if)\s+(.+?)\s+been\s+([A-Za-z]+)(.*)$/i, (_match, ifWord: string, subject: string, participle: string, rest: string) => `${ifWord} ${subject} was ${participle}${rest}`);
+  if (ruleId === "GR-CND-009" && /^(?:If|if)\b/.test(value)) {
+    const beforeBeen = value.match(/^(If|if)\s+(.+?)\s+been\s+([A-Za-z]+)(.*)$/i);
+    if (beforeBeen) {
+      const [, ifWord, subject, participle, rest] = beforeBeen;
+      const hasAuxiliary = /\b(?:had|has|have|would|could|might|should|was|were)\b/i.test(subject!);
+      if (!hasAuxiliary) value = `${ifWord} ${subject} was ${participle}${rest}`;
+    }
   }
 
   return value.replace(/\s+/g, " ").trim();
