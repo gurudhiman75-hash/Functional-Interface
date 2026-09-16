@@ -66,11 +66,12 @@ function pluralOnlyVariants(correct: string, wrong: string) {
 }
 function unitExpressionVariants(correct: string, wrong: string) {
   const stripped = correct.replace(/\b(?:piece|pieces|item|items) of\s+/i, "");
+  const missingOf = correct.replace(/\b(piece|pieces|item|items) of\b/i, "$1");
   const mismatchedUnit = /\bpieces of\b/i.test(correct) ? correct.replace(/\bpieces of\b/i, "piece of")
     : /\bpiece of\b/i.test(correct) ? correct.replace(/\bpiece of\b/i, "pieces of")
       : /\bitems of\b/i.test(correct) ? correct.replace(/\bitems of\b/i, "item of")
         : /\bitem of\b/i.test(correct) ? correct.replace(/\bitem of\b/i, "items of") : `one ${massName(correct)}`;
-  return [wrong, stripped, mismatchedUnit];
+  return [wrong, stripped, missingOf, mismatchedUnit];
 }
 function numberAmountVariants(correct: string, wrong: string) {
   const numberPattern = /\b(?:the\s+|a\s+large\s+)?number of\b/i;
