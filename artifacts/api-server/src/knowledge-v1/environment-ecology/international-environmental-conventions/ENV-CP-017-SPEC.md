@@ -2,9 +2,9 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-017 International Environmental Conventions & Agreements  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V1  
-**Runtime registration:** blocked pending project-owner approval
+**Runtime registration:** blocked pending separate Question Studio integration workflow
 
 ## Scope
 
@@ -55,4 +55,5 @@ ENV-CP-013 owns ozone science. ENV-CP-014 owns climate-change science, mitigatio
 - all four answer positions inside every QL
 - deterministic generation
 - source/fact provenance on every item
-- review-only; no Question Studio/runtime registration before explicit project-owner approval
+- content approved and frozen on 2026-09-16
+- no Question Studio/runtime registration until the separate chapter-level integration workflow
