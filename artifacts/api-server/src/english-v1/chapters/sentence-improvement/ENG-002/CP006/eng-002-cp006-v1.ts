@@ -82,7 +82,6 @@ function focusDifference(correctSegment: string, wrongSegment: string): FocusedT
 
   if (!correctMid.length || !wrongMid.length) {
     if (suffixCount > 0) {
-      prefixCount = prefixCount;
       suffixCount -= 1;
       correctMid = correct.slice(prefixCount, correct.length - suffixCount);
       wrongMid = wrong.slice(prefixCount, wrong.length - suffixCount);
@@ -112,12 +111,12 @@ function preserveTerminalPunctuation(source: string, replacement: string) {
 function irregularVariants(correctTarget: string): string[] {
   const lower = correctTarget.toLowerCase();
   const replacements: Array<[RegExp, readonly string[]]> = [
-    [/\bbetter\b/i, ["gooder", "more good", "best"]],
-    [/\bworse\b/i, ["badder", "more bad", "worst"]],
-    [/\bbest\b/i, ["goodest", "better", "most good"]],
-    [/\bworst\b/i, ["baddest", "worse", "most bad"]],
-    [/\bless\b/i, ["littler", "more little", "least"]],
-    [/\bleast\b/i, ["littlest", "less", "most little"]],
+    [/\bbetter\b/i, ["good", "more good", "best"]],
+    [/\bworse\b/i, ["bad", "more bad", "worst"]],
+    [/\bbest\b/i, ["good", "better", "more good"]],
+    [/\bworst\b/i, ["bad", "worse", "more bad"]],
+    [/\bless\b/i, ["little", "more little", "least"]],
+    [/\bleast\b/i, ["little", "less", "more little"]],
   ];
   for (const [pattern, variants] of replacements) {
     if (!pattern.test(lower)) continue;
