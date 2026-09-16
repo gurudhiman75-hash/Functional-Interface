@@ -16,8 +16,8 @@ export interface GenerateEng002Cp007V1Input { seed: string; difficulty: EnglishD
 const sentenceFromSegments = (segments: readonly string[]) => segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 const clean = (value: string) => value.replace(/\s+/g, " ").trim();
 function unique(values: readonly string[]) { const seen = new Set<string>(); const out: string[] = []; for (const raw of values) { const value = clean(raw); const key = value.toLowerCase(); if (value && !seen.has(key)) { seen.add(key); out.push(value); } } return out; }
-
 interface Focus { prefix: string; correctTarget: string; wrongTarget: string; suffix: string }
+
 function focusDifference(correctSegment: string, wrongSegment: string): Focus {
   const correct = clean(correctSegment).split(" "), wrong = clean(wrongSegment).split(" ");
   let prefixCount = 0;
@@ -56,26 +56,15 @@ function gerundPhrase(basePhrase: string) {
   return [gerund, ...rest].join(" ");
 }
 function parallelVariants(correct: string, wrong: string) {
-  if (/^how to\s+/i.test(correct)) {
-    const base = correct.replace(/^how to\s+/i, ""); const gerund = gerundPhrase(base);
-    return [wrong, `by ${gerund}`, `for ${gerund}`];
-  }
-  if (/^to\s+/i.test(correct)) {
-    const base = correct.replace(/^to\s+/i, ""); const gerund = gerundPhrase(base);
-    return [wrong, `by ${gerund}`, `for ${gerund}`];
-  }
-  if (/^for\s+/i.test(correct)) {
-    const rest = correct.replace(/^for\s+/i, "");
-    return [wrong, `to ${rest}`, `among ${rest}`];
-  }
+  if (/^how to\s+/i.test(correct)) { const base = correct.replace(/^how to\s+/i, ""), gerund = gerundPhrase(base); return [wrong, `by ${gerund}`, `for ${gerund}`]; }
+  if (/^to\s+/i.test(correct)) { const base = correct.replace(/^to\s+/i, ""), gerund = gerundPhrase(base); return [wrong, `by ${gerund}`, `for ${gerund}`]; }
+  if (/^for\s+/i.test(correct)) { const rest = correct.replace(/^for\s+/i, ""); return [wrong, `to ${rest}`, `among ${rest}`]; }
   if (/^\w+ing\b/i.test(correct)) return [wrong, `by ${correct}`, `for ${correct}`];
-  const gerund = gerundPhrase(correct);
-  return [wrong, `by ${gerund}`, `for ${gerund}`];
+  const gerund = gerundPhrase(correct); return [wrong, `by ${gerund}`, `for ${gerund}`];
 }
 function tokenSet(correct: string, wrong: string, tokens: readonly string[]) { return unique([wrong, ...tokens.filter((token) => token.toLowerCase() !== correct.toLowerCase() && token.toLowerCase() !== wrong.toLowerCase())]); }
 function incorrectVariants(ruleId: ConjunctionRuleId, correctTarget: string, wrongTarget: string) {
-  const correct = clean(correctTarget), wrong = clean(wrongTarget);
-  let variants: string[] = [wrong]; const lower = correct.toLowerCase();
+  const correct = clean(correctTarget), wrong = clean(wrongTarget); let variants: string[] = [wrong]; const lower = correct.toLowerCase();
   switch (ruleId) {
     case "GR-CON-001":
       if (["but", "yet", "so", "and", "or"].includes(lower)) variants = tokenSet(correct, wrong, ["but", "so", "and", "or", "yet"]);
@@ -102,7 +91,7 @@ function incorrectVariants(ruleId: ConjunctionRuleId, correctTarget: string, wro
       if (lower === "but") variants = tokenSet(correct, wrong, ["and", "or", "so"]);
       else if (/^also\s+/i.test(correct)) { const rest = correct.replace(/^also\s+/i, ""); variants.push(`only ${rest}`, `just ${rest}`); }
       else if (/\bbut also\b/i.test(correct)) variants.push(correct.replace(/\bbut also\b/i, "and also"), correct.replace(/\bbut also\b/i, "but only"));
-      else variants.push(correct.replace(/\bbut\b/i, "and"), correct.replace(/\balso\b/i, "only"));
+      else variants = parallelVariants(correct, wrong);
       break;
     case "GR-CON-006": variants.push(`and ${correct}`, `yet ${correct}`, `so ${correct}`); break;
     case "GR-CON-007":
