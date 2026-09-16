@@ -1,0 +1,26 @@
+{
+  "cpId": "PUN-001-CP004",
+  "status": "REVIEW_ONLY",
+  "topic": "ਲਿੰਗ ਅਤੇ ਵਚਨ",
+  "authorityStatus": "REVIEW_PENDING",
+  "families": [
+    { "familyId": "F01", "difficulty": "Easy", "reviewCount": 20 },
+    { "familyId": "F02", "difficulty": "Easy", "reviewCount": 20 },
+    { "familyId": "F03", "difficulty": "Medium", "reviewCount": 44 },
+    { "familyId": "F04", "difficulty": "Easy", "reviewCount": 20 },
+    { "familyId": "F05", "difficulty": "Easy", "reviewCount": 20 },
+    { "familyId": "F06", "difficulty": "Medium", "reviewCount": 24 },
+    { "familyId": "F07", "difficulty": "Medium", "reviewCount": 12 },
+    { "familyId": "F08", "difficulty": "Hard", "reviewCount": 32 },
+    { "familyId": "F09", "difficulty": "Hard", "reviewCount": 48 }
+  ],
+  "distribution": { "Easy": 80, "Medium": 80, "Hard": 80, "total": 240 },
+  "semanticCapacity": 904,
+  "humanQualityHardening": {
+    "fabricatedDirectDistractorsRemoved": true,
+    "genderDistractorsSameDomain": true,
+    "numberDistractorsSameRuleGroup": true,
+    "genderMismatchPairsSameDomain": true
+  },
+  "productionPromotion": false
+}
