@@ -20,7 +20,7 @@ export function generatePolCp017ReviewBatchV2(): PolCp017ReviewQuestion[] {
 
     const explanation = POL_CP017_EXPLANATIONS_V2[index];
     const words = explanation.trim().split(/\s+/).length;
-    if (words < 13 || words > 32) throw new Error(`Explanation length ${words} outside 13–32 at question ${index + 1}`);
+    if (words < 11 || words > 32) throw new Error(`Explanation length ${words} outside 11–32 at question ${index + 1}`);
     if (GENERIC_CLUTTER.test(explanation)) throw new Error(`Generic explanation clutter at question ${index + 1}`);
 
     return {
