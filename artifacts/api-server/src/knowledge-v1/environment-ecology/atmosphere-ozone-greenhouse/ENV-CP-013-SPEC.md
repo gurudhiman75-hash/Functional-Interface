@@ -2,9 +2,11 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-013 Atmosphere, Ozone & Greenhouse Effect  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V1  
-**Runtime registration:** blocked pending human approval  
+**Human approval:** complete — 2026-09-16  
+**Merge authorization:** granted  
+**Runtime registration:** review generator remains blocked; shared runtime integration is separate  
 
 ## Scope
 
@@ -42,7 +44,7 @@ Explicitly deferred:
 8. HFCs are not treated as ozone-depleting substances; they are greenhouse gases.
 9. Greenhouse effect questions distinguish the natural heat-trapping process from later climate-change impacts.
 10. No learner question uses current ozone-hole area, current atmospheric concentration or projection-year trivia.
-11. Review generators remain `runtimeRegistered: false` until project-owner approval.
+11. Review generators remain `runtimeRegistered: false`; shared runtime/package integration is handled separately.
 
 ## QL inventory
 
@@ -63,7 +65,7 @@ Explicitly deferred:
 
 ## Review gate
 
-Before approval:
+Approved V1 satisfies:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
@@ -84,3 +86,10 @@ Before approval:
 ## Source policy
 
 V1 uses official NASA material for atmospheric layers and greenhouse-effect concepts; US EPA material for stratospheric/ground-level ozone and ozone-depleting substances; and UNEP Ozone Secretariat material for the ODS/HFC distinction. Source verification date: 2026-09-16.
+
+## Approval record
+
+- Project-owner approval received: 2026-09-16.
+- Approved review artifact: ENV-CP-013 Review V1.
+- Content is frozen for merge into `New-main`.
+- Review generator remains non-runtime; shared Environment integration is separate.
