@@ -1,6 +1,6 @@
 # PGK-001 CP022 — Punjabi Literature
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-022 — Punjabi Literature`
 Permanent QLs: `PGK-001-QL-147` to `PGK-001-QL-153`
@@ -58,4 +58,4 @@ Internal verification prioritises Sahitya Akademi award/publication records, Bha
 
 ## Lifecycle
 
-CP022 V1 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication before explicit human approval.
+CP022 V1 was explicitly human approved and frozen. It remains review-only and is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication until the separate integration stage.
