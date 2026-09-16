@@ -1,6 +1,6 @@
 # PGK-001 CP019 — Punjab Polity & Governance
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-019 — Punjab Polity & Governance`
 Permanent QLs: `PGK-001-QL-126` to `PGK-001-QL-132`
@@ -59,4 +59,4 @@ Internal verification prioritises the Constitution of India on India Code, the E
 
 ## Lifecycle
 
-CP019 V1 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication before explicit human approval.
+Human-approved on 16 September 2026. V1 is the frozen review authority for CP019. Runtime Question Studio registration remains a separate later step and is not implied by this approval.
