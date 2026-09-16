@@ -7,14 +7,12 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/**"
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/grouped-bar-svg.ts"
-      - ".github/workflows/quant-v4-di-grouped-bar-di003-v2.yml"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/**"
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/grouped-bar-svg.ts"
-      - ".github/workflows/quant-v4-di-grouped-bar-di003-v2.yml"
   workflow_dispatch:
 
 concurrency:
