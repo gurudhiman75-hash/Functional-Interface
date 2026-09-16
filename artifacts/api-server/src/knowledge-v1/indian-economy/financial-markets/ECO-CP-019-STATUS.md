@@ -1,8 +1,9 @@
 # ECO-CP-019 Status
 
 **CP:** ECO-CP-019 Financial Markets  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1  
+**English baseline:** FROZEN_V1  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
 ## Implemented
@@ -30,6 +31,10 @@
 - QA blocking current indices, yields, policy rates, NAVs, fund returns, market caps, IPO proceeds and live market figures;
 - 24-question human review Markdown set.
 
+## Approval
+
+English V1 approved and frozen on 2026-09-16. Runtime registration remains a separate promotion step.
+
 ## Static boundary
 
 Excluded from this CP:
@@ -44,8 +49,6 @@ Excluded from this CP:
 
 ## Promotion steps
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer later.
-5. Register with runtime/Question Studio only after separate promotion approval.
+1. Keep the approved English V1 behaviour frozen.
+2. Add localisation layer later.
+3. Register with runtime/Question Studio only after separate promotion approval.
