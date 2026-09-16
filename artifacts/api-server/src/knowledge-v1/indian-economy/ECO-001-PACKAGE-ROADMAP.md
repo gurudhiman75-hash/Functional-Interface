@@ -26,7 +26,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 20. `ECO-CP-020` External Sector & Balance of Payments — ENGLISH APPROVED V1 / FROZEN
 21. `ECO-CP-021` International Economic Institutions — ENGLISH APPROVED V2 / FROZEN
 22. `ECO-CP-022` Human Development & Development Economics — ENGLISH APPROVED V1 / FROZEN
-23. `ECO-CP-023` Important Economic Events & Milestones — REVIEW CANDIDATE V1
+23. `ECO-CP-023` Important Economic Events & Milestones — ENGLISH APPROVED V1 / FROZEN
 
 ## Binding rules
 
