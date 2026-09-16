@@ -56,13 +56,27 @@ jobs:
         shell: bash
         run: node artifacts/api-server/dist/english-v1/eng-002-cp001-v1.test.mjs
 
-      - name: Compile ENG-002 CP001 review exporter
+      - name: Compile ENG-002 CP001 review materializer
         shell: bash
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/english-v1/chapters/sentence-improvement/ENG-002/CP001/eng-002-cp001-review-v1-export.ts \
+            src/english-v1/chapters/sentence-improvement/ENG-002/CP001/eng-002-cp001-review-v1-materialize.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/english-v1/eng-002-cp001-review-v1-export.mjs
+            --outfile=dist/english-v1/eng-002-cp001-review-v1-materialize.mjs
+
+      - name: Materialize ENG-002 CP001 review Markdown
+        shell: bash
+        run: |
+          node artifacts/api-server/dist/english-v1/eng-002-cp001-review-v1-materialize.mjs \
+            artifacts/api-server/dist/english-v1/ENG-002-CP001-REVIEW-V1.md
+
+      - name: Upload ENG-002 CP001 review Markdown
+        uses: actions/upload-artifact@v4
+        with:
+          name: ENG-002-CP001-REVIEW-V1
+          path: artifacts/api-server/dist/english-v1/ENG-002-CP001-REVIEW-V1.md
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Build API server
         shell: bash
