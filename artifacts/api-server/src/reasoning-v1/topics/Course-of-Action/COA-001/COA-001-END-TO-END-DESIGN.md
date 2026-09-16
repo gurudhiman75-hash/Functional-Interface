@@ -1,6 +1,6 @@
 # COA-001 — Course of Action
 
-Status: **FOUNDATION DESIGN / REVIEW-ONLY**
+Status: **COA-CP-001 IMPLEMENTED / HUMAN REVIEW PENDING**
 
 ## 1. Chapter purpose
 
@@ -195,20 +195,23 @@ A scenario world should contain:
 
 Each candidate action must carry authored semantic metadata rather than being judged from keywords.
 
-Suggested action evaluation record:
+Implemented CP001 action authority dimensions:
 
 ```text
 relevance: DIRECT | INDIRECT | UNRELATED
+actionability: ACTIONABLE | VAGUE_WISH | RESTATEMENT
+authorityFit: WITHIN_SCOPE | ESCALATABLE | OUTSIDE_SCOPE
 feasibility: FEASIBLE | CONSTRAINED | IMPOSSIBLE
 proportionality: PROPORTIONATE | EXCESSIVE | INSUFFICIENT
-evidenceRequirement: SATISFIED | NEEDS_VERIFICATION | CONTRADICTED
-authorityFit: WITHIN_SCOPE | ESCALATABLE | OUTSIDE_SCOPE
-urgencyFit: IMMEDIATE | FOLLOW_UP | MISMATCHED
+evidenceFit: SUPPORTED | UNSUPPORTED | CONTRADICTED
 expectedUtility: HIGH | MODERATE | LOW | HARMFUL
+urgencyFit: IMMEDIATE | FOLLOW_UP | MISMATCHED
+constraintFit: COMPATIBLE | NOT_APPLICABLE | VIOLATES
+sequenceFit: NOT_APPLICABLE | VALID_STEP | WRONG_ORDER | REDUNDANT_AFTER_PRIOR
 verdict: FOLLOWS | DOES_NOT_FOLLOW
 ```
 
-The verdict must be backed by an explicit reason code and an independent validator.
+The verdict is checked by an independent semantic evaluator in `action-validity-model.ts`; learner-facing wording is not used to infer correctness.
 
 ## 7. Scenario family targets
 
@@ -323,6 +326,8 @@ Permanent QA must prevent:
 
 Semantic fingerprints should ignore superficial wording and track the underlying problem/action/verdict configuration.
 
+CP001 already enforces equal chapter-level answer-class balance: 6 Only-I, 6 Only-II, 6 Both, and 6 Neither scenarios.
+
 ## 13. Localization
 
 English semantic authority should freeze before full Hindi/Punjabi expansion.
@@ -352,11 +357,13 @@ Source evidence may change presentation profiles or add a genuinely new QL, but 
 
 ## 15. Checkpoint roadmap
 
-### COA-CP-001 — English semantic foundation
-- freeze chapter boundary and action-validity dimensions;
-- implement initial scenario authority model;
-- create balanced English calibration corpus;
-- prove all four paired-answer classes;
+### COA-CP-001 — English semantic foundation — IMPLEMENTED / HUMAN REVIEW PENDING
+- chapter boundary and action-validity dimensions are encoded;
+- initial two-action semantic authority model is implemented;
+- 24-question English calibration corpus covers all nine proposed QLs;
+- answer classes are exactly balanced 6/6/6/6 at chapter level;
+- independent semantic evaluator and executable proof are present;
+- human review pack: `COA-CP-001-ENGLISH-REVIEW.md`;
 - no Question Studio integration.
 
 ### COA-CP-002 — Direct remedial + preventive actions
@@ -394,12 +401,14 @@ Lifecycle-only promotion after explicit approval. Question Bank/test/mock may be
 
 ## 16. Lifecycle boundary
 
-At foundation start:
+Current CP001 state:
 
 ```text
-semantic design:                 DRAFT_REVIEW
-permanent QLs:                   NOT_FROZEN
-English runtime:                 NOT_IMPLEMENTED
+semantic design:                 IMPLEMENTED_REVIEW_PENDING
+proposed QLs:                    COA-QL-001..009
+QL freeze:                       false
+English CP001 authority:         IMPLEMENTED_REVIEW_PENDING
+English calibration corpus:      24 QUESTIONS
 Hindi/Punjabi:                   NOT_STARTED
 Question Studio:                 CLOSED
 Question Bank writes:            CLOSED
