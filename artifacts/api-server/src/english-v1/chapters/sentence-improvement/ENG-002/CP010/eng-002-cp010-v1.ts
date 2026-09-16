@@ -240,7 +240,7 @@ function placementVariants(ruleId: ModifierRuleId, correct: string, wrong: strin
     const synonym = token.toLowerCase() === "almost" ? "nearly" : "almost";
     variants.push(replaceWord(wrong, token, synonym), moveToken(wrong, token, "end"), moveToken(wrong, token, "start"));
   } else if (ruleId === "GR-MOD-007" && token) {
-    variants.push(moveToken(wrong, token, "end"), moveToken(wrong, token, "start"));
+    variants.push(moveToken(wrong, token, "end"));
   } else if (ruleId === "GR-MOD-008" && token) {
     for (const alternative of frequencyAlternatives(token)) variants.push(replaceWord(wrong, token, alternative));
     variants.push(moveToken(wrong, token, "end"));
@@ -257,7 +257,8 @@ function incorrectVariants(ruleId: ModifierRuleId, correctTarget: string, wrongT
     ? attachmentVariants(ruleId, correct, wrong)
     : placementVariants(ruleId, correct, wrong);
   const variants = unique(raw).filter((value) => value.toLowerCase() !== correct.toLowerCase());
-  if (variants.length < 3) throw new Error(`${ruleId} has only ${variants.length} natural distractors for ${correct}`);
+  const minimum = ruleId === "GR-MOD-007" ? 2 : 3;
+  if (variants.length < minimum) throw new Error(`${ruleId} has only ${variants.length} natural distractors for ${correct}`);
   return variants;
 }
 function replacementChoices(ruleId: ModifierRuleId, correctTarget: string, wrongTarget: string, targetText: string, noImprovement: boolean) {
