@@ -1,6 +1,6 @@
 # ENG-002 CP010 — Sentence Improvement: Modifiers & Placement — Source Audit V1
 
-Status: `IMPLEMENTED__AUTOMATED_REVIEW_GATE_PENDING__HUMAN_REVIEW_REQUIRED__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__POST_APPROVAL_GATE_PENDING`
 
 ## Grammar authority
 
@@ -39,6 +39,8 @@ Every explanation follows: error/no-improvement → easy underlying concept → 
 
 The deterministic review contains all 60 donor scenes: 20 Easy, 20 Medium and 20 Hard, with all ten rule families represented and exactly five No-improvement items per difficulty. Stress validation generates 2,000 questions per difficulty and checks deterministic replay, option uniqueness, answer balance, rule/domain reachability and learner-surface integrity.
 
+The exact human-approved review is pinned by `ENG002_CP010_HUMAN_EDITORIAL_APPROVAL_V1` to generator head `a5f0c04933955a1107ce594078f9ef8c4c74e67b`, Markdown SHA-256 `6b40f4bbeac18b6804a27ad0a07f0a85a1feb021eda7aa3640241b9b061eb46c`, and workflow artifact digest `sha256:ff82bfb5126c830a58f190747ce2fb24fad22338fc913aa850d1d4628c0301a2`.
+
 ## Lifecycle
 
-Review-only until explicit human editorial approval of the generated review artifact. CP010 must not be registered in Question Studio, written to Question Bank, used in tests/mocks, published publicly or released to production before approval.
+Explicit human editorial approval was granted on 2026-09-16. Question Studio registration is review-only under `SOURCE_GENERATOR_ONLY`; Question Bank writes, tests, mocks, public publication, automatic student publication and production release remain locked. Merge remains gated on the post-approval generator + adapter + API validation.
