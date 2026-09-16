@@ -1,22 +1,23 @@
 # PGK-001 CP014 — Sikh Misls & Dal Khalsa
 
-Status: REVIEW CANDIDATE V2
+Status: REVIEW CANDIDATE V3
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-014 — Sikh Misls & Dal Khalsa`
 Permanent QLs: `PGK-001-QL-091` to `PGK-001-QL-097`
 
 ## Scope
 
-CP014 covers the Sikh confederacy phase between Banda Singh Bahadur and Maharaja Ranjit Singh: organisation of the Dal Khalsa, Budha Dal and Taruna Dal, Sarbat Khalsa and Gurmata, the twelve-misl framework, Rakhi system, major misls and their established leaders/founders, and selected Amritsar relations.
+CP014 covers the Sikh confederacy phase between Banda Singh Bahadur and Maharaja Ranjit Singh: organisation of the Dal Khalsa, Budha Dal and Taruna Dal, Sarbat Khalsa and Gurmata, the twelve-misl system, Rakhi system, major misls and their established leaders/founders, and selected Amritsar relations.
 
 CP013 owns Banda Singh Bahadur. CP015 owns Maharaja Ranjit Singh and the Sikh Empire. CP014 may mention the Sukerchakia background only as a misl fact and must not drift into Ranjit Singh's imperial expansion.
 
 ## Learner-facing rules
 
 - Use short, direct Punjab recruitment-exam stems.
-- Do not use filler such as `associated with`, `linked with`, `known for`, `closely related to` or source-note wording.
-- Do not cite PSEB, school-history provenance, government departments, books or websites in learner text.
-- Keep explanations natural and normally 1–2 sentences.
+- Prefer natural forms such as `In which year...?`, `Who...?`, `At which place...?`, `Which pair is correctly matched?`, and standard statement-based questions.
+- Do not use generated/textbook phrases such as `formed the standard confederacy framework`, `standard confederacy framework`, `associated with`, `linked with`, `known for`, `closely related to` or source-note wording.
+- Do not cite PSEB, government departments, books, websites or phrases such as `school history says` in learner text.
+- Explanations should normally be 2–3 short sentences: first give the answer/fact, then add one useful relation, place, role, alias or distinction.
 - Use neutral historical language and avoid devotional interpretation.
 - Do not force disputed exact dates for the conversion of jathas into twelve misls; sources differ on the reorganisation detail.
 - Avoid unstable or internally inconsistent minor-founder claims.
@@ -24,22 +25,22 @@ CP013 owns Banda Singh Bahadur. CP015 owns Maharaja Ranjit Singh and the Sikh Em
 
 ## Qualified coverage
 
-- Dal Khalsa was organised at Amritsar in 1748 under Nawab Kapur Singh; Jassa Singh Ahluwalia became its chief commander in standard Punjab school-history treatment.
-- Dal Khalsa developed from Sikh jathas/bands and was organised into twelve major misls.
+- Dal Khalsa was organised at Amritsar in 1748 under Nawab Kapur Singh; Jassa Singh Ahluwalia became its chief commander.
+- Dal Khalsa developed from Sikh jathas/bands; the Sikh confederacy consisted of twelve major misls.
 - Nawab Kapur Singh organised Budha Dal and Taruna Dal; Budha Dal consisted mainly of older veterans and Taruna Dal of younger fighters.
-- Taruna Dal was divided into five jathas in standard Punjab school-history treatment.
+- Taruna Dal was divided into five jathas.
 - Sarbat Khalsa was the collective Sikh assembly held at Amritsar/Akal Takht; its collective decisions were called Gurmata.
-- Rakhi was a protection system under which villages paid protection money to Sikh chiefs; standard Punjab school-history material gives one-fifth of estimated village revenue.
+- Rakhi was a protection system under which villages paid protection money to Sikh chiefs; the review pool uses one-fifth of estimated village revenue.
 - Faizalpuria/Singhpuria Misl — Nawab Kapur Singh.
 - Ahluwalia Misl — Jassa Singh Ahluwalia.
 - Ramgarhia Misl — Jassa Singh Ramgarhia.
 - Sukerchakia Misl — Charat Singh.
 - Kanhaiya Misl — Jai Singh Kanhaiya.
-- Bhangi Misl — Chhajja Singh in Punjab school-history treatment.
+- Bhangi Misl — Chhajja Singh in the accepted review source treatment.
 - Dallewalia Misl — Tara Singh Gheba as a prominent leader.
-- Shahid Misl — Baba Deep Singh as a prominent leader; Shahid Misl is also called Nihang Misl in Punjab school-history material.
-- Karorsinghia Misl is also called Panjgarhia Misl in Punjab school-history material.
-- Jassa Singh Ahluwalia received the title `Sultan-ul-Qaum` in standard Punjab school-history treatment.
+- Shahid Misl — Baba Deep Singh as a prominent leader; Shahid Misl is also called Nihang Misl in the accepted review source treatment.
+- Karorsinghia Misl is also called Panjgarhia Misl in the accepted review source treatment.
+- Jassa Singh Ahluwalia received the title `Sultan-ul-Qaum`.
 - Ahluwalia, Ramgarhia, Kanhaiya and Bhangi misls controlled different parts of Amritsar during the misl period.
 
 ## QL design
@@ -56,9 +57,9 @@ CP013 owns Banda Singh Bahadur. CP015 owns Maharaja Ranjit Singh and the Sikh Em
 
 Each QL exposes six semantic payloads, for 42 review questions total.
 
-## V2 wording correction
+## V3 language correction
 
-V2 removes learner-facing phrases such as `standard Punjab school history` from stems and explanations. Provenance remains internal only.
+V3 rewrites the full 42-question learner layer rather than patching only isolated phrases. Stems now use direct exam forms and remove wording such as `formed the standard confederacy framework`. Explanations are intentionally slightly fuller and normally contain two concise sentences.
 
 ## Distractor rule
 
@@ -66,7 +67,7 @@ Use misl chiefs against plausible misl chiefs, institutions against related Sikh
 
 ## Explanation rule
 
-State the decisive fact first, then one useful institution, chief, protection-system or chronology relation. Do not analyse every option.
+State the decisive fact first. Add one useful institution, chief, protection-system, alias, place or chronology relation in a second short sentence; do not analyse every option.
 
 ## Source authority
 
@@ -74,4 +75,4 @@ Verification remains internal against Punjab School Education Board Punjab Histo
 
 ## Lifecycle
 
-CP014 V2 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP014 V3 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
