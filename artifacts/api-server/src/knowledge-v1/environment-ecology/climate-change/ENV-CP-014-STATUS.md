@@ -6,10 +6,10 @@
 - Human approval: pending.
 - Merge into `New-main`: blocked until project-owner approval.
 - Review surface: 48 questions across 12 QLs.
-- Exam-language baseline: short, simple competitive-exam stems with plain explanations.
-- Hard items: harder facts/combinations, not harder wording.
-- Coverage: human-caused warming, observed evidence, sea-level rise, cryosphere changes, extremes, ocean warming/acidification, impacts, mitigation, adaptation and carbon sinks.
-- Treaty mechanics and target-year details: deferred to ENV-CP-017.
-- Current annual records, emissions rankings and mutable concentration values: excluded.
+- Stem baseline: short, simple SSC/Banking-style question wording.
+- Explanation baseline: slightly fuller than previous draft; usually adds a clear cause, distinction or context instead of repeating the answer.
+- Coverage: human-caused warming, evidence, sea-level rise, cryosphere, extremes, ocean changes, broad impacts, mitigation, adaptation and carbon sinks.
+- Treaty details: deferred to ENV-CP-017.
+- Current emissions rankings, annual temperature records and mutable projection/target-year trivia: excluded.
 - Source verification date: 2026-09-16.
-- Source baseline: IPCC AR6 and NASA climate evidence/sea-level material.
+- Source baseline: IPCC AR6 and NASA climate-science material; mitigation/adaptation concepts use established climate-science definitions.
