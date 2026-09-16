@@ -12,3 +12,4 @@ export * from "./english-authorities.ts";
 export * from "./cp002-generator.ts";
 export * from "./cp003-generator.ts";
 export * from "./cp004-generator.ts";
+export * from "./cp005-paired-presentation.ts";
