@@ -56,7 +56,7 @@ for (const qlId of qls) {
             ...learner.explanation.stepByStep,
           ].join("\n");
           assert.ok(learnerText.includes("ਜਿਸਤ") || learnerText.includes("ਟਾਂਕ"));
-          assert.ok(!learnerText.includes("ਜੋੜਾ"), "Punjabi even-position label must use ਜਿਸਤ, not ਜੋੜਾ");
+          assert.ok(!/ਜੋੜਾ|ਜੋੜੇ/.test(learnerText), "Punjabi even-position label must use ਜਿਸਤ, not ਜੋੜਾ/ਜੋੜੇ");
           punjabiParityChecked += 1;
         }
         checked += 1;
