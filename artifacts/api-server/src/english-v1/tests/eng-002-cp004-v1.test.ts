@@ -24,6 +24,10 @@ function verifyQuestion(seed: string, difficulty: EnglishDifficulty) {
     assert.notEqual(question.sentence, question.correctedSentence);
     assert.notEqual(question.options[question.correctOptionIndex]!.toLowerCase(), question.targetText.toLowerCase());
   }
+  if (question.metadata.ruleId === "GR-PRN-010") {
+    assert.match(question.targetText, /^(?:whose|who's)$/i);
+    assert.equal(question.options.slice(0, 3).every((option) => /^(?:whose|who's|who|whom|which)$/i.test(option)), true);
+  }
   return question;
 }
 
@@ -53,6 +57,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
       assert.equal(q.metadata.ruleId, ruleId);
       assert.equal(q.metadata.noImprovement, noImprovement);
       assert.equal(new Set(q.options.map((option) => option.toLowerCase())).size, 4);
+      if (ruleId === "GR-PRN-010") assert.match(q.targetText, /^(?:whose|who's)$/i);
     }
   }
 }
@@ -69,5 +74,6 @@ assert.equal(new Set(review.map((item) => item.question.metadata.semanticDomain)
 assert.equal(review.every((item) => item.question.options.length === 4), true);
 assert.equal(review.every((item) => item.question.options[3] === "No improvement"), true);
 assert.equal(review.every((item) => !item.question.sentence.includes(" / ")), true);
+assert.equal(review.filter((item) => item.question.metadata.ruleId === "GR-PRN-010").every((item) => /^(?:whose|who's)$/i.test(item.question.targetText)), true);
 
 console.log("ENG-002 CP004 deterministic stress and review tests passed.");
