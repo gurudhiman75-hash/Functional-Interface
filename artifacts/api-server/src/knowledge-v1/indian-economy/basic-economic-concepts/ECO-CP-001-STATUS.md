@@ -2,9 +2,9 @@
 
 - Chapter: `ECO-001` — Indian Economy
 - CP: `ECO-CP-001` — Basic Economic Concepts
-- Lifecycle: `REVIEW_CANDIDATE_V2`
-- Runtime registration: `BLOCKED_PENDING_HUMAN_APPROVAL`
-- Localisation: not started; English review surface first
+- Lifecycle: `ENGLISH_APPROVED_V2_FROZEN`
+- Runtime registration: `BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL`
+- Localisation: not started; English frozen first
 
 ## Implemented
 
@@ -30,10 +30,14 @@
 - `Which term means:` → complete question wording
 - explanations remain short and beginner-friendly
 
+## Freeze state
+
+English V2 was explicitly approved during the final Economy closure audit and is frozen. Do not alter the approved English behaviour without reopening editorial review.
+
 ## Static-GK boundary
 
 This CP contains no current repo rate, inflation rate, GDP-growth value, Budget allocation, tax slab, ranking or similar volatile figure.
 
 ## Promotion gate
 
-Do not register in Question Studio runtime until the English V2 review batch is explicitly approved. After approval, freeze the English surface, then proceed through the separate chapter promotion/localisation workflow.
+Do not register in Question Studio runtime until separate explicit promotion approval. Localisation remains a later chapter-level workflow.
