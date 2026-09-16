@@ -1,6 +1,6 @@
 import { deterministicBoolean, deterministicIndex } from "../../../../core/deterministic";
-import type { DifficultyDimensions, EnglishDifficulty } from "../../../../core/types";
-import { VOICE_NARRATION_RULE_BY_ID } from "../../../../grammar/voice-narration";
+import type { DifficultyDimensions } from "../../../../core/types";
+import { VOICE_NARRATION_RULE_BY_ID, type VoiceNarrationRuleId } from "../../../../grammar/voice-narration";
 import { buildEng001Cp012CandidateV1 } from "../../../error-spotting/ENG-001/CP012/eng-001-cp012-v1";
 import { ENG002_CP012_STEM, generateEng002Cp012QuestionV1, type Eng002Cp012QuestionV1, type GenerateEng002Cp012V1Input } from "./eng-002-cp012-v1";
 
@@ -46,8 +46,19 @@ function backshiftWrongs(correct: string, authoredWrong: string) {
   return unique(raw).filter((value) => value.toLowerCase() !== correct.toLowerCase());
 }
 
-function generateBackshift(input: GenerateEng002Cp012V1Input): Eng002Cp012QuestionV1 {
-  const candidate = buildEng001Cp012CandidateV1({ ...input, ruleId: "GR-VNR-006" });
+function deicticWrongs(correct: string, authoredWrong: string) {
+  const raw = [authoredWrong];
+  if (/the following day/i.test(correct)) raw.push(correct.replace(/the following day/i, "the previous day"), correct.replace(/the following day/i, "that same day"), correct.replace(/the following day/i, "two days later"));
+  else if (/there during the visit/i.test(correct)) raw.push(correct.replace(/there during the visit/i, "there after the visit"), correct.replace(/there during the visit/i, "there before the visit"), correct.replace(/there during the visit/i, "here after the visit"));
+  else if (/the following month/i.test(correct)) raw.push(correct.replace(/the following month/i, "the previous month"), correct.replace(/the following month/i, "this month"), correct.replace(/the following month/i, "two months later"));
+  else if (/that week/i.test(correct)) raw.push(correct.replace(/that week/i, "this week"), correct.replace(/that week/i, "next week"), correct.replace(/that week/i, "the following week"));
+  else if (/two days later/i.test(correct)) raw.push(correct.replace(/two days later/i, "two days earlier"), correct.replace(/two days later/i, "that day"), correct.replace(/two days later/i, "the following week"));
+  else if (/there that night/i.test(correct)) raw.push(correct.replace(/there that night/i, "here that night"), correct.replace(/there that night/i, "there tonight"), correct.replace(/there that night/i, "here tonight"));
+  return unique(raw).filter((value) => value.toLowerCase() !== correct.toLowerCase());
+}
+
+function generateFromWrongs(input: GenerateEng002Cp012V1Input, forcedRuleId: VoiceNarrationRuleId, wrongFactory: (correct: string, authoredWrong: string) => string[]): Eng002Cp012QuestionV1 {
+  const candidate = buildEng001Cp012CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: forcedRuleId, sceneId: input.sceneId });
   const correctSegments = [...candidate.correctSegments];
   const errorSegments = [...candidate.errorSegments];
   const sourceIndex = candidate.errorIndex;
@@ -55,16 +66,16 @@ function generateBackshift(input: GenerateEng002Cp012V1Input): Eng002Cp012Questi
   const wrong = stripPunctuation(errorSegments[sourceIndex]!);
   const noImprovement = input.noImprovement ?? deterministicBoolean(`${input.seed}:eng002:cp012:no-improvement`, 0.25);
   const targetText = noImprovement ? correct.body : wrong.body;
-  const visibleSegments = noImprovement ? correctSegments : errorSegments;
+  const visibleSegments = noImprovement ? [...correctSegments] : [...errorSegments];
   visibleSegments[sourceIndex] = correct.punctuation ? `${targetText}${correct.punctuation}` : targetText;
-  const wrongs = backshiftWrongs(correct.body, wrong.body).filter((value) => value.toLowerCase() !== targetText.toLowerCase());
+  const wrongs = wrongFactory(correct.body, wrong.body).filter((value) => value.toLowerCase() !== targetText.toLowerCase());
   const choices = noImprovement ? wrongs.slice(0, 3) : unique([correct.body, ...wrongs]).slice(0, 3);
-  if (choices.length !== 3) throw new Error(`GR-VNR-006 could not build three reviewed choices for ${correct.body}`);
+  if (choices.length !== 3) throw new Error(`${forcedRuleId} could not build three reviewed choices for ${correct.body}`);
   const shuffled = shuffleThree(`${input.seed}:eng002:cp012:options`, choices);
   const options = [...shuffled, "No improvement"];
   const correctOptionIndex = noImprovement ? 3 : shuffled.indexOf(correct.body);
   const correctedSentence = sentenceFromSegments(correctSegments);
-  const principle = VOICE_NARRATION_RULE_BY_ID["GR-VNR-006"].principle.replace(/^./, (c) => c.toUpperCase());
+  const principle = VOICE_NARRATION_RULE_BY_ID[forcedRuleId].principle.replace(/^./, (c) => c.toUpperCase());
   const explanation = noImprovement
     ? `No improvement is needed: “${correct.body}” is already correct for this voice/narration structure. Concept: ${principle} Here: ${lowerLeading(candidate.explanationApplication)} Correct sentence: ${correctedSentence}`
     : `Error: “${wrong.body}” does not fit the required voice/narration structure. Use “${correct.body}”. Concept: ${principle} Here: ${lowerLeading(candidate.explanationApplication)} Correct sentence: ${correctedSentence}`;
@@ -89,12 +100,15 @@ function generateBackshift(input: GenerateEng002Cp012V1Input): Eng002Cp012Questi
 }
 
 export function generateEng002Cp012ReviewedQuestionV1(input: GenerateEng002Cp012V1Input): Eng002Cp012QuestionV1 {
-  if (input.ruleId === "GR-VNR-006") return generateBackshift(input);
+  if (input.ruleId === "GR-VNR-006") return generateFromWrongs(input, "GR-VNR-006", backshiftWrongs);
+  if (input.ruleId === "GR-VNR-008") return generateFromWrongs(input, "GR-VNR-008", deicticWrongs);
   try {
     return generateEng002Cp012QuestionV1(input);
   } catch (error) {
     const candidate = buildEng001Cp012CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: input.ruleId, sceneId: input.sceneId });
-    if (candidate.ruleId === "GR-VNR-006") return generateBackshift({ ...input, ruleId: "GR-VNR-006", sceneId: tag(candidate, "scene:") });
+    const sceneId = tag(candidate, "scene:");
+    if (candidate.ruleId === "GR-VNR-006") return generateFromWrongs({ ...input, ruleId: "GR-VNR-006", sceneId }, "GR-VNR-006", backshiftWrongs);
+    if (candidate.ruleId === "GR-VNR-008") return generateFromWrongs({ ...input, ruleId: "GR-VNR-008", sceneId }, "GR-VNR-008", deicticWrongs);
     throw error;
   }
 }
