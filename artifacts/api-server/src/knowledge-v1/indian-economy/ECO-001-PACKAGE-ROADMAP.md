@@ -4,7 +4,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 
 ## Promotion order
 
-1. `ECO-CP-001` Basic Economic Concepts — REVIEW CANDIDATE
+1. `ECO-CP-001` Basic Economic Concepts — REVIEW CANDIDATE V2
 2. `ECO-CP-002` Economic Systems & Sectors — REVIEW CANDIDATE
 3. `ECO-CP-003` National Income & Aggregates — REVIEW CANDIDATE
 4. `ECO-CP-004` National Income Measurement in India — REVIEW CANDIDATE
