@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { cp012ScenePoolV1, rulesForDifficultyCp012V1 } from "../chapters/error-spotting/ENG-001/CP012/eng-001-cp012-v1";
 import { buildEng002Cp012ReviewV1 } from "../chapters/sentence-improvement/ENG-002/CP012/eng-002-cp012-review-v1-export";
 import { ENG002_CP012_STEM } from "../chapters/sentence-improvement/ENG-002/CP012/eng-002-cp012-v1";
-import { generateEng002Cp012ReviewedQuestionV1 } from "../chapters/sentence-improvement/ENG-002/CP012/eng-002-cp012-reviewed-v1";
+import { generateEng002Cp012CuratedQuestionV1 } from "../chapters/sentence-improvement/ENG-002/CP012/eng-002-cp012-curated-v1";
 
-function assertClean(q: ReturnType<typeof generateEng002Cp012ReviewedQuestionV1>) {
+function assertClean(q: ReturnType<typeof generateEng002Cp012CuratedQuestionV1>) {
   assert.equal(q.stem, ENG002_CP012_STEM);
   assert.equal(q.options.length, 4);
   assert.equal(q.options[3], "No improvement");
@@ -31,9 +31,9 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
   const answerCounts = [0, 0, 0, 0];
   for (let index = 0; index < 2000; index += 1) {
     const seed = `eng002-cp012-stress:${difficulty}:${index}`;
-    const first = generateEng002Cp012ReviewedQuestionV1({ seed, difficulty });
+    const first = generateEng002Cp012CuratedQuestionV1({ seed, difficulty });
     assertClean(first);
-    assert.deepEqual(generateEng002Cp012ReviewedQuestionV1({ seed, difficulty }), first);
+    assert.deepEqual(generateEng002Cp012CuratedQuestionV1({ seed, difficulty }), first);
     seenDomains.add(first.metadata.semanticDomain);
     seenRules.add(first.metadata.ruleId);
     answerCounts[first.correctOptionIndex] += 1;
@@ -45,7 +45,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
   for (const ruleId of rulesForDifficultyCp012V1(difficulty)) {
     const scene = cp012ScenePoolV1(difficulty, ruleId)[0]!;
     for (const noImprovement of [false, true]) {
-      const q = generateEng002Cp012ReviewedQuestionV1({ seed: `eng002-cp012-rule:${difficulty}:${ruleId}:${noImprovement}`, difficulty, ruleId, sceneId: scene.id, noImprovement });
+      const q = generateEng002Cp012CuratedQuestionV1({ seed: `eng002-cp012-rule:${difficulty}:${ruleId}:${noImprovement}`, difficulty, ruleId, sceneId: scene.id, noImprovement });
       assert.equal(q.metadata.ruleId, ruleId);
       assert.equal(q.metadata.noImprovement, noImprovement);
       assertClean(q);
