@@ -20,7 +20,9 @@ function cleanText(
   } else {
     next = next.replaceAll("ਇੱਕੋ ਅੰਦਰੂਨੀ ਨਿਯਮ", "ਇੱਕੋ ਨਿਯਮ");
     if (ruleId === "LETTER_POSITION_PARITY") {
-      next = next.replaceAll("ਜੋੜਾ", "ਜਿਸਤ");
+      next = next
+        .replaceAll("ਜੋੜੇ", "ਜਿਸਤ")
+        .replaceAll("ਜੋੜਾ", "ਜਿਸਤ");
     }
   }
   return next;
