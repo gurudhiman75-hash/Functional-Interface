@@ -73,9 +73,11 @@ const audit = await runQuantV4CglTier1ShadowSimulationAudit({
 });
 console.log("SHADOW_ADVANCED_MATH_AUDIT", JSON.stringify(audit));
 
-// Existing Advanced Mathematics adapters close the former section-assembly gaps,
-// but Algebra deliberately remains BANK_ONLY and therefore cannot be promoted
-// into a scored SSC CGL test section by this audit.
+// Existing Advanced Mathematics adapters close the former Algebra/Trigonometry
+// section-assembly gaps. Promotion must still remain on hold because Algebra is
+// deliberately BANK_ONLY, the legacy/current baseline has separate capability
+// gaps outside this Advanced Mathematics remediation, and the empirical shadow
+// run currently exceeds the conservative normalized-stem repetition ceiling.
 assert.equal(audit.status, "SHADOW_SIMULATION_HOLD");
 assert.equal(audit.sectionsGenerated, 20);
 assert.equal(audit.questionsExpected, 500);
@@ -85,16 +87,22 @@ assert.equal(audit.capabilityGapCount, 0);
 assert.equal(audit.advancedMathCapabilityGapCount, 0);
 assert.equal(audit.structuralCapabilityGapCount, 0);
 assert.equal(audit.structuralCapabilityGapsPerSection, 0);
-assert.equal(audit.currentStructuralCapabilityGapsPerSection, 0);
 assert.equal(audit.baseSimulatorHistoricalAdvancedMathGapsPerSection, 5);
-assert.equal(audit.currentBaselineCapabilityGapCount, 0);
+
+// Do not confuse current-baseline non-Advanced-Math gaps with the now-closed
+// Algebra/Trigonometry generation gap. They remain visible as an independent
+// audit blocker until their slot/reason composition is remediated.
+assert.ok(audit.currentBaselineCapabilityGapCount > 0);
+assert.ok(audit.currentStructuralCapabilityGapsPerSection > 0);
 assert.equal(audit.currentBaselineAlgebraBankOnlyCount, 40);
+
 assert.equal(audit.algebraRecordCount, 60);
 assert.equal(audit.algebraBankOnlyCount, 60);
 assert.equal(audit.trigonometryRecordCount, 60);
 assert.equal(audit.trigonometryTestEligibleCount, 60);
 assert.equal(audit.optionMismatchCount, 0);
 assert.equal(audit.emptyExplanationCount, 0);
+assert.ok(audit.exactStemDuplicateRate > 0.05, "The current empirical shadow run must keep the measured repetition defect visible until remediated.");
 assert.deepEqual(audit.slotDistribution, {
   ALGEBRA: 60,
   ARITHMETIC_CORE: 220,
@@ -108,10 +116,11 @@ const algebraPackageRecords = Object.entries(audit.packageDistribution)
 assert.equal(algebraPackageRecords, 60);
 assert.equal((audit.packageDistribution["TRG-001"] ?? 0) + (audit.packageDistribution["TRG-002"] ?? 0), 60);
 
+assert.ok(audit.blockers.includes("CURRENT_INTEGRATED_BASELINE_CAPABILITY_GAPS_PRESENT"));
 assert.ok(audit.blockers.includes("ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK"));
+assert.ok(audit.blockers.includes("SHADOW_STEM_REPETITION_ABOVE_5_PERCENT"));
 assert.equal(audit.blockers.includes("SHADOW_CAPABILITY_GAPS_PRESENT"), false);
 assert.equal(audit.blockers.includes("SHADOW_ADVANCED_MATH_CAPABILITY_GAPS_PRESENT"), false);
-assert.equal(audit.blockers.includes("CURRENT_INTEGRATED_BASELINE_CAPABILITY_GAPS_PRESENT"), false);
 assert.equal(audit.blockers.includes("ADVANCED_MATH_LIFECYCLE_CONTRACT_BREACH"), false);
 assert.equal(audit.blockers.includes("SHADOW_OPTION_COUNT_PROFILE_DRIFT"), false);
 assert.equal(audit.blockers.includes("SHADOW_EMPTY_EXPLANATIONS_PRESENT"), false);
@@ -138,6 +147,7 @@ console.log(JSON.stringify({
   currentBaselineCapabilityGapCount: audit.currentBaselineCapabilityGapCount,
   currentBaselineAlgebraBankOnlyCount: audit.currentBaselineAlgebraBankOnlyCount,
   structuralCapabilityGapsPerSection: audit.structuralCapabilityGapsPerSection,
+  currentStructuralCapabilityGapsPerSection: audit.currentStructuralCapabilityGapsPerSection,
   baseSimulatorHistoricalAdvancedMathGapsPerSection: audit.baseSimulatorHistoricalAdvancedMathGapsPerSection,
   algebraRecordCount: audit.algebraRecordCount,
   algebraBankOnlyCount: audit.algebraBankOnlyCount,
