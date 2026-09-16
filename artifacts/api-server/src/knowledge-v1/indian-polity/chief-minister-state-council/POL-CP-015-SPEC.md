@@ -1,7 +1,7 @@
 # POL-CP-015 — Chief Minister & State Council of Ministers
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -22,7 +22,7 @@ This CP covers the Chief Minister and State Council of Ministers centred on Arti
 - Article 167 — Chief Minister's information and Council-submission duties toward the Governor
 - Article 177 — Ministers' speaking and participation rights in the State Legislature; no voting right by virtue of Article 177 alone
 
-## Review design
+## Frozen review design
 
 - 20 genuine QLs
 - 80 English review questions
@@ -35,7 +35,7 @@ This CP covers the Chief Minister and State Council of Ministers centred on Arti
 
 ## Stem standard
 
-Use natural competitive-exam wording from the first canonical version:
+Use natural competitive-exam wording from the frozen canonical version:
 - `Which Article...?`
 - `Who...?`
 - `Under Article 164...?`
@@ -68,6 +68,6 @@ Avoid database-style fragments and artificial difficulty through verbose languag
 - Article 167 information duties are kept distinct from Article 163 aid and advice;
 - Article 177 participation rights do not by themselves create voting rights.
 
-## Gate
+## Deferred
 
-Merge, Question Studio exposure, localization and production registration remain blocked until English V1 is approved.
+Question Studio exposure, localization and chapter-wide production registration remain deferred to the deliberate Polity integration checkpoint.
