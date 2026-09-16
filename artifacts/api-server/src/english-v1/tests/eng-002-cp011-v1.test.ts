@@ -5,7 +5,8 @@ import { ENG002_CP011_STEM } from "../chapters/sentence-improvement/ENG-002/CP01
 import { generateEng002Cp011ReviewedQuestionV1 } from "../chapters/sentence-improvement/ENG-002/CP011/eng-002-cp011-reviewed-v1";
 import type { EnglishDifficulty } from "../core/types";
 
-const malformed = /\bhad\s+(?:qualify|lead|handle|back|complete|identify)\b|\bwould\s+(?:completed|identified|handled|backed)\b|^(?:If|if)\s+.+?\s+been\s+(?:sealed|issued|preserved)\b/i;
+const malformed = /\bhad\s+(?:qualify|lead|handle|back|complete|identify)\b|\bwould\s+(?:completed|identified|handled|backed)\b/i;
+const barePassiveIf = /^(?:If|if)\s+(?!.*\b(?:had|has|have|was|were)\s+been\b).+?\s+been\s+(?:sealed|issued|preserved)\b/i;
 
 function assertClean(q: ReturnType<typeof generateEng002Cp011ReviewedQuestionV1>) {
   assert.equal(q.stem, ENG002_CP011_STEM);
@@ -22,6 +23,7 @@ function assertClean(q: ReturnType<typeof generateEng002Cp011ReviewedQuestionV1>
   for (const option of q.options.slice(0, 3)) {
     assert.equal(/\b(if|unless|had|should|were|would|will|could|might)\s+\1\b/i.test(option), false, `duplicated conditional marker: ${option}`);
     assert.equal(malformed.test(option), false, `malformed conditional distractor: ${option}`);
+    assert.equal(barePassiveIf.test(option), false, `bare passive conditional distractor: ${option}`);
   }
   if (q.metadata.noImprovement) assert.equal(q.correctOptionIndex, 3); else assert.notEqual(q.correctOptionIndex, 3);
 }
