@@ -14,6 +14,9 @@ function ordinal(seed: number, capacity: number): number {
   const value = Math.trunc(seed) - 1;
   return ((value % capacity) + capacity) % capacity;
 }
+function unique(values: readonly string[]): string[] {
+  return [...new Set(values.map(norm).filter(Boolean))];
+}
 function assemble(input: {
   seed: number;
   difficulty: PunjabiDifficulty;
@@ -27,7 +30,7 @@ function assemble(input: {
 }): PunjabiGeneratedQuestion {
   const rng = createRng(`CP004:${input.familyId}:${input.seed}`);
   const correct = norm(input.correctAnswer);
-  const distractors = [...new Set(input.distractors.map(norm))].filter((x) => x && x !== correct);
+  const distractors = unique(input.distractors).filter((x) => x !== correct);
   if (distractors.length < 3) throw new Error(`CP004 ${input.familyId}: fewer than three distinct distractors`);
   const selected = rng.pickDistinct(distractors, 3);
   const options = rng.shuffle([correct, ...selected]);
@@ -57,7 +60,7 @@ function assemble(input: {
       language: "pa-Guru",
       seed: input.seed,
       authorityIds: input.authorityIds,
-      generatorRevision: "1.0.0-forward-port",
+      generatorRevision: "1.1.0-forward-port",
       fingerprint,
       lifecycle: "REVIEW_ONLY",
     },
@@ -68,6 +71,43 @@ function requireDifficulty(actual: PunjabiDifficulty, expected: PunjabiDifficult
   if (actual !== expected) throw new Error(`CP004 ${familyId} supports ${expected} only`);
 }
 
+/**
+ * Direct-form distractors must themselves be attested canonical words from the
+ * CP004 authority layer. Prefer the same semantic domain/rule, then broaden.
+ * This prevents fabricated pseudo-forms from appearing as easy throwaway options.
+ */
+function genderDistractors(
+  pair: (typeof CP004_GENDER_PAIRS)[number],
+  target: "masculine" | "feminine",
+): string[] {
+  const others = CP004_GENDER_PAIRS.filter((x) => x.id !== pair.id);
+  const ordered = [
+    ...others.filter((x) => x.domain === pair.domain && x.rule === pair.rule),
+    ...others.filter((x) => x.domain === pair.domain && x.rule !== pair.rule),
+    ...others.filter((x) => x.domain !== pair.domain && x.rule === pair.rule),
+    ...others.filter((x) => x.domain !== pair.domain && x.rule !== pair.rule),
+  ];
+  return unique(ordered.map((x) => x[target]));
+}
+
+/**
+ * Number distractors are other canonical singular/plural authorities, never an
+ * oblique form or a made-up suffix variant of the same noun. That keeps the
+ * direct question single-truth even where Punjabi case inflection has other
+ * legitimate surface forms.
+ */
+function numberDistractors(
+  pair: (typeof CP004_NUMBER_PAIRS)[number],
+  target: "singular" | "plural",
+): string[] {
+  const others = CP004_NUMBER_PAIRS.filter((x) => x.id !== pair.id);
+  const ordered = [
+    ...others.filter((x) => x.rule === pair.rule),
+    ...others.filter((x) => x.rule !== pair.rule),
+  ];
+  return unique(ordered.map((x) => x[target]));
+}
+
 export function generateCP004F01(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   requireDifficulty(difficulty, "Easy", "F01");
   const rank = ordinal(seed, CP004_TRANSFORM_SAFE_GENDER_PAIRS.length * 2);
@@ -75,10 +115,14 @@ export function generateCP004F01(seed: number, difficulty: PunjabiDifficulty): P
   const toFeminine = rank % 2 === 0;
   return assemble({
     seed, difficulty, familyId: "F01", subtype: "GENDER_CHANGE",
-    stem: toFeminine ? `‘${pair.masculine}’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ਕਿਹੜਾ ਹੈ?` : `‘${pair.feminine}’ ਦਾ ਪੁਲਿੰਗ ਕਿਹੜਾ ਹੈ?`,
+    stem: toFeminine
+      ? `‘${pair.masculine}’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ਕਿਹੜਾ ਹੈ?`
+      : `‘${pair.feminine}’ ਦਾ ਪੁਲਿੰਗ ਕਿਹੜਾ ਹੈ?`,
     correctAnswer: toFeminine ? pair.feminine : pair.masculine,
-    distractors: toFeminine ? pair.feminineDistractors : pair.masculineDistractors,
-    explanation: toFeminine ? `‘${pair.masculine}’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ‘${pair.feminine}’ ਹੈ।` : `‘${pair.feminine}’ ਦਾ ਪੁਲਿੰਗ ‘${pair.masculine}’ ਹੈ।`,
+    distractors: genderDistractors(pair, toFeminine ? "feminine" : "masculine"),
+    explanation: toFeminine
+      ? `‘${pair.masculine}’ ਦਾ ਇਸਤਰੀ ਲਿੰਗ ‘${pair.feminine}’ ਹੈ।`
+      : `‘${pair.feminine}’ ਦਾ ਪੁਲਿੰਗ ‘${pair.masculine}’ ਹੈ।`,
     authorityIds: [pair.id],
   });
 }
@@ -126,7 +170,7 @@ export function generateCP004F04(seed: number, difficulty: PunjabiDifficulty): P
     seed, difficulty, familyId: "F04", subtype: "SINGULAR_TO_PLURAL",
     stem: `‘${pair.singular}’ ਦਾ ਬਹੁਵਚਨ ਕਿਹੜਾ ਹੈ?`,
     correctAnswer: pair.plural,
-    distractors: pair.pluralDistractors,
+    distractors: numberDistractors(pair, "plural"),
     explanation: `‘${pair.singular}’ ਦਾ ਬਹੁਵਚਨ ‘${pair.plural}’ ਹੈ।`,
     authorityIds: [pair.id],
   });
@@ -139,7 +183,7 @@ export function generateCP004F05(seed: number, difficulty: PunjabiDifficulty): P
     seed, difficulty, familyId: "F05", subtype: "PLURAL_TO_SINGULAR",
     stem: `‘${pair.plural}’ ਦਾ ਇਕਵਚਨ ਕਿਹੜਾ ਹੈ?`,
     correctAnswer: pair.singular,
-    distractors: pair.singularDistractors,
+    distractors: numberDistractors(pair, "singular"),
     explanation: `‘${pair.plural}’ ਦਾ ਇਕਵਚਨ ‘${pair.singular}’ ਹੈ।`,
     authorityIds: [pair.id],
   });
@@ -165,7 +209,7 @@ export function generateCP004F07(seed: number, difficulty: PunjabiDifficulty): P
   const context = CP004_AGREEMENT_CONTEXTS[ordinal(seed, CP004_AGREEMENT_CONTEXTS.length)]!;
   return assemble({
     seed, difficulty, familyId: "F07", subtype: "CONTEXTUAL_GENDER_NUMBER_USAGE",
-    stem: `ਕਿਹੜਾ ਵਾਕ ${context.targetPa} ਦੇ ਸਹੀ ਮਿਲਾਪ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?`,
+    stem: `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ${context.targetPa} ਦਾ ਸਹੀ ਮਿਲਾਪ ਵਾਲਾ ਵਾਕ ਚੁਣੋ।`,
     correctAnswer: context.correct,
     distractors: context.incorrect,
     explanation: context.principlePa,
