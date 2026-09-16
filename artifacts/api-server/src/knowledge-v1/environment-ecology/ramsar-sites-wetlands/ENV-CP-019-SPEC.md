@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-019 Ramsar Sites & Wetlands  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V1  
-**Runtime registration:** blocked pending project-owner approval
+**Human approval:** granted 2026-09-16  
+**Runtime registration:** blocked; separate workflow step
 
 ## Scope
 
@@ -46,7 +47,7 @@ ENV-CP-017 owns treaty names, adoption years and international treaty mechanics.
 - no option-by-option explanation filler
 - Hard items use close site-state, feature-site or Montreux distinctions rather than mutable trivia
 
-## Review contract
+## Frozen review contract
 
 - 12 QLs
 - 4 review questions per QL
@@ -55,4 +56,5 @@ ENV-CP-017 owns treaty names, adoption years and international treaty mechanics.
 - all four answer positions represented inside every QL
 - deterministic review generation
 - source/fact provenance on every item
-- review-only; no Question Studio/runtime registration before explicit project-owner approval
+- approved V1 is content-frozen
+- no Question Studio/runtime registration before the separate integration step
