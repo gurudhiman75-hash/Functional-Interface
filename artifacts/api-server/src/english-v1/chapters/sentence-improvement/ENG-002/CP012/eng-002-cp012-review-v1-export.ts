@@ -1,6 +1,7 @@
 import { cp012ScenePoolV1 } from "../../../error-spotting/ENG-001/CP012/eng-001-cp012-v1";
 import type { EnglishDifficulty } from "../../../../core/types";
-import { ENG002_CP012_STEM, generateEng002Cp012QuestionV1, type Eng002Cp012QuestionV1 } from "./eng-002-cp012-v1";
+import { ENG002_CP012_STEM, type Eng002Cp012QuestionV1 } from "./eng-002-cp012-v1";
+import { generateEng002Cp012ReviewedQuestionV1 } from "./eng-002-cp012-reviewed-v1";
 
 export interface Eng002Cp012ReviewItemV1 { number: number; difficulty: EnglishDifficulty; question: Eng002Cp012QuestionV1 }
 
@@ -12,7 +13,7 @@ export function buildEng002Cp012ReviewV1(): Eng002Cp012ReviewItemV1[] {
       items.push({
         number,
         difficulty,
-        question: generateEng002Cp012QuestionV1({
+        question: generateEng002Cp012ReviewedQuestionV1({
           seed: `eng002-cp012-review:${difficulty}:${scene.id}`,
           difficulty,
           ruleId: scene.ruleId,
