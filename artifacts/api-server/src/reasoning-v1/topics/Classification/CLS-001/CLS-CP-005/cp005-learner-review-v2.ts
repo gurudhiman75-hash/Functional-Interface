@@ -13,6 +13,35 @@ function cleanStem(locale: ClsCp005TranslatedLocale, stem: string): string {
   return stem;
 }
 
+function removeInlineMathContaining(value: string, token: string): string {
+  let next = value;
+  while (true) {
+    const tokenIndex = next.indexOf(token);
+    if (tokenIndex < 0) break;
+    const start = next.lastIndexOf("\\(", tokenIndex);
+    const end = next.indexOf("\\)", tokenIndex);
+    if (start < 0 || end < 0) break;
+    next = `${next.slice(0, start)}${next.slice(end + 2)}`;
+  }
+  return next;
+}
+
+function cleanEvidence(value: string): string {
+  let next = value
+    .replace(/\s+—\s+[✅❌].*$/u, "")
+    .replaceAll("\\operatorname{GCD}", "HCF")
+    .replaceAll("\\operatorname{LCM}", "LCM")
+    .replaceAll("\\operatorname{gcd}", "HCF")
+    .replace(/\\operatorname\{reverse\}\((\d+)\)\s*=\s*(\d+)/g, "$1 \\rightarrow $2")
+    .replace(/\\operatorname\{digits\}\((\d+)\)\s*=\s*\\\{([^}]*)\\\}/g, "$1 \\rightarrow \\{$2\\}");
+
+  for (const token of ["\\mathbb", "D_", "\\bmod", "\\frac"]) {
+    next = removeInlineMathContaining(next, token);
+  }
+
+  return next.replace(/\s{2,}/g, " ").trim();
+}
+
 function conclusion(
   locale: ClsCp005TranslatedLocale,
   qlId: ClsCp005EnglishQlId,
@@ -42,8 +71,8 @@ export function toClsCp005LearnerReviewV2<
       throw new Error("CP005 learner review requires a matching representative option");
     }
     stepByStep = [
-      question.evidenceByOption[representativeIndex]!,
-      question.evidenceByOption[question.correctIndex]!,
+      cleanEvidence(question.evidenceByOption[representativeIndex]!),
+      cleanEvidence(question.evidenceByOption[question.correctIndex]!),
       conclusion(locale, qlId, question.answer),
     ];
   } else if (qlId === CLS_CP005_EQUIVALENT_TUPLE_QL_ID) {
@@ -52,7 +81,7 @@ export function toClsCp005LearnerReviewV2<
       ?? (locale === "hi-IN" ? "दिए गए समूह का नियम पहचानिए।" : "ਦਿੱਤੇ ਸਮੂਹ ਦਾ ਨਿਯਮ ਪਛਾਣੋ।");
     stepByStep = [
       referenceStep,
-      question.evidenceByOption[question.correctIndex]!,
+      cleanEvidence(question.evidenceByOption[question.correctIndex]!),
       conclusion(locale, qlId, question.answer),
     ];
   } else {
