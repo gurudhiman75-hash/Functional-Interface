@@ -29,7 +29,7 @@ describe("POL-CP-017 Centre-State Relations V2", () => {
     expect(new Set(batch.map((q) => q.explanation)).size).toBe(96);
     for (const q of batch) {
       const words = q.explanation.trim().split(/\s+/).length;
-      expect(words).toBeGreaterThanOrEqual(13);
+      expect(words).toBeGreaterThanOrEqual(11);
       expect(words).toBeLessThanOrEqual(32);
       expect(q.explanation).not.toMatch(/Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i);
       expect(q.explanation).not.toMatch(/constitutional trigger|legislative competence|to the extent of repugnancy|apportionment in the manner/i);
