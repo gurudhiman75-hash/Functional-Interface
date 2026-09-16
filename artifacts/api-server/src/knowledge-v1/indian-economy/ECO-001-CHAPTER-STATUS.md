@@ -12,10 +12,10 @@
 
 The final closure audit revisited the earliest review candidates before declaring the English chapter complete:
 
-- `ECO-CP-001` Basic Economic Concepts — upgraded to approved V2 and frozen;
-- `ECO-CP-002` Economic Systems & Sectors — upgraded to approved V2 and frozen;
-- `ECO-CP-003` National Income & Aggregates — upgraded to approved V2 and frozen;
-- `ECO-CP-004` National Income Measurement in India — upgraded to approved V2 and frozen.
+- `ECO-CP-001` Basic Economic Concepts — approved V2 and frozen;
+- `ECO-CP-002` Economic Systems & Sectors — approved V2 and frozen;
+- `ECO-CP-003` National Income & Aggregates — approved V2 and frozen;
+- `ECO-CP-004` National Income Measurement in India — approved V2 and frozen.
 
 The audit removed legacy label/colon-style stems, tightened classification-axis distractors, corrected generator construction defects where found, preserved Static-GK boundaries, and aligned early packs with the later chapter editorial standard.
 
