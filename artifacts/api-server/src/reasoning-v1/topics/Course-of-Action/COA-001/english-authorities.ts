@@ -1,16 +1,16 @@
-import { COA_CP001_ENGLISH_AUTHORITIES } from "./cp001-english-authorities.ts";
+import { COA_CP001_ENGLISH_REVIEW_V2 } from "./cp001-editorial-v2.ts";
 import { COA_CP002_ENGLISH_EXPANSION } from "./cp002-direct-preventive-expansion.ts";
 import type { CoaQlId, CoaScenarioAuthority } from "./types.ts";
 
 /**
  * Current English semantic authority.
  *
- * CP001 is an approved immutable calibration baseline. CP002 is additive and
- * expands only QL001/QL002. Later checkpoints should add authorities here
- * without rewriting historical approved checkpoint surfaces.
+ * CP001 Editorial V2 is the explicitly approved immutable calibration baseline.
+ * CP002 is additive and expands only QL001/QL002. Later checkpoints should add
+ * authorities here without rewriting historical approved checkpoint surfaces.
  */
 export const COA_CURRENT_ENGLISH_AUTHORITIES: readonly CoaScenarioAuthority[] = Object.freeze([
-  ...COA_CP001_ENGLISH_AUTHORITIES,
+  ...COA_CP001_ENGLISH_REVIEW_V2,
   ...COA_CP002_ENGLISH_EXPANSION,
 ]);
 
