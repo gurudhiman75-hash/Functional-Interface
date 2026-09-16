@@ -38,11 +38,14 @@ jobs:
       - name: Review-only lifecycle guard
         run: |
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-set-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-set-v2-review.ts
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-v2-types.ts
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/grouped-bar-svg.ts
-          ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-set-v2.ts artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-v2-types.ts
+          ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-set-v2.ts artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-set-v2-review.ts artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-v2-types.ts
       - name: DI-003 V2 deterministic, diversity, independent and visual proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-set-v2.test.ts
+      - name: DI-003 V2 percentage distractor plausibility proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/distractor-quality-v2.test.ts
       - name: Legacy DI-003 regression
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-set.test.ts
       - name: Export Markdown review pack
