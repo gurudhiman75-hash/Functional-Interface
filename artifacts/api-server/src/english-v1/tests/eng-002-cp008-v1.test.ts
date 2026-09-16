@@ -4,6 +4,8 @@ import { buildEng002Cp008ReviewV1 } from "../chapters/sentence-improvement/ENG-0
 import { ENG002_CP008_STEM, generateEng002Cp008QuestionV1 } from "../chapters/sentence-improvement/ENG-002/CP008/eng-002-cp008-v1";
 import type { EnglishDifficulty } from "../core/types";
 
+const mechanicalDistractor = /\b(?:many little|many few|many amount|many number|many all|several all|one a pair|one two pair|one both pair|informations of information|one material|two material)\b/i;
+
 function verify(seed: string, difficulty: EnglishDifficulty) {
   const q = generateEng002Cp008QuestionV1({ seed, difficulty });
   assert.equal(q.stem, ENG002_CP008_STEM);
@@ -13,6 +15,8 @@ function verify(seed: string, difficulty: EnglishDifficulty) {
   assert.ok(q.correctOptionIndex >= 0 && q.correctOptionIndex <= 3);
   assert.equal(q.sentence.includes(" / "), false);
   assert.ok(q.targetText.trim().length > 0);
+  assert.equal(mechanicalDistractor.test(q.options.join(" ")), false);
+  assert.equal(/informations of information/i.test(q.sentence), false);
   assert.match(q.explanation, /Concept:/);
   assert.match(q.explanation, /Here:/);
   assert.match(q.explanation, /Correct sentence:/);
@@ -39,6 +43,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
       const q = generateEng002Cp008QuestionV1({ seed: `eng002-cp008-rule:${difficulty}:${ruleId}:${noImprovement}`, difficulty, ruleId, sceneId: scene.id, noImprovement });
       assert.equal(q.metadata.ruleId, ruleId); assert.equal(q.metadata.noImprovement, noImprovement);
       assert.equal(new Set(q.options.map((option) => option.toLowerCase())).size, 4);
+      assert.equal(mechanicalDistractor.test(q.options.join(" ")), false);
     }
   }
 }
@@ -53,6 +58,8 @@ assert.equal(new Set(review.map((item) => item.question.metadata.ruleId)).size, 
 assert.ok(new Set(review.map((item) => item.question.metadata.semanticDomain)).size >= 20);
 assert.equal(review.every((item) => item.question.options.length === 4 && item.question.options[3] === "No improvement"), true);
 assert.equal(review.every((item) => !item.question.sentence.includes(" / ")), true);
+assert.equal(review.every((item) => !mechanicalDistractor.test(item.question.options.join(" "))), true);
+assert.equal(review.every((item) => !/informations of information/i.test(item.question.sentence)), true);
 assert.equal(review.every((item) => item.question.explanation.includes("Concept:") && item.question.explanation.includes("Here:") && item.question.explanation.includes("Correct sentence:")), true);
 
 console.log("ENG-002 CP008 deterministic stress and review tests passed.");
