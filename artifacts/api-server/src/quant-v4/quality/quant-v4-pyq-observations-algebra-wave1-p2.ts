@@ -19,7 +19,7 @@ export const QUANT_V4_ALGEBRA_WAVE1_COUNTABLE_PYQ_OBSERVATIONS = Object.freeze([
     heldDate: "2024-09-12",
     shift: "Shift 1",
     paperId: "SSC-CGL-2024-TIER-I-2024-09-12-S1",
-    questionRef: "ALG-W1-S02",
+    questionRef: "PREPP-SSC-CGL-2024-09-12-S1-Q68",
     packageId: "ALG-001",
     topic: "Advanced Mathematics",
     subtopic: "Algebra — Expressions and substitution",

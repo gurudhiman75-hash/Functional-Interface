@@ -5,7 +5,7 @@ import type {
   ValidationResult,
 } from "../../../../core/types";
 import { GERUND_INFINITIVE_PARTICIPLE_RULE_BY_ID } from "../../../../grammar/gerunds-infinitives-participles";
-import { CP009_SCENES_V2 } from "./cp009-catalog-v2";
+import { CP009_SCENES_V3 } from "./cp009-catalog-v3";
 
 const plainWordBan = /\b(?:aforementioned|thereof|wherein|hitherto|pursuant|therewith|hereinafter)\b/i;
 const awkwardExplanationBan = /\b(?:trap|shortcut|eliminate options|test-taker|distractor logic)\b/i;
@@ -57,7 +57,7 @@ export function validateEng001Cp009QuestionV1(question: Eng001Question): Validat
     issues.push(issue("NO_ERROR_CONTRACT", `${metadata.qlId} must contain a keyed error.`));
   }
 
-  const scene = CP009_SCENES_V2.find((entry) => entry.id === sceneIdFromCandidateId(metadata.candidateId));
+  const scene = CP009_SCENES_V3.find((entry) => entry.id === sceneIdFromCandidateId(metadata.candidateId));
   if (!scene) {
     issues.push(issue("ERROR_INDEX", `Unknown CP009 candidate ${metadata.candidateId}.`));
   } else {

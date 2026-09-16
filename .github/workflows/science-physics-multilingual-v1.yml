@@ -1,0 +1,51 @@
+name: Validate Science Physics Multilingual V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/science/physics-localization-v1/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: science-physics-multilingual-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run Physics multilingual V1 qualification
+        run: |
+          mkdir -p artifacts/api-server/dist/science
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/science/physics-localization-v1/sci-physics-localization-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/science/sci-physics-localization-v1.test.mjs
+          node artifacts/api-server/dist/science/sci-physics-localization-v1.test.mjs
+      - name: Materialize multilingual review
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/science/physics-localization-v1/sci-physics-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/science/sci-physics-localization-export-v1.mjs
+          cd artifacts/api-server
+          node dist/science/sci-physics-localization-export-v1.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SCI-PHYSICS-MULTILINGUAL-V1-CP001-CP002
+          path: artifacts/api-server/dist/science-review/SCI-PHYSICS-MULTILINGUAL-V1/
+          if-no-files-found: error
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

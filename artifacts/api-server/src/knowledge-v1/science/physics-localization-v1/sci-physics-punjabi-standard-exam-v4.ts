@@ -1,0 +1,139 @@
+import type { PhysicsLocalizedAnchorSurfaceV1 } from "./sci-physics-localization-types-v1";
+
+type Patch = Readonly<{ from: string; to: string }>;
+
+// Punjabi-medium exam register: keep accepted Punjabi scientific terminology.
+// Do not replace valid Punjabi terms merely because cognates also exist in Hindi.
+const STANDARD_EXAM_PATCHES: readonly Patch[] = Object.freeze([
+  { from: "ਬਿਜਲੀ ਧਾਰਾ", to: "ਬਿਜਲਈ ਧਾਰਾ" },
+  { from: "ਹਵਾਈ ਦਬਾਅ", to: "ਵਾਯੂਮੰਡਲੀ ਦਬਾਅ" },
+  { from: "ਕੇਲਵਿਨ", to: "ਕੈਲਵਿਨ" },
+  { from: "ਡਿਰਾਈਵਡ ਇਕਾਈ", to: "ਵਿਉਤਪੰਨ ਇਕਾਈ" },
+  { from: "ਫ੍ਰਿਕਵੈਂਸੀ", to: "ਆਵਿਰਤੀ" },
+  { from: "ਲੀਸਟ ਕਾਊਂਟ", to: "ਘੱਟੋ-ਘੱਟ ਮਾਪ" },
+  { from: "ਸਿਸਟਮੈਟਿਕ ਗਲਤੀ", to: "ਪ੍ਰਣਾਲੀਗਤ ਗਲਤੀ" },
+  { from: "ਸਿਸਟਮੈਟਿਕ", to: "ਪ੍ਰਣਾਲੀਗਤ" },
+  { from: "ਰੈਂਡਮ ਗਲਤੀ", to: "ਬੇਤਰਤੀਬ ਗਲਤੀ" },
+  { from: "ਰੈਂਡਮ", to: "ਬੇਤਰਤੀਬ" },
+  { from: "ਡਾਇਮੈਂਸ਼ਨਲ ਫਾਰਮੂਲਾ", to: "ਆਯਾਮੀ ਸੂਤਰ" },
+  { from: "ਬਿਨਾ ਡਾਇਮੈਂਸ਼ਨ ਦੇ", to: "ਆਯਾਮ-ਰਹਿਤ" },
+  { from: "ਡਾਇਮੈਂਸ਼ਨ", to: "ਆਯਾਮ" },
+  { from: "ਸਾਇੰਟਿਫਿਕ ਨੋਟੇਸ਼ਨ", to: "ਵਿਗਿਆਨਕ ਸੰਕੇਤਨ" },
+  { from: "ਸਿਗਨਿਫਿਕੈਂਟ ਫਿਗਰ", to: "ਸਾਰਥਕ ਅੰਕ" },
+  { from: "ਸਿਗਨਿਫਿਕੈਂਟ ਮੰਨੇ ਜਾਂਦੇ ਹਨ", to: "ਸਾਰਥਕ ਮੰਨੇ ਜਾਂਦੇ ਹਨ" },
+  { from: "ਸਿਗਨਿਫਿਕੈਂਟ", to: "ਸਾਰਥਕ" },
+  { from: "ਪ੍ਰੀਫਿਕਸ", to: "ਅਗੇਤਰ" },
+  { from: "ਰਿਲੇਟਿਵ ਡੈਨਸਿਟੀ", to: "ਸਾਪੇਖ ਘਣਤਾ" },
+  { from: "ਵੇਕਟਰ ਮਾਤਰਾ", to: "ਸਦਿਸ਼ ਰਾਸ਼ੀ" },
+  { from: "ਵੇਕਟਰ ਰਾਸ਼ੀ", to: "ਸਦਿਸ਼ ਰਾਸ਼ੀ" },
+  { from: "ਵੇਕਟਰ ਰਾਸ਼ੀ", to: "ਸਦਿਸ਼ ਰਾਸ਼ੀ" },
+  { from: "ਵੇਗ ਵੇਕਟਰ ਹੈ", to: "ਵੇਗ ਸਦਿਸ਼ ਰਾਸ਼ੀ ਹੈ" },
+  { from: "ਵੇਕਟਰ", to: "ਸਦਿਸ਼" },
+  { from: "ਸਕੇਲਰ ਮਾਤਰਾ", to: "ਅਦਿਸ਼ ਰਾਸ਼ੀ" },
+  { from: "ਸਕੇਲਰ ਰਾਸ਼ੀ", to: "ਅਦਿਸ਼ ਰਾਸ਼ੀ" },
+  { from: "ਸਕੇਲਰ ਰਾਸ਼ੀ", to: "ਅਦਿਸ਼ ਰਾਸ਼ੀ" },
+  { from: "ਸਕੇਲਰ ਗੁਣਨਫਲ", to: "ਅਦਿਸ਼ ਗੁਣਨਫਲ" },
+  { from: "ਸਕੇਲਰ", to: "ਅਦਿਸ਼" },
+  { from: "ਇੰਪਲਸ", to: "ਆਵੇਗ" },
+  { from: "ਸੈਂਟ੍ਰਿਪੀਟਲ ਬਲ", to: "ਕੇਂਦਰਗਾਮੀ ਬਲ" },
+  { from: "ਸਰਕੁਲਰ ਗਤੀ", to: "ਵਰਤੂਲ ਗਤੀ" },
+  { from: "ਇਕਸਾਰ ਗੋਲ ਗਤੀ", to: "ਇਕਸਾਰ ਵਰਤੂਲ ਗਤੀ" },
+  { from: "ਟੈਂਜੈਂਟ ਦੀ ਦਿਸ਼ਾ", to: "ਸਪਰਸ਼ ਰੇਖਾ ਦੀ ਦਿਸ਼ਾ" },
+  { from: "ਕਾਇਨੇਟਿਕ ਊਰਜਾ", to: "ਗਤਿਜ ਊਰਜਾ" },
+  { from: "ਪੋਟੈਂਸ਼ਲ ਊਰਜਾ", to: "ਸਥਿਤਿਜ ਊਰਜਾ" },
+  { from: "ਪਾਜ਼ਿਟਿਵ", to: "ਧਨਾਤਮਕ" },
+  { from: "ਨੈਗੇਟਿਵ", to: "ਰਿਣਾਤਮਕ" },
+  { from: "ਗ੍ਰੈਵਿਟੀ", to: "ਗੁਰੂਤਾਕਰਸ਼ਣ" },
+  { from: "ਨੈੱਟ ਵਿਸਥਾਪਨ", to: "ਕੁੱਲ ਵਿਸਥਾਪਨ" },
+  { from: "ਨਾਰਮਲ ਬਲ", to: "ਲੰਬ ਬਲ" },
+  { from: "ਟਰਮੀਨਲ ਚਾਲ", to: "ਸੀਮਾਂਤ ਚਾਲ" },
+  { from: "ਜ਼ੀਰੋ ਐਰਰ", to: "ਸਿਫ਼ਰ ਗਲਤੀ" },
+  { from: "ਜ਼ੀਰੋ ਗਲਤੀ", to: "ਸਿਫ਼ਰ ਗਲਤੀ" },
+  { from: "ਜ਼ੀਰੋ-ਸੁਧਾਰ", to: "ਸਿਫ਼ਰ-ਸੁਧਾਰ" },
+  { from: "ਜ਼ੀਰੋ-ਸੈਟਿੰਗ", to: "ਸਿਫ਼ਰ ਸੈਟਿੰਗ" },
+  { from: "ਜ਼ੀਰੋ ਸੈਟਿੰਗ", to: "ਸਿਫ਼ਰ ਸੈਟਿੰਗ" },
+  { from: "ਅਲੱਗ-ਥਲੱਗ ਸਿਸਟਮ", to: "ਅਲੱਗ-ਥਲੱਗ ਪ੍ਰਣਾਲੀ" },
+  { from: "ਅਲੱਗ ਸਿਸਟਮ", to: "ਅਲੱਗ ਪ੍ਰਣਾਲੀ" },
+  { from: "ਸਿਸਟਮ", to: "ਪ੍ਰਣਾਲੀ" },
+  { from: "ਗਹਿਰਾਈ", to: "ਡੂੰਘਾਈ" },
+  { from: "ਆਜ਼ਾਦ ਬੂੰਦਾਂ", to: "ਮੁਕਤ ਬੂੰਦਾਂ" },
+]);
+
+const ANCHOR_PATCHES: Readonly<Record<string, readonly Patch[]>> = Object.freeze({
+  "SCI-CP001-EXH-A10": [
+    { from: "ਘੱਟੋ-ਘੱਟ ਮਾਪ ਉਹ ਸਭ ਤੋਂ ਛੋਟਾ ਮਾਨ", to: "ਯੰਤਰ ਦਾ ਘੱਟੋ-ਘੱਟ ਮਾਪ ਉਹ ਸਭ ਤੋਂ ਛੋਟਾ ਮਾਨ" },
+  ],
+  "SCI-CP002-EXH-A19": [
+    { from: "ਸਮਾਨ ਚਾਲ ਨਾਲ ਵਰਤੂਲ ਗਤੀ", to: "ਇਕਸਾਰ ਵਰਤੂਲ ਗਤੀ" },
+  ],
+  "SCI-CP002-EXH-A20": [
+    { from: "ਗੋਲ ਰਸਤੇ ਦੇ ਕੇਂਦਰ", to: "ਵਰਤੂਲ ਦੇ ਕੇਂਦਰ" },
+    { from: "ਗੋਲ ਰਸਤੇ ਵਿੱਚ", to: "ਵਰਤੂਲ ਪਥ ਵਿੱਚ" },
+  ],
+  "SCI-CP003-EXH-A11": [
+    { from: "ਮਸ਼ੀਨ ਦੀ ਦੱਖਤਾ ਲਾਭਕਾਰੀ ਨਿਕਾਸੀ ਕੰਮ ਅਤੇ ਕਿਸ ਦੇ ਅਨੁਪਾਤ ਨਾਲ ਮਿਲਦੀ ਹੈ?", to: "ਮਸ਼ੀਨ ਦੀ ਦੱਖਤਾ ਲਾਭਕਾਰੀ ਕੰਮ ਦਾ ਕਿਸ ਨਾਲ ਅਨੁਪਾਤ ਲੈ ਕੇ ਕੱਢੀ ਜਾਂਦੀ ਹੈ?" },
+    { from: "ਲਾਭਕਾਰੀ ਨਿਕਾਸੀ ਕੰਮ", to: "ਲਾਭਕਾਰੀ ਕੰਮ" },
+    { from: "ਲਾਭਕਾਰੀ ਨਿਕਾਸੀ", to: "ਲਾਭਕਾਰੀ ਕੰਮ" },
+    { from: "ਦਿੱਤੇ ਕੁੱਲ ਕੰਮ", to: "ਕੁੱਲ ਦਿੱਤੇ ਕੰਮ" },
+    { from: "ਦਿੱਤੇ ਗਏ ਕੰਮ", to: "ਕੁੱਲ ਦਿੱਤੇ ਗਏ ਕੰਮ" },
+    { from: "ਦਿੱਤਾ ਗਿਆ ਕੰਮ", to: "ਕੁੱਲ ਦਿੱਤਾ ਗਿਆ ਕੰਮ" },
+    { from: "ਦਿੱਤਾ ਕੰਮ", to: "ਕੁੱਲ ਦਿੱਤਾ ਕੰਮ" },
+    { from: "ਦੱਖਤਾ ਮਸ਼ੀਨ ਦੀ ਲਾਭਕਾਰੀ ਕੰਮ ਦੀ ਤੁਲਨਾ ਕੁੱਲ ਦਿੱਤੇ ਕੰਮ ਨਾਲ ਕਰਦੀ ਹੈ।", to: "ਦੱਖਤਾ ਵਿੱਚ ਮਸ਼ੀਨ ਦੇ ਲਾਭਕਾਰੀ ਕੰਮ ਦਾ ਕੁੱਲ ਦਿੱਤੇ ਕੰਮ ਨਾਲ ਅਨੁਪਾਤ ਲਿਆ ਜਾਂਦਾ ਹੈ।" },
+    { from: "ਮਸ਼ੀਨ ਦੀ ਦੱਖਤਾ ਲਾਭਕਾਰੀ ਕੰਮ ਦੀ ਕੁੱਲ ਦਿੱਤੇ ਗਏ ਕੰਮ ਨਾਲ ਤੁਲਨਾ ਕਰਦੀ ਹੈ।", to: "ਮਸ਼ੀਨ ਦੀ ਦੱਖਤਾ ਲਾਭਕਾਰੀ ਕੰਮ ਅਤੇ ਕੁੱਲ ਦਿੱਤੇ ਗਏ ਕੰਮ ਦੇ ਅਨੁਪਾਤ ਨਾਲ ਕੱਢੀ ਜਾਂਦੀ ਹੈ।" },
+  ],
+  "SCI-CP003-EXH-A13": [
+    { from: "ਸਰਲ ਮਸ਼ੀਨ ਦਾ ਵੇਗ ਅਨੁਪਾਤ ਯਤਨ ਵੱਲੋਂ ਤੈਅ ਦੂਰੀ ਅਤੇ ਕਿਸ ਵੱਲੋਂ ਤੈਅ ਦੂਰੀ ਦੀ ਤੁਲਨਾ ਕਰਦਾ ਹੈ?", to: "ਵੇਗ ਅਨੁਪਾਤ ਵਿੱਚ ਯਤਨ ਦੁਆਰਾ ਤੈਅ ਦੂਰੀ ਦੀ ਤੁਲਨਾ ਕਿਸ ਦੁਆਰਾ ਤੈਅ ਦੂਰੀ ਨਾਲ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?" },
+    { from: "ਯਤਨ ਵੱਲੋਂ ਤੈਅ ਦੂਰੀ", to: "ਯਤਨ ਦੁਆਰਾ ਤੈਅ ਦੂਰੀ" },
+    { from: "ਭਾਰ ਵੱਲੋਂ ਤੈਅ ਦੂਰੀ", to: "ਭਾਰ ਦੁਆਰਾ ਤੈਅ ਦੂਰੀ" },
+    { from: "ਵੇਗ ਅਨੁਪਾਤ ਯਤਨ ਦੁਆਰਾ ਤੈਅ ਦੂਰੀ ਅਤੇ ਭਾਰ ਦੁਆਰਾ ਤੈਅ ਦੂਰੀ ਦੀ ਤੁਲਨਾ ਹੈ:", to: "ਵੇਗ ਅਨੁਪਾਤ ਯਤਨ ਦੁਆਰਾ ਤੈਅ ਦੂਰੀ ਅਤੇ ਭਾਰ ਦੁਆਰਾ ਤੈਅ ਦੂਰੀ ਦਾ ਅਨੁਪਾਤ ਹੈ:" },
+  ],
+  "SCI-CP003-EXH-A19": [
+    { from: "ਢਲਵਾਂ ਤਲ ਲੋੜੀਂਦਾ ਯਤਨ ਕਿਸ ਨੂੰ ਵਧਾ ਕੇ ਘਟਾਉਂਦਾ ਹੈ?", to: "ਢਲਵਾਂ ਤਲ ਘੱਟ ਯਤਨ-ਬਲ ਨਾਲ ਭਾਰ ਚੁੱਕਣਾ ਕਿਵੇਂ ਸੰਭਵ ਬਣਾਉਂਦਾ ਹੈ?" },
+    { from: "ਜਿਸ ਦੂਰੀ ਤੱਕ ਯਤਨ ਲਾਇਆ ਜਾਂਦਾ ਹੈ", to: "ਯਤਨ ਲਗਾਉਣ ਦੀ ਦੂਰੀ ਵਧਾ ਕੇ" },
+  ],
+  "SCI-CP003-EXH-A20": [
+    { from: "ਵੱਡੀ ਅਰਧ-ਵਿਆਸ", to: "ਵੱਡੇ ਅਰਧ-ਵਿਆਸ" },
+    { from: "ਵੱਡੇ ਪਹੀਏ ਦੀ ਅਰਧ-ਵਿਆਸ", to: "ਵੱਡੇ ਪਹੀਏ ਦੇ ਅਰਧ-ਵਿਆਸ" },
+    { from: "ਛੋਟੀ ਅਰਧ-ਵਿਆਸ", to: "ਛੋਟੇ ਅਰਧ-ਵਿਆਸ" },
+    { from: "ਇੱਕੋ ਬਲ ਦਾ ਬਲ-ਆਘੂਰਨ ਵੱਧ ਜਾਂਦਾ ਹੈ", to: "ਇੱਕੋ ਬਲ ਦਾ ਘੁੰਮਾਉ ਪ੍ਰਭਾਵ ਵੱਧ ਜਾਂਦਾ ਹੈ" },
+  ],
+  "SCI-CP003-EXH-A24": [
+    { from: "ਲਾਭਕਾਰੀ ਨਿਕਾਸੀ", to: "ਲਾਭਕਾਰੀ ਕੰਮ" },
+  ],
+  "SCI-CP004-EXH-A04": [
+    { from: "ਬਲ-ਲਗਾਇਆ ਦੋਲਨ", to: "ਬਲਪੂਰਵਕ ਦੋਲਨ" },
+  ],
+  "SCI-CP004-EXH-A07": [
+    { from: "ਘਣਤਾ ਕਿਸ ਪ੍ਰਤੀ ਇਕਾਈ ਪੁੰਜ ਨੂੰ ਦਰਸਾਉਂਦੀ ਹੈ?", to: "ਘਣਤਾ ਦੇ ਸੂਤਰ ρ = m/V ਵਿੱਚ ਪੁੰਜ ਨੂੰ ਕਿਸ ਰਾਸ਼ੀ ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ?" },
+  ],
+  "SCI-CP004-EXH-A09": [
+    { from: "ਦਬਾਅ ਕਿਸ ਪ੍ਰਤੀ ਇਕਾਈ ਬਲ ਹੈ?", to: "ਦਬਾਅ ਦੇ ਸੂਤਰ P = F/A ਵਿੱਚ ਬਲ ਨੂੰ ਕਿਸ ਰਾਸ਼ੀ ਨਾਲ ਭਾਗ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ?" },
+  ],
+  "SCI-CP004-EXH-A20": [
+    { from: "ਸ਼ਿਆਨਤਾ ਕਿਸ ਦੇ ਵਿਰੁੱਧ ਤਰਲ ਦੇ ਰੋਧ ਦਾ ਮਾਪ ਹੈ?", to: "ਸ਼ਿਆਨਤਾ ਤਰਲ ਦੇ ਕਿਸ ਪ੍ਰਤੀ ਰੋਧ ਨੂੰ ਦਰਸਾਉਂਦੀ ਹੈ?" },
+  ],
+});
+
+export function standardizePunjabiPhysicsExamTextV4(anchorId: string, text: string): string {
+  let out = text;
+  for (const patch of STANDARD_EXAM_PATCHES) out = out.replaceAll(patch.from, patch.to);
+  for (const patch of ANCHOR_PATCHES[anchorId] ?? []) out = out.replaceAll(patch.from, patch.to);
+  return out;
+}
+
+export function applyPunjabiPhysicsStandardExamV4(
+  anchorId: string,
+  surface: PhysicsLocalizedAnchorSurfaceV1,
+): PhysicsLocalizedAnchorSurfaceV1 {
+  return {
+    ...surface,
+    stem: standardizePunjabiPhysicsExamTextV4(anchorId, surface.stem),
+    answer: standardizePunjabiPhysicsExamTextV4(anchorId, surface.answer),
+    distractors: surface.distractors.map((value) => standardizePunjabiPhysicsExamTextV4(anchorId, value)) as [string, string, string],
+    trueStatement: standardizePunjabiPhysicsExamTextV4(anchorId, surface.trueStatement),
+    falseStatement: standardizePunjabiPhysicsExamTextV4(anchorId, surface.falseStatement),
+    explanation: standardizePunjabiPhysicsExamTextV4(anchorId, surface.explanation),
+  };
+}
+
+export const SCI_PHYSICS_PUNJABI_STANDARD_EXAM_V4 = "SCI-PHYSICS-PA-STANDARD-EXAM-V4" as const;

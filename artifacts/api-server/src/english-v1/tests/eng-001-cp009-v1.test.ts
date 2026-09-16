@@ -1,9 +1,9 @@
 import { strict as assert } from "node:assert";
 import { GERUND_INFINITIVE_PARTICIPLE_RULES_V1 } from "../grammar/gerunds-infinitives-participles";
 import {
-  CP009_SCENES_BY_DIFFICULTY_V2,
-  CP009_SCENES_V2,
-} from "../chapters/error-spotting/ENG-001/CP009/cp009-catalog-v2";
+  CP009_SCENES_BY_DIFFICULTY_V3,
+  CP009_SCENES_V3,
+} from "../chapters/error-spotting/ENG-001/CP009/cp009-catalog-v3";
 import {
   generateEng001Cp009QuestionV1,
   rulesForDifficultyCp009V1,
@@ -16,12 +16,12 @@ import type {
 } from "../core/types";
 
 assert.equal(GERUND_INFINITIVE_PARTICIPLE_RULES_V1.length, 10);
-assert.equal(CP009_SCENES_V2.length, 60);
-assert.equal(CP009_SCENES_BY_DIFFICULTY_V2.easy.length, 20);
-assert.equal(CP009_SCENES_BY_DIFFICULTY_V2.medium.length, 20);
-assert.equal(CP009_SCENES_BY_DIFFICULTY_V2.hard.length, 20);
-assert.equal(new Set(CP009_SCENES_V2.map((scene) => scene.id)).size, 60);
-assert.equal(new Set(CP009_SCENES_V2.map((scene) => scene.domain)).size >= 20, true);
+assert.equal(CP009_SCENES_V3.length, 60);
+assert.equal(CP009_SCENES_BY_DIFFICULTY_V3.easy.length, 20);
+assert.equal(CP009_SCENES_BY_DIFFICULTY_V3.medium.length, 20);
+assert.equal(CP009_SCENES_BY_DIFFICULTY_V3.hard.length, 20);
+assert.equal(new Set(CP009_SCENES_V3.map((scene) => scene.id)).size, 60);
+assert.equal(new Set(CP009_SCENES_V3.map((scene) => scene.domain)).size >= 20, true);
 
 const perDifficultyAnswerCounts: Record<EnglishDifficulty, number[]> = {
   easy: [0, 0, 0, 0],
@@ -29,7 +29,7 @@ const perDifficultyAnswerCounts: Record<EnglishDifficulty, number[]> = {
   hard: [0, 0, 0, 0],
 };
 
-for (const scene of CP009_SCENES_V2) {
+for (const scene of CP009_SCENES_V3) {
   const changed = scene.correctSegments.reduce<number[]>((out, segment, index) => {
     if (segment !== scene.errorSegments[index]) out.push(index);
     return out;
@@ -75,7 +75,7 @@ for (const difficulty of difficulties) {
     surfaces.add(question.segments.join(" | "));
     rules.add(String(question.metadata.ruleId));
     const sceneId = question.metadata.candidateId.replace(/^GIP-V1:/, "");
-    domains.add(CP009_SCENES_V2.find((entry) => entry.id === sceneId)!.domain);
+    domains.add(CP009_SCENES_V3.find((entry) => entry.id === sceneId)!.domain);
   }
   assert.equal(surfaces.size >= 15, true, `${difficulty} surface diversity too low`);
   assert.equal(rules.size, 10, `${difficulty} must exercise all ten rules`);
@@ -100,7 +100,7 @@ for (const difficulty of difficulties) {
 }
 
 const ql002AnswerLabels = new Set<string>();
-for (const scene of CP009_SCENES_V2) {
+for (const scene of CP009_SCENES_V3) {
   for (let variant = 0; variant < 8; variant += 1) {
     const q2 = generateEng001Cp009QuestionV1({
       seed: `answer-balance:ql002:${scene.id}:${variant}`,
@@ -116,7 +116,7 @@ assert.deepEqual([...ql002AnswerLabels].sort(), ["A", "B", "C"]);
 
 console.log(JSON.stringify({
   status: "PASS_ENG_001_CP009_V1",
-  scenes: CP009_SCENES_V2.length,
+  scenes: CP009_SCENES_V3.length,
   rules: GERUND_INFINITIVE_PARTICIPLE_RULES_V1.length,
   ql001SourceAnswerCountsByDifficulty: perDifficultyAnswerCounts,
   ql002AnswerLabels: [...ql002AnswerLabels].sort(),

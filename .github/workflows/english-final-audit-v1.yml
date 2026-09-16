@@ -1,0 +1,66 @@
+name: Validate English ENG-001 Final Audit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
+      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
+      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-final-audit-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-eng001-final-audit-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Compile ENG-001 final chapter audit
+        run: |
+          mkdir -p artifacts/api-server/dist/english-v1
+          pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-001-final-audit-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-001-final-audit-v1.test.mjs
+      - name: Run ENG-001 final chapter audit and master review export
+        run: node artifacts/api-server/dist/english-v1/eng-001-final-audit-v1.test.mjs
+      - name: Upload ENG-001 final audit master review
+        uses: actions/upload-artifact@v4
+        with:
+          name: ENG-001-FINAL-AUDIT-MASTER-REVIEW-V1
+          path: dist/english-v1/ENG-001-FINAL-AUDIT-MASTER-REVIEW-V1.md
+          if-no-files-found: error
+      - name: Compile ENG-001 exhaustive closure soak
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-001-closure-soak-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-001-closure-soak-v1.test.mjs
+      - name: Run ENG-001 exhaustive closure soak
+        run: node artifacts/api-server/dist/english-v1/eng-001-closure-soak-v1.test.mjs
+      - name: Compile latest cumulative Question Studio regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng001-cp013-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/language-v1-eng001-cp013-adapter-v1-regression.test.mjs
+      - name: Run latest cumulative Question Studio regression
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng001-cp013-adapter-v1-regression.test.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app exec tsc -p tsconfig.json --noEmit

@@ -62,33 +62,33 @@ assert.deepEqual(sectionPackageCounts, {
 });
 assert.equal(Object.values(sectionPackageCounts).reduce((sum, count) => sum + count, 0), 25);
 
-// Representative source-math checks across the section.
-assert.equal(1099 / 7 * 10, 1570); // Q51 ratio complement.
-assert.equal(1440 / 8 / 2, 90); // Q53 Shyam speed in m/min.
-assert.equal(10 * 15 / (10 + 15), 6); // Q54 combined pipe time.
-assert.equal(405 * 2 / 54, 15); // Q55 cubic identity.
-assert.equal(4 * (22 / 7) * 35 * 35, 15400); // Q56 sphere surface area.
-assert.equal(60 * (36 / 5), 432); // Q57 combined pipes in minutes.
-assert.equal(35 + 2 + 8, 45); // Q58 digit sum.
-assert.equal((35 + 2 + 8) % 9, 0); // Q58 divisibility by 9.
-assert.equal(Math.sqrt(2 * 2 + 4 * 8), 6); // Q58 final expression.
-assert.equal(9.2 * (0.36 / 1.2), 2.76); // Q60 chase distance in km.
-assert.equal(1 - 0.95 * 0.95, 0.09750000000000003); // Q61 5%+5% effective discount.
-assert.equal(13 * 13 - 2 * 54, 61); // Q63 identity.
-assert.ok(Math.abs(1 / (1 / 72 - 1 / 120) - 180) < 1e-12); // Q65 individual work time.
-assert.ok(Math.abs(6400 * 100 / (21000 * 3) - 640 / 63) < 1e-12); // Q66 SI rate.
-assert.equal(1 / (9 / 84 - 10 / 105), 84); // Q67 net pipe time.
-assert.ok(Math.abs(Math.sqrt(1 - 9 / 49) - 2 * Math.sqrt(10) / 7) < 1e-12); // Q68 trig.
-assert.equal((60 * 46.5 - 35 * 42) / 25, 52.8); // Q69 average.
-assert.equal((110 * 360) / (56 * (22 / 7)), 225); // Q70 radius squared.
-assert.ok(Math.abs(19 / 81 * 100 - 23.45679012345679) < 1e-12); // Q71 base switch.
-assert.equal((1 + 7) / (1 + 11), 2 / 3); // Q73 reciprocal expression.
-assert.equal(6 - (6 / 2 - 3 + 7 - 2) * ((3 - 2 / 2) * 5 - 6), -14); // Q74 BODMAS.
-assert.equal(50 * 25 * 10 * 1000, 12_500_000); // Q75 capacity in litres.
+assert.equal(1099 / 7 * 10, 1570);
+assert.equal(1440 / 8 / 2, 90);
+assert.equal(10 * 15 / (10 + 15), 6);
+assert.equal(405 * 2 / 54, 15);
+assert.equal(4 * (22 / 7) * 35 * 35, 15400);
+assert.equal(60 * (36 / 5), 432);
+assert.equal(35 + 2 + 8, 45);
+assert.equal((35 + 2 + 8) % 9, 0);
+assert.equal(Math.sqrt(2 * 2 + 4 * 8), 6);
+assert.equal(9.2 * (0.36 / 1.2), 2.76);
+assert.equal(1 - 0.95 * 0.95, 0.09750000000000003);
+assert.equal(13 * 13 - 2 * 54, 61);
+assert.ok(Math.abs(1 / (1 / 72 - 1 / 120) - 180) < 1e-12);
+assert.ok(Math.abs(6400 * 100 / (21000 * 3) - 640 / 63) < 1e-12);
+assert.equal(1 / (9 / 84 - 10 / 105), 84);
+assert.ok(Math.abs(Math.sqrt(1 - 9 / 49) - 2 * Math.sqrt(10) / 7) < 1e-12);
+assert.equal((60 * 46.5 - 35 * 42) / 25, 52.8);
+assert.equal((110 * 360) / (56 * (22 / 7)), 225);
+assert.ok(Math.abs(19 / 81 * 100 - 23.45679012345679) < 1e-12);
+assert.equal((1 + 7) / (1 + 11), 2 / 3);
+assert.equal(6 - (6 / 2 - 3 + 7 - 2) * ((3 - 2 / 2) * 5 - 6), -14);
+assert.equal(50 * 25 * 10 * 1000, 12_500_000);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
+// Historical paper assertions remain exact; cumulative totals are append-safe floors.
+assert.ok(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length >= 307);
 const cgl = listRegisteredCountablePyqObservations({ examIds: ["SSC_CGL_TIER_I"] });
-assert.equal(cgl.length, 175);
+assert.ok(cgl.length >= 274);
 assert.equal(cgl.filter((entry) => entry.paperId === "SSC-CGL-2023-TIER-I-2023-07-26-S2").length, 25);
 
 const whole = buildQuantV4WholeSectionFrequencyProfile({
@@ -97,16 +97,16 @@ const whole = buildQuantV4WholeSectionFrequencyProfile({
   sections: QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS,
   policy: QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY,
 });
-assert.equal(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 6);
-assert.equal(whole.totalCountableQuestionCount, 175);
-assert.equal(whole.completeSectionCount, 6);
-assert.equal(whole.completeQuestionCount, 150);
-assert.equal(whole.nonWholeSectionCountableQuestionCount, 25);
+assert.ok(QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length >= 10);
+assert.ok(whole.totalCountableQuestionCount >= 274);
+assert.ok(whole.completeSectionCount >= 10);
+assert.ok(whole.completeQuestionCount >= 250);
+assert.equal(whole.totalCountableQuestionCount, whole.completeQuestionCount + whole.nonWholeSectionCountableQuestionCount);
 assert.equal(whole.undatedCountableQuestionCount, 10);
 assert.equal(whole.distinctSectionYearCount, 3);
-assert.equal(whole.packageCoverageCount, 25);
-assert.equal(whole.evidenceStatus, "SECTION_EVIDENCE_ACCUMULATING");
-assert.deepEqual([...whole.blockers], ["COMPLETE_SECTION_SAMPLE_BELOW_POLICY"]);
+assert.ok(whole.packageCoverageCount >= 28);
+assert.equal(whole.evidenceStatus, "SECTION_FREQUENCY_CANDIDATE");
+assert.deepEqual([...whole.blockers], []);
 assert.equal(whole.productionPromotionAuthorized, false);
 assert.equal(canPromoteWholeSectionFrequencyWeights(whole), false);
 assert.ok(whole.sectionSnapshots.every((section) => section.complete));
@@ -114,9 +114,9 @@ assert.ok(whole.sectionSnapshots.every((section) => section.complete));
 const avgCgl = getQuantV4SpecializedProfileSelectionContract("AVG-001", "SSC_CGL_TIER_I");
 const numCgl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
 const tmwCgl = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(avgCgl.normalizedCountableObservationCount, 4);
-assert.equal(numCgl.normalizedCountableObservationCount, 18);
-assert.equal(tmwCgl.normalizedCountableObservationCount, 16);
+assert.ok(avgCgl.normalizedCountableObservationCount >= 5);
+assert.ok(numCgl.normalizedCountableObservationCount >= 21);
+assert.ok(tmwCgl.normalizedCountableObservationCount >= 24);
 for (const contract of [avgCgl, numCgl, tmwCgl]) {
   assert.equal(contract.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
   assert.equal(contract.profileSelectionCalibrated, false);
@@ -131,6 +131,7 @@ console.log(JSON.stringify({
   completeSections: whole.completeSectionCount,
   completeSectionQuestions: whole.completeQuestionCount,
   packageCoverage: whole.packageCoverageCount,
+  evidenceStatus: whole.evidenceStatus,
   blockers: whole.blockers,
   empiricalWeightingPromoted: false,
 }));

@@ -48,11 +48,11 @@ const currentOldMembersTotal = oldFamilyTotal + 5 * 3;
 const currentFamilyTotal = 6 * 17;
 assert.equal(currentFamilyTotal - currentOldMembersTotal, 2);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
+assert.ok(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length >= 307);
 const average = listRegisteredCountablePyqObservations({ packageId: "AVG-001" });
-assert.equal(average.length, 10);
+assert.ok(average.length >= 11);
 assert.equal(average.filter((entry) => entry.examId === "SSC_CHSL").length, 6);
-assert.equal(average.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 4);
+assert.ok(average.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length >= 5);
 
 const avgChslContract = getQuantV4SpecializedProfileSelectionContract("AVG-001", "SSC_CGL_CHSL");
 assert.equal(avgChslContract.normalizedCountableObservationCount, 6);

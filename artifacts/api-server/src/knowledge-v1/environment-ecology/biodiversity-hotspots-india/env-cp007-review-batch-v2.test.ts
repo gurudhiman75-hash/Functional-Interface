@@ -1,0 +1,53 @@
+import { describe, expect, it } from "vitest";
+import { ENV_CP007_FACT_IDS_V1 } from "./env-cp007-facts";
+import { generateEnvCp007ReviewBatchV2 } from "./env-cp007-review-generator-v2";
+
+describe("ENV-CP-007 V2 review batch", () => {
+  const questions = generateEnvCp007ReviewBatchV2();
+
+  it("builds 48 questions across 12 QLs", () => {
+    expect(questions).toHaveLength(48);
+    expect(new Set(questions.map((q) => q.qlId)).size).toBe(12);
+    expect(new Set(questions.map((q) => q.difficulty))).toEqual(new Set(["Easy", "Medium", "Hard"]));
+  });
+
+  it("uses all four answer positions inside every QL", () => {
+    const byQl = new Map<string, typeof questions>();
+    for (const q of questions) {
+      const bucket = byQl.get(q.qlId) ?? [];
+      bucket.push(q);
+      byQl.set(q.qlId, bucket);
+    }
+    for (const bucket of byQl.values()) {
+      expect(bucket).toHaveLength(4);
+      expect(new Set(bucket.map((q) => q.correctIndex))).toEqual(new Set([0, 1, 2, 3]));
+    }
+  });
+
+  it("keeps questions valid and review-only", () => {
+    for (const q of questions) {
+      expect(q.options).toHaveLength(4);
+      expect(new Set(q.options).size).toBe(4);
+      expect(q.options[q.correctIndex]).toBe(q.canonicalAnswer);
+      expect(q.questionId).toMatch(/^ENV-CP007-V2-/);
+      expect(q.reviewOnly).toBe(true);
+      expect(q.runtimeRegistered).toBe(false);
+      for (const id of q.sourceFactIds) expect(ENV_CP007_FACT_IDS_V1.has(id)).toBe(true);
+    }
+  });
+
+  it("keeps exam wording clean and explanations simple", () => {
+    const signatures = questions.map((q) => `${q.stem}::${q.canonicalAnswer}`);
+    expect(new Set(signatures).size).toBe(48);
+    for (const q of questions) {
+      if (!q.stem.startsWith("Consider the following statements:")) expect(q.stem.length).toBeLessThanOrEqual(130);
+      expect(q.explanation.length).toBeLessThanOrEqual(100);
+    }
+    const text = questions.map((q) => `${q.stem}\n${q.explanation}`).join("\n");
+    expect(text).not.toMatch(/associated with/i);
+    expect(text).not.toMatch(/exam question/i);
+    expect(text).not.toMatch(/what can be concluded/i);
+    expect(text).not.toMatch(/option\s+[abcd]/i);
+    expect(text).not.toMatch(/how many biodiversity hotspots are there|worldwide hotspot count/i);
+  });
+});

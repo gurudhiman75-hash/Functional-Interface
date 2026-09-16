@@ -1,0 +1,86 @@
+export const HIS_CP004_QL_NAMES_V1:Record<number,string>={
+  1:"Mauryan rulers, capital and expansion",
+  2:"Sources for Mauryan history",
+  3:"Kalinga and Ashoka's dhamma",
+  4:"Ashokan inscriptions, languages and scripts",
+  5:"Mauryan political centres and provinces",
+  6:"Mauryan administration and communication",
+  7:"Military, economy and state supervision",
+  8:"Mauryan symbols and association checks",
+  9:"Chronology and comparative reasoning",
+  10:"Multi-statement synthesis",
+};
+
+export type HisCp004Spec=readonly[ql:number,stem:string,answer:string,distractors:readonly[string,string,string],factIds:readonly string[]];
+
+export const HIS_CP004_SPECS_V1:readonly HisCp004Spec[]=[
+  [1,"Who founded the Mauryan Empire after overthrowing the Nanda dynasty?","Chandragupta Maurya",["Bindusara","Ashoka","Bimbisara"],["maur-founder"]],
+  [1,"What was the imperial capital of the Mauryan Empire?","Pataliputra",["Taxila","Ujjayini","Tosali"],["maur-capital"]],
+  [1,"Which ruler extended Mauryan power into parts of central and southern India?","Bindusara",["Chandragupta Maurya","Ashoka","Brihadratha"],["maur-bindusara-expansion"]],
+  [1,"Which region was conquered by Ashoka?","Kalinga",["Gandhara","Avanti","Vatsa"],["maur-ashoka-kalinga"]],
+  [1,"Which is the correct sequence of the first three major Mauryan rulers?","Chandragupta Maurya → Bindusara → Ashoka",["Bindusara → Chandragupta Maurya → Ashoka","Ashoka → Bindusara → Chandragupta Maurya","Chandragupta Maurya → Ashoka → Bindusara"],["maur-ruler-sequence"]],
+  [1,"Chandragupta Maurya extended his control as far northwest as which region?","Afghanistan and Baluchistan",["Tamilakam only","Lower Bengal only","Sri Lanka"],["maur-chandra-northwest"]],
+
+  [2,"Which Greek ambassador was present at the court of Chandragupta Maurya?","Megasthenes",["Seleucus","Pliny","Ptolemy"],["src-megasthenes"]],
+  [2,"Which work is traditionally linked with Kautilya or Chanakya?","Arthashastra",["Indica","Milindapanho","Buddhacharita"],["src-arthashastra"]],
+  [2,"Which records are especially important for understanding Ashoka's policies?","His rock and pillar inscriptions",["Only later court poems","Only foreign coins","Only temple legends"],["src-ashoka-inscriptions"]],
+  [2,"Who deciphered Brahmi and Kharosthi in the nineteenth century?","James Prinsep",["Alexander Cunningham","John Marshall","Mortimer Wheeler"],["src-prinsep"]],
+  [2,"What does the title 'Piyadassi' mean?","Pleasant to behold",["Lord of elephants","Conqueror of Kalinga","Protector of trade"],["src-piyadassi"]],
+  [2,"What is epigraphy?","The study of inscriptions",["The study of coins","The study of pottery","The study of manuscripts only"],["src-epigraphy"]],
+
+  [3,"Kalinga was located mainly in which present-day region?","Coastal Odisha",["Western Rajasthan","Upper Punjab","Central Kashmir"],["maur-ashoka-kalinga"]],
+  [3,"What change is reflected in Ashoka's inscription after the Kalinga conquest?","Repentance over suffering and greater commitment to dhamma",["A plan for further conquest","A rejection of all administration","A decision to abandon public communication"],["dhamma-kalinga-remorse"]],
+  [3,"Which value formed part of Ashoka's dhamma?","Respect for elders",["Glorification of warfare","Compulsory animal sacrifice","Rejection of all other traditions"],["dhamma-elders"]],
+  [3,"How did Ashoka's dhamma say slaves and servants should be treated?","With kindness",["Only as tax payers","As military officers","Without legal protection"],["dhamma-servants"]],
+  [3,"What did Ashoka's dhamma encourage regarding different religions and traditions?","Mutual respect",["Forced conversion","Complete isolation","Suppression of all sects"],["dhamma-religions"]],
+  [3,"Which officers were appointed to spread the message of dhamma?","Dhamma mahamattas",["Kumaras","Senanis","Gramikas"],["dhamma-mahamatta"]],
+
+  [4,"Most Ashokan inscriptions were written in which language?","Prakrit",["Sanskrit","Tamil","Pali only"],["insc-prakrit"]],
+  [4,"Most Prakrit Ashokan inscriptions were written in which script?","Brahmi",["Kharosthi","Greek","Aramaic"],["insc-brahmi"]],
+  [4,"Which script was used for some Ashokan inscriptions in the northwest?","Kharosthi",["Brahmi only","Grantha","Sharada"],["insc-kharosthi"]],
+  [4,"Which pair is associated with Ashokan inscriptions in the Afghan and northwestern region?","Aramaic and Greek",["Tamil and Telugu","Pali and Sinhala","Persian and Arabic"],["insc-aramaic-greek"]],
+  [4,"On which surfaces did Ashoka commonly have his messages inscribed?","Natural rocks and polished stone pillars",["Palm leaves only","Wooden boards only","Copper coins only"],["insc-stone-surfaces"]],
+  [4,"Which ruler is especially known for communicating messages to subjects and officials through inscriptions on stone?","Ashoka",["Bindusara","Bimbisara","Mahapadma Nanda"],["insc-first-stone-messages"]],
+
+  [5,"Which group contains the five major political centres of Ashoka's empire?","Pataliputra, Taxila, Ujjayini, Tosali and Suvarnagiri",["Pataliputra, Sarnath, Mathura, Vaishali and Rajagriha","Taxila, Champa, Sravasti, Kashi and Ujjayini","Tosali, Madurai, Kanchi, Amaravati and Pataliputra"],["admin-five-centres"]],
+  [5,"Which city served as the eastern provincial centre?","Tosali",["Taxila","Ujjain","Suvarnagiri"],["admin-tosali-east"]],
+  [5,"Which city served as the western provincial centre?","Ujjain",["Tosali","Taxila","Suvarnagiri"],["admin-ujjain-west"]],
+  [5,"Which city served as the northern provincial centre?","Taxila",["Tosali","Ujjain","Suvarnagiri"],["admin-taxila-north"]],
+  [5,"Which city served as the southern provincial centre?","Suvarnagiri",["Taxila","Tosali","Ujjain"],["admin-suvarnagiri-south"]],
+  [5,"What was a kumara in Mauryan provincial administration?","A royal prince governing as the king's representative",["A village tax collector","A merchant guild head","A military elephant keeper"],["admin-kumara"]],
+
+  [6,"Who assisted the kumara in provincial administration?","Mahamatyas and a council of ministers",["Only village craftsmen","Only Buddhist monks","Foreign ambassadors"],["admin-mahamatyas"]],
+  [6,"What was the Mantriparishad?","The emperor's council of ministers",["A military elephant corps","A merchant guild","A provincial tax"],["admin-mantriparishad"]],
+  [6,"Which statement best describes Mauryan administration across the empire?","It was not equally uniform or equally strong in every region",["It was exactly identical in every village","Only the capital had any administration","Provincial centres had no role"],["admin-nonuniform"]],
+  [6,"Where was Mauryan administrative control generally strongest?","Around Pataliputra and the provincial centres",["Only in distant forest zones","Only outside the empire","Only along the southern coast"],["admin-strong-centres"]],
+  [6,"Why were land and river routes important to Mauryan rule?","They connected the centre with distant provinces",["They ended the need for an army","They prevented all local trade","They replaced provincial administration"],["admin-routes"]],
+  [6,"Why were Taxila and Ujjayini important administrative centres?","They lay on important long-distance trade routes",["They were both seaports","They were both gold mines","They were outside Mauryan influence"],["admin-trade-centres"]],
+
+  [7,"How many military subcommittees did Megasthenes describe?","Six",["Four","Eight","Ten"],["mil-six-subcommittees"]],
+  [7,"Which group was included among the Mauryan military branches described by Megasthenes?","Navy, infantry, horses, chariots and elephants",["Monks, priests, teachers, traders and farmers","Judges, poets, sculptors, doctors and monks","Only infantry and cavalry"],["mil-six-branches"]],
+  [7,"Which task was performed by some Mauryan officials described by Megasthenes?","Collecting taxes and supervising land-related activities",["Writing only religious poetry","Running only monasteries","Conducting only royal marriages"],["admin-official-taxes"]],
+  [7,"Which occupational groups were supervised by Mauryan officials?","Woodcutters, carpenters, blacksmiths and miners",["Only priests and monks","Only foreign envoys","Only royal family members"],["admin-official-occupations"]],
+  [7,"Why was trade important to the Mauryan state?","It provided revenue",["It replaced agriculture completely","It removed the need for taxes","It was forbidden by the state"],["econ-trade-revenue"]],
+  [7,"Which goods received special state control?","Weapons, armour, metals and gems",["Only grain and milk","Only cotton cloth","Only horses and elephants"],["econ-state-monopoly"]],
+
+  [8,"The Lion Capital associated with India's State Emblem is located at which place?","Sarnath",["Taxila","Ujjain","Tosali"],["symbol-lion-capital"]],
+  [8,"Which pottery tradition is archaeologically associated with the Mauryan period?","Northern Black Polished Ware",["Painted Grey Ware only","Rouletted Ware only","Megalithic Black-and-Red Ware only"],["arch-nbpw"]],
+  [8,"Which provincial centre–direction pair is correctly matched?","Tosali — east",["Taxila — south","Ujjain — north","Suvarnagiri — west"],["admin-tosali-east","admin-taxila-north","admin-ujjain-west","admin-suvarnagiri-south"]],
+  [8,"Which person–description pair is correctly matched?","Megasthenes — Greek ambassador at Chandragupta Maurya's court",["James Prinsep — Mauryan provincial governor","Kautilya — Greek ambassador","Bindusara — author of the Arthashastra"],["src-megasthenes","src-prinsep","src-arthashastra"]],
+  [8,"Which text–person pair is correctly matched?","Arthashastra — Kautilya or Chanakya",["Indica — Ashoka","Arthashastra — Megasthenes","Piyadassi — James Prinsep"],["src-arthashastra","src-megasthenes","src-piyadassi"]],
+  [8,"Which office–function pair is correctly matched?","Dhamma mahamatta — spreading dhamma",["Kumara — deciphering inscriptions","Mantriparishad — military elephant unit","Megasthenes — provincial governor"],["dhamma-mahamatta","admin-kumara","admin-mantriparishad","src-megasthenes"]],
+
+  [9,"Which sequence is historically correct?","Nanda rule → Chandragupta Maurya → Bindusara → Ashoka",["Ashoka → Nanda rule → Bindusara → Chandragupta Maurya","Bindusara → Nanda rule → Ashoka → Chandragupta Maurya","Chandragupta Maurya → Nanda rule → Ashoka → Bindusara"],["maur-founder","maur-ruler-sequence"]],
+  [9,"Which option best compares the major written evidence for Mauryan history?","Megasthenes gives an external court account, while Ashoka's inscriptions communicate the ruler's own messages",["Both are later medieval court poems","Both are coin legends issued by guilds","Neither tells us anything about administration"],["src-megasthenes","src-ashoka-inscriptions"]],
+  [9,"Which statement best explains the difference between the Mauryan core and distant regions?","Control was generally stronger near the capital and provincial centres than in the periphery",["Every region was administered in exactly the same way","Distant regions had stronger control than Pataliputra","There were no provincial centres"],["admin-nonuniform","admin-strong-centres"]],
+  [9,"Which combination of language and script is correct for Ashokan inscriptions?","Prakrit was commonly written in Brahmi, while Kharosthi appeared in parts of the northwest",["Prakrit was always written in Greek","Sanskrit was the only language and Kharosthi the only script","Tamil was the main language of all inscriptions"],["insc-prakrit","insc-brahmi","insc-kharosthi"]],
+  [9,"Which option best explains why Taxila and Ujjayini were useful provincial centres?","Both were linked to important long-distance routes, helping communication and control",["Both were isolated from trade","Both were outside the empire","Both were chosen only because they were pilgrimage centres"],["admin-trade-centres","admin-routes"]],
+  [9,"Which set best represents Ashoka's dhamma?","Respect for elders, kindness to servants and respect for other traditions",["Military conquest, forced conversion and heavy tribute","Animal sacrifice, ritual warfare and social exclusion","Isolation from other religions and rejection of officials"],["dhamma-elders","dhamma-servants","dhamma-religions"]],
+
+  [10,"Consider the statements: 1. Chandragupta Maurya founded the empire. 2. Bindusara expanded Mauryan power in central and southern India. 3. Ashoka conquered Kalinga. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["maur-founder","maur-bindusara-expansion","maur-ashoka-kalinga"]],
+  [10,"Consider the statements: 1. Megasthenes was a Greek ambassador. 2. The Arthashastra is linked with Kautilya. 3. Ashoka's inscriptions are important evidence for Mauryan history. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["src-megasthenes","src-arthashastra","src-ashoka-inscriptions"]],
+  [10,"Consider the statements: 1. Most Ashokan inscriptions were in Prakrit. 2. Most Prakrit inscriptions used Brahmi. 3. Kharosthi was used in parts of the northwest. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["insc-prakrit","insc-brahmi","insc-kharosthi"]],
+  [10,"Consider the statements: 1. Pataliputra was the imperial capital. 2. Taxila, Ujjayini, Tosali and Suvarnagiri were major provincial centres. 3. Mauryan control was equally uniform in every region. Which are correct?","1 and 2 only",["2 and 3 only","1 and 3 only","1, 2 and 3"],["maur-capital","admin-five-centres","admin-nonuniform"]],
+  [10,"Consider the statements: 1. The Kalinga conquest was followed by Ashoka's expressed repentance. 2. Dhamma mahamattas spread dhamma. 3. Ashoka's dhamma encouraged respect for other traditions. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["dhamma-kalinga-remorse","dhamma-mahamatta","dhamma-religions"]],
+  [10,"Consider the statements: 1. The Mauryan Empire did not cover the entire subcontinent. 2. Control varied from region to region. 3. New chiefdoms and kingdoms appeared in several regions by the second century BCE. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["empire-not-entire-subcontinent","empire-control-varied","empire-post-mauryan-regions"]],
+];

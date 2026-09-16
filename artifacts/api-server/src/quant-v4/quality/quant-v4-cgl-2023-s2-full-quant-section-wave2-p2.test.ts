@@ -96,23 +96,24 @@ assert.ok(!priorPackages.has("RAP-001"));
 assert.ok(!priorPackages.has("RAP-003"));
 assert.ok(!priorPackages.has("DI-003"));
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 26);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 24);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 21);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 13);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "SAP" }).length, 4);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "RAP-001" }).length, 3);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "RAP-003" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "DI-003" }).length, 4);
+// Historical proof: later waves may append evidence, so cumulative counts are floors.
+assert.ok(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length >= 307);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length >= 40);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length >= 27);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length >= 18);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length >= 29);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length >= 18);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "SAP" }).length >= 6);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "RAP-001" }).length >= 6);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "RAP-003" }).length >= 1);
+assert.ok(listRegisteredCountablePyqObservations({ packageId: "DI-003" }).length >= 9);
 
 const numCgl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
-assert.equal(numCgl.normalizedCountableObservationCount, 18);
+assert.ok(numCgl.normalizedCountableObservationCount >= 21);
 assert.equal(numCgl.profileSelectionCalibrated, false);
 assert.equal(numCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 const tmwCgl = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(tmwCgl.normalizedCountableObservationCount, 16);
+assert.ok(tmwCgl.normalizedCountableObservationCount >= 24);
 assert.equal(tmwCgl.profileSelectionCalibrated, false);
 assert.equal(tmwCgl.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 
@@ -121,9 +122,9 @@ const cgl = buildQuantV4PyqFrequencyProfile({
   observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
   policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
 });
-assert.equal(cgl.countableQuestionCount, 175);
-assert.equal(cgl.distinctPaperCount, 22);
-assert.equal(cgl.topicCoverageCount, 13);
+assert.ok(cgl.countableQuestionCount >= 274);
+assert.ok(cgl.distinctPaperCount >= 25);
+assert.ok(cgl.topicCoverageCount >= 13);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.deepEqual([...cgl.blockers], ["DATED_PAPER_IDENTITY_INCOMPLETE"]);
 assert.equal(canReplaceProvisionalSimulationWeights(cgl), false);

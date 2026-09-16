@@ -1,17 +1,42 @@
-# DI-003 Grouped-Bar Phase 2
+# DI-003 Grouped Bar Interpretation
 
-Status: REVIEW-ONLY GREEN CHECKPOINT
+Status: PERMANENT ENGLISH CONTROLLED REVIEW
 
-- Representation: grouped bar, two visible series, five categories
-- Linked child questions per set: 5
-- Exam profiles: SSC CGL Tier I (4 options), Banking Prelims (5 options)
-- Deterministic stress proof: 200 sets / 1,000 questions
-- Independent verification checks: 1,000
-- Option checks: 4,500
-- Cross-profile stimulus checks: 100
-- Distinct stimuli: 100/100 seeds
-- Correct-answer position coverage: complete for every task in both exam profiles
-- Collision audit: zero five-option collision states after hardening
-- Lifecycle: review-only; no Question Studio discovery, Question Bank storage, test eligibility or public publication
+## Authority
 
-The first Banking stress pass exposed three five-option collapses in CROSS_SERIES_DIFFERENCE. These arose when adjacent-category and same-series misread calculations reduced to the same displayed value. The final candidate architecture replaces those fragile calculations with unit-consistent whole-series-total misread traps while retaining an adjacent-category trap as a lower-priority distractor. The percent-comparison task was also made state-safe by choosing the lower Product A bar as the comparison base regardless of chronological order.
+- Release: `DI-003-PERMANENT-ENGLISH-REVIEW-P1`
+- Canonical problem: `DI-CP-003`
+- Question Studio runtime: `DI003_PERMANENT_ENGLISH_REVIEW_P1`
+- Permanent QLs: `DI-QL-037` through `DI-QL-048`
+- Question Studio discovery: enabled in `CONTROLLED_REVIEW`
+- English editorial status: `ENGLISH_REVIEW_APPROVED`
+- Localization: not started
+
+## Approved V2 learner surface
+
+- Representation: grouped bar chart with two visible series and five categories
+- 12 permanent task families
+- Set mix: exactly 1 Easy + 2 Medium + 2 Hard
+- SSC CGL Tier I: 4 options
+- Banking Prelims: 5 options
+- Shared grouped-bar renderer separated from semantic question state
+- Misconception-owned distractors with dedicated percentage plausibility audit
+- Simple question-specific explanations; multi-step tasks may include working tables
+
+## Qualification evidence
+
+The approved V2 checkpoint is guarded by deterministic/diversity/independent verification across 240 sets / 1,200 questions, visual structural checks, percentage-distractor plausibility proof, legacy DI-003 regression, Question Studio integration proof, API build and patch hygiene.
+
+## Lifecycle locks
+
+Controlled review does **not** authorize downstream publication:
+
+- `questionBankStatus: NOT_STORED`
+- `questionBankWritable: false`
+- `testEligibility: INELIGIBLE`
+- `testEligible: false`
+- `mockTestEligible: false`
+- `publiclyPublishable: false`
+- `automaticStudentPublication: false`
+- `productionReleaseAuthorized: false`
+- manual approval remains required for any later widening of authority

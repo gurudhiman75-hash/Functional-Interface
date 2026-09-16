@@ -8,7 +8,8 @@ export type Eng001QlId =
 export type Eng001CpId =
   | "ENG-001-CP001" | "ENG-001-CP002" | "ENG-001-CP003" | "ENG-001-CP004"
   | "ENG-001-CP005" | "ENG-001-CP006" | "ENG-001-CP007" | "ENG-001-CP008"
-  | "ENG-001-CP009";
+  | "ENG-001-CP009" | "ENG-001-CP010" | "ENG-001-CP011" | "ENG-001-CP012"
+  | "ENG-001-CP013";
 
 export type SvaRuleId =
   | "GR-SVA-001" | "GR-SVA-002" | "GR-SVA-003" | "GR-SVA-004" | "GR-SVA-005"
@@ -37,10 +38,23 @@ export type NounQuantifierRuleId =
 export type GerundInfinitiveParticipleRuleId =
   | "GR-GIP-001" | "GR-GIP-002" | "GR-GIP-003" | "GR-GIP-004" | "GR-GIP-005"
   | "GR-GIP-006" | "GR-GIP-007" | "GR-GIP-008" | "GR-GIP-009" | "GR-GIP-010";
+export type ModifierRuleId =
+  | "GR-MOD-001" | "GR-MOD-002" | "GR-MOD-003" | "GR-MOD-004" | "GR-MOD-005"
+  | "GR-MOD-006" | "GR-MOD-007" | "GR-MOD-008" | "GR-MOD-009" | "GR-MOD-010";
+export type ConditionalRuleId =
+  | "GR-CND-001" | "GR-CND-002" | "GR-CND-003" | "GR-CND-004" | "GR-CND-005"
+  | "GR-CND-006" | "GR-CND-007" | "GR-CND-008" | "GR-CND-009" | "GR-CND-010";
+export type VoiceNarrationRuleId =
+  | "GR-VNR-001" | "GR-VNR-002" | "GR-VNR-003" | "GR-VNR-004" | "GR-VNR-005" | "GR-VNR-006"
+  | "GR-VNR-007" | "GR-VNR-008" | "GR-VNR-009" | "GR-VNR-010" | "GR-VNR-011" | "GR-VNR-012";
+export type IdiomaticUsageRuleId =
+  | "GR-USG-001" | "GR-USG-002" | "GR-USG-003" | "GR-USG-004" | "GR-USG-005"
+  | "GR-USG-006" | "GR-USG-007" | "GR-USG-008" | "GR-USG-009";
 
 export type GrammarRuleId =
   | SvaRuleId | TenseRuleId | ArticleRuleId | PronounRuleId | PrepositionRuleId
-  | ComparisonRuleId | ConjunctionRuleId | NounQuantifierRuleId | GerundInfinitiveParticipleRuleId;
+  | ComparisonRuleId | ConjunctionRuleId | NounQuantifierRuleId | GerundInfinitiveParticipleRuleId
+  | ModifierRuleId | ConditionalRuleId | VoiceNarrationRuleId | IdiomaticUsageRuleId;
 
 export type SvaMutationId =
   | "MUT-SVA-NUMBER-001" | "MUT-SVA-EACH-EVERY-001" | "MUT-SVA-ONE-OF-001" | "MUT-SVA-NUMBER-PHRASE-001"
@@ -77,10 +91,56 @@ export type GerundInfinitiveParticipleMutationId =
   | "MUT-GIP-VERB-GERUND-001" | "MUT-GIP-VERB-TO-INFINITIVE-001" | "MUT-GIP-OBJECT-TO-INFINITIVE-001"
   | "MUT-GIP-CAUSATIVE-BARE-INFINITIVE-001" | "MUT-GIP-MODAL-BARE-INFINITIVE-001" | "MUT-GIP-PREPOSITION-GERUND-001"
   | "MUT-GIP-USED-TO-001" | "MUT-GIP-PURPOSE-INFINITIVE-001" | "MUT-GIP-MEANING-SHIFT-001" | "MUT-GIP-PARTICIPLE-FORM-001";
+export type ModifierMutationId =
+  | "MUT-MOD-DANGLING-PRESENT-001"
+  | "MUT-MOD-DANGLING-PERFECT-001"
+  | "MUT-MOD-DANGLING-PHRASE-001"
+  | "MUT-MOD-RELATIVE-PROXIMITY-001"
+  | "MUT-MOD-ONLY-FOCUS-001"
+  | "MUT-MOD-ALMOST-FOCUS-001"
+  | "MUT-MOD-EVEN-FOCUS-001"
+  | "MUT-MOD-FREQUENCY-ADVERB-001"
+  | "MUT-MOD-MANNER-ADVERB-001"
+  | "MUT-MOD-PARTICIPLE-PROXIMITY-001";
+export type ConditionalMutationId =
+  | "MUT-CND-ZERO-TENSE-001"
+  | "MUT-CND-FIRST-RESULT-001"
+  | "MUT-CND-FIRST-IF-TENSE-001"
+  | "MUT-CND-SECOND-001"
+  | "MUT-CND-THIRD-001"
+  | "MUT-CND-MIXED-PAST-PRESENT-001"
+  | "MUT-CND-MIXED-PRESENT-PAST-001"
+  | "MUT-CND-UNLESS-NEGATION-001"
+  | "MUT-CND-INVERSION-HAD-001"
+  | "MUT-CND-INVERSION-FORMAL-001";
+export type VoiceNarrationMutationId =
+  | "MUT-VNR-PASSIVE-PARTICIPLE-001"
+  | "MUT-VNR-PASSIVE-AUXILIARY-CHAIN-001"
+  | "MUT-VNR-INTRANSITIVE-PASSIVE-001"
+  | "MUT-VNR-MODAL-PASSIVE-001"
+  | "MUT-VNR-PASSIVE-RETAINED-OBJECT-001"
+  | "MUT-VNR-REPORTED-BACKSHIFT-001"
+  | "MUT-VNR-REPORTED-PRONOUN-001"
+  | "MUT-VNR-REPORTED-DEICTIC-001"
+  | "MUT-VNR-REPORTED-QUESTION-001"
+  | "MUT-VNR-REPORTED-COMMAND-001"
+  | "MUT-VNR-UNIVERSAL-TRUTH-001"
+  | "MUT-VNR-REPORTING-VERB-001";
+export type IdiomaticUsageMutationId =
+  | "MUT-USG-PREFER-TO-001"
+  | "MUT-USG-SENIOR-JUNIOR-TO-001"
+  | "MUT-USG-DIFFERENT-FROM-001"
+  | "MUT-USG-CAPABLE-OF-001"
+  | "MUT-USG-INSIST-ON-001"
+  | "MUT-USG-PREVENT-FROM-001"
+  | "MUT-USG-DESPITE-IN-SPITE-001"
+  | "MUT-USG-NO-SOONER-THAN-001"
+  | "MUT-USG-HARDLY-WHEN-001";
 
 export type GrammarMutationId =
   | SvaMutationId | TenseMutationId | ArticleMutationId | PronounMutationId | PrepositionMutationId
-  | ComparisonMutationId | ConjunctionMutationId | NounQuantifierMutationId | GerundInfinitiveParticipleMutationId;
+  | ComparisonMutationId | ConjunctionMutationId | NounQuantifierMutationId | GerundInfinitiveParticipleMutationId
+  | ModifierMutationId | ConditionalMutationId | VoiceNarrationMutationId | IdiomaticUsageMutationId;
 
 export interface DifficultyDimensions {
   ruleComplexity: 1 | 2 | 3 | 4 | 5;
@@ -96,7 +156,8 @@ export interface EnglishGrammarRule {
   category:
     | "subject_verb_agreement" | "tenses_sequence" | "articles_determiners" | "pronouns" | "prepositions"
     | "adjectives_adverbs_comparison" | "conjunctions_parallelism" | "nouns_quantifiers"
-    | "gerunds_infinitives_participles";
+    | "gerunds_infinitives_participles" | "modifiers" | "conditionals" | "voice" | "narration"
+    | "idiomatic_usage";
   name: string;
   principle: string;
   mutationId: GrammarMutationId;

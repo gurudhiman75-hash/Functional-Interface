@@ -1,0 +1,86 @@
+export const HIS_CP012_QL_NAMES_V1:Record<number,string>={
+1:"Portuguese and Dutch in India",
+2:"French presence and Anglo-French rivalry",
+3:"Company entry and Bengal turning point",
+4:"Mir Qasim, Buxar and Bengal control",
+5:"Mysore and Company expansion",
+6:"Subsidiary Alliance",
+7:"Maratha and Sikh expansion",
+8:"Doctrine of Lapse and annexation",
+9:"Chronology and correctly matched associations",
+10:"Multi-statement synthesis",
+};
+
+export type HisCp012Spec=readonly[ql:number,stem:string,answer:string,distractors:readonly[string,string,string],factIds:readonly string[]];
+
+export const HIS_CP012_SPECS_V1:readonly HisCp012Spec[]=[
+[1,"Which European power first established a sustained maritime trading presence in India?","Portuguese",["Dutch","French","English"],["euro-portuguese-first"]],
+[1,"Vasco da Gama reached Calicut in which year?","1498",["1510","1600","1602"],["euro-vasco-calicut-1498"]],
+[1,"Who captured Goa for the Portuguese in 1510?","Afonso de Albuquerque",["Francisco de Almeida","Francois Martin","Joseph Dupleix"],["euro-goa-1510"]],
+[1,"The Dutch East India Company was formed in which year?","1602",["1498","1600","1664"],["euro-dutch-company-1602"]],
+[1,"Where did the Dutch establish an early factory in 1605?","Masulipatnam",["Pondicherry","Goa","Calcutta"],["euro-dutch-masulipatnam-1605"]],
+[1,"The Battle of Colachel (1741) weakened which European power on the Malabar Coast?","Dutch",["French","English","Danish"],["euro-colachel-1741"]],
+
+[2,"The French East India Company was founded in which year?","1664",["1600","1602","1674"],["euro-french-company-1664"]],
+[2,"Which French centre was developed by Francois Martin from 1674?","Pondicherry",["Chinsura","Goa","Bombay"],["euro-french-pondicherry-1674"]],
+[2,"Who became the leading French official in India in 1742?","Joseph Francois Dupleix",["Francois Martin","Robert Clive","Eyre Coote"],["euro-dupleix-1742"]],
+[2,"How many Carnatic Wars were fought between the British and French in India?","Three",["Two","Four","Five"],["euro-carnatic-three-wars"]],
+[2,"Which battle decisively weakened French political ambitions in India during the Third Carnatic War?","Battle of Wandiwash",["Battle of Plassey","Battle of Buxar","Battle of Colachel"],["euro-wandiwash-1760"]],
+[2,"Which statement about the result of Wandiwash is correct?","French political competition for supremacy was broken, though some French settlements later remained",["All French settlements were permanently abolished at once","The French gained control of Bengal","The Dutch replaced the French as the main rival of the Company"],["euro-wandiwash-effect"]],
+
+[3,"The English East India Company was established in which year?","1600",["1602","1664","1674"],["eic-founded-1600"]],
+[3,"Who became Nawab of Bengal in 1756?","Siraj-ud-Daula",["Mir Jafar","Mir Qasim","Shuja-ud-Daula"],["bengal-siraj-1756"]],
+[3,"The Battle of Plassey was fought in which year?","1757",["1756","1764","1765"],["bengal-plassey-1757"]],
+[3,"Which factor was crucial to the Company's victory at Plassey?","Conspiracy involving important Bengal elites, including Mir Jafar",["A decisive naval battle in the Bay of Bengal","Direct military support from the Mughal emperor","French withdrawal from all Indian settlements before the battle"],["bengal-plassey-conspiracy"]],
+[3,"Who was made Nawab of Bengal with Company support after Plassey?","Mir Jafar",["Mir Qasim","Shah Alam II","Shuja-ud-Daula"],["bengal-mirjafar-installed"]],
+[3,"Who replaced Mir Jafar as Nawab of Bengal in 1760?","Mir Qasim",["Siraj-ud-Daula","Shuja-ud-Daula","Alivardi Khan"],["bengal-mirqasim-1760"]],
+
+[4,"Mir Qasim's dispute with the Company over trade centred mainly on which issue?","Unequal duty privileges enjoyed by Company traders",["A ban on textile production in Bengal","A dispute over the salt tax in Bombay","A demand to close all river ports"],["bengal-mirqasim-duty"]],
+[4,"Mir Qasim shifted his capital from Murshidabad to which place?","Munger",["Patna","Allahabad","Dacca"],["bengal-mirqasim-munger"]],
+[4,"Which battle in 1764 gave the Company a decisive victory in eastern India?","Battle of Buxar",["Battle of Plassey","Battle of Wandiwash","Battle of Assaye"],["bengal-buxar-1764"]],
+[4,"Which combination correctly lists the Company's opponents at Buxar?","Mir Qasim, Shuja-ud-Daula and Shah Alam II",["Siraj-ud-Daula, Mir Jafar and Shah Alam II","Mir Qasim, Haidar Ali and Shah Alam II","Shuja-ud-Daula, Tipu Sultan and Mir Jafar"],["bengal-buxar-alliance"]],
+[4,"Which settlement followed the Company's victory at Buxar?","Treaty of Allahabad, 1765",["Treaty of Salbai, 1782","Treaty of Bassein, 1802","Treaty of Amritsar, 1809"],["bengal-allahabad-1765"]],
+[4,"What did the Company obtain from Shah Alam II in 1765?","Diwani rights of Bengal, Bihar and Orissa",["Nizamat rights over all of India","Direct control of Punjab","Monopoly over French settlements"],["bengal-diwani-1765"]],
+
+[5,"After Buxar, why was Awadh restored to Shuja-ud-Daula?","It served as an important buffer state for the Company",["It became a French protectorate","It was merged with Bengal immediately","It was transferred to the Marathas"],["bengal-awadh-buffer"]],
+[5,"Which arrangement best describes the Dual Government in Bengal?","Company controlled revenue while the Nawab formally carried major administrative duties",["Nawab controlled revenue while the Company handled only trade","Company and Nawab shared all powers equally","Mughal emperor directly administered Bengal with Company troops"],["bengal-dual-govt"]],
+[5,"What was the basic weakness of Bengal's Dual Government?","The Company held power and resources while the Nawab bore responsibility with limited power",["The Nawab controlled both army and revenue without responsibility","The Company had responsibility but no financial resources","The Mughal emperor directly collected all Bengal revenue"],["bengal-dual-power-responsibility"]],
+[5,"Who became ruler of Mysore in 1761?","Haidar Ali",["Tipu Sultan","Nizam-ul-Mulk","Ranjit Singh"],["mysore-haidar-1761"]],
+[5,"Which Mysore ruler died fighting the Company in 1799?","Tipu Sultan",["Haidar Ali","Krishnaraja Wodeyar I","Dost Ali"],["mysore-tipu-1799"]],
+[5,"What was a major result of the fall of Mysore in 1799?","One of the strongest southern checks on Company expansion was removed",["French political supremacy was restored in South India","The Maratha Confederacy gained permanent control of Mysore","The Company withdrew from southern India"],["mysore-company-control-1799"]],
+
+[6,"The Subsidiary Alliance system is most closely associated with which Governor-General?","Lord Wellesley",["Lord Dalhousie","Warren Hastings","Lord Cornwallis"],["subsidiary-wellesley-1798"]],
+[6,"Under Subsidiary Alliance, what did the Company promise the allied ruler?","Protection against external threats and internal disorder",["Complete freedom from Company interference","Permanent exemption from military payments","Right to conduct independent foreign policy"],["subsidiary-protection"]],
+[6,"Which military condition formed part of Subsidiary Alliance?","A British contingent was stationed in the allied state",["The ruler had to dismiss every local soldier","Only French troops could train the state army","The ruler had to send troops permanently to Britain"],["subsidiary-troops"]],
+[6,"Who generally bore the cost of the British force stationed under Subsidiary Alliance?","The allied Indian ruler",["The British Parliament alone","The Mughal emperor","The French East India Company"],["subsidiary-subsidy"]],
+[6,"Which restriction was imposed on rulers under Subsidiary Alliance?","They could not wage war or form alliances without Company permission",["They could not collect land revenue","They could not appoint local officials","They had to abolish hereditary succession"],["subsidiary-foreign-policy"]],
+[6,"Which Company official was normally stationed at a court under Subsidiary Alliance?","British Resident",["Company Diwan","Provincial Qazi","French Consul"],["subsidiary-resident"]],
+
+[7,"Which state entered a Subsidiary Alliance with the Company in 1798?","Hyderabad",["Punjab","Sindh","Jhansi"],["subsidiary-hyderabad-1798"]],
+[7,"By which year had the Anglo-Maratha wars ended effective Peshwa power?","1818",["1761","1799","1849"],["maratha-three-wars"]],
+[7,"The Anglo-Maratha wars most directly expanded Company control in which regions?","Western and central India",["Punjab and Kashmir only","Bengal and Assam only","Sindh and Baluchistan only"],["maratha-company-control"]],
+[7,"Delhi came under Company control in which year?","1803",["1798","1818","1843"],["delhi-1803"]],
+[7,"Sindh was annexed by the British in which year?","1843",["1803","1818","1849"],["sindh-1843"]],
+[7,"Who united several Sikh misls into a powerful Punjab state?","Maharaja Ranjit Singh",["Shah Alam II","Daulat Rao Sindhia","Nana Fadnavis"],["sikh-ranjit-misls"]],
+
+[8,"How were Company relations with Ranjit Singh generally described during his lifetime?","Workable and relatively stable",["Continuous open warfare from the beginning","Complete Company control of Lahore","Permanent Maratha mediation"],["sikh-ranjit-relations"]],
+[8,"What followed the death of Ranjit Singh in relation to Company expansion?","Two Anglo-Sikh wars were fought",["Punjab immediately joined the Subsidiary Alliance without conflict","The Company restored Mughal rule in Lahore","Punjab was transferred to the Marathas"],["sikh-two-wars"]],
+[8,"Punjab was annexed by the Company in which year?","1849",["1803","1818","1843"],["sikh-punjab-1849"]],
+[8,"The Doctrine of Lapse is associated with which Governor-General?","Lord Dalhousie",["Lord Wellesley","Lord Cornwallis","Warren Hastings"],["lapse-dalhousie"]],
+[8,"Which principle was central to the Doctrine of Lapse?","An adopted heir could be refused recognition when a dependent ruler died without a natural male heir",["Every princely state had to adopt a British officer as heir","All rulers with natural heirs had to surrender their states","Only Muslim-ruled states could be annexed"],["lapse-natural-heir"]],
+[8,"Which set contains states annexed under the Doctrine of Lapse?","Satara, Sambalpur, Nagpur and Jhansi",["Awadh, Hyderabad, Mysore and Punjab","Bengal, Bihar, Orissa and Awadh","Delhi, Sindh, Punjab and Hyderabad"],["lapse-states"]],
+
+[9,"Which statement correctly distinguishes Awadh from Jhansi in British annexation policy?","Awadh was annexed in 1856 on alleged misgovernment; Jhansi was annexed under the Doctrine of Lapse",["Both were annexed only after Anglo-Sikh wars","Both were annexed under Subsidiary Alliance in 1798","Awadh was annexed under the Doctrine of Lapse; Jhansi on alleged misgovernment"],["awadh-1856-misgovernance","lapse-states"]],
+[9,"Which combination best represents the main methods of Company territorial expansion?","War and conquest; Subsidiary Alliance; annexation policies such as Doctrine of Lapse",["Trade treaties only; missionary activity; naval blockades only","Permanent alliance with France; Mughal restoration; abolition of princely states","Revenue farming only; judicial reform; railway construction"],["expansion-three-methods"]],
+[9,"Which factor gave the British a major advantage over European rivals in India?","Stronger naval power",["Complete absence of Indian allies among rivals","A monopoly over all Asian shipping from 1600","Direct control of the Mughal army"],["expansion-naval-strength"]],
+[9,"Why did control of Bengal strengthen Company expansion elsewhere?","Bengal's resources helped finance military operations",["Bengal supplied the Company with French troops","Bengal ended the need for any taxation","Bengal transferred the Mughal navy to the Company"],["expansion-bengal-resources"]],
+[9,"Which sequence best describes the Company's transformation in India?","Trading corporation → political influence → territorial power",["Territorial empire → trading corporation → political withdrawal","Military state → French ally → trading corporation","Mughal province → princely state → trading corporation"],["expansion-trade-to-power"]],
+[9,"The Third Carnatic War in India formed part of which wider conflict?","Seven Years' War",["War of Austrian Succession","Napoleonic Wars","Crimean War"],["carnatic-seven-years"]],
+
+[10,"Consider the following events: 1. Battle of Wandiwash 2. Pondicherry capitulates to the British. Which is the correct order?","1 followed by 2",["2 followed by 1","Both occurred before the Carnatic Wars","Both occurred after the Battle of Buxar"],["euro-wandiwash-1760","carnatic-pondicherry-1761"]],
+[10,"Which issue formed part of the growing conflict between Siraj-ud-Daula and the Company before Plassey?","Misuse of duty-free trade privileges by Company servants",["Company refusal to import Bengal textiles","Nawab's demand for a Subsidiary Alliance","French annexation of Calcutta"],["plassey-dastak-misuse"]],
+[10,"Which action by the Company increased tensions with Siraj-ud-Daula before Plassey?","Fortifying Calcutta without the Nawab's permission",["Moving its capital from Calcutta to Munger","Granting the Diwani to Shah Alam II","Annexing Punjab in 1849"],["plassey-fortification-calcutta"]],
+[10,"Which outcome followed the Company's decisive victory at Buxar?","It overran Awadh and negotiated from a much stronger political position",["It lost its Bengal trade privileges","It restored French supremacy in the Carnatic","It ended all Company involvement in Indian politics"],["buxar-decisive-awadh"]],
+[10,"Which development strengthened the Company's armies as territorial expansion increased?","Recruitment of Indian sepoys alongside European troops",["Replacement of all troops by naval forces","Exclusive dependence on French mercenaries","Abolition of presidency armies"],["company-military-sepoys"]],
+[10,"Which correctly identifies the Company's three major presidency centres?","Madras, Bengal and Bombay",["Delhi, Awadh and Punjab","Goa, Pondicherry and Calicut","Mysore, Hyderabad and Nagpur"],["presidencies-three-centres"]],
+];

@@ -4,11 +4,12 @@ import { getGeneratedItemApprovalDisposition } from "../../lib/admin-question-st
 import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "../engine-registry";
 import { ENG001_CP009_STANDARD_REVIEW_ONLY_PACKAGE_V1, isEng001Cp009QuestionStudioRequestV1, languageV1Eng001Cp009QuestionStudioAdapterV1 } from "./language-v1-eng001-cp009-adapter-v1";
 
-const expectedCps = ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008", "ENG-001-CP009"];
+const expectedCp009Cps = ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007", "ENG-001-CP008", "ENG-001-CP009"];
+const expectedCurrentCps = [...expectedCp009Cps, "ENG-001-CP010", "ENG-001-CP011", "ENG-001-CP012", "ENG-001-CP013"];
 const packageDef = ENG001_CP009_STANDARD_REVIEW_ONLY_PACKAGE_V1;
 assert.equal(packageDef.engineId, "language-v1");
 assert.equal(packageDef.packageId, "ENG-001");
-assert.deepEqual(packageDef.cpIds, expectedCps);
+assert.deepEqual(packageDef.cpIds, expectedCp009Cps);
 assert.equal(packageDef.questionBankWritable, false);
 assert.equal(packageDef.testEligible, false);
 assert.equal(packageDef.mockTestEligible, false);
@@ -17,7 +18,7 @@ assert.equal(packageDef.automaticStudentPublication, false);
 assert.equal(packageDef.productionReleaseAuthorized, false);
 assert.equal(packageDef.metadata?.humanReviewApproved, true);
 assert.equal(packageDef.metadata?.reviewOnly, true);
-assert.deepEqual(listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001")?.cpIds, expectedCps);
+assert.deepEqual(listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001")?.cpIds, expectedCurrentCps);
 
 assert.equal(isEng001Cp009QuestionStudioRequestV1({ packageId: "ENG-001" }), false);
 assert.equal(isEng001Cp009QuestionStudioRequestV1({ packageId: "ENG-001", canonicalProblemId: "ENG-001-CP009" }), true);
@@ -36,8 +37,8 @@ assert.deepEqual(result, replay);
 assert.equal(result.questions.length, 12);
 assert.equal(new Set(result.questions.map((question) => question.candidateId)).size, 12);
 assert.equal(result.generationContext?.cpId, "ENG-001-CP009");
-assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:6a59e8cdbc1b1b061205a55690e68fc76724ffd7b24f2cecfdce8de5368e465f");
-assert.equal(result.generationContext?.approvedGeneratorHeadSha, "044ec531bbe9f3c0efd6a39596359bab4bd30857");
+assert.equal(result.generationContext?.approvedReviewBlobSha, "sha256:437951a6128dc4366fdacc6ec4830d4179fd6918063fb0111b3cddee76cf935a");
+assert.equal(result.generationContext?.approvedGeneratorHeadSha, "5c2bffdf957a2bdc727dc02c23cd94416ab8a624");
 for (const question of result.questions) {
   assert.equal(question.cpId, "ENG-001-CP009");
   assert.equal(question.subtopic, "Gerunds, Infinitives & Participles");
@@ -72,4 +73,4 @@ for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
 await assert.rejects(languageV1Eng001Cp009QuestionStudioAdapterV1.generate({ ...request, count: 21 }), /count between 1 and 20/i);
 await assert.rejects(languageV1Eng001Cp009QuestionStudioAdapterV1.generate({ ...request, language: "hi" }), /supports English only/i);
 await assert.rejects(languageV1Eng001Cp009QuestionStudioAdapterV1.generate({ ...request, runtimeMode: "bank-only" }), /only supports review-only runtime/i);
-console.log("ENG-001 CP009 Question Studio review-only integration tests passed.");
+console.log("ENG-001 CP009 Question Studio review-only integration tests passed with CP013 registered globally.");

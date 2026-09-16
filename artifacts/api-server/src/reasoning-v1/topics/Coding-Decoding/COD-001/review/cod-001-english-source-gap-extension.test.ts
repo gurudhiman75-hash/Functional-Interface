@@ -107,9 +107,9 @@ for (const contract of COD_SOURCE_GAP_PERMANENT_CONTRACTS) {
     assert.equal(question.renderer, "EXAMPLE_TARGET_BLOCK");
     assert.equal(question.prototypeOnly, false);
     assert.equal(question.reviewOnly, true);
-    assert.equal(question.questionStudioVisible, false);
+    assert.equal(question.questionStudioVisible, true);
     assert.equal(question.publiclyPublishable, false);
-    assert.equal(question.metadata.questionStudioDiscoverable, false);
+    assert.equal(question.metadata.questionStudioDiscoverable, true);
     assert.equal(question.metadata.questionBankWritable, false);
     assert.equal(question.metadata.mockTestEligible, false);
     assert.equal(question.metadata.arbitraryFallbackUsed, false);
@@ -148,6 +148,6 @@ console.log(JSON.stringify({
   sampledLegacyQuestionsForCollisionGate: legacyFingerprints.size,
   sourceGapExactCollisions: 0,
   legacyCrossCollisions: 0,
-  questionStudioVisible: false,
+  questionStudioVisible: true,
   publiclyPublishable: false,
 }, null, 2));

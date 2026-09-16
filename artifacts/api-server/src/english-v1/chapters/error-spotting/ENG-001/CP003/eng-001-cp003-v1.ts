@@ -3,6 +3,7 @@ import { classifyEnglishDifficulty } from "../../../../core/difficulty";
 import type { ArticleRuleId, DifficultyDimensions, Eng001QlId, Eng001Question, Eng001SentenceCandidate, EnglishDifficulty } from "../../../../core/types";
 import { ARTICLE_DETERMINER_RULE_BY_ID } from "../../../../grammar/articles-determiners";
 import { ARTICLE_SCENES_BY_DIFFICULTY_V1, type ArticleSceneV1 } from "./cp003-catalog-v1";
+import { remediateCp003SceneForClosureV1 } from "./cp003-closure-remediation-v1";
 import { CP003_EXTRA_EASY_SCENES_V1 } from "./cp003-easy-extras-v1";
 
 const STEMS: Record<Eng001QlId, string> = {
@@ -18,9 +19,10 @@ const dims = (difficulty: EnglishDifficulty): DifficultyDimensions => difficulty
     : { ruleComplexity: 4, dependencyDistance: 4, distractorSimilarity: 4, sentenceLength: 3, ruleInteraction: 1, lexicalLoad: 1 };
 
 export function cp003ScenePoolV1(difficulty: EnglishDifficulty, ruleId?: ArticleRuleId): readonly ArticleSceneV1[] {
-  const base = difficulty === "easy"
+  const rawBase = difficulty === "easy"
     ? [...ARTICLE_SCENES_BY_DIFFICULTY_V1.easy, ...CP003_EXTRA_EASY_SCENES_V1]
     : ARTICLE_SCENES_BY_DIFFICULTY_V1[difficulty];
+  const base = rawBase.map(remediateCp003SceneForClosureV1);
   const filtered = ruleId ? base.filter((scene) => scene.ruleId === ruleId) : base;
   if (!filtered.length) throw new Error(`No CP003 ${difficulty} scene is available${ruleId ? ` for ${ruleId}` : ""}.`);
   return filtered;

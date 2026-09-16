@@ -5,7 +5,7 @@ import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "../
 import { ENG001_CP007_STANDARD_REVIEW_ONLY_PACKAGE_V1, isEng001Cp007QuestionStudioRequestV1, languageV1Eng001Cp007QuestionStudioAdapterV1 } from "./language-v1-eng001-cp007-adapter-v1";
 
 const cp007Cps = ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003", "ENG-001-CP004", "ENG-001-CP005", "ENG-001-CP006", "ENG-001-CP007"];
-const registeredCps = [...cp007Cps, "ENG-001-CP008", "ENG-001-CP009"];
+const registeredCps = [...cp007Cps, "ENG-001-CP008", "ENG-001-CP009", "ENG-001-CP010", "ENG-001-CP011", "ENG-001-CP012", "ENG-001-CP013"];
 const packageDef = ENG001_CP007_STANDARD_REVIEW_ONLY_PACKAGE_V1;
 assert.equal(packageDef.engineId, "language-v1");
 assert.equal(packageDef.packageId, "ENG-001");
@@ -64,4 +64,4 @@ for (const [qlId, ruleId, difficulty] of [["ENG-001-QL001", "GR-CON-001", "Easy"
 }
 await assert.rejects(languageV1Eng001Cp007QuestionStudioAdapterV1.generate({ ...request, language: "hi" }), /supports English only/i);
 await assert.rejects(languageV1Eng001Cp007QuestionStudioAdapterV1.generate({ ...request, runtimeMode: "bank-only" }), /only supports review-only runtime/i);
-console.log("ENG-001 CP007 Question Studio review-only integration tests passed with CP009 registered globally.");
+console.log("ENG-001 CP007 Question Studio review-only integration tests passed with CP013 registered globally.");

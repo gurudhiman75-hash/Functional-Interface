@@ -1,0 +1,34 @@
+import type { PolCp013Seed } from "./pol-cp013-review-seed-types";
+
+const C = "LEGISLATIVE-DEPT-CONSTITUTION-2026";
+const S = "SCI-SUPREME-COURT-JURISDICTION";
+const q = (ql: number, stem: string, answer: string, distractors: [string,string,string], explanation: string, fact: string, sourceIds: string[]=[C]): PolCp013Seed => ({
+  qlId:`POL-013-QL-${String(ql).padStart(3,"0")}`, difficulty:"Easy", stem, canonicalAnswer:answer, distractors, explanation, sourceIds, sourceFactIds:[fact]
+});
+
+export const POL_CP013_SEEDS_A: readonly PolCp013Seed[] = Object.freeze([
+  q(1,"Which Article provides that there shall be a High Court for each State?","Article 214",["Article 215","Article 216","Article 226"],"Article 214 provides for a High Court for each State; later provisions deal with its status, composition and jurisdiction.","pol-cp013-art214-216"),
+  q(1,"Under which Article is every High Court declared to be a court of record?","Article 215",["Article 214","Article 217","Article 227"],"Article 215 makes every High Court a court of record and expressly includes the power to punish for contempt of itself.","pol-cp013-art214-216"),
+  q(1,"Which Article deals with the constitution of a High Court?","Article 216",["Article 214","Article 217","Article 219"],"Article 216 states that a High Court consists of a Chief Justice and such other Judges as the President considers necessary.","pol-cp013-art214-216"),
+  q(1,"Appointment and conditions of office of High Court Judges are mainly governed by which Article?","Article 217",["Article 215","Article 219","Article 222"],"Article 217 contains the core rules on appointment, retirement, resignation, removal and qualifications of High Court Judges.","pol-cp013-art217",[C,S]),
+
+  q(2,"Which Article empowers High Courts to issue constitutional writs?","Article 226",["Article 215","Article 227","Article 228"],"Article 226 gives every High Court power to issue directions, orders and writs for Fundamental Rights and for other legal purposes.","pol-cp013-art226-scope",[C,S]),
+  q(2,"The High Court's power of superintendence over courts and tribunals is provided under which Article?","Article 227",["Article 226","Article 228","Article 235"],"Article 227 gives every High Court supervisory jurisdiction over courts and tribunals within the territories of its jurisdiction.","pol-cp013-art227"),
+  q(2,"Which Article allows Parliament to extend a High Court's jurisdiction to a Union territory?","Article 230",["Article 229","Article 231","Article 241"],"Article 230 authorises Parliament by law to extend or exclude the jurisdiction of a High Court in relation to a Union territory.","pol-cp013-art230-231"),
+  q(2,"Appointment, posting and promotion of district judges are dealt with in which Article?","Article 233",["Article 234","Article 235","Article 236"],"Article 233 governs district-judge appointments, posting and promotion and gives both the Governor and High Court constitutional roles.","pol-cp013-art233"),
+
+  q(3,"Who determines how many Judges, apart from the Chief Justice, a High Court should have?","President",["Governor","Chief Minister","State Legislature"],"Article 216 leaves the number of other High Court Judges to appointments the President considers necessary from time to time.","pol-cp013-art214-216"),
+  q(3,"Which power follows directly from a High Court being a court of record?","Power to punish for contempt of itself",["Power to dissolve the State Assembly","Power to appoint Governors","Power to amend the Constitution"],"Article 215 directly links court-of-record status with the High Court's power to punish for contempt of itself.","pol-cp013-art214-216"),
+  q(3,"A High Court consists of a Chief Justice and which of the following?","Such other Judges as the President deems necessary",["Exactly twenty other Judges","Judges fixed permanently by the Governor","Only additional Judges"],"The Constitution does not fix one permanent numerical strength; Article 216 allows the President to appoint other Judges as necessary.","pol-cp013-art214-216"),
+  q(3,"Can Parliament establish one common High Court for two or more States?","Yes",["No","Only during an Emergency","Only with Supreme Court approval"],"Article 231 permits Parliament by law to establish a common High Court for two or more States or for States and Union territories.","pol-cp013-art230-231"),
+
+  q(4,"Who formally appoints a Judge of a High Court?","President",["Governor","Chief Justice of India","Chief Minister"],"The formal appointment of a High Court Judge is made by the President; the constitutional process also involves required judicial and State consultation.","pol-cp013-art217",[C,S]),
+  q(4,"What is the retirement age of a Judge of a High Court?","62 years",["60 years","65 years","68 years"],"A permanent High Court Judge holds office until sixty-two years, while a Supreme Court Judge retires at sixty-five.","pol-cp013-art217",[C,S]),
+  q(4,"To whom does a High Court Judge submit a resignation?","President",["Governor","Chief Justice of the High Court","Chief Justice of India"],"Article 217 requires a High Court Judge's resignation to be addressed in writing to the President.","pol-cp013-art217"),
+  q(4,"A High Court Judge is removed in the same constitutional manner as a Judge of which court?","Supreme Court",["District Court","Subordinate Civil Court","Court of Session only"],"Articles 217 and 218 apply the Supreme Court Judge removal mechanism to High Court Judges, preserving the same special parliamentary safeguards.","pol-cp013-art218-221"),
+
+  q(5,"Which of the following is compulsory for appointment as a Judge of a High Court?","Citizenship of India",["Membership of Parliament","Age of at least 45 years","Service as a District Judge only"],"Article 217 requires Indian citizenship plus one of the listed ten-year judicial-office or High Court advocacy qualifications.","pol-cp013-art217",[C,S]),
+  q(5,"For eligibility through judicial service, a High Court Judge candidate must have held judicial office for at least how long?","10 years",["5 years","7 years","12 years"],"Article 217 accepts at least ten years of judicial office in India as one route to High Court appointment.","pol-cp013-art217",[C,S]),
+  q(5,"For eligibility through advocacy, a High Court Judge candidate must have practised as a High Court advocate for at least how long?","10 years",["5 years","7 years","15 years"],"Ten years as an advocate of a High Court, or two or more such Courts in succession, satisfies the advocacy route under Article 217.","pol-cp013-art217",[C,S]),
+  q(5,"Does Article 217 prescribe a separate numerical minimum age for appointment as a High Court Judge?","No",["Yes, 35 years","Yes, 40 years","Yes, 45 years"],"Article 217 specifies citizenship and professional experience but does not create a separate numerical minimum appointment age.","pol-cp013-art217")
+]);

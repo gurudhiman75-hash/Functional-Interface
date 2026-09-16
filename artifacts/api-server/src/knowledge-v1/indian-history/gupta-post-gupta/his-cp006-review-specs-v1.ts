@@ -1,0 +1,86 @@
+export const HIS_CP006_QL_NAMES_V1:Record<number,string>={
+  1:"Early Guptas and Chandragupta I",
+  2:"Samudragupta and imperial expansion",
+  3:"Chandragupta II and the high Gupta age",
+  4:"Hunas, Gupta decline and successor states",
+  5:"Gupta administration and taxation",
+  6:"Economy, land grants and society",
+  7:"Literature, religion and science",
+  8:"Harsha and post-Gupta north India",
+  9:"Chronology, matching and comparison",
+  10:"Multi-statement synthesis",
+};
+
+export type HisCp006Spec=readonly[ql:number,stem:string,answer:string,distractors:readonly[string,string,string],factIds:readonly string[]];
+
+export const HIS_CP006_SPECS_V1:readonly HisCp006Spec[]=[
+  [1,"Who is identified as the founder of the Gupta dynasty?","Shrigupta",["Ghatotkacha","Chandragupta I","Samudragupta"],["gu-shrigupta"]],
+  [1,"Which ruler's accession marked the beginning of the Gupta era in 319 CE?","Chandragupta I",["Samudragupta","Chandragupta II","Kumaragupta"],["gu-chandra1-era"]],
+  [1,"Which title was used by Chandragupta I?","Maharajadhiraja",["Devaputra","Dakshinapatheshvara","Mahakshatrapa"],["gu-chandra1-title"]],
+  [1,"Chandragupta I married which Lichchhavi princess?","Kumaradevi",["Prabhavatigupta","Rajyashri","Dhruvadevi"],["gu-kumaradevi"]],
+  [1,"Which city served as the main capital of Chandragupta I?","Pataliputra",["Kanauj","Valabhi","Thanesar"],["gu-chandra1-capital"]],
+  [1,"Which set was within the early Gupta realm under Chandragupta I?","Magadha, Saketa and Prayaga",["Gandhara, Taxila and Mathura","Kanchi, Vatapi and Madurai","Valabhi, Ujjain and Thanesar"],["gu-chandra1-capital"]],
+
+  [2,"Which inscription is the main record of Samudragupta's conquests?","Prayaga Pillar Prashasti",["Junagadh inscription","Hathigumpha inscription","Besnagar pillar inscription"],["gu-samudra-prashasti"]],
+  [2,"Who composed the Prayaga Prashasti of Samudragupta?","Harisena",["Banabhatta","Kalidasa","Vishakhadatta"],["gu-harisena"]],
+  [2,"What policy did Samudragupta generally follow in the Ganga-Yamuna doab?","Direct annexation",["Restoration of defeated rulers","Complete political withdrawal","Rule through foreign satraps"],["gu-samudra-doab"]],
+  [2,"How did Samudragupta usually treat the southern rulers he defeated?","He restored them after they accepted his suzerainty",["He annexed every kingdom directly","He transferred them to western India","He replaced them with Huna chiefs"],["gu-samudra-south"]],
+  [2,"Which sacrifice did Samudragupta perform to celebrate imperial power?","Ashvamedha",["Rajasuya only","Vajapeya only","Agnicayana only"],["gu-samudra-ashvamedha"]],
+  [2,"What do some of Samudragupta's coins show him doing?","Playing the vina",["Writing on a palm leaf","Sailing a ship","Hunting with a falcon"],["gu-samudra-vina"]],
+
+  [3,"Which western power was defeated by Chandragupta II?","Shakas",["Hunas","Pallavas","Maukharis"],["gu-chandra2-shakas"]],
+  [3,"Which title is strongly associated with Chandragupta II?","Vikramaditya",["Devaputra","Mahakshatrapa","Sakalottarapathanatha"],["gu-chandra2-vikramaditya"]],
+  [3,"Prabhavatigupta married Rudrasena II of which dynasty?","Vakatakas",["Maitrakas","Maukharis","Pushyabhutis"],["gu-prabhavati"]],
+  [3,"Which Chinese Buddhist pilgrim visited India during Chandragupta II's reign?","Fa Hien",["Hsuan Tsang","I-tsing","Al-Biruni"],["gu-fahien"]],
+  [3,"Which poet is associated with the Gupta age and Chandragupta II?","Kalidasa",["Banabhatta","Ashvaghosha","Bharavi"],["gu-kalidasa"]],
+  [3,"Which work was written by Kalidasa?","Abhijnanashakuntalam",["Mudrarakshasa","Harshacharita","Mrichchhakatika"],["gu-kalidasa-works"]],
+
+  [4,"Which ruler succeeded Chandragupta II?","Kumaragupta",["Skandagupta","Toramana","Harshavardhana"],["gu-kumara"]],
+  [4,"Who repulsed an early Huna attack during the later years of Kumaragupta?","Skandagupta",["Samudragupta","Mihirkula","Yashodharman"],["gu-skanda-huna"]],
+  [4,"The Hunas who entered India came broadly from which region?","Central Asia",["Arabian Peninsula","Southeast Asia","Sri Lanka"],["gu-huna-origin"]],
+  [4,"Which Huna ruler was the father of Mihirkula?","Toramana",["Skandagupta","Pulakesin II","Dhruvasena II"],["gu-toramana","gu-mihirkula"]],
+  [4,"Which pair helped defeat Mihirkula?","Yashodharman and Narasimhagupta Baladitya",["Samudragupta and Harisena","Harsha and Rajyavardhana","Kumaragupta and Fa Hien"],["gu-mihirkula"]],
+  [4,"Which development significantly weakened the Gupta Empire?","Repeated Huna invasions",["Expansion of Roman trade","Rise of the Mauryas","Growth of Sangam ports"],["gu-decline-huna"]],
+
+  [5,"Gupta administration is best described as comparatively what?","Decentralized",["Completely city-state based","Entirely tribal","Directly controlled from one office at every level"],["gu-admin-decentralized"]],
+  [5,"What was a Gupta province commonly called?","Bhukti",["Iqta","Nadu","Ahar"],["gu-admin-provinces"]],
+  [5,"Who headed a Gupta province?","Uparika",["Vishayapati","Gramadhyaksha","Mahakshatrapa"],["gu-admin-provinces"]],
+  [5,"What was a Gupta district commonly called?","Vishaya",["Bhukti","Grama","Mandala only"],["gu-admin-vishaya"]],
+  [5,"Who headed a vishaya?","Vishayapati",["Uparika","Gramadhyaksha","Kumaramatya"],["gu-admin-vishaya"]],
+  [5,"Which pair appears in Gupta inscriptions as agricultural taxes?","Uparikara and udranga",["Bhaga and hiranya only","Jizya and kharaj","Chauth and sardeshmukhi"],["gu-tax-uparikara"]],
+
+  [6,"What did vishti mean in the Gupta period?","Forced labour",["Gold coinage","Village assembly","Royal land survey"],["gu-vishti"]],
+  [6,"Who were kumaramatyas?","High-ranking central officers",["Village cultivators","Buddhist monks","Foreign merchants"],["gu-admin-kumaramatya"]],
+  [6,"Which groups took part in town administration during the Gupta period?","Artisans and merchants",["Only royal princes","Only foreign envoys","Only military officers"],["gu-admin-merchants"]],
+  [6,"What was an important effect of large land grants?","Beneficiaries gained revenue and administrative rights",["All village taxes disappeared","Trade became fully state controlled","Coinage replaced all land payments"],["gu-land-grants","gu-society-landlords"]],
+  [6,"Which factor helped agricultural expansion in the Gupta and post-Gupta period?","Wider use of improved cultivation and land grants",["Abandonment of irrigation","End of iron tools","Closure of new lands to farming"],["gu-agri-expansion"]],
+  [6,"What were Gupta gold coins commonly called?","Dinaras",["Karshapanas only","Tankas","Fanams"],["gu-dinaras"]],
+
+  [7,"Which religious tradition received strong Gupta royal patronage?","Bhagavatism",["Zoroastrianism","Christianity","Ajivika only"],["gu-bhagavatism"]],
+  [7,"Which literary form grew significantly during the Gupta period?","Puranic literature",["Persian court chronicles","Sufi malfuzat","European travel diaries"],["gu-puranas"]],
+  [7,"Who wrote Mudrarakshasa?","Vishakhadatta",["Shudraka","Banabhatta","Kalidasa"],["gu-vishakhadatta"]],
+  [7,"Who is associated with Mrichchhakatika?","Shudraka",["Vishakhadatta","Banabhatta","Aryabhata"],["gu-shudraka"]],
+  [7,"Who wrote Aryabhatiya?","Aryabhata",["Varahamihira","Brahmagupta","Kalidasa"],["gu-aryabhata"]],
+  [7,"Panchasiddhantika was written by whom?","Varahamihira",["Aryabhata","Brahmagupta","Banabhatta"],["gu-varahamihira"]],
+
+  [8,"Which dynasty ruled from Valabhi after Gupta decline?","Maitrakas",["Maukharis","Pushyabhutis","Vakatakas"],["gu-maitraka-valabhi"]],
+  [8,"Which dynasty was closely associated with Kanauj before Harsha?","Maukharis",["Maitrakas","Hunas","Shakas"],["gu-maukhari-kanauj"]],
+  [8,"Which dynasty rose to prominence at Thanesar?","Pushyabhutis",["Maitrakas","Maukharis","Vakatakas"],["gu-pushyabhuti-thanesar"]],
+  [8,"Harshavardhana ascended the throne in which year?","606 CE",["319 CE","455 CE","750 CE"],["gu-harsha-accession"]],
+  [8,"To which city did Harsha shift his capital?","Kanauj",["Pataliputra","Valabhi","Ujjain"],["gu-harsha-capital"]],
+  [8,"Which ruler checked Harsha's expansion towards the Deccan?","Pulakesin II",["Mihirkula","Toramana","Rudrasena II"],["gu-harsha-pulakesin"]],
+
+  [9,"Which sequence is chronologically correct?","Chandragupta I → Samudragupta → Chandragupta II → Kumaragupta",["Samudragupta → Chandragupta I → Kumaragupta → Chandragupta II","Chandragupta II → Chandragupta I → Samudragupta → Kumaragupta","Kumaragupta → Chandragupta II → Samudragupta → Chandragupta I"],["gu-chandra1-era","gu-samudra-prashasti","gu-chandra2-shakas","gu-kumara"]],
+  [9,"Which ruler–source pair is correctly matched?","Samudragupta — Prayaga Prashasti",["Harsha — Junagadh inscription","Chandragupta II — Hathigumpha inscription","Toramana — Besnagar pillar"],["gu-samudra-prashasti"]],
+  [9,"Which traveller–ruler pair is correctly matched?","Fa Hien — Chandragupta II",["Hsuan Tsang — Samudragupta","Fa Hien — Harsha","Al-Biruni — Kumaragupta"],["gu-fahien","gu-harsha-sources"]],
+  [9,"Which comparison of Gupta administration is correct?","Uparika headed a province, while vishayapati headed a district",["Vishayapati headed a province, while uparika headed a village","Gramadhyaksha headed a province, while kumaramatya headed a district","Kumaramatya headed every village, while uparika headed every town"],["gu-admin-provinces","gu-admin-vishaya","gu-admin-village"]],
+  [9,"Which combination correctly links post-Gupta centres and dynasties?","Valabhi—Maitrakas; Kanauj—Maukharis; Thanesar—Pushyabhutis",["Valabhi—Maukharis; Kanauj—Pushyabhutis; Thanesar—Maitrakas","Valabhi—Pushyabhutis; Kanauj—Maitrakas; Thanesar—Maukharis","Valabhi—Hunas; Kanauj—Vakatakas; Thanesar—Shakas"],["gu-maitraka-valabhi","gu-maukhari-kanauj","gu-pushyabhuti-thanesar"]],
+  [9,"Which option correctly matches authors and works?","Banabhatta—Harshacharita; Vishakhadatta—Mudrarakshasa; Aryabhata—Aryabhatiya",["Banabhatta—Mudrarakshasa; Vishakhadatta—Aryabhatiya; Aryabhata—Harshacharita","Banabhatta—Aryabhatiya; Vishakhadatta—Harshacharita; Aryabhata—Mudrarakshasa","Banabhatta—Mrichchhakatika; Vishakhadatta—Kadambari; Aryabhata—Panchasiddhantika"],["gu-banabhatta","gu-vishakhadatta","gu-aryabhata"]],
+
+  [10,"Consider the statements about Samudragupta: 1. Harisena composed his Prayaga Prashasti. 2. He annexed kingdoms in the Ganga-Yamuna doab. 3. He restored several defeated southern rulers after they accepted his suzerainty. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["gu-harisena","gu-samudra-doab","gu-samudra-south"]],
+  [10,"Consider the statements about Chandragupta II: 1. He defeated the Shakas of western India. 2. Fa Hien visited during his reign. 3. His daughter Prabhavatigupta married the Vakataka ruler Rudrasena II. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["gu-chandra2-shakas","gu-fahien","gu-prabhavati"]],
+  [10,"Consider the statements about Gupta administration: 1. Provinces could be called bhuktis. 2. Vishayas were districts. 3. Kumaramatyas were high-ranking officers. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["gu-admin-provinces","gu-admin-vishaya","gu-admin-kumaramatya"]],
+  [10,"Consider the statements about Gupta decline: 1. Huna invasions weakened the empire. 2. Later gold coins contained more alloy. 3. Land grants increased as cash payments became less common. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["gu-decline-huna","gu-coin-alloy","gu-land-grants"]],
+  [10,"Consider the statements about Harsha: 1. He shifted his capital to Kanauj. 2. Hsuan Tsang visited during his reign. 3. Pulakesin II checked his expansion near the Narmada. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["gu-harsha-capital","gu-harsha-sources","gu-harsha-pulakesin"]],
+  [10,"Consider the statements: 1. Gupta gold coins were called dinaras. 2. Aryabhata wrote Aryabhatiya. 3. The Mehrauli iron pillar reflects advanced iron-working technology. Which are correct?","1, 2 and 3",["1 and 2 only","2 and 3 only","1 and 3 only"],["gu-dinaras","gu-aryabhata","gu-mehrauli-iron"]],
+];

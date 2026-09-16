@@ -1,0 +1,86 @@
+export type HisCp011Spec=readonly[ql:number,stem:string,answer:string,distractors:readonly[string,string,string],factIds:readonly string[]];
+
+export const HIS_CP011_QL_NAMES_V1:Record<number,string>={
+  1:"Post-Aurangzeb transition",
+  2:"Maratha recovery and the Peshwas",
+  3:"Maratha Confederacy and chiefs",
+  4:"Maratha revenue, expansion and political structure",
+  5:"Sikh political rise",
+  6:"Regional successor states",
+  7:"Nadir Shah, Abdali and Panipat",
+  8:"Eighteenth-century political continuities",
+  9:"Chronology, comparison and association",
+  10:"Multi-statement synthesis",
+};
+
+export const HIS_CP011_SPECS_V1:readonly HisCp011Spec[]=[
+  [1,"What was a major political result of Aurangzeb's death in 1707?","Mughal central authority weakened and regional powers asserted greater independence",["The Mughal Empire immediately broke into European colonies","The Marathas disappeared as a political force","All provincial governors were removed by the emperor"],["post-1707-weakened-centre"]],
+  [1,"Which policy is most closely associated with Bahadur Shah I?","Compromise with several powerful nobles and regional chiefs",["Complete abolition of the Mughal nobility","Permanent transfer of the capital to the Deccan","Direct annexation of all Rajput states"],["post-bahadur-shah-compromise"]],
+  [1,"Who exercised unusually great executive power during Jahandar Shah's reign?","Zulfiqar Khan",["Nizam-ul-Mulk","Balaji Vishwanath","Saadat Khan"],["post-jahandar-zulfiqar"]],
+  [1,"Who helped Farrukh Siyar gain the Mughal throne and then became dominant at court?","The Sayyid brothers",["The Holkars","The Gaikwads","The Bhonsles of Nagpur"],["post-sayyid-brothers"]],
+  [1,"What happened to the balance of power during Muhammad Shah's reign?","Powerful nobles gained greater influence over appointments and state affairs",["The emperor ended the mansabdari system completely","The Marathas accepted permanent Mughal control","Provincial governors lost all political influence"],["post-muhammad-shah-nobles"]],
+  [1,"How did many regional rulers treat Mughal authority in the eighteenth century?","They retained Mughal titles or symbolic authority while exercising substantial independence",["They refused every Mughal title and symbol","They surrendered all local authority to Delhi","They replaced Persian administration with one uniform new system"],["post-symbolic-mughal"]],
+
+  [2,"Shivaji belonged to which important Maratha clan?","Bhonsle",["Holkar","Gaikwad","Sindhia"],["maratha-shivaji-bhonsle"]],
+  [2,"Who succeeded Rajaram in 1708 and became central to the revival of Maratha power?","Shahu",["Mahadji Sindhia","Malhar Rao Holkar","Raghuji Bhonsle"],["maratha-shahu-succeeded"]],
+  [2,"What did the title Peshwa mean in the Maratha state?","Chief minister",["Provincial revenue farmer","Commander of a Sikh chiefdom","Mughal court historian"],["maratha-peshwa-meaning"]],
+  [2,"Which Peshwa helped Shahu secure his position?","Balaji Vishwanath",["Baji Rao II","Nana Fadnavis","Mahadji Sindhia"],["maratha-balaji-vishwanath"]],
+  [2,"Who served as Peshwa from 1720 to 1740?","Baji Rao I",["Balaji Vishwanath","Malhar Rao Holkar","Daulat Rao Sindhia"],["maratha-bajirao-i"]],
+  [2,"What political change marked Shahu's reign?","The Peshwas came to exercise much of the effective central authority",["The office of Peshwa was abolished","The Holkars became Mughal governors of Delhi","The Sikh chiefs took control of Pune"],["maratha-peshwa-ascendancy"]],
+
+  [3,"Which Maratha house was associated with Nagpur?","Bhonsles",["Gaikwads","Holkars","Sindhias"],["maratha-bhonsle-nagpur"]],
+  [3,"Which Maratha house became prominent at Baroda?","Gaikwads",["Bhonsles","Holkars","Sindhias"],["maratha-gaikwad-baroda"]],
+  [3,"Which Maratha house established its main base at Indore?","Holkars",["Gaikwads","Bhonsles","Sindhias"],["maratha-holkar-indore"]],
+  [3,"Which Maratha house later became centred at Gwalior?","Sindhias",["Holkars","Gaikwads","Bhonsles"],["maratha-sindhia-gwalior"]],
+  [3,"Who consolidated Holkar power at Indore during the eighteenth century?","Malhar Rao Holkar",["Raghuji Bhonsle","Mahadji Sindhia","Balaji Vishwanath"],["maratha-malhar-holkar"]],
+  [3,"Who ruled the Holkar domains from 1765 to 1794?","Ahilya Bai",["Tarabai","Raziya","Chand Bibi"],["maratha-ahilyabai"]],
+
+  [4,"What administrative change is associated with Balaji Vishwanath and Baji Rao I?","They made Maratha administration more organised and bureaucratic",["They abolished regular revenue collection","They replaced the Peshwa with Mughal governors","They ended all territorial expansion outside Maharashtra"],["maratha-bureaucratisation"]],
+  [4,"Which pair names two important Maratha tribute claims?","Chauth and sardeshmukhi",["Zat and sawar","Jizya and kharaj","Iqta and fawazil"],["maratha-chauth","maratha-sardeshmukhi"]],
+  [4,"What does the use of Mughal-derived revenue terms by the Marathas show?","There was continuity between Mughal and Maratha revenue practices",["Maratha administration had no revenue system of its own","The Mughals directly governed all Maratha lands","Revenue was collected only through European companies"],["maratha-revenue-continuity"]],
+  [4,"Which group controlled an important Maratha naval force on the western coast?","The Angria clan",["The Sayyid brothers","The Sukerchakias","The Rohillas"],["maratha-angria-fleet"]],
+  [4,"Raghuji Bhonsle is especially associated with Maratha incursions into which region?","Bengal and Bihar",["Kashmir and Punjab","Awadh and Rohilkhand","Sindh and Multan"],["maratha-raghuji"]],
+  [4,"Which areas were among the main targets of early eighteenth-century Maratha northward expansion?","Malwa, Gujarat and Bundelkhand",["Kashmir, Sindh and Kabul","Bengal, Assam and Manipur","Awadh, Bihar and Nepal only"],["post-maratha-northward"]],
+
+  [5,"What followed the suppression of Banda Bahadur?","Sikh resistance to Mughal authority continued",["Sikh political activity ended permanently","Punjab came under permanent Maratha rule","The Sikh chiefs moved their centre to Pune"],["sikh-banda-aftermath"]],
+  [5,"Which city became an important centre of Sikh activity in the 1720s and 1730s?","Amritsar",["Pune","Lucknow","Murshidabad"],["sikh-amritsar-centre"]],
+  [5,"Which Sikh leader helped consolidate a revenue-cum-military system?","Kapur Singh",["Saadat Khan","Raghuji Bhonsle","Zulfiqar Khan"],["sikh-kapur-singh"]],
+  [5,"Which Lahore governor tried to suppress Sikh political expansion before his death in 1745?","Zakariya Khan",["Murshid Quli Khan","Nizam-ul-Mulk","Safdar Jang"],["sikh-zakariya-khan"]],
+  [5,"Which Sikh warrior-leader later founded the kingdom of Kapurthala?","Jassa Singh Ahluwalia",["Charhat Singh Sukerchakia","Banda Bahadur","Kapur Singh"],["sikh-jassa-ahluwalia"]],
+  [5,"By when had Sikh authority been established over Lahore?","By the mid-1760s",["By the 1690s","By the early 1720s","Only after 1857"],["sikh-lahore-mid1760s"]],
+
+  [6,"Which Bengal ruler became virtually independent while still sending tribute to the Mughal emperor?","Murshid Quli Khan",["Saadat Khan","Nizam-ul-Mulk","Jai Singh"],["regional-bengal-murshid"]],
+  [6,"Who took control of Bengal in 1739?","Alivardi Khan",["Safdar Jang","Suraj Mal","Jassa Singh Ahluwalia"],["regional-bengal-alivardi"]],
+  [6,"Which description best fits Bengal under its eighteenth-century Nawabs?","Political stability accompanied efforts to promote agriculture, trade and industry",["Agriculture was abandoned in favour of military expansion","The province lost all overseas trade","The Nawabs transferred all revenue authority to Delhi"],["regional-bengal-prosperity"]],
+  [6,"Who built an autonomous power base in Awadh and made provincial leadership hereditary?","Saadat Khan Burhan-ul-Mulk",["Murshid Quli Khan","Mahadji Sindhia","Kapur Singh"],["regional-awadh-saadat"]],
+  [6,"Which pair belonged to the line of important Awadh Nawabs after Saadat Khan?","Safdar Jang and Asaf-ud-Daula",["Balaji Vishwanath and Baji Rao I","Abdullah Khan and Husain Ali Khan","Malhar Rao and Mahadji Sindhia"],["regional-awadh-successors"]],
+  [6,"Which ruler strengthened Jaipur in the early eighteenth century?","Sawai Jai Singh",["Suraj Mal","Raghuji Bhonsle","Jassa Singh Ahluwalia"],["regional-jaipur-jaisingh"]],
+
+  [7,"Nadir Shah, who invaded India in 1738–39, was the ruler of which country?","Iran",["Afghanistan","Oman","Uzbekistan"],["invasion-nadir-iran"]],
+  [7,"Which ruler repeatedly campaigned in Punjab during the 1750s and 1760s?","Ahmad Shah Abdali",["Nadir Shah","Shah Alam II","Baji Rao I"],["invasion-abdali-punjab"]],
+  [7,"Who defeated the Maratha forces in the Third Battle of Panipat in 1761?","Ahmad Shah Abdali",["Nadir Shah","Nizam-ul-Mulk","Alivardi Khan"],["invasion-panipat-1761"]],
+  [7,"What was the political effect of the Third Battle of Panipat on the Marathas?","It was a major setback to their north Indian expansion but did not permanently end Maratha power",["It permanently ended every Maratha state","It placed Pune under Afghan rule for the rest of the century","It immediately made the Mughal emperor fully powerful again"],["invasion-panipat-setback"]],
+  [7,"Which statement best describes resistance to Afghan influence in Punjab?","Both Sikhs and Marathas resisted it, with Sikh resistance becoming especially important",["Only the Mughal emperor resisted Afghan campaigns","The Marathas and Sikhs jointly accepted Afghan rule","Afghan power faced no regional resistance"],["invasion-sikh-maratha-resistance"]],
+  [7,"Why is the period 1707–1761 important in eighteenth-century Indian political history?","It marks a major transition from Mughal central dominance toward stronger regional orders",["It was a period of complete political unity under one regional state","It ended all Mughal symbols and titles immediately","It saw the disappearance of Maratha and Sikh politics"],["continuity-1707-1761"]],
+
+  [8,"Which statement best describes eighteenth-century regional states?","They differed greatly in origin, resources and political structure",["They all followed one identical administrative model","They all emerged from the same ruling family","They all rejected Mughal political traditions completely"],["continuity-regional-diversity"]],
+  [8,"Why did many regional rulers continue to use Mughal titles and honours?","They used Mughal symbols to strengthen political legitimacy",["They had no authority outside Delhi","They were appointed only by European companies","They were forbidden to create local administrations"],["continuity-mughal-legitimacy"]],
+  [8,"What administrative pattern linked several Maratha, Sikh and regional states?","Continued use of Mughal-derived fiscal and administrative practices",["Complete rejection of land revenue systems","Uniform use of Portuguese law","Abolition of jagirs and revenue assignments everywhere"],["continuity-fiscal-practices"]],
+  [8,"What best describes the political trend after 1707?","Regional powers grew stronger while the Mughal emperor often retained symbolic importance",["The Mughal centre became stronger in every province","Regional states disappeared in favour of one Maratha monarchy","All nobles lost their local power bases"],["continuity-decentralisation"]],
+  [8,"Who established an autonomous political base at Hyderabad in 1724?","Nizam-ul-Mulk",["Saadat Khan","Murshid Quli Khan","Suraj Mal"],["post-nizam-hyderabad"]],
+  [8,"Which Jat ruler of Bharatpur used a modified form of Mughal revenue administration?","Suraj Mal",["Sawai Jai Singh","Jassa Singh Ahluwalia","Mahadji Sindhia"],["regional-bharatpur-surajmal"]],
+
+  [9,"Which sequence is chronologically correct?","Shahu's accession → Baji Rao I as Peshwa → Third Battle of Panipat",["Third Battle of Panipat → Shahu's accession → Baji Rao I as Peshwa","Baji Rao I as Peshwa → Third Battle of Panipat → Shahu's accession","Shahu's accession → Third Battle of Panipat → Baji Rao I as Peshwa"],["maratha-shahu-reign","maratha-bajirao-i","invasion-panipat-1761"]],
+  [9,"Which statement correctly describes the Maratha Confederacy?","Power was shared among several important houses in a loose political arrangement",["Every chief was a salaried Mughal officer under direct Delhi control","All Maratha territories were ruled directly from one provincial capital","The confederacy ended as soon as Shahu came to power"],["maratha-confederacy-loose","maratha-peshwa-ascendancy"]],
+  [9,"Which pair is correctly matched?","Mahadji Sindhia — major north Indian influence; Shah Alam II — granted him the position of deputy regent",["Mahadji Sindhia — Nawab of Bengal; Shah Alam II — Peshwa at Pune","Mahadji Sindhia — Sikh chief of Kapurthala; Shah Alam II — ruler of Baroda","Mahadji Sindhia — founder of Awadh; Shah Alam II — Holkar ruler"],["maratha-mahadji","maratha-mahadji-regent"]],
+  [9,"Which conclusion is supported by Maratha politics after 1761?","The Panipat defeat was severe, but important Maratha houses remained politically active",["All Maratha houses disappeared after the battle","Afghan governors permanently ruled Pune and Gwalior","The Peshwa system was immediately replaced by Sikh chiefs"],["maratha-post-panipat-survival","invasion-panipat-setback"]],
+  [9,"Which combination best explains the changing balance of power in Punjab?","Repeated Afghan campaigns faced strong Sikh resistance, and Sikh authority reached Lahore by the mid-1760s",["Afghan authority became permanently secure after 1761 and Sikh politics ended","Maratha chiefs alone established permanent rule over Lahore","The Mughal centre restored direct control over Punjab in the 1760s"],["sikh-abdali-opposition","sikh-lahore-mid1760s"]],
+  [9,"Which statement correctly describes Sikh political organisation by the 1770s?","Many Sikh chieftains formed a broad confederated political order, with some chiefdoms later becoming states such as Nabha and Patiala",["Punjab was already a single centralised monarchy under Ranjit Singh","All Sikh chiefs had become Mughal mansabdars in Delhi","The Sikh chiefdoms had been absorbed into the Maratha Confederacy"],["sikh-chieftain-confederation","sikh-nabha-patiala"]],
+
+  [10,"Which comparison of Maratha and Sikh administration is correct?","Both retained selected Mughal-derived practices while building their own regional political systems",["Both rejected every Mughal fiscal and administrative practice","Both were administered directly by the Mughal wazir throughout the century","Both abolished revenue assignments and local chiefs"],["sikh-mughal-practices","maratha-revenue-continuity","continuity-fiscal-practices"]],
+  [10,"Which combination correctly describes Ranjit Singh's rise?","He came from the Sukerchakia line and captured Lahore in 1799",["He came from the Gaikwad line and captured Pune in 1761","He came from the Holkar line and captured Murshidabad in 1799","He came from the Bhonsle line and captured Lucknow in 1764"],["sikh-ranjit-sukerchakia","sikh-ranjit-lahore"]],
+  [10,"Which set contains three rulers linked to different eighteenth-century regional power centres?","Nizam-ul-Mulk — Hyderabad; Murshid Quli Khan — Bengal; Saadat Khan — Awadh",["Nizam-ul-Mulk — Bengal; Murshid Quli Khan — Awadh; Saadat Khan — Hyderabad","Nizam-ul-Mulk — Awadh; Murshid Quli Khan — Hyderabad; Saadat Khan — Bengal","Nizam-ul-Mulk — Baroda; Murshid Quli Khan — Indore; Saadat Khan — Gwalior"],["post-nizam-hyderabad","regional-bengal-murshid","regional-awadh-saadat"]],
+  [10,"Which sequence best reflects the expansion and recovery of Maratha power?","Shahu's consolidation → Baji Rao I's Peshwaship → Panipat setback → renewed Sindhia influence",["Panipat setback → Shahu's consolidation → Baji Rao I's Peshwaship → Shivaji's rise","Baji Rao I's Peshwaship → Shivaji's rise → Panipat setback → Shahu's accession","Shahu's consolidation → renewed Sindhia influence → Baji Rao I's Peshwaship → Panipat setback"],["maratha-shahu-reign","maratha-bajirao-i","invasion-panipat-setback","maratha-mahadji"]],
+  [10,"Consider these statements: 1. Regional rulers often retained Mughal symbols. 2. Mughal-derived fiscal practices continued in several successor states. Which option is correct?","Both statements are correct",["Only statement 1 is correct","Only statement 2 is correct","Neither statement is correct"],["continuity-mughal-legitimacy","continuity-fiscal-practices"]],
+  [10,"Which statement best summarises eighteenth-century political change in India?","Mughal central power weakened while Maratha, Sikh and other regional states expanded, often preserving parts of Mughal political practice",["One new empire immediately replaced the Mughals across all India","Regional states grew only by rejecting every Mughal institution","Political decentralisation ended before the middle of the century"],["continuity-decentralisation","continuity-regional-diversity","maratha-post-panipat-survival","sikh-chieftain-confederation"]],
+];

@@ -61,13 +61,14 @@ assert.equal(circumferenceCm, 220);
 assert.equal(linearMetresPerMinute, 550);
 assert.equal(linearMetresPerMinute * 100 / circumferenceCm, 250);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 208);
+// Historical wave-local guarantees must survive later registry appends.
+assert.ok(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length >= 307);
 const tsd001 = listRegisteredCountablePyqObservations({ packageId: "TSD-001" });
 const tsd002 = listRegisteredCountablePyqObservations({ packageId: "TSD-002" });
-assert.equal(tsd001.length, 13);
-assert.equal(tsd002.length, 4);
+assert.ok(tsd001.length >= 18);
+assert.ok(tsd002.length >= 6);
 const tsdAll = [...tsd001, ...tsd002];
-assert.equal(tsdAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 11);
+assert.ok(tsdAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length >= 18);
 assert.equal(tsdAll.filter((entry) => entry.examId === "SSC_CHSL").length, 2);
 assert.equal(tsdAll.filter((entry) => entry.examId === "IBPS_CLERK").length, 3);
 assert.equal(tsdAll.filter((entry) => entry.examId === "SBI_PO").length, 1);
