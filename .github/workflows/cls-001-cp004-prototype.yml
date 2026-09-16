@@ -8,10 +8,13 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-004/**
       - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/README.md
-      - .github/workflows/cls-001-cp004-prototype.yml
 
 permissions:
   contents: read
+
+concurrency:
+  group: cls-001-cp004-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-number-property-classification:
@@ -35,22 +38,29 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Bundle CLS-CP-004 audit
+      - name: Bundle CLS-CP-004 audits
         run: |
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-004
           OUT=dist/reasoning-v1/cls-001/cp004
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004-english-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004-localized-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004-localized-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004-punjabi-terminology.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004-punjabi-terminology.test.mjs"
 
-      - name: Run CLS-CP-004 audit
+      - name: Run CLS-CP-004 audits
         id: cp004_audit
         run: |
           set +e
           OUT=artifacts/api-server/dist/reasoning-v1/cls-001/cp004
           DIAG=$OUT/diagnostics
           mkdir -p "$DIAG"
-          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp004/prototype.test.mjs") >"$DIAG/prototype-audit.log" 2>&1
-          STATUS=$?
+          STATUS=0
+          for TEST in prototype.test cp004-english-runtime.test cp004-localized-runtime.test cp004-punjabi-terminology.test; do
+            (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp004/$TEST.mjs") >"$DIAG/$TEST.log" 2>&1
+            CODE=$?
+            if [ "$CODE" -ne 0 ]; then STATUS=$CODE; break; fi
+          done
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
           exit 0
 
@@ -65,19 +75,28 @@ jobs:
       - name: Enforce CLS-CP-004 audit
         if: steps.cp004_audit.outputs.exit_code != '0'
         run: |
-          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp004/diagnostics/prototype-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp004/diagnostics/*.log
           exit 1
 
-      - name: Generate CLS-CP-004 discovery review
+      - name: Generate CLS-CP-004 discovery and localisation reviews
         run: |
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-004
           OUT=dist/reasoning-v1/cls-001/cp004
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp004-localisation-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp004-localisation-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-review.mjs")
+          (cd artifacts/api-server && node "$OUT/export-cp004-localisation-review.mjs")
 
       - name: Upload CLS-CP-004 discovery review
         uses: actions/upload-artifact@v4
         with:
           name: cls-001-cp004-number-property-discovery-review
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp004-review
+          if-no-files-found: error
+
+      - name: Upload CLS-CP-004 Hindi Punjabi localisation review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp004-hi-pa-localisation-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp004-localisation-review
           if-no-files-found: error

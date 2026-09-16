@@ -8,10 +8,13 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-005/**
       - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/README.md
-      - .github/workflows/cls-001-cp005-localisation.yml
 
 permissions:
   contents: read
+
+concurrency:
+  group: cls-001-cp005-localisation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-cp005-localisation:
@@ -35,47 +38,53 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Bundle CP-005 localisation audit and review exporter
+      - name: Bundle CP-005 localisation and learner-review audits
         run: |
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-005
           OUT=dist/reasoning-v1/cls-001/cp005-localisation
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005-multilingual-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-multilingual-runtime.test.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp005-localisation-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp005-localisation-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005-learner-review-v2.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-learner-review-v2.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp005-learner-review-v2.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp005-learner-review-v2.mjs"
 
-      - name: Run CP-005 localisation audit
+      - name: Run CP-005 frozen-state and learner-review audits
         id: localisation_audit
         run: |
           set +e
           OUT=artifacts/api-server/dist/reasoning-v1/cls-001/cp005-localisation
           DIAG=$OUT/diagnostics
           mkdir -p "$DIAG"
-          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005-localisation/cp005-multilingual-runtime.test.mjs") >"$DIAG/cp005-localisation-audit.log" 2>&1
-          STATUS=$?
+          STATUS=0
+          for TEST in cp005-multilingual-runtime.test cp005-learner-review-v2.test; do
+            (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005-localisation/$TEST.mjs") >"$DIAG/$TEST.log" 2>&1
+            CODE=$?
+            if [ "$CODE" -ne 0 ]; then STATUS=$CODE; break; fi
+          done
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
           exit 0
 
-      - name: Upload CP-005 localisation diagnostics
+      - name: Upload CP-005 diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cls-001-cp005-localisation-diagnostics
+          name: cls-001-cp005-final-audit-diagnostics
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005-localisation/diagnostics
           if-no-files-found: error
 
-      - name: Enforce CP-005 localisation audit
+      - name: Enforce CP-005 audits
         if: steps.localisation_audit.outputs.exit_code != '0'
         run: |
-          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005-localisation/diagnostics/cp005-localisation-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005-localisation/diagnostics/*.log
           exit 1
 
-      - name: Generate CP-005 Hindi Punjabi review
+      - name: Generate CP-005 clean Hindi Punjabi learner review
         run: |
-          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005-localisation/export-cp005-localisation-review.mjs")
+          cd artifacts/api-server
+          node dist/reasoning-v1/cls-001/cp005-localisation/export-cp005-learner-review-v2.mjs
 
-      - name: Upload CP-005 Hindi Punjabi review
+      - name: Upload CP-005 clean Hindi Punjabi learner review
         uses: actions/upload-artifact@v4
         with:
-          name: cls-001-cp005-hi-pa-localisation-review
-          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005-localisation-review
+          name: cls-001-cp005-hi-pa-learner-review-v2
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005-learner-review-v2
           if-no-files-found: error
