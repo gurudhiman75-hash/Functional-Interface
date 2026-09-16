@@ -2,9 +2,9 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-016 Indian Environmental Institutions  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V1  
-**Runtime registration:** blocked pending project-owner approval
+**Runtime registration:** separate from content approval
 
 ## Scope
 
@@ -46,7 +46,7 @@ ENV-CP-015 owns Act-year, Act-purpose and broad CPCB/SPCB/NGT legal basics. ENV-
 - no option-by-option explanation filler
 - Hard items increase relation depth through close institution-function distinctions, not obscure trivia
 
-## Review contract
+## Frozen review contract
 
 - 12 QLs
 - 4 questions per QL
@@ -55,4 +55,4 @@ ENV-CP-015 owns Act-year, Act-purpose and broad CPCB/SPCB/NGT legal basics. ENV-
 - all four answer positions inside every QL
 - deterministic generation
 - source/fact provenance on every item
-- review-only; no Question Studio/runtime registration before explicit project-owner approval
+- approved by project owner on 2026-09-16
