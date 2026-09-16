@@ -1,7 +1,7 @@
 # POL-CP-017 — Centre–State Relations
 
-**Lifecycle:** REVIEW CANDIDATE — V2  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V2  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -49,7 +49,7 @@ This CP covers Centre–State relations through the constitutional distribution 
 - no current office-holder questions
 - no current Finance Commission personnel or current Inter-State Council membership questions
 
-## V2 explanation standard
+## Canonical V2 explanation standard
 
 - simpler English than V1 while keeping the constitutional fact exact;
 - answer the question first, then add one short clarification where useful;
@@ -85,6 +85,10 @@ Examples of the V2 style:
 - Articles 285 and 289 tax immunities are reciprocal but not identical;
 - Article 293 State borrowing is within India, secured on the State Consolidated Fund, with Union consent required where specified Union debt/guarantees remain outstanding.
 
-## Gate
+## Approval
 
-Merge, Question Studio exposure, localization and chapter-wide production registration remain blocked until English V2 is approved.
+English V2 was approved by the project owner on 16 September 2026 and is frozen as the canonical English review version.
+
+## Deferred
+
+Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
