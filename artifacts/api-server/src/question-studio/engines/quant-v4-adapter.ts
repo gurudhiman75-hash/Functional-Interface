@@ -8,6 +8,11 @@ import {
   isDi001QuestionStudioRequest,
 } from "../../quant-v4/topics/DataInterpretation/DI-001/question-studio-adapter";
 import {
+  di003QuestionStudioPackageCard,
+  generateDi003QuestionStudioBatch,
+  isDi003QuestionStudioRequest,
+} from "../../quant-v4/topics/DataInterpretation/DI-003/question-studio-adapter";
+import {
   di009QuestionStudioPackageCard,
   generateDi009QuestionStudioBatch,
   isDi009QuestionStudioRequest,
@@ -46,10 +51,7 @@ function asStringArray(value: unknown): string[] {
 
 function asLanguageArray(value: unknown): QuestionStudioLanguage[] {
   const raw = Array.isArray(value) ? value.map(String) : ["en"];
-  return raw.filter(
-    (entry): entry is QuestionStudioLanguage =>
-      entry === "en" || entry === "hi" || entry === "pa",
-  );
+  return raw.filter((entry): entry is QuestionStudioLanguage => entry === "en" || entry === "hi" || entry === "pa");
 }
 
 function asDifficultyArray(value: unknown): QuestionStudioDifficulty[] {
@@ -80,33 +82,14 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     supportedRuntimeModes: asStringArray(pkg.supportedRuntimeModes),
     dynamicCandidateCpIds: asStringArray(pkg.dynamicCandidateCpIds),
     questionBankStatus: asString(pkg.questionBankStatus) || undefined,
-    questionBankWritable:
-      typeof pkg.questionBankWritable === "boolean"
-        ? pkg.questionBankWritable
-        : undefined,
+    questionBankWritable: typeof pkg.questionBankWritable === "boolean" ? pkg.questionBankWritable : undefined,
     testEligibility: asString(pkg.testEligibility) || undefined,
-    testEligible:
-      typeof pkg.testEligible === "boolean" ? pkg.testEligible : undefined,
-    mockTestEligible:
-      typeof pkg.mockTestEligible === "boolean"
-        ? pkg.mockTestEligible
-        : undefined,
-    publiclyPublishable:
-      typeof pkg.publiclyPublishable === "boolean"
-        ? pkg.publiclyPublishable
-        : undefined,
-    automaticStudentPublication:
-      typeof pkg.automaticStudentPublication === "boolean"
-        ? pkg.automaticStudentPublication
-        : undefined,
-    productionReleaseAuthorized:
-      typeof pkg.productionReleaseAuthorized === "boolean"
-        ? pkg.productionReleaseAuthorized
-        : undefined,
-    manualApprovalRequired:
-      typeof pkg.manualApprovalRequired === "boolean"
-        ? pkg.manualApprovalRequired
-        : undefined,
+    testEligible: typeof pkg.testEligible === "boolean" ? pkg.testEligible : undefined,
+    mockTestEligible: typeof pkg.mockTestEligible === "boolean" ? pkg.mockTestEligible : undefined,
+    publiclyPublishable: typeof pkg.publiclyPublishable === "boolean" ? pkg.publiclyPublishable : undefined,
+    automaticStudentPublication: typeof pkg.automaticStudentPublication === "boolean" ? pkg.automaticStudentPublication : undefined,
+    productionReleaseAuthorized: typeof pkg.productionReleaseAuthorized === "boolean" ? pkg.productionReleaseAuthorized : undefined,
+    manualApprovalRequired: typeof pkg.manualApprovalRequired === "boolean" ? pkg.manualApprovalRequired : undefined,
   };
 }
 
@@ -135,6 +118,22 @@ function toStatRequest(request: QuestionStudioGenerationRequest) {
 }
 
 function toDi001Request(request: QuestionStudioGenerationRequest) {
+  return {
+    packageId: request.packageId,
+    patternId: request.patternId,
+    topic: request.topic,
+    subtopic: request.subtopic,
+    difficulty: request.difficulty,
+    language: request.language,
+    seed: request.seed,
+    count: request.count,
+    canonicalProblemId: request.canonicalProblemId,
+    questionLanguageId: request.questionLanguageId,
+    examProfile: request.exam,
+  };
+}
+
+function toDi003Request(request: QuestionStudioGenerationRequest) {
   return {
     packageId: request.packageId,
     patternId: request.patternId,
@@ -186,54 +185,42 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "quant-v4",
 
   listPackages() {
-    const packages = listQuantV4Packages().map((pkg) =>
-      toSharedPackage(pkg as unknown as Record<string, unknown>),
-    );
+    const packages = listQuantV4Packages().map((pkg) => toSharedPackage(pkg as unknown as Record<string, unknown>));
 
-    const di001Card = toSharedPackage(
-      di001QuestionStudioPackageCard() as unknown as Record<string, unknown>,
-    );
-    const di001Index = packages.findIndex((pkg) => pkg.packageId === "DI-001");
-    if (di001Index >= 0) packages[di001Index] = di001Card;
-    else packages.push(di001Card);
+    const replaceOrPush = (packageId: string, card: Record<string, unknown>) => {
+      const shared = toSharedPackage(card);
+      const index = packages.findIndex((pkg) => pkg.packageId === packageId);
+      if (index >= 0) packages[index] = shared;
+      else packages.push(shared);
+    };
+
+    replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-003", di003QuestionStudioPackageCard() as unknown as Record<string, unknown>);
 
     if (!packages.some((pkg) => pkg.packageId === "DI-009")) {
-      packages.push(
-        toSharedPackage(
-          di009QuestionStudioPackageCard() as unknown as Record<string, unknown>,
-        ),
-      );
+      packages.push(toSharedPackage(di009QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
     if (!packages.some((pkg) => pkg.packageId === "DI-010")) {
-      packages.push(
-        toSharedPackage(
-          di010QuestionStudioPackageCard() as unknown as Record<string, unknown>,
-        ),
-      );
+      packages.push(toSharedPackage(di010QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
     if (!packages.some((pkg) => pkg.packageId === "STAT-001")) {
-      packages.push(
-        toSharedPackage(
-          stat001QuestionStudioPackageCard() as unknown as Record<string, unknown>,
-        ),
-      );
+      packages.push(toSharedPackage(stat001QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
     if (!packages.some((pkg) => pkg.packageId === "STAT-002")) {
-      packages.push(
-        toSharedPackage(
-          stat002QuestionStudioPackageCard() as unknown as Record<string, unknown>,
-        ),
-      );
+      packages.push(toSharedPackage(stat002QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
     return packages.sort((left, right) => left.packageId.localeCompare(right.packageId));
   },
 
-  async generate(
-    request: QuestionStudioGenerationRequest,
-  ): Promise<QuestionStudioGenerationResult> {
+  async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
     const di001Request = toDi001Request(request);
     if (isDi001QuestionStudioRequest(di001Request)) {
       return generateDi001QuestionStudioBatch(di001Request) as unknown as QuestionStudioGenerationResult;
+    }
+
+    const di003Request = toDi003Request(request);
+    if (isDi003QuestionStudioRequest(di003Request)) {
+      return generateDi003QuestionStudioBatch(di003Request) as unknown as QuestionStudioGenerationResult;
     }
 
     const di010Request = toDi010Request(request);
