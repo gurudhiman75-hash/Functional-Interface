@@ -5,3 +5,6 @@ export * from "./grouped-bar-v2-types";
 export * from "./grouped-bar-set-v2";
 export * from "./grouped-bar-set-v2-review";
 export * from "./independent-verifier-v2";
+export * from "./permanent-ql-registry";
+export * from "./permanent-question-generator";
+export * from "./question-studio-adapter";
