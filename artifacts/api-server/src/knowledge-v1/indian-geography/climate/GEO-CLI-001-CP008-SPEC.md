@@ -1,6 +1,6 @@
 # GEO-CLI-001 CP008 — Regional Rainfall & Orographic Patterns
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2
 Parent chapter: `GEO-CLI-001`
 Permanent QLs: `QL064–QL072`
 Lifecycle: review-only; runtime/publication disabled until explicit human approval.
@@ -36,6 +36,12 @@ Key governed facts include:
 - Another Bay branch moves through the Brahmaputra valley, and a sub-branch strikes the Garo-Khasi hills of Meghalaya, producing very heavy orographic rain.
 - Mawsynram lies on the Khasi Hills and is noted for exceptionally high average annual rainfall.
 - During the southwest monsoon, the Tamil Nadu coast is comparatively dry because it lies parallel to the Bay branch and on the leeward side of the Arabian Sea branch after the Western Ghats.
+
+## V2 editorial pass
+
+- All 54 learner-facing stems were rewritten or tightened for slightly simpler, cleaner exam-grade wording.
+- Facts, options, correct answers, explanations, difficulty labels, provenance and QL ownership remain unchanged from V1.
+- The V2 gate requires exactly 54 stem overrides so no V1 stem can silently remain in the review authority.
 
 ## Ownership boundary
 
