@@ -20,7 +20,12 @@ function assert(condition: unknown, message: string): asserts condition {
 assert(COA_CP001_ENGLISH_REVIEW_V2.length === 24, "CP002 must preserve the approved 24-scenario CP001 Editorial V2 baseline");
 assert(COA_CP002_ENGLISH_REVIEW_V2.length === 24, "CP002 must add exactly 24 reviewed expansion scenarios");
 assert(COA_CP002_EDITORIAL_V2_PATCHED_ACTION_IDS.length >= 6, "CP002 Editorial V2 hardening did not patch enough weak distractors");
-assert(COA_CURRENT_ENGLISH_AUTHORITIES.length === 48, "Current English authority must contain approved CP001 V2 + CP002 V2 without replacement");
+assert(COA_CURRENT_ENGLISH_AUTHORITIES.length >= 48, "Current English authority must retain at least the approved CP001 V2 + CP002 V2 corpus");
+
+const currentIds = new Set(COA_CURRENT_ENGLISH_AUTHORITIES.map((entry) => entry.id));
+for (const scenario of [...COA_CP001_ENGLISH_REVIEW_V2, ...COA_CP002_ENGLISH_REVIEW_V2]) {
+  assert(currentIds.has(scenario.id), `${scenario.id}: approved CP001/CP002 authority disappeared from the current additive corpus`);
+}
 
 const baselineIds = new Set(COA_CP001_ENGLISH_REVIEW_V2.map((entry) => entry.id));
 const expansionIds = new Set<string>();
