@@ -1,4 +1,4 @@
-import { generateDi003GroupedBarV2Set } from "./grouped-bar-set-v2";
+import { generateDi003GroupedBarV2ReviewSet } from "./grouped-bar-set-v2-review";
 import type { Di003V2ExamProfile, Di003V2QuestionSet, Di003V2TaskKind } from "./grouped-bar-v2-types";
 
 const PROFILES: readonly Di003V2ExamProfile[] = ["SSC_CGL_TIER_I", "BANKING_PRELIMS"];
@@ -10,7 +10,7 @@ export function buildDi003V2ReviewSets(): readonly Di003V2QuestionSet[] {
 
   for (let seedIndex = 1; seedIndex <= 120 && covered.size < 12; seedIndex += 1) {
     const profile = PROFILES[selected.length % PROFILES.length]!;
-    const set = generateDi003GroupedBarV2Set({ seed: `DI-003-V2-REVIEW-${seedIndex}`, examProfile: profile });
+    const set = generateDi003GroupedBarV2ReviewSet({ seed: `DI-003-V2-REVIEW-${seedIndex}`, examProfile: profile });
     const contributes = set.questions.some((question) => !covered.has(question.kind));
     if (!contributes) continue;
     selected.push(set);
@@ -23,7 +23,7 @@ export function buildDi003V2ReviewSets(): readonly Di003V2QuestionSet[] {
   for (let seedIndex = 1; selected.length < 8 && seedIndex <= 120; seedIndex += 1) {
     if (usedSeeds.has(seedIndex)) continue;
     const profile = PROFILES[selected.length % PROFILES.length]!;
-    selected.push(generateDi003GroupedBarV2Set({ seed: `DI-003-V2-REVIEW-${seedIndex}`, examProfile: profile }));
+    selected.push(generateDi003GroupedBarV2ReviewSet({ seed: `DI-003-V2-REVIEW-${seedIndex}`, examProfile: profile }));
     usedSeeds.add(seedIndex);
   }
 
