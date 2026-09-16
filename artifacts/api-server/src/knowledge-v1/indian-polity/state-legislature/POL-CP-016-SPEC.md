@@ -1,7 +1,7 @@
 # POL-CP-016 — State Legislature
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -22,7 +22,7 @@ This CP covers the State Legislature centred on Articles 168–212: structure, c
 - Articles 202–207 — annual financial statement, grants, appropriation, supplementary/additional/excess grants, vote on account, vote of credit, exceptional grant and financial Bills
 - Articles 208–212 — procedural rules, financial-business regulation, language, judicial-discussion restriction and procedural-irregularity protection
 
-## Review design
+## Approved review design
 
 - 24 genuine QLs
 - 96 English review questions
@@ -34,26 +34,16 @@ This CP covers the State Legislature centred on Articles 168–212: structure, c
 - no current office-holder questions
 - no unstable current list of States with Legislative Councils
 
-## Stem standard
+## Frozen language standard
 
-Use natural SSC/Banking/Railway/State-exam wording from the first canonical version:
-- `Which Article...?`
-- `Who...?`
-- `What happens if...?`
-- short applied situations
-- concise statement-based integrated questions
-
-Avoid database-style fragments and artificial difficulty through verbose language.
-
-## Explanation standard
-
-- simple and slightly helpful;
-- state the exact constitutional rule;
-- add one short distinction or exam trap where it helps;
-- normally 13–32 words;
-- no stock `Correct answer` opening;
-- no generic filler ending;
-- no unnecessary option-by-option analysis.
+- natural SSC/Banking/Railway/State-exam wording
+- no database-style fragments
+- simple and slightly helpful explanations
+- exact constitutional rule first, with one useful distinction or trap where helpful
+- normal explanation range 13–32 words
+- no stock `Correct answer` opening
+- no generic filler ending
+- no unnecessary option-by-option analysis
 
 ## Accuracy guardrails
 
@@ -75,6 +65,10 @@ Avoid database-style fragments and artificial difficulty through verbose languag
 - Article 211 bars discussion of Supreme Court/High Court judicial conduct in discharge of duties;
 - Article 212 protects proceedings from challenge merely for procedural irregularity.
 
-## Gate
+## Freeze rule
 
-Merge, Question Studio exposure, localization and chapter-wide production registration remain blocked until English V1 is approved.
+V1 is approved as the canonical English authority. Any later change requires an explicit revision cycle rather than silent mutation.
+
+## Deferred
+
+Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
