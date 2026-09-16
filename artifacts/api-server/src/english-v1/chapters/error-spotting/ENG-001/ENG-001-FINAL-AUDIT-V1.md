@@ -1,12 +1,10 @@
 # ENG-001 — Error Spotting — Final Chapter Audit V1
 
-Status: `FINAL_AUDIT_REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__NOT_CONTENT_CLOSED`
+Status: `CONTENT_CLOSED_V1__REVIEW_ONLY_LIFECYCLE_LOCKED`
 
 ## Purpose
 
-This checkpoint audits the complete implemented ENG-001 chapter after CP001–CP013. It does not add CP014, allocate new permanent QLs, rewrite already approved corpora, or authorize learner/production release.
-
-The objective is to establish one chapter-level closure gate across the exact human-approved checkpoint authorities already merged into `New-main`.
+This audit closes the implemented ENG-001 Error Spotting chapter after CP001–CP013. It does not add CP014, allocate new permanent QLs, or authorize Question Bank/test/mock/public/automatic learner release.
 
 ## Implemented checkpoint inventory
 
@@ -26,7 +24,7 @@ The objective is to establish one chapter-level closure gate across the exact hu
 | CP012 | Voice & Narration | 12 |
 | CP013 | Common Usage / Idiomatic Grammar | 9 |
 
-Total approved grammar-rule families: **131**.
+Total registered grammar-rule families: **131**.
 
 Permanent learner surfaces remain:
 
@@ -34,106 +32,64 @@ Permanent learner surfaces remain:
 - `ENG-001-QL002` — error spotting with `No error` available;
 - `ENG-001-QL007` — calibrated no-error surface.
 
-## Final-audit editorial contract
+## Final editorial contract
 
-The audit preserves the chapter-wide editorial rules already established during implementation:
+The closed chapter preserves these rules:
 
-- the instruction stem may remain standardized; repetition of the instruction itself is not treated as a content-variety defect;
-- the actual sentence/scenario must remain natural, exam-like and semantically varied;
-- each keyed item must have one defensible grammatical error;
-- no-error items must be genuinely correct rather than merely lacking the targeted mutation;
-- difficulty must come from grammar structure, dependency distance, interaction or ambiguity control rather than obscure vocabulary;
-- explanations must identify the decisive grammar point in simple language and show the complete corrected sentence;
-- learner explanations must not contain option-by-option analysis, internal generator terminology, seed data, lifecycle terminology or Question Studio jargon;
-- approved ambiguity guards remain authoritative and must not be weakened during closure.
+- standardized instruction repetition is acceptable; actual sentence/scenario variety is what matters;
+- each keyed item has one defensible grammatical error;
+- no-error items are genuinely grammatical;
+- difficulty comes from grammar structure, dependency, competing cues and ambiguity control rather than obscure vocabulary;
+- explanations identify the decisive grammar point in simple language and include the complete corrected sentence;
+- learner-facing text excludes option-by-option analysis and internal generator/runtime terminology;
+- approved ambiguity guards remain authoritative.
 
-## Audit finding 1 — shared type-model drift
+## Final validated evidence
 
-The shared `english-v1/core/types.ts` model had stopped at CP009 even though CP010–CP013 were already implemented and registered through checkpoint-local types. This left:
+Exact owner-approved post-refreeze content head:
 
-- `Eng001CpId` incomplete;
-- `GrammarRuleId` incomplete;
-- `GrammarMutationId` incomplete;
-- the shared grammar-category union incomplete.
+`ffdf821658153e469d26678060fbb95c528572f9`
 
-This final-audit branch corrects the shared model through CP013 without changing any approved question corpus or approval hash.
+Final evidence on that head:
 
-## Audit finding 2 — no chapter-level master review existed
+- CP001–CP013 checkpoint workflows: **PASS**;
+- CP003 and CP009–CP013 refrozen approval gates: **PASS**;
+- deterministic 117-question whole-chapter review/audit: **PASS**;
+- 7,020-question exhaustive closure soak: **PASS**;
+- all 131 registered grammar rules exercised chapter-wide: **PASS**;
+- 3,900-question answer-position diagnostic: **PASS**;
+- cumulative CP013 Question Studio regression: **PASS**;
+- API server build: **PASS**;
+- admin app typecheck: **PASS**;
+- workflow CI hygiene: **PASS**;
+- PR branch topology: **PASS**;
+- production/render build: **PASS**.
 
-Each checkpoint has its own source audit, generator validation, approval authority and Question Studio review-only registration, but ENG-001 did not yet have one deterministic chapter-wide human-review pack.
+The answer-position remediation removes the earlier exploitable Part-B concentration while preserving the authored grammar mutation and rejecting poor learner-facing segmentation.
 
-This checkpoint adds `eng-001-final-audit-v1.test.ts`, which:
+## Human review and approval
 
-1. verifies the cumulative Question Studio package exposes exactly CP001–CP013;
-2. verifies exactly 131 unique grammar-rule IDs with the expected per-CP prefix counts;
-3. rechecks all review-only lifecycle locks;
-4. proves the shared core type model now includes CP010–CP013 rule/mutation identities;
-5. generates and deterministically replays one question for every `CP × difficulty × QL` combination;
-6. validates answer bounds, unique options, fixed instruction policy, no-error contracts and full corrected-sentence explanations;
-7. rejects internal/meta leakage and option-by-option analysis in the sampled learner surface;
-8. exports a **117-question** whole-chapter Markdown review pack.
+The regenerated 117-question master pack was manually reviewed after the final CP003 semantic correction. No remaining closure-level ambiguity comparable to the earlier CP003/CP004/CP007/CP010 blockers was found. Explanations, no-error validity, segmentation, difficulty progression and learner-facing cleanliness were accepted for closure.
 
-Master review artifact:
-
-`ENG-001-FINAL-AUDIT-MASTER-REVIEW-V1.md`
-
-Composition:
-
-- 13 checkpoints;
-- 3 difficulties per checkpoint;
-- 3 permanent QL surfaces per difficulty;
-- 117 deterministic review questions in total.
-
-## Audit finding 3 — predictable error-position bias
-
-Manual review of the first whole-chapter master pack exposed a suspicious concentration of keyed errors in Part B. A separate 3,900-question deterministic diagnostic confirmed that this was a real presentation-level pattern rather than a one-pack sampling accident:
-
-- overall Part B: **56.38%** of error-bearing questions;
-- `ENG-001-QL002` Part B: **69.85%**;
-- several early checkpoints were much more concentrated, including CP005 at **92% Part B** in the diagnostic sample.
-
-This is a closure blocker because learners could exploit answer-position regularity without solving the grammar.
-
-The approved grammar corpora themselves are not rewritten. Instead, the shared `language-v1` Question Studio boundary now applies `ENG-001-ANSWER-POSITION-NORMALIZATION-V1` to error-bearing QL001/QL002 questions. The normalization:
-
-- preserves the exact sentence word order;
-- preserves the exact authored error phrase as one indivisible segment;
-- preserves the grammar rule, mutation, candidate identity, corrected sentence and semantic content;
-- repartitions only the surrounding non-error text into contiguous exam-style parts;
-- chooses among feasible error positions deterministically from the generation seed;
-- updates the learner-facing Part label in the explanation to match the new segmentation;
-- leaves QL007 no-error questions unchanged.
-
-A dedicated multi-seed diagnostic reruns after this normalization. Chapter closure remains blocked until the post-remediation distribution is acceptably non-predictable and the regenerated master review is manually inspected for natural segmentation.
-
-## Frozen checkpoint evidence
-
-Historical per-CP review artifacts are intentionally not rewritten merely to update old lifecycle wording. Several are pinned by exact SHA-256/blob authority, and changing those files would invalidate the human-approval provenance.
-
-Where a generated review Markdown is not committed beside the checkpoint, the existing source audit, generator, validator, human-approval authority and CI regeneration/hash gate remain the evidence chain. The final audit treats these differences in storage layout as historical implementation detail, not as permission to mutate approved content.
+The affected checkpoint review artifacts were then deliberately refrozen to the reviewed regenerated bytes, and all post-approval checkpoint and chapter-wide workflows passed.
 
 ## Lifecycle
 
-ENG-001 remains strictly review-only during this audit:
+Content closure is separate from learner release. ENG-001 therefore remains review-only after closure:
 
 - Question Bank writable: **false**;
 - test eligible: **false**;
 - mock-test eligible: **false**;
-- public publication: **false**;
+- publicly publishable: **false**;
 - automatic learner publication: **false**;
 - production release authorized: **false**.
 
-## Closure gate
+## Closure decision
 
-ENG-001 may be marked `CONTENT_CLOSED_V1` only after all of the following are true:
+All six final closure gates are satisfied: exact-head audit, build/typecheck, answer-position audit, master-pack human review, source remediation/refreeze, and explicit project-owner approval.
 
-1. the final-audit workflow is green on the exact branch head;
-2. the API build and admin typecheck remain green;
-3. the 3,900-question answer-position diagnostic confirms the error location is no longer predictably concentrated;
-4. the regenerated 117-question master review artifact is manually reviewed, including segmentation quality;
-5. any genuine wording, ambiguity, explanation or difficulty defect found in that pack is corrected at the source generator and the affected checkpoint is regenerated/re-approved as required;
-6. explicit project-owner approval is recorded for chapter closure.
+Owner closure authorization: **2026-09-16**.
 
-Until that approval, the correct state is:
+Final chapter state:
 
-`CP001–CP013_IMPLEMENTED_AND_HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY__FINAL_CHAPTER_AUDIT_IN_PROGRESS`
+`CP001–CP013_IMPLEMENTED__HUMAN_REAPPROVED__CONTENT_CLOSED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`

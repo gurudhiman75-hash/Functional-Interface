@@ -1,182 +1,83 @@
 # ENG-001 — Exhaustive Closure Audit V1
 
-Status: `REMEDIATION_COMPLETE__HUMAN_REAPPROVAL_PENDING__REVIEW_ONLY`
+Status: `CONTENT_CLOSED_V1__REVIEW_ONLY_LIFECYCLE_LOCKED`
 
 ## Scope
 
-This is the chapter-closing audit for ENG-001 after CP001–CP013. It goes beyond individual checkpoint validation and uses both large deterministic generation audits and a final learner-facing review pack.
+This is the chapter-closing audit for ENG-001 after CP001–CP013. It covers all 13 implemented checkpoints, all 131 registered grammar rules, Easy / Medium / Hard generation, QL001 / QL002 / QL007 contracts, single-defensible-error quality, no-error validity, exam-style wording, explanation quality, answer-position predictability, deterministic replay, rule/surface breadth, cumulative Question Studio integration, and lifecycle locks.
 
-The audit covers:
+No CP014 is created by this closure.
 
-- all 13 implemented checkpoints;
-- all 131 registered grammar rules;
-- Easy / Medium / Hard generation;
-- QL001 / QL002 / QL007 contracts;
-- single-defensible-error quality and no-error validity;
-- natural exam-style wording;
-- explanation usefulness and corrected-sentence accuracy;
-- answer-position predictability;
-- learner-facing part segmentation;
-- deterministic generation and rule/candidate/surface breadth;
-- cumulative Question Studio integration;
-- review-only lifecycle locks.
+## Final validated content head
 
-## Final exact-head evidence
+The owner-approved, post-refreeze content head is:
 
-Final audited content head before this record update: `5c2bffdf957a2bdc727dc02c23cd94416ab8a624`.
+`ffdf821658153e469d26678060fbb95c528572f9`
 
-### 117-question master review
+On that exact head:
 
-The deterministic master pack samples every `CP × difficulty × permanent QL` combination:
+- CP001–CP013 checkpoint workflows: **PASS**;
+- remediated review/freeze gates for CP003 and CP009–CP013: **PASS**;
+- deterministic 117-question master review/audit: **PASS**;
+- 13 checkpoints / 131 registered grammar rules;
+- 82 distinct rules represented in the 117-question review sample;
+- 7,020-question exhaustive closure soak: **PASS**;
+- all 131 rules exercised chapter-wide by the soak;
+- 3,900-question answer-position audit: **PASS**;
+- cumulative CP013 Question Studio regression: **PASS**;
+- API server build: **PASS**;
+- admin app typecheck: **PASS**;
+- workflow CI hygiene: **PASS**;
+- pull-request branch topology: **PASS**;
+- production/render build: **PASS**.
 
-- 13 checkpoints;
-- 117 questions;
-- 131 registered rules in the chapter;
-- 82 distinct rules represented in the review sample;
-- QL001 / QL002 / QL007 at Easy / Medium / Hard;
-- lifecycle remains review-only.
+## Closure blockers resolved
 
-The master pack itself passed its structural audit and was regenerated after the final CP003 article-family remediation.
+The exhaustive audit found and resolved the following chapter-level defects before closure:
 
-### 7,020-question exhaustive closure soak
+- **CP003** — ambiguous definite-article specificity cases were replaced with genuinely defective missing-determiner surfaces while preserving the intended `the` correction; awkward `much water` wording was also naturalized.
+- **CP004** — reflexive/object-pronoun cases no longer survive under an alternate referent.
+- **CP007** — coordinator-choice questions no longer depend on an unstated discourse relation.
+- **CP010** — relative-clause attachment ambiguity was removed and overlong authored parts were tightened.
+- **CP005 / CP008 / CP009 / CP012 / CP013 Hard calibration** — difficulty now uses competing correct cues, dependency/scope and structural contrast rather than sentence length alone.
+- **CP011** — `unless + not` contexts now make the positive requirement explicit so the wrong double-negative reading cannot survive.
+- **Secondary cleanup** — the CP001 tense side-effect, CP005 naturalness, CP006 review-rule repetition, CP013 explanation wording, and soak-discovered overlong parts were corrected.
+- **Answer-position exploit** — shared Question Studio normalization removed the exploitable Part-B concentration without changing the authored grammatical mutation.
 
-`eng-001-closure-soak-v1.test.ts` passed on the exact audited head.
+## Human re-approval and refreeze
 
-It generated `13 CPs × 3 difficulties × 3 QLs × 60 seeds = 7,020` questions and checked:
+The regenerated 117-question master pack was reviewed after the final semantic remediation and explicitly approved for refreeze.
 
-- exact package/lifecycle identity;
-- all 131 registered rules exercised chapter-wide;
-- complete rule exercise through both error-producing QLs across applicable difficulties;
-- calibrated QL007 no-error breadth;
-- candidate and learner-surface breadth;
-- answer bounds and option uniqueness;
-- QL contracts;
-- corrected-sentence presence in explanations;
-- no internal metadata leakage;
-- no option-by-option analysis;
-- explanation Part references matching the keyed answer;
-- authored and normalized part-length guardrails;
-- deterministic replay.
+Affected approved review artifacts are pinned to these reviewed bytes:
 
-Result: **PASS**.
+- CP003: `a4d0e66fa398f3a728570c17d310220a718f57bbf24d03a687af8d774d355a4a`
+- CP009 V2: `437951a6128dc4366fdacc6ec4830d4179fd6918063fb0111b3cddee76cf935a`
+- CP010: `b4bad142646388c2fc1335e740f9e314c172c02c285ab7e65b03c6b8c23d27a8`
+- CP011: `0dbaaaa1228f1cdd96f58031c70c6ca3115e7839722f80da83fe2a7bc22f399f`
+- CP012: `afaedd78c49c31c08d480c00845d5a80f83406d3c0962695dcdebf6d4a01528d`
+- CP013: `3814f221e715a8c3d7702e7930af020e5ea1cc270210a9b257da96ceb9c611c9`
 
-### 3,900-question answer-position audit
+## Lifecycle after content closure
 
-The chapter-level answer-position diagnostic passed on the exact audited head after the constrained Question Studio normalization layer was applied.
+`CONTENT_CLOSED_V1` closes the ENG-001 content chapter; it does **not** authorize learner or production release.
 
-The earlier exploitable Part-B bias is no longer present, while the normalizer still preserves the authored grammatical mutation and rejects poor generated segmentations.
+The following remain locked:
 
-Result: **PASS**.
+- Question Bank writable: **false**;
+- test eligible: **false**;
+- mock-test eligible: **false**;
+- public publication: **false**;
+- automatic learner publication: **false**;
+- production release authorized: **false**.
 
-### Cumulative integration/build evidence
-
-The exact-head final-audit workflow also passed:
-
-- latest cumulative CP013 Question Studio regression;
-- API server build;
-- admin app typecheck.
-
-CI hygiene and pull-request branch topology checks also pass.
-
-## Closure blockers found and resolved
-
-### CP004 — reflexive-pronoun ambiguity
-
-The original reflexive family allowed ordinary object pronouns such as `reminded her`, `blamed her`, or `reminded him` to survive under an alternative referent.
-
-Resolution: ambiguous reflexive/object-pronoun scenes were redesigned so the intended correction no longer depends on unstated coreference.
-
-Status: **resolved**.
-
-### CP007 — coordinator-choice ambiguity
-
-The original coordinator items could make alternatives such as `so` versus `but/yet` depend on an intended discourse relation rather than a uniquely defensible error.
-
-Resolution: coordinator contexts were strengthened/reworked so contrast/result logic is explicit and the learner-facing error is defensible.
-
-Status: **resolved**.
-
-### CP010 — modifier/relative-clause attachment ambiguity
-
-The original relative-clause attachment item allowed a second grammatically possible antecedent.
-
-Resolution: the attachment scenes now include explicit contradiction/antecedent guards; later soak-driven edits also tightened authored part lengths without changing the grammar targets.
-
-Status: **resolved**.
-
-### Hard calibration — CP005 / CP008 / CP009 / CP012 / CP013
-
-Several Hard pools originally relied too heavily on longer sentences around locally obvious substitutions.
-
-Resolution: affected Hard scenes now include nearby competing correct patterns, longer dependency/scope, or contrastive cues while keeping vocabulary simple. Authored answer-position spreads were also rebalanced where remediation clustered the keyed part.
-
-Status: **resolved to review standard**. Some Hard samples remain locally accessible once the decisive rule is recognized, but they no longer rely on sentence length alone and are acceptable for final human review.
-
-## Secondary findings resolved
-
-- CP001 SVA item no longer introduces a secondary tense dispute.
-- CP003 `much water` wording was naturalized.
-- CP005 awkward guideline/personification wording was removed during Hard remediation.
-- CP006 final-review sampling now prefers distinct rules across QLs where the eligible pool allows it.
-- CP011 `unless + not` scenes now state the positive requirement explicitly, preventing the wrong form from surviving under an unintended reading.
-- CP013 learner explanations no longer use internal/editorial wording such as `controlled exam surface`.
-- Soak-discovered overlong authored parts in CP005, CP009, CP010, CP011, CP012 and CP013 were tightened at source rather than weakening the audit threshold.
-
-## Final human-review finding — CP003 definite-article specificity
-
-After the automated gates first turned green, the human 117-pack review found a remaining ambiguity in `GR-ART-004`: forms such as `an application submitted yesterday` or `a computer that had stopped responding` can still be grammatical under a different reference, even when the intended answer is `the`.
-
-Resolution: all six `GR-ART-004` specificity scenes were remediated so the error surface omits the determiner on the explicitly identified singular count noun. The error is now genuinely grammatical (for example, `signed application submitted yesterday`), while the context still explains why the correction is specifically `the application`.
-
-The 117 audit, 7,020 soak, cumulative regression/build/typecheck, and 3,900 answer-position audit were rerun after this change and all passed.
-
-Status: **resolved**.
-
-## Final manual review result
-
-The regenerated 117-question master pack was reviewed across CP001–CP013 after the final semantic remediation.
-
-Findings:
-
-- sampled QL007 no-error questions are grammatical;
-- sampled error items have a defensible keyed error;
-- explanations remain simple, question-specific, and include the full corrected sentence;
-- no option-by-option analysis is present;
-- no Question Studio/runtime/candidate metadata leaks into learner-facing text;
-- standardized instruction repetition is intentional and acceptable;
-- Easy / Medium / Hard progression is acceptable for final re-approval;
-- no remaining closure-level ambiguity comparable to the original CP003/CP004/CP007/CP010 blockers was found.
-
-## Approval hashes and checkpoint workflow state
-
-Learner-facing remediation intentionally invalidates historical frozen review artifacts. The approval boundary is therefore being preserved rather than bypassed.
-
-On the exact audited head:
-
-- CP003 generation/validation passes; its frozen review/freeze check fails because the reviewed artifact changed.
-- CP009 generation/validation passes; its previously approved review artifact no longer matches.
-- CP010 generation/validation passes; its previously approved SHA-256 no longer matches.
-- CP011 generation/validation passes; its previously approved SHA-256 no longer matches.
-- CP012 generation/validation passes; its previously approved SHA-256 no longer matches.
-- CP013 generation/validation passes; its previously approved SHA-256 no longer matches.
-
-These are **human re-approval gates**, not unresolved content defects. The old hashes must not be updated merely to make CI green.
+Question Studio remains review-only.
 
 ## Closure decision
 
-ENG-001 is now a **remediation-complete closure candidate**, but it is **not yet `CONTENT_CLOSED_V1`** because the changed learner-facing review artifacts require explicit project-owner approval.
+All chapter-level quality, human re-approval, freeze, integration and deterministic audit gates are satisfied. On explicit project-owner authorization dated **2026-09-16**, ENG-001 is marked:
 
-Before final closure:
-
-1. present the regenerated 117-question master pack for final owner review;
-2. receive explicit approval for the remediated ENG-001 content;
-3. intentionally refreeze/update the affected approved review artifacts/hashes;
-4. rerun the affected checkpoint workflows so approval gates are green;
-5. rerun/confirm the chapter-wide final audit and answer-position gates on the post-approval head;
-6. merge only after explicit closure approval.
-
-Question Bank/test/mock/public/automatic learner release remains locked throughout this process.
+`CONTENT_CLOSED_V1`
 
 Current chapter state:
 
-`CP001–CP013_IMPLEMENTED__REMEDIATION_COMPLETE__FINAL_HUMAN_REAPPROVAL_PENDING__REVIEW_ONLY__NOT_CONTENT_CLOSED`
+`CP001–CP013_IMPLEMENTED__REMEDIATED__HUMAN_REAPPROVED__POST_APPROVAL_VALIDATION_PASS__CONTENT_CLOSED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
