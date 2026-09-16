@@ -23,7 +23,7 @@ Included:
 - carbon sinks such as forests and oceans
 - renewable energy, energy efficiency and forest protection/restoration as mitigation examples
 - flood defences, early-warning systems and drought-resilient crops as adaptation examples
-- correct/incorrect pairs, statements and applied identification
+- correct/incorrect pairs, short statements and simple applied identification
 
 Explicitly deferred:
 - detailed UNFCCC, Kyoto Protocol and Paris Agreement provisions (ENV-CP-017)
@@ -33,16 +33,18 @@ Explicitly deferred:
 
 ## Learner-facing rules
 
-1. Stems use direct competitive-exam formats from V1.
-2. Explanations use one short fact or causal distinction.
-3. Human influence is stated in line with IPCC AR6: greenhouse-gas emissions from human activities have unequivocally caused global warming.
-4. Sea-level questions use the two stable main causes: ocean thermal expansion and melting land ice.
-5. Extreme-event questions avoid overgeneralising every regional event; they use robust global concepts such as stronger/more frequent hot extremes and heavier precipitation with warming.
-6. Mitigation acts on causes by reducing emissions or enhancing sinks.
-7. Adaptation acts on impacts and vulnerability.
-8. Forests and oceans are treated as important carbon sinks, without mutable annual uptake percentages.
-9. No current emissions ranking, annual temperature record or scenario-specific projection trivia is used.
-10. Review generators remain `runtimeRegistered: false` until project-owner approval.
+1. Stems must be short, simple and exam-like.
+2. Avoid long clauses and unnecessary wording.
+3. Hard difficulty comes from the facts or combinations, not difficult language.
+4. Explanations use one short fact or causal distinction.
+5. Human influence is stated in line with IPCC AR6: greenhouse-gas emissions from human activities have caused recent global warming.
+6. Sea-level questions use the two stable main causes: ocean thermal expansion and melting land ice.
+7. Extreme-event questions avoid claiming that every regional event has the same trend.
+8. Mitigation acts on causes by reducing emissions or enhancing sinks.
+9. Adaptation acts on impacts and vulnerability.
+10. Forests and oceans are treated as important carbon sinks without mutable annual uptake percentages.
+11. No current emissions ranking, annual temperature record or scenario-specific projection trivia is used.
+12. Review generators remain `runtimeRegistered: false` until project-owner approval.
 
 ## QL inventory
 
@@ -72,6 +74,7 @@ Before approval:
 - canonical answer equals option at `correctIndex`;
 - source IDs and source-fact IDs retained;
 - no duplicate semantic question signatures;
+- ordinary stems stay short and simple;
 - no treaty-detail leakage from ENV-CP-017;
 - no current ranking/record trivia;
 - no teaching/meta stem wording;
@@ -81,4 +84,4 @@ Before approval:
 
 ## Source policy
 
-Core facts are cross-checked against IPCC AR6, NASA climate evidence/sea-level material and UNFCCC adaptation/mitigation guidance. Source verification date: 2026-09-16.
+Core facts are cross-checked against IPCC AR6 and NASA climate evidence/sea-level material, with mitigation/adaptation concepts aligned to established climate-science definitions. Source verification date: 2026-09-16.
