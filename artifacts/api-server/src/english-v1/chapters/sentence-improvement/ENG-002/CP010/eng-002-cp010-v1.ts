@@ -240,7 +240,7 @@ function placementVariants(ruleId: ModifierRuleId, correct: string, wrong: strin
     const synonym = token.toLowerCase() === "almost" ? "nearly" : "almost";
     variants.push(replaceWord(wrong, token, synonym), moveToken(wrong, token, "end"), moveToken(wrong, token, "start"));
   } else if (ruleId === "GR-MOD-007" && token) {
-    variants.push(moveToken(wrong, token, "start"), moveToken(wrong, token, "end"));
+    variants.push(moveToken(wrong, token, "end"), moveToken(wrong, token, "start"));
   } else if (ruleId === "GR-MOD-008" && token) {
     for (const alternative of frequencyAlternatives(token)) variants.push(replaceWord(wrong, token, alternative));
     variants.push(moveToken(wrong, token, "end"));
@@ -291,7 +291,8 @@ export function generateEng002Cp010QuestionV1(input: GenerateEng002Cp010V1Input)
   const ruleId = candidate.ruleId;
   const sourceIndex = candidate.errorIndex;
   const focus = targetForRule(ruleId, correctSegments[sourceIndex]!, errorSegments[sourceIndex]!);
-  const noImprovement = input.noImprovement ?? deterministicBoolean(`${input.seed}:eng002:cp010:no-improvement`, 0.25);
+  const requestedNoImprovement = input.noImprovement ?? deterministicBoolean(`${input.seed}:eng002:cp010:no-improvement`, 0.25);
+  const noImprovement = ruleId === "GR-MOD-007" ? false : requestedNoImprovement;
   const targetText = noImprovement ? focus.correctTarget : focus.wrongTarget;
   const visible = focusedSegments(noImprovement ? correctSegments : errorSegments, sourceIndex, focus, targetText);
   const shuffled = shuffleThree(`${input.seed}:eng002:cp010:options`, replacementChoices(ruleId, focus.correctTarget, focus.wrongTarget, targetText, noImprovement));
