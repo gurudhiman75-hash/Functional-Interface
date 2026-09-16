@@ -37,37 +37,56 @@ function focusDifference(correctSegment: string, wrongSegment: string): Focus {
   if (!correctTarget || !wrongTarget || correctTarget.toLowerCase() === wrongTarget.toLowerCase()) throw new Error(`CP007 could not isolate target: ${correctSegment} <> ${wrongSegment}`);
   return { prefix, correctTarget, wrongTarget, suffix };
 }
+function targetForRule(ruleId: ConjunctionRuleId, correctSegment: string, wrongSegment: string): Focus {
+  if (ruleId === "GR-CON-007") {
+    const punctuation = correctSegment.match(/([,.;:!?]+)$/)?.[1] ?? "";
+    return { prefix: "", correctTarget: clean(correctSegment).replace(/[,.;:!?]+$/, ""), wrongTarget: clean(wrongSegment).replace(/[,.;:!?]+$/, ""), suffix: punctuation };
+  }
+  return focusDifference(correctSegment, wrongSegment);
+}
 
-const replaceWord = (text: string, from: RegExp, to: string) => text.replace(from, to);
 function parallelVariants(correct: string, wrong: string) {
   const out = [wrong];
-  if (/^to\s+/i.test(correct)) {
-    const bare = correct.replace(/^to\s+/i, ""); out.push(bare, `having to ${bare}`);
-  } else if (/\bing\b/i.test(correct) || /^\w+ing\b/i.test(correct)) {
-    out.push(`to be ${correct}`, `by ${correct}`);
-  } else {
-    out.push(`to ${correct}`, `having to ${correct}`);
-  }
+  if (/^to\s+/i.test(correct)) { const bare = correct.replace(/^to\s+/i, ""); out.push(bare, `having to ${bare}`); }
+  else if (/^\w+ing\b/i.test(correct)) out.push(`to be ${correct}`, `by ${correct}`);
+  else out.push(`to ${correct}`, `having to ${correct}`);
   return out;
 }
+function tokenSet(correct: string, wrong: string, tokens: readonly string[]) { return unique([wrong, ...tokens.filter((token) => token.toLowerCase() !== correct.toLowerCase() && token.toLowerCase() !== wrong.toLowerCase())]); }
 function incorrectVariants(ruleId: ConjunctionRuleId, correctTarget: string, wrongTarget: string) {
-  const correct = clean(correctTarget), wrong = clean(wrongTarget);
-  let variants: string[] = [wrong];
+  const correct = clean(correctTarget), wrong = clean(wrongTarget); let variants: string[] = [wrong]; const lower = correct.toLowerCase();
   switch (ruleId) {
-    case "GR-CON-001": {
-      const pairs: Array<[RegExp, string[]]> = [[/\bbut\b/i, ["so", "and"]], [/\byet\b/i, ["so", "and"]], [/\bso\b/i, ["but", "or"]]];
-      for (const [pattern, alts] of pairs) if (pattern.test(correct)) variants.push(...alts.map((alt) => replaceWord(correct, pattern, alt)));
-      if (/\band so\b/i.test(correct)) variants.push(correct.replace(/\band so\b/i, "and but"), correct.replace(/\band so\b/i, "and or"));
+    case "GR-CON-001":
+      if (["but", "yet", "so", "and", "or"].includes(lower)) variants = tokenSet(correct, wrong, ["but", "so", "and", "or", "yet"]);
+      else if (/\bbut\b/i.test(correct)) variants.push(correct.replace(/\bbut\b/i, "so"), correct.replace(/\bbut\b/i, "and"));
+      else if (/\bso\b/i.test(correct)) variants.push(correct.replace(/\bso\b/i, "but"), correct.replace(/\bso\b/i, "or"));
+      else if (/\byet\b/i.test(correct)) variants.push(correct.replace(/\byet\b/i, "so"), correct.replace(/\byet\b/i, "and"));
       break;
-    }
-    case "GR-CON-002": variants.push(correct.replace(/\band\b/i, "or"), correct.replace(/\band\b/i, "nor"), correct.replace(/\bboth\b/i, "either")); break;
-    case "GR-CON-003": variants.push(correct.replace(/\bor\b/i, "and"), correct.replace(/\bor\b/i, "nor"), correct.replace(/\beither\b/i, "both")); break;
-    case "GR-CON-004": variants.push(correct.replace(/\bnor\b/i, "or"), correct.replace(/\bnor\b/i, "and"), correct.replace(/\bneither\b/i, "either")); break;
-    case "GR-CON-005": variants.push(correct.replace(/\bbut also\b/i, "and also"), correct.replace(/\bbut also\b/i, "but"), correct.replace(/\bbut\b/i, "and")); break;
-    case "GR-CON-006": variants.push(`but ${correct}`, `and ${correct}`, `yet ${correct}`); break;
+    case "GR-CON-002":
+      if (lower === "and") variants = tokenSet(correct, wrong, ["or", "nor", "as well as"]);
+      else if (lower === "both") variants = tokenSet(correct, wrong, ["either", "neither", "whether"]);
+      else variants.push(correct.replace(/\band\b/i, "or"), correct.replace(/\band\b/i, "nor"), correct.replace(/\bboth\b/i, "either"));
+      break;
+    case "GR-CON-003":
+      if (lower === "or") variants = tokenSet(correct, wrong, ["and", "nor", "but"]);
+      else if (lower === "either") variants = tokenSet(correct, wrong, ["both", "neither", "whether"]);
+      else variants.push(correct.replace(/\bor\b/i, "and"), correct.replace(/\bor\b/i, "nor"), correct.replace(/\beither\b/i, "both"));
+      break;
+    case "GR-CON-004":
+      if (lower === "nor") variants = tokenSet(correct, wrong, ["or", "and", "but"]);
+      else if (lower === "neither") variants = tokenSet(correct, wrong, ["either", "both", "whether"]);
+      else variants.push(correct.replace(/\bnor\b/i, "or"), correct.replace(/\bnor\b/i, "and"), correct.replace(/\bneither\b/i, "either"));
+      break;
+    case "GR-CON-005":
+      if (lower === "but") variants = tokenSet(correct, wrong, ["and", "or", "so"]);
+      else if (/^also\s+/i.test(correct)) { const rest = correct.replace(/^also\s+/i, ""); variants.push(`only ${rest}`, `just ${rest}`); }
+      else if (/\bbut also\b/i.test(correct)) variants.push(correct.replace(/\bbut also\b/i, "and also"), correct.replace(/\bbut also\b/i, "but only"));
+      else variants.push(correct.replace(/\bbut\b/i, "and"), correct.replace(/\balso\b/i, "only"));
+      break;
+    case "GR-CON-006": variants.push(`and ${correct}`, `yet ${correct}`, `so ${correct}`); break;
     case "GR-CON-007":
-      if (/\bbecause of\b/i.test(correct)) variants.push(correct.replace(/\bbecause of\b/i, "because"), correct.replace(/\bbecause of\b/i, "although"), correct.replace(/\bbecause of\b/i, "despite"));
-      else variants.push(correct.replace(/\bbecause\b/i, "because of"), correct.replace(/\bbecause\b/i, "despite"), correct.replace(/\bbecause\b/i, "in spite of"));
+      if (/\bbecause of\b/i.test(correct)) variants.push(correct.replace(/\bbecause of\b/i, "because"), correct.replace(/\bbecause of\b/i, "although"), correct.replace(/\bbecause of\b/i, "since"));
+      else variants.push(correct.replace(/\bbecause\b/i, "because of"), correct.replace(/\bbecause\b/i, "despite"), correct.replace(/\bbecause\b/i, "due to"));
       break;
     case "GR-CON-008":
       if (/^despite\b/i.test(correct)) variants.push(correct.replace(/^despite\b/i, "although"), correct.replace(/^despite\b/i, "despite of"), correct.replace(/^despite\b/i, "though"));
@@ -78,14 +97,13 @@ function incorrectVariants(ruleId: ConjunctionRuleId, correctTarget: string, wro
     case "GR-CON-010": variants.push(...parallelVariants(correct, wrong)); break;
   }
   variants = unique(variants).filter((value) => value.toLowerCase() !== correct.toLowerCase());
-  if (variants.length < 3) variants.push(`but ${wrong}`, `and ${wrong}`, `or ${wrong}`);
+  if (variants.length < 3) variants.push(`not ${correct}`, `only ${correct}`, `also ${wrong}`);
   return unique(variants).filter((value) => value.toLowerCase() !== correct.toLowerCase());
 }
 function replacementChoices(ruleId: ConjunctionRuleId, correctTarget: string, wrongTarget: string, targetText: string, noImprovement: boolean) {
   const wrongs = incorrectVariants(ruleId, correctTarget, wrongTarget).filter((v) => v.toLowerCase() !== targetText.toLowerCase() && v.toLowerCase() !== correctTarget.toLowerCase());
   const values = noImprovement ? wrongs.slice(0, 3) : unique([correctTarget, ...wrongs]).slice(0, 3);
-  if (values.length !== 3) throw new Error(`${ruleId} could not build three choices for ${correctTarget}`);
-  return values;
+  if (values.length !== 3) throw new Error(`${ruleId} could not build three choices for ${correctTarget}`); return values;
 }
 function shuffleThree(seed: string, values: readonly string[]) { const out = [...values]; for (let i = out.length - 1; i > 0; i -= 1) { const j = deterministicIndex(`${seed}:shuffle:${i}`, i + 1); [out[i], out[j]] = [out[j]!, out[i]!]; } return out; }
 function concept(ruleId: ConjunctionRuleId) {
@@ -104,21 +122,16 @@ function concept(ruleId: ConjunctionRuleId) {
 }
 function tag(candidate: ReturnType<typeof buildEng001Cp007CandidateV1>, prefix: string) { const value = candidate.tags.find((entry) => entry.startsWith(prefix))?.slice(prefix.length); if (!value) throw new Error(`${candidate.candidateId} lacks ${prefix}`); return value; }
 function lowerLeading(text: string) { return text.replace(/^([A-Z])/, (m) => m.toLowerCase()); }
-function focusedSegments(base: readonly string[], sourceIndex: number, focus: Focus, targetText: string) {
-  const out: string[] = []; let targetIndex = -1;
-  base.forEach((segment, index) => { if (index !== sourceIndex) out.push(segment); else { if (focus.prefix) out.push(focus.prefix); targetIndex = out.length; out.push(targetText); if (focus.suffix) out.push(focus.suffix); } });
-  if (targetIndex < 0) throw new Error("CP007 lost target index"); return { segments: out, targetIndex };
-}
+function focusedSegments(base: readonly string[], sourceIndex: number, focus: Focus, targetText: string) { const out: string[] = []; let targetIndex = -1; base.forEach((segment, index) => { if (index !== sourceIndex) out.push(segment); else { if (focus.prefix) out.push(focus.prefix); targetIndex = out.length; out.push(targetText); if (focus.suffix) out.push(focus.suffix); } }); if (targetIndex < 0) throw new Error("CP007 lost target index"); return { segments: out, targetIndex }; }
 
 export function generateEng002Cp007QuestionV1(input: GenerateEng002Cp007V1Input): Eng002Cp007QuestionV1 {
   const candidate = buildEng001Cp007CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: input.ruleId, sceneId: input.sceneId });
   if (candidate.errorIndex === null) throw new Error(`${candidate.candidateId} has no conjunction mutation target`);
-  const correctSegments = [...candidate.correctSegments], errorSegments = [...candidate.errorSegments], sourceIndex = candidate.errorIndex;
-  const focus = focusDifference(correctSegments[sourceIndex]!, errorSegments[sourceIndex]!);
+  const correctSegments = [...candidate.correctSegments], errorSegments = [...candidate.errorSegments], sourceIndex = candidate.errorIndex, ruleId = candidate.ruleId as ConjunctionRuleId;
+  const focus = targetForRule(ruleId, correctSegments[sourceIndex]!, errorSegments[sourceIndex]!);
   const noImprovement = input.noImprovement ?? deterministicBoolean(`${input.seed}:eng002:cp007:no-improvement`, 0.25);
   const targetText = noImprovement ? focus.correctTarget : focus.wrongTarget;
   const visible = focusedSegments(noImprovement ? correctSegments : errorSegments, sourceIndex, focus, targetText);
-  const ruleId = candidate.ruleId as ConjunctionRuleId;
   const shuffled = shuffleThree(`${input.seed}:eng002:cp007:options`, replacementChoices(ruleId, focus.correctTarget, focus.wrongTarget, targetText, noImprovement));
   const options = [...shuffled, "No improvement"], correctOptionIndex = noImprovement ? 3 : shuffled.indexOf(focus.correctTarget);
   if (correctOptionIndex < 0) throw new Error(`${candidate.candidateId} lost correct replacement`);
