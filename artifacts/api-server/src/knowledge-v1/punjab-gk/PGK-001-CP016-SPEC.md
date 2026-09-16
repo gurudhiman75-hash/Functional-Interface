@@ -1,6 +1,6 @@
 # PGK-001 CP016 — Anglo-Sikh Wars & Annexation
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-016 — Anglo-Sikh Wars & Annexation`
 Permanent QLs: `PGK-001-QL-105` to `PGK-001-QL-111`
@@ -70,4 +70,4 @@ Internal verification uses National Army Museum first/second Sikh War material, 
 
 ## Lifecycle
 
-CP016 V1 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP016 V1 was human approved on 2026-09-16. It remains review-only and is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication until the separate integration stage.
