@@ -44,17 +44,20 @@ for (const qlId of qls) {
         assert.ok(!learner.stem.includes("आंतरिक नियम"));
         assert.ok(!learner.stem.includes("ਅੰਦਰੂਨੀ ਨਿਯਮ"));
 
-        const evidenceLinesInLearner = frozen.evidenceByOption.filter((line) =>
+        const learnerText = [
+          learner.stem,
+          ...learner.explanation.coreConcept,
+          ...learner.explanation.stepByStep,
+        ].join("\n");
+        assert.ok(!/[✅❌]/u.test(learnerText), `${qlId}/${locale}/${seed}/${optionCount}: QA status marker leaked`);
+
+        const rawEvidenceLinesInLearner = frozen.evidenceByOption.filter((line) =>
           learner.explanation.stepByStep.includes(line),
         ).length;
-        assert.ok(evidenceLinesInLearner <= 2);
+        assert.equal(rawEvidenceLinesInLearner, 0, `${qlId}/${locale}/${seed}/${optionCount}: raw QA evidence leaked`);
         assert.ok(learner.explanation.stepByStep.at(-1)?.includes(learner.answer));
 
         if (locale === "pa-IN" && learner.intendedRuleId === "LETTER_POSITION_PARITY") {
-          const learnerText = [
-            ...learner.explanation.coreConcept,
-            ...learner.explanation.stepByStep,
-          ].join("\n");
           assert.ok(learnerText.includes("ਜਿਸਤ") || learnerText.includes("ਟਾਂਕ"));
           assert.ok(!/ਜੋੜਾ|ਜੋੜੇ/.test(learnerText), "Punjabi even-position label must use ਜਿਸਤ, not ਜੋੜਾ/ਜੋੜੇ");
           punjabiParityChecked += 1;
@@ -72,5 +75,6 @@ console.log("CLS-CP-006 compact native learner review V2 audit passed.", {
   punjabiParityChecked,
   frozenStateChanges: 0,
   shortcutTrapLearnerSections: false,
+  qaStatusMarkersInLearnerSurface: false,
   routineOptionByOptionLearnerAnalysis: false,
 });
