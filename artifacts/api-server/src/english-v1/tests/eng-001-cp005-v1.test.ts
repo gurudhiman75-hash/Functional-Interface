@@ -2,26 +2,33 @@ import { strict as assert } from "node:assert";
 
 import { PREPOSITION_RULES_V1 } from "../grammar/prepositions";
 import { CP005_ALL_SCENES_V1, CP005_SCENES_BY_DIFFICULTY_V1 } from "../chapters/error-spotting/ENG-001/CP005/cp005-catalog-v1";
+import { remediateCp005SceneForClosureV2 } from "../chapters/error-spotting/ENG-001/CP005/cp005-closure-remediation-v2";
 import { generateEng001Cp005QuestionV1, rulesForDifficultyCp005V1 } from "../chapters/error-spotting/ENG-001/CP005/eng-001-cp005-v1";
 import { assertValidEng001Cp005QuestionV1 } from "../chapters/error-spotting/ENG-001/CP005/eng-001-cp005-v1-validator";
 import type { Eng001QlId, EnglishDifficulty, PrepositionRuleId } from "../core/types";
 
+const effectiveScenes = CP005_ALL_SCENES_V1.map(remediateCp005SceneForClosureV2);
+
 assert.equal(PREPOSITION_RULES_V1.length, 10);
-assert.equal(CP005_ALL_SCENES_V1.length, 60);
+assert.equal(effectiveScenes.length, 60);
 assert.equal(CP005_SCENES_BY_DIFFICULTY_V1.easy.length, 20);
 assert.equal(CP005_SCENES_BY_DIFFICULTY_V1.medium.length, 20);
 assert.equal(CP005_SCENES_BY_DIFFICULTY_V1.hard.length, 20);
-assert.equal(new Set(CP005_ALL_SCENES_V1.map((scene) => scene.id)).size, 60);
-assert.equal(new Set(CP005_ALL_SCENES_V1.map((scene) => scene.domain)).size >= 20, true);
+assert.equal(new Set(effectiveScenes.map((scene) => scene.id)).size, 60);
+assert.equal(new Set(effectiveScenes.map((scene) => scene.domain)).size >= 20, true);
 
-for (const scene of CP005_ALL_SCENES_V1) {
+const hardAnswerCounts = [0, 0, 0, 0];
+for (const scene of effectiveScenes) {
   const changed = scene.correctSegments.filter((segment, index) => segment !== scene.errorSegments[index]);
   assert.equal(changed.length, 1, `${scene.id} must change exactly one canonical segment`);
+  if (scene.difficulty === "hard") hardAnswerCounts[scene.errorIndex] += 1;
   const question = generateEng001Cp005QuestionV1({ seed: `scene:${scene.id}`, difficulty: scene.difficulty, qlId: "ENG-001-QL001", ruleId: scene.ruleId, sceneId: scene.id });
   assertValidEng001Cp005QuestionV1(question);
   assert.equal(question.metadata.candidateId, `PRP-V1:${scene.id}`);
   assert.equal(question.metadata.reviewOnly, true);
+  assert.equal(question.correctOptionIndex, scene.errorIndex);
 }
+assert.deepEqual(hardAnswerCounts, [5, 5, 5, 5], "CP005 Hard authored answer spread must be A=5/B=5/C=5/D=5");
 
 const difficulties: readonly EnglishDifficulty[] = ["easy", "medium", "hard"];
 const qls: readonly Eng001QlId[] = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"];
@@ -41,7 +48,7 @@ for (const difficulty of difficulties) {
     surfaces.add(question.segments.join(" | "));
     rules.add(String(question.metadata.ruleId));
     const sceneId = question.metadata.candidateId.replace(/^PRP-V1:/, "");
-    const scene = CP005_ALL_SCENES_V1.find((entry) => entry.id === sceneId)!;
+    const scene = effectiveScenes.find((entry) => entry.id === sceneId)!;
     domains.add(scene.domain);
   }
   assert.equal(surfaces.size >= 15, true, `${difficulty} surface diversity too low`);
@@ -64,7 +71,8 @@ for (const difficulty of difficulties) {
 
 console.log(JSON.stringify({
   status: "PASS_ENG_001_CP005_V1",
-  scenes: CP005_ALL_SCENES_V1.length,
-  byDifficulty: Object.fromEntries(difficulties.map((difficulty) => [difficulty, CP005_SCENES_BY_DIFFICULTY_V1[difficulty].length])),
+  scenes: effectiveScenes.length,
+  byDifficulty: Object.fromEntries(difficulties.map((difficulty) => [difficulty, effectiveScenes.filter((scene) => scene.difficulty === difficulty).length])),
+  hardQl001AnswerCounts: { A: hardAnswerCounts[0], B: hardAnswerCounts[1], C: hardAnswerCounts[2], D: hardAnswerCounts[3] },
   rules: PREPOSITION_RULES_V1.length,
 }, null, 2));

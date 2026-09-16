@@ -3,6 +3,7 @@ import { classifyEnglishDifficulty } from "../../../../core/difficulty";
 import type { DifficultyDimensions, Eng001QlId, Eng001Question, Eng001SentenceCandidate, EnglishDifficulty, PronounRuleId } from "../../../../core/types";
 import { PRONOUN_RULE_BY_ID } from "../../../../grammar/pronouns";
 import { CP004_SCENES_BY_DIFFICULTY_V1, type PronounSceneV1 } from "./cp004-catalog-v1";
+import { remediateCp004SceneForClosureV1 } from "./cp004-closure-remediation-v1";
 
 const STEMS: Record<Eng001QlId, string> = {
   "ENG-001-QL001": "Identify the part of the sentence that contains an error.",
@@ -29,10 +30,11 @@ export function rulesForDifficultyCp004V1(difficulty: EnglishDifficulty): readon
 
 export function buildEng001Cp004CandidateV1(input: { seed: string; difficulty: EnglishDifficulty; ruleId?: PronounRuleId; sceneId?: string }): Eng001SentenceCandidate {
   const pool = cp004ScenePoolV1(input.difficulty, input.ruleId);
-  const scene = input.sceneId
+  const rawScene = input.sceneId
     ? pool.find((candidate) => candidate.id === input.sceneId)
     : deterministicPick(`${input.seed}:cp004:scene`, pool);
-  if (!scene) throw new Error(`Unknown CP004 ${input.difficulty} scene ${input.sceneId}.`);
+  if (!rawScene) throw new Error(`Unknown CP004 ${input.difficulty} scene ${input.sceneId}.`);
+  const scene = remediateCp004SceneForClosureV1(rawScene);
   const dimensions = dims(input.difficulty);
   const derived = classifyEnglishDifficulty(dimensions);
   if (derived !== input.difficulty) throw new Error(`${scene.id} difficulty mismatch: ${derived}`);

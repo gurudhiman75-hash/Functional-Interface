@@ -62,6 +62,25 @@ function repairBaseSceneModifierEcho(candidate: Eng001SentenceCandidate): Modifi
   return { correctSegments, errorSegments, repaired: true };
 }
 
+/**
+ * One household scene paired present-perfect agreement with the completed-past
+ * boundary "before it broke completely". That distracts from SVA. Keep the
+ * authored verb pair and noun phrase, but make the final phrase a neutral
+ * purpose phrase so the only issue remains subject-verb agreement.
+ */
+function repairSecondaryTenseDebate(input: ModifierEchoRepair): ModifierEchoRepair {
+  const correctSegments = [...input.correctSegments];
+  const errorSegments = [...input.errorSegments];
+  let repaired = input.repaired;
+  for (let index = 0; index < correctSegments.length; index += 1) {
+    if (correctSegments[index]?.trim() !== "before it broke completely.") continue;
+    correctSegments[index] = "to keep the fitting secure.";
+    errorSegments[index] = "to keep the fitting secure.";
+    repaired = true;
+  }
+  return { correctSegments, errorSegments, repaired };
+}
+
 function sentenceFromSegments(segments: readonly string[]): string {
   return segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 }
@@ -211,7 +230,7 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const domain = semanticDomainOfV4(candidate);
   if (!domain) throw new Error(`${candidate.candidateId} lacks a semantic domain`);
 
-  const modifierRepair = repairBaseSceneModifierEcho(candidate);
+  const modifierRepair = repairSecondaryTenseDebate(repairBaseSceneModifierEcho(candidate));
   const correctSegments = simplifyCp001Segments(modifierRepair.correctSegments);
   const errorSegments = simplifyCp001Segments(modifierRepair.errorSegments);
   const surfaceCorrection = simplifyCp001Text(candidate.correction ?? "");
