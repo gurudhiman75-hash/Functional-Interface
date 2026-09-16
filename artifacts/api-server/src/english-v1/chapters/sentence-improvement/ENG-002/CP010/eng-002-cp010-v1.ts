@@ -118,12 +118,20 @@ function preserveCase(reference: string, replacement: string) {
 function replaceWord(text: string, word: string, replacement: string) {
   return text.replace(new RegExp(`\\b${word.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}\\b`, "i"), (match) => preserveCase(match, replacement));
 }
+function lowerSentenceLead(text: string) {
+  return text
+    .replace(/^The\b/, "the")
+    .replace(/^Several\b/, "several")
+    .replace(/^A\b/, "a")
+    .replace(/^An\b/, "an")
+    .replace(/^Some\b/, "some");
+}
 function moveToken(text: string, token: string, where: "start" | "end") {
   const pattern = new RegExp(`\\b${token.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}\\b`, "i");
   const match = text.match(pattern)?.[0];
   if (!match) return text;
   const bare = clean(text.replace(pattern, "")).replace(/\s+([,.!?;:])/g, "$1");
-  if (where === "start") return `${match} ${bare}`;
+  if (where === "start") return `${match.replace(/^./, (c) => c.toUpperCase())} ${lowerSentenceLead(bare)}`;
   const punctuation = bare.match(/([,.!?;:]+)$/)?.[1] ?? "";
   const body = punctuation ? bare.slice(0, -punctuation.length).trim() : bare;
   return `${body} ${match}${punctuation}`;
