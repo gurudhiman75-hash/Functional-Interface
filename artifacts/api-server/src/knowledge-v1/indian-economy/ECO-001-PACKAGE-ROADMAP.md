@@ -7,7 +7,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 1. `ECO-CP-001` Basic Economic Concepts — ENGLISH APPROVED V2 / FROZEN
 2. `ECO-CP-002` Economic Systems & Sectors — ENGLISH APPROVED V2 / FROZEN
 3. `ECO-CP-003` National Income & Aggregates — ENGLISH APPROVED V2 / FROZEN
-4. `ECO-CP-004` National Income Measurement in India — REVIEW CANDIDATE V2
+4. `ECO-CP-004` National Income Measurement in India — ENGLISH APPROVED V2 / FROZEN
 5. `ECO-CP-005` Inflation & Price Concepts — ENGLISH APPROVED V2 / FROZEN
 6. `ECO-CP-006` Employment, Unemployment & Poverty — ENGLISH APPROVED V1 / FROZEN
 7. `ECO-CP-007` Money & Monetary System — ENGLISH APPROVED V1 / FROZEN
@@ -28,6 +28,13 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 22. `ECO-CP-022` Human Development & Development Economics — ENGLISH APPROVED V1 / FROZEN
 23. `ECO-CP-023` Important Economic Events & Milestones — ENGLISH APPROVED V1 / FROZEN
 
+## Chapter state
+
+- English editorial review: COMPLETE
+- English CPs frozen: 23 / 23
+- Runtime / Question Studio registration: BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL
+- Localisation: NOT_STARTED / separate post-English workflow
+
 ## Binding rules
 
 - Static GK only: volatile values such as current repo rate, GDP growth, inflation, tax slabs, Budget allocations and rankings are excluded.
@@ -44,3 +51,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Explanations must be simple and beginner-friendly. Normally use 1-2 short sentences: the deciding fact plus only the minimum reason or distinction needed.
 - Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
 - Difficulty is assigned per generated variant under `ECO-DIFFICULTY-POLICY.md`, not permanently by QL or question format.
+
+## Promotion gate
+
+All 23 English CPs are approved and frozen. Do not register Indian Economy with runtime / Question Studio unless a separate explicit promotion approval is given. Do not silently revise frozen English content; any future hardening pass must be documented and reviewed.
