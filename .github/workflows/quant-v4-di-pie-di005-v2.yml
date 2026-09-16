@@ -41,17 +41,20 @@ jobs:
         run: |
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-v2-types.ts
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2-quality.ts
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/independent-verifier-v2.ts
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/pie-svg.ts
-          ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-v2-types.ts artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2.ts
+          ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-v2-types.ts artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2.ts artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2-quality.ts
       - name: DI-005 V2 deterministic, diversity, independent and visual proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2.test.ts
+      - name: DI-005 V2 learner option quality proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2-quality.test.ts
       - name: Legacy DI-005 regression
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set.test.ts
       - name: Export Markdown review pack
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/export-review-v2.ts DI-005-REVIEW-V2.md
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/export-review-v2-clean.ts DI-005-REVIEW-V2.md
       - name: Export standalone HTML review pack
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/export-review-v2-html.ts DI-005-REVIEW-V2.html
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/export-review-v2-html-clean.ts DI-005-REVIEW-V2.html
       - uses: actions/upload-artifact@v4
         with:
           name: di-005-pie-review-v2
