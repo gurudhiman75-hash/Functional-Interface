@@ -7,6 +7,7 @@
 - CP range: `ECO-CP-001` through `ECO-CP-023`
 - Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY`
 - Question Studio package: `ECO-001`
+- Registration authority: `ECO-001-ENGLISH-23CP-FREEZE-2026-09-16`
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
