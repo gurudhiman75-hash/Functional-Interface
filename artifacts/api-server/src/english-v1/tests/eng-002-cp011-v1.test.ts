@@ -5,8 +5,8 @@ import { ENG002_CP011_STEM } from "../chapters/sentence-improvement/ENG-002/CP01
 import { generateEng002Cp011ReviewedQuestionV1 } from "../chapters/sentence-improvement/ENG-002/CP011/eng-002-cp011-reviewed-v1";
 import type { EnglishDifficulty } from "../core/types";
 
-const malformed = /\bhad\s+(?:qualify|lead|handle|back|complete|identify)\b|\bwould\s+(?:completed|identified|handled|backed)\b/i;
-const barePassiveIf = /^(?:If|if)\s+(?!.*\b(?:had|has|have|was|were)\s+been\b).+?\s+been\s+(?:sealed|issued|preserved)\b/i;
+const malformed = /\bhad\s+(?:qualify|lead|handle|back|complete|identify)\b|\bwould\s+(?:completed|identified|handled|backed)\b|\bwould have was\b/i;
+const barePassiveIf = /^(?:If|if)\s+(?!.*\b(?:had|has|have|was|were|would|could|might|should)\s+(?:have\s+)?been\b).+?\s+been\s+(?:sealed|issued|preserved)\b/i;
 
 function assertClean(q: ReturnType<typeof generateEng002Cp011ReviewedQuestionV1>) {
   assert.equal(q.stem, ENG002_CP011_STEM);
