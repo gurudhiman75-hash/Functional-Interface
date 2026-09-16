@@ -9,6 +9,7 @@ import { SCI_PHYSICS_EXPLANATION_QUALITY_V2 } from "./sci-physics-explanation-qu
 import { SCI_PHYSICS_EXPLANATION_QUALITY_V3 } from "./sci-physics-explanation-quality-v3";
 import { SCI_PHYSICS_EXPLANATION_QUALITY_V4 } from "./sci-physics-explanation-quality-v4";
 import { SCI_PHYSICS_EXPLANATION_QUALITY_V5 } from "./sci-physics-explanation-quality-v5";
+import { SCI_PHYSICS_EXPLANATION_QUALITY_V6 } from "./sci-physics-explanation-quality-v6";
 
 const bannedEnglishWords = /\b(which|what|the|is|are|distance|displacement|speed|velocity|acceleration|force|mass|momentum|friction|pressure|work|energy|temperature|statement|correct|incorrect)\b/i;
 const deprecatedPunjabiAcceleration = /ਤ੍ਵਰਨ/u;
@@ -33,9 +34,11 @@ qualifyExplanationSet("V2 CP001-CP002", SCI_PHYSICS_EXPLANATION_QUALITY_V2, 48);
 qualifyExplanationSet("V3 CP003-CP004", SCI_PHYSICS_EXPLANATION_QUALITY_V3, 48);
 qualifyExplanationSet("V4 CP005-CP006", SCI_PHYSICS_EXPLANATION_QUALITY_V4, 48);
 qualifyExplanationSet("V5 CP007-CP008", SCI_PHYSICS_EXPLANATION_QUALITY_V5, 48);
+qualifyExplanationSet("V6 CP009-CP010", SCI_PHYSICS_EXPLANATION_QUALITY_V6, 48);
 assert.deepEqual(SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS, [
   "SCI-CP-001", "SCI-CP-002", "SCI-CP-003", "SCI-CP-004",
   "SCI-CP-005", "SCI-CP-006", "SCI-CP-007", "SCI-CP-008",
+  "SCI-CP-009", "SCI-CP-010",
 ]);
 
 for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
@@ -119,7 +122,17 @@ for (const cpId of SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS) {
         assert.match(corpus, /ਪ੍ਰਤੀਰੋਧ/u); assert.match(corpus, /ਪ੍ਰਤੀਰੋਧਕਤਾ/u); assert.match(corpus, /ਲੜੀਵਾਰ ਸਰਕਟ/u);
         assert.match(corpus, /ਸਮਾਂਤਰ ਸਰਕਟ/u); assert.match(corpus, /ਬਿਜਲਈ ਸ਼ਕਤੀ/u); assert.match(corpus, /ਕਿਲੋਵਾਟ-ਘੰਟਾ/u); assert.match(corpus, /ਭੂ-ਸੰਪਰਕ/u);
       }
+      if (cpId === "SCI-CP-009") {
+        assert.match(corpus, /ਚੁੰਬਕੀ ਖੇਤਰ/u); assert.match(corpus, /ਬਿਜਲਈ ਚੁੰਬਕ/u); assert.match(corpus, /ਸੋਲੇਨਾਇਡ/u);
+        assert.match(corpus, /ਬਿਜਲਈ-ਚੁੰਬਕੀ ਪ੍ਰੇਰਣ/u); assert.match(corpus, /ਪ੍ਰਤਿਆਵਰਤੀ ਧਾਰਾ/u); assert.match(corpus, /ਦਿਸ਼ਟ ਧਾਰਾ/u);
+        assert.match(corpus, /ਟ੍ਰਾਂਸਫਾਰਮਰ/u); assert.match(corpus, /ਚੁੰਬਕੀ ਫਲਕਸ/u); assert.match(corpus, /ਜਨਰੇਟਰ/u);
+      }
+      if (cpId === "SCI-CP-010") {
+        assert.match(corpus, /ਰੇਡੀਓਧਰਮਿਤਾ/u); assert.match(corpus, /ਅਰਧ-ਆਯੁ/u); assert.match(corpus, /ਨਾਭਿਕੀ ਵਿਖੰਡਨ/u);
+        assert.match(corpus, /ਨਾਭਿਕੀ ਸੰਲਯਨ/u); assert.match(corpus, /ਅਰਧਚਾਲਕ/u); assert.match(corpus, /ਪ੍ਰਕਾਸ਼-ਬਿਜਲਈ ਪ੍ਰਭਾਵ/u);
+        assert.match(corpus, /ਸੂਰਜੀ ਸੈੱਲ/u); assert.match(corpus, /ਲੇਜ਼ਰ/u); assert.match(corpus, /ਬਿਜਲਈ-ਚੁੰਬਕੀ ਸਪੈਕਟ੍ਰਮ/u);
+      }
     }
   }
 }
-console.log("SCI Physics localization V1 qualification passed: CP001-CP008 × EN/HI/PA with explanation depth and native exam-level Hindi/Punjabi");
+console.log("SCI Physics localization V1 qualification passed: CP001-CP010 × EN/HI/PA with explanation depth and native exam-level Hindi/Punjabi");
