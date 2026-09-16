@@ -1,6 +1,6 @@
 # PGK-001 CP014 — Sikh Misls & Dal Khalsa
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-014 — Sikh Misls & Dal Khalsa`
 Permanent QLs: `PGK-001-QL-091` to `PGK-001-QL-097`
@@ -15,7 +15,7 @@ CP013 owns Banda Singh Bahadur. CP015 owns Maharaja Ranjit Singh and the Sikh Em
 
 - Use short, direct Punjab recruitment-exam stems.
 - Do not use filler such as `associated with`, `linked with`, `known for`, `closely related to` or source-note wording.
-- Do not cite PSEB, government departments, books or websites in learner text.
+- Do not cite PSEB, school-history provenance, government departments, books or websites in learner text.
 - Keep explanations natural and normally 1–2 sentences.
 - Use neutral historical language and avoid devotional interpretation.
 - Do not force disputed exact dates for the conversion of jathas into twelve misls; sources differ on the reorganisation detail.
@@ -56,6 +56,10 @@ CP013 owns Banda Singh Bahadur. CP015 owns Maharaja Ranjit Singh and the Sikh Em
 
 Each QL exposes six semantic payloads, for 42 review questions total.
 
+## V2 wording correction
+
+V2 removes learner-facing phrases such as `standard Punjab school history` from stems and explanations. Provenance remains internal only.
+
 ## Distractor rule
 
 Use misl chiefs against plausible misl chiefs, institutions against related Sikh-confederacy institutions, and aliases against real misl names. Avoid unrelated dynasties or modern political terminology.
@@ -70,4 +74,4 @@ Verification remains internal against Punjab School Education Board Punjab Histo
 
 ## Lifecycle
 
-CP014 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP014 V2 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
