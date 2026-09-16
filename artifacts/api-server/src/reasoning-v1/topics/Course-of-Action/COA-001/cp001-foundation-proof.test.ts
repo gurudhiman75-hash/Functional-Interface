@@ -1,4 +1,4 @@
-import { COA_CP001_ENGLISH_AUTHORITIES } from "./cp001-english-authorities.ts";
+import { COA_CP001_ENGLISH_REVIEW_V2, COA_CP001_EDITORIAL_V2_PATCHED_ACTION_IDS } from "./cp001-editorial-v2.ts";
 import {
   answerClassForCoaActions,
   assertCoaActionAuthorityConsistent,
@@ -9,7 +9,10 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-assert(COA_CP001_ENGLISH_AUTHORITIES.length === 24, "COA-CP-001 must contain exactly 24 English calibration scenarios");
+const AUTHORITIES = COA_CP001_ENGLISH_REVIEW_V2;
+
+assert(AUTHORITIES.length === 24, "COA-CP-001 must contain exactly 24 English calibration scenarios");
+assert(COA_CP001_EDITORIAL_V2_PATCHED_ACTION_IDS.length >= 10, "CP001 V2 should harden the weak V1 distractor surfaces");
 
 const scenarioIds = new Set<string>();
 const actionIds = new Set<string>();
@@ -25,7 +28,7 @@ const reasonCodes = new Set<string>();
 let follows = 0;
 let rejects = 0;
 
-for (const scenario of COA_CP001_ENGLISH_AUTHORITIES) {
+for (const scenario of AUTHORITIES) {
   assert(!scenarioIds.has(scenario.id), `${scenario.id}: duplicate scenario id`);
   scenarioIds.add(scenario.id);
   assert(scenario.statement.length >= 75, `${scenario.id}: statement is too thin for exam calibration`);
@@ -43,6 +46,7 @@ for (const scenario of COA_CP001_ENGLISH_AUTHORITIES) {
     assert(action.explanation.length >= 55, `${action.id}: explanation is too thin`);
     assert(!/\bassociated\b/i.test(`${action.text} ${action.explanation}`), `${action.id}: avoid machine-like 'associated' wording`);
     assert(!/\b(always wrong|always correct|extreme word)\b/i.test(action.explanation), `${action.id}: shortcut explanation detected`);
+    assert(!/foreign affairs department|private sports club|repaint the administrative office|general advertising campaign|permanently delete every user account/i.test(action.text), `${action.id}: trivial V1 distractor survived editorial V2`);
     assertCoaActionAuthorityConsistent(action);
     action.reasonCodes.forEach((code) => reasonCodes.add(code));
     if (action.expectedVerdict === "FOLLOWS") follows += 1;
@@ -58,7 +62,7 @@ for (const answerClass of ["ONLY_I", "ONLY_II", "BOTH", "NEITHER"] as const) {
 }
 
 for (const qlId of COA_QL_IDS) {
-  const scenarios = COA_CP001_ENGLISH_AUTHORITIES.filter((entry) => entry.qlId === qlId);
+  const scenarios = AUTHORITIES.filter((entry) => entry.qlId === qlId);
   assert(scenarios.length >= 2, `${qlId}: CP001 must calibrate every proposed QL with at least two scenarios`);
   const qlVerdicts = scenarios.flatMap((entry) => entry.actions.map((action) => action.expectedVerdict));
   assert(qlVerdicts.includes("FOLLOWS"), `${qlId}: no following action represented`);
@@ -73,7 +77,9 @@ assert(follows === rejects, `CP001 should balance following and rejected actions
 console.log(JSON.stringify({
   chapter: "COA-001",
   checkpoint: "COA-CP-001",
-  scenarios: COA_CP001_ENGLISH_AUTHORITIES.length,
+  editorialAuthority: "CP001_V2",
+  scenarios: AUTHORITIES.length,
+  editorialV2PatchedActions: COA_CP001_EDITORIAL_V2_PATCHED_ACTION_IDS.length,
   qlsRepresented: COA_QL_IDS.length,
   answerClassCounts: Object.fromEntries(answerCounts),
   domains: domains.size,
