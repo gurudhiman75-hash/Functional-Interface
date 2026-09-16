@@ -1,5 +1,5 @@
 import { COA_CP001_ENGLISH_REVIEW_V2 } from "./cp001-editorial-v2.ts";
-import { COA_CP002_ENGLISH_EXPANSION } from "./cp002-direct-preventive-expansion.ts";
+import { COA_CP002_EDITORIAL_V2_PATCHED_ACTION_IDS, COA_CP002_ENGLISH_REVIEW_V2 } from "./cp002-editorial-v2.ts";
 import { generateCoaCp002Question } from "./cp002-generator.ts";
 import {
   COA_CP002_OWNED_QL_IDS,
@@ -18,14 +18,15 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 assert(COA_CP001_ENGLISH_REVIEW_V2.length === 24, "CP002 must preserve the approved 24-scenario CP001 Editorial V2 baseline");
-assert(COA_CP002_ENGLISH_EXPANSION.length === 24, "CP002 must add exactly 24 expansion scenarios");
-assert(COA_CURRENT_ENGLISH_AUTHORITIES.length === 48, "Current English authority must contain approved CP001 V2 + CP002 without replacement");
+assert(COA_CP002_ENGLISH_REVIEW_V2.length === 24, "CP002 must add exactly 24 reviewed expansion scenarios");
+assert(COA_CP002_EDITORIAL_V2_PATCHED_ACTION_IDS.length >= 6, "CP002 Editorial V2 hardening did not patch enough weak distractors");
+assert(COA_CURRENT_ENGLISH_AUTHORITIES.length === 48, "Current English authority must contain approved CP001 V2 + CP002 V2 without replacement");
 
 const baselineIds = new Set(COA_CP001_ENGLISH_REVIEW_V2.map((entry) => entry.id));
 const expansionIds = new Set<string>();
 const globalReasons = new Set<string>();
 
-for (const scenario of COA_CP002_ENGLISH_EXPANSION) {
+for (const scenario of COA_CP002_ENGLISH_REVIEW_V2) {
   assert(!baselineIds.has(scenario.id), `${scenario.id}: CP002 must not overwrite an approved CP001 scenario id`);
   assert(!expansionIds.has(scenario.id), `${scenario.id}: duplicate CP002 scenario id`);
   expansionIds.add(scenario.id);
@@ -39,7 +40,7 @@ for (const scenario of COA_CP002_ENGLISH_EXPANSION) {
     assert(action.text.length >= 70, `${action.id}: action surface is too short/trivial`);
     assert(action.explanation.length >= 75, `${action.id}: explanation is too thin`);
     assert(!/\bassociated\b/i.test(`${action.text} ${action.explanation}`), `${action.id}: machine-like 'associated' wording detected`);
-    assert(!/foreign affairs|private sports club|repaint the administrative office|general advertising campaign/i.test(action.text), `${action.id}: stale toy-distractor pattern detected`);
+    assert(!/foreign affairs|private sports club|repaint the administrative office|general advertising campaign|replace route information boards|recruit additional specialist doctors/i.test(action.text), `${action.id}: stale toy-distractor pattern detected`);
     action.reasonCodes.forEach((code) => globalReasons.add(code));
   }
 
@@ -47,7 +48,7 @@ for (const scenario of COA_CP002_ENGLISH_EXPANSION) {
 }
 
 for (const qlId of COA_CP002_OWNED_QL_IDS) {
-  const expansion = COA_CP002_ENGLISH_EXPANSION.filter((entry) => entry.qlId === qlId);
+  const expansion = COA_CP002_ENGLISH_REVIEW_V2.filter((entry) => entry.qlId === qlId);
   assert(expansion.length === 12, `${qlId}: CP002 must add exactly 12 semantic states`);
 
   const answerCounts = new Map<CoaAnswerClass, number>([
@@ -67,7 +68,7 @@ for (const qlId of COA_CP002_OWNED_QL_IDS) {
   assert(difficulties.has("EASY") && difficulties.has("MEDIUM") && difficulties.has("HARD"), `${qlId}: Easy/Medium/Hard must all be represented`);
 
   const current = coaEnglishAuthoritiesForQl(qlId);
-  assert(current.length === 15, `${qlId}: current pool should contain 3 approved CP001 V2 + 12 CP002 scenarios`);
+  assert(current.length === 15, `${qlId}: current pool should contain 3 approved CP001 V2 + 12 CP002 V2 scenarios`);
 
   const seenAuthorities = new Set<string>();
   const seenFingerprints = new Set<string>();
@@ -112,13 +113,14 @@ console.log(JSON.stringify({
   chapter: "COA-001",
   checkpoint: "COA-CP-002",
   approvedCp001BaselineScenarios: COA_CP001_ENGLISH_REVIEW_V2.length,
-  cp002ExpansionScenarios: COA_CP002_ENGLISH_EXPANSION.length,
+  cp002ReviewedExpansionScenarios: COA_CP002_ENGLISH_REVIEW_V2.length,
   currentEnglishAuthorityScenarios: COA_CURRENT_ENGLISH_AUTHORITIES.length,
   ownedQls: COA_CP002_OWNED_QL_IDS,
   currentSemanticStatesPerOwnedQl: 15,
   renderedOrderStatesPerOwnedQl: 30,
   instructionSurfaces: 4,
   reasonCodeFamiliesObserved: globalReasons.size,
+  editorialV2PatchedActions: COA_CP002_EDITORIAL_V2_PATCHED_ACTION_IDS.length,
   questionStudio: "CLOSED",
   learnerRelease: "LOCKED",
 }, null, 2));
