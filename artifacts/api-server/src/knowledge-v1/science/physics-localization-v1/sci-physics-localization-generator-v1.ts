@@ -67,6 +67,10 @@ import {
   polishPhysicsCp007Cp008TextV1,
 } from "./sci-physics-cp007-cp008-polish-v1";
 import {
+  applyPhysicsCp009Cp010PolishV1,
+  polishPhysicsCp009Cp010TextV1,
+} from "./sci-physics-cp009-cp010-polish-v1";
+import {
   SCI_PHYSICS_LOCALIZATION_V1,
   type PhysicsLocaleV1,
   type PhysicsLocalizedAnchorSurfaceV1,
@@ -115,6 +119,9 @@ const STATEMENT_STEMS = {
 function isCp007Cp008(cpId: SupportedCpV1): boolean {
   return cpId === "SCI-CP-007" || cpId === "SCI-CP-008";
 }
+function isCp009Cp010(cpId: SupportedCpV1): boolean {
+  return cpId === "SCI-CP-009" || cpId === "SCI-CP-010";
+}
 
 function cpMeta(cpId: SupportedCpV1) {
   const meta = SCI_PHYSICS_EXHAUSTIVE_CP_META_V2.find((entry) => entry.cpId === cpId);
@@ -127,7 +134,8 @@ function surfaceMap(cpId: SupportedCpV1, locale: Exclude<PhysicsLocaleV1, "en">)
     return Object.fromEntries(
       Object.entries(raw).map(([anchorId, surface]) => {
         const hindi = applyHindiPhysicsExamPolishV1(anchorId, surface);
-        return [anchorId, isCp007Cp008(cpId) ? applyPhysicsCp007Cp008PolishV1("hi", anchorId, hindi) : hindi];
+        const v5 = isCp007Cp008(cpId) ? applyPhysicsCp007Cp008PolishV1("hi", anchorId, hindi) : hindi;
+        return [anchorId, isCp009Cp010(cpId) ? applyPhysicsCp009Cp010PolishV1("hi", anchorId, v5) : v5];
       }),
     );
   }
@@ -136,10 +144,11 @@ function surfaceMap(cpId: SupportedCpV1, locale: Exclude<PhysicsLocaleV1, "en">)
       const editorial = applyPunjabiPhysicsEditorialV2(anchorId, surface);
       const natural = applyPunjabiPhysicsNaturalizationV3(anchorId, editorial);
       const standard = applyPunjabiPhysicsStandardExamV4(anchorId, natural);
-      const polished = cpId === "SCI-CP-005" || cpId === "SCI-CP-006"
+      const v4 = cpId === "SCI-CP-005" || cpId === "SCI-CP-006"
         ? applyPunjabiPhysicsCp005Cp006PolishV1(anchorId, standard)
         : standard;
-      return [anchorId, isCp007Cp008(cpId) ? applyPhysicsCp007Cp008PolishV1("pa", anchorId, polished) : polished];
+      const v5 = isCp007Cp008(cpId) ? applyPhysicsCp007Cp008PolishV1("pa", anchorId, v4) : v4;
+      return [anchorId, isCp009Cp010(cpId) ? applyPhysicsCp009Cp010PolishV1("pa", anchorId, v5) : v5];
     }),
   );
 }
@@ -182,20 +191,26 @@ function explanationFor(anchorId: string, locale: PhysicsLocaleV1): string {
           : getPhysicsExplanationV6(anchorId, locale);
   if (locale === "hi") {
     const hindi = polishHindiPhysicsTextV1(anchorId, explanation);
-    return anchorId.startsWith("SCI-CP007-") || anchorId.startsWith("SCI-CP008-")
+    const v5 = anchorId.startsWith("SCI-CP007-") || anchorId.startsWith("SCI-CP008-")
       ? polishPhysicsCp007Cp008TextV1("hi", anchorId, hindi)
       : hindi;
+    return anchorId.startsWith("SCI-CP009-") || anchorId.startsWith("SCI-CP010-")
+      ? polishPhysicsCp009Cp010TextV1("hi", anchorId, v5)
+      : v5;
   }
   if (locale !== "pa") return explanation;
   const editorial = naturalizePunjabiPhysicsTextV3(anchorId, explanation);
   const natural = naturalizePunjabiPhysicsTextFinalV3(anchorId, editorial);
   const standard = standardizePunjabiPhysicsExamTextV4(anchorId, natural);
-  const polished = anchorId.startsWith("SCI-CP005-") || anchorId.startsWith("SCI-CP006-")
+  const v4 = anchorId.startsWith("SCI-CP005-") || anchorId.startsWith("SCI-CP006-")
     ? polishPunjabiPhysicsCp005Cp006TextV1(anchorId, standard)
     : standard;
-  return anchorId.startsWith("SCI-CP007-") || anchorId.startsWith("SCI-CP008-")
-    ? polishPhysicsCp007Cp008TextV1("pa", anchorId, polished)
-    : polished;
+  const v5 = anchorId.startsWith("SCI-CP007-") || anchorId.startsWith("SCI-CP008-")
+    ? polishPhysicsCp007Cp008TextV1("pa", anchorId, v4)
+    : v4;
+  return anchorId.startsWith("SCI-CP009-") || anchorId.startsWith("SCI-CP010-")
+    ? polishPhysicsCp009Cp010TextV1("pa", anchorId, v5)
+    : v5;
 }
 
 function localizeEnglishExplanation(question: PhysicsExhaustiveQuestionV2, cpId: SupportedCpV1): PhysicsLocalizedQuestionV1 {
