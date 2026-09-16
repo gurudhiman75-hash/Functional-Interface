@@ -13,5 +13,7 @@ assert.equal(HIS_CP016_REVIEW_BATCH_V1.every(q=>q.reviewOnly&&!q.runtimeRegister
 assert.equal(HIS_CP016_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.stem)),false);
 assert.equal(HIS_CP016_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.explanation)),false);
 assert.equal(HIS_CP016_REVIEW_BATCH_V1.some(q=>q.stem.length>190),false);
+assert.equal(HIS_CP016_REVIEW_BATCH_V1.some(q=>q.explanation.length<140),false);
 assert.equal(HIS_CP016_REVIEW_BATCH_V1.some(q=>q.explanation.length>360),false);
+assert.equal(HIS_CP016_REVIEW_BATCH_V1.some(q=>(q.explanation.match(/[.!?](?:\s|$)/g)??[]).length<2),false);
 console.log(JSON.stringify(audit,null,2));
