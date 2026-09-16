@@ -1,7 +1,7 @@
 # POL-CP-018 — Emergency Provisions
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -60,6 +60,6 @@ This CP covers Part XVIII of the Constitution, centred on Articles 352–360, wi
 - Article 360 directions may cover financial propriety, specified salary reductions and reservation of State financial Bills for Presidential consideration;
 - Lok Sabha and State Assembly terms may be extended during National Emergency by up to one year at a time, but not beyond six months after the Emergency ends.
 
-## Gate
+## Approved authority
 
-Merge, Question Studio exposure, localization and chapter-wide production registration remain blocked until English V1 is approved.
+English V1 was approved on 16 September 2026 and is the canonical frozen English content for POL-CP-018. Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
