@@ -1,8 +1,8 @@
 # POL-CP-019 — Panchayati Raj Status
 
 **Branch:** `feature/polity-cp019-panchayati-raj`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
 ## Implemented
 
@@ -41,11 +41,14 @@
 - no database-style fragments
 - no current office-holder questions
 
-## Gated
+## Frozen review state
 
-- merge to `New-main`
+English V1 was approved by the project owner on 16 September 2026. Facts, stems, options, answers and explanations are frozen as the canonical English review version.
+
+## Deferred integration
+
 - Question Studio exposure
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V1 is approved.
+These are deferred to the Polity package integration checkpoint.
