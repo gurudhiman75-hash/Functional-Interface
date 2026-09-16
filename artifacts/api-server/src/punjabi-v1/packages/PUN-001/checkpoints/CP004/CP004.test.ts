@@ -27,10 +27,6 @@ for (const item of CP004_GENDER_PAIRS) {
   assert(!/[A-Za-z]/.test(item.masculine));
   assert(!/[A-Za-z]/.test(item.feminine));
   assert.equal(item.sourceStatus, "REVIEW_PENDING");
-  assert.equal(new Set(item.feminineDistractors).size, item.feminineDistractors.length);
-  assert.equal(new Set(item.masculineDistractors).size, item.masculineDistractors.length);
-  assert(!item.feminineDistractors.includes(item.feminine));
-  assert(!item.masculineDistractors.includes(item.masculine));
 }
 
 const numberIds = new Set<string>();
@@ -48,10 +44,6 @@ for (const item of CP004_NUMBER_PAIRS) {
   assert(!/[A-Za-z]/.test(item.singular));
   assert(!/[A-Za-z]/.test(item.plural));
   assert.equal(item.sourceStatus, "REVIEW_PENDING");
-  assert.equal(new Set(item.pluralDistractors).size, item.pluralDistractors.length);
-  assert.equal(new Set(item.singularDistractors).size, item.singularDistractors.length);
-  assert(!item.pluralDistractors.includes(item.plural));
-  assert(!item.singularDistractors.includes(item.singular));
 }
 
 const contextIds = new Set<string>();
@@ -108,6 +100,21 @@ const f01 = CP004_FAMILIES.find((x) => x.familyId === "F01")!;
 for (let seed = 1; seed <= breadth.capacities.F01; seed++) {
   const q = f01.generate(seed, "Easy");
   assert(q.metadata.authorityIds.every((id) => CP004_TRANSFORM_SAFE_GENDER_PAIRS.some((x) => x.id === id)), `${q.id}: lexical-only counterpart leaked into transformation family`);
+  const allMasculine = q.options.every((option) => masculine.has(option));
+  const allFeminine = q.options.every((option) => feminine.has(option));
+  assert(allMasculine || allFeminine, `${q.id}: fabricated gender form leaked into direct options`);
+}
+
+const f04 = CP004_FAMILIES.find((x) => x.familyId === "F04")!;
+for (let seed = 1; seed <= breadth.capacities.F04; seed++) {
+  const q = f04.generate(seed, "Easy");
+  assert(q.options.every((option) => plurals.has(option)), `${q.id}: non-canonical plural leaked into direct options`);
+}
+
+const f05 = CP004_FAMILIES.find((x) => x.familyId === "F05")!;
+for (let seed = 1; seed <= breadth.capacities.F05; seed++) {
+  const q = f05.generate(seed, "Easy");
+  assert(q.options.every((option) => singulars.has(option)), `${q.id}: non-canonical singular leaked into direct options`);
 }
 
 const easy = CP004_FAMILIES.find((x) => x.familyId === "F01")!.generate(1, "Easy");
