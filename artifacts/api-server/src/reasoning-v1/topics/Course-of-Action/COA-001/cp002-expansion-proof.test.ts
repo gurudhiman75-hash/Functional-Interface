@@ -1,4 +1,4 @@
-import { COA_CP001_ENGLISH_AUTHORITIES } from "./cp001-english-authorities.ts";
+import { COA_CP001_ENGLISH_REVIEW_V2 } from "./cp001-editorial-v2.ts";
 import { COA_CP002_ENGLISH_EXPANSION } from "./cp002-direct-preventive-expansion.ts";
 import { generateCoaCp002Question } from "./cp002-generator.ts";
 import {
@@ -17,11 +17,11 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-assert(COA_CP001_ENGLISH_AUTHORITIES.length === 24, "CP002 must preserve the approved 24-scenario CP001 baseline");
+assert(COA_CP001_ENGLISH_REVIEW_V2.length === 24, "CP002 must preserve the approved 24-scenario CP001 Editorial V2 baseline");
 assert(COA_CP002_ENGLISH_EXPANSION.length === 24, "CP002 must add exactly 24 expansion scenarios");
-assert(COA_CURRENT_ENGLISH_AUTHORITIES.length === 48, "Current English authority must contain CP001 + CP002 without replacement");
+assert(COA_CURRENT_ENGLISH_AUTHORITIES.length === 48, "Current English authority must contain approved CP001 V2 + CP002 without replacement");
 
-const baselineIds = new Set(COA_CP001_ENGLISH_AUTHORITIES.map((entry) => entry.id));
+const baselineIds = new Set(COA_CP001_ENGLISH_REVIEW_V2.map((entry) => entry.id));
 const expansionIds = new Set<string>();
 const globalReasons = new Set<string>();
 
@@ -67,7 +67,7 @@ for (const qlId of COA_CP002_OWNED_QL_IDS) {
   assert(difficulties.has("EASY") && difficulties.has("MEDIUM") && difficulties.has("HARD"), `${qlId}: Easy/Medium/Hard must all be represented`);
 
   const current = coaEnglishAuthoritiesForQl(qlId);
-  assert(current.length === 15, `${qlId}: current pool should contain 3 approved CP001 + 12 CP002 scenarios`);
+  assert(current.length === 15, `${qlId}: current pool should contain 3 approved CP001 V2 + 12 CP002 scenarios`);
 
   const seenAuthorities = new Set<string>();
   const seenFingerprints = new Set<string>();
@@ -111,7 +111,7 @@ assert(globalReasons.size >= 10, `CP002 distractor/reason taxonomy is too thin (
 console.log(JSON.stringify({
   chapter: "COA-001",
   checkpoint: "COA-CP-002",
-  approvedCp001BaselineScenarios: COA_CP001_ENGLISH_AUTHORITIES.length,
+  approvedCp001BaselineScenarios: COA_CP001_ENGLISH_REVIEW_V2.length,
   cp002ExpansionScenarios: COA_CP002_ENGLISH_EXPANSION.length,
   currentEnglishAuthorityScenarios: COA_CURRENT_ENGLISH_AUTHORITIES.length,
   ownedQls: COA_CP002_OWNED_QL_IDS,
