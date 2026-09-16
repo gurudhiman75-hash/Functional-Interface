@@ -83,8 +83,8 @@ function incorrectVariants(ruleId: NounQuantifierRuleId, correctTarget: string, 
   switch (ruleId) {
     case "GR-NQN-001":
       variants = /\bmany\b/i.test(correct)
-        ? [wrong, matchInitialCase(correct, "a large amount of"), matchInitialCase(correct, "much")]
-        : [wrong, matchInitialCase(correct, "a large number of"), matchInitialCase(correct, "many")];
+        ? [wrong, matchInitialCase(correct, "a large amount of"), matchInitialCase(correct, "a little")]
+        : [wrong, matchInitialCase(correct, "a large number of"), matchInitialCase(correct, "a few")];
       break;
     case "GR-NQN-002": variants.push(correct.replace(/\b(?:a\s+)?few\b/i, "much"), correct.replace(/\b(?:a\s+)?few\b/i, "less")); break;
     case "GR-NQN-003": variants.push(correct.replace(/\b(?:a\s+)?little\b/i, "many"), correct.replace(/\b(?:a\s+)?little\b/i, "fewer")); break;
