@@ -1,123 +1,55 @@
 import type { KnowledgeV1Difficulty } from "../../types";
+import { PART_1 } from "./sci-cp014-review-v1-part1";
+import { PART_2 } from "./sci-cp014-review-v1-part2";
+import { PART_3 } from "./sci-cp014-review-v1-part3";
+import { PART_4 } from "./sci-cp014-review-v1-part4";
 
-type ReviewSpec = readonly [number, KnowledgeV1Difficulty, string, string, readonly [string, string, string], string, readonly string[]];
-
+type ReviewSpec = readonly [number, KnowledgeV1Difficulty, string, string, readonly [string,string,string], string, readonly string[]];
 export type SciCp014ReviewQuestion = {
-  questionId: string; chapterId: "SCI-001"; cpId: "SCI-CP-014"; qlId: string; qlName: string;
-  difficulty: KnowledgeV1Difficulty; stem: string; options: string[]; correctIndex: number;
-  canonicalAnswer: string; explanation: string; sourceIds: string[]; sourceFactIds: string[];
-  reviewOnly: true; runtimeRegistered: false;
+  questionId:string; chapterId:"SCI-001"; cpId:"SCI-CP-014"; qlId:string; qlName:string;
+  difficulty:KnowledgeV1Difficulty; stem:string; options:string[]; correctIndex:number;
+  canonicalAnswer:string; explanation:string; sourceIds:string[]; sourceFactIds:string[];
+  reviewOnly:true; runtimeRegistered:false;
 };
-
-const SOURCE_IDS = Object.freeze(["NCERT-SCIENCE-X-CHEMICAL-REACTIONS-EQUATIONS", "NIOS-SECONDARY-SCIENCE-CHEMICAL-REACTIONS"]);
-
-export const SCI_CP014_QL_NAMES_V1: Record<number, string> = {
-  1: "Evidence and identification of chemical change",
-  2: "Conservation of mass and basic equation ideas",
-  3: "Basic reaction-type recognition",
-  4: "Balancing simple chemical equations",
-  5: "Combination and decomposition applications",
-  6: "Displacement, double displacement and precipitation",
-  7: "Oxidation, reduction and redox",
-  8: "Energy change, corrosion and rancidity",
-  9: "Statement I/II",
-  10: "Mixed chemical-reaction application",
+const SOURCE_IDS = Object.freeze(["NCERT-SCIENCE-X-CHEMICAL-REACTIONS-EQUATIONS","NIOS-SECONDARY-SCIENCE-CHEMICAL-REACTIONS"]);
+export const SCI_CP014_QL_NAMES_V1: Record<number,string> = {
+  1:"Evidence and identification of chemical change",
+  2:"Chemical equations and conservation of atoms",
+  3:"Basic reaction-type recognition",
+  4:"Balancing simple chemical equations",
+  5:"Combination, decomposition and energy drivers",
+  6:"Displacement, double displacement and precipitation",
+  7:"Oxidation, reduction and redox",
+  8:"Energy change, corrosion and rancidity",
+  9:"Integrated reaction reasoning",
+  10:"Mixed chemical-reaction application",
 };
-
-const REVIEW_SPECS: readonly ReviewSpec[] = Object.freeze([
-  [1,"Easy","Which observation most clearly suggests that a chemical reaction may have occurred?","formation of a new substance",["change in shape only","breaking a solid into pieces","melting of ice"],"A chemical reaction forms one or more new substances. Gas formation, a precipitate, colour change or temperature change can be signs that this has happened.",["sci014-chemical-change-new-substance"]],
-  [1,"Easy","When two clear solutions are mixed and an insoluble solid suddenly appears, the solid is called a:","precipitate",["solvent","catalyst","vapour"],"The insoluble solid formed during a reaction in solution is called a precipitate. Its formation is a common visible sign of a chemical reaction.",["sci014-precipitate-definition"]],
-  [1,"Easy","Which change is a chemical change?","rusting of iron",["melting of wax","boiling of water","cutting paper"],"Rusting produces iron oxide, which is a new substance. Melting, boiling and cutting normally change only physical form.",["sci014-rusting-chemical"]],
-  [1,"Easy","Bubbles produced when an acid reacts with a carbonate are evidence of:","gas formation",["freezing","sublimation","only a change in shape"],"Acid-carbonate reactions release carbon dioxide gas, which appears as bubbles. Gas evolution therefore shows that a chemical reaction is taking place.",["sci014-gas-evolution"]],
-  [1,"Easy","A sudden permanent colour change during mixing of two substances can indicate:","a chemical reaction",["only evaporation","only melting","only filtration"],"A colour change can show that new substances with different properties have formed. It is a common sign of a chemical reaction when caused by the reacting substances.",["sci014-colour-change"]],
-  [1,"Easy","If a reaction mixture becomes noticeably warmer without external heating, the reaction is likely releasing:","heat",["mass","pressure only","light only"],"A rise in temperature without outside heating shows that energy is being released as heat. Such reactions are called exothermic reactions.",["sci014-temperature-rise"]],
-  [2,"Easy","Why are chemical equations balanced?","to obey conservation of mass",["to change the products","to increase reaction speed","to show only the colour of substances"],"Atoms are neither created nor destroyed in an ordinary chemical reaction. A balanced equation therefore has the same number of each type of atom on both sides.",["sci014-balance-conservation"]],
-  [2,"Easy","In a balanced chemical equation, the number of atoms of each element is:","equal on both sides",["always greater on the product side","always greater on the reactant side","unrelated on the two sides"],"Balancing keeps the count of every element equal before and after the reaction. This represents the law of conservation of mass.",["sci014-atoms-equal-both-sides"]],
-  [2,"Easy","Which law is directly reflected by a balanced chemical equation?","law of conservation of mass",["law of reflection","Ohm's law","law of gravitation"],"A balanced equation shows that the same atoms are present before and after reaction. This is the chemical expression of conservation of mass.",["sci014-law-conservation-mass"]],
-  [2,"Easy","While balancing an equation, which part of a chemical formula should not be changed?","subscripts in the formula",["coefficients before formulae","number of molecules represented","relative coefficients"],"Changing a subscript changes the identity of the substance itself. Balancing is done by changing only the coefficients placed before formulae.",["sci014-do-not-change-subscripts"]],
-  [2,"Easy","In the equation 2H₂ + O₂ → 2H₂O, the coefficient of O₂ is:","1",["2","3","4"],"No number written before O₂ means its coefficient is 1. The equation then contains two oxygen atoms on each side.",["sci014-o2-coefficient-one"]],
-  [2,"Easy","In 2Mg + O₂ → 2MgO, how many magnesium atoms are present on each side?","2",["1","3","4"],"The coefficient 2 before Mg gives two magnesium atoms on the left. The coefficient 2 before MgO also gives two magnesium atoms on the right.",["sci014-mg-balanced-count"]],
-  [3,"Easy","A reaction in which two or more substances combine to form a single product is called a:","combination reaction",["decomposition reaction","displacement reaction","double displacement reaction"],"In a combination reaction, multiple reactants join to give one main product. For example, CaO + H₂O → Ca(OH)₂.",["sci014-combination-definition"]],
-  [3,"Easy","A reaction in which one compound breaks into two or more simpler substances is a:","decomposition reaction",["combination reaction","neutralization only","displacement reaction"],"A decomposition reaction starts with one compound and produces simpler substances. Energy such as heat, light or electricity is often needed.",["sci014-decomposition-definition"]],
-  [3,"Easy","When a more reactive element replaces a less reactive element from its compound, the reaction is called:","displacement reaction",["combination reaction","decomposition reaction","precipitation only"],"In a displacement reaction, one element takes the place of another in a compound. The change depends on their relative reactivity.",["sci014-displacement-definition"]],
-  [3,"Easy","A reaction in which ions of two compounds exchange partners is generally called:","double displacement reaction",["combination reaction","single displacement reaction","photochemical decomposition"],"In a double displacement reaction, positive and negative ions exchange partners. Such reactions often form a precipitate, gas or water.",["sci014-double-displacement-definition"]],
-  [3,"Easy","CaO + H₂O → Ca(OH)₂ is an example of which reaction type?","combination reaction",["decomposition reaction","displacement reaction","double displacement reaction"],"Calcium oxide and water combine to form one product, calcium hydroxide. That pattern defines a combination reaction.",["sci014-cao-water-combination"]],
-  [3,"Easy","2AgCl → 2Ag + Cl₂ in sunlight is an example of:","decomposition reaction",["combination reaction","neutralization reaction","single displacement reaction"],"Silver chloride breaks into simpler substances when exposed to light. Because light causes the breakdown, it is a photochemical decomposition reaction.",["sci014-agcl-photodecomposition"]],
-  [4,"Medium","Which set of coefficients correctly balances H₂ + O₂ → H₂O?","2, 1, 2",["1, 1, 1","1, 2, 2","2, 2, 1"],"Using 2H₂ gives four H atoms, so 2H₂O is needed on the product side. That gives two O atoms, matched by 1O₂, so the coefficients are 2:1:2.",["sci014-balance-water"]],
-  [4,"Medium","Which balanced equation represents formation of magnesium oxide?","2Mg + O₂ → 2MgO",["Mg + O₂ → MgO","2Mg + 2O₂ → 2MgO","Mg + O → MgO₂"],"Oxygen occurs as O₂, so two MgO units are needed to use both oxygen atoms. This requires two Mg atoms, giving 2Mg + O₂ → 2MgO.",["sci014-balance-mgo"]],
-  [4,"Medium","What coefficient must be placed before HCl in Zn + HCl → ZnCl₂ + H₂?","2",["1","3","4"],"ZnCl₂ contains two chlorine atoms, so two HCl molecules are needed. Their two hydrogen atoms then form one H₂ molecule.",["sci014-balance-zn-hcl"]],
-  [4,"Medium","Which equation is correctly balanced?","2KClO₃ → 2KCl + 3O₂",["KClO₃ → KCl + O₂","2KClO₃ → KCl + 2O₂","KClO₃ → 2KCl + 3O₂"],"Two KClO₃ units contain 2 K, 2 Cl and 6 O atoms. The products 2KCl and 3O₂ contain exactly the same numbers.",["sci014-balance-kclo3"]],
-  [4,"Medium","To balance Fe + O₂ → Fe₂O₃ using the smallest whole-number coefficients, the coefficient of Fe is:","4",["2","3","6"],"Using 2Fe₂O₃ gives six O atoms, which requires 3O₂. Those two Fe₂O₃ units contain four Fe atoms, so the coefficient of Fe is 4.",["sci014-balance-fe2o3"]],
-  [4,"Medium","Which set of coefficients balances N₂ + H₂ → NH₃?","1, 3, 2",["1, 1, 1","2, 3, 1","1, 2, 3"],"One N₂ has two nitrogen atoms, so 2NH₃ is needed. That product contains six H atoms, requiring 3H₂.",["sci014-balance-ammonia"]],
-  [5,"Medium","2Mg + O₂ → 2MgO is best classified as a:","combination reaction",["decomposition reaction","double displacement reaction","precipitation reaction"],"Magnesium and oxygen combine to form a single compound, magnesium oxide. A reaction with one main product from multiple reactants is a combination reaction.",["sci014-mg-combination"]],
-  [5,"Medium","CaCO₃ → CaO + CO₂ on heating is a:","thermal decomposition reaction",["combination reaction","displacement reaction","neutralization reaction"],"Heat breaks one compound, calcium carbonate, into calcium oxide and carbon dioxide. Decomposition caused by heat is called thermal decomposition.",["sci014-caco3-thermal"]],
-  [5,"Medium","The decomposition of water into hydrogen and oxygen by electric current is called:","electrolytic decomposition",["thermal decomposition","photochemical decomposition","combination reaction"],"Electric current supplies the energy needed to split water into simpler substances. Decomposition caused by electricity is electrolytic decomposition.",["sci014-water-electrolysis"]],
-  [5,"Medium","Why is decomposition often described as the opposite of combination?","one compound splits instead of reactants joining",["both always form one product","both always need sunlight","both involve only metals"],"Combination joins substances to make a larger product, whereas decomposition splits one compound into simpler products. Their overall patterns are therefore opposite.",["sci014-combination-decomposition-opposite"]],
-  [5,"Medium","Which reaction is photochemical decomposition?","2AgBr → 2Ag + Br₂ in sunlight",["CaO + H₂O → Ca(OH)₂","Zn + CuSO₄ → ZnSO₄ + Cu","HCl + NaOH → NaCl + H₂O"],"Silver bromide decomposes when light supplies energy. This light-driven breakdown is a photochemical decomposition reaction.",["sci014-agbr-photo"]],
-  [5,"Medium","Quicklime reacts with water and releases heat while forming slaked lime. This reaction is:","combination and exothermic",["decomposition and endothermic","displacement and endothermic","double displacement only"],"CaO and H₂O combine to form Ca(OH)₂, so it is a combination reaction. Heat is released, so it is also exothermic.",["sci014-quicklime-combination-exo"]],
-  [6,"Medium","Zn + CuSO₄ → ZnSO₄ + Cu is a displacement reaction because:","zinc replaces copper from copper sulphate",["copper replaces zinc","two compounds exchange ions","one compound breaks apart"],"Zinc is more reactive than copper and displaces it from copper sulphate. One element replacing another from a compound is a displacement reaction.",["sci014-zn-cuso4-displacement"]],
-  [6,"Medium","What happens when an iron nail is placed in copper sulphate solution for some time?","iron displaces copper",["copper displaces iron","no chemical change is possible","iron decomposes into gases"],"Iron is more reactive than copper, so iron sulphate forms and copper is deposited. This is a displacement reaction.",["sci014-fe-cuso4"]],
-  [6,"Medium","Na₂SO₄ + BaCl₂ → BaSO₄ + 2NaCl is a double displacement reaction because:","the ions exchange partners",["one element replaces another","one compound alone splits","all reactants form one product"],"The sodium and barium ions exchange their anions. Insoluble BaSO₄ forms, so this is also a precipitation reaction.",["sci014-baso4-double"]],
-  [6,"Medium","In AgNO₃ + NaCl → AgCl + NaNO₃, the white precipitate is:","AgCl",["AgNO₃","NaCl","NaNO₃"],"Silver chloride is insoluble in water and separates as a white solid. The other ions remain mainly in solution.",["sci014-agcl-precipitate"]],
-  [6,"Medium","Which observation best confirms a precipitation reaction?","formation of an insoluble solid from solutions",["only a rise in pressure","melting of a solid","evaporation of the solvent only"],"A precipitation reaction produces an insoluble solid when ions in solution combine. The visible solid is the precipitate.",["sci014-precipitation-observation"]],
-  [6,"Medium","Copper cannot normally displace zinc from zinc sulphate solution because:","copper is less reactive than zinc",["copper has no electrons","zinc sulphate contains no zinc ions","all displacement reactions need light"],"A metal can displace another metal below it in the reactivity series. Copper is less reactive than zinc, so it cannot replace zinc from ZnSO₄.",["sci014-cu-cannot-displace-zn"]],
-  [7,"Medium","Addition of oxygen to a substance is commonly described as:","oxidation",["reduction","neutralization","precipitation"],"At this level, oxidation can be recognized as gain of oxygen. The reverse idea, loss of oxygen, is reduction.",["sci014-oxidation-oxygen-gain"]],
-  [7,"Medium","Removal of oxygen from a substance is commonly described as:","reduction",["oxidation","combination only","corrosion only"],"Reduction can be identified as loss of oxygen from a substance. In many reactions, oxidation and reduction occur together.",["sci014-reduction-oxygen-loss"]],
-  [7,"Medium","In CuO + H₂ → Cu + H₂O, copper(II) oxide is:","reduced to copper",["oxidized to copper","unchanged chemically","converted into a salt only"],"CuO loses oxygen and becomes Cu, so CuO is reduced. Hydrogen gains oxygen to form water and is oxidized.",["sci014-cuo-reduced"]],
-  [7,"Medium","In CuO + H₂ → Cu + H₂O, hydrogen is:","oxidized",["reduced","precipitated","neutralized"],"Hydrogen gains oxygen to form water, so it is oxidized. At the same time CuO loses oxygen, showing that the overall reaction is redox.",["sci014-h2-oxidized"]],
-  [7,"Medium","A reaction in which oxidation and reduction occur together is called a:","redox reaction",["precipitation reaction only","neutralization reaction only","physical change"],"Oxidation of one substance is accompanied by reduction of another. Because both processes occur in the same reaction, it is called redox.",["sci014-redox-definition"]],
-  [7,"Medium","Which statement best describes a reducing agent in a simple oxygen-transfer reaction?","it removes oxygen from another substance",["it always adds oxygen to another substance","it prevents every reaction","it must be a noble gas"],"A reducing agent causes another substance to be reduced, for example by removing its oxygen. The reducing agent itself is oxidized during the process.",["sci014-reducing-agent"]],
-  [8,"Medium","A reaction that releases heat to the surroundings is called:","exothermic",["endothermic","photochemical","reversible only"],"An exothermic reaction transfers energy out as heat, so the surroundings may become warmer. Combustion is a familiar example.",["sci014-exothermic-definition"]],
-  [8,"Medium","A reaction that absorbs heat from the surroundings is called:","endothermic",["exothermic","precipitation only","displacement only"],"An endothermic reaction requires a net input of heat energy. The surroundings may cool as the reaction absorbs energy.",["sci014-endothermic-definition"]],
-  [8,"Medium","Respiration is commonly described as exothermic because:","energy is released when glucose is oxidized",["oxygen is never used","glucose is formed from carbon dioxide","no chemical reaction occurs"],"Cells oxidize glucose in a controlled series of reactions and release usable energy. Because energy is released overall, respiration is exothermic.",["sci014-respiration-exothermic"]],
-  [8,"Medium","Rusting of iron requires iron to undergo:","oxidation",["reduction only","neutralization","sublimation"],"During rusting, iron combines with oxygen in the presence of moisture to form hydrated iron oxides. This is an oxidation process.",["sci014-rusting-oxidation"]],
-  [8,"Medium","Rancidity in oily food is mainly caused by:","oxidation of fats and oils",["reduction of salt","freezing of proteins","neutralization by water"],"Oxygen reacts slowly with fats and oils, producing unpleasant smell and taste. Limiting oxygen, light or heat can slow rancidity.",["sci014-rancidity-oxidation"]],
-  [8,"Medium","Why are some food packets flushed with nitrogen?","to reduce oxidation and rancidity",["to make food strongly acidic","to increase corrosion","to supply oxygen for faster reaction"],"Nitrogen is comparatively unreactive and displaces much of the oxygen in the packet. Less oxygen slows oxidation of fats and helps delay rancidity.",["sci014-nitrogen-food-rancidity"]],
-  [9,"Hard","Consider the statements:\nI. A balanced chemical equation has equal numbers of each type of atom on both sides.\nII. Balancing is done by changing the subscripts inside chemical formulae.\nWhich is correct?","I only",["II only","Both I and II","Neither I nor II"],"Statement I is correct because balancing represents conservation of atoms. Statement II is incorrect because changing a subscript changes the substance; only coefficients are adjusted.",["sci014-statement-balance"]],
-  [9,"Hard","Consider the statements:\nI. All decomposition reactions start with one compound.\nII. Decomposition may be caused by heat, light or electricity.\nWhich is correct?","Both I and II",["I only","II only","Neither I nor II"],"A decomposition reaction breaks one compound into simpler products. The required energy may be supplied thermally, photochemically or electrically.",["sci014-statement-decomposition"]],
-  [9,"Hard","Consider the statements:\nI. In Zn + CuSO₄ → ZnSO₄ + Cu, zinc is more reactive than copper.\nII. The reaction is a double displacement reaction.\nWhich is correct?","I only",["II only","Both I and II","Neither I nor II"],"Zinc can replace copper because zinc is more reactive, so Statement I is correct. Only one element is displaced, making it a single displacement reaction, not double displacement.",["sci014-statement-zn-cu"]],
-  [9,"Hard","Consider the statements:\nI. Oxidation and reduction can occur in the same reaction.\nII. In CuO + H₂ → Cu + H₂O, CuO gains oxygen.\nWhich is correct?","I only",["II only","Both I and II","Neither I nor II"],"Redox reactions contain oxidation and reduction together, so Statement I is correct. CuO actually loses oxygen to form Cu, so Statement II is incorrect.",["sci014-statement-redox"]],
-  [9,"Hard","Consider the statements:\nI. Rusting is an oxidation process.\nII. Rancidity can be slowed by reducing contact with oxygen.\nWhich is correct?","Both I and II",["I only","II only","Neither I nor II"],"Rusting involves oxidation of iron. Rancidity also commonly involves oxidation, so reducing oxygen exposure helps slow it.",["sci014-statement-rust-rancidity"]],
-  [9,"Hard","Consider the statements:\nI. Formation of BaSO₄ from two aqueous salt solutions is a precipitation reaction.\nII. A precipitation reaction always produces a gas as its main visible product.\nWhich is correct?","I only",["II only","Both I and II","Neither I nor II"],"BaSO₄ forms as an insoluble solid, so Statement I is correct. A precipitation reaction is identified by solid formation, not necessarily gas evolution.",["sci014-statement-precipitation"]],
-  [10,"Hard","A metal strip placed in a blue copper sulphate solution becomes coated with copper and the blue colour fades. What is the best conclusion?","a more reactive metal displaced copper from solution",["the metal only dissolved physically","copper sulphate underwent melting","no redox process occurred"],"A more reactive metal can enter solution while Cu²⁺ is reduced to copper metal. The coating and colour change therefore indicate a displacement redox reaction.",["sci014-application-displacement-redox"]],
-  [10,"Hard","A white solid darkens in sunlight and gives a metal plus a gas. Which type of reaction best fits this observation?","photochemical decomposition",["combination","neutralization","single displacement"],"Light is supplying the energy that breaks one compound into simpler products. That pattern is photochemical decomposition, as in silver chloride or silver bromide.",["sci014-application-photo"]],
-  [10,"Hard","A student balances an equation by changing H₂O to H₂O₂ on the product side. Why is this method wrong?","it changes the chemical identity of the product",["coefficients can never be used","oxygen cannot be balanced","water and hydrogen peroxide are identical"],"The subscript is part of a compound's formula, so changing H₂O to H₂O₂ creates a different substance. A chemical equation must be balanced by changing coefficients only.",["sci014-application-subscripts"]],
-  [10,"Hard","Two solutions form a solid when mixed, but no element is present as a free reactant. Which reaction type is most likely?","double displacement with precipitation",["single displacement","combination only","thermal decomposition"],"When two ionic compounds in solution exchange ions and an insoluble product forms, the reaction is double displacement. The insoluble product appears as a precipitate.",["sci014-application-double-precip"]],
-  [10,"Hard","During CuO + H₂ → Cu + H₂O, which paired description is correct?","CuO is reduced and H₂ is oxidized",["CuO is oxidized and H₂ is reduced","both are only oxidized","neither changes chemically"],"CuO loses oxygen, so it is reduced to Cu. H₂ gains that oxygen to form water, so H₂ is oxidized; the reaction is therefore redox.",["sci014-application-redox-pair"]],
-  [10,"Hard","An oily snack develops an unpleasant smell after long exposure to air. Which step would most directly slow the responsible chemical change?","limit contact with oxygen",["increase exposure to sunlight","keep the packet open","mix in more air"],"The unpleasant change is mainly due to oxidation of fats and oils. Reducing oxygen exposure, for example by airtight packing or nitrogen flushing, slows this oxidation.",["sci014-application-rancidity"]],
-]);
-
-function pad3(value: number) { return String(value).padStart(3, "0"); }
-function buildOptions(answer: string, distractors: readonly [string,string,string], correctIndex: number) {
-  const options = [...distractors]; options.splice(correctIndex, 0, answer); return options;
-}
-
-export const SCI_CP014_REVIEW_V1: readonly SciCp014ReviewQuestion[] = Object.freeze(REVIEW_SPECS.map((spec, index) => {
-  const [ql,difficulty,stem,answer,distractors,explanation,factIds] = spec;
-  const correctIndex = index % 4;
-  return Object.freeze({ questionId:`SCI-CP-014-REV-${pad3(index+1)}`, chapterId:"SCI-001" as const, cpId:"SCI-CP-014" as const,
-    qlId:`SCI-014-QL-${pad3(ql)}`, qlName:SCI_CP014_QL_NAMES_V1[ql], difficulty, stem,
-    options:buildOptions(answer,distractors,correctIndex), correctIndex, canonicalAnswer:answer, explanation,
-    sourceIds:[...SOURCE_IDS], sourceFactIds:[...factIds], reviewOnly:true as const, runtimeRegistered:false as const });
+const REVIEW_SPECS: readonly ReviewSpec[]=[...PART_1,...PART_2,...PART_3,...PART_4];
+const pad3=(n:number)=>String(n).padStart(3,"0");
+function buildOptions(answer:string,distractors:readonly [string,string,string],correctIndex:number){const options=[...distractors];options.splice(correctIndex,0,answer);return options;}
+export const SCI_CP014_REVIEW_V1: readonly SciCp014ReviewQuestion[] = Object.freeze(REVIEW_SPECS.map((spec,index)=>{
+  const [ql,difficulty,stem,answer,distractors,explanation,factIds]=spec; const correctIndex=index%4;
+  return Object.freeze({questionId:`SCI-CP-014-REV-${pad3(index+1)}`,chapterId:"SCI-001" as const,cpId:"SCI-CP-014" as const,
+    qlId:`SCI-014-QL-${pad3(ql)}`,qlName:SCI_CP014_QL_NAMES_V1[ql],difficulty,stem,options:buildOptions(answer,distractors,correctIndex),
+    correctIndex,canonicalAnswer:answer,explanation,sourceIds:[...SOURCE_IDS],sourceFactIds:[...factIds],reviewOnly:true as const,runtimeRegistered:false as const});
 }));
-
-export function validateSciCp014ReviewV1() {
-  const errors:string[]=[]; const qlCounts:Record<string,number>={}; const difficultyCounts:Record<string,number>={};
-  const answerPositionCounts:Record<string,number>={A:0,B:0,C:0,D:0}; const seenIds=new Set<string>(); const seenStems=new Set<string>();
-  for (const q of SCI_CP014_REVIEW_V1) {
-    qlCounts[q.qlId]=(qlCounts[q.qlId]??0)+1; difficultyCounts[q.difficulty]=(difficultyCounts[q.difficulty]??0)+1;
-    answerPositionCounts[["A","B","C","D"][q.correctIndex]] += 1;
-    if(seenIds.has(q.questionId)) errors.push(`Duplicate questionId: ${q.questionId}`); seenIds.add(q.questionId);
-    if(seenStems.has(q.stem)) errors.push(`Duplicate stem: ${q.stem}`); seenStems.add(q.stem);
-    if(q.options.length!==4 || new Set(q.options).size!==4) errors.push(`${q.questionId}: option contract failed`);
-    if(q.options[q.correctIndex]!==q.canonicalAnswer) errors.push(`${q.questionId}: keyed answer mismatch`);
-    if(!q.explanation.trim()) errors.push(`${q.questionId}: missing explanation`);
-    if(!q.sourceIds.length || !q.sourceFactIds.length) errors.push(`${q.questionId}: missing provenance`);
-    if(!q.reviewOnly || q.runtimeRegistered) errors.push(`${q.questionId}: lifecycle violation`);
+export function validateSciCp014ReviewV1(){
+  const errors:string[]=[];const qlCounts:Record<string,number>={};const difficultyCounts:Record<string,number>={};
+  const answerPositionCounts:Record<string,number>={A:0,B:0,C:0,D:0};const seenIds=new Set<string>();const seenStems=new Set<string>();
+  for(const q of SCI_CP014_REVIEW_V1){
+    qlCounts[q.qlId]=(qlCounts[q.qlId]??0)+1;difficultyCounts[q.difficulty]=(difficultyCounts[q.difficulty]??0)+1;
+    answerPositionCounts[["A","B","C","D"][q.correctIndex]]+=1;
+    if(seenIds.has(q.questionId))errors.push(`Duplicate questionId: ${q.questionId}`);seenIds.add(q.questionId);
+    if(seenStems.has(q.stem))errors.push(`Duplicate stem: ${q.stem}`);seenStems.add(q.stem);
+    if(q.options.length!==4||new Set(q.options).size!==4)errors.push(`${q.questionId}: option contract failed`);
+    if(q.options[q.correctIndex]!==q.canonicalAnswer)errors.push(`${q.questionId}: keyed answer mismatch`);
+    if(!q.explanation.trim())errors.push(`${q.questionId}: missing explanation`);
+    if(!q.sourceIds.length||!q.sourceFactIds.length)errors.push(`${q.questionId}: missing provenance`);
+    if(!q.reviewOnly||q.runtimeRegistered)errors.push(`${q.questionId}: lifecycle violation`);
   }
-  if(SCI_CP014_REVIEW_V1.length!==60) errors.push(`Expected 60 questions, found ${SCI_CP014_REVIEW_V1.length}`);
-  for(let ql=1; ql<=10; ql++){const id=`SCI-014-QL-${pad3(ql)}`; if(qlCounts[id]!==6) errors.push(`${id}: expected 6, found ${qlCounts[id]??0}`);}
-  for(const [d,n] of Object.entries({Easy:18,Medium:30,Hard:12})) if(difficultyCounts[d]!==n) errors.push(`${d}: expected ${n}, found ${difficultyCounts[d]??0}`);
-  for(const p of ["A","B","C","D"]) if(answerPositionCounts[p]!==15) errors.push(`${p}: expected 15, found ${answerPositionCounts[p]}`);
-  return {valid:errors.length===0, errors, totalQuestions:SCI_CP014_REVIEW_V1.length, qlCounts, difficultyCounts, answerPositionCounts};
+  if(SCI_CP014_REVIEW_V1.length!==60)errors.push(`Expected 60 questions, found ${SCI_CP014_REVIEW_V1.length}`);
+  for(let ql=1;ql<=10;ql++){const id=`SCI-014-QL-${pad3(ql)}`;if(qlCounts[id]!==6)errors.push(`${id}: expected 6, found ${qlCounts[id]??0}`);}
+  for(const [d,n] of Object.entries({Easy:18,Medium:30,Hard:12}))if(difficultyCounts[d]!==n)errors.push(`${d}: expected ${n}, found ${difficultyCounts[d]??0}`);
+  for(const p of ["A","B","C","D"])if(answerPositionCounts[p]!==15)errors.push(`${p}: expected 15, found ${answerPositionCounts[p]}`);
+  return{valid:errors.length===0,errors,totalQuestions:SCI_CP014_REVIEW_V1.length,qlCounts,difficultyCounts,answerPositionCounts};
 }

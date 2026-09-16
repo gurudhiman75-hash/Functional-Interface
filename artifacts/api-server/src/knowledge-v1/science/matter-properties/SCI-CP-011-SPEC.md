@@ -1,61 +1,64 @@
-# SCI-CP-011 — Matter & Its Properties
+# SCI-CP-011 — Matter & Its Properties — Exhaustive V2
 
-Status: REVIEW-ONLY CANDIDATE V1
-Chapter: `SCI-001`
+Status: **REVIEW-ONLY CANDIDATE V2**  
+Chapter: `SCI-001`  
 CP: `SCI-CP-011`
+
+## Purpose
+
+This pack now owns the complete school-level foundation of matter needed before Atomic Structure and the later Chemistry packs. V2 keeps the essential state-of-matter material but replaces repetitive variants with the previously missing mixtures, solution and separation foundation.
 
 ## Scope
 
-Owns the school-level foundation of matter required by the later Chemistry CPs:
-
-- matter as particles with mass and occupied space
-- solids, liquids and gases and their characteristic properties
+- solids, liquids and gases and their physical properties
 - particle spacing, attraction and motion
-- melting, freezing, boiling, condensation and change of state
+- physical change and change of state
+- melting, freezing, boiling, condensation and sublimation
 - effect of temperature and pressure on state
-- latent heat at a phase change
-- evaporation and the factors affecting it
-- cooling caused by evaporation
-- diffusion in solids, liquids and gases at general-exam depth
-- sublimation and familiar examples
-- application questions based on common phase-change observations
+- latent heat and familiar phase-change applications
+- pure substances and mixtures
+- homogeneous and heterogeneous mixtures
+- solute, solvent and solution
+- saturation, dilution, concentration and simple mass-percent calculation
+- solubility of solids and gases at familiar exam depth
+- suspension, colloid and true solution
+- Tyndall effect and familiar colloid examples
+- filtration, simple distillation and fractional distillation
+- chromatography, centrifugation and separating funnel
+- crystallization and sublimation as separation methods
+- evaporation and diffusion applications
 
-Atomic structure belongs to `SCI-CP-012`; elements, compounds and periodic classification belong to `SCI-CP-013`; chemical reactions belong to `SCI-CP-014`.
+Atomic structure and atoms/molecules belong to `SCI-CP-012`; periodic classification belongs to `SCI-CP-013`.
 
 ## Source authority
 
-Educational spine:
-
 - `NCERT-SCIENCE-IX-MATTER-SURROUNDINGS`
+- `NCERT-SCIENCE-IX-IS-MATTER-PURE`
 - `NIOS-SECONDARY-SCIENCE-MATTER`
-
-The review layer uses stable school-level chemistry facts suitable for SSC, Railways, Police, Banking and similar one-day examinations. It intentionally avoids advanced thermodynamics and microscopic kinetic-theory mathematics.
 
 ## Permanent QLs
 
-- `SCI-011-QL-001` — identify state of matter from basic property
-- `SCI-011-QL-002` — compare properties of solids, liquids and gases
-- `SCI-011-QL-003` — particle model of matter
-- `SCI-011-QL-004` — change of state and temperature/pressure effect
-- `SCI-011-QL-005` — latent heat and phase-change heating
-- `SCI-011-QL-006` — evaporation, cooling and controlling factors
-- `SCI-011-QL-007` — diffusion and particle motion
-- `SCI-011-QL-008` — sublimation and familiar phase-change applications
-- `SCI-011-QL-009` — Statement I/II
-- `SCI-011-QL-010` — mixed matter-properties application
+- `SCI-011-QL-001` — states of matter and basic physical properties
+- `SCI-011-QL-002` — particle model and physical changes
+- `SCI-011-QL-003` — pure substances, mixtures and solution basics
+- `SCI-011-QL-004` — change of state, latent heat and pressure effects
+- `SCI-011-QL-005` — solutions, concentration, saturation and solubility
+- `SCI-011-QL-006` — suspensions, colloids and Tyndall effect
+- `SCI-011-QL-007` — separation techniques
+- `SCI-011-QL-008` — evaporation, diffusion, sublimation and crystallization
+- `SCI-011-QL-009` — integrated statement reasoning
+- `SCI-011-QL-010` — mixed matter and separation application
 
 ## Review contract
 
 - 60 questions
 - 6 questions per QL
-- 60 distinct semantic payloads
 - Easy 18 / Medium 30 / Hard 12
 - answer positions A15 / B15 / C15 / D15
 - four distinct options and exactly one keyed answer
-- distractors must stay in the same conceptual neighbourhood
-- stems should read like real competitive-exam questions rather than database prompts
-- explanations should be simple, slightly helpful and complete enough to teach the tested point
-- Hard means familiar multi-fact discrimination or application, not obscure chemistry
+- distractors must be plausible Chemistry neighbours, not absurd eliminations
+- explanations must use simple language and include the decisive reason or step
+- Hard questions must require integration, selection of a method, or two-step reasoning
+- no advanced thermodynamics or quantitative physical chemistry
 - source/fact provenance retained for every review item
-- no source names or internal engine language in learner-facing text
-- review-only; no Question Studio/runtime registration before explicit human approval
+- review-only; no Question Studio/runtime registration before explicit approval
