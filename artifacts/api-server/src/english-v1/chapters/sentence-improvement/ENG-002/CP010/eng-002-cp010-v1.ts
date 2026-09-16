@@ -136,6 +136,13 @@ function moveToken(text: string, token: string, where: "start" | "end") {
   const body = punctuation ? bare.slice(0, -punctuation.length).trim() : bare;
   return `${body} ${match}${punctuation}`;
 }
+function moveTokenBeforePerfectAuxiliary(text: string, token: string) {
+  const tokenPattern = new RegExp(`\\b${token.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}\\b`, "i");
+  const match = text.match(tokenPattern)?.[0];
+  if (!match) return text;
+  const bare = clean(text.replace(tokenPattern, "")).replace(/\s+([,.!?;:])/g, "$1");
+  return bare.replace(/\b(had|has|have)\b/i, `${match.toLowerCase()} $1`);
+}
 function moveWordVariants(text: string, word: string) {
   const tokens = clean(text).split(" ");
   const index = tokens.findIndex((token) => token.replace(/[^A-Za-z]/g, "").toLowerCase() === word.toLowerCase());
@@ -240,7 +247,7 @@ function placementVariants(ruleId: ModifierRuleId, correct: string, wrong: strin
     const synonym = token.toLowerCase() === "almost" ? "nearly" : "almost";
     variants.push(replaceWord(wrong, token, synonym), moveToken(wrong, token, "end"), moveToken(wrong, token, "start"));
   } else if (ruleId === "GR-MOD-007" && token) {
-    variants.push(moveToken(wrong, token, "end"));
+    variants.push(moveToken(wrong, token, "end"), moveTokenBeforePerfectAuxiliary(wrong, token));
   } else if (ruleId === "GR-MOD-008" && token) {
     for (const alternative of frequencyAlternatives(token)) variants.push(replaceWord(wrong, token, alternative));
     variants.push(moveToken(wrong, token, "end"));
@@ -257,8 +264,7 @@ function incorrectVariants(ruleId: ModifierRuleId, correctTarget: string, wrongT
     ? attachmentVariants(ruleId, correct, wrong)
     : placementVariants(ruleId, correct, wrong);
   const variants = unique(raw).filter((value) => value.toLowerCase() !== correct.toLowerCase());
-  const minimum = ruleId === "GR-MOD-007" ? 2 : 3;
-  if (variants.length < minimum) throw new Error(`${ruleId} has only ${variants.length} natural distractors for ${correct}`);
+  if (variants.length < 3) throw new Error(`${ruleId} has only ${variants.length} natural distractors for ${correct}`);
   return variants;
 }
 function replacementChoices(ruleId: ModifierRuleId, correctTarget: string, wrongTarget: string, targetText: string, noImprovement: boolean) {
