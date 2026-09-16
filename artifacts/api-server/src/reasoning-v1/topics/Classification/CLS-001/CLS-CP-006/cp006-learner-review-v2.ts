@@ -11,7 +11,7 @@ function cleanText(
   ruleId: string,
   value: string,
 ): string {
-  let next = value;
+  let next = value.replace(/\s+—\s+[✅❌].*$/u, "");
   if (locale === "hi-IN") {
     next = next
       .replaceAll("विषम (अलग) अक्षर", "अलग अक्षर")
@@ -25,7 +25,7 @@ function cleanText(
         .replaceAll("ਜੋੜਾ", "ਜਿਸਤ");
     }
   }
-  return next;
+  return next.replace(/\s{2,}/g, " ").trim();
 }
 
 function conclusion(
