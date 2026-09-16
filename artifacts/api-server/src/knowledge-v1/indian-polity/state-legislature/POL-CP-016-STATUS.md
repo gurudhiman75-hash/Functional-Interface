@@ -1,10 +1,10 @@
 # POL-CP-016 — State Legislature Status
 
 **Branch:** `feature/polity-cp016-state-legislature`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
-## Implemented
+## Implemented and approved
 
 - current Legislative Department Constitution source as on 1 May 2026
 - Articles 168–212 State Legislature block
@@ -29,31 +29,20 @@
 - Article 207 financial Bills
 - Articles 208–212 procedural and judicial guardrails
 - 24 genuine QLs
-- 96-question review target
+- 96 English review questions
+- 24 Easy / 56 Medium / 16 Hard
 - exam-grade stems built directly into V1
+- simple, slightly helpful explanations
 - structural, source, answer-alignment, explanation and stem-style QA files
 
-## Review profile
+## Frozen English authority
 
-- 24 Easy
-- 56 Medium
-- 16 Hard
+V1 is approved as the canonical English review authority for POL-CP-016. Source facts, stems, distractors, answers and explanations should not be changed without a deliberate revision cycle.
 
-## Language policy
+## Deferred
 
-- proper competitive-exam stems from the first canonical version
-- direct stems normally capped at 30 words
-- hard items use calculations and constitutional distinctions rather than verbosity
-- explanations simple and slightly helpful
-- no database-style prompt fragments
-- no current office-holder questions
-- no unstable current Legislative-Council state-list questions
-
-## Gated
-
-- merge to `New-main`
 - Question Studio exposure
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V1 is approved.
+These remain deferred to the Polity integration checkpoint.
