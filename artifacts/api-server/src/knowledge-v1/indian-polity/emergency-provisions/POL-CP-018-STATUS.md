@@ -1,8 +1,8 @@
 # POL-CP-018 — Emergency Provisions Status
 
 **Branch:** `feature/polity-cp018-emergency-provisions`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Implemented
 
@@ -25,6 +25,13 @@
 - simple plain-English explanations from V1
 - structural, source, answer-alignment, explanation and stem-style QA files
 
+## Approved English authority
+
+- English V1 approved by the project owner on 16 September 2026;
+- facts, stems, options, answers and explanations are content-frozen;
+- future edits require an explicit defect-fix or version bump;
+- Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
+
 ## Language policy
 
 - complete competitive-exam question stems
@@ -33,12 +40,3 @@
 - explanations state the rule first in simple English
 - no database-style prompt fragments
 - no current political examples or office-holder questions
-
-## Gated
-
-- merge to `New-main`
-- Question Studio exposure
-- localization
-- chapter-wide production registration
-
-These remain blocked until English V1 is approved.
