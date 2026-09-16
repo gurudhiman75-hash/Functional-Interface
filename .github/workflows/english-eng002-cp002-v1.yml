@@ -7,12 +7,18 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng002-cp002-adapter-v1.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng002-cp002-adapter-v1.test.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-adapter.ts
       - .github/workflows/english-eng002-cp002-v1.yml
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng002-cp002-adapter-v1.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng002-cp002-adapter-v1.test.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-adapter.ts
       - .github/workflows/english-eng002-cp002-v1.yml
   workflow_dispatch:
 
@@ -57,6 +63,18 @@ jobs:
       - name: Run ENG-002 CP002 deterministic stress and review test
         shell: bash
         run: node artifacts/api-server/dist/english-v1/eng-002-cp002-v1.test.mjs
+
+      - name: Compile ENG-002 CP002 Question Studio adapter test
+        shell: bash
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engines/language-v1-eng002-cp002-adapter-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/english-v1/language-v1-eng002-cp002-adapter-v1.test.mjs
+
+      - name: Run ENG-002 CP002 Question Studio adapter test
+        shell: bash
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng002-cp002-adapter-v1.test.mjs
 
       - name: Compile ENG-002 CP002 review materializer
         shell: bash
