@@ -1,6 +1,6 @@
 # PGK-001 CP018 — Partition, PEPSU & Reorganisation
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-018 — Partition, PEPSU & Reorganisation`
 Permanent QLs: `PGK-001-QL-119` to `PGK-001-QL-125`
@@ -60,4 +60,4 @@ Internal verification prioritises the Punjab Government history page, India Code
 
 ## Lifecycle
 
-CP018 V1 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication before explicit human approval.
+Human-approved on 16 September 2026. V1 is the frozen review authority for CP018. Runtime Question Studio registration remains a separate later step and is not implied by this approval.
