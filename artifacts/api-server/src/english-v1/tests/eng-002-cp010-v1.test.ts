@@ -66,9 +66,12 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
   const slice = review.filter((item) => item.difficulty === difficulty);
   assert.equal(slice.length, 20);
   assert.equal(slice.filter((item) => item.question.metadata.noImprovement).length, 5);
+  assert.deepEqual(
+    slice.filter((item) => item.question.metadata.noImprovement).map((item) => item.question.metadata.ruleId).sort(),
+    ["GR-MOD-001", "GR-MOD-002", "GR-MOD-003", "GR-MOD-005", "GR-MOD-006"],
+  );
 }
-assert.equal(review.filter((item) => item.question.metadata.ruleId === "GR-MOD-007").some((item) => item.question.metadata.noImprovement), false);
-assert.equal(review.filter((item) => item.question.metadata.ruleId === "GR-MOD-009").some((item) => item.question.metadata.noImprovement), false);
+assert.equal(review.filter((item) => ["GR-MOD-007", "GR-MOD-009", "GR-MOD-010"].includes(item.question.metadata.ruleId)).some((item) => item.question.metadata.noImprovement), false);
 assert.equal(new Set(review.map((item) => item.question.metadata.ruleId)).size, 10);
 assert.ok(new Set(review.map((item) => item.question.metadata.semanticDomain)).size >= 20);
 assert.equal(review.every((item) => item.question.options.length === 4 && item.question.options[3] === "No improvement"), true);
