@@ -1,10 +1,10 @@
 # POL-CP-015 — Chief Minister & State Council of Ministers Status
 
 **Branch:** `feature/polity-cp015-chief-minister-state-council`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
-## Implemented
+## Approved implementation
 
 - current Legislative Department Constitution source as on 1 May 2026
 - Articles 163, 164, 166, 167 and 177
@@ -23,17 +23,21 @@
 - Article 167 Chief Minister information and Council-submission duties
 - Article 177 legislative speaking/participation rights and voting limitation
 - 20 genuine QLs
-- 80-question review target
+- 80 English review questions
 - exam-grade stems built directly into V1
 - structural, source, answer-alignment, explanation and stem-style QA files
 
-## Review profile
+## Frozen review profile
 
 - 24 Easy
 - 40 Medium
 - 16 Hard
+- 80 unique exam-grade stems
+- 80 unique explanations
+- four unique options per question
+- answer alignment verified in independent review artifact QA
 
-## Language policy
+## Frozen language policy
 
 - competitive-exam stems from first canonical version
 - direct stems normally capped at 30 words
@@ -42,11 +46,10 @@
 - no database-style prompt fragments
 - no current office-holder or current ministry questions
 
-## Gated
+## Deferred
 
-- merge to `New-main`
 - Question Studio exposure
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V1 is approved.
+These remain deferred to the deliberate Polity integration checkpoint.
