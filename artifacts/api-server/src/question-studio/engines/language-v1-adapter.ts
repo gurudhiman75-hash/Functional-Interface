@@ -48,22 +48,32 @@ import {
   isEng001Cp013QuestionStudioRequestV1,
   languageV1Eng001Cp013QuestionStudioAdapterV1,
 } from "./language-v1-eng001-cp013-adapter-v1";
+import {
+  isEng002Cp001QuestionStudioRequestV1,
+  languageV1Eng002Cp001QuestionStudioAdapterV1,
+} from "./language-v1-eng002-cp001-adapter-v1";
 
 /**
  * Composite adapter for language subjects. Individual chapter adapters own
  * their grammar authority, review lifecycle, selectors, and generation rules.
- * ENG-001 then applies one presentation-only segmentation normalization so
- * error positions are not predictable from the historically authored segment
- * boundaries. The error phrase itself and sentence order remain unchanged.
+ * ENG-001 applies presentation-only answer-position normalization; ENG-002
+ * keeps its sentence-improvement sentence intact and underlines only the
+ * approved target phrase.
  */
 export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "language-v1",
 
   listPackages() {
-    return [...languageV1Eng001Cp013QuestionStudioAdapterV1.listPackages()];
+    return [
+      ...languageV1Eng001Cp013QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng002Cp001QuestionStudioAdapterV1.listPackages(),
+    ];
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isEng002Cp001QuestionStudioRequestV1(request)) {
+      return languageV1Eng002Cp001QuestionStudioAdapterV1.generate(request);
+    }
     if (isEng001Cp013QuestionStudioRequestV1(request)) {
       return normalizeEng001AnswerPositionsV1(await languageV1Eng001Cp013QuestionStudioAdapterV1.generate(request));
     }
