@@ -32,27 +32,42 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 
 - English editorial review: COMPLETE
 - English CPs frozen: 23 / 23
-- Runtime / Question Studio registration: BLOCKED_PENDING_SEPARATE_PROMOTION_APPROVAL
-- Localisation: NOT_STARTED / separate post-English workflow
+- Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY`
+- Question Studio package: `ECO-001`
+- Question Bank storage: NOT ENABLED
+- Test / mock-test eligibility: NOT ENABLED
+- Public / automatic student publication: NOT ENABLED
+- Localisation: NOT_STARTED / separate workflow
 - Closure record: `ECO-001-CHAPTER-STATUS.md`
 
 ## Binding rules
 
 - Static GK only: volatile values such as current repo rate, GDP growth, inflation, tax slabs, Budget allocations and rankings are excluded.
-- Each CP is review-only until English editorial approval.
-- Runtime registration is a separate promotion step after approval.
 - Facts are locale-neutral; localisation is layered later.
 - Questions must use short, natural SSC/Banking/State-exam style stems with plausible same-domain distractors.
 - Normal MCQ stems must be complete questions; avoid label-like prompts ending in a colon such as `classified as:` or `calculated as:` unless a colon is structurally required inside a statement-format question.
 - Avoid editorial or review-like framing such as `A question contrasts...`; ask the tested fact directly.
 - Avoid putting the explanation into the stem. Prefer direct exam wording such as `What is...?`, `Why was...?`, `Which institution...?`, `In which year...?`, or a short comparison question.
-- Keep distractors on the same conceptual axis wherever the question tests a classification. Do not mix activity, ownership and employment-condition classifications unless the question explicitly tests the distinction between those axes.
-- For legacy national-income formulas that are retained for exam preparation, label historical/traditional relationships clearly when current official presentation differs.
+- Keep distractors on the same conceptual axis wherever the question tests a classification.
+- For legacy national-income formulas retained for exam preparation, label historical/traditional relationships clearly when current official presentation differs.
 - National-income measurement questions should distinguish final/intermediate use from expenditure or income components; do not use unrelated accounting families as easy distractors unless the distinction itself is being tested.
-- Explanations must be simple and beginner-friendly. Normally use 1-2 short sentences: the deciding fact plus only the minimum reason or distinction needed.
+- Explanations must be simple and beginner-friendly. Normally use 1–2 short sentences: the deciding fact plus only the minimum reason or distinction needed.
 - Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
 - Difficulty is assigned per generated variant under `ECO-DIFFICULTY-POLICY.md`, not permanently by QL or question format.
 
-## Promotion gate
+## Question Studio review-only registration
 
-All 23 English CPs are approved and frozen. Do not register Indian Economy with runtime / Question Studio unless a separate explicit promotion approval is given. Do not silently revise frozen English content; any future hardening pass must be documented and reviewed.
+The completed English chapter is registered with the shared `knowledge-v1` Question Studio engine under package `ECO-001`.
+
+The registration:
+- exposes all 23 approved/frozen CPs;
+- supports CP and QL selectors;
+- supports English Easy / Medium / Hard / Mixed review generation;
+- selects deterministically without replacement;
+- uses the standard `REVIEW_ONLY` lifecycle;
+- does not authorize canonical Question Bank persistence;
+- does not authorize tests, mock tests, public publication, automatic student release, or production release.
+
+## Next promotion gate
+
+All 23 English CPs are frozen and `ECO-001` is available in Question Studio for review-only generation. Any move to Question Bank storage / `BANK_ONLY`, localisation, test eligibility, mock-test eligibility, public publication or production release requires a separate explicit approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.
