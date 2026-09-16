@@ -8,7 +8,7 @@ import {
 } from "../../../error-spotting/ENG-001/CP001/cp001-patterns-v4";
 import { simplifyCp001Segments } from "../../../error-spotting/ENG-001/CP001/cp001-plain-language-v4";
 
-export const ENG002_CP001_STEM = "Choose the best replacement for the underlined part. If no change is needed, select 'No improvement'.";
+export const ENG002_CP001_STEM = "Select the most appropriate option to improve the underlined part of the sentence. If no improvement is required, select 'No improvement'.";
 
 export interface Eng002Cp001QuestionV1 {
   questionId: string;
@@ -203,12 +203,23 @@ function wrongNumberOf(phrase: string): "singular" | "plural" {
   return "plural";
 }
 
+function insertAgreementPreservingAdverb(phrase: string, adverb: string): string {
+  const words = phrase.trim().split(/\s+/).filter(Boolean);
+  if (words.length === 0) return phrase;
+  const first = words[0]!.toLowerCase();
+  const auxiliaries = new Set(["am", "is", "are", "was", "were", "has", "have", "had", "do", "does", "did", "can", "could", "will", "would", "shall", "should", "may", "might", "must"]);
+  if (auxiliaries.has(first)) {
+    return [words[0], adverb, ...words.slice(1)].join(" ");
+  }
+  return `${adverb} ${phrase.trim()}`;
+}
+
 function wrongAgreementAlternatives(wrongPhrase: string): string[] {
-  const base = lexicalBaseFromPhrase(wrongPhrase);
-  const gerund = toGerund(base);
-  return wrongNumberOf(wrongPhrase) === "singular"
-    ? [`does ${base}`, `is ${gerund}`, `has been ${gerund}`]
-    : [`do ${base}`, `are ${gerund}`, `have been ${gerund}`];
+  const first = wrongPhrase.trim().toLowerCase().split(/\s+/)[0] ?? "";
+  const adverbs = ["has", "have", "had"].includes(first)
+    ? ["already", "often"]
+    : ["still", "usually"];
+  return adverbs.map((adverb) => insertAgreementPreservingAdverb(wrongPhrase, adverb));
 }
 
 function uniqueReplacementDistractors(input: {
