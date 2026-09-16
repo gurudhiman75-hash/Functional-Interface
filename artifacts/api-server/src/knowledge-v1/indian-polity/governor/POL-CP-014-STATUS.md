@@ -1,8 +1,9 @@
 # POL-CP-014 — Governor Status
 
 **Branch:** `feature/polity-cp014-governor`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Approval date:** 16 September 2026  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Implemented
 
@@ -29,13 +30,16 @@
 - exam-grade stems from V1
 - structural, source, answer-alignment, explanation and stem-style QA files
 
-## Review profile
+## Frozen review profile
 
 - 24 Easy
 - 40 Medium
 - 16 Hard
+- 80 unique exam-grade stems
+- 80 unique explanations
+- four unique options with answer alignment
 
-## Language policy
+## Frozen language policy
 
 - real competitive-exam stems from the first canonical generator
 - direct stems normally capped at 30 words
@@ -44,11 +48,10 @@
 - no database-style prompt fragments
 - no current office-holder questions
 
-## Gated
+## Deferred
 
-- merge to `New-main`
 - Question Studio exposure
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V1 is approved.
+English V1 is approved and content-frozen. These remaining tasks belong to the Polity integration checkpoint.
