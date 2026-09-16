@@ -31,13 +31,15 @@ function replaceQuantifier(text: string, quantifier: string): string {
 function distractorPool(ruleId: ArticleRuleId, correctTarget: string, wrongTarget: string): string[] {
   const body = stripDeterminer(correctTarget);
   switch (ruleId) {
-    case "GR-ART-001": return unique([wrongTarget, `the ${body}`, `${oppositeIndefinite(correctTarget)} ${body}`]);
-    case "GR-ART-002": return unique([wrongTarget, `the ${body}`, body]);
-    case "GR-ART-003": return unique([wrongTarget, body, `a ${body}`, `an ${body}`]);
-    case "GR-ART-004": return unique([wrongTarget, body, `a ${body}`, `an ${body}`, `many ${body}`]);
-    case "GR-ART-005": return unique([wrongTarget, `a ${body}`, `an ${body}`]);
-    case "GR-ART-006": return unique([wrongTarget, `the ${body}`, `${oppositeIndefinite(correctTarget)} ${body}`]);
-    case "GR-ART-007": return unique([wrongTarget, `an ${body}`, `many ${body}`]);
+    // Keep distractors tied to the same noun phrase while avoiding alternate valid articles.
+    case "GR-ART-001": return unique([wrongTarget, `${oppositeIndefinite(correctTarget)} ${body}`, `many ${body}`]);
+    case "GR-ART-002": return unique([wrongTarget, body, `many ${body}`]);
+    case "GR-ART-003": return unique([wrongTarget, body, `many ${body}`]);
+    case "GR-ART-004": return unique([wrongTarget, body, `many ${body}`, `much ${body}`]);
+    case "GR-ART-005": return unique([wrongTarget, `each ${body}`, `every ${body}`]);
+    case "GR-ART-006": return unique([wrongTarget, `${oppositeIndefinite(correctTarget)} ${body}`, `many ${body}`]);
+    case "GR-ART-007": return unique([wrongTarget, `many ${body}`, `several ${body}`]);
+    // Geography questions conventionally contrast article/no-article forms directly.
     case "GR-ART-008": return unique([wrongTarget, `a ${body}`, `an ${body}`]);
     case "GR-ART-009": {
       const match = correctTarget.match(/\b(a few|a little|many|much|few|little)\b/i);
