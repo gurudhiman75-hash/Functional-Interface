@@ -1,8 +1,15 @@
 # POL-CP-017 — Centre–State Relations Status
 
 **Branch:** `feature/polity-cp017-centre-state-relations`  
-**Lifecycle:** REVIEW CANDIDATE — V2  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V2  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
+
+## Approved canonical review layer
+
+- English V2 is the approved canonical review version
+- V1 facts, stems, options and answers are retained
+- all 96 explanations use the simpler V2 explanation layer
+- V2 explanations use plain English while preserving necessary constitutional terms in stems
 
 ## Implemented
 
@@ -27,26 +34,28 @@
 - Articles 285/289 Union-State tax-immunity rules
 - Article 293 State borrowing
 - 24 genuine QLs
-- 96-question review target
+- 96 questions
 - 24 Easy / 56 Medium / 16 Hard
 - exam-grade stems retained unchanged from V1
 - V2 explanation layer rewritten in plainer English
 - structural, source, answer-alignment, explanation and stem-style QA files
 
-## V2 explanation change
+## V2 language policy
 
-- facts, stems, options and answers are unchanged;
+- facts, stems, options and answers are unchanged from V1;
 - explanations state the rule first in plain English;
-- legal terms are translated where possible instead of repeated;
-- terms such as `repugnancy`, `legislative competence`, `apportionment` and `adjudication` are avoided in explanations when a simpler equivalent is accurate;
+- difficult legal terms are translated where possible instead of repeated;
 - explanations remain short and revision-friendly, normally 11–32 words;
 - no generic filler or option-by-option analysis.
 
-## Gated
+## Approved
 
-- merge to `New-main`
+English V2 was approved by the project owner on 16 September 2026.
+
+## Deferred
+
 - Question Studio exposure
 - localization
 - chapter-wide production registration
 
-These remain blocked until English V2 is approved.
+These remain deferred to the Polity integration checkpoint.
