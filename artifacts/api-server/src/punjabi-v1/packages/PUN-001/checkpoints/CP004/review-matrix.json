@@ -15,6 +15,12 @@
     { "familyId": "F09", "difficulty": "Hard", "reviewCount": 48 }
   ],
   "distribution": { "Easy": 80, "Medium": 80, "Hard": 80, "total": 240 },
-  "semanticCapacity": 1400,
+  "semanticCapacity": 904,
+  "humanQualityHardening": {
+    "fabricatedDirectDistractorsRemoved": true,
+    "genderDistractorsSameDomain": true,
+    "numberDistractorsSameRuleGroup": true,
+    "genderMismatchPairsSameDomain": true
+  },
   "productionPromotion": false
 }
