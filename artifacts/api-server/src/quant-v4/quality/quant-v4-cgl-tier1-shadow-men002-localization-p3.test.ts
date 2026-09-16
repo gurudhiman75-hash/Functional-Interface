@@ -170,7 +170,8 @@ const repeatedNormalizedFamilies = Object.entries(countBy(records, (record) => r
   .sort((left, right) => right.count - left.count || left.signature.localeCompare(right.signature));
 
 assert.equal(normalizedDuplication.records, 50);
-assert.ok(normalizedDuplication.duplicateRate > 0.05, "The measured MEN-002 normalized repetition defect must remain visible until its source is understood/remediated.");
+assert.ok(Object.keys(cpDistribution).length > 1, "MEN-002 package-level generation must not collapse the full package to MEN-CP-009.");
+assert.ok((cpDistribution["MEN-CP-009"] ?? 0) < records.length, "MEN-CP-009 may contribute to MEN-002 but must not monopolize every package-level slot.");
 
 console.log("QUANT_V4_CGL_TIER1_SHADOW_MEN002_LOCALIZATION_P3", JSON.stringify({
   records: records.length,
