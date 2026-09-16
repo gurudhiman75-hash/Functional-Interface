@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-012 Pollutants & Environmental Effects  
-**Lifecycle:** REVIEW CANDIDATE  
-**Review version:** V1  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Approved review version:** V1  
+**Approval date:** 2026-09-16  
+**Runtime registration:** review generator remains blocked; shared runtime integration is separate  
 
 ## Scope
 
@@ -46,7 +47,7 @@ Explicitly deferred:
 10. Methylmercury exposure is strongly linked with fish/shellfish consumption and neurological toxicity.
 11. Arsenic questions use stable chronic-effect associations, not current regional concentration values.
 12. Cadmium questions use stable kidney/skeletal/respiratory toxicity associations.
-13. Review generators remain `runtimeRegistered: false` until project-owner approval.
+13. Review generators remain `runtimeRegistered: false`; shared runtime integration is handled separately.
 
 ## QL inventory
 
@@ -65,24 +66,24 @@ Explicitly deferred:
 | ENV-012-QL-011 | Correct / incorrect pollutant-effect pair | Hard |
 | ENV-012-QL-012 | Statements and applied identification | Hard |
 
-## Review gate
+## Frozen review gate
 
-Before approval:
+Approved V1 contains:
 - exactly 48 questions;
 - four questions per QL;
-- Easy, Medium and Hard represented;
-- all four correct-option positions used within every QL;
+- Easy, Medium and Hard coverage;
+- all four correct-option positions inside every QL;
 - four unique options per question;
-- canonical answer equals option at `correctIndex`;
+- canonical answer equal to option at `correctIndex`;
 - source IDs and source-fact IDs retained;
-- no duplicate semantic question signatures;
+- unique semantic question signatures;
 - no ozone-depletion or greenhouse-effect leakage from ENV-CP-013;
 - no mutable numerical exposure limits;
 - no teaching/meta stem wording;
-- explanations remain short and plain;
+- short, plain explanations;
 - no `associated with` filler;
 - no option-by-option explanation clutter.
 
 ## Source policy
 
-Facts are cross-checked against US EPA material on nutrient pollution, acid rain, carbon monoxide, particulate matter and biomagnification; USGS material on BOD; and WHO material on lead, mercury, arsenic and cadmium. Source verification date for V1: 2026-09-15.
+Facts were cross-checked against US EPA material on nutrient pollution, acid rain, carbon monoxide, particulate matter and biomagnification; USGS material on BOD; and WHO material on lead, mercury, arsenic and cadmium. V1 was human-approved and content-frozen on 2026-09-16.
