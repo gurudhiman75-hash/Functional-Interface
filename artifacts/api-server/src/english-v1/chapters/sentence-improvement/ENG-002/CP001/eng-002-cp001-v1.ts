@@ -128,6 +128,39 @@ const IRREGULAR_BASE: Record<string, string> = {
   begun: "begin",
 };
 
+const EXPLICIT_REGULAR_BASE: Record<string, string> = {
+  arranged: "arrange",
+  changed: "change",
+  checked: "check",
+  closed: "close",
+  collected: "collect",
+  compared: "compare",
+  completed: "complete",
+  improved: "improve",
+  installed: "install",
+  managed: "manage",
+  marked: "mark",
+  moved: "move",
+  offered: "offer",
+  prepared: "prepare",
+  processed: "process",
+  published: "publish",
+  received: "receive",
+  recorded: "record",
+  removed: "remove",
+  reported: "report",
+  required: "require",
+  reviewed: "review",
+  saved: "save",
+  scheduled: "schedule",
+  selected: "select",
+  stored: "store",
+  survived: "survive",
+  thanked: "thank",
+  used: "use",
+  worsened: "worsen",
+};
+
 function lexicalBaseFromPhrase(phrase: string): string {
   const words = phrase.trim().toLowerCase().split(/\s+/).filter(Boolean);
   while (["am", "is", "are", "was", "were", "has", "have", "had", "do", "does", "did", "been", "being"].includes(words[0] ?? "")) {
@@ -135,6 +168,7 @@ function lexicalBaseFromPhrase(phrase: string): string {
   }
   const word = (words[0] ?? "do").replace(/[^a-z'-]/g, "");
   if (IRREGULAR_BASE[word]) return IRREGULAR_BASE[word]!;
+  if (EXPLICIT_REGULAR_BASE[word]) return EXPLICIT_REGULAR_BASE[word]!;
   if (word.endsWith("ying") && word.length > 4) return `${word.slice(0, -4)}ie`;
   if (word.endsWith("ing") && word.length > 5) {
     const stem = word.slice(0, -3);
@@ -154,6 +188,13 @@ function lexicalBaseFromPhrase(phrase: string): string {
   return word;
 }
 
+function toGerund(base: string): string {
+  if (base.endsWith("ie")) return `${base.slice(0, -2)}ying`;
+  if (base.endsWith("e") && !base.endsWith("ee")) return `${base.slice(0, -1)}ing`;
+  if (/[^aeiou][aeiou][bcdfgklmnprstvz]$/.test(base)) return `${base}${base.slice(-1)}ing`;
+  return `${base}ing`;
+}
+
 function wrongNumberOf(phrase: string): "singular" | "plural" {
   const first = phrase.trim().toLowerCase().split(/\s+/)[0] ?? "";
   if (["is", "was", "has", "does"].includes(first)) return "singular";
@@ -162,24 +203,12 @@ function wrongNumberOf(phrase: string): "singular" | "plural" {
   return "plural";
 }
 
-function alternateAspectMismatch(wrongPhrase: string): string {
-  const phrase = wrongPhrase.trim();
-  const lower = phrase.toLowerCase();
-  if (lower.startsWith("is ")) return `has been ${phrase.slice(3)}`;
-  if (lower.startsWith("are ")) return `have been ${phrase.slice(4)}`;
-  if (lower.startsWith("was ")) return `has been ${phrase.slice(4)}`;
-  if (lower.startsWith("were ")) return `have been ${phrase.slice(5)}`;
-
-  const base = lexicalBaseFromPhrase(phrase);
-  const number = wrongNumberOf(phrase);
-  if (lower.startsWith("has ")) return `is ${base}ing`;
-  if (lower.startsWith("have ")) return `are ${base}ing`;
-  return number === "singular" ? `does ${base}` : `do ${base}`;
-}
-
-function auxiliaryMismatch(wrongPhrase: string): string {
+function wrongAgreementAlternatives(wrongPhrase: string): string[] {
   const base = lexicalBaseFromPhrase(wrongPhrase);
-  return wrongNumberOf(wrongPhrase) === "singular" ? `does ${base}` : `do ${base}`;
+  const gerund = toGerund(base);
+  return wrongNumberOf(wrongPhrase) === "singular"
+    ? [`does ${base}`, `is ${gerund}`, `has been ${gerund}`]
+    : [`do ${base}`, `are ${gerund}`, `have been ${gerund}`];
 }
 
 function uniqueReplacementDistractors(input: {
@@ -187,11 +216,9 @@ function uniqueReplacementDistractors(input: {
   wrong: string;
   target: string;
 }): string[] {
-  const candidates = [
-    input.wrong,
-    alternateAspectMismatch(input.wrong),
-    auxiliaryMismatch(input.wrong),
-  ].map((value) => value.trim()).filter(Boolean);
+  const candidates = [input.wrong, ...wrongAgreementAlternatives(input.wrong)]
+    .map((value) => value.trim())
+    .filter(Boolean);
   const seen = new Set([input.correct.trim().toLowerCase(), input.target.trim().toLowerCase()]);
   const out: string[] = [];
   for (const candidate of candidates) {
@@ -199,20 +226,6 @@ function uniqueReplacementDistractors(input: {
     if (seen.has(key)) continue;
     seen.add(key);
     out.push(candidate);
-  }
-  if (out.length < 2) {
-    const base = lexicalBaseFromPhrase(input.wrong);
-    const number = wrongNumberOf(input.wrong);
-    const fallbacks = number === "singular"
-      ? [`has ${base}`, `is ${base}`, `does ${base}s`]
-      : [`have ${base}s`, `are ${base}`, `do ${base}s`];
-    for (const candidate of fallbacks) {
-      const key = candidate.toLowerCase();
-      if (seen.has(key)) continue;
-      seen.add(key);
-      out.push(candidate);
-      if (out.length >= 3) break;
-    }
   }
   return out;
 }
