@@ -22,6 +22,12 @@ function unique(values: readonly string[]) {
 const stripDeterminer = (text: string) => text.replace(/^(?:a few|a little|the|an|a|many|much|few|little|each|every|several)\s+/i, "").trim();
 const oppositeIndefinite = (text: string): "a" | "an" => /^an\s+/i.test(text) ? "a" : "an";
 
+function replaceQuantifier(text: string, quantifier: string): string {
+  const pattern = /\b(?:a few|a little|many|much|few|little)\b/i;
+  if (!pattern.test(text)) throw new Error(`Unable to find quantity determiner in ${text}`);
+  return text.replace(pattern, quantifier);
+}
+
 function distractorPool(ruleId: ArticleRuleId, correctTarget: string, wrongTarget: string): string[] {
   const body = stripDeterminer(correctTarget);
   switch (ruleId) {
@@ -34,12 +40,12 @@ function distractorPool(ruleId: ArticleRuleId, correctTarget: string, wrongTarge
     case "GR-ART-007": return unique([wrongTarget, `an ${body}`, `many ${body}`]);
     case "GR-ART-008": return unique([wrongTarget, `a ${body}`, `an ${body}`]);
     case "GR-ART-009": {
-      const match = correctTarget.match(/^(a few|a little|many|much|few|little)\s+(.+)$/i);
+      const match = correctTarget.match(/\b(a few|a little|many|much|few|little)\b/i);
       if (!match) throw new Error(`Unable to parse quantity determiner in ${correctTarget}`);
-      const q = match[1]!.toLowerCase(), noun = match[2]!;
+      const q = match[1]!.toLowerCase();
       return q === "many" || q === "few" || q === "a few"
-        ? unique([wrongTarget, `much ${noun}`, `little ${noun}`, `a little ${noun}`])
-        : unique([wrongTarget, `many ${noun}`, `few ${noun}`, `a few ${noun}`]);
+        ? unique([wrongTarget, replaceQuantifier(correctTarget, "much"), replaceQuantifier(correctTarget, "little"), replaceQuantifier(correctTarget, "a little")])
+        : unique([wrongTarget, replaceQuantifier(correctTarget, "many"), replaceQuantifier(correctTarget, "few"), replaceQuantifier(correctTarget, "a few")]);
     }
     case "GR-ART-010": {
       const match = correctTarget.match(/^(each|every|several)\s+(.+)$/i);
