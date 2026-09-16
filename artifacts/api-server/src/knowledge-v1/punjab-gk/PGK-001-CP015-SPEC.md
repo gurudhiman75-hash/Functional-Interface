@@ -1,6 +1,6 @@
 # PGK-001 CP015 — Maharaja Ranjit Singh & Sikh Empire
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-015 — Maharaja Ranjit Singh & Sikh Empire`
 Permanent QLs: `PGK-001-QL-098` to `PGK-001-QL-104`
@@ -69,6 +69,6 @@ State the decisive fact in the first sentence. Add one useful chronological, ter
 
 Verification remains internal against Punjab School Education Board Punjab History & Culture material, District Amritsar Government of Punjab history, IGNCA/ASI historical works and high-quality standard references where needed. Learner text remains source-free.
 
-## Lifecycle
+## Approval
 
-CP015 V1 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+Human approval received on 2026-09-16 for `PGK-001-CP015-REVIEW-V1`. Learner content is frozen at V1. Question Studio runtime integration remains a separate later step.
