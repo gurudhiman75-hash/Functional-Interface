@@ -28,7 +28,7 @@ function distractorPool(ruleId: ArticleRuleId, correctTarget: string, wrongTarge
     case "GR-ART-001": return unique([wrongTarget, `the ${body}`, `${oppositeIndefinite(correctTarget)} ${body}`]);
     case "GR-ART-002": return unique([wrongTarget, `the ${body}`, body]);
     case "GR-ART-003": return unique([wrongTarget, body, `a ${body}`, `an ${body}`]);
-    case "GR-ART-004": return unique([wrongTarget, body, `${/^a\s+/i.test(wrongTarget) ? "an" : "a"} ${body}`]);
+    case "GR-ART-004": return unique([wrongTarget, body, `a ${body}`, `an ${body}`, `many ${body}`]);
     case "GR-ART-005": return unique([wrongTarget, `a ${body}`, `an ${body}`]);
     case "GR-ART-006": return unique([wrongTarget, `the ${body}`, `${oppositeIndefinite(correctTarget)} ${body}`]);
     case "GR-ART-007": return unique([wrongTarget, `an ${body}`, `many ${body}`]);
@@ -38,8 +38,8 @@ function distractorPool(ruleId: ArticleRuleId, correctTarget: string, wrongTarge
       if (!match) throw new Error(`Unable to parse quantity determiner in ${correctTarget}`);
       const q = match[1]!.toLowerCase(), noun = match[2]!;
       return q === "many" || q === "few" || q === "a few"
-        ? unique([wrongTarget, `little ${noun}`, `a little ${noun}`])
-        : unique([wrongTarget, `few ${noun}`, `a few ${noun}`]);
+        ? unique([wrongTarget, `much ${noun}`, `little ${noun}`, `a little ${noun}`])
+        : unique([wrongTarget, `many ${noun}`, `few ${noun}`, `a few ${noun}`]);
     }
     case "GR-ART-010": {
       const match = correctTarget.match(/^(each|every|several)\s+(.+)$/i);
