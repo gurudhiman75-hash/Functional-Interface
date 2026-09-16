@@ -27,9 +27,11 @@ Each question contains:
 5. one uniquely keyed answer;
 6. a short explanation that states the governing SVA rule and shows the corrected sentence.
 
-The instruction is fixed and exam-like:
+The instruction is fixed and exam-grade:
 
-> Choose the best replacement for the underlined part. If no change is needed, select 'No improvement'.
+> Select the most appropriate option to improve the underlined part of the sentence. If no improvement is required, select 'No improvement'.
+
+The `/` separator belongs to **Error Spotting**, where a sentence is deliberately divided into labelled/answerable parts. ENG-002 Sentence Improvement keeps the sentence intact and marks only the segment to be improved. Slash-separated sentence parts must therefore not be introduced into this chapter.
 
 Stem variety is intentionally not manufactured. Variation belongs in the sentence, grammar structure, semantic domain, target phrase and distractors.
 
@@ -39,7 +41,7 @@ The production generator targets approximately **25% No improvement** items.
 
 For a No-improvement item, the sentence is generated from the correct side of the existing SVA candidate and the three replacement choices are deliberately incorrect agreement surfaces. `No improvement` is therefore the only defensible answer.
 
-For an improvement item, the sentence uses the registered incorrect SVA surface, one option supplies the validated correction, and the remaining replacement choices retain the wrong agreement number through alternate finite-verb constructions. `No improvement` remains incorrect.
+For an improvement item, the sentence uses the registered incorrect SVA surface, one option supplies the validated correction, and the remaining replacement choices retain the wrong agreement number. `No improvement` remains incorrect.
 
 This gives a natural four-position answer distribution instead of making option D rare or predictable.
 
@@ -57,6 +59,7 @@ Hard items must remain readable; difficult vocabulary is not a difficulty mechan
 
 Replacement distractors must:
 
+- be natural English phrases, never mechanically malformed forms;
 - be short enough to read as genuine replacement phrases;
 - stay connected to the same lexical verb where practical;
 - preserve the **wrong agreement number** so they cannot become accidental alternate answers;
@@ -64,7 +67,7 @@ Replacement distractors must:
 - never duplicate another visible option;
 - avoid introducing an unrelated grammar lesson as the intended test.
 
-The first V1 implementation derives distractors deterministically from the validated wrong SVA verb phrase. Human review must still check whether any surface feels mechanically generated or too easy; such defects are source-generator defects and must be fixed in code rather than hand-editing a frozen review artifact.
+After human review identified malformed forms such as artificial spellings/stems, CP001 no longer manufactures new verb spellings to create distractors. It now keeps the validated wrong agreement phrase intact and creates deterministic, natural variants around that phrase. Any mechanically generated or non-word surface is a generator defect and must fail editorial review.
 
 ## Explanation policy
 
@@ -101,6 +104,7 @@ V1 requires:
 - approximately 25% No-improvement frequency;
 - broadly balanced A/B/C/D answer positions;
 - rule/difficulty compatibility;
+- exam-grade instruction surface;
 - explanation includes corrected sentence;
 - review-only lifecycle lock.
 
