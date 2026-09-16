@@ -4,8 +4,8 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 
 ## Promotion order
 
-1. `ECO-CP-001` Basic Economic Concepts — REVIEW CANDIDATE V2
-2. `ECO-CP-002` Economic Systems & Sectors — REVIEW CANDIDATE
+1. `ECO-CP-001` Basic Economic Concepts — ENGLISH APPROVED V2 / FROZEN
+2. `ECO-CP-002` Economic Systems & Sectors — REVIEW CANDIDATE V2
 3. `ECO-CP-003` National Income & Aggregates — REVIEW CANDIDATE
 4. `ECO-CP-004` National Income Measurement in India — REVIEW CANDIDATE
 5. `ECO-CP-005` Inflation & Price Concepts — ENGLISH APPROVED V2 / FROZEN
@@ -38,6 +38,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Normal MCQ stems must be complete questions; avoid label-like prompts ending in a colon such as `classified as:` or `calculated as:` unless a colon is structurally required inside a statement-format question.
 - Avoid editorial or review-like framing such as `A question contrasts...`; ask the tested fact directly.
 - Avoid putting the explanation into the stem. Prefer direct exam wording such as `What is...?`, `Why was...?`, `Which institution...?`, `In which year...?`, or a short comparison question.
+- Keep distractors on the same conceptual axis wherever the question tests a classification. Do not mix activity, ownership and employment-condition classifications unless the question explicitly tests the distinction between those axes.
 - Explanations must be simple and beginner-friendly. Normally use 1-2 short sentences: the deciding fact plus only the minimum reason or distinction needed.
 - Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
 - Difficulty is assigned per generated variant under `ECO-DIFFICULTY-POLICY.md`, not permanently by QL or question format.
