@@ -1,6 +1,6 @@
 # GEO-CLI-001 CP006 — Retreating / Northeast Monsoon & Cyclonic Rain
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2
 Parent chapter: `GEO-CLI-001`
 Permanent QLs: `QL046–QL054`
 Lifecycle: review-only; runtime/publication disabled until explicit human approval.
@@ -59,6 +59,10 @@ CP006 does not own:
 - Every item carries source/fact provenance.
 - Exam-grade stems; difficulty must come from relation depth, not difficult English.
 - Learner-facing source, generator, runtime and review terminology is prohibited.
+
+## V2 correction
+
+V1's qualification gate caught one overlong three-statement stem (`GEO-CLI-001-CP006-Q050`). V2 shortens only that learner-facing stem. Facts, options, canonical answer, answer position, difficulty, QL ownership, explanation and provenance remain unchanged.
 
 ## Publication gate
 
