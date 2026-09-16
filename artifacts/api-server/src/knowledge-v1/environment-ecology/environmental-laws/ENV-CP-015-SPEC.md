@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-015 Environmental Laws & Institutions  
-**Lifecycle:** REVIEW CANDIDATE  
-**Review version:** V1  
-**Runtime registration:** blocked pending project-owner approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Approved review version:** V1  
+**Project-owner approval date:** 2026-09-16  
+**Runtime registration:** blocked; integration remains a separate workflow
 
 ## Scope
 
@@ -13,8 +14,8 @@ ENV-CP-015 covers stable, exam-relevant Indian environmental law and institution
 - Environment (Protection) Act, 1986: umbrella role, Central Government powers, standards/directions and relationship to environmental regulation
 - Water (Prevention and Control of Pollution) Act, 1974: prevention/control of water pollution and pollution-control boards
 - Air (Prevention and Control of Pollution) Act, 1981: prevention/control of air pollution and pollution-control boards
-- Wildlife (Protection) Act, 1972: wildlife/protected-area legal framework at a broad exam level
-- Forest (Conservation) Act, 1980: Central approval principle for diversion of forest land for non-forest use
+- Wild Life (Protection) Act, 1972: wildlife/protected-area legal framework at a broad exam level
+- Van (Sanrakshan Evam Samvardhan) Adhiniyam, 1980, historically known as the Forest (Conservation) Act, 1980: Central approval principle for specified forest-land decisions
 - Biological Diversity Act, 2002: conservation, sustainable use and fair/equitable benefit sharing
 - National Green Tribunal Act, 2010: NGT purpose and broad jurisdictional role in environmental matters
 - Central Pollution Control Board and State Pollution Control Boards: broad statutory roles and centre/state distinction
@@ -48,4 +49,4 @@ The following are deliberately outside ENV-CP-015:
 - Easy / Medium / Hard represented across the review surface
 - all four answer positions represented inside every QL set
 - deterministic review generation
-- no Question Studio/runtime registration before explicit project-owner approval
+- no Question Studio/runtime registration at this checkpoint
