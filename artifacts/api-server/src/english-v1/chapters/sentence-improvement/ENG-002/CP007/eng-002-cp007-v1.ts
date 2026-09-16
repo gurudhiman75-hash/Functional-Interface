@@ -45,16 +45,37 @@ function targetForRule(ruleId: ConjunctionRuleId, correctSegment: string, wrongS
   return focusDifference(correctSegment, wrongSegment);
 }
 
+const GERUND_BY_BASE: Readonly<Record<string, string>> = Object.freeze({
+  stretch: "stretching", update: "updating", speak: "speaking", write: "writing", review: "reviewing", record: "recording",
+  report: "reporting", improve: "improving", reduce: "reducing", verify: "verifying", check: "checking", recommend: "recommending",
+  resolve: "resolving", compare: "comparing", identify: "identifying", plan: "planning", send: "sending",
+});
+function gerundPhrase(basePhrase: string) {
+  const [first, ...rest] = clean(basePhrase).split(" ");
+  const gerund = GERUND_BY_BASE[first!.toLowerCase()] ?? `${first}ing`;
+  return [gerund, ...rest].join(" ");
+}
 function parallelVariants(correct: string, wrong: string) {
-  const out = [wrong];
-  if (/^to\s+/i.test(correct)) { const bare = correct.replace(/^to\s+/i, ""); out.push(bare, `having to ${bare}`); }
-  else if (/^\w+ing\b/i.test(correct)) out.push(`to be ${correct}`, `by ${correct}`);
-  else out.push(`to ${correct}`, `having to ${correct}`);
-  return out;
+  if (/^how to\s+/i.test(correct)) {
+    const base = correct.replace(/^how to\s+/i, ""); const gerund = gerundPhrase(base);
+    return [wrong, `by ${gerund}`, `for ${gerund}`];
+  }
+  if (/^to\s+/i.test(correct)) {
+    const base = correct.replace(/^to\s+/i, ""); const gerund = gerundPhrase(base);
+    return [wrong, `by ${gerund}`, `for ${gerund}`];
+  }
+  if (/^for\s+/i.test(correct)) {
+    const rest = correct.replace(/^for\s+/i, "");
+    return [wrong, `to ${rest}`, `among ${rest}`];
+  }
+  if (/^\w+ing\b/i.test(correct)) return [wrong, `by ${correct}`, `for ${correct}`];
+  const gerund = gerundPhrase(correct);
+  return [wrong, `by ${gerund}`, `for ${gerund}`];
 }
 function tokenSet(correct: string, wrong: string, tokens: readonly string[]) { return unique([wrong, ...tokens.filter((token) => token.toLowerCase() !== correct.toLowerCase() && token.toLowerCase() !== wrong.toLowerCase())]); }
 function incorrectVariants(ruleId: ConjunctionRuleId, correctTarget: string, wrongTarget: string) {
-  const correct = clean(correctTarget), wrong = clean(wrongTarget); let variants: string[] = [wrong]; const lower = correct.toLowerCase();
+  const correct = clean(correctTarget), wrong = clean(wrongTarget);
+  let variants: string[] = [wrong]; const lower = correct.toLowerCase();
   switch (ruleId) {
     case "GR-CON-001":
       if (["but", "yet", "so", "and", "or"].includes(lower)) variants = tokenSet(correct, wrong, ["but", "so", "and", "or", "yet"]);
@@ -94,16 +115,16 @@ function incorrectVariants(ruleId: ConjunctionRuleId, correctTarget: string, wro
       else variants.push(`although ${correct}`, `despite of ${correct}`, `though ${correct}`);
       break;
     case "GR-CON-009":
-    case "GR-CON-010": variants.push(...parallelVariants(correct, wrong)); break;
+    case "GR-CON-010": variants = parallelVariants(correct, wrong); break;
   }
   variants = unique(variants).filter((value) => value.toLowerCase() !== correct.toLowerCase());
-  if (variants.length < 3) variants.push(`not ${correct}`, `only ${correct}`, `also ${wrong}`);
-  return unique(variants).filter((value) => value.toLowerCase() !== correct.toLowerCase());
+  if (variants.length < 3) throw new Error(`${ruleId} has only ${variants.length} safe distractors for ${correct}`);
+  return variants;
 }
 function replacementChoices(ruleId: ConjunctionRuleId, correctTarget: string, wrongTarget: string, targetText: string, noImprovement: boolean) {
   const wrongs = incorrectVariants(ruleId, correctTarget, wrongTarget).filter((v) => v.toLowerCase() !== targetText.toLowerCase() && v.toLowerCase() !== correctTarget.toLowerCase());
   const values = noImprovement ? wrongs.slice(0, 3) : unique([correctTarget, ...wrongs]).slice(0, 3);
-  if (values.length !== 3) throw new Error(`${ruleId} could not build three choices for ${correctTarget}`); return values;
+  if (values.length !== 3) throw new Error(`${ruleId} could not build three safe choices for ${correctTarget}`); return values;
 }
 function shuffleThree(seed: string, values: readonly string[]) { const out = [...values]; for (let i = out.length - 1; i > 0; i -= 1) { const j = deterministicIndex(`${seed}:shuffle:${i}`, i + 1); [out[i], out[j]] = [out[j]!, out[i]!]; } return out; }
 function concept(ruleId: ConjunctionRuleId) {
