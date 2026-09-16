@@ -40,6 +40,12 @@ Registration properties:
 
 Review-only registration does **not** authorize canonical Question Bank persistence, test/mock-test use, public publication, automatic student release, or production release.
 
+## Integration checkpoint
+
+- Economy feature branch reconciled with `New-main` after the completed 23-CP registration work.
+- Shared `knowledge-v1` routing preserves newer Static GK adapters already present on `New-main` and adds `ECO-001` alongside them.
+- PR remains draft and unmerged pending integration checks; this checkpoint does not widen the review-only lifecycle.
+
 ## Frozen editorial standard
 
 - short, natural SSC/Banking/State-exam style stems;
