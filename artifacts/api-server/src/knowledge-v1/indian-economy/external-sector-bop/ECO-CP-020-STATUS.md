@@ -1,8 +1,9 @@
 # ECO-CP-020 Status
 
 **CP:** ECO-CP-020 External Sector & Balance of Payments  
-**Lifecycle:** REVIEW_CANDIDATE_V1  
-**Runtime:** BLOCKED_PENDING_HUMAN_APPROVAL  
+**Lifecycle:** ENGLISH_APPROVED_V1  
+**English baseline:** FROZEN_V1  
+**Runtime:** BLOCKED_PENDING_PROMOTION_APPROVAL  
 **Localisation:** NOT_STARTED
 
 ## Implemented
@@ -41,10 +42,8 @@ Excluded from this CP:
 - current RBI intervention amounts;
 - live external-debt or exchange-rate market statistics.
 
-## Promotion steps
+## Approval
 
-1. Human review of English questions and explanations.
-2. Fix editorial/content defects if found.
-3. Freeze approved English behaviour.
-4. Add localisation layer later.
-5. Register with runtime/Question Studio only after separate promotion approval.
+- English human review: APPROVED.
+- English V1 behaviour: FROZEN.
+- Runtime/Question Studio registration remains a separate promotion decision.
