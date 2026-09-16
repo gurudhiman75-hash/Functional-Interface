@@ -1,6 +1,6 @@
 # PGK-001 CP014 — Sikh Misls & Dal Khalsa
 
-Status: REVIEW CANDIDATE V3
+Status: HUMAN APPROVED / FROZEN V3
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-014 — Sikh Misls & Dal Khalsa`
 Permanent QLs: `PGK-001-QL-091` to `PGK-001-QL-097`
@@ -73,6 +73,6 @@ State the decisive fact first. Add one useful institution, chief, protection-sys
 
 Verification remains internal against Punjab School Education Board Punjab History & Culture material, Ministry of Tourism historical material, District Amritsar and District Kapurthala government history, and other high-quality historical references where needed. Learner text remains source-free.
 
-## Lifecycle
+## Approval
 
-CP014 V3 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+Human approved on 2026-09-16. Accepted review candidate: V3. Runtime integration remains a separate step.
