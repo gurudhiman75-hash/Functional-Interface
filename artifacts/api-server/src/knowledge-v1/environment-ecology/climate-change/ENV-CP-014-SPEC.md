@@ -34,17 +34,18 @@ Explicitly deferred:
 ## Learner-facing rules
 
 1. Stems must be short, simple and exam-like.
-2. Avoid long clauses and unnecessary wording.
-3. Hard difficulty comes from the facts or combinations, not difficult language.
-4. Explanations use one short fact or causal distinction.
-5. Human influence is stated in line with IPCC AR6: greenhouse-gas emissions from human activities have caused recent global warming.
-6. Sea-level questions use the two stable main causes: ocean thermal expansion and melting land ice.
-7. Extreme-event questions avoid claiming that every regional event has the same trend.
-8. Mitigation acts on causes by reducing emissions or enhancing sinks.
-9. Adaptation acts on impacts and vulnerability.
-10. Forests and oceans are treated as important carbon sinks without mutable annual uptake percentages.
-11. No current emissions ranking, annual temperature record or scenario-specific projection trivia is used.
-12. Review generators remain `runtimeRegistered: false` until project-owner approval.
+2. Avoid long clauses and unnecessary wording. Hard difficulty must come from the fact or combination, not difficult language.
+3. Prefer direct forms such as “Which is…?”, “What causes…?”, “Which pair…?” and short applied stems.
+4. Explanations should be slightly fuller than earlier drafts: normally 1–2 clear sentences or clauses that explain why the answer is correct.
+5. Explanations must add a useful cause, distinction or context instead of merely repeating the answer.
+6. Human influence is stated in line with IPCC AR6: greenhouse-gas emissions from human activities have caused recent global warming.
+7. Sea-level questions use the two stable main causes: ocean thermal expansion and melting land ice.
+8. Extreme-event questions avoid claiming that every regional event has the same trend.
+9. Mitigation acts on causes by reducing emissions or enhancing sinks.
+10. Adaptation acts on impacts and vulnerability.
+11. Forests and oceans are treated as important carbon sinks without mutable annual uptake percentages.
+12. No current emissions ranking, annual temperature record or scenario-specific projection trivia is used.
+13. Review generators remain `runtimeRegistered: false` until project-owner approval.
 
 ## QL inventory
 
@@ -78,7 +79,7 @@ Before approval:
 - no treaty-detail leakage from ENV-CP-017;
 - no current ranking/record trivia;
 - no teaching/meta stem wording;
-- explanations remain short and plain;
+- explanations are slightly longer, simple and genuinely helpful;
 - no `associated with` filler;
 - no option-by-option explanation clutter.
 
