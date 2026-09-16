@@ -37,6 +37,6 @@ Excluded from this CP:
 
 ## Freeze state
 
-English V2 is approved and frozen. Do not alter approved editorial behaviour without a separately documented hardening/revision pass.
+English V2 is approved and frozen. This closes the final active English Economy review pack; all `ECO-CP-001` through `ECO-CP-023` are now English-approved/frozen.
 
-Runtime / Question Studio registration remains blocked until a separate explicit promotion approval. Localisation is also a separate post-English step.
+Do not alter approved editorial behaviour without a separately documented hardening/revision pass. Runtime / Question Studio registration remains blocked until a separate explicit promotion approval. Localisation is also a separate post-English step.
