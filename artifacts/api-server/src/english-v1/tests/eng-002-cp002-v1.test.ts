@@ -32,6 +32,10 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(!first.sentence.includes(" / "), `${first.questionId} leaked Error Spotting slash segmentation`);
     assert(first.explanation.includes("Concept:"), `${first.questionId} does not teach the underlying concept`);
     assert(first.explanation.includes("Here,"), `${first.questionId} does not apply the concept to the sentence`);
+    assert(!/Here, [A-Z]/.test(first.explanation), `${first.questionId} has an awkward capitalized application after Here,`);
+    if (first.sentence.includes("at the moment")) {
+      assert(first.explanation.includes("at the moment"), `${first.questionId} explanation does not match the normalized time cue`);
+    }
     assert(first.explanation.includes("Correct sentence:"), `${first.questionId} does not show the corrected sentence`);
     assert(first.explanation.includes(first.correctedSentence), `${first.questionId} explanation lost the corrected sentence`);
     assert(first.metadata.reviewOnly === true, `${first.questionId} must remain review-only`);
