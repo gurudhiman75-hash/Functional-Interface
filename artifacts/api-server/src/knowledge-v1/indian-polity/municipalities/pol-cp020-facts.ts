@@ -1,0 +1,16 @@
+export const POL_CP020_FACTS = Object.freeze({
+  amendment: "74th Constitutional Amendment",
+  commencement: "1 June 1993",
+  part: "Part IXA",
+  articles: "243P–243ZG",
+  municipalityTypes: ["Nagar Panchayat", "Municipal Council", "Municipal Corporation"],
+  wardsCommitteePopulationThreshold: 300000,
+  metropolitanAreaPopulationThreshold: 1000000,
+  municipalTermYears: 5,
+  reconstitutionMonths: 6,
+  minimumMembershipAge: 21,
+  womenReservationMinimum: "one-third",
+  twelfthScheduleSubjects: 18,
+  districtPlanningCommitteeElectedShare: "not less than four-fifths",
+  metropolitanPlanningCommitteeElectedShare: "not less than two-thirds",
+} as const);
