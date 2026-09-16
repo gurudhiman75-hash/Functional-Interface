@@ -1,6 +1,6 @@
 # PGK-001 CP017 — Reform & Freedom Movements
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-017 — Reform & Freedom Movements`
 Permanent QLs: `PGK-001-QL-112` to `PGK-001-QL-118`
@@ -60,4 +60,4 @@ Internal verification prioritises Government of India Ministry of Culture / Azad
 
 ## Lifecycle
 
-CP017 V1 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, tests, mocks or publication before explicit human approval.
+CP017 V1 was human-approved on 16 September 2026 and is frozen as the accepted review authority. Runtime registration, Question Bank writes, tests, mocks and publication remain separate later steps.
