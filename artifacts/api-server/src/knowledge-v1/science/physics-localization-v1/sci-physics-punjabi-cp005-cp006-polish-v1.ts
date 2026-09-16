@@ -22,6 +22,8 @@ const COMMON_PATCHES: readonly Patch[] = Object.freeze([
 const ANCHOR_PATCHES: Readonly<Record<string, readonly Patch[]>> = Object.freeze({
   // Keep echo distinct from reverberation in the rendered bank.
   "SCI-CP006-EXH-A14": [{ from: "ਗੂੰਜ", to: "ਪ੍ਰਤਿਧੁਨੀ" }],
+  // Use the same standard Punjabi DC term adopted in the final Physics block.
+  "SCI-CP006-EXH-A15": [{ from: "ਦਿਸ਼ਟ ਧਾਰਾ", to: "ਸਿੱਧੀ ਧਾਰਾ" }],
   "SCI-CP006-EXH-A24": [{ from: "ਗੂੰਜ", to: "ਪ੍ਰਤਿਧੁਨੀ" }],
 });
 

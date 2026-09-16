@@ -31,10 +31,17 @@ import {
   SCI_PHYSICS_CP008_HI_SURFACES_V1,
   SCI_PHYSICS_CP008_PA_SURFACES_V1,
 } from "./sci-physics-cp007-cp008-localization-data-v1";
+import {
+  SCI_PHYSICS_CP009_HI_SURFACES_V1,
+  SCI_PHYSICS_CP009_PA_SURFACES_V1,
+  SCI_PHYSICS_CP010_HI_SURFACES_V1,
+  SCI_PHYSICS_CP010_PA_SURFACES_V1,
+} from "./sci-physics-cp009-cp010-localization-data-v1";
 import { getPhysicsExplanationV2 } from "./sci-physics-explanation-quality-v2";
 import { getPhysicsExplanationV3 } from "./sci-physics-explanation-quality-v3";
 import { getPhysicsExplanationV4 } from "./sci-physics-explanation-quality-v4";
 import { getPhysicsExplanationV5 } from "./sci-physics-explanation-quality-v5";
+import { getPhysicsExplanationV6 } from "./sci-physics-explanation-quality-v6";
 import {
   applyHindiPhysicsExamPolishV1,
   polishHindiPhysicsTextV1,
@@ -60,6 +67,10 @@ import {
   polishPhysicsCp007Cp008TextV1,
 } from "./sci-physics-cp007-cp008-polish-v1";
 import {
+  applyPhysicsCp009Cp010PolishV1,
+  polishPhysicsCp009Cp010TextV1,
+} from "./sci-physics-cp009-cp010-polish-v1";
+import {
   SCI_PHYSICS_LOCALIZATION_V1,
   type PhysicsLocaleV1,
   type PhysicsLocalizedAnchorSurfaceV1,
@@ -68,7 +79,8 @@ import {
 
 type SupportedCpV1 =
   | "SCI-CP-001" | "SCI-CP-002" | "SCI-CP-003" | "SCI-CP-004"
-  | "SCI-CP-005" | "SCI-CP-006" | "SCI-CP-007" | "SCI-CP-008";
+  | "SCI-CP-005" | "SCI-CP-006" | "SCI-CP-007" | "SCI-CP-008"
+  | "SCI-CP-009" | "SCI-CP-010";
 
 const SURFACES = {
   "SCI-CP-001": { hi: SCI_PHYSICS_CP001_HI_SURFACES_V1, pa: SCI_PHYSICS_CP001_PA_SURFACES_V1 },
@@ -79,6 +91,8 @@ const SURFACES = {
   "SCI-CP-006": { hi: SCI_PHYSICS_CP006_HI_SURFACES_V1, pa: SCI_PHYSICS_CP006_PA_SURFACES_V1 },
   "SCI-CP-007": { hi: SCI_PHYSICS_CP007_HI_SURFACES_V1, pa: SCI_PHYSICS_CP007_PA_SURFACES_V1 },
   "SCI-CP-008": { hi: SCI_PHYSICS_CP008_HI_SURFACES_V1, pa: SCI_PHYSICS_CP008_PA_SURFACES_V1 },
+  "SCI-CP-009": { hi: SCI_PHYSICS_CP009_HI_SURFACES_V1, pa: SCI_PHYSICS_CP009_PA_SURFACES_V1 },
+  "SCI-CP-010": { hi: SCI_PHYSICS_CP010_HI_SURFACES_V1, pa: SCI_PHYSICS_CP010_PA_SURFACES_V1 },
 } as const;
 
 const STATEMENT_STEMS = {
@@ -105,6 +119,9 @@ const STATEMENT_STEMS = {
 function isCp007Cp008(cpId: SupportedCpV1): boolean {
   return cpId === "SCI-CP-007" || cpId === "SCI-CP-008";
 }
+function isCp009Cp010(cpId: SupportedCpV1): boolean {
+  return cpId === "SCI-CP-009" || cpId === "SCI-CP-010";
+}
 
 function cpMeta(cpId: SupportedCpV1) {
   const meta = SCI_PHYSICS_EXHAUSTIVE_CP_META_V2.find((entry) => entry.cpId === cpId);
@@ -117,7 +134,8 @@ function surfaceMap(cpId: SupportedCpV1, locale: Exclude<PhysicsLocaleV1, "en">)
     return Object.fromEntries(
       Object.entries(raw).map(([anchorId, surface]) => {
         const hindi = applyHindiPhysicsExamPolishV1(anchorId, surface);
-        return [anchorId, isCp007Cp008(cpId) ? applyPhysicsCp007Cp008PolishV1("hi", anchorId, hindi) : hindi];
+        const v5 = isCp007Cp008(cpId) ? applyPhysicsCp007Cp008PolishV1("hi", anchorId, hindi) : hindi;
+        return [anchorId, isCp009Cp010(cpId) ? applyPhysicsCp009Cp010PolishV1("hi", anchorId, v5) : v5];
       }),
     );
   }
@@ -126,10 +144,11 @@ function surfaceMap(cpId: SupportedCpV1, locale: Exclude<PhysicsLocaleV1, "en">)
       const editorial = applyPunjabiPhysicsEditorialV2(anchorId, surface);
       const natural = applyPunjabiPhysicsNaturalizationV3(anchorId, editorial);
       const standard = applyPunjabiPhysicsStandardExamV4(anchorId, natural);
-      const polished = cpId === "SCI-CP-005" || cpId === "SCI-CP-006"
+      const v4 = cpId === "SCI-CP-005" || cpId === "SCI-CP-006"
         ? applyPunjabiPhysicsCp005Cp006PolishV1(anchorId, standard)
         : standard;
-      return [anchorId, isCp007Cp008(cpId) ? applyPhysicsCp007Cp008PolishV1("pa", anchorId, polished) : polished];
+      const v5 = isCp007Cp008(cpId) ? applyPhysicsCp007Cp008PolishV1("pa", anchorId, v4) : v4;
+      return [anchorId, isCp009Cp010(cpId) ? applyPhysicsCp009Cp010PolishV1("pa", anchorId, v5) : v5];
     }),
   );
 }
@@ -167,23 +186,31 @@ function explanationFor(anchorId: string, locale: PhysicsLocaleV1): string {
       ? getPhysicsExplanationV3(anchorId, locale)
       : anchorId.startsWith("SCI-CP005-") || anchorId.startsWith("SCI-CP006-")
         ? getPhysicsExplanationV4(anchorId, locale)
-        : getPhysicsExplanationV5(anchorId, locale);
+        : anchorId.startsWith("SCI-CP007-") || anchorId.startsWith("SCI-CP008-")
+          ? getPhysicsExplanationV5(anchorId, locale)
+          : getPhysicsExplanationV6(anchorId, locale);
   if (locale === "hi") {
     const hindi = polishHindiPhysicsTextV1(anchorId, explanation);
-    return anchorId.startsWith("SCI-CP007-") || anchorId.startsWith("SCI-CP008-")
+    const v5 = anchorId.startsWith("SCI-CP007-") || anchorId.startsWith("SCI-CP008-")
       ? polishPhysicsCp007Cp008TextV1("hi", anchorId, hindi)
       : hindi;
+    return anchorId.startsWith("SCI-CP009-") || anchorId.startsWith("SCI-CP010-")
+      ? polishPhysicsCp009Cp010TextV1("hi", anchorId, v5)
+      : v5;
   }
   if (locale !== "pa") return explanation;
   const editorial = naturalizePunjabiPhysicsTextV3(anchorId, explanation);
   const natural = naturalizePunjabiPhysicsTextFinalV3(anchorId, editorial);
   const standard = standardizePunjabiPhysicsExamTextV4(anchorId, natural);
-  const polished = anchorId.startsWith("SCI-CP005-") || anchorId.startsWith("SCI-CP006-")
+  const v4 = anchorId.startsWith("SCI-CP005-") || anchorId.startsWith("SCI-CP006-")
     ? polishPunjabiPhysicsCp005Cp006TextV1(anchorId, standard)
     : standard;
-  return anchorId.startsWith("SCI-CP007-") || anchorId.startsWith("SCI-CP008-")
-    ? polishPhysicsCp007Cp008TextV1("pa", anchorId, polished)
-    : polished;
+  const v5 = anchorId.startsWith("SCI-CP007-") || anchorId.startsWith("SCI-CP008-")
+    ? polishPhysicsCp007Cp008TextV1("pa", anchorId, v4)
+    : v4;
+  return anchorId.startsWith("SCI-CP009-") || anchorId.startsWith("SCI-CP010-")
+    ? polishPhysicsCp009Cp010TextV1("pa", anchorId, v5)
+    : v5;
 }
 
 function localizeEnglishExplanation(question: PhysicsExhaustiveQuestionV2, cpId: SupportedCpV1): PhysicsLocalizedQuestionV1 {
@@ -210,7 +237,7 @@ function localizeEnglishExplanation(question: PhysicsExhaustiveQuestionV2, cpId:
 
 export function localizePhysicsExhaustiveQuestionV1(question: PhysicsExhaustiveQuestionV2, locale: PhysicsLocaleV1): PhysicsLocalizedQuestionV1 {
   if (!SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS.includes(question.cpId as SupportedCpV1)) {
-    throw new Error(`Physics localization V1 currently supports CP001-CP008 only; received ${question.cpId}`);
+    throw new Error(`Physics localization V1 currently supports CP001-CP010 only; received ${question.cpId}`);
   }
   const cpId = question.cpId as SupportedCpV1;
   if (locale === "en") return localizeEnglishExplanation(question, cpId);
@@ -274,5 +301,6 @@ export function generatePhysicsLocalizedBalancedReviewV1(cpId: SupportedCpV1, lo
 export const SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_CPS = [
   "SCI-CP-001", "SCI-CP-002", "SCI-CP-003", "SCI-CP-004",
   "SCI-CP-005", "SCI-CP-006", "SCI-CP-007", "SCI-CP-008",
+  "SCI-CP-009", "SCI-CP-010",
 ] as const;
 export const SCI_PHYSICS_LOCALIZATION_V1_SUPPORTED_LOCALES = ["en", "hi", "pa"] as const;

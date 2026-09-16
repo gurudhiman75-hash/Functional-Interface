@@ -11,7 +11,8 @@ fs.mkdirSync(targetDir, { recursive: true });
 
 type ReviewCp =
   | "SCI-CP-001" | "SCI-CP-002" | "SCI-CP-003" | "SCI-CP-004"
-  | "SCI-CP-005" | "SCI-CP-006" | "SCI-CP-007" | "SCI-CP-008";
+  | "SCI-CP-005" | "SCI-CP-006" | "SCI-CP-007" | "SCI-CP-008"
+  | "SCI-CP-009" | "SCI-CP-010";
 
 function materialize(cps: readonly ReviewCp[], title: string, filename: string) {
   const out: string[] = [
@@ -42,3 +43,4 @@ materialize(["SCI-CP-001", "SCI-CP-002"], "CP001–CP002", "SCI-PHYSICS-MULTILIN
 materialize(["SCI-CP-003", "SCI-CP-004"], "CP003–CP004", "SCI-PHYSICS-MULTILINGUAL-V1-CP003-CP004-REVIEW.md");
 materialize(["SCI-CP-005", "SCI-CP-006"], "CP005–CP006", "SCI-PHYSICS-MULTILINGUAL-V1-CP005-CP006-REVIEW.md");
 materialize(["SCI-CP-007", "SCI-CP-008"], "CP007–CP008", "SCI-PHYSICS-MULTILINGUAL-V1-CP007-CP008-REVIEW.md");
+materialize(["SCI-CP-009", "SCI-CP-010"], "CP009–CP010", "SCI-PHYSICS-MULTILINGUAL-V1-CP009-CP010-REVIEW.md");
