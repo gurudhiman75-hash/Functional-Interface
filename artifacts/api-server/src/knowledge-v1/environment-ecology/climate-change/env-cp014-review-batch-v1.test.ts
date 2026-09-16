@@ -38,12 +38,13 @@ describe("ENV-CP-014 V1 review batch", () => {
     }
   });
 
-  it("keeps stems simple and avoids mutable current trivia", () => {
+  it("keeps stems simple and explanations useful", () => {
     const signatures = questions.map((q) => `${q.stem}::${q.canonicalAnswer}`);
     expect(new Set(signatures).size).toBe(48);
     for (const q of questions) {
       if (!q.stem.startsWith("Consider the statements:")) expect(q.stem.length).toBeLessThanOrEqual(110);
-      expect(q.explanation.length).toBeLessThanOrEqual(150);
+      expect(q.explanation.length).toBeGreaterThanOrEqual(55);
+      expect(q.explanation.length).toBeLessThanOrEqual(180);
     }
     const text = questions.map((q) => `${q.stem}\n${q.explanation}`).join("\n");
     expect(text).not.toMatch(/associated with/i);
