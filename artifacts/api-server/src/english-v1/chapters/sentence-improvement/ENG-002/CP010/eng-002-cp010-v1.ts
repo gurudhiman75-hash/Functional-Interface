@@ -92,7 +92,7 @@ function wholeSegmentFocus(correctSegment: string, wrongSegment: string): Focus 
   };
 }
 function targetForRule(ruleId: ModifierRuleId, correctSegment: string, wrongSegment: string): Focus {
-  return ["GR-MOD-001", "GR-MOD-002", "GR-MOD-003", "GR-MOD-004", "GR-MOD-010"].includes(ruleId)
+  return ["GR-MOD-001", "GR-MOD-002", "GR-MOD-003", "GR-MOD-004", "GR-MOD-006", "GR-MOD-007", "GR-MOD-008", "GR-MOD-010"].includes(ruleId)
     ? wholeSegmentFocus(correctSegment, wrongSegment)
     : focusedDifference(correctSegment, wrongSegment);
 }
@@ -111,9 +111,22 @@ function focusedSegments(base: readonly string[], sourceIndex: number, focus: Fo
   if (targetIndex < 0) throw new Error("CP010 lost target index");
   return { segments: out, targetIndex };
 }
-function addAfterOpeningComma(text: string, marker: string) {
-  const comma = text.indexOf(",");
-  return comma >= 0 ? `${text.slice(0, comma + 1)} ${marker} ${text.slice(comma + 1).trim()}` : `${marker[0]!.toUpperCase()}${marker.slice(1)}, ${text}`;
+
+function preserveCase(reference: string, replacement: string) {
+  return /^[A-Z]/.test(reference) ? replacement.replace(/^./, (c) => c.toUpperCase()) : replacement;
+}
+function replaceWord(text: string, word: string, replacement: string) {
+  return text.replace(new RegExp(`\\b${word.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}\\b`, "i"), (match) => preserveCase(match, replacement));
+}
+function moveToken(text: string, token: string, where: "start" | "end") {
+  const pattern = new RegExp(`\\b${token.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}\\b`, "i");
+  const match = text.match(pattern)?.[0];
+  if (!match) return text;
+  const bare = clean(text.replace(pattern, "")).replace(/\s+([,.!?;:])/g, "$1");
+  if (where === "start") return `${match} ${bare}`;
+  const punctuation = bare.match(/([,.!?;:]+)$/)?.[1] ?? "";
+  const body = punctuation ? bare.slice(0, -punctuation.length).trim() : bare;
+  return `${body} ${match}${punctuation}`;
 }
 function moveWordVariants(text: string, word: string) {
   const tokens = clean(text).split(" ");
@@ -134,7 +147,7 @@ function modifierToken(ruleId: ModifierRuleId, correct: string, wrong: string) {
     "GR-MOD-005": /\bonly\b/i,
     "GR-MOD-006": /\b(almost|nearly)\b/i,
     "GR-MOD-007": /\beven\b/i,
-    "GR-MOD-008": /\b(always|usually|often|frequently|sometimes|rarely|seldom|never)\b/i,
+    "GR-MOD-008": /\b(always|usually|often|frequently|sometimes|rarely|seldom|never|normally|generally)\b/i,
   };
   const match = patterns[ruleId]?.exec(combined);
   if (match) return match[1] ?? match[0];
@@ -145,51 +158,104 @@ function modifierToken(ruleId: ModifierRuleId, correct: string, wrong: string) {
   return undefined;
 }
 function adjectiveFromAdverb(word: string) {
-  const special: Readonly<Record<string, string>> = { carefully: "careful", clearly: "clear", quietly: "quiet", slowly: "slow", quickly: "quick", neatly: "neat", accurately: "accurate", politely: "polite" };
+  const special: Readonly<Record<string, string>> = {
+    carefully: "careful", clearly: "clear", quietly: "quiet", slowly: "slow", quickly: "quick", neatly: "neat",
+    accurately: "accurate", politely: "polite", correctly: "correct", closely: "close", thoroughly: "thorough",
+  };
   return special[word.toLowerCase()] ?? (word.toLowerCase().endsWith("ly") ? word.slice(0, -2) : word);
+}
+function wrongAttachmentTenseVariants(text: string) {
+  const variants: string[] = [];
+  const comma = text.indexOf(",");
+  const prefix = comma >= 0 ? text.slice(0, comma + 1) : "";
+  const clause = comma >= 0 ? text.slice(comma + 1).trim() : text;
+  const rebuild = (next: string) => prefix ? `${prefix} ${next}` : next;
+  if (/\b(was|were)\s+([A-Za-z]+ed)\b/i.test(clause)) {
+    variants.push(rebuild(clause.replace(/\b(?:was|were)\s+([A-Za-z]+ed)\b/i, "had been $1")));
+    variants.push(rebuild(clause.replace(/\b(was|were)\s+([A-Za-z]+ed)\b/i, "$1 being $2")));
+  }
+  if (/\b(is|are)\s+([A-Za-z]+ed)\b/i.test(clause)) {
+    variants.push(rebuild(clause.replace(/\b(?:is|are)\s+([A-Za-z]+ed)\b/i, "has been $1")));
+    variants.push(rebuild(clause.replace(/\b(is|are)\s+([A-Za-z]+ed)\b/i, "$1 being $2")));
+  }
+  if (!variants.length && /\b([A-Za-z]+ed)\b/i.test(clause)) {
+    variants.push(rebuild(clause.replace(/\b([A-Za-z]+ed)\b/i, "had $1")));
+    variants.push(rebuild(clause.replace(/\b([A-Za-z]+ed)\b/i, "still $1")));
+  }
+  if (variants.length < 2) {
+    const finite = /\b(looks?|seems?|appears?|welcomes?|contains?|carries|holds?|shows?|includes?|remains?|stands?|sits?|lies|finds?|changes?|checks?|returns?|opens?|discusses?|answers?|places?|explains?)\b/i;
+    if (finite.test(clause)) {
+      variants.push(rebuild(clause.replace(finite, "still $1")));
+      variants.push(rebuild(clause.replace(finite, "also $1")));
+    }
+  }
+  return variants;
 }
 function attachmentVariants(ruleId: ModifierRuleId, correct: string, wrong: string) {
   const variants = [wrong];
-  if (ruleId === "GR-MOD-004") {
-    if (/\bthat\b/i.test(wrong)) variants.push(wrong.replace(/\bthat\b/i, "which"), wrong.replace(/\bthat\b/i, "who"));
-    else if (/\bwhich\b/i.test(wrong)) variants.push(wrong.replace(/\bwhich\b/i, "that"), wrong.replace(/\bwhich\b/i, "who"));
-    else variants.push(addAfterOpeningComma(wrong, "apparently"), addAfterOpeningComma(wrong, "still"));
+  if (["GR-MOD-001", "GR-MOD-002", "GR-MOD-003"].includes(ruleId)) {
+    variants.push(...wrongAttachmentTenseVariants(wrong));
+  } else if (ruleId === "GR-MOD-004") {
+    const relative = wrong.match(/\b(that|which|who|whose)\b/i)?.[1]?.toLowerCase();
+    if (relative) {
+      const alternatives = relative === "that" ? ["which", "who"] : relative === "which" ? ["that", "who"] : relative === "who" ? ["that", "which"] : ["that", "which"];
+      alternatives.forEach((value) => variants.push(replaceWord(wrong, relative, value)));
+    } else variants.push(...wrongAttachmentTenseVariants(wrong));
   } else if (ruleId === "GR-MOD-010") {
-    if (/\bwith\b/i.test(wrong)) variants.push(wrong.replace(/\bwith\b/i, "still with"), wrong.replace(/\bwith\b/i, "also with"));
-    else if (/\b(carrying|containing|wearing|holding|showing)\b/i.test(wrong)) {
-      variants.push(wrong.replace(/\b(carrying|containing|wearing|holding|showing)\b/i, "still $1"));
-      variants.push(wrong.replace(/\b(carrying|containing|wearing|holding|showing)\b/i, "also $1"));
-    } else variants.push(addAfterOpeningComma(wrong, "apparently"), addAfterOpeningComma(wrong, "still"));
-  } else {
-    variants.push(addAfterOpeningComma(wrong, "apparently"), addAfterOpeningComma(wrong, "evidently"));
+    if (/\bwith\b/i.test(wrong)) {
+      variants.push(wrong.replace(/\bwith\b/i, "which had"));
+      variants.push(wrong.replace(/\bwith\b/i, "that had"));
+    } else {
+      const participle = wrong.match(/\b(carrying|containing|wearing|holding|showing|mark(?:ed)?|labelled|sealed|damaged)\b/i)?.[1];
+      if (participle) {
+        variants.push(wrong.replace(new RegExp(`\\b${participle}\\b`, "i"), `which was ${participle}`));
+        variants.push(wrong.replace(new RegExp(`\\b${participle}\\b`, "i"), `that was ${participle}`));
+      } else variants.push(...wrongAttachmentTenseVariants(wrong));
+    }
   }
   return variants;
+}
+function frequencyAlternatives(token: string) {
+  const map: Readonly<Record<string, readonly string[]>> = {
+    always: ["usually", "often"], usually: ["often", "generally"], often: ["usually", "frequently"], frequently: ["often", "usually"],
+    sometimes: ["occasionally", "often"], rarely: ["seldom", "hardly ever"], seldom: ["rarely", "hardly ever"], never: ["rarely", "seldom"],
+    normally: ["usually", "generally"], generally: ["usually", "normally"],
+  };
+  return map[token.toLowerCase()] ?? ["usually", "often"];
 }
 function placementVariants(ruleId: ModifierRuleId, correct: string, wrong: string) {
   const variants = [wrong];
   const token = modifierToken(ruleId, correct, wrong);
-  if (token) variants.push(...moveWordVariants(correct, token));
-  if (ruleId === "GR-MOD-009" && token) variants.push(correct.replace(new RegExp(`\\b${token}\\b`, "i"), adjectiveFromAdverb(token)));
+  if (ruleId === "GR-MOD-005" && token) {
+    variants.push(...moveWordVariants(correct, token));
+  } else if (ruleId === "GR-MOD-006" && token) {
+    const synonym = token.toLowerCase() === "almost" ? "nearly" : "almost";
+    variants.push(replaceWord(wrong, token, synonym), moveToken(wrong, token, "end"), moveToken(wrong, token, "start"));
+  } else if (ruleId === "GR-MOD-007" && token) {
+    variants.push(moveToken(wrong, token, "start"), moveToken(wrong, token, "end"));
+  } else if (ruleId === "GR-MOD-008" && token) {
+    for (const alternative of frequencyAlternatives(token)) variants.push(replaceWord(wrong, token, alternative));
+    variants.push(moveToken(wrong, token, "end"));
+  } else if (ruleId === "GR-MOD-009" && token) {
+    variants.push(...moveWordVariants(correct, token));
+    variants.push(correct.replace(new RegExp(`\\b${token}\\b`, "i"), adjectiveFromAdverb(token)));
+  }
   return variants;
 }
 function incorrectVariants(ruleId: ModifierRuleId, correctTarget: string, wrongTarget: string) {
   const correct = clean(correctTarget);
   const wrong = clean(wrongTarget);
-  let variants = ["GR-MOD-001", "GR-MOD-002", "GR-MOD-003", "GR-MOD-004", "GR-MOD-010"].includes(ruleId)
+  const raw = ["GR-MOD-001", "GR-MOD-002", "GR-MOD-003", "GR-MOD-004", "GR-MOD-010"].includes(ruleId)
     ? attachmentVariants(ruleId, correct, wrong)
     : placementVariants(ruleId, correct, wrong);
-  variants = unique(variants).filter((value) => value.toLowerCase() !== correct.toLowerCase());
-  for (const marker of ["apparently", "still", "evidently", "also"]) {
-    if (variants.length >= 3) break;
-    variants = unique([...variants, addAfterOpeningComma(wrong, marker)]).filter((value) => value.toLowerCase() !== correct.toLowerCase());
-  }
-  if (variants.length < 3) throw new Error(`${ruleId} has only ${variants.length} safe distractors for ${correct}`);
+  const variants = unique(raw).filter((value) => value.toLowerCase() !== correct.toLowerCase());
+  if (variants.length < 3) throw new Error(`${ruleId} has only ${variants.length} natural distractors for ${correct}`);
   return variants;
 }
 function replacementChoices(ruleId: ModifierRuleId, correctTarget: string, wrongTarget: string, targetText: string, noImprovement: boolean) {
   const wrongs = incorrectVariants(ruleId, correctTarget, wrongTarget).filter((value) => value.toLowerCase() !== targetText.toLowerCase() && value.toLowerCase() !== correctTarget.toLowerCase());
   const values = noImprovement ? wrongs.slice(0, 3) : unique([correctTarget, ...wrongs]).slice(0, 3);
-  if (values.length !== 3) throw new Error(`${ruleId} could not build three safe choices for ${correctTarget}`);
+  if (values.length !== 3) throw new Error(`${ruleId} could not build three natural choices for ${correctTarget}`);
   return values;
 }
 function shuffleThree(seed: string, values: readonly string[]) {
