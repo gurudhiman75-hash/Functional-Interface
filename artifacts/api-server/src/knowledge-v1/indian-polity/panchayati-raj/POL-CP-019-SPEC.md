@@ -1,7 +1,7 @@
 # POL-CP-019 — Panchayati Raj
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
 ## Scope
 
@@ -64,6 +64,6 @@ This CP covers the constitutional Panchayati Raj framework created by the Consti
 - Article 243O channels election challenges into election petitions and bars court challenges to covered delimitation laws;
 - the Eleventh Schedule contains 29 matters.
 
-## Gate
+## Approval
 
-Merge, Question Studio exposure, localization and chapter-wide production registration remain blocked until English V1 is approved.
+English V1 was approved by the project owner on 16 September 2026 and is content-frozen. Question Studio exposure, localization and chapter-wide production registration are deferred to the Polity integration checkpoint.
