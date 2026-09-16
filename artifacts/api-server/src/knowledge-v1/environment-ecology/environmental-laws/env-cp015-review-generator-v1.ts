@@ -75,16 +75,13 @@ const S: readonly Seed[] = Object.freeze([
   { qlId:"ENV-015-QL-012", qlName:"Integrated environmental law reasoning", difficulty:"Hard", stem:"Match the issues: water pollution; wildlife protection; biodiversity benefit sharing; environmental tribunal.", correct:"Water Act; Wild Life Act; Biological Diversity Act; NGT Act", distractors:["Air Act; Water Act; NGT Act; Wild Life Act","Environment Protection Act; Air Act; forest law; Water Act","NGT Act; Biological Diversity Act; Water Act; Air Act"], explanation:"Each issue maps to its most direct framework: Water Act, Wild Life Act, Biological Diversity Act and National Green Tribunal Act respectively.", sourceFactIds:["env-cp015-water-purpose","env-cp015-wildlife-purpose","env-cp015-biodiversity-objectives","env-cp015-ngt-establishment"] },
 ]);
 
-const qlRows = [...new Map(S.map((seed) => [seed.qlId, [seed.qlId, seed.qlName] as const])).values()];
-export const ENV_CP015_QLS = Object.freeze(qlRows);
+export const ENV_CP015_QLS = Object.freeze([...new Map(S.map((seed) => [seed.qlId, [seed.qlId, seed.qlName] as const])).values()]);
 
 export const ENV_CP015_REVIEW_QUESTIONS_V1: readonly EnvCp015ReviewQuestion[] = Object.freeze(
   S.map((seed, index) => {
-    const withinQl = index % 4;
-    const correctIndex = withinQl;
+    const correctIndex = index % 4;
     const options = [...seed.distractors];
     options.splice(correctIndex, 0, seed.correct);
-    options.pop();
     const sourceIds = [...new Set(seed.sourceFactIds.flatMap((id) => ENV_CP015_FACT_BY_ID_V1.get(id)?.sourceIds ?? []))];
     return {
       questionId: `ENV-CP015-V1-${String(index + 1).padStart(3, "0")}`,
