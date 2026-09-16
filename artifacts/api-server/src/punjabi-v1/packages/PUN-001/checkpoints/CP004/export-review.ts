@@ -20,8 +20,16 @@ const add = (familyId: string, difficulty: PunjabiDifficulty, count: number) => 
   const capacity = breadth.capacities[familyId as keyof typeof breadth.capacities];
   for (const seed of spreadSeeds(count, capacity)) rows.push({ difficulty, question: f.generate(seed, difficulty) });
 };
+const addSeeds = (familyId: string, difficulty: PunjabiDifficulty, seeds: readonly number[]) => {
+  const f = family(familyId);
+  for (const seed of seeds) rows.push({ difficulty, question: f.generate(seed, difficulty) });
+};
 
-add("F01", "Easy", 20);
+// F01 alternates masculine→feminine and feminine→masculine by adjacent seeds.
+// Sample ten well-spread authorities in both directions so review does not hide one operation.
+const f01PairCount = breadth.capacities.F01 / 2;
+const f01PairIndices = spreadSeeds(10, f01PairCount).map((seed) => seed - 1);
+addSeeds("F01", "Easy", f01PairIndices.flatMap((pairIndex) => [pairIndex * 2 + 1, pairIndex * 2 + 2]));
 add("F02", "Easy", 20);
 add("F04", "Easy", 20);
 add("F05", "Easy", 20);
