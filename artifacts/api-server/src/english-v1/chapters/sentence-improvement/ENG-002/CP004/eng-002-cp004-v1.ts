@@ -119,8 +119,8 @@ function distractorPool(ruleId: PronounRuleId, correctTarget: string, wrongTarge
     case "GR-PRN-008": generated = [swapInitialRelative(correctTarget, correctTarget.toLowerCase().startsWith("who") ? "which" : "who"), swapInitialRelative(correctTarget, "whom"), swapInitialRelative(correctTarget, "whose")]; break;
     case "GR-PRN-009": generated = ["this", "that", "these", "those"].map((form) => swapWord(correctTarget, correctTarget.split(/\s+/)[0]!, form)!).filter(Boolean); break;
     case "GR-PRN-010": {
-      const opposite = correctTarget.toLowerCase().startsWith("whose") ? "who's" : "whose";
-      generated = [swapInitialRelative(correctTarget, opposite), swapInitialRelative(correctTarget, "who"), swapInitialRelative(correctTarget, "whom"), swapInitialRelative(correctTarget, "which")];
+      const opposite = correctTarget.toLowerCase() === "whose" ? "who's" : "whose";
+      generated = [opposite, "who", "whom", "which"];
       break;
     }
   }
@@ -170,38 +170,83 @@ function lowerLeadingWord(text: string): string {
   return text.replace(/^([A-Z])/, (letter) => letter.toLowerCase());
 }
 
+function splitWhoseTarget(segment: string): { token: "whose" | "who's"; remainder: string } {
+  const match = segment.trim().match(/^(whose|who's)\b\s+(.+)$/i);
+  if (!match) throw new Error(`Unable to isolate whose/who's target in ${segment}`);
+  return { token: match[1]!.toLowerCase() as "whose" | "who's", remainder: match[2]!.trim() };
+}
+
+function shapeTarget(input: {
+  ruleId: PronounRuleId;
+  correctSegments: readonly string[];
+  errorSegments: readonly string[];
+  errorIndex: number;
+  noImprovement: boolean;
+}) {
+  const visible = [...(input.noImprovement ? input.correctSegments : input.errorSegments)];
+  if (input.ruleId !== "GR-PRN-010") {
+    return {
+      segments: visible,
+      targetIndex: input.errorIndex,
+      correctTarget: input.correctSegments[input.errorIndex]!.trim(),
+      wrongTarget: input.errorSegments[input.errorIndex]!.trim(),
+      targetText: visible[input.errorIndex]!.trim(),
+    };
+  }
+
+  const correct = splitWhoseTarget(input.correctSegments[input.errorIndex]!);
+  const wrong = splitWhoseTarget(input.errorSegments[input.errorIndex]!);
+  const shown = input.noImprovement ? correct : wrong;
+  const segments = [
+    ...visible.slice(0, input.errorIndex),
+    shown.token,
+    shown.remainder,
+    ...visible.slice(input.errorIndex + 1),
+  ];
+  return {
+    segments,
+    targetIndex: input.errorIndex,
+    correctTarget: correct.token,
+    wrongTarget: wrong.token,
+    targetText: shown.token,
+  };
+}
+
 export function generateEng002Cp004QuestionV1(input: GenerateEng002Cp004V1Input): Eng002Cp004QuestionV1 {
   const candidate = buildEng001Cp004CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: input.ruleId, sceneId: input.sceneId });
   if (candidate.errorIndex === null) throw new Error(`${candidate.candidateId} has no pronoun mutation target`);
 
   const correctSegments = [...candidate.correctSegments];
   const errorSegments = [...candidate.errorSegments];
-  const correctTarget = correctSegments[candidate.errorIndex]!.trim();
-  const wrongTarget = errorSegments[candidate.errorIndex]!.trim();
   const noImprovement = input.noImprovement ?? deterministicBoolean(`${input.seed}:eng002:cp004:no-improvement`, 0.25);
-  const visibleSegments = noImprovement ? correctSegments : errorSegments;
-  const targetText = visibleSegments[candidate.errorIndex]!.trim();
   const ruleId = candidate.ruleId as PronounRuleId;
-  const choices = replacementChoices({ ruleId, correctTarget, wrongTarget, targetText, noImprovement });
+  const shaped = shapeTarget({ ruleId, correctSegments, errorSegments, errorIndex: candidate.errorIndex, noImprovement });
+  const choices = replacementChoices({
+    ruleId,
+    correctTarget: shaped.correctTarget,
+    wrongTarget: shaped.wrongTarget,
+    targetText: shaped.targetText,
+    noImprovement,
+  });
   const shuffled = shuffleThree(`${input.seed}:eng002:cp004:options`, choices);
   const options = [...shuffled, "No improvement"];
-  const correctOptionIndex = noImprovement ? 3 : shuffled.indexOf(correctTarget);
+  const correctOptionIndex = noImprovement ? 3 : shuffled.indexOf(shaped.correctTarget);
   if (correctOptionIndex < 0) throw new Error(`${candidate.candidateId} lost its correct replacement`);
 
-  const sentence = sentenceFromSegments(visibleSegments);
+  const sentence = sentenceFromSegments(shaped.segments);
   const correctedSentence = sentenceFromSegments(correctSegments);
   const application = lowerLeadingWord(candidate.explanationApplication);
   const explanation = noImprovement
-    ? `No improvement is needed. “${correctTarget}” is already correct. ${concept(ruleId)} In this sentence, ${application} Correct sentence: ${correctedSentence}`
-    : `Use “${correctTarget}” in the underlined part. ${concept(ruleId)} In this sentence, ${application} Correct sentence: ${correctedSentence}`;
+    ? `No improvement is needed. “${shaped.correctTarget}” is already correct. ${concept(ruleId)} In this sentence, ${application} Correct sentence: ${correctedSentence}`
+    : `Use “${shaped.correctTarget}” in the underlined part. ${concept(ruleId)} In this sentence, ${application} Correct sentence: ${correctedSentence}`;
 
   return {
     questionId: `ENG-002-CP004-V1:${ruleId}:${candidate.candidateId}:${input.seed}:${noImprovement ? "NI" : "IMP"}`,
     stem: ENG002_CP004_STEM,
     sentence,
-    segments: visibleSegments,
-    targetIndex: candidate.errorIndex,
-    targetText,
+    segments: shaped.segments,
+    targetIndex: shaped.targetIndex,
+    targetText: shaped.targetText,
     options,
     correctOptionIndex,
     correctedSentence,
