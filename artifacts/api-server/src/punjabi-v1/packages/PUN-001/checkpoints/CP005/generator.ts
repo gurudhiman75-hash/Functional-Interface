@@ -17,7 +17,7 @@ function assemble(input: { seed:number; difficulty:PunjabiDifficulty; familyId:s
   const selected = rng.pickDistinct(distractors, 3);
   const options = rng.shuffle([correct, ...selected]);
   const fingerprint = `CP005-${semanticHash([input.familyId,input.subtype,input.difficulty,norm(input.stem),correct,[...selected].sort().join("|"),[...input.authorityIds].sort().join(",")])}`;
-  return { id:`PUN-001-CP005-${input.familyId}-${fingerprint}`, stem:norm(input.stem), options, correctIndex:options.indexOf(correct), explanation:norm(input.explanation), difficulty:input.difficulty, metadata:{ engine:"punjabi-v1", packageId:"PUN-001", cpId:"PUN-001-CP005", familyId:input.familyId, subtype:input.subtype, difficulty:input.difficulty, language:"pa-Guru", seed:input.seed, authorityIds:input.authorityIds, generatorRevision:"1.1.0-forward-port", fingerprint, lifecycle:"REVIEW_ONLY" } };
+  return { id:`PUN-001-CP005-${input.familyId}-${fingerprint}`, stem:norm(input.stem), options, correctIndex:options.indexOf(correct), explanation:norm(input.explanation), difficulty:input.difficulty, metadata:{ engine:"punjabi-v1", packageId:"PUN-001", cpId:"PUN-001-CP005", familyId:input.familyId, subtype:input.subtype, difficulty:input.difficulty, language:"pa-Guru", seed:input.seed, authorityIds:input.authorityIds, generatorRevision:"1.2.0-forward-port", fingerprint, lifecycle:"REVIEW_ONLY" } };
 }
 
 function requireDifficulty(actual: PunjabiDifficulty, allowed: readonly PunjabiDifficulty[], id: string) { if (!allowed.includes(actual)) throw new Error(`CP005 ${id} does not support ${actual}`); }
@@ -37,7 +37,7 @@ export function generateCP005F01(seed:number,difficulty:PunjabiDifficulty):Punja
 }
 
 export function generateCP005F02(seed:number,difficulty:PunjabiDifficulty):PunjabiGeneratedQuestion {
-  requireDifficulty(difficulty,["Easy","Medium"],"F02"); const i=ordinal(seed,CP005_ADJECTIVES.length); const a=CP005_ADJECTIVES[i]!;
+  requireDifficulty(difficulty,["Easy"],"F02"); const i=ordinal(seed,CP005_ADJECTIVES.length); const a=CP005_ADJECTIVES[i]!;
   return assemble({seed,difficulty,familyId:"F02",subtype:"ADJECTIVE_TYPE",stem:variant([`ਵਾਕ ਵਿੱਚ ‘${a.target}’ ਕਿਸ ਕਿਸਮ ਦਾ ਵਿਸ਼ੇਸ਼ਣ ਹੈ?\n${a.sentence}`,`‘${a.target}’ ਦਾ ਵਿਸ਼ੇਸ਼ਣ-ਭੇਦ ਦੱਸੋ।\n${a.sentence}`,`ਹੇਠਲੇ ਵਾਕ ਵਿੱਚ ‘${a.target}’ ਦੀ ਕਿਸਮ ਚੁਣੋ।\n${a.sentence}`],i),correctAnswer:a.typePa,distractors:CP005_TYPE_OPTIONS.adjective,explanation:`‘${a.target}’ ${a.typePa} ਹੈ; ਇਹ ${a.meaningPa}`,authorityIds:[a.id]});
 }
 
@@ -95,7 +95,7 @@ export function generateCP005F08(seed:number,difficulty:PunjabiDifficulty):Punja
 
 export const CP005_FAMILIES: readonly PunjabiQuestionFamilyDefinition[] = [
   {familyId:"F01",subtype:"ADJECTIVE_IDENTIFICATION",name:"Adjective identification",targetDifficulties:["Easy"],generate:generateCP005F01},
-  {familyId:"F02",subtype:"ADJECTIVE_TYPE",name:"Adjective type",targetDifficulties:["Easy","Medium"],generate:generateCP005F02},
+  {familyId:"F02",subtype:"ADJECTIVE_TYPE",name:"Adjective type",targetDifficulties:["Easy"],generate:generateCP005F02},
   {familyId:"F03",subtype:"ADJECTIVE_TYPE_AND_FUNCTION",name:"Adjective type and function",targetDifficulties:["Medium"],generate:generateCP005F03},
   {familyId:"F04",subtype:"ADVERB_IDENTIFICATION",name:"Adverb identification",targetDifficulties:["Easy"],generate:generateCP005F04},
   {familyId:"F05",subtype:"ADVERB_TYPE",name:"Adverb type",targetDifficulties:["Medium"],generate:generateCP005F05},
