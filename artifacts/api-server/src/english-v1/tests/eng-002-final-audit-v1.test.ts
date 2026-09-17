@@ -28,6 +28,7 @@ const INTERNAL_LEAKAGE = /\b(?:candidateId|mutationId|generationSeed|review-only
 const text = (value: unknown): string => typeof value === "string" ? value.trim() : "";
 const strings = (value: unknown): string[] => Array.isArray(value) ? value.map((entry) => String(entry ?? "").trim()) : [];
 const stripTags = (value: string) => value.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const wordCount = (value: string) => value.split(/\s+/).filter(Boolean).length;
 
 const packageDef = listQuestionStudioPackages().find((entry) => entry.engineId === "language-v1" && entry.packageId === PACKAGE_ID);
 assert.ok(packageDef, "ENG-002 package is missing from Question Studio");
@@ -128,10 +129,10 @@ for (const [cpId, cpLabel, prefix] of CPS) {
       assert.equal(new Set(options.map((option) => option.toLowerCase())).size, 4, `${cpId}/${difficulty}/${sample} contains duplicate options`);
       assert.ok(Number.isInteger(correctIndex) && correctIndex >= 0 && correctIndex < 4, `${cpId}/${difficulty}/${sample} answer index is invalid`);
       assert.ok(correctedSentence.length >= 12, `${cpId}/${difficulty}/${sample} corrected sentence is too short`);
-      assert.ok(explanation.length >= 45, `${cpId}/${difficulty}/${sample} explanation is too short`);
+      assert.ok(explanation.length >= 80, `${cpId}/${difficulty}/${sample} explanation is too short to be helpful`);
+      assert.ok(wordCount(explanation) >= 14, `${cpId}/${difficulty}/${sample} explanation is too terse`);
       assert.ok(explanation.includes(correctedSentence), `${cpId}/${difficulty}/${sample} explanation does not show the full corrected sentence`);
-      assert.match(explanation, /Concept:/, `${cpId}/${difficulty}/${sample} explanation does not teach the concept`);
-      assert.match(explanation, /Here[:,]/, `${cpId}/${difficulty}/${sample} explanation does not apply the concept to the sentence`);
+      assert.match(explanation, /Correct sentence:/i, `${cpId}/${difficulty}/${sample} explanation does not identify the corrected sentence`);
       assert.doesNotMatch(`${stem}\n${sentence}\n${explanation}`, INTERNAL_LEAKAGE, `${cpId}/${difficulty}/${sample} leaks internal metadata`);
       assert.doesNotMatch(explanation, /\bOption\s+[A-D]\b/i, `${cpId}/${difficulty}/${sample} contains option-by-option analysis`);
 
