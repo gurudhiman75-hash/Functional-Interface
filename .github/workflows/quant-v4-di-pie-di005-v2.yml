@@ -7,14 +7,12 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/**"
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/pie-svg.ts"
-      - ".github/workflows/quant-v4-di-pie-di005-v2.yml"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/**"
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/pie-svg.ts"
-      - ".github/workflows/quant-v4-di-pie-di005-v2.yml"
   workflow_dispatch:
 
 concurrency:
