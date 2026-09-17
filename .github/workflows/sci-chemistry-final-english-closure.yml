@@ -1,0 +1,42 @@
+name: SCI Chemistry Final English Closure
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/science/**"
+      - ".github/workflows/sci-chemistry-final-english-closure.yml"
+  workflow_dispatch:
+
+jobs:
+  chemistry-final-english-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Chemistry closure audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/chemistry-final-english-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/chemistry-final-english-audit.mjs
+
+      - name: Run Chemistry closure audit
+        working-directory: artifacts/api-server
+        run: node dist/chemistry-final-english-audit.mjs
