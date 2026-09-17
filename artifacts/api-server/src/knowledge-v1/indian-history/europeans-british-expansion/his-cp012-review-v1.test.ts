@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { HIS_CP012_REQUIRED_FACTS_V1,HIS_CP012_REVIEW_BATCH_V1,auditHisCp012ReviewBatchV1 } from "./his-cp012-review-v1";
+
 const audit=auditHisCp012ReviewBatchV1();
 assert.equal(audit.valid,true,audit.issues.join(" | "));
 assert.equal(audit.questionCount,60);
@@ -8,13 +9,14 @@ assert.deepEqual(audit.difficultyCounts,{Easy:18,Medium:30,Hard:12});
 assert.equal(Object.keys(audit.qlCounts).length,10);
 assert.ok(Object.values(audit.qlCounts).every(count=>count===6));
 assert.deepEqual(audit.answerPositions,[15,15,15,15]);
-assert.equal(HIS_CP012_REQUIRED_FACTS_V1.length,60);
+assert.equal(audit.requiredFactCount,audit.canonicalFactCount);
+assert.equal(HIS_CP012_REQUIRED_FACTS_V1.length,audit.canonicalFactCount);
 assert.equal(HIS_CP012_REVIEW_BATCH_V1.every(q=>q.reviewOnly&&!q.runtimeRegistered),true);
-assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.stem)),false);
-assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.explanation)),false);
-assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/(?:school-level|this CP|review batch|internal wording)/i.test(q.stem)),false);
-assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/(?:school-level|this CP|review batch|internal wording)/i.test(q.explanation)),false);
+assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.stem)||/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.explanation)),false);
+assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>/(?:school-level|this CP|review batch|internal wording|canonical fact|source fact)/i.test(q.stem)||/(?:school-level|this CP|review batch|internal wording|canonical fact|source fact)/i.test(q.explanation)),false);
 const AWKWARD_STEM=/(?:in relation to Company expansion|Which military condition formed part|Which settlement followed|Which correctly identifies|What followed the death of Ranjit Singh in relation to)/i;
 assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>AWKWARD_STEM.test(q.stem)),false);
 assert.equal(HIS_CP012_REVIEW_BATCH_V1.some(q=>q.stem.length>180),false);
+assert.equal(HIS_CP012_REVIEW_BATCH_V1.every(q=>q.explanation.length>=140&&q.explanation.length<=360),true);
+assert.equal(HIS_CP012_REVIEW_BATCH_V1.every(q=>(q.explanation.match(/[.!?](?:\s|$)/g)??[]).length>=2),true);
 console.log(JSON.stringify(audit,null,2));
