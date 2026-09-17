@@ -1,0 +1,27 @@
+name: Export Punjabi Forward Port CP005 Review
+
+on:
+  push:
+    branches: [feature/punjabi-forward-port-cp005-v1]
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/punjabi-v1/**'
+      - '.github/workflows/punjabi-forward-port-cp005-review.yml'
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Generate CP005 review markdown
+        run: npx tsx artifacts/api-server/src/punjabi-v1/packages/PUN-001/checkpoints/CP005/export-review.ts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pun-001-cp005-review
+          path: PUN-001-CP005-REVIEW.md
+          if-no-files-found: error
