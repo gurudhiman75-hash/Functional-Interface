@@ -1,12 +1,14 @@
 # COA-001 / COA-CP-008 — Status
 
-Status: **IMPLEMENTED / HUMAN REVIEW PENDING**
+Status: **APPROVED / FROZEN**
+
+Approved by product owner on 2026-09-17.
 
 ## Scope completed
 
 CP008 completes the source-saturation and exam-realness pass for Course of Action.
 
-Implemented:
+Approved implementation:
 
 - typed source census covering recent SSC/Railway/Punjab paired four-way examples;
 - banking five-code memory-based reproductions including an observed correct `Either I or II` case;
@@ -20,18 +22,16 @@ Implemented:
 - executable source-threshold, safety, reachability and presentation proof;
 - human review pack: `COA-CP-008-PROFILE-REVIEW.md`.
 
-## Architecture result
+## Approved architecture result
 
 - QL001–QL006: retained semantic families;
 - QL007: **retired from future semantic expansion**; presentation-only legacy identifier;
 - QL008: retained for sequence/dependency;
 - QL009: retained for strict integrated reasoning;
 - additional semantic QL required: **NO**;
-- overall taxonomy: **FREEZE-READY, NOT YET FINAL-FROZEN**.
+- overall taxonomy: **FREEZE-READY, NOT YET FINAL-FROZEN** because CP007 still awaits explicit human approval.
 
-Final taxonomy freeze requires explicit approval of both CP007 and CP008.
-
-## Presentation result
+## Approved presentation result
 
 - `TWO_ACTION_FOUR_WAY`: source-supported core;
 - `TWO_ACTION_FIVE_CODE`: source-supported banking profile; `Either` requires dedicated exclusive relation;
@@ -42,12 +42,12 @@ Final taxonomy freeze requires explicit approval of both CP007 and CP008.
 
 - CP001–CP006: APPROVED / FROZEN
 - CP007: HUMAN REVIEW PENDING
-- CP008: HUMAN REVIEW PENDING
-- QL allocation: FREEZE-READY / WAITING FOR CP007 + CP008 APPROVAL
+- CP008: APPROVED / FROZEN
+- QL allocation: FREEZE-READY / WAITING FOR CP007 APPROVAL
 - Question Studio: CLOSED
 - Question Bank writes: CLOSED
 - test/mock eligibility: CLOSED
 - Hindi/Punjabi: NOT STARTED
 - public/student delivery: CLOSED
 
-Green CI does not imply human approval or lifecycle promotion.
+CP008 approval freezes the reviewed source-saturation and presentation architecture only. It does not imply CP007 approval or lifecycle promotion.
