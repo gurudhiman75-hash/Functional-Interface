@@ -5,6 +5,10 @@ import { CP005_FAMILIES, getCP005BreadthReport } from "./generator";
 assert.equal(CP005_ADJECTIVES.length,25);
 assert.equal(CP005_ADVERBS.length,20);
 assert.equal(CP005_FAMILIES.length,8);
+assert.deepEqual(Object.fromEntries(CP005_FAMILIES.map((f)=>[f.familyId,[...f.targetDifficulties]])),{
+  F01:["Easy"],F02:["Easy"],F03:["Medium"],F04:["Easy"],F05:["Medium"],F06:["Medium"],F07:["Hard"],F08:["Hard"]
+},"CP005 difficulty must be operation-driven; the same family cannot be relabeled across bands");
+
 for (const a of [...CP005_ADJECTIVES,...CP005_ADVERBS]) {
   assert.equal(a.sentence,a.sentence.normalize("NFC"));
   assert.equal(a.target,a.target.normalize("NFC"));
