@@ -89,11 +89,22 @@ function reportingVerbWrongs(correct: string, authoredWrong: string) {
   return unique(raw).filter((value) => value.toLowerCase() !== correct.toLowerCase());
 }
 
+function mergeCommandContext(correctSegments: string[], errorSegments: string[], sourceIndex: number) {
+  const current = stripPunctuation(correctSegments[sourceIndex]!).body;
+  if (sourceIndex <= 0 || !/^(?:not\s+)?to\s+[a-z]+/i.test(current)) return sourceIndex;
+  const previous = correctSegments[sourceIndex - 1]!;
+  if (!/\b(?:asked|told)\b/i.test(previous)) return sourceIndex;
+  correctSegments.splice(sourceIndex - 1, 2, `${previous} ${correctSegments[sourceIndex]}`.replace(/\s+/g, " ").trim());
+  errorSegments.splice(sourceIndex - 1, 2, `${errorSegments[sourceIndex - 1]} ${errorSegments[sourceIndex]}`.replace(/\s+/g, " ").trim());
+  return sourceIndex - 1;
+}
+
 function generateCuratedRule(input: GenerateEng002Cp012V1Input, forcedRuleId: VoiceNarrationRuleId, wrongFactory: WrongFactory): Eng002Cp012QuestionV1 {
   const candidate = buildEng001Cp012CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: forcedRuleId, sceneId: input.sceneId });
   const correctSegments = [...candidate.correctSegments];
   const errorSegments = [...candidate.errorSegments];
-  const sourceIndex = candidate.errorIndex;
+  let sourceIndex = candidate.errorIndex;
+  if (forcedRuleId === "GR-VNR-010") sourceIndex = mergeCommandContext(correctSegments, errorSegments, sourceIndex);
   const correct = stripPunctuation(correctSegments[sourceIndex]!);
   const wrong = stripPunctuation(errorSegments[sourceIndex]!);
   const noImprovement = input.noImprovement ?? deterministicBoolean(`${input.seed}:eng002:cp012:no-improvement`, 0.25);
