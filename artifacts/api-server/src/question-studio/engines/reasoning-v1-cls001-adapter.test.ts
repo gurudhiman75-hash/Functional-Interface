@@ -23,6 +23,7 @@ assert.equal(clsPackage.mockTestEligible, false);
 assert.equal(clsPackage.publiclyPublishable, false);
 assert.equal(clsPackage.automaticStudentPublication, false);
 assert.equal(clsPackage.productionReleaseAuthorized, false);
+assert.ok(packages.some((pkg) => pkg.packageId === "OPS-001"), "existing OPS-001 reasoning package must remain registered");
 
 const resolved = resolveQuestionStudioEngine({ packageId: CLS001_QUESTION_STUDIO_PACKAGE_ID_V1 });
 assert.equal(resolved.engineId, "reasoning-v1");
@@ -64,6 +65,17 @@ for (const language of ["en", "hi", "pa"] as const) {
       `${String(question.qlId)} has invalid correctIndex`,
     );
     assert.ok(typeof question.explanation === "string" && question.explanation.length > 0);
+
+    if (question.cpId === "CLS-CP-004") {
+      const learnerText = `${String(question.stem)}\n${String(question.explanation)}`;
+      if (language === "hi") {
+        assert.ok(!learnerText.includes("विषम संख्या चुनिए"), "CP004 Hindi Studio surface must keep approved अलग संख्या wording");
+      }
+      if (language === "pa") {
+        assert.ok(!learnerText.includes("ਜੁੜੀ ਸੰਖਿਆ"), "CP004 Punjabi Studio surface must not regress to old parity wording");
+        assert.ok(!learnerText.includes("ਅੰਕਾਂ ਵਿੱਚ ਜੁੜੇ ਅਤੇ ਟਾਂਕ"), "CP004 Punjabi Studio surface must use ਜਿਸਤ / ਟਾਂਕ wording");
+      }
+    }
   }
 }
 
