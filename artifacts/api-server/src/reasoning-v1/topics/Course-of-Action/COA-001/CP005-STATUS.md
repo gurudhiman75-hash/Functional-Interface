@@ -34,11 +34,12 @@ See `CP005-ARCHITECTURE-DECISION.md`.
 
 ## Lifecycle
 
-- CP001 English: APPROVED
-- CP002 English: APPROVED
-- CP003 English: HUMAN REVIEW PENDING
-- CP004 English: HUMAN REVIEW PENDING
+- CP001 English: APPROVED / FROZEN
+- CP002 English: APPROVED / FROZEN
+- CP003 English: APPROVED / FROZEN
+- CP004 English: APPROVED / FROZEN
 - CP005 paired presentation: APPROVED / FROZEN
+- CP006 ordered response: APPROVED / FROZEN
 - QL allocation: NOT FROZEN
 - five-way COA profile: BLOCKED_PENDING_SOURCE_AUDIT
 - Question Studio: CLOSED
@@ -47,4 +48,4 @@ See `CP005-ARCHITECTURE-DECISION.md`.
 - Hindi/Punjabi: NOT STARTED
 - public/student delivery: CLOSED
 
-Approval of CP005 does not imply approval of CP003 or CP004 and does not promote any lifecycle gate.
+These approvals freeze the reviewed English checkpoint authorities only. They do not promote any lifecycle gate.
