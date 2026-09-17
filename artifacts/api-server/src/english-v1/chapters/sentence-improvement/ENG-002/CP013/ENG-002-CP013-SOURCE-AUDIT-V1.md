@@ -1,6 +1,6 @@
 # ENG-002 CP013 — Sentence Improvement: Common Usage / Idiomatic Grammar — Source Audit V1
 
-Status: `IMPLEMENTED__AUTOMATED_REVIEW_GATE_PENDING__HUMAN_REVIEW_REQUIRED__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__POST_APPROVAL_GATE_PENDING`
 
 ## Donor authority
 
@@ -37,8 +37,9 @@ Each donor scene becomes an intact Sentence Improvement item with:
 - three deterministic rule-aware replacement choices;
 - option D always `No improvement`;
 - deterministic No-improvement cadence: every fourth scene, exactly 5 per difficulty;
-- no slash segmentation;
-- no Question Studio registration before approval.
+- no slash segmentation.
+
+The focused replacement-span remediation splits unchanged prefix/suffix text away from the learner target so the underlined text exactly matches the replacement choices. Punctuation remains outside the underlined target.
 
 ## Explanation policy
 
@@ -51,10 +52,35 @@ Every explanation follows:
 
 No option-by-option analysis or shortcut/trap language is used.
 
+## Approval boundary
+
+The exact human-approved review is pinned by `ENG002_CP013_HUMAN_EDITORIAL_APPROVAL_V1` to:
+
+- reviewed generator head: `498f6f00cde937c2e43cd85d81c9a174ddabeec3`;
+- approved review Markdown SHA-256: `1bb5ac9f566eced397ed6754eda4645762826d821c21a85a37ffb57c64b823bc`;
+- approved workflow artifact digest: `sha256:b9e60267f76af420fe998a9683de2595216fa145f01a7957bf901dc61291b572`.
+
+Explicit human editorial approval was granted on 2026-09-17. Any learner-facing generator change after the approved head requires a new review artifact and new approval.
+
+## Automated validation
+
+The dedicated CP013 post-approval gate validates:
+
+- 2,000 deterministic generations per difficulty (6,000 total);
+- deterministic replay;
+- option uniqueness and answer-position balance;
+- all nine rules and broad semantic-domain reachability;
+- all 60 deterministic review scenes;
+- exact focused target-span integrity;
+- Question Studio review-only lifecycle behavior;
+- review Markdown materialization; and
+- the API server build.
+
 ## Lifecycle
 
-Pre-approval state is review-only.
+Question Studio review-only registration is authorized. Learner-facing release remains locked.
 
+- `questionStudioReviewOnlyAuthorized: true`
 - `questionBankWritable: false`
 - `testEligible: false`
 - `mockTestEligible: false`
@@ -62,5 +88,3 @@ Pre-approval state is review-only.
 - `automaticStudentPublication: false`
 - `productionReleaseAuthorized: false`
 - revision policy: `SOURCE_GENERATOR_ONLY`
-
-Explicit human editorial approval of the generated Markdown is required before Question Studio review-only registration or merge closure.
