@@ -66,6 +66,7 @@ export const COA_CP006_ENGLISH_REVIEW_V2: readonly CoaScenarioAuthority[] = Obje
     const [first, second] = scenario.actions;
     return Object.freeze({
       ...scenario,
+      difficulty: scenario.id === "COA-SC-102" ? "EASY" as const : scenario.difficulty,
       actions: Object.freeze([applyPatch(first), applyPatch(second)] as const),
     });
   }),
