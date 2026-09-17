@@ -3,14 +3,15 @@ import { COA_CP002_ENGLISH_REVIEW_V2 } from "./cp002-editorial-v2.ts";
 import { COA_CP003_ENGLISH_REVIEW_V2 } from "./cp003-editorial-v2.ts";
 import { COA_CP004_ENGLISH_REVIEW_V2 } from "./cp004-editorial-v2.ts";
 import { COA_CP006_ENGLISH_REVIEW_V2 } from "./cp006-editorial-v2.ts";
+import { COA_CP007_ENGLISH_REVIEW_V2 } from "./cp007-editorial-v2.ts";
 import type { CoaQlId, CoaScenarioAuthority } from "./types.ts";
 
 /**
  * Current English semantic authority.
  *
- * CP001/CP002 are approved semantic baselines. CP003/CP004 remain human-review
- * authorities. CP005 changed presentation architecture only and added no semantic
- * scenarios. CP006 additively expands QL008 ordered-response reasoning.
+ * CP001-CP006 reviewed English checkpoints are approved/frozen. CP005 changed
+ * presentation architecture only and added no semantic scenarios. CP007 additively
+ * expands QL009 integrated exam-grade reasoning without rewriting earlier authority.
  */
 export const COA_CURRENT_ENGLISH_AUTHORITIES: readonly CoaScenarioAuthority[] = Object.freeze([
   ...COA_CP001_ENGLISH_REVIEW_V2,
@@ -18,6 +19,7 @@ export const COA_CURRENT_ENGLISH_AUTHORITIES: readonly CoaScenarioAuthority[] = 
   ...COA_CP003_ENGLISH_REVIEW_V2,
   ...COA_CP004_ENGLISH_REVIEW_V2,
   ...COA_CP006_ENGLISH_REVIEW_V2,
+  ...COA_CP007_ENGLISH_REVIEW_V2,
 ]);
 
 export function coaEnglishAuthoritiesForQl(qlId: CoaQlId): readonly CoaScenarioAuthority[] {
@@ -35,3 +37,6 @@ export type CoaCp004OwnedQlId = (typeof COA_CP004_OWNED_QL_IDS)[number];
 
 export const COA_CP006_OWNED_QL_IDS = ["COA-QL-008"] as const;
 export type CoaCp006OwnedQlId = (typeof COA_CP006_OWNED_QL_IDS)[number];
+
+export const COA_CP007_OWNED_QL_IDS = ["COA-QL-009"] as const;
+export type CoaCp007OwnedQlId = (typeof COA_CP007_OWNED_QL_IDS)[number];
