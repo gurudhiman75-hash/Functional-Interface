@@ -17,6 +17,7 @@ assert.equal(isMenCp009StandardQuestionStudioRequest({ packageId: "PCT-001" }), 
 for (const language of ["en", "hi", "pa"] as const) {
   const input = {
     packageId: "MEN-002",
+    cpId: "MEN-CP-009",
     language,
     difficulty: "Medium",
     count: 12,
@@ -67,6 +68,7 @@ const {
 
 const releaseProbe = generateMenCp009StandardQuestionStudioBatch({
   packageId: "MEN-002",
+  cpId: "MEN-CP-009",
   language: "pa",
   count: 1,
   seed: "men-cp009-standard-question-bank-probe",

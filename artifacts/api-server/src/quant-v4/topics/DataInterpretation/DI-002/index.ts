@@ -1,3 +1,3 @@
 export * from "./types";
-export * from "./advanced-table-set";
+export { generateDi002AdvancedTableSet } from "./question-studio-variety";
 export * from "./independent-verifier";

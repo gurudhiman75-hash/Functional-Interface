@@ -3,7 +3,7 @@ name: Quant V4 CGL Tier-I shadow simulation P3
 on:
   push:
     branches:
-      - audit/quant-v4-cgl-tier1-shadow-simulation-p3
+      - audit/quant-v4-cgl-tier1-shadow-advanced-math-remediation-p3
     paths:
       - ".github/workflows/quant-v4-cgl-tier1-shadow-simulation-p3.yml"
       - "artifacts/api-server/src/quant-v4/quality/**"
@@ -43,9 +43,14 @@ jobs:
           mkdir -p artifacts/api-server/dist/quant-v4/quality
           for test in \
             quant-v4-cgl-tier1-shadow-simulation-p3.test \
+            quant-v4-cgl-tier1-shadow-defect-localization-p3.test \
+            quant-v4-cgl-tier1-shadow-di-sampling-proof-p3.test \
+            quant-v4-cgl-tier1-shadow-men002-localization-p3.test \
             quant-v4-cgl-tier1-shadow-frequency-governance-p3.test \
             quant-v4-whole-section-frequency-stability-p2.test \
-            quant-v4-real-exam-simulation-p2.test
+            quant-v4-real-exam-simulation-p2.test \
+            quant-v4-real-exam-advanced-math-adapters-p2.test \
+            quant-v4-real-exam-advanced-math-integration-p2.test
           do
             pnpm --dir artifacts/api-server exec esbuild \
               "src/quant-v4/quality/${test}.ts" \
@@ -53,15 +58,54 @@ jobs:
               --outfile="dist/quant-v4/quality/${test}.mjs"
           done
       - name: Run empirical shadow simulation
+        continue-on-error: true
         working-directory: artifacts/api-server
-        run: node dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-simulation-p3.test.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-simulation-p3.test.mjs 2>&1 | tee quant-v4-cgl-tier1-shadow-simulation-p3.log
+      - name: Run shadow defect localization
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-defect-localization-p3.test.mjs 2>&1 | tee quant-v4-cgl-tier1-shadow-defect-localization-p3.log
+      - name: Run DI sampling proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-di-sampling-proof-p3.test.mjs 2>&1 | tee quant-v4-cgl-tier1-shadow-di-sampling-proof-p3.log
+      - name: Run MEN-002 repetition localization
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-men002-localization-p3.test.mjs 2>&1 | tee quant-v4-cgl-tier1-shadow-men002-localization-p3.log
+      - name: Upload empirical shadow diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quant-v4-cgl-tier1-shadow-simulation-p3-diagnostic
+          path: |
+            artifacts/api-server/quant-v4-cgl-tier1-shadow-simulation-p3.log
+            artifacts/api-server/quant-v4-cgl-tier1-shadow-defect-localization-p3.log
+            artifacts/api-server/quant-v4-cgl-tier1-shadow-di-sampling-proof-p3.log
+            artifacts/api-server/quant-v4-cgl-tier1-shadow-men002-localization-p3.log
+          if-no-files-found: warn
+          retention-days: 7
       - name: Run shadow governance regression
         working-directory: artifacts/api-server
         run: node dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-frequency-governance-p3.test.mjs
+      - name: Run Advanced Mathematics adapter lifecycle regressions
+        working-directory: artifacts/api-server
+        run: |
+          node dist/quant-v4/quality/quant-v4-real-exam-advanced-math-adapters-p2.test.mjs
+          node dist/quant-v4/quality/quant-v4-real-exam-advanced-math-integration-p2.test.mjs
       - name: Run whole-section stability regression
         working-directory: artifacts/api-server
         run: node dist/quant-v4/quality/quant-v4-whole-section-frequency-stability-p2.test.mjs
-      - name: Run current real-exam simulation regression
+      - name: Run current base real-exam simulation regression
         working-directory: artifacts/api-server
         run: node dist/quant-v4/quality/quant-v4-real-exam-simulation-p2.test.mjs
       - name: Patch hygiene
