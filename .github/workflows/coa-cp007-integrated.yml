@@ -1,0 +1,46 @@
+name: Validate COA CP-007 integrated reasoning
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Course-of-Action/COA-001/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coa-cp007-integrated-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-coa-cp007:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle COA CP-007 integrated-reasoning proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/course-of-action
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Course-of-Action/COA-001/cp007-integrated-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/course-of-action/cp007-integrated-proof.test.mjs
+      - name: Run COA CP-007 integrated-reasoning proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/course-of-action/cp007-integrated-proof.test.mjs
