@@ -1,7 +1,8 @@
 # POL-CP-022 — Constitutional Bodies & Constitutional Authorities
 
-**Lifecycle:** REVIEW CANDIDATE — V2  
-**Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V2  
+**Approved:** 17 September 2026  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -37,7 +38,7 @@ For CP022 V2:
 - No qualification criteria are invented for offices where the Constitution does not prescribe them.
 - This rule is also recorded in the chapter-wide `POLITY-EXPLANATION-STANDARD.md` for backfill during the final Polity audit.
 
-## Review profile
+## Frozen profile
 
 - 20 genuine QLs;
 - 80 review questions;
@@ -46,8 +47,7 @@ For CP022 V2:
 - A/B/C/D answer positions exactly balanced 20 each;
 - direct SSC/Banking-style stems, maximum 30 words;
 - ordinary question-specific explanations remain 13–32 words;
-- structured qualification notes may extend slightly beyond the ordinary limit where needed for a complete high-yield list;
-- review-only until explicit project-owner approval.
+- structured qualification notes may extend slightly beyond the ordinary limit where needed for a complete high-yield list.
 
 ## Sources
 
