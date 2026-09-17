@@ -1,3 +1,4 @@
 export * from "./types";
-export { generateDi005PieSet } from "./question-studio-variety";
+export * from "./pie-set";
 export * from "./independent-verifier";
+export { generateDi005PieSet } from "./question-studio-variety";
