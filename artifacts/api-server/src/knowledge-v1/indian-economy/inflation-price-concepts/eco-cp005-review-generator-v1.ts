@@ -355,10 +355,7 @@ function makeQuestion(ql: number, rowIndex: number, globalIndex: number): EcoCp0
       },
     ];
     const row = rows[rowIndex % rows.length];
-    stem = `Consider the statements:\
-I. ${row.s1}\
-II. ${row.s2}\
-Which is correct?`;
+    stem = `Consider the statements:\nI. ${row.s1}\nII. ${row.s2}\nWhich is correct?`;
     correct = row.correct;
     options = moveCorrect(["I only", "II only", "Both I and II", "Neither I nor II"], correct, correctTarget);
     explanation = row.explanation;
