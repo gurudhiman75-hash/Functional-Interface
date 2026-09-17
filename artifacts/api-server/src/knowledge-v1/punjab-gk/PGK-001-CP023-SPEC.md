@@ -1,6 +1,6 @@
 # PGK-001 CP023 — Folk Culture, Music & Dance
 
-Status: REVIEW CANDIDATE V2
+Status: HUMAN APPROVED / FROZEN V2
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-023 — Folk Culture, Music & Dance`
 Permanent QLs: `PGK-001-QL-154` to `PGK-001-QL-160`
@@ -67,4 +67,4 @@ V2 rewrites the full learner layer to remove mechanical prose such as `tradition
 
 ## Lifecycle
 
-CP023 V2 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication before explicit human approval.
+CP023 V2 was human-approved on 17 September 2026 and is frozen for content review. It is still not registered for Question Studio runtime generation, Question Bank writes, mocks or publication; runtime integration remains a separate later step.
