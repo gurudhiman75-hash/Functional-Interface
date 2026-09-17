@@ -105,6 +105,36 @@ const slotsByDuplicateRate = Object.entries(stemDuplicationBySlot)
   .map(([slotKind, summary]) => ({ slotKind, ...summary }))
   .sort((left, right) => right.duplicateRate - left.duplicateRate || right.duplicateItems - left.duplicateItems || left.slotKind.localeCompare(right.slotKind));
 
+console.log("QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3", JSON.stringify({
+  sections: SECTIONS,
+  baseline: {
+    records: baselineQuestions.length,
+    capabilityGaps: baselineGaps.length,
+    advancedMathCapabilityGaps: baselineAdvancedMathGaps.length,
+    probabilityCapabilityGaps: baselineProbabilityGaps.length,
+    gapSlotDistribution: baselineGapSlotDistribution,
+    gapReasonDistribution: baselineGapReasonDistribution,
+    gaps: baselineGaps.map((question) => ({
+      sectionIndex: question.sectionIndex,
+      slotIndex: question.slotIndex,
+      slotKind: question.slotKind,
+      packageId: question.packageId,
+      canonicalProblemId: question.canonicalProblemId,
+      questionLanguageId: question.questionLanguageId,
+      gapReason: question.gapReason,
+    })),
+  },
+  repetition: {
+    global: globalStemDuplication,
+    slotsByDuplicateRate,
+    packagesByDuplicateRate,
+  },
+  lifecycle: {
+    productionPromotionAuthorized: false,
+    runtimeBlueprintMutationAuthorized: false,
+  },
+}));
+
 assert.equal(shadowRecords.length, 500);
 assert.equal(runtimeShadowRecords.length, 500);
 assert.equal(baselineQuestions.length, 500);
@@ -123,26 +153,5 @@ assert.equal(
   Object.values(stemDuplicationByPackage).reduce((sum, summary) => sum + summary.records, 0),
   500,
 );
-
-console.log("QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3", JSON.stringify({
-  sections: SECTIONS,
-  baseline: {
-    records: baselineQuestions.length,
-    capabilityGaps: baselineGaps.length,
-    advancedMathCapabilityGaps: baselineAdvancedMathGaps.length,
-    probabilityCapabilityGaps: baselineProbabilityGaps.length,
-    gapSlotDistribution: baselineGapSlotDistribution,
-    gapReasonDistribution: baselineGapReasonDistribution,
-  },
-  repetition: {
-    global: globalStemDuplication,
-    slotsByDuplicateRate,
-    packagesByDuplicateRate,
-  },
-  lifecycle: {
-    productionPromotionAuthorized: false,
-    runtimeBlueprintMutationAuthorized: false,
-  },
-}));
 
 console.log("PASS_QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3");
