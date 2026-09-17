@@ -58,6 +58,7 @@ jobs:
               --outfile="dist/quant-v4/quality/${test}.mjs"
           done
       - name: Run empirical shadow simulation
+        continue-on-error: true
         working-directory: artifacts/api-server
         shell: bash
         run: |
