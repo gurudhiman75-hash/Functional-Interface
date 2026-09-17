@@ -26,6 +26,7 @@ import { isEng002Cp009QuestionStudioRequestV1, languageV1Eng002Cp009QuestionStud
 import { isEng002Cp010QuestionStudioRequestV1, languageV1Eng002Cp010QuestionStudioAdapterV1 } from "./language-v1-eng002-cp010-adapter-v1";
 import { isEng002Cp011QuestionStudioRequestV1, languageV1Eng002Cp011QuestionStudioAdapterV1 } from "./language-v1-eng002-cp011-adapter-v1";
 import { isEng002Cp012QuestionStudioRequestV1, languageV1Eng002Cp012QuestionStudioAdapterV1 } from "./language-v1-eng002-cp012-adapter-v1";
+import { isEng002Cp013QuestionStudioRequestV1, languageV1Eng002Cp013QuestionStudioAdapterV1 } from "./language-v1-eng002-cp013-adapter-v1";
 
 /** Composite adapter for approved English review-only generators. */
 export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
@@ -33,10 +34,11 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   listPackages() {
     return [
       ...languageV1Eng001Cp013QuestionStudioAdapterV1.listPackages(),
-      ...languageV1Eng002Cp012QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng002Cp013QuestionStudioAdapterV1.listPackages(),
     ];
   },
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isEng002Cp013QuestionStudioRequestV1(request)) return languageV1Eng002Cp013QuestionStudioAdapterV1.generate(request);
     if (isEng002Cp012QuestionStudioRequestV1(request)) return languageV1Eng002Cp012QuestionStudioAdapterV1.generate(request);
     if (isEng002Cp011QuestionStudioRequestV1(request)) return languageV1Eng002Cp011QuestionStudioAdapterV1.generate(request);
     if (isEng002Cp010QuestionStudioRequestV1(request)) return languageV1Eng002Cp010QuestionStudioAdapterV1.generate(request);
