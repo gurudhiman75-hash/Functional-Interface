@@ -1,0 +1,18 @@
+{
+  "cpId": "PUN-001-CP006",
+  "status": "HUMAN_REVIEW_PENDING",
+  "topic": "ਕਿਰਿਆ, ਕਾਲ ਅਤੇ ਰੂਪਾਂਤਰਣ",
+  "distribution": { "Easy": 40, "Medium": 40, "Hard": 40 },
+  "families": {
+    "F01": "Verb phrase identification",
+    "F02": "Transitivity classification",
+    "F03": "Tense identification",
+    "F04": "Auxiliary identification",
+    "F05": "Direct object identification",
+    "F06": "Tense transformation",
+    "F07": "Verb type and tense diagnosis",
+    "F08": "Tense-shift statement analysis",
+    "F09": "Aspect identification"
+  },
+  "lifecycle": "REVIEW_ONLY"
+}
