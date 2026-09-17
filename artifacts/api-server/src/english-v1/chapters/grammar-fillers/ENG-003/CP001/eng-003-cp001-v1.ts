@@ -74,13 +74,32 @@ function buildDistractors(wrongTarget: string, correctTarget: string): string[] 
   return out;
 }
 
-function shuffleFour(seed: string, values: readonly string[]): string[] {
-  const out = [...values];
-  for (let index = out.length - 1; index > 0; index -= 1) {
-    const swapWith = deterministicIndex(`${seed}:shuffle:${index}`, index + 1);
-    [out[index], out[swapWith]] = [out[swapWith]!, out[index]!];
+function stableHash(value: string): number {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
   }
-  return out;
+  return hash >>> 0;
+}
+
+function placeOptions(seed: string, correctTarget: string, distractors: readonly string[]): {
+  options: string[];
+  correctOptionIndex: number;
+} {
+  const correctOptionIndex = stableHash(`${seed}:eng003-correct-position`) % 4;
+  const shuffledDistractors = [...distractors];
+  for (let index = shuffledDistractors.length - 1; index > 0; index -= 1) {
+    const swapWith = deterministicIndex(`${seed}:eng003-distractor-shuffle:${index}`, index + 1);
+    [shuffledDistractors[index], shuffledDistractors[swapWith]] = [shuffledDistractors[swapWith]!, shuffledDistractors[index]!];
+  }
+  const options: string[] = [];
+  let distractorIndex = 0;
+  for (let index = 0; index < 4; index += 1) {
+    if (index === correctOptionIndex) options.push(correctTarget);
+    else options.push(shuffledDistractors[distractorIndex++]!);
+  }
+  return { options, correctOptionIndex };
 }
 
 function teachingTail(sourceExplanation: string): string {
@@ -108,9 +127,7 @@ export function generateEng003Cp001QuestionV1(input: GenerateEng003Cp001V1Input)
   blankSegments[source.targetIndex] = "_____";
   const sentence = sentenceFromSegments(blankSegments);
   const distractors = buildDistractors(wrongTarget, correctTarget);
-  const options = shuffleFour(`${input.seed}:eng003-options`, [correctTarget, ...distractors]);
-  const correctOptionIndex = options.indexOf(correctTarget);
-  if (correctOptionIndex < 0) throw new Error(`${source.questionId} lost the correct filler during option assembly`);
+  const { options, correctOptionIndex } = placeOptions(input.seed, correctTarget, distractors);
 
   const explanation = `The blank needs “${correctTarget}”. ${teachingTail(source.explanation)}`;
 
