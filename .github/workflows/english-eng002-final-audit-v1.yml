@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ENG-002-FINAL-AUDIT-MASTER-REVIEW-V1
-          path: artifacts/api-server/dist/english-v1/ENG-002-FINAL-AUDIT-MASTER-REVIEW-V1.md
+          path: dist/english-v1/ENG-002-FINAL-AUDIT-MASTER-REVIEW-V1.md
           if-no-files-found: error
           retention-days: 30
       - name: Compile ENG-002 exhaustive closure soak
