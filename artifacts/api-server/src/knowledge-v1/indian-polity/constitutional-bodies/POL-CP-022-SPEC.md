@@ -1,14 +1,14 @@
 # POL-CP-022 — Constitutional Bodies & Constitutional Authorities
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
+**Lifecycle:** REVIEW CANDIDATE — V2  
 **Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
 
 ## Scope
 
 CP022 owns the static constitutional-body layer for:
 
-- Attorney General for India under Article 76;
-- Advocate General for the State under Article 165;
+- Attorney-General for India under Article 76;
+- Advocate-General for the State under Article 165;
 - Comptroller and Auditor General under Articles 148–151;
 - Finance Commission under Article 280;
 - Union and State Public Service Commissions under Articles 315–323;
@@ -23,8 +23,19 @@ CP022 owns the static constitutional-body layer for:
 
 - Election Commission and election administration remain owned by POL-CP-021.
 - Detailed Centre–State fiscal relations remain owned by POL-CP-017; CP022 asks only Finance Commission body/function questions.
-- Governor and State executive basics remain owned by POL-CP-014/015; CP022 includes Advocate General only as a constitutional authority.
+- Governor and State executive basics remain owned by POL-CP-014/015; CP022 includes Advocate-General only as a constitutional authority.
 - Current office-holders, current commission membership and current report-cycle trivia are excluded.
+
+## Qualification value rule
+
+Qualification/eligibility questions must not stop at a cross-reference such as “qualified to be a Supreme Court judge.” When the Constitution or governing law specifies the full conditions, the explanation should unpack them into a small, easy-to-scan **Qualifications** list.
+
+For CP022 V2:
+
+- Attorney-General for India eligibility unpacks Articles 76 and 124(3): citizen of India plus the relevant High Court judge / High Court advocate / distinguished-jurist routes.
+- Advocate-General for the State eligibility unpacks Articles 165 and 217(2): citizen of India plus the relevant ten-year judicial-office / High Court advocate routes.
+- No qualification criteria are invented for offices where the Constitution does not prescribe them.
+- This rule is also recorded in the chapter-wide `POLITY-EXPLANATION-STANDARD.md` for backfill during the final Polity audit.
 
 ## Review profile
 
@@ -34,7 +45,8 @@ CP022 owns the static constitutional-body layer for:
 - four questions per QL;
 - A/B/C/D answer positions exactly balanced 20 each;
 - direct SSC/Banking-style stems, maximum 30 words;
-- unique question-specific explanations, 13–32 words;
+- ordinary question-specific explanations remain 13–32 words;
+- structured qualification notes may extend slightly beyond the ordinary limit where needed for a complete high-yield list;
 - review-only until explicit project-owner approval.
 
 ## Sources
