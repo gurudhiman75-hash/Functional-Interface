@@ -2,17 +2,39 @@ name: Validate English ENG-002 CP013 V1
 
 on:
   pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize, ready_for_review]
     paths:
-      - 'artifacts/api-server/src/english-v1/chapters/sentence-improvement/ENG-002/CP013/**'
-      - 'artifacts/api-server/src/english-v1/chapters/error-spotting/ENG-001/CP013/**'
-      - 'artifacts/api-server/src/english-v1/grammar/idiomatic-usage.ts'
-      - 'artifacts/api-server/src/english-v1/tests/eng-002-cp013-v1.test.ts'
-      - '.github/workflows/english-eng002-cp013-v1.yml'
+      - artifacts/api-server/src/english-v1/chapters/sentence-improvement/ENG-002/CP013/**
+      - artifacts/api-server/src/english-v1/chapters/error-spotting/ENG-001/CP013/**
+      - artifacts/api-server/src/english-v1/grammar/idiomatic-usage.ts
+      - artifacts/api-server/src/english-v1/tests/eng-002-cp013-v1.test.ts
+      - artifacts/api-server/src/english-v1/tests/eng-002-cp013-question-studio-v1.test.ts
+      - artifacts/api-server/src/question-studio/**
+      - .github/workflows/english-eng002-cp013-v1.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/sentence-improvement/ENG-002/CP013/**
+      - artifacts/api-server/src/english-v1/chapters/error-spotting/ENG-001/CP013/**
+      - artifacts/api-server/src/english-v1/grammar/idiomatic-usage.ts
+      - artifacts/api-server/src/english-v1/tests/eng-002-cp013-v1.test.ts
+      - artifacts/api-server/src/english-v1/tests/eng-002-cp013-question-studio-v1.test.ts
+      - artifacts/api-server/src/question-studio/**
+      - .github/workflows/english-eng002-cp013-v1.yml
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-eng002-cp013-v1-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-eng002-cp013-v1:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -30,6 +52,10 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-002-cp013-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-002-cp013-v1.test.mjs
       - name: Run ENG-002 CP013 deterministic stress and review test
         run: node artifacts/api-server/dist/english-v1/eng-002-cp013-v1.test.mjs
+      - name: Compile ENG-002 CP013 Question Studio lifecycle test
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-002-cp013-question-studio-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-002-cp013-question-studio-v1.test.mjs
+      - name: Run ENG-002 CP013 Question Studio lifecycle test
+        run: node artifacts/api-server/dist/english-v1/eng-002-cp013-question-studio-v1.test.mjs
       - name: Compile ENG-002 CP013 review materializer
         run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/sentence-improvement/ENG-002/CP013/eng-002-cp013-review-v1-materialize.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-002-cp013-review-v1-materialize.mjs
       - name: Materialize ENG-002 CP013 review Markdown
@@ -39,5 +65,7 @@ jobs:
         with:
           name: ENG-002-CP013-REVIEW-V1
           path: artifacts/api-server/dist/english-v1/ENG-002-CP013-REVIEW-V1.md
+          if-no-files-found: error
+          retention-days: 30
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
