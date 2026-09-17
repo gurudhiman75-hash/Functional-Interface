@@ -25,6 +25,7 @@ const INTERNAL_LEAKAGE = /\b(?:candidateId|mutationId|generationSeed|review-only
 const asText = (value: unknown) => typeof value === "string" ? value.trim() : "";
 const asStrings = (value: unknown) => Array.isArray(value) ? value.map((entry) => String(entry ?? "").trim()) : [];
 const stripTags = (value: string) => value.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const wordCount = (value: string) => value.split(/\s+/).filter(Boolean).length;
 
 const packageDef = listQuestionStudioPackages().find((entry) => entry.engineId === "language-v1" && entry.packageId === PACKAGE_ID);
 assert.ok(packageDef, "ENG-002 package is missing from Question Studio");
@@ -115,10 +116,10 @@ for (const [cpId, prefix, expectedRuleCount] of CPS) {
       assert.equal(new Set(options.map((option) => option.toLowerCase())).size, 4, `${cellKey}/${index} duplicate options`);
       assert.ok(Number.isInteger(correctIndex) && correctIndex >= 0 && correctIndex < 4, `${cellKey}/${index} invalid answer index`);
       assert.ok(correctedSentence.length >= 12, `${cellKey}/${index} corrected sentence too short`);
-      assert.ok(explanation.length >= 45, `${cellKey}/${index} explanation too short`);
+      assert.ok(explanation.length >= 80, `${cellKey}/${index} explanation too short to be helpful`);
+      assert.ok(wordCount(explanation) >= 14, `${cellKey}/${index} explanation is too terse`);
       assert.ok(explanation.includes(correctedSentence), `${cellKey}/${index} explanation omits corrected sentence`);
-      assert.match(explanation, /Concept:/, `${cellKey}/${index} explanation omits Concept`);
-      assert.match(explanation, /Here[:,]/, `${cellKey}/${index} explanation omits sentence-specific application`);
+      assert.match(explanation, /Correct sentence:/i, `${cellKey}/${index} explanation does not identify the corrected sentence`);
       assert.doesNotMatch(`${stem}\n${sentence}\n${explanation}`, INTERNAL_LEAKAGE, `${cellKey}/${index} leaks internal metadata`);
       assert.doesNotMatch(explanation, /\bOption\s+[A-D]\b/i, `${cellKey}/${index} contains option-by-option analysis`);
       assert.equal(asText(question.registrationStatus), "REGISTERED_REVIEW_ONLY", `${cellKey}/${index} lost review-only registration`);
