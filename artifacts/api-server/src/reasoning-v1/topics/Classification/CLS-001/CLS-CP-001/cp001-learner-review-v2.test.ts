@@ -10,6 +10,20 @@ import type { ClsCp001Locale } from "./localization/cp001-language-pack";
 const locales: readonly ClsCp001Locale[] = ["en-IN", "hi-IN", "pa-IN"];
 const qls: readonly ClsCp001QlId[] = CLS_CP001_PERMANENT_CONTRACTS.map((entry) => entry.qlId);
 
+function expectedLearnerLine(line: string, locale: ClsCp001Locale): string {
+  if (locale === "hi-IN") {
+    return line
+      .replaceAll("दूध पिलाने वाले जानवर", "स्तनधारी")
+      .replaceAll("दूध पिलाने वाला जानवर है", "एक स्तनधारी है");
+  }
+  if (locale === "pa-IN") {
+    return line
+      .replaceAll("ਦੁੱਧ ਪਿਲਾਉਣ ਵਾਲੇ ਜਾਨਵਰ", "ਥਣਧਾਰੀ")
+      .replaceAll("ਦੁੱਧ ਪਿਲਾਉਣ ਵਾਲਾ ਜਾਨਵਰ ਹੈ", "ਇੱਕ ਥਣਧਾਰੀ ਹੈ");
+  }
+  return line;
+}
+
 let checked = 0;
 for (const qlId of qls) {
   for (const locale of locales) {
@@ -41,8 +55,14 @@ for (const qlId of qls) {
       assert.equal(learner.reviewOnly, frozen.reviewOnly);
       assert.equal(learner.questionStudioVisible, frozen.questionStudioVisible);
 
-      assert.deepEqual(learner.explanation.coreRule, frozen.explanation.coreRule);
-      assert.deepEqual(learner.explanation.optionChecks, frozen.explanation.optionChecks);
+      assert.deepEqual(
+        learner.explanation.coreRule,
+        frozen.explanation.coreRule.map((line) => expectedLearnerLine(line, locale)),
+      );
+      assert.deepEqual(
+        learner.explanation.optionChecks,
+        frozen.explanation.optionChecks.map((line) => expectedLearnerLine(line, locale)),
+      );
       assert.ok(learner.explanation.optionChecks.length >= 2);
       assert.ok(learner.explanation.optionChecks.length <= 3);
       assert.equal(learner.explanation.examSpeedShortcut.length, 0);
@@ -55,7 +75,7 @@ for (const qlId of qls) {
       } = learner.metadata;
       assert.deepEqual(learnerMetadata, frozen.metadata);
       assert.equal(learnerReviewVersion, "cls-cp001-learner-review-v2");
-      assert.equal(learnerEditorialVersion, "compact-explanation-no-boilerplate-v2");
+      assert.equal(learnerEditorialVersion, "compact-explanation-natural-language-v2");
 
       const learnerText = [
         learner.stem,
@@ -63,6 +83,7 @@ for (const qlId of qls) {
         ...learner.explanation.optionChecks,
       ].join("\n");
       assert.doesNotMatch(learnerText, /\b(?:shortcut|common trap|exam speed|candidate rule|quality rank|hierarchy depth)\b/i);
+      assert.doesNotMatch(learnerText, /दूध पिलाने वाल[ाे] जानवर|ਦੁੱਧ ਪਿਲਾਉਣ ਵਾਲ[ਾੇ] ਜਾਨਵਰ/u);
       assert.ok(learner.explanation.optionChecks.at(-1)?.includes(learner.answer));
       checked += 1;
     }
@@ -75,4 +96,5 @@ console.log("CLS-CP-001 compact learner review V2 audit passed.", {
   frozenStateChanges: 0,
   shortcutTrapLearnerSections: false,
   routineOptionByOptionLearnerAnalysis: false,
+  naturalNativeMammalWording: true,
 });
