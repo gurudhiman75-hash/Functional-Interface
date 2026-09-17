@@ -35,6 +35,7 @@ jobs:
       - name: Enable pnpm
         run: corepack enable
       - name: Install workspace dependencies
+        timeout-minutes: 10
         run: pnpm install --frozen-lockfile
       - name: Compile ENG-002 CP007 test
         run: |
