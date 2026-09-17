@@ -1,0 +1,81 @@
+export const ECO_CP011_SOURCES_V1 = Object.freeze([
+  {
+    id: "NABARD-ROLE",
+    authority: "National Bank for Agriculture and Rural Development",
+    title: "Role and Functions of NABARD",
+    url: "https://www.nabard.org/auth/writereaddata/File/Role%20and%20Function.pdf",
+    notes: "NABARD is a development bank for agriculture and rural development and provides refinance, institutional development, coordination and monitoring support to rural credit institutions.",
+  },
+  {
+    id: "NABARD-HISTORY",
+    authority: "National Bank for Agriculture and Rural Development",
+    title: "NABARD Citizen's Charter / Background",
+    url: "https://www.nabard.org/contentsearch.aspx?AID=172&Key=super",
+    notes: "NABARD was established on 12 July 1982 by an Act of Parliament and is wholly owned by Government of India.",
+  },
+  {
+    id: "SIDBI-ABOUT",
+    authority: "Small Industries Development Bank of India",
+    title: "About SIDBI",
+    url: "https://www.sidbi.in/en/about/",
+    notes: "SIDBI was set up on 2 April 1990 and is the principal financial institution for promotion, financing and development of the MSME sector.",
+  },
+  {
+    id: "EXIM-OBJECTIVES",
+    authority: "Export-Import Bank of India",
+    title: "Objectives of India Exim Bank",
+    url: "https://www.eximbankindia.in/objectives",
+    notes: "Exim Bank provides financial assistance to exporters and importers and coordinates institutions engaged in financing India's international trade.",
+  },
+  {
+    id: "EXIM-HISTORY",
+    authority: "Export-Import Bank of India",
+    title: "About India Exim Bank",
+    url: "https://www.eximbankindia.in/about-us",
+    notes: "The Export-Import Bank of India Act was passed in 1981 and Exim Bank commenced operations in March 1982.",
+  },
+  {
+    id: "NHB-ABOUT",
+    authority: "National Housing Bank",
+    title: "About National Housing Bank",
+    url: "https://www.nhb.org.in/about-us/",
+    notes: "NHB was set up on 9 July 1988 under the National Housing Bank Act, 1987 as an apex-level institution for housing finance.",
+  },
+  {
+    id: "NHB-REGULATION-CHANGE",
+    authority: "National Housing Bank",
+    title: "NHB Genesis and regulatory framework",
+    url: "https://www.nhb.org.in/about-us/",
+    notes: "Regulatory powers over Housing Finance Companies were transferred from NHB to RBI with effect from 9 August 2019; NHB remains a housing-finance development institution.",
+  },
+  {
+    id: "NABFID-PURPOSE",
+    authority: "National Bank for Financing Infrastructure and Development",
+    title: "Purpose of NaBFID",
+    url: "https://www.nabfid.org/purpose",
+    notes: "NaBFID is a specialised development finance institution focused on long-term infrastructure financing and development of bond and derivatives markets for infrastructure.",
+  },
+  {
+    id: "NABFID-ABOUT",
+    authority: "National Bank for Financing Infrastructure and Development",
+    title: "About NaBFID",
+    url: "https://nabfid.org/about-us",
+    notes: "NaBFID was set up in 2021 under the NaBFID Act, 2021 to address long-term infrastructure-finance gaps.",
+  },
+  {
+    id: "IFCI-HISTORY",
+    authority: "IFCI Limited",
+    title: "IFCI: The Journey So Far",
+    url: "https://www.ifciltd.com/?q=en%2Fcontent%2Fjourney-so-far",
+    notes: "IFCI was established on 1 July 1948 as India's first Development Financial Institution to meet long-term finance needs of industry.",
+  },
+  {
+    id: "RBI-NBFC-FAQ",
+    authority: "Reserve Bank of India",
+    title: "All you wanted to know about NBFCs",
+    url: "https://systemhealth.rbi.org.in/Scripts/FS_FAQs.aspx_Id%3D92%26fn%3D14.html",
+    notes: "An NBFC is a company engaged principally in specified financial activities such as loans/advances and investment in securities but is not a banking company.",
+  },
+] as const);
+
+export const ECO_CP011_SOURCE_IDS_V1 = ECO_CP011_SOURCES_V1.map((source) => source.id);

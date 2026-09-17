@@ -38,6 +38,10 @@ import {
   knowledgeV1Com008QuestionStudioAdapterV1,
 } from "./knowledge-v1-com008-adapter-v1";
 import {
+  isEco001QuestionStudioRequestV1,
+  knowledgeV1Eco001QuestionStudioAdapterV1,
+} from "./knowledge-v1-eco001-adapter-v1";
+import {
   isGeoPhy001QuestionStudioRequestV1,
   knowledgeV1GeoPhy001QuestionStudioAdapterV1,
 } from "./knowledge-v1-geo-phy-001-adapter-v1";
@@ -66,6 +70,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1Com006QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com007QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com008QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1Eco001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoPhy001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoRiv001QuestionStudioAdapterV1.listPackages(),
     ];
@@ -77,6 +82,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isEco001QuestionStudioRequestV1(request)) {
+      return knowledgeV1Eco001QuestionStudioAdapterV1.generate(request);
+    }
     if (isGeoPhy001QuestionStudioRequestV1(request)) {
       return knowledgeV1GeoPhy001QuestionStudioAdapterV1.generate(request);
     }
