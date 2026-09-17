@@ -19,20 +19,20 @@ function point(stimulus: Di004Stimulus, question: Di004Question, key: string) {
 
 const STEM_VARIANTS: Readonly<Record<Di004TaskKind, readonly StemBuilder[]>> = Object.freeze({
   FIRST_OVERTAKE_PERIOD: Object.freeze([
-    (stimulus, question) => { const target = point(stimulus, question, "overtakeIndex"); return `Region B was ahead initially. In which quarter did Region A first move above Region B?`; },
-    (stimulus, question) => { const target = point(stimulus, question, "overtakeIndex"); return `In which period did Region A first overtake Region B?`; },
-    (stimulus, question) => { const target = point(stimulus, question, "overtakeIndex"); return `Identify the first quarter in which the Region A line is above the Region B line.`; },
-    (stimulus, question) => { const target = point(stimulus, question, "overtakeIndex"); return `When did Region A first become higher than Region B on the chart?`; },
-    (stimulus, question) => { const target = point(stimulus, question, "overtakeIndex"); return `The two line series change order at which quarter for the first time, with Region A moving ahead?`; },
-    (stimulus, question) => { const target = point(stimulus, question, "overtakeIndex"); return `From left to right, which is the first period where Region A exceeds Region B?`; },
+    () => "Region B was ahead initially. In which quarter did Region A first move above Region B?",
+    () => "In which period did Region A first overtake Region B?",
+    () => "Identify the first quarter in which the Region A line is above the Region B line.",
+    () => "When did Region A first become higher than Region B on the chart?",
+    () => "The two line series change order at which quarter for the first time, with Region A moving ahead?",
+    () => "From left to right, which is the first period where Region A exceeds Region B?",
   ]),
   CLOSEST_LINES_PERIOD: Object.freeze([
-    (stimulus, question) => { const target = point(stimulus, question, "closestIndex"); return `In which quarter were the numbers of online orders in Region A and Region B closest to each other?`; },
-    (stimulus, question) => { const target = point(stimulus, question, "closestIndex"); return `At which period is the gap between Region A and Region B the smallest?`; },
-    (stimulus, question) => { const target = point(stimulus, question, "closestIndex"); return `Find the quarter in which the two regional order figures are nearest to one another.`; },
-    (stimulus, question) => { const target = point(stimulus, question, "closestIndex"); return `Which plotted period has the minimum difference between Region A and Region B?`; },
-    (stimulus, question) => { const target = point(stimulus, question, "closestIndex"); return `The two lines are closest in which quarter?`; },
-    (stimulus, question) => { const target = point(stimulus, question, "closestIndex"); return `Where on the time axis is the absolute Region A–Region B gap least?`; },
+    () => "In which quarter were the numbers of online orders in Region A and Region B closest to each other?",
+    () => "At which period is the gap between Region A and Region B the smallest?",
+    () => "Find the quarter in which the two regional order figures are nearest to one another.",
+    () => "Which plotted period has the minimum difference between Region A and Region B?",
+    () => "The two lines are closest in which quarter?",
+    () => "Where on the time axis is the absolute Region A–Region B gap least?",
   ]),
   CONSECUTIVE_PERCENT_INCREASE_A: Object.freeze([
     (stimulus, question) => { const from = point(stimulus, question, "fromIndex"); const to = point(stimulus, question, "toIndex"); return `By what percentage did Region A's online orders increase from ${from.period} to ${to.period}?`; },
