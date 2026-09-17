@@ -1,7 +1,8 @@
 # POL-CP-023 — Statutory & Executive Bodies
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Approved:** 17 September 2026  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -39,7 +40,7 @@ CP023 covers high-yield Union-level statutory and executive institutions that re
 - direct exam-grade stems, maximum 30 words;
 - plausible same-neighbourhood distractors;
 - no current office-holder trivia;
-- review-only until explicit project-owner approval.
+- English V1 approved and frozen by the project owner on 17 September 2026.
 
 ## Primary sources
 
