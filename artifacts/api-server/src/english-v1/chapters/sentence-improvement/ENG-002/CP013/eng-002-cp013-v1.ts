@@ -94,6 +94,19 @@ function focusedDifference(correctSegment: string, wrongSegment: string, ruleId:
   };
 }
 
+function focusedSourceSegments(base: readonly string[], sourceIndex: number, focus: Focus, targetText: string) {
+  const punctuation = base[sourceIndex]!.match(/([,.;:!?]+)$/)?.[1] ?? "";
+  const replacement: string[] = [];
+  if (focus.prefix) replacement.push(focus.prefix);
+  const targetIndex = sourceIndex + replacement.length;
+  replacement.push(focus.suffix ? targetText : `${targetText}${punctuation}`);
+  if (focus.suffix) replacement.push(`${focus.suffix}${punctuation}`);
+  return {
+    segments: [...base.slice(0, sourceIndex), ...replacement, ...base.slice(sourceIndex + 1)],
+    targetIndex,
+  };
+}
+
 function replaceWord(value: string, from: string, to: string) {
   return value.replace(new RegExp(`\\b${from}\\b`, "i"), to);
 }
@@ -152,10 +165,8 @@ export function generateEng002Cp013QuestionV1(input: GenerateEng002Cp013V1Input)
   const focus = focusedDifference(candidate.correctSegments[sourceIndex]!, candidate.errorSegments[sourceIndex]!, candidate.ruleId);
   const noImprovement = input.noImprovement ?? deterministicBoolean(`${input.seed}:eng002:cp013:no-improvement`, 0.25);
   const targetText = noImprovement ? focus.correctTarget : focus.wrongTarget;
-  const sourceSegments = noImprovement ? [...candidate.correctSegments] : [...candidate.errorSegments];
-  const punctuation = sourceSegments[sourceIndex]!.match(/([,.;:!?]+)$/)?.[1] ?? "";
-  const rebuilt = [focus.prefix, targetText, focus.suffix].filter(Boolean).join(" ").replace(/\s+([,.!?;:])/g, "$1");
-  sourceSegments[sourceIndex] = `${rebuilt}${punctuation}`;
+  const baseSegments = noImprovement ? candidate.correctSegments : candidate.errorSegments;
+  const focused = focusedSourceSegments(baseSegments, sourceIndex, focus, targetText);
 
   const choices = generateChoices(candidate.ruleId, focus.correctTarget, focus.wrongTarget, targetText, noImprovement);
   const shuffled = shuffleThree(`${input.seed}:eng002:cp013:options`, choices);
@@ -170,9 +181,9 @@ export function generateEng002Cp013QuestionV1(input: GenerateEng002Cp013V1Input)
   return {
     questionId: `ENG-002-CP013-V1:${candidate.ruleId}:${candidate.candidateId}:${input.seed}:${noImprovement ? "NI" : "IMP"}`,
     stem: ENG002_CP013_STEM,
-    sentence: sentenceFromSegments(sourceSegments),
-    segments: sourceSegments,
-    targetIndex: sourceIndex,
+    sentence: sentenceFromSegments(focused.segments),
+    segments: focused.segments,
+    targetIndex: focused.targetIndex,
     targetText,
     options,
     correctOptionIndex,
