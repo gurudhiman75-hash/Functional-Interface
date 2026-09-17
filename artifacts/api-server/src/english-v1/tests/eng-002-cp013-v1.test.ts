@@ -11,6 +11,7 @@ function assertClean(q: ReturnType<typeof generateEng002Cp013QuestionV1>) {
   assert.ok(q.correctOptionIndex >= 0 && q.correctOptionIndex <= 3);
   assert.equal(q.sentence.includes(" / "), false);
   assert.ok(q.targetText.trim().length > 0);
+  assert.equal(q.segments[q.targetIndex]!.replace(/[,.;:!?]+$/, ""), q.targetText, "underlined segment must equal the focused replacement target");
   assert.match(q.explanation, /Concept:/);
   assert.match(q.explanation, /Here:/);
   assert.match(q.explanation, /Correct sentence:/);
