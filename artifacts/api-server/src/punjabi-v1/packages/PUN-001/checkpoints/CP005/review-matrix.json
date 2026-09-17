@@ -1,0 +1,17 @@
+{
+  "cpId": "PUN-001-CP005",
+  "status": "HUMAN_REVIEW_PENDING",
+  "topic": "ਵਿਸ਼ੇਸ਼ਣ ਅਤੇ ਕਿਰਿਆ-ਵਿਸ਼ੇਸ਼ਣ",
+  "distribution": { "Easy": 40, "Medium": 40, "Hard": 40 },
+  "families": {
+    "F01": "Adjective identification",
+    "F02": "Adjective type",
+    "F03": "Contextual adjective",
+    "F04": "Adverb identification",
+    "F05": "Adverb type",
+    "F06": "Adjective/adverb discrimination",
+    "F07": "Modifier correction",
+    "F08": "Dual statement analysis"
+  },
+  "lifecycle": "REVIEW_ONLY"
+}
