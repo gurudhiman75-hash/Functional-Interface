@@ -1,6 +1,6 @@
 # PGK-001 CP025 — Punjab Personalities & Sports
 
-Status: REVIEW READY / AWAITING HUMAN APPROVAL
+Status: HUMAN APPROVED / REVIEW CONTENT FROZEN
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-025 — Punjab Personalities & Sports`
 Permanent QLs: `PGK-001-QL-168` to `PGK-001-QL-174`
@@ -10,7 +10,7 @@ Last reviewed: `2026-09`
 
 CP025 covers stable, high-value Punjab GK on major sports personalities identified with Punjab, landmark athletics and hockey achievements, important captaincy records, the Maharaja Ranjit Singh Award, and a synthesis layer across personalities, sports and awards.
 
-CP024 owns fairs, festivals and heritage. CP026 should continue with Punjab superlatives and unique facts rather than repeating sports-personality material.
+CP024 owns fairs, festivals and heritage. CP026 continues according to the canonical blueprint with district-specific Punjab GK rather than repeating sports-personality material.
 
 ## Learner-facing rules
 
@@ -82,4 +82,4 @@ Learner-facing questions and explanations remain source-free.
 
 ## Lifecycle
 
-CP025 V1 is review-ready and awaiting human approval. Runtime registration, Question Bank writes, mocks and publication remain separate later steps.
+CP025 V1 is human-approved and its review content is frozen. Runtime registration, Question Bank writes, mocks and publication remain separate later steps.
