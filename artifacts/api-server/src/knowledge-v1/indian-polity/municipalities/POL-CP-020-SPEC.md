@@ -1,7 +1,7 @@
 # POL-CP-020 — Municipalities
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
 ## Scope
 
@@ -69,6 +69,6 @@ This CP covers the constitutional framework for urban local government created b
 - Article 243ZG channels municipal election challenges into election petitions;
 - Twelfth Schedule contains 18 matters.
 
-## Gate
+## Approved gate
 
-Merge, Question Studio exposure, localization and chapter-wide production registration remain blocked until English V1 is approved.
+English V1 is approved and content-frozen. Merge to `New-main` is authorized. Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
