@@ -1,6 +1,6 @@
 # ENG-002 CP012 — Sentence Improvement: Voice & Narration — Source Audit V1
 
-Status: `IMPLEMENTED__AUTOMATED_VALIDATION_PASSED__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__POST_APPROVAL_GATE_PENDING`
 
 ## Donor authority
 
@@ -35,7 +35,7 @@ The generator does not invent facts or new voice/narration scenarios. It transfo
 
 ## Curated rule overlays
 
-Automated and learner-facing review identified four rule families where the generic donor mutation alone could not consistently supply three distinct Sentence Improvement alternatives without weak or duplicated choices. CP012 therefore applies deterministic source-generator overlays for:
+Automated and learner-facing review identified five rule families where the generic donor mutation alone could not consistently supply three distinct Sentence Improvement alternatives without weak or duplicated choices. CP012 therefore applies deterministic source-generator overlays for:
 
 - `GR-VNR-003` — intransitive verbs: removes malformed base-form shortcuts such as *had arrive* / *did arrived* and keeps the contrast on invalid passive treatment;
 - `GR-VNR-006` — reported backshift: supplies tense forms tied to the donor's explicit past reporting point;
@@ -56,29 +56,34 @@ Every explanation contains:
 
 No option-by-option analysis or shortcut language is used.
 
+## Approval boundary
+
+The exact human-approved review is pinned by `ENG002_CP012_HUMAN_EDITORIAL_APPROVAL_V1` to reviewed generator head `df464a97cc3d73949a216f4df3682d476737cf28`, Markdown SHA-256 `eb7a9023c87c0bd1098f398b55a3b608f5f6ebd7e6ad84042b147dd77b5d9a91`, and workflow artifact digest `sha256:696874430a61b987ef0a389aeb0c4cc299049345edae8bf0ca250dc9fe7057a6`.
+
+Explicit human editorial approval was granted on 2026-09-17. Any learner-facing generator change after the approved head requires a new review artifact and new approval.
+
 ## Automated validation
 
-The dedicated CP012 gate validates:
+The dedicated CP012 post-approval gate validates:
 
 - 2,000 deterministic generations per difficulty (6,000 total);
 - deterministic replay;
 - option uniqueness and answer-position balance;
 - rule and semantic-domain reachability;
 - all 68 deterministic review scenes;
+- Question Studio review-only lifecycle behavior;
 - review Markdown materialization; and
 - the API server build.
 
-The gate must be green on the exact review head before the Markdown is presented for human approval.
-
 ## Lifecycle
 
-This checkpoint is review-only until explicit human editorial approval of the generated Markdown artifact.
+Question Studio review-only registration is authorized. Learner-facing release remains locked.
 
+- `questionStudioReviewOnlyAuthorized: true`
 - `questionBankWritable: false`
 - `testEligible: false`
 - `mockTestEligible: false`
 - `publiclyPublishable: false`
+- `automaticStudentPublication: false`
 - `productionReleaseAuthorized: false`
 - revision policy: `SOURCE_GENERATOR_ONLY`
-
-Question Studio registration must not be added before approval.
