@@ -26,6 +26,21 @@ import { isEng002Cp009QuestionStudioRequestV1, languageV1Eng002Cp009QuestionStud
 import { isEng002Cp010QuestionStudioRequestV1, languageV1Eng002Cp010QuestionStudioAdapterV1 } from "./language-v1-eng002-cp010-adapter-v1";
 import { isEng002Cp011QuestionStudioRequestV1, languageV1Eng002Cp011QuestionStudioAdapterV1 } from "./language-v1-eng002-cp011-adapter-v1";
 import { isEng002Cp012QuestionStudioRequestV1, languageV1Eng002Cp012QuestionStudioAdapterV1 } from "./language-v1-eng002-cp012-adapter-v1";
+import { isEng002Cp013QuestionStudioRequestV1, languageV1Eng002Cp013QuestionStudioAdapterV1 } from "./language-v1-eng002-cp013-adapter-v1";
+
+function explicitEng002SelectorValues(request: QuestionStudioGenerationRequest) {
+  return [request.patternId, request.canonicalProblemId, request.questionLanguageId]
+    .map((value) => typeof value === "string" ? value.trim().toUpperCase() : "")
+    .filter(Boolean);
+}
+
+function explicitEng002CpSelector(request: QuestionStudioGenerationRequest) {
+  return explicitEng002SelectorValues(request).find((value) => /^ENG-002-CP\d{3}$/.test(value));
+}
+
+function explicitEng002RuleSelector(request: QuestionStudioGenerationRequest) {
+  return explicitEng002SelectorValues(request).find((value) => /^GR-[A-Z]+-\d{3}$/.test(value));
+}
 
 /** Composite adapter for approved English review-only generators. */
 export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
@@ -33,10 +48,45 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   listPackages() {
     return [
       ...languageV1Eng001Cp013QuestionStudioAdapterV1.listPackages(),
-      ...languageV1Eng002Cp012QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng002Cp013QuestionStudioAdapterV1.listPackages(),
     ];
   },
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    // Explicit ENG-002 checkpoint selectors are authoritative. This prevents broad topic aliases
+    // (for example `noun` matching `pronouns`) from stealing requests that name another CP.
+    switch (explicitEng002CpSelector(request)) {
+      case "ENG-002-CP001": return languageV1Eng002Cp001QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP002": return languageV1Eng002Cp002QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP003": return languageV1Eng002Cp003QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP004": return languageV1Eng002Cp004QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP005": return languageV1Eng002Cp005QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP006": return languageV1Eng002Cp006QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP007": return languageV1Eng002Cp007Cp008QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP008": return languageV1Eng002Cp007Cp008QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP009": return languageV1Eng002Cp009QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP010": return languageV1Eng002Cp010QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP011": return languageV1Eng002Cp011QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP012": return languageV1Eng002Cp012QuestionStudioAdapterV1.generate(request);
+      case "ENG-002-CP013": return languageV1Eng002Cp013QuestionStudioAdapterV1.generate(request);
+    }
+
+    // Explicit grammar-rule selectors are equally authoritative. Topic/subtopic aliases are only
+    // a fallback when the request does not name a checkpoint or rule.
+    const ruleSelector = explicitEng002RuleSelector(request);
+    if (ruleSelector?.startsWith("GR-SVA-")) return languageV1Eng002Cp001QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-TNS-")) return languageV1Eng002Cp002QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-ART-")) return languageV1Eng002Cp003QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-PRN-")) return languageV1Eng002Cp004QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-PRP-")) return languageV1Eng002Cp005QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-CMP-")) return languageV1Eng002Cp006QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-CON-") || ruleSelector?.startsWith("GR-NQN-")) return languageV1Eng002Cp007Cp008QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-GIP-")) return languageV1Eng002Cp009QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-MOD-")) return languageV1Eng002Cp010QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-CND-")) return languageV1Eng002Cp011QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-VNR-")) return languageV1Eng002Cp012QuestionStudioAdapterV1.generate(request);
+    if (ruleSelector?.startsWith("GR-USG-")) return languageV1Eng002Cp013QuestionStudioAdapterV1.generate(request);
+
+    if (isEng002Cp013QuestionStudioRequestV1(request)) return languageV1Eng002Cp013QuestionStudioAdapterV1.generate(request);
     if (isEng002Cp012QuestionStudioRequestV1(request)) return languageV1Eng002Cp012QuestionStudioAdapterV1.generate(request);
     if (isEng002Cp011QuestionStudioRequestV1(request)) return languageV1Eng002Cp011QuestionStudioAdapterV1.generate(request);
     if (isEng002Cp010QuestionStudioRequestV1(request)) return languageV1Eng002Cp010QuestionStudioAdapterV1.generate(request);

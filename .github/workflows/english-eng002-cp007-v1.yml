@@ -6,12 +6,10 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-eng002-cp007-v1.yml
   push:
     branches: [New-main]
     paths:
       - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-eng002-cp007-v1.yml
   workflow_dispatch:
 
 permissions:
@@ -35,6 +33,7 @@ jobs:
       - name: Enable pnpm
         run: corepack enable
       - name: Install workspace dependencies
+        timeout-minutes: 10
         run: pnpm install --frozen-lockfile
       - name: Compile ENG-002 CP007 test
         run: |
