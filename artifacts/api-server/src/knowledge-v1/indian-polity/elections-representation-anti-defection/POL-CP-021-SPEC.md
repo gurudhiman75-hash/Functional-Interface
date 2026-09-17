@@ -1,7 +1,8 @@
 # POL-CP-021 — Elections, Representation & Anti-Defection
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Approved:** 17 September 2026  
+**Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
 
@@ -29,7 +30,7 @@ CP021 owns the static constitutional and election-law layer for:
 - state-by-state mutable election schedules;
 - litigation trivia beyond stable constitutional principles.
 
-## Review profile
+## Frozen profile
 
 - 20 genuine QLs;
 - 80 review questions;
@@ -37,8 +38,7 @@ CP021 owns the static constitutional and election-law layer for:
 - four questions per QL;
 - A/B/C/D answer positions exactly balanced 20 each;
 - all learner stems end as direct exam questions and stay within 30 words;
-- explanations are unique, question-specific and 13–32 words;
-- review-only until explicit project-owner approval.
+- explanations are unique, question-specific and 13–32 words.
 
 ## Sources
 
