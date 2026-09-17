@@ -41,6 +41,37 @@ export const MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE = Object.freeze({
   enabled: true,
 } as const);
 
+const MEN002_FULL_CHAPTER_PATTERNS = MENSURATION_QUESTION_STUDIO_PATTERNS.filter(
+  (pattern) => pattern.packageId === MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE_ID,
+);
+
+const MEN002_FULL_CHAPTER_CP_IDS = Object.freeze(
+  [...new Set(MEN002_FULL_CHAPTER_PATTERNS.map((pattern) => pattern.cpId))].sort(),
+);
+
+export const MEN_002_FULL_CHAPTER_QUESTION_STUDIO_PACKAGE = Object.freeze({
+  id: MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE_ID,
+  packageId: MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE_ID,
+  type: "quant-v4",
+  section: "Quant",
+  domain: "quant",
+  topic: "Advanced Mathematics",
+  subtopic: "Mensuration",
+  name: "MEN-002 Solid Mensuration, Recasting & Composite Solids",
+  label: "Solid Mensuration, Recasting & Composite Solids",
+  generationDomain: "quant-v4",
+  cpIds: MEN002_FULL_CHAPTER_CP_IDS,
+  canonicalProblems: MEN002_FULL_CHAPTER_CP_IDS.map((cpId) => ({ id: cpId, label: cpId })),
+  supportedDifficulties: ["easy", "medium", "hard"],
+  supportedLanguages: ["en", "hi", "pa"],
+  enabled: true,
+  runtimeMode: "FULL_CHAPTER_REALISM_V2",
+  reviewStatus: "CHAPTER_REVIEWED_SOURCE_WITH_RELEASE_LOCK",
+  questionBankStatus: "NOT_STORED",
+  testEligibility: "INELIGIBLE",
+  publiclyPublishable: false,
+} as const);
+
 export type MenCp009StandardQuestionStudioRequest = Readonly<{
   packageId?: string;
   archetypeId?: string;
@@ -160,10 +191,6 @@ function shouldUseLegacyCp009Route(request: MenCp009StandardQuestionStudioReques
   return cpId === MEN_CP009_STANDARD_QUESTION_STUDIO_CHECKPOINT_ID
     || patternId === MEN_CP009_STANDARD_QUESTION_STUDIO_CHECKPOINT_ID;
 }
-
-const MEN002_FULL_CHAPTER_PATTERNS = MENSURATION_QUESTION_STUDIO_PATTERNS.filter(
-  (pattern) => pattern.packageId === MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE_ID,
-);
 
 function weightedPattern(
   eligible: typeof MEN002_FULL_CHAPTER_PATTERNS,
