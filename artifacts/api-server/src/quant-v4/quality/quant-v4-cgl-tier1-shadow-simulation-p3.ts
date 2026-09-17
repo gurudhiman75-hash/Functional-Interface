@@ -301,13 +301,18 @@ function generateDiRecords(input: {
   const records: QuantV4CglTier1ShadowQuestionRecord[] = [];
   let setIndex = 0;
   while (records.length < input.requestedCount && setIndex < input.requestedCount + 6) {
-    const [packageId, generate] = DI_GENERATORS[hash(`${input.seed}:set:${setIndex}`) % DI_GENERATORS.length]!;
+    const setSeed = `${input.seed}:set:${setIndex}`;
+    const [packageId, generate] = DI_GENERATORS[hash(setSeed) % DI_GENERATORS.length]!;
     try {
-      const set = generate({ seed: `${input.seed}:set:${setIndex}`, examProfile: "SSC_CGL_TIER_I" } as any) as any;
+      const set = generate({ seed: setSeed, examProfile: "SSC_CGL_TIER_I" } as any) as any;
       const questions = Array.isArray(set?.questions) ? set.questions : [];
       if (!questions.length) throw new Error(`${packageId} returned no questions.`);
-      for (const question of questions) {
-        if (records.length >= input.requestedCount) break;
+
+      const remaining = input.requestedCount - records.length;
+      const takeCount = Math.min(remaining, questions.length);
+      const startQuestionIndex = hash(`${setSeed}:question-window`) % questions.length;
+      for (let offset = 0; offset < takeCount; offset += 1) {
+        const question = questions[(startQuestionIndex + offset) % questions.length]!;
         records.push(runtimeRecord({
           sectionIndex: input.sectionIndex,
           ordinal: input.startOrdinal + records.length,
