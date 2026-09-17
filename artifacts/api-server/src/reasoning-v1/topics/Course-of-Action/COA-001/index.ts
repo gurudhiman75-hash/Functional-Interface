@@ -19,3 +19,6 @@ export * from "./cp004-generator.ts";
 export * from "./cp005-paired-presentation.ts";
 export * from "./cp006-generator.ts";
 export * from "./cp007-generator.ts";
+export * from "./cp008-source-census.ts";
+export * from "./cp008-profile-authorities.ts";
+export * from "./cp008-source-backed-profiles.ts";
