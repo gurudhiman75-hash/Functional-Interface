@@ -13,6 +13,7 @@ on:
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-eco001-adapter-v1.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-eco001-adapter-v1.test.ts"
+      - ".github/workflows/economy-content-engine-v1.yml"
   workflow_dispatch:
 
 concurrency:
@@ -139,6 +140,14 @@ jobs:
             throw new Error(`Expected ECO-001 exactly once in knowledge-v1 registry; found ${matches.length}`);
           }
           NODE
+
+      - name: Run Economy multilingual localization audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-economy/localization-v1/eco-cp005-cp006-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/economy/eco-cp005-cp006-audit-v1.mjs
+          node artifacts/api-server/dist/economy/eco-cp005-cp006-audit-v1.mjs
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
