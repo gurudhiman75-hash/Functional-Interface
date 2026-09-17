@@ -1,112 +1,63 @@
 import type { KnowledgeV1Difficulty } from "../../types";
+import { PART_1 } from "./sci-cp015-review-v1-part1";
+import { PART_2 } from "./sci-cp015-review-v1-part2";
+import { PART_3 } from "./sci-cp015-review-v1-part3";
+import { PART_4 } from "./sci-cp015-review-v1-part4";
 
-type ReviewSpec = readonly [number, KnowledgeV1Difficulty, string, string, readonly [string, string, string], string, readonly string[]];
+type ReviewSpec = readonly [number, KnowledgeV1Difficulty, string, string, readonly [string,string,string], string, readonly string[]];
 
 export type SciCp015ReviewQuestion = {
-  questionId: string; chapterId: "SCI-001"; cpId: "SCI-CP-015"; qlId: string; qlName: string;
-  difficulty: KnowledgeV1Difficulty; stem: string; options: string[]; correctIndex: number;
-  canonicalAnswer: string; explanation: string; sourceIds: string[]; sourceFactIds: string[];
-  reviewOnly: true; runtimeRegistered: false;
+  questionId:string; chapterId:"SCI-001"; cpId:"SCI-CP-015"; qlId:string; qlName:string;
+  difficulty:KnowledgeV1Difficulty; stem:string; options:string[]; correctIndex:number;
+  canonicalAnswer:string; explanation:string; sourceIds:string[]; sourceFactIds:string[];
+  reviewOnly:true; runtimeRegistered:false;
 };
 
 const SOURCE_IDS = Object.freeze(["NCERT-SCIENCE-X-ACIDS-BASES-SALTS", "NIOS-SECONDARY-SCIENCE-ACIDS-BASES-SALTS"]);
 
-export const SCI_CP015_QL_NAMES_V1: Record<number, string> = {
-  1: "Basic acid/base properties and ions",
+export const SCI_CP015_QL_NAMES_V1: Record<number,string> = {
+  1: "Acid/base ions, strength and concentration",
   2: "Indicators and colour changes",
-  3: "pH scale basics",
+  3: "pH and salt nature",
   4: "Characteristic acid/base reactions",
   5: "Neutralization and pH applications",
-  6: "Common salts and formulae",
+  6: "Common salt and chlor-alkali chemistry",
   7: "Baking soda, washing soda and bleaching powder",
-  8: "Water of crystallization, gypsum and plaster of Paris",
-  9: "Statement I/II",
-  10: "Mixed acids-bases-salts application",
+  8: "Water of crystallization, gypsum and POP",
+  9: "Integrated acid-base reasoning",
+  10: "Mixed acids-bases-salts application"
 };
 
-const REVIEW_SPECS: readonly ReviewSpec[] = Object.freeze([
-  [1,"Easy","Which ion is mainly responsible for the acidic nature of an aqueous solution?","H⁺ (or H₃O⁺) ions",["OH⁻ ions","Na⁺ ions","Cl⁻ ions"],"Acids produce hydrogen ions in water, which are present mainly as hydronium ions, H₃O⁺. These ions give an aqueous solution its acidic behaviour.",["sci015-acid-hydrogen-ion"]],
-  [1,"Easy","Which ion is mainly responsible for the basic nature of an aqueous solution?","OH⁻ ions",["H⁺ ions","Cl⁻ ions","CO₃²⁻ ions only"],"Bases produce hydroxide ions, OH⁻, in water. A higher concentration of OH⁻ than H⁺ gives the solution basic character.",["sci015-base-hydroxide-ion"]],
-  [1,"Easy","Which taste is commonly associated with acids?","sour",["bitter","salty only","sweet"],"Many common acids have a sour taste, such as citric acid in lemon. Tasting laboratory chemicals is unsafe, so this is only a descriptive property.",["sci015-acid-sour"]],
-  [1,"Easy","Which property is commonly associated with bases?","bitter and soapy to touch",["sour and non-slippery","always colourless","always gaseous"],"Many bases are bitter and their solutions may feel soapy or slippery. These are general properties, though chemicals should not be tested by touch or taste.",["sci015-base-bitter-soapy"]],
-  [1,"Easy","Hydrochloric acid has the formula:","HCl",["H₂SO₄","HNO₃","NaOH"],"Hydrochloric acid is aqueous hydrogen chloride and is represented by HCl. H₂SO₄ and HNO₃ are other acids, while NaOH is a base.",["sci015-hcl-formula"]],
-  [1,"Easy","Sodium hydroxide is classified as a:","base",["acid","neutral salt only","indicator"],"Sodium hydroxide, NaOH, releases OH⁻ ions in water. That makes its aqueous solution strongly basic.",["sci015-naoh-base"]],
-  [2,"Easy","Blue litmus paper turns which colour in an acidic solution?","red",["blue","green","pink"],"Acids turn blue litmus red. This colour change is a standard simple test for acidic solutions.",["sci015-blue-litmus-acid"]],
-  [2,"Easy","Red litmus paper turns which colour in a basic solution?","blue",["red","yellow","orange"],"Bases turn red litmus blue. If no such change occurs, the solution may be neutral or acidic.",["sci015-red-litmus-base"]],
-  [2,"Easy","Phenolphthalein is colourless in an acidic solution and becomes what colour in a basic solution?","pink",["red","green","blue"],"Phenolphthalein remains colourless in acidic medium but turns pink in basic medium. This makes it useful for distinguishing many acids and bases.",["sci015-phenolphthalein-base"]],
-  [2,"Easy","Methyl orange is red in an acidic solution and generally becomes what colour in a basic solution?","yellow",["blue","pink","violet"],"Methyl orange is red in acidic medium and yellow in basic medium. Around its transition range it may appear orange.",["sci015-methyl-orange-base"]],
-  [2,"Easy","Turmeric indicator generally turns reddish-brown in the presence of a:","base",["neutral salt only","strong acid only","distilled water"],"Turmeric remains yellow in acidic or neutral conditions but develops a reddish-brown colour with bases. It is a familiar natural indicator.",["sci015-turmeric-base"]],
-  [2,"Easy","Litmus is obtained from organisms known as:","lichens",["mosses only","ferns","bacteria only"],"Litmus dye is traditionally obtained from certain lichens. It changes colour depending on whether the medium is acidic or basic.",["sci015-litmus-lichen"]],
-  [3,"Easy","A neutral solution at about room temperature has a pH close to:","7",["0","3","14"],"On the usual pH scale, a neutral aqueous solution such as pure water is around pH 7. Values below 7 are acidic and values above 7 are basic.",["sci015-ph-neutral"]],
-  [3,"Easy","A solution with pH 3 is:","acidic",["neutral","basic","necessarily a salt only"],"A pH below 7 indicates an acidic solution. Since pH 3 is well below 7, the solution is acidic.",["sci015-ph3-acid"]],
-  [3,"Easy","A solution with pH 11 is:","basic",["acidic","neutral","always distilled water"],"A pH above 7 indicates a basic solution. Therefore a solution of pH 11 is basic.",["sci015-ph11-base"]],
-  [3,"Easy","Which pH value represents the most acidic solution among these?","2",["5","7","10"],"Lower pH means greater acidity on the pH scale. Among 2, 5, 7 and 10, pH 2 is the most acidic.",["sci015-lowest-ph-most-acid"]],
-  [3,"Easy","Which pH value represents the most basic solution among these?","13",["3","6","7"],"Higher pH values above 7 indicate stronger basic character in this simple comparison. Therefore pH 13 is the most basic of the choices.",["sci015-highest-ph-most-base"]],
-  [3,"Easy","As an acidic solution becomes less acidic, its pH generally:","increases toward 7",["decreases toward 0","always becomes exactly 14","does not change"],"Reducing acidity lowers the relative concentration of hydrogen ions. The pH therefore rises toward the neutral value of 7.",["sci015-acid-less-acid-ph"]],
-  [4,"Medium","What gas is usually produced when a dilute acid reacts with a reactive metal such as zinc?","hydrogen",["oxygen","nitrogen","chlorine"],"A reactive metal can displace hydrogen from a dilute acid, producing a salt and hydrogen gas. For example, Zn + 2HCl → ZnCl₂ + H₂.",["sci015-acid-metal-hydrogen"]],
-  [4,"Medium","When hydrochloric acid reacts with sodium carbonate, which gas is released?","carbon dioxide",["hydrogen","oxygen","ammonia"],"Acid-carbonate reactions form a salt, water and carbon dioxide. The CO₂ is seen as effervescence or bubbling.",["sci015-acid-carbonate-co2"]],
-  [4,"Medium","Acid + metal oxide generally produces:","salt and water",["metal and hydrogen only","acid and base","only carbon dioxide"],"Metal oxides are generally basic. They neutralize acids to form a salt and water.",["sci015-acid-metal-oxide"]],
-  [4,"Medium","HCl + NaOH → NaCl + H₂O is an example of:","neutralization",["displacement","decomposition","photochemical reaction"],"Hydrochloric acid reacts with sodium hydroxide to form salt and water. This acid-base reaction is called neutralization.",["sci015-hcl-naoh-neutralization"]],
-  [4,"Medium","A metal carbonate reacts with an acid to form salt, water and:","carbon dioxide",["hydrogen","oxygen","chlorine"],"Carbonates react with acids to release CO₂ along with water and a salt. The gas can be identified by its effect on limewater.",["sci015-carbonate-acid-products"]],
-  [4,"Medium","Which gas is produced when sodium hydrogen carbonate reacts with dilute hydrochloric acid?","carbon dioxide",["hydrogen","oxygen","sulphur dioxide"],"NaHCO₃ reacts with HCl to form NaCl, water and CO₂. The carbon dioxide causes visible effervescence.",["sci015-bicarbonate-hcl-co2"]],
-  [5,"Medium","A neutralization reaction between an acid and a base mainly forms:","salt and water",["metal and hydrogen","carbon dioxide only","two acids"],"H⁺ from the acid combines with OH⁻ from the base to form water. The remaining ions form a salt.",["sci015-neutralization-products"]],
-  [5,"Medium","Why can a mild base be used to relieve excess stomach acidity?","it neutralizes some of the excess acid",["it increases H⁺ concentration","it makes the stomach strongly acidic","it converts acid directly into oxygen"],"Antacids contain mild bases that react with excess stomach acid. Neutralization reduces acidity and can relieve acid-related discomfort.",["sci015-antacid-neutralization"]],
-  [5,"Medium","Tooth enamel can begin to be damaged when mouth pH falls below about:","5.5",["7.0","9.5","13.0"],"Tooth enamel is attacked under sufficiently acidic conditions, commonly stated below about pH 5.5. Toothpaste is often mildly basic and helps neutralize acids in the mouth.",["sci015-tooth-ph"]],
-  [5,"Medium","Farmers may add quicklime or slaked lime to soil that is too:","acidic",["basic","neutral","salty only"],"Quicklime and slaked lime are basic substances. They can help neutralize excess acidity in soil and raise its pH.",["sci015-lime-acid-soil"]],
-  [5,"Medium","An ant sting contains an acid. A mild base such as baking soda may help because it:","partly neutralizes the acid",["adds more acid","produces only oxygen","lowers pH further"],"The acidic material can be partly neutralized by a mild base. This is an everyday application of acid-base neutralization.",["sci015-ant-sting-neutralization"]],
-  [5,"Medium","If a solution changes from pH 2 to pH 5, it has become:","less acidic",["more acidic","strongly basic","unchanged in acidity"],"Both values are below 7, so the solution remains acidic. But pH 5 is higher than pH 2, meaning the acidity has decreased.",["sci015-ph2-to5"]],
-  [6,"Medium","The chemical formula of common salt is:","NaCl",["Na₂CO₃","NaHCO₃","CaOCl₂"],"Common salt is sodium chloride, NaCl. It is also an important starting material for several industrial chemicals.",["sci015-nacl-formula"]],
-  [6,"Medium","The chemical name of NaHCO₃ is:","sodium hydrogen carbonate",["sodium carbonate","calcium carbonate","sodium chloride"],"NaHCO₃ is sodium hydrogen carbonate, commonly called baking soda. It contains the hydrogen carbonate ion, HCO₃⁻.",["sci015-nahco3-name"]],
-  [6,"Medium","Washing soda is commonly represented as:","Na₂CO₃·10H₂O",["NaHCO₃","NaCl","CaSO₄·2H₂O"],"Washing soda is sodium carbonate decahydrate. The ·10H₂O shows ten water molecules of crystallization per formula unit.",["sci015-washing-soda-formula"]],
-  [6,"Medium","Bleaching powder is commonly represented in school chemistry as:","CaOCl₂",["CaCO₃","CaSO₄","NaCl"],"Bleaching powder is commonly written as CaOCl₂ in school-level chemistry. It is produced using chlorine and dry slaked lime.",["sci015-bleaching-powder-formula"]],
-  [6,"Medium","The formula of gypsum is:","CaSO₄·2H₂O",["CaSO₄·½H₂O","Na₂CO₃·10H₂O","CaCO₃"],"Gypsum is calcium sulphate dihydrate, so it contains two water molecules of crystallization. Heating it partially removes this water to form plaster of Paris.",["sci015-gypsum-formula"]],
-  [6,"Medium","Plaster of Paris is commonly represented as:","CaSO₄·½H₂O",["CaSO₄·2H₂O","NaHCO₃","CaOCl₂"],"Plaster of Paris is calcium sulphate hemihydrate, written CaSO₄·½H₂O. It forms when gypsum is heated carefully.",["sci015-pop-formula"]],
-  [7,"Medium","Baking soda is commonly used in baking because on heating it can release:","carbon dioxide",["chlorine","nitrogen","hydrogen only"],"Sodium hydrogen carbonate releases CO₂ on heating. The gas forms bubbles that help dough or batter rise and become soft.",["sci015-baking-soda-co2"]],
-  [7,"Medium","Which substance is commonly used as an ingredient in baking powder?","sodium hydrogen carbonate",["sodium chloride only","calcium sulphate only","copper sulphate"],"Baking powder contains sodium hydrogen carbonate along with a mild edible acid. CO₂ produced during heating helps baked food rise.",["sci015-baking-powder-bicarbonate"]],
-  [7,"Medium","Washing soda is useful for removing permanent hardness of water because it supplies:","carbonate ions",["hydrogen ions","chloride ions only","nitrate ions"],"Carbonate ions can precipitate calcium and magnesium ions as insoluble carbonates. Removing these ions reduces permanent hardness.",["sci015-washing-soda-hardness"]],
-  [7,"Medium","Bleaching powder is widely used for:","disinfecting drinking water",["making water strongly acidic","producing hydrogen in food","neutralizing every salt"],"Bleaching powder releases chlorine-containing species that kill many microorganisms. This is why it has been used for disinfection of water.",["sci015-bleaching-powder-disinfect"]],
-  [7,"Medium","Common salt is an important raw material for producing sodium hydroxide by the:","chlor-alkali process",["Haber process","Contact process","Solvay decomposition only"],"Electrolysis of brine in the chlor-alkali process produces sodium hydroxide, chlorine and hydrogen. Sodium chloride solution is the starting material.",["sci015-chlor-alkali"]],
-  [7,"Medium","Which three products are formed during electrolysis of brine in the chlor-alkali process?","sodium hydroxide, chlorine and hydrogen",["sodium carbonate, oxygen and nitrogen","calcium hydroxide, chlorine and carbon dioxide","sodium chloride, water and oxygen only"],"Electrolysis of concentrated sodium chloride solution produces NaOH in solution, chlorine at the anode and hydrogen at the cathode.",["sci015-chlor-alkali-products"]],
-  [8,"Medium","Water molecules chemically associated with a crystalline salt are called:","water of crystallization",["free water only","neutralization water","distilled water"],"Some salts contain a fixed number of water molecules as part of their crystal structure. These are called water of crystallization.",["sci015-water-crystallization-definition"]],
-  [8,"Medium","CuSO₄·5H₂O contains how many water molecules of crystallization per formula unit?","5",["2","10","1"],"The dot notation ·5H₂O directly shows five water molecules associated with each CuSO₄ formula unit in the crystal.",["sci015-cuso4-five-water"]],
-  [8,"Medium","On heating blue hydrated copper sulphate, it becomes white mainly because it:","loses water of crystallization",["gains carbon dioxide","forms sodium chloride","gains more water"],"Hydrated CuSO₄·5H₂O is blue. Heating removes its water of crystallization, leaving nearly white anhydrous CuSO₄.",["sci015-cuso4-heating"]],
-  [8,"Medium","Plaster of Paris is prepared by controlled heating of:","gypsum",["common salt","baking soda","bleaching powder"],"Gypsum, CaSO₄·2H₂O, loses part of its water on heating. This forms calcium sulphate hemihydrate, plaster of Paris.",["sci015-pop-from-gypsum"]],
-  [8,"Medium","When water is added to plaster of Paris, it hardens mainly by forming:","gypsum",["sodium chloride","calcium oxide","sodium carbonate"],"Plaster of Paris takes up water and converts back toward gypsum. Interlocking gypsum crystals make the material set into a hard mass.",["sci015-pop-setting"]],
-  [8,"Medium","Why is plaster of Paris useful for making casts?","it forms a workable paste with water and then sets hard",["it remains a permanent gas","it dissolves without setting","it is always strongly acidic"],"Plaster of Paris can be shaped while wet and then hardens as hydrated calcium sulphate forms. This makes it useful for moulds and casts.",["sci015-pop-casts"]],
-  [9,"Hard","Consider the statements:\nI. Acids produce H⁺/H₃O⁺ ions in water.\nII. Bases produce OH⁻ ions in water.\nWhich is correct?","Both I and II",["I only","II only","Neither I nor II"],"These ions explain the characteristic behaviour of acids and bases in aqueous solution. Acids increase hydrogen/hydronium ions, while bases increase hydroxide ions.",["sci015-statement-ions"]],
-  [9,"Hard","Consider the statements:\nI. A solution of pH 4 is acidic.\nII. A solution of pH 10 is more acidic than a solution of pH 4.\nWhich is correct?","I only",["II only","Both I and II","Neither I nor II"],"pH 4 is below 7, so it is acidic. pH 10 is basic, not more acidic, so Statement II is incorrect.",["sci015-statement-ph"]],
-  [9,"Hard","Consider the statements:\nI. Acid + carbonate can release carbon dioxide.\nII. Acid + reactive metal commonly releases hydrogen.\nWhich is correct?","Both I and II",["I only","II only","Neither I nor II"],"Carbonates form CO₂ with acids, while many reactive metals displace hydrogen from dilute acids. These are two standard reaction patterns.",["sci015-statement-acid-reactions"]],
-  [9,"Hard","Consider the statements:\nI. Washing soda contains water of crystallization.\nII. Baking soda is sodium carbonate decahydrate.\nWhich is correct?","I only",["II only","Both I and II","Neither I nor II"],"Washing soda is Na₂CO₃·10H₂O and contains water of crystallization. Baking soda is NaHCO₃, so Statement II is incorrect.",["sci015-statement-washing-baking"]],
-  [9,"Hard","Consider the statements:\nI. Plaster of Paris is obtained by heating gypsum.\nII. Adding water to plaster of Paris helps it set into a hard mass.\nWhich is correct?","Both I and II",["I only","II only","Neither I nor II"],"Heating gypsum removes part of its water to form plaster of Paris. Adding water reverses this partly and produces hard-setting gypsum crystals.",["sci015-statement-pop"]],
-  [9,"Hard","Consider the statements:\nI. Phenolphthalein is pink in basic medium.\nII. Blue litmus turns red in basic medium.\nWhich is correct?","I only",["II only","Both I and II","Neither I nor II"],"Phenolphthalein turns pink in base, so Statement I is correct. Blue litmus turns red in acid, not base, so Statement II is incorrect.",["sci015-statement-indicators"]],
-  [10,"Hard","An unknown solution turns red litmus blue and has pH 11. What is the best conclusion?","the solution is basic",["the solution is strongly acidic","the solution is neutral","the pH reading must be 7"],"Both observations point to a base: bases turn red litmus blue and have pH above 7. The two tests therefore support the same conclusion.",["sci015-application-basic"]],
-  [10,"Hard","A colourless solution turns blue litmus red and reacts with zinc to release a gas. Which description fits best?","an acid releasing hydrogen with zinc",["a base releasing oxygen with zinc","a neutral salt producing nitrogen","distilled water producing chlorine"],"Turning blue litmus red indicates acidity. Reactive zinc can then displace hydrogen from the acid, producing H₂ gas.",["sci015-application-acid-zinc"]],
-  [10,"Hard","A farmer finds soil pH is too low for a crop. Which treatment is most suitable among these?","add slaked lime in a suitable amount",["add more acid","add vinegar","add ammonium chloride only"],"Low pH means the soil is too acidic. Slaked lime is basic and can neutralize part of this acidity, raising the soil pH.",["sci015-application-soil"]],
-  [10,"Hard","A white powder releases CO₂ on heating and is used in baking. Which substance is most likely?","sodium hydrogen carbonate",["sodium chloride","gypsum","calcium oxide"],"Baking soda, NaHCO₃, decomposes on heating and releases carbon dioxide. That gas helps dough rise, matching both clues.",["sci015-application-baking-soda"]],
-  [10,"Hard","A hydrated salt loses water on heating and changes colour; adding water restores the original colour. What concept does this demonstrate?","water of crystallization",["metal displacement","rancidity","sublimation only"],"Hydrated salts can contain fixed water molecules in their crystals. Heating removes this water, and rehydration can restore the hydrated form and its colour.",["sci015-application-hydrated-salt"]],
-  [10,"Hard","A solution has pH 2. After partial neutralization its pH becomes 6. What has happened?","it is still acidic but less acidic than before",["it has become strongly basic","its acidity has increased","it must now be neutral"],"Both pH 2 and pH 6 are below 7, so the solution remains acidic. The increase in pH shows that some acidity has been neutralized.",["sci015-application-ph-neutralization"]],
-]);
+const REVIEW_SPECS: readonly ReviewSpec[] = [...PART_1,...PART_2,...PART_3,...PART_4];
+const pad3=(n:number)=>String(n).padStart(3,"0");
+function buildOptions(answer:string,distractors:readonly [string,string,string],correctIndex:number){const options=[...distractors];options.splice(correctIndex,0,answer);return options;}
 
-function pad3(value: number) { return String(value).padStart(3, "0"); }
-function buildOptions(answer: string, distractors: readonly [string,string,string], correctIndex: number) { const options=[...distractors]; options.splice(correctIndex,0,answer); return options; }
+export const SCI_CP015_REVIEW_V1: readonly SciCp015ReviewQuestion[] = Object.freeze(
+  REVIEW_SPECS.map((spec,index)=>{const [ql,difficulty,stem,answer,distractors,explanation,factIds]=spec;const correctIndex=index%4;return Object.freeze({
+    questionId:`SCI-CP-015-REV-${pad3(index+1)}`,chapterId:"SCI-001" as const,cpId:"SCI-CP-015" as const,
+    qlId:`SCI-015-QL-${pad3(ql)}`,qlName:SCI_CP015_QL_NAMES_V1[ql],difficulty,stem,
+    options:buildOptions(answer,distractors,correctIndex),correctIndex,canonicalAnswer:answer,explanation,
+    sourceIds:[...SOURCE_IDS],sourceFactIds:[...factIds],reviewOnly:true as const,runtimeRegistered:false as const
+  });})
+);
 
-export const SCI_CP015_REVIEW_V1: readonly SciCp015ReviewQuestion[] = Object.freeze(REVIEW_SPECS.map((spec,index) => {
-  const [ql,difficulty,stem,answer,distractors,explanation,factIds]=spec; const correctIndex=index%4;
-  return Object.freeze({questionId:`SCI-CP-015-REV-${pad3(index+1)}`,chapterId:"SCI-001" as const,cpId:"SCI-CP-015" as const,
-    qlId:`SCI-015-QL-${pad3(ql)}`,qlName:SCI_CP015_QL_NAMES_V1[ql],difficulty,stem,options:buildOptions(answer,distractors,correctIndex),correctIndex,
-    canonicalAnswer:answer,explanation,sourceIds:[...SOURCE_IDS],sourceFactIds:[...factIds],reviewOnly:true as const,runtimeRegistered:false as const});
-}));
-
-export function validateSciCp015ReviewV1() {
-  const errors:string[]=[]; const qlCounts:Record<string,number>={}; const difficultyCounts:Record<string,number>={};
-  const answerPositionCounts:Record<string,number>={A:0,B:0,C:0,D:0}; const seenIds=new Set<string>(); const seenStems=new Set<string>();
-  for(const q of SCI_CP015_REVIEW_V1){qlCounts[q.qlId]=(qlCounts[q.qlId]??0)+1;difficultyCounts[q.difficulty]=(difficultyCounts[q.difficulty]??0)+1;answerPositionCounts[["A","B","C","D"][q.correctIndex]]+=1;
-    if(seenIds.has(q.questionId))errors.push(`Duplicate questionId: ${q.questionId}`);seenIds.add(q.questionId);if(seenStems.has(q.stem))errors.push(`Duplicate stem: ${q.stem}`);seenStems.add(q.stem);
-    if(q.options.length!==4||new Set(q.options).size!==4)errors.push(`${q.questionId}: option contract failed`);if(q.options[q.correctIndex]!==q.canonicalAnswer)errors.push(`${q.questionId}: keyed answer mismatch`);
-    if(!q.explanation.trim())errors.push(`${q.questionId}: missing explanation`);if(!q.sourceIds.length||!q.sourceFactIds.length)errors.push(`${q.questionId}: missing provenance`);if(!q.reviewOnly||q.runtimeRegistered)errors.push(`${q.questionId}: lifecycle violation`);}
-  if(SCI_CP015_REVIEW_V1.length!==60)errors.push(`Expected 60 questions, found ${SCI_CP015_REVIEW_V1.length}`);
-  for(let ql=1;ql<=10;ql++){const id=`SCI-015-QL-${pad3(ql)}`;if(qlCounts[id]!==6)errors.push(`${id}: expected 6, found ${qlCounts[id]??0}`);}
-  for(const [d,n] of Object.entries({Easy:18,Medium:30,Hard:12}))if(difficultyCounts[d]!==n)errors.push(`${d}: expected ${n}, found ${difficultyCounts[d]??0}`);
-  for(const p of ["A","B","C","D"])if(answerPositionCounts[p]!==15)errors.push(`${p}: expected 15, found ${answerPositionCounts[p]}`);
-  return {valid:errors.length===0,errors,totalQuestions:SCI_CP015_REVIEW_V1.length,qlCounts,difficultyCounts,answerPositionCounts};
+export function validateSciCp015ReviewV1(){
+ const errors:string[]=[]; const qlCounts:Record<string,number>={}; const difficultyCounts:Record<string,number>={};
+ const answerPositionCounts:Record<string,number>={A:0,B:0,C:0,D:0}; const seenIds=new Set<string>(); const seenStems=new Set<string>();
+ for(const q of SCI_CP015_REVIEW_V1){
+   qlCounts[q.qlId]=(qlCounts[q.qlId]??0)+1; difficultyCounts[q.difficulty]=(difficultyCounts[q.difficulty]??0)+1;
+   answerPositionCounts[["A","B","C","D"][q.correctIndex]]+=1;
+   if(seenIds.has(q.questionId))errors.push(`Duplicate questionId: ${q.questionId}`); seenIds.add(q.questionId);
+   if(seenStems.has(q.stem))errors.push(`Duplicate stem: ${q.stem}`); seenStems.add(q.stem);
+   if(q.options.length!==4||new Set(q.options).size!==4)errors.push(`${q.questionId}: option contract failed`);
+   if(q.options[q.correctIndex]!==q.canonicalAnswer)errors.push(`${q.questionId}: keyed answer mismatch`);
+   if(!q.explanation.trim())errors.push(`${q.questionId}: missing explanation`);
+   if(!q.sourceIds.length||!q.sourceFactIds.length)errors.push(`${q.questionId}: missing provenance`);
+   if(!q.reviewOnly||q.runtimeRegistered)errors.push(`${q.questionId}: lifecycle violation`);
+ }
+ if(SCI_CP015_REVIEW_V1.length!==60)errors.push(`Expected 60 questions, found ${SCI_CP015_REVIEW_V1.length}`);
+ for(let ql=1;ql<=10;ql++){const id=`SCI-015-QL-${pad3(ql)}`;if(qlCounts[id]!==6)errors.push(`${id}: expected 6, found ${qlCounts[id]??0}`);}
+ for(const [d,n] of Object.entries({Easy:18,Medium:30,Hard:12}))if(difficultyCounts[d]!==n)errors.push(`${d}: expected ${n}, found ${difficultyCounts[d]??0}`);
+ for(const p of ["A","B","C","D"])if(answerPositionCounts[p]!==15)errors.push(`${p}: expected 15, found ${answerPositionCounts[p]}`);
+ return {valid:errors.length===0,errors,totalQuestions:SCI_CP015_REVIEW_V1.length,qlCounts,difficultyCounts,answerPositionCounts};
 }
