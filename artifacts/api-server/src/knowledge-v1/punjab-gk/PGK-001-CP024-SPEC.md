@@ -1,6 +1,6 @@
 # PGK-001 CP024 — Fairs, Festivals & Heritage
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-024 — Fairs, Festivals & Heritage`
 Permanent QLs: `PGK-001-QL-161` to `PGK-001-QL-167`
@@ -65,4 +65,4 @@ Internal verification prioritises Government of Punjab and district-administrati
 
 ## Lifecycle
 
-CP024 V1 is review-only. It is not registered for Question Studio runtime generation, Question Bank writes, mocks or publication before explicit human approval.
+CP024 V1 is HUMAN APPROVED and frozen. Runtime registration remains a separate later step and has not been performed.
