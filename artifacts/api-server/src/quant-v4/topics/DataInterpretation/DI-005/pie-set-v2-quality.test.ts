@@ -8,13 +8,16 @@ let checkedSets = 0;
 let checkedQuestions = 0;
 let countQualityChecks = 0;
 let differenceQualityChecks = 0;
+let hardRatioCalibrationChecks = 0;
+let hardAngleCalibrationChecks = 0;
 
 for (const profile of profiles) {
   for (let index = 1; index <= 120; index += 1) {
     const seed = `DI005-V2-QUALITY-${String(index).padStart(3, "0")}`;
     const first = generateDi005V2ReviewSet({ seed, examProfile: profile });
     const replay = generateDi005V2ReviewSet({ seed, examProfile: profile });
-    assert.deepEqual(first.questions, replay.questions, `${profile}/${seed} quality options are not deterministic.`);
+    assert.deepEqual(first.questions, replay.questions, `${profile}/${seed} quality output is not deterministic.`);
+    assert.equal(first.validation.valid, true, `${profile}/${seed} review-quality validation failed.`);
     checkedSets += 1;
 
     for (const question of first.questions) {
@@ -45,17 +48,39 @@ for (const profile of profiles) {
         assert.ok(!question.optionMetadata.some((option) => option.misconceptionId === "USE_PERCENT_GAP_AS_COUNT"));
         differenceQualityChecks += 1;
       }
+
+      if (question.kind === "RATIO_OF_TWO_SECTORS") {
+        const hidden = first.stimulus.hiddenPercentIndex;
+        const firstIndex = Number(question.evidence.firstIndex);
+        const secondIndex = Number(question.evidence.secondIndex);
+        assert.ok(firstIndex === hidden || secondIndex === hidden, `${profile}/${seed} Hard ratio does not require the hidden sector.`);
+        assert.match(question.explanation.steps[0] ?? "", /100%/u, `${profile}/${seed} Hard ratio explanation does not recover the missing share first.`);
+        hardRatioCalibrationChecks += 1;
+      }
+
+      if (question.kind === "COMBINED_SECTOR_ANGLE") {
+        const hidden = first.stimulus.hiddenPercentIndex;
+        const firstIndex = Number(question.evidence.firstIndex);
+        const secondIndex = Number(question.evidence.secondIndex);
+        assert.ok(firstIndex === hidden || secondIndex === hidden, `${profile}/${seed} Hard combined-angle task does not require the hidden sector.`);
+        assert.match(question.explanation.steps[0] ?? "", /100%/u, `${profile}/${seed} Hard combined-angle explanation does not recover the missing share first.`);
+        hardAngleCalibrationChecks += 1;
+      }
     }
   }
 }
 
 assert.ok(countQualityChecks >= 30, `Expected substantial sector-count coverage, saw ${countQualityChecks}.`);
 assert.ok(differenceQualityChecks >= 30, `Expected substantial difference-count coverage, saw ${differenceQualityChecks}.`);
+assert.ok(hardRatioCalibrationChecks >= 30, `Expected substantial calibrated Hard ratio coverage, saw ${hardRatioCalibrationChecks}.`);
+assert.ok(hardAngleCalibrationChecks >= 30, `Expected substantial calibrated Hard combined-angle coverage, saw ${hardAngleCalibrationChecks}.`);
 
 console.log(JSON.stringify({
-  status: "PASS_DI_005_PIE_V2_OPTION_QUALITY",
+  status: "PASS_DI_005_PIE_V2_LEARNER_QUALITY",
   checkedSets,
   checkedQuestions,
   countQualityChecks,
   differenceQualityChecks,
+  hardRatioCalibrationChecks,
+  hardAngleCalibrationChecks,
 }));
