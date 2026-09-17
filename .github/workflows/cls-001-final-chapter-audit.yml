@@ -1,0 +1,62 @@
+name: Validate CLS-001 final chapter audit
+
+on:
+  push:
+    branches:
+      - audit/cls-001-final-chapter-20260917
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-cls001-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-cls001-adapter-v2.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-composite-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-cls001-adapter.test.ts
+      - .github/workflows/cls-001-final-chapter-audit.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-cls001-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-cls001-adapter-v2.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-composite-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-cls001-adapter.test.ts
+      - .github/workflows/cls-001-final-chapter-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-cls-001-final-chapter-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build current API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle and run CLS-001 Question Studio review-only gate
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/reasoning-v1-cls001-adapter.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1-cls001-adapter.test.mjs
+          node artifacts/api-server/dist/reasoning-v1-cls001-adapter.test.mjs
+      - name: Prove CP003 localized V5 parity/editorial layer
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-003/cp003-localized-runtime-v5.test.ts
+      - name: Prove CP004 localized review runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-004/cp004-localized-runtime.test.ts
+      - name: Prove CP005 learner review V2
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-005/cp005-learner-review-v2.test.ts
+      - name: Prove CP006 learner review V2
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-006/cp006-learner-review-v2.test.ts
+      - name: Prove CP007 localized V3 learner layer
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-007/cp007-localized-runtime-v3.test.ts
