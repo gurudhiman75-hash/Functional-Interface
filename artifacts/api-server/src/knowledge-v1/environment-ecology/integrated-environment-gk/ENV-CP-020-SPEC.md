@@ -2,9 +2,9 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-020 Integrated Environment GK  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V1  
-**Runtime registration:** blocked pending project-owner approval
+**Runtime registration:** blocked; separate integration step
 
 ## Purpose
 
@@ -35,7 +35,7 @@ CP020 is an integration layer only. The underlying factual authority remains wit
 - current counts, rankings, office-holders or latest designations
 - facts not already covered or intentionally deferred by CP001–CP019
 - obscure legal sections, COP trivia or changing scheme details
-- Question Studio/runtime registration before explicit approval
+- Question Studio/runtime registration until the separate post-audit integration step
 
 ## Learner-facing rules
 
@@ -47,7 +47,7 @@ CP020 is an integration layer only. The underlying factual authority remains wit
 - no internal CP/QL/source labels in learner-facing text
 - Hard difficulty comes from close distinctions, two-step associations and multi-pair matching
 
-## Review contract
+## Frozen review contract
 
 - 12 QLs
 - 4 questions per QL
@@ -57,4 +57,8 @@ CP020 is an integration layer only. The underlying factual authority remains wit
 - deterministic generation
 - source/fact provenance on every item
 - every QL integrates material from multiple earlier CPs
-- review-only; no runtime registration before explicit project-owner approval
+- V1 approved by project owner on 2026-09-17
+
+## Next step
+
+After merge, ENV-001 moves to a full exhaustive audit of ENV-CP-001 through ENV-CP-020 before multilingual/localization work and final Question Studio/runtime integration.
