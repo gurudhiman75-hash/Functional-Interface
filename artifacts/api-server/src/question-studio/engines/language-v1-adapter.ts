@@ -27,19 +27,29 @@ import { isEng002Cp010QuestionStudioRequestV1, languageV1Eng002Cp010QuestionStud
 import { isEng002Cp011QuestionStudioRequestV1, languageV1Eng002Cp011QuestionStudioAdapterV1 } from "./language-v1-eng002-cp011-adapter-v1";
 import { isEng002Cp012QuestionStudioRequestV1, languageV1Eng002Cp012QuestionStudioAdapterV1 } from "./language-v1-eng002-cp012-adapter-v1";
 import { isEng002Cp013QuestionStudioRequestV1, languageV1Eng002Cp013QuestionStudioAdapterV1 } from "./language-v1-eng002-cp013-adapter-v1";
+import { ENG003_QUESTION_STUDIO_PACKAGE_ID_V1, languageV1Eng003Cp001QuestionStudioAdapterV1 } from "./language-v1-eng003-cp001-adapter-v1";
 
-function explicitEng002SelectorValues(request: QuestionStudioGenerationRequest) {
+function explicitSelectorValues(request: QuestionStudioGenerationRequest) {
   return [request.patternId, request.canonicalProblemId, request.questionLanguageId]
     .map((value) => typeof value === "string" ? value.trim().toUpperCase() : "")
     .filter(Boolean);
 }
 
 function explicitEng002CpSelector(request: QuestionStudioGenerationRequest) {
-  return explicitEng002SelectorValues(request).find((value) => /^ENG-002-CP\d{3}$/.test(value));
+  return explicitSelectorValues(request).find((value) => /^ENG-002-CP\d{3}$/.test(value));
 }
 
 function explicitEng002RuleSelector(request: QuestionStudioGenerationRequest) {
-  return explicitEng002SelectorValues(request).find((value) => /^GR-[A-Z]+-\d{3}$/.test(value));
+  return explicitSelectorValues(request).find((value) => /^GR-[A-Z]+-\d{3}$/.test(value));
+}
+
+function explicitEng003CpSelector(request: QuestionStudioGenerationRequest) {
+  return explicitSelectorValues(request).find((value) => /^ENG-003-CP\d{3}$/.test(value));
+}
+
+function isExplicitEng003Cp001Request(request: QuestionStudioGenerationRequest) {
+  const packageId = typeof request.packageId === "string" ? request.packageId.trim().toLowerCase() : "";
+  return packageId === ENG003_QUESTION_STUDIO_PACKAGE_ID_V1 || explicitEng003CpSelector(request) === "ENG-003-CP001";
 }
 
 /** Composite adapter for approved English review-only generators. */
@@ -49,9 +59,14 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     return [
       ...languageV1Eng001Cp013QuestionStudioAdapterV1.listPackages(),
       ...languageV1Eng002Cp013QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng003Cp001QuestionStudioAdapterV1.listPackages(),
     ];
   },
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    // ENG-003 reuses the ENG-001/ENG-002 grammar rule IDs. Therefore its package/checkpoint
+    // selector must be explicit before the shared GR-* fallback is considered.
+    if (isExplicitEng003Cp001Request(request)) return languageV1Eng003Cp001QuestionStudioAdapterV1.generate(request);
+
     // Explicit ENG-002 checkpoint selectors are authoritative. This prevents broad topic aliases
     // (for example `noun` matching `pronouns`) from stealing requests that name another CP.
     switch (explicitEng002CpSelector(request)) {
@@ -70,8 +85,8 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       case "ENG-002-CP013": return languageV1Eng002Cp013QuestionStudioAdapterV1.generate(request);
     }
 
-    // Explicit grammar-rule selectors are equally authoritative. Topic/subtopic aliases are only
-    // a fallback when the request does not name a checkpoint or rule.
+    // Explicit grammar-rule selectors are equally authoritative for the established ENG-002
+    // package. ENG-003 requires its own package/CP selector because the rule IDs are shared.
     const ruleSelector = explicitEng002RuleSelector(request);
     if (ruleSelector?.startsWith("GR-SVA-")) return languageV1Eng002Cp001QuestionStudioAdapterV1.generate(request);
     if (ruleSelector?.startsWith("GR-TNS-")) return languageV1Eng002Cp002QuestionStudioAdapterV1.generate(request);
