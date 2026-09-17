@@ -17,4 +17,9 @@ assert.equal(HIS_CP005_REVIEW_BATCH_V1.some(q=>/(?:school-level|this CP|review b
 assert.equal(HIS_CP005_REVIEW_BATCH_V1.every(q=>q.stem.length<=190),true);
 assert.equal(HIS_CP005_REVIEW_BATCH_V1.every(q=>q.explanation.length>=140&&q.explanation.length<=360),true);
 assert.equal(HIS_CP005_REVIEW_BATCH_V1.every(q=>(q.explanation.match(/[.!?](?:\s|$)/g)??[]).length>=2),true);
+const hard=HIS_CP005_REVIEW_BATCH_V1.filter(q=>q.difficulty==="Hard");
+const statementHard=hard.filter(q=>/^\d+\./.test(q.stem));
+assert.ok(statementHard.length>=6);
+assert.ok(new Set(statementHard.map(q=>q.canonicalAnswer)).size>=3);
+assert.ok(statementHard.filter(q=>q.canonicalAnswer==="1, 2 and 3").length<=1);
 console.log(JSON.stringify(audit,null,2));
