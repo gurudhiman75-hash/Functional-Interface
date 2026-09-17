@@ -1,3 +1,3 @@
 export * from "./types";
-export * from "./line-set";
+export { generateDi004LineSet } from "./question-studio-variety";
 export * from "./independent-verifier";
