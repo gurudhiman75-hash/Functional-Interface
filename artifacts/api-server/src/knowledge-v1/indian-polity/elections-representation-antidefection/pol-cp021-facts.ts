@@ -1,0 +1,16 @@
+export const POL_CP021_FACTS = Object.freeze({
+  constitutionalArticles: [324, 325, 326, 327, 328, 329],
+  votingAge: 18,
+  article325Rule: "one general electoral roll; no exclusion solely on religion, race, caste or sex",
+  article326Rule: "Lok Sabha and State Assembly elections on adult suffrage, subject to constitutional disqualifications",
+  rpa1950Core: "electoral rolls, registration and related representation framework",
+  rpa1951Core: "conduct of elections, qualifications/disqualifications, corrupt practices and election disputes",
+  electionPetitionCourt: "High Court",
+  electionPetitionLimitDays: 45,
+  antiDefectionSchedule: "Tenth Schedule",
+  antiDefectionAmendment: "Constitution (Fifty-second Amendment) Act, 1985",
+  splitExceptionRemovedBy: "Constitution (Ninety-first Amendment) Act, 2003",
+  mergerThreshold: "not less than two-thirds of the legislature party",
+  whipCondonationDays: 15,
+  nominatedMemberJoinWindowMonths: 6,
+} as const);
