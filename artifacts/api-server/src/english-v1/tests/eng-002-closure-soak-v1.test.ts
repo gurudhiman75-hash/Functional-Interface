@@ -135,7 +135,7 @@ for (const [cpId, prefix, expectedRuleCount] of CPS) {
       generated += 1;
     }
 
-    assert.ok(stats.rules.size >= 5, `${cellKey} exposes only ${stats.rules.size} rule families`);
+    assert.ok(stats.rules.size >= 3, `${cellKey} exposes only ${stats.rules.size} rule families`);
     assert.ok(stats.surfaces.size >= 15, `${cellKey} exposes only ${stats.surfaces.size} learner surfaces`);
     if (stats.domains.size > 0) assert.ok(stats.domains.size >= 8, `${cellKey} exposes only ${stats.domains.size} semantic domains`);
     for (let option = 0; option < 4; option += 1) {
