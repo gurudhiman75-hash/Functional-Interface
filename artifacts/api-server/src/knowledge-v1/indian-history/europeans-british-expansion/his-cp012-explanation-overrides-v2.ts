@@ -39,7 +39,7 @@ export const HIS_CP012_EXPLANATION_OVERRIDES_V2:Readonly<Record<number,string>>=
 38:"Delhi came under Company control in 1803, effective Peshwa power ended by 1818, and Sindh was annexed in 1843. The sequence shows the steady westward and northward growth of Company territory.",
 39:"The Anglo-Maratha Wars greatly expanded Company control in western and central India. Their outcome weakened the major Maratha houses and ended effective Peshwa power by 1818.",
 40:"Delhi came under Company control in 1803 during the struggle against Maratha power. Control of the old Mughal capital increased the Company's political prestige as well as its strategic influence.",
-41:"The British annexed Sindh in 1843. The annexation extended Company power farther into the northwest before the later conquest of Punjab.",
+41:"The British annexed Sindh in 1843. The annexation extended Company power farther into the northwest and preceded the later conquest and annexation of Punjab in 1849.",
 42:"Maharaja Ranjit Singh united several Sikh misls and built a powerful state in Punjab. His rule created a strong regional power that limited Company expansion beyond the Sutlej for much of his lifetime.",
 43:"Company relations with Ranjit Singh were generally workable and relatively stable during his lifetime. The balance changed after his death, when internal instability in Punjab contributed to open conflict.",
 44:"After Ranjit Singh's death, the Company fought two Anglo-Sikh Wars as it expanded into Punjab. These conflicts ended the earlier period of comparatively stable relations with his state.",
