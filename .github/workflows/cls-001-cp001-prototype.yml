@@ -6,8 +6,7 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**
-      - .github/workflows/cls-001-cp001-prototype.yml
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001/**
 
 permissions:
   contents: read
