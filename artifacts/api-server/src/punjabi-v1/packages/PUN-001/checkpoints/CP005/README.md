@@ -12,22 +12,24 @@ Status: `REVIEW_ONLY / HUMAN_REVIEW_PENDING`
 ## Families
 1. F01 adjective identification — Easy.
 2. F02 adjective type — Easy/Medium.
-3. F03 contextual adjective completion — Medium.
+3. F03 adjective type + grammatical function — Medium; replaces ambiguous blank-completion questions.
 4. F04 adverb identification — Easy.
 5. F05 adverb type — Medium.
-6. F06 adjective-vs-adverb discrimination — Medium.
-7. F07 contextual modifier correction — Hard.
-8. F08 paired-statement analysis — Hard.
+6. F06 adjective-vs-adverb role discrimination across two contexts — Medium.
+7. F07 paired subtype classification across two contexts — Hard.
+8. F08 contextual two-statement verification — Hard; all four truth outcomes are reachable.
 
 ## Editorial rules
 - natural exam-style Punjabi stems;
-- sentence context is authoritative where the same surface word can perform different grammatical roles;
+- sentence context is authoritative;
 - no seed-only difficulty;
-- no fabricated spelling forms for distractors;
+- no fabricated or nonsensical sentence distractors;
+- no unresolved blank options;
+- Hard questions require at least two grammatical decisions;
 - no option-by-option explanation filler;
 - Punjabi-only learner stems and explanations;
 - deterministic semantic fingerprints;
 - Question Bank/test/mock/public lifecycle remains closed.
 
 ## Capacity
-The current governed space exposes 1,615 deterministic semantic slots before option-order permutations. This is a review capacity figure, not a publication count.
+The current governed space exposes 3,115 deterministic semantic slots before option-order permutations. This is a review capacity figure, not a publication count.
