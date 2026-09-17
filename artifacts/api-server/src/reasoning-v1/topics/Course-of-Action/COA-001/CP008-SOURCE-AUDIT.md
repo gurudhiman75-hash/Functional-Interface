@@ -1,6 +1,8 @@
 # COA-001 / CP008 — Source Saturation + Exam-realness Audit
 
-Status: **IMPLEMENTED / HUMAN REVIEW REQUIRED**
+Status: **APPROVED / FROZEN**
+
+Approved by product owner on 2026-09-17.
 
 ## Audit conclusion
 
@@ -77,7 +79,7 @@ The audit did not identify a missing learner operation that requires another per
 
 `QL007` is therefore **retired from future semantic expansion**. Its approved CP001 calibration examples remain untouched as legacy identifiers because approved historical authority is immutable. New generation must not route through QL007.
 
-Overall QL allocation is **freeze-ready but not yet frozen** because CP007 itself is still awaiting explicit human approval.
+Overall QL allocation is **freeze-ready but not yet final-frozen** because CP007 itself is still awaiting explicit human approval.
 
 ## Exam-realness findings
 
@@ -91,7 +93,7 @@ The audited sources reinforce the following permanent content rules:
 - social/civic/public-administration scenarios occur alongside banking and operational scenarios, so the generated pool must not drift too heavily toward software/process failures;
 - conventional direction wording may repeat without being counted as stem-template duplication.
 
-## CP008 implementation
+## Approved CP008 implementation
 
 - `cp008-source-census.ts` — typed evidence ledger and profile decisions;
 - `cp008-profile-authorities.ts` — six three-action and four dedicated exclusive-either authorities;
@@ -104,10 +106,12 @@ The audited sources reinforce the following permanent content rules:
 
 - CP001–CP006: **APPROVED / FROZEN**
 - CP007: **HUMAN REVIEW PENDING**
-- CP008: **HUMAN REVIEW PENDING**
+- CP008: **APPROVED / FROZEN**
 - QL007 future semantic expansion: **RETIRED**
-- overall QL allocation: **FREEZE-READY / WAITING FOR CP007 + CP008 HUMAN APPROVAL**
+- overall QL allocation: **FREEZE-READY / WAITING FOR CP007 APPROVAL**
 - Question Studio: **CLOSED**
 - Question Bank: **CLOSED**
 - Hindi/Punjabi: **NOT STARTED**
 - public/student delivery: **CLOSED**
+
+CP008 approval freezes this source-saturation and presentation architecture only. It does not imply CP007 approval or lifecycle promotion.
