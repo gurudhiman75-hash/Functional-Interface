@@ -1,10 +1,10 @@
 # POL-CP-020 — Municipalities Status
 
 **Branch:** `feature/polity-cp020-municipalities`  
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING
 
-## Implemented
+## Implemented and approved
 
 - official Constitution source as on 1 May 2026
 - Ministry of Housing and Urban Affairs 74th Amendment source
@@ -42,11 +42,6 @@
 - no database-style fragments
 - no current office-holder questions
 
-## Gated
+## Approved lifecycle
 
-- merge to `New-main`
-- Question Studio exposure
-- localization
-- chapter-wide production registration
-
-These remain blocked until English V1 is approved.
+English V1 is the frozen canonical review authority. Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
