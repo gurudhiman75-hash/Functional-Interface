@@ -8,13 +8,15 @@ assert.equal(CP007_YOJAK_AUTHORITIES.length,16);
 assert.equal(CP007_VISMIK_AUTHORITIES.length,12);
 assert.equal(CP007_FAMILIES.length,9);
 const ids=new Set<string>();
-for(const group of [CP007_KARAK_AUTHORITIES,CP007_SAMBANDHAK_AUTHORITIES,CP007_YOJAK_AUTHORITIES,CP007_VISMIK_AUTHORITIES] as const){for(const a of group){assert(!ids.has(a.id),`${a.id}: duplicate authority id`);ids.add(a.id);assert.equal(a.sourceStatus,"REVIEW_PENDING");for(const value of Object.values(a)){if(typeof value==="string"){assert.equal(value,value.normalize("NFC"));if(value!==a.id&&value!==a.sourceStatus)assert(!/[A-Za-z]/.test(value),`${a.id}: English leakage in learner authority`);}}}}
-for(const a of CP007_KARAK_AUTHORITIES){assert.equal(a.sentenceDistractors.length,3);assert.equal(new Set(a.sentenceDistractors).size,3);assert(!a.sentenceDistractors.includes(a.target as never));}
-for(const a of CP007_VISMIK_AUTHORITIES){assert.equal(a.distractors.length,3);assert.equal(new Set(a.distractors).size,3);assert(!a.distractors.includes(a.token as never));}
+function learnerText(id:string,values:readonly string[]){for(const value of values){assert.equal(value,value.normalize("NFC"),`${id}: NFC required`);assert(!/[A-Za-z]/.test(value),`${id}: English leakage in learner authority`);}}
+for(const a of CP007_KARAK_AUTHORITIES){assert(!ids.has(a.id));ids.add(a.id);assert.equal(a.sourceStatus,"REVIEW_PENDING");learnerText(a.id,[a.sentence,a.target,a.marker,a.explanationPa,...a.sentenceDistractors]);assert.equal(a.sentenceDistractors.length,3);assert.equal(new Set(a.sentenceDistractors).size,3);assert(!a.sentenceDistractors.includes(a.target as never));}
+for(const a of CP007_SAMBANDHAK_AUTHORITIES){assert(!ids.has(a.id));ids.add(a.id);assert.equal(a.sourceStatus,"REVIEW_PENDING");learnerText(a.id,[a.expression,a.sentence,a.explanationPa]);}
+for(const a of CP007_YOJAK_AUTHORITIES){assert(!ids.has(a.id));ids.add(a.id);assert.equal(a.sourceStatus,"REVIEW_PENDING");learnerText(a.id,[a.token,a.sentence,a.explanationPa]);}
+for(const a of CP007_VISMIK_AUTHORITIES){assert(!ids.has(a.id));ids.add(a.id);assert.equal(a.sourceStatus,"REVIEW_PENDING");learnerText(a.id,[a.token,a.sentence,a.context,a.explanationPa,...a.distractors]);assert.equal(a.distractors.length,3);assert.equal(new Set(a.distractors).size,3);assert(!a.distractors.includes(a.token as never));}
 const breadth=getCP007BreadthReport();
 assert.equal(breadth.totalAtomicAuthorities,61);
 assert.equal(breadth.totalSemanticCapacity,1085);
-const global=new Set<string>();const verdicts=new Set<string>();const familyCounts=new Map<string,number>();
+const global=new Set<string>();const verdicts=new Set<string>();
 for(const family of CP007_FAMILIES){
  const cap=family.semanticCapacity;const local=new Set<string>();
  for(const difficulty of family.targetDifficulties){for(let seed=1;seed<=cap;seed++){
@@ -24,7 +26,7 @@ for(const family of CP007_FAMILIES){
   assert(!/[A-Za-z]/.test(q.stem),`${q.id}: English leaked into stem`);assert(!/[A-Za-z]/.test(q.explanation),`${q.id}: English leaked into explanation`);
   assert(!q.explanation.includes("ਬਾਕੀ ਵਿਕਲਪ"));assert(!q.explanation.includes("ਬਾਕੀ ਤਿੰਨੇ"));assert(!q.stem.includes("ਸਿੱਧੇ ਅਰਥ"));assert(!q.stem.includes("ਪ੍ਰਮਾਣਿਤ"));
   assert(!local.has(q.metadata.fingerprint),`${q.id}: duplicate family fingerprint`);local.add(q.metadata.fingerprint);assert(!global.has(q.metadata.fingerprint),`${q.id}: cross-family collision`);global.add(q.metadata.fingerprint);
-  familyCounts.set(family.familyId,(familyCounts.get(family.familyId)??0)+1);if(family.familyId==="F09")verdicts.add(q.options[q.correctIndex]!);
+  if(family.familyId==="F09")verdicts.add(q.options[q.correctIndex]!);
  }}
  assert.equal(local.size,cap,`${family.familyId}: capacity mismatch`);
 }
