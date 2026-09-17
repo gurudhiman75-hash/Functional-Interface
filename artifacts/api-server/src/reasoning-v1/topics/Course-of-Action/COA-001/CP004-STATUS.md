@@ -1,38 +1,40 @@
 # COA-001 / COA-CP-004 — Status
 
-Status: **IMPLEMENTED / HUMAN EDITORIAL REVIEW PENDING**
+Status: **APPROVED / ENGLISH CHECKPOINT FROZEN**
 
-## Scope
+Approval recorded: **2026-09-17**  
+Approval authority: product-owner review of `COA-CP-004-ENGLISH-REVIEW.md`.
 
-COA-CP-004 expands:
+## Approved scope
+
+COA-CP-004 owns:
 
 - `COA-QL-005` — Constraint-aware action
 - `COA-QL-006` — Proportionality and overreaction
 
-## Implemented
+Frozen English authority:
+- 24 English semantic scenarios: 12 per owned QL;
+- exact per-QL answer balance: 3 Only-I / 3 Only-II / 3 Both / 3 Neither;
+- Easy, Medium and Hard coverage;
+- broad operational-domain spread;
+- QL005 explicitly tests staffing, capacity, time, continuity, access, safety or resource constraints;
+- QL006 explicitly tests targeted response versus unnecessary blanket or severe action;
+- Editorial V2 distractor hardening approved;
+- deterministic generator with both action orders reachable;
+- four exam-instruction surfaces;
+- independent semantic evaluator remains the answer authority;
+- additive regression proof preserves earlier checkpoint authority IDs;
+- dedicated CP004 CI workflow;
+- approved review authority: `COA-CP-004-ENGLISH-REVIEW.md`.
 
-- 24 new English semantic scenarios: 12 per owned QL.
-- Exact per-QL answer balance: 3 Only-I / 3 Only-II / 3 Both / 3 Neither.
-- Easy, Medium and Hard coverage.
-- Broad operational-domain spread.
-- QL005 actions explicitly test staffing, capacity, time, continuity, access, safety or resource constraints.
-- QL006 actions explicitly test targeted response versus unnecessary blanket or severe action.
-- Editorial V2 distractor hardening before human review.
-- Deterministic generator with both action orders reachable.
-- Four exam-instruction surfaces.
-- Independent semantic evaluator remains the answer authority.
-- Additive regression proof preserves earlier checkpoint authority IDs.
-- Dedicated CP004 CI workflow.
-- Human review pack: `COA-CP-004-ENGLISH-REVIEW.md`.
+The approved English authority is frozen for downstream expansion. Later checkpoints must add content without silently rewriting CP004.
 
 ## Prior checkpoints
 
-- CP001 English: **APPROVED**
-- CP002 English: **APPROVED**
-- CP003 English: **HUMAN REVIEW PENDING**
-- CP004 English: **HUMAN REVIEW PENDING**
-
-CP004 implementation does not imply CP003 approval or freeze.
+- CP001 English: **APPROVED / FROZEN**
+- CP002 English: **APPROVED / FROZEN**
+- CP003 English: **APPROVED / FROZEN**
+- CP004 English: **APPROVED / FROZEN**
 
 ## Lifecycle
 
@@ -42,4 +44,4 @@ CP004 implementation does not imply CP003 approval or freeze.
 - Hindi/Punjabi: **NOT STARTED**
 - public/student delivery: **CLOSED**
 
-Do not freeze CP004 or advance lifecycle eligibility until explicit human editorial approval is recorded.
+Approval authorizes downstream chapter work only. It does not promote Question Studio, Question Bank, test/mock or public/student eligibility.
