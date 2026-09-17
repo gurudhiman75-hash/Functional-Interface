@@ -1,0 +1,9 @@
+import type { HisCp001Spec } from "./his-cp001-review-specs-v1";
+
+export const HIS_CP001_ITEM_OVERRIDES_V1:Readonly<Record<number,HisCp001Spec>>={
+49:[9,"Consider the statements: 1. The Great Bath is at Mohenjo-daro. 2. A dockyard has traditionally been identified at Lothal. 3. Plough marks were found at Harappa. Which are correct?","1 and 2 only",["2 and 3 only","1 and 3 only","1, 2 and 3"],["har-great-bath","har-lothal-dockyard","har-kalibangan-plough"]],
+50:[9,"Consider the statements: 1. Harappa is linked with the Ravi. 2. Mohenjo-daro is linked with the Indus. 3. Dholavira is in Rajasthan. Which are correct?","1 and 2 only",["2 and 3 only","1 and 3 only","1, 2 and 3"],["har-harappa-river","har-mohenjo-river","har-dholavira-location"]],
+51:[9,"Consider the statements: 1. Mesolithic tools include microliths. 2. Neolithic communities depended only on hunting. 3. Ground and polished stone tools are linked with the Neolithic. Which are correct?","1 and 3 only",["1 and 2 only","2 and 3 only","1, 2 and 3"],["pre-mesolithic-microliths","pre-neolithic-food-production","pre-neolithic-polished-tools"]],
+53:[9,"Consider the statements about Dholavira: 1. It is in Gujarat. 2. It lies on Khadir island. 3. It is noted for the dockyard traditionally identified at Lothal. Which are correct?","1 and 2 only",["2 and 3 only","1 and 3 only","1, 2 and 3"],["har-dholavira-location","har-dholavira-water","har-lothal-dockyard"]],
+54:[9,"Consider the statements: 1. The Dancing Girl was found at Mohenjo-daro. 2. Bead-making workshops are reported from Chanhudaro and Lothal. 3. Rice evidence is reported from Harappa and Kalibangan. Which are correct?","1 and 2 only",["2 and 3 only","1 and 3 only","1, 2 and 3"],["har-dancing-girl","har-bead-shops","har-rice-sites"]],
+};
