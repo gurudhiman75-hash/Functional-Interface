@@ -404,31 +404,58 @@ function generateEnglishBatch(
 ) {
   const difficulty = normalizeDifficulty(request.difficulty);
   const explicitCp = String(request.canonicalProblemId ?? request.cpId ?? "").trim();
+  const requestedQlId = String(request.questionLanguageId ?? "").trim();
   if (explicitCp) resolveCpId(pkg, request);
 
-  // Select only registry entries that are actually valid for the requested
-  // profile+difficulty before choosing a CP. The old CP-first round-robin could
-  // select a CP with no eligible QL and create false capability gaps even though
-  // the package contained valid items for the same exam profile and difficulty.
-  const eligibleEntries = stableOrder(
-    eligibleEnglishEntries(pkg, request, difficulty),
-    `${batchSeed}:${pkg.packageId}:eligible-entry-order`,
-  );
   const questions: any[] = [];
   const questionPackages: any[] = [];
+  const useBankingMainsChallengePool =
+    pkg.packageId === "PRB-002" &&
+    request.examProfile === "BANKING_MAINS" &&
+    difficulty === "Hard" &&
+    !explicitCp &&
+    !requestedQlId;
 
-  for (let index = 0; index < count; index += 1) {
-    const entry = eligibleEntries[index % eligibleEntries.length]!;
-    const cycle = Math.floor(index / eligibleEntries.length);
-    const seed = `${batchSeed}:${entry.cpId}:${entry.qlId}:${cycle}`;
-    const source = pkg.run(entry.cpId, {
-      difficulty,
-      questionLanguageId: entry.qlId,
-      examProfile: request.examProfile,
-      seed,
-    });
-    questionPackages.push(source);
-    questions.push(toEnglishStandardQuestion(pkg, source, { index, count, seed }));
+  if (useBankingMainsChallengePool) {
+    // Preserve the reviewed Banking Mains genuine-hard challenge runtime. That
+    // pipeline deliberately activates only when no QL is forced. The generic
+    // registry-first remediation below must not bypass this specialist pool.
+    const cpIds = [...pkg.cpIds] as ProbabilityCanonicalProblemId[];
+    const cpOffset = seedHash(`${batchSeed}:${pkg.packageId}:cp-offset`) % cpIds.length;
+    for (let index = 0; index < count; index += 1) {
+      const cpId = cpIds[(cpOffset + index) % cpIds.length]!;
+      const seed = `${batchSeed}:${cpId}:${index}`;
+      const source = pkg.run(cpId, {
+        difficulty,
+        examProfile: request.examProfile,
+        seed,
+      });
+      questionPackages.push(source);
+      questions.push(toEnglishStandardQuestion(pkg, source, { index, count, seed }));
+    }
+  } else {
+    // Select only registry entries that are actually valid for the requested
+    // profile+difficulty before choosing a CP. The old CP-first round-robin could
+    // select a CP with no eligible QL and create false capability gaps even though
+    // the package contained valid items for the same exam profile and difficulty.
+    const eligibleEntries = stableOrder(
+      eligibleEnglishEntries(pkg, request, difficulty),
+      `${batchSeed}:${pkg.packageId}:eligible-entry-order`,
+    );
+
+    for (let index = 0; index < count; index += 1) {
+      const entry = eligibleEntries[index % eligibleEntries.length]!;
+      const cycle = Math.floor(index / eligibleEntries.length);
+      const seed = `${batchSeed}:${entry.cpId}:${entry.qlId}:${cycle}`;
+      const source = pkg.run(entry.cpId, {
+        difficulty,
+        questionLanguageId: entry.qlId,
+        examProfile: request.examProfile,
+        seed,
+      });
+      questionPackages.push(source);
+      questions.push(toEnglishStandardQuestion(pkg, source, { index, count, seed }));
+    }
   }
 
   return {
