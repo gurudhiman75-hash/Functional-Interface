@@ -1,0 +1,1 @@
+Temporary implementation note for CP021/CP022. This file will be replaced by checkpoint-specific artifacts before review.
