@@ -1,19 +1,21 @@
 # COA-001 / COA-CP-007 — Status
 
-Status: **IMPLEMENTED / HUMAN REVIEW PENDING**
+Status: **APPROVED / FROZEN**
+
+Approved by product owner on 2026-09-17.
 
 ## Scope completed
 
 CP007 owns `COA-QL-009` — integrated exam-grade discrimination.
 
-Implemented:
+Approved implementation:
 
 - 12 new English semantic scenarios under QL009;
 - exact 3 Only-I / 3 Only-II / 3 Both / 3 Neither answer balance;
 - Easy, Medium and Hard coverage across broad operational domains;
 - QL009 boundary requires multiple material reasoning dimensions rather than a single obvious rule;
 - integrated evidence fit, proportionality, constraints, sequencing, timing, temporary safeguards and operational continuity;
-- Editorial V2 hardening of near-miss actions before human review;
+- Editorial V2 hardening of near-miss actions;
 - additive authority registration preserving all CP001–CP006 reviewed English authority;
 - deterministic generator with both Course I / Course II orders reachable;
 - four instruction surfaces;
@@ -33,18 +35,27 @@ QL009 is reserved for genuinely integrated cases. A question belongs here only w
 - timing + proportionality;
 - temporary safeguard + later corrective action.
 
-A question that can be solved by one decisive rule remains in QL001–QL006 or QL008 and should not be relabelled as integrated.
+A question that can be solved by one decisive rule remains in QL001–QL006 or QL008 and must not be relabelled as integrated.
+
+## Final architecture state
+
+Following approved CP008 source saturation:
+
+- QL001–QL006: retained semantic families;
+- QL007: retired from future semantic expansion and retained only as a legacy presentation/calibration identifier;
+- QL008: retained for genuine sequence/dependency;
+- QL009: retained and now approved/frozen for strict integrated reasoning;
+- additional permanent semantic QL required: NO;
+- overall English COA taxonomy: **FINAL-FROZEN**.
 
 ## Lifecycle
 
-- CP001–CP006 reviewed English checkpoints: **APPROVED / FROZEN**
-- CP007 integrated reasoning: **HUMAN REVIEW PENDING**
-- QL007 permanent semantic status: **NOT FROZEN / presentation-layer issue pending source audit**
-- overall QL allocation: **NOT FROZEN**
+- CP001–CP008 reviewed English checkpoints: **APPROVED / FROZEN**
+- English QL allocation: **FINAL-FROZEN**
 - Question Studio: **CLOSED**
 - Question Bank writes: **CLOSED**
 - test/mock eligibility: **CLOSED**
 - Hindi/Punjabi: **NOT STARTED**
 - public/student delivery: **CLOSED**
 
-Green CI is not human editorial approval. CP007 must not be frozen or promoted until explicit product-owner approval is recorded.
+Approval freezes CP007 English semantic authority and completes the English taxonomy freeze. It does not promote downstream lifecycle gates.
