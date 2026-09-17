@@ -41,6 +41,13 @@ const BANNED = [
   "this question tests",
   "review batch",
   "generator",
+  "traditionally",
+  "mainly",
+  "generally",
+  "commonly",
+  "widely",
+  "usually",
+  "best described",
 ];
 
 export function auditPgk001Cp023ReviewBatchV1() {
