@@ -11,13 +11,15 @@ Status: `REVIEW_ONLY / HUMAN_REVIEW_PENDING`
 
 ## Families
 1. F01 adjective identification — Easy.
-2. F02 adjective type — Easy/Medium.
+2. F02 adjective type — Easy.
 3. F03 adjective type + grammatical function — Medium; replaces ambiguous blank-completion questions.
 4. F04 adverb identification — Easy.
 5. F05 adverb type — Medium.
 6. F06 adjective-vs-adverb role discrimination across two contexts — Medium.
 7. F07 paired subtype classification across two contexts — Hard.
 8. F08 contextual two-statement verification — Hard; all four truth outcomes are reachable.
+
+Difficulty is structural: no semantic family is shared unchanged between Easy and Medium.
 
 ## Editorial rules
 - natural exam-style Punjabi stems;
