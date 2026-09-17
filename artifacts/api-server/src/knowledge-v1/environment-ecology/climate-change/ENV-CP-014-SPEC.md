@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-014 Climate Change  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V1  
-**Runtime registration:** blocked pending human approval  
+**Human approval:** recorded 2026-09-17  
+**Runtime registration:** blocked; shared integration remains separate  
 
 ## Scope
 
@@ -27,7 +28,7 @@ Included:
 
 Explicitly deferred:
 - detailed UNFCCC, Kyoto Protocol and Paris Agreement provisions (ENV-CP-017)
-- India-specific climate programmes (ENV-CP-018 where relevant)
+- India-specific climate programmes and NAPCC static-GK coverage (Environment exhaustive-remediation extension layer)
 - current annual temperature records, current emissions rankings and current atmospheric concentration values
 - scenario-specific future warming numbers and mutable target-year trivia
 
@@ -45,7 +46,7 @@ Explicitly deferred:
 10. Adaptation acts on impacts and vulnerability.
 11. Forests and oceans are treated as important carbon sinks without mutable annual uptake percentages.
 12. No current emissions ranking, annual temperature record or scenario-specific projection trivia is used.
-13. Review generators remain `runtimeRegistered: false` until project-owner approval.
+13. Review generators remain `runtimeRegistered: false`; shared Question Studio/runtime binding is a separate chapter-close workflow.
 
 ## QL inventory
 
@@ -64,9 +65,8 @@ Explicitly deferred:
 | ENV-014-QL-011 | Correct / incorrect pair | Hard |
 | ENV-014-QL-012 | Statements and applied identification | Hard |
 
-## Review gate
+## Frozen review gate
 
-Before approval:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
