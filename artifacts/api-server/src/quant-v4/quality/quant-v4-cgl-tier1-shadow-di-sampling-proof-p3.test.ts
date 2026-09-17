@@ -123,9 +123,17 @@ const legacyTaskDistribution = countBy(legacyRecords, (record) => `${record.pack
 const rotatedTaskDistribution = countBy(rotatedRecords, (record) => `${record.packageId}:${record.taskKind}`);
 const legacyTaskFamilies = Object.keys(legacyTaskDistribution).length;
 const rotatedTaskFamilies = Object.keys(rotatedTaskDistribution).length;
-const di002RotatedRecords = rotatedRecords.filter((record) => record.packageId === "DI-002");
-const di002RotatedDuplicate = duplicateSummary(di002RotatedRecords);
-const di002TaskDistribution = countBy(di002RotatedRecords, (record) => record.taskKind);
+const packageVariety = Object.fromEntries(
+  Object.keys(setSizes)
+    .sort()
+    .map((packageId) => {
+      const records = rotatedRecords.filter((record) => record.packageId === packageId);
+      return [packageId, {
+        duplication: duplicateSummary(records),
+        taskDistribution: countBy(records, (record) => record.taskKind),
+      }] as const;
+    }),
+);
 
 assert.ok(
   rotatedTaskFamilies >= legacyTaskFamilies,
@@ -136,9 +144,15 @@ assert.ok(
   `Rotated DI sampling must not worsen normalized-stem repetition (${rotatedDuplicate.duplicateRate} > ${legacyDuplicate.duplicateRate}).`,
 );
 assert.ok(
-  di002RotatedDuplicate.duplicateRate < 0.5,
-  `DI-002 public runtime must expose real stem variety after sampler bias is removed (${di002RotatedDuplicate.duplicateRate} >= 0.5).`,
+  rotatedDuplicate.duplicateRate < 0.4,
+  `DI presentation remediation must reduce rotated normalized-stem repetition below 40% (${rotatedDuplicate.duplicateRate} >= 0.4).`,
 );
+for (const [packageId, summary] of Object.entries(packageVariety)) {
+  assert.ok(
+    summary.duplication.duplicateRate < 0.5,
+    `${packageId} public runtime must expose real stem variety after sampler bias is removed (${summary.duplication.duplicateRate} >= 0.5).`,
+  );
+}
 
 console.log("QUANT_V4_CGL_TIER1_SHADOW_DI_SAMPLING_PROOF_P3", JSON.stringify({
   sections: SECTIONS,
@@ -154,10 +168,7 @@ console.log("QUANT_V4_CGL_TIER1_SHADOW_DI_SAMPLING_PROOF_P3", JSON.stringify({
     taskFamilies: rotatedTaskFamilies,
     taskDistribution: rotatedTaskDistribution,
   },
-  di002Variety: {
-    duplication: di002RotatedDuplicate,
-    taskDistribution: di002TaskDistribution,
-  },
+  packageVariety,
   productionPromotionAuthorized: false,
   runtimeBlueprintMutationAuthorized: false,
 }));
