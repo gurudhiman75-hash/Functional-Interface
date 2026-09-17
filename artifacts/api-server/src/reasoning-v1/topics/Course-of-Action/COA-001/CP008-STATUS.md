@@ -22,14 +22,14 @@ Approved implementation:
 - executable source-threshold, safety, reachability and presentation proof;
 - human review pack: `COA-CP-008-PROFILE-REVIEW.md`.
 
-## Approved architecture result
+## Final architecture result
 
 - QL001–QL006: retained semantic families;
 - QL007: **retired from future semantic expansion**; presentation-only legacy identifier;
 - QL008: retained for sequence/dependency;
 - QL009: retained for strict integrated reasoning;
 - additional semantic QL required: **NO**;
-- overall taxonomy: **FREEZE-READY, NOT YET FINAL-FROZEN** because CP007 still awaits explicit human approval.
+- overall English COA taxonomy: **FINAL-FROZEN** following explicit CP007 and CP008 approval.
 
 ## Approved presentation result
 
@@ -40,14 +40,12 @@ Approved implementation:
 
 ## Lifecycle
 
-- CP001–CP006: APPROVED / FROZEN
-- CP007: HUMAN REVIEW PENDING
-- CP008: APPROVED / FROZEN
-- QL allocation: FREEZE-READY / WAITING FOR CP007 APPROVAL
+- CP001–CP008: APPROVED / FROZEN
+- English QL allocation: FINAL-FROZEN
 - Question Studio: CLOSED
 - Question Bank writes: CLOSED
 - test/mock eligibility: CLOSED
 - Hindi/Punjabi: NOT STARTED
 - public/student delivery: CLOSED
 
-CP008 approval freezes the reviewed source-saturation and presentation architecture only. It does not imply CP007 approval or lifecycle promotion.
+CP007 + CP008 approval completes the English taxonomy freeze only. It does not promote downstream lifecycle gates.
