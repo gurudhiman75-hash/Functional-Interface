@@ -1,3 +1,3 @@
 export * from "./types";
-export * from "./grouped-bar-set";
+export { generateDi003GroupedBarSet } from "./question-studio-variety";
 export * from "./independent-verifier";
