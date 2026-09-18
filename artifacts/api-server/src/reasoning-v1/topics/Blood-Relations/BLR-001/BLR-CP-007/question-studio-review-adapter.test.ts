@@ -12,8 +12,12 @@ import {
   listBlrCp007QuestionStudioReviewEntries,
 } from "./question-studio-review-adapter";
 
-const packages = listReasoningV1QuestionStudioReviewPackages();
-const enabledPackages = listEnabledReasoningV1QuestionStudioPackages();
+const packages = listReasoningV1QuestionStudioReviewPackages().filter(
+  (entry) => entry.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
+);
+const enabledPackages = listEnabledReasoningV1QuestionStudioPackages().filter(
+  (entry) => entry.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
+);
 const entries = listBlrCp007QuestionStudioReviewEntries();
 
 assert.equal(packages.length, 1);
