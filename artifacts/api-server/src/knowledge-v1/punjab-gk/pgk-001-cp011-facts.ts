@@ -1,0 +1,120 @@
+export const PGK_001_CP011_SOURCE_IDS = Object.freeze({
+  psebClass11Turks: "PSEB-CLASS11-TURKS-PUNJAB",
+  psebClass12Mughals: "PSEB-CLASS12-GREAT-MUGHALS-PUNJAB",
+  govtPunjabHistory: "GOV-PUNJAB-HISTORY",
+  lahoreGovHistory: "LAHORE-GOV-HISTORY",
+  igncaLahore: "IGNCA-LAHORE-HISTORY",
+  lbsnaaMedievalIndia: "LBSNAA-MEDIEVAL-INDIA",
+} as const);
+
+export const PGK_001_CP011_FACTS = Object.freeze({
+  ghaznavidPunjab: {
+    id: "ghaznavid-punjab-lahore",
+    ruler: "Mahmud of Ghazni",
+    centre: "Lahore",
+    note: "Northern Punjab came under Ghaznavid power and Lahore became a major Ghaznavid centre.",
+  },
+  ghoriLahore1186: {
+    id: "ghori-captured-lahore-1186",
+    ruler: "Muhammad Ghori",
+    year: 1186,
+    defeatedRuler: "Khusrau Malik",
+    result: "End of Ghaznavid rule at Lahore",
+  },
+  aibakLahore: {
+    id: "aibak-lahore-1206-1210",
+    ruler: "Qutb-ud-din Aibak",
+    independentRule: 1206,
+    deathPlace: "Lahore",
+    deathYear: 1210,
+    deathCause: "Injuries from a polo/chaugan accident",
+  },
+  mongolLahore1241: {
+    id: "mongol-sack-lahore-1241",
+    year: 1241,
+    place: "Lahore",
+    event: "Mongol sack of Lahore",
+  },
+  lodiFounder: {
+    id: "bahlul-lodi-founder",
+    ruler: "Bahlul Lodi",
+    dynasty: "Lodi dynasty",
+  },
+  ibrahimLodi: {
+    id: "ibrahim-lodi-panipat-1526",
+    ruler: "Ibrahim Lodi",
+    event: "Defeated by Babur at the First Battle of Panipat",
+    year: 1526,
+  },
+  daulatKhan: {
+    id: "daulat-khan-lodi-punjab",
+    ruler: "Daulat Khan Lodi",
+    role: "Governor of Punjab during the final Lodi phase",
+  },
+  baburLahore: {
+    id: "babur-lahore-before-panipat",
+    ruler: "Babur",
+    place: "Lahore",
+    note: "Babur captured Lahore during campaigns preceding his victory at Panipat.",
+  },
+  firstPanipat: {
+    id: "first-panipat-1526",
+    year: 1526,
+    victor: "Babur",
+    defeated: "Ibrahim Lodi",
+  },
+  akbarLahore: {
+    id: "akbar-lahore-1584-1598",
+    ruler: "Akbar",
+    from: 1584,
+    to: 1598,
+    note: "Akbar held his court at Lahore and strengthened Lahore Fort and city defences.",
+  },
+  lahoreTradeEducation: {
+    id: "lahore-sixteenth-century-centre",
+    century: "16th century",
+    roles: Object.freeze(["Major trade centre", "Major Islamic education centre"]),
+  },
+  jahangirTomb: {
+    id: "jahangir-tomb-shahdara",
+    ruler: "Jahangir",
+    place: "Shahdara, Lahore",
+  },
+  nurJahanTomb: {
+    id: "nur-jahan-tomb-shahdara",
+    person: "Nur Jahan",
+    place: "Shahdara, Lahore",
+  },
+  shalimarLahore: {
+    id: "shalimar-gardens-shah-jahan",
+    monument: "Shalimar Gardens, Lahore",
+    ruler: "Shah Jahan",
+  },
+  badshahiMosque: {
+    id: "badshahi-mosque-aurangzeb",
+    monument: "Badshahi Mosque, Lahore",
+    ruler: "Aurangzeb",
+  },
+  ibnBattutaPunjab: {
+    id: "ibn-battuta-punjab-term",
+    person: "Ibn Battuta",
+    period: "14th century",
+    note: "One of the earliest known documentary uses of the word Punjab.",
+  },
+  tarikhSherShah: {
+    id: "tarikh-sher-shah-punjab-term",
+    work: "Tarikh-e-Sher Shah Suri",
+    year: 1580,
+    note: "Contains use of the name Punjab.",
+  },
+  ainAkbariPunjab: {
+    id: "ain-akbari-punjab-term",
+    work: "Ain-i-Akbari",
+    author: "Abul Fazl",
+    note: "Uses Punjab in describing the Lahore and Multan region and also uses Panjnad.",
+  },
+} as const);
+
+export const PGK_001_CP011_FACT_IDS = Object.freeze(
+  Object.values(PGK_001_CP011_FACTS).map((fact) => fact.id),
+);

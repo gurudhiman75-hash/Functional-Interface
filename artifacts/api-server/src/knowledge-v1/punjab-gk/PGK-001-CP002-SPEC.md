@@ -1,0 +1,89 @@
+# PGK-001 CP002 — Administrative Punjab
+
+Status: HUMAN APPROVED / FROZEN V3
+Chapter: `PGK-001 — Punjab General Knowledge`
+CP: `PGK-001-CP-002 — Administrative Punjab`
+Permanent QLs: `PGK-001-QL-007` to `PGK-001-QL-013`
+
+## Scope
+
+CP002 builds the present-day administrative relation layer for Punjab: five administrative divisions, the 23-district set, district headquarters/aliases, division membership and selected high-value district-formation history.
+
+## Qualified coverage
+
+- Official statistical snapshot: 5 administrative divisions and 23 districts in `Punjab at a Glance 2022`
+- Current 23-district roster cross-checked against the Government of Punjab ePoS district list
+- Division set: Faridkot, Ferozepur, Jalandhar, Patiala and Rupnagar/Ropar
+- District-to-division map used as an administrative relation graph
+- District headquarters, including the non-identical-name cases:
+  - Sahibzada Ajit Singh Nagar district → Mohali
+  - Shaheed Bhagat Singh Nagar district → Nawanshahr
+- Common official aliases are preserved for recognition: Rupnagar/Ropar, Sahibzada Ajit Singh Nagar/SAS Nagar/Mohali, Shaheed Bhagat Singh Nagar/SBS Nagar/Nawanshahr, Sri Muktsar Sahib/Muktsar, Ferozepur/Firozpur
+- Selected formation history:
+  - Moga: district formed on 24 November 1995; earlier a subdivision of Faridkot district
+  - Sahibzada Ajit Singh Nagar: formed as Punjab's 18th district on 14 April 2006 from areas of Ropar and Patiala districts; part of Rupnagar division
+  - Tarn Taran: formed on 16 June 2006 from Amritsar district; became Punjab's 19th district
+  - Barnala: became a district on 19 November 2006; earlier part of Sangrur district
+  - Pathankot: declared a district on 27 July 2011; earlier a tehsil of Gurdaspur district
+  - Fazilka: announced as Punjab's 21st district in July 2011; earlier part of Ferozepur district
+  - Malerkotla: carved out of Sangrur as Punjab's 23rd district on 2 June 2021
+
+## Freshness rule
+
+Administrative membership is mutable. `23 districts` and `5 divisions` are source-versioned facts, not eternal counts. Current office-holders, DC names, commissioner names, tehsil counts and local-body counts are excluded from the static learner pool.
+
+## QL design
+
+| QL | Focus | Difficulty |
+| --- | --- | --- |
+| PGK-001-QL-007 | Division count and division names | Easy |
+| PGK-001-QL-008 | District headquarters and administrative aliases | Easy / Medium |
+| PGK-001-QL-009 | District-to-division membership | Medium |
+| PGK-001-QL-010 | District formation and parent-district history | Medium |
+| PGK-001-QL-011 | Correct/incorrect administrative pairs | Medium |
+| PGK-001-QL-012 | Multi-clue district identification | Medium / Hard |
+| PGK-001-QL-013 | Multi-statement administrative synthesis | Hard |
+
+Each QL exposes six semantic payloads, for 42 review questions total.
+
+## Stem rule — V2+
+
+Learner stems must resemble actual Punjab recruitment-exam MCQs rather than generated database prompts.
+
+Preferred forms:
+
+- `Which of the following ...?`
+- `X is the headquarters of:`
+- `X district is part of which division?`
+- `Which pair is correctly/incorrectly matched?`
+- `Arrange the following ... in chronological order.`
+- properly numbered `Consider the following statements/pairs` questions
+
+Avoid learner-facing riddle or generator language such as:
+
+- `This district was ... Identify it.`
+- `Its headquarters is ... Which district is it?`
+- `Which list gives ...`
+- verbose source-description phrases when a short exam stem works
+
+The source year remains in the stem only when required to make a mutable administrative count unambiguous.
+
+## Distractor rule
+
+District questions must use district distractors; division questions use divisions; headquarters questions use plausible Punjab cities. Formation questions should use nearby years or similarly timed district-creation events.
+
+## Explanation rule — V3
+
+Explanations must sound like natural learner-facing teaching, not source notes or generator output.
+
+- Start with the decisive fact.
+- Add one useful relation, date, alias or distinction when it improves understanding.
+- Normally use 1–2 short sentences; never exceed 3 without a clear need.
+- Do not say `the correct answer is`, `the option`, `the other options`, `this question tests`, or similar meta-language.
+- Do not mechanically repeat the stem and answer.
+- Do not lead with source language such as `the official snapshot records...` unless the source year itself is the examinable point.
+- No routine option-by-option analysis.
+
+## Approval and lifecycle
+
+Human-approved on 14 September 2026 after V2 stem correction and V3 explanation correction. CP002 is frozen as the accepted review authority. Runtime Question Studio registration remains a separate integration step and is not implied by this approval.
