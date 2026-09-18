@@ -1,6 +1,6 @@
 # COA-001 / COA-CP-009 — Status
 
-Status: **FULL HINDI/PUNJABI CORPUS IMPLEMENTED / HUMAN REVIEW PENDING**
+Status: **APPROVED / FULL HINDI-PUNJABI CORPUS FROZEN**
 
 ## Frozen baseline
 
@@ -24,7 +24,7 @@ All 120 ordinary authorities are covered, including the two legacy QL007 calibra
 
 ## Semantic parity guarantees
 
-The full-corpus proof requires Hindi and Punjabi to preserve the frozen English:
+Human approval on **2026-09-18** freezes the cleaned Hindi/Punjabi corpus. The full-corpus proof requires Hindi and Punjabi to preserve the frozen English:
 
 - semantic authority ID;
 - QL ID;
@@ -64,7 +64,7 @@ The CP009 workflow runs both the approved calibration proof and the whole-corpus
 
 ## Human review gate
 
-Full-corpus localization is implemented but **not frozen yet**.
+Full-corpus localization is **APPROVED / FROZEN** after the stem editorial cleanup pass.
 
 Human review should focus on:
 
@@ -78,10 +78,10 @@ Human review should focus on:
 ## Lifecycle
 
 - CP009 calibration: **APPROVED / FROZEN**
-- CP009 exhaustive HI/PA rollout: **IMPLEMENTED / HUMAN REVIEW PENDING**
+- CP009 exhaustive HI/PA rollout: **APPROVED / FROZEN**
 - Question Studio: **CLOSED**
 - Question Bank writes: **CLOSED**
 - test/mock eligibility: **CLOSED**
 - public/student delivery: **CLOSED**
 
-Green CI proves structural and semantic parity. Human editorial approval is still required before the full Hindi/Punjabi corpus is frozen or any downstream integration is opened.
+Human editorial approval is complete. Downstream integration remains a separate gate and is still closed until CP010 is deliberately implemented.
