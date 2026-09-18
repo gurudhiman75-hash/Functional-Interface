@@ -41,6 +41,7 @@ const cpCounts = new Map<string, number>();
 const qlCounts = new Map<string, number>();
 const bannedLearnerWording = /associated with|linked with|known for|best described|the correct answer is|the correct option|the other options|this question tests|with reference to punjab|identify it|review batch|runtimeRegistered|generator|sourceFactIds/i;
 const semanticFingerprints = new Map<string, string>();
+const exhaustiveAuditErrors: string[] = [];
 
 function normalizeLearnerText(value: string) {
   return value
@@ -63,6 +64,8 @@ for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
   assert.ok(q.explanation.trim().length > 0, `${q.questionId}: missing explanation`);
   assert.doesNotMatch(`${q.stem}\n${q.explanation}`, bannedLearnerWording);
 }
+
+assert.deepEqual(exhaustiveAuditErrors, [], `Exhaustive PGK audit failures:\n${exhaustiveAuditErrors.join("\n")}`);
 
 assert.equal(cpCounts.size, 26);
 assert.equal(qlCounts.size, 182);
