@@ -27,11 +27,11 @@ function assertNative(question: HisLocalizedQuestionV1, locale: "hi" | "pa") {
   fail(question.explanation.length >= 90, `${question.questionId}: localized explanation too short: ${question.explanation.length}`);
   fail(question.explanation.length <= 420, `${question.questionId}: localized explanation too long: ${question.explanation.length}`);
   if (locale === "hi") {
-    fail(/[\u0900-\u097F]/u.test(text), `${question.questionId}: missing Devanagari`);
-    fail(!/[\u0A00-\u0A7F]/u.test(text), `${question.questionId}: Gurmukhi leakage in Hindi`);
+    fail(/[\u0900-\u097F]/u.test(scriptText), `${question.questionId}: missing Devanagari`);
+    fail(!/[\u0A00-\u0A7F]/u.test(scriptText), `${question.questionId}: Gurmukhi leakage in Hindi`);
   } else {
-    fail(/[\u0A00-\u0A7F]/u.test(text), `${question.questionId}: missing Gurmukhi`);
-    fail(!/[\u0900-\u097F]/u.test(text), `${question.questionId}: Devanagari leakage in Punjabi`);
+    fail(/[\u0A00-\u0A7F]/u.test(scriptText), `${question.questionId}: missing Gurmukhi`);
+    fail(!/[\u0900-\u097F]/u.test(scriptText), `${question.questionId}: Devanagari leakage in Punjabi`);
   }
 }
 
