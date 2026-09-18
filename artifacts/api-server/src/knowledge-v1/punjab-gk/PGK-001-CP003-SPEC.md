@@ -1,6 +1,6 @@
 # PGK-001 CP003 — Physical Regions & Relief
 
-Status: REVIEW CANDIDATE V2
+Status: HUMAN APPROVED / FROZEN V2
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-003 — Physical Regions & Relief`
 Permanent QLs: `PGK-001-QL-014` to `PGK-001-QL-020`
@@ -65,4 +65,4 @@ Primary evidence remains stored internally from Punjab government/official plann
 
 ## Lifecycle
 
-CP003 V2 is review-only. It must not be registered for runtime Question Studio generation, Question Bank writes, tests, mocks or public publication before explicit human approval.
+CP003 V2 was human-approved on 14 September 2026 and is frozen as the accepted review authority. Runtime Question Studio registration, Question Bank writes, tests, mocks and publication remain a separate later integration step.
