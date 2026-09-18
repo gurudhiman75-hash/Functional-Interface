@@ -6,7 +6,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     1,
     "Easy",
-    "Who first observed cells in a thin slice of cork?",
+    "Who discovered cells while examining a thin slice of cork?",
     "Robert Hooke",
     [
       "Anton van Leeuwenhoek",
@@ -21,7 +21,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     1,
     "Easy",
-    "Which statement is a basic part of cell theory?",
+    "According to cell theory, which of the following statements is correct?",
     "All living organisms are made of cells",
     [
       "All cells contain chloroplasts",
@@ -36,7 +36,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     1,
     "Medium",
-    "A tissue is best described as a group of:",
+    "A group of similar cells performing a common function is called:",
     "similar cells performing a common function",
     [
       "different organs forming a system",
@@ -51,7 +51,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     1,
     "Medium",
-    "Which sequence shows the correct increase in biological organization?",
+    "Which of the following shows the correct order of biological organization from simpler to more complex?",
     "Cell → Tissue → Organ → Organ system",
     [
       "Tissue → Cell → Organ system → Organ",
@@ -81,7 +81,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     1,
     "Hard",
-    "An organism grows mainly because its cells increase in number and, in many tissues, also in size. Which idea does this most directly support?",
+    "Growth in an organism occurs through an increase in cell size and cell number. This best shows that:",
     "Cells are fundamental units of growth and organization",
     [
       "Only unicellular organisms can grow",
@@ -96,7 +96,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     2,
     "Easy",
-    "Which structure is absent in a typical prokaryotic cell?",
+    "Which of the following is absent in a typical prokaryotic cell?",
     "Membrane-bound nucleus",
     [
       "Cell membrane",
@@ -111,7 +111,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     2,
     "Easy",
-    "Bacteria are classified as prokaryotes mainly because they lack:",
+    "Bacteria are classified as prokaryotes because they lack:",
     "membrane-bound organelles",
     [
       "genetic material",
@@ -126,7 +126,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     2,
     "Medium",
-    "The DNA of a typical bacterial cell is mainly found in the:",
+    "In a bacterial cell, the main genetic material is located in the:",
     "nucleoid",
     [
       "nucleolus",
@@ -141,7 +141,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     2,
     "Medium",
-    "Which feature is shared by both prokaryotic and eukaryotic cells?",
+    "Which of the following is present in both prokaryotic and eukaryotic cells?",
     "Ribosomes",
     [
       "Nuclear membrane",
@@ -156,7 +156,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     2,
     "Medium",
-    "A cell has a plasma membrane, cytoplasm, ribosomes and DNA but no true nucleus. It is most likely a:",
+    "A cell has DNA, ribosomes, cytoplasm and a plasma membrane but no true nucleus. It is a:",
     "prokaryotic cell",
     [
       "plant eukaryotic cell",
@@ -171,7 +171,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     2,
     "Hard",
-    "A scientist finds a very small cell with circular DNA and no membrane-bound organelles. Which additional feature would best fit this cell?",
+    "A cell contains circular DNA and lacks membrane-bound organelles. Which other feature is expected?",
     "Its ribosomes are free in the cytoplasm",
     [
       "Its DNA is enclosed inside a nuclear envelope",
@@ -186,7 +186,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     3,
     "Easy",
-    "Which cell structure controls the movement of substances into and out of the cell?",
+    "Which cell structure regulates the movement of substances into and out of the cell?",
     "Plasma membrane",
     [
       "Nucleolus",
@@ -201,7 +201,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     3,
     "Easy",
-    "The cell wall of plants is mainly made of:",
+    "The plant cell wall is mainly composed of:",
     "cellulose",
     [
       "glycogen",
@@ -216,7 +216,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     3,
     "Medium",
-    "What happens to a raisin when it is kept in plain water for some time?",
+    "What happens when a raisin is kept in plain water for some time?",
     "It swells as water enters by osmosis",
     [
       "It shrinks as water leaves by osmosis",
