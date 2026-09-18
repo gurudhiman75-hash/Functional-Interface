@@ -3,6 +3,7 @@ import { ENG002_QUESTION_STUDIO_PACKAGE_ID_V1 } from "./language-v1-eng002-cp001
 import { languageV1QuestionStudioAdapter } from "./language-v1-adapter";
 import { ENG003_QUESTION_STUDIO_PACKAGE_ID_V1 } from "./language-v1-eng003-cp001-adapter-v1";
 import { languageV1Eng003Cp004QuestionStudioAdapterV1 } from "./language-v1-eng003-cp004-adapter-v1";
+import { languageV1Eng003Cp006QuestionStudioAdapterV1 } from "./language-v1-eng003-cp006-adapter-v1";
 
 const baseRequest = {
   packageId: ENG003_QUESTION_STUDIO_PACKAGE_ID_V1,
@@ -113,3 +114,39 @@ await assert.rejects(
 );
 
 console.log("ENG-003 CP004 Question Studio review-only lifecycle tests passed.");
+
+
+const cp006ApprovalHeadSmoke = await languageV1Eng003Cp006QuestionStudioAdapterV1.generate({
+  packageId: ENG003_QUESTION_STUDIO_PACKAGE_ID_V1,
+  canonicalProblemId: "ENG-003-CP006",
+  patternId: "GR-CMP-009",
+  subject: "English",
+  topic: "Fill in the Blanks / Grammar Fillers",
+  subtopic: "Adjectives, Adverbs and Comparison",
+  language: "en",
+  runtimeMode: "review-only",
+  difficulty: "Hard",
+  count: 3,
+  seed: "eng003:cp006:approval-head-smoke",
+});
+assert.equal(cp006ApprovalHeadSmoke.questions.length, 3);
+assert.equal(cp006ApprovalHeadSmoke.questions.every((q) => q.cpId === "ENG-003-CP006"), true);
+assert.equal(cp006ApprovalHeadSmoke.questions.every((q) => q.ruleId === "GR-CMP-009"), true);
+assert.equal(cp006ApprovalHeadSmoke.questions.every((q) => q.reviewOnly === true), true);
+assert.equal(cp006ApprovalHeadSmoke.questions.every((q) => q.productionReleaseAuthorized === false), true);
+assert.equal(cp006ApprovalHeadSmoke.questions.every((q) => (String(q.sentence).match(/_____/g) ?? []).length === 1), true);
+assert.equal(cp006ApprovalHeadSmoke.questions.every((q) => !(q.options as unknown[]).includes("No improvement")), true);
+
+const cp006CompositeRoute = await languageV1QuestionStudioAdapter.generate({
+  packageId: ENG003_QUESTION_STUDIO_PACKAGE_ID_V1,
+  patternId: "GR-CMP-010",
+  subject: "English",
+  topic: "Fill in the Blanks / Grammar Fillers",
+  subtopic: "Adjectives, Adverbs and Comparison",
+  language: "en",
+  runtimeMode: "review-only",
+  difficulty: "Hard",
+  count: 1,
+  seed: "eng003:cp006:composite-route",
+});
+assert.equal(cp006CompositeRoute.questions[0]?.cpId, "ENG-003-CP006");
