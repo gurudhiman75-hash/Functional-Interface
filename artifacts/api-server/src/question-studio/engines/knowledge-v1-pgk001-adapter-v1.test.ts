@@ -39,7 +39,18 @@ assert.equal(new Set(PGK_001_QUESTION_STUDIO_CORPUS_V1.map((q) => q.questionId))
 
 const cpCounts = new Map<string, number>();
 const qlCounts = new Map<string, number>();
-const bannedLearnerWording = /the correct answer is|the correct option|the other options|this question tests|review batch|runtimeRegistered|generator|sourceFactIds/i;
+const bannedLearnerWording = /associated with|linked with|known for|best described|the correct answer is|the correct option|the other options|this question tests|with reference to punjab|identify it|review batch|runtimeRegistered|generator|sourceFactIds/i;
+const semanticFingerprints = new Map<string, string>();
+
+function normalizeLearnerText(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFKC")
+    .replace(/\\n/g, " ")
+    .replace(/[^a-z0-9%]+/g, " ")
+    .replace(/\\s+/g, " ")
+    .trim();
+}
 
 for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
   cpCounts.set(q.cpId, (cpCounts.get(q.cpId) ?? 0) + 1);
