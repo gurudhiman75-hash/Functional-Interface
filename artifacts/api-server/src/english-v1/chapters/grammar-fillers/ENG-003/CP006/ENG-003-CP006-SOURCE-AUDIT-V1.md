@@ -1,6 +1,6 @@
 # ENG-003-CP006 — Grammar Fillers: Adjectives, Adverbs and Comparison — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Boundary
 
@@ -85,3 +85,14 @@ It prioritizes rule-family breadth before adding further unique donor scenes.
 ## Lifecycle
 
 CP006 remains review-only until explicit human editorial approval. It is not registered in Question Studio yet and has no authority for Question Bank writes, tests, mocks, learner/public publication, automatic student delivery or production release.
+
+## Human approval
+
+Approved on **2026-09-18**.
+
+- Approval authority: `ENG-003-CP006-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `c20f0c739c797284ddb38b6241c594d2bfd8e525`
+- Review SHA-256: `dcce9c01acb795513572aa89b2a2f824d1a1c7c2446914dfb9d8727cab206464`
+- Workflow artifact digest: `sha256:1022b0e24488691de5c7295b8bf1281a6190f2679b1591104fdcbfd14e01a9b9`
+
+Question Studio registration is review-only. Learner/test/mock/public release remains locked.
