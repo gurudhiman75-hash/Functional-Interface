@@ -12,7 +12,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/**"
-      - ".github/workflows/quant-v4-di-missing-di007-v2.yml"
   workflow_dispatch:
 
 concurrency:
