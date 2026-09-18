@@ -150,6 +150,10 @@ function gcd(a: number, b: number): number {
   return left || 1;
 }
 
+function gcdMany(values: readonly number[]): number {
+  return values.reduce((acc, value) => gcd(acc, value), 0) || 1;
+}
+
 function formatQuotient(numerator: number, denominator: number): string {
   if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || denominator <= 0) {
     throw new Error("DI-007 V2 received an invalid rational value.");
@@ -476,7 +480,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
   const visiblePairSum = stimulus.points[visibleI]!.seriesB + stimulus.points[visibleJ]!.seriesB;
   const hiddenRowTotal = hiddenPoint.seriesA + hidden;
   const visibleRowTotal = visiblePoint.seriesA + visiblePoint.seriesB;
-  const fallbackScale = gcd(...stimulus.points.flatMap((point) => [point.seriesA, point.seriesB]));
+  const fallbackScale = gcdMany(stimulus.points.flatMap((point) => [point.seriesA, point.seriesB]));
 
   switch (kind) {
     case "DIRECT_VISIBLE_VALUE": {
@@ -799,7 +803,7 @@ export function generateDi007V2ReviewSet(input: { seed?: string; examProfile?: D
 
   const questions = tasks.map((kind, index): Di007V2Question => {
     const draft = buildDraftForTask(seed, stimulus, kind);
-    const numericScale = gcd(...stimulus.points.flatMap((point) => [point.seriesA, point.seriesB]));
+    const numericScale = gcdMany(stimulus.points.flatMap((point) => [point.seriesA, point.seriesB]));
     const optionPackage = buildOptions(`${seed}:${examProfile}:${kind}`, draft.answer, draft.candidates, numericScale);
     return {
       questionId: `${setId}-Q${index + 1}`,
