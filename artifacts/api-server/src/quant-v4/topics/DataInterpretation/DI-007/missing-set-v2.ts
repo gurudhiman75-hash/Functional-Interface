@@ -273,7 +273,7 @@ function buildStimulus(seed: string, profile: Di007V2ExamProfile): Di007V2Stimul
     kind: "MISSING_TABLE",
     contextId: context.id,
     title: context.title,
-    instruction: `Study the table and answer the questions. One value in ${context.seriesBLabel.toLowerCase()} is missing. ${aggregateCondition.learnerText}`,
+    instruction: `Study the table and answer the questions. One entry under ${context.seriesBLabel} is missing. ${aggregateCondition.learnerText}`,
     rowLabel: context.rowLabel,
     seriesALabel: context.seriesALabel,
     seriesBLabel: context.seriesBLabel,
@@ -406,7 +406,7 @@ function recoverStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
 function hiddenCombinedStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `What is the combined value of the two series for ${row.label}?`,
+    `What is the combined ${stimulus.seriesALabel.toLowerCase()} and ${stimulus.seriesBLabel.toLowerCase()} value for ${row.label}?`,
     `After finding the missing entry, what is the total of both table values for ${row.label}?`,
     `Find ${stimulus.seriesALabel.toLowerCase()} plus ${stimulus.seriesBLabel.toLowerCase()} for ${row.label}.`,
   ] as const;
@@ -493,7 +493,7 @@ function rowTotalRatioStem(stimulus: Di007V2Stimulus, otherIndex: number, varian
   const templates = [
     `What is the ratio of the combined row total for ${hiddenLabel} to the combined row total for ${otherLabel}?`,
     `Find the ratio (${stimulus.seriesALabel} + ${stimulus.seriesBLabel}) for ${hiddenLabel} to the corresponding total for ${otherLabel}.`,
-    `After recovering the missing value, compare the two-series total of ${hiddenLabel} with that of ${otherLabel} as a ratio.`,
+    `After finding the missing entry, compare the combined values of both columns for ${hiddenLabel} and ${otherLabel} as a ratio.`,
   ] as const;
   return templates[variant];
 }
