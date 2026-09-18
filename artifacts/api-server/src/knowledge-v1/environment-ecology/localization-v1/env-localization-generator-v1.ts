@@ -8,3 +8,8 @@ export {
   ENV_CP002_ENGLISH_AUTHORITY_V1,
   generateEnvCp002LocalizedReviewV1,
 } from "./env-cp002-localization-v1";
+export {
+  ENV_CP003_MULTILINGUAL_V1,
+  ENV_CP003_ENGLISH_AUTHORITY_V1,
+  generateEnvCp003LocalizedReviewV1,
+} from "./env-cp003-localization-v1";
