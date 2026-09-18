@@ -303,6 +303,7 @@ export interface QuantV4SimulatedQuestion {
   readonly questionSpecificExplanation: boolean;
   readonly explanationOptionalSectionIssues: readonly string[];
   readonly semanticExplanationSignature: string;
+  readonly literalStemSignature: string;
   readonly normalizedStemSignature: string;
   readonly stemWordCount: number;
   readonly explanationWordCount: number;
@@ -337,7 +338,8 @@ export interface QuantV4RealExamAuditSummary {
   readonly optionMismatchCount: number;
   readonly emptyExplanationCount: number;
   readonly explanationSpecificityRate: number;
-  readonly exactStemDuplicateRate: number;
+  readonly literalStemDuplicateRate: number;
+  readonly normalizedStructuralStemReuseRate: number;
   readonly semanticExplanationDuplicateRate: number;
   readonly releaseIneligibleCount: number;
   readonly publiclyLockedCount: number;
@@ -364,6 +366,13 @@ function hash(value: string): number {
 
 function words(value: unknown): string[] {
   return String(value ?? "").trim().split(/\s+/u).filter(Boolean);
+}
+
+function literalStemSignature(value: unknown): string {
+  return String(value ?? "")
+    .normalize("NFKC")
+    .replace(/\s+/gu, " ")
+    .trim();
 }
 
 function normalizeStemSignature(value: unknown): string {
@@ -486,6 +495,7 @@ function runtimeRecord(input: {
     questionSpecificExplanation: hasQuestionSpecificEvidence(assessment),
     explanationOptionalSectionIssues: assessment.optionalSectionIssues,
     semanticExplanationSignature: assessment.semanticSignature,
+    literalStemSignature: literalStemSignature(text),
     normalizedStemSignature: normalizeStemSignature(text),
     stemWordCount: words(text).length,
     explanationWordCount: words(explanation).length,
@@ -524,6 +534,7 @@ function gapRecord(input: {
     questionSpecificExplanation: false,
     explanationOptionalSectionIssues: [],
     semanticExplanationSignature: "CAPABILITY_GAP",
+    literalStemSignature: "CAPABILITY_GAP",
     normalizedStemSignature: "CAPABILITY_GAP",
     stemWordCount: 0,
     explanationWordCount: 0,
@@ -1041,8 +1052,15 @@ export function summarizeQuantV4RealExamSections(
   if (emptyExplanationCount) blockers.push("EMPTY_EXPLANATIONS_PRESENT");
   const explanationSpecificityRate = runtimeQuestions.length ? specificExplanationCount / runtimeQuestions.length : 0;
   if (explanationSpecificityRate < 0.9) blockers.push("EXPLANATION_SPECIFICITY_BELOW_90_PERCENT");
-  const exactStemDuplicateRate = duplicateRate(runtimeQuestions.map((question) => question.normalizedStemSignature));
-  if (exactStemDuplicateRate > 0.05) blockers.push("STEM_REPETITION_ABOVE_5_PERCENT");
+  const literalStemDuplicateRate = duplicateRate(
+    runtimeQuestions.map((question) => question.literalStemSignature),
+  );
+  const normalizedStructuralStemReuseRate = duplicateRate(
+    runtimeQuestions.map((question) => question.normalizedStemSignature),
+  );
+  if (normalizedStructuralStemReuseRate > 0.05) {
+    blockers.push("STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT");
+  }
   const semanticExplanationDuplicateRate = duplicateRate(runtimeQuestions.map((question) => question.semanticExplanationSignature));
   if (semanticExplanationDuplicateRate > 0.2) blockers.push("EXPLANATION_REPETITION_ABOVE_20_PERCENT");
   if (releaseIneligibleCount) blockers.push("TEST_INELIGIBLE_RUNTIME_CONTENT_PRESENT");
@@ -1060,7 +1078,8 @@ export function summarizeQuantV4RealExamSections(
     optionMismatchCount,
     emptyExplanationCount,
     explanationSpecificityRate,
-    exactStemDuplicateRate,
+    literalStemDuplicateRate,
+    normalizedStructuralStemReuseRate,
     semanticExplanationDuplicateRate,
     releaseIneligibleCount,
     publiclyLockedCount,
