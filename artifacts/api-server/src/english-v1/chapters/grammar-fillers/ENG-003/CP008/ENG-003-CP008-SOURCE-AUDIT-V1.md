@@ -1,6 +1,6 @@
 # ENG-003-CP008 — Grammar Fillers: Nouns and Quantifiers — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Boundary
 
@@ -55,3 +55,14 @@ Rule-family breadth is prioritized before additional scene variety.
 ## Lifecycle
 
 CP008 remains review-only until explicit human editorial approval. It is not registered in Question Studio and is not eligible for Question Bank writes, tests, mocks, learner/public publication, automatic student delivery or production release.
+
+## Human approval
+
+Approved on **2026-09-18**.
+
+- Approval authority: `ENG-003-CP008-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `aeea5895ad50a7441bfbc9488d443beccd2add72`
+- Review SHA-256: `a5d6cc62b789a4df4e50cd5150fc206904c64cdf9f74c20dd8a8605c560955bb`
+- Workflow artifact digest: `sha256:5c4b23b87eff5688d4928321b78b448eaef4492eef6ede96fcfb519efdde1334`
+
+Question Studio registration is review-only. Learner/test/mock/public release remains locked.
