@@ -55,7 +55,7 @@ const mobileStudyLinks: MobileStudyLink[] = [
   { label: "Free Resources", href: "/resources", icon: Newspaper },
   { label: "Store", href: "/store", icon: ShoppingBag },
   { label: "My Tests", href: "/dashboard", icon: LayoutDashboard, authNext: "/dashboard" },
-  { label: "Analytics", icon: BarChart3, disabled: true },
+  { label: "Performance", href: "/performance", icon: BarChart3, authNext: "/performance" },
   { label: "Support", href: "/contact", icon: ArrowRight },
   { label: "Settings", href: "/profile", icon: Settings, authNext: "/profile" },
 ];
