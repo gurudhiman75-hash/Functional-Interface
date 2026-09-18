@@ -8,7 +8,6 @@ on:
     paths:
       - artifacts/api-server/src/english-v1/**
       - artifacts/api-server/src/question-studio/**
-      - .github/workflows/english-eng003-cp001-v1.yml
   workflow_dispatch:
 
 permissions:
