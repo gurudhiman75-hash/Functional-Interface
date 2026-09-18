@@ -2,10 +2,15 @@ name: SCI Chemistry Localization Wave 1
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/knowledge-v1/science/chemistry-localization-v1/**"
-      - ".github/workflows/sci-chemistry-localization-wave1.yml"
   workflow_dispatch:
+
+concurrency:
+  group: sci-chemistry-localization-wave1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   chemistry-localization-wave1:
