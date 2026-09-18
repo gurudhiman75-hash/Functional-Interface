@@ -4,9 +4,9 @@ Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
 
 ## Exhaustive audited authority surface
 - 89 sentence-classification authorities
-- 73 meaning-preserving transformation authorities
+- 63 meaning-preserving transformation authorities
 - 71 high-confidence sentence-correction authorities
-- 233 total retained authorities
+- 223 total retained authorities
 
 The donor exposed 245 raw records:
 - 90 classification
@@ -19,7 +19,7 @@ The forward-port removes clear semantic duplicates and excludes correction claim
 Duplicate or near-duplicate:
 - CLS-083
 - TRF-044
-- TRF-057
+- TRF-057\n- TRF-009\n- TRF-010\n- TRF-023\n- TRF-030\n- TRF-037\n- TRF-060\n- TRF-063\n- TRF-066\n- TRF-074\n- TRF-075
 
 Debatable correction authorities:
 - COR-006
@@ -45,7 +45,7 @@ COR-048 is retained with a meaning-preserving minimal correction.
 - F08 Dual structural analysis — Hard
 
 ## Governed semantic breadth
-8,371 semantic combinations before answer-order permutations.
+8,341 semantic combinations before answer-order permutations.
 
 F08 exhaustively enumerates every ordered pair of distinct classification authorities: 89 × 88 = 7,832 hard dual-analysis cases.
 
