@@ -1,0 +1,39 @@
+name: History V1 Fact Integrity Audit V3
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-history/history-v1-fact-integrity-audit-v3.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build and run fact integrity audit
+        run: |
+          mkdir -p artifacts/api-server/dist/history-audit
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-history/history-v1-fact-integrity-audit-v3.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/history-audit/history-v1-fact-integrity-audit-v3.mjs
+          cd artifacts/api-server
+          node dist/history-audit/history-v1-fact-integrity-audit-v3.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HIS-001-V1-FACT-INTEGRITY-AUDIT-V3
+          path: artifacts/api-server/dist/history-audit/HIS-001-V1-FACT-INTEGRITY-AUDIT-V3/
+          if-no-files-found: error
+          retention-days: 30
