@@ -46,7 +46,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(allowedRules.has(first.metadata.ruleId), `${first.questionId} uses ${first.metadata.ruleId} outside ${difficulty}`);
 
     const answer = first.options[first.correctOptionIndex]!;
-    assert(first.correctedSentence.includes(answer), `${first.questionId} answer does not reconstruct the approved sentence`);
+    assert(materializeEng003Cp003AnswerV1(first.sentence, answer) === first.correctedSentence, `${first.questionId} answer does not reconstruct the approved sentence`);
 
     seenRules.add(first.metadata.ruleId);
     domains.add(first.metadata.semanticDomain);
