@@ -66,4 +66,5 @@ assert.equal(String(eng002.questions[0]?.sentence).includes("_____"), false);
 await assert.rejects(languageV1Eng003Cp006QuestionStudioAdapterV1.generate({ ...baseRequest, language: "hi", count: 1 }), /English only/i);
 await assert.rejects(languageV1Eng003Cp006QuestionStudioAdapterV1.generate({ ...baseRequest, runtimeMode: "production", count: 1 }), /review-only/i);
 
+// Approval-head regression sentinel: learner content is unchanged.
 console.log("ENG-003 CP006 Question Studio review-only lifecycle tests passed.");
