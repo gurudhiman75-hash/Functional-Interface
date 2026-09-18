@@ -39,7 +39,7 @@ assert.deepEqual(packageDefinition, CLS001_STANDARD_REVIEW_ONLY_PACKAGE_V1);
 assert.deepEqual(packageDefinition.cpIds, [...CLS001_GENERATIVE_CP_IDS_V1]);
 assert.deepEqual(packageDefinition.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(packageDefinition.supportedDifficulties, ["Easy", "Medium", "Hard"]);
-assert.equal(packageDefinition.difficultyFilterSupported, true);
+assert.equal(packageDefinition.difficultyFilterSupported, false);
 assert.equal(packageDefinition.lifecycleStage, "REVIEW_ONLY");
 assert.equal(packageDefinition.questionBankWritable, false);
 assert.equal(packageDefinition.testEligible, false);
@@ -125,17 +125,17 @@ assert.equal(cp007.questions.length, 8);
 assert.ok(cp007.questions.every((question) => question.cpId === "CLS-CP-007"));
 assert.ok(cp007.questions.every((question) => ["CLS-QL-012", "CLS-QL-013"].includes(String(question.qlId))));
 
-const hardNumber = await generateQuestionStudioQuestions({
-  packageId: "CLS-001",
-  questionLanguageId: "CLS-QL-007",
-  language: "en",
-  difficulty: "Hard",
-  count: 2,
-  seed: "cls-hard-difficulty-proof",
-});
-assert.equal(hardNumber.questions.length, 2);
-assert.ok(hardNumber.questions.every((question) => question.difficulty === "Hard"));
-assert.ok(hardNumber.questions.every((question) => question.requestedDifficultyApplied === true));
+await assert.rejects(
+  () => generateQuestionStudioQuestions({
+    packageId: "CLS-001",
+    questionLanguageId: "CLS-QL-007",
+    language: "en",
+    difficulty: "Hard",
+    count: 2,
+    seed: "cls-hard-difficulty-proof",
+  }),
+  /difficulty filtering is intentionally disabled/u,
+);
 
 await assert.rejects(
   () => generateQuestionStudioQuestions({
