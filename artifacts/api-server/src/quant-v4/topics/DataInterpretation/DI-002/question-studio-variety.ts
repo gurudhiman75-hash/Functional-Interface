@@ -1,4 +1,4 @@
-import { mixedHashSeed } from "../DI-001/exact";
+import { presentationVariantIndex } from "../DI-001/exact";
 import { generateDi002AdvancedTableSet as generateDi002AdvancedTableSetBase } from "./advanced-table-set";
 import type {
   Di002ExamProfile,
@@ -193,7 +193,7 @@ const STEM_VARIANTS: Readonly<Record<Di002TaskKind, readonly StemBuilder[]>> = O
 
 function diversifyStem(seed: string, rows: readonly Di002Row[], question: Di002Question): string {
   const variants = STEM_VARIANTS[question.kind];
-  const variantIndex = mixedHashSeed(`${seed}:stem-variety:${question.kind}`) % variants.length;
+  const variantIndex = presentationVariantIndex(`${seed}:stem-variety:${question.kind}`, variants.length);
   return variants[variantIndex]!({ rows, question });
 }
 
