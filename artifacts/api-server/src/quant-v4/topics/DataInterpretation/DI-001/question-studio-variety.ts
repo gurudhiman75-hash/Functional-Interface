@@ -55,7 +55,7 @@ const STEM_VARIANTS: Readonly<Record<Di001QuestionKind, readonly StemBuilder[]>>
 
 function diversifyStem(seed: string, stimulus: Di001Stimulus, question: Di001Question): string {
   const variants = STEM_VARIANTS[question.kind];
-  const variantIndex = presentationVariantIndex(`${seed}:stem-variety:${question.kind}`, variants.length);
+  const variantIndex = presentationVariantIndex(question.questionId, variants.length);
   return variants[variantIndex]!(stimulus, question);
 }
 
