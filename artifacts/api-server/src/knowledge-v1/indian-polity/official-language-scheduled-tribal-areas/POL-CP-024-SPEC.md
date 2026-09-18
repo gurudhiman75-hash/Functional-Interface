@@ -1,9 +1,9 @@
 # POL-CP-024 — Official Language, Scheduled Areas & Tribal Administration
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
-**Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** BLOCKED UNTIL QUESTION STUDIO INTEGRATION PASS
 
-> Scope note: the repository roadmap does not expose the historical CP024 title. This title is an inferred next high-yield, uncovered Polity block and remains review-only until project-owner approval.
+> Scope note: the repository roadmap does not expose the historical CP024 title. This title is an inferred next high-yield, uncovered Polity block and was explicitly approved by the project owner on 2026-09-18.
 
 ## Scope
 - Part XVII, Articles 343–351: Union and State official-language provisions, inter-government communication, courts and authoritative texts, grievance representations, linguistic-minority safeguards and development of Hindi;
@@ -25,14 +25,14 @@
 - Where the Constitution creates an office but prescribes no specific qualification, say so clearly when directly tested.
 - No option-by-option analysis.
 
-## Review profile
+## Approved profile
 - 20 genuine QLs;
-- 80 review questions;
+- 80 questions;
 - 24 Easy / 40 Medium / 16 Hard;
 - four questions per QL;
 - A/B/C/D correct positions exactly balanced 20 each;
 - unique stems and explanations;
-- review-only until explicit project-owner approval.
+- content frozen after explicit project-owner approval.
 
 ## Primary sources
 - Constitution of India, Part XVII (Articles 343–351), Legislative Department;
