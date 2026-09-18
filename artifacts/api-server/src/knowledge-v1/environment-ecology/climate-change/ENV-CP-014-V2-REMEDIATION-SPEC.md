@@ -1,8 +1,9 @@
 # ENV-CP-014 V2 Remediation — India Climate Programmes
 
 **Parent CP:** ENV-CP-014 Climate Change  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review layer:** V2 remediation extension  
+**Project-owner approval:** 2026-09-18  
 **Runtime registration:** review-only
 
 ## Audit gap closed

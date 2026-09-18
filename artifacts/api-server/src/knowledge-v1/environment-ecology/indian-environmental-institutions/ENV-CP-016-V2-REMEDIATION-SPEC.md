@@ -1,8 +1,9 @@
 # ENV-CP-016 V2 Remediation — Major Indian Environmental Movements
 
 **Parent CP:** ENV-CP-016 Indian Environmental Institutions  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review layer:** V2 remediation extension  
+**Project-owner approval:** 2026-09-18  
 **Runtime registration:** review-only
 
 ## Added scope

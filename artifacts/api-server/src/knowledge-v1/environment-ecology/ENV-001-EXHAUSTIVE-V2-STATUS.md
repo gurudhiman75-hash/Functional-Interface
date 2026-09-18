@@ -2,9 +2,9 @@
 
 ## State
 
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Architecture:** ENV-CP-001 through ENV-CP-020 preserved; no ENV-CP-021 added  
-**Runtime / Question Studio:** unchanged pending review approval
+**Runtime / Question Studio:** content approved and frozen; runtime integration remains a separate workflow
 
 ## Audit gaps now implemented
 
@@ -33,6 +33,8 @@ ENV-CP-014 V1 is recorded as approved/content-frozen. The stale pending-approval
 
 Article 48A and Article 51A(g) remain Polity-owned and are not duplicated in Environment.
 
-## Next gate
+## Approval and next gate
 
-Project-owner review of the V2 remediation surface. After approval: freeze V2, rerun chapter-wide regression/CI, then begin multilingual localization.
+Project-owner approval was recorded by merge of PR #1837 on 2026-09-18. The V2 remediation surface is content-frozen. Chapter-wide regression gates are present in `environment-exhaustive-v2.test.ts`.
+
+Next phase: multilingual localization, using frozen English as semantic authority.

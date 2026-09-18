@@ -1,0 +1,79 @@
+name: Validate ENV Multilingual V1 Wave 1
+
+on:
+  push:
+    branches:
+      - feature/env-multilingual-v1-wave1
+    paths:
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/localization-v1/**
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/ecology-fundamentals/ENV-CP-001-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/ENV-001-EXHAUSTIVE-V2-STATUS.md
+      - .github/workflows/environment-multilingual-v1-wave1.yml
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/localization-v1/**
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/ecology-fundamentals/ENV-CP-001-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/ENV-001-EXHAUSTIVE-V2-STATUS.md
+  workflow_dispatch:
+
+concurrency:
+  group: env-multilingual-v1-wave1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-env-cp001-localization:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Environment CP001 localization proof
+        run: |
+          mkdir -p artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/environment-ecology/localization-v1/env-cp001-localization-proof-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/environment-review/ENV-MULTILINGUAL-V1/env-cp001-localization-proof-v1.mjs
+
+      - name: Validate Environment CP001 localization
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/environment-review/ENV-MULTILINGUAL-V1/env-cp001-localization-proof-v1.mjs \
+            | tee dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP001-MULTILINGUAL-PROOF.log
+
+      - name: Materialize multilingual review Markdown
+        run: |
+          cd artifacts/api-server
+          pnpm exec esbuild \
+            src/knowledge-v1/environment-ecology/localization-v1/env-localization-export-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/environment-review/ENV-MULTILINGUAL-V1/env-localization-export-v1.mjs
+          node dist/environment-review/ENV-MULTILINGUAL-V1/env-localization-export-v1.mjs
+
+      - name: Upload Environment multilingual evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: env-cp001-multilingual-v1
+          path: |
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP001-MULTILINGUAL-PROOF.json
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP001-MULTILINGUAL-PROOF.log
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-MULTILINGUAL-V1-CP001-REVIEW.md
+          if-no-files-found: error

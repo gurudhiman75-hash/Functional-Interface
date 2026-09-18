@@ -1,8 +1,9 @@
 # ENV-CP-020 V2 Remediation — Exhaustive Capstone
 
 **Parent CP:** ENV-CP-020 Integrated Environment GK  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review version:** V2  
+**Project-owner approval:** 2026-09-18  
 **Runtime registration:** review-only
 
 ## Purpose

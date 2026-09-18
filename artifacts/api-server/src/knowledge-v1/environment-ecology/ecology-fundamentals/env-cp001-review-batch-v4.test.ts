@@ -31,6 +31,14 @@ describe("ENV-CP-001 V4 simplified editorial review batch", () => {
     }
   });
 
+  it("keeps the all-true Q43 statement count semantically aligned", () => {
+    const q43 = questions.find((question) => question.questionId === "ENV-CP001-V4-043");
+    expect(q43).toBeTruthy();
+    expect(q43?.canonicalAnswer).toBe("All three");
+    expect(q43?.options[q43.correctIndex]).toBe("All three");
+    expect(q43?.explanation).toBe("All three statements are correct.");
+  });
+
   it("retains editorial bans", () => {
     const text = questions.map((question) => `${question.stem}\n${question.explanation}`).join("\n");
     expect(text).not.toMatch(/associated with/i);
