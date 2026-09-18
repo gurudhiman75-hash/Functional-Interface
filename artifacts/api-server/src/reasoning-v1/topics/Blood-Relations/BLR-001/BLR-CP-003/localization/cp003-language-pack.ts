@@ -163,11 +163,11 @@ export function localizedBlrCp003Stem(
     }
     case "BLR-CP003-PROT-V9W2-COMPLETE-PARENTS-AFTER-EXCLUSION": {
       const a = requireName(p, 0, id);
-      return localeText(locale, `${a} के दोनों स्थापित माता-पिता वाला विकल्प चुनिए।`, `${a} ਦੇ ਦੋਵੇਂ ਸਥਾਪਿਤ ਮਾਤਾ-ਪਿਤਾ ਵਾਲਾ ਵਿਕਲਪ ਚੁਣੋ।`);
+      return localeText(locale, `${a} के दोनों माता-पिता वाला सही विकल्प चुनिए।`, `${a} ਦੇ ਦੋਵੇਂ ਮਾਤਾ-ਪਿਤਾ ਵਾਲਾ ਸਹੀ ਵਿਕਲਪ ਚੁਣੋ।`);
     }
     case "BLR-CP003-PROT-V9W2-ESTABLISHED-CHILDREN-IN-LAW-PAIR": {
-      if (p.length >= 2) return localeText(locale, `${p[0]} और ${p[1]} के दो स्थापित दामाद/बहू वाला युग्म चुनिए।`, `${p[0]} ਅਤੇ ${p[1]} ਦੇ ਦੋ ਸਥਾਪਿਤ ਜਵਾਈ/ਨੂੰਹ ਵਾਲਾ ਜੋੜਾ ਚੁਣੋ।`);
-      return localeText(locale, "स्थापित दामाद/बहू का पूरा युग्म चुनिए।", "ਸਥਾਪਿਤ ਜਵਾਈ/ਨੂੰਹ ਦਾ ਪੂਰਾ ਜੋੜਾ ਚੁਣੋ।");
+      if (p.length >= 2) return localeText(locale, `${p[0]} और ${p[1]} के बच्चों से विवाहित दोनों व्यक्तियों वाला युग्म चुनिए।`, `${p[0]} ਅਤੇ ${p[1]} ਦੇ ਬੱਚਿਆਂ ਨਾਲ ਵਿਆਹੇ ਦੋਵੇਂ ਵਿਅਕਤੀਆਂ ਵਾਲਾ ਜੋੜਾ ਚੁਣੋ।`);
+      return localeText(locale, "बच्चों से विवाहित दोनों व्यक्तियों वाला युग्म चुनिए।", "ਬੱਚਿਆਂ ਨਾਲ ਵਿਆਹੇ ਦੋਵੇਂ ਵਿਅਕਤੀਆਂ ਵਾਲਾ ਜੋੜਾ ਚੁਣੋ।");
     }
     case "BLR-CP003-PROT-V9W2-EXPLICIT-UNMARRIED-NOT-UNKNOWN":
       return localeText(locale, "किस व्यक्ति को स्पष्ट रूप से अविवाहित बताया गया है?", "ਕਿਸ ਵਿਅਕਤੀ ਨੂੰ ਸਪਸ਼ਟ ਤੌਰ ’ਤੇ ਅਵਿਵਾਹਿਤ ਦੱਸਿਆ ਗਿਆ ਹੈ?");
