@@ -8,6 +8,6 @@
 - Review-only generators remain non-runtime artifacts by design.
 - Review surface: 48 questions across 12 QLs.
 - Next implementation target: ENV-CP-006 Biodiversity Fundamentals.
-- Multilingual V1 Wave 4: REVIEW CANDIDATE for Hindi and Punjabi.
+- Multilingual V1 Wave 4: APPROVED / CONTENT-FROZEN for Hindi and Punjabi.
 - Localization authority: frozen 48-question English V1 surface.
-- Localization remains review-only and preserves option order, correct index, QL, difficulty and provenance.
+- Localization approved by project owner on 2026-09-18; localized artifacts remain review-only and preserve option order, correct index, QL, difficulty and provenance.
