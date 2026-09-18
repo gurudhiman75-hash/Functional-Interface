@@ -422,9 +422,9 @@ function recoverStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
 function hiddenCombinedStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `What is the combined ${stimulus.seriesAMeasure} and ${stimulus.seriesBMeasure} value for ${row.label}?`,
+    `For ${row.label}, what is the sum of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel}?`,
     `After finding the missing entry, what is the total of both table values for ${row.label}?`,
-    `Find ${stimulus.seriesAMeasure} plus ${stimulus.seriesBMeasure} for ${row.label}.`,
+    `Add ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}.`,
   ] as const;
   return templates[variant];
 }
@@ -434,7 +434,7 @@ function missingRatioStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string
   const templates = [
     `What is the ratio of ${stimulus.seriesBMeasure} to ${stimulus.seriesAMeasure} for ${row.label}?`,
     `For ${row.label}, find the ratio ${stimulus.seriesBLabel} : ${stimulus.seriesALabel}.`,
-    `After recovering the missing value, what is its ratio to the paired ${stimulus.seriesAMeasure} value?`,
+    `After finding the missing entry, what is the ratio ${stimulus.seriesBLabel} : ${stimulus.seriesALabel} for ${row.label}?`,
   ] as const;
   return templates[variant];
 }
@@ -443,7 +443,7 @@ function bTotalPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): strin
   const templates = [
     `The total ${stimulus.seriesBMeasure} is what percentage of the total ${stimulus.seriesAMeasure}?`,
     `Find ${stimulus.seriesBLabel} as a percentage of ${stimulus.seriesALabel}, using the five-row totals.`,
-    `What percentage of the ${stimulus.seriesAMeasure} total is the ${stimulus.seriesBMeasure} total?`,
+    `Using the five-row totals, ${stimulus.seriesBLabel} is what percentage of ${stimulus.seriesALabel}?`,
   ] as const;
   return templates[variant];
 }
@@ -462,8 +462,8 @@ function visibleTwoRowStem(stimulus: Di007V2Stimulus, i: number, j: number, vari
   const left = stimulus.points[i]!.label;
   const right = stimulus.points[j]!.label;
   const templates = [
-    `What is the combined ${stimulus.seriesBMeasure} for ${left} and ${right}?`,
-    `Find the sum of the ${stimulus.seriesBMeasure} values for ${left} and ${right}.`,
+    `What is the total ${stimulus.seriesBMeasure} for ${left} and ${right} together?`,
+    `Find the combined ${stimulus.seriesBLabel.toLowerCase()} for ${left} and ${right}.`,
     `Together, how many ${stimulus.unit} are recorded under ${stimulus.seriesBLabel} for ${left} and ${right}?`,
   ] as const;
   return templates[variant];
@@ -687,7 +687,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(hiddenPoint.seriesA, totalB), misconceptionId: "USE_PAIRED_A_NUMERATOR", derivation: "Uses the paired first-column row as the numerator." },
         ],
         explanation: {
-          keyIdea: `Use the recovered ${stimulus.seriesBMeasure} for ${hiddenPoint.label} as the numerator and the complete ${stimulus.seriesBMeasure} total as the denominator.`,
+          keyIdea: `Use the recovered ${stimulus.seriesBMeasure} for ${hiddenPoint.label} as the numerator and the total ${stimulus.seriesBMeasure} as the denominator.`,
           steps: [`Missing ${stimulus.seriesBMeasure} = ${hidden}; complete total = ${totalB}.`, `Percentage share = ${hidden}/${totalB} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex, totalB },
