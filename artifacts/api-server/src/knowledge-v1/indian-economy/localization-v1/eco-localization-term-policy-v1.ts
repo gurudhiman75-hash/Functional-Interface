@@ -1,3 +1,70 @@
+export type EcoTermDispositionV1 = "NATIVE" | "PROTECTED_ENGLISH" | "ABBREVIATION";
+
+export type EcoTermPolicyEntryV1 = Readonly<{
+  term: string;
+  disposition: EcoTermDispositionV1;
+}>;
+
+const nativeTerms = [
+  "Scarcity",
+  "Opportunity cost",
+  "Utility",
+  "Production",
+  "Consumption",
+  "Distribution",
+  "Demand",
+  "Supply",
+  "Market",
+  "Microeconomics",
+  "Macroeconomics",
+  "Land",
+  "Labour",
+  "Capital",
+  "Entrepreneurship",
+  "Market economy",
+  "Socialist economy",
+  "Mixed economy",
+  "Primary sector",
+  "Secondary sector",
+  "Tertiary sector",
+  "Public sector",
+  "Private sector",
+  "Organised sector",
+  "Unorganised sector",
+  "Depreciation",
+  "Nominal GDP",
+  "Real GDP",
+  "Per-capita income",
+  "Value added",
+  "Final",
+  "Intermediate",
+  "Double counting",
+  "Inflation",
+  "Deflation",
+  "Purchasing power",
+  "Base effect",
+  "Revaluation",
+  "Price index",
+  "Labour force",
+  "Worker",
+  "Unemployed",
+  "Self-employed",
+  "Seasonal unemployment",
+  "Disguised unemployment",
+  "Structural unemployment",
+  "Frictional unemployment",
+  "Cyclical unemployment",
+  "Absolute poverty",
+  "Relative poverty",
+  "Multidimensional poverty",
+  "Poverty line",
+  "Unemployment rate",
+  "Worker population ratio",
+  "Labour force participation rate",
+  "Seasonal poverty",
+  "Cyclical poverty",
+] as const;
+
 const protectedExamTerms = [
   "Y. K. Alagh Task Force",
   "Lakdawala Expert Group",
@@ -34,8 +101,23 @@ const allowedAbbreviations = [
   "NCERT",
 ] as const;
 
-export const ECO_PROTECTED_EXAM_TERMS_V1 = Object.freeze([...protectedExamTerms]);
-export const ECO_ALLOWED_ROMAN_ABBREVIATIONS_V1 = Object.freeze([...allowedAbbreviations]);
+export const ECO_TERM_POLICY_V1: readonly EcoTermPolicyEntryV1[] = Object.freeze([
+  ...nativeTerms.map((term) => ({ term, disposition: "NATIVE" as const })),
+  ...protectedExamTerms.map((term) => ({ term, disposition: "PROTECTED_ENGLISH" as const })),
+  ...allowedAbbreviations.map((term) => ({ term, disposition: "ABBREVIATION" as const })),
+]);
+
+export const ECO_NATIVE_TERMS_V1 = Object.freeze(
+  ECO_TERM_POLICY_V1.filter((entry) => entry.disposition === "NATIVE").map((entry) => entry.term),
+);
+
+export const ECO_PROTECTED_EXAM_TERMS_V1 = Object.freeze(
+  ECO_TERM_POLICY_V1.filter((entry) => entry.disposition === "PROTECTED_ENGLISH").map((entry) => entry.term),
+);
+
+export const ECO_ALLOWED_ROMAN_ABBREVIATIONS_V1 = Object.freeze(
+  ECO_TERM_POLICY_V1.filter((entry) => entry.disposition === "ABBREVIATION").map((entry) => entry.term),
+);
 
 const protectedSet = new Set<string>(ECO_PROTECTED_EXAM_TERMS_V1);
 
@@ -45,6 +127,17 @@ export function isEcoProtectedExamTermV1(value: string): boolean {
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function containsWholeTerm(text: string, term: string): boolean {
+  const escaped = escapeRegExp(term);
+  return new RegExp(`(^|[^A-Za-z])${escaped}(?=$|[^A-Za-z])`, "u").test(text);
+}
+
+export function findEcoNativeTermsStillInEnglishV1(englishText: string, localizedText: string): string[] {
+  return ECO_NATIVE_TERMS_V1.filter(
+    (term) => containsWholeTerm(englishText, term) && containsWholeTerm(localizedText, term),
+  );
 }
 
 export function stripEcoAllowedRomanV1(text: string): string {
