@@ -13,7 +13,7 @@ const out:string[]=[
  "",
  "Status: HUMAN REVIEW PENDING",
  "",
- "Authority inventory: 89 sentence-classification + 73 transformation + 71 correction = 233 exhaustive high-confidence authorities.",
+ "Authority inventory: 89 sentence-classification + 63 transformation + 71 correction = 223 exhaustive high-confidence authorities.",
  "",
  "Easy tests direct function, forward transformation and correction. Medium tests combined classification, reverse transformation and error diagnosis. Hard tests valid transformation pairs and two-sentence structural analysis.",
  ""
