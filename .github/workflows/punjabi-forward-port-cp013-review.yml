@@ -1,0 +1,43 @@
+name: Export Punjabi Forward Port CP013 Review
+
+on:
+  push:
+    branches:
+      - "feature/punjabi-forward-port-cp013-v1"
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+      - ".github/workflows/punjabi-forward-port-cp013-review.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+      - ".github/workflows/punjabi-forward-port-cp013-review.yml"
+  workflow_dispatch:
+
+jobs:
+  review-cp013:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP013 review exporter
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/punjabi-v1/packages/PUN-001/checkpoints/CP013/export-review.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/punjabi-forward-port-cp013-review.mjs
+      - name: Generate CP013 review pack
+        working-directory: artifacts/api-server
+        run: node dist/punjabi-forward-port-cp013-review.mjs
+      - name: Upload CP013 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: PUN-001-CP013-FORWARD-PORT-REVIEW-120
+          path: artifacts/api-server/PUN-001-CP013-REVIEW.md
+          if-no-files-found: error
