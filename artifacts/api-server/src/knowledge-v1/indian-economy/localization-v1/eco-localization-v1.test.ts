@@ -13,6 +13,7 @@ import {
   generateEcoCp001Cp004LocalizedReviewV1,
 } from "./eco-localization-generator-v1";
 import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
+import { stripEcoAllowedRomanV1 } from "./eco-localization-term-policy-v1";
 
 const locales: EcoLocaleV1[] = ["en", "hi", "pa"];
 
@@ -22,8 +23,7 @@ function learnerText(question: EcoLocalizedQuestionV1): string {
 
 function assertNativeScript(locale: "hi" | "pa", question: EcoLocalizedQuestionV1) {
   const text = learnerText(question);
-  const allowedRoman = /\b(?:I|II|GDP|GNP|NDP|NNP|NFIA|GVA|MoSPI)\b/gu;
-  const withoutAllowedRoman = text.replace(allowedRoman, "");
+  const withoutAllowedRoman = stripEcoAllowedRomanV1(text);
   expect(withoutAllowedRoman, `${question.questionId}: Latin-script leakage`).not.toMatch(/[A-Za-z]{2,}/u);
   if (locale === "hi") expect(text, `${question.questionId}: missing Devanagari`).toMatch(/[\u0900-\u097F]/u);
   if (locale === "pa") expect(text, `${question.questionId}: missing Gurmukhi`).toMatch(/[\u0A00-\u0A7F]/u);
