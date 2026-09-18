@@ -1,4 +1,9 @@
 export * from "./types";
 export * from "./caselet-set";
 export * from "./independent-verifier";
-export * from "./caselet-v2-types";\nexport * from "./caselet-set-v2";\nexport * from "./independent-verifier-v2";\nexport * from "./permanent-ql-registry";\nexport * from "./permanent-question-generator";\nexport * from "./question-studio-adapter";\n
+export * from "./caselet-v2-types";
+export * from "./caselet-set-v2";
+export * from "./independent-verifier-v2";
+export * from "./permanent-ql-registry";
+export * from "./permanent-question-generator";
+export * from "./question-studio-adapter";
