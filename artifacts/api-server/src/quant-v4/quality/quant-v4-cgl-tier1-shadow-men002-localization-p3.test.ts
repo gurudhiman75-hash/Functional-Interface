@@ -158,6 +158,39 @@ const normalizedByPattern = Object.fromEntries(
   }),
 );
 
+const TARGETED_REPEAT_PATTERNS = [
+  "MEN-002-QL-022",
+  "MEN-002-QL-026",
+  "MEN-002-QL-033",
+  "MEN-002-QL-044",
+  "MEN-002-QL-054",
+] as const;
+
+const targetedPatternVariety = Object.fromEntries(
+  TARGETED_REPEAT_PATTERNS.map((patternId) => {
+    const subset = records.filter((record) => record.patternId === patternId);
+    return [patternId, {
+      records: subset.length,
+      duplication: duplicateSummary(subset.map((record) => record.normalizedStem)),
+      stemVariants: countBy(subset, (record) => record.stemVariantId),
+      seeds: subset.map((record) => record.seed),
+    }] as const;
+  }),
+);
+
+for (const patternId of TARGETED_REPEAT_PATTERNS) {
+  const summary = targetedPatternVariety[patternId];
+  assert.ok(
+    summary.records > 1,
+    `${patternId}: targeted MEN-002 repetition proof requires more than one observed shadow record.`,
+  );
+  assert.equal(
+    summary.duplication.duplicateItems,
+    0,
+    `${patternId}: targeted presentation remediation must remove normalized stem duplicates.`,
+  );
+}
+
 const repeatedNormalizedFamilies = Object.entries(countBy(records, (record) => record.normalizedStem))
   .filter(([, count]) => count > 1)
   .map(([signature, count]) => ({
@@ -184,6 +217,7 @@ console.log("QUANT_V4_CGL_TIER1_SHADOW_MEN002_LOCALIZATION_P3", JSON.stringify({
   objectVariantDistribution,
   normalizedByCp,
   normalizedByPattern,
+  targetedPatternVariety,
   repeatedNormalizedFamilies,
   productionPromotionAuthorized: false,
   runtimeBlueprintMutationAuthorized: false,
