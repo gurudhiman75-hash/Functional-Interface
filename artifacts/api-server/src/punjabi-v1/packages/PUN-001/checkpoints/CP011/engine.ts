@@ -52,7 +52,7 @@ export function generateCP011F03(seed:number,difficulty:PunjabiDifficulty){
 export function generateCP011F04(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Medium"],"F04");
  const i=ord(seed,CP011_AUTHORITIES.length),a=CP011_AUTHORITIES[i]!,ps=contrastPeers(a);
- return assemble({seed,difficulty,familyId:"F04",subtype:"FIGURATIVE_PRECISION",stem:pickVariant([`‘${a.idiomPa}’ ਦਾ ਮੁਹਾਵਰੇਦਾਰ ਅਰਥ ਚੁਣੋ।`,`‘${a.idiomPa}’ ਨੂੰ ਸ਼ਾਬਦਿਕ ਨਹੀਂ, ਮੁਹਾਵਰੇਦਾਰ ਭਾਵ ਵਿੱਚ ਸਮਝੋ। ਸਹੀ ਅਰਥ ਕਿਹੜਾ ਹੈ?`,`ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ‘${a.idiomPa}’ ਦਾ ਲੱਛਣਿਕ ਭਾਵ ਕਿਹੜਾ ਹੈ?`],i),correctAnswer:a.meaningPa,distractors:[a.literalTrapPa,ps[0]!.meaningPa,ps[1]!.meaningPa,ps[2]!.meaningPa],explanation:`‘${a.idiomPa}’ ਦਾ ਮੁਹਾਵਰੇਦਾਰ ਅਰਥ ‘${a.meaningPa}’ ਹੈ; ‘${a.literalTrapPa}’ ਕੇਵਲ ਸ਼ਾਬਦਿਕ ਪੜ੍ਹਤ ਹੈ।`,authorityIds:[a.id,...ps.slice(0,3).map(x=>x.id)]});
+ return assemble({seed,difficulty,familyId:"F04",subtype:"FIGURATIVE_PRECISION",stem:pickVariant([`‘${a.idiomPa}’ ਦਾ ਮੁਹਾਵਰੇਦਾਰ ਅਰਥ ਚੁਣੋ।`,`‘${a.idiomPa}’ ਨੂੰ ਸ਼ਾਬਦਿਕ ਨਹੀਂ, ਮੁਹਾਵਰੇਦਾਰ ਭਾਵ ਵਿੱਚ ਸਮਝੋ। ਸਹੀ ਅਰਥ ਕਿਹੜਾ ਹੈ?`,`ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ‘${a.idiomPa}’ ਦਾ ਲੱਛਣਿਕ ਭਾਵ ਕਿਹੜਾ ਹੈ?`],i),correctAnswer:a.meaningPa,distractors:[a.literalTrapPa,ps[0]!.meaningPa,ps[1]!.meaningPa],explanation:`‘${a.idiomPa}’ ਦਾ ਮੁਹਾਵਰੇਦਾਰ ਅਰਥ ‘${a.meaningPa}’ ਹੈ; ‘${a.literalTrapPa}’ ਕੇਵਲ ਸ਼ਾਬਦਿਕ ਪੜ੍ਹਤ ਹੈ।`,authorityIds:[a.id,...ps.slice(0,3).map(x=>x.id)]});
 }
 
 export function generateCP011F05(seed:number,difficulty:PunjabiDifficulty){
