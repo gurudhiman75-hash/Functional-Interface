@@ -6,6 +6,7 @@ import {
   generateEcoCp005Cp006LocalizedReviewV1,
 } from "./eco-localization-generator-v1";
 import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
+import { stripEcoAllowedRomanV1 } from "./eco-localization-term-policy-v1";
 
 const locales: EcoLocaleV1[] = ["en", "hi", "pa"];
 const fail = (condition: boolean, message: string) => {
@@ -18,8 +19,7 @@ function learnerText(question: EcoLocalizedQuestionV1) {
 
 function assertNative(question: EcoLocalizedQuestionV1, locale: "hi" | "pa") {
   const text = learnerText(question);
-  const allowed = /\b(?:I|II|CPI|WPI|GDP|GNP|NDP|NNP|NFIA|GVA|MoSPI|LFPR|WPR|UR|MGNREGA|NCERT)\b/gu;
-  const stripped = text.replace(allowed, "");
+  const stripped = stripEcoAllowedRomanV1(text);
   fail(!/[A-Za-z]{2,}/u.test(stripped), `${question.questionId}: Latin-script leakage: ${stripped.match(/[A-Za-z]{2,}/u)?.[0] ?? "unknown"}`);
   if (locale === "hi") fail(/[\u0900-\u097F]/u.test(text), `${question.questionId}: missing Devanagari`);
   if (locale === "pa") fail(/[\u0A00-\u0A7F]/u.test(text), `${question.questionId}: missing Gurmukhi`);
