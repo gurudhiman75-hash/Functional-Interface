@@ -23,8 +23,8 @@
 - 24 Easy / 40 Medium / 16 Hard;
 - four questions per QL;
 - A/B/C/D correct positions exactly balanced 20 each;
-- V3 stem pass: all 80 stems rewritten to reduce repetitive who/whom/what phrasing and use natural question/completion variety;
-- direct fact, statement-completion, constitutional application and comparison-style stems used according to difficulty;\n- validation rejects recurring legalistic stem patterns such as “whom” and “for the purposes of”;\n- simple, useful explanations;
+- V3 stem pass: all 80 stems rewritten to remove legalistic who/whom/what phrasing and keep balanced question/completion variety;
+- direct fact, statement-completion, constitutional application and comparison-style stems used according to difficulty;\n- validation rejects recurring legalistic stem patterns such as “whom” and “for the purposes of”;\n- final V3 mix: 43 completion stems and 37 question stems, preventing a new single-pattern template.\n- simple, useful explanations;
 - review-only until explicit approval.
 
 ## Primary authority
