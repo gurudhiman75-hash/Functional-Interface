@@ -8,3 +8,6 @@
 - Approved CP is eligible for shared Environment package/runtime binding.
 - Review-only generators remain non-runtime artifacts by design.
 - Next implementation target: `ENV-CP-005` Major Ecosystems & Biomes after ENV-CP-004 approval.
+- Multilingual V1 Wave 3: REVIEW CANDIDATE for Hindi and Punjabi.
+- Localization authority: frozen 48-question English V1 surface.
+- Localization remains review-only and preserves option order, correct index, QL, difficulty and provenance.
