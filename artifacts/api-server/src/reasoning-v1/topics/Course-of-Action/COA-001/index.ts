@@ -22,3 +22,5 @@ export * from "./cp007-generator.ts";
 export * from "./cp008-source-census.ts";
 export * from "./cp008-profile-authorities.ts";
 export * from "./cp008-source-backed-profiles.ts";
+export * from "./cp009-localization-calibration.ts";
+export * from "./cp009-localization-generator.ts";
