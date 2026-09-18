@@ -41,8 +41,14 @@ jobs:
             --platform=node \
             --format=esm \
             --outfile="$OUT/english-editorial-approval.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/final-chapter-closure.test.ts" \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile="$OUT/final-chapter-closure.test.mjs"
 
       - name: Run approval and lifecycle guard
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/cls-001/english-editorial-approval/english-editorial-approval.test.mjs
+          node dist/reasoning-v1/cls-001/english-editorial-approval/final-chapter-closure.test.mjs
