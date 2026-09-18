@@ -9,6 +9,6 @@
 - Next implementation targets: `ENV-CP-003` Food Chain & Ecological Relationships and `ENV-CP-004` Nutrient Cycles.
 - V2 remediation: APPROVED / CONTENT-FROZEN; 12 additional questions across 3 QLs covering ecological succession, primary/secondary succession, pioneer and climax communities.
 - V2 review artifacts remain review-only; runtime integration is separate.
-- Multilingual V1 Wave 2: REVIEW CANDIDATE for Hindi and Punjabi.
+- Multilingual V1 Wave 2: APPROVED / CONTENT-FROZEN for Hindi and Punjabi.
 - Localization authority: full frozen 60-question English surface (48 V1 + 12 approved V2 remediation).
-- Localization remains review-only and preserves option order, correct index, QL, difficulty and provenance.
+- Localization approved by project owner on 2026-09-18; localized artifacts remain review-only and preserve option order, correct index, QL, difficulty and provenance.
