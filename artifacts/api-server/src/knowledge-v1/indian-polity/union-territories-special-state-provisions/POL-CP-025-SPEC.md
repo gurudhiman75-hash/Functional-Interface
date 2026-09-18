@@ -1,0 +1,33 @@
+# POL-CP-025 — Union Territories & Special Provisions for States
+
+**Lifecycle:** REVIEW CANDIDATE — V1  
+**Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
+
+> Scope note: the repository roadmap does not expose the historical CP025 title. This is an inferred next uncovered high-yield Polity block and remains review-only until project-owner approval.
+
+## Scope
+- Part VIII, Articles 239–241: Union Territory administration, Article 239A, Delhi under Articles 239AA–239AB, ordinance power under Article 239B, presidential regulations under Article 240 and High Courts under Article 241;
+- Part XXI, Articles 371–371J: high-yield special provisions for Maharashtra, Gujarat, Nagaland, Assam, Manipur, Andhra Pradesh/Telangana, Sikkim, Mizoram, Arunachal Pradesh, Goa and Karnataka;
+- key constitutional-amendment links where they are standard exam facts.
+
+## Ownership boundaries
+- Article 370 is excluded from this CP.
+- Centre–State relations remain in POL-CP-017.
+- Emergency provisions remain in POL-CP-018.
+- Official language, Fifth Schedule and Sixth Schedule remain in POL-CP-024.
+- Current office-holders, live political disputes and mutable administrative arrangements are excluded.
+
+## Review profile
+- 20 genuine QLs;
+- 80 questions;
+- 24 Easy / 40 Medium / 16 Hard;
+- four questions per QL;
+- A/B/C/D correct positions exactly balanced 20 each;
+- concise exam-grade stems;
+- simple, useful explanations;
+- review-only until explicit approval.
+
+## Primary authority
+- Constitution of India, Part VIII, Legislative Department;
+- Constitution of India, Part XXI, Legislative Department;
+- constitutional amendment footnotes and official Amendment Acts where needed.
