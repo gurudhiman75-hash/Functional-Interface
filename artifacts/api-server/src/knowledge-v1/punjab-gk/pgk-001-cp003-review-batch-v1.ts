@@ -286,7 +286,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP003_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Easy",
-      stem: "Punjab's Kandi area is most closely associated with which physiographic setting?",
+      stem: "Punjab's Kandi area lies along which physiographic belt?",
       canonical: "Shivalik foothills",
       options: ["Shivalik foothills", "Central delta", "Coastal belt", "Thar dune core"],
       explanation: "The Kandi area is associated with Punjab's Shivalik foothill belt. PAU's Kandi research station is located in this setting.",
