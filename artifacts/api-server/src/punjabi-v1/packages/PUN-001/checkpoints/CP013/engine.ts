@@ -67,6 +67,18 @@ function errorTypes(item:SentenceCorrectionItem){
 }
 
 function classLabel(item:SentenceClassificationItem){return `${item.structureType} — ${item.functionType}`;}
+function structureReason(item:SentenceClassificationItem){
+ if(item.structureType==="ਸਧਾਰਨ ਵਾਕ")return "ਬਣਤਰ ਪੱਖੋਂ ਇਹ ਸਧਾਰਨ ਵਾਕ ਹੈ, ਕਿਉਂਕਿ ਇਸ ਵਿੱਚ ਇੱਕ ਮੁੱਖ ਸੁਤੰਤਰ ਵਾਕੀ ਇਕਾਈ ਹੈ।";
+ if(item.structureType==="ਸੰਯੁਕਤ ਵਾਕ")return "ਬਣਤਰ ਪੱਖੋਂ ਇਹ ਸੰਯੁਕਤ ਵਾਕ ਹੈ, ਕਿਉਂਕਿ ਇਸ ਵਿੱਚ ਦੋ ਸੁਤੰਤਰ ਉਪਵਾਕ ਸਮਾਨ ਯੋਜਕ ਨਾਲ ਜੁੜੇ ਹਨ।";
+ return "ਬਣਤਰ ਪੱਖੋਂ ਇਹ ਮਿਸ਼ਰਤ ਵਾਕ ਹੈ, ਕਿਉਂਕਿ ਮੁੱਖ ਉਪਵਾਕ ਨਾਲ ਇੱਕ ਅਧੀਨ ਉਪਵਾਕ ਜੁੜਿਆ ਹੈ।";
+}
+function functionReason(item:SentenceClassificationItem){
+ if(item.functionType==="ਹਾਂ-ਵਾਚਕ ਵਾਕ")return "ਕਾਰਜ ਪੱਖੋਂ ਇਹ ਹਾਂ-ਵਾਚਕ ਵਾਕ ਹੈ, ਕਿਉਂਕਿ ਵਾਕ ਕਿਸੇ ਗੱਲ ਨੂੰ ਸਵੀਕਾਰਾਤਮਕ ਰੂਪ ਵਿੱਚ ਦੱਸਦਾ ਹੈ।";
+ if(item.functionType==="ਨਾਂਹ-ਵਾਚਕ ਵਾਕ")return "ਕਾਰਜ ਪੱਖੋਂ ਇਹ ਨਾਂਹ-ਵਾਚਕ ਵਾਕ ਹੈ, ਕਿਉਂਕਿ ਵਾਕ ਵਿੱਚ ਨਕਾਰ ਜਾਂ ਮਨਾਹੀ ਦਾ ਭਾਵ ਹੈ।";
+ if(item.functionType==="ਪ੍ਰਸ਼ਨ-ਵਾਚਕ ਵਾਕ")return "ਕਾਰਜ ਪੱਖੋਂ ਇਹ ਪ੍ਰਸ਼ਨ-ਵਾਚਕ ਵਾਕ ਹੈ, ਕਿਉਂਕਿ ਇਸ ਵਿੱਚ ਜਾਣਕਾਰੀ ਲਈ ਪ੍ਰਸ਼ਨ ਪੁੱਛਿਆ ਗਿਆ ਹੈ।";
+ if(item.functionType==="ਹੁਕਮੀ ਵਾਕ")return "ਕਾਰਜ ਪੱਖੋਂ ਇਹ ਹੁਕਮੀ ਵਾਕ ਹੈ, ਕਿਉਂਕਿ ਇਸ ਵਿੱਚ ਹੁਕਮ, ਬੇਨਤੀ, ਸਲਾਹ ਜਾਂ ਹਦਾਇਤ ਦਿੱਤੀ ਗਈ ਹੈ।";
+ return "ਕਾਰਜ ਪੱਖੋਂ ਇਹ ਵਿਸਮਈ ਵਾਕ ਹੈ, ਕਿਉਂਕਿ ਇਸ ਵਿੱਚ ਹੈਰਾਨੀ, ਖ਼ੁਸ਼ੀ, ਦੁੱਖ ਜਾਂ ਹੋਰ ਤੀਬਰ ਭਾਵ ਪ੍ਰਗਟ ਹੁੰਦਾ ਹੈ।";
+}
 
 export function generateCP013F01(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Medium"],"F01");
@@ -82,7 +94,7 @@ export function generateCP013F01(seed:number,difficulty:PunjabiDifficulty){
    `“${a.sentencePa}” ਨੂੰ ਬਣਤਰ ਅਤੇ ਕਾਰਜ ਦੋਵਾਂ ਪੱਖਾਂ ਤੋਂ ਪਛਾਣੋ।`,
    `ਦਿੱਤੇ ਵਾਕ ਦਾ ਸਹੀ ਬਣਤਰ–ਕਾਰਜ ਜੋੜਾ ਚੁਣੋ।\n${a.sentencePa}`
   ],i),
-  correctAnswer:correct,distractors:candidates,explanation:a.explanationPa,authorityIds:[a.id]
+  correctAnswer:correct,distractors:candidates,explanation:structureReason(a)+" "+functionReason(a),authorityIds:[a.id]
  });
 }
 
@@ -96,7 +108,7 @@ export function generateCP013F02(seed:number,difficulty:PunjabiDifficulty){
    `“${a.sentencePa}” ਕਿਹੜੀ ਕਾਰਜਕ ਕਿਸਮ ਦਾ ਵਾਕ ਹੈ?`,
    `ਦਿੱਤੇ ਵਾਕ ਦਾ ਕਾਰਜ ਪੱਖੋਂ ਸਹੀ ਵਰਗ ਚੁਣੋ।\n${a.sentencePa}`
   ],i),
-  correctAnswer:a.functionType,distractors:FUNCTIONS.filter(x=>x!==a.functionType),explanation:a.explanationPa,authorityIds:[a.id]
+  correctAnswer:a.functionType,distractors:FUNCTIONS.filter(x=>x!==a.functionType),explanation:functionReason(a),authorityIds:[a.id]
  });
 }
 
