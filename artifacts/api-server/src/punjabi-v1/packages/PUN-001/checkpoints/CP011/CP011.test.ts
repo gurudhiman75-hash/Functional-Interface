@@ -49,6 +49,10 @@ for(const family of CP011_FAMILIES){
    assert(!/[A-Za-z]/.test(q.explanation),`${q.id}: English leaked into explanation`);
    assert(!/(ਬਾਕੀ ਵਿਕਲਪ|ਬਾਕੀ ਤਿੰਨੇ|ਸਿੱਧੇ ਅਰਥ|ਪ੍ਰਮਾਣਿਤ|ਟਕਸਾਲੀ|ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ)/u.test(`${q.stem} ${q.explanation}`),`${q.id}: editorial filler`);
    if(family.familyId==="F03")assert(q.stem.includes("____"),`${q.id}: context family must use authored blank sentence`);
+   if(family.familyId==="F04"){
+    const authority=CP011_AUTHORITIES.find(a=>a.id===q.metadata.authorityIds[0])!;
+    assert(q.options.includes(authority.literalTrapPa),`${q.id}: F04 must include the literal-reading trap`);
+   }
    assert(!local.has(q.metadata.fingerprint),`${q.id}: duplicate family fingerprint`);local.add(q.metadata.fingerprint);
    assert(!global.has(q.metadata.fingerprint),`${q.id}: cross-family collision`);global.add(q.metadata.fingerprint);
    if(family.familyId==="F08")f08Verdicts.add(q.options[q.correctIndex]!);
