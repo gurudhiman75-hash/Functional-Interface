@@ -1,6 +1,6 @@
 # PGK-001 CP026 — District Deep Dive
 
-Status: REVIEW READY / AWAITING HUMAN APPROVAL
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-026 — District Deep Dive`
 Permanent QLs: `PGK-001-QL-175` to `PGK-001-QL-182`
@@ -33,7 +33,7 @@ Amritsar; Barnala; Bathinda; Faridkot; Fatehgarh Sahib; Fazilka; Ferozepur; Gurd
 ## Qualified coverage
 
 - Amritsar: Sri Harmandir Sahib and Jallianwala Bagh.
-- Tarn Taran: Harike Wetland; Harike lies downstream of the Beas-Sutlej confluence.
+- Tarn Taran: Goindwal Sahib; it is a major Sikh centre in present-day Tarn Taran district.
 - Gurdaspur: Kalanaur and Dera Baba Nanak; Kalanaur is connected with Akbar's installation in 1556.
 - Pathankot: Ranjit Sagar Dam at Shahpurkandi on the Ravi.
 - Jalandhar: major sports-goods manufacturing cluster.
@@ -80,7 +80,7 @@ Distractors must be real Punjab districts, places, industries, institutions or h
 Internal verification used Government of Punjab / NIC district portals and Punjab Government institutional material, including:
 
 - District Amritsar — places of interest and heritage.
-- District Tarn Taran — Harike Wetland and district tourism.
+- District Tarn Taran — Goindwal Sahib and district administrative/heritage records.
 - District Gurdaspur — geography/history including Kalanaur and Dera Baba Nanak.
 - District Pathankot — Ranjit Sagar Dam and district topography.
 - District Jalandhar — sports-goods industry.
@@ -120,4 +120,4 @@ Learner-facing questions and explanations remain source-free.
 
 ## Lifecycle
 
-CP026 V1 is review-ready and awaiting human approval. Runtime registration, Question Bank writes, mocks and publication remain separate later steps.
+CP026 V1 was human-approved on 18 September 2026 and is frozen as the accepted review authority after the final-audit correction of the Harike district ambiguity. Runtime registration, Question Bank writes, mocks and publication remain separate later steps.
