@@ -51,6 +51,8 @@ CP008 generation:               prohibited
 Runtime mode:                   review-only
 Question Studio discoverable:   true
 Review generation enabled:      true
+Difficulty filter:              disabled until chapter-wide calibration
+Generated difficulty labels:    preserved from source runtime
 Read-only:                      true
 Question Bank writable:         false
 Test eligible:                  false
