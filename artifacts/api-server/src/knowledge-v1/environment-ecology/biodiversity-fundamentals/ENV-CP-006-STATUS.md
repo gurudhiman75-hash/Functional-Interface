@@ -8,3 +8,6 @@
 - Runtime registration: review generator remains `runtimeRegistered: false`; shared runtime integration is separate.
 - Review surface: 48 questions across 12 QLs.
 - Next target: ENV-CP-007 Biodiversity Hotspots & India.
+- Multilingual V1 Wave 5: APPROVED / CONTENT-FROZEN for Hindi and Punjabi.
+- Localization authority: frozen 48-question English V1 surface.
+- Localization approved by project owner on 2026-09-18; localized artifacts remain review-only and preserve option order, correct index, QL, difficulty and provenance.
