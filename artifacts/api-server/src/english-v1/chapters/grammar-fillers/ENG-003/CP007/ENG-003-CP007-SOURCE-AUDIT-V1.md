@@ -1,6 +1,6 @@
 # ENG-003-CP007 — Grammar Fillers: Conjunctions and Parallelism — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Boundary
 
@@ -38,3 +38,14 @@ The review exporter produces **30 deterministic questions**: 10 Easy, 10 Medium 
 ## Lifecycle
 
 CP007 remains review-only until explicit human editorial approval. It is not registered in Question Studio and is not eligible for Question Bank writes, tests, mocks, learner/public publication, automatic student delivery or production release.
+
+## Human approval
+
+Approved on **2026-09-18**.
+
+- Approval authority: `ENG-003-CP007-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `d46e0d93a7a2af0ab9f4c93079fe7495450a5627`
+- Review SHA-256: `fd3e6cbc5fbdb35544fc0fbd7d91c6e45aa69d686f0ca11a1e8bf82f28eae30c`
+- Workflow artifact digest: `sha256:f35e3b7ed04987bff0330473c8c2739db003aa4fafda4fa37b25908bedd2188a`
+
+Question Studio registration is review-only. Learner/test/mock/public release remains locked.
