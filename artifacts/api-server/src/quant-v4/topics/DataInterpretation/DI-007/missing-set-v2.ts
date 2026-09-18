@@ -189,7 +189,7 @@ function aggregateConditionText(
       };
     case "COLUMN_AVERAGE": {
       const average = totalB / 5;
-      if (!Number.isSafeInteger(average)) throw new Error("DI-007 V2 needs an integral Series B average.");
+      if (!Number.isSafeInteger(average)) throw new Error("DI-007 V2 needs an integral second-column average.");
       return {
         mode,
         value: average,
@@ -570,10 +570,10 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
         stem: recoverStem(stimulus, variant),
         answer: String(hidden),
         candidates: [
-          { text: String(hiddenPoint.seriesA), misconceptionId: "COPY_PAIRED_A", derivation: "Copies the paired first-series value instead of reconstructing the missing entry." },
-          { text: String(visibleBTotal), misconceptionId: "USE_VISIBLE_B_SUBTOTAL", derivation: "Stops at the subtotal of the four visible second-series values." },
-          { text: String(totalB), misconceptionId: "USE_FULL_B_TOTAL", derivation: "Reports the complete second-series total rather than the missing cell." },
-          { text: String(hidden + stimulus.points[visibleIndex]!.seriesB), misconceptionId: "OMIT_ONE_VISIBLE_VALUE", derivation: "Fails to subtract one visible second-series row." },
+          { text: String(hiddenPoint.seriesA), misconceptionId: "COPY_PAIRED_A", derivation: "Copies the paired first-column value instead of reconstructing the missing entry." },
+          { text: String(visibleBTotal), misconceptionId: "USE_VISIBLE_B_SUBTOTAL", derivation: "Stops at the subtotal of the four visible second-column values." },
+          { text: String(totalB), misconceptionId: "USE_FULL_B_TOTAL", derivation: "Reports the complete second-column total rather than the missing cell." },
+          { text: String(hidden + stimulus.points[visibleIndex]!.seriesB), misconceptionId: "OMIT_ONE_VISIBLE_VALUE", derivation: "Fails to subtract one visible second-column row." },
           { text: String(Math.abs(totalB - hidden)), misconceptionId: "REPORT_VISIBLE_COMPLEMENT", derivation: "Reports the visible complement instead of the missing value." },
         ],
         explanation: {
@@ -595,10 +595,10 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
         stem: hiddenCombinedStem(stimulus, variant),
         answer,
         candidates: [
-          { text: String(hidden), misconceptionId: "USE_MISSING_ONLY", derivation: "Reports only the recovered second-series value." },
-          { text: String(hiddenPoint.seriesA), misconceptionId: "USE_A_ONLY", derivation: "Reports only the visible first-series value." },
+          { text: String(hidden), misconceptionId: "USE_MISSING_ONLY", derivation: "Reports only the recovered second-column value." },
+          { text: String(hiddenPoint.seriesA), misconceptionId: "USE_A_ONLY", derivation: "Reports only the visible first-column value." },
           { text: String(Math.abs(hidden - hiddenPoint.seriesA)), misconceptionId: "SUBTRACT_ROW_VALUES", derivation: "Finds the difference instead of the row total." },
-          { text: String(totalB), misconceptionId: "USE_B_TOTAL", derivation: "Uses the full second-series total instead of the requested row total." },
+          { text: String(totalB), misconceptionId: "USE_B_TOTAL", derivation: "Uses the full second-column total instead of the requested row total." },
           { text: String(hiddenRowTotal + fallbackScale), misconceptionId: "ONE_STEP_ROW_TOTAL_SLIP", derivation: "Adds an extra table-scale amount after forming the row total." },
         ],
         explanation: {
@@ -621,7 +621,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: ratioDisplay(hiddenPoint.seriesA, hidden), misconceptionId: "REVERSE_RATIO", derivation: "Reverses the requested order." },
           { text: ratioDisplay(hiddenRowTotal, hiddenPoint.seriesA), misconceptionId: "USE_ROW_TOTAL_AS_B", derivation: "Uses the combined row total as the first term." },
           { text: ratioDisplay(hidden, hiddenRowTotal), misconceptionId: "USE_ROW_TOTAL_AS_A", derivation: "Uses the combined row total as the second term." },
-          { text: ratioDisplay(totalB, hiddenPoint.seriesA), misconceptionId: "USE_COLUMN_TOTAL", derivation: "Uses the full second-series total instead of the missing row value." },
+          { text: ratioDisplay(totalB, hiddenPoint.seriesA), misconceptionId: "USE_COLUMN_TOTAL", derivation: "Uses the full second-column total instead of the missing row value." },
           { text: ratioDisplay(visiblePoint.seriesB, visiblePoint.seriesA), misconceptionId: "USE_VISIBLE_ROW_RATIO", derivation: "Forms the same type of ratio from another row." },
         ],
         explanation: {
@@ -643,8 +643,8 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
         candidates: [
           { text: formatPercent(totalA, totalB), misconceptionId: "REVERSE_TOTAL_PERCENT", derivation: "Reverses the requested percentage comparison." },
           { text: formatPercent(totalB, totalA + totalB), misconceptionId: "USE_COMBINED_BASE", derivation: "Uses both series together as the denominator." },
-          { text: formatPercent(totalA, totalA + totalB), misconceptionId: "USE_A_SHARE_OF_COMBINED", derivation: "Finds the first-series share of the combined total." },
-          { text: formatPercent(visibleBTotal, totalA), misconceptionId: "OMIT_MISSING_FROM_B", derivation: "Uses only the four visible second-series values." },
+          { text: formatPercent(totalA, totalA + totalB), misconceptionId: "USE_A_SHARE_OF_COMBINED", derivation: "Finds the first-column share of the combined total." },
+          { text: formatPercent(visibleBTotal, totalA), misconceptionId: "OMIT_MISSING_FROM_B", derivation: "Uses only the four visible second-column values." },
           { text: formatPercent(hidden, totalA), misconceptionId: "USE_MISSING_ONLY", derivation: "Uses only the recovered missing cell as the numerator." },
         ],
         explanation: {
@@ -666,9 +666,9 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
         candidates: [
           { text: formatPercent(visibleBTotal, totalB), misconceptionId: "USE_VISIBLE_COMPLEMENT", derivation: "Finds the share of the four visible rows." },
           { text: formatPercent(hidden, visibleBTotal), misconceptionId: "USE_VISIBLE_SUBTOTAL_BASE", derivation: "Uses only the visible subtotal as the denominator." },
-          { text: formatPercent(hiddenPoint.seriesA, totalA), misconceptionId: "USE_PAIRED_A_SHARE", derivation: "Uses the paired first-series value and first-series total." },
-          { text: formatPercent(hidden, totalA), misconceptionId: "USE_A_TOTAL_BASE", derivation: "Uses the first-series total as the denominator." },
-          { text: formatPercent(hiddenPoint.seriesA, totalB), misconceptionId: "USE_PAIRED_A_NUMERATOR", derivation: "Uses the paired first-series row as the numerator." },
+          { text: formatPercent(hiddenPoint.seriesA, totalA), misconceptionId: "USE_PAIRED_A_SHARE", derivation: "Uses the paired first-column value and first-column total." },
+          { text: formatPercent(hidden, totalA), misconceptionId: "USE_A_TOTAL_BASE", derivation: "Uses the first-column total as the denominator." },
+          { text: formatPercent(hiddenPoint.seriesA, totalB), misconceptionId: "USE_PAIRED_A_NUMERATOR", derivation: "Uses the paired first-column row as the numerator." },
         ],
         explanation: {
           keyIdea: `Use the recovered ${stimulus.seriesBLabel.toLowerCase()} for ${hiddenPoint.label} as the numerator and the complete ${stimulus.seriesBLabel.toLowerCase()} total as the denominator.`,
@@ -689,11 +689,11 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: String(stimulus.points[visibleI]!.seriesB), misconceptionId: "USE_FIRST_ROW_ONLY", derivation: "Uses only the first named row." },
           { text: String(stimulus.points[visibleJ]!.seriesB), misconceptionId: "USE_SECOND_ROW_ONLY", derivation: "Uses only the second named row." },
           { text: String(Math.abs(stimulus.points[visibleI]!.seriesB - stimulus.points[visibleJ]!.seriesB)), misconceptionId: "TAKE_DIFFERENCE", derivation: "Subtracts the two values instead of adding them." },
-          { text: String(stimulus.points[visibleI]!.seriesA + stimulus.points[visibleJ]!.seriesA), misconceptionId: "ADD_WRONG_SERIES", derivation: "Adds the first-series values for the named rows." },
+          { text: String(stimulus.points[visibleI]!.seriesA + stimulus.points[visibleJ]!.seriesA), misconceptionId: "ADD_WRONG_SERIES", derivation: "Adds the first-column values for the named rows." },
           { text: String(visiblePairSum + hidden), misconceptionId: "ADD_HIDDEN_ROW_TOO", derivation: "Includes the missing row even though only two visible rows were requested." },
         ],
         explanation: {
-          keyIdea: "Both requested second-series values are visible, so simply add those two entries.",
+          keyIdea: "Both requested second-column values are visible, so simply add those two entries.",
           steps: [`${stimulus.points[visibleI]!.label} = ${stimulus.points[visibleI]!.seriesB}; ${stimulus.points[visibleJ]!.label} = ${stimulus.points[visibleJ]!.seriesB}.`, `Combined value = ${stimulus.points[visibleI]!.seriesB} + ${stimulus.points[visibleJ]!.seriesB} = ${visiblePairSum}.`],
         },
         evidence: { visibleI, visibleJ },
@@ -710,7 +710,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
         candidates: [
           { text: formatPercent(hiddenPoint.seriesA, hidden), misconceptionId: "REVERSE_ROW_PERCENT", derivation: "Reverses the requested row percentage." },
           { text: formatPercent(hidden, hiddenRowTotal), misconceptionId: "USE_ROW_TOTAL_BASE", derivation: "Uses the combined row total as the denominator." },
-          { text: formatPercent(hiddenPoint.seriesA, hiddenRowTotal), misconceptionId: "USE_A_SHARE_OF_ROW", derivation: "Finds the first-series share of the row total." },
+          { text: formatPercent(hiddenPoint.seriesA, hiddenRowTotal), misconceptionId: "USE_A_SHARE_OF_ROW", derivation: "Finds the first-column share of the row total." },
           { text: formatPercent(totalB, totalA), misconceptionId: "USE_COLUMN_TOTAL_PERCENT", derivation: "Uses the two full column totals instead of the hidden row." },
           { text: formatPercent(visiblePoint.seriesB, visiblePoint.seriesA), misconceptionId: "USE_VISIBLE_ROW_PERCENT", derivation: "Calculates the same type of percentage for a visible row." },
         ],
@@ -782,10 +782,10 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
         answer,
         candidates: [
           { text: ratioDisplay(visibleRowTotal, hiddenRowTotal), misconceptionId: "REVERSE_ROW_TOTAL_RATIO", derivation: "Reverses the requested row order." },
-          { text: ratioDisplay(hidden, visiblePoint.seriesB), misconceptionId: "USE_B_ONLY", derivation: "Compares only the second-series values and ignores the paired first-series values." },
-          { text: ratioDisplay(hiddenPoint.seriesA, visiblePoint.seriesA), misconceptionId: "USE_A_ONLY", derivation: "Compares only the first-series values." },
-          { text: ratioDisplay(hiddenRowTotal, visiblePoint.seriesB), misconceptionId: "MIX_ROW_TOTAL_WITH_B", derivation: "Compares a row total with a single second-series value." },
-          { text: ratioDisplay(hidden, visibleRowTotal), misconceptionId: "MIX_B_WITH_ROW_TOTAL", derivation: "Compares the hidden second-series value with the other row's total." },
+          { text: ratioDisplay(hidden, visiblePoint.seriesB), misconceptionId: "USE_B_ONLY", derivation: "Compares only the second-column values and ignores the paired first-column values." },
+          { text: ratioDisplay(hiddenPoint.seriesA, visiblePoint.seriesA), misconceptionId: "USE_A_ONLY", derivation: "Compares only the first-column values." },
+          { text: ratioDisplay(hiddenRowTotal, visiblePoint.seriesB), misconceptionId: "MIX_ROW_TOTAL_WITH_B", derivation: "Compares a row total with a single second-column value." },
+          { text: ratioDisplay(hidden, visibleRowTotal), misconceptionId: "MIX_B_WITH_ROW_TOTAL", derivation: "Compares the hidden second-column value with the other row's total." },
         ],
         explanation: {
           keyIdea: `Find the missing entry, add the two column values for each requested row, and then simplify the ratio of those row totals.`,
@@ -815,7 +815,7 @@ function validateSet(set: Omit<Di007V2QuestionSet, "validation">) {
 
   add("MISSING_TABLE_KIND", set.stimulus.kind === "MISSING_TABLE", "DI-007 V2 must use missing-table semantics.");
   add("FIVE_ROWS", set.stimulus.points.length === 5, "DI-007 V2 requires five table rows.");
-  add("ONE_HIDDEN_CELL", set.stimulus.points.filter((point) => point.displaySeriesB === "?").length === 1, "Exactly one second-series cell must be hidden.");
+  add("ONE_HIDDEN_CELL", set.stimulus.points.filter((point) => point.displaySeriesB === "?").length === 1, "Exactly one second-column cell must be hidden.");
   add("RECOVERY_PARITY", recovered === set.stimulus.points[set.stimulus.hiddenIndex]?.seriesB, "The condition must recover the exact hidden value.");
   add("FIVE_LINKED_QUESTIONS", set.questions.length === 5, "Each set must contain five linked questions.");
   add("DIFFICULTY_MIX", difficultyCounts.Easy === 1 && difficultyCounts.Medium === 2 && difficultyCounts.Hard === 2, "Each set must contain exactly 1 Easy, 2 Medium and 2 Hard questions.");
