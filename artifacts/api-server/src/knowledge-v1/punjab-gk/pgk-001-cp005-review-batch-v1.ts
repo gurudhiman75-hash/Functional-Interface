@@ -264,7 +264,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "The Beas-Sutlej Link transfers water from the Beas toward which river system?",
+      stem: "Which river system receives water diverted through the inter-basin link from the Beas Project?",
       canonical: "Sutlej",
       options: ["Sutlej", "Ravi", "Chenab", "Jhelum"],
       explanation: "The Beas-Sutlej Link diverts part of the Beas water toward the Sutlej system.",
