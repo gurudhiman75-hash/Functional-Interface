@@ -7,7 +7,7 @@ import {
 import { CP013_FAMILIES,getCP013BreadthReport } from "./engine";
 
 assert.equal(CP013_CLASSIFICATION_ITEMS.length,89);
-assert.equal(CP013_TRANSFORMATION_ITEMS.length,73);
+assert.equal(CP013_TRANSFORMATION_ITEMS.length,63);
 assert.equal(CP013_CORRECTION_ITEMS.length,71);
 assert.equal(CP013_FAMILIES.length,8);
 
@@ -64,16 +64,16 @@ for(const a of CP013_CORRECTION_ITEMS){
  }
 }
 
-for(const excluded of ["CLS-083","TRF-044","TRF-057","COR-006","COR-011","COR-012","COR-018","COR-019","COR-046","COR-055","COR-070","COR-075"]){
+for(const excluded of ["CLS-083","TRF-044","TRF-057","COR-006","COR-011","COR-012","COR-018","COR-019","COR-046","COR-055","COR-070","COR-075","TRF-009","TRF-010","TRF-023","TRF-030","TRF-037","TRF-060","TRF-063","TRF-066","TRF-074","TRF-075"]){
  assert(!clsIds.has(excluded)&&!trfIds.has(excluded)&&!corIds.has(excluded),excluded+": excluded donor authority leaked back in");
 }
 
 const breadth=getCP013BreadthReport();
 assert.equal(breadth.classificationAuthorities,89);
-assert.equal(breadth.transformationAuthorities,73);
+assert.equal(breadth.transformationAuthorities,63);
 assert.equal(breadth.correctionAuthorities,71);
-assert.equal(breadth.totalAtomicAuthorities,233);
-assert.equal(breadth.totalSemanticCapacity,8371);
+assert.equal(breadth.totalAtomicAuthorities,223);
+assert.equal(breadth.totalSemanticCapacity,8341);
 
 const global=new Set<string>();
 for(const family of CP013_FAMILIES){
@@ -103,12 +103,12 @@ for(const family of CP013_FAMILIES){
  const expected=(family.familyId==="F01"||family.familyId==="F02"||family.familyId==="F08")
   ?89
   :(family.familyId==="F03"||family.familyId==="F04"||family.familyId==="F07")
-   ?73
+   ?63
    :71;
  assert.equal(targetCoverage.size,expected,family.familyId+": exhaustive target authority coverage required");
  if(family.familyId==="F08")assert.equal(secondCoverage.size,89,"F08 must exercise every classification authority in second position");
 }
-assert.equal(global.size,8371);
+assert.equal(global.size,8341);
 
 const easy=CP013_FAMILIES.find(x=>x.familyId==="F03")!.generate(1,"Easy");
 const medium=CP013_FAMILIES.find(x=>x.familyId==="F04")!.generate(1,"Medium");
