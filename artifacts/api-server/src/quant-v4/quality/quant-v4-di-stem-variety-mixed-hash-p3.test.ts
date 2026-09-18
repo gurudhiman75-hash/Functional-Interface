@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { mixedHashSeed } from "../topics/DataInterpretation/DI-001/exact";
+import { presentationVariantIndex } from "../topics/DataInterpretation/DI-001/exact";
 
 const SEED_PREFIX = "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-CI";
 const VARIANT_COUNT = 6;
@@ -40,7 +40,7 @@ const summaries = TASK_KINDS.map((taskKind) => {
     const setSeed =
       `${SEED_PREFIX}:shadow:${sectionIndex}:DATA_INTERPRETATION:set:0`;
     buckets.push(
-      mixedHashSeed(`${setSeed}:stem-variety:${taskKind}`) % VARIANT_COUNT,
+      presentationVariantIndex(`${setSeed}:stem-variety:${taskKind}`, VARIANT_COUNT),
     );
   }
 
