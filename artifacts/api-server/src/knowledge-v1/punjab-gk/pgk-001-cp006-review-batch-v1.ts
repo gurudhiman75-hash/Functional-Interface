@@ -166,7 +166,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Easy",
-      stem: "Khadar is best described as:",
+      stem: "Which description fits Khadar?",
       canonical: "Newer alluvium in low-lying floodplains",
       options: ["Newer alluvium in low-lying floodplains", "Old alluvium on higher ground", "Rocky foothill debris only", "Saline groundwater"],
       explanation: "Khadar is younger alluvium found close to rivers where floods can deposit fresh sediment.",
@@ -190,7 +190,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Hard",
-      stem: "Consider the following statements:\nI. Bangar is older alluvium.\nII. Khadar is newer alluvium.\nIII. Bet is associated with low-lying river floodplains in Punjab.\nWhich of the statements given above are correct?",
+      stem: "Consider the following statements:\nI. Bangar is older alluvium.\nII. Khadar is newer alluvium.\nIII. Bet refers to low-lying river floodplains in Punjab.\nWhich of the statements given above are correct?",
       canonical: "I, II and III",
       options: ["I only", "I and II only", "II and III only", "I, II and III"],
       explanation: "All three are correct. Bangar is older upland alluvium, while Khadar or Bet is younger floodplain alluvium.",
@@ -232,7 +232,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Which soil condition is most closely linked with a pH above 7?",
+      stem: "Which soil condition corresponds to a pH above 7?",
       canonical: "Alkaline soil",
       options: ["Alkaline soil", "Strongly acidic soil", "Peat soil", "Podzol soil"],
       explanation: "A pH above 7 indicates an alkaline reaction. Some south-western Punjab soils show this condition.",
@@ -361,7 +361,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
       stem: "Which sequence correctly links a soil term with its setting?",
       canonical: "Bangar — older alluvium; Khadar/Bet — newer floodplain alluvium",
       options: ["Bangar — older alluvium; Khadar/Bet — newer floodplain alluvium", "Bangar — new floodplain alluvium; Khadar — old upland soil", "Bet — mountain rock; Bangar — marsh soil", "Khadar — volcanic soil; Bangar — black soil"],
-      explanation: "Bangar is older alluvium on higher ground, while Khadar or Bet is younger alluvium associated with floodplains.",
+      explanation: "Bangar is older alluvium on higher ground, while Khadar or Bet is younger alluvium found in floodplains.",
       factIds: ["bangar-old-alluvium", "khadar-new-alluvium"], sourceIds: soilSource,
     },
     {
