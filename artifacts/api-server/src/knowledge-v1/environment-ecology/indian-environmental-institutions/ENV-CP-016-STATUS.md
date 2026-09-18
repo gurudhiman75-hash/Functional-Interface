@@ -14,3 +14,5 @@
 - Mutable office-holders, current counts, current project lists and transient notifications: excluded.
 - Source verification date: 2026-09-16.
 - Source baseline: official CPCB, National Biodiversity Authority, NTCA, Central Zoo Authority, Wildlife Crime Control Bureau, Forest Survey of India, Botanical Survey of India, Zoological Survey of India and Wildlife Institute of India material.
+- V2 remediation candidate: 12 additional questions across 3 QLs covering Chipko, Appiko, Save Silent Valley and the Khejarli/Bishnoi tradition.
+- V2 remediation remains review-only pending project-owner approval.
