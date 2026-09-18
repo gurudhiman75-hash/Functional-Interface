@@ -29,13 +29,13 @@ Approved presentation profiles:
 ## Sample 1 — English / QL001 / Four-way
 
 **Statement:**  
-School's online fee system charged some parents twice for the same payment because of a technical fault.
+A school's online fee system has charged a small group of parents twice after a payment-retry process submitted duplicate transactions.
 
 **Course I:**  
-The school should identify duplicate transactions, refund the extra amount and reconcile the affected fee records.
+The school should identify the duplicate transactions, arrange reversal of the extra charges and reconcile the affected fee records.
 
 **Course II:**  
-The faulty retry route should be disabled temporarily until it is fixed so that further duplicate charges do not occur.
+The school should temporarily disable the faulty retry path until it is corrected so that additional duplicate charges are not created.
 
 **Options**
 1. Only Course of Action I follows
@@ -82,13 +82,13 @@ The faulty retry route should be disabled temporarily until it is fixed so that 
 ## Sample 4 — English / Five-code / Genuine Either
 
 **Statement:**  
-A scheduled examination centre becomes unavailable one day before the session. A ready alternate centre with enough capacity exists, and the examination authority can also reschedule the session if necessary.
+An examination venue becomes unavailable on the morning before a scheduled session. A prepared backup venue of sufficient capacity is available, and the examination body also has authority to reschedule the session if the backup cannot be used.
 
 **Course I:**  
-After confirming the required arrangements and informing candidates, the affected session should be held at the ready alternate centre.
+The examination body should shift the affected session to the prepared backup venue after notifying candidates and confirming the required arrangements.
 
 **Course II:**  
-If the alternate centre cannot be made operational in time, the affected session should be rescheduled and candidates should receive clear revised information.
+If the backup venue cannot be activated in time, the examination body should reschedule the affected session and issue a clear revised notice to candidates.
 
 **Options**
 1. Only I follows
