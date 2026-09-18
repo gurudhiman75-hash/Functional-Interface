@@ -10,7 +10,6 @@ on:
       - artifacts/api-server/src/question-studio/engines/reasoning-v1-cls001-adapter-v1.ts
       - artifacts/api-server/src/question-studio/engines/reasoning-v1-cls001-adapter-v1.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**
-      - .github/workflows/cls-001-final-chapter-closure.yml
   workflow_dispatch:
 
 permissions:
