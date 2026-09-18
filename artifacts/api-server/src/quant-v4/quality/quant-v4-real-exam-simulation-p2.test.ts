@@ -110,7 +110,11 @@ for (const summary of audit.summaries) {
   assert.ok(Number.isFinite(summary.averageStemWords));
   assert.ok(Number.isFinite(summary.averageExplanationWords));
   assert.ok(summary.explanationSpecificityRate >= 0 && summary.explanationSpecificityRate <= 1);
-  assert.ok(summary.exactStemDuplicateRate >= 0 && summary.exactStemDuplicateRate <= 1);
+  assert.ok(summary.literalStemDuplicateRate >= 0 && summary.literalStemDuplicateRate <= 1);
+  assert.ok(
+    summary.normalizedStructuralStemReuseRate >= 0 &&
+      summary.normalizedStructuralStemReuseRate <= 1,
+  );
   assert.ok(summary.semanticExplanationDuplicateRate >= 0 && summary.semanticExplanationDuplicateRate <= 1);
   assert.equal(summary.readiness, "EXAM_SIMULATION_NOT_READY", `${summary.examId} must stay NOT_READY while PYQ frequency weighting is provisional.`);
   assert.ok(summary.blockers.includes("PYQ_FREQUENCY_WEIGHTING_PENDING"), `${summary.examId} lost the empirical-weighting blocker.`);
