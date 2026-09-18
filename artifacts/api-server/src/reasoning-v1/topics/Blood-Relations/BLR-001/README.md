@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **all seven designed checkpoints implemented; permanent QL range `BLR-QL-001..035`; CP-003 through CP-005 Hindi/Punjabi machine-proved review candidates complete; CP-006 English/Hindi/Punjabi frozen; CP-007 multilingual production-review lifecycle enabled**.
+Status: **all seven designed checkpoints implemented; permanent QL range `BLR-QL-001..035`; shared standard Question Studio review registration present for CP-001..007; every currently generated BLR review item remains Question-Bank/test/public-release locked; CP-007 records a separate future `releaseEligibleAfterApproval` capability**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -19,13 +19,13 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 
 | Checkpoint | Ownership | Permanent QLs | Current state |
 |---|---|---|---|
-| `BLR-CP-001` | direct declarative named-person relations | `BLR-QL-001..007` | English discovery frozen; review runtime available |
-| `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | `BLR-QL-008` | English discovery frozen; review runtime available |
+| `BLR-CP-001` | direct declarative named-person relations | `BLR-QL-001..007` | English review authority; standard Studio review available; Hindi/Punjabi not yet implemented |
+| `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | `BLR-QL-008` | English review authority; standard Studio review available; Hindi/Punjabi not yet implemented |
 | `BLR-CP-003` | shared family passages and shared graphs | `BLR-QL-009..012` | English discovery frozen; Hindi/Punjabi machine-proved review candidates complete and product-locked pending human language review |
 | `BLR-CP-004` | counts and family composition | `BLR-QL-013..017` | English discovery frozen; zero-count remediation applied; Hindi/Punjabi machine-proved review candidates complete and product-locked pending human language review |
 | `BLR-CP-005` | determinacy, possibility and uncertainty | `BLR-QL-018..025` | English discovery frozen; Hindi/Punjabi machine-proved review candidates complete and product-locked pending human language review |
-| `BLR-CP-006` | coded relation decoding | `BLR-QL-026..030` | English/Hindi/Punjabi frozen; Hindi/Punjabi Editorial V2 review complete; product delivery locked |
-| `BLR-CP-007` | coded relation construction, completion and validation | `BLR-QL-031..035` | English/Hindi/Punjabi frozen; production Question Studio review lifecycle enabled |
+| `BLR-CP-006` | coded relation decoding | `BLR-QL-026..030` | English/Hindi/Punjabi frozen; standard Studio review available; product delivery locked |
+| `BLR-CP-007` | coded relation construction, completion and validation | `BLR-QL-031..035` | English/Hindi/Punjabi frozen; standard Studio review available; current records locked; future release after explicit approval/promotion only |
 
 The current design contains **seven checkpoints only**. There is no planned `BLR-CP-008` in the authoritative end-to-end design.
 
@@ -94,7 +94,7 @@ localized human language review        required
 localized product delivery              locked
 ```
 
-The CP-003 localized candidates preserve the frozen English QL ownership, answer positions, answer semantic keys and canonical semantic fingerprints. They are not production-approved variants: Question Studio, Question Bank, mock-test and public-delivery eligibility remain disabled until explicit human Hindi/Punjabi review and a later approval/freeze step.
+The CP-003 localized candidates preserve the frozen English QL ownership, answer positions, answer semantic keys and canonical semantic fingerprints. They are not production-approved variants: the shared Question Studio may place them in the manual review queue, while Question Bank, mock-test and public-delivery eligibility remain disabled until explicit human Hindi/Punjabi review and a later approval/freeze step.
 
 ### CP-004
 
@@ -176,7 +176,7 @@ CP-006 localization is generated from the frozen coded-relation semantics rather
 
 Final Hindi/Punjabi Editorial V2 review on 2026-08-13 covered representative learner-facing samples from all five CP-006 QLs. The exhaustive language/editorial audits report zero residual-English records, script gaps, cross-script records, placeholders, learner diagnostic leaks, raw diagnostic-label leaks, relation-feedback failures, generic kinship-label failures and missing QL coverage.
 
-The multilingual freeze is approval-only: learner corpus changed `false` in Hindi and Punjabi, semantic parity remains exact, human-review-required count is zero, 304 localized records are frozen, and product-delivery-enabled count remains zero. Question Studio, Question Bank, mock tests and public delivery remain locked pending a separate product-release integration.
+The multilingual freeze is approval-only: learner corpus changed `false` in Hindi and Punjabi, semantic parity remains exact, human-review-required count is zero, 304 localized records are frozen, and product-delivery-enabled count remains zero. CP-006 can be reviewed through the shared standard Question Studio workflow, but Question Bank, mock tests and public delivery remain locked pending a separate product-release integration.
 
 ### CP-007
 
@@ -189,7 +189,7 @@ permanent QLs                    5
 range                BLR-QL-031..035
 ```
 
-CP-007 production persistence remains approval-gated: synchronized records enter Question Studio as `unreviewed`; admin approval is required before existing Question Bank conversion and downstream publication workflows. There is no automatic student publication.
+CP-007 generation-run persistence remains approval-gated: records enter Question Studio as review items, but the generated payload is currently `NOT_STORED`, non-writable, test-ineligible and non-public. `releaseEligibleAfterApproval=true` records the future release path; a separate explicit approval/promotion transition must open Question Bank conversion and downstream publication eligibility. There is no automatic student publication.
 
 ## Recovery history
 
@@ -241,8 +241,8 @@ The chapter shares a typed family graph and relation ontology with:
 
 Checkpoint implementation/freeze state and product delivery state are separate:
 
-- CP-001 and CP-002 remain English review-runtime authorities unless a later explicit product-release gate changes them;
-- CP-003 through CP-005 have machine-proved Hindi/Punjabi review candidates but remain human-review-blocked and product-locked;
-- CP-006 English/Hindi/Punjabi learner corpora are frozen; Hindi/Punjabi human-language review is complete, but CP-006 remains product-locked and is not enabled in Question Studio, Question Bank, mock tests or public delivery;
-- CP-007 alone currently has the multilingual production-review integration described above;
-- production publication still follows the existing audited admin approval workflow.
+- CP-001 and CP-002 remain English-only review authorities; Hindi/Punjabi are a final-audit completeness gap;
+- CP-003 through CP-005 have machine-proved Hindi/Punjabi review candidates but remain human-language-review blocked and product-locked;
+- CP-006 English/Hindi/Punjabi learner corpora are frozen and human-reviewed; the shared standard Studio review path exists, but Question Bank, mock-test and public delivery remain locked;
+- CP-007 is multilingual-frozen and standard-Studio reviewable; current generated records remain release-locked while the future manual-approval path is represented separately;
+- all seven packages use the shared admin review workflow; no generated BLR review item is automatically student-publishable.
