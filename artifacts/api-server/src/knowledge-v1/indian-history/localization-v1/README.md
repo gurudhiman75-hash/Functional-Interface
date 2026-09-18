@@ -8,10 +8,13 @@ Implemented scope:
 - `HIS-CP-001` Prehistory & Harappan Civilization — approved and merged
   - 54 questions per locale
   - 162 English/Hindi/Punjabi learner surfaces
-- `HIS-CP-002` Vedic Age — review candidate
+- `HIS-CP-002` Vedic Age — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- cumulative CP001–CP002: 114 questions per locale / 342 EN-HI-PA surfaces
+- `HIS-CP-003` Mahajanapadas, Jainism & Buddhism — review candidate
+  - 60 questions per locale
+  - 180 English/Hindi/Punjabi learner surfaces
+- cumulative CP001–CP003: 174 questions per locale / 522 EN-HI-PA surfaces
 
 Hindi and Punjabi are human-written learner-facing overlays. They may change wording only; they must preserve frozen English CP, QL, difficulty, source provenance, option order, correct-index and answer semantics.
 
@@ -30,5 +33,6 @@ Quality gates:
 Review exports:
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP001-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP002-REVIEW.md`
+- `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP003-REVIEW.md`
 
 These localization checkpoints do not enable Question Studio runtime registration, Question Bank persistence, test/mock eligibility, publication, or automatic learner release.
