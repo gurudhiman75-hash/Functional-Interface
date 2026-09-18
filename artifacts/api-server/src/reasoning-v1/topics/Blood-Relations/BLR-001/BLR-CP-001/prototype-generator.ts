@@ -35,12 +35,14 @@ function difficultyFor(
   pathLength: number,
   clueCount: number,
   prototypeId: BlrCp001PrototypeId,
-  seed: number,
+  _seed: number,
 ): BlrDifficulty {
-  if (pathLength === 1 && clueCount === 1) return seed % 5 === 0 ? "MEDIUM" : "EASY";
-  if (pathLength === 2) return seed % 4 === 0 ? "HARD" : "MEDIUM";
-  if (prototypeId === "BLR-CP001-PROT-COMPOSED-THREE-EDGE") {
-    return seed % 3 === 0 ? "MEDIUM" : "HARD";
+  if (pathLength <= 1 && clueCount <= 1) return "EASY";
+  if (
+    pathLength >= 3 ||
+    prototypeId === "BLR-CP001-PROT-COMPOSED-THREE-EDGE"
+  ) {
+    return "HARD";
   }
   return "MEDIUM";
 }
