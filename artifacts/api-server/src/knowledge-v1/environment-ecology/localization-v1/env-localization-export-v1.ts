@@ -5,6 +5,8 @@ import { generateEnvCp002LocalizedReviewV1 } from "./env-cp002-localization-v1";
 import { generateEnvCp003LocalizedReviewV1 } from "./env-cp003-localization-v1";
 import { generateEnvCp004LocalizedReviewV1 } from "./env-cp004-localization-v1";
 import { generateEnvCp005LocalizedReviewV1 } from "./env-cp005-localization-v1";
+import { generateEnvCp006LocalizedReviewV1 } from "./env-cp006-localization-v1";
+import { generateEnvCp007LocalizedReviewV1 } from "./env-cp007-localization-v1";
 import type { EnvLocaleV1, EnvLocalizedQuestionV1 } from "./env-localization-types-v1";
 
 const labels: Record<EnvLocaleV1,string>={en:"English",hi:"Hindi",pa:"Punjabi"};
@@ -19,7 +21,7 @@ function render(q:EnvLocalizedQuestionV1,index:number){
  out.push(`**Explanation:** ${q.explanation}`,"");
  return out;
 }
-function materialize(cp:"ENV-CP-001"|"ENV-CP-002"|"ENV-CP-003"|"ENV-CP-004"|"ENV-CP-005", title:string, filename:string){
+function materialize(cp:"ENV-CP-001"|"ENV-CP-002"|"ENV-CP-003"|"ENV-CP-004"|"ENV-CP-005"|"ENV-CP-006"|"ENV-CP-007", title:string, filename:string){
  const out=[`# Environment Multilingual V1 — ${title} Review`,"","Review-only candidate. Frozen English remains semantic authority. Hindi and Punjabi preserve CP, QL, difficulty, source provenance, option order and correct-index parity.",""];
  for(const locale of locales){
    out.push(`## ${labels[locale]}`,"");
@@ -31,7 +33,11 @@ function materialize(cp:"ENV-CP-001"|"ENV-CP-002"|"ENV-CP-003"|"ENV-CP-004"|"ENV
          ? generateEnvCp003LocalizedReviewV1(locale)
          : cp==="ENV-CP-004"
            ? generateEnvCp004LocalizedReviewV1(locale)
-           : generateEnvCp005LocalizedReviewV1(locale);
+           : cp==="ENV-CP-005"
+             ? generateEnvCp005LocalizedReviewV1(locale)
+             : cp==="ENV-CP-006"
+               ? generateEnvCp006LocalizedReviewV1(locale)
+               : generateEnvCp007LocalizedReviewV1(locale);
    qs.forEach((q,i)=>out.push(...render(q,i)));
  }
  const target=path.join(targetDir,filename);
@@ -43,3 +49,5 @@ materialize("ENV-CP-002","CP002","ENV-MULTILINGUAL-V1-CP002-REVIEW.md");
 materialize("ENV-CP-003","CP003","ENV-MULTILINGUAL-V1-CP003-REVIEW.md");
 materialize("ENV-CP-004","CP004","ENV-MULTILINGUAL-V1-CP004-REVIEW.md");
 materialize("ENV-CP-005","CP005","ENV-MULTILINGUAL-V1-CP005-REVIEW.md");
+materialize("ENV-CP-006","CP006","ENV-MULTILINGUAL-V1-CP006-REVIEW.md");
+materialize("ENV-CP-007","CP007","ENV-MULTILINGUAL-V1-CP007-REVIEW.md");

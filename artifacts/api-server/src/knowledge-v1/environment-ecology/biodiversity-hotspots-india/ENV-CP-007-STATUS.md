@@ -10,3 +10,6 @@
 - V2 baseline: competitive-exam stems with simplified one-point explanations.
 - Worldwide hotspot-count trivia: excluded from learner questions.
 - Next target: ENV-CP-008 Species Conservation.
+- Multilingual V1 Wave 5: APPROVED / CONTENT-FROZEN for Hindi and Punjabi.
+- Localization authority: frozen 48-question English V2 surface.
+- Localization approved by project owner on 2026-09-18; localized artifacts remain review-only and preserve option order, correct index, QL, difficulty and provenance.

@@ -23,3 +23,13 @@ export {
   ENV_CP005_ENGLISH_AUTHORITY_V1,
   generateEnvCp005LocalizedReviewV1,
 } from "./env-cp005-localization-v1";
+export {
+  ENV_CP006_MULTILINGUAL_V1,
+  ENV_CP006_ENGLISH_AUTHORITY_V1,
+  generateEnvCp006LocalizedReviewV1,
+} from "./env-cp006-localization-v1";
+export {
+  ENV_CP007_MULTILINGUAL_V1,
+  ENV_CP007_ENGLISH_AUTHORITY_V2,
+  generateEnvCp007LocalizedReviewV1,
+} from "./env-cp007-localization-v1";
