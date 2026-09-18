@@ -52,8 +52,7 @@ export function isEng003Cp002QuestionStudioRequestV1(request: QuestionStudioGene
   const packageId = text(request.packageId).toLowerCase();
   const topic = `${text(request.topic)} ${text(request.subtopic)}`.toLowerCase();
   return packageId === ENG003_QUESTION_STUDIO_PACKAGE_ID_V1
-    && selectors.some((value) => value.startsWith("GR-TNS-"))
-    && /fill|blank|grammar filler|tense/.test(topic);
+    && (/\btense/.test(topic) || selectors.some((value) => value.startsWith("GR-TNS-")));
 }
 
 export const languageV1Eng003Cp002QuestionStudioAdapterV1: QuestionStudioEngineAdapter = {
