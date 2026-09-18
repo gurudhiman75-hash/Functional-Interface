@@ -18,10 +18,10 @@ import type {
   QuestionStudioPackageDefinition,
 } from "../engine-types";
 import {
-  COA_CP010_QUESTION_STUDIO_PACKAGE,
-  generateCoaCp010QuestionStudioBatch,
-  isCoaCp010QuestionStudioRequest,
-} from "../../reasoning-v1/topics/Course-of-Action/COA-001/cp010-question-studio-integration";
+  COA_CP011_QUESTION_STUDIO_PACKAGE,
+  generateCoaCp011QuestionStudioBatch,
+  isCoaCp011QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Course-of-Action/COA-001/cp011-final-editorial-diversity";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 
 export const OPS001_QUESTION_STUDIO_PACKAGE_ID_V1 = "OPS-001" as const;
@@ -254,13 +254,13 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   listPackages() {
     return [
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
-      COA_CP010_QUESTION_STUDIO_PACKAGE,
+      COA_CP011_QUESTION_STUDIO_PACKAGE,
     ];
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
-    if (isCoaCp010QuestionStudioRequest(request as Readonly<Record<string, unknown>>)) {
-      return generateCoaCp010QuestionStudioBatch(request);
+    if (isCoaCp011QuestionStudioRequest(request as Readonly<Record<string, unknown>>)) {
+      return generateCoaCp011QuestionStudioBatch(request);
     }
     if (!isOps001Request(request)) throw new Error(`reasoning-v1 cannot resolve package ${String(request.packageId ?? request.topic ?? "unknown")}`);
     if (request.runtimeMode && request.runtimeMode !== OPS001_QUESTION_STUDIO_RUNTIME_MODE_V1) {
