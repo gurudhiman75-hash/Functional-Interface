@@ -9,3 +9,4 @@
 - Multilingual V1 Wave 1: REVIEW CANDIDATE for Hindi and Punjabi.
 - Localization surface: 48 questions per locale; English V4 remains semantic authority.
 - Localization is review-only and does not change runtime registration.
+- English V4 defect correction before multilingual approval: Q43 now correctly answers "All three" for its three true statements while preserving the existing correct-option position.
