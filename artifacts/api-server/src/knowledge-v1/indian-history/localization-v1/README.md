@@ -17,10 +17,13 @@ Implemented scope:
 - `HIS-CP-004` Mauryan Empire — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- `HIS-CP-005` Post-Mauryan India & Sangam Age — review candidate
+- `HIS-CP-005` Post-Mauryan India & Sangam Age — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- cumulative CP001–CP005: 294 questions per locale / 882 EN-HI-PA surfaces
+- `HIS-CP-006` Gupta & Post-Gupta — review candidate
+  - 60 questions per locale
+  - 180 English/Hindi/Punjabi learner surfaces
+- cumulative CP001–CP006: 354 questions per locale / 1062 EN-HI-PA surfaces
 
 Hindi and Punjabi are human-written learner-facing overlays. They may change wording only; they must preserve frozen English CP, QL, difficulty, source provenance, option order, correct-index and answer semantics.
 
@@ -42,5 +45,6 @@ Review exports:
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP003-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP004-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP005-REVIEW.md`
+- `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP006-REVIEW.md`
 
 These localization checkpoints do not enable Question Studio runtime registration, Question Bank persistence, test/mock eligibility, publication, or automatic learner release.
