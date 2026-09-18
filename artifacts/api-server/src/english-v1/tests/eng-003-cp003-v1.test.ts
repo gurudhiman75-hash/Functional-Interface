@@ -1,5 +1,5 @@
 import { cp003ScenePoolV1 } from "../chapters/error-spotting/ENG-001/CP003/eng-001-cp003-v1";
-import { generateEng003Cp003QuestionV1 } from "../chapters/grammar-fillers/ENG-003/CP003/eng-003-cp003-v1";
+import { generateEng003Cp003QuestionV1, materializeEng003Cp003AnswerV1 } from "../chapters/grammar-fillers/ENG-003/CP003/eng-003-cp003-v1";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
