@@ -60,7 +60,7 @@ const STEM_VARIANTS: Readonly<Record<Di005TaskKind, readonly StemBuilder[]>> = O
   ]),
 });
 
-function diversifyStem(seed: string, stimulus: Di005Stimulus, question: Di005Question): string {
+function diversifyStem(stimulus: Di005Stimulus, question: Di005Question): string {
   const variants = STEM_VARIANTS[question.kind];
   const variantIndex = presentationVariantIndex(question.questionId, variants.length);
   return variants[variantIndex]!(stimulus, question);
@@ -72,7 +72,7 @@ export function generateDi005PieSet(
   const generated = generateDi005PieSetBase(input);
   const questions = generated.questions.map((question) => Object.freeze({
     ...question,
-    stem: diversifyStem(generated.seed, generated.stimulus, question),
+    stem: diversifyStem(generated.stimulus, question),
   }));
   return Object.freeze({ ...generated, questions: Object.freeze(questions) });
 }
