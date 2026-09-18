@@ -9,7 +9,9 @@ let checkedQuestions = 0;
 let countQualityChecks = 0;
 let differenceQualityChecks = 0;
 let hardRatioCalibrationChecks = 0;
+let hardExcessCalibrationChecks = 0;
 let hardAngleCalibrationChecks = 0;
+let hardRemainderCalibrationChecks = 0;
 
 for (const profile of profiles) {
   for (let index = 1; index <= 120; index += 1) {
@@ -58,6 +60,15 @@ for (const profile of profiles) {
         hardRatioCalibrationChecks += 1;
       }
 
+      if (question.kind === "RELATIVE_SECTOR_PERCENT_EXCESS") {
+        const hidden = first.stimulus.hiddenPercentIndex;
+        const largerIndex = Number(question.evidence.largerIndex);
+        const smallerIndex = Number(question.evidence.smallerIndex);
+        assert.ok(largerIndex === hidden || smallerIndex === hidden, `${profile}/${seed} Hard relative-excess task does not require the hidden sector.`);
+        assert.match(question.explanation.steps[0] ?? "", /100%/u, `${profile}/${seed} Hard relative-excess explanation does not recover the missing share first.`);
+        hardExcessCalibrationChecks += 1;
+      }
+
       if (question.kind === "COMBINED_SECTOR_ANGLE") {
         const hidden = first.stimulus.hiddenPercentIndex;
         const firstIndex = Number(question.evidence.firstIndex);
@@ -66,6 +77,15 @@ for (const profile of profiles) {
         assert.match(question.explanation.steps[0] ?? "", /100%/u, `${profile}/${seed} Hard combined-angle explanation does not recover the missing share first.`);
         hardAngleCalibrationChecks += 1;
       }
+
+      if (question.kind === "REMAINDER_AFTER_TWO_SECTORS_COUNT") {
+        const hidden = first.stimulus.hiddenPercentIndex;
+        const firstIndex = Number(question.evidence.firstIndex);
+        const secondIndex = Number(question.evidence.secondIndex);
+        assert.ok(firstIndex === hidden || secondIndex === hidden, `${profile}/${seed} Hard remainder-count task does not require the hidden sector.`);
+        assert.match(question.explanation.steps[0] ?? "", /100%/u, `${profile}/${seed} Hard remainder-count explanation does not recover the missing share first.`);
+        hardRemainderCalibrationChecks += 1;
+      }
     }
   }
 }
@@ -73,7 +93,9 @@ for (const profile of profiles) {
 assert.ok(countQualityChecks >= 30, `Expected substantial sector-count coverage, saw ${countQualityChecks}.`);
 assert.ok(differenceQualityChecks >= 30, `Expected substantial difference-count coverage, saw ${differenceQualityChecks}.`);
 assert.ok(hardRatioCalibrationChecks >= 30, `Expected substantial calibrated Hard ratio coverage, saw ${hardRatioCalibrationChecks}.`);
+assert.ok(hardExcessCalibrationChecks >= 30, `Expected substantial calibrated Hard relative-excess coverage, saw ${hardExcessCalibrationChecks}.`);
 assert.ok(hardAngleCalibrationChecks >= 30, `Expected substantial calibrated Hard combined-angle coverage, saw ${hardAngleCalibrationChecks}.`);
+assert.ok(hardRemainderCalibrationChecks >= 30, `Expected substantial calibrated Hard remainder-count coverage, saw ${hardRemainderCalibrationChecks}.`);
 
 console.log(JSON.stringify({
   status: "PASS_DI_005_PIE_V2_LEARNER_QUALITY",
@@ -82,5 +104,7 @@ console.log(JSON.stringify({
   countQualityChecks,
   differenceQualityChecks,
   hardRatioCalibrationChecks,
+  hardExcessCalibrationChecks,
   hardAngleCalibrationChecks,
+  hardRemainderCalibrationChecks,
 }));
