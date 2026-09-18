@@ -224,7 +224,7 @@ function buildStem(prompt: BlrCp002StructuredPrompt): string {
     return `Pointing to ${personNoun(pointedGender)}, ${speakerName} said, “${statement}” ${question}`;
   }
   if (prompt.presentation === "STAGE") {
-    return `Showing ${anchorName(prompt, "POINTED_PERSON")} on the stage, ${speakerName} said, “${statement}” ${question}`;
+    return `Pointing to ${anchorName(prompt, "POINTED_PERSON")} on the stage, ${speakerName} said, “${statement}” ${question}`;
   }
   if (prompt.pointedPersonId === prompt.speakerId) {
     return `Showing a photograph of ${personNoun(pointedGender)}, ${speakerName} said, “${statement}” ${question}`;
