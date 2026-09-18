@@ -29,6 +29,7 @@ import { isEng002Cp012QuestionStudioRequestV1, languageV1Eng002Cp012QuestionStud
 import { isEng002Cp013QuestionStudioRequestV1, languageV1Eng002Cp013QuestionStudioAdapterV1 } from "./language-v1-eng002-cp013-adapter-v1";
 import { ENG003_QUESTION_STUDIO_PACKAGE_ID_V1, languageV1Eng003Cp001QuestionStudioAdapterV1 } from "./language-v1-eng003-cp001-adapter-v1";
 import { languageV1Eng003Cp002QuestionStudioAdapterV1 } from "./language-v1-eng003-cp002-adapter-v1";
+import { languageV1Eng003Cp003QuestionStudioAdapterV1 } from "./language-v1-eng003-cp003-adapter-v1";
 
 function explicitSelectorValues(request: QuestionStudioGenerationRequest) {
   return [request.patternId, request.canonicalProblemId, request.questionLanguageId]
@@ -73,11 +74,15 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     const eng003CpSelector = explicitEng003CpSelector(request);
     if (eng003CpSelector === "ENG-003-CP001") return languageV1Eng003Cp001QuestionStudioAdapterV1.generate(request);
     if (eng003CpSelector === "ENG-003-CP002") return languageV1Eng003Cp002QuestionStudioAdapterV1.generate(request);
+    if (eng003CpSelector === "ENG-003-CP003") return languageV1Eng003Cp003QuestionStudioAdapterV1.generate(request);
     if (eng003PackageSelected(request)) {
       const selectors = explicitSelectorValues(request);
       const topic = eng003TopicText(request);
       if (selectors.some((value) => value.startsWith("GR-TNS-")) || /\btense/.test(topic)) {
         return languageV1Eng003Cp002QuestionStudioAdapterV1.generate(request);
+      }
+      if (selectors.some((value) => value.startsWith("GR-ART-")) || /article|determiner/.test(topic)) {
+        return languageV1Eng003Cp003QuestionStudioAdapterV1.generate(request);
       }
       if (selectors.some((value) => value.startsWith("GR-SVA-")) || /subject.?verb|agreement/.test(topic)) {
         return languageV1Eng003Cp001QuestionStudioAdapterV1.generate(request);
