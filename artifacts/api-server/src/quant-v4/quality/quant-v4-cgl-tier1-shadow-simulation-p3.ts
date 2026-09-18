@@ -79,7 +79,8 @@ export interface QuantV4CglTier1ShadowSimulationAudit {
   readonly trigonometryTestEligibleCount: number;
   readonly optionMismatchCount: number;
   readonly emptyExplanationCount: number;
-  readonly exactStemDuplicateRate: number;
+  readonly literalStemDuplicateRate: number;
+  readonly normalizedStructuralStemReuseRate: number;
   readonly slotDistribution: Readonly<Record<string, number>>;
   readonly packageDistribution: Readonly<Record<string, number>>;
   readonly blockers: readonly string[];
@@ -488,7 +489,10 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
   const trigonometryTestEligibleCount = trigonometryRecords.filter((record) => record.sourceKind === "RUNTIME_GENERATED" && record.testEligible === true).length;
   const optionMismatchCount = runtimeRecords.filter((record) => record.optionCount !== 4).length;
   const emptyExplanationCount = runtimeRecords.filter((record) => record.emptyExplanation).length;
-  const exactStemDuplicateRate = duplicateRate(runtimeRecords.map((record) => record.normalizedStemSignature));
+  const literalStemDuplicateRate = duplicateRate(runtimeRecords.map((record) => record.literalStemSignature));
+  const normalizedStructuralStemReuseRate = duplicateRate(
+    runtimeRecords.map((record) => record.normalizedStemSignature),
+  );
 
   const baselineQuestions = integratedBaselineSections.flatMap((section) => section.questions);
   const currentBaselineCapabilityGapCount = baselineQuestions.filter((question) => question.sourceKind === "CAPABILITY_GAP").length;
@@ -513,7 +517,9 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
   if (algebraBankOnlyCount) blockers.push("ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK");
   if (optionMismatchCount) blockers.push("SHADOW_OPTION_COUNT_PROFILE_DRIFT");
   if (emptyExplanationCount) blockers.push("SHADOW_EMPTY_EXPLANATIONS_PRESENT");
-  if (exactStemDuplicateRate > 0.05) blockers.push("SHADOW_STEM_REPETITION_ABOVE_5_PERCENT");
+  if (normalizedStructuralStemReuseRate > 0.05) {
+    blockers.push("SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT");
+  }
 
   return Object.freeze({
     authority: QUANT_V4_CGL_TIER1_SHADOW_SIMULATION_AUTHORITY,
@@ -536,7 +542,8 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
     trigonometryTestEligibleCount,
     optionMismatchCount,
     emptyExplanationCount,
-    exactStemDuplicateRate,
+    literalStemDuplicateRate,
+    normalizedStructuralStemReuseRate,
     slotDistribution: countBy(records, (record) => record.slotKind),
     packageDistribution: countBy(runtimeRecords, (record) => record.packageId),
     blockers: Object.freeze([...new Set(blockers)]),
