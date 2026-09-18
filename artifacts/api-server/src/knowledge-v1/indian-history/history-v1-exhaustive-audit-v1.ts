@@ -115,7 +115,7 @@ const packageReports=packages.map(p=>{
   const answerPositions=[0,0,0,0];
   const shortExplanations:string[]=[]; const oneSentenceExplanations:string[]=[]; const mechanicalExplanations:string[]=[];
   const metaLeaks:{id:string;where:string;text:string}[]=[]; const longStems:{id:string;len:number}[]=[];
-  const allTrueHard:string[]=[]; const weakHardCandidates:string[]=[]; const answerLengthGiveaway:string[]=[]; const categoricalDistractorQuestions:string[]=[];
+  const allTrueHard:string[]=[]; const weakHardCandidates:string[]=[]; const answerLengthGiveaway:string[]=[]; const answerLengthGiveawayDetails:{id:string;stem:string;answer:string;options:readonly string[]}[]=[]; const categoricalDistractorQuestions:string[]=[];
   let stemChars=0, explanationChars=0;
   for(const q of p.questions){
     difficultyCounts[q.difficulty]=(difficultyCounts[q.difficulty]??0)+1;
@@ -138,7 +138,7 @@ const packageReports=packages.map(p=>{
     const correctLen=q.canonicalAnswer.length;
     const wrong=q.options.filter((_,i)=>i!==q.correctIndex).map(o=>String(o).length);
     const maxWrong=Math.max(1,...wrong), avgWrong=wrong.reduce((a,b)=>a+b,0)/Math.max(1,wrong.length);
-    if(correctLen>Math.max(maxWrong*1.65,avgWrong*1.9)&&correctLen>=35)answerLengthGiveaway.push(q.questionId);
+    if(correctLen>Math.max(maxWrong*1.65,avgWrong*1.9)&&correctLen>=35){answerLengthGiveaway.push(q.questionId);answerLengthGiveawayDetails.push({id:q.questionId,stem:q.stem,answer:q.canonicalAnswer,options:q.options});}
     if(q.options.some((o,i)=>i!==q.correctIndex&&CATEGORICAL_DISTRACTOR.test(String(o))))categoricalDistractorQuestions.push(q.questionId);
   }
   return {
@@ -148,7 +148,7 @@ const packageReports=packages.map(p=>{
     shortExplanations,oneSentenceExplanations,mechanicalExplanations,metaLeaks,longStems,
     directRecallCounts:{Easy:directRecall.Easy.length,Medium:directRecall.Medium.length,Hard:directRecall.Hard.length},directRecall,
     templateCounts,allTrueHardCount:allTrueHard.length,allTrueHard,weakHardCandidateCount:weakHardCandidates.length,weakHardCandidates,
-    answerLengthGiveawayCount:answerLengthGiveaway.length,answerLengthGiveaway,
+    answerLengthGiveawayCount:answerLengthGiveaway.length,answerLengthGiveaway,answerLengthGiveawayDetails,
     categoricalDistractorQuestionCount:categoricalDistractorQuestions.length,categoricalDistractorQuestions,
   };
 });
