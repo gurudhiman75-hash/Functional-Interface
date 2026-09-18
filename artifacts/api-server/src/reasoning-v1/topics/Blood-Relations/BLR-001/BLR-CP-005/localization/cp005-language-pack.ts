@@ -150,12 +150,12 @@ export function localizedStem(
   const count = localizedCountDescription(query.countSpec, locale, nameFor);
   if (query.kind === "COUNT_BOUND") {
     return query.bound === "MINIMUM"
-      ? localeText(locale, `${count} की न्यूनतम संभव मान क्या है?`, `${count} ਦਾ ਘੱਟੋ-ਘੱਟ ਸੰਭਵ ਮੁੱਲ ਕੀ ਹੈ?`)
-      : localeText(locale, `${count} की अधिकतम संभव मान क्या है?`, `${count} ਦਾ ਵੱਧ ਤੋਂ ਵੱਧ ਸੰਭਵ ਮੁੱਲ ਕੀ ਹੈ?`);
+      ? localeText(locale, `${count} का न्यूनतम संभव मान क्या है?`, `${count} ਦਾ ਘੱਟੋ-ਘੱਟ ਸੰਭਵ ਮੁੱਲ ਕੀ ਹੈ?`)
+      : localeText(locale, `${count} का अधिकतम संभव मान क्या है?`, `${count} ਦਾ ਵੱਧ ਤੋਂ ਵੱਧ ਸੰਭਵ ਮੁੱਲ ਕੀ ਹੈ?`);
   }
   if (query.kind === "COUNT_STATUS") {
     return query.requestedStatus === "POSSIBLE"
-      ? localeText(locale, `${count} के लिए कौन-सी संख्या संभव हो सकती है?`, `${count} ਲਈ ਕਿਹੜੀ ਗਿਣਤੀ ਸੰਭਵ ਹੋ ਸਕਦੀ ਹੈ?`)
+      ? localeText(locale, `${count} के लिए कौन-सी संख्या संभव है?`, `${count} ਲਈ ਕਿਹੜੀ ਗਿਣਤੀ ਸੰਭਵ ਹੈ?`)
       : localeText(locale, `${count} के लिए कौन-सी संख्या संभव नहीं है?`, `${count} ਲਈ ਕਿਹੜੀ ਗਿਣਤੀ ਸੰਭਵ ਨਹੀਂ ਹੈ?`);
   }
   return localeText(locale, `${count} का सटीक मान क्या है?`, `${count} ਦਾ ਸਟੀਕ ਮੁੱਲ ਕੀ ਹੈ?`);
