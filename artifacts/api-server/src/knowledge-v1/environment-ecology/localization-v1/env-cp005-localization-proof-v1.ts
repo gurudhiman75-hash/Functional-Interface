@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
-import { ENV_CP005_ENGLISH_AUTHORITY_V1, generateEnvCp004LocalizedReviewV1 } from "./env-cp005-localization-v1";
+import { ENV_CP005_ENGLISH_AUTHORITY_V1, generateEnvCp005LocalizedReviewV1 } from "./env-cp005-localization-v1";
 import type { EnvLocaleV1, EnvLocalizedQuestionV1 } from "./env-localization-types-v1";
 
 const locales: EnvLocaleV1[] = ["en","hi","pa"];
@@ -14,7 +14,7 @@ function assertNative(locale:"hi"|"pa",q:EnvLocalizedQuestionV1){
 }
 assert.equal(ENV_CP005_ENGLISH_AUTHORITY_V1.length,48);
 for(const locale of locales){
-  const localized=generateEnvCp004LocalizedReviewV1(locale);
+  const localized=generateEnvCp005LocalizedReviewV1(locale);
   assert.equal(localized.length,48);
   localized.forEach((q,i)=>{
     const s=ENV_CP005_ENGLISH_AUTHORITY_V1[i];
