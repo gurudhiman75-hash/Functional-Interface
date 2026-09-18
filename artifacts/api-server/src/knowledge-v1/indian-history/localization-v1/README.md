@@ -5,15 +5,19 @@ Lifecycle: **REVIEW_ONLY**
 Semantic authority: `HIS-001-ENGLISH-FREEZE-V1` on `New-main`.
 
 Implemented scope:
-- `HIS-CP-001` Prehistory & Harappan Civilization
-- 54 questions per locale
-- 162 English/Hindi/Punjabi learner surfaces
+- `HIS-CP-001` Prehistory & Harappan Civilization — approved and merged
+  - 54 questions per locale
+  - 162 English/Hindi/Punjabi learner surfaces
+- `HIS-CP-002` Vedic Age — review candidate
+  - 60 questions per locale
+  - 180 English/Hindi/Punjabi learner surfaces
+- cumulative CP001–CP002: 114 questions per locale / 342 EN-HI-PA surfaces
 
 Hindi and Punjabi are human-written learner-facing overlays. They may change wording only; they must preserve frozen English CP, QL, difficulty, source provenance, option order, correct-index and answer semantics.
 
 Quality gates:
 - exact English no-drift
-- 54/54 overlay completeness per native locale
+- exact per-CP overlay completeness in each native locale
 - four unique options per question
 - sourceFactIds and sourceIds parity
 - correct-index parity
@@ -23,7 +27,8 @@ Quality gates:
 - minimum two-sentence native explanations
 - reviewOnly=true and runtimeRegistered=false preserved
 
-Review export:
+Review exports:
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP001-REVIEW.md`
+- `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP002-REVIEW.md`
 
-This checkpoint does not enable Question Studio runtime registration, Question Bank persistence, test/mock eligibility, publication, or automatic learner release.
+These localization checkpoints do not enable Question Studio runtime registration, Question Bank persistence, test/mock eligibility, publication, or automatic learner release.
