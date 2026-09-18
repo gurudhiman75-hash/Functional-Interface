@@ -1,6 +1,6 @@
 # ENG-003-CP003 — Grammar Fillers: Articles and Determiners — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Blueprint boundary
 
@@ -126,3 +126,15 @@ V1 must pass:
 CP003 remains **review-only** until explicit human editorial approval.
 
 It is not registered in Question Studio yet and has no authority for Question Bank writes, tests, mocks, learner/public publication, automatic student delivery or production release.
+
+
+## Human approval
+
+The 30-question review artifact was explicitly approved on **2026-09-18**.
+
+- Approval authority: `ENG-003-CP003-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `8035a339acb1b4c9d3ff61df9ad3d35d7e49a713`
+- Review SHA-256: `febda8465d3325e9a114a90945be6a84b49ac801ae522a20e885fff84bc4546a`
+- Workflow artifact digest: `sha256:5786be1fa30eb9ca6d127b121155522b5bbd3a51e5c7995c8d72b22642be9057`
+
+Question Studio registration is review-only. Question Bank writes, tests, mocks, learner/public publication, automatic student delivery and production release remain locked.
