@@ -1,0 +1,46 @@
+name: Validate CLS-001 Chapter Closure
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**"
+      - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
+      - ".github/workflows/cls-001-chapter-closure.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: cls-001-chapter-closure-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chapter-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --filter ./artifacts/api-server build
+
+      - name: Run Classification shared Question Studio closure gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/question-studio-review.test.ts
+
+      - name: Run English editorial approval regression
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/english-editorial-approval.test.ts
+
+      - name: Run CP-008 zero-allocation ownership closure
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-008/ownership.test.ts
