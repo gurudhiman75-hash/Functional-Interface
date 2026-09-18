@@ -1,9 +1,9 @@
 # POL-CP-026 — Public Services & Administrative Tribunals
 
-**Lifecycle:** REVIEW CANDIDATE — V2  
-**Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V2  
+**Runtime registration:** DEFERRED TO POLITY QUESTION STUDIO INTEGRATION PASS
 
-> Scope note: the repository roadmap does not expose the historical CP026 title. This title is an inferred next uncovered high-yield Polity block and remains review-only until project-owner approval.
+> Scope note: the repository roadmap does not expose the historical CP026 title. This inferred high-yield scope was explicitly approved by the project owner on 2026-09-18.
 
 ## Scope
 - Part XIV, Chapter I: Articles 309–314 covering recruitment/service conditions, pleasure doctrine, civil-service safeguards, All-India Services and transitional provisions;
@@ -15,7 +15,7 @@
 - UPSC/SPSC and Articles 315–323 remain owned by POL-CP-022.
 - General basic-structure case coverage remains owned by POL-CP-006; CP026 uses L. Chandra Kumar only for tribunal judicial review.
 - Current tribunal office-holders, bench vacancies, live litigation and mutable administrative details are excluded.
-- No Question Studio/runtime registration before explicit approval.
+- Content frozen after explicit project-owner approval. Question Studio/runtime registration remains deferred to the final Polity integration pass.
 
 ## Stem standard
 - V2 full stem pass across all 80 questions;\n- 40 completion-style stems and 40 normal question stems;
