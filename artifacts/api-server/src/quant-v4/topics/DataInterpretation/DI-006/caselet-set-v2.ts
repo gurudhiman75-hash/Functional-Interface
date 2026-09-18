@@ -260,36 +260,66 @@ function fallbackCandidates(answer: string, numericStep: number, counts: readonl
   if (ratio) {
     const left = Number(ratio[1]);
     const right = Number(ratio[2]);
-    return [
+    const candidates: Candidate[] = [
       { text: String(right) + ":" + String(left), misconceptionId: "FALLBACK_REVERSE_RATIO", derivation: "Reverses the requested ratio order." },
       { text: ratioDisplay(left, left + right), misconceptionId: "FALLBACK_PART_TO_PAIR", derivation: "Compares the first term with the combined pair." },
       { text: ratioDisplay(left + right, right), misconceptionId: "FALLBACK_PAIR_TO_SECOND", derivation: "Compares the combined pair with the second term." },
-      { text: String(left + 1) + ":" + String(right), misconceptionId: "FALLBACK_NEARBY_RATIO", derivation: "Uses a nearby first ratio term." },
     ];
+    for (let offset = 1; offset <= 8; offset += 1) {
+      candidates.push({
+        text: ratioDisplay(left + offset, right),
+        misconceptionId: "FALLBACK_RATIO_LEFT_" + offset,
+        derivation: "Uses a nearby first ratio term after a small reconstruction error.",
+      });
+      candidates.push({
+        text: ratioDisplay(left, right + offset),
+        misconceptionId: "FALLBACK_RATIO_RIGHT_" + offset,
+        derivation: "Uses a nearby second ratio term after a small reconstruction error.",
+      });
+    }
+    return candidates;
   }
 
   const percent = answer.match(/^(\d+(?:\.\d+)?)%$/u);
   if (percent) {
     const value = Number(percent[1]);
-    return [-10, -5, 5, 10, 15]
-      .map((delta, index) => ({
-        text: String(Math.max(1, value + delta)) + "%",
+    const candidates: Candidate[] = [];
+    const deltas = [-25, -20, -15, -10, -5, 5, 10, 15, 20, 25, 30];
+    for (const [index, delta] of deltas.entries()) {
+      const candidate = Math.max(1, value + delta);
+      candidates.push({
+        text: String(candidate) + "%",
         misconceptionId: "FALLBACK_PERCENT_" + index,
         derivation: "Uses a nearby percentage after a reading or arithmetic error.",
-      }));
+      });
+    }
+    return candidates;
   }
 
   if (/^\d+(?:\.\d+)?$/u.test(answer)) {
-    const otherCounts = counts.map((value, index) => ({
-      text: String(value),
+    const value = Number(answer);
+    const step = Math.max(1, numericStep);
+    const candidates: Candidate[] = counts.map((count, index) => ({
+      text: String(count),
       misconceptionId: "OTHER_CATEGORY_VALUE_" + index,
       derivation: "Uses the value of another category from the same caselet.",
     }));
-    return [
-      ...otherCounts,
-      { text: String(Math.max(0, Number(answer) + numericStep)), misconceptionId: "FALLBACK_ONE_STEP_HIGH", derivation: "Moves one scale step above the required value." },
-      { text: String(Math.max(0, Number(answer) - numericStep)), misconceptionId: "FALLBACK_ONE_STEP_LOW", derivation: "Moves one scale step below the required value." },
-    ];
+    for (let offset = 1; offset <= 10; offset += 1) {
+      candidates.push({
+        text: String(value + offset * step),
+        misconceptionId: "FALLBACK_VALUE_HIGH_" + offset,
+        derivation: "Uses a nearby value above the required result after a small calculation error.",
+      });
+      const lower = value - offset * step;
+      if (lower > 0) {
+        candidates.push({
+          text: String(lower),
+          misconceptionId: "FALLBACK_VALUE_LOW_" + offset,
+          derivation: "Uses a nearby value below the required result after a small calculation error.",
+        });
+      }
+    }
+    return candidates;
   }
   return [];
 }
@@ -313,7 +343,7 @@ function buildOptions(input: {
   add({ text: input.answer, misconceptionId: "CORRECT", derivation: "Exact recomputation from the shared caselet." });
   input.candidates.forEach(add);
   fallbackCandidates(input.answer, input.numericStep, input.counts).forEach(add);
-  if (retained.length < input.optionCount) throw new Error("DI-006 V2 could not build enough unique options.");
+  if (retained.length < input.optionCount) throw new Error(`DI-006 V2 ${input.seed} could build only ${retained.length} unique options for ${input.answer}.`);
   const shuffled = shuffle(seededRandom(input.seed + ":options"), retained.slice(0, input.optionCount));
   const correctIndex = shuffled.findIndex((option) => option.misconceptionId === "CORRECT");
   if (correctIndex < 0) throw new Error("DI-006 V2 lost the correct option.");
