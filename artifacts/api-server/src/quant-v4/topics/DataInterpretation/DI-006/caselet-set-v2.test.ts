@@ -62,6 +62,7 @@ for (const profile of profiles) {
     assert.equal(first.stimulus.relations.length, 3);
     assert.ok(first.stimulus.learnerText.length > 180);
     assert.doesNotMatch(first.stimulus.learnerText, /\btable\b|\brow\b|\bcolumn\b/iu);
+    assert.doesNotMatch(first.stimulus.learnerText, /Together, the five categories accounted for|accounted for \d+/iu, profile + "/" + seed + " leaked generic caselet boilerplate.");
 
     sets += 1;
     contexts.add(first.stimulus.contextId);
@@ -88,6 +89,22 @@ for (const profile of profiles) {
       const learnerText = [question.stem, question.explanation.keyIdea, ...question.explanation.steps].join(" ").toLowerCase();
       for (const blocked of ["associated", "shortcut", "common trap", "trap"]) {
         assert.equal(learnerText.includes(blocked), false, question.kind + " leaked blocked wording: " + blocked);
+      }
+
+      if (question.kind === "SHARE_OF_TOTAL") {
+        for (const option of question.options) {
+          assert.match(option, /^\d+(?:\.\d+)?%$/u, profile + "/" + seed + " share option is not a percentage: " + option);
+          assert.ok(Number(option.replace("%", "")) <= 100, profile + "/" + seed + " share option exceeds 100%: " + option);
+        }
+        assert.ok(
+          question.optionMetadata.every((option) => option.misconceptionId === "CORRECT" || option.misconceptionId.startsWith("USE_OTHER_CATEGORY_SHARE_") || option.misconceptionId === "USE_COMPLEMENT_SHARE"),
+          profile + "/" + seed + " share task used a non-caselet distractor.",
+        );
+      }
+
+      if (question.kind === "DIFFERENCE_BETWEEN_VALUES") {
+        assert.ok(question.optionMetadata.some((option) => option.misconceptionId === "USE_AVERAGE_INSTEAD_OF_DIFFERENCE"), profile + "/" + seed + " difference task lost its average-confusion distractor.");
+        assert.ok(!question.optionMetadata.some((option) => option.misconceptionId.startsWith("FALLBACK_VALUE_")), profile + "/" + seed + " difference task fell back to an arbitrary nearby value.");
       }
 
       const verification = verifyDi006V2Question(first, question);
