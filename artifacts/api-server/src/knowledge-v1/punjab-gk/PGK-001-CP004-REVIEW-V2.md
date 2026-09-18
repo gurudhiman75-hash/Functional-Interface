@@ -190,16 +190,16 @@ D. Ghaggar and Sutlej
 **Explanation:** Harike lies at the confluence of the Beas and Sutlej rivers.
 
 ### PGK-001-CP004-Q015 — Medium
-**Which two rivers form the confluence at Harike?**
+**After the Beas joins the Sutlej at Harike, which river name continues downstream?**
 
-A. Beas and Sutlej
-B. Ravi and Chenab
-C. Chenab and Jhelum
-D. Ravi and Beas
+A. Sutlej
+B. Beas
+C. Ravi
+D. Chenab
 
-**Answer:** Beas and Sutlej
+**Answer:** Sutlej
 
-**Explanation:** Beas and Sutlej meet at Harike. Ravi does not form this confluence.
+**Explanation:** The Beas joins the Sutlej at Harike. The combined flow continues downstream as the Sutlej.
 
 ### PGK-001-CP004-Q016 — Medium
 **Which statement about the Beas is correct?**
@@ -425,7 +425,7 @@ D. Sutlej and Beas
 **Explanation:** Chaj Doab lies between the Chenab and Jhelum rivers.
 
 ### PGK-001-CP004-Q033 — Medium
-**Sind Sagar Doab is associated mainly with which river pair?**
+**Sind Sagar Doab lies between which two rivers?**
 
 A. Jhelum and Indus
 B. Chenab and Jhelum
@@ -446,7 +446,7 @@ D. Chaj Doab — Sutlej and Beas
 
 **Answer:** Rachna Doab — Ravi and Chenab
 
-**Explanation:** Rachna Doab lies between Ravi and Chenab. The other pairs mix the names of adjoining doabs.
+**Explanation:** Rachna Doab is the tract between the Ravi and Chenab rivers.
 
 ### PGK-001-CP004-Q035 — Hard
 **Which doab shares the Ravi with Bari Doab on one side and the Chenab on the other?**
