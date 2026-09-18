@@ -23,7 +23,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     stem: "Punjab is broadly divided into which three regions?",
     options: ["Majha, Doaba and Malwa", "Majha, Doaba and Kandi", "Majha, Malwa and Kandi", "Doaba, Malwa and Kandi"],
     canonicalAnswer: "Majha, Doaba and Malwa",
-    explanation: "Punjab is broadly divided into Majha, Doaba and Malwa. These three names are commonly used for the state's major geographical-cultural regions.",
+    explanation: "Punjab is broadly divided into Majha, Doaba and Malwa. These are the state's three broad geographical-cultural regions.",
     factIds: ["gov-punjab-three-region"],
     sourceIds: [PGK_001_CP003_SOURCE_IDS.knowPunjab],
   },
@@ -88,15 +88,15 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     explanation: "Bathinda lies in the Malwa region of southern Punjab.",
   },
   "PGK-001-CP003-Q016": {
-    explanation: "Punjab's relief generally rises toward the northeast and falls toward the southwest. Elevation is around 180 metres in the southwest and exceeds 500 metres in parts of the northeast.",
+    explanation: "Punjab's broad relief rises toward the northeast and falls toward the southwest. Elevation is around 180 metres in the southwest and exceeds 500 metres in parts of the northeast.",
   },
   "PGK-001-CP003-Q018": {
     stem: "Consider the following statements about Punjab's relief:\nI. Average elevation is about 300 metres.\nII. The southwest is around 180 metres above sea level.\nIII. Parts near the north-eastern border rise above 500 metres.\nWhich of the statements given above are correct?",
-    explanation: "All three statements are correct. Together they show that Punjab generally rises from the southwest toward the northeast.",
+    explanation: "All three statements are correct. Together they show the broad rise in elevation from the southwest toward the northeast.",
   },
   "PGK-001-CP003-Q022": {
-    stem: "The alluvial soils around Fatehgarh Sahib-Sirhind are generally:",
-    explanation: "The alluvial soils around Fatehgarh Sahib-Sirhind are generally well drained and fertile.",
+    stem: "The alluvial soils around Fatehgarh Sahib-Sirhind are:",
+    explanation: "The alluvial soils around Fatehgarh Sahib-Sirhind are described as well drained and fertile.",
   },
   "PGK-001-CP003-Q023": {
     stem: "Sri Hargobindpur lies on the alluvial plain of:",
