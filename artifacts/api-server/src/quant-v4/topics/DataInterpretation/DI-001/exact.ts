@@ -62,6 +62,16 @@ export function hashSeed(value: string): number {
   return hash >>> 0;
 }
 
+export function mixedHashSeed(value: string): number {
+  let hash = hashSeed(value);
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x7feb352d);
+  hash ^= hash >>> 15;
+  hash = Math.imul(hash, 0x846ca68b);
+  hash ^= hash >>> 16;
+  return hash >>> 0;
+}
+
 export function seededRandom(seed: string): () => number {
   let state = hashSeed(seed) || 0x9e3779b9;
   return () => {
