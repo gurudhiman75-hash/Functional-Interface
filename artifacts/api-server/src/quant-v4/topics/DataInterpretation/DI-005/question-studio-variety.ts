@@ -1,4 +1,4 @@
-import { hashSeed } from "../DI-001/exact";
+import { mixedHashSeed } from "../DI-001/exact";
 import { generateDi005PieSet as generateDi005PieSetBase } from "./pie-set";
 import type {
   Di005ExamProfile,
@@ -62,7 +62,7 @@ const STEM_VARIANTS: Readonly<Record<Di005TaskKind, readonly StemBuilder[]>> = O
 
 function diversifyStem(seed: string, stimulus: Di005Stimulus, question: Di005Question): string {
   const variants = STEM_VARIANTS[question.kind];
-  const variantIndex = hashSeed(`${seed}:stem-variety:${question.kind}`) % variants.length;
+  const variantIndex = mixedHashSeed(`${seed}:stem-variety:${question.kind}`) % variants.length;
   return variants[variantIndex]!(stimulus, question);
 }
 
