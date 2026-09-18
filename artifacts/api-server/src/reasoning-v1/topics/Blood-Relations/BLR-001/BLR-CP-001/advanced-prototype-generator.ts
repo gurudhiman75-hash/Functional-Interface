@@ -198,7 +198,7 @@ function difficultyFor(
   prototypeId: BlrCp001AdvancedPrototypeId,
   pathLength: number | null,
   generationDifference: number | null,
-  seed: number,
+  _seed: number,
 ): BlrDifficulty {
   if (prototypeId === "BLR-CP001-PROT-GENERATION-COMPARISON") {
     if (
@@ -207,16 +207,17 @@ function difficultyFor(
     ) {
       return "EASY";
     }
-    return seed % 3 === 0 ? "HARD" : "MEDIUM";
+    return "MEDIUM";
   }
-  if (prototypeId === "BLR-CP001-PROT-BRANCHING-RELATION") {
+  if (
+    prototypeId === "BLR-CP001-PROT-BRANCHING-RELATION" ||
+    prototypeId === "BLR-CP001-PROT-RELATION-CLAIM"
+  ) {
     return "HARD";
   }
-  if (prototypeId === "BLR-CP001-PROT-RELATION-CLAIM") {
-    return seed % 3 === 0 ? "MEDIUM" : "HARD";
-  }
   if ((pathLength ?? 1) <= 1) return "EASY";
-  return seed % 4 === 0 ? "HARD" : "MEDIUM";
+  if ((pathLength ?? 1) >= 3) return "HARD";
+  return "MEDIUM";
 }
 
 function explanationFor(
