@@ -211,13 +211,37 @@ function sourceAuthority(spec: PackageSpec, language: Blr001StandardLanguage, so
   return String(source.traceability?.recordAuthority ?? source.parameters?.recordAuthority ?? "BLR_001_FROZEN_AUTHORITY");
 }
 
-function explanationText(source: Record<string, any>) {
+function compactLearnerExplanation(source: Record<string, any>) {
   const explanation = source.explanation ?? {};
+  const {
+    shortcut: _shortcut,
+    commonTrap: _commonTrap,
+    examShortcut: _examShortcut,
+    commonTraps: _commonTraps,
+    optionAnalysis: _optionAnalysis,
+    distractorAnalysis: _distractorAnalysis,
+    ...useful
+  } = explanation;
+
+  const steps =
+    Array.isArray(explanation.steps) ? explanation.steps
+      : Array.isArray(explanation.stepByStepSolution) ? explanation.stepByStepSolution
+        : Array.isArray(explanation.solutionPhases) ? explanation.solutionPhases
+          : Array.isArray(explanation.graphAudit) ? explanation.graphAudit
+            : [];
+
+  return {
+    ...useful,
+    steps: [...steps],
+    conclusion: explanation.conclusion,
+  };
+}
+
+function explanationText(source: Record<string, any>) {
+  const explanation = compactLearnerExplanation(source);
   return [
     ...(Array.isArray(explanation.steps) ? explanation.steps : []),
     explanation.conclusion,
-    explanation.shortcut ? `Shortcut: ${explanation.shortcut}` : "",
-    explanation.commonTrap ? `Common trap: ${explanation.commonTrap}` : "",
   ].filter(Boolean).map(String).join("\n\n");
 }
 
@@ -226,13 +250,13 @@ function toStandardQuestion(
   language: Blr001StandardLanguage,
   source: Record<string, any>,
 ) {
-  const releaseEligible = spec.releaseEligibleAfterApproval;
+  const releaseEligibleAfterApproval = spec.releaseEligibleAfterApproval;
   const prompt = String(source.sharedPrompt ?? "").trim();
   const learnerStem = String(source.stem ?? "").trim();
   const text = prompt ? `${prompt}\n\n${learnerStem}` : learnerStem;
   const authority = sourceAuthority(spec, language, source);
-  const questionBankStatus = releaseEligible ? "READY_FOR_STORAGE" : "NOT_STORED";
-  const testEligibility = releaseEligible ? "ELIGIBLE" : "INELIGIBLE";
+  const questionBankStatus = "NOT_STORED";
+  const testEligibility = "INELIGIBLE";
   const reviewStatus = "REVIEW_REQUIRED";
 
   return {
@@ -246,7 +270,7 @@ function toStandardQuestion(
     answer: source.answer,
     canonicalAnswer: source.answer,
     explanation: explanationText(source),
-    richExplanation: source.explanation,
+    richExplanation: compactLearnerExplanation(source),
     difficulty: source.difficultyBand,
     difficultyLabel: source.difficultyBand,
     patternId: spec.packageId,
@@ -274,17 +298,18 @@ function toStandardQuestion(
     runtimeMode: "STANDARD_QUESTION_STUDIO",
     reviewStatus,
     questionBankStatus,
-    questionBankWritable: releaseEligible,
-    questionBankEligible: releaseEligible,
+    questionBankWritable: false,
+    questionBankEligible: false,
     testEligibility,
-    testEligible: releaseEligible,
-    mockTestEligible: releaseEligible,
-    publiclyPublishable: releaseEligible,
+    testEligible: false,
+    mockTestEligible: false,
+    publiclyPublishable: false,
     automaticStudentPublication: false,
     publicReleaseStatus: "LOCKED",
-    reviewOnly: !releaseEligible,
+    reviewOnly: true,
     manualApprovalRequired: true,
-    releaseFreezeStatus: releaseEligible ? "MULTILINGUAL_FROZEN_APPROVED" : "REVIEW_ONLY",
+    releaseEligibleAfterApproval,
+    releaseFreezeStatus: "REVIEW_ONLY",
     integrationAuthority: authority,
     sourceSafety: source.safety,
     sourceParameters: source.parameters,
@@ -315,6 +340,7 @@ export function listBlr001StandardQuestionStudioPackages() {
     supportedDifficulties: ["Easy", "Medium", "Hard"],
     supportedLanguages: [...spec.supportedLanguages],
     enabled: true,
+    releaseEligibleAfterApproval: spec.releaseEligibleAfterApproval,
     runtimeMode: "STANDARD_QUESTION_STUDIO",
     supportedRuntimeModes: ["STANDARD_QUESTION_STUDIO"],
   }));
@@ -343,11 +369,12 @@ export function generateBlr001StandardQuestionStudioBatch(
       questionStudioStagingStatus: "STANDARD_REVIEW_QUEUE" as const,
       persistenceAllowed: true as const,
       reviewStatus: "REVIEW_REQUIRED" as const,
-      questionBankStatus: spec.releaseEligibleAfterApproval ? "READY_FOR_STORAGE" as const : "NOT_STORED" as const,
-      testEligibility: spec.releaseEligibleAfterApproval ? "ELIGIBLE" as const : "INELIGIBLE" as const,
-      publiclyPublishable: spec.releaseEligibleAfterApproval,
+      questionBankStatus: "NOT_STORED" as const,
+      testEligibility: "INELIGIBLE" as const,
+      publiclyPublishable: false as const,
       automaticStudentPublication: false as const,
       manualApprovalRequired: true as const,
+      releaseEligibleAfterApproval: spec.releaseEligibleAfterApproval,
     },
     questionPackages: [],
     questions,
