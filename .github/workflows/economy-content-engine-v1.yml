@@ -148,5 +148,22 @@ jobs:
             --outfile=dist/economy/eco-cp005-cp006-audit-v1.mjs
           node artifacts/api-server/dist/economy/eco-cp005-cp006-audit-v1.mjs
 
+      - name: Generate Economy multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-economy/localization-v1/eco-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/economy/eco-localization-export-v1.mjs
+          node dist/economy/eco-localization-export-v1.mjs
+
+      - name: Upload Economy multilingual review Markdown
+        uses: actions/upload-artifact@v4
+        with:
+          name: economy-multilingual-review
+          path: artifacts/api-server/dist/economy-review/ECO-MULTILINGUAL-V1/*.md
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
