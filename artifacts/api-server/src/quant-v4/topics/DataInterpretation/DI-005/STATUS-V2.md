@@ -1,6 +1,6 @@
 # DI-005 Pie Chart — V2 Review Candidate
 
-Status: REVIEW-ONLY IMPLEMENTATION
+Status: HUMAN-APPROVED · QUESTION STUDIO CONTROLLED REVIEW
 
 ## Why V2 exists
 The original DI-005 Phase-4 engine is retained for regression, but it is too narrow for final common-exam closure: five task families only, no Easy questions, one fixed student/course context, and explanation contracts that force shortcut/trap boilerplate.
@@ -58,8 +58,8 @@ Theme:
 The generated `Di005V2Stimulus` contains no SVG payload. Review HTML renders the semantic stimulus only at presentation/export time.
 
 ## Lifecycle
-- reviewStatus: UNREVIEWED
-- Question Studio discoverable: false
+- reviewStatus: ENGLISH_REVIEW_APPROVED
+- Question Studio discoverable: true (CONTROLLED_REVIEW)
 - Question Bank: NOT_STORED
 - Question Bank writable: false
 - test eligible: false
@@ -67,6 +67,6 @@ The generated `Di005V2Stimulus` contains no SVG payload. Review HTML renders the
 - publicly publishable: false
 - automatic student publication: false
 - production release authorized: false
-- permanent QLs: not allocated
+- permanent QLs: DI-QL-049 through DI-QL-060
 
-Promotion is blocked until human review and explicit approval.
+Human review is approved. Question Studio controlled review is enabled; Question Bank writes, tests, mocks and public/student publication remain explicitly locked.
