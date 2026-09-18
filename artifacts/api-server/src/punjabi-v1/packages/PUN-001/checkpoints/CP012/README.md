@@ -3,12 +3,12 @@
 Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
 
 ## Audited authority surface
-- 64 unique Punjabi proverbs
+- 133 exhaustive distinct Punjabi proverb concepts
 - unique first half, second half and reviewed meaning for every authority
 - authored situation for every proverb
 - three reviewed meaning distractors per authority
 
-The legacy CP012/V2 donor was inspected as reference material only. It exposed 202 records but only 156 unique proverb strings, with several repeated orthographic or semantic variants. Duplicate proverb/half/meaning authorities were not forwarded.
+The legacy CP012/V2 donor was inspected exhaustively. The parsed donor exposed 200 usable records and 155 distinct proverb strings. Orthographic/wording variants were clustered into 133 distinct proverb concepts, and all 133 surviving concepts are retained. No fixed authority cap is applied.
 
 ## Families
 - F01 Direct proverb → meaning — Easy
@@ -21,7 +21,7 @@ The legacy CP012/V2 donor was inspected as reference material only. It exposed 2
 - F08 Two-statement proverb verification — Hard
 
 ## Governed semantic breadth
-2,944 semantic combinations before option-order permutations.
+6,118 semantic combinations before option-order permutations.
 
 Difficulty is structural:
 - Easy uses one target proverb for direct recognition/completion.
