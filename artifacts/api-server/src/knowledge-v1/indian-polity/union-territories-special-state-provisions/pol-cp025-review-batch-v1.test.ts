@@ -31,7 +31,7 @@ describe("POL-CP-025 Union Territories & Special State Provisions V1", () => {
     expect(new Set(batch.map((q) => q.stem)).size).toBe(80);
     expect(new Set(batch.map((q) => q.explanation)).size).toBe(80);
     for (const q of batch) {
-      expect(q.stem.endsWith("?")).toBe(true);
+      expect(/[?:]$/.test(q.stem)).toBe(true);\n      expect(q.stem).not.toMatch(/\\bwhom\\b|for the purposes of|what is the|appointed by whom|issued by whom/i);
       expect(q.stem.trim().split(/\s+/).length).toBeLessThanOrEqual(30);
       const words = q.explanation.trim().split(/\s+/).length;
       expect(words).toBeGreaterThanOrEqual(12);
