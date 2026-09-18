@@ -1,6 +1,6 @@
 # COA-001 / COA-CP-009 — Full Hindi/Punjabi Localization Review
 
-Status: **HUMAN REVIEW REQUIRED**
+Status: **APPROVED / FROZEN**
 
 ## Corpus summary
 
@@ -317,4 +317,4 @@ Please judge the **language**, not the frozen semantic answer:
 - Is there any English-language leakage that should instead be written in native script?
 - Does the legacy QL007 sample remain clearly a compatibility case rather than a new semantic family?
 
-Approval of this pack freezes the full CP009 Hindi/Punjabi corpus only. It does **not** open Question Studio, Question Bank, test/mock, or public/student delivery.
+Approved on **2026-09-18** after the Hindi/Punjabi stem-cleanup pass. This freezes the full CP009 localized corpus only. It does **not** open Question Studio, Question Bank, test/mock, or public/student delivery.
