@@ -23,13 +23,13 @@ No pronoun rule is re-authored here.
 
 ## Filler transformation
 
-The approved ENG-002 CP004 generator is invoked only in correction-required mode. Its verified pronoun target is replaced by exactly one blank.
+The approved ENG-002 CP004 generator is invoked only in correction-required mode. ENG-003 compares the verified correct and mutated targets, keeps their shared words visible, and blanks only the changing pronoun slot.
 
 ENG-003 carries forward:
 
-- the verified correct pronoun/phrase;
-- the approved wrong target;
-- the remaining rule-aware pronoun distractors;
+- the verified correct pronoun slot;
+- the approved wrong pronoun slot;
+- the remaining rule-aware pronoun-slot distractors;
 - the approved corrected sentence;
 - the approved rule-specific teaching and sentence application.
 
@@ -66,3 +66,8 @@ It prioritizes one scene from every eligible rule family before adding further u
 ## Lifecycle
 
 This checkpoint remains review-only until explicit human approval. No Question Studio registration, Question Bank writes, tests, mocks, learner/public publication or production release is authorized.
+
+
+### Slot-quality guard
+
+Compound phrases are not repeated in every option. For example, a donor contrast such as `Rita and him / Rita and he` becomes `Rita and _____` with pronoun-only options. Likewise, `need their / need its` becomes `need _____`. This keeps the question concise and closer to competitive-exam filler style.
