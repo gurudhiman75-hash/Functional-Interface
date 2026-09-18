@@ -3,6 +3,7 @@ import type { ArticleRuleId, DifficultyDimensions, EnglishDifficulty } from "../
 import { generateEng002Cp003QuestionV1 } from "../../../sentence-improvement/ENG-002/CP003/eng-002-cp003-v1";
 
 export const ENG003_CP003_STEM = "Choose the most appropriate option to fill in the blank.";
+export const ENG003_CP003_NO_ARTICLE_OPTION = "No article";
 
 export interface Eng003Cp003QuestionV1 {
   questionId: string;
@@ -26,6 +27,7 @@ export interface Eng003Cp003QuestionV1 {
     sourceCandidateId: string;
     semanticDomain: string;
     sceneId: string;
+    blankBody: string;
     reviewOnly: true;
   };
 }
@@ -37,12 +39,27 @@ export interface GenerateEng003Cp003V1Input {
   sceneId?: string;
 }
 
+const DETERMINERS = [
+  "a few", "a little", "the", "an", "a", "many", "much", "few", "little", "each", "every", "several",
+] as const;
+
 function sentenceFromSegments(segments: readonly string[]): string {
   return segments
     .join(" ")
     .replace(/\s+([,.!?;:])/g, "$1")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function parseDeterminerPhrase(text: string): { determiner: string; body: string } {
+  const clean = text.replace(/\s+/g, " ").trim();
+  for (const determiner of DETERMINERS) {
+    const prefix = `${determiner} `;
+    if (clean.toLowerCase().startsWith(prefix)) {
+      return { determiner, body: clean.slice(prefix.length).trim() };
+    }
+  }
+  return { determiner: ENG003_CP003_NO_ARTICLE_OPTION, body: clean };
 }
 
 function stableHash(value: string): number {
@@ -75,37 +92,65 @@ function placeOptions(seed: string, correctTarget: string, distractors: readonly
   return { options, correctOptionIndex };
 }
 
-function teachingTail(sourceExplanation: string): string {
-  const conceptIndex = sourceExplanation.indexOf("Concept:");
-  if (conceptIndex < 0) {
-    throw new Error("ENG-002 CP003 explanation lost the Concept section required by ENG-003 reuse");
+function determinerDistractors(ruleId: ArticleRuleId, correct: string): string[] {
+  if (ruleId === "GR-ART-009") {
+    return ["many", "few", "a few"].includes(correct)
+      ? ["much", "little", "a little"]
+      : ["many", "few", "a few"];
   }
-  return sourceExplanation
-    .slice(conceptIndex)
-    .trim()
-    .replace(/\bHere:\s*/g, "Here, ");
+
+  if (ruleId === "GR-ART-010") {
+    if (correct === "several") return ["each", "every", "much"];
+    if (correct === "each") return ["several", "many", "much"];
+    if (correct === "every") return ["several", "many", "much"];
+    throw new Error(`Unexpected GR-ART-010 determiner “${correct}”`);
+  }
+
+  if (["GR-ART-001", "GR-ART-002", "GR-ART-006"].includes(ruleId)) {
+    if (correct === "a") return ["an", ENG003_CP003_NO_ARTICLE_OPTION, "many"];
+    if (correct === "an") return ["a", ENG003_CP003_NO_ARTICLE_OPTION, "many"];
+  }
+
+  const articleSet = ["a", "an", "the", ENG003_CP003_NO_ARTICLE_OPTION];
+  const distractors = articleSet.filter((value) => value !== correct);
+  if (distractors.length !== 3) {
+    throw new Error(`${ruleId} has unsupported article/determiner answer “${correct}”`);
+  }
+  return distractors;
 }
 
-function uniqueDistractors(source: ReturnType<typeof generateEng002Cp003QuestionV1>, correctTarget: string): string[] {
-  const values = [
-    source.targetText,
-    ...source.options.slice(0, 3).filter((_, index) => index !== source.correctOptionIndex),
-  ];
+function normalizeApplication(application: string): string {
+  return application
+    .trim()
+    .replace(/^A singular\b/, "a singular")
+    .replace(/^An? ([a-z])/i, (match) => match.toLowerCase())
+    .replace(/\s+here\.$/i, ".");
+}
 
-  const seen = new Set([correctTarget.toLowerCase()]);
-  const out: string[] = [];
-  for (const value of values) {
-    const clean = value.replace(/\s+/g, " ").trim();
-    const key = clean.toLowerCase();
-    if (!clean || key === "no improvement" || seen.has(key)) continue;
-    seen.add(key);
-    out.push(clean);
+function teachingTail(sourceExplanation: string): string {
+  const conceptMarker = "Concept:";
+  const hereMarker = "Here:";
+  const correctMarker = "Correct sentence:";
+  const conceptIndex = sourceExplanation.indexOf(conceptMarker);
+  const hereIndex = sourceExplanation.indexOf(hereMarker);
+  const correctIndex = sourceExplanation.indexOf(correctMarker);
+  if (conceptIndex < 0 || hereIndex < 0 || correctIndex < 0 || !(conceptIndex < hereIndex && hereIndex < correctIndex)) {
+    throw new Error("ENG-002 CP003 explanation lost the teaching sections required by ENG-003 reuse");
   }
 
-  if (out.length !== 3) {
-    throw new Error(`${source.questionId} could not expose three unique article/determiner distractors`);
-  }
-  return out;
+  const concept = sourceExplanation.slice(conceptIndex + conceptMarker.length, hereIndex).trim();
+  const application = normalizeApplication(sourceExplanation.slice(hereIndex + hereMarker.length, correctIndex));
+  const correctSentence = sourceExplanation.slice(correctIndex + correctMarker.length).trim();
+  return `Concept: ${concept} Here, ${application} Correct sentence: ${correctSentence}`;
+}
+
+export function materializeEng003Cp003AnswerV1(sentence: string, option: string): string {
+  const filler = option === ENG003_CP003_NO_ARTICLE_OPTION ? "" : option;
+  return sentence
+    .replace("_____", filler)
+    .replace(/\s+([,.!?;:])/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export function generateEng003Cp003QuestionV1(input: GenerateEng003Cp003V1Input): Eng003Cp003QuestionV1 {
@@ -121,15 +166,21 @@ export function generateEng003Cp003QuestionV1(input: GenerateEng003Cp003V1Input)
     throw new Error(`${source.questionId} unexpectedly keyed No improvement`);
   }
 
-  const correctTarget = source.options[source.correctOptionIndex]!.trim();
-  if (!correctTarget) throw new Error(`${source.questionId} lacks a correct article/determiner filler`);
+  const correctPhrase = source.options[source.correctOptionIndex]!.trim();
+  const parsed = parseDeterminerPhrase(correctPhrase);
+  if (!parsed.body) throw new Error(`${source.questionId} lost the noun phrase after its determiner`);
 
   const blankSegments = [...source.segments];
-  blankSegments[source.targetIndex] = "_____";
+  blankSegments[source.targetIndex] = `_____ ${parsed.body}`;
   const sentence = sentenceFromSegments(blankSegments);
-  const distractors = uniqueDistractors(source, correctTarget);
-  const { options, correctOptionIndex } = placeOptions(input.seed, correctTarget, distractors);
-  const explanation = `The blank needs “${correctTarget}”. ${teachingTail(source.explanation)}`;
+  const distractors = determinerDistractors(source.metadata.ruleId, parsed.determiner);
+  const { options, correctOptionIndex } = placeOptions(input.seed, parsed.determiner, distractors);
+  const explanation = `The blank needs “${parsed.determiner}”. ${teachingTail(source.explanation)}`;
+
+  const reconstructed = materializeEng003Cp003AnswerV1(sentence, options[correctOptionIndex]!);
+  if (reconstructed !== source.correctedSentence) {
+    throw new Error(`${source.questionId} filler reconstruction drifted: ${reconstructed} !== ${source.correctedSentence}`);
+  }
 
   return {
     questionId: `ENG-003-CP003-V1:${source.metadata.ruleId}:${source.metadata.candidateId}:${input.seed}`,
@@ -153,6 +204,7 @@ export function generateEng003Cp003QuestionV1(input: GenerateEng003Cp003V1Input)
       sourceCandidateId: source.metadata.candidateId,
       semanticDomain: source.metadata.semanticDomain,
       sceneId: source.metadata.sceneId,
+      blankBody: parsed.body,
       reviewOnly: true,
     },
   };
