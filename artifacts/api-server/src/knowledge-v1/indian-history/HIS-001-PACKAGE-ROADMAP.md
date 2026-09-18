@@ -1,7 +1,11 @@
 # HIS-001 Indian History — Package Roadmap
 
-Status: FOUNDATION ROADMAP V1  
+Status: ENGLISH V1 FROZEN / MULTILINGUAL REVIEW NEXT  
 Engine: `knowledge-v1`
+
+## English V1 freeze
+
+The English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md` after chapter-wide exhaustive, difficulty and fact-integrity audits passed. Localization must preserve frozen English semantics and remains review-only until separately approved.
 
 ## Binding rule
 
