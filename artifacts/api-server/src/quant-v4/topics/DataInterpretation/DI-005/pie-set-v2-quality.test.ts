@@ -84,6 +84,8 @@ for (const profile of profiles) {
         const secondIndex = Number(question.evidence.secondIndex);
         assert.ok(firstIndex === hidden || secondIndex === hidden, `${profile}/${seed} Hard remainder-count task does not require the hidden sector.`);
         assert.match(question.explanation.steps[0] ?? "", /100%/u, `${profile}/${seed} Hard remainder-count explanation does not recover the missing share first.`);
+        const excludedPercent = first.stimulus.slices[firstIndex]!.percent + first.stimulus.slices[secondIndex]!.percent;
+        assert.notEqual(excludedPercent, 50, `${profile}/${seed} Hard remainder-count used a 50/50 complement state.`);
         hardRemainderCalibrationChecks += 1;
       }
     }
