@@ -2,10 +2,15 @@ name: Validate CLS-001 English Editorial Approval
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**"
-      - ".github/workflows/cls-001-english-editorial-approval.yml"
   workflow_dispatch:
+
+concurrency:
+  group: cls-001-english-editorial-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
