@@ -5,3 +5,7 @@ export * from "./pie-v2-types";
 export * from "./pie-set-v2";
 export * from "./pie-set-v2-quality";
 export * from "./independent-verifier-v2";
+
+export * from "./permanent-ql-registry";
+export * from "./permanent-question-generator";
+export * from "./question-studio-adapter";
