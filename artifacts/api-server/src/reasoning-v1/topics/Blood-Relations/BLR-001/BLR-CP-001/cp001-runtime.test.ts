@@ -40,6 +40,8 @@ const observedAuthorities = new Set<string>();
 const observedSourcePrototypes = new Set<string>();
 const namedRelationOutputs = new Set<string>();
 const fingerprintsByQl = new Map<BlrCp001QlId, Set<string>>();
+const difficultyByStructuralSignature = new Map<string, string>();
+let difficultyStructuralRecheckCount = 0;
 let generatedCount = 0;
 
 for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
@@ -115,6 +117,21 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
     fingerprints.add(fingerprint);
     answerPositions[first.correctIndex] += 1;
     difficulties.add(first.difficulty);
+    const structuralDifficultyKey = [
+      first.metadata.sourcePrototypeId,
+      first.metadata.hiddenFingerprint,
+    ].join("::");
+    const previousDifficulty = difficultyByStructuralSignature.get(structuralDifficultyKey);
+    if (previousDifficulty) {
+      difficultyStructuralRecheckCount += 1;
+      assert.equal(
+        first.difficulty,
+        previousDifficulty,
+        `${contract.qlId}/${seed} changed difficulty for the same completed structural problem.`,
+      );
+    } else {
+      difficultyByStructuralSignature.set(structuralDifficultyKey, first.difficulty);
+    }
     renderers.add(first.renderer);
     answerTypes.add(first.answerType);
     observedAuthorities.add(String(first.metadata.solveAuthority));
@@ -135,6 +152,10 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
 assert.equal(generatedCount, 1024);
 assert.deepEqual(answerPositions, [256, 256, 256, 256]);
 assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
+assert.ok(
+  difficultyStructuralRecheckCount > 0,
+  "Difficulty audit must compare repeated structural signatures across seeds.",
+);
 assert.deepEqual([...renderers].sort(), [
   "FAMILY_TREE_EXPLANATION",
   "STRUCTURED_TEXT",
@@ -170,6 +191,7 @@ console.log("BLR-CP-001 permanent English runtime audit passed.", {
   solveAuthorityCount: observedAuthorities.size,
   namedRelationCount: namedRelationOutputs.size,
   difficulties: [...difficulties].sort(),
+  difficultyStructuralRecheckCount,
   renderers: [...renderers].sort(),
   answerTypes: [...answerTypes].sort(),
 });
