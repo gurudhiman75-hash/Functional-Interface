@@ -14,7 +14,7 @@ function learnerText(question: { stem: string; options: readonly string[]; expla
 }
 
 function sentenceCount(text: string): number {
-  return (text.match(/[.!?](?:\s|$)/g) ?? []).length;
+  return (text.match(/[.!?।॥](?:\s|$)/g) ?? []).length;
 }
 
 function assertNative(question: HisLocalizedQuestionV1, locale: "hi" | "pa") {
