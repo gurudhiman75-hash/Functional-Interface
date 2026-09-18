@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { CP012_AUTHORITIES } from "./CP012-authorities";
 import { CP012_FAMILIES,getCP012BreadthReport } from "./engine";
 
-assert.equal(CP012_AUTHORITIES.length,64);
+assert.equal(CP012_AUTHORITIES.length,133);
 assert.equal(CP012_FAMILIES.length,8);
 
 const ids=new Set<string>(),proverbs=new Set<string>(),firsts=new Set<string>(),seconds=new Set<string>(),meanings=new Set<string>();
@@ -23,15 +23,15 @@ for(const a of CP012_AUTHORITIES){
  assert(!meanings.has(a.meaningPa),`${a.id}: duplicate meaning`);meanings.add(a.meaningPa);
  assert(a.proverbPa.includes(a.firstPartPa)&&a.proverbPa.includes(a.secondPartPa),`${a.id}: halves must belong to proverb`);
 }
-assert.equal(ids.size,64);
-assert.equal(proverbs.size,64);
-assert.equal(firsts.size,64);
-assert.equal(seconds.size,64);
-assert.equal(meanings.size,64);
+assert.equal(ids.size,133);
+assert.equal(proverbs.size,133);
+assert.equal(firsts.size,133);
+assert.equal(seconds.size,133);
+assert.equal(meanings.size,133);
 
 const breadth=getCP012BreadthReport();
-assert.equal(breadth.totalAtomicAuthorities,64);
-assert.equal(breadth.totalSemanticCapacity,2944);
+assert.equal(breadth.totalAtomicAuthorities,133);
+assert.equal(breadth.totalSemanticCapacity,6118);
 
 const global=new Set<string>();
 const f08Verdicts=new Set<string>();
@@ -60,7 +60,7 @@ for(const family of CP012_FAMILIES){
  }
  assert.equal(local.size,family.semanticCapacity,`${family.familyId}: semantic capacity mismatch`);
 }
-assert.equal(global.size,2944);
+assert.equal(global.size,6118);
 assert.equal(f08Verdicts.size,4,"F08 must expose all four truth outcomes");
 
 const easy=CP012_FAMILIES.find(x=>x.familyId==="F01")!.generate(1,"Easy");
