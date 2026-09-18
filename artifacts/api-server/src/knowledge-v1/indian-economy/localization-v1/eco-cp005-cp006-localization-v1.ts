@@ -13,17 +13,17 @@ const lp = (hi: string, pa: string): Pair => ({ hi, pa });
 const T: Readonly<Record<string, Pair>> = Object.freeze({
   "Inflation": lp("मुद्रास्फीति", "ਮਹਿੰਗਾਈ"),
   "Deflation": lp("अपस्फीति", "ਮੁੱਲ-ਘਟਾਅ"),
-  "Disinflation": lp("मुद्रास्फीति की दर में कमी", "ਮਹਿੰਗਾਈ ਦੀ ਦਰ ਵਿੱਚ ਕਮੀ"),
+  "Disinflation": lp("Disinflation", "Disinflation"),
   "Stagnation": lp("ठहराव", "ਠਹਿਰਾਅ"),
-  "Demand-pull inflation": lp("मांग-प्रेरित मुद्रास्फीति", "ਮੰਗ-ਖਿੱਚ ਮਹਿੰਗਾਈ"),
-  "Cost-push inflation": lp("लागत-प्रेरित मुद्रास्फीति", "ਲਾਗਤ-ਧੱਕਾ ਮਹਿੰਗਾਈ"),
-  "Headline inflation": lp("समग्र मुद्रास्फीति", "ਸਮੁੱਚੀ ਮਹਿੰਗਾਈ"),
-  "Core inflation": lp("मूल मुद्रास्फीति", "ਮੂਲ ਮਹਿੰਗਾਈ"),
+  "Demand-pull inflation": lp("Demand-pull inflation", "Demand-pull inflation"),
+  "Cost-push inflation": lp("Cost-push inflation", "Cost-push inflation"),
+  "Headline inflation": lp("Headline inflation", "Headline inflation"),
+  "Core inflation": lp("Core inflation", "Core inflation"),
   "Purchasing power": lp("क्रय शक्ति", "ਖਰੀਦ ਸ਼ਕਤੀ"),
   "Base effect": lp("आधार प्रभाव", "ਅਧਾਰ ਪ੍ਰਭਾਵ"),
-  "GDP deflator": lp("GDP डिफ्लेटर", "GDP ਡਿਫਲੇਟਰ"),
-  "Core CPI": lp("मूल CPI", "ਮੂਲ CPI"),
-  "Hyperinflation": lp("अति-मुद्रास्फीति", "ਅਤਿ-ਮਹਿੰਗਾਈ"),
+  "GDP deflator": lp("GDP deflator", "GDP deflator"),
+  "Core CPI": lp("Core CPI", "Core CPI"),
+  "Hyperinflation": lp("Hyperinflation", "Hyperinflation"),
   "Revaluation": lp("पुनर्मूल्यांकन", "ਮੁੜ-ਮੁੱਲਾਂਕਣ"),
   "WPI coverage": lp("WPI का दायरा", "WPI ਦਾ ਦਾਇਰਾ"),
   "Seasonal poverty": lp("मौसमी गरीबी", "ਮੌਸਮੀ ਗਰੀਬੀ"),
@@ -60,7 +60,7 @@ const T: Readonly<Record<string, Pair>> = Object.freeze({
   "Both must gain equally": lp("दोनों को समान लाभ होना ही चाहिए", "ਦੋਵਾਂ ਨੂੰ ਇਕਸਾਰ ਲਾਭ ਹੋਣਾ ਹੀ ਚਾਹੀਦਾ ਹੈ"),
   "Inflation cannot affect fixed repayments in real terms": lp("मुद्रास्फीति निश्चित पुनर्भुगतान के वास्तविक मूल्य को प्रभावित नहीं कर सकती", "ਮਹਿੰਗਾਈ ਨਿਸ਼ਚਿਤ ਵਾਪਸੀ ਦੇ ਅਸਲ ਮੁੱਲ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਨਹੀਂ ਕਰ ਸਕਦੀ"),
   "WPI only": lp("केवल WPI", "ਸਿਰਫ਼ WPI"),
-  "Core inflation excluding food and fuel": lp("खाद्य और ईंधन को छोड़कर मूल मुद्रास्फीति", "ਖੁਰਾਕ ਅਤੇ ਇੰਧਨ ਤੋਂ ਬਿਨਾਂ ਮੂਲ ਮਹਿੰਗਾਈ"),
+  "Core inflation excluding food and fuel": lp("Core inflation — खाद्य और ईंधन को छोड़कर", "Core inflation — ਖੁਰਾਕ ਅਤੇ ਇੰਧਨ ਨੂੰ ਛੱਡ ਕੇ"),
   "Neither measure": lp("दोनों में से कोई माप नहीं", "ਦੋਵਾਂ ਵਿੱਚੋਂ ਕੋਈ ਮਾਪ ਨਹੀਂ"),
   "GDP growth": lp("GDP वृद्धि", "GDP ਵਾਧਾ"),
   "To study underlying price pressure after excluding some volatile components": lp("कुछ अस्थिर घटकों को हटाकर अंतर्निहित मूल्य दबाव का अध्ययन करना", "ਕੁਝ ਅਸਥਿਰ ਘਟਕ ਹਟਾ ਕੇ ਅੰਦਰੂਨੀ ਕੀਮਤੀ ਦਬਾਅ ਦਾ ਅਧਿਐਨ ਕਰਨਾ"),
@@ -69,7 +69,7 @@ const T: Readonly<Record<string, Pair>> = Object.freeze({
   "To convert nominal GDP into GNP": lp("नाममात्र GDP को GNP में बदलना", "ਨਾਮਾਤਰ GDP ਨੂੰ GNP ਵਿੱਚ ਬਦਲਣਾ"),
   "CPI — household consumption prices": lp("CPI — घरेलू उपभोग की कीमतें", "CPI — ਘਰੇਲੂ ਖਪਤ ਦੀਆਂ ਕੀਮਤਾਂ"),
   "WPI — wholesale price movement": lp("WPI — थोक कीमतों की चाल", "WPI — ਥੋਕ ਕੀਮਤਾਂ ਦੀ ਚਾਲ"),
-  "Core inflation — commonly excludes food and fuel": lp("मूल मुद्रास्फीति — सामान्यतः खाद्य और ईंधन को छोड़ती है", "ਮੂਲ ਮਹਿੰਗਾਈ — ਆਮ ਤੌਰ ਤੇ ਖੁਰਾਕ ਅਤੇ ਇੰਧਨ ਨੂੰ ਬਾਹਰ ਰੱਖਦੀ ਹੈ"),
+  "Core inflation — commonly excludes food and fuel": lp("Core inflation — सामान्यतः खाद्य और ईंधन को छोड़ती है", "Core inflation — ਆਮ ਤੌਰ ਤੇ ਖੁਰਾਕ ਅਤੇ ਇੰਧਨ ਨੂੰ ਬਾਹਰ ਰੱਖਦੀ ਹੈ"),
   "CPI — only wholesale prices": lp("CPI — केवल थोक कीमतें", "CPI — ਸਿਰਫ਼ ਥੋਕ ਕੀਮਤਾਂ"),
   "WPI — household services only": lp("WPI — केवल घरेलू सेवाएँ", "WPI — ਸਿਰਫ਼ ਘਰੇਲੂ ਸੇਵਾਵਾਂ"),
   "Deflation — a slower positive inflation rate": lp("अपस्फीति — धीमी सकारात्मक मुद्रास्फीति दर", "ਮੁੱਲ-ਘਟਾਅ — ਹੌਲੀ ਸਕਾਰਾਤਮਕ ਮਹਿੰਗਾਈ ਦਰ"),
@@ -96,13 +96,13 @@ const T: Readonly<Record<string, Pair>> = Object.freeze({
   "Relative poverty": lp("सापेक्ष गरीबी", "ਸਾਪੇਖ ਗਰੀਬੀ"),
   "Multidimensional poverty": lp("बहुआयामी गरीबी", "ਬਹੁ-ਆਯਾਮੀ ਗਰੀਬੀ"),
   "Poverty line": lp("गरीबी रेखा", "ਗਰੀਬੀ ਰੇਖਾ"),
-  "Poverty headcount ratio": lp("गरीबी हेडकाउंट अनुपात", "ਗਰੀਬੀ ਹੈੱਡਕਾਊਂਟ ਅਨੁਪਾਤ"),
-  "Headcount ratio": lp("हेडकाउंट अनुपात", "ਹੈੱਡਕਾਊਂਟ ਅਨੁਪਾਤ"),
+  "Poverty headcount ratio": lp("Poverty headcount ratio", "Poverty headcount ratio"),
+  "Headcount ratio": lp("Headcount ratio", "Headcount ratio"),
   "Unemployment rate": lp("बेरोजगारी दर", "ਬੇਰੋਜ਼ਗਾਰੀ ਦਰ"),
   "Worker population ratio": lp("कामगार-जनसंख्या अनुपात", "ਕਾਮਗਾਰ-ਆਬਾਦੀ ਅਨੁਪਾਤ"),
   "Labour force participation rate": lp("श्रम बल भागीदारी दर", "ਕਿਰਤ ਬਲ ਭਾਗੀਦਾਰੀ ਦਰ"),
   "Multidimensional poverty approach": lp("बहुआयामी गरीबी दृष्टिकोण", "ਬਹੁ-ਆਯਾਮੀ ਗਰੀਬੀ ਪਹੁੰਚ"),
-  "Poverty headcount based only on one income threshold": lp("केवल एक आय सीमा पर आधारित गरीबी हेडकाउंट", "ਸਿਰਫ਼ ਇੱਕ ਆਮਦਨ ਹੱਦ ਉੱਤੇ ਆਧਾਰਿਤ ਗਰੀਬੀ ਹੈੱਡਕਾਊਂਟ"),
+  "Poverty headcount based only on one income threshold": lp("केवल एक आय सीमा पर आधारित Headcount ratio", "ਸਿਰਫ਼ ਇੱਕ ਆਮਦਨ ਹੱਦ ਉੱਤੇ ਆਧਾਰਿਤ Headcount ratio"),
   "To set a threshold for identifying the poor under a chosen method": lp("चुनी हुई पद्धति के तहत गरीबों की पहचान के लिए सीमा तय करना", "ਚੁਣੀ ਹੋਈ ਵਿਧੀ ਅਧੀਨ ਗਰੀਬਾਂ ਦੀ ਪਛਾਣ ਲਈ ਹੱਦ ਨਿਰਧਾਰਤ ਕਰਨਾ"),
   "To measure only unemployment": lp("केवल बेरोजगारी मापना", "ਸਿਰਫ਼ ਬੇਰੋਜ਼ਗਾਰੀ ਮਾਪਣਾ"),
   "To fix market prices": lp("बाज़ार कीमतें तय करना", "ਬਾਜ਼ਾਰ ਕੀਮਤਾਂ ਨਿਰਧਾਰਤ ਕਰਨਾ"),
@@ -116,10 +116,10 @@ const T: Readonly<Record<string, Pair>> = Object.freeze({
   "Only higher taxes": lp("केवल अधिक कर", "ਸਿਰਫ਼ ਵੱਧ ਕਰ"),
   "Only price controls": lp("केवल मूल्य नियंत्रण", "ਸਿਰਫ਼ ਕੀਮਤ ਨਿਯੰਤਰਣ"),
   "Only foreign borrowing": lp("केवल विदेशी उधारी", "ਸਿਰਫ਼ ਵਿਦੇਸ਼ੀ ਕਰਜ਼ਾ"),
-  "Y. K. Alagh Task Force": lp("वाई. के. अलघ कार्यबल", "ਵਾਈ. ਕੇ. ਅਲਘ ਕਾਰਜ-ਦਲ"),
-  "Lakdawala Expert Group": lp("लकड़ावाला विशेषज्ञ समूह", "ਲਕੜਾਵਾਲਾ ਮਾਹਿਰ ਸਮੂਹ"),
-  "Tendulkar Expert Group": lp("तेंदुलकर विशेषज्ञ समूह", "ਤੇਂਦੁਲਕਰ ਮਾਹਿਰ ਸਮੂਹ"),
-  "Rangarajan Expert Group": lp("रंगराजन विशेषज्ञ समूह", "ਰੰਗਰਾਜਨ ਮਾਹਿਰ ਸਮੂਹ"),
+  "Y. K. Alagh Task Force": lp("Y. K. Alagh Task Force", "Y. K. Alagh Task Force"),
+  "Lakdawala Expert Group": lp("Lakdawala Expert Group", "Lakdawala Expert Group"),
+  "Tendulkar Expert Group": lp("Tendulkar Expert Group", "Tendulkar Expert Group"),
+  "Rangarajan Expert Group": lp("Rangarajan Expert Group", "Rangarajan Expert Group"),
   "projections of minimum needs and effective consumption demand, including poverty-line estimation": lp("न्यूनतम आवश्यकताओं और प्रभावी उपभोग मांग के आकलन, जिसमें गरीबी रेखा का अनुमान भी शामिल है", "ਘੱਟੋ-ਘੱਟ ਲੋੜਾਂ ਅਤੇ ਪ੍ਰਭਾਵੀ ਖਪਤ ਮੰਗ ਦੇ ਅਨੁਮਾਨ, ਜਿਸ ਵਿੱਚ ਗਰੀਬੀ ਰੇਖਾ ਦਾ ਅੰਦਾਜ਼ਾ ਵੀ ਸ਼ਾਮਲ ਹੈ"),
   "estimation of the proportion and number of poor": lp("गरीबों के अनुपात और संख्या का अनुमान", "ਗਰੀਬਾਂ ਦੇ ਅਨੁਪਾਤ ਅਤੇ ਗਿਣਤੀ ਦਾ ਅੰਦਾਜ਼ਾ"),
   "review of the methodology for estimation of poverty": lp("गरीबी के अनुमान की पद्धति की समीक्षा", "ਗਰੀਬੀ ਦੇ ਅੰਦਾਜ਼ੇ ਦੀ ਵਿਧੀ ਦੀ ਸਮੀਖਿਆ"),
@@ -142,11 +142,11 @@ const CP5_STEMS: Readonly<Record<string, Pair>> = Object.freeze({
   "Which index tracks prices of a household consumption basket?": lp("घरेलू उपभोग टोकरी की कीमतों को कौन-सा सूचकांक मापता है?", "ਘਰੇਲੂ ਖਪਤ ਟੋਕਰੀ ਦੀਆਂ ਕੀਮਤਾਂ ਨੂੰ ਕਿਹੜਾ ਸੂਚਕ ਮਾਪਦਾ ਹੈ?"),
   "Which index tracks price movement at the wholesale level?": lp("थोक स्तर पर कीमतों की चाल को कौन-सा सूचकांक मापता है?", "ਥੋਕ ਪੱਧਰ ਉੱਤੇ ਕੀਮਤਾਂ ਦੀ ਚਾਲ ਨੂੰ ਕਿਹੜਾ ਸੂਚਕ ਮਾਪਦਾ ਹੈ?"),
   "Which measure covers price change for final goods and services included in GDP?": lp("GDP में शामिल अंतिम वस्तुओं और सेवाओं के मूल्य परिवर्तन को कौन-सा माप कवर करता है?", "GDP ਵਿੱਚ ਸ਼ਾਮਲ ਅੰਤਿਮ ਵਸਤੂਆਂ ਅਤੇ ਸੇਵਾਵਾਂ ਦੀ ਕੀਮਤ ਬਦਲਾਅ ਨੂੰ ਕਿਹੜਾ ਮਾਪ ਕਵਰ ਕਰਦਾ ਹੈ?"),
-  "Which statement is correct about CPI, WPI and the GDP deflator?": lp("CPI, WPI और GDP डिफ्लेटर के बारे में कौन-सा कथन सही है?", "CPI, WPI ਅਤੇ GDP ਡਿਫਲੇਟਰ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?"),
+  "Which statement is correct about CPI, WPI and the GDP deflator?": lp("CPI, WPI और GDP deflator के बारे में कौन-सा कथन सही है?", "CPI, WPI ਅਤੇ GDP deflator ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?"),
   "Inflation measured using the full CPI basket is usually called:": lp("पूरी CPI टोकरी से मापी गई मुद्रास्फीति सामान्यतः क्या कहलाती है?", "ਪੂਰੀ CPI ਟੋਕਰੀ ਨਾਲ ਮਾਪੀ ਮਹਿੰਗਾਈ ਆਮ ਤੌਰ ਤੇ ਕੀ ਕਹਾਉਂਦੀ ਹੈ?"),
   "CPI inflation excluding food and fuel is commonly used as a measure of:": lp("खाद्य और ईंधन को छोड़कर CPI मुद्रास्फीति सामान्यतः किसका माप मानी जाती है?", "ਖੁਰਾਕ ਅਤੇ ਇੰਧਨ ਤੋਂ ਬਿਨਾਂ CPI ਮਹਿੰਗਾਈ ਆਮ ਤੌਰ ਤੇ ਕਿਸ ਦਾ ਮਾਪ ਮੰਨੀ ਜਾਂਦੀ ਹੈ?"),
   "Food prices jump sharply while other prices change little. Which measure is more directly affected?": lp("खाद्य कीमतें तेज़ी से बढ़ें और अन्य कीमतों में कम बदलाव हो, तो कौन-सा माप सीधे अधिक प्रभावित होगा?", "ਖੁਰਾਕ ਦੀਆਂ ਕੀਮਤਾਂ ਤੇਜ਼ੀ ਨਾਲ ਵਧਣ ਅਤੇ ਹੋਰ ਕੀਮਤਾਂ ਵਿੱਚ ਘੱਟ ਬਦਲਾਅ ਹੋਵੇ, ਤਾਂ ਕਿਹੜਾ ਮਾਪ ਸਿੱਧਾ ਵੱਧ ਪ੍ਰਭਾਵਿਤ ਹੋਵੇਗਾ?"),
-  "Why is core inflation examined separately from headline inflation?": lp("मूल मुद्रास्फीति को समग्र मुद्रास्फीति से अलग क्यों देखा जाता है?", "ਮੂਲ ਮਹਿੰਗਾਈ ਨੂੰ ਸਮੁੱਚੀ ਮਹਿੰਗਾਈ ਤੋਂ ਵੱਖ ਕਿਉਂ ਦੇਖਿਆ ਜਾਂਦਾ ਹੈ?"),
+  "Why is core inflation examined separately from headline inflation?": lp("Core inflation को Headline inflation से अलग क्यों देखा जाता है?", "Core inflation ਨੂੰ Headline inflation ਤੋਂ ਵੱਖ ਕਿਉਂ ਦੇਖਿਆ ਜਾਂਦਾ ਹੈ?"),
   "Which pair is correctly matched?": lp("कौन-सा युग्म सही सुमेलित है?", "ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?"),
   "Inflation falls from 8% to 5%, but prices are still rising. This is:": lp("मुद्रास्फीति 8% से घटकर 5% हो जाए, लेकिन कीमतें अभी भी बढ़ रही हों, तो यह क्या है?", "ਮਹਿੰਗਾਈ 8% ਤੋਂ ਘਟ ਕੇ 5% ਹੋ ਜਾਵੇ ਪਰ ਕੀਮਤਾਂ ਅਜੇ ਵੀ ਵੱਧ ਰਹੀਆਂ ਹੋਣ, ਤਾਂ ਇਹ ਕੀ ਹੈ?"),
   "Which statement correctly distinguishes deflation from disinflation?": lp("अपस्फीति और मुद्रास्फीति-दर में कमी के बीच सही अंतर कौन-सा कथन बताता है?", "ਮੁੱਲ-ਘਟਾਅ ਅਤੇ ਮਹਿੰਗਾਈ ਦੀ ਦਰ ਵਿੱਚ ਕਮੀ ਵਿਚਲਾ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਬਿਆਨ ਦੱਸਦਾ ਹੈ?"),
@@ -166,21 +166,21 @@ const CP5_SCENARIOS: Readonly<Record<string, Pair>> = Object.freeze({
 const CP5_STATEMENTS: Readonly<Record<string, Pair>> = Object.freeze({
   "Inflation reduces purchasing power if money income does not keep pace with prices.": lp("यदि मौद्रिक आय कीमतों के साथ नहीं बढ़ती, तो मुद्रास्फीति क्रय शक्ति घटाती है।", "ਜੇ ਨਕਦੀ ਆਮਦਨ ਕੀਮਤਾਂ ਦੇ ਨਾਲ ਨਹੀਂ ਵਧਦੀ, ਤਾਂ ਮਹਿੰਗਾਈ ਖਰੀਦ ਸ਼ਕਤੀ ਘਟਾਉਂਦੀ ਹੈ।"),
   "Deflation means a sustained fall in the general price level.": lp("अपस्फीति का अर्थ सामान्य मूल्य स्तर में लगातार गिरावट है।", "ਮੁੱਲ-ਘਟਾਅ ਦਾ ਅਰਥ ਆਮ ਕੀਮਤ ਪੱਧਰ ਵਿੱਚ ਲਗਾਤਾਰ ਘਟਾਅ ਹੈ।"),
-  "Disinflation means inflation has slowed.": lp("मुद्रास्फीति-दर में कमी का अर्थ है कि मुद्रास्फीति धीमी हुई है।", "ਮਹਿੰਗਾਈ ਦੀ ਦਰ ਵਿੱਚ ਕਮੀ ਦਾ ਅਰਥ ਹੈ ਕਿ ਮਹਿੰਗਾਈ ਹੌਲੀ ਹੋਈ ਹੈ।"),
-  "Disinflation necessarily means the general price level is falling.": lp("मुद्रास्फीति-दर में कमी का अर्थ हमेशा सामान्य मूल्य स्तर का गिरना है।", "ਮਹਿੰਗਾਈ ਦੀ ਦਰ ਵਿੱਚ ਕਮੀ ਦਾ ਅਰਥ ਹਮੇਸ਼ਾਂ ਆਮ ਕੀਮਤ ਪੱਧਰ ਦਾ ਘਟਣਾ ਹੈ।"),
-  "Cost-push inflation can follow a broad rise in input costs.": lp("इनपुट लागत में व्यापक वृद्धि से लागत-प्रेरित मुद्रास्फीति हो सकती है।", "ਇਨਪੁੱਟ ਲਾਗਤ ਵਿੱਚ ਵਿਆਪਕ ਵਾਧੇ ਨਾਲ ਲਾਗਤ-ਧੱਕਾ ਮਹਿੰਗਾਈ ਹੋ ਸਕਦੀ ਹੈ।"),
-  "Demand-pull inflation can arise when demand grows faster than available output.": lp("उपलब्ध उत्पादन से तेज़ मांग बढ़ने पर मांग-प्रेरित मुद्रास्फीति हो सकती है।", "ਉਪਲਬਧ ਉਤਪਾਦਨ ਤੋਂ ਤੇਜ਼ ਮੰਗ ਵਧਣ ਤੇ ਮੰਗ-ਖਿੱਚ ਮਹਿੰਗਾਈ ਹੋ ਸਕਦੀ ਹੈ।"),
+  "Disinflation means inflation has slowed.": lp("Disinflation का अर्थ है कि मुद्रास्फीति की दर धीमी हुई है।", "Disinflation ਦਾ ਅਰਥ ਹੈ ਕਿ ਮਹਿੰਗਾਈ ਦੀ ਦਰ ਹੌਲੀ ਹੋਈ ਹੈ।"),
+  "Disinflation necessarily means the general price level is falling.": lp("Disinflation का अर्थ हमेशा सामान्य मूल्य स्तर का गिरना है।", "Disinflation ਦਾ ਅਰਥ ਹਮੇਸ਼ਾਂ ਆਮ ਕੀਮਤ ਪੱਧਰ ਦਾ ਘਟਣਾ ਹੈ।"),
+  "Cost-push inflation can follow a broad rise in input costs.": lp("इनपुट लागत में व्यापक वृद्धि से Cost-push inflation हो सकती है।", "ਇਨਪੁੱਟ ਲਾਗਤ ਵਿੱਚ ਵਿਆਪਕ ਵਾਧੇ ਨਾਲ Cost-push inflation ਹੋ ਸਕਦੀ ਹੈ।"),
+  "Demand-pull inflation can arise when demand grows faster than available output.": lp("उपलब्ध उत्पादन से तेज़ मांग बढ़ने पर Demand-pull inflation हो सकती है।", "ਉਪਲਬਧ ਉਤਪਾਦਨ ਤੋਂ ਤੇਜ਼ ਮੰਗ ਵਧਣ ਤੇ Demand-pull inflation ਹੋ ਸਕਦੀ ਹੈ।"),
 });
 
 const CP5_LONG: Readonly<Record<string, Pair>> = Object.freeze({
-  "CPI focuses on household consumption, WPI on wholesale prices, and the GDP deflator on output covered by GDP": lp("CPI घरेलू उपभोग, WPI थोक कीमतों और GDP डिफ्लेटर GDP में शामिल उत्पादन की कीमतों पर केंद्रित होता है", "CPI ਘਰੇਲੂ ਖਪਤ, WPI ਥੋਕ ਕੀਮਤਾਂ ਅਤੇ GDP ਡਿਫਲੇਟਰ GDP ਵਿੱਚ ਸ਼ਾਮਲ ਉਤਪਾਦਨ ਦੀਆਂ ਕੀਮਤਾਂ ਉੱਤੇ ਕੇਂਦ੍ਰਿਤ ਹੁੰਦਾ ਹੈ"),
+  "CPI focuses on household consumption, WPI on wholesale prices, and the GDP deflator on output covered by GDP": lp("CPI घरेलू उपभोग, WPI थोक कीमतों और GDP deflator GDP में शामिल उत्पादन की कीमतों पर केंद्रित होता है", "CPI ਘਰੇਲੂ ਖਪਤ, WPI ਥੋਕ ਕੀਮਤਾਂ ਅਤੇ GDP deflator GDP ਵਿੱਚ ਸ਼ਾਮਲ ਉਤਪਾਦਨ ਦੀਆਂ ਕੀਮਤਾਂ ਉੱਤੇ ਕੇਂਦ੍ਰਿਤ ਹੁੰਦਾ ਹੈ"),
   "CPI measures only wholesale goods, while WPI measures household services": lp("CPI केवल थोक वस्तुएँ मापता है, जबकि WPI घरेलू सेवाएँ मापता है", "CPI ਸਿਰਫ਼ ਥੋਕ ਵਸਤੂਆਂ ਮਾਪਦਾ ਹੈ, ਜਦੋਂ ਕਿ WPI ਘਰੇਲੂ ਸੇਵਾਵਾਂ ਮਾਪਦਾ ਹੈ"),
-  "WPI and GDP deflator always cover exactly the same basket": lp("WPI और GDP डिफ्लेटर हमेशा बिल्कुल एक ही टोकरी को कवर करते हैं", "WPI ਅਤੇ GDP ਡਿਫਲੇਟਰ ਹਮੇਸ਼ਾਂ ਬਿਲਕੁਲ ਇੱਕੋ ਟੋਕਰੀ ਨੂੰ ਕਵਰ ਕਰਦੇ ਹਨ"),
-  "GDP deflator measures only imported consumer goods": lp("GDP डिफ्लेटर केवल आयातित उपभोक्ता वस्तुएँ मापता है", "GDP ਡਿਫਲੇਟਰ ਸਿਰਫ਼ ਆਯਾਤ ਕੀਤੀਆਂ ਖਪਤਕਾਰ ਵਸਤੂਆਂ ਮਾਪਦਾ ਹੈ"),
-  "Deflation means the price level falls; disinflation means inflation slows": lp("अपस्फीति में मूल्य स्तर गिरता है; मुद्रास्फीति-दर में कमी में कीमतों की वृद्धि धीमी होती है", "ਮੁੱਲ-ਘਟਾਅ ਵਿੱਚ ਕੀਮਤ ਪੱਧਰ ਘਟਦਾ ਹੈ; ਮਹਿੰਗਾਈ ਦੀ ਦਰ ਵਿੱਚ ਕਮੀ ਵਿੱਚ ਕੀਮਤਾਂ ਦਾ ਵਾਧਾ ਹੌਲਾ ਹੁੰਦਾ ਹੈ"),
-  "Deflation and disinflation always mean the same thing": lp("अपस्फीति और मुद्रास्फीति-दर में कमी हमेशा एक ही बात हैं", "ਮੁੱਲ-ਘਟਾਅ ਅਤੇ ਮਹਿੰਗਾਈ ਦੀ ਦਰ ਵਿੱਚ ਕਮੀ ਹਮੇਸ਼ਾਂ ਇੱਕੋ ਗੱਲ ਹਨ"),
-  "Deflation means prices rise faster; disinflation means prices fall to zero": lp("अपस्फीति में कीमतें तेज़ बढ़ती हैं; मुद्रास्फीति-दर में कमी में कीमतें शून्य हो जाती हैं", "ਮੁੱਲ-ਘਟਾਅ ਵਿੱਚ ਕੀਮਤਾਂ ਤੇਜ਼ ਵਧਦੀਆਂ ਹਨ; ਮਹਿੰਗਾਈ ਦੀ ਦਰ ਵਿੱਚ ਕਮੀ ਵਿੱਚ ਕੀਮਤਾਂ ਸਿਫ਼ਰ ਹੋ ਜਾਂਦੀਆਂ ਹਨ"),
-  "Disinflation can occur only when inflation is negative": lp("मुद्रास्फीति-दर में कमी केवल नकारात्मक मुद्रास्फीति में हो सकती है", "ਮਹਿੰਗਾਈ ਦੀ ਦਰ ਵਿੱਚ ਕਮੀ ਸਿਰਫ਼ ਨਕਾਰਾਤਮਕ ਮਹਿੰਗਾਈ ਵਿੱਚ ਹੋ ਸਕਦੀ ਹੈ"),
+  "WPI and GDP deflator always cover exactly the same basket": lp("WPI और GDP deflator हमेशा बिल्कुल एक ही टोकरी को कवर करते हैं", "WPI ਅਤੇ GDP deflator ਹਮੇਸ਼ਾਂ ਬਿਲਕੁਲ ਇੱਕੋ ਟੋਕਰੀ ਨੂੰ ਕਵਰ ਕਰਦੇ ਹਨ"),
+  "GDP deflator measures only imported consumer goods": lp("GDP deflator केवल आयातित उपभोक्ता वस्तुएँ मापता है", "GDP deflator ਸਿਰਫ਼ ਆਯਾਤ ਕੀਤੀਆਂ ਖਪਤਕਾਰ ਵਸਤੂਆਂ ਮਾਪਦਾ ਹੈ"),
+  "Deflation means the price level falls; disinflation means inflation slows": lp("अपस्फीति में मूल्य स्तर गिरता है; Disinflation में कीमतों की वृद्धि धीमी होती है", "ਮੁੱਲ-ਘਟਾਅ ਵਿੱਚ ਕੀਮਤ ਪੱਧਰ ਘਟਦਾ ਹੈ; Disinflation ਵਿੱਚ ਕੀਮਤਾਂ ਦਾ ਵਾਧਾ ਹੌਲਾ ਹੁੰਦਾ ਹੈ"),
+  "Deflation and disinflation always mean the same thing": lp("अपस्फीति और Disinflation हमेशा एक ही बात हैं", "ਮੁੱਲ-ਘਟਾਅ ਅਤੇ Disinflation ਹਮੇਸ਼ਾਂ ਇੱਕੋ ਗੱਲ ਹਨ"),
+  "Deflation means prices rise faster; disinflation means prices fall to zero": lp("अपस्फीति में कीमतें तेज़ बढ़ती हैं; Disinflation में कीमतें शून्य हो जाती हैं", "ਮੁੱਲ-ਘਟਾਅ ਵਿੱਚ ਕੀਮਤਾਂ ਤੇਜ਼ ਵਧਦੀਆਂ ਹਨ; Disinflation ਵਿੱਚ ਕੀਮਤਾਂ ਸਿਫ਼ਰ ਹੋ ਜਾਂਦੀਆਂ ਹਨ"),
+  "Disinflation can occur only when inflation is negative": lp("Disinflation केवल नकारात्मक मुद्रास्फीति में हो सकती है", "Disinflation ਸਿਰਫ਼ ਨਕਾਰਾਤਮਕ ਮਹਿੰਗਾਈ ਵਿੱਚ ਹੋ ਸਕਦੀ ਹੈ"),
 });
 
 const CP6_STEMS: Readonly<Record<string, Pair>> = Object.freeze({
@@ -207,7 +207,7 @@ const CP6_STEMS: Readonly<Record<string, Pair>> = Object.freeze({
   "A poverty measure combines deprivations in health, education and living standards. This is:": lp("गरीबी का माप स्वास्थ्य, शिक्षा और जीवन स्तर की वंचनाओं को जोड़ता है। यह कौन-सी गरीबी है?", "ਗਰੀਬੀ ਦਾ ਮਾਪ ਸਿਹਤ, ਸਿੱਖਿਆ ਅਤੇ ਜੀਵਨ ਪੱਧਰ ਦੀਆਂ ਵੰਚਨਾਵਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ। ਇਹ ਕਿਹੜੀ ਗਰੀਬੀ ਹੈ?"),
   "A threshold used to identify people or households considered poor under a chosen method is called:": lp("चुनी हुई पद्धति में गरीब माने जाने वाले लोगों या परिवारों की पहचान के लिए प्रयुक्त सीमा क्या कहलाती है?", "ਚੁਣੀ ਹੋਈ ਵਿਧੀ ਵਿੱਚ ਗਰੀਬ ਮੰਨੇ ਜਾਣ ਵਾਲੇ ਲੋਕਾਂ ਜਾਂ ਪਰਿਵਾਰਾਂ ਦੀ ਪਛਾਣ ਲਈ ਵਰਤੀ ਹੱਦ ਕੀ ਕਹਾਉਂਦੀ ਹੈ?"),
   "What is the main purpose of a poverty line?": lp("गरीबी रेखा का मुख्य उद्देश्य क्या है?", "ਗਰੀਬੀ ਰੇਖਾ ਦਾ ਮੁੱਖ ਉਦੇਸ਼ ਕੀ ਹੈ?"),
-  "If 25 out of 100 people are identified as poor, the poverty headcount ratio is:": lp("100 में से 25 लोग गरीब पहचाने जाएँ, तो गरीबी हेडकाउंट अनुपात कितना है?", "100 ਵਿੱਚੋਂ 25 ਲੋਕ ਗਰੀਬ ਪਛਾਣੇ ਜਾਣ, ਤਾਂ ਗਰੀਬੀ ਹੈੱਡਕਾਊਂਟ ਅਨੁਪਾਤ ਕਿੰਨਾ ਹੈ?"),
+  "If 25 out of 100 people are identified as poor, the poverty headcount ratio is:": lp("100 में से 25 लोग गरीब पहचाने जाएँ, तो गरीबी Headcount ratio कितना है?", "100 ਵਿੱਚੋਂ 25 ਲੋਕ ਗਰੀਬ ਪਛਾਣੇ ਜਾਣ, ਤਾਂ ਗਰੀਬੀ Headcount ratio ਕਿੰਨਾ ਹੈ?"),
   "A poverty measure counts how many people fall below a chosen threshold but does not show how far below it they are. This describes the main limitation of the:": lp("एक गरीबी माप चुनी हुई सीमा से नीचे लोगों की संख्या बताता है, लेकिन यह नहीं बताता कि वे सीमा से कितने नीचे हैं। यह किस माप की मुख्य सीमा है?", "ਇੱਕ ਗਰੀਬੀ ਮਾਪ ਚੁਣੀ ਹੱਦ ਤੋਂ ਹੇਠਾਂ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਦੱਸਦਾ ਹੈ ਪਰ ਇਹ ਨਹੀਂ ਦੱਸਦਾ ਕਿ ਉਹ ਹੱਦ ਤੋਂ ਕਿੰਨੇ ਹੇਠਾਂ ਹਨ। ਇਹ ਕਿਸ ਮਾਪ ਦੀ ਮੁੱਖ ਸੀਮਾ ਹੈ?"),
   "Two households have the same income, but one also lacks schooling, sanitation and adequate nutrition. Which approach captures this broader deprivation better?": lp("दो परिवारों की आय समान है, लेकिन एक के पास शिक्षा, स्वच्छता और पर्याप्त पोषण की कमी भी है। इस व्यापक वंचना को कौन-सा दृष्टिकोण बेहतर मापता है?", "ਦੋ ਪਰਿਵਾਰਾਂ ਦੀ ਆਮਦਨ ਇੱਕੋ ਹੈ ਪਰ ਇੱਕ ਕੋਲ ਸਿੱਖਿਆ, ਸਫ਼ਾਈ ਅਤੇ ਯੋਗ ਪੋਸ਼ਣ ਦੀ ਘਾਟ ਵੀ ਹੈ। ਇਸ ਵਿਆਪਕ ਵੰਚਨਾ ਨੂੰ ਕਿਹੜੀ ਪਹੁੰਚ ਵਧੀਆ ਮਾਪਦੀ ਹੈ?"),
   "MGNREGA was enacted in:": lp("MGNREGA किस वर्ष अधिनियमित किया गया?", "MGNREGA ਕਿਹੜੇ ਸਾਲ ਕਾਨੂੰਨ ਬਣਿਆ?"),
@@ -298,12 +298,12 @@ function cp5Explanation(q: (typeof ECO_CP005_REVIEW_V1)[number], locale: NativeL
   const ql = Number(q.qlId.slice(-3));
   const ans = cp5Option(q.canonicalAnswer, locale);
   if (ql === 1 || ql === 2) return locale === "hi" ? `${ans} प्रश्न में दी गई मूल्य-स्थिति की सही आर्थिक अवधारणा है।` : `${ans} ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੀ ਕੀਮਤ-ਸਥਿਤੀ ਦੀ ਸਹੀ ਆਰਥਿਕ ਧਾਰਣਾ ਹੈ।`;
-  if (ql === 3) return locale === "hi" ? "जब कुल मांग उपलब्ध उत्पादन से तेज़ बढ़ती है, तो कीमतों पर ऊपर की ओर दबाव पड़ता है। इसे मांग-प्रेरित मुद्रास्फीति कहते हैं।" : "ਜਦੋਂ ਕੁੱਲ ਮੰਗ ਉਪਲਬਧ ਉਤਪਾਦਨ ਤੋਂ ਤੇਜ਼ ਵਧਦੀ ਹੈ, ਤਾਂ ਕੀਮਤਾਂ ਉੱਤੇ ਉੱਪਰ ਵੱਲ ਦਬਾਅ ਪੈਂਦਾ ਹੈ। ਇਸਨੂੰ ਮੰਗ-ਖਿੱਚ ਮਹਿੰਗਾਈ ਕਹਿੰਦੇ ਹਨ।";
-  if (ql === 4) return locale === "hi" ? "उत्पादन लागत बढ़ने पर फर्में बढ़ी लागत को कीमतों में स्थानांतरित कर सकती हैं। यह लागत-प्रेरित मुद्रास्फीति है।" : "ਉਤਪਾਦਨ ਲਾਗਤ ਵਧਣ ਤੇ ਫਰਮਾਂ ਵਧੀ ਲਾਗਤ ਨੂੰ ਕੀਮਤਾਂ ਵਿੱਚ ਪਾ ਸਕਦੀਆਂ ਹਨ। ਇਹ ਲਾਗਤ-ਧੱਕਾ ਮਹਿੰਗਾਈ ਹੈ।";
+  if (ql === 3) return locale === "hi" ? "जब कुल मांग उपलब्ध उत्पादन से तेज़ बढ़ती है, तो कीमतों पर ऊपर की ओर दबाव पड़ता है। इसे Demand-pull inflation कहते हैं।" : "ਜਦੋਂ ਕੁੱਲ ਮੰਗ ਉਪਲਬਧ ਉਤਪਾਦਨ ਤੋਂ ਤੇਜ਼ ਵਧਦੀ ਹੈ, ਤਾਂ ਕੀਮਤਾਂ ਉੱਤੇ ਉੱਪਰ ਵੱਲ ਦਬਾਅ ਪੈਂਦਾ ਹੈ। ਇਸਨੂੰ Demand-pull inflation ਕਹਿੰਦੇ ਹਨ।";
+  if (ql === 4) return locale === "hi" ? "उत्पादन लागत बढ़ने पर फर्में बढ़ी लागत को कीमतों में स्थानांतरित कर सकती हैं। यह Cost-push inflation है।" : "ਉਤਪਾਦਨ ਲਾਗਤ ਵਧਣ ਤੇ ਫਰਮਾਂ ਵਧੀ ਲਾਗਤ ਨੂੰ ਕੀਮਤਾਂ ਵਿੱਚ ਪਾ ਸਕਦੀਆਂ ਹਨ। ਇਹ Cost-push inflation ਹੈ।";
   if (ql === 5) return locale === "hi" ? `क्रय शक्ति बताती है कि आय से कितनी वस्तुएँ और सेवाएँ खरीदी जा सकती हैं। यहाँ सही प्रभाव ${ans} है।` : `ਖਰੀਦ ਸ਼ਕਤੀ ਦੱਸਦੀ ਹੈ ਕਿ ਆਮਦਨ ਨਾਲ ਕਿੰਨੀਆਂ ਵਸਤੂਆਂ ਅਤੇ ਸੇਵਾਵਾਂ ਖਰੀਦੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ। ਇੱਥੇ ਸਹੀ ਪ੍ਰਭਾਵ ${ans} ਹੈ।`;
   if (ql === 6) return locale === "hi" ? "अप्रत्याशित मुद्रास्फीति निश्चित रुपये में होने वाले भुगतान का वास्तविक मूल्य घटाती है। इसलिए उधारकर्ता और ऋणदाता पर प्रभाव विपरीत हो सकता है।" : "ਅਚਾਨਕ ਮਹਿੰਗਾਈ ਨਿਸ਼ਚਿਤ ਰੁਪਏ ਵਿੱਚ ਹੋਣ ਵਾਲੀ ਵਾਪਸੀ ਦਾ ਅਸਲ ਮੁੱਲ ਘਟਾਉਂਦੀ ਹੈ। ਇਸ ਲਈ ਕਰਜ਼ਦਾਰ ਅਤੇ ਕਰਜ਼ ਦੇਣ ਵਾਲੇ ਉੱਤੇ ਪ੍ਰਭਾਵ ਉਲਟ ਹੋ ਸਕਦਾ ਹੈ।";
-  if (ql === 7) return locale === "hi" ? `CPI घरेलू उपभोग कीमतों, WPI थोक कीमतों और GDP डिफ्लेटर GDP में शामिल अंतिम उत्पादन की कीमतों को अलग-अलग दायरे में मापते हैं। सही उत्तर ${ans} है।` : `CPI ਘਰੇਲੂ ਖਪਤ ਕੀਮਤਾਂ, WPI ਥੋਕ ਕੀਮਤਾਂ ਅਤੇ GDP ਡਿਫਲੇਟਰ GDP ਵਿੱਚ ਸ਼ਾਮਲ ਅੰਤਿਮ ਉਤਪਾਦਨ ਦੀਆਂ ਕੀਮਤਾਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਦਾਇਰੇ ਵਿੱਚ ਮਾਪਦੇ ਹਨ। ਸਹੀ ਉੱਤਰ ${ans} ਹੈ।`;
-  if (ql === 8) return locale === "hi" ? "समग्र मुद्रास्फीति पूरी चुनी हुई टोकरी को शामिल करती है, जबकि मूल मुद्रास्फीति में सामान्यतः खाद्य और ईंधन जैसे अस्थिर घटक हटाए जाते हैं।" : "ਸਮੁੱਚੀ ਮਹਿੰਗਾਈ ਪੂਰੀ ਚੁਣੀ ਟੋਕਰੀ ਨੂੰ ਸ਼ਾਮਲ ਕਰਦੀ ਹੈ, ਜਦੋਂ ਕਿ ਮੂਲ ਮਹਿੰਗਾਈ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਖੁਰਾਕ ਅਤੇ ਇੰਧਨ ਵਰਗੇ ਅਸਥਿਰ ਘਟਕ ਹਟਾਏ ਜਾਂਦੇ ਹਨ।";
+  if (ql === 7) return locale === "hi" ? `CPI घरेलू उपभोग कीमतों, WPI थोक कीमतों और GDP deflator GDP में शामिल अंतिम उत्पादन की कीमतों को अलग-अलग दायरे में मापते हैं। सही उत्तर ${ans} है।` : `CPI ਘਰੇਲੂ ਖਪਤ ਕੀਮਤਾਂ, WPI ਥੋਕ ਕੀਮਤਾਂ ਅਤੇ GDP deflator GDP ਵਿੱਚ ਸ਼ਾਮਲ ਅੰਤਿਮ ਉਤਪਾਦਨ ਦੀਆਂ ਕੀਮਤਾਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਦਾਇਰੇ ਵਿੱਚ ਮਾਪਦੇ ਹਨ। ਸਹੀ ਉੱਤਰ ${ans} ਹੈ।`;
+  if (ql === 8) return locale === "hi" ? "Headline inflation पूरी चुनी हुई टोकरी को शामिल करती है, जबकि Core inflation में सामान्यतः खाद्य और ईंधन जैसे अस्थिर घटक हटाए जाते हैं।" : "Headline inflation ਪੂਰੀ ਚੁਣੀ ਟੋਕਰੀ ਨੂੰ ਸ਼ਾਮਲ ਕਰਦੀ ਹੈ, ਜਦੋਂ ਕਿ Core inflation ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਖੁਰਾਕ ਅਤੇ ਇੰਧਨ ਵਰਗੇ ਅਸਥਿਰ ਘਟਕ ਹਟਾਏ ਜਾਂਦੇ ਹਨ।";
   if (ql === 9) return locale === "hi" ? `मुद्रास्फीति दर = सूचकांक में वृद्धि ÷ पुराना सूचकांक × 100। दिए गए आँकड़ों से सही उत्तर ${ans} है।` : `ਮਹਿੰਗਾਈ ਦਰ = ਸੂਚਕ ਵਿੱਚ ਵਾਧਾ ÷ ਪੁਰਾਣਾ ਸੂਚਕ × 100। ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਤੋਂ ਸਹੀ ਉੱਤਰ ${ans} ਹੈ।`;
   if (ql === 10) return locale === "hi" ? `${ans} सही सुमेलित युग्म है।` : `${ans} ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਜੋੜ ਹੈ।`;
   if (ql === 11) return locale === "hi" ? `दोनों कथनों को उनकी आर्थिक परिभाषाओं से मिलाकर जाँचने पर सही विकल्प ${ans} है।` : `ਦੋਵੇਂ ਬਿਆਨਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੀਆਂ ਆਰਥਿਕ ਪਰਿਭਾਸ਼ਾਵਾਂ ਨਾਲ ਮਿਲਾ ਕੇ ਜਾਂਚਣ ਤੇ ਸਹੀ ਵਿਕਲਪ ${ans} ਹੈ।`;
@@ -344,7 +344,7 @@ function cp6Explanation(q: (typeof ECO_CP006_REVIEW_V1)[number], locale: NativeL
   if (ql === 5) return locale === "hi" ? "जब जरूरत से अधिक लोग काम में लगे हों और कुछ के हटने पर भी उत्पादन न घटे, तो यह प्रच्छन्न बेरोजगारी है।" : "ਜਦੋਂ ਲੋੜ ਤੋਂ ਵੱਧ ਲੋਕ ਕੰਮ ਵਿੱਚ ਲੱਗੇ ਹੋਣ ਅਤੇ ਕੁਝ ਦੇ ਹਟਣ ਤੇ ਵੀ ਉਤਪਾਦਨ ਨਾ ਘਟੇ, ਤਾਂ ਇਹ ਛੁਪੀ ਬੇਰੋਜ਼ਗਾਰੀ ਹੈ।";
   if (ql === 6) return locale === "hi" ? `${ans} प्रश्न में बताए बेरोजगारी के कारण से मेल खाती है।` : `${ans} ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦੱਸੇ ਬੇਰੋਜ਼ਗਾਰੀ ਦੇ ਕਾਰਨ ਨਾਲ ਮਿਲਦੀ ਹੈ।`;
   if (ql === 7) return locale === "hi" ? `${ans} प्रश्न में वर्णित गरीबी की प्रकृति को सही ढंग से दर्शाती है।` : `${ans} ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਵਰਣਿਤ ਗਰੀਬੀ ਦੀ ਪ੍ਰਕਿਰਤੀ ਨੂੰ ਸਹੀ ਢੰਗ ਨਾਲ ਦਰਸਾਉਂਦੀ ਹੈ।`;
-  if (ql === 8) return locale === "hi" ? `${ans} सही है। गरीबी रेखा पहचान की सीमा है, जबकि हेडकाउंट अनुपात गरीब मानी गई जनसंख्या का प्रतिशत बताता है।` : `${ans} ਸਹੀ ਹੈ। ਗਰੀਬੀ ਰੇਖਾ ਪਛਾਣ ਦੀ ਹੱਦ ਹੈ, ਜਦੋਂ ਕਿ ਹੈੱਡਕਾਊਂਟ ਅਨੁਪਾਤ ਗਰੀਬ ਮੰਨੀ ਗਈ ਆਬਾਦੀ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਦੱਸਦਾ ਹੈ।`;
+  if (ql === 8) return locale === "hi" ? `${ans} सही है। गरीबी रेखा पहचान की सीमा है, जबकि Headcount ratio गरीब मानी गई जनसंख्या का प्रतिशत बताता है।` : `${ans} ਸਹੀ ਹੈ। ਗਰੀਬੀ ਰੇਖਾ ਪਛਾਣ ਦੀ ਹੱਦ ਹੈ, ਜਦੋਂ ਕਿ Headcount ratio ਗਰੀਬ ਮੰਨੀ ਗਈ ਆਬਾਦੀ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਦੱਸਦਾ ਹੈ।`;
   if (ql === 9) return locale === "hi" ? `${ans} भारत में गरीबी-अनुमान की ऐतिहासिक विशेषज्ञ-समूह प्रक्रिया से सही रूप से जुड़ा है।` : `${ans} ਭਾਰਤ ਵਿੱਚ ਗਰੀਬੀ-ਅੰਦਾਜ਼ੇ ਦੀ ਇਤਿਹਾਸਕ ਮਾਹਿਰ-ਸਮੂਹ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਸਹੀ ਤੌਰ ਤੇ ਜੁੜਿਆ ਹੈ।`;
   if (ql === 10) return locale === "hi" ? `${ans} सही है। MGNREGA 2005 का कानून है और पात्र ग्रामीण परिवारों को अधिकतम 100 दिनों के मजदूरी रोजगार की वैधानिक गारंटी देता है।` : `${ans} ਸਹੀ ਹੈ। MGNREGA 2005 ਦਾ ਕਾਨੂੰਨ ਹੈ ਅਤੇ ਯੋਗ ਪਿੰਡੂ ਪਰਿਵਾਰਾਂ ਨੂੰ ਵੱਧ ਤੋਂ ਵੱਧ 100 ਦਿਨਾਂ ਦੇ ਮਜ਼ਦੂਰੀ ਰੁਜ਼ਗਾਰ ਦੀ ਕਾਨੂੰਨੀ ਗਾਰੰਟੀ ਦਿੰਦਾ ਹੈ।`;
   if (ql === 11) return locale === "hi" ? `परिभाषाओं और दरों के सही संबंध से जाँचने पर सही विकल्प ${ans} है।` : `ਪਰਿਭਾਸ਼ਾਵਾਂ ਅਤੇ ਦਰਾਂ ਦੇ ਸਹੀ ਸੰਬੰਧ ਨਾਲ ਜਾਂਚਣ ਤੇ ਸਹੀ ਵਿਕਲਪ ${ans} ਹੈ।`;
