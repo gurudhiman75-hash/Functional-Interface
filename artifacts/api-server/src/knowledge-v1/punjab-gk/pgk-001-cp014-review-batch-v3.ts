@@ -38,7 +38,7 @@ const revisions: readonly Revision[] = Object.freeze([
   { stem: "Faizalpuria Misl was also called:", explanation: "Faizalpuria Misl was also called Singhpuria Misl. Both names refer to the same Sikh misl." },
   { stem: "Karorsinghia Misl was also called:", explanation: "Karorsinghia Misl was also called Panjgarhia Misl. The two names are used for the same misl in Punjab history." },
   { stem: "Shahid Misl was also called:", explanation: "Shahid Misl was also called Nihang Misl. Baba Deep Singh was one of its prominent leaders." },
-  { stem: "Baba Deep Singh was a prominent leader of which misl?", explanation: "Baba Deep Singh was a prominent leader of the Shahid Misl. This misl was also called the Nihang Misl." },
+  { stem: "Which leader was a prominent figure of the Shahid Misl?", explanation: "Baba Deep Singh was a prominent leader of the Shahid Misl. This misl was also called the Nihang Misl." },
   { stem: "Tara Singh Gheba was a prominent leader of which misl?", explanation: "Tara Singh Gheba was a prominent leader of the Dallewalia Misl. He is one of the better-known chiefs of the misl period." },
   { stem: "Who received the title 'Sultan-ul-Qaum'?", explanation: "Jassa Singh Ahluwalia received the title Sultan-ul-Qaum. He later became one of the most important leaders of Dal Khalsa and the Sikh confederacy." },
 
