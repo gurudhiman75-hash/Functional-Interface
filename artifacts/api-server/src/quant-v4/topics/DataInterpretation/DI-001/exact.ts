@@ -72,6 +72,28 @@ export function mixedHashSeed(value: string): number {
   return hash >>> 0;
 }
 
+export function presentationVariantIndex(value: string, variantCount: number): number {
+  if (!Number.isInteger(variantCount) || variantCount < 1) {
+    throw new Error(`DI presentation variant count must be a positive integer, received ${variantCount}.`);
+  }
+
+  const parts = value.split(":");
+  let numericOrdinal = 0;
+  let numericPosition = 0;
+  let foundNumericToken = false;
+
+  const normalized = parts.map((part) => {
+    if (!/^\d+$/.test(part)) return part;
+    foundNumericToken = true;
+    numericPosition += 1;
+    numericOrdinal += Number(part) * numericPosition;
+    return "<n>";
+  }).join(":");
+
+  if (!foundNumericToken) return mixedHashSeed(value) % variantCount;
+  return (mixedHashSeed(normalized) + numericOrdinal) % variantCount;
+}
+
 export function seededRandom(seed: string): () => number {
   let state = hashSeed(seed) || 0x9e3779b9;
   return () => {
