@@ -1,8 +1,9 @@
 # ENV-CP-015 V2 Remediation — Environmental Impact Assessment
 
 **Parent CP:** ENV-CP-015 Environmental Laws & Institutions  
-**Lifecycle:** REVIEW CANDIDATE  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Review layer:** V2 remediation extension  
+**Project-owner approval:** 2026-09-18  
 **Runtime registration:** review-only
 
 ## Added scope
