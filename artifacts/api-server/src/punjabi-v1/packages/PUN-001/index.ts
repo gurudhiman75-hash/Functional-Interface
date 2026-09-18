@@ -10,3 +10,4 @@ export * from "./checkpoints/CP009";
 export * from "./checkpoints/CP010";
 export * from "./checkpoints/CP011";
 export * from "./checkpoints/CP012";
+export * from "./checkpoints/CP013";
