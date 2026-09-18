@@ -91,11 +91,9 @@ export function presentationVariantIndex(value: string, variantCount: number): n
   }).join(":");
 
   if (!foundNumericToken) return mixedHashSeed(value) % variantCount;
-  // Use a deterministic low-discrepancy progression (~sqrt(2)) rather than
-  // ordinal % variantCount. This keeps structured section seeds balanced
-  // without recreating short periodic cycles when a DI package recurs sparsely.
-  const lowDiscrepancyOrdinal = Math.floor((numericOrdinal * 99) / 70);
-  return (mixedHashSeed(normalized) + lowDiscrepancyOrdinal) % variantCount;
+  const deperiodizedOrdinal =
+    (numericOrdinal + Math.floor(numericOrdinal / variantCount)) >>> 0;
+  return (mixedHashSeed(normalized) + deperiodizedOrdinal) % variantCount;
 }
 
 export function seededRandom(seed: string): () => number {
