@@ -1,6 +1,6 @@
 # COA-001 / COA-CP-011 — Final Editorial & Diversity Review
 
-Status: **HUMAN REVIEW REQUIRED**
+Status: **APPROVED / FROZEN**
 
 ## What the final audit found
 
@@ -58,12 +58,14 @@ Still closed:
 - mock eligibility;
 - student/public delivery.
 
-## Review decision
+## Approval record
 
-Approve CP011 if:
-1. semantic recycling should be rejected rather than hidden through surface variation;
-2. QL008 Medium/Hard-only coverage is acceptable;
-3. the existing 118 active ordinary + 10 source-backed profile authorities are sufficient for the current chapter;
-4. the final EN/HI/PA language quality is acceptable.
+Approved by the product owner on **2026-09-18**.
 
-Approval moves COA to **CP012 internal-eligibility evaluation**. It does not automatically make COA eligible.
+This freezes:
+1. the semantic anti-repetition rule;
+2. QL008 Medium/Hard-only coverage;
+3. the current 118 active ordinary + 10 source-backed profile authorities;
+4. the final EN/HI/PA editorial surface.
+
+The chapter may now proceed to **CP012 internal-eligibility evaluation**. CP011 approval does not itself make COA internally eligible.
