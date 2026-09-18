@@ -4,7 +4,7 @@ Review-only candidate. 60 questions; 10 QLs × 6; Easy 18 / Medium 30 / Hard 12;
 
 ## Q01 · Easy · Cell discovery, cell theory and biological organization
 
-Who first observed cells in a thin slice of cork?
+Who discovered cells while examining a thin slice of cork?
 
 A. Robert Hooke
 B. Anton van Leeuwenhoek
@@ -19,7 +19,7 @@ D. Theodor Schwann
 
 ## Q02 · Easy · Cell discovery, cell theory and biological organization
 
-Which statement is a basic part of cell theory?
+According to cell theory, which of the following statements is correct?
 
 A. All cells contain chloroplasts
 B. All living organisms are made of cells
@@ -34,7 +34,7 @@ D. Cells arise only in plants
 
 ## Q03 · Medium · Cell discovery, cell theory and biological organization
 
-A tissue is best described as a group of:
+A group of similar cells performing a common function is called:
 
 A. different organs forming a system
 B. organelles enclosed by one membrane
@@ -49,7 +49,7 @@ D. unrelated cells with no shared role
 
 ## Q04 · Medium · Cell discovery, cell theory and biological organization
 
-Which sequence shows the correct increase in biological organization?
+Which of the following shows the correct order of biological organization from simpler to more complex?
 
 A. Tissue → Cell → Organ system → Organ
 B. Cell → Organ → Tissue → Organ system
@@ -79,7 +79,7 @@ D. Cells are larger than tissues and organs
 
 ## Q06 · Hard · Cell discovery, cell theory and biological organization
 
-An organism grows mainly because its cells increase in number and, in many tissues, also in size. Which idea does this most directly support?
+Growth in an organism occurs through an increase in cell size and cell number. This best shows that:
 
 A. Only unicellular organisms can grow
 B. Cells are fundamental units of growth and organization
@@ -94,7 +94,7 @@ D. Organs are formed before cells
 
 ## Q07 · Easy · Prokaryotic and eukaryotic cells
 
-Which structure is absent in a typical prokaryotic cell?
+Which of the following is absent in a typical prokaryotic cell?
 
 A. Cell membrane
 B. Ribosomes
@@ -109,7 +109,7 @@ D. Cytoplasm
 
 ## Q08 · Easy · Prokaryotic and eukaryotic cells
 
-Bacteria are classified as prokaryotes mainly because they lack:
+Bacteria are classified as prokaryotes because they lack:
 
 A. genetic material
 B. a plasma membrane
@@ -124,7 +124,7 @@ D. membrane-bound organelles
 
 ## Q09 · Medium · Prokaryotic and eukaryotic cells
 
-The DNA of a typical bacterial cell is mainly found in the:
+In a bacterial cell, the main genetic material is located in the:
 
 A. nucleoid
 B. nucleolus
@@ -139,7 +139,7 @@ D. mitochondrion
 
 ## Q10 · Medium · Prokaryotic and eukaryotic cells
 
-Which feature is shared by both prokaryotic and eukaryotic cells?
+Which of the following is present in both prokaryotic and eukaryotic cells?
 
 A. Nuclear membrane
 B. Ribosomes
@@ -154,7 +154,7 @@ D. Golgi bodies
 
 ## Q11 · Medium · Prokaryotic and eukaryotic cells
 
-A cell has a plasma membrane, cytoplasm, ribosomes and DNA but no true nucleus. It is most likely a:
+A cell has DNA, ribosomes, cytoplasm and a plasma membrane but no true nucleus. It is a:
 
 A. plant eukaryotic cell
 B. animal eukaryotic cell
@@ -169,7 +169,7 @@ D. fungal eukaryotic cell
 
 ## Q12 · Hard · Prokaryotic and eukaryotic cells
 
-A scientist finds a very small cell with circular DNA and no membrane-bound organelles. Which additional feature would best fit this cell?
+A cell contains circular DNA and lacks membrane-bound organelles. Which other feature is expected?
 
 A. Its DNA is enclosed inside a nuclear envelope
 B. It contains chloroplasts with grana
@@ -184,7 +184,7 @@ D. Its ribosomes are free in the cytoplasm
 
 ## Q13 · Easy · Plasma membrane, cell wall, diffusion and osmosis
 
-Which cell structure controls the movement of substances into and out of the cell?
+Which cell structure regulates the movement of substances into and out of the cell?
 
 A. Plasma membrane
 B. Nucleolus
@@ -199,7 +199,7 @@ D. Chromosome
 
 ## Q14 · Easy · Plasma membrane, cell wall, diffusion and osmosis
 
-The cell wall of plants is mainly made of:
+The plant cell wall is mainly composed of:
 
 A. glycogen
 B. cellulose
@@ -214,7 +214,7 @@ D. starch
 
 ## Q15 · Medium · Plasma membrane, cell wall, diffusion and osmosis
 
-What happens to a raisin when it is kept in plain water for some time?
+What happens when a raisin is kept in plain water for some time?
 
 A. It shrinks as water leaves by osmosis
 B. It dissolves completely by diffusion
@@ -229,7 +229,7 @@ D. It loses its cell wall
 
 ## Q16 · Medium · Plasma membrane, cell wall, diffusion and osmosis
 
-A plant cell placed in a strongly concentrated salt solution loses water and the cell membrane pulls away from the cell wall. This is called:
+The shrinking of a plant cell's contents away from the cell wall in a concentrated salt solution is called:
 
 A. deplasmolysis
 B. cytokinesis
@@ -244,7 +244,7 @@ D. plasmolysis
 
 ## Q17 · Medium · Plasma membrane, cell wall, diffusion and osmosis
 
-Diffusion differs from osmosis because diffusion can involve movement of:
+Unlike osmosis, diffusion may involve the movement of:
 
 A. many kinds of particles, not only water
 B. only water through a selectively permeable membrane
@@ -259,7 +259,7 @@ D. only ions using cellular energy
 
 ## Q18 · Hard · Plasma membrane, cell wall, diffusion and osmosis
 
-A fresh plant cell is placed first in distilled water and then in a concentrated sugar solution. Which sequence is most likely?
+A plant cell is transferred from distilled water to a concentrated sugar solution. What is the most likely sequence of changes?
 
 A. It plasmolyses first, then becomes turgid
 B. It becomes turgid, then loses water and becomes plasmolysed
@@ -304,7 +304,7 @@ D. DNA and proteins
 
 ## Q21 · Medium · Nucleus, chromosomes, DNA and genes
 
-The nucleolus is mainly associated with the formation of:
+The nucleolus is mainly involved in the formation of:
 
 A. ribosomal components
 B. cell wall fibres
@@ -319,7 +319,7 @@ D. spindle fibres
 
 ## Q22 · Medium · Nucleus, chromosomes, DNA and genes
 
-Which relationship is correct?
+Which of the following correctly relates genes, DNA and chromosomes?
 
 A. Chromosomes are segments of proteins located on genes
 B. Genes are segments of DNA located on chromosomes
@@ -334,7 +334,7 @@ D. Genes are organelles present outside chromosomes
 
 ## Q23 · Medium · Nucleus, chromosomes, DNA and genes
 
-A cell loses its nucleus. Which function would be most directly affected over time?
+Removal of the nucleus from a cell would most directly affect:
 
 A. Immediate diffusion of oxygen through the membrane
 B. Cell-wall rigidity due to cellulose
@@ -349,7 +349,7 @@ D. Movement of water by osmosis alone
 
 ## Q24 · Hard · Nucleus, chromosomes, DNA and genes
 
-Two body cells of the same organism have different shapes and functions but usually contain the same set of chromosomes. Their differences mainly arise because:
+Body cells of the same organism may differ in shape and function despite having the same chromosomes mainly because:
 
 A. one cell has no DNA at all
 B. each tissue receives a completely different genome
@@ -364,7 +364,7 @@ D. different genes are active in the two cell types
 
 ## Q25 · Easy · Ribosomes, endoplasmic reticulum and Golgi apparatus
 
-Which organelle is the main site of protein synthesis?
+Which cell structure is the main site of protein synthesis?
 
 A. Ribosome
 B. Lysosome
@@ -379,7 +379,7 @@ D. Centrosome
 
 ## Q26 · Easy · Ribosomes, endoplasmic reticulum and Golgi apparatus
 
-Which organelle modifies, sorts and packages many proteins for transport?
+Which organelle modifies, sorts and packages proteins for transport?
 
 A. Nucleolus
 B. Golgi apparatus
@@ -394,7 +394,7 @@ D. Chromosome
 
 ## Q27 · Medium · Ribosomes, endoplasmic reticulum and Golgi apparatus
 
-Rough endoplasmic reticulum appears rough because it has:
+Why does rough endoplasmic reticulum appear rough?
 
 A. cellulose fibres on its surface
 B. DNA attached to its membrane
@@ -409,7 +409,7 @@ D. lysosomes embedded in it
 
 ## Q28 · Medium · Ribosomes, endoplasmic reticulum and Golgi apparatus
 
-Smooth endoplasmic reticulum is especially important in the synthesis of:
+Smooth endoplasmic reticulum is mainly associated with the synthesis of:
 
 A. cellulose walls
 B. chromosomal DNA only
@@ -424,7 +424,7 @@ D. lipids
 
 ## Q29 · Medium · Ribosomes, endoplasmic reticulum and Golgi apparatus
 
-A cell actively secretes a protein hormone. Which pathway best describes the protein's movement?
+Which sequence correctly shows the pathway of a protein meant for secretion?
 
 A. Ribosome → rough ER → Golgi apparatus → secretory vesicle
 B. Golgi apparatus → nucleus → lysosome → cell wall
@@ -439,7 +439,7 @@ D. Lysosome → nucleolus → rough ER → mitochondrion
 
 ## Q30 · Hard · Ribosomes, endoplasmic reticulum and Golgi apparatus
 
-A toxin selectively damages the Golgi apparatus but leaves ribosomes and rough ER functional. Which process would be most directly disrupted?
+If the Golgi apparatus is damaged while ribosomes and rough ER remain functional, which process will be most directly affected?
 
 A. Initial joining of amino acids into polypeptides
 B. Final modification and sorting of many newly made proteins
@@ -454,7 +454,7 @@ D. Diffusion of oxygen through the plasma membrane
 
 ## Q31 · Easy · Mitochondria, plastids and chloroplasts
 
-Which organelle is commonly called the powerhouse of the cell?
+Which organelle is known as the powerhouse of the cell?
 
 A. Ribosome
 B. Golgi apparatus
@@ -469,7 +469,7 @@ D. Lysosome
 
 ## Q32 · Easy · Mitochondria, plastids and chloroplasts
 
-Photosynthesis in plant cells mainly occurs in the:
+Photosynthesis in plant cells mainly takes place in the:
 
 A. mitochondrion
 B. lysosome
@@ -484,7 +484,7 @@ D. chloroplast
 
 ## Q33 · Medium · Mitochondria, plastids and chloroplasts
 
-Which pigment directly absorbs much of the light used in photosynthesis?
+Which pigment absorbs light energy for photosynthesis?
 
 A. Chlorophyll
 B. Haemoglobin
@@ -499,7 +499,7 @@ D. Keratin
 
 ## Q34 · Medium · Mitochondria, plastids and chloroplasts
 
-Mitochondria and chloroplasts are unusual because both contain:
+Which feature is common to both mitochondria and chloroplasts?
 
 A. a cellulose cell wall
 B. their own DNA and ribosomes
@@ -514,7 +514,7 @@ D. digestive lysosomal enzymes
 
 ## Q35 · Medium · Mitochondria, plastids and chloroplasts
 
-Which cells would normally contain many mitochondria because of a high energy demand?
+Which type of cell generally contains many mitochondria because of its high energy requirement?
 
 A. Mature red blood cells of mammals
 B. Dead cork cells
@@ -529,7 +529,7 @@ D. Cells of dry outer bark only
 
 ## Q36 · Hard · Mitochondria, plastids and chloroplasts
 
-A plant leaf cell is kept in darkness but still has oxygen and stored food available. Which organelle can continue producing ATP from that food?
+A plant leaf cell is kept in darkness but has oxygen and stored food. Which organelle can still produce ATP?
 
 A. Chloroplast only
 B. Cell wall
@@ -544,7 +544,7 @@ D. Mitochondrion
 
 ## Q37 · Easy · Lysosomes, vacuoles and plant-animal cell features
 
-Which organelle contains digestive enzymes that help break down worn-out cell components?
+Which organelle contains digestive enzymes for breaking down worn-out cell components?
 
 A. Lysosome
 B. Ribosome
@@ -559,7 +559,7 @@ D. Nucleolus
 
 ## Q38 · Easy · Lysosomes, vacuoles and plant-animal cell features
 
-The large central vacuole of a plant cell mainly helps maintain:
+The large central vacuole of a plant cell mainly helps in:
 
 A. chromosome number
 B. turgidity and storage
@@ -574,7 +574,7 @@ D. DNA replication
 
 ## Q39 · Medium · Lysosomes, vacuoles and plant-animal cell features
 
-Which structure is usually more prominent in animal cells and helps organize the spindle during cell division?
+Which structure in animal cells helps organize spindle fibres during cell division?
 
 A. Cell wall
 B. Chloroplast
@@ -589,7 +589,7 @@ D. Large central vacuole
 
 ## Q40 · Medium · Lysosomes, vacuoles and plant-animal cell features
 
-Why can a plant cell remain firm even when its internal water pressure rises?
+Why does a plant cell usually not burst when excess water enters by osmosis?
 
 A. Its nucleus prevents water entry
 B. Its ribosomes remove all excess water
@@ -604,7 +604,7 @@ D. Its rigid cell wall resists excessive expansion
 
 ## Q41 · Medium · Lysosomes, vacuoles and plant-animal cell features
 
-Which pair is characteristic of a typical mature plant cell but not a typical animal cell?
+Which pair of structures is characteristic of a typical mature plant cell but not of a typical animal cell?
 
 A. Cell wall and large central vacuole
 B. Plasma membrane and ribosomes
@@ -619,7 +619,7 @@ D. Nucleus and Golgi apparatus
 
 ## Q42 · Hard · Lysosomes, vacuoles and plant-animal cell features
 
-A cell has a cell wall, a large vacuole and mitochondria but no chloroplasts. Which conclusion is most reasonable?
+A cell has a cell wall, a large vacuole and mitochondria but no chloroplasts. It is most likely:
 
 A. It must be an animal cell
 B. It may be a non-photosynthetic plant cell such as a root cell
@@ -634,7 +634,7 @@ D. It cannot be a living cell
 
 ## Q43 · Easy · Cell division: mitosis and meiosis basics
 
-Which type of cell division produces two daughter cells that are genetically similar to the parent cell?
+Which type of cell division produces two genetically similar daughter cells?
 
 A. Meiosis
 B. Fertilization
@@ -649,7 +649,7 @@ D. Osmosis
 
 ## Q44 · Easy · Cell division: mitosis and meiosis basics
 
-Meiosis is important because it helps produce:
+Meiosis is primarily responsible for the formation of:
 
 A. two identical body cells
 B. cells with double the usual chromosome number only
@@ -664,7 +664,7 @@ D. gametes with half the usual chromosome number
 
 ## Q45 · Medium · Cell division: mitosis and meiosis basics
 
-Which process is directly responsible for replacing many worn-out skin cells?
+Replacement of worn-out skin cells mainly occurs through:
 
 A. Mitosis
 B. Meiosis
@@ -679,7 +679,7 @@ D. Plasmolysis
 
 ## Q46 · Medium · Cell division: mitosis and meiosis basics
 
-Before a cell divides by mitosis, its DNA is copied mainly so that:
+Why is DNA replicated before mitosis?
 
 A. the cell wall can become chlorophyll
 B. each daughter cell can receive a complete set of genetic information
@@ -694,7 +694,7 @@ D. water can enter by osmosis
 
 ## Q47 · Medium · Cell division: mitosis and meiosis basics
 
-Which statement correctly compares mitosis and meiosis?
+Which statement correctly distinguishes mitosis from meiosis?
 
 A. Both always reduce chromosome number by half
 B. Mitosis forms gametes only, while meiosis repairs tissues
@@ -709,7 +709,7 @@ D. Meiosis always produces two identical daughter cells
 
 ## Q48 · Hard · Cell division: mitosis and meiosis basics
 
-A species has 20 chromosomes in each body cell. How many chromosomes would normally be present in one gamete?
+If a species has 20 chromosomes in each body cell, how many chromosomes will normally be present in a gamete?
 
 A. 20
 B. 30
@@ -724,7 +724,7 @@ D. 10
 
 ## Q49 · Easy · Organelle-function and cell-type reasoning
 
-Which structure is found in both a typical plant cell and a typical animal cell?
+Which of the following structures is present in both typical plant and animal cells?
 
 A. Mitochondrion
 B. Cellulose cell wall
@@ -739,7 +739,7 @@ D. Large central vacuole only
 
 ## Q50 · Medium · Organelle-function and cell-type reasoning
 
-A cell contains chloroplasts, a cellulose wall and a large central vacuole. It is most likely a:
+A cell has chloroplasts, a cellulose cell wall and a large central vacuole. It is a:
 
 A. animal cell
 B. plant cell
@@ -754,7 +754,7 @@ D. mammalian red blood cell
 
 ## Q51 · Medium · Organelle-function and cell-type reasoning
 
-A cell makes many digestive enzymes and exports them outside the cell. Which organelles would be especially well developed?
+A cell actively produces and secretes large amounts of protein enzymes. Which organelles would be especially well developed?
 
 A. Cell wall and chloroplasts
 B. Centrosome and chromosome only
@@ -769,7 +769,7 @@ D. Large vacuole and nucleolus only
 
 ## Q52 · Medium · Organelle-function and cell-type reasoning
 
-A cell is unable to produce enough ATP even though glucose and oxygen are available. Which organelle is most likely malfunctioning?
+A cell has adequate glucose and oxygen but produces very little ATP. Which organelle is most likely defective?
 
 A. Golgi apparatus
 B. Nucleolus
@@ -784,7 +784,7 @@ D. Mitochondrion
 
 ## Q53 · Hard · Organelle-function and cell-type reasoning
 
-A plant cell can synthesize proteins normally but cannot package them into vesicles for secretion. Which organelle is most likely defective?
+A plant cell synthesizes proteins normally but cannot package them into vesicles for secretion. Which organelle is defective?
 
 A. Golgi apparatus
 B. Ribosome
@@ -799,7 +799,7 @@ D. Cell wall
 
 ## Q54 · Hard · Organelle-function and cell-type reasoning
 
-A cell has ribosomes, DNA and a plasma membrane, but lacks both mitochondria and a membrane-bound nucleus. Which classification best fits it?
+A cell contains DNA, ribosomes and a plasma membrane but lacks mitochondria and a membrane-bound nucleus. It is a:
 
 A. Plant eukaryotic cell
 B. Prokaryotic cell
@@ -814,7 +814,7 @@ D. Fungal eukaryotic cell
 
 ## Q55 · Easy · Microscopy, unicellular life and mixed cell biology
 
-Which instrument made the discovery and detailed study of cells possible?
+Which instrument is used to observe cells that cannot be seen clearly with the naked eye?
 
 A. Barometer
 B. Calorimeter
@@ -829,7 +829,7 @@ D. Ammeter
 
 ## Q56 · Medium · Microscopy, unicellular life and mixed cell biology
 
-Amoeba performs nutrition, respiration and excretion within a single cell. This shows that:
+Amoeba carries out nutrition, respiration and excretion within a single cell. This shows that:
 
 A. all organisms are unicellular
 B. unicellular organisms have no genetic material
@@ -844,7 +844,7 @@ D. one cell can carry out all essential life processes
 
 ## Q57 · Medium · Microscopy, unicellular life and mixed cell biology
 
-Why are most cells microscopic rather than extremely large?
+Why are most cells microscopic rather than very large?
 
 A. A smaller size helps maintain an effective surface-area-to-volume relationship
 B. Large cells cannot contain DNA
@@ -859,7 +859,7 @@ D. Mitochondria exist only in microscopic cells
 
 ## Q58 · Medium · Microscopy, unicellular life and mixed cell biology
 
-Which observation best distinguishes a eukaryotic cell from a prokaryotic cell under a suitable microscope?
+Which feature best distinguishes a eukaryotic cell from a prokaryotic cell?
 
 A. Presence of cytoplasm
 B. A nucleus enclosed by a membrane
@@ -874,7 +874,7 @@ D. Presence of ribosomes
 
 ## Q59 · Hard · Microscopy, unicellular life and mixed cell biology
 
-A student observes four cells. Only one has a cell wall, chloroplasts and a membrane-bound nucleus. Which type is it?
+A cell has a cell wall, chloroplasts and a membrane-bound nucleus. It is a:
 
 A. Animal eukaryotic cell
 B. Typical bacterial cell
@@ -889,7 +889,7 @@ D. Mammalian red blood cell
 
 ## Q60 · Hard · Microscopy, unicellular life and mixed cell biology
 
-A cell's ribosomes are suddenly inactivated while its DNA and membranes remain intact. Which immediate effect is most likely?
+If ribosomes in a cell stop functioning, which immediate effect will occur?
 
 A. Osmosis through the plasma membrane will stop completely
 B. Existing DNA will disappear at once
