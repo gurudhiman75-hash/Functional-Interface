@@ -246,7 +246,7 @@ const report = {
 };
 
 writeFileSync(
-  "dist/pgk-001-exhaustive-audit-v1.json",
+  "artifacts/api-server/dist/pgk-001-exhaustive-audit-v1.json",
   JSON.stringify(report, null, 2),
   "utf8",
 );
