@@ -120,11 +120,14 @@ function determinerDistractors(ruleId: ArticleRuleId, correct: string): string[]
 }
 
 function normalizeApplication(application: string): string {
-  return application
+  let clean = application
     .trim()
-    .replace(/^A singular\b/, "a singular")
-    .replace(/^An? ([a-z])/i, (match) => match.toLowerCase())
+    .replace(/\s+here(?=[,.])/gi, "")
     .replace(/\s+here\.$/i, ".");
+  if (!/^[A-Z]{2,}\b/.test(clean) && /^[A-Z]/.test(clean)) {
+    clean = clean.slice(0, 1).toLowerCase() + clean.slice(1);
+  }
+  return clean;
 }
 
 function teachingTail(sourceExplanation: string): string {
