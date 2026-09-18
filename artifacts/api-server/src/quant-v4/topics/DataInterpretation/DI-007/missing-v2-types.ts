@@ -55,6 +55,8 @@ export type Di007V2Stimulus = Readonly<{
   rowLabel: string;
   seriesALabel: string;
   seriesBLabel: string;
+  seriesAMeasure: string;
+  seriesBMeasure: string;
   unit: string;
   points: readonly Di007V2Point[];
   hiddenIndex: number;
