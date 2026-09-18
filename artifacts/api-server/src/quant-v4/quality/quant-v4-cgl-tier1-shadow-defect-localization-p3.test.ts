@@ -131,6 +131,7 @@ const slotsByDuplicateRate = Object.entries(stemDuplicationBySlot)
 const hotspotLocalization = Object.fromEntries(
   [
     "PCT-001",
+    "PCT-002",
     "RAP-001",
     "TRG-001",
     "GEO-001",
@@ -210,6 +211,7 @@ assert.equal(
 );
 for (const packageId of [
   "PCT-001",
+  "PCT-002",
   "RAP-001",
   "TRG-001",
   "GEO-001",
