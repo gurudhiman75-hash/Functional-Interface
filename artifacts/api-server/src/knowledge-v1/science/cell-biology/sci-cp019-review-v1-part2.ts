@@ -6,7 +6,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     3,
     "Medium",
-    "A plant cell placed in a strongly concentrated salt solution loses water and the cell membrane pulls away from the cell wall. This is called:",
+    "The shrinking of a plant cell's contents away from the cell wall in a concentrated salt solution is called:",
     "plasmolysis",
     [
       "deplasmolysis",
@@ -21,7 +21,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     3,
     "Medium",
-    "Diffusion differs from osmosis because diffusion can involve movement of:",
+    "Unlike osmosis, diffusion may involve the movement of:",
     "many kinds of particles, not only water",
     [
       "only water through a selectively permeable membrane",
@@ -36,7 +36,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     3,
     "Hard",
-    "A fresh plant cell is placed first in distilled water and then in a concentrated sugar solution. Which sequence is most likely?",
+    "A plant cell is transferred from distilled water to a concentrated sugar solution. What is the most likely sequence of changes?",
     "It becomes turgid, then loses water and becomes plasmolysed",
     [
       "It plasmolyses first, then becomes turgid",
@@ -81,7 +81,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     4,
     "Medium",
-    "The nucleolus is mainly associated with the formation of:",
+    "The nucleolus is mainly involved in the formation of:",
     "ribosomal components",
     [
       "cell wall fibres",
@@ -96,7 +96,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     4,
     "Medium",
-    "Which relationship is correct?",
+    "Which of the following correctly relates genes, DNA and chromosomes?",
     "Genes are segments of DNA located on chromosomes",
     [
       "Chromosomes are segments of proteins located on genes",
@@ -111,7 +111,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     4,
     "Medium",
-    "A cell loses its nucleus. Which function would be most directly affected over time?",
+    "Removal of the nucleus from a cell would most directly affect:",
     "Control of gene expression and cell activities",
     [
       "Immediate diffusion of oxygen through the membrane",
@@ -126,7 +126,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     4,
     "Hard",
-    "Two body cells of the same organism have different shapes and functions but usually contain the same set of chromosomes. Their differences mainly arise because:",
+    "Body cells of the same organism may differ in shape and function despite having the same chromosomes mainly because:",
     "different genes are active in the two cell types",
     [
       "one cell has no DNA at all",
@@ -141,7 +141,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     5,
     "Easy",
-    "Which organelle is the main site of protein synthesis?",
+    "Which cell structure is the main site of protein synthesis?",
     "Ribosome",
     [
       "Lysosome",
@@ -156,7 +156,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     5,
     "Easy",
-    "Which organelle modifies, sorts and packages many proteins for transport?",
+    "Which organelle modifies, sorts and packages proteins for transport?",
     "Golgi apparatus",
     [
       "Nucleolus",
@@ -171,7 +171,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     5,
     "Medium",
-    "Rough endoplasmic reticulum appears rough because it has:",
+    "Why does rough endoplasmic reticulum appear rough?",
     "ribosomes attached to its surface",
     [
       "cellulose fibres on its surface",
@@ -186,7 +186,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     5,
     "Medium",
-    "Smooth endoplasmic reticulum is especially important in the synthesis of:",
+    "Smooth endoplasmic reticulum is mainly associated with the synthesis of:",
     "lipids",
     [
       "cellulose walls",
@@ -201,7 +201,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     5,
     "Medium",
-    "A cell actively secretes a protein hormone. Which pathway best describes the protein's movement?",
+    "Which sequence correctly shows the pathway of a protein meant for secretion?",
     "Ribosome → rough ER → Golgi apparatus → secretory vesicle",
     [
       "Golgi apparatus → nucleus → lysosome → cell wall",
@@ -216,7 +216,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     5,
     "Hard",
-    "A toxin selectively damages the Golgi apparatus but leaves ribosomes and rough ER functional. Which process would be most directly disrupted?",
+    "If the Golgi apparatus is damaged while ribosomes and rough ER remain functional, which process will be most directly affected?",
     "Final modification and sorting of many newly made proteins",
     [
       "Initial joining of amino acids into polypeptides",
