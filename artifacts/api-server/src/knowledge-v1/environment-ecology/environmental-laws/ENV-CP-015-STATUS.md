@@ -13,3 +13,5 @@
 - Mutable standards, office-holders, current notification lists, recent-case trivia and current counts: excluded.
 - Source verification date: 2026-09-16.
 - Source baseline: India Code for the seven principal Acts and CPCB's statutory mandate material for CPCB/SPCB role distinctions.
+- V2 remediation candidate: 12 additional questions across 3 QLs covering EIA purpose, EIA Notification 2006, prior environmental clearance and EIA/monitoring distinctions.
+- V2 remediation remains review-only pending project-owner approval.

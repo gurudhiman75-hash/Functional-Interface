@@ -7,3 +7,5 @@
 - Approved CP may be included in the shared Environment package/runtime binding.
 - Review-only generators remain non-runtime artifacts by design.
 - Next implementation targets: `ENV-CP-003` Food Chain & Ecological Relationships and `ENV-CP-004` Nutrient Cycles.
+- V2 remediation candidate: 12 additional questions across 3 QLs covering ecological succession, primary/secondary succession, pioneer and climax communities.
+- V2 remediation remains review-only pending project-owner approval.

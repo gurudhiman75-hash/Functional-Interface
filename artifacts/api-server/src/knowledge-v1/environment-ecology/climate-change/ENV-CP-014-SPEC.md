@@ -2,9 +2,10 @@
 
 **Chapter:** ENV-001 Environment & Ecology  
 **CP:** ENV-CP-014 Climate Change  
-**Lifecycle:** REVIEW CANDIDATE  
-**Review version:** V1  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN (V1)  
+**Approved review version:** V1  
+**Human approval:** recorded in Environment implementation checkpoint  
+**Runtime registration:** separate from content approval  
 
 ## Scope
 
@@ -27,9 +28,15 @@ Included:
 
 Explicitly deferred:
 - detailed UNFCCC, Kyoto Protocol and Paris Agreement provisions (ENV-CP-017)
-- India-specific climate programmes (ENV-CP-018 where relevant)
+- India-specific climate programmes are covered by the ENV-CP-014 V2 remediation extension; they are not owned by ENV-CP-018.
 - current annual temperature records, current emissions rankings and current atmospheric concentration values
 - scenario-specific future warming numbers and mutable target-year trivia
+
+## V2 audit remediation
+
+The exhaustive chapter audit found that India-specific climate programmes had been deferred to ENV-CP-018 even though ENV-CP-018 is exclusively Project Tiger. The V2 remediation extension closes that ownership gap with stable NAPCC and original National Mission Static GK.
+
+See `ENV-CP-014-V2-REMEDIATION-SPEC.md`.
 
 ## Learner-facing rules
 
@@ -45,7 +52,7 @@ Explicitly deferred:
 10. Adaptation acts on impacts and vulnerability.
 11. Forests and oceans are treated as important carbon sinks without mutable annual uptake percentages.
 12. No current emissions ranking, annual temperature record or scenario-specific projection trivia is used.
-13. Review generators remain `runtimeRegistered: false` until project-owner approval.
+13. Review generators remain `runtimeRegistered: false`; runtime integration is a separate workflow.
 
 ## QL inventory
 
@@ -64,9 +71,9 @@ Explicitly deferred:
 | ENV-014-QL-011 | Correct / incorrect pair | Hard |
 | ENV-014-QL-012 | Statements and applied identification | Hard |
 
-## Review gate
+## V1 frozen review gate
 
-Before approval:
+The approved V1 surface satisfies:
 - exactly 48 questions;
 - four questions per QL;
 - Easy, Medium and Hard represented;
@@ -85,4 +92,4 @@ Before approval:
 
 ## Source policy
 
-Core facts are cross-checked against IPCC AR6 and NASA climate evidence/sea-level material, with mitigation/adaptation concepts aligned to established climate-science definitions. Source verification date: 2026-09-16.
+Core V1 facts are cross-checked against IPCC AR6 and NASA climate evidence/sea-level material, with mitigation/adaptation concepts aligned to established climate-science definitions. V2 NAPCC remediation facts use official MoEFCC NAPCC material. Source verification date for V1: 2026-09-16.
