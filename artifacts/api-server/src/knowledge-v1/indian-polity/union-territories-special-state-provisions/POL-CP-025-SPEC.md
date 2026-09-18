@@ -1,9 +1,9 @@
 # POL-CP-025 — Union Territories & Special Provisions for States
 
-**Lifecycle:** REVIEW CANDIDATE — V3  
-**Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V3  
+**Runtime registration:** DEFERRED TO POLITY QUESTION STUDIO INTEGRATION PASS
 
-> Scope note: the repository roadmap does not expose the historical CP025 title. This is an inferred next uncovered high-yield Polity block and remains review-only until project-owner approval.
+> Scope note: the repository roadmap does not expose the historical CP025 title. This inferred high-yield scope was explicitly approved by the project owner on 2026-09-18.
 
 ## Scope
 - Part VIII, Articles 239–241: Union Territory administration, Article 239A, Delhi under Articles 239AA–239AB, ordinance power under Article 239B, presidential regulations under Article 240 and High Courts under Article 241;
@@ -24,8 +24,10 @@
 - four questions per QL;
 - A/B/C/D correct positions exactly balanced 20 each;
 - V3 stem pass: all 80 stems rewritten to remove legalistic who/whom/what phrasing and keep balanced question/completion variety;
-- direct fact, statement-completion, constitutional application and comparison-style stems used according to difficulty;\n- validation rejects recurring legalistic stem patterns such as “whom” and “for the purposes of”;\n- final V3 mix: 43 completion stems and 37 question stems, preventing a new single-pattern template.\n- simple, useful explanations;
-- review-only until explicit approval.
+- direct fact, statement-completion, constitutional application and comparison-style stems used according to difficulty;
+- validation rejects recurring legalistic stem patterns such as “whom” and “for the purposes of”;
+- final V3 mix: 43 completion stems and 37 question stems, preventing a new single-pattern template.\n- simple, useful explanations;
+- content frozen after explicit project-owner approval.
 
 ## Primary authority
 - Constitution of India, Part VIII, Legislative Department;
