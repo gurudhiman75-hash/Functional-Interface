@@ -12,6 +12,9 @@ type Finding = Readonly<{
   cpId?: string;
   qlId?: string;
   detail: string;
+  stem?: string;
+  answer?: string;
+  explanation?: string;
 }>;
 
 const questions = PGK_001_QUESTION_STUDIO_CORPUS_V1;
@@ -30,6 +33,9 @@ function add(
     cpId: q?.cpId,
     qlId: q?.qlId,
     detail,
+    stem: q?.stem,
+    answer: q?.canonicalAnswer,
+    explanation: q?.explanation,
   });
 }
 
@@ -220,6 +226,11 @@ for (const [key, ids] of canonicalStem) {
 
 for (const [qlId, count] of qlCounts) {
   if (count !== 6) add("BLOCKER", "QL_COUNT", `${qlId} has ${count} questions; expected 6.`);
+}
+
+const optionSpread = Math.max(...answerPositions) - Math.min(...answerPositions);
+if (optionSpread > 1) {
+  add("MAJOR", "ANSWER_POSITION_IMBALANCE", `Correct-option position counts are ${answerPositions.join("/")}; expected near-even distribution.`);
 }
 
 const blockerCount = findings.filter((f) => f.severity === "BLOCKER").length;
