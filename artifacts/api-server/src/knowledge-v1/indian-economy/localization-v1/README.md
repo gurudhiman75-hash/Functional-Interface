@@ -30,6 +30,10 @@ Quality gates:
 - native Devanagari/Gurmukhi presence
 - executable Latin-script leakage guard for learner-facing text
 - only standard abbreviations such as GDP, GNP, NDP, NNP, NFIA, GVA, MoSPI, CPI, WPI, LFPR, WPR, UR, MGNREGA and NCERT remain in Latin script where appropriate
+- protected exam terms may remain in English when literal translation is awkward, non-standard, or changes the familiar exam label
+- current protected labels include Disinflation, Demand-pull inflation, Cost-push inflation, Headline inflation, Core inflation, GDP deflator, Core CPI, Hyperinflation, Headcount ratio, and official committee/group names
+- protected labels keep their exact English term while the surrounding Hindi/Punjabi stem, description and explanation remain native
+- natural and established native terms continue to be translated; this is not a blanket English-retention rule
 - dedicated CP005–CP006 localization audit runs in Economy CI
 
 Review exports:
