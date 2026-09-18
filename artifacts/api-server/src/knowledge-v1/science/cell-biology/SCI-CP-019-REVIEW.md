@@ -34,7 +34,7 @@ D. Cells arise only in plants
 
 ## Q03 · Medium · Cell discovery, cell theory and biological organization
 
-A group of similar cells performing a common function is called:
+A tissue is a group of:
 
 A. different organs forming a system
 B. organelles enclosed by one membrane
@@ -394,7 +394,7 @@ D. Chromosome
 
 ## Q27 · Medium · Ribosomes, endoplasmic reticulum and Golgi apparatus
 
-Why does rough endoplasmic reticulum appear rough?
+Rough endoplasmic reticulum appears rough due to the presence of:
 
 A. cellulose fibres on its surface
 B. DNA attached to its membrane
@@ -559,7 +559,7 @@ D. Nucleolus
 
 ## Q38 · Easy · Lysosomes, vacuoles and plant-animal cell features
 
-The large central vacuole of a plant cell mainly helps in:
+The large central vacuole of a plant cell mainly helps in maintaining:
 
 A. chromosome number
 B. turgidity and storage
@@ -619,7 +619,7 @@ D. Nucleus and Golgi apparatus
 
 ## Q42 · Hard · Lysosomes, vacuoles and plant-animal cell features
 
-A cell has a cell wall, a large vacuole and mitochondria but no chloroplasts. It is most likely:
+A cell has a cell wall, a large vacuole and mitochondria but no chloroplasts. Which conclusion is most appropriate?
 
 A. It must be an animal cell
 B. It may be a non-photosynthetic plant cell such as a root cell
@@ -724,7 +724,7 @@ D. 10
 
 ## Q49 · Easy · Organelle-function and cell-type reasoning
 
-Which of the following structures is present in both typical plant and animal cells?
+DNA is replicated before mitosis so that:
 
 A. Mitochondrion
 B. Cellulose cell wall
