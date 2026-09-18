@@ -171,7 +171,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     5,
     "Medium",
-    "Why does rough endoplasmic reticulum appear rough?",
+    "Rough endoplasmic reticulum appears rough due to the presence of:",
     "ribosomes attached to its surface",
     [
       "cellulose fibres on its surface",
