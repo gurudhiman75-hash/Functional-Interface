@@ -146,11 +146,15 @@ function teachingTail(sourceExplanation: string): string {
 
 export function materializeEng003Cp003AnswerV1(sentence: string, option: string): string {
   const filler = option === ENG003_CP003_NO_ARTICLE_OPTION ? "" : option;
-  return sentence
+  const materialized = sentence
     .replace("_____", filler)
     .replace(/\s+([,.!?;:])/g, "$1")
     .replace(/\s+/g, " ")
     .trim();
+  if (sentence.trimStart().startsWith("_____") && filler) {
+    return materialized.slice(0, 1).toUpperCase() + materialized.slice(1);
+  }
+  return materialized;
 }
 
 export function generateEng003Cp003QuestionV1(input: GenerateEng003Cp003V1Input): Eng003Cp003QuestionV1 {
