@@ -26,7 +26,7 @@ const CP1_ATOM: Readonly<Record<string, LocalePair>> = Object.freeze({
   "Macroeconomics": lp("समष्टि अर्थशास्त्र", "ਸਮੂਹਕ ਅਰਥਸ਼ਾਸਤਰ"),
   "Goods": lp("वस्तुएँ", "ਵਸਤੂਆਂ"),
   "Services": lp("सेवाएँ", "ਸੇਵਾਵਾਂ"),
-  "limited resources require choices": lp("सीमित संसाधनों के कारण चुनाव करना पड़ता है", "ਸੀਮਿਤ ਸਰੋਤਾਂ ਕਰਕੇ ਚੋਣ ਕਰਨੀ ਪੈਂਦੀ ਹੈ"),
+  "limited resources require choices": lp("सीमित संसाधनों के कारण चुनाव की आवश्यकता", "ਸੀਮਿਤ ਸਰੋਤਾਂ ਕਰਕੇ ਚੋਣ ਦੀ ਲੋੜ"),
   "next best alternative forgone": lp("छोड़ा गया अगला सर्वोत्तम विकल्प", "ਛੱਡਿਆ ਗਿਆ ਅਗਲਾ ਸਭ ਤੋਂ ਵਧੀਆ ਵਿਕਲਪ"),
   "want-satisfying capacity": lp("इच्छा-संतुष्टि की क्षमता", "ਲੋੜ ਜਾਂ ਇੱਛਾ ਪੂਰੀ ਕਰਨ ਦੀ ਸਮਰੱਥਾ"),
   "creation of goods and services": lp("वस्तुओं और सेवाओं का सृजन", "ਵਸਤੂਆਂ ਅਤੇ ਸੇਵਾਵਾਂ ਦੀ ਰਚਨਾ"),
@@ -192,13 +192,15 @@ function atomCp2(text: string, locale: NativeLocale): string {
 }
 
 function translatePair(text: string, locale: NativeLocale, atom: (text: string, locale: NativeLocale) => string): string {
+  const exact = atom(text, locale);
+  if (exact !== text) return exact;
   if (text.includes(" — ")) {
     return text.split(" — ").map((part) => atom(part, locale)).join(" — ");
   }
   if (text.includes("; ")) {
     return text.split("; ").map((part) => atom(part, locale)).join("; ");
   }
-  return atom(text, locale);
+  return text;
 }
 
 function cp1Option(text: string, locale: NativeLocale): string {
@@ -235,8 +237,8 @@ function cp1Stem(q: (typeof ECO_CP001_REVIEW_V2)[number], locale: NativeLocale):
     if (!m) throw new Error(`${q.questionId}: statement stem not parsed`);
     const [, t1, m1, t2, m2] = m;
     return locale === "hi"
-      ? `कथनों पर विचार कीजिए:\nI. ${atomCp1(t1, locale)} का अर्थ ${atomCp1(m1, locale)} है।\nII. ${atomCp1(t2, locale)} का अर्थ ${atomCp1(m2, locale)} है।\nकौन-सा विकल्प सही है?`
-      : `ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\nI. ${atomCp1(t1, locale)} ਦਾ ਅਰਥ ${atomCp1(m1, locale)} ਹੈ।\nII. ${atomCp1(t2, locale)} ਦਾ ਅਰਥ ${atomCp1(m2, locale)} ਹੈ।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?`;
+      ? `कथनों पर विचार कीजिए:\nI. ${atomCp1(t1, locale)} का अर्थ है: ${atomCp1(m1, locale)}।\nII. ${atomCp1(t2, locale)} का अर्थ है: ${atomCp1(m2, locale)}।\nकौन-सा विकल्प सही है?`
+      : `ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\nI. ${atomCp1(t1, locale)} ਦਾ ਅਰਥ ਹੈ: ${atomCp1(m1, locale)}।\nII. ${atomCp1(t2, locale)} ਦਾ ਅਰਥ ਹੈ: ${atomCp1(m2, locale)}।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?`;
   }
   const q12: Readonly<Record<string, LocalePair>> = {
     "Which statement about scarcity and opportunity cost is correct?": lp("दुर्लभता और अवसर लागत के बारे में कौन-सा कथन सही है?", "ਦੁਲਭਤਾ ਅਤੇ ਅਵਸਰ ਲਾਗਤ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?"),

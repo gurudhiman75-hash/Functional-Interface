@@ -413,3 +413,5 @@ export function generateEcoCp005ReviewBatchV1() {
   }
   return questions;
 }
+
+export const ECO_CP005_REVIEW_V1 = generateEcoCp005ReviewBatchV1();

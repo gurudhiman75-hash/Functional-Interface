@@ -1,22 +1,26 @@
-# Economy Multilingual V1 — CP001–CP004
+# Economy Multilingual V1 — CP001–CP006
 
 Implemented multilingual scope:
 - ECO-CP-001 Basic Economic Concepts
 - ECO-CP-002 Economic Systems & Sectors
 - ECO-CP-003 National Income Aggregates
 - ECO-CP-004 National Income Measurement in India
+- ECO-CP-005 Inflation & Price Concepts
+- ECO-CP-006 Employment, Unemployment & Poverty
 
 Lifecycle: REVIEW_ONLY. These localization checkpoints do not enable Question Bank persistence, test/mock eligibility, public publication, production release, or automatic learner release.
 
-Semantic authority: frozen English V2 review batches already merged on New-main. Hindi and Punjabi are native learner-facing surfaces that preserve CP, QL, difficulty, source provenance, option order and correct-index parity.
+Semantic authority: the frozen English review batches already merged on New-main. Hindi and Punjabi are native learner-facing surfaces that preserve CP, QL, difficulty, source provenance, option order and correct-index parity.
 
 Checkpoint sizes:
 - CP001: 42 questions per locale
 - CP002: 42 questions per locale
 - CP003: 44 questions per locale
 - CP004: 44 questions per locale
-- CP001–CP004 cumulative: 172 questions per locale / 516 EN-HI-PA surfaces
-- Current CP003–CP004 checkpoint: 88 questions per locale / 264 EN-HI-PA surfaces
+- CP005: 44 questions per locale
+- CP006: 44 questions per locale
+- CP001–CP006 cumulative: 260 questions per locale / 780 EN-HI-PA surfaces
+- Current CP005–CP006 checkpoint: 88 questions per locale / 264 EN-HI-PA surfaces
 
 Quality gates:
 - exact frozen-English no-drift
@@ -24,11 +28,17 @@ Quality gates:
 - correct answer remains at the frozen English index
 - source, QL and difficulty parity
 - native Devanagari/Gurmukhi presence
-- Latin-script leakage guard for learner-facing text
-- standard economics/statistics abbreviations such as GDP, GNP, NDP, NNP, NFIA, GVA and MoSPI remain unchanged where appropriate
+- shared terminology registry with `NATIVE`, `PROTECTED_ENGLISH` and `ABBREVIATION` classifications
+- `NATIVE` terms must not remain as English labels in Hindi/Punjabi learner text
+- `PROTECTED_ENGLISH` terms retain their familiar exam label exactly when translation would be awkward or non-standard
+- `ABBREVIATION` entries retain standard forms such as GDP, CPI, WPI, GVA, LFPR and MGNREGA
+- all other Latin-script text is treated as leakage and fails the executable audit
+- current protected labels include Disinflation, Demand-pull inflation, Cost-push inflation, Headline inflation, Core inflation, GDP deflator, Core CPI, Hyperinflation, Headcount ratio, and official committee/group names
+- full CP001–CP006 terminology/parity audit runs in Economy CI across 260 questions per locale / 780 surfaces
 
 Review exports:
 - `ECO-MULTILINGUAL-V1-CP001-CP002-REVIEW.md`
 - `ECO-MULTILINGUAL-V1-CP003-CP004-REVIEW.md`
+- `ECO-MULTILINGUAL-V1-CP005-CP006-REVIEW.md`
 
-Both are generated under `dist/economy-review/ECO-MULTILINGUAL-V1/` by `eco-localization-export-v1.ts`.
+They are generated under `dist/economy-review/ECO-MULTILINGUAL-V1/` by `eco-localization-export-v1.ts`.

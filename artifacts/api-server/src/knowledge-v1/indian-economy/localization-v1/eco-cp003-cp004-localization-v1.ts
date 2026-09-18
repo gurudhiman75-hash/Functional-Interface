@@ -241,7 +241,7 @@ function cp3Stem(question: (typeof ECO_CP003_REVIEW_V2)[number], locale: NativeL
   }
 
   if (ql === 7) {
-    const match = question.stem.match(/^If output is ([\d,]+) and intermediate inputs are ([\d,]+), what is value added\?$/u);
+    const match = question.stem.match(/^If output is ([\d,]+) and intermediate inputs (?:are|cost) ([\d,]+), what is value added\?$/u);
     if (match) return locale === "hi"
       ? `यदि उत्पादन मूल्य ${match[1]} और मध्यवर्ती इनपुट ${match[2]} हैं, तो मूल्य वर्धित कितना है?`
       : `ਜੇ ਉਤਪਾਦਨ ਮੁੱਲ ${match[1]} ਅਤੇ ਮੱਧਵਰਤੀ ਇਨਪੁੱਟ ${match[2]} ਹਨ, ਤਾਂ ਮੁੱਲ ਵਾਧਾ ਕਿੰਨਾ ਹੈ?`;
@@ -256,7 +256,7 @@ function cp3Stem(question: (typeof ECO_CP003_REVIEW_V2)[number], locale: NativeL
     if (match) return locale === "hi" ? `यदि GNP ${match[1]} और मूल्यह्रास ${match[2]} है, तो NNP कितना है?` : `ਜੇ GNP ${match[1]} ਅਤੇ ਮੁੱਲ ਘਟਾਅ ${match[2]} ਹੈ, ਤਾਂ NNP ਕਿੰਨਾ ਹੈ?`;
     match = question.stem.match(/^If national income is ([\d,]+) and population is ([\d,]+), what is per-capita income\?$/u);
     if (match) return locale === "hi" ? `यदि राष्ट्रीय आय ${match[1]} और जनसंख्या ${match[2]} है, तो प्रति व्यक्ति आय कितनी है?` : `ਜੇ ਰਾਸ਼ਟਰੀ ਆਮਦਨ ${match[1]} ਅਤੇ ਆਬਾਦੀ ${match[2]} ਹੈ, ਤਾਂ ਪ੍ਰਤੀ ਵਿਅਕਤੀ ਆਮਦਨ ਕਿੰਨੀ ਹੈ?`;
-    match = question.stem.match(/^If output is worth ([\d,]+) and intermediate inputs cost ([\d,]+), what is value added\?$/u);
+    match = question.stem.match(/^If output is(?: worth)? ([\d,]+) and intermediate inputs cost ([\d,]+), what is value added\?$/u);
     if (match) return locale === "hi" ? `यदि उत्पादन का मूल्य ${match[1]} और मध्यवर्ती इनपुट की लागत ${match[2]} है, तो मूल्य वर्धित कितना है?` : `ਜੇ ਉਤਪਾਦਨ ਦਾ ਮੁੱਲ ${match[1]} ਅਤੇ ਮੱਧਵਰਤੀ ਇਨਪੁੱਟ ਦੀ ਲਾਗਤ ${match[2]} ਹੈ, ਤਾਂ ਮੁੱਲ ਵਾਧਾ ਕਿੰਨਾ ਹੈ?`;
   }
 
@@ -299,9 +299,21 @@ function cp3Explanation(question: (typeof ECO_CP003_REVIEW_V2)[number], locale: 
     return locale === "hi" ? `${question.canonicalAnswer} का अर्थ ${localized} है।` : `${question.canonicalAnswer} ਦਾ ਅਰਥ ${localized} ਹੈ।`;
   }
   if (ql === 2) return locale === "hi" ? `सही संबंध है: ${cp3Formula(question.canonicalAnswer, locale)}।` : `ਸਹੀ ਸੰਬੰਧ ਹੈ: ${cp3Formula(question.canonicalAnswer, locale)}।`;
-  if (ql === 3) return locale === "hi"
-    ? `शुद्ध माप प्राप्त करने के लिए संबंधित सकल माप से मूल्यह्रास घटाया जाता है। इसलिए ${cp3Formula(question.explanation.replace(/\.$/u, ""), locale)}।`
-    : `ਸ਼ੁੱਧ ਮਾਪ ਲਈ ਸੰਬੰਧਿਤ ਕੁੱਲ ਮਾਪ ਵਿੱਚੋਂ ਮੁੱਲ ਘਟਾਅ ਘਟਾਇਆ ਜਾਂਦਾ ਹੈ। ਇਸ ਲਈ ${cp3Formula(question.explanation.replace(/\.$/u, ""), locale)}।`;
+  if (ql === 3) {
+    if (question.canonicalAnswer === "NDP") {
+      return locale === "hi"
+        ? "NDP, GDP में से मूल्यह्रास घटाने पर प्राप्त होता है। इसलिए NDP = GDP - मूल्यह्रास।"
+        : "NDP, GDP ਵਿੱਚੋਂ ਮੁੱਲ ਘਟਾਅ ਘਟਾਉਣ ਤੇ ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ। ਇਸ ਲਈ NDP = GDP - ਮੁੱਲ ਘਟਾਅ।";
+    }
+    if (question.canonicalAnswer === "NNP") {
+      return locale === "hi"
+        ? "NNP, GNP में से मूल्यह्रास घटाने पर प्राप्त होता है। इसलिए NNP = GNP - मूल्यह्रास।"
+        : "NNP, GNP ਵਿੱਚੋਂ ਮੁੱਲ ਘਟਾਅ ਘਟਾਉਣ ਤੇ ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ। ਇਸ ਲਈ NNP = GNP - ਮੁੱਲ ਘਟਾਅ।";
+    }
+    return locale === "hi"
+      ? `शुद्ध माप प्राप्त करने के लिए संबंधित सकल माप से मूल्यह्रास घटाया जाता है। इसलिए ${cp3Formula(question.explanation.replace(/\.$/u, ""), locale)}।`
+      : `ਸ਼ੁੱਧ ਮਾਪ ਲਈ ਸੰਬੰਧਿਤ ਕੁੱਲ ਮਾਪ ਵਿੱਚੋਂ ਮੁੱਲ ਘਟਾਅ ਘਟਾਇਆ ਜਾਂਦਾ ਹੈ। ਇਸ ਲਈ ${cp3Formula(question.explanation.replace(/\.$/u, ""), locale)}।`;
+  }
   if (ql === 4) return locale === "hi"
     ? "NFIA घरेलू समष्टि माप को संबंधित राष्ट्रीय समष्टि माप में समायोजित करता है। इसलिए GNP = GDP + NFIA।"
     : "NFIA ਘਰੇਲੂ ਸਮੂਹਕ ਮਾਪ ਨੂੰ ਸੰਬੰਧਿਤ ਰਾਸ਼ਟਰੀ ਸਮੂਹਕ ਮਾਪ ਵਿੱਚ ਸਮਾਇਤ ਕਰਦਾ ਹੈ। ਇਸ ਲਈ GNP = GDP + NFIA।";
