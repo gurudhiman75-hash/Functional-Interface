@@ -1,6 +1,6 @@
 # COA-001 — Course of Action
 
-Status: **COA-CP-001 IMPLEMENTED / HUMAN REVIEW PENDING**
+Status: **COA-CP-010 IMPLEMENTED / HUMAN REVIEW PENDING**
 
 ## 1. Chapter purpose
 
@@ -52,7 +52,7 @@ These dimensions form the semantic authority. Learner-facing explanations should
 
 ## 4. Permanent Question Logic allocation
 
-The initial proposed permanent allocation is nine QLs. A QL may be split or merged only if source review proves a materially different learner operation.
+The final-frozen semantic allocation contains eight active QLs: COA-QL-001..006, COA-QL-008 and COA-QL-009. COA-QL-007 is retired from future semantic expansion and survives only as a legacy presentation/calibration identifier. No additional permanent semantic QL was justified by CP008 source saturation.
 
 ### COA-QL-001 — Direct remedial action
 
@@ -128,17 +128,9 @@ Primary traps:
 
 Hard questions should make the excessive action superficially attractive, not absurd.
 
-### COA-QL-007 — Paired courses: only I / only II / both / neither
+### COA-QL-007 — Retired semantic identifier / legacy paired presentation
 
-Two independently authored actions are judged against the same statement.
-
-All four answer classes must be represented within every meaningful scenario family:
-- only I follows;
-- only II follows;
-- both follow;
-- neither follows.
-
-The generator must never infer one action’s validity from the other action’s wording or position.
+QL007 is **not** an active semantic family. Paired I/II judgment is a presentation layer applied to the active semantic authorities. The two historical CP001 QL007 calibration states remain frozen only for backward compatibility and audit traceability. New semantic generation must reject QL007 as a selector.
 
 ### COA-QL-008 — Multi-step / ordered response
 
@@ -170,8 +162,9 @@ Initial supported profiles should be source-audited before freeze, but the engin
 - `TWO_ACTION_FOUR_WAY` — Course I and II; only I / only II / both / neither;
 - `TWO_ACTION_FIVE_CODE` — conventional five-option coded presentation where source-supported;
 - `THREE_ACTION_COMBINATION` — I/II/III combination format where source-supported;
-- `SINGLE_BEST_ACTION` — choose the most appropriate action among alternatives;
 - `SEQUENCE_ACTION` — choose the correct order or next action.
+
+`SINGLE_BEST_ACTION` is excluded from core COA and belongs to the Decision Making / situational-judgment boundary.
 
 No profile should be labelled direct-PYQ-backed until dated source evidence is recorded.
 
@@ -387,11 +380,11 @@ Own QL009; cross-family difficult cases without English complexity inflation.
 ### COA-CP-008 — Source saturation + exam-realness audit
 Run real-paper/source census, close pattern gaps, and freeze QL allocation only when no material learner operation remains uncovered.
 
-### COA-CP-009 — Hindi/Punjabi localization
-Native editorial review, semantic parity, grammar/naturalness gates.
+### COA-CP-009 — Hindi/Punjabi localization — APPROVED / FROZEN
+Full Hindi/Punjabi localization covers all 130 frozen semantic authorities and 260 localized learner surfaces. Native wording, semantic parity and leakage gates are approved/frozen.
 
-### COA-CP-010 — Question Studio integration
-Register reviewed generation only after English + multilingual authority is approved.
+### COA-CP-010 — Question Studio integration — IMPLEMENTED / HUMAN REVIEW PENDING
+COA-001 is registered in Question Studio for review-only EN/HI/PA generation across the eight active semantic QLs and three approved presentation profiles. Review runs may persist; canonical Question Bank, test/mock and public/student gates remain closed.
 
 ### COA-CP-011 — Final editorial/diversity freeze
 Large semantic saturation audit, anti-gaming gates, review corpus, and explicit human approval record.
@@ -401,17 +394,18 @@ Lifecycle-only promotion after explicit approval. Question Bank/test/mock may be
 
 ## 16. Lifecycle boundary
 
-Current CP001 state:
+Current CP010 state:
 
 ```text
-semantic design:                 IMPLEMENTED_REVIEW_PENDING
-proposed QLs:                    COA-QL-001..009
-QL freeze:                       false
-English CP001 authority:         IMPLEMENTED_REVIEW_PENDING
-English calibration corpus:      24 QUESTIONS
-Hindi/Punjabi:                   NOT_STARTED
-Question Studio:                 CLOSED
-Question Bank writes:            CLOSED
+semantic design:                 APPROVED_FROZEN
+active semantic QLs:             COA-QL-001..006, COA-QL-008..009
+retired semantic QLs:            COA-QL-007 (legacy compatibility only)
+English authority:               APPROVED_FROZEN
+Hindi/Punjabi authority:         APPROVED_FROZEN
+Question Studio:                 CONNECTED_REVIEW_ONLY
+Question Studio languages:       EN / HI / PA
+review-run persistence:          ALLOWED
+canonical Question Bank writes:  CLOSED
 test/mock eligibility:           CLOSED
 public/student publication:      CLOSED
 ```
