@@ -36,7 +36,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     1,
     "Medium",
-    "A group of similar cells performing a common function is called:",
+    "A tissue is a group of:",
     "similar cells performing a common function",
     [
       "different organs forming a system",
