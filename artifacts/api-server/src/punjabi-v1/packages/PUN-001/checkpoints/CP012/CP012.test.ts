@@ -37,6 +37,7 @@ const global=new Set<string>();
 const f08Verdicts=new Set<string>();
 for(const family of CP012_FAMILIES){
  const local=new Set<string>();
+ const targetAuthorityCoverage=new Set<string>();
  for(const difficulty of family.targetDifficulties){
   for(let seed=1;seed<=family.semanticCapacity;seed++){
    const q=family.generate(seed,difficulty);
@@ -55,10 +56,12 @@ for(const family of CP012_FAMILIES){
    }
    assert(!local.has(q.metadata.fingerprint),`${q.id}: duplicate family fingerprint`);local.add(q.metadata.fingerprint);
    assert(!global.has(q.metadata.fingerprint),`${q.id}: cross-family collision`);global.add(q.metadata.fingerprint);
+   targetAuthorityCoverage.add(q.metadata.authorityIds[0]!);
    if(family.familyId==="F08")f08Verdicts.add(q.options[q.correctIndex]!);
   }
  }
  assert.equal(local.size,family.semanticCapacity,`${family.familyId}: semantic capacity mismatch`);
+ assert.equal(targetAuthorityCoverage.size,133,`${family.familyId}: every exhaustive CP012 authority must be exercised as a target`);
 }
 assert.equal(global.size,6118);
 assert.equal(f08Verdicts.size,4,"F08 must expose all four truth outcomes");
