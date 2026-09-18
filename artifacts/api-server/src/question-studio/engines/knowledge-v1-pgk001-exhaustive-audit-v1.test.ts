@@ -53,7 +53,7 @@ function wordCount(text: string) {
 }
 
 function sentenceCount(text: string) {
-  return text.split(/[.!?]+/).map((x) => x.trim()).filter(Boolean).length;
+  return text.split(/[!?]+|(?<!\\d)\\.(?!\\d)/).map((x) => x.trim()).filter(Boolean).length;
 }
 
 const exactStem = new Map<string, string[]>();
