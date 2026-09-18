@@ -1,15 +1,12 @@
 # ENV-CP-014 Status
 
-- Lifecycle: REVIEW CANDIDATE.
-- Review version: V1.
-- Runtime registration: blocked.
-- Human approval: pending.
-- Merge into `New-main`: blocked until project-owner approval.
-- Review surface: 48 questions across 12 QLs.
-- Stem baseline: short, simple SSC/Banking-style question wording.
-- Explanation baseline: slightly fuller than previous draft; usually adds a clear cause, distinction or context instead of repeating the answer.
-- Coverage: human-caused warming, evidence, sea-level rise, cryosphere, extremes, ocean changes, broad impacts, mitigation, adaptation and carbon sinks.
-- Treaty details: deferred to ENV-CP-017.
-- Current emissions rankings, annual temperature records and mutable projection/target-year trivia: excluded.
-- Source verification date: 2026-09-16.
-- Source baseline: IPCC AR6 and NASA climate-science material; mitigation/adaptation concepts use established climate-science definitions.
+- V1 lifecycle: APPROVED / CONTENT-FROZEN.
+- Approved V1 review surface: 48 questions across 12 QLs.
+- Runtime registration: separate from content approval.
+- V2 remediation lifecycle: REVIEW CANDIDATE.
+- V2 remediation surface: 12 questions across 3 additional QLs.
+- V2 added coverage: NAPCC 2008 and the original eight core National Missions.
+- Ownership correction: India-specific climate programmes are owned here, not by ENV-CP-018.
+- Treaty details remain owned by ENV-CP-017.
+- Current rankings, annual records, mutable target data and current programme statistics remain excluded.
+- Source baseline: IPCC/NASA for climate science; MoEFCC for NAPCC.
