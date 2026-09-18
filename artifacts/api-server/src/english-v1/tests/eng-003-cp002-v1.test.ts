@@ -37,6 +37,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(first.explanation.includes("Here,"), `${first.questionId} explanation must apply the concept to the sentence`);
     assert(first.explanation.includes("Correct sentence:"), `${first.questionId} explanation must show the completed sentence`);
     assert(first.explanation.includes(first.correctedSentence), `${first.questionId} explanation lost the completed sentence`);
+    assert(!first.explanation.includes("continuing at “for"), `${first.questionId} has awkward continuing-action wording`);
     assert(first.metadata.chapterId === "ENG-003", `${first.questionId} has the wrong chapter id`);
     assert(first.metadata.cpId === "ENG-003-CP002", `${first.questionId} has the wrong checkpoint id`);
     assert(first.metadata.reviewOnly === true, `${first.questionId} must remain review-only`);
