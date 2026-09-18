@@ -1,6 +1,6 @@
 # BLR-CP-007 — Coded Relation Construction
 
-Status: **V4 Wave 3 English corpus is product-owner approved after final wording polish; English freeze, localisation, activation, release and merge remain locked**.
+Status: **English/Hindi/Punjabi learner corpora are multilingual-frozen; the shared standard Question Studio admin review path is registered; current generated review items remain Question-Bank/test/mock/public-release locked.**
 
 ## Permanent QLs
 
@@ -15,10 +15,10 @@ Next available Blood Relations identity: `BLR-QL-036`.
 ## Current learner-facing authority
 
 ```text
-BLR_CP007_V4_WAVE3_PRODUCT_OWNER_APPROVED
+BLR_CP007_MULTILINGUAL_FROZEN
 ```
 
-V1 graph-solver and permanent-identity evidence remains valid. V2 option-security evidence and V3 scenario evidence remain retained regression authorities. V4 Wave 1 and Wave 2 are superseded learner-facing review layers; their tests remain active.
+The approved V4 Wave 3 English corpus remains the learner-wording source beneath the English freeze and Hindi/Punjabi localization/freeze layers. V1 graph-solver and permanent-identity evidence remains valid; V2 option-security and V3 scenario evidence remain retained regression authorities.
 
 ## Final English inventory
 
@@ -89,17 +89,20 @@ QL-034 average statements                  6.375
 ## Lifecycle
 
 ```text
-product-owner approval:       granted with final polish applied
-English freeze:               pending
-Hindi/Punjabi:                not started
-Question Studio:              disabled
-Question Bank:                NOT_STORED
-mock-test product release:    disabled
-public publication:           false
-production staging:           disabled
-merge:                        not authorised
+product-owner English review: granted
+English freeze:               complete
+Hindi/Punjabi localization:   complete
+multilingual freeze:          complete
+Question Studio admin review: registered in shared standard workflow
+current Question Bank state:  NOT_STORED / non-writable
+current test/mock eligibility: ineligible
+current public publication:   false / LOCKED
+automatic student release:    false
+future release capability:    releaseEligibleAfterApproval = true
 ```
+
+Question Studio review registration is not a release gate. Generated review items must remain locked until a separate explicit approval/promotion transition makes them eligible for Question Bank conversion and downstream test/publication workflows.
 
 ## Next gate
 
-Run the renewed chapter-wide English audit on the approved corpus, then take the manual English-freeze decision. Localisation and product integration remain downstream of that freeze.
+Keep the multilingual corpus frozen while the chapter-wide final audit completes. Any future learner-wording change requires a superseding editorial/parity/freeze authority; any product release requires the separate approval/promotion transition.
