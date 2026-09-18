@@ -191,7 +191,7 @@ const STEM_VARIANTS: Readonly<Record<Di002TaskKind, readonly StemBuilder[]>> = O
   ]),
 });
 
-function diversifyStem(seed: string, rows: readonly Di002Row[], question: Di002Question): string {
+function diversifyStem(rows: readonly Di002Row[], question: Di002Question): string {
   const variants = STEM_VARIANTS[question.kind];
   const variantIndex = presentationVariantIndex(question.questionId, variants.length);
   return variants[variantIndex]!({ rows, question });
@@ -203,7 +203,7 @@ export function generateDi002AdvancedTableSet(
   const generated = generateDi002AdvancedTableSetBase(input);
   const questions = generated.questions.map((question) => Object.freeze({
     ...question,
-    stem: diversifyStem(generated.seed, generated.stimulus.rows, question),
+    stem: diversifyStem(generated.stimulus.rows, question),
   }));
 
   return Object.freeze({
