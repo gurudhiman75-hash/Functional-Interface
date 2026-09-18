@@ -31,7 +31,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(!first.options.some((option) => option.toLowerCase() === "no improvement"), `${first.questionId} leaked sentence-improvement option text`);
     assert(first.correctOptionIndex >= 0 && first.correctOptionIndex <= 3, `${first.questionId} has an invalid answer index`);
     assert(first.blankIndex >= 0 && first.blankIndex < first.segments.length, `${first.questionId} has an invalid blank index`);
-    assert(first.segments[first.blankIndex] === "_____", `${first.questionId} does not blank the intended segment`);
+    assert(first.segments[first.blankIndex]?.startsWith("_____ "), `${first.questionId} does not blank only the intended determiner`);
     assert((first.sentence.match(/_____/g) ?? []).length === 1, `${first.questionId} must contain exactly one visible blank`);
     assert(!first.correctedSentence.includes("_____"), `${first.questionId} corrected sentence still contains the blank`);
     assert(!first.sentence.includes(" / "), `${first.questionId} leaked Error Spotting slash segmentation`);
