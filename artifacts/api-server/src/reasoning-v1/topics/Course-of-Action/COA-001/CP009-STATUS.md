@@ -1,6 +1,6 @@
 # COA-001 / COA-CP-009 — Status
 
-Status: **LANGUAGE CALIBRATION IMPLEMENTED / HUMAN REVIEW PENDING**
+Status: **LANGUAGE CALIBRATION APPROVED / FROZEN**
 
 ## Purpose
 
@@ -39,7 +39,7 @@ Total localized calibration surfaces: **20** (10 Hindi + 10 Punjabi).
 
 The current English authority contains more than one hundred reviewed semantic states plus the CP008 profile authorities. A poor terminology choice repeated across that whole corpus would be expensive to undo and would reduce learner clarity.
 
-Therefore full exhaustive localization remains blocked until the product owner approves the CP009 calibration pack.
+The product owner approved this calibration on **2026-09-18**. The approved terminology and sentence-style rules are now the mandatory baseline for the full Hindi/Punjabi rollout.
 
 ## Files
 
@@ -53,11 +53,11 @@ Therefore full exhaustive localization remains blocked until the product owner a
 
 - CP001–CP008 English: **APPROVED / FROZEN**
 - English taxonomy: **FINAL-FROZEN**
-- CP009 localization: **HUMAN LANGUAGE REVIEW PENDING**
-- full Hindi/Punjabi authority rollout: **BLOCKED UNTIL CP009 CALIBRATION APPROVAL**
+- CP009 localization calibration: **APPROVED / FROZEN**
+- full Hindi/Punjabi authority rollout: **AUTHORIZED AS NEXT IMPLEMENTATION STEP / NOT YET COMPLETE**
 - Question Studio: **CLOSED**
 - Question Bank writes: **CLOSED**
 - test/mock eligibility: **CLOSED**
 - public/student delivery: **CLOSED**
 
-Green CI proves structural and semantic parity only. It does not replace human review of natural Hindi/Punjabi wording.
+Human language approval is recorded for the calibration pack only. Full-corpus localization must still pass exhaustive semantic-parity, script/leakage and editorial checks before downstream integration.
