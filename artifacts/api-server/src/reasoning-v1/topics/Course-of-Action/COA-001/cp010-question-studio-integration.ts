@@ -775,10 +775,10 @@ export const COA_CP010_QUESTION_STUDIO_PACKAGE = Object.freeze({
   subtopic: "Course of Action" as const,
   label: "Reasoning · Course of Action · COA-001" as const,
   enabled: true as const,
-  cpIds: Object.freeze([
+  cpIds: [
     "COA-CP-001", "COA-CP-002", "COA-CP-003", "COA-CP-004", "COA-CP-005",
     "COA-CP-006", "COA-CP-007", "COA-CP-008", "COA-CP-009", "COA-CP-010",
-  ]),
+  ],
   canonicalProblems: Object.freeze(COA_CP010_ACTIVE_QL_IDS.map((qlId) => Object.freeze({
     id: qlId,
     label: qlId,
@@ -796,11 +796,11 @@ export const COA_CP010_QUESTION_STUDIO_PACKAGE = Object.freeze({
           : "SOURCE_SUPPORTED_CORE_VARIANT",
   }))),
   patternIds: COA_CP010_PRESENTATION_PROFILES,
-  supportedLanguages: Object.freeze(["en", "hi", "pa"] as const),
-  supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"] as const),
+  supportedLanguages: ["en", "hi", "pa"],
+  supportedDifficulties: ["Easy", "Medium", "Hard"],
   difficultyFilterSupported: true as const,
   runtimeMode: COA_CP010_RUNTIME_MODE,
-  supportedRuntimeModes: Object.freeze([COA_CP010_RUNTIME_MODE]),
+  supportedRuntimeModes: [COA_CP010_RUNTIME_MODE],
   lifecycleId: lifecycle.lifecycleId,
   lifecycleStage: lifecycle.stage,
   reviewSurfaceRequired: lifecycle.reviewSurfaceRequired,
