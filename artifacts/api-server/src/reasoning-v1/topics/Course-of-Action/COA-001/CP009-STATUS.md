@@ -1,63 +1,87 @@
 # COA-001 / COA-CP-009 — Status
 
-Status: **LANGUAGE CALIBRATION APPROVED / FROZEN**
+Status: **FULL HINDI/PUNJABI CORPUS IMPLEMENTED / HUMAN REVIEW PENDING**
 
-## Purpose
-
-CP009 starts Hindi/Punjabi localization only after the English COA taxonomy became final-frozen.
-
-This checkpoint deliberately uses a calibration gate before mass rollout. It does **not** yet claim that all English authorities have been localized.
-
-## Calibration scope
-
-Ten semantic authorities are localized into both Hindi and Punjabi:
-
-- QL001 direct remedy — `COA-SC-001`
-- QL002 prevention — `COA-SC-005`
-- QL003 verification before irreversible action — `COA-SC-007`
-- QL004 administrative response — `COA-SC-011`
-- QL005 constraint-aware action — `COA-SC-013`
-- QL006 proportionality — `COA-SC-017`
-- QL008 ordered response — `COA-SC-022`
-- QL009 integrated reasoning — `COA-SC-023`
-- CP008 five-code exclusive Either profile — `COA-EITHER-002`
-- CP008 three-action combination profile — `COA-3A-003`
-
-Total localized calibration surfaces: **20** (10 Hindi + 10 Punjabi).
-
-## Localization policy
-
-- English semantic authority remains immutable.
-- Scenario ID, QL, difficulty, domain, action identity/order, answer class/mask and correct option index must remain identical.
-- Hindi and Punjabi use short, natural exam-prep language rather than literal English syntax.
-- Core English instructional leakage is blocked.
-- Cross-script leakage between Devanagari and Gurmukhi is blocked.
-- Familiar technical loanwords may be transliterated into native script where a forced formal translation would make the question harder.
-- Explanations remain simple and directly state why each course is or is not suitable.
-
-## Why calibration comes before full rollout
-
-The current English authority contains more than one hundred reviewed semantic states plus the CP008 profile authorities. A poor terminology choice repeated across that whole corpus would be expensive to undo and would reduce learner clarity.
-
-The product owner approved this calibration on **2026-09-18**. The approved terminology and sentence-style rules are now the mandatory baseline for the full Hindi/Punjabi rollout.
-
-## Files
-
-- `cp009-localization-calibration.ts`
-- `cp009-localization-generator.ts`
-- `cp009-localization-proof.test.ts`
-- `COA-CP-009-LOCALIZATION-REVIEW.md`
-- dedicated CP009 CI gate
-
-## Lifecycle
+## Frozen baseline
 
 - CP001–CP008 English: **APPROVED / FROZEN**
 - English taxonomy: **FINAL-FROZEN**
-- CP009 localization calibration: **APPROVED / FROZEN**
-- full Hindi/Punjabi authority rollout: **AUTHORIZED AS NEXT IMPLEMENTATION STEP / NOT YET COMPLETE**
+- CP009 language calibration: **APPROVED / FROZEN** on 2026-09-18
+
+The approved calibration wording is reused exactly in the full localization registry; it is not silently retranslated.
+
+## Full localization scope
+
+The full frozen Course-of-Action authority is now localized into Hindi and Punjabi:
+
+- 120 ordinary semantic authorities × 2 locales = **240 localized surfaces**
+- 4 genuine `Either I or II` authorities × 2 locales = **8 localized surfaces**
+- 6 three-action combination authorities × 2 locales = **12 localized surfaces**
+- total semantic authorities = **130**
+- total localized learner surfaces = **260**
+
+All 120 ordinary authorities are covered, including the two legacy QL007 calibration states for backward compatibility. QL007 remains retired from future semantic expansion and is explicitly marked legacy at runtime.
+
+## Semantic parity guarantees
+
+The full-corpus proof requires Hindi and Punjabi to preserve the frozen English:
+
+- semantic authority ID;
+- QL ID;
+- difficulty;
+- domain;
+- action identity and order;
+- four-way answer class and correct option index;
+- five-code exclusive-Either relation and correct option index;
+- three-action truth mask and authored option ordering.
+
+The proof also checks:
+
+- deterministic localized generation;
+- native-script presence;
+- Devanagari/Gurmukhi cross-script leakage;
+- core English learner-wording leakage;
+- exact reuse of the approved CP009 calibration text;
+- no expansion of retired QL007 semantics;
+- downstream lifecycle gates remain closed.
+
+## Implemented files
+
+- `cp009-localization-types.ts`
+- `cp009-localized-cp001.ts`
+- `cp009-localized-cp002.ts`
+- `cp009-localized-cp003.ts`
+- `cp009-localized-cp004.ts`
+- `cp009-localized-cp006.ts`
+- `cp009-localized-cp007.ts`
+- `cp009-localized-profiles.ts`
+- `cp009-full-localization-registry.ts`
+- `cp009-full-localization-generator.ts`
+- `cp009-full-localization-proof.test.ts`
+- `COA-CP-009-FULL-LOCALIZATION-REVIEW.md`
+
+The CP009 workflow runs both the approved calibration proof and the whole-corpus proof.
+
+## Human review gate
+
+Full-corpus localization is implemented but **not frozen yet**.
+
+Human review should focus on:
+
+- natural Hindi/Punjabi rather than literal translation;
+- simple beginner-friendly explanations;
+- awkward or overly formal native wording;
+- unnecessary transliterated technical terms;
+- repeated phrasing across domains;
+- whether hard questions remain hard because of reasoning, not language.
+
+## Lifecycle
+
+- CP009 calibration: **APPROVED / FROZEN**
+- CP009 exhaustive HI/PA rollout: **IMPLEMENTED / HUMAN REVIEW PENDING**
 - Question Studio: **CLOSED**
 - Question Bank writes: **CLOSED**
 - test/mock eligibility: **CLOSED**
 - public/student delivery: **CLOSED**
 
-Human language approval is recorded for the calibration pack only. Full-corpus localization must still pass exhaustive semantic-parity, script/leakage and editorial checks before downstream integration.
+Green CI proves structural and semantic parity. Human editorial approval is still required before the full Hindi/Punjabi corpus is frozen or any downstream integration is opened.
