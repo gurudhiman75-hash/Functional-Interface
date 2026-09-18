@@ -47,6 +47,21 @@ function surfaceText(surfaceId: string, variants: readonly string[]) {
   return variants[index] ?? variants[0]!;
 }
 
+function formatQuotient(numerator: number, denominator: number): string {
+  const n = BigInt(numerator);
+  const d = BigInt(denominator);
+  const hundredths = (n * 100n + d / 2n) / d;
+  const whole = hundredths / 100n;
+  const fraction = Number(hundredths % 100n);
+  if (fraction === 0) return String(whole);
+  if (fraction % 10 === 0) return `${whole}.${fraction / 10}`;
+  return `${whole}.${String(fraction).padStart(2, "0")}`;
+}
+
+function formatPercent(numerator: number, denominator: number): string {
+  return `${formatQuotient(numerator * 100, denominator)}%`;
+}
+
 /**
  * Hard questions must require more than a direct read plus one arithmetic step.
  * For ratio and combined-angle families, one requested sector is therefore the
@@ -54,7 +69,13 @@ function surfaceText(surfaceId: string, variants: readonly string[]) {
  * the pie and then performs the requested comparison/conversion.
  */
 function recalibrateHardQuestion(set: Di005V2QuestionSet, question: Di005V2Question): Di005V2Question {
-  if (question.kind !== "RATIO_OF_TWO_SECTORS" && question.kind !== "COMBINED_SECTOR_ANGLE") return question;
+  const calibratedKinds = new Set([
+    "RATIO_OF_TWO_SECTORS",
+    "RELATIVE_SECTOR_PERCENT_EXCESS",
+    "COMBINED_SECTOR_ANGLE",
+    "REMAINDER_AFTER_TWO_SECTORS_COUNT",
+  ]);
+  if (!calibratedKinds.has(question.kind)) return question;
 
   const hiddenIndex = set.stimulus.hiddenPercentIndex;
   const visibleIndexes = set.stimulus.slices
@@ -67,6 +88,7 @@ function recalibrateHardQuestion(set: Di005V2QuestionSet, question: Di005V2Quest
     (sum, slice, index) => index === hiddenIndex ? sum : sum + slice.percent,
     0,
   );
+  const recoveryStep = `The printed sectors total ${visibleTotal}%, so ${hidden.category} = 100% - ${visibleTotal}% = ${hidden.percent}%.`;
 
   if (question.kind === "RATIO_OF_TWO_SECTORS") {
     const ordered = shuffle(seededRandom(`${set.seed}:RATIO_OF_TWO_SECTORS:hard-order`), [hiddenIndex, visibleIndex]);
@@ -94,7 +116,7 @@ function recalibrateHardQuestion(set: Di005V2QuestionSet, question: Di005V2Quest
       explanation: {
         keyIdea: "First find the missing sector share. Then form the requested ratio from the two sector percentages.",
         steps: [
-          `The printed sectors total ${visibleTotal}%, so ${hidden.category} = 100% - ${visibleTotal}% = ${hidden.percent}%.`,
+          recoveryStep,
           `${first.category}:${second.category} = ${first.percent}:${second.percent}.`,
           `Simplifying gives ${answer}.`,
         ],
@@ -103,38 +125,116 @@ function recalibrateHardQuestion(set: Di005V2QuestionSet, question: Di005V2Quest
     };
   }
 
-  const ordered = shuffle(seededRandom(`${set.seed}:COMBINED_SECTOR_ANGLE:hard-order`), [hiddenIndex, visibleIndex]);
+  if (question.kind === "RELATIVE_SECTOR_PERCENT_EXCESS") {
+    const largerIndex = hidden.percent > visible.percent ? hiddenIndex : visibleIndex;
+    const smallerIndex = largerIndex === hiddenIndex ? visibleIndex : hiddenIndex;
+    const larger = set.stimulus.slices[largerIndex]!;
+    const smaller = set.stimulus.slices[smallerIndex]!;
+    const difference = larger.percent - smaller.percent;
+    const answer = formatPercent(difference, smaller.percent);
+    const calibrated = optionizedQuestion(set, question, answer, [
+      { text: `${difference}%`, misconceptionId: "USE_PERCENTAGE_POINT_GAP", derivation: "Reports the percentage-point gap instead of relative percentage excess." },
+      { text: formatPercent(difference, larger.percent), misconceptionId: "USE_LARGER_AS_BASE", derivation: "Uses the larger category as the comparison base." },
+      { text: formatPercent(larger.percent, smaller.percent), misconceptionId: "REPORT_LARGER_AS_PERCENT_OF_SMALLER", derivation: "Reports the full larger share relative to the smaller category." },
+      { text: formatPercent(smaller.percent, larger.percent), misconceptionId: "REVERSE_RELATIVE_PERCENT", derivation: "Forms the reverse relative comparison." },
+      { text: formatPercent(difference, larger.percent + smaller.percent), misconceptionId: "USE_PAIR_TOTAL_AS_BASE", derivation: "Uses the combined pair as the comparison base." },
+      { text: `${difference + 5}%`, misconceptionId: "ADD_FIVE_TO_POINT_GAP", derivation: "Adds five percentage points to the share gap and reports it as the relative percentage." },
+    ], "hard-calibrated-options");
+
+    return {
+      ...calibrated,
+      stem: surfaceText(question.stemSurfaceId, [
+        `${larger.category} represents what percent more than ${smaller.category}?`,
+        `By what percentage is the count for ${larger.category} greater than that for ${smaller.category}?`,
+        `The ${larger.category} sector exceeds the ${smaller.category} sector by what percentage of ${smaller.category}?`,
+      ]),
+      explanation: {
+        keyIdea: "First recover the missing sector. Then compare the difference with the smaller category, which is the base.",
+        steps: [
+          recoveryStep,
+          `Difference in shares = ${larger.percent}% - ${smaller.percent}% = ${difference} percentage points.`,
+          `Percentage more = ${difference}/${smaller.percent} × 100 = ${answer}.`,
+        ],
+      },
+      evidence: { largerIndex, smallerIndex },
+    };
+  }
+
+  if (question.kind === "COMBINED_SECTOR_ANGLE") {
+    const ordered = shuffle(seededRandom(`${set.seed}:COMBINED_SECTOR_ANGLE:hard-order`), [hiddenIndex, visibleIndex]);
+    const firstIndex = ordered[0]!;
+    const secondIndex = ordered[1]!;
+    const first = set.stimulus.slices[firstIndex]!;
+    const second = set.stimulus.slices[secondIndex]!;
+    const combinedPercent = first.percent + second.percent;
+    const combinedAngle = combinedPercent * 3.6;
+    const firstAngle = first.percent * 3.6;
+    const secondAngle = second.percent * 3.6;
+    const answer = `${combinedAngle}°`;
+    const calibrated = optionizedQuestion(set, question, answer, [
+      { text: `${Math.abs(firstAngle - secondAngle)}°`, misconceptionId: "USE_ANGLE_DIFFERENCE", derivation: "Subtracts the two sector angles instead of combining them." },
+      { text: `${firstAngle}°`, misconceptionId: "USE_FIRST_ANGLE_ONLY", derivation: "Uses only the first named sector angle." },
+      { text: `${secondAngle}°`, misconceptionId: "USE_SECOND_ANGLE_ONLY", derivation: "Uses only the second named sector angle." },
+      { text: `${360 - combinedAngle}°`, misconceptionId: "USE_REMAINING_ANGLE", derivation: "Finds the angle of the other three sectors." },
+      { text: `${combinedPercent}°`, misconceptionId: "COPY_COMBINED_PERCENT_AS_DEGREES", derivation: "Adds the two percentages but forgets to convert the result to degrees." },
+      { text: `${combinedAngle + 18}°`, misconceptionId: "ADD_FIVE_PERCENT_ANGLE", derivation: "Uses a combined share five percentage points too high." },
+    ], "hard-calibrated-options");
+
+    return {
+      ...calibrated,
+      stem: surfaceText(question.stemSurfaceId, [
+        `What is the combined central angle of ${first.category} and ${second.category}?`,
+        `Together, the sectors for ${first.category} and ${second.category} subtend what angle at the centre?`,
+        `Find the total angle covered by ${first.category} and ${second.category}.`,
+      ]),
+      explanation: {
+        keyIdea: "First recover the missing sector share, then convert the two required shares to angles and add them.",
+        steps: [
+          recoveryStep,
+          `${first.category}: ${first.percent}% × 360°/100 = ${firstAngle}°; ${second.category}: ${second.percent}% × 360°/100 = ${secondAngle}°.`,
+          `Combined angle = ${firstAngle}° + ${secondAngle}° = ${combinedAngle}°.`,
+        ],
+      },
+      evidence: { firstIndex, secondIndex },
+    };
+  }
+
+  const ordered = shuffle(seededRandom(`${set.seed}:REMAINDER_AFTER_TWO_SECTORS_COUNT:hard-order`), [hiddenIndex, visibleIndex]);
   const firstIndex = ordered[0]!;
   const secondIndex = ordered[1]!;
   const first = set.stimulus.slices[firstIndex]!;
   const second = set.stimulus.slices[secondIndex]!;
-  const combinedPercent = first.percent + second.percent;
-  const combinedAngle = combinedPercent * 3.6;
-  const firstAngle = first.percent * 3.6;
-  const secondAngle = second.percent * 3.6;
-  const answer = `${combinedAngle}°`;
+  const excludedPercent = first.percent + second.percent;
+  const remainderPercent = 100 - excludedPercent;
+  const remainderCount = (set.stimulus.totalValue * remainderPercent) / 100;
+  const firstCount = (set.stimulus.totalValue * first.percent) / 100;
+  const secondCount = (set.stimulus.totalValue * second.percent) / 100;
+  const excludedCount = firstCount + secondCount;
+  const step = set.stimulus.totalValue / 20;
+  const answer = String(remainderCount);
   const calibrated = optionizedQuestion(set, question, answer, [
-    { text: `${Math.abs(firstAngle - secondAngle)}°`, misconceptionId: "USE_ANGLE_DIFFERENCE", derivation: "Subtracts the two sector angles instead of combining them." },
-    { text: `${firstAngle}°`, misconceptionId: "USE_FIRST_ANGLE_ONLY", derivation: "Uses only the first named sector angle." },
-    { text: `${secondAngle}°`, misconceptionId: "USE_SECOND_ANGLE_ONLY", derivation: "Uses only the second named sector angle." },
-    { text: `${360 - combinedAngle}°`, misconceptionId: "USE_REMAINING_ANGLE", derivation: "Finds the angle of the other three sectors." },
-    { text: `${combinedPercent}°`, misconceptionId: "COPY_COMBINED_PERCENT_AS_DEGREES", derivation: "Adds the two percentages but forgets to convert the result to degrees." },
-    { text: `${combinedAngle + 18}°`, misconceptionId: "ADD_FIVE_PERCENT_ANGLE", derivation: "Uses a combined share five percentage points too high." },
+    { text: String(excludedCount), misconceptionId: "COUNT_EXCLUDED_PAIR", derivation: "Counts the two excluded categories instead of the remaining categories." },
+    { text: String(firstCount), misconceptionId: "COUNT_FIRST_EXCLUDED_ONLY", derivation: "Uses only the first excluded category count." },
+    { text: String(secondCount), misconceptionId: "COUNT_SECOND_EXCLUDED_ONLY", derivation: "Uses only the second excluded category count." },
+    { text: String(set.stimulus.totalValue - firstCount), misconceptionId: "REMOVE_FIRST_ONLY", derivation: "Removes only the first excluded category." },
+    { text: String(set.stimulus.totalValue - secondCount), misconceptionId: "REMOVE_SECOND_ONLY", derivation: "Removes only the second excluded category." },
+    { text: String(remainderCount + step), misconceptionId: "ONE_SCALE_STEP_HIGH", derivation: "Uses a remaining share five percentage points too high." },
+    { text: String(Math.max(0, remainderCount - step)), misconceptionId: "ONE_SCALE_STEP_LOW", derivation: "Uses a remaining share five percentage points too low." },
   ], "hard-calibrated-options");
 
   return {
     ...calibrated,
     stem: surfaceText(question.stemSurfaceId, [
-      `What is the combined central angle of ${first.category} and ${second.category}?`,
-      `Together, the sectors for ${first.category} and ${second.category} subtend what angle at the centre?`,
-      `Find the total angle covered by ${first.category} and ${second.category}.`,
+      `How many ${set.stimulus.unit} belong to all categories other than ${first.category} and ${second.category}?`,
+      `After excluding ${first.category} and ${second.category}, how many ${set.stimulus.unit} remain?`,
+      `Find the combined count of the remaining three categories after removing ${first.category} and ${second.category}.`,
     ]),
     explanation: {
-      keyIdea: "First recover the missing sector share, then convert the two required shares to angles and add them.",
+      keyIdea: "First recover the missing sector share. Then remove the two named sectors from the whole and convert the remainder to a count.",
       steps: [
-        `The printed sectors total ${visibleTotal}%, so ${hidden.category} = 100% - ${visibleTotal}% = ${hidden.percent}%.`,
-        `${first.category}: ${first.percent}% × 360°/100 = ${firstAngle}°; ${second.category}: ${second.percent}% × 360°/100 = ${secondAngle}°.`,
-        `Combined angle = ${firstAngle}° + ${secondAngle}° = ${combinedAngle}°.`
+        recoveryStep,
+        `Excluded share = ${first.percent}% + ${second.percent}% = ${excludedPercent}%, so remaining share = 100% - ${excludedPercent}% = ${remainderPercent}%.`,
+        `Remaining count = ${set.stimulus.totalValue} × ${remainderPercent}/100 = ${remainderCount}.`,
       ],
     },
     evidence: { firstIndex, secondIndex },
@@ -208,8 +308,18 @@ export function generateDi005V2ReviewSet(input: { seed: string; examProfile: Di0
   const base = generateDi005V2Set(input);
   const questions = base.questions.map((question) => rebuildOptions(base, recalibrateHardQuestion(base, question)));
   const hardCalibrationPassed = questions.every((question) => {
-    if (question.kind !== "RATIO_OF_TWO_SECTORS" && question.kind !== "COMBINED_SECTOR_ANGLE") return true;
-    return Number(question.evidence.firstIndex) === base.stimulus.hiddenPercentIndex || Number(question.evidence.secondIndex) === base.stimulus.hiddenPercentIndex;
+    const hidden = base.stimulus.hiddenPercentIndex;
+    if (question.kind === "RELATIVE_SECTOR_PERCENT_EXCESS") {
+      return Number(question.evidence.largerIndex) === hidden || Number(question.evidence.smallerIndex) === hidden;
+    }
+    if (
+      question.kind === "RATIO_OF_TWO_SECTORS" ||
+      question.kind === "COMBINED_SECTOR_ANGLE" ||
+      question.kind === "REMAINDER_AFTER_TWO_SECTORS_COUNT"
+    ) {
+      return Number(question.evidence.firstIndex) === hidden || Number(question.evidence.secondIndex) === hidden;
+    }
+    return true;
   });
   const validation = {
     valid: base.validation.valid && hardCalibrationPassed,
@@ -218,7 +328,7 @@ export function generateDi005V2ReviewSet(input: { seed: string; examProfile: Di0
       {
         id: "HARD_MULTI_STEP_CALIBRATION",
         passed: hardCalibrationPassed,
-        message: "Ratio and combined-angle Hard questions must require recovery of the hidden sector before the requested calculation.",
+        message: "Every Hard DI-005 V2 family must require recovery of the hidden sector before the requested calculation.",
       },
     ],
   } as const;
