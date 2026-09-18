@@ -1,3 +1,4 @@
+import { graphFromClues } from "./foundation/graph-closure";
 import { generateBlrCp001Question } from "./BLR-CP-001/cp001-runtime";
 import type { BlrCp001QlId } from "./BLR-CP-001/cp001-permanent-contracts";
 import { generateBlrCp002Question } from "./BLR-CP-002/cp002-runtime";
@@ -151,6 +152,28 @@ function sharedPrompt(record: RawQuestion): string {
   return Array.isArray(clues) ? clues.join("\n") : "";
 }
 
+function derivedFamilyGraph(record: RawQuestion) {
+  const existing = record.structuredPrompt?.familyGraph;
+  if (existing) return existing;
+
+  const clues = record.structuredPrompt?.clues;
+  const personNames = record.structuredPrompt?.personNames;
+  if (
+    !Array.isArray(clues)
+    || !personNames
+    || typeof personNames !== "object"
+    || Array.isArray(personNames)
+  ) {
+    return null;
+  }
+
+  try {
+    return graphFromClues(clues, personNames);
+  } catch {
+    return null;
+  }
+}
+
 function explanationParts(record: RawQuestion) {
   const explanation = record.explanation ?? {};
   const editorial = record.editorial ?? {};
@@ -181,8 +204,8 @@ function explanationParts(record: RawQuestion) {
     shortcut: String(editorial.examShortcut ?? explanation.examShortcut ?? ""),
     commonTrap: traps.join(" "),
     optionAnalysis,
-    familyTree: explanation.familyTree ?? explanation.familyTrees ?? record.proceduralLogic ?? record.structuredPrompt?.familyGraph ?? null,
-    diagramProof: record.proceduralLogic ?? record.structuredPrompt ?? record.modelSpace ?? null,
+    familyTree: explanation.familyTree ?? explanation.familyTrees ?? record.proceduralLogic ?? derivedFamilyGraph(record),
+    diagramProof: record.proceduralLogic ?? derivedFamilyGraph(record) ?? record.structuredPrompt ?? record.modelSpace ?? null,
   };
 }
 
@@ -243,7 +266,7 @@ function normalize(record: RawQuestion, packageId: BlrChapterStudioPackageId) {
       explanationId: `${questionLanguageId}:EXPLANATION`,
       ...explanation,
     },
-    reasoningGraph: record.graph ?? record.structuredPrompt?.familyGraph ?? record.proceduralLogic ?? record.explanation?.familyTree ?? record.explanation?.familyTrees ?? null,
+    reasoningGraph: record.graph ?? record.proceduralLogic ?? derivedFamilyGraph(record) ?? record.explanation?.familyTree ?? record.explanation?.familyTrees ?? null,
     renderer: {
       kind: String(record.renderer ?? "RELATION_GRAPH"),
       familyTreeAvailable: explanation.familyTree != null,
