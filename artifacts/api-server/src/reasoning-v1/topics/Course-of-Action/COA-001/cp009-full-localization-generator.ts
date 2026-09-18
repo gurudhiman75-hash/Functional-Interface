@@ -11,7 +11,7 @@ import {
 import type { CoaAnswerClass } from "./types.ts";
 import type { CoaCp009FullLocale } from "./cp009-localization-types.ts";
 
-export const COA_CP009_FULL_LOCALIZATION_STATUS = "FULL_CORPUS_IMPLEMENTED_HUMAN_REVIEW_PENDING" as const;
+export const COA_CP009_FULL_LOCALIZATION_STATUS = "APPROVED_FROZEN" as const;
 
 const INSTRUCTION = Object.freeze({
   "hi-IN": "दिए गए कथन के आधार पर तय कीजिए कि कौन-सी कार्रवाई उचित है।",
