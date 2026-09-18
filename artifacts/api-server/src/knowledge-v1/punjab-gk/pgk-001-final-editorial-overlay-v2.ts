@@ -75,7 +75,6 @@ export const PGK_001_FINAL_EDITORIAL_OVERLAY_V2: Readonly<
   "PGK-001-CP012-Q018": { difficulty: "Medium" },
   "PGK-001-CP012-Q030": { difficulty: "Medium" },
   "PGK-001-CP013-Q036": { difficulty: "Medium" },
-  "PGK-001-CP014-Q030": { difficulty: "Medium" },
   "PGK-001-CP015-Q036": { difficulty: "Medium" },
   "PGK-001-CP016-Q042": { difficulty: "Medium" },
   "PGK-001-CP017-Q006": { difficulty: "Medium" },
