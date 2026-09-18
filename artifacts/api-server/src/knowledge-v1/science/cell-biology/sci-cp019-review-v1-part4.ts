@@ -51,7 +51,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     9,
     "Easy",
-    "Which of the following structures is present in both typical plant and animal cells?",
+    "DNA is replicated before mitosis so that:",
     "Mitochondrion",
     [
       "Cellulose cell wall",
