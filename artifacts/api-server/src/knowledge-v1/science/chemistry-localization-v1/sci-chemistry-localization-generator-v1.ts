@@ -4,6 +4,8 @@ import { SCI_CP013_REVIEW_V1, type SciCp013ReviewQuestion } from "../elements-pe
 import { SCI_CP014_REVIEW_V1, type SciCp014ReviewQuestion } from "../chemical-reactions/sci-cp014-review-v1";
 import { SCI_CP015_REVIEW_V1, type SciCp015ReviewQuestion } from "../acids-bases-salts/sci-cp015-review-v1";
 import { SCI_CP016_REVIEW_V1, type SciCp016ReviewQuestion } from "../metals-nonmetals/sci-cp016-review-v1";
+import { SCI_CP017_REVIEW_V1, type SciCp017ReviewQuestion } from "../carbon-compounds/sci-cp017-review-v1";
+import { SCI_CP018_REVIEW_V1, type SciCp018ReviewQuestion } from "../everyday-chemistry/sci-cp018-review-v1";
 import {
   SCI_CHEMISTRY_LOCALIZATION_V1,
   type ChemistryLocaleV1,
@@ -34,11 +36,20 @@ import {
   SCI_CHEMISTRY_CP016_HI_V1,
   SCI_CHEMISTRY_CP016_PA_V1,
 } from "./sci-chemistry-cp016-localization-data-v1";
+import {
+  SCI_CHEMISTRY_CP017_HI_V1,
+  SCI_CHEMISTRY_CP017_PA_V1,
+} from "./sci-chemistry-cp017-localization-data-v1";
+import {
+  SCI_CHEMISTRY_CP018_HI_V1,
+  SCI_CHEMISTRY_CP018_PA_V1,
+} from "./sci-chemistry-cp018-localization-data-v1";
 
-export type ChemistryLocalizedCpV1 = "SCI-CP-011" | "SCI-CP-012" | "SCI-CP-013" | "SCI-CP-014" | "SCI-CP-015" | "SCI-CP-016";
+export type ChemistryLocalizedCpV1 = "SCI-CP-011" | "SCI-CP-012" | "SCI-CP-013" | "SCI-CP-014" | "SCI-CP-015" | "SCI-CP-016" | "SCI-CP-017" | "SCI-CP-018";
 export type ChemistryWave1CpV1 = "SCI-CP-011" | "SCI-CP-012";
 export type ChemistryWave2CpV1 = "SCI-CP-013" | "SCI-CP-014";
 export type ChemistryWave3CpV1 = "SCI-CP-015" | "SCI-CP-016";
+export type ChemistryWave4CpV1 = "SCI-CP-017" | "SCI-CP-018";
 
 type EnglishQuestion =
   | SciCp011ReviewQuestion
@@ -46,7 +57,9 @@ type EnglishQuestion =
   | SciCp013ReviewQuestion
   | SciCp014ReviewQuestion
   | SciCp015ReviewQuestion
-  | SciCp016ReviewQuestion;
+  | SciCp016ReviewQuestion
+  | SciCp017ReviewQuestion
+  | SciCp018ReviewQuestion;
 
 const QL_NAMES = {
   "SCI-CP-011": {
@@ -73,6 +86,14 @@ const QL_NAMES = {
     hi: ["भौतिक गुण और अपवाद","अभिक्रियाएँ और उभयधर्मी ऑक्साइड","अभिक्रियाशीलता श्रेणी और विस्थापन","आयनिक यौगिक और उनके गुण","प्रमुख अयस्क और धातु-अयस्क मिलान","धातुकर्म की शब्दावली और अयस्क उपचार","निष्कर्षण, शोधन और थर्माइट","संक्षारण और मिश्रधातुएँ","समेकित धातु/धातुकर्म तर्क","धातु और अधातु का मिश्रित अनुप्रयोग"],
     pa: ["ਭੌਤਿਕ ਗੁਣ ਅਤੇ ਅਪਵਾਦ","ਕ੍ਰਿਆਵਾਂ ਅਤੇ ਉਭਯਧਰਮੀ ਆਕਸਾਈਡ","ਕ੍ਰਿਆਸ਼ੀਲਤਾ ਲੜੀ ਅਤੇ ਵਿਸਥਾਪਨ","ਆਇਨਿਕ ਯੋਗਿਕ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਗੁਣ","ਮੁੱਖ ਅਯਸਕ ਅਤੇ ਧਾਤ-ਅਯਸਕ ਮਿਲਾਨ","ਧਾਤਕਰਮ ਦੀ ਸ਼ਬਦਾਵਲੀ ਅਤੇ ਅਯਸਕ ਇਲਾਜ","ਨਿਕਾਸ, ਸ਼ੁੱਧੀਕਰਨ ਅਤੇ ਥਰਮਾਈਟ","ਜੰਗ ਅਤੇ ਮਿਸ਼ਰਧਾਤਾਂ","ਇਕੱਠਾ ਧਾਤ/ਧਾਤਕਰਮ ਤਰਕ","ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ ਦਾ ਮਿਲਿਆ-ਜੁਲਿਆ ਲਾਗੂ ਪ੍ਰਸ਼ਨ"],
   },
+  "SCI-CP-017": {
+    hi: ["कार्बन बंध, चतुसंयोजकता और श्रृंखलन","अपररूप और कार्बन संरचनाएँ","संतृप्त और असंतृप्त हाइड्रोकार्बन","समजातीय श्रेणी, क्रियात्मक समूह और नामकरण","दहन, योग, प्रतिस्थापन और असंतृप्तता परीक्षण","एथेनॉल: गुण और अभिक्रियाएँ","एथेनोइक अम्ल, एस्टरीकरण और साबुनीकरण","साबुन, डिटर्जेंट और माइसेल","सूत्र, क्रियात्मक समूह और नामकरण का समेकित तर्क","कार्बन यौगिकों का मिश्रित अनुप्रयोग"],
+    pa: ["ਕਾਰਬਨ ਬੰਧ, ਚਤੁਰਸੰਯੋਜਕਤਾ ਅਤੇ ਕੈਟੀਨੇਸ਼ਨ","ਅਪਰਰੂਪ ਅਤੇ ਕਾਰਬਨ ਬਣਤਰਾਂ","ਸੰਤ੍ਰਿਪਤ ਅਤੇ ਅਸੰਤ੍ਰਿਪਤ ਹਾਈਡ੍ਰੋਕਾਰਬਨ","ਸਮਜਾਤੀ ਲੜੀ, ਕ੍ਰਿਆਸ਼ੀਲ ਸਮੂਹ ਅਤੇ ਨਾਮਕਰਨ","ਦਹਨ, ਯੋਗ, ਪ੍ਰਤਿਸਥਾਪਨ ਅਤੇ ਅਸੰਤ੍ਰਿਪਤਾ ਟੈਸਟ","ਈਥੈਨੋਲ: ਗੁਣ ਅਤੇ ਕ੍ਰਿਆਵਾਂ","ਈਥੈਨੋਇਕ ਅਮਲ, ਐਸਟਰੀਕਰਨ ਅਤੇ ਸਾਬੁਨੀਕਰਨ","ਸਾਬਣ, ਡਿਟਰਜੈਂਟ ਅਤੇ ਮਾਈਸੈਲ","ਸੂਤਰ, ਕ੍ਰਿਆਸ਼ੀਲ ਸਮੂਹ ਅਤੇ ਨਾਮਕਰਨ ਦਾ ਇਕੱਠਾ ਤਰਕ","ਕਾਰਬਨ ਯੋਗਿਕਾਂ ਦਾ ਮਿਲਿਆ-ਜੁਲਿਆ ਲਾਗੂ ਪ੍ਰਸ਼ਨ"],
+  },
+  "SCI-CP-018": {
+    hi: ["सामान्य घरेलू और औद्योगिक रसायन","ईंधन और परिचित गैसें","उर्वरक और पौध पोषक तत्व","पॉलिमर, प्लास्टिक और कृत्रिम रेशे","सामान्य जलयोजित लवण और रासायनिक नाम","खाद्य रसायन और संरक्षण","जल कठोरता और उपचार","रबर, काँच, सीमेंट और सिरेमिक","दैनिक उपयोग की सामग्रियों का समेकित तर्क","दैनिक रसायन का मिश्रित अनुप्रयोग"],
+    pa: ["ਆਮ ਘਰੇਲੂ ਅਤੇ ਉਦਯੋਗਿਕ ਰਸਾਇਣ","ਈਂਧਨ ਅਤੇ ਜਾਣੀਆਂ-ਪਛਾਣੀਆਂ ਗੈਸਾਂ","ਖਾਦਾਂ ਅਤੇ ਪੌਧ ਪੋਸ਼ਕ ਤੱਤ","ਪੌਲੀਮਰ, ਪਲਾਸਟਿਕ ਅਤੇ ਕ੍ਰਿਤ੍ਰਿਮ ਰੇਸ਼ੇ","ਆਮ ਜਲਯੋਜਿਤ ਲਵਣ ਅਤੇ ਰਸਾਇਣਕ ਨਾਮ","ਖਾਦ ਰਸਾਇਣ ਅਤੇ ਸੰਰੱਖਣ","ਪਾਣੀ ਦੀ ਕਠੋਰਤਾ ਅਤੇ ਇਲਾਜ","ਰਬਰ, ਕੱਚ, ਸੀਮੈਂਟ ਅਤੇ ਸਿਰੈਮਿਕ","ਰੋਜ਼ਾਨਾ ਸਮੱਗਰੀ ਦਾ ਇਕੱਠਾ ਤਰਕ","ਰੋਜ਼ਾਨਾ ਰਸਾਇਣ ਦਾ ਮਿਲਿਆ-ਜੁਲਿਆ ਲਾਗੂ ਪ੍ਰਸ਼ਨ"],
+  },
 } as const;
 
 function englishQuestions(cpId: ChemistryLocalizedCpV1): readonly EnglishQuestion[] {
@@ -83,6 +104,8 @@ function englishQuestions(cpId: ChemistryLocalizedCpV1): readonly EnglishQuestio
     case "SCI-CP-014": return SCI_CP014_REVIEW_V1;
     case "SCI-CP-015": return SCI_CP015_REVIEW_V1;
     case "SCI-CP-016": return SCI_CP016_REVIEW_V1;
+    case "SCI-CP-017": return SCI_CP017_REVIEW_V1;
+    case "SCI-CP-018": return SCI_CP018_REVIEW_V1;
   }
 }
 
@@ -94,6 +117,8 @@ function nativeSpecs(cpId: ChemistryLocalizedCpV1, locale: Exclude<ChemistryLoca
     case "SCI-CP-014": return locale === "hi" ? SCI_CHEMISTRY_CP014_HI_V1 : SCI_CHEMISTRY_CP014_PA_V1;
     case "SCI-CP-015": return locale === "hi" ? SCI_CHEMISTRY_CP015_HI_V1 : SCI_CHEMISTRY_CP015_PA_V1;
     case "SCI-CP-016": return locale === "hi" ? SCI_CHEMISTRY_CP016_HI_V1 : SCI_CHEMISTRY_CP016_PA_V1;
+    case "SCI-CP-017": return locale === "hi" ? SCI_CHEMISTRY_CP017_HI_V1 : SCI_CHEMISTRY_CP017_PA_V1;
+    case "SCI-CP-018": return locale === "hi" ? SCI_CHEMISTRY_CP018_HI_V1 : SCI_CHEMISTRY_CP018_PA_V1;
   }
 }
 
@@ -163,6 +188,8 @@ export function generateChemistryLocalizedCpV1(cpId: ChemistryLocalizedCpV1, loc
 export const SCI_CHEMISTRY_WAVE1_SUPPORTED_CPS_V1 = Object.freeze(["SCI-CP-011", "SCI-CP-012"] as const);
 export const SCI_CHEMISTRY_WAVE2_SUPPORTED_CPS_V1 = Object.freeze(["SCI-CP-013", "SCI-CP-014"] as const);
 export const SCI_CHEMISTRY_WAVE3_SUPPORTED_CPS_V1 = Object.freeze(["SCI-CP-015", "SCI-CP-016"] as const);
+export const SCI_CHEMISTRY_WAVE4_SUPPORTED_CPS_V1 = Object.freeze(["SCI-CP-017", "SCI-CP-018"] as const);
 export const SCI_CHEMISTRY_WAVE1_SUPPORTED_LOCALES_V1 = Object.freeze(["en", "hi", "pa"] as const);
 export const SCI_CHEMISTRY_WAVE2_SUPPORTED_LOCALES_V1 = SCI_CHEMISTRY_WAVE1_SUPPORTED_LOCALES_V1;
 export const SCI_CHEMISTRY_WAVE3_SUPPORTED_LOCALES_V1 = SCI_CHEMISTRY_WAVE1_SUPPORTED_LOCALES_V1;
+export const SCI_CHEMISTRY_WAVE4_SUPPORTED_LOCALES_V1 = SCI_CHEMISTRY_WAVE1_SUPPORTED_LOCALES_V1;
