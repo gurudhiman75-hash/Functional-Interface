@@ -380,7 +380,7 @@ export const CLS001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefini
   cpIds: [...CLS001_GENERATIVE_CP_IDS_V1],
   supportedLanguages: ["en", "hi", "pa"],
   supportedDifficulties: ["Easy", "Medium", "Hard"],
-  difficultyFilterSupported: true,
+  difficultyFilterSupported: false,
   runtimeMode: CLS001_QUESTION_STUDIO_RUNTIME_MODE_V1,
   supportedRuntimeModes: [CLS001_QUESTION_STUDIO_RUNTIME_MODE_V1],
   lifecycleId: lifecycle.lifecycleId,
@@ -426,6 +426,9 @@ export async function generateCls001QuestionStudioQuestions(
   const language = normalizeLanguage(request.language);
   const count = normalizeCount(request.count);
   const requestedDifficulty = normalizeRequestedDifficulty(request.difficulty);
+  if (requestedDifficulty) {
+    throw new Error("CLS-001 Studio difficulty filtering is intentionally disabled until a chapter-wide calibrated selector is implemented");
+  }
   const pool = resolveQlPool(request);
   const baseSeed = text(request.seed) || "cls001-question-studio-review-v1";
   const start = hash(`${baseSeed}:ql-start`) % pool.length;
@@ -439,7 +442,7 @@ export async function generateCls001QuestionStudioQuestions(
       language,
       baseSeed,
       index,
-      requestedDifficulty,
+      undefined,
     );
     const { qlId, generated, difficulty, itemSeed, numericSeed, optionCount, attempt } = resolved;
     const cpId = QL_TO_CP[qlId];
@@ -540,7 +543,7 @@ export async function generateCls001QuestionStudioQuestions(
       ownershipClosureAllocatedQlCount: 0,
       language,
       requestedDifficulty: requestedDifficulty ?? "Mixed",
-      difficultyFilterApplied: Boolean(requestedDifficulty),
+      difficultyFilterApplied: false,
       requestedExam: request.exam ?? null,
       examProfileApplied: false,
       seed: baseSeed,
