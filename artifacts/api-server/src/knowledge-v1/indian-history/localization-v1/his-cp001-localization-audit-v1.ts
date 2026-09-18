@@ -19,6 +19,7 @@ function sentenceCount(text: string): number {
 
 function assertNative(question: HisLocalizedQuestionV1, locale: "hi" | "pa") {
   const text = learnerText(question);
+  const scriptText = text.replace(/[।॥]/g, "");
   const latin = text.match(/[A-Za-z]{2,}/u)?.[0];
   fail(!latin, `${question.questionId}: unauthorized Latin-script leakage: ${latin ?? "unknown"}`);
   fail(sentenceCount(question.explanation) >= 2, `${question.questionId}: localized explanation needs at least two sentences`);
