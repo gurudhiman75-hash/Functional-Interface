@@ -77,7 +77,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Easy",
-      stem: "Shahpurkandi Dam is associated with which river?",
+      stem: "Shahpurkandi Dam is built on which river?",
       canonical: "Ravi",
       options: ["Ravi", "Sutlej", "Beas", "Jhelum"],
       explanation: "Shahpurkandi Dam is on the Ravi. It lies downstream of Ranjit Sagar Dam.",
@@ -170,7 +170,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Madhopur Headworks is associated with which river?",
+      stem: "Madhopur Headworks is on which river?",
       canonical: "Ravi",
       options: ["Ravi", "Sutlej", "Beas", "Ghaggar"],
       explanation: "Madhopur Headworks is on the Ravi. The Upper Bari Doab Canal takes water from this headworks.",
@@ -186,7 +186,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Which headworks is directly associated with the Sirhind Canal?",
+      stem: "From which headworks does the Sirhind Canal take off?",
       canonical: "Ropar Headworks",
       options: ["Ropar Headworks", "Madhopur Headworks", "Harike Headworks", "Hussainiwala Headworks"],
       explanation: "The Sirhind Canal takes off from Ropar Headworks on the Sutlej.",
@@ -194,7 +194,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Which headworks is directly associated with the Upper Bari Doab Canal?",
+      stem: "From which headworks does the Upper Bari Doab Canal take off?",
       canonical: "Madhopur Headworks",
       options: ["Madhopur Headworks", "Ropar Headworks", "Harike Headworks", "Nangal"],
       explanation: "The Upper Bari Doab Canal takes off from Madhopur Headworks on the Ravi.",
@@ -220,7 +220,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Kashmir Canal is linked with which headworks?",
+      stem: "Kashmir Canal takes off from which headworks?",
       canonical: "Madhopur Headworks",
       options: ["Madhopur Headworks", "Harike Headworks", "Ropar Headworks", "Nangal"],
       explanation: "Kashmir Canal takes off from Madhopur Headworks on the Ravi system.",
@@ -228,7 +228,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Ferozepur Feeder is associated with which headworks?",
+      stem: "Ferozepur Feeder takes off from which headworks?",
       canonical: "Harike Headworks",
       options: ["Harike Headworks", "Ropar Headworks", "Madhopur Headworks", "Nangal"],
       explanation: "Ferozepur Feeder is regulated from the Harike Headworks system at the Beas-Sutlej confluence.",
@@ -239,7 +239,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
       stem: "Which canal-headworks pair is correctly matched?",
       canonical: "Sirhind Canal — Ropar Headworks",
       options: ["Sirhind Canal — Ropar Headworks", "Upper Bari Doab Canal — Harike Headworks", "Ferozepur Feeder — Madhopur Headworks", "Kashmir Canal — Ropar Headworks"],
-      explanation: "Sirhind Canal takes off from Ropar Headworks. UBDC and Kashmir Canal are linked with Madhopur, while Ferozepur Feeder is linked with Harike.",
+      explanation: "Sirhind Canal takes off from Ropar Headworks. UBDC and Kashmir Canal take off from Madhopur, while Ferozepur Feeder takes off from Harike.",
       factIds: ["sirhind-canal-ropar", "ubdc-madhopur", "ferozepur-feeder-harike", "kashmir-canal-madhopur"],
       sourceIds: [...roparSource, ...madhopurSource, ...harikeSource],
     },
@@ -248,7 +248,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
       stem: "Which canal-river relation is incorrectly matched?",
       canonical: "Sirhind Canal — Ravi",
       options: ["Sirhind Canal — Ravi", "Upper Bari Doab Canal — Ravi", "Sirhind Canal — Sutlej", "Ferozepur Feeder — Beas-Sutlej confluence"],
-      explanation: "Sirhind Canal is linked with the Sutlej through Ropar Headworks, not the Ravi.",
+      explanation: "Sirhind Canal takes off from Ropar Headworks on the Sutlej, not from the Ravi.",
       factIds: ["sirhind-canal-ropar", "ubdc-madhopur", "ferozepur-feeder-harike"],
       sourceIds: [...roparSource, ...madhopurSource, ...harikeSource],
     },
@@ -288,7 +288,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Which canal is linked with the Ravi through Madhopur Headworks?",
+      stem: "Which canal takes off from Madhopur Headworks on the Ravi?",
       canonical: "Upper Bari Doab Canal",
       options: ["Upper Bari Doab Canal", "Sirhind Canal", "Nangal Hydel Channel", "Ferozepur Feeder"],
       explanation: "The Upper Bari Doab Canal takes water from the Ravi at Madhopur Headworks.",
@@ -299,7 +299,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
       stem: "Consider the following pairs:\nI. Nangal Hydel Channel — Sutlej system\nII. Upper Bari Doab Canal — Ravi system\nIII. Sirhind Canal — Sutlej system\nWhich of the pairs given above are correctly matched?",
       canonical: "I, II and III",
       options: ["I only", "I and II only", "II and III only", "I, II and III"],
-      explanation: "All three are correct. Nangal Hydel Channel and Sirhind Canal are linked with the Sutlej system, while UBDC is linked with the Ravi.",
+      explanation: "All three are correct. Nangal Hydel Channel and Sirhind Canal belong to the Sutlej system, while UBDC takes off from the Ravi at Madhopur.",
       factIds: ["nangal-hydel-channel", "ubdc-madhopur", "sirhind-canal-ropar"],
       sourceIds: [...nangalSource, ...madhopurSource, ...roparSource],
     },
@@ -339,7 +339,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "The designed generating capacity associated with Shahpurkandi Dam is:",
+      stem: "What is the designed generating capacity of Shahpurkandi Dam?",
       canonical: "206 MW",
       options: ["206 MW", "600 MW", "396 MW", "1,415 MW"],
       explanation: "Shahpurkandi's power component is designed for a total generating capacity of 206 MW.",
@@ -376,7 +376,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
       stem: "Which pair of reservoir and dam is correctly matched?",
       canonical: "Gobind Sagar — Bhakra Dam",
       options: ["Gobind Sagar — Bhakra Dam", "Maharana Pratap Sagar — Ranjit Sagar Dam", "Gobind Sagar — Pong Dam", "Maharana Pratap Sagar — Shahpurkandi Dam"],
-      explanation: "Gobind Sagar is the reservoir behind Bhakra Dam. Maharana Pratap Sagar is associated with Pong Dam.",
+      explanation: "Gobind Sagar is the reservoir behind Bhakra Dam. Maharana Pratap Sagar is the reservoir behind Pong Dam.",
       factIds: ["bhakra-dam", "pong-dam"], sourceIds: [...bhakraSource, ...pongSource],
     },
     {

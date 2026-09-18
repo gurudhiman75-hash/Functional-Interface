@@ -111,7 +111,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     explanation: "Ballowal Saunkhri lies in the Kandi area, within the Shivalik foothill belt.",
   },
   "PGK-001-CP003-Q027": {
-    explanation: "The Kandi area is closely associated with Punjab's Shivalik foothill belt.",
+    explanation: "The Kandi area lies along Punjab's Shivalik foothill belt.",
   },
   "PGK-001-CP003-Q028": {
     stem: "Which of the following is NOT one of Pathankot's three broad physical tracts?",
@@ -122,7 +122,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     explanation: "Ballowal Saunkhri lies in the Shivalik foothills and forms part of the Kandi belt.",
   },
   "PGK-001-CP003-Q041": {
-    stem: "Consider the following statements:\nI. Punjab is broadly divided into Majha, Doaba and Malwa.\nII. The Kandi area is associated with the Shivalik foothills.\nIII. Bathinda lies in the Malwa region.\nWhich of the statements given above are correct?",
+    stem: "Consider the following statements:\nI. Punjab is broadly divided into Majha, Doaba and Malwa.\nII. The Kandi area lies along the Shivalik foothills.\nIII. Bathinda lies in the Malwa region.\nWhich of the statements given above are correct?",
     options: ["I only", "I and II only", "II and III only", "I, II and III"],
     canonicalAnswer: "I, II and III",
     explanation: "All three statements are correct. They connect Punjab's broad regions with its foothill relief and a representative Malwa location.",
