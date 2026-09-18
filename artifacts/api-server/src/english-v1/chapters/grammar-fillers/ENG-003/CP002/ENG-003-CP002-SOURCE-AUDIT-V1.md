@@ -1,6 +1,6 @@
 # ENG-003-CP002 — Grammar Fillers: Tenses and Sequence of Tenses — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Blueprint boundary
 
@@ -130,3 +130,14 @@ V1 must pass:
 CP002 remains **review-only** until explicit human editorial approval.
 
 It is not registered in Question Studio yet and has no authority for Question Bank writes, tests, mocks, learner/public publication, automatic student delivery or production release.
+
+## Human approval
+
+The 30-question review artifact was explicitly approved on **2026-09-18**.
+
+- Approval authority: `ENG-003-CP002-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `b12a199132c3940a9e17fa3bb5fc0e3023856db0`
+- Review SHA-256: `11f276ceef471e8a735da24fd89de00d6153e138af2299d3438b2b12f172795d`
+- Workflow artifact digest: `sha256:3e792ddd1cb46d9dc5b80f68991f93485adbd4cff332552293bb308deab826bb`
+
+Question Studio registration is review-only. Question Bank writes, tests, mocks, learner/public publication, automatic student delivery and production release remain locked.
