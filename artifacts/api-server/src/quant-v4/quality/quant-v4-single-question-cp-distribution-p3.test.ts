@@ -2,11 +2,16 @@ import assert from "node:assert/strict";
 
 import { generateQuestion } from "../question-studio-review-engine";
 
-const PACKAGES = ["PCT-001", "RAP-001"] as const;
 const EXPECTED_CP_COUNT = 6;
-const SAMPLES_PER_PACKAGE = 60;
 const MAX_SINGLE_CP_SHARE = 0.30;
 const SEED_PREFIX = "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-CI";
+
+const SCENARIOS = [
+  { packageId: "PCT-001", language: "en", sections: 20 },
+  { packageId: "RAP-001", language: "en", sections: 20 },
+  { packageId: "RAP-001", language: "hi", sections: 10 },
+  { packageId: "RAP-001", language: "pa", sections: 10 },
+] as const;
 
 function countBy(items: readonly string[]) {
   const counts: Record<string, number> = {};
@@ -16,34 +21,42 @@ function countBy(items: readonly string[]) {
   );
 }
 
-for (const packageId of PACKAGES) {
+function canonicalProblemIdFrom(batch: any) {
+  const question = batch?.questions?.[0];
+  return String(
+    question?.canonicalProblemId ??
+      question?.metadata?.canonicalProblemId ??
+      question?.debugMetadata?.canonicalProblemId ??
+      "",
+  );
+}
+
+for (const scenario of SCENARIOS) {
   const selectedCanonicalProblems: string[] = [];
 
-  for (let sectionIndex = 1; sectionIndex <= 20; sectionIndex += 1) {
+  for (let sectionIndex = 1; sectionIndex <= scenario.sections; sectionIndex += 1) {
     for (let slotIndex = 0; slotIndex < 3; slotIndex += 1) {
       const seed = `${SEED_PREFIX}:shadow:${sectionIndex}:ARITHMETIC_CORE:${slotIndex}`;
       const batch = await generateQuestion({
-        packageId,
-        language: "en",
+        packageId: scenario.packageId,
+        language: scenario.language,
         seed,
         count: 1,
       } as any);
-      const question = (batch as any)?.questions?.[0];
-      const canonicalProblemId = String(
-        question?.canonicalProblemId ??
-          question?.metadata?.canonicalProblemId ??
-          question?.debugMetadata?.canonicalProblemId ??
-          "",
+      const canonicalProblemId = canonicalProblemIdFrom(batch);
+      assert.ok(
+        canonicalProblemId,
+        `${scenario.packageId}:${scenario.language}: missing canonical problem lineage.`,
       );
-      assert.ok(canonicalProblemId, `${packageId}: missing canonical problem lineage.`);
       selectedCanonicalProblems.push(canonicalProblemId);
     }
   }
 
+  const expectedSamples = scenario.sections * 3;
   assert.equal(
     selectedCanonicalProblems.length,
-    SAMPLES_PER_PACKAGE,
-    `${packageId}: unexpected sample count.`,
+    expectedSamples,
+    `${scenario.packageId}:${scenario.language}: unexpected sample count.`,
   );
 
   const distribution = countBy(selectedCanonicalProblems);
@@ -54,31 +67,41 @@ for (const packageId of PACKAGES) {
   assert.equal(
     Object.keys(distribution).length,
     EXPECTED_CP_COUNT,
-    `${packageId}: repeated single-question requests must exercise all active CPs.`,
+    `${scenario.packageId}:${scenario.language}: repeated single-question requests must exercise all active CPs.`,
   );
   assert.ok(
     maxShare <= MAX_SINGLE_CP_SHARE,
-    `${packageId}: single-question CP selection is too concentrated (${maxShare}).`,
+    `${scenario.packageId}:${scenario.language}: single-question CP selection is too concentrated (${maxShare}).`,
   );
 
   const repeatSeed = `${SEED_PREFIX}:shadow:7:ARITHMETIC_CORE:1`;
-  const first = await generateQuestion({ packageId, language: "en", seed: repeatSeed, count: 1 } as any);
-  const second = await generateQuestion({ packageId, language: "en", seed: repeatSeed, count: 1 } as any);
-  const firstCp = String(
-    (first as any)?.questions?.[0]?.canonicalProblemId ??
-      (first as any)?.questions?.[0]?.metadata?.canonicalProblemId ??
-      "",
+  const first = await generateQuestion({
+    packageId: scenario.packageId,
+    language: scenario.language,
+    seed: repeatSeed,
+    count: 1,
+  } as any);
+  const second = await generateQuestion({
+    packageId: scenario.packageId,
+    language: scenario.language,
+    seed: repeatSeed,
+    count: 1,
+  } as any);
+  assert.equal(
+    canonicalProblemIdFrom(first),
+    canonicalProblemIdFrom(second),
+    `${scenario.packageId}:${scenario.language}: fixed seed must keep CP selection deterministic.`,
   );
-  const secondCp = String(
-    (second as any)?.questions?.[0]?.canonicalProblemId ??
-      (second as any)?.questions?.[0]?.metadata?.canonicalProblemId ??
-      "",
-  );
-  assert.equal(firstCp, secondCp, `${packageId}: fixed seed must keep CP selection deterministic.`);
 
   console.log(
     "QUANT_V4_SINGLE_QUESTION_CP_DISTRIBUTION_P3",
-    JSON.stringify({ packageId, samples: selectedCanonicalProblems.length, distribution, maxShare }),
+    JSON.stringify({
+      packageId: scenario.packageId,
+      language: scenario.language,
+      samples: selectedCanonicalProblems.length,
+      distribution,
+      maxShare,
+    }),
   );
 }
 
