@@ -91,7 +91,9 @@ export function presentationVariantIndex(value: string, variantCount: number): n
   }).join(":");
 
   if (!foundNumericToken) return mixedHashSeed(value) % variantCount;
-  return (mixedHashSeed(normalized) + numericOrdinal) % variantCount;
+  const deperiodizedOrdinal =
+    (numericOrdinal + Math.floor(numericOrdinal / variantCount)) >>> 0;
+  return (mixedHashSeed(normalized) + deperiodizedOrdinal) % variantCount;
 }
 
 export function seededRandom(seed: string): () => number {
