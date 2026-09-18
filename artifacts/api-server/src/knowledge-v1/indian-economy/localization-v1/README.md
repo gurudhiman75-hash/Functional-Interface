@@ -28,13 +28,13 @@ Quality gates:
 - correct answer remains at the frozen English index
 - source, QL and difficulty parity
 - native Devanagari/Gurmukhi presence
-- executable Latin-script leakage guard for learner-facing text
-- only standard abbreviations such as GDP, GNP, NDP, NNP, NFIA, GVA, MoSPI, CPI, WPI, LFPR, WPR, UR, MGNREGA and NCERT remain in Latin script where appropriate
-- protected exam terms may remain in English when literal translation is awkward, non-standard, or changes the familiar exam label
+- shared terminology registry with `NATIVE`, `PROTECTED_ENGLISH` and `ABBREVIATION` classifications
+- `NATIVE` terms must not remain as English labels in Hindi/Punjabi learner text
+- `PROTECTED_ENGLISH` terms retain their familiar exam label exactly when translation would be awkward or non-standard
+- `ABBREVIATION` entries retain standard forms such as GDP, CPI, WPI, GVA, LFPR and MGNREGA
+- all other Latin-script text is treated as leakage and fails the executable audit
 - current protected labels include Disinflation, Demand-pull inflation, Cost-push inflation, Headline inflation, Core inflation, GDP deflator, Core CPI, Hyperinflation, Headcount ratio, and official committee/group names
-- protected labels keep their exact English term while the surrounding Hindi/Punjabi stem, description and explanation remain native
-- natural and established native terms continue to be translated; this is not a blanket English-retention rule
-- dedicated CP005–CP006 localization audit runs in Economy CI
+- full CP001–CP006 terminology/parity audit runs in Economy CI across 260 questions per locale / 780 surfaces
 
 Review exports:
 - `ECO-MULTILINGUAL-V1-CP001-CP002-REVIEW.md`
