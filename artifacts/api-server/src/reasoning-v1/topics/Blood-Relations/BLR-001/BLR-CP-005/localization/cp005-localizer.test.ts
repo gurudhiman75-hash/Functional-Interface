@@ -63,6 +63,8 @@ for (let index = 0; index < canonical.length; index += 1) {
     assert.equal(localized.metadata.productDeliveryUnlocked, false);
     assert.equal(localized.metadata.productionStagingApproved, false);
     assert.equal(localized.metadata.semanticParity, "EXECUTABLE_PROVED");
+    assert.doesNotMatch(localized.stem, /की (?:न्यूनतम|अधिकतम) संभव मान/);
+    assert.doesNotMatch(localized.stem, /संभव हो सकती है|ਸੰਭਵ ਹੋ ਸਕਦੀ ਹੈ/);
     assert.notEqual(localized.sharedPrompt, source.sharedPrompt, `${localized.itemId}: shared prompt was not localized.`);
     assert.notEqual(localized.stem, source.stem, `${localized.itemId}: stem was not localized.`);
     for (let optionIndex = 0; optionIndex < 4; optionIndex += 1) {
