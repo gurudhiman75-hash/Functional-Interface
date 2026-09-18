@@ -161,24 +161,82 @@ function reducedFraction(numerator: number, denominator: number) {
   return { numerator: numerator / divisor, denominator: denominator / divisor };
 }
 
-function relationText(targetName: string, sourceName: string, target: number, source: number, unit: string) {
+function totalSentence(contextId: string, total: number) {
+  switch (contextId) {
+    case "SERVICE_BRANCHES": return "The five branches handled a total of " + total + " service requests.";
+    case "DEPARTMENT_EMPLOYEES": return "A company has " + total + " employees across the five departments.";
+    case "COURSE_ENROLMENT": return "A total of " + total + " students are enrolled across the five courses.";
+    case "PRODUCT_OUTPUT": return "The combined production of the five products is " + total + " units.";
+    case "ORDER_CATEGORIES": return "A total of " + total + " orders were received across the five categories.";
+    case "BOOK_CATEGORIES": return "A library issued a total of " + total + " books across the five categories.";
+    default: throw new Error("DI-006 V2 unknown context: " + contextId);
+  }
+}
+
+function directSentence(contextId: string, name: string, value: number) {
+  switch (contextId) {
+    case "SERVICE_BRANCHES": return name + " handled " + value + " service requests.";
+    case "DEPARTMENT_EMPLOYEES": return name + " has " + value + " employees.";
+    case "COURSE_ENROLMENT": return value + " students are enrolled in " + name + ".";
+    case "PRODUCT_OUTPUT": return "Production of " + name + " is " + value + " units.";
+    case "ORDER_CATEGORIES": return name + " received " + value + " orders.";
+    case "BOOK_CATEGORIES": return "The number of books issued in " + name + " is " + value + ".";
+    default: throw new Error("DI-006 V2 unknown context: " + contextId);
+  }
+}
+
+function remainderSentence(contextId: string, name: string) {
+  switch (contextId) {
+    case "SERVICE_BRANCHES": return "The remaining service requests were handled by " + name + ".";
+    case "DEPARTMENT_EMPLOYEES": return "The remaining employees work in " + name + ".";
+    case "COURSE_ENROLMENT": return "The remaining students are enrolled in " + name + ".";
+    case "PRODUCT_OUTPUT": return "The remaining production belongs to " + name + ".";
+    case "ORDER_CATEGORIES": return "The remaining orders were received in " + name + ".";
+    case "BOOK_CATEGORIES": return "The remaining books issued were from " + name + ".";
+    default: throw new Error("DI-006 V2 unknown context: " + contextId);
+  }
+}
+
+function relationText(contextId: string, targetName: string, sourceName: string, target: number, source: number, unit: string) {
   const differencePercent = ((target - source) * 100) / source;
-  if (Number.isInteger(differencePercent) && differencePercent !== 0 && Math.abs(differencePercent) <= 100) {
-    if (differencePercent > 0) {
-      return {
-        learnerText: targetName + " accounted for " + differencePercent + "% more " + unit + " than " + sourceName + ".",
-        explanationStep: targetName + " = " + sourceName + " × " + (100 + differencePercent) + "/100 = " + target + " " + unit + ".",
-      };
+  const comparison = differencePercent > 0 ? "more" : "fewer";
+  const magnitude = Math.abs(differencePercent);
+
+  const percentageSentence = () => {
+    switch (contextId) {
+      case "SERVICE_BRANCHES": return targetName + " handled " + magnitude + "% " + comparison + " service requests than " + sourceName + ".";
+      case "DEPARTMENT_EMPLOYEES": return targetName + " has " + magnitude + "% " + comparison + " employees than " + sourceName + ".";
+      case "COURSE_ENROLMENT": return "Enrollment in " + targetName + " is " + magnitude + "% " + (differencePercent > 0 ? "higher" : "lower") + " than in " + sourceName + ".";
+      case "PRODUCT_OUTPUT": return "Production of " + targetName + " is " + magnitude + "% " + (differencePercent > 0 ? "higher" : "lower") + " than that of " + sourceName + ".";
+      case "ORDER_CATEGORIES": return targetName + " received " + magnitude + "% " + comparison + " orders than " + sourceName + ".";
+      case "BOOK_CATEGORIES": return "The number of books issued in " + targetName + " is " + magnitude + "% " + (differencePercent > 0 ? "higher" : "lower") + " than in " + sourceName + ".";
+      default: throw new Error("DI-006 V2 unknown context: " + contextId);
     }
-    const less = Math.abs(differencePercent);
+  };
+
+  const fractionSentence = (numerator: number, denominator: number) => {
+    const fraction = numerator + "/" + denominator;
+    switch (contextId) {
+      case "SERVICE_BRANCHES": return targetName + " handled " + fraction + " as many service requests as " + sourceName + ".";
+      case "DEPARTMENT_EMPLOYEES": return "The number of employees in " + targetName + " is " + fraction + " of that in " + sourceName + ".";
+      case "COURSE_ENROLMENT": return "The number of students in " + targetName + " is " + fraction + " of that in " + sourceName + ".";
+      case "PRODUCT_OUTPUT": return "Production of " + targetName + " is " + fraction + " of that of " + sourceName + ".";
+      case "ORDER_CATEGORIES": return "Orders received in " + targetName + " are " + fraction + " of those in " + sourceName + ".";
+      case "BOOK_CATEGORIES": return "The number of books issued in " + targetName + " is " + fraction + " of that in " + sourceName + ".";
+      default: throw new Error("DI-006 V2 unknown context: " + contextId);
+    }
+  };
+
+  if (Number.isInteger(differencePercent) && differencePercent !== 0 && magnitude <= 100) {
     return {
-      learnerText: targetName + " accounted for " + less + "% fewer " + unit + " than " + sourceName + ".",
-      explanationStep: targetName + " = " + sourceName + " × " + (100 - less) + "/100 = " + target + " " + unit + ".",
+      learnerText: percentageSentence(),
+      explanationStep: targetName + " = " + sourceName + " × " + (100 + differencePercent) + "/100 = " + target + " " + unit + ".",
     };
   }
+
   const fraction = reducedFraction(target, source);
   return {
-    learnerText: targetName + " accounted for " + fraction.numerator + "/" + fraction.denominator + " as many " + unit + " as " + sourceName + ".",
+    learnerText: fractionSentence(fraction.numerator, fraction.denominator),
     explanationStep: targetName + " = " + fraction.numerator + "/" + fraction.denominator + " of " + sourceName + " = " + target + " " + unit + ".",
   };
 }
@@ -215,7 +273,7 @@ function buildStimulus(seed: string): Di006V2Stimulus {
     const source = values[sourceIndex]!;
     const target = values[targetIndex]!;
     const fraction = reducedFraction(target, source);
-    const wording = relationText(categories[targetIndex]!, categories[sourceIndex]!, target, source, context.unit);
+    const wording = relationText(context.id, categories[targetIndex]!, categories[sourceIndex]!, target, source, context.unit);
     const depth = (depths.get(sourceIndex) ?? 0) + 1;
     depths.set(targetIndex, depth);
     relations.push({
@@ -237,9 +295,9 @@ function buildStimulus(seed: string): Di006V2Stimulus {
     title: context.title,
     instruction: "Read the caselet carefully and answer the five questions that follow.",
     learnerText:
-      "Together, the five categories accounted for " + totalValue + " " + context.unit + ". " +
-      categories[topology.directIndex] + " accounted for " + directValue + " " + context.unit + ". " +
-      relationSentences + " The remaining " + context.unit + " were accounted for by " + categories[4] + ".",
+      totalSentence(context.id, totalValue) + " " +
+      directSentence(context.id, categories[topology.directIndex]!, directValue) + " " +
+      relationSentences + " " + remainderSentence(context.id, categories[4]!),
     categories,
     totalValue,
     totalLabel: context.totalLabel,
@@ -404,29 +462,29 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
   const numericStep = Math.max(1, Math.floor(stimulus.totalValue / 40));
 
   const directSurface = surface(seed + ":DIRECT_STATED_VALUE", [
-    "How many " + stimulus.unit + " were accounted for by " + names[directIndex] + "?",
     "What is the stated number of " + stimulus.unit + " for " + names[directIndex] + "?",
-    "According to the caselet, " + names[directIndex] + " accounted for how many " + stimulus.unit + "?",
+    "According to the caselet, how many " + stimulus.unit + " are there for " + names[directIndex] + "?",
+    "Find the value given for " + names[directIndex] + ".",
   ]);
 
   const singleSurface = surface(seed + ":SINGLE_RELATION_VALUE", [
-    "How many " + stimulus.unit + " were accounted for by " + names[singleIndex] + "?",
     "Find the number of " + stimulus.unit + " for " + names[singleIndex] + ".",
-    "Using the stated relation, determine the value for " + names[singleIndex] + ".",
+    "Using the given relation, determine the value for " + names[singleIndex] + ".",
+    "What is the value of " + names[singleIndex] + " according to the caselet?",
   ]);
 
   const difference = Math.abs(first - second);
   const differenceSurface = surface(seed + ":DIFFERENCE_BETWEEN_VALUES", [
-    "What is the difference between the numbers for " + names[firstIndex] + " and " + names[secondIndex] + "?",
-    "How many more " + stimulus.unit + " does the larger of " + names[firstIndex] + " and " + names[secondIndex] + " account for?",
+    "What is the difference between the values for " + names[firstIndex] + " and " + names[secondIndex] + "?",
+    "By how many " + stimulus.unit + " do " + names[firstIndex] + " and " + names[secondIndex] + " differ?",
     "Find the absolute difference between " + names[firstIndex] + " and " + names[secondIndex] + ".",
   ]);
 
   const combined = first + second;
   const combinedSurface = surface(seed + ":COMBINED_TWO_VALUES", [
-    "Together, how many " + stimulus.unit + " were accounted for by " + names[firstIndex] + " and " + names[secondIndex] + "?",
-    "Find the combined value of " + names[firstIndex] + " and " + names[secondIndex] + ".",
-    "What is the total for " + names[firstIndex] + " and " + names[secondIndex] + " together?",
+    "What is the combined value of " + names[firstIndex] + " and " + names[secondIndex] + "?",
+    "Find the total for " + names[firstIndex] + " and " + names[secondIndex] + " together.",
+    "Together, how many " + stimulus.unit + " do " + names[firstIndex] + " and " + names[secondIndex] + " represent?",
   ]);
 
   const ratio = ratioDisplay(first, second);
@@ -439,9 +497,9 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
   const shareIndex = singleIndex;
   const share = formatPercent(counts[shareIndex]!, stimulus.totalValue);
   const shareSurface = surface(seed + ":SHARE_OF_TOTAL", [
-    names[shareIndex] + " accounts for what percentage of the total?",
-    "What percent of all " + stimulus.unit + " is represented by " + names[shareIndex] + "?",
-    "Find the share of " + names[shareIndex] + " in the overall total, in percent.",
+    "What percentage of the total is represented by " + names[shareIndex] + "?",
+    "What percent of all " + stimulus.unit + " belongs to " + names[shareIndex] + "?",
+    "Find the percentage share of " + names[shareIndex] + " in the overall total.",
   ]);
 
   const average = formatQuotient(first + second, 2);
@@ -452,15 +510,15 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
   ]);
 
   const chainSurface = surface(seed + ":CHAINED_RELATION_VALUE", [
-    "How many " + stimulus.unit + " were accounted for by " + names[chainIndex] + "?",
-    "Find the value for " + names[chainIndex] + " after following the required relations.",
+    "Find the value for " + names[chainIndex] + " using the given relations.",
     "What is the number of " + stimulus.unit + " for " + names[chainIndex] + "?",
+    "After following the required relations, what is the value of " + names[chainIndex] + "?",
   ]);
 
   const remainderSurface = surface(seed + ":REMAINDER_FROM_TOTAL", [
-    "How many " + stimulus.unit + " were accounted for by " + names[remainderIndex] + "?",
-    "Find the remaining number of " + stimulus.unit + " for " + names[remainderIndex] + ".",
-    "After accounting for the other four categories, what value is left for " + names[remainderIndex] + "?",
+    "How many " + stimulus.unit + " are there for " + names[remainderIndex] + "?",
+    "Find the remaining value for " + names[remainderIndex] + ".",
+    "After finding the other four values, what is the value of " + names[remainderIndex] + "?",
   ]);
 
   const hardCombined = chainValue + otherDerivedValue;
@@ -542,7 +600,7 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
         { text: String(first + second), misconceptionId: "ADD_INSTEAD_OF_SUBTRACT", derivation: "Adds the two values instead of finding their difference." },
         { text: String(Math.max(first, second)), misconceptionId: "USE_LARGER_ONLY", derivation: "Reports the larger category without subtracting." },
         { text: String(Math.min(first, second)), misconceptionId: "USE_SMALLER_ONLY", derivation: "Reports the smaller category without subtracting." },
-        { text: String(Math.abs(first - second) + numericStep), misconceptionId: "ONE_STEP_HIGH", derivation: "Uses a nearby difference after a calculation slip." },
+        { text: formatQuotient(first + second, 2), misconceptionId: "USE_AVERAGE_INSTEAD_OF_DIFFERENCE", derivation: "Finds the average of the two values instead of their difference." },
       ],
       explanation: {
         keyIdea: "Find the two requested values, then subtract the smaller from the larger.",
@@ -596,10 +654,15 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
       stem: shareSurface.text,
       answer: share,
       candidates: [
-        { text: String(counts[shareIndex]) + "%", misconceptionId: "COPY_COUNT_AS_PERCENT", derivation: "Copies the category count as a percentage." },
-        { text: formatPercent(stimulus.totalValue - counts[shareIndex]!, stimulus.totalValue), misconceptionId: "USE_COMPLEMENT_SHARE", derivation: "Finds the share of all other categories." },
-        { text: formatPercent(counts[directIndex]!, stimulus.totalValue), misconceptionId: "USE_DIRECT_CATEGORY_SHARE", derivation: "Uses the directly stated category instead of the requested category." },
-        { text: formatPercent(counts[shareIndex]!, counts[directIndex]!), misconceptionId: "USE_DIRECT_VALUE_AS_BASE", derivation: "Uses the directly stated category as the denominator instead of the overall total." },
+        ...counts
+          .map((value, index) => ({ value, index }))
+          .filter(({ index }) => index !== shareIndex)
+          .map(({ value, index }) => ({
+            text: formatPercent(value, stimulus.totalValue),
+            misconceptionId: "USE_OTHER_CATEGORY_SHARE_" + index,
+            derivation: "Uses the percentage share of another category from the same caselet.",
+          })),
+        { text: formatPercent(stimulus.totalValue - counts[shareIndex]!, stimulus.totalValue), misconceptionId: "USE_COMPLEMENT_SHARE", derivation: "Finds the share of all other categories instead of the requested category." },
       ],
       explanation: {
         keyIdea: "Find the requested category value, then divide it by the stated overall total and multiply by 100.",
