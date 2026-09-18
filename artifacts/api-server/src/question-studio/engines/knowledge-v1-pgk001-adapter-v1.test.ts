@@ -62,7 +62,35 @@ for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
   assert.equal(q.options[q.correctIndex], q.canonicalAnswer, `${q.questionId}: answer mismatch`);
   assert.ok(q.stem.trim().length > 0, `${q.questionId}: missing stem`);
   assert.ok(q.explanation.trim().length > 0, `${q.questionId}: missing explanation`);
-  assert.doesNotMatch(`${q.stem}\n${q.explanation}`, bannedLearnerWording);
+
+  if (q.sourceIds.length === 0) exhaustiveAuditErrors.push(`${q.questionId}: missing source provenance`);
+  if (q.sourceFactIds.length === 0) exhaustiveAuditErrors.push(`${q.questionId}: missing fact provenance`);
+  if (bannedLearnerWording.test(`${q.stem}\n${q.explanation}`)) {
+    exhaustiveAuditErrors.push(`${q.questionId}: banned learner wording :: ${q.stem}`);
+  }
+  if (q.stem.length > 420) exhaustiveAuditErrors.push(`${q.questionId}: stem is too long (${q.stem.length})`);
+  if (q.explanation.length > 520) exhaustiveAuditErrors.push(`${q.questionId}: explanation is too long (${q.explanation.length})`);
+
+  const explanationSentences = q.explanation
+    .split(/[.!?]+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  if (explanationSentences.length < 1 || explanationSentences.length > 3) {
+    exhaustiveAuditErrors.push(`${q.questionId}: explanation has ${explanationSentences.length} sentences`);
+  }
+
+  const semanticKey = `${normalizeLearnerText(q.stem)}|${normalizeLearnerText(q.canonicalAnswer)}`;
+  const previous = semanticFingerprints.get(semanticKey);
+  if (previous) exhaustiveAuditErrors.push(`${q.questionId}: semantic duplicate of ${previous}`);
+  else semanticFingerprints.set(semanticKey, q.questionId);
+
+  if (
+    /population|literacy|sex ratio|population density|scheduled caste/i.test(q.stem) &&
+    q.cpId === "PGK-001-CP-020" &&
+    !/2011/i.test(`${q.stem} ${q.explanation}`)
+  ) {
+    exhaustiveAuditErrors.push(`${q.questionId}: demographic fact is not explicitly Census-2011 versioned`);
+  }
 }
 
 assert.deepEqual(exhaustiveAuditErrors, [], `Exhaustive PGK audit failures:\n${exhaustiveAuditErrors.join("\n")}`);
