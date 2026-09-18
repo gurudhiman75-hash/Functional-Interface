@@ -207,7 +207,7 @@ const CP6_STEMS: Readonly<Record<string, Pair>> = Object.freeze({
   "A poverty measure combines deprivations in health, education and living standards. This is:": lp("गरीबी का माप स्वास्थ्य, शिक्षा और जीवन स्तर की वंचनाओं को जोड़ता है। यह कौन-सी गरीबी है?", "ਗਰੀਬੀ ਦਾ ਮਾਪ ਸਿਹਤ, ਸਿੱਖਿਆ ਅਤੇ ਜੀਵਨ ਪੱਧਰ ਦੀਆਂ ਵੰਚਨਾਵਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ। ਇਹ ਕਿਹੜੀ ਗਰੀਬੀ ਹੈ?"),
   "A threshold used to identify people or households considered poor under a chosen method is called:": lp("चुनी हुई पद्धति में गरीब माने जाने वाले लोगों या परिवारों की पहचान के लिए प्रयुक्त सीमा क्या कहलाती है?", "ਚੁਣੀ ਹੋਈ ਵਿਧੀ ਵਿੱਚ ਗਰੀਬ ਮੰਨੇ ਜਾਣ ਵਾਲੇ ਲੋਕਾਂ ਜਾਂ ਪਰਿਵਾਰਾਂ ਦੀ ਪਛਾਣ ਲਈ ਵਰਤੀ ਹੱਦ ਕੀ ਕਹਾਉਂਦੀ ਹੈ?"),
   "What is the main purpose of a poverty line?": lp("गरीबी रेखा का मुख्य उद्देश्य क्या है?", "ਗਰੀਬੀ ਰੇਖਾ ਦਾ ਮੁੱਖ ਉਦੇਸ਼ ਕੀ ਹੈ?"),
-  "If 25 out of 100 people are identified as poor, the poverty headcount ratio is:": lp("100 में से 25 लोग गरीब पहचाने जाएँ, तो गरीबी Headcount ratio कितना है?", "100 ਵਿੱਚੋਂ 25 ਲੋਕ ਗਰੀਬ ਪਛਾਣੇ ਜਾਣ, ਤਾਂ ਗਰੀਬੀ Headcount ratio ਕਿੰਨਾ ਹੈ?"),
+  "If 25 out of 100 people are identified as poor, the poverty headcount ratio is:": lp("100 में से 25 लोग गरीब पहचाने जाएँ, तो Poverty headcount ratio कितना है?", "100 ਵਿੱਚੋਂ 25 ਲੋਕ ਗਰੀਬ ਪਛਾਣੇ ਜਾਣ, ਤਾਂ Poverty headcount ratio ਕਿੰਨਾ ਹੈ?"),
   "A poverty measure counts how many people fall below a chosen threshold but does not show how far below it they are. This describes the main limitation of the:": lp("एक गरीबी माप चुनी हुई सीमा से नीचे लोगों की संख्या बताता है, लेकिन यह नहीं बताता कि वे सीमा से कितने नीचे हैं। यह किस माप की मुख्य सीमा है?", "ਇੱਕ ਗਰੀਬੀ ਮਾਪ ਚੁਣੀ ਹੱਦ ਤੋਂ ਹੇਠਾਂ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਦੱਸਦਾ ਹੈ ਪਰ ਇਹ ਨਹੀਂ ਦੱਸਦਾ ਕਿ ਉਹ ਹੱਦ ਤੋਂ ਕਿੰਨੇ ਹੇਠਾਂ ਹਨ। ਇਹ ਕਿਸ ਮਾਪ ਦੀ ਮੁੱਖ ਸੀਮਾ ਹੈ?"),
   "Two households have the same income, but one also lacks schooling, sanitation and adequate nutrition. Which approach captures this broader deprivation better?": lp("दो परिवारों की आय समान है, लेकिन एक के पास शिक्षा, स्वच्छता और पर्याप्त पोषण की कमी भी है। इस व्यापक वंचना को कौन-सा दृष्टिकोण बेहतर मापता है?", "ਦੋ ਪਰਿਵਾਰਾਂ ਦੀ ਆਮਦਨ ਇੱਕੋ ਹੈ ਪਰ ਇੱਕ ਕੋਲ ਸਿੱਖਿਆ, ਸਫ਼ਾਈ ਅਤੇ ਯੋਗ ਪੋਸ਼ਣ ਦੀ ਘਾਟ ਵੀ ਹੈ। ਇਸ ਵਿਆਪਕ ਵੰਚਨਾ ਨੂੰ ਕਿਹੜੀ ਪਹੁੰਚ ਵਧੀਆ ਮਾਪਦੀ ਹੈ?"),
   "MGNREGA was enacted in:": lp("MGNREGA किस वर्ष अधिनियमित किया गया?", "MGNREGA ਕਿਹੜੇ ਸਾਲ ਕਾਨੂੰਨ ਬਣਿਆ?"),
@@ -302,7 +302,17 @@ function cp5Explanation(q: (typeof ECO_CP005_REVIEW_V1)[number], locale: NativeL
   if (ql === 4) return locale === "hi" ? "उत्पादन लागत बढ़ने पर फर्में बढ़ी लागत को कीमतों में स्थानांतरित कर सकती हैं। यह Cost-push inflation है।" : "ਉਤਪਾਦਨ ਲਾਗਤ ਵਧਣ ਤੇ ਫਰਮਾਂ ਵਧੀ ਲਾਗਤ ਨੂੰ ਕੀਮਤਾਂ ਵਿੱਚ ਪਾ ਸਕਦੀਆਂ ਹਨ। ਇਹ Cost-push inflation ਹੈ।";
   if (ql === 5) return locale === "hi" ? `क्रय शक्ति बताती है कि आय से कितनी वस्तुएँ और सेवाएँ खरीदी जा सकती हैं। यहाँ सही प्रभाव ${ans} है।` : `ਖਰੀਦ ਸ਼ਕਤੀ ਦੱਸਦੀ ਹੈ ਕਿ ਆਮਦਨ ਨਾਲ ਕਿੰਨੀਆਂ ਵਸਤੂਆਂ ਅਤੇ ਸੇਵਾਵਾਂ ਖਰੀਦੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ। ਇੱਥੇ ਸਹੀ ਪ੍ਰਭਾਵ ${ans} ਹੈ।`;
   if (ql === 6) return locale === "hi" ? "अप्रत्याशित मुद्रास्फीति निश्चित रुपये में होने वाले भुगतान का वास्तविक मूल्य घटाती है। इसलिए उधारकर्ता और ऋणदाता पर प्रभाव विपरीत हो सकता है।" : "ਅਚਾਨਕ ਮਹਿੰਗਾਈ ਨਿਸ਼ਚਿਤ ਰੁਪਏ ਵਿੱਚ ਹੋਣ ਵਾਲੀ ਵਾਪਸੀ ਦਾ ਅਸਲ ਮੁੱਲ ਘਟਾਉਂਦੀ ਹੈ। ਇਸ ਲਈ ਕਰਜ਼ਦਾਰ ਅਤੇ ਕਰਜ਼ ਦੇਣ ਵਾਲੇ ਉੱਤੇ ਪ੍ਰਭਾਵ ਉਲਟ ਹੋ ਸਕਦਾ ਹੈ।";
-  if (ql === 7) return locale === "hi" ? `CPI घरेलू उपभोग कीमतों, WPI थोक कीमतों और GDP deflator GDP में शामिल अंतिम उत्पादन की कीमतों को अलग-अलग दायरे में मापते हैं। सही उत्तर ${ans} है।` : `CPI ਘਰੇਲੂ ਖਪਤ ਕੀਮਤਾਂ, WPI ਥੋਕ ਕੀਮਤਾਂ ਅਤੇ GDP deflator GDP ਵਿੱਚ ਸ਼ਾਮਲ ਅੰਤਿਮ ਉਤਪਾਦਨ ਦੀਆਂ ਕੀਮਤਾਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਦਾਇਰੇ ਵਿੱਚ ਮਾਪਦੇ ਹਨ। ਸਹੀ ਉੱਤਰ ${ans} ਹੈ।`;
+  if (ql === 7) {
+    const longComparison = q.canonicalAnswer.startsWith("CPI focuses on household consumption");
+    if (longComparison) {
+      return locale === "hi"
+        ? `सही कथन है: ${ans}।`
+        : `ਸਹੀ ਬਿਆਨ ਹੈ: ${ans}।`;
+    }
+    return locale === "hi"
+      ? `CPI घरेलू उपभोग कीमतों, WPI थोक कीमतों और GDP deflator GDP में शामिल अंतिम उत्पादन की कीमतों को अलग-अलग दायरे में मापते हैं। सही उत्तर ${ans} है।`
+      : `CPI ਘਰੇਲੂ ਖਪਤ ਕੀਮਤਾਂ, WPI ਥੋਕ ਕੀਮਤਾਂ ਅਤੇ GDP deflator GDP ਵਿੱਚ ਸ਼ਾਮਲ ਅੰਤਿਮ ਉਤਪਾਦਨ ਦੀਆਂ ਕੀਮਤਾਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਦਾਇਰੇ ਵਿੱਚ ਮਾਪਦੇ ਹਨ। ਸਹੀ ਉੱਤਰ ${ans} ਹੈ।`;
+  }
   if (ql === 8) return locale === "hi" ? "Headline inflation पूरी चुनी हुई टोकरी को शामिल करती है, जबकि Core inflation में सामान्यतः खाद्य और ईंधन जैसे अस्थिर घटक हटाए जाते हैं।" : "Headline inflation ਪੂਰੀ ਚੁਣੀ ਟੋਕਰੀ ਨੂੰ ਸ਼ਾਮਲ ਕਰਦੀ ਹੈ, ਜਦੋਂ ਕਿ Core inflation ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਖੁਰਾਕ ਅਤੇ ਇੰਧਨ ਵਰਗੇ ਅਸਥਿਰ ਘਟਕ ਹਟਾਏ ਜਾਂਦੇ ਹਨ।";
   if (ql === 9) return locale === "hi" ? `मुद्रास्फीति दर = सूचकांक में वृद्धि ÷ पुराना सूचकांक × 100। दिए गए आँकड़ों से सही उत्तर ${ans} है।` : `ਮਹਿੰਗਾਈ ਦਰ = ਸੂਚਕ ਵਿੱਚ ਵਾਧਾ ÷ ਪੁਰਾਣਾ ਸੂਚਕ × 100। ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਤੋਂ ਸਹੀ ਉੱਤਰ ${ans} ਹੈ।`;
   if (ql === 10) return locale === "hi" ? `${ans} सही सुमेलित युग्म है।` : `${ans} ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਜੋੜ ਹੈ।`;
