@@ -459,7 +459,7 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
   const otherDerivedValue = counts[otherDerivedIndex]!;
   const remainderIndex = stimulus.remainderIndex;
   const remainder = counts[remainderIndex]!;
-  const numericStep = Math.max(1, Math.floor(stimulus.totalValue / 40));
+  const numericStep = counts.slice(1).reduce((gcd, value) => Number(gcdBigInt(BigInt(gcd), BigInt(value))), counts[0]!);
 
   const directSurface = surface(seed + ":DIRECT_STATED_VALUE", [
     "What is the stated number of " + stimulus.unit + " for " + names[directIndex] + "?",
@@ -474,6 +474,17 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
   ]);
 
   const difference = Math.abs(first - second);
+  const wrongPairDifferenceCandidates: Candidate[] = [];
+  for (let leftIndex = 0; leftIndex < counts.length; leftIndex += 1) {
+    for (let rightIndex = leftIndex + 1; rightIndex < counts.length; rightIndex += 1) {
+      if ((leftIndex === firstIndex && rightIndex === secondIndex) || (leftIndex === secondIndex && rightIndex === firstIndex)) continue;
+      wrongPairDifferenceCandidates.push({
+        text: String(Math.abs(counts[leftIndex]! - counts[rightIndex]!)),
+        misconceptionId: "USE_WRONG_PAIR_DIFFERENCE_" + leftIndex + "_" + rightIndex,
+        derivation: "Subtracts " + names[leftIndex] + " and " + names[rightIndex] + " instead of the two categories asked.",
+      });
+    }
+  }
   const differenceSurface = surface(seed + ":DIFFERENCE_BETWEEN_VALUES", [
     "What is the difference between the values for " + names[firstIndex] + " and " + names[secondIndex] + "?",
     "By how many " + stimulus.unit + " do " + names[firstIndex] + " and " + names[secondIndex] + " differ?",
@@ -601,6 +612,7 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
         { text: String(Math.max(first, second)), misconceptionId: "USE_LARGER_ONLY", derivation: "Reports the larger category without subtracting." },
         { text: String(Math.min(first, second)), misconceptionId: "USE_SMALLER_ONLY", derivation: "Reports the smaller category without subtracting." },
         { text: formatQuotient(first + second, 2), misconceptionId: "USE_AVERAGE_INSTEAD_OF_DIFFERENCE", derivation: "Finds the average of the two values instead of their difference." },
+        ...wrongPairDifferenceCandidates,
       ],
       explanation: {
         keyIdea: "Find the two requested values, then subtract the smaller from the larger.",
