@@ -60,8 +60,8 @@ const CONTEXTS: readonly Context[] = [
     title: "Loan applications received and approved by five branches",
     rowLabel: "Branch",
     rowLabels: ["Branch A", "Branch B", "Branch C", "Branch D", "Branch E"],
-    seriesALabel: "Applications received",
-    seriesBLabel: "Applications approved",
+    seriesALabel: "Number of applications received",
+    seriesBLabel: "Number of applications approved",
     unit: "applications",
   },
   {
@@ -69,8 +69,8 @@ const CONTEXTS: readonly Context[] = [
     title: "New and renewed insurance policies over five quarters",
     rowLabel: "Quarter",
     rowLabels: ["Q1", "Q2", "Q3", "Q4", "Q5"],
-    seriesALabel: "New policies",
-    seriesBLabel: "Renewed policies",
+    seriesALabel: "Number of new policies",
+    seriesBLabel: "Number of renewed policies",
     unit: "policies",
   },
   {
@@ -87,8 +87,8 @@ const CONTEXTS: readonly Context[] = [
     title: "Enrolment in two course groups across five centres",
     rowLabel: "Centre",
     rowLabels: ["Centre A", "Centre B", "Centre C", "Centre D", "Centre E"],
-    seriesALabel: "Group A students",
-    seriesBLabel: "Group B students",
+    seriesALabel: "Group A enrolment",
+    seriesBLabel: "Group B enrolment",
     unit: "students",
   },
   {
@@ -96,8 +96,8 @@ const CONTEXTS: readonly Context[] = [
     title: "Orders handled by two channels over five days",
     rowLabel: "Day",
     rowLabels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    seriesALabel: "Channel A orders",
-    seriesBLabel: "Channel B orders",
+    seriesALabel: "Number of Channel A orders",
+    seriesBLabel: "Number of Channel B orders",
     unit: "orders",
   },
   {
@@ -105,8 +105,8 @@ const CONTEXTS: readonly Context[] = [
     title: "Books issued from two sections over five weeks",
     rowLabel: "Week",
     rowLabels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
-    seriesALabel: "Section A books",
-    seriesBLabel: "Section B books",
+    seriesALabel: "Number of books issued from Section A",
+    seriesBLabel: "Number of books issued from Section B",
     unit: "books",
   },
 ];
@@ -376,8 +376,8 @@ function chooseTwoVisible(seed: string, stimulus: Di007V2Stimulus, salt: string)
 function visibleValueStem(stimulus: Di007V2Stimulus, index: number, variant: 0 | 1 | 2): string {
   const row = stimulus.points[index]!;
   const templates = [
-    `What is the value of ${stimulus.seriesBLabel.toLowerCase()} for ${row.label}?`,
-    `How many ${stimulus.unit} are shown under ${stimulus.seriesBLabel} for ${row.label}?`,
+    `What is the ${stimulus.seriesBLabel.toLowerCase()} for ${row.label}?`,
+    `For ${row.label}, what is the ${stimulus.seriesBLabel.toLowerCase()}?`,
     `For ${row.label}, find the ${stimulus.seriesBLabel.toLowerCase()} figure.`,
   ] as const;
   return templates[variant];
@@ -435,9 +435,9 @@ function bTotalPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): strin
 function missingShareStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `The ${stimulus.seriesBLabel.toLowerCase()} value for ${row.label} is what percentage of the five-row ${stimulus.seriesBLabel.toLowerCase()} total?`,
-    `What is the percentage share of ${row.label} in the total ${stimulus.seriesBLabel.toLowerCase()}?`,
-    `After finding the missing value for ${row.label}, express it as a percentage of the total ${stimulus.seriesBLabel.toLowerCase()}.`,
+    `The ${stimulus.seriesBLabel.toLowerCase()} for ${row.label} is what percentage of the total ${stimulus.seriesBLabel.toLowerCase()} across all five rows?`,
+    `What percentage of the total ${stimulus.seriesBLabel.toLowerCase()} comes from ${row.label}?`,
+    `After finding the missing entry for ${row.label}, what percentage of the total ${stimulus.seriesBLabel.toLowerCase()} does it represent?`,
   ] as const;
   return templates[variant];
 }
@@ -456,9 +456,9 @@ function visibleTwoRowStem(stimulus: Di007V2Stimulus, i: number, j: number, vari
 function missingPairedPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `For ${row.label}, the missing ${stimulus.seriesBLabel.toLowerCase()} value is what percentage of the ${stimulus.seriesALabel.toLowerCase()} value?`,
-    `After recovering the missing value for ${row.label}, express it as a percentage of the paired ${stimulus.seriesALabel.toLowerCase()} figure.`,
-    `What percent of ${stimulus.seriesALabel.toLowerCase()} does ${stimulus.seriesBLabel.toLowerCase()} represent in ${row.label}?`,
+    `For ${row.label}, the ${stimulus.seriesBLabel.toLowerCase()} is what percentage of the ${stimulus.seriesALabel.toLowerCase()}?`,
+    `After finding the missing entry for ${row.label}, express the ${stimulus.seriesBLabel.toLowerCase()} as a percentage of the ${stimulus.seriesALabel.toLowerCase()}.`,
+    `For ${row.label}, what percent of the ${stimulus.seriesALabel.toLowerCase()} is the ${stimulus.seriesBLabel.toLowerCase()}?`,
   ] as const;
   return templates[variant];
 }
@@ -467,9 +467,9 @@ function combinedShareStem(stimulus: Di007V2Stimulus, otherIndex: number, varian
   const hidden = stimulus.points[stimulus.hiddenIndex]!.label;
   const other = stimulus.points[otherIndex]!.label;
   const templates = [
-    `The ${stimulus.seriesBLabel.toLowerCase()} values for ${hidden} and ${other} together form what percentage of the total ${stimulus.seriesBLabel.toLowerCase()}?`,
-    `What is the combined percentage share of ${hidden} and ${other} in the five-row ${stimulus.seriesBLabel.toLowerCase()} total?`,
-    `After finding the missing value, what percentage of the ${stimulus.seriesBLabel.toLowerCase()} total comes from ${hidden} and ${other} together?`,
+    `The combined ${stimulus.seriesBLabel.toLowerCase()} for ${hidden} and ${other} is what percentage of the total ${stimulus.seriesBLabel.toLowerCase()}?`,
+    `What percentage of the total ${stimulus.seriesBLabel.toLowerCase()} comes from ${hidden} and ${other} together?`,
+    `After finding the missing entry, what percentage of the total ${stimulus.seriesBLabel.toLowerCase()} comes from ${hidden} and ${other} together?`,
   ] as const;
   return templates[variant];
 }
@@ -480,9 +480,9 @@ function excessStem(stimulus: Di007V2Stimulus, otherIndex: number, hidden: numbe
   const largerLabel = hidden >= other ? hiddenLabel : otherLabel;
   const smallerLabel = hidden >= other ? otherLabel : hiddenLabel;
   const templates = [
-    `The ${stimulus.seriesBLabel.toLowerCase()} value for ${largerLabel} is what percentage more than that for ${smallerLabel}?`,
-    `By what percent does the larger ${stimulus.seriesBLabel.toLowerCase()} value between ${hiddenLabel} and ${otherLabel} exceed the smaller one?`,
-    `Compare ${hiddenLabel} and ${otherLabel}. By what percentage is the higher ${stimulus.seriesBLabel.toLowerCase()} figure above the lower figure?`,
+    `The ${stimulus.seriesBLabel.toLowerCase()} for ${largerLabel} is what percentage more than that for ${smallerLabel}?`,
+    `Between ${hiddenLabel} and ${otherLabel}, by what percentage does the higher ${stimulus.seriesBLabel.toLowerCase()} exceed the lower one?`,
+    `Compare ${hiddenLabel} and ${otherLabel}. By what percentage is the higher ${stimulus.seriesBLabel.toLowerCase()} above the lower one?`,
   ] as const;
   return templates[variant];
 }
@@ -577,7 +577,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: String(Math.abs(totalB - hidden)), misconceptionId: "REPORT_VISIBLE_COMPLEMENT", derivation: "Reports the visible complement instead of the missing value." },
         ],
         explanation: {
-          keyIdea: "Use the additional condition to obtain the complete second-series total, then subtract the four visible entries.",
+          keyIdea: `Use the additional condition to find the total ${stimulus.seriesBLabel.toLowerCase()}, then subtract the four visible entries.`,
           steps: [
             `Total ${stimulus.seriesBLabel.toLowerCase()} = ${totalB}; sum of the four visible values = ${visibleBTotal}.`,
             `Missing value = ${totalB} - ${visibleBTotal} = ${hidden} ${stimulus.unit}.`,
@@ -602,7 +602,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: String(hiddenRowTotal + fallbackScale), misconceptionId: "ONE_STEP_ROW_TOTAL_SLIP", derivation: "Adds an extra table-scale amount after forming the row total." },
         ],
         explanation: {
-          keyIdea: "First recover the missing entry, then add it to the visible value in the same row.",
+          keyIdea: `First find the missing ${stimulus.seriesBLabel.toLowerCase()}, then add it to the ${stimulus.seriesALabel.toLowerCase()} in the same row.`,
           steps: [`For ${hiddenPoint.label}, the missing ${stimulus.seriesBLabel.toLowerCase()} value is ${hidden}.`, `Combined row value = ${hiddenPoint.seriesA} + ${hidden} = ${hiddenRowTotal}.`],
         },
         evidence: { hiddenIndex },
@@ -625,7 +625,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: ratioDisplay(visiblePoint.seriesB, visiblePoint.seriesA), misconceptionId: "USE_VISIBLE_ROW_RATIO", derivation: "Forms the same type of ratio from another row." },
         ],
         explanation: {
-          keyIdea: "Recover the missing value first, then simplify the two values in the hidden row in the order asked.",
+          keyIdea: `Find the missing ${stimulus.seriesBLabel.toLowerCase()} first, then simplify the two values in that row in the order asked.`,
           steps: [`${hiddenPoint.label}: ${stimulus.seriesBLabel} = ${hidden}, ${stimulus.seriesALabel} = ${hiddenPoint.seriesA}.`, `Required ratio = ${hidden}:${hiddenPoint.seriesA} = ${answer}.`],
         },
         evidence: { hiddenIndex },
@@ -648,7 +648,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(hidden, totalA), misconceptionId: "USE_MISSING_ONLY", derivation: "Uses only the recovered missing cell as the numerator." },
         ],
         explanation: {
-          keyIdea: "Compare the complete totals of the two series after reconstructing the missing value.",
+          keyIdea: `After finding the missing entry, compare the complete totals of ${stimulus.seriesBLabel.toLowerCase()} and ${stimulus.seriesALabel.toLowerCase()}.`,
           steps: [`Total ${stimulus.seriesALabel.toLowerCase()} = ${totalA}; total ${stimulus.seriesBLabel.toLowerCase()} = ${totalB}.`, `Required percentage = ${totalB}/${totalA} × 100 = ${answer}.`],
         },
         evidence: { totalA, totalB },
@@ -671,7 +671,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(hiddenPoint.seriesA, totalB), misconceptionId: "USE_PAIRED_A_NUMERATOR", derivation: "Uses the paired first-series row as the numerator." },
         ],
         explanation: {
-          keyIdea: "Use the recovered missing entry as the numerator and the complete second-series total as the denominator.",
+          keyIdea: `Use the recovered ${stimulus.seriesBLabel.toLowerCase()} for ${hiddenPoint.label} as the numerator and the complete ${stimulus.seriesBLabel.toLowerCase()} total as the denominator.`,
           steps: [`Missing ${stimulus.seriesBLabel.toLowerCase()} = ${hidden}; complete total = ${totalB}.`, `Percentage share = ${hidden}/${totalB} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex, totalB },
@@ -715,7 +715,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(visiblePoint.seriesB, visiblePoint.seriesA), misconceptionId: "USE_VISIBLE_ROW_PERCENT", derivation: "Calculates the same type of percentage for a visible row." },
         ],
         explanation: {
-          keyIdea: "This needs two steps: recover the missing entry, then compare it with the paired first-series value in that row.",
+          keyIdea: `This needs two steps: find the missing ${stimulus.seriesBLabel.toLowerCase()}, then compare it with the ${stimulus.seriesALabel.toLowerCase()} in the same row.`,
           steps: [`Missing ${stimulus.seriesBLabel.toLowerCase()} for ${hiddenPoint.label} = ${hidden}.`, `Required percentage = ${hidden}/${hiddenPoint.seriesA} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex },
@@ -739,7 +739,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(hidden + visiblePoint.seriesA, totalB), misconceptionId: "MIX_SERIES_IN_NUMERATOR", derivation: "Adds the wrong series value from the visible row." },
         ],
         explanation: {
-          keyIdea: "Recover the missing entry, add it to the named visible entry from the same series, then compare that sum with the full series total.",
+          keyIdea: `Find the missing ${stimulus.seriesBLabel.toLowerCase()}, add it to the named visible value from the same column, then compare the sum with the column total.`,
           steps: [`${hiddenPoint.label} = ${hidden}; ${visiblePoint.label} = ${visiblePoint.seriesB}; combined = ${numerator}.`, `Combined share = ${numerator}/${totalB} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex, visibleIndex, totalB },
@@ -765,7 +765,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(Math.abs(hiddenPoint.seriesA - visiblePoint.seriesA), Math.min(hiddenPoint.seriesA, visiblePoint.seriesA)), misconceptionId: "COMPARE_WRONG_SERIES", derivation: "Performs the excess calculation on the first series instead." },
         ],
         explanation: {
-          keyIdea: "Recover the hidden value, identify the smaller of the two second-series values, then measure the difference relative to that smaller value.",
+          keyIdea: `Find the missing ${stimulus.seriesBLabel.toLowerCase()}, identify the smaller of the two values being compared, then measure the difference relative to that smaller value.`,
           steps: [`The two ${stimulus.seriesBLabel.toLowerCase()} values are ${hidden} and ${visiblePoint.seriesB}; difference = ${difference}.`, `Percentage excess = ${difference}/${smaller} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex, visibleIndex },
@@ -788,7 +788,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: ratioDisplay(hidden, visibleRowTotal), misconceptionId: "MIX_B_WITH_ROW_TOTAL", derivation: "Compares the hidden second-series value with the other row's total." },
         ],
         explanation: {
-          keyIdea: "Recover the missing value, form the two-series total for each requested row, and then simplify the row-total ratio.",
+          keyIdea: `Find the missing entry, add the two column values for each requested row, and then simplify the ratio of those row totals.`,
           steps: [`${hiddenPoint.label} row total = ${hiddenPoint.seriesA} + ${hidden} = ${hiddenRowTotal}; ${visiblePoint.label} row total = ${visiblePoint.seriesA} + ${visiblePoint.seriesB} = ${visibleRowTotal}.`, `Required ratio = ${hiddenRowTotal}:${visibleRowTotal} = ${answer}.`],
         },
         evidence: { hiddenIndex, visibleIndex },
