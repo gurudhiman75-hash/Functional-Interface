@@ -49,6 +49,14 @@ for (const pkg of packages) {
       assert.equal(question.options.length, 4);
       assert.equal(question.correctIndex >= 0 && question.correctIndex < 4, true);
       assert.equal(question.validation?.valid, true);
+      if (
+        pkg.packageId === "REASONING_V1_BLR_001_CP_001"
+        || pkg.packageId === "REASONING_V1_BLR_001_CP_002"
+      ) {
+        assert.ok(question.reasoningGraph, `${pkg.packageId}/${qlId} must expose structured family-graph evidence.`);
+        assert.equal(question.renderer?.familyTreeAvailable, true);
+        assert.ok(question.richExplanation?.familyTree);
+      }
       assert.equal(question.runtimeMode, "STANDARD_QUESTION_STUDIO");
       assert.equal(question.reviewStatus, "REVIEW_REQUIRED");
       assert.equal(question.manualApprovalRequired, true);
