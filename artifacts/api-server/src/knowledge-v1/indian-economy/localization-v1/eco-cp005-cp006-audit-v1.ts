@@ -6,7 +6,7 @@ import {
   generateEcoCp005Cp006LocalizedReviewV1,
 } from "./eco-localization-generator-v1";
 import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
-import { stripEcoAllowedRomanV1 } from "./eco-localization-term-policy-v1";
+import { isEcoProtectedExamTermV1, stripEcoAllowedRomanV1 } from "./eco-localization-term-policy-v1";
 
 const locales: EcoLocaleV1[] = ["en", "hi", "pa"];
 const fail = (condition: boolean, message: string) => {
@@ -42,6 +42,14 @@ function assertParity(
     fail(JSON.stringify(question.sourceFactIds) === JSON.stringify(english.sourceFactIds), `${question.questionId}: sourceFactIds mismatch`);
     fail(question.options.length === 4, `${question.questionId}: expected four options`);
     fail(new Set(question.options).size === 4, `${question.questionId}: duplicate localized options`);
+    english.options.forEach((option: string, optionIndex: number) => {
+      if (isEcoProtectedExamTermV1(option)) {
+        fail(
+          question.options[optionIndex] === option,
+          `${question.questionId}: protected exam term drift at option ${optionIndex + 1}: ${option}`,
+        );
+      }
+    });
     fail(question.canonicalAnswer === question.options[question.correctIndex], `${question.questionId}: canonical answer mismatch`);
     fail(question.reviewOnly === true && question.runtimeRegistered === false, `${question.questionId}: lifecycle boundary changed`);
     if (locale === "en") {
