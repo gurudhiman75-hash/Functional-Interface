@@ -1,6 +1,6 @@
 # PGK-001 CP005 — Dams, Barrages & Canals
 
-Status: REVIEW CANDIDATE V1
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-005 — Dams, Barrages & Canals`
 Permanent QLs: `PGK-001-QL-028` to `PGK-001-QL-034`
@@ -63,4 +63,4 @@ Verification is retained internally against BBMB, Punjab State Power Corporation
 
 ## Lifecycle
 
-CP005 is review-only. It must not be registered for runtime Question Studio generation, Question Bank writes, tests, mocks or public publication before explicit human approval.
+CP005 V1 was human-approved on 15 September 2026 and is frozen as the accepted review authority. Runtime Question Studio registration, Question Bank writes, tests, mocks and publication remain a separate later integration step.
