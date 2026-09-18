@@ -6,7 +6,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Before a cell divides by mitosis, its DNA is copied mainly so that:",
+    "Why is DNA replicated before mitosis?",
     "each daughter cell can receive a complete set of genetic information",
     [
       "the cell wall can become chlorophyll",
@@ -21,7 +21,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Which statement correctly compares mitosis and meiosis?",
+    "Which statement correctly distinguishes mitosis from meiosis?",
     "Mitosis usually maintains chromosome number, while meiosis reduces it by half",
     [
       "Both always reduce chromosome number by half",
@@ -36,7 +36,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     8,
     "Hard",
-    "A species has 20 chromosomes in each body cell. How many chromosomes would normally be present in one gamete?",
+    "If a species has 20 chromosomes in each body cell, how many chromosomes will normally be present in a gamete?",
     "10",
     [
       "20",
@@ -51,7 +51,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     9,
     "Easy",
-    "Which structure is found in both a typical plant cell and a typical animal cell?",
+    "Which of the following structures is present in both typical plant and animal cells?",
     "Mitochondrion",
     [
       "Cellulose cell wall",
@@ -66,7 +66,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     9,
     "Medium",
-    "A cell contains chloroplasts, a cellulose wall and a large central vacuole. It is most likely a:",
+    "A cell has chloroplasts, a cellulose cell wall and a large central vacuole. It is a:",
     "plant cell",
     [
       "animal cell",
@@ -81,7 +81,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     9,
     "Medium",
-    "A cell makes many digestive enzymes and exports them outside the cell. Which organelles would be especially well developed?",
+    "A cell actively produces and secretes large amounts of protein enzymes. Which organelles would be especially well developed?",
     "Rough ER and Golgi apparatus",
     [
       "Cell wall and chloroplasts",
@@ -96,7 +96,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     9,
     "Medium",
-    "A cell is unable to produce enough ATP even though glucose and oxygen are available. Which organelle is most likely malfunctioning?",
+    "A cell has adequate glucose and oxygen but produces very little ATP. Which organelle is most likely defective?",
     "Mitochondrion",
     [
       "Golgi apparatus",
@@ -111,7 +111,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     9,
     "Hard",
-    "A plant cell can synthesize proteins normally but cannot package them into vesicles for secretion. Which organelle is most likely defective?",
+    "A plant cell synthesizes proteins normally but cannot package them into vesicles for secretion. Which organelle is defective?",
     "Golgi apparatus",
     [
       "Ribosome",
@@ -126,7 +126,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     9,
     "Hard",
-    "A cell has ribosomes, DNA and a plasma membrane, but lacks both mitochondria and a membrane-bound nucleus. Which classification best fits it?",
+    "A cell contains DNA, ribosomes and a plasma membrane but lacks mitochondria and a membrane-bound nucleus. It is a:",
     "Prokaryotic cell",
     [
       "Plant eukaryotic cell",
@@ -141,7 +141,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which instrument made the discovery and detailed study of cells possible?",
+    "Which instrument is used to observe cells that cannot be seen clearly with the naked eye?",
     "Microscope",
     [
       "Barometer",
@@ -156,7 +156,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     10,
     "Medium",
-    "Amoeba performs nutrition, respiration and excretion within a single cell. This shows that:",
+    "Amoeba carries out nutrition, respiration and excretion within a single cell. This shows that:",
     "one cell can carry out all essential life processes",
     [
       "all organisms are unicellular",
@@ -171,7 +171,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     10,
     "Medium",
-    "Why are most cells microscopic rather than extremely large?",
+    "Why are most cells microscopic rather than very large?",
     "A smaller size helps maintain an effective surface-area-to-volume relationship",
     [
       "Large cells cannot contain DNA",
@@ -186,7 +186,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     10,
     "Medium",
-    "Which observation best distinguishes a eukaryotic cell from a prokaryotic cell under a suitable microscope?",
+    "Which feature best distinguishes a eukaryotic cell from a prokaryotic cell?",
     "A nucleus enclosed by a membrane",
     [
       "Presence of cytoplasm",
@@ -201,7 +201,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     10,
     "Hard",
-    "A student observes four cells. Only one has a cell wall, chloroplasts and a membrane-bound nucleus. Which type is it?",
+    "A cell has a cell wall, chloroplasts and a membrane-bound nucleus. It is a:",
     "Plant eukaryotic cell",
     [
       "Animal eukaryotic cell",
@@ -216,7 +216,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     10,
     "Hard",
-    "A cell's ribosomes are suddenly inactivated while its DNA and membranes remain intact. Which immediate effect is most likely?",
+    "If ribosomes in a cell stop functioning, which immediate effect will occur?",
     "New protein synthesis will stop",
     [
       "Osmosis through the plasma membrane will stop completely",
