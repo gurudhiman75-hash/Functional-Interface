@@ -1,4 +1,4 @@
-name: Validate COA CP-009 localization calibration
+name: Validate COA CP-009 localization
 
 on:
   pull_request:
@@ -40,7 +40,17 @@ jobs:
             src/reasoning-v1/topics/Course-of-Action/COA-001/cp009-localization-proof.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/course-of-action/cp009-localization-proof.test.mjs
-      - name: Run COA CP-009 localization proof
+      - name: Run COA CP-009 calibration proof
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/course-of-action/cp009-localization-proof.test.mjs
+      - name: Bundle COA CP-009 full-corpus localization proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Course-of-Action/COA-001/cp009-full-localization-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/course-of-action/cp009-full-localization-proof.test.mjs
+      - name: Run COA CP-009 full-corpus localization proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/course-of-action/cp009-full-localization-proof.test.mjs
