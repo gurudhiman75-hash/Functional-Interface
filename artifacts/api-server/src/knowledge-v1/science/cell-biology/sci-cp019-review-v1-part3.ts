@@ -6,7 +6,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     6,
     "Easy",
-    "Which organelle is commonly called the powerhouse of the cell?",
+    "Which organelle is known as the powerhouse of the cell?",
     "Mitochondrion",
     [
       "Ribosome",
@@ -21,7 +21,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     6,
     "Easy",
-    "Photosynthesis in plant cells mainly occurs in the:",
+    "Photosynthesis in plant cells mainly takes place in the:",
     "chloroplast",
     [
       "mitochondrion",
@@ -36,7 +36,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     6,
     "Medium",
-    "Which pigment directly absorbs much of the light used in photosynthesis?",
+    "Which pigment absorbs light energy for photosynthesis?",
     "Chlorophyll",
     [
       "Haemoglobin",
@@ -51,7 +51,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     6,
     "Medium",
-    "Mitochondria and chloroplasts are unusual because both contain:",
+    "Which feature is common to both mitochondria and chloroplasts?",
     "their own DNA and ribosomes",
     [
       "a cellulose cell wall",
@@ -66,7 +66,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     6,
     "Medium",
-    "Which cells would normally contain many mitochondria because of a high energy demand?",
+    "Which type of cell generally contains many mitochondria because of its high energy requirement?",
     "Muscle cells",
     [
       "Mature red blood cells of mammals",
@@ -81,7 +81,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     6,
     "Hard",
-    "A plant leaf cell is kept in darkness but still has oxygen and stored food available. Which organelle can continue producing ATP from that food?",
+    "A plant leaf cell is kept in darkness but has oxygen and stored food. Which organelle can still produce ATP?",
     "Mitochondrion",
     [
       "Chloroplast only",
@@ -96,7 +96,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Easy",
-    "Which organelle contains digestive enzymes that help break down worn-out cell components?",
+    "Which organelle contains digestive enzymes for breaking down worn-out cell components?",
     "Lysosome",
     [
       "Ribosome",
@@ -111,7 +111,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Easy",
-    "The large central vacuole of a plant cell mainly helps maintain:",
+    "The large central vacuole of a plant cell mainly helps in:",
     "turgidity and storage",
     [
       "chromosome number",
@@ -126,7 +126,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Medium",
-    "Which structure is usually more prominent in animal cells and helps organize the spindle during cell division?",
+    "Which structure in animal cells helps organize spindle fibres during cell division?",
     "Centrosome",
     [
       "Cell wall",
@@ -141,7 +141,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Medium",
-    "Why can a plant cell remain firm even when its internal water pressure rises?",
+    "Why does a plant cell usually not burst when excess water enters by osmosis?",
     "Its rigid cell wall resists excessive expansion",
     [
       "Its nucleus prevents water entry",
@@ -156,7 +156,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Medium",
-    "Which pair is characteristic of a typical mature plant cell but not a typical animal cell?",
+    "Which pair of structures is characteristic of a typical mature plant cell but not of a typical animal cell?",
     "Cell wall and large central vacuole",
     [
       "Plasma membrane and ribosomes",
@@ -171,7 +171,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Hard",
-    "A cell has a cell wall, a large vacuole and mitochondria but no chloroplasts. Which conclusion is most reasonable?",
+    "A cell has a cell wall, a large vacuole and mitochondria but no chloroplasts. It is most likely:",
     "It may be a non-photosynthetic plant cell such as a root cell",
     [
       "It must be an animal cell",
@@ -186,7 +186,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     8,
     "Easy",
-    "Which type of cell division produces two daughter cells that are genetically similar to the parent cell?",
+    "Which type of cell division produces two genetically similar daughter cells?",
     "Mitosis",
     [
       "Meiosis",
@@ -201,7 +201,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     8,
     "Easy",
-    "Meiosis is important because it helps produce:",
+    "Meiosis is primarily responsible for the formation of:",
     "gametes with half the usual chromosome number",
     [
       "two identical body cells",
@@ -216,7 +216,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Which process is directly responsible for replacing many worn-out skin cells?",
+    "Replacement of worn-out skin cells mainly occurs through:",
     "Mitosis",
     [
       "Meiosis",
