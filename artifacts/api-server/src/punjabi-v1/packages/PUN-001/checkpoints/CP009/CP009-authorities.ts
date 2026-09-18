@@ -208,7 +208,6 @@ export const CP009_ANTONYM_AUTHORITIES:readonly CP009AntonymAuthority[]=[
   {id:"ANT-R076",donorIds:["ANT-094"],word:"ਵਰਦਾਨ",antonym:"ਸਰਾਪ",sourceConfusables:["ਅਸੀਸ","ਬਖ਼ਸ਼ਿਸ਼","ਕਿਰਪਾ","ਲਾਭ"],explanationPa:"‘ਵਰਦਾਨ’ ਦਾ ਵਿਰੋਧੀ ਸ਼ਬਦ ‘ਸਰਾਪ’ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
   {id:"ANT-R077",donorIds:["ANT-095"],word:"ਸ਼ਾਂਤੀ",antonym:"ਅਸ਼ਾਂਤੀ",sourceConfusables:["ਅਮਨ","ਚੈਨ","ਸਕੂਨ","ਧੀਰਜ"],explanationPa:"‘ਸ਼ਾਂਤੀ’ ਦਾ ਵਿਰੋਧੀ ਸ਼ਬਦ ‘ਅਸ਼ਾਂਤੀ’ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
   {id:"ANT-R078",donorIds:["ANT-097"],word:"ਕੋਮਲ",antonym:"ਕਠੋਰ",sourceConfusables:["ਨਾਜ਼ੁਕ","ਨਰਮ","ਮੁਲਾਇਮ","ਸੁਕੁਮਾਰ"],explanationPa:"‘ਕੋਮਲ’ ਦਾ ਵਿਰੋਧੀ ਸ਼ਬਦ ‘ਕਠੋਰ’ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
-  {id:"ANT-R079",donorIds:["ANT-098"],word:"ਵਿਦਵਾਨ",antonym:"ਮੂਰਖ",sourceConfusables:["ਪੰਡਿਤ","ਗਿਆਨੀ","ਦਾਨਿਸ਼ਮੰਦ","ਆਲਿਮ"],explanationPa:"‘ਵਿਦਵਾਨ’ ਦਾ ਵਿਰੋਧੀ ਸ਼ਬਦ ‘ਮੂਰਖ’ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
   {id:"ANT-R080",donorIds:["ANT-100"],word:"ਆਦਿ",antonym:"ਅੰਤ",sourceConfusables:["ਮੁੱਢ","ਸ਼ੁਰੂ","ਪਹਿਲਾ","ਅਰੰਭ"],explanationPa:"‘ਆਦਿ’ ਦਾ ਵਿਰੋਧੀ ਸ਼ਬਦ ‘ਅੰਤ’ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
   {id:"ANT-R081",donorIds:["ANT-102"],word:"ਸਥਿਰ",antonym:"ਅਸਥਿਰ",sourceConfusables:["ਪੱਕਾ","ਕਾਇਮ","ਟਿਕਿਆ","ਅਡੋਲ"],explanationPa:"‘ਸਥਿਰ’ ਦਾ ਵਿਰੋਧੀ ਸ਼ਬਦ ‘ਅਸਥਿਰ’ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
   {id:"ANT-R082",donorIds:["ANT-103"],word:"ਖ਼ਰੀਦਣਾ",antonym:"ਵੇਚਣਾ",sourceConfusables:["ਲੈਣਾ","ਮੁੱਲ ਲੈਣਾ","ਪ੍ਰਾਪਤ ਕਰਨਾ","ਰੱਖਣਾ"],explanationPa:"‘ਖ਼ਰੀਦਣਾ’ ਦਾ ਵਿਰੋਧੀ ਸ਼ਬਦ ‘ਵੇਚਣਾ’ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
