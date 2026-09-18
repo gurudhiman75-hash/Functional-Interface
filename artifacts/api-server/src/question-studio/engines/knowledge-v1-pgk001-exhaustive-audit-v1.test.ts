@@ -15,6 +15,7 @@ type Finding = Readonly<{
   stem?: string;
   answer?: string;
   explanation?: string;
+  options?: readonly string[];
 }>;
 
 const questions = PGK_001_QUESTION_STUDIO_CORPUS_V1;
@@ -36,6 +37,7 @@ function add(
     stem: q?.stem,
     answer: q?.canonicalAnswer,
     explanation: q?.explanation,
+    options: q?.options,
   });
 }
 
