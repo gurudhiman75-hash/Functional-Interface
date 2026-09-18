@@ -110,10 +110,11 @@ for (const profile of profiles) {
           "USE_SMALLER_ONLY",
           "USE_AVERAGE_INSTEAD_OF_DIFFERENCE",
         ]);
-        assert.ok(question.optionMetadata.every((option) => allowed.has(option.misconceptionId)), profile + "/" + seed + " difference task used an arbitrary fallback distractor.");
-        if (profile === "BANKING_PRELIMS") {
-          assert.ok(question.optionMetadata.some((option) => option.misconceptionId === "USE_AVERAGE_INSTEAD_OF_DIFFERENCE"), profile + "/" + seed + " Banking difference task lost its fourth misconception distractor.");
-        }
+        assert.ok(
+          question.optionMetadata.every((option) => allowed.has(option.misconceptionId) || option.misconceptionId.startsWith("USE_WRONG_PAIR_DIFFERENCE_")),
+          profile + "/" + seed + " difference task used an arbitrary fallback distractor.",
+        );
+        assert.ok(!question.optionMetadata.some((option) => option.misconceptionId.startsWith("FALLBACK_VALUE_")), profile + "/" + seed + " difference task fell back to a nearby-number filler.");
       }
 
       const verification = verifyDi006V2Question(first, question);
