@@ -180,7 +180,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP004_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Harike is associated with the confluence of:",
+      stem: "Which two rivers form the confluence at Harike?",
       canonical: "Beas and Sutlej",
       options: ["Beas and Sutlej", "Ravi and Chenab", "Chenab and Jhelum", "Ravi and Beas"],
       explanation: "Beas and Sutlej meet at Harike. Ravi does not form this confluence.",
