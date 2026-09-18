@@ -1,6 +1,6 @@
 # COA-001 / COA-CP-010 — Question Studio Review
 
-Status: **HUMAN REVIEW REQUIRED**
+Status: **APPROVED / FROZEN**
 
 ## What CP010 changes
 
@@ -145,4 +145,4 @@ Please verify:
 - Review run persistence is acceptable.
 - Question Bank, tests, mocks and learner release remain visibly locked.
 
-Approval freezes CP010 integration and allows CP011 final editorial/diversity audit. It does not authorize internal eligibility or public release.
+Approved by the product owner on **2026-09-18**. CP010 Question Studio integration is frozen. This approval permits CP011 final editorial/diversity audit and does not authorize internal eligibility or public release.
