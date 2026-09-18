@@ -332,7 +332,9 @@ function buildOptions(seed: string, answer: string, candidates: readonly Candida
   }
 
   if (retained.length < 5 && /^\d+:\d+$/.test(answer)) {
-    const [left, right] = answer.split(":").map(Number);
+    const ratioParts = answer.split(":");
+    const left = Number(ratioParts[0]!);
+    const right = Number(ratioParts[1]!);
     for (const [a, b, id] of [
       [left + 1, right, "LEFT_PLUS_ONE"],
       [left, right + 1, "RIGHT_PLUS_ONE"],
