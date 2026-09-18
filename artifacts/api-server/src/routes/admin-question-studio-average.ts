@@ -8,6 +8,7 @@ import { authenticate } from "../middlewares/auth";
 // while adding frozen Reasoning packages to the same authenticated review persistence workflow.
 import {
   generateQuestion as generateQuestionStudioQuestions,
+  isCoaCp010QuestionStudioRequest,
   isSta001QuestionStudioRequest,
   isWor001QuestionStudioRequest,
   listQuestionStudioPackages,
@@ -306,7 +307,8 @@ router.post(
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
     const staRequest = isSta001QuestionStudioRequest(req.body ?? {});
     const worRequest = isWor001QuestionStudioRequest(req.body ?? {});
-    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !staRequest && !worRequest) {
+    const coaRequest = isCoaCp010QuestionStudioRequest(req.body ?? {});
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !staRequest && !worRequest && !coaRequest) {
       next();
       return;
     }
@@ -335,7 +337,9 @@ router.post(
       ? "STA-001"
       : worRequest
         ? "WOR-001"
-        : simplificationRequest
+        : coaRequest
+          ? "COA-001"
+          : simplificationRequest
           ? "SAP"
           : timeAndWorkRequest
             ? "TMW-001"
@@ -345,14 +349,16 @@ router.post(
       ? "Statement & Assumption"
       : worRequest
         ? "Word & Dictionary Order"
-        : simplificationRequest
+        : coaRequest
+          ? "Course of Action"
+          : simplificationRequest
           ? "Simplification & Approximation"
           : timeAndWorkRequest
             ? "Time & Work"
             : defaultSubtopic;
     const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
-    const reasoningRequest = staRequest || worRequest;
+    const reasoningRequest = staRequest || worRequest || coaRequest;
     const topic = reasoningRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
     const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
@@ -463,7 +469,9 @@ router.post(
         ? "reasoning-v1-sta-001"
         : worRequest
           ? "reasoning-v1-wor-001"
-          : "quant-v4";
+          : coaRequest
+            ? "reasoning-v1-coa-001"
+            : "quant-v4";
 
       await sqlClient.begin(async (tx) => {
         await tx`
