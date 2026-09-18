@@ -1,6 +1,6 @@
 # COA-001 — Course of Action
 
-Status: **COA-CP-011 IMPLEMENTED / HUMAN REVIEW PENDING**
+Status: **COA-CP-011 APPROVED / FROZEN**
 
 ## 1. Chapter purpose
 
@@ -386,15 +386,15 @@ Full Hindi/Punjabi localization covers all 130 frozen semantic authorities and 2
 ### COA-CP-010 — Question Studio integration — APPROVED / FROZEN
 COA-001 is registered in Question Studio for review-only EN/HI/PA generation across the eight active semantic QLs and three approved presentation profiles. Review runs may persist; canonical Question Bank, test/mock and public/student gates remain closed. Product-owner approval recorded on 2026-09-18.
 
-### COA-CP-011 — Final editorial/diversity freeze
-Large semantic saturation audit, anti-gaming gates, review corpus, and explicit human approval record.
+### COA-CP-011 — Final editorial/diversity freeze — APPROVED / FROZEN
+Large semantic saturation and anti-gaming audit is complete. Question Studio enforces semantic uniqueness inside a review batch, truthful safe semantic capacity, QL008 Medium/Hard-only integrity, and final EN/HI/PA editorial regression gates. Product-owner approval recorded on 2026-09-18.
 
 ### COA-CP-012 — Internal eligibility
 Lifecycle-only promotion after explicit approval. Question Bank/test/mock may become internally eligible while public/student release remains separately locked.
 
 ## 16. Lifecycle boundary
 
-Current CP010 state:
+Current CP011 state:
 
 ```text
 semantic design:                 APPROVED_FROZEN
@@ -402,9 +402,10 @@ active semantic QLs:             COA-QL-001..006, COA-QL-008..009
 retired semantic QLs:            COA-QL-007 (legacy compatibility only)
 English authority:               APPROVED_FROZEN
 Hindi/Punjabi authority:         APPROVED_FROZEN
-Question Studio:                 CONNECTED_REVIEW_ONLY
+Question Studio:                 CONNECTED_REVIEW_ONLY / CP011_DIVERSITY_FROZEN
 Question Studio languages:       EN / HI / PA
 review-run persistence:          ALLOWED
+semantic repetition in batch:    BLOCKED
 canonical Question Bank writes:  CLOSED
 test/mock eligibility:           CLOSED
 public/student publication:      CLOSED
