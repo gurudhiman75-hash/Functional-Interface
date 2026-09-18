@@ -37,6 +37,65 @@ assert.equal(pkg.metadata?.registrationAuthorityId, PGK_001_QUESTION_STUDIO_REGI
 assert.equal(PGK_001_QUESTION_STUDIO_CORPUS_V1.length, 1092);
 assert.equal(new Set(PGK_001_QUESTION_STUDIO_CORPUS_V1.map((q) => q.questionId)).size, 1092);
 
+const strictLearnerBans = [
+  "associated with",
+  "closely associated",
+  "linked with",
+  "closely linked",
+  "known for",
+  "best described",
+  "the correct answer is",
+  "the correct option",
+  "the other options",
+  "this question tests",
+  "review batch",
+  "runtimeRegistered",
+  "generator",
+  "sourceFactIds",
+] as const;
+
+const discouragedQualifiers = [
+  " mainly ",
+  " generally ",
+  " commonly ",
+  " widely ",
+  " usually ",
+] as const;
+
+const semanticSignatures = new Map<string, string>();
+for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
+  const learner = ` ${q.stem}\n${q.explanation} `
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+  for (const phrase of strictLearnerBans) {
+    assert.equal(
+      learner.includes(phrase.toLowerCase()),
+      false,
+      `${q.questionId}: learner text contains banned phrase "${phrase}"`,
+    );
+  }
+  for (const phrase of discouragedQualifiers) {
+    assert.equal(
+      learner.includes(phrase),
+      false,
+      `${q.questionId}: learner text contains avoidable qualifier "${phrase.trim()}"`,
+    );
+  }
+
+  assert.ok(q.stem.trim().length <= 520, `${q.questionId}: stem is excessively long`);
+  assert.ok(q.explanation.trim().length <= 420, `${q.questionId}: explanation is excessively long`);
+
+  const normalizedStem = q.stem.toLowerCase().replace(/[^a-z0-9\u0900-\u097f\u0a00-\u0a7f]+/g, " ").trim();
+  const normalizedOptions = [...q.options]
+    .map((option) => option.toLowerCase().replace(/\s+/g, " ").trim())
+    .sort()
+    .join("||");
+  const signature = `${normalizedStem}::${normalizedOptions}::${q.canonicalAnswer.toLowerCase().trim()}`;
+  const previous = semanticSignatures.get(signature);
+  assert.equal(previous, undefined, `${q.questionId}: exact semantic duplicate of ${previous}`);
+  semanticSignatures.set(signature, q.questionId);
+}
+
 const cpCounts = new Map<string, number>();
 const qlCounts = new Map<string, number>();
 const bannedLearnerWording = /the correct answer is|the correct option|the other options|this question tests|review batch|runtimeRegistered|generator|sourceFactIds/i;
