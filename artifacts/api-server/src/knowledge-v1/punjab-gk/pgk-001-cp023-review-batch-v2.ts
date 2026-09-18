@@ -22,8 +22,18 @@ function provenanceForQl(qlId: string) {
   return Object.freeze({ factIds: Object.freeze([...factIds]), sourceIds: Object.freeze(sourceIds) });
 }
 
-export const PGK_001_CP023_REVIEW_BATCH_V2 = PGK_001_CP023_REVIEW_BATCH_V1;
+export const PGK_001_CP023_REVIEW_BATCH_V2 = Object.freeze(
+  PGK_001_CP023_REVIEW_BATCH_V1.map((question) =>
+    Object.freeze({ ...question, ...provenanceForQl(question.qlId) }),
+  ),
+);
 
 export function auditPgk001Cp023ReviewBatchV2() {
-  return auditPgk001Cp023ReviewBatchV1();
+  const base = auditPgk001Cp023ReviewBatchV1();
+  const errors = [...base.errors];
+  for (const question of PGK_001_CP023_REVIEW_BATCH_V2) {
+    if (!question.factIds.length) errors.push(`${question.id}: missing fact provenance`);
+    if (!question.sourceIds.length) errors.push(`${question.id}: missing source provenance`);
+  }
+  return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) });
 }
