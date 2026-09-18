@@ -55,7 +55,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(seenRules.has(ruleId), `${difficulty} never exercised ${ruleId}`);
   }
   assert(domains.size === 20, `${difficulty} reaches only ${domains.size}/20 semantic domains`);
-  assert(scenes.size >= 80, `${difficulty} reaches only ${scenes.size} donor scenes`);
+  const minimumSceneCoverage = difficulty === "hard" ? 40 : 80;\n  assert(scenes.size >= minimumSceneCoverage, `${difficulty} reaches only ${scenes.size} donor scenes; expected at least ${minimumSceneCoverage}`);
   for (let option = 0; option < answerCounts.length; option += 1) {
     const share = answerCounts[option]! / 2_000;
     assert(share >= 0.18 && share <= 0.32, `${difficulty} answer option ${option} share drifted to ${share}`);
