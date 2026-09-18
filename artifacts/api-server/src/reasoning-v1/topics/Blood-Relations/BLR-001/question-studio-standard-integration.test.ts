@@ -53,7 +53,16 @@ for (const pkg of packages) {
       assert.equal(question.reviewStatus, "REVIEW_REQUIRED");
       assert.equal(question.manualApprovalRequired, true);
       assert.equal(question.automaticStudentPublication, false);
+      assert.equal(question.richExplanation?.shortcut, undefined);
+      assert.equal(question.richExplanation?.commonTrap, undefined);
+      assert.equal(question.richExplanation?.examShortcut, undefined);
+      assert.equal(question.richExplanation?.commonTraps, undefined);
+      assert.equal(question.richExplanation?.optionAnalysis, undefined);
+      assert.equal(question.richExplanation?.distractorAnalysis, undefined);
       assert.equal(result.generationContext.persistenceAllowed, true);
+      assert.equal(result.generationContext.questionBankStatus, "NOT_STORED");
+      assert.equal(result.generationContext.testEligibility, "INELIGIBLE");
+      assert.equal(result.generationContext.publiclyPublishable, false);
       validatedQlLanguagePairs += 1;
     }
   }
@@ -79,10 +88,17 @@ for (const language of ["en", "hi", "pa"] as const) {
   }).questions[0]!;
   assert.equal(cp007.runtimeMode, "STANDARD_QUESTION_STUDIO");
   assert.equal(cp007.reviewStatus, "REVIEW_REQUIRED");
-  assert.equal(cp007.questionBankStatus, "READY_FOR_STORAGE");
-  assert.equal(cp007.testEligibility, "ELIGIBLE");
-  assert.equal(cp007.publiclyPublishable, true);
+  assert.equal(cp007.questionBankStatus, "NOT_STORED");
+  assert.equal(cp007.questionBankWritable, false);
+  assert.equal(cp007.questionBankEligible, false);
+  assert.equal(cp007.testEligibility, "INELIGIBLE");
+  assert.equal(cp007.testEligible, false);
+  assert.equal(cp007.mockTestEligible, false);
+  assert.equal(cp007.publiclyPublishable, false);
+  assert.equal(cp007.publicReleaseStatus, "LOCKED");
+  assert.equal(cp007.reviewOnly, true);
   assert.equal(cp007.manualApprovalRequired, true);
+  assert.equal(cp007.releaseEligibleAfterApproval, true);
   assert.equal(cp007.automaticStudentPublication, false);
 }
 
@@ -136,6 +152,9 @@ console.log(JSON.stringify({
   separateReasoningPanel: false,
   separateReasoningRoutes: false,
   cp001ThroughCp006ReviewOnly: true,
-  cp007QuestionBankEligibleAfterManualApproval: true,
+  cp007ReleaseEligibleAfterManualApproval: true,
+  cp007CurrentQuestionBankWritable: false,
+  cp007CurrentTestEligible: false,
+  cp007CurrentPubliclyPublishable: false,
   automaticStudentPublication: false,
 }, null, 2));
