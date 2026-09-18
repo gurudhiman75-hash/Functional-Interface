@@ -276,60 +276,51 @@ function option(text: string, locale: NativeLocale): string {
   throw new Error(`ENV-CP-001 localization missing option: ${text}`);
 }
 
-function localizeNative(locale: NativeLocale): EnvLocalizedQuestionV1[] {
-  return ENGLISH_CP001.map((q) => {
-    const stem = native(STEM, q.stem, locale);
-    const explanation = native(EXPLANATION, q.explanation, locale);
-    if (!stem) throw new Error(`${q.questionId}: missing localized stem`);
-    if (!explanation) throw new Error(`${q.questionId}: missing localized explanation`);
+function localizedBase(
+  q: (typeof ENGLISH_CP001)[number],
+  locale: EnvLocaleV1,
+  stem: string,
+  options: string[],
+  canonicalAnswer: string,
+  explanation: string,
+): EnvLocalizedQuestionV1 {
+  return {
+    ...q,
+    questionId: locale === "en" ? q.questionId : `${q.questionId}-${locale.toUpperCase()}`,
+    stem,
+    options,
+    canonicalAnswer,
+    explanation,
+    locale,
+    localizationV1: {
+      version: ENV_LOCALIZATION_V1,
+      englishQuestionId: q.questionId,
+      semanticInvariant: true,
+      cpInvariant: true,
+      qlInvariant: true,
+      difficultyInvariant: true,
+      sourceInvariant: true,
+      optionOrderInvariant: true,
+      correctIndexInvariant: true,
+      reviewOnly: true,
+    },
+  };
+}
 
-    const options = q.options.map((value) => option(value, locale));
-    const canonicalAnswer = options[q.correctIndex];
-
-    return {
-      ...q,
-      questionId: `${q.questionId}-${locale.toUpperCase()}`,
-      stem,
-      options,
-      canonicalAnswer,
-      explanation,
-      locale,
-      localizationV1: {
-        version: ENV_LOCALIZATION_V1,
-        englishQuestionId: q.questionId,
-        semanticInvariant: true,
-        cpInvariant: true,
-        qlInvariant: true,
-        difficultyInvariant: true,
-        sourceInvariant: true,
-        optionOrderInvariant: true,
-        correctIndexInvariant: true,
-        reviewOnly: true,
-      },
-    };
-  });
+function localizeNative(q: (typeof ENGLISH_CP001)[number], locale: NativeLocale): EnvLocalizedQuestionV1 {
+  const stem = native(STEM, q.stem, locale);
+  const explanation = native(EXPLANATION, q.explanation, locale);
+  if (!stem) throw new Error(`${q.questionId}: missing localized stem`);
+  if (!explanation) throw new Error(`${q.questionId}: missing localized explanation`);
+  const options = q.options.map((value) => option(value, locale));
+  return localizedBase(q, locale, stem, options, options[q.correctIndex], explanation);
 }
 
 export function generateEnvCp001LocalizedReviewV1(locale: EnvLocaleV1): EnvLocalizedQuestionV1[] {
   if (locale === "en") {
-    return ENGLISH_CP001.map((q) => ({
-      ...q,
-      locale,
-      localizationV1: {
-        version: ENV_LOCALIZATION_V1,
-        englishQuestionId: q.questionId,
-        semanticInvariant: true,
-        cpInvariant: true,
-        qlInvariant: true,
-        difficultyInvariant: true,
-        sourceInvariant: true,
-        optionOrderInvariant: true,
-        correctIndexInvariant: true,
-        reviewOnly: true,
-      },
-    }));
+    return ENGLISH_CP001.map((q) => localizedBase(q, locale, q.stem, [...q.options], q.canonicalAnswer, q.explanation));
   }
-  return localizeNative(locale);
+  return ENGLISH_CP001.map((q) => localizeNative(q, locale));
 }
 
 export const ENV_CP001_MULTILINGUAL_V1 = Object.freeze({
