@@ -162,6 +162,23 @@ export function generateEnvCp001ReviewBatchV4(): EnvCp001ReviewQuestion[] {
     const stem = SIMPLE_STEMS[question.qlId]?.[localIndex] ?? question.stem;
     const explanation = SIMPLE_EXPLANATIONS[question.qlId]?.[localIndex] ?? question.explanation;
 
+    if (question.qlId === "ENV-001-QL-011" && localIndex === 2) {
+      const options = [...question.options];
+      const correct = "All three";
+      const sourceIndex = options.indexOf(correct);
+      if (sourceIndex < 0) throw new Error("ENV-CP-001 V4 Q43 requires the All three option");
+      [options[sourceIndex], options[question.correctIndex]] = [options[question.correctIndex], options[sourceIndex]];
+
+      return {
+        ...question,
+        questionId: `ENV-CP001-V4-${String(index + 1).padStart(3, "0")}`,
+        stem,
+        options,
+        canonicalAnswer: correct,
+        explanation,
+      };
+    }
+
     return {
       ...question,
       questionId: `ENV-CP001-V4-${String(index + 1).padStart(3, "0")}`,
