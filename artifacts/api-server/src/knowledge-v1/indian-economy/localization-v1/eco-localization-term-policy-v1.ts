@@ -134,17 +134,24 @@ function containsWholeTerm(text: string, term: string): boolean {
   return new RegExp(`(^|[^A-Za-z])${escaped}(?=$|[^A-Za-z])`, "u").test(text);
 }
 
-export function findEcoNativeTermsStillInEnglishV1(englishText: string, localizedText: string): string[] {
-  return ECO_NATIVE_TERMS_V1.filter(
-    (term) => containsWholeTerm(englishText, term) && containsWholeTerm(localizedText, term),
-  );
-}
-
-export function stripEcoAllowedRomanV1(text: string): string {
+function stripProtectedExamTerms(text: string): string {
   let result = text;
   for (const term of [...ECO_PROTECTED_EXAM_TERMS_V1].sort((a, b) => b.length - a.length)) {
     result = result.split(term).join("");
   }
+  return result;
+}
+
+export function findEcoNativeTermsStillInEnglishV1(englishText: string, localizedText: string): string[] {
+  const englishWithoutProtected = stripProtectedExamTerms(englishText);
+  const localizedWithoutProtected = stripProtectedExamTerms(localizedText);
+  return ECO_NATIVE_TERMS_V1.filter(
+    (term) => containsWholeTerm(englishWithoutProtected, term) && containsWholeTerm(localizedWithoutProtected, term),
+  );
+}
+
+export function stripEcoAllowedRomanV1(text: string): string {
+  const result = stripProtectedExamTerms(text);
   const abbreviations = ECO_ALLOWED_ROMAN_ABBREVIATIONS_V1.map(escapeRegExp).join("|");
   return result.replace(new RegExp(`\\b(?:${abbreviations})\\b`, "gu"), "");
 }
