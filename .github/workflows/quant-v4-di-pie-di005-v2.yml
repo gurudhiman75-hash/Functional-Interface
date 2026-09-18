@@ -1,0 +1,75 @@
+name: Quant V4 Data Interpretation pie DI V2
+
+on:
+  push:
+    branches:
+      - feature/di-005-pie-v2-review
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/pie-svg.ts"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/pie-svg.ts"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di005-pie-v2-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  pie-v2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Controlled-review lifecycle guard
+        run: |
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-v2-types.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2-quality.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/independent-verifier-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/permanent-ql-registry.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/permanent-question-generator.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/question-studio-adapter.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/pie-svg.ts
+          grep -q 'questionStudioDiscoverable: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/permanent-ql-registry.ts
+          ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/permanent-ql-registry.ts artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/question-studio-adapter.ts
+      - name: DI-005 V2 deterministic, diversity, independent and visual proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2.test.ts
+      - name: DI-005 V2 learner option quality proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2-quality.test.ts
+      - name: DI-005 Question Studio controlled-review integration proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/question-studio-integration.test.ts
+      - name: Legacy DI-005 regression
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set.test.ts
+      - name: Export Markdown review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/export-review-v2-clean.ts DI-005-REVIEW-V2.md
+      - name: Export standalone HTML review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/export-review-v2-html-clean.ts DI-005-REVIEW-V2.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: di-005-pie-review-v2
+          path: |
+            DI-005-REVIEW-V2.md
+            DI-005-REVIEW-V2.html
+          if-no-files-found: error
+          retention-days: 30
+      - name: API server build
+        run: pnpm --filter @workspace/api-server build
+      - name: Patch hygiene
+        run: git diff --check
