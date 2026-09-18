@@ -17,6 +17,7 @@ V2 is a separate review candidate and does not widen lifecycle authority.
 - semantic question state only; SVG is presentation-only
 - 5 linked questions per set
 - exact difficulty mix: 1 Easy + 2 Medium + 2 Hard
+- every Hard family is multi-step in the review authority: recover the hidden sector first, then perform the requested ratio / relative-percent / angle / remainder calculation
 - SSC CGL Tier I: 4 options
 - Banking Prelims: 5 options
 - simple question-specific explanations
