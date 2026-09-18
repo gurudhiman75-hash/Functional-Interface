@@ -1,0 +1,81 @@
+name: Validate CLS-001 Final Chapter Closeout
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**
+      - artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts
+      - .github/workflows/cls-001-final-chapter-closeout.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cls-001-final-closeout-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cls-001-final-closeout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle chapter closeout regressions
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001
+          OUT=dist/reasoning-v1/cls-001/final-closeout
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-001/cp001-multilingual-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-002/cp002-multilingual-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp002.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-003/cp003-localized-runtime-v5.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp003.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-004/cp004-localized-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-004/cp004-punjabi-terminology.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004-terminology.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-005/cp005-multilingual-freeze.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-freeze.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-005/cp005-learner-review-v2.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-learner.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-006/cp006-multilingual-freeze.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-freeze.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-006/cp006-learner-review-v2.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-learner.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-007/cp007-localized-runtime-v3.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp007.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-008/ownership.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp008.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/english-editorial-approval.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-approval.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-review.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/question-studio.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-question-studio-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-question-studio-review.mjs"
+
+      - name: Run chapter closeout regressions
+        run: |
+          set -euo pipefail
+          OUT=artifacts/api-server/dist/reasoning-v1/cls-001/final-closeout
+          for TEST in cp001 cp002 cp003 cp004 cp004-terminology cp005-freeze cp005-learner cp006-freeze cp006-learner cp007 cp008 english-approval question-studio; do
+            echo "Running $TEST"
+            (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/final-closeout/$TEST.mjs")
+          done
+
+      - name: Export multilingual Question Studio closeout review
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/cls-001/final-closeout/export-question-studio-review.mjs
+
+      - name: Upload CLS-001 final closeout review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-final-chapter-closeout-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/chapter-closeout
+          if-no-files-found: error
