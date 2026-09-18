@@ -1,6 +1,6 @@
 # PGK-001 CP025 — Punjab Personalities & Sports
 
-Status: HUMAN APPROVED / REVIEW CONTENT FROZEN
+Status: HUMAN APPROVED / FROZEN V1
 Chapter: `PGK-001 — Punjab General Knowledge`
 CP: `PGK-001-CP-025 — Punjab Personalities & Sports`
 Permanent QLs: `PGK-001-QL-168` to `PGK-001-QL-174`
