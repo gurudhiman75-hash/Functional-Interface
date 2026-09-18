@@ -91,7 +91,7 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
     assert(first.traceability.questionBankWritable === false && first.traceability.testEligible === false && first.traceability.mockTestEligible === false, `${profile} ${seed} widened learner lifecycle authority.`);
     assert(first.traceability.publiclyPublishable === false && first.traceability.automaticStudentPublication === false && first.traceability.productionReleaseAuthorized === false, `${profile} ${seed} widened publication authority.`);
 
-    assert(!/\bSeries A\b|\bSeries B\b/u.test(first.stimulus.title + " " + first.stimulus.instruction), `${profile} ${seed} leaked generic Series A/B learner wording.`);
+    assert(!/\bSeries A\b|\bSeries B\b|\bfirst-series\b|\bsecond-series\b|\btwo-series\b/iu.test(first.stimulus.title + " " + first.stimulus.instruction + " " + first.questions.map((question) => question.stem + " " + question.explanation.keyIdea + " " + question.explanation.steps.join(" ")).join(" ")), `${profile} ${seed} leaked generic series learner wording.`);
     assert(first.stimulus.seriesALabel.length >= 8 && first.stimulus.seriesBLabel.length >= 8, `${profile} ${seed} has weak context labels.`);
 
     for (const question of first.questions) {
