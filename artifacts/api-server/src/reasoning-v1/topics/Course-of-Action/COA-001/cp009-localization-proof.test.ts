@@ -39,7 +39,7 @@ function assertLocaleText(locale: "hi-IN" | "pa-IN", text: string, id: string): 
     assert(!/[\u0A00-\u0A7F]/u.test(text), `${id}: Hindi learner text leaked Gurmukhi`);
   } else {
     assert(/[\u0A00-\u0A7F]/u.test(text), `${id}: Punjabi learner text has no Gurmukhi`);
-    assert(!/[\u0900-\u097F]/u.test(text), `${id}: Punjabi learner text leaked Devanagari`);
+    assert(!/[\u0900-\u0963\u0966-\u097F]/u.test(text), `${id}: Punjabi learner text leaked Devanagari letters`);
   }
   const withoutRomanLabels = text.replace(/\b(?:I|II|III)\b/g, " ");
   assert(!/\b(the|and|or|only|both|neither|either|course|action|statement|follows|should|because|correct|wrong|question|answer|student|candidate|bank|school|office|service|record|payment|exam|portal|online|bus|brake|water|repair)\b/i.test(withoutRomanLabels),
