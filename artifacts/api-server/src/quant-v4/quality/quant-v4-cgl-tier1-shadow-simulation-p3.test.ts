@@ -98,7 +98,11 @@ assert.equal(audit.trigonometryRecordCount, 60);
 assert.equal(audit.trigonometryTestEligibleCount, 60);
 assert.equal(audit.optionMismatchCount, 0);
 assert.equal(audit.emptyExplanationCount, 0);
-assert.ok(audit.exactStemDuplicateRate > 0.05, "The current empirical shadow run must keep the measured repetition defect visible until remediated.");
+assert.ok(audit.literalStemDuplicateRate >= 0 && audit.literalStemDuplicateRate <= 1);
+assert.ok(
+  audit.normalizedStructuralStemReuseRate > 0.05,
+  "The current empirical shadow run must keep the measured structural-reuse defect visible until remediated.",
+);
 assert.deepEqual(audit.slotDistribution, {
   ALGEBRA: 60,
   ARITHMETIC_CORE: 220,
@@ -114,7 +118,7 @@ assert.equal((audit.packageDistribution["TRG-001"] ?? 0) + (audit.packageDistrib
 
 assert.equal(audit.blockers.includes("CURRENT_INTEGRATED_BASELINE_CAPABILITY_GAPS_PRESENT"), false);
 assert.ok(audit.blockers.includes("ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK"));
-assert.ok(audit.blockers.includes("SHADOW_STEM_REPETITION_ABOVE_5_PERCENT"));
+assert.ok(audit.blockers.includes("SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT"));
 assert.equal(audit.blockers.includes("SHADOW_CAPABILITY_GAPS_PRESENT"), false);
 assert.equal(audit.blockers.includes("SHADOW_ADVANCED_MATH_CAPABILITY_GAPS_PRESENT"), false);
 assert.equal(audit.blockers.includes("ADVANCED_MATH_LIFECYCLE_CONTRACT_BREACH"), false);
@@ -151,7 +155,8 @@ console.log(JSON.stringify({
   trigonometryTestEligibleCount: audit.trigonometryTestEligibleCount,
   optionMismatchCount: audit.optionMismatchCount,
   emptyExplanationCount: audit.emptyExplanationCount,
-  exactStemDuplicateRate: audit.exactStemDuplicateRate,
+  literalStemDuplicateRate: audit.literalStemDuplicateRate,
+  normalizedStructuralStemReuseRate: audit.normalizedStructuralStemReuseRate,
   slotDistribution: audit.slotDistribution,
   packageDistribution: audit.packageDistribution,
   blockers: audit.blockers,
