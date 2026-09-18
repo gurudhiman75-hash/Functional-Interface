@@ -316,6 +316,37 @@ function buildOptions(seed: string, answer: string, candidates: readonly Candida
     }
   }
 
+  if (retained.length < 5 && /^\d+(?:\.\d+)?%$/.test(answer)) {
+    const base = Number(answer.slice(0, -1));
+    const upper = base <= 100 ? 100 : Math.max(200, base + 25);
+    for (const delta of [-10, -5, 5, 10, 15, -15]) {
+      const value = Math.round((base + delta) * 100) / 100;
+      if (value <= 0 || value > upper) continue;
+      const display = Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
+      add({
+        text: `${display}%`,
+        misconceptionId: `NEARBY_PERCENT_${delta}`,
+        derivation: "A nearby percentage consistent with a small base or arithmetic error.",
+      });
+    }
+  }
+
+  if (retained.length < 5 && /^\d+:\d+$/.test(answer)) {
+    const [left, right] = answer.split(":").map(Number);
+    for (const [a, b, id] of [
+      [left + 1, right, "LEFT_PLUS_ONE"],
+      [left, right + 1, "RIGHT_PLUS_ONE"],
+      [Math.max(1, left - 1), right, "LEFT_MINUS_ONE"],
+      [left, Math.max(1, right - 1), "RIGHT_MINUS_ONE"],
+    ] as const) {
+      add({
+        text: ratioDisplay(a, b),
+        misconceptionId: id,
+        derivation: "A nearby simplified ratio produced by a one-term arithmetic slip.",
+      });
+    }
+  }
+
   if (retained.length < 5) throw new Error(`DI-007 V2 could construct only ${retained.length} unique options for answer ${answer}.`);
   const shuffled = shuffle(seededRandom(`${seed}:options`), retained.slice(0, 5));
   const correctIndex = shuffled.findIndex((option) => option.misconceptionId === "CORRECT");
