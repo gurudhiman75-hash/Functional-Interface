@@ -72,6 +72,11 @@ const O:Readonly<Record<string,LocalePair>>=Object.freeze({
 
   "Living green plants":lp("जीवित हरे पौधे","ਜੀਵਤ ਹਰੇ ਪੌਧੇ"),
   "Dead organic matter":lp("मृत जैविक पदार्थ","ਮ੍ਰਿਤ ਜੈਵਿਕ ਪਦਾਰਥ"),
+  "Detritus chain":lp("मृत-अवशेष शृंखला","ਮ੍ਰਿਤ-ਅਵਸ਼ੇਸ਼ ਸ਼੍ਰਿੰਖਲਾ"),
+  "Grazing chain":lp("चराई शृंखला","ਚਰਾਈ ਸ਼੍ਰਿੰਖਲਾ"),
+  "Energy flow":lp("ऊर्जा प्रवाह","ਊਰਜਾ ਪ੍ਰਵਾਹ"),
+  "Energy pyramid":lp("ऊर्जा पिरामिड","ਊਰਜਾ ਪਿਰਾਮਿਡ"),
+  "Predator chain":lp("शिकारी शृंखला","ਸ਼ਿਕਾਰੀ ਸ਼੍ਰਿੰਖਲਾ"),
   "Carnivores":lp("मांसाहारी","ਮਾਸਾਹਾਰੀ"),
   "Top carnivores":lp("शीर्ष मांसाहारी","ਸਿਖਰਲੇ ਮਾਸਾਹਾਰੀ"),
   "Top consumers":lp("शीर्ष उपभोक्ता","ਸਿਖਰਲੇ ਉਪਭੋਗਤਾ"),
