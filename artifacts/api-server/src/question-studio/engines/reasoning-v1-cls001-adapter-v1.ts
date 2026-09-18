@@ -443,9 +443,9 @@ export async function generateCls001QuestionStudioQuestions(
     );
     const { qlId, generated, difficulty, itemSeed, numericSeed, optionCount, attempt } = resolved;
     const cpId = QL_TO_CP[qlId];
-    const options = arrayOfStrings(generated.options).length > 0
-      ? arrayOfStrings(generated.options)
-      : (Array.isArray(generated.options) ? generated.options.map(optionText) : []);
+    const options = Array.isArray(generated.options)
+      ? generated.options.map(optionText)
+      : [];
     const correctIndex = Number(generated.correctIndex);
     if (!Number.isInteger(correctIndex) || correctIndex < 0 || correctIndex >= options.length) {
       throw new Error(`${qlId}/${numericSeed} returned invalid correctIndex ${String(generated.correctIndex)}`);
