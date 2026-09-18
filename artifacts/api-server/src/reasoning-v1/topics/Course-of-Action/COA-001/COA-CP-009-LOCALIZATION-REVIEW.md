@@ -1,8 +1,8 @@
 # COA-001 / COA-CP-009 — Hindi & Punjabi Localization Review
 
-Status: **HUMAN LANGUAGE REVIEW REQUIRED**
+Status: **APPROVED / LANGUAGE CALIBRATION FROZEN**
 
-Purpose: approve the Hindi/Punjabi wording style before it is expanded across the full frozen English COA authority.
+Approved by product owner on **2026-09-18**. This wording style is the baseline for exhaustive Hindi/Punjabi expansion across the full frozen English COA authority.
 
 Review for:
 - natural exam-like language;
@@ -236,9 +236,9 @@ III. ਜੇ ਕਮੇਟੀ ਪੁਸ਼ਟੀ ਕਰੇ ਕਿ ਗੰਭੀਰ 
 
 ## Approval effect
 
-If this language calibration is approved:
+Approval recorded. Therefore:
 
-1. these terminology and sentence-style rules become the CP009 localization baseline;
-2. Hindi and Punjabi will be expanded exhaustively across the full frozen English semantic authority and supported CP008 presentation authorities;
-3. a whole-corpus parity/leakage proof will run before Question Studio integration;
-4. approval will **not** by itself open Question Studio, Question Bank, test/mock or public delivery.
+1. these terminology and sentence-style rules are the frozen CP009 localization baseline;
+2. Hindi and Punjabi exhaustive expansion across the full frozen English semantic authority and supported CP008 presentation authorities is now authorized;
+3. a whole-corpus parity/leakage proof remains mandatory before Question Studio integration;
+4. this approval does **not** open Question Studio, Question Bank, test/mock or public delivery.
