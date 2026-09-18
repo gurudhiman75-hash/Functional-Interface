@@ -27,6 +27,8 @@ assert.equal(CLS_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false)
 assert.equal(CLS_001_QUESTION_STUDIO_REVIEW_PACKAGE.testEligible, false);
 assert.equal(CLS_001_QUESTION_STUDIO_REVIEW_PACKAGE.mockTestEligible, false);
 assert.equal(CLS_001_QUESTION_STUDIO_REVIEW_PACKAGE.publiclyPublishable, false);
+assert.equal(CLS_001_QUESTION_STUDIO_REVIEW_PACKAGE.automaticStudentPublication, false);
+assert.equal(CLS_001_QUESTION_STUDIO_REVIEW_PACKAGE.manualApprovalRequired, true);
 
 assert.ok(
   listReasoningV1QuestionStudioReviewPackages().some((entry) => entry.packageId === CLS_001_QUESTION_STUDIO_PACKAGE_ID),
