@@ -69,6 +69,30 @@ function adminPeers(item:CP014AdministrativeAuthority,count:number){
  return out;
 }
 function admin(seed:number){return CP014_ADMIN_TERMS[ord(seed,CP014_ADMIN_TERMS.length)]!;}
+function wrongPunjabiFor(item:CP014AdministrativeAuthority,salt:number){
+ const curated=uniq(item.distractors).filter(x=>x!==item.punjabiTerm);
+ if(curated.length)return curated[ord(salt+1,curated.length)]!;
+ return adminPeers(item,1)[0]!.punjabiTerm;
+}
+function reverseEnglishDistractors(item:CP014AdministrativeAuthority,count:number){
+ const out:string[]=[];
+ const seen=new Set([item.englishTerm.toLowerCase()]);
+ for(const pa of item.distractors){
+  const match=CP014_ADMIN_TERMS.find(x=>x.punjabiTerm===pa&&x.id!==item.id);
+  if(match&&!seen.has(match.englishTerm.toLowerCase())){
+   seen.add(match.englishTerm.toLowerCase());out.push(match.englishTerm);
+  }
+  if(out.length===count)return out;
+ }
+ for(const peer of adminPeers(item,count+3)){
+  if(seen.has(peer.englishTerm.toLowerCase()))continue;
+  seen.add(peer.englishTerm.toLowerCase());out.push(peer.englishTerm);
+  if(out.length===count)break;
+ }
+ if(out.length<count)throw new Error(`CP014 ${item.id}: insufficient reverse terminology distractors`);
+ return out;
+}
+
 
 export function generateCP014F01(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Easy"],"F01");
@@ -127,7 +151,7 @@ export function generateCP014F05(seed:number,difficulty:PunjabiDifficulty){
    `‘${item.punjabiTerm}’ ਦਾ ਅੰਗਰੇਜ਼ੀ ਦਫ਼ਤਰੀ ਸਮਕੱਖ ਚੁਣੋ।`,
    `ਦਫ਼ਤਰੀ ਸ਼ਬਦਾਵਲੀ ਵਿੱਚ ‘${item.punjabiTerm}’ ਨੂੰ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਕੀ ਕਹਿੰਦੇ ਹਨ?`
   ],i),
-  correctAnswer:item.englishTerm,distractors:peers.map(x=>x.englishTerm),
+  correctAnswer:item.englishTerm,distractors:reverseEnglishDistractors(item,3),
   explanation:item.explanationPa,authorityIds:[item.id,...peers.map(x=>x.id)]
  });
 }
@@ -141,9 +165,12 @@ export function generateCP014F06(seed:number,difficulty:PunjabiDifficulty){
   stem:"ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਪੰਜਾਬੀ ਪ੍ਰਬੰਧਕੀ ਸ਼ਬਦ ਦਾ ਸਹੀ ਮੇਲ ਕਿਹੜਾ ਹੈ?",
   correctAnswer:pair(item),
   distractors:[
-   pair(peers[0]!,peers[1]!),pair(peers[2]!,peers[3]!),pair(peers[4]!,peers[5]!),pair(peers[6]!,peers[7]!)
+   `${peers[0]!.englishTerm} — ${wrongPunjabiFor(peers[0]!,seed)}`,
+   `${peers[1]!.englishTerm} — ${wrongPunjabiFor(peers[1]!,seed+1)}`,
+   `${peers[2]!.englishTerm} — ${wrongPunjabiFor(peers[2]!,seed+2)}`,
+   `${peers[3]!.englishTerm} — ${wrongPunjabiFor(peers[3]!,seed+3)}`
   ],
-  explanation:item.explanationPa,authorityIds:[item.id,...peers.map(x=>x.id)]
+  explanation:item.explanationPa,authorityIds:[item.id,...peers.slice(0,4).map(x=>x.id)]
  });
 }
 
@@ -174,10 +201,10 @@ export function generateCP014F08(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Hard"],"F08");
  const n=CP014_ADMIN_TERMS.length,cap=n*4,r=ord(seed,cap),pattern=r%4,firstIndex=Math.floor(r/4);
  const first=CP014_ADMIN_TERMS[firstIndex]!,second=CP014_ADMIN_TERMS[(firstIndex+97)%n]!;
- const firstWrong=adminPeers(first,1)[0]!,secondWrong=adminPeers(second,1)[0]!;
+ const firstWrong=wrongPunjabiFor(first,seed),secondWrong=wrongPunjabiFor(second,seed+1);
  const t1=pattern===0||pattern===1,t2=pattern===0||pattern===2;
- const claim1=`‘${first.englishTerm}’ ਦਾ ਪੰਜਾਬੀ ਰੂਪ ‘${t1?first.punjabiTerm:firstWrong.punjabiTerm}’ ਹੈ।`;
- const claim2=`‘${second.englishTerm}’ ਦਾ ਪੰਜਾਬੀ ਰੂਪ ‘${t2?second.punjabiTerm:secondWrong.punjabiTerm}’ ਹੈ।`;
+ const claim1=`‘${first.englishTerm}’ ਦਾ ਪੰਜਾਬੀ ਰੂਪ ‘${t1?first.punjabiTerm:firstWrong}’ ਹੈ।`;
+ const claim2=`‘${second.englishTerm}’ ਦਾ ਪੰਜਾਬੀ ਰੂਪ ‘${t2?second.punjabiTerm:secondWrong}’ ਹੈ।`;
  return assemble({
   seed,difficulty,familyId:"F08",subtype:"DUAL_TERMINOLOGY_VERIFICATION",
   stem:pickVariant([
@@ -187,7 +214,7 @@ export function generateCP014F08(seed:number,difficulty:PunjabiDifficulty){
   ],r),
   correctAnswer:VERDICTS[pattern]!,distractors:VERDICTS,
   explanation:`‘${first.englishTerm}’ ਦਾ ਪੰਜਾਬੀ ਰੂਪ ‘${first.punjabiTerm}’ ਅਤੇ ‘${second.englishTerm}’ ਦਾ ਪੰਜਾਬੀ ਰੂਪ ‘${second.punjabiTerm}’ ਹੈ। ਇਸ ਲਈ ${VERDICTS[pattern]}।`,
-  authorityIds:[first.id,second.id,firstWrong.id,secondWrong.id]
+  authorityIds:[first.id,second.id]
  });
 }
 
