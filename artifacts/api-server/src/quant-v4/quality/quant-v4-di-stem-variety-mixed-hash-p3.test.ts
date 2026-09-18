@@ -5,6 +5,7 @@ import { presentationVariantIndex } from "../topics/DataInterpretation/DI-001/ex
 const SEED_PREFIX = "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-CI";
 const VARIANT_COUNT = 6;
 const SECTIONS = 20;
+const SPARSE_RECURRENCE_GAPS = [5, 6, 11, 15] as const;
 
 const TASK_KINDS = [
   "TOTAL",
@@ -62,12 +63,14 @@ const summaries = TASK_KINDS.map((taskKind) => {
     maxShare <= 0.20,
     `${taskKind}: one stem variant receives ${maxShare} of structured shadow seeds.`,
   );
-  for (let index = 0; index + VARIANT_COUNT < buckets.length; index += 1) {
-    assert.notEqual(
-      buckets[index],
-      buckets[index + VARIANT_COUNT],
-      `${taskKind}: section seeds ${index + 1} and ${index + 1 + VARIANT_COUNT} hit the same stem variant, recreating the six-section periodicity.`,
-    );
+  for (const gap of SPARSE_RECURRENCE_GAPS) {
+    for (let index = 0; index + gap < buckets.length; index += 1) {
+      assert.notEqual(
+        buckets[index],
+        buckets[index + gap],
+        `${taskKind}: section seeds ${index + 1} and ${index + 1 + gap} hit the same stem variant at observed sparse-recurrence gap ${gap}.`,
+      );
+    }
   }
 
   return { taskKind, usedBuckets, maxShare, counts };
