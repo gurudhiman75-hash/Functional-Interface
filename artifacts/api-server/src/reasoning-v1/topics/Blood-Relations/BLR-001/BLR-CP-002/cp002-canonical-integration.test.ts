@@ -56,8 +56,17 @@ for (const scenario of scenarios) {
     assert.ok(!question.stem.includes("undefined"));
     assert.ok(!question.stem.includes("herself or himself"));
     if (question.metadata.questionForm === "HOW_RELATED") {
-      assert.ok(!question.stem.includes("photograph of a man"));
-      assert.ok(!question.stem.includes("photograph of a woman"));
+      assert.ok(!question.stem.includes("man in a photograph"));
+      assert.ok(!question.stem.includes("woman in a photograph"));
+      assert.ok(!question.stem.includes("person in a photograph"));
+      if (question.metadata.presentation === "PHOTOGRAPH") {
+        assert.ok(question.stem.startsWith("Pointing to a photograph of"));
+      }
+      if (question.metadata.presentation === "STAGE") {
+        assert.ok(question.stem.startsWith("Pointing to "));
+        assert.ok(question.stem.includes(" on the stage,"));
+        assert.ok(!question.stem.startsWith("Showing "));
+      }
       assert.ok(question.stem.includes("How is"));
     } else {
       ownershipRecords += 1;
