@@ -99,15 +99,15 @@ function genderEvidence(
 function difficultyFor(
   prototypeId: BlrCp001LineagePrototypeId,
   exactBroadRelationId: string | null,
-  seed: number,
+  _seed: number,
 ): BlrDifficulty {
   if (prototypeId === "BLR-CP001-PROT-IDENTIFY-PERSON-BY-GENDER") {
-    return seed % 4 === 0 ? "MEDIUM" : "EASY";
+    return "EASY";
   }
   if (exactBroadRelationId === "UNCLE" || exactBroadRelationId === "AUNT") {
-    return seed % 3 === 0 ? "MEDIUM" : "HARD";
+    return "HARD";
   }
-  return seed % 4 === 0 ? "HARD" : "MEDIUM";
+  return "MEDIUM";
 }
 
 function buildGenderPromptAndCandidates(
