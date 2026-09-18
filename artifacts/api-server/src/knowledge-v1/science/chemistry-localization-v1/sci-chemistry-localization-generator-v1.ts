@@ -2,6 +2,8 @@ import { SCI_CP011_REVIEW_V1, type SciCp011ReviewQuestion } from "../matter-prop
 import { SCI_CP012_REVIEW_V1, type SciCp012ReviewQuestion } from "../atomic-structure/sci-cp012-review-v1";
 import { SCI_CP013_REVIEW_V1, type SciCp013ReviewQuestion } from "../elements-periodic-table/sci-cp013-review-v1";
 import { SCI_CP014_REVIEW_V1, type SciCp014ReviewQuestion } from "../chemical-reactions/sci-cp014-review-v1";
+import { SCI_CP015_REVIEW_V1, type SciCp015ReviewQuestion } from "../acids-bases-salts/sci-cp015-review-v1";
+import { SCI_CP016_REVIEW_V1, type SciCp016ReviewQuestion } from "../metals-nonmetals/sci-cp016-review-v1";
 import {
   SCI_CHEMISTRY_LOCALIZATION_V1,
   type ChemistryLocaleV1,
@@ -24,16 +26,27 @@ import {
   SCI_CHEMISTRY_CP014_HI_V1,
   SCI_CHEMISTRY_CP014_PA_V1,
 } from "./sci-chemistry-cp014-localization-data-v1";
+import {
+  SCI_CHEMISTRY_CP015_HI_V1,
+  SCI_CHEMISTRY_CP015_PA_V1,
+} from "./sci-chemistry-cp015-localization-data-v1";
+import {
+  SCI_CHEMISTRY_CP016_HI_V1,
+  SCI_CHEMISTRY_CP016_PA_V1,
+} from "./sci-chemistry-cp016-localization-data-v1";
 
-export type ChemistryLocalizedCpV1 = "SCI-CP-011" | "SCI-CP-012" | "SCI-CP-013" | "SCI-CP-014";
+export type ChemistryLocalizedCpV1 = "SCI-CP-011" | "SCI-CP-012" | "SCI-CP-013" | "SCI-CP-014" | "SCI-CP-015" | "SCI-CP-016";
 export type ChemistryWave1CpV1 = "SCI-CP-011" | "SCI-CP-012";
 export type ChemistryWave2CpV1 = "SCI-CP-013" | "SCI-CP-014";
+export type ChemistryWave3CpV1 = "SCI-CP-015" | "SCI-CP-016";
 
 type EnglishQuestion =
   | SciCp011ReviewQuestion
   | SciCp012ReviewQuestion
   | SciCp013ReviewQuestion
-  | SciCp014ReviewQuestion;
+  | SciCp014ReviewQuestion
+  | SciCp015ReviewQuestion
+  | SciCp016ReviewQuestion;
 
 const QL_NAMES = {
   "SCI-CP-011": {
@@ -52,6 +65,14 @@ const QL_NAMES = {
     hi: ["रासायनिक परिवर्तन के संकेत और पहचान","रासायनिक समीकरण और परमाणु संरक्षण","मूल अभिक्रिया-प्रकार की पहचान","सरल रासायनिक समीकरणों का संतुलन","संयोजन, अपघटन और ऊर्जा","विस्थापन, द्विविस्थापन और अवक्षेपण","ऑक्सीकरण, अपचयन और रेडॉक्स","ऊर्जा परिवर्तन, जंग और बासीपन","समेकित अभिक्रिया तर्क","रासायनिक अभिक्रियाओं का मिश्रित अनुप्रयोग"],
     pa: ["ਰਸਾਇਣਕ ਬਦਲਾਅ ਦੇ ਸੰਕੇਤ ਅਤੇ ਪਛਾਣ","ਰਸਾਇਣਕ ਸਮੀਕਰਨ ਅਤੇ ਪਰਮਾਣੂ ਸੰਰੱਖਣ","ਮੂਲ ਕ੍ਰਿਆ-ਕਿਸਮ ਦੀ ਪਛਾਣ","ਸਧਾਰਣ ਰਸਾਇਣਕ ਸਮੀਕਰਨਾਂ ਦਾ ਸੰਤੁਲਨ","ਸੰਯੋਜਨ, ਵਿਘਟਨ ਅਤੇ ਊਰਜਾ","ਵਿਸਥਾਪਨ, ਦੁਹਰਾ ਵਿਸਥਾਪਨ ਅਤੇ ਅਵਕਸ਼ੇਪਣ","ਆਕਸੀਕਰਨ, ਅਪਚਯਨ ਅਤੇ ਰੇਡਾਕਸ","ਊਰਜਾ ਬਦਲਾਅ, ਜੰਗ ਅਤੇ ਬਾਸੀਪਨ","ਇਕੱਠਾ ਕ੍ਰਿਆ ਤਰਕ","ਰਸਾਇਣਕ ਕ੍ਰਿਆਵਾਂ ਦਾ ਮਿਲਿਆ-ਜੁਲਿਆ ਲਾਗੂ ਪ੍ਰਸ਼ਨ"],
   },
+  "SCI-CP-015": {
+    hi: ["अम्ल/क्षार आयन, प्रबलता और सांद्रता","सूचक और रंग परिवर्तन","pH और लवण का स्वभाव","अम्ल/क्षार की प्रमुख अभिक्रियाएँ","उदासीनीकरण और pH के उपयोग","साधारण नमक और क्लोर-क्षार रसायन","बेकिंग सोडा, वाशिंग सोडा और ब्लीचिंग पाउडर","क्रिस्टलीकरण-जल, जिप्सम और प्लास्टर ऑफ पेरिस","समेकित अम्ल-क्षार तर्क","अम्ल, क्षार और लवण का मिश्रित अनुप्रयोग"],
+    pa: ["ਅਮਲ/ਖਾਰ ਆਇਨ, ਤਾਕਤ ਅਤੇ ਸੰਕੇਂਦ੍ਰਤਾ","ਸੂਚਕ ਅਤੇ ਰੰਗ ਬਦਲਾਅ","pH ਅਤੇ ਲਵਣ ਦਾ ਸੁਭਾਵ","ਅਮਲ/ਖਾਰ ਦੀਆਂ ਮੁੱਖ ਕ੍ਰਿਆਵਾਂ","ਉਦਾਸੀਨੀਕਰਨ ਅਤੇ pH ਦੇ ਵਰਤੋਂ","ਆਮ ਨਮਕ ਅਤੇ ਕਲੋਰ-ਐਲਕਲੀ ਰਸਾਇਣ","ਬੇਕਿੰਗ ਸੋਡਾ, ਵਾਸ਼ਿੰਗ ਸੋਡਾ ਅਤੇ ਬਲੀਚਿੰਗ ਪਾਊਡਰ","ਕ੍ਰਿਸਟਲੀਕਰਨ-ਪਾਣੀ, ਜਿਪਸਮ ਅਤੇ ਪਲਾਸਟਰ ਆਫ ਪੈਰਿਸ","ਇਕੱਠਾ ਅਮਲ-ਖਾਰ ਤਰਕ","ਅਮਲ, ਖਾਰ ਅਤੇ ਲਵਣ ਦਾ ਮਿਲਿਆ-ਜੁਲਿਆ ਲਾਗੂ ਪ੍ਰਸ਼ਨ"],
+  },
+  "SCI-CP-016": {
+    hi: ["भौतिक गुण और अपवाद","अभिक्रियाएँ और उभयधर्मी ऑक्साइड","अभिक्रियाशीलता श्रेणी और विस्थापन","आयनिक यौगिक और उनके गुण","प्रमुख अयस्क और धातु-अयस्क मिलान","धातुकर्म की शब्दावली और अयस्क उपचार","निष्कर्षण, शोधन और थर्माइट","संक्षारण और मिश्रधातुएँ","समेकित धातु/धातुकर्म तर्क","धातु और अधातु का मिश्रित अनुप्रयोग"],
+    pa: ["ਭੌਤਿਕ ਗੁਣ ਅਤੇ ਅਪਵਾਦ","ਕ੍ਰਿਆਵਾਂ ਅਤੇ ਉਭਯਧਰਮੀ ਆਕਸਾਈਡ","ਕ੍ਰਿਆਸ਼ੀਲਤਾ ਲੜੀ ਅਤੇ ਵਿਸਥਾਪਨ","ਆਇਨਿਕ ਯੋਗਿਕ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਗੁਣ","ਮੁੱਖ ਅਯਸਕ ਅਤੇ ਧਾਤ-ਅਯਸਕ ਮਿਲਾਨ","ਧਾਤਕਰਮ ਦੀ ਸ਼ਬਦਾਵਲੀ ਅਤੇ ਅਯਸਕ ਇਲਾਜ","ਨਿਕਾਸ, ਸ਼ੁੱਧੀਕਰਨ ਅਤੇ ਥਰਮਾਈਟ","ਜੰਗ ਅਤੇ ਮਿਸ਼ਰਧਾਤਾਂ","ਇਕੱਠਾ ਧਾਤ/ਧਾਤਕਰਮ ਤਰਕ","ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ ਦਾ ਮਿਲਿਆ-ਜੁਲਿਆ ਲਾਗੂ ਪ੍ਰਸ਼ਨ"],
+  },
 } as const;
 
 function englishQuestions(cpId: ChemistryLocalizedCpV1): readonly EnglishQuestion[] {
@@ -60,6 +81,8 @@ function englishQuestions(cpId: ChemistryLocalizedCpV1): readonly EnglishQuestio
     case "SCI-CP-012": return SCI_CP012_REVIEW_V1;
     case "SCI-CP-013": return SCI_CP013_REVIEW_V1;
     case "SCI-CP-014": return SCI_CP014_REVIEW_V1;
+    case "SCI-CP-015": return SCI_CP015_REVIEW_V1;
+    case "SCI-CP-016": return SCI_CP016_REVIEW_V1;
   }
 }
 
@@ -69,6 +92,8 @@ function nativeSpecs(cpId: ChemistryLocalizedCpV1, locale: Exclude<ChemistryLoca
     case "SCI-CP-012": return locale === "hi" ? SCI_CHEMISTRY_CP012_HI_V1 : SCI_CHEMISTRY_CP012_PA_V1;
     case "SCI-CP-013": return locale === "hi" ? SCI_CHEMISTRY_CP013_HI_V1 : SCI_CHEMISTRY_CP013_PA_V1;
     case "SCI-CP-014": return locale === "hi" ? SCI_CHEMISTRY_CP014_HI_V1 : SCI_CHEMISTRY_CP014_PA_V1;
+    case "SCI-CP-015": return locale === "hi" ? SCI_CHEMISTRY_CP015_HI_V1 : SCI_CHEMISTRY_CP015_PA_V1;
+    case "SCI-CP-016": return locale === "hi" ? SCI_CHEMISTRY_CP016_HI_V1 : SCI_CHEMISTRY_CP016_PA_V1;
   }
 }
 
@@ -137,5 +162,7 @@ export function generateChemistryLocalizedCpV1(cpId: ChemistryLocalizedCpV1, loc
 
 export const SCI_CHEMISTRY_WAVE1_SUPPORTED_CPS_V1 = Object.freeze(["SCI-CP-011", "SCI-CP-012"] as const);
 export const SCI_CHEMISTRY_WAVE2_SUPPORTED_CPS_V1 = Object.freeze(["SCI-CP-013", "SCI-CP-014"] as const);
+export const SCI_CHEMISTRY_WAVE3_SUPPORTED_CPS_V1 = Object.freeze(["SCI-CP-015", "SCI-CP-016"] as const);
 export const SCI_CHEMISTRY_WAVE1_SUPPORTED_LOCALES_V1 = Object.freeze(["en", "hi", "pa"] as const);
 export const SCI_CHEMISTRY_WAVE2_SUPPORTED_LOCALES_V1 = SCI_CHEMISTRY_WAVE1_SUPPORTED_LOCALES_V1;
+export const SCI_CHEMISTRY_WAVE3_SUPPORTED_LOCALES_V1 = SCI_CHEMISTRY_WAVE1_SUPPORTED_LOCALES_V1;
