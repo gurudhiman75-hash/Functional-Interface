@@ -214,7 +214,7 @@ function aggregateConditionText(
       return {
         mode,
         value: totalA + totalB,
-        learnerText: `The combined total of ${context.seriesAMeasure} and ${context.seriesBMeasure} is ${totalA + totalB} ${context.unit}.`,
+        learnerText: `The combined total under ${context.seriesALabel} and ${context.seriesBLabel} is ${totalA + totalB} ${context.unit}.`,
       };
     case "TOTAL_RATIO_TO_A": {
       const divisor = gcd(totalB, totalA);
@@ -392,9 +392,9 @@ function chooseTwoVisible(seed: string, stimulus: Di007V2Stimulus, salt: string)
 function visibleValueStem(stimulus: Di007V2Stimulus, index: number, variant: 0 | 1 | 2): string {
   const row = stimulus.points[index]!;
   const templates = [
-    `What is the ${stimulus.seriesBMeasure} for ${row.label}?`,
-    `For ${row.label}, what is the ${stimulus.seriesBMeasure}?`,
-    `For ${row.label}, find the ${stimulus.seriesBMeasure} figure.`,
+    `What is the ${stimulus.seriesBLabel} figure for ${row.label}?`,
+    `For ${row.label}, what is the figure under ${stimulus.seriesBLabel}?`,
+    `Find the ${stimulus.seriesBLabel} figure for ${row.label}.`,
   ] as const;
   return templates[variant];
 }
@@ -412,7 +412,7 @@ function visibleDifferenceStem(stimulus: Di007V2Stimulus, index: number, variant
 function recoverStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `What is the missing value of ${stimulus.seriesBMeasure} for ${row.label}?`,
+    `What is the missing ${stimulus.seriesBLabel} figure for ${row.label}?`,
     `Find the value represented by ? for ${row.label}.`,
     `How many ${stimulus.unit} should replace the missing entry in ${row.label}?`,
   ] as const;
@@ -441,9 +441,9 @@ function missingRatioStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string
 
 function bTotalPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const templates = [
-    `The total ${stimulus.seriesBMeasure} is what percentage of the total ${stimulus.seriesAMeasure}?`,
-    `Find ${stimulus.seriesBLabel} as a percentage of ${stimulus.seriesALabel}, using the five-row totals.`,
-    `Using the five-row totals, ${stimulus.seriesBLabel} is what percentage of ${stimulus.seriesALabel}?`,
+    `The five-row total under ${stimulus.seriesBLabel} is what percentage of the five-row total under ${stimulus.seriesALabel}?`,
+    `Using the five-row totals, what percentage of ${stimulus.seriesALabel} is ${stimulus.seriesBLabel}?`,
+    `Compare the five-row totals. ${stimulus.seriesBLabel} is what percentage of ${stimulus.seriesALabel}?`,
   ] as const;
   return templates[variant];
 }
@@ -451,9 +451,9 @@ function bTotalPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): strin
 function missingShareStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `The ${stimulus.seriesBMeasure} for ${row.label} is what percentage of the total ${stimulus.seriesBMeasure} across all five rows?`,
-    `What percentage of the total ${stimulus.seriesBMeasure} comes from ${row.label}?`,
-    `After finding the missing entry for ${row.label}, what percentage of the total ${stimulus.seriesBMeasure} does it represent?`,
+    `The ${stimulus.seriesBLabel} figure for ${row.label} is what percentage of the five-row ${stimulus.seriesBLabel} total?`,
+    `What percentage of the five-row ${stimulus.seriesBLabel} total comes from ${row.label}?`,
+    `After finding the missing entry for ${row.label}, what percentage of the five-row ${stimulus.seriesBLabel} total does it represent?`,
   ] as const;
   return templates[variant];
 }
@@ -472,9 +472,9 @@ function visibleTwoRowStem(stimulus: Di007V2Stimulus, i: number, j: number, vari
 function missingPairedPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `For ${row.label}, the ${stimulus.seriesBMeasure} is what percentage of the ${stimulus.seriesAMeasure}?`,
-    `After finding the missing entry for ${row.label}, express the ${stimulus.seriesBMeasure} as a percentage of the ${stimulus.seriesAMeasure}.`,
-    `For ${row.label}, what percent of the ${stimulus.seriesAMeasure} is the ${stimulus.seriesBMeasure}?`,
+    `For ${row.label}, the ${stimulus.seriesBLabel} figure is what percentage of the ${stimulus.seriesALabel} figure?`,
+    `After finding the missing entry for ${row.label}, express the ${stimulus.seriesBLabel} figure as a percentage of the ${stimulus.seriesALabel} figure.`,
+    `For ${row.label}, the ${stimulus.seriesBLabel} figure is what percent of the ${stimulus.seriesALabel} figure?`,
   ] as const;
   return templates[variant];
 }
@@ -483,9 +483,9 @@ function combinedShareStem(stimulus: Di007V2Stimulus, otherIndex: number, varian
   const hidden = stimulus.points[stimulus.hiddenIndex]!.label;
   const other = stimulus.points[otherIndex]!.label;
   const templates = [
-    `The combined ${stimulus.seriesBMeasure} for ${hidden} and ${other} is what percentage of the total ${stimulus.seriesBMeasure}?`,
-    `What percentage of the total ${stimulus.seriesBMeasure} comes from ${hidden} and ${other} together?`,
-    `After finding the missing entry, what percentage of the total ${stimulus.seriesBMeasure} comes from ${hidden} and ${other} together?`,
+    `The ${stimulus.seriesBLabel} figures for ${hidden} and ${other} together are what percentage of the five-row ${stimulus.seriesBLabel} total?`,
+    `What percentage of the five-row ${stimulus.seriesBLabel} total comes from ${hidden} and ${other} together?`,
+    `After finding the missing entry, what percentage of the five-row ${stimulus.seriesBLabel} total comes from ${hidden} and ${other} together?`,
   ] as const;
   return templates[variant];
 }
@@ -496,9 +496,9 @@ function excessStem(stimulus: Di007V2Stimulus, otherIndex: number, hidden: numbe
   const largerLabel = hidden >= other ? hiddenLabel : otherLabel;
   const smallerLabel = hidden >= other ? otherLabel : hiddenLabel;
   const templates = [
-    `The ${stimulus.seriesBMeasure} for ${largerLabel} is what percentage more than that for ${smallerLabel}?`,
-    `Between ${hiddenLabel} and ${otherLabel}, by what percentage does the higher ${stimulus.seriesBMeasure} exceed the lower one?`,
-    `Compare ${hiddenLabel} and ${otherLabel}. By what percentage is the higher ${stimulus.seriesBMeasure} above the lower one?`,
+    `The ${stimulus.seriesBLabel} figure for ${largerLabel} is what percentage more than that for ${smallerLabel}?`,
+    `Between ${hiddenLabel} and ${otherLabel}, by what percentage does the higher ${stimulus.seriesBLabel} figure exceed the lower one?`,
+    `Compare ${hiddenLabel} and ${otherLabel}. By what percentage is the higher ${stimulus.seriesBLabel} figure above the lower one?`,
   ] as const;
   return templates[variant];
 }
@@ -782,7 +782,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
         ],
         explanation: {
           keyIdea: `Find the missing ${stimulus.seriesBMeasure}, identify the smaller of the two values being compared, then measure the difference relative to that smaller value.`,
-          steps: [`The two ${stimulus.seriesBMeasure} values are ${hidden} and ${visiblePoint.seriesB}; difference = ${difference}.`, `Percentage excess = ${difference}/${smaller} × 100 = ${answer}.`],
+          steps: [`The two ${stimulus.seriesBLabel} figures are ${hidden} and ${visiblePoint.seriesB}; difference = ${difference}.`, `Percentage excess = ${difference}/${smaller} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex, visibleIndex },
       };
