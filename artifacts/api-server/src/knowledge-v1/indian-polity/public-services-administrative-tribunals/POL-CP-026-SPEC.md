@@ -1,6 +1,6 @@
 # POL-CP-026 — Public Services & Administrative Tribunals
 
-**Lifecycle:** REVIEW CANDIDATE — V1  
+**Lifecycle:** REVIEW CANDIDATE — V2  
 **Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
 
 > Scope note: the repository roadmap does not expose the historical CP026 title. This title is an inferred next uncovered high-yield Polity block and remains review-only until project-owner approval.
@@ -18,9 +18,9 @@
 - No Question Studio/runtime registration before explicit approval.
 
 ## Stem standard
-- 40 completion-style stems and 40 normal question stems;
+- V2 full stem pass across all 80 questions;\n- 40 completion-style stems and 40 normal question stems;
 - no repetitive legalistic “whom”, “by whom” or “for the purposes of” phrasing;
-- concise SSC/Banking/state-exam style;
+- concise SSC/Banking/state-exam style with direct fact, rule, exception, amendment and application patterns;\n- no internal project/CP ownership wording inside review questions;
 - maximum 30 words per stem.
 
 ## Review profile
