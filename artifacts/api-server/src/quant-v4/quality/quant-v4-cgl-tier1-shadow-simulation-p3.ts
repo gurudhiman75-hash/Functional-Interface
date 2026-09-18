@@ -246,7 +246,9 @@ function runtimeRecord(input: {
     questionId: metadataValue(input.question, "questionId"),
     canonicalProblemId: metadataValue(input.question, "canonicalProblemId"),
     questionLanguageId: metadataValue(input.question, "questionLanguageId"),
-    taskKind: metadataValue(input.question, "taskKind"),
+    taskKind:
+      metadataValue(input.question, "taskKind") ??
+      metadataValue(input.question, "kind"),
     optionCount: optionTexts(input.question).length,
     emptyExplanation: !explanation,
     literalStemSignature: literalStemSignature(stem),
