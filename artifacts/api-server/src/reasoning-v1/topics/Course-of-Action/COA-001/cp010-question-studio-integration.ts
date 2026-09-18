@@ -17,7 +17,6 @@ import {
   getCoaCp009LocalizedThreeAction,
 } from "./cp009-full-localization-registry.ts";
 import type {
-  CoaActionAuthority,
   CoaAnswerClass,
   CoaDifficulty,
   CoaQlId,
@@ -723,12 +722,12 @@ export async function generateCoaCp010QuestionStudioBatch(
     }
   }
 
-  return Object.freeze({
+  return {
     packageId: "COA-001" as const,
     checkpointId: COA_CP010_CHECKPOINT_ID,
     authority: COA_CP010_QUESTION_STUDIO_AUTHORITY,
-    questions: Object.freeze(questions),
-    generationContext: Object.freeze({
+    questions,
+    generationContext: {
       ...lifecycle,
       engineId: "reasoning-v1" as const,
       generationDomain: "reasoning-v1" as const,
@@ -763,8 +762,8 @@ export async function generateCoaCp010QuestionStudioBatch(
       publiclyPublishable: false as const,
       automaticStudentPublication: false as const,
       learnerRelease: "LOCKED" as const,
-    }),
-  });
+    },
+  };
 }
 
 export const COA_CP010_QUESTION_STUDIO_PACKAGE = Object.freeze({
