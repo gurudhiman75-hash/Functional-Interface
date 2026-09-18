@@ -4,20 +4,24 @@ on:
   pull_request:
     branches:
       - New-main
+    types: [opened, reopened, synchronize]
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**"
       - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
       - ".github/workflows/cls-001-chapter-closure.yml"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
-  group: cls-001-chapter-closure-${{ github.event.pull_request.number || github.ref }}
+  group: cls-001-chapter-closure-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   chapter-closure:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -34,13 +38,22 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build API server
-        run: pnpm --filter ./artifacts/api-server build
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle Classification chapter-closure gates
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001
+          OUT=dist/reasoning-v1/cls-001/chapter-closure
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-review.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/question-studio-review.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/english-editorial-approval.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-editorial-approval.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-008/ownership.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp008-ownership.test.mjs"
 
       - name: Run Classification shared Question Studio closure gate
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/question-studio-review.test.ts
+        run: cd artifacts/api-server && node dist/reasoning-v1/cls-001/chapter-closure/question-studio-review.test.mjs
 
       - name: Run English editorial approval regression
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/english-editorial-approval.test.ts
+        run: cd artifacts/api-server && node dist/reasoning-v1/cls-001/chapter-closure/english-editorial-approval.test.mjs
 
       - name: Run CP-008 zero-allocation ownership closure
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-008/ownership.test.ts
+        run: cd artifacts/api-server && node dist/reasoning-v1/cls-001/chapter-closure/cp008-ownership.test.mjs
