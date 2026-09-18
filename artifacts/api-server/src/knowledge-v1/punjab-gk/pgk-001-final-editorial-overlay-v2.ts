@@ -1,0 +1,87 @@
+export type Pgk001FinalEditorialOverrideV2 = Readonly<{
+  stem?: string;
+  difficulty?: "Easy" | "Medium" | "Hard";
+  explanation?: string;
+  options?: readonly string[];
+  canonicalAnswer?: string;
+}>;
+
+export const PGK_001_FINAL_EDITORIAL_OVERLAY_V2: Readonly<
+  Record<string, Pgk001FinalEditorialOverrideV2>
+> = Object.freeze({
+  "PGK-001-CP001-Q018": { stem: "Which language-script set correctly describes Punjab?" },
+  "PGK-001-CP005-Q040": { stem: "Which dam-river-reservoir set is correctly matched?" },
+  "PGK-001-CP009-Q041": { stem: "Which Punjab industrial-centre set is correctly matched?" },
+  "PGK-001-CP010-Q038": { stem: "Which ancient Punjab site-period set is correctly matched?" },
+  "PGK-001-CP011-Q038": { stem: "Which medieval Punjab ruler-role set is correctly matched?" },
+  "PGK-001-CP012-Q024": { stem: "Which Guru-institution-principle set is correctly matched?" },
+  "PGK-001-CP012-Q036": { stem: "Which Guru Gobind Singh birth-and-Khalsa set is correctly matched?" },
+  "PGK-001-CP013-Q024": { stem: "Which Banda Singh Bahadur administration set is correctly matched?" },
+  "PGK-001-CP013-Q038": { stem: "Which Banda Singh Bahadur person-place set is correctly matched?" },
+  "PGK-001-CP015-Q038": { stem: "Which Sikh Empire capital-and-conquest set is correctly matched?" },
+  "PGK-001-CP017-Q018": { stem: "Which 1907 Punjab peasant-agitation set is correctly matched?" },
+  "PGK-001-QL-128-R06": { stem: "Which Punjab Assembly institution-role set is correctly matched?" },
+  "PGK-001-QL-130-R06": { stem: "Which High Court seat-jurisdiction set is correctly matched?" },
+  "PGK-001-QL-144-R06": { stem: "Which Gurmukhi sign-name set is correctly matched?" },
+  "PGK-001-QL-148-R06": { stem: "Which Waris Shah work-form set is correctly matched?" },
+  "PGK-001-QL-155-R06": { stem: "Which Giddha-Kikli performance set is correctly matched?" },
+  "PGK-001-QL-157-R06": { stem: "Which Punjabi folk-instrument description set is correctly matched?" },
+  "PGK-001-QL-158-R06": { stem: "Which Punjabi folk-form and instrument set is correctly matched?" },
+  "PGK-001-QL-160-R01": { stem: "Which folk dance-performance set is correctly matched?" },
+  "PGK-001-QL-161-R06": { stem: "Which Anandpur Sahib heritage set is correctly matched?" },
+  "PGK-001-QL-163-R06": { stem: "Which Fatehgarh Sahib commemoration set is correctly matched?" },
+  "PGK-001-QL-177-R06": { stem: "Which central-Punjab district-feature set is correctly matched?" },
+
+  "PGK-001-CP001-Q023": { stem: "Which Punjab date-administrative snapshot pair is correct?" },
+  "PGK-001-CP001-Q030": { stem: "Which Punjab state-symbol pair is correct?" },
+  "PGK-001-CP006-Q010": { stem: "Which Punjab rainfall-region pair is correct?" },
+  "PGK-001-CP010-Q010": { stem: "Which Vedic Punjab term-context pair is correct?" },
+  "PGK-001-CP010-Q030": { stem: "Which ancient thinker-work pair is correct?" },
+  "PGK-001-CP012-Q012": { stem: "Which Sikh Guru-centre pair is correct?" },
+  "PGK-001-CP013-Q012": { stem: "Which Banda Singh campaign place-ruler pair is correct?" },
+  "PGK-001-CP014-Q018": { stem: "Which Sikh confederacy institution-function pair is correct?" },
+  "PGK-001-CP015-Q012": { stem: "Which Sikh Empire treaty-year pair is correct?" },
+  "PGK-001-CP015-Q030": { stem: "Which Sikh Empire administrative office-role pair is correct?" },
+  "PGK-001-CP016-Q018": { stem: "Which 1846 treaty-date pair is correct?" },
+  "PGK-001-CP017-Q011": { stem: "Which Singh Sabha place-year pair is correct?" },
+  "PGK-001-QL-143-R04": { stem: "Which Gurmukhi matra-name pair identifies aunkar correctly?" },
+  "PGK-001-QL-143-R05": { stem: "Which Gurmukhi matra-name pair identifies hora correctly?" },
+  "PGK-001-QL-159-R05": { stem: "Which Punjabi craft-footwear pair is correct?" },
+
+  "PGK-001-CP002-Q012": { stem: "Which district is correctly matched with headquarters Nawanshahr?" },
+  "PGK-001-CP002-Q027": { stem: "Which district is correctly matched with headquarters Mohali?" },
+  "PGK-001-CP006-Q029": { stem: "Which groundwater problem-effect pair is incorrectly matched?" },
+  "PGK-001-CP016-Q040": { stem: "Which Anglo-Sikh treaty-effect pair is incorrectly matched?" },
+  "PGK-001-CP006-Q037": { stem: "Which Punjab climate-region combination is correct?" },
+  "PGK-001-CP008-Q030": { stem: "Which Punjab horticulture district-crop combination is correct?" },
+  "PGK-001-CP010-Q036": { stem: "Which ancient-site period-art combination is correct?" },
+  "PGK-001-QL-173-R06": { stem: "Which Punjab sports-award combination is correct?" },
+  "PGK-001-CP007-Q006": { stem: "Which Punjab forest-type location pair is correct?" },
+  "PGK-001-CP007-Q038": { stem: "Which protected bir-location pair is correct?" },
+
+  "PGK-001-CP010-Q037": { stem: "Which sequence correctly orders the major phases from Harappan Punjab to the Kushan period?" },
+  "PGK-001-CP011-Q037": { stem: "Which sequence correctly orders these medieval Punjab developments?" },
+  "PGK-001-CP012-Q038": { stem: "Which sequence correctly orders these major events of the Sikh Gurus?" },
+  "PGK-001-CP013-Q037": { stem: "Which sequence correctly orders Banda Singh Bahadur's campaign and final years?" },
+  "PGK-001-CP015-Q037": { stem: "Which sequence correctly orders Ranjit Singh's rise and major conquests?" },
+  "PGK-001-CP016-Q037": { stem: "Which sequence correctly orders the Anglo-Sikh Wars and annexation?" },
+  "PGK-001-CP017-Q012": { stem: "Which sequence correctly orders the Kuka and early Singh Sabha developments?" },
+  "PGK-001-CP017-Q037": { stem: "Which sequence correctly orders these Punjab reform and freedom-movement events?" },
+  "PGK-001-CP018-Q024": { stem: "Which sequence correctly orders PEPSU formation, merger and the 1966 reorganisation?" },
+  "PGK-001-CP018-Q037": { stem: "Which sequence correctly orders Partition, PEPSU and Punjab reorganisation?" },
+
+  "PGK-001-CP008-Q033": { difficulty: "Medium" },
+  "PGK-001-CP008-Q034": { difficulty: "Medium" },
+  "PGK-001-CP012-Q018": { difficulty: "Medium" },
+  "PGK-001-CP012-Q030": { difficulty: "Medium" },
+  "PGK-001-CP013-Q036": { difficulty: "Medium" },
+  "PGK-001-CP014-Q030": { difficulty: "Medium" },
+  "PGK-001-CP015-Q036": { difficulty: "Medium" },
+  "PGK-001-CP016-Q042": { difficulty: "Medium" },
+  "PGK-001-CP017-Q006": { difficulty: "Medium" },
+  "PGK-001-CP017-Q030": { difficulty: "Medium" },
+  "PGK-001-CP017-Q036": { difficulty: "Medium" },
+  "PGK-001-QL-156-R06": { difficulty: "Medium" },
+  "PGK-001-QL-164-R06": { difficulty: "Medium" },
+  "PGK-001-QL-166-R06": { difficulty: "Medium" },
+});
