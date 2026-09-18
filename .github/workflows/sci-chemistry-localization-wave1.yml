@@ -87,3 +87,17 @@ jobs:
       - name: Run Wave 4 localization audit
         working-directory: artifacts/api-server
         run: node dist/sci-chemistry-localization-wave4-audit-v1.mjs
+
+      - name: Bundle final multilingual closure audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/chemistry-localization-v1/sci-chemistry-multilingual-final-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-chemistry-multilingual-final-audit-v1.mjs
+
+      - name: Run final multilingual closure audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-chemistry-multilingual-final-audit-v1.mjs
