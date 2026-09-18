@@ -241,7 +241,7 @@ function cp3Stem(question: (typeof ECO_CP003_REVIEW_V2)[number], locale: NativeL
   }
 
   if (ql === 7) {
-    const match = question.stem.match(/^If output is ([\d,]+) and intermediate inputs are ([\d,]+), what is value added\?$/u);
+    const match = question.stem.match(/^If output is ([\d,]+) and intermediate inputs (?:are|cost) ([\d,]+), what is value added\?$/u);
     if (match) return locale === "hi"
       ? `यदि उत्पादन मूल्य ${match[1]} और मध्यवर्ती इनपुट ${match[2]} हैं, तो मूल्य वर्धित कितना है?`
       : `ਜੇ ਉਤਪਾਦਨ ਮੁੱਲ ${match[1]} ਅਤੇ ਮੱਧਵਰਤੀ ਇਨਪੁੱਟ ${match[2]} ਹਨ, ਤਾਂ ਮੁੱਲ ਵਾਧਾ ਕਿੰਨਾ ਹੈ?`;
