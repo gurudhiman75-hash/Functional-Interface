@@ -111,7 +111,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Easy",
-    "The large central vacuole of a plant cell mainly helps in:",
+    "The large central vacuole of a plant cell mainly helps in maintaining:",
     "turgidity and storage",
     [
       "chromosome number",
@@ -171,7 +171,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Hard",
-    "A cell has a cell wall, a large vacuole and mitochondria but no chloroplasts. It is most likely:",
+    "A cell has a cell wall, a large vacuole and mitochondria but no chloroplasts. Which conclusion is most appropriate?",
     "It may be a non-photosynthetic plant cell such as a root cell",
     [
       "It must be an animal cell",
