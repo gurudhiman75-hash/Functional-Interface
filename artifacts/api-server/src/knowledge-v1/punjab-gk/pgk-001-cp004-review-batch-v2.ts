@@ -76,7 +76,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
       "Beas — Purushni",
     ],
     canonicalAnswer: "Jhelum — Vitasta",
-    explanation: "Jhelum was known as Vitasta; the PSEB text also prints the spelling Vitista. Vipasa belongs to Beas, Askini to Chenab and Purushni to Ravi.",
+    explanation: "Jhelum was known as Vitasta; Vitista is also encountered as a spelling variant. Vipasa belongs to Beas, Askini to Chenab and Purushni to Ravi.",
     factIds: ["ancient-jhelum-vitista", "ancient-beas-vipasa", "ancient-chenab-askini", "ancient-ravi-purushni"],
     sourceIds: ancientSource,
   },
