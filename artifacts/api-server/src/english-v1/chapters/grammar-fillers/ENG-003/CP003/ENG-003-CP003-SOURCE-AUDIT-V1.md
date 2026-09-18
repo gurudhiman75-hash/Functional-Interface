@@ -54,27 +54,27 @@ The approved ENG-002 CP003 generator is always invoked in correction-required mo
 
 ENG-003 then:
 
-- removes the verified article/determiner target;
-- inserts exactly one `_____` blank;
-- carries forward the verified correct phrase;
-- carries forward the two natural replacement distractors already produced by ENG-002;
-- adds the approved donor mutation as the third distractor;
+- keeps the noun phrase visible and removes only its article/determiner;
+- inserts exactly one `_____` blank before the noun phrase;
+- reduces the verified correction to its controlling article/determiner;
+- uses rule-aware determiner-only distractors rather than malformed full noun phrases;
+- represents zero article explicitly as `No article`;
 - deterministically distributes the correct answer across A/B/C/D.
 
-This preserves grammar truth while changing only the question family.
+This preserves grammar truth while producing a cleaner competitive-exam filler surface.
 
 ## Distractor policy
 
 Distractors must:
 
-- stay tied to the same noun phrase;
-- remain real English article/determiner surfaces;
-- be wrong for the sentence's meaning or countability;
+- be article/determiner choices, not rewritten noun phrases;
+- stay tied to the same visible noun phrase;
+- be wrong for the sentence's sound, specificity, countability or number condition;
 - remain unique;
 - not contain `No improvement`;
-- never be malformed by mechanical spelling edits.
+- never rely on malformed surfaces such as `an dictionary` or `many dictionary`.
 
-For zero-article rules, the correct option may be the bare noun phrase; this is intentional and must remain explicit in the option set.
+For zero-article rules, the correct option is shown explicitly as `No article`.
 
 ## Difficulty
 
