@@ -18,6 +18,11 @@ import {
   isDi005QuestionStudioRequest,
 } from "../../quant-v4/topics/DataInterpretation/DI-005/question-studio-adapter";
 import {
+  di006QuestionStudioPackageCard,
+  generateDi006QuestionStudioBatch,
+  isDi006QuestionStudioRequest,
+} from "../../quant-v4/topics/DataInterpretation/DI-006/question-studio-adapter";
+import {
   di009QuestionStudioPackageCard,
   generateDi009QuestionStudioBatch,
   isDi009QuestionStudioRequest,
@@ -170,6 +175,22 @@ function toDi005Request(request: QuestionStudioGenerationRequest) {
   };
 }
 
+function toDi006Request(request: QuestionStudioGenerationRequest) {
+  return {
+    packageId: request.packageId,
+    patternId: request.patternId,
+    topic: request.topic,
+    subtopic: request.subtopic,
+    difficulty: request.difficulty,
+    language: request.language,
+    seed: request.seed,
+    count: request.count,
+    canonicalProblemId: request.canonicalProblemId,
+    questionLanguageId: request.questionLanguageId,
+    examProfile: request.exam,
+  };
+}
+
 function toDi009Request(request: QuestionStudioGenerationRequest) {
   return {
     packageId: request.packageId,
@@ -218,6 +239,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-003", di003QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-005", di005QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-006", di006QuestionStudioPackageCard() as unknown as Record<string, unknown>);
 
     if (!packages.some((pkg) => pkg.packageId === "DI-009")) {
       packages.push(toSharedPackage(di009QuestionStudioPackageCard() as unknown as Record<string, unknown>));
@@ -248,6 +270,11 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     const di005Request = toDi005Request(request);
     if (isDi005QuestionStudioRequest(di005Request)) {
       return generateDi005QuestionStudioBatch(di005Request) as unknown as QuestionStudioGenerationResult;
+    }
+
+    const di006Request = toDi006Request(request);
+    if (isDi006QuestionStudioRequest(di006Request)) {
+      return generateDi006QuestionStudioBatch(di006Request) as unknown as QuestionStudioGenerationResult;
     }
 
     const di010Request = toDi010Request(request);
