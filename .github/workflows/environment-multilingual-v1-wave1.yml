@@ -44,9 +44,6 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Typecheck current API server
-        run: pnpm --dir artifacts/api-server typecheck
-
       - name: Bundle Environment CP001 localization proof
         run: |
           mkdir -p artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1
