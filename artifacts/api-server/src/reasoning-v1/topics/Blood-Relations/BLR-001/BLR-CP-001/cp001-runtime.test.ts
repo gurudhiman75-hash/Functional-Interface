@@ -85,6 +85,11 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
 
     assert.ok(first.stem.trim().length > 40);
     assert.ok(first.stem.endsWith("?"));
+    assert.doesNotMatch(
+      first.stem,
+      /^(?:Read|Study|Consider|Use)\b.*(?:family|relations?|information|statements?)/i,
+      `${contract.qlId}/${seed} should begin with the actual relation evidence, not a generic instruction opener.`,
+    );
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options.map((option) => option.value)).size, 4);
     assert.equal(first.options.filter((option) => option.isCorrect).length, 1);
