@@ -1,0 +1,59 @@
+name: Quant V4 Data Interpretation caselet DI V2
+
+on:
+  push:
+    branches:
+      - feature/di-006-caselet-v2-review
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/**"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/**"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di006-caselet-v2-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  caselet-v2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Review-only lifecycle guard
+        run: |
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/caselet-v2-types.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/caselet-set-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/independent-verifier-v2.ts
+          ! grep -R 'questionStudioDiscoverable: true\|questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/caselet-v2-types.ts \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/caselet-set-v2.ts
+      - name: DI-006 V2 deterministic, diversity and independent proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/caselet-set-v2.test.ts
+      - name: Legacy DI-006 regression
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/caselet-set.test.ts
+      - name: Export Markdown review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/export-review-v2-clean.ts DI-006-REVIEW-V2.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: di-006-caselet-review-v2
+          path: DI-006-REVIEW-V2.md
+          if-no-files-found: error
+          retention-days: 30
+      - name: API server build
+        run: pnpm --filter @workspace/api-server build
+      - name: Patch hygiene
+        run: git diff --check
