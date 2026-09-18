@@ -53,9 +53,9 @@ const STEM_VARIANTS: Readonly<Record<Di001QuestionKind, readonly StemBuilder[]>>
   ]),
 });
 
-function diversifyStem(stimulus: Di001Stimulus, question: Di001Question): string {
+function diversifyStem(seed: string, stimulus: Di001Stimulus, question: Di001Question): string {
   const variants = STEM_VARIANTS[question.kind];
-  const variantIndex = presentationVariantIndex(question.questionId, variants.length);
+  const variantIndex = presentationVariantIndex(`${seed}:stem-variety:${question.kind}`, variants.length);
   return variants[variantIndex]!(stimulus, question);
 }
 
@@ -65,7 +65,7 @@ export function generateDi001TableSet(
   const generated = generateDi001TableSetBase(input);
   const questions = generated.questions.map((question) => Object.freeze({
     ...question,
-    stem: diversifyStem(generated.stimulus, question),
+    stem: diversifyStem(generated.seed, generated.stimulus, question),
   }));
   return Object.freeze({ ...generated, questions: Object.freeze(questions) });
 }
