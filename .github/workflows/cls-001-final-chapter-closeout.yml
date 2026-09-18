@@ -8,7 +8,6 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**
       - artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts
-      - .github/workflows/cls-001-final-chapter-closeout.yml
 
 permissions:
   contents: read
