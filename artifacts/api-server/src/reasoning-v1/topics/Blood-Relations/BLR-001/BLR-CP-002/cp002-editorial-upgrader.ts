@@ -25,13 +25,6 @@ function quotedAssertion(stem: string): string {
   return stem.match(/“([^”]+)”/)?.[1] ?? "The described relation holds.";
 }
 
-function naturalPhotoOpening(stem: string): string {
-  return stem
-    .replace("Pointing to a photograph of a man,", "Pointing to a man in a photograph,")
-    .replace("Pointing to a photograph of a woman,", "Pointing to a woman in a photograph,")
-    .replace("Pointing to a photograph of a person,", "Pointing to a person in a photograph,");
-}
-
 function naturalAnchorGrammar(stem: string): string {
   return stem
     .replace(/\bis the ([a-z -]+) of me\./gi, "is my $1.")
@@ -80,7 +73,7 @@ function upgradedStem(question: GeneratedBlrCp002PrototypeQuestion): string {
   }
   if (!picturedSelf) {
     return naturalAnchorGrammar(
-      addListenerContext(question, naturalPhotoOpening(question.stem)),
+      addListenerContext(question, question.stem),
     );
   }
 
@@ -89,7 +82,7 @@ function upgradedStem(question: GeneratedBlrCp002PrototypeQuestion): string {
     question.structuredPrompt.speakerId;
   const gender = speakerGender(question);
   return naturalAnchorGrammar(
-    `Pointing to a ${personNoun(gender)} in a photograph, ${speakerName} said, “${quotedAssertion(question.stem)}” How is the person in the photograph related to ${speakerName}?`,
+    `Pointing to a photograph of a ${personNoun(gender)}, ${speakerName} said, “${quotedAssertion(question.stem)}” How is the person in the photograph related to ${speakerName}?`,
   );
 }
 
