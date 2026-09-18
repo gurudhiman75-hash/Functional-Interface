@@ -256,7 +256,7 @@ function cp3Stem(question: (typeof ECO_CP003_REVIEW_V2)[number], locale: NativeL
     if (match) return locale === "hi" ? `यदि GNP ${match[1]} और मूल्यह्रास ${match[2]} है, तो NNP कितना है?` : `ਜੇ GNP ${match[1]} ਅਤੇ ਮੁੱਲ ਘਟਾਅ ${match[2]} ਹੈ, ਤਾਂ NNP ਕਿੰਨਾ ਹੈ?`;
     match = question.stem.match(/^If national income is ([\d,]+) and population is ([\d,]+), what is per-capita income\?$/u);
     if (match) return locale === "hi" ? `यदि राष्ट्रीय आय ${match[1]} और जनसंख्या ${match[2]} है, तो प्रति व्यक्ति आय कितनी है?` : `ਜੇ ਰਾਸ਼ਟਰੀ ਆਮਦਨ ${match[1]} ਅਤੇ ਆਬਾਦੀ ${match[2]} ਹੈ, ਤਾਂ ਪ੍ਰਤੀ ਵਿਅਕਤੀ ਆਮਦਨ ਕਿੰਨੀ ਹੈ?`;
-    match = question.stem.match(/^If output is worth ([\d,]+) and intermediate inputs cost ([\d,]+), what is value added\?$/u);
+    match = question.stem.match(/^If output is(?: worth)? ([\d,]+) and intermediate inputs cost ([\d,]+), what is value added\?$/u);
     if (match) return locale === "hi" ? `यदि उत्पादन का मूल्य ${match[1]} और मध्यवर्ती इनपुट की लागत ${match[2]} है, तो मूल्य वर्धित कितना है?` : `ਜੇ ਉਤਪਾਦਨ ਦਾ ਮੁੱਲ ${match[1]} ਅਤੇ ਮੱਧਵਰਤੀ ਇਨਪੁੱਟ ਦੀ ਲਾਗਤ ${match[2]} ਹੈ, ਤਾਂ ਮੁੱਲ ਵਾਧਾ ਕਿੰਨਾ ਹੈ?`;
   }
 
