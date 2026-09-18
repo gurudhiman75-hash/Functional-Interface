@@ -8,11 +8,24 @@ function ord(seed:number,cap:number){const n=Math.trunc(seed)-1;return ((n%cap)+
 function uniq(v:readonly string[]){return [...new Set(v.map(norm).filter(Boolean))];}
 function pickVariant(v:readonly string[],s:number){return v[ord(s+1,v.length)]!;}
 function requireDiff(actual:PunjabiDifficulty,allowed:readonly PunjabiDifficulty[],id:string){if(!allowed.includes(actual))throw new Error(`CP012 ${id} does not support ${actual}`);}
-function indexOfAuthority(a:CP012Authority){return CP012_AUTHORITIES.findIndex(x=>x.id===a.id);}
+function meaningTokens(value:string){
+ return new Set(norm(value).replace(/[‘’“”"'.,;:!?()\-–—/]/g," ").split(/\s+/).filter(t=>t.length>1));
+}
+function meaningSimilarity(a:string,b:string){
+ const aa=meaningTokens(a),bb=meaningTokens(b);
+ if(!aa.size||!bb.size)return 0;
+ let shared=0; for(const t of aa)if(bb.has(t))shared++;
+ return shared/Math.max(aa.size,bb.size);
+}
 function contrastPeers(a:CP012Authority){
- const i=indexOfAuthority(a);
- const offsets=[8,16,24,32,40,48,56,7];
- return offsets.map(o=>CP012_AUTHORITIES[(i+o)%CP012_AUTHORITIES.length]!).filter(x=>x.id!==a.id);
+ const candidates=CP012_AUTHORITIES
+  .filter(x=>x.id!==a.id)
+  .map(x=>({x,score:meaningSimilarity(a.meaningPa,x.meaningPa)}))
+  .filter(v=>v.score<0.6)
+  .sort((p,q)=>q.score-p.score||p.x.id.localeCompare(q.x.id))
+  .map(v=>v.x);
+ if(candidates.length<8)throw new Error(`CP012 ${a.id}: fewer than eight safe semantic peers`);
+ return candidates.slice(0,8);
 }
 function assemble(input:{seed:number;difficulty:PunjabiDifficulty;familyId:string;subtype:string;stem:string;correctAnswer:string;distractors:readonly string[];explanation:string;authorityIds:readonly string[]}):PunjabiGeneratedQuestion{
  const rng=createRng(`CP012:${input.familyId}:${input.seed}`);
@@ -69,7 +82,7 @@ export function generateCP012F06(seed:number,difficulty:PunjabiDifficulty){
 }
 
 function orderedPair(seed:number){
- const r=ord(seed,512),firstIndex=Math.floor(r/8),first=CP012_AUTHORITIES[firstIndex]!,ps=contrastPeers(first),second=ps[r%8]!;
+ const cap=CP012_AUTHORITIES.length*8,r=ord(seed,cap),firstIndex=Math.floor(r/8),first=CP012_AUTHORITIES[firstIndex]!,ps=contrastPeers(first),second=ps[r%8]!;
  return {r,first,second,ps};
 }
 export function generateCP012F07(seed:number,difficulty:PunjabiDifficulty){
@@ -83,7 +96,7 @@ export function generateCP012F07(seed:number,difficulty:PunjabiDifficulty){
 const VERDICTS=["ਦੋਵੇਂ ਕਥਨ ਸਹੀ ਹਨ","ਕੇਵਲ ਕਥਨ 1 ਸਹੀ ਹੈ","ਕੇਵਲ ਕਥਨ 2 ਸਹੀ ਹੈ","ਦੋਵੇਂ ਕਥਨ ਗਲਤ ਹਨ"] as const;
 export function generateCP012F08(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Hard"],"F08");
- const cap=512*4,r=ord(seed,cap),pattern=r%4,pairSeed=Math.floor(r/4)+1,{first,second,ps}=orderedPair(pairSeed);
+ const pairCap=CP012_AUTHORITIES.length*8,cap=pairCap*4,r=ord(seed,cap),pattern=r%4,pairSeed=Math.floor(r/4)+1,{first,second,ps}=orderedPair(pairSeed);
  const otherForFirst=ps.find(x=>x.id!==second.id)!;
  const secondPeers=contrastPeers(second),otherForSecond=secondPeers[ord(pairSeed,secondPeers.length)]!;
  const t1=pattern===0||pattern===1,t2=pattern===0||pattern===2;
@@ -94,14 +107,14 @@ export function generateCP012F08(seed:number,difficulty:PunjabiDifficulty){
 }
 
 export const CP012_FAMILIES=[
- {familyId:"F01",subtype:"DIRECT_PROVERB_MEANING",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:64,generate:generateCP012F01},
- {familyId:"F02",subtype:"FORWARD_PROVERB_COMPLETION",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:64,generate:generateCP012F02},
- {familyId:"F03",subtype:"MEANING_TO_PROVERB",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:64,generate:generateCP012F03},
- {familyId:"F04",subtype:"REVERSE_PROVERB_COMPLETION",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:64,generate:generateCP012F04},
- {familyId:"F05",subtype:"AUTHORED_SITUATION_TO_PROVERB",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:64,generate:generateCP012F05},
- {familyId:"F06",subtype:"CORRECT_PROVERB_MEANING_PAIR",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:64,generate:generateCP012F06},
- {familyId:"F07",subtype:"ORDERED_DUAL_MEANING_TO_PROVERB",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:512,generate:generateCP012F07},
- {familyId:"F08",subtype:"DUAL_STATEMENT_VERIFICATION",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:2048,generate:generateCP012F08},
+ {familyId:"F01",subtype:"DIRECT_PROVERB_MEANING",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:CP012_AUTHORITIES.length,generate:generateCP012F01},
+ {familyId:"F02",subtype:"FORWARD_PROVERB_COMPLETION",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:CP012_AUTHORITIES.length,generate:generateCP012F02},
+ {familyId:"F03",subtype:"MEANING_TO_PROVERB",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:CP012_AUTHORITIES.length,generate:generateCP012F03},
+ {familyId:"F04",subtype:"REVERSE_PROVERB_COMPLETION",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:CP012_AUTHORITIES.length,generate:generateCP012F04},
+ {familyId:"F05",subtype:"AUTHORED_SITUATION_TO_PROVERB",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:CP012_AUTHORITIES.length,generate:generateCP012F05},
+ {familyId:"F06",subtype:"CORRECT_PROVERB_MEANING_PAIR",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:CP012_AUTHORITIES.length,generate:generateCP012F06},
+ {familyId:"F07",subtype:"ORDERED_DUAL_MEANING_TO_PROVERB",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:CP012_AUTHORITIES.length*8,generate:generateCP012F07},
+ {familyId:"F08",subtype:"DUAL_STATEMENT_VERIFICATION",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:CP012_AUTHORITIES.length*8*4,generate:generateCP012F08},
 ] as const;
 
 export function generateCP012Question(seed:number,difficulty:PunjabiDifficulty="Medium",requestedFamilyId?:string){
