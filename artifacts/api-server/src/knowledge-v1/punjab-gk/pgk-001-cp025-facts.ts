@@ -3,6 +3,7 @@ export const PGK_001_CP025_SOURCE_IDS = Object.freeze({
   worldAthleticsMilkha: "WORLD-ATHLETICS-MILKHA-SINGH",
   hockeyIndiaOlympics: "HOCKEY-INDIA-OLYMPIC-HISTORY",
   hockeyIndiaAjitPal: "HOCKEY-INDIA-AJIT-PAL-SINGH",
+  cecAjitPal: "CEC-BPED-AJIT-PAL-SINGH",
   worldAthleticsRandhawa: "WORLD-ATHLETICS-GURBACHAN-SINGH-RANDHAWA",
   myasArjuna: "MYAS-ARJUNA-AWARD-ATHLETICS",
   padmaAwards: "MHA-PADMA-AWARDS-2005",
@@ -23,7 +24,7 @@ export const PGK_001_CP025_FACTS = Object.freeze([
   { id: "ajit-pal-1975", value: "Ajit Pal Singh captained India to the 1975 Men's Hockey World Cup title in Kuala Lumpur.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaAjitPal] },
   { id: "ajit-pal-final-pakistan", value: "India defeated Pakistan in the 1975 Men's Hockey World Cup final.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaAjitPal] },
   { id: "ajit-pal-world-cup-medals", value: "Ajit Pal Singh's three World Cup appearances produced bronze in 1971, silver in 1973 and gold in 1975.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaAjitPal] },
-  { id: "ajit-pal-sansarpur", value: "Ajit Pal Singh was born in Sansarpur, Punjab.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaAjitPal] },
+  { id: "ajit-pal-sansarpur", value: "Ajit Pal Singh was born in Sansarpur, Punjab.", sourceIds: [PGK_001_CP025_SOURCE_IDS.cecAjitPal] },
 
   { id: "pargat-olympic-captain", value: "Pargat Singh captained India at the 1992 and 1996 Olympic Games.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
   { id: "pargat-mithapur", value: "Pargat Singh was born at Mithapur in Punjab.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
