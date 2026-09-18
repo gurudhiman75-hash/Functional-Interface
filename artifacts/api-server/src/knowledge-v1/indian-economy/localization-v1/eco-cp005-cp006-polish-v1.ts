@@ -1,4 +1,4 @@
-import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
+import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";\nimport { isEcoProtectedExamTermV1 } from "./eco-localization-term-policy-v1";
 import {
   generateEcoCp005LocalizedReviewV1 as base005,
   generateEcoCp006LocalizedReviewV1 as base006,
@@ -21,7 +21,7 @@ const edge: Readonly<Record<string, Readonly<Record<NativeLocale, string>>>> = O
 function polish(question: EcoLocalizedQuestionV1): EcoLocalizedQuestionV1 {
   if (question.locale === "en") return question;
   const locale = question.locale;
-  const options = question.options.map((value) => edge[value]?.[locale] ?? value);
+  const options = question.options.map((value) => isEcoProtectedExamTermV1(value) ? value : edge[value]?.[locale] ?? value);
   return { ...question, options, canonicalAnswer: options[question.correctIndex] };
 }
 
