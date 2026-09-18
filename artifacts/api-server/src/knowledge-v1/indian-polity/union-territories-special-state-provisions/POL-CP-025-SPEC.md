@@ -1,6 +1,6 @@
 # POL-CP-025 — Union Territories & Special Provisions for States
 
-**Lifecycle:** REVIEW CANDIDATE — V2  
+**Lifecycle:** REVIEW CANDIDATE — V3  
 **Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
 
 > Scope note: the repository roadmap does not expose the historical CP025 title. This is an inferred next uncovered high-yield Polity block and remains review-only until project-owner approval.
@@ -23,8 +23,8 @@
 - 24 Easy / 40 Medium / 16 Hard;
 - four questions per QL;
 - A/B/C/D correct positions exactly balanced 20 each;
-- V2 full stem pass: all 80 stems rewritten into consistent exam-grade question style;
-- direct fact, constitutional application and comparison-style stems used according to difficulty;\n- simple, useful explanations;
+- V3 stem pass: all 80 stems rewritten to reduce repetitive who/whom/what phrasing and use natural question/completion variety;
+- direct fact, statement-completion, constitutional application and comparison-style stems used according to difficulty;\n- validation rejects recurring legalistic stem patterns such as “whom” and “for the purposes of”;\n- simple, useful explanations;
 - review-only until explicit approval.
 
 ## Primary authority
