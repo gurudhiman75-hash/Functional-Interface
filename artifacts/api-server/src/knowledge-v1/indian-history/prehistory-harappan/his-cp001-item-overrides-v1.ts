@@ -1,0 +1,11 @@
+import type { HisCp001Spec } from "./his-cp001-review-specs-v1";
+
+export const HIS_CP001_ITEM_OVERRIDES_V1:Readonly<Record<number,HisCp001Spec>>={
+36:[6,"Which metal was not commonly used by the Harappans?","Iron",["Copper","Gold","Silver"],["har-no-iron"]],
+49:[9,"Consider the statements: 1. The Great Bath is at Mohenjo-daro. 2. A dockyard has traditionally been identified at Lothal. 3. Plough marks were found at Harappa. Which are correct?","1 and 2 only",["2 and 3 only","1 and 3 only","1, 2 and 3"],["har-great-bath","har-lothal-dockyard","har-kalibangan-plough"]],
+50:[9,"Consider the statements: 1. Harappa is linked with the Ravi. 2. Mohenjo-daro is linked with the Indus. 3. Dholavira is in Rajasthan. Which are correct?","1 and 2 only",["2 and 3 only","1 and 3 only","1, 2 and 3"],["har-harappa-river","har-mohenjo-river","har-dholavira-location"]],
+51:[9,"1. Mesolithic tools include microliths. 2. Neolithic people relied only on hunting. 3. Polished stone tools are Neolithic. Which are correct?","1 and 3 only",["1 and 2 only","2 and 3 only","1, 2 and 3"],["pre-mesolithic-microliths","pre-neolithic-food-production","pre-neolithic-polished-tools"]],
+52:[9,"1. The Harappan script is fully deciphered. 2. The Mature phase dates to about 2600–1900 BCE. 3. Early Harappan precedes Mature Harappan. Which are correct?","2 and 3 only",["1 and 2 only","1 and 3 only","1, 2 and 3"],["har-script","har-mature-dates","har-phases-order"]],
+53:[9,"Consider Dholavira: 1. It is in Gujarat. 2. It lies on Khadir island. 3. It has the dockyard associated with Lothal. Which are correct?","1 and 2 only",["2 and 3 only","1 and 3 only","1, 2 and 3"],["har-dholavira-location","har-dholavira-water","har-lothal-dockyard"]],
+54:[9,"1. The Dancing Girl was found at Mohenjo-daro. 2. Bead workshops are linked with Chanhudaro and Lothal. 3. Rice evidence comes from Harappa and Kalibangan. Which are correct?","1 and 2 only",["2 and 3 only","1 and 3 only","1, 2 and 3"],["har-dancing-girl","har-bead-shops","har-rice-sites"]],
+};

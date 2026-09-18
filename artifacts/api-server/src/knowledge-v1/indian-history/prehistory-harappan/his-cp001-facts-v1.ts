@@ -9,7 +9,7 @@ type Fact=readonly[id:string,sentence:string,sourceIds:readonly string[]];
 export const HIS_CP001_FACTS_V1:readonly Fact[]=[
   ["pre-lower-tools","Lower Palaeolithic people used heavy stone tools such as handaxes, cleavers and choppers.",["NIOS-HISTORY-315-LESSON2-PREHISTORIC"]],
   ["pre-middle-tools","Flake tools were common in the Middle Palaeolithic period.",["NIOS-HISTORY-315-LESSON2-PREHISTORIC"]],
-  ["pre-upper-tools","Burins and scrapers were common Upper Palaeolithic tools in the NIOS sequence.",["NIOS-HISTORY-315-LESSON2-PREHISTORIC"]],
+  ["pre-upper-tools","Burins and scrapers were common Upper Palaeolithic tools.",["NIOS-HISTORY-315-LESSON2-PREHISTORIC"]],
   ["pre-mesolithic-microliths","The Mesolithic period is known for microliths, which are very small stone tools.",["NIOS-HISTORY-315-LESSON2-PREHISTORIC"]],
   ["pre-neolithic-polished-tools","Ground and polished stone tools were an important feature of the Neolithic period.",["NIOS-HISTORY-315-LESSON2-PREHISTORIC"]],
   ["pre-neolithic-food-production","In the Neolithic period, people began farming, domesticating animals and living in more settled villages.",["NIOS-HISTORY-315-LESSON2-PREHISTORIC"]],
@@ -20,7 +20,7 @@ export const HIS_CP001_FACTS_V1:readonly Fact[]=[
   ["pre-sanganakallu-location","Sanganakallu is an important prehistoric site in Karnataka.",["NIOS-HISTORY-315-LESSON2-PREHISTORIC"]],
   ["har-discovery-harappa","Harappa was excavated by D. R. Sahni during the 1920–22 discovery phase.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-discovery-mohenjo","Mohenjo-daro was excavated by R. D. Banerji during the 1920–22 discovery phase.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
-  ["har-mature-dates","The Mature Harappan phase is generally placed around 2600–1900 BCE in NIOS.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
+  ["har-mature-dates","The Mature Harappan phase is generally placed around 2600–1900 BCE.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-phases-order","The Harappan civilisation is commonly divided into three phases: Early, Mature and Late Harappan.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-script","The Harappan script has not yet been deciphered.",["NIOS-HISTORY-315-LESSON3-HARAPPAN","NCERT-THEMES-INDIAN-HISTORY-I-HARAPPAN"]],
   ["har-harappa-river","Harappa is located near the Ravi river system in Punjab, Pakistan.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
@@ -30,17 +30,17 @@ export const HIS_CP001_FACTS_V1:readonly Fact[]=[
   ["har-rakhigarhi-location","Rakhigarhi is a Harappan site in Haryana.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-dholavira-location","Dholavira is a Harappan city on Khadir island in Gujarat.",["NIOS-HISTORY-315-LESSON3-HARAPPAN","UNESCO-DHOLAVIRA-1645"]],
   ["har-great-bath","The Great Bath is a famous public structure found at Mohenjo-daro.",["NIOS-HISTORY-315-LESSON3-HARAPPAN","NCERT-THEMES-INDIAN-HISTORY-I-HARAPPAN"]],
-  ["har-lothal-dockyard","A large brick structure at Lothal is traditionally described as a dockyard in school-level history.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
+  ["har-lothal-dockyard","A large brick structure at Lothal is traditionally described as a dockyard.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-kalibangan-plough","Kalibangan has evidence of plough marks in an ancient field.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-banawali-plough","A terracotta model of a plough was found at Banawali.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-dholavira-water","Dholavira is known for its well-planned reservoirs and water-management system.",["UNESCO-DHOLAVIRA-1645"]],
   ["har-dancing-girl","The bronze figure known as the Dancing Girl was found at Mohenjo-daro.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-woven-cloth","Evidence of woven cloth has been found at Mohenjo-daro.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-bead-shops","Evidence of bead-making workshops has been found at Chanhudaro and Lothal.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
-  ["har-rice-sites","NIOS records evidence of rice at Lothal and Rangpur.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
+  ["har-rice-sites","Evidence of rice has been reported from Lothal and Rangpur.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-copper-khetri","The Khetri region of Rajasthan was an important source of copper for Harappan trade networks.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
   ["har-steatite-beads","Harappans used steatite as one of the materials for making beads.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
-  ["har-no-iron","Harappans used metals such as copper, bronze, gold, silver and lead. Iron is not listed among their commonly used metals in school-level accounts.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
+  ["har-no-iron","Harappans used metals such as copper, bronze, gold, silver and lead. Iron was not part of their commonly used metal repertoire.",["NIOS-HISTORY-315-LESSON3-HARAPPAN"]],
 ];
 export const HIS_CP001_FACT_BY_ID_V1=new Map(HIS_CP001_FACTS_V1.map(f=>[f[0],f] as const));
 export const HIS_CP001_SOURCE_IDS_V1=new Set<string>(HIS_CP001_SOURCES_V1.map(s=>s[0]));

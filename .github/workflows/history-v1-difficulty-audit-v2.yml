@@ -1,0 +1,43 @@
+name: History V1 Difficulty Audit V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-history/history-v1-difficulty-audit-v2.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: history-v1-difficulty-audit-v2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build and run difficulty audit
+        run: |
+          mkdir -p artifacts/api-server/dist/history-audit
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-history/history-v1-difficulty-audit-v2.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/history-audit/history-v1-difficulty-audit-v2.mjs
+          cd artifacts/api-server
+          node dist/history-audit/history-v1-difficulty-audit-v2.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HIS-001-V1-DIFFICULTY-AUDIT-V2
+          path: artifacts/api-server/dist/history-audit/HIS-001-V1-DIFFICULTY-AUDIT-V2/
+          if-no-files-found: error
+          retention-days: 30

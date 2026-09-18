@@ -57,6 +57,6 @@ export const HIS_CP011_STEM_OVERRIDES_V2:Readonly<Record<number,string>>={
   56:"Which statement correctly describes the rise of Ranjit Singh?",
   57:"Which set correctly matches rulers with their eighteenth-century regional power centres?",
   58:"Which sequence correctly represents the expansion, setback and recovery of Maratha power?",
-  59:"Consider the following statements:\n1. Regional rulers often retained Mughal political symbols.\n2. Mughal-derived fiscal practices continued in several successor states.\nWhich of the statements given above is/are correct?",
+  59:"1. Regional rulers retained Mughal political symbols. 2. Mughal-derived fiscal practices continued in several successor states. Which are correct?",
   60:"Which statement best summarises the political transformation of India during the eighteenth century?",
 };
