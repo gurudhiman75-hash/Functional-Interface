@@ -15,6 +15,8 @@ const questionForms = new Set<string>();
 const answers = new Set<string>();
 const difficulties = new Set<string>();
 const fingerprints = new Set<string>();
+const difficultyByScenario = new Map<string, string>();
+let difficultyScenarioRecheckCount = 0;
 let selfRecords = 0;
 let onlyRecords = 0;
 let negativeRecords = 0;
@@ -121,6 +123,18 @@ for (let seed = 0; seed < SEED_COUNT; seed += 1) {
   questionForms.add(question.metadata.questionForm);
   answers.add(question.metadata.answerId);
   difficulties.add(question.difficulty);
+  const scenarioDifficultyKey = question.metadata.sourceScenarioId;
+  const previousDifficulty = difficultyByScenario.get(scenarioDifficultyKey);
+  if (previousDifficulty) {
+    difficultyScenarioRecheckCount += 1;
+    assert.equal(
+      question.difficulty,
+      previousDifficulty,
+      `${scenarioDifficultyKey} changed difficulty only because the seed changed.`,
+    );
+  } else {
+    difficultyByScenario.set(scenarioDifficultyKey, question.difficulty);
+  }
   fingerprints.add(
     JSON.stringify({
       stem: question.stem,
@@ -142,6 +156,10 @@ assert.deepEqual(
   ["HOW_RELATED", "WHOSE_PHOTOGRAPH", "WHOSE_PORTRAIT"],
 );
 assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
+assert.ok(
+  difficultyScenarioRecheckCount > 0,
+  "Difficulty audit must compare repeated canonical scenarios across seeds.",
+);
 assert.ok(answers.has("SELF"));
 assert.ok(answers.has("SON"));
 assert.ok(answers.has("MOTHER_IN_LAW"));
@@ -169,6 +187,7 @@ console.log(
       presentations: [...presentations].sort(),
       questionForms: [...questionForms].sort(),
       difficulties: [...difficulties].sort(),
+      difficultyScenarioRecheckCount,
       selfRecords,
       onlyRecords,
       negativeRecords,
