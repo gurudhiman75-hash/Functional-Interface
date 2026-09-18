@@ -13,7 +13,7 @@ import {
   isQlLocalized,
   resolveEntityLabels,
 } from "../../../../../../common/language-coverage";
-import { stableBucket } from "./math";
+import { stableBucket, stableHash } from "./math";
 import {
   PCT_002_ARCHETYPE_ID,
   PCT_002_CP_IDS,
@@ -58,6 +58,35 @@ function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
 }
 
+function mixedStableHash(value: string) {
+  let hash = stableHash(value);
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x7feb352d);
+  hash ^= hash >>> 15;
+  hash = Math.imul(hash, 0x846ca68b);
+  hash ^= hash >>> 16;
+  return hash >>> 0;
+}
+
+function structuredSelectionIndex(value: string, poolSize: number) {
+  if (!Number.isInteger(poolSize) || poolSize < 1) {
+    throw new Error(`PCT-002 selection pool size must be a positive integer, received ${poolSize}.`);
+  }
+
+  const parts = value.split(":");
+  let ordinal = 0;
+  let foundNumericToken = false;
+  const normalized = parts.map((part) => {
+    if (!/^\d+$/.test(part)) return part;
+    foundNumericToken = true;
+    ordinal = (Math.imul(ordinal, 67) + Number(part)) >>> 0;
+    return "<n>";
+  }).join(":");
+
+  if (!foundNumericToken) return mixedStableHash(value) % poolSize;
+  return (mixedStableHash(normalized) + ordinal) % poolSize;
+}
+
 function entityRef(categoryId: EntityReference["categoryId"], entityId: string): EntityReference {
   return { categoryId, entityId };
 }
@@ -80,7 +109,7 @@ export function getSelectableQuestionLanguageIds(cpId: Pct002CanonicalProblemId,
 
 function assignDifficulty(cpId: Pct002CanonicalProblemId, language: Pct002Language, seed: string): Pct002DifficultyBand {
   const qlIds = getSelectableQuestionLanguageIds(cpId, language);
-  const qlId = qlIds[stableBucket(seed, qlIds.length)]!;
+  const qlId = qlIds[structuredSelectionIndex(`${seed}:difficulty`, qlIds.length)]!;
   return getQuestionEntry(cpId, qlId, language).difficulty;
 }
 
@@ -539,7 +568,7 @@ export function selectQuestionLanguageId(
     ? qlIds.filter((qlId) => getQuestionEntry(cpId, qlId, language).difficulty === difficultyBand)
     : qlIds;
   const source = filtered.length > 0 ? filtered : qlIds;
-  return source[stableBucket(seed, source.length)]!;
+  return source[structuredSelectionIndex(`${seed}:ql-select`, source.length)]!;
 }
 
 export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: Pct002ParameterInput = {}): Pct002Parameters {
