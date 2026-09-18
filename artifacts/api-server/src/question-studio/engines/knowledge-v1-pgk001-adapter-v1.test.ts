@@ -53,6 +53,17 @@ function normalizeLearnerText(value: string) {
     .trim();
 }
 
+function countLearnerSentences(value: string) {
+  const normalized = value
+    .replace(/(\d)\.(\d)/g, "$1__DECIMAL__$2")
+    .replace(/\b(?:[A-Z]\.){2,}[A-Z]?\.?/g, (match) => match.replace(/\./g, ""));
+  return normalized
+    .split(/[.!?]+/)
+    .map((part) => part.replace(/__DECIMAL__/g, ".").trim())
+    .filter(Boolean)
+    .length;
+}
+
 for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
   cpCounts.set(q.cpId, (cpCounts.get(q.cpId) ?? 0) + 1);
   qlCounts.set(q.qlId, (qlCounts.get(q.qlId) ?? 0) + 1);
@@ -71,12 +82,9 @@ for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
   if (q.stem.length > 420) exhaustiveAuditErrors.push(`${q.questionId}: stem is too long (${q.stem.length})`);
   if (q.explanation.length > 520) exhaustiveAuditErrors.push(`${q.questionId}: explanation is too long (${q.explanation.length})`);
 
-  const explanationSentences = q.explanation
-    .split(/[.!?]+/)
-    .map((part) => part.trim())
-    .filter(Boolean);
-  if (explanationSentences.length < 1 || explanationSentences.length > 3) {
-    exhaustiveAuditErrors.push(`${q.questionId}: explanation has ${explanationSentences.length} sentences`);
+  const explanationSentenceCount = countLearnerSentences(q.explanation);
+  if (explanationSentenceCount < 1 || explanationSentenceCount > 3) {
+    exhaustiveAuditErrors.push(`${q.questionId}: explanation has ${explanationSentenceCount} sentences`);
   }
 
   const semanticKey = `${normalizeLearnerText(q.stem)}|${normalizeLearnerText(q.canonicalAnswer)}`;
