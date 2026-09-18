@@ -6,3 +6,4 @@ export * from "./checkpoints/CP005";
 export * from "./checkpoints/CP006";
 export * from "./checkpoints/CP007";
 export * from "./checkpoints/CP008";
+export * from "./checkpoints/CP009";
