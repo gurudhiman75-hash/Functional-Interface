@@ -1,6 +1,6 @@
 # COA-001 — Course of Action
 
-Status: **COA-CP-010 IMPLEMENTED / HUMAN REVIEW PENDING**
+Status: **COA-CP-010 APPROVED / FROZEN**
 
 ## 1. Chapter purpose
 
@@ -383,8 +383,8 @@ Run real-paper/source census, close pattern gaps, and freeze QL allocation only 
 ### COA-CP-009 — Hindi/Punjabi localization — APPROVED / FROZEN
 Full Hindi/Punjabi localization covers all 130 frozen semantic authorities and 260 localized learner surfaces. Native wording, semantic parity and leakage gates are approved/frozen.
 
-### COA-CP-010 — Question Studio integration — IMPLEMENTED / HUMAN REVIEW PENDING
-COA-001 is registered in Question Studio for review-only EN/HI/PA generation across the eight active semantic QLs and three approved presentation profiles. Review runs may persist; canonical Question Bank, test/mock and public/student gates remain closed.
+### COA-CP-010 — Question Studio integration — APPROVED / FROZEN
+COA-001 is registered in Question Studio for review-only EN/HI/PA generation across the eight active semantic QLs and three approved presentation profiles. Review runs may persist; canonical Question Bank, test/mock and public/student gates remain closed. Product-owner approval recorded on 2026-09-18.
 
 ### COA-CP-011 — Final editorial/diversity freeze
 Large semantic saturation audit, anti-gaming gates, review corpus, and explicit human approval record.
