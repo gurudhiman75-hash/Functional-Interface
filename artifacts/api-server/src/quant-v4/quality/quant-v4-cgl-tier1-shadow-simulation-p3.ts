@@ -38,8 +38,13 @@ export interface QuantV4CglTier1ShadowQuestionRecord {
   readonly slotKind: QuantV4CglTier1ShadowSlotKind;
   readonly sourceKind: "RUNTIME_GENERATED" | "CAPABILITY_GAP";
   readonly packageId: string;
+  readonly questionId?: string;
+  readonly canonicalProblemId?: string;
+  readonly questionLanguageId?: string;
+  readonly taskKind?: string;
   readonly optionCount: number;
   readonly emptyExplanation: boolean;
+  readonly literalStemSignature: string;
   readonly normalizedStemSignature: string;
   readonly testEligible: boolean | null;
   readonly publiclyPublishable: boolean | null;
@@ -102,6 +107,24 @@ function optionTexts(question: any): string[] {
 
 function questionText(question: any): string {
   return String(question?.text ?? question?.stem ?? question?.question ?? "").trim();
+}
+
+function literalStemSignature(value: unknown): string {
+  return String(value ?? "")
+    .normalize("NFKC")
+    .replace(/\s+/gu, " ")
+    .trim();
+}
+
+function metadataValue(question: any, key: string): string | undefined {
+  const value =
+    question?.[key] ??
+    question?.traceability?.[key] ??
+    question?.parameters?.[key] ??
+    question?.sourceQuestion?.[key] ??
+    question?.sourceQuestion?.traceability?.[key];
+  const text = String(value ?? "").trim();
+  return text || undefined;
 }
 
 function explanationText(question: any): string {
@@ -220,8 +243,13 @@ function runtimeRecord(input: {
     slotKind: input.slotKind,
     sourceKind: "RUNTIME_GENERATED",
     packageId: input.packageId,
+    questionId: metadataValue(input.question, "questionId"),
+    canonicalProblemId: metadataValue(input.question, "canonicalProblemId"),
+    questionLanguageId: metadataValue(input.question, "questionLanguageId"),
+    taskKind: metadataValue(input.question, "taskKind"),
     optionCount: optionTexts(input.question).length,
     emptyExplanation: !explanation,
+    literalStemSignature: literalStemSignature(stem),
     normalizedStemSignature: normalizeStemSignature(stem),
     testEligible: triState(input.question?.testEligible),
     publiclyPublishable: triState(input.question?.publiclyPublishable),
@@ -243,6 +271,7 @@ function gapRecord(input: {
     packageId: "CAPABILITY_GAP",
     optionCount: 0,
     emptyExplanation: true,
+    literalStemSignature: "",
     normalizedStemSignature: "",
     testEligible: null,
     publiclyPublishable: null,
