@@ -1,5 +1,6 @@
 import { deterministicShuffle } from "../../knowledge-v1/deterministic";
 import { PGK_001_LATE_PROVENANCE_V2 } from "../../knowledge-v1/punjab-gk/pgk-001-late-provenance-v2";
+import { PGK_001_FINAL_EDITORIAL_OVERLAY_V2 } from "../../knowledge-v1/punjab-gk/pgk-001-final-editorial-overlay-v2";
 import * as cp001 from "../../knowledge-v1/punjab-gk/pgk-001-cp001-review-batch-v1";
 import * as cp002 from "../../knowledge-v1/punjab-gk/pgk-001-cp002-review-batch-v3";
 import * as cp003 from "../../knowledge-v1/punjab-gk/pgk-001-cp003-review-batch-v2";
@@ -157,6 +158,26 @@ function materializeModule(
   });
 }
 
+function applyFinalEditorialOverlay(question: FrozenPgkQuestion): FrozenPgkQuestion {
+  const override = PGK_001_FINAL_EDITORIAL_OVERLAY_V2[question.questionId];
+  if (!override) return question;
+  const canonicalAnswer = override.canonicalAnswer ?? question.canonicalAnswer;
+  const options = override.options ? [...override.options] : [...question.options];
+  const correctIndex = options.indexOf(canonicalAnswer);
+  if (correctIndex < 0) {
+    throw new Error(`${question.questionId}: final editorial override is missing its canonical answer`);
+  }
+  return Object.freeze({
+    ...question,
+    stem: override.stem ?? question.stem,
+    difficulty: override.difficulty ?? question.difficulty,
+    explanation: override.explanation ?? question.explanation,
+    options: Object.freeze(options),
+    canonicalAnswer,
+    correctIndex,
+  });
+}
+
 function normalizeOptionPosition(
   question: FrozenPgkQuestion,
   desiredCorrectIndex: number,
@@ -178,7 +199,9 @@ const materializedCorpus = modules.flatMap(([cpId, module]) =>
 );
 
 export const PGK_001_QUESTION_STUDIO_CORPUS_V1: readonly FrozenPgkQuestion[] = Object.freeze(
-  materializedCorpus.map((question, index) => normalizeOptionPosition(question, index % 4)),
+  materializedCorpus.map((question, index) =>
+    normalizeOptionPosition(applyFinalEditorialOverlay(question), index % 4),
+  ),
 );
 
 const cpIds = modules.map(([cpId]) => cpId);
@@ -306,6 +329,7 @@ export const PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     balancedCorrectOptionPositions: true,
     optionOrderPolicy: "GLOBAL_A_B_C_D_ROUND_ROBIN_V2",
     lateProvenanceOverlay: "PGK-001-LATE-PROVENANCE-V2",
+    finalEditorialOverlay: "PGK-001-FINAL-EDITORIAL-OVERLAY-V2",
     revisionPolicy: PGK_001_REVISION_POLICY_V1,
     permanentQlIds: qlIds,
     qlCount: qlIds.length,
