@@ -34,6 +34,7 @@ import { languageV1Eng003Cp004QuestionStudioAdapterV1 } from "./language-v1-eng0
 import { languageV1Eng003Cp005QuestionStudioAdapterV1 } from "./language-v1-eng003-cp005-adapter-v1";
 import { languageV1Eng003Cp006QuestionStudioAdapterV1 } from "./language-v1-eng003-cp006-adapter-v1";
 import { languageV1Eng003Cp007QuestionStudioAdapterV1 } from "./language-v1-eng003-cp007-adapter-v1";
+import { languageV1Eng003Cp008QuestionStudioAdapterV1 } from "./language-v1-eng003-cp008-adapter-v1";
 
 function explicitSelectorValues(request: QuestionStudioGenerationRequest) {
   return [request.patternId, request.canonicalProblemId, request.questionLanguageId]
@@ -83,6 +84,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (eng003CpSelector === "ENG-003-CP005") return languageV1Eng003Cp005QuestionStudioAdapterV1.generate(request);
     if (eng003CpSelector === "ENG-003-CP006") return languageV1Eng003Cp006QuestionStudioAdapterV1.generate(request);
     if (eng003CpSelector === "ENG-003-CP007") return languageV1Eng003Cp007QuestionStudioAdapterV1.generate(request);
+    if (eng003CpSelector === "ENG-003-CP008") return languageV1Eng003Cp008QuestionStudioAdapterV1.generate(request);
     if (eng003PackageSelected(request)) {
       const selectors = explicitSelectorValues(request);
       const topic = eng003TopicText(request);
@@ -103,6 +105,9 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       }
       if (selectors.some((value) => value.startsWith("GR-CON-")) || /conjunction|parallel/.test(topic)) {
         return languageV1Eng003Cp007QuestionStudioAdapterV1.generate(request);
+      }
+      if (selectors.some((value) => value.startsWith("GR-NQN-")) || /noun|quantifier|countable|uncountable/.test(topic)) {
+        return languageV1Eng003Cp008QuestionStudioAdapterV1.generate(request);
       }
       if (selectors.some((value) => value.startsWith("GR-SVA-")) || /subject.?verb|agreement/.test(topic)) {
         return languageV1Eng003Cp001QuestionStudioAdapterV1.generate(request);
