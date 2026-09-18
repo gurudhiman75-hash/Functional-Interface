@@ -54,6 +54,29 @@ function duplicateBreakdown<T>(
   );
 }
 
+function repeatedNormalizedFamilies(records: readonly any[]) {
+  const groups = new Map<string, any[]>();
+  for (const record of records) {
+    const signature = String(record.normalizedStemSignature ?? "");
+    if (!signature) continue;
+    const current = groups.get(signature) ?? [];
+    current.push(record);
+    groups.set(signature, current);
+  }
+  return [...groups.entries()]
+    .filter(([, family]) => family.length > 1)
+    .map(([signature, family]) => ({
+      count: family.length,
+      signature,
+      canonicalProblemIds: [...new Set(family.map((record) => String(record.canonicalProblemId ?? "UNKNOWN")))].sort(),
+      questionLanguageIds: [...new Set(family.map((record) => String(record.questionLanguageId ?? "UNKNOWN")))].sort(),
+      taskKinds: [...new Set(family.map((record) => String(record.taskKind ?? "UNKNOWN")))].sort(),
+      questionIds: family.map((record) => String(record.questionId ?? "UNKNOWN")),
+      locations: family.map((record) => ({ sectionIndex: record.sectionIndex, ordinal: record.ordinal })),
+    }))
+    .sort((left, right) => right.count - left.count || left.signature.localeCompare(right.signature));
+}
+
 const shadowSections = [];
 const baselineSections = [];
 for (let sectionIndex = 1; sectionIndex <= SECTIONS; sectionIndex += 1) {
@@ -105,6 +128,27 @@ const slotsByDuplicateRate = Object.entries(stemDuplicationBySlot)
   .map(([slotKind, summary]) => ({ slotKind, ...summary }))
   .sort((left, right) => right.duplicateRate - left.duplicateRate || right.duplicateItems - left.duplicateItems || left.slotKind.localeCompare(right.slotKind));
 
+const hotspotLocalization = Object.fromEntries(
+  ["PCT-001", "RAP-001"].map((packageId) => {
+    const records = runtimeShadowRecords.filter((record) => record.packageId === packageId);
+    return [packageId, {
+      records: records.length,
+      literalDuplication: duplicateSummary(records, (record) => record.literalStemSignature),
+      normalizedDuplication: duplicateSummary(records, (record) => record.normalizedStemSignature),
+      canonicalProblemDistribution: countBy(records, (record) => String(record.canonicalProblemId ?? "UNKNOWN")),
+      questionLanguageDistribution: countBy(records, (record) => String(record.questionLanguageId ?? "UNKNOWN")),
+      taskKindDistribution: countBy(records, (record) => String(record.taskKind ?? "UNKNOWN")),
+      lineageCoverage: {
+        questionId: records.filter((record) => Boolean(record.questionId)).length,
+        canonicalProblemId: records.filter((record) => Boolean(record.canonicalProblemId)).length,
+        questionLanguageId: records.filter((record) => Boolean(record.questionLanguageId)).length,
+        taskKind: records.filter((record) => Boolean(record.taskKind)).length,
+      },
+      repeatedNormalizedFamilies: repeatedNormalizedFamilies(records),
+    }] as const;
+  }),
+);
+
 console.log("QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3", JSON.stringify({
   sections: SECTIONS,
   baseline: {
@@ -128,6 +172,7 @@ console.log("QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3", JSON.stringify({
     global: globalStemDuplication,
     slotsByDuplicateRate,
     packagesByDuplicateRate,
+    hotspotLocalization,
   },
   lifecycle: {
     productionPromotionAuthorized: false,
@@ -153,5 +198,9 @@ assert.equal(
   Object.values(stemDuplicationByPackage).reduce((sum, summary) => sum + summary.records, 0),
   500,
 );
+for (const packageId of ["PCT-001", "RAP-001"] as const) {
+  const hotspot = hotspotLocalization[packageId];
+  assert.ok(hotspot.records > 0, `${packageId}: hotspot localization requires observed shadow records.`);
+}
 
 console.log("PASS_QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3");
