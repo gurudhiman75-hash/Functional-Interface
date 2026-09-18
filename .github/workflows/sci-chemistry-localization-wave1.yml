@@ -1,4 +1,4 @@
-name: SCI Chemistry Localization Wave 1
+name: SCI Chemistry Localization V1
 
 on:
   pull_request:
@@ -9,11 +9,11 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: sci-chemistry-localization-wave1-${{ github.event.pull_request.number || github.ref }}
+  group: sci-chemistry-localization-v1-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  chemistry-localization-wave1:
+  chemistry-localization:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -45,3 +45,17 @@ jobs:
       - name: Run Wave 1 localization audit
         working-directory: artifacts/api-server
         run: node dist/sci-chemistry-localization-wave1-audit-v1.mjs
+
+      - name: Bundle Wave 2 localization audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/chemistry-localization-v1/sci-chemistry-localization-wave2-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-chemistry-localization-wave2-audit-v1.mjs
+
+      - name: Run Wave 2 localization audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-chemistry-localization-wave2-audit-v1.mjs
