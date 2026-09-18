@@ -45,19 +45,31 @@ for (const language of ["en", "hi", "pa"] as const) {
   assert.equal(result.generationContext.persistenceAllowed, true);
   assert.equal(result.generationContext.runtimeMode, "STANDARD_QUESTION_STUDIO");
   assert.equal(result.generationContext.reviewStatus, "REVIEW_REQUIRED");
-  assert.equal(result.generationContext.publiclyPublishable, true);
+  assert.equal(result.generationContext.publiclyPublishable, false);
+  assert.equal(result.generationContext.questionBankStatus, "NOT_STORED");
+  assert.equal(result.generationContext.testEligibility, "INELIGIBLE");
+  assert.equal(result.generationContext.releaseEligibleAfterApproval, true);
   for (const question of result.questions) {
     assert.equal(question.language, language);
     assert.equal(question.validation.valid, true);
     assert.equal(question.runtimeMode, "STANDARD_QUESTION_STUDIO");
     assert.equal(question.reviewStatus, "REVIEW_REQUIRED");
-    assert.equal(question.questionBankStatus, "READY_FOR_STORAGE");
-    assert.equal(question.questionBankWritable, true);
-    assert.equal(question.testEligibility, "ELIGIBLE");
-    assert.equal(question.publiclyPublishable, true);
+    assert.equal(question.questionBankStatus, "NOT_STORED");
+    assert.equal(question.questionBankWritable, false);
+    assert.equal(question.questionBankEligible, false);
+    assert.equal(question.testEligibility, "INELIGIBLE");
+    assert.equal(question.testEligible, false);
+    assert.equal(question.mockTestEligible, false);
+    assert.equal(question.publiclyPublishable, false);
+    assert.equal(question.publicReleaseStatus, "LOCKED");
+    assert.equal(question.reviewOnly, true);
     assert.equal(question.manualApprovalRequired, true);
+    assert.equal(question.releaseEligibleAfterApproval, true);
     assert.equal(question.automaticStudentPublication, false);
-    assert.doesNotThrow(() => assertGeneratedQuestionBankEligible(question));
+    assert.throws(
+      () => assertGeneratedQuestionBankEligible(question),
+      /questionBankStatus is NOT_STORED/i,
+    );
   }
 }
 
@@ -98,7 +110,7 @@ assert.doesNotMatch(routeIndex, /adminQuestionStudioReasoningBlrChapterRouter/);
 assert.doesNotMatch(operationsPage, /QuestionStudioReasoningReviewPanel/);
 
 console.log(JSON.stringify({
-  verdict: "BLR_CP007_PRODUCTION_LIFECYCLE_PROVED",
+  verdict: "BLR_CP007_RELEASE_PATH_PROVED__CURRENT_REVIEW_ITEM_LOCKED",
   multilingualRecordCount: entries.length,
   uniqueQuestionLanguageIdCount: new Set(entries.map((entry) => entry.questionLanguageId)).size,
   standardQuestionStudioWorkflow: true,
