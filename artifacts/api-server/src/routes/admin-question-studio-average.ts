@@ -8,7 +8,7 @@ import { authenticate } from "../middlewares/auth";
 // while adding frozen Reasoning packages to the same authenticated review persistence workflow.
 import {
   generateQuestion as generateQuestionStudioQuestions,
-  isCoaCp010QuestionStudioRequest,
+  isCoaCp011QuestionStudioRequest,
   isSta001QuestionStudioRequest,
   isWor001QuestionStudioRequest,
   listQuestionStudioPackages,
@@ -307,7 +307,7 @@ router.post(
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
     const staRequest = isSta001QuestionStudioRequest(req.body ?? {});
     const worRequest = isWor001QuestionStudioRequest(req.body ?? {});
-    const coaRequest = isCoaCp010QuestionStudioRequest(req.body ?? {});
+    const coaRequest = isCoaCp011QuestionStudioRequest(req.body ?? {});
     if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !staRequest && !worRequest && !coaRequest) {
       next();
       return;
