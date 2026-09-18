@@ -147,6 +147,21 @@ function stableHash(value: string) {
   return result >>> 0;
 }
 
+function avalancheHash(value: string) {
+  let result = stableHash(value);
+  result ^= result >>> 16;
+  result = Math.imul(result, 0x7feb352d);
+  result ^= result >>> 15;
+  result = Math.imul(result, 0x846ca68b);
+  result ^= result >>> 16;
+  return result >>> 0;
+}
+
+function pickDeterministically<T>(items: readonly T[], seed: string): T {
+  if (!items.length) throw new Error("Cannot select from an empty deterministic pool.");
+  return items[avalancheHash(seed) % items.length]!;
+}
+
 function shuffled<T>(items: readonly T[], seed: string) {
   const result = [...items];
   let state = stableHash(seed) || 1;
@@ -365,7 +380,9 @@ export function generateTrg001QuestionStudioBatch(request: Trg001QuestionStudioR
     throw Object.assign(new Error("No frozen TRG-001 QL matches the requested difficulty in the selected scope."), { statusCode: 400 });
   }
 
-  const order = shuffled(difficultyPool, `${batchSeed}:ql-order`);
+  const order = count === 1
+    ? [pickDeterministically(difficultyPool, `${batchSeed}:ql-single`)]
+    : shuffled(difficultyPool, `${batchSeed}:ql-order`);
   const questions: any[] = [];
   const questionPackages: any[] = [];
   for (let index = 0; index < count; index += 1) {
