@@ -93,7 +93,7 @@ export function generateCP011F08(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Hard"],"F08");
  const cap=512*4,r=ord(seed,cap),pattern=r%4,pairSeed=Math.floor(r/4)+1,{first,second,ps}=orderedPair(pairSeed);
  const otherForFirst=ps.find(x=>x.id!==second.id)!;
- const secondPeers=peers(second),otherForSecond=secondPeers.find(x=>x.id!==first.id)!;
+ const secondPeers=contrastPeers(second),otherForSecond=secondPeers[ord(pairSeed,secondPeers.length)]!;
  const t1=pattern===0||pattern===1,t2=pattern===0||pattern===2;
  const claim1=`‘${first.idiomPa}’ ਦਾ ਅਰਥ ‘${t1?first.meaningPa:otherForFirst.meaningPa}’ ਹੈ।`;
  const claim2=`‘${second.idiomPa}’ ਦਾ ਅਰਥ ‘${t2?second.meaningPa:otherForSecond.meaningPa}’ ਹੈ।`;
