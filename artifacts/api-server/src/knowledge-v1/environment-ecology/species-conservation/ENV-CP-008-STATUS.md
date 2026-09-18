@@ -11,3 +11,5 @@
 - Named-species current IUCN status: excluded from learner questions.
 - Source verification date: 2026-09-15.
 - Next target: ENV-CP-009 Protected Areas of India.
+- V2 remediation candidate: 12 additional questions across 3 QLs covering Project Elephant, elephant corridors, conflict mitigation and captive-elephant welfare.
+- V2 remediation remains review-only pending project-owner approval.
