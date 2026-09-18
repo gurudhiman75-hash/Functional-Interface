@@ -1,0 +1,32 @@
+import type { PolCp025SeedRow } from "./pol-cp025-types";
+
+const S=["CONSTITUTION-PART-XXI-2025"] as const;
+const A=["CONSTITUTION-AMENDMENT-FOOTNOTES-2025"] as const;
+const U=["CONSTITUTION-PART-VIII-2025"] as const;
+
+export const POL_CP025_PART_4: readonly PolCp025SeedRow[] = [
+["POL-025-QL-016","Medium","Article 371D mainly seeks equitable opportunities in public employment and education in which States?","Andhra Pradesh and Telangana","Maharashtra and Gujarat","Assam and Manipur","Nagaland and Mizoram","Article 371D authorises presidential orders for equitable opportunities and facilities among different parts of Andhra Pradesh or Telangana.",S],
+["POL-025-QL-016","Medium","Who may issue orders under Article 371D for equitable opportunities and facilities?","President","Governor alone","Supreme Court","Inter-State Council","Article 371D empowers the President to make tailored orders addressing public employment and educational opportunities within the concerned State.",S],
+["POL-025-QL-016","Medium","Article 371E authorises Parliament to establish what in Andhra Pradesh?","A Central University","A High Court","A Finance Commission","A Zonal Council","Article 371E allows Parliament by law to provide for the establishment of a University in Andhra Pradesh.",S],
+["POL-025-QL-016","Medium","Which amendment inserted Articles 371D and 371E?","Thirty-second Amendment","Thirteenth Amendment","Thirty-sixth Amendment","Fifty-sixth Amendment","The Constitution (Thirty-second Amendment) Act, 1973 inserted Articles 371D and 371E.",A],
+
+["POL-025-QL-017","Hard","Article 371F contains special provisions for which State?","Sikkim","Mizoram","Goa","Arunachal Pradesh","Article 371F contains the special constitutional arrangements associated with Sikkim's integration as a full-fledged State.",S],
+["POL-025-QL-017","Hard","What minimum Assembly strength does Article 371F prescribe for Sikkim?","Thirty members","Twenty members","Forty members","Sixty members","Article 371F states that the Legislative Assembly of Sikkim shall consist of not less than thirty members.",S],
+["POL-025-QL-017","Hard","Article 371G protects which State's customary practices and land matters?","Mizoram","Nagaland","Manipur","Assam","Article 371G protects specified Mizo religious or social practices, customary law, justice matters and ownership and transfer of land.",S],
+["POL-025-QL-017","Hard","What minimum Assembly strength does Article 371G prescribe for Mizoram?","Forty members","Thirty members","Twenty members","Sixty members","Article 371G provides that the Legislative Assembly of Mizoram shall consist of not less than forty members.",S],
+
+["POL-025-QL-018","Hard","Under Article 371H, which special responsibility is assigned to the Governor of Arunachal Pradesh?","Law and order","Official language","Tax devolution","Local-body elections","Article 371H gives the Governor of Arunachal Pradesh a special responsibility for law and order, with individual judgment after consultation.",S],
+["POL-025-QL-018","Hard","What minimum Assembly strength is specified for Arunachal Pradesh under Article 371H?","Thirty members","Forty members","Twenty members","Fifty members","Article 371H provides that Arunachal Pradesh's Legislative Assembly shall consist of not less than thirty members.",S],
+["POL-025-QL-018","Hard","What minimum Assembly strength does Article 371-I prescribe for Goa?","Thirty members","Forty members","Twenty members","Sixty members","Article 371-I contains a concise special provision requiring Goa's Legislative Assembly to have not less than thirty members.",S],
+["POL-025-QL-018","Hard","Article 371J creates special development provisions for which State?","Karnataka","Goa","Sikkim","Assam","Article 371J provides special arrangements for a specified region of Karnataka, including development, education and public-employment measures.",S],
+
+["POL-025-QL-019","Hard","Which amendment inserted Article 371J?","Ninety-eighth Amendment","Fifty-sixth Amendment","Thirty-sixth Amendment","Twenty-seventh Amendment","The Constitution (Ninety-eighth Amendment) Act, 2012 inserted Article 371J for Karnataka.",A],
+["POL-025-QL-019","Hard","Which amendment inserted Article 371F for Sikkim?","Thirty-sixth Amendment","Thirty-second Amendment","Fifty-third Amendment","Sixty-ninth Amendment","The Constitution (Thirty-sixth Amendment) Act, 1975 inserted Article 371F as part of Sikkim's Statehood arrangements.",A],
+["POL-025-QL-019","Hard","Which amendment inserted Article 371G for Mizoram?","Fifty-third Amendment","Fifty-fifth Amendment","Fifty-sixth Amendment","Seventy-first Amendment","The Constitution (Fifty-third Amendment) Act, 1986 inserted Article 371G containing Mizoram's special constitutional provisions.",A],
+["POL-025-QL-019","Hard","Which amendment inserted Article 371H for Arunachal Pradesh?","Fifty-fifth Amendment","Fifty-third Amendment","Thirty-sixth Amendment","Ninety-eighth Amendment","The Constitution (Fifty-fifth Amendment) Act, 1986 inserted Article 371H for Arunachal Pradesh.",A],
+
+["POL-025-QL-020","Hard","Which pair correctly matches Article and State?","371A—Nagaland","371G—Goa","371H—Mizoram","371-I—Karnataka","Article 371A applies to Nagaland; Mizoram is 371G, Arunachal Pradesh 371H, Goa 371-I and Karnataka 371J.",S],
+["POL-025-QL-020","Hard","Which two Articles protect customary-law and land matters through a State Assembly resolution mechanism?","371A and 371G","371B and 371C","371D and 371E","371H and 371-I","Articles 371A and 371G use closely related protections for Nagaland and Mizoram involving customary practices, justice and land matters.",S],
+["POL-025-QL-020","Hard","Which pair correctly matches constitutional subject and Article?","Delhi special provisions—239AA","Puducherry Legislature—241","Union Territory High Courts—240","Karnataka special provision—371H","Article 239AA governs Delhi's special arrangement; Article 239A concerns Puducherry, Article 241 Union Territory High Courts, and Article 371J Karnataka.",U],
+["POL-025-QL-020","Hard","Which statement correctly distinguishes Articles 239AA and 371A?","239AA structures Delhi government; 371A protects specified Nagaland matters","Both create High Courts","Both govern official languages","Both regulate Scheduled Areas","Article 239AA structures governance in Delhi, while Article 371A gives Nagaland special protection over specified customary, justice and land matters.",[...U,...S]],
+];
