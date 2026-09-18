@@ -26,7 +26,7 @@ const CP1_ATOM: Readonly<Record<string, LocalePair>> = Object.freeze({
   "Macroeconomics": lp("समष्टि अर्थशास्त्र", "ਸਮੂਹਕ ਅਰਥਸ਼ਾਸਤਰ"),
   "Goods": lp("वस्तुएँ", "ਵਸਤੂਆਂ"),
   "Services": lp("सेवाएँ", "ਸੇਵਾਵਾਂ"),
-  "limited resources require choices": lp("सीमित संसाधनों के कारण चुनाव करना पड़ता है", "ਸੀਮਿਤ ਸਰੋਤਾਂ ਕਰਕੇ ਚੋਣ ਕਰਨੀ ਪੈਂਦੀ ਹੈ"),
+  "limited resources require choices": lp("सीमित संसाधनों के कारण चुनाव की आवश्यकता", "ਸੀਮਿਤ ਸਰੋਤਾਂ ਕਰਕੇ ਚੋਣ ਦੀ ਲੋੜ"),
   "next best alternative forgone": lp("छोड़ा गया अगला सर्वोत्तम विकल्प", "ਛੱਡਿਆ ਗਿਆ ਅਗਲਾ ਸਭ ਤੋਂ ਵਧੀਆ ਵਿਕਲਪ"),
   "want-satisfying capacity": lp("इच्छा-संतुष्टि की क्षमता", "ਲੋੜ ਜਾਂ ਇੱਛਾ ਪੂਰੀ ਕਰਨ ਦੀ ਸਮਰੱਥਾ"),
   "creation of goods and services": lp("वस्तुओं और सेवाओं का सृजन", "ਵਸਤੂਆਂ ਅਤੇ ਸੇਵਾਵਾਂ ਦੀ ਰਚਨਾ"),
