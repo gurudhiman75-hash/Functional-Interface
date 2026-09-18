@@ -190,7 +190,7 @@ function remainderSentence(contextId: string, name: string) {
     case "SERVICE_BRANCHES": return "The remaining service requests were handled by " + name + ".";
     case "DEPARTMENT_EMPLOYEES": return "The remaining employees work in " + name + ".";
     case "COURSE_ENROLMENT": return "The remaining students are enrolled in " + name + ".";
-    case "PRODUCT_OUTPUT": return "The remaining production belongs to " + name + ".";
+    case "PRODUCT_OUTPUT": return name + " makes up the remaining production.";
     case "ORDER_CATEGORIES": return "The remaining orders were received in " + name + ".";
     case "BOOK_CATEGORIES": return "The remaining books issued were from " + name + ".";
     default: throw new Error("DI-006 V2 unknown context: " + contextId);
@@ -437,6 +437,57 @@ function uniqueSteps(...groups: readonly string[][]) {
   return result;
 }
 
+function valueQuestionSurface(seed: string, stimulus: Di006V2Stimulus, name: string, relationHint = false) {
+  let variants: readonly string[];
+  switch (stimulus.contextId) {
+    case "SERVICE_BRANCHES":
+      variants = [
+        "How many service requests did " + name + " handle?",
+        "What is the number of service requests handled by " + name + "?",
+        (relationHint ? "Using the given relations, how many service requests did " : "According to the caselet, how many service requests did ") + name + " handle?",
+      ];
+      break;
+    case "DEPARTMENT_EMPLOYEES":
+      variants = [
+        "How many employees are in " + name + "?",
+        "What is the number of employees in " + name + "?",
+        (relationHint ? "Using the given relations, find the number of employees in " : "According to the caselet, find the number of employees in ") + name + ".",
+      ];
+      break;
+    case "COURSE_ENROLMENT":
+      variants = [
+        "How many students are enrolled in " + name + "?",
+        "What is the number of students enrolled in " + name + "?",
+        (relationHint ? "Using the given relations, find the enrolment in " : "According to the caselet, find the enrolment in ") + name + ".",
+      ];
+      break;
+    case "PRODUCT_OUTPUT":
+      variants = [
+        "What is the production of " + name + ", in units?",
+        "How many units of " + name + " are produced?",
+        (relationHint ? "Using the given relations, find the production of " : "According to the caselet, find the production of ") + name + ".",
+      ];
+      break;
+    case "ORDER_CATEGORIES":
+      variants = [
+        "How many orders were received in " + name + "?",
+        "What is the number of orders in " + name + "?",
+        (relationHint ? "Using the given relations, find the number of orders in " : "According to the caselet, find the number of orders in ") + name + ".",
+      ];
+      break;
+    case "BOOK_CATEGORIES":
+      variants = [
+        "How many books were issued in " + name + "?",
+        "What is the number of books issued in " + name + "?",
+        (relationHint ? "Using the given relations, find the number of books issued in " : "According to the caselet, find the number of books issued in ") + name + ".",
+      ];
+      break;
+    default:
+      throw new Error("DI-006 V2 unknown context: " + stimulus.contextId);
+  }
+  return surface(seed, variants);
+}
+
 function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<Di006V2TaskKind, Draft>> {
   const counts = resolveDi006V2Counts(stimulus);
   const names = stimulus.categories;
@@ -461,17 +512,9 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
   const remainder = counts[remainderIndex]!;
   const numericStep = counts.slice(1).reduce((gcd, value) => Number(gcdBigInt(BigInt(gcd), BigInt(value))), counts[0]!);
 
-  const directSurface = surface(seed + ":DIRECT_STATED_VALUE", [
-    "What is the stated number of " + stimulus.unit + " for " + names[directIndex] + "?",
-    "According to the caselet, how many " + stimulus.unit + " are there for " + names[directIndex] + "?",
-    "Find the value given for " + names[directIndex] + ".",
-  ]);
+  const directSurface = valueQuestionSurface(seed + ":DIRECT_STATED_VALUE", stimulus, names[directIndex]!, false);
 
-  const singleSurface = surface(seed + ":SINGLE_RELATION_VALUE", [
-    "Find the number of " + stimulus.unit + " for " + names[singleIndex] + ".",
-    "Using the given relation, determine the value for " + names[singleIndex] + ".",
-    "What is the value of " + names[singleIndex] + " according to the caselet?",
-  ]);
+  const singleSurface = valueQuestionSurface(seed + ":SINGLE_RELATION_VALUE", stimulus, names[singleIndex]!, true);
 
   const difference = Math.abs(first - second);
   const wrongPairDifferenceCandidates: Candidate[] = [];
@@ -520,17 +563,9 @@ function buildDrafts(seed: string, stimulus: Di006V2Stimulus): Readonly<Record<D
     "The mean of the values for " + names[firstIndex] + " and " + names[secondIndex] + " is:",
   ]);
 
-  const chainSurface = surface(seed + ":CHAINED_RELATION_VALUE", [
-    "Find the value for " + names[chainIndex] + " using the given relations.",
-    "What is the number of " + stimulus.unit + " for " + names[chainIndex] + "?",
-    "After following the required relations, what is the value of " + names[chainIndex] + "?",
-  ]);
+  const chainSurface = valueQuestionSurface(seed + ":CHAINED_RELATION_VALUE", stimulus, names[chainIndex]!, true);
 
-  const remainderSurface = surface(seed + ":REMAINDER_FROM_TOTAL", [
-    "How many " + stimulus.unit + " are there for " + names[remainderIndex] + "?",
-    "Find the remaining value for " + names[remainderIndex] + ".",
-    "After finding the other four values, what is the value of " + names[remainderIndex] + "?",
-  ]);
+  const remainderSurface = valueQuestionSurface(seed + ":REMAINDER_FROM_TOTAL", stimulus, names[remainderIndex]!, true);
 
   const hardCombined = chainValue + otherDerivedValue;
   const hardCombinedShare = formatPercent(hardCombined, stimulus.totalValue);
