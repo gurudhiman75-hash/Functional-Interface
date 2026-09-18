@@ -1,6 +1,6 @@
 # COA-001 — Course of Action
 
-Status: **COA-CP-010 APPROVED / FROZEN**
+Status: **COA-CP-011 IMPLEMENTED / HUMAN REVIEW PENDING**
 
 ## 1. Chapter purpose
 
