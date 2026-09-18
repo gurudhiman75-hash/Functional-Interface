@@ -14,7 +14,7 @@ const samples = languages.flatMap((language) =>
 );
 
 const summary = {
-  verdict: "BLR_CP007_PRODUCTION_LIFECYCLE_PROVED",
+  verdict: "BLR_CP007_RELEASE_PATH_PROVED__CURRENT_REVIEW_ITEM_LOCKED",
   releaseAuthority: "BLR_CP007_PRODUCT_RELEASE_APPROVED_2026_08_09",
   packageId: "REASONING_V1_BLR_001_CP_007",
   multilingualRecordCount: entries.length,
@@ -44,7 +44,7 @@ const escapeHtml = (value: unknown) => String(value ?? "")
   .replaceAll('"', "&quot;");
 
 const cards = samples.map((entry) => `<article><p class="meta">${escapeHtml(entry.language.toUpperCase())} · ${escapeHtml(entry.qlId)} · ${escapeHtml(entry.difficultyBand)}</p><h3>${escapeHtml(entry.stem)}</h3><ol>${entry.options.map((option, index) => `<li class="${index === entry.correctIndex ? "correct" : ""}">${escapeHtml(option)}</li>`).join("")}</ol><p><strong>Answer:</strong> ${escapeHtml(entry.answer)}</p></article>`).join("");
-const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>BLR-CP-007 Production</title><style>body{font-family:system-ui;background:#f4f6fa;color:#172033;margin:0}main{max-width:1200px;margin:auto;padding:28px}.hero,article{background:#fff;border:1px solid #dde3ed;border-radius:16px;padding:18px}.hero{margin-bottom:18px}.status{display:inline-block;background:#e8f7ee;color:#166534;border-radius:999px;padding:6px 10px;font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}.meta{font-size:12px;color:#667085}li{padding:5px}.correct{background:#ecfdf3;border-radius:6px;font-weight:700}</style></head><body><main><section class="hero"><span class="status">${summary.verdict}</span><h1>BLR-CP-007 production lifecycle</h1><p>504 frozen multilingual records are connected to the existing Question Studio cockpit, shared approval, Question Bank conversion and test/publication workflows.</p><p><strong>Automatic student publication:</strong> No</p></section><section class="grid">${cards}</section></main></body></html>`;
+const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>BLR-CP-007 Production</title><style>body{font-family:system-ui;background:#f4f6fa;color:#172033;margin:0}main{max-width:1200px;margin:auto;padding:28px}.hero,article{background:#fff;border:1px solid #dde3ed;border-radius:16px;padding:18px}.hero{margin-bottom:18px}.status{display:inline-block;background:#e8f7ee;color:#166534;border-radius:999px;padding:6px 10px;font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}.meta{font-size:12px;color:#667085}li{padding:5px}.correct{background:#ecfdf3;border-radius:6px;font-weight:700}</style></head><body><main><section class="hero"><span class="status">${summary.verdict}</span><h1>BLR-CP-007 controlled release path</h1><p>504 frozen multilingual records are connected to the existing Question Studio cockpit. Current generated review items remain release-locked; downstream conversion requires a separate approval/promotion transition.</p><p><strong>Automatic student publication:</strong> No</p></section><section class="grid">${cards}</section></main></body></html>`;
 
 writeFileSync(resolve(out, "blr-cp007-production-summary.json"), JSON.stringify(summary, null, 2));
 writeFileSync(resolve(out, "BLR-CP-007-PRODUCTION-LIFECYCLE.md"), markdown);
