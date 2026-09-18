@@ -299,9 +299,21 @@ function cp3Explanation(question: (typeof ECO_CP003_REVIEW_V2)[number], locale: 
     return locale === "hi" ? `${question.canonicalAnswer} का अर्थ ${localized} है।` : `${question.canonicalAnswer} ਦਾ ਅਰਥ ${localized} ਹੈ।`;
   }
   if (ql === 2) return locale === "hi" ? `सही संबंध है: ${cp3Formula(question.canonicalAnswer, locale)}।` : `ਸਹੀ ਸੰਬੰਧ ਹੈ: ${cp3Formula(question.canonicalAnswer, locale)}।`;
-  if (ql === 3) return locale === "hi"
-    ? `शुद्ध माप प्राप्त करने के लिए संबंधित सकल माप से मूल्यह्रास घटाया जाता है। इसलिए ${cp3Formula(question.explanation.replace(/\.$/u, ""), locale)}।`
-    : `ਸ਼ੁੱਧ ਮਾਪ ਲਈ ਸੰਬੰਧਿਤ ਕੁੱਲ ਮਾਪ ਵਿੱਚੋਂ ਮੁੱਲ ਘਟਾਅ ਘਟਾਇਆ ਜਾਂਦਾ ਹੈ। ਇਸ ਲਈ ${cp3Formula(question.explanation.replace(/\.$/u, ""), locale)}।`;
+  if (ql === 3) {
+    if (question.canonicalAnswer === "NDP") {
+      return locale === "hi"
+        ? "NDP, GDP में से मूल्यह्रास घटाने पर प्राप्त होता है। इसलिए NDP = GDP - मूल्यह्रास।"
+        : "NDP, GDP ਵਿੱਚੋਂ ਮੁੱਲ ਘਟਾਅ ਘਟਾਉਣ ਤੇ ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ। ਇਸ ਲਈ NDP = GDP - ਮੁੱਲ ਘਟਾਅ।";
+    }
+    if (question.canonicalAnswer === "NNP") {
+      return locale === "hi"
+        ? "NNP, GNP में से मूल्यह्रास घटाने पर प्राप्त होता है। इसलिए NNP = GNP - मूल्यह्रास।"
+        : "NNP, GNP ਵਿੱਚੋਂ ਮੁੱਲ ਘਟਾਅ ਘਟਾਉਣ ਤੇ ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ। ਇਸ ਲਈ NNP = GNP - ਮੁੱਲ ਘਟਾਅ।";
+    }
+    return locale === "hi"
+      ? `शुद्ध माप प्राप्त करने के लिए संबंधित सकल माप से मूल्यह्रास घटाया जाता है। इसलिए ${cp3Formula(question.explanation.replace(/\.$/u, ""), locale)}।`
+      : `ਸ਼ੁੱਧ ਮਾਪ ਲਈ ਸੰਬੰਧਿਤ ਕੁੱਲ ਮਾਪ ਵਿੱਚੋਂ ਮੁੱਲ ਘਟਾਅ ਘਟਾਇਆ ਜਾਂਦਾ ਹੈ। ਇਸ ਲਈ ${cp3Formula(question.explanation.replace(/\.$/u, ""), locale)}।`;
+  }
   if (ql === 4) return locale === "hi"
     ? "NFIA घरेलू समष्टि माप को संबंधित राष्ट्रीय समष्टि माप में समायोजित करता है। इसलिए GNP = GDP + NFIA।"
     : "NFIA ਘਰੇਲੂ ਸਮੂਹਕ ਮਾਪ ਨੂੰ ਸੰਬੰਧਿਤ ਰਾਸ਼ਟਰੀ ਸਮੂਹਕ ਮਾਪ ਵਿੱਚ ਸਮਾਇਤ ਕਰਦਾ ਹੈ। ਇਸ ਲਈ GNP = GDP + NFIA।";
