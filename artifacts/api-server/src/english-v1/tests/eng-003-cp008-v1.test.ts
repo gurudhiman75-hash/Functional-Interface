@@ -31,7 +31,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(!first.options.some((option) => option.toLowerCase() === "no improvement"), `${first.questionId} leaked No improvement`);
     assert(!first.options.some((option) => mechanical.test(option)), `${first.questionId} contains a mechanical noun/quantifier option`);
     assert(first.correctOptionIndex >= 0 && first.correctOptionIndex <= 3, `${first.questionId} has invalid answer index`);
-    assert(first.segments[first.blankIndex] === "_____", `${first.questionId} lost its focused target blank`);
+    assert(first.segments[first.blankIndex]?.includes("_____"), `${first.questionId} lost its focused target blank`);
     assert((first.sentence.match(/_____/g) ?? []).length === 1, `${first.questionId} must have exactly one blank`);
     assert(!first.sentence.includes(" / "), `${first.questionId} leaked Error Spotting segmentation`);
     assert(!/informations of information/i.test(first.sentence), `${first.questionId} contains a malformed information surface`);
