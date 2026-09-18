@@ -10,6 +10,11 @@ function pickVariant(v:readonly string[],s:number){return v[ord(s+1,v.length)]!;
 function requireDiff(actual:PunjabiDifficulty,allowed:readonly PunjabiDifficulty[],id:string){if(!allowed.includes(actual))throw new Error(`CP011 ${id} does not support ${actual}`);}
 function peers(a:CP011Authority){return cp011ItemsInTheme(a.theme).filter(x=>x.id!==a.id);}
 function crossTheme(a:CP011Authority){return CP011_AUTHORITIES.filter(x=>x.theme!==a.theme);}
+function contrastPeers(a:CP011Authority){
+ const index=CP011_THEMES.indexOf(a.theme);
+ const contrastTheme=CP011_THEMES[(index+1)%CP011_THEMES.length]!;
+ return cp011ItemsInTheme(contrastTheme);
+}
 
 function assemble(input:{seed:number;difficulty:PunjabiDifficulty;familyId:string;subtype:string;stem:string;correctAnswer:string;distractors:readonly string[];explanation:string;authorityIds:readonly string[]}):PunjabiGeneratedQuestion{
  const rng=createRng(`CP011:${input.familyId}:${input.seed}`);
@@ -40,37 +45,38 @@ export function generateCP011F02(seed:number,difficulty:PunjabiDifficulty){
 
 export function generateCP011F03(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Medium"],"F03");
- const i=ord(seed,CP011_AUTHORITIES.length),a=CP011_AUTHORITIES[i]!,ps=peers(a);
+ const i=ord(seed,CP011_AUTHORITIES.length),a=CP011_AUTHORITIES[i]!,ps=contrastPeers(a);
  return assemble({seed,difficulty,familyId:"F03",subtype:"AUTHORED_CONTEXT_TO_IDIOM",stem:pickVariant([`ਵਾਕ ਦੇ ਪ੍ਰਸੰਗ ਅਨੁਸਾਰ ਖ਼ਾਲੀ ਥਾਂ ਲਈ ਸਭ ਤੋਂ ਢੁਕਵਾਂ ਮੁਹਾਵਰਾ ਚੁਣੋ।\n${a.contextSentence}`,`ਦਿੱਤੇ ਵਾਕ ਵਿੱਚ ਖ਼ਾਲੀ ਥਾਂ ਨੂੰ ਸਹੀ ਮੁਹਾਵਰੇ ਨਾਲ ਪੂਰਾ ਕਰੋ।\n${a.contextSentence}`,`ਪ੍ਰਸੰਗ ਦੇ ਭਾਵ ਅਨੁਸਾਰ ਸਹੀ ਮੁਹਾਵਰਾ ਕਿਹੜਾ ਹੈ?\n${a.contextSentence}`],i),correctAnswer:a.idiomPa,distractors:ps.map(x=>x.idiomPa),explanation:a.explanationPa,authorityIds:[a.id,...ps.map(x=>x.id)]});
 }
 
 export function generateCP011F04(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Medium"],"F04");
- const i=ord(seed,CP011_AUTHORITIES.length),a=CP011_AUTHORITIES[i]!,ps=peers(a);
+ const i=ord(seed,CP011_AUTHORITIES.length),a=CP011_AUTHORITIES[i]!,ps=contrastPeers(a);
  return assemble({seed,difficulty,familyId:"F04",subtype:"FIGURATIVE_PRECISION",stem:pickVariant([`‘${a.idiomPa}’ ਦਾ ਮੁਹਾਵਰੇਦਾਰ ਅਰਥ ਚੁਣੋ।`,`‘${a.idiomPa}’ ਨੂੰ ਸ਼ਾਬਦਿਕ ਨਹੀਂ, ਮੁਹਾਵਰੇਦਾਰ ਭਾਵ ਵਿੱਚ ਸਮਝੋ। ਸਹੀ ਅਰਥ ਕਿਹੜਾ ਹੈ?`,`ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ‘${a.idiomPa}’ ਦਾ ਲੱਛਣਿਕ ਭਾਵ ਕਿਹੜਾ ਹੈ?`],i),correctAnswer:a.meaningPa,distractors:[a.literalTrapPa,ps[0]!.meaningPa,ps[1]!.meaningPa,ps[2]!.meaningPa],explanation:`‘${a.idiomPa}’ ਦਾ ਮੁਹਾਵਰੇਦਾਰ ਅਰਥ ‘${a.meaningPa}’ ਹੈ; ‘${a.literalTrapPa}’ ਕੇਵਲ ਸ਼ਾਬਦਿਕ ਪੜ੍ਹਤ ਹੈ।`,authorityIds:[a.id,...ps.slice(0,3).map(x=>x.id)]});
 }
 
 export function generateCP011F05(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Medium"],"F05");
- const i=ord(seed,CP011_AUTHORITIES.length),target=CP011_AUTHORITIES[i]!,ps=peers(target);
+ const i=ord(seed,CP011_AUTHORITIES.length),target=CP011_AUTHORITIES[i]!,ps=contrastPeers(target);
+ const ownPeers=peers(target);
  const falsePairs=[
-  mapping(ps[0]!,ps[1]!),
-  mapping(ps[2]!,ps[3]!),
-  mapping(ps[4]!,ps[5]!),
-  mapping(ps[6]!,ps[0]!),
+  mapping(ps[0]!,ownPeers[0]!),
+  mapping(ps[1]!,ownPeers[1]!),
+  mapping(ps[2]!,ownPeers[2]!),
+  mapping(ps[3]!,ownPeers[3]!),
  ];
- return assemble({seed,difficulty,familyId:"F05",subtype:"CORRECT_IDIOM_MEANING_PAIR",stem:"ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਮੁਹਾਵਰੇ ਅਤੇ ਅਰਥ ਦਾ ਸਹੀ ਮੇਲ ਕਿਹੜਾ ਹੈ?",correctAnswer:mapping(target),distractors:falsePairs,explanation:`‘${target.idiomPa}’ ਦਾ ਸਹੀ ਅਰਥ ‘${target.meaningPa}’ ਹੈ।`,authorityIds:[target.id,...ps.map(x=>x.id)]});
+ return assemble({seed,difficulty,familyId:"F05",subtype:"CORRECT_IDIOM_MEANING_PAIR",stem:"ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਮੁਹਾਵਰੇ ਅਤੇ ਅਰਥ ਦਾ ਸਹੀ ਮੇਲ ਕਿਹੜਾ ਹੈ?",correctAnswer:mapping(target),distractors:falsePairs,explanation:`‘${target.idiomPa}’ ਦਾ ਸਹੀ ਅਰਥ ‘${target.meaningPa}’ ਹੈ।`,authorityIds:[target.id,...ps.slice(0,4).map(x=>x.id),...ownPeers.slice(0,4).map(x=>x.id)]});
 }
 
 export function generateCP011F06(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Medium"],"F06");
- const cap=CP011_AUTHORITIES.length*7,r=ord(seed,cap),target=CP011_AUTHORITIES[Math.floor(r/7)]!,ps=peers(target),wrong=ps[r%7]!;
- const valid=ps.filter(x=>x.id!==wrong.id).slice(0,3);
+ const cap=CP011_AUTHORITIES.length*8,r=ord(seed,cap),target=CP011_AUTHORITIES[Math.floor(r/8)]!,wrongPool=contrastPeers(target),wrong=wrongPool[r%8]!;
+ const valid=peers(target).slice(0,3);
  return assemble({seed,difficulty,familyId:"F06",subtype:"INCORRECT_IDIOM_MEANING_PAIR",stem:"ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਮੁਹਾਵਰੇ ਅਤੇ ਅਰਥ ਦਾ ਗ਼ਲਤ ਮੇਲ ਕਿਹੜਾ ਹੈ?",correctAnswer:mapping(target,wrong),distractors:valid.map(x=>mapping(x)),explanation:`‘${target.idiomPa}’ ਦਾ ਸਹੀ ਅਰਥ ‘${target.meaningPa}’ ਹੈ।`,authorityIds:[target.id,wrong.id,...valid.map(x=>x.id)]});
 }
 
 function orderedPair(seed:number){
- const r=ord(seed,448),firstIndex=Math.floor(r/7),first=CP011_AUTHORITIES[firstIndex]!,ps=peers(first),second=ps[r%7]!;
+ const r=ord(seed,512),firstIndex=Math.floor(r/8),first=CP011_AUTHORITIES[firstIndex]!,ps=contrastPeers(first),second=ps[r%8]!;
  return {r,first,second,ps};
 }
 
@@ -85,7 +91,7 @@ export function generateCP011F07(seed:number,difficulty:PunjabiDifficulty){
 const VERDICTS=["ਦੋਵੇਂ ਕਥਨ ਸਹੀ ਹਨ","ਕੇਵਲ ਕਥਨ 1 ਸਹੀ ਹੈ","ਕੇਵਲ ਕਥਨ 2 ਸਹੀ ਹੈ","ਦੋਵੇਂ ਕਥਨ ਗਲਤ ਹਨ"] as const;
 export function generateCP011F08(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Hard"],"F08");
- const cap=448*4,r=ord(seed,cap),pattern=r%4,pairSeed=Math.floor(r/4)+1,{first,second,ps}=orderedPair(pairSeed);
+ const cap=512*4,r=ord(seed,cap),pattern=r%4,pairSeed=Math.floor(r/4)+1,{first,second,ps}=orderedPair(pairSeed);
  const otherForFirst=ps.find(x=>x.id!==second.id)!;
  const secondPeers=peers(second),otherForSecond=secondPeers.find(x=>x.id!==first.id)!;
  const t1=pattern===0||pattern===1,t2=pattern===0||pattern===2;
@@ -101,9 +107,9 @@ export const CP011_FAMILIES=[
  {familyId:"F03",subtype:"AUTHORED_CONTEXT_TO_IDIOM",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:64,generate:generateCP011F03},
  {familyId:"F04",subtype:"FIGURATIVE_PRECISION",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:64,generate:generateCP011F04},
  {familyId:"F05",subtype:"CORRECT_IDIOM_MEANING_PAIR",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:64,generate:generateCP011F05},
- {familyId:"F06",subtype:"INCORRECT_IDIOM_MEANING_PAIR",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:448,generate:generateCP011F06},
- {familyId:"F07",subtype:"ORDERED_DUAL_MEANING_TO_IDIOM",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:448,generate:generateCP011F07},
- {familyId:"F08",subtype:"DUAL_STATEMENT_VERIFICATION",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:1792,generate:generateCP011F08},
+ {familyId:"F06",subtype:"INCORRECT_IDIOM_MEANING_PAIR",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:512,generate:generateCP011F06},
+ {familyId:"F07",subtype:"ORDERED_DUAL_MEANING_TO_IDIOM",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:512,generate:generateCP011F07},
+ {familyId:"F08",subtype:"DUAL_STATEMENT_VERIFICATION",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:2048,generate:generateCP011F08},
 ] as const;
 
 export function generateCP011Question(seed:number,difficulty:PunjabiDifficulty="Medium",requestedFamilyId?:string){
