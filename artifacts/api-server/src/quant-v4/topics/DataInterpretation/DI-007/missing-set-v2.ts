@@ -51,6 +51,8 @@ type Context = Readonly<{
   rowLabels: readonly string[];
   seriesALabel: string;
   seriesBLabel: string;
+  seriesAMeasure: string;
+  seriesBMeasure: string;
   unit: string;
 }>;
 
@@ -60,8 +62,10 @@ const CONTEXTS: readonly Context[] = [
     title: "Loan applications received and approved by five branches",
     rowLabel: "Branch",
     rowLabels: ["Branch A", "Branch B", "Branch C", "Branch D", "Branch E"],
-    seriesALabel: "Number of applications received",
-    seriesBLabel: "Number of applications approved",
+    seriesALabel: "Applications received",
+    seriesBLabel: "Applications approved",
+    seriesAMeasure: "number of applications received",
+    seriesBMeasure: "number of applications approved",
     unit: "applications",
   },
   {
@@ -69,8 +73,10 @@ const CONTEXTS: readonly Context[] = [
     title: "New and renewed insurance policies over five quarters",
     rowLabel: "Quarter",
     rowLabels: ["Q1", "Q2", "Q3", "Q4", "Q5"],
-    seriesALabel: "Number of new policies",
-    seriesBLabel: "Number of renewed policies",
+    seriesALabel: "New policies",
+    seriesBLabel: "Renewed policies",
+    seriesAMeasure: "number of new policies",
+    seriesBMeasure: "number of renewed policies",
     unit: "policies",
   },
   {
@@ -80,6 +86,8 @@ const CONTEXTS: readonly Context[] = [
     rowLabels: ["January", "February", "March", "April", "May"],
     seriesALabel: "Line A output",
     seriesBLabel: "Line B output",
+    seriesAMeasure: "Line A output",
+    seriesBMeasure: "Line B output",
     unit: "units",
   },
   {
@@ -89,6 +97,8 @@ const CONTEXTS: readonly Context[] = [
     rowLabels: ["Centre A", "Centre B", "Centre C", "Centre D", "Centre E"],
     seriesALabel: "Group A enrolment",
     seriesBLabel: "Group B enrolment",
+    seriesAMeasure: "Group A enrolment",
+    seriesBMeasure: "Group B enrolment",
     unit: "students",
   },
   {
@@ -96,8 +106,10 @@ const CONTEXTS: readonly Context[] = [
     title: "Orders handled by two channels over five days",
     rowLabel: "Day",
     rowLabels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    seriesALabel: "Number of Channel A orders",
-    seriesBLabel: "Number of Channel B orders",
+    seriesALabel: "Channel A orders",
+    seriesBLabel: "Channel B orders",
+    seriesAMeasure: "number of Channel A orders",
+    seriesBMeasure: "number of Channel B orders",
     unit: "orders",
   },
   {
@@ -105,8 +117,10 @@ const CONTEXTS: readonly Context[] = [
     title: "Books issued from two sections over five weeks",
     rowLabel: "Week",
     rowLabels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
-    seriesALabel: "Number of books issued from Section A",
-    seriesBLabel: "Number of books issued from Section B",
+    seriesALabel: "Section A books issued",
+    seriesBLabel: "Section B books issued",
+    seriesAMeasure: "number of books issued from Section A",
+    seriesBMeasure: "number of books issued from Section B",
     unit: "books",
   },
 ];
@@ -185,7 +199,7 @@ function aggregateConditionText(
       return {
         mode,
         value: totalB,
-        learnerText: `The total for ${context.seriesBLabel.toLowerCase()} across all five ${context.rowLabel.toLowerCase()} entries is ${totalB} ${context.unit}.`,
+        learnerText: `The total for ${context.seriesBMeasure} across all five ${context.rowLabel.toLowerCase()} entries is ${totalB} ${context.unit}.`,
       };
     case "COLUMN_AVERAGE": {
       const average = totalB / 5;
@@ -193,14 +207,14 @@ function aggregateConditionText(
       return {
         mode,
         value: average,
-        learnerText: `The average ${context.seriesBLabel.toLowerCase()} across the five ${context.rowLabel.toLowerCase()} entries is ${average} ${context.unit}.`,
+        learnerText: `The average ${context.seriesBMeasure} across the five ${context.rowLabel.toLowerCase()} entries is ${average} ${context.unit}.`,
       };
     }
     case "COMBINED_TOTAL":
       return {
         mode,
         value: totalA + totalB,
-        learnerText: `The combined total of ${context.seriesALabel.toLowerCase()} and ${context.seriesBLabel.toLowerCase()} is ${totalA + totalB} ${context.unit}.`,
+        learnerText: `The combined total of ${context.seriesAMeasure} and ${context.seriesBMeasure} is ${totalA + totalB} ${context.unit}.`,
       };
     case "TOTAL_RATIO_TO_A": {
       const divisor = gcd(totalB, totalA);
@@ -210,7 +224,7 @@ function aggregateConditionText(
         mode,
         numerator,
         denominator,
-        learnerText: `The ratio of the total ${context.seriesBLabel.toLowerCase()} to the total ${context.seriesALabel.toLowerCase()} is ${numerator}:${denominator}.`,
+        learnerText: `The ratio of the total ${context.seriesBMeasure} to the total ${context.seriesAMeasure} is ${numerator}:${denominator}.`,
       };
     }
     case "DIFFERENCE_FROM_A_TOTAL": {
@@ -220,7 +234,7 @@ function aggregateConditionText(
         mode,
         direction,
         value,
-        learnerText: `The total ${context.seriesBLabel.toLowerCase()} is ${value} ${context.unit} ${direction === "ABOVE" ? "more" : "less"} than the total ${context.seriesALabel.toLowerCase()}.`,
+        learnerText: `The total ${context.seriesBMeasure} is ${value} ${context.unit} ${direction === "ABOVE" ? "more" : "less"} than the total ${context.seriesAMeasure}.`,
       };
     }
   }
@@ -277,6 +291,8 @@ function buildStimulus(seed: string, profile: Di007V2ExamProfile): Di007V2Stimul
     rowLabel: context.rowLabel,
     seriesALabel: context.seriesALabel,
     seriesBLabel: context.seriesBLabel,
+    seriesAMeasure: context.seriesAMeasure,
+    seriesBMeasure: context.seriesBMeasure,
     unit: context.unit,
     points: context.rowLabels.map((label, index) => ({
       label,
@@ -376,9 +392,9 @@ function chooseTwoVisible(seed: string, stimulus: Di007V2Stimulus, salt: string)
 function visibleValueStem(stimulus: Di007V2Stimulus, index: number, variant: 0 | 1 | 2): string {
   const row = stimulus.points[index]!;
   const templates = [
-    `What is the ${stimulus.seriesBLabel.toLowerCase()} for ${row.label}?`,
-    `For ${row.label}, what is the ${stimulus.seriesBLabel.toLowerCase()}?`,
-    `For ${row.label}, find the ${stimulus.seriesBLabel.toLowerCase()} figure.`,
+    `What is the ${stimulus.seriesBMeasure} for ${row.label}?`,
+    `For ${row.label}, what is the ${stimulus.seriesBMeasure}?`,
+    `For ${row.label}, find the ${stimulus.seriesBMeasure} figure.`,
   ] as const;
   return templates[variant];
 }
@@ -386,7 +402,7 @@ function visibleValueStem(stimulus: Di007V2Stimulus, index: number, variant: 0 |
 function visibleDifferenceStem(stimulus: Di007V2Stimulus, index: number, variant: 0 | 1 | 2): string {
   const row = stimulus.points[index]!;
   const templates = [
-    `What is the difference between ${stimulus.seriesALabel.toLowerCase()} and ${stimulus.seriesBLabel.toLowerCase()} for ${row.label}?`,
+    `What is the difference between ${stimulus.seriesAMeasure} and ${stimulus.seriesBMeasure} for ${row.label}?`,
     `For ${row.label}, by how many ${stimulus.unit} do the two table values differ?`,
     `Find the absolute difference between the two values shown for ${row.label}.`,
   ] as const;
@@ -396,7 +412,7 @@ function visibleDifferenceStem(stimulus: Di007V2Stimulus, index: number, variant
 function recoverStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `What is the missing value of ${stimulus.seriesBLabel.toLowerCase()} for ${row.label}?`,
+    `What is the missing value of ${stimulus.seriesBMeasure} for ${row.label}?`,
     `Find the value represented by ? for ${row.label}.`,
     `How many ${stimulus.unit} should replace the missing entry in ${row.label}?`,
   ] as const;
@@ -406,9 +422,9 @@ function recoverStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
 function hiddenCombinedStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `What is the combined ${stimulus.seriesALabel.toLowerCase()} and ${stimulus.seriesBLabel.toLowerCase()} value for ${row.label}?`,
+    `What is the combined ${stimulus.seriesAMeasure} and ${stimulus.seriesBMeasure} value for ${row.label}?`,
     `After finding the missing entry, what is the total of both table values for ${row.label}?`,
-    `Find ${stimulus.seriesALabel.toLowerCase()} plus ${stimulus.seriesBLabel.toLowerCase()} for ${row.label}.`,
+    `Find ${stimulus.seriesAMeasure} plus ${stimulus.seriesBMeasure} for ${row.label}.`,
   ] as const;
   return templates[variant];
 }
@@ -416,18 +432,18 @@ function hiddenCombinedStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): stri
 function missingRatioStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `What is the ratio of ${stimulus.seriesBLabel.toLowerCase()} to ${stimulus.seriesALabel.toLowerCase()} for ${row.label}?`,
+    `What is the ratio of ${stimulus.seriesBMeasure} to ${stimulus.seriesAMeasure} for ${row.label}?`,
     `For ${row.label}, find the ratio ${stimulus.seriesBLabel} : ${stimulus.seriesALabel}.`,
-    `After recovering the missing value, what is its ratio to the paired ${stimulus.seriesALabel.toLowerCase()} value?`,
+    `After recovering the missing value, what is its ratio to the paired ${stimulus.seriesAMeasure} value?`,
   ] as const;
   return templates[variant];
 }
 
 function bTotalPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const templates = [
-    `The total ${stimulus.seriesBLabel.toLowerCase()} is what percentage of the total ${stimulus.seriesALabel.toLowerCase()}?`,
+    `The total ${stimulus.seriesBMeasure} is what percentage of the total ${stimulus.seriesAMeasure}?`,
     `Find ${stimulus.seriesBLabel} as a percentage of ${stimulus.seriesALabel}, using the five-row totals.`,
-    `What percentage of the ${stimulus.seriesALabel.toLowerCase()} total is the ${stimulus.seriesBLabel.toLowerCase()} total?`,
+    `What percentage of the ${stimulus.seriesAMeasure} total is the ${stimulus.seriesBMeasure} total?`,
   ] as const;
   return templates[variant];
 }
@@ -435,9 +451,9 @@ function bTotalPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): strin
 function missingShareStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `The ${stimulus.seriesBLabel.toLowerCase()} for ${row.label} is what percentage of the total ${stimulus.seriesBLabel.toLowerCase()} across all five rows?`,
-    `What percentage of the total ${stimulus.seriesBLabel.toLowerCase()} comes from ${row.label}?`,
-    `After finding the missing entry for ${row.label}, what percentage of the total ${stimulus.seriesBLabel.toLowerCase()} does it represent?`,
+    `The ${stimulus.seriesBMeasure} for ${row.label} is what percentage of the total ${stimulus.seriesBMeasure} across all five rows?`,
+    `What percentage of the total ${stimulus.seriesBMeasure} comes from ${row.label}?`,
+    `After finding the missing entry for ${row.label}, what percentage of the total ${stimulus.seriesBMeasure} does it represent?`,
   ] as const;
   return templates[variant];
 }
@@ -446,8 +462,8 @@ function visibleTwoRowStem(stimulus: Di007V2Stimulus, i: number, j: number, vari
   const left = stimulus.points[i]!.label;
   const right = stimulus.points[j]!.label;
   const templates = [
-    `What is the combined ${stimulus.seriesBLabel.toLowerCase()} for ${left} and ${right}?`,
-    `Find the sum of the ${stimulus.seriesBLabel.toLowerCase()} values for ${left} and ${right}.`,
+    `What is the combined ${stimulus.seriesBMeasure} for ${left} and ${right}?`,
+    `Find the sum of the ${stimulus.seriesBMeasure} values for ${left} and ${right}.`,
     `Together, how many ${stimulus.unit} are recorded under ${stimulus.seriesBLabel} for ${left} and ${right}?`,
   ] as const;
   return templates[variant];
@@ -456,9 +472,9 @@ function visibleTwoRowStem(stimulus: Di007V2Stimulus, i: number, j: number, vari
 function missingPairedPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
-    `For ${row.label}, the ${stimulus.seriesBLabel.toLowerCase()} is what percentage of the ${stimulus.seriesALabel.toLowerCase()}?`,
-    `After finding the missing entry for ${row.label}, express the ${stimulus.seriesBLabel.toLowerCase()} as a percentage of the ${stimulus.seriesALabel.toLowerCase()}.`,
-    `For ${row.label}, what percent of the ${stimulus.seriesALabel.toLowerCase()} is the ${stimulus.seriesBLabel.toLowerCase()}?`,
+    `For ${row.label}, the ${stimulus.seriesBMeasure} is what percentage of the ${stimulus.seriesAMeasure}?`,
+    `After finding the missing entry for ${row.label}, express the ${stimulus.seriesBMeasure} as a percentage of the ${stimulus.seriesAMeasure}.`,
+    `For ${row.label}, what percent of the ${stimulus.seriesAMeasure} is the ${stimulus.seriesBMeasure}?`,
   ] as const;
   return templates[variant];
 }
@@ -467,9 +483,9 @@ function combinedShareStem(stimulus: Di007V2Stimulus, otherIndex: number, varian
   const hidden = stimulus.points[stimulus.hiddenIndex]!.label;
   const other = stimulus.points[otherIndex]!.label;
   const templates = [
-    `The combined ${stimulus.seriesBLabel.toLowerCase()} for ${hidden} and ${other} is what percentage of the total ${stimulus.seriesBLabel.toLowerCase()}?`,
-    `What percentage of the total ${stimulus.seriesBLabel.toLowerCase()} comes from ${hidden} and ${other} together?`,
-    `After finding the missing entry, what percentage of the total ${stimulus.seriesBLabel.toLowerCase()} comes from ${hidden} and ${other} together?`,
+    `The combined ${stimulus.seriesBMeasure} for ${hidden} and ${other} is what percentage of the total ${stimulus.seriesBMeasure}?`,
+    `What percentage of the total ${stimulus.seriesBMeasure} comes from ${hidden} and ${other} together?`,
+    `After finding the missing entry, what percentage of the total ${stimulus.seriesBMeasure} comes from ${hidden} and ${other} together?`,
   ] as const;
   return templates[variant];
 }
@@ -480,9 +496,9 @@ function excessStem(stimulus: Di007V2Stimulus, otherIndex: number, hidden: numbe
   const largerLabel = hidden >= other ? hiddenLabel : otherLabel;
   const smallerLabel = hidden >= other ? otherLabel : hiddenLabel;
   const templates = [
-    `The ${stimulus.seriesBLabel.toLowerCase()} for ${largerLabel} is what percentage more than that for ${smallerLabel}?`,
-    `Between ${hiddenLabel} and ${otherLabel}, by what percentage does the higher ${stimulus.seriesBLabel.toLowerCase()} exceed the lower one?`,
-    `Compare ${hiddenLabel} and ${otherLabel}. By what percentage is the higher ${stimulus.seriesBLabel.toLowerCase()} above the lower one?`,
+    `The ${stimulus.seriesBMeasure} for ${largerLabel} is what percentage more than that for ${smallerLabel}?`,
+    `Between ${hiddenLabel} and ${otherLabel}, by what percentage does the higher ${stimulus.seriesBMeasure} exceed the lower one?`,
+    `Compare ${hiddenLabel} and ${otherLabel}. By what percentage is the higher ${stimulus.seriesBMeasure} above the lower one?`,
   ] as const;
   return templates[variant];
 }
@@ -577,9 +593,9 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: String(Math.abs(totalB - hidden)), misconceptionId: "REPORT_VISIBLE_COMPLEMENT", derivation: "Reports the visible complement instead of the missing value." },
         ],
         explanation: {
-          keyIdea: `Use the additional condition to find the total ${stimulus.seriesBLabel.toLowerCase()}, then subtract the four visible entries.`,
+          keyIdea: `Use the additional condition to find the total ${stimulus.seriesBMeasure}, then subtract the four visible entries.`,
           steps: [
-            `Total ${stimulus.seriesBLabel.toLowerCase()} = ${totalB}; sum of the four visible values = ${visibleBTotal}.`,
+            `Total ${stimulus.seriesBMeasure} = ${totalB}; sum of the four visible values = ${visibleBTotal}.`,
             `Missing value = ${totalB} - ${visibleBTotal} = ${hidden} ${stimulus.unit}.`,
           ],
         },
@@ -602,8 +618,8 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: String(hiddenRowTotal + fallbackScale), misconceptionId: "ONE_STEP_ROW_TOTAL_SLIP", derivation: "Adds an extra table-scale amount after forming the row total." },
         ],
         explanation: {
-          keyIdea: `First find the missing ${stimulus.seriesBLabel.toLowerCase()}, then add it to the ${stimulus.seriesALabel.toLowerCase()} in the same row.`,
-          steps: [`For ${hiddenPoint.label}, the missing ${stimulus.seriesBLabel.toLowerCase()} value is ${hidden}.`, `Combined row value = ${hiddenPoint.seriesA} + ${hidden} = ${hiddenRowTotal}.`],
+          keyIdea: `First find the missing ${stimulus.seriesBMeasure}, then add it to the ${stimulus.seriesAMeasure} in the same row.`,
+          steps: [`For ${hiddenPoint.label}, the missing ${stimulus.seriesBMeasure} value is ${hidden}.`, `Combined row value = ${hiddenPoint.seriesA} + ${hidden} = ${hiddenRowTotal}.`],
         },
         evidence: { hiddenIndex },
       };
@@ -625,7 +641,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: ratioDisplay(visiblePoint.seriesB, visiblePoint.seriesA), misconceptionId: "USE_VISIBLE_ROW_RATIO", derivation: "Forms the same type of ratio from another row." },
         ],
         explanation: {
-          keyIdea: `Find the missing ${stimulus.seriesBLabel.toLowerCase()} first, then simplify the two values in that row in the order asked.`,
+          keyIdea: `Find the missing ${stimulus.seriesBMeasure} first, then simplify the two values in that row in the order asked.`,
           steps: [`${hiddenPoint.label}: ${stimulus.seriesBLabel} = ${hidden}, ${stimulus.seriesALabel} = ${hiddenPoint.seriesA}.`, `Required ratio = ${hidden}:${hiddenPoint.seriesA} = ${answer}.`],
         },
         evidence: { hiddenIndex },
@@ -648,8 +664,8 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(hidden, totalA), misconceptionId: "USE_MISSING_ONLY", derivation: "Uses only the recovered missing cell as the numerator." },
         ],
         explanation: {
-          keyIdea: `After finding the missing entry, compare the complete totals of ${stimulus.seriesBLabel.toLowerCase()} and ${stimulus.seriesALabel.toLowerCase()}.`,
-          steps: [`Total ${stimulus.seriesALabel.toLowerCase()} = ${totalA}; total ${stimulus.seriesBLabel.toLowerCase()} = ${totalB}.`, `Required percentage = ${totalB}/${totalA} × 100 = ${answer}.`],
+          keyIdea: `After finding the missing entry, compare the complete totals of ${stimulus.seriesBMeasure} and ${stimulus.seriesAMeasure}.`,
+          steps: [`Total ${stimulus.seriesAMeasure} = ${totalA}; total ${stimulus.seriesBMeasure} = ${totalB}.`, `Required percentage = ${totalB}/${totalA} × 100 = ${answer}.`],
         },
         evidence: { totalA, totalB },
       };
@@ -671,8 +687,8 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(hiddenPoint.seriesA, totalB), misconceptionId: "USE_PAIRED_A_NUMERATOR", derivation: "Uses the paired first-column row as the numerator." },
         ],
         explanation: {
-          keyIdea: `Use the recovered ${stimulus.seriesBLabel.toLowerCase()} for ${hiddenPoint.label} as the numerator and the complete ${stimulus.seriesBLabel.toLowerCase()} total as the denominator.`,
-          steps: [`Missing ${stimulus.seriesBLabel.toLowerCase()} = ${hidden}; complete total = ${totalB}.`, `Percentage share = ${hidden}/${totalB} × 100 = ${answer}.`],
+          keyIdea: `Use the recovered ${stimulus.seriesBMeasure} for ${hiddenPoint.label} as the numerator and the complete ${stimulus.seriesBMeasure} total as the denominator.`,
+          steps: [`Missing ${stimulus.seriesBMeasure} = ${hidden}; complete total = ${totalB}.`, `Percentage share = ${hidden}/${totalB} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex, totalB },
       };
@@ -715,8 +731,8 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(visiblePoint.seriesB, visiblePoint.seriesA), misconceptionId: "USE_VISIBLE_ROW_PERCENT", derivation: "Calculates the same type of percentage for a visible row." },
         ],
         explanation: {
-          keyIdea: `This needs two steps: find the missing ${stimulus.seriesBLabel.toLowerCase()}, then compare it with the ${stimulus.seriesALabel.toLowerCase()} in the same row.`,
-          steps: [`Missing ${stimulus.seriesBLabel.toLowerCase()} for ${hiddenPoint.label} = ${hidden}.`, `Required percentage = ${hidden}/${hiddenPoint.seriesA} × 100 = ${answer}.`],
+          keyIdea: `This needs two steps: find the missing ${stimulus.seriesBMeasure}, then compare it with the ${stimulus.seriesAMeasure} in the same row.`,
+          steps: [`Missing ${stimulus.seriesBMeasure} for ${hiddenPoint.label} = ${hidden}.`, `Required percentage = ${hidden}/${hiddenPoint.seriesA} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex },
       };
@@ -739,7 +755,7 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(hidden + visiblePoint.seriesA, totalB), misconceptionId: "MIX_SERIES_IN_NUMERATOR", derivation: "Adds the wrong series value from the visible row." },
         ],
         explanation: {
-          keyIdea: `Find the missing ${stimulus.seriesBLabel.toLowerCase()}, add it to the named visible value from the same column, then compare the sum with the column total.`,
+          keyIdea: `Find the missing ${stimulus.seriesBMeasure}, add it to the named visible value from the same column, then compare the sum with the column total.`,
           steps: [`${hiddenPoint.label} = ${hidden}; ${visiblePoint.label} = ${visiblePoint.seriesB}; combined = ${numerator}.`, `Combined share = ${numerator}/${totalB} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex, visibleIndex, totalB },
@@ -765,8 +781,8 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
           { text: formatPercent(Math.abs(hiddenPoint.seriesA - visiblePoint.seriesA), Math.min(hiddenPoint.seriesA, visiblePoint.seriesA)), misconceptionId: "COMPARE_WRONG_SERIES", derivation: "Performs the excess calculation on the first series instead." },
         ],
         explanation: {
-          keyIdea: `Find the missing ${stimulus.seriesBLabel.toLowerCase()}, identify the smaller of the two values being compared, then measure the difference relative to that smaller value.`,
-          steps: [`The two ${stimulus.seriesBLabel.toLowerCase()} values are ${hidden} and ${visiblePoint.seriesB}; difference = ${difference}.`, `Percentage excess = ${difference}/${smaller} × 100 = ${answer}.`],
+          keyIdea: `Find the missing ${stimulus.seriesBMeasure}, identify the smaller of the two values being compared, then measure the difference relative to that smaller value.`,
+          steps: [`The two ${stimulus.seriesBMeasure} values are ${hidden} and ${visiblePoint.seriesB}; difference = ${difference}.`, `Percentage excess = ${difference}/${smaller} × 100 = ${answer}.`],
         },
         evidence: { hiddenIndex, visibleIndex },
       };
