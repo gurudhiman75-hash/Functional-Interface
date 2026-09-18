@@ -1,6 +1,6 @@
 # ENG-003-CP009 — Grammar Fillers: Gerunds, Infinitives and Participles — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Boundary
 
@@ -63,3 +63,14 @@ Rule-family breadth is prioritized before additional scene variety.
 ## Lifecycle
 
 CP009 remains review-only until explicit human editorial approval. It is not registered in Question Studio and is not eligible for Question Bank writes, tests, mocks, learner/public publication, automatic student delivery or production release.
+
+## Human approval
+
+Approved on **2026-09-18**.
+
+- Approval authority: `ENG-003-CP009-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `37774dfdade6f3b814ffb15f2ad18be6a66539ea`
+- Review SHA-256: `4bf50dfaddbf384c1f8254809c11f2758940d4ea3ba3d72117a3429de320ecb4`
+- Workflow artifact digest: `sha256:05725b50d3f1cb6531d45191fb318b5ebb72d0d3ea55a53d59a4799ccf8db2e1`
+
+Question Studio registration is review-only. Learner/test/mock/public release remains locked.
