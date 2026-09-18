@@ -16,8 +16,11 @@ on:
       - artifacts/api-server/src/knowledge-v1/environment-ecology/localization-v1/**
       - artifacts/api-server/src/knowledge-v1/environment-ecology/ecology-fundamentals/ENV-CP-001-STATUS.md
       - artifacts/api-server/src/knowledge-v1/environment-ecology/ENV-001-EXHAUSTIVE-V2-STATUS.md
-      - .github/workflows/environment-multilingual-v1-wave1.yml
   workflow_dispatch:
+
+concurrency:
+  group: env-multilingual-v1-wave1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
