@@ -1,15 +1,10 @@
 import { cp004ScenePoolV1, rulesForDifficultyCp004V1 } from "../chapters/error-spotting/ENG-001/CP004/eng-001-cp004-v1";
-import { generateEng003Cp004QuestionV1 } from "../chapters/grammar-fillers/ENG-003/CP004/eng-003-cp004-v1";
+import { generateEng003Cp004QuestionV1, materializeEng003Cp004AnswerV1 } from "../chapters/grammar-fillers/ENG-003/CP004/eng-003-cp004-v1";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 function stable(value: unknown): string { return JSON.stringify(value); }
-function materialize(segments: readonly string[], blankIndex: number, answer: string): string {
-  const out = [...segments];
-  out[blankIndex] = answer;
-  return out.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
-}
 
 for (const difficulty of ["easy", "medium", "hard"] as const) {
   const pool = cp004ScenePoolV1(difficulty);
@@ -32,7 +27,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(new Set(first.options.map((option) => option.toLowerCase())).size === 4, `${first.questionId} has duplicate options`);
     assert(!first.options.some((option) => option.toLowerCase() === "no improvement"), `${first.questionId} leaked No improvement`);
     assert(first.correctOptionIndex >= 0 && first.correctOptionIndex <= 3, `${first.questionId} has invalid answer index`);
-    assert(first.segments[first.blankIndex] === "_____", `${first.questionId} lost its target blank`);
+    assert(first.segments[first.blankIndex]?.includes("_____"), `${first.questionId} lost its target blank`);
     assert((first.sentence.match(/_____/g) ?? []).length === 1, `${first.questionId} must have exactly one blank`);
     assert(!first.sentence.includes(" / "), `${first.questionId} leaked Error Spotting segmentation`);
     assert(first.explanation.startsWith("The blank needs"), `${first.questionId} explanation does not begin with the answer`);
@@ -44,7 +39,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(allowedRules.has(first.metadata.ruleId), `${first.questionId} uses ineligible rule ${first.metadata.ruleId}`);
 
     const answer = first.options[first.correctOptionIndex]!;
-    assert(materialize(first.segments, first.blankIndex, answer) === first.correctedSentence, `${first.questionId} answer does not reconstruct the approved sentence`);
+    assert(materializeEng003Cp004AnswerV1(first.segments, first.blankIndex, answer) === first.correctedSentence, `${first.questionId} answer does not reconstruct the approved sentence`);
 
     if (first.metadata.ruleId === "GR-PRN-010") {
       assert(first.options.every((option) => /^(?:whose|who's|who|whom|which)$/i.test(option)), `${first.questionId} has non-pronoun whose/who's options`);
