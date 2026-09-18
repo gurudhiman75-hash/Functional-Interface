@@ -2,6 +2,7 @@ import { ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1 } from "../../english-v1/chapt
 import { ENG003_CP002_HUMAN_EDITORIAL_APPROVAL_V1 } from "../../english-v1/chapters/grammar-fillers/ENG-003/CP002/eng-003-cp002-human-approval-v1";
 import { ENG003_CP003_HUMAN_EDITORIAL_APPROVAL_V1 } from "../../english-v1/chapters/grammar-fillers/ENG-003/CP003/eng-003-cp003-human-approval-v1";
 import { ENG003_CP004_HUMAN_EDITORIAL_APPROVAL_V1 } from "../../english-v1/chapters/grammar-fillers/ENG-003/CP004/eng-003-cp004-human-approval-v1";
+import { ENG003_CP005_HUMAN_EDITORIAL_APPROVAL_V1 } from "../../english-v1/chapters/grammar-fillers/ENG-003/CP005/eng-003-cp005-human-approval-v1";
 import { generateEng003Cp001QuestionV1 } from "../../english-v1/chapters/grammar-fillers/ENG-003/CP001/eng-003-cp001-v1";
 import type { EnglishDifficulty, SvaRuleId } from "../../english-v1/core/types";
 import type { QuestionStudioEngineAdapter, QuestionStudioGenerationRequest, QuestionStudioGenerationResult, QuestionStudioLanguage, QuestionStudioPackageDefinition } from "../engine-types";
@@ -51,9 +52,9 @@ export const ENG003_CP001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackage
   subject: "English",
   topic: "Fill in the Blanks / Grammar Fillers",
   subtopic: "Approved Grammar Fillers",
-  label: "English · Grammar Fillers · ENG-003 · CP001–CP004",
+  label: "English · Grammar Fillers · ENG-003 · CP001–CP005",
   enabled: true,
-  cpIds: [ENG003_QUESTION_STUDIO_CP001_ID_V1, "ENG-003-CP002", "ENG-003-CP003", "ENG-003-CP004"],
+  cpIds: [ENG003_QUESTION_STUDIO_CP001_ID_V1, "ENG-003-CP002", "ENG-003-CP003", "ENG-003-CP004", "ENG-003-CP005"],
   supportedLanguages: ["en"],
   supportedDifficulties: ["Easy", "Medium", "Hard"],
   difficultyFilterSupported: true,
@@ -73,15 +74,15 @@ export const ENG003_CP001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackage
   productionReleaseAuthorized: false,
   metadata: {
     registrationAuthorityId: ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1.authorityId,
-    checkpointRegistrationAuthorityIds: [ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1.authorityId, ENG003_CP002_HUMAN_EDITORIAL_APPROVAL_V1.authorityId, ENG003_CP003_HUMAN_EDITORIAL_APPROVAL_V1.authorityId, ENG003_CP004_HUMAN_EDITORIAL_APPROVAL_V1.authorityId],
+    checkpointRegistrationAuthorityIds: [ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1.authorityId, ENG003_CP002_HUMAN_EDITORIAL_APPROVAL_V1.authorityId, ENG003_CP003_HUMAN_EDITORIAL_APPROVAL_V1.authorityId, ENG003_CP004_HUMAN_EDITORIAL_APPROVAL_V1.authorityId, ENG003_CP005_HUMAN_EDITORIAL_APPROVAL_V1.authorityId],
     approvedReviewBlobSha: ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha,
-    approvedReviewBlobShas: [ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha, ENG003_CP002_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha, ENG003_CP003_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha, ENG003_CP004_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha],
+    approvedReviewBlobShas: [ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha, ENG003_CP002_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha, ENG003_CP003_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha, ENG003_CP004_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha, ENG003_CP005_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewBlobSha],
     approvedGeneratorHeadSha: ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha,
-    approvedGeneratorHeadShas: [ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha, ENG003_CP002_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha, ENG003_CP003_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha, ENG003_CP004_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha],
+    approvedGeneratorHeadShas: [ENG003_CP001_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha, ENG003_CP002_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha, ENG003_CP003_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha, ENG003_CP004_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha, ENG003_CP005_HUMAN_EDITORIAL_APPROVAL_V1.approvedGeneratorHeadSha],
     humanReviewApproved: true,
     reviewOnly: true,
     deterministicGeneration: true,
-    grammarRuleIds: [...ruleIds, "GR-TNS-001", "GR-TNS-002", "GR-TNS-003", "GR-TNS-004", "GR-TNS-005", "GR-TNS-006", "GR-TNS-007", "GR-TNS-008", "GR-TNS-009", "GR-TNS-010", "GR-ART-001", "GR-ART-002", "GR-ART-003", "GR-ART-004", "GR-ART-005", "GR-ART-006", "GR-ART-007", "GR-ART-008", "GR-ART-009", "GR-ART-010", "GR-PRN-001", "GR-PRN-002", "GR-PRN-003", "GR-PRN-004", "GR-PRN-005", "GR-PRN-006", "GR-PRN-007", "GR-PRN-008", "GR-PRN-009", "GR-PRN-010"],
+    grammarRuleIds: [...ruleIds, "GR-TNS-001", "GR-TNS-002", "GR-TNS-003", "GR-TNS-004", "GR-TNS-005", "GR-TNS-006", "GR-TNS-007", "GR-TNS-008", "GR-TNS-009", "GR-TNS-010", "GR-ART-001", "GR-ART-002", "GR-ART-003", "GR-ART-004", "GR-ART-005", "GR-ART-006", "GR-ART-007", "GR-ART-008", "GR-ART-009", "GR-ART-010", "GR-PRN-001", "GR-PRN-002", "GR-PRN-003", "GR-PRN-004", "GR-PRN-005", "GR-PRN-006", "GR-PRN-007", "GR-PRN-008", "GR-PRN-009", "GR-PRN-010", "GR-PRP-001", "GR-PRP-002", "GR-PRP-003", "GR-PRP-004", "GR-PRP-005", "GR-PRP-006", "GR-PRP-007", "GR-PRP-008", "GR-PRP-009", "GR-PRP-010"],
     revisionPolicy: ENG003_CP001_REVISION_POLICY_V1,
     questionStudioGenerationEnabled: true,
     productionDifficultyClaimsAuthorized: false,

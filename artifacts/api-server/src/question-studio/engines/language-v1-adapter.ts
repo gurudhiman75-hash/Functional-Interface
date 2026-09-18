@@ -31,6 +31,7 @@ import { ENG003_QUESTION_STUDIO_PACKAGE_ID_V1, languageV1Eng003Cp001QuestionStud
 import { languageV1Eng003Cp002QuestionStudioAdapterV1 } from "./language-v1-eng003-cp002-adapter-v1";
 import { languageV1Eng003Cp003QuestionStudioAdapterV1 } from "./language-v1-eng003-cp003-adapter-v1";
 import { languageV1Eng003Cp004QuestionStudioAdapterV1 } from "./language-v1-eng003-cp004-adapter-v1";
+import { languageV1Eng003Cp005QuestionStudioAdapterV1 } from "./language-v1-eng003-cp005-adapter-v1";
 
 function explicitSelectorValues(request: QuestionStudioGenerationRequest) {
   return [request.patternId, request.canonicalProblemId, request.questionLanguageId]
@@ -77,6 +78,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (eng003CpSelector === "ENG-003-CP002") return languageV1Eng003Cp002QuestionStudioAdapterV1.generate(request);
     if (eng003CpSelector === "ENG-003-CP003") return languageV1Eng003Cp003QuestionStudioAdapterV1.generate(request);
     if (eng003CpSelector === "ENG-003-CP004") return languageV1Eng003Cp004QuestionStudioAdapterV1.generate(request);
+    if (eng003CpSelector === "ENG-003-CP005") return languageV1Eng003Cp005QuestionStudioAdapterV1.generate(request);
     if (eng003PackageSelected(request)) {
       const selectors = explicitSelectorValues(request);
       const topic = eng003TopicText(request);
@@ -88,6 +90,9 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       }
       if (selectors.some((value) => value.startsWith("GR-PRN-")) || /pronoun/.test(topic)) {
         return languageV1Eng003Cp004QuestionStudioAdapterV1.generate(request);
+      }
+      if (selectors.some((value) => value.startsWith("GR-PRP-")) || /preposition/.test(topic)) {
+        return languageV1Eng003Cp005QuestionStudioAdapterV1.generate(request);
       }
       if (selectors.some((value) => value.startsWith("GR-SVA-")) || /subject.?verb|agreement/.test(topic)) {
         return languageV1Eng003Cp001QuestionStudioAdapterV1.generate(request);
