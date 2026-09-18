@@ -70,6 +70,11 @@ import {
   isLogicPuzzleQuestionStudioRequest,
   listLogicPuzzleQuestionStudioPackages,
 } from "../reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio.ts";
+import {
+  COA_CP010_QUESTION_STUDIO_PACKAGE,
+  generateCoaCp010QuestionStudioBatch,
+  isCoaCp010QuestionStudioRequest,
+} from "../reasoning-v1/topics/Course-of-Action/COA-001/cp010-question-studio-integration.ts";
 
 export type SharedQuestionStudioGenerationRequest = {
   packageId?: string;
@@ -102,6 +107,8 @@ export {
   isNumCp011QuestionStudioRequest,
   isNumCp012QuestionStudioRequest,
 };
+
+export { isCoaCp010QuestionStudioRequest };
 
 export function isSta001QuestionStudioRequest(request: SharedQuestionStudioGenerationRequest) {
   const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
@@ -360,6 +367,10 @@ export function listQuestionStudioPackages() {
       packages.push(packageCapability);
     }
   }
+
+  if (!packages.some((entry) => String(entry.packageId) === "COA-001")) {
+    packages.push(COA_CP010_QUESTION_STUDIO_PACKAGE as any);
+  }
   return packages.sort((left, right) =>
     String(left.packageId).localeCompare(String(right.packageId)),
   );
@@ -549,6 +560,9 @@ export async function generateQuestion(request: SharedQuestionStudioGenerationRe
   }
   if (isLogicPuzzleQuestionStudioRequest(request)) {
     return generateLogicPuzzleQuestionStudioBatch(request);
+  }
+  if (isCoaCp010QuestionStudioRequest(request as Readonly<Record<string, unknown>>)) {
+    return generateCoaCp010QuestionStudioBatch(request as any);
   }
   return generateQuantQuestionStudioQuestion(request as any);
 }
