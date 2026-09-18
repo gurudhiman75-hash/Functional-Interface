@@ -1,6 +1,6 @@
 # COA-001 / COA-CP-010 — Status
 
-Status: **QUESTION STUDIO INTEGRATION IMPLEMENTED / HUMAN REVIEW PENDING**
+Status: **APPROVED / FROZEN**
 
 ## Frozen upstream authority
 
@@ -109,13 +109,8 @@ Shared runtime files updated:
 
 ## Approval gate
 
-CP010 is **implemented but not frozen**.
+CP010 is **APPROVED / FROZEN**.
 
-Human approval should confirm:
-- package naming and discoverability;
-- QL selector behavior;
-- profile selection behavior;
-- generated learner-facing shape;
-- review-only lifecycle boundary.
+Approved by the product owner on **2026-09-18** after review of package naming/discoverability, QL and profile selection, learner-facing output shape, and the review-only lifecycle boundary.
 
-Approval of CP010 authorizes moving to **CP011 final editorial/diversity freeze**. It does not open Question Bank, tests/mocks, or public/student delivery.
+CP010 approval authorizes moving to **CP011 final editorial/diversity freeze**. It does not open Question Bank, tests/mocks, or public/student delivery.
