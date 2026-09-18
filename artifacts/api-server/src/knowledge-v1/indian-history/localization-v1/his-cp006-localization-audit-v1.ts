@@ -1,7 +1,7 @@
 import { HIS_CP006_REVIEW_BATCH_V1 } from "../gupta-post-gupta/his-cp006-review-v1";
 import { HIS_CP006_HI_V1 } from "./his-cp006-hi-v1";
 import { HIS_CP006_PA_V1 } from "./his-cp006-pa-v1";
-import { generateHisCp005LocalizedReviewV1 } from "./his-cp006-localization-v1";
+import { generateHisCp006LocalizedReviewV1 } from "./his-cp006-localization-v1";
 import type { HisLocaleV1, HisLocalizedQuestionV1 } from "./his-localization-types-v1";
 
 const locales: HisLocaleV1[] = ["en", "hi", "pa"];
@@ -67,8 +67,8 @@ fail(HIS_CP006_REVIEW_BATCH_V1.length === 60, `CP006 English expected 60, found 
 fail(Object.keys(HIS_CP006_HI_V1).length === 60, `CP006 Hindi overlays expected 60, found ${Object.keys(HIS_CP006_HI_V1).length}`);
 fail(Object.keys(HIS_CP006_PA_V1).length === 60, `CP006 Punjabi overlays expected 60, found ${Object.keys(HIS_CP006_PA_V1).length}`);
 
-for (const locale of locales) assertParity(HIS_CP006_REVIEW_BATCH_V1, generateHisCp005LocalizedReviewV1(locale), locale);
-const all = locales.flatMap((locale) => generateHisCp005LocalizedReviewV1(locale));
+for (const locale of locales) assertParity(HIS_CP006_REVIEW_BATCH_V1, generateHisCp006LocalizedReviewV1(locale), locale);
+const all = locales.flatMap((locale) => generateHisCp006LocalizedReviewV1(locale));
 fail(all.length === 180, `CP006 expected 180 EN-HI-PA surfaces, found ${all.length}`);
 
 console.log("History CP006 multilingual audit passed: 60 questions per locale / 180 EN-HI-PA surfaces.");
