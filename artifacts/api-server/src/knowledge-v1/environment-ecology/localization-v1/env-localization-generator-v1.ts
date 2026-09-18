@@ -13,3 +13,13 @@ export {
   ENV_CP003_ENGLISH_AUTHORITY_V1,
   generateEnvCp003LocalizedReviewV1,
 } from "./env-cp003-localization-v1";
+export {
+  ENV_CP004_MULTILINGUAL_V1,
+  ENV_CP004_ENGLISH_AUTHORITY_V1,
+  generateEnvCp004LocalizedReviewV1,
+} from "./env-cp004-localization-v1";
+export {
+  ENV_CP005_MULTILINGUAL_V1,
+  ENV_CP005_ENGLISH_AUTHORITY_V1,
+  generateEnvCp005LocalizedReviewV1,
+} from "./env-cp005-localization-v1";
