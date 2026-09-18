@@ -64,7 +64,7 @@ function stableHash(value: string): number {
   return hash >>> 0;
 }
 
-function changedToken(correctTarget: string, wrongTarget: string) {
+function changedToken(ruleId: PrepositionRuleId, correctTarget: string, wrongTarget: string) {
   const correct = correctTarget.trim().split(/\s+/);
   const wrong = wrongTarget.trim().split(/\s+/);
   if (correct.length !== wrong.length) {
@@ -73,10 +73,15 @@ function changedToken(correctTarget: string, wrongTarget: string) {
   const differing = correct
     .map((token, index) => bare(token) === bare(wrong[index]!) ? -1 : index)
     .filter((index) => index >= 0);
-  if (differing.length !== 1) {
-    throw new Error(`ENG-003 CP005 expected one changed preposition token: ${correctTarget} <> ${wrongTarget}`);
+  if (differing.length === 1) return { correct, wrong, index: differing[0]! };
+
+  const prepositionDifferences = differing.filter((index) =>
+    ALT[ruleId].includes(bare(correct[index]!)) && ALT[ruleId].includes(bare(wrong[index]!)),
+  );
+  if (prepositionDifferences.length !== 1) {
+    throw new Error(`ENG-003 CP005 could not isolate one tested preposition: ${correctTarget} <> ${wrongTarget}`);
   }
-  return { correct, wrong, index: differing[0]! };
+  return { correct, wrong, index: prepositionDifferences[0]! };
 }
 
 function applyCase(value: string, template: string) {
@@ -163,7 +168,7 @@ export function generateEng003Cp005QuestionV1(input: GenerateEng003Cp005V1Input)
 
   const correctTarget = source.options[source.correctOptionIndex]!.trim();
   const wrongTarget = source.targetText.trim();
-  const slot = changedToken(correctTarget, wrongTarget);
+  const slot = changedToken(source.metadata.ruleId, correctTarget, wrongTarget);
   const correctPrep = slot.correct[slot.index]!.replace(/^[^A-Za-z]+|[^A-Za-z]+$/g, "");
   const wrongPrep = slot.wrong[slot.index]!.replace(/^[^A-Za-z]+|[^A-Za-z]+$/g, "");
   if (!correctPrep || !wrongPrep) throw new Error(`${source.questionId} lost its preposition token`);
