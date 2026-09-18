@@ -1,6 +1,6 @@
 # ENG-003-CP004 — Grammar Fillers: Pronouns — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Boundary
 
@@ -71,3 +71,14 @@ This checkpoint remains review-only until explicit human approval. No Question S
 ### Slot-quality guard
 
 Compound phrases are not repeated in every option. For example, a donor contrast such as `Rita and him / Rita and he` becomes `Rita and _____` with pronoun-only options. Likewise, `need their / need its` becomes `need _____`. This keeps the question concise and closer to competitive-exam filler style.
+
+## Human approval
+
+The 30-question review artifact was explicitly approved on **2026-09-18**.
+
+- Approval authority: `ENG-003-CP004-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `15a7e3c696ef44bfaeed6eed5cea7e5c84f3d715`
+- Review SHA-256: `824c54f574462e49830ca86d9cdc514357d57fa766263ac376128910bbb4072f`
+- Workflow artifact digest: `sha256:9f1b0ac7d2c711d2727596e4e1e481ab292969ae93203c3251623eb3fa4b7224`
+
+Question Studio registration is review-only. Question Bank writes, tests, mocks, learner/public publication, automatic student delivery and production release remain locked.
