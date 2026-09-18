@@ -53,14 +53,22 @@ const summaries = TASK_KINDS.map((taskKind) => {
   const usedBuckets = Object.values(counts).filter((count) => count > 0).length;
   const maxShare = Math.max(...Object.values(counts)) / SECTIONS;
 
-  assert.ok(
-    usedBuckets >= 5,
-    `${taskKind}: structured shadow seeds exercise only ${usedBuckets}/${VARIANT_COUNT} stem variants.`,
+  assert.equal(
+    usedBuckets,
+    VARIANT_COUNT,
+    `${taskKind}: structured shadow seeds must exercise all ${VARIANT_COUNT} stem variants.`,
   );
   assert.ok(
-    maxShare <= 0.30,
+    maxShare <= 0.20,
     `${taskKind}: one stem variant receives ${maxShare} of structured shadow seeds.`,
   );
+  for (let index = 0; index + VARIANT_COUNT < buckets.length; index += 1) {
+    assert.notEqual(
+      buckets[index],
+      buckets[index + VARIANT_COUNT],
+      `${taskKind}: section seeds ${index + 1} and ${index + 1 + VARIANT_COUNT} hit the same stem variant, recreating the six-section periodicity.`,
+    );
+  }
 
   return { taskKind, usedBuckets, maxShare, counts };
 });
