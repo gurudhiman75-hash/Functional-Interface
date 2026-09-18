@@ -3,7 +3,7 @@ services:
     name: examtree-api
     runtime: node
     rootDir: .
-    buildCommand: bash build-api.sh
+    buildCommand: API_PRODUCTION_ONLY=1 bash build-api.sh
     startCommand: NODE_ENV=production node --enable-source-maps artifacts/api-server/dist/index.mjs
     healthCheckPath: /health
     envVars:

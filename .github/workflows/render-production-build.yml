@@ -5,6 +5,7 @@ on:
     branches:
       - New-main
     paths:
+      - render.yaml
       - build-api.sh
       - package.json
       - pnpm-lock.yaml
@@ -19,6 +20,7 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
+      - render.yaml
       - build-api.sh
       - package.json
       - pnpm-lock.yaml
@@ -56,7 +58,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          bash build-api.sh > render-production-build.log 2>&1
+          API_PRODUCTION_ONLY=1 bash build-api.sh > render-production-build.log 2>&1
           status=$?
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           exit 0
