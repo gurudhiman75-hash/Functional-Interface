@@ -12,3 +12,5 @@
 - New-content guard: CP020 adds no major new factual area; source authority remains with ENV-CP-001 through ENV-CP-019.
 - Mutable current counts, latest designations, current rankings, office-holders and current scheme statistics: excluded.
 - Next chapter step after merge: full exhaustive ENV-CP-001 through ENV-CP-020 audit before multilingual/localization work.
+- V2 remediation candidate: preserves the 48-question/12-QL capstone, removes the learner-wording contradiction and integrates CP002/008/014/015/016 remediation coverage in the final integrated QL.
+- V2 remediation remains review-only pending project-owner approval.
