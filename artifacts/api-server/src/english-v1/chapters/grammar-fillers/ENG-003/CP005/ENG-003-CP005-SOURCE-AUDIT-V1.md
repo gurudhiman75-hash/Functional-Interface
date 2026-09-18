@@ -1,6 +1,6 @@
 # ENG-003-CP005 — Grammar Fillers: Prepositions — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Boundary
 
@@ -85,3 +85,14 @@ It prioritizes one donor from every eligible rule family before adding further u
 CP005 remains **review-only** until explicit human editorial approval.
 
 It is not registered in Question Studio yet. Question Bank writes, tests, mocks, learner/public publication, automatic student delivery and production release remain locked.
+
+## Human approval
+
+Approved on **2026-09-18**.
+
+- Approval authority: `ENG-003-CP005-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `0dba987acc64badd03c4031edf8e98493358bee8`
+- Review SHA-256: `aa2fc64a233317b20a7730c7894f83606d0e7f2c8b4bdfaa44587805132a1f5e`
+- Workflow artifact digest: `sha256:9ab194b178b7b19972fb85cdd1697f0daa5dcc15cb1b8e7b5dd1fe48bf24a868`
+
+Question Studio registration is review-only. Learner/test/mock/public release remains locked.
