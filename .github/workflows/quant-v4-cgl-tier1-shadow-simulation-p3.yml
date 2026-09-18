@@ -7,11 +7,21 @@ on:
     paths:
       - ".github/workflows/quant-v4-cgl-tier1-shadow-simulation-p3.yml"
       - "artifacts/api-server/src/quant-v4/quality/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/**"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/question-studio-standard-integration.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/question-studio-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-legacy.ts"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/quality/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/**"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/question-studio-standard-integration.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/question-studio-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-legacy.ts"
   workflow_dispatch:
 
 permissions:
@@ -49,6 +59,7 @@ jobs:
             quant-v4-cgl-tier1-shadow-men002-localization-p3.test \
             quant-v4-single-question-cp-distribution-p3.test \
             quant-v4-trg001-single-question-ql-distribution-p3.test \
+            quant-v4-geo001-single-question-ql-distribution-p3.test \
             quant-v4-di-stem-variety-mixed-hash-p3.test \
             quant-v4-cgl-tier1-shadow-frequency-governance-p3.test \
             quant-v4-whole-section-frequency-stability-p2.test \
@@ -104,6 +115,12 @@ jobs:
         run: |
           set -o pipefail
           node dist/quant-v4/quality/quant-v4-trg001-single-question-ql-distribution-p3.test.mjs 2>&1 | tee quant-v4-trg001-single-question-ql-distribution-p3.log
+      - name: Run GEO-001 single-question QL coverage proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/quality/quant-v4-geo001-single-question-ql-distribution-p3.test.mjs 2>&1 | tee quant-v4-geo001-single-question-ql-distribution-p3.log
       - name: Run DI mixed stem-variety hash proof
         working-directory: artifacts/api-server
         shell: bash
@@ -123,6 +140,7 @@ jobs:
             artifacts/api-server/quant-v4-cgl-tier1-shadow-men002-localization-p3.log
             artifacts/api-server/quant-v4-single-question-cp-distribution-p3.log
             artifacts/api-server/quant-v4-trg001-single-question-ql-distribution-p3.log
+            artifacts/api-server/quant-v4-geo001-single-question-ql-distribution-p3.log
             artifacts/api-server/quant-v4-di-stem-variety-mixed-hash-p3.log
           if-no-files-found: warn
           retention-days: 7
