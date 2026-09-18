@@ -764,32 +764,6 @@ export const CP013_TRANSFORMATION_ITEMS: readonly SentenceTransformationItem[] =
     explanationPa: "ਅਧੀਨ ਉਪਵਾਕ ਨੂੰ ਸੰਖੇਪ ਕਰਦਿਆਂ ਇੱਕ ਸਮਾਪਿਕਾ ਕਿਰਿਆ 'ਚਲੇ ਗਏ' ਰੱਖ ਕੇ ਸਧਾਰਨ ਵਾਕ ਬਣਾਇਆ ਗਿਆ ਹੈ।",
   },
   {
-    id: "TRF-009",
-    originalSentence: "ਉਹ ਬਹੁਤ ਹੁਸ਼ਿਆਰ ਵਿਦਿਆਰਥੀ ਹੈ।",
-    originalCategory: "ਹਾਂ-ਵਾਚਕ",
-    targetCategory: "ਨਾਂਹ-ਵਾਚਕ",
-    correctSentence: "ਉਹ ਬਿਲਕੁਲ ਨਾਲਾਇਕ ਵਿਦਿਆਰਥੀ ਨਹੀਂ ਹੈ।",
-    distractors: [
-      "ਉਹ ਹੁਸ਼ਿਆਰ ਵਿਦਿਆਰਥੀ ਨਹੀਂ ਹੈ।",
-      "ਉਹ ਵਿਦਿਆਰਥੀ ਨਾਲਾਇਕ ਹੈ।",
-      "ਕੀ ਉਹ ਬਹੁਤ ਹੁਸ਼ਿਆਰ ਵਿਦਿਆਰਥੀ ਹੈ?",
-    ],
-    explanationPa: "ਵਿਰੋਧੀ ਸ਼ਬਦ (ਹੁਸ਼ਿਆਰ -> ਨਾਲਾਇਕ) ਨਾਲ 'ਨਹੀਂ' ਲਗਾ ਕੇ ਬਿਨਾਂ ਅਰਥ ਬਦਲੇ ਨਾਂਹ-ਵਾਚਕ ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ।",
-  },
-  {
-    id: "TRF-010",
-    originalSentence: "ਕੋਈ ਵੀ ਮਾਂ ਆਪਣੇ ਬੱਚੇ ਨਾਲ ਵੈਰ ਨਹੀਂ ਕਰਦੀ।",
-    originalCategory: "ਨਾਂਹ-ਵਾਚਕ",
-    targetCategory: "ਹਾਂ-ਵਾਚਕ",
-    correctSentence: "ਹਰੇਕ ਮਾਂ ਆਪਣੇ ਬੱਚੇ ਨੂੰ ਪਿਆਰ ਕਰਦੀ ਹੈ।",
-    distractors: [
-      "ਸਾਰੀਆਂ ਮਾਵਾਂ ਵੈਰ ਕਰਦੀਆਂ ਹਨ।",
-      "ਕੀ ਕੋਈ ਮਾਂ ਬੱਚੇ ਨਾਲ ਵੈਰ ਕਰਦੀ ਹੈ?",
-      "ਮਾਂ ਆਪਣੇ ਬੱਚੇ ਨੂੰ ਕੁਝ ਨਹੀਂ ਕਹਿੰਦੀ।",
-    ],
-    explanationPa: "'ਵੈਰ ਨਹੀਂ ਕਰਦੀ' ਦਾ ਹਾਂ-ਵਾਚਕ ਸ਼ੁੱਧ ਸਮਾਨਾਰਥੀ 'ਪਿਆਰ ਕਰਦੀ ਹੈ' ਬਣਦਾ ਹੈ।",
-  },
-  {
     id: "TRF-011",
     originalSentence: "ਕੀ ਕੋਈ ਸੂਰਜ ਨੂੰ ਦੀਵਾ ਦਿਖਾ ਸਕਦਾ ਹੈ?",
     originalCategory: "ਪ੍ਰਸ਼ਨ-ਵਾਚਕ",
@@ -946,19 +920,6 @@ export const CP013_TRANSFORMATION_ITEMS: readonly SentenceTransformationItem[] =
     explanationPa: "ਕਾਰਨ-ਸੂਚਕ ਵਾਕੰਸ਼ ਨੂੰ ਕਾਰਨ-ਵਾਚੀ ਸਮਾਨ ਯੋਜਕ 'ਇਸ ਲਈ' ਨਾਲ ਜੋੜ ਕੇ ਸੰਯੁਕਤ ਵਾਕ ਬਣਾਇਆ ਗਿਆ ਹੈ।",
   },
   {
-    id: "TRF-023",
-    originalSentence: "ਲਗਨ ਨਾਲ ਮਿਹਨਤ ਕਰੋ ਅਤੇ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉੱਚੇ ਅੰਕ ਲਵੋ।",
-    originalCategory: "ਸੰਯੁਕਤ ਵਾਕ",
-    targetCategory: "ਮਿਸ਼ਰਤ ਵਾਕ",
-    correctSentence: "ਜੇਕਰ ਤੁਸੀਂ ਲਗਨ ਨਾਲ ਮਿਹਨਤ ਕਰੋਗੇ ਤਾਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਉੱਚੇ ਅੰਕ ਪ੍ਰਾਪਤ ਕਰੋਗੇ।",
-    distractors: [
-      "ਤੁਸੀਂ ਮਿਹਨਤ ਕਰਕੇ ਉੱਚੇ ਅੰਕ ਪ੍ਰਾਪਤ ਕਰੋਗੇ।",
-      "ਮਿਹਨਤ ਕਰੋ ਪਰ ਅੰਕ ਨਾ ਲਵੋ।",
-      "ਕੀ ਮਿਹਨਤ ਕਰਨ ਨਾਲ ਉੱਚੇ ਅੰਕ ਮਿਲਦੇ ਹਨ?",
-    ],
-    explanationPa: "ਸ਼ਰਤ-ਵਾਚੀ ਅਧੀਨ ਯੋਜਕ 'ਜੇਕਰ...ਤਾਂ' ਲਗਾ ਕੇ ਸੰਯੁਕਤ ਵਾਕ ਨੂੰ ਮਿਸ਼ਰਤ ਵਾਕ ਵਿੱਚ ਰੂਪਾਂਤਰਿਤ ਕੀਤਾ ਗਿਆ ਹੈ।",
-  },
-  {
     id: "TRF-024",
     originalSentence: "ਸੂਰਜ ਛਿਪਣ ਸਮੇਂ ਯਾਤਰੀ ਮੰਜ਼ਿਲ 'ਤੇ ਪਹੁੰਚ ਗਏ।",
     originalCategory: "ਸਧਾਰਨ ਵਾਕ",
@@ -1037,19 +998,6 @@ export const CP013_TRANSFORMATION_ITEMS: readonly SentenceTransformationItem[] =
     explanationPa: "'ਦੇ ਬਾਵਜੂਦ' ਸੰਬੰਧਕੀ ਵਾਕੰਸ਼ ਵਰਤ ਕੇ ਸਧਾਰਨ ਵਾਕ ਬਣਾਇਆ ਗਿਆ ਹੈ।",
   },
   {
-    id: "TRF-030",
-    originalSentence: "ਸਭ ਲੋਕਾਂ ਨੇ ਉਸ ਦੀ ਬਹਾਦਰੀ ਦੀ ਪ੍ਰਸ਼ੰਸਾ ਕੀਤੀ।",
-    originalCategory: "ਹਾਂ-ਵਾਚਕ",
-    targetCategory: "ਨਾਂਹ-ਵਾਚਕ",
-    correctSentence: "ਕਿਸੇ ਨੇ ਵੀ ਉਸ ਦੀ ਬਹਾਦਰੀ ਦੀ ਨਿੰਦਾ ਨਹੀਂ ਕੀਤੀ।",
-    distractors: [
-      "ਸਭ ਲੋਕਾਂ ਨੇ ਉਸ ਦੀ ਪ੍ਰਸ਼ੰਸਾ ਨਹੀਂ ਕੀਤੀ।",
-      "ਉਸ ਦੀ ਬਹਾਦਰੀ ਦੀ ਕੋਈ ਪ੍ਰਸ਼ੰਸਾ ਨਹੀਂ ਕਰਦਾ।",
-      "ਕੀ ਸਭ ਨੇ ਉਸ ਦੀ ਬਹਾਦਰੀ ਦੀ ਪ੍ਰਸ਼ੰਸਾ ਕੀਤੀ?",
-    ],
-    explanationPa: "'ਪ੍ਰਸ਼ੰਸਾ ਕੀਤੀ' ਦੇ ਉਲਟ 'ਨਿੰਦਾ ਨਹੀਂ ਕੀਤੀ' ਕਹਿ ਕੇ ਬਿਨਾਂ ਅਰਥ ਬਦਲੇ ਨਾਂਹ-ਵਾਚਕ ਬਣਾਇਆ ਗਿਆ ਹੈ।",
-  },
-  {
     id: "TRF-031",
     originalSentence: "ਜਿਉਂ ਹੀ ਘੰਟੀ ਵੱਜੀ, ਵਿਦਿਆਰਥੀ ਜਮਾਤ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਏ।",
     originalCategory: "ਮਿਸ਼ਰਤ ਵਾਕ",
@@ -1126,19 +1074,6 @@ export const CP013_TRANSFORMATION_ITEMS: readonly SentenceTransformationItem[] =
       "ਝੂਠ ਕਦੋਂ ਜਿੱਤਿਆ?",
     ],
     explanationPa: "ਕਾਵਿਕ/ਭਾਵੁਕ ਪ੍ਰਸ਼ਨ ਦਾ ਨਾਂਹ-ਵਾਚਕ ਰੂਪਾਂਤਰਣ 'ਝੂਠ ਦੀ ਕਦੇ ਜਿੱਤ ਨਹੀਂ ਹੋਈ' ਹੈ।",
-  },
-  {
-    id: "TRF-037",
-    originalSentence: "ਸਿਆਣਾ ਆਦਮੀ ਸਭ ਨਾਲ ਪਿਆਰ ਨਾਲ ਬੋਲਦਾ ਹੈ।",
-    originalCategory: "ਹਾਂ-ਵਾਚਕ",
-    targetCategory: "ਨਾਂਹ-ਵਾਚਕ",
-    correctSentence: "ਸਿਆਣਾ ਆਦਮੀ ਕਦੇ ਕਿਸੇ ਨਾਲ ਕੌੜਾ ਨਹੀਂ ਬੋਲਦਾ।",
-    distractors: [
-      "ਸਿਆਣਾ ਆਦਮੀ ਪਿਆਰ ਨਾਲ ਨਹੀਂ ਬੋਲਦਾ।",
-      "ਸਿਆਣਾ ਆਦਮੀ ਕਿਸੇ ਨਾਲ ਨਹੀਂ ਬੋਲਦਾ।",
-      "ਕੀ ਸਿਆਣਾ ਆਦਮੀ ਸਭ ਨਾਲ ਪਿਆਰ ਨਾਲ ਬੋਲਦਾ ਹੈ?",
-    ],
-    explanationPa: "'ਪਿਆਰ ਨਾਲ' ਦੇ ਉਲਟ 'ਕੌੜਾ ਨਹੀਂ' ਵਰਤ ਕੇ ਨਾਂਹ-ਵਾਚਕ ਬਣਾਇਆ ਗਿਆ ਹੈ।",
   },
   {
     id: "TRF-038",
@@ -1402,19 +1337,6 @@ export const CP013_TRANSFORMATION_ITEMS: readonly SentenceTransformationItem[] =
     "explanationPa": "ਵਿਸ਼ੇਸ਼ਣੀ ਉਪਵਾਕ 'ਜਿਹੜੇ...ਉਹ' ਨਾਲ ਮਿਸ਼ਰਤ ਵਾਕ ਬਣਾਇਆ ਗਿਆ।"
   },
   {
-    "id": "TRF-060",
-    "originalSentence": "ਉਸ ਦੀ ਬੋਲੀ ਬਹੁਤ ਮਿੱਠੀ ਹੈ।",
-    "originalCategory": "ਹਾਂ-ਵਾਚਕ",
-    "targetCategory": "ਨਾਂਹ-ਵਾਚਕ",
-    "correctSentence": "ਉਸ ਦੀ ਬੋਲੀ ਕੌੜੀ ਨਹੀਂ ਹੈ।",
-    "distractors": [
-      "ਉਸ ਦੀ ਬੋਲੀ ਮਿੱਠੀ ਨਹੀਂ ਹੈ।",
-      "ਕੀ ਉਸ ਦੀ ਬੋਲੀ ਬਹੁਤ ਮਿੱਠੀ ਹੈ?",
-      "ਉਸ ਦੀ ਬੋਲੀ ਕੌੜੀ ਹੈ।"
-    ],
-    "explanationPa": "ਵਿਰੋਧੀ ਸ਼ਬਦ 'ਕੌੜੀ' ਨਾਲ 'ਨਹੀਂ' ਲਾ ਕੇ ਸ਼ੁੱਧ ਨਾਂਹ-ਵਾਚਕ ਵਟਾਂਦਰਾ ਕੀਤਾ ਗਿਆ ਹੈ।"
-  },
-  {
     "id": "TRF-061",
     "originalSentence": "ਉਹ ਨਾ ਕੇਵਲ ਹੁਸ਼ਿਆਰ ਹੈ ਸਗੋਂ ਮਿਹਨਤੀ ਵੀ ਹੈ।",
     "originalCategory": "ਸੰਯੁਕਤ ਵਾਕ",
@@ -1441,19 +1363,6 @@ export const CP013_TRANSFORMATION_ITEMS: readonly SentenceTransformationItem[] =
     "explanationPa": "ਸਮਾਂ-ਸੂਚਕ ਅਧੀਨ ਉਪਵਾਕ 'ਜਦੋਂ...ਤਾਂ' ਨਾਲ ਮਿਸ਼ਰਤ ਵਾਕ ਘੜਿਆ ਗਿਆ।"
   },
   {
-    "id": "TRF-063",
-    "originalSentence": "ਗਿਆਨੀ ਪੁਰਖ ਕਦੇ ਹੰਕਾਰ ਨਹੀਂ ਕਰਦੇ।",
-    "originalCategory": "ਨਾਂਹ-ਵਾਚਕ",
-    "targetCategory": "ਹਾਂ-ਵਾਚਕ",
-    "correctSentence": "ਗਿਆਨੀ ਪੁਰਖ ਹਮੇਸ਼ਾ ਨਿਮਰ ਰਹਿੰਦੇ ਹਨ।",
-    "distractors": [
-      "ਗਿਆਨੀ ਪੁਰਖ ਹੰਕਾਰੀ ਹੁੰਦੇ ਹਨ।",
-      "ਕੀ ਗਿਆਨੀ ਪੁਰਖ ਹੰਕਾਰ ਕਰਦੇ ਹਨ?",
-      "ਗਿਆਨੀ ਪੁਰਖ ਕਦੇ ਨਿਮਰ ਨਹੀਂ ਹੁੰਦੇ।"
-    ],
-    "explanationPa": "ਵਿਰੋਧੀ ਸ਼ਬਦ 'ਨਿਮਰ' ਰਾਹੀਂ ਹਾਂ-ਵਾਚਕ ਰੂਪ ਵਿੱਚ ਅਰਥ ਸਥਿਰ ਰੱਖਿਆ ਗਿਆ ਹੈ।"
-  },
-  {
     "id": "TRF-064",
     "originalSentence": "ਕੀ ਧੁੱਪ ਵਿੱਚ ਖੇਡਣਾ ਸਿਹਤ ਲਈ ਹਾਨੀਕਾਰਕ ਨਹੀਂ ਹੈ?",
     "originalCategory": "ਪ੍ਰਸ਼ਨ-ਵਾਚਕ",
@@ -1478,19 +1387,6 @@ export const CP013_TRANSFORMATION_ITEMS: readonly SentenceTransformationItem[] =
       "ਕਾਸ਼! ਉਸ ਦੀ ਅਵਾਜ਼ ਸੁਰੀਲੀ ਹੁੰਦੀ।"
     ],
     "explanationPa": "ਵਿਸਮਈ ਭਾਵਨਾ ਨੂੰ ਸਧਾਰਨ ਵਿਸ਼ੇਸ਼ਣੀ ਬਿਆਨ ਵਿੱਚ ਬਦਲਿਆ ਗਿਆ ਹੈ।"
-  },
-  {
-    "id": "TRF-066",
-    "originalSentence": "ਕੋਈ ਵੀ ਵਿਦਿਆਰਥੀ ਸ਼ੋਰ ਨਹੀਂ ਮਚਾ ਰਿਹਾ।",
-    "originalCategory": "ਨਾਂਹ-ਵਾਚਕ",
-    "targetCategory": "ਹਾਂ-ਵਾਚਕ",
-    "correctSentence": "ਸਾਰੇ ਵਿਦਿਆਰਥੀ ਬਿਲਕੁਲ ਸ਼ਾਂਤ ਬੈਠੇ ਹਨ।",
-    "distractors": [
-      "ਸਾਰੇ ਵਿਦਿਆਰਥੀ ਸ਼ੋਰ ਮਚਾ ਰਹੇ ਹਨ।",
-      "ਕੀ ਵਿਦਿਆਰਥੀ ਸ਼ੋਰ ਮਚਾਉਂਦੇ ਹਨ?",
-      "ਕੋਈ ਵਿਦਿਆਰਥੀ ਸ਼ਾਂਤ ਨਹੀਂ ਹੈ।"
-    ],
-    "explanationPa": "ਨਾਂਹ-ਵਾਚਕ ਦੇ ਵਿਰੋਧੀ ਭਾਵ 'ਸ਼ਾਂਤ' ਨਾਲ ਹਾਂ-ਵਾਚਕ ਵਾਕ ਬਣਦਾ ਹੈ।"
   },
   {
     "id": "TRF-067",
@@ -1583,32 +1479,6 @@ export const CP013_TRANSFORMATION_ITEMS: readonly SentenceTransformationItem[] =
     ],
     "explanationPa": "ਵਿਰੋਧ-ਸੂਚਕ ਸੰਯੁਕਤ ਵਾਕ ਨੂੰ ਰਿਆਇਤੀ ਵਾਕੰਸ਼ 'ਦੇ ਬਾਵਜੂਦ' ਨਾਲ ਸਧਾਰਨ ਬਣਾਇਆ ਗਿਆ।"
   },
-  {
-    "id": "TRF-074",
-    "originalSentence": "ਜੇਕਰ ਵਰਖਾ ਹੋਵੇਗੀ ਤਾਂ ਫ਼ਸਲ ਚੰਗੀ ਹੋਵੇਗੀ।",
-    "originalCategory": "ਮਿਸ਼ਰਤ ਵਾਕ",
-    "targetCategory": "ਸੰਯੁਕਤ ਵਾਕ",
-    "correctSentence": "ਵਰਖਾ ਹੋਵੇਗੀ ਅਤੇ ਫ਼ਸਲ ਚੰਗੀ ਹੋਵੇਗੀ।",
-    "distractors": [
-      "ਵਰਖਾ ਹੋਣ 'ਤੇ ਫ਼ਸਲ ਚੰਗੀ ਹੋਵੇਗੀ।",
-      "ਵਰਖਾ ਹੋਵੇਗੀ ਪਰ ਫ਼ਸਲ ਚੰਗੀ ਨਹੀਂ ਹੋਵੇਗੀ।",
-      "ਫ਼ਸਲ ਚੰਗੀ ਹੋਵੇਗੀ ਕਿਉਂਕਿ ਵਰਖਾ ਹੋਈ ਹੈ।"
-    ],
-    "explanationPa": "ਸ਼ਰਤ ਵਾਲੇ ਉਪਵਾਕਾਂ ਨੂੰ ਸਮਾਨ ਯੋਜਕ 'ਅਤੇ' ਨਾਲ ਜੋੜ ਕੇ ਸੰਯੁਕਤ ਵਾਕ ਬਣਾਇਆ ਗਿਆ ਹੈ।"
-  },
-  {
-    "id": "TRF-075",
-    "originalSentence": "ਸੱਚ ਬੋਲਣ ਵਾਲਾ ਵਿਅਕਤੀ ਕਦੇ ਨਹੀਂ ਝੁਕਦਾ।",
-    "originalCategory": "ਨਾਂਹ-ਵਾਚਕ",
-    "targetCategory": "ਹਾਂ-ਵਾਚਕ",
-    "correctSentence": "ਸੱਚ ਬੋਲਣ ਵਾਲਾ ਵਿਅਕਤੀ ਸਦਾ ਅਡੋਲ ਰਹਿੰਦਾ ਹੈ।",
-    "distractors": [
-      "ਸੱਚ ਬੋਲਣ ਵਾਲਾ ਵਿਅਕਤੀ ਝੁਕ ਜਾਂਦਾ ਹੈ।",
-      "ਕੀ ਸੱਚ ਬੋਲਣ ਵਾਲਾ ਵਿਅਕਤੀ ਝੁਕਦਾ ਹੈ?",
-      "ਸੱਚ ਬੋਲਣ ਵਾਲਾ ਵਿਅਕਤੀ ਕਦੇ ਅਡੋਲ ਨਹੀਂ ਰਹਿੰਦਾ।"
-    ],
-    "explanationPa": "ਵਿਰੋਧੀ ਸ਼ਬਦ 'ਅਡੋਲ' ਲਗਾ ਕੇ ਸ਼ੁੱਧ ਹਾਂ-ਵਾਚਕ ਵਟਾਂਦਰਾ ਕੀਤਾ ਗਿਆ ਹੈ।"
-  }
 ];
 
 export const CP013_CORRECTION_ITEMS: readonly SentenceCorrectionItem[] = [
