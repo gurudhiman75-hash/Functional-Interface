@@ -121,17 +121,9 @@ export function buildAdvancedStem(
   clues: readonly DirectRelationClue[],
   names: Readonly<Record<string, string>>,
   question: string,
-  random: SeededRandom,
+  _random: SeededRandom,
 ): string {
-  const openings = [
-    "Study the following family information carefully.",
-    "Read the statements about this family and answer the question.",
-    "Use the family relations given below.",
-    "Consider the following information about a family.",
-  ] as const;
-
   return [
-    random.pick(openings),
     ...clues.map((entry) => formatAdvancedClue(entry, names)),
     question,
   ].join(" ");
