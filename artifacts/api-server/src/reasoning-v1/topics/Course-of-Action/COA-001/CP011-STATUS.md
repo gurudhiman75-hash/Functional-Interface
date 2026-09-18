@@ -1,6 +1,6 @@
 # COA-001 / COA-CP-011 — Status
 
-Status: **FINAL EDITORIAL / DIVERSITY AUDIT IMPLEMENTED — HUMAN REVIEW PENDING**
+Status: **APPROVED / FINAL EDITORIAL-DIVERSITY FROZEN**
 
 ## Frozen upstream
 - CP001–CP008 English: APPROVED / FROZEN
@@ -54,12 +54,14 @@ Both the generic reasoning-v1 adapter and live admin generation route now use th
 - public/student release: CLOSED
 
 ## Approval gate
-CP011 is implemented but not frozen.
+CP011 is **APPROVED / FROZEN**.
 
-Human approval should confirm:
-- the anti-repetition behavior is preferable to silently recycled scenarios;
-- QL008 remaining Medium/Hard only is correct;
-- the final language/editorial surface is acceptable;
+Approved by the product owner on **2026-09-18**.
+
+The approval confirms:
+- semantic repetition must be rejected rather than hidden through surface variation;
+- QL008 remains Medium/Hard only;
+- the final EN/HI/PA editorial surface is acceptable;
 - no additional semantic expansion is required before CP012.
 
-Approval of CP011 permits CP012 internal-eligibility evaluation. It does not itself open eligibility or public release.
+CP011 approval permits **CP012 internal-eligibility evaluation**. It does not itself open Question Bank/test/mock eligibility or public release.
