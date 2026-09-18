@@ -80,7 +80,13 @@ function teachingTail(sourceExplanation: string): string {
   if (conceptIndex < 0) {
     throw new Error("ENG-002 CP002 explanation lost the Concept section required by ENG-003 reuse");
   }
-  return sourceExplanation.slice(conceptIndex).trim();
+  return sourceExplanation
+    .slice(conceptIndex)
+    .trim()
+    .replace(
+      /Here, the action began in the past and is still continuing at “([^”]+)”\./g,
+      "Here, “$1” shows that the action began in the past and is still continuing now.",
+    );
 }
 
 function uniqueDistractors(source: ReturnType<typeof generateEng002Cp002QuestionV1>, correctTarget: string): string[] {
