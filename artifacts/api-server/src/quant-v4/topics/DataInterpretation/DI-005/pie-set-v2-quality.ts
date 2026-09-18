@@ -78,11 +78,14 @@ function recalibrateHardQuestion(set: Di005V2QuestionSet, question: Di005V2Quest
   if (!calibratedKinds.has(question.kind)) return question;
 
   const hiddenIndex = set.stimulus.hiddenPercentIndex;
+  const hidden = set.stimulus.slices[hiddenIndex]!;
   const visibleIndexes = set.stimulus.slices
     .map((_, index) => index)
     .filter((index) => index !== hiddenIndex);
-  const visibleIndex = shuffle(seededRandom(`${set.seed}:${question.kind}:hard-visible`), visibleIndexes)[0]!;
-  const hidden = set.stimulus.slices[hiddenIndex]!;
+  const eligibleVisibleIndexes = question.kind === "REMAINDER_AFTER_TWO_SECTORS_COUNT"
+    ? visibleIndexes.filter((index) => hidden.percent + set.stimulus.slices[index]!.percent !== 50)
+    : visibleIndexes;
+  const visibleIndex = shuffle(seededRandom(`${set.seed}:${question.kind}:hard-visible`), eligibleVisibleIndexes)[0]!;
   const visible = set.stimulus.slices[visibleIndex]!;
   const visibleTotal = set.stimulus.slices.reduce(
     (sum, slice, index) => index === hiddenIndex ? sum : sum + slice.percent,
