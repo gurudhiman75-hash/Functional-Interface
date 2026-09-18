@@ -129,7 +129,17 @@ const slotsByDuplicateRate = Object.entries(stemDuplicationBySlot)
   .sort((left, right) => right.duplicateRate - left.duplicateRate || right.duplicateItems - left.duplicateItems || left.slotKind.localeCompare(right.slotKind));
 
 const hotspotLocalization = Object.fromEntries(
-  ["PCT-001", "RAP-001", "TRG-001", "GEO-001"].map((packageId) => {
+  [
+    "PCT-001",
+    "RAP-001",
+    "TRG-001",
+    "GEO-001",
+    "DI-001",
+    "DI-002",
+    "DI-003",
+    "DI-004",
+    "DI-005",
+  ].map((packageId) => {
     const records = runtimeShadowRecords.filter((record) => record.packageId === packageId);
     return [packageId, {
       records: records.length,
@@ -198,7 +208,17 @@ assert.equal(
   Object.values(stemDuplicationByPackage).reduce((sum, summary) => sum + summary.records, 0),
   500,
 );
-for (const packageId of ["PCT-001", "RAP-001", "TRG-001", "GEO-001"] as const) {
+for (const packageId of [
+  "PCT-001",
+  "RAP-001",
+  "TRG-001",
+  "GEO-001",
+  "DI-001",
+  "DI-002",
+  "DI-003",
+  "DI-004",
+  "DI-005",
+] as const) {
   const hotspot = hotspotLocalization[packageId];
   assert.ok(hotspot.records > 0, `${packageId}: hotspot localization requires observed shadow records.`);
 }
