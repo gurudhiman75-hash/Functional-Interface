@@ -69,9 +69,40 @@ function teachingTail(explanation: string) {
   return explanation.slice(index).trim().replace(/\bHere:\s*/g, "Here, ");
 }
 
+function factorSharedChoiceContext(values: readonly string[]) {
+  const tokenized = values.map((value) => value.trim().split(/\s+/));
+  let prefix = 0;
+  while (tokenized.every((tokens) => tokens[prefix] && tokens[prefix]!.toLowerCase() === tokenized[0]![prefix]!.toLowerCase())) prefix += 1;
+
+  let suffix = 0;
+  while (tokenized.every((tokens) => {
+    const index = tokens.length - 1 - suffix;
+    const firstIndex = tokenized[0]!.length - 1 - suffix;
+    return index >= prefix && firstIndex >= prefix && tokens[index]!.toLowerCase() === tokenized[0]![firstIndex]!.toLowerCase();
+  })) suffix += 1;
+
+  const minLength = Math.min(...tokenized.map((tokens) => tokens.length));
+  while (prefix + suffix >= minLength && suffix > 0) suffix -= 1;
+  while (prefix + suffix >= minLength && prefix > 0) prefix -= 1;
+
+  const cores = tokenized.map((tokens) => tokens.slice(prefix, tokens.length - suffix).join(" ").trim());
+  if (cores.some((core) => !core) || new Set(cores.map((core) => core.toLowerCase())).size !== values.length) {
+    return { prefix: "", suffix: "", cores: [...values] };
+  }
+  return {
+    prefix: tokenized[0]!.slice(0, prefix).join(" "),
+    suffix: suffix ? tokenized[0]!.slice(tokenized[0]!.length - suffix).join(" ") : "",
+    cores,
+  };
+}
+
+function blankSurface(prefix: string, suffix: string) {
+  return [prefix, "_____", suffix].filter(Boolean).join(" ");
+}
+
 export function materializeEng003Cp008AnswerV1(segments: readonly string[], blankIndex: number, answer: string) {
   const out = [...segments];
-  out[blankIndex] = answer;
+  out[blankIndex] = out[blankIndex]!.replace("_____", answer);
   return sentenceFromSegments(out);
 }
 
@@ -101,10 +132,14 @@ export function generateEng003Cp008QuestionV1(input: GenerateEng003Cp008V1Input)
   const keys = new Set([correctTarget.toLowerCase(), ...distractors.map((value) => value.toLowerCase())]);
   if (keys.size !== 4) throw new Error(`${correction.questionId} does not provide four unique noun/quantifier choices`);
 
+  const factored = factorSharedChoiceContext([correctTarget, ...distractors]);
+  const [correctChoice, ...distractorChoices] = factored.cores;
+  if (!correctChoice || distractorChoices.length !== 3) throw new Error(`${correction.questionId} lost its factored choices`);
+
   const blankSegments = [...correction.segments];
-  blankSegments[correction.targetIndex] = "_____";
+  blankSegments[correction.targetIndex] = blankSurface(factored.prefix, factored.suffix);
   const sentence = sentenceFromSegments(blankSegments);
-  const { options, correctOptionIndex } = placeOptions(input.seed, correctTarget, distractors);
+  const { options, correctOptionIndex } = placeOptions(input.seed, correctChoice, distractorChoices);
   const reconstructed = materializeEng003Cp008AnswerV1(blankSegments, correction.targetIndex, options[correctOptionIndex]!);
   if (reconstructed !== correction.correctedSentence) {
     throw new Error(`${correction.questionId} filler reconstruction drifted: ${reconstructed} !== ${correction.correctedSentence}`);
@@ -119,7 +154,7 @@ export function generateEng003Cp008QuestionV1(input: GenerateEng003Cp008V1Input)
     options,
     correctOptionIndex,
     correctedSentence: correction.correctedSentence,
-    explanation: `The blank needs “${correctTarget}”. ${teachingTail(correction.explanation)}`,
+    explanation: `The blank needs “${correctChoice}”. ${teachingTail(correction.explanation)}`,
     metadata: {
       track: "english",
       chapterId: "ENG-003",
