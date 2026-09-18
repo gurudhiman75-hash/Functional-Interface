@@ -239,7 +239,8 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-003", di003QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-005", di005QuestionStudioPackageCard() as unknown as Record<string, unknown>);
-    replaceOrPush("DI-006", di006QuestionStudioPackageCard() as unknown as Record<string, unknown>);\n
+    replaceOrPush("DI-006", di006QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+
     if (!packages.some((pkg) => pkg.packageId === "DI-009")) {
       packages.push(toSharedPackage(di009QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
