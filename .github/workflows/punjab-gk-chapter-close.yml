@@ -58,6 +58,3 @@ jobs:
           if-no-files-found: error
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-          done
-      - name: Build API server
-        run: pnpm --dir artifacts/api-server build
