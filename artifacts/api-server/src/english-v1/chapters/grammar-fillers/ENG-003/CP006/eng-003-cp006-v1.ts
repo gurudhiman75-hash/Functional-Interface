@@ -68,7 +68,38 @@ function placeOptions(seed: string, correct: string, distractors: readonly strin
 function teachingTail(explanation: string) {
   const index = explanation.indexOf("Concept:");
   if (index < 0) throw new Error("ENG-002 CP006 explanation lost its Concept section");
-  return explanation.slice(index).trim().replace(/\bHere:\s*/g, "Here, ");
+  return explanation
+    .slice(index)
+    .trim()
+    .replace(/\bHere:\s*/g, "Here, ")
+    .replace(/\bis a linking verb here\b/gi, "is a linking verb");
+}
+
+function withLeadingCase(value: string, model: string) {
+  return /^[A-Z]/.test(model) ? value.slice(0, 1).toUpperCase() + value.slice(1) : value;
+}
+
+function refinedDistractors(ruleId: ComparisonRuleId, correctTarget: string, approved: readonly string[]): string[] {
+  const lower = correctTarget.toLowerCase();
+  const exact: Readonly<Record<string, readonly string[]>> = {
+    fastest: ["most fastest", "faster", "fast"],
+    highest: ["most highest", "higher", "high"],
+    lowest: ["most lowest", "lower", "low"],
+    least: ["most least", "less", "little"],
+    "the smallest": ["smallest", "the smaller", "a smaller"],
+    "the busiest": ["busiest", "the busier", "a busier"],
+    "the clearest": ["clearest", "the clearer", "a clearer"],
+    "the most": ["most", "the more", "a more"],
+  };
+
+  const replacements = exact[lower];
+  const values = replacements
+    ? replacements.map((value) => withLeadingCase(value, correctTarget))
+    : [...approved];
+  const unique = [...new Map(values.map((value) => [value.toLowerCase(), value])).values()]
+    .filter((value) => value.toLowerCase() !== lower);
+  if (unique.length < 3) return [...approved];
+  return unique.slice(0, 3);
 }
 
 export function materializeEng003Cp006AnswerV1(
@@ -103,7 +134,8 @@ export function generateEng003Cp006QuestionV1(input: GenerateEng003Cp006V1Input)
   if (correction.targetIndex !== distractorSource.targetIndex) throw new Error("ENG-003 CP006 source target alignment drifted");
 
   const correctTarget = correction.options[correction.correctOptionIndex]!.trim();
-  const distractors = distractorSource.options.slice(0, 3).map((value) => value.trim());
+  const approvedDistractors = distractorSource.options.slice(0, 3).map((value) => value.trim());
+  const distractors = refinedDistractors(correction.metadata.ruleId, correctTarget, approvedDistractors);
   const keys = new Set([correctTarget.toLowerCase(), ...distractors.map((value) => value.toLowerCase())]);
   if (keys.size !== 4) throw new Error(`${correction.questionId} does not provide four unique comparison choices`);
 
