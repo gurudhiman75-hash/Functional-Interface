@@ -1,4 +1,5 @@
-import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";\nimport { isEcoProtectedExamTermV1 } from "./eco-localization-term-policy-v1";
+import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
+import { isEcoProtectedExamTermV1 } from "./eco-localization-term-policy-v1";
 import {
   generateEcoCp005LocalizedReviewV1 as base005,
   generateEcoCp006LocalizedReviewV1 as base006,
