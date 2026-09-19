@@ -1,6 +1,6 @@
 # DI-008 Arithmetic Data Interpretation — V2 Review
 
-Status: `HUMAN_REVIEW_PENDING` · `REVIEW_ONLY`
+Status: ENGLISH_REVIEW_APPROVED · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## Why V2 exists
 
@@ -96,3 +96,18 @@ Local V2 stress proof:
 - localization: not started
 
 Next gate: human editorial/source review of the V2 sample pack. Permanent-contract allocation and controlled Question Studio review remain closed until approval.
+
+
+## Permanent English review promotion
+
+- permanent ownership: DI-QL-085 through DI-QL-096
+- one permanent QL per V2 task family
+- canonical problem: DI-CP-008
+- Question Studio: discoverable in CONTROLLED_REVIEW
+- Question Bank: NOT_STORED / writes disabled
+- tests and mocks: INELIGIBLE
+- public/student publication: disabled
+- production release: not authorized
+- localization: NOT_STARTED
+
+The shared Quant V4 Question Studio adapter routes DI-008 explicitly and the integration proof exercises all 12 permanent QLs, deterministic replay, five-option shape, semantic arithmetic-table stimulus, lifecycle locks, and explicit QL routing.
