@@ -12,3 +12,6 @@
 - Ozone depletion and greenhouse-effect content: deferred to ENV-CP-013.
 - Mutable numerical exposure limits and current pollution readings: excluded.
 - Source verification baseline: official US EPA, USGS and WHO material.
+- Multilingual V1 Wave 8: REVIEW CANDIDATE for Hindi and Punjabi.
+- Localization authority: frozen 48-question English V1 surface.
+- Pollutant-effect, BOD/COD and bioaccumulation/biomagnification semantics remain invariant; localization is review-only.
