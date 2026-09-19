@@ -387,7 +387,7 @@ Full Hindi/Punjabi localization covers all 130 frozen semantic authorities and 2
 COA-001 is registered in Question Studio for review-only EN/HI/PA generation across the eight active semantic QLs and three approved presentation profiles. Review runs may persist; canonical Question Bank, test/mock and public/student gates remain closed. Product-owner approval recorded on 2026-09-18.
 
 ### COA-CP-011 — Final editorial/diversity freeze — APPROVED / FROZEN
-Large semantic saturation and anti-gaming audit is complete. Question Studio enforces semantic uniqueness inside a review batch, truthful safe semantic capacity, QL008 Medium/Hard-only integrity, and final EN/HI/PA editorial regression gates. Product-owner approval recorded on 2026-09-18.
+Large semantic saturation and anti-gaming audit is complete. Question Studio enforces semantic uniqueness inside a review batch, truthful safe semantic capacity, QL008 calibrated difficulty integrity, and final EN/HI/PA editorial regression gates. Product-owner approval recorded on 2026-09-18.
 
 ### COA-CP-012 — Internal eligibility — APPROVED / ENABLED
 CP012 is a lifecycle-only promotion over the frozen CP011 surface. Product-owner approval enables internal Question Bank writes plus test/mock eligibility with byte-identical learner content. Public/student release remains separately locked.
