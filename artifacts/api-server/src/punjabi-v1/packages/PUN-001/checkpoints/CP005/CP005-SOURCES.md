@@ -36,8 +36,8 @@ The following remain quarantined:
 
 ## Final audited surface
 - 151 adjective sentence authorities
-- 111 adverb sentence authorities
-- 262 total atomic authorities
+- 110 adverb sentence authorities
+- 261 total atomic authorities
 
 All 45 previously reviewed authorities are preserved.
 
