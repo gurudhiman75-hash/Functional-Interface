@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Blaise Pascal",
       "Galileo Galilei"
     ],
-    "Newton formulated the three laws of motion that form the basis of classical mechanics.",
+    "Newton formulated the three laws of motion that form the basis of classical mechanics. These laws explain how forces change the motion of objects and are still used for many everyday mechanical problems.",
     [
       "NEWTON-LAWS-OF-MOTION"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Evangelista Torricelli",
       "Robert Boyle"
     ],
-    "Archimedes' principle relates buoyant force to the weight of displaced fluid.",
+    "Archimedes' principle relates buoyant force to the weight of displaced fluid. It explains why objects appear lighter in water and why ships can float even though they are very heavy.",
     [
       "ARCHIMEDES-PRINCIPLE"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Michael Faraday",
       "James Watt"
     ],
-    "Pascal stated that pressure applied to a confined fluid is transmitted throughout the fluid.",
+    "Pascal stated that pressure applied to a confined fluid is transmitted throughout the fluid. This principle is used in hydraulic brakes, lifts and presses because pressure can be transmitted through a confined fluid.",
     [
       "PASCAL-LAW"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Robert Hooke",
       "Christiaan Huygens"
     ],
-    "Torricelli demonstrated atmospheric pressure using a mercury column and developed the barometer.",
+    "Torricelli demonstrated atmospheric pressure using a mercury column and developed the barometer. The height of the mercury column changes with atmospheric pressure, which is why a barometer can measure pressure.",
     [
       "TORRICELLI-BAROMETER"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Louis Pasteur",
       "J. J. Thomson"
     ],
-    "Galileo's work on falling bodies helped establish the modern study of motion.",
+    "Galileo's work on falling bodies helped establish the modern study of motion. His work showed that the motion of falling objects should be studied by experiment rather than by old assumptions alone.",
     [
       "GALILEO-FALLING-BODIES"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Blaise Pascal",
       "Evangelista Torricelli"
     ],
-    "Newton formulated the laws of motion and the law of universal gravitation.",
+    "Newton formulated the laws of motion and the law of universal gravitation. Together, these ideas explain both ordinary motion on Earth and the motion of planets and other celestial bodies.",
     [
       "NEWTON-MOTION-GRAVITATION"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Michael Faraday",
       "André-Marie Ampère"
     ],
-    "Ohm's law relates voltage, current and resistance in an electrical conductor under suitable conditions.",
+    "Ohm's law relates voltage, current and resistance in an electrical conductor under suitable conditions. In simple form it is written as V = IR, making it one of the most basic relationships in electricity.",
     [
       "OHM-LAW"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "James Clerk Maxwell",
       "Heinrich Hertz"
     ],
-    "Volta developed the voltaic pile, an early source of continuous electric current.",
+    "Volta developed the voltaic pile, an early source of continuous electric current. The device showed that chemical reactions could provide a steady electric current, unlike brief static-electric sparks.",
     [
       "VOLTA-BATTERY"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Georg Ohm",
       "Thomas Edison"
     ],
-    "Oersted observed that an electric current deflects a magnetic compass needle.",
+    "Oersted observed that an electric current deflects a magnetic compass needle. This observation provided clear evidence that electricity and magnetism are connected.",
     [
       "OERSTED-MAGNETIC-EFFECT-CURRENT"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Blaise Pascal",
       "J. J. Thomson"
     ],
-    "Faraday showed that a changing magnetic environment can induce an electric current.",
+    "Faraday showed that a changing magnetic environment can induce an electric current. This principle is the basis of electric generators, transformers and many modern electrical devices.",
     [
       "FARADAY-INDUCTION"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Plant genetics",
       "Atmospheric pressure"
     ],
-    "André-Marie Ampère made major contributions to electrodynamics and the magnetic effects of current.",
+    "André-Marie Ampère made major contributions to electrodynamics and the magnetic effects of current. His work helped describe how electric currents produce magnetic effects, and the ampere unit honours this contribution.",
     [
       "AMPERE-ELECTRODYNAMICS"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Ohm — radio waves; Hertz — resistance law",
       "Ampère — barometer; Torricelli — electric current"
     ],
-    "Oersted linked current with magnetism, while Faraday established electromagnetic induction.",
+    "Oersted linked current with magnetism, while Faraday established electromagnetic induction. The first showed that current creates a magnetic effect; the second showed that changing magnetism can produce electric current.",
     [
       "OERSTED-FARADAY-DISTINCTION"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Ernest Rutherford",
       "Niels Bohr"
     ],
-    "Röntgen discovered X-rays while studying electrical discharges in vacuum tubes.",
+    "Röntgen discovered X-rays while studying electrical discharges in vacuum tubes. X-rays can pass through soft tissue more easily than bone, which later made them very useful in medical imaging.",
     [
       "RONTGEN-XRAYS"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "J. J. Thomson",
       "Albert Einstein"
     ],
-    "Becquerel discovered spontaneous radiation from uranium salts.",
+    "Becquerel discovered spontaneous radiation from uranium salts. He found that the radiation was emitted naturally without needing an external light source.",
     [
       "BECQUEREL-RADIOACTIVITY"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "James Chadwick",
       "Niels Bohr"
     ],
-    "Thomson identified the electron through cathode-ray experiments.",
+    "Thomson identified the electron through cathode-ray experiments. This showed that atoms contain smaller negatively charged particles and are not indivisible.",
     [
       "THOMSON-ELECTRON"
     ]
