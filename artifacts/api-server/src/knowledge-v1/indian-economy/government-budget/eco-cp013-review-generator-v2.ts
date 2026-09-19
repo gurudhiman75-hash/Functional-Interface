@@ -5,6 +5,8 @@ const STEM_REVISIONS_V2: Readonly<Record<string,string>> = Object.freeze({
   "How is expenditure other than charged expenditure generally authorised through Parliament?": "How is expenditure other than charged expenditure authorised through Parliament?",
   "Which statement best explains the difference between charged and voted expenditure?": "Which statement correctly distinguishes charged expenditure from voted expenditure?",
   "Which statement best separates Budget at a Glance from the Expenditure Profile?": "Which statement correctly distinguishes Budget at a Glance from the Expenditure Profile?",
+  "What does the Annual Financial Statement primarily show?": "What information does the Annual Financial Statement contain?",
+  "Which sequence best represents the normal parliamentary expenditure process?": "What is the correct sequence of the parliamentary expenditure process?",
 });
 
 export function generateEcoCp013ReviewV2(): EcoCp013ReviewQuestion[] {
