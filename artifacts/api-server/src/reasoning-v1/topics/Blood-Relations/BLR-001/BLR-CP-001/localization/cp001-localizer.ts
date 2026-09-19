@@ -208,6 +208,145 @@ function localizedQuestion(
   }
 }
 
+function localizedReasoningSteps(
+  record: BlrCp001PermanentQuestion,
+  locale: BlrCp001TranslatedLocale,
+  correctValue: string,
+): readonly string[] {
+  const names = record.structuredPrompt.personNames;
+  const wrapped = queryOf(record);
+
+  if (wrapped.kind === "RELATION") {
+    const subject = names[wrapped.query.subjectId] ?? wrapped.query.subjectId;
+    const reference = names[wrapped.query.referenceId] ?? wrapped.query.referenceId;
+    return [
+      localeText(
+        locale,
+        `प्रश्न ${subject} का ${reference} से संबंध पूछता है। संबंधों को ${subject} से ${reference} की दिशा में जोड़ें।`,
+        `ਪ੍ਰਸ਼ਨ ${subject} ਦਾ ${reference} ਨਾਲ ਰਿਸ਼ਤਾ ਪੁੱਛਦਾ ਹੈ। ਰਿਸ਼ਤਿਆਂ ਨੂੰ ${subject} ਤੋਂ ${reference} ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਜੋੜੋ।`,
+      ),
+      localeText(
+        locale,
+        `दिए गए संबंधों को जोड़ने पर ${subject} का ${reference} से संबंध ${correctValue} बनता है।`,
+        `ਦਿੱਤੇ ਰਿਸ਼ਤਿਆਂ ਨੂੰ ਜੋੜਨ ਉੱਤੇ ${subject} ਦਾ ${reference} ਨਾਲ ਰਿਸ਼ਤਾ ${correctValue} ਬਣਦਾ ਹੈ।`,
+      ),
+    ];
+  }
+
+  const query = wrapped.query as BlrCp001AdvancedQuery | BlrCp001LineageQuery;
+  switch (query.kind) {
+    case "IDENTIFY_PERSON_BY_RELATION": {
+      const reference = names[query.referenceId] ?? query.referenceId;
+      const relation = cp001RelationLabel(query.relationId, locale);
+      return [
+        localeText(
+          locale,
+          `पहले ${reference} से ${relation} का संबंध रखने वाले व्यक्ति को परिवार में खोजें।`,
+          `ਪਹਿਲਾਂ ${reference} ਨਾਲ ${relation} ਦਾ ਰਿਸ਼ਤਾ ਰੱਖਣ ਵਾਲੇ ਵਿਅਕਤੀ ਨੂੰ ਪਰਿਵਾਰ ਵਿੱਚ ਲੱਭੋ।`,
+        ),
+        localeText(
+          locale,
+          `सभी दिए गए संबंध मिलाने पर यह व्यक्ति ${correctValue} है।`,
+          `ਸਾਰੇ ਦਿੱਤੇ ਰਿਸ਼ਤੇ ਮਿਲਾਉਣ ਉੱਤੇ ਇਹ ਵਿਅਕਤੀ ${correctValue} ਹੈ।`,
+        ),
+      ];
+    }
+    case "IDENTIFY_ORDERED_PAIR": {
+      const relation = cp001RelationLabel(query.relationId, locale);
+      return [
+        localeText(
+          locale,
+          `हर विकल्प में पहले व्यक्ति का दूसरे व्यक्ति से संबंध जाँचें; माँगा गया संबंध ${relation} है।`,
+          `ਹਰ ਵਿਕਲਪ ਵਿੱਚ ਪਹਿਲੇ ਵਿਅਕਤੀ ਦਾ ਦੂਜੇ ਵਿਅਕਤੀ ਨਾਲ ਰਿਸ਼ਤਾ ਜਾਂਚੋ; ਮੰਗਿਆ ਰਿਸ਼ਤਾ ${relation} ਹੈ।`,
+        ),
+        localeText(
+          locale,
+          `सही क्रम वाला युग्म ${correctValue} है।`,
+          `ਸਹੀ ਕ੍ਰਮ ਵਾਲਾ ਜੋੜਾ ${correctValue} ਹੈ।`,
+        ),
+      ];
+    }
+    case "SELECT_RELATION_CLAIM":
+      return [
+        localeText(
+          locale,
+          query.targetTruth === "TRUE"
+            ? "परिवार के बने हुए संबंधों से प्रत्येक कथन जाँचें और केवल सही कथन चुनें।"
+            : "परिवार के बने हुए संबंधों से प्रत्येक कथन जाँचें और केवल गलत कथन चुनें।",
+          query.targetTruth === "TRUE"
+            ? "ਬਣੇ ਹੋਏ ਪਰਿਵਾਰਕ ਰਿਸ਼ਤਿਆਂ ਨਾਲ ਹਰ ਕਥਨ ਜਾਂਚੋ ਅਤੇ ਕੇਵਲ ਸਹੀ ਕਥਨ ਚੁਣੋ।"
+            : "ਬਣੇ ਹੋਏ ਪਰਿਵਾਰਕ ਰਿਸ਼ਤਿਆਂ ਨਾਲ ਹਰ ਕਥਨ ਜਾਂਚੋ ਅਤੇ ਕੇਵਲ ਗਲਤ ਕਥਨ ਚੁਣੋ।",
+        ),
+        localeText(
+          locale,
+          `शर्त पूरी करने वाला कथन है: ${correctValue}`,
+          `ਸ਼ਰਤ ਪੂਰੀ ਕਰਨ ਵਾਲਾ ਕਥਨ ਹੈ: ${correctValue}`,
+        ),
+      ];
+    case "COMPARE_GENERATIONS": {
+      const subject = names[query.subjectId] ?? query.subjectId;
+      const reference = names[query.referenceId] ?? query.referenceId;
+      return [
+        localeText(
+          locale,
+          `${subject} और ${reference} को परिवार की पीढ़ियों में रखकर उनके स्तर की तुलना करें।`,
+          `${subject} ਅਤੇ ${reference} ਨੂੰ ਪਰਿਵਾਰ ਦੀਆਂ ਪੀੜ੍ਹੀਆਂ ਵਿੱਚ ਰੱਖ ਕੇ ਉਨ੍ਹਾਂ ਦੇ ਪੱਧਰ ਦੀ ਤੁਲਨਾ ਕਰੋ।`,
+        ),
+        localeText(
+          locale,
+          `तुलना करने पर ${subject}, ${reference} के सापेक्ष ${correctValue} है।`,
+          `ਤੁਲਨਾ ਕਰਨ ਉੱਤੇ ${subject}, ${reference} ਦੇ ਮੁਕਾਬਲੇ ${correctValue} ਹੈ।`,
+        ),
+      ];
+    }
+    case "SOLVE_BRANCHING_RELATION": {
+      const subject = names[query.subjectId] ?? query.subjectId;
+      const reference = names[query.referenceId] ?? query.referenceId;
+      return [
+        localeText(
+          locale,
+          "दोनों पारिवारिक शाखाएँ पूरी बनाइए और फिर पूछे गए व्यक्तियों के बीच का मार्ग जोड़िए।",
+          "ਦੋਵੇਂ ਪਰਿਵਾਰਕ ਸ਼ਾਖਾਵਾਂ ਪੂਰੀਆਂ ਬਣਾਓ ਅਤੇ ਫਿਰ ਪੁੱਛੇ ਵਿਅਕਤੀਆਂ ਵਿਚਕਾਰ ਦਾ ਰਸਤਾ ਜੋੜੋ।",
+        ),
+        localeText(
+          locale,
+          `इस मार्ग से ${subject} का ${reference} से संबंध ${correctValue} मिलता है।`,
+          `ਇਸ ਰਸਤੇ ਤੋਂ ${subject} ਦਾ ${reference} ਨਾਲ ਰਿਸ਼ਤਾ ${correctValue} ਮਿਲਦਾ ਹੈ।`,
+        ),
+      ];
+    }
+    case "IDENTIFY_PERSON_BY_GENDER":
+      return [
+        localeText(
+          locale,
+          "नाम देखकर लिंग का अनुमान न लगाएँ। पिता, माता, भाई, बहन, पति या पत्नी जैसे स्पष्ट संबंधों से लिंग तय करें।",
+          "ਨਾਂ ਦੇਖ ਕੇ ਲਿੰਗ ਦਾ ਅੰਦਾਜ਼ਾ ਨਾ ਲਗਾਓ। ਪਿਤਾ, ਮਾਤਾ, ਭਰਾ, ਭੈਣ, ਪਤੀ ਜਾਂ ਪਤਨੀ ਵਰਗੇ ਸਪਸ਼ਟ ਰਿਸ਼ਤਿਆਂ ਤੋਂ ਲਿੰਗ ਤੈਅ ਕਰੋ।",
+        ),
+        localeText(
+          locale,
+          `दिए गए संबंधों के आधार पर आवश्यक व्यक्ति ${correctValue} है।`,
+          `ਦਿੱਤੇ ਰਿਸ਼ਤਿਆਂ ਦੇ ਆਧਾਰ ਉੱਤੇ ਲੋੜੀਂਦਾ ਵਿਅਕਤੀ ${correctValue} ਹੈ।`,
+        ),
+      ];
+    case "SOLVE_EXACT_LINEAGE_RELATION": {
+      const subject = names[query.subjectId] ?? query.subjectId;
+      const reference = names[query.referenceId] ?? query.referenceId;
+      return [
+        localeText(
+          locale,
+          "पहले सामान्य संबंध निकालें। फिर बीच में आने वाले माता या पिता से तय करें कि संबंध पितृ पक्ष का है या मातृ पक्ष का।",
+          "ਪਹਿਲਾਂ ਆਮ ਰਿਸ਼ਤਾ ਕੱਢੋ। ਫਿਰ ਵਿਚਕਾਰ ਆਉਣ ਵਾਲੇ ਮਾਤਾ ਜਾਂ ਪਿਤਾ ਤੋਂ ਤੈਅ ਕਰੋ ਕਿ ਰਿਸ਼ਤਾ ਪਿਤਰੀ ਪੱਖ ਦਾ ਹੈ ਜਾਂ ਮਾਤਰੀ ਪੱਖ ਦਾ।",
+        ),
+        localeText(
+          locale,
+          `इससे ${subject} का ${reference} से सटीक संबंध ${correctValue} मिलता है।`,
+          `ਇਸ ਤੋਂ ${subject} ਦਾ ${reference} ਨਾਲ ਸਟੀਕ ਰਿਸ਼ਤਾ ${correctValue} ਮਿਲਦਾ ਹੈ।`,
+        ),
+      ];
+    }
+  }
+}
+
 function canonicalProjection(record: BlrCp001PermanentQuestion | GeneratedBlrCp001LocalizedQuestion) {
   return {
     packageId: record.packageId,
@@ -285,18 +424,12 @@ export function localizeBlrCp001Question(
       coreConcept: [
         localeText(
           locale,
-          "दिए गए संबंधों को एक-एक करके जोड़ें और प्रश्न में पूछी गई दिशा में संबंध निकालें।",
-          "ਦਿੱਤੇ ਰਿਸ਼ਤਿਆਂ ਨੂੰ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਜੋੜੋ ਅਤੇ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਪੁੱਛੀ ਦਿਸ਼ਾ ਅਨੁਸਾਰ ਰਿਸ਼ਤਾ ਕੱਢੋ।",
+          "पहले दिए गए पारिवारिक संबंधों को साफ क्रम में रखें। फिर प्रश्न की शर्त के अनुसार केवल जरूरी संबंध या व्यक्ति पर ध्यान दें।",
+          "ਪਹਿਲਾਂ ਦਿੱਤੇ ਪਰਿਵਾਰਕ ਰਿਸ਼ਤਿਆਂ ਨੂੰ ਸਾਫ਼ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖੋ। ਫਿਰ ਪ੍ਰਸ਼ਨ ਦੀ ਸ਼ਰਤ ਅਨੁਸਾਰ ਕੇਵਲ ਲੋੜੀਂਦੇ ਰਿਸ਼ਤੇ ਜਾਂ ਵਿਅਕਤੀ ਉੱਤੇ ਧਿਆਨ ਦਿਓ।",
         ),
       ],
       normalizedClues,
-      queryPath: [
-        localeText(
-          locale,
-          "पहले परिवार की पीढ़ियाँ और सीधे संबंध तय करें, फिर केवल पूछे गए दो व्यक्तियों के बीच का मार्ग देखें।",
-          "ਪਹਿਲਾਂ ਪਰਿਵਾਰ ਦੀਆਂ ਪੀੜ੍ਹੀਆਂ ਅਤੇ ਸਿੱਧੇ ਰਿਸ਼ਤੇ ਤੈਅ ਕਰੋ, ਫਿਰ ਕੇਵਲ ਪੁੱਛੇ ਦੋ ਵਿਅਕਤੀਆਂ ਵਿਚਕਾਰ ਦਾ ਰਸਤਾ ਵੇਖੋ।",
-        ),
-      ],
+      queryPath: localizedReasoningSteps(record, locale, correct.value),
       conclusion: localeText(
         locale,
         `अतः सही उत्तर है: ${correct.value}।`,

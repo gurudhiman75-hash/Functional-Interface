@@ -337,6 +337,95 @@ function localizedOption(
   };
 }
 
+function localizedExplanationSteps(
+  record: BlrCp002PermanentQuestion,
+  locale: BlrCp002TranslatedLocale,
+  correctValue: string,
+): readonly string[] {
+  const prompt = record.structuredPrompt;
+  const speaker = anchorName(prompt, "SPEAKER");
+  const steps: string[] = [];
+
+  if (prompt.listenerId) {
+    const listener = anchorName(prompt, "LISTENER");
+    steps.push(
+      localeText(
+        locale,
+        `कथन में ‘मैं’ = ${speaker} और ‘आप’ = ${listener} मानें।`,
+        `ਕਥਨ ਵਿੱਚ ‘ਮੈਂ’ = ${speaker} ਅਤੇ ‘ਤੁਸੀਂ’ = ${listener} ਮੰਨੋ।`,
+      ),
+    );
+  } else {
+    steps.push(
+      localeText(
+        locale,
+        `कथन में ‘मैं’ से आशय ${speaker} है।`,
+        `ਕਥਨ ਵਿੱਚ ‘ਮੈਂ’ ਤੋਂ ਭਾਵ ${speaker} ਹੈ।`,
+      ),
+    );
+  }
+
+  if (record.metadata.onlyConstraintCount > 0) {
+    steps.push(
+      localeText(
+        locale,
+        "‘एकमात्र’ वाले संबंध में उसी भूमिका का केवल एक व्यक्ति हो सकता है; उसी व्यक्ति को आगे की कड़ी में लें।",
+        "‘ਇਕਲੌਤਾ/ਇਕਲੌਤੀ’ ਵਾਲੇ ਰਿਸ਼ਤੇ ਵਿੱਚ ਉਸ ਭੂਮਿਕਾ ਦਾ ਕੇਵਲ ਇੱਕ ਵਿਅਕਤੀ ਹੋ ਸਕਦਾ ਹੈ; ਉਸੇ ਵਿਅਕਤੀ ਨੂੰ ਅੱਗੇ ਦੀ ਲੜੀ ਵਿੱਚ ਲਓ।",
+      ),
+    );
+  }
+  if (record.metadata.negativeConstraintCount > 0) {
+    steps.push(
+      localeText(
+        locale,
+        "‘कोई भाई/बहन नहीं’ जैसी नकारात्मक शर्त को पहले लागू करें; ऐसा व्यक्ति हटाएँ जो उस शर्त को पूरा नहीं करता।",
+        "‘ਕੋਈ ਭਰਾ/ਭੈਣ ਨਹੀਂ’ ਵਰਗੀ ਨਕਾਰਾਤਮਕ ਸ਼ਰਤ ਪਹਿਲਾਂ ਲਾਗੂ ਕਰੋ; ਉਹ ਵਿਅਕਤੀ ਹਟਾਓ ਜੋ ਇਹ ਸ਼ਰਤ ਪੂਰੀ ਨਹੀਂ ਕਰਦਾ।",
+      ),
+    );
+  }
+
+  if (record.metadata.selfIdentity) {
+    steps.push(
+      localeText(
+        locale,
+        record.metadata.questionForm === "HOW_RELATED"
+          ? "पूरी भूमिका-श्रृंखला हल करने पर प्रश्न के दोनों छोर एक ही व्यक्ति पर पहुँचते हैं।"
+          : "पूरी भूमिका-श्रृंखला हल करने पर तस्वीर/चित्र वाला व्यक्ति स्वयं वक्ता ही निकलता है।",
+        record.metadata.questionForm === "HOW_RELATED"
+          ? "ਪੂਰੀ ਭੂਮਿਕਾ-ਲੜੀ ਹੱਲ ਕਰਨ ਉੱਤੇ ਪ੍ਰਸ਼ਨ ਦੇ ਦੋਵੇਂ ਸਿਰੇ ਇੱਕੋ ਵਿਅਕਤੀ ਉੱਤੇ ਪਹੁੰਚਦੇ ਹਨ।"
+          : "ਪੂਰੀ ਭੂਮਿਕਾ-ਲੜੀ ਹੱਲ ਕਰਨ ਉੱਤੇ ਤਸਵੀਰ/ਚਿੱਤਰ ਵਾਲਾ ਵਿਅਕਤੀ ਖੁਦ ਬੋਲਣ ਵਾਲਾ ਹੀ ਨਿਕਲਦਾ ਹੈ।",
+      ),
+    );
+  } else if (record.metadata.questionForm === "HOW_RELATED") {
+    steps.push(
+      localeText(
+        locale,
+        `सभी भूमिकाएँ क्रम से हल करने पर पूछा गया संबंध ${correctValue} मिलता है।`,
+        `ਸਾਰੀਆਂ ਭੂਮਿਕਾਵਾਂ ਕ੍ਰਮ ਨਾਲ ਹੱਲ ਕਰਨ ਉੱਤੇ ਪੁੱਛਿਆ ਰਿਸ਼ਤਾ ${correctValue} ਮਿਲਦਾ ਹੈ।`,
+      ),
+    );
+  } else {
+    steps.push(
+      localeText(
+        locale,
+        `पूरी संबंध-श्रृंखला से तस्वीर/चित्र के लिए सही विकल्प ${correctValue} मिलता है।`,
+        `ਪੂਰੀ ਰਿਸ਼ਤਾ-ਲੜੀ ਤੋਂ ਤਸਵੀਰ/ਚਿੱਤਰ ਲਈ ਸਹੀ ਵਿਕਲਪ ${correctValue} ਮਿਲਦਾ ਹੈ।`,
+      ),
+    );
+  }
+
+  if (!steps.some((line) => line.includes(correctValue))) {
+    steps.push(
+      localeText(
+        locale,
+        `इसलिए इस प्रश्न के लिए सही विकल्प ${correctValue} है।`,
+        `ਇਸ ਲਈ ਇਸ ਪ੍ਰਸ਼ਨ ਲਈ ਸਹੀ ਵਿਕਲਪ ${correctValue} ਹੈ।`,
+      ),
+    );
+  }
+  return steps;
+}
+
 function canonicalProjection(
   record: BlrCp002PermanentQuestion | GeneratedBlrCp002LocalizedQuestion,
 ) {
@@ -411,18 +500,12 @@ export function localizeBlrCp002Question(
       coreConcept: [
         localeText(
           locale,
-          "पहले ‘मैं’, ‘तुम’ और बताए गए व्यक्ति को स्पष्ट नामों से जोड़ें। फिर रिश्ते की कड़ी को क्रम से हल करें।",
-          "ਪਹਿਲਾਂ ‘ਮੈਂ’, ‘ਤੁਸੀਂ’ ਅਤੇ ਦੱਸੇ ਵਿਅਕਤੀ ਨੂੰ ਸਪਸ਼ਟ ਨਾਂਵਾਂ ਨਾਲ ਜੋੜੋ। ਫਿਰ ਰਿਸ਼ਤੇ ਦੀ ਲੜੀ ਨੂੰ ਕ੍ਰਮ ਨਾਲ ਹੱਲ ਕਰੋ।",
+          "पहले ‘मैं’, ‘आप’ और बताए गए व्यक्ति की पहचान स्पष्ट करें। फिर रिश्ते की कड़ी को एक-एक चरण में हल करें।",
+          "ਪਹਿਲਾਂ ‘ਮੈਂ’, ‘ਤੁਸੀਂ’ ਅਤੇ ਦੱਸੇ ਵਿਅਕਤੀ ਦੀ ਪਛਾਣ ਸਪਸ਼ਟ ਕਰੋ। ਫਿਰ ਰਿਸ਼ਤੇ ਦੀ ਲੜੀ ਨੂੰ ਇੱਕ-ਇੱਕ ਪੜਾਅ ਵਿੱਚ ਹੱਲ ਕਰੋ।",
         ),
       ],
       normalizedClues: localized.normalizedClues,
-      queryPath: [
-        localeText(
-          locale,
-          "‘एकमात्र’ और ‘कोई भाई/बहन नहीं’ जैसी शर्तों को पहले लागू करें; अंत में प्रश्न में दिए क्रम में दोनों व्यक्तियों का संबंध पढ़ें।",
-          "‘ਇਕਲੌਤਾ/ਇਕਲੌਤੀ’ ਅਤੇ ‘ਕੋਈ ਭਰਾ/ਭੈਣ ਨਹੀਂ’ ਵਰਗੀਆਂ ਸ਼ਰਤਾਂ ਪਹਿਲਾਂ ਲਾਗੂ ਕਰੋ; ਅੰਤ ਵਿੱਚ ਪ੍ਰਸ਼ਨ ਦੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਦੋਵੇਂ ਵਿਅਕਤੀਆਂ ਦਾ ਰਿਸ਼ਤਾ ਪੜ੍ਹੋ।",
-        ),
-      ],
+      queryPath: localizedExplanationSteps(record, locale, correct.value),
       conclusion: localeText(
         locale,
         `अतः सही उत्तर है: ${correct.value}।`,

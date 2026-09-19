@@ -55,7 +55,18 @@ for (let seed = 0; seed < 256; seed += 1) {
     assert.equal(localized.metadata.productionStagingApproved, false);
     assert.ok(scripts[locale].test(localized.stem));
     assert.ok(localized.explanation.conclusion.includes(localized.options[localized.correctIndex]!.value));
+    assert.ok(localized.explanation.queryPath.length >= 2);
+    assert.ok(
+      localized.explanation.queryPath.some((step) =>
+        step.includes(localized.options[localized.correctIndex]!.value),
+      ),
+      `${seed}/${locale} explanation must connect the solved role chain to the displayed answer.`,
+    );
+    assert.ok(localized.explanation.normalizedClues.length >= 1);
     assert.ok(localized.explanation.familyTree.persons.length >= 2);
+    if (locale === "hi-IN") {
+      assert.doesNotMatch(localized.explanation.coreConcept.join(" "), /‘तुम’|तुम्हार/);
+    }
 
     const learner = withoutNames(localized.stem, names);
     assert.doesNotMatch(

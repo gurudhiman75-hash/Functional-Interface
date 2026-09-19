@@ -46,6 +46,14 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
       assert.equal(localized.metadata.productionStagingApproved, false);
       assert.ok(scripts[locale].test(localized.stem), `${contract.qlId}/${seed}/${locale} has no target-script learner text.`);
       assert.ok(localized.explanation.conclusion.includes(localized.options[localized.correctIndex]!.value));
+      assert.ok(localized.explanation.queryPath.length >= 2);
+      assert.ok(
+        localized.explanation.queryPath.some((step) =>
+          step.includes(localized.options[localized.correctIndex]!.value),
+        ),
+        `${contract.qlId}/${seed}/${locale} explanation must connect the solved reasoning to the displayed answer.`,
+      );
+      assert.ok(localized.explanation.normalizedClues.length >= 1);
       assert.ok(!/\b(?:How|Which|Who|Read|Study|Consider|Use|Father|Mother|Brother|Sister|Son|Daughter|Husband|Wife)\b/i.test(localized.stem.replace(/[A-Z][a-z]+/g, "")));
 
       qlCounts[contract.qlId] = (qlCounts[contract.qlId] ?? 0) + 1;
