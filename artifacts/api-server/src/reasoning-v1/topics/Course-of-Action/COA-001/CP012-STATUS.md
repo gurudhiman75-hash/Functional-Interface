@@ -55,7 +55,7 @@ This is an internal lifecycle promotion only. It does not authorize public/stude
 - at least 10 domains per active QL;
 - no exact active statement duplication;
 - Question Studio semantic anti-repetition gate;
-- QL008 Medium/Hard-only integrity;
+- QL008 calibrated difficulty integrity;
 - deterministic EN/HI/PA generation;
 - approved four-way, genuine Either five-code and three-action profiles;
 - no Question Bank/test/mock/public gate leakage before CP012.
