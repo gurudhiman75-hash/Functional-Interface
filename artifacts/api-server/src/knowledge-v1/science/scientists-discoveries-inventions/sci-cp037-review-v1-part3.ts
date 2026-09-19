@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Louis Pasteur",
       "Edward Jenner"
     ],
-    "Darwin developed the theory of evolution by natural selection, with Alfred Russel Wallace independently reaching a similar idea.",
+    "Darwin developed the theory of evolution by natural selection, with Alfred Russel Wallace independently reaching a similar idea. Natural selection explains how heritable traits that improve survival or reproduction can become more common over generations.",
     [
       "DARWIN-NATURAL-SELECTION"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Electric current",
       "Vaccination"
     ],
-    "Mendel's pea experiments established basic principles of inheritance.",
+    "Mendel's pea experiments established basic principles of inheritance. From simple crosses, he showed that hereditary factors are passed in predictable patterns rather than simply blending.",
     [
       "MENDEL-PEA-INHERITANCE"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "James Chadwick",
       "John Dalton"
     ],
-    "Wallace independently formulated natural selection, prompting the joint presentation of their ideas.",
+    "Wallace independently formulated natural selection, prompting the joint presentation of their ideas. His independent work was important enough that Darwin's and Wallace's ideas were presented together in 1858.",
     [
       "WALLACE-NATURAL-SELECTION"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Robert Hooke and Leeuwenhoek",
       "Banting and Best"
     ],
-    "Watson and Crick proposed the double-helix model using crucial experimental evidence from several researchers.",
+    "Watson and Crick proposed the double-helix model using crucial experimental evidence from several researchers. The model explained how DNA could store information and copy itself through complementary base pairing.",
     [
       "WATSON-CRICK-DOUBLE-HELIX"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Periodic table",
       "Smallpox vaccine"
     ],
-    "Franklin's diffraction data provided key evidence about DNA's helical structure and dimensions.",
+    "Franklin's diffraction data provided key evidence about DNA's helical structure and dimensions. Her famous diffraction work helped reveal that DNA was helical and provided important measurements for building a correct model.",
     [
       "FRANKLIN-DNA-XRAY"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Mendel proposed the double helix from pea plants",
       "Darwin discovered DNA using fossils"
     ],
-    "The model was proposed by Watson and Crick, while Franklin's experimental work was a crucial part of the evidence base.",
+    "The model was proposed by Watson and Crick, while Franklin's experimental work was a crucial part of the evidence base. This is why the history is better understood as a major model built from important experimental evidence contributed by more than one researcher.",
     [
       "DNA-ATTRIBUTION-NUANCE"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Robert Koch",
       "William Harvey"
     ],
-    "Jenner demonstrated vaccination against smallpox using material related to cowpox.",
+    "Jenner demonstrated vaccination against smallpox using material related to cowpox. His work showed that exposure to a related, milder infection could protect against smallpox.",
     [
       "JENNER-SMALLPOX-VACCINE"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Louis Pasteur",
       "Karl Landsteiner"
     ],
-    "Fleming observed the antibacterial effect of Penicillium mould, leading to the discovery of penicillin.",
+    "Fleming observed the antibacterial effect of Penicillium mould, leading to the discovery of penicillin. Later researchers developed penicillin into a practical medicine, but Fleming's observation began the discovery.",
     [
       "FLEMING-PENICILLIN"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "John Dalton",
       "Michael Faraday"
     ],
-    "Harvey demonstrated that the heart pumps blood through a circulatory system.",
+    "Harvey demonstrated that the heart pumps blood through a circulatory system. He showed that blood moves in a continuous circuit driven by the heart rather than being continually produced and used up.",
     [
       "HARVEY-BLOOD-CIRCULATION"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Jonas Salk",
       "Edward Jenner"
     ],
-    "Landsteiner identified the ABO blood groups, making safer transfusion matching possible.",
+    "Landsteiner identified the ABO blood groups, making safer transfusion matching possible. Recognizing compatible and incompatible blood groups greatly reduced dangerous transfusion reactions.",
     [
       "LANDSTEINER-ABO"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Robert Boyle",
       "Niels Bohr"
     ],
-    "Banting and Best played central roles in the work that led to insulin treatment, with important contributions from their Toronto colleagues.",
+    "Banting and Best played central roles in the work that led to insulin treatment, with important contributions from their Toronto colleagues. The work transformed diabetes treatment because insulin could be given to patients who could not produce enough of it.",
     [
       "BANTING-BEST-INSULIN"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "Harvey — X-rays; Röntgen — circulation",
       "Koch — periodic table; Mendeleev — tuberculosis bacterium"
     ],
-    "Landsteiner identified ABO blood groups, while Fleming discovered penicillin's antibacterial effect.",
+    "Landsteiner identified ABO blood groups, while Fleming discovered penicillin's antibacterial effect. The two discoveries solved very different medical problems: safe blood matching and bacterial infection treatment.",
     [
       "MEDICAL-SCIENTIST-DISTINCTION"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "John Logie Baird",
       "James Watt"
     ],
-    "Bell is widely credited with key development and patenting of the telephone.",
+    "Bell is widely credited with key development and patenting of the telephone. The telephone changed communication by allowing speech to be transmitted electrically over distance.",
     [
       "BELL-TELEPHONE"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "John Logie Baird",
       "Alfred Nobel"
     ],
-    "Marconi developed and demonstrated practical wireless telegraphy systems.",
+    "Marconi developed and demonstrated practical wireless telegraphy systems. His systems showed that messages could be sent without wires using electromagnetic waves.",
     [
       "MARCONI-RADIO"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
       "James Watt",
       "Michael Faraday"
     ],
-    "Baird demonstrated an early working television system using mechanical scanning.",
+    "Baird demonstrated an early working television system using mechanical scanning. His early demonstrations were mechanical rather than fully electronic, but they proved that moving images could be transmitted.",
     [
       "BAIRD-TELEVISION"
     ]
