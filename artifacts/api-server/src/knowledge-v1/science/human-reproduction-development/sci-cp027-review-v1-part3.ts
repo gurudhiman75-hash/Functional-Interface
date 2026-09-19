@@ -1,0 +1,229 @@
+import type { KnowledgeV1Difficulty } from "../../types";
+export type SciCp027ReviewSpec = readonly [number, KnowledgeV1Difficulty, string, string, readonly [string,string,string], string, readonly string[]];
+export const PART_3: readonly SciCp027ReviewSpec[] = [
+  [
+    6,
+    "Easy",
+    "Which organ allows exchange of nutrients, gases and wastes between mother and developing foetus?",
+    "Placenta",
+    [
+      "Ovary",
+      "Cervix",
+      "Vagina"
+    ],
+    "The placenta forms an exchange interface between maternal and foetal circulations.",
+    [
+      "PLACENTA-EXCHANGE"
+    ]
+  ],
+  [
+    6,
+    "Easy",
+    "The developing baby is connected to the placenta by the:",
+    "Umbilical cord",
+    [
+      "Fallopian tube",
+      "Ureter",
+      "Vas deferens"
+    ],
+    "The umbilical cord connects the foetus to the placenta.",
+    [
+      "UMBILICAL-CORD"
+    ]
+  ],
+  [
+    6,
+    "Medium",
+    "Oxygen reaches the foetus from the mother's blood through the:",
+    "Placenta",
+    [
+      "Ovary",
+      "Cervix",
+      "Amniotic sac only"
+    ],
+    "Oxygen diffuses across the placental exchange surface into foetal circulation.",
+    [
+      "PLACENTA-OXYGEN"
+    ]
+  ],
+  [
+    6,
+    "Medium",
+    "Carbon dioxide produced by the foetus is transferred to the mother through the:",
+    "Placenta",
+    [
+      "Ovary",
+      "Bladder",
+      "Cervix"
+    ],
+    "Foetal carbon dioxide passes across the placenta into maternal blood for removal by the mother's lungs.",
+    [
+      "PLACENTA-CO2"
+    ]
+  ],
+  [
+    6,
+    "Medium",
+    "Amniotic fluid helps protect the developing foetus by:",
+    "Cushioning it against mechanical shocks",
+    [
+      "Producing red blood cells",
+      "Digesting proteins",
+      "Filtering maternal urine"
+    ],
+    "Amniotic fluid surrounds the foetus and provides physical cushioning.",
+    [
+      "AMNIOTIC-FLUID-CUSHION"
+    ]
+  ],
+  [
+    6,
+    "Hard",
+    "Maternal and foetal blood normally remain in separate circulations, yet exchange still occurs. How?",
+    "Substances cross the placental barrier between nearby blood supplies",
+    [
+      "The two blood supplies mix freely in one vessel",
+      "The foetus breathes directly through the uterus",
+      "The umbilical cord contains maternal arteries only"
+    ],
+    "Maternal and foetal blood come close at the placenta, allowing diffusion and transport without normally mixing directly.",
+    [
+      "PLACENTA-SEPARATE-CIRCULATION"
+    ]
+  ],
+  [
+    7,
+    "Easy",
+    "The process by which a baby is delivered from the uterus is called:",
+    "Childbirth",
+    [
+      "Ovulation",
+      "Implantation",
+      "Fertilization"
+    ],
+    "Childbirth, or parturition, is the delivery of the baby at the end of pregnancy.",
+    [
+      "CHILDBIRTH-DEFINITION"
+    ]
+  ],
+  [
+    7,
+    "Easy",
+    "Milk is produced after childbirth by the:",
+    "Mammary glands",
+    [
+      "Ovaries",
+      "Pituitary gland alone",
+      "Thyroid gland"
+    ],
+    "Mammary glands in the breasts produce milk after childbirth.",
+    [
+      "MAMMARY-MILK"
+    ]
+  ],
+  [
+    7,
+    "Medium",
+    "Which hormone promotes milk production after childbirth?",
+    "Prolactin",
+    [
+      "Insulin",
+      "Thyroxine",
+      "Adrenaline"
+    ],
+    "Prolactin from the pituitary promotes milk synthesis in the mammary glands.",
+    [
+      "PROLACTIN-MILK"
+    ]
+  ],
+  [
+    7,
+    "Medium",
+    "Which hormone helps eject milk from the mammary glands?",
+    "Oxytocin",
+    [
+      "Glucagon",
+      "Growth hormone",
+      "Thyroxine"
+    ],
+    "Oxytocin causes contraction of cells around milk-producing structures and helps milk ejection.",
+    [
+      "OXYTOCIN-MILK-EJECTION"
+    ]
+  ],
+  [
+    7,
+    "Medium",
+    "Why is the first breast milk, colostrum, considered useful for a newborn?",
+    "It contains protective antibodies and nutrients",
+    [
+      "It contains no water",
+      "It is richer in urea than blood",
+      "It prevents all future infections permanently"
+    ],
+    "Colostrum contains nutrients and maternal antibodies that provide early immune protection.",
+    [
+      "COLOSTRUM-ANTIBODIES"
+    ]
+  ],
+  [
+    7,
+    "Hard",
+    "A mother produces milk normally but has difficulty with milk release during feeding. Which hormone is most closely linked with the release reflex?",
+    "Oxytocin",
+    [
+      "Prolactin",
+      "Insulin",
+      "Melatonin"
+    ],
+    "Prolactin supports milk production, while oxytocin triggers milk ejection.",
+    [
+      "MILK-PRODUCTION-VS-EJECTION"
+    ]
+  ],
+  [
+    8,
+    "Easy",
+    "Puberty is the period when the body becomes:",
+    "Sexually mature",
+    [
+      "Unable to grow",
+      "Independent of hormones",
+      "Free of secondary sexual characteristics"
+    ],
+    "Puberty is the developmental period in which reproductive organs mature and secondary sexual characteristics appear.",
+    [
+      "PUBERTY-DEFINITION"
+    ]
+  ],
+  [
+    8,
+    "Easy",
+    "A deeper voice and facial hair in boys at puberty are influenced strongly by:",
+    "Testosterone",
+    [
+      "Insulin",
+      "ADH",
+      "Thyroxine only"
+    ],
+    "Testosterone contributes to male secondary sexual characteristics during puberty.",
+    [
+      "PUBERTY-TESTOSTERONE"
+    ]
+  ],
+  [
+    8,
+    "Medium",
+    "Development of breasts and widening of hips at female puberty are influenced strongly by:",
+    "Oestrogen",
+    [
+      "Adrenaline",
+      "Glucagon",
+      "Melatonin"
+    ],
+    "Oestrogen contributes to female secondary sexual characteristics.",
+    [
+      "PUBERTY-OESTROGEN"
+    ]
+  ]
+] as const;
