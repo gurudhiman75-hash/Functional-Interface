@@ -23,6 +23,8 @@ import {
 } from "./eco-cp007-cp008-localization-v1";
 import { generateEcoCp009LocalizedReviewV1 } from "./eco-cp009-localization-v1";
 import { generateEcoCp010LocalizedReviewV1 } from "./eco-cp010-localization-v1";
+import { generateEcoCp011LocalizedReviewV1 } from "./eco-cp011-localization-v1";
+import { generateEcoCp012LocalizedReviewV1 } from "./eco-cp012-localization-v1";
 
 const CP001_FINAL_STEM_OVERRIDES: Readonly<Record<string, Readonly<Record<"hi" | "pa", string>>>> = Object.freeze({
   "ECO-CP001-V2-011": {
@@ -85,6 +87,17 @@ export function generateEcoCp001Cp010LocalizedReviewV1(locale: EcoLocaleV1): Eco
   ];
 }
 
+export function generateEcoCp011Cp012LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [...generateEcoCp011LocalizedReviewV1(locale), ...generateEcoCp012LocalizedReviewV1(locale)];
+}
+
+export function generateEcoCp001Cp012LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp001Cp010LocalizedReviewV1(locale),
+    ...generateEcoCp011Cp012LocalizedReviewV1(locale),
+  ];
+}
+
 export {
   generateEcoCp003LocalizedReviewV1,
   generateEcoCp004LocalizedReviewV1,
@@ -100,6 +113,8 @@ export {
   ECO_MULTILINGUAL_CP007_CP008_V1,
   generateEcoCp009LocalizedReviewV1,
   generateEcoCp010LocalizedReviewV1,
+  generateEcoCp011LocalizedReviewV1,
+  generateEcoCp012LocalizedReviewV1,
 };
 
 export const ECO_MULTILINGUAL_CP001_CP002_V1 = Object.freeze({
@@ -136,4 +151,16 @@ export const ECO_MULTILINGUAL_CP001_CP010_V1 = Object.freeze({
   en: generateEcoCp001Cp010LocalizedReviewV1("en"),
   hi: generateEcoCp001Cp010LocalizedReviewV1("hi"),
   pa: generateEcoCp001Cp010LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP011_CP012_V1 = Object.freeze({
+  en: generateEcoCp011Cp012LocalizedReviewV1("en"),
+  hi: generateEcoCp011Cp012LocalizedReviewV1("hi"),
+  pa: generateEcoCp011Cp012LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP001_CP012_V1 = Object.freeze({
+  en: generateEcoCp001Cp012LocalizedReviewV1("en"),
+  hi: generateEcoCp001Cp012LocalizedReviewV1("hi"),
+  pa: generateEcoCp001Cp012LocalizedReviewV1("pa"),
 });
