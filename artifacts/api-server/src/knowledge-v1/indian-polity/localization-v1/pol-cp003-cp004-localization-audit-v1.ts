@@ -31,6 +31,15 @@ const PUNJABI_LITERAL_CALQUES = [
   "ਪ੍ਰਤਿਸ਼ੇਧ",
   "ਉਤਪ੍ਰੇਸ਼ਣ",
   "ਅਧਿਕਾਰ-ਪ੍ਰਿਛਾ",
+  "ਅਭਿਵੈਕਤੀ",
+  "ਅਨੁਸੰਗੀ",
+  "ਬਾਧਕ",
+  "ਉਪਲਬਧ",
+  "ਸੰਸ਼ੋਧਨ",
+  "ਰਜਿਸਟ੍ਰੇਸ਼ਨ",
+  "ਨਾਲ ਸੰਬੰਧਿਤ",
+  "ਹਰ ਵਿਅਕਤੀਆਂ",
+  "ਕੁਝ ਕੁਝ",
 ] as const;
 
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
@@ -42,6 +51,8 @@ function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
     for(const phrase of PUNJABI_LITERAL_CALQUES){
       assert.equal(original.includes(phrase),false,`${q.questionId}: literal/non-native Punjabi phrase remains: ${phrase}`);
     }
+    assert.equal(/ਦੀ ਵਰਤੋਂ[^।]+ਹੁੰਦਾ ਹੈ/u.test(original),false,`${q.questionId}: Punjabi agreement error in writ explanation`);
+    assert.equal(/ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ ਆਉਂਦਾ ਹੈ\?/u.test(original),false,`${q.questionId}: mechanical Punjabi article stem remains`);
   }
 }
 let englishCount=0;
