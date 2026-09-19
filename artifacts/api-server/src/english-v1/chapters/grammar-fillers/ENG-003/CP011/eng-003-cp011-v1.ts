@@ -64,10 +64,32 @@ function placeOptions(seed: string, correct: string, distractors: readonly strin
   return { options, correctOptionIndex };
 }
 
-function teachingTail(explanation: string) {
-  const index = explanation.indexOf("Concept:");
-  if (index < 0) throw new Error("ENG-002 CP011 explanation lost its Concept section");
-  return explanation.slice(index).trim().replace(/\bHere:\s*/g, "Here, ");
+const SIMPLE_CONCEPT: Readonly<Record<ConditionalRuleId, string>> = Object.freeze({
+  "GR-CND-001": "For a general fact or rule, use the present simple in both parts.",
+  "GR-CND-002": "For a real future possibility, use the present simple after 'if' and a future/modal form in the result.",
+  "GR-CND-003": "In a normal future condition, use the present simple after 'if'; do not normally use 'will' there.",
+  "GR-CND-004": "For an unreal present or future situation, use a past form in the condition and 'would/could + base verb' in the result.",
+  "GR-CND-005": "For an unreal past situation, use 'had + past participle' in the condition and 'would/could/might have + past participle' in the result.",
+  "GR-CND-006": "For a past condition with a present result, use the past perfect in the condition and 'would + verb' for the present result.",
+  "GR-CND-007": "For a present state linked to a past result, use an unreal present form in the condition and 'would have + past participle' in the result.",
+  "GR-CND-008": "'Unless' already means 'if not', so do not add another negative.",
+  "GR-CND-009": "In formal past inversion, use 'Had + subject + past participle' instead of an 'if' clause.",
+  "GR-CND-010": "A formal condition can use 'Should + subject + base verb' or 'Were + subject ...' without 'if'.",
+});
+
+function simpleApplication(ruleId: ConditionalRuleId, answer: string) {
+  switch (ruleId) {
+    case "GR-CND-001": return `Here, “${answer}” gives the present-simple form needed for the general rule.`;
+    case "GR-CND-002": return `Here, the result needs “${answer}” because the condition is a real future possibility.`;
+    case "GR-CND-003": return `Here, “${answer}” is the correct present-simple form in the if-clause.`;
+    case "GR-CND-004": return `Here, “${answer}” gives the required second-conditional form.`;
+    case "GR-CND-005": return `Here, “${answer}” gives the required third-conditional form.`;
+    case "GR-CND-006": return `Here, “${answer}” correctly links a past condition with a present result.`;
+    case "GR-CND-007": return `Here, “${answer}” correctly gives the past result of an unreal present state.`;
+    case "GR-CND-008": return `Here, use “${answer}” because 'unless' already carries the negative meaning.`;
+    case "GR-CND-009": return `Here, “${answer}” is the correct formal past-inversion structure.`;
+    case "GR-CND-010": return `Here, “${answer}” is the correct formal conditional structure without 'if'.`;
+  }
 }
 
 function factorSharedChoiceContext(values: readonly string[]) {
@@ -195,7 +217,7 @@ export function generateEng003Cp011QuestionV1(input: GenerateEng003Cp011V1Input)
     options,
     correctOptionIndex,
     correctedSentence: correction.correctedSentence,
-    explanation: `The blank needs “${correctChoice}”. ${teachingTail(correction.explanation)}`,
+    explanation: `The blank needs “${correctChoice}”. Concept: ${SIMPLE_CONCEPT[correction.metadata.ruleId]} ${simpleApplication(correction.metadata.ruleId, correctChoice)} Correct sentence: ${correction.correctedSentence}`,
     metadata: {
       track: "english",
       chapterId: "ENG-003",
