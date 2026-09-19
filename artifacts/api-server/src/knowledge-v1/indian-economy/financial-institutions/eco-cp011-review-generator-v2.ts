@@ -6,7 +6,7 @@ const STEM_REVISIONS_V2: Readonly<Record<string, string>> = Object.freeze({
   "Why were DFIs important when commercial banks mainly focused on shorter-term finance?": "Why were DFIs important when commercial banks focused on shorter-term finance?",
   "Which feature best separates a DFI from an ordinary retail-banking role?": "Which feature distinguishes a DFI from ordinary retail banking?",
   "IFCI was originally created mainly to meet which need?": "IFCI was originally created to meet which need?",
-  "Which sector is most directly associated with NABARD?": "NABARD is primarily associated with which sector?",
+  "Which sector is most directly associated with NABARD?": "Which sector does NABARD focus on?",
   "A rural cooperative bank needs refinance support for agricultural lending. Which institution is most directly relevant?": "A rural cooperative bank needs refinance support for agricultural lending. Which institution provides this support?",
   "Which statement best describes NABARD's refinance role?": "Which statement correctly describes NABARD's refinance role?",
   "An institution wants to refinance lenders and also provide direct finance to MSMEs. Which institution's mandate fits best?": "Which institution can both refinance lenders and provide direct finance to MSMEs?",
