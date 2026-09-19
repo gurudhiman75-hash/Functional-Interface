@@ -1,0 +1,40 @@
+name: Validate COA CP-012 internal eligibility candidate
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Course-of-Action/COA-001/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cp012-internal-eligibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle COA CP-012 proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Course-of-Action/COA-001/cp012-internal-eligibility-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/course-of-action/cp012-internal-eligibility-proof.test.mjs
+      - name: Run COA CP-012 proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/course-of-action/cp012-internal-eligibility-proof.test.mjs
