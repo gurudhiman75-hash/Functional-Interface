@@ -104,6 +104,7 @@ for (const prototypeId of ALG_CP003_ENGLISH_REVIEW_V4_TARGETS) {
     assert(first.explanation.length >= 150, `${prefix}: explanation is too thin`);
     assert(!/associated|mainly|therefore therefore/i.test(first.question + " " + first.explanation), `${prefix}: mechanical wording leaked`);
     assert(!first.explanation.includes("--"), `${prefix}: double-minus learner notation leaked`);
+    assert(!/\/\(-\d+\s*-\s*a\)/.test(first.explanation), `${prefix}: unsimplified negative denominator leaked`);
 
     states.add(visibleState(first));
     questions.add(first.question);
