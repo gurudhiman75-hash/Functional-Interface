@@ -14,3 +14,6 @@
 - Source verification date: 2026-09-16.
 - Source baseline: NASA, US EPA and UNEP Ozone Secretariat.
 - Approved review artifact: ENV-CP-013 Review V1.
+- Multilingual V1 Wave 8: REVIEW CANDIDATE for Hindi and Punjabi.
+- Localization authority: frozen 48-question English V1 surface.
+- Atmospheric-layer, ozone/ODS and greenhouse-gas distinctions remain invariant; localization is review-only.
