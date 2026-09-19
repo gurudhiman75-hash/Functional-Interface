@@ -15,7 +15,7 @@ const GENERIC_CLUTTER =
   /Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i;
 
 const BAD_STEM =
-  /\bwhom\b|\bby whom\b|for the purposes of|CP027|ownership|review candidate|reimplemented/i;
+  /\bwhom\b|\bby whom\b|for the purposes of|CP027|ownership|review candidate|reimplemented|is dealt with in|is covered by|is contained in|expressly mentioned|provided under|provided in|governed by/i;
 
 export function generatePolCp027ReviewBatchV1(): PolCp027ReviewQuestion[] {
   if (rows.length !== 80) throw new Error(`Expected 80 POL-CP-027 rows, got ${rows.length}`);
