@@ -46,7 +46,7 @@ import {
 } from "./topics/Probability/PRB-002";
 import type { ProbabilityExamProfile } from "./topics/Probability/shared";
 import {
-  MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE,
+  MEN_002_FULL_CHAPTER_QUESTION_STUDIO_PACKAGE,
   generateMenCp009StandardQuestionStudioBatch,
   isMenCp009StandardQuestionStudioRequest,
   type MenCp009StandardQuestionStudioRequest,
@@ -456,7 +456,7 @@ export function listQuantV4Packages() {
   return [
     ...corePackages,
     CAL_001_QUESTION_STUDIO_PACKAGE,
-    MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE,
+    MEN_002_FULL_CHAPTER_QUESTION_STUDIO_PACKAGE,
     pnlPackageForQuestionStudio(),
     ...PRB_RUNTIME_PACKAGES.map(probabilityPackageForQuestionStudio),
   ].sort((left, right) => left.packageId.localeCompare(right.packageId));
