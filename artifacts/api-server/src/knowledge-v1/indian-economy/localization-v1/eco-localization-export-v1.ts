@@ -7,6 +7,8 @@ import {
   generateEcoCp004LocalizedReviewV1,
   generateEcoCp005LocalizedReviewV1,
   generateEcoCp006LocalizedReviewV1,
+  generateEcoCp007LocalizedReviewV1,
+  generateEcoCp008LocalizedReviewV1,
 } from "./eco-localization-generator-v1";
 import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
 
@@ -15,7 +17,7 @@ const locales: EcoLocaleV1[] = ["en", "hi", "pa"];
 const targetDir = path.resolve("dist/economy-review/ECO-MULTILINGUAL-V1");
 fs.mkdirSync(targetDir, { recursive: true });
 
-type Cp = "ECO-CP-001" | "ECO-CP-002" | "ECO-CP-003" | "ECO-CP-004" | "ECO-CP-005" | "ECO-CP-006";
+type Cp = "ECO-CP-001" | "ECO-CP-002" | "ECO-CP-003" | "ECO-CP-004" | "ECO-CP-005" | "ECO-CP-006" | "ECO-CP-007" | "ECO-CP-008";
 
 function renderQuestion(question: EcoLocalizedQuestionV1, index: number): string[] {
   const out = [`**${index + 1}. ${question.stem}**`];
@@ -31,7 +33,9 @@ function questionsFor(cp: Cp, locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
   if (cp === "ECO-CP-003") return generateEcoCp003LocalizedReviewV1(locale);
   if (cp === "ECO-CP-004") return generateEcoCp004LocalizedReviewV1(locale);
   if (cp === "ECO-CP-005") return generateEcoCp005LocalizedReviewV1(locale);
-  return generateEcoCp006LocalizedReviewV1(locale);
+  if (cp === "ECO-CP-006") return generateEcoCp006LocalizedReviewV1(locale);
+  if (cp === "ECO-CP-007") return generateEcoCp007LocalizedReviewV1(locale);
+  return generateEcoCp008LocalizedReviewV1(locale);
 }
 
 function materialize(cps: readonly Cp[], title: string, filename: string) {
@@ -58,3 +62,5 @@ function materialize(cps: readonly Cp[], title: string, filename: string) {
 materialize(["ECO-CP-001", "ECO-CP-002"], "CP001–CP002", "ECO-MULTILINGUAL-V1-CP001-CP002-REVIEW.md");
 materialize(["ECO-CP-003", "ECO-CP-004"], "CP003–CP004", "ECO-MULTILINGUAL-V1-CP003-CP004-REVIEW.md");
 materialize(["ECO-CP-005", "ECO-CP-006"], "CP005–CP006", "ECO-MULTILINGUAL-V1-CP005-CP006-REVIEW.md");
+
+materialize(["ECO-CP-007", "ECO-CP-008"], "CP007–CP008", "ECO-MULTILINGUAL-V1-CP007-CP008-REVIEW.md");
