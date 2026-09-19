@@ -54,7 +54,7 @@ const EXPLANATIONS: Record<string, string> = {
   "POL-CP007-V5-051": "A sentence awarded by a Court Martial falls within the President's clemency power under Article 72.",
   "POL-CP007-V5-052": "The President's clemency power extends to every case involving a death sentence.",
   "POL-CP007-V5-053": "For offences within Union executive power, the President may exercise clemency under Article 72.",
-  "POL-CP007-V5-054": "Pardon removes the punishment and its legal effects to the extent granted. It is the broadest form of clemency here.",
+  "POL-CP007-V5-054": "Pardon removes the punishment and its legal consequences. Among the President's clemency powers, it gives the fullest relief.",
   "POL-CP007-V5-055": "Commutation changes the original punishment into a lighter type of punishment, such as changing one form of sentence to another.",
   "POL-CP007-V5-056": "Remission reduces the length or amount of punishment without changing the basic type of punishment.",
   "POL-CP007-V5-057": "Reprieve temporarily delays the carrying out of a sentence, especially when execution is involved.",
