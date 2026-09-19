@@ -227,7 +227,12 @@ function localizedReasoningSteps(
   locale: BlrCp001TranslatedLocale,
   correctValue: string,
 ): readonly string[] {
-  const names = record.structuredPrompt.personNames;
+  const names = Object.fromEntries(
+    Object.entries(record.structuredPrompt.personNames).map(([id, name]) => [
+      id,
+      localizeBlrPersonName(name, locale),
+    ]),
+  ) as Readonly<Record<string, string>>;
   const wrapped = queryOf(record);
 
   if (wrapped.kind === "RELATION") {
