@@ -4,3 +4,6 @@ export * from "./independent-verifier";
 export * from "./arithmetic-v2-types";
 export * from "./arithmetic-set-v2";
 export * from "./independent-verifier-v2";
+export * from "./permanent-ql-registry";
+export * from "./permanent-question-generator";
+export * from "./question-studio-adapter";
