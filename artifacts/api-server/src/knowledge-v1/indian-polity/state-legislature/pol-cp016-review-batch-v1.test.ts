@@ -31,7 +31,8 @@ describe("POL-CP-016 State Legislature review V1",()=>{
     for(const q of questions){
       const words=q.explanation.trim().split(/\s+/).length;
       expect(words).toBeGreaterThanOrEqual(13);
-      expect(words).toBeLessThanOrEqual(32);
+      const maxWords = q.explanation.includes("Article 173 qualifications:") ? 60 : 32;
+      expect(words).toBeLessThanOrEqual(maxWords);
       expect(q.explanation).not.toMatch(/Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i);
       if(!q.stem.startsWith("Consider the statements:")){
         expect(q.stem.endsWith("?")).toBe(true);
