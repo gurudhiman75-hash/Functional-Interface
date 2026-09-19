@@ -319,7 +319,16 @@ function explanation(q: (typeof ENGLISH)[number], locale: NativeLocale): string 
     const row = ql===17 ? POL_CP004_WRITS_V1.find(x=>x.writ===q.canonicalAnswer)! : POL_CP004_WRITS_V1.find(x=>x.purpose===q.canonicalAnswer)!;
     return locale==="hi"?`${native(WRITS[row.writ]!.name,locale)} का उपयोग ${native(WRITS[row.writ]!.purpose,locale)} होता है।`:`${native(WRITS[row.writ]!.name,locale)} ਦਾ ਵਰਤੋਂ ${native(WRITS[row.writ]!.purpose,locale)} ਹੁੰਦਾ ਹੈ।`;
   }
-  if (ql===19) return locale==="hi"?"संपत्ति का अधिकार मौलिक अधिकार नहीं है; यह अनुच्छेद 300A के तहत संवैधानिक अधिकार के रूप में संरक्षित है।":"ਸੰਪਤੀ ਦਾ ਅਧਿਕਾਰ ਮੂਲ ਅਧਿਕਾਰ ਨਹੀਂ ਹੈ; ਇਹ ਅਨੁਛੇਦ 300A ਹੇਠ ਸੰਵਿਧਾਨਕ ਅਧਿਕਾਰ ਵਜੋਂ ਸੁਰੱਖਿਅਤ ਹੈ।";
+  if (ql===19) {
+    if(q.canonicalAnswer==="Part III"){
+      return locale==="hi"
+        ? "मौलिक अधिकार मुख्य रूप से संविधान के भाग III में दिए गए हैं।"
+        : "ਮੂਲ ਅਧਿਕਾਰ ਮੁੱਖ ਤੌਰ 'ਤੇ ਸੰਵਿਧਾਨ ਦੇ ਭਾਗ III ਵਿੱਚ ਦਿੱਤੇ ਗਏ ਹਨ।";
+    }
+    return locale==="hi"
+      ? "संपत्ति का अधिकार मौलिक अधिकार नहीं है; यह अनुच्छेद 300A के तहत संवैधानिक अधिकार के रूप में संरक्षित है।"
+      : "ਸੰਪਤੀ ਦਾ ਅਧਿਕਾਰ ਮੂਲ ਅਧਿਕਾਰ ਨਹੀਂ ਹੈ; ਇਹ ਅਨੁਛੇਦ 300A ਹੇਠ ਸੰਵਿਧਾਨਕ ਅਧਿਕਾਰ ਵਜੋਂ ਸੁਰੱਖਿਅਤ ਹੈ।";
+  }
   if (ql===20) return locale==="hi"?`सही उत्तर है: ${ans}। प्रत्येक कथन को संबंधित अनुच्छेद या रिट के वास्तविक नियम से मिलाकर देखें।`:`ਸਹੀ ਉੱਤਰ ਹੈ: ${ans}। ਹਰ ਬਿਆਨ ਨੂੰ ਸੰਬੰਧਿਤ ਅਨੁਛੇਦ ਜਾਂ ਰਿਟ ਦੇ ਅਸਲ ਨਿਯਮ ਨਾਲ ਮਿਲਾ ਕੇ ਵੇਖੋ।`;
   return locale==="hi"?`सही उत्तर है: ${ans}।`:`ਸਹੀ ਉੱਤਰ ਹੈ: ${ans}।`;
 }
