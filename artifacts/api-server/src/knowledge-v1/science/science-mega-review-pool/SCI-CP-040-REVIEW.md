@@ -13,9 +13,9 @@ D. pressure
 
 **Answer:** A. energy
 
-**Explanation:** The joule is the SI unit of energy and work. Force is measured in newtons, power in watts and pressure in pascals.
+**Explanation:** The joule is the SI unit of energy and work. Force is measured in newtons, power in watts and pressure in pascals. Work is also measured in joules because work is a form of energy transfer.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-JOULE-ENERGY`
 
 ## Q02 · Easy · Physics foundations mega review
 
@@ -28,9 +28,9 @@ D. density
 
 **Answer:** B. velocity
 
-**Explanation:** Acceleration tells how quickly velocity changes with time. Because velocity includes direction, a change in direction can also mean acceleration even if speed stays constant.
+**Explanation:** Acceleration tells how quickly velocity changes with time. Because velocity includes direction, a change in direction can also mean acceleration even if speed stays constant. This is why circular motion can involve acceleration even at constant speed.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-ACCELERATION`
 
 ## Q03 · Medium · Physics foundations mega review
 
@@ -43,9 +43,9 @@ D. 9 N
 
 **Answer:** C. 6 N
 
-**Explanation:** Newton's second law gives force as mass multiplied by acceleration. Multiplying 2 kg by 3 m/s² gives a net force of 6 newtons.
+**Explanation:** Newton's second law gives force as mass multiplied by acceleration. Multiplying 2 kg by 3 m/s² gives a net force of 6 newtons. The result follows directly from F = ma.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-FMA`
 
 ## Q04 · Medium · Physics foundations mega review
 
@@ -58,9 +58,9 @@ D. Action and reaction forces act in opposite directions
 
 **Answer:** D. Action and reaction forces act in opposite directions
 
-**Explanation:** Expelled gases are pushed backward, and an equal and opposite force pushes the rocket forward. This illustrates Newton's third law of motion.
+**Explanation:** Expelled gases are pushed backward, and an equal and opposite force pushes the rocket forward. This illustrates Newton's third law of motion. Rocket motion does not require air outside the rocket for this reaction force.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-ROCKET-THIRD-LAW`
 
 ## Q05 · Medium · Physics foundations mega review
 
@@ -73,9 +73,9 @@ D. Momentum does not depend on mass
 
 **Answer:** A. The object with greater mass
 
-**Explanation:** Momentum equals mass multiplied by velocity. At the same speed, the object with greater mass therefore has greater momentum.
+**Explanation:** Momentum equals mass multiplied by velocity. At the same speed, the object with greater mass therefore has greater momentum. This simple relation is useful when comparing vehicles moving at the same speed.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-MOMENTUM-MASS`
 
 ## Q06 · Hard · Physics foundations mega review
 
@@ -88,9 +88,9 @@ D. The truck must always be faster
 
 **Answer:** B. The lighter car may be moving faster than the truck
 
-**Explanation:** Kinetic energy depends on both mass and the square of speed. A lighter vehicle can have the same kinetic energy as a heavier one if it moves faster.
+**Explanation:** Kinetic energy depends on both mass and the square of speed. A lighter vehicle can have the same kinetic energy as a heavier one if it moves faster. The square of speed makes kinetic-energy comparisons very sensitive to velocity.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-KE-MASS-SPEED`
 
 ## Q07 · Easy · Heat, fluids, sound and optics mega review
 
@@ -103,9 +103,9 @@ D. surface colour
 
 **Answer:** C. depth
 
-**Explanation:** Liquid pressure increases with depth because deeper points support a greater column of liquid above them. Density and gravity also affect pressure.
+**Explanation:** Liquid pressure increases with depth because deeper points support a greater column of liquid above them. Density and gravity also affect pressure. This principle also explains why dams are thicker near their lower sections.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-LIQUID-PRESSURE`
 
 ## Q08 · Easy · Heat, fluids, sound and optics mega review
 
@@ -118,9 +118,9 @@ D. steel
 
 **Answer:** D. steel
 
-**Explanation:** Sound generally travels faster in solids than in gases because particles are more closely coupled. Sound cannot travel through a vacuum at all.
+**Explanation:** Sound generally travels faster in solids than in gases because particles are more closely coupled. Sound cannot travel through a vacuum at all. The closely packed particles in solids transmit vibrations efficiently.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-SOUND-STEEL`
 
 ## Q09 · Medium · Heat, fluids, sound and optics mega review
 
@@ -133,9 +133,9 @@ D. Steam stops forming
 
 **Answer:** A. The increased pressure raises water's boiling point
 
-**Explanation:** Higher pressure allows water to boil at a temperature above its normal boiling point. The hotter water and steam cook food more quickly.
+**Explanation:** Higher pressure allows water to boil at a temperature above its normal boiling point. The hotter water and steam cook food more quickly. At high altitude the opposite effect occurs because lower pressure lowers boiling temperature.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-PRESSURE-COOKER`
 
 ## Q10 · Medium · Heat, fluids, sound and optics mega review
 
@@ -148,9 +148,9 @@ D. stop radiation
 
 **Answer:** B. concentrate sunlight at a focus
 
-**Explanation:** A concave mirror can bring parallel rays of sunlight toward a focus. Concentrating the radiation in a small region raises temperature.
+**Explanation:** A concave mirror can bring parallel rays of sunlight toward a focus. Concentrating the radiation in a small region raises temperature. The same focusing property is used in some reflecting telescopes and solar furnaces.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-CONCAVE-SOLAR`
 
 ## Q11 · Medium · Heat, fluids, sound and optics mega review
 
@@ -163,9 +163,9 @@ D. Air conducts heat very well
 
 **Answer:** C. They trap air that slows heat loss
 
-**Explanation:** Wool fibres trap pockets of air, and air is a poor conductor of heat. This reduces the rate at which body heat escapes.
+**Explanation:** Wool fibres trap pockets of air, and air is a poor conductor of heat. This reduces the rate at which body heat escapes. Air trapped in other insulating materials works for the same reason.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-WOOL`
 
 ## Q12 · Hard · Heat, fluids, sound and optics mega review
 
@@ -178,9 +178,9 @@ D. The metal lid expands slightly when heated
 
 **Answer:** D. The metal lid expands slightly when heated
 
-**Explanation:** Heating causes the metal lid to expand. Even a small expansion can loosen the fit between lid and jar and make opening easier.
+**Explanation:** Heating causes the metal lid to expand. Even a small expansion can loosen the fit between lid and jar and make opening easier. Different materials expand by different amounts when heated.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-THERMAL-EXPANSION-LID`
 
 ## Q13 · Easy · Electricity, magnetism and modern physics mega review
 
@@ -193,9 +193,9 @@ D. tesla
 
 **Answer:** A. ohm
 
-**Explanation:** Electrical resistance is measured in ohms. Current is measured in amperes and potential difference in volts.
+**Explanation:** Electrical resistance is measured in ohms. Current is measured in amperes and potential difference in volts. The unit is named after Georg Simon Ohm.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-OHM-UNIT`
 
 ## Q14 · Easy · Electricity, magnetism and modern physics mega review
 
@@ -208,9 +208,9 @@ D. thermometer
 
 **Answer:** B. electric motor
 
-**Explanation:** An electric motor uses magnetic forces on current-carrying conductors to produce motion. It converts electrical energy into mechanical energy.
+**Explanation:** An electric motor uses magnetic forces on current-carrying conductors to produce motion. It converts electrical energy into mechanical energy. The reverse conversion, from mechanical to electrical energy, occurs in generators.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-MOTOR`
 
 ## Q15 · Medium · Electricity, magnetism and modern physics mega review
 
@@ -223,9 +223,9 @@ D. sound reflection
 
 **Answer:** C. changing magnetic flux
 
-**Explanation:** A transformer uses electromagnetic induction. The changing current in one coil produces changing magnetic flux that induces voltage in another coil.
+**Explanation:** A transformer uses electromagnetic induction. The changing current in one coil produces changing magnetic flux that induces voltage in another coil. Without a changing magnetic field, the secondary coil would not receive a continuously induced voltage.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-TRANSFORMER`
 
 ## Q16 · Medium · Electricity, magnetism and modern physics mega review
 
@@ -238,13 +238,13 @@ D. ultraviolet
 
 **Answer:** D. ultraviolet
 
-**Explanation:** Ultraviolet radiation has higher frequency than visible light, while infrared has lower frequency. Higher frequency also means higher photon energy.
+**Explanation:** Ultraviolet radiation has higher frequency than visible light, while infrared has lower frequency. Higher frequency also means higher photon energy. Ultraviolet radiation therefore carries more photon energy than visible or infrared radiation.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-UV-FREQUENCY`
 
 ## Q17 · Medium · Electricity, magnetism and modern physics mega review
 
-A fuse is placed in a circuit mainly to protect against:
+A fuse is placed in a circuit to protect against:
 
 A. excessive current
 B. low humidity
@@ -253,9 +253,9 @@ D. weak magnetism
 
 **Answer:** A. excessive current
 
-**Explanation:** A fuse wire melts when current becomes dangerously high. Breaking the circuit helps protect wiring and appliances from overheating.
+**Explanation:** A fuse wire melts when current becomes dangerously high. Breaking the circuit helps protect wiring and appliances from overheating. Protective devices are especially important when a short circuit or overload occurs.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-FUSE`
 
 ## Q18 · Hard · Electricity, magnetism and modern physics mega review
 
@@ -268,9 +268,9 @@ D. Resistance becomes exactly zero
 
 **Answer:** B. The magnetic flux through the coil changes
 
-**Explanation:** Rotation changes the magnetic flux linked with the coil. Faraday's law states that changing magnetic flux induces an electromotive force and can drive current.
+**Explanation:** Rotation changes the magnetic flux linked with the coil. Faraday's law states that changing magnetic flux induces an electromotive force and can drive current. This is the central working principle of electric generators.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-GENERATOR-INDUCTION`
 
 ## Q19 · Easy · Chemistry foundations mega review
 
@@ -283,9 +283,9 @@ D. molecules
 
 **Answer:** C. protons and neutrons
 
-**Explanation:** The nucleus contains positively charged protons and neutral neutrons. Electrons occupy regions outside the nucleus.
+**Explanation:** The nucleus contains positively charged protons and neutral neutrons. Electrons occupy regions outside the nucleus. This compact nucleus contains nearly all of the atom's mass.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-NUCLEUS`
 
 ## Q20 · Easy · Chemistry foundations mega review
 
@@ -298,9 +298,9 @@ D. atomic number
 
 **Answer:** D. atomic number
 
-**Explanation:** The modern periodic table is arranged by atomic number, which is the number of protons in the nucleus. This ordering explains periodic chemical patterns.
+**Explanation:** The modern periodic table is arranged by atomic number, which is the number of protons in the nucleus. This ordering explains periodic chemical patterns. Elements with similar outer-electron arrangements appear in repeating groups.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-PERIODIC-ATOMIC-NUMBER`
 
 ## Q21 · Medium · Chemistry foundations mega review
 
@@ -313,9 +313,9 @@ D. They are always solids
 
 **Answer:** A. Their outer electron shells are stable
 
-**Explanation:** Noble gases have stable outer-shell electron arrangements. Because of this, they have little tendency to gain, lose or share electrons.
+**Explanation:** Noble gases have stable outer-shell electron arrangements. Because of this, they have little tendency to gain, lose or share electrons. The stability of the outer shell explains their low chemical reactivity.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-NOBLE-GAS`
 
 ## Q22 · Medium · Chemistry foundations mega review
 
@@ -328,9 +328,9 @@ D. Loss of all electrons
 
 **Answer:** B. Gain of oxygen
 
-**Explanation:** Oxidation can be described as gain of oxygen or loss of electrons, depending on context. The oxygen-based definition is common in introductory chemistry.
+**Explanation:** Oxidation can be described as gain of oxygen or loss of electrons, depending on context. The oxygen-based definition is common in introductory chemistry. Electron loss is another common way to describe oxidation in redox chemistry.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-OXIDATION`
 
 ## Q23 · Medium · Chemistry foundations mega review
 
@@ -343,9 +343,9 @@ D. All bonds disappear instantly
 
 **Answer:** C. Particles collide more often and with greater energy
 
-**Explanation:** Heating increases particle motion and collision energy. A larger fraction of collisions can then overcome the activation-energy barrier and lead to reaction.
+**Explanation:** Heating increases particle motion and collision energy. A larger fraction of collisions can then overcome the activation-energy barrier and lead to reaction. Faster collisions alone are not enough; they must also have sufficient energy.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-TEMP-REACTION-RATE`
 
 ## Q24 · Hard · Chemistry foundations mega review
 
@@ -358,9 +358,9 @@ D. isotopes of the same element
 
 **Answer:** D. isotopes of the same element
 
-**Explanation:** The number of protons determines the element. Different neutron numbers change the mass number without changing elemental identity, producing isotopes.
+**Explanation:** The number of protons determines the element. Different neutron numbers change the mass number without changing elemental identity, producing isotopes. Isotopes can therefore have similar chemical behavior but different physical properties.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-ISOTOPES`
 
 ## Q25 · Easy · Applied chemistry mega review
 
@@ -373,9 +373,9 @@ D. redder
 
 **Answer:** A. blue
 
-**Explanation:** Bases turn red litmus blue, while acids turn blue litmus red. Litmus gives a quick qualitative indication of acidic or basic character.
+**Explanation:** Bases turn red litmus blue, while acids turn blue litmus red. Litmus gives a quick qualitative indication of acidic or basic character. The colour change is useful for quick qualitative testing, not exact pH measurement.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-LITMUS-BASE`
 
 ## Q26 · Easy · Applied chemistry mega review
 
@@ -388,9 +388,9 @@ D. solder
 
 **Answer:** B. steel
 
-**Explanation:** Steel is an alloy based mainly on iron with carbon and sometimes other elements. Brass is mainly copper and zinc, while bronze is mainly copper and tin.
+**Explanation:** Steel is an alloy based on iron with carbon and sometimes other elements. Brass is copper and zinc, while bronze is copper and tin. Changing carbon content and added alloying elements can greatly change steel properties.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-STEEL`
 
 ## Q27 · Medium · Applied chemistry mega review
 
@@ -403,9 +403,9 @@ D. It is always coated with plastic
 
 **Answer:** C. Chromium forms a protective oxide layer
 
-**Explanation:** Chromium in stainless steel forms a thin protective oxide layer on the surface. This layer slows further corrosion under normal conditions.
+**Explanation:** Chromium in stainless steel forms a thin protective oxide layer on the surface. This layer slows further corrosion under normal conditions. If the layer is damaged, chromium can reform the passive surface in the presence of oxygen.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-STAINLESS-STEEL`
 
 ## Q28 · Medium · Applied chemistry mega review
 
@@ -418,9 +418,9 @@ D. hydrogenation
 
 **Answer:** D. hydrogenation
 
-**Explanation:** Hydrogenation adds hydrogen across some carbon–carbon double bonds. This makes the oil more saturated and can change its physical properties.
+**Explanation:** Hydrogenation adds hydrogen across some carbon–carbon double bonds. This makes the oil more saturated and can change its physical properties. Hydrogenation is used in food processing and industrial chemistry.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-HYDROGENATION`
 
 ## Q29 · Medium · Applied chemistry mega review
 
@@ -433,9 +433,9 @@ D. It prevents heating
 
 **Answer:** A. It can release carbon dioxide gas
 
-**Explanation:** Baking soda can produce carbon dioxide during heating or reaction with acids. Gas bubbles expand in the batter and help make the product light and porous.
+**Explanation:** Baking soda can produce carbon dioxide during heating or reaction with acids. Gas bubbles expand in the batter and help make the product light and porous. The expanding gas creates small spaces that remain in the baked food.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-BAKING-SODA`
 
 ## Q30 · Hard · Applied chemistry mega review
 
@@ -448,9 +448,9 @@ D. It cannot lose electrons
 
 **Answer:** B. It is more reactive than hydrogen in the activity series
 
-**Explanation:** Metals above hydrogen in the activity series can displace hydrogen from dilute acids. The reaction forms a salt and releases hydrogen gas.
+**Explanation:** Metals above hydrogen in the activity series can displace hydrogen from dilute acids. The reaction forms a salt and releases hydrogen gas. Metals below hydrogen generally do not release hydrogen from dilute non-oxidizing acids.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-METAL-ACID`
 
 ## Q31 · Easy · Cell, plant and classification mega review
 
@@ -463,9 +463,9 @@ D. vacuole
 
 **Answer:** C. mitochondrion
 
-**Explanation:** Mitochondria carry out major stages of aerobic respiration and produce ATP. ATP supplies usable energy for many cellular processes.
+**Explanation:** Mitochondria carry out major stages of aerobic respiration and produce ATP. ATP supplies usable energy for many cellular processes. Cells with high energy demand often contain many mitochondria.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-MITOCHONDRIA`
 
 ## Q32 · Easy · Cell, plant and classification mega review
 
@@ -478,9 +478,9 @@ D. guard cells
 
 **Answer:** D. guard cells
 
-**Explanation:** Guard cells change shape as their water content changes, opening or closing the stomatal pore. This regulates gas exchange and water loss.
+**Explanation:** Guard cells change shape as their water content changes, opening or closing the stomatal pore. This regulates gas exchange and water loss. Stomatal control balances carbon dioxide uptake with water conservation.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-GUARD-CELLS`
 
 ## Q33 · Medium · Cell, plant and classification mega review
 
@@ -493,9 +493,9 @@ D. cork only
 
 **Answer:** A. phloem
 
-**Explanation:** Phloem transports sucrose and other organic substances from source regions such as leaves to growing or storage tissues.
+**Explanation:** Phloem transports sucrose and other organic substances from source regions such as leaves to growing or storage tissues. Food can move from a source leaf toward growing roots, fruits or storage organs.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-PHLOEM`
 
 ## Q34 · Medium · Cell, plant and classification mega review
 
@@ -508,9 +508,9 @@ D. are prokaryotic
 
 **Answer:** B. lack chlorophyll and obtain food heterotrophically
 
-**Explanation:** Fungi do not contain chlorophyll and cannot make food by photosynthesis. They absorb nutrients from organic material in their surroundings.
+**Explanation:** Fungi do not contain chlorophyll and cannot make food by photosynthesis. They absorb nutrients from organic material in their surroundings. Many fungi act as decomposers and recycle nutrients from dead material.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-FUNGI`
 
 ## Q35 · Medium · Cell, plant and classification mega review
 
@@ -523,9 +523,9 @@ D. thyroxine
 
 **Answer:** C. auxin
 
-**Explanation:** Auxin promotes cell elongation in many plant tissues and helps produce directional growth responses such as phototropism.
+**Explanation:** Auxin promotes cell elongation in many plant tissues and helps produce directional growth responses such as phototropism. Unequal auxin distribution can cause different growth rates on opposite sides of an organ.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-AUXIN`
 
 ## Q36 · Hard · Cell, plant and classification mega review
 
@@ -538,9 +538,9 @@ D. Water uptake by roots is reduced
 
 **Answer:** D. Water uptake by roots is reduced
 
-**Explanation:** Roots and root hairs absorb water from soil. Severe root damage reduces uptake, so leaves lose water faster than it can be replaced and the plant wilts.
+**Explanation:** Roots and root hairs absorb water from soil. Severe root damage reduces uptake, so leaves lose water faster than it can be replaced and the plant wilts. This shows how root function and water transport are linked.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-ROOT-DAMAGE`
 
 ## Q37 · Easy · Human biology mega review
 
@@ -553,9 +553,9 @@ D. white blood cells
 
 **Answer:** A. red blood cells
 
-**Explanation:** Red blood cells contain haemoglobin, which binds oxygen in the lungs and transports it to tissues. Their shape also supports efficient gas transport.
+**Explanation:** Red blood cells contain haemoglobin, which binds oxygen in the lungs and transports it to tissues. Their shape also supports efficient gas transport. Haemoglobin gives red blood cells their oxygen-carrying ability.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-RBC-OXYGEN`
 
 ## Q38 · Easy · Human biology mega review
 
@@ -568,9 +568,9 @@ D. spinal nerve
 
 **Answer:** B. cerebellum
 
-**Explanation:** The cerebellum helps coordinate voluntary movement, posture and balance. Damage can cause poor coordination even if muscles themselves are normal.
+**Explanation:** The cerebellum helps coordinate voluntary movement, posture and balance. Damage can cause poor coordination even if muscles themselves are normal. The cerebellum works with sensory information to fine-tune movement.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-CEREBELLUM`
 
 ## Q39 · Medium · Human biology mega review
 
@@ -583,9 +583,9 @@ D. To store bile
 
 **Answer:** C. To increase surface area for absorption
 
-**Explanation:** Villi and microvilli greatly increase the inner surface area of the small intestine. This improves absorption of digested nutrients into blood and lymph.
+**Explanation:** Villi and microvilli greatly increase the inner surface area of the small intestine. This improves absorption of digested nutrients into blood and lymph. This large surface area is essential because nutrient absorption must occur efficiently.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-VILLI`
 
 ## Q40 · Medium · Human biology mega review
 
@@ -598,9 +598,9 @@ D. adrenaline
 
 **Answer:** D. adrenaline
 
-**Explanation:** Adrenaline increases heart rate, redirects blood flow and helps mobilize energy during sudden stress. It is released from the adrenal glands.
+**Explanation:** Adrenaline increases heart rate, redirects blood flow and helps mobilize energy during sudden stress. It is released from the adrenal glands. The response also prepares muscles and circulation for rapid action.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-ADRENALINE`
 
 ## Q41 · Medium · Human biology mega review
 
@@ -613,9 +613,9 @@ D. thyroid gland
 
 **Answer:** A. spinal cord
 
-**Explanation:** Many reflex pathways are processed through the spinal cord for speed. The brain is informed, but the protective response can begin before conscious awareness.
+**Explanation:** Many reflex pathways are processed through the spinal cord for speed. The brain is informed, but the protective response can begin before conscious awareness. Reflexes are protective because they reduce the delay before a response begins.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-REFLEX-SPINAL`
 
 ## Q42 · Hard · Human biology mega review
 
@@ -628,9 +628,9 @@ D. Urine formation stops completely
 
 **Answer:** B. Blood glucose may remain abnormally high
 
-**Explanation:** Insulin helps cells take up glucose and promotes storage after meals. Too little insulin can therefore lead to persistent high blood glucose.
+**Explanation:** Insulin helps cells take up glucose and promotes storage after meals. Too little insulin can therefore lead to persistent high blood glucose. Persistently high blood glucose is a key feature of diabetes mellitus.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-LOW-INSULIN`
 
 ## Q43 · Easy · Health, heredity and microorganisms mega review
 
@@ -643,9 +643,9 @@ D. vitamin B12 only
 
 **Answer:** C. vitamin A
 
-**Explanation:** Vitamin A is important for normal visual pigments in the retina. Deficiency can impair vision in dim light and cause night blindness.
+**Explanation:** Vitamin A is important for normal visual pigments in the retina. Deficiency can impair vision in dim light and cause night blindness. Vitamin A deficiency can also affect the health of epithelial tissues.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-VITAMIN-A`
 
 ## Q44 · Easy · Health, heredity and microorganisms mega review
 
@@ -658,9 +658,9 @@ D. protozoan parasite
 
 **Answer:** D. protozoan parasite
 
-**Explanation:** Malaria is caused by Plasmodium parasites and is transmitted by infected female Anopheles mosquitoes. It is not a bacterial or viral disease.
+**Explanation:** Malaria is caused by Plasmodium parasites and is transmitted by infected female Anopheles mosquitoes. It is not a bacterial or viral disease. Controlling mosquito vectors is therefore an important part of malaria prevention.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-MALARIA`
 
 ## Q45 · Medium · Health, heredity and microorganisms mega review
 
@@ -673,9 +673,9 @@ D. They always cause deficiency disease
 
 **Answer:** A. Overuse can select for resistant bacteria
 
-**Explanation:** Unnecessary antibiotic use creates selection pressure that favours resistant bacteria. This can make future bacterial infections harder to treat.
+**Explanation:** Unnecessary antibiotic use creates selection pressure that favours resistant bacteria. This can make future bacterial infections harder to treat. Resistance can spread through populations and make standard treatments less effective.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-AMR`
 
 ## Q46 · Medium · Health, heredity and microorganisms mega review
 
@@ -688,9 +688,9 @@ D. both A and B
 
 **Answer:** B. Neither A nor B
 
-**Explanation:** In the ABO system, group O red blood cells lack both A and B surface antigens. Plasma typically contains antibodies against both A and B.
+**Explanation:** In the ABO system, group O red blood cells lack both A and B surface antigens. Plasma typically contains antibodies against both A and B. This antigen pattern is why ABO compatibility matters in blood transfusion.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-ABO-O`
 
 ## Q47 · Medium · Health, heredity and microorganisms mega review
 
@@ -703,9 +703,9 @@ D. stops reproduction
 
 **Answer:** C. provides differences on which selection can act
 
-**Explanation:** Natural selection requires heritable differences among individuals. Traits that improve reproductive success can become more common over generations.
+**Explanation:** Natural selection requires heritable differences among individuals. Traits that improve reproductive success can become more common over generations. Without variation, natural selection would have little inherited diversity to favor.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-VARIATION-SELECTION`
 
 ## Q48 · Hard · Health, heredity and microorganisms mega review
 
@@ -718,9 +718,9 @@ D. Resistant variants survive and reproduce more successfully
 
 **Answer:** D. Resistant variants survive and reproduce more successfully
 
-**Explanation:** Some bacteria may already carry resistance-conferring variation. Antibiotic exposure kills susceptible cells more readily, allowing resistant survivors to multiply.
+**Explanation:** Some bacteria may already carry resistance-conferring variation. Antibiotic exposure kills susceptible cells more readily, allowing resistant survivors to multiply. This is natural selection acting on a microbial population.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-RESISTANCE-SELECTION`
 
 ## Q49 · Easy · Ecology, environment and biotechnology mega review
 
@@ -733,9 +733,9 @@ D. sound
 
 **Answer:** A. ultraviolet radiation
 
-**Explanation:** Stratospheric ozone absorbs a large fraction of harmful ultraviolet radiation. This reduces UV exposure at Earth's surface.
+**Explanation:** Stratospheric ozone absorbs a large fraction of harmful ultraviolet radiation. This reduces UV exposure at Earth's surface. Ozone depletion therefore increases the amount of harmful UV reaching the surface.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-OZONE-UV`
 
 ## Q50 · Medium · Ecology, environment and biotechnology mega review
 
@@ -748,9 +748,9 @@ D. Producers contain no energy
 
 **Answer:** B. Available energy decreases at higher trophic levels
 
-**Explanation:** Only a fraction of energy passes from one trophic level to the next. Progressive energy loss limits how many higher levels can be supported.
+**Explanation:** Only a fraction of energy passes from one trophic level to the next. Progressive energy loss limits how many higher levels can be supported. Energy pyramids remain upright because usable energy falls at each transfer.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-FOOD-CHAIN-LENGTH`
 
 ## Q51 · Medium · Ecology, environment and biotechnology mega review
 
@@ -763,9 +763,9 @@ D. denitrification
 
 **Answer:** C. photosynthesis
 
-**Explanation:** Photosynthetic organisms take in carbon dioxide and convert its carbon into organic molecules using light energy. This transfers carbon from the atmosphere into biomass.
+**Explanation:** Photosynthetic organisms take in carbon dioxide and convert its carbon into organic molecules using light energy. This transfers carbon from the atmosphere into biomass. Respiration and combustion return much of that carbon to the atmosphere.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-PHOTOSYNTHESIS-CARBON`
 
 ## Q52 · Medium · Ecology, environment and biotechnology mega review
 
@@ -778,9 +778,9 @@ D. make many copies of a selected DNA sequence
 
 **Answer:** D. make many copies of a selected DNA sequence
 
-**Explanation:** Polymerase chain reaction amplifies a chosen DNA region through repeated cycles. It is useful when only a small amount of DNA is initially available.
+**Explanation:** Polymerase chain reaction amplifies a chosen DNA region through repeated cycles. It is useful when only a small amount of DNA is initially available. PCR is therefore valuable in diagnosis, research and forensic analysis.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-PCR`
 
 ## Q53 · Hard · Ecology, environment and biotechnology mega review
 
@@ -793,9 +793,9 @@ D. Fertilizer removes all water
 
 **Answer:** A. Decomposition of dead algae lowers dissolved oxygen
 
-**Explanation:** After a large bloom, dead algae are decomposed by microorganisms. Their respiration consumes dissolved oxygen, creating conditions that can kill fish.
+**Explanation:** After a large bloom, dead algae are decomposed by microorganisms. Their respiration consumes dissolved oxygen, creating conditions that can kill fish. The key problem is not simply algae themselves but the later oxygen demand of decomposition.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-EUTROPHICATION`
 
 ## Q54 · Hard · Ecology, environment and biotechnology mega review
 
@@ -808,9 +808,9 @@ D. DNA cannot function across species
 
 **Answer:** B. The genetic code is nearly universal and the inserted gene can be expressed
 
-**Explanation:** The genetic code is highly conserved, so bacterial cells can read many inserted human gene sequences. With suitable control elements, they can produce the encoded protein.
+**Explanation:** The genetic code is highly conserved, so bacterial cells can read many inserted human gene sequences. With suitable control elements, they can produce the encoded protein. Bacteria can act as biological factories when the gene is inserted and controlled correctly.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-RECOMBINANT-INSULIN`
 
 ## Q55 · Easy · Final integrated science challenge
 
@@ -823,9 +823,9 @@ D. J. C. Bose
 
 **Answer:** C. C. V. Raman
 
-**Explanation:** C. V. Raman discovered a change in wavelength when light is inelastically scattered by matter. The phenomenon is known as the Raman effect.
+**Explanation:** C. V. Raman discovered a change in wavelength when light is inelastically scattered by matter. The phenomenon is known as the Raman effect. His discovery became important for identifying molecular structure through Raman spectroscopy.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-RAMAN`
 
 ## Q56 · Medium · Final integrated science challenge
 
@@ -838,9 +838,9 @@ D. hygrometer
 
 **Answer:** D. hygrometer
 
-**Explanation:** A hygrometer measures moisture in the air. A barometer measures pressure, an anemometer wind speed and an ammeter electric current.
+**Explanation:** A hygrometer measures moisture in the air. A barometer measures pressure, an anemometer wind speed and an ammeter electric current. Humidity information is important in weather, comfort and evaporation studies.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-HYGROMETER`
 
 ## Q57 · Medium · Final integrated science challenge
 
@@ -853,9 +853,9 @@ D. Hygrometer measures pressure
 
 **Answer:** A. Voltmeter measures potential difference and is connected in parallel
 
-**Explanation:** A voltmeter measures potential difference between two points and is connected in parallel. Its high resistance minimizes disturbance of the circuit.
+**Explanation:** A voltmeter measures potential difference between two points and is connected in parallel. Its high resistance minimizes disturbance of the circuit. An ammeter, by contrast, measures current and is connected in series.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-VOLTMETER`
 
 ## Q58 · Medium · Final integrated science challenge
 
@@ -868,9 +868,9 @@ D. The boiling point rises sharply
 
 **Answer:** B. Lower atmospheric pressure lowers the boiling temperature
 
-**Explanation:** At high altitude, lower atmospheric pressure allows water to boil at a lower temperature. Boiling begins sooner, but the water is cooler, so cooking can take longer.
+**Explanation:** At high altitude, lower atmospheric pressure allows water to boil at a lower temperature. Boiling begins sooner, but the water is cooler, so cooking can take longer. Pressure changes with altitude, so boiling temperature changes as well.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-ALTITUDE-BOILING`
 
 ## Q59 · Hard · Final integrated science challenge
 
@@ -883,9 +883,9 @@ D. Bohr—penicillin; Fleming—atomic model; Jenner—neutron
 
 **Answer:** C. Thomson—electron; Rutherford—nucleus; Chadwick—neutron
 
-**Explanation:** Thomson identified the electron, Rutherford's scattering work revealed the nucleus and Chadwick discovered the neutron. These are high-frequency atomic-structure associations.
+**Explanation:** Thomson identified the electron, Rutherford's scattering work revealed the nucleus and Chadwick discovered the neutron. These are high-frequency atomic-structure associations. Keeping these three discoveries separate is a common atomic-structure revision point.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-ATOMIC-SCIENTISTS`
 
 ## Q60 · Hard · Final integrated science challenge
 
@@ -898,7 +898,7 @@ D. Trophic energy transfer → immune memory → voltmeter
 
 **Answer:** D. Trophic energy transfer → immune memory → voltmeter
 
-**Explanation:** Energy moves through trophic levels in ecosystems, vaccination develops immune memory and a voltmeter measures potential difference. The set correctly spans ecology, biology and physics.
+**Explanation:** Energy moves through trophic levels in ecosystems, vaccination develops immune memory and a voltmeter measures potential difference. The set correctly spans ecology, biology and physics. The question deliberately combines three fields to test whether the core link in each is remembered.
 
-**Source fact:** `M`
+**Source fact:** `MEGA-CROSS-DOMAIN-FINAL`
 
