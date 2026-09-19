@@ -98,6 +98,12 @@ jobs:
       - name: Prove chapter multilingual human review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-human-review-pack.test.ts
 
+      - name: Prove multilingual freeze approval receipt
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-freeze-gate.test.ts
+
+      - name: Prove approved multilingual frozen runtime
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-frozen-runtime.test.ts
+
       - name: Export chapter multilingual human review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-human-review-pack.ts blr-001-multilingual-human-review-output
 
