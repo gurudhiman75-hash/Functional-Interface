@@ -540,6 +540,7 @@ export function localizeDi008Question(
     language: locale === "hi-IN" ? "hi" as const : "pa" as const,
     locale,
     localizationReviewId: DI008_LOCALIZATION_REVIEW_ID,
+    localizationReleaseId: DI008_LOCALIZATION_RELEASE_ID,
     localizationStatus: "HI_PA_FROZEN" as const,
     sourceEnglishStatus: "ENGLISH_REVIEW_APPROVED" as const,
     stimulus,
