@@ -44,6 +44,7 @@ const PUNJABI_LITERAL_CALQUES = [
   "ਨਾਲ ਸੰਬੰਧਿਤ",
   "ਹਰ ਵਿਅਕਤੀਆਂ",
   "ਕੁਝ ਕੁਝ",
+  "ਉਪਚਾਰ",
 ] as const;
 
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
