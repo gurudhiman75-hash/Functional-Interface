@@ -17,7 +17,11 @@ const locales: PolLocaleV1[] = ["en","hi","pa"];
 function text(q: PolLocalizedQuestionV1){ return [q.stem,...q.options,q.explanation].join("\n"); }
 
 function numericTokens(value:string){
-  return [...new Set(value.match(/\d+[A-Z]?(?:\([a-z0-9]+\))?/g) ?? [])].sort();
+  const withoutListNumbers = value
+    .split("\n")
+    .map((line) => line.replace(/^\s*\d+[.)]\s+/, ""))
+    .join("\n");
+  return [...new Set(withoutListNumbers.match(/\d+[A-Z]?(?:\([a-z0-9]+\))?/g) ?? [])].sort();
 }
 
 const PUNJABI_LITERAL_CALQUES = [
