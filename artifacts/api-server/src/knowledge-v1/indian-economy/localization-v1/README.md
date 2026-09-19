@@ -54,7 +54,7 @@ Quality gates:
 - all other Latin-script text is treated as leakage and fails the executable audit
 - current protected labels include Disinflation, Demand-pull inflation, Cost-push inflation, Headline inflation, Core inflation, GDP deflator, Core CPI, Hyperinflation, Headcount ratio, Fiat money, Legal tender, Reserve money, High-powered money, Narrow money, Broad money, Money multiplier, Lender of last resort, Repo, Reverse Repo, Bank Rate, Open Market Operations, Standing Deposit Facility, Marginal Standing Facility, LAF corridor, Small Finance Bank, Payments Bank, Priority Sector Lending, Commercial Paper, and official committee/group names
 - full CP001–CP014 terminology/parity audit runs in Economy CI across 612 questions per locale / 1,836 surfaces
-- CP009–CP014 stems pass a mechanical-phrasing guard covering generated fillers such as `other things equal`, `mainly`, `generally`, `best fits`, `most directly`, `best distinguishes` and native-language equivalents
+- CP009–CP014 stems pass a mechanical-phrasing guard covering generated fillers such as `other things equal`, `mainly`, `generally`, `primarily`, `normally`, `best fits`, `most directly`, `main role`, `best represents`, `best distinguishes` and native-language equivalents
 
 Review exports:
 - `ECO-MULTILINGUAL-V1-CP001-CP002-REVIEW.md`
