@@ -11,3 +11,6 @@
 - Current wildlife population counts: excluded from learner questions.
 - Mutable protected-area totals and recent notifications: excluded.
 - Source verification date: 2026-09-15.
+- Multilingual V1 Wave 7: REVIEW CANDIDATE for Hindi and Punjabi.
+- Localization authority: frozen 48-question English V1 surface.
+- Protected-area names, state/UT associations, landscape clues and wildlife associations preserve English semantic authority.
