@@ -484,11 +484,18 @@ function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string
     phrase(language, "None of these", "इनमें से कोई नहीं", "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ"),
   ], correct);
   const kind = typeof answer === "object" && answer ? String(answer.kind ?? "") : "";
-  const numericFamily = ["RATIONAL", "UNIQUE_VALUE", "PARAMETER_VALUE", "EXCLUDED_VALUE"].includes(kind);
-  const selectionPool = numericFamily && primary.length >= 3 ? primary : fallback;
-  const wrongs = numericFamily
-    ? selectSeededWindow(selectionPool, seed, 3)
-    : selectionPool.slice(0, 3);
+  const fixedChoiceFamily = typeof answer === "string" || [
+    "BOOLEAN",
+    "NO_SOLUTION",
+    "INFINITE_SOLUTIONS",
+    "NO_REAL_ROOTS",
+    "QUANTITY_RELATION",
+    "DATA_SUFFICIENCY",
+  ].includes(kind);
+  const selectionPool = primary.length >= 3 ? primary : fallback;
+  const wrongs = fixedChoiceFamily
+    ? selectionPool.slice(0, 3)
+    : selectSeededWindow(selectionPool, seed, 3);
   if (!correct || wrongs.length !== 3) {
     throw new Error(`Algebra Question Studio V4 option coverage failed for ${answer?.kind ?? typeof answer}: '${correct}'`);
   }
