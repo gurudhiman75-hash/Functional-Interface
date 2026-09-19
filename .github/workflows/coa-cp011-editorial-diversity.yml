@@ -11,6 +11,10 @@ on:
       - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cp011-editorial-diversity:
     runs-on: ubuntu-latest
