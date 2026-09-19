@@ -35,3 +35,7 @@
 - Constitution of India, Articles 309–314 and 323A–323B, Legislative Department;
 - Administrative Tribunals Act, 1985, India Code;
 - Supreme Court of India material explaining the L. Chandra Kumar rule on High Court judicial review.
+
+## Final-audit ownership clarification
+
+The approved V2 scope remains frozen. Final-audit V3 is a review candidate that removes four direct Public Service Commission questions from QL013 because Articles 315–323 are explicitly owned by POL-CP-022. QL013 is redirected to Part XIV Chapter I service-boundary and transitional material from Articles 309–314. Approval is required before V3 becomes canonical.
