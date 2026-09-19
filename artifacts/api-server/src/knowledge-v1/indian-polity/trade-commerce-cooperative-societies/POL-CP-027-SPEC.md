@@ -1,9 +1,9 @@
 # POL-CP-027 — Trade, Commerce & Co-operative Societies
 
 **Lifecycle:** REVIEW CANDIDATE — V2  
-**Runtime registration:** BLOCKED PENDING HUMAN APPROVAL
+**Runtime registration:** DEFERRED TO POLITY QUESTION STUDIO INTEGRATION PASS
 
-> Scope note: the repository roadmap does not expose the historical CP027 title. This is the reconstructed final uncovered high-yield Polity block after checking CP001–CP026 ownership.
+> Scope note: the repository roadmap does not expose the historical CP027 title. This reconstructed final uncovered high-yield Polity block was explicitly approved by the project owner on 2026-09-19.
 
 ## Scope
 - Part XIII, Articles 301–307: freedom of trade, Parliament and State restrictions, non-discrimination, scarcity exception, State taxation/restrictions, saved laws and State monopolies, omitted Article 306, and Article 307 authority;
