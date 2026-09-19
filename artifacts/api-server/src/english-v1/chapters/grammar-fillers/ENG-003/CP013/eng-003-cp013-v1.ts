@@ -98,6 +98,18 @@ function blankSurface(prefix: string, suffix: string, punctuation: string) {
   return `${[prefix, "_____", suffix].filter(Boolean).join(" ")}${punctuation}`;
 }
 
+function matchLeadingContrast(value: string) {
+  const match = value.match(/^(Despite|In spite of)\b/i);
+  if (!match) throw new Error(`GR-USG-007 could not find a leading contrast phrase in ${value}`);
+  const correct = match[0]!;
+  const upper = /^[A-Z]/.test(correct);
+  const cap = (text: string) => upper ? text.replace(/^./, (ch) => ch.toUpperCase()) : text.toLowerCase();
+  const distractors = /^in spite of$/i.test(correct)
+    ? [cap("in spite"), cap("despite of"), cap("in despite of")]
+    : [cap("despite of"), cap("in despite of"), cap("despite to")];
+  return { correct, distractors };
+}
+
 const SIMPLE_CONCEPT: Readonly<Record<IdiomaticUsageRuleId, string>> = Object.freeze({
   "GR-USG-001": "Use 'prefer X to Y' when directly comparing two nouns or two -ing activities.",
   "GR-USG-002": "Use 'senior to' and 'junior to' when comparing rank or position.",
@@ -157,13 +169,29 @@ export function generateEng003Cp013QuestionV1(input: GenerateEng003Cp013V1Input)
   const keys = new Set([correctTarget.toLowerCase(), ...distractors.map((value) => value.toLowerCase())]);
   if (keys.size !== 4) throw new Error(`${correction.questionId} does not provide four unique usage choices`);
 
-  const factored = factorSharedChoiceContext([correctTarget, ...distractors]);
-  const [correctChoice, ...distractorChoices] = factored.cores;
-  if (!correctChoice || distractorChoices.length !== 3) throw new Error(`${correction.questionId} lost its factored choices`);
-
+  let correctChoice: string;
+  let distractorChoices: string[];
   const blankSegments = [...correction.segments];
-  const punctuation = trailingPunctuation(blankSegments[correction.targetIndex]!);
-  blankSegments[correction.targetIndex] = blankSurface(factored.prefix, factored.suffix, punctuation);
+
+  if (correction.metadata.ruleId === "GR-USG-007") {
+    const focus = matchLeadingContrast(correctTarget);
+    correctChoice = focus.correct;
+    distractorChoices = focus.distractors;
+    const current = blankSegments[correction.targetIndex]!;
+    const punctuation = trailingPunctuation(current);
+    const body = current.replace(/([,.;:!?]+)$/, "");
+    const leading = body.match(/^(Despite|In spite of)\b/i);
+    if (!leading) throw new Error(`${correction.questionId} lost the GR-USG-007 leading phrase`);
+    const rest = body.slice(leading[0].length).trimStart();
+    blankSegments[correction.targetIndex] = `_____${rest ? ` ${rest}` : ""}${punctuation}`;
+  } else {
+    const factored = factorSharedChoiceContext([correctTarget, ...distractors]);
+    [correctChoice, ...distractorChoices] = factored.cores;
+    if (!correctChoice || distractorChoices.length !== 3) throw new Error(`${correction.questionId} lost its factored choices`);
+    const punctuation = trailingPunctuation(blankSegments[correction.targetIndex]!);
+    blankSegments[correction.targetIndex] = blankSurface(factored.prefix, factored.suffix, punctuation);
+  }
+
   const sentence = sentenceFromSegments(blankSegments);
   const { options, correctOptionIndex } = placeOptions(input.seed, correctChoice, distractorChoices);
   const reconstructed = materializeEng003Cp013AnswerV1(blankSegments, correction.targetIndex, options[correctOptionIndex]!);
