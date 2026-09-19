@@ -1,9 +1,9 @@
-name: Validate Punjabi Forward Port CP008
+name: Validate Punjabi Retrofit CP008
 
 on:
   push:
     branches:
-      - "feature/punjabi-forward-port-cp008-v1"
+      - "feature/punjabi-retrofit-cp008-exhaustive-v1"
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
       - ".github/workflows/punjabi-forward-port-cp008.yml"
@@ -14,9 +14,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  validate-cp008:
+  validate-cp008-retrofit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -25,16 +25,12 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Bundle CP008 semantic proof
+      - name: Bundle CP008 retrofit semantic proof
         working-directory: artifacts/api-server
-        run: >-
-          pnpm exec esbuild
-          src/punjabi-v1/packages/PUN-001/checkpoints/CP008/CP008.test.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/punjabi-forward-port-cp008.test.mjs
-      - name: Run CP008 semantic proof
+        run: pnpm exec esbuild src/punjabi-v1/packages/PUN-001/checkpoints/CP008/CP008.test.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-retrofit-cp008.test.mjs
+      - name: Run CP008 retrofit semantic proof
         working-directory: artifacts/api-server
-        run: node dist/punjabi-forward-port-cp008.test.mjs
+        run: node dist/punjabi-retrofit-cp008.test.mjs
       - name: Build API server
         working-directory: artifacts/api-server
         run: pnpm run build
