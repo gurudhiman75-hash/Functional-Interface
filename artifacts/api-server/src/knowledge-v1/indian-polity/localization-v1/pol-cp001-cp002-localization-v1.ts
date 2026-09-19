@@ -187,8 +187,8 @@ function cp1Stem(q: (typeof CP001_EN)[number], locale: NativeLocale): string {
     const feature = native(CP1[titleAnswerRow.id]!.defining, locale);
     return locale === "hi" ? `किस अधिनियम ने ${feature}?` : `ਕਿਹੜੇ ਐਕਟ ਨੇ ${feature}?`;
   }
-  if (ql === 2 && correctRow) {
-    const title = native(CP1[titleAnswerRow.id]!.title, locale);
+  if (ql === 2 && compactAnswerRow) {
+    const title = native(CP1[compactAnswerRow.id]!.title, locale);
     return locale === "hi" ? `${title} का एक प्रमुख प्रावधान क्या था?` : `${title} ਦਾ ਇੱਕ ਮੁੱਖ ਪ੍ਰਬੰਧ ਕੀ ਸੀ?`;
   }
   if (ql === 3 && titleAnswerRow) {
