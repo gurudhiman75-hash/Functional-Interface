@@ -124,14 +124,14 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
   [
     9,
     "Hard",
-    "A person has A antigen on red blood cells and anti-B antibodies in plasma. The ABO blood group is:",
-    "A",
+    "Why can a person with AB positive blood receive red blood cells from all ABO and Rh groups under standard compatibility rules?",
+    "Their plasma lacks anti-A and anti-B antibodies, and Rh-positive status permits Rh-positive or Rh-negative red cells",
     [
-      "B",
-      "AB",
-      "O"
+      "Their red blood cells contain no A, B or Rh antigens",
+      "Their blood contains antibodies against every donor antigen",
+      "AB positive blood has no plasma and therefore cannot agglutinate"
     ],
-    "Group A blood has A antigen on red cells and anti-B antibodies in plasma.",
+    "AB plasma normally lacks anti-A and anti-B antibodies, so A or B antigens on donor red cells are not attacked. Rh-positive recipients can also receive Rh-positive or Rh-negative red cells.",
     [
       "ABO-IDENTIFY-A"
     ]
