@@ -18,6 +18,8 @@ const STEM_REVISIONS_V2: Readonly<Record<string, string>> = Object.freeze({
   "A small manufacturer needs MSME development finance, while a highway project needs long-term infrastructure finance. Which pairing fits best?": "A small manufacturer needs MSME finance and a highway project needs long-term infrastructure finance. Which pairing is correct?",
   "A housing-finance institution seeks sector-development support, while an exporter seeks overseas trade finance. Which pairing fits best?": "A housing-finance institution seeks sector support and an exporter seeks overseas trade finance. Which pairing is correct?",
   "Which statement best distinguishes a sector-specific DFI from an NBFC category?": "Which statement correctly distinguishes a sector-specific DFI from an NBFC?",
+  "NHB is primarily associated with development of which financial sector?": "Which financial sector does NHB support?",
+  "NaBFID is primarily focused on:": "What is the core financing focus of NaBFID?",
 });
 
 export function generateEcoCp011ReviewV2(): EcoCp011ReviewQuestion[] {
