@@ -12,3 +12,6 @@
 - Mutable tiger counts, current reserve counts, changing rankings, latest notifications and current allocations: excluded.
 - Source verification date: 2026-09-16.
 - Source baseline: official National Tiger Conservation Authority Project Tiger, tiger-reserve, M-STrIPES and monitoring materials.
+- Multilingual V1 final wave: REVIEW CANDIDATE for Hindi and Punjabi.
+- Localization review surface: 48 questions / 12 QLs; approved V1 authority.
+- Frozen English semantics, option ordering, correct index and source provenance remain invariant; localization is review-only.
