@@ -7,6 +7,7 @@ import {
   POL_CP003_UNION_ARTICLES_V1,
 } from "../preamble-union-citizenship/pol-cp003-facts";
 import { POL_LOCALIZATION_V1, type PolLocaleV1, type PolLocalizedQuestionV1 } from "./pol-localization-types-v1";
+import { applyPolityPunjabiNativePassV1 } from "./pol-punjabi-native-pass-v1";
 
 type NativeLocale = Exclude<PolLocaleV1, "en">;
 type Pair = Readonly<{ hi: string; pa: string }>;
@@ -301,14 +302,21 @@ function localize(q: (typeof ENGLISH)[number], locale: PolLocaleV1): PolLocalize
     locale,
     localizationV1: { version: POL_LOCALIZATION_V1, englishQuestionId:q.questionId, semanticInvariant:true, cpInvariant:true, qlInvariant:true, difficultyInvariant:true, sourceInvariant:true, optionOrderInvariant:true, correctIndexInvariant:true, reviewOnly:true },
   };
-  const options = q.options.map((x) => option(x, locale));
+  let options = q.options.map((x) => option(x, locale));
+  let localizedStem = stem(q, locale);
+  let localizedExplanation = explanation(q, locale);
+  if (locale === "pa") {
+    options = options.map(applyPolityPunjabiNativePassV1);
+    localizedStem = applyPolityPunjabiNativePassV1(localizedStem);
+    localizedExplanation = applyPolityPunjabiNativePassV1(localizedExplanation);
+  }
   return {
     ...q,
     questionId: `${q.questionId}-${locale.toUpperCase()}`,
-    stem: stem(q, locale),
+    stem: localizedStem,
     options,
     canonicalAnswer: options[q.correctIndex]!,
-    explanation: explanation(q, locale),
+    explanation: localizedExplanation,
     locale,
     localizationV1: { version: POL_LOCALIZATION_V1, englishQuestionId:q.questionId, semanticInvariant:true, cpInvariant:true, qlInvariant:true, difficultyInvariant:true, sourceInvariant:true, optionOrderInvariant:true, correctIndexInvariant:true, reviewOnly:true },
   };
