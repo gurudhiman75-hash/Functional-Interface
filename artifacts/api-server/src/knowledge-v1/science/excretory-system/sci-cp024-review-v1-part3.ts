@@ -198,15 +198,15 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
   ],
   [
     8,
-    "Easy",
-    "In haemodialysis, blood is passed through a machine containing a:",
-    "Dialysis membrane",
+    "Hard",
+    "A dialysis membrane allows urea, excess salts and water to cross but retains blood cells and large proteins. Which property makes this possible?",
+    "Selective permeability",
     [
-      "Heart valve",
-      "Lung alveolus",
-      "Bile duct"
+      "Complete impermeability",
+      "Active pumping by red blood cells",
+      "Unrestricted passage of all particles"
     ],
-    "Haemodialysis uses a semipermeable membrane to allow wastes and excess solutes to move out of the blood.",
+    "A dialysis membrane is selectively permeable: small solutes and water can cross it, while blood cells and large proteins are retained.",
     [
       "HEMODIALYSIS-MEMBRANE"
     ]
