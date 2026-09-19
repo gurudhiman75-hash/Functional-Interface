@@ -284,6 +284,54 @@ function rewriteEqualVolumeHeightPrompt(
   return stem.replace(suffix, replacement);
 }
 
+function rewriteCylinderDirectVolumeCapacityPrompt(
+  stem: string,
+  mode: "calculate" | "question" | "determine",
+) {
+  const directVolume = {
+    calculate: "Calculate the cylinder's volume.",
+    question: "What is the volume of the cylinder?",
+    determine: "Determine the volume of the cylinder.",
+  }[mode];
+  const directCapacity = {
+    calculate: "Calculate the cylinder's capacity in litres.",
+    question: "What is the cylinder's capacity in litres?",
+    determine: "Determine the cylinder's capacity in litres.",
+  }[mode];
+
+  let rewritten = stem.replace(/Find its volume\./i, directVolume);
+  if (rewritten !== stem) return rewritten;
+
+  rewritten = stem.replace(/Find its capacity in litres\./i, directCapacity);
+  if (rewritten !== stem) return rewritten;
+
+  const capacityOfCylinder = {
+    calculate: "Calculate the capacity of a cylinder",
+    question: "What is the capacity of a cylinder",
+    determine: "Determine the capacity of a cylinder",
+  }[mode];
+  rewritten = stem.replace(/Find the capacity of a cylinder/i, capacityOfCylinder);
+  if (rewritten !== stem) return rewritten;
+
+  const holdPrompt = {
+    calculate: "Calculate its capacity in litres when",
+    question: "What is its capacity in litres when",
+    determine: "Determine its capacity in litres when",
+  }[mode];
+  rewritten = stem.replace(/How many litres can it hold when/i, holdPrompt);
+  if (rewritten !== stem) return rewritten;
+
+  const calculateCapacity = {
+    calculate: "compute the capacity in litres of a cylinder",
+    question: "find the capacity in litres of a cylinder",
+    determine: "determine the capacity in litres of a cylinder",
+  }[mode];
+  rewritten = stem.replace(/calculate the capacity in litres of a cylinder/i, calculateCapacity);
+  if (rewritten !== stem) return rewritten;
+
+  return stem;
+}
+
 const TARGETED_REPEAT_STEM_VARIANTS: Readonly<Record<string, readonly TargetedStemVariant[]>> = Object.freeze({
   "MEN-002-QL-022": Object.freeze([
     { id: "source", apply: (stem) => stem },
@@ -361,15 +409,15 @@ const TARGETED_REPEAT_STEM_VARIANTS: Readonly<Record<string, readonly TargetedSt
     { id: "source", apply: (stem) => stem },
     {
       id: "volume-calculate",
-      apply: (stem) => stem.replace(/Find its volume\./i, "Calculate the cylinder's volume."),
+      apply: (stem) => rewriteCylinderDirectVolumeCapacityPrompt(stem, "calculate"),
     },
     {
       id: "volume-question",
-      apply: (stem) => stem.replace(/Find its volume\./i, "What is the volume of the cylinder?"),
+      apply: (stem) => rewriteCylinderDirectVolumeCapacityPrompt(stem, "question"),
     },
     {
       id: "volume-determine",
-      apply: (stem) => stem.replace(/Find its volume\./i, "Determine the volume of the cylinder."),
+      apply: (stem) => rewriteCylinderDirectVolumeCapacityPrompt(stem, "determine"),
     },
   ]),
   "MEN-002-QL-054": Object.freeze([
