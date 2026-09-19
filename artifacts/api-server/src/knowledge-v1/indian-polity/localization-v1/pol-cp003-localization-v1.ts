@@ -42,10 +42,10 @@ const COMMON: Readonly<Record<string, Pair>> = Object.freeze({
   "Socialist": lp("समाजवादी", "ਸਮਾਜਵਾਦੀ"),
   "Secular": lp("पंथनिरपेक्ष", "ਧਰਮਨਿਰਪੇਖ"),
   "Integrity": lp("अखंडता", "ਅਖੰਡਤਾ"),
-  "Forty-second Amendment": lp("बयालीसवाँ संशोधन", "ਬਿਆਲੀਵਾਂ ਸੰਸ਼ੋਧਨ"),
-  "Twenty-fourth Amendment": lp("चौबीसवाँ संशोधन", "ਚੌਵੀਵਾਂ ਸੰਸ਼ੋਧਨ"),
-  "Forty-fourth Amendment": lp("चवालीसवाँ संशोधन", "ਚੁਆਲੀਵਾਂ ਸੰਸ਼ੋਧਨ"),
-  "Fifty-second Amendment": lp("बावनवाँ संशोधन", "ਬਵੰਜਾਵਾਂ ਸੰਸ਼ੋਧਨ"),
+  "Forty-second Amendment": lp("42वाँ संशोधन", "42ਵਾਂ ਸੰਸ਼ੋਧਨ"),
+  "Twenty-fourth Amendment": lp("24वाँ संशोधन", "24ਵਾਂ ਸੰਸ਼ੋਧਨ"),
+  "Forty-fourth Amendment": lp("44वाँ संशोधन", "44ਵਾਂ ਸੰਸ਼ੋਧਨ"),
+  "Fifty-second Amendment": lp("52वाँ संशोधन", "52ਵਾਂ ਸੰਸ਼ੋਧਨ"),
   "It changed ‘unity of the Nation’ to ‘unity and integrity of the Nation’.": lp("इसने ‘राष्ट्र की एकता’ को ‘राष्ट्र की एकता और अखंडता’ में बदला।", "ਇਸ ਨੇ ‘ਰਾਸ਼ਟਰ ਦੀ ਏਕਤਾ’ ਨੂੰ ‘ਰਾਸ਼ਟਰ ਦੀ ਏਕਤਾ ਅਤੇ ਅਖੰਡਤਾ’ ਵਿੱਚ ਬਦਲਿਆ।"),
   "It replaced ‘dignity of the individual’ with ‘dignity of citizens’.": lp("इसने ‘व्यक्ति की गरिमा’ को ‘नागरिकों की गरिमा’ से बदल दिया।", "ਇਸ ਨੇ ‘ਵਿਅਕਤੀ ਦੀ ਮਰਯਾਦਾ’ ਨੂੰ ‘ਨਾਗਰਿਕਾਂ ਦੀ ਮਰਯਾਦਾ’ ਨਾਲ ਬਦਲ ਦਿੱਤਾ।"),
   "It removed the reference to unity of the Nation.": lp("इसने राष्ट्र की एकता का उल्लेख हटा दिया।", "ਇਸ ਨੇ ਰਾਸ਼ਟਰ ਦੀ ਏਕਤਾ ਦਾ ਜ਼ਿਕਰ ਹਟਾ ਦਿੱਤਾ।"),
@@ -201,8 +201,8 @@ function stem(q: (typeof ENGLISH)[number], locale: NativeLocale): string {
   }
   if (ql === 4) {
     if (q.canonicalAnswer === "Forty-second Amendment") return locale === "hi" ? "प्रस्तावना में ‘समाजवादी’ और ‘पंथनिरपेक्ष’ शब्द किस संशोधन से जोड़े गए?" : "ਪ੍ਰਸਤਾਵਨਾ ਵਿੱਚ ‘ਸਮਾਜਵਾਦੀ’ ਅਤੇ ‘ਧਰਮਨਿਰਪੇਖ’ ਸ਼ਬਦ ਕਿਹੜੇ ਸੰਸ਼ੋਧਨ ਨਾਲ ਜੋੜੇ ਗਏ?";
-    if (q.canonicalAnswer.startsWith("It changed")) return locale === "hi" ? "बयालीसवें संशोधन ने प्रस्तावना के बंधुता संबंधी भाग में क्या परिवर्तन किया?" : "ਬਿਆਲੀਵੇਂ ਸੰਸ਼ੋਧਨ ਨੇ ਪ੍ਰਸਤਾਵਨਾ ਦੇ ਭਾਈਚਾਰੇ ਨਾਲ ਸੰਬੰਧਿਤ ਹਿੱਸੇ ਵਿੱਚ ਕੀ ਬਦਲਾਅ ਕੀਤਾ?";
-    return locale === "hi" ? "इनमें से कौन-सा समूह केवल बयालीसवें संशोधन द्वारा प्रस्तावना में किए गए परिवर्तनों को दिखाता है?" : "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਸਮੂਹ ਸਿਰਫ਼ ਬਿਆਲੀਵੇਂ ਸੰਸ਼ੋਧਨ ਰਾਹੀਂ ਪ੍ਰਸਤਾਵਨਾ ਵਿੱਚ ਕੀਤੇ ਬਦਲਾਅ ਦਿਖਾਉਂਦਾ ਹੈ?";
+    if (q.canonicalAnswer.startsWith("It changed")) return locale === "hi" ? "42वें संशोधन ने प्रस्तावना के बंधुता संबंधी भाग में क्या परिवर्तन किया?" : "42ਵੇਂ ਸੰਸ਼ੋਧਨ ਨੇ ਪ੍ਰਸਤਾਵਨਾ ਦੇ ਭਾਈਚਾਰੇ ਨਾਲ ਸੰਬੰਧਿਤ ਹਿੱਸੇ ਵਿੱਚ ਕੀ ਬਦਲਾਅ ਕੀਤਾ?";
+    return locale === "hi" ? "इनमें से कौन-सा समूह केवल 42वें संशोधन द्वारा प्रस्तावना में किए गए परिवर्तनों को दिखाता है?" : "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਸਮੂਹ ਸਿਰਫ਼ 42ਵੇਂ ਸੰਸ਼ੋਧਨ ਰਾਹੀਂ ਪ੍ਰਸਤਾਵਨਾ ਵਿੱਚ ਕੀਤੇ ਬਦਲਾਅ ਦਿਖਾਉਂਦਾ ਹੈ?";
   }
   if (ql === 5) {
     const a = subjectArticle(q.canonicalAnswer)!;
