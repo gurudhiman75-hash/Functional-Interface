@@ -139,18 +139,25 @@ export function materializeEng003Cp012AnswerV1(segments: readonly string[], blan
 
 export function generateEng003Cp012QuestionV1(input: GenerateEng003Cp012V1Input): Eng003Cp012QuestionV1 {
   const sourceSeed = `${input.seed}:eng003-source`;
-  const correction = generateEng002Cp012CuratedQuestionV1({
+  const selected = generateEng002Cp012CuratedQuestionV1({
     seed: sourceSeed,
     difficulty: input.difficulty,
     ruleId: input.ruleId,
     sceneId: input.sceneId,
     noImprovement: false,
   });
-  const distractorSource = generateEng002Cp012CuratedQuestionV1({
+  const pinnedSource = {
     seed: sourceSeed,
     difficulty: input.difficulty,
-    ruleId: correction.metadata.ruleId,
-    sceneId: correction.metadata.sceneId,
+    ruleId: selected.metadata.ruleId,
+    sceneId: selected.metadata.sceneId,
+  } as const;
+  const correction = generateEng002Cp012CuratedQuestionV1({
+    ...pinnedSource,
+    noImprovement: false,
+  });
+  const distractorSource = generateEng002Cp012CuratedQuestionV1({
+    ...pinnedSource,
     noImprovement: true,
   });
 
