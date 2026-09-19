@@ -71,6 +71,36 @@ for (let index = 0; index < canonical.length; index += 1) {
     assert.equal(localized.metadata.semanticParity, "EXECUTABLE_PROVED");
     assert.notEqual(localized.sharedPrompt, source.sharedPrompt, `${localized.itemId}: shared prompt was not localized.`);
     assert.notEqual(localized.stem, source.stem, `${localized.itemId}: stem was not localized.`);
+    const learnerText = [
+      localized.sharedPrompt,
+      localized.stem,
+      ...localized.decodedStatements,
+      ...localized.explanation.coreConcept,
+      ...localized.explanation.decodingAudit,
+      ...localized.explanation.graphAudit,
+      localized.explanation.conclusion,
+      localized.explanation.examShortcut,
+      ...localized.explanation.commonTraps,
+      ...localized.explanation.optionAnalysis.flatMap((entry) => [
+        entry.optionText,
+        entry.explanation,
+      ]),
+      localized.explanation.familyTree.accessibleSummary,
+      localized.explanation.familyTree.asciiFallback,
+    ].join(" ");
+    if (localized.locale === "hi-IN") {
+      assert.doesNotMatch(
+        learnerText,
+        / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू)\b/u,
+        `${localized.itemId}: Hindi relation possessive grammar drifted.`,
+      );
+    } else {
+      assert.doesNotMatch(
+        learnerText,
+        / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/ਨਾਤਿਨ|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ)\b/u,
+        `${localized.itemId}: Punjabi relation possessive grammar drifted.`,
+      );
+    }
     for (const coded of source.codedStatements) {
       const literal = `${coded.leftId} ${coded.token} ${coded.rightId}`;
       assert(localized.sharedPrompt.includes(literal), `${localized.itemId}: displayed coded assertion ${literal} was lost.`);
