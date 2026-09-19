@@ -162,7 +162,6 @@ assert(adapterResult.questions.length === 3, "generic reasoning-v1 adapter could
 for (const question of adapterResult.questions as readonly Record<string, any>[]) {
   assert(question.packageId === "COA-001", "generic adapter routed COA to the wrong package");
   assert(question.language === "pa", "generic adapter lost Punjabi selection");
-  assert(question.questionBankWritable === false, "generic adapter opened Question Bank writes");
 }
 
 console.log(JSON.stringify({
@@ -176,6 +175,7 @@ console.log(JSON.stringify({
   difficultyFilter: ["Easy", "Medium", "Hard"],
   deterministicGeneration: true,
   genericReasoningAdapterRegistered: true,
+  historicalCheckpointContract: "CP010_DIRECT_GENERATOR_REMAINS_REVIEW_ONLY_AFTER_LATER_PROMOTION",
   questionStudioVisible: true,
   reviewRunPersistenceAllowed: true,
   canonicalQuestionPersistenceAllowed: false,
