@@ -50,7 +50,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
   "PGK-001-QL-035": [
     {
       difficulty: "Easy",
-      stem: "Punjab's main summer season generally extends from:",
+      stem: "Punjab's main summer season extends roughly from:",
       canonical: "Mid-April to the end of June",
       options: ["Mid-April to the end of June", "January to March", "July to September", "October to December"],
       explanation: "Punjab's main summer season runs roughly from mid-April to the end of June. This is the hottest part of the annual cycle.",
@@ -58,7 +58,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Easy",
-      stem: "The main rainy season in Punjab generally lasts from:",
+      stem: "The main rainy season in Punjab lasts roughly from:",
       canonical: "Early July to the end of September",
       options: ["Early July to the end of September", "October to December", "January to March", "Mid-April to June"],
       explanation: "Punjab receives most of its monsoon rain from early July to the end of September.",
@@ -90,7 +90,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Hard",
-      stem: "Consider the following statements about Punjab's seasons:\nI. Summer extends roughly from mid-April to the end of June.\nII. The rainy season is mainly from early July to the end of September.\nIII. Winter begins around October.\nWhich of the statements given above are correct?",
+      stem: "Consider the following statements about Punjab's seasons:\nI. Summer extends roughly from mid-April to the end of June.\nII. The rainy season runs roughly from early July to the end of September.\nIII. Winter begins around October.\nWhich of the statements given above are correct?",
       canonical: "I, II and III",
       options: ["I only", "I and II only", "II and III only", "I, II and III"],
       explanation: "All three statements are correct and describe Punjab's broad seasonal cycle.",
@@ -100,15 +100,15 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
   "PGK-001-QL-036": [
     {
       difficulty: "Easy",
-      stem: "Which part of Punjab generally receives heavier rainfall?",
+      stem: "Which part of Punjab tends to receive heavier rainfall?",
       canonical: "The Shivalik and Himalayan foothill side",
       options: ["The Shivalik and Himalayan foothill side", "The far south-western plains", "Only the central Malwa plain", "All parts receive the same rainfall"],
-      explanation: "Rainfall is generally heavier near the Himalayan and Shivalik foothills and becomes lower away from them.",
+      explanation: "Rainfall is heavier near the Himalayan and Shivalik foothills and decreases away from them.",
       factIds: ["rainfall-gradient"], sourceIds: climateSource,
     },
     {
       difficulty: "Easy",
-      stem: "Rainfall in Punjab generally decreases toward the:",
+      stem: "Rainfall in Punjab decreases toward the:",
       canonical: "Southwest",
       options: ["Southwest", "Northeast foothills", "Shivalik hills", "Northern hill belt"],
       explanation: "Punjab becomes drier toward the southwest, while the foothill side receives more rainfall.",
@@ -127,20 +127,20 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
       stem: "Which pair is correctly matched?",
       canonical: "Northeast foothills — higher rainfall",
       options: ["Northeast foothills — higher rainfall", "Southwest — highest rainfall", "Foothill belt — driest part", "Southwest — coolest summers"],
-      explanation: "The foothill side is wetter, while rainfall generally decreases toward the southwest.",
+      explanation: "The foothill side is wetter, while rainfall decreases toward the southwest.",
       factIds: ["rainfall-gradient"], sourceIds: climateSource,
     },
     {
       difficulty: "Medium",
-      stem: "Compared with the foothill side, south-western Punjab is generally:",
+      stem: "Compared with the foothill side, south-western Punjab tends to be:",
       canonical: "Drier and hotter",
       options: ["Drier and hotter", "Wetter and cooler", "Equally wet and cooler", "Snowier and wetter"],
-      explanation: "The southwest lies farther from the foothills and generally receives less rainfall, with higher heat during summer.",
+      explanation: "The southwest lies farther from the foothills, receives less rainfall and experiences stronger summer heat.",
       factIds: ["rainfall-gradient", "temperature-extremes"], sourceIds: climateSource,
     },
     {
       difficulty: "Hard",
-      stem: "Consider the following statements:\nI. Rainfall is generally higher near Punjab's foothill belt.\nII. Rainfall tends to decrease toward the southwest.\nIII. Punjab experiences marked summer and winter temperature extremes.\nWhich of the statements given above are correct?",
+      stem: "Consider the following statements:\nI. Rainfall is higher near Punjab's foothill belt.\nII. Rainfall tends to decrease toward the southwest.\nIII. Punjab experiences marked summer and winter temperature extremes.\nWhich of the statements given above are correct?",
       canonical: "I, II and III",
       options: ["I only", "I and II only", "II and III only", "I, II and III"],
       explanation: "All three statements are correct. They summarize Punjab's main rainfall and temperature pattern.",
@@ -150,7 +150,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
   "PGK-001-QL-037": [
     {
       difficulty: "Easy",
-      stem: "The broad plains of Punjab are mainly covered by which type of soil?",
+      stem: "Which soil type predominates across Punjab's broad plains?",
       canonical: "Alluvial soil",
       options: ["Alluvial soil", "Black cotton soil", "Laterite soil", "Mountain podzol"],
       explanation: "Punjab's plains are predominantly alluvial, formed from river-borne sediments.",
@@ -174,7 +174,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "In Punjab, the low-lying floodplain tract called Khadar is also commonly known as:",
+      stem: "In Punjab, the low-lying floodplain tract called Khadar is also known as:",
       canonical: "Bet",
       options: ["Bet", "Bangar", "Kandi", "Bhabar"],
       explanation: "Bet refers to low-lying river floodplain land formed by newer alluvium in Punjab.",
@@ -200,7 +200,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
   "PGK-001-QL-038": [
     {
       difficulty: "Easy",
-      stem: "Soils in parts of south-western Punjab are commonly:",
+      stem: "Which soil condition occurs in parts of south-western Punjab?",
       canonical: "Alkaline in reaction",
       options: ["Alkaline in reaction", "Strongly acidic throughout", "Volcanic in origin", "Permanently water-saturated everywhere"],
       explanation: "Parts of south-western Punjab have alkaline soils, often with a soil reaction above neutral pH.",
@@ -232,7 +232,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Which soil condition commonly has a pH above 7?",
+      stem: "Which soil condition is characterised by a pH above 7?",
       canonical: "Alkaline soil",
       options: ["Alkaline soil", "Strongly acidic soil", "Peat soil", "Podzol soil"],
       explanation: "A pH above 7 indicates an alkaline reaction. Some south-western Punjab soils show this condition.",
@@ -266,7 +266,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Easy",
-      stem: "Salt-affected soil is harmful mainly because:",
+      stem: "Why do salt-affected soils reduce agricultural productivity?",
       canonical: "Excess salts reduce soil productivity",
       options: ["Excess salts reduce soil productivity", "It always increases rainfall", "It creates new river channels", "It removes all clay particles"],
       explanation: "High salt or alkalinity levels interfere with plant growth and reduce soil productivity.",
@@ -285,7 +285,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
       stem: "Which pair is incorrectly matched?",
       canonical: "Groundwater over-extraction — rising water table everywhere",
       options: ["Groundwater over-extraction — rising water table everywhere", "Waterlogging — poor root-zone aeration", "Soil erosion — loss of topsoil", "Salinity — reduced soil productivity"],
-      explanation: "Over-extraction generally lowers groundwater levels; it does not cause the water table to rise everywhere.",
+      explanation: "Over-extraction lowers groundwater levels; it does not cause the water table to rise everywhere.",
       factIds: ["groundwater-overuse", "waterlogging", "soil-erosion", "salt-affected-soils"], sourceIds: stressSources,
     },
     {
@@ -316,7 +316,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Easy",
-      stem: "Rainwater harvesting helps mainly by:",
+      stem: "Rainwater harvesting helps by:",
       canonical: "Storing runoff for later use",
       options: ["Storing runoff for later use", "Increasing soil salinity", "Lowering every river permanently", "Removing all groundwater"],
       explanation: "Rainwater harvesting captures runoff so it can be stored or reused instead of being lost quickly.",
@@ -324,7 +324,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Contour bunding is mainly useful for:",
+      stem: "Contour bunding is used for:",
       canonical: "Reducing runoff and soil erosion on slopes",
       options: ["Reducing runoff and soil erosion on slopes", "Increasing salinity", "Deepening groundwater extraction", "Creating river deltas"],
       explanation: "Contour bunds slow water moving downslope, helping reduce runoff and soil loss.",
@@ -353,7 +353,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
       stem: "Which combination is correctly matched?",
       canonical: "Foothill side — higher rainfall; southwest — drier conditions",
       options: ["Foothill side — higher rainfall; southwest — drier conditions", "Foothill side — driest; southwest — wettest", "Southwest — heavy snowfall; foothills — desert climate", "All Punjab — identical rainfall"],
-      explanation: "Rainfall is generally higher toward the foothills and lower toward the southwest.",
+      explanation: "Rainfall is higher toward the foothills and lower toward the southwest.",
       factIds: ["rainfall-gradient"], sourceIds: climateSource,
     },
     {
@@ -377,12 +377,12 @@ const rowsByQl: Record<keyof typeof PGK_001_CP006_QL_NAMES, readonly Row[]> = {
       stem: "Which combination best describes parts of south-western Punjab?",
       canonical: "Lower rainfall, alkaline soils and brackish groundwater",
       options: ["Lower rainfall, alkaline soils and brackish groundwater", "Highest rainfall, acidic soils and fresh groundwater everywhere", "Snowfall, peat soil and permanent marshes", "Volcanic soil, glaciers and heavy rainfall"],
-      explanation: "The southwest is generally drier, and some tracts also have alkaline soils and brackish groundwater.",
+      explanation: "The southwest is drier, and some tracts also have alkaline soils and brackish groundwater.",
       factIds: ["rainfall-gradient", "southwest-alkaline", "southwest-brackish-water"], sourceIds: [PGK_001_CP006_SOURCE_IDS.knowPunjab, PGK_001_CP006_SOURCE_IDS.pauSouthWest],
     },
     {
       difficulty: "Hard",
-      stem: "Consider the following statements:\nI. Punjab's plains are mainly alluvial.\nII. The foothill side generally receives more rainfall than the southwest.\nIII. Excessive groundwater extraction can lower the water table.\nWhich of the statements given above are correct?",
+      stem: "Consider the following statements:\nI. Punjab's plains are predominantly alluvial.\nII. The foothill side receives more rainfall than the southwest.\nIII. Excessive groundwater extraction can lower the water table.\nWhich of the statements given above are correct?",
       canonical: "I, II and III",
       options: ["I only", "I and II only", "II and III only", "I, II and III"],
       explanation: "All three are correct and connect Punjab's soil, rainfall and groundwater-resource pattern.",
