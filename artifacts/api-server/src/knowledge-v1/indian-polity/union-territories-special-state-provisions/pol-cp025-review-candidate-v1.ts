@@ -13,7 +13,7 @@ const rows: readonly PolCp025SeedRow[] = [
 
 const GENERIC_CLUTTER =
   /Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i;
-const LEGALISTIC_STEM = /\\bwhom\\b|for the purposes of|what is the|appointed by whom|issued by whom/i;
+const LEGALISTIC_STEM = /\bwhom\b|for the purposes of|what is the|appointed by whom|issued by whom/i;
 
 export function generatePolCp025ReviewBatchV1(): PolCp025ReviewQuestion[] {
   if (rows.length !== 80) throw new Error(`Expected 80 POL-CP-025 rows, got ${rows.length}`);
@@ -29,7 +29,7 @@ export function generatePolCp025ReviewBatchV1(): PolCp025ReviewQuestion[] {
     if (words < 12 || words > 45) throw new Error(`Explanation length ${words} outside 12–45 at question ${index + 1}`);
     if (GENERIC_CLUTTER.test(explanation)) throw new Error(`Generic clutter at question ${index + 1}`);
     if (LEGALISTIC_STEM.test(stem)) throw new Error(`Legalistic stem at question ${index + 1}`);
-    if (!stem.endsWith("?") || stem.trim().split(/\s+/).length > 30) throw new Error(`Invalid stem at question ${index + 1}`);
+    if (!/[?:]$/.test(stem) || stem.trim().split(/\s+/).length > 30) throw new Error(`Invalid stem at question ${index + 1}`);
 
     return {
       questionId: `POL-CP025-V1-${String(index + 1).padStart(3, "0")}`,
