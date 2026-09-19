@@ -151,7 +151,8 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
     if (question.metadata.presentation === "PHOTOGRAPH") {
       photographQuestions += 1;
       if (question.metadata.questionForm === "HOW_RELATED") {
-        assert.ok(question.stem.includes("in a photograph"));
+        assert.ok(question.stem.startsWith("Pointing to a photograph of"));
+        assert.ok(!question.stem.includes(" in a photograph,"));
       } else if (question.metadata.questionForm === "WHOSE_PHOTOGRAPH") {
         assert.ok(question.stem.startsWith("Pointing to a photograph of"));
       } else {
