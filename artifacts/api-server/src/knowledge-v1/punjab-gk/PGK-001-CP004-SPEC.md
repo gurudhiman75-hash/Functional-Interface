@@ -27,7 +27,7 @@ Dams, barrages, canals and irrigation projects belong primarily to CP005. CP004 
   - Beas — Vipasa; Vipasha/Vipas accepted as variants.
   - Ravi — Purushni; Parushni accepted as a variant.
   - Chenab — Askini; Asikni accepted as a variant.
-  - Jhelum — Vitista; Vitasta accepted as a variant.
+  - Jhelum — Vitasta.
 - Of the traditional five, Sutlej, Beas and Ravi flow through present-day Indian Punjab.
 - Ravi, Beas and Sutlej form the three eastern rivers.
 - Beas joins Sutlej at Harike.
