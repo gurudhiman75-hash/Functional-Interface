@@ -139,7 +139,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
   [
     7,
     "Medium",
-    "Respiration returns carbon to the atmosphere mainly as:",
+    "Respiration returns carbon to the atmosphere as:",
     "Carbon dioxide",
     [
       "Nitrogen gas",
