@@ -1,9 +1,42 @@
 export const PGK_001_CP014_SOURCE_IDS = Object.freeze({
   psebDalKhalsaLesson: "PSEB-DAL-KHALSA-MISL-LESSON",
   psebClass12Material: "PSEB-CLASS12-DAL-KHALSA-MISLS",
-  ministryTourismDeepSingh: "MOT-BABA-DEEP-SINGH-DAL-KHALSA",
+  ministryTourismDeepSingh: "SGPC-AMRITSAR-BABA-DEEP-SINGH",
   districtAmritsarHistory: "DISTRICT-AMRITSAR-MISL-HISTORY",
   districtKapurthalaHistory: "DISTRICT-KAPURTHALA-AHLUWALIA-HISTORY",
+} as const);
+
+export const PGK_001_CP014_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP014_SOURCE_IDS.psebDalKhalsaLesson]: {
+    authority: "Punjab School Education Board",
+    title: "Class XII Punjab History & Culture Question Bank — Sikhs became Masters of Punjab",
+    url: "https://static.pseb.ac.in/media/1655981990_N_5131_1655355982934.pdf",
+    classification: "PRIMARY_EDUCATION_AUTHORITY",
+  },
+  [PGK_001_CP014_SOURCE_IDS.psebClass12Material]: {
+    authority: "Punjab School Education Board",
+    title: "Punjab History & Culture Class XII syllabus",
+    url: "https://static.pseb.ac.in/media/1775112498_12thPunjabHistoryandCultureSyllabus2026-27.pdf",
+    classification: "SUPPORTING_CURRICULUM",
+  },
+  [PGK_001_CP014_SOURCE_IDS.ministryTourismDeepSingh]: {
+    authority: "Shiromani Gurdwara Parbandhak Committee",
+    title: "The City — Amritsar; Shaheed Ganj Baba Dip Singh",
+    url: "https://sgpc.net/the-city-amritsar/",
+    classification: "PRIMARY_INSTITUTIONAL",
+  },
+  [PGK_001_CP014_SOURCE_IDS.districtAmritsarHistory]: {
+    authority: "District Amritsar, Government of Punjab",
+    title: "History — Sikh Misls in Amritsar",
+    url: "https://amritsar.nic.in/history/",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP014_SOURCE_IDS.districtKapurthalaHistory]: {
+    authority: "District Kapurthala, Government of Punjab",
+    title: "History — Ahluwalia dynasty and Jassa Singh Ahluwalia",
+    url: "https://kapurthala.gov.in/history/",
+    classification: "PRIMARY_GOVERNMENT",
+  },
 } as const);
 
 export const PGK_001_CP014_FACTS = Object.freeze({
