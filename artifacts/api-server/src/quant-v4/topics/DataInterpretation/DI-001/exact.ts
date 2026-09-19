@@ -62,6 +62,59 @@ export function hashSeed(value: string): number {
   return hash >>> 0;
 }
 
+export function mixedHashSeed(value: string): number {
+  let hash = hashSeed(value);
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x7feb352d);
+  hash ^= hash >>> 15;
+  hash = Math.imul(hash, 0x846ca68b);
+  hash ^= hash >>> 16;
+  return hash >>> 0;
+}
+
+export function presentationVariantIndex(value: string, variantCount: number): number {
+  if (!Number.isInteger(variantCount) || variantCount < 1) {
+    throw new Error(`DI presentation variant count must be a positive integer, received ${variantCount}.`);
+  }
+
+  const parts = value.split(":");
+  let numericOrdinal = 0;
+  let numericPosition = 0;
+  let foundNumericToken = false;
+
+  const normalized = parts.map((part) => {
+    if (!/^\d+$/.test(part)) return part;
+    foundNumericToken = true;
+    numericPosition += 1;
+    numericOrdinal += Number(part) * numericPosition;
+    return "<n>";
+  }).join(":");
+
+  if (!foundNumericToken) return mixedHashSeed(value) % variantCount;
+  const deperiodizedOrdinal =
+    (numericOrdinal + Math.floor(numericOrdinal / variantCount)) >>> 0;
+  return (mixedHashSeed(normalized) + deperiodizedOrdinal) % variantCount;
+}
+
+export function structuredPresentationVariantOffset(
+  value: string,
+  variantCount: number,
+): number {
+  if (!Number.isInteger(variantCount) || variantCount < 1) {
+    throw new Error(`DI presentation variant count must be a positive integer, received ${variantCount}.`);
+  }
+
+  const firstNumericToken = value
+    .split(":")
+    .find((part) => /^\d+$/.test(part));
+  if (firstNumericToken === undefined) return 0;
+
+  const ordinal = Number(firstNumericToken);
+  if (!Number.isSafeInteger(ordinal) || ordinal < 0) return 0;
+
+  return (ordinal + 2 * Math.floor(ordinal / 9)) % variantCount;
+}
+
 export function seededRandom(seed: string): () => number {
   let state = hashSeed(seed) || 0x9e3779b9;
   return () => {
