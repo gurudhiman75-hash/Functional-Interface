@@ -149,6 +149,7 @@ const protectedExamTerms = [
   "Commercial Paper",
   "LAF corridor",
   "EXIM Bank",
+  "Fiscal Responsibility and Budget Management",
 ] as const;
 
 const allowedAbbreviations = [
