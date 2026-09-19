@@ -97,7 +97,7 @@ const explicit = await quantV4QuestionStudioAdapter.generate({
 assert(explicit.questions[0]?.packageId === "DI-008", "DI-QL-085 was intercepted by another DI package selector.");
 
 console.log(JSON.stringify({
-  status: "PASS_DI_007_QUESTION_STUDIO_CONTROLLED_REVIEW",
+  status: "PASS_DI_008_QUESTION_STUDIO_CONTROLLED_REVIEW",
   releaseId: DI008_PERMANENT_RELEASE_ID,
   runtimeMode: DI008_QUESTION_STUDIO_RUNTIME_MODE,
   permanentQlCount: DI008_PERMANENT_QLS.length,
