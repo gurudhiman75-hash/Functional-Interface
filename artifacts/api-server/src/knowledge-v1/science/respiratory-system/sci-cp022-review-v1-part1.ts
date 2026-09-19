@@ -4,7 +4,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
   [
     1,
     "Easy",
-    "Which organ system is mainly responsible for taking in oxygen and removing carbon dioxide?",
+    "Which organ system takes in oxygen and removes carbon dioxide from the body?",
     "Respiratory system",
     [
       "Digestive system",
@@ -94,7 +94,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
   [
     2,
     "Easy",
-    "Nasal hairs mainly help by:",
+    "What is the function of nasal hairs during breathing?",
     "Filtering larger dust particles from inhaled air",
     [
       "Warming inhaled air",
@@ -139,7 +139,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
   [
     2,
     "Medium",
-    "C-shaped cartilage rings in the trachea mainly prevent it from:",
+    "C-shaped cartilage rings in the trachea prevent it from:",
     "Collapsing during breathing",
     [
       "Absorbing oxygen",
@@ -154,7 +154,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
   [
     2,
     "Medium",
-    "Mucus and cilia in the respiratory passages work together mainly to:",
+    "What do mucus and cilia in the respiratory passages do together?",
     "Trap particles and move them away from the lungs",
     [
       "Carry oxygen in blood",
@@ -214,7 +214,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
   [
     3,
     "Medium",
-    "Gas exchange in the lungs occurs mainly in the:",
+    "Where does gas exchange occur in the lungs?",
     "Alveoli",
     [
       "Trachea",
