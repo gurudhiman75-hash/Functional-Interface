@@ -8,7 +8,7 @@ const plan:Record<PunjabiDifficulty,readonly [string,number][]>={
  Medium:[["F03",14],["F04",13],["F06",13]],
  Hard:[["F07",20],["F08",20]],
 };
-const stride:Record<string,number>={F01:13,F02:11,F03:7,F04:5,F05:29,F06:11,F07:1733,F08:1};
+const stride:Record<string,number>={F01:13,F02:11,F03:8,F04:5,F05:29,F06:11,F07:1733,F08:1};
 const out:string[]=[
  "# PUN-001 CP008 Retrofit Review — ਅਗੇਤਰ, ਪਿਛੇਤਰ ਅਤੇ ਸ਼ਬਦ-ਰਚਨਾ","",
  "Status: HUMAN REVIEW PENDING","",
