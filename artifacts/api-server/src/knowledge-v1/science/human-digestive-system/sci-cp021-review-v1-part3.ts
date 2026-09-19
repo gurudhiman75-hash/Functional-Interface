@@ -127,9 +127,9 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
     "Glucose and amino acids absorbed from intestinal villi enter mainly into:",
     "Blood capillaries",
     [
-      "The stomach cavity",
-      "Salivary ducts",
-      "The large intestine"
+      "Lacteals in the villi",
+      "Intestinal glands",
+      "Lymph nodes"
     ],
     "Villi contain a rich network of blood capillaries. Glucose and amino acids pass into these capillaries after absorption.",
     [
@@ -142,9 +142,9 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
     "Absorbed fats from the small intestine enter mainly into:",
     "Lacteals in the villi",
     [
-      "Salivary glands",
-      "Gastric pits",
-      "Root-like hairs"
+      "Blood capillaries in the villi",
+      "Gastric glands",
+      "Pancreatic ducts"
     ],
     "Each villus contains a lymph vessel called a lacteal. Much of the absorbed fat enters these lacteals before reaching the bloodstream.",
     [
