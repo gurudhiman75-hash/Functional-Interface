@@ -99,8 +99,10 @@ function vnr002Distractors(correct: string, authoredWrong: string) {
     );
   } else if (/\b(is|are|was|were) being\b/i.test(correct)) {
     raw.push(
-      correct.replace(/\b(is|are|was|were) being\b/i, "$1 been"),
       correct.replace(/\b(is|are|was|were) being\b/i, "$1 be"),
+      correct.replace(/\b(is|are) being\b/i, (_match, aux: string) => `${aux.toLowerCase() === "are" ? "have" : "has"} being`)
+        .replace(/\b(was|were) being\b/i, "had being"),
+      correct.replace(/\b(is|are|was|were) being\b/i, "being"),
     );
   } else {
     raw.push(flipAgreementAuxiliary(correct), correct.replace(/\bbeen\b/i, "being"));
