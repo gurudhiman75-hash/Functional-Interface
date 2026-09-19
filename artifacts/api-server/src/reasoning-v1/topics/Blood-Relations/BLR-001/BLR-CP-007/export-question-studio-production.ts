@@ -28,14 +28,15 @@ const summary = {
   separateReasoningWorkflowRemoved: true,
   generationPersistenceEnabled: true,
   approvalGatePreserved: true,
-  questionBankConversionEligibleAfterApproval: true,
-  mockTestEligibleAfterApproval: true,
-  publicationWorkflowEligibleAfterApproval: true,
+  currentReviewConversionBlocked: true,
+  questionBankBankOnlyConversionEligibleAfterApproval: true,
+  mockTestEligibleAfterApproval: false,
+  publicationWorkflowEligibleAfterApproval: false,
   automaticStudentPublication: false,
   productionBranchBase: "New-main",
 };
 
-const markdown = `# BLR-CP-007 Production Lifecycle\n\n## Verdict\n\n\`${summary.verdict}\`\n\n## Corpus\n\n| Measure | Result |\n|---|---:|\n| English | ${summary.englishCount} |\n| Hindi | ${summary.hindiCount} |\n| Punjabi | ${summary.punjabiCount} |\n| Total multilingual records | ${summary.multilingualRecordCount} |\n| Unique language records | ${summary.uniqueQuestionLanguageIdCount} |\n| Valid records | ${summary.validRecordCount} |\n\n## Standard Question Studio flow\n\n1. Administrators select BLR-CP-007 in the existing Question Studio generation-package selector.\n2. Generated records enter the same audited generation run and unreviewed item queue used by the common cockpit.\n3. Review, needs-fix, rejection and approval use the shared Question Studio controls.\n4. Manual approval uses the existing Question Bank converter because CP-007 is release-eligible after approval.\n5. Approved questions are eligible for test assembly and the existing publication QA workflow.\n6. Nothing is automatically published to students.\n\n## Safety and reliability\n\n- There is no separate BLR import, synchronization panel or BLR-specific persistence endpoint.\n- Generation run, item versions, audit event and outbox event use the shared Question Studio transaction path.\n- Source fingerprints, locale, QL, canonical item and freeze authority remain attached.\n- CP-007 retains manual approval and automatic-publication locks.\n`;
+const markdown = `# BLR-CP-007 Production Lifecycle\n\n## Verdict\n\n\`${summary.verdict}\`\n\n## Corpus\n\n| Measure | Result |\n|---|---:|\n| English | ${summary.englishCount} |\n| Hindi | ${summary.hindiCount} |\n| Punjabi | ${summary.punjabiCount} |\n| Total multilingual records | ${summary.multilingualRecordCount} |\n| Unique language records | ${summary.uniqueQuestionLanguageIdCount} |\n| Valid records | ${summary.validRecordCount} |\n\n## Standard Question Studio flow\n\n1. Administrators select BLR-CP-007 in the existing Question Studio generation-package selector.\n2. Generated records enter the same audited generation run and unreviewed item queue used by the common cockpit.\n3. Review, needs-fix, rejection and approval use the shared Question Studio controls.\n4. Current unreviewed records are rejected by the Question Bank converter.\n5. After explicit manual editorial approval, a separate BANK_ONLY promotion may make the record writable to Question Bank while test, mock-test and public-release gates remain closed.\n6. A later independent release transition is required before test assembly or publication eligibility. Nothing is automatically published to students.\n\n## Safety and reliability\n\n- There is no separate BLR import, synchronization panel or BLR-specific persistence endpoint.\n- Generation run, item versions, audit event and outbox event use the shared Question Studio transaction path.\n- Source fingerprints, locale, QL, canonical item and freeze authority remain attached.\n- CP-007 retains manual approval, test/mock/public-release and automatic-publication locks until separate downstream promotion gates are explicitly opened.\n`;
 
 const escapeHtml = (value: unknown) => String(value ?? "")
   .replaceAll("&", "&amp;")
