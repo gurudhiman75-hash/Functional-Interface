@@ -43,6 +43,10 @@ for (const ql of DIR_CP008_QLS) {
     const learnerText = [question.stem, question.explanation.given, ...question.explanation.steps, question.explanation.resultLine, question.explanation.conclusion].join("\n");
     assert.ok(!/\bcoordinates?\b/i.test(learnerText), `learner-facing coordinate jargon: ${learnerText}`);
     assert.ok(!/\bunreported\b/i.test(learnerText), `unnatural unreported wording: ${learnerText}`);
+    assert.ok(
+      !/closed layout|complete layout|hidden compass frame|reference layout|endpoint quadrant/i.test(learnerText),
+      `machine-like construction jargon leaked into learner text: ${learnerText}`,
+    );
     if (ql.qlId === "DIR-QL-039") assert.ok(!/change of direction/i.test(question.stem), `missing-turn stem reveals that a turn occurred: ${question.stem}`);
     assert.ok(question.explanation.steps.length >= 2);
     assert.ok(question.explanation.conclusion.startsWith("Therefore,"));
