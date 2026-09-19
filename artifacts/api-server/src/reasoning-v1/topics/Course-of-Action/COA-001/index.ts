@@ -36,3 +36,4 @@ export * from "./cp009-full-localization-registry.ts";
 export * from "./cp009-full-localization-generator.ts";
 export * from "./cp010-question-studio-integration.ts";
 export * from "./cp011-final-editorial-diversity.ts";
+export * from "./cp012-internal-eligibility-candidate.ts";
