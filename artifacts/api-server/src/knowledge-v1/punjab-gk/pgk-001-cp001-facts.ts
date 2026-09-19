@@ -4,6 +4,7 @@ export const PGK_001_CP001_SOURCE_IDS = Object.freeze({
   psebAgriculture8: "PSEB-AGRICULTURE-CLASS8-NURSERY",
   punjabOfficialPaper2024: "GOV-PUNJAB-MRSAFPI-QUESTION-PAPER-2024",
   goshawkAuthority: "CZA-BNHS-NORTHERN-GOSHAWK-PUNJAB",
+  cagStateSymbols: "CAG-PUNJAB-WILDLIFE-STATE-SYMBOLS-2018-19",
   nfdbStateAquatic: "GOV-INDIA-NFDB-STATE-FISHES-AQUATIC-ANIMALS",
 } as const);
 
@@ -28,10 +29,15 @@ export const PGK_001_CP001_SOURCE_REGISTRY = Object.freeze({
     url: "https://www.mrsafpi.punjab.gov.in/wp-content/uploads/2024/02/Question-Paper-2024-Code-A.pdf",
     authority: "Government of Punjab",
   },
-  [PGK_001_CP001_SOURCE_IDS.pscstEnvisBird]: {
-    title: "The State Bird of Punjab: Northern Goshawk — Punjab ENVIS Centre",
-    authority: "Punjab State Council for Science & Technology",
-    locator: "Notification No. 34/11/2015-Ft-5/592880/1 dated 18-09-2015",
+  [PGK_001_CP001_SOURCE_IDS.goshawkAuthority]: {
+    title: "Species & Zoo in Focus — Northern Goshawk",
+    url: "https://cza.nic.in/uploads/documents/publications/english/AKAM%20-%20Vol%202.pdf",
+    authority: "Central Zoo Authority / Bombay Natural History Society",
+  },
+  [PGK_001_CP001_SOURCE_IDS.cagStateSymbols]: {
+    title: "CAG Report No. 1 of 2021 — Wildlife Preservation in Punjab",
+    url: "https://saiindia.gov.in/webroot/uploads/download_audit_report/2019/Report%20No.%201%20of%202021%20%28N-PSUs%20%26%20Revenue%202018-19%29_English-062bd40b90df757.51859911.pdf",
+    authority: "Comptroller and Auditor General of India",
   },
   [PGK_001_CP001_SOURCE_IDS.nfdbStateAquatic]: {
     title: "State Fishes and Aquatic Animals of India",
@@ -221,7 +227,7 @@ export const PGK_001_CP001_FACTS_V1: readonly Pgk001Cp001FactRow[] = Object.free
     shortFact: "State animal: Blackbuck",
     scope: "CURRENT_PUNJAB",
     freshness: "SLOW_MUTABLE",
-    sourceIds: [S.punjabOfficialPaper2024],
+    sourceIds: [S.cagStateSymbols],
     sourceFactIds: ["pgk-001-cp001-state-animal-blackbuck"],
   },
   {
@@ -230,7 +236,7 @@ export const PGK_001_CP001_FACTS_V1: readonly Pgk001Cp001FactRow[] = Object.free
     shortFact: "State tree: Shisham / Tahli (Dalbergia sissoo)",
     scope: "CURRENT_PUNJAB",
     freshness: "SLOW_MUTABLE",
-    sourceIds: [S.psebAgriculture8],
+    sourceIds: [S.cagStateSymbols],
     sourceFactIds: ["pgk-001-cp001-state-tree-shisham"],
   },
   {
@@ -239,7 +245,7 @@ export const PGK_001_CP001_FACTS_V1: readonly Pgk001Cp001FactRow[] = Object.free
     shortFact: "State bird: Northern Goshawk",
     scope: "CURRENT_PUNJAB",
     freshness: "SLOW_MUTABLE",
-    sourceIds: [S.goshawkAuthority],
+    sourceIds: [S.goshawkAuthority, S.cagStateSymbols],
     sourceFactIds: ["pgk-001-cp001-state-bird-northern-goshawk"],
   },
   {
