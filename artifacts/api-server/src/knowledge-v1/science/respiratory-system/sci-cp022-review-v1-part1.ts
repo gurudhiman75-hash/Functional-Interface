@@ -97,9 +97,9 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
     "Nasal hairs mainly help by:",
     "Filtering larger dust particles from inhaled air",
     [
-      "Producing red blood cells",
-      "Exchanging gases with blood",
-      "Digesting mucus"
+      "Warming inhaled air",
+      "Moistening inhaled air",
+      "Producing mucus"
     ],
     "Nasal hairs trap many larger particles before air moves deeper into the respiratory tract.",
     [
