@@ -6,6 +6,43 @@ export const PGK_001_CP023_SOURCE_IDS = Object.freeze({
   tourismCulture: "INCREDIBLE-INDIA-PUNJAB-CULTURE",
 } as const);
 
+export const PGK_001_CP023_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP023_SOURCE_IDS.folkDance]: {
+    authority: "Government of Punjab",
+    title: "Culture — folk dance traditions of Punjab",
+    url: "https://punjab.gov.in/culture",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP023_SOURCE_IDS.folkMusic]: {
+    authority: "Government of Punjab / Ministry of Tourism, Government of India",
+    title: "Culture of Punjab; Rural Tourism Strategy Assessment — Punjab",
+    url: "https://punjab.gov.in/culture",
+    supportingUrls: Object.freeze(["https://tourism.gov.in/sites/default/files/2020-08/RTSA%20Punjab%202015-16.pdf"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP023_SOURCE_IDS.ruralHeritage]: {
+    authority: "Punjab Agricultural University",
+    title: "Museum of Social History and Rural Life of Punjab",
+    url: "https://pau.edu/index.php?DO=viewEventDetail&_act=manageEvent&intID=8601",
+    supportingUrls: Object.freeze(["https://pau.edu/content/registrar/ssra_2024.pdf","https://www.incredibleindia.gov.in/en/punjab/ludhiana/rural-museum"]),
+    classification: "PRIMARY_ACADEMIC_INSTITUTION",
+  },
+  [PGK_001_CP023_SOURCE_IDS.folkCraft]: {
+    authority: "Ministry of Tourism, Government of India — Incredible India",
+    title: "Phulkari — Embroidery of Punjab",
+    url: "https://www.incredibleindia.gov.in/en/punjab/phulkari",
+    supportingUrls: Object.freeze(["https://www.incredibleindia.gov.in/en/punjab/ludhiana/punjab-agricultural-university-museum"]),
+    classification: "PRIMARY_GOVERNMENT_TOURISM",
+  },
+  [PGK_001_CP023_SOURCE_IDS.tourismCulture]: {
+    authority: "Ministry of Tourism, Government of India — Incredible India",
+    title: "Punjab cultural heritage and Rural Museum, Ludhiana",
+    url: "https://www.incredibleindia.gov.in/en/punjab/ludhiana/rural-museum",
+    supportingUrls: Object.freeze(["https://www.incredibleindia.gov.in/en/punjab/phulkari","https://punjab.gov.in/culture"]),
+    classification: "PRIMARY_GOVERNMENT_TOURISM",
+  },
+} as const);
+
 export const PGK_001_CP023_FACTS = Object.freeze([
   { id: "bhangra-harvest-dhol", sourceIds: [PGK_001_CP023_SOURCE_IDS.folkDance, PGK_001_CP023_SOURCE_IDS.folkMusic], dance: "Bhangra", type: "folk dance", setting: "agrarian and harvest celebration", centralInstrument: "dhol", traditionalPerformance: "primarily male groups" },
   { id: "bhangra-baisakhi", sourceIds: [PGK_001_CP023_SOURCE_IDS.folkDance, PGK_001_CP023_SOURCE_IDS.tourismCulture], dance: "Bhangra", setting: "Baisakhi and harvest-season celebration" },
