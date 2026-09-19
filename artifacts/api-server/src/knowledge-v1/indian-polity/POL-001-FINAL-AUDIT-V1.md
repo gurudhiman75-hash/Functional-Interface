@@ -1,10 +1,10 @@
 # POL-001 Indian Polity — Final Audit V1
 
-**Audit state:** TECHNICAL AUDIT GREEN — REMEDIATION CANDIDATES REVIEW-READY  
+**Audit state:** APPROVED — FINAL ENGLISH AUDIT GREEN  
 **English content frontier:** POL-CP-027  
 **Executable audit surface:** 27 CPs / 2,087 review questions  
-**Runtime / Question Studio:** DEFERRED pending project-owner approval of final-audit candidates  
-**Localization:** DEFERRED until final English approval
+**Runtime / Question Studio:** NEXT — approved for integration  
+**Localization:** DEFERRED until Question Studio integration + runtime smoke tests
 
 ## Confirmed chapter state
 
@@ -45,7 +45,7 @@ The executable chapter audit exposed defects that ordinary file review had not c
 4. The final audit supports both review schemas in the repository: explicit `canonicalAnswer` and compact `options[correctIndex]`.
 5. Repeated instruction stems are allowed; duplicate detection uses a semantic signature of stem + option set + resolved answer.
 
-### 4. Cross-CP ownership remediation candidates
+### 4. Cross-CP ownership remediation
 
 #### POL-CP-004 ↔ POL-CP-013 — writs
 
@@ -114,21 +114,23 @@ Current green checks include:
 
 Focused preservation tests are also wired into the dedicated Polity audit workflow.
 
-## Approval boundary
+## Approval record
 
-The audit has produced review-ready candidates rather than silently replacing frozen semantic content.
+Project-owner approval was received on 19 September 2026.
 
-Project-owner approval is required before:
+The final English audit surface is now approved, including:
 
-1. promoting CP013 V3, CP014 V3 and CP026 V3 ownership remediations as canonical;
-2. treating the chapter-level editorial stem pass as the final English surface;
-3. binding POL-001 into Question Studio;
-4. starting Hindi/Punjabi localization.
+1. CP013 V3 Article 226 contextual writ remediation;
+2. CP014 V3 Governor ownership remediation;
+3. CP026 V3 service-boundary remediation;
+4. qualification explanation overlays;
+5. the chapter-level final editorial stem pass.
 
-## Next sequence after approval
+These versions are canonical for the next Polity integration pass. Runtime exposure remains intentionally separate from content approval.
 
-1. promote the approved final-audit overlays;
-2. bind all 27 CPs into the shared `POL-001` Question Studio package;
-3. run runtime/package smoke tests;
-4. perform Hindi/Punjabi localization with QL, option-order and correct-index parity;
-5. run multilingual QA and freeze the Polity chapter.
+## Next sequence
+
+1. bind all 27 CPs into the shared `POL-001` Question Studio package;
+2. run runtime/package smoke tests;
+3. perform Hindi/Punjabi localization with QL, option-order and correct-index parity;
+4. run multilingual QA and freeze the Polity chapter.
