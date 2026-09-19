@@ -799,16 +799,16 @@ D. It controls breathing rate
 
 ## Q54 · Hard · Blood groups and transfusion basics
 
-A person has A antigen on red blood cells and anti-B antibodies in plasma. The ABO blood group is:
+Why can a person with AB positive blood receive red blood cells from all ABO and Rh groups under standard compatibility rules?
 
-A. B
-B. A
-C. AB
-D. O
+A. Their red blood cells contain no A, B or Rh antigens
+B. Their plasma lacks anti-A and anti-B antibodies, and Rh-positive status permits Rh-positive or Rh-negative red cells
+C. Their blood contains antibodies against every donor antigen
+D. AB positive blood has no plasma and therefore cannot agglutinate
 
-**Answer:** B. A
+**Answer:** B. Their plasma lacks anti-A and anti-B antibodies, and Rh-positive status permits Rh-positive or Rh-negative red cells
 
-**Explanation:** Group A blood has A antigen on red cells and anti-B antibodies in plasma.
+**Explanation:** AB plasma normally lacks anti-A and anti-B antibodies, so A or B antigens on donor red cells are not attacked. Rh-positive recipients can also receive Rh-positive or Rh-negative red cells.
 
 **Source fact:** `ABO-IDENTIFY-A`
 
