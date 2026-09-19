@@ -63,15 +63,15 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
   ],
   [
     9,
-    "Easy",
-    "Using a glass jar again for storage is an example of:",
+    "Medium",
+    "A family cleans glass jars and uses them repeatedly without melting or remanufacturing them. This practice is best classified as:",
     "Reuse",
     [
+      "Recycling",
       "Landfilling",
-      "Incineration",
-      "Mining"
+      "Incineration"
     ],
-    "Reuse extends the life of an item without first converting it into raw material.",
+    "Reuse keeps an item in service again with little or no reprocessing, unlike recycling which converts material into a new product.",
     [
       "REUSE-EXAMPLE"
     ]
