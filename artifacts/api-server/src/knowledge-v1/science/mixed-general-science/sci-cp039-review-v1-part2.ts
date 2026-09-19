@@ -49,7 +49,7 @@ export const PART_2: readonly SciCp039ReviewSpec[] = [
   [
     4,
     "Easy",
-    "The smallest unit of an element that retains its chemical identity is an:",
+    "What is the smallest particle of an element that still retains that element's chemical identity?",
     "atom",
     [
       "molecule of any compound",
