@@ -66,6 +66,11 @@ for (const prototypeId of ALG_CP002_ENGLISH_REVIEW_V4_TARGETS) {
     assert(/[?.]$/.test(first.question), `${prefix}: stem does not end like an exam question`);
     assert(first.explanation.length >= 160, `${prefix}: explanation is too thin`);
     assert(!/associated|mainly|therefore therefore/i.test(first.question + " " + first.explanation), `${prefix}: mechanical wording leaked`);
+    assert(!first.explanation.includes("+ -"), `${prefix}: awkward signed arithmetic leaked`);
+    if (first.k < 0) {
+      const exponent = prototypeId === "ALG-CP002-CAND-007" ? "³" : "²";
+      assert(first.explanation.includes(`(${first.k})${exponent}`), `${prefix}: negative powered base must be parenthesized`);
+    }
 
     states.add(first.k);
     questions.add(first.question);
