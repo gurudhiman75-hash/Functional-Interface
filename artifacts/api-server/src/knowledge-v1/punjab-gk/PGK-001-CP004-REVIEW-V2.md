@@ -522,14 +522,14 @@ D. Chaj Doab
 ### PGK-001-CP004-Q040 — Hard
 **Which of the following ancient-name pairs is correctly matched?**
 
-A. Jhelum — Vitista
+A. Jhelum — Vitasta
 B. Chenab — Vipasa
 C. Ravi — Askini
 D. Beas — Purushni
 
-**Answer:** Jhelum — Vitista
+**Answer:** Jhelum — Vitasta
 
-**Explanation:** Jhelum was known as Vitista, also commonly written as Vitasta. Vipasa belongs to Beas, Askini to Chenab and Purushni to Ravi.
+**Explanation:** Jhelum was known as Vitasta in ancient tradition. Vipasa belongs to Beas, Askini to Chenab and Purushni to Ravi.
 
 ### PGK-001-CP004-Q041 — Hard
 **Consider the following pairs:
@@ -537,7 +537,7 @@ I. Sutlej — Shutudri
 II. Beas — Vipasa
 III. Ravi — Purushni
 IV. Chenab — Askini
-V. Jhelum — Vitista
+V. Jhelum — Vitasta
 Which of the pairs given above are correctly matched?**
 
 A. I, II and III only
