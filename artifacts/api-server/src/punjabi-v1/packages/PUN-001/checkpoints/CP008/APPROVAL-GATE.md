@@ -1,7 +1,7 @@
-# CP008 Approval Gate
+# CP008 Retrofit Approval Gate
 
-CP008 is a human-review checkpoint.
+CP008 has materially changed from 60 atomic authorities to 506 layered morphology authorities.
 
-Approval of the Markdown review pack authorizes continuation to the next Punjabi checkpoint only. It does not itself authorize permanent QL allocation, Question Studio registration, Question Bank writes, mock/test eligibility, or public/student delivery.
+Fresh owner approval is required on the exact reviewed SHA.
 
-Any material change to learner-facing authorities or generation behavior after approval creates a new review head and requires renewed editorial approval.
+Approval covers the reviewed retrofit head only. It does not authorize permanent QL allocation, Question Studio registration, Question Bank writes, test/mock eligibility, or public/student delivery.
