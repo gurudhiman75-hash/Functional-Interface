@@ -109,7 +109,15 @@ for (const contract of BLR_CP001_ADVANCED_PROTOTYPE_CONTRACTS) {
     assert.equal(solved.graphPersonCount, question.metadata.personCount);
     assert.equal(solved.graphEdgeCount, question.metadata.graphEdgeCount);
 
-    assert.ok(question.stem.length > 100);
+    assert.ok(question.stem.length > 55);
+    assert.ok(question.stem.endsWith("?"));
+    assert.doesNotMatch(
+      question.stem,
+      /^(?:Read|Study|Consider|Use)\b.*(?:family|relations?|information|statements?)/i,
+    );
+    const firstClue = question.structuredPrompt.clues[0]!;
+    assert.ok(question.stem.includes(question.structuredPrompt.personNames[firstClue.subjectId]!));
+    assert.ok(question.stem.includes(question.structuredPrompt.personNames[firstClue.referenceId]!));
     assert.equal(
       question.explanation.normalizedClues.length,
       question.structuredPrompt.clues.length,
