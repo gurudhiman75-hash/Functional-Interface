@@ -1,0 +1,129 @@
+name: Validate DIR-001 English freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/reasoning-dir-001-design
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
+      - .github/workflows/dir-001-english-freeze.yml
+  push:
+    branches:
+      - feat/dir-001-english-freeze-audit
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
+      - .github/workflows/dir-001-english-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-dir-001-english-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dir-001-english-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck DIR-001 English freeze
+        run: |
+          set +e
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print) \
+            > ../../dir-001-english-freeze-typecheck.log 2>&1
+          status="$?"
+          cd ../..
+          echo "$status" > dir-001-english-freeze-typecheck-exit.txt
+          cat dir-001-english-freeze-typecheck.log
+          exit 0
+
+      - name: Publish freeze typecheck diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-001-english-freeze-typecheck-diagnostics
+          path: |
+            dir-001-english-freeze-typecheck.log
+            dir-001-english-freeze-typecheck-exit.txt
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce freeze typecheck result
+        run: test "$(cat dir-001-english-freeze-typecheck-exit.txt)" = "0"
+
+      - name: Bundle English freeze proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-english-freeze.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-001-english-freeze.test.mjs
+
+      - name: Run English freeze proof
+        run: |
+          set +e
+          node artifacts/api-server/dist/reasoning-v1/dir-001-english-freeze.test.mjs > dir-001-english-freeze-proof.log 2>&1
+          echo "$?" > dir-001-english-freeze-proof-exit.txt
+          cat dir-001-english-freeze-proof.log
+          exit 0
+
+      - name: Publish English freeze proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-001-english-freeze-proof-diagnostics
+          path: |
+            dir-001-english-freeze-proof.log
+            dir-001-english-freeze-proof-exit.txt
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce English freeze proof result
+        run: test "$(cat dir-001-english-freeze-proof-exit.txt)" = "0"
+
+      - name: Bundle English freeze review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-english-freeze-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-001-english-freeze-export.mjs
+
+      - name: Generate English freeze review files
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/dir-001-english-freeze-export.mjs
+
+      - name: Publish English freeze review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-001-english-freeze-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-001-english-freeze-review/
+          if-no-files-found: error
+          retention-days: 21

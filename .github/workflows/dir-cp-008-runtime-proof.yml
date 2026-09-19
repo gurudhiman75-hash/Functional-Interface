@@ -1,0 +1,102 @@
+name: Validate DIR-CP-008 runtime proof
+
+on:
+  pull_request:
+    branches:
+      - feat/reasoning-dir-001-design
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
+      - .github/workflows/dir-cp-008-runtime-proof.yml
+  push:
+    branches:
+      - feat/dir-cp-008-advanced-synthesis
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
+      - .github/workflows/dir-cp-008-runtime-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-dir-cp-008-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dir-cp-008:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck DIR-001 with CP-008
+        run: |
+          set +e
+          cd artifacts/api-server
+          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --allowSyntheticDefaultImports --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch --skipLibCheck --types node $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print) > ../../dir-cp-008-typecheck.log 2>&1
+          status="$?"
+          cd ../..
+          echo "$status" > dir-cp-008-typecheck-exit.txt
+          cat dir-cp-008-typecheck.log
+          exit 0
+      - name: Publish typecheck diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-008-typecheck-diagnostics
+          path: |
+            dir-cp-008-typecheck.log
+            dir-cp-008-typecheck-exit.txt
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce typecheck result
+        run: test "$(cat dir-cp-008-typecheck-exit.txt)" = "0"
+      - name: Bundle CP-008 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-008/dir-cp-008.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-008.test.mjs
+      - name: Run CP-008 proof
+        run: |
+          set +e
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-008.test.mjs > dir-cp-008-runtime-proof.log 2>&1
+          echo "$?" > dir-cp-008-runtime-proof-exit.txt
+          exit 0
+      - name: Publish CP-008 proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-008-runtime-proof-diagnostics
+          path: |
+            dir-cp-008-runtime-proof.log
+            dir-cp-008-runtime-proof-exit.txt
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce CP-008 proof result
+        run: test "$(cat dir-cp-008-runtime-proof-exit.txt)" = "0"
+      - name: Bundle CP-008 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-008/dir-cp-008-generate-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-008-generate-review-export.mjs
+      - name: Generate CP-008 review files
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/dir-cp-008-generate-review-export.mjs
+      - name: Publish CP-008 review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-008-question-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-cp-008-review-export/
+          if-no-files-found: error
+          retention-days: 14

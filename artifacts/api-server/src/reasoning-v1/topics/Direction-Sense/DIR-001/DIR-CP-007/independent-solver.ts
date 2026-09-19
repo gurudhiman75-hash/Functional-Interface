@@ -1,0 +1,8 @@
+import type{CardinalDirection}from"../foundation/types";import type{EnvironmentalTarget,PersonOrientationRelation,RelativeShadowSide,SunTimePeriod,TurnInstruction}from"./types";
+const C=["NORTH","EAST","SOUTH","WEST"] as const;const idx=(d:CardinalDirection)=>C.indexOf(d);const norm=(n:number)=>((n%4)+4)%4;const shadow=(p:SunTimePeriod):CardinalDirection=>p==="MORNING"?"WEST":"EAST";const side=(f:CardinalDirection,a:CardinalDirection):RelativeShadowSide=>{const d=norm(idx(a)-idx(f));return d===0?"FRONT":d===1?"RIGHT":d===2?"BEHIND":"LEFT";};
+export function solveEnvironmentalDirectionIndependent(p:SunTimePeriod,t:EnvironmentalTarget):CardinalDirection{const sun=p==="MORNING"?"EAST":"WEST";return t==="SUN"?sun:sun==="EAST"?"WEST":"EAST";}
+export function solveFacingFromShadowSideIndependent(p:SunTimePeriod,s:RelativeShadowSide):CardinalDirection{const m=C.filter(f=>side(f,shadow(p))===s);if(m.length!==1)throw new Error("Facing ambiguity");return m[0];}
+export function solveShadowSideIndependent(p:SunTimePeriod,f:CardinalDirection):RelativeShadowSide{return side(f,shadow(p));}
+export function solveTimePeriodIndependent(f:CardinalDirection,s:RelativeShadowSide):SunTimePeriod{const m=(["MORNING","EVENING"]as const).filter(p=>side(f,shadow(p))===s);if(m.length!==1)throw new Error("Time ambiguity");return m[0];}
+export function solveTurnsIndependent(f:CardinalDirection,turns:readonly TurnInstruction[]):CardinalDirection{let i=idx(f);for(const t of turns)i=norm(i+(t==="RIGHT"?1:t==="LEFT"?-1:2));return C[i];}
+export function solveSecondFacingIndependent(first:CardinalDirection,r:PersonOrientationRelation):CardinalDirection{return r==="SAME_DIRECTION"?first:C[norm(idx(first)+2)];}
