@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "It cannot react with oxygen",
       "It has no thermal expansion"
     ],
-    "Aluminium transfers heat efficiently and has low density compared with many metals.",
+    "Aluminium transfers heat efficiently and has low density compared with many metals. It therefore heats quickly without making the utensil unnecessarily heavy.",
     [
       "ALUMINIUM-COOKWARE"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "They make food conduct electricity",
       "They prevent all heat transfer"
     ],
-    "A low-adhesion surface reduces sticking and can reduce the amount of oil needed.",
+    "A low-adhesion surface reduces sticking and can reduce the amount of oil needed. Food can be turned or removed more easily because it does not bond strongly to the cooking surface.",
     [
       "NONSTICK-LOW-ADHESION"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Detergent removes calcium by boiling",
       "Soap becomes a metal"
     ],
-    "Calcium and magnesium ions react with soap to form scum, reducing soap available for cleaning.",
+    "Calcium and magnesium ions react with soap to form scum, reducing soap available for cleaning. The scum uses up soap and does not clean effectively, while detergents remain more useful in the same water.",
     [
       "HARD-WATER-SOAP-DETERGENT"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Vehicle mass",
       "Gravitational acceleration"
     ],
-    "Treads improve grip by increasing effective friction and channeling water away.",
+    "Treads improve grip by increasing effective friction and channeling water away. The grooves also help push water away from the contact area, reducing the chance of skidding on wet roads.",
     [
       "TYRE-TREAD-FRICTION"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "They remove inertia",
       "They reduce the passenger's mass to zero"
     ],
-    "A seat belt prevents the body from continuing forward freely and spreads the momentum change over more time.",
+    "A seat belt prevents the body from continuing forward freely and spreads the momentum change over more time. Increasing the stopping time reduces the average force on the body and prevents the passenger from striking the interior.",
     [
       "SEATBELT-MOMENTUM"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Converted only into heat",
       "Limited to the master cylinder"
     ],
-    "Pascal's principle allows pressure to be transmitted through brake fluid to wheel brakes.",
+    "Pascal's principle allows pressure to be transmitted through brake fluid to wheel brakes. A force applied at the brake pedal can therefore produce useful braking forces at the wheels.",
     [
       "HYDRAULIC-BRAKES-PASCAL"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "They stop rotation",
       "They remove all contact forces"
     ],
-    "Rolling friction is generally less than sliding friction, so bearings reduce energy loss and wear.",
+    "Rolling friction is generally less than sliding friction, so bearings reduce energy loss and wear. Lower friction also reduces heating and helps moving parts last longer.",
     [
       "BALL-BEARING-ROLLING-FRICTION"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Gravity becomes weaker in rain",
       "Brake fluid evaporates immediately"
     ],
-    "A water layer can reduce tyre-road grip, especially if tyres cannot clear it effectively.",
+    "A water layer can reduce tyre-road grip, especially if tyres cannot clear it effectively. Good tread depth helps remove water so more of the tyre remains in firm contact with the road.",
     [
       "WET-ROAD-FRICTION"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Tyre friction becomes zero automatically",
       "Mass doubles with speed"
     ],
-    "Kinetic energy depends on the square of speed, so higher speed requires more energy to be removed during braking.",
+    "Kinetic energy depends on the square of speed, so higher speed requires more energy to be removed during braking. For example, doubling speed makes the kinetic energy four times as large, so braking becomes much more demanding.",
     [
       "SPEED-STOPPING-DISTANCE"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Only heat output",
       "No semiconductor material"
     ],
-    "LEDs convert a relatively large fraction of electrical energy into light and waste less as heat than many older lamps.",
+    "LEDs convert a relatively large fraction of electrical energy into light and waste less as heat than many older lamps. This lowers electricity use for the same useful light output and also reduces unwanted heating.",
     [
       "LED-EFFICIENCY"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Solar radiation only",
       "Chemical combustion inside the pan"
     ],
-    "Changing magnetic fields induce currents in suitable cookware, producing heat.",
+    "Changing magnetic fields induce currents in suitable cookware, producing heat. The vessel itself becomes the heating element, so less energy is wasted heating the surrounding air.",
     [
       "INDUCTION-COOKTOP"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Vacuum",
       "Glass molecules exclusively"
     ],
-    "Microwaves cause polar molecules, especially water, to respond to the alternating field and generate heat.",
+    "Microwaves cause polar molecules, especially water, to respond to the alternating field and generate heat. The resulting molecular motion produces heat throughout water-rich regions of the food.",
     [
       "MICROWAVE-WATER-MOLECULES"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Black paint prevents conduction completely",
       "Colour changes atmospheric pressure"
     ],
-    "Dark surfaces absorb more incident radiation and convert it into heat.",
+    "Dark surfaces absorb more incident radiation and convert it into heat. This raises the temperature inside the cooker and improves the use of incoming solar energy.",
     [
       "SOLAR-COOKER-BLACK"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "All electrical energy becomes stored charge",
       "Heat proves no current is flowing"
     ],
-    "Real electrical devices have resistance and conversion losses, so some input energy appears as heat.",
+    "Real electrical devices have resistance and conversion losses, so some input energy appears as heat. The warmth is therefore a sign of energy loss, not an extra useful output.",
     [
       "CHARGER-WASTE-HEAT"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp036ReviewSpec[] = [
       "Both operate without energy conversion",
       "Both create energy from magnetic fields"
     ],
-    "Efficient devices reduce unwanted energy losses while producing the intended light or heat more effectively.",
+    "Efficient devices reduce unwanted energy losses while producing the intended light or heat more effectively. In both cases, better efficiency means getting more useful output from the same amount of input energy.",
     [
       "DEVICE-EFFICIENCY-INTEGRATED"
     ]
