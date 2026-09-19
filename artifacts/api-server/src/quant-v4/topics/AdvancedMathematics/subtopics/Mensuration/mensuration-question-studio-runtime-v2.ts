@@ -405,7 +405,7 @@ function targetedRepeatStemVariantIndex(
     const structuredOrdinal =
       sectionOrdinal + Math.floor(sectionOrdinal / 3) + slotOrdinal;
     return (
-      mixedHash(`${patternId}:targeted-repeat-stem-offset`) +
+      hashText(`${patternId}:targeted-repeat-stem-offset`) +
       structuredOrdinal
     ) % variantCount;
   }
