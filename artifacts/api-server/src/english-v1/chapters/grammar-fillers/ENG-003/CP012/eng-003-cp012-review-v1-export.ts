@@ -22,7 +22,9 @@ function reviewScenes(difficulty: EnglishDifficulty) {
   const selected: typeof pool = [];
   const selectedIds = new Set<string>();
   for (const ruleId of rotatedRules(difficulty).slice(0, 10) as VoiceNarrationRuleId[]) {
-    const scene = pool.find((item) => item.ruleId === ruleId);
+    const scene = difficulty === "hard" && ruleId === "GR-VNR-001"
+      ? pool.find((item) => item.id === "VNR-H-002")
+      : pool.find((item) => item.ruleId === ruleId);
     if (scene) { selected.push(scene); selectedIds.add(scene.id); }
   }
   for (const scene of pool) {
