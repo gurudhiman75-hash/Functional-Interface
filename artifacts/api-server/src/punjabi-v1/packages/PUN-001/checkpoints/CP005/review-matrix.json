@@ -4,10 +4,10 @@
   "status":"HUMAN_REVIEW_PENDING",
   "authorityInventory":{
     "adjectives":151,
-    "adverbs":111,
-    "totalAtomic":262
+    "adverbs":110,
+    "totalAtomic":261
   },
-  "semanticCapacity":101241,
+  "semanticCapacity":100333,
   "totalReviewQuestions":120,
   "difficulty":{"Easy":40,"Medium":40,"Hard":40},
   "families":{"F01":14,"F02":13,"F03":13,"F04":13,"F05":13,"F06":14,"F07":20,"F08":20},
