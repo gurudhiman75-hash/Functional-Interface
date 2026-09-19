@@ -1,37 +1,46 @@
-# PUN-001 CP005 — ਵਿਸ਼ੇਸ਼ਣ ਅਤੇ ਕਿਰਿਆ-ਵਿਸ਼ੇਸ਼ਣ
+# PUN-001 CP005 Retrofit — ਵਿਸ਼ੇਸ਼ਣ ਅਤੇ ਕਿਰਿਆ-ਵਿਸ਼ੇਸ਼ਣ
 
-Status: `REVIEW_ONLY / HUMAN_REVIEW_PENDING`
+Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
 
-## Authority
-- 25 sentence-grounded adjective authorities across five governed types.
-- 20 sentence-grounded adverb authorities across four high-confidence types.
-- 45 atomic authorities total.
-- No artificial English-style positive/comparative/superlative tables are used as Punjabi grammar authority.
-- Comparison wording, when introduced later, must use natural Punjabi constructions such as `ਨਾਲੋਂ` and `ਸਭ ਤੋਂ` rather than imported degree labels.
+## Exhaustive audited authority surface
+- **151 sentence-grounded adjective authorities**
+- **111 sentence-grounded adverb authorities**
+- **262 total atomic authorities**
+- **8 operation-specific families**
+- **101,241 governed semantic combinations**
+
+All 45 previously reviewed authorities are preserved.
+
+### Adjective taxonomy
+- ਗੁਣ-ਵਾਚਕ — 50
+- ਸੰਖਿਆ-ਵਾਚਕ — 40
+- ਪਰਿਮਾਣ-ਵਾਚਕ — 31
+- ਨਿਸ਼ਚੇ-ਵਾਚਕ — 12
+- ਪੜਨਾਂਵੀ — 18
+
+### Adverb taxonomy
+- ਕਾਲ-ਵਾਚਕ — 25
+- ਸਥਾਨ-ਵਾਚਕ — 26
+- ਢੰਗ-ਵਾਚਕ — 27
+- ਸੰਖਿਆ/ਦੁਹਰਾਓ-ਵਾਚਕ — 16
+- ਪਰਿਮਾਣ-ਵਾਚਕ — 17
+
+The donor categories labelled ਕਾਰਨ, ਤਾਕੀਦ and ਨਿਰਣੇ remain quarantined because they mix conjunctions, particles and discourse responses with genuine adverbs.
+
+The donor's 40-item positive/comparative/superlative table remains excluded; Punjabi comparison is not modeled through an imported English-style degree table.
+
+Bare measurement units such as ਕਿਲੋਗ੍ਰਾਮ, ਟਨ and ਕੁਇੰਟਲ are not promoted as adjective authorities by themselves.
 
 ## Families
-1. F01 adjective identification — Easy.
-2. F02 adjective type — Easy.
-3. F03 adjective type + grammatical function — Medium; replaces ambiguous blank-completion questions.
-4. F04 adverb identification — Easy.
-5. F05 adverb type — Medium.
-6. F06 adjective-vs-adverb role discrimination across two contexts — Medium.
-7. F07 paired subtype classification across two contexts — Hard.
-8. F08 contextual two-statement verification — Hard; all four truth outcomes are reachable.
+The already-reviewed eight-family architecture is preserved:
+F01 adjective identification; F02 adjective type; F03 adjective type + function; F04 adverb identification; F05 adverb type; F06 adjective/adverb role discrimination; F07 paired subtype classification; F08 contextual two-statement verification.
 
-Difficulty is structural: no semantic family is shared unchanged between Easy and Medium.
+## Quality rules
+Every authority is sentence-grounded. Added authorities must contain their target in a natural Punjabi sentence and have one governed grammatical role. Punjabi-only learner text and simple explanations remain mandatory.
 
-## Editorial rules
-- natural exam-style Punjabi stems;
-- sentence context is authoritative;
-- no seed-only difficulty;
-- no fabricated or nonsensical sentence distractors;
-- no unresolved blank options;
-- Hard questions require at least two grammatical decisions;
-- no option-by-option explanation filler;
-- Punjabi-only learner stems and explanations;
-- deterministic semantic fingerprints;
-- Question Bank/test/mock/public lifecycle remains closed.
+Semantic fingerprints use a strengthened double content hash because the governed space now exceeds 100k combinations.
 
-## Capacity
-The current governed space exposes 3,115 deterministic semantic slots before option-order permutations. This is a review capacity figure, not a publication count.
+## Lifecycle
+The previous CP005 approval does not cover this material retrofit. Fresh owner approval is required on the exact reviewed head.
+
+No Question Studio, Question Bank, test/mock or public delivery promotion is authorized.
