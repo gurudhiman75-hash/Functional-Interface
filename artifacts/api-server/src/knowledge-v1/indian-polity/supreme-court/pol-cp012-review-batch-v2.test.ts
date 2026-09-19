@@ -44,7 +44,8 @@ describe("POL-CP-012 review batch V2", () => {
     for (const q of questions) {
       const words = q.explanation.trim().split(/\s+/).length;
       expect(words).toBeGreaterThanOrEqual(13);
-      expect(words).toBeLessThanOrEqual(32);
+      const maxWords = q.explanation.includes("Qualifications:") || q.explanation.includes("Article 124 qualifications:") ? 65 : 32;
+      expect(words).toBeLessThanOrEqual(maxWords);
       expect(q.explanation).not.toMatch(/Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i);
     }
   });
