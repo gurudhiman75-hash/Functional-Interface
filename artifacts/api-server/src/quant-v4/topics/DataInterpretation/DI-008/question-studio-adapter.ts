@@ -7,10 +7,11 @@ import {
   type Di008PermanentQlDescriptor,
 } from "./permanent-ql-registry";
 import { generateDi008PermanentQuestion } from "./permanent-question-generator";
+import { DI008_LOCALIZATION_RELEASE_ID, localizeDi008Question } from "./localization-review-v1";
 import type { Di008V2Difficulty, Di008V2ExamProfile } from "./arithmetic-v2-types";
 
 export const DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-008" as const;
-export const DI008_QUESTION_STUDIO_RUNTIME_MODE = "DI008_PERMANENT_ENGLISH_REVIEW_P1" as const;
+export const DI008_QUESTION_STUDIO_RUNTIME_MODE = "DI008_PERMANENT_MULTILINGUAL_REVIEW_V1" as const;
 
 export type Di008QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -59,7 +60,7 @@ function normalizeProfile(value: unknown): Di008V2ExamProfile {
   if (!normalized) return "BANKING_PRELIMS";
   if (normalized.includes("mains")) return "BANKING_MAINS";
   if (normalized.includes("bank") || normalized.includes("ibps") || normalized.includes("sbi") || normalized.includes("rrb")) return "BANKING_PRELIMS";
-  throw new Error(`DI-008 supports Banking Prelims and Banking Mains only in the permanent English review checkpoint; received '${String(value ?? "")}'.`);
+  throw new Error(`DI-008 supports Banking Prelims and Banking Mains only in the controlled review checkpoint; received '${String(value ?? "")}'.`);
 }
 
 function stableOrder(items: readonly Di008PermanentQlDescriptor[], seed: string) {
@@ -73,7 +74,7 @@ function eligibleDescriptors(profile: Di008V2ExamProfile, difficulty?: Di008V2Di
   const filtered = DI008_PERMANENT_QLS.filter(
     (descriptor) => descriptor.supportedProfiles.includes(profile) && (!difficulty || descriptor.difficulty === difficulty),
   );
-  if (!filtered.length) throw new Error(`DI-008 has no permanent English review QL for ${profile}${difficulty ? ` at ${difficulty} difficulty` : ""}.`);
+  if (!filtered.length) throw new Error(`DI-008 has no permanent review QL for ${profile}${difficulty ? ` at ${difficulty} difficulty` : ""}.`);
   return filtered;
 }
 
@@ -95,12 +96,19 @@ function toQuestionStudioPreview(
   source: ReturnType<typeof generateDi008PermanentQuestion>,
   descriptor: Di008PermanentQlDescriptor,
   context: { seed: string; index: number; count: number },
+  language: "en" | "hi" | "pa",
 ) {
-  const question = source.question;
+  const localized = language === "en"
+    ? undefined
+    : localizeDi008Question(source, language === "hi" ? "hi-IN" : "pa-IN");
+  const question = localized?.question ?? source.question;
+  const stimulus = localized?.stimulus ?? source.stimulus;
+  const reviewStatus = language === "en" ? "ENGLISH_REVIEW_APPROVED" as const : "MULTILINGUAL_FROZEN" as const;
+  const releaseId = language === "en" ? DI008_PERMANENT_RELEASE_ID : DI008_LOCALIZATION_RELEASE_ID;
   return {
     text: question.stem,
     stem: question.stem,
-    stimulus: source.stimulus,
+    stimulus,
     options: [...question.options],
     optionMetadata: question.optionMetadata.map((option) => ({ ...option })),
     correct: question.correctIndex,
@@ -116,7 +124,7 @@ function toQuestionStudioPreview(
     topic: "Data Interpretation",
     subtopic: "Arithmetic DI",
     generationBackend: "quant-v4",
-    debugSource: "quant-v4-di008-permanent-english-review",
+    debugSource: language === "en" ? "quant-v4-di008-permanent-english-review" : "quant-v4-di008-multilingual-frozen-review",
     questionId: `${question.questionId}:${descriptor.qlId}`,
     sourceQuestionId: question.questionId,
     seed: context.seed,
@@ -130,8 +138,8 @@ function toQuestionStudioPreview(
     semanticContract: descriptor.semanticContract,
     taskKind: descriptor.taskKind,
     runtimeMode: DI008_QUESTION_STUDIO_RUNTIME_MODE,
-    reviewStatus: "ENGLISH_REVIEW_APPROVED" as const,
-    releaseId: DI008_PERMANENT_RELEASE_ID,
+    reviewStatus,
+    releaseId,
     questionBankStatus: "NOT_STORED" as const,
     questionBankWritable: false as const,
     questionBankEligible: false as const,
@@ -143,14 +151,14 @@ function toQuestionStudioPreview(
     productionReleaseAuthorized: false as const,
     reviewOnly: true as const,
     manualApprovalRequired: true as const,
-    releaseFreezeStatus: "PERMANENT_ENGLISH_CONTROLLED_REVIEW" as const,
-    language: "en" as const,
+    releaseFreezeStatus: language === "en" ? "PERMANENT_ENGLISH_CONTROLLED_REVIEW" as const : "MULTILINGUAL_FROZEN_CONTROLLED_REVIEW" as const,
+    language,
     validation: source.validation,
     traceability: {
-      ...source.traceability,
+      ...(localized?.traceability ?? source.traceability),
       contractStatus: "PERMANENT_REVIEW_QL" as const,
       permanentQlId: descriptor.qlId,
-      releaseId: DI008_PERMANENT_RELEASE_ID,
+      releaseId,
       questionStudioDiscoverable: true as const,
       questionStudioMode: "CONTROLLED_REVIEW" as const,
     },
@@ -159,15 +167,16 @@ function toQuestionStudioPreview(
       canonicalProblemId: DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
       questionLanguageId: descriptor.qlId,
       permanentQlId: descriptor.qlId,
-      releaseId: DI008_PERMANENT_RELEASE_ID,
+      releaseId: language === "en" ? DI008_PERMANENT_RELEASE_ID : DI008_LOCALIZATION_RELEASE_ID,
       taskKind: descriptor.taskKind,
       examProfile: source.examProfile,
       runtimeMode: DI008_QUESTION_STUDIO_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_APPROVED",
+      reviewStatus,
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
       automaticStudentPublication: false,
+      localizationStatus: language === "en" ? "ENGLISH_AUTHORITY" : "HI_PA_FROZEN",
     },
     questionIndex: context.index + 1,
     questionCount: context.count,
@@ -177,8 +186,9 @@ function toQuestionStudioPreview(
 export async function generateDi008QuestionStudioBatch(request: Di008QuestionStudioRequest = {}) {
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
   if (cpId && cpId !== DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package DI-008.`);
-  const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") throw new Error("DI-008 permanent Question Studio review is English-only; localization has not started.");
+  const languageValue = String(request.language ?? "en").trim().toLowerCase();
+  if (!["en", "hi", "pa"].includes(languageValue)) throw new Error(`DI-008 controlled review supports en, hi and pa; received '${String(request.language ?? "")}'.`);
+  const language = languageValue as "en" | "hi" | "pa";
 
   const profile = normalizeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
@@ -198,7 +208,7 @@ export async function generateDi008QuestionStudioBatch(request: Di008QuestionStu
       throw new Error(`${descriptor.qlId} semantic ownership drifted from its approved DI-008 V2 contract.`);
     }
     questionPackages.push(source);
-    questions.push(toQuestionStudioPreview(source, descriptor, { seed, index, count }));
+    questions.push(toQuestionStudioPreview(source, descriptor, { seed, index, count }, language));
   }
 
   return {
@@ -209,11 +219,11 @@ export async function generateDi008QuestionStudioBatch(request: Di008QuestionStu
       canonicalProblemId: DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
       seed: batchSeed,
       timestamp: Date.now(),
-      language: "en" as const,
+      language,
       examProfile: profile,
       runtimeMode: DI008_QUESTION_STUDIO_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_APPROVED" as const,
-      releaseId: DI008_PERMANENT_RELEASE_ID,
+      reviewStatus: language === "en" ? "ENGLISH_REVIEW_APPROVED" as const : "MULTILINGUAL_FROZEN" as const,
+      releaseId: language === "en" ? DI008_PERMANENT_RELEASE_ID : DI008_LOCALIZATION_RELEASE_ID,
       permanentQlCount: DI008_PERMANENT_QLS.length,
       questionStudioDiscoverable: true as const,
       questionStudioMode: "CONTROLLED_REVIEW" as const,
@@ -250,13 +260,13 @@ export function di008QuestionStudioPackageCard() {
     permanentQlCount: DI008_PERMANENT_QLS.length,
     qls: DI008_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, taskKind: descriptor.taskKind })),
     supportedDifficulties: ["easy", "medium", "hard"],
-    supportedLanguages: ["en"],
+    supportedLanguages: ["en", "hi", "pa"],
     supportedExamProfiles: ["BANKING_PRELIMS", "BANKING_MAINS"],
     enabled: true,
     runtimeMode: DI008_QUESTION_STUDIO_RUNTIME_MODE,
     supportedRuntimeModes: [DI008_QUESTION_STUDIO_RUNTIME_MODE],
-    reviewStatus: "ENGLISH_REVIEW_APPROVED",
-    releaseId: DI008_PERMANENT_RELEASE_ID,
+    reviewStatus: "MULTILINGUAL_FROZEN",
+    releaseId: DI008_LOCALIZATION_RELEASE_ID,
     questionStudioDiscoverable: DI008_PERMANENT_OWNERSHIP.lifecycle.questionStudioDiscoverable,
     questionStudioMode: DI008_PERMANENT_OWNERSHIP.lifecycle.questionStudioMode,
     questionBankStatus: "NOT_STORED",
@@ -268,6 +278,6 @@ export function di008QuestionStudioPackageCard() {
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_FROZEN",
   };
 }
