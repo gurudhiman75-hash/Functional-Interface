@@ -82,7 +82,7 @@ export function cp001RelationLabel(
   return locale === "hi-IN" ? pair[0] : pair[1];
 }
 
-function possessive(
+export function cp001RelationPossessiveParticle(
   relationId: BlrRelationId,
   locale: BlrCp001TranslatedLocale,
 ): string {
@@ -100,8 +100,8 @@ export function cp001RelationStatement(
 ): string {
   const relation = cp001RelationLabel(relationId, locale);
   return locale === "hi-IN"
-    ? `${subject}, ${reference} ${possessive(relationId, locale)} ${relation} है।`
-    : `${subject}, ${reference} ${possessive(relationId, locale)} ${relation} ਹੈ।`;
+    ? `${subject}, ${reference} ${cp001RelationPossessiveParticle(relationId, locale)} ${relation} है।`
+    : `${subject}, ${reference} ${cp001RelationPossessiveParticle(relationId, locale)} ${relation} ਹੈ।`;
 }
 
 export function cp001ClueText(
@@ -153,7 +153,7 @@ export function cp001IdentifyPersonQuestion(
   const relation = cp001RelationLabel(relationId, locale);
   return localeText(
     locale,
-    `${reference} ${possessive(relationId, locale)} ${relation} कौन है?`,
-    `${reference} ${possessive(relationId, locale)} ${relation} ਕੌਣ ਹੈ?`,
+    `${reference} ${cp001RelationPossessiveParticle(relationId, locale)} ${relation} कौन है?`,
+    `${reference} ${cp001RelationPossessiveParticle(relationId, locale)} ${relation} ਕੌਣ ਹੈ?`,
   );
 }
