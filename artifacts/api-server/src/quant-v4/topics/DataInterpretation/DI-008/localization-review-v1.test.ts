@@ -73,7 +73,7 @@ for (const locale of locales) {
     const key = locale + ":" + descriptor.taskKind;
     stemVariants.set(key, new Set<number>());
 
-    for (let sample = 1; sample <= 12; sample += 1) {
+    for (let sample = 1; sample <= 30; sample += 1) {
       const seed = `DI008-LOCALIZATION-${locale}-${descriptor.qlId}-${sample}`;
       const source = generateDi008PermanentQuestion({
         seed,
