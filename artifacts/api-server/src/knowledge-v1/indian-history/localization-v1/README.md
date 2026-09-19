@@ -38,7 +38,7 @@ Implemented scope:
 - `HIS-CP-011` Marathas, Sikhs & Eighteenth-Century India — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- `HIS-CP-012` Europeans in India & British Expansion — approved for merge
+- `HIS-CP-012` Europeans in India & British Expansion — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
 - cumulative CP001–CP012: 714 questions per locale / 2142 EN-HI-PA surfaces
