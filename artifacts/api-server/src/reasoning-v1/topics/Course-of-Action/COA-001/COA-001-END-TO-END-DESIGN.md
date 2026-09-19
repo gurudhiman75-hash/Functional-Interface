@@ -1,6 +1,6 @@
 # COA-001 — Course of Action
 
-Status: **COA-CP-011 APPROVED / FROZEN**
+Status: **COA-CP-012 INTERNAL ELIGIBILITY CANDIDATE / APPROVAL PENDING**
 
 ## 1. Chapter purpose
 
@@ -389,12 +389,12 @@ COA-001 is registered in Question Studio for review-only EN/HI/PA generation acr
 ### COA-CP-011 — Final editorial/diversity freeze — APPROVED / FROZEN
 Large semantic saturation and anti-gaming audit is complete. Question Studio enforces semantic uniqueness inside a review batch, truthful safe semantic capacity, QL008 Medium/Hard-only integrity, and final EN/HI/PA editorial regression gates. Product-owner approval recorded on 2026-09-18.
 
-### COA-CP-012 — Internal eligibility
-Lifecycle-only promotion after explicit approval. Question Bank/test/mock may become internally eligible while public/student release remains separately locked.
+### COA-CP-012 — Internal eligibility — CANDIDATE / APPROVAL PENDING
+CP012 is a lifecycle-only evaluation over the frozen CP011 surface. The candidate recommends internal Question Bank/test/mock eligibility, but does not activate those gates before explicit product-owner approval. Learner-facing content must remain byte-identical to CP011 and public/student release remains separately locked.
 
 ## 16. Lifecycle boundary
 
-Current CP011 state:
+Current CP012 candidate state:
 
 ```text
 semantic design:                 APPROVED_FROZEN
@@ -402,10 +402,12 @@ active semantic QLs:             COA-QL-001..006, COA-QL-008..009
 retired semantic QLs:            COA-QL-007 (legacy compatibility only)
 English authority:               APPROVED_FROZEN
 Hindi/Punjabi authority:         APPROVED_FROZEN
-Question Studio:                 CONNECTED_REVIEW_ONLY / CP011_DIVERSITY_FROZEN
+Question Studio:                 CONNECTED_REVIEW_ONLY / LIVE_AUTHORITY_CP011
 Question Studio languages:       EN / HI / PA
 review-run persistence:          ALLOWED
 semantic repetition in batch:    BLOCKED
+CP012 technical candidate:       READY_FOR_APPROVAL
+internal eligibility activated:  NO
 canonical Question Bank writes:  CLOSED
 test/mock eligibility:           CLOSED
 public/student publication:      CLOSED
