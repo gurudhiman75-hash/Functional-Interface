@@ -1,0 +1,51 @@
+name: Validate English ENG-003 CP011 V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-eng003-cp011-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-eng003-cp011-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install workspace dependencies
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Compile ENG-003 CP011 tests
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-003-cp011-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-003-cp011-v1.test.mjs
+      - name: Run ENG-003 CP011 tests
+        run: node artifacts/api-server/dist/english-v1/eng-003-cp011-v1.test.mjs
+      - name: Compile ENG-003 CP011 review exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/grammar-fillers/ENG-003/CP011/eng-003-cp011-review-v1-export.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-003-cp011-review-v1-export.mjs
+      - name: Generate ENG-003 CP011 review file
+        run: node artifacts/api-server/dist/english-v1/eng-003-cp011-review-v1-export.mjs
+      - name: Upload ENG-003 CP011 review file
+        uses: actions/upload-artifact@v4
+        with:
+          name: ENG-003-CP011-REVIEW-V1
+          path: dist/english-v1/ENG-003-CP011-REVIEW-V1.md
+          if-no-files-found: error
+          retention-days: 30
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
