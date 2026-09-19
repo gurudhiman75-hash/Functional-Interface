@@ -14,6 +14,21 @@
 - POL-CP-007 through POL-CP-027 already carried approved/frozen lifecycle state.
 - The package roadmap now lists all 27 CPs as eligible for shared package binding.
 
+## Qualification explanation audit
+
+The final audit backfills the chapter-wide qualification standard across the frozen English corpus:
+
+- President — Article 58 full qualification set;
+- Vice-President — Article 66 full qualification set;
+- Parliament membership — Article 84 citizenship, oath, age and Parliament-law qualifications;
+- Supreme Court Judges — Article 124(3) full judicial/advocacy/distinguished-jurist routes;
+- High Court Judges — Article 217(2) citizenship and ten-year professional routes, with no invented minimum age;
+- Governor — Article 157 citizenship and age only; Article 158 conditions remain separate;
+- State Legislature membership — Article 173 citizenship, oath, age and Parliament-law qualifications;
+- Attorney-General and Advocate-General — existing CP022 V2 full qualification notes retained.
+
+A cross-chapter regression test now guards these explanations against reverting to single-condition notes.
+
 ## Integration
 
 `knowledge-v1-pol001-adapter-v1.ts` materializes each CP from its latest approved review generator and exposes one frozen Question Studio package:
