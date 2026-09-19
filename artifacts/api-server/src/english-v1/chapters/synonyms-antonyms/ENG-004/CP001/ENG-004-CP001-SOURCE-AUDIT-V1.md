@@ -1,93 +1,87 @@
-# ENG-004-CP001 — Core Synonyms & Antonyms — Source Audit V1
+# ENG-004-CP001 — Core Synonyms & Antonyms — Source Audit V2
 
-Status: `PILOT_BANK_36__EXPANSION_REQUIRED__HUMAN_APPROVAL_BLOCKED`
+Status: `EXPANDED_500__AUTOMATED_VALIDATION_PENDING__HUMAN_REVIEW_PENDING`
 
-## Boundary
+## Expansion result
 
-ENG-004 starts the blueprint's Phase 2 vocabulary layer. Unlike ENG-001 to ENG-003, this chapter does **not** use grammar mutations.
+CP001 has been expanded from the 36-entry architecture pilot to **500 curated allowlisted headword-senses**.
 
-CP001 establishes the first reusable lexical checkpoint for direct synonym and antonym questions.
+Current composition:
 
-Pipeline:
+- 500 headword-senses
+- 342 adjectives / 158 verbs
+- 170 Easy / 180 Medium / 150 Hard
+- 748 stored synonym links
+- 216 stored antonym links
+- 164 entries with at least one antonym relation
+- 412 polysemous entries with source context available
 
-> lexical entry → relation type → exam-style stem → same-part-of-speech option family → deterministic answer → usage explanation
+The full ENG-004 chapter target remains 2,000+ headword-senses across later CPs.
 
-## Lexical inventory
+## Source and editorial boundary
 
-The initial V1 architecture pilot contains **36 curated entries**. This is **not** the final CP001 coverage bank. CP001 now has a minimum target of **500 headword-senses** before human approval:
+The sense/relation source is **Princeton WordNet 3.0**. Examtree does not expose raw WordNet indiscriminately.
 
-- 12 Easy
-- 12 Medium
-- 12 Hard
+The CP001 allowlist is explicitly selected for competitive-exam usefulness. Technical and phrase-heavy entries are excluded from this checkpoint. Relation alternatives are filtered toward attested/common single-token forms. Source synset offsets are retained for audit.
 
-Each entry stores:
+The WordNet 3.0 license is stored at:
+`ENG-004/WORDNET-3.0-LICENSE.txt`.
 
-- lemma
-- part of speech
-- concise meaning
-- one canonical synonym
-- one canonical antonym
-- three synonym distractors
-- three antonym distractors
-- a natural usage example
-- difficulty
+## Sense handling
 
-The initial inventory intentionally favours common competitive-exam vocabulary rather than obscure dictionary words.
+A headword may have several WordNet senses. CP001 resolves one source sense per headword and records its sense rank/count.
 
-## Question surface
+Where a selected headword is polysemous and WordNet provides a usable example sentence, the generator supplies that sentence as context. This prevents direct-word questions from silently accepting a second sense.
 
-CP001 supports both:
+## Multi-relation model
 
-- direct synonym questions
-- direct antonym questions
+V2 stores arrays rather than a single answer pair:
 
-Stem wording rotates deterministically among natural exam-style variants. Options remain single words or compact lexical expressions.
+- `synonyms[]`
+- `antonyms[]`
+- `distractors[]`
 
-## Distractor policy
+The generator deterministically chooses one accepted relation for the displayed correct option and blocks every other stored synonym/antonym from distractor positions.
 
-Distractors must:
+## Distractor model
 
-- match the target part of speech;
-- remain plausible enough to require vocabulary knowledge;
-- not duplicate the answer;
-- not accidentally become a second defensible synonym/antonym;
-- avoid trivial nonsense options.
+Distractors are drawn from the approved 500-word bank, not from arbitrary strings.
+
+Selection favours:
+
+- same part of speech
+- same or nearby WordNet lexical domain
+- same difficulty band
+- semantic-gloss overlap
+- similar corpus frequency and word length
+
+Known direct WordNet synonym/antonym relations are excluded.
 
 ## Difficulty
 
-Difficulty comes mainly from lexical familiarity and semantic closeness.
+Difficulty is assigned by corpus-frequency rank within the curated bank:
 
-Easy uses high-frequency words.
-Medium uses common exam vocabulary with closer distractors.
-Hard uses less frequent but still exam-relevant vocabulary and tighter semantic distinctions.
+- top 170 → Easy
+- next 180 → Medium
+- remaining 150 → Hard
 
-## Explanation policy
+This creates a reproducible starting point. Human review may override individual difficulty labels before approval.
 
-Every explanation states:
+## Validation gates
 
-1. the meaning of the target word;
-2. why the correct option has the same/opposite meaning;
-3. one natural usage example.
+V2 must pass:
 
-No option-by-option analysis and no generic closing clutter.
-
-## Validation
-
-V1 requires:
-
-- deterministic replay;
-- exactly four unique options;
-- valid answer index;
-- explicit coverage of every lexical entry in both relation modes;
-- 6,000-question soak;
-- all 36 entries exercised in the soak;
-- synonym and antonym generation at every difficulty;
-- broadly balanced A/B/C/D answer positions;
-- API build gate;
-- generated 30-question review file.
+- exact bank size and unique headword checks
+- relation existence and option uniqueness
+- every eligible synonym/antonym mode per entry
+- minimum relation-depth assertions
+- 12,000-question soak
+- all 500 entries exercised
+- synonym and antonym generation at every difficulty
+- balanced A/B/C/D positions
+- 60-question review export
+- API build
 
 ## Lifecycle
 
-CP001 is **pilot/review-only** and human approval is currently blocked by lexical coverage. It is not registered in Question Studio. See `ENG-004-LEXICAL-COVERAGE-PLAN-V1.md` for the chapter-scale expansion target.
-
-Question Bank writes, tests, mocks, learner/public publication, automatic student delivery and production release are not authorized.
+Review-only. No Question Studio registration or learner/test/mock/public/production promotion until explicit approval of V2.
