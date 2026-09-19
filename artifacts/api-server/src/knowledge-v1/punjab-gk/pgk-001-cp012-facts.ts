@@ -5,6 +5,34 @@ export const PGK_001_CP012_SOURCE_IDS = Object.freeze({
   sgpcHistoricalGurdwaras: "SGPC-HISTORICAL-GURDWARAS",
 } as const);
 
+export const PGK_001_CP012_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP012_SOURCE_IDS.psebPunjabHistory]: {
+    authority: "Punjab School Education Board",
+    title: "Class XII Punjab History & Culture Question Bank — Sikh Gurus",
+    url: "https://static.pseb.ac.in/media/1655981990_N_5131_1655355982934.pdf",
+    classification: "PRIMARY_EDUCATION_AUTHORITY",
+  },
+  [PGK_001_CP012_SOURCE_IDS.psebClass12Paper]: {
+    authority: "Punjab School Education Board",
+    title: "Punjab History & Culture Class XII syllabus",
+    url: "https://static.pseb.ac.in/media/1775112498_12thPunjabHistoryandCultureSyllabus2026-27.pdf",
+    classification: "SUPPORTING_CURRICULUM",
+  },
+  [PGK_001_CP012_SOURCE_IDS.sgpcTenGurus]: {
+    authority: "Shiromani Gurdwara Parbandhak Committee",
+    title: "Ten Guru Sahibs",
+    url: "https://sgpc.net/ten-guru-sahibs/",
+    classification: "PRIMARY_INSTITUTIONAL",
+  },
+  [PGK_001_CP012_SOURCE_IDS.sgpcHistoricalGurdwaras]: {
+    authority: "Shiromani Gurdwara Parbandhak Committee",
+    title: "Historical Gurdwaras of Punjab",
+    url: "https://old.sgpc.net/historical-gurdwaras/arjandev.html",
+    supportingUrls: Object.freeze(["https://old.sgpc.net/historical-gurdwaras/gobind.asp"]),
+    classification: "PRIMARY_INSTITUTIONAL",
+  },
+} as const);
+
 export const PGK_001_CP012_FACTS = Object.freeze({
   tenGurus: {
     id: "ten-gurus-sequence",
