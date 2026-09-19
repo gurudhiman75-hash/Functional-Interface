@@ -1,0 +1,44 @@
+name: Validate POL-001 Chapter Close
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-polity/**"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-pol001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-pol001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-pol001-qualification-audit-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
+      - ".github/workflows/polity-chapter-close.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pol-001-chapter-close-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-chapter-close:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run POL-001 Question Studio and qualification audit gates
+        run: |
+          pnpm --dir artifacts/api-server exec vitest run \
+            src/question-studio/engines/knowledge-v1-pol001-adapter-v1.test.ts \
+            src/question-studio/engines/knowledge-v1-pol001-qualification-audit-v1.test.ts
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
