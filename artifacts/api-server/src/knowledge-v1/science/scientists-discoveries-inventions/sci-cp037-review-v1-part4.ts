@@ -19,7 +19,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
   [
     8,
     "Medium",
-    "The dynamite invention is associated with:",
+    "Who invented dynamite?",
     "Alfred Nobel",
     [
       "Michael Faraday",
@@ -34,14 +34,14 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
   [
     8,
     "Hard",
-    "Which pair is correctly distinguished?",
+    "Which pairing correctly separates the telephone from practical wireless telegraphy?",
     "Bell — telephone; Marconi — practical wireless telegraphy",
     [
       "Marconi — telephone; Bell — radioactivity",
       "Baird — dynamite; Nobel — television",
       "Berners-Lee — penicillin; Fleming — World Wide Web"
     ],
-    "Bell is associated with the telephone, while Marconi is known for practical wireless telegraphy and radio communication.",
+    "Bell is widely credited with key telephone development, while Marconi developed practical wireless telegraphy and radio communication.",
     [
       "BELL-MARCONI-DISTINCTION"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Meghnad Saha",
       "Homi J. Bhabha"
     ],
-    "C. V. Raman discovered the change in wavelength of light associated with inelastic scattering.",
+    "C. V. Raman discovered the wavelength shift produced by inelastic scattering of light.",
     [
       "CV-RAMAN-RAMAN-EFFECT"
     ]
@@ -64,7 +64,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
   [
     9,
     "Medium",
-    "The Saha ionization equation is associated with:",
+    "Who developed the Saha ionization equation?",
     "Meghnad Saha",
     [
       "C. V. Raman",
@@ -124,14 +124,14 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
   [
     9,
     "Hard",
-    "Which distinction is correct?",
+    "Which statement correctly distinguishes C. V. Raman's and S. N. Bose's contributions?",
     "C. V. Raman — Raman effect; S. N. Bose — quantum statistics",
     [
       "Raman — radioactivity; Bose — X-rays",
       "Raman — insulin; Bose — vaccination",
       "Raman — periodic law; Bose — conservation of mass"
     ],
-    "Raman is associated with light scattering, while Bose is associated with quantum statistics.",
+    "Raman discovered the Raman effect in light scattering, while Bose developed foundational work in quantum statistics.",
     [
       "RAMAN-BOSE-DISTINCTION"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Pasteur — X-rays; Röntgen — vaccine",
       "Koch — telephone; Bell — bacteria"
     ],
-    "Jenner is associated with smallpox vaccination, while Fleming discovered penicillin.",
+    "Jenner developed the smallpox vaccine, while Fleming discovered penicillin.",
     [
       "JENNER-FLEMING-DISTINCTION"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Ohm — natural selection; Darwin — resistance law; Jenner — telephone",
       "Rutherford — penicillin; Fleming — nucleus; Hooke — gravity"
     ],
-    "Faraday, Mendeleev and Mendel are correctly associated with electromagnetic induction, the periodic table and inheritance respectively.",
+    "Faraday discovered electromagnetic induction, Mendeleev developed the periodic table, and Mendel established basic laws of inheritance.",
     [
       "MIXED-ALL-CORRECT-SET"
     ]
