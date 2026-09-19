@@ -11,8 +11,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "chloroplast",
       "vacuole"
     ],
-    "Mitochondria carry out major stages of aerobic respiration and produce ATP. ATP supplies usable energy for many cellular processes.",
-    "MEGA-MITOCHONDRIA"
+    "Mitochondria carry out major stages of aerobic respiration and produce ATP. ATP supplies usable energy for many cellular processes. Cells with high energy demand often contain many mitochondria.",
+    [
+      "MEGA-MITOCHONDRIA"
+    ]
   ],
   [
     6,
@@ -24,8 +26,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "root hairs",
       "petals"
     ],
-    "Guard cells change shape as their water content changes, opening or closing the stomatal pore. This regulates gas exchange and water loss.",
-    "MEGA-GUARD-CELLS"
+    "Guard cells change shape as their water content changes, opening or closing the stomatal pore. This regulates gas exchange and water loss. Stomatal control balances carbon dioxide uptake with water conservation.",
+    [
+      "MEGA-GUARD-CELLS"
+    ]
   ],
   [
     6,
@@ -37,8 +41,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "epidermis",
       "cork only"
     ],
-    "Phloem transports sucrose and other organic substances from source regions such as leaves to growing or storage tissues.",
-    "MEGA-PHLOEM"
+    "Phloem transports sucrose and other organic substances from source regions such as leaves to growing or storage tissues. Food can move from a source leaf toward growing roots, fruits or storage organs.",
+    [
+      "MEGA-PHLOEM"
+    ]
   ],
   [
     6,
@@ -50,8 +56,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "have no cells",
       "are prokaryotic"
     ],
-    "Fungi do not contain chlorophyll and cannot make food by photosynthesis. They absorb nutrients from organic material in their surroundings.",
-    "MEGA-FUNGI"
+    "Fungi do not contain chlorophyll and cannot make food by photosynthesis. They absorb nutrients from organic material in their surroundings. Many fungi act as decomposers and recycle nutrients from dead material.",
+    [
+      "MEGA-FUNGI"
+    ]
   ],
   [
     6,
@@ -63,8 +71,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "adrenaline",
       "thyroxine"
     ],
-    "Auxin promotes cell elongation in many plant tissues and helps produce directional growth responses such as phototropism.",
-    "MEGA-AUXIN"
+    "Auxin promotes cell elongation in many plant tissues and helps produce directional growth responses such as phototropism. Unequal auxin distribution can cause different growth rates on opposite sides of an organ.",
+    [
+      "MEGA-AUXIN"
+    ]
   ],
   [
     6,
@@ -76,8 +86,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "Stomata permanently create water",
       "Xylem turns into phloem"
     ],
-    "Roots and root hairs absorb water from soil. Severe root damage reduces uptake, so leaves lose water faster than it can be replaced and the plant wilts.",
-    "MEGA-ROOT-DAMAGE"
+    "Roots and root hairs absorb water from soil. Severe root damage reduces uptake, so leaves lose water faster than it can be replaced and the plant wilts. This shows how root function and water transport are linked.",
+    [
+      "MEGA-ROOT-DAMAGE"
+    ]
   ],
   [
     7,
@@ -89,8 +101,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "plasma proteins only",
       "white blood cells"
     ],
-    "Red blood cells contain haemoglobin, which binds oxygen in the lungs and transports it to tissues. Their shape also supports efficient gas transport.",
-    "MEGA-RBC-OXYGEN"
+    "Red blood cells contain haemoglobin, which binds oxygen in the lungs and transports it to tissues. Their shape also supports efficient gas transport. Haemoglobin gives red blood cells their oxygen-carrying ability.",
+    [
+      "MEGA-RBC-OXYGEN"
+    ]
   ],
   [
     7,
@@ -102,8 +116,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "hypothalamus only",
       "spinal nerve"
     ],
-    "The cerebellum helps coordinate voluntary movement, posture and balance. Damage can cause poor coordination even if muscles themselves are normal.",
-    "MEGA-CEREBELLUM"
+    "The cerebellum helps coordinate voluntary movement, posture and balance. Damage can cause poor coordination even if muscles themselves are normal. The cerebellum works with sensory information to fine-tune movement.",
+    [
+      "MEGA-CEREBELLUM"
+    ]
   ],
   [
     7,
@@ -115,8 +131,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "To pump blood",
       "To store bile"
     ],
-    "Villi and microvilli greatly increase the inner surface area of the small intestine. This improves absorption of digested nutrients into blood and lymph.",
-    "MEGA-VILLI"
+    "Villi and microvilli greatly increase the inner surface area of the small intestine. This improves absorption of digested nutrients into blood and lymph. This large surface area is essential because nutrient absorption must occur efficiently.",
+    [
+      "MEGA-VILLI"
+    ]
   ],
   [
     7,
@@ -128,8 +146,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "melatonin",
       "calcitonin"
     ],
-    "Adrenaline increases heart rate, redirects blood flow and helps mobilize energy during sudden stress. It is released from the adrenal glands.",
-    "MEGA-ADRENALINE"
+    "Adrenaline increases heart rate, redirects blood flow and helps mobilize energy during sudden stress. It is released from the adrenal glands. The response also prepares muscles and circulation for rapid action.",
+    [
+      "MEGA-ADRENALINE"
+    ]
   ],
   [
     7,
@@ -141,8 +161,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "kidney",
       "thyroid gland"
     ],
-    "Many reflex pathways are processed through the spinal cord for speed. The brain is informed, but the protective response can begin before conscious awareness.",
-    "MEGA-REFLEX-SPINAL"
+    "Many reflex pathways are processed through the spinal cord for speed. The brain is informed, but the protective response can begin before conscious awareness. Reflexes are protective because they reduce the delay before a response begins.",
+    [
+      "MEGA-REFLEX-SPINAL"
+    ]
   ],
   [
     7,
@@ -154,8 +176,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "Oxygen transport stops",
       "Urine formation stops completely"
     ],
-    "Insulin helps cells take up glucose and promotes storage after meals. Too little insulin can therefore lead to persistent high blood glucose.",
-    "MEGA-LOW-INSULIN"
+    "Insulin helps cells take up glucose and promotes storage after meals. Too little insulin can therefore lead to persistent high blood glucose. Persistently high blood glucose is a key feature of diabetes mellitus.",
+    [
+      "MEGA-LOW-INSULIN"
+    ]
   ],
   [
     8,
@@ -167,8 +191,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "vitamin K",
       "vitamin B12 only"
     ],
-    "Vitamin A is important for normal visual pigments in the retina. Deficiency can impair vision in dim light and cause night blindness.",
-    "MEGA-VITAMIN-A"
+    "Vitamin A is important for normal visual pigments in the retina. Deficiency can impair vision in dim light and cause night blindness. Vitamin A deficiency can also affect the health of epithelial tissues.",
+    [
+      "MEGA-VITAMIN-A"
+    ]
   ],
   [
     8,
@@ -180,8 +206,10 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "virus",
       "fungus"
     ],
-    "Malaria is caused by Plasmodium parasites and is transmitted by infected female Anopheles mosquitoes. It is not a bacterial or viral disease.",
-    "MEGA-MALARIA"
+    "Malaria is caused by Plasmodium parasites and is transmitted by infected female Anopheles mosquitoes. It is not a bacterial or viral disease. Controlling mosquito vectors is therefore an important part of malaria prevention.",
+    [
+      "MEGA-MALARIA"
+    ]
   ],
   [
     8,
@@ -193,7 +221,9 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
       "They remove all immunity",
       "They always cause deficiency disease"
     ],
-    "Unnecessary antibiotic use creates selection pressure that favours resistant bacteria. This can make future bacterial infections harder to treat.",
-    "MEGA-AMR"
+    "Unnecessary antibiotic use creates selection pressure that favours resistant bacteria. This can make future bacterial infections harder to treat. Resistance can spread through populations and make standard treatments less effective.",
+    [
+      "MEGA-AMR"
+    ]
   ]
 ] as const;
