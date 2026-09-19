@@ -1,4 +1,8 @@
 import { stableHash } from "../../foundation/prng";
+import {
+  localizeBlrPersonName,
+  localizeBlrPersonNamesInText,
+} from "../../foundation/localized-person-names";
 import type { BlrRoleId } from "../../foundation/types";
 import {
   generateBlrCp002Question,
@@ -459,7 +463,24 @@ export function localizeBlrCp002Question(
   locale: BlrCp002TranslatedLocale,
 ): GeneratedBlrCp002LocalizedQuestion {
   const localized = localizedStem(record.structuredPrompt, locale);
-  const options = record.options.map((option) => localizedOption(record, option, locale));
+  const localizedStemText = localizeBlrPersonNamesInText(localized.stem, locale);
+  const localizedClues = localized.normalizedClues.map((line) =>
+    localizeBlrPersonNamesInText(line, locale),
+  );
+  const options = record.options.map((option) => {
+    const localizedValue = localizedOption(record, option, locale);
+    return {
+      ...localizedValue,
+      value: localizeBlrPersonNamesInText(localizedValue.value, locale),
+    };
+  });
+  const localizedFamilyGraph = {
+    ...record.structuredPrompt.familyGraph,
+    persons: record.structuredPrompt.familyGraph.persons.map((person) => ({
+      ...person,
+      name: localizeBlrPersonName(person.name, locale),
+    })),
+  };
   const correct = options[record.correctIndex]!;
   const canonicalItemId = [
     record.checkpointId,
@@ -472,13 +493,13 @@ export function localizeBlrCp002Question(
   const localizedSemanticFingerprint = stableHash([
     String(record.metadata.hiddenFingerprint),
     locale,
-    localized.stem,
+    localizedStemText,
     ...options.map((option) => option.value),
   ]);
   const candidate = {
     ...record,
     locale,
-    stem: localized.stem,
+    stem: localizedStemText,
     options,
   } as unknown as GeneratedBlrCp002LocalizedQuestion;
   if (
@@ -494,7 +515,7 @@ export function localizeBlrCp002Question(
     ...record,
     locale,
     canonicalLocale: "en-IN",
-    stem: localized.stem,
+    stem: localizedStemText,
     options,
     explanation: {
       coreConcept: [
@@ -504,14 +525,16 @@ export function localizeBlrCp002Question(
           "ਪਹਿਲਾਂ ‘ਮੈਂ’, ‘ਤੁਸੀਂ’ ਅਤੇ ਦੱਸੇ ਵਿਅਕਤੀ ਦੀ ਪਛਾਣ ਸਪਸ਼ਟ ਕਰੋ। ਫਿਰ ਰਿਸ਼ਤੇ ਦੀ ਲੜੀ ਨੂੰ ਇੱਕ-ਇੱਕ ਪੜਾਅ ਵਿੱਚ ਹੱਲ ਕਰੋ।",
         ),
       ],
-      normalizedClues: localized.normalizedClues,
-      queryPath: localizedExplanationSteps(record, locale, correct.value),
+      normalizedClues: localizedClues,
+      queryPath: localizedExplanationSteps(record, locale, correct.value).map((line) =>
+        localizeBlrPersonNamesInText(line, locale),
+      ),
       conclusion: localeText(
         locale,
         `अतः सही उत्तर है: ${correct.value}।`,
         `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਹੈ: ${correct.value}।`,
       ),
-      familyTree: record.structuredPrompt.familyGraph,
+      familyTree: localizedFamilyGraph,
     },
     canonicalItemId,
     itemId: questionLanguageId,

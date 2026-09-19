@@ -1,4 +1,8 @@
 import { stableHash } from "../../foundation/prng";
+import {
+  localizeBlrPersonName,
+  localizeBlrPersonNamesInText,
+} from "../../foundation/localized-person-names";
 import type { BlrRelationId, DirectRelationClue } from "../../foundation/types";
 import type { GenerationRelationId } from "../../foundation/family-analysis";
 import {
@@ -20,6 +24,7 @@ import {
   cp001IdentifyPersonQuestion,
   cp001RelationLabel,
   cp001RelationQuestion,
+  cp001RelationPossessiveParticle,
   cp001RelationStatement,
   localeText,
   type BlrCp001TranslatedLocale,
@@ -106,7 +111,12 @@ function localizeOption(
   locale: BlrCp001TranslatedLocale,
 ): RawOption & { value: string } {
   const key = option.answerKey ?? "";
-  const names = record.structuredPrompt.personNames;
+  const names = Object.fromEntries(
+    Object.entries(record.structuredPrompt.personNames).map(([id, name]) => [
+      id,
+      localizeBlrPersonName(name, locale),
+    ]),
+  ) as Readonly<Record<string, string>>;
 
   const relationId = option.relationId
     ?? (key.startsWith("RELATION:") ? key.slice("RELATION:".length) as BlrRelationId : undefined);
@@ -145,14 +155,19 @@ function localizeOption(
     };
   }
 
-  return { ...option, value: option.value };
+  return { ...option, value: localizeBlrPersonNamesInText(option.value, locale) };
 }
 
 function localizedQuestion(
   record: BlrCp001PermanentQuestion,
   locale: BlrCp001TranslatedLocale,
 ): string {
-  const names = record.structuredPrompt.personNames;
+  const names = Object.fromEntries(
+    Object.entries(record.structuredPrompt.personNames).map(([id, name]) => [
+      id,
+      localizeBlrPersonName(name, locale),
+    ]),
+  ) as Readonly<Record<string, string>>;
   const wrapped = queryOf(record);
 
   if (wrapped.kind === "RELATION") {
@@ -173,10 +188,11 @@ function localizedQuestion(
       );
     case "IDENTIFY_ORDERED_PAIR": {
       const relation = cp001RelationLabel(query.relationId, locale);
+      const possessive = cp001RelationPossessiveParticle(query.relationId, locale);
       return localeText(
         locale,
-        `कौन-सा युग्म सही क्रम में ऐसा है जिसमें पहला व्यक्ति दूसरे का ${relation} है?`,
-        `ਕਿਹੜਾ ਜੋੜਾ ਸਹੀ ਕ੍ਰਮ ਵਿੱਚ ਐਸਾ ਹੈ ਜਿਸ ਵਿੱਚ ਪਹਿਲਾ ਵਿਅਕਤੀ ਦੂਜੇ ਦਾ ${relation} ਹੈ?`,
+        `कौन-सा युग्म सही क्रम में ऐसा है जिसमें पहला व्यक्ति दूसरे ${possessive} ${relation} है?`,
+        `ਕਿਹੜਾ ਜੋੜਾ ਸਹੀ ਕ੍ਰਮ ਵਿੱਚ ਐਸਾ ਹੈ ਜਿਸ ਵਿੱਚ ਪਹਿਲਾ ਵਿਅਕਤੀ ਦੂਜੇ ${possessive} ${relation} ਹੈ?`,
       );
     }
     case "SELECT_RELATION_CLAIM":
@@ -213,7 +229,12 @@ function localizedReasoningSteps(
   locale: BlrCp001TranslatedLocale,
   correctValue: string,
 ): readonly string[] {
-  const names = record.structuredPrompt.personNames;
+  const names = Object.fromEntries(
+    Object.entries(record.structuredPrompt.personNames).map(([id, name]) => [
+      id,
+      localizeBlrPersonName(name, locale),
+    ]),
+  ) as Readonly<Record<string, string>>;
   const wrapped = queryOf(record);
 
   if (wrapped.kind === "RELATION") {
@@ -377,7 +398,12 @@ export function localizeBlrCp001Question(
   locale: BlrCp001TranslatedLocale,
 ): GeneratedBlrCp001LocalizedQuestion {
   const normalizedClues = (record.structuredPrompt.clues as readonly DirectRelationClue[])
-    .map((clue) => cp001ClueText(clue, record.structuredPrompt.personNames, locale));
+    .map((clue) =>
+      localizeBlrPersonNamesInText(
+        cp001ClueText(clue, record.structuredPrompt.personNames, locale),
+        locale,
+      ),
+    );
   const question = localizedQuestion(record, locale);
   const stem = [...normalizedClues, question].join(" ");
   const options = record.options.map((option) =>

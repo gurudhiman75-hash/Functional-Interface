@@ -13,6 +13,7 @@ import {
   localizedDirectRelationSentence,
   localizedGenderLabel,
   localizedRelationLabel,
+  localizedRelationPossessiveParticle,
   localizedShortcut,
   type BlrCp006TranslatedLocale,
 } from "./cp006-language-pack";
@@ -147,10 +148,11 @@ function localizedStem(record: GeneratedBlrCp006Question, locale: Locale): strin
   }
   if (query.kind === "IDENTIFY_PERSON") {
     const relation = localizedRelationLabel(query.relationId, locale);
+    const possessive = localizedRelationPossessiveParticle(query.relationId, locale);
     return localeText(
       locale,
-      `${query.referenceId} का ${relation} कौन है?`,
-      `${query.referenceId} ਦਾ ${relation} ਕੌਣ ਹੈ?`,
+      `${query.referenceId} ${possessive} ${relation} कौन है?`,
+      `${query.referenceId} ${possessive} ${relation} ਕੌਣ ਹੈ?`,
     );
   }
   if (query.kind === "GENDER") {
@@ -211,11 +213,12 @@ function localizedGraphAudit(
   }
   if (query.kind === "IDENTIFY_PERSON") {
     const relation = localizedRelationLabel(query.relationId, locale);
+    const possessive = localizedRelationPossessiveParticle(query.relationId, locale);
     return [
       localeText(
         locale,
-        `उम्मीदवार ${query.candidateIds.join(", ")} में जाँचें कि ${query.referenceId} का ${relation} कौन है।`,
-        `ਉਮੀਦਵਾਰ ${query.candidateIds.join(", ")} ਵਿੱਚ ਜਾਂਚੋ ਕਿ ${query.referenceId} ਦਾ ${relation} ਕੌਣ ਹੈ।`,
+        `उम्मीदवार ${query.candidateIds.join(", ")} में जाँचें कि ${query.referenceId} ${possessive} ${relation} कौन है।`,
+        `ਉਮੀਦਵਾਰ ${query.candidateIds.join(", ")} ਵਿੱਚ ਜਾਂਚੋ ਕਿ ${query.referenceId} ${possessive} ${relation} ਕੌਣ ਹੈ।`,
       ),
       localeText(
         locale,

@@ -57,6 +57,31 @@ export function localizedRelationLabel(
   return locale === "hi-IN" ? pair[0] : pair[1];
 }
 
+const FEMININE_RELATIONS = new Set<BlrCp006Relation>([
+  "MOTHER",
+  "DAUGHTER",
+  "SISTER",
+  "WIFE",
+  "GRANDMOTHER",
+  "GRANDDAUGHTER",
+  "AUNT",
+  "NIECE",
+  "MOTHER_IN_LAW",
+  "DAUGHTER_IN_LAW",
+  "SISTER_IN_LAW",
+]);
+
+export function localizedRelationPossessiveParticle(
+  relationId: BlrCp006Relation,
+  locale: BlrCp006TranslatedLocale,
+): string {
+  return localeText(
+    locale,
+    FEMININE_RELATIONS.has(relationId) ? "की" : "का",
+    FEMININE_RELATIONS.has(relationId) ? "ਦੀ" : "ਦਾ",
+  );
+}
+
 export function localizedDirectRelationSentence(
   leftId: string,
   relationId: BlrCp006DirectRelation,
@@ -64,11 +89,8 @@ export function localizedDirectRelationSentence(
   locale: BlrCp006TranslatedLocale,
 ): string {
   const relation = localizedRelationLabel(relationId, locale);
-  return localeText(
-    locale,
-    `${leftId}, ${rightId} का ${relation} है।`,
-    `${leftId}, ${rightId} ਦਾ ${relation} ਹੈ।`,
-  );
+  const possessive = localizedRelationPossessiveParticle(relationId, locale);
+  return `${leftId}, ${rightId} ${possessive} ${relation} ${localeText(locale, "है।", "ਹੈ।")}`;
 }
 
 export function localizedGenderLabel(value: string, locale: BlrCp006TranslatedLocale): string {

@@ -4,6 +4,10 @@ import {
 } from "../../BLR-CP-003/cp003-final-approved-bank";
 import { localizedBlrCp003SharedPromptCompleteV6 } from "../../BLR-CP-003/localization/cp003-passage-grammar-v6";
 import { generateBlrCp004FrozenBank } from "../cp004-bank";
+import {
+  localizeBlrPersonName,
+  localizeBlrPersonNamesInText,
+} from "../../foundation/localized-person-names";
 import type { GeneratedBlrCp004Question } from "../cp004-model";
 import {
   BLR_CP004_LOCALIZATION_VERSION,
@@ -65,8 +69,13 @@ function sourceFor(record: GeneratedBlrCp004Question): BlrCp003FinalApprovedReco
   return source;
 }
 
-function labelFor(source: BlrCp003FinalApprovedRecord, personId: string): string {
-  return source.proceduralLogic.nodes.find((node) => node.id === personId)?.label ?? personId;
+function labelFor(
+  source: BlrCp003FinalApprovedRecord,
+  personId: string,
+  locale: BlrCp004TranslatedLocale,
+): string {
+  const canonical = source.proceduralLogic.nodes.find((node) => node.id === personId)?.label ?? personId;
+  return localizeBlrPersonName(canonical, locale);
 }
 
 function renderPairKey(
@@ -76,13 +85,13 @@ function renderPairKey(
 ): string {
   if (key.includes("->")) {
     const [left, right] = key.split("->");
-    return `${labelFor(source, left!)} → ${labelFor(source, right!)}`;
+    return `${labelFor(source, left!, locale)} → ${labelFor(source, right!, locale)}`;
   }
   const [left, right] = key.split("::");
   return localeText(
     locale,
-    `${labelFor(source, left!)} और ${labelFor(source, right!)}`,
-    `${labelFor(source, left!)} ਅਤੇ ${labelFor(source, right!)}`,
+    `${labelFor(source, left!, locale)} और ${labelFor(source, right!, locale)}`,
+    `${labelFor(source, left!, locale)} ਅਤੇ ${labelFor(source, right!, locale)}`,
   );
 }
 
@@ -102,7 +111,7 @@ function localizedWorking(
   }
 
   if (record.answer.countedMemberIds.length) {
-    const names = record.answer.countedMemberIds.map((id) => labelFor(source, id)).join(", ");
+    const names = record.answer.countedMemberIds.map((id) => labelFor(source, id, locale)).join(", ");
     return [
       localeText(locale, `गिने गए सदस्य: ${names}।`, `ਗਿਣੇ ਗਏ ਮੈਂਬਰ: ${names}।`),
       localeText(locale, `कुल संख्या = ${record.answer.value}।`, `ਕੁੱਲ ਗਿਣਤੀ = ${record.answer.value}।`),
@@ -127,9 +136,42 @@ function localizedWorking(
   }
 
   return [
-    localeText(locale, "पूर्ण परिवार-मानचित्र पर मांगी गई इकाइयों को अलग-अलग चिन्हित करें।", "ਪੂਰੇ ਪਰਿਵਾਰਕ ਨਕਸ਼ੇ ’ਤੇ ਮੰਗੀਆਂ ਇਕਾਈਆਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਨਿਸ਼ਾਨਿਤ ਕਰੋ।"),
-    localeText(locale, `सत्यापित संख्या = ${record.answer.value}।`, `ਜਾਂਚੀ ਗਿਣਤੀ = ${record.answer.value}।`),
+    localeText(locale, "पूरे परिवार में मांगे गए सदस्य या युग्म अलग-अलग गिनें।", "ਪੂਰੇ ਪਰਿਵਾਰ ਵਿੱਚ ਮੰਗੇ ਮੈਂਬਰ ਜਾਂ ਜੋੜੇ ਵੱਖ-ਵੱਖ ਗਿਣੋ।"),
+    localeText(locale, `कुल संख्या = ${record.answer.value}।`, `ਕੁੱਲ ਗਿਣਤੀ = ${record.answer.value}।`),
   ];
+}
+
+function localizedFamilyTree(
+  record: GeneratedBlrCp004Question,
+  locale: BlrCp004TranslatedLocale,
+): GeneratedBlrCp004Question["explanation"]["familyTree"] {
+  const tree = record.explanation.familyTree;
+  const nodes = tree.nodes.map((node) => ({
+    ...node,
+    label: localizeBlrPersonName(node.label, locale),
+  }));
+  const generationCount = new Set(nodes.map((node) => node.generation)).size;
+  return {
+    ...tree,
+    title: localeText(locale, "रक्त-संबंध परिवार वृक्ष", "ਖੂਨ ਦੇ ਰਿਸ਼ਤਿਆਂ ਦਾ ਪਰਿਵਾਰਕ ਰੁੱਖ"),
+    nodes,
+    ...(tree.query
+      ? {
+          query: {
+            ...tree.query,
+            ...(tree.query.answerLabel
+              ? { answerLabel: localizeBlrPersonNamesInText(tree.query.answerLabel, locale) }
+              : {}),
+          },
+        }
+      : {}),
+    accessibleSummary: localeText(
+      locale,
+      `${nodes.length} सदस्यों और ${generationCount} पीढ़ियों वाला परिवार वृक्ष।`,
+      `${nodes.length} ਮੈਂਬਰਾਂ ਅਤੇ ${generationCount} ਪੀੜ੍ਹੀਆਂ ਵਾਲਾ ਪਰਿਵਾਰਕ ਰੁੱਖ।`,
+    ),
+    asciiFallback: localizeBlrPersonNamesInText(tree.asciiFallback, locale),
+  };
 }
 
 function localizedExplanation(
@@ -147,8 +189,8 @@ function localizedExplanation(
       )
     : localeText(
         locale,
-        `अतः सत्यापित संख्या ${record.answer.value} है; सही उत्तर विकल्प ${correctLabel} है।`,
-        `ਇਸ ਲਈ ਜਾਂਚੀ ਗਿਣਤੀ ${record.answer.value} ਹੈ; ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ ${correctLabel} ਹੈ।`,
+        `अतः कुल संख्या ${record.answer.value} है; सही उत्तर विकल्प ${correctLabel} है।`,
+        `ਇਸ ਲਈ ਕੁੱਲ ਗਿਣਤੀ ${record.answer.value} ਹੈ; ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ ${correctLabel} ਹੈ।`,
       );
 
   return {
@@ -165,8 +207,8 @@ function localizedExplanation(
         explanation: option.isCorrect
           ? localeText(
               locale,
-              `विकल्प ${label} सही है। यह सत्यापित गणना से पूरी तरह मेल खाता है।`,
-              `ਵਿਕਲਪ ${label} ਸਹੀ ਹੈ। ਇਹ ਜਾਂਚੀ ਗਿਣਤੀ ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਮੇਲ ਖਾਂਦਾ ਹੈ।`,
+              `विकल्प ${label} सही है। यह सही गणना से मेल खाता है।`,
+              `ਵਿਕਲਪ ${label} ਸਹੀ ਹੈ। ਇਹ ਸਹੀ ਗਿਣਤੀ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।`,
             )
           : localeText(
               locale,
@@ -175,7 +217,7 @@ function localizedExplanation(
             ),
       };
     }),
-    familyTree: record.explanation.familyTree,
+    familyTree: localizedFamilyTree(record, locale),
   };
 }
 
@@ -197,7 +239,7 @@ export function localizeBlrCp004Question(
     itemId: `${record.itemId}-${localeSuffix}`,
     questionLanguageId: `${record.itemId}:${locale}`,
     sharedPrompt: localizedBlrCp003SharedPromptCompleteV6(source, locale),
-    stem: localizedBlrCp004Stem(record, locale),
+    stem: localizeBlrPersonNamesInText(localizedBlrCp004Stem(record, locale), locale),
     options,
     explanation: localizedExplanation(record, source, locale, options),
     metadata: {
@@ -254,7 +296,24 @@ export function blrCp004CanonicalParityProjection(
     })),
     correctIndex: record.correctIndex,
     answer: record.answer,
-    familyTree: record.explanation.familyTree,
+    familyTree: {
+      kind: record.explanation.familyTree.kind,
+      version: record.explanation.familyTree.version,
+      nodes: record.explanation.familyTree.nodes.map((node) => ({
+        id: node.id,
+        gender: node.gender,
+        generation: node.generation,
+        roleLabel: node.roleLabel ?? null,
+      })),
+      edges: record.explanation.familyTree.edges,
+      query: record.explanation.familyTree.query
+        ? {
+            subjectId: record.explanation.familyTree.query.subjectId ?? null,
+            referenceId: record.explanation.familyTree.query.referenceId ?? null,
+            pathPersonIds: record.explanation.familyTree.query.pathPersonIds ?? [],
+          }
+        : null,
+    },
     semanticFingerprint: record.metadata.semanticFingerprint,
   };
 }
