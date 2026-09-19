@@ -53,7 +53,7 @@ for (const locale of locales) {
       "",
       `**Vertical axis:** ${s.yAxisLabel}`,
       "",
-      "| Class interval | Frequency |",
+      locale === "hi-IN" ? "| वर्ग अंतराल | आवृत्ति |" : "| ਵਰਗ ਅੰਤਰਾਲ | ਬਾਰੰਬਾਰਤਾ |",
       "|---|---:|",
       ...s.bins.map((bin) => `| ${bin.lower}–${bin.upper} | ${bin.frequency} |`),
       "",
