@@ -3,8 +3,8 @@
 **Audit state:** APPROVED — FINAL ENGLISH AUDIT GREEN  
 **English content frontier:** POL-CP-027  
 **Executable audit surface:** 27 CPs / 2,087 review questions  
-**Runtime / Question Studio:** NEXT — approved for integration  
-**Localization:** DEFERRED until Question Studio integration + runtime smoke tests
+**Runtime / Question Studio:** INTEGRATED — `POL-001` REVIEW_ONLY on `knowledge-v1`  
+**Localization:** NEXT — Hindi/Punjabi pass after green English runtime contract
 
 ## Confirmed chapter state
 
@@ -126,11 +126,11 @@ The final English audit surface is now approved, including:
 4. qualification explanation overlays;
 5. the chapter-level final editorial stem pass.
 
-These versions are canonical for the next Polity integration pass. Runtime exposure remains intentionally separate from content approval.
+These versions are canonical for the next Polity integration pass. Runtime exposure is now implemented through the standard Question Studio REVIEW_ONLY lifecycle. The package is discoverable and generation-enabled for internal review, while Question Bank writes, test/mock eligibility, public publication and production release remain disabled.
 
 ## Next sequence
 
-1. bind all 27 CPs into the shared `POL-001` Question Studio package;
-2. run runtime/package smoke tests;
+1. `POL-001` Question Studio binding — **complete in REVIEW_ONLY mode**;
+2. runtime/package smoke tests — **green**;
 3. perform Hindi/Punjabi localization with QL, option-order and correct-index parity;
 4. run multilingual QA and freeze the Polity chapter.
