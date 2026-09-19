@@ -1,4 +1,8 @@
 import { stableHash } from "../../foundation/prng";
+import {
+  localizeBlrPersonName,
+  localizeBlrPersonNamesInText,
+} from "../../foundation/localized-person-names";
 import type { BlrRelationId, DirectRelationClue } from "../../foundation/types";
 import type { GenerationRelationId } from "../../foundation/family-analysis";
 import {
@@ -106,7 +110,12 @@ function localizeOption(
   locale: BlrCp001TranslatedLocale,
 ): RawOption & { value: string } {
   const key = option.answerKey ?? "";
-  const names = record.structuredPrompt.personNames;
+  const names = Object.fromEntries(
+    Object.entries(record.structuredPrompt.personNames).map(([id, name]) => [
+      id,
+      localizeBlrPersonName(name, locale),
+    ]),
+  ) as Readonly<Record<string, string>>;
 
   const relationId = option.relationId
     ?? (key.startsWith("RELATION:") ? key.slice("RELATION:".length) as BlrRelationId : undefined);
@@ -145,14 +154,19 @@ function localizeOption(
     };
   }
 
-  return { ...option, value: option.value };
+  return { ...option, value: localizeBlrPersonNamesInText(option.value, locale) };
 }
 
 function localizedQuestion(
   record: BlrCp001PermanentQuestion,
   locale: BlrCp001TranslatedLocale,
 ): string {
-  const names = record.structuredPrompt.personNames;
+  const names = Object.fromEntries(
+    Object.entries(record.structuredPrompt.personNames).map(([id, name]) => [
+      id,
+      localizeBlrPersonName(name, locale),
+    ]),
+  ) as Readonly<Record<string, string>>;
   const wrapped = queryOf(record);
 
   if (wrapped.kind === "RELATION") {
@@ -377,7 +391,12 @@ export function localizeBlrCp001Question(
   locale: BlrCp001TranslatedLocale,
 ): GeneratedBlrCp001LocalizedQuestion {
   const normalizedClues = (record.structuredPrompt.clues as readonly DirectRelationClue[])
-    .map((clue) => cp001ClueText(clue, record.structuredPrompt.personNames, locale));
+    .map((clue) =>
+      localizeBlrPersonNamesInText(
+        cp001ClueText(clue, record.structuredPrompt.personNames, locale),
+        locale,
+      ),
+    );
   const question = localizedQuestion(record, locale);
   const stem = [...normalizedClues, question].join(" ");
   const options = record.options.map((option) =>
