@@ -48,7 +48,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
   ],
   [
     9,
-    "Easy",
+    "Medium",
     "Which blood group is often called the universal donor for red blood cell transfusion when Rh factor is also considered?",
     "O negative",
     [
@@ -63,15 +63,15 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
   ],
   [
     9,
-    "Easy",
-    "Which blood group is often called the universal recipient for red blood cell transfusion?",
-    "AB positive",
+    "Hard",
+    "A person with AB positive blood needs an emergency red-cell transfusion. Which donor group could be used under standard ABO/Rh compatibility rules?",
+    "Any ABO group, whether Rh positive or Rh negative",
     [
-      "O negative",
-      "A negative",
-      "B positive"
+      "Only AB positive",
+      "Only O negative",
+      "Only A positive or B positive"
     ],
-    "AB positive individuals can receive red blood cells from all ABO and Rh groups under standard transfusion rules.",
+    "AB positive recipients lack anti-A and anti-B antibodies and can receive Rh-positive or Rh-negative red cells. This is why AB positive is called the universal red-cell recipient.",
     [
       "BLOOD-GROUP-AB-POSITIVE"
     ]
