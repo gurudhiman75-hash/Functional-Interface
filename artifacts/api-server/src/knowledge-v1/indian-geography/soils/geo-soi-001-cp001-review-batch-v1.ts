@@ -934,7 +934,7 @@ export function auditGeoSoi001Cp001ReviewBatchV1() {
     const learnerText = q.stem + "\n" + q.options.join("\n") + "\n" + q.explanation;
     if (BANNED.test(learnerText)) issues.push("STYLE:" + q.questionId);
     if (q.stem.length < 25 || q.stem.length > 360 || !q.stem.trim().endsWith("?")) issues.push("STEM_SHAPE:" + q.questionId);
-    if (q.explanation.length < 65) issues.push("SHORT_EXPLANATION:" + q.questionId);
+    if (q.explanation.length < 150) issues.push("SHORT_EXPLANATION:" + q.questionId);\n    if ((q.explanation.match(/[.!?](?:\\s|$)/g) ?? []).length < 2) issues.push("EXPLANATION_DEPTH:" + q.questionId);
   }
 
   if (GEO_SOI_001_CP001_REVIEW_BATCH_V1.length !== 54) issues.push("COUNT:" + GEO_SOI_001_CP001_REVIEW_BATCH_V1.length);
