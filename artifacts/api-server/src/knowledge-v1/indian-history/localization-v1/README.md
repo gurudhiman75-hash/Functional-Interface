@@ -26,7 +26,7 @@ Implemented scope:
 - `HIS-CP-007` Early & Medieval South Indian Kingdoms — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- `HIS-CP-008` Delhi Sultanate — review candidate
+- `HIS-CP-008` Delhi Sultanate — multilingual review candidate
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
 - cumulative CP001–CP008: 474 questions per locale / 1422 EN-HI-PA surfaces
