@@ -1,7 +1,7 @@
 export const PGK_001_CP017_SOURCE_IDS = Object.freeze({
   ministryCultureKuka: "ministry-culture-kuka-movement",
   ministryCultureRamSingh: "ministry-culture-baba-ram-singh",
-  singhSabhaHistory: "singh-sabha-standard-history",
+  singhSabhaHistory: "PUNJABI-UNIVERSITY-PUNJABIPEDIA-SINGH-SABHA",
   ministryCultureAjitSingh: "ministry-culture-ajit-singh",
   ministryCultureGhadar: "ministry-culture-ghadar-movement",
   ministryCultureKartar: "ministry-culture-kartar-singh-sarabha",
@@ -50,3 +50,17 @@ export const PGK_001_CP017_FACTS = Object.freeze([
 ] as const);
 
 export const PGK_001_CP017_FACT_IDS = Object.freeze(PGK_001_CP017_FACTS.map((fact) => fact.id));
+
+
+export const PGK_001_CP017_SOURCE_NOTES = Object.freeze({
+  "PUNJABI-UNIVERSITY-PUNJABIPEDIA-SINGH-SABHA": {
+    authority: "Punjabi University, Patiala — Punjabipedia / Encyclopaedia of Sikhism",
+    title: "Singh Sabha Movement",
+    url: "https://punjabipedia.org/topic.aspx?txt=%E0%A8%B8%E0%A8%BF%E0%A9%B0%E0%A8%98+%E0%A8%B8%E0%A8%AD%E0%A8%BE+%E0%A8%B2%E0%A8%B9%E0%A8%BF%E0%A8%B0",
+    supports: Object.freeze([
+      "Singh Sabha at Amritsar — 1873",
+      "Singh Sabha at Lahore — 1879",
+      "religious, educational and social reform aims",
+    ]),
+  },
+} as const);
