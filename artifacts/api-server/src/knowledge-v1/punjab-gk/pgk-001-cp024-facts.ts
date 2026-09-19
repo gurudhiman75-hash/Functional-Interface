@@ -10,6 +10,70 @@ export const PGK_001_CP024_SOURCE_IDS = Object.freeze({
   patialaHeritage: "NIC-PATIALA-HERITAGE",
 } as const);
 
+export const PGK_001_CP024_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP024_SOURCE_IDS.rupnagarHeritage]: {
+    authority: "District Rupnagar, Government of Punjab",
+    title: "Sri Keshgarh Sahib, Sri Anandpur Sahib",
+    url: "https://rupnagar.nic.in/tourist-place/sri-keshgarh-sahib-sri-anandpur-sahib/",
+    supportingUrls: Object.freeze(["https://rupnagar.nic.in/"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP024_SOURCE_IDS.virasatPunjab]: {
+    authority: "Virasat-e-Khalsa / Anandpur Sahib Foundation",
+    title: "Virasat-e-Khalsa Museum — official site",
+    url: "https://virasat-e-khalsa.net/",
+    supportingUrls: Object.freeze(["https://www.safdiearchitects.com/projects/virasat-e-khalsa-museum"]),
+    classification: "PRIMARY_INSTITUTIONAL",
+  },
+  [PGK_001_CP024_SOURCE_IDS.muktsarHeritage]: {
+    authority: "District Sri Muktsar Sahib, Government of Punjab",
+    title: "History; Fair and Festivals; Places of Interest",
+    url: "https://muktsar.nic.in/history/",
+    supportingUrls: Object.freeze(["https://muktsar.nic.in/fair-and-festivals/","https://muktsar.nic.in/places-of-interest/"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP024_SOURCE_IDS.fatehgarhHeritage]: {
+    authority: "District Fatehgarh Sahib, Government of Punjab",
+    title: "Gurudwara Sri Fatehgarh Sahib",
+    url: "https://fatehgarhsahib.nic.in/tourist-place/gurudwara-fatehgarh-sahib/",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP024_SOURCE_IDS.punjabBaisakhi]: {
+    authority: "Government of Punjab",
+    title: "Culture — Baisakhi and Punjab festivals",
+    url: "https://punjab.gov.in/culture",
+    supportingUrls: Object.freeze(["https://rupnagar.nic.in/tourist-place/sri-keshgarh-sahib-sri-anandpur-sahib/"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP024_SOURCE_IDS.jalandharHeritage]: {
+    authority: "District Jalandhar, Government of Punjab",
+    title: "Culture & Heritage — Harballabh Sangeet Sammelan and Baba Sodal Mela",
+    url: "https://jalandhar.nic.in/culture-heritage/",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP024_SOURCE_IDS.ludhianaHeritage]: {
+    authority: "District Ludhiana, Government of Punjab",
+    title: "Rural Olympic Sports, Kila Raipur — district records",
+    url: "https://ludhiana.nic.in/whats-new/whats-new/page/10/",
+    supportingUrls: Object.freeze(["https://ludhiana.nic.in/past-notices/tenders/page/2/"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP024_SOURCE_IDS.amritsarHeritage]: {
+    authority: "District Amritsar, Government of Punjab",
+    title: "Tourist Places — Harmandir Sahib, Jallianwala Bagh, Gobindgarh Fort and Ram Tirath",
+    url: "https://amritsar.nic.in/tourist-places/",
+    supportingUrls: Object.freeze(["https://amritsar.nic.in/tourist-place/gobindgarh-fort/","https://amritsar.nic.in/tourist-place/ram-tirath/"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP024_SOURCE_IDS.patialaHeritage]: {
+    authority: "District Patiala, Government of Punjab",
+    title: "Architecture — Qila Mubarak, Moti Bagh Palace and Sheesh Mahal",
+    url: "https://patiala.nic.in/architecture/",
+    supportingUrls: Object.freeze(["https://patiala.nic.in/tourist-place/sheesh-mahal/","https://patiala.nic.in/tourist-place/moti-bagh-palace/"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+} as const);
+
 export const PGK_001_CP024_FACTS = Object.freeze([
   { id: "hola-anandpur", sourceIds: [PGK_001_CP024_SOURCE_IDS.rupnagarHeritage], value: "Hola Mohalla is centred on Sri Anandpur Sahib in Rupnagar district and features martial displays and cultural activity." },
   { id: "keshgarh-khalsa-1699", sourceIds: [PGK_001_CP024_SOURCE_IDS.rupnagarHeritage], value: "Takht Sri Keshgarh Sahib at Anandpur Sahib marks the site where Guru Gobind Singh created the Khalsa on Baisakhi in 1699." },
