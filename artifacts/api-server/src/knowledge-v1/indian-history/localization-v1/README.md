@@ -41,10 +41,13 @@ Implemented scope:
 - `HIS-CP-012` Europeans in India & British Expansion — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- `HIS-CP-013` British Administration & Economic Policies — multilingual review candidate
+- `HIS-CP-013` British Administration & Economic Policies — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- candidate cumulative CP001–CP013: 774 questions per locale / 2322 EN-HI-PA surfaces
+- `HIS-CP-014` Revolt of 1857 & Socio-Religious Reform — approved for merge
+  - 60 questions per locale
+  - 180 English/Hindi/Punjabi learner surfaces
+- cumulative CP001–CP014: 834 questions per locale / 2502 EN-HI-PA surfaces
 
 Hindi and Punjabi are human-written learner-facing overlays. They may change wording only; they must preserve frozen English CP, QL, difficulty, source provenance, option order, correct-index and answer semantics.
 
@@ -75,5 +78,6 @@ Review exports:
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP011-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP012-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP013-REVIEW.md`
+- `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP014-REVIEW.md`
 
 These localization checkpoints do not enable Question Studio runtime registration, Question Bank persistence, test/mock eligibility, publication, or automatic learner release.
