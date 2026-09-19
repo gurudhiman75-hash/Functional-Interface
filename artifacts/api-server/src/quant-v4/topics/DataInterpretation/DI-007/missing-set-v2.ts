@@ -351,17 +351,25 @@ function buildOptions(seed: string, answer: string, candidates: readonly Candida
     const ratioParts = answer.split(":");
     const left = Number(ratioParts[0]!);
     const right = Number(ratioParts[1]!);
-    for (const [a, b, id] of [
+    const fallbackPairs: readonly (readonly [number, number, string])[] = [
       [left + 1, right, "LEFT_PLUS_ONE"],
       [left, right + 1, "RIGHT_PLUS_ONE"],
-      [Math.max(1, left - 1), right, "LEFT_MINUS_ONE"],
-      [left, Math.max(1, right - 1), "RIGHT_MINUS_ONE"],
-    ] as const) {
+      [left + 2, right, "LEFT_PLUS_TWO"],
+      [left, right + 2, "RIGHT_PLUS_TWO"],
+      [left + 1, right + 2, "LEFT_PLUS_ONE_RIGHT_PLUS_TWO"],
+      [left + 2, right + 1, "LEFT_PLUS_TWO_RIGHT_PLUS_ONE"],
+      [left * 2 + 1, right * 2, "SCALED_LEFT_PLUS_ONE"],
+      [left * 2, right * 2 + 1, "SCALED_RIGHT_PLUS_ONE"],
+      [Math.max(1, left - 1), right + 1, "LEFT_MINUS_ONE_RIGHT_PLUS_ONE"],
+      [left + 1, Math.max(1, right - 1), "LEFT_PLUS_ONE_RIGHT_MINUS_ONE"],
+    ];
+    for (const [a, b, id] of fallbackPairs) {
       add({
         text: ratioDisplay(a, b),
         misconceptionId: id,
         derivation: "A nearby simplified ratio produced by a one-term arithmetic slip.",
       });
+      if (retained.length >= 5) break;
     }
   }
 
