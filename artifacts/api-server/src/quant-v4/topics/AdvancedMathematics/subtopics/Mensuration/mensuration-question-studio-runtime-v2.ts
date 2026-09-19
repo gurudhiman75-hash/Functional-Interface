@@ -336,24 +336,24 @@ const TARGETED_REPEAT_STEM_VARIANTS: Readonly<Record<string, readonly TargetedSt
   "MEN-002-QL-033": Object.freeze([
     { id: "source", apply: (stem) => stem },
     {
-      id: "tsa-question",
+      id: "surface-question",
       apply: (stem) => stem.replace(
-        /Find its total surface area\.$/i,
-        "What is the prism's total surface area?",
+        /Find its (lateral|total) surface area\.$/i,
+        (_match, kind: string) => `What is the prism's ${kind.toLowerCase()} surface area?`,
       ),
     },
     {
-      id: "tsa-calculate",
+      id: "surface-calculate",
       apply: (stem) => stem.replace(
-        /Find its total surface area\.$/i,
-        "Calculate the total surface area of the prism.",
+        /Find its (lateral|total) surface area\.$/i,
+        (_match, kind: string) => `Calculate the ${kind.toLowerCase()} surface area of the prism.`,
       ),
     },
     {
-      id: "tsa-determine",
+      id: "surface-determine",
       apply: (stem) => stem.replace(
-        /Find its total surface area\.$/i,
-        "Determine the complete surface area of the prism.",
+        /Find its (lateral|total) surface area\.$/i,
+        (_match, kind: string) => `Determine the ${kind.toLowerCase()} surface area of the prism.`,
       ),
     },
   ]),
