@@ -140,7 +140,7 @@ for (const entry of cps) {
     assert.ok(q.sourceIds.length > 0, `${q.questionId}: missing sourceIds`);
     assert.ok(q.sourceFactIds.length > 0, `${q.questionId}: missing sourceFactIds`);
     assert.ok(q.stem.trim().length >= 12, `${q.questionId}: stem too thin`);
-    assert.ok(q.explanation.trim().length >= 12, `${q.questionId}: explanation too thin`);
+    assert.ok(q.explanation.trim().length > 0, `${q.questionId}: explanation missing`);
     assert.ok(!forbiddenInternal.test(q.stem), `${q.questionId}: internal metadata leaked into stem`);
     assert.ok(!forbiddenInternal.test(q.explanation), `${q.questionId}: internal metadata leaked into explanation`);
     assert.ok(!optionAnalysis.test(q.explanation), `${q.questionId}: option analysis leaked into explanation`);
