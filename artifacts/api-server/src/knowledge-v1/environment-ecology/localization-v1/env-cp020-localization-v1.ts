@@ -121,5 +121,5 @@ s("कौन-सा युग्म सही सुमेलित है?","�
 s("कौन-सा क्रम पर्यावरण GK की चार अलग परतों को सही जोड़ता है?","ਕਿਹੜਾ ਕ੍ਰਮ ਵਾਤਾਵਰਣ GK ਦੀਆਂ ਚਾਰ ਵੱਖ ਪਰਤਾਂ ਨੂੰ ਸਹੀ ਜੋੜਦਾ ਹੈ?","यह क्रम पारिस्थितिक अनुक्रमण, परियोजना प्रभाव आकलन, हाथी परिदृश्य संरक्षण और केरल के प्रमुख पर्यावरण आंदोलन को सही जोड़ता है।","ਇਹ ਕ੍ਰਮ ਪਰਿਸਥਿਤਿਕ ਉਤਰਾਧਿਕਾਰ, ਪ੍ਰੋਜੈਕਟ ਪ੍ਰਭਾਵ ਮੁਲਾਂਕਣ, ਹਾਥੀ ਭੂ-ਦ੍ਰਿਸ਼ ਸੁਰੱਖਿਆ ਅਤੇ ਕੇਰਲ ਦੇ ਮੁੱਖ ਵਾਤਾਵਰਣ ਅੰਦੋਲਨ ਨੂੰ ਸਹੀ ਜੋੜਦਾ ਹੈ।")
 ];
 
-export function generateEnvCp020LocalizedReviewV1(locale:EnvLocaleV1){return buildEnvLocalizedBatchV1(ENV_CP020_ENGLISH_AUTHORITY_V2 as any,locale,S,O);}
+export function generateEnvCp020LocalizedReviewV1(locale:EnvLocaleV1){return buildEnvLocalizedBatchV1(ENV_CP020_ENGLISH_AUTHORITY_V2,locale,S,O);}
 export const ENV_CP020_MULTILINGUAL_V1=Object.freeze({en:generateEnvCp020LocalizedReviewV1("en"),hi:generateEnvCp020LocalizedReviewV1("hi"),pa:generateEnvCp020LocalizedReviewV1("pa")});
