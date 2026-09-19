@@ -63,6 +63,20 @@ const nativeTerms = [
   "Labour force participation rate",
   "Seasonal poverty",
   "Cyclical poverty",
+  "Barter exchange",
+  "Double coincidence of wants",
+  "Medium of exchange",
+  "Unit of account",
+  "Store of value",
+  "Standard of deferred payment",
+  "Demand deposit",
+  "Time deposit",
+  "Money supply",
+  "Monetary authority",
+  "Government debt manager",
+  "Regulation and supervision",
+  "Manager of foreign exchange",
+  "Developmental role",
 ] as const;
 
 const protectedExamTerms = [
@@ -80,6 +94,14 @@ const protectedExamTerms = [
   "Hyperinflation",
   "Poverty headcount ratio",
   "Headcount ratio",
+  "Fiat money",
+  "Legal tender",
+  "Reserve money",
+  "High-powered money",
+  "Narrow money",
+  "Broad money",
+  "Money multiplier",
+  "Lender of last resort",
 ] as const;
 
 const allowedAbbreviations = [
@@ -99,6 +121,13 @@ const allowedAbbreviations = [
   "UR",
   "MGNREGA",
   "NCERT",
+  "RBI",
+  "FEMA",
+  "PSS",
+  "SEBI",
+  "NABARD",
+  "NSC",
+  "NSCs",
 ] as const;
 
 export const ECO_TERM_POLICY_V1: readonly EcoTermPolicyEntryV1[] = Object.freeze([
