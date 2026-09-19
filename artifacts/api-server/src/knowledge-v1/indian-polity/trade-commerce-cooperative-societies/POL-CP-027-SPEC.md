@@ -24,7 +24,8 @@ The constitutional text still prints Part IXB, but the Supreme Court in Union of
 - V2 full stem-language pass across all 80 questions;
 - exactly 40 completion-style stems and 40 normal question stems;
 - two completion and two question stems per QL;
-- concise SSC/Banking/state-exam style using direct fact, rule, exception, amendment, scenario and comparison patterns;\n- mechanical index wording such as “is dealt with in”, “is covered by”, “is contained in” and “expressly mentioned” is blocked;
+- concise SSC/Banking/state-exam style using direct fact, rule, exception, amendment, scenario and comparison patterns;
+- mechanical index wording such as “is dealt with in”, “is covered by”, “is contained in” and “expressly mentioned” is blocked;
 - no internal project wording;
 - no recurring legalistic “whom”, “by whom” or “for the purposes of” pattern;
 - maximum 30 words per stem.
@@ -38,6 +39,8 @@ The constitutional text still prints Part IXB, but the Supreme Court in Union of
 - unique stems and explanations;
 - explanations 13–42 words.
 
-- content frozen after explicit project-owner approval.\n\n## Primary authority
+- content frozen after explicit project-owner approval.
+
+## Primary authority
 - Constitution of India as on 1 May 2026, Legislative Department;
 - Union of India v. Rajendra N. Shah, Supreme Court of India, 20 July 2021.
