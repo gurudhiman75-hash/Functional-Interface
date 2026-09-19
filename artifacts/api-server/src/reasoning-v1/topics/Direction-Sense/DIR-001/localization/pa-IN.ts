@@ -1,5 +1,5 @@
 import { generateDirectionQuestion } from "../chapter-registry";
-import { asR, directionAnglePa, directionPa, reverseTurnCalculationStepsPa, turnCalculationStepsPa, type R } from "./punjabi-foundation";
+import { asR, coordinateTextPa, directionAnglePa, directionPa, metresPa, namePa, reverseTurnCalculationStepsPa, turnCalculationStepsPa, type R } from "./punjabi-foundation";
 import { localizeDiagramPunjabi, optionLabelPunjabi } from "./punjabi-editorial-overrides";
 import { renderPunjabiStem } from "./punjabi-stems";
 import type { LocalizedDirectionExplanationPunjabi, LocalizedDirectionOptionPunjabi, LocalizedDirectionQuestionPunjabi } from "./punjabi-types";
@@ -64,7 +64,107 @@ function renderExplanationPunjabi(english: R): LocalizedDirectionExplanationPunj
     };
   }
 
-  if (["DIR-QL-011", "DIR-QL-012", "DIR-QL-013", "DIR-QL-014", "DIR-QL-015", "DIR-QL-036", "DIR-QL-037", "DIR-QL-044"].includes(qlId)) {
+  if (["DIR-QL-036", "DIR-QL-037", "DIR-QL-038", "DIR-QL-039", "DIR-QL-040", "DIR-QL-041", "DIR-QL-042", "DIR-QL-043", "DIR-QL-044"].includes(qlId)) {
+    if (qlId === "DIR-QL-036") {
+      return {
+        ...base,
+        steps: [
+          `ਦਿੱਤੇ ਤਿੰਨ ਰਿਸ਼ਤਿਆਂ ਤੋਂ ${namePa(s.missingFrom)} ਅਤੇ ${namePa(s.missingTo)} ਦੀ ਥਾਂ ਤੈਅ ਕਰੋ।`,
+          `ਦੋਨਾਂ ਥਾਵਾਂ ਦੀ ਤੁਲਨਾ ਕਰਨ ਉੱਤੇ ${namePa(s.missingTo)}, ${namePa(s.missingFrom)} ਤੋਂ ${answer} ਵੱਲ ਹੈ।`,
+        ],
+        resultLine: `ਇਸ ਲਈ ਛੱਡੀ ਹੋਈ ਦਿਸ਼ਾ ${answer} ਹੈ।`,
+      };
+    }
+    if (qlId === "DIR-QL-037") {
+      return {
+        ...base,
+        steps: [
+          "ਪਹਿਲਾਂ ਦਿੱਤੇ ਦੋ ਮੁੱਖ ਰਿਸ਼ਤਿਆਂ ਤੋਂ ਪਹਿਲੇ ਤਿੰਨ ਬਿੰਦੂਆਂ ਦੀ ਥਾਂ ਤੈਅ ਕਰੋ।",
+          "ਹੁਣ ਚਾਰਾਂ ਕਥਨਾਂ ਨੂੰ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਉਨ੍ਹਾਂ ਥਾਵਾਂ ਨਾਲ ਮਿਲਾਓ।",
+          `ਜਿਹੜਾ ਕਥਨ ਕਿਸੇ ਬਿੰਦੂ ਨੂੰ ਬਾਕੀ ਜਾਣਕਾਰੀ ਨਾਲ ਨਾ ਮਿਲਦੀ ਥਾਂ ਉੱਤੇ ਰੱਖਦਾ ਹੈ, ਉਹੀ ਗਲਤ ਹੈ; ਇੱਥੇ ਉਹ ${answer} ਹੈ।`,
+        ],
+        resultLine: `ਗਲਤ ਕਥਨ ${answer} ਹੈ।`,
+      };
+    }
+    if (qlId === "DIR-QL-038") {
+      const unknown = asR((s.legs ?? [])[Number(s.unknownIndex ?? 0)] ?? {});
+      return {
+        ...base,
+        steps: [
+          "ਪਹਿਲਾਂ ਸਾਰੀਆਂ ਦਿੱਤੀਆਂ ਚਾਲਾਂ ਨੂੰ ਜੋੜ ਕੇ ਉਹਨਾਂ ਦਾ ਅੰਤਿਮ ਬਿੰਦੂ ਕੱਢੋ।",
+          `ਦਿੱਤਾ ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(asR(s.target))} ਹੈ।`,
+          `ਬਾਕੀ ${metresPa(unknown.distance)} ਦੀ ਚਾਲ ਨੂੰ ਇਸ ਅੰਤਿਮ ਬਿੰਦੂ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ${answer} ਵੱਲ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।`,
+        ],
+        resultLine: `ਅਣਜਾਣ ਚਾਲ ਦੀ ਦਿਸ਼ਾ ${answer} ਹੈ।`,
+      };
+    }
+    if (qlId === "DIR-QL-039") {
+      return {
+        ...base,
+        steps: [
+          `ਪਹਿਲੀ ${metresPa(s.firstDistance)} ਦੀ ਚਾਲ ਸ਼ੁਰੂਆਤੀ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਅਨੁਸਾਰ ਲਗਾਓ।`,
+          "ਫਿਰ ਖੱਬਾ ਮੋੜ, ਸੱਜਾ ਮੋੜ, ਪਿੱਛੇ ਮੋੜ ਅਤੇ ਬਿਨਾਂ ਮੋੜ ਦੇ ਸਿੱਧੀ ਚਾਲ—ਚਾਰਾਂ ਸੰਭਾਵਨਾਵਾਂ ਨੂੰ ਬਾਕੀ ਚਾਲਾਂ ਨਾਲ ਜਾਂਚੋ।",
+          `ਕੇਵਲ ${answer} ਲੈਣ ਉੱਤੇ ਦਿੱਤਾ ਅੰਤਿਮ ਬਿੰਦੂ ਮਿਲਦਾ ਹੈ।`,
+        ],
+        resultLine: `ਅਣਜਾਣ ਮੋੜ ${answer} ਹੈ।`,
+      };
+    }
+    if (qlId === "DIR-QL-040") {
+      return {
+        ...base,
+        steps: [
+          "ਉੱਤਰ, ਪੂਰਬ, ਦੱਖਣ ਅਤੇ ਪੱਛਮ—ਚਾਰਾਂ ਨੂੰ ਸੰਭਵ ਸ਼ੁਰੂਆਤੀ ਦਿਸ਼ਾ ਮੰਨ ਕੇ ਉਹੀ ਰਸਤਾ ਚਲਾਓ।",
+          `ਦਿੱਤਾ ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(asR(s.target))} ਹੈ।`,
+          `ਕੇਵਲ ${answer} ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਉੱਤੇ ਰਸਤਾ ਉਸੇ ਅੰਤਿਮ ਬਿੰਦੂ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ।`,
+        ],
+        resultLine: `ਸ਼ੁਰੂਆਤੀ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ${answer} ਹੈ।`,
+      };
+    }
+    if (qlId === "DIR-QL-041") {
+      return {
+        ...base,
+        steps: [
+          `ਪਹਿਲਾਂ ਦਿੱਤੇ ਥਾਂ-ਰਿਸ਼ਤਿਆਂ ਤੋਂ ${namePa(s.startEntity)} ਅਤੇ ${namePa(s.referenceEntity)} ਦੀ ਥਾਂ ਤੈਅ ਕਰੋ।`,
+          `ਫਿਰ ${namePa(s.startEntity)} ਤੋਂ ਦਿੱਤੀਆਂ ਚਾਲਾਂ ਨੂੰ ਕ੍ਰਮਵਾਰ ਲਗਾ ਕੇ ਅੰਤਿਮ ਬਿੰਦੂ ਕੱਢੋ।`,
+          `ਅੰਤਿਮ ਬਿੰਦੂ ਦੀ ${namePa(s.referenceEntity)} ਨਾਲ ਸਿੱਧੀ ਤੁਲਨਾ ਕਰਨ ਉੱਤੇ ਉੱਤਰ ${answer} ਮਿਲਦਾ ਹੈ।`,
+        ],
+        resultLine: `ਅੰਤਿਮ ਰਿਸ਼ਤਾ ${answer} ਹੈ।`,
+      };
+    }
+    if (qlId === "DIR-QL-042") {
+      return {
+        ...base,
+        steps: [
+          `ਚੌਕੀ ${String(s.checkpoint)} ਤੋਂ ਸ਼ੁਰੂ ਕਰਕੇ ਸਾਰੀਆਂ ਚਾਲਾਂ ਅਤੇ ਮੋੜ ਕ੍ਰਮਵਾਰ ਲਗਾਓ।`,
+          "ਅੰਤਿਮ ਬਿੰਦੂ ਮਿਲਣ ਤੋਂ ਬਾਅਦ ਉਸ ਦੀ ਚੌਕੀ ਤੋਂ ਸਿੱਧੀ ਦਿਸ਼ਾ ਵੇਖੋ; ਅੰਤ ਵਿੱਚ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਨੂੰ ਉੱਤਰ ਨਾ ਮੰਨੋ।",
+          `ਅੰਤਿਮ ਬਿੰਦੂ ਚੌਕੀ ਤੋਂ ${answer} ਵੱਲ ਹੈ।`,
+        ],
+        resultLine: `ਚੌਕੀ ਤੋਂ ਲੋੜੀਂਦੀ ਦਿਸ਼ਾ ${answer} ਹੈ।`,
+      };
+    }
+    if (qlId === "DIR-QL-043") {
+      return {
+        ...base,
+        steps: [
+          `ਚੌਕੀ ${String(s.checkpoint)} ਤੋਂ ਪੂਰਾ ਰਸਤਾ ਚਲਾ ਕੇ ਅੰਤਿਮ ਬਿੰਦੂ ਕੱਢੋ।`,
+          "ਚੌਕੀ ਅਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਵਿਚਕਾਰ ਪੂਰਬ-ਪੱਛਮ ਅਤੇ ਉੱਤਰ-ਦੱਖਣ ਦਾ ਫ਼ਰਕ ਵੱਖ-ਵੱਖ ਕੱਢੋ।",
+          `ਇਨ੍ਹਾਂ ਦੋ ਫ਼ਰਕਾਂ ਤੋਂ ਸਿੱਧੀ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ${answer} ਮਿਲਦੀ ਹੈ।`,
+        ],
+        resultLine: `ਚੌਕੀ ਤੋਂ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ${answer} ਹੈ।`,
+      };
+    }
+    return {
+      ...base,
+      steps: [
+        "ਚਿੱਤਰ ਵਿੱਚ ਦਿੱਤੇ ਦੋਨਾਂ ਥਾਂ-ਰਿਸ਼ਤਿਆਂ ਨੂੰ ਪਹਿਲਾਂ ਪੜ੍ਹੋ।",
+        "ਇਸ ਤੋਂ ਬਾਅਦ ਲਿਖੇ ਹੋਏ ਰਿਸ਼ਤੇ ਨੂੰ ਉਸੇ ਜਾਣਕਾਰੀ ਨਾਲ ਜੋੜੋ।",
+        `ਤਿੰਨਾਂ ਰਿਸ਼ਤਿਆਂ ਨੂੰ ਇਕੱਠੇ ਰੱਖਣ ਉੱਤੇ ਪੁੱਛੇ ਦੋ ਬਿੰਦੂਆਂ ਦੀ ਦਿਸ਼ਾ ${answer} ਮਿਲਦੀ ਹੈ।`,
+      ],
+      resultLine: `ਚਿੱਤਰ ਅਤੇ ਲਿਖੇ ਕਥਨ ਦੋਨਾਂ ਤੋਂ ਉੱਤਰ ${answerSentence}`,
+    };
+  }
+
+  if (["DIR-QL-011", "DIR-QL-012", "DIR-QL-013", "DIR-QL-014", "DIR-QL-015"].includes(qlId)) {
     return {
       ...base,
       steps: [
