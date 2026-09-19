@@ -45,6 +45,9 @@ for (const ql of DIR_001_QLS) {
     assert.ok(!internalLeak.test(hindi.stem), `${ql.qlId} internal leak: ${hindi.stem}`);
     assert.ok(!latinWordLeak.test(hindi.stem), `${ql.qlId} Latin word leak: ${hindi.stem}`);
     assert.ok(!/करता\/करती|था\/थी|है है|है। है/.test(hindi.stem), `${ql.qlId} unnatural gender or duplication: ${hindi.stem}`);
+    if (ql.qlId === "DIR-QL-036" || ql.qlId === "DIR-QL-037") {
+      assert.ok(!/संगत बंद विन्यास|पूरे विन्यास|बंद विन्यास/.test(hindi.stem), `${ql.qlId} construction jargon: ${hindi.stem}`);
+    }
     const explanationText = [hindi.explanation.given, ...hindi.explanation.steps, hindi.explanation.resultLine, hindi.explanation.conclusion].join(" ");
     assert.ok(/[\u0900-\u097F]/.test(explanationText));
     assert.ok(!forbiddenEnglish.test(explanationText), `${ql.qlId} English explanation leak: ${explanationText}`);
