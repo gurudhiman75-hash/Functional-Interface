@@ -1,9 +1,9 @@
 # GEO-CLI-001 CP013 — Exhaustive Mixed Climate Mastery
 
-Status: REVIEW CANDIDATE V6 — POST-MERGE REMEDIATION SYNC
+Status: APPROVED V6 — CONTENT CLOSURE AUTHORITY
 Parent chapter: `GEO-CLI-001`
 Permanent QLs: none; exhaustive closure layer over `QL001–QL108`.
-Lifecycle: review-only; runtime/publication disabled until explicit human approval.
+Lifecycle: content-approved and closed; runtime/publication remains disabled and separately governed.
 
 ## Purpose
 
@@ -51,7 +51,7 @@ CP013 inherits source and fact provenance from the owning checkpoint. It does no
 - V6 must match the V3 owning authority for answer, option set, explanation, QL ownership and provenance.
 - Source/fact provenance on every item.
 - Zero learner-facing `broad` / `broadly`, `associated with`, internal review/runtime/source terminology, or the weak V4 prompt openers.
-- Review-only lifecycle remains active until explicit human approval.
+- Content approval is complete; runtime/publication remains disabled and separately governed.
 
 ## Closure gate
 
@@ -65,4 +65,4 @@ A review-ready CP013 V6 must pass:
 7. CI hygiene and branch-topology checks,
 8. production build compatibility.
 
-Chapter closure can be declared only after CP013 V6 is explicitly approved and merged. Closure still does not authorize public test publication or runtime registration.
+CP013 V6 was explicitly approved and merged through PR #1965. GEO-CLI-001 is therefore content-closed. Closure does not authorize public test publication, Question Bank persistence or runtime registration.
