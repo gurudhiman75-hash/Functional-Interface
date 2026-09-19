@@ -1,14 +1,12 @@
-# ENG-004 CP002 — Coverage V1
+# ENG-004 CP002 — Coverage V2
 
-- New CP002 headword-senses: **600**
-- Combined CP001 + CP002 unique headwords: **1,100**
-- Adjectives: **250**
-- Verbs: **150**
-- Nouns: **170**
-- Adverbs: **30**
+- CP002 unique headwords: **600**
+- Combined CP001 + CP002: **1,100**
+- Adjectives / Verbs / Nouns / Adverbs: **250 / 150 / 170 / 30**
 - Easy / Medium / Hard: **160 / 260 / 180**
-- Stored synonym links: **1066**
-- Stored antonym links: **423**
-- Entries with antonyms: **249**
+- Synonym links: **1245**
+- Antonym links: **375**
+- Entries with antonyms: **217**
+- Editorial sense overrides: **6**
 
-The chapter-wide target remains 2,000+ headword-senses.
+Chapter target remains 2,000+ headword-senses.
