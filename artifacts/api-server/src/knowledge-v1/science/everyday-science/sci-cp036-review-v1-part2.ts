@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "Metal has no particles",
       "Tea cannot transfer heat to wood"
     ],
-    "Metals generally have much higher thermal conductivity than wood.",
+    "Metals generally have much higher thermal conductivity than wood. Heat energy therefore moves quickly along the metal spoon but much more slowly through wood.",
     [
       "METAL-VS-WOOD-CONDUCTION"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "They create convection currents",
       "They absorb all radiation"
     ],
-    "Shiny surfaces are poor absorbers and emitters of thermal radiation, reducing radiative heat transfer.",
+    "Shiny surfaces are poor absorbers and emitters of thermal radiation, reducing radiative heat transfer. This helps the flask reduce heat gain or heat loss even when there is a temperature difference.",
     [
       "SHINY-SURFACE-RADIATION"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "Only convection in both cases",
       "Only conduction in both cases"
     ],
-    "The vacuum removes material needed for conduction and convection, while shiny surfaces reduce radiation.",
+    "The vacuum removes material needed for conduction and convection, while shiny surfaces reduce radiation. Using both features together gives better insulation than either feature alone.",
     [
       "THERMOS-MODES-INTEGRATED"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "Storing extra electric charge",
       "Converting AC into DC"
     ],
-    "Fuse wire heats up and melts when excessive current flows, opening the circuit.",
+    "Fuse wire heats up and melts when excessive current flows, opening the circuit. Once the fuse melts, current stops flowing and the wiring or appliance is protected from overheating.",
     [
       "FUSE-FUNCTION"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "Carry normal current in place of the live wire",
       "Reduce the frequency of AC"
     ],
-    "Earthing helps protect users by directing fault current safely to the ground.",
+    "Earthing helps protect users by directing fault current safely to the ground. If the metal body accidentally becomes live, the earth wire gives the current a safer path than through a person.",
     [
       "EARTH-WIRE-SAFETY"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "Switching one off should stop all others",
       "Parallel connection lowers all appliance voltages to zero"
     ],
-    "Parallel wiring gives each appliance the full supply voltage and independent control.",
+    "Parallel wiring gives each appliance the full supply voltage and independent control. That is why one appliance can be switched off without stopping the others.",
     [
       "HOUSEHOLD-PARALLEL"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "Wet skin becomes an insulator",
       "The supply voltage becomes zero"
     ],
-    "Wet skin conducts better than dry skin, so more current may pass through the body.",
+    "Wet skin conducts better than dry skin, so more current may pass through the body. Lower body resistance allows a larger current to flow at the same voltage, increasing the danger of electric shock.",
     [
       "WET-HAND-ELECTRIC-SHOCK"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "It stores current for later use",
       "It converts electricity into magnetism only"
     ],
-    "A miniature circuit breaker trips and disconnects the supply when current exceeds a safe value.",
+    "A miniature circuit breaker trips and disconnects the supply when current exceeds a safe value. Unlike a fuse, an MCB can usually be reset after the fault has been removed.",
     [
       "MCB-FUNCTION"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "The breaker raises resistance in the user's body",
       "Both systems increase operating voltage"
     ],
-    "Earthing provides a low-resistance fault path, and the resulting high current can trigger protective disconnection.",
+    "Earthing provides a low-resistance fault path, and the resulting high current can trigger protective disconnection. The two protections work together: earthing provides the fault path and the breaker cuts the supply.",
     [
       "EARTHING-BREAKER-INTEGRATED"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "Plane mirror only",
       "Cylindrical mirror"
     ],
-    "A convex mirror gives a wide field of view and forms upright, diminished images.",
+    "A convex mirror gives a wide field of view and forms upright, diminished images. Although vehicles look smaller in the mirror, the driver can see a much larger region behind the vehicle.",
     [
       "REARVIEW-CONVEX"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "Plane mirror",
       "Prism only"
     ],
-    "A convex lens can produce a magnified virtual image when the object is within its focal length.",
+    "A convex lens can produce a magnified virtual image when the object is within its focal length. This happens when the object is placed closer to the lens than its focal length.",
     [
       "MAGNIFYING-GLASS-CONVEX"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "They have no focal point",
       "They reverse left and right less than any other mirror"
     ],
-    "Convex mirrors provide a wide field of view while keeping images upright.",
+    "Convex mirrors provide a wide field of view while keeping images upright. The trade-off is that objects appear smaller, but the larger view is more useful for safe driving.",
     [
       "CONVEX-WIDE-FIELD"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "Cylindrical mirror",
       "Plane glass only"
     ],
-    "A concave lens diverges incoming light so the image can be focused on the retina in a myopic eye.",
+    "A concave lens diverges incoming light so the image can be focused on the retina in a myopic eye. It shifts the effective focus backward so that light is focused on the retina instead of in front of it.",
     [
       "MYOPIA-CONCAVE-LENS"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "It cools the paper rapidly",
       "It blocks visible light"
     ],
-    "Concentrating sunlight raises the temperature at the focus enough to ignite suitable material.",
+    "Concentrating sunlight raises the temperature at the focus enough to ignite suitable material. The lens does not create extra energy; it collects light from a larger area and concentrates it.",
     [
       "LENS-FOCUS-SUNLIGHT"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp036ReviewSpec[] = [
       "A plane mirror magnifies distant objects",
       "A convex lens reflects light backward"
     ],
-    "The wide field and diminished upright image of a convex mirror make it useful for rear viewing.",
+    "The wide field and diminished upright image of a convex mirror make it useful for rear viewing. This is why convex mirrors are chosen even though the image does not show the true apparent size of objects.",
     [
       "REARVIEW-PROPERTY-INTEGRATED"
     ]
