@@ -1,11 +1,11 @@
 # POL-001 Indian Polity — Final Audit V1 Review
 
-**Status:** REVIEW-READY  
+**Status:** APPROVED — 19 September 2026  
 **Audit surface:** 27 CPs / 2,087 questions  
 **Runtime integration:** not started  
 **Localization:** not started
 
-This review packet contains only the final-audit remediation layer. Previously approved CP content remains the base authority until these candidates are approved.
+This review packet records the approved final-audit remediation layer. The approved overlays below are now the canonical English review surface for the next integration pass.
 
 ## A. Non-semantic remediation
 
@@ -45,7 +45,7 @@ Examples:
 
 No answer semantics changed in these fixes.
 
-## B. Ownership remediation candidates
+## B. Approved ownership remediations
 
 ### POL-CP-013 V3 — Article 226 writ context
 
@@ -130,4 +130,4 @@ The final review surface must pass:
 
 ## Approval effect
 
-Approval of this review packet authorizes the audit candidates to become the final English Polity surface. The next implementation step is Question Studio package binding, followed by runtime smoke tests and then Hindi/Punjabi localization.
+This review packet was approved by the project owner on 19 September 2026. The listed audit overlays and editorial pass are therefore the final English Polity review surface. The next implementation step is Question Studio package binding, followed by runtime smoke tests and then Hindi/Punjabi localization.
