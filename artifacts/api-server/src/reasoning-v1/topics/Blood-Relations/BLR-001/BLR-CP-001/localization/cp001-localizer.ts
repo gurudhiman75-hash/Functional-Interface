@@ -262,6 +262,7 @@ export function localizeBlrCp001Question(
 
   return {
     ...record,
+    questionBankEligible: false,
     locale,
     canonicalLocale: "en-IN",
     stem,
