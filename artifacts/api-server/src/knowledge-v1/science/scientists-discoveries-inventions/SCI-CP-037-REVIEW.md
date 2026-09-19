@@ -4,7 +4,7 @@ Review-only candidate. 60 questions; 10 QLs × 6; Easy 18 / Medium 30 / Hard 12;
 
 ## Q01 · Easy · Mechanics, pressure and classical physics
 
-The laws of motion are most closely associated with:
+Who formulated the three laws of motion?
 
 A. Isaac Newton
 B. Archimedes
@@ -19,7 +19,7 @@ D. Galileo Galilei
 
 ## Q02 · Easy · Mechanics, pressure and classical physics
 
-The principle of buoyancy is associated with:
+Who gave the principle of buoyancy?
 
 A. Isaac Newton
 B. Archimedes
@@ -34,7 +34,7 @@ D. Robert Boyle
 
 ## Q03 · Medium · Mechanics, pressure and classical physics
 
-Pascal's law, used in hydraulic systems, is associated with:
+Pascal's law, used in hydraulic systems, was formulated by:
 
 A. Daniel Bernoulli
 B. Michael Faraday
@@ -49,7 +49,7 @@ D. James Watt
 
 ## Q04 · Medium · Mechanics, pressure and classical physics
 
-The mercury barometer is historically associated with:
+Who developed the mercury barometer?
 
 A. Galileo Galilei
 B. Robert Hooke
@@ -88,7 +88,7 @@ D. Evangelista Torricelli
 
 **Answer:** B. Isaac Newton
 
-**Explanation:** Newton is associated with both the laws of motion and the law of universal gravitation.
+**Explanation:** Newton formulated the laws of motion and the law of universal gravitation.
 
 **Source fact:** `NEWTON-MOTION-GRAVITATION`
 
@@ -109,7 +109,7 @@ D. André-Marie Ampère
 
 ## Q08 · Easy · Electricity and magnetism
 
-The electric battery or voltaic pile is associated with:
+Who developed the voltaic pile, an early electric battery?
 
 A. Hans Christian Oersted
 B. James Clerk Maxwell
@@ -139,7 +139,7 @@ D. Thomas Edison
 
 ## Q10 · Medium · Electricity and magnetism
 
-Electromagnetic induction is most closely associated with:
+Who discovered electromagnetic induction?
 
 A. Alessandro Volta
 B. Michael Faraday
@@ -154,7 +154,7 @@ D. J. J. Thomson
 
 ## Q11 · Medium · Electricity and magnetism
 
-The SI unit ampere is named after the scientist associated with the study of:
+The SI unit ampere is named after a scientist noted for work on:
 
 A. Radioactivity only
 B. Plant genetics
@@ -199,7 +199,7 @@ D. Niels Bohr
 
 ## Q14 · Easy · Light, radiation and modern physics
 
-The discovery of natural radioactivity is associated with:
+Who discovered natural radioactivity?
 
 A. Marie Curie
 B. Henri Becquerel
@@ -259,7 +259,7 @@ D. Albert Einstein
 
 ## Q18 · Hard · Light, radiation and modern physics
 
-Which pair is correctly distinguished?
+Which scientist–discovery pairing correctly separates natural radioactivity from X-rays?
 
 A. Röntgen — neutron; Chadwick — X-rays
 B. Becquerel — natural radioactivity; Röntgen — X-rays
@@ -274,7 +274,7 @@ D. Bohr — radioactivity; Becquerel — atomic model
 
 ## Q19 · Easy · Chemistry and atomic ideas
 
-The periodic table is most closely associated with:
+Who developed the periodic table that predicted properties of undiscovered elements?
 
 A. John Dalton
 B. Antoine Lavoisier
@@ -289,7 +289,7 @@ D. Amedeo Avogadro
 
 ## Q20 · Easy · Chemistry and atomic ideas
 
-The modern atomic theory of matter is strongly associated with:
+Who proposed the modern atomic theory of matter?
 
 A. Robert Hooke
 B. Louis Pasteur
@@ -304,7 +304,7 @@ D. John Dalton
 
 ## Q21 · Medium · Chemistry and atomic ideas
 
-The law of conservation of mass in chemistry is closely associated with:
+Who established the law of conservation of mass through quantitative chemical experiments?
 
 A. Antoine Lavoisier
 B. Dmitri Mendeleev
@@ -334,7 +334,7 @@ D. Atomic nuclei only
 
 ## Q23 · Medium · Chemistry and atomic ideas
 
-The industrial synthesis of ammonia by combining nitrogen and hydrogen is associated with the:
+Which process is used for industrial synthesis of ammonia from nitrogen and hydrogen?
 
 A. Solvay process
 B. Hall process
@@ -379,7 +379,7 @@ D. Anton van Leeuwenhoek
 
 ## Q26 · Easy · Cells, microbiology and biological discovery
 
-Early observations of living microorganisms with microscopes are associated with:
+Who made some of the earliest detailed observations of living microorganisms?
 
 A. Robert Hooke
 B. Anton van Leeuwenhoek
@@ -439,7 +439,7 @@ D. Isaac Newton
 
 ## Q30 · Hard · Cells, microbiology and biological discovery
 
-Which distinction is correct?
+Which statement correctly distinguishes Hooke's and Leeuwenhoek's contributions?
 
 A. Leeuwenhoek discovered X-rays; Hooke discovered radioactivity
 B. Hooke named cells from cork observations; Leeuwenhoek observed living microorganisms
@@ -454,7 +454,7 @@ D. Both scientists are known for the periodic table
 
 ## Q31 · Easy · Evolution and genetics
 
-The theory of evolution by natural selection is most closely associated with:
+Who developed the theory of evolution by natural selection?
 
 A. Gregor Mendel
 B. Louis Pasteur
@@ -544,7 +544,7 @@ D. Watson and Crick proposed the model using evidence that included Franklin's X
 
 ## Q37 · Easy · Medicine, vaccines and human physiology
 
-The first successful smallpox vaccine is associated with:
+Who developed the first successful smallpox vaccine?
 
 A. Edward Jenner
 B. Alexander Fleming
@@ -604,7 +604,7 @@ D. Karl Landsteiner
 
 ## Q41 · Medium · Medicine, vaccines and human physiology
 
-The discovery and early therapeutic development of insulin is closely associated with Frederick Banting and:
+Frederick Banting worked closely with whom in the early discovery and therapeutic development of insulin?
 
 A. Charles Best
 B. James Watt
@@ -634,7 +634,7 @@ D. Koch — periodic table; Mendeleev — tuberculosis bacterium
 
 ## Q43 · Easy · Communication and familiar inventions
 
-The telephone is historically associated with:
+Who is widely credited with key development and patenting of the telephone?
 
 A. Guglielmo Marconi
 B. John Logie Baird
@@ -649,7 +649,7 @@ D. James Watt
 
 ## Q44 · Easy · Communication and familiar inventions
 
-Practical radio communication is closely associated with:
+Who developed and demonstrated practical wireless telegraphy systems?
 
 A. Alexander Graham Bell
 B. John Logie Baird
@@ -664,7 +664,7 @@ D. Guglielmo Marconi
 
 ## Q45 · Medium · Communication and familiar inventions
 
-Early practical television development is associated with:
+Who demonstrated an early working television system using mechanical scanning?
 
 A. John Logie Baird
 B. Thomas Edison
@@ -694,7 +694,7 @@ D. Alexander Fleming
 
 ## Q47 · Medium · Communication and familiar inventions
 
-The dynamite invention is associated with:
+Who invented dynamite?
 
 A. Michael Faraday
 B. John Dalton
@@ -709,7 +709,7 @@ D. Robert Koch
 
 ## Q48 · Hard · Communication and familiar inventions
 
-Which pair is correctly distinguished?
+Which pairing correctly separates the telephone from practical wireless telegraphy?
 
 A. Marconi — telephone; Bell — radioactivity
 B. Baird — dynamite; Nobel — television
@@ -718,7 +718,7 @@ D. Bell — telephone; Marconi — practical wireless telegraphy
 
 **Answer:** D. Bell — telephone; Marconi — practical wireless telegraphy
 
-**Explanation:** Bell is associated with the telephone, while Marconi is known for practical wireless telegraphy and radio communication.
+**Explanation:** Bell is widely credited with key telephone development, while Marconi developed practical wireless telegraphy and radio communication.
 
 **Source fact:** `BELL-MARCONI-DISTINCTION`
 
@@ -733,13 +733,13 @@ D. Homi J. Bhabha
 
 **Answer:** A. C. V. Raman
 
-**Explanation:** C. V. Raman discovered the change in wavelength of light associated with inelastic scattering.
+**Explanation:** C. V. Raman discovered the wavelength shift produced by inelastic scattering of light.
 
 **Source fact:** `CV-RAMAN-RAMAN-EFFECT`
 
 ## Q50 · Medium · Indian scientists and major contributions
 
-The Saha ionization equation is associated with:
+Who developed the Saha ionization equation?
 
 A. C. V. Raman
 B. Meghnad Saha
@@ -799,7 +799,7 @@ D. Homi Bhabha — smallpox vaccination
 
 ## Q54 · Hard · Indian scientists and major contributions
 
-Which distinction is correct?
+Which statement correctly distinguishes C. V. Raman's and S. N. Bose's contributions?
 
 A. Raman — radioactivity; Bose — X-rays
 B. C. V. Raman — Raman effect; S. N. Bose — quantum statistics
@@ -808,7 +808,7 @@ D. Raman — periodic law; Bose — conservation of mass
 
 **Answer:** B. C. V. Raman — Raman effect; S. N. Bose — quantum statistics
 
-**Explanation:** Raman is associated with light scattering, while Bose is associated with quantum statistics.
+**Explanation:** Raman discovered the Raman effect in light scattering, while Bose developed foundational work in quantum statistics.
 
 **Source fact:** `RAMAN-BOSE-DISTINCTION`
 
@@ -868,7 +868,7 @@ D. Koch — telephone; Bell — bacteria
 
 **Answer:** B. Jenner — vaccination; Fleming — penicillin
 
-**Explanation:** Jenner is associated with smallpox vaccination, while Fleming discovered penicillin.
+**Explanation:** Jenner developed the smallpox vaccine, while Fleming discovered penicillin.
 
 **Source fact:** `JENNER-FLEMING-DISTINCTION`
 
@@ -898,7 +898,7 @@ D. Faraday — induction; Mendeleev — periodic table; Mendel — inheritance
 
 **Answer:** D. Faraday — induction; Mendeleev — periodic table; Mendel — inheritance
 
-**Explanation:** Faraday, Mendeleev and Mendel are correctly associated with electromagnetic induction, the periodic table and inheritance respectively.
+**Explanation:** Faraday discovered electromagnetic induction, Mendeleev developed the periodic table, and Mendel established basic laws of inheritance.
 
 **Source fact:** `MIXED-ALL-CORRECT-SET`
 
