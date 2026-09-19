@@ -1,4 +1,4 @@
-name: Validate COA CP-012 internal eligibility candidate
+name: Validate COA CP-012 internal eligibility
 
 on:
   pull_request:
@@ -31,10 +31,10 @@ jobs:
       - name: Bundle COA CP-012 proof
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/reasoning-v1/topics/Course-of-Action/COA-001/cp012-internal-eligibility-proof.test.ts \
+            src/reasoning-v1/topics/Course-of-Action/COA-001/cp012-internal-eligibility-approval-proof.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/reasoning-v1/course-of-action/cp012-internal-eligibility-proof.test.mjs
+            --outfile=dist/reasoning-v1/course-of-action/cp012-internal-eligibility-approval-proof.test.mjs
       - name: Run COA CP-012 proof
         run: |
           cd artifacts/api-server
-          node dist/reasoning-v1/course-of-action/cp012-internal-eligibility-proof.test.mjs
+          node dist/reasoning-v1/course-of-action/cp012-internal-eligibility-approval-proof.test.mjs
