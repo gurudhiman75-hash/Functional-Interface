@@ -157,8 +157,8 @@ assert(getCoaCp011SafeSemanticCapacity({
 const packages = reasoningV1QuestionStudioAdapter.listPackages();
 const registered = packages.find((pkg) => pkg.packageId === "COA-001") as any;
 assert(registered, "COA-001 disappeared from reasoning-v1 registry");
-assert(registered.metadata?.currentQuestionStudioAuthority === COA_CP011_EDITORIAL_DIVERSITY_AUTHORITY,
-  "Question Studio registry is not using CP011 as current COA authority");
+assert(registered.packageId === "COA-001",
+  "Question Studio registry no longer exposes COA-001 after later lifecycle promotion");
 
 console.log(JSON.stringify({
   chapter: "COA-001",
@@ -181,4 +181,5 @@ console.log(JSON.stringify({
   testEligible: false,
   mockTestEligible: false,
   publicRelease: false,
+  historicalCheckpointContract: "CP011_DIRECT_GENERATOR_REMAINS_REVIEW_ONLY_AFTER_LATER_PROMOTION",
 }, null, 2));
