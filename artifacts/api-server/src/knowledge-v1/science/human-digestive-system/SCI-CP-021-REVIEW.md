@@ -113,7 +113,7 @@ Which teeth are mainly adapted for grinding food?
 
 A. Incisors
 B. Canines
-C. Milk incisors only
+C. Premolars
 D. Molars
 
 **Answer:** D. Molars
@@ -576,10 +576,10 @@ D. Cilia
 
 Glucose and amino acids absorbed from intestinal villi enter mainly into:
 
-A. The stomach cavity
-B. Salivary ducts
+A. Lacteals in the villi
+B. Intestinal glands
 C. Blood capillaries
-D. The large intestine
+D. Lymph nodes
 
 **Answer:** C. Blood capillaries
 
@@ -591,9 +591,9 @@ D. The large intestine
 
 Absorbed fats from the small intestine enter mainly into:
 
-A. Salivary glands
-B. Gastric pits
-C. Root-like hairs
+A. Blood capillaries in the villi
+B. Gastric glands
+C. Pancreatic ducts
 D. Lacteals in the villi
 
 **Answer:** D. Lacteals in the villi
