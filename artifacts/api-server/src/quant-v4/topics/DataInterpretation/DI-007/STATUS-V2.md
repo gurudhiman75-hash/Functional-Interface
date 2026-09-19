@@ -1,6 +1,6 @@
 # DI-007 Missing Data Interpretation — V2 Review
 
-Status: HUMAN_REVIEW_PENDING · REVIEW_ONLY
+Status: ENGLISH_REVIEW_APPROVED · CONTROLLED_REVIEW
 
 ## Why V2 exists
 
@@ -74,8 +74,8 @@ Banking Mains additionally:
 
 ## Lifecycle
 
-- reviewStatus: HUMAN_REVIEW_PENDING
-- Question Studio discoverable: false
+- reviewStatus: ENGLISH_REVIEW_APPROVED
+- Question Studio discoverable: true
 - Question Bank: NOT_STORED
 - Question Bank writable: false
 - test eligible: false
@@ -84,4 +84,4 @@ Banking Mains additionally:
 - automatic student publication: false
 - production release authorized: false
 
-No permanent QLs or Question Studio registration will be allocated before human approval.
+Permanent ownership allocated: DI-QL-073 through DI-QL-084. Question Studio is enabled only in CONTROLLED_REVIEW; Question Bank, tests, mocks, public/student delivery and production release remain locked.
