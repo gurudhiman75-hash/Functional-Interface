@@ -11,7 +11,7 @@ import {
 const packages = listBlr001StandardQuestionStudioPackages();
 assert.equal(packages.length, 7);
 assert.equal(packages.every((entry) => entry.enabled), true);
-assert.deepEqual(packages.slice(0, 2).map((entry) => entry.supportedLanguages), [["en"], ["en"]]);
+assert.deepEqual(packages.slice(0, 2).map((entry) => entry.supportedLanguages), [["en","hi","pa"], ["en"]]);
 assert.equal(packages.slice(2).every((entry) => entry.supportedLanguages.join(",") === "en,hi,pa"), true);
 assert.equal(packages.every((entry) => entry.runtimeMode === "STANDARD_QUESTION_STUDIO"), true);
 for (const pkg of packages) {
@@ -49,6 +49,16 @@ for (const pkg of packages) {
       assert.equal(question.options.length, 4);
       assert.equal(question.correctIndex >= 0 && question.correctIndex < 4, true);
       assert.equal(question.validation?.valid, true);
+      if (pkg.packageId === "REASONING_V1_BLR_001_CP_001" && language !== "en") {
+        assert.equal(question.integrationAuthority, "BLR_CP001_HI_PA_LOCALISATION_REVIEW_CANDIDATE");
+        assert.equal(question.sourceParameters?.reviewStatus, "LOCALIZED_REVIEW_REQUIRED");
+        assert.equal(question.questionBankStatus, "NOT_STORED");
+        assert.equal(question.questionBankWritable, false);
+        assert.equal(question.questionBankEligible, false);
+        assert.equal(question.testEligibility, "INELIGIBLE");
+        assert.equal(question.mockTestEligible, false);
+        assert.equal(question.publiclyPublishable, false);
+      }
       if (
         pkg.packageId === "REASONING_V1_BLR_001_CP_001"
         || pkg.packageId === "REASONING_V1_BLR_001_CP_002"

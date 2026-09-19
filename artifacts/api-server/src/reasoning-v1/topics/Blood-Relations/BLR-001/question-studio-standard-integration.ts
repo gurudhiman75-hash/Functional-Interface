@@ -51,7 +51,7 @@ const PACKAGE_SPECS = [
     checkpointId: "BLR-CP-001",
     label: "Named Blood Relations",
     qlIds: ["BLR-QL-001", "BLR-QL-002", "BLR-QL-003", "BLR-QL-004", "BLR-QL-005", "BLR-QL-006", "BLR-QL-007"],
-    supportedLanguages: ["en"],
+    supportedLanguages: ["en", "hi", "pa"],
     releaseEligibleAfterApproval: false,
   },
   {

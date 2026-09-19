@@ -1,11 +1,16 @@
 name: Reasoning BLR-001 CP-001 Runtime
 
+# CI-FANOUT-ALLOW: non-main-base
+
 on:
   pull_request:
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
-      - ".github/workflows/reasoning-blr-001-cp001-prototype.yml"
   workflow_dispatch:
+
+concurrency:
+  group: blr-001-cp001-runtime-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   cp001-runtime:
@@ -43,6 +48,12 @@ jobs:
 
       - name: Prove permanent English runtime
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-runtime.test.ts
+
+      - name: Prove Hindi Punjabi multilingual review candidate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/localization/cp001-localizer.test.ts
+
+      - name: Prove CP-001 multilingual chapter Studio preview
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-chapter-adapter.test.ts
 
       - name: Export remediated English review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-review.ts blr-cp001-review-output
