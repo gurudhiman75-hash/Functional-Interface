@@ -106,9 +106,17 @@ function numberDistractors(
   pair: (typeof CP004_NUMBER_PAIRS)[number],
   target: "singular" | "plural",
 ): string[] {
-  const peers = sameRuleNumberPairs(pair);
-  if (peers.length < 3) throw new Error(`CP004 ${pair.id}: insufficient rule-neighbour number distractors`);
-  return unique(peers.map((x) => x[target]));
+  const peers = sameRuleNumberPairs(pair).filter((x) => x.directSafe);
+  const fallback = peers.length >= 3
+    ? peers
+    : CP004_DIRECT_NUMBER_PAIRS.filter((x) =>
+        x.id !== pair.id && (x.rule === pair.rule || (
+          (pair.rule === "IRREGULAR" || pair.rule === "VOWEL_TO_VAAN") &&
+          (x.rule === "IRREGULAR" || x.rule === "VOWEL_TO_VAAN")
+        )),
+      );
+  if (fallback.length < 3) throw new Error(`CP004 ${pair.id}: insufficient rule-neighbour number distractors`);
+  return unique(fallback.map((x) => x[target]));
 }
 
 function genderMismatchCases() {
