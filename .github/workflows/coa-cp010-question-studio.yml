@@ -2,13 +2,13 @@ name: Validate COA CP-010 Question Studio
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Course-of-Action/COA-001/**"
       - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
       - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
-      - ".github/workflows/coa-cp010-question-studio.yml"
   workflow_dispatch:
 
 jobs:
@@ -17,8 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: 22
