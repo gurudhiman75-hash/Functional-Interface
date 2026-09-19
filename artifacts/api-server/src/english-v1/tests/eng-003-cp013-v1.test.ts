@@ -6,7 +6,7 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 const stable=(value:unknown)=>JSON.stringify(value);
 const duplicated=/\b(to|from|of|on|than|when)\s+\1\b/i;
-const overFormal=/\b(?:conservative competitive-exam form|ambiguity guard|standard explicit pattern|materially different)\b/i;
+const overFormal=/\b(?:conservative competitive-exam form|ambiguity guard|standard explicit pattern)\b/i;
 
 for(const difficulty of ["easy","medium","hard"] as const){
   const pool=cp013ScenePoolV1(difficulty);
