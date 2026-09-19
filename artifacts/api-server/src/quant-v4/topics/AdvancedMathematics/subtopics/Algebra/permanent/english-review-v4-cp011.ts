@@ -77,21 +77,19 @@ function pick(seed: number, salt: number, min: number, max: number): number {
   return min + (mixSeed(seed, salt) % (max - min + 1));
 }
 
-function equationFromRoots(r1: number, r2: number, scale: number): QuadraticEquation {
-  const a = BigInt(scale);
+function equationFromRoots(r1: number, r2: number): QuadraticEquation {
   return {
-    a: rational(a),
-    b: rational(-a * BigInt(r1 + r2)),
-    c: rational(a * BigInt(r1 * r2)),
+    a: rational(1n),
+    b: rational(-BigInt(r1 + r2)),
+    c: rational(BigInt(r1 * r2)),
   };
 }
 
-function equationFromConjugates(center: number, radicand: number, scale: number): QuadraticEquation {
-  const a = BigInt(scale);
+function equationFromConjugates(center: number, radicand: number): QuadraticEquation {
   return {
-    a: rational(a),
-    b: rational(-2n * a * BigInt(center)),
-    c: rational(a * BigInt(center * center - radicand)),
+    a: rational(1n),
+    b: rational(-2n * BigInt(center)),
+    c: rational(BigInt(center * center - radicand)),
   };
 }
 
@@ -221,9 +219,6 @@ export function generateAlgCp011EnglishReviewV4(
   const gapA = pick(seed, 0x2201 + variantIndex, 2, 6);
   const gapB = pick(seed, 0x3301 + variantIndex, 2, 6);
   const separation = pick(seed, 0x4401 + variantIndex, 1, 4);
-  const scaleX = pick(seed, 0x5501 + variantIndex, 1, 3);
-  const scaleY = pick(seed, 0x6601 + variantIndex, 1, 3);
-
   let equationX: QuadraticEquation;
   let equationY: QuadraticEquation;
 
@@ -233,8 +228,8 @@ export function generateAlgCp011EnglishReviewV4(
       const y2 = base + gapA;
       const x1 = y2 + separation;
       const x2 = x1 + gapB;
-      equationX = equationFromRoots(x1, x2, scaleX);
-      equationY = equationFromRoots(y1, y2, scaleY);
+      equationX = equationFromRoots(x1, x2);
+      equationY = equationFromRoots(y1, y2);
       break;
     }
     case "compareAlwaysLessRootSets": {
@@ -242,30 +237,30 @@ export function generateAlgCp011EnglishReviewV4(
       const x2 = base + gapA;
       const y1 = x2 + separation;
       const y2 = y1 + gapB;
-      equationX = equationFromRoots(x1, x2, scaleX);
-      equationY = equationFromRoots(y1, y2, scaleY);
+      equationX = equationFromRoots(x1, x2);
+      equationY = equationFromRoots(y1, y2);
       break;
     }
     case "compareGreaterOrEqualRootSets": {
       const boundary = base;
-      equationX = equationFromRoots(boundary, boundary + gapB, scaleX);
-      equationY = equationFromRoots(boundary - gapA, boundary, scaleY);
+      equationX = equationFromRoots(boundary, boundary + gapB);
+      equationY = equationFromRoots(boundary - gapA, boundary);
       break;
     }
     case "compareLessOrEqualRootSets": {
       const boundary = base;
-      equationX = equationFromRoots(boundary - gapA, boundary, scaleX);
-      equationY = equationFromRoots(boundary, boundary + gapB, scaleY);
+      equationX = equationFromRoots(boundary - gapA, boundary);
+      equationY = equationFromRoots(boundary, boundary + gapB);
       break;
     }
     case "compareEqualRepeatedRoots":
-      equationX = equationFromRoots(base, base, scaleX);
-      equationY = equationFromRoots(base, base, scaleY);
+      equationX = equationFromRoots(base, base);
+      equationY = equationFromRoots(base, base);
       break;
     case "compareOverlappingIndeterminateRootSets": {
       const high = base + gapA + gapB + 2;
-      equationX = equationFromRoots(base, high, scaleX);
-      equationY = equationFromRoots(base + 1, high - 1, scaleY);
+      equationX = equationFromRoots(base, high);
+      equationY = equationFromRoots(base + 1, high - 1);
       break;
     }
     case "compareIrrationalConjugateRootSets": {
@@ -274,8 +269,8 @@ export function generateAlgCp011EnglishReviewV4(
       const centerY = base;
       const centerGap = 2 * Math.ceil(Math.sqrt(radicand)) + separation;
       const centerX = centerY + centerGap;
-      equationX = equationFromConjugates(centerX, radicand, scaleX);
-      equationY = equationFromConjugates(centerY, radicand, scaleY);
+      equationX = equationFromConjugates(centerX, radicand);
+      equationY = equationFromConjugates(centerY, radicand);
       break;
     }
   }
