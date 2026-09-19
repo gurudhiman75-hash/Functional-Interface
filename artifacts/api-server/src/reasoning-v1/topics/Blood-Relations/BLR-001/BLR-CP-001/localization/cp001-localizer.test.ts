@@ -37,6 +37,7 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
       assert.equal(localized.reviewOnly, true);
       assert.equal(localized.publiclyPublishable, false);
       assert.equal(localized.questionStudioVisible, false);
+      assert.equal(localized.questionBankEligible, false);
       assert.equal(localized.mockTestEligible, false);
       assert.equal(localized.metadata.semanticParity, "EXECUTABLE_PROVED");
       assert.equal(localized.metadata.humanLanguageReviewRequired, true);
