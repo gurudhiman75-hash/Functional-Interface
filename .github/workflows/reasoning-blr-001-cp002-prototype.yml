@@ -87,6 +87,9 @@ jobs:
           cat cp002-permanent-runtime.log
           exit 1
 
+      - name: Prove Hindi Punjabi multilingual review candidate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/localization/cp002-localizer.test.ts
+
       - name: Export approved CP-002 English review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-review-v2.ts blr-cp002-frozen-output
 
