@@ -238,6 +238,8 @@ export const POL_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     registrationAuthorityId: POL_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
     authoringReviewApproved: true,
     englishEditorialComplete: true,
+    qualificationExplanationAuditComplete: true,
+    qualificationExplanationAuditVersion: "POL-001-QUALIFICATIONS-V1",
     reviewOnly: true,
     frozenCorpusOnly: true,
     immutableCorpus: true,
