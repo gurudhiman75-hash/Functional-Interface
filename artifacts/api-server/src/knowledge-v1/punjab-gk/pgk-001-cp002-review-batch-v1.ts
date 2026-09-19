@@ -78,12 +78,12 @@ const rowsByQl: Record<keyof typeof PGK_001_CP002_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Ropar is another commonly used name for which Punjab administrative division?",
+      stem: "Ropar is another name for which Punjab administrative division?",
       canonical: "Rupnagar",
       options: ["Rupnagar", "Patiala", "Faridkot", "Jalandhar"],
       factIds: ["division-list", "rupnagar"],
       sourceIds: divisionSources,
-      explanation: "Rupnagar is also widely known as Ropar. Rupnagar is both a district name and the name of an administrative division.",
+      explanation: "Rupnagar is also called Ropar. Rupnagar is both a district name and the name of an administrative division.",
     },
     {
       difficulty: "Medium",
@@ -112,7 +112,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP002_QL_NAMES, readonly Row[]> = {
       options: ["Mohali", "Rupnagar", "Patiala", "Kharar"],
       factIds: ["sas-nagar"],
       sourceIds: rosterSources,
-      explanation: "Sahibzada Ajit Singh Nagar district is commonly called SAS Nagar or Mohali district. Its headquarters is Mohali.",
+      explanation: "Sahibzada Ajit Singh Nagar district is also called SAS Nagar or Mohali district. Its headquarters is Mohali.",
     },
     {
       difficulty: "Easy",
@@ -121,7 +121,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP002_QL_NAMES, readonly Row[]> = {
       options: ["Nawanshahr", "Banga", "Balachaur", "Rupnagar"],
       factIds: ["sbs-nagar"],
       sourceIds: rosterSources,
-      explanation: "Shaheed Bhagat Singh Nagar district has its headquarters at Nawanshahr. The district is also commonly referred to as SBS Nagar.",
+      explanation: "Shaheed Bhagat Singh Nagar district has its headquarters at Nawanshahr. The district is also abbreviated as SBS Nagar.",
     },
     {
       difficulty: "Medium",
@@ -139,16 +139,16 @@ const rowsByQl: Record<keyof typeof PGK_001_CP002_QL_NAMES, readonly Row[]> = {
       options: ["Sahibzada Ajit Singh Nagar", "Fatehgarh Sahib", "Rupnagar", "Patiala"],
       factIds: ["sas-nagar"],
       sourceIds: rosterSources,
-      explanation: "Mohali is the headquarters of Sahibzada Ajit Singh Nagar district, commonly shortened to SAS Nagar.",
+      explanation: "Mohali is the headquarters of Sahibzada Ajit Singh Nagar district, also shortened to SAS Nagar.",
     },
     {
       difficulty: "Easy",
-      stem: "Which district is also commonly known as Ropar?",
+      stem: "Which district is also called Ropar?",
       canonical: "Rupnagar",
       options: ["Rupnagar", "Gurdaspur", "Ferozepur", "Kapurthala"],
       factIds: ["rupnagar"],
       sourceIds: rosterSources,
-      explanation: "Rupnagar is commonly known as Ropar. Both names may appear in Punjab GK material and official usage.",
+      explanation: "Rupnagar is also called Ropar. Both names may appear in Punjab GK material and official usage.",
     },
     {
       difficulty: "Medium",
