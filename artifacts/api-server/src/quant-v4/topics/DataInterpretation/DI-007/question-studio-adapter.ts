@@ -9,7 +9,7 @@ import {
 import { generateDi007PermanentQuestion } from "./permanent-question-generator";
 import type { Di007V2Difficulty, Di007V2ExamProfile } from "./missing-v2-types";
 
-export const DI007_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-006" as const;
+export const DI007_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-007" as const;
 export const DI007_QUESTION_STUDIO_RUNTIME_MODE = "DI007_PERMANENT_ENGLISH_REVIEW_P1" as const;
 
 export type Di007QuestionStudioRequest = Readonly<{
@@ -39,8 +39,8 @@ export function isDi007QuestionStudioRequest(request: Di007QuestionStudioRequest
   const subtopic = normalizeSelector(request.subtopic);
   const qlId = String(request.questionLanguageId ?? "").trim().toUpperCase();
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
-  return packageId === "di 006"
-    || patternId === "di 006"
+  return packageId === "di 007"
+    || patternId === "di 007"
     || Boolean(getDi007PermanentQl(qlId))
     || cpId === DI007_QUESTION_STUDIO_CANONICAL_PROBLEM_ID
     || (topic === "data interpretation" && ["missing data", "missing di", "missing table", "missing data interpretation"].includes(subtopic));
