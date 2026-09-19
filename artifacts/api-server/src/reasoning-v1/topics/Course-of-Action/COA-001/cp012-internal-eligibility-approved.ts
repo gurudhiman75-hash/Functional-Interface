@@ -199,7 +199,7 @@ export const COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE = {
   persistenceAllowed: true,
   questionBankStatus: "WRITABLE",
   questionBankWritable: true,
-  questionBankAcceptanceMode: "INTERNAL_ELIGIBLE",
+  questionBankAcceptanceMode: "BANK_ONLY",
   questionBankAcceptanceAuthority: COA_CP012_APPROVAL_AUTHORITY,
   testEligibility: "ELIGIBLE",
   testEligible: true,
