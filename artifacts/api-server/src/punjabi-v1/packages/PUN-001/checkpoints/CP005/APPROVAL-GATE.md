@@ -1,6 +1,6 @@
 # CP005 Retrofit Approval Gate
 
-CP005 has materially changed from the previously reviewed 45-authority checkpoint to a 262-authority sentence-grounded bank.
+CP005 has materially changed from the previously reviewed 45-authority checkpoint to a 261-authority sentence-grounded bank.
 
 Fresh owner approval is required on the exact reviewed SHA.
 
