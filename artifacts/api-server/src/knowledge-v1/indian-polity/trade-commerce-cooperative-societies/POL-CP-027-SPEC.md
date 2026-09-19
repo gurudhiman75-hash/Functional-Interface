@@ -1,6 +1,6 @@
 # POL-CP-027 — Trade, Commerce & Co-operative Societies
 
-**Lifecycle:** REVIEW CANDIDATE — V2  
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V2  
 **Runtime registration:** DEFERRED TO POLITY QUESTION STUDIO INTEGRATION PASS
 
 > Scope note: the repository roadmap does not expose the historical CP027 title. This reconstructed final uncovered high-yield Polity block was explicitly approved by the project owner on 2026-09-19.
@@ -21,7 +21,7 @@
 The constitutional text still prints Part IXB, but the Supreme Court in Union of India v. Rajendra N. Shah held that Part IXB is operative only insofar as it concerns multi-State co-operative societies and co-operative societies in Union Territories. Review questions must not present Part IXB as presently binding on ordinary State co-operative societies.
 
 ## Stem standard
-- V2 full stem-language pass across all 80 questions;\n- V2 full stem-language pass across all 80 questions;
+- V2 full stem-language pass across all 80 questions;
 - exactly 40 completion-style stems and 40 normal question stems;
 - two completion and two question stems per QL;
 - concise SSC/Banking/state-exam style using direct fact, rule, exception, amendment, scenario and comparison patterns;\n- mechanical index wording such as “is dealt with in”, “is covered by”, “is contained in” and “expressly mentioned” is blocked;
@@ -38,6 +38,6 @@ The constitutional text still prints Part IXB, but the Supreme Court in Union of
 - unique stems and explanations;
 - explanations 13–42 words.
 
-## Primary authority
+- content frozen after explicit project-owner approval.\n\n## Primary authority
 - Constitution of India as on 1 May 2026, Legislative Department;
 - Union of India v. Rajendra N. Shah, Supreme Court of India, 20 July 2021.
