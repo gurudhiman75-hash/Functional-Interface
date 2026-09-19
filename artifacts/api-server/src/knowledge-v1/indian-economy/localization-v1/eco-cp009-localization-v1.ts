@@ -20,4 +20,4 @@ function option(text:string, locale:NativeLocale):string {
 export function generateEcoCp009LocalizedReviewV1(locale:EcoLocaleV1):EcoLocalizedQuestionV1[]{
   return SOURCE.map((q,index)=>{ if(locale==="en") return base(q,locale,q.stem,[...q.options],q.explanation); const opts=q.options.map((x:string)=>option(x,locale)); return base(q,locale,STEMS[index][locale],opts,EXPLANATIONS[index][locale]); });
 }
-export const ECO_CP009_REVIEW_V1 = Object.freeze(SOURCE);
+export const ECO_CP009_REVIEW_V2 = Object.freeze(SOURCE);
