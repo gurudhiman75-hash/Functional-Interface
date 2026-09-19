@@ -49,18 +49,17 @@ for (const pkg of packages) {
       assert.equal(question.options.length, 4);
       assert.equal(question.correctIndex >= 0 && question.correctIndex < 4, true);
       assert.equal(question.validation?.valid, true);
-      if (
-        (pkg.packageId === "REASONING_V1_BLR_001_CP_001"
-          || pkg.packageId === "REASONING_V1_BLR_001_CP_002")
-        && language !== "en"
-      ) {
-        assert.equal(
-          question.integrationAuthority,
-          pkg.packageId === "REASONING_V1_BLR_001_CP_001"
-            ? "BLR_CP001_HI_PA_LOCALISATION_REVIEW_CANDIDATE"
-            : "BLR_CP002_HI_PA_LOCALISATION_REVIEW_CANDIDATE",
-        );
-        assert.equal(question.sourceParameters?.reviewStatus, "LOCALIZED_REVIEW_REQUIRED");
+      if (language !== "en" && pkg.checkpointId !== "BLR-CP-007") {
+        const approvedAuthorities: Record<string, string> = {
+          "BLR-CP-001": "BLR_CP001_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-002": "BLR_CP002_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-003": "BLR_CP003_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-004": "BLR_CP004_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-005": "BLR_CP005_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-006": "BLR_CP006_EDITORIAL_V3_MULTILINGUAL_FROZEN_V1",
+        };
+        assert.equal(question.integrationAuthority, approvedAuthorities[pkg.checkpointId]);
+        assert.equal(question.sourceParameters?.reviewStatus, "MULTILINGUAL_FROZEN");
         assert.equal(question.questionBankStatus, "NOT_STORED");
         assert.equal(question.questionBankWritable, false);
         assert.equal(question.questionBankEligible, false);
@@ -105,6 +104,9 @@ assert.equal(cp006.questionBankStatus, "NOT_STORED");
 assert.equal(cp006.testEligibility, "INELIGIBLE");
 assert.equal(cp006.publiclyPublishable, false);
 assert.equal(cp006.reviewOnly, true);
+assert.equal(cp006.integrationAuthority, "BLR_CP006_EDITORIAL_V3_MULTILINGUAL_FROZEN_V1");
+assert.equal(cp006.sourceParameters?.reviewStatus, "MULTILINGUAL_FROZEN");
+assert.doesNotMatch(cp006.sharedPrompt, /गणितीय प्राथमिकता|ਗਣਿਤੀ ਤਰਜੀਹ|arithmetic precedence/i);
 
 for (const language of ["en", "hi", "pa"] as const) {
   const cp007 = generateBlr001StandardQuestionStudioBatch({
