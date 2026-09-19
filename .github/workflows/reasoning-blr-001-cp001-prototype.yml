@@ -1,11 +1,16 @@
 name: Reasoning BLR-001 CP-001 Runtime
 
+# CI-FANOUT-ALLOW: non-main-base
+
 on:
   pull_request:
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
-      - ".github/workflows/reasoning-blr-001-cp001-prototype.yml"
   workflow_dispatch:
+
+concurrency:
+  group: blr-001-cp001-runtime-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   cp001-runtime:
