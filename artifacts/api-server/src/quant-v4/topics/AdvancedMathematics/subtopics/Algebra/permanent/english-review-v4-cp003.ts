@@ -122,9 +122,15 @@ function cyclicQuestion(q: number, frame: number) {
 
 function cyclicExplanation(q: number, answer: Rational) {
   const coefficient = q * q;
+  const numeratorCoefficient = -q;
+  const numerator = numeratorCoefficient === 1
+    ? "a"
+    : numeratorCoefficient === -1
+      ? "-a"
+      : `${numeratorCoefficient}a`;
   return [
     `From a + ${coefficient}/b = ${q}, we get b = ${coefficient}/(${q} - a).`,
-    `Substitute this in b + ${coefficient}/c = ${q}. Then ${coefficient}/c = ${q} - ${coefficient}/(${q} - a) = -${q}a/(${q} - a).`,
+    `Substitute this in b + ${coefficient}/c = ${q}. Then ${coefficient}/c = ${q} - ${coefficient}/(${q} - a) = ${numerator}/(${q} - a).`,
     `So c = ${q} - ${coefficient}/a, and therefore c + ${coefficient}/a = ${formatRational(answer)}.`,
   ].join(" ");
 }
