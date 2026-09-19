@@ -1,0 +1,67 @@
+RA_ITEM", derivation: "Divides by one more item than the set contains." },
+        ],
+        explanation: {
+          keyIdea: "Add the current-period profits of the named items and divide by the number of items.",
+          steps: [
+            "Combined profit from " + names(rows, indices) + " = " + formatMoney(profit) + ".",
+            "Number of items = " + indices.length + ".",
+            "Average profit = " + formatMoney(profit) + " \u00f7 " + indices.length + " = " + answer + ".",
+          ],
+        },
+        evidence: { primaryIndices: indices },
+      };
+    }
+
+    case "COMBINED_PERCENT_CHANGE": {
+      const indices = hardIndices;
+      const previous = sumUnits(rows, indices, "unitsPrevious");
+      const current = sumUnits(rows, indices, "unitsCurrent");
+      const increase = current - previous;
+      const answer = formatPercent(increase, previous);
+      const simpleAverageGrowth = indices.reduce((sum, index) => sum + ((rows[index]!.unitsCurrent - rows[index]!.unitsPrevious) * 100) / rows[index]!.unitsPrevious, 0) / indices.length;
+      return {
+        kind,
+        difficulty: "Hard",
+        stemVariant: variant,
+        stem: combinedPercentStem(stimulus, indices, variant),
+        answer,
+        candidates: [
+          { text: formatPercent(increase, current), misconceptionId: "USE_CURRENT_AS_BASE", derivation: "Uses the current combined total as the percentage base." },
+          { text: formatQuotient(Math.round(simpleAverageGrowth * 100), 100) + "%", misconceptionId: "AVERAGE_INDIVIDUAL_GROWTH", derivation: "Takes a simple average of item growth rates instead of using combined old and new totals." },
+          { text: formatPercent(current, previous), misconceptionId: "REPORT_CURRENT_AS_PERCENT", derivation: "Reports the new total as a percentage of the old total." },
+          { text: formatPercent(increase, previous + current), misconceptionId: "USE_TWO_PERIOD_TOTAL", derivation: "Uses both-period total as the base." },
+        ],
+        explanation: {
+          keyIdea: "For a combined percentage change, add the selected previous-period values and current-period values separately. Do not average the individual growth rates.",
+          steps: [
+            "Previous-period combined units for " + names(rows, indices) + " = " + previous + ".",
+            "Current-period combined units = " + current + ".",
+            "Combined increase = " + current + " - " + previous + " = " + increase + " units.",
+            "Percentage increase = " + increase + "/" + previous + " \u00d7 100 = " + answer + ".",
+          ],
+        },
+        evidence: { primaryIndices: indices },
+      };
+    }
+
+    case "COMBINED_PROFIT_PERCENT": {
+      const indices = hardIndices;
+      const cost = costTotal(rows, indices);
+      const revenue = revenueTotal(rows, indices);
+      const profit = revenue - cost;
+      const answer = formatPercent(profit, cost);
+      const simpleAverageRate = indices.reduce((sum, index) => sum + (rowProfit(rows[index]!) * 100) / rowCost(rows[index]!), 0) / indices.length;
+      return {
+        kind,
+        difficulty: "Hard",
+        stemVariant: variant,
+        stem: combinedProfitPercentStem(stimulus, indices, variant),
+        answer,
+        candidates: [
+          { text: formatPercent(profit, revenue), misconceptionId: "USE_REVENUE_BASE", derivation: "Uses total revenue as the base and calculates margin." },
+          { text: formatQuotient(Math.round(simpleAverageRate * 100), 100) + "%", misconceptionId: "AVERAGE_ITEM_RATES", derivation: "Averages item profit rates without weighting them by cost." },
+          { text: formatPercent(revenue, cost), misconceptionId: "REPORT_REVENUE_ON_COST", derivation: "Reports revenue as a percentage of cost rather than profit percentage." },
+          { text: formatPercent(profit, cost + revenue), misconceptionId: "USE_COST_PLUS_REVENUE", derivation: "Uses an invalid combined base." },
+        ],
+        explanation: {
+          keyIdea: "Com
