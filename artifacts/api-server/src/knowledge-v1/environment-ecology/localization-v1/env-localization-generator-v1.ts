@@ -33,3 +33,8 @@ export {
   ENV_CP007_ENGLISH_AUTHORITY_V2,
   generateEnvCp007LocalizedReviewV1,
 } from "./env-cp007-localization-v1";
+export {
+  ENV_CP008_MULTILINGUAL_V1,
+  ENV_CP008_ENGLISH_AUTHORITY_V2,
+  generateEnvCp008LocalizedReviewV1,
+} from "./env-cp008-localization-v1";
