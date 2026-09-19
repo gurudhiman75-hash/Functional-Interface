@@ -96,6 +96,22 @@ const nativeTerms = [
   "Credit creation",
   "Scheduled bank",
   "Agriculture",
+  "Development Financial Institution",
+  "Public finance",
+  "Fiscal policy",
+  "Expansionary fiscal policy",
+  "Contractionary fiscal policy",
+  "Revenue receipt",
+  "Capital receipt",
+  "Revenue expenditure",
+  "Capital expenditure",
+  "Fiscal deficit",
+  "Revenue deficit",
+  "Primary deficit",
+  "Public debt",
+  "Automatic stabiliser",
+  "Debt-creating capital receipt",
+  "Non-debt capital receipt",
 ] as const;
 
 const protectedExamTerms = [
@@ -132,6 +148,7 @@ const protectedExamTerms = [
   "Reverse Repo",
   "Commercial Paper",
   "LAF corridor",
+  "EXIM Bank",
 ] as const;
 
 const allowedAbbreviations = [
@@ -176,6 +193,17 @@ const allowedAbbreviations = [
   "MSMEs",
   "DICGC",
   "GST",
+  "DFI",
+  "IFCI",
+  "SIDBI",
+  "EXIM",
+  "NHB",
+  "NaBFID",
+  "NBFC",
+  "NBFCs",
+  "HFC",
+  "HFCs",
+  "FRBM",
 ] as const;
 
 export const ECO_TERM_POLICY_V1: readonly EcoTermPolicyEntryV1[] = Object.freeze([
