@@ -7,6 +7,40 @@ export const PGK_001_CP020_SOURCE_IDS = Object.freeze({
   punjabEconomicSurveyCensusTables: "punjab-economic-survey-census-2011-tables",
 } as const);
 
+export const PGK_001_CP020_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP020_SOURCE_IDS.censusPunjabPca2011]: {
+    authority: "Office of the Registrar General & Census Commissioner, India",
+    title: "Census 2011 — Primary Census Abstract, Punjab",
+    url: "https://censusindia.gov.in/nada/index.php/catalog/?sk=primary+census+abstract+punjab+2011",
+  },
+  [PGK_001_CP020_SOURCE_IDS.censusPunjabDchb2011]: {
+    authority: "Directorate of Census Operations, Punjab",
+    title: "Census of India 2011 — Punjab District Census Handbooks",
+    url: "https://censusindia.gov.in/nada/index.php/catalog/?sk=district+census+handbook+punjab",
+  },
+  [PGK_001_CP020_SOURCE_IDS.censusChildSexRatio2011]: {
+    authority: "Office of the Registrar General & Census Commissioner, India",
+    title: "Census of India 2011 — Child Sex Ratio",
+    url: "https://censusindia.gov.in/nada/index.php/catalog/42610/download/46272/Census%20of%20India%202011-Child%20Sex%20Ratio.pdf",
+  },
+  [PGK_001_CP020_SOURCE_IDS.censusEducationC08Punjab]: {
+    authority: "Office of the Registrar General & Census Commissioner, India",
+    title: "C-08: Educational level by age and sex, Punjab — 2011",
+    url: "https://censusindia.gov.in/nada/index.php/catalog/44818",
+  },
+  [PGK_001_CP020_SOURCE_IDS.censusScheduledCastePunjab]: {
+    authority: "Office of the Registrar General & Census Commissioner, India",
+    title: "A-10: Individual Scheduled Caste Primary Census Abstract, Punjab — 2011",
+    url: "https://censusindia.gov.in/nada/index.php/catalog/42915",
+  },
+  [PGK_001_CP020_SOURCE_IDS.punjabEconomicSurveyCensusTables]: {
+    authority: "Government of Punjab",
+    title: "Punjab Economic Survey — Census 2011 demographic tables",
+    url: "https://punjab.gov.in/",
+    resolutionStatus: "PINPOINT_URL_PENDING",
+  },
+} as const);
+
 export const PGK_001_CP020_FACTS = Object.freeze([
   { id: "population-total", snapshot: "CENSUS_2011", value: 27743338, statement: "Punjab's Census 2011 population was 27,743,338.", sourceKeys: ["censusPunjabPca2011", "censusPunjabDchb2011"] },
   { id: "population-male", snapshot: "CENSUS_2011", value: 14639465, statement: "Punjab's male population in Census 2011 was 14,639,465.", sourceKeys: ["censusPunjabPca2011"] },
