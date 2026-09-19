@@ -91,7 +91,7 @@ export function cp002AnchorPossessive(
   const plural = PLURAL_OR_NEUTRAL.has(roleId);
   if (locale === "hi-IN") {
     if (anchor === "SPEAKER") return feminine ? "मेरी" : plural ? "मेरे" : "मेरा";
-    if (anchor === "LISTENER") return feminine ? "तुम्हारी" : plural ? "तुम्हारे" : "तुम्हारा";
+    if (anchor === "LISTENER") return feminine ? "आपकी" : plural ? "आपके" : "आपका";
     return feminine ? "उसकी" : plural ? "उसके" : "उसका";
   }
   if (anchor === "SPEAKER") return feminine ? "ਮੇਰੀ" : plural ? "ਮੇਰੇ" : "ਮੇਰਾ";
