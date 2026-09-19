@@ -3,7 +3,7 @@
 Status: AUDIT COMPLETE / REMEDIATION CANDIDATE
 Audit date: 19 September 2026
 Chapter: `PGK-001 — Punjab General Knowledge`
-Audit branch: `feature/pgk-001-exhaustive-audit-v2`
+Audit branch: `feature/pgk-001-exhaustive-audit-v3`
 Registered corpus: 1,092 English questions
 Permanent CPs: 26
 Permanent QLs: 182
@@ -28,6 +28,7 @@ The strengthened Question Studio audit runs over the complete 1,092-question reg
 - non-empty stems and explanations;
 - non-empty canonical fact provenance for every question;
 - non-empty source provenance for every question;
+- every registered source ID must resolve to a concrete source registry or source-URL authority entry;
 - no generic source placeholders such as `*-REFERENCE`, `*-STANDARD-HISTORY` or `*-GENERIC` in registered question provenance;
 - no semantic duplicate normalized stems across the chapter;
 - no learner-facing generator/source metadata;
@@ -87,6 +88,7 @@ The audit branch contains the following corrections and hardening:
 - corrected Ajit Pal Singh birthplace source attribution;
 - cleaned several learner-facing questions/explanations in CP003, CP005, CP006, CP020, CP022, CP023 and CP026;
 - replaced generic CP022 literary source labels with concrete Sahitya Akademi / institutional provenance;
+- strengthened CP001 state-symbol provenance with a Comptroller and Auditor General of India wildlife-preservation authority and corrected the stale Northern Goshawk registry key;
 - replaced the CP017 `singh-sabha-standard-history` placeholder with a named Punjabi University / Punjabipedia authority covering the 1873 Amritsar Sabha, 1879 Lahore Sabha and reform aims.
 
 ## CP017 Singh Sabha provenance hardening
