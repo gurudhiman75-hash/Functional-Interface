@@ -1,7 +1,9 @@
-# CP010 Approval Gate
+# CP010 Retrofit Approval Gate
 
-CP010 is a human-review checkpoint.
+CP010 has materially changed from the previously approved 64-authority checkpoint.
 
-Approval of the Markdown review pack authorizes continuation to the next Punjabi checkpoint only. It does not itself authorize permanent QL allocation, Question Studio registration, Question Bank writes, mock/test eligibility, or public/student delivery.
+The retrofit review pack must receive fresh owner approval on its exact SHA.
 
-Any material change to learner-facing authorities or generation behavior after approval creates a new review head and requires renewed editorial approval.
+Fresh approval covers only the reviewed retrofit head and authorizes continuation to CP011 retrofit work. It does not authorize permanent QL allocation, Question Studio registration, Question Bank writes, test/mock eligibility, or public/student delivery.
+
+Any later learner-facing authority or generation change requires renewed review.
