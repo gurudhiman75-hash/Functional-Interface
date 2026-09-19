@@ -4,7 +4,7 @@ import { CP005_FAMILIES,getCP005BreadthReport } from "./generator";
 
 const banned=/(ਟਕਸਾਲੀ|ਸਿੱਧੇ ਅਰਥ|ਪ੍ਰਮਾਣਿਤ|ਬਾਕੀ ਤਿੰਨ|ਬਾਕੀ ਤਿੰਨੇ|ਬਾਕੀ ਵਿਕਲਪ|ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ)/u;
 assert.equal(CP005_ADJECTIVES.length,151);
-assert.equal(CP005_ADVERBS.length,111);
+assert.equal(CP005_ADVERBS.length,110);
 assert.equal(CP005_FAMILIES.length,8);
 assert.equal(CP005_TYPE_OPTIONS.adjective.length,5);
 assert.equal(CP005_TYPE_OPTIONS.adverb.length,5);
@@ -26,7 +26,7 @@ for(const a of [...CP005_ADJECTIVES,...CP005_ADVERBS]){
 for(const a of CP005_ADJECTIVES)adjCounts.set(a.type,(adjCounts.get(a.type)??0)+1);
 for(const a of CP005_ADVERBS)advCounts.set(a.type,(advCounts.get(a.type)??0)+1);
 assert.deepEqual(Object.fromEntries(adjCounts),{GUN:50,SANKHYA:40,PARIMAN:31,NISHCHAY:12,PADNAVI:18});
-assert.deepEqual(Object.fromEntries(advCounts),{KAAL:25,ASTHAN:26,DHANG:27,PARIMAN:17,SANKHYA:16});
+assert.deepEqual(Object.fromEntries(advCounts),{KAAL:25,ASTHAN:26,DHANG:27,PARIMAN:16,SANKHYA:16});
 
 assert.equal(CP005_ADJECTIVES.filter(x=>x.priorApprovedIds.length>0).length,25,"all approved adjective authorities must survive");
 assert.equal(CP005_ADVERBS.filter(x=>x.priorApprovedIds.length>0).length,20,"all approved adverb authorities must survive");
@@ -35,10 +35,10 @@ for(const forbidden of ["ਕਿਲੋਗ੍ਰਾਮ","ਟਨ","ਕੁਇੰਟ�
 
 const breadth=getCP005BreadthReport();
 assert.equal(breadth.adjectiveAuthorities,151);
-assert.equal(breadth.adverbAuthorities,111);
-assert.equal(breadth.totalAtomicAuthorities,262);
-assert.deepEqual(breadth.capacities,{F01:151,F02:151,F03:151,F04:111,F05:111,F06:16761,F07:16761,F08:67044});
-assert.equal(breadth.totalSemanticCapacity,101241);
+assert.equal(breadth.adverbAuthorities,110);
+assert.equal(breadth.totalAtomicAuthorities,261);
+assert.deepEqual(breadth.capacities,{F01:151,F02:151,F03:151,F04:110,F05:110,F06:16610,F07:16610,F08:66440});
+assert.equal(breadth.totalSemanticCapacity,100333);
 
 const global=new Set<string>(),outcomes=new Set<string>();
 for(const family of CP005_FAMILIES){
@@ -67,7 +67,7 @@ for(const family of CP005_FAMILIES){
  if(["F04","F05"].includes(family.familyId))assert.equal(first.size,111,family.familyId+": all adverb authorities must be reachable");
  if(["F06","F07","F08"].includes(family.familyId)){assert.equal(first.size,151);assert.equal(second.size,111);}
 }
-assert.equal(global.size,101241);
+assert.equal(global.size,100333);
 assert.deepEqual(outcomes,new Set(["ਦੋਵੇਂ ਕਥਨ ਸਹੀ ਹਨ","ਕੇਵਲ ਕਥਨ 1 ਸਹੀ ਹੈ","ਕੇਵਲ ਕਥਨ 2 ਸਹੀ ਹੈ","ਦੋਵੇਂ ਕਥਨ ਗਲਤ ਹਨ"]));
 
 const f03=CP005_FAMILIES.find(x=>x.familyId==="F03")!;
