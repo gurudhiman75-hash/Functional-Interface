@@ -248,6 +248,188 @@ function polishKnownSetterShorthand(patternId: string, stem: string) {
   return result;
 }
 
+type TargetedStemVariant = Readonly<{
+  id: string;
+  apply: (stem: string) => string;
+}>;
+
+function rewriteEqualVolumeHeightPrompt(
+  stem: string,
+  mode: "question" | "calculate" | "determine",
+) {
+  const prefix = /^Find the height of a (cylinder|cone)\b/i.exec(stem);
+  if (prefix) {
+    const solid = prefix[1]!.toLowerCase();
+    const replacement =
+      mode === "question"
+        ? `What is the height of the ${solid}`
+        : mode === "calculate"
+          ? `Calculate the height of the ${solid}`
+          : `Determine the height of the ${solid}`;
+    const rewritten = stem.replace(/^Find the height of a (cylinder|cone)\b/i, replacement);
+    return mode === "question" ? rewritten.replace(/\.$/, "?") : rewritten;
+  }
+
+  const suffix =
+    /(?:Find the (cylinder|cone)'s height\.|Determine the (cylinder|cone) height\.|What is the (cylinder|cone)'s height\?)$/i;
+  const match = suffix.exec(stem);
+  if (!match) return stem;
+  const solid = (match[1] ?? match[2] ?? match[3])!.toLowerCase();
+  const replacement =
+    mode === "question"
+      ? `What is the required height of the ${solid}?`
+      : mode === "calculate"
+        ? `Calculate the required ${solid} height.`
+        : `Determine the required height of the ${solid}.`;
+  return stem.replace(suffix, replacement);
+}
+
+const TARGETED_REPEAT_STEM_VARIANTS: Readonly<Record<string, readonly TargetedStemVariant[]>> = Object.freeze({
+  "MEN-002-QL-022": Object.freeze([
+    { id: "source", apply: (stem) => stem },
+    {
+      id: "difference",
+      apply: (stem) => stem.replace(
+        /By how much does the cube's volume exceed the cuboid's volume\?$/i,
+        "Find the difference between the cube's volume and the cuboid's volume.",
+      ),
+    },
+    {
+      id: "greater-by",
+      apply: (stem) => stem.replace(
+        /By how much does the cube's volume exceed the cuboid's volume\?$/i,
+        "How much greater is the cube's volume than the cuboid's volume?",
+      ),
+    },
+    {
+      id: "excess",
+      apply: (stem) => stem.replace(
+        /By how much does the cube's volume exceed the cuboid's volume\?$/i,
+        "Calculate the excess of the cube's volume over the cuboid's volume.",
+      ),
+    },
+  ]),
+  "MEN-002-QL-026": Object.freeze([
+    { id: "source", apply: (stem) => stem },
+    {
+      id: "rate-question",
+      apply: (stem) => stem.replace(
+        /Find the painting rate per square metre\.$/i,
+        "What is the painting rate per square metre?",
+      ),
+    },
+    {
+      id: "rate-each",
+      apply: (stem) => stem.replace(
+        /Find the painting rate per square metre\.$/i,
+        "Calculate the painting rate for each square metre.",
+      ),
+    },
+    {
+      id: "unit-cost",
+      apply: (stem) => stem.replace(
+        /Find the painting rate per square metre\.$/i,
+        "Determine the cost of painting one square metre.",
+      ),
+    },
+  ]),
+  "MEN-002-QL-033": Object.freeze([
+    { id: "source", apply: (stem) => stem },
+    {
+      id: "tsa-question",
+      apply: (stem) => stem.replace(
+        /Find its total surface area\.$/i,
+        "What is the prism's total surface area?",
+      ),
+    },
+    {
+      id: "tsa-calculate",
+      apply: (stem) => stem.replace(
+        /Find its total surface area\.$/i,
+        "Calculate the total surface area of the prism.",
+      ),
+    },
+    {
+      id: "tsa-determine",
+      apply: (stem) => stem.replace(
+        /Find its total surface area\.$/i,
+        "Determine the complete surface area of the prism.",
+      ),
+    },
+  ]),
+  "MEN-002-QL-044": Object.freeze([
+    { id: "source", apply: (stem) => stem },
+    {
+      id: "volume-calculate",
+      apply: (stem) => stem.replace(/Find its volume\./i, "Calculate the cylinder's volume."),
+    },
+    {
+      id: "volume-question",
+      apply: (stem) => stem.replace(/Find its volume\./i, "What is the volume of the cylinder?"),
+    },
+    {
+      id: "volume-determine",
+      apply: (stem) => stem.replace(/Find its volume\./i, "Determine the volume of the cylinder."),
+    },
+  ]),
+  "MEN-002-QL-054": Object.freeze([
+    { id: "source", apply: (stem) => stem },
+    {
+      id: "height-question",
+      apply: (stem) => rewriteEqualVolumeHeightPrompt(stem, "question"),
+    },
+    {
+      id: "height-calculate",
+      apply: (stem) => rewriteEqualVolumeHeightPrompt(stem, "calculate"),
+    },
+    {
+      id: "height-determine",
+      apply: (stem) => rewriteEqualVolumeHeightPrompt(stem, "determine"),
+    },
+  ]),
+});
+
+function targetedRepeatStemVariantIndex(
+  patternId: string,
+  seed: string,
+  variantCount: number,
+) {
+  const numericTokens = seed
+    .split(":")
+    .filter((part) => /^\d+$/.test(part))
+    .map(Number);
+
+  if (numericTokens.length >= 2) {
+    const sectionOrdinal = numericTokens[0]!;
+    const slotOrdinal = numericTokens[1]!;
+    const structuredOrdinal =
+      sectionOrdinal + Math.floor(sectionOrdinal / 3) + slotOrdinal;
+    return (
+      hashText(`${patternId}:targeted-repeat-stem-offset`) +
+      structuredOrdinal
+    ) % variantCount;
+  }
+
+  return mixedHash(`${seed}:targeted-repeat-stem:${patternId}`) % variantCount;
+}
+
+function applyTargetedRepeatStemVariant(patternId: string, seed: string, stem: string) {
+  const variants = TARGETED_REPEAT_STEM_VARIANTS[patternId];
+  if (!variants?.length) return { stem, variantId: null as string | null };
+
+  const variantIndex = targetedRepeatStemVariantIndex(patternId, seed, variants.length);
+  const variant = variants[variantIndex]!;
+  const transformed = variant.apply(stem);
+  if (variantIndex > 0 && transformed === stem) {
+    throw new Error(`${patternId}: targeted repetition stem variant '${variant.id}' did not match the source stem.`);
+  }
+
+  return {
+    stem: transformed,
+    variantId: `targeted-repeat:${patternId}:${variant.id}`,
+  };
+}
+
 const OBJECT_SURFACE_RULES: readonly {
   id: string;
   pattern: RegExp;
@@ -279,10 +461,11 @@ const STEM_ENDING_RULES: readonly {
   { id: "ask-overflow", pattern: /How much water overflows\?$/i, variants: ["How much water overflows?", "Find the volume of water that overflows.", "What volume of water spills out?"] },
 ];
 
-function applySurfacePools(seed: string, stem: string) {
-  let result = stem;
+function applySurfacePools(seed: string, stem: string, patternId: string) {
+  const targeted = applyTargetedRepeatStemVariant(patternId, seed, stem);
+  let result = targeted.stem;
   const objectIds: string[] = [];
-  const stemIds: string[] = [];
+  const stemIds: string[] = targeted.variantId ? [targeted.variantId] : [];
   for (const rule of OBJECT_SURFACE_RULES) {
     if (!rule.pattern.test(result)) {
       rule.pattern.lastIndex = 0;
@@ -374,7 +557,7 @@ export function generateMensurationStudioQuestionV2(input: {
   if (pattern.packageId === "MEN-001") question = hydrateMen001StructuredTeaching(question, sourceSeed);
   question = polishQuestionText(question);
   let stem = polishKnownSetterShorthand(pattern.patternId, question.stem);
-  const surface = applySurfacePools(input.seed, stem);
+  const surface = applySurfacePools(input.seed, stem, pattern.patternId);
   stem = surface.stem;
   const difficultyBand = calibrateDifficulty({ ...question, stem }, pattern);
   const meta = getMensurationPatternRealismMetadataV2(pattern);
