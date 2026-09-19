@@ -131,6 +131,7 @@ const protectedExamTerms = [
   "Priority Sector Lending",
   "Reverse Repo",
   "Commercial Paper",
+  "LAF corridor",
 ] as const;
 
 const allowedAbbreviations = [
