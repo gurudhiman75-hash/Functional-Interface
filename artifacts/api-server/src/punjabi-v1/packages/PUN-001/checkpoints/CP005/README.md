@@ -4,10 +4,10 @@ Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
 
 ## Exhaustive audited authority surface
 - **151 sentence-grounded adjective authorities**
-- **111 sentence-grounded adverb authorities**
-- **262 total atomic authorities**
+- **110 sentence-grounded adverb authorities**
+- **261 total atomic authorities**
 - **8 operation-specific families**
-- **101,241 governed semantic combinations**
+- **100,333 governed semantic combinations**
 
 All 45 previously reviewed authorities are preserved.
 
@@ -23,7 +23,7 @@ All 45 previously reviewed authorities are preserved.
 - ਸਥਾਨ-ਵਾਚਕ — 26
 - ਢੰਗ-ਵਾਚਕ — 27
 - ਸੰਖਿਆ/ਦੁਹਰਾਓ-ਵਾਚਕ — 16
-- ਪਰਿਮਾਣ-ਵਾਚਕ — 17
+- ਪਰਿਮਾਣ-ਵਾਚਕ — 16
 
 The donor categories labelled ਕਾਰਨ, ਤਾਕੀਦ and ਨਿਰਣੇ remain quarantined because they mix conjunctions, particles and discourse responses with genuine adverbs.
 
