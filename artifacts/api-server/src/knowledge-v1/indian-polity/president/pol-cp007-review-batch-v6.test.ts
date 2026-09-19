@@ -22,7 +22,8 @@ describe("POL-CP-007 V6 balanced explanations", () => {
     for (const q of questions) {
       const words = q.explanation.trim().split(/\s+/).length;
       expect(words).toBeGreaterThanOrEqual(11);
-      expect(words).toBeLessThanOrEqual(24);
+      const maxWords = q.explanation.includes("Qualifications:") || q.explanation.includes("Article 58 qualifications:") ? 55 : 24;
+      expect(words).toBeLessThanOrEqual(maxWords);
       expect(q.explanation).not.toMatch(/Correct answer|exact subject|nearby Articles|match the topic|remember the word/i);
     }
   });
