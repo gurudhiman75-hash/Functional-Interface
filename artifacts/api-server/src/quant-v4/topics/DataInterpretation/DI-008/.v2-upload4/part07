@@ -1,0 +1,66 @@
+_SHARE", derivation: "Uses share of units sold instead of share of revenue." },
+          { text: formatPercent(selectedCost, totalCost), misconceptionId: "USE_COST_SHARE", derivation: "Uses share of total cost instead of share of revenue." },
+          { text: formatPercent(totalRevenue - selectedRevenue, totalRevenue), misconceptionId: "USE_COMPLEMENT", derivation: "Reports the revenue share of all other items." },
+          { text: formatPercent(selectedRevenue, totalRevenue - selectedRevenue), misconceptionId: "USE_REST_AS_BASE", derivation: "Uses revenue of the remaining items as the base instead of total revenue." },
+        ],
+        explanation: {
+          keyIdea: "Revenue contribution is selected current-period revenue divided by total current-period revenue of all five items.",
+          steps: [
+            "Revenue from " + names(rows, indices) + " = " + formatMoney(selectedRevenue) + ".",
+            "Total revenue from all five items = " + formatMoney(totalRevenue) + ".",
+            "Revenue share = " + formatMoney(selectedRevenue) + "/" + formatMoney(totalRevenue) + " \u00d7 100 = " + answer + ".",
+          ],
+        },
+        evidence: { primaryIndices: indices },
+      };
+    }
+
+    case "PROFIT_RATIO": {
+      const left = ratioLeft;
+      const right = ratioRight;
+      const leftProfit = profitTotal(rows, left);
+      const rightProfit = profitTotal(rows, right);
+      const leftRevenue = revenueTotal(rows, left);
+      const rightRevenue = revenueTotal(rows, right);
+      const leftCost = costTotal(rows, left);
+      const rightCost = costTotal(rows, right);
+      const answer = ratioDisplay(leftProfit, rightProfit);
+      return {
+        kind,
+        difficulty: "Medium",
+        stemVariant: variant,
+        stem: profitRatioStem(stimulus, left, right, variant),
+        answer,
+        candidates: [
+          { text: ratioDisplay(rightProfit, leftProfit), misconceptionId: "REVERSE_RATIO", derivation: "Reverses the requested profit ratio." },
+          { text: ratioDisplay(leftRevenue, rightRevenue), misconceptionId: "USE_REVENUE_RATIO", derivation: "Compares revenues instead of profits." },
+          { text: ratioDisplay(leftCost, rightCost), misconceptionId: "USE_COST_RATIO", derivation: "Compares costs instead of profits." },
+          { text: ratioDisplay(sumUnits(rows, left, "unitsCurrent"), sumUnits(rows, right, "unitsCurrent")), misconceptionId: "USE_UNIT_RATIO", derivation: "Compares units sold rather than rupee profit." },
+        ],
+        explanation: {
+          keyIdea: "Find profit for each side separately, then simplify the ratio in the order asked.",
+          steps: [
+            "Profit from " + names(rows, left) + " = " + formatMoney(leftProfit) + ".",
+            "Profit from " + names(rows, right) + " = " + formatMoney(rightProfit) + ".",
+            "Required ratio = " + leftProfit + ":" + rightProfit + " = " + answer + ".",
+          ],
+        },
+        evidence: { primaryIndices: left, secondaryIndices: right },
+      };
+    }
+
+    case "AVERAGE_PROFIT": {
+      const indices = averageIndices;
+      const profit = profitTotal(rows, indices);
+      const answer = formatMoneyQuotient(profit, indices.length);
+      return {
+        kind,
+        difficulty: "Medium",
+        stemVariant: variant,
+        stem: averageProfitStem(stimulus, indices, variant),
+        answer,
+        candidates: [
+          { text: formatMoney(profit), misconceptionId: "USE_TOTAL_PROFIT", derivation: "Uses combined profit without dividing by the number of items." },
+          { text: formatMoneyQuotient(revenueTotal(rows, indices), indices.length), misconceptionId: "AVERAGE_REVENUE", derivation: "Averages revenue instead of profit." },
+          { text: formatMoneyQuotient(costTotal(rows, indices), indices.length), misconceptionId: "AVERAGE_COST", derivation: "Averages cost instead of profit." },
+          { text: formatMoneyQuotient(profit, indices.length + 1), misconceptionId: "DIVIDE_BY_EXT
