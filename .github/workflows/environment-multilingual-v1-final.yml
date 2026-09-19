@@ -51,6 +51,7 @@ jobs:
 
       - name: Validate CP015-CP020 localization
         run: |
+          set -o pipefail
           cd artifacts/api-server
           node dist/environment-review/ENV-MULTILINGUAL-V1/env-cp015-cp020-localization-proof-v1.mjs | tee dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP015-CP020-MULTILINGUAL-PROOF.log
 
