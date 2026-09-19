@@ -46,6 +46,19 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/histogram-set.test.ts
       - name: Question Studio controlled-review integration proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/question-studio-integration.test.ts
+      - name: Hindi Punjabi localization review proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/localization-review-v1.test.ts
+      - name: Export Hindi Punjabi localization review pack
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/export-localization-review-v1.ts /tmp/DI-009-LOCALIZATION-REVIEW-V1.md
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/export-localization-review-html-v1.ts /tmp/DI-009-LOCALIZATION-REVIEW-V1.html
+      - name: Upload Hindi Punjabi localization review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-009-localization-review-v1
+          path: |
+            /tmp/DI-009-LOCALIZATION-REVIEW-V1.md
+            /tmp/DI-009-LOCALIZATION-REVIEW-V1.html
       - name: API server build
         run: pnpm --filter @workspace/api-server build
       - name: Patch hygiene

@@ -1,4 +1,5 @@
 import { quantV4QuestionStudioAdapter } from "../../../../question-studio/engines/quant-v4-adapter";
+import { generateDi009PermanentQuestion } from "./permanent-question-generator";
 import {
   DI009_PERMANENT_QLS,
   DI009_PERMANENT_RELEASE_ID,
@@ -7,11 +8,15 @@ import {
   DI009_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
   DI009_QUESTION_STUDIO_RUNTIME_MODE,
   generateDi009QuestionStudioBatch,
+  isDi009QuestionStudioRequest,
 } from "./question-studio-adapter";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
+
+assert(!isDi009QuestionStudioRequest({ questionLanguageId: "DI-QL-014" }), "DI-009 must not intercept DI-010 QLs.");
+assert(!isDi009QuestionStudioRequest({ questionLanguageId: "DI-QL-085" }), "DI-009 must not intercept DI-008 QLs.");
 
 const card = quantV4QuestionStudioAdapter.listPackages().find((pkg) => pkg.packageId === "DI-009");
 assert(card, "DI-009 is missing from the shared Quant V4 Question Studio package list.");
@@ -54,6 +59,26 @@ for (const descriptor of DI009_PERMANENT_QLS) {
   seen.add(descriptor.qlId);
 }
 assert(seen.size === 13, "DI-009 permanent integration did not exercise all 13 QLs.");
+
+for (const examProfile of ["SSC_CGL_TIER_I", "SSC_CGL_TIER_II"] as const) {
+  for (let sample = 1; sample <= 64; sample += 1) {
+    const seed = `DI009-PERMANENT-GROUPED-MODE-MATERIALIZATION-${examProfile}-${sample}`;
+    const first = generateDi009PermanentQuestion({
+      seed,
+      examProfile,
+      taskKind: "APPROX_GROUPED_MODE_FROM_HISTOGRAM",
+    });
+    const replay = generateDi009PermanentQuestion({
+      seed,
+      examProfile,
+      taskKind: "APPROX_GROUPED_MODE_FROM_HISTOGRAM",
+    });
+    assert(first.question.kind === "APPROX_GROUPED_MODE_FROM_HISTOGRAM", `${seed} failed to materialize DI-QL-013.`);
+    assert(first.question.answer === replay.question.answer && first.sourceSeed === replay.sourceSeed, `${seed} grouped-mode fallback is not deterministic.`);
+    assert(Number.isInteger(first.generationAttempt) && first.generationAttempt >= 0 && first.generationAttempt < 128, `${seed} exposed an invalid materialization attempt.`);
+  }
+}
+
 
 const shared = await quantV4QuestionStudioAdapter.generate({
   packageId: "DI-009",

@@ -10,7 +10,7 @@
 - Permanent QLs: `DI-QL-001` through `DI-QL-013`
 - Question Studio discovery: enabled in `CONTROLLED_REVIEW`
 - English editorial status: `ENGLISH_REVIEW_APPROVED`
-- Localization: `NOT_STARTED`
+- Localization: `HI_PA_REVIEW_CANDIDATE`
 
 ## Architecture contract
 
@@ -75,8 +75,22 @@ The presentation can be refined later without changing question semantics or per
 - `publiclyPublishable: false`
 - `automaticStudentPublication: false`
 - `productionReleaseAuthorized: false`
-- manual review/approval remains required before any future authority expansion
+- Hindi/Punjabi localization is a review candidate; manual localized approval remains required before multilingual Question Studio activation
 
 ## Proof
 
 The promotion keeps the 240-set / 1,200-question deterministic and independent-verification matrix, separately validates the shared renderer, and adds a Question Studio integration gate covering all 13 permanent QLs, deterministic fixed-seed previews, semantic-stimulus purity, shared-renderer usage, and lifecycle locks.
+
+
+## Hindi/Punjabi localization candidate V1
+
+- locales: hi-IN and pa-IN
+- 13/13 permanent QLs localized
+- 6/6 approved histogram contexts localized
+- chart title, axes, unit and accessibility description localized
+- question stems and explanations rebuilt from structured task evidence
+- required working tables localized
+- histogram bins/frequencies, options, correct index and answers remain identical to English
+- DI-009 QL routing narrowed to DI-QL-001 through DI-QL-013
+- permanent grouped-mode generation now retries deterministically only when the first histogram cannot support the grouped-mode formula, preserving valid first-seed outputs while making DI-QL-013 total for fixed-seed requests
+- localized Question Studio activation: NOT AUTHORIZED pending human review
