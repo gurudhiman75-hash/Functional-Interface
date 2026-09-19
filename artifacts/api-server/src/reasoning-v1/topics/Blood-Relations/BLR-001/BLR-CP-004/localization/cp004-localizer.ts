@@ -127,8 +127,8 @@ function localizedWorking(
   }
 
   return [
-    localeText(locale, "पूर्ण परिवार-मानचित्र पर मांगी गई इकाइयों को अलग-अलग चिन्हित करें।", "ਪੂਰੇ ਪਰਿਵਾਰਕ ਨਕਸ਼ੇ ’ਤੇ ਮੰਗੀਆਂ ਇਕਾਈਆਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਨਿਸ਼ਾਨਿਤ ਕਰੋ।"),
-    localeText(locale, `सत्यापित संख्या = ${record.answer.value}।`, `ਜਾਂਚੀ ਗਿਣਤੀ = ${record.answer.value}।`),
+    localeText(locale, "पूरे परिवार में मांगे गए सदस्य या युग्म अलग-अलग गिनें।", "ਪੂਰੇ ਪਰਿਵਾਰ ਵਿੱਚ ਮੰਗੇ ਮੈਂਬਰ ਜਾਂ ਜੋੜੇ ਵੱਖ-ਵੱਖ ਗਿਣੋ।"),
+    localeText(locale, `कुल संख्या = ${record.answer.value}।`, `ਕੁੱਲ ਗਿਣਤੀ = ${record.answer.value}।`),
   ];
 }
 
@@ -147,8 +147,8 @@ function localizedExplanation(
       )
     : localeText(
         locale,
-        `अतः सत्यापित संख्या ${record.answer.value} है; सही उत्तर विकल्प ${correctLabel} है।`,
-        `ਇਸ ਲਈ ਜਾਂਚੀ ਗਿਣਤੀ ${record.answer.value} ਹੈ; ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ ${correctLabel} ਹੈ।`,
+        `अतः कुल संख्या ${record.answer.value} है; सही उत्तर विकल्प ${correctLabel} है।`,
+        `ਇਸ ਲਈ ਕੁੱਲ ਗਿਣਤੀ ${record.answer.value} ਹੈ; ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ ${correctLabel} ਹੈ।`,
       );
 
   return {
@@ -165,8 +165,8 @@ function localizedExplanation(
         explanation: option.isCorrect
           ? localeText(
               locale,
-              `विकल्प ${label} सही है। यह सत्यापित गणना से पूरी तरह मेल खाता है।`,
-              `ਵਿਕਲਪ ${label} ਸਹੀ ਹੈ। ਇਹ ਜਾਂਚੀ ਗਿਣਤੀ ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਮੇਲ ਖਾਂਦਾ ਹੈ।`,
+              `विकल्प ${label} सही है। यह सही गणना से मेल खाता है।`,
+              `ਵਿਕਲਪ ${label} ਸਹੀ ਹੈ। ਇਹ ਸਹੀ ਗਿਣਤੀ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।`,
             )
           : localeText(
               locale,
