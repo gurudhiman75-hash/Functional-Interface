@@ -12,6 +12,7 @@ export type Di008LocalizationLocale = "hi-IN" | "pa-IN";
 type LocalizedPair = Readonly<{ hi: string; pa: string }>;
 
 export const DI008_LOCALIZATION_REVIEW_ID = "DI-008-HI-PA-REVIEW-V1" as const;
+export const DI008_LOCALIZATION_RELEASE_ID = "DI-008-HI-PA-FROZEN-V1" as const;
 
 export const DI008_LOCALIZATION_LABELS: Readonly<Record<string, LocalizedPair>> = Object.freeze({
   "Notebooks": { hi: "नोटबुक", pa: "ਨੋਟਬੁੱਕ" },
@@ -539,7 +540,7 @@ export function localizeDi008Question(
     language: locale === "hi-IN" ? "hi" as const : "pa" as const,
     locale,
     localizationReviewId: DI008_LOCALIZATION_REVIEW_ID,
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
+    localizationStatus: "HI_PA_FROZEN" as const,
     sourceEnglishStatus: "ENGLISH_REVIEW_APPROVED" as const,
     stimulus,
     question: {
@@ -550,9 +551,9 @@ export function localizeDi008Question(
     validation: source.validation,
     traceability: {
       ...source.traceability,
-      reviewStatus: "MULTILINGUAL_REVIEW_CANDIDATE" as const,
-      localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
-      questionStudioDiscoverable: false as const,
+      reviewStatus: "MULTILINGUAL_FROZEN" as const,
+      localizationStatus: "HI_PA_FROZEN" as const,
+      questionStudioDiscoverable: true as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,
       testEligibility: "INELIGIBLE" as const,
