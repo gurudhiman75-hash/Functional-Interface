@@ -133,7 +133,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
     ],
     "AB plasma normally lacks anti-A and anti-B antibodies, so A or B antigens on donor red cells are not attacked. Rh-positive recipients can also receive Rh-positive or Rh-negative red cells.",
     [
-      "ABO-IDENTIFY-A"
+      "BLOOD-GROUP-AB-POSITIVE-COMPATIBILITY"
     ]
   ],
   [
