@@ -218,16 +218,16 @@ const rowsByQl: Record<keyof typeof PGK_001_CP004_QL_NAMES, readonly Row[]> = {
   "PGK-001-QL-024": [
     {
       difficulty: "Easy",
-      stem: "Ghaggar is mainly what type of river in Punjab?",
+      stem: "What type of river is the Ghaggar in Punjab?",
       canonical: "Seasonal river",
       options: ["Seasonal river", "Perennial glacier-fed river", "Tidal river", "Deltaic distributary"],
-      explanation: "Ghaggar is mainly a seasonal river. Its flow increases greatly during the rainy season.",
+      explanation: "Ghaggar is a seasonal river. Its flow increases greatly during the rainy season.",
       factIds: ["ghaggar-seasonal"],
       sourceIds: ghaggarSource,
     },
     {
       difficulty: "Easy",
-      stem: "The flow of the Ghaggar generally becomes much stronger during the:",
+      stem: "The flow of the Ghaggar becomes much stronger during the:",
       canonical: "Rainy season",
       options: ["Rainy season", "Winter dry season", "Late spring only", "Entire year equally"],
       explanation: "Ghaggar carries much more water during the rainy season and can flood after heavy rainfall.",
