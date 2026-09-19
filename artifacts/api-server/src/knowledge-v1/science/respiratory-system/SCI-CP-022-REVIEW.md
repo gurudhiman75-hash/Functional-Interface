@@ -96,10 +96,10 @@ D. Bile secretion by the liver
 
 Nasal hairs mainly help by:
 
-A. Producing red blood cells
-B. Exchanging gases with blood
+A. Warming inhaled air
+B. Moistening inhaled air
 C. Filtering larger dust particles from inhaled air
-D. Digesting mucus
+D. Producing mucus
 
 **Answer:** C. Filtering larger dust particles from inhaled air
 
@@ -487,8 +487,8 @@ D. Oxyhaemoglobin
 Most carbon dioxide in the blood is transported mainly as:
 
 A. Bicarbonate ions
-B. Free oxygen molecules
-C. Starch granules
+B. Dissolved carbon dioxide in plasma
+C. Carbaminohaemoglobin
 D. Oxyhaemoglobin
 
 **Answer:** A. Bicarbonate ions
@@ -621,10 +621,10 @@ D. Protein and starch
 
 During a short, very intense sprint, muscle cells may partly use anaerobic respiration because:
 
-A. Muscles stop using glucose
+A. The lungs cannot increase ventilation at all
 B. Oxygen supply cannot immediately meet the high energy demand
-C. Haemoglobin disappears completely
-D. The lungs stop working permanently
+C. Muscle cells cannot use glucose aerobically
+D. Carbon dioxide production stops during exercise
 
 **Answer:** B. Oxygen supply cannot immediately meet the high energy demand
 
@@ -696,10 +696,10 @@ D. The kidneys stop filtering
 
 At high altitude, breathing often becomes faster because:
 
-A. Air contains no nitrogen
-B. Carbon dioxide concentration is extremely high
+A. The percentage of oxygen in air becomes zero
+B. Atmospheric pressure increases greatly
 C. The partial pressure of oxygen is lower
-D. The lungs become smaller immediately
+D. Air becomes richer in carbon dioxide
 
 **Answer:** C. The partial pressure of oxygen is lower
 
@@ -711,9 +711,9 @@ D. The lungs become smaller immediately
 
 A person travels rapidly from sea level to a high mountain. Which immediate response helps compensate for the lower oxygen availability?
 
-A. Complete closure of the trachea
-B. Reduced ventilation
-C. Stopping red blood cell circulation
+A. Reduced breathing rate
+B. Narrowing of the trachea
+C. Reduced chest movement
 D. Increased breathing rate
 
 **Answer:** D. Increased breathing rate
@@ -756,10 +756,10 @@ D. No water vapour
 
 Exhaled air is usually more humid than inhaled air because:
 
-A. The lungs produce rainwater
-B. Nitrogen turns into water
+A. It contains much less carbon dioxide
+B. It contains no nitrogen
 C. It gains water vapour from moist respiratory surfaces
-D. Haemoglobin releases liquid water into the bronchi
+D. It is cooled strongly inside the lungs
 
 **Answer:** C. It gains water vapour from moist respiratory surfaces
 
@@ -771,9 +771,9 @@ D. Haemoglobin releases liquid water into the bronchi
 
 Why does limewater turn milky when exposed to exhaled air for some time?
 
-A. Exhaled air contains large amounts of oxygen
-B. Exhaled air contains bile
-C. Nitrogen reacts directly with limewater
+A. Exhaled air contains less oxygen
+B. Exhaled air contains more water vapour
+C. Exhaled air contains slightly warmer nitrogen
 D. Exhaled air contains carbon dioxide
 
 **Answer:** D. Exhaled air contains carbon dioxide
@@ -847,9 +847,9 @@ D. Reduces the oxygen-carrying capacity of haemoglobin
 During an asthma attack, breathing becomes difficult mainly because the:
 
 A. Airways become narrowed
-B. Alveoli turn into blood vessels
-C. Diaphragm becomes part of the stomach
-D. Lungs stop containing any capillaries
+B. Alveolar walls become thinner
+C. The diaphragm contracts continuously
+D. Haemoglobin concentration rises suddenly
 
 **Answer:** A. Airways become narrowed
 
@@ -891,9 +891,9 @@ D. Urine formation
 
 A patient's airways are clear and diaphragm movement is normal, but the alveolar membrane is much thicker than usual. Why may oxygen levels fall?
 
-A. Air cannot enter the nose
-B. Red blood cells cannot contain haemoglobin at all
-C. The trachea loses all cartilage instantly
+A. Ventilation of the lungs becomes slower
+B. Haemoglobin loses all ability to bind oxygen
+C. The bronchi close during exhalation
 D. Diffusion of oxygen into blood becomes slower
 
 **Answer:** D. Diffusion of oxygen into blood becomes slower
