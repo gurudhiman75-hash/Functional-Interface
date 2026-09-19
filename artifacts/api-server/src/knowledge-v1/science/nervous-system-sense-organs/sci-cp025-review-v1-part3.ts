@@ -154,7 +154,7 @@ export const PART_3: readonly SciCp025ReviewSpec[] = [
   [
     7,
     "Medium",
-    "Myopia is corrected using a:",
+    "Which type of lens is used to correct myopia?",
     "Concave lens",
     [
       "Convex lens",
