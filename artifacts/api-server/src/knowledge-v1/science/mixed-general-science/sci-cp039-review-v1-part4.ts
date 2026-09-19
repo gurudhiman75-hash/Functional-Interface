@@ -11,8 +11,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "only gametes",
       "no offspring"
     ],
-    "A dominant allele can determine the phenotype even when only one copy is present. A recessive allele usually appears only when both copies are recessive.",
-    "MIX-DOMINANT-ALLELE"
+    "A dominant allele can determine the phenotype even when only one copy is present. A recessive allele usually appears only when both copies are recessive. This is why a dominant trait can appear when only one dominant allele is inherited.",
+    [
+      "MIX-DOMINANT-ALLELE"
+    ]
   ],
   [
     8,
@@ -24,8 +26,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "platelets only",
       "bone cells"
     ],
-    "B and T lymphocytes carry out major parts of adaptive immunity. B cells can produce antibodies, while T cells coordinate responses or kill infected cells.",
-    "MIX-LYMPHOCYTES"
+    "B and T lymphocytes carry out major parts of adaptive immunity. B cells can produce antibodies, while T cells coordinate responses or kill infected cells. Adaptive immunity is more specific than the body's immediate innate defenses.",
+    [
+      "MIX-LYMPHOCYTES"
+    ]
   ],
   [
     8,
@@ -37,8 +41,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "Genes are not inherited",
       "All carrier children are affected"
     ],
-    "Carriers have one normal and one recessive disease allele. If a child receives the recessive allele from both parents, the recessive condition can be expressed.",
-    "MIX-RECESSIVE-CARRIERS"
+    "Carriers have one normal and one recessive disease allele. If a child receives the recessive allele from both parents, the recessive condition can be expressed. For two carriers, each pregnancy has a chance of receiving both recessive alleles.",
+    [
+      "MIX-RECESSIVE-CARRIERS"
+    ]
   ],
   [
     9,
@@ -50,8 +56,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "secondary consumers",
       "parasites only"
     ],
-    "Producers such as green plants capture energy and make organic food. They form the base of most food chains and support higher trophic levels.",
-    "MIX-PRODUCERS"
+    "Producers such as green plants capture energy and make organic food. They form the base of most food chains and support higher trophic levels. Consumers ultimately depend on energy first captured by these producers.",
+    [
+      "MIX-PRODUCERS"
+    ]
   ],
   [
     9,
@@ -63,8 +71,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "oxygen into blood",
       "genes between generations"
     ],
-    "Only a small fraction of energy stored at one trophic level becomes available to the next. The commonly used school-level approximation is about ten percent.",
-    "MIX-TEN-PERCENT"
+    "Only a small fraction of energy stored at one trophic level becomes available to the next. The commonly used school-level approximation is about ten percent. This energy loss helps explain why long food chains are uncommon.",
+    [
+      "MIX-TEN-PERCENT"
+    ]
   ],
   [
     9,
@@ -76,21 +86,25 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "It raises sound levels",
       "It stops evaporation"
     ],
-    "Extra nutrients can trigger rapid algal growth. When large amounts of algae die, decomposers use oxygen, lowering dissolved oxygen and stressing or killing fish.",
-    "MIX-EUTROPHICATION"
+    "Extra nutrients can trigger rapid algal growth. When large amounts of algae die, decomposers use oxygen, lowering dissolved oxygen and stressing or killing fish. This sequence is called eutrophication and can seriously disturb aquatic ecosystems.",
+    [
+      "MIX-EUTROPHICATION"
+    ]
   ],
   [
     9,
     "Medium",
-    "Bt cotton is genetically modified mainly to resist certain:",
+    "Bt cotton is genetically modified to resist certain:",
     "insect pests",
     [
       "human viruses",
       "soil salinity in every case",
       "all plant diseases"
     ],
-    "Bt cotton contains genetic information from Bacillus thuringiensis that allows the plant to produce a protein toxic to certain insect pests.",
-    "MIX-BT-COTTON"
+    "Bt cotton contains genetic information from Bacillus thuringiensis that allows the plant to produce a protein toxic to certain insect pests. The effect is targeted, so it does not make the crop resistant to every pest.",
+    [
+      "MIX-BT-COTTON"
+    ]
   ],
   [
     9,
@@ -102,8 +116,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "Producers would no longer need minerals",
       "Food webs would gain unlimited energy"
     ],
-    "Decomposers return nutrients from dead organisms to the environment. Without them, organic remains would accumulate and nutrients would become locked in dead material.",
-    "MIX-DECOMPOSERS"
+    "Decomposers return nutrients from dead organisms to the environment. Without them, organic remains would accumulate and nutrients would become locked in dead material. Nutrient recycling would slow even though energy would still continue to dissipate.",
+    [
+      "MIX-DECOMPOSERS"
+    ]
   ],
   [
     9,
@@ -115,8 +131,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "Trees produce no carbon compounds",
       "Deforestation increases nitrogen fixation only"
     ],
-    "Burning transfers stored carbon to the atmosphere, while loss of trees reduces future photosynthetic carbon uptake. Both effects can raise atmospheric carbon dioxide.",
-    "MIX-DEFOREST-CARBON"
+    "Burning transfers stored carbon to the atmosphere, while loss of trees reduces future photosynthetic carbon uptake. Both effects can raise atmospheric carbon dioxide. Deforestation therefore affects both carbon release and future carbon uptake.",
+    [
+      "MIX-DEFOREST-CARBON"
+    ]
   ],
   [
     10,
@@ -128,8 +146,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "ammeter",
       "spirometer"
     ],
-    "A barometer measures atmospheric pressure. It is widely used in weather observation because pressure changes often accompany changing weather conditions.",
-    "MIX-BAROMETER"
+    "A barometer measures atmospheric pressure. It is widely used in weather observation because pressure changes often accompany changing weather conditions. Pressure trends are often considered together with other weather measurements.",
+    [
+      "MIX-BAROMETER"
+    ]
   ],
   [
     10,
@@ -141,8 +161,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "William Harvey",
       "Karl Landsteiner"
     ],
-    "Fleming observed that Penicillium mould inhibited bacterial growth. Later researchers developed penicillin into a practical antibiotic, but Fleming's observation began the discovery.",
-    "MIX-FLEMING"
+    "Fleming observed that Penicillium mould inhibited bacterial growth. Later researchers developed penicillin into a practical antibiotic, but Fleming's observation began the discovery. Penicillin later became one of the most important early antibiotics.",
+    [
+      "MIX-FLEMING"
+    ]
   ],
   [
     10,
@@ -154,8 +176,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "The cooker removes water",
       "Steam cannot form"
     ],
-    "Inside a pressure cooker, pressure increases and water boils at a higher temperature. The hotter water and steam cook food faster than boiling water in an open pot.",
-    "MIX-PRESSURE-COOKER"
+    "Inside a pressure cooker, pressure increases and water boils at a higher temperature. The hotter water and steam cook food faster than boiling water in an open pot. This is the same pressure-boiling relationship tested in high-altitude cooking questions.",
+    [
+      "MIX-PRESSURE-COOKER"
+    ]
   ],
   [
     10,
@@ -167,8 +191,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "spirometer",
       "audiometer"
     ],
-    "An electrocardiograph records electrical signals produced by the heart and creates an ECG tracing. An EEG, by contrast, records electrical activity of the brain.",
-    "MIX-ECG"
+    "An electrocardiograph records electrical signals produced by the heart and creates an ECG tracing. An EEG, by contrast, records electrical activity of the brain. The electrical tracing produced by the instrument is called an ECG.",
+    [
+      "MIX-ECG"
+    ]
   ],
   [
     10,
@@ -180,8 +206,10 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "Röntgen—electron; Thomson—nucleus; Chadwick—radioactivity",
       "Darwin—Ohm's law; Ohm—natural selection; Jenner—telephone"
     ],
-    "Mendeleev organized the periodic table, Faraday demonstrated electromagnetic induction and Mendel established basic laws of inheritance. The other sets mix unrelated contributions.",
-    "MIX-SCIENTIST-SET"
+    "Mendeleev organized the periodic table, Faraday demonstrated electromagnetic induction and Mendel established basic laws of inheritance. The other sets mix unrelated contributions. Keeping these three famous contributions separate avoids common scientist-matching errors.",
+    [
+      "MIX-SCIENTIST-SET"
+    ]
   ],
   [
     10,
@@ -193,7 +221,9 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
       "audiometer → sphygmomanometer → microscope",
       "barometer → spirometer → voltmeter"
     ],
-    "A sphygmomanometer measures blood pressure, a spirometer measures lung volumes and an audiometer tests hearing. Matching the instrument to the physiological quantity is the key.",
-    "MIX-MED-INSTRUMENTS"
+    "A sphygmomanometer measures blood pressure, a spirometer measures lung volumes and an audiometer tests hearing. Matching the instrument to the physiological quantity is the key. Each instrument is selected because it measures a different physiological quantity.",
+    [
+      "MIX-MED-INSTRUMENTS"
+    ]
   ]
 ] as const;
