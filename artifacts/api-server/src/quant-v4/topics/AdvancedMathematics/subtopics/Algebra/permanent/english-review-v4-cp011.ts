@@ -2,7 +2,6 @@ import {
   compareExactRootSets,
   compareQuadraticSurdExact,
   exactRootsFromQuadraticState,
-  formatSurd,
   rational,
   solveQuadraticEquation,
   type QuadraticEquation,
@@ -120,6 +119,24 @@ function sortedRoots(roots: QuadraticSurd[]): QuadraticSurd[] {
   return [...roots].sort((a, b) => compareQuadraticSurdExact(a, b));
 }
 
+function formatLearnerRoot(value: QuadraticSurd): string {
+  const rationalText = (numerator: bigint, denominator: bigint) =>
+    denominator === 1n ? numerator.toString() : `${numerator}/${denominator}`;
+
+  const pText = value.p.numerator === 0n
+    ? ""
+    : rationalText(value.p.numerator, value.p.denominator);
+  if (value.q.numerator === 0n) return pText || "0";
+
+  const qAbs = value.q.numerator < 0n ? -value.q.numerator : value.q.numerator;
+  const qText = value.q.denominator === 1n
+    ? (qAbs === 1n ? "" : qAbs.toString())
+    : `${qAbs}/${value.q.denominator}`;
+  const radical = `${qText}√${value.d}`;
+  if (!pText) return value.q.numerator < 0n ? `-${radical}` : radical;
+  return `${pText} ${value.q.numerator < 0n ? "-" : "+"} ${radical}`;
+}
+
 function relationText(relation: RootSetRelation): string {
   switch (relation) {
     case "X_GREATER_THAN_Y": return "x > y";
@@ -160,16 +177,16 @@ function explanationFor(
   const start = `Equation I gives ${rootList("x", xs)}. Equation II gives ${rootList("y", ys)}.`;
 
   if (relation === "X_GREATER_THAN_Y") {
-    return `${start} The smallest possible x is ${formatSurd(xs[0]!)} and the largest possible y is ${formatSurd(ys.at(-1)!)}. Since the smallest x is still greater, x > y.`;
+    return `${start} The smallest possible x is ${formatLearnerRoot(xs[0]!)} and the largest possible y is ${formatLearnerRoot(ys.at(-1)!)}. Since the smallest x is still greater, x > y.`;
   }
   if (relation === "X_LESS_THAN_Y") {
-    return `${start} The largest possible x is ${formatSurd(xs.at(-1)!)} and the smallest possible y is ${formatSurd(ys[0]!)}. Since the largest x is still smaller, x < y.`;
+    return `${start} The largest possible x is ${formatLearnerRoot(xs.at(-1)!)} and the smallest possible y is ${formatLearnerRoot(ys[0]!)}. Since the largest x is still smaller, x < y.`;
   }
   if (relation === "X_GREATER_THAN_OR_EQUAL_TO_Y") {
-    return `${start} The smallest possible x is ${formatSurd(xs[0]!)} and the largest possible y is ${formatSurd(ys.at(-1)!)}. They are equal at the boundary and x is otherwise larger, so x ≥ y.`;
+    return `${start} The smallest possible x is ${formatLearnerRoot(xs[0]!)} and the largest possible y is ${formatLearnerRoot(ys.at(-1)!)}. They are equal at the boundary and x is otherwise larger, so x ≥ y.`;
   }
   if (relation === "X_LESS_THAN_OR_EQUAL_TO_Y") {
-    return `${start} The largest possible x is ${formatSurd(xs.at(-1)!)} and the smallest possible y is ${formatSurd(ys[0]!)}. They are equal at the boundary and x is otherwise smaller, so x ≤ y.`;
+    return `${start} The largest possible x is ${formatLearnerRoot(xs.at(-1)!)} and the smallest possible y is ${formatLearnerRoot(ys[0]!)}. They are equal at the boundary and x is otherwise smaller, so x ≤ y.`;
   }
   if (relation === "X_EQUAL_TO_Y") {
     return `${start} Each quadratic has only one admissible value because its two roots coincide. The only possible value of x is therefore the same as the only possible value of y. Hence x = y.`;
@@ -180,8 +197,8 @@ function explanationFor(
   for (const x of xs) {
     for (const y of ys) {
       const comparison = compareQuadraticSurdExact(x, y);
-      if (comparison < 0 && !lessWitness) lessWitness = `${formatSurd(x)} < ${formatSurd(y)}`;
-      if (comparison > 0 && !greaterWitness) greaterWitness = `${formatSurd(x)} > ${formatSurd(y)}`;
+      if (comparison < 0 && !lessWitness) lessWitness = `${formatLearnerRoot(x)} < ${formatLearnerRoot(y)}`;
+      if (comparison > 0 && !greaterWitness) greaterWitness = `${formatLearnerRoot(x)} > ${formatLearnerRoot(y)}`;
     }
   }
   if (!lessWitness || !greaterWitness) {
