@@ -41,7 +41,7 @@ for (const descriptor of DI007_PERMANENT_QLS) {
   assert(question.questionLanguageId === descriptor.qlId && question.permanentQlId === descriptor.qlId, `${descriptor.qlId} lost permanent QL identity.`);
   assert(question.taskKind === descriptor.taskKind, `${descriptor.qlId} drifted from ${descriptor.taskKind}.`);
   assert(question.difficulty === descriptor.difficulty, `${descriptor.qlId} drifted from ${descriptor.difficulty}.`);
-  assert(Array.isArray(question.options) && question.options.length === 5 && new Set(question.options).size === 4, `${descriptor.qlId} has invalid Banking options.`);
+  assert(Array.isArray(question.options) && question.options.length === 5 && new Set(question.options).size === 5, `${descriptor.qlId} has invalid Banking options.`);
   assert(question.options[question.correctIndex] === question.answer, `${descriptor.qlId} correct index does not point to the answer.`);
   assert(question.stimulus?.kind === "MISSING_TABLE" && Array.isArray(question.stimulus?.points) && question.stimulus.points.length === 5 && question.stimulus.points.filter((point: any) => point.displaySeriesB === "?").length === 1, `${descriptor.qlId} is missing its semantic missing-table stimulus.`);
   assert(question.releaseId === DI007_PERMANENT_RELEASE_ID && question.runtimeMode === DI007_QUESTION_STUDIO_RUNTIME_MODE, `${descriptor.qlId} lost release/runtime authority.`);
@@ -97,7 +97,7 @@ const explicit = await quantV4QuestionStudioAdapter.generate({
 assert(explicit.questions[0]?.packageId === "DI-007", "DI-QL-073 was intercepted by another DI package selector.");
 
 console.log(JSON.stringify({
-  status: "PASS_DI_006_QUESTION_STUDIO_CONTROLLED_REVIEW",
+  status: "PASS_DI_007_QUESTION_STUDIO_CONTROLLED_REVIEW",
   releaseId: DI007_PERMANENT_RELEASE_ID,
   runtimeMode: DI007_QUESTION_STUDIO_RUNTIME_MODE,
   permanentQlCount: DI007_PERMANENT_QLS.length,
