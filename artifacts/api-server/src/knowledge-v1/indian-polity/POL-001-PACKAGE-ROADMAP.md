@@ -36,7 +36,7 @@ This file is the chapter-level binding authority for Polity content status and p
 
 English content implementation has reached POL-CP-027. All 27 CPs are approved/content-frozen, and the Final Audit V1 English surface was approved on 19 September 2026.
 
-`POL-001` is now bound to the shared `knowledge-v1` Question Studio engine in **REVIEW_ONLY** mode. All 27 CPs are discoverable through the package, with deterministic English selection and CP/QL/difficulty filters. Question Bank writes, test/mock eligibility, public publication and production release remain disabled. Hindi/Punjabi localization remains a separate next pass.
+`POL-001` is bound to the shared `knowledge-v1` Question Studio engine in **REVIEW_ONLY** mode. All 27 CPs are discoverable through the English package, with deterministic selection and CP/QL/difficulty filters. Question Bank writes, test/mock eligibility, public publication and production release remain disabled. Hindi/Punjabi localization is now in progress: CP001–CP002 are approved/frozen multilingual V1 with strict semantic, QL, option-order, correct-index and source parity gates.
 
 ## Binding rule
 
@@ -53,3 +53,18 @@ Before Question Studio exposure:
 5. bind the approved English CPs into the shared Polity package — **implemented in REVIEW_ONLY mode**;
 6. run runtime/package smoke tests — **implemented as the POL-001 integration gate**;
 7. run Hindi/Punjabi localization after the English runtime contract is green.
+
+
+## Localization progress
+
+| Slice | English questions | Hindi | Punjabi | Runtime exposure |
+|---|---:|---|---|---|
+| POL-CP-001–002 | 92 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
+| POL-CP-003–027 | pending | pending | pending | English-only remains active |
+
+The CP001–CP002 localization layer produces 276 review surfaces across English, Hindi and Punjabi. Native-script leakage, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
+
+
+### CP001–CP002 localization approval
+
+Project-owner approval received on 19 September 2026. Hindi and Punjabi V1 for POL-CP-001–002 are approved/frozen and may be promoted into the multilingual `POL-001` package in the chapter localization integration pass.
