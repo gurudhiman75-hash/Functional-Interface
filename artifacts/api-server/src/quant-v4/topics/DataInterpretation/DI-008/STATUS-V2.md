@@ -1,6 +1,6 @@
 # DI-008 Arithmetic Data Interpretation — V2 Review
 
-Status: ENGLISH_REVIEW_APPROVED · CONTROLLED_QUESTION_STUDIO_REVIEW
+Status: MULTILINGUAL_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## Why V2 exists
 
@@ -93,9 +93,9 @@ Local V2 stress proof:
 - automatic student publication: false
 - production release authorized: false
 - permanent QLs: DI-QL-085 through DI-QL-096
-- localization: NOT_STARTED
+- localization: HI_PA_FROZEN
 
-Next gate: multilingual/localization work or a later explicit release decision. Question Bank, tests, mocks, public/student delivery and production release remain closed.
+Hindi/Punjabi editorial review is approved. Question Studio now supports en/hi/pa in CONTROLLED_REVIEW; Question Bank, tests, mocks, public/student delivery and production release remain closed.
 
 
 ## Permanent English review promotion
@@ -108,6 +108,18 @@ Next gate: multilingual/localization work or a later explicit release decision. 
 - tests and mocks: INELIGIBLE
 - public/student publication: disabled
 - production release: not authorized
-- localization: NOT_STARTED
+- localization: HI_PA_FROZEN
 
 The shared Quant V4 Question Studio adapter routes DI-008 explicitly and the integration proof exercises all 12 permanent QLs, deterministic replay, five-option shape, semantic arithmetic-table stimulus, lifecycle locks, and explicit QL routing.
+
+
+## Hindi/Punjabi frozen multilingual authority V1
+
+- locales: hi-IN and pa-IN
+- 12/12 permanent QLs localized
+- 144/144 object labels localized in both scripts
+- structured stem generation; no blind whole-question translation
+- question-specific worked explanations localized from verified arithmetic state
+- numeric table values, options, correct index and canonical answers remain identical to English
+- Roman-letter leakage blocked on learner-facing localized surfaces
+- localized Question Studio activation: CONTROLLED_REVIEW authorized

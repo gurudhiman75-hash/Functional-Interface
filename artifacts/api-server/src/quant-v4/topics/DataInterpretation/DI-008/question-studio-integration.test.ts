@@ -1,5 +1,6 @@
 import { quantV4QuestionStudioAdapter } from "../../../../question-studio/engines/quant-v4-adapter";
 import { DI008_PERMANENT_QLS, DI008_PERMANENT_RELEASE_ID } from "./permanent-ql-registry";
+import { DI008_LOCALIZATION_RELEASE_ID } from "./localization-review-v1";
 import {
   DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
   DI008_QUESTION_STUDIO_RUNTIME_MODE,
@@ -10,6 +11,18 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function learnerText(question: Record<string, any>) {
+  return [
+    question.stem,
+    question.explanation,
+    question.stimulus?.title,
+    question.stimulus?.instruction,
+    question.stimulus?.rowLabel,
+    ...Object.values(question.stimulus?.columnLabels ?? {}),
+    ...(question.stimulus?.rows ?? []).map((row: any) => row.label),
+  ].join(" ");
+}
+
 const card = quantV4QuestionStudioAdapter.listPackages().find((pkg) => pkg.packageId === "DI-008");
 assert(card, "DI-008 is missing from the shared Quant V4 Question Studio package list.");
 assert(card.enabled, "DI-008 package card must be enabled for controlled review.");
@@ -18,6 +31,7 @@ assert(card.runtimeMode === DI008_QUESTION_STUDIO_RUNTIME_MODE, "DI-008 package 
 assert(card.questionBankStatus === "NOT_STORED" && card.questionBankWritable === false, "DI-008 must remain outside Question Bank writes.");
 assert(card.testEligibility === "INELIGIBLE" && card.testEligible === false && card.mockTestEligible === false, "DI-008 must remain ineligible for tests and mocks.");
 assert(card.publiclyPublishable === false && card.automaticStudentPublication === false && card.productionReleaseAuthorized === false, "DI-008 publication locks drifted.");
+assert(["en", "hi", "pa"].every((language) => card.supportedLanguages.includes(language as any)), "DI-008 package card must expose approved English, Hindi and Punjabi controlled-review languages.");
 
 const seen = new Set<string>();
 for (const descriptor of DI008_PERMANENT_QLS) {
@@ -96,8 +110,33 @@ const explicit = await quantV4QuestionStudioAdapter.generate({
 });
 assert(explicit.questions[0]?.packageId === "DI-008", "DI-QL-085 was intercepted by another DI package selector.");
 
+for (const language of ["hi", "pa"] as const) {
+  const localized = await quantV4QuestionStudioAdapter.generate({
+    packageId: "DI-008",
+    canonicalProblemId: DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
+    language,
+    count: 12,
+    seed: `DI008-MULTILINGUAL-QS-${language}`,
+    exam: "Banking Mains",
+  });
+  assert(localized.questions.length === 12, `DI-008 ${language} controlled review did not generate all 12 permanent QLs.`);
+  assert(new Set(localized.questions.map((question) => question.questionLanguageId)).size === 12, `DI-008 ${language} batch did not cover all permanent QLs.`);
+  for (const raw of localized.questions) {
+    const question = raw as Record<string, any>;
+    assert(question.language === language, `DI-008 ${language} question lost requested language.`);
+    assert(question.reviewStatus === "MULTILINGUAL_FROZEN", `DI-008 ${language} question is not bound to frozen multilingual authority.`);
+    assert(question.releaseId === DI008_LOCALIZATION_RELEASE_ID, `DI-008 ${language} question lost localization release identity.`);
+    assert(question.questionBankWritable === false && question.testEligible === false && question.mockTestEligible === false, `DI-008 ${language} widened learner lifecycle authority.`);
+    assert(question.publiclyPublishable === false && question.automaticStudentPublication === false && question.productionReleaseAuthorized === false, `DI-008 ${language} widened publication authority.`);
+    const text = learnerText(question);
+    assert(!/[A-Za-z]/u.test(text), `DI-008 ${language} learner surface leaks Roman text: ${text}`);
+    if (language === "hi") assert(/[\u0900-\u097F]/u.test(text), "DI-008 Hindi Question Studio surface lacks Devanagari.");
+    else assert(/[\u0A00-\u0A7F]/u.test(text), "DI-008 Punjabi Question Studio surface lacks Gurmukhi.");
+  }
+}
+
 console.log(JSON.stringify({
-  status: "PASS_DI_008_QUESTION_STUDIO_CONTROLLED_REVIEW",
+  status: "PASS_DI_008_QUESTION_STUDIO_MULTILINGUAL_CONTROLLED_REVIEW",
   releaseId: DI008_PERMANENT_RELEASE_ID,
   runtimeMode: DI008_QUESTION_STUDIO_RUNTIME_MODE,
   permanentQlCount: DI008_PERMANENT_QLS.length,
