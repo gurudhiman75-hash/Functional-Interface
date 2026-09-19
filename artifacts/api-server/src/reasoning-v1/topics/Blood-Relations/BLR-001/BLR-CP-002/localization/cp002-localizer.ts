@@ -128,7 +128,7 @@ function expressionNominal(
 ): string {
   if (expression.kind === "ROLE_CHAIN") return chainFromAnchor(prompt, expression, locale);
   if (expression.anchor === "SPEAKER") return localeText(locale, "मैं", "ਮੈਂ");
-  if (expression.anchor === "LISTENER") return localeText(locale, "तुम", "ਤੁਸੀਂ");
+  if (expression.anchor === "LISTENER") return localeText(locale, "आप", "ਤੁਸੀਂ");
   return localeText(locale, "वह व्यक्ति", "ਉਹ ਵਿਅਕਤੀ");
 }
 
@@ -218,7 +218,7 @@ function assertionSentence(
     assertion.subject.kind === "ANCHOR" && assertion.subject.anchor === "SPEAKER"
       ? localeText(locale, "हूँ", "ਹਾਂ")
       : assertion.subject.kind === "ANCHOR" && assertion.subject.anchor === "LISTENER"
-        ? localeText(locale, "हो", "ਹੋ")
+        ? localeText(locale, "हैं", "ਹੋ")
         : localeText(locale, "है", "ਹੈ");
   return `${subject}, ${prefix} ${relation} ${copula}।`;
 }
