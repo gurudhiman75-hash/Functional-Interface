@@ -1,7 +1,8 @@
 # POL-CP-014 — Governor
 
-**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
-**Approval date:** 16 September 2026  
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V3 final-audit canonical  
+**Initial approval date:** 16 September 2026
+**Final-audit V3 approval:** 19 September 2026  
 **Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
@@ -72,4 +73,12 @@ Avoid database-style fragments and difficulty through verbosity.
 
 ## Deferred integration
 
-Question Studio exposure, localization and production registration remain deferred to the Polity integration checkpoint. English V1 is the approved canonical content version.
+Question Studio exposure, localization and production registration remain deferred to the Polity integration checkpoint. English V3 is the approved canonical review surface; V1 remains the preserved historical base.
+## Final-audit ownership clarification
+
+The approved V1 remains the frozen base. Final-audit V3 is a review candidate that removes standalone ownership leaks without silently mutating V1:
+
+- direct Chief Minister / Council of Ministers mechanics belong to POL-CP-015; CP014 retains only Governor-facing appointment, aid/advice and interaction questions needed to understand the Governor's role;
+- the Advocate-General as a constitutional authority belongs to POL-CP-022; CP014 V3 removes the standalone Advocate-General QL;
+- the freed review space is reassigned to Governor-owned Article 154 executive-power mechanics and Article 175 address/message powers;
+- final-audit V3 was approved by the project owner on 19 September 2026 and is now the canonical English authority for this CP.

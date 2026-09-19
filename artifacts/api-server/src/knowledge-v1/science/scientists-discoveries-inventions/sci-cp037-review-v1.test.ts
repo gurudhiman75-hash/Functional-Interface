@@ -1,0 +1,3 @@
+import { describe, expect, it } from "vitest";
+import { SCI_CP037_REVIEW_V1, validateSciCp037ReviewV1 } from "./sci-cp037-review-v1";
+describe("SCI-CP-037 review candidate V1",()=>{it("satisfies structural contract",()=>{const r=validateSciCp037ReviewV1();expect(r.errors).toEqual([]);expect(r.valid).toBe(true);expect(r.totalQuestions).toBe(60);expect(r.difficultyCounts).toEqual({Easy:18,Medium:30,Hard:12});expect(r.answerPositionCounts).toEqual({A:15,B:15,C:15,D:15});expect(Object.values(r.qlCounts)).toEqual(Array(10).fill(6));});it("remains review-only",()=>{expect(SCI_CP037_REVIEW_V1.every(q=>q.reviewOnly&&!q.runtimeRegistered)).toBe(true);});});

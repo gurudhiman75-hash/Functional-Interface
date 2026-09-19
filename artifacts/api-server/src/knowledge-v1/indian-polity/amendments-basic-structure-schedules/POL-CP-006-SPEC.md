@@ -1,7 +1,7 @@
 # POL-CP-006 — Amendments, Basic Structure & Schedules
 
-**Lifecycle:** REVIEW CANDIDATE — EXPLANATION V3  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — EXPLANATION V3  
+**Runtime registration:** DEFERRED to Polity Question Studio integration pass
 
 ## Scope
 
@@ -83,6 +83,6 @@ Mechanical explanation gates:
 - State-ratification questions are limited to clearly supported Article 368 federal areas;
 - the 106th Amendment is described with its constitutional commencement/delimitation framework rather than as an already fully operational seat allocation.
 
-## Gate
+## Runtime gate
 
-Question Studio exposure, localization and production registration remain blocked until the revised English review batch is approved.
+The V3 English review batch is approved/content-frozen. Question Studio exposure, localization and production registration remain deferred to the Polity integration checkpoint.
