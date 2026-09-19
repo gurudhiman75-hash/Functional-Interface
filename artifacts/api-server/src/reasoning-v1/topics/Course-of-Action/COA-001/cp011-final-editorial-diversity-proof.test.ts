@@ -54,8 +54,9 @@ for (const qlId of COA_CP010_ACTIVE_QL_IDS) {
   assert(domains.size >= 10, `${qlId}: domain breadth too narrow (${domains.size})`);
   assert(difficulties.size >= 2, `${qlId}: difficulty breadth too narrow`);
 }
-assert(!active.some((entry) => entry.qlId === "COA-QL-008" && entry.difficulty === "EASY"),
-  "QL008 Easy must not be invented merely to fill a difficulty grid; ordered reasoning is intentionally Medium/Hard.");
+const ql008Easy = active.filter((entry) => entry.qlId === "COA-QL-008" && entry.difficulty === "EASY");
+assert(ql008Easy.length === 1, `QL008 Easy authority drift: expected 1, received ${ql008Easy.length}`);
+assert(ql008Easy[0]?.id === "COA-SC-102", "QL008 Easy must remain the approved COA-SC-102 editorial authority.");
 
 const englishStatements = active.map((entry) => entry.statement.trim().replace(/\s+/g, " "));
 assert(new Set(englishStatements).size === englishStatements.length, "active English authorities contain duplicate statements");
@@ -148,11 +149,21 @@ const three = await generateCoaCp011QuestionStudioBatch({ ...threeRequest, count
 assert(new Set((three.questions as readonly any[]).map((q) => q.semanticAuthorityId)).size === 6,
   "three-action full-capacity batch repeats semantic authority");
 
-assert(getCoaCp011SafeSemanticCapacity({
+const ql008EasyCapacity = getCoaCp011SafeSemanticCapacity({
   packageId: "COA-001",
   canonicalProblemId: "COA-QL-008",
   difficulty: "Easy",
-}) === 0, "QL008/Easy should truthfully report zero rather than relabel Medium/Hard questions");
+});
+assert(ql008EasyCapacity === 1, `QL008/Easy safe capacity drift: ${ql008EasyCapacity}`);
+const ql008EasyBatch = await generateCoaCp011QuestionStudioBatch({
+  packageId: "COA-001",
+  canonicalProblemId: "COA-QL-008",
+  difficulty: "Easy",
+  count: 1,
+  seed: "CP011-QL008-EASY",
+});
+assert((ql008EasyBatch.questions[0] as any)?.semanticAuthorityId === "COA-SC-102",
+  "QL008/Easy must resolve to the approved COA-SC-102 authority without relabelling another difficulty");
 
 const packages = reasoningV1QuestionStudioAdapter.listPackages();
 const registered = packages.find((pkg) => pkg.packageId === "COA-001") as any;
@@ -175,7 +186,7 @@ console.log(JSON.stringify({
   easySafeCapacity: easyCapacity,
   fiveCodeSafeCapacity: fiveCapacity,
   threeActionSafeCapacity: threeCapacity,
-  ql008Easy: "UNSUPPORTED_NOT_RELABELED",
+  ql008Easy: "SUPPORTED_BY_APPROVED_COA_SC_102_ONLY",
   antiRepetitionGate: true,
   questionBankWritable: false,
   testEligible: false,
