@@ -5,9 +5,9 @@ export function renderHindiStem036To044(english: R): string | null {
   const s = asR(english.structuredPrompt);
   switch (qlId) {
     case "DIR-QL-036":
-      return `${(s.visibleRelations ?? []).map((r: R) => relationSentence(r)).join(" ")} चौथा कथन ${nameHi(s.missingTo)} को ${nameHi(s.missingFrom)} से ठीक ${metres(s.missingDistance)} दूर रखकर एक संगत बंद विन्यास पूरा करता है। ${nameHi(s.missingTo)}, ${nameHi(s.missingFrom)} के किस दिशा में होना चाहिए?`;
+      return `${(s.visibleRelations ?? []).map((r: R) => relationSentence(r)).join(" ")} ${nameHi(s.missingTo)}, ${nameHi(s.missingFrom)} से ठीक ${metres(s.missingDistance)} दूर है। ${nameHi(s.missingTo)}, ${nameHi(s.missingFrom)} के किस दिशा में है?`;
     case "DIR-QL-037":
-      return `${(s.anchorRelations ?? []).map((r: R) => relationSentence(r, false)).join(" ")} अब चार अतिरिक्त कथन देखिए: ${(s.relations ?? []).map((r: R, i: number) => `(${i + 1}) ${relationSentence(r, false)}`).join(" ")} इनमें ठीक एक कथन पूरे विन्यास से मेल नहीं खाता। असंगत कथन कौन-सा है?`;
+      return `${(s.anchorRelations ?? []).map((r: R) => relationSentence(r, false)).join(" ")} अब इन चार कथनों पर विचार कीजिए: ${(s.relations ?? []).map((r: R, i: number) => `(${i + 1}) ${relationSentence(r, false)}`).join(" ")} इनमें से कौन-सा कथन दी गई जानकारी से मेल नहीं खाता?`;
     case "DIR-QL-038":
       return `${placeHi(s.place)} में ${nameHi(s.subject)} का मार्ग एक चिह्नित बिंदु से शुरू होता है। मार्ग: ${(s.legs ?? []).map((leg: R) => leg.direction === "UNKNOWN" ? `${metres(leg.distance)} अज्ञात दिशा में` : `${metres(leg.distance)} ${directionHi(leg.direction)} की ओर`).join(", फिर ")}। अंतिम स्थान आरंभिक बिंदु से ${coordinateText(s.target)} है। अज्ञात चाल किस दिशा में थी?`;
     case "DIR-QL-039":
