@@ -1,11 +1,13 @@
-# CP011 Status
+# CP011 Retrofit Status
 
 - Topic: ਮੁਹਾਵਰੇ
 - Lifecycle: `REVIEW_ONLY / HUMAN_REVIEW_PENDING`
-- Atomic authorities: 64
-- Semantic themes: 8
+- Audited idiom authorities: 170
+- Safe ordered semantic pairs: 28,344
 - Families: 8
-- Governed semantic combinations: 3,392
+- Governed semantic combinations: 170,914
 - Review target: 120 questions = 40 Easy + 40 Medium + 40 Hard
-- Review must cover all 8 families and all 4 F08 truth outcomes
-- Runtime/publication promotion remains blocked pending explicit owner approval and later integration workflow
+- All 8 families represented
+- All 4 F08 truth outcomes represented
+- All retained idioms reachable through applicable families
+- Previous 64-authority approval superseded for this retrofit
