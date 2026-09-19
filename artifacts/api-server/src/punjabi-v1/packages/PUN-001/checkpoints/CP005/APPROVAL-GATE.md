@@ -1,11 +1,7 @@
-# CP005 Approval Gate
+# CP005 Retrofit Approval Gate
 
-Human review must confirm:
-- stems are natural competitive-exam Punjabi;
-- adjective/adverb role is determined from sentence context;
-- distractors are plausible and not trivial;
-- explanations are simple and question-specific;
-- Hard questions require more than direct label recall;
-- no English leakage or option-by-option filler.
+CP005 has materially changed from the previously reviewed 45-authority checkpoint to a 262-authority sentence-grounded bank.
 
-Until explicit approval, CP005 remains REVIEW_ONLY.
+Fresh owner approval is required on the exact reviewed SHA.
+
+Approval covers the reviewed retrofit head only and authorizes continuation of retrofit work. It does not authorize permanent QL allocation, Question Studio registration, Question Bank writes, test/mock eligibility, or public/student delivery.
