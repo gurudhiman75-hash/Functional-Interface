@@ -91,11 +91,13 @@ function vnr002Distractors(correct: string, authoredWrong: string) {
     raw.push(
       correct.replace(/\bwill have been\b/i, "will have being"),
       correct.replace(/\bwill have been\b/i, "will been"),
+      correct.replace(/\bwill have been\b/i, "will have be"),
     );
   } else if (/\b(has|have|had) been\b/i.test(correct)) {
     raw.push(
       correct.replace(/\b(has|have|had) been\b/i, "$1 being"),
       correct.replace(/\b(has|have|had) been\b/i, "$1 be"),
+      correct.replace(/\b(has|have|had) been\b/i, "been"),
     );
   } else if (/\b(is|are|was|were) being\b/i.test(correct)) {
     raw.push(
