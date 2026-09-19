@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Hygrometer",
       "Ammeter"
     ],
-    "A thermometer measures temperature. Different thermometers are designed for body temperature, laboratory work or weather observations, but the measured quantity remains temperature.",
+    "A thermometer measures temperature. Different thermometers are designed for body temperature, laboratory work or weather observations, but the measured quantity remains temperature. The important exam point is the quantity measured: temperature.",
     [
       "THERMOMETER-TEMPERATURE"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Blood pressure",
       "Humidity"
     ],
-    "A clinical thermometer is designed for the narrow temperature range of the human body. It is therefore more suitable for medical use than a general laboratory thermometer.",
+    "A clinical thermometer is designed for the narrow temperature range of the human body. It is therefore more suitable for medical use than a general laboratory thermometer. Its scale is chosen specifically for normal and abnormal body temperatures.",
     [
       "CLINICAL-THERMOMETER-BODY"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Barometer",
       "Lactometer"
     ],
-    "A pyrometer is used for very high temperatures, especially where direct contact is difficult or unsafe. Many pyrometers estimate temperature from thermal radiation emitted by the hot object.",
+    "A pyrometer is used for very high temperatures, especially where direct contact is difficult or unsafe. Many pyrometers estimate temperature from thermal radiation emitted by the hot object. This makes it useful in furnaces, foundries and other high-temperature settings.",
     [
       "PYROMETER-HIGH-TEMP"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Only atmospheric pressure",
       "Only wind direction"
     ],
-    "A maximum–minimum thermometer retains the highest and lowest temperatures reached since the last reset. This makes it useful for daily weather records.",
+    "A maximum–minimum thermometer retains the highest and lowest temperatures reached since the last reset. This makes it useful for daily weather records. It helps compare daytime heating and night-time cooling over one observation period.",
     [
       "MAXMIN-THERMOMETER"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "The glass produces electricity",
       "Air pressure inside becomes zero"
     ],
-    "The liquid changes volume as its temperature changes. The calibrated scale converts that expansion or contraction into a temperature reading.",
+    "The liquid changes volume as its temperature changes. The calibrated scale converts that expansion or contraction into a temperature reading. The liquid level moves along the scale as its volume changes.",
     [
       "LIQUID-THERMOMETER-PRINCIPLE"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Mercury barometer",
       "Hydrometer"
     ],
-    "Molten metal is far hotter than the range of ordinary thermometers and direct contact may be unsafe. A radiation pyrometer can estimate its temperature remotely from emitted thermal radiation.",
+    "Molten metal is far hotter than the range of ordinary thermometers and direct contact may be unsafe. A radiation pyrometer can estimate its temperature remotely from emitted thermal radiation. Remote measurement avoids placing an ordinary sensor directly in extreme heat.",
     [
       "MOLTEN-METAL-PYROMETER"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Anemometer",
       "Rain gauge"
     ],
-    "A barometer measures atmospheric pressure. Changes in barometric pressure are also useful in weather observation because they often accompany changing weather systems.",
+    "A barometer measures atmospheric pressure. Changes in barometric pressure are also useful in weather observation because they often accompany changing weather systems. Falling or rising pressure can also indicate approaching changes in weather.",
     [
       "BAROMETER-PRESSURE"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Voltmeter",
       "Calorimeter"
     ],
-    "A hygrometer measures the amount of moisture in air. Weather stations use humidity measurements along with temperature, pressure and wind data.",
+    "A hygrometer measures the amount of moisture in air. Weather stations use humidity measurements along with temperature, pressure and wind data. It is especially useful when studying comfort, evaporation and weather conditions.",
     [
       "HYGROMETER-HUMIDITY"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Rain gauge",
       "Barometer"
     ],
-    "An anemometer measures wind speed. A wind vane, by contrast, is used to indicate wind direction.",
+    "An anemometer measures wind speed. A wind vane, by contrast, is used to indicate wind direction. This distinction between speed and direction is frequently tested in exams.",
     [
       "ANEMOMETER-WIND-SPEED"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Amount of rainfall",
       "Air humidity"
     ],
-    "A wind vane turns with the wind and indicates its direction. It does not measure wind speed, so it is often used together with an anemometer.",
+    "A wind vane turns with the wind and indicates its direction. It does not measure wind speed, so it is often used together with an anemometer. Its arrow or vane aligns according to the moving air.",
     [
       "WIND-VANE-DIRECTION"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Barometer",
       "Altimeter"
     ],
-    "A rain gauge collects precipitation so its depth can be measured. Rainfall is usually reported as a depth, such as millimetres.",
+    "A rain gauge collects precipitation so its depth can be measured. Rainfall is usually reported as a depth, such as millimetres. The collected water is converted into a standard rainfall-depth reading.",
     [
       "RAIN-GAUGE"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Altimeter, barometer and thermometer",
       "Barometer, voltmeter and anemometer"
     ],
-    "Pressure is measured by a barometer, humidity by a hygrometer and wind speed by an anemometer. Matching each instrument to its quantity avoids common exam traps.",
+    "Pressure is measured by a barometer, humidity by a hygrometer and wind speed by an anemometer. Matching each instrument to its quantity avoids common exam traps. Each device must be matched with one specific weather variable.",
     [
       "WEATHER-INSTRUMENT-SET"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Ohmmeter",
       "Galvanometer only"
     ],
-    "An ammeter measures electric current in a circuit. It is connected in series so the circuit current passes through the instrument.",
+    "An ammeter measures electric current in a circuit. It is connected in series so the circuit current passes through the instrument. Its internal resistance is kept very low so it disturbs the circuit as little as possible.",
     [
       "AMMETER-CURRENT"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Hydrometer",
       "Barometer"
     ],
-    "A voltmeter measures potential difference between two points. It is connected in parallel across the component whose voltage is being measured.",
+    "A voltmeter measures potential difference between two points. It is connected in parallel across the component whose voltage is being measured. Its resistance is high so it draws very little current from the circuit.",
     [
       "VOLTMETER-VOLTAGE"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
       "Wattmeter",
       "Potentiometer only"
     ],
-    "An ohmmeter is designed to measure electrical resistance. In modern practice this function is commonly built into a digital multimeter.",
+    "An ohmmeter is designed to measure electrical resistance. In modern practice this function is commonly built into a digital multimeter. It is useful for checking resistors, wires and electrical continuity.",
     [
       "OHMMETER-RESISTANCE"
     ]
