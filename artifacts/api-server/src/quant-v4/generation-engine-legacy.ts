@@ -262,6 +262,21 @@ function hash(value: string) {
   return result >>> 0;
 }
 
+function avalancheHash(value: string) {
+  let result = hash(value);
+  result ^= result >>> 16;
+  result = Math.imul(result, 0x7feb352d);
+  result ^= result >>> 15;
+  result = Math.imul(result, 0x846ca68b);
+  result ^= result >>> 16;
+  return result >>> 0;
+}
+
+function pickDeterministically<T>(items: readonly T[], seed: string): T {
+  if (!items.length) throw new Error("Cannot select from an empty deterministic pool.");
+  return items[avalancheHash(seed) % items.length]!;
+}
+
 function shuffled<T>(items: readonly T[], seed: string) {
   const result = [...items];
   let state = hash(seed) || 1;
@@ -484,7 +499,14 @@ async function generateWithRuntimePackage(
   const selectedCp = resolveCpId(runtimePackage, request);
   const cpOrder = explicitCp
     ? [selectedCp]
-    : shuffled(runtimeCpIds, `${batchSeed}:${pkg.packageId}:cp-order`);
+    : count === 1
+      ? [
+          pickDeterministically(
+            runtimeCpIds,
+            `${batchSeed}:${pkg.packageId}:cp-single`,
+          ),
+        ]
+      : shuffled(runtimeCpIds, `${batchSeed}:${pkg.packageId}:cp-order`);
   const results: Array<{ questionPackage: any; question: any }> = [];
 
   for (let index = 0; index < count; index += 1) {
