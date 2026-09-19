@@ -16,6 +16,17 @@ function stable(value: unknown): string {
   return JSON.stringify(value);
 }
 
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) {
+    const next = x % y;
+    x = y;
+    y = next;
+  }
+  return x;
+}
+
 const samplesPerTarget = 64;
 const reviewRows: ReturnType<typeof generateAlgCp004EnglishReviewV4>[] = [];
 
@@ -42,6 +53,7 @@ for (const prototypeId of ALG_CP004_ENGLISH_REVIEW_V4_TARGETS) {
 
     if (first.state.kind === "DIFFERENCE_OF_SQUARES") {
       const { m, n } = first.state;
+      assert(gcd(m, n) === 1, `${prefix}: conjugate factors contain removable common content`);
       const leading = m * m;
       const constant = -(n * n);
       assert(leading > 0 && constant < 0, `${prefix}: invalid difference-of-squares coefficients`);
@@ -52,6 +64,7 @@ for (const prototypeId of ALG_CP004_ENGLISH_REVIEW_V4_TARGETS) {
       );
     } else {
       const { m, n, sign } = first.state;
+      assert(gcd(m, n) === 1, `${prefix}: squared factor contains removable common content`);
       const leading = m * m;
       const middle = 2 * sign * m * n;
       const constant = n * n;
