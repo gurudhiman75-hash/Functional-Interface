@@ -25,8 +25,16 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
       question.structuredPrompt.pointedPersonId !== undefined &&
       question.structuredPrompt.pointedPersonId === question.structuredPrompt.speakerId;
     if (!isOwnership) {
-      assert.ok(!question.stem.includes("photograph of a man"));
-      assert.ok(!question.stem.includes("photograph of a woman"));
+      assert.ok(!question.stem.includes("man in a photograph"));
+      assert.ok(!question.stem.includes("woman in a photograph"));
+      assert.ok(!question.stem.includes("person in a photograph"));
+      if (question.metadata.presentation === "PHOTOGRAPH") {
+        assert.ok(question.stem.startsWith("Pointing to a photograph of"));
+      }
+      if (question.metadata.presentation === "STAGE") {
+        assert.ok(question.stem.startsWith("Pointing to "));
+        assert.ok(question.stem.includes(" on the stage,"));
+      }
     }
     assert.ok(!question.stem.includes("herself or himself"));
     assert.ok(!question.stem.includes("undefined"));
@@ -143,7 +151,8 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
     if (question.metadata.presentation === "PHOTOGRAPH") {
       photographQuestions += 1;
       if (question.metadata.questionForm === "HOW_RELATED") {
-        assert.ok(question.stem.includes("in a photograph"));
+        assert.ok(question.stem.startsWith("Pointing to a photograph of"));
+        assert.ok(!question.stem.includes(" in a photograph,"));
       } else if (question.metadata.questionForm === "WHOSE_PHOTOGRAPH") {
         assert.ok(question.stem.startsWith("Pointing to a photograph of"));
       } else {

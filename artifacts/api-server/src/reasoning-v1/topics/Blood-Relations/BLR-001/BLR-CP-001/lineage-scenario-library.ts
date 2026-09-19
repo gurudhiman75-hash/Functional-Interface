@@ -157,17 +157,9 @@ export function buildLineageStem(
   clues: readonly DirectRelationClue[],
   names: Readonly<Record<string, string>>,
   question: string,
-  random: SeededRandom,
+  _random: SeededRandom,
 ): string {
-  const openings = [
-    "Study the following family information carefully.",
-    "Read the family statements and answer the question.",
-    "Use the relations given below to reconstruct the family.",
-    "Consider the following information about a family.",
-  ] as const;
-
   return [
-    random.pick(openings),
     ...clues.map((entry) => formatLineageClue(entry, names)),
     question,
   ].join(" ");

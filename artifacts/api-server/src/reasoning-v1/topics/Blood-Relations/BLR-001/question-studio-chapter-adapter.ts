@@ -1,20 +1,29 @@
+import { graphFromClues } from "./foundation/graph-closure";
+import { BLR_001_MULTILINGUAL_APPROVAL_RECEIPT } from "./multilingual-freeze-approval";
+import {
+  BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES,
+  freezeBlr001ApprovedMultilingualRecord,
+} from "./multilingual-frozen-runtime";
 import { generateBlrCp001Question } from "./BLR-CP-001/cp001-runtime";
 import type { BlrCp001QlId } from "./BLR-CP-001/cp001-permanent-contracts";
+import {
+  generateBlrCp001LocalizedQuestion,
+} from "./BLR-CP-001/localization/cp001-localizer";
 import { generateBlrCp002Question } from "./BLR-CP-002/cp002-runtime";
 import type { BlrCp002QlId } from "./BLR-CP-002/cp002-permanent-contracts";
+import {
+  generateBlrCp002LocalizedQuestion,
+} from "./BLR-CP-002/localization/cp002-localizer";
 import { generateBlrCp003FinalApprovedBank } from "./BLR-CP-003/cp003-final-approved-bank";
 import { generateBlrCp003LocalizedReviewBank } from "./BLR-CP-003/localization/cp003-localized-review-runtime";
-import { BLR_CP003_HI_PA_LOCALISATION_REVIEW_CANDIDATE } from "./BLR-CP-003/localization/cp003-localizer";
 import { generateBlrCp004FrozenBank } from "./BLR-CP-004/cp004-bank";
 import { BLR_CP004_FREEZE_VERSION } from "./BLR-CP-004/cp004-model";
 import {
-  BLR_CP004_HI_PA_LOCALISATION_REVIEW_CANDIDATE,
   generateBlrCp004LocalizedReviewBank,
 } from "./BLR-CP-004/localization/cp004-localizer";
 import { generateBlrCp005FrozenBank } from "./BLR-CP-005/cp005-bank";
 import { BLR_CP005_FREEZE_VERSION } from "./BLR-CP-005/cp005-contracts";
 import {
-  BLR_CP005_HI_PA_LOCALISATION_REVIEW_CANDIDATE,
   generateBlrCp005LocalizedReviewBank,
 } from "./BLR-CP-005/localization/cp005-localizer";
 
@@ -40,8 +49,8 @@ const CP004_QL_IDS = ["BLR-QL-013", "BLR-QL-014", "BLR-QL-015", "BLR-QL-016", "B
 const CP005_QL_IDS = ["BLR-QL-018", "BLR-QL-019", "BLR-QL-020", "BLR-QL-021", "BLR-QL-022", "BLR-QL-023", "BLR-QL-024", "BLR-QL-025"] as const;
 
 const PACKAGE_SPECS = [
-  { packageId: BLR_CP001_QUESTION_STUDIO_PACKAGE_ID, checkpointId: "BLR-CP-001", label: "Named Blood Relations", subtopic: "Named Blood Relations", qlIds: CP001_QL_IDS, supportedLanguages: ["en"] as const },
-  { packageId: BLR_CP002_QUESTION_STUDIO_PACKAGE_ID, checkpointId: "BLR-CP-002", label: "Pointing & Introduction Relations", subtopic: "Pointing & Introduction Relations", qlIds: CP002_QL_IDS, supportedLanguages: ["en"] as const },
+  { packageId: BLR_CP001_QUESTION_STUDIO_PACKAGE_ID, checkpointId: "BLR-CP-001", label: "Named Blood Relations", subtopic: "Named Blood Relations", qlIds: CP001_QL_IDS, supportedLanguages: ["en", "hi", "pa"] as const },
+  { packageId: BLR_CP002_QUESTION_STUDIO_PACKAGE_ID, checkpointId: "BLR-CP-002", label: "Pointing & Introduction Relations", subtopic: "Pointing & Introduction Relations", qlIds: CP002_QL_IDS, supportedLanguages: ["en", "hi", "pa"] as const },
   { packageId: BLR_CP003_QUESTION_STUDIO_PACKAGE_ID, checkpointId: "BLR-CP-003", label: "Family Sets, Status & Lineage", subtopic: "Family Sets, Status & Lineage", qlIds: CP003_QL_IDS, supportedLanguages: ["en", "hi", "pa"] as const },
   { packageId: BLR_CP004_QUESTION_STUDIO_PACKAGE_ID, checkpointId: "BLR-CP-004", label: "Family Counting & Composition", subtopic: "Family Counting & Composition", qlIds: CP004_QL_IDS, supportedLanguages: ["en", "hi", "pa"] as const },
   { packageId: BLR_CP005_QUESTION_STUDIO_PACKAGE_ID, checkpointId: "BLR-CP-005", label: "Possibility & Uncertainty", subtopic: "Possibility & Uncertainty", qlIds: CP005_QL_IDS, supportedLanguages: ["en", "hi", "pa"] as const },
@@ -151,6 +160,28 @@ function sharedPrompt(record: RawQuestion): string {
   return Array.isArray(clues) ? clues.join("\n") : "";
 }
 
+function derivedFamilyGraph(record: RawQuestion) {
+  const existing = record.structuredPrompt?.familyGraph;
+  if (existing) return existing;
+
+  const clues = record.structuredPrompt?.clues;
+  const personNames = record.structuredPrompt?.personNames;
+  if (
+    !Array.isArray(clues)
+    || !personNames
+    || typeof personNames !== "object"
+    || Array.isArray(personNames)
+  ) {
+    return null;
+  }
+
+  try {
+    return graphFromClues(clues, personNames);
+  } catch {
+    return null;
+  }
+}
+
 function explanationParts(record: RawQuestion) {
   const explanation = record.explanation ?? {};
   const editorial = record.editorial ?? {};
@@ -181,8 +212,8 @@ function explanationParts(record: RawQuestion) {
     shortcut: String(editorial.examShortcut ?? explanation.examShortcut ?? ""),
     commonTrap: traps.join(" "),
     optionAnalysis,
-    familyTree: explanation.familyTree ?? explanation.familyTrees ?? record.proceduralLogic ?? record.structuredPrompt?.familyGraph ?? null,
-    diagramProof: record.proceduralLogic ?? record.structuredPrompt ?? record.modelSpace ?? null,
+    familyTree: explanation.familyTree ?? explanation.familyTrees ?? record.proceduralLogic ?? derivedFamilyGraph(record),
+    diagramProof: record.proceduralLogic ?? derivedFamilyGraph(record) ?? record.structuredPrompt ?? record.modelSpace ?? null,
   };
 }
 
@@ -243,7 +274,7 @@ function normalize(record: RawQuestion, packageId: BlrChapterStudioPackageId) {
       explanationId: `${questionLanguageId}:EXPLANATION`,
       ...explanation,
     },
-    reasoningGraph: record.graph ?? record.structuredPrompt?.familyGraph ?? record.proceduralLogic ?? record.explanation?.familyTree ?? record.explanation?.familyTrees ?? null,
+    reasoningGraph: record.graph ?? record.proceduralLogic ?? derivedFamilyGraph(record) ?? record.explanation?.familyTree ?? record.explanation?.familyTrees ?? null,
     renderer: {
       kind: String(record.renderer ?? "RELATION_GRAPH"),
       familyTreeAvailable: explanation.familyTree != null,
@@ -314,12 +345,64 @@ function rawBank(packageId: BlrChapterStudioPackageId, language: BlrChapterStudi
   let records: readonly RawQuestion[];
   if (language === "en") {
     records = englishRuntimeBank(packageId);
+  } else if (packageId === BLR_CP001_QUESTION_STUDIO_PACKAGE_ID) {
+    const locale = language === "hi" ? "hi-IN" : "pa-IN";
+    records = CP001_QL_IDS.flatMap((qlId, qlIndex) =>
+      Array.from(
+        { length: 128 },
+        (_, index) =>
+          freezeBlr001ApprovedMultilingualRecord(
+            generateBlrCp001LocalizedQuestion(
+              qlId as BlrCp001QlId,
+              qlIndex * 1000 + index,
+              locale,
+            ),
+            BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
+          ),
+      ),
+    ) as unknown as readonly RawQuestion[];
+  } else if (packageId === BLR_CP002_QUESTION_STUDIO_PACKAGE_ID) {
+    const locale = language === "hi" ? "hi-IN" : "pa-IN";
+    records = Array.from(
+      { length: 256 },
+      (_, index) =>
+        freezeBlr001ApprovedMultilingualRecord(
+          generateBlrCp002LocalizedQuestion(
+            "BLR-QL-008" as BlrCp002QlId,
+            index,
+            locale,
+          ),
+          BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
+        ),
+    ) as unknown as readonly RawQuestion[];
   } else if (packageId === BLR_CP003_QUESTION_STUDIO_PACKAGE_ID) {
-    records = generateBlrCp003LocalizedReviewBank(generateBlrCp003FinalApprovedBank(), language === "hi" ? "hi-IN" : "pa-IN") as unknown as readonly RawQuestion[];
+    records = generateBlrCp003LocalizedReviewBank(
+      generateBlrCp003FinalApprovedBank(),
+      language === "hi" ? "hi-IN" : "pa-IN",
+    ).map((record) =>
+      freezeBlr001ApprovedMultilingualRecord(
+        record,
+        BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
+      ),
+    ) as unknown as readonly RawQuestion[];
   } else if (packageId === BLR_CP004_QUESTION_STUDIO_PACKAGE_ID) {
-    records = generateBlrCp004LocalizedReviewBank(language === "hi" ? "hi-IN" : "pa-IN") as unknown as readonly RawQuestion[];
+    records = generateBlrCp004LocalizedReviewBank(
+      language === "hi" ? "hi-IN" : "pa-IN",
+    ).map((record) =>
+      freezeBlr001ApprovedMultilingualRecord(
+        record,
+        BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
+      ),
+    ) as unknown as readonly RawQuestion[];
   } else if (packageId === BLR_CP005_QUESTION_STUDIO_PACKAGE_ID) {
-    records = generateBlrCp005LocalizedReviewBank(language === "hi" ? "hi-IN" : "pa-IN") as unknown as readonly RawQuestion[];
+    records = generateBlrCp005LocalizedReviewBank(
+      language === "hi" ? "hi-IN" : "pa-IN",
+    ).map((record) =>
+      freezeBlr001ApprovedMultilingualRecord(
+        record,
+        BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
+      ),
+    ) as unknown as readonly RawQuestion[];
   } else {
     throw new Error(`${packageSpec(packageId).checkpointId} currently supports English generation only.`);
   }
@@ -374,7 +457,7 @@ export function previewBlrChapterQuestionStudio(request: BlrChapterStudioRequest
       seed,
       runtimeMode: "CHAPTER_RUNTIME_REVIEW",
       integrationStatus: "QUESTION_STUDIO_GENERATION_READY",
-      reviewStatus: language === "en" ? "CURRENT_ENGLISH_AUTHORITY" : "LOCALIZED_REVIEW_REQUIRED",
+      reviewStatus: language === "en" ? "CURRENT_ENGLISH_AUTHORITY" : "MULTILINGUAL_FROZEN",
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
@@ -385,9 +468,27 @@ export function previewBlrChapterQuestionStudio(request: BlrChapterStudioRequest
 }
 
 export function releaseAuthorityForBlrChapterPackage(packageId: BlrChapterStudioPackageId, language: BlrChapterStudioLanguage): string {
-  if (packageId === BLR_CP001_QUESTION_STUDIO_PACKAGE_ID) return "BLR_CP001_ENGLISH_RUNTIME_PROOF";
-  if (packageId === BLR_CP002_QUESTION_STUDIO_PACKAGE_ID) return "BLR_CP002_ENGLISH_RUNTIME_PROOF";
-  if (packageId === BLR_CP003_QUESTION_STUDIO_PACKAGE_ID) return language === "en" ? "BLR_CP003_ENGLISH_DISCOVERY_FROZEN" : BLR_CP003_HI_PA_LOCALISATION_REVIEW_CANDIDATE;
-  if (packageId === BLR_CP004_QUESTION_STUDIO_PACKAGE_ID) return language === "en" ? BLR_CP004_FREEZE_VERSION : BLR_CP004_HI_PA_LOCALISATION_REVIEW_CANDIDATE;
-  return language === "en" ? BLR_CP005_FREEZE_VERSION : BLR_CP005_HI_PA_LOCALISATION_REVIEW_CANDIDATE;
+  if (packageId === BLR_CP001_QUESTION_STUDIO_PACKAGE_ID) {
+    return language === "en"
+      ? "BLR_CP001_ENGLISH_RUNTIME_PROOF"
+      : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-001"];
+  }
+  if (packageId === BLR_CP002_QUESTION_STUDIO_PACKAGE_ID) {
+    return language === "en"
+      ? "BLR_CP002_ENGLISH_RUNTIME_PROOF"
+      : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-002"];
+  }
+  if (packageId === BLR_CP003_QUESTION_STUDIO_PACKAGE_ID) {
+    return language === "en"
+      ? "BLR_CP003_ENGLISH_DISCOVERY_FROZEN"
+      : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-003"];
+  }
+  if (packageId === BLR_CP004_QUESTION_STUDIO_PACKAGE_ID) {
+    return language === "en"
+      ? BLR_CP004_FREEZE_VERSION
+      : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-004"];
+  }
+  return language === "en"
+    ? BLR_CP005_FREEZE_VERSION
+    : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-005"];
 }

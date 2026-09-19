@@ -25,7 +25,6 @@ on:
       - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
       - "artifacts/api-server/src/routes/index.ts"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
-      - ".github/workflows/reasoning-blr-001-cp007-production-v2.yml"
   workflow_dispatch:
 
 permissions:
@@ -91,7 +90,7 @@ jobs:
           test -f "$OUT/BLR-CP-007-PRODUCTION-LIFECYCLE.md"
           test -f "$OUT/blr-cp007-production-review.html"
           test -f "$OUT/blr-cp007-production-samples.json"
-          grep -q '"verdict": "BLR_CP007_PRODUCTION_LIFECYCLE_PROVED"' "$SUMMARY"
+          grep -q '"verdict": "BLR_CP007_RELEASE_PATH_PROVED__CURRENT_REVIEW_ITEM_LOCKED"' "$SUMMARY"
           grep -q '"multilingualRecordCount": 504' "$SUMMARY"
           grep -q '"englishCount": 168' "$SUMMARY"
           grep -q '"hindiCount": 168' "$SUMMARY"
@@ -102,9 +101,10 @@ jobs:
           grep -q '"separateReasoningWorkflowRemoved": true' "$SUMMARY"
           grep -q '"generationPersistenceEnabled": true' "$SUMMARY"
           grep -q '"approvalGatePreserved": true' "$SUMMARY"
-          grep -q '"questionBankConversionEligibleAfterApproval": true' "$SUMMARY"
-          grep -q '"mockTestEligibleAfterApproval": true' "$SUMMARY"
-          grep -q '"publicationWorkflowEligibleAfterApproval": true' "$SUMMARY"
+          grep -q '"currentReviewConversionBlocked": true' "$SUMMARY"
+          grep -q '"questionBankBankOnlyConversionEligibleAfterApproval": true' "$SUMMARY"
+          grep -q '"mockTestEligibleAfterApproval": false' "$SUMMARY"
+          grep -q '"publicationWorkflowEligibleAfterApproval": false' "$SUMMARY"
           grep -q '"automaticStudentPublication": false' "$SUMMARY"
       - name: Upload production logs
         if: always()

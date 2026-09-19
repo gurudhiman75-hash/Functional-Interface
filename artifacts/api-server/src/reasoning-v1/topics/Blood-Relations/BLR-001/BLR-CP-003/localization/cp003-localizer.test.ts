@@ -137,6 +137,9 @@ for (let index = 0; index < canonical.length; index += 1) {
     });
     captureInvariant(source, locale, "option-count", () => assert.equal(localized.options.length, 4));
     captureInvariant(source, locale, "option-analysis-count", () => assert.equal(localized.editorial.optionAnalysis.length, 4));
+    captureInvariant(source, locale, "machine-like-established-wording", () => {
+      assert.doesNotMatch(localized.stem, /स्थापित|ਸਥਾਪਿਤ/);
+    });
     recordLeak(locale, source, localized);
   }
 }

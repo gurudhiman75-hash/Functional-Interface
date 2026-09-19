@@ -1,4 +1,5 @@
 import type { BlrCp003FinalApprovedRecord } from "../cp003-final-approved-bank";
+import { localizeBlrPersonNamesInText } from "../../foundation/localized-person-names";
 import type { BlrCp003TranslatedLocale } from "./cp003-language-pack";
 import { localizedBlrCp003SharedPromptCompleteV5 } from "./cp003-passage-grammar-v5";
 
@@ -71,7 +72,10 @@ export function localizedBlrCp003SharedPromptCompleteV6(
   record: BlrCp003FinalApprovedRecord,
   locale: BlrCp003TranslatedLocale,
 ): string {
-  return splitSentences(record.sharedPrompt)
-    .map((sentence) => localizeSixthWaveSentence(record, sentence, locale))
-    .join(" ");
+  return localizeBlrPersonNamesInText(
+    splitSentences(record.sharedPrompt)
+      .map((sentence) => localizeSixthWaveSentence(record, sentence, locale))
+      .join(" "),
+    locale,
+  );
 }

@@ -40,6 +40,8 @@ const observedAuthorities = new Set<string>();
 const observedSourcePrototypes = new Set<string>();
 const namedRelationOutputs = new Set<string>();
 const fingerprintsByQl = new Map<BlrCp001QlId, Set<string>>();
+const difficultyByStructuralSignature = new Map<string, string>();
+let difficultyStructuralRecheckCount = 0;
 let generatedCount = 0;
 
 for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
@@ -83,6 +85,11 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
 
     assert.ok(first.stem.trim().length > 40);
     assert.ok(first.stem.endsWith("?"));
+    assert.doesNotMatch(
+      first.stem,
+      /^(?:Read|Study|Consider|Use)\b.*(?:family|relations?|information|statements?)/i,
+      `${contract.qlId}/${seed} should begin with the actual relation evidence, not a generic instruction opener.`,
+    );
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options.map((option) => option.value)).size, 4);
     assert.equal(first.options.filter((option) => option.isCorrect).length, 1);
@@ -115,6 +122,27 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
     fingerprints.add(fingerprint);
     answerPositions[first.correctIndex] += 1;
     difficulties.add(first.difficulty);
+    const structuralDifficultyKey = [
+      first.metadata.sourcePrototypeId,
+      first.answerType,
+      first.metadata.pathLength ?? "NO_PATH",
+      first.metadata.clueCount ?? "NO_CLUE_COUNT",
+      first.metadata.generationDelta ?? "NO_GENERATION_DELTA",
+      first.metadata.targetTruth ?? "NO_TRUTH_TARGET",
+      first.metadata.targetGender ?? "NO_GENDER_TARGET",
+      first.metadata.broadRelationId ?? "NO_BROAD_RELATION",
+    ].join("::");
+    const previousDifficulty = difficultyByStructuralSignature.get(structuralDifficultyKey);
+    if (previousDifficulty) {
+      difficultyStructuralRecheckCount += 1;
+      assert.equal(
+        first.difficulty,
+        previousDifficulty,
+        `${contract.qlId}/${seed} changed difficulty for the same completed solve-burden signature.`,
+      );
+    } else {
+      difficultyByStructuralSignature.set(structuralDifficultyKey, first.difficulty);
+    }
     renderers.add(first.renderer);
     answerTypes.add(first.answerType);
     observedAuthorities.add(String(first.metadata.solveAuthority));
@@ -135,6 +163,10 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
 assert.equal(generatedCount, 1024);
 assert.deepEqual(answerPositions, [256, 256, 256, 256]);
 assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
+assert.ok(
+  difficultyStructuralRecheckCount > 0,
+  "Difficulty audit must compare repeated structural signatures across seeds.",
+);
 assert.deepEqual([...renderers].sort(), [
   "FAMILY_TREE_EXPLANATION",
   "STRUCTURED_TEXT",
@@ -170,6 +202,7 @@ console.log("BLR-CP-001 permanent English runtime audit passed.", {
   solveAuthorityCount: observedAuthorities.size,
   namedRelationCount: namedRelationOutputs.size,
   difficulties: [...difficulties].sort(),
+  difficultyStructuralRecheckCount,
   renderers: [...renderers].sort(),
   answerTypes: [...answerTypes].sort(),
 });

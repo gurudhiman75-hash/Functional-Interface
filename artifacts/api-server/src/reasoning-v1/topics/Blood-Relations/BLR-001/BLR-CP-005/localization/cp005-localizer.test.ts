@@ -63,6 +63,53 @@ for (let index = 0; index < canonical.length; index += 1) {
     assert.equal(localized.metadata.productDeliveryUnlocked, false);
     assert.equal(localized.metadata.productionStagingApproved, false);
     assert.equal(localized.metadata.semanticParity, "EXECUTABLE_PROVED");
+    assert.doesNotMatch(localized.stem, /की (?:न्यूनतम|अधिकतम) संभव मान/);
+    assert.doesNotMatch(localized.stem, /संभव हो सकती है|ਸੰਭਵ ਹੋ ਸਕਦੀ ਹੈ/);
+    const learnerExplanation = [
+      ...localized.explanation.coreConcept,
+      ...localized.explanation.modelAudit,
+      localized.explanation.conclusion,
+      ...localized.explanation.familyTrees.flatMap((tree) => [
+        tree.title,
+        tree.modelLabel,
+        tree.accessibleSummary,
+        tree.asciiFallback,
+      ]),
+    ].join(" ");
+    assert.doesNotMatch(
+      learnerExplanation,
+      /मॉडल|ਮਾਡਲ|model-group|परिवार-मॉडल|ਪਰਿਵਾਰਕ ਮਾਡਲ/i,
+      `${localized.itemId}: internal model jargon leaked into learner explanation.`,
+    );
+    const allLearnerText = [
+      localized.sharedPrompt,
+      localized.stem,
+      ...localized.options.map((option) => option.text),
+      ...localized.explanation.coreConcept,
+      ...localized.explanation.modelAudit,
+      localized.explanation.conclusion,
+      localized.explanation.examShortcut,
+      ...localized.explanation.optionAnalysis.map((entry) => entry.explanation),
+      ...localized.explanation.familyTrees.flatMap((tree) => [
+        tree.title,
+        tree.modelLabel,
+        tree.accessibleSummary,
+        tree.asciiFallback,
+      ]),
+    ].join(" ");
+    if (localized.locale === "hi-IN") {
+      assert.doesNotMatch(
+        allLearnerText,
+        / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|परदादी\/परनानी|परपोती\/परनातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू|संतान)(?=$|[\s।,;:!?'"”’])/u,
+        `${localized.itemId}: Hindi relation possessive grammar drifted.`,
+      );
+    } else {
+      assert.doesNotMatch(
+        allLearnerText,
+        / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/ਨਾਤਿਨ|ਪਰਦਾਦੀ\/ਪਰਨਾਨੀ|ਪਰਪੋਤੀ\/ਪਰਨਾਤਿਨ|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ|ਸੰਤਾਨ)(?=$|[\s।,;:!?'"”’])/u,
+        `${localized.itemId}: Punjabi relation possessive grammar drifted.`,
+      );
+    }
     assert.notEqual(localized.sharedPrompt, source.sharedPrompt, `${localized.itemId}: shared prompt was not localized.`);
     assert.notEqual(localized.stem, source.stem, `${localized.itemId}: stem was not localized.`);
     for (let optionIndex = 0; optionIndex < 4; optionIndex += 1) {

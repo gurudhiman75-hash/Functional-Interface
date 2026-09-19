@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations: End-to-End Design
 
-Status: **authoritative chapter design; implementation active; permanent QL count open**.
+Status: **authoritative implemented chapter design; seven checkpoints frozen at 35 permanent QLs (`BLR-QL-001..035`); final Reasoning V1 audit remediation active**.
 
 ## 1. Product objective
 
@@ -53,7 +53,7 @@ Excluded:
 - step, half, adoptive and foster relations in V1 unless later source evidence justifies them;
 - public publication before checkpoint freeze.
 
-## 4. Provisional checkpoint ownership
+## 4. Final checkpoint ownership
 
 | Checkpoint | Ownership |
 |---|---|
@@ -65,7 +65,7 @@ Excluded:
 | `BLR-CP-006` | Coded relations: decode and solve |
 | `BLR-CP-007` | Coded relations: construct, complete and validate |
 
-Checkpoint ownership may freeze before QL allocation, but QL counts must be discovered exhaustively rather than chosen in advance.
+The seven checkpoint boundaries are now final for V1. Their permanent QL inventory is `BLR-QL-001..035`; `BLR-QL-036` remains unallocated. A later checkpoint or QL split requires new source evidence and a materially different solve contract rather than ordinary name, wording, path-length or difficulty variation.
 
 ## 5. Graph model
 
@@ -178,7 +178,7 @@ A student explanation should:
 3. trace the query in the exact requested direction;
 4. state the relation path naturally;
 5. conclude with the answer;
-6. reject the closest misconception.
+6. reject a close misconception only when that extra note materially helps the learner; do not force option-by-option analysis, shortcuts or trap boilerplate onto every question.
 
 Family-tree SVG is initially an explanation and review renderer. It must be generated from solved structured data and must not infer or alter the answer.
 
@@ -224,25 +224,23 @@ source audit
 -> discovery freeze
 ```
 
-The current CP-001 implementation is a prototype proof and creates zero permanent QLs.
+The discovery/freeze process is complete for BLR-CP-001..007. The chapter owns 35 permanent QLs; final audit remediation may improve presentation, lifecycle safety and difficulty calibration without reallocating those identities unless new source evidence proves a missing solve contract.
 
-## 15. Current implementation slice
+## 15. Current implementation and final-audit boundary
 
-Implemented now:
+Implemented:
 
-- family graph types;
-- parent, spouse and sibling validity;
-- direct kinship ontology;
-- exact path solver through three edges;
-- deterministic name and scenario generation;
-- direct, reverse, two-edge and three-edge prototypes;
-- misconception distractors;
-- clue-grounded explanations;
-- 400-question repository audit and dedicated workflow.
+- seven checkpoints, `BLR-CP-001..007`;
+- 35 permanent QLs, `BLR-QL-001..035`;
+- graph, role-chain, shared-family, count/model-space and coded-relation solvers;
+- deterministic misconception-aware options and family-tree explanation evidence;
+- standard admin Question Studio review registration for every checkpoint;
+- multilingual frozen corpora for CP-006 and CP-007;
+- Hindi/Punjabi machine-proved review candidates for CP-003..005.
 
-Next:
+Final-audit holds:
 
-- expand CP-001 into identity, pair, relation-claim, generation and branching prototypes;
-- complete source saturation and merge/split decisions;
-- freeze the actual CP-001 solve inventory;
-- allocate permanent QLs only after the freeze.
+- CP-001 and CP-002 still require Hindi/Punjabi implementation before chapter-wide trilingual closure;
+- CP-003..005 Hindi/Punjabi require human language review/freeze;
+- CP-006 has a learner-facing coded-relation guidance sentence that is more tutorial-like than a normal exam prompt; because CP-006 is multilingual-frozen, changing it requires an explicit superseding multilingual editorial/freeze pass rather than a silent text edit;
+- Question Bank, mock-test and public/student release gates remain separate from Question Studio review registration.

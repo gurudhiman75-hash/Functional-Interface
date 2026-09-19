@@ -7,13 +7,14 @@ import {
   BLR_CP004_QUESTION_STUDIO_PACKAGE_ID,
   BLR_CP005_QUESTION_STUDIO_PACKAGE_ID,
   previewBlrChapterQuestionStudio,
+  releaseAuthorityForBlrChapterPackage,
   type BlrChapterStudioLanguage,
   type BlrChapterStudioPackageId,
 } from "./question-studio-chapter-adapter";
 
 const expected = [
-  [BLR_CP001_QUESTION_STUDIO_PACKAGE_ID, ["BLR-QL-001","BLR-QL-002","BLR-QL-003","BLR-QL-004","BLR-QL-005","BLR-QL-006","BLR-QL-007"], ["en"]],
-  [BLR_CP002_QUESTION_STUDIO_PACKAGE_ID, ["BLR-QL-008"], ["en"]],
+  [BLR_CP001_QUESTION_STUDIO_PACKAGE_ID, ["BLR-QL-001","BLR-QL-002","BLR-QL-003","BLR-QL-004","BLR-QL-005","BLR-QL-006","BLR-QL-007"], ["en","hi","pa"]],
+  [BLR_CP002_QUESTION_STUDIO_PACKAGE_ID, ["BLR-QL-008"], ["en","hi","pa"]],
   [BLR_CP003_QUESTION_STUDIO_PACKAGE_ID, ["BLR-QL-009","BLR-QL-010","BLR-QL-011","BLR-QL-012"], ["en","hi","pa"]],
   [BLR_CP004_QUESTION_STUDIO_PACKAGE_ID, ["BLR-QL-013","BLR-QL-014","BLR-QL-015","BLR-QL-016","BLR-QL-017"], ["en","hi","pa"]],
   [BLR_CP005_QUESTION_STUDIO_PACKAGE_ID, ["BLR-QL-018","BLR-QL-019","BLR-QL-020","BLR-QL-021","BLR-QL-022","BLR-QL-023","BLR-QL-024","BLR-QL-025"], ["en","hi","pa"]],
@@ -40,6 +41,68 @@ for (const [packageId, qls, languages] of expected) {
     }
   }
 }
-assert.throws(() => previewBlrChapterQuestionStudio({ packageId: BLR_CP001_QUESTION_STUDIO_PACKAGE_ID, language: "hi", count: 1 }), /does not support/i);
-assert.throws(() => previewBlrChapterQuestionStudio({ packageId: BLR_CP002_QUESTION_STUDIO_PACKAGE_ID, language: "pa", count: 1 }), /does not support/i);
+for (const language of ["hi", "pa"] as const) {
+  const cp001 = previewBlrChapterQuestionStudio({
+    packageId: BLR_CP001_QUESTION_STUDIO_PACKAGE_ID,
+    language,
+    qlId: "BLR-QL-007",
+    count: 1,
+    seed: `cp001-localized-review:${language}`,
+  });
+  const question = cp001.questions[0]!;
+  assert.equal(question.language, language);
+  assert.equal(question.parameters.reviewStatus, "MULTILINGUAL_FROZEN");
+  assert.equal(question.parameters.recordAuthority, "BLR_CP001_MULTILINGUAL_FROZEN_V1");
+  assert.equal(question.safety.reviewOnly, true);
+  assert.equal(question.safety.questionBankEligible, false);
+  assert.equal(question.safety.mockTestEligible, false);
+  assert.equal(question.safety.publiclyPublishable, false);
+  assert.ok(question.reasoningGraph);
+  assert.equal(question.renderer.familyTreeAvailable, true);
+}
+for (const language of ["hi", "pa"] as const) {
+  const cp002 = previewBlrChapterQuestionStudio({
+    packageId: BLR_CP002_QUESTION_STUDIO_PACKAGE_ID,
+    language,
+    qlId: "BLR-QL-008",
+    count: 1,
+    seed: `cp002-localized-review:${language}`,
+  });
+  const question = cp002.questions[0]!;
+  assert.equal(question.language, language);
+  assert.equal(question.parameters.reviewStatus, "MULTILINGUAL_FROZEN");
+  assert.equal(question.parameters.recordAuthority, "BLR_CP002_MULTILINGUAL_FROZEN_V1");
+  assert.equal(question.safety.reviewOnly, true);
+  assert.equal(question.safety.questionBankEligible, false);
+  assert.equal(question.safety.mockTestEligible, false);
+  assert.equal(question.safety.publiclyPublishable, false);
+  assert.ok(question.reasoningGraph);
+  assert.equal(question.renderer.familyTreeAvailable, true);
+}
+for (const [packageId, authority] of [
+  [BLR_CP001_QUESTION_STUDIO_PACKAGE_ID, "BLR_CP001_MULTILINGUAL_FROZEN_V1"],
+  [BLR_CP002_QUESTION_STUDIO_PACKAGE_ID, "BLR_CP002_MULTILINGUAL_FROZEN_V1"],
+  [BLR_CP003_QUESTION_STUDIO_PACKAGE_ID, "BLR_CP003_MULTILINGUAL_FROZEN_V1"],
+  [BLR_CP004_QUESTION_STUDIO_PACKAGE_ID, "BLR_CP004_MULTILINGUAL_FROZEN_V1"],
+  [BLR_CP005_QUESTION_STUDIO_PACKAGE_ID, "BLR_CP005_MULTILINGUAL_FROZEN_V1"],
+] as const) {
+  for (const language of ["hi", "pa"] as const) {
+    assert.equal(releaseAuthorityForBlrChapterPackage(packageId, language), authority);
+    const sample = previewBlrChapterQuestionStudio({
+      packageId,
+      language,
+      count: 1,
+      seed: `multilingual-frozen:${packageId}:${language}`,
+    });
+    const question = sample.questions[0]!;
+    assert.equal(sample.generationContext.reviewStatus, "MULTILINGUAL_FROZEN");
+    assert.equal(question.parameters.reviewStatus, "MULTILINGUAL_FROZEN");
+    assert.equal(question.parameters.recordAuthority, authority);
+    assert.equal(question.safety.reviewOnly, true);
+    assert.equal(question.safety.questionBankEligible, false);
+    assert.equal(question.safety.mockTestEligible, false);
+    assert.equal(question.safety.publiclyPublishable, false);
+  }
+}
+
 console.log(JSON.stringify({ verdict: "BLR_001_COMPLETE_CHAPTER_QUESTION_STUDIO_ADAPTER_PROVED", checkpointPackagesProved: 5, permanentQlRangeProved: "BLR-QL-001..BLR-QL-025", qlLanguageProofs: proofs, cp006AndCp007RoutesRemainIndependent: true }, null, 2));

@@ -224,7 +224,7 @@ function buildStem(prompt: BlrCp002StructuredPrompt): string {
     return `Pointing to ${personNoun(pointedGender)}, ${speakerName} said, “${statement}” ${question}`;
   }
   if (prompt.presentation === "STAGE") {
-    return `Showing ${anchorName(prompt, "POINTED_PERSON")} on the stage, ${speakerName} said, “${statement}” ${question}`;
+    return `Pointing to ${anchorName(prompt, "POINTED_PERSON")} on the stage, ${speakerName} said, “${statement}” ${question}`;
   }
   if (prompt.pointedPersonId === prompt.speakerId) {
     return `Showing a photograph of ${personNoun(pointedGender)}, ${speakerName} said, “${statement}” ${question}`;
@@ -237,10 +237,10 @@ function difficultyFor(
   roleDepth: number,
   onlyCount: number,
   negativeCount: number,
-  seed: number,
+  _seed: number,
 ): BlrDifficulty {
   if (prototypeId === "BLR-CP002-PROT-SELF-IDENTITY") {
-    return seed % 4 === 0 || negativeCount > 0 ? "MEDIUM" : "EASY";
+    return negativeCount > 0 ? "MEDIUM" : "EASY";
   }
   const score =
     roleDepth +
@@ -248,7 +248,7 @@ function difficultyFor(
     negativeCount +
     (prototypeId.includes("CONVERSATION") ? 2 : 0);
   if (score <= 3) return "EASY";
-  if (score <= 6) return seed % 5 === 0 ? "HARD" : "MEDIUM";
+  if (score <= 6) return "MEDIUM";
   return "HARD";
 }
 

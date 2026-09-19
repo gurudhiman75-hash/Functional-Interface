@@ -67,8 +67,16 @@ for (const contract of BLR_CP001_PROTOTYPE_CONTRACTS) {
     assert.ok(question.metadata.pathLength >= contract.minimumPathLength);
     assert.ok(question.metadata.pathLength <= contract.maximumPathLength);
 
-    assert.ok(question.stem.length > 80);
+    assert.ok(question.stem.length > 35);
+    assert.ok(question.stem.endsWith("?"));
     assert.ok(question.stem.includes("related to") || question.stem.includes("relation to"));
+    assert.doesNotMatch(
+      question.stem,
+      /^(?:Read|Study|Consider|Use)\b.*(?:family|relations?|information|statements?)/i,
+    );
+    const firstClue = question.structuredPrompt.clues[0]!;
+    assert.ok(question.stem.includes(question.structuredPrompt.personNames[firstClue.subjectId]!));
+    assert.ok(question.stem.includes(question.structuredPrompt.personNames[firstClue.referenceId]!));
     assert.ok(question.explanation.ruleStatement.length > 40);
     assert.equal(question.explanation.normalizedClues.length, question.structuredPrompt.clues.length);
     assert.ok(question.explanation.queryPath.length >= 2);

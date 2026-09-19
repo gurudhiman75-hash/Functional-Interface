@@ -288,12 +288,6 @@ export function buildStem(
   prompt: BlrStructuredPrompt,
   random: SeededRandom,
 ): string {
-  const openings = [
-    "Read the following family information carefully.",
-    "Study the relations given below.",
-    "Consider the following statements about a family.",
-    "Use the information below to answer the question.",
-  ] as const;
   const questionForms = [
     (subject: string, reference: string) =>
       `How is ${subject} related to ${reference}?`,
@@ -306,7 +300,6 @@ export function buildStem(
   const referenceName = prompt.personNames[prompt.query.referenceId]!;
 
   return [
-    random.pick(openings),
     ...prompt.clues.map((entry) => formatClue(entry, prompt.personNames)),
     random.pick(questionForms)(subjectName, referenceName),
   ].join(" ");

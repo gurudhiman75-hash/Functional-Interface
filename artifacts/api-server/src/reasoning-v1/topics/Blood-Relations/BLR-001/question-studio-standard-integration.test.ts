@@ -11,7 +11,7 @@ import {
 const packages = listBlr001StandardQuestionStudioPackages();
 assert.equal(packages.length, 7);
 assert.equal(packages.every((entry) => entry.enabled), true);
-assert.deepEqual(packages.slice(0, 2).map((entry) => entry.supportedLanguages), [["en"], ["en"]]);
+assert.deepEqual(packages.slice(0, 2).map((entry) => entry.supportedLanguages), [["en","hi","pa"], ["en","hi","pa"]]);
 assert.equal(packages.slice(2).every((entry) => entry.supportedLanguages.join(",") === "en,hi,pa"), true);
 assert.equal(packages.every((entry) => entry.runtimeMode === "STANDARD_QUESTION_STUDIO"), true);
 for (const pkg of packages) {
@@ -49,11 +49,46 @@ for (const pkg of packages) {
       assert.equal(question.options.length, 4);
       assert.equal(question.correctIndex >= 0 && question.correctIndex < 4, true);
       assert.equal(question.validation?.valid, true);
+      if (language !== "en" && pkg.checkpointId !== "BLR-CP-007") {
+        const approvedAuthorities: Record<string, string> = {
+          "BLR-CP-001": "BLR_CP001_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-002": "BLR_CP002_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-003": "BLR_CP003_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-004": "BLR_CP004_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-005": "BLR_CP005_MULTILINGUAL_FROZEN_V1",
+          "BLR-CP-006": "BLR_CP006_EDITORIAL_V3_MULTILINGUAL_FROZEN_V1",
+        };
+        assert.equal(question.integrationAuthority, approvedAuthorities[pkg.checkpointId]);
+        assert.equal(question.sourceParameters?.reviewStatus, "MULTILINGUAL_FROZEN");
+        assert.equal(question.questionBankStatus, "NOT_STORED");
+        assert.equal(question.questionBankWritable, false);
+        assert.equal(question.questionBankEligible, false);
+        assert.equal(question.testEligibility, "INELIGIBLE");
+        assert.equal(question.mockTestEligible, false);
+        assert.equal(question.publiclyPublishable, false);
+      }
+      if (
+        pkg.packageId === "REASONING_V1_BLR_001_CP_001"
+        || pkg.packageId === "REASONING_V1_BLR_001_CP_002"
+      ) {
+        assert.ok(question.reasoningGraph, `${pkg.packageId}/${qlId} must expose structured family-graph evidence.`);
+        assert.equal(question.renderer?.familyTreeAvailable, true);
+        assert.ok(question.richExplanation?.familyTree);
+      }
       assert.equal(question.runtimeMode, "STANDARD_QUESTION_STUDIO");
       assert.equal(question.reviewStatus, "REVIEW_REQUIRED");
       assert.equal(question.manualApprovalRequired, true);
       assert.equal(question.automaticStudentPublication, false);
+      assert.equal(question.richExplanation?.shortcut, undefined);
+      assert.equal(question.richExplanation?.commonTrap, undefined);
+      assert.equal(question.richExplanation?.examShortcut, undefined);
+      assert.equal(question.richExplanation?.commonTraps, undefined);
+      assert.equal(question.richExplanation?.optionAnalysis, undefined);
+      assert.equal(question.richExplanation?.distractorAnalysis, undefined);
       assert.equal(result.generationContext.persistenceAllowed, true);
+      assert.equal(result.generationContext.questionBankStatus, "NOT_STORED");
+      assert.equal(result.generationContext.testEligibility, "INELIGIBLE");
+      assert.equal(result.generationContext.publiclyPublishable, false);
       validatedQlLanguagePairs += 1;
     }
   }
@@ -69,6 +104,9 @@ assert.equal(cp006.questionBankStatus, "NOT_STORED");
 assert.equal(cp006.testEligibility, "INELIGIBLE");
 assert.equal(cp006.publiclyPublishable, false);
 assert.equal(cp006.reviewOnly, true);
+assert.equal(cp006.integrationAuthority, "BLR_CP006_EDITORIAL_V3_MULTILINGUAL_FROZEN_V1");
+assert.equal(cp006.sourceParameters?.reviewStatus, "MULTILINGUAL_FROZEN");
+assert.doesNotMatch(cp006.sharedPrompt, /गणितीय प्राथमिकता|ਗਣਿਤੀ ਤਰਜੀਹ|arithmetic precedence/i);
 
 for (const language of ["en", "hi", "pa"] as const) {
   const cp007 = generateBlr001StandardQuestionStudioBatch({
@@ -79,10 +117,17 @@ for (const language of ["en", "hi", "pa"] as const) {
   }).questions[0]!;
   assert.equal(cp007.runtimeMode, "STANDARD_QUESTION_STUDIO");
   assert.equal(cp007.reviewStatus, "REVIEW_REQUIRED");
-  assert.equal(cp007.questionBankStatus, "READY_FOR_STORAGE");
-  assert.equal(cp007.testEligibility, "ELIGIBLE");
-  assert.equal(cp007.publiclyPublishable, true);
+  assert.equal(cp007.questionBankStatus, "NOT_STORED");
+  assert.equal(cp007.questionBankWritable, false);
+  assert.equal(cp007.questionBankEligible, false);
+  assert.equal(cp007.testEligibility, "INELIGIBLE");
+  assert.equal(cp007.testEligible, false);
+  assert.equal(cp007.mockTestEligible, false);
+  assert.equal(cp007.publiclyPublishable, false);
+  assert.equal(cp007.publicReleaseStatus, "LOCKED");
+  assert.equal(cp007.reviewOnly, true);
   assert.equal(cp007.manualApprovalRequired, true);
+  assert.equal(cp007.releaseEligibleAfterApproval, true);
   assert.equal(cp007.automaticStudentPublication, false);
 }
 
@@ -136,6 +181,9 @@ console.log(JSON.stringify({
   separateReasoningPanel: false,
   separateReasoningRoutes: false,
   cp001ThroughCp006ReviewOnly: true,
-  cp007QuestionBankEligibleAfterManualApproval: true,
+  cp007ReleaseEligibleAfterManualApproval: true,
+  cp007CurrentQuestionBankWritable: false,
+  cp007CurrentTestEligible: false,
+  cp007CurrentPubliclyPublishable: false,
   automaticStudentPublication: false,
 }, null, 2));

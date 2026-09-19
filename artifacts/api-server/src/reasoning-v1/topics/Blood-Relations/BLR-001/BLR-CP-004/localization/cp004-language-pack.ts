@@ -54,13 +54,13 @@ export function localizedBlrCp004Stem(
 ): string {
   switch (record.sourcePrototypeId) {
     case "BLR-CP004-PROT-COUNT-TOTAL-MEMBERS":
-      return localeText(locale, "परिवार में कुल कितने नामित सदस्य हैं?", "ਪਰਿਵਾਰ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਨਾਮਿਤ ਮੈਂਬਰ ਹਨ?");
+      return localeText(locale, "दिए गए परिवार में कुल कितने सदस्य हैं?", "ਦਿੱਤੇ ਪਰਿਵਾਰ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਮੈਂਬਰ ਹਨ?");
 
     case "BLR-CP004-PROT-COUNT-GENDER-MEMBERS": {
       const male = /male members/i.test(record.stem);
       return male
         ? localeText(locale, "परिवार में कितने पुरुष सदस्य हैं?", "ਪਰਿਵਾਰ ਵਿੱਚ ਕਿੰਨੇ ਪੁਰਸ਼ ਮੈਂਬਰ ਹਨ?")
-        : localeText(locale, "परिवार में कितनी महिला सदस्य हैं?", "ਪਰਿਵਾਰ ਵਿੱਚ ਕਿੰਨੀਆਂ ਮਹਿਲਾ ਮੈਂਬਰ ਹਨ?");
+        : localeText(locale, "परिवार में कितनी महिलाएँ हैं?", "ਪਰਿਵਾਰ ਵਿੱਚ ਕਿੰਨੀਆਂ ਮਹਿਲਾਵਾਂ ਹਨ?");
     }
 
     case "BLR-CP004-PROT-COUNT-MARITAL-STATUS-MEMBERS":
@@ -77,10 +77,10 @@ export function localizedBlrCp004Stem(
 
     case "BLR-CP004-PROT-COUNT-GENERATION-MEMBERS": {
       if (/oldest generation/i.test(record.stem)) {
-        return localeText(locale, "सबसे पुरानी पीढ़ी में कितने सदस्य हैं?", "ਸਭ ਤੋਂ ਵੱਡੀ ਪੀੜ੍ਹੀ ਵਿੱਚ ਕਿੰਨੇ ਮੈਂਬਰ ਹਨ?");
+        return localeText(locale, "सबसे ऊपर की पीढ़ी में कितने सदस्य हैं?", "ਸਭ ਤੋਂ ਉੱਪਰਲੀ ਪੀੜ੍ਹੀ ਵਿੱਚ ਕਿੰਨੇ ਮੈਂਬਰ ਹਨ?");
       }
       if (/youngest generation/i.test(record.stem)) {
-        return localeText(locale, "सबसे नई पीढ़ी में कितने सदस्य हैं?", "ਸਭ ਤੋਂ ਛੋਟੀ ਪੀੜ੍ਹੀ ਵਿੱਚ ਕਿੰਨੇ ਮੈਂਬਰ ਹਨ?");
+        return localeText(locale, "सबसे नीचे की पीढ़ी में कितने सदस्य हैं?", "ਸਭ ਤੋਂ ਹੇਠਲੀ ਪੀੜ੍ਹੀ ਵਿੱਚ ਕਿੰਨੇ ਮੈਂਬਰ ਹਨ?");
       }
       const generation = /generation (-?\d+)/i.exec(record.stem)?.[1];
       if (generation !== undefined) {
@@ -98,8 +98,8 @@ export function localizedBlrCp004Stem(
       const reference = match[2]!;
       return localeText(
         locale,
-        `परिवार में ${reference} के ${relation} के रूप में कितने सदस्य नामित हैं?`,
-        `ਪਰਿਵਾਰ ਵਿੱਚ ${reference} ਦੇ ${relation} ਵਜੋਂ ਕਿੰਨੇ ਮੈਂਬਰ ਨਾਮਿਤ ਹਨ?`,
+        `दिए गए परिवार में ${reference} से ${relation} का संबंध रखने वाले कितने सदस्य हैं?`,
+        `ਦਿੱਤੇ ਪਰਿਵਾਰ ਵਿੱਚ ${reference} ਨਾਲ ${relation} ਦਾ ਰਿਸ਼ਤਾ ਰੱਖਣ ਵਾਲੇ ਕਿੰਨੇ ਮੈਂਬਰ ਹਨ?`,
       );
     }
 
@@ -108,8 +108,8 @@ export function localizedBlrCp004Stem(
       if (!match) throw new Error(`CP-004 localization: unsupported shared-children stem '${record.stem}'.`);
       return localeText(
         locale,
-        `परिवार में ${match[1]} और ${match[2]} की कितनी संतानें नामित हैं?`,
-        `ਪਰਿਵਾਰ ਵਿੱਚ ${match[1]} ਅਤੇ ${match[2]} ਦੀਆਂ ਕਿੰਨੀਆਂ ਸੰਤਾਨਾਂ ਨਾਮਿਤ ਹਨ?`,
+        `दिए गए परिवार में ${match[1]} और ${match[2]} की कितनी संतानें हैं?`,
+        `ਦਿੱਤੇ ਪਰਿਵਾਰ ਵਿੱਚ ${match[1]} ਅਤੇ ${match[2]} ਦੀਆਂ ਕਿੰਨੀਆਂ ਸੰਤਾਨਾਂ ਹਨ?`,
       );
     }
 
