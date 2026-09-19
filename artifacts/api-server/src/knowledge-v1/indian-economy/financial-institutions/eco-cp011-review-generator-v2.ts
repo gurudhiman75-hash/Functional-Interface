@@ -20,6 +20,7 @@ const STEM_REVISIONS_V2: Readonly<Record<string, string>> = Object.freeze({
   "Which statement best distinguishes a sector-specific DFI from an NBFC category?": "Which statement correctly distinguishes a sector-specific DFI from an NBFC?",
   "NHB is primarily associated with development of which financial sector?": "Which financial sector does NHB support?",
   "NaBFID is primarily focused on:": "What is the core financing focus of NaBFID?",
+  "Which statement best reflects NHB's position after the 2019 regulatory change?": "Which statement correctly describes NHB's position after the 2019 regulatory change?",
 });
 
 export function generateEcoCp011ReviewV2(): EcoCp011ReviewQuestion[] {
