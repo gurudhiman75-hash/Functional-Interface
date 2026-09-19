@@ -1,6 +1,6 @@
 # COA-001 / COA-CP-012 — Internal Eligibility Evaluation
 
-Status: **TECHNICALLY QUALIFIED CANDIDATE / PRODUCT-OWNER APPROVAL PENDING**
+Status: **APPROVED / INTERNAL QUESTION BANK + TEST + MOCK ELIGIBILITY ENABLED**
 
 ## Source authority
 
@@ -25,23 +25,25 @@ Eligibility recommendation:
 - student delivery: **NOT AUTHORIZED**
 - automatic student publication: **NOT AUTHORIZED**
 
-## Non-activating candidate state
+## Approved internal lifecycle
 
-Until explicit CP012 product-owner approval:
+Product-owner approval was recorded on **2026-09-19**.
 
-- live Question Studio authority remains **CP011**
-- review-only remains **TRUE**
-- manual approval remains **REQUIRED**
-- canonical Question Bank persistence remains **CLOSED**
-- `questionBankWritable = false`
-- `testEligible = false`
-- `mockTestEligible = false`
+Current lifecycle:
+- live Question Studio authority: **CP012**
+- review-only: **FALSE**
+- manual approval required: **FALSE**
+- canonical Question Bank persistence: **ENABLED**
+- `questionBankWritable = true`
+- `testEligible = true`
+- `mockTestEligible = true`
 - `publiclyPublishable = false`
 - `publicReleaseAuthorized = false`
 - `studentDeliveryAuthorized = false`
-- learner release remains **LOCKED**
+- `automaticStudentPublication = false`
+- learner release: **INTERNAL_ELIGIBLE**
 
-The CP012 candidate can be generated explicitly for proof/review through `cpId = COA-CP-012`, but it is not the implicit live runtime authority.
+This is an internal lifecycle promotion only. It does not authorize public/student delivery.
 
 ## Eligibility evidence inherited from CP011
 
@@ -71,10 +73,11 @@ The CP012 candidate can be generated explicitly for proof/review through `cpId =
 - live Question Studio registry remains on CP011;
 - public/student release remains locked.
 
-## Approval decision
+## Approval record
 
-If CP012 is approved, the next lifecycle overlay may set:
+Approved by the product owner on **2026-09-19**.
 
+The approved lifecycle sets:
 - `reviewOnly = false`
 - `manualApprovalRequired = false`
 - `persistenceAllowed = true`
@@ -84,11 +87,10 @@ If CP012 is approved, the next lifecycle overlay may set:
 - `testEligible = true`
 - `mockTestEligible = true`
 
-while preserving:
-
+and preserves:
 - `publiclyPublishable = false`
 - `publicReleaseAuthorized = false`
 - `studentDeliveryAuthorized = false`
 - `automaticStudentPublication = false`
 
-Approval must be explicit. Green CI alone does not activate internal eligibility.
+Public/student release remains a separate gate.
