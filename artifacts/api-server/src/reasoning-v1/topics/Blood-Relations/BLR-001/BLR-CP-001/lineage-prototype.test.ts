@@ -65,7 +65,15 @@ for (const contract of BLR_CP001_LINEAGE_PROTOTYPE_CONTRACTS) {
     assert.equal(solved.broadRelationId, question.metadata.broadRelationId);
     assert.equal(solved.exactLineageRelationId, question.metadata.exactLineageRelationId);
 
-    assert.ok(question.stem.length > 100);
+    assert.ok(question.stem.length > 55);
+    assert.ok(question.stem.endsWith("?"));
+    assert.doesNotMatch(
+      question.stem,
+      /^(?:Read|Study|Consider|Use)\b.*(?:family|relations?|information|statements?)/i,
+    );
+    const firstClue = question.structuredPrompt.clues[0]!;
+    assert.ok(question.stem.includes(question.structuredPrompt.personNames[firstClue.subjectId]!));
+    assert.ok(question.stem.includes(question.structuredPrompt.personNames[firstClue.referenceId]!));
     assert.equal(question.explanation.normalizedClues.length, question.structuredPrompt.clues.length);
     assert.ok(question.explanation.queryPath.length >= 2);
     assert.ok(question.explanation.ruleStatement.length > 50);
