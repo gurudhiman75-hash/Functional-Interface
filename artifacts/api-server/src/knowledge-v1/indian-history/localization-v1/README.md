@@ -44,7 +44,7 @@ Implemented scope:
 - `HIS-CP-013` British Administration & Economic Policies — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- `HIS-CP-014` Revolt of 1857 & Socio-Religious Reform — approved for merge
+- `HIS-CP-014` Revolt of 1857 & Socio-Religious Reform — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
 - cumulative CP001–CP014: 834 questions per locale / 2502 EN-HI-PA surfaces
