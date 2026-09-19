@@ -50,6 +50,22 @@ describe("POL-001 Question Studio review-only registration", () => {
     }
   });
 
+  it("materializes every frozen CP selector independently", async () => {
+    for (const cpId of POL_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.cpIds) {
+      const result = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
+        packageId: "POL-001",
+        patternId: cpId,
+        count: 1,
+        seed: `pol001-smoke-${cpId}`,
+      });
+      expect(result.questions).toHaveLength(1);
+      expect((result.questions[0] as any).cpId).toBe(cpId);
+      expect((result.questions[0] as any).canonicalAnswer).toBe(
+        (result.questions[0] as any).options[(result.questions[0] as any).correctIndex],
+      );
+    }
+  });
+
   it("supports CP selectors", async () => {
     const result = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
       packageId: "POL-001",
