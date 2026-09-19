@@ -2,6 +2,8 @@
 
 Status: **APPROVED / INTERNAL QUESTION BANK + TEST + MOCK ELIGIBILITY ENABLED**
 
+Chapter status: **CLOSED**
+
 ## Source authority
 
 CP012 is a lifecycle-only evaluation over the frozen CP011 surface.
@@ -94,3 +96,20 @@ and preserves:
 - `automaticStudentPublication = false`
 
 Public/student release remains a separate gate.
+
+
+## Chapter closure
+
+COA-001 is closed for the current content-engine/internal lifecycle.
+
+Closure basis:
+- CP001–CP012 approved/frozen as applicable;
+- final English taxonomy frozen;
+- Hindi/Punjabi corpus frozen;
+- Question Studio integration active;
+- final editorial/diversity audit green;
+- internal Question Bank/Test/Mock eligibility approved;
+- CP010, CP011 and CP012 exact-head proofs green;
+- production build, route registry, CI hygiene and branch topology green.
+
+Public/student publication is deliberately outside this closure and remains locked behind a separate release authorization.
