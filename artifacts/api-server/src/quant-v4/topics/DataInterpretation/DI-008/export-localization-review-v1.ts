@@ -15,14 +15,14 @@ function escapeCell(value: unknown) {
 const lines: string[] = [
   "# DI-008 Hindi/Punjabi Localization Review V1",
   "",
-  "Status: HI_PA_REVIEW_CANDIDATE",
+  "Status: HI_PA_FROZEN",
   "",
   "This review pack is generated directly from the DI-008 localization candidate. Numeric table values, options, correct index and canonical answer remain identical to the approved English authority.",
   "",
   "- Permanent QLs: DI-QL-085 through DI-QL-096",
   "- Hindi: hi-IN",
   "- Punjabi: pa-IN",
-  "- Localized Question Studio activation: NOT AUTHORIZED",
+  "- Localized Question Studio activation: CONTROLLED_REVIEW",
   "- Question Bank: NOT_STORED",
   "- Tests/mocks/publication: locked",
   "",
@@ -77,7 +77,7 @@ for (const locale of locales) {
 lines.push(
   "## Review Gate",
   "",
-  "Hindi/Punjabi remain review candidates. Approval of this file is required before the localized surfaces can be frozen or enabled in controlled Question Studio review.",
+  "Hindi/Punjabi are frozen multilingual authorities and are enabled only in controlled Question Studio review. Question Bank, tests, mocks and public/student publication remain locked.",
   "",
 );
 
