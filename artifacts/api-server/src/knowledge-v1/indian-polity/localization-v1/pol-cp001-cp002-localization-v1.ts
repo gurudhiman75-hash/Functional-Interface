@@ -244,10 +244,20 @@ function cp1Stem(q: (typeof CP001_EN)[number], locale: NativeLocale): string {
 function cp1Explanation(q: (typeof CP001_EN)[number], locale: NativeLocale): string {
   const ql = Number(q.qlId.slice(-3));
   const answer = cp1Option(q.canonicalAnswer, locale);
-  if ([1, 2, 4, 7].includes(ql)) {
+  if (ql === 1 || ql === 7) {
     return locale === "hi"
-      ? `${answer} सही उत्तर है। यह इस संवैधानिक विकास से जुड़ा प्रमुख तथ्य है।`
-      : `${answer} ਸਹੀ ਉੱਤਰ ਹੈ। ਇਹ ਇਸ ਸੰਵਿਧਾਨਕ ਵਿਕਾਸ ਨਾਲ ਜੁੜਿਆ ਮੁੱਖ ਤੱਥ ਹੈ।`;
+      ? `सही अधिनियम है: ${answer}।`
+      : `ਸਹੀ ਐਕਟ ਹੈ: ${answer}।`;
+  }
+  if (ql === 2) {
+    return locale === "hi"
+      ? `सही प्रावधान है: ${answer}।`
+      : `ਸਹੀ ਪ੍ਰਬੰਧ ਹੈ: ${answer}।`;
+  }
+  if (ql === 4) {
+    return locale === "hi"
+      ? `सही सुमेलित युग्म है: ${answer}।`
+      : `ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਜੋੜ ਹੈ: ${answer}।`;
   }
   if (ql === 3) {
     const row = cp1RowByTitle(q.canonicalAnswer);
@@ -287,7 +297,7 @@ function cp1Explanation(q: (typeof CP001_EN)[number], locale: NativeLocale): str
     const middle = cp1RowByTitle(q.canonicalAnswer);
     return locale === "hi" ? `सही उत्तर ${answer} है। यह ${middle.year} में पारित हुआ और दिए गए दोनों अधिनियमों के बीच आता है।` : `ਸਹੀ ਉੱਤਰ ${answer} ਹੈ। ਇਹ ${middle.year} ਵਿੱਚ ਪਾਸ ਹੋਇਆ ਅਤੇ ਦਿੱਤੇ ਦੋਵੇਂ ਐਕਟਾਂ ਦੇ ਵਿਚਕਾਰ ਆਉਂਦਾ ਹੈ।`;
   }
-  if (ql === 12) return locale === "hi" ? `${answer} दोनों अधिनियमों की प्रमुख विशेषताओं का सही अंतर बताता है।` : `${answer} ਦੋਵੇਂ ਐਕਟਾਂ ਦੀਆਂ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਦਾ ਸਹੀ ਫਰਕ ਦੱਸਦਾ ਹੈ।`;
+  if (ql === 12) return locale === "hi" ? `सही अंतर है: ${answer}।` : `ਸਹੀ ਫਰਕ ਹੈ: ${answer}।`;
   throw new Error(`${q.questionId}: unsupported CP001 explanation QL ${ql}`);
 }
 
