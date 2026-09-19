@@ -11,7 +11,7 @@ import { generatePolCp010ReviewBatchV1 } from "./parliament-structure-officers/p
 import { generatePolCp011ReviewBatchV2 } from "./parliament-procedure-finance/pol-cp011-review-generator-v2";
 import { generatePolCp012ReviewBatchV3 } from "./supreme-court/pol-cp012-review-generator-v3";
 import { generatePolCp013ReviewBatchV2 } from "./high-courts-subordinate-judiciary-writs/pol-cp013-review-generator-v2";
-import { generatePolCp014ReviewBatchV2 } from "./governor/pol-cp014-review-generator-v2";
+import { generatePolCp014ReviewBatchV3 } from "./governor/pol-cp014-review-generator-v3";
 import { generatePolCp015ReviewBatchV1 } from "./chief-minister-state-council/pol-cp015-review-generator-v1";
 import { generatePolCp016ReviewBatchV2 } from "./state-legislature/pol-cp016-review-generator-v2";
 import { generatePolCp017ReviewBatchV2 } from "./centre-state-relations/pol-cp017-review-generator-v2";
@@ -23,7 +23,7 @@ import { generatePolCp022ReviewBatchV2 } from "./constitutional-bodies/pol-cp022
 import { generatePolCp023ReviewBatchV1 } from "./statutory-executive-bodies/pol-cp023-review-candidate-v1";
 import { generatePolCp024ReviewBatchV1 } from "./official-language-scheduled-tribal-areas/pol-cp024-review-candidate-v1";
 import { generatePolCp025ReviewBatchV1 } from "./union-territories-special-state-provisions/pol-cp025-review-candidate-v1";
-import { generatePolCp026ReviewBatchV1 } from "./public-services-administrative-tribunals/pol-cp026-review-candidate-v1";
+import { generatePolCp026ReviewBatchV3 } from "./public-services-administrative-tribunals/pol-cp026-review-candidate-v3";
 import { generatePolCp027ReviewBatchV1 } from "./trade-commerce-cooperative-societies/pol-cp027-review-candidate-v1";
 
 type AuditQuestion = {
@@ -55,7 +55,7 @@ const batches: Array<[string, AuditQuestion[]]> = [
   ["POL-CP-011", generatePolCp011ReviewBatchV2()],
   ["POL-CP-012", generatePolCp012ReviewBatchV3()],
   ["POL-CP-013", generatePolCp013ReviewBatchV2()],
-  ["POL-CP-014", generatePolCp014ReviewBatchV2()],
+  ["POL-CP-014", generatePolCp014ReviewBatchV3()],
   ["POL-CP-015", generatePolCp015ReviewBatchV1()],
   ["POL-CP-016", generatePolCp016ReviewBatchV2()],
   ["POL-CP-017", generatePolCp017ReviewBatchV2()],
@@ -67,7 +67,7 @@ const batches: Array<[string, AuditQuestion[]]> = [
   ["POL-CP-023", generatePolCp023ReviewBatchV1()],
   ["POL-CP-024", generatePolCp024ReviewBatchV1()],
   ["POL-CP-025", generatePolCp025ReviewBatchV1()],
-  ["POL-CP-026", generatePolCp026ReviewBatchV1()],
+  ["POL-CP-026", generatePolCp026ReviewBatchV3()],
   ["POL-CP-027", generatePolCp027ReviewBatchV1()],
 ];
 
@@ -175,6 +175,19 @@ for (const q of [stateLeg[18], stateLeg[19]]) {
   assert(q.explanation.includes("• Citizen of India"), `${q.questionId}: missing citizenship qualification`);
   assert(q.explanation.includes("• Make the prescribed oath or affirmation"), `${q.questionId}: missing oath qualification`);
   assert(q.explanation.includes("• Meet any other qualifications prescribed by Parliament by law"), `${q.questionId}: missing statutory qualification link`);
+}
+
+const governorOwnership = batches.find(([id]) => id === "POL-CP-014")![1];
+const governorDirectText = governorOwnership.map(q => `${q.stem} ${q.canonicalAnswer ?? q.options[q.correctIndex]}`).join("\n");
+assert(!/Who appoints the Advocate-General|Advocate-General must be qualified|Advocate-General.*holds office|remuneration of the Advocate-General/i.test(governorDirectText), "POL-CP-014: direct Advocate-General ownership leak remains");
+assert(!/maximum size of a State Council of Ministers|minimum number of Ministers|remain in office without becoming a member/i.test(governorDirectText), "POL-CP-014: standalone ministry ownership leak remains");
+
+const servicesOwnership = batches.find(([id]) => id === "POL-CP-026")![1];
+const ql013 = servicesOwnership.filter(q => q.qlId === "POL-026-QL-013");
+assert(ql013.length === 4, "POL-CP-026: expected four QL013 ownership-remediation questions");
+for (const q of ql013) {
+  const answer = q.canonicalAnswer ?? q.options[q.correctIndex];
+  assert(!/Public Service Commission|Article 315/i.test(answer), `${q.questionId}: CP022-owned PSC fact remains as direct answer`);
 }
 
 console.log(JSON.stringify({
