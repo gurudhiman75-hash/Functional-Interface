@@ -23,7 +23,7 @@ The approved English V3 learner source is not edited in place. This V4 candidate
 ## Learner-content changes proposed
 
 1. Broaden integer-root states with independently varied base values, root gaps and separation.
-2. Vary monic/non-monic coefficient presentation using small positive scale factors.
+2. Keep generated quadratics primitive so diversity comes from mathematical states rather than multiplying an unchanged equation by a common factor.
 3. Expand irrational-conjugate states across radicands 2, 3, 5, 6, 7 and 10.
 4. Replace the repeated one-line `Equation I ... Equation II ... Compare x and y.` frame with four natural Banking-style frames.
 5. Replace exhaustive pair-list explanations with a simpler range/boundary argument where possible.
