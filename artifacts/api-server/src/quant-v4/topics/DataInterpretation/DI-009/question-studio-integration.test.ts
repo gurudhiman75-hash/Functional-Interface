@@ -7,11 +7,15 @@ import {
   DI009_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
   DI009_QUESTION_STUDIO_RUNTIME_MODE,
   generateDi009QuestionStudioBatch,
+  isDi009QuestionStudioRequest,
 } from "./question-studio-adapter";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
+
+assert(!isDi009QuestionStudioRequest({ questionLanguageId: "DI-QL-014" }), "DI-009 must not intercept DI-010 QLs.");
+assert(!isDi009QuestionStudioRequest({ questionLanguageId: "DI-QL-085" }), "DI-009 must not intercept DI-008 QLs.");
 
 const card = quantV4QuestionStudioAdapter.listPackages().find((pkg) => pkg.packageId === "DI-009");
 assert(card, "DI-009 is missing from the shared Quant V4 Question Studio package list.");
