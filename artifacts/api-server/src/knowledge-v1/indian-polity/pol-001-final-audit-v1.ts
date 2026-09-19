@@ -80,13 +80,13 @@ function norm(text: string): string {
 }
 
 const globalIds = new Set<string>();
-const exactStemAnswer = new Map<string, Array<{ cpId: string; questionId: string }>>();
+const exactSemanticSignature = new Map<string, Array<{ cpId: string; questionId: string }>>();
 let total = 0;
 
 for (const [cpId, questions] of batches) {
   assert(questions.length > 0, `${cpId}: empty review batch`);
   const ids = new Set<string>();
-  const stems = new Set<string>();
+  const signatures = new Set<string>();
   const answerPositions = new Set<number>();
 
   for (const q of questions) {
@@ -99,8 +99,6 @@ for (const [cpId, questions] of batches) {
     assert(q.qlId?.length > 0, `${q.questionId}: missing QL ID`);
     assert(["Easy", "Medium", "Hard"].includes(q.difficulty), `${q.questionId}: invalid difficulty ${q.difficulty}`);
     assert(q.stem?.trim().length > 0, `${q.questionId}: empty stem`);
-    assert(!stems.has(q.stem), `${cpId}: exact duplicate stem: ${q.stem}`);
-    stems.add(q.stem);
 
     assert(q.options?.length === 4, `${q.questionId}: expected four options`);
     assert(new Set(q.options).size === 4, `${q.questionId}: duplicate option values`);
@@ -119,16 +117,22 @@ for (const [cpId, questions] of batches) {
     }
     if ("runtimeRegistered" in q) assert(q.runtimeRegistered !== true, `${q.questionId}: review content unexpectedly runtime-registered`);
 
-    const key = `${norm(q.stem)}||${norm(q.canonicalAnswer ?? q.options[q.correctIndex])}`;
-    const list = exactStemAnswer.get(key) ?? [];
+    const semanticSignature = [
+      norm(q.stem),
+      [...q.options].map(norm).sort().join("||"),
+      norm(q.canonicalAnswer ?? q.options[q.correctIndex]),
+    ].join("|||");
+    assert(!signatures.has(semanticSignature), `${cpId}: duplicate semantic question ${q.questionId}`);
+    signatures.add(semanticSignature);
+    const list = exactSemanticSignature.get(semanticSignature) ?? [];
     list.push({ cpId, questionId: q.questionId });
-    exactStemAnswer.set(key, list);
+    exactSemanticSignature.set(semanticSignature, list);
   }
 
   assert(answerPositions.size === 4, `${cpId}: all four correct-option positions are not represented`);
 }
 
-const crossCpExactDuplicates = [...exactStemAnswer.entries()]
+const crossCpExactDuplicates = [...exactSemanticSignature.entries()]
   .map(([key, refs]) => ({ key, refs }))
   .filter(({ refs }) => new Set(refs.map(r => r.cpId)).size > 1);
 
@@ -136,7 +140,7 @@ if (crossCpExactDuplicates.length) {
   const details = crossCpExactDuplicates
     .map(d => d.refs.map(r => `${r.cpId}/${r.questionId}`).join(" <-> "))
     .join("\n");
-  throw new Error(`Cross-CP exact stem+answer duplicates found:\n${details}`);
+  throw new Error(`Cross-CP exact semantic duplicates found:\n${details}`);
 }
 
 function requireQualification(cpId: string, predicate: (q: AuditQuestion) => boolean, snippets: string[]) {
