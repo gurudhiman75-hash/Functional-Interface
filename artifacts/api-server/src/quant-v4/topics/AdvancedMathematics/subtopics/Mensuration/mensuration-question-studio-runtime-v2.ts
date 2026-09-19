@@ -410,7 +410,7 @@ function targetedRepeatStemVariantIndex(
     ) % variantCount;
   }
 
-  return mixedHash(`${seed}:targeted-repeat-stem:${patternId}`) % variantCount;
+  return hashText(`${seed}:targeted-repeat-stem:${patternId}`) % variantCount;
 }
 
 function applyTargetedRepeatStemVariant(patternId: string, seed: string, stem: string) {
