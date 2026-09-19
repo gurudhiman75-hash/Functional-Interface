@@ -34,7 +34,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
   [
     3,
     "Hard",
-    "Destruction of many alveolar walls would reduce oxygen uptake mainly because it:",
+    "Why does destruction of alveolar walls reduce oxygen uptake?",
     "Decreases the surface area available for gas exchange",
     [
       "Increases the amount of haemoglobin in blood",
@@ -109,7 +109,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
   [
     4,
     "Medium",
-    "During quiet exhalation, air leaves the lungs mainly because:",
+    "During quiet exhalation, why does air leave the lungs?",
     "Thoracic volume decreases and lung pressure rises",
     [
       "Thoracic volume increases further",
@@ -139,7 +139,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
   [
     5,
     "Easy",
-    "Oxygen moves from alveoli into blood mainly by:",
+    "Oxygen moves from the alveoli into the blood by:",
     "Diffusion",
     [
       "Active transport",
@@ -154,7 +154,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
   [
     5,
     "Easy",
-    "Carbon dioxide moves from blood into the alveoli mainly by:",
+    "Carbon dioxide moves from the blood into the alveoli by:",
     "Diffusion",
     [
       "Osmosis",
@@ -214,7 +214,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
   [
     5,
     "Hard",
-    "If the alveolar membrane becomes abnormally thick, gas exchange slows mainly because:",
+    "Why does thickening of the alveolar membrane slow gas exchange?",
     "The diffusion distance becomes greater",
     [
       "The number of red blood cells immediately doubles",
