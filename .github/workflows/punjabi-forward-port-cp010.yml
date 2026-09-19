@@ -1,9 +1,9 @@
-name: Validate Punjabi Forward Port CP010
+name: Validate Punjabi Retrofit CP010
 
 on:
   push:
     branches:
-      - "feature/punjabi-forward-port-cp010-v1"
+      - "feature/punjabi-retrofit-cp010-exhaustive-v1"
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
       - ".github/workflows/punjabi-forward-port-cp010.yml"
@@ -14,9 +14,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  validate-cp010:
+  validate-cp010-retrofit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -25,16 +25,16 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Bundle CP010 semantic proof
+      - name: Bundle CP010 retrofit semantic proof
         working-directory: artifacts/api-server
         run: >-
           pnpm exec esbuild
           src/punjabi-v1/packages/PUN-001/checkpoints/CP010/CP010.test.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/punjabi-forward-port-cp010.test.mjs
-      - name: Run CP010 semantic proof
+          --outfile=dist/punjabi-retrofit-cp010.test.mjs
+      - name: Run CP010 retrofit semantic proof
         working-directory: artifacts/api-server
-        run: node dist/punjabi-forward-port-cp010.test.mjs
+        run: node dist/punjabi-retrofit-cp010.test.mjs
       - name: Build API server
         working-directory: artifacts/api-server
         run: pnpm run build
