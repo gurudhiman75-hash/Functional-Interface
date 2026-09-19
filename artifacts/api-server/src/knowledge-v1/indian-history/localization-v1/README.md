@@ -29,7 +29,10 @@ Implemented scope:
 - `HIS-CP-008` Delhi Sultanate — approved for merge
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- cumulative CP001–CP008: 474 questions per locale / 1422 EN-HI-PA surfaces
+- `HIS-CP-010` Mughal Empire — multilingual review candidate
+  - 60 questions per locale
+  - 180 English/Hindi/Punjabi learner surfaces
+- merged baseline CP001–CP008: 474 questions per locale / 1422 EN-HI-PA surfaces
 
 Hindi and Punjabi are human-written learner-facing overlays. They may change wording only; they must preserve frozen English CP, QL, difficulty, source provenance, option order, correct-index and answer semantics.
 
@@ -55,5 +58,6 @@ Review exports:
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP006-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP007-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP008-REVIEW.md`
+- `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP010-REVIEW.md`
 
 These localization checkpoints do not enable Question Studio runtime registration, Question Bank persistence, test/mock eligibility, publication, or automatic learner release.
