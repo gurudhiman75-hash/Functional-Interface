@@ -201,14 +201,14 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     3,
     "Easy",
-    "The plant cell wall is mainly composed of:",
+    "The plant cell wall is composed chiefly of:",
     "cellulose",
     [
       "glycogen",
       "chitin only",
       "starch"
     ],
-    "Plant cell walls are mainly composed of cellulose. The wall gives strength, support and shape to the cell.",
+    "Plant cell walls are composed largely of cellulose. The wall gives strength, support and shape to the cell.",
     [
       "CELL-WALL-CELLULOSE"
     ]
