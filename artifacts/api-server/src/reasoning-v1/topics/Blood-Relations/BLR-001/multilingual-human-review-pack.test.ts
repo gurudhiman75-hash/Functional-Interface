@@ -59,32 +59,24 @@ for (const record of full) {
       editorial: record.editorial ?? null,
       explanation: record.explanation ?? null,
       proceduralLogic: record.proceduralLogic ?? null,
+      decodedStatements: record.decodedStatements ?? null,
     });
     assert.doesNotMatch(
       learnerProjection,
       canonicalNamePattern,
       `${record.itemId}: Roman-script person name leaked into ${record.locale} learner text.`,
     );
-    if (record.checkpointId === "BLR-CP-005") {
+    if (["BLR-CP-001", "BLR-CP-005", "BLR-CP-006"].includes(record.checkpointId)) {
       const badPossessive = record.locale === "hi-IN"
-        ? / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|परदादी\/परनानी|परपोती\/परनातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू|संतान)\b/u
-        : / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/ਨਾਤਿਨ|ਪਰਦਾਦੀ\/ਪਰਨਾਨੀ|ਪਰਪੋਤੀ\/ਪਰਨਾਤਿਨ|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ|ਸੰਤਾਨ)\b/u;
+        ? / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|परदादी\/परनानी|परपोती\/परनातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू|संतान)(?=$|[\s।,;:!?\"”’\)\]\}])/u
+        : / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/(?:ਨਾਤਿਨ|ਦੋਹਤੀ)|ਪਰਦਾਦੀ\/ਪਰਨਾਨੀ|ਪਰਪੋਤੀ\/(?:ਪਰਨਾਤਿਨ|ਪਰਦੋਹਤੀ)|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ|ਸੰਤਾਨ)(?=$|[\s।,;:!?\"”’\)\]\}])/u;
       assert.doesNotMatch(
         learnerProjection,
         badPossessive,
-        `${record.itemId}: CP005 native relation possessive grammar drifted.`,
+        `${record.itemId}: native relation possessive grammar drifted.`,
       );
     }
-    if (record.checkpointId === "BLR-CP-006") {
-      const badPossessive = record.locale === "hi-IN"
-        ? / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू)\b/u
-        : / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/ਨਾਤਿਨ|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ)\b/u;
-      assert.doesNotMatch(
-        learnerProjection,
-        badPossessive,
-        `${record.itemId}: CP006 native relation possessive grammar drifted.`,
-      );
-    }
+
   }
 
   assert.equal(record.reviewOnly, true, `${record.itemId}: reviewOnly`);
