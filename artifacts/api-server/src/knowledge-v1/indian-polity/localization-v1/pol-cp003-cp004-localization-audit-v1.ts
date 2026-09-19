@@ -15,6 +15,11 @@ const cps = [
 const locales: PolLocaleV1[] = ["en","hi","pa"];
 
 function text(q: PolLocalizedQuestionV1){ return [q.stem,...q.options,q.explanation].join("\n"); }
+
+function numericTokens(value:string){
+  return [...new Set(value.match(/\d+[A-Z]?(?:\([a-z0-9]+\))?/g) ?? [])].sort();
+}
+
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
   const t=text(q).replace(/\b(?:I|II|III|IV|V)\b/gu,"");
   assert.equal(/[A-Za-z]{2,}/u.test(t),false,`${q.questionId}: Latin-script leakage`);
@@ -46,12 +51,17 @@ for(const [cpId,english,gen] of cps){
       } else {
         assert.equal(q.questionId,`${e.questionId}-${locale.toUpperCase()}`);
         native(locale,q);
+        const expectedNumeric = numericTokens([e.stem,...e.options,e.explanation].join("\n"));
+        const localizedNumeric = new Set(numericTokens(text(q)));
+        for(const token of expectedNumeric){
+          assert.equal(localizedNumeric.has(token),true,`${q.questionId}: numeric/legal token changed or lost: ${token}`);
+        }
       }
     });
   }
 }
 assert.equal(englishCount,133,"CP003-CP004 authority must contain 133 questions");
-const evidence={chapterId:"POL-001",cps:["POL-CP-003","POL-CP-004"],localizationVersion:"POL-LOCALIZATION-V1",englishQuestions:englishCount,questionsPerLocale:englishCount,locales,totalReviewSurfaces:englishCount*3,semanticInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,qlInvariant:true,sourceInvariant:true,nativeScriptGuard:true,reviewOnly:true,runtimeRegistered:false};
+const evidence={chapterId:"POL-001",cps:["POL-CP-003","POL-CP-004"],localizationVersion:"POL-LOCALIZATION-V1",englishQuestions:englishCount,questionsPerLocale:englishCount,locales,totalReviewSurfaces:englishCount*3,semanticInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,qlInvariant:true,sourceInvariant:true,nativeScriptGuard:true,numericFormInvariant:true,reviewOnly:true,runtimeRegistered:false};
 const dir=path.resolve("dist/polity-review/POL-MULTILINGUAL-V1");
 fs.mkdirSync(dir,{recursive:true});
 fs.writeFileSync(path.join(dir,"POL-CP003-CP004-MULTILINGUAL-PROOF.json"),JSON.stringify(evidence,null,2));
