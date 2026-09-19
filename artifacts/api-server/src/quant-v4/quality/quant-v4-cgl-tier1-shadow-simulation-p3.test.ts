@@ -100,8 +100,8 @@ assert.equal(audit.optionMismatchCount, 0);
 assert.equal(audit.emptyExplanationCount, 0);
 assert.ok(audit.literalStemDuplicateRate >= 0 && audit.literalStemDuplicateRate <= 1);
 assert.ok(
-  audit.normalizedStructuralStemReuseRate > 0.05,
-  "The current empirical shadow run must keep the measured structural-reuse defect visible until remediated.",
+  audit.normalizedStructuralStemReuseRate <= 0.05,
+  "The remediated empirical shadow run must keep normalized structural stem reuse at or below 5%.",
 );
 assert.deepEqual(audit.slotDistribution, {
   ALGEBRA: 60,
@@ -118,7 +118,10 @@ assert.equal((audit.packageDistribution["TRG-001"] ?? 0) + (audit.packageDistrib
 
 assert.equal(audit.blockers.includes("CURRENT_INTEGRATED_BASELINE_CAPABILITY_GAPS_PRESENT"), false);
 assert.ok(audit.blockers.includes("ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK"));
-assert.ok(audit.blockers.includes("SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT"));
+assert.equal(
+  audit.blockers.includes("SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT"),
+  false,
+);
 assert.equal(audit.blockers.includes("SHADOW_CAPABILITY_GAPS_PRESENT"), false);
 assert.equal(audit.blockers.includes("SHADOW_ADVANCED_MATH_CAPABILITY_GAPS_PRESENT"), false);
 assert.equal(audit.blockers.includes("ADVANCED_MATH_LIFECYCLE_CONTRACT_BREACH"), false);
