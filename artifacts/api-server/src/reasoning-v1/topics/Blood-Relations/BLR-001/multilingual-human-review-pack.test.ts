@@ -1,4 +1,5 @@
 import { strict as assert } from "node:assert";
+import { blrCanonicalPersonNames } from "./foundation/localized-person-names";
 
 import {
   buildBlr001MultilingualReviewCorpora,
@@ -45,7 +46,27 @@ assert.equal(summary.currentReleaseLock.publiclyPublishable, false);
 assert.equal(summary.currentReleaseLock.productDeliveryUnlocked, false);
 assert.equal(summary.approvalBoundary.automaticFreeze, false);
 
+const canonicalNamePattern = new RegExp(
+  `\\b(?:${blrCanonicalPersonNames().join("|")})\\b`,
+);
+
 for (const record of full) {
+  if (record.locale === "hi-IN" || record.locale === "pa-IN") {
+    const learnerProjection = JSON.stringify({
+      sharedPrompt: record.sharedPrompt ?? "",
+      stem: record.stem ?? "",
+      options: (record.options ?? []).map((option: any) => option.text ?? option.value ?? ""),
+      editorial: record.editorial ?? null,
+      explanation: record.explanation ?? null,
+      proceduralLogic: record.proceduralLogic ?? null,
+    });
+    assert.doesNotMatch(
+      learnerProjection,
+      canonicalNamePattern,
+      `${record.itemId}: Roman-script person name leaked into ${record.locale} learner text.`,
+    );
+  }
+
   assert.equal(record.reviewOnly, true, `${record.itemId}: reviewOnly`);
   assert.equal(record.questionBankEligible, false, `${record.itemId}: bank lock`);
   assert.equal(record.mockTestEligible, false, `${record.itemId}: mock lock`);

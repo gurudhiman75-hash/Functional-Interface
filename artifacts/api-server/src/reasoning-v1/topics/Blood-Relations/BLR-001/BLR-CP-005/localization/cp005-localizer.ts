@@ -1,4 +1,5 @@
 import type { FamilyGraph } from "../../foundation/types";
+import { localizeBlrPersonName } from "../../foundation/localized-person-names";
 import {
   broadRelation,
   evaluateCount,
@@ -75,13 +76,16 @@ function namesFor(record: GeneratedBlrCp005Question): Map<string, string> {
   return names;
 }
 
-function nameGetter(record: GeneratedBlrCp005Question): (id: string) => string {
+function nameGetter(
+  record: GeneratedBlrCp005Question,
+  locale: Locale,
+): (id: string) => string {
   const names = namesFor(record);
-  return (id) => names.get(id) ?? id;
+  return (id) => localizeBlrPersonName(names.get(id) ?? id, locale);
 }
 
 function localizedSharedPrompt(record: GeneratedBlrCp005Question, locale: Locale): string {
-  const name = nameGetter(record);
+  const name = nameGetter(record, locale);
   switch (record.scenarioId) {
     case "BLR-CP005-SCN-UNKNOWN-ONLY-CHILD-GENDER":
       return localeText(locale, `${name("F")} और ${name("M")} विवाहित हैं। ${name("C")} उनकी एकमात्र संतान है।`, `${name("F")} ਅਤੇ ${name("M")} ਵਿਆਹੇ ਹੋਏ ਹਨ। ${name("C")} ਉਹਨਾਂ ਦੀ ਇਕੱਲੀ ਸੰਤਾਨ ਹੈ।`);
@@ -120,7 +124,7 @@ function localizedGender(value: string, locale: Locale): string {
 }
 
 function assignmentSummary(record: GeneratedBlrCp005Question, assignment: Readonly<Record<string, string>>, locale: Locale): string {
-  const name = nameGetter(record);
+  const name = nameGetter(record, locale);
   return Object.entries(assignment).map(([key, value]) => {
     if (key === "childGender" || key === "secondChildGender") return localeText(locale, `खुली संतान ${localizedGender(value, locale)} है`, `ਖੁੱਲੀ ਸੰਤਾਨ ${localizedGender(value, locale)} ਹੈ`);
     if (key === "parentGender") return localeText(locale, `माता-पिता वाला व्यक्ति ${localizedGender(value, locale)} है`, `ਮਾਤਾ-ਪਿਤਾ ਵਾਲਾ ਵਿਅਕਤੀ ${localizedGender(value, locale)} ਹੈ`);
@@ -163,7 +167,7 @@ function relationMatches(exact: string, target: BlrCp005RelationAnswerId): boole
 }
 
 function renderPredicate(record: GeneratedBlrCp005Question, predicate: BlrCp005Predicate, locale: Locale): string {
-  const name = nameGetter(record);
+  const name = nameGetter(record, locale);
   if (predicate.kind === "RELATION") {
     const relation = localizedRelationLabel(predicate.relationId, locale);
     return localeText(locale, `${name(predicate.subjectId)} ${name(predicate.referenceId)} का ${relation} है।`, `${name(predicate.subjectId)} ${name(predicate.referenceId)} ਦਾ ${relation} ਹੈ।`);
@@ -182,7 +186,7 @@ function renderPredicate(record: GeneratedBlrCp005Question, predicate: BlrCp005P
 
 function localizedOptionText(record: GeneratedBlrCp005Question, option: BlrCp005Option, locale: Locale): string {
   const key = option.semanticKey;
-  const name = nameGetter(record);
+  const name = nameGetter(record, locale);
   if (key === "INDETERMINATE") return localizedCannotDetermine(locale);
   if (key.startsWith("NUMBER:")) return key.slice("NUMBER:".length);
   if (key.startsWith("RELATION:")) return localizedRelationLabel(key.slice("RELATION:".length), locale);
@@ -207,7 +211,7 @@ function localizedOptionText(record: GeneratedBlrCp005Question, option: BlrCp005
 function localizedModelAudit(record: GeneratedBlrCp005Question, locale: Locale): readonly string[] {
   const query = record.querySpec;
   const models = modelsFor(record);
-  const name = nameGetter(record);
+  const name = nameGetter(record, locale);
   const lines: string[] = [];
   if (query.kind === "INVARIANT_RELATION" || query.kind === "RELATION_UNCERTAINTY") {
     for (const [index, model] of models.entries()) {
@@ -330,25 +334,30 @@ function localizedFamilyTrees(
   correctText: string,
 ): readonly BlrCp005FamilyTreeDiagram[] {
   return record.explanation.familyTrees.map((tree, index) => {
-    const rows = [...new Set(tree.nodes.map((node) => node.generation))].sort((a, b) => b - a);
+    const nodes = tree.nodes.map((node) => ({
+      ...node,
+      label: localizeBlrPersonName(node.label, locale),
+    }));
+    const rows = [...new Set(nodes.map((node) => node.generation))].sort((a, b) => b - a);
     const ascii = rows.map((row) => {
-      const members = tree.nodes.filter((node) => node.generation === row).map((node) => `[${node.label}]${node.gender === "male" ? "(+)" : node.gender === "female" ? "(-)" : "(?)"}`).join("   ");
+      const members = nodes.filter((node) => node.generation === row).map((node) => `[${node.label}]${node.gender === "male" ? "(+)" : node.gender === "female" ? "(-)" : "(?)"}`).join("   ");
       return localeText(locale, `पीढ़ी ${row >= 0 ? "+" : ""}${row}: ${members}`, `ਪੀੜ੍ਹੀ ${row >= 0 ? "+" : ""}${row}: ${members}`);
     }).join("\n");
     const assignment = assignmentSummary(record, record.modelSpace.assignments[index] ?? {}, locale);
     return {
       ...tree,
+      nodes,
       title: localeText(locale, "संभव परिवार-स्थिति", "ਸੰਭਵ ਪਰਿਵਾਰਕ ਸਥਿਤੀ"),
       modelLabel: localeText(locale, `स्थिति ${index + 1} / ${record.modelSpace.modelCount}`, `ਸਥਿਤੀ ${index + 1} / ${record.modelSpace.modelCount}`),
       query: { ...tree.query, answerLabel: correctText },
-      accessibleSummary: localeText(locale, `${tree.nodes.length} सदस्यों वाली संभव परिवार-स्थिति; कुल ${rows.length} पीढ़ियाँ।`, `${tree.nodes.length} ਮੈਂਬਰਾਂ ਵਾਲੀ ਸੰਭਵ ਪਰਿਵਾਰਕ ਸਥਿਤੀ; ਕੁੱਲ ${rows.length} ਪੀੜ੍ਹੀਆਂ।`),
+      accessibleSummary: localeText(locale, `${nodes.length} सदस्यों वाली संभव परिवार-स्थिति; कुल ${rows.length} पीढ़ियाँ।`, `${nodes.length} ਮੈਂਬਰਾਂ ਵਾਲੀ ਸੰਭਵ ਪਰਿਵਾਰਕ ਸਥਿਤੀ; ਕੁੱਲ ${rows.length} ਪੀੜ੍ਹੀਆਂ।`),
       asciiFallback: `${ascii}\n\n${localeText(locale, "खुली शर्त", "ਖੁੱਲੀ ਸ਼ਰਤ")}: ${assignment}`,
     };
   });
 }
 
 export function localizeBlrCp005Question(record: GeneratedBlrCp005Question, locale: Locale): GeneratedBlrCp005LocalizedQuestion {
-  const name = nameGetter(record);
+  const name = nameGetter(record, locale);
   const options = record.options.map((option) => ({ ...option, text: localizedOptionText(record, option, locale) }));
   const correctText = options[record.correctIndex]!.text;
   const suffix = locale === "hi-IN" ? "hi" : "pa";
@@ -417,7 +426,11 @@ export function blrCp005CanonicalParityProjection(record: GeneratedBlrCp005Quest
     optionSemantics: record.options.map((option) => ({ semanticKey: option.semanticKey, isCorrect: option.isCorrect, errorLabel: option.errorLabel, modelStatus: option.modelStatus })),
     correctIndex: record.correctIndex,
     familyTreeStructures: record.explanation.familyTrees.map((tree) => ({
-      nodes: tree.nodes,
+      nodes: tree.nodes.map((node) => ({
+        id: node.id,
+        gender: node.gender,
+        generation: node.generation,
+      })),
       edges: tree.edges,
       query: { subjectId: tree.query.subjectId, referenceId: tree.query.referenceId, pathPersonIds: tree.query.pathPersonIds },
     })),
