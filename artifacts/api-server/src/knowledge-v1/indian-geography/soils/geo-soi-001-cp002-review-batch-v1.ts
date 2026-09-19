@@ -100,7 +100,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-010",
     "qlName": "Extent and distribution of alluvial soils",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "A map highlights the Indo-Gangetic-Brahmaputra plains and the deltas of major east-flowing rivers. Which soil group best matches both highlighted areas?",
     "answer": "Alluvial soil",
     "distractors": [
@@ -388,7 +388,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-013",
     "qlName": "Alluvial soils of eastern coastal deltas",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "A soil occurs in both the Ganga plain and the Krishna delta. Which common process best explains its presence in these distant regions?",
     "answer": "Deposition of sediments by river systems",
     "distractors": [
@@ -676,7 +676,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-016",
     "qlName": "Texture, composition and fertility",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "A soil is deep, river-deposited, contains mixed sand-silt-clay fractions and supports intensive farming. Which soil group is the best fit?",
     "answer": "Alluvial soil",
     "distractors": [
@@ -748,7 +748,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "They lack river water everywhere",
       "They contain no fine sediment"
     ],
-    "explanation": "Fertile alluvial deposits spread across broad level plains that are easy to cultivate and often have good access to river or groundwater irrigation.",
+    "explanation": "Fertile alluvial deposits spread across extensive level plains that are easy to cultivate and often have good access to river or groundwater irrigation.",
     "sourceFactIds": [
       "ALLUVIAL-INTENSIVE-AGRICULTURE"
     ]
