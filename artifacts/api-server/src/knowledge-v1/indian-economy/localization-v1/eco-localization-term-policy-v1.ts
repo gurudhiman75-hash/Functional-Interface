@@ -246,6 +246,7 @@ const allowedAbbreviations = [
   "LERMS",
   "FERA",
   "NDC",
+  "LPG",
 ] as const;
 
 export const ECO_TERM_POLICY_V1: readonly EcoTermPolicyEntryV1[] = Object.freeze([
