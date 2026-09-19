@@ -1,0 +1,60 @@
+name: Validate ENV Multilingual V1 Wave 6
+
+on:
+  push:
+    branches:
+      - feature/env-multilingual-v1-wave6-cp008
+    paths:
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/localization-v1/**
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/species-conservation/ENV-CP-008-STATUS.md
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/localization-v1/**
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/species-conservation/ENV-CP-008-STATUS.md
+  workflow_dispatch:
+
+concurrency:
+  group: env-multilingual-v1-wave6-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-env-cp008-localization:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP008 localization proof
+        run: |
+          mkdir -p artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/environment-ecology/localization-v1/env-cp008-localization-proof-v1.ts --bundle --platform=node --format=esm --outfile=dist/environment-review/ENV-MULTILINGUAL-V1/env-cp008-localization-proof-v1.mjs
+
+      - name: Validate CP008 localization
+        run: |
+          cd artifacts/api-server
+          node dist/environment-review/ENV-MULTILINGUAL-V1/env-cp008-localization-proof-v1.mjs | tee dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP008-MULTILINGUAL-PROOF.log
+
+      - name: Materialize review Markdown
+        run: |
+          cd artifacts/api-server
+          pnpm exec esbuild src/knowledge-v1/environment-ecology/localization-v1/env-localization-export-v1.ts --bundle --platform=node --format=esm --outfile=dist/environment-review/ENV-MULTILINGUAL-V1/env-localization-export-v1.mjs
+          node dist/environment-review/ENV-MULTILINGUAL-V1/env-localization-export-v1.mjs
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: env-cp008-multilingual-v1
+          path: |
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP008-MULTILINGUAL-PROOF.json
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP008-MULTILINGUAL-PROOF.log
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-MULTILINGUAL-V1-CP008-REVIEW.md
+          if-no-files-found: error
