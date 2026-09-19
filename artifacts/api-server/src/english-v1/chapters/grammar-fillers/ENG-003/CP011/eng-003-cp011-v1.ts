@@ -101,6 +101,40 @@ function trailingPunctuation(value: string) {
   return value.match(/([,.;:!?]+)$/)?.[1] ?? "";
 }
 
+const BASE_BY_PARTICIPLE: Readonly<Record<string, string>> = Object.freeze({
+  reported: "report",
+  attached: "attach",
+  identified: "identify",
+  sealed: "seal",
+  issued: "issue",
+  preserved: "preserve",
+});
+
+function remediateConditionalChoice(ruleId: ConditionalRuleId, choice: string) {
+  let value = choice.replace(/\s+/g, " ").trim();
+
+  value = value.replace(/\b(would|could|might|will) have sended\b/gi, (_m, modal: string) => `${modal.toLowerCase()} have sent`);
+  value = value.replace(/\bsended\b/gi, "sent");
+  value = value.replace(/\b(would|could|might|will) have begined\b/gi, (_m, modal: string) => `${modal.toLowerCase()} have begun`);
+  value = value.replace(/\bbegined\b/gi, "began");
+
+  if (ruleId === "GR-CND-009") {
+    const passive = value.match(/^Had\s+(.+?)\s+had\s+been\s+([A-Za-z]+)(.*)$/i);
+    if (passive) {
+      value = `If ${passive[1]} were to be ${passive[2]}${passive[3]}`;
+    } else {
+      const active = value.match(/^Had\s+(.+?)\s+had\s+([A-Za-z]+)(.*)$/i);
+      if (active) {
+        const participle = active[2]!.toLowerCase();
+        const base = BASE_BY_PARTICIPLE[participle] ?? participle.replace(/ied$/, "y").replace(/ed$/, "");
+        value = `If ${active[1]} were to ${base}${active[3]}`;
+      }
+    }
+  }
+
+  return value.replace(/\s+/g, " ").trim();
+}
+
 function blankSurface(prefix: string, suffix: string, punctuation: string) {
   const core = [prefix, "_____", suffix].filter(Boolean).join(" ");
   return `${core}${punctuation}`;
@@ -133,8 +167,8 @@ export function generateEng003Cp011QuestionV1(input: GenerateEng003Cp011V1Input)
   if (distractorSource.correctOptionIndex !== 3) throw new Error(`${distractorSource.questionId} did not expose approved distractors`);
   if (correction.targetIndex !== distractorSource.targetIndex) throw new Error("ENG-003 CP011 source target alignment drifted");
 
-  const correctTarget = correction.options[correction.correctOptionIndex]!.trim();
-  const distractors = distractorSource.options.slice(0, 3).map((value) => value.trim());
+  const correctTarget = remediateConditionalChoice(correction.metadata.ruleId, correction.options[correction.correctOptionIndex]!.trim());
+  const distractors = distractorSource.options.slice(0, 3).map((value) => remediateConditionalChoice(correction.metadata.ruleId, value));
   const keys = new Set([correctTarget.toLowerCase(), ...distractors.map((value) => value.toLowerCase())]);
   if (keys.size !== 4) throw new Error(`${correction.questionId} does not provide four unique conditional choices`);
 
