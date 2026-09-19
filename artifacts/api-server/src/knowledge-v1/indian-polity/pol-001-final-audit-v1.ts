@@ -1,3 +1,4 @@
+import { applyPolityFinalEditorialStemPass } from "./pol-001-final-editorial-stem-pass-v1";
 import { generatePolCp001ReviewBatchV1 } from "./constitutional-history/pol-cp001-review-generator-v1";
 import { generatePolCp002ReviewBatchV2 } from "./constituent-assembly/pol-cp002-review-generator-v2";
 import { generatePolCp003ReviewBatchV3 } from "./preamble-union-citizenship/pol-cp003-review-generator-v3";
@@ -41,7 +42,7 @@ type AuditQuestion = {
   runtimeRegistered?: boolean;
 };
 
-const batches: Array<[string, AuditQuestion[]]> = [
+const rawBatches: Array<[string, AuditQuestion[]]> = [
   ["POL-CP-001", generatePolCp001ReviewBatchV1()],
   ["POL-CP-002", generatePolCp002ReviewBatchV2()],
   ["POL-CP-003", generatePolCp003ReviewBatchV3()],
@@ -70,6 +71,11 @@ const batches: Array<[string, AuditQuestion[]]> = [
   ["POL-CP-026", generatePolCp026ReviewBatchV3()],
   ["POL-CP-027", generatePolCp027ReviewBatchV1()],
 ];
+
+const batches: Array<[string, AuditQuestion[]]> = rawBatches.map(([cpId, questions]) => [
+  cpId,
+  questions.map((q) => applyPolityFinalEditorialStemPass(q)),
+]);
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
