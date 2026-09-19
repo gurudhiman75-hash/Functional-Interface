@@ -10,16 +10,16 @@ This file is the chapter-level binding authority for Polity content status and p
 | POL-CP-004 | Fundamental Rights | APPROVED / CONTENT-FROZEN | eligible |
 | POL-CP-005 | Directive Principles of State Policy & Fundamental Duties | APPROVED / CONTENT-FROZEN | eligible |
 | POL-CP-006 | Amendments, Basic Structure & Schedules | APPROVED / CONTENT-FROZEN — V3 | eligible |
-| POL-CP-007 | President | APPROVED / CONTENT-FROZEN — V6 | eligible |
-| POL-CP-008 | Vice-President | APPROVED / CONTENT-FROZEN — V6 | eligible |
+| POL-CP-007 | President | APPROVED / CONTENT-FROZEN — V7 final-audit qualification overlay | eligible |
+| POL-CP-008 | Vice-President | APPROVED / CONTENT-FROZEN — V7 final-audit qualification overlay | eligible |
 | POL-CP-009 | Prime Minister & Union Council of Ministers | APPROVED / CONTENT-FROZEN | eligible |
 | POL-CP-010 | Parliament Structure & Officers | APPROVED / CONTENT-FROZEN | eligible |
 | POL-CP-011 | Parliament Procedure, Bills & Financial Business | APPROVED / CONTENT-FROZEN | eligible |
-| POL-CP-012 | Supreme Court | APPROVED / CONTENT-FROZEN — exam-grade stems V2 | eligible |
-| POL-CP-013 | High Courts, Subordinate Judiciary & Writs | APPROVED / CONTENT-FROZEN | eligible |
-| POL-CP-014 | Governor | APPROVED / CONTENT-FROZEN | eligible |
+| POL-CP-012 | Supreme Court | APPROVED / CONTENT-FROZEN — V3 final-audit qualification overlay | eligible |
+| POL-CP-013 | High Courts, Subordinate Judiciary & Writs | APPROVED / CONTENT-FROZEN — V3 final-audit canonical | eligible |
+| POL-CP-014 | Governor | APPROVED / CONTENT-FROZEN — V3 final-audit canonical | eligible |
 | POL-CP-015 | Chief Minister & State Council of Ministers | APPROVED / CONTENT-FROZEN | eligible |
-| POL-CP-016 | State Legislature | APPROVED / CONTENT-FROZEN | eligible |
+| POL-CP-016 | State Legislature | APPROVED / CONTENT-FROZEN — V2 final-audit qualification overlay | eligible |
 | POL-CP-017 | Centre–State Relations | APPROVED / CONTENT-FROZEN — V2 | eligible |
 | POL-CP-018 | Emergency Provisions | APPROVED / CONTENT-FROZEN | eligible |
 | POL-CP-019 | Panchayati Raj | APPROVED / CONTENT-FROZEN | eligible |
@@ -29,12 +29,12 @@ This file is the chapter-level binding authority for Polity content status and p
 | POL-CP-023 | Statutory & Executive Bodies | APPROVED / CONTENT-FROZEN | eligible |
 | POL-CP-024 | Official Language, Scheduled Areas & Tribal Administration | APPROVED / CONTENT-FROZEN | eligible |
 | POL-CP-025 | Union Territories & Special Provisions for States | APPROVED / CONTENT-FROZEN — V3 | eligible |
-| POL-CP-026 | Public Services & Administrative Tribunals | APPROVED / CONTENT-FROZEN — V2 | eligible |
+| POL-CP-026 | Public Services & Administrative Tribunals | APPROVED / CONTENT-FROZEN — V3 final-audit canonical | eligible |
 | POL-CP-027 | Trade, Commerce & Co-operative Societies | APPROVED / CONTENT-FROZEN — V2 | eligible |
 
 ## Chapter state
 
-English content implementation has reached POL-CP-027. All 27 CPs are approved/content-frozen.
+English content implementation has reached POL-CP-027. All 27 CPs are approved/content-frozen, and the Final Audit V1 English surface was approved on 19 September 2026.
 
 Package eligibility does not mean live runtime exposure. Question Studio binding, production registration and localization remain separate chapter-level passes.
 
