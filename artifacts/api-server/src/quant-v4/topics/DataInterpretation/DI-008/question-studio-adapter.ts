@@ -39,8 +39,8 @@ export function isDi008QuestionStudioRequest(request: Di008QuestionStudioRequest
   const subtopic = normalizeSelector(request.subtopic);
   const qlId = String(request.questionLanguageId ?? "").trim().toUpperCase();
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
-  return packageId === "di 007"
-    || patternId === "di 007"
+  return packageId === "di 008"
+    || patternId === "di 008"
     || Boolean(getDi008PermanentQl(qlId))
     || cpId === DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID
     || (topic === "data interpretation" && ["arithmetic di", "arithmetic data interpretation", "business arithmetic", "arithmetic table"].includes(subtopic));
