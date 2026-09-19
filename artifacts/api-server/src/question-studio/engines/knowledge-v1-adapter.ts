@@ -77,7 +77,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1Eco001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoPhy001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoRiv001QuestionStudioAdapterV1.listPackages(),
-      ...knowledgeV1Pgk001QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1Pgk001QuestionStudioAdapterV1.listPackages(),\n      ...knowledgeV1Pol001QuestionStudioAdapterV1.listPackages(),
     ];
     const ids = packages.map((pkg) => pkg.packageId);
     if (new Set(ids).size !== ids.length) {
