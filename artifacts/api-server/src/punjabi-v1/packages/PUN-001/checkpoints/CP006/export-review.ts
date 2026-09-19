@@ -8,7 +8,7 @@ const plan:Record<PunjabiDifficulty,readonly [string,number][]>={
  Medium:[["F04",6],["F05",6],["F06",6],["F09",6],["F10",6],["F11",5],["F12",5]],
  Hard:[["F07",20],["F08",20]],
 };
-const stride:Record<string,number>={F01:11,F02:13,F03:17,F04:7,F05:11,F06:13,F07:19,F08:1,F09:7,F10:11,F11:7,F12:7};
+const stride:Record<string,number>={F01:11,F02:13,F03:17,F04:7,F05:11,F06:13,F07:19,F08:1,F09:6,F10:11,F11:7,F12:7};
 const out:string[]=[
  "# PUN-001 CP006 Retrofit Review — ਕਿਰਿਆ, ਕਾਲ ਅਤੇ ਰੂਪਾਂਤਰਣ","",
  "Status: HUMAN REVIEW PENDING","",
