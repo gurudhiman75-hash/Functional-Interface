@@ -1,15 +1,13 @@
-import { BLR_CP006_FREEZE_VERSION, type GeneratedBlrCp006Question } from "./cp006-model";
+import { generateBlrCp006EditorialV3ReviewBundle } from "./cp006-editorial-v3-review";
 import {
-  BLR_CP006_MULTILINGUAL_FREEZE_AUTHORITY,
-  generateBlrCp006MultilingualFrozenBank,
-  type GeneratedBlrCp006MultilingualFrozenQuestion,
-} from "./cp006-multilingual-frozen";
-import { generateBlrCp006FrozenBank } from "./cp006-runtime";
+  BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES,
+  freezeBlr001ApprovedMultilingualRecord,
+} from "../multilingual-frozen-runtime";
 
 export const BLR_CP006_QUESTION_STUDIO_PACKAGE_ID =
   "REASONING_V1_BLR_001_CP_006" as const;
 export const BLR_CP006_QUESTION_STUDIO_RUNTIME_MODE =
-  "MULTILINGUAL_FROZEN_REVIEW" as const;
+  "EDITORIAL_V3_MULTILINGUAL_FROZEN_REVIEW" as const;
 export const BLR_CP006_QUESTION_STUDIO_INTEGRATION_STATUS =
   "QUESTION_STUDIO_GENERATION_READY" as const;
 
@@ -28,7 +26,7 @@ export type BlrCp006QuestionStudioQlId =
   (typeof BLR_CP006_QUESTION_STUDIO_QL_IDS)[number];
 export type BlrCp006QuestionStudioDifficulty = "Easy" | "Medium" | "Hard";
 
-type FrozenQuestion = GeneratedBlrCp006Question | GeneratedBlrCp006MultilingualFrozenQuestion;
+type FrozenQuestion = Record<string, any>;
 
 export type BlrCp006QuestionStudioReviewRequest = Readonly<{
   language?: BlrCp006QuestionStudioLanguage;
@@ -50,8 +48,8 @@ export const BLR_CP006_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   subtopic: "Coded Blood Relations",
   chapterId: "BLR-001",
   checkpointId: "BLR-CP-006",
-  name: "BLR-CP-006 Coded Relation Decoding — Multilingual Frozen",
-  label: "Coded Relation Decoding — Multilingual Frozen",
+  name: "BLR-CP-006 Coded Relation Decoding — Editorial V3 Multilingual Frozen",
+  label: "Coded Relation Decoding — Editorial V3 Multilingual Frozen",
   generationDomain: "reasoning-v1",
   qlIds: [...BLR_CP006_QUESTION_STUDIO_QL_IDS],
   supportedDifficulties: ["Easy", "Medium", "Hard"],
@@ -62,7 +60,7 @@ export const BLR_CP006_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   runtimeMode: BLR_CP006_QUESTION_STUDIO_RUNTIME_MODE,
   supportedRuntimeModes: [BLR_CP006_QUESTION_STUDIO_RUNTIME_MODE],
   integrationStatus: BLR_CP006_QUESTION_STUDIO_INTEGRATION_STATUS,
-  corpusAuthority: BLR_CP006_MULTILINGUAL_FREEZE_AUTHORITY,
+  corpusAuthority: BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-006"],
   questionBankStatus: "NOT_STORED",
   testEligibility: "INELIGIBLE",
   persistenceAllowed: false,
@@ -72,9 +70,21 @@ export const BLR_CP006_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   mockTestEligible: false,
 } as const);
 
+let approvedV3Bundle:
+  | ReturnType<typeof generateBlrCp006EditorialV3ReviewBundle>
+  | undefined;
+
 function bankFor(language: BlrCp006QuestionStudioLanguage): readonly FrozenQuestion[] {
-  if (language === "en") return generateBlrCp006FrozenBank();
-  return generateBlrCp006MultilingualFrozenBank(language === "hi" ? "hi-IN" : "pa-IN");
+  const source = approvedV3Bundle ??= generateBlrCp006EditorialV3ReviewBundle();
+  const records =
+    language === "en"
+      ? source.english
+      : language === "hi"
+        ? source.hindi
+        : source.punjabi;
+  return records.map((record) =>
+    freezeBlr001ApprovedMultilingualRecord(record as Record<string, any>),
+  );
 }
 
 function shortLanguage(question: FrozenQuestion): BlrCp006QuestionStudioLanguage {
@@ -93,10 +103,8 @@ function questionLanguageId(question: FrozenQuestion) {
     : `${question.itemId}:en-IN`;
 }
 
-function recordAuthority(question: FrozenQuestion) {
-  return question.locale === "en-IN"
-    ? BLR_CP006_FREEZE_VERSION
-    : BLR_CP006_MULTILINGUAL_FREEZE_AUTHORITY;
+function recordAuthority(_question: FrozenQuestion) {
+  return BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-006"];
 }
 
 function studioDifficulty(question: FrozenQuestion): BlrCp006QuestionStudioDifficulty {
@@ -168,8 +176,7 @@ export function toBlrCp006QuestionStudioReviewPreview(question: FrozenQuestion) 
     {
       name: "frozen-authority",
       passed:
-        recordAuthority(question) === BLR_CP006_FREEZE_VERSION ||
-        recordAuthority(question) === BLR_CP006_MULTILINGUAL_FREEZE_AUTHORITY,
+        recordAuthority(question) === BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-006"],
       message: "Question Studio source is a frozen CP-006 learner-facing authority.",
     },
     {
@@ -254,7 +261,7 @@ export function toBlrCp006QuestionStudioReviewPreview(question: FrozenQuestion) 
       runtimeMode: BLR_CP006_QUESTION_STUDIO_RUNTIME_MODE,
       reviewStatus: "MULTILINGUAL_FROZEN",
       recordAuthority: recordAuthority(question),
-      corpusAuthority: BLR_CP006_MULTILINGUAL_FREEZE_AUTHORITY,
+      corpusAuthority: BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-006"],
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
