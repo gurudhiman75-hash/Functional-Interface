@@ -38,5 +38,12 @@ jobs:
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-008/question-studio-integration.test.ts
       - name: DI-008 Hindi Punjabi localization review proof
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-008/localization-review-v1.test.ts
+      - name: Export DI-008 localization review pack
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-008/export-localization-review-v1.ts /tmp/DI-008-LOCALIZATION-REVIEW-V1.md
+      - name: Upload DI-008 localization review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-008-localization-review-v1
+          path: /tmp/DI-008-LOCALIZATION-REVIEW-V1.md
       - name: Patch hygiene
         run: git diff --check
