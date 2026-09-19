@@ -112,7 +112,7 @@ function explanationFor(mode: AlgCp002ReviewMode, k: number, answer: Rational): 
     return [
       `We are given x - 1/x = ${k}.`,
       "Square both sides: (x - 1/x)² = x² - 2 + 1/x².",
-      `The left side becomes ${k}² = ${k * k}.`,
+      `The left side becomes ${powerText(k, 2)} = ${k * k}.`,
       "Add 2 to both sides to isolate x² + 1/x².",
       `Therefore x² + 1/x² = ${k * k} + 2 = ${formatRational(answer)}.`,
     ].join(" ");
