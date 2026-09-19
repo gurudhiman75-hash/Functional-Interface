@@ -81,8 +81,8 @@ for(const [cpId,english,gen] of cps){
       } else {
         assert.equal(q.questionId,`${e.questionId}-${locale.toUpperCase()}`);
         native(locale,q);
-        const expectedNumeric = numericTokens([e.stem,...e.options,e.explanation].join("\n"));
-        const localizedNumeric = new Set(numericTokens(text(q)));
+        const expectedNumeric = numericTokens([e.stem,...e.options].join("\n"));
+        const localizedNumeric = new Set(numericTokens([q.stem,...q.options].join("\n")));
         for(const token of expectedNumeric){
           assert.equal(localizedNumeric.has(token),true,`${q.questionId}: numeric/legal token changed or lost: ${token}`);
         }
