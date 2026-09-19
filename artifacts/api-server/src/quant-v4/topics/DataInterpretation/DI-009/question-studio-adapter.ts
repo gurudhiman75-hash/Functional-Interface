@@ -42,7 +42,7 @@ export function isDi009QuestionStudioRequest(request: Di009QuestionStudioRequest
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
   return packageId === "di 009"
     || patternId === "di 009"
-    || qlId.startsWith("DI-QL-")
+    || Boolean(getDi009PermanentQl(qlId))
     || cpId === DI009_QUESTION_STUDIO_CANONICAL_PROBLEM_ID
     || ((topic === "data interpretation" || topic === "statistics") && subtopic === "histogram");
 }
