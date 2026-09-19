@@ -2,6 +2,7 @@ name: Reasoning DIR-001 Runtime
 
 on:
   pull_request:
+    branches: [New-main]
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
