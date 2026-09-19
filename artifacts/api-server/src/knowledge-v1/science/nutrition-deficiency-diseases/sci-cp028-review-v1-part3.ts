@@ -1,0 +1,229 @@
+import type { KnowledgeV1Difficulty } from "../../types";
+export type SciCp028ReviewSpec = readonly [number, KnowledgeV1Difficulty, string, string, readonly [string,string,string], string, readonly string[]];
+export const PART_3: readonly SciCp028ReviewSpec[] = [
+  [
+    6,
+    "Easy",
+    "Kwashiorkor is associated chiefly with severe deficiency of:",
+    "Protein",
+    [
+      "Vitamin C",
+      "Iodine",
+      "Water"
+    ],
+    "Kwashiorkor is a form of severe protein malnutrition, often occurring when energy intake is relatively less deficient than protein intake.",
+    [
+      "KWASHIORKOR-PROTEIN"
+    ]
+  ],
+  [
+    6,
+    "Easy",
+    "Marasmus results from severe deficiency of:",
+    "Energy and protein",
+    [
+      "Vitamin A only",
+      "Iodine only",
+      "Vitamin K only"
+    ],
+    "Marasmus is severe overall undernutrition involving inadequate energy and protein intake.",
+    [
+      "MARASMUS-ENERGY-PROTEIN"
+    ]
+  ],
+  [
+    6,
+    "Medium",
+    "Which feature is more characteristic of marasmus than kwashiorkor?",
+    "Severe wasting and loss of body fat",
+    [
+      "Prominent oedema",
+      "Enlarged fatty liver only",
+      "Normal body weight"
+    ],
+    "Marasmus typically causes marked wasting, very low body weight and loss of fat and muscle.",
+    [
+      "MARASMUS-WASTING"
+    ]
+  ],
+  [
+    6,
+    "Medium",
+    "Oedema is a well-known feature of:",
+    "Kwashiorkor",
+    [
+      "Night blindness",
+      "Scurvy only",
+      "Rickets only"
+    ],
+    "Low protein status in kwashiorkor contributes to fluid accumulation and swelling.",
+    [
+      "KWASHIORKOR-OEDEMA"
+    ]
+  ],
+  [
+    6,
+    "Medium",
+    "Why can a child consuming enough starchy food still develop kwashiorkor?",
+    "Energy may be adequate while protein intake remains too low",
+    [
+      "Starch contains too much vitamin C",
+      "Carbohydrates prevent all protein digestion",
+      "Only water causes kwashiorkor"
+    ],
+    "A diet dominated by carbohydrate can provide calories but still lack enough high-quality protein.",
+    [
+      "KWASHIORKOR-CALORIES-PROTEIN"
+    ]
+  ],
+  [
+    6,
+    "Hard",
+    "Two undernourished children are examined. One has severe wasting; the other has oedema with relatively less obvious wasting. Which pairing is most likely?",
+    "Marasmus; kwashiorkor",
+    [
+      "Kwashiorkor; marasmus",
+      "Scurvy; rickets",
+      "Goitre; anaemia"
+    ],
+    "Severe wasting is typical of marasmus, while oedema is a classic sign of kwashiorkor.",
+    [
+      "MARASMUS-KWASHIORKOR-DIFFERENCE"
+    ]
+  ],
+  [
+    7,
+    "Easy",
+    "Bleeding gums and poor wound healing suggest deficiency of:",
+    "Vitamin C",
+    [
+      "Vitamin A",
+      "Iodine",
+      "Iron only"
+    ],
+    "Vitamin C deficiency impairs collagen formation and can cause bleeding gums and delayed wound healing.",
+    [
+      "SCURVY-SYMPTOMS"
+    ]
+  ],
+  [
+    7,
+    "Easy",
+    "Difficulty seeing in dim light suggests deficiency of:",
+    "Vitamin A",
+    [
+      "Vitamin K",
+      "Vitamin B1",
+      "Iodine"
+    ],
+    "Night blindness is an early, classic sign of vitamin A deficiency.",
+    [
+      "NIGHT-BLINDNESS-SYMPTOM"
+    ]
+  ],
+  [
+    7,
+    "Medium",
+    "An enlarged thyroid in an iodine-poor region suggests:",
+    "Goitre",
+    [
+      "Scurvy",
+      "Beriberi",
+      "Rickets"
+    ],
+    "Iodine deficiency can reduce thyroid hormone production and lead to compensatory thyroid enlargement.",
+    [
+      "GOITRE-SYMPTOM"
+    ]
+  ],
+  [
+    7,
+    "Medium",
+    "Soft or poorly mineralized bones in a growing child suggest:",
+    "Rickets",
+    [
+      "Scurvy",
+      "Beriberi",
+      "Anaemia"
+    ],
+    "Rickets results from impaired mineralization of growing bones, commonly due to vitamin D deficiency.",
+    [
+      "RICKETS-SYMPTOMS"
+    ]
+  ],
+  [
+    7,
+    "Medium",
+    "Tingling, muscle weakness and nerve-related symptoms in a severely deficient diet may point to lack of:",
+    "Vitamin B1 (thiamine)",
+    [
+      "Vitamin K",
+      "Vitamin A",
+      "Iodine"
+    ],
+    "Thiamine deficiency can affect nerves and muscles and is classically associated with beriberi.",
+    [
+      "BERIBERI-SYMPTOMS"
+    ]
+  ],
+  [
+    7,
+    "Hard",
+    "A person has no difficulty seeing at night but shows prolonged bleeding after minor injury. Which deficiency is a better match?",
+    "Vitamin K deficiency",
+    [
+      "Vitamin A deficiency",
+      "Vitamin C deficiency only",
+      "Iodine deficiency"
+    ],
+    "Vitamin K is needed for normal clotting-factor synthesis, whereas vitamin A deficiency is more closely linked with night blindness.",
+    [
+      "VITAMIN-K-BLEEDING-REASONING"
+    ]
+  ],
+  [
+    8,
+    "Easy",
+    "Dietary fibre helps normal bowel movement by:",
+    "Adding bulk to intestinal contents",
+    [
+      "Providing the most energy per gram",
+      "Producing insulin",
+      "Carrying oxygen"
+    ],
+    "Fibre adds bulk and helps movement of material through the intestine.",
+    [
+      "FIBRE-BOWEL"
+    ]
+  ],
+  [
+    8,
+    "Easy",
+    "Water is essential because it:",
+    "Acts as a solvent and supports transport and temperature control",
+    [
+      "Provides 9 kcal per gram",
+      "Forms haemoglobin directly",
+      "Replaces all vitamins"
+    ],
+    "Water participates in transport, chemical reactions and temperature regulation.",
+    [
+      "WATER-FUNCTIONS"
+    ]
+  ],
+  [
+    8,
+    "Medium",
+    "A diet consistently low in fibre is more likely to contribute to:",
+    "Constipation",
+    [
+      "Night blindness",
+      "Goitre",
+      "Rickets"
+    ],
+    "Low fibre can reduce stool bulk and make bowel movements more difficult.",
+    [
+      "LOW-FIBRE-CONSTIPATION"
+    ]
+  ]
+] as const;
