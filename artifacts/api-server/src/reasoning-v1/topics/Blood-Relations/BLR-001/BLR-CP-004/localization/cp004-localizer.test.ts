@@ -49,6 +49,15 @@ for (let index = 0; index < canonical.length; index += 1) {
     assert.equal(localized.metadata.productionStagingApproved, false);
     assert.equal(localized.metadata.semanticParity, "EXECUTABLE_PROVED");
     assert.doesNotMatch(localized.stem, /नामित सदस्य|ਨਾਮਿਤ ਮੈਂਬਰ|सबसे पुरानी पीढ़ी|सबसे नई पीढ़ी|ਸਭ ਤੋਂ ਵੱਡੀ ਪੀੜ੍ਹੀ|कितनी महिला सदस्य|ਕਿੰਨੀਆਂ ਮਹਿਲਾ ਮੈਂਬਰ/);
+    const learnerExplanation = [
+      ...localized.explanation.coreConcept,
+      ...localized.explanation.working,
+      localized.explanation.conclusion,
+    ].join(" ");
+    assert.doesNotMatch(
+      learnerExplanation,
+      /सत्यापित संख्या|सत्यापित गणना|जाँची गिनती|ਜਾਂਚੀ ਗਿਣਤੀ|ਪਰਿਵਾਰਕ ਨਕਸ਼ੇ|परिवार-मानचित्र/,
+    );
     assert.notEqual(localized.sharedPrompt, source.sharedPrompt, `${localized.itemId}: passage was not localized.`);
     assert.notEqual(localized.stem, source.stem, `${localized.itemId}: stem was not localized.`);
   }
