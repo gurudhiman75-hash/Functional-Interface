@@ -32,10 +32,16 @@ Implemented scope:
 - `HIS-CP-009` Vijayanagara, Bahmani & Regional Kingdoms — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- `HIS-CP-010` Mughal Empire — multilingual review candidate
+- `HIS-CP-010` Mughal Empire — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- cumulative CP001–CP010: 594 questions per locale / 1782 EN-HI-PA surfaces
+- `HIS-CP-011` Marathas, Sikhs & Eighteenth-Century India — parallel multilingual review candidate in PR #1972
+  - 60 questions per locale
+  - 180 English/Hindi/Punjabi learner surfaces
+- `HIS-CP-012` Europeans in India & British Expansion — multilingual review candidate
+  - 60 questions per locale
+  - 180 English/Hindi/Punjabi learner surfaces
+- candidate cumulative scope through CP012: 714 questions per locale / 2142 EN-HI-PA surfaces
 
 Hindi and Punjabi are human-written learner-facing overlays. They may change wording only; they must preserve frozen English CP, QL, difficulty, source provenance, option order, correct-index and answer semantics.
 
@@ -63,5 +69,7 @@ Review exports:
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP008-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP009-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP010-REVIEW.md`
+- `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP011-REVIEW.md`
+- `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP012-REVIEW.md`
 
 These localization checkpoints do not enable Question Studio runtime registration, Question Bank persistence, test/mock eligibility, publication, or automatic learner release.
