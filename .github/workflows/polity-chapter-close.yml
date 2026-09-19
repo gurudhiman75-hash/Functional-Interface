@@ -10,7 +10,6 @@ on:
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-pol001-adapter-v1.test.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-pol001-qualification-audit-v1.test.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
-      - ".github/workflows/polity-chapter-close.yml"
   workflow_dispatch:
 
 permissions:
