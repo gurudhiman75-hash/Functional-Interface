@@ -13,7 +13,7 @@ D. The food receives no heat loss at all
 
 **Answer:** A. The higher pressure raises the boiling point of water
 
-**Explanation:** Higher pressure inside the cooker raises water's boiling point, so food cooks at a temperature above 100°C.
+**Explanation:** Higher pressure inside the cooker raises water's boiling point, so food cooks at a temperature above 100°C. Because the cooking liquid becomes hotter before boiling strongly, food softens and cooks in less time.
 
 **Source fact:** `PRESSURE-COOKER-BOILING-POINT`
 
@@ -28,7 +28,7 @@ D. Zero only at sea level
 
 **Answer:** B. Lower
 
-**Explanation:** Lower atmospheric pressure reduces the boiling point of water.
+**Explanation:** Lower atmospheric pressure reduces the boiling point of water. This means boiling can start below 100°C, so the water may be less effective for fast cooking.
 
 **Source fact:** `ALTITUDE-LOW-PRESSURE-BOILING`
 
@@ -43,7 +43,7 @@ D. Atmospheric oxygen turns into steam
 
 **Answer:** C. Boiling water is at a lower temperature
 
-**Explanation:** At lower atmospheric pressure, water boils at a lower temperature, so cooking proceeds more slowly.
+**Explanation:** At lower atmospheric pressure, water boils at a lower temperature, so cooking proceeds more slowly. The water may be boiling, but it is not as hot as boiling water at sea level.
 
 **Source fact:** `HIGH-ALTITUDE-COOKING`
 
@@ -58,7 +58,7 @@ D. Hot steam and liquid can escape violently when pressure is released
 
 **Answer:** D. Hot steam and liquid can escape violently when pressure is released
 
-**Explanation:** Pressurized steam stores energy and can force hot contents outward if the cooker is opened unsafely.
+**Explanation:** Pressurized steam stores energy and can force hot contents outward if the cooker is opened unsafely. Allowing the pressure to fall first makes opening much safer because the steam is no longer strongly confined.
 
 **Source fact:** `PRESSURE-COOKER-SAFETY`
 
@@ -73,7 +73,7 @@ D. Using a wider open pan only
 
 **Answer:** A. Increasing the pressure above the water
 
-**Explanation:** A higher external pressure requires a higher temperature for vapour pressure to reach the boiling condition.
+**Explanation:** A higher external pressure requires a higher temperature for vapour pressure to reach the boiling condition. This is the same principle used in a pressure cooker to reach a higher cooking temperature.
 
 **Source fact:** `PRESSURE-RAISES-BOILING`
 
@@ -88,7 +88,7 @@ D. The open pot cannot transfer heat
 
 **Answer:** B. Its water and steam can reach a higher equilibrium temperature before boiling vigorously
 
-**Explanation:** The pressure cooker raises pressure and therefore boiling temperature, allowing hotter water and steam to cook food faster.
+**Explanation:** The pressure cooker raises pressure and therefore boiling temperature, allowing hotter water and steam to cook food faster. The important point is that the cooker does not simply trap heat; it changes the pressure and therefore the boiling temperature.
 
 **Source fact:** `PRESSURE-COOKER-INTEGRATED`
 
@@ -103,7 +103,7 @@ D. Raises skin temperature
 
 **Answer:** C. Absorbs heat while evaporating
 
-**Explanation:** Evaporation requires latent heat, which is taken from the skin and produces cooling.
+**Explanation:** Evaporation requires latent heat, which is taken from the skin and produces cooling. The fastest-moving water molecules leave the skin as vapour, carrying thermal energy away with them.
 
 **Source fact:** `SWEAT-EVAPORATIVE-COOLING`
 
@@ -118,7 +118,7 @@ D. Hot and dry
 
 **Answer:** D. Hot and dry
 
-**Explanation:** Dry air allows faster evaporation of water, producing stronger evaporative cooling.
+**Explanation:** Dry air allows faster evaporation of water, producing stronger evaporative cooling. When the air already contains a lot of moisture, much less water can evaporate and the cooling effect becomes weaker.
 
 **Source fact:** `DESERT-COOLER-DRY-AIR`
 
@@ -133,7 +133,7 @@ D. The cloth becomes a heat source
 
 **Answer:** A. Moving air increases evaporation
 
-**Explanation:** Airflow carries away water vapour and increases the rate of evaporation, enhancing cooling.
+**Explanation:** Airflow carries away water vapour and increases the rate of evaporation, enhancing cooling. This is why a fan can make damp skin or wet clothes feel cooler even when the air temperature has not changed.
 
 **Source fact:** `AIRFLOW-EVAPORATION`
 
@@ -148,7 +148,7 @@ D. To stop molecular motion in food
 
 **Answer:** B. To absorb heat inside and release it outside during a cycle
 
-**Explanation:** The refrigerant changes pressure and phase so heat is moved from the cool interior to the warmer surroundings.
+**Explanation:** The refrigerant changes pressure and phase so heat is moved from the cool interior to the warmer surroundings. The refrigerator therefore does not create cold; it removes heat from inside the cabinet.
 
 **Source fact:** `REFRIGERANT-HEAT-TRANSFER`
 
@@ -163,7 +163,7 @@ D. The compressor no longer uses electricity
 
 **Answer:** C. Warm room air enters and the cooling system must remove extra heat
 
-**Explanation:** An open door increases heat entering the cabinet, so the compressor works harder.
+**Explanation:** An open door increases heat entering the cabinet, so the compressor works harder. This increases electricity use and can also make the room slightly warmer because the refrigerator releases heat outside.
 
 **Source fact:** `REFRIGERATOR-OPEN-DOOR`
 
@@ -178,7 +178,7 @@ D. Humid air accepts less additional water vapour, so evaporation slows
 
 **Answer:** D. Humid air accepts less additional water vapour, so evaporation slows
 
-**Explanation:** Evaporative cooling depends on evaporation; high humidity reduces the air's capacity to take up more water vapour.
+**Explanation:** Evaporative cooling depends on evaporation; high humidity reduces the air's capacity to take up more water vapour. So desert coolers are effective in dry climates but much less effective in humid weather.
 
 **Source fact:** `HUMIDITY-EVAPORATIVE-COOLING`
 
@@ -193,7 +193,7 @@ D. Stops blood circulation
 
 **Answer:** A. Traps air, which is a poor conductor of heat
 
-**Explanation:** Air trapped between wool fibres reduces heat loss by conduction and convection.
+**Explanation:** Air trapped between wool fibres reduces heat loss by conduction and convection. The trapped air slows the movement of heat from the warm body to the cooler surroundings.
 
 **Source fact:** `WOOL-INSULATION`
 
@@ -208,7 +208,7 @@ D. Mass
 
 **Answer:** B. Heat transfer
 
-**Explanation:** Its construction reduces conduction, convection and radiation to keep contents hot or cold.
+**Explanation:** Its construction reduces conduction, convection and radiation to keep contents hot or cold. The vacuum, insulating stopper and reflective surfaces each reduce a different route by which heat can move.
 
 **Source fact:** `THERMOS-HEAT-TRANSFER`
 
@@ -223,7 +223,7 @@ D. They melt before heating
 
 **Answer:** C. They are poor conductors of heat
 
-**Explanation:** Plastic and wood reduce conduction of heat from the hot pan to the hand.
+**Explanation:** Plastic and wood reduce conduction of heat from the hot pan to the hand. This keeps the handle cooler for longer and makes the utensil safer to hold.
 
 **Source fact:** `PAN-HANDLE-INSULATOR`
 
@@ -238,7 +238,7 @@ D. Metal conducts heat more readily
 
 **Answer:** D. Metal conducts heat more readily
 
-**Explanation:** Metals generally have much higher thermal conductivity than wood.
+**Explanation:** Metals generally have much higher thermal conductivity than wood. Heat energy therefore moves quickly along the metal spoon but much more slowly through wood.
 
 **Source fact:** `METAL-VS-WOOD-CONDUCTION`
 
@@ -253,7 +253,7 @@ D. They absorb all radiation
 
 **Answer:** A. They reduce heat transfer by radiation
 
-**Explanation:** Shiny surfaces are poor absorbers and emitters of thermal radiation, reducing radiative heat transfer.
+**Explanation:** Shiny surfaces are poor absorbers and emitters of thermal radiation, reducing radiative heat transfer. This helps the flask reduce heat gain or heat loss even when there is a temperature difference.
 
 **Source fact:** `SHINY-SURFACE-RADIATION`
 
@@ -268,7 +268,7 @@ D. Only conduction in both cases
 
 **Answer:** B. Conduction/convection by the vacuum and radiation by shiny surfaces
 
-**Explanation:** The vacuum removes material needed for conduction and convection, while shiny surfaces reduce radiation.
+**Explanation:** The vacuum removes material needed for conduction and convection, while shiny surfaces reduce radiation. Using both features together gives better insulation than either feature alone.
 
 **Source fact:** `THERMOS-MODES-INTEGRATED`
 
@@ -283,7 +283,7 @@ D. Converting AC into DC
 
 **Answer:** C. Melting and breaking the circuit when current becomes too large
 
-**Explanation:** Fuse wire heats up and melts when excessive current flows, opening the circuit.
+**Explanation:** Fuse wire heats up and melts when excessive current flows, opening the circuit. Once the fuse melts, current stops flowing and the wiring or appliance is protected from overheating.
 
 **Source fact:** `FUSE-FUNCTION`
 
@@ -298,7 +298,7 @@ D. Provide a low-resistance path for fault current to ground
 
 **Answer:** D. Provide a low-resistance path for fault current to ground
 
-**Explanation:** Earthing helps protect users by directing fault current safely to the ground.
+**Explanation:** Earthing helps protect users by directing fault current safely to the ground. If the metal body accidentally becomes live, the earth wire gives the current a safer path than through a person.
 
 **Source fact:** `EARTH-WIRE-SAFETY`
 
@@ -313,7 +313,7 @@ D. Parallel connection lowers all appliance voltages to zero
 
 **Answer:** A. Each appliance gets the supply voltage and can operate independently
 
-**Explanation:** Parallel wiring gives each appliance the full supply voltage and independent control.
+**Explanation:** Parallel wiring gives each appliance the full supply voltage and independent control. That is why one appliance can be switched off without stopping the others.
 
 **Source fact:** `HOUSEHOLD-PARALLEL`
 
@@ -328,7 +328,7 @@ D. The supply voltage becomes zero
 
 **Answer:** B. Water and dissolved salts can lower skin resistance and increase shock risk
 
-**Explanation:** Wet skin conducts better than dry skin, so more current may pass through the body.
+**Explanation:** Wet skin conducts better than dry skin, so more current may pass through the body. Lower body resistance allows a larger current to flow at the same voltage, increasing the danger of electric shock.
 
 **Source fact:** `WET-HAND-ELECTRIC-SHOCK`
 
@@ -343,7 +343,7 @@ D. It converts electricity into magnetism only
 
 **Answer:** C. It automatically opens the circuit
 
-**Explanation:** A miniature circuit breaker trips and disconnects the supply when current exceeds a safe value.
+**Explanation:** A miniature circuit breaker trips and disconnects the supply when current exceeds a safe value. Unlike a fuse, an MCB can usually be reset after the fault has been removed.
 
 **Source fact:** `MCB-FUNCTION`
 
@@ -358,7 +358,7 @@ D. The earth path allows a large fault current that helps the breaker disconnect
 
 **Answer:** D. The earth path allows a large fault current that helps the breaker disconnect the supply quickly
 
-**Explanation:** Earthing provides a low-resistance fault path, and the resulting high current can trigger protective disconnection.
+**Explanation:** Earthing provides a low-resistance fault path, and the resulting high current can trigger protective disconnection. The two protections work together: earthing provides the fault path and the breaker cuts the supply.
 
 **Source fact:** `EARTHING-BREAKER-INTEGRATED`
 
@@ -373,7 +373,7 @@ D. Cylindrical mirror
 
 **Answer:** A. Convex mirror
 
-**Explanation:** A convex mirror gives a wide field of view and forms upright, diminished images.
+**Explanation:** A convex mirror gives a wide field of view and forms upright, diminished images. Although vehicles look smaller in the mirror, the driver can see a much larger region behind the vehicle.
 
 **Source fact:** `REARVIEW-CONVEX`
 
@@ -388,7 +388,7 @@ D. Prism only
 
 **Answer:** B. Convex lens
 
-**Explanation:** A convex lens can produce a magnified virtual image when the object is within its focal length.
+**Explanation:** A convex lens can produce a magnified virtual image when the object is within its focal length. This happens when the object is placed closer to the lens than its focal length.
 
 **Source fact:** `MAGNIFYING-GLASS-CONVEX`
 
@@ -403,7 +403,7 @@ D. They reverse left and right less than any other mirror
 
 **Answer:** C. They show a wider area behind the vehicle
 
-**Explanation:** Convex mirrors provide a wide field of view while keeping images upright.
+**Explanation:** Convex mirrors provide a wide field of view while keeping images upright. The trade-off is that objects appear smaller, but the larger view is more useful for safe driving.
 
 **Source fact:** `CONVEX-WIDE-FIELD`
 
@@ -418,7 +418,7 @@ D. Concave lens
 
 **Answer:** D. Concave lens
 
-**Explanation:** A concave lens diverges incoming light so the image can be focused on the retina in a myopic eye.
+**Explanation:** A concave lens diverges incoming light so the image can be focused on the retina in a myopic eye. It shifts the effective focus backward so that light is focused on the retina instead of in front of it.
 
 **Source fact:** `MYOPIA-CONCAVE-LENS`
 
@@ -433,7 +433,7 @@ D. It blocks visible light
 
 **Answer:** A. It concentrates solar energy into a small area
 
-**Explanation:** Concentrating sunlight raises the temperature at the focus enough to ignite suitable material.
+**Explanation:** Concentrating sunlight raises the temperature at the focus enough to ignite suitable material. The lens does not create extra energy; it collects light from a larger area and concentrates it.
 
 **Source fact:** `LENS-FOCUS-SUNLIGHT`
 
@@ -448,7 +448,7 @@ D. A convex lens reflects light backward
 
 **Answer:** B. A convex mirror forms diminished upright images over a wide field
 
-**Explanation:** The wide field and diminished upright image of a convex mirror make it useful for rear viewing.
+**Explanation:** The wide field and diminished upright image of a convex mirror make it useful for rear viewing. This is why convex mirrors are chosen even though the image does not show the true apparent size of objects.
 
 **Source fact:** `REARVIEW-PROPERTY-INTEGRATED`
 
@@ -463,7 +463,7 @@ D. Steel
 
 **Answer:** C. Vacuum
 
-**Explanation:** Sound is a mechanical wave and needs a material medium.
+**Explanation:** Sound is a mechanical wave and needs a material medium. Without particles to vibrate and pass the disturbance onward, there is no sound transmission.
 
 **Source fact:** `SOUND-NO-VACUUM`
 
@@ -478,7 +478,7 @@ D. Frequency
 
 **Answer:** D. Frequency
 
-**Explanation:** Higher frequency is perceived as higher pitch.
+**Explanation:** Higher frequency is perceived as higher pitch. Amplitude affects loudness, while frequency determines whether a note sounds high or low.
 
 **Source fact:** `PITCH-FREQUENCY`
 
@@ -493,7 +493,7 @@ D. Steel lowers sound frequency to zero
 
 **Answer:** A. Sound travels faster in solids than in air
 
-**Explanation:** Sound speed is generally greater in solids because their particles transmit vibrations efficiently.
+**Explanation:** Sound speed is generally greater in solids because their particles transmit vibrations efficiently. The vibration reaches the listener through the rail sooner than through the surrounding air.
 
 **Source fact:** `SOUND-RAIL-FASTER`
 
@@ -508,7 +508,7 @@ D. They make sound travel in vacuum
 
 **Answer:** B. They absorb sound and reduce unwanted reflections
 
-**Explanation:** Soft porous materials absorb part of the sound energy and reduce reverberation.
+**Explanation:** Soft porous materials absorb part of the sound energy and reduce reverberation. This reduces repeated sound reflections, so speech and music are heard more clearly.
 
 **Source fact:** `CURTAINS-SOUND-ABSORPTION`
 
@@ -523,7 +523,7 @@ D. Electrical induction
 
 **Answer:** C. Reflection of sound
 
-**Explanation:** An echo is heard when reflected sound reaches the listener after a sufficient delay.
+**Explanation:** An echo is heard when reflected sound reaches the listener after a sufficient delay. If the reflecting surface is far enough away, the reflected sound is heard separately from the original sound.
 
 **Source fact:** `ECHO-REFLECTION`
 
@@ -538,7 +538,7 @@ D. The added materials absorb sound and reduce repeated reflections
 
 **Answer:** D. The added materials absorb sound and reduce repeated reflections
 
-**Explanation:** Absorbing surfaces reduce excessive reflected sound, improving speech clarity.
+**Explanation:** Absorbing surfaces reduce excessive reflected sound, improving speech clarity. The aim is not to remove all reflection, but to prevent too many delayed reflections from mixing with the original sound.
 
 **Source fact:** `REVERBERATION-CONTROL`
 
@@ -553,7 +553,7 @@ D. Converts water into distilled water
 
 **Answer:** A. Kills many disease-causing microorganisms
 
-**Explanation:** Boiling destroys many pathogens, though it does not remove dissolved salts.
+**Explanation:** Boiling destroys many pathogens, though it does not remove dissolved salts. It is useful for killing many bacteria, viruses and other pathogens, but it does not remove chemical impurities such as salts.
 
 **Source fact:** `BOILING-WATER-DISINFECTION`
 
@@ -568,7 +568,7 @@ D. Combustion
 
 **Answer:** B. Filtration
 
-**Explanation:** Filtration physically removes many suspended particles from water.
+**Explanation:** Filtration physically removes many suspended particles from water. Filtration improves clarity, but it may not remove every dissolved substance or microorganism.
 
 **Source fact:** `WATER-FILTRATION`
 
@@ -583,7 +583,7 @@ D. It converts water into pure oxygen
 
 **Answer:** C. Chlorine can kill or inactivate many microorganisms
 
-**Explanation:** Proper chlorination reduces disease-causing microbes in water.
+**Explanation:** Proper chlorination reduces disease-causing microbes in water. A correct chlorine dose can make water microbiologically safer without needing to remove all dissolved substances.
 
 **Source fact:** `CHLORINATION-DISINFECTION`
 
@@ -598,7 +598,7 @@ D. Soap helps remove microbes, oils and dirt from skin
 
 **Answer:** D. Soap helps remove microbes, oils and dirt from skin
 
-**Explanation:** Soap loosens oils and contaminants so rubbing and rinsing remove many microbes.
+**Explanation:** Soap loosens oils and contaminants so rubbing and rinsing remove many microbes. The rubbing action and rinsing are important because they physically carry loosened microbes away from the hands.
 
 **Source fact:** `SOAP-HANDWASHING`
 
@@ -613,7 +613,7 @@ D. To raise water temperature
 
 **Answer:** A. To allow heavier suspended particles to settle
 
-**Explanation:** Sedimentation removes larger suspended material before later purification steps.
+**Explanation:** Sedimentation removes larger suspended material before later purification steps. Removing these particles first reduces the load on filters used in the next stage.
 
 **Source fact:** `SEDIMENTATION-WATER`
 
@@ -628,7 +628,7 @@ D. Only shake the water vigorously
 
 **Answer:** B. Filter to remove suspended matter, then disinfect the water
 
-**Explanation:** Filtration reduces suspended material while disinfection targets microorganisms.
+**Explanation:** Filtration reduces suspended material while disinfection targets microorganisms. The two steps solve different problems, so using them together gives safer water than relying on only one.
 
 **Source fact:** `FILTER-THEN-DISINFECT`
 
@@ -643,7 +643,7 @@ D. Only acids
 
 **Answer:** C. Water and oil
 
-**Explanation:** Soap molecules have a water-attracting end and an oil-attracting end, allowing grease to be dispersed in water.
+**Explanation:** Soap molecules have a water-attracting end and an oil-attracting end, allowing grease to be dispersed in water. The oil-attracting parts surround grease while the water-attracting parts help carry it away during rinsing.
 
 **Source fact:** `SOAP-AMPHIPHILIC`
 
@@ -658,7 +658,7 @@ D. Strong and resistant to corrosion
 
 **Answer:** D. Strong and resistant to corrosion
 
-**Explanation:** Stainless steel combines useful strength with good corrosion resistance.
+**Explanation:** Stainless steel combines useful strength with good corrosion resistance. Its chromium-containing surface forms a protective layer that helps resist rusting under normal use.
 
 **Source fact:** `STAINLESS-STEEL-UTENSILS`
 
@@ -673,7 +673,7 @@ D. Hard water contains no ions
 
 **Answer:** A. Detergents do not form insoluble scum as readily with calcium and magnesium ions
 
-**Explanation:** Soap can form insoluble salts with calcium and magnesium, while synthetic detergents are less affected.
+**Explanation:** Soap can form insoluble salts with calcium and magnesium, while synthetic detergents are less affected. That is why detergents can continue producing lather and cleaning effectively where ordinary soap performs poorly.
 
 **Source fact:** `DETERGENT-HARD-WATER`
 
@@ -688,7 +688,7 @@ D. It has no thermal expansion
 
 **Answer:** B. It conducts heat well and is relatively light
 
-**Explanation:** Aluminium transfers heat efficiently and has low density compared with many metals.
+**Explanation:** Aluminium transfers heat efficiently and has low density compared with many metals. It therefore heats quickly without making the utensil unnecessarily heavy.
 
 **Source fact:** `ALUMINIUM-COOKWARE`
 
@@ -703,7 +703,7 @@ D. They prevent all heat transfer
 
 **Answer:** C. They reduce adhesion between food and the pan surface
 
-**Explanation:** A low-adhesion surface reduces sticking and can reduce the amount of oil needed.
+**Explanation:** A low-adhesion surface reduces sticking and can reduce the amount of oil needed. Food can be turned or removed more easily because it does not bond strongly to the cooking surface.
 
 **Source fact:** `NONSTICK-LOW-ADHESION`
 
@@ -718,7 +718,7 @@ D. Hard-water ions form insoluble salts with soap more readily than with deterge
 
 **Answer:** D. Hard-water ions form insoluble salts with soap more readily than with detergent
 
-**Explanation:** Calcium and magnesium ions react with soap to form scum, reducing soap available for cleaning.
+**Explanation:** Calcium and magnesium ions react with soap to form scum, reducing soap available for cleaning. The scum uses up soap and does not clean effectively, while detergents remain more useful in the same water.
 
 **Source fact:** `HARD-WATER-SOAP-DETERGENT`
 
@@ -733,7 +733,7 @@ D. Gravitational acceleration
 
 **Answer:** A. Friction with the road
 
-**Explanation:** Treads improve grip by increasing effective friction and channeling water away.
+**Explanation:** Treads improve grip by increasing effective friction and channeling water away. The grooves also help push water away from the contact area, reducing the chance of skidding on wet roads.
 
 **Source fact:** `TYRE-TREAD-FRICTION`
 
@@ -748,7 +748,7 @@ D. They reduce the passenger's mass to zero
 
 **Answer:** B. They restrain the body and increase the time over which momentum changes
 
-**Explanation:** A seat belt prevents the body from continuing forward freely and spreads the momentum change over more time.
+**Explanation:** A seat belt prevents the body from continuing forward freely and spreads the momentum change over more time. Increasing the stopping time reduces the average force on the body and prevents the passenger from striking the interior.
 
 **Source fact:** `SEATBELT-MOMENTUM`
 
@@ -763,7 +763,7 @@ D. Limited to the master cylinder
 
 **Answer:** C. Transmitted through the fluid
 
-**Explanation:** Pascal's principle allows pressure to be transmitted through brake fluid to wheel brakes.
+**Explanation:** Pascal's principle allows pressure to be transmitted through brake fluid to wheel brakes. A force applied at the brake pedal can therefore produce useful braking forces at the wheels.
 
 **Source fact:** `HYDRAULIC-BRAKES-PASCAL`
 
@@ -778,7 +778,7 @@ D. They reduce sliding friction by replacing it largely with rolling friction
 
 **Answer:** D. They reduce sliding friction by replacing it largely with rolling friction
 
-**Explanation:** Rolling friction is generally less than sliding friction, so bearings reduce energy loss and wear.
+**Explanation:** Rolling friction is generally less than sliding friction, so bearings reduce energy loss and wear. Lower friction also reduces heating and helps moving parts last longer.
 
 **Source fact:** `BALL-BEARING-ROLLING-FRICTION`
 
@@ -793,7 +793,7 @@ D. Brake fluid evaporates immediately
 
 **Answer:** A. Water can reduce effective friction between tyre and road
 
-**Explanation:** A water layer can reduce tyre-road grip, especially if tyres cannot clear it effectively.
+**Explanation:** A water layer can reduce tyre-road grip, especially if tyres cannot clear it effectively. Good tread depth helps remove water so more of the tyre remains in firm contact with the road.
 
 **Source fact:** `WET-ROAD-FRICTION`
 
@@ -808,7 +808,7 @@ D. Mass doubles with speed
 
 **Answer:** B. The vehicle has much more kinetic energy to dissipate
 
-**Explanation:** Kinetic energy depends on the square of speed, so higher speed requires more energy to be removed during braking.
+**Explanation:** Kinetic energy depends on the square of speed, so higher speed requires more energy to be removed during braking. For example, doubling speed makes the kinetic energy four times as large, so braking becomes much more demanding.
 
 **Source fact:** `SPEED-STOPPING-DISTANCE`
 
@@ -823,7 +823,7 @@ D. No semiconductor material
 
 **Answer:** C. High energy efficiency
 
-**Explanation:** LEDs convert a relatively large fraction of electrical energy into light and waste less as heat than many older lamps.
+**Explanation:** LEDs convert a relatively large fraction of electrical energy into light and waste less as heat than many older lamps. This lowers electricity use for the same useful light output and also reduces unwanted heating.
 
 **Source fact:** `LED-EFFICIENCY`
 
@@ -838,7 +838,7 @@ D. Electromagnetic induction
 
 **Answer:** D. Electromagnetic induction
 
-**Explanation:** Changing magnetic fields induce currents in suitable cookware, producing heat.
+**Explanation:** Changing magnetic fields induce currents in suitable cookware, producing heat. The vessel itself becomes the heating element, so less energy is wasted heating the surrounding air.
 
 **Source fact:** `INDUCTION-COOKTOP`
 
@@ -853,7 +853,7 @@ D. Glass molecules exclusively
 
 **Answer:** A. Polar molecules such as water
 
-**Explanation:** Microwaves cause polar molecules, especially water, to respond to the alternating field and generate heat.
+**Explanation:** Microwaves cause polar molecules, especially water, to respond to the alternating field and generate heat. The resulting molecular motion produces heat throughout water-rich regions of the food.
 
 **Source fact:** `MICROWAVE-WATER-MOLECULES`
 
@@ -868,7 +868,7 @@ D. Colour changes atmospheric pressure
 
 **Answer:** B. Black surfaces absorb radiant energy efficiently
 
-**Explanation:** Dark surfaces absorb more incident radiation and convert it into heat.
+**Explanation:** Dark surfaces absorb more incident radiation and convert it into heat. This raises the temperature inside the cooker and improves the use of incoming solar energy.
 
 **Source fact:** `SOLAR-COOKER-BLACK`
 
@@ -883,7 +883,7 @@ D. Heat proves no current is flowing
 
 **Answer:** C. Some electrical energy is being dissipated as heat because conversion is not perfectly efficient
 
-**Explanation:** Real electrical devices have resistance and conversion losses, so some input energy appears as heat.
+**Explanation:** Real electrical devices have resistance and conversion losses, so some input energy appears as heat. The warmth is therefore a sign of energy loss, not an extra useful output.
 
 **Source fact:** `CHARGER-WASTE-HEAT`
 
@@ -898,7 +898,7 @@ D. More of the input energy is directed toward the desired output with lower unw
 
 **Answer:** D. More of the input energy is directed toward the desired output with lower unwanted losses
 
-**Explanation:** Efficient devices reduce unwanted energy losses while producing the intended light or heat more effectively.
+**Explanation:** Efficient devices reduce unwanted energy losses while producing the intended light or heat more effectively. In both cases, better efficiency means getting more useful output from the same amount of input energy.
 
 **Source fact:** `DEVICE-EFFICIENCY-INTEGRATED`
 
