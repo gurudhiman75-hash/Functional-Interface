@@ -22,9 +22,9 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
     "At high altitude, breathing often becomes faster because:",
     "The partial pressure of oxygen is lower",
     [
-      "Air contains no nitrogen",
-      "Carbon dioxide concentration is extremely high",
-      "The lungs become smaller immediately"
+      "The percentage of oxygen in air becomes zero",
+      "Atmospheric pressure increases greatly",
+      "Air becomes richer in carbon dioxide"
     ],
     "At high altitude the atmospheric pressure, and therefore oxygen partial pressure, is lower. Faster breathing helps increase oxygen uptake.",
     [
@@ -37,9 +37,9 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
     "A person travels rapidly from sea level to a high mountain. Which immediate response helps compensate for the lower oxygen availability?",
     "Increased breathing rate",
     [
-      "Complete closure of the trachea",
-      "Reduced ventilation",
-      "Stopping red blood cell circulation"
+      "Reduced breathing rate",
+      "Narrowing of the trachea",
+      "Reduced chest movement"
     ],
     "One rapid response to high altitude is increased ventilation, which brings more air into the lungs and helps maintain oxygen uptake.",
     [
@@ -82,9 +82,9 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
     "Exhaled air is usually more humid than inhaled air because:",
     "It gains water vapour from moist respiratory surfaces",
     [
-      "The lungs produce rainwater",
-      "Nitrogen turns into water",
-      "Haemoglobin releases liquid water into the bronchi"
+      "It contains much less carbon dioxide",
+      "It contains no nitrogen",
+      "It is cooled strongly inside the lungs"
     ],
     "Air passing over moist respiratory surfaces becomes humidified, so exhaled air generally contains more water vapour.",
     [
@@ -97,9 +97,9 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
     "Why does limewater turn milky when exposed to exhaled air for some time?",
     "Exhaled air contains carbon dioxide",
     [
-      "Exhaled air contains large amounts of oxygen",
-      "Exhaled air contains bile",
-      "Nitrogen reacts directly with limewater"
+      "Exhaled air contains less oxygen",
+      "Exhaled air contains more water vapour",
+      "Exhaled air contains slightly warmer nitrogen"
     ],
     "Carbon dioxide reacts with limewater to form insoluble calcium carbonate, producing a milky appearance.",
     [
@@ -172,9 +172,9 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
     "During an asthma attack, breathing becomes difficult mainly because the:",
     "Airways become narrowed",
     [
-      "Alveoli turn into blood vessels",
-      "Diaphragm becomes part of the stomach",
-      "Lungs stop containing any capillaries"
+      "Alveolar walls become thinner",
+      "The diaphragm contracts continuously",
+      "Haemoglobin concentration rises suddenly"
     ],
     "Asthma involves narrowing and inflammation of airways, which increases resistance to airflow.",
     [
@@ -217,9 +217,9 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
     "A patient's airways are clear and diaphragm movement is normal, but the alveolar membrane is much thicker than usual. Why may oxygen levels fall?",
     "Diffusion of oxygen into blood becomes slower",
     [
-      "Air cannot enter the nose",
-      "Red blood cells cannot contain haemoglobin at all",
-      "The trachea loses all cartilage instantly"
+      "Ventilation of the lungs becomes slower",
+      "Haemoglobin loses all ability to bind oxygen",
+      "The bronchi close during exhalation"
     ],
     "Ventilation can be normal while gas transfer is poor. A thickened alveolar membrane increases diffusion distance and slows oxygen entry into blood.",
     [
