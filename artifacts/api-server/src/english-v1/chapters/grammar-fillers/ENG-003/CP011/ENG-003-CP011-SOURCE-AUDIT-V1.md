@@ -1,6 +1,6 @@
 # ENG-003-CP011 — Grammar Fillers: Conditionals — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Boundary
 
@@ -73,3 +73,14 @@ Rule-family breadth is prioritized before additional scene variety.
 ## Lifecycle
 
 CP011 remains review-only until explicit human editorial approval. It is not registered in Question Studio and is not eligible for Question Bank writes, tests, mocks, learner/public publication, automatic student delivery or production release.
+
+## Human approval
+
+Approved on **2026-09-19**.
+
+- Approval authority: `ENG-003-CP011-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `c9367293638e24eee3e2cd26df57100756f3a275`
+- Review SHA-256: `22d8002778df5c5a16ab0a7737beb676f357a330bbd5086b002b848afdbc7686`
+- Workflow artifact digest: `sha256:0c714fd0f2c0669160e69165c69f82228901067661b92a9a6bd6de6fe46914ef`
+
+The approved explanation pass uses simplified exam-friendly language. Question Studio registration is review-only. Learner/test/mock/public release remains locked.
