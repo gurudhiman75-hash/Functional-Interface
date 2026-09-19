@@ -1,6 +1,6 @@
 # GEO-CLI-001 — Climate of India & Monsoon System
 
-Status: FOUNDATION BLUEPRINT V1
+Status: CONTENT IMPLEMENTATION COMPLETE — POST-MERGE REMEDIATION REVIEW
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-CLI-001`
@@ -90,4 +90,4 @@ Every owning CP is review-only until explicit human approval. Question Studio re
 
 ## 9. Current state
 
-`GEO-CLI-001` is under implementation. CP001 starts the permanent map with QL001–QL009 and uses the chapter-wide exam-grade stem contract from its V4 review candidate onward.
+`GEO-CLI-001` has completed content implementation through CP013. The post-merge remediation authority is `GEO_CLI_001_OWNING_AUTHORITY_V3`, covering all 648 owning questions across QL001–QL108. It includes the CP002 core-mechanism repair, CP012 integration-only repair, chapter-wide wording and duplicate-stem cleanup, exact 162/162/162/162 answer-position balance, and targeted Hard/distractor calibration. CP013 V6 is the synchronized 108-question exhaustive closure layer. Final content freeze still requires explicit human approval and merge of the remediation candidate. Runtime registration, Question Bank writes, tests/mocks and public publication remain separately disabled.

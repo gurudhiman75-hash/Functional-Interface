@@ -1,6 +1,6 @@
 # GEO-CLI-001 CP012 — Multi-fact / Statement / Match Integration
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2 — INTEGRATION-ONLY REMEDIATION
 Parent chapter: `GEO-CLI-001`
 Permanent QLs: `QL100–QL108`
 Lifecycle: review-only; runtime/publication disabled until explicit human approval.
@@ -42,6 +42,16 @@ CP012 owns only multi-fact integration across facts already owned by CP001–CP0
 - Hard questions must be harder because of relation depth, not difficult wording.
 - Learner-facing text must not use `broad` or `broadly`.
 - No learner-facing source, generator, runtime or review terminology.
+
+## V2 post-merge remediation
+
+The exhaustive chapter audit found twelve CP012 items that were still direct one-fact recall despite CP012's integration-only boundary. V2 replaces all twelve with two-fact comparisons, seasonal transitions, mechanism chains, region-season pairings or cause-effect tasks:
+
+- Q001, Q008, Q013, Q014
+- Q019, Q020, Q025, Q026
+- Q031, Q032, Q037, Q038
+
+Each replacement carries at least two source-fact identifiers. Question IDs, QL ownership, difficulty distribution, lifecycle state and checkpoint answer-position totals are preserved.
 
 ## Publication gate
 

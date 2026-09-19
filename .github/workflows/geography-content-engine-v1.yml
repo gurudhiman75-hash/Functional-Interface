@@ -190,5 +190,14 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      - name: Run GEO-CLI-001 chapter owning-authority V3 audit
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/climate/geo-cli-001-owning-authority-v3.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-cli-001-owning-authority-v3.test.mjs
+          node artifacts/api-server/dist/geography/geo-cli-001-owning-authority-v3.test.mjs
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build

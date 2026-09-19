@@ -1,6 +1,6 @@
 # GEO-CLI-001 CP004 — Hot Weather Season & Local Winds
 
-Status: REVIEW-ONLY CANDIDATE V1
+Status: REVIEW-ONLY CANDIDATE V2 — FINAL CP004 AUTHORITY
 Chapter: GEO-CLI-001 — Climate of India & Monsoon System
 Permanent QLs: QL028–QL036
 
@@ -39,3 +39,8 @@ CP004 may explain the pre-monsoon thermal low and northward ITCZ shift only to t
 - Explanations state the decisive fact directly and remain question-specific.
 - Source and fact provenance is retained on every payload.
 - No Question Studio registration, Question Bank write, test/mock eligibility or public/runtime publication before explicit human approval.
+
+
+## V2 final authority
+
+CP004 V2 is the final owning review authority for QL028–QL036. It applies the approved stem-quality correction over V1 while preserving the 54-question ownership structure, difficulty distribution, provenance and review-only lifecycle. The chapter-wide post-merge authority may apply later lexical, duplicate-stem, option-order and targeted distractor calibration without changing CP004's permanent QL ownership.
