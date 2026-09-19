@@ -28,7 +28,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Laterite soil",
       "Arid soil"
     ],
-    "explanation": "Alluvial soil is the most widely spread and one of the most important soil groups in India, especially across the great northern plains.",
+    "explanation": "Alluvial soil is the most widely spread and one of the most important soil groups in India, especially across the great northern plains. Its distribution follows major depositional plains and deltas because rivers have repeatedly spread sediment over large lowland areas.",
     "sourceFactIds": [
       "ALLUVIAL-WIDESPREAD"
     ]
@@ -44,7 +44,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "The central Thar dunes only",
       "The exposed Deccan lava plateau only"
     ],
-    "explanation": "The northern plains contain very extensive alluvial deposits laid down by the Indus, Ganga and Brahmaputra river systems.",
+    "explanation": "The northern plains contain very extensive alluvial deposits laid down by the Indus, Ganga and Brahmaputra river systems. Its distribution follows major depositional plains and deltas because rivers have repeatedly spread sediment over large lowland areas.",
     "sourceFactIds": [
       "ALLUVIAL-NORTHERN-PLAINS"
     ]
@@ -60,7 +60,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only bare rocky plateaus",
       "Only salt marshes with no river deposits"
     ],
-    "explanation": "Alluvial soils also occur in eastern coastal plains, especially in the deltas built by major east-flowing rivers.",
+    "explanation": "Alluvial soils also occur in eastern coastal plains, especially in the deltas built by major east-flowing rivers. Its distribution follows major depositional plains and deltas because rivers have repeatedly spread sediment over large lowland areas.",
     "sourceFactIds": [
       "ALLUVIAL-EAST-COAST-DELTAS"
     ]
@@ -76,7 +76,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Confined to high-altitude forest slopes",
       "Found only in the interior Deccan rain shadow"
     ],
-    "explanation": "Alluvial soil has a very wide distribution, dominated by the northern plains but also present in river valleys and major eastern deltas.",
+    "explanation": "Alluvial soil has a very wide distribution, dominated by the northern plains but also present in river valleys and major eastern deltas. Its distribution follows major depositional plains and deltas because rivers have repeatedly spread sediment over large lowland areas.",
     "sourceFactIds": [
       "ALLUVIAL-DISTRIBUTION-PATTERN"
     ]
@@ -92,7 +92,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Wind has removed all river material",
       "The plains contain no active rivers"
     ],
-    "explanation": "The Indus, Ganga and Brahmaputra systems have transported and deposited enormous quantities of sediment, building extensive alluvial plains.",
+    "explanation": "The Indus, Ganga and Brahmaputra systems have transported and deposited enormous quantities of sediment, building extensive alluvial plains. Its distribution follows major depositional plains and deltas because rivers have repeatedly spread sediment over large lowland areas.",
     "sourceFactIds": [
       "ALLUVIAL-RIVER-DEPOSITION-EXTENT"
     ]
@@ -108,7 +108,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Laterite soil",
       "Arid soil"
     ],
-    "explanation": "Both the great northern plains and large eastern river deltas are major zones of sediment deposition and therefore extensive alluvial soils.",
+    "explanation": "Both the great northern plains and large eastern river deltas are major zones of sediment deposition and therefore extensive alluvial soils. Its distribution follows major depositional plains and deltas because rivers have repeatedly spread sediment over large lowland areas.",
     "sourceFactIds": [
       "ALLUVIAL-MAP-INTEGRATION"
     ]
@@ -124,7 +124,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Volcanic eruptions only",
       "Coral reefs"
     ],
-    "explanation": "Rivers erode, transport and deposit sediments such as sand, silt and clay. These deposits form alluvial soils.",
+    "explanation": "Rivers erode, transport and deposit sediments such as sand, silt and clay. These deposits form alluvial soils. This is why alluvial soil is called a transported soil: rivers carry weathered material from elsewhere and deposit it when their flow loses energy.",
     "sourceFactIds": [
       "ALLUVIAL-RIVER-DEPOSITION"
     ]
@@ -140,7 +140,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only solid basalt blocks",
       "Only undecomposed leaves"
     ],
-    "explanation": "Alluvial deposits contain varying proportions of sand, silt and clay carried and laid down by rivers.",
+    "explanation": "Alluvial deposits contain varying proportions of sand, silt and clay carried and laid down by rivers. This is why alluvial soil is called a transported soil: rivers carry weathered material from elsewhere and deposit it when their flow loses energy.",
     "sourceFactIds": [
       "ALLUVIAL-SAND-SILT-CLAY"
     ]
@@ -156,7 +156,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Alluvial soil contains no mineral particles",
       "Texture is fixed only by latitude"
     ],
-    "explanation": "Sediment size and river energy vary along a river system, so one alluvial deposit may be sandier while another contains more silt or clay.",
+    "explanation": "Sediment size and river energy vary along a river system, so one alluvial deposit may be sandier while another contains more silt or clay. This is why alluvial soil is called a transported soil: rivers carry weathered material from elsewhere and deposit it when their flow loses energy.",
     "sourceFactIds": [
       "ALLUVIAL-TEXTURE-VARIATION"
     ]
@@ -172,7 +172,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It stops containing water permanently",
       "It converts sediment into lava"
     ],
-    "explanation": "As river velocity and carrying power fall, some of the transported sediment settles out and becomes part of the alluvial deposit.",
+    "explanation": "As river velocity and carrying power fall, some of the transported sediment settles out and becomes part of the alluvial deposit. This is why alluvial soil is called a transported soil: rivers carry weathered material from elsewhere and deposit it when their flow loses energy.",
     "sourceFactIds": [
       "RIVER-LOSS-CARRYING-POWER"
     ]
@@ -188,7 +188,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Coral growth followed by uplift",
       "Wind erosion with no river transport"
     ],
-    "explanation": "Rivers collect sediment from their catchments, transport it downstream and deposit it across plains and floodplains, producing alluvium.",
+    "explanation": "Rivers collect sediment from their catchments, transport it downstream and deposit it across plains and floodplains, producing alluvium. This is why alluvial soil is called a transported soil: rivers carry weathered material from elsewhere and deposit it when their flow loses energy.",
     "sourceFactIds": [
       "ALLUVIAL-EROSION-TRANSPORT-DEPOSITION"
     ]
@@ -204,7 +204,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Deposition → sediment becomes magma → river forms",
       "Wind erosion → coral growth → floodplain formation"
     ],
-    "explanation": "River alluvium develops through sediment transport followed by deposition when flow energy decreases, especially across floodplains and low-gradient areas.",
+    "explanation": "River alluvium develops through sediment transport followed by deposition when flow energy decreases, especially across floodplains and low-gradient areas. This is why alluvial soil is called a transported soil: rivers carry weathered material from elsewhere and deposit it when their flow loses energy.",
     "sourceFactIds": [
       "ALLUVIAL-DEPOSITION-SEQUENCE"
     ]
@@ -220,7 +220,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Luni and Sabarmati only",
       "Periyar and Vaigai only"
     ],
-    "explanation": "The Indus, Ganga and Brahmaputra river systems and their tributaries have built the extensive alluvial deposits of northern India.",
+    "explanation": "The Indus, Ganga and Brahmaputra river systems and their tributaries have built the extensive alluvial deposits of northern India. The northern plains were built by long-term deposition from large river systems, and active floodplains can still receive fresh layers of sediment.",
     "sourceFactIds": [
       "ALLUVIAL-IGB-SYSTEMS"
     ]
@@ -236,7 +236,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Black soil",
       "Arid soil"
     ],
-    "explanation": "The great northern plain is built from river-borne sediments and is therefore dominated by alluvial soils.",
+    "explanation": "The great northern plain is built from river-borne sediments and is therefore dominated by alluvial soils. The northern plains were built by long-term deposition from large river systems, and active floodplains can still receive fresh layers of sediment.",
     "sourceFactIds": [
       "ALLUVIAL-IGB-PLAIN"
     ]
@@ -252,7 +252,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only wind-blown sand formed the plain",
       "The region has no sediment transport"
     ],
-    "explanation": "Large connected river systems have repeatedly deposited sediment over the northern lowlands, producing an extensive alluvial belt.",
+    "explanation": "Large connected river systems have repeatedly deposited sediment over the northern lowlands, producing an extensive alluvial belt. The northern plains were built by long-term deposition from large river systems, and active floodplains can still receive fresh layers of sediment.",
     "sourceFactIds": [
       "ALLUVIAL-NORTH-CONTINUITY"
     ]
@@ -268,7 +268,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Continuous volcanic eruptions",
       "Permanent frozen ground"
     ],
-    "explanation": "Active river channels and floodplains allow new sediment to be laid down during floods and channel shifts, renewing parts of the alluvial cover.",
+    "explanation": "Active river channels and floodplains allow new sediment to be laid down during floods and channel shifts, renewing parts of the alluvial cover. The northern plains were built by long-term deposition from large river systems, and active floodplains can still receive fresh layers of sediment.",
     "sourceFactIds": [
       "ALLUVIAL-FLOODPLAINS"
     ]
@@ -284,7 +284,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "A laterite cap over every plateau",
       "A coral-reef zone"
     ],
-    "explanation": "Alluvial material extends westward into parts of Rajasthan and Gujarat, though the major continuous expanse lies across the northern plains.",
+    "explanation": "Alluvial material extends westward into parts of Rajasthan and Gujarat, though the major continuous expanse lies across the northern plains. The northern plains were built by long-term deposition from large river systems, and active floodplains can still receive fresh layers of sediment.",
     "sourceFactIds": [
       "ALLUVIAL-RAJASTHAN-GUJARAT"
     ]
@@ -300,7 +300,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "II and III only",
       "I, II and III"
     ],
-    "explanation": "Statements I and II are correct. Northern alluvial soils are fundamentally depositional, and active floodplains may receive newer sediment during floods.",
+    "explanation": "Statements I and II are correct. Northern alluvial soils are fundamentally depositional, and active floodplains may receive newer sediment during floods. The northern plains were built by long-term deposition from large river systems, and active floodplains can still receive fresh layers of sediment.",
     "sourceFactIds": [
       "ALLUVIAL-NORTH-STATEMENTS"
     ]
@@ -316,7 +316,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only offshore coral islands",
       "Only high plateau summits"
     ],
-    "explanation": "Major east-flowing rivers build deltas along the eastern coast, and these deltaic areas contain extensive alluvial deposits.",
+    "explanation": "Major east-flowing rivers build deltas along the eastern coast, and these deltaic areas contain extensive alluvial deposits. Near the coast, rivers slow down and divide into distributaries, allowing fine sediment to settle and build fertile deltaic alluvial plains.",
     "sourceFactIds": [
       "ALLUVIAL-EASTERN-DELTAS"
     ]
@@ -332,7 +332,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Jhelum, Chenab, Ravi and Beas only",
       "Periyar, Mandovi, Zuari and Sharavati only"
     ],
-    "explanation": "The Mahanadi, Godavari, Krishna and Kaveri form major east-coast deltas where river deposition creates alluvial soils.",
+    "explanation": "The Mahanadi, Godavari, Krishna and Kaveri form major east-coast deltas where river deposition creates alluvial soils. Near the coast, rivers slow down and divide into distributaries, allowing fine sediment to settle and build fertile deltaic alluvial plains.",
     "sourceFactIds": [
       "ALLUVIAL-DELTA-RIVERS"
     ]
@@ -348,7 +348,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "No rivers enter the eastern coast",
       "Only wind carries material into the deltas"
     ],
-    "explanation": "As rivers lose gradient and velocity near their mouths, they deposit sediment and build deltas with extensive alluvial soils.",
+    "explanation": "As rivers lose gradient and velocity near their mouths, they deposit sediment and build deltas with extensive alluvial soils. Near the coast, rivers slow down and divide into distributaries, allowing fine sediment to settle and build fertile deltaic alluvial plains.",
     "sourceFactIds": [
       "ALLUVIAL-DELTA-DEPOSITION"
     ]
@@ -364,7 +364,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Thar dune crest — river delta alluvium",
       "High Himalaya — coastal delta alluvium"
     ],
-    "explanation": "The Godavari is a major east-flowing river that builds a delta, and its lower course and delta contain important alluvial deposits.",
+    "explanation": "The Godavari is a major east-flowing river that builds a delta, and its lower course and delta contain important alluvial deposits. Near the coast, rivers slow down and divide into distributaries, allowing fine sediment to settle and build fertile deltaic alluvial plains.",
     "sourceFactIds": [
       "GODAVARI-DELTA-ALLUVIUM"
     ]
@@ -380,7 +380,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Mountain forest soil",
       "Wind-formed arid soil only"
     ],
-    "explanation": "Distributaries and fresh river deposits are typical of a deltaic environment, where alluvial sediments accumulate near the river mouth.",
+    "explanation": "Distributaries and fresh river deposits are typical of a deltaic environment, where alluvial sediments accumulate near the river mouth. Near the coast, rivers slow down and divide into distributaries, allowing fine sediment to settle and build fertile deltaic alluvial plains.",
     "sourceFactIds": [
       "DELTAIC-ALLUVIUM-CLUES"
     ]
@@ -396,7 +396,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Permanent glacial cover",
       "Formation only from wind-blown desert sand"
     ],
-    "explanation": "The two regions differ greatly, but both receive large amounts of river-deposited sediment. That common process produces alluvial soil in each setting.",
+    "explanation": "The two regions differ greatly, but both receive large amounts of river-deposited sediment. That common process produces alluvial soil in each setting. Near the coast, rivers slow down and divide into distributaries, allowing fine sediment to settle and build fertile deltaic alluvial plains.",
     "sourceFactIds": [
       "ALLUVIAL-COMMON-PROCESS"
     ]
@@ -412,7 +412,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Regur",
       "Laterite"
     ],
-    "explanation": "Khadar is the newer alluvial deposit found in active floodplain areas where rivers can add fresh sediment.",
+    "explanation": "Khadar is the newer alluvial deposit found in active floodplain areas where rivers can add fresh sediment. Khadar lies on younger, lower floodplain surfaces, so floods can add fresh silt and renew this alluvium more often than older deposits.",
     "sourceFactIds": [
       "KHADAR-NEW-ALLUVIUM"
     ]
@@ -428,7 +428,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It occurs only on high terraces beyond floods",
       "It contains no river sediment"
     ],
-    "explanation": "Khadar occupies lower floodplain areas and can receive fresh layers of alluvium during floods, making it younger and more frequently renewed.",
+    "explanation": "Khadar occupies lower floodplain areas and can receive fresh layers of alluvium during floods, making it younger and more frequently renewed. Khadar lies on younger, lower floodplain surfaces, so floods can add fresh silt and renew this alluvium more often than older deposits.",
     "sourceFactIds": [
       "KHADAR-FLOOD-RENEWAL"
     ]
@@ -444,7 +444,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "A basalt plateau far from rivers",
       "A steep lateritic hill crest"
     ],
-    "explanation": "Khadar is newer alluvium of active or recently active floodplains, so it is commonly found close to river channels and low floodplain surfaces.",
+    "explanation": "Khadar is newer alluvium of active or recently active floodplains, so it is commonly found close to river channels and low floodplain surfaces. Khadar lies on younger, lower floodplain surfaces, so floods can add fresh silt and renew this alluvium more often than older deposits.",
     "sourceFactIds": [
       "KHADAR-LOW-FLOODPLAIN"
     ]
@@ -460,7 +460,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "They are both bedrock units",
       "Age has no meaning for alluvial deposits"
     ],
-    "explanation": "Khadar represents newer alluvium, while bhangar is older alluvium deposited on relatively higher and older surfaces.",
+    "explanation": "Khadar represents newer alluvium, while bhangar is older alluvium deposited on relatively higher and older surfaces. Khadar lies on younger, lower floodplain surfaces, so floods can add fresh silt and renew this alluvium more often than older deposits.",
     "sourceFactIds": [
       "KHADAR-YOUNGER-BHANGAR"
     ]
@@ -476,7 +476,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It forms only under permanent snow",
       "It cannot support crops"
     ],
-    "explanation": "Periodic deposition brings fresh mineral sediment to khadar areas, helping maintain the fertility of these younger alluvial soils.",
+    "explanation": "Periodic deposition brings fresh mineral sediment to khadar areas, helping maintain the fertility of these younger alluvial soils. Khadar lies on younger, lower floodplain surfaces, so floods can add fresh silt and renew this alluvium more often than older deposits.",
     "sourceFactIds": [
       "KHADAR-FERTILITY"
     ]
@@ -492,7 +492,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Both fields — black soil",
       "Both fields — laterite soil"
     ],
-    "explanation": "Fresh floodplain deposits identify Field A as khadar, while the older elevated alluvial surface of Field B is characteristic of bhangar.",
+    "explanation": "Fresh floodplain deposits identify Field A as khadar, while the older elevated alluvial surface of Field B is characteristic of bhangar. Khadar lies on younger, lower floodplain surfaces, so floods can add fresh silt and renew this alluvium more often than older deposits.",
     "sourceFactIds": [
       "KHADAR-BHANGAR-SCENARIO"
     ]
@@ -508,7 +508,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Regur",
       "Laterite"
     ],
-    "explanation": "Bhangar is the older alluvial deposit, generally found on older and relatively higher surfaces above the frequently flooded zone.",
+    "explanation": "Bhangar is the older alluvial deposit, generally found on older and relatively higher surfaces above the frequently flooded zone. Bhangar occurs on older, higher alluvial surfaces that are flooded less often, and calcareous kankar nodules are a common identifying feature.",
     "sourceFactIds": [
       "BHANGAR-OLD-ALLUVIUM"
     ]
@@ -524,7 +524,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It is formed only from fresh lava",
       "It contains no calcium compounds"
     ],
-    "explanation": "Older alluvium often contains calcareous concretions known as kankar, a standard feature used to distinguish bhangar from khadar.",
+    "explanation": "Older alluvium often contains calcareous concretions known as kankar, a standard feature used to distinguish bhangar from khadar. Bhangar occurs on older, higher alluvial surfaces that are flooded less often, and calcareous kankar nodules are a common identifying feature.",
     "sourceFactIds": [
       "BHANGAR-KANKAR"
     ]
@@ -540,7 +540,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only in coastal mangroves",
       "Only on new volcanic cones"
     ],
-    "explanation": "Bhangar is older alluvium preserved on relatively high terraces that are less frequently reached by present-day floods.",
+    "explanation": "Bhangar is older alluvium preserved on relatively high terraces that are less frequently reached by present-day floods. Bhangar occurs on older, higher alluvial surfaces that are flooded less often, and calcareous kankar nodules are a common identifying feature.",
     "sourceFactIds": [
       "BHANGAR-HIGH-TERRACE"
     ]
@@ -556,7 +556,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Khadar contains older terrace surfaces",
       "Both terms refer to black soil"
     ],
-    "explanation": "Bhangar represents older alluvium on higher ground, while khadar is younger alluvium more regularly renewed on floodplains.",
+    "explanation": "Bhangar represents older alluvium on higher ground, while khadar is younger alluvium more regularly renewed on floodplains. Bhangar occurs on older, higher alluvial surfaces that are flooded less often, and calcareous kankar nodules are a common identifying feature.",
     "sourceFactIds": [
       "BHANGAR-VS-KHADAR"
     ]
@@ -572,7 +572,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Black soil",
       "Laterite soil"
     ],
-    "explanation": "The combination of an older raised alluvial surface, infrequent flooding and kankar nodules is characteristic of bhangar.",
+    "explanation": "The combination of an older raised alluvial surface, infrequent flooding and kankar nodules is characteristic of bhangar. Bhangar occurs on older, higher alluvial surfaces that are flooded less often, and calcareous kankar nodules are a common identifying feature.",
     "sourceFactIds": [
       "BHANGAR-CLUES"
     ]
@@ -588,7 +588,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "II and III only",
       "I, II and III"
     ],
-    "explanation": "Statements I and II are correct. Bhangar is older alluvium on relatively elevated surfaces and is renewed less often than khadar.",
+    "explanation": "Statements I and II are correct. Bhangar is older alluvium on relatively elevated surfaces and is renewed less often than khadar. Bhangar occurs on older, higher alluvial surfaces that are flooded less often, and calcareous kankar nodules are a common identifying feature.",
     "sourceFactIds": [
       "BHANGAR-STATEMENTS"
     ]
@@ -604,7 +604,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only gravel and bedrock",
       "Only organic litter"
     ],
-    "explanation": "Alluvial soil consists of river-deposited mineral particles, with varying proportions of sand, silt and clay.",
+    "explanation": "Alluvial soil consists of river-deposited mineral particles, with varying proportions of sand, silt and clay. Alluvial texture varies with the mix of sand, silt and clay, but many deposits are deep and workable enough to support intensive cultivation.",
     "sourceFactIds": [
       "ALLUVIAL-PARTICLE-SIZES"
     ]
@@ -620,7 +620,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Permanently frozen",
       "Composed only of coarse stones"
     ],
-    "explanation": "Many alluvial soils are fertile, deep and workable, which helps explain the intense agriculture of India's great river plains and deltas.",
+    "explanation": "Many alluvial soils are fertile, deep and workable, which helps explain the intense agriculture of India's great river plains and deltas. Alluvial texture varies with the mix of sand, silt and clay, but many deposits are deep and workable enough to support intensive cultivation.",
     "sourceFactIds": [
       "ALLUVIAL-GENERAL-FERTILITY"
     ]
@@ -636,7 +636,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Petroleum, coal and natural gas",
       "Only sodium chloride"
     ],
-    "explanation": "NCERT notes that alluvial soils generally contain adequate proportions of potash, phosphoric acid and lime, supporting a wide range of crops.",
+    "explanation": "NCERT notes that alluvial soils generally contain adequate proportions of potash, phosphoric acid and lime, supporting a wide range of crops. Alluvial texture varies with the mix of sand, silt and clay, but many deposits are deep and workable enough to support intensive cultivation.",
     "sourceFactIds": [
       "ALLUVIAL-POTASH-PHOSPHORIC-LIME"
     ]
@@ -652,7 +652,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Texture depends only on crop choice",
       "Sediment size is unrelated to flow conditions"
     ],
-    "explanation": "Coarser material is more easily deposited where river energy falls sharply, while finer silt and clay can travel farther before settling.",
+    "explanation": "Coarser material is more easily deposited where river energy falls sharply, while finer silt and clay can travel farther before settling. Alluvial texture varies with the mix of sand, silt and clay, but many deposits are deep and workable enough to support intensive cultivation.",
     "sourceFactIds": [
       "ALLUVIAL-TEXTURE-RIVER-ENERGY"
     ]
@@ -668,7 +668,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It has no mineral particles",
       "It occurs only where there are no rivers"
     ],
-    "explanation": "Alluvial soil is transported soil because rivers carry sediment from elsewhere and deposit it on plains, floodplains and deltas.",
+    "explanation": "Alluvial soil is transported soil because rivers carry sediment from elsewhere and deposit it on plains, floodplains and deltas. Alluvial texture varies with the mix of sand, silt and clay, but many deposits are deep and workable enough to support intensive cultivation.",
     "sourceFactIds": [
       "ALLUVIAL-TRANSPORTED-SOIL"
     ]
@@ -684,7 +684,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Arid soil",
       "Mountain forest soil"
     ],
-    "explanation": "The combination of fluvial deposition, mixed sediment sizes, depth and agricultural importance strongly identifies alluvial soil.",
+    "explanation": "The combination of fluvial deposition, mixed sediment sizes, depth and agricultural importance strongly identifies alluvial soil. Alluvial texture varies with the mix of sand, silt and clay, but many deposits are deep and workable enough to support intensive cultivation.",
     "sourceFactIds": [
       "ALLUVIAL-PROPERTY-IDENTIFICATION"
     ]
@@ -700,7 +700,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Rubber only",
       "Coffee only"
     ],
-    "explanation": "Wheat is a major crop of the fertile alluvial plains, especially in the irrigated and well-drained parts of northern India.",
+    "explanation": "Wheat is a major crop of the fertile alluvial plains, especially in the irrigated and well-drained parts of northern India. Alluvial soil can support many crops, but actual crop choice still depends on temperature, rainfall, irrigation and the needs of each crop.",
     "sourceFactIds": [
       "ALLUVIAL-WHEAT"
     ]
@@ -716,7 +716,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Cardamom only",
       "Saffron only"
     ],
-    "explanation": "Sugarcane grows extensively in fertile alluvial tracts of the Ganga plain where moisture and irrigation are also favourable.",
+    "explanation": "Sugarcane grows extensively in fertile alluvial tracts of the Ganga plain where moisture and irrigation are also favourable. Alluvial soil can support many crops, but actual crop choice still depends on temperature, rainfall, irrigation and the needs of each crop.",
     "sourceFactIds": [
       "ALLUVIAL-SUGARCANE"
     ]
@@ -732,7 +732,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Apple, saffron and walnut only",
       "Coconut, cashew and rubber only"
     ],
-    "explanation": "Alluvial soils support major food and cash crops such as rice, wheat and sugarcane when climate and water supply are suitable.",
+    "explanation": "Alluvial soils support major food and cash crops such as rice, wheat and sugarcane when climate and water supply are suitable. Alluvial soil can support many crops, but actual crop choice still depends on temperature, rainfall, irrigation and the needs of each crop.",
     "sourceFactIds": [
       "ALLUVIAL-CROP-COMBINATION"
     ]
@@ -748,7 +748,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "They lack river water everywhere",
       "They contain no fine sediment"
     ],
-    "explanation": "Fertile alluvial deposits spread across extensive level plains that are easy to cultivate and often have good access to river or groundwater irrigation.",
+    "explanation": "Fertile alluvial deposits spread across extensive level plains that are easy to cultivate and often have good access to river or groundwater irrigation. Alluvial soil can support many crops, but actual crop choice still depends on temperature, rainfall, irrigation and the needs of each crop.",
     "sourceFactIds": [
       "ALLUVIAL-INTENSIVE-AGRICULTURE"
     ]
@@ -764,7 +764,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It contains no sediment",
       "Floodplains cannot support roots"
     ],
-    "explanation": "Alluvial floodplains commonly provide deep, fine-textured and fertile soil that is easier to cultivate than a shallow rocky slope.",
+    "explanation": "Alluvial floodplains commonly provide deep, fine-textured and fertile soil that is easier to cultivate than a shallow rocky slope. Alluvial soil can support many crops, but actual crop choice still depends on temperature, rainfall, irrigation and the needs of each crop.",
     "sourceFactIds": [
       "ALLUVIAL-FLOODPLAIN-FARMING"
     ]
@@ -780,7 +780,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Alpine grasses and saffron only",
       "No crops because alluvial soil is infertile"
     ],
-    "explanation": "Fertile alluvial soils can support rice, wheat, sugarcane, cereals and pulses when water and climate meet the needs of each crop.",
+    "explanation": "Fertile alluvial soils can support rice, wheat, sugarcane, cereals and pulses when water and climate meet the needs of each crop. Alluvial soil can support many crops, but actual crop choice still depends on temperature, rainfall, irrigation and the needs of each crop.",
     "sourceFactIds": [
       "ALLUVIAL-MULTICROP"
     ]
@@ -796,7 +796,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Laterite soil",
       "Forest soil"
     ],
-    "explanation": "River deposition across the northern plains is the defining setting of India's extensive alluvial soils.",
+    "explanation": "River deposition across the northern plains is the defining setting of India's extensive alluvial soils. The connecting idea is river deposition: it explains the northern plains, khadar and bhangar differences, and the alluvial soils of major deltas.",
     "sourceFactIds": [
       "ALLUVIAL-INTEGRATED-ID"
     ]
@@ -812,7 +812,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Regur",
       "Laterite"
     ],
-    "explanation": "Fresh sediment deposition on an active floodplain indicates khadar, the newer alluvium that is renewed more frequently by floods.",
+    "explanation": "Fresh sediment deposition on an active floodplain indicates khadar, the newer alluvium that is renewed more frequently by floods. The connecting idea is river deposition: it explains the northern plains, khadar and bhangar differences, and the alluvial soils of major deltas.",
     "sourceFactIds": [
       "ALLUVIAL-INTEGRATED-KHADAR"
     ]
@@ -828,7 +828,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Both — black soil",
       "Both — laterite soil"
     ],
-    "explanation": "Bhangar is older alluvium on higher terraces and may contain kankar. Khadar is newer alluvium of active floodplains.",
+    "explanation": "Bhangar is older alluvium on higher terraces and may contain kankar. Khadar is newer alluvium of active floodplains. The connecting idea is river deposition: it explains the northern plains, khadar and bhangar differences, and the alluvial soils of major deltas.",
     "sourceFactIds": [
       "ALLUVIAL-INTEGRATED-BHANGAR-KHADAR"
     ]
@@ -844,7 +844,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Wind erosion → bedrock uplift → no deposition",
       "Coral growth → river capture → desert soil"
     ],
-    "explanation": "A river carries sediment downstream, loses energy near its lower course and mouth, and deposits material that builds a deltaic alluvial plain.",
+    "explanation": "A river carries sediment downstream, loses energy near its lower course and mouth, and deposits material that builds a deltaic alluvial plain. The connecting idea is river deposition: it explains the northern plains, khadar and bhangar differences, and the alluvial soils of major deltas.",
     "sourceFactIds": [
       "ALLUVIAL-INTEGRATED-DELTA"
     ]
@@ -860,7 +860,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Alluvial regions have no major river systems",
       "River deposits prevent cereal cultivation"
     ],
-    "explanation": "The same river systems that build extensive alluvial plains also create deep, fertile and workable soils that support dense agricultural use.",
+    "explanation": "The same river systems that build extensive alluvial plains also create deep, fertile and workable soils that support dense agricultural use. The connecting idea is river deposition: it explains the northern plains, khadar and bhangar differences, and the alluvial soils of major deltas.",
     "sourceFactIds": [
       "ALLUVIAL-INTEGRATED-AGRICULTURE"
     ]
@@ -876,7 +876,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "II and III only",
       "I and III only"
     ],
-    "explanation": "All three statements are correct. They connect the age classes of northern alluvium with the wider occurrence of river-deposited soils in eastern deltas.",
+    "explanation": "All three statements are correct. They connect the age classes of northern alluvium with the wider occurrence of river-deposited soils in eastern deltas. The connecting idea is river deposition: it explains the northern plains, khadar and bhangar differences, and the alluvial soils of major deltas.",
     "sourceFactIds": [
       "ALLUVIAL-INTEGRATED-STATEMENTS"
     ]
@@ -934,7 +934,8 @@ export function auditGeoSoi001Cp002ReviewBatchV1() {
     const learnerText = q.stem + "\n" + q.options.join("\n") + "\n" + q.explanation;
     if (BANNED.test(learnerText)) issues.push("STYLE:" + q.questionId);
     if (q.stem.length < 25 || q.stem.length > 360 || !q.stem.trim().endsWith("?")) issues.push("STEM_SHAPE:" + q.questionId);
-    if (q.explanation.length < 150) issues.push("SHORT_EXPLANATION:" + q.questionId);\n    if ((q.explanation.match(/[.!?](?:\\s|$)/g) ?? []).length < 2) issues.push("EXPLANATION_DEPTH:" + q.questionId);
+    if (q.explanation.length < 150) issues.push("SHORT_EXPLANATION:" + q.questionId);
+    if ((q.explanation.match(/[.!?](?:\\s|$)/g) ?? []).length < 2) issues.push("EXPLANATION_DEPTH:" + q.questionId);
   }
 
   if (GEO_SOI_001_CP002_REVIEW_BATCH_V1.length !== 54) issues.push("COUNT:" + GEO_SOI_001_CP002_REVIEW_BATCH_V1.length);
