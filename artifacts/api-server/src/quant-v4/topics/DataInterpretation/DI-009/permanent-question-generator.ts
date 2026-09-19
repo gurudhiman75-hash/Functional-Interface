@@ -77,43 +77,57 @@ function buildOptions(seed: string, answer: string, candidates: readonly Di009Ca
   return { options: shuffled.map((option) => option.text), optionMetadata: shuffled, correctIndex };
 }
 
+const MAX_PERMANENT_TASK_ATTEMPTS = 128;
+
 export function generateDi009PermanentQuestion(input: { seed: string; examProfile: Di009ExamProfile; taskKind: Di009TaskKind }) {
-  const seed = input.seed.trim();
-  if (!seed) throw new Error("DI-009 permanent generation requires a non-empty seed.");
-  const stimulus = buildDi009Stimulus(seed, input.examProfile);
-  const draft = buildDi009Drafts(seed, stimulus).map(normalizeDraft).find((item) => item.kind === input.taskKind);
-  if (!draft) throw new Error(`DI-009 could not construct permanent task ${input.taskKind}.`);
-  const built = buildOptions(`${seed}:${input.examProfile}:${draft.kind}`, draft.answer, draft.candidates);
-  const setId = `DI-009-${input.examProfile}-${hashSeed(`${seed}:${input.examProfile}`).toString(16).padStart(8, "0")}`;
-  const question: Di009Question = {
-    questionId: `${setId}-PERM-${draft.kind}`,
-    setId,
-    kind: draft.kind,
-    difficulty: draft.difficulty,
-    stem: draft.stem,
-    options: built.options,
-    optionMetadata: built.optionMetadata,
-    correctIndex: built.correctIndex,
-    answer: draft.answer,
-    explanation: draft.explanation,
-    evidence: draft.evidence,
-  };
-  return {
-    packageId: "DI-009" as const,
-    seed,
-    examProfile: input.examProfile,
-    stimulus,
-    question,
-    traceability: {
-      representation: "HISTOGRAM" as const,
-      questionLogicVersion: "DI-009-QUESTION-LOGIC-V2" as const,
-      setContractVersion: "DI-009-SET-CONTRACT-V3" as const,
-      presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS" as const,
-      questionStudioDiscoverable: false as const,
-      questionBankStatus: "NOT_STORED" as const,
-      testEligibility: "INELIGIBLE" as const,
-      publiclyPublishable: false as const,
-      automaticStudentPublication: false as const,
-    },
-  };
+  const requestedSeed = input.seed.trim();
+  if (!requestedSeed) throw new Error("DI-009 permanent generation requires a non-empty seed.");
+
+  for (let attempt = 0; attempt < MAX_PERMANENT_TASK_ATTEMPTS; attempt += 1) {
+    const sourceSeed = attempt === 0
+      ? requestedSeed
+      : `${requestedSeed}:PERM:${input.taskKind}:${attempt}`;
+    const stimulus = buildDi009Stimulus(sourceSeed, input.examProfile);
+    const draft = buildDi009Drafts(sourceSeed, stimulus).map(normalizeDraft).find((item) => item.kind === input.taskKind);
+    if (!draft) continue;
+
+    const built = buildOptions(`${sourceSeed}:${input.examProfile}:${draft.kind}`, draft.answer, draft.candidates);
+    const setId = `DI-009-${input.examProfile}-${hashSeed(`${sourceSeed}:${input.examProfile}`).toString(16).padStart(8, "0")}`;
+    const question: Di009Question = {
+      questionId: `${setId}-PERM-${draft.kind}`,
+      setId,
+      kind: draft.kind,
+      difficulty: draft.difficulty,
+      stem: draft.stem,
+      options: built.options,
+      optionMetadata: built.optionMetadata,
+      correctIndex: built.correctIndex,
+      answer: draft.answer,
+      explanation: draft.explanation,
+      evidence: draft.evidence,
+    };
+    return {
+      packageId: "DI-009" as const,
+      seed: requestedSeed,
+      sourceSeed,
+      generationAttempt: attempt,
+      examProfile: input.examProfile,
+      stimulus,
+      question,
+      traceability: {
+        representation: "HISTOGRAM" as const,
+        questionLogicVersion: "DI-009-QUESTION-LOGIC-V2" as const,
+        setContractVersion: "DI-009-SET-CONTRACT-V3" as const,
+        presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS" as const,
+        permanentTaskMaterialization: "DETERMINISTIC_RETRY_IF_REQUIRED" as const,
+        questionStudioDiscoverable: false as const,
+        questionBankStatus: "NOT_STORED" as const,
+        testEligibility: "INELIGIBLE" as const,
+        publiclyPublishable: false as const,
+        automaticStudentPublication: false as const,
+      },
+    };
+  }
+
+  throw new Error(`DI-009 could not construct permanent task ${input.taskKind} within ${MAX_PERMANENT_TASK_ATTEMPTS} deterministic attempts.`);
 }
