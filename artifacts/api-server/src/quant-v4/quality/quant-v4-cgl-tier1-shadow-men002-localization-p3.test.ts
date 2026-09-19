@@ -178,6 +178,11 @@ const targetedPatternVariety = Object.fromEntries(
   }),
 );
 
+console.log(
+  "QUANT_V4_CGL_TIER1_SHADOW_MEN002_TARGETED_VARIETY_P3",
+  JSON.stringify(targetedPatternVariety),
+);
+
 for (const patternId of TARGETED_REPEAT_PATTERNS) {
   const summary = targetedPatternVariety[patternId];
   assert.ok(
