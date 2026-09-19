@@ -469,7 +469,7 @@ D. Abiotic factor
 
 ## Q32 · Easy · Genetically modified organisms and crops
 
-Bt cotton was developed mainly for resistance against certain:
+Bt cotton was developed for resistance against certain:
 
 A. Droughts only
 B. Fungal cell walls
@@ -737,18 +737,18 @@ D. Soil pH
 
 **Source fact:** `DNA-FINGERPRINTING-DEFINITION`
 
-## Q50 · Easy · DNA fingerprinting and other applications
+## Q50 · Medium · DNA fingerprinting and other applications
 
-A common use of DNA fingerprinting is in:
+A biological sample from a crime scene is compared with samples from several individuals. Which biotechnology method is designed for this type of identification?
 
-A. Measuring rainfall
-B. Forensic identification
-C. Classifying rocks
-D. Testing sound intensity
+A. Tissue culture
+B. DNA fingerprinting
+C. Fermentation
+D. Nitrogen fixation
 
-**Answer:** B. Forensic identification
+**Answer:** B. DNA fingerprinting
 
-**Explanation:** DNA profiles can help compare biological evidence with individuals in forensic work.
+**Explanation:** DNA fingerprinting compares variable DNA patterns and is widely used to match biological samples in forensic investigations.
 
 **Source fact:** `DNA-FINGERPRINTING-FORENSIC`
 
