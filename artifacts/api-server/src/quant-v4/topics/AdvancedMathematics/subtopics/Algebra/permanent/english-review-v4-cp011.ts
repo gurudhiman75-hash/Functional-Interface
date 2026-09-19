@@ -200,7 +200,7 @@ export function generateAlgCp011EnglishReviewV4(
   }
 
   const variant = VARIANTS[variantIndex]!;
-  const base = pick(seed, 0x1101 + variantIndex, -12, 12);
+  const base = pick(seed, 0x1101 + variantIndex, -17, 17);
   const gapA = pick(seed, 0x2201 + variantIndex, 2, 6);
   const gapB = pick(seed, 0x3301 + variantIndex, 2, 6);
   const separation = pick(seed, 0x4401 + variantIndex, 1, 4);
