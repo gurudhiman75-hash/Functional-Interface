@@ -4,7 +4,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
   [
     3,
     "Medium",
-    "The mucus lining of the stomach mainly protects it from:",
+    "The mucus lining of the stomach protects it from:",
     "Acid and digestive enzymes",
     [
       "Absorbed oxygen",
@@ -79,7 +79,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
   [
     4,
     "Medium",
-    "The gallbladder mainly functions to:",
+    "What is the chief function of the gallbladder?",
     "Store and concentrate bile",
     [
       "Produce digestive enzymes",
@@ -94,7 +94,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
   [
     4,
     "Medium",
-    "Bile helps in the digestion of fats mainly by:",
+    "How does bile help in the digestion of fats?",
     "Breaking large fat globules into smaller droplets",
     [
       "Converting proteins into amino acids directly",
@@ -154,7 +154,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
   [
     5,
     "Easy",
-    "Which pancreatic enzyme mainly digests proteins?",
+    "Which pancreatic enzyme digests proteins?",
     "Trypsin",
     [
       "Amylase",
@@ -169,7 +169,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
   [
     5,
     "Medium",
-    "Pancreatic lipase acts mainly on:",
+    "Pancreatic lipase acts on:",
     "Fats",
     [
       "Starch",
