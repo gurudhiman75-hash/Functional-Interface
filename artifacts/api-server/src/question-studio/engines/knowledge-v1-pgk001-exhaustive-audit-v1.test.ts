@@ -47,6 +47,16 @@ for (const q of questions) {
   stemPeers.push(q.questionId);
   normalizedStem.set(stemKey, stemPeers);
 
+  if (q.sourceFactIds.length === 0) {
+    findings.push({ severity: "BLOCKER", code: "SOURCE_FACT_TRACE_MISSING", questionId: q.questionId, cpId: q.cpId, qlId: q.qlId, detail: "no canonical fact provenance attached" });
+  }
+  if (q.sourceIds.length === 0) {
+    findings.push({ severity: "BLOCKER", code: "SOURCE_AUTHORITY_TRACE_MISSING", questionId: q.questionId, cpId: q.cpId, qlId: q.qlId, detail: "no source authority attached" });
+  }
+  if (q.cpId === "PGK-001-CP-025" && /\b2024\b/.test(learner)) {
+    findings.push({ severity: "BLOCKER", code: "RECENT_SPORTS_STATIC_GK_LEAKAGE", questionId: q.questionId, cpId: q.cpId, qlId: q.qlId, detail: "CP025 policy routes recent achievements to Current Affairs" });
+  }
+
   if (q.options.length !== 4 || new Set(q.options).size !== 4) {
     findings.push({ severity: "BLOCKER", code: "OPTION_INTEGRITY", questionId: q.questionId, cpId: q.cpId, qlId: q.qlId, detail: "requires four unique options" });
   }
