@@ -35,7 +35,7 @@ Examples:
 
 CP011 does not manufacture difficulty coverage.
 
-QL008 is intentionally Medium/Hard because genuine ordered-response reasoning is harder by design. If Question Studio requests QL008 + Easy, the truthful result is **no matching authority**, not a relabelled Medium question.
+QL008 is predominantly Medium/Hard, but the frozen editorial calibration intentionally marks COA-SC-102 as Easy. Therefore QL008 + Easy has a truthful semantic capacity of exactly one; CP011 must return that authority rather than relabel another question.
 
 ## Editorial regression protection
 
@@ -64,7 +64,7 @@ Approved by the product owner on **2026-09-18**.
 
 This freezes:
 1. the semantic anti-repetition rule;
-2. QL008 Medium/Hard-only coverage;
+2. QL008 calibrated difficulty coverage;
 3. the current 118 active ordinary + 10 source-backed profile authorities;
 4. the final EN/HI/PA editorial surface.
 
