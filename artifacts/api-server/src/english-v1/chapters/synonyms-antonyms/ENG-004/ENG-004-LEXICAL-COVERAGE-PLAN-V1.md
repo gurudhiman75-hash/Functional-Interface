@@ -1,6 +1,6 @@
 # ENG-004 — Synonyms & Antonyms — Lexical Coverage Plan V1
 
-Status: `ACTIVE_EXPANSION__PILOT_NOT_APPROVABLE`
+Status: `ACTIVE_EXPANSION__CP001_500_TARGET_ACHIEVED__HUMAN_REVIEW_PENDING`
 
 ## Decision
 
@@ -112,8 +112,10 @@ A lexical entry cannot become generation-eligible unless:
 
 ## Current CP001 state
 
-The existing 36 entries remain useful as a deterministic-generator pilot, but CP001 is now classified:
+The original 36-entry bank is retained only as historical architecture-pilot context.
 
-`PILOT_BANK_36__EXPANSION_REQUIRED__HUMAN_APPROVAL_BLOCKED`
+CP001 V2 now contains **500 curated headword-senses**, so the CP001 minimum coverage target has been achieved. Its lifecycle is now:
 
-The next ENG-004 review file should not be presented for approval until CP001 is materially expanded toward the 500-headword target.
+`EXPANDED_500__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+
+The chapter-wide 2,000+ headword-sense target remains active for CP002 onward.
