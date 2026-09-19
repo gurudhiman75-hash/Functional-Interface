@@ -8,6 +8,7 @@ const stable = (value: unknown) => JSON.stringify(value);
 const malformed = /\bhad\s+(?:qualify|lead|handle|back|complete|identify)\b|\bwould\s+(?:completed|identified|handled|backed)\b|\bwould have was\b/i;
 const duplicatedMarker = /\b(if|unless|had|should|were|would|will|could|might)\s+\1\b/i;
 const barePassiveIf = /^(?:If|if)\s+(?!.*\b(?:had|has|have|was|were|would|could|might|should)\s+(?:have\s+)?been\b).+?\s+been\s+(?:sealed|issued|preserved)\b/i;
+const overFormalExplanation = /\b(?:real or open future condition|ordinary real-future conditional|remote or unreal present\/future condition|neutral future reference|genuinely possible|counterfactual)\b/i;
 
 for (const difficulty of ["easy", "medium", "hard"] as const) {
   const pool = cp011ScenePoolV1(difficulty);
@@ -40,6 +41,7 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(first.explanation.includes("Here,"), `${first.questionId} lacks sentence-specific application`);
     assert(first.explanation.includes("Correct sentence:"), `${first.questionId} lacks corrected sentence`);
     assert(first.explanation.includes(first.correctedSentence), `${first.questionId} explanation lost corrected sentence`);
+    assert(!overFormalExplanation.test(first.explanation), `${first.questionId} explanation became too formal: ${first.explanation}`);
     assert(first.metadata.chapterId === "ENG-003" && first.metadata.cpId === "ENG-003-CP011", `${first.questionId} has wrong ids`);
     assert(first.metadata.reviewOnly === true, `${first.questionId} must remain review-only`);
     assert(allowedRules.has(first.metadata.ruleId), `${first.questionId} uses ineligible rule ${first.metadata.ruleId}`);
