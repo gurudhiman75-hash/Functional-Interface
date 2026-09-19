@@ -73,7 +73,14 @@ for (let variantIndex = 0; variantIndex < ALG_CP011_ENGLISH_REVIEW_V4_VARIANT_CO
     assert(!first.questionBankWritable && !first.testEligible && !first.publiclyPublishable, `${prefix}: production eligibility leaked`);
 
     assertPrimitiveEquation(first.equationX, `${prefix}/equation-x`);
-    assertPrimitiveEquation(first.equationY, `${prefix}/equation-y`);
+    if (first.solveMode !== "compareEqualRepeatedRoots") {
+      assertPrimitiveEquation(first.equationY, `${prefix}/equation-y`);
+    } else {
+      assert(
+        stable(first.equationX) !== stable(first.equationY),
+        `${prefix}: equal-root comparison must not render two identical equations`,
+      );
+    }
 
     const xRoots = exactRootsFromQuadraticState(solveQuadraticEquation(first.equationX));
     const yRoots = exactRootsFromQuadraticState(solveQuadraticEquation(first.equationY));
@@ -88,7 +95,7 @@ for (let variantIndex = 0; variantIndex < ALG_CP011_ENGLISH_REVIEW_V4_VARIANT_CO
     assert(first.explanation.length >= 120, `${prefix}: explanation is too thin`);
     assert(!/\/1\b/.test(first.explanation), `${prefix}: learner-facing root notation contains a redundant /1 denominator`);
 
-    stateFingerprints.add(stable([first.equationX, first.equationY]));
+    stateFingerprints.add(stable([xRoots, yRoots]));
     questions.add(first.question);
     explanationFingerprints.add(first.explanation);
     firstLines.add(first.question.split("\n")[0]!);
