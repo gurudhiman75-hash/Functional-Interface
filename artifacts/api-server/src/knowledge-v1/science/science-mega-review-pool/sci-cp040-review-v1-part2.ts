@@ -11,21 +11,25 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "visible light",
       "all have equal frequency"
     ],
-    "Ultraviolet radiation has higher frequency than visible light, while infrared has lower frequency. Higher frequency also means higher photon energy.",
-    "MEGA-UV-FREQUENCY"
+    "Ultraviolet radiation has higher frequency than visible light, while infrared has lower frequency. Higher frequency also means higher photon energy. Ultraviolet radiation therefore carries more photon energy than visible or infrared radiation.",
+    [
+      "MEGA-UV-FREQUENCY"
+    ]
   ],
   [
     3,
     "Medium",
-    "A fuse is placed in a circuit mainly to protect against:",
+    "A fuse is placed in a circuit to protect against:",
     "excessive current",
     [
       "low humidity",
       "low sound level",
       "weak magnetism"
     ],
-    "A fuse wire melts when current becomes dangerously high. Breaking the circuit helps protect wiring and appliances from overheating.",
-    "MEGA-FUSE"
+    "A fuse wire melts when current becomes dangerously high. Breaking the circuit helps protect wiring and appliances from overheating. Protective devices are especially important when a short circuit or overload occurs.",
+    [
+      "MEGA-FUSE"
+    ]
   ],
   [
     3,
@@ -37,8 +41,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "The magnet produces chemical energy",
       "Resistance becomes exactly zero"
     ],
-    "Rotation changes the magnetic flux linked with the coil. Faraday's law states that changing magnetic flux induces an electromotive force and can drive current.",
-    "MEGA-GENERATOR-INDUCTION"
+    "Rotation changes the magnetic flux linked with the coil. Faraday's law states that changing magnetic flux induces an electromotive force and can drive current. This is the central working principle of electric generators.",
+    [
+      "MEGA-GENERATOR-INDUCTION"
+    ]
   ],
   [
     4,
@@ -50,8 +56,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "protons and electrons only",
       "molecules"
     ],
-    "The nucleus contains positively charged protons and neutral neutrons. Electrons occupy regions outside the nucleus.",
-    "MEGA-NUCLEUS"
+    "The nucleus contains positively charged protons and neutral neutrons. Electrons occupy regions outside the nucleus. This compact nucleus contains nearly all of the atom's mass.",
+    [
+      "MEGA-NUCLEUS"
+    ]
   ],
   [
     4,
@@ -63,8 +71,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "neutron number",
       "density"
     ],
-    "The modern periodic table is arranged by atomic number, which is the number of protons in the nucleus. This ordering explains periodic chemical patterns.",
-    "MEGA-PERIODIC-ATOMIC-NUMBER"
+    "The modern periodic table is arranged by atomic number, which is the number of protons in the nucleus. This ordering explains periodic chemical patterns. Elements with similar outer-electron arrangements appear in repeating groups.",
+    [
+      "MEGA-PERIODIC-ATOMIC-NUMBER"
+    ]
   ],
   [
     4,
@@ -76,8 +86,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "They contain no protons",
       "They are always solids"
     ],
-    "Noble gases have stable outer-shell electron arrangements. Because of this, they have little tendency to gain, lose or share electrons.",
-    "MEGA-NOBLE-GAS"
+    "Noble gases have stable outer-shell electron arrangements. Because of this, they have little tendency to gain, lose or share electrons. The stability of the outer shell explains their low chemical reactivity.",
+    [
+      "MEGA-NOBLE-GAS"
+    ]
   ],
   [
     4,
@@ -89,8 +101,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "Gain of neutrons",
       "Loss of all electrons"
     ],
-    "Oxidation can be described as gain of oxygen or loss of electrons, depending on context. The oxygen-based definition is common in introductory chemistry.",
-    "MEGA-OXIDATION"
+    "Oxidation can be described as gain of oxygen or loss of electrons, depending on context. The oxygen-based definition is common in introductory chemistry. Electron loss is another common way to describe oxidation in redox chemistry.",
+    [
+      "MEGA-OXIDATION"
+    ]
   ],
   [
     4,
@@ -102,8 +116,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "Activation energy becomes impossible",
       "All bonds disappear instantly"
     ],
-    "Heating increases particle motion and collision energy. A larger fraction of collisions can then overcome the activation-energy barrier and lead to reaction.",
-    "MEGA-TEMP-REACTION-RATE"
+    "Heating increases particle motion and collision energy. A larger fraction of collisions can then overcome the activation-energy barrier and lead to reaction. Faster collisions alone are not enough; they must also have sufficient energy.",
+    [
+      "MEGA-TEMP-REACTION-RATE"
+    ]
   ],
   [
     4,
@@ -115,8 +131,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "ions only",
       "allotropes"
     ],
-    "The number of protons determines the element. Different neutron numbers change the mass number without changing elemental identity, producing isotopes.",
-    "MEGA-ISOTOPES"
+    "The number of protons determines the element. Different neutron numbers change the mass number without changing elemental identity, producing isotopes. Isotopes can therefore have similar chemical behavior but different physical properties.",
+    [
+      "MEGA-ISOTOPES"
+    ]
   ],
   [
     5,
@@ -128,8 +146,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "colourless",
       "redder"
     ],
-    "Bases turn red litmus blue, while acids turn blue litmus red. Litmus gives a quick qualitative indication of acidic or basic character.",
-    "MEGA-LITMUS-BASE"
+    "Bases turn red litmus blue, while acids turn blue litmus red. Litmus gives a quick qualitative indication of acidic or basic character. The colour change is useful for quick qualitative testing, not exact pH measurement.",
+    [
+      "MEGA-LITMUS-BASE"
+    ]
   ],
   [
     5,
@@ -141,8 +161,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "bronze",
       "solder"
     ],
-    "Steel is an alloy based mainly on iron with carbon and sometimes other elements. Brass is mainly copper and zinc, while bronze is mainly copper and tin.",
-    "MEGA-STEEL"
+    "Steel is an alloy based on iron with carbon and sometimes other elements. Brass is copper and zinc, while bronze is copper and tin. Changing carbon content and added alloying elements can greatly change steel properties.",
+    [
+      "MEGA-STEEL"
+    ]
   ],
   [
     5,
@@ -154,8 +176,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "It cannot react with oxygen",
       "It is always coated with plastic"
     ],
-    "Chromium in stainless steel forms a thin protective oxide layer on the surface. This layer slows further corrosion under normal conditions.",
-    "MEGA-STAINLESS-STEEL"
+    "Chromium in stainless steel forms a thin protective oxide layer on the surface. This layer slows further corrosion under normal conditions. If the layer is damaged, chromium can reform the passive surface in the presence of oxygen.",
+    [
+      "MEGA-STAINLESS-STEEL"
+    ]
   ],
   [
     5,
@@ -167,8 +191,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "neutralization",
       "electrolysis only"
     ],
-    "Hydrogenation adds hydrogen across some carbon–carbon double bonds. This makes the oil more saturated and can change its physical properties.",
-    "MEGA-HYDROGENATION"
+    "Hydrogenation adds hydrogen across some carbon–carbon double bonds. This makes the oil more saturated and can change its physical properties. Hydrogenation is used in food processing and industrial chemistry.",
+    [
+      "MEGA-HYDROGENATION"
+    ]
   ],
   [
     5,
@@ -180,8 +206,10 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "It removes all water",
       "It prevents heating"
     ],
-    "Baking soda can produce carbon dioxide during heating or reaction with acids. Gas bubbles expand in the batter and help make the product light and porous.",
-    "MEGA-BAKING-SODA"
+    "Baking soda can produce carbon dioxide during heating or reaction with acids. Gas bubbles expand in the batter and help make the product light and porous. The expanding gas creates small spaces that remain in the baked food.",
+    [
+      "MEGA-BAKING-SODA"
+    ]
   ],
   [
     5,
@@ -193,7 +221,9 @@ export const PART_2: readonly SciCp040ReviewSpec[] = [
       "It is less reactive than hydrogen",
       "It cannot lose electrons"
     ],
-    "Metals above hydrogen in the activity series can displace hydrogen from dilute acids. The reaction forms a salt and releases hydrogen gas.",
-    "MEGA-METAL-ACID"
+    "Metals above hydrogen in the activity series can displace hydrogen from dilute acids. The reaction forms a salt and releases hydrogen gas. Metals below hydrogen generally do not release hydrogen from dilute non-oxidizing acids.",
+    [
+      "MEGA-METAL-ACID"
+    ]
   ]
 ] as const;
