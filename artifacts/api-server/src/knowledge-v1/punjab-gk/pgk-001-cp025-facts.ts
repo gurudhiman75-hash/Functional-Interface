@@ -6,7 +6,6 @@ export const PGK_001_CP025_FACTS = Object.freeze([
   { id: "ajit-pal-1975", value: "Ajit Pal Singh captained India to the 1975 Men's Hockey World Cup title in Kuala Lumpur." },
   { id: "pargat-olympic-captain", value: "Pargat Singh captained India at the 1992 and 1996 Olympic Games." },
   { id: "manpreet-tokyo", value: "Manpreet Singh captained India's men's hockey team to bronze at Tokyo 2020." },
-  { id: "harmanpreet-paris", value: "Harmanpreet Singh captained India's men's hockey team to bronze at Paris 2024." },
   { id: "randhawa-1962", value: "Gurbachan Singh Randhawa won the decathlon gold medal at the 1962 Asian Games." },
   { id: "randhawa-tokyo-1964", value: "Gurbachan Singh Randhawa finished fifth in the 110 metres hurdles at the 1964 Tokyo Olympics." },
   { id: "maharaja-ranjit-award", value: "The Maharaja Ranjit Singh Award is a Punjab Government sports honour." },
