@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { strict as assert } from "node:assert";
 import { listQuestionStudioPackages } from "../engine-registry";
 import {
   POL_001_QUESTION_STUDIO_PACKAGE_ID_V1,
@@ -6,108 +6,92 @@ import {
   knowledgeV1Pol001QuestionStudioAdapterV1,
 } from "./knowledge-v1-pol001-adapter-v1";
 
-describe("POL-001 Question Studio review-only registration", () => {
-  it("registers one enabled 27-CP Polity package", () => {
-    const pkg = POL_001_STANDARD_REVIEW_ONLY_PACKAGE_V1;
-    expect(pkg.packageId).toBe("POL-001");
-    expect(pkg.engineId).toBe("knowledge-v1");
-    expect(pkg.enabled).toBe(true);
-    expect(pkg.cpIds).toHaveLength(27);
-    expect(new Set(pkg.cpIds).size).toBe(27);
-    expect(pkg.supportedLanguages).toEqual(["en"]);
-  });
+const pkg = POL_001_STANDARD_REVIEW_ONLY_PACKAGE_V1;
+assert.equal(pkg.packageId, "POL-001");
+assert.equal(pkg.engineId, "knowledge-v1");
+assert.equal(pkg.enabled, true);
+assert.equal(pkg.cpIds.length, 27);
+assert.equal(new Set(pkg.cpIds).size, 27);
+assert.deepEqual(pkg.supportedLanguages, ["en"]);
+assert.equal(pkg.lifecycleStage, "REVIEW_ONLY");
+assert.equal(pkg.questionBankWritable, false);
+assert.equal(pkg.testEligible, false);
+assert.equal(pkg.mockTestEligible, false);
+assert.equal(pkg.publiclyPublishable, false);
+assert.equal(pkg.automaticStudentPublication, false);
+assert.equal(pkg.productionReleaseAuthorized, false);
+assert.equal(pkg.metadata?.qualificationExplanationAuditComplete, true);
 
-  it("keeps the standard review-only safety boundary", () => {
-    const pkg = POL_001_STANDARD_REVIEW_ONLY_PACKAGE_V1;
-    expect(pkg.lifecycleStage).toBe("REVIEW_ONLY");
-    expect(pkg.questionBankWritable).toBe(false);
-    expect(pkg.testEligible).toBe(false);
-    expect(pkg.mockTestEligible).toBe(false);
-    expect(pkg.publiclyPublishable).toBe(false);
-    expect(pkg.automaticStudentPublication).toBe(false);
-    expect(pkg.productionReleaseAuthorized).toBe(false);
-  });
+const request = {
+  packageId: POL_001_QUESTION_STUDIO_PACKAGE_ID_V1,
+  language: "en" as const,
+  difficulty: "Mixed" as const,
+  count: 30,
+  seed: "pol001-runtime-contract",
+};
+const first = await knowledgeV1Pol001QuestionStudioAdapterV1.generate(request);
+const replay = await knowledgeV1Pol001QuestionStudioAdapterV1.generate(request);
+assert.equal(first.questions.length, 30);
+assert.deepEqual(first, replay);
+assert.equal(new Set(first.questions.map((q) => q.questionId)).size, 30);
 
-  it("generates deterministic mixed English review questions without repeats", async () => {
-    const request = {
-      packageId: POL_001_QUESTION_STUDIO_PACKAGE_ID_V1,
-      language: "en" as const,
-      difficulty: "Mixed" as const,
-      count: 30,
-      seed: "pol001-runtime-contract",
-    };
-    const first = await knowledgeV1Pol001QuestionStudioAdapterV1.generate(request);
-    const second = await knowledgeV1Pol001QuestionStudioAdapterV1.generate(request);
-    expect(first.questions).toHaveLength(30);
-    expect(first.questions.map((q) => q.questionId)).toEqual(second.questions.map((q) => q.questionId));
-    expect(new Set(first.questions.map((q) => q.questionId)).size).toBe(30);
-    for (const question of first.questions as any[]) {
-      expect(question.packageId).toBe("POL-001");
-      expect(question.reviewOnly).toBe(true);
-      expect(question.runtimeRegistered).toBe(true);
-      expect(question.questionBankWritable).toBe(false);
-      expect(question.testEligible).toBe(false);
-    }
-  });
+for (const question of first.questions as any[]) {
+  assert.equal(question.packageId, "POL-001");
+  assert.equal(question.reviewOnly, true);
+  assert.equal(question.runtimeRegistered, true);
+  assert.equal(question.questionBankWritable, false);
+  assert.equal(question.testEligible, false);
+  assert.equal(question.options[question.correctIndex], question.canonicalAnswer);
+}
 
-  it("materializes every frozen CP selector independently", async () => {
-    for (const cpId of POL_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.cpIds) {
-      const result = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
-        packageId: "POL-001",
-        patternId: cpId,
-        count: 1,
-        seed: `pol001-smoke-${cpId}`,
-      });
-      expect(result.questions).toHaveLength(1);
-      expect((result.questions[0] as any).cpId).toBe(cpId);
-      expect((result.questions[0] as any).canonicalAnswer).toBe(
-        (result.questions[0] as any).options[(result.questions[0] as any).correctIndex],
-      );
-    }
+for (const cpId of pkg.cpIds) {
+  const result = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
+    packageId: "POL-001",
+    patternId: cpId,
+    count: 1,
+    seed: `pol001-smoke-${cpId}`,
   });
+  assert.equal(result.questions.length, 1, `${cpId}: expected one question`);
+  const q = result.questions[0] as any;
+  assert.equal(q.cpId, cpId);
+  assert.equal(q.options[q.correctIndex], q.canonicalAnswer);
+}
 
-  it("supports CP selectors", async () => {
-    const result = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
-      packageId: "POL-001",
-      patternId: "POL-CP-027",
-      count: 5,
-      seed: "pol001-cp027",
-    });
-    expect(result.questions).toHaveLength(5);
-    expect(new Set((result.questions as any[]).map((q) => q.cpId))).toEqual(new Set(["POL-CP-027"]));
-  });
-
-  it("supports QL selectors and difficulty filtering", async () => {
-    const ql = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
-      packageId: "POL-001",
-      patternId: "POL-027-QL-020",
-      count: 4,
-      seed: "pol001-cp027-ql020",
-    });
-    expect(ql.questions).toHaveLength(4);
-    expect(new Set((ql.questions as any[]).map((q) => q.qlId))).toEqual(new Set(["POL-027-QL-020"]));
-
-    const hard = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
-      packageId: "POL-001",
-      difficulty: "Hard",
-      count: 10,
-      seed: "pol001-hard",
-    });
-    expect(hard.questions).toHaveLength(10);
-    expect(new Set((hard.questions as any[]).map((q) => q.difficulty))).toEqual(new Set(["Hard"]));
-  });
-
-  it("rejects unsupported language and unknown selectors", async () => {
-    await expect(
-      knowledgeV1Pol001QuestionStudioAdapterV1.generate({ packageId: "POL-001", language: "hi" }),
-    ).rejects.toThrow(/English only/i);
-    await expect(
-      knowledgeV1Pol001QuestionStudioAdapterV1.generate({ packageId: "POL-001", patternId: "POL-CP-999" }),
-    ).rejects.toThrow(/Unknown POL-001 selector/i);
-  });
-
-  it("is exposed exactly once by the composite Question Studio registry", () => {
-    const matches = listQuestionStudioPackages().filter((pkg) => pkg.packageId === "POL-001");
-    expect(matches).toHaveLength(1);
-  });
+const cp027 = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
+  packageId: "POL-001",
+  patternId: "POL-CP-027",
+  count: 5,
+  seed: "pol001-cp027",
 });
+assert.equal(cp027.questions.length, 5);
+assert.deepEqual(new Set((cp027.questions as any[]).map((q) => q.cpId)), new Set(["POL-CP-027"]));
+
+const ql = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
+  packageId: "POL-001",
+  patternId: "POL-027-QL-020",
+  count: 4,
+  seed: "pol001-cp027-ql020",
+});
+assert.equal(ql.questions.length, 4);
+assert.deepEqual(new Set((ql.questions as any[]).map((q) => q.qlId)), new Set(["POL-027-QL-020"]));
+
+const hard = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
+  packageId: "POL-001",
+  difficulty: "Hard",
+  count: 10,
+  seed: "pol001-hard",
+});
+assert.equal(hard.questions.length, 10);
+assert.deepEqual(new Set((hard.questions as any[]).map((q) => q.difficulty)), new Set(["Hard"]));
+
+await assert.rejects(
+  knowledgeV1Pol001QuestionStudioAdapterV1.generate({ packageId: "POL-001", language: "hi" }),
+  /English only/i,
+);
+await assert.rejects(
+  knowledgeV1Pol001QuestionStudioAdapterV1.generate({ packageId: "POL-001", patternId: "POL-CP-999" }),
+  /Unknown POL-001 selector/i,
+);
+
+const matches = listQuestionStudioPackages().filter((candidate) => candidate.packageId === "POL-001");
+assert.equal(matches.length, 1);
