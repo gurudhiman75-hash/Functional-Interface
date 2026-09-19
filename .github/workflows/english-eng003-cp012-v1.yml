@@ -7,6 +7,7 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
   workflow_dispatch:
 
 permissions:
@@ -47,5 +48,9 @@ jobs:
           path: dist/english-v1/ENG-003-CP012-REVIEW-V1.md
           if-no-files-found: error
           retention-days: 30
+      - name: Compile ENG-003 CP012 Question Studio lifecycle tests
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng003-cp012-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-003-cp012-question-studio-v1.test.mjs
+      - name: Run ENG-003 CP012 Question Studio lifecycle tests
+        run: node artifacts/api-server/dist/english-v1/eng-003-cp012-question-studio-v1.test.mjs
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
