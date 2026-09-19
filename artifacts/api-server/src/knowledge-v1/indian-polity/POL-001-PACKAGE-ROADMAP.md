@@ -40,7 +40,7 @@ English content implementation has reached POL-CP-027. All 27 CPs are approved/c
 
 ## Binding rule
 
-A CP becomes eligible for the shared `POL-001` Question Studio package only after its English review batch is explicitly approved. Localization must preserve canonical fact IDs, QL identity, option semantics and correct-answer parity.
+A CP becomes eligible for the shared `POL-001` Question Studio package only after its English review batch is explicitly approved. Localization must preserve canonical fact IDs, QL identity, option semantics, correct-answer parity, and numeric/legal form parity. Constitutional identifiers and numeric forms such as `Article 21A`, `Article 19(2)`, `Article 39(b)/(c)`, `Article 300A`, `Part III/IVA`, amendment numbers, dates and age ranges must retain their numeric form where present in the English authority; translate only the surrounding language. Punjabi must be written as natural exam-grade Punjabi rather than word-for-word Hindi calques: prefer ordinary Punjabi sentence order and familiar exam terminology, keep standard legal names where that improves recognition, and avoid mechanical phrases such as `ਮੰਨੇ ਹੋਏ ਸੰਵਿਧਾਨਕ ਪਾਠ`, `ਬਾਧਕ`, `ਯੋਗਤਾ-ਸ਼ਰਤ`, or obscure translated writ names.
 
 ## Final audit gate
 
@@ -60,9 +60,10 @@ Before Question Studio exposure:
 | Slice | English questions | Hindi | Punjabi | Runtime exposure |
 |---|---:|---|---|---|
 | POL-CP-001–002 | 92 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
-| POL-CP-003–027 | pending | pending | pending | English-only remains active |
+| POL-CP-003–004 | 133 | REVIEW CANDIDATE V1 | REVIEW CANDIDATE V1 | deferred until multilingual approval |
+| POL-CP-005–027 | pending | pending | pending | English-only remains active |
 
-The CP001–CP002 localization layer produces 276 review surfaces across English, Hindi and Punjabi. Native-script leakage, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
+The approved CP001–CP002 localization layer produces 276 review surfaces across English, Hindi and Punjabi. CP003–CP004 now add 399 review-candidate surfaces (133 per locale). Native-script leakage, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
 
 
 ### CP001–CP002 localization approval
