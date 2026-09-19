@@ -180,27 +180,28 @@ function cp1Statement(statement: string, locale: NativeLocale): string {
 
 function cp1Stem(q: (typeof CP001_EN)[number], locale: NativeLocale): string {
   const ql = Number(q.qlId.slice(-3));
-  const correctRow = POL_CP001_ACT_ROWS_V1.find((row) => row.title === q.canonicalAnswer);
+  const titleAnswerRow = POL_CP001_ACT_ROWS_V1.find((row) => row.title === q.canonicalAnswer);
+  const compactAnswerRow = POL_CP001_ACT_ROWS_V1.find((row) => row.compactFeature === q.canonicalAnswer);
 
-  if (ql === 1 && correctRow) {
-    const feature = native(CP1[correctRow.id]!.defining, locale);
+  if (ql === 1 && titleAnswerRow) {
+    const feature = native(CP1[titleAnswerRow.id]!.defining, locale);
     return locale === "hi" ? `किस अधिनियम ने ${feature}?` : `ਕਿਹੜੇ ਐਕਟ ਨੇ ${feature}?`;
   }
   if (ql === 2 && correctRow) {
-    const title = native(CP1[correctRow.id]!.title, locale);
+    const title = native(CP1[titleAnswerRow.id]!.title, locale);
     return locale === "hi" ? `${title} का एक प्रमुख प्रावधान क्या था?` : `${title} ਦਾ ਇੱਕ ਮੁੱਖ ਪ੍ਰਬੰਧ ਕੀ ਸੀ?`;
   }
-  if (ql === 3 && correctRow) {
-    return locale === "hi" ? `निम्न में से कौन-सा अधिनियम ${correctRow.year} में पारित हुआ था?` : `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਐਕਟ ${correctRow.year} ਵਿੱਚ ਪਾਸ ਹੋਇਆ ਸੀ?`;
+  if (ql === 3 && titleAnswerRow) {
+    return locale === "hi" ? `निम्न में से कौन-सा अधिनियम ${titleAnswerRow.year} में पारित हुआ था?` : `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਐਕਟ ${titleAnswerRow.year} ਵਿੱਚ ਪਾਸ ਹੋਇਆ ਸੀ?`;
   }
   if (ql === 4) return locale === "hi" ? "निम्न में से कौन-सा युग्म सही सुमेलित है?" : "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
   if (ql === 5) return locale === "hi" ? "निम्न में से कौन-सा युग्म गलत सुमेलित है?" : "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਜੋੜ ਗਲਤ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
-  if (ql === 6 && correctRow?.milestone) {
-    const milestone = native(CP1[correctRow.id]!.milestone!, locale);
+  if (ql === 6 && titleAnswerRow?.milestone) {
+    const milestone = native(CP1[titleAnswerRow.id]!.milestone!, locale);
     return locale === "hi" ? `कौन-सा अधिनियम ${milestone}?` : `ਕਿਹੜਾ ਐਕਟ ${milestone}?`;
   }
-  if (ql === 7 && correctRow?.reformName) {
-    const reform = cp1Reform(correctRow.reformName, locale);
+  if (ql === 7 && titleAnswerRow?.reformName) {
+    const reform = cp1Reform(titleAnswerRow.reformName, locale);
     return locale === "hi" ? `${reform} किस अधिनियम से जुड़े हैं?` : `${reform} ਕਿਹੜੇ ਐਕਟ ਨਾਲ ਸੰਬੰਧਿਤ ਹਨ?`;
   }
   if (ql === 8) {
