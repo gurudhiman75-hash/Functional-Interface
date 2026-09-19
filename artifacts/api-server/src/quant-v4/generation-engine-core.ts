@@ -332,6 +332,21 @@ function seededHash(value: string) {
   return hash >>> 0;
 }
 
+function avalancheHash(value: string) {
+  let hash = seededHash(value);
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x7feb352d);
+  hash ^= hash >>> 15;
+  hash = Math.imul(hash, 0x846ca68b);
+  hash ^= hash >>> 16;
+  return hash >>> 0;
+}
+
+function pickDeterministically<T>(items: readonly T[], seed: string): T {
+  if (!items.length) throw new Error("Cannot select from an empty deterministic pool.");
+  return items[avalancheHash(seed) % items.length]!;
+}
+
 function shuffleDeterministically<T>(items: readonly T[], seed: string) {
   const shuffled = [...items];
   let state = seededHash(seed) || 1;
@@ -1091,7 +1106,13 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
         `${batchSeed}:${pkg.packageId}:cp-order`,
       );
       const canonicalProblemId =
-        explicitCp ?? cpOrder[packageUsage % cpOrder.length]!;
+        explicitCp ??
+        (count === 1
+          ? pickDeterministically(
+              pkg.cpIds,
+              `${batchSeed}:${pkg.packageId}:cp-single`,
+            )
+          : cpOrder[packageUsage % cpOrder.length]!);
       const seed = `${batchSeed}:${pkg.packageId}:${canonicalProblemId}:${packageUsage}:${i}`;
       const questionPackage = await pkg.run(canonicalProblemId, {
         language,
@@ -1130,10 +1151,17 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
   const canonicalProblemId = resolveCpId(pkg, request);
   const cpOrder = explicitCanonicalProblemId
     ? [canonicalProblemId]
-    : shuffleDeterministically(
-        pkg.cpIds,
-        `${batchSeed}:${pkg.packageId}:cp-order`,
-      );
+    : count === 1
+      ? [
+          pickDeterministically(
+            pkg.cpIds,
+            `${batchSeed}:${pkg.packageId}:cp-single`,
+          ),
+        ]
+      : shuffleDeterministically(
+          pkg.cpIds,
+          `${batchSeed}:${pkg.packageId}:cp-order`,
+        );
 
   const results = [];
   for (let i = 0; i < count; i++) {

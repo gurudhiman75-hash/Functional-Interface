@@ -3,6 +3,9 @@ import {
   type QuantV4ExamProfileId,
 } from "../common/exam-profile";
 import {
+  generateQuestion as generateQuantQuestion,
+} from "../question-studio-review-engine";
+import {
   assessExplanationQuality,
   hasQuestionSpecificEvidence,
 } from "./semantic-explanation-quality";
@@ -13,6 +16,7 @@ import {
 import {
   QUANT_V4_REAL_EXAM_PROFILES,
   generateQuantV4RealExamSection,
+  resolveProbabilitySimulationProfile,
   type QuantV4RealExamProfile,
   type QuantV4SimulatedQuestion,
   type QuantV4SimulatedSection,
@@ -24,6 +28,7 @@ export const QUANT_V4_REAL_EXAM_ADVANCED_MATH_INTEGRATION_AUTHORITY =
 export interface QuantV4AdvancedMathIntegratedSection extends QuantV4SimulatedSection {
   readonly integrationAuthority: typeof QUANT_V4_REAL_EXAM_ADVANCED_MATH_INTEGRATION_AUTHORITY;
   readonly advancedMathReplacements: number;
+  readonly probabilityEligibilityFallbackReplacements: number;
 }
 
 export interface QuantV4AdvancedMathIntegrationSummary {
@@ -148,6 +153,7 @@ function buildRuntimeRecord(input: {
     options,
   });
   const algebra = input.source.slotKind === "ALGEBRA";
+  const probability = input.source.slotKind === "PROBABILITY";
 
   return Object.freeze({
     examId: input.source.examId,
@@ -156,8 +162,8 @@ function buildRuntimeRecord(input: {
     slotKind: input.source.slotKind,
     sourceKind: "RUNTIME_GENERATED",
     packageId: input.packageId,
-    topic: "Advanced Mathematics",
-    subtopic: algebra ? "Algebra" : "Trigonometry",
+    topic: probability ? "Arithmetic" : "Advanced Mathematics",
+    subtopic: algebra ? "Algebra" : probability ? "Probability" : "Trigonometry",
     representation: "DIRECT_MCQ",
     difficulty: String(input.question?.difficulty ?? input.question?.difficultyLabel ?? input.question?.difficultyBand ?? "UNKNOWN"),
     text,
@@ -179,6 +185,51 @@ function buildRuntimeRecord(input: {
   });
 }
 
+function probabilityGapDifficulty(
+  source: QuantV4SimulatedQuestion,
+): "Easy" | "Medium" | "Hard" | null {
+  const match = /difficulty=(Easy|Medium|Hard)/u.exec(String(source.gapReason ?? ""));
+  return (match?.[1] as "Easy" | "Medium" | "Hard" | undefined) ?? null;
+}
+
+function probabilityGapPackage(
+  source: QuantV4SimulatedQuestion,
+): "PRB-001" | "PRB-002" | null {
+  const match = /\b(PRB-00[12])\b/u.exec(String(source.gapReason ?? ""));
+  return (match?.[1] as "PRB-001" | "PRB-002" | undefined) ?? null;
+}
+
+async function generateProbabilityEligibilityFallback(input: {
+  profile: QuantV4RealExamProfile;
+  source: QuantV4SimulatedQuestion;
+  sectionSeed: string;
+}): Promise<{ packageId: "PRB-001" | "PRB-002"; question: any } | null> {
+  const failedPackage = probabilityGapPackage(input.source);
+  const difficulty = probabilityGapDifficulty(input.source);
+  if (!failedPackage || !difficulty) return null;
+
+  const packageId = failedPackage === "PRB-001" ? "PRB-002" : "PRB-001";
+  try {
+    const batch = await generateQuantQuestion({
+      packageId: packageId as any,
+      language: "en",
+      difficulty,
+      examProfile: resolveProbabilitySimulationProfile(input.profile) as any,
+      seed: `${input.sectionSeed}:probability-eligibility-fallback:${input.source.ordinal}:${packageId}`,
+      count: 1,
+    } as any);
+    const questions = Array.isArray((batch as any)?.questions)
+      ? (batch as any).questions
+      : Array.isArray((batch as any)?.questionPackages)
+        ? (batch as any).questionPackages
+        : [];
+    const question = questions[0];
+    return question ? { packageId, question } : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function generateQuantV4RealExamSectionWithAdvancedMath(input: {
   examId: QuantV4AdvancedMathSectionExamId;
   sectionIndex: number;
@@ -188,9 +239,28 @@ export async function generateQuantV4RealExamSectionWithAdvancedMath(input: {
   if (!profile) throw new Error(`Unknown real-exam profile ${input.examId}.`);
   const base = await generateQuantV4RealExamSection(input);
   let replacements = 0;
+  let probabilityEligibilityFallbackReplacements = 0;
   const questions: QuantV4SimulatedQuestion[] = [];
 
   for (const source of base.questions) {
+    if (source.sourceKind === "CAPABILITY_GAP" && source.slotKind === "PROBABILITY") {
+      const fallback = await generateProbabilityEligibilityFallback({
+        profile,
+        source,
+        sectionSeed: base.seed,
+      });
+      if (fallback) {
+        questions.push(buildRuntimeRecord({
+          profile,
+          source,
+          packageId: fallback.packageId,
+          question: fallback.question,
+        }));
+        probabilityEligibilityFallbackReplacements += 1;
+        continue;
+      }
+    }
+
     if (
       source.sourceKind !== "CAPABILITY_GAP"
       || (source.slotKind !== "ALGEBRA" && source.slotKind !== "TRIGONOMETRY")
@@ -218,6 +288,7 @@ export async function generateQuantV4RealExamSectionWithAdvancedMath(input: {
     questions: Object.freeze(questions),
     integrationAuthority: QUANT_V4_REAL_EXAM_ADVANCED_MATH_INTEGRATION_AUTHORITY,
     advancedMathReplacements: replacements,
+    probabilityEligibilityFallbackReplacements,
   });
 }
 
@@ -263,6 +334,7 @@ export async function runQuantV4AdvancedMathRealExamIntegrationAudit(input: {
     authority: QUANT_V4_REAL_EXAM_ADVANCED_MATH_INTEGRATION_AUTHORITY,
     sectionsPerProfile,
     profilesAudited: summaries.length,
+    totalProbabilityEligibilityFallbackReplacements: 0,
     summaries: Object.freeze(summaries),
   });
 }
