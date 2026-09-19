@@ -71,3 +71,6 @@ Avoid database-style fragments such as `Article 226 deals with:` or unnatural st
 ## Deferred
 
 Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
+## Final-audit writ ownership clarification
+
+POL-CP-004 remains the owner of generic writ meanings and generic writ-selection scenarios under the Fundamental Rights / Article 32 layer. Final-audit V3 keeps CP013's approved answers and option semantics but rewrites its writ-definition/application stems so they are explicitly High Court / Article 226 questions. This converts duplication into a contextual cross-link without removing useful High Court application coverage. V3 requires project-owner review before replacing the frozen V1 base.
