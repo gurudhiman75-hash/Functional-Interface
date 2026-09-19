@@ -82,6 +82,10 @@ function norm(text: string): string {
 const globalIds = new Set<string>();
 const exactSemanticSignature = new Map<string, Array<{ cpId: string; questionId: string }>>();
 let total = 0;
+const editorialDefects: string[] = [];
+const DATABASE_STEM = /^Article\s+\d+[A-Z]?\s+(mainly\s+)?deals with:$/i;
+const INTERNAL_STEM = /review candidate|content[- ]frozen|question studio|ownership|reimplemented|POL-CP-|POL-\d{3}-QL/i;
+const GENERIC_EXPLANATION = /Correct answer:|This is the exact|Remember the word|Match the topic|nearby Articles/i;
 
 for (const [cpId, questions] of batches) {
   assert(questions.length > 0, `${cpId}: empty review batch`);
@@ -99,6 +103,9 @@ for (const [cpId, questions] of batches) {
     assert(q.qlId?.length > 0, `${q.questionId}: missing QL ID`);
     assert(["Easy", "Medium", "Hard"].includes(q.difficulty), `${q.questionId}: invalid difficulty ${q.difficulty}`);
     assert(q.stem?.trim().length > 0, `${q.questionId}: empty stem`);
+    if (DATABASE_STEM.test(q.stem)) editorialDefects.push(`${cpId}/${q.questionId}: database-style stem -> ${q.stem}`);
+    if (INTERNAL_STEM.test(q.stem)) editorialDefects.push(`${cpId}/${q.questionId}: internal project wording -> ${q.stem}`);
+    if (GENERIC_EXPLANATION.test(q.explanation)) editorialDefects.push(`${cpId}/${q.questionId}: generic explanation clutter`);
 
     assert(q.options?.length === 4, `${q.questionId}: expected four options`);
     assert(new Set(q.options).size === 4, `${q.questionId}: duplicate option values`);
@@ -141,6 +148,10 @@ if (crossCpExactDuplicates.length) {
     .map(d => d.refs.map(r => `${r.cpId}/${r.questionId}`).join(" <-> "))
     .join("\n");
   throw new Error(`Cross-CP exact semantic duplicates found:\n${details}`);
+}
+
+if (editorialDefects.length) {
+  throw new Error(`Editorial defects found in canonical review surface:\n${editorialDefects.join("\n")}`);
 }
 
 function requireQualification(cpId: string, predicate: (q: AuditQuestion) => boolean, snippets: string[]) {
