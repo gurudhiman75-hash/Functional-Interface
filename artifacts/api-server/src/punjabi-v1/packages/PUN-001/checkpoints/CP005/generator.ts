@@ -16,8 +16,9 @@ function assemble(input: { seed:number; difficulty:PunjabiDifficulty; familyId:s
   if (distractors.length < 3) throw new Error(`CP005 ${input.familyId}: fewer than three distractors`);
   const selected = rng.pickDistinct(distractors, 3);
   const options = rng.shuffle([correct, ...selected]);
-  const fingerprint = `CP005-${semanticHash([input.familyId,input.subtype,input.difficulty,norm(input.stem),correct,[...selected].sort().join("|"),[...input.authorityIds].sort().join(",")])}`;
-  return { id:`PUN-001-CP005-${input.familyId}-${fingerprint}`, stem:norm(input.stem), options, correctIndex:options.indexOf(correct), explanation:norm(input.explanation), difficulty:input.difficulty, metadata:{ engine:"punjabi-v1", packageId:"PUN-001", cpId:"PUN-001-CP005", familyId:input.familyId, subtype:input.subtype, difficulty:input.difficulty, language:"pa-Guru", seed:input.seed, authorityIds:input.authorityIds, generatorRevision:"1.2.0-forward-port", fingerprint, lifecycle:"REVIEW_ONLY" } };
+  const semanticParts=[input.familyId,input.subtype,input.difficulty,norm(input.stem),correct,[...selected].sort().join("|"),[...input.authorityIds].sort().join(",")];
+  const fingerprint = `CP005-${semanticHash(semanticParts)}${semanticHash(["SECONDARY",...semanticParts].reverse())}`;
+  return { id:`PUN-001-CP005-${input.familyId}-${fingerprint}`, stem:norm(input.stem), options, correctIndex:options.indexOf(correct), explanation:norm(input.explanation), difficulty:input.difficulty, metadata:{ engine:"punjabi-v1", packageId:"PUN-001", cpId:"PUN-001-CP005", familyId:input.familyId, subtype:input.subtype, difficulty:input.difficulty, language:"pa-Guru", seed:input.seed, authorityIds:input.authorityIds, generatorRevision:"2.0.0-retrofit-exhaustive", fingerprint, lifecycle:"REVIEW_ONLY" } };
 }
 
 function requireDifficulty(actual: PunjabiDifficulty, allowed: readonly PunjabiDifficulty[], id: string) { if (!allowed.includes(actual)) throw new Error(`CP005 ${id} does not support ${actual}`); }
@@ -73,7 +74,7 @@ export function generateCP005F06(seed:number,difficulty:PunjabiDifficulty):Punja
 export function generateCP005F07(seed:number,difficulty:PunjabiDifficulty):PunjabiGeneratedQuestion {
   requireDifficulty(difficulty,["Hard"],"F07"); const {a,v,rank}=pairAuthorities(seed);
   const wrongAdj=CP005_TYPE_OPTIONS.adjective.filter((x)=>x!==a.typePa)[ordinal(rank,4)]!;
-  const wrongAdv=CP005_TYPE_OPTIONS.adverb.filter((x)=>x!==v.typePa)[ordinal(rank+1,3)]!;
+  const wrongAdvOptions=CP005_TYPE_OPTIONS.adverb.filter((x)=>x!==v.typePa); const wrongAdv=wrongAdvOptions[ordinal(rank+1,wrongAdvOptions.length)]!;
   const correct=`ਵਾਕ 1: ${a.typePa}; ਵਾਕ 2: ${v.typePa}`;
   const distractors=[`ਵਾਕ 1: ${wrongAdj}; ਵਾਕ 2: ${v.typePa}`,`ਵਾਕ 1: ${a.typePa}; ਵਾਕ 2: ${wrongAdv}`,`ਵਾਕ 1: ${wrongAdj}; ਵਾਕ 2: ${wrongAdv}`];
   return assemble({seed,difficulty,familyId:"F07",subtype:"DUAL_SUBTYPE_CLASSIFICATION",stem:variant([`ਦੋਵੇਂ ਚਿੰਨ੍ਹਿਤ ਸ਼ਬਦਾਂ ਦੇ ਸਹੀ ਭੇਦ ਚੁਣੋ।\nਵਾਕ 1: ${mark(a.sentence,a.target)}\nਵਾਕ 2: ${mark(v.sentence,v.target)}`,`ਵਾਕ 1 ਅਤੇ ਵਾਕ 2 ਵਿੱਚ ਚਿੰਨ੍ਹਿਤ ਸ਼ਬਦਾਂ ਦੀ ਪੂਰੀ ਵਿਆਕਰਨਕ ਪਛਾਣ ਦੱਸੋ।\nਵਾਕ 1: ${mark(a.sentence,a.target)}\nਵਾਕ 2: ${mark(v.sentence,v.target)}`],rank),correctAnswer:correct,distractors,explanation:`ਵਾਕ 1 ਵਿੱਚ ‘${a.target}’ ${a.typePa} ਹੈ; ਇਹ ${a.meaningPa} ਵਾਕ 2 ਵਿੱਚ ‘${v.target}’ ${v.typePa} ਹੈ; ਇਹ ${v.meaningPa}`,authorityIds:[a.id,v.id]});
@@ -84,7 +85,7 @@ export function generateCP005F08(seed:number,difficulty:PunjabiDifficulty):Punja
   const rank=ordinal(seed,CP005_ADJECTIVES.length*CP005_ADVERBS.length*4); const pattern=rank%4; const pairRank=Math.floor(rank/4); const ai=Math.floor(pairRank/CP005_ADVERBS.length); const vi=pairRank%CP005_ADVERBS.length; const a=CP005_ADJECTIVES[ai]!; const v=CP005_ADVERBS[vi]!;
   const statement1True=pattern===0||pattern===1; const statement2True=pattern===0||pattern===2;
   const wrongAdj=CP005_TYPE_OPTIONS.adjective.filter((x)=>x!==a.typePa)[ordinal(pairRank,4)]!;
-  const wrongAdv=CP005_TYPE_OPTIONS.adverb.filter((x)=>x!==v.typePa)[ordinal(pairRank+1,3)]!;
+  const wrongAdvOptions=CP005_TYPE_OPTIONS.adverb.filter((x)=>x!==v.typePa); const wrongAdv=wrongAdvOptions[ordinal(pairRank+1,wrongAdvOptions.length)]!;
   const label1=statement1True?a.typePa:wrongAdj; const label2=statement2True?v.typePa:wrongAdv;
   const verdicts=["ਦੋਵੇਂ ਕਥਨ ਸਹੀ ਹਨ","ਕੇਵਲ ਕਥਨ 1 ਸਹੀ ਹੈ","ਕੇਵਲ ਕਥਨ 2 ਸਹੀ ਹੈ","ਦੋਵੇਂ ਕਥਨ ਗਲਤ ਹਨ"] as const;
   const correctAnswer=verdicts[pattern]!;
@@ -104,4 +105,4 @@ export const CP005_FAMILIES: readonly PunjabiQuestionFamilyDefinition[] = [
   {familyId:"F08",subtype:"CONTEXTUAL_STATEMENT_VERIFICATION",name:"Contextual statement verification",targetDifficulties:["Hard"],generate:generateCP005F08},
 ];
 
-export function getCP005BreadthReport() { return { adjectiveAuthorities:CP005_ADJECTIVES.length, adverbAuthorities:CP005_ADVERBS.length, totalAtomicAuthorities:CP005_ADJECTIVES.length+CP005_ADVERBS.length, familyCount:CP005_FAMILIES.length, capacities:{F01:25,F02:25,F03:25,F04:20,F05:20,F06:500,F07:500,F08:2000}, totalSemanticCapacity:3115 }; }
+export function getCP005BreadthReport() { const a=CP005_ADJECTIVES.length,v=CP005_ADVERBS.length; const capacities={F01:a,F02:a,F03:a,F04:v,F05:v,F06:a*v,F07:a*v,F08:a*v*4}; return { adjectiveAuthorities:a, adverbAuthorities:v, totalAtomicAuthorities:a+v, familyCount:CP005_FAMILIES.length, capacities, totalSemanticCapacity:Object.values(capacities).reduce((sum,n)=>sum+n,0) }; }
