@@ -6,6 +6,7 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/knowledge-v1/indian-geography/climate/**"
+      - ".github/workflows/geography-cli-cp002-review.yml"
   workflow_dispatch:
 
 permissions:
@@ -34,29 +35,29 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run GEO-CLI-001 CP002 V4 qualification gate
+      - name: Run GEO-CLI-001 CP002 V5 qualification gate
         run: |
           mkdir -p artifacts/api-server/dist/geography
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/indian-geography/climate/geo-cli-001-cp002-review-batch-v4.test.ts \
+            src/knowledge-v1/indian-geography/climate/geo-cli-001-cp002-review-batch-v5.test.ts \
             --bundle --packages=external --platform=node --format=esm \
-            --outfile=dist/geography/geo-cli-001-cp002-review-batch-v4.test.mjs
-          node artifacts/api-server/dist/geography/geo-cli-001-cp002-review-batch-v4.test.mjs
+            --outfile=dist/geography/geo-cli-001-cp002-review-batch-v5.test.mjs
+          node artifacts/api-server/dist/geography/geo-cli-001-cp002-review-batch-v5.test.mjs
 
-      - name: Materialize V4 review artifact
+      - name: Materialize V5 review artifact
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/indian-geography/climate/geo-cli-001-cp002-export-review-v4.ts \
+            src/knowledge-v1/indian-geography/climate/geo-cli-001-cp002-export-review-v5.ts \
             --bundle --packages=external --platform=node --format=esm \
-            --outfile=dist/geography/geo-cli-001-cp002-export-review-v4.mjs
+            --outfile=dist/geography/geo-cli-001-cp002-export-review-v5.mjs
           cd artifacts/api-server
-          node dist/geography/geo-cli-001-cp002-export-review-v4.mjs
+          node dist/geography/geo-cli-001-cp002-export-review-v5.mjs
 
-      - name: Upload V4 review artifact
+      - name: Upload V5 review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GEO-CLI-001-CP002-REVIEW-BATCH-V4
-          path: artifacts/api-server/dist/geography-review/GEO-CLI-001-CP002-V4/
+          name: GEO-CLI-001-CP002-REVIEW-BATCH-V5
+          path: artifacts/api-server/dist/geography-review/GEO-CLI-001-CP002-V5/
           if-no-files-found: error
           retention-days: 30
 
