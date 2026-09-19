@@ -1,6 +1,6 @@
 # ENG-003-CP010 — Grammar Fillers: Modifiers and Placement — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Boundary
 
@@ -56,3 +56,14 @@ Rule-family breadth is prioritized before additional scene variety.
 ## Lifecycle
 
 CP010 remains review-only until explicit human editorial approval. It is not registered in Question Studio and is not eligible for Question Bank writes, tests, mocks, learner/public publication, automatic student delivery or production release.
+
+## Human approval
+
+Approved on **2026-09-19**.
+
+- Approval authority: `ENG-003-CP010-HUMAN-EDITORIAL-APPROVAL-V1`
+- Approved generator head: `3b27d68d31680475cd65ab2d4cb0c141b6613735`
+- Review SHA-256: `a6d23f8856186def4e62326616956a8c800aad70bd26e119c5ce25bf3dc82480`
+- Workflow artifact digest: `sha256:3a8af2a1f368ead846096724b894881e712a1a742a927ae8e69b58bb84e8426e`
+
+Question Studio registration is review-only. Learner/test/mock/public release remains locked.
