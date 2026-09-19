@@ -464,15 +464,38 @@ function distractorCandidates(answer: any, correct: string, language: AlgebraStu
   return textMathMutations(correct);
 }
 
+function uniqueWrongOptions(values: readonly string[], correct: string): string[] {
+  return [...new Set(values.map((value) => String(value).trim()).filter((value) => value && value !== correct))];
+}
+
+function selectSeededWindow(values: readonly string[], seed: string, count: number): string[] {
+  if (values.length <= count) return [...values];
+  const start = hashText(`${seed}:distractor-window`) % values.length;
+  return Array.from({ length: count }, (_unused, index) => values[(start + index) % values.length]!);
+}
+
 function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string) {
   const correct = renderAnswer(answer, language).trim();
-  const pool = [
-    ...distractorCandidates(answer, correct, language),
+  const primary = uniqueWrongOptions(distractorCandidates(answer, correct, language), correct);
+  const fallback = uniqueWrongOptions([
+    ...primary,
     ...textMathMutations(correct),
     phrase(language, "Cannot be determined", "निर्धारित नहीं किया जा सकता", "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ"),
     phrase(language, "None of these", "इनमें से कोई नहीं", "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ"),
-  ];
-  const wrongs = [...new Set(pool.map((value) => String(value).trim()).filter((value) => value && value !== correct))].slice(0, 3);
+  ], correct);
+  const kind = typeof answer === "object" && answer ? String(answer.kind ?? "") : "";
+  const fixedChoiceFamily = typeof answer === "string" || [
+    "BOOLEAN",
+    "NO_SOLUTION",
+    "INFINITE_SOLUTIONS",
+    "NO_REAL_ROOTS",
+    "QUANTITY_RELATION",
+    "DATA_SUFFICIENCY",
+  ].includes(kind);
+  const selectionPool = primary.length >= 3 ? primary : fallback;
+  const wrongs = fixedChoiceFamily
+    ? selectionPool.slice(0, 3)
+    : selectSeededWindow(selectionPool, seed, 3);
   if (!correct || wrongs.length !== 3) {
     throw new Error(`Algebra Question Studio V4 option coverage failed for ${answer?.kind ?? typeof answer}: '${correct}'`);
   }
