@@ -100,7 +100,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-001",
     "qlName": "Soil as a natural resource",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "Consider the following statements about soil:\nI. It supports terrestrial plant growth.\nII. It can be renewed by natural processes.\nIII. Its formation is generally rapid enough to replace severe erosion immediately.\nWhich statements are correct?",
     "answer": "I and II only",
     "distractors": [
@@ -388,7 +388,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-004",
     "qlName": "Climate and soil formation",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "Site A is warm and humid; Site B is cool and dry. Both have similar rock, relief and age. Which difference is most likely to affect their rate of soil-forming reactions?",
     "answer": "The contrast in temperature and moisture",
     "distractors": [
@@ -676,7 +676,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-007",
     "qlName": "Soil profile and horizons",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "A profile shows a dark root-rich surface layer, a lower zone of accumulation, and weathered rock beneath. Which sequence identifies these layers?",
     "answer": "A horizon → B horizon → C horizon",
     "distractors": [
