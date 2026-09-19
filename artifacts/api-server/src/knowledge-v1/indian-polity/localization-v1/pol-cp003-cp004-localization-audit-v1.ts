@@ -34,9 +34,15 @@ const PUNJABI_LITERAL_CALQUES = [
 ] as const;
 
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
-  const t=text(q).replace(/\b(?:I|II|III|IV|V)\b/gu,"");
+  const original=text(q);
+  const t=original.replace(/\b(?:I|II|III|IV|IVA|V)\b/gu,"");
   assert.equal(/[A-Za-z]{2,}/u.test(t),false,`${q.questionId}: Latin-script leakage`);
   assert.match(t,locale==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u,`${q.questionId}: native script missing`);
+  if(locale==="pa"){
+    for(const phrase of PUNJABI_LITERAL_CALQUES){
+      assert.equal(original.includes(phrase),false,`${q.questionId}: literal/non-native Punjabi phrase remains: ${phrase}`);
+    }
+  }
 }
 let englishCount=0;
 for(const [cpId,english,gen] of cps){
