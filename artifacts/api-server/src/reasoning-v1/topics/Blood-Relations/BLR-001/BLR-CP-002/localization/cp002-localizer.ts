@@ -85,6 +85,21 @@ function roleText(
   return only ? cp002OnlyRoleLabel(roleId, locale) : cp002RoleLabel(roleId, locale);
 }
 
+function queryAnchorLabel(
+  prompt: BlrCp002StructuredPrompt,
+  anchor: BlrCp002Anchor,
+  locale: BlrCp002TranslatedLocale,
+): string {
+  if (anchor !== "POINTED_PERSON") return anchorName(prompt, anchor);
+  if (prompt.presentation === "INTRODUCTION" || prompt.presentation === "STAGE") {
+    return anchorName(prompt, anchor);
+  }
+  if (prompt.presentation === "PHOTOGRAPH") {
+    return localeText(locale, "तस्वीर में व्यक्ति", "ਤਸਵੀਰ ਵਾਲਾ ਵਿਅਕਤੀ");
+  }
+  return localeText(locale, "जिस व्यक्ति की ओर इशारा किया गया है", "ਜਿਸ ਵਿਅਕਤੀ ਵੱਲ ਇਸ਼ਾਰਾ ਕੀਤਾ ਗਿਆ ਹੈ");
+}
+
 function chainFromAnchor(
   prompt: BlrCp002StructuredPrompt,
   expression: Extract<BlrEntityExpression, { kind: "ROLE_CHAIN" }>,
@@ -95,7 +110,7 @@ function chainFromAnchor(
   const firstRole = first.relationId;
   let result: string;
   if (namedAnchor) {
-    result = `${anchorName(prompt, expression.anchor)} ${cp002RolePossessiveParticle(firstRole, locale)} ${roleText(firstRole, first.quantifier === "ONLY", locale)}`;
+    result = `${queryAnchorLabel(prompt, expression.anchor, locale)} ${cp002RolePossessiveParticle(firstRole, locale)} ${roleText(firstRole, first.quantifier === "ONLY", locale)}`;
   } else {
     result = `${cp002AnchorPossessive(expression.anchor, firstRole, locale)} ${roleText(firstRole, first.quantifier === "ONLY", locale)}`;
   }
@@ -125,7 +140,7 @@ function expressionQueryLabel(
   if (expression.kind === "ROLE_CHAIN") {
     return chainFromAnchor(prompt, expression, locale, true);
   }
-  return anchorName(prompt, expression.anchor);
+  return queryAnchorLabel(prompt, expression.anchor, locale);
 }
 
 function possessorPrefix(
@@ -140,32 +155,45 @@ function possessorPrefix(
   return `${expressionNominal(prompt, expression, locale)} ${cp002RolePossessiveParticle(targetRole, locale)}`;
 }
 
+function constraintPossessor(
+  prompt: BlrCp002StructuredPrompt,
+  expression: BlrEntityExpression,
+  roleId: BlrRoleId,
+  locale: BlrCp002TranslatedLocale,
+): string {
+  if (expression.kind === "ANCHOR") {
+    return cp002AnchorPossessive(expression.anchor, roleId, locale);
+  }
+  return `${expressionNominal(prompt, expression, locale)} ${cp002RolePossessiveParticle(roleId, locale)}`;
+}
+
 function constraintSentence(
   prompt: BlrCp002StructuredPrompt,
   constraint: BlrRoleCardinalityConstraint,
   locale: BlrCp002TranslatedLocale,
 ): string {
-  const reference = expressionNominal(prompt, constraint.reference, locale);
   if (constraint.relationId === "SIBLING") {
+    const possessor = constraintPossessor(prompt, constraint.reference, "BROTHER", locale);
     return localeText(
       locale,
-      `${reference} का कोई भाई या बहन नहीं है।`,
-      `${reference} ਦਾ ਕੋਈ ਭਰਾ ਜਾਂ ਭੈਣ ਨਹੀਂ ਹੈ।`,
+      `${possessor} कोई भाई या बहन नहीं है।`,
+      `${possessor} ਕੋਈ ਭਰਾ ਜਾਂ ਭੈਣ ਨਹੀਂ ਹੈ।`,
     );
   }
   if (constraint.relationId === "PARENT") {
+    const possessor = constraintPossessor(prompt, constraint.reference, "PARENT", locale);
     return localeText(
       locale,
-      `${reference} के माता-पिता में से कोई मौजूद नहीं है।`,
-      `${reference} ਦੇ ਮਾਤਾ-ਪਿਤਾ ਵਿੱਚੋਂ ਕੋਈ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।`,
+      `${possessor} माता-पिता में से कोई मौजूद नहीं है।`,
+      `${possessor} ਮਾਤਾ-ਪਿਤਾ ਵਿੱਚੋਂ ਕੋਈ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।`,
     );
   }
   const relation = cp002RoleLabel(constraint.relationId, locale);
-  const particle = cp002RolePossessiveParticle(constraint.relationId, locale);
+  const possessor = constraintPossessor(prompt, constraint.reference, constraint.relationId, locale);
   return localeText(
     locale,
-    `${reference} ${particle} कोई ${relation} नहीं है।`,
-    `${reference} ${particle} ਕੋਈ ${relation} ਨਹੀਂ ਹੈ।`,
+    `${possessor} कोई ${relation} नहीं है।`,
+    `${possessor} ਕੋਈ ${relation} ਨਹੀਂ ਹੈ।`,
   );
 }
 
@@ -186,11 +214,13 @@ function assertionSentence(
   const role = assertion.relation.relationId;
   const relation = roleText(role, assertion.relation.quantifier === "ONLY", locale);
   const prefix = possessorPrefix(prompt, assertion.reference, role, locale);
-  return localeText(
-    locale,
-    `${subject}, ${prefix} ${relation} है।`,
-    `${subject}, ${prefix} ${relation} ਹੈ।`,
-  );
+  const copula =
+    assertion.subject.kind === "ANCHOR" && assertion.subject.anchor === "SPEAKER"
+      ? localeText(locale, "हूँ", "ਹਾਂ")
+      : assertion.subject.kind === "ANCHOR" && assertion.subject.anchor === "LISTENER"
+        ? localeText(locale, "हो", "ਹੋ")
+        : localeText(locale, "है", "ਹੈ");
+  return `${subject}, ${prefix} ${relation} ${copula}।`;
 }
 
 function questionText(
