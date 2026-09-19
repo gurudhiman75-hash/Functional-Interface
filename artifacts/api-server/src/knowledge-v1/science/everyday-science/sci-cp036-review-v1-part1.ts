@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "The cooker removes all steam",
       "The food receives no heat loss at all"
     ],
-    "Higher pressure inside the cooker raises water's boiling point, so food cooks at a temperature above 100°C.",
+    "Higher pressure inside the cooker raises water's boiling point, so food cooks at a temperature above 100°C. Because the cooking liquid becomes hotter before boiling strongly, food softens and cooks in less time.",
     [
       "PRESSURE-COOKER-BOILING-POINT"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "Unchanged everywhere",
       "Zero only at sea level"
     ],
-    "Lower atmospheric pressure reduces the boiling point of water.",
+    "Lower atmospheric pressure reduces the boiling point of water. This means boiling can start below 100°C, so the water may be less effective for fast cooking.",
     [
       "ALTITUDE-LOW-PRESSURE-BOILING"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "The flame produces no heat",
       "Atmospheric oxygen turns into steam"
     ],
-    "At lower atmospheric pressure, water boils at a lower temperature, so cooking proceeds more slowly.",
+    "At lower atmospheric pressure, water boils at a lower temperature, so cooking proceeds more slowly. The water may be boiling, but it is not as hot as boiling water at sea level.",
     [
       "HIGH-ALTITUDE-COOKING"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "The metal becomes non-conducting",
       "Air pressure inside becomes zero"
     ],
-    "Pressurized steam stores energy and can force hot contents outward if the cooker is opened unsafely.",
+    "Pressurized steam stores energy and can force hot contents outward if the cooker is opened unsafely. Allowing the pressure to fall first makes opening much safer because the steam is no longer strongly confined.",
     [
       "PRESSURE-COOKER-SAFETY"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "Moving to a higher altitude",
       "Using a wider open pan only"
     ],
-    "A higher external pressure requires a higher temperature for vapour pressure to reach the boiling condition.",
+    "A higher external pressure requires a higher temperature for vapour pressure to reach the boiling condition. This is the same principle used in a pressure cooker to reach a higher cooking temperature.",
     [
       "PRESSURE-RAISES-BOILING"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "The sealed pot stops molecular motion",
       "The open pot cannot transfer heat"
     ],
-    "The pressure cooker raises pressure and therefore boiling temperature, allowing hotter water and steam to cook food faster.",
+    "The pressure cooker raises pressure and therefore boiling temperature, allowing hotter water and steam to cook food faster. The important point is that the cooker does not simply trap heat; it changes the pressure and therefore the boiling temperature.",
     [
       "PRESSURE-COOKER-INTEGRATED"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "Stops all blood flow",
       "Raises skin temperature"
     ],
-    "Evaporation requires latent heat, which is taken from the skin and produces cooling.",
+    "Evaporation requires latent heat, which is taken from the skin and produces cooling. The fastest-moving water molecules leave the skin as vapour, carrying thermal energy away with them.",
     [
       "SWEAT-EVAPORATIVE-COOLING"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "Very humid",
       "Below freezing"
     ],
-    "Dry air allows faster evaporation of water, producing stronger evaporative cooling.",
+    "Dry air allows faster evaporation of water, producing stronger evaporative cooling. When the air already contains a lot of moisture, much less water can evaporate and the cooling effect becomes weaker.",
     [
       "DESERT-COOLER-DRY-AIR"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "Water begins boiling",
       "The cloth becomes a heat source"
     ],
-    "Airflow carries away water vapour and increases the rate of evaporation, enhancing cooling.",
+    "Airflow carries away water vapour and increases the rate of evaporation, enhancing cooling. This is why a fan can make damp skin or wet clothes feel cooler even when the air temperature has not changed.",
     [
       "AIRFLOW-EVAPORATION"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "To remove all air from the room",
       "To stop molecular motion in food"
     ],
-    "The refrigerant changes pressure and phase so heat is moved from the cool interior to the warmer surroundings.",
+    "The refrigerant changes pressure and phase so heat is moved from the cool interior to the warmer surroundings. The refrigerator therefore does not create cold; it removes heat from inside the cabinet.",
     [
       "REFRIGERANT-HEAT-TRANSFER"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "Cold air becomes chemically unstable",
       "The compressor no longer uses electricity"
     ],
-    "An open door increases heat entering the cabinet, so the compressor works harder.",
+    "An open door increases heat entering the cabinet, so the compressor works harder. This increases electricity use and can also make the room slightly warmer because the refrigerator releases heat outside.",
     [
       "REFRIGERATOR-OPEN-DOOR"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "Water cannot absorb heat in humid air",
       "Fans stop moving air when humidity is high"
     ],
-    "Evaporative cooling depends on evaporation; high humidity reduces the air's capacity to take up more water vapour.",
+    "Evaporative cooling depends on evaporation; high humidity reduces the air's capacity to take up more water vapour. So desert coolers are effective in dry climates but much less effective in humid weather.",
     [
       "HUMIDITY-EVAPORATIVE-COOLING"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "Reflects all sunlight",
       "Stops blood circulation"
     ],
-    "Air trapped between wool fibres reduces heat loss by conduction and convection.",
+    "Air trapped between wool fibres reduces heat loss by conduction and convection. The trapped air slows the movement of heat from the warm body to the cooler surroundings.",
     [
       "WOOL-INSULATION"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "Atmospheric pressure",
       "Mass"
     ],
-    "Its construction reduces conduction, convection and radiation to keep contents hot or cold.",
+    "Its construction reduces conduction, convection and radiation to keep contents hot or cold. The vacuum, insulating stopper and reflective surfaces each reduce a different route by which heat can move.",
     [
       "THERMOS-HEAT-TRANSFER"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp036ReviewSpec[] = [
       "They increase flame temperature",
       "They melt before heating"
     ],
-    "Plastic and wood reduce conduction of heat from the hot pan to the hand.",
+    "Plastic and wood reduce conduction of heat from the hot pan to the hand. This keeps the handle cooler for longer and makes the utensil safer to hold.",
     [
       "PAN-HANDLE-INSULATOR"
     ]
