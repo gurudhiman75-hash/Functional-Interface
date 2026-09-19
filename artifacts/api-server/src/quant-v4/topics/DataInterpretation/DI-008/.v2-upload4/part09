@@ -1,0 +1,62 @@
+bine rupee cost and rupee profit before calculating the overall profit percentage. A simple average of item profit rates is not generally valid.",
+          steps: [
+            "Combined current-period cost of " + names(rows, indices) + " = " + formatMoney(cost) + ".",
+            "Combined current-period revenue = " + formatMoney(revenue) + ".",
+            "Combined profit = " + formatMoney(revenue) + " - " + formatMoney(cost) + " = " + formatMoney(profit) + ".",
+            "Overall profit percentage = " + formatMoney(profit) + "/" + formatMoney(cost) + " \u00d7 100 = " + answer + ".",
+          ],
+        },
+        evidence: { primaryIndices: indices },
+      };
+    }
+
+    case "GROUP_REVENUE_RATIO": {
+      const left = hardLeft;
+      const right = hardRight;
+      const leftRevenue = revenueTotal(rows, left);
+      const rightRevenue = revenueTotal(rows, right);
+      const answer = ratioDisplay(leftRevenue, rightRevenue);
+      return {
+        kind,
+        difficulty: "Hard",
+        stemVariant: variant,
+        stem: groupRevenueRatioStem(stimulus, left, right, variant),
+        answer,
+        candidates: [
+          { text: ratioDisplay(rightRevenue, leftRevenue), misconceptionId: "REVERSE_RATIO", derivation: "Reverses the two revenue groups." },
+          { text: ratioDisplay(sumUnits(rows, left, "unitsCurrent"), sumUnits(rows, right, "unitsCurrent")), misconceptionId: "USE_UNIT_RATIO", derivation: "Uses units sold instead of revenue." },
+          { text: ratioDisplay(costTotal(rows, left), costTotal(rows, right)), misconceptionId: "USE_COST_RATIO", derivation: "Uses total cost instead of revenue." },
+          { text: ratioDisplay(profitTotal(rows, left), profitTotal(rows, right)), misconceptionId: "USE_PROFIT_RATIO", derivation: "Uses profit instead of revenue." },
+          { text: ratioDisplay(leftRevenue * sumUnits(rows, right, "unitsCurrent"), rightRevenue * sumUnits(rows, left, "unitsCurrent")), misconceptionId: "USE_AVERAGE_SP_RATIO", derivation: "Compares weighted average selling prices rather than total revenue." },
+        ],
+        explanation: {
+          keyIdea: "Revenue for each group is the sum of current units \u00d7 selling price for its items. Form the ratio only after both group revenues are complete.",
+          steps: [
+            "Revenue from " + names(rows, left) + " = " + formatMoney(leftRevenue) + ".",
+            "Revenue from " + names(rows, right) + " = " + formatMoney(rightRevenue) + ".",
+            "Required ratio = " + leftRevenue + ":" + rightRevenue + ".",
+            "After simplification, the ratio is " + answer + ".",
+          ],
+        },
+        evidence: { primaryIndices: left, secondaryIndices: right },
+      };
+    }
+
+    case "WEIGHTED_AVERAGE_SELLING_PRICE": {
+      const indices = weightedIndices;
+      const revenue = revenueTotal(rows, indices);
+      const units = sumUnits(rows, indices, "unitsCurrent");
+      const answer = "\u20b9" + formatQuotient(revenue, units);
+      const simpleAverage = indices.reduce((sum, index) => sum + rows[index]!.sellingPricePerUnit, 0) / indices.length;
+      const costAverage = costTotal(rows, indices) / units;
+      return {
+        kind,
+        difficulty: "Hard",
+        stemVariant: variant,
+        stem: weightedAverageStem(stimulus, indices, variant),
+        answer,
+        candidates: [
+          { text: "\u20b9" + formatQuotient(Math.round(simpleAverage * 100), 100), misconceptionId: "SIMPLE_AVERAGE_SP", derivation: "Takes the simple average of listed selling prices and ignores different units sold." },
+          { text: "\u20b9" + formatQuotient(Math.round(costAverage * 100), 100), misconceptionId: "WEIGHTED_AVERAGE_COST", derivation: "Calculates weighted average cost price instead of selling price." },
+          { text: "\u20b9" + formatQuotient(revenue, indices.length), misconceptionId: "DIVIDE_REVENUE_BY_ITEM_COUNT", derivation: "Divides revenue by number of items instead of total units sold." },
+          { 
