@@ -1,5 +1,5 @@
 import { generateDirectionQuestion } from "../chapter-registry";
-import { asR, directionHi, turnSequence, type R } from "./hindi-foundation";
+import { asR, coordinateText, directionHi, metres, nameHi, turnSequence, type R } from "./hindi-foundation";
 import { localizeDiagramHindi, optionLabelHindi } from "./hindi-editorial-overrides";
 import { renderHindiStem } from "./hindi-stems";
 import type { LocalizedDirectionExplanation, LocalizedDirectionOption, LocalizedDirectionQuestion } from "./types";
@@ -24,7 +24,107 @@ function renderExplanation(english: R): LocalizedDirectionExplanation {
   if (["DIR-QL-004", "DIR-QL-005", "DIR-QL-006", "DIR-QL-007", "DIR-QL-008", "DIR-QL-009", "DIR-QL-010"].includes(qlId)) {
     return { ...base, steps: ["हर मोड़ के बाद नई मुख-दिशा तय करें और अगली चाल उसी दिशा में रखें।", "पूर्व-पश्चिम तथा उत्तर-दक्षिण की शुद्ध चालों को अलग-अलग जोड़ें।", qlId === "DIR-QL-008" ? "कुल चली दूरी और सीधी न्यूनतम दूरी अलग राशियाँ हैं।" : "अंतिम विस्थापन से दिशा या न्यूनतम दूरी प्राप्त करें।"], resultLine: `मार्ग का सही परिणाम ${answer} है।` };
   }
-  if (["DIR-QL-011", "DIR-QL-012", "DIR-QL-013", "DIR-QL-014", "DIR-QL-015", "DIR-QL-036", "DIR-QL-037", "DIR-QL-044"].includes(qlId)) {
+  if (["DIR-QL-036", "DIR-QL-037", "DIR-QL-038", "DIR-QL-039", "DIR-QL-040", "DIR-QL-041", "DIR-QL-042", "DIR-QL-043", "DIR-QL-044"].includes(qlId)) {
+    if (qlId === "DIR-QL-036") {
+      return {
+        ...base,
+        steps: [
+          `दिए गए तीन संबंधों से ${nameHi(s.missingFrom)} और ${nameHi(s.missingTo)} की स्थिति तय करें।`,
+          `दोनों स्थानों की तुलना करने पर ${nameHi(s.missingTo)}, ${nameHi(s.missingFrom)} के ${answer} में है।`,
+        ],
+        resultLine: `इसलिए छूटी हुई दिशा ${answer} है।`,
+      };
+    }
+    if (qlId === "DIR-QL-037") {
+      return {
+        ...base,
+        steps: [
+          "पहले दिए गए दो आधार संबंधों से पहले तीन बिंदुओं की स्थिति तय करें।",
+          "अब चारों कथनों को एक-एक करके उन्हीं स्थानों से मिलाएँ।",
+          `जो कथन किसी बिंदु को बाकी जानकारी से अलग स्थान पर रखता है, वही असंगत है; यहाँ वह ${answer} है।`,
+        ],
+        resultLine: `असंगत कथन ${answer} है।`,
+      };
+    }
+    if (qlId === "DIR-QL-038") {
+      const unknown = asR((s.legs ?? [])[Number(s.unknownIndex ?? 0)] ?? {});
+      return {
+        ...base,
+        steps: [
+          "पहले सभी ज्ञात चालों को जोड़कर उनका अंतिम स्थान निकालें।",
+          `दिया गया अंतिम स्थान आरंभिक बिंदु से ${coordinateText(asR(s.target))} है।`,
+          `बाकी ${metres(unknown.distance)} की चाल को इस अंतिम स्थान तक पहुँचाने के लिए ${answer} दिशा में होना चाहिए।`,
+        ],
+        resultLine: `अज्ञात चाल की दिशा ${answer} है।`,
+      };
+    }
+    if (qlId === "DIR-QL-039") {
+      return {
+        ...base,
+        steps: [
+          `पहली ${metres(s.firstDistance)} की चाल को आरंभिक मुख-दिशा से लागू करें।`,
+          "फिर बाएँ, दाएँ, पीछे मुड़ना और बिना मुड़े चलना—इन चारों सम्भावनाओं को बाकी चालों के साथ जाँचें।",
+          `केवल ${answer} लेने पर दिया गया अंतिम स्थान मिलता है।`,
+        ],
+        resultLine: `अज्ञात मोड़ ${answer} है।`,
+      };
+    }
+    if (qlId === "DIR-QL-040") {
+      return {
+        ...base,
+        steps: [
+          "उत्तर, पूर्व, दक्षिण और पश्चिम—चारों को सम्भावित आरंभिक दिशा मानकर वही मार्ग चलाएँ।",
+          `दिया गया अंतिम स्थान आरंभिक बिंदु से ${coordinateText(asR(s.target))} है।`,
+          `केवल ${answer} से शुरू करने पर मार्ग उसी अंतिम स्थान तक पहुँचता है।`,
+        ],
+        resultLine: `आरंभिक मुख-दिशा ${answer} है।`,
+      };
+    }
+    if (qlId === "DIR-QL-041") {
+      return {
+        ...base,
+        steps: [
+          `पहले दिए गए स्थान-संबंधों से ${nameHi(s.startEntity)} और ${nameHi(s.referenceEntity)} की स्थिति तय करें।`,
+          `फिर ${nameHi(s.startEntity)} से दी गई चालों को क्रम से लागू करके अंतिम स्थान निकालें।`,
+          `अंतिम स्थान की ${nameHi(s.referenceEntity)} से सीधी तुलना करने पर उत्तर ${answer} मिलता है।`,
+        ],
+        resultLine: `अंतिम संबंध ${answer} है।`,
+      };
+    }
+    if (qlId === "DIR-QL-042") {
+      return {
+        ...base,
+        steps: [
+          `चौकी ${String(s.checkpoint)} से आरंभ करके सभी चाल और मोड़ क्रम से लागू करें।`,
+          "अंतिम बिंदु मिलने के बाद उसकी चौकी से सीधी दिशा देखें; अंतिम मुख-दिशा को उत्तर न मानें।",
+          `अंतिम बिंदु चौकी के ${answer} में है।`,
+        ],
+        resultLine: `चौकी से आवश्यक दिशा ${answer} है।`,
+      };
+    }
+    if (qlId === "DIR-QL-043") {
+      return {
+        ...base,
+        steps: [
+          `चौकी ${String(s.checkpoint)} से पूरा मार्ग चलाकर अंतिम बिंदु निकालें।`,
+          "चौकी और अंतिम बिंदु के पूर्व-पश्चिम तथा उत्तर-दक्षिण अंतर को अलग-अलग निकालें।",
+          `इन दोनों अंतर से सीधी न्यूनतम दूरी ${answer} मिलती है।`,
+        ],
+        resultLine: `चौकी से न्यूनतम दूरी ${answer} है।`,
+      };
+    }
+    return {
+      ...base,
+      steps: [
+        "चित्र में दिए गए दोनों स्थान-संबंध पहले पढ़ें।",
+        "इसके बाद लिखित संबंध को उसी जानकारी से जोड़ें।",
+        `तीनों संबंधों को साथ रखने पर पूछे गए दोनों बिंदुओं की दिशा ${answer} मिलती है।`,
+      ],
+      resultLine: `चित्र और कथन दोनों से उत्तर ${answer} है।`,
+    };
+  }
+
+  if (["DIR-QL-011", "DIR-QL-012", "DIR-QL-013", "DIR-QL-014", "DIR-QL-015"].includes(qlId)) {
     return { ...base, steps: ["एक संदर्भ बिंदु को स्थिर मानकर बाकी बिंदुओं को क्रम से रखें।", qlId === "DIR-QL-037" ? "प्रत्येक अतिरिक्त कथन को हटाकर शेष विन्यास की संगति जाँचें।" : "स्वतंत्र मार्गों से प्राप्त स्थान एक-दूसरे से मेल खाने चाहिए।", "अब पूछे गए बिंदुओं का आपसी संबंध पढ़ें।"], resultLine: `विन्यास से उत्तर ${answer} मिलता है।` };
   }
   if (["DIR-QL-016", "DIR-QL-017", "DIR-QL-018", "DIR-QL-019", "DIR-QL-020", "DIR-QL-021", "DIR-QL-022"].includes(qlId)) {
