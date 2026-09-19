@@ -21,7 +21,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     6,
     "Easy",
-    "Photosynthesis in plant cells mainly takes place in the:",
+    "Photosynthesis in plant cells takes place in the:",
     "chloroplast",
     [
       "mitochondrion",
@@ -111,7 +111,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Easy",
-    "The large central vacuole of a plant cell mainly helps in maintaining:",
+    "The large central vacuole of a plant cell helps maintain:",
     "turgidity and storage",
     [
       "chromosome number",
