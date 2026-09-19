@@ -114,7 +114,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
     [
       "Incisors",
       "Canines",
-      "Milk incisors only"
+      "Premolars"
     ],
     "Molars have broad surfaces suited for crushing and grinding food during chewing.",
     [
