@@ -34,14 +34,14 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
   [
     6,
     "Medium",
-    "Most carbon dioxide in the blood is transported mainly as:",
+    "In what form is most carbon dioxide transported in the blood?",
     "Bicarbonate ions",
     [
       "Dissolved carbon dioxide in plasma",
       "Carbaminohaemoglobin",
       "Oxyhaemoglobin"
     ],
-    "Much of the carbon dioxide entering blood is converted into bicarbonate ions, which are transported mainly in the plasma.",
+    "Much of the carbon dioxide entering blood is converted into bicarbonate ions and carried in the plasma.",
     [
       "CO2-BICARBONATE"
     ]
@@ -49,7 +49,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
   [
     6,
     "Medium",
-    "At body tissues, oxygen leaves the blood mainly because:",
+    "Why does oxygen move from the blood into body tissues?",
     "Tissues have a lower oxygen level than oxygenated blood",
     [
       "Tissues contain no water",
@@ -214,7 +214,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
   [
     8,
     "Medium",
-    "After exercise stops, breathing may remain rapid for some time mainly because the body is:",
+    "Why may breathing remain rapid for some time after exercise stops?",
     "Returning oxygen and carbon dioxide levels toward normal",
     [
       "Producing more food in the lungs",
