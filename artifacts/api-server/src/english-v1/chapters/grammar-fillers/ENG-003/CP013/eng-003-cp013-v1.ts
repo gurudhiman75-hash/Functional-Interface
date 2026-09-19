@@ -171,9 +171,10 @@ export function generateEng003Cp013QuestionV1(input: GenerateEng003Cp013V1Input)
 
   let correctChoice: string;
   let distractorChoices: string[];
-  const blankSegments = [...correction.segments];
+  let blankSegments = [...correction.segments];
 
   if (correction.metadata.ruleId === "GR-USG-007") {
+    blankSegments = [...distractorSource.segments];
     const current = blankSegments[correction.targetIndex]!;
     const punctuation = trailingPunctuation(current);
     const body = current.replace(/([,.;:!?]+)$/, "");
