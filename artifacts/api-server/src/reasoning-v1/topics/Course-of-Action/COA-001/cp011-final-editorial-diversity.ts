@@ -137,6 +137,12 @@ export function isCoaCp011QuestionStudioRequest(
   return isCoaCp010QuestionStudioRequest(request);
 }
 
+function cp010SourceRequest(request: ExtendedRequest): ExtendedRequest {
+  return text(request.cpId).toUpperCase() === COA_CP011_CHECKPOINT_ID
+    ? { ...request, cpId: COA_CP010_QUESTION_STUDIO_PACKAGE.cpIds.at(-1) === "COA-CP-010" ? "COA-CP-010" : undefined }
+    : request;
+}
+
 export async function generateCoaCp011QuestionStudioBatch(request: ExtendedRequest) {
   const requestedCount = request.count ?? 5;
   const capacity = getCoaCp011SafeSemanticCapacity(request);
@@ -149,7 +155,7 @@ export async function generateCoaCp011QuestionStudioBatch(request: ExtendedReque
     );
   }
 
-  const result = await generateCoaCp010QuestionStudioBatch(request);
+  const result = await generateCoaCp010QuestionStudioBatch(cp010SourceRequest(request));
   const ids = result.questions.map((question: any) => String(question.semanticAuthorityId ?? ""));
   if (new Set(ids).size !== ids.length) {
     throw new Error("COA-001 CP011 anti-repetition gate detected a repeated semantic authority in one review batch");
