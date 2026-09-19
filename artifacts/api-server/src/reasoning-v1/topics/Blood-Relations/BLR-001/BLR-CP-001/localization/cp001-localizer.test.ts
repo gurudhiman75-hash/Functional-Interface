@@ -55,6 +55,21 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
       );
       assert.ok(localized.explanation.normalizedClues.length >= 1);
       assert.ok(!/\b(?:How|Which|Who|Read|Study|Consider|Use|Father|Mother|Brother|Sister|Son|Daughter|Husband|Wife)\b/i.test(localized.stem.replace(/[A-Z][a-z]+/g, "")));
+      const learnerText = [
+        localized.stem,
+        ...localized.options.map((option) => option.value),
+        ...localized.explanation.normalizedClues,
+        ...localized.explanation.queryPath,
+        localized.explanation.conclusion,
+      ].join(" ");
+      const badPossessive = locale === "hi-IN"
+        ? / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|परदादी\/परनानी|परपोती\/परनातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू)(?=$|[\s।,;:!?'"”’])/u
+        : / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/ਦੋਹਤੀ|ਪਰਦਾਦੀ\/ਪਰਨਾਨੀ|ਪਰਪੋਤੀ\/ਪਰਦੋਹਤੀ|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ)(?=$|[\s।,;:!?'"”’])/u;
+      assert.doesNotMatch(
+        learnerText,
+        badPossessive,
+        `${localized.itemId}: CP001 native relation possessive grammar drifted.`,
+      );
 
       qlCounts[contract.qlId] = (qlCounts[contract.qlId] ?? 0) + 1;
       answerPositions[localized.correctIndex] += 1;

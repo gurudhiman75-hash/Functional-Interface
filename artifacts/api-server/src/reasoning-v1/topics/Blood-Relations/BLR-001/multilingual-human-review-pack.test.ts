@@ -47,7 +47,7 @@ assert.equal(summary.currentReleaseLock.productDeliveryUnlocked, false);
 assert.equal(summary.approvalBoundary.automaticFreeze, false);
 
 const canonicalNamePattern = new RegExp(
-  `\\b(?:${blrCanonicalPersonNames().join("|")})\\b`,
+  `\b(?:${blrCanonicalPersonNames().join("|")})\b`,
 );
 
 for (const record of full) {
@@ -59,12 +59,24 @@ for (const record of full) {
       editorial: record.editorial ?? null,
       explanation: record.explanation ?? null,
       proceduralLogic: record.proceduralLogic ?? null,
+      decodedStatements: record.decodedStatements ?? null,
     });
     assert.doesNotMatch(
       learnerProjection,
       canonicalNamePattern,
       `${record.itemId}: Roman-script person name leaked into ${record.locale} learner text.`,
     );
+    if (["BLR-CP-001", "BLR-CP-005", "BLR-CP-006"].includes(record.checkpointId)) {
+      const badPossessive = record.locale === "hi-IN"
+        ? / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|परदादी\/परनानी|परपोती\/परनातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू|संतान)(?=$|[\s।,;:!?'"”’])/u
+        : / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/(?:ਨਾਤਿਨ|ਦੋਹਤੀ)|ਪਰਦਾਦੀ\/ਪਰਨਾਨੀ|ਪਰਪੋਤੀ\/(?:ਪਰਨਾਤਿਨ|ਪਰਦੋਹਤੀ)|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ|ਸੰਤਾਨ)(?=$|[\s।,;:!?'"”’])/u;
+      assert.doesNotMatch(
+        learnerProjection,
+        badPossessive,
+        `${record.itemId}: native relation possessive grammar drifted.`,
+      );
+    }
+
   }
 
   assert.equal(record.reviewOnly, true, `${record.itemId}: reviewOnly`);

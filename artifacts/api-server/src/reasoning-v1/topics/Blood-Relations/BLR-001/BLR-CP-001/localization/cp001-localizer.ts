@@ -24,6 +24,7 @@ import {
   cp001IdentifyPersonQuestion,
   cp001RelationLabel,
   cp001RelationQuestion,
+  cp001RelationPossessiveParticle,
   cp001RelationStatement,
   localeText,
   type BlrCp001TranslatedLocale,
@@ -187,10 +188,11 @@ function localizedQuestion(
       );
     case "IDENTIFY_ORDERED_PAIR": {
       const relation = cp001RelationLabel(query.relationId, locale);
+      const possessive = cp001RelationPossessiveParticle(query.relationId, locale);
       return localeText(
         locale,
-        `कौन-सा युग्म सही क्रम में ऐसा है जिसमें पहला व्यक्ति दूसरे का ${relation} है?`,
-        `ਕਿਹੜਾ ਜੋੜਾ ਸਹੀ ਕ੍ਰਮ ਵਿੱਚ ਐਸਾ ਹੈ ਜਿਸ ਵਿੱਚ ਪਹਿਲਾ ਵਿਅਕਤੀ ਦੂਜੇ ਦਾ ${relation} ਹੈ?`,
+        `कौन-सा युग्म सही क्रम में ऐसा है जिसमें पहला व्यक्ति दूसरे ${possessive} ${relation} है?`,
+        `ਕਿਹੜਾ ਜੋੜਾ ਸਹੀ ਕ੍ਰਮ ਵਿੱਚ ਐਸਾ ਹੈ ਜਿਸ ਵਿੱਚ ਪਹਿਲਾ ਵਿਅਕਤੀ ਦੂਜੇ ${possessive} ${relation} ਹੈ?`,
       );
     }
     case "SELECT_RELATION_CLAIM":
