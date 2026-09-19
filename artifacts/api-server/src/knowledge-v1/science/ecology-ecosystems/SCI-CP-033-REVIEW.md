@@ -589,7 +589,7 @@ D. Argon
 
 ## Q40 · Medium · Water and carbon cycles
 
-Respiration returns carbon to the atmosphere mainly as:
+Respiration returns carbon to the atmosphere as:
 
 A. Nitrogen gas
 B. Ozone
@@ -679,7 +679,7 @@ D. Preventing plant uptake
 
 ## Q46 · Medium · Nitrogen cycle and nutrient cycling
 
-Plants usually absorb nitrogen from soil mainly as:
+Plants usually absorb soil nitrogen in which forms?
 
 A. Nitrogen gas directly through leaves
 B. Nitrate and ammonium ions
