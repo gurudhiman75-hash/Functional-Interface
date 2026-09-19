@@ -49,7 +49,7 @@ D. Mouth → Oesophagus → Large intestine → Stomach → Small intestine
 
 ## Q04 · Medium · Digestive system overview and alimentary canal
 
-Digestion mainly converts complex food substances into:
+Digestion converts complex food substances into:
 
 A. Insoluble substances that cannot cross the intestine
 B. Only water and mineral salts
@@ -64,7 +64,7 @@ D. Simpler soluble substances that can be absorbed
 
 ## Q05 · Medium · Digestive system overview and alimentary canal
 
-Mechanical digestion in the mouth is mainly carried out by:
+In the mouth, mechanical digestion is carried out by:
 
 A. Chewing by the teeth
 B. Bile secretion
@@ -94,7 +94,7 @@ D. It prevents food from reaching the stomach
 
 ## Q07 · Easy · Teeth, tongue and saliva
 
-Which type of teeth is mainly used for cutting and biting food?
+Which type of teeth is used for cutting and biting food?
 
 A. Canines
 B. Premolars
@@ -103,13 +103,13 @@ D. Molars
 
 **Answer:** C. Incisors
 
-**Explanation:** Incisors are the front teeth with sharp edges used mainly for cutting and biting food.
+**Explanation:** Incisors are the front teeth with sharp edges used for cutting and biting food.
 
 **Source fact:** `TEETH-INCISORS`
 
 ## Q08 · Easy · Teeth, tongue and saliva
 
-Which teeth are mainly adapted for grinding food?
+Which teeth are best adapted for grinding food?
 
 A. Incisors
 B. Canines
@@ -154,7 +154,7 @@ D. Absorb amino acids into blood
 
 ## Q11 · Medium · Teeth, tongue and saliva
 
-The tongue helps digestion mainly by:
+What role does the tongue play during digestion?
 
 A. Producing bile
 B. Absorbing digested fats
@@ -174,9 +174,9 @@ If salivary amylase is absent but the rest of the digestive system is normal, di
 A. Stop completely throughout the digestive tract
 B. Be completed only in the stomach
 C. Be replaced by protein digestion
-D. Begin later mainly in the small intestine
+D. Begin later in the small intestine
 
-**Answer:** D. Begin later mainly in the small intestine
+**Answer:** D. Begin later in the small intestine
 
 **Explanation:** Salivary amylase normally starts starch digestion in the mouth. Pancreatic amylase can still digest starch later in the small intestine.
 
@@ -184,7 +184,7 @@ D. Begin later mainly in the small intestine
 
 ## Q13 · Easy · Oesophagus and stomach
 
-Food is pushed through the oesophagus mainly by:
+Food moves through the oesophagus by:
 
 A. Peristalsis
 B. Diffusion
@@ -229,7 +229,7 @@ D. Maltase
 
 ## Q16 · Medium · Oesophagus and stomach
 
-The mucus lining of the stomach mainly protects it from:
+The mucus lining of the stomach protects it from:
 
 A. Absorbed oxygen
 B. Bile stored in the gallbladder
@@ -304,7 +304,7 @@ D. Liver
 
 ## Q21 · Medium · Liver, bile and gallbladder
 
-The gallbladder mainly functions to:
+What is the chief function of the gallbladder?
 
 A. Store and concentrate bile
 B. Produce digestive enzymes
@@ -319,7 +319,7 @@ D. Secrete hydrochloric acid
 
 ## Q22 · Medium · Liver, bile and gallbladder
 
-Bile helps in the digestion of fats mainly by:
+How does bile help in the digestion of fats?
 
 A. Converting proteins into amino acids directly
 B. Breaking large fat globules into smaller droplets
@@ -379,7 +379,7 @@ D. Large intestine
 
 ## Q26 · Easy · Pancreas and digestive enzymes
 
-Which pancreatic enzyme mainly digests proteins?
+Which pancreatic enzyme digests proteins?
 
 A. Amylase
 B. Trypsin
@@ -394,7 +394,7 @@ D. Pepsin
 
 ## Q27 · Medium · Pancreas and digestive enzymes
 
-Pancreatic lipase acts mainly on:
+Pancreatic lipase acts on:
 
 A. Starch
 B. Proteins
@@ -499,7 +499,7 @@ D. Glycerol
 
 ## Q34 · Medium · Small intestine and completion of digestion
 
-Fats are mainly digested into:
+Fats are digested into:
 
 A. Amino acids
 B. Fatty acids and glycerol
@@ -514,7 +514,7 @@ D. Starch and glycogen
 
 ## Q35 · Medium · Small intestine and completion of digestion
 
-Carbohydrates are finally converted mainly into:
+Carbohydrates are finally broken down into:
 
 A. Amino acids
 B. Fatty acids only
@@ -574,7 +574,7 @@ D. Cilia
 
 ## Q39 · Medium · Absorption, villi and assimilation
 
-Glucose and amino acids absorbed from intestinal villi enter mainly into:
+Glucose and amino acids absorbed through intestinal villi enter the:
 
 A. Lacteals in the villi
 B. Intestinal glands
@@ -589,7 +589,7 @@ D. Lymph nodes
 
 ## Q40 · Medium · Absorption, villi and assimilation
 
-Absorbed fats from the small intestine enter mainly into:
+Most absorbed fats enter:
 
 A. Blood capillaries in the villi
 B. Gastric glands
@@ -634,7 +634,7 @@ D. No hydrochloric acid secretion in the stomach
 
 ## Q43 · Easy · Large intestine, rectum and egestion
 
-The large intestine mainly absorbs:
+What does the large intestine absorb from undigested material?
 
 A. Most amino acids
 B. Most glucose
@@ -688,7 +688,7 @@ D. It begins starch digestion with saliva
 
 **Answer:** B. It absorbs much of the remaining water from undigested material
 
-**Explanation:** The large intestine mainly recovers water and some salts and helps form faeces. Most nutrient digestion and absorption occur earlier.
+**Explanation:** The large intestine recovers much of the remaining water and some salts and helps form faeces. Most nutrient digestion and absorption occur earlier.
 
 **Source fact:** `LARGE-INTESTINE-FUNCTION`
 
@@ -709,7 +709,7 @@ D. Higher saliva production only
 
 ## Q48 · Hard · Large intestine, rectum and egestion
 
-If intestinal contents move unusually slowly through the large intestine, the stool may become harder mainly because:
+If intestinal contents move unusually slowly through the large intestine, why may the stool become harder?
 
 A. More bile is produced in the colon
 B. Protein digestion becomes faster
@@ -748,13 +748,13 @@ D. Protein — bile
 
 **Answer:** B. Protein — protease
 
-**Explanation:** Proteases act on proteins. Amylases act mainly on starch, while lipases act on fats.
+**Explanation:** Proteases act on proteins, amylases on starch and lipases on fats.
 
 **Source fact:** `ENZYME-SUBSTRATE-PROTEASE`
 
 ## Q51 · Medium · Nutrient digestion and end products
 
-Which nutrient is digested mainly by lipase?
+Which nutrient is digested by lipase?
 
 A. Protein
 B. Starch
@@ -778,7 +778,7 @@ D. Starch
 
 **Answer:** D. Starch
 
-**Explanation:** Salivary amylase begins starch digestion in the mouth. Protein digestion begins mainly in the stomach.
+**Explanation:** Salivary amylase begins starch digestion in the mouth. Protein digestion begins in the stomach.
 
 **Source fact:** `STARCH-DIGESTION-MOUTH`
 
@@ -793,7 +793,7 @@ D. Mouth, large intestine, stomach
 
 **Answer:** A. Mouth, stomach, small intestine
 
-**Explanation:** Starch digestion begins in the mouth, protein digestion begins mainly in the stomach, and most fat digestion occurs in the small intestine.
+**Explanation:** Starch digestion begins in the mouth, protein digestion in the stomach, and most fat digestion occurs in the small intestine.
 
 **Source fact:** `DIGESTION-START-SITES`
 
@@ -814,7 +814,7 @@ D. Absorption of water in the colon
 
 ## Q55 · Easy · Digestive function and mixed reasoning
 
-Dietary fibre helps normal bowel movement mainly by:
+How does dietary fibre help normal bowel movement?
 
 A. Digesting proteins in the stomach
 B. Producing bile in the liver
@@ -883,7 +883,7 @@ D. Oesophageal muscles
 
 **Answer:** C. Villi of the small intestine
 
-**Explanation:** Glucose and amino acids are absorbed mainly through the villi of the small intestine. Damage there can impair absorption even when digestion is normal.
+**Explanation:** Glucose and amino acids are absorbed through the villi of the small intestine. Damage there can impair absorption even when digestion is normal.
 
 **Source fact:** `DIGESTION-ABSORPTION-DISTINCTION`
 
