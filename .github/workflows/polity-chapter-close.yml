@@ -37,8 +37,17 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Run POL-001 Question Studio and qualification audit gates
         run: |
-          pnpm --dir artifacts/api-server exec vitest run \
+          mkdir -p artifacts/api-server/dist/polity
+          for test_file in \
             src/question-studio/engines/knowledge-v1-pol001-adapter-v1.test.ts \
             src/question-studio/engines/knowledge-v1-pol001-qualification-audit-v1.test.ts
+          do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "${test_file}" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/polity/${output_name}"
+            node "artifacts/api-server/dist/polity/${output_name}"
+          done
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
