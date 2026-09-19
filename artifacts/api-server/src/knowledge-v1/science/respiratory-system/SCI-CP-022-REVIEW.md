@@ -4,7 +4,7 @@ Review-only candidate. 60 questions; 10 QLs × 6; Easy 18 / Medium 30 / Hard 12;
 
 ## Q01 · Easy · Respiratory system overview and air pathway
 
-Which organ system is mainly responsible for taking in oxygen and removing carbon dioxide?
+Which organ system takes in oxygen and removes carbon dioxide from the body?
 
 A. Respiratory system
 B. Digestive system
@@ -94,7 +94,7 @@ D. Bile secretion by the liver
 
 ## Q07 · Easy · Nose, pharynx, larynx and trachea
 
-Nasal hairs mainly help by:
+What is the function of nasal hairs during breathing?
 
 A. Warming inhaled air
 B. Moistening inhaled air
@@ -139,7 +139,7 @@ D. Small intestine
 
 ## Q10 · Medium · Nose, pharynx, larynx and trachea
 
-C-shaped cartilage rings in the trachea mainly prevent it from:
+C-shaped cartilage rings in the trachea prevent it from:
 
 A. Absorbing oxygen
 B. Collapsing during breathing
@@ -154,7 +154,7 @@ D. Dividing into bronchioles
 
 ## Q11 · Medium · Nose, pharynx, larynx and trachea
 
-Mucus and cilia in the respiratory passages work together mainly to:
+What do mucus and cilia in the respiratory passages do together?
 
 A. Carry oxygen in blood
 B. Produce carbon dioxide
@@ -214,7 +214,7 @@ D. Nephrons
 
 ## Q15 · Medium · Bronchi, lungs and alveoli
 
-Gas exchange in the lungs occurs mainly in the:
+Where does gas exchange occur in the lungs?
 
 A. Trachea
 B. Larynx
@@ -259,7 +259,7 @@ D. A site for bile production
 
 ## Q18 · Hard · Bronchi, lungs and alveoli
 
-Destruction of many alveolar walls would reduce oxygen uptake mainly because it:
+Why does destruction of alveolar walls reduce oxygen uptake?
 
 A. Increases the amount of haemoglobin in blood
 B. Decreases the surface area available for gas exchange
@@ -334,7 +334,7 @@ D. Unrelated to chest volume
 
 ## Q23 · Medium · Mechanism of breathing
 
-During quiet exhalation, air leaves the lungs mainly because:
+During quiet exhalation, why does air leave the lungs?
 
 A. Thoracic volume increases further
 B. The lungs actively pump air using alveolar muscles
@@ -364,7 +364,7 @@ D. Expansion of the chest during inhalation
 
 ## Q25 · Easy · Gas exchange at the alveoli
 
-Oxygen moves from alveoli into blood mainly by:
+Oxygen moves from the alveoli into the blood by:
 
 A. Diffusion
 B. Active transport
@@ -379,7 +379,7 @@ D. Peristalsis
 
 ## Q26 · Easy · Gas exchange at the alveoli
 
-Carbon dioxide moves from blood into the alveoli mainly by:
+Carbon dioxide moves from the blood into the alveoli by:
 
 A. Osmosis
 B. Diffusion
@@ -439,7 +439,7 @@ D. Cartilage rings and digestive enzymes
 
 ## Q30 · Hard · Gas exchange at the alveoli
 
-If the alveolar membrane becomes abnormally thick, gas exchange slows mainly because:
+Why does thickening of the alveolar membrane slow gas exchange?
 
 A. The number of red blood cells immediately doubles
 B. The diffusion distance becomes greater
@@ -484,7 +484,7 @@ D. Oxyhaemoglobin
 
 ## Q33 · Medium · Transport of respiratory gases
 
-Most carbon dioxide in the blood is transported mainly as:
+In what form is most carbon dioxide transported in the blood?
 
 A. Bicarbonate ions
 B. Dissolved carbon dioxide in plasma
@@ -493,13 +493,13 @@ D. Oxyhaemoglobin
 
 **Answer:** A. Bicarbonate ions
 
-**Explanation:** Much of the carbon dioxide entering blood is converted into bicarbonate ions, which are transported mainly in the plasma.
+**Explanation:** Much of the carbon dioxide entering blood is converted into bicarbonate ions and carried in the plasma.
 
 **Source fact:** `CO2-BICARBONATE`
 
 ## Q34 · Medium · Transport of respiratory gases
 
-At body tissues, oxygen leaves the blood mainly because:
+Why does oxygen move from the blood into body tissues?
 
 A. Tissues contain no water
 B. Tissues have a lower oxygen level than oxygenated blood
@@ -664,7 +664,7 @@ D. Increase oxygen uptake and carbon dioxide removal
 
 ## Q45 · Medium · Breathing rate, exercise and altitude
 
-After exercise stops, breathing may remain rapid for some time mainly because the body is:
+Why may breathing remain rapid for some time after exercise stops?
 
 A. Returning oxygen and carbon dioxide levels toward normal
 B. Producing more food in the lungs
@@ -679,7 +679,7 @@ D. Preventing all cellular respiration
 
 ## Q46 · Medium · Breathing rate, exercise and altitude
 
-Holding the breath for a long time becomes difficult mainly because:
+Why does holding the breath for a long time become difficult?
 
 A. All nitrogen leaves the body
 B. Carbon dioxide builds up in the blood
@@ -829,7 +829,7 @@ D. Platelets
 
 ## Q56 · Medium · Respiratory health and mixed reasoning
 
-Carbon monoxide in cigarette smoke is harmful mainly because it:
+Why is carbon monoxide in cigarette smoke harmful?
 
 A. Improves oxygen transport
 B. Increases alveolar surface area
@@ -844,7 +844,7 @@ D. Reduces the oxygen-carrying capacity of haemoglobin
 
 ## Q57 · Medium · Respiratory health and mixed reasoning
 
-During an asthma attack, breathing becomes difficult mainly because the:
+Why does breathing become difficult during an asthma attack?
 
 A. Airways become narrowed
 B. Alveolar walls become thinner
@@ -859,7 +859,7 @@ D. Haemoglobin concentration rises suddenly
 
 ## Q58 · Medium · Respiratory health and mixed reasoning
 
-A properly fitted mask can reduce inhalation of harmful dust mainly by:
+How can a properly fitted mask reduce the inhalation of harmful dust?
 
 A. Increasing haemoglobin production instantly
 B. Filtering particles before they enter the respiratory tract
