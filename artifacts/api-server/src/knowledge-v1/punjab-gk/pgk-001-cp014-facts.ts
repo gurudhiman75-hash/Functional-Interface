@@ -17,7 +17,7 @@ export const PGK_001_CP014_FACTS = Object.freeze({
   twelveMisls: {
     id: "dal-khalsa-twelve-misls",
     count: 12,
-    note: "Dal Khalsa was organised into twelve major misls in standard Punjab history treatment.",
+    note: "Standard PSEB treatment counts twelve major Sikh misls in the confederacy. This must not be phrased as twelve misls under Dal Khalsa command, because other Sikh reference works distinguish eleven Dal Khalsa misls plus the Phulkian misl outside that command.",
   },
   budhaTaruna: {
     id: "budha-taruna-dal-kapur-singh",
