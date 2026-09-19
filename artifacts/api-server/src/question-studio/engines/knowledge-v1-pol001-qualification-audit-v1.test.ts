@@ -83,4 +83,4 @@ const adv = bodies.find((q) => /Advocate-General/i.test(q.stem) && /qualif|eligi
 assert.ok(agi);
 assert.ok(adv);
 assertFullSet(agi.explanation, [/citizen of India/i, /5 years/i, /10 years/i, /distinguished jurist/i], agi.questionId);
-assertFullSet(adv.explanation, [/citizen of India/i, /10 years.*judicial office/i, /10 years.*High Court advocate/i], adv.questionId);
+assertFullSet(adv.explanation, [/citizen of India/i, /10 years.*judicial office/i, /10 years.*(?:High Court advocate|advocate of a High Court)/i], adv.questionId);
