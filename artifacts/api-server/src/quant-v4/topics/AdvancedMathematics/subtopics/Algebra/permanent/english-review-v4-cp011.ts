@@ -85,6 +85,15 @@ function equationFromRoots(r1: number, r2: number): QuadraticEquation {
   };
 }
 
+function scaledRepeatedRootEquation(root: number, scale: number): QuadraticEquation {
+  const a = BigInt(scale);
+  return {
+    a: rational(a),
+    b: rational(-2n * a * BigInt(root)),
+    c: rational(a * BigInt(root * root)),
+  };
+}
+
 function equationFromConjugates(center: number, radicand: number): QuadraticEquation {
   return {
     a: rational(1n),
@@ -253,10 +262,12 @@ export function generateAlgCp011EnglishReviewV4(
       equationY = equationFromRoots(boundary, boundary + gapB);
       break;
     }
-    case "compareEqualRepeatedRoots":
+    case "compareEqualRepeatedRoots": {
       equationX = equationFromRoots(base, base);
-      equationY = equationFromRoots(base, base);
+      const displayScale = 2 + (mixSeed(seed, 0x5505) % 2);
+      equationY = scaledRepeatedRootEquation(base, displayScale);
       break;
+    }
     case "compareOverlappingIndeterminateRootSets": {
       const high = base + gapA + gapB + 2;
       equationX = equationFromRoots(base, high);
