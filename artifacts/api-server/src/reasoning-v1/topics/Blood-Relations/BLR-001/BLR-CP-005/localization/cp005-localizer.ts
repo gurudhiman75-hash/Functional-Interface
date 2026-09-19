@@ -214,12 +214,12 @@ function localizedModelAudit(record: GeneratedBlrCp005Question, locale: Locale):
       const exact = relationInModel(model, query.subjectId, query.referenceId);
       lines.push(localeText(
         locale,
-        `मॉडल ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ${name(query.subjectId)}, ${name(query.referenceId)} का ${localizedRelationLabel(exact, locale)} है।`,
-        `ਮਾਡਲ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ${name(query.subjectId)}, ${name(query.referenceId)} ਦਾ ${localizedRelationLabel(exact, locale)} ਹੈ।`,
+        `स्थिति ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ${name(query.subjectId)}, ${name(query.referenceId)} का ${localizedRelationLabel(exact, locale)} है।`,
+        `ਸਥਿਤੀ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ${name(query.subjectId)}, ${name(query.referenceId)} ਦਾ ${localizedRelationLabel(exact, locale)} ਹੈ।`,
       ));
     }
     if (record.answer.kind === "RELATION") {
-      lines.push(localeText(locale, `सभी मॉडलों में सुरक्षित साझा संबंध: ${localizedRelationLabel(record.answer.relationId, locale)}।`, `ਸਾਰੇ ਮਾਡਲਾਂ ਵਿੱਚ ਕਾਇਮ ਸਾਂਝਾ ਰਿਸ਼ਤਾ: ${localizedRelationLabel(record.answer.relationId, locale)}।`));
+      lines.push(localeText(locale, `सभी संभव स्थितियों में समान संबंध: ${localizedRelationLabel(record.answer.relationId, locale)}।`, `ਸਾਰੀਆਂ ਸੰਭਵ ਸਥਿਤੀਆਂ ਵਿੱਚ ਇੱਕੋ ਰਿਸ਼ਤਾ: ${localizedRelationLabel(record.answer.relationId, locale)}।`));
     } else if (record.answer.kind === "RELATION_SET") {
       const set = record.answer.relationIds.map((id) => localizedRelationLabel(id, locale)).join(localeText(locale, " या ", " ਜਾਂ "));
       lines.push(localeText(locale, `पूरा संभावित संबंध-समूह: ${set}। दोनों परिणाम बनाए रखने होंगे।`, `ਪੂਰਾ ਸੰਭਵ ਰਿਸ਼ਤਾ-ਸਮੂਹ: ${set}। ਦੋਵੇਂ ਨਤੀਜੇ ਕਾਇਮ ਰੱਖਣੇ ਹੋਣਗੇ।`));
@@ -233,13 +233,13 @@ function localizedModelAudit(record: GeneratedBlrCp005Question, locale: Locale):
   if (query.kind === "CLAIM_STATUS") {
     for (const [index, model] of models.entries()) {
       const trueClaims = query.claims.filter((claim) => evaluatePredicate(model, claim.predicate)).map((claim) => renderPredicate(record, claim.predicate, locale));
-      lines.push(localeText(locale, `मॉडल ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): सत्य कथन — ${trueClaims.join(" ") || "कोई विकल्प सत्य नहीं।"}`, `ਮਾਡਲ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ਸੱਚੇ ਕਥਨ — ${trueClaims.join(" ") || "ਕੋਈ ਵਿਕਲਪ ਸੱਚ ਨਹੀਂ।"}`));
+      lines.push(localeText(locale, `स्थिति ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): सही कथन — ${trueClaims.join(" ") || "कोई विकल्प सही नहीं।"}`, `ਸਥਿਤੀ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ਸਹੀ ਕਥਨ — ${trueClaims.join(" ") || "ਕੋਈ ਵਿਕਲਪ ਸਹੀ ਨਹੀਂ।"}`));
     }
     const statusParts = query.claims.map((claim) => {
       const option = record.options.find((entry) => entry.semanticKey === `CLAIM:${claim.claimId}`);
       return `${renderPredicate(record, claim.predicate, locale)} ${localizedTruthStatus(option?.modelStatus ?? "IMPOSSIBLE", locale)}`;
     });
-    lines.push(localeText(locale, `सभी मॉडलों के बाद स्थिति: ${statusParts.join(" | ")}`, `ਸਾਰੇ ਮਾਡਲਾਂ ਤੋਂ ਬਾਅਦ ਸਥਿਤੀ: ${statusParts.join(" | ")}`));
+    lines.push(localeText(locale, `सभी संभव स्थितियों को देखने के बाद: ${statusParts.join(" | ")}`, `ਸਾਰੀਆਂ ਸੰਭਵ ਸਥਿਤੀਆਂ ਵੇਖਣ ਤੋਂ ਬਾਅਦ: ${statusParts.join(" | ")}`));
     return lines;
   }
 
@@ -249,7 +249,7 @@ function localizedModelAudit(record: GeneratedBlrCp005Question, locale: Locale):
         try { return relationMatches(relationInModel(model, id, query.referenceId), query.relationId); } catch { return false; }
       }).map(name);
       const rendered = matches.length ? matches.join(localeText(locale, " या ", " ਜਾਂ ")) : localeText(locale, "कोई नहीं", "ਕੋਈ ਨਹੀਂ");
-      lines.push(localeText(locale, `मॉडल ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): भूमिका से मेल खाने वाले उम्मीदवार — ${rendered}।`, `ਮਾਡਲ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ਭੂਮਿਕਾ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਉਮੀਦਵਾਰ — ${rendered}।`));
+      lines.push(localeText(locale, `स्थिति ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): भूमिका से मेल खाने वाले उम्मीदवार — ${rendered}।`, `ਸਥਿਤੀ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ਭੂਮਿਕਾ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਉਮੀਦਵਾਰ — ${rendered}।`));
     }
     if (query.kind === "PERSON_STATUS") {
       const status = [...new Set(query.candidatePersonIds)].map((id) => {
@@ -269,7 +269,7 @@ function localizedModelAudit(record: GeneratedBlrCp005Question, locale: Locale):
 
   const counts = models.map((model) => evaluateCount(model, query.countSpec));
   for (const [index, model] of models.entries()) {
-    lines.push(localeText(locale, `मॉडल ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): मांगी गई संख्या = ${counts[index]}।`, `ਮਾਡਲ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ਮੰਗੀ ਗਿਣਤੀ = ${counts[index]}।`));
+    lines.push(localeText(locale, `स्थिति ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): मांगी गई संख्या = ${counts[index]}।`, `ਸਥਿਤੀ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ਮੰਗੀ ਗਿਣਤੀ = ${counts[index]}।`));
   }
   const attainable = [...new Set(counts)].sort((a, b) => a - b).join(", ");
   lines.push(localeText(locale, `संभव संख्या-समूह: {${attainable}}।`, `ਸੰਭਵ ਗਿਣਤੀ-ਸਮੂਹ: {${attainable}}।`));
@@ -283,9 +283,9 @@ function localizedModelAudit(record: GeneratedBlrCp005Question, locale: Locale):
 function localizedConclusion(record: GeneratedBlrCp005Question, locale: Locale, correctText: string): string {
   const count = record.modelSpace.modelCount;
   switch (record.solveAuthority) {
-    case "RESOLVE_INVARIANT_RELATION": return localeText(locale, `${correctText} सभी ${count} वैध परिवार-मॉडलों में बना रहता है।`, `${correctText} ਸਾਰੇ ${count} ਵੈਧ ਪਰਿਵਾਰਕ ਮਾਡਲਾਂ ਵਿੱਚ ਕਾਇਮ ਰਹਿੰਦਾ ਹੈ।`);
+    case "RESOLVE_INVARIANT_RELATION": return localeText(locale, `${correctText} सभी ${count} संभव परिवार-स्थितियों में समान रहता है।`, `${correctText} ਸਾਰੀਆਂ ${count} ਸੰਭਵ ਪਰਿਵਾਰਕ ਸਥਿਤੀਆਂ ਵਿੱਚ ਇੱਕੋ ਰਹਿੰਦਾ ਹੈ।`);
     case "RESOLVE_RELATION_UNCERTAINTY": return record.answer.kind === "RELATION_SET"
-      ? localeText(locale, `पूरे मॉडल-समूह में ठीक दो संबंध बचते हैं: ${correctText}।`, `ਪੂਰੇ ਮਾਡਲ-ਸਮੂਹ ਵਿੱਚ ਠੀਕ ਦੋ ਰਿਸ਼ਤੇ ਬਚਦੇ ਹਨ: ${correctText}।`)
+      ? localeText(locale, `सभी संभव स्थितियों को देखने पर ठीक दो संबंध बचते हैं: ${correctText}।`, `ਸਾਰੀਆਂ ਸੰਭਵ ਸਥਿਤੀਆਂ ਵੇਖਣ ਉੱਤੇ ਠੀਕ ਦੋ ਰਿਸ਼ਤੇ ਬਚਦੇ ਹਨ: ${correctText}।`)
       : localeText(locale, "कई अलग संबंध संभव हैं, इसलिए सटीक संबंध निर्धारित नहीं किया जा सकता।", "ਕਈ ਵੱਖਰੇ ਰਿਸ਼ਤੇ ਸੰਭਵ ਹਨ, ਇਸ ਲਈ ਸਟੀਕ ਰਿਸ਼ਤਾ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।");
     case "SELECT_CLAIM_BY_MODEL_STATUS": return localeText(locale, `${correctText} ही प्रश्न में मांगी गई सत्य-स्थिति रखता है।`, `${correctText} ਹੀ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਮੰਗੀ ਸੱਚ-ਸਥਿਤੀ ਰੱਖਦਾ ਹੈ।`);
     case "IDENTIFY_PERSON_BY_MODEL_STATUS": return localeText(locale, `${correctText} ही ऐसा उम्मीदवार है जिसकी भूमिका मांगी गई स्थिति से मेल खाती है।`, `${correctText} ਹੀ ਉਹ ਉਮੀਦਵਾਰ ਹੈ ਜਿਸਦੀ ਭੂਮਿਕਾ ਮੰਗੀ ਸਥਿਤੀ ਨਾਲ ਮੇਲ ਖਾਂਦੀ ਹੈ।`);
@@ -295,8 +295,8 @@ function localizedConclusion(record: GeneratedBlrCp005Question, locale: Locale, 
     case "DETERMINE_COUNT_BOUND": return localeText(locale, `${correctText} संभव संख्या-समूह की मांगी गई सीमा है।`, `${correctText} ਸੰਭਵ ਗਿਣਤੀ-ਸਮੂਹ ਦੀ ਮੰਗੀ ਹੱਦ ਹੈ।`);
     case "SELECT_COUNT_BY_MODEL_STATUS": return localeText(locale, `${correctText} ही मांगी गई संभव/असंभव स्थिति वाला विकल्प है।`, `${correctText} ਹੀ ਮੰਗੀ ਸੰਭਵ/ਅਸੰਭਵ ਸਥਿਤੀ ਵਾਲਾ ਵਿਕਲਪ ਹੈ।`);
     case "RESOLVE_COUNT_DETERMINACY": return record.answer.kind === "NUMBER"
-      ? localeText(locale, `हर वैध मॉडल में संख्या ${correctText} ही है।`, `ਹਰ ਵੈਧ ਮਾਡਲ ਵਿੱਚ ਗਿਣਤੀ ${correctText} ਹੀ ਹੈ।`)
-      : localeText(locale, "वैध मॉडलों में अलग-अलग संख्याएँ आती हैं, इसलिए सटीक संख्या निर्धारित नहीं की जा सकती।", "ਵੈਧ ਮਾਡਲਾਂ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਗਿਣਤੀਆਂ ਆਉਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਸਟੀਕ ਗਿਣਤੀ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ।");
+      ? localeText(locale, `हर संभव परिवार-स्थिति में संख्या ${correctText} ही है।`, `ਹਰ ਸੰਭਵ ਪਰਿਵਾਰਕ ਸਥਿਤੀ ਵਿੱਚ ਗਿਣਤੀ ${correctText} ਹੀ ਹੈ।`)
+      : localeText(locale, "अलग-अलग संभव परिवार-स्थितियों में अलग संख्याएँ आती हैं, इसलिए सटीक संख्या निर्धारित नहीं की जा सकती।", "ਵੱਖ-ਵੱਖ ਸੰਭਵ ਪਰਿਵਾਰਕ ਸਥਿਤੀਆਂ ਵਿੱਚ ਵੱਖ ਗਿਣਤੀਆਂ ਆਉਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਸਟੀਕ ਗਿਣਤੀ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ।");
   }
 }
 
@@ -313,12 +313,12 @@ function localizedOptionAnalysis(
     let explanation: string;
     if (option.isCorrect) {
       explanation = option.modelStatus
-        ? localeText(locale, `विकल्प ${label} पूरे मॉडल-समूह में ${localizedTruthStatus(option.modelStatus, locale)} है, ठीक वही स्थिति जो प्रश्न में मांगी गई है।`, `ਵਿਕਲਪ ${label} ਪੂਰੇ ਮਾਡਲ-ਸਮੂਹ ਵਿੱਚ ${localizedTruthStatus(option.modelStatus, locale)} ਹੈ, ਠੀਕ ਉਹੀ ਸਥਿਤੀ ਜੋ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਮੰਗੀ ਗਈ ਹੈ।`)
-        : localeText(locale, `विकल्प ${label} सभी ${record.modelSpace.modelCount} वैध मॉडलों की तुलना से मिले उत्तर से मेल खाता है।`, `ਵਿਕਲਪ ${label} ਸਾਰੇ ${record.modelSpace.modelCount} ਵੈਧ ਮਾਡਲਾਂ ਦੀ ਤੁਲਨਾ ਤੋਂ ਮਿਲੇ ਉੱਤਰ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।`);
+        ? localeText(locale, `विकल्प ${label} सभी संभव स्थितियों में ${localizedTruthStatus(option.modelStatus, locale)} है, ठीक वही स्थिति जो प्रश्न में मांगी गई है।`, `ਵਿਕਲਪ ${label} ਸਾਰੀਆਂ ਸੰਭਵ ਸਥਿਤੀਆਂ ਵਿੱਚ ${localizedTruthStatus(option.modelStatus, locale)} ਹੈ, ਠੀਕ ਉਹੀ ਸਥਿਤੀ ਜੋ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਮੰਗੀ ਗਈ ਹੈ।`)
+        : localeText(locale, `विकल्प ${label} सभी ${record.modelSpace.modelCount} संभव स्थितियों की तुलना से मिले उत्तर से मेल खाता है।`, `ਵਿਕਲਪ ${label} ਸਾਰੀਆਂ ${record.modelSpace.modelCount} ਸੰਭਵ ਸਥਿਤੀਆਂ ਦੀ ਤੁਲਨਾ ਤੋਂ ਮਿਲੇ ਉੱਤਰ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।`);
     } else if (option.modelStatus && requested) {
       explanation = localeText(locale, `विकल्प ${label} ${localizedTruthStatus(option.modelStatus, locale)} है, ${localizedTruthStatus(requested, locale)} नहीं।`, `ਵਿਕਲਪ ${label} ${localizedTruthStatus(option.modelStatus, locale)} ਹੈ, ${localizedTruthStatus(requested, locale)} ਨਹੀਂ।`);
     } else {
-      explanation = localeText(locale, `विकल्प ${label} पूरे वैध मॉडल-समूह की शर्त पूरी नहीं करता।`, `ਵਿਕਲਪ ${label} ਪੂਰੇ ਵੈਧ ਮਾਡਲ-ਸਮੂਹ ਦੀ ਸ਼ਰਤ ਪੂਰੀ ਨਹੀਂ ਕਰਦਾ।`);
+      explanation = localeText(locale, `विकल्प ${label} सभी संभव स्थितियों की शर्त पूरी नहीं करता।`, `ਵਿਕਲਪ ${label} ਸਾਰੀਆਂ ਸੰਭਵ ਸਥਿਤੀਆਂ ਦੀ ਸ਼ਰਤ ਪੂਰੀ ਨਹੀਂ ਕਰਦਾ।`);
     }
     return { optionLabel: label, optionText: option.text, isCorrect: option.isCorrect, explanation };
   });
@@ -338,10 +338,10 @@ function localizedFamilyTrees(
     const assignment = assignmentSummary(record, record.modelSpace.assignments[index] ?? {}, locale);
     return {
       ...tree,
-      title: localeText(locale, "वैध परिवार-मॉडल", "ਵੈਧ ਪਰਿਵਾਰਕ ਮਾਡਲ"),
-      modelLabel: localeText(locale, `मॉडल ${index + 1} / ${record.modelSpace.modelCount}`, `ਮਾਡਲ ${index + 1} / ${record.modelSpace.modelCount}`),
+      title: localeText(locale, "संभव परिवार-स्थिति", "ਸੰਭਵ ਪਰਿਵਾਰਕ ਸਥਿਤੀ"),
+      modelLabel: localeText(locale, `स्थिति ${index + 1} / ${record.modelSpace.modelCount}`, `ਸਥਿਤੀ ${index + 1} / ${record.modelSpace.modelCount}`),
       query: { ...tree.query, answerLabel: correctText },
-      accessibleSummary: localeText(locale, `${tree.nodes.length} सदस्यों वाला वैध परिवार-मॉडल; कुल ${rows.length} पीढ़ियाँ।`, `${tree.nodes.length} ਮੈਂਬਰਾਂ ਵਾਲਾ ਵੈਧ ਪਰਿਵਾਰਕ ਮਾਡਲ; ਕੁੱਲ ${rows.length} ਪੀੜ੍ਹੀਆਂ।`),
+      accessibleSummary: localeText(locale, `${tree.nodes.length} सदस्यों वाली संभव परिवार-स्थिति; कुल ${rows.length} पीढ़ियाँ।`, `${tree.nodes.length} ਮੈਂਬਰਾਂ ਵਾਲੀ ਸੰਭਵ ਪਰਿਵਾਰਕ ਸਥਿਤੀ; ਕੁੱਲ ${rows.length} ਪੀੜ੍ਹੀਆਂ।`),
       asciiFallback: `${ascii}\n\n${localeText(locale, "खुली शर्त", "ਖੁੱਲੀ ਸ਼ਰਤ")}: ${assignment}`,
     };
   });
