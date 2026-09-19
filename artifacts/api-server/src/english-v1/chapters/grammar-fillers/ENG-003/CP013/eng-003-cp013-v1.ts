@@ -98,16 +98,16 @@ function blankSurface(prefix: string, suffix: string, punctuation: string) {
   return `${[prefix, "_____", suffix].filter(Boolean).join(" ")}${punctuation}`;
 }
 
-function matchLeadingContrast(value: string) {
-  const match = value.match(/^(Despite|In spite of)\b/i);
-  if (!match) throw new Error(`GR-USG-007 could not find a leading contrast phrase in ${value}`);
+function findContrastFocus(value: string) {
+  const match = /\b(?:Despite|In spite of)\b/i.exec(value);
+  if (!match || match.index == null) throw new Error(`GR-USG-007 could not find a contrast phrase in ${value}`);
   const correct = match[0]!;
   const upper = /^[A-Z]/.test(correct);
   const cap = (text: string) => upper ? text.replace(/^./, (ch) => ch.toUpperCase()) : text.toLowerCase();
   const distractors = /^in spite of$/i.test(correct)
     ? [cap("in spite"), cap("despite of"), cap("in despite of")]
     : [cap("despite of"), cap("in despite of"), cap("despite to")];
-  return { correct, distractors };
+  return { correct, distractors, index: match.index };
 }
 
 const SIMPLE_CONCEPT: Readonly<Record<IdiomaticUsageRuleId, string>> = Object.freeze({
@@ -174,16 +174,15 @@ export function generateEng003Cp013QuestionV1(input: GenerateEng003Cp013V1Input)
   const blankSegments = [...correction.segments];
 
   if (correction.metadata.ruleId === "GR-USG-007") {
-    const focus = matchLeadingContrast(correctTarget);
-    correctChoice = focus.correct;
-    distractorChoices = focus.distractors;
     const current = blankSegments[correction.targetIndex]!;
     const punctuation = trailingPunctuation(current);
     const body = current.replace(/([,.;:!?]+)$/, "");
-    const leading = body.match(/^(Despite|In spite of)\b/i);
-    if (!leading) throw new Error(`${correction.questionId} lost the GR-USG-007 leading phrase`);
-    const rest = body.slice(leading[0].length).trimStart();
-    blankSegments[correction.targetIndex] = `_____${rest ? ` ${rest}` : ""}${punctuation}`;
+    const focus = findContrastFocus(body);
+    correctChoice = focus.correct;
+    distractorChoices = focus.distractors;
+    const before = body.slice(0, focus.index);
+    const after = body.slice(focus.index + focus.correct.length);
+    blankSegments[correction.targetIndex] = `${before}_____${after}${punctuation}`.replace(/\s+/g, " ").trim();
   } else {
     const factored = factorSharedChoiceContext([correctTarget, ...distractors]);
     [correctChoice, ...distractorChoices] = factored.cores;
