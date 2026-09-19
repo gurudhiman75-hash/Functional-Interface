@@ -389,11 +389,35 @@ const TARGETED_REPEAT_STEM_VARIANTS: Readonly<Record<string, readonly TargetedSt
   ]),
 });
 
+function targetedRepeatStemVariantIndex(
+  patternId: string,
+  seed: string,
+  variantCount: number,
+) {
+  const numericTokens = seed
+    .split(":")
+    .filter((part) => /^\d+$/.test(part))
+    .map(Number);
+
+  if (numericTokens.length >= 2) {
+    const sectionOrdinal = numericTokens[0]!;
+    const slotOrdinal = numericTokens[1]!;
+    const structuredOrdinal =
+      sectionOrdinal + Math.floor(sectionOrdinal / 3) + slotOrdinal;
+    return (
+      mixedHash(`${patternId}:targeted-repeat-stem-offset`) +
+      structuredOrdinal
+    ) % variantCount;
+  }
+
+  return mixedHash(`${seed}:targeted-repeat-stem:${patternId}`) % variantCount;
+}
+
 function applyTargetedRepeatStemVariant(patternId: string, seed: string, stem: string) {
   const variants = TARGETED_REPEAT_STEM_VARIANTS[patternId];
   if (!variants?.length) return { stem, variantId: null as string | null };
 
-  const variantIndex = hashText(`${seed}:targeted-repeat-stem:${patternId}`) % variants.length;
+  const variantIndex = targetedRepeatStemVariantIndex(patternId, seed, variants.length);
   const variant = variants[variantIndex]!;
   const transformed = variant.apply(stem);
   if (variantIndex > 0 && transformed === stem) {
