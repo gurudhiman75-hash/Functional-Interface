@@ -11,6 +11,70 @@ export const PGK_001_CP025_SOURCE_IDS = Object.freeze({
   punjabSports: "GOV-PUNJAB-MAHARAJA-RANJIT-SINGH-AWARD",
 } as const);
 
+export const PGK_001_CP025_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP025_SOURCE_IDS.pibMilkha]: {
+    authority: "Press Information Bureau / New India Samachar, Government of India",
+    title: "Milkha Singh — The Flying Sikh",
+    url: "https://newindiasamachar.pib.gov.in/WriteReadData/Magazine/2022/Jun/M202206161.pdf",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP025_SOURCE_IDS.worldAthleticsMilkha]: {
+    authority: "World Athletics",
+    title: "Milkha Singh — athlete profile",
+    url: "https://worldathletics.org/athletes/_/14348698",
+    classification: "PRIMARY_SPORT_GOVERNING_BODY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics]: {
+    authority: "Hockey India",
+    title: "Olympic Captains of India / Milestones",
+    url: "https://hockeyindia.org/hall-of-fame/olympic-captains-of-india",
+    supportingUrls: Object.freeze(["https://www.hockeyindia.org/hall-of-fame/milestones","https://www.hockeyindia.org/hall-of-fame/gold-medalists"]),
+    classification: "PRIMARY_SPORT_GOVERNING_BODY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.hockeyIndiaAjitPal]: {
+    authority: "Hockey India",
+    title: "Gold Medalists — 1975 Men's World Cup",
+    url: "https://www.hockeyindia.org/hall-of-fame/gold-medalists",
+    classification: "PRIMARY_SPORT_GOVERNING_BODY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.cecAjitPal]: {
+    authority: "Consortium for Educational Communication, University Grants Commission",
+    title: "Bachelor of Physical Education — Ajit Pal Singh profile",
+    url: "https://cec.nic.in/webpath/curriculum/Module/BPED/Paper01/20/downloads/script.pdf",
+    classification: "PRIMARY_EDUCATION_AUTHORITY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.worldAthleticsRandhawa]: {
+    authority: "World Athletics",
+    title: "Gurbachan Singh Randhawa — athlete profile",
+    url: "https://worldathletics.org/athletes/_/14344030",
+    classification: "PRIMARY_SPORT_GOVERNING_BODY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.myasArjuna]: {
+    authority: "Ministry of Youth Affairs and Sports, Government of India",
+    title: "Arjuna Award Winners for Athletics",
+    url: "https://yas.nic.in/arjun-award-winners-athletics",
+    classification: "PRIMARY_GOVERNMENT_AWARD_AUTHORITY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.padmaAwards]: {
+    authority: "Ministry of Home Affairs, Government of India",
+    title: "Padma Awards 2005 notification",
+    url: "https://www.padmaawards.gov.in/Document/pdf/notifications/PadmaAwards/2005.pdf",
+    classification: "PRIMARY_GOVERNMENT_AWARD_AUTHORITY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.crpfParamjeet]: {
+    authority: "Central Reserve Police Force, Government of India",
+    title: "Paramjeet Singh — athletics profile",
+    url: "https://crpf.gov.in/Upload/MediaGallery/13841117.pdf",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP025_SOURCE_IDS.punjabSports]: {
+    authority: "Government of Punjab",
+    title: "Government achievements — Maharaja Ranjit Singh Award and Scholarship",
+    url: "https://punjab.gov.in/wp-content/uploads/2019/08/Achievements-of-the-Govt-31.07.2019-Final-1.pdf",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+} as const);
+
 export const PGK_001_CP025_FACTS = Object.freeze([
   { id: "milkha-flying-sikh", value: "Milkha Singh was an Indian track athlete known as the Flying Sikh.", sourceIds: [PGK_001_CP025_SOURCE_IDS.pibMilkha, PGK_001_CP025_SOURCE_IDS.worldAthleticsMilkha] },
   { id: "milkha-three-olympics", value: "Milkha Singh represented India at the 1956 Melbourne, 1960 Rome and 1964 Tokyo Olympic Games.", sourceIds: [PGK_001_CP025_SOURCE_IDS.pibMilkha, PGK_001_CP025_SOURCE_IDS.worldAthleticsMilkha] },
