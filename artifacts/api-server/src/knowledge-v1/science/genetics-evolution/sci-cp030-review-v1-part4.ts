@@ -138,15 +138,15 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
   ],
   [
     10,
-    "Easy",
-    "Which process provides the raw material on which natural selection acts?",
-    "Variation",
+    "Hard",
+    "A population faces a new environmental stress. Which condition is necessary for natural selection to change the population over generations?",
+    "Individuals must differ in heritable traits that affect survival or reproduction",
     [
-      "Digestion",
-      "Blood clotting",
-      "Excretion"
+      "Every individual must acquire the same trait during life",
+      "The environment must create identical mutations in all organisms",
+      "Reproduction must stop while the stress continues"
     ],
-    "Natural selection requires heritable differences among individuals.",
+    "Natural selection needs heritable variation. If some inherited differences affect survival or reproduction, their frequencies can change across generations.",
     [
       "VARIATION-RAW-MATERIAL"
     ]
