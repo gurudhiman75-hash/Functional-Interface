@@ -10,7 +10,7 @@ import { generatePolCp009ReviewBatchV1 } from "./prime-minister-union-council/po
 import { generatePolCp010ReviewBatchV1 } from "./parliament-structure-officers/pol-cp010-review-generator-v1";
 import { generatePolCp011ReviewBatchV2 } from "./parliament-procedure-finance/pol-cp011-review-generator-v2";
 import { generatePolCp012ReviewBatchV3 } from "./supreme-court/pol-cp012-review-generator-v3";
-import { generatePolCp013ReviewBatchV2 } from "./high-courts-subordinate-judiciary-writs/pol-cp013-review-generator-v2";
+import { generatePolCp013ReviewBatchV3 } from "./high-courts-subordinate-judiciary-writs/pol-cp013-review-generator-v3";
 import { generatePolCp014ReviewBatchV3 } from "./governor/pol-cp014-review-generator-v3";
 import { generatePolCp015ReviewBatchV1 } from "./chief-minister-state-council/pol-cp015-review-generator-v1";
 import { generatePolCp016ReviewBatchV2 } from "./state-legislature/pol-cp016-review-generator-v2";
@@ -54,7 +54,7 @@ const batches: Array<[string, AuditQuestion[]]> = [
   ["POL-CP-010", generatePolCp010ReviewBatchV1()],
   ["POL-CP-011", generatePolCp011ReviewBatchV2()],
   ["POL-CP-012", generatePolCp012ReviewBatchV3()],
-  ["POL-CP-013", generatePolCp013ReviewBatchV2()],
+  ["POL-CP-013", generatePolCp013ReviewBatchV3()],
   ["POL-CP-014", generatePolCp014ReviewBatchV3()],
   ["POL-CP-015", generatePolCp015ReviewBatchV1()],
   ["POL-CP-016", generatePolCp016ReviewBatchV2()],
@@ -175,6 +175,11 @@ for (const q of [stateLeg[18], stateLeg[19]]) {
   assert(q.explanation.includes("• Citizen of India"), `${q.questionId}: missing citizenship qualification`);
   assert(q.explanation.includes("• Make the prescribed oath or affirmation"), `${q.questionId}: missing oath qualification`);
   assert(q.explanation.includes("• Meet any other qualifications prescribed by Parliament by law"), `${q.questionId}: missing statutory qualification link`);
+}
+
+const highCourtWritOwnership = batches.find(([id]) => id === "POL-CP-013")![1];
+for (const q of highCourtWritOwnership.filter(q => ["POL-013-QL-009","POL-013-QL-010"].includes(q.qlId))) {
+  assert(/Article 226|High Court|High Court writ jurisdiction/i.test(q.stem), `${q.questionId}: generic writ definition leaked into CP013 without Article 226 context`);
 }
 
 const governorOwnership = batches.find(([id]) => id === "POL-CP-014")![1];
