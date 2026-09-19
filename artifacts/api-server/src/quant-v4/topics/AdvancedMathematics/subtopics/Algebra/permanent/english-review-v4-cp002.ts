@@ -69,6 +69,15 @@ function balancedPoolPick<T>(pool: readonly T[], seed: number, salt: number): T 
   return pool[index]!;
 }
 
+function powerText(value: number, exponent: 2 | 3): string {
+  const base = value < 0 ? `(${value})` : String(value);
+  return `${base}${exponent === 2 ? "²" : "³"}`;
+}
+
+function signedArithmetic(left: number, right: number): string {
+  return `${left} ${right < 0 ? "-" : "+"} ${Math.abs(right)}`;
+}
+
 function stemFor(mode: AlgCp002ReviewMode, k: number, frame: number): string {
   const given = mode === "RECIPROCAL_SQUARE_PLUS"
     ? `x + 1/x = ${k}`
@@ -94,7 +103,7 @@ function explanationFor(mode: AlgCp002ReviewMode, k: number, answer: Rational): 
     return [
       `We are given x + 1/x = ${k}.`,
       "Square both sides: (x + 1/x)² = x² + 2 + 1/x².",
-      `The left side becomes ${k}² = ${k * k}.`,
+      `The left side becomes ${powerText(k, 2)} = ${k * k}.`,
       "Now subtract 2 from both sides to isolate x² + 1/x².",
       `Therefore x² + 1/x² = ${k * k} - 2 = ${formatRational(answer)}.`,
     ].join(" ");
@@ -113,8 +122,8 @@ function explanationFor(mode: AlgCp002ReviewMode, k: number, answer: Rational): 
     "Cube the relation using (a - b)³ = a³ - b³ - 3ab(a - b).",
     "Here a = x and b = 1/x, so ab = 1.",
     "Thus (x - 1/x)³ = x³ - 1/x³ - 3(x - 1/x).",
-    `Move the last term to the other side: x³ - 1/x³ = ${k}³ + 3(${k}).`,
-    `Hence x³ - 1/x³ = ${k * k * k} + ${3 * k} = ${formatRational(answer)}.`,
+    `Move the last term to the other side: x³ - 1/x³ = ${powerText(k, 3)} + 3(${k}).`,
+    `Hence x³ - 1/x³ = ${signedArithmetic(k * k * k, 3 * k)} = ${formatRational(answer)}.`,
   ].join(" ");
 }
 
