@@ -109,8 +109,8 @@ for (const locale of locales) {
       assert(localized.stimulus.rows.length === 5, `${key} localized table lost five rows.`);
       leakageChecks += 1;
 
-      assert(localized.localizationStatus === "HI_PA_REVIEW_CANDIDATE", `${key} localization status drifted.`);
-      assert(localized.traceability.questionStudioDiscoverable === false, `${key} became discoverable before localization approval.`);
+      assert(localized.localizationStatus === "HI_PA_FROZEN", `${key} localization status drifted.`);
+      assert(localized.traceability.questionStudioDiscoverable === true, `${key} is not discoverable after localization approval.`);
       assert(localized.traceability.questionBankWritable === false && localized.traceability.testEligible === false && localized.traceability.mockTestEligible === false, `${key} widened learner lifecycle authority.`);
       assert(localized.traceability.publiclyPublishable === false && localized.traceability.automaticStudentPublication === false && localized.traceability.productionReleaseAuthorized === false, `${key} widened publication authority.`);
       lifecycleChecks += 1;
@@ -127,7 +127,7 @@ for (const [key, variants] of stemVariants) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_DI_008_HI_PA_LOCALIZATION_REVIEW_V1",
+  status: "PASS_DI_008_HI_PA_LOCALIZATION_FROZEN_V1",
   sourceObjectLabels: sourceLabels.size,
   localizedObjectSurfaces: Object.keys(DI008_LOCALIZATION_LABELS).length * 2,
   permanentQlCount: DI008_PERMANENT_QLS.length,
@@ -137,7 +137,7 @@ console.log(JSON.stringify({
   lifecycleChecks,
   deterministicChecks,
   stemSurfaceChecks: stemVariants.size,
-  questionStudioDiscoverable: false,
+  questionStudioDiscoverable: true,
   questionBankWritable: false,
   testEligible: false,
   mockTestEligible: false,
