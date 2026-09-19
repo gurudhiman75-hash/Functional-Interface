@@ -722,7 +722,7 @@ D. The heart is pumping more frequently to meet increased tissue demand
 
 **Source fact:** `PULSE-EXERCISE-REASON`
 
-## Q49 · Easy · Blood groups and transfusion basics
+## Q49 · Medium · Blood groups and transfusion basics
 
 Which blood group is often called the universal donor for red blood cell transfusion when Rh factor is also considered?
 
@@ -737,18 +737,18 @@ D. B negative
 
 **Source fact:** `BLOOD-GROUP-O-NEGATIVE`
 
-## Q50 · Easy · Blood groups and transfusion basics
+## Q50 · Hard · Blood groups and transfusion basics
 
-Which blood group is often called the universal recipient for red blood cell transfusion?
+A person with AB positive blood needs an emergency red-cell transfusion. Which donor group could be used under standard ABO/Rh compatibility rules?
 
-A. O negative
-B. AB positive
-C. A negative
-D. B positive
+A. Only AB positive
+B. Any ABO group, whether Rh positive or Rh negative
+C. Only O negative
+D. Only A positive or B positive
 
-**Answer:** B. AB positive
+**Answer:** B. Any ABO group, whether Rh positive or Rh negative
 
-**Explanation:** AB positive individuals can receive red blood cells from all ABO and Rh groups under standard transfusion rules.
+**Explanation:** AB positive recipients lack anti-A and anti-B antibodies and can receive Rh-positive or Rh-negative red cells. This is why AB positive is called the universal red-cell recipient.
 
 **Source fact:** `BLOOD-GROUP-AB-POSITIVE`
 
