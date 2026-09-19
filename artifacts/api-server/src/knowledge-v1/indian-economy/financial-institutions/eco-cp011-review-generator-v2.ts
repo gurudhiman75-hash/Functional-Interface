@@ -13,6 +13,7 @@ const STEM_REVISIONS_V2: Readonly<Record<string, string>> = Object.freeze({
   "Which feature best distinguishes SIDBI from NABARD?": "Which statement correctly distinguishes SIDBI from NABARD?",
   "An Indian exporter needs specialised finance for an overseas project. Which institution is most directly relevant?": "An Indian exporter needs specialised finance for an overseas project. Which institution should it approach?",
   "A large infrastructure project needs long-tenor specialised finance. Which institution is most directly aligned with this need?": "Which institution is designed to provide long-term finance for large infrastructure projects?",
+  "An NBFC is best described as:": "Which statement correctly describes an NBFC?",
   "Which statement is most accurate?": "Which statement about NBFCs is correct?",
   "A small manufacturer needs MSME development finance, while a highway project needs long-term infrastructure finance. Which pairing fits best?": "A small manufacturer needs MSME finance and a highway project needs long-term infrastructure finance. Which pairing is correct?",
   "A housing-finance institution seeks sector-development support, while an exporter seeks overseas trade finance. Which pairing fits best?": "A housing-finance institution seeks sector support and an exporter seeks overseas trade finance. Which pairing is correct?",
