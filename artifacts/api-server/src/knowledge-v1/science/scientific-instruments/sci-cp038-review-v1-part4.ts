@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Altimeter",
       "Barometer"
     ],
-    "An odometer records the total distance travelled by a vehicle. A speedometer, in contrast, shows speed at a particular moment.",
+    "An odometer records the total distance travelled by a vehicle. A speedometer, in contrast, shows speed at a particular moment. This is why a vehicle dashboard often shows both speed and accumulated distance separately.",
     [
       "ODOMETER-DISTANCE"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Altitude",
       "Engine temperature only"
     ],
-    "A speedometer shows how fast the vehicle is moving at that moment. Distance travelled is recorded separately by the odometer.",
+    "A speedometer shows how fast the vehicle is moving at that moment. Distance travelled is recorded separately by the odometer. It changes as the vehicle accelerates or slows down.",
     [
       "SPEEDOMETER-SPEED"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Compass and hygrometer",
       "Altimeter and speedometer"
     ],
-    "An altimeter gives altitude, while a sextant measures celestial angles for navigation. The two instruments solve different position-related problems.",
+    "An altimeter gives altitude, while a sextant measures celestial angles for navigation. The two instruments solve different position-related problems. One gives vertical position, while the other supports celestial navigation.",
     [
       "ALTIMETER-SEXTANT"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Anemometer",
       "Odometer"
     ],
-    "A pH meter measures the hydrogen-ion-related electrical potential of a solution and converts it to a pH value. It gives a direct quantitative measure of acidity or alkalinity.",
+    "A pH meter measures the hydrogen-ion-related electrical potential of a solution and converts it to a pH value. It gives a direct quantitative measure of acidity or alkalinity. Values below 7 are acidic, around 7 neutral and above 7 alkaline under ordinary conditions.",
     [
       "PH-METER"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Galvanometer",
       "Manometer"
     ],
-    "A hydrometer floats at different depths depending on liquid density. Its calibrated scale gives relative density or specific gravity.",
+    "A hydrometer floats at different depths depending on liquid density. Its calibrated scale gives relative density or specific gravity. The depth at which it floats depends on the buoyant force from the liquid.",
     [
       "HYDROMETER-DENSITY"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Petrol only",
       "Air"
     ],
-    "A lactometer is a type of hydrometer designed for milk. Density measurements can help detect abnormal dilution, although composition can affect interpretation.",
+    "A lactometer is a type of hydrometer designed for milk. Density measurements can help detect abnormal dilution, although composition can affect interpretation. A suspicious density can suggest dilution, though density alone cannot prove composition.",
     [
       "LACTOMETER-MILK"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Audiometer",
       "Altimeter"
     ],
-    "A colorimeter measures how much light of a selected wavelength is absorbed by a coloured solution. Greater absorbance can be related to concentration under suitable conditions.",
+    "A colorimeter measures how much light of a selected wavelength is absorbed by a coloured solution. Greater absorbance can be related to concentration under suitable conditions. It is especially useful when concentration changes produce predictable changes in colour intensity.",
     [
       "COLORIMETER-CONCENTRATION"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "pH paper",
       "Rain gauge"
     ],
-    "A spectrophotometer measures absorbance at selected or scanned wavelengths with greater spectral control. It is therefore suited to detailed wavelength-dependent analysis.",
+    "A spectrophotometer measures absorbance at selected or scanned wavelengths with greater spectral control. It is therefore suited to detailed wavelength-dependent analysis. This provides more detailed optical information than a basic colour comparison.",
     [
       "SPECTROPHOTOMETER"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Barometer and colorimeter",
       "Lactometer and anemometer"
     ],
-    "The lactometer checks milk density, while the pH meter gives a quantitative acidity reading. Together they assess two different properties of the sample.",
+    "The lactometer checks milk density, while the pH meter gives a quantitative acidity reading. Together they assess two different properties of the sample. Using both measurements gives more information than either one alone.",
     [
       "MILK-DENSITY-PH"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Barometer — humidity",
       "Ammeter — voltage"
     ],
-    "An anemometer measures wind speed. The other quantities are measured by different instruments such as the hygrometer, barometer and voltmeter.",
+    "An anemometer measures wind speed. The other quantities are measured by different instruments such as the hygrometer, barometer and voltmeter. Remembering the measured quantity is more useful than memorizing instrument names in isolation.",
     [
       "MATCH-ANEMOMETER"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Audiometer — blood glucose",
       "Ophthalmoscope — lung volume"
     ],
-    "A sphygmomanometer measures blood pressure. Spirometers test breathing, audiometers test hearing and ophthalmoscopes examine the eye.",
+    "A sphygmomanometer measures blood pressure. Spirometers test breathing, audiometers test hearing and ophthalmoscopes examine the eye. Medical instruments are best learned by linking each one to the organ or quantity examined.",
     [
       "MATCH-SPHYGMOMANOMETER"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Spectroscope and barometer",
       "Periscope and hygrometer"
     ],
-    "A microscope magnifies very small nearby objects, while a telescope collects light from distant objects. They solve opposite scale problems.",
+    "A microscope magnifies very small nearby objects, while a telescope collects light from distant objects. They solve opposite scale problems. The first deals with tiny nearby details; the second with very distant targets.",
     [
       "MICROSCOPE-TELESCOPE"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Barometer—current; hygrometer—voltage; anemometer—resistance",
       "Voltmeter—mass; balance—voltage; thermometer—current"
     ],
-    "The voltmeter, ammeter and ohmmeter measure voltage, current and resistance respectively. These are basic electrical measurement instruments.",
+    "The voltmeter, ammeter and ohmmeter measure voltage, current and resistance respectively. These are basic electrical measurement instruments. These three quantities are fundamental in basic circuit testing.",
     [
       "ELECTRICAL-INSTRUMENT-SET"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Barometer, wind vane, voltmeter and hygrometer",
       "Anemometer, thermometer, ammeter and rain gauge"
     ],
-    "A complete set needs one instrument for each quantity: barometer for pressure, anemometer for wind speed, rain gauge for rainfall and hygrometer for humidity.",
+    "A complete set needs one instrument for each quantity: barometer for pressure, anemometer for wind speed, rain gauge for rainfall and hygrometer for humidity. A complete weather record often combines several instruments rather than relying on one.",
     [
       "FIELD-WEATHER-SET"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
       "Sphygmomanometer → audiometer → spirometer → ophthalmoscope",
       "Barometer → spirometer → audiometer → electroencephalograph"
     ],
-    "Blood pressure needs a sphygmomanometer, lung volume a spirometer, hearing threshold an audiometer and brain electrical activity an electroencephalograph. The sequence directly matches the four tasks.",
+    "Blood pressure needs a sphygmomanometer, lung volume a spirometer, hearing threshold an audiometer and brain electrical activity an electroencephalograph. The sequence directly matches the four tasks. This type of mixed question tests whether each instrument is linked to the correct physiological measurement.",
     [
       "HOSPITAL-INSTRUMENT-SEQUENCE"
     ]
