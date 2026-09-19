@@ -96,6 +96,25 @@ export function presentationVariantIndex(value: string, variantCount: number): n
   return (mixedHashSeed(normalized) + deperiodizedOrdinal) % variantCount;
 }
 
+export function structuredPresentationVariantOffset(
+  value: string,
+  variantCount: number,
+): number {
+  if (!Number.isInteger(variantCount) || variantCount < 1) {
+    throw new Error(`DI presentation variant count must be a positive integer, received ${variantCount}.`);
+  }
+
+  const firstNumericToken = value
+    .split(":")
+    .find((part) => /^\d+$/.test(part));
+  if (firstNumericToken === undefined) return 0;
+
+  const ordinal = Number(firstNumericToken);
+  if (!Number.isSafeInteger(ordinal) || ordinal < 0) return 0;
+
+  return (ordinal + 2 * Math.floor(ordinal / 9)) % variantCount;
+}
+
 export function seededRandom(seed: string): () => number {
   let state = hashSeed(seed) || 0x9e3779b9;
   return () => {
