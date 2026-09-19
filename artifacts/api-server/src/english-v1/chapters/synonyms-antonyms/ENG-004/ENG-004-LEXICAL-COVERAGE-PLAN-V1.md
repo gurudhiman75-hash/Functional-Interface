@@ -120,3 +120,12 @@ CP001 V2 now contains **500 curated headword-senses**, so the CP001 minimum cove
 `EXPANDED_500__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
 
 The chapter-wide 2,000+ headword-sense target remains active for CP002 onward.
+
+## Final implemented totals
+
+- **2,100 unique headwords**
+- **2,400 headword-senses**
+- **5,524 stored synonym links**
+- **985 explicit stored antonym links**
+
+Antonym relations are not forced where English has no clean lexical opposite. A broad indirect-antonym closure was tested and rejected because it introduced remote/context-dependent oppositions. Quality takes precedence over an arbitrary antonym-link quota.
