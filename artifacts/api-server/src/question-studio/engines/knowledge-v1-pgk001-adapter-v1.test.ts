@@ -1,5 +1,32 @@
 import { strict as assert } from "node:assert";
 
+import * as pgkCp001Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp001-facts";
+import * as pgkCp002Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp002-facts";
+import * as pgkCp003Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp003-facts";
+import * as pgkCp004Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp004-facts";
+import * as pgkCp005Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp005-facts";
+import * as pgkCp006Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp006-facts";
+import * as pgkCp007Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp007-facts";
+import * as pgkCp008Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp008-facts";
+import * as pgkCp009Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp009-facts";
+import * as pgkCp010Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp010-facts";
+import * as pgkCp011Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp011-facts";
+import * as pgkCp012Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp012-facts";
+import * as pgkCp013Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp013-facts";
+import * as pgkCp014Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp014-facts";
+import * as pgkCp015Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp015-facts";
+import * as pgkCp016Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp016-facts";
+import * as pgkCp017Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp017-facts";
+import * as pgkCp018Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp018-facts";
+import * as pgkCp019Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp019-facts";
+import * as pgkCp020Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp020-facts";
+import * as pgkCp021Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp021-facts";
+import * as pgkCp022Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp022-facts";
+import * as pgkCp023Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp023-facts";
+import * as pgkCp024Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp024-facts";
+import * as pgkCp025Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp025-facts";
+import * as pgkCp026Facts from "../../knowledge-v1/punjab-gk/pgk-001-cp026-facts";
+
 import { knowledgeV1QuestionStudioAdapter } from "./knowledge-v1-adapter";
 import {
   PGK_001_QUESTION_STUDIO_CORPUS_V1,
@@ -44,6 +71,45 @@ const semanticFingerprints = new Map<string, string>();
 const exhaustiveAuditErrors: string[] = [];
 const genericSourcePlaceholder = /(?:^|[-_])(?:reference|standard-history|generic)(?:$|[-_])/i;
 
+const sourceAuthorityModules: readonly Record<string, unknown>[] = [
+  pgkCp001Facts,
+  pgkCp002Facts,
+  pgkCp003Facts,
+  pgkCp004Facts,
+  pgkCp005Facts,
+  pgkCp006Facts,
+  pgkCp007Facts,
+  pgkCp008Facts,
+  pgkCp009Facts,
+  pgkCp010Facts,
+  pgkCp011Facts,
+  pgkCp012Facts,
+  pgkCp013Facts,
+  pgkCp014Facts,
+  pgkCp015Facts,
+  pgkCp016Facts,
+  pgkCp017Facts,
+  pgkCp018Facts,
+  pgkCp019Facts,
+  pgkCp020Facts,
+  pgkCp021Facts,
+  pgkCp022Facts,
+  pgkCp023Facts,
+  pgkCp024Facts,
+  pgkCp025Facts,
+  pgkCp026Facts,
+];
+const resolvableSourceIds = new Set<string>();
+for (const sourceModule of sourceAuthorityModules) {
+  for (const [exportName, value] of Object.entries(sourceModule)) {
+    if (!/(?:SOURCE_REGISTRY|SOURCE_URLS)$/.test(exportName)) continue;
+    if (!value || typeof value !== "object") continue;
+    for (const sourceId of Object.keys(value as Record<string, unknown>)) {
+      resolvableSourceIds.add(sourceId);
+    }
+  }
+}
+
 function normalizeLearnerText(value: string) {
   return value
     .toLowerCase()
@@ -80,6 +146,9 @@ for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
   for (const sourceId of q.sourceIds) {
     if (genericSourcePlaceholder.test(sourceId)) {
       exhaustiveAuditErrors.push(`${q.questionId}: generic source placeholder :: ${sourceId}`);
+    }
+    if (!resolvableSourceIds.has(sourceId)) {
+      exhaustiveAuditErrors.push(`${q.questionId}: unresolved source authority :: ${sourceId}`);
     }
   }
   if (bannedLearnerWording.test(`${q.stem}\n${q.explanation}`)) {
