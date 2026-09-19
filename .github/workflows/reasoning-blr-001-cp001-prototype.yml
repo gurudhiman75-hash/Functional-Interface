@@ -44,6 +44,9 @@ jobs:
       - name: Prove permanent English runtime
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-runtime.test.ts
 
+      - name: Prove Hindi Punjabi multilingual review candidate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/localization/cp001-localizer.test.ts
+
       - name: Export remediated English review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-review.ts blr-cp001-review-output
 
