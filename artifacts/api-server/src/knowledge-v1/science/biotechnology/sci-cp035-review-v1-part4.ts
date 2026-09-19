@@ -63,15 +63,15 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
   ],
   [
     9,
-    "Easy",
-    "A common use of DNA fingerprinting is in:",
-    "Forensic identification",
+    "Medium",
+    "A biological sample from a crime scene is compared with samples from several individuals. Which biotechnology method is designed for this type of identification?",
+    "DNA fingerprinting",
     [
-      "Measuring rainfall",
-      "Classifying rocks",
-      "Testing sound intensity"
+      "Tissue culture",
+      "Fermentation",
+      "Nitrogen fixation"
     ],
-    "DNA profiles can help compare biological evidence with individuals in forensic work.",
+    "DNA fingerprinting compares variable DNA patterns and is widely used to match biological samples in forensic investigations.",
     [
       "DNA-FINGERPRINTING-FORENSIC"
     ]
