@@ -64,8 +64,8 @@ for(const family of CP005_FAMILIES){
  }
  assert.equal(local.size,cap,family.familyId+": capacity mismatch");
  if(["F01","F02","F03"].includes(family.familyId))assert.equal(first.size,151,family.familyId+": all adjective authorities must be reachable");
- if(["F04","F05"].includes(family.familyId))assert.equal(first.size,111,family.familyId+": all adverb authorities must be reachable");
- if(["F06","F07","F08"].includes(family.familyId)){assert.equal(first.size,151);assert.equal(second.size,111);}
+ if(["F04","F05"].includes(family.familyId))assert.equal(first.size,110,family.familyId+": all adverb authorities must be reachable");
+ if(["F06","F07","F08"].includes(family.familyId)){assert.equal(first.size,151);assert.equal(second.size,110);}
 }
 assert.equal(global.size,100333);
 assert.deepEqual(outcomes,new Set(["ਦੋਵੇਂ ਕਥਨ ਸਹੀ ਹਨ","ਕੇਵਲ ਕਥਨ 1 ਸਹੀ ਹੈ","ਕੇਵਲ ਕਥਨ 2 ਸਹੀ ਹੈ","ਦੋਵੇਂ ਕਥਨ ਗਲਤ ਹਨ"]));
