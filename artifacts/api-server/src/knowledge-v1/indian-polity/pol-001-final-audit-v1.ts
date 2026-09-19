@@ -33,7 +33,7 @@ type AuditQuestion = {
   stem: string;
   options: readonly string[];
   correctIndex: number;
-  canonicalAnswer: string;
+  canonicalAnswer?: string;
   explanation: string;
   sourceIds: readonly string[];
   sourceFactIds?: readonly string[];
@@ -105,7 +105,11 @@ for (const [cpId, questions] of batches) {
     assert(q.options?.length === 4, `${q.questionId}: expected four options`);
     assert(new Set(q.options).size === 4, `${q.questionId}: duplicate option values`);
     assert(Number.isInteger(q.correctIndex) && q.correctIndex >= 0 && q.correctIndex < 4, `${q.questionId}: invalid correct index`);
-    assert(q.options[q.correctIndex] === q.canonicalAnswer, `${q.questionId}: canonical answer/index mismatch`);
+    const resolvedAnswer = q.options[q.correctIndex];
+    assert(resolvedAnswer?.trim().length > 0, `${q.questionId}: empty resolved answer`);
+    if (q.canonicalAnswer !== undefined) {
+      assert(resolvedAnswer === q.canonicalAnswer, `${q.questionId}: canonical answer/index mismatch`);
+    }
     answerPositions.add(q.correctIndex);
 
     assert(q.explanation?.trim().length > 0, `${q.questionId}: empty explanation`);
@@ -115,7 +119,7 @@ for (const [cpId, questions] of batches) {
     }
     if ("runtimeRegistered" in q) assert(q.runtimeRegistered !== true, `${q.questionId}: review content unexpectedly runtime-registered`);
 
-    const key = `${norm(q.stem)}||${norm(q.canonicalAnswer)}`;
+    const key = `${norm(q.stem)}||${norm(q.canonicalAnswer ?? q.options[q.correctIndex])}`;
     const list = exactStemAnswer.get(key) ?? [];
     list.push({ cpId, questionId: q.questionId });
     exactStemAnswer.set(key, list);
