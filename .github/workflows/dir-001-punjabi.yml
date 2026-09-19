@@ -30,4 +30,7 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - name: Prove Punjabi chapter corpus
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-punjabi.test.ts
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-punjabi.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/dir-001-punjabi.test.mjs
+          node dist/reasoning-v1/dir-001-punjabi.test.mjs
