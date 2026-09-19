@@ -28,7 +28,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "A fossil-fuel resource",
       "An artificial agricultural input"
     ],
-    "explanation": "Soil is treated as a renewable natural resource because natural processes can form and renew it, although this renewal is extremely slow.",
+    "explanation": "Soil is treated as a renewable natural resource because natural processes can form and renew it, although this renewal is extremely slow. This matters because healthy topsoil stores water and nutrients for plants, while severe soil loss directly reduces the productivity of land.",
     "sourceFactIds": [
       "SOIL-RENEWABLE-RESOURCE"
     ]
@@ -44,7 +44,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Groundwater alone",
       "Granite"
     ],
-    "explanation": "Soil anchors plant roots and supplies water, air and nutrients. This makes it the basic growth medium for most terrestrial vegetation.",
+    "explanation": "Soil anchors plant roots and supplies water, air and nutrients. This makes it the basic growth medium for most terrestrial vegetation. This matters because healthy topsoil stores water and nutrients for plants, while severe soil loss directly reduces the productivity of land.",
     "sourceFactIds": [
       "SOIL-PLANT-GROWTH-MEDIUM"
     ]
@@ -60,7 +60,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It determines the length of daylight",
       "It prevents all crop diseases"
     ],
-    "explanation": "Agricultural plants depend on soil for root support, moisture and nutrients. Soil therefore directly influences crop growth and productivity.",
+    "explanation": "Agricultural plants depend on soil for root support, moisture and nutrients. Soil therefore directly influences crop growth and productivity. This matters because healthy topsoil stores water and nutrients for plants, while severe soil loss directly reduces the productivity of land.",
     "sourceFactIds": [
       "SOIL-AGRICULTURE-ROLE"
     ]
@@ -76,7 +76,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It cannot be damaged by erosion",
       "It forms only through human activity"
     ],
-    "explanation": "Soil can be renewed by natural formation processes, but those processes are very slow. Erosion or poor land use can remove fertile soil much faster.",
+    "explanation": "Soil can be renewed by natural formation processes, but those processes are very slow. Erosion or poor land use can remove fertile soil much faster. This matters because healthy topsoil stores water and nutrients for plants, while severe soil loss directly reduces the productivity of land.",
     "sourceFactIds": [
       "SOIL-RENEWAL-SLOW"
     ]
@@ -92,7 +92,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Rainfall over the farm will permanently stop",
       "The latitude of the farm will change"
     ],
-    "explanation": "The surface soil contains much of the organic matter and active root zone. Losing it reduces the soil's capacity to support crops.",
+    "explanation": "The surface soil contains much of the organic matter and active root zone. Losing it reduces the soil's capacity to support crops. This matters because healthy topsoil stores water and nutrients for plants, while severe soil loss directly reduces the productivity of land.",
     "sourceFactIds": [
       "TOPSOIL-RESOURCE-VALUE"
     ]
@@ -108,7 +108,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "II and III only",
       "I, II and III"
     ],
-    "explanation": "Statements I and II are correct. Soil supports plant growth and is renewable, but soil formation is very slow compared with severe erosion.",
+    "explanation": "Statements I and II are correct. Soil supports plant growth and is renewable, but soil formation is very slow compared with severe erosion. This matters because healthy topsoil stores water and nutrients for plants, while severe soil loss directly reduces the productivity of land.",
     "sourceFactIds": [
       "SOIL-RENEWABLE-SLOW"
     ]
@@ -124,7 +124,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Population, literacy, trade and transport",
       "Latitude alone, with no other control"
     ],
-    "explanation": "Soil develops through the combined influence of relief, parent material, climate, living organisms and time.",
+    "explanation": "Soil develops through the combined influence of relief, parent material, climate, living organisms and time. These controls work together, so the same parent rock can produce different soils when climate, relief, organisms or time are different.",
     "sourceFactIds": [
       "SOIL-FORMATION-FACTORS"
     ]
@@ -140,7 +140,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Political boundary",
       "Crop price"
     ],
-    "explanation": "Time is essential because weathering, organic activity and horizon development operate gradually. Mature soils require long periods to develop.",
+    "explanation": "Time is essential because weathering, organic activity and horizon development operate gradually. Mature soils require long periods to develop. These controls work together, so the same parent rock can produce different soils when climate, relief, organisms or time are different.",
     "sourceFactIds": [
       "SOIL-FORMATION-TIME"
     ]
@@ -156,7 +156,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only longitude controls soil development",
       "Soil formation stops where vegetation differs"
     ],
-    "explanation": "Parent material is only one control. Different climate and biological activity can change weathering, organic matter and other soil characteristics.",
+    "explanation": "Parent material is only one control. Different climate and biological activity can change weathering, organic matter and other soil characteristics. These controls work together, so the same parent rock can produce different soils when climate, relief, organisms or time are different.",
     "sourceFactIds": [
       "SOIL-FACTORS-INTERACTION"
     ]
@@ -172,7 +172,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Ocean current",
       "Latitude"
     ],
-    "explanation": "The main difference is topography. Relief affects runoff, erosion, drainage and the amount of soil material that can accumulate.",
+    "explanation": "The main difference is topography. Relief affects runoff, erosion, drainage and the amount of soil material that can accumulate. These controls work together, so the same parent rock can produce different soils when climate, relief, organisms or time are different.",
     "sourceFactIds": [
       "SOIL-RELIEF-FACTOR"
     ]
@@ -188,7 +188,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Relief — determines Earth's rotation",
       "Organisms — create the parent rock"
     ],
-    "explanation": "Parent material provides much of the mineral base of a soil. Other factors then modify that material during soil development.",
+    "explanation": "Parent material provides much of the mineral base of a soil. Other factors then modify that material during soil development. These controls work together, so the same parent rock can produce different soils when climate, relief, organisms or time are different.",
     "sourceFactIds": [
       "SOIL-PARENT-MATERIAL-ROLE"
     ]
@@ -204,7 +204,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Climate matters only after the soil is fully formed",
       "Vegetation and relief cannot affect soil development"
     ],
-    "explanation": "Soil properties result from interacting controls. Parent rock matters, but climate, organisms, relief and time also shape the developing soil.",
+    "explanation": "Soil properties result from interacting controls. Parent rock matters, but climate, organisms, relief and time also shape the developing soil. These controls work together, so the same parent rock can produce different soils when climate, relief, organisms or time are different.",
     "sourceFactIds": [
       "SOIL-MULTIFACTOR-FORMATION"
     ]
@@ -220,7 +220,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only the organic litter at the surface",
       "The annual rainfall total"
     ],
-    "explanation": "Parent material is the underlying or transported mineral material from which soil develops through weathering and other processes.",
+    "explanation": "Parent material is the underlying or transported mineral material from which soil develops through weathering and other processes. Weathered mineral material is only the starting point; a developed soil also reflects moisture, organisms, organic matter and long-term change.",
     "sourceFactIds": [
       "PARENT-MATERIAL-DEFINITION"
     ]
@@ -236,7 +236,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Irrigation",
       "Pollination"
     ],
-    "explanation": "Weathering breaks and alters rock into smaller and chemically changed material that contributes to soil development.",
+    "explanation": "Weathering breaks and alters rock into smaller and chemically changed material that contributes to soil development. Weathered mineral material is only the starting point; a developed soil also reflects moisture, organisms, organic matter and long-term change.",
     "sourceFactIds": [
       "WEATHERING-SOIL-FORMATION"
     ]
@@ -252,7 +252,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "All rocks weather into identical material",
       "Soils contain no mineral component"
     ],
-    "explanation": "Different rocks contain different mineral mixtures. Their weathered material therefore gives developing soils different mineral characteristics.",
+    "explanation": "Different rocks contain different mineral mixtures. Their weathered material therefore gives developing soils different mineral characteristics. Weathered mineral material is only the starting point; a developed soil also reflects moisture, organisms, organic matter and long-term change.",
     "sourceFactIds": [
       "PARENT-MATERIAL-MINERALS"
     ]
@@ -268,7 +268,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "A permanent stop in rainfall",
       "Removal of all living organisms"
     ],
-    "explanation": "Rock must weather into mineral material, while biological activity adds organic matter. Continued development over time produces soil horizons.",
+    "explanation": "Rock must weather into mineral material, while biological activity adds organic matter. Continued development over time produces soil horizons. Weathered mineral material is only the starting point; a developed soil also reflects moisture, organisms, organic matter and long-term change.",
     "sourceFactIds": [
       "WEATHERING-ORGANIC-ACCUMULATION"
     ]
@@ -284,7 +284,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Parent material contains the complete mature soil profile",
       "Developed soil has no relation to rock material"
     ],
-    "explanation": "A developed soil is more than broken rock. Its properties reflect mineral material modified by climate, organisms, relief and time.",
+    "explanation": "A developed soil is more than broken rock. Its properties reflect mineral material modified by climate, organisms, relief and time. Weathered mineral material is only the starting point; a developed soil also reflects moisture, organisms, organic matter and long-term change.",
     "sourceFactIds": [
       "PARENT-MATERIAL-VS-SOIL"
     ]
@@ -300,7 +300,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Wind direction on one day",
       "Political administration"
     ],
-    "explanation": "With the other major formation factors held similar, the contrasting parent rocks are the clearest reason for differences in mineral composition.",
+    "explanation": "With the other major formation factors held similar, the contrasting parent rocks are the clearest reason for differences in mineral composition. Weathered mineral material is only the starting point; a developed soil also reflects moisture, organisms, organic matter and long-term change.",
     "sourceFactIds": [
       "PARENT-MATERIAL-CONTROL"
     ]
@@ -316,7 +316,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Population and transport",
       "Magnetic declination only"
     ],
-    "explanation": "Temperature and rainfall affect weathering, moisture, leaching and biological activity, making climate a major soil-forming control.",
+    "explanation": "Temperature and rainfall affect weathering, moisture, leaching and biological activity, making climate a major soil-forming control. Climate affects both the speed of weathering and the movement of materials through soil, so rainfall and temperature shape the developing profile.",
     "sourceFactIds": [
       "CLIMATE-TEMP-RAINFALL"
     ]
@@ -332,7 +332,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It fixes the parent rock type",
       "It removes the need for time"
     ],
-    "explanation": "Rainwater supports chemical weathering and can move dissolved or fine material through the soil profile.",
+    "explanation": "Rainwater supports chemical weathering and can move dissolved or fine material through the soil profile. Climate affects both the speed of weathering and the movement of materials through soil, so rainfall and temperature shape the developing profile.",
     "sourceFactIds": [
       "RAINFALL-WEATHERING-MOVEMENT"
     ]
@@ -348,7 +348,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Dry air produces more chemical solution than water",
       "Temperature has no effect on weathering"
     ],
-    "explanation": "Chemical weathering generally becomes more active where both warmth and moisture are available for reactions involving minerals and water.",
+    "explanation": "Chemical weathering generally becomes more active where both warmth and moisture are available for reactions involving minerals and water. Climate affects both the speed of weathering and the movement of materials through soil, so rainfall and temperature shape the developing profile.",
     "sourceFactIds": [
       "WARM-WET-CHEMICAL-WEATHERING"
     ]
@@ -364,7 +364,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Latitude of the planet",
       "Bedrock age automatically"
     ],
-    "explanation": "A major change in rainfall changes the climatic control of soil formation, even though the underlying parent material remains the same.",
+    "explanation": "A major change in rainfall changes the climatic control of soil formation, even though the underlying parent material remains the same. Climate affects both the speed of weathering and the movement of materials through soil, so rainfall and temperature shape the developing profile.",
     "sourceFactIds": [
       "CLIMATE-CHANGE-SOIL"
     ]
@@ -380,7 +380,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Automatic formation of black soil everywhere",
       "Permanent prevention of erosion"
     ],
-    "explanation": "Abundant rainfall can move soluble materials downward through the soil and increase leaching, depending on drainage and other conditions.",
+    "explanation": "Abundant rainfall can move soluble materials downward through the soil and increase leaching, depending on drainage and other conditions. Climate affects both the speed of weathering and the movement of materials through soil, so rainfall and temperature shape the developing profile.",
     "sourceFactIds": [
       "RAINFALL-LEACHING"
     ]
@@ -396,7 +396,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Their standard time meridians",
       "Their map scale"
     ],
-    "explanation": "Climate differs strongly between the sites. Temperature and moisture directly influence weathering and biological processes that build soil.",
+    "explanation": "Climate differs strongly between the sites. Temperature and moisture directly influence weathering and biological processes that build soil. Climate affects both the speed of weathering and the movement of materials through soil, so rainfall and temperature shape the developing profile.",
     "sourceFactIds": [
       "CLIMATE-RATE-SOIL-FORMATION"
     ]
@@ -412,7 +412,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Parent material",
       "Organisms"
     ],
-    "explanation": "Relief refers to topographic conditions such as slope and elevation. It affects drainage, erosion and soil accumulation.",
+    "explanation": "Relief refers to topographic conditions such as slope and elevation. It affects drainage, erosion and soil accumulation. Slope controls how quickly water and loose material move, which is why steep land often loses soil while gentler land can retain or collect it.",
     "sourceFactIds": [
       "RELIEF-SLOPE-ELEVATION"
     ]
@@ -428,7 +428,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Parent rock disappears on slopes",
       "Humus cannot exist above sea level"
     ],
-    "explanation": "Runoff and gravity remove loose material more readily from steep slopes, limiting the thickness of the developing soil.",
+    "explanation": "Runoff and gravity remove loose material more readily from steep slopes, limiting the thickness of the developing soil. Slope controls how quickly water and loose material move, which is why steep land often loses soil while gentler land can retain or collect it.",
     "sourceFactIds": [
       "STEEP-SLOPE-THIN-SOIL"
     ]
@@ -444,7 +444,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "In the upper atmosphere",
       "At the same rate on every slope position"
     ],
-    "explanation": "Material removed from upper slopes can be deposited where the slope becomes gentler and water or gravity loses transporting power.",
+    "explanation": "Material removed from upper slopes can be deposited where the slope becomes gentler and water or gravity loses transporting power. Slope controls how quickly water and loose material move, which is why steep land often loses soil while gentler land can retain or collect it.",
     "sourceFactIds": [
       "RELIEF-DEPOSITION"
     ]
@@ -460,7 +460,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Slope has no effect on soil depth",
       "The valley receives a different latitude"
     ],
-    "explanation": "Gentler terrain generally loses less soil and can receive deposited material from higher ground, allowing a deeper profile to develop.",
+    "explanation": "Gentler terrain generally loses less soil and can receive deposited material from higher ground, allowing a deeper profile to develop. Slope controls how quickly water and loose material move, which is why steep land often loses soil while gentler land can retain or collect it.",
     "sourceFactIds": [
       "RELIEF-SOIL-DEPTH"
     ]
@@ -476,7 +476,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Slope changes Earth's climate zone instantly",
       "Elevation prevents weathering"
     ],
-    "explanation": "Relief affects how water moves, how strongly erosion acts and where material accumulates. These processes influence soil depth and development.",
+    "explanation": "Relief affects how water moves, how strongly erosion acts and where material accumulates. These processes influence soil depth and development. Slope controls how quickly water and loose material move, which is why steep land often loses soil while gentler land can retain or collect it.",
     "sourceFactIds": [
       "RELIEF-DRAINAGE-EROSION"
     ]
@@ -492,7 +492,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "All three must have identical depth",
       "Hilltop depth is fixed only by longitude"
     ],
-    "explanation": "The steep midslope is most exposed to erosion, while the valley floor can accumulate transported material and therefore develop a deeper soil.",
+    "explanation": "The steep midslope is most exposed to erosion, while the valley floor can accumulate transported material and therefore develop a deeper soil. Slope controls how quickly water and loose material move, which is why steep land often loses soil while gentler land can retain or collect it.",
     "sourceFactIds": [
       "RELIEF-SEQUENCE-SOIL-DEPTH"
     ]
@@ -508,7 +508,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Ocean salt only",
       "Longitude"
     ],
-    "explanation": "Dead plant material decomposes and contributes organic matter. This helps form humus in the upper part of the soil.",
+    "explanation": "Dead plant material decomposes and contributes organic matter. This helps form humus in the upper part of the soil. Organic matter from plants and other organisms becomes humus, which improves nutrient supply, moisture holding and the condition of the upper soil.",
     "sourceFactIds": [
       "VEGETATION-HUMUS"
     ]
@@ -524,7 +524,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Ocean currents",
       "Clouds"
     ],
-    "explanation": "Soil microorganisms break down dead plant and animal material, helping convert it into humus and release nutrients.",
+    "explanation": "Soil microorganisms break down dead plant and animal material, helping convert it into humus and release nutrients. Organic matter from plants and other organisms becomes humus, which improves nutrient supply, moisture holding and the condition of the upper soil.",
     "sourceFactIds": [
       "MICROORGANISMS-DECOMPOSITION"
     ]
@@ -540,7 +540,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "It prevents roots from entering soil",
       "It replaces all mineral particles"
     ],
-    "explanation": "Humus adds organic material and helps improve nutrient supply and soil structure, making the upper soil layer more favourable for plants.",
+    "explanation": "Humus adds organic material and helps improve nutrient supply and soil structure, making the upper soil layer more favourable for plants. Organic matter from plants and other organisms becomes humus, which improves nutrient supply, moisture holding and the condition of the upper soil.",
     "sourceFactIds": [
       "HUMUS-FERTILITY"
     ]
@@ -556,7 +556,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "A change in longitude",
       "A change in Earth's orbit"
     ],
-    "explanation": "Leaf litter is biological material. Its decomposition adds organic matter and contributes to the development of the soil's upper horizons.",
+    "explanation": "Leaf litter is biological material. Its decomposition adds organic matter and contributes to the development of the soil's upper horizons. Organic matter from plants and other organisms becomes humus, which improves nutrient supply, moisture holding and the condition of the upper soil.",
     "sourceFactIds": [
       "LITTER-BIOLOGICAL-INPUT"
     ]
@@ -572,7 +572,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "They stop weathering completely",
       "They control national rainfall patterns"
     ],
-    "explanation": "Plants, microorganisms and soil animals influence organic matter, nutrient cycling and mixing, so biological activity is an important soil-forming factor.",
+    "explanation": "Plants, microorganisms and soil animals influence organic matter, nutrient cycling and mixing, so biological activity is an important soil-forming factor. Organic matter from plants and other organisms becomes humus, which improves nutrient supply, moisture holding and the condition of the upper soil.",
     "sourceFactIds": [
       "ORGANISMS-SOIL-ROLE"
     ]
@@ -588,7 +588,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "The mineral age of the parent rock",
       "The direction of Earth's rotation"
     ],
-    "explanation": "Different vegetation cover changes how much litter and other organic material enters the soil, which can alter humus content and upper-horizon development.",
+    "explanation": "Different vegetation cover changes how much litter and other organic material enters the soil, which can alter humus content and upper-horizon development. Organic matter from plants and other organisms becomes humus, which improves nutrient supply, moisture holding and the condition of the upper soil.",
     "sourceFactIds": [
       "VEGETATION-ORGANIC-MATTER"
     ]
@@ -604,7 +604,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "C horizon",
       "Bedrock"
     ],
-    "explanation": "The A horizon is the upper mineral soil layer and is commonly referred to as topsoil. It contains much of the active root zone and organic matter.",
+    "explanation": "The A horizon is the upper mineral soil layer and is commonly referred to as topsoil. It contains much of the active root zone and organic matter. In a simple soil profile, the A horizon is topsoil, the B horizon is subsoil, and the C horizon contains weathered parent material above bedrock.",
     "sourceFactIds": [
       "A-HORIZON-TOPSOIL"
     ]
@@ -620,7 +620,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "C horizon",
       "Surface litter only"
     ],
-    "explanation": "The B horizon lies below the topsoil and is commonly called subsoil. Materials moved downward from above may accumulate there.",
+    "explanation": "The B horizon lies below the topsoil and is commonly called subsoil. Materials moved downward from above may accumulate there. In a simple soil profile, the A horizon is topsoil, the B horizon is subsoil, and the C horizon contains weathered parent material above bedrock.",
     "sourceFactIds": [
       "B-HORIZON-SUBSOIL"
     ]
@@ -636,7 +636,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "B horizon only",
       "The atmosphere"
     ],
-    "explanation": "The C horizon consists largely of weathered parent material and lies below the more developed A and B horizons.",
+    "explanation": "The C horizon consists largely of weathered parent material and lies below the more developed A and B horizons. In a simple soil profile, the A horizon is topsoil, the B horizon is subsoil, and the C horizon contains weathered parent material above bedrock.",
     "sourceFactIds": [
       "C-HORIZON-PARENT-MATERIAL"
     ]
@@ -652,7 +652,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "C horizon → atmosphere",
       "Bedrock → A horizon"
     ],
-    "explanation": "Topsoil is the A horizon, and the B horizon lies beneath it as subsoil. This is the normal downward order in a simple soil profile.",
+    "explanation": "Topsoil is the A horizon, and the B horizon lies beneath it as subsoil. This is the normal downward order in a simple soil profile. In a simple soil profile, the A horizon is topsoil, the B horizon is subsoil, and the C horizon contains weathered parent material above bedrock.",
     "sourceFactIds": [
       "A-B-HORIZON-SEQUENCE"
     ]
@@ -668,7 +668,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "The surface litter layer",
       "The crop canopy"
     ],
-    "explanation": "The C horizon is the lowest major soil horizon in the simplified profile and consists of weathered parent material above bedrock.",
+    "explanation": "The C horizon is the lowest major soil horizon in the simplified profile and consists of weathered parent material above bedrock. In a simple soil profile, the A horizon is topsoil, the B horizon is subsoil, and the C horizon contains weathered parent material above bedrock.",
     "sourceFactIds": [
       "C-HORIZON-BEDROCK"
     ]
@@ -684,7 +684,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "B horizon → C horizon → A horizon",
       "A horizon → C horizon → B horizon"
     ],
-    "explanation": "The A horizon forms the topsoil, the B horizon is the subsoil and zone of accumulation, and the C horizon contains weathered parent material.",
+    "explanation": "The A horizon forms the topsoil, the B horizon is the subsoil and zone of accumulation, and the C horizon contains weathered parent material. In a simple soil profile, the A horizon is topsoil, the B horizon is subsoil, and the C horizon contains weathered parent material above bedrock.",
     "sourceFactIds": [
       "ABC-HORIZON-SEQUENCE"
     ]
@@ -700,7 +700,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Glacial ice soil",
       "Tundra permafrost soil"
     ],
-    "explanation": "Alluvial soil is one of India's major soil groups and is especially extensive across the northern plains and major river deposits.",
+    "explanation": "Alluvial soil is one of India's major soil groups and is especially extensive across the northern plains and major river deposits. Soil groups classify whole soil types across regions, while horizons such as A, B and C describe vertical layers inside a single soil profile.",
     "sourceFactIds": [
       "INDIA-MAJOR-SOIL-ALLUVIAL"
     ]
@@ -716,7 +716,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Chernozem, tundra, coral, loess only",
       "Black, oceanic, polar, volcanic ash only"
     ],
-    "explanation": "Alluvial, black, red and yellow, and laterite are among the standard major soil groups used in Indian geography.",
+    "explanation": "Alluvial, black, red and yellow, and laterite are among the standard major soil groups used in Indian geography. Soil groups classify whole soil types across regions, while horizons such as A, B and C describe vertical layers inside a single soil profile.",
     "sourceFactIds": [
       "INDIA-MAJOR-SOIL-GROUPS"
     ]
@@ -732,7 +732,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Topsoil and subsoil",
       "Bedrock and parent material"
     ],
-    "explanation": "Arid and forest soils are major Indian soil groups. A and B horizons are layers within a soil profile, not national soil classes.",
+    "explanation": "Arid and forest soils are major Indian soil groups. A and B horizons are layers within a soil profile, not national soil classes. Soil groups classify whole soil types across regions, while horizons such as A, B and C describe vertical layers inside a single soil profile.",
     "sourceFactIds": [
       "SOIL-GROUP-VS-HORIZON"
     ]
@@ -748,7 +748,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Laterite soil",
       "Alluvial soil"
     ],
-    "explanation": "The B horizon is the subsoil layer within a profile. Black, laterite and alluvial are recognised major soil groups.",
+    "explanation": "The B horizon is the subsoil layer within a profile. Black, laterite and alluvial are recognised major soil groups. Soil groups classify whole soil types across regions, while horizons such as A, B and C describe vertical layers inside a single soil profile.",
     "sourceFactIds": [
       "HORIZON-NOT-SOIL-GROUP"
     ]
@@ -764,7 +764,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Delta, plateau, desert, coast, island, glacier",
       "Wheat, rice, cotton, tea, coffee, jute"
     ],
-    "explanation": "Indian school geography commonly groups soils into alluvial, black, red and yellow, laterite, arid, and forest/mountain soils.",
+    "explanation": "Indian school geography commonly groups soils into alluvial, black, red and yellow, laterite, arid, and forest/mountain soils. Soil groups classify whole soil types across regions, while horizons such as A, B and C describe vertical layers inside a single soil profile.",
     "sourceFactIds": [
       "STANDARD-INDIA-SOIL-CLASSIFICATION"
     ]
@@ -780,7 +780,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "II and III only",
       "I, II, III and IV"
     ],
-    "explanation": "Alluvial, black and laterite are soil groups. The B horizon is a layer within a soil profile and is commonly called subsoil.",
+    "explanation": "Alluvial, black and laterite are soil groups. The B horizon is a layer within a soil profile and is commonly called subsoil. Soil groups classify whole soil types across regions, while horizons such as A, B and C describe vertical layers inside a single soil profile.",
     "sourceFactIds": [
       "SOIL-GROUPS-VS-HORIZON"
     ]
@@ -796,7 +796,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Rainfall and political boundary",
       "Bedrock and daylight only"
     ],
-    "explanation": "Soil development combines mineral material produced by weathering with organic matter supplied by living organisms and their remains.",
+    "explanation": "Soil development combines mineral material produced by weathering with organic matter supplied by living organisms and their remains. The important idea is that soil development is a combined process involving mineral material, climate, relief, living organisms and enough time.",
     "sourceFactIds": [
       "INTEGRATED-MINERAL-ORGANIC"
     ]
@@ -812,7 +812,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Crop harvest → longitude changes → bedrock forms",
       "Bedrock disappears → climate stops → soil forms instantly"
     ],
-    "explanation": "Weathering first supplies mineral material, organic inputs are added, and continued soil-forming processes gradually produce distinct horizons.",
+    "explanation": "Weathering first supplies mineral material, organic inputs are added, and continued soil-forming processes gradually produce distinct horizons. The important idea is that soil development is a combined process involving mineral material, climate, relief, living organisms and enough time.",
     "sourceFactIds": [
       "SOIL-DEVELOPMENT-SEQUENCE"
     ]
@@ -828,7 +828,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Magnetic field, eclipse and tides",
       "Political boundary, language and transport"
     ],
-    "explanation": "Steep relief favours erosion, dry climate limits moisture-driven processes and sparse vegetation reduces organic inputs. These controls can combine to limit soil development.",
+    "explanation": "Steep relief favours erosion, dry climate limits moisture-driven processes and sparse vegetation reduces organic inputs. These controls can combine to limit soil development. The important idea is that soil development is a combined process involving mineral material, climate, relief, living organisms and enough time.",
     "sourceFactIds": [
       "INTEGRATED-THIN-SOIL"
     ]
@@ -844,7 +844,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Soil depth is unrelated to time or relief",
       "The profile formed without parent material"
     ],
-    "explanation": "Gentle relief reduces erosion, moisture supports weathering, and long periods allow horizons to develop. Soil formation is therefore multi-factorial.",
+    "explanation": "Gentle relief reduces erosion, moisture supports weathering, and long periods allow horizons to develop. Soil formation is therefore multi-factorial. The important idea is that soil development is a combined process involving mineral material, climate, relief, living organisms and enough time.",
     "sourceFactIds": [
       "INTEGRATED-DEEP-PROFILE"
     ]
@@ -860,7 +860,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Steep relief",
       "Dense vegetation"
     ],
-    "explanation": "A B horizon is part of the developed soil profile. Climate, relief and vegetation are controls that help create the profile.",
+    "explanation": "A B horizon is part of the developed soil profile. Climate, relief and vegetation are controls that help create the profile. The important idea is that soil development is a combined process involving mineral material, climate, relief, living organisms and enough time.",
     "sourceFactIds": [
       "PROFILE-VS-FACTOR"
     ]
@@ -876,7 +876,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Both sites must develop identical horizons",
       "Relief and climate cannot affect soil development"
     ],
-    "explanation": "Gentle terrain limits erosion while warmth, moisture and biological activity promote weathering and organic inputs. These conditions favour stronger profile development at Site A.",
+    "explanation": "Gentle terrain limits erosion while warmth, moisture and biological activity promote weathering and organic inputs. These conditions favour stronger profile development at Site A. The important idea is that soil development is a combined process involving mineral material, climate, relief, living organisms and enough time.",
     "sourceFactIds": [
       "INTEGRATED-SITE-COMPARISON"
     ]
@@ -934,7 +934,8 @@ export function auditGeoSoi001Cp001ReviewBatchV1() {
     const learnerText = q.stem + "\n" + q.options.join("\n") + "\n" + q.explanation;
     if (BANNED.test(learnerText)) issues.push("STYLE:" + q.questionId);
     if (q.stem.length < 25 || q.stem.length > 360 || !q.stem.trim().endsWith("?")) issues.push("STEM_SHAPE:" + q.questionId);
-    if (q.explanation.length < 150) issues.push("SHORT_EXPLANATION:" + q.questionId);\n    if ((q.explanation.match(/[.!?](?:\\s|$)/g) ?? []).length < 2) issues.push("EXPLANATION_DEPTH:" + q.questionId);
+    if (q.explanation.length < 150) issues.push("SHORT_EXPLANATION:" + q.questionId);
+    if ((q.explanation.match(/[.!?](?:\\s|$)/g) ?? []).length < 2) issues.push("EXPLANATION_DEPTH:" + q.questionId);
   }
 
   if (GEO_SOI_001_CP001_REVIEW_BATCH_V1.length !== 54) issues.push("COUNT:" + GEO_SOI_001_CP001_REVIEW_BATCH_V1.length);
