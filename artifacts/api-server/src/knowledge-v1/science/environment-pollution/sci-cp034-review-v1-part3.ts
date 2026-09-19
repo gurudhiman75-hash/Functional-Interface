@@ -94,7 +94,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
   [
     7,
     "Easy",
-    "The ozone layer that protects life from much ultraviolet radiation is located mainly in the:",
+    "The ozone layer that protects life from much ultraviolet radiation is concentrated in the:",
     "Stratosphere",
     [
       "Troposphere only",
