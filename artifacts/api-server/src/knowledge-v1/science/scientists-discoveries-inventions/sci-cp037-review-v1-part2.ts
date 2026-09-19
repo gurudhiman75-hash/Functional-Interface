@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Max Planck",
       "Wilhelm Röntgen"
     ],
-    "Rutherford's scattering experiment showed that most positive charge and mass are concentrated in a tiny nucleus.",
+    "Rutherford's scattering experiment showed that most positive charge and mass are concentrated in a tiny nucleus. Most alpha particles passed through the foil, but a few large deflections revealed a very small, dense centre.",
     [
       "RUTHERFORD-NUCLEUS"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Henri Becquerel",
       "Albert Einstein"
     ],
-    "Chadwick identified the neutron as an electrically neutral particle in the atomic nucleus.",
+    "Chadwick identified the neutron as an electrically neutral particle in the atomic nucleus. The discovery helped explain atomic mass and the structure of nuclei more completely.",
     [
       "CHADWICK-NEUTRON"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Rutherford — electron; Thomson — nucleus",
       "Bohr — radioactivity; Becquerel — atomic model"
     ],
-    "Becquerel discovered natural radioactivity, whereas Röntgen discovered X-rays.",
+    "Becquerel discovered natural radioactivity, whereas Röntgen discovered X-rays. Both discoveries involve penetrating radiation, but their origins are different: radioactivity comes from unstable atoms, while X-rays are produced by energetic electronic processes.",
     [
       "BECQUEREL-RONTGEN-DISTINCTION"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Antoine Lavoisier",
       "Amedeo Avogadro"
     ],
-    "Mendeleev organized elements into a periodic table and predicted properties of undiscovered elements.",
+    "Mendeleev organized elements into a periodic table and predicted properties of undiscovered elements. He even left gaps for unknown elements, and several of his predicted properties were later confirmed.",
     [
       "MENDELEEV-PERIODIC-TABLE"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Louis Pasteur",
       "Charles Darwin"
     ],
-    "Dalton proposed an influential atomic theory explaining matter in terms of atoms.",
+    "Dalton proposed an influential atomic theory explaining matter in terms of atoms. His model was later refined, but it gave chemistry a clear framework for explaining elements and compounds.",
     [
       "DALTON-ATOMIC-THEORY"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Alfred Nobel",
       "Fritz Haber"
     ],
-    "Lavoisier's quantitative experiments helped establish conservation of mass in chemical reactions.",
+    "Lavoisier's quantitative experiments helped establish conservation of mass in chemical reactions. The law means that in a closed system, total mass remains the same before and after a chemical reaction.",
     [
       "LAVOISIER-CONSERVATION-MASS"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Electrons only",
       "Atomic nuclei only"
     ],
-    "Amedeo Avogadro proposed that equal gas volumes under the same conditions contain equal numbers of molecules.",
+    "Amedeo Avogadro proposed that equal gas volumes under the same conditions contain equal numbers of molecules. This idea helped scientists distinguish atoms from molecules and compare gases quantitatively.",
     [
       "AVOGADRO-HYPOTHESIS"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Hall process",
       "Bessemer process"
     ],
-    "Fritz Haber developed the chemical basis for ammonia synthesis; industrial implementation was later scaled by Carl Bosch.",
+    "Fritz Haber developed the chemical basis for ammonia synthesis; industrial implementation was later scaled by Carl Bosch. The process became extremely important because ammonia is a key raw material for nitrogen fertilizers.",
     [
       "HABER-AMMONIA"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Haber created the periodic table alone",
       "Mendeleev invented the Haber process"
     ],
-    "The ammonia process is commonly called Haber–Bosch because Haber developed the chemistry and Bosch helped industrialize it.",
+    "The ammonia process is commonly called Haber–Bosch because Haber developed the chemistry and Bosch helped industrialize it. This distinction is useful because the laboratory chemistry and the engineering needed for mass production were separate achievements.",
     [
       "HABER-BOSCH-DISTINCTION"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Robert Koch",
       "Anton van Leeuwenhoek"
     ],
-    "Hooke used the term 'cell' after observing compartments in cork.",
+    "Hooke used the term 'cell' after observing compartments in cork. He saw box-like spaces in cork and called them cells, although those cork cells were no longer living.",
     [
       "HOOKE-CELL"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Charles Darwin",
       "Gregor Mendel"
     ],
-    "Leeuwenhoek observed microorganisms such as bacteria and protozoa using powerful simple microscopes.",
+    "Leeuwenhoek observed microorganisms such as bacteria and protozoa using powerful simple microscopes. His observations opened a new view of microscopic life that had been invisible to earlier investigators.",
     [
       "LEEUWENHOEK-MICROORGANISMS"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Edward Jenner",
       "Alexander Fleming"
     ],
-    "Pasteur developed heat-treatment methods to reduce spoilage-causing and harmful microorganisms.",
+    "Pasteur developed heat-treatment methods to reduce spoilage-causing and harmful microorganisms. Controlled heating reduces harmful microbes without requiring the liquid to be fully boiled.",
     [
       "PASTEUR-PASTEURIZATION"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Radioactivity",
       "Inheritance of pea traits"
     ],
-    "Koch's work linked particular microorganisms with particular infectious diseases.",
+    "Koch's work linked particular microorganisms with particular infectious diseases. This strengthened germ theory by connecting particular pathogens with particular diseases.",
     [
       "KOCH-DISEASE-MICROBES"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Robert Brown",
       "Isaac Newton"
     ],
-    "Pasteur's experiments showed that microbial growth came from contamination rather than spontaneous generation.",
+    "Pasteur's experiments showed that microbial growth came from contamination rather than spontaneous generation. When outside microbes were kept away, the sterile broth remained free of microbial growth.",
     [
       "PASTEUR-SWAN-NECK"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
       "Hooke developed vaccination; Leeuwenhoek discovered insulin",
       "Both scientists are known for the periodic table"
     ],
-    "Hooke described cork compartments as cells, while Leeuwenhoek later observed living microscopic organisms.",
+    "Hooke described cork compartments as cells, while Leeuwenhoek later observed living microscopic organisms. Their contributions are related to microscopy, but Hooke is linked with naming cells and Leeuwenhoek with observing living microbes.",
     [
       "HOOKE-LEEUWENHOEK-DISTINCTION"
     ]
