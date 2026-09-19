@@ -1,8 +1,9 @@
 # POL-CP-003 — Preamble, Union & Citizenship
 
 **Chapter:** POL-001 Indian Polity  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** BLOCKED pending English review approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V3  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING  
+**Audit reconciliation:** lifecycle metadata aligned with the approved chapter state during the POL-001 final integration pass on 2026-09-19.  
 
 ## Scope
 
