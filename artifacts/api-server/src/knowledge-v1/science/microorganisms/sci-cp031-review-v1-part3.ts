@@ -64,7 +64,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
   [
     6,
     "Medium",
-    "Which pair is correctly matched?",
+    "Which microorganism–use pair is correctly matched?",
     "Yeast — bread fermentation",
     [
       "Amoeba — curd formation",
