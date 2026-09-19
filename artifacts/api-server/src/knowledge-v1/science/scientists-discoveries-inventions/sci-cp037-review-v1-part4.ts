@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Alan Turing",
       "Alexander Fleming"
     ],
-    "Berners-Lee created the core concepts and technologies of the World Wide Web at CERN.",
+    "Berners-Lee created the core concepts and technologies of the World Wide Web at CERN. He introduced technologies such as web pages, hyperlinks and web addresses that made information easy to navigate over the Internet.",
     [
       "BERNERSLEE-WWW"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "John Dalton",
       "Robert Koch"
     ],
-    "Nobel developed dynamite by making nitroglycerin safer to handle in a practical explosive form.",
+    "Nobel developed dynamite by making nitroglycerin safer to handle in a practical explosive form. By absorbing nitroglycerin into a more stable material, dynamite was easier and safer to handle than liquid nitroglycerin.",
     [
       "NOBEL-DYNAMITE"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Baird — dynamite; Nobel — television",
       "Berners-Lee — penicillin; Fleming — World Wide Web"
     ],
-    "Bell is widely credited with key telephone development, while Marconi developed practical wireless telegraphy and radio communication.",
+    "Bell is widely credited with key telephone development, while Marconi developed practical wireless telegraphy and radio communication. The telephone initially relied on wired transmission of speech, while Marconi's work focused on wireless communication.",
     [
       "BELL-MARCONI-DISTINCTION"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Meghnad Saha",
       "Homi J. Bhabha"
     ],
-    "C. V. Raman discovered the wavelength shift produced by inelastic scattering of light.",
+    "C. V. Raman discovered the wavelength shift produced by inelastic scattering of light. The effect provides information about how light interacts with molecules and became important in spectroscopy.",
     [
       "CV-RAMAN-RAMAN-EFFECT"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Jagadish Chandra Bose",
       "Vikram Sarabhai"
     ],
-    "Meghnad Saha developed the ionization equation used to explain ionization states in stellar atmospheres.",
+    "Meghnad Saha developed the ionization equation used to explain ionization states in stellar atmospheres. His equation helped scientists connect temperature and pressure with the ionization state of gases in stars.",
     [
       "SAHA-IONIZATION"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "The periodic table",
       "The barometer"
     ],
-    "Bose developed quantum-statistical ideas that Einstein extended, giving rise to Bose–Einstein statistics.",
+    "Bose developed quantum-statistical ideas that Einstein extended, giving rise to Bose–Einstein statistics. Particles that follow this form of statistics are now called bosons in his honour.",
     [
       "SN-BOSE-STATISTICS"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "X-rays",
       "The neutron"
     ],
-    "J. C. Bose worked on electromagnetic waves and developed instruments for studying responses in plants.",
+    "J. C. Bose worked on electromagnetic waves and developed instruments for studying responses in plants. His work crossed both physics and plant science, making him notable in more than one scientific field.",
     [
       "JC-BOSE-CONTRIBUTIONS"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "S. N. Bose — penicillin",
       "Homi Bhabha — smallpox vaccination"
     ],
-    "Saha's ionization equation became important in astrophysics for understanding stellar spectra.",
+    "Saha's ionization equation became important in astrophysics for understanding stellar spectra. The theory helped explain why different spectral lines appear in stars of different temperatures.",
     [
       "INDIAN-SCIENTIST-MATCH"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Raman — insulin; Bose — vaccination",
       "Raman — periodic law; Bose — conservation of mass"
     ],
-    "Raman discovered the Raman effect in light scattering, while Bose developed foundational work in quantum statistics.",
+    "Raman discovered the Raman effect in light scattering, while Bose developed foundational work in quantum statistics. Raman's work belongs to experimental light scattering, while Bose's major contribution was theoretical quantum statistics.",
     [
       "RAMAN-BOSE-DISTINCTION"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Rutherford — electron",
       "Röntgen — radioactivity"
     ],
-    "Chadwick discovered the neutron; the other listed pairings mismatch well-known contributions.",
+    "Chadwick discovered the neutron; the other listed pairings mismatch well-known contributions. Keeping these discoveries separate helps avoid a common exam trap involving Thomson, Rutherford and Chadwick.",
     [
       "MIXED-CHADWICK-NEUTRON"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Niels Bohr",
       "James Chadwick"
     ],
-    "Thomson's cathode-ray experiments established the electron as a subatomic particle.",
+    "Thomson's cathode-ray experiments established the electron as a subatomic particle. His experiments showed that cathode rays consisted of negatively charged particles later called electrons.",
     [
       "IDENTIFY-THOMSON"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Antoine Lavoisier",
       "Amedeo Avogadro"
     ],
-    "Mendeleev's periodic arrangement left gaps and predicted properties of elements later discovered.",
+    "Mendeleev's periodic arrangement left gaps and predicted properties of elements later discovered. The success of those predictions was strong evidence that his periodic arrangement captured a real pattern among elements.",
     [
       "IDENTIFY-MENDELEEV-PREDICTION"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Pasteur — X-rays; Röntgen — vaccine",
       "Koch — telephone; Bell — bacteria"
     ],
-    "Jenner developed the smallpox vaccine, while Fleming discovered penicillin.",
+    "Jenner developed the smallpox vaccine, while Fleming discovered penicillin. Vaccination prepares the immune system for prevention, while penicillin is used to treat susceptible bacterial infections.",
     [
       "JENNER-FLEMING-DISTINCTION"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Pasteur → Koch → Hooke → Leeuwenhoek",
       "Koch → Pasteur → Leeuwenhoek → Hooke"
     ],
-    "Hooke named cells, Leeuwenhoek observed microbes, Pasteur developed pasteurization, and Koch linked specific microbes to diseases.",
+    "Hooke named cells, Leeuwenhoek observed microbes, Pasteur developed pasteurization, and Koch linked specific microbes to diseases. Remembering the contribution itself is more reliable than memorizing the names as an isolated list.",
     [
       "BIOLOGY-SCIENTIST-SEQUENCE"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp037ReviewSpec[] = [
       "Ohm — natural selection; Darwin — resistance law; Jenner — telephone",
       "Rutherford — penicillin; Fleming — nucleus; Hooke — gravity"
     ],
-    "Faraday discovered electromagnetic induction, Mendeleev developed the periodic table, and Mendel established basic laws of inheritance.",
+    "Faraday discovered electromagnetic induction, Mendeleev developed the periodic table, and Mendel established basic laws of inheritance. Each pairing links the scientist with a distinct high-frequency contribution from physics, chemistry or biology.",
     [
       "MIXED-ALL-CORRECT-SET"
     ]
