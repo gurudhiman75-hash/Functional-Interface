@@ -29,6 +29,7 @@ Checkpoint sizes:
 - CP010: 44 questions per locale
 - CP001–CP010 cumulative: 436 questions per locale / 1,308 EN-HI-PA surfaces
 - Current CP009–CP010 checkpoint: 88 questions per locale / 264 EN-HI-PA surfaces
+- CP009 and CP010 use V2 stem-polish authorities derived from frozen V1 batches; V2 changes stems only and preserves options, answers, explanations, QL, difficulty and source provenance
 
 Quality gates:
 - exact frozen-English no-drift
@@ -43,6 +44,7 @@ Quality gates:
 - all other Latin-script text is treated as leakage and fails the executable audit
 - current protected labels include Disinflation, Demand-pull inflation, Cost-push inflation, Headline inflation, Core inflation, GDP deflator, Core CPI, Hyperinflation, Headcount ratio, Fiat money, Legal tender, Reserve money, High-powered money, Narrow money, Broad money, Money multiplier, Lender of last resort, Repo, Reverse Repo, Bank Rate, Open Market Operations, Standing Deposit Facility, Marginal Standing Facility, LAF corridor, Small Finance Bank, Payments Bank, Priority Sector Lending, Commercial Paper, and official committee/group names
 - full CP001–CP010 terminology/parity audit runs in Economy CI across 436 questions per locale / 1,308 surfaces
+- CP009–CP010 stems also pass a mechanical-phrasing guard covering generated fillers such as `other things equal`, `mainly`, `generally`, `best fits`, `most directly` and native-language equivalents
 
 Review exports:
 - `ECO-MULTILINGUAL-V1-CP001-CP002-REVIEW.md`
