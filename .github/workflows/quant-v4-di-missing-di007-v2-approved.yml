@@ -1,0 +1,69 @@
+name: Quant V4 Data Interpretation missing DI V2 controlled review
+
+on:
+  push:
+    branches:
+      - feature/di-007-missing-v2-approved
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di007-missing-v2-approved-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  missing-di-v2-controlled-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Controlled-review lifecycle guard
+        run: |
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/missing-v2-types.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/missing-set-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/independent-verifier-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/permanent-ql-registry.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/permanent-question-generator.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/question-studio-adapter.ts
+          grep -q 'questionStudioDiscoverable: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/permanent-ql-registry.ts
+          grep -q 'DI-QL-073' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/permanent-ql-registry.ts
+          grep -q 'DI-QL-084' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/permanent-ql-registry.ts
+          ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/permanent-ql-registry.ts \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/question-studio-adapter.ts
+      - name: DI-007 V2 deterministic, diversity and independent proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/missing-set-v2.test.ts
+      - name: DI-007 Question Studio controlled-review integration proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/question-studio-integration.test.ts
+      - name: Legacy DI-007 regression
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/missing-set.test.ts
+      - name: Export Markdown review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-007/export-review-v2.ts DI-007-REVIEW-V2.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: di-007-missing-review-v2
+          path: DI-007-REVIEW-V2.md
+          if-no-files-found: error
+          retention-days: 30
+      - name: API server build
+        run: pnpm --filter @workspace/api-server build
+      - name: Patch hygiene
+        run: git diff --check
