@@ -40,6 +40,35 @@ function learnerText(question: { stem: string; options: readonly string[]; expla
   return [question.stem, ...question.options, question.explanation].join("\n");
 }
 
+const MECHANICAL_STEM_PATTERNS = [
+  /other things equal/iu,
+  /\bmainly\b/iu,
+  /\bgenerally\b/iu,
+  /best fits/iu,
+  /most directly/iu,
+  /best described/iu,
+  /best describes/iu,
+  /most appropriate/iu,
+  /usually associated/iu,
+  /अन्य बातें समान/u,
+  /मुख्यतः/u,
+  /सामान्यतः/u,
+  /सबसे उपयुक्त/u,
+  /सबसे सही वर्णन/u,
+  /सबसे सीधे/u,
+  /ਹੋਰ ਗੱਲਾਂ ਇੱਕੋ/u,
+  /ਮੁੱਖ ਤੌਰ/u,
+  /ਆਮ ਤੌਰ/u,
+  /ਸਭ ਤੋਂ ਉਚਿਤ/u,
+  /ਸਭ ਤੋਂ ਸਹੀ ਵਰਣਨ/u,
+] as const;
+
+function assertExamStandardStem(question: EcoLocalizedQuestionV1) {
+  for (const pattern of MECHANICAL_STEM_PATTERNS) {
+    fail(!pattern.test(question.stem), `${question.questionId}: mechanical stem wording: ${pattern}`);
+  }
+}
+
 function assertNative(question: EcoLocalizedQuestionV1, english: any, locale: "hi" | "pa") {
   const text = learnerText(question);
   const stripped = stripEcoAllowedRomanV1(text);
@@ -82,6 +111,8 @@ function assertParity(source: readonly any[], localized: readonly EcoLocalizedQu
     fail(new Set(question.options).size === 4, `${question.questionId}: duplicate localized options`);
     fail(question.canonicalAnswer === question.options[question.correctIndex], `${question.questionId}: canonical answer mismatch`);
     fail(question.reviewOnly === true && question.runtimeRegistered === false, `${question.questionId}: lifecycle boundary changed`);
+
+    if (english.cpId === "ECO-CP-009" || english.cpId === "ECO-CP-010") assertExamStandardStem(question);
 
     if (locale === "en") {
       fail(question.questionId === english.questionId, `${question.questionId}: English id drift`);
