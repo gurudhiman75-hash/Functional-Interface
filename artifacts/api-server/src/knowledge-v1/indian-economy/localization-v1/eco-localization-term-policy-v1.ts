@@ -150,6 +150,18 @@ const protectedExamTerms = [
   "LAF corridor",
   "EXIM Bank",
   "Fiscal Responsibility and Budget Management",
+  "Annual Financial Statement",
+  "Finance Bill",
+  "Appropriation Bill",
+  "Budget at a Glance",
+  "Expenditure Profile",
+  "Expenditure Budget",
+  "Receipt Budget",
+  "Vote on Account",
+  "Vote of Credit",
+  "Exceptional Grant",
+  "Input Tax Credit",
+  "GST Council",
 ] as const;
 
 const allowedAbbreviations = [
@@ -205,6 +217,14 @@ const allowedAbbreviations = [
   "HFC",
   "HFCs",
   "FRBM",
+  "GST",
+  "CGST",
+  "SGST",
+  "IGST",
+  "UTGST",
+  "AFS",
+  "CAG",
+  "CBDT",
 ] as const;
 
 export const ECO_TERM_POLICY_V1: readonly EcoTermPolicyEntryV1[] = Object.freeze([
