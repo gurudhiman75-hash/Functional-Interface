@@ -49,7 +49,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
   [
     6,
     "Medium",
-    "Fats are mainly digested into:",
+    "Fats are digested into:",
     "Fatty acids and glycerol",
     [
       "Amino acids",
@@ -64,7 +64,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
   [
     6,
     "Medium",
-    "Carbohydrates are finally converted mainly into:",
+    "Carbohydrates are finally broken down into:",
     "Simple sugars such as glucose",
     [
       "Amino acids",
@@ -124,7 +124,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
   [
     7,
     "Medium",
-    "Glucose and amino acids absorbed from intestinal villi enter mainly into:",
+    "Glucose and amino acids absorbed through intestinal villi enter the:",
     "Blood capillaries",
     [
       "Lacteals in the villi",
@@ -139,7 +139,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
   [
     7,
     "Medium",
-    "Absorbed fats from the small intestine enter mainly into:",
+    "Most absorbed fats enter:",
     "Lacteals in the villi",
     [
       "Blood capillaries in the villi",
@@ -184,7 +184,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
   [
     8,
     "Easy",
-    "The large intestine mainly absorbs:",
+    "What does the large intestine absorb from undigested material?",
     "Water and some salts",
     [
       "Most amino acids",
