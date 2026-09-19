@@ -44,6 +44,7 @@ export interface GeneratedBlrCp001LocalizedQuestion {
   reviewOnly: true;
   publiclyPublishable: false;
   questionStudioVisible: false;
+  questionBankEligible: false;
   mockTestEligible: false;
   ruleId: string;
   seed: number;
@@ -66,7 +67,7 @@ export interface GeneratedBlrCp001LocalizedQuestion {
   canonicalItemId: string;
   itemId: string;
   questionLanguageId: string;
-  metadata: BlrCp001PermanentQuestion["metadata"] & {
+  metadata: Omit<BlrCp001PermanentQuestion["metadata"], "runtimeVersion"> & {
     runtimeVersion: typeof BLR_CP001_MULTILINGUAL_RUNTIME_VERSION;
     canonicalRuntimeVersion: "blr-cp001-runtime-v1";
     localizationVersion: typeof BLR_CP001_LOCALIZATION_VERSION;
