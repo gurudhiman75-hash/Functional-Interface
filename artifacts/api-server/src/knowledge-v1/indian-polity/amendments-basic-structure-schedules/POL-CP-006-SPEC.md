@@ -1,7 +1,8 @@
 # POL-CP-006 — Amendments, Basic Structure & Schedules
 
-**Lifecycle:** REVIEW CANDIDATE — EXPLANATION V3  
-**Runtime registration:** BLOCKED pending English approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — EXPLANATION V3  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING  
+**Audit reconciliation:** lifecycle metadata aligned with the approved chapter state during the POL-001 final integration pass on 2026-09-19.  
 
 ## Scope
 
