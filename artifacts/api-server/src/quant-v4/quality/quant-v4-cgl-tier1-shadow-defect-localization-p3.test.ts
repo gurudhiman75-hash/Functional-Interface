@@ -128,6 +128,12 @@ const slotsByDuplicateRate = Object.entries(stemDuplicationBySlot)
   .map(([slotKind, summary]) => ({ slotKind, ...summary }))
   .sort((left, right) => right.duplicateRate - left.duplicateRate || right.duplicateItems - left.duplicateItems || left.slotKind.localeCompare(right.slotKind));
 
+const RAP_TARGETED_REPEAT_QLS = [
+  "RAP-QL-022",
+  "RAP-QL-028",
+  "RAP-QL-032",
+] as const;
+
 const hotspotLocalization = Object.fromEntries(
   [
     "PCT-001",
@@ -160,6 +166,40 @@ const hotspotLocalization = Object.fromEntries(
   }),
 );
 
+const rapTargetedQlVariety = Object.fromEntries(
+  RAP_TARGETED_REPEAT_QLS.map((questionLanguageId) => {
+    const records = runtimeShadowRecords.filter(
+      (record) =>
+        record.packageId === "RAP-001" &&
+        record.questionLanguageId === questionLanguageId,
+    );
+    return [questionLanguageId, {
+      records: records.length,
+      normalizedDuplication: duplicateSummary(
+        records,
+        (record) => record.normalizedStemSignature,
+      ),
+      locations: records.map((record) => ({
+        sectionIndex: record.sectionIndex,
+        ordinal: record.ordinal,
+      })),
+    }] as const;
+  }),
+);
+
+for (const questionLanguageId of RAP_TARGETED_REPEAT_QLS) {
+  const summary = rapTargetedQlVariety[questionLanguageId];
+  assert.ok(
+    summary.records > 1,
+    `${questionLanguageId}: targeted RAP-001 diversity proof requires repeated shadow observations.`,
+  );
+  assert.equal(
+    summary.normalizedDuplication.duplicateItems,
+    0,
+    `${questionLanguageId}: targeted RAP-001 presentation variants must remove normalized stem reuse.`,
+  );
+}
+
 console.log("QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3", JSON.stringify({
   sections: SECTIONS,
   baseline: {
@@ -184,6 +224,7 @@ console.log("QUANT_V4_CGL_TIER1_SHADOW_DEFECT_LOCALIZATION_P3", JSON.stringify({
     slotsByDuplicateRate,
     packagesByDuplicateRate,
     hotspotLocalization,
+    rapTargetedQlVariety,
   },
   lifecycle: {
     productionPromotionAuthorized: false,
