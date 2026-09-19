@@ -4,7 +4,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Plants usually absorb nitrogen from soil mainly as:",
+    "Plants usually absorb soil nitrogen in which forms?",
     "Nitrate and ammonium ions",
     [
       "Nitrogen gas directly through leaves",
