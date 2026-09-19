@@ -20,6 +20,19 @@ function numericTokens(value:string){
   return [...new Set(value.match(/\d+[A-Z]?(?:\([a-z0-9]+\))?/g) ?? [])].sort();
 }
 
+const PUNJABI_LITERAL_CALQUES = [
+  "ਮੰਨੇ ਹੋਏ ਸੰਵਿਧਾਨਕ ਪਾਠ",
+  "ਬਾਧਕ ਸਹਿਮਤੀ",
+  "ਬਾਧਕ ਵੀਟੋ",
+  "ਯੋਗਤਾ-ਸ਼ਰਤ",
+  "ਅਪ੍ਰਸੰਗਿਕ",
+  "ਬੰਦੀ ਪ੍ਰਤੱਖੀਕਰਨ",
+  "ਪਰਮਾਦੇਸ਼",
+  "ਪ੍ਰਤਿਸ਼ੇਧ",
+  "ਉਤਪ੍ਰੇਸ਼ਣ",
+  "ਅਧਿਕਾਰ-ਪ੍ਰਿਛਾ",
+] as const;
+
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
   const t=text(q).replace(/\b(?:I|II|III|IV|V)\b/gu,"");
   assert.equal(/[A-Za-z]{2,}/u.test(t),false,`${q.questionId}: Latin-script leakage`);
@@ -61,7 +74,7 @@ for(const [cpId,english,gen] of cps){
   }
 }
 assert.equal(englishCount,133,"CP003-CP004 authority must contain 133 questions");
-const evidence={chapterId:"POL-001",cps:["POL-CP-003","POL-CP-004"],localizationVersion:"POL-LOCALIZATION-V1",englishQuestions:englishCount,questionsPerLocale:englishCount,locales,totalReviewSurfaces:englishCount*3,semanticInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,qlInvariant:true,sourceInvariant:true,nativeScriptGuard:true,numericFormInvariant:true,reviewOnly:true,runtimeRegistered:false};
+const evidence={chapterId:"POL-001",cps:["POL-CP-003","POL-CP-004"],localizationVersion:"POL-LOCALIZATION-V1",englishQuestions:englishCount,questionsPerLocale:englishCount,locales,totalReviewSurfaces:englishCount*3,semanticInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,qlInvariant:true,sourceInvariant:true,nativeScriptGuard:true,punjabiNativeEditorialGuard:true,numericFormInvariant:true,reviewOnly:true,runtimeRegistered:false};
 const dir=path.resolve("dist/polity-review/POL-MULTILINGUAL-V1");
 fs.mkdirSync(dir,{recursive:true});
 fs.writeFileSync(path.join(dir,"POL-CP003-CP004-MULTILINGUAL-PROOF.json"),JSON.stringify(evidence,null,2));
