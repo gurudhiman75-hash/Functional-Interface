@@ -30,7 +30,7 @@ const CONTEXTS: Readonly<Record<string, LocalizedContext>> = Object.freeze({
       xAxisLabel: "ਅੰਕ",
       yAxisLabel: "ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ",
       unit: "ਵਿਦਿਆਰਥੀ",
-      description: "ਬਰਾਬਰ ਵਰਗ-ਚੌੜਾਈ ਵਾਲਾ ਹਿਸਟੋਗ੍ਰਾਮ, ਜਿਸ ਵਿੱਚ ਸਤੰਭ ਦੀ ਉਚਾਈ ਆਵ੍ਰਿੱਤੀ ਦਿਖਾਉਂਦੀ ਹੈ।",
+      description: "ਬਰਾਬਰ ਵਰਗ-ਚੌੜਾਈ ਵਾਲਾ ਹਿਸਟੋਗ੍ਰਾਮ, ਜਿਸ ਵਿੱਚ ਸਤੰਭ ਦੀ ਉਚਾਈ ਬਾਰੰਬਾਰਤਾ ਦਿਖਾਉਂਦੀ ਹੈ।",
     },
   },
   "Heights of students in a sports group": {
@@ -196,9 +196,9 @@ function localizedStem(
       ];
       const surfacesPa = [
         `ਵਰਗ ਅੰਤਰਾਲ ${value} ਵਿੱਚ ਕਿੰਨੇ ${unit} ਦਰਸਾਏ ਗਏ ਹਨ?`,
-        `ਵਰਗ ${value} ਦੀ ਆਵ੍ਰਿੱਤੀ ਕਿੰਨੀ ਹੈ?`,
+        `ਵਰਗ ${value} ਦੀ ਬਾਰੰਬਾਰਤਾ ਕਿੰਨੀ ਹੈ?`,
         `ਹਿਸਟੋਗ੍ਰਾਮ ਅਨੁਸਾਰ, ਅੰਤਰਾਲ ${value} ਵਿੱਚ ਕਿੰਨੇ ${unit} ਹਨ?`,
-        `ਹਿਸਟੋਗ੍ਰਾਮ ਤੋਂ ${value} ਨਾਲ ਸੰਬੰਧਿਤ ਆਵ੍ਰਿੱਤੀ ਪੜ੍ਹੋ।`,
+        `ਹਿਸਟੋਗ੍ਰਾਮ ਤੋਂ ${value} ਨਾਲ ਸੰਬੰਧਿਤ ਬਾਰੰਬਾਰਤਾ ਪੜ੍ਹੋ।`,
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -206,12 +206,12 @@ function localizedStem(
       const surfacesHi = [
         `हिस्टोग्राम में कुल कितने ${unit} दर्शाए गए हैं?`,
         "हिस्टोग्राम द्वारा दर्शाई गई कुल आवृत्ति ज्ञात कीजिए।",
-        `सभी वर्ग अंतरालों में दर्शाए गए ${unit} की कुल संख्या कितनी है?`,
+        "सभी वर्ग अंतरालों की आवृत्तियों का योग कितना है?",
       ];
       const surfacesPa = [
         `ਹਿਸਟੋਗ੍ਰਾਮ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ${unit} ਦਰਸਾਏ ਗਏ ਹਨ?`,
-        "ਹਿਸਟੋਗ੍ਰਾਮ ਦੁਆਰਾ ਦਰਸਾਈ ਗਈ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਕੱਢੋ।",
-        `ਸਾਰੇ ਵਰਗ ਅੰਤਰਾਲਾਂ ਵਿੱਚ ਦਰਸਾਏ ${unit} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਕਿੰਨੀ ਹੈ?`,
+        "ਹਿਸਟੋਗ੍ਰਾਮ ਦੁਆਰਾ ਦਰਸਾਈ ਗਈ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਕੱਢੋ।",
+        "ਸਾਰੇ ਵਰਗ ਅੰਤਰਾਲਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੈ?",
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -226,8 +226,8 @@ function localizedStem(
       ];
       const surfacesPa = [
         `ਪਰਾਸ ${range} ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ${unit} ਹਨ?`,
-        `ਅੰਤਰਾਲ ${range} ਦੀ ਮਿਲੀ-ਜੁਲੀ ਆਵ੍ਰਿੱਤੀ ਕੱਢੋ।`,
-        `ਵਰਗਾਂ ${bins[start]!.lower} ਤੋਂ ${bins[end]!.upper} ਤੱਕ ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਕਿੰਨੀ ਹੈ?`,
+        `ਅੰਤਰਾਲ ${range} ਦੀ ਮਿਲੀ-ਜੁਲੀ ਬਾਰੰਬਾਰਤਾ ਕੱਢੋ।`,
+        `ਵਰਗਾਂ ${bins[start]!.lower} ਤੋਂ ${bins[end]!.upper} ਤੱਕ ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਕਿੰਨੀ ਹੈ?`,
         `${range} ਨੂੰ ਸਮੇਟਣ ਵਾਲੇ ਵਰਗਾਂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ${unit} ਹਨ?`,
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
@@ -241,7 +241,7 @@ function localizedStem(
       ];
       const surfacesPa = [
         `ਵਰਗ ਸੀਮਾ ${boundary} ਤੋਂ ਸ਼ੁਰੂ ਹੋਣ ਵਾਲੇ ਅਤੇ ਇਸ ਤੋਂ ਉੱਪਰ ਦੇ ਵਰਗਾਂ ਵਿੱਚ ਕਿੰਨੇ ${unit} ਹਨ?`,
-        `${boundary} ਤੋਂ ਅੱਗੇ ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਕੱਢੋ।`,
+        `${boundary} ਤੋਂ ਅੱਗੇ ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਕੱਢੋ।`,
         `ਹਿਸਟੋਗ੍ਰਾਮ ਅਨੁਸਾਰ, ${boundary} ਜਾਂ ਇਸ ਤੋਂ ਉੱਪਰ ਦੇ ਵਰਗ ਅੰਤਰਾਲਾਂ ਵਿੱਚ ਕਿੰਨੇ ${unit} ਹਨ?`,
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
@@ -255,8 +255,8 @@ function localizedStem(
       ];
       const surfacesPa = [
         `${boundary} ਤੋਂ ਘੱਟ ਮੁੱਲ ਵਾਲੇ ਵਰਗਾਂ ਵਿੱਚ ਕਿੰਨੇ ${unit} ਦਰਸਾਏ ਗਏ ਹਨ?`,
-        `${boundary} ਤੋਂ ਘੱਟ ਮੁੱਲਾਂ ਦੀ ਸੰਚਿਤ ਆਵ੍ਰਿੱਤੀ ਕੱਢੋ।`,
-        `${boundary} ਤੋਂ ਹੇਠਾਂ ਵਾਲੇ ਸਾਰੇ ਵਰਗ ਅੰਤਰਾਲਾਂ ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਕਿੰਨੀ ਹੈ?`,
+        `${boundary} ਤੋਂ ਘੱਟ ਮੁੱਲਾਂ ਦੀ ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ ਕੱਢੋ।`,
+        `${boundary} ਤੋਂ ਹੇਠਾਂ ਵਾਲੇ ਸਾਰੇ ਵਰਗ ਅੰਤਰਾਲਾਂ ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਕਿੰਨੀ ਹੈ?`,
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -272,9 +272,9 @@ function localizedStem(
         `${leftRange} की संयुक्त आवृत्ति, ${rightRange} की संयुक्त आवृत्ति के किस अनुपात में है?`,
       ];
       const surfacesPa = [
-        `ਪਰਾਸ ${leftRange} ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਅਤੇ ਪਰਾਸ ${rightRange} ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`,
-        `ਪਹਿਲੇ ${firstCount} ਵਰਗਾਂ ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਦਾ ਬਾਕੀ ਵਰਗਾਂ ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਨਾਲ ਅਨੁਪਾਤ ਕੱਢੋ।`,
-        `${leftRange} ਦੀ ਮਿਲੀ-ਜੁਲੀ ਆਵ੍ਰਿੱਤੀ, ${rightRange} ਦੀ ਮਿਲੀ-ਜੁਲੀ ਆਵ੍ਰਿੱਤੀ ਦੇ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ?`,
+        `ਪਰਾਸ ${leftRange} ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਅਤੇ ਪਰਾਸ ${rightRange} ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`,
+        `ਪਹਿਲੇ ${firstCount} ਵਰਗਾਂ ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਦਾ ਬਾਕੀ ਵਰਗਾਂ ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਅਨੁਪਾਤ ਕੱਢੋ।`,
+        `${leftRange} ਦੀ ਮਿਲੀ-ਜੁਲੀ ਬਾਰੰਬਾਰਤਾ, ${rightRange} ਦੀ ਮਿਲੀ-ਜੁਲੀ ਬਾਰੰਬਾਰਤਾ ਦੇ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ?`,
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -283,12 +283,12 @@ function localizedStem(
       const value = interval(target);
       const surfacesHi = [
         `वर्ग ${value}, कुल आवृत्ति का कितने प्रतिशत है?`,
-        `सभी ${unit} में से कितने प्रतिशत अंतराल ${value} में आते हैं?`,
+        `कुल प्रेक्षणों में से कितने प्रतिशत अंतराल ${value} में आते हैं?`,
         `पूरे हिस्टोग्राम में वर्ग ${value} की प्रतिशत हिस्सेदारी ज्ञात कीजिए।`,
       ];
       const surfacesPa = [
-        `ਵਰਗ ${value}, ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`,
-        `ਸਾਰੇ ${unit} ਵਿੱਚੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰਾਲ ${value} ਵਿੱਚ ਆਉਂਦੇ ਹਨ?`,
+        `ਵਰਗ ${value}, ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`,
+        `ਕੁੱਲ ਪ੍ਰੇਖਣਾਂ ਵਿੱਚੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰਾਲ ${value} ਵਿੱਚ ਆਉਂਦੇ ਹਨ?`,
         `ਪੂਰੇ ਹਿਸਟੋਗ੍ਰਾਮ ਵਿੱਚ ਵਰਗ ${value} ਦੀ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸੇਦਾਰੀ ਕੱਢੋ।`,
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
@@ -302,8 +302,8 @@ function localizedStem(
         `${left} और ${right} के स्तंभों की ऊँचाइयों का निरपेक्ष अंतर ज्ञात कीजिए।`,
       ];
       const surfacesPa = [
-        `ਵਰਗ ${left} ਅਤੇ ${right} ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ ਦਾ ਅੰਤਰ ਕਿੰਨਾ ਹੈ?`,
-        `ਵਰਗ ${left} ਅਤੇ ${right} ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ ਵਿੱਚ ਕਿੰਨਾ ਫਰਕ ਹੈ?`,
+        `ਵਰਗ ${left} ਅਤੇ ${right} ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਦਾ ਅੰਤਰ ਕਿੰਨਾ ਹੈ?`,
+        `ਵਰਗ ${left} ਅਤੇ ${right} ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫਰਕ ਹੈ?`,
         `${left} ਅਤੇ ${right} ਦੇ ਸਤੰਭਾਂ ਦੀਆਂ ਉਚਾਈਆਂ ਦਾ ਨਿਰਪੇਖ ਅੰਤਰ ਕੱਢੋ।`,
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
@@ -316,7 +316,7 @@ function localizedStem(
       ];
       const surfacesPa = [
         "ਬਹੁਲਕ ਵਰਗ ਕਿਹੜਾ ਹੈ?",
-        "ਸਭ ਤੋਂ ਵੱਧ ਆਵ੍ਰਿੱਤੀ ਵਾਲਾ ਵਰਗ ਪਛਾਣੋ।",
+        "ਸਭ ਤੋਂ ਵੱਧ ਬਾਰੰਬਾਰਤਾ ਵਾਲਾ ਵਰਗ ਪਛਾਣੋ।",
         "ਹਿਸਟੋਗ੍ਰਾਮ ਦਾ ਸਭ ਤੋਂ ਉੱਚਾ ਆਯਤ ਕਿਹੜਾ ਵਰਗ ਅੰਤਰਾਲ ਦਰਸਾਉਂਦਾ ਹੈ?",
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
@@ -331,8 +331,8 @@ function localizedStem(
       const surfacesPa = [
         "ਮੱਧਿਕਾ ਪ੍ਰੇਖਣ ਕਿਹੜੇ ਵਰਗ ਅੰਤਰਾਲ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
         "ਹਿਸਟੋਗ੍ਰਾਮ ਤੋਂ ਮੱਧਿਕਾ ਵਰਗ ਪਛਾਣੋ।",
-        "ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਦੇ ਅੱਧੇ ਸਥਾਨ ਵਾਲਾ ਪ੍ਰੇਖਣ ਕਿਹੜੇ ਵਰਗ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
-        "ਇਸ ਆਵ੍ਰਿੱਤੀ ਵੰਡ ਦਾ ਮੱਧਿਕਾ ਵਰਗ ਕਿਹੜਾ ਹੈ?",
+        "ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਦੇ ਅੱਧੇ ਸਥਾਨ ਵਾਲਾ ਪ੍ਰੇਖਣ ਕਿਹੜੇ ਵਰਗ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
+        "ਇਸ ਬਾਰੰਬਾਰਤਾ ਵੰਡ ਦਾ ਮੱਧਿਕਾ ਵਰਗ ਕਿਹੜਾ ਹੈ?",
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -352,16 +352,16 @@ function localizedStem(
     }
     case "APPROX_GROUPED_MEAN_FROM_HISTOGRAM": {
       const surfacesHi = [
-        "वर्ग-मध्य मानों का उपयोग करके हिस्टोग्राम द्वारा दर्शाए गए वितरण का अनुमानित माध्य ज्ञात कीजिए।",
-        "हिस्टोग्राम से दर्शाया गया अनुमानित अंकगणितीय माध्य कितना है?",
-        "प्रत्येक वर्ग के मध्य मान का उपयोग करके समूहित माध्य ज्ञात कीजिए।",
-        "वर्ग-मध्य विधि से हिस्टोग्राम का माध्य अनुमानित कीजिए।",
+        "वर्ग-मध्य मानों का उपयोग करके हिस्टोग्राम द्वारा दर्शाए गए वितरण का अनुमानित औसत ज्ञात कीजिए।",
+        "हिस्टोग्राम से दर्शाया गया अनुमानित अंकगणितीय औसत कितना है?",
+        "प्रत्येक वर्ग के मध्य मान का उपयोग करके समूहित औसत ज्ञात कीजिए।",
+        "वर्ग-मध्य विधि से हिस्टोग्राम का औसत अनुमानित कीजिए।",
       ];
       const surfacesPa = [
-        "ਵਰਗ-ਮੱਧ ਮੁੱਲਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਹਿਸਟੋਗ੍ਰਾਮ ਦੁਆਰਾ ਦਰਸਾਈ ਵੰਡ ਦਾ ਅਨੁਮਾਨਿਤ ਮੱਧ ਕੱਢੋ।",
-        "ਹਿਸਟੋਗ੍ਰਾਮ ਤੋਂ ਦਰਸਾਇਆ ਅਨੁਮਾਨਿਤ ਅੰਕਗਣਿਤ ਮੱਧ ਕਿੰਨਾ ਹੈ?",
-        "ਹਰੇਕ ਵਰਗ ਦੇ ਮੱਧ ਮੁੱਲ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਸਮੂਹਿਤ ਮੱਧ ਕੱਢੋ।",
-        "ਵਰਗ-ਮੱਧ ਵਿਧੀ ਨਾਲ ਹਿਸਟੋਗ੍ਰਾਮ ਦਾ ਮੱਧ ਅਨੁਮਾਨਿਤ ਕਰੋ।",
+        "ਵਰਗ-ਮੱਧ ਮੁੱਲਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਹਿਸਟੋਗ੍ਰਾਮ ਦੁਆਰਾ ਦਰਸਾਈ ਵੰਡ ਦਾ ਅਨੁਮਾਨਿਤ ਔਸਤ ਕੱਢੋ।",
+        "ਹਿਸਟੋਗ੍ਰਾਮ ਤੋਂ ਦਰਸਾਇਆ ਅਨੁਮਾਨਿਤ ਅੰਕਗਣਿਤ ਔਸਤ ਕਿੰਨਾ ਹੈ?",
+        "ਹਰੇਕ ਵਰਗ ਦੇ ਮੱਧ ਮੁੱਲ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਸਮੂਹਿਤ ਔਸਤ ਕੱਢੋ।",
+        "ਵਰਗ-ਮੱਧ ਵਿਧੀ ਨਾਲ ਹਿਸਟੋਗ੍ਰਾਮ ਦਾ ਔਸਤ ਅਨੁਮਾਨਿਤ ਕਰੋ।",
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -374,7 +374,7 @@ function localizedStem(
       const surfacesPa = [
         "ਸਮੂਹਿਤ ਅੰਕੜਿਆਂ ਦੇ ਬਹੁਲਕ ਸੂਤਰ ਨਾਲ ਹਿਸਟੋਗ੍ਰਾਮ ਦਾ ਅਨੁਮਾਨਿਤ ਬਹੁਲਕ ਕੱਢੋ।",
         "ਹਿਸਟੋਗ੍ਰਾਮ ਦੁਆਰਾ ਦਰਸਾਈ ਵੰਡ ਦਾ ਅਨੁਮਾਨਿਤ ਬਹੁਲਕ ਕੱਢੋ।",
-        "ਬਹੁਲਕ ਵਰਗ ਅਤੇ ਉਸ ਦੇ ਦੋਨੋਂ ਗੁਆਂਢੀ ਵਰਗਾਂ ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ ਨਾਲ ਸਮੂਹਿਤ ਬਹੁਲਕ ਕੱਢੋ।",
+        "ਬਹੁਲਕ ਵਰਗ ਅਤੇ ਉਸ ਦੇ ਦੋਨੋਂ ਗੁਆਂਢੀ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਨਾਲ ਸਮੂਹਿਤ ਬਹੁਲਕ ਕੱਢੋ।",
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -401,16 +401,16 @@ function localizedExplanation(
       const target = bins[Number(evidence.targetIndex)]!;
       return pack(
         "समान वर्ग-चौड़ाई वाले हिस्टोग्राम में प्रत्येक आयत की ऊँचाई उस वर्ग की आवृत्ति बताती है।",
-        "ਬਰਾਬਰ ਵਰਗ-ਚੌੜਾਈ ਵਾਲੇ ਹਿਸਟੋਗ੍ਰਾਮ ਵਿੱਚ ਹਰ ਆਯਤ ਦੀ ਉਚਾਈ ਉਸ ਵਰਗ ਦੀ ਆਵ੍ਰਿੱਤੀ ਦੱਸਦੀ ਹੈ।",
+        "ਬਰਾਬਰ ਵਰਗ-ਚੌੜਾਈ ਵਾਲੇ ਹਿਸਟੋਗ੍ਰਾਮ ਵਿੱਚ ਹਰ ਆਯਤ ਦੀ ਉਚਾਈ ਉਸ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ ਦੱਸਦੀ ਹੈ।",
         [`वर्ग ${interval(target)} का आयत देखें।`, `उसकी ऊँचाई ${target.frequency} है, इसलिए आवृत्ति ${target.frequency} है।`],
-        [`ਵਰਗ ${interval(target)} ਦਾ ਆਯਤ ਵੇਖੋ।`, `ਉਸ ਦੀ ਉਚਾਈ ${target.frequency} ਹੈ, ਇਸ ਲਈ ਆਵ੍ਰਿੱਤੀ ${target.frequency} ਹੈ।`],
+        [`ਵਰਗ ${interval(target)} ਦਾ ਆਯਤ ਵੇਖੋ।`, `ਉਸ ਦੀ ਉਚਾਈ ${target.frequency} ਹੈ, ਇਸ ਲਈ ਬਾਰੰਬਾਰਤਾ ${target.frequency} ਹੈ।`],
       );
     }
     case "TOTAL_FREQUENCY": {
       const values = bins.map((bin) => bin.frequency);
       return pack(
         "कुल आवृत्ति के लिए सभी वर्गों की आवृत्तियाँ जोड़ें।",
-        "ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਲਈ ਸਾਰੇ ਵਰਗਾਂ ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ ਜੋੜੋ।",
+        "ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਲਈ ਸਾਰੇ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਜੋੜੋ।",
         [`कुल = ${values.join(" + ")} = ${total}।`],
         [`ਕੁੱਲ = ${values.join(" + ")} = ${total}।`],
       );
@@ -421,9 +421,9 @@ function localizedExplanation(
       const answer = sumRange(bins, start, end);
       return pack(
         "दिए गए परास में आने वाले सभी वर्गों की आवृत्तियाँ जोड़ें।",
-        "ਦਿੱਤੇ ਪਰਾਸ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਸਾਰੇ ਵਰਗਾਂ ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ ਜੋੜੋ।",
+        "ਦਿੱਤੇ ਪਰਾਸ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਸਾਰੇ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਜੋੜੋ।",
         [`आवृत्तियाँ = ${selected.map((bin) => bin.frequency).join(" + ")} = ${answer}।`],
-        [`ਆਵ੍ਰਿੱਤੀਆਂ = ${selected.map((bin) => bin.frequency).join(" + ")} = ${answer}।`],
+        [`ਬਾਰੰਬਾਰਤਾਵਾਂ = ${selected.map((bin) => bin.frequency).join(" + ")} = ${answer}।`],
       );
     }
     case "ABOVE_BOUNDARY_TOTAL": {
@@ -433,9 +433,9 @@ function localizedExplanation(
       const answer = sumRange(bins, start, bins.length - 1);
       return pack(
         "दी गई सीमा से शुरू होने वाले वर्ग और उसके दाईं ओर के सभी वर्गों की आवृत्तियाँ जोड़ें।",
-        "ਦਿੱਤੀ ਸੀਮਾ ਤੋਂ ਸ਼ੁਰੂ ਹੋਣ ਵਾਲੇ ਵਰਗ ਅਤੇ ਉਸ ਦੇ ਸੱਜੇ ਪਾਸੇ ਦੇ ਸਾਰੇ ਵਰਗਾਂ ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ ਜੋੜੋ।",
+        "ਦਿੱਤੀ ਸੀਮਾ ਤੋਂ ਸ਼ੁਰੂ ਹੋਣ ਵਾਲੇ ਵਰਗ ਅਤੇ ਉਸ ਦੇ ਸੱਜੇ ਪਾਸੇ ਦੇ ਸਾਰੇ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਜੋੜੋ।",
         [`${boundary} से आगे की आवृत्तियाँ = ${selected.map((bin) => bin.frequency).join(" + ")} = ${answer}।`],
-        [`${boundary} ਤੋਂ ਅੱਗੇ ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ = ${selected.map((bin) => bin.frequency).join(" + ")} = ${answer}।`],
+        [`${boundary} ਤੋਂ ਅੱਗੇ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ = ${selected.map((bin) => bin.frequency).join(" + ")} = ${answer}।`],
       );
     }
     case "BELOW_BOUNDARY_TOTAL": {
@@ -445,9 +445,9 @@ function localizedExplanation(
       const answer = sumRange(bins, 0, endExclusive - 1);
       return pack(
         "दी गई सीमा से नीचे समाप्त होने वाले सभी वर्गों की आवृत्तियाँ जोड़ें।",
-        "ਦਿੱਤੀ ਸੀਮਾ ਤੋਂ ਹੇਠਾਂ ਖਤਮ ਹੋਣ ਵਾਲੇ ਸਾਰੇ ਵਰਗਾਂ ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ ਜੋੜੋ।",
+        "ਦਿੱਤੀ ਸੀਮਾ ਤੋਂ ਹੇਠਾਂ ਖਤਮ ਹੋਣ ਵਾਲੇ ਸਾਰੇ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਜੋੜੋ।",
         [`${boundary} से नीचे की आवृत्तियाँ = ${selected.map((bin) => bin.frequency).join(" + ")} = ${answer}।`],
-        [`${boundary} ਤੋਂ ਹੇਠਾਂ ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ = ${selected.map((bin) => bin.frequency).join(" + ")} = ${answer}।`],
+        [`${boundary} ਤੋਂ ਹੇਠਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ = ${selected.map((bin) => bin.frequency).join(" + ")} = ${answer}।`],
       );
     }
     case "RANGE_RATIO": {
@@ -457,27 +457,27 @@ function localizedExplanation(
       const right = sumRange(bins, rightStart, rightEnd);
       return pack(
         "दोनों परासों की कुल आवृत्ति अलग-अलग जोड़ें और फिर उसी क्रम में अनुपात सरल करें।",
-        "ਦੋਵੇਂ ਪਰਾਸਾਂ ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਵੱਖ-ਵੱਖ ਜੋੜੋ ਅਤੇ ਫਿਰ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।",
+        "ਦੋਵੇਂ ਪਰਾਸਾਂ ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਵੱਖ-ਵੱਖ ਜੋੜੋ ਅਤੇ ਫਿਰ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।",
         [`${rangeLabel(bins, leftStart, leftEnd)} की कुल आवृत्ति = ${left}।`, `${rangeLabel(bins, rightStart, rightEnd)} की कुल आवृत्ति = ${right}।`, `आवश्यक अनुपात = ${left}:${right} = ${question.answer}।`],
-        [`${rangeLabel(bins, leftStart, leftEnd)} ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ = ${left}।`, `${rangeLabel(bins, rightStart, rightEnd)} ਦੀ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ = ${right}।`, `ਲੋੜੀਂਦਾ ਅਨੁਪਾਤ = ${left}:${right} = ${question.answer}।`],
+        [`${rangeLabel(bins, leftStart, leftEnd)} ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${left}।`, `${rangeLabel(bins, rightStart, rightEnd)} ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${right}।`, `ਲੋੜੀਂਦਾ ਅਨੁਪਾਤ = ${left}:${right} = ${question.answer}।`],
       );
     }
     case "CLASS_SHARE_OF_TOTAL": {
       const target = bins[Number(evidence.targetIndex)]!;
       return pack(
         "वर्ग की आवृत्ति को कुल आवृत्ति से भाग देकर 100 से गुणा करें।",
-        "ਵਰਗ ਦੀ ਆਵ੍ਰਿੱਤੀ ਨੂੰ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਨਾਲ ਭਾਗ ਦੇ ਕੇ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।",
+        "ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ ਨੂੰ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਭਾਗ ਦੇ ਕੇ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।",
         [`कुल आवृत्ति = ${total}।`, `वर्ग ${interval(target)} की आवृत्ति = ${target.frequency}।`, `प्रतिशत = ${target.frequency}/${total} × 100 = ${question.answer}।`],
-        [`ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ = ${total}।`, `ਵਰਗ ${interval(target)} ਦੀ ਆਵ੍ਰਿੱਤੀ = ${target.frequency}।`, `ਪ੍ਰਤੀਸ਼ਤ = ${target.frequency}/${total} × 100 = ${question.answer}।`],
+        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}।`, `ਵਰਗ ${interval(target)} ਦੀ ਬਾਰੰਬਾਰਤਾ = ${target.frequency}।`, `ਪ੍ਰਤੀਸ਼ਤ = ${target.frequency}/${total} × 100 = ${question.answer}।`],
       );
     }
     case "FREQUENCY_DIFFERENCE_BETWEEN_CLASSES": {
       const left = bins[Number(evidence.leftIndex)]!, right = bins[Number(evidence.rightIndex)]!;
       return pack(
         "दोनों स्तंभों की ऊँचाइयाँ पढ़ें और बड़ी आवृत्ति में से छोटी आवृत्ति घटाएँ।",
-        "ਦੋਵੇਂ ਸਤੰਭਾਂ ਦੀਆਂ ਉਚਾਈਆਂ ਪੜ੍ਹੋ ਅਤੇ ਵੱਡੀ ਆਵ੍ਰਿੱਤੀ ਵਿੱਚੋਂ ਛੋਟੀ ਆਵ੍ਰਿੱਤੀ ਘਟਾਓ।",
+        "ਦੋਵੇਂ ਸਤੰਭਾਂ ਦੀਆਂ ਉਚਾਈਆਂ ਪੜ੍ਹੋ ਅਤੇ ਵੱਡੀ ਬਾਰੰਬਾਰਤਾ ਵਿੱਚੋਂ ਛੋਟੀ ਬਾਰੰਬਾਰਤਾ ਘਟਾਓ।",
         [`आवृत्तियाँ = ${left.frequency} और ${right.frequency}।`, `अंतर = |${left.frequency} - ${right.frequency}| = ${question.answer}।`],
-        [`ਆਵ੍ਰਿੱਤੀਆਂ = ${left.frequency} ਅਤੇ ${right.frequency}।`, `ਅੰਤਰ = |${left.frequency} - ${right.frequency}| = ${question.answer}।`],
+        [`ਬਾਰੰਬਾਰਤਾਵਾਂ = ${left.frequency} ਅਤੇ ${right.frequency}।`, `ਅੰਤਰ = |${left.frequency} - ${right.frequency}| = ${question.answer}।`],
       );
     }
     case "MODAL_CLASS_IDENTIFICATION": {
@@ -485,35 +485,35 @@ function localizedExplanation(
       const modal = bins[index]!;
       return pack(
         "सबसे अधिक आवृत्ति वाला वर्ग बहुलक वर्ग होता है।",
-        "ਸਭ ਤੋਂ ਵੱਧ ਆਵ੍ਰਿੱਤੀ ਵਾਲਾ ਵਰਗ ਬਹੁਲਕ ਵਰਗ ਹੁੰਦਾ ਹੈ।",
+        "ਸਭ ਤੋਂ ਵੱਧ ਬਾਰੰਬਾਰਤਾ ਵਾਲਾ ਵਰਗ ਬਹੁਲਕ ਵਰਗ ਹੁੰਦਾ ਹੈ।",
         [`सबसे ऊँचे स्तंभ की आवृत्ति ${modal.frequency} है।`, `इसका वर्ग अंतराल ${interval(modal)} है।`],
-        [`ਸਭ ਤੋਂ ਉੱਚੇ ਸਤੰਭ ਦੀ ਆਵ੍ਰਿੱਤੀ ${modal.frequency} ਹੈ।`, `ਇਸ ਦਾ ਵਰਗ ਅੰਤਰਾਲ ${interval(modal)} ਹੈ।`],
+        [`ਸਭ ਤੋਂ ਉੱਚੇ ਸਤੰਭ ਦੀ ਬਾਰੰਬਾਰਤਾ ${modal.frequency} ਹੈ।`, `ਇਸ ਦਾ ਵਰਗ ਅੰਤਰਾਲ ${interval(modal)} ਹੈ।`],
       );
     }
     case "MEDIAN_CLASS_IDENTIFICATION": {
       const cumulative = cumulativeFrequencies(bins);
       const index = Number(evidence.medianIndex);
       const half = formatDecimal(total, 2);
-      const headers = hi ? ["वर्ग", "आवृत्ति", "संचयी आवृत्ति"] : ["ਵਰਗ", "ਆਵ੍ਰਿੱਤੀ", "ਸੰਚਿਤ ਆਵ੍ਰਿੱਤੀ"];
+      const headers = hi ? ["वर्ग", "आवृत्ति", "संचयी आवृत्ति"] : ["ਵਰਗ", "ਬਾਰੰਬਾਰਤਾ", "ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ"];
       const rows = bins.map((bin, rowIndex) => [interval(bin), String(bin.frequency), String(cumulative[rowIndex])]);
       return pack(
         "कुल आवृत्ति का आधा स्थान निकालें और पहली ऐसी संचयी आवृत्ति खोजें जो उस स्थान तक पहुँचती या उससे आगे जाती है।",
-        "ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਦਾ ਅੱਧਾ ਸਥਾਨ ਕੱਢੋ ਅਤੇ ਪਹਿਲੀ ਐਸੀ ਸੰਚਿਤ ਆਵ੍ਰਿੱਤੀ ਲੱਭੋ ਜੋ ਉਸ ਸਥਾਨ ਤੱਕ ਪਹੁੰਚਦੀ ਜਾਂ ਉਸ ਤੋਂ ਅੱਗੇ ਜਾਂਦੀ ਹੈ।",
+        "ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਦਾ ਅੱਧਾ ਸਥਾਨ ਕੱਢੋ ਅਤੇ ਪਹਿਲੀ ਐਸੀ ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ ਲੱਭੋ ਜੋ ਉਸ ਸਥਾਨ ਤੱਕ ਪਹੁੰਚਦੀ ਜਾਂ ਉਸ ਤੋਂ ਅੱਗੇ ਜਾਂਦੀ ਹੈ।",
         [`कुल आवृत्ति = ${total}, इसलिए आधा स्थान = ${half}।`, `पहली उपयुक्त संचयी आवृत्ति ${cumulative[index]} है, जो वर्ग ${interval(bins[index]!)} में आती है।`],
-        [`ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ = ${total}, ਇਸ ਲਈ ਅੱਧਾ ਸਥਾਨ = ${half}।`, `ਪਹਿਲੀ ਉਚਿਤ ਸੰਚਿਤ ਆਵ੍ਰਿੱਤੀ ${cumulative[index]} ਹੈ, ਜੋ ਵਰਗ ${interval(bins[index]!)} ਵਿੱਚ ਆਉਂਦੀ ਹੈ।`],
+        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}, ਇਸ ਲਈ ਅੱਧਾ ਸਥਾਨ = ${half}।`, `ਪਹਿਲੀ ਉਚਿਤ ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ ${cumulative[index]} ਹੈ, ਜੋ ਵਰਗ ${interval(bins[index]!)} ਵਿੱਚ ਆਉਂਦੀ ਹੈ।`],
         { headers, rows },
       );
     }
     case "KTH_OBSERVATION_CLASS": {
       const cumulative = cumulativeFrequencies(bins);
       const rank = Number(evidence.rank), index = Number(evidence.targetIndex);
-      const headers = hi ? ["वर्ग", "संचयी आवृत्ति"] : ["ਵਰਗ", "ਸੰਚਿਤ ਆਵ੍ਰਿੱਤੀ"];
+      const headers = hi ? ["वर्ग", "संचयी आवृत्ति"] : ["ਵਰਗ", "ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ"];
       const rows = bins.map((bin, rowIndex) => [interval(bin), String(cumulative[rowIndex])]);
       return pack(
         "संचयी आवृत्ति से वह पहला वर्ग खोजें जहाँ आवश्यक प्रेक्षण क्रमांक पहुँचता है।",
-        "ਸੰਚਿਤ ਆਵ੍ਰਿੱਤੀ ਤੋਂ ਉਹ ਪਹਿਲਾ ਵਰਗ ਲੱਭੋ ਜਿੱਥੇ ਲੋੜੀਂਦਾ ਪ੍ਰੇਖਣ ਨੰਬਰ ਪਹੁੰਚਦਾ ਹੈ।",
+        "ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ ਤੋਂ ਉਹ ਪਹਿਲਾ ਵਰਗ ਲੱਭੋ ਜਿੱਥੇ ਲੋੜੀਂਦਾ ਪ੍ਰੇਖਣ ਨੰਬਰ ਪਹੁੰਚਦਾ ਹੈ।",
         [`आवश्यक स्थान = ${rank}।`, `पहली संचयी आवृत्ति जो ${rank} या उससे अधिक है, ${cumulative[index]} है; इसलिए प्रेक्षण ${interval(bins[index]!)} में है।`],
-        [`ਲੋੜੀਂਦਾ ਸਥਾਨ = ${rank}।`, `ਪਹਿਲੀ ਸੰਚਿਤ ਆਵ੍ਰਿੱਤੀ ਜੋ ${rank} ਜਾਂ ਇਸ ਤੋਂ ਵੱਧ ਹੈ, ${cumulative[index]} ਹੈ; ਇਸ ਲਈ ਪ੍ਰੇਖਣ ${interval(bins[index]!)} ਵਿੱਚ ਹੈ।`],
+        [`ਲੋੜੀਂਦਾ ਸਥਾਨ = ${rank}।`, `ਪਹਿਲੀ ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ ਜੋ ${rank} ਜਾਂ ਇਸ ਤੋਂ ਵੱਧ ਹੈ, ${cumulative[index]} ਹੈ; ਇਸ ਲਈ ਪ੍ਰੇਖਣ ${interval(bins[index]!)} ਵਿੱਚ ਹੈ।`],
         { headers, rows },
       );
     }
@@ -522,16 +522,16 @@ function localizedExplanation(
       const weighted = formatDecimal(doubledWeighted, 2);
       const headers = hi
         ? ["वर्ग", "आवृत्ति", "वर्ग-मध्य", "आवृत्ति × वर्ग-मध्य"]
-        : ["ਵਰਗ", "ਆਵ੍ਰਿੱਤੀ", "ਵਰਗ-ਮੱਧ", "ਆਵ੍ਰਿੱਤੀ × ਵਰਗ-ਮੱਧ"];
+        : ["ਵਰਗ", "ਬਾਰੰਬਾਰਤਾ", "ਵਰਗ-ਮੱਧ", "ਬਾਰੰਬਾਰਤਾ × ਵਰਗ-ਮੱਧ"];
       const rows = bins.map((bin) => {
         const midpointNumerator = bin.lower + bin.upper;
         return [interval(bin), String(bin.frequency), formatDecimal(midpointNumerator, 2), formatDecimal(midpointNumerator * bin.frequency, 2)];
       });
       return pack(
         "प्रत्येक वर्ग का मध्य मान लेकर उसे उसकी आवृत्ति से गुणा करें। इन गुणनफलों के योग को कुल आवृत्ति से भाग दें।",
-        "ਹਰੇਕ ਵਰਗ ਦਾ ਮੱਧ ਮੁੱਲ ਲੈ ਕੇ ਉਸ ਨੂੰ ਉਸ ਦੀ ਆਵ੍ਰਿੱਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ। ਇਨ੍ਹਾਂ ਗੁਣਨਫਲਾਂ ਦੇ ਜੋੜ ਨੂੰ ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।",
-        [`कुल आवृत्ति = ${total}।`, `आवृत्ति × वर्ग-मध्य का योग = ${weighted}।`, `माध्य = ${weighted}/${total} = ${question.answer}।`],
-        [`ਕੁੱਲ ਆਵ੍ਰਿੱਤੀ = ${total}।`, `ਆਵ੍ਰਿੱਤੀ × ਵਰਗ-ਮੱਧ ਦਾ ਜੋੜ = ${weighted}।`, `ਮੱਧ = ${weighted}/${total} = ${question.answer}।`],
+        "ਹਰੇਕ ਵਰਗ ਦਾ ਮੱਧ ਮੁੱਲ ਲੈ ਕੇ ਉਸ ਨੂੰ ਉਸ ਦੀ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਗੁਣਾ ਕਰੋ। ਇਨ੍ਹਾਂ ਗੁਣਨਫਲਾਂ ਦੇ ਜੋੜ ਨੂੰ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਭਾਗ ਦਿਓ।",
+        [`कुल आवृत्ति = ${total}।`, `आवृत्ति × वर्ग-मध्य का योग = ${weighted}।`, `औसत = ${weighted}/${total} = ${question.answer}।`],
+        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}।`, `ਬਾਰੰਬਾਰਤਾ × ਵਰਗ-ਮੱਧ ਦਾ ਜੋੜ = ${weighted}।`, `ਔਸਤ = ${weighted}/${total} = ${question.answer}।`],
         { headers, rows },
       );
     }
@@ -539,7 +539,7 @@ function localizedExplanation(
       const index = Number(evidence.modalIndex);
       const modal = bins[index]!;
       const previous = bins[index - 1]!, next = bins[index + 1]!;
-      const headers = hi ? ["वर्ग", "आवृत्ति", "भूमिका"] : ["ਵਰਗ", "ਆਵ੍ਰਿੱਤੀ", "ਭੂਮਿਕਾ"];
+      const headers = hi ? ["वर्ग", "आवृत्ति", "भूमिका"] : ["ਵਰਗ", "ਬਾਰੰਬਾਰਤਾ", "ਭੂਮਿਕਾ"];
       const rows = [
         [interval(previous), String(previous.frequency), hi ? "पिछला वर्ग" : "ਪਿਛਲਾ ਵਰਗ"],
         [interval(modal), String(modal.frequency), hi ? "बहुलक वर्ग" : "ਬਹੁਲਕ ਵਰਗ"],
@@ -547,9 +547,9 @@ function localizedExplanation(
       ];
       return pack(
         "समूहित बहुलक के लिए बहुलक वर्ग, उसके पिछले और अगले वर्ग की आवृत्तियों तथा वर्ग-चौड़ाई का उपयोग करें।",
-        "ਸਮੂਹਿਤ ਬਹੁਲਕ ਲਈ ਬਹੁਲਕ ਵਰਗ, ਉਸ ਦੇ ਪਿਛਲੇ ਅਤੇ ਅਗਲੇ ਵਰਗ ਦੀਆਂ ਆਵ੍ਰਿੱਤੀਆਂ ਅਤੇ ਵਰਗ-ਚੌੜਾਈ ਵਰਤੋ।",
+        "ਸਮੂਹਿਤ ਬਹੁਲਕ ਲਈ ਬਹੁਲਕ ਵਰਗ, ਉਸ ਦੇ ਪਿਛਲੇ ਅਤੇ ਅਗਲੇ ਵਰਗ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਅਤੇ ਵਰਗ-ਚੌੜਾਈ ਵਰਤੋ।",
         [`बहुलक वर्ग = ${interval(modal)}।`, `पिछले वर्ग की आवृत्ति = ${previous.frequency}, बहुलक वर्ग की आवृत्ति = ${modal.frequency}, अगले वर्ग की आवृत्ति = ${next.frequency}, वर्ग-चौड़ाई = ${stimulus.classWidth}।`, `इन मानों को समूहित बहुलक सूत्र में रखने पर बहुलक = ${question.answer}।`],
-        [`ਬਹੁਲਕ ਵਰਗ = ${interval(modal)}।`, `ਪਿਛਲੇ ਵਰਗ ਦੀ ਆਵ੍ਰਿੱਤੀ = ${previous.frequency}, ਬਹੁਲਕ ਵਰਗ ਦੀ ਆਵ੍ਰਿੱਤੀ = ${modal.frequency}, ਅਗਲੇ ਵਰਗ ਦੀ ਆਵ੍ਰਿੱਤੀ = ${next.frequency}, ਵਰਗ-ਚੌੜਾਈ = ${stimulus.classWidth}।`, `ਇਨ੍ਹਾਂ ਮੁੱਲਾਂ ਨੂੰ ਸਮੂਹਿਤ ਬਹੁਲਕ ਸੂਤਰ ਵਿੱਚ ਰੱਖਣ ਤੇ ਬਹੁਲਕ = ${question.answer}।`],
+        [`ਬਹੁਲਕ ਵਰਗ = ${interval(modal)}।`, `ਪਿਛਲੇ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ = ${previous.frequency}, ਬਹੁਲਕ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ = ${modal.frequency}, ਅਗਲੇ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ = ${next.frequency}, ਵਰਗ-ਚੌੜਾਈ = ${stimulus.classWidth}।`, `ਇਨ੍ਹਾਂ ਮੁੱਲਾਂ ਨੂੰ ਸਮੂਹਿਤ ਬਹੁਲਕ ਸੂਤਰ ਵਿੱਚ ਰੱਖਣ ਤੇ ਬਹੁਲਕ = ${question.answer}।`],
         { headers, rows },
       );
     }
