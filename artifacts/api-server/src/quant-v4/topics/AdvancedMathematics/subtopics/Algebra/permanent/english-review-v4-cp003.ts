@@ -98,9 +98,11 @@ function zeroSumQuestion(squareSum: number, frame: number) {
 
 function zeroSumExplanation(squareSum: number, answer: Rational) {
   return [
-    "Use (a + b + c)² = a² + b² + c² + 2(ab + bc + ca).",
-    `Since a + b + c = 0, we get 0 = ${squareSum} + 2(ab + bc + ca).`,
-    `Therefore ab + bc + ca = -${squareSum}/2 = ${formatRational(answer)}.`,
+    "Use the identity (a + b + c)² = a² + b² + c² + 2(ab + bc + ca).",
+    "Here a + b + c = 0, so the left side is 0² = 0.",
+    `Substituting a² + b² + c² = ${squareSum} gives 0 = ${squareSum} + 2(ab + bc + ca).`,
+    `Move ${squareSum} to the other side: 2(ab + bc + ca) = -${squareSum}.`,
+    `Dividing by 2 gives ab + bc + ca = -${squareSum}/2 = ${formatRational(answer)}.`,
   ].join(" ");
 }
 
