@@ -1,13 +1,7 @@
-# CP007 Approval Gate
+# CP007 Retrofit Approval Gate
 
-Current state: `HUMAN_REVIEW_PENDING`
+CP007 has materially changed from 61 atomic authorities to 164.
 
-Approval must follow review of the generated 120-question Markdown pack and successful exact-head CI.
+Fresh owner approval is required on the exact reviewed SHA.
 
-Until explicit approval:
-- keep all CP007 authorities `REVIEW_PENDING`;
-- keep lifecycle `REVIEW_ONLY`;
-- do not allocate permanent QLs;
-- do not register in Question Studio/runtime;
-- do not write to Question Bank;
-- do not enable tests, mocks, automatic publication, or public/student delivery.
+Approval covers the reviewed retrofit head only. It does not authorize runtime publication, permanent QL allocation, Question Studio registration, Question Bank writes, or test/mock eligibility.

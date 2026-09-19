@@ -1,9 +1,9 @@
-name: Validate Punjabi Forward Port CP007
+name: Validate Punjabi Retrofit CP007
 
 on:
   push:
     branches:
-      - "feature/punjabi-forward-port-cp007-v1"
+      - "feature/punjabi-retrofit-cp007-exhaustive-v1"
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
       - ".github/workflows/punjabi-forward-port-cp007.yml"
@@ -14,27 +14,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  validate-cp007:
+  validate-cp007-retrofit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+        with: {node-version: 22, cache: pnpm}
       - run: pnpm install --frozen-lockfile
-      - name: Bundle CP007 semantic proof
+      - name: Bundle CP007 retrofit semantic proof
         working-directory: artifacts/api-server
-        run: >-
-          pnpm exec esbuild
-          src/punjabi-v1/packages/PUN-001/checkpoints/CP007/CP007.test.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/punjabi-forward-port-cp007.test.mjs
-      - name: Run CP007 semantic proof
+        run: pnpm exec esbuild src/punjabi-v1/packages/PUN-001/checkpoints/CP007/CP007.test.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-retrofit-cp007.test.mjs
+      - name: Run CP007 retrofit semantic proof
         working-directory: artifacts/api-server
-        run: node dist/punjabi-forward-port-cp007.test.mjs
+        run: node dist/punjabi-retrofit-cp007.test.mjs
       - name: Build API server
         working-directory: artifacts/api-server
         run: pnpm run build
