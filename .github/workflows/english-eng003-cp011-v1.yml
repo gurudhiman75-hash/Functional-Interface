@@ -7,6 +7,7 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/**
   workflow_dispatch:
 
 permissions:
@@ -36,6 +37,10 @@ jobs:
         run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-003-cp011-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-003-cp011-v1.test.mjs
       - name: Run ENG-003 CP011 tests
         run: node artifacts/api-server/dist/english-v1/eng-003-cp011-v1.test.mjs
+      - name: Compile ENG-003 CP011 Question Studio lifecycle tests
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng003-cp011-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-003-cp011-question-studio-v1.test.mjs
+      - name: Run ENG-003 CP011 Question Studio lifecycle tests
+        run: node artifacts/api-server/dist/english-v1/eng-003-cp011-question-studio-v1.test.mjs
       - name: Compile ENG-003 CP011 review exporter
         run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/grammar-fillers/ENG-003/CP011/eng-003-cp011-review-v1-export.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-003-cp011-review-v1-export.mjs
       - name: Generate ENG-003 CP011 review file
