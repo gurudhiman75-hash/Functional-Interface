@@ -273,9 +273,13 @@ function stem(q: (typeof ENGLISH)[number], locale: NativeLocale): string {
   throw new Error(`${q.questionId}: unsupported CP003 QL ${ql}`);
 }
 
+function trimAnswerPunctuation(value: string): string {
+  return value.replace(/[।.]+$/u, "");
+}
+
 function explanation(q: (typeof ENGLISH)[number], locale: NativeLocale): string {
   const ql = Number(q.qlId.slice(-3));
-  const ans = option(q.canonicalAnswer, locale);
+  const ans = trimAnswerPunctuation(option(q.canonicalAnswer, locale));
   if (ql <= 4) return locale === "hi" ? `सही उत्तर है: ${ans}। यह प्रस्तावना के स्वीकृत संवैधानिक पाठ से संबंधित है।` : `ਸਹੀ ਉੱਤਰ ਹੈ: ${ans}। ਇਹ ਪ੍ਰਸਤਾਵਨਾ ਦੇ ਮੰਨੇ ਹੋਏ ਸੰਵਿਧਾਨਕ ਪਾਠ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।`;
   if (ql >= 5 && ql <= 11 || ql === 14) {
     const a = q.canonicalAnswer.startsWith("Article ") ? Number(q.canonicalAnswer.replace("Article ","")) : subjectArticle(q.canonicalAnswer);
