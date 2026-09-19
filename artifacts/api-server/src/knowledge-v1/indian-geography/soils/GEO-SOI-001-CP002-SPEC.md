@@ -27,7 +27,7 @@ Permanent QLs: `GEO-SOI-001-QL-010` to `GEO-SOI-001-QL-018`
 - Four unique options per question.
 - Khadar and bhangar must be clearly distinguished by age, floodplain position and renewal.
 - Eastern deltaic alluvium must remain distinct from the northern-plains ownership.
-- Explanations should be simple and connected, not option-by-option.
+- Explanations should be simple and connected, usually 2–3 short sentences: answer first, then add one useful why/how connection. Do not use option-by-option analysis.
 - Every item carries source and fact provenance.
 - Review-only lifecycle; runtime publication disabled.
 
