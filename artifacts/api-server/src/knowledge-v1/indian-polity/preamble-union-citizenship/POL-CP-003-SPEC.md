@@ -1,8 +1,8 @@
 # POL-CP-003 — Preamble, Union & Citizenship
 
 **Chapter:** POL-001 Indian Polity  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** BLOCKED pending English review approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Runtime registration:** DEFERRED to Polity Question Studio integration pass
 
 ## Scope
 
@@ -74,9 +74,9 @@ It deliberately excludes current citizenship-policy/current-affairs questions an
 - No invented Article numbers, fake citizenship categories or random cross-domain distractors.
 - The generic `On which date did the following occur...` wrapper rejected in CP-002 remains prohibited.
 
-## Review gate
+## Approved review profile
 
-V2 must satisfy:
+Approved V2 satisfies:
 - 58 review questions;
 - all 18 QLs represented;
 - 14 Easy / 35 Medium / 9 Hard;
