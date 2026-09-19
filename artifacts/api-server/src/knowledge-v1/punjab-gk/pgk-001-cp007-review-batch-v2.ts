@@ -27,7 +27,7 @@ const STEMS_V2 = Object.freeze([
   "Which wetland-location pair is correctly matched?",
   "Ropar Wetland lies on which river?",
   "Nangal Wetland forms part of which project system?",
-  "Beas Conservation Reserve extends along which river?",
+  "Punjab's river conservation reserve that supports the Indus river dolphin follows which river?",
   "Keshopur-Miani belongs to which protected-area category?",
   "The protected Beas river stretch in Punjab is designated as a:",
   "Nangal belongs to which protected-area category?",

@@ -93,8 +93,8 @@ export const PGK_001_CP004_ANCIENT_RIVER_NAMES: readonly Pgk001Cp004AncientRiver
   {
     id: "ancient-jhelum-vitista",
     modernName: "Jhelum",
-    canonicalAncientName: "Vitista",
-    acceptedAncientSpellings: Object.freeze(["Vitista", "Vitasta"]),
+    canonicalAncientName: "Vitasta",
+    acceptedAncientSpellings: Object.freeze(["Vitasta", "Vitista"]),
   },
 ]);
 

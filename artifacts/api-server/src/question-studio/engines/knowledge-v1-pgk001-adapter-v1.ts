@@ -1,4 +1,6 @@
 import { deterministicShuffle } from "../../knowledge-v1/deterministic";
+import { PGK_001_LATE_PROVENANCE_V2 } from "../../knowledge-v1/punjab-gk/pgk-001-late-provenance-v2";
+import { PGK_001_FINAL_EDITORIAL_OVERLAY_V2 } from "../../knowledge-v1/punjab-gk/pgk-001-final-editorial-overlay-v2";
 import * as cp001 from "../../knowledge-v1/punjab-gk/pgk-001-cp001-review-batch-v1";
 import * as cp002 from "../../knowledge-v1/punjab-gk/pgk-001-cp002-review-batch-v3";
 import * as cp003 from "../../knowledge-v1/punjab-gk/pgk-001-cp003-review-batch-v2";
@@ -122,12 +124,15 @@ function materializeModule(
     const questionId = String(
       row.questionId ?? row.id ?? `${cpId}-Q${String(index + 1).padStart(3, "0")}`,
     ).trim();
-    const sourceIds = Array.isArray(row.sourceIds) ? row.sourceIds.map(String) : [];
-    const sourceFactIds = Array.isArray(row.sourceFactIds)
+    const rowSourceIds = Array.isArray(row.sourceIds) ? row.sourceIds.map(String) : [];
+    const rowSourceFactIds = Array.isArray(row.sourceFactIds)
       ? row.sourceFactIds.map(String)
       : Array.isArray(row.factIds)
         ? row.factIds.map(String)
         : [];
+    const lateProvenance = PGK_001_LATE_PROVENANCE_V2[qlId];
+    const sourceIds = rowSourceIds.length ? rowSourceIds : [...(lateProvenance?.sourceIds ?? [])];
+    const sourceFactIds = rowSourceFactIds.length ? rowSourceFactIds : [...(lateProvenance?.factIds ?? [])];
 
     if (!/^PGK-001-QL-\d{3}$/.test(qlId)) throw new Error(`${questionId}: invalid QL ID ${qlId}`);
     if (!["Easy", "Medium", "Hard"].includes(difficulty)) throw new Error(`${questionId}: invalid difficulty`);
@@ -153,9 +158,49 @@ function materializeModule(
   });
 }
 
+function applyFinalEditorialOverlay(question: FrozenPgkQuestion): FrozenPgkQuestion {
+  const override = PGK_001_FINAL_EDITORIAL_OVERLAY_V2[question.questionId];
+  if (!override) return question;
+  const canonicalAnswer = override.canonicalAnswer ?? question.canonicalAnswer;
+  const options = override.options ? [...override.options] : [...question.options];
+  const correctIndex = options.indexOf(canonicalAnswer);
+  if (correctIndex < 0) {
+    throw new Error(`${question.questionId}: final editorial override is missing its canonical answer`);
+  }
+  return Object.freeze({
+    ...question,
+    stem: override.stem ?? question.stem,
+    difficulty: override.difficulty ?? question.difficulty,
+    explanation: override.explanation ?? question.explanation,
+    options: Object.freeze(options),
+    canonicalAnswer,
+    correctIndex,
+  });
+}
+
+function normalizeOptionPosition(
+  question: FrozenPgkQuestion,
+  desiredCorrectIndex: number,
+): FrozenPgkQuestion {
+  if (question.correctIndex === desiredCorrectIndex) return question;
+  const options = [...question.options];
+  const [answer] = options.splice(question.correctIndex, 1);
+  if (answer == null) throw new Error(`${question.questionId}: missing canonical answer option`);
+  options.splice(desiredCorrectIndex, 0, answer);
+  return Object.freeze({
+    ...question,
+    options: Object.freeze(options),
+    correctIndex: desiredCorrectIndex,
+  });
+}
+
+const materializedCorpus = modules.flatMap(([cpId, module]) =>
+  materializeModule(cpId, module as unknown as Record<string, unknown>),
+);
+
 export const PGK_001_QUESTION_STUDIO_CORPUS_V1: readonly FrozenPgkQuestion[] = Object.freeze(
-  modules.flatMap(([cpId, module]) =>
-    materializeModule(cpId, module as unknown as Record<string, unknown>),
+  materializedCorpus.map((question, index) =>
+    normalizeOptionPosition(applyFinalEditorialOverlay(question), index % 4),
   ),
 );
 
@@ -281,6 +326,10 @@ export const PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     immutableCorpus: true,
     deterministicSelection: true,
     selectionWithoutReplacement: true,
+    balancedCorrectOptionPositions: true,
+    optionOrderPolicy: "GLOBAL_A_B_C_D_ROUND_ROBIN_V2",
+    lateProvenanceOverlay: "PGK-001-LATE-PROVENANCE-V2",
+    finalEditorialOverlay: "PGK-001-FINAL-EDITORIAL-OVERLAY-V2",
     revisionPolicy: PGK_001_REVISION_POLICY_V1,
     permanentQlIds: qlIds,
     qlCount: qlIds.length,
