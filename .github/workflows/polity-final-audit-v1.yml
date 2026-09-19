@@ -30,19 +30,42 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - name: Enable pnpm
         run: corepack enable
+
       - name: Install workspace dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Run focused Polity audit tests
+        run: |
+          pnpm --dir artifacts/api-server exec vitest run \
+            src/knowledge-v1/indian-polity/president/pol-cp007-review-batch-v7.test.ts \
+            src/knowledge-v1/indian-polity/vice-president/pol-cp008-review-batch-v7.test.ts \
+            src/knowledge-v1/indian-polity/supreme-court/pol-cp012-review-batch-v3.test.ts \
+            src/knowledge-v1/indian-polity/high-courts-subordinate-judiciary-writs/pol-cp013-review-batch-v2.test.ts \
+            src/knowledge-v1/indian-polity/high-courts-subordinate-judiciary-writs/pol-cp013-review-batch-v3.test.ts \
+            src/knowledge-v1/indian-polity/governor/pol-cp014-review-batch-v2.test.ts \
+            src/knowledge-v1/indian-polity/governor/pol-cp014-review-batch-v3.test.ts \
+            src/knowledge-v1/indian-polity/state-legislature/pol-cp016-review-batch-v2.test.ts \
+            src/knowledge-v1/indian-polity/public-services-administrative-tribunals/pol-cp026-review-batch-v3.test.ts \
+            src/knowledge-v1/indian-polity/pol-001-final-editorial-stem-pass-v1.test.ts
+
       - name: Compile POL-001 final audit
         run: |
           mkdir -p artifacts/api-server/dist/polity
-          pnpm --dir artifacts/api-server exec esbuild             src/knowledge-v1/indian-polity/pol-001-final-audit-v1.ts             --bundle --platform=node --format=esm             --outfile=dist/polity/pol-001-final-audit-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-polity/pol-001-final-audit-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/polity/pol-001-final-audit-v1.mjs
+
       - name: Run POL-001 final audit
         run: node artifacts/api-server/dist/polity/pol-001-final-audit-v1.mjs
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
