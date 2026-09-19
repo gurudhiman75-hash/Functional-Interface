@@ -32,7 +32,8 @@ export function generatePolCp016ReviewBatchV1(): PolCp016ReviewQuestion[] {
   for(const question of questions){
     if(question.options[question.correctIndex]!==question.canonicalAnswer) throw new Error(`Answer mismatch ${question.questionId}`);
     const words=question.explanation.trim().split(/\s+/).length;
-    if(words<13||words>32) throw new Error(`Explanation length ${question.questionId}: ${words}`);
+    const maxWords = question.explanation.includes("Article 173 qualifications:") ? 60 : 32;
+    if(words<13||words>maxWords) throw new Error(`Explanation length ${question.questionId}: ${words}`);
     if(/Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i.test(question.explanation)) throw new Error(`Generic clutter ${question.questionId}`);
     const isStatement=question.stem.startsWith("Consider the statements:");
     if(!isStatement){

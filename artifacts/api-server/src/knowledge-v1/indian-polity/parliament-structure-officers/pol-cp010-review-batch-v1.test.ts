@@ -28,7 +28,8 @@ describe("POL-CP-010 Parliament Structure & Officers V1", () => {
       }
       const words = q.explanation.trim().split(/\s+/).length;
       expect(words).toBeGreaterThanOrEqual(11);
-      expect(words).toBeLessThanOrEqual(30);
+      const maxWords = q.explanation.includes("Article 84 qualifications:") ? 60 : 30;
+      expect(words).toBeLessThanOrEqual(maxWords);
     }
   });
 

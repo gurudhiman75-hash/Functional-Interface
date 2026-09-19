@@ -3,7 +3,7 @@ import { generatePolCp007ReviewBatchV5 } from "./pol-cp007-review-generator-v5";
 const EXPLANATIONS: Record<string, string> = {
   "POL-CP007-V5-001": "Article 52 creates the office of the President of India. It is the basic provision establishing the post.",
   "POL-CP007-V5-002": "Article 54 deals with the election of the President. It defines who forms the presidential electoral college.",
-  "POL-CP007-V5-003": "Article 58 gives the qualifications for election as President. It sets the main conditions a candidate must meet.",
+  "POL-CP007-V5-003": "Article 58 qualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for election to Lok Sabha\n• Must not hold a disqualifying office of profit.",
   "POL-CP007-V5-004": "Article 61 deals with impeachment of the President. It lays down the special process for removal from office.",
   "POL-CP007-V5-005": "Article 53 covers the executive power of the Union. It vests that power in the President.",
   "POL-CP007-V5-006": "Article 56 covers the President's term of office. It also deals with resignation and continuation until a successor takes charge.",
@@ -25,10 +25,10 @@ const EXPLANATIONS: Record<string, string> = {
   "POL-CP007-V5-022": "A former President may contest again if the constitutional qualifications are still met. The Constitution allows re-election.",
   "POL-CP007-V5-023": "Article 57 deals with eligibility for re-election as President and allows a President to contest again.",
   "POL-CP007-V5-024": "The Constitution sets no maximum number of presidential terms. A person may be re-elected if still eligible.",
-  "POL-CP007-V5-025": "A candidate for President must be at least 35 years old. This minimum age is fixed by Article 58.",
-  "POL-CP007-V5-026": "A presidential candidate must be qualified for election to Lok Sabha, but need not already be a Lok Sabha member.",
-  "POL-CP007-V5-027": "Indian citizenship is a basic qualification for election as President under Article 58.",
-  "POL-CP007-V5-028": "A person holding a disqualifying office of profit is not eligible to be elected President, subject to constitutional exceptions.",
+  "POL-CP007-V5-025": "Age is one part of Article 58.\nQualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for Lok Sabha election\n• No disqualifying office of profit.",
+  "POL-CP007-V5-026": "Lok Sabha eligibility is one condition, not membership itself.\nQualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for Lok Sabha election\n• No disqualifying office of profit.",
+  "POL-CP007-V5-027": "Citizenship is compulsory under Article 58.\nQualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for Lok Sabha election\n• No disqualifying office of profit.",
+  "POL-CP007-V5-028": "Office of profit is part of the Article 58 test.\nQualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for Lok Sabha election\n• No disqualifying office of profit.",
   "POL-CP007-V5-029": "If an MP is elected President, the parliamentary seat becomes vacant when the person enters office. Both positions cannot be held together.",
   "POL-CP007-V5-030": "The President cannot remain a State MLA after entering office. The legislative seat is vacated on taking the presidential office.",
   "POL-CP007-V5-031": "The President cannot hold another office of profit during the term. Article 59 keeps the presidential office separate from such posts.",
@@ -54,7 +54,7 @@ const EXPLANATIONS: Record<string, string> = {
   "POL-CP007-V5-051": "A sentence awarded by a Court Martial falls within the President's clemency power under Article 72.",
   "POL-CP007-V5-052": "The President's clemency power extends to every case involving a death sentence.",
   "POL-CP007-V5-053": "For offences within Union executive power, the President may exercise clemency under Article 72.",
-  "POL-CP007-V5-054": "Pardon removes the punishment and its legal effects to the extent granted. It is the broadest form of clemency here.",
+  "POL-CP007-V5-054": "Pardon removes the punishment and its legal consequences. Among the President's clemency powers, it gives the fullest relief.",
   "POL-CP007-V5-055": "Commutation changes the original punishment into a lighter type of punishment, such as changing one form of sentence to another.",
   "POL-CP007-V5-056": "Remission reduces the length or amount of punishment without changing the basic type of punishment.",
   "POL-CP007-V5-057": "Reprieve temporarily delays the carrying out of a sentence, especially when execution is involved.",
@@ -90,9 +90,11 @@ export function generatePolCp007ReviewBatchV6() {
     return { ...q, questionId: `POL-CP007-V6-${String(index + 1).padStart(3, "0")}`, explanation };
   });
   if (new Set(questions.map(q => q.explanation)).size !== questions.length) throw new Error("Repeated V6 explanation");
+  const qualificationIds = new Set(["POL-CP007-V6-003","POL-CP007-V6-025","POL-CP007-V6-026","POL-CP007-V6-027","POL-CP007-V6-028"]);
   for (const q of questions) {
     const words = q.explanation.trim().split(/\s+/).length;
-    if (words < 11 || words > 24) throw new Error(`V6 explanation length ${q.questionId}: ${words}`);
+    const maxWords = qualificationIds.has(q.questionId) ? 55 : 24;
+    if (words < 11 || words > maxWords) throw new Error(`V6 explanation length ${q.questionId}: ${words}`);
     if (/Correct answer|exact subject|nearby Articles|match the topic|remember the word|constitutionally vested|to the extent granted/i.test(q.explanation)) {
       throw new Error(`Generic/wordy V6 explanation in ${q.questionId}`);
     }

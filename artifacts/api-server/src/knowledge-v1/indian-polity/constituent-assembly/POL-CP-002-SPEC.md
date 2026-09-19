@@ -1,8 +1,9 @@
 # POL-CP-002 — Constituent Assembly & Making of the Constitution
 
 **Chapter:** POL-001 Indian Polity  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** BLOCKED pending English review approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V2  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING  
+**Audit reconciliation:** lifecycle metadata aligned with the approved chapter state during the POL-001 final integration pass on 2026-09-19.  
 
 ## Scope
 

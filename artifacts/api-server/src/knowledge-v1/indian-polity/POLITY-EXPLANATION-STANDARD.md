@@ -54,3 +54,19 @@ Article 165 requires the Advocate-General for the State to be qualified for appo
 - citizen of India;
 - at least 10 years in judicial office in India; **or**
 - at least 10 years as an advocate of a High Court (or two or more High Courts in succession).
+
+
+## Final audit application — 2026-09-19
+
+The full qualification-note rule has been applied to the approved English review generators for:
+
+- President (Article 58);
+- Vice-President (Article 66);
+- Parliament membership (Article 84);
+- Supreme Court Judges (Article 124);
+- High Court Judges (Article 217);
+- Governor (Article 157; Article 158 conditions kept separate);
+- State Legislature membership (Article 173);
+- Attorney-General and Advocate-General (already implemented in POL-CP-022 V2).
+
+The POL-001 Question Studio integration includes a cross-chapter regression gate so these explanations cannot silently revert to single-condition notes.

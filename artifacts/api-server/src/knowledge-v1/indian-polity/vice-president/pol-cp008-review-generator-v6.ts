@@ -3,7 +3,7 @@ import { generatePolCp008ReviewBatchV5 } from "./pol-cp008-review-generator-v5";
 const EXPLANATIONS: Record<string, string> = {
   "POL-CP008-V5-001": "Article 63 creates the office of the Vice-President of India. It is the basic provision establishing the post.",
   "POL-CP008-V5-002": "Article 64 makes the Vice-President ex officio Chairman of Rajya Sabha. The chairmanship comes automatically with the office.",
-  "POL-CP008-V5-003": "Article 66 deals with the election of the Vice-President. It also covers the electoral college and qualifications.",
+  "POL-CP008-V5-003": "Article 66 qualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for election to Rajya Sabha\n• Must not hold a disqualifying office of profit.",
   "POL-CP008-V5-004": "Article 67 covers the Vice-President's term, resignation and removal from office.",
   "POL-CP008-V5-005": "Article 65 deals with the Vice-President acting as President when the President's office is vacant or the President is unable to work.",
   "POL-CP008-V5-006": "Article 68 covers elections to fill a vacancy in the Vice-President's office, including normal expiry and casual vacancy.",
@@ -33,13 +33,13 @@ const EXPLANATIONS: Record<string, string> = {
   "POL-CP008-V5-030": "Voting in the Vice-Presidential election is by secret ballot. Members do not use an open ballot.",
   "POL-CP008-V5-031": "The Vice-Presidential election uses the single transferable vote, under which members rank candidates by preference.",
   "POL-CP008-V5-032": "The Vice-Presidential election is indirect because members of Parliament elect the Vice-President, not the general public.",
-  "POL-CP008-V5-033": "A candidate for Vice-President must be at least 35 years old. This minimum age is fixed by Article 66.",
-  "POL-CP008-V5-034": "A Vice-Presidential candidate must be qualified for election to Rajya Sabha, but need not already be a Rajya Sabha member.",
-  "POL-CP008-V5-035": "Indian citizenship is a basic qualification for election as Vice-President under Article 66.",
-  "POL-CP008-V5-036": "A person holding a disqualifying office of profit is not eligible to be elected Vice-President, subject to constitutional exceptions.",
+  "POL-CP008-V5-033": "Age is one part of Article 66.\nQualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for Rajya Sabha election\n• No disqualifying office of profit.",
+  "POL-CP008-V5-034": "Rajya Sabha eligibility is required, not existing membership.\nQualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for Rajya Sabha election\n• No disqualifying office of profit.",
+  "POL-CP008-V5-035": "Citizenship is compulsory under Article 66.\nQualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for Rajya Sabha election\n• No disqualifying office of profit.",
+  "POL-CP008-V5-036": "Office of profit is part of the Article 66 test.\nQualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for Rajya Sabha election\n• No disqualifying office of profit.",
   "POL-CP008-V5-037": "If an MP is elected Vice-President, the parliamentary seat becomes vacant when the person enters office. Both positions cannot be held together.",
   "POL-CP008-V5-038": "The Vice-President cannot remain a State legislator after entering office. The legislative seat is vacated on taking office.",
-  "POL-CP008-V5-039": "A disqualifying office of profit makes a person ineligible to be elected Vice-President under Article 66.",
+  "POL-CP008-V5-039": "Article 66 bars a disqualifying office of profit.\nQualifications:\n• Citizen of India\n• At least 35 years old\n• Qualified for Rajya Sabha election\n• No disqualifying office of profit.",
   "POL-CP008-V5-040": "The Vice-President's normal term is five years from the date of entering office.",
   "POL-CP008-V5-041": "The Vice-President resigns by writing to the President. This is different from the President, who resigns to the Vice-President.",
   "POL-CP008-V5-042": "After the five-year term ends, the Vice-President continues until the successor enters office, preventing a gap in the post.",
@@ -70,9 +70,11 @@ export function generatePolCp008ReviewBatchV6() {
     return { ...q, questionId: `POL-CP008-V6-${String(index + 1).padStart(3, "0")}`, explanation };
   });
   if (new Set(questions.map(q => q.explanation)).size !== questions.length) throw new Error("Repeated V6 explanation");
+  const qualificationIds = new Set(["POL-CP008-V6-003","POL-CP008-V6-033","POL-CP008-V6-034","POL-CP008-V6-035","POL-CP008-V6-036","POL-CP008-V6-039"]);
   for (const q of questions) {
     const words = q.explanation.trim().split(/\s+/).length;
-    if (words < 11 || words > 24) throw new Error(`V6 explanation length ${q.questionId}: ${words}`);
+    const maxWords = qualificationIds.has(q.questionId) ? 55 : 24;
+    if (words < 11 || words > maxWords) throw new Error(`V6 explanation length ${q.questionId}: ${words}`);
     if (/Correct answer|exact subject|nearby Articles|match the topic|remember the word|constitutionally vested|to the extent granted/i.test(q.explanation)) {
       throw new Error(`Generic/wordy V6 explanation in ${q.questionId}`);
     }
