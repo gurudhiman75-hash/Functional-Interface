@@ -1,3 +1,5 @@
+import { PGK_001_CP018_FACTS, PGK_001_CP018_SOURCE_IDS } from "./pgk-001-cp018-facts";
+
 export type Pgk001Cp018Difficulty = "Easy" | "Medium" | "Hard";
 
 export type Pgk001Cp018ReviewQuestion = Readonly<{
@@ -9,8 +11,30 @@ export type Pgk001Cp018ReviewQuestion = Readonly<{
   correctIndex: 0 | 1 | 2 | 3;
   explanation: string;
   reviewOnly: true;
+  factIds: readonly string[];
+  sourceIds: readonly string[];
   runtimeRegistered: false;
 }>;
+
+const PROVENANCE_BY_QL: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "PGK-001-QL-119": ["partition-1947","east-punjab-india","west-punjab-pakistan","lahore-pakistan","partition-displacement"],
+  "PGK-001-QL-120": ["lahore-pakistan","chandigarh-site-1948","chandigarh-foundation-1952","chandigarh-capital-pre1966","chandigarh-ut-1966"],
+  "PGK-001-QL-121": ["pepsu-full-form","pepsu-inaugurated-1948","pepsu-eight-states","pepsu-patiala-member"],
+  "PGK-001-QL-122": ["pepsu-merged-1956","pepsu-merger-date","pepsu-high-court-merged"],
+  "PGK-001-QL-123": ["punjab-reorganisation-act-1966","appointed-day-1966","haryana-formed-1966","chandigarh-ut-1966","hill-territories-himachal"],
+  "PGK-001-QL-124": ["appointed-day-1966","haryana-formed-1966","chandigarh-ut-1966","chandigarh-shared-capital","hill-territories-himachal"],
+  "PGK-001-QL-125": ["partition-1947","lahore-pakistan","chandigarh-site-1948","pepsu-inaugurated-1948","pepsu-merged-1956","punjab-reorganisation-act-1966","appointed-day-1966","haryana-formed-1966","chandigarh-ut-1966","chandigarh-shared-capital"],
+});
+
+function provenanceForQl(qlId: string) {
+  const factIds = PROVENANCE_BY_QL[qlId] ?? [];
+  const factSet = new Set(factIds);
+  const sourceKeys = (PGK_001_CP018_FACTS as readonly { id: string; sourceKeys: readonly string[] }[])
+    .filter((fact) => factSet.has(fact.id))
+    .flatMap((fact) => fact.sourceKeys);
+  const sourceIds = [...new Set(sourceKeys.map((key) => PGK_001_CP018_SOURCE_IDS[key as keyof typeof PGK_001_CP018_SOURCE_IDS]))];
+  return Object.freeze({ factIds: Object.freeze([...factIds]), sourceIds: Object.freeze(sourceIds) });
+}
 
 const q = (
   id: string,
@@ -20,17 +44,21 @@ const q = (
   options: readonly [string, string, string, string],
   correctIndex: 0 | 1 | 2 | 3,
   explanation: string,
-): Pgk001Cp018ReviewQuestion => Object.freeze({
+): Pgk001Cp018ReviewQuestion => {
+  const qlId = `PGK-001-QL-${ql}`;
+  return Object.freeze({
   id,
-  qlId: `PGK-001-QL-${ql}`,
+  qlId,
   difficulty,
   question,
   options,
   correctIndex,
   explanation,
+  ...provenanceForQl(qlId),
   reviewOnly: true,
   runtimeRegistered: false,
-});
+  });
+};
 
 export const PGK_001_CP018_REVIEW_BATCH_V1 = Object.freeze([
   q("PGK-001-CP018-Q001",119,"Easy","The Punjab province was divided between India and Pakistan in which year?",["1947","1948","1956","1966"],0,"Punjab was divided at the time of the Partition of India in 1947. The former province was split into eastern and western parts."),
