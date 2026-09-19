@@ -94,9 +94,9 @@ export function cp002AnchorPossessive(
     if (anchor === "LISTENER") return feminine ? "तुम्हारी" : plural ? "तुम्हारे" : "तुम्हारा";
     return feminine ? "उसकी" : plural ? "उसके" : "उसका";
   }
-  if (anchor === "SPEAKER") return feminine ? "ਮੇਰੀ" : "ਮੇਰਾ";
-  if (anchor === "LISTENER") return feminine ? "ਤੁਹਾਡੀ" : "ਤੁਹਾਡਾ";
-  return feminine ? "ਉਸ ਦੀ" : "ਉਸ ਦਾ";
+  if (anchor === "SPEAKER") return feminine ? "ਮੇਰੀ" : plural ? "ਮੇਰੇ" : "ਮੇਰਾ";
+  if (anchor === "LISTENER") return feminine ? "ਤੁਹਾਡੀ" : plural ? "ਤੁਹਾਡੇ" : "ਤੁਹਾਡਾ";
+  return feminine ? "ਉਸ ਦੀ" : plural ? "ਉਸ ਦੇ" : "ਉਸ ਦਾ";
 }
 
 export function cp002OnlyRoleLabel(
@@ -106,7 +106,7 @@ export function cp002OnlyRoleLabel(
   return localeText(
     locale,
     `एकमात्र ${cp002RoleLabel(roleId, locale)}`,
-    `ਇਕਲੌਤਾ/ਇਕਲੌਤੀ ${cp002RoleLabel(roleId, locale)}`,
+    `ਇੱਕੋ ${cp002RoleLabel(roleId, locale)}`,
   );
 }
 
