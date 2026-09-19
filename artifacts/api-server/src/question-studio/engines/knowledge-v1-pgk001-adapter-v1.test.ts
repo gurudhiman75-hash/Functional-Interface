@@ -42,6 +42,7 @@ const qlCounts = new Map<string, number>();
 const bannedLearnerWording = /associated with|linked with|known for|best described|the correct answer is|the correct option|the other options|this question tests|with reference to punjab|identify it|review batch|runtimeRegistered|generator|sourceFactIds/i;
 const semanticFingerprints = new Map<string, string>();
 const exhaustiveAuditErrors: string[] = [];
+const genericSourcePlaceholder = /(?:^|[-_])(?:reference|standard-history|generic)(?:$|[-_])/i;
 
 function normalizeLearnerText(value: string) {
   return value
@@ -76,6 +77,9 @@ for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
 
   if (q.sourceIds.length === 0) exhaustiveAuditErrors.push(`${q.questionId}: missing source provenance`);
   if (q.sourceFactIds.length === 0) exhaustiveAuditErrors.push(`${q.questionId}: missing fact provenance`);
+  for (const sourceId of q.sourceIds) {
+    if (genericSourcePlaceholder.test(sourceId)) exhaustiveAuditErrors.push(`${q.questionId}: generic source placeholder :: ${sourceId}`);
+  }
   if (bannedLearnerWording.test(`${q.stem}\n${q.explanation}`)) {
     exhaustiveAuditErrors.push(`${q.questionId}: banned learner wording :: ${q.stem}`);
   }
