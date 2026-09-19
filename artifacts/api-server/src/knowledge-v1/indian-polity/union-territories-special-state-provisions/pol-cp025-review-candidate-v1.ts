@@ -13,6 +13,7 @@ const rows: readonly PolCp025SeedRow[] = [
 
 const GENERIC_CLUTTER =
   /Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i;
+const LEGALISTIC_STEM = /\bwhom\b|\bby whom\b|for the purposes of/i;
 
 export function generatePolCp025ReviewBatchV1(): PolCp025ReviewQuestion[] {
   if (rows.length !== 80) throw new Error(`Expected 80 POL-CP-025 rows, got ${rows.length}`);
@@ -27,7 +28,10 @@ export function generatePolCp025ReviewBatchV1(): PolCp025ReviewQuestion[] {
     const words = explanation.trim().split(/\s+/).length;
     if (words < 12 || words > 45) throw new Error(`Explanation length ${words} outside 12–45 at question ${index + 1}`);
     if (GENERIC_CLUTTER.test(explanation)) throw new Error(`Generic clutter at question ${index + 1}`);
-    if (!stem.endsWith("?") || stem.trim().split(/\s+/).length > 30) throw new Error(`Invalid stem at question ${index + 1}`);
+    const isQuestion = stem.endsWith("?");
+    const isCompletion = stem.endsWith(":");
+    if ((!isQuestion && !isCompletion) || stem.trim().split(/\s+/).length > 30) throw new Error(`Invalid stem at question ${index + 1}`);
+    if (LEGALISTIC_STEM.test(stem)) throw new Error(`Legalistic stem at question ${index + 1}`);
 
     return {
       questionId: `POL-CP025-V1-${String(index + 1).padStart(3, "0")}`,
@@ -43,5 +47,10 @@ export function generatePolCp025ReviewBatchV1(): PolCp025ReviewQuestion[] {
 
   if (new Set(questions.map((q) => q.stem)).size !== 80) throw new Error("POL-CP-025 stems must be unique");
   if (new Set(questions.map((q) => q.explanation)).size !== 80) throw new Error("POL-CP-025 explanations must be unique");
+  const completions = questions.filter((q) => q.stem.endsWith(":")).length;
+  const normalQuestions = questions.filter((q) => q.stem.endsWith("?")).length;
+  if (completions !== 43 || normalQuestions !== 37) {
+    throw new Error(`POL-CP-025 V3 stem mix drift: expected 43 completion / 37 question, got ${completions} / ${normalQuestions}`);
+  }
   return questions;
 }

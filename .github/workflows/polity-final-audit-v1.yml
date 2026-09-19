@@ -1,0 +1,69 @@
+name: Validate Polity POL-001 Final Audit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/knowledge-v1/indian-polity/**
+      - artifacts/api-server/src/question-studio/engines/knowledge-v1-pol001-adapter-v1.ts
+      - artifacts/api-server/src/question-studio/engines/knowledge-v1-pol001-adapter-v1.test.ts
+      - artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/knowledge-v1-pol001-adapter-v1.ts
+      - artifacts/api-server/src/question-studio/engines/knowledge-v1-pol001-adapter-v1.test.ts
+      - artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/knowledge-v1/indian-polity/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: polity-final-audit-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pol001-final-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Compile POL-001 final audit
+        run: |
+          mkdir -p artifacts/api-server/dist/polity
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-polity/pol-001-final-audit-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/polity/pol-001-final-audit-v1.mjs
+
+      - name: Run POL-001 final audit
+        run: node artifacts/api-server/dist/polity/pol-001-final-audit-v1.mjs
+
+      - name: Run POL-001 Question Studio runtime smoke test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engines/knowledge-v1-pol001-adapter-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/knowledge-v1-pol001-adapter-v1.test.mjs
+          node artifacts/api-server/dist/polity/knowledge-v1-pol001-adapter-v1.test.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

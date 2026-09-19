@@ -1,8 +1,8 @@
 # POL-CP-006 — Amendments, Basic Structure & Schedules Status
 
 **Branch:** `feature/polity-cp006-amendments-basic-structure-schedules`  
-**Lifecycle:** REVIEW CANDIDATE — EXPLANATION V3  
-**Runtime registration:** BLOCKED pending human approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN — EXPLANATION V3  
+**Runtime registration:** DEFERRED to Polity Question Studio integration pass
 
 ## Implemented
 
@@ -44,11 +44,10 @@ The higher hard-question share is deliberate because amendment procedure, basic-
 - explanation text cannot be identical to the canonical answer
 - key traps are made explicit where useful, including Article 368 majority, no joint sitting, Fifth vs Sixth Schedule, and Eleventh vs Twelfth Schedule
 
-## Deliberately gated
+## Post-approval gates
 
-- merge to `New-main`
 - Question Studio exposure
 - Hindi/Punjabi localization
 - chapter-wide production registration
 
-These remain blocked until the revised English review batch is approved.
+English V3 is approved and already merged to `New-main`; the remaining gates belong to the Polity integration/localization workflow.
