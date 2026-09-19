@@ -1,8 +1,8 @@
 # POL-CP-002 — Constituent Assembly & Making of the Constitution
 
 **Chapter:** POL-001 Indian Polity  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** BLOCKED pending English review approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Runtime registration:** DEFERRED to Polity Question Studio integration pass
 
 ## Scope
 
@@ -64,9 +64,9 @@ Where the figure `165` is used, the stem explicitly ties it to the Bombay High C
 
 Explanations state the tested fact directly and add only the minimum useful context. Multi-statement questions explain the correct underlying mappings rather than analysing irrelevant options.
 
-## Review gate
+## Approved review profile
 
-The CP remains review-only until the project owner approves the English review file. Required automated checks:
+The English review batch is approved/content-frozen. Runtime exposure remains deferred to the chapter-wide integration pass. Required automated checks remain:
 
 - exactly 50 review questions;
 - all 16 QLs represented;
