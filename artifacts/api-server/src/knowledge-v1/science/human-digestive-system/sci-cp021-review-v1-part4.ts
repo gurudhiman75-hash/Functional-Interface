@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "It produces bile",
       "It begins starch digestion with saliva"
     ],
-    "The large intestine mainly recovers water and some salts and helps form faeces. Most nutrient digestion and absorption occur earlier.",
+    "The large intestine recovers much of the remaining water and some salts and helps form faeces. Most nutrient digestion and absorption occur earlier.",
     [
       "LARGE-INTESTINE-FUNCTION"
     ]
@@ -34,7 +34,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
   [
     8,
     "Hard",
-    "If intestinal contents move unusually slowly through the large intestine, the stool may become harder mainly because:",
+    "If intestinal contents move unusually slowly through the large intestine, why may the stool become harder?",
     "More water is absorbed from it",
     [
       "More bile is produced in the colon",
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Starch — lipase",
       "Protein — bile"
     ],
-    "Proteases act on proteins. Amylases act mainly on starch, while lipases act on fats.",
+    "Proteases act on proteins, amylases on starch and lipases on fats.",
     [
       "ENZYME-SUBSTRATE-PROTEASE"
     ]
@@ -79,7 +79,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
   [
     9,
     "Medium",
-    "Which nutrient is digested mainly by lipase?",
+    "Which nutrient is digested by lipase?",
     "Fat",
     [
       "Protein",
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Fat as the main oral substrate",
       "Vitamins"
     ],
-    "Salivary amylase begins starch digestion in the mouth. Protein digestion begins mainly in the stomach.",
+    "Salivary amylase begins starch digestion in the mouth. Protein digestion begins in the stomach.",
     [
       "STARCH-DIGESTION-MOUTH"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Small intestine, stomach, mouth",
       "Mouth, large intestine, stomach"
     ],
-    "Starch digestion begins in the mouth, protein digestion begins mainly in the stomach, and most fat digestion occurs in the small intestine.",
+    "Starch digestion begins in the mouth, protein digestion in the stomach, and most fat digestion occurs in the small intestine.",
     [
       "DIGESTION-START-SITES"
     ]
@@ -139,7 +139,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Dietary fibre helps normal bowel movement mainly by:",
+    "How does dietary fibre help normal bowel movement?",
     "Adding bulk to intestinal contents",
     [
       "Digesting proteins in the stomach",
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Gallbladder",
       "Oesophageal muscles"
     ],
-    "Glucose and amino acids are absorbed mainly through the villi of the small intestine. Damage there can impair absorption even when digestion is normal.",
+    "Glucose and amino acids are absorbed through the villi of the small intestine. Damage there can impair absorption even when digestion is normal.",
     [
       "DIGESTION-ABSORPTION-DISTINCTION"
     ]
