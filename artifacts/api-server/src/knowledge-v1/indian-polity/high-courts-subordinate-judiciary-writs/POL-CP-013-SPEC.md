@@ -1,7 +1,8 @@
 # POL-CP-013 — High Courts, Subordinate Judiciary & Writs
 
-**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
-**Approval date:** 15 September 2026  
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V3 final-audit canonical  
+**Initial approval date:** 15 September 2026
+**Final-audit V3 approval:** 19 September 2026  
 **Runtime registration:** DEFERRED to Polity integration checkpoint
 
 ## Scope
@@ -73,4 +74,4 @@ Avoid database-style fragments such as `Article 226 deals with:` or unnatural st
 Question Studio exposure, localization and chapter-wide production registration remain deferred to the Polity integration checkpoint.
 ## Final-audit writ ownership clarification
 
-POL-CP-004 remains the owner of generic writ meanings and generic writ-selection scenarios under the Fundamental Rights / Article 32 layer. Final-audit V3 keeps CP013's approved answers and option semantics but rewrites its writ-definition/application stems so they are explicitly High Court / Article 226 questions. This converts duplication into a contextual cross-link without removing useful High Court application coverage. V3 requires project-owner review before replacing the frozen V1 base.
+POL-CP-004 remains the owner of generic writ meanings and generic writ-selection scenarios under the Fundamental Rights / Article 32 layer. Final-audit V3 keeps CP013's approved answers and option semantics but rewrites its writ-definition/application stems so they are explicitly High Court / Article 226 questions. This converts duplication into a contextual cross-link without removing useful High Court application coverage. V3 was approved by the project owner on 19 September 2026 and is the canonical English review surface. The V1 base remains preserved as historical frozen content.
