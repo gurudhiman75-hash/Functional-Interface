@@ -1,0 +1,75 @@
+name: Validate ENV Multilingual V1 Final Wave
+
+on:
+  push:
+    branches:
+      - feature/env-multilingual-v1-final-cp015-cp020
+    paths:
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/localization-v1/**
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/environmental-laws/ENV-CP-015-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/indian-environmental-institutions/ENV-CP-016-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/international-environmental-conventions/ENV-CP-017-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/project-tiger-tiger-reserves/ENV-CP-018-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/ramsar-sites-wetlands/ENV-CP-019-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/integrated-environment-gk/ENV-CP-020-STATUS.md
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/localization-v1/**
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/environmental-laws/ENV-CP-015-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/indian-environmental-institutions/ENV-CP-016-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/international-environmental-conventions/ENV-CP-017-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/project-tiger-tiger-reserves/ENV-CP-018-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/ramsar-sites-wetlands/ENV-CP-019-STATUS.md
+      - artifacts/api-server/src/knowledge-v1/environment-ecology/integrated-environment-gk/ENV-CP-020-STATUS.md
+  workflow_dispatch:
+
+concurrency:
+  group: env-multilingual-v1-final-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-env-cp015-cp020-localization:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle final localization proof
+        run: |
+          mkdir -p artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/environment-ecology/localization-v1/env-cp015-cp020-localization-proof-v1.ts --bundle --platform=node --format=esm --outfile=dist/environment-review/ENV-MULTILINGUAL-V1/env-cp015-cp020-localization-proof-v1.mjs
+
+      - name: Validate CP015-CP020 localization
+        run: |
+          cd artifacts/api-server
+          node dist/environment-review/ENV-MULTILINGUAL-V1/env-cp015-cp020-localization-proof-v1.mjs | tee dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP015-CP020-MULTILINGUAL-PROOF.log
+
+      - name: Materialize final review Markdown
+        run: |
+          cd artifacts/api-server
+          pnpm exec esbuild src/knowledge-v1/environment-ecology/localization-v1/env-localization-export-v1.ts --bundle --platform=node --format=esm --outfile=dist/environment-review/ENV-MULTILINGUAL-V1/env-localization-export-v1.mjs
+          node dist/environment-review/ENV-MULTILINGUAL-V1/env-localization-export-v1.mjs
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: env-cp015-cp020-multilingual-v1
+          path: |
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP015-CP020-MULTILINGUAL-PROOF.json
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-CP015-CP020-MULTILINGUAL-PROOF.log
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-MULTILINGUAL-V1-CP015-REVIEW.md
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-MULTILINGUAL-V1-CP016-REVIEW.md
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-MULTILINGUAL-V1-CP017-REVIEW.md
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-MULTILINGUAL-V1-CP018-REVIEW.md
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-MULTILINGUAL-V1-CP019-REVIEW.md
+            artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/ENV-MULTILINGUAL-V1-CP020-REVIEW.md
+          if-no-files-found: error
