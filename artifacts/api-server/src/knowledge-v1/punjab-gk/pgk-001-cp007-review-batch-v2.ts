@@ -5,10 +5,10 @@ import {
 
 const STEMS_V2 = Object.freeze([
   "Punjab's natural forests are predominantly:",
-  "Chir pine forests of Punjab are mainly found in:",
-  "Bamboo forests in Punjab occur mainly in the:",
+  "Where are chir pine forests found in Punjab?",
+  "In which belt of Punjab do bamboo forest pockets occur?",
   "Bir forests are characteristic of which tract of Punjab?",
-  "Mand forests are mainly found in:",
+  "Where are Mand forests found in Punjab?",
   "Which forest-location pair is correctly matched?",
   "Which protected area is located at Abohar?",
   "Bir Moti Bagh Wildlife Sanctuary is in which district?",

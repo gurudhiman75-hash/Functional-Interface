@@ -2,7 +2,7 @@ export const PGK_001_CP019_SOURCE_IDS = Object.freeze({
   constitutionIndia: "india-code-constitution-part-vi-ix-ixa",
   assemblyPunjab: "punjab-vidhan-sabha-official",
   councilAbolition: "india-code-punjab-legislative-council-abolition-1969",
-  eciDelimitation: "eci-delimitation-punjab-2008-current-framework",
+  eciDelimitation: "eci-delimitation-punjab-2008",
   rajyaSabha: "rajya-sabha-seat-allocation",
   highCourt: "punjab-haryana-high-court-official",
   ruralPunjab: "punjab-rural-development-panchayats",
@@ -12,8 +12,8 @@ export const PGK_001_CP019_SOURCE_IDS = Object.freeze({
 export const PGK_001_CP019_FACTS = Object.freeze([
   { id: "assembly-unicameral", statement: "Punjab has a unicameral State Legislature.", sourceKeys: ["constitutionIndia", "councilAbolition"] },
   { id: "council-abolished-1970", statement: "The Punjab Legislative Council was abolished with effect from 7 January 1970.", sourceKeys: ["councilAbolition"] },
-  { id: "assembly-117", statement: "Punjab has 117 Assembly constituencies under the current delimitation framework.", sourceKeys: ["eciDelimitation", "assemblyPunjab"] },
-  { id: "assembly-sc-34", statement: "Of Punjab's 117 Assembly constituencies, 34 are reserved for Scheduled Castes and none for Scheduled Tribes under the current delimitation framework.", sourceKeys: ["eciDelimitation"] },
+  { id: "assembly-117", statement: "Punjab has 117 Assembly constituencies under the Delimitation of Parliamentary and Assembly Constituencies Order, 2008.", sourceKeys: ["eciDelimitation", "assemblyPunjab"] },
+  { id: "assembly-sc-34", statement: "Under the Delimitation Order, 2008, 34 of Punjab's 117 Assembly constituencies are reserved for Scheduled Castes and none for Scheduled Tribes.", sourceKeys: ["eciDelimitation"] },
   { id: "legislature-governor-assembly", statement: "Punjab's Legislature consists of the Governor and the Legislative Assembly.", sourceKeys: ["constitutionIndia"] },
   { id: "assembly-term", statement: "A State Legislative Assembly normally continues for five years unless sooner dissolved.", sourceKeys: ["constitutionIndia"] },
   { id: "speaker-deputy", statement: "The Legislative Assembly chooses a Speaker and Deputy Speaker from among its members.", sourceKeys: ["constitutionIndia"] },
@@ -25,8 +25,8 @@ export const PGK_001_CP019_FACTS = Object.freeze([
   { id: "collective-responsibility", statement: "The Council of Ministers is collectively responsible to the Legislative Assembly of the State.", sourceKeys: ["constitutionIndia"] },
   { id: "advocate-general", statement: "The Governor appoints the Advocate-General for the State under Article 165.", sourceKeys: ["constitutionIndia"] },
 
-  { id: "lok-sabha-13", statement: "Punjab has 13 Lok Sabha constituencies under the current delimitation framework.", sourceKeys: ["eciDelimitation"] },
-  { id: "lok-sabha-sc-4", statement: "Four of Punjab's 13 Lok Sabha constituencies are reserved for Scheduled Castes under the current delimitation framework.", sourceKeys: ["eciDelimitation"] },
+  { id: "lok-sabha-13", statement: "Punjab has 13 Lok Sabha constituencies under the Delimitation Order, 2008.", sourceKeys: ["eciDelimitation"] },
+  { id: "lok-sabha-sc-4", statement: "Under the Delimitation Order, 2008, four of Punjab's 13 Lok Sabha constituencies are reserved for Scheduled Castes.", sourceKeys: ["eciDelimitation"] },
   { id: "rajya-sabha-7", statement: "Punjab is allocated seven seats in the Rajya Sabha.", sourceKeys: ["rajyaSabha"] },
 
   { id: "hc-name", statement: "The common High Court is the High Court of Punjab and Haryana.", sourceKeys: ["highCourt", "constitutionIndia"] },

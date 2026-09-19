@@ -21,7 +21,7 @@ assert.equal(ancientMap.Sutlej?.canonicalAncientName, "Shutudri");
 assert.equal(ancientMap.Beas?.canonicalAncientName, "Vipasa");
 assert.equal(ancientMap.Ravi?.canonicalAncientName, "Purushni");
 assert.equal(ancientMap.Chenab?.canonicalAncientName, "Askini");
-assert.equal(ancientMap.Jhelum?.canonicalAncientName, "Vitista");
+assert.equal(ancientMap.Jhelum?.canonicalAncientName, "Vitasta");
 assert.ok(ancientMap.Beas?.acceptedAncientSpellings.includes("Vipasha"));
 assert.ok(ancientMap.Ravi?.acceptedAncientSpellings.includes("Parushni"));
 assert.ok(ancientMap.Chenab?.acceptedAncientSpellings.includes("Asikni"));
