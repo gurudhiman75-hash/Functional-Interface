@@ -83,8 +83,8 @@ Local V2 stress proof:
 
 ## Lifecycle
 
-- reviewStatus: HUMAN_REVIEW_PENDING
-- Question Studio discoverable: false
+- reviewStatus: ENGLISH_REVIEW_APPROVED
+- Question Studio discoverable: true, CONTROLLED_REVIEW only
 - Question Bank: NOT_STORED
 - Question Bank writable: false
 - test eligible: false
@@ -92,10 +92,10 @@ Local V2 stress proof:
 - publicly publishable: false
 - automatic student publication: false
 - production release authorized: false
-- permanent QLs: not allocated
-- localization: not started
+- permanent QLs: DI-QL-085 through DI-QL-096
+- localization: NOT_STARTED
 
-Next gate: human editorial/source review of the V2 sample pack. Permanent-contract allocation and controlled Question Studio review remain closed until approval.
+Next gate: multilingual/localization work or a later explicit release decision. Question Bank, tests, mocks, public/student delivery and production release remain closed.
 
 
 ## Permanent English review promotion
