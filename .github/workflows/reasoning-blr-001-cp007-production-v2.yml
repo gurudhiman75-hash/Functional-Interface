@@ -25,7 +25,6 @@ on:
       - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
       - "artifacts/api-server/src/routes/index.ts"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
-      - ".github/workflows/reasoning-blr-001-cp007-production-v2.yml"
   workflow_dispatch:
 
 permissions:
