@@ -139,7 +139,7 @@ export function isCoaCp011QuestionStudioRequest(
 
 function cp010SourceRequest(request: ExtendedRequest): ExtendedRequest {
   return text(request.cpId).toUpperCase() === COA_CP011_CHECKPOINT_ID
-    ? { ...request, cpId: COA_CP010_QUESTION_STUDIO_PACKAGE.cpIds.at(-1) === "COA-CP-010" ? "COA-CP-010" : undefined }
+    ? { ...request, cpId: "COA-CP-010" }
     : request;
 }
 
