@@ -50,6 +50,66 @@ function stableHash(value: string): number {
   return hash >>> 0;
 }
 
+function unique(values: readonly string[]) {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const raw of values) {
+    const value = raw.replace(/\s+/g, " ").trim();
+    const key = value.toLowerCase();
+    if (value && !seen.has(key)) {
+      seen.add(key);
+      out.push(value);
+    }
+  }
+  return out;
+}
+
+function flipAgreementAuxiliary(value: string) {
+  return value
+    .replace(/\bwere\b/i, "__WERE__")
+    .replace(/\bwas\b/i, "were")
+    .replace(/__WERE__/i, "was")
+    .replace(/\bare\b/i, "__ARE__")
+    .replace(/\bis\b/i, "are")
+    .replace(/__ARE__/i, "is")
+    .replace(/\bhave\b/i, "__HAVE__")
+    .replace(/\bhas\b/i, "have")
+    .replace(/__HAVE__/i, "has");
+}
+
+function vnr001Distractors(correct: string, authoredWrong: string) {
+  const malformedBeen = correct.replace(/\b(is|are|was|were)\b/i, "$1 been");
+  const values = unique([authoredWrong, flipAgreementAuxiliary(correct), malformedBeen])
+    .filter((value) => value.toLowerCase() !== correct.toLowerCase());
+  if (values.length !== 3) throw new Error(`GR-VNR-001 could not build three unambiguous distractors for ${correct}`);
+  return values;
+}
+
+function vnr002Distractors(correct: string, authoredWrong: string) {
+  const raw = [authoredWrong];
+  if (/\bwill have been\b/i.test(correct)) {
+    raw.push(
+      correct.replace(/\bwill have been\b/i, "will have being"),
+      correct.replace(/\bwill have been\b/i, "will been"),
+    );
+  } else if (/\b(has|have|had) been\b/i.test(correct)) {
+    raw.push(
+      correct.replace(/\b(has|have|had) been\b/i, "$1 being"),
+      correct.replace(/\b(has|have|had) been\b/i, "$1 be"),
+    );
+  } else if (/\b(is|are|was|were) being\b/i.test(correct)) {
+    raw.push(
+      correct.replace(/\b(is|are|was|were) being\b/i, "$1 been"),
+      correct.replace(/\b(is|are|was|were) being\b/i, "$1 be"),
+    );
+  } else {
+    raw.push(flipAgreementAuxiliary(correct), correct.replace(/\bbeen\b/i, "being"));
+  }
+  const values = unique(raw).filter((value) => value.toLowerCase() !== correct.toLowerCase());
+  if (values.length < 3) throw new Error(`GR-VNR-002 could not build three unambiguous distractors for ${correct}`);
+  return values.slice(0, 3);
+}
+
 function placeOptions(seed: string, correct: string, distractors: readonly string[]) {
   if (distractors.length !== 3) throw new Error("ENG-003 CP012 requires exactly three distractors");
   const correctOptionIndex = stableHash(`${seed}:eng003-cp012-correct-position`) % 4;
@@ -195,7 +255,12 @@ export function generateEng003Cp012QuestionV1(input: GenerateEng003Cp012V1Input)
   if (correction.targetIndex !== distractorSource.targetIndex) throw new Error("ENG-003 CP012 source target alignment drifted");
 
   const correctTarget = correction.options[correction.correctOptionIndex]!.trim();
-  const distractors = distractorSource.options.slice(0, 3).map((value) => value.trim());
+  let distractors = distractorSource.options.slice(0, 3).map((value) => value.trim());
+  if (correction.metadata.ruleId === "GR-VNR-001") {
+    distractors = vnr001Distractors(correctTarget, correction.targetText.trim());
+  } else if (correction.metadata.ruleId === "GR-VNR-002") {
+    distractors = vnr002Distractors(correctTarget, correction.targetText.trim());
+  }
   const keys = new Set([correctTarget.toLowerCase(), ...distractors.map((value) => value.toLowerCase())]);
   if (keys.size !== 4) throw new Error(`${correction.questionId} does not provide four unique voice/narration choices`);
 
