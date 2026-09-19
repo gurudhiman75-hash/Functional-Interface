@@ -259,6 +259,20 @@ export function localizeBlrCp001Question(
     stem,
     ...options.map((option) => option.value),
   ]);
+  const semanticCandidate = {
+    ...record,
+    locale,
+    stem,
+    options,
+  } as unknown as GeneratedBlrCp001LocalizedQuestion;
+  const semanticParity =
+    JSON.stringify(canonicalProjection(record))
+    === JSON.stringify(canonicalProjection(semanticCandidate));
+  if (!semanticParity) {
+    throw new Error(
+      `CP-001 localization semantic parity failed for ${record.qlId}/${record.seed}/${locale}.`,
+    );
+  }
 
   return {
     ...record,
@@ -303,15 +317,7 @@ export function localizeBlrCp001Question(
       reviewStatus: "LOCALIZED_REVIEW_REQUIRED",
       canonicalSemanticFingerprint: String(record.metadata.hiddenFingerprint),
       localizedSemanticFingerprint,
-      semanticParity: JSON.stringify(canonicalProjection(record))
-        === JSON.stringify(canonicalProjection({
-          ...record,
-          locale,
-          stem,
-          options,
-        } as unknown as GeneratedBlrCp001LocalizedQuestion))
-          ? "EXECUTABLE_PROVED"
-          : "EXECUTABLE_PROVED",
+      semanticParity: "EXECUTABLE_PROVED",
       learnerTextLocalized: true,
       humanLanguageReviewRequired: true,
       activeEditorialBlockers: [BLR_CP001_HUMAN_REVIEW_BLOCKER],
