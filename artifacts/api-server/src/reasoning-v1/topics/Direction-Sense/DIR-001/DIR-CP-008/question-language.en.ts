@@ -30,13 +30,13 @@ export function pathSentence(operations: readonly RelativePathOperation[]): stri
 }
 
 export function renderMissingGraphStem(visible: readonly PositionRelation[], missingFrom: string, missingTo: string, missingDistance: number): string {
-  return `${visible.map(statementText).join(" ")} A fourth statement must place ${missingTo} exactly ${missingDistance} metres from ${missingFrom} so that all four relations form one consistent closed layout. In which direction should ${missingTo} be from ${missingFrom}?`;
+  return `${visible.map(statementText).join(" ")} ${missingTo} is exactly ${missingDistance} metres from ${missingFrom}. In which direction is ${missingTo} from ${missingFrom}?`;
 }
 
 export function renderContradictionStem(anchorRelations: readonly PositionRelation[], relations: readonly PositionRelation[]): string {
   const anchors = anchorRelations.map(directionOnlyStatement).join(" ");
   const statements = relations.map((relation, index) => `(${index + 1}) ${directionOnlyStatement(relation)}`).join(" ");
-  return `${anchors} Now consider these four additional statements: ${statements} Exactly one additional statement disagrees with the complete layout. Which statement is inconsistent?`;
+  return `${anchors} Now consider these four statements: ${statements} Which one of these statements is not consistent with the given information?`;
 }
 
 export function renderMissingMovementStem(scenario: MissingMovementScenario): string {
@@ -48,7 +48,7 @@ export function renderMissingMovementStem(scenario: MissingMovementScenario): st
 
 export function renderMissingTurnStem(scenario: MissingTurnScenario): string {
   const known = scenario.knownTurn === "LEFT" ? "turns left" : "turns right";
-  return `${scenario.subject}, while in ${scenario.place}, starts facing ${DIRECTION_LABELS[scenario.initialFacing]} and walks ${scenario.firstDistance} metres. What ${scenario.subject} does before the next movement is not stated. ${scenario.subject} then walks ${scenario.secondDistance} metres, ${known}, and walks another ${scenario.thirdDistance} metres. The final point is ${componentDescription(scenario.target)} of the starting point. What should fill the missing step?`;
+  return `${scenario.subject}, while in ${scenario.place}, starts facing ${DIRECTION_LABELS[scenario.initialFacing]} and walks ${scenario.firstDistance} metres. ${scenario.subject} then takes an unknown turn and walks ${scenario.secondDistance} metres, ${known}, and walks another ${scenario.thirdDistance} metres. The final point is ${componentDescription(scenario.target)} of the starting point. What was the unknown turn?`;
 }
 
 export function renderInitialFacingStem(scenario: InitialFacingScenario): string {
