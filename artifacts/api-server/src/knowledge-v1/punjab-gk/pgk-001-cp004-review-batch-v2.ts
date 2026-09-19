@@ -70,19 +70,19 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     difficulty: "Hard",
     stem: "Which of the following ancient-name pairs is correctly matched?",
     options: [
-      "Jhelum — Vitista",
+      "Jhelum — Vitasta",
       "Chenab — Vipasa",
       "Ravi — Askini",
       "Beas — Purushni",
     ],
-    canonicalAnswer: "Jhelum — Vitista",
-    explanation: "Jhelum was known as Vitista; Vitasta is an accepted spelling variant. Vipasa belongs to Beas, Askini to Chenab and Purushni to Ravi.",
-    factIds: ["ancient-jhelum-vitista", "ancient-beas-vipasa", "ancient-chenab-askini", "ancient-ravi-purushni"],
+    canonicalAnswer: "Jhelum — Vitasta",
+    explanation: "Jhelum was known as Vitasta in ancient tradition. Vipasa belongs to Beas, Askini to Chenab and Purushni to Ravi.",
+    factIds: ["ancient-jhelum-vitasta", "ancient-beas-vipasa", "ancient-chenab-askini", "ancient-ravi-purushni"],
     sourceIds: ancientSource,
   },
   "PGK-001-CP004-Q041": {
     difficulty: "Hard",
-    stem: "Consider the following pairs:\nI. Sutlej — Shutudri\nII. Beas — Vipasa\nIII. Ravi — Purushni\nIV. Chenab — Askini\nV. Jhelum — Vitista\nWhich of the pairs given above are correctly matched?",
+    stem: "Consider the following pairs:\nI. Sutlej — Shutudri\nII. Beas — Vipasa\nIII. Ravi — Purushni\nIV. Chenab — Askini\nV. Jhelum — Vitasta\nWhich of the pairs given above are correctly matched?",
     options: ["I, II and III only", "II, III and IV only", "I, III, IV and V only", "I, II, III, IV and V"],
     canonicalAnswer: "I, II, III, IV and V",
     explanation: "All five pairs are correctly matched. These are the standard ancient names of Punjab's five traditional rivers.",
@@ -91,7 +91,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
       "ancient-beas-vipasa",
       "ancient-ravi-purushni",
       "ancient-chenab-askini",
-      "ancient-jhelum-vitista",
+      "ancient-jhelum-vitasta",
     ],
     sourceIds: ancientSource,
   },
@@ -161,7 +161,7 @@ export function auditPgk001Cp004ReviewBatchV2() {
     "ancient-beas-vipasa",
     "ancient-ravi-purushni",
     "ancient-chenab-askini",
-    "ancient-jhelum-vitista",
+    "ancient-jhelum-vitasta",
   ]) {
     if (!ancientFactsUsed.has(required)) issues.push(`ancient river fact not represented in review: ${required}`);
   }
