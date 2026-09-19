@@ -42,7 +42,28 @@ export const PGK_001_CP022_SOURCE_NOTES = Object.freeze({
 
 export const PGK_001_CP022_SOURCE_URLS = Object.freeze({
   "PUNJABI-UNIVERSITY-PUNJABIPEDIA-PUNJABI-POETRY": "https://punjabipedia.org/topic.aspx?txt=%E0%A8%AA%E0%A9%B0%E0%A8%9C%E0%A8%BE%E0%A8%AC%E0%A9%80+%E0%A8%95%E0%A8%B5%E0%A8%BF%E0%A8%A4%E0%A8%BE",
+  "PUNJAB-AUQAF-BULLEH-SHAH": "https://auqaf.punjab.gov.pk/shrine-baba-bulleh-shah",
   "PUNJABI-UNIVERSITY-PUNJABIPEDIA-WARIS-SHAH": "https://ns1.punjabipedia.org/topic.aspx?txt=%E0%A8%B5%E0%A8%BE%E0%A8%B0%E0%A8%BF%E0%A8%B8+%E0%A8%B6%E0%A8%BE%E0%A8%B9",
   "PUNJABI-UNIVERSITY-PUNJABIPEDIA-BHAI-VIR-SINGH": "https://punjabipedia.org/topic.aspx?txt=%28%E0%A8%AD%E0%A8%BE%E0%A8%88%29+%E0%A8%B5%E0%A9%80%E0%A8%B0++%E0%A8%B8%E0%A8%BF%E0%A9%B0%E0%A8%98",
+  "SAHITYA-AKADEMI-PUNJABI-AWARDS": "https://www.sahitya-akademi.gov.in/awards/akademi%20samman_suchi.jsp",
+  "SAHITYA-AKADEMI-NANAK-SINGH": "https://www.sahitya-akademi.gov.in/publications/e-books-eng.jsp",
+  "SAHITYA-AKADEMI-PINJAR": "https://sahitya-akademi.gov.in/pdf/Pressrelease_TP-2024.pdf",
   "SAHITYA-AKADEMI-AMRITA-PRITAM-FELLOWSHIP": "https://sahitya-akademi.gov.in/library/fellowship_pdf/Amrita-Pritam.pdf",
+  "JNANPITH-LAUREATES": "https://www.jnanpith.net/laureates.html?id=3",
+  "SAHITYA-AKADEMI-LOONA": "https://sahitya-akademi.gov.in/publications/english-catalogue.jsp",
+  "SAHITYA-AKADEMI-MARHI": "https://sahitya-akademi.gov.in/publications/english-catalogue.jsp",
+} as const);
+
+export const PGK_001_CP022_SOURCE_CLASSIFICATION = Object.freeze({
+  "PUNJABI-UNIVERSITY-PUNJABIPEDIA-PUNJABI-POETRY": "ACADEMIC_REFERENCE",
+  "PUNJAB-AUQAF-BULLEH-SHAH": "PRIMARY_GOVERNMENT",
+  "PUNJABI-UNIVERSITY-PUNJABIPEDIA-WARIS-SHAH": "ACADEMIC_REFERENCE",
+  "PUNJABI-UNIVERSITY-PUNJABIPEDIA-BHAI-VIR-SINGH": "ACADEMIC_REFERENCE",
+  "SAHITYA-AKADEMI-PUNJABI-AWARDS": "PRIMARY_AWARD_AUTHORITY",
+  "SAHITYA-AKADEMI-NANAK-SINGH": "PRIMARY_LITERARY_INSTITUTION",
+  "SAHITYA-AKADEMI-PINJAR": "PRIMARY_LITERARY_INSTITUTION",
+  "SAHITYA-AKADEMI-AMRITA-PRITAM-FELLOWSHIP": "PRIMARY_LITERARY_INSTITUTION",
+  "JNANPITH-LAUREATES": "PRIMARY_AWARD_AUTHORITY",
+  "SAHITYA-AKADEMI-LOONA": "PRIMARY_LITERARY_INSTITUTION",
+  "SAHITYA-AKADEMI-MARHI": "PRIMARY_LITERARY_INSTITUTION",
 } as const);
