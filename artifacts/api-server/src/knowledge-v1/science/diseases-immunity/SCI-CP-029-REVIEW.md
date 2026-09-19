@@ -328,7 +328,7 @@ D. Tuberculosis
 
 **Answer:** B. Dengue
 
-**Explanation:** Dengue is caused by dengue viruses and transmitted mainly by Aedes mosquitoes.
+**Explanation:** Dengue is caused by dengue viruses and is transmitted by Aedes mosquitoes.
 
 **Source fact:** `DENGUE-AEDES-VIRUS`
 
@@ -812,18 +812,18 @@ D. Resistance is caused by vitamin deficiency
 
 **Source fact:** `RESISTANCE-SELECTION-REASONING`
 
-## Q55 · Easy · Integrated disease prevention and immunity
+## Q55 · Hard · Integrated disease prevention and immunity
 
-Which measure best helps prevent malaria?
+A village reports repeated malaria cases after the rainy season. Which combined action would most directly interrupt transmission?
 
-A. Avoid all dairy foods
-B. Take antibiotics for every fever
-C. Prevent mosquito bites and breeding
-D. Increase salt intake
+A. Use antibiotics for every fever
+B. Increase dietary protein and iron
+C. Remove mosquito breeding sites and prevent mosquito bites
+D. Improve handwashing but leave stagnant water
 
-**Answer:** C. Prevent mosquito bites and breeding
+**Answer:** C. Remove mosquito breeding sites and prevent mosquito bites
 
-**Explanation:** Malaria prevention includes mosquito control, removal of breeding sites and protection from bites.
+**Explanation:** Malaria depends on Anopheles mosquitoes for transmission. Reducing breeding sites and preventing bites directly interrupts the vector pathway.
 
 **Source fact:** `MALARIA-PREVENTION`
 
