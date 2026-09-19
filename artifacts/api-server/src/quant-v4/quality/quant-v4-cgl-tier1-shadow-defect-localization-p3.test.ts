@@ -240,7 +240,22 @@ assert.equal(baselineAdvancedMathGaps.length, 0, "Algebra/Trigonometry must not 
 assert.equal(baselineProbabilityGaps.length, 0, "Probability must select a profile+difficulty eligible registry entry rather than emitting a false capability gap.");
 assert.equal(sumCounts(baselineGapSlotDistribution), 0);
 assert.equal(sumCounts(baselineGapReasonDistribution), 0);
-assert.ok(globalStemDuplication.duplicateRate > 0.05, "The current shadow repetition defect should remain visible until remediated.");
+assert.ok(
+  globalStemDuplication.duplicateRate <= 0.05,
+  "The remediated shadow must keep normalized structural stem reuse at or below 5%.",
+);
+assert.equal(
+  stemDuplicationBySlot.DATA_INTERPRETATION?.duplicateItems ?? -1,
+  0,
+  "The remediated DI shadow sample must contain no normalized structural stem reuse.",
+);
+for (const packageId of ["DI-001", "DI-002", "DI-003", "DI-004", "DI-005"] as const) {
+  assert.equal(
+    stemDuplicationByPackage[packageId]?.duplicateItems ?? -1,
+    0,
+    `${packageId}: remediated DI package must contain no normalized structural stem reuse in the shadow sample.`,
+  );
+}
 assert.equal(globalStemDuplication.records, 500);
 assert.equal(
   Object.values(stemDuplicationBySlot).reduce((sum, summary) => sum + summary.records, 0),
