@@ -34,7 +34,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
   [
     3,
     "Hard",
-    "Which pair is correctly distinguished?",
+    "Which scientist–discovery pairing correctly separates natural radioactivity from X-rays?",
     "Becquerel — natural radioactivity; Röntgen — X-rays",
     [
       "Röntgen — neutron; Chadwick — X-rays",
@@ -49,7 +49,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
   [
     4,
     "Easy",
-    "The periodic table is most closely associated with:",
+    "Who developed the periodic table that predicted properties of undiscovered elements?",
     "Dmitri Mendeleev",
     [
       "John Dalton",
@@ -64,7 +64,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
   [
     4,
     "Easy",
-    "The modern atomic theory of matter is strongly associated with:",
+    "Who proposed the modern atomic theory of matter?",
     "John Dalton",
     [
       "Robert Hooke",
@@ -79,7 +79,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
   [
     4,
     "Medium",
-    "The law of conservation of mass in chemistry is closely associated with:",
+    "Who established the law of conservation of mass through quantitative chemical experiments?",
     "Antoine Lavoisier",
     [
       "Dmitri Mendeleev",
@@ -109,7 +109,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
   [
     4,
     "Medium",
-    "The industrial synthesis of ammonia by combining nitrogen and hydrogen is associated with the:",
+    "Which process is used for industrial synthesis of ammonia from nitrogen and hydrogen?",
     "Haber process",
     [
       "Solvay process",
@@ -154,7 +154,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
   [
     5,
     "Easy",
-    "Early observations of living microorganisms with microscopes are associated with:",
+    "Who made some of the earliest detailed observations of living microorganisms?",
     "Anton van Leeuwenhoek",
     [
       "Robert Hooke",
@@ -214,7 +214,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
   [
     5,
     "Hard",
-    "Which distinction is correct?",
+    "Which statement correctly distinguishes Hooke's and Leeuwenhoek's contributions?",
     "Hooke named cells from cork observations; Leeuwenhoek observed living microorganisms",
     [
       "Leeuwenhoek discovered X-rays; Hooke discovered radioactivity",
