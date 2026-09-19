@@ -253,6 +253,37 @@ type TargetedStemVariant = Readonly<{
   apply: (stem: string) => string;
 }>;
 
+function rewriteEqualVolumeHeightPrompt(
+  stem: string,
+  mode: "question" | "calculate" | "determine",
+) {
+  const prefix = /^Find the height of a (cylinder|cone)\b/i.exec(stem);
+  if (prefix) {
+    const solid = prefix[1]!.toLowerCase();
+    const replacement =
+      mode === "question"
+        ? `What is the height of the ${solid}`
+        : mode === "calculate"
+          ? `Calculate the height of the ${solid}`
+          : `Determine the height of the ${solid}`;
+    const rewritten = stem.replace(/^Find the height of a (cylinder|cone)\b/i, replacement);
+    return mode === "question" ? rewritten.replace(/\.$/, "?") : rewritten;
+  }
+
+  const suffix =
+    /(?:Find the (cylinder|cone)'s height\.|Determine the (cylinder|cone) height\.|What is the (cylinder|cone)'s height\?)$/i;
+  const match = suffix.exec(stem);
+  if (!match) return stem;
+  const solid = (match[1] ?? match[2] ?? match[3])!.toLowerCase();
+  const replacement =
+    mode === "question"
+      ? `What is the required height of the ${solid}?`
+      : mode === "calculate"
+        ? `Calculate the required ${solid} height.`
+        : `Determine the required height of the ${solid}.`;
+  return stem.replace(suffix, replacement);
+}
+
 const TARGETED_REPEAT_STEM_VARIANTS: Readonly<Record<string, readonly TargetedStemVariant[]>> = Object.freeze({
   "MEN-002-QL-022": Object.freeze([
     { id: "source", apply: (stem) => stem },
@@ -345,24 +376,15 @@ const TARGETED_REPEAT_STEM_VARIANTS: Readonly<Record<string, readonly TargetedSt
     { id: "source", apply: (stem) => stem },
     {
       id: "height-question",
-      apply: (stem) => stem.replace(
-        /Find the cylinder's height\.$/i,
-        "What is the height of the cylinder?",
-      ),
+      apply: (stem) => rewriteEqualVolumeHeightPrompt(stem, "question"),
     },
     {
       id: "height-calculate",
-      apply: (stem) => stem.replace(
-        /Find the cylinder's height\.$/i,
-        "Calculate the cylinder's height.",
-      ),
+      apply: (stem) => rewriteEqualVolumeHeightPrompt(stem, "calculate"),
     },
     {
       id: "height-determine",
-      apply: (stem) => stem.replace(
-        /Find the cylinder's height\.$/i,
-        "Determine the height of the cylinder.",
-      ),
+      apply: (stem) => rewriteEqualVolumeHeightPrompt(stem, "determine"),
     },
   ]),
 });
