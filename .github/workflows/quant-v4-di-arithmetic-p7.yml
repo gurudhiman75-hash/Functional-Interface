@@ -36,5 +36,7 @@ jobs:
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-008/arithmetic-set-v2.test.ts
       - name: DI-008 controlled Question Studio integration
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-008/question-studio-integration.test.ts
+      - name: DI-008 Hindi Punjabi localization review proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-008/localization-review-v1.test.ts
       - name: Patch hygiene
         run: git diff --check
