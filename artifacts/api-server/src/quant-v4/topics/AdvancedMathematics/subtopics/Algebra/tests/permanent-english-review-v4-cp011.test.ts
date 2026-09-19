@@ -23,6 +23,31 @@ function stable(value: unknown): string {
   );
 }
 
+function gcd(a: bigint, b: bigint): bigint {
+  let x = a < 0n ? -a : a;
+  let y = b < 0n ? -b : b;
+  while (y !== 0n) {
+    const next = x % y;
+    x = y;
+    y = next;
+  }
+  return x;
+}
+
+function assertPrimitiveEquation(
+  equation: ReturnType<typeof generateAlgCp011EnglishReviewV4>["equationX"],
+  prefix: string,
+) {
+  assert(
+    equation.a.denominator === 1n
+      && equation.b.denominator === 1n
+      && equation.c.denominator === 1n,
+    `${prefix}: review equation must keep integral coefficients`,
+  );
+  const common = gcd(gcd(equation.a.numerator, equation.b.numerator), equation.c.numerator);
+  assert(common === 1n, `${prefix}: equation contains superficial common-factor scaling`);
+}
+
 const samplesPerVariant = 64;
 const reviewRows: ReturnType<typeof generateAlgCp011EnglishReviewV4>[] = [];
 
@@ -46,6 +71,9 @@ for (let variantIndex = 0; variantIndex < ALG_CP011_ENGLISH_REVIEW_V4_VARIANT_CO
     assert(!first.learnerContentFrozen && first.reviewStatus === "REVIEW_CANDIDATE_ONLY", `${prefix}: review-only content state missing`);
     assert(!first.active && !first.questionStudioDiscoverable, `${prefix}: activation leaked`);
     assert(!first.questionBankWritable && !first.testEligible && !first.publiclyPublishable, `${prefix}: production eligibility leaked`);
+
+    assertPrimitiveEquation(first.equationX, `${prefix}/equation-x`);
+    assertPrimitiveEquation(first.equationY, `${prefix}/equation-y`);
 
     const xRoots = exactRootsFromQuadraticState(solveQuadraticEquation(first.equationX));
     const yRoots = exactRootsFromQuadraticState(solveQuadraticEquation(first.equationY));
