@@ -13,7 +13,7 @@ D. Ammeter
 
 **Answer:** A. Thermometer
 
-**Explanation:** A thermometer measures temperature. Different thermometers are designed for body temperature, laboratory work or weather observations, but the measured quantity remains temperature.
+**Explanation:** A thermometer measures temperature. Different thermometers are designed for body temperature, laboratory work or weather observations, but the measured quantity remains temperature. The important exam point is the quantity measured: temperature.
 
 **Source fact:** `THERMOMETER-TEMPERATURE`
 
@@ -28,7 +28,7 @@ D. Humidity
 
 **Answer:** B. Human body temperature
 
-**Explanation:** A clinical thermometer is designed for the narrow temperature range of the human body. It is therefore more suitable for medical use than a general laboratory thermometer.
+**Explanation:** A clinical thermometer is designed for the narrow temperature range of the human body. It is therefore more suitable for medical use than a general laboratory thermometer. Its scale is chosen specifically for normal and abnormal body temperatures.
 
 **Source fact:** `CLINICAL-THERMOMETER-BODY`
 
@@ -43,7 +43,7 @@ D. Lactometer
 
 **Answer:** C. Pyrometer
 
-**Explanation:** A pyrometer is used for very high temperatures, especially where direct contact is difficult or unsafe. Many pyrometers estimate temperature from thermal radiation emitted by the hot object.
+**Explanation:** A pyrometer is used for very high temperatures, especially where direct contact is difficult or unsafe. Many pyrometers estimate temperature from thermal radiation emitted by the hot object. This makes it useful in furnaces, foundries and other high-temperature settings.
 
 **Source fact:** `PYROMETER-HIGH-TEMP`
 
@@ -58,7 +58,7 @@ D. The highest and lowest temperatures reached over a period
 
 **Answer:** D. The highest and lowest temperatures reached over a period
 
-**Explanation:** A maximum–minimum thermometer retains the highest and lowest temperatures reached since the last reset. This makes it useful for daily weather records.
+**Explanation:** A maximum–minimum thermometer retains the highest and lowest temperatures reached since the last reset. This makes it useful for daily weather records. It helps compare daytime heating and night-time cooling over one observation period.
 
 **Source fact:** `MAXMIN-THERMOMETER`
 
@@ -73,7 +73,7 @@ D. Air pressure inside becomes zero
 
 **Answer:** A. The liquid expands or contracts with temperature
 
-**Explanation:** The liquid changes volume as its temperature changes. The calibrated scale converts that expansion or contraction into a temperature reading.
+**Explanation:** The liquid changes volume as its temperature changes. The calibrated scale converts that expansion or contraction into a temperature reading. The liquid level moves along the scale as its volume changes.
 
 **Source fact:** `LIQUID-THERMOMETER-PRINCIPLE`
 
@@ -88,7 +88,7 @@ D. Hydrometer
 
 **Answer:** B. Optical or radiation pyrometer
 
-**Explanation:** Molten metal is far hotter than the range of ordinary thermometers and direct contact may be unsafe. A radiation pyrometer can estimate its temperature remotely from emitted thermal radiation.
+**Explanation:** Molten metal is far hotter than the range of ordinary thermometers and direct contact may be unsafe. A radiation pyrometer can estimate its temperature remotely from emitted thermal radiation. Remote measurement avoids placing an ordinary sensor directly in extreme heat.
 
 **Source fact:** `MOLTEN-METAL-PYROMETER`
 
@@ -103,7 +103,7 @@ D. Rain gauge
 
 **Answer:** C. Barometer
 
-**Explanation:** A barometer measures atmospheric pressure. Changes in barometric pressure are also useful in weather observation because they often accompany changing weather systems.
+**Explanation:** A barometer measures atmospheric pressure. Changes in barometric pressure are also useful in weather observation because they often accompany changing weather systems. Falling or rising pressure can also indicate approaching changes in weather.
 
 **Source fact:** `BAROMETER-PRESSURE`
 
@@ -118,7 +118,7 @@ D. Hygrometer
 
 **Answer:** D. Hygrometer
 
-**Explanation:** A hygrometer measures the amount of moisture in air. Weather stations use humidity measurements along with temperature, pressure and wind data.
+**Explanation:** A hygrometer measures the amount of moisture in air. Weather stations use humidity measurements along with temperature, pressure and wind data. It is especially useful when studying comfort, evaporation and weather conditions.
 
 **Source fact:** `HYGROMETER-HUMIDITY`
 
@@ -133,7 +133,7 @@ D. Barometer
 
 **Answer:** A. Anemometer
 
-**Explanation:** An anemometer measures wind speed. A wind vane, by contrast, is used to indicate wind direction.
+**Explanation:** An anemometer measures wind speed. A wind vane, by contrast, is used to indicate wind direction. This distinction between speed and direction is frequently tested in exams.
 
 **Source fact:** `ANEMOMETER-WIND-SPEED`
 
@@ -148,7 +148,7 @@ D. Air humidity
 
 **Answer:** B. Direction from which the wind is blowing
 
-**Explanation:** A wind vane turns with the wind and indicates its direction. It does not measure wind speed, so it is often used together with an anemometer.
+**Explanation:** A wind vane turns with the wind and indicates its direction. It does not measure wind speed, so it is often used together with an anemometer. Its arrow or vane aligns according to the moving air.
 
 **Source fact:** `WIND-VANE-DIRECTION`
 
@@ -163,7 +163,7 @@ D. Altimeter
 
 **Answer:** C. Rain gauge
 
-**Explanation:** A rain gauge collects precipitation so its depth can be measured. Rainfall is usually reported as a depth, such as millimetres.
+**Explanation:** A rain gauge collects precipitation so its depth can be measured. Rainfall is usually reported as a depth, such as millimetres. The collected water is converted into a standard rainfall-depth reading.
 
 **Source fact:** `RAIN-GAUGE`
 
@@ -178,7 +178,7 @@ D. Barometer, hygrometer and anemometer
 
 **Answer:** D. Barometer, hygrometer and anemometer
 
-**Explanation:** Pressure is measured by a barometer, humidity by a hygrometer and wind speed by an anemometer. Matching each instrument to its quantity avoids common exam traps.
+**Explanation:** Pressure is measured by a barometer, humidity by a hygrometer and wind speed by an anemometer. Matching each instrument to its quantity avoids common exam traps. Each device must be matched with one specific weather variable.
 
 **Source fact:** `WEATHER-INSTRUMENT-SET`
 
@@ -193,7 +193,7 @@ D. Galvanometer only
 
 **Answer:** A. Ammeter
 
-**Explanation:** An ammeter measures electric current in a circuit. It is connected in series so the circuit current passes through the instrument.
+**Explanation:** An ammeter measures electric current in a circuit. It is connected in series so the circuit current passes through the instrument. Its internal resistance is kept very low so it disturbs the circuit as little as possible.
 
 **Source fact:** `AMMETER-CURRENT`
 
@@ -208,7 +208,7 @@ D. Barometer
 
 **Answer:** B. Voltmeter
 
-**Explanation:** A voltmeter measures potential difference between two points. It is connected in parallel across the component whose voltage is being measured.
+**Explanation:** A voltmeter measures potential difference between two points. It is connected in parallel across the component whose voltage is being measured. Its resistance is high so it draws very little current from the circuit.
 
 **Source fact:** `VOLTMETER-VOLTAGE`
 
@@ -223,7 +223,7 @@ D. Potentiometer only
 
 **Answer:** C. Ohmmeter
 
-**Explanation:** An ohmmeter is designed to measure electrical resistance. In modern practice this function is commonly built into a digital multimeter.
+**Explanation:** An ohmmeter is designed to measure electrical resistance. In modern practice this function is commonly built into a digital multimeter. It is useful for checking resistors, wires and electrical continuity.
 
 **Source fact:** `OHMMETER-RESISTANCE`
 
@@ -238,7 +238,7 @@ D. Small electric currents
 
 **Answer:** D. Small electric currents
 
-**Explanation:** A galvanometer is a sensitive instrument for detecting and measuring small currents. It can also form the basis of ammeters and voltmeters with suitable circuit changes.
+**Explanation:** A galvanometer is a sensitive instrument for detecting and measuring small currents. It can also form the basis of ammeters and voltmeters with suitable circuit changes. Its high sensitivity makes it useful where the current is too small for an ordinary ammeter.
 
 **Source fact:** `GALVANOMETER-SMALL-CURRENT`
 
@@ -253,7 +253,7 @@ D. Hydrometer
 
 **Answer:** A. Wattmeter
 
-**Explanation:** A wattmeter measures electrical power. It uses current and voltage information so the power being delivered to a load can be determined.
+**Explanation:** A wattmeter measures electrical power. It uses current and voltage information so the power being delivered to a load can be determined. Electrical power tells how quickly electrical energy is being used or transferred.
 
 **Source fact:** `WATTMETER-POWER`
 
@@ -268,7 +268,7 @@ D. Calorimeter
 
 **Answer:** B. Multimeter
 
-**Explanation:** A multimeter combines several electrical measurement functions in one device. Depending on the model, it can measure voltage, current, resistance and other quantities.
+**Explanation:** A multimeter combines several electrical measurement functions in one device. Depending on the model, it can measure voltage, current, resistance and other quantities. This is why it is one of the most common tools for electrical troubleshooting.
 
 **Source fact:** `MULTIMETER-INTEGRATED`
 
@@ -283,7 +283,7 @@ D. Wind speed
 
 **Answer:** C. Very small objects
 
-**Explanation:** A microscope makes very small objects appear larger so fine details can be seen. It is widely used in biology, medicine and material examination.
+**Explanation:** A microscope makes very small objects appear larger so fine details can be seen. It is widely used in biology, medicine and material examination. Its usefulness depends on magnification together with sufficient resolution.
 
 **Source fact:** `MICROSCOPE-SMALL-OBJECTS`
 
@@ -298,7 +298,7 @@ D. Distant objects
 
 **Answer:** D. Distant objects
 
-**Explanation:** A telescope collects light from distant objects and forms an enlarged view. Astronomical telescopes are used for stars, planets and other celestial objects.
+**Explanation:** A telescope collects light from distant objects and forms an enlarged view. Astronomical telescopes are used for stars, planets and other celestial objects. Its large light-gathering ability is important for faint astronomical objects.
 
 **Source fact:** `TELESCOPE-DISTANT`
 
@@ -313,7 +313,7 @@ D. Plane glass plate
 
 **Answer:** A. Convex lens
 
-**Explanation:** A magnifying glass uses a convex lens. When the object is placed within the focal length, the lens forms an enlarged virtual image.
+**Explanation:** A magnifying glass uses a convex lens. When the object is placed within the focal length, the lens forms an enlarged virtual image. The object must be placed close enough for the enlarged virtual image to form.
 
 **Source fact:** `MAGNIFYING-GLASS-CONVEX`
 
@@ -328,7 +328,7 @@ D. Stethoscope
 
 **Answer:** B. Spectroscope
 
-**Explanation:** A spectroscope separates light into a spectrum. The pattern of wavelengths can provide information about the source or the substances present.
+**Explanation:** A spectroscope separates light into a spectrum. The pattern of wavelengths can provide information about the source or the substances present. Different substances can produce characteristic spectral patterns.
 
 **Source fact:** `SPECTROSCOPE-LIGHT-SPECTRUM`
 
@@ -343,7 +343,7 @@ D. Thermal expansion
 
 **Answer:** C. Reflection of light
 
-**Explanation:** A simple periscope uses mirrors or prisms to change the direction of light by reflection. This allows the observer to see from a position with no direct line of sight.
+**Explanation:** A simple periscope uses mirrors or prisms to change the direction of light by reflection. This allows the observer to see from a position with no direct line of sight. This principle allows viewing from a protected or hidden position.
 
 **Source fact:** `PERISCOPE-REFLECTION`
 
@@ -358,7 +358,7 @@ D. Microscope and spectroscope
 
 **Answer:** D. Microscope and spectroscope
 
-**Explanation:** Bacteria require magnification with a microscope, while wavelength analysis requires a spectroscope. The instruments serve different observational tasks.
+**Explanation:** Bacteria require magnification with a microscope, while wavelength analysis requires a spectroscope. The instruments serve different observational tasks. One instrument magnifies structures, while the other analyses light.
 
 **Source fact:** `MICROSCOPE-SPECTROSCOPE-PAIR`
 
@@ -373,7 +373,7 @@ D. Manometer
 
 **Answer:** A. Seismograph
 
-**Explanation:** A seismograph records ground motion produced by earthquakes and other seismic disturbances. The resulting record is called a seismogram.
+**Explanation:** A seismograph records ground motion produced by earthquakes and other seismic disturbances. The resulting record is called a seismogram. The recorded pattern helps scientists study the strength and arrival of seismic waves.
 
 **Source fact:** `SEISMOGRAPH-EARTHQUAKE`
 
@@ -388,7 +388,7 @@ D. Electrical resistance
 
 **Answer:** B. Internal body sounds
 
-**Explanation:** A stethoscope carries sounds from the body to the examiner's ears. It is commonly used to listen to heart and lung sounds.
+**Explanation:** A stethoscope carries sounds from the body to the examiner's ears. It is commonly used to listen to heart and lung sounds. It does not create the sounds; it transmits and makes them easier to hear.
 
 **Source fact:** `STETHOSCOPE-BODY-SOUNDS`
 
@@ -403,7 +403,7 @@ D. Colorimeter
 
 **Answer:** C. Audiometer
 
-**Explanation:** An audiometer produces controlled tones of different frequencies and intensities. A person's responses are used to measure hearing threshold.
+**Explanation:** An audiometer produces controlled tones of different frequencies and intensities. A person's responses are used to measure hearing threshold. The result can show which frequencies a person hears poorly.
 
 **Source fact:** `AUDIOMETER-HEARING`
 
@@ -418,7 +418,7 @@ D. Sound level in decibels
 
 **Answer:** D. Sound level in decibels
 
-**Explanation:** A sound-level meter measures the intensity level of environmental sound and reports it in decibels. It is useful for workplace and noise-pollution assessment.
+**Explanation:** A sound-level meter measures the intensity level of environmental sound and reports it in decibels. It is useful for workplace and noise-pollution assessment. It is commonly used when checking environmental or occupational noise.
 
 **Source fact:** `SOUND-LEVEL-METER`
 
@@ -433,7 +433,7 @@ D. Odometer
 
 **Answer:** A. Frequency meter
 
-**Explanation:** A frequency meter measures how often a periodic signal or vibration repeats each second. Frequency is expressed in hertz.
+**Explanation:** A frequency meter measures how often a periodic signal or vibration repeats each second. Frequency is expressed in hertz. A higher frequency means more repeated cycles occur each second.
 
 **Source fact:** `FREQUENCY-METER`
 
@@ -448,7 +448,7 @@ D. Sound-level meter and sphygmomanometer
 
 **Answer:** B. Sound-level meter and audiometer
 
-**Explanation:** The sound-level meter measures workplace noise, while the audiometer tests hearing sensitivity. Using both separates the environmental measurement from the human hearing assessment.
+**Explanation:** The sound-level meter measures workplace noise, while the audiometer tests hearing sensitivity. Using both separates the environmental measurement from the human hearing assessment. One measures the sound source, while the other measures the person's hearing response.
 
 **Source fact:** `NOISE-HEARING-INSTRUMENTS`
 
@@ -463,7 +463,7 @@ D. Audiometer
 
 **Answer:** C. Sphygmomanometer
 
-**Explanation:** A sphygmomanometer measures arterial blood pressure. Its readings are commonly given as systolic and diastolic pressure.
+**Explanation:** A sphygmomanometer measures arterial blood pressure. Its readings are commonly given as systolic and diastolic pressure. The result is expressed as two pressure values, commonly systolic over diastolic.
 
 **Source fact:** `SPHYGMOMANOMETER-BP`
 
@@ -478,7 +478,7 @@ D. Spirometer
 
 **Answer:** D. Spirometer
 
-**Explanation:** A spirometer measures volumes and flow related to breathing. It is used in lung-function testing to assess respiratory performance.
+**Explanation:** A spirometer measures volumes and flow related to breathing. It is used in lung-function testing to assess respiratory performance. It helps evaluate how much air the lungs can move during breathing.
 
 **Source fact:** `SPIROMETER-LUNG-VOLUME`
 
@@ -493,7 +493,7 @@ D. Stomach
 
 **Answer:** A. Heart
 
-**Explanation:** An electrocardiograph records electrical signals produced by the heart. The tracing, called an ECG, helps assess heart rhythm and conduction.
+**Explanation:** An electrocardiograph records electrical signals produced by the heart. The tracing, called an ECG, helps assess heart rhythm and conduction. Abnormal patterns can indicate disturbances in the heart's electrical conduction.
 
 **Source fact:** `ECG-HEART`
 
@@ -508,7 +508,7 @@ D. Liver
 
 **Answer:** B. Brain
 
-**Explanation:** An electroencephalograph records electrical activity generated by the brain. The record is called an EEG and is useful in studying brain function and some disorders.
+**Explanation:** An electroencephalograph records electrical activity generated by the brain. The record is called an EEG and is useful in studying brain function and some disorders. It is especially useful when studying abnormal electrical patterns such as some seizure disorders.
 
 **Source fact:** `EEG-BRAIN`
 
@@ -523,7 +523,7 @@ D. Spirometer
 
 **Answer:** C. Ophthalmoscope
 
-**Explanation:** An ophthalmoscope directs light into the eye and lets the examiner view internal structures such as the retina. It is a standard instrument in eye examination.
+**Explanation:** An ophthalmoscope directs light into the eye and lets the examiner view internal structures such as the retina. It is a standard instrument in eye examination. The instrument helps inspect the back of the eye without surgery.
 
 **Source fact:** `OPHTHALMOSCOPE-EYE`
 
@@ -538,7 +538,7 @@ D. Spirometer, electrocardiograph and ophthalmoscope
 
 **Answer:** D. Spirometer, electrocardiograph and ophthalmoscope
 
-**Explanation:** A spirometer tests lung volumes, an electrocardiograph records heart electrical activity and an ophthalmoscope examines the retina. Each instrument targets a different organ system.
+**Explanation:** A spirometer tests lung volumes, an electrocardiograph records heart electrical activity and an ophthalmoscope examines the retina. Each instrument targets a different organ system. Selecting the correct instrument depends on whether the task is respiratory, cardiac or visual.
 
 **Source fact:** `MEDICAL-INSTRUMENT-TRIO`
 
@@ -553,7 +553,7 @@ D. Ammeter
 
 **Answer:** A. Measuring cylinder
 
-**Explanation:** A measuring cylinder is graduated to measure liquid volume. It is more accurate for volume measurement than an ordinary beaker.
+**Explanation:** A measuring cylinder is graduated to measure liquid volume. It is more accurate for volume measurement than an ordinary beaker. The liquid level is read against marked graduations on the cylinder.
 
 **Source fact:** `MEASURING-CYLINDER-VOLUME`
 
@@ -568,7 +568,7 @@ D. Hygrometer
 
 **Answer:** B. Balance
 
-**Explanation:** A balance compares or determines mass. Modern laboratories often use electronic balances for quick and precise measurements.
+**Explanation:** A balance compares or determines mass. Modern laboratories often use electronic balances for quick and precise measurements. Unlike a spring balance, it is intended to determine mass rather than force.
 
 **Source fact:** `BALANCE-MASS`
 
@@ -583,7 +583,7 @@ D. Electrical current
 
 **Answer:** C. A precisely measured variable volume of liquid
 
-**Explanation:** A burette has a fine scale and stopcock for controlled delivery of liquid. It is widely used in titration because the delivered volume can be read accurately.
+**Explanation:** A burette has a fine scale and stopcock for controlled delivery of liquid. It is widely used in titration because the delivered volume can be read accurately. The stopcock lets the user add liquid slowly and stop at the required point.
 
 **Source fact:** `BURETTE-TITRATION`
 
@@ -598,7 +598,7 @@ D. Volumetric pipette
 
 **Answer:** D. Volumetric pipette
 
-**Explanation:** A volumetric pipette is calibrated to deliver one specific volume accurately. This makes it useful when preparing or transferring solutions for quantitative work.
+**Explanation:** A volumetric pipette is calibrated to deliver one specific volume accurately. This makes it useful when preparing or transferring solutions for quantitative work. It is designed for accuracy rather than for measuring many different volumes.
 
 **Source fact:** `VOLUMETRIC-PIPETTE`
 
@@ -613,7 +613,7 @@ D. Humidity
 
 **Answer:** A. Force or weight
 
-**Explanation:** A spring balance works from the extension of a spring under force. Its scale is commonly calibrated in newtons to measure force or weight.
+**Explanation:** A spring balance works from the extension of a spring under force. Its scale is commonly calibrated in newtons to measure force or weight. The greater the applied force, the more the spring stretches within its working range.
 
 **Source fact:** `SPRING-BALANCE-FORCE`
 
@@ -628,7 +628,7 @@ D. Burette and spring balance
 
 **Answer:** B. Volumetric pipette and burette
 
-**Explanation:** The pipette transfers the fixed 25.0 mL accurately, while the burette measures a variable delivered volume. This combination is standard for titration work.
+**Explanation:** The pipette transfers the fixed 25.0 mL accurately, while the burette measures a variable delivered volume. This combination is standard for titration work. This difference between fixed and variable volume is the key to choosing them.
 
 **Source fact:** `PIPETTE-BURETTE-PAIR`
 
@@ -643,7 +643,7 @@ D. Audiometer
 
 **Answer:** C. Altimeter
 
-**Explanation:** An altimeter indicates altitude. Many altimeters work by using the predictable change of atmospheric pressure with height.
+**Explanation:** An altimeter indicates altitude. Many altimeters work by using the predictable change of atmospheric pressure with height. Aircraft commonly use altitude information for navigation and flight safety.
 
 **Source fact:** `ALTIMETER-ALTITUDE`
 
@@ -658,7 +658,7 @@ D. Direction
 
 **Answer:** D. Direction
 
-**Explanation:** A magnetic compass aligns with Earth's magnetic field and gives direction. It is a basic navigation instrument.
+**Explanation:** A magnetic compass aligns with Earth's magnetic field and gives direction. It is a basic navigation instrument. Its needle points along Earth's magnetic north–south direction.
 
 **Source fact:** `COMPASS-DIRECTION`
 
@@ -673,7 +673,7 @@ D. Sound intensity
 
 **Answer:** A. Angular position of a celestial object above the horizon
 
-**Explanation:** A sextant measures the angle between a celestial object and the horizon. Navigators can use this information to help determine position.
+**Explanation:** A sextant measures the angle between a celestial object and the horizon. Navigators can use this information to help determine position. The measured angle can be combined with time and astronomical data for navigation.
 
 **Source fact:** `SEXTANT-ANGLE`
 
@@ -688,7 +688,7 @@ D. Barometer
 
 **Answer:** B. Odometer
 
-**Explanation:** An odometer records the total distance travelled by a vehicle. A speedometer, in contrast, shows speed at a particular moment.
+**Explanation:** An odometer records the total distance travelled by a vehicle. A speedometer, in contrast, shows speed at a particular moment. This is why a vehicle dashboard often shows both speed and accumulated distance separately.
 
 **Source fact:** `ODOMETER-DISTANCE`
 
@@ -703,7 +703,7 @@ D. Engine temperature only
 
 **Answer:** C. Instantaneous speed
 
-**Explanation:** A speedometer shows how fast the vehicle is moving at that moment. Distance travelled is recorded separately by the odometer.
+**Explanation:** A speedometer shows how fast the vehicle is moving at that moment. Distance travelled is recorded separately by the odometer. It changes as the vehicle accelerates or slows down.
 
 **Source fact:** `SPEEDOMETER-SPEED`
 
@@ -718,7 +718,7 @@ D. Altimeter and sextant
 
 **Answer:** D. Altimeter and sextant
 
-**Explanation:** An altimeter gives altitude, while a sextant measures celestial angles for navigation. The two instruments solve different position-related problems.
+**Explanation:** An altimeter gives altitude, while a sextant measures celestial angles for navigation. The two instruments solve different position-related problems. One gives vertical position, while the other supports celestial navigation.
 
 **Source fact:** `ALTIMETER-SEXTANT`
 
@@ -733,7 +733,7 @@ D. Odometer
 
 **Answer:** A. pH meter
 
-**Explanation:** A pH meter measures the hydrogen-ion-related electrical potential of a solution and converts it to a pH value. It gives a direct quantitative measure of acidity or alkalinity.
+**Explanation:** A pH meter measures the hydrogen-ion-related electrical potential of a solution and converts it to a pH value. It gives a direct quantitative measure of acidity or alkalinity. Values below 7 are acidic, around 7 neutral and above 7 alkaline under ordinary conditions.
 
 **Source fact:** `PH-METER`
 
@@ -748,7 +748,7 @@ D. Manometer
 
 **Answer:** B. Hydrometer
 
-**Explanation:** A hydrometer floats at different depths depending on liquid density. Its calibrated scale gives relative density or specific gravity.
+**Explanation:** A hydrometer floats at different depths depending on liquid density. Its calibrated scale gives relative density or specific gravity. The depth at which it floats depends on the buoyant force from the liquid.
 
 **Source fact:** `HYDROMETER-DENSITY`
 
@@ -763,7 +763,7 @@ D. Air
 
 **Answer:** C. Milk
 
-**Explanation:** A lactometer is a type of hydrometer designed for milk. Density measurements can help detect abnormal dilution, although composition can affect interpretation.
+**Explanation:** A lactometer is a type of hydrometer designed for milk. Density measurements can help detect abnormal dilution, although composition can affect interpretation. A suspicious density can suggest dilution, though density alone cannot prove composition.
 
 **Source fact:** `LACTOMETER-MILK`
 
@@ -778,7 +778,7 @@ D. Colorimeter
 
 **Answer:** D. Colorimeter
 
-**Explanation:** A colorimeter measures how much light of a selected wavelength is absorbed by a coloured solution. Greater absorbance can be related to concentration under suitable conditions.
+**Explanation:** A colorimeter measures how much light of a selected wavelength is absorbed by a coloured solution. Greater absorbance can be related to concentration under suitable conditions. It is especially useful when concentration changes produce predictable changes in colour intensity.
 
 **Source fact:** `COLORIMETER-CONCENTRATION`
 
@@ -793,7 +793,7 @@ D. Rain gauge
 
 **Answer:** A. Spectrophotometer
 
-**Explanation:** A spectrophotometer measures absorbance at selected or scanned wavelengths with greater spectral control. It is therefore suited to detailed wavelength-dependent analysis.
+**Explanation:** A spectrophotometer measures absorbance at selected or scanned wavelengths with greater spectral control. It is therefore suited to detailed wavelength-dependent analysis. This provides more detailed optical information than a basic colour comparison.
 
 **Source fact:** `SPECTROPHOTOMETER`
 
@@ -808,7 +808,7 @@ D. Lactometer and anemometer
 
 **Answer:** B. Lactometer and pH meter
 
-**Explanation:** The lactometer checks milk density, while the pH meter gives a quantitative acidity reading. Together they assess two different properties of the sample.
+**Explanation:** The lactometer checks milk density, while the pH meter gives a quantitative acidity reading. Together they assess two different properties of the sample. Using both measurements gives more information than either one alone.
 
 **Source fact:** `MILK-DENSITY-PH`
 
@@ -823,7 +823,7 @@ D. Ammeter — voltage
 
 **Answer:** C. Anemometer — wind speed
 
-**Explanation:** An anemometer measures wind speed. The other quantities are measured by different instruments such as the hygrometer, barometer and voltmeter.
+**Explanation:** An anemometer measures wind speed. The other quantities are measured by different instruments such as the hygrometer, barometer and voltmeter. Remembering the measured quantity is more useful than memorizing instrument names in isolation.
 
 **Source fact:** `MATCH-ANEMOMETER`
 
@@ -838,7 +838,7 @@ D. Sphygmomanometer — blood pressure
 
 **Answer:** D. Sphygmomanometer — blood pressure
 
-**Explanation:** A sphygmomanometer measures blood pressure. Spirometers test breathing, audiometers test hearing and ophthalmoscopes examine the eye.
+**Explanation:** A sphygmomanometer measures blood pressure. Spirometers test breathing, audiometers test hearing and ophthalmoscopes examine the eye. Medical instruments are best learned by linking each one to the organ or quantity examined.
 
 **Source fact:** `MATCH-SPHYGMOMANOMETER`
 
@@ -853,7 +853,7 @@ D. Periscope and hygrometer
 
 **Answer:** A. Microscope and telescope
 
-**Explanation:** A microscope magnifies very small nearby objects, while a telescope collects light from distant objects. They solve opposite scale problems.
+**Explanation:** A microscope magnifies very small nearby objects, while a telescope collects light from distant objects. They solve opposite scale problems. The first deals with tiny nearby details; the second with very distant targets.
 
 **Source fact:** `MICROSCOPE-TELESCOPE`
 
@@ -868,7 +868,7 @@ D. Voltmeter—mass; balance—voltage; thermometer—current
 
 **Answer:** B. Voltmeter—voltage; ammeter—current; ohmmeter—resistance
 
-**Explanation:** The voltmeter, ammeter and ohmmeter measure voltage, current and resistance respectively. These are basic electrical measurement instruments.
+**Explanation:** The voltmeter, ammeter and ohmmeter measure voltage, current and resistance respectively. These are basic electrical measurement instruments. These three quantities are fundamental in basic circuit testing.
 
 **Source fact:** `ELECTRICAL-INSTRUMENT-SET`
 
@@ -883,7 +883,7 @@ D. Anemometer, thermometer, ammeter and rain gauge
 
 **Answer:** C. Barometer, anemometer, rain gauge and hygrometer
 
-**Explanation:** A complete set needs one instrument for each quantity: barometer for pressure, anemometer for wind speed, rain gauge for rainfall and hygrometer for humidity.
+**Explanation:** A complete set needs one instrument for each quantity: barometer for pressure, anemometer for wind speed, rain gauge for rainfall and hygrometer for humidity. A complete weather record often combines several instruments rather than relying on one.
 
 **Source fact:** `FIELD-WEATHER-SET`
 
@@ -898,7 +898,7 @@ D. Sphygmomanometer → spirometer → audiometer → electroencephalograph
 
 **Answer:** D. Sphygmomanometer → spirometer → audiometer → electroencephalograph
 
-**Explanation:** Blood pressure needs a sphygmomanometer, lung volume a spirometer, hearing threshold an audiometer and brain electrical activity an electroencephalograph. The sequence directly matches the four tasks.
+**Explanation:** Blood pressure needs a sphygmomanometer, lung volume a spirometer, hearing threshold an audiometer and brain electrical activity an electroencephalograph. The sequence directly matches the four tasks. This type of mixed question tests whether each instrument is linked to the correct physiological measurement.
 
 **Source fact:** `HOSPITAL-INSTRUMENT-SEQUENCE`
 
