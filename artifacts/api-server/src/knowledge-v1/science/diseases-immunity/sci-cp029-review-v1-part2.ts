@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Typhoid",
       "Tuberculosis"
     ],
-    "Dengue is caused by dengue viruses and transmitted mainly by Aedes mosquitoes.",
+    "Dengue is caused by dengue viruses and is transmitted by Aedes mosquitoes.",
     [
       "DENGUE-AEDES-VIRUS"
     ]
