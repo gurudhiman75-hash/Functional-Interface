@@ -59,7 +59,7 @@ const PACKAGE_SPECS = [
     checkpointId: "BLR-CP-002",
     label: "Pointing & Introduction Relations",
     qlIds: ["BLR-QL-008"],
-    supportedLanguages: ["en"],
+    supportedLanguages: ["en", "hi", "pa"],
     releaseEligibleAfterApproval: false,
   },
   {

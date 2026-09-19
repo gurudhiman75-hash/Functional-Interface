@@ -1,9 +1,9 @@
 name: Reasoning BLR-001 Standard Question Studio
 
+# CI-FANOUT-ALLOW: non-main-base
+
 on:
   pull_request:
-    branches:
-      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
@@ -11,7 +11,6 @@ on:
       - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
       - "artifacts/api-server/src/routes/index.ts"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
-      - ".github/workflows/reasoning-blr-001-complete-question-studio.yml"
   push:
     branches:
       - New-main
@@ -24,6 +23,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: blr-001-standard-question-studio-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-standard-integration:
