@@ -39,7 +39,7 @@ describe("POL-CP-027 Trade, Commerce & Co-operative Societies V1", () => {
       perQl.set(q.qlId, v);
 
       expect(q.stem.trim().split(/\s+/).length).toBeLessThanOrEqual(30);
-      expect(q.stem).not.toMatch(/\bwhom\b|\bby whom\b|for the purposes of|CP027|ownership|review candidate/i);
+      expect(q.stem).not.toMatch(/\bwhom\b|\bby whom\b|for the purposes of|CP027|ownership|review candidate|is dealt with in|is covered by|is contained in|expressly mentioned|provided under|provided in|governed by/i);
     }
 
     for (const mix of perQl.values()) {
