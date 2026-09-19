@@ -306,6 +306,57 @@ function dateLocal(value: string, locale: NativeLocale): string {
   return `${match[1]} ${native(month, locale)} ${match[3]}`;
 }
 
+function cp2MilestoneQuestion(row: (typeof POL_CP002_MILESTONES_V1)[number], locale: NativeLocale): string {
+  if (row.id === "rajendra-prasad-president") {
+    return locale === "hi"
+      ? "राजेंद्र प्रसाद संविधान सभा के स्थायी अध्यक्ष कब चुने गए?"
+      : "ਰਾਜੇਂਦਰ ਪ੍ਰਸਾਦ ਸੰਵਿਧਾਨ ਸਭਾ ਦੇ ਸਥਾਈ ਪ੍ਰਧਾਨ ਕਦੋਂ ਚੁਣੇ ਗਏ?";
+  }
+  if (row.id === "objectives-moved") {
+    return locale === "hi"
+      ? "जवाहरलाल नेहरू ने उद्देश्य प्रस्ताव कब प्रस्तुत किया?"
+      : "ਜਵਾਹਰਲਾਲ ਨੇਹਰੂ ਨੇ ਉਦੇਸ਼ ਪ੍ਰਸਤਾਵ ਕਦੋਂ ਪੇਸ਼ ਕੀਤਾ?";
+  }
+  if (row.id === "objectives-adopted") {
+    return locale === "hi"
+      ? "संविधान सभा ने उद्देश्य प्रस्ताव कब स्वीकार किया?"
+      : "ਸੰਵਿਧਾਨ ਸਭਾ ਨੇ ਉਦੇਸ਼ ਪ੍ਰਸਤਾਵ ਕਦੋਂ ਸਵੀਕਾਰ ਕੀਤਾ?";
+  }
+  return locale === "hi"
+    ? `${native(CP2_MILESTONES[row.id]!.event, locale)} किस तारीख को हुआ?`
+    : `${native(CP2_MILESTONES[row.id]!.event, locale)} ਕਿਹੜੀ ਤਾਰੀਖ ਨੂੰ ਹੋਇਆ?`;
+}
+
+function cp2DatedSentence(row: (typeof POL_CP002_MILESTONES_V1)[number], locale: NativeLocale): string {
+  const date = dateLocal(row.displayDate, locale);
+  const hi: Readonly<Record<string, string>> = {
+    "first-sitting": `संविधान सभा की पहली बैठक ${date} को हुई।`,
+    "rajendra-prasad-president": `राजेंद्र प्रसाद ${date} को संविधान सभा के स्थायी अध्यक्ष चुने गए।`,
+    "objectives-moved": `जवाहरलाल नेहरू ने ${date} को उद्देश्य प्रस्ताव प्रस्तुत किया।`,
+    "objectives-adopted": `संविधान सभा ने ${date} को उद्देश्य प्रस्ताव स्वीकार किया।`,
+    "drafting-committee-appointed": `संविधान सभा ने ${date} को प्रारूप समिति नियुक्त की।`,
+    "draft-submitted": `प्रारूप समिति ने ${date} को संविधान सभा के अध्यक्ष को संविधान का मसौदा सौंपा।`,
+    "constitution-adopted": `संविधान सभा ने ${date} को भारत का संविधान अंगीकृत किया।`,
+    "constitution-signed": `संविधान सभा के सदस्यों ने ${date} को संविधान पर हस्ताक्षर किए।`,
+    "constitution-commenced": `भारत का संविधान ${date} को पूर्ण रूप से लागू हुआ।`,
+  };
+  const pa: Readonly<Record<string, string>> = {
+    "first-sitting": `ਸੰਵਿਧਾਨ ਸਭਾ ਦੀ ਪਹਿਲੀ ਬੈਠਕ ${date} ਨੂੰ ਹੋਈ।`,
+    "rajendra-prasad-president": `ਰਾਜੇਂਦਰ ਪ੍ਰਸਾਦ ${date} ਨੂੰ ਸੰਵਿਧਾਨ ਸਭਾ ਦੇ ਸਥਾਈ ਪ੍ਰਧਾਨ ਚੁਣੇ ਗਏ।`,
+    "objectives-moved": `ਜਵਾਹਰਲਾਲ ਨੇਹਰੂ ਨੇ ${date} ਨੂੰ ਉਦੇਸ਼ ਪ੍ਰਸਤਾਵ ਪੇਸ਼ ਕੀਤਾ।`,
+    "objectives-adopted": `ਸੰਵਿਧਾਨ ਸਭਾ ਨੇ ${date} ਨੂੰ ਉਦੇਸ਼ ਪ੍ਰਸਤਾਵ ਸਵੀਕਾਰ ਕੀਤਾ।`,
+    "drafting-committee-appointed": `ਸੰਵਿਧਾਨ ਸਭਾ ਨੇ ${date} ਨੂੰ ਮਸੌਦਾ ਕਮੇਟੀ ਨਿਯੁਕਤ ਕੀਤੀ।`,
+    "draft-submitted": `ਮਸੌਦਾ ਕਮੇਟੀ ਨੇ ${date} ਨੂੰ ਸੰਵਿਧਾਨ ਸਭਾ ਦੇ ਪ੍ਰਧਾਨ ਨੂੰ ਸੰਵਿਧਾਨ ਦਾ ਮਸੌਦਾ ਸੌਂਪਿਆ।`,
+    "constitution-adopted": `ਸੰਵਿਧਾਨ ਸਭਾ ਨੇ ${date} ਨੂੰ ਭਾਰਤ ਦਾ ਸੰਵਿਧਾਨ ਅੰਗੀਕਾਰ ਕੀਤਾ।`,
+    "constitution-signed": `ਸੰਵਿਧਾਨ ਸਭਾ ਦੇ ਮੈਂਬਰਾਂ ਨੇ ${date} ਨੂੰ ਸੰਵਿਧਾਨ ਤੇ ਦਸਤਖਤ ਕੀਤੇ।`,
+    "constitution-commenced": `ਭਾਰਤ ਦਾ ਸੰਵਿਧਾਨ ${date} ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਲਾਗੂ ਹੋਇਆ।`,
+  };
+  const output = (locale === "hi" ? hi : pa)[row.id];
+  if (!output) throw new Error(`Missing dated milestone sentence for ${row.id}`);
+  return output;
+}
+
+
 const CP2_MILESTONES: Readonly<Record<string, { event: Pair; detail: Pair }>> = Object.freeze({
   "first-sitting": { event: lp("संविधान सभा की पहली बैठक हुई", "ਸੰਵਿਧਾਨ ਸਭਾ ਦੀ ਪਹਿਲੀ ਬੈਠਕ ਹੋਈ"), detail: lp("पहली बैठक नई दिल्ली के संविधान कक्ष में हुई थी", "ਪਹਿਲੀ ਬੈਠਕ ਨਵੀਂ ਦਿੱਲੀ ਦੇ ਸੰਵਿਧਾਨ ਹਾਲ ਵਿੱਚ ਹੋਈ ਸੀ") },
   "rajendra-prasad-president": { event: lp("राजेंद्र प्रसाद संविधान सभा के स्थायी अध्यक्ष चुने गए", "ਰਾਜੇਂਦਰ ਪ੍ਰਸਾਦ ਸੰਵਿਧਾਨ ਸਭਾ ਦੇ ਸਥਾਈ ਪ੍ਰਧਾਨ ਚੁਣੇ ਗਏ"), detail: lp("उन्होंने प्रारंभिक बैठक की अस्थायी अध्यक्षता के बाद स्थायी अध्यक्ष का पद संभाला", "ਉਨ੍ਹਾਂ ਨੇ ਸ਼ੁਰੂਆਤੀ ਬੈਠਕ ਦੀ ਅਸਥਾਈ ਅਧਿਆਕਸ਼ਤਾ ਤੋਂ ਬਾਅਦ ਸਥਾਈ ਪ੍ਰਧਾਨ ਦਾ ਅਹੁਦਾ ਸੰਭਾਲਿਆ") },
@@ -494,9 +545,7 @@ function cp2Stem(q: (typeof CP002_EN)[number], locale: NativeLocale): string {
   const ql = Number(q.qlId.slice(-3));
   if (ql === 1) {
     const row = POL_CP002_MILESTONES_V1.find((item) => item.displayDate === q.canonicalAnswer)!;
-    return locale === "hi"
-      ? `${native(CP2_MILESTONES[row.id]!.event, locale)} कब हुआ?`
-      : `${native(CP2_MILESTONES[row.id]!.event, locale)} ਕਦੋਂ ਹੋਇਆ?`;
+    return cp2MilestoneQuestion(row, locale);
   }
   if (ql === 2) {
     const row = cp2MilestoneByEvent(q.canonicalAnswer);
@@ -553,15 +602,23 @@ function cp2Stem(q: (typeof CP002_EN)[number], locale: NativeLocale): string {
   if (ql === 12) return locale === "hi" ? "संविधान निर्माण की इन घटनाओं का सही कालानुक्रमिक क्रम कौन-सा है?" : "ਸੰਵਿਧਾਨ ਬਣਾਉਣ ਦੀਆਂ ਇਨ੍ਹਾਂ ਘਟਨਾਵਾਂ ਦਾ ਸਹੀ ਕਾਲਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?";
   if (ql === 13) {
     const row = POL_CP002_INFLUENCE_ROWS_V1.find((item) => item.source === q.canonicalAnswer)!;
-    return locale === "hi"
-      ? `भारतीय संविधान के ${native(CP2_INFLUENCE[row.id]!.feature, locale)} को मुख्य प्रेरणा किस स्रोत से मिली?`
-      : `ਭਾਰਤੀ ਸੰਵਿਧਾਨ ਦੇ ${native(CP2_INFLUENCE[row.id]!.feature, locale)} ਨੂੰ ਮੁੱਖ ਪ੍ਰੇਰਣਾ ਕਿਸ ਸਰੋਤ ਤੋਂ ਮਿਲੀ?`;
+    const stems: Readonly<Record<string, Pair>> = {
+      "uk-parliamentary": lp("भारतीय संविधान की संसदीय शासन प्रणाली का प्रमुख प्रेरणा-स्रोत कौन-सा था?", "ਭਾਰਤੀ ਸੰਵਿਧਾਨ ਦੀ ਸੰਸਦੀ ਸਰਕਾਰ ਪ੍ਰਣਾਲੀ ਦਾ ਮੁੱਖ ਪ੍ਰੇਰਣਾ-ਸਰੋਤ ਕਿਹੜਾ ਸੀ?"),
+      "us-fundamental-rights": lp("भारतीय संविधान के मौलिक अधिकारों का प्रमुख प्रेरणा-स्रोत कौन-सा था?", "ਭਾਰਤੀ ਸੰਵਿਧਾਨ ਦੇ ਮੂਲ ਅਧਿਕਾਰਾਂ ਦਾ ਮੁੱਖ ਪ੍ਰੇਰਣਾ-ਸਰੋਤ ਕਿਹੜਾ ਸੀ?"),
+      "ireland-dpsp": lp("भारतीय संविधान के राज्य के नीति-निदेशक तत्वों का प्रमुख प्रेरणा-स्रोत कौन-सा था?", "ਭਾਰਤੀ ਸੰਵਿਧਾਨ ਦੇ ਰਾਜ ਦੇ ਨੀਤੀ-ਨਿਰਦੇਸ਼ਕ ਤੱਤਾਂ ਦਾ ਮੁੱਖ ਪ੍ਰੇਰਣਾ-ਸਰੋਤ ਕਿਹੜਾ ਸੀ?"),
+      "goi1935-federal-admin": lp("भारतीय संविधान के संघीय और प्रशासनिक ढाँचे का प्रमुख प्रेरणा-स्रोत कौन-सा था?", "ਭਾਰਤੀ ਸੰਵਿਧਾਨ ਦੇ ਸੰਘੀ ਅਤੇ ਪ੍ਰਸ਼ਾਸਕੀ ਢਾਂਚੇ ਦਾ ਮੁੱਖ ਪ੍ਰੇਰਣਾ-ਸਰੋਤ ਕਿਹੜਾ ਸੀ?"),
+    };
+    return native(stems[row.id]!, locale);
   }
   if (ql === 14) {
     const row = POL_CP002_INFLUENCE_ROWS_V1.find((item) => item.feature === q.canonicalAnswer)!;
-    return locale === "hi"
-      ? `${native(CP2_INFLUENCE[row.id]!.source, locale)} से कौन-सी संवैधानिक विशेषता सही रूप से जुड़ी है?`
-      : `${native(CP2_INFLUENCE[row.id]!.source, locale)} ਨਾਲ ਕਿਹੜੀ ਸੰਵਿਧਾਨਕ ਵਿਸ਼ੇਸ਼ਤਾ ਸਹੀ ਤਰ੍ਹਾਂ ਜੁੜੀ ਹੈ?`;
+    const stems: Readonly<Record<string, Pair>> = {
+      "uk-parliamentary": lp("निम्न में से कौन-सी संवैधानिक विशेषता ब्रिटिश संवैधानिक परंपरा से प्रेरित है?", "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਸੰਵਿਧਾਨਕ ਵਿਸ਼ੇਸ਼ਤਾ ਬਰਤਾਨਵੀ ਸੰਵਿਧਾਨਕ ਪਰੰਪਰਾ ਤੋਂ ਪ੍ਰੇਰਿਤ ਹੈ?"),
+      "us-fundamental-rights": lp("निम्न में से कौन-सी संवैधानिक विशेषता संयुक्त राज्य अमेरिका के संविधान से प्रेरित है?", "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਸੰਵਿਧਾਨਕ ਵਿਸ਼ੇਸ਼ਤਾ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਦੇ ਸੰਵਿਧਾਨ ਤੋਂ ਪ੍ਰੇਰਿਤ ਹੈ?"),
+      "ireland-dpsp": lp("निम्न में से कौन-सी संवैधानिक विशेषता आयरलैंड के संविधान से प्रेरित है?", "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਸੰਵਿਧਾਨਕ ਵਿਸ਼ੇਸ਼ਤਾ ਆਇਰਲੈਂਡ ਦੇ ਸੰਵਿਧਾਨ ਤੋਂ ਪ੍ਰੇਰਿਤ ਹੈ?"),
+      "goi1935-federal-admin": lp("निम्न में से कौन-सी संवैधानिक विशेषता भारत शासन अधिनियम, 1935 से प्रेरित है?", "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਸੰਵਿਧਾਨਕ ਵਿਸ਼ੇਸ਼ਤਾ ਭਾਰਤ ਸਰਕਾਰ ਐਕਟ, 1935 ਤੋਂ ਪ੍ਰੇਰਿਤ ਹੈ?"),
+    };
+    return native(stems[row.id]!, locale);
   }
   if (ql === 15) return locale === "hi"
     ? "संविधान के अंगीकरण, हस्ताक्षर और लागू होने की तिथियों का सही मिलान कौन-सा है?"
@@ -580,9 +637,7 @@ function cp2Explanation(q: (typeof CP002_EN)[number], locale: NativeLocale): str
       : ql === 2
         ? cp2MilestoneByEvent(q.canonicalAnswer)
         : POL_CP002_MILESTONES_V1.find((item) => q.canonicalAnswer.startsWith(`${item.event} — `))!;
-    return locale === "hi"
-      ? `${native(CP2_MILESTONES[row.id]!.event, locale)} ${dateLocal(row.displayDate, locale)} को हुआ।`
-      : `${native(CP2_MILESTONES[row.id]!.event, locale)} ${dateLocal(row.displayDate, locale)} ਨੂੰ ਹੋਇਆ।`;
+    return cp2DatedSentence(row, locale);
   }
   if ([3, 4].includes(ql)) {
     const row = ql === 3 ? cp2RoleByPerson(q.canonicalAnswer) : POL_CP002_ROLE_ROWS_V1.find((item) => item.role === q.canonicalAnswer)!;
@@ -617,7 +672,7 @@ function cp2Explanation(q: (typeof CP002_EN)[number], locale: NativeLocale): str
   if (ql === 11) return locale === "hi"
     ? "दो कथन सही हैं। व्यक्ति की वास्तविक भूमिका और समिति के वास्तविक अध्यक्ष से प्रत्येक कथन का मिलान करना चाहिए।"
     : "ਦੋ ਬਿਆਨ ਸਹੀ ਹਨ। ਹਰ ਬਿਆਨ ਨੂੰ ਵਿਅਕਤੀ ਦੀ ਅਸਲ ਭੂਮਿਕਾ ਅਤੇ ਕਮੇਟੀ ਦੇ ਅਸਲ ਅਧਿਆਕਸ਼ ਨਾਲ ਮਿਲਾ ਕੇ ਦੇਖਣਾ ਚਾਹੀਦਾ ਹੈ।";
-  if (ql === 12) return locale === "hi" ? `सही कालानुक्रमिक क्रम ${cp2Option(q.canonicalAnswer, locale)} है।` : `ਸਹੀ ਕਾਲਕ੍ਰਮ ${cp2Option(q.canonicalAnswer, locale)} ਹੈ।`;
+  if (ql === 12) return locale === "hi" ? `सही कालानुक्रमिक क्रम है: ${cp2Option(q.canonicalAnswer, locale)}।` : `ਸਹੀ ਕਾਲਕ੍ਰਮ ਹੈ: ${cp2Option(q.canonicalAnswer, locale)}।`;
   if ([13, 14].includes(ql)) {
     const row = ql === 13
       ? POL_CP002_INFLUENCE_ROWS_V1.find((item) => item.source === q.canonicalAnswer)!
