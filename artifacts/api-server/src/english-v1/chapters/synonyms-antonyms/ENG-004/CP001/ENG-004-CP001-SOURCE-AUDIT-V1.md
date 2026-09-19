@@ -1,6 +1,6 @@
 # ENG-004-CP001 — Core Synonyms & Antonyms — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `PILOT_BANK_36__EXPANSION_REQUIRED__HUMAN_APPROVAL_BLOCKED`
 
 ## Boundary
 
@@ -14,7 +14,7 @@ Pipeline:
 
 ## Lexical inventory
 
-V1 contains **36 curated entries**:
+The initial V1 architecture pilot contains **36 curated entries**. This is **not** the final CP001 coverage bank. CP001 now has a minimum target of **500 headword-senses** before human approval:
 
 - 12 Easy
 - 12 Medium
@@ -88,6 +88,6 @@ V1 requires:
 
 ## Lifecycle
 
-CP001 is **review-only** and is not registered in Question Studio until explicit human editorial approval.
+CP001 is **pilot/review-only** and human approval is currently blocked by lexical coverage. It is not registered in Question Studio. See `ENG-004-LEXICAL-COVERAGE-PLAN-V1.md` for the chapter-scale expansion target.
 
 Question Bank writes, tests, mocks, learner/public publication, automatic student delivery and production release are not authorized.
