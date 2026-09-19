@@ -162,7 +162,7 @@ function buildQuestion(equationX: QuadraticEquation, equationY: QuadraticEquatio
 }
 
 function rootList(label: string, roots: QuadraticSurd[]): string {
-  return `${label} = {${sortedRoots(roots).map(formatSurd).join(", ")}}`;
+  return `${label} = {${sortedRoots(roots).map(formatLearnerRoot).join(", ")}}`;
 }
 
 function explanationFor(
