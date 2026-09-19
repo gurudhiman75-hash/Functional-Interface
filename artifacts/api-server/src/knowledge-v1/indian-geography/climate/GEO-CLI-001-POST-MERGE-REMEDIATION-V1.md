@@ -1,6 +1,6 @@
 # GEO-CLI-001 Post-Merge Remediation V1
 
-Status: REVIEW CANDIDATE — NOT MERGED
+Status: APPROVED — MERGED — CONTENT CLOSED
 Chapter: Climate of India & Monsoon System
 Current owning authority: `GEO_CLI_001_OWNING_AUTHORITY_V3`
 Current exhaustive closure layer: `GEO_CLI_001_CP013_REVIEW_BATCH_V6`
@@ -122,4 +122,4 @@ CP013 V6 is synchronized to owning authority V3 and must contain:
 
 This remediation does not authorize Question Bank persistence, test/mock eligibility, learner publication, runtime registration or production release.
 
-Final content freeze requires explicit human approval and merge of the remediation PR.
+Human approval was granted and PR #1965 was merged into `New-main`. GEO-CLI-001 is content-closed on owning authority V3 and CP013 V6. This closure does not authorize runtime registration, Question Bank persistence, tests/mocks, learner publication or production release.
