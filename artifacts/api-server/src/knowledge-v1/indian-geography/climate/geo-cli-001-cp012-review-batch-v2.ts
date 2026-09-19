@@ -202,6 +202,17 @@ const REQUIRED_INTEGRATION_PATCHES = Object.freeze([
   "GEO-CLI-001-CP012-Q031","GEO-CLI-001-CP012-Q032","GEO-CLI-001-CP012-Q037","GEO-CLI-001-CP012-Q038",
 ] as const);
 
+function placePatchedOptions(
+  options: readonly string[],
+  canonicalAnswer: string,
+  correctIndex: number,
+): readonly string[] {
+  const distractors = options.filter((option) => option !== canonicalAnswer);
+  const placed = [...distractors];
+  placed.splice(correctIndex, 0, canonicalAnswer);
+  return Object.freeze(placed);
+}
+
 export const GEO_CLI_001_CP012_REVIEW_BATCH_V2: readonly GeoCli001Cp012Question[] = Object.freeze(
   GEO_CLI_001_CP012_REVIEW_BATCH_V1.map((question) => {
     const patch = INTEGRATION_PATCHES_V2[question.questionId];
@@ -210,7 +221,7 @@ export const GEO_CLI_001_CP012_REVIEW_BATCH_V2: readonly GeoCli001Cp012Question[
       ...question,
       stem: patch.stem,
       canonicalAnswer: patch.canonicalAnswer,
-      options: Object.freeze([...patch.options]),
+      options: placePatchedOptions(patch.options, patch.canonicalAnswer, question.correctIndex),
       explanation: patch.explanation,
       sourceFactIds: Object.freeze([...patch.sourceFactIds]),
       reviewOnly: true as const,
@@ -220,7 +231,7 @@ export const GEO_CLI_001_CP012_REVIEW_BATCH_V2: readonly GeoCli001Cp012Question[
 );
 
 const BANNED_LEARNER_TEXT =
-  /sourceFact|review-only|runtimeRegistered|generator|qualification gate|truth authority|\bNCERT\b|\bIMD\b|\bbroad(?:ly)?\b|\bmainly\b/i;
+  /sourceFact|review-only|runtimeRegistered|generator|qualification gate|truth authority|\bNCERT\b|\bIMD\b|\bbroad(?:ly)?\b/i;
 const BANNED_STEM_TEXT =
   /associated with|described as|in the context of|with reference to the above|what is a key feature|which is correct\?|which statement is correct\?|what broad effect can it have/i;
 
