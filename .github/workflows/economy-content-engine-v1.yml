@@ -140,13 +140,13 @@ jobs:
           }
           NODE
 
-      - name: Run Economy multilingual CP001-CP008 audit
+      - name: Run Economy multilingual CP001-CP010 audit
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/indian-economy/localization-v1/eco-cp001-cp008-audit-v1.ts \
+            src/knowledge-v1/indian-economy/localization-v1/eco-cp001-cp010-audit-v1.ts \
             --bundle --packages=external --platform=node --format=esm \
-            --outfile=dist/economy/eco-cp001-cp008-audit-v1.mjs
-          node artifacts/api-server/dist/economy/eco-cp001-cp008-audit-v1.mjs
+            --outfile=dist/economy/eco-cp001-cp010-audit-v1.mjs
+          node artifacts/api-server/dist/economy/eco-cp001-cp010-audit-v1.mjs
 
       - name: Generate Economy multilingual review Markdown
         working-directory: artifacts/api-server
