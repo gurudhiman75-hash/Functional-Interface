@@ -11,8 +11,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "B only",
       "both A and B"
     ],
-    "In the ABO system, group O red blood cells lack both A and B surface antigens. Plasma typically contains antibodies against both A and B.",
-    "MEGA-ABO-O"
+    "In the ABO system, group O red blood cells lack both A and B surface antigens. Plasma typically contains antibodies against both A and B. This antigen pattern is why ABO compatibility matters in blood transfusion.",
+    [
+      "MEGA-ABO-O"
+    ]
   ],
   [
     8,
@@ -24,8 +26,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "prevents inheritance",
       "stops reproduction"
     ],
-    "Natural selection requires heritable differences among individuals. Traits that improve reproductive success can become more common over generations.",
-    "MEGA-VARIATION-SELECTION"
+    "Natural selection requires heritable differences among individuals. Traits that improve reproductive success can become more common over generations. Without variation, natural selection would have little inherited diversity to favor.",
+    [
+      "MEGA-VARIATION-SELECTION"
+    ]
   ],
   [
     8,
@@ -37,8 +41,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "Antibiotics create identical mutations on demand",
       "Resistance is unrelated to selection"
     ],
-    "Some bacteria may already carry resistance-conferring variation. Antibiotic exposure kills susceptible cells more readily, allowing resistant survivors to multiply.",
-    "MEGA-RESISTANCE-SELECTION"
+    "Some bacteria may already carry resistance-conferring variation. Antibiotic exposure kills susceptible cells more readily, allowing resistant survivors to multiply. This is natural selection acting on a microbial population.",
+    [
+      "MEGA-RESISTANCE-SELECTION"
+    ]
   ],
   [
     9,
@@ -50,8 +56,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "radio waves",
       "sound"
     ],
-    "Stratospheric ozone absorbs a large fraction of harmful ultraviolet radiation. This reduces UV exposure at Earth's surface.",
-    "MEGA-OZONE-UV"
+    "Stratospheric ozone absorbs a large fraction of harmful ultraviolet radiation. This reduces UV exposure at Earth's surface. Ozone depletion therefore increases the amount of harmful UV reaching the surface.",
+    [
+      "MEGA-OZONE-UV"
+    ]
   ],
   [
     9,
@@ -63,8 +71,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "Top predators create energy",
       "Producers contain no energy"
     ],
-    "Only a fraction of energy passes from one trophic level to the next. Progressive energy loss limits how many higher levels can be supported.",
-    "MEGA-FOOD-CHAIN-LENGTH"
+    "Only a fraction of energy passes from one trophic level to the next. Progressive energy loss limits how many higher levels can be supported. Energy pyramids remain upright because usable energy falls at each transfer.",
+    [
+      "MEGA-FOOD-CHAIN-LENGTH"
+    ]
   ],
   [
     9,
@@ -76,8 +86,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "combustion",
       "denitrification"
     ],
-    "Photosynthetic organisms take in carbon dioxide and convert its carbon into organic molecules using light energy. This transfers carbon from the atmosphere into biomass.",
-    "MEGA-PHOTOSYNTHESIS-CARBON"
+    "Photosynthetic organisms take in carbon dioxide and convert its carbon into organic molecules using light energy. This transfers carbon from the atmosphere into biomass. Respiration and combustion return much of that carbon to the atmosphere.",
+    [
+      "MEGA-PHOTOSYNTHESIS-CARBON"
+    ]
   ],
   [
     9,
@@ -89,8 +101,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "grow whole plants directly",
       "separate sound frequencies"
     ],
-    "Polymerase chain reaction amplifies a chosen DNA region through repeated cycles. It is useful when only a small amount of DNA is initially available.",
-    "MEGA-PCR"
+    "Polymerase chain reaction amplifies a chosen DNA region through repeated cycles. It is useful when only a small amount of DNA is initially available. PCR is therefore valuable in diagnosis, research and forensic analysis.",
+    [
+      "MEGA-PCR"
+    ]
   ],
   [
     9,
@@ -102,8 +116,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "Fish stop using oxygen",
       "Fertilizer removes all water"
     ],
-    "After a large bloom, dead algae are decomposed by microorganisms. Their respiration consumes dissolved oxygen, creating conditions that can kill fish.",
-    "MEGA-EUTROPHICATION"
+    "After a large bloom, dead algae are decomposed by microorganisms. Their respiration consumes dissolved oxygen, creating conditions that can kill fish. The key problem is not simply algae themselves but the later oxygen demand of decomposition.",
+    [
+      "MEGA-EUTROPHICATION"
+    ]
   ],
   [
     9,
@@ -115,8 +131,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "Human proteins contain no genetic information",
       "DNA cannot function across species"
     ],
-    "The genetic code is highly conserved, so bacterial cells can read many inserted human gene sequences. With suitable control elements, they can produce the encoded protein.",
-    "MEGA-RECOMBINANT-INSULIN"
+    "The genetic code is highly conserved, so bacterial cells can read many inserted human gene sequences. With suitable control elements, they can produce the encoded protein. Bacteria can act as biological factories when the gene is inserted and controlled correctly.",
+    [
+      "MEGA-RECOMBINANT-INSULIN"
+    ]
   ],
   [
     10,
@@ -128,8 +146,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "Meghnad Saha",
       "J. C. Bose"
     ],
-    "C. V. Raman discovered a change in wavelength when light is inelastically scattered by matter. The phenomenon is known as the Raman effect.",
-    "MEGA-RAMAN"
+    "C. V. Raman discovered a change in wavelength when light is inelastically scattered by matter. The phenomenon is known as the Raman effect. His discovery became important for identifying molecular structure through Raman spectroscopy.",
+    [
+      "MEGA-RAMAN"
+    ]
   ],
   [
     10,
@@ -141,8 +161,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "anemometer",
       "ammeter"
     ],
-    "A hygrometer measures moisture in the air. A barometer measures pressure, an anemometer wind speed and an ammeter electric current.",
-    "MEGA-HYGROMETER"
+    "A hygrometer measures moisture in the air. A barometer measures pressure, an anemometer wind speed and an ammeter electric current. Humidity information is important in weather, comfort and evaporation studies.",
+    [
+      "MEGA-HYGROMETER"
+    ]
   ],
   [
     10,
@@ -154,8 +176,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "Barometer measures current",
       "Hygrometer measures pressure"
     ],
-    "A voltmeter measures potential difference between two points and is connected in parallel. Its high resistance minimizes disturbance of the circuit.",
-    "MEGA-VOLTMETER"
+    "A voltmeter measures potential difference between two points and is connected in parallel. Its high resistance minimizes disturbance of the circuit. An ammeter, by contrast, measures current and is connected in series.",
+    [
+      "MEGA-VOLTMETER"
+    ]
   ],
   [
     10,
@@ -167,8 +191,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "Gravity becomes zero",
       "The boiling point rises sharply"
     ],
-    "At high altitude, lower atmospheric pressure allows water to boil at a lower temperature. Boiling begins sooner, but the water is cooler, so cooking can take longer.",
-    "MEGA-ALTITUDE-BOILING"
+    "At high altitude, lower atmospheric pressure allows water to boil at a lower temperature. Boiling begins sooner, but the water is cooler, so cooking can take longer. Pressure changes with altitude, so boiling temperature changes as well.",
+    [
+      "MEGA-ALTITUDE-BOILING"
+    ]
   ],
   [
     10,
@@ -180,8 +206,10 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "Becquerel—X-rays; Röntgen—electron; Chadwick—radioactivity",
       "Bohr—penicillin; Fleming—atomic model; Jenner—neutron"
     ],
-    "Thomson identified the electron, Rutherford's scattering work revealed the nucleus and Chadwick discovered the neutron. These are high-frequency atomic-structure associations.",
-    "MEGA-ATOMIC-SCIENTISTS"
+    "Thomson identified the electron, Rutherford's scattering work revealed the nucleus and Chadwick discovered the neutron. These are high-frequency atomic-structure associations. Keeping these three discoveries separate is a common atomic-structure revision point.",
+    [
+      "MEGA-ATOMIC-SCIENTISTS"
+    ]
   ],
   [
     10,
@@ -193,7 +221,9 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
       "Denitrification → red blood cells → hygrometer",
       "Respiration → platelets → barometer"
     ],
-    "Energy moves through trophic levels in ecosystems, vaccination develops immune memory and a voltmeter measures potential difference. The set correctly spans ecology, biology and physics.",
-    "MEGA-CROSS-DOMAIN-FINAL"
+    "Energy moves through trophic levels in ecosystems, vaccination develops immune memory and a voltmeter measures potential difference. The set correctly spans ecology, biology and physics. The question deliberately combines three fields to test whether the core link in each is remembered.",
+    [
+      "MEGA-CROSS-DOMAIN-FINAL"
+    ]
   ]
 ] as const;
