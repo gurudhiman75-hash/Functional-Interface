@@ -27,6 +27,8 @@ import { generateEcoCp011LocalizedReviewV1 } from "./eco-cp011-localization-v1";
 import { generateEcoCp012LocalizedReviewV1 } from "./eco-cp012-localization-v1";
 import { generateEcoCp013LocalizedReviewV1 } from "./eco-cp013-localization-v1";
 import { generateEcoCp014LocalizedReviewV1 } from "./eco-cp014-localization-v1";
+import { generateEcoCp015LocalizedReviewV1 } from "./eco-cp015-localization-v1";
+import { generateEcoCp016LocalizedReviewV1 } from "./eco-cp016-localization-v1";
 
 const CP001_FINAL_STEM_OVERRIDES: Readonly<Record<string, Readonly<Record<"hi" | "pa", string>>>> = Object.freeze({
   "ECO-CP001-V2-011": {
@@ -111,6 +113,17 @@ export function generateEcoCp001Cp014LocalizedReviewV1(locale: EcoLocaleV1): Eco
   ];
 }
 
+export function generateEcoCp015Cp016LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [...generateEcoCp015LocalizedReviewV1(locale), ...generateEcoCp016LocalizedReviewV1(locale)];
+}
+
+export function generateEcoCp001Cp016LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp001Cp014LocalizedReviewV1(locale),
+    ...generateEcoCp015Cp016LocalizedReviewV1(locale),
+  ];
+}
+
 export {
   generateEcoCp003LocalizedReviewV1,
   generateEcoCp004LocalizedReviewV1,
@@ -130,6 +143,8 @@ export {
   generateEcoCp012LocalizedReviewV1,
   generateEcoCp013LocalizedReviewV1,
   generateEcoCp014LocalizedReviewV1,
+  generateEcoCp015LocalizedReviewV1,
+  generateEcoCp016LocalizedReviewV1,
 };
 
 export const ECO_MULTILINGUAL_CP001_CP002_V1 = Object.freeze({
@@ -190,4 +205,16 @@ export const ECO_MULTILINGUAL_CP001_CP014_V1 = Object.freeze({
   en: generateEcoCp001Cp014LocalizedReviewV1("en"),
   hi: generateEcoCp001Cp014LocalizedReviewV1("hi"),
   pa: generateEcoCp001Cp014LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP015_CP016_V1 = Object.freeze({
+  en: generateEcoCp015Cp016LocalizedReviewV1("en"),
+  hi: generateEcoCp015Cp016LocalizedReviewV1("hi"),
+  pa: generateEcoCp015Cp016LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP001_CP016_V1 = Object.freeze({
+  en: generateEcoCp001Cp016LocalizedReviewV1("en"),
+  hi: generateEcoCp001Cp016LocalizedReviewV1("hi"),
+  pa: generateEcoCp001Cp016LocalizedReviewV1("pa"),
 });
