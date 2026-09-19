@@ -1,17 +1,33 @@
-# CP010 Source and Donor Boundary
+# CP010 Retrofit Source and Donor Boundary
 
-## Donor reference
-- Legacy Punjabi CP010 and merged semantic V2 PR #1633 were inspected as donor material.
-- The donor contained a large phrase-to-word pool and useful direct, reverse, mapping and dual-item operations.
-- Donor records are not authoritative merely because they existed previously.
+## Inputs
+- Historical CP010 donor corpus from the Punjabi V1 content-engine line
+- Historical CP010 semantic V2 PR #1633
+- Previously approved forward-port CP010 head `528facac439c762f89eb91c59b4dac6a5638675d`
 
-## Forward-port policy
-The audited checkpoint keeps a smaller balanced surface of 64 high-confidence authorities:
-- 8 semantic domains with 8 authorities each;
-- unique answer words and source phrases;
-- same-domain alternatives for Medium/Hard operations;
-- no synthetic generic sentence insertion;
-- no English glosses or learner-facing family labels;
-- no option-by-option explanation filler.
+The approved 64-bank is treated as a canonical wording source only. It is not treated as the complete topic inventory.
 
-All CP010 authorities remain review material until human editorial approval.
+## Donor audit
+Raw donor:
+- 255 rows
+- 190 exact answer strings
+
+After spelling normalization, synonym/concept collapse, ambiguity resolution, approved-wording forward merge, and quality exclusions:
+- 177 distinct one-word substitution authorities
+
+## Quality rules
+- one governed answer per direct defining phrase;
+- spelling variants do not inflate count;
+- colloquial alternatives that create a second correct answer are collapsed into the standard exam form;
+- same-domain families use organic domains with at least four authorities;
+- English parenthetical glosses from donor explanations are not forwarded;
+- learner explanations are regenerated in simple Punjabi;
+- no fixed numerical cap is used.
+
+## Explicit excluded donor concepts
+- ਰੁਦਾਲੀ — donor definition was not reliable enough for direct exam authority
+- ਦਰਸ਼ਨੀਕ — donor word/definition pairing was questionable
+- ਛੂਤਹਾ — donor usage was not precise enough for direct one-word testing
+- ਘੁਰਨਾ — donor lexical form was not reliable enough for this checkpoint
+
+No retained count is targeted in advance.
