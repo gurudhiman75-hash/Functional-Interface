@@ -10,6 +10,6 @@
 - Treaty details remain owned by ENV-CP-017.
 - Current rankings, annual records, mutable target data and current programme statistics remain excluded.
 - Source baseline: IPCC/NASA for climate science; MoEFCC for NAPCC.
-- Multilingual V1 Wave 8: REVIEW CANDIDATE for Hindi and Punjabi.
+- Multilingual V1 Wave 8: APPROVED / CONTENT-FROZEN for Hindi and Punjabi on 2026-09-19.
 - Localization authority: combined approved 48-question V1 + 12-question NAPCC V2 surface.
 - Climate-science, mitigation/adaptation, carbon-sink and NAPCC mission semantics remain invariant; localization is review-only.
