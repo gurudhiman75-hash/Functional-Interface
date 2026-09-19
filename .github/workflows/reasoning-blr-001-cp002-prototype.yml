@@ -95,6 +95,20 @@ jobs:
       - name: Prove Hindi Punjabi multilingual review candidate
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/localization/cp002-localizer.test.ts
 
+      - name: Prove chapter multilingual human review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-human-review-pack.test.ts
+
+      - name: Export chapter multilingual human review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-human-review-pack.ts blr-001-multilingual-human-review-output
+
+      - name: Upload chapter multilingual human review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-multilingual-human-review-pack
+          path: blr-001-multilingual-human-review-output
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Export approved CP-002 English review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-review-v2.ts blr-cp002-frozen-output
 
