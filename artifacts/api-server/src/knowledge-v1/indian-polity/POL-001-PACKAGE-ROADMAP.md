@@ -40,7 +40,7 @@ English content implementation has reached POL-CP-027. All 27 CPs are approved/c
 
 ## Binding rule
 
-A CP becomes eligible for the shared `POL-001` Question Studio package only after its English review batch is explicitly approved. Localization must preserve canonical fact IDs, QL identity, option semantics and correct-answer parity.
+A CP becomes eligible for the shared `POL-001` Question Studio package only after its English review batch is explicitly approved. Localization must preserve canonical fact IDs, QL identity, option semantics, correct-answer parity, and numeric/legal form parity. Constitutional identifiers and numeric forms such as `Article 21A`, `Article 19(2)`, `Article 39(b)/(c)`, `Article 300A`, `Part III/IVA`, amendment numbers, dates and age ranges must retain their numeric form where present in the English authority; translate only the surrounding language.
 
 ## Final audit gate
 
