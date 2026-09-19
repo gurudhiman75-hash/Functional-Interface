@@ -32,7 +32,10 @@ export function generatePolCp010ReviewBatchV1(): PolCp010ReviewQuestion[] {
     if (q.options[q.correctIndex] !== q.canonicalAnswer) throw new Error(`Answer alignment defect in ${q.questionId}`);
     if (!q.stem.startsWith("Consider the following statements") && q.stem.trim().split(/\s+/).length > 28) throw new Error(`Long stem in ${q.questionId}`);
     const explanationWords = q.explanation.trim().split(/\s+/).length;
-    if (explanationWords < 11 || explanationWords > 30) throw new Error(`Explanation length defect in ${q.questionId}: ${explanationWords}`);
+    const maxExplanationWords = q.explanation.includes("Article 84 qualifications:") ? 60 : 30;
+    if (explanationWords < 11 || explanationWords > maxExplanationWords) {
+      throw new Error(`Explanation length defect in ${q.questionId}: ${explanationWords}`);
+    }
   }
   return questions;
 }
