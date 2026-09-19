@@ -23,10 +23,13 @@ Implemented scope:
 - `HIS-CP-006` Gupta & Post-Gupta — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- `HIS-CP-007` Early & Medieval South Indian Kingdoms — review candidate
+- `HIS-CP-007` Early & Medieval South Indian Kingdoms — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- cumulative CP001–CP007: 414 questions per locale / 1242 EN-HI-PA surfaces
+- `HIS-CP-008` Delhi Sultanate — review candidate
+  - 60 questions per locale
+  - 180 English/Hindi/Punjabi learner surfaces
+- cumulative CP001–CP008: 474 questions per locale / 1422 EN-HI-PA surfaces
 
 Hindi and Punjabi are human-written learner-facing overlays. They may change wording only; they must preserve frozen English CP, QL, difficulty, source provenance, option order, correct-index and answer semantics.
 
@@ -40,6 +43,7 @@ Quality gates:
 - Gurmukhi required for Punjabi
 - unauthorized Latin-script leakage blocked in native learner text
 - minimum two-sentence native explanations
+- repeated proper-name and administrative-term consistency
 - reviewOnly=true and runtimeRegistered=false preserved
 
 Review exports:
@@ -50,5 +54,6 @@ Review exports:
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP005-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP006-REVIEW.md`
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP007-REVIEW.md`
+- `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP008-REVIEW.md`
 
 These localization checkpoints do not enable Question Studio runtime registration, Question Bank persistence, test/mock eligibility, publication, or automatic learner release.
