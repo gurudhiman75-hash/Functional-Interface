@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Humidity",
       "Temperature"
     ],
-    "A galvanometer is a sensitive instrument for detecting and measuring small currents. It can also form the basis of ammeters and voltmeters with suitable circuit changes.",
+    "A galvanometer is a sensitive instrument for detecting and measuring small currents. It can also form the basis of ammeters and voltmeters with suitable circuit changes. Its high sensitivity makes it useful where the current is too small for an ordinary ammeter.",
     [
       "GALVANOMETER-SMALL-CURRENT"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Ohmmeter",
       "Hydrometer"
     ],
-    "A wattmeter measures electrical power. It uses current and voltage information so the power being delivered to a load can be determined.",
+    "A wattmeter measures electrical power. It uses current and voltage information so the power being delivered to a load can be determined. Electrical power tells how quickly electrical energy is being used or transferred.",
     [
       "WATTMETER-POWER"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Galvanometer alone",
       "Calorimeter"
     ],
-    "A multimeter combines several electrical measurement functions in one device. Depending on the model, it can measure voltage, current, resistance and other quantities.",
+    "A multimeter combines several electrical measurement functions in one device. Depending on the model, it can measure voltage, current, resistance and other quantities. This is why it is one of the most common tools for electrical troubleshooting.",
     [
       "MULTIMETER-INTEGRATED"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Atmospheric pressure",
       "Wind speed"
     ],
-    "A microscope makes very small objects appear larger so fine details can be seen. It is widely used in biology, medicine and material examination.",
+    "A microscope makes very small objects appear larger so fine details can be seen. It is widely used in biology, medicine and material examination. Its usefulness depends on magnification together with sufficient resolution.",
     [
       "MICROSCOPE-SMALL-OBJECTS"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Blood pressure",
       "Electrical resistance"
     ],
-    "A telescope collects light from distant objects and forms an enlarged view. Astronomical telescopes are used for stars, planets and other celestial objects.",
+    "A telescope collects light from distant objects and forms an enlarged view. Astronomical telescopes are used for stars, planets and other celestial objects. Its large light-gathering ability is important for faint astronomical objects.",
     [
       "TELESCOPE-DISTANT"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Concave lens",
       "Plane glass plate"
     ],
-    "A magnifying glass uses a convex lens. When the object is placed within the focal length, the lens forms an enlarged virtual image.",
+    "A magnifying glass uses a convex lens. When the object is placed within the focal length, the lens forms an enlarged virtual image. The object must be placed close enough for the enlarged virtual image to form.",
     [
       "MAGNIFYING-GLASS-CONVEX"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Microscope",
       "Stethoscope"
     ],
-    "A spectroscope separates light into a spectrum. The pattern of wavelengths can provide information about the source or the substances present.",
+    "A spectroscope separates light into a spectrum. The pattern of wavelengths can provide information about the source or the substances present. Different substances can produce characteristic spectral patterns.",
     [
       "SPECTROSCOPE-LIGHT-SPECTRUM"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Sound resonance",
       "Thermal expansion"
     ],
-    "A simple periscope uses mirrors or prisms to change the direction of light by reflection. This allows the observer to see from a position with no direct line of sight.",
+    "A simple periscope uses mirrors or prisms to change the direction of light by reflection. This allows the observer to see from a position with no direct line of sight. This principle allows viewing from a protected or hidden position.",
     [
       "PERISCOPE-REFLECTION"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Periscope and ammeter",
       "Microscope and rain gauge"
     ],
-    "Bacteria require magnification with a microscope, while wavelength analysis requires a spectroscope. The instruments serve different observational tasks.",
+    "Bacteria require magnification with a microscope, while wavelength analysis requires a spectroscope. The instruments serve different observational tasks. One instrument magnifies structures, while the other analyses light.",
     [
       "MICROSCOPE-SPECTROSCOPE-PAIR"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Audiometer",
       "Manometer"
     ],
-    "A seismograph records ground motion produced by earthquakes and other seismic disturbances. The resulting record is called a seismogram.",
+    "A seismograph records ground motion produced by earthquakes and other seismic disturbances. The resulting record is called a seismogram. The recorded pattern helps scientists study the strength and arrival of seismic waves.",
     [
       "SEISMOGRAPH-EARTHQUAKE"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Air pressure",
       "Electrical resistance"
     ],
-    "A stethoscope carries sounds from the body to the examiner's ears. It is commonly used to listen to heart and lung sounds.",
+    "A stethoscope carries sounds from the body to the examiner's ears. It is commonly used to listen to heart and lung sounds. It does not create the sounds; it transmits and makes them easier to hear.",
     [
       "STETHOSCOPE-BODY-SOUNDS"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Sphygmomanometer",
       "Colorimeter"
     ],
-    "An audiometer produces controlled tones of different frequencies and intensities. A person's responses are used to measure hearing threshold.",
+    "An audiometer produces controlled tones of different frequencies and intensities. A person's responses are used to measure hearing threshold. The result can show which frequencies a person hears poorly.",
     [
       "AUDIOMETER-HEARING"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Blood pressure",
       "Earthquake magnitude directly"
     ],
-    "A sound-level meter measures the intensity level of environmental sound and reports it in decibels. It is useful for workplace and noise-pollution assessment.",
+    "A sound-level meter measures the intensity level of environmental sound and reports it in decibels. It is useful for workplace and noise-pollution assessment. It is commonly used when checking environmental or occupational noise.",
     [
       "SOUND-LEVEL-METER"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Hydrometer",
       "Odometer"
     ],
-    "A frequency meter measures how often a periodic signal or vibration repeats each second. Frequency is expressed in hertz.",
+    "A frequency meter measures how often a periodic signal or vibration repeats each second. Frequency is expressed in hertz. A higher frequency means more repeated cycles occur each second.",
     [
       "FREQUENCY-METER"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp038ReviewSpec[] = [
       "Audiometer and barometer",
       "Sound-level meter and sphygmomanometer"
     ],
-    "The sound-level meter measures workplace noise, while the audiometer tests hearing sensitivity. Using both separates the environmental measurement from the human hearing assessment.",
+    "The sound-level meter measures workplace noise, while the audiometer tests hearing sensitivity. Using both separates the environmental measurement from the human hearing assessment. One measures the sound source, while the other measures the person's hearing response.",
     [
       "NOISE-HEARING-INSTRUMENTS"
     ]
