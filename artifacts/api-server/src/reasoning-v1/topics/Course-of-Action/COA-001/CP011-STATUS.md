@@ -19,7 +19,7 @@ Active QL counts:
 Every active QL retains all four ordinary answer classes with a maximum class-count spread of one question.
 Every active QL covers at least ten domains.
 
-QL008 intentionally has no Easy authority. CP011 does not relabel Medium/Hard ordered-response items as Easy.
+QL008 has exactly one approved Easy authority (`COA-SC-102`) after the frozen editorial calibration; the remaining QL008 authorities are Medium/Hard. CP011 does not relabel questions to manufacture difficulty coverage.
 
 ## Editorial findings
 - no exact duplicate active English statements;
@@ -60,7 +60,7 @@ Approved by the product owner on **2026-09-18**.
 
 The approval confirms:
 - semantic repetition must be rejected rather than hidden through surface variation;
-- QL008 remains Medium/Hard only;
+- QL008 preserves its frozen calibrated difficulty mix, including COA-SC-102 as the sole Easy authority;
 - the final EN/HI/PA editorial surface is acceptable;
 - no additional semantic expansion is required before CP012.
 
