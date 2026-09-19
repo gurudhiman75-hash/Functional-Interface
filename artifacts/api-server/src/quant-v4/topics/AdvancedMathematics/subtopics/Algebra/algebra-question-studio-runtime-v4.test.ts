@@ -91,6 +91,35 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
   englishDistinctSourceSeedChecks += 1;
 }
 
+const targetedNumericDistractorPatterns = [
+  "ALG-CP002-CAND-003",
+  "ALG-CP002-CAND-006",
+  "ALG-CP003-CAND-006",
+] as const;
+
+for (const patternId of targetedNumericDistractorPatterns) {
+  const pattern = ALGEBRA_QUESTION_STUDIO_PATTERNS.find((entry) => entry.prototypeId === patternId);
+  assert(pattern, `Missing targeted Algebra distractor-diversity pattern ${patternId}`);
+  const wrongOptionSets = new Set<string>();
+  for (let seedIndex = 0; seedIndex < 16; seedIndex += 1) {
+    const question = generateAlgebraStudioQuestionV4({
+      pattern,
+      language: "en",
+      examProfile: "SSC_CORE",
+      seed: `algebra-v4-distractor-diversity:${patternId}:${seedIndex}`,
+    });
+    const wrongs = question.optionDetails
+      .filter((option) => !option.isCorrect)
+      .map((option) => option.text)
+      .sort();
+    wrongOptionSets.add(wrongs.join("|"));
+  }
+  assert(
+    wrongOptionSets.size >= 3,
+    `${patternId}: expected at least 3 deterministic wrong-option sets across 16 seeds, got ${wrongOptionSets.size}`,
+  );
+}
+
 assert(sampleCount === 109 * 12 * 3, `Expected 3924 V4 proof samples, got ${sampleCount}`);
 assert(answerPositions.size === 4, `V4 did not exercise all four answer positions: ${[...answerPositions].join(",")}`);
 assert(difficulties.has("Easy") && difficulties.has("Medium") && difficulties.has("Hard"), `V4 did not exercise all difficulty bands: ${[...difficulties].join(",")}`);
