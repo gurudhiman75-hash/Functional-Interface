@@ -6,8 +6,8 @@ import { ECO_CP005_REVIEW_V1 } from "../inflation-price-concepts/eco-cp005-revie
 import { ECO_CP006_REVIEW_V1 } from "../employment-unemployment-poverty/eco-cp006-review-generator-v1";
 import { generateEcoCp007ReviewBatchV1 } from "../money-monetary-system/eco-cp007-review-generator-v1";
 import { generateEcoCp008ReviewBatchV1 } from "../reserve-bank-of-india/eco-cp008-review-generator-v1";
-import { generateEcoCp009ReviewBatchV1 } from "../monetary-policy/eco-cp009-review-generator-v1";
-import { ECO_CP010_REVIEW_V1 } from "../banking-system/eco-cp010-review-generator-v1";
+import { generateEcoCp009ReviewBatchV2 } from "../monetary-policy/eco-cp009-review-generator-v2";
+import { ECO_CP010_REVIEW_V2 } from "../banking-system/eco-cp010-review-generator-v2";
 import {
   generateEcoCp001LocalizedReviewV1,
   generateEcoCp002LocalizedReviewV1,
@@ -31,7 +31,7 @@ import {
 const locales: EcoLocaleV1[] = ["en", "hi", "pa"];
 const ECO_CP007_REVIEW_V1 = generateEcoCp007ReviewBatchV1();
 const ECO_CP008_REVIEW_V1 = generateEcoCp008ReviewBatchV1();
-const ECO_CP009_REVIEW_V1 = generateEcoCp009ReviewBatchV1();
+const ECO_CP009_REVIEW_V2 = generateEcoCp009ReviewBatchV2();
 const fail = (condition: boolean, message: string) => {
   if (!condition) throw new Error(message);
 };
@@ -105,8 +105,8 @@ const batches = [
   ["CP006", ECO_CP006_REVIEW_V1, generateEcoCp006LocalizedReviewV1, 44],
   ["CP007", ECO_CP007_REVIEW_V1, generateEcoCp007LocalizedReviewV1, 44],
   ["CP008", ECO_CP008_REVIEW_V1, generateEcoCp008LocalizedReviewV1, 44],
-  ["CP009", ECO_CP009_REVIEW_V1, generateEcoCp009LocalizedReviewV1, 44],
-  ["CP010", ECO_CP010_REVIEW_V1, generateEcoCp010LocalizedReviewV1, 44],
+  ["CP009", ECO_CP009_REVIEW_V2, generateEcoCp009LocalizedReviewV1, 44],
+  ["CP010", ECO_CP010_REVIEW_V2, generateEcoCp010LocalizedReviewV1, 44],
 ] as const;
 
 for (const [label, source, generate, expected] of batches) {
