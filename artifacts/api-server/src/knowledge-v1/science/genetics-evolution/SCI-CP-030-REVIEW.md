@@ -812,18 +812,18 @@ D. They occur only in unrelated species
 
 **Source fact:** `HOMOLOGY-COMMON-ANCESTRY`
 
-## Q55 · Easy · Integrated genetics and evolution reasoning
+## Q55 · Hard · Integrated genetics and evolution reasoning
 
-Which process provides the raw material on which natural selection acts?
+A population faces a new environmental stress. Which condition is necessary for natural selection to change the population over generations?
 
-A. Digestion
-B. Blood clotting
-C. Variation
-D. Excretion
+A. Every individual must acquire the same trait during life
+B. The environment must create identical mutations in all organisms
+C. Individuals must differ in heritable traits that affect survival or reproduction
+D. Reproduction must stop while the stress continues
 
-**Answer:** C. Variation
+**Answer:** C. Individuals must differ in heritable traits that affect survival or reproduction
 
-**Explanation:** Natural selection requires heritable differences among individuals.
+**Explanation:** Natural selection needs heritable variation. If some inherited differences affect survival or reproduction, their frequencies can change across generations.
 
 **Source fact:** `VARIATION-RAW-MATERIAL`
 
