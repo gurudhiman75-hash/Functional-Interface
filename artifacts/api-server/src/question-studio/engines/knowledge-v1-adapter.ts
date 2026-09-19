@@ -53,6 +53,10 @@ import {
   isPgk001QuestionStudioRequestV1,
   knowledgeV1Pgk001QuestionStudioAdapterV1,
 } from "./knowledge-v1-pgk001-adapter-v1";
+import {
+  isPol001QuestionStudioRequestV1,
+  knowledgeV1Pol001QuestionStudioAdapterV1,
+} from "./knowledge-v1-pol001-adapter-v1";
 
 /**
  * Subject-family composite for knowledge-v1. Individual chapter adapters own
@@ -77,7 +81,8 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1Eco001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoPhy001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoRiv001QuestionStudioAdapterV1.listPackages(),
-      ...knowledgeV1Pgk001QuestionStudioAdapterV1.listPackages(),\n      ...knowledgeV1Pol001QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1Pgk001QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1Pol001QuestionStudioAdapterV1.listPackages(),
     ];
     const ids = packages.map((pkg) => pkg.packageId);
     if (new Set(ids).size !== ids.length) {
@@ -98,6 +103,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isPgk001QuestionStudioRequestV1(request)) {
       return knowledgeV1Pgk001QuestionStudioAdapterV1.generate(request);
+    }
+    if (isPol001QuestionStudioRequestV1(request)) {
+      return knowledgeV1Pol001QuestionStudioAdapterV1.generate(request);
     }
     if (isCom004QuestionStudioRequestV1(request)) {
       return knowledgeV1Com004QuestionStudioAdapterV1.generate(request);
