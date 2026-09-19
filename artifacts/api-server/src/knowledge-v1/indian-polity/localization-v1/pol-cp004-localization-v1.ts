@@ -296,9 +296,13 @@ function stem(q: (typeof ENGLISH)[number], locale: NativeLocale): string {
   throw new Error(`${q.questionId}: unsupported CP004 QL ${ql}`);
 }
 
+function trimAnswerPunctuation(value:string):string{
+  return value.replace(/[।.]+$/u,"");
+}
+
 function explanation(q: (typeof ENGLISH)[number], locale: NativeLocale): string {
   const ql=Number(q.qlId.slice(-3));
-  const ans=option(q.canonicalAnswer,locale);
+  const ans=trimAnswerPunctuation(option(q.canonicalAnswer,locale));
   if ([1,2,5,10,12,13,14,15,18,21].includes(ql)) {
     const a = q.canonicalAnswer.startsWith("Article ") ? q.canonicalAnswer.replace("Article ","") : articleBySubject(q.canonicalAnswer);
     if (a && RULES[a]) return native(RULES[a]!,locale);
