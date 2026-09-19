@@ -124,7 +124,13 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
     difficulties.add(first.difficulty);
     const structuralDifficultyKey = [
       first.metadata.sourcePrototypeId,
-      first.metadata.hiddenFingerprint,
+      first.answerType,
+      first.metadata.pathLength ?? "NO_PATH",
+      first.metadata.clueCount ?? "NO_CLUE_COUNT",
+      first.metadata.generationDelta ?? "NO_GENERATION_DELTA",
+      first.metadata.targetTruth ?? "NO_TRUTH_TARGET",
+      first.metadata.targetGender ?? "NO_GENDER_TARGET",
+      first.metadata.broadRelationId ?? "NO_BROAD_RELATION",
     ].join("::");
     const previousDifficulty = difficultyByStructuralSignature.get(structuralDifficultyKey);
     if (previousDifficulty) {
@@ -132,7 +138,7 @@ for (const contract of BLR_CP001_PERMANENT_CONTRACTS) {
       assert.equal(
         first.difficulty,
         previousDifficulty,
-        `${contract.qlId}/${seed} changed difficulty for the same completed structural problem.`,
+        `${contract.qlId}/${seed} changed difficulty for the same completed solve-burden signature.`,
       );
     } else {
       difficultyByStructuralSignature.set(structuralDifficultyKey, first.difficulty);
