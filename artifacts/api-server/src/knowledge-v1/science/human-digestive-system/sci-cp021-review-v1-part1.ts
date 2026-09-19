@@ -49,7 +49,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
   [
     1,
     "Medium",
-    "Digestion mainly converts complex food substances into:",
+    "Digestion converts complex food substances into:",
     "Simpler soluble substances that can be absorbed",
     [
       "Insoluble substances that cannot cross the intestine",
@@ -64,7 +64,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
   [
     1,
     "Medium",
-    "Mechanical digestion in the mouth is mainly carried out by:",
+    "In the mouth, mechanical digestion is carried out by:",
     "Chewing by the teeth",
     [
       "Bile secretion",
@@ -94,14 +94,14 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
   [
     2,
     "Easy",
-    "Which type of teeth is mainly used for cutting and biting food?",
+    "Which type of teeth is used for cutting and biting food?",
     "Incisors",
     [
       "Canines",
       "Premolars",
       "Molars"
     ],
-    "Incisors are the front teeth with sharp edges used mainly for cutting and biting food.",
+    "Incisors are the front teeth with sharp edges used for cutting and biting food.",
     [
       "TEETH-INCISORS"
     ]
@@ -109,7 +109,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
   [
     2,
     "Easy",
-    "Which teeth are mainly adapted for grinding food?",
+    "Which teeth are best adapted for grinding food?",
     "Molars",
     [
       "Incisors",
@@ -154,7 +154,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
   [
     2,
     "Medium",
-    "The tongue helps digestion mainly by:",
+    "What role does the tongue play during digestion?",
     "Mixing food with saliva and helping swallowing",
     [
       "Producing bile",
@@ -170,7 +170,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
     2,
     "Hard",
     "If salivary amylase is absent but the rest of the digestive system is normal, digestion of starch will:",
-    "Begin later mainly in the small intestine",
+    "Begin later in the small intestine",
     [
       "Stop completely throughout the digestive tract",
       "Be completed only in the stomach",
@@ -184,7 +184,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
   [
     3,
     "Easy",
-    "Food is pushed through the oesophagus mainly by:",
+    "Food moves through the oesophagus by:",
     "Peristalsis",
     [
       "Diffusion",
