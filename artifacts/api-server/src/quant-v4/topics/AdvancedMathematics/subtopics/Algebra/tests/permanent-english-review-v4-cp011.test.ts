@@ -58,6 +58,7 @@ for (let variantIndex = 0; variantIndex < ALG_CP011_ENGLISH_REVIEW_V4_VARIANT_CO
     assert(first.explanation.includes("Equation I gives"), `${prefix}: explanation does not teach first root set`);
     assert(first.explanation.includes("Equation II gives"), `${prefix}: explanation does not teach second root set`);
     assert(first.explanation.length >= 120, `${prefix}: explanation is too thin`);
+    assert(!/\\/1\\b/.test(first.explanation), `${prefix}: learner-facing root notation contains a redundant /1 denominator`);
 
     stateFingerprints.add(stable([first.equationX, first.equationY]));
     questions.add(first.question);
