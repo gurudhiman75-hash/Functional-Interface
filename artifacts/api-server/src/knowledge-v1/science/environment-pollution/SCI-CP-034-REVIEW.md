@@ -544,7 +544,7 @@ D. Lower carbon dioxide emissions from power generation
 
 ## Q37 · Easy · Ozone layer and ozone depletion
 
-The ozone layer that protects life from much ultraviolet radiation is located mainly in the:
+The ozone layer that protects life from much ultraviolet radiation is concentrated in the:
 
 A. Stratosphere
 B. Troposphere only
@@ -737,18 +737,18 @@ D. Mix all waste together
 
 **Source fact:** `REDUCE-DEFINITION`
 
-## Q50 · Easy · Waste management and the 3Rs
+## Q50 · Medium · Waste management and the 3Rs
 
-Using a glass jar again for storage is an example of:
+A family cleans glass jars and uses them repeatedly without melting or remanufacturing them. This practice is best classified as:
 
-A. Landfilling
+A. Recycling
 B. Reuse
-C. Incineration
-D. Mining
+C. Landfilling
+D. Incineration
 
 **Answer:** B. Reuse
 
-**Explanation:** Reuse extends the life of an item without first converting it into raw material.
+**Explanation:** Reuse keeps an item in service again with little or no reprocessing, unlike recycling which converts material into a new product.
 
 **Source fact:** `REUSE-EXAMPLE`
 
