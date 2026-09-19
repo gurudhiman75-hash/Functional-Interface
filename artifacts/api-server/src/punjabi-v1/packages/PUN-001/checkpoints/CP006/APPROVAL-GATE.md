@@ -1,14 +1,7 @@
-# CP006 Approval Gate
+# CP006 Retrofit Approval Gate
 
-Human review must confirm:
-- stems are natural exam-grade Punjabi;
-- sentence-derived distractors are plausible, not trivial;
-- ਸਕਰਮਕ/ਅਕਰਮਕ classification matches the sentence context;
-- tense transformations preserve the original proposition;
-- auxiliary/object questions are unambiguous;
-- aspect labels are used consistently;
-- Hard questions require multiple grammatical decisions;
-- explanations are simple, useful, and question-specific;
-- no English leakage or option-by-option filler.
+CP006 has materially changed from 48 atomic authorities / 9 families to 331 atomic authorities / 12 families.
 
-Until explicit approval, CP006 remains REVIEW_ONLY.
+Fresh owner approval is required on the exact reviewed SHA.
+
+Approval covers the reviewed retrofit head only. It does not authorize runtime publication, permanent QL allocation, Question Studio registration, Question Bank writes, or test/mock eligibility.
