@@ -216,7 +216,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Replacement of worn-out skin cells mainly occurs through:",
+    "Replacement of worn-out skin cells occurs through:",
     "Mitosis",
     [
       "Meiosis",
