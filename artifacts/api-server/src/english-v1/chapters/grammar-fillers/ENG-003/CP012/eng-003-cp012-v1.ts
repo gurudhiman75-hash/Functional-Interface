@@ -207,7 +207,8 @@ export function generateEng003Cp012QuestionV1(input: GenerateEng003Cp012V1Input)
     correctChoice = lastPronoun(correctTarget);
     distractorChoices = [...(PRONOUN_DISTRACTORS[correctChoice] ?? ["his", "her", "their"])].filter((value) => value !== correctChoice).slice(0, 3);
     if (distractorChoices.length !== 3) throw new Error(`${correction.questionId} lacks pronoun distractors`);
-    blankSegments[correction.targetIndex] = replaceLastWord(blankSegments[correction.targetIndex]!, correctChoice, "_____");
+    const punctuation = trailingPunctuation(blankSegments[correction.targetIndex]!);
+    blankSegments[correction.targetIndex] = replaceLastWord(`${correctTarget}${punctuation}`, correctChoice, "_____");
   } else {
     const factored = factorSharedChoiceContext([correctTarget, ...distractors]);
     [correctChoice, ...distractorChoices] = factored.cores;
