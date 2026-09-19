@@ -7,28 +7,23 @@ import {
 import { generateBlrCp001Question } from "./BLR-CP-001/cp001-runtime";
 import type { BlrCp001QlId } from "./BLR-CP-001/cp001-permanent-contracts";
 import {
-  BLR_CP001_HI_PA_LOCALISATION_REVIEW_CANDIDATE,
   generateBlrCp001LocalizedQuestion,
 } from "./BLR-CP-001/localization/cp001-localizer";
 import { generateBlrCp002Question } from "./BLR-CP-002/cp002-runtime";
 import type { BlrCp002QlId } from "./BLR-CP-002/cp002-permanent-contracts";
 import {
-  BLR_CP002_HI_PA_LOCALISATION_REVIEW_CANDIDATE,
   generateBlrCp002LocalizedQuestion,
 } from "./BLR-CP-002/localization/cp002-localizer";
 import { generateBlrCp003FinalApprovedBank } from "./BLR-CP-003/cp003-final-approved-bank";
 import { generateBlrCp003LocalizedReviewBank } from "./BLR-CP-003/localization/cp003-localized-review-runtime";
-import { BLR_CP003_HI_PA_LOCALISATION_REVIEW_CANDIDATE } from "./BLR-CP-003/localization/cp003-localizer";
 import { generateBlrCp004FrozenBank } from "./BLR-CP-004/cp004-bank";
 import { BLR_CP004_FREEZE_VERSION } from "./BLR-CP-004/cp004-model";
 import {
-  BLR_CP004_HI_PA_LOCALISATION_REVIEW_CANDIDATE,
   generateBlrCp004LocalizedReviewBank,
 } from "./BLR-CP-004/localization/cp004-localizer";
 import { generateBlrCp005FrozenBank } from "./BLR-CP-005/cp005-bank";
 import { BLR_CP005_FREEZE_VERSION } from "./BLR-CP-005/cp005-contracts";
 import {
-  BLR_CP005_HI_PA_LOCALISATION_REVIEW_CANDIDATE,
   generateBlrCp005LocalizedReviewBank,
 } from "./BLR-CP-005/localization/cp005-localizer";
 
