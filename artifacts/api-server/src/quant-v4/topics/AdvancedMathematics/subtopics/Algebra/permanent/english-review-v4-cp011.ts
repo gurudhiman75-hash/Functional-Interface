@@ -172,7 +172,7 @@ function explanationFor(
     return `${start} The largest possible x is ${formatSurd(xs.at(-1)!)} and the smallest possible y is ${formatSurd(ys[0]!)}. They are equal at the boundary and x is otherwise smaller, so x ≤ y.`;
   }
   if (relation === "X_EQUAL_TO_Y") {
-    return `${start} Both equations give the same repeated root. Therefore x = y.`;
+    return `${start} Each quadratic has only one admissible value because its two roots coincide. The only possible value of x is therefore the same as the only possible value of y. Hence x = y.`;
   }
 
   let lessWitness: string | undefined;
