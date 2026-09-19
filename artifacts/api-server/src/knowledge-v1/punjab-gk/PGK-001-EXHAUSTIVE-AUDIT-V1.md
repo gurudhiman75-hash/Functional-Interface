@@ -28,6 +28,7 @@ The strengthened Question Studio audit runs over the complete 1,092-question reg
 - non-empty stems and explanations;
 - non-empty canonical fact provenance for every question;
 - non-empty source provenance for every question;
+- no generic source placeholders such as `*-REFERENCE`, `*-STANDARD-HISTORY` or `*-GENERIC` in registered question provenance;
 - no semantic duplicate normalized stems across the chapter;
 - no learner-facing generator/source metadata;
 - no banned mechanical wording such as `associated with`, `linked with`, `known for`, `best described`, option-analysis language or generator language;
@@ -85,7 +86,12 @@ The audit branch contains the following corrections and hardening:
 - corrected the remaining Harike single-district ambiguity and preserved the multi-district wetland fact separately;
 - corrected Ajit Pal Singh birthplace source attribution;
 - cleaned several learner-facing questions/explanations in CP003, CP005, CP006, CP020, CP022, CP023 and CP026;
-- replaced generic CP022 literary source labels with concrete Sahitya Akademi / institutional provenance.
+- replaced generic CP022 literary source labels with concrete Sahitya Akademi / institutional provenance;
+- replaced the CP017 `singh-sabha-standard-history` placeholder with a named Punjabi University / Punjabipedia authority covering the 1873 Amritsar Sabha, 1879 Lahore Sabha and reform aims.
+
+## CP017 Singh Sabha provenance hardening
+
+The generic `singh-sabha-standard-history` source label was removed. The three Singh Sabha facts now resolve through `PUNJABI-UNIVERSITY-PUNJABIPEDIA-SINGH-SABHA`, with an explicit institutional authority, title, URL and supported claims.
 
 ## CP022 literature provenance hardening
 
