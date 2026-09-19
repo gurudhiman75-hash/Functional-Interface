@@ -129,6 +129,8 @@ const protectedExamTerms = [
   "Small Finance Bank",
   "Payments Bank",
   "Priority Sector Lending",
+  "Reverse Repo",
+  "Commercial Paper",
 ] as const;
 
 const allowedAbbreviations = [
