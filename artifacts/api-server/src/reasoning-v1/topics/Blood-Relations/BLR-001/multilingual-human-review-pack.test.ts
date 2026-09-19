@@ -47,7 +47,7 @@ assert.equal(summary.currentReleaseLock.productDeliveryUnlocked, false);
 assert.equal(summary.approvalBoundary.automaticFreeze, false);
 
 const canonicalNamePattern = new RegExp(
-  `\\b(?:${blrCanonicalPersonNames().join("|")})\\b`,
+  `\b(?:${blrCanonicalPersonNames().join("|")})\b`,
 );
 
 for (const record of full) {
@@ -67,8 +67,8 @@ for (const record of full) {
     );
     if (record.checkpointId === "BLR-CP-005") {
       const badPossessive = record.locale === "hi-IN"
-        ? / का (?:माता|पुत्री|बहन|पत्नी|दादी\\/नानी|पोती\\/नातिन|परदादी\\/परनानी|परपोती\\/परनातिन|बुआ\\/मौसी|भतीजी\\/भांजी|सास|बहू|संतान)\\b/u
-        : / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\\/ਨਾਨੀ|ਪੋਤੀ\\/ਨਾਤਿਨ|ਪਰਦਾਦੀ\\/ਪਰਨਾਨੀ|ਪਰਪੋਤੀ\\/ਪਰਨਾਤਿਨ|ਭੂਆ\\/ਮਾਸੀ|ਭਤੀਜੀ\\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ|ਸੰਤਾਨ)\\b/u;
+        ? / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|परदादी\/परनानी|परपोती\/परनातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू|संतान)\b/u
+        : / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/ਨਾਤਿਨ|ਪਰਦਾਦੀ\/ਪਰਨਾਨੀ|ਪਰਪੋਤੀ\/ਪਰਨਾਤਿਨ|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ|ਸੰਤਾਨ)\b/u;
       assert.doesNotMatch(
         learnerProjection,
         badPossessive,
