@@ -5,8 +5,8 @@ on:
     branches:
       - New-main
     paths:
-      - "artifacts/api-server/src/knowledge-v2/indian-geography/climate/GEO-CLI-001-CP012-SPEC.md"
-      - "artifacts/api-server/src/knowledge-v2/indian-geography/climate/geo-cli-001-cp012-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/climate/GEO-CLI-001-CP012-SPEC.md"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/climate/geo-cli-001-cp012-*"
   workflow_dispatch:
 
 permissions:
@@ -35,14 +35,14 @@ jobs:
         run: |
           mkdir -p artifacts/api-server/dist/geography
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v2/indian-geography/climate/geo-cli-001-cp012-review-batch-v2.test.ts \
+            src/knowledge-v1/indian-geography/climate/geo-cli-001-cp012-review-batch-v2.test.ts \
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/geography/geo-cli-001-cp012-review-batch-v2.test.mjs
           node artifacts/api-server/dist/geography/geo-cli-001-cp012-review-batch-v2.test.mjs
       - name: Materialize V2 review artifact
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v2/indian-geography/climate/geo-cli-001-cp012-export-review-v2.ts \
+            src/knowledge-v1/indian-geography/climate/geo-cli-001-cp012-export-review-v2.ts \
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/geography/geo-cli-001-cp012-export-review-v2.mjs
           cd artifacts/api-server
