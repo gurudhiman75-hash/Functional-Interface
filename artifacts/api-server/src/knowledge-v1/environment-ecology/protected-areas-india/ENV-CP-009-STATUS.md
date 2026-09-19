@@ -11,3 +11,6 @@
 - Merge into `New-main`: approved.
 - Source verification date: 2026-09-15.
 - Next target: ENV-CP-010 Important Indian Protected Areas.
+- Multilingual V1 Wave 7: REVIEW CANDIDATE for Hindi and Punjabi.
+- Localization authority: frozen 48-question English V1 surface.
+- Localization remains review-only; option order, correct index, QL, difficulty and provenance are preserved.
