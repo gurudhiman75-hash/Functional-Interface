@@ -1,6 +1,6 @@
 # ENG-003-CP012 — Grammar Fillers: Voice and Narration — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED_V1__QUESTION_STUDIO_REVIEW_ONLY__LEARNER_RELEASE_LOCKED`
 
 ## Boundary
 
@@ -41,4 +41,6 @@ The 6,000-question soak must exercise every eligible rule family, semantic domai
 
 ## Lifecycle
 
-CP012 is review-only until explicit human editorial approval. It is not registered in Question Studio and cannot write to Question Bank or appear in tests, mocks, learner/public delivery or production release.
+CP012 was explicitly human-approved on **2026-09-19**. It is registered in Question Studio in **review-only** mode. Question Bank writes, tests, mocks, learner/public delivery, automatic publication and production release remain locked.
+
+Approval authority: `ENG-003-CP012-HUMAN-EDITORIAL-APPROVAL-V1`.
