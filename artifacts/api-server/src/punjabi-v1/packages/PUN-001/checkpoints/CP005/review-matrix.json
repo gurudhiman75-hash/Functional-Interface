@@ -1,19 +1,23 @@
 {
-  "cpId": "PUN-001-CP005",
-  "status": "HUMAN_REVIEW_PENDING",
-  "topic": "ਵਿਸ਼ੇਸ਼ਣ ਅਤੇ ਕਿਰਿਆ-ਵਿਸ਼ੇਸ਼ਣ",
-  "distribution": { "Easy": 40, "Medium": 40, "Hard": 40 },
-  "families": {
-    "F01": "Adjective identification — Easy",
-    "F02": "Adjective type — Easy",
-    "F03": "Adjective type and grammatical function — Medium",
-    "F04": "Adverb identification — Easy",
-    "F05": "Adverb type — Medium",
-    "F06": "Adjective/adverb role discrimination — Medium",
-    "F07": "Dual subtype classification — Hard",
-    "F08": "Contextual statement verification — Hard"
+  "cpId":"PUN-001-CP005",
+  "phase":"RETROFIT",
+  "status":"HUMAN_REVIEW_PENDING",
+  "authorityInventory":{
+    "adjectives":151,
+    "adverbs":110,
+    "totalAtomic":261
   },
-  "reviewSelection": "STRATIFIED_ACROSS_FAMILY_CAPACITY",
-  "f08TruthOutcomeRequirement": 4,
-  "lifecycle": "REVIEW_ONLY"
+  "semanticCapacity":100333,
+  "totalReviewQuestions":120,
+  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
+  "families":{"F01":14,"F02":13,"F03":13,"F04":13,"F05":13,"F06":14,"F07":20,"F08":20},
+  "requirements":[
+    "all 8 families represented",
+    "all five adjective classes represented",
+    "all five retained adverb classes represented",
+    "all four F08 truth outcomes represented",
+    "all authorities reachable through applicable families",
+    "Punjabi-only learner text",
+    "REVIEW_ONLY lifecycle"
+  ]
 }

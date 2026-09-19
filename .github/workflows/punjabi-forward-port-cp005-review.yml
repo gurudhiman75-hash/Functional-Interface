@@ -1,9 +1,9 @@
-name: Export Punjabi Forward Port CP005 Review
+name: Export Punjabi Retrofit CP005 Review
 
 on:
   push:
     branches:
-      - "feature/punjabi-forward-port-cp005-v1"
+      - "feature/punjabi-retrofit-cp005-exhaustive-v1"
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
       - ".github/workflows/punjabi-forward-port-cp005-review.yml"
@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  review-cp005:
+  review-cp005-retrofit:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -25,19 +25,15 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Bundle CP005 review exporter
+      - name: Bundle CP005 retrofit review exporter
         working-directory: artifacts/api-server
-        run: >-
-          pnpm exec esbuild
-          src/punjabi-v1/packages/PUN-001/checkpoints/CP005/export-review.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/punjabi-forward-port-cp005-review.mjs
-      - name: Generate 120-question CP005 review pack
+        run: pnpm exec esbuild src/punjabi-v1/packages/PUN-001/checkpoints/CP005/export-review.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-retrofit-cp005-review.mjs
+      - name: Generate CP005 retrofit review pack
         working-directory: artifacts/api-server
-        run: node dist/punjabi-forward-port-cp005-review.mjs
-      - name: Upload CP005 review pack
+        run: node dist/punjabi-retrofit-cp005-review.mjs
+      - name: Upload CP005 retrofit review pack
         uses: actions/upload-artifact@v4
         with:
-          name: PUN-001-CP005-FORWARD-PORT-REVIEW-120
-          path: artifacts/api-server/PUN-001-CP005-REVIEW.md
+          name: PUN-001-CP005-RETROFIT-REVIEW-120
+          path: artifacts/api-server/PUN-001-CP005-RETROFIT-REVIEW.md
           if-no-files-found: error
