@@ -1,0 +1,236 @@
+import { deterministicIndex } from "../../../../core/deterministic";
+import type { DifficultyDimensions, EnglishDifficulty } from "../../../../core/types";
+import type { ConditionalRuleId } from "../../../../grammar/conditionals";
+import { generateEng002Cp011ReviewedQuestionV1 } from "../../../sentence-improvement/ENG-002/CP011/eng-002-cp011-reviewed-v1";
+
+export const ENG003_CP011_STEM = "Choose the most appropriate option to fill in the blank.";
+
+export interface Eng003Cp011QuestionV1 {
+  questionId: string;
+  stem: string;
+  sentence: string;
+  segments: readonly string[];
+  blankIndex: number;
+  options: readonly string[];
+  correctOptionIndex: number;
+  correctedSentence: string;
+  explanation: string;
+  metadata: {
+    track: "english";
+    chapterId: "ENG-003";
+    cpId: "ENG-003-CP011";
+    ruleId: ConditionalRuleId;
+    mutationId: string;
+    difficulty: EnglishDifficulty;
+    dimensions: DifficultyDimensions;
+    seed: string;
+    sourceCandidateId: string;
+    semanticDomain: string;
+    sceneId: string;
+    reviewOnly: true;
+  };
+}
+
+export interface GenerateEng003Cp011V1Input {
+  seed: string;
+  difficulty: EnglishDifficulty;
+  ruleId?: ConditionalRuleId;
+  sceneId?: string;
+}
+
+const sentenceFromSegments = (segments: readonly string[]) =>
+  segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
+
+function stableHash(value: string): number {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash >>> 0;
+}
+
+function placeOptions(seed: string, correct: string, distractors: readonly string[]) {
+  if (distractors.length !== 3) throw new Error("ENG-003 CP011 requires exactly three distractors");
+  const correctOptionIndex = stableHash(`${seed}:eng003-cp011-correct-position`) % 4;
+  const shuffled = [...distractors];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const other = deterministicIndex(`${seed}:eng003-cp011-distractor-shuffle:${index}`, index + 1);
+    [shuffled[index], shuffled[other]] = [shuffled[other]!, shuffled[index]!];
+  }
+  const options: string[] = [];
+  let wrong = 0;
+  for (let index = 0; index < 4; index += 1) options.push(index === correctOptionIndex ? correct : shuffled[wrong++]!);
+  return { options, correctOptionIndex };
+}
+
+const SIMPLE_CONCEPT: Readonly<Record<ConditionalRuleId, string>> = Object.freeze({
+  "GR-CND-001": "For a general fact or rule, use the present simple in both parts.",
+  "GR-CND-002": "For a real future possibility, use the present simple after 'if' and a future/modal form in the result.",
+  "GR-CND-003": "In a normal future condition, use the present simple after 'if'; do not normally use 'will' there.",
+  "GR-CND-004": "For an unreal present or future situation, use a past form in the condition and 'would/could + base verb' in the result.",
+  "GR-CND-005": "For an unreal past situation, use 'had + past participle' in the condition and 'would/could/might have + past participle' in the result.",
+  "GR-CND-006": "For a past condition with a present result, use the past perfect in the condition and 'would + verb' for the present result.",
+  "GR-CND-007": "For a present state linked to a past result, use an unreal present form in the condition and 'would have + past participle' in the result.",
+  "GR-CND-008": "'Unless' already means 'if not', so do not add another negative.",
+  "GR-CND-009": "In formal past inversion, use 'Had + subject + past participle' instead of an 'if' clause.",
+  "GR-CND-010": "A formal condition can use 'Should + subject + base verb' or 'Were + subject ...' without 'if'.",
+});
+
+function simpleApplication(ruleId: ConditionalRuleId, answer: string) {
+  switch (ruleId) {
+    case "GR-CND-001": return `Here, “${answer}” gives the present-simple form needed for the general rule.`;
+    case "GR-CND-002": return `Here, the result needs “${answer}” because the condition is a real future possibility.`;
+    case "GR-CND-003": return `Here, “${answer}” is the correct present-simple form in the if-clause.`;
+    case "GR-CND-004": return `Here, “${answer}” gives the required second-conditional form.`;
+    case "GR-CND-005": return `Here, “${answer}” gives the required third-conditional form.`;
+    case "GR-CND-006": return `Here, “${answer}” correctly links a past condition with a present result.`;
+    case "GR-CND-007": return `Here, “${answer}” correctly gives the past result of an unreal present state.`;
+    case "GR-CND-008": return `Here, use “${answer}” because 'unless' already carries the negative meaning.`;
+    case "GR-CND-009": return `Here, “${answer}” is the correct formal past-inversion structure.`;
+    case "GR-CND-010": return `Here, “${answer}” is the correct formal conditional structure without 'if'.`;
+  }
+}
+
+function factorSharedChoiceContext(values: readonly string[]) {
+  const tokenized = values.map((value) => value.trim().split(/\s+/));
+  let prefix = 0;
+  while (tokenized.every((tokens) => tokens[prefix] && tokens[prefix]!.toLowerCase() === tokenized[0]![prefix]!.toLowerCase())) prefix += 1;
+
+  let suffix = 0;
+  while (tokenized.every((tokens) => {
+    const index = tokens.length - 1 - suffix;
+    const firstIndex = tokenized[0]!.length - 1 - suffix;
+    return index >= prefix && firstIndex >= prefix && tokens[index]!.toLowerCase() === tokenized[0]![firstIndex]!.toLowerCase();
+  })) suffix += 1;
+
+  const minLength = Math.min(...tokenized.map((tokens) => tokens.length));
+  while (prefix + suffix >= minLength && suffix > 0) suffix -= 1;
+  while (prefix + suffix >= minLength && prefix > 0) prefix -= 1;
+
+  const cores = tokenized.map((tokens) => tokens.slice(prefix, tokens.length - suffix).join(" ").trim());
+  if (cores.some((core) => !core) || new Set(cores.map((core) => core.toLowerCase())).size !== values.length) {
+    return { prefix: "", suffix: "", cores: [...values] };
+  }
+  return {
+    prefix: tokenized[0]!.slice(0, prefix).join(" "),
+    suffix: suffix ? tokenized[0]!.slice(tokenized[0]!.length - suffix).join(" ") : "",
+    cores,
+  };
+}
+
+function trailingPunctuation(value: string) {
+  return value.match(/([,.;:!?]+)$/)?.[1] ?? "";
+}
+
+const BASE_BY_PARTICIPLE: Readonly<Record<string, string>> = Object.freeze({
+  reported: "report",
+  attached: "attach",
+  identified: "identify",
+  sealed: "seal",
+  issued: "issue",
+  preserved: "preserve",
+});
+
+function remediateConditionalChoice(ruleId: ConditionalRuleId, choice: string) {
+  let value = choice.replace(/\s+/g, " ").trim();
+
+  value = value.replace(/\b(would|could|might|will) have sended\b/gi, (_m, modal: string) => `${modal.toLowerCase()} have sent`);
+  value = value.replace(/\bsended\b/gi, "sent");
+  value = value.replace(/\b(would|could|might|will) have begined\b/gi, (_m, modal: string) => `${modal.toLowerCase()} have begun`);
+  value = value.replace(/\bbegined\b/gi, "began");
+
+  if (ruleId === "GR-CND-009") {
+    const passive = value.match(/^Had\s+(.+?)\s+had\s+been\s+([A-Za-z]+)(.*)$/i);
+    if (passive) {
+      value = `If ${passive[1]} were to be ${passive[2]}${passive[3]}`;
+    } else {
+      const active = value.match(/^Had\s+(.+?)\s+had\s+([A-Za-z]+)(.*)$/i);
+      if (active) {
+        const participle = active[2]!.toLowerCase();
+        const base = BASE_BY_PARTICIPLE[participle] ?? participle.replace(/ied$/, "y").replace(/ed$/, "");
+        value = `If ${active[1]} were to ${base}${active[3]}`;
+      }
+    }
+  }
+
+  return value.replace(/\s+/g, " ").trim();
+}
+
+function blankSurface(prefix: string, suffix: string, punctuation: string) {
+  const core = [prefix, "_____", suffix].filter(Boolean).join(" ");
+  return `${core}${punctuation}`;
+}
+
+export function materializeEng003Cp011AnswerV1(segments: readonly string[], blankIndex: number, answer: string) {
+  const out = [...segments];
+  out[blankIndex] = out[blankIndex]!.replace("_____", answer);
+  return sentenceFromSegments(out);
+}
+
+export function generateEng003Cp011QuestionV1(input: GenerateEng003Cp011V1Input): Eng003Cp011QuestionV1 {
+  const sourceSeed = `${input.seed}:eng003-source`;
+  const correction = generateEng002Cp011ReviewedQuestionV1({
+    seed: sourceSeed,
+    difficulty: input.difficulty,
+    ruleId: input.ruleId,
+    sceneId: input.sceneId,
+    noImprovement: false,
+  });
+  const distractorSource = generateEng002Cp011ReviewedQuestionV1({
+    seed: sourceSeed,
+    difficulty: input.difficulty,
+    ruleId: correction.metadata.ruleId,
+    sceneId: correction.metadata.sceneId,
+    noImprovement: true,
+  });
+
+  if (correction.correctOptionIndex === 3) throw new Error(`${correction.questionId} unexpectedly keyed No improvement`);
+  if (distractorSource.correctOptionIndex !== 3) throw new Error(`${distractorSource.questionId} did not expose approved distractors`);
+  if (correction.targetIndex !== distractorSource.targetIndex) throw new Error("ENG-003 CP011 source target alignment drifted");
+
+  const correctTarget = remediateConditionalChoice(correction.metadata.ruleId, correction.options[correction.correctOptionIndex]!.trim());
+  const distractors = distractorSource.options.slice(0, 3).map((value) => remediateConditionalChoice(correction.metadata.ruleId, value));
+  const keys = new Set([correctTarget.toLowerCase(), ...distractors.map((value) => value.toLowerCase())]);
+  if (keys.size !== 4) throw new Error(`${correction.questionId} does not provide four unique conditional choices`);
+
+  const factored = factorSharedChoiceContext([correctTarget, ...distractors]);
+  const [correctChoice, ...distractorChoices] = factored.cores;
+  if (!correctChoice || distractorChoices.length !== 3) throw new Error(`${correction.questionId} lost its factored choices`);
+
+  const blankSegments = [...correction.segments];
+  const punctuation = trailingPunctuation(blankSegments[correction.targetIndex]!);
+  blankSegments[correction.targetIndex] = blankSurface(factored.prefix, factored.suffix, punctuation);
+  const sentence = sentenceFromSegments(blankSegments);
+  const { options, correctOptionIndex } = placeOptions(input.seed, correctChoice, distractorChoices);
+  const reconstructed = materializeEng003Cp011AnswerV1(blankSegments, correction.targetIndex, options[correctOptionIndex]!);
+  if (reconstructed !== correction.correctedSentence) {
+    throw new Error(`${correction.questionId} filler reconstruction drifted: ${reconstructed} !== ${correction.correctedSentence}`);
+  }
+
+  return {
+    questionId: `ENG-003-CP011-V1:${correction.metadata.ruleId}:${correction.metadata.candidateId}:${input.seed}`,
+    stem: ENG003_CP011_STEM,
+    sentence,
+    segments: blankSegments,
+    blankIndex: correction.targetIndex,
+    options,
+    correctOptionIndex,
+    correctedSentence: correction.correctedSentence,
+    explanation: `The blank needs “${correctChoice}”. Concept: ${SIMPLE_CONCEPT[correction.metadata.ruleId]} ${simpleApplication(correction.metadata.ruleId, correctChoice)} Correct sentence: ${correction.correctedSentence}`,
+    metadata: {
+      track: "english",
+      chapterId: "ENG-003",
+      cpId: "ENG-003-CP011",
+      ruleId: correction.metadata.ruleId,
+      mutationId: correction.metadata.mutationId,
+      difficulty: correction.metadata.difficulty,
+      dimensions: correction.metadata.dimensions,
+      seed: input.seed,
+      sourceCandidateId: correction.metadata.candidateId,
+      semanticDomain: correction.metadata.semanticDomain,
+      sceneId: correction.metadata.sceneId,
+      reviewOnly: true,
+    },
+  };
+}
