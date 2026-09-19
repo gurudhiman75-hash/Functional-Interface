@@ -1,8 +1,8 @@
 # POL-CP-005 — Directive Principles of State Policy & Fundamental Duties
 
 **Chapter:** POL-001 Indian Polity  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** BLOCKED pending English review approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Runtime registration:** DEFERRED to Polity Question Studio integration pass
 
 ## Scope
 
@@ -54,7 +54,7 @@ This CP covers Part IV Directive Principles of State Policy and Part IVA Fundame
 21. conventional DPSP classification
 22. sources and committee behind DPSP/Fundamental Duties
 
-## Review target
+## Approved review profile
 
 - 80 questions
 - 22 Easy / 46 Medium / 12 Hard
@@ -79,4 +79,4 @@ Carries forward the approved CP-003/CP-004 style:
 
 ## Runtime gate
 
-Question Studio exposure, localization and production registration remain blocked until the English review batch is approved.
+Question Studio exposure, localization and production registration remain deferred to the Polity integration checkpoint.
