@@ -43,6 +43,11 @@ for(const difficulty of ["easy","medium","hard"] as const){
     assert(first.metadata.reviewOnly===true,`${first.questionId} must remain review-only`);
     assert(allowedRules.has(first.metadata.ruleId),`${first.questionId} uses ineligible rule ${first.metadata.ruleId}`);
 
+    if(first.metadata.ruleId==="GR-USG-007"){
+      assert(first.options.every((option)=>/^(?:Despite|Despite of|Despite to|In spite of|In spite|In despite of)$/i.test(option)),`${first.questionId} GR-USG-007 options must stay focused on the fixed expression`);
+      assert(first.options.every((option)=>option.length<=14),`${first.questionId} GR-USG-007 option became too long`);
+    }
+
     for(const option of first.options){
       const rendered=materializeEng003Cp013AnswerV1(first.segments,first.blankIndex,option);
       assert(!duplicated.test(rendered),`${first.questionId} duplicated a fixed preposition/connector: ${rendered}`);
