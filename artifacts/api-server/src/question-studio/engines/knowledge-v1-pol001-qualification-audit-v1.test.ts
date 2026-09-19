@@ -55,7 +55,7 @@ describe("POL-001 final qualification explanation audit", () => {
   it("keeps Supreme Court Judge qualification questions complete", () => {
     const questions = generatePolCp012ReviewBatchV2();
     const qualificationQuestions = questions.filter(
-      (q) => q.qlId === "POL-012-QL-004" || /separate minimum age.*Supreme Court Judge/i.test(q.stem),
+      (q) => q.qlId === "POL-012-QL-004" || /separate minimum age.*Supreme Court/i.test(q.stem),
     );
     expect(qualificationQuestions.length).toBeGreaterThanOrEqual(5);
     for (const q of qualificationQuestions) {
