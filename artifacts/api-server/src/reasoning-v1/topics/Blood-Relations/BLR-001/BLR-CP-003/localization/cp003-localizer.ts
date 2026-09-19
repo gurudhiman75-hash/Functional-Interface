@@ -1,5 +1,9 @@
 import { stableHash } from "../../foundation/prng";
 import {
+  localizeBlrPersonName,
+  localizeBlrPersonNamesInText,
+} from "../../foundation/localized-person-names";
+import {
   generateBlrCp003FinalApprovedBank,
   type BlrCp003FinalApprovedRecord,
 } from "../cp003-final-approved-bank";
@@ -103,8 +107,13 @@ function localeText(locale: BlrCp003TranslatedLocale, hi: string, pa: string): s
   return locale === "hi-IN" ? hi : pa;
 }
 
-function personLabel(record: BlrCp003FinalApprovedRecord, personId: string): string {
-  return record.proceduralLogic.nodes.find((node) => node.id === personId)?.label ?? personId;
+function personLabel(
+  record: BlrCp003FinalApprovedRecord,
+  personId: string,
+  locale: BlrCp003TranslatedLocale,
+): string {
+  const canonical = record.proceduralLogic.nodes.find((node) => node.id === personId)?.label ?? personId;
+  return localizeBlrPersonName(canonical, locale);
 }
 
 function localizedEditorial(
@@ -114,9 +123,9 @@ function localizedEditorial(
 ): BlrCp003LocalizedEditorial {
   const evidence = record.evidencePaths.map((path) =>
     localizedBlrCp003EvidenceStatement(
-      personLabel(record, path.subjectId),
+      personLabel(record, path.subjectId, locale),
       path.relationId,
-      personLabel(record, path.referenceId),
+      personLabel(record, path.referenceId, locale),
       locale,
     ),
   );
@@ -194,6 +203,61 @@ function localizedEditorial(
   };
 }
 
+function localizedProceduralLogic(
+  record: BlrCp003FinalApprovedRecord,
+  locale: BlrCp003TranslatedLocale,
+): BlrCp003FinalApprovedRecord["proceduralLogic"] {
+  const nodes = record.proceduralLogic.nodes.map((node) => ({
+    ...node,
+    label: localizeBlrPersonName(node.label, locale),
+  }));
+  const generationCount = new Set(nodes.map((node) => node.generation)).size;
+  const pathNames = record.proceduralLogic.query?.pathPersonIds?.map((personId) =>
+    nodes.find((node) => node.id === personId)?.label ?? personId,
+  );
+  const asciiFallback = [...new Set(nodes.map((node) => node.generation))]
+    .sort((left, right) => right - left)
+    .map((generation) => {
+      const names = nodes
+        .filter((node) => node.generation === generation)
+        .map((node) => `[${node.label}]`)
+        .join("   ");
+      return localeText(
+        locale,
+        `पीढ़ी ${generation >= 0 ? "+" : ""}${generation}: ${names}`,
+        `ਪੀੜ੍ਹੀ ${generation >= 0 ? "+" : ""}${generation}: ${names}`,
+      );
+    })
+    .join("\n");
+
+  return {
+    ...record.proceduralLogic,
+    title: localeText(locale, "रक्त-संबंध परिवार वृक्ष", "ਖੂਨ ਦੇ ਰਿਸ਼ਤਿਆਂ ਦਾ ਪਰਿਵਾਰਕ ਰੁੱਖ"),
+    nodes,
+    ...(record.proceduralLogic.query
+      ? {
+          query: {
+            ...record.proceduralLogic.query,
+            ...(record.proceduralLogic.query.answerLabel
+              ? {
+                  answerLabel: localizeBlrPersonNamesInText(
+                    record.proceduralLogic.query.answerLabel,
+                    locale,
+                  ),
+                }
+              : {}),
+          },
+        }
+      : {}),
+    accessibleSummary: localeText(
+      locale,
+      `${nodes.length} सदस्यों और ${generationCount} पीढ़ियों वाला परिवार वृक्ष।${pathNames?.length ? ` उत्तर का मार्ग: ${pathNames.join(" → ")}।` : ""}`,
+      `${nodes.length} ਮੈਂਬਰਾਂ ਅਤੇ ${generationCount} ਪੀੜ੍ਹੀਆਂ ਵਾਲਾ ਪਰਿਵਾਰਕ ਰੁੱਖ।${pathNames?.length ? ` ਉੱਤਰ ਦਾ ਰਸਤਾ: ${pathNames.join(" → ")}।` : ""}`,
+    ),
+    asciiFallback,
+  };
+}
+
 export function blrCp003CanonicalParityProjection(record: BlrCp003FinalApprovedRecord | GeneratedBlrCp003LocalizedQuestion) {
   return {
     packageId: record.packageId,
@@ -215,7 +279,24 @@ export function blrCp003CanonicalParityProjection(record: BlrCp003FinalApprovedR
       isCorrect: option.isCorrect,
     })),
     evidencePaths: record.evidencePaths,
-    proceduralLogic: record.proceduralLogic,
+    proceduralLogic: {
+      kind: record.proceduralLogic.kind,
+      version: record.proceduralLogic.version,
+      nodes: record.proceduralLogic.nodes.map((node) => ({
+        id: node.id,
+        gender: node.gender,
+        generation: node.generation,
+        roleLabel: node.roleLabel ?? null,
+      })),
+      edges: record.proceduralLogic.edges,
+      query: record.proceduralLogic.query
+        ? {
+            subjectId: record.proceduralLogic.query.subjectId ?? null,
+            referenceId: record.proceduralLogic.query.referenceId ?? null,
+            pathPersonIds: record.proceduralLogic.query.pathPersonIds ?? [],
+          }
+        : null,
+    },
   };
 }
 
@@ -225,11 +306,33 @@ export function localizeBlrCp003Question(
 ): GeneratedBlrCp003LocalizedQuestion {
   const options = record.options.map((option): BlrCp003LocalizedOption => ({
     ...option,
-    text: localizedBlrCp003OptionText(option.text, locale),
+    text: localizeBlrPersonNamesInText(
+      localizedBlrCp003OptionText(option.text, locale),
+      locale,
+    ),
   }));
-  const sharedPrompt = localizedBlrCp003SharedPrompt(record, locale);
-  const stem = localizedBlrCp003Stem(record, locale);
-  const editorial = localizedEditorial(record, locale, options);
+  const sharedPrompt = localizeBlrPersonNamesInText(
+    localizedBlrCp003SharedPrompt(record, locale),
+    locale,
+  );
+  const stem = localizeBlrPersonNamesInText(
+    localizedBlrCp003Stem(record, locale),
+    locale,
+  );
+  const editorialBase = localizedEditorial(record, locale, options);
+  const editorial: BlrCp003LocalizedEditorial = {
+    coreConcept: editorialBase.coreConcept.map((line) => localizeBlrPersonNamesInText(line, locale)),
+    stepByStepSolution: editorialBase.stepByStepSolution.map((line) => localizeBlrPersonNamesInText(line, locale)),
+    optionAnalysis: editorialBase.optionAnalysis.map((entry) => ({
+      ...entry,
+      optionText: localizeBlrPersonNamesInText(entry.optionText, locale),
+      explanation: localizeBlrPersonNamesInText(entry.explanation, locale),
+    })),
+    conclusion: localizeBlrPersonNamesInText(editorialBase.conclusion, locale),
+    examShortcut: localizeBlrPersonNamesInText(editorialBase.examShortcut, locale),
+    commonTraps: editorialBase.commonTraps.map((line) => localizeBlrPersonNamesInText(line, locale)),
+  };
+  const proceduralLogic = localizedProceduralLogic(record, locale);
   const canonicalProjection = JSON.stringify(blrCp003CanonicalParityProjection(record));
   const localizedSemanticFingerprint = stableHash([
     record.metadata.semanticFingerprint,
@@ -271,7 +374,7 @@ export function localizeBlrCp003Question(
     options,
     correctIndex: record.correctIndex,
     evidencePaths: record.evidencePaths,
-    proceduralLogic: record.proceduralLogic,
+    proceduralLogic,
     editorial,
     metadata: {
       runtimeVersion: BLR_CP003_MULTILINGUAL_RUNTIME_VERSION,
@@ -284,9 +387,15 @@ export function localizeBlrCp003Question(
       canonicalSemanticFingerprint: record.metadata.semanticFingerprint,
       sourceSemanticFingerprint: record.metadata.sourceSemanticFingerprint,
       localizedSemanticFingerprint,
-      semanticParity: JSON.stringify(blrCp003CanonicalParityProjection(record)) === canonicalProjection
+      semanticParity: JSON.stringify(
+        blrCp003CanonicalParityProjection({
+          ...record,
+          options,
+          proceduralLogic,
+        } as unknown as GeneratedBlrCp003LocalizedQuestion),
+      ) === canonicalProjection
         ? "EXECUTABLE_PROVED"
-        : "EXECUTABLE_PROVED",
+        : (() => { throw new Error(`CP-003 localization semantic parity failed for ${record.itemId}/${locale}.`); })(),
       learnerTextLocalized: true,
       humanLanguageReviewRequired: true,
       activeEditorialBlockers: [BLR_CP003_HUMAN_REVIEW_BLOCKER],
