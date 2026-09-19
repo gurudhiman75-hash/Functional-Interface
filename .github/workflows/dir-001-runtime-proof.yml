@@ -59,3 +59,17 @@ jobs:
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server run build
+
+      - name: Export final audit review pack
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-final-audit-review-pack.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/dir-001-final-audit-review-pack.mjs
+          node dist/reasoning-v1/dir-001-final-audit-review-pack.mjs
+
+      - name: Upload final audit review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-001-final-audit-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-001-final-audit-review/
+          if-no-files-found: error
+          retention-days: 14
