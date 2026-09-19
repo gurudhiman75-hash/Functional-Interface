@@ -1,6 +1,6 @@
 # COA-001 / COA-CP-012 — Internal Eligibility Review
 
-Status: **PRODUCT-OWNER APPROVAL REQUIRED**
+Status: **APPROVED / INTERNAL ELIGIBILITY ACTIVATED**
 
 ## Decision being reviewed
 
@@ -28,24 +28,24 @@ COA currently has:
 - QL008 Medium/Hard-only difficulty integrity
 - genuine exclusive-Either and three-action profile handling
 
-## What CP012 changes before approval
+## Approved lifecycle
 
-Nothing in the live lifecycle.
+Product-owner approval was recorded on **2026-09-19**.
 
-The candidate remains:
-
-- Question Studio: review-only
-- Question Bank writable: **NO**
-- Test eligible: **NO**
-- Mock eligible: **NO**
+The live lifecycle is now:
+- Question Studio: **internally approved**
+- Question Bank writable: **YES**
+- Test eligible: **YES**
+- Mock eligible: **YES**
 - Public release: **NO**
 - Student delivery: **NO**
+- Automatic student publication: **NO**
 
-The live Question Studio authority remains CP011.
+The live Question Studio authority is now CP012.
 
-## What approval would authorize
+## Activated gates
 
-Approval would permit a lifecycle-only promotion with **no learner-content mutation**:
+The approved lifecycle-only promotion makes **no learner-content mutation**:
 
 | Gate | After CP012 approval |
 |---|---|
@@ -84,10 +84,10 @@ The technical candidate recommends:
 - **NO** — public release;
 - **NO** — direct student delivery.
 
-This recommendation does not activate anything by itself.
+The recommendation has now been explicitly approved and activated for internal use only.
 
-## Approval gate
+## Approval record
 
-Approve CP012 only if you want COA to become internally usable by Question Bank/Test/Mock systems with public/student release still locked.
+Approved by the product owner on **2026-09-19**.
 
-Until approval, the live runtime remains CP011 review-only.
+COA is internally usable by Question Bank/Test/Mock systems. Public/student release remains locked and requires a separate future authorization.
