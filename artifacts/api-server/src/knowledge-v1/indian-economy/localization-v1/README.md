@@ -1,4 +1,4 @@
-# Economy Multilingual V1 — CP001–CP006
+# Economy Multilingual V1 — CP001–CP008
 
 Implemented multilingual scope:
 - ECO-CP-001 Basic Economic Concepts
@@ -7,6 +7,8 @@ Implemented multilingual scope:
 - ECO-CP-004 National Income Measurement in India
 - ECO-CP-005 Inflation & Price Concepts
 - ECO-CP-006 Employment, Unemployment & Poverty
+- ECO-CP-007 Money & Monetary System
+- ECO-CP-008 Reserve Bank of India
 
 Lifecycle: REVIEW_ONLY. These localization checkpoints do not enable Question Bank persistence, test/mock eligibility, public publication, production release, or automatic learner release.
 
@@ -19,8 +21,10 @@ Checkpoint sizes:
 - CP004: 44 questions per locale
 - CP005: 44 questions per locale
 - CP006: 44 questions per locale
-- CP001–CP006 cumulative: 260 questions per locale / 780 EN-HI-PA surfaces
-- Current CP005–CP006 checkpoint: 88 questions per locale / 264 EN-HI-PA surfaces
+- CP007: 44 questions per locale
+- CP008: 44 questions per locale
+- CP001–CP008 cumulative: 348 questions per locale / 1,044 EN-HI-PA surfaces
+- Current CP007–CP008 checkpoint: 88 questions per locale / 264 EN-HI-PA surfaces
 
 Quality gates:
 - exact frozen-English no-drift
@@ -33,12 +37,13 @@ Quality gates:
 - `PROTECTED_ENGLISH` terms retain their familiar exam label exactly when translation would be awkward or non-standard
 - `ABBREVIATION` entries retain standard forms such as GDP, CPI, WPI, GVA, LFPR and MGNREGA
 - all other Latin-script text is treated as leakage and fails the executable audit
-- current protected labels include Disinflation, Demand-pull inflation, Cost-push inflation, Headline inflation, Core inflation, GDP deflator, Core CPI, Hyperinflation, Headcount ratio, and official committee/group names
-- full CP001–CP006 terminology/parity audit runs in Economy CI across 260 questions per locale / 780 surfaces
+- current protected labels include Disinflation, Demand-pull inflation, Cost-push inflation, Headline inflation, Core inflation, GDP deflator, Core CPI, Hyperinflation, Headcount ratio, Fiat money, Legal tender, Reserve money, High-powered money, Narrow money, Broad money, Money multiplier, Lender of last resort, and official committee/group names
+- full CP001–CP008 terminology/parity audit runs in Economy CI across 348 questions per locale / 1,044 surfaces
 
 Review exports:
 - `ECO-MULTILINGUAL-V1-CP001-CP002-REVIEW.md`
 - `ECO-MULTILINGUAL-V1-CP003-CP004-REVIEW.md`
 - `ECO-MULTILINGUAL-V1-CP005-CP006-REVIEW.md`
+- `ECO-MULTILINGUAL-V1-CP007-CP008-REVIEW.md`
 
 They are generated under `dist/economy-review/ECO-MULTILINGUAL-V1/` by `eco-localization-export-v1.ts`.
