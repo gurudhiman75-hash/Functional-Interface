@@ -370,7 +370,7 @@ function personLocal(person: string, locale: NativeLocale): string {
   return native(CP2_ROLES[cp2RoleByPerson(person).id]!.person, locale);
 }
 function roleLocal(role: string, locale: NativeLocale): string {
-  const row = POL_CP002_ROLE_ROWS_V1.find((item) => item.role === role);
+  const row = POL_CP002_ROLE_ROWS_V1.find((item) => item.role.toLowerCase() === role.toLowerCase());
   if (!row) throw new Error(`Unknown CP002 role: ${role}`);
   return native(CP2_ROLES[row.id]!.role, locale);
 }
