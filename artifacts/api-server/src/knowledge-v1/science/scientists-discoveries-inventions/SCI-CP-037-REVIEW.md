@@ -13,7 +13,7 @@ D. Galileo Galilei
 
 **Answer:** A. Isaac Newton
 
-**Explanation:** Newton formulated the three laws of motion that form the basis of classical mechanics.
+**Explanation:** Newton formulated the three laws of motion that form the basis of classical mechanics. These laws explain how forces change the motion of objects and are still used for many everyday mechanical problems.
 
 **Source fact:** `NEWTON-LAWS-OF-MOTION`
 
@@ -28,7 +28,7 @@ D. Robert Boyle
 
 **Answer:** B. Archimedes
 
-**Explanation:** Archimedes' principle relates buoyant force to the weight of displaced fluid.
+**Explanation:** Archimedes' principle relates buoyant force to the weight of displaced fluid. It explains why objects appear lighter in water and why ships can float even though they are very heavy.
 
 **Source fact:** `ARCHIMEDES-PRINCIPLE`
 
@@ -43,7 +43,7 @@ D. James Watt
 
 **Answer:** C. Blaise Pascal
 
-**Explanation:** Pascal stated that pressure applied to a confined fluid is transmitted throughout the fluid.
+**Explanation:** Pascal stated that pressure applied to a confined fluid is transmitted throughout the fluid. This principle is used in hydraulic brakes, lifts and presses because pressure can be transmitted through a confined fluid.
 
 **Source fact:** `PASCAL-LAW`
 
@@ -58,7 +58,7 @@ D. Evangelista Torricelli
 
 **Answer:** D. Evangelista Torricelli
 
-**Explanation:** Torricelli demonstrated atmospheric pressure using a mercury column and developed the barometer.
+**Explanation:** Torricelli demonstrated atmospheric pressure using a mercury column and developed the barometer. The height of the mercury column changes with atmospheric pressure, which is why a barometer can measure pressure.
 
 **Source fact:** `TORRICELLI-BAROMETER`
 
@@ -73,7 +73,7 @@ D. J. J. Thomson
 
 **Answer:** A. Galileo Galilei
 
-**Explanation:** Galileo's work on falling bodies helped establish the modern study of motion.
+**Explanation:** Galileo's work on falling bodies helped establish the modern study of motion. His work showed that the motion of falling objects should be studied by experiment rather than by old assumptions alone.
 
 **Source fact:** `GALILEO-FALLING-BODIES`
 
@@ -88,7 +88,7 @@ D. Evangelista Torricelli
 
 **Answer:** B. Isaac Newton
 
-**Explanation:** Newton formulated the laws of motion and the law of universal gravitation.
+**Explanation:** Newton formulated the laws of motion and the law of universal gravitation. Together, these ideas explain both ordinary motion on Earth and the motion of planets and other celestial bodies.
 
 **Source fact:** `NEWTON-MOTION-GRAVITATION`
 
@@ -103,7 +103,7 @@ D. André-Marie Ampère
 
 **Answer:** C. Georg Simon Ohm
 
-**Explanation:** Ohm's law relates voltage, current and resistance in an electrical conductor under suitable conditions.
+**Explanation:** Ohm's law relates voltage, current and resistance in an electrical conductor under suitable conditions. In simple form it is written as V = IR, making it one of the most basic relationships in electricity.
 
 **Source fact:** `OHM-LAW`
 
@@ -118,7 +118,7 @@ D. Alessandro Volta
 
 **Answer:** D. Alessandro Volta
 
-**Explanation:** Volta developed the voltaic pile, an early source of continuous electric current.
+**Explanation:** Volta developed the voltaic pile, an early source of continuous electric current. The device showed that chemical reactions could provide a steady electric current, unlike brief static-electric sparks.
 
 **Source fact:** `VOLTA-BATTERY`
 
@@ -133,7 +133,7 @@ D. Thomas Edison
 
 **Answer:** A. Hans Christian Oersted
 
-**Explanation:** Oersted observed that an electric current deflects a magnetic compass needle.
+**Explanation:** Oersted observed that an electric current deflects a magnetic compass needle. This observation provided clear evidence that electricity and magnetism are connected.
 
 **Source fact:** `OERSTED-MAGNETIC-EFFECT-CURRENT`
 
@@ -148,7 +148,7 @@ D. J. J. Thomson
 
 **Answer:** B. Michael Faraday
 
-**Explanation:** Faraday showed that a changing magnetic environment can induce an electric current.
+**Explanation:** Faraday showed that a changing magnetic environment can induce an electric current. This principle is the basis of electric generators, transformers and many modern electrical devices.
 
 **Source fact:** `FARADAY-INDUCTION`
 
@@ -163,7 +163,7 @@ D. Atmospheric pressure
 
 **Answer:** C. Electric currents and their magnetic effects
 
-**Explanation:** André-Marie Ampère made major contributions to electrodynamics and the magnetic effects of current.
+**Explanation:** André-Marie Ampère made major contributions to electrodynamics and the magnetic effects of current. His work helped describe how electric currents produce magnetic effects, and the ampere unit honours this contribution.
 
 **Source fact:** `AMPERE-ELECTRODYNAMICS`
 
@@ -178,7 +178,7 @@ D. Oersted — current's magnetic effect; Faraday — electromagnetic induction
 
 **Answer:** D. Oersted — current's magnetic effect; Faraday — electromagnetic induction
 
-**Explanation:** Oersted linked current with magnetism, while Faraday established electromagnetic induction.
+**Explanation:** Oersted linked current with magnetism, while Faraday established electromagnetic induction. The first showed that current creates a magnetic effect; the second showed that changing magnetism can produce electric current.
 
 **Source fact:** `OERSTED-FARADAY-DISTINCTION`
 
@@ -193,7 +193,7 @@ D. Niels Bohr
 
 **Answer:** A. Wilhelm Conrad Röntgen
 
-**Explanation:** Röntgen discovered X-rays while studying electrical discharges in vacuum tubes.
+**Explanation:** Röntgen discovered X-rays while studying electrical discharges in vacuum tubes. X-rays can pass through soft tissue more easily than bone, which later made them very useful in medical imaging.
 
 **Source fact:** `RONTGEN-XRAYS`
 
@@ -208,7 +208,7 @@ D. Albert Einstein
 
 **Answer:** B. Henri Becquerel
 
-**Explanation:** Becquerel discovered spontaneous radiation from uranium salts.
+**Explanation:** Becquerel discovered spontaneous radiation from uranium salts. He found that the radiation was emitted naturally without needing an external light source.
 
 **Source fact:** `BECQUEREL-RADIOACTIVITY`
 
@@ -223,7 +223,7 @@ D. Niels Bohr
 
 **Answer:** C. J. J. Thomson
 
-**Explanation:** Thomson identified the electron through cathode-ray experiments.
+**Explanation:** Thomson identified the electron through cathode-ray experiments. This showed that atoms contain smaller negatively charged particles and are not indivisible.
 
 **Source fact:** `THOMSON-ELECTRON`
 
@@ -238,7 +238,7 @@ D. Ernest Rutherford
 
 **Answer:** D. Ernest Rutherford
 
-**Explanation:** Rutherford's scattering experiment showed that most positive charge and mass are concentrated in a tiny nucleus.
+**Explanation:** Rutherford's scattering experiment showed that most positive charge and mass are concentrated in a tiny nucleus. Most alpha particles passed through the foil, but a few large deflections revealed a very small, dense centre.
 
 **Source fact:** `RUTHERFORD-NUCLEUS`
 
@@ -253,7 +253,7 @@ D. Albert Einstein
 
 **Answer:** A. James Chadwick
 
-**Explanation:** Chadwick identified the neutron as an electrically neutral particle in the atomic nucleus.
+**Explanation:** Chadwick identified the neutron as an electrically neutral particle in the atomic nucleus. The discovery helped explain atomic mass and the structure of nuclei more completely.
 
 **Source fact:** `CHADWICK-NEUTRON`
 
@@ -268,7 +268,7 @@ D. Bohr — radioactivity; Becquerel — atomic model
 
 **Answer:** B. Becquerel — natural radioactivity; Röntgen — X-rays
 
-**Explanation:** Becquerel discovered natural radioactivity, whereas Röntgen discovered X-rays.
+**Explanation:** Becquerel discovered natural radioactivity, whereas Röntgen discovered X-rays. Both discoveries involve penetrating radiation, but their origins are different: radioactivity comes from unstable atoms, while X-rays are produced by energetic electronic processes.
 
 **Source fact:** `BECQUEREL-RONTGEN-DISTINCTION`
 
@@ -283,7 +283,7 @@ D. Amedeo Avogadro
 
 **Answer:** C. Dmitri Mendeleev
 
-**Explanation:** Mendeleev organized elements into a periodic table and predicted properties of undiscovered elements.
+**Explanation:** Mendeleev organized elements into a periodic table and predicted properties of undiscovered elements. He even left gaps for unknown elements, and several of his predicted properties were later confirmed.
 
 **Source fact:** `MENDELEEV-PERIODIC-TABLE`
 
@@ -298,7 +298,7 @@ D. John Dalton
 
 **Answer:** D. John Dalton
 
-**Explanation:** Dalton proposed an influential atomic theory explaining matter in terms of atoms.
+**Explanation:** Dalton proposed an influential atomic theory explaining matter in terms of atoms. His model was later refined, but it gave chemistry a clear framework for explaining elements and compounds.
 
 **Source fact:** `DALTON-ATOMIC-THEORY`
 
@@ -313,7 +313,7 @@ D. Fritz Haber
 
 **Answer:** A. Antoine Lavoisier
 
-**Explanation:** Lavoisier's quantitative experiments helped establish conservation of mass in chemical reactions.
+**Explanation:** Lavoisier's quantitative experiments helped establish conservation of mass in chemical reactions. The law means that in a closed system, total mass remains the same before and after a chemical reaction.
 
 **Source fact:** `LAVOISIER-CONSERVATION-MASS`
 
@@ -328,7 +328,7 @@ D. Atomic nuclei only
 
 **Answer:** B. Molecules
 
-**Explanation:** Amedeo Avogadro proposed that equal gas volumes under the same conditions contain equal numbers of molecules.
+**Explanation:** Amedeo Avogadro proposed that equal gas volumes under the same conditions contain equal numbers of molecules. This idea helped scientists distinguish atoms from molecules and compare gases quantitatively.
 
 **Source fact:** `AVOGADRO-HYPOTHESIS`
 
@@ -343,7 +343,7 @@ D. Bessemer process
 
 **Answer:** C. Haber process
 
-**Explanation:** Fritz Haber developed the chemical basis for ammonia synthesis; industrial implementation was later scaled by Carl Bosch.
+**Explanation:** Fritz Haber developed the chemical basis for ammonia synthesis; industrial implementation was later scaled by Carl Bosch. The process became extremely important because ammonia is a key raw material for nitrogen fertilizers.
 
 **Source fact:** `HABER-AMMONIA`
 
@@ -358,7 +358,7 @@ D. Haber developed ammonia synthesis chemistry, while Bosch helped develop the l
 
 **Answer:** D. Haber developed ammonia synthesis chemistry, while Bosch helped develop the large-scale industrial process
 
-**Explanation:** The ammonia process is commonly called Haber–Bosch because Haber developed the chemistry and Bosch helped industrialize it.
+**Explanation:** The ammonia process is commonly called Haber–Bosch because Haber developed the chemistry and Bosch helped industrialize it. This distinction is useful because the laboratory chemistry and the engineering needed for mass production were separate achievements.
 
 **Source fact:** `HABER-BOSCH-DISTINCTION`
 
@@ -373,7 +373,7 @@ D. Anton van Leeuwenhoek
 
 **Answer:** A. Robert Hooke
 
-**Explanation:** Hooke used the term 'cell' after observing compartments in cork.
+**Explanation:** Hooke used the term 'cell' after observing compartments in cork. He saw box-like spaces in cork and called them cells, although those cork cells were no longer living.
 
 **Source fact:** `HOOKE-CELL`
 
@@ -388,7 +388,7 @@ D. Gregor Mendel
 
 **Answer:** B. Anton van Leeuwenhoek
 
-**Explanation:** Leeuwenhoek observed microorganisms such as bacteria and protozoa using powerful simple microscopes.
+**Explanation:** Leeuwenhoek observed microorganisms such as bacteria and protozoa using powerful simple microscopes. His observations opened a new view of microscopic life that had been invisible to earlier investigators.
 
 **Source fact:** `LEEUWENHOEK-MICROORGANISMS`
 
@@ -403,7 +403,7 @@ D. Alexander Fleming
 
 **Answer:** C. Louis Pasteur
 
-**Explanation:** Pasteur developed heat-treatment methods to reduce spoilage-causing and harmful microorganisms.
+**Explanation:** Pasteur developed heat-treatment methods to reduce spoilage-causing and harmful microorganisms. Controlled heating reduces harmful microbes without requiring the liquid to be fully boiled.
 
 **Source fact:** `PASTEUR-PASTEURIZATION`
 
@@ -418,7 +418,7 @@ D. Specific diseases
 
 **Answer:** D. Specific diseases
 
-**Explanation:** Koch's work linked particular microorganisms with particular infectious diseases.
+**Explanation:** Koch's work linked particular microorganisms with particular infectious diseases. This strengthened germ theory by connecting particular pathogens with particular diseases.
 
 **Source fact:** `KOCH-DISEASE-MICROBES`
 
@@ -433,7 +433,7 @@ D. Isaac Newton
 
 **Answer:** A. Louis Pasteur
 
-**Explanation:** Pasteur's experiments showed that microbial growth came from contamination rather than spontaneous generation.
+**Explanation:** Pasteur's experiments showed that microbial growth came from contamination rather than spontaneous generation. When outside microbes were kept away, the sterile broth remained free of microbial growth.
 
 **Source fact:** `PASTEUR-SWAN-NECK`
 
@@ -448,7 +448,7 @@ D. Both scientists are known for the periodic table
 
 **Answer:** B. Hooke named cells from cork observations; Leeuwenhoek observed living microorganisms
 
-**Explanation:** Hooke described cork compartments as cells, while Leeuwenhoek later observed living microscopic organisms.
+**Explanation:** Hooke described cork compartments as cells, while Leeuwenhoek later observed living microscopic organisms. Their contributions are related to microscopy, but Hooke is linked with naming cells and Leeuwenhoek with observing living microbes.
 
 **Source fact:** `HOOKE-LEEUWENHOEK-DISTINCTION`
 
@@ -463,7 +463,7 @@ D. Edward Jenner
 
 **Answer:** C. Charles Darwin
 
-**Explanation:** Darwin developed the theory of evolution by natural selection, with Alfred Russel Wallace independently reaching a similar idea.
+**Explanation:** Darwin developed the theory of evolution by natural selection, with Alfred Russel Wallace independently reaching a similar idea. Natural selection explains how heritable traits that improve survival or reproduction can become more common over generations.
 
 **Source fact:** `DARWIN-NATURAL-SELECTION`
 
@@ -478,7 +478,7 @@ D. Inheritance in pea plants
 
 **Answer:** D. Inheritance in pea plants
 
-**Explanation:** Mendel's pea experiments established basic principles of inheritance.
+**Explanation:** Mendel's pea experiments established basic principles of inheritance. From simple crosses, he showed that hereditary factors are passed in predictable patterns rather than simply blending.
 
 **Source fact:** `MENDEL-PEA-INHERITANCE`
 
@@ -493,7 +493,7 @@ D. John Dalton
 
 **Answer:** A. Alfred Russel Wallace
 
-**Explanation:** Wallace independently formulated natural selection, prompting the joint presentation of their ideas.
+**Explanation:** Wallace independently formulated natural selection, prompting the joint presentation of their ideas. His independent work was important enough that Darwin's and Wallace's ideas were presented together in 1858.
 
 **Source fact:** `WALLACE-NATURAL-SELECTION`
 
@@ -508,7 +508,7 @@ D. Banting and Best
 
 **Answer:** B. James Watson and Francis Crick
 
-**Explanation:** Watson and Crick proposed the double-helix model using crucial experimental evidence from several researchers.
+**Explanation:** Watson and Crick proposed the double-helix model using crucial experimental evidence from several researchers. The model explained how DNA could store information and copy itself through complementary base pairing.
 
 **Source fact:** `WATSON-CRICK-DOUBLE-HELIX`
 
@@ -523,7 +523,7 @@ D. Smallpox vaccine
 
 **Answer:** C. Structure of DNA
 
-**Explanation:** Franklin's diffraction data provided key evidence about DNA's helical structure and dimensions.
+**Explanation:** Franklin's diffraction data provided key evidence about DNA's helical structure and dimensions. Her famous diffraction work helped reveal that DNA was helical and provided important measurements for building a correct model.
 
 **Source fact:** `FRANKLIN-DNA-XRAY`
 
@@ -538,7 +538,7 @@ D. Watson and Crick proposed the model using evidence that included Franklin's X
 
 **Answer:** D. Watson and Crick proposed the model using evidence that included Franklin's X-ray diffraction data
 
-**Explanation:** The model was proposed by Watson and Crick, while Franklin's experimental work was a crucial part of the evidence base.
+**Explanation:** The model was proposed by Watson and Crick, while Franklin's experimental work was a crucial part of the evidence base. This is why the history is better understood as a major model built from important experimental evidence contributed by more than one researcher.
 
 **Source fact:** `DNA-ATTRIBUTION-NUANCE`
 
@@ -553,7 +553,7 @@ D. William Harvey
 
 **Answer:** A. Edward Jenner
 
-**Explanation:** Jenner demonstrated vaccination against smallpox using material related to cowpox.
+**Explanation:** Jenner demonstrated vaccination against smallpox using material related to cowpox. His work showed that exposure to a related, milder infection could protect against smallpox.
 
 **Source fact:** `JENNER-SMALLPOX-VACCINE`
 
@@ -568,7 +568,7 @@ D. Karl Landsteiner
 
 **Answer:** B. Alexander Fleming
 
-**Explanation:** Fleming observed the antibacterial effect of Penicillium mould, leading to the discovery of penicillin.
+**Explanation:** Fleming observed the antibacterial effect of Penicillium mould, leading to the discovery of penicillin. Later researchers developed penicillin into a practical medicine, but Fleming's observation began the discovery.
 
 **Source fact:** `FLEMING-PENICILLIN`
 
@@ -583,7 +583,7 @@ D. Michael Faraday
 
 **Answer:** C. William Harvey
 
-**Explanation:** Harvey demonstrated that the heart pumps blood through a circulatory system.
+**Explanation:** Harvey demonstrated that the heart pumps blood through a circulatory system. He showed that blood moves in a continuous circuit driven by the heart rather than being continually produced and used up.
 
 **Source fact:** `HARVEY-BLOOD-CIRCULATION`
 
@@ -598,7 +598,7 @@ D. Karl Landsteiner
 
 **Answer:** D. Karl Landsteiner
 
-**Explanation:** Landsteiner identified the ABO blood groups, making safer transfusion matching possible.
+**Explanation:** Landsteiner identified the ABO blood groups, making safer transfusion matching possible. Recognizing compatible and incompatible blood groups greatly reduced dangerous transfusion reactions.
 
 **Source fact:** `LANDSTEINER-ABO`
 
@@ -613,7 +613,7 @@ D. Niels Bohr
 
 **Answer:** A. Charles Best
 
-**Explanation:** Banting and Best played central roles in the work that led to insulin treatment, with important contributions from their Toronto colleagues.
+**Explanation:** Banting and Best played central roles in the work that led to insulin treatment, with important contributions from their Toronto colleagues. The work transformed diabetes treatment because insulin could be given to patients who could not produce enough of it.
 
 **Source fact:** `BANTING-BEST-INSULIN`
 
@@ -628,7 +628,7 @@ D. Koch — periodic table; Mendeleev — tuberculosis bacterium
 
 **Answer:** B. Landsteiner — ABO blood groups; Fleming — penicillin
 
-**Explanation:** Landsteiner identified ABO blood groups, while Fleming discovered penicillin's antibacterial effect.
+**Explanation:** Landsteiner identified ABO blood groups, while Fleming discovered penicillin's antibacterial effect. The two discoveries solved very different medical problems: safe blood matching and bacterial infection treatment.
 
 **Source fact:** `MEDICAL-SCIENTIST-DISTINCTION`
 
@@ -643,7 +643,7 @@ D. James Watt
 
 **Answer:** C. Alexander Graham Bell
 
-**Explanation:** Bell is widely credited with key development and patenting of the telephone.
+**Explanation:** Bell is widely credited with key development and patenting of the telephone. The telephone changed communication by allowing speech to be transmitted electrically over distance.
 
 **Source fact:** `BELL-TELEPHONE`
 
@@ -658,7 +658,7 @@ D. Guglielmo Marconi
 
 **Answer:** D. Guglielmo Marconi
 
-**Explanation:** Marconi developed and demonstrated practical wireless telegraphy systems.
+**Explanation:** Marconi developed and demonstrated practical wireless telegraphy systems. His systems showed that messages could be sent without wires using electromagnetic waves.
 
 **Source fact:** `MARCONI-RADIO`
 
@@ -673,7 +673,7 @@ D. Michael Faraday
 
 **Answer:** A. John Logie Baird
 
-**Explanation:** Baird demonstrated an early working television system using mechanical scanning.
+**Explanation:** Baird demonstrated an early working television system using mechanical scanning. His early demonstrations were mechanical rather than fully electronic, but they proved that moving images could be transmitted.
 
 **Source fact:** `BAIRD-TELEVISION`
 
@@ -688,7 +688,7 @@ D. Alexander Fleming
 
 **Answer:** B. Tim Berners-Lee
 
-**Explanation:** Berners-Lee created the core concepts and technologies of the World Wide Web at CERN.
+**Explanation:** Berners-Lee created the core concepts and technologies of the World Wide Web at CERN. He introduced technologies such as web pages, hyperlinks and web addresses that made information easy to navigate over the Internet.
 
 **Source fact:** `BERNERSLEE-WWW`
 
@@ -703,7 +703,7 @@ D. Robert Koch
 
 **Answer:** C. Alfred Nobel
 
-**Explanation:** Nobel developed dynamite by making nitroglycerin safer to handle in a practical explosive form.
+**Explanation:** Nobel developed dynamite by making nitroglycerin safer to handle in a practical explosive form. By absorbing nitroglycerin into a more stable material, dynamite was easier and safer to handle than liquid nitroglycerin.
 
 **Source fact:** `NOBEL-DYNAMITE`
 
@@ -718,7 +718,7 @@ D. Bell — telephone; Marconi — practical wireless telegraphy
 
 **Answer:** D. Bell — telephone; Marconi — practical wireless telegraphy
 
-**Explanation:** Bell is widely credited with key telephone development, while Marconi developed practical wireless telegraphy and radio communication.
+**Explanation:** Bell is widely credited with key telephone development, while Marconi developed practical wireless telegraphy and radio communication. The telephone initially relied on wired transmission of speech, while Marconi's work focused on wireless communication.
 
 **Source fact:** `BELL-MARCONI-DISTINCTION`
 
@@ -733,7 +733,7 @@ D. Homi J. Bhabha
 
 **Answer:** A. C. V. Raman
 
-**Explanation:** C. V. Raman discovered the wavelength shift produced by inelastic scattering of light.
+**Explanation:** C. V. Raman discovered the wavelength shift produced by inelastic scattering of light. The effect provides information about how light interacts with molecules and became important in spectroscopy.
 
 **Source fact:** `CV-RAMAN-RAMAN-EFFECT`
 
@@ -748,7 +748,7 @@ D. Vikram Sarabhai
 
 **Answer:** B. Meghnad Saha
 
-**Explanation:** Meghnad Saha developed the ionization equation used to explain ionization states in stellar atmospheres.
+**Explanation:** Meghnad Saha developed the ionization equation used to explain ionization states in stellar atmospheres. His equation helped scientists connect temperature and pressure with the ionization state of gases in stars.
 
 **Source fact:** `SAHA-IONIZATION`
 
@@ -763,7 +763,7 @@ D. The barometer
 
 **Answer:** C. Bose–Einstein statistics
 
-**Explanation:** Bose developed quantum-statistical ideas that Einstein extended, giving rise to Bose–Einstein statistics.
+**Explanation:** Bose developed quantum-statistical ideas that Einstein extended, giving rise to Bose–Einstein statistics. Particles that follow this form of statistics are now called bosons in his honour.
 
 **Source fact:** `SN-BOSE-STATISTICS`
 
@@ -778,7 +778,7 @@ D. Responses in plants
 
 **Answer:** D. Responses in plants
 
-**Explanation:** J. C. Bose worked on electromagnetic waves and developed instruments for studying responses in plants.
+**Explanation:** J. C. Bose worked on electromagnetic waves and developed instruments for studying responses in plants. His work crossed both physics and plant science, making him notable in more than one scientific field.
 
 **Source fact:** `JC-BOSE-CONTRIBUTIONS`
 
@@ -793,7 +793,7 @@ D. Homi Bhabha — smallpox vaccination
 
 **Answer:** A. Meghnad Saha — ionization theory of stellar atmospheres
 
-**Explanation:** Saha's ionization equation became important in astrophysics for understanding stellar spectra.
+**Explanation:** Saha's ionization equation became important in astrophysics for understanding stellar spectra. The theory helped explain why different spectral lines appear in stars of different temperatures.
 
 **Source fact:** `INDIAN-SCIENTIST-MATCH`
 
@@ -808,7 +808,7 @@ D. Raman — periodic law; Bose — conservation of mass
 
 **Answer:** B. C. V. Raman — Raman effect; S. N. Bose — quantum statistics
 
-**Explanation:** Raman discovered the Raman effect in light scattering, while Bose developed foundational work in quantum statistics.
+**Explanation:** Raman discovered the Raman effect in light scattering, while Bose developed foundational work in quantum statistics. Raman's work belongs to experimental light scattering, while Bose's major contribution was theoretical quantum statistics.
 
 **Source fact:** `RAMAN-BOSE-DISTINCTION`
 
@@ -823,7 +823,7 @@ D. Röntgen — radioactivity
 
 **Answer:** C. James Chadwick — neutron
 
-**Explanation:** Chadwick discovered the neutron; the other listed pairings mismatch well-known contributions.
+**Explanation:** Chadwick discovered the neutron; the other listed pairings mismatch well-known contributions. Keeping these discoveries separate helps avoid a common exam trap involving Thomson, Rutherford and Chadwick.
 
 **Source fact:** `MIXED-CHADWICK-NEUTRON`
 
@@ -838,7 +838,7 @@ D. J. J. Thomson
 
 **Answer:** D. J. J. Thomson
 
-**Explanation:** Thomson's cathode-ray experiments established the electron as a subatomic particle.
+**Explanation:** Thomson's cathode-ray experiments established the electron as a subatomic particle. His experiments showed that cathode rays consisted of negatively charged particles later called electrons.
 
 **Source fact:** `IDENTIFY-THOMSON`
 
@@ -853,7 +853,7 @@ D. Amedeo Avogadro
 
 **Answer:** A. Dmitri Mendeleev
 
-**Explanation:** Mendeleev's periodic arrangement left gaps and predicted properties of elements later discovered.
+**Explanation:** Mendeleev's periodic arrangement left gaps and predicted properties of elements later discovered. The success of those predictions was strong evidence that his periodic arrangement captured a real pattern among elements.
 
 **Source fact:** `IDENTIFY-MENDELEEV-PREDICTION`
 
@@ -868,7 +868,7 @@ D. Koch — telephone; Bell — bacteria
 
 **Answer:** B. Jenner — vaccination; Fleming — penicillin
 
-**Explanation:** Jenner developed the smallpox vaccine, while Fleming discovered penicillin.
+**Explanation:** Jenner developed the smallpox vaccine, while Fleming discovered penicillin. Vaccination prepares the immune system for prevention, while penicillin is used to treat susceptible bacterial infections.
 
 **Source fact:** `JENNER-FLEMING-DISTINCTION`
 
@@ -883,7 +883,7 @@ D. Koch → Pasteur → Leeuwenhoek → Hooke
 
 **Answer:** C. Hooke → Leeuwenhoek → Pasteur → Koch
 
-**Explanation:** Hooke named cells, Leeuwenhoek observed microbes, Pasteur developed pasteurization, and Koch linked specific microbes to diseases.
+**Explanation:** Hooke named cells, Leeuwenhoek observed microbes, Pasteur developed pasteurization, and Koch linked specific microbes to diseases. Remembering the contribution itself is more reliable than memorizing the names as an isolated list.
 
 **Source fact:** `BIOLOGY-SCIENTIST-SEQUENCE`
 
@@ -898,7 +898,7 @@ D. Faraday — induction; Mendeleev — periodic table; Mendel — inheritance
 
 **Answer:** D. Faraday — induction; Mendeleev — periodic table; Mendel — inheritance
 
-**Explanation:** Faraday discovered electromagnetic induction, Mendeleev developed the periodic table, and Mendel established basic laws of inheritance.
+**Explanation:** Faraday discovered electromagnetic induction, Mendeleev developed the periodic table, and Mendel established basic laws of inheritance. Each pairing links the scientist with a distinct high-frequency contribution from physics, chemistry or biology.
 
 **Source fact:** `MIXED-ALL-CORRECT-SET`
 
