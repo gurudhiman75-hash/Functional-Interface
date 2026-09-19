@@ -79,14 +79,47 @@ const sample = generateBlr001StandardQuestionStudioBatch({
   count: 1,
   seed: "blr-production-contract",
 }).questions[0]!;
-const normalized = normalizeGeneratedQuestionPayload(sample, {
-  itemId: "blr-production-contract",
+
+assert.throws(
+  () => normalizeGeneratedQuestionPayload(sample, {
+    itemId: "blr-production-contract-unreviewed",
+    generationRunCode: "BLR-PRODUCTION-TEST",
+  }),
+  /questionBankStatus is NOT_STORED/i,
+);
+
+const promotedForBankOnly = {
+  ...sample,
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+  questionBankStatus: "READY_FOR_STORAGE",
+  questionBankWritable: true,
+  questionBankEligible: true,
+  questionBankAcceptanceMode: "BANK_ONLY",
+  questionBankAcceptanceAuthority: "MANUAL_EDITORIAL_APPROVAL",
+  testEligibility: "INELIGIBLE",
+  testEligible: false,
+  mockTestEligible: false,
+  publiclyPublishable: false,
+  automaticStudentPublication: false,
+};
+
+assert.doesNotThrow(() => assertGeneratedQuestionBankEligible(promotedForBankOnly));
+const normalized = normalizeGeneratedQuestionPayload(promotedForBankOnly, {
+  itemId: "blr-production-contract-approved-bank-only",
   generationRunCode: "BLR-PRODUCTION-TEST",
 });
 assert.equal(normalized.options.length, 4);
 assert.equal(normalized.correctIndex, sample.correctIndex);
 assert.equal(normalized.answerModel.generation.packageId, BLR_CP007_QUESTION_STUDIO_PACKAGE_ID);
 assert.equal(normalized.answerModel.generation.language, sample.language);
+assert.equal(normalized.answerModel.generation.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(normalized.answerModel.generation.questionBankWritable, true);
+assert.equal(normalized.answerModel.generation.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(normalized.answerModel.generation.testEligibility, "INELIGIBLE");
+assert.equal(normalized.answerModel.generation.testEligible, false);
+assert.equal(normalized.answerModel.generation.mockTestEligible, false);
+assert.equal(normalized.answerModel.generation.publiclyPublishable, false);
+assert.equal(normalized.answerModel.generation.automaticStudentPublication, false);
 
 const repoRoot = resolve(import.meta.dirname, "../../../../../../../..");
 const commonRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio.ts"), "utf8");
@@ -119,8 +152,9 @@ console.log(JSON.stringify({
   separateReasoningWorkflowRemoved: true,
   generationPersistenceEnabled: true,
   approvalGatePreserved: true,
-  questionBankConversionEligibleAfterApproval: true,
-  mockTestEligibleAfterApproval: true,
-  publicationWorkflowEligibleAfterApproval: true,
+  currentReviewConversionBlocked: true,
+  questionBankBankOnlyConversionEligibleAfterApproval: true,
+  mockTestEligibleAfterApproval: false,
+  publicationWorkflowEligibleAfterApproval: false,
   automaticStudentPublication: false,
 }, null, 2));
