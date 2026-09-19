@@ -4,7 +4,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Holding the breath for a long time becomes difficult mainly because:",
+    "Why does holding the breath for a long time become difficult?",
     "Carbon dioxide builds up in the blood",
     [
       "All nitrogen leaves the body",
@@ -154,7 +154,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
   [
     10,
     "Medium",
-    "Carbon monoxide in cigarette smoke is harmful mainly because it:",
+    "Why is carbon monoxide in cigarette smoke harmful?",
     "Reduces the oxygen-carrying capacity of haemoglobin",
     [
       "Improves oxygen transport",
@@ -169,7 +169,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
   [
     10,
     "Medium",
-    "During an asthma attack, breathing becomes difficult mainly because the:",
+    "Why does breathing become difficult during an asthma attack?",
     "Airways become narrowed",
     [
       "Alveolar walls become thinner",
@@ -184,7 +184,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
   [
     10,
     "Medium",
-    "A properly fitted mask can reduce inhalation of harmful dust mainly by:",
+    "How can a properly fitted mask reduce the inhalation of harmful dust?",
     "Filtering particles before they enter the respiratory tract",
     [
       "Increasing haemoglobin production instantly",
