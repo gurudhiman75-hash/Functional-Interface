@@ -1,6 +1,6 @@
 # ENG-004 — Synonyms & Antonyms — Lexical Coverage Plan V1
 
-Status: `ACTIVE_EXPANSION__CP001_500_TARGET_ACHIEVED__HUMAN_REVIEW_PENDING`
+Status: `EXPANSION_TARGET_ACHIEVED__CP001_CP005_HUMAN_REVIEW_PENDING`
 
 ## Decision
 
@@ -49,24 +49,25 @@ Focus:
 - high-similarity distractor families
 
 ### ENG-004-CP004 — Context-sensitive synonym / antonym senses
-Target: 300 additional senses.
+Implemented: **300 additional alternate senses** of already-curated headwords.
 
 Focus:
-- words whose closest synonym/antonym changes with context
 - explicit sense IDs
 - sentence-supported questions
+- other-sense relation blocking
 - prevent a second defensible answer caused by polysemy
 
 ### ENG-004-CP005 — Confusable and near-meaning lexical sets
-Target: 250 additional senses/sets.
+Implemented target: **550 additional unique headwords**.
 
 Focus:
-- near-synonyms
-- commonly confused choices
-- register and usage distinctions
+- competitive-exam headword allowlists
+- near-synonyms and semantic-family distractors
+- common confusions
 - high-quality Hard distractors
+- all-sense relation blocking
 
-Expected chapter total: **2,100+ curated headword-senses** before final deduplication.
+Expected implemented chapter total: **2,100 unique headwords / 2,400 curated headword-senses** before final editorial approval.
 
 ## Lexical record V2
 
@@ -119,3 +120,12 @@ CP001 V2 now contains **500 curated headword-senses**, so the CP001 minimum cove
 `EXPANDED_500__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
 
 The chapter-wide 2,000+ headword-sense target remains active for CP002 onward.
+
+## Final implemented totals
+
+- **2,100 unique headwords**
+- **2,400 headword-senses**
+- **5,524 stored synonym links**
+- **985 explicit stored antonym links**
+
+Antonym relations are not forced where English has no clean lexical opposite. A broad indirect-antonym closure was tested and rejected because it introduced remote/context-dependent oppositions. Quality takes precedence over an arbitrary antonym-link quota.
