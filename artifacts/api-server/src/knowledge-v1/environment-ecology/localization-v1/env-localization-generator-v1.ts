@@ -53,3 +53,18 @@ export {
   ENV_CP011_ENGLISH_AUTHORITY_V1,
   generateEnvCp011LocalizedReviewV1,
 } from "./env-cp011-localization-v1";
+export {
+  ENV_CP012_MULTILINGUAL_V1,
+  ENV_CP012_ENGLISH_AUTHORITY_V1,
+  generateEnvCp012LocalizedReviewV1,
+} from "./env-cp012-localization-v1";
+export {
+  ENV_CP013_MULTILINGUAL_V1,
+  ENV_CP013_ENGLISH_AUTHORITY_V1,
+  generateEnvCp013LocalizedReviewV1,
+} from "./env-cp013-localization-v1";
+export {
+  ENV_CP014_MULTILINGUAL_V1,
+  ENV_CP014_ENGLISH_AUTHORITY_V2,
+  generateEnvCp014LocalizedReviewV1,
+} from "./env-cp014-localization-v1";

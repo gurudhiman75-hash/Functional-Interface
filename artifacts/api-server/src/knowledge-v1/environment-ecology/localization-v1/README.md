@@ -1,4 +1,4 @@
-# Environment Multilingual V1 — Waves 1–7
+# Environment Multilingual V1 — Waves 1–8
 
 Implemented multilingual scope:
 - ENV-CP-001 Ecology Fundamentals
@@ -12,6 +12,9 @@ Implemented multilingual scope:
 - ENV-CP-009 Protected Areas of India
 - ENV-CP-010 Important Indian Protected Areas
 - ENV-CP-011 Environmental Pollution
+- ENV-CP-012 Pollutants & Environmental Effects
+- ENV-CP-013 Atmosphere, Ozone & Greenhouse Effect
+- ENV-CP-014 Climate Change, including approved NAPCC remediation
 
 Lifecycle: REVIEW_ONLY. Frozen English remains semantic authority. Hindi and Punjabi preserve CP, QL, difficulty, source provenance, option order and correct-index parity.
 
@@ -27,8 +30,11 @@ Checkpoint sizes:
 - CP009: 48 questions per locale / 144 EN-HI-PA surfaces
 - CP010: 48 questions per locale / 144 EN-HI-PA surfaces
 - CP011: 48 questions per locale / 144 EN-HI-PA surfaces
-- cumulative CP001–CP011: 552 questions per locale / 1,656 EN-HI-PA surfaces
-- Wave 7 CP009–CP011: 144 questions per locale / 432 EN-HI-PA surfaces
+- CP012: 48 questions per locale / 144 EN-HI-PA surfaces
+- CP013: 48 questions per locale / 144 EN-HI-PA surfaces
+- CP014: 60 questions per locale / 180 EN-HI-PA surfaces
+- cumulative CP001–CP014: 708 questions per locale / 2,124 EN-HI-PA surfaces
+- Wave 8 CP012–CP014: 156 questions per locale / 468 EN-HI-PA surfaces
 
 Quality gates:
 - exact frozen-English no-drift
@@ -36,12 +42,10 @@ Quality gates:
 - correct answer at the frozen English index
 - source, QL and difficulty parity
 - native Devanagari/Gurmukhi learner surfaces
-- unauthorized Latin-script leakage guards with narrow exceptions for official identifiers/codes
+- unauthorized Latin-script leakage guards with narrow exceptions for official scientific identifiers, formulas, acronyms and programme abbreviations
 - source-level option coverage: every frozen English option must have a native rendering
-- CP007 explicitly bound to approved V2 English authority
-- CP008 explicitly combines frozen 48-question V1 baseline with approved 12-question V2 Project Elephant remediation
-- CP009 preserves statutory category/section semantics, including 26A, 35, 36A and 36C
-- CP010 keeps protected-area names, state/UT links, landscapes and signature-wildlife associations semantically fixed
-- CP011 keeps pollution-source, point/non-point, treatment-stage and control-device distinctions fixed
+- CP012 preserves BOD/COD, pollutant-effect, bioaccumulation/biomagnification and heavy-metal semantics
+- CP013 preserves atmospheric-layer, ozone/ODS/HFC and greenhouse-gas distinctions
+- CP014 explicitly combines frozen 48-question V1 climate-science authority with approved 12-question V2 NAPCC remediation
 
 Environment Exhaustive V2 is approved/content-frozen. Localization remains review-only and does not change runtime registration.
