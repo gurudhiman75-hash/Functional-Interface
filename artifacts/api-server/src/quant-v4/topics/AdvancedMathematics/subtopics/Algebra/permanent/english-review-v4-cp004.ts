@@ -37,6 +37,35 @@ function positiveMod(value: number, modulus: number) {
   return ((value % modulus) + modulus) % modulus;
 }
 
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) {
+    const next = x % y;
+    x = y;
+    y = next;
+  }
+  return x;
+}
+
+const DIFFERENCE_STATES = Object.freeze(
+  Array.from({ length: 7 }, (_, index) => index + 1)
+    .flatMap((m) => Array.from({ length: 14 }, (_, index) => index + 2).map((n) => ({ m, n })))
+    .filter(({ m, n }) => gcd(m, n) === 1),
+);
+
+const PERFECT_SQUARE_STATES = Object.freeze(
+  Array.from({ length: 7 }, (_, index) => index + 1)
+    .flatMap((m) =>
+      Array.from({ length: 15 }, (_, index) => index + 1)
+        .filter((n) => gcd(m, n) === 1)
+        .flatMap((n) => [
+          { m, n, sign: 1 as const },
+          { m, n, sign: -1 as const },
+        ]),
+    ),
+);
+
 function balancedIndex(seed: number, size: number, salt: number) {
   return positiveMod(Math.imul(seed | 0, 37) + salt, size);
 }
@@ -105,9 +134,8 @@ export function generateAlgCp004EnglishReviewV4(
   const frame = positiveMod(seed, 4);
 
   if (prototypeId === "ALG-CP004-CAND-002") {
-    const index = balancedIndex(seed, 70, 2);
-    const m = (index % 5) + 1;
-    const n = Math.floor(index / 5) + 2;
+    const index = balancedIndex(seed, DIFFERENCE_STATES.length, 2);
+    const { m, n } = DIFFERENCE_STATES[index]!;
     const state = { kind: "DIFFERENCE_OF_SQUARES" as const, m, n };
     const answerText = `${factorText(m, n, -1)}${factorText(m, n, 1)}`;
     const expression = expressionFor(state);
@@ -136,10 +164,8 @@ export function generateAlgCp004EnglishReviewV4(
     };
   }
 
-  const index = balancedIndex(seed, 120, 3);
-  const m = (index % 5) + 1;
-  const n = (Math.floor(index / 5) % 12) + 1;
-  const sign: 1 | -1 = Math.floor(index / 60) === 0 ? 1 : -1;
+  const index = balancedIndex(seed, PERFECT_SQUARE_STATES.length, 3);
+  const { m, n, sign } = PERFECT_SQUARE_STATES[index]!;
   const state = { kind: "PERFECT_SQUARE_TRINOMIAL" as const, m, n, sign };
   const factor = factorText(m, n, sign);
   const answerText = `${factor}²`;
