@@ -19,7 +19,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
   [
     6,
     "Easy",
-    "Bt cotton was developed mainly for resistance against certain:",
+    "Bt cotton was developed for resistance against certain:",
     "Insect pests",
     [
       "Droughts only",
