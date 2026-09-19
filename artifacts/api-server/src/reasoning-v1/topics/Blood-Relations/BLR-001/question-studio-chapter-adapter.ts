@@ -1,4 +1,9 @@
 import { graphFromClues } from "./foundation/graph-closure";
+import { BLR_001_MULTILINGUAL_APPROVAL_RECEIPT } from "./multilingual-freeze-approval";
+import {
+  BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES,
+  freezeBlr001ApprovedMultilingualRecord,
+} from "./multilingual-frozen-runtime";
 import { generateBlrCp001Question } from "./BLR-CP-001/cp001-runtime";
 import type { BlrCp001QlId } from "./BLR-CP-001/cp001-permanent-contracts";
 import {
@@ -351,10 +356,13 @@ function rawBank(packageId: BlrChapterStudioPackageId, language: BlrChapterStudi
       Array.from(
         { length: 128 },
         (_, index) =>
-          generateBlrCp001LocalizedQuestion(
-            qlId as BlrCp001QlId,
-            qlIndex * 1000 + index,
-            locale,
+          freezeBlr001ApprovedMultilingualRecord(
+            generateBlrCp001LocalizedQuestion(
+              qlId as BlrCp001QlId,
+              qlIndex * 1000 + index,
+              locale,
+            ),
+            BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
           ),
       ),
     ) as unknown as readonly RawQuestion[];
@@ -363,18 +371,43 @@ function rawBank(packageId: BlrChapterStudioPackageId, language: BlrChapterStudi
     records = Array.from(
       { length: 256 },
       (_, index) =>
-        generateBlrCp002LocalizedQuestion(
-          "BLR-QL-008" as BlrCp002QlId,
-          index,
-          locale,
+        freezeBlr001ApprovedMultilingualRecord(
+          generateBlrCp002LocalizedQuestion(
+            "BLR-QL-008" as BlrCp002QlId,
+            index,
+            locale,
+          ),
+          BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
         ),
     ) as unknown as readonly RawQuestion[];
   } else if (packageId === BLR_CP003_QUESTION_STUDIO_PACKAGE_ID) {
-    records = generateBlrCp003LocalizedReviewBank(generateBlrCp003FinalApprovedBank(), language === "hi" ? "hi-IN" : "pa-IN") as unknown as readonly RawQuestion[];
+    records = generateBlrCp003LocalizedReviewBank(
+      generateBlrCp003FinalApprovedBank(),
+      language === "hi" ? "hi-IN" : "pa-IN",
+    ).map((record) =>
+      freezeBlr001ApprovedMultilingualRecord(
+        record,
+        BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
+      ),
+    ) as unknown as readonly RawQuestion[];
   } else if (packageId === BLR_CP004_QUESTION_STUDIO_PACKAGE_ID) {
-    records = generateBlrCp004LocalizedReviewBank(language === "hi" ? "hi-IN" : "pa-IN") as unknown as readonly RawQuestion[];
+    records = generateBlrCp004LocalizedReviewBank(
+      language === "hi" ? "hi-IN" : "pa-IN",
+    ).map((record) =>
+      freezeBlr001ApprovedMultilingualRecord(
+        record,
+        BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
+      ),
+    ) as unknown as readonly RawQuestion[];
   } else if (packageId === BLR_CP005_QUESTION_STUDIO_PACKAGE_ID) {
-    records = generateBlrCp005LocalizedReviewBank(language === "hi" ? "hi-IN" : "pa-IN") as unknown as readonly RawQuestion[];
+    records = generateBlrCp005LocalizedReviewBank(
+      language === "hi" ? "hi-IN" : "pa-IN",
+    ).map((record) =>
+      freezeBlr001ApprovedMultilingualRecord(
+        record,
+        BLR_001_MULTILINGUAL_APPROVAL_RECEIPT,
+      ),
+    ) as unknown as readonly RawQuestion[];
   } else {
     throw new Error(`${packageSpec(packageId).checkpointId} currently supports English generation only.`);
   }
@@ -429,7 +462,7 @@ export function previewBlrChapterQuestionStudio(request: BlrChapterStudioRequest
       seed,
       runtimeMode: "CHAPTER_RUNTIME_REVIEW",
       integrationStatus: "QUESTION_STUDIO_GENERATION_READY",
-      reviewStatus: language === "en" ? "CURRENT_ENGLISH_AUTHORITY" : "LOCALIZED_REVIEW_REQUIRED",
+      reviewStatus: language === "en" ? "CURRENT_ENGLISH_AUTHORITY" : "MULTILINGUAL_FROZEN",
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
@@ -443,14 +476,24 @@ export function releaseAuthorityForBlrChapterPackage(packageId: BlrChapterStudio
   if (packageId === BLR_CP001_QUESTION_STUDIO_PACKAGE_ID) {
     return language === "en"
       ? "BLR_CP001_ENGLISH_RUNTIME_PROOF"
-      : BLR_CP001_HI_PA_LOCALISATION_REVIEW_CANDIDATE;
+      : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-001"];
   }
   if (packageId === BLR_CP002_QUESTION_STUDIO_PACKAGE_ID) {
     return language === "en"
       ? "BLR_CP002_ENGLISH_RUNTIME_PROOF"
-      : BLR_CP002_HI_PA_LOCALISATION_REVIEW_CANDIDATE;
+      : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-002"];
   }
-  if (packageId === BLR_CP003_QUESTION_STUDIO_PACKAGE_ID) return language === "en" ? "BLR_CP003_ENGLISH_DISCOVERY_FROZEN" : BLR_CP003_HI_PA_LOCALISATION_REVIEW_CANDIDATE;
-  if (packageId === BLR_CP004_QUESTION_STUDIO_PACKAGE_ID) return language === "en" ? BLR_CP004_FREEZE_VERSION : BLR_CP004_HI_PA_LOCALISATION_REVIEW_CANDIDATE;
-  return language === "en" ? BLR_CP005_FREEZE_VERSION : BLR_CP005_HI_PA_LOCALISATION_REVIEW_CANDIDATE;
+  if (packageId === BLR_CP003_QUESTION_STUDIO_PACKAGE_ID) {
+    return language === "en"
+      ? "BLR_CP003_ENGLISH_DISCOVERY_FROZEN"
+      : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-003"];
+  }
+  if (packageId === BLR_CP004_QUESTION_STUDIO_PACKAGE_ID) {
+    return language === "en"
+      ? BLR_CP004_FREEZE_VERSION
+      : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-004"];
+  }
+  return language === "en"
+    ? BLR_CP005_FREEZE_VERSION
+    : BLR_001_MULTILINGUAL_FREEZE_AUTHORITIES["BLR-CP-005"];
 }
