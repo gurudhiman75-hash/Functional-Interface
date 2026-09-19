@@ -11,8 +11,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "power",
       "pressure"
     ],
-    "The joule is the SI unit of energy and work. Force is measured in newtons, power in watts and pressure in pascals.",
-    "MEGA-JOULE-ENERGY"
+    "The joule is the SI unit of energy and work. Force is measured in newtons, power in watts and pressure in pascals. Work is also measured in joules because work is a form of energy transfer.",
+    [
+      "MEGA-JOULE-ENERGY"
+    ]
   ],
   [
     1,
@@ -24,8 +26,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "energy",
       "density"
     ],
-    "Acceleration tells how quickly velocity changes with time. Because velocity includes direction, a change in direction can also mean acceleration even if speed stays constant.",
-    "MEGA-ACCELERATION"
+    "Acceleration tells how quickly velocity changes with time. Because velocity includes direction, a change in direction can also mean acceleration even if speed stays constant. This is why circular motion can involve acceleration even at constant speed.",
+    [
+      "MEGA-ACCELERATION"
+    ]
   ],
   [
     1,
@@ -37,8 +41,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "5 N",
       "9 N"
     ],
-    "Newton's second law gives force as mass multiplied by acceleration. Multiplying 2 kg by 3 m/s² gives a net force of 6 newtons.",
-    "MEGA-FMA"
+    "Newton's second law gives force as mass multiplied by acceleration. Multiplying 2 kg by 3 m/s² gives a net force of 6 newtons. The result follows directly from F = ma.",
+    [
+      "MEGA-FMA"
+    ]
   ],
   [
     1,
@@ -50,8 +56,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "Mass becomes zero",
       "Air pushes it only from behind"
     ],
-    "Expelled gases are pushed backward, and an equal and opposite force pushes the rocket forward. This illustrates Newton's third law of motion.",
-    "MEGA-ROCKET-THIRD-LAW"
+    "Expelled gases are pushed backward, and an equal and opposite force pushes the rocket forward. This illustrates Newton's third law of motion. Rocket motion does not require air outside the rocket for this reaction force.",
+    [
+      "MEGA-ROCKET-THIRD-LAW"
+    ]
   ],
   [
     1,
@@ -63,8 +71,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "Both always have zero momentum",
       "Momentum does not depend on mass"
     ],
-    "Momentum equals mass multiplied by velocity. At the same speed, the object with greater mass therefore has greater momentum.",
-    "MEGA-MOMENTUM-MASS"
+    "Momentum equals mass multiplied by velocity. At the same speed, the object with greater mass therefore has greater momentum. This simple relation is useful when comparing vehicles moving at the same speed.",
+    [
+      "MEGA-MOMENTUM-MASS"
+    ]
   ],
   [
     1,
@@ -76,8 +86,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "They must have the same mass",
       "The truck must always be faster"
     ],
-    "Kinetic energy depends on both mass and the square of speed. A lighter vehicle can have the same kinetic energy as a heavier one if it moves faster.",
-    "MEGA-KE-MASS-SPEED"
+    "Kinetic energy depends on both mass and the square of speed. A lighter vehicle can have the same kinetic energy as a heavier one if it moves faster. The square of speed makes kinetic-energy comparisons very sensitive to velocity.",
+    [
+      "MEGA-KE-MASS-SPEED"
+    ]
   ],
   [
     2,
@@ -89,8 +101,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "decreasing density only",
       "surface colour"
     ],
-    "Liquid pressure increases with depth because deeper points support a greater column of liquid above them. Density and gravity also affect pressure.",
-    "MEGA-LIQUID-PRESSURE"
+    "Liquid pressure increases with depth because deeper points support a greater column of liquid above them. Density and gravity also affect pressure. This principle also explains why dams are thicker near their lower sections.",
+    [
+      "MEGA-LIQUID-PRESSURE"
+    ]
   ],
   [
     2,
@@ -102,8 +116,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "vacuum",
       "water vapour"
     ],
-    "Sound generally travels faster in solids than in gases because particles are more closely coupled. Sound cannot travel through a vacuum at all.",
-    "MEGA-SOUND-STEEL"
+    "Sound generally travels faster in solids than in gases because particles are more closely coupled. Sound cannot travel through a vacuum at all. The closely packed particles in solids transmit vibrations efficiently.",
+    [
+      "MEGA-SOUND-STEEL"
+    ]
   ],
   [
     2,
@@ -115,8 +131,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "The boiling point falls",
       "Steam stops forming"
     ],
-    "Higher pressure allows water to boil at a temperature above its normal boiling point. The hotter water and steam cook food more quickly.",
-    "MEGA-PRESSURE-COOKER"
+    "Higher pressure allows water to boil at a temperature above its normal boiling point. The hotter water and steam cook food more quickly. At high altitude the opposite effect occurs because lower pressure lowers boiling temperature.",
+    [
+      "MEGA-PRESSURE-COOKER"
+    ]
   ],
   [
     2,
@@ -128,8 +146,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "form only diminished images",
       "stop radiation"
     ],
-    "A concave mirror can bring parallel rays of sunlight toward a focus. Concentrating the radiation in a small region raises temperature.",
-    "MEGA-CONCAVE-SOLAR"
+    "A concave mirror can bring parallel rays of sunlight toward a focus. Concentrating the radiation in a small region raises temperature. The same focusing property is used in some reflecting telescopes and solar furnaces.",
+    [
+      "MEGA-CONCAVE-SOLAR"
+    ]
   ],
   [
     2,
@@ -141,8 +161,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "Wool reflects gravity",
       "Air conducts heat very well"
     ],
-    "Wool fibres trap pockets of air, and air is a poor conductor of heat. This reduces the rate at which body heat escapes.",
-    "MEGA-WOOL"
+    "Wool fibres trap pockets of air, and air is a poor conductor of heat. This reduces the rate at which body heat escapes. Air trapped in other insulating materials works for the same reason.",
+    [
+      "MEGA-WOOL"
+    ]
   ],
   [
     2,
@@ -154,8 +176,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "Warm water removes gravity",
       "Pressure always becomes zero"
     ],
-    "Heating causes the metal lid to expand. Even a small expansion can loosen the fit between lid and jar and make opening easier.",
-    "MEGA-THERMAL-EXPANSION-LID"
+    "Heating causes the metal lid to expand. Even a small expansion can loosen the fit between lid and jar and make opening easier. Different materials expand by different amounts when heated.",
+    [
+      "MEGA-THERMAL-EXPANSION-LID"
+    ]
   ],
   [
     3,
@@ -167,8 +191,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "volt",
       "tesla"
     ],
-    "Electrical resistance is measured in ohms. Current is measured in amperes and potential difference in volts.",
-    "MEGA-OHM-UNIT"
+    "Electrical resistance is measured in ohms. Current is measured in amperes and potential difference in volts. The unit is named after Georg Simon Ohm.",
+    [
+      "MEGA-OHM-UNIT"
+    ]
   ],
   [
     3,
@@ -180,8 +206,10 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "barometer",
       "thermometer"
     ],
-    "An electric motor uses magnetic forces on current-carrying conductors to produce motion. It converts electrical energy into mechanical energy.",
-    "MEGA-MOTOR"
+    "An electric motor uses magnetic forces on current-carrying conductors to produce motion. It converts electrical energy into mechanical energy. The reverse conversion, from mechanical to electrical energy, occurs in generators.",
+    [
+      "MEGA-MOTOR"
+    ]
   ],
   [
     3,
@@ -193,7 +221,9 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
       "chemical reaction",
       "sound reflection"
     ],
-    "A transformer uses electromagnetic induction. The changing current in one coil produces changing magnetic flux that induces voltage in another coil.",
-    "MEGA-TRANSFORMER"
+    "A transformer uses electromagnetic induction. The changing current in one coil produces changing magnetic flux that induces voltage in another coil. Without a changing magnetic field, the secondary coil would not receive a continuously induced voltage.",
+    [
+      "MEGA-TRANSFORMER"
+    ]
   ]
 ] as const;
