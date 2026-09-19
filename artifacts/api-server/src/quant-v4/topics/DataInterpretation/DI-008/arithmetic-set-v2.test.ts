@@ -40,6 +40,8 @@ const answerPositions = new Map<string, Set<number>>();
 for (const profile of profiles) for (const task of allTasks) answerPositions.set(profile + ":" + task, new Set<number>());
 
 const contexts = new Set<Di008V2ContextId>();
+const labelsByContext = new Map<Di008V2ContextId, Set<string>>(allContexts.map((context) => [context, new Set<string>()]));
+const allLearnerLabels = new Set<string>();
 const stateFingerprints = new Set<string>();
 const orderFingerprints = new Set<string>();
 let sets = 0;
@@ -102,6 +104,10 @@ for (let seedIndex = 1; seedIndex <= 160; seedIndex += 1) {
     }
 
     contexts.add(first.stimulus.contextId);
+    for (const row of first.stimulus.rows) {
+      labelsByContext.get(first.stimulus.contextId)!.add(row.label);
+      allLearnerLabels.add(row.label);
+    }
     stateFingerprints.add(stable({ contextId: first.stimulus.contextId, rows: first.stimulus.rows }));
     orderFingerprints.add(first.questions.map((question) => question.kind).join("|"));
     byProfile.set(profile, first);
@@ -116,6 +122,10 @@ for (let seedIndex = 1; seedIndex <= 160; seedIndex += 1) {
 }
 
 assert(contexts.size === allContexts.length, "DI-008 V2 covered only " + contexts.size + "/" + allContexts.length + " contexts.");
+assert(allLearnerLabels.size === 144, "DI-008 V2 exercised only " + allLearnerLabels.size + "/144 configured learner-facing object labels.");
+for (const context of allContexts) {
+  assert(labelsByContext.get(context)!.size === 24, context + " exercised only " + labelsByContext.get(context)!.size + "/24 configured object labels.");
+}
 assert(stateFingerprints.size >= 150, "DI-008 V2 produced only " + stateFingerprints.size + " distinct mathematical states.");
 assert(orderFingerprints.size >= 60, "DI-008 V2 produced only " + orderFingerprints.size + " question-order signatures.");
 assert(prelimsSingleMediumChecks > 100, "Prelims direct/single-item medium arithmetic was not exercised enough.");
@@ -144,6 +154,8 @@ console.log(JSON.stringify({
   prelimsSingleMediumChecks,
   mainsAggregateChecks,
   contexts: [...contexts].sort(),
+  learnerObjectLabels: allLearnerLabels.size,
+  labelsByContext: Object.fromEntries([...labelsByContext].map(([context, labels]) => [context, labels.size])),
   taskCounts: Object.fromEntries(taskCounts),
   stemVariantCoverage: Object.fromEntries([...stemVariants].map(([task, variants]) => [task, [...variants].sort()])),
   distinctStates: stateFingerprints.size,
