@@ -91,13 +91,13 @@ for (let index = 0; index < canonical.length; index += 1) {
     if (localized.locale === "hi-IN") {
       assert.doesNotMatch(
         learnerText,
-        / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू)\b/u,
+        / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू)(?=$|[\s।,;:!?\"”’\)\]\}])/u,
         `${localized.itemId}: Hindi relation possessive grammar drifted.`,
       );
     } else {
       assert.doesNotMatch(
         learnerText,
-        / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/ਨਾਤਿਨ|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ)\b/u,
+        / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/ਨਾਤਿਨ|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ)(?=$|[\s।,;:!?\"”’\)\]\}])/u,
         `${localized.itemId}: Punjabi relation possessive grammar drifted.`,
       );
     }
