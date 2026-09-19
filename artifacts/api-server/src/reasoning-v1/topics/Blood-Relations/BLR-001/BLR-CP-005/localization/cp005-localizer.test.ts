@@ -65,6 +65,22 @@ for (let index = 0; index < canonical.length; index += 1) {
     assert.equal(localized.metadata.semanticParity, "EXECUTABLE_PROVED");
     assert.doesNotMatch(localized.stem, /की (?:न्यूनतम|अधिकतम) संभव मान/);
     assert.doesNotMatch(localized.stem, /संभव हो सकती है|ਸੰਭਵ ਹੋ ਸਕਦੀ ਹੈ/);
+    const learnerExplanation = [
+      ...localized.explanation.coreConcept,
+      ...localized.explanation.modelAudit,
+      localized.explanation.conclusion,
+      ...localized.explanation.familyTrees.flatMap((tree) => [
+        tree.title,
+        tree.modelLabel,
+        tree.accessibleSummary,
+        tree.asciiFallback,
+      ]),
+    ].join(" ");
+    assert.doesNotMatch(
+      learnerExplanation,
+      /मॉडल|ਮਾਡਲ|model-group|परिवार-मॉडल|ਪਰਿਵਾਰਕ ਮਾਡਲ/i,
+      `${localized.itemId}: internal model jargon leaked into learner explanation.`,
+    );
     assert.notEqual(localized.sharedPrompt, source.sharedPrompt, `${localized.itemId}: shared prompt was not localized.`);
     assert.notEqual(localized.stem, source.stem, `${localized.itemId}: stem was not localized.`);
     for (let optionIndex = 0; optionIndex < 4; optionIndex += 1) {
