@@ -37,8 +37,8 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
     "Most carbon dioxide in the blood is transported mainly as:",
     "Bicarbonate ions",
     [
-      "Free oxygen molecules",
-      "Starch granules",
+      "Dissolved carbon dioxide in plasma",
+      "Carbaminohaemoglobin",
       "Oxyhaemoglobin"
     ],
     "Much of the carbon dioxide entering blood is converted into bicarbonate ions, which are transported mainly in the plasma.",
@@ -172,9 +172,9 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
     "During a short, very intense sprint, muscle cells may partly use anaerobic respiration because:",
     "Oxygen supply cannot immediately meet the high energy demand",
     [
-      "Muscles stop using glucose",
-      "Haemoglobin disappears completely",
-      "The lungs stop working permanently"
+      "The lungs cannot increase ventilation at all",
+      "Muscle cells cannot use glucose aerobically",
+      "Carbon dioxide production stops during exercise"
     ],
     "During intense exercise, energy demand can rise faster than oxygen delivery. Anaerobic pathways then contribute temporarily to ATP production.",
     [
