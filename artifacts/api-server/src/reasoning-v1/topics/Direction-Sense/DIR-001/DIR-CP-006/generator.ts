@@ -62,10 +62,10 @@ function answerKey(answer: CodedDirectionAnswer): string {
   return JSON.stringify(answer);
 }
 
-function difficultyFor(qlId: string, seed: number, relationCount: number): "EASY" | "MEDIUM" | "HARD" {
+function difficultyFor(qlId: string, relationCount: number): "EASY" | "MEDIUM" | "HARD" {
   if (qlId === "DIR-QL-025" || qlId === "DIR-QL-028") return "HARD";
-  if (qlId === "DIR-QL-026") return Math.abs(seed) % 3 === 0 ? "EASY" : "MEDIUM";
-  if (qlId === "DIR-QL-024") return Math.abs(seed) % 4 === 0 ? "EASY" : "MEDIUM";
+  if (qlId === "DIR-QL-026") return "EASY";
+  if (qlId === "DIR-QL-024") return "MEDIUM";
   if (qlId === "DIR-QL-027") return relationCount >= 3 ? "HARD" : "MEDIUM";
   if (relationCount <= 1) return "EASY";
   if (relationCount === 2) return "MEDIUM";
@@ -94,7 +94,7 @@ function baseQuestion(args: {
     checkpointId: "DIR-CP-006",
     ruleId: ql.ruleId,
     seed: args.seed,
-    difficulty: difficultyFor(args.qlId, args.seed, args.relationCount),
+    difficulty: difficultyFor(args.qlId, args.relationCount),
     stem: args.stem,
     structuredPrompt: args.structuredPrompt,
     options: args.options,
