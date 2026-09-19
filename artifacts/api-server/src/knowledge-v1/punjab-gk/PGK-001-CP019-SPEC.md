@@ -16,19 +16,19 @@ CP019 covers stable constitutional and institutional facts about Punjab's state 
 - Keep learner text neutral and source-free.
 - Avoid filler such as `associated with`, `linked with`, `known for`, `formed the framework`.
 - Use office/constitutional-role questions rather than current politician names.
-- Mutable representation numbers are source-versioned to the current delimitation framework and must be rechecked before future runtime publication.
+- Representation numbers are source-versioned to the Delimitation Order, 2008, and should be rechecked if delimitation law changes.
 - Hard questions should use institution-role, law-body and state-vs-local election relations.
 
 ## Qualified coverage
 
 - Punjab has a unicameral State Legislature; its Legislative Council was abolished with effect from 7 January 1970.
-- Punjab Legislative Assembly has 117 constituencies under the current delimitation framework; 34 are reserved for Scheduled Castes and none for Scheduled Tribes.
+- Under the Delimitation Order, 2008, Punjab has 117 Assembly constituencies; 34 are reserved for Scheduled Castes and none for Scheduled Tribes.
 - Under Article 168, Punjab's Legislature consists of the Governor and the Legislative Assembly.
 - State executive relations follow Part VI of the Constitution: executive power is vested in the Governor; the Council of Ministers with the Chief Minister at its head aids and advises the Governor; the Council is collectively responsible to the Legislative Assembly.
 - The Chief Minister is appointed by the Governor; other ministers are appointed by the Governor on the Chief Minister's advice.
 - The Legislative Assembly chooses its Speaker and Deputy Speaker from among its members.
 - A State Legislative Assembly normally continues for five years unless sooner dissolved.
-- Punjab has 13 Lok Sabha constituencies under the current delimitation framework; four are reserved for Scheduled Castes.
+- Under the Delimitation Order, 2008, Punjab has 13 Lok Sabha constituencies; four are reserved for Scheduled Castes.
 - Punjab is allocated seven Rajya Sabha seats.
 - The High Court of Punjab and Haryana is at Chandigarh and exercises jurisdiction over Punjab, Haryana and the Union Territory of Chandigarh.
 - Punjab's rural Panchayati Raj structure uses Gram Panchayat, Panchayat Samiti and Zila Parishad levels; the Punjab Panchayati Raj Act, 1994 is a core state law.
