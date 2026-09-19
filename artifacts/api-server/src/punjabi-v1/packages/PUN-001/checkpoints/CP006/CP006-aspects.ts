@@ -1,30 +1,44 @@
-export type CP006Aspect = "HABITUAL" | "PROGRESSIVE" | "PERFECT";
-
+export type CP006Aspect="HABITUAL"|"PROGRESSIVE"|"PERFECT";
 export interface CP006AspectAuthority {
-  readonly id: string;
-  readonly sentence: string;
-  readonly verbPhrase: string;
-  readonly aspect: CP006Aspect;
-  readonly aspectPa: string;
-  readonly explanationPa: string;
-  readonly sourceStatus: "REVIEW_PENDING";
+ readonly id:string; readonly donorIds:readonly string[]; readonly priorApprovedIds:readonly string[];
+ readonly sentence:string; readonly verbPhrase:string; readonly aspect:CP006Aspect; readonly aspectPa:string;
+ readonly explanationPa:string; readonly sourceStatus:"REVIEW_PENDING";
 }
-
-const A = (x: Omit<CP006AspectAuthority, "sourceStatus">): CP006AspectAuthority => ({...x, sourceStatus:"REVIEW_PENDING"});
-
-export const CP006_ASPECT_AUTHORITIES: readonly CP006AspectAuthority[] = [
-  A({id:"ASP-001",sentence:"ਉਹ ਹਰ ਰੋਜ਼ ਸਵੇਰੇ ਦੌੜਦਾ ਹੈ।",verbPhrase:"ਦੌੜਦਾ ਹੈ",aspect:"HABITUAL",aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"‘ਹਰ ਰੋਜ਼’ ਅਤੇ ‘ਦੌੜਦਾ ਹੈ’ ਵਾਰ-ਵਾਰ ਹੋਣ ਵਾਲੀ ਕਿਰਿਆ ਦੱਸਦੇ ਹਨ।"}),
-  A({id:"ASP-002",sentence:"ਬੱਚੇ ਰੋਜ਼ ਸ਼ਾਮ ਨੂੰ ਖੇਡਦੇ ਹਨ।",verbPhrase:"ਖੇਡਦੇ ਹਨ",aspect:"HABITUAL",aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਵਾਕ ਰੋਜ਼ਾਨਾ ਦੁਹਰਾਈ ਜਾਣ ਵਾਲੀ ਕਿਰਿਆ ਦੱਸਦਾ ਹੈ।"}),
-  A({id:"ASP-003",sentence:"ਮਾਂ ਹਰ ਸਵੇਰ ਚਾਹ ਬਣਾਉਂਦੀ ਹੈ।",verbPhrase:"ਬਣਾਉਂਦੀ ਹੈ",aspect:"HABITUAL",aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"‘ਹਰ ਸਵੇਰ’ ਨਾਲ ਕਿਰਿਆ ਦੀ ਨਿਯਮਿਤ ਦੁਹਰਾਈ ਸਪਸ਼ਟ ਹੁੰਦੀ ਹੈ।"}),
-  A({id:"ASP-004",sentence:"ਡਾਕੀਆ ਹਰ ਦਿਨ ਚਿੱਠੀਆਂ ਵੰਡਦਾ ਹੈ।",verbPhrase:"ਵੰਡਦਾ ਹੈ",aspect:"HABITUAL",aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਇਹ ਵਾਰ-ਵਾਰ ਹੋਣ ਵਾਲੀ ਆਮ ਕਿਰਿਆ ਹੈ।"}),
-  A({id:"ASP-005",sentence:"ਉਹ ਹੁਣ ਕਿਤਾਬ ਪੜ੍ਹ ਰਿਹਾ ਹੈ।",verbPhrase:"ਪੜ੍ਹ ਰਿਹਾ ਹੈ",aspect:"PROGRESSIVE",aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਕਿਰਿਆ ਇਸ ਵੇਲੇ ਚੱਲ ਰਹੀ ਹੈ ਅਤੇ ਅਜੇ ਪੂਰੀ ਨਹੀਂ ਹੋਈ।"}),
-  A({id:"ASP-006",sentence:"ਕੁੜੀ ਇਸ ਸਮੇਂ ਗੀਤ ਗਾ ਰਹੀ ਹੈ।",verbPhrase:"ਗਾ ਰਹੀ ਹੈ",aspect:"PROGRESSIVE",aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"‘ਗਾ ਰਹੀ ਹੈ’ ਚੱਲ ਰਹੀ ਕਿਰਿਆ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।"}),
-  A({id:"ASP-007",sentence:"ਕਿਸਾਨ ਖੇਤ ਵਿੱਚ ਕਣਕ ਬੀਜ ਰਿਹਾ ਹੈ।",verbPhrase:"ਬੀਜ ਰਿਹਾ ਹੈ",aspect:"PROGRESSIVE",aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਕਿਰਿਆ ਜਾਰੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਚਾਲੂ ਜਾਂ ਅਪੂਰਨ ਪੱਖ ਹੈ।"}),
-  A({id:"ASP-008",sentence:"ਬੱਚੇ ਮੈਦਾਨ ਵਿੱਚ ਖੇਡ ਰਹੇ ਹਨ।",verbPhrase:"ਖੇਡ ਰਹੇ ਹਨ",aspect:"PROGRESSIVE",aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"‘ਖੇਡ ਰਹੇ ਹਨ’ ਚੱਲ ਰਹੀ ਕਿਰਿਆ ਦੱਸਦਾ ਹੈ।"}),
-  A({id:"ASP-009",sentence:"ਉਹ ਆਪਣਾ ਕੰਮ ਕਰ ਚੁੱਕਾ ਹੈ।",verbPhrase:"ਕਰ ਚੁੱਕਾ ਹੈ",aspect:"PERFECT",aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"‘ਕਰ ਚੁੱਕਾ ਹੈ’ ਕਿਰਿਆ ਦੇ ਪੂਰਾ ਹੋ ਜਾਣ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।"}),
-  A({id:"ASP-010",sentence:"ਕੁੜੀ ਪਾਠ ਯਾਦ ਕਰ ਚੁੱਕੀ ਹੈ।",verbPhrase:"ਯਾਦ ਕਰ ਚੁੱਕੀ ਹੈ",aspect:"PERFECT",aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਕਿਰਿਆ ਪੂਰੀ ਹੋ ਚੁੱਕੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਪੂਰਨ ਪੱਖ ਹੈ।"}),
-  A({id:"ASP-011",sentence:"ਕਿਸਾਨ ਫਸਲ ਕੱਟ ਚੁੱਕਾ ਹੈ।",verbPhrase:"ਕੱਟ ਚੁੱਕਾ ਹੈ",aspect:"PERFECT",aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"‘ਕੱਟ ਚੁੱਕਾ ਹੈ’ ਪੂਰੀ ਹੋਈ ਕਿਰਿਆ ਦੱਸਦਾ ਹੈ।"}),
-  A({id:"ASP-012",sentence:"ਵਿਦਿਆਰਥੀ ਉੱਤਰ ਲਿਖ ਚੁੱਕੇ ਹਨ।",verbPhrase:"ਲਿਖ ਚੁੱਕੇ ਹਨ",aspect:"PERFECT",aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਵਾਕ ਵਿੱਚ ਲਿਖਣ ਦੀ ਕਿਰਿਆ ਪੂਰੀ ਹੋ ਚੁੱਕੀ ਹੈ।"}),
-];
-
-export const CP006_ASPECT_LABELS = ["ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ","ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)","ਪੂਰਨ ਪੱਖ","ਸਧਾਰਨ ਕਾਲ"] as const;
+export const CP006_ASPECT_AUTHORITIES:readonly CP006AspectAuthority[]=[
+ {id:"ASP-R001",donorIds:[],priorApprovedIds:["ASP-001"],sentence:"ਉਹ ਹਰ ਰੋਜ਼ ਸਵੇਰੇ ਦੌੜਦਾ ਹੈ।",verbPhrase:"ਦੌੜਦਾ ਹੈ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"‘ਹਰ ਰੋਜ਼’ ਅਤੇ ‘ਦੌੜਦਾ ਹੈ’ ਵਾਰ-ਵਾਰ ਹੋਣ ਵਾਲੀ ਕਿਰਿਆ ਦੱਸਦੇ ਹਨ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R002",donorIds:[],priorApprovedIds:["ASP-002"],sentence:"ਬੱਚੇ ਰੋਜ਼ ਸ਼ਾਮ ਨੂੰ ਖੇਡਦੇ ਹਨ।",verbPhrase:"ਖੇਡਦੇ ਹਨ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਵਾਕ ਰੋਜ਼ਾਨਾ ਦੁਹਰਾਈ ਜਾਣ ਵਾਲੀ ਕਿਰਿਆ ਦੱਸਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R003",donorIds:[],priorApprovedIds:["ASP-003"],sentence:"ਮਾਂ ਹਰ ਸਵੇਰ ਚਾਹ ਬਣਾਉਂਦੀ ਹੈ।",verbPhrase:"ਬਣਾਉਂਦੀ ਹੈ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"‘ਹਰ ਸਵੇਰ’ ਨਾਲ ਕਿਰਿਆ ਦੀ ਨਿਯਮਿਤ ਦੁਹਰਾਈ ਸਪਸ਼ਟ ਹੁੰਦੀ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R004",donorIds:[],priorApprovedIds:["ASP-004"],sentence:"ਡਾਕੀਆ ਹਰ ਦਿਨ ਚਿੱਠੀਆਂ ਵੰਡਦਾ ਹੈ।",verbPhrase:"ਵੰਡਦਾ ਹੈ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਇਹ ਵਾਰ-ਵਾਰ ਹੋਣ ਵਾਲੀ ਆਮ ਕਿਰਿਆ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R005",donorIds:[],priorApprovedIds:["ASP-005"],sentence:"ਉਹ ਹੁਣ ਕਿਤਾਬ ਪੜ੍ਹ ਰਿਹਾ ਹੈ।",verbPhrase:"ਪੜ੍ਹ ਰਿਹਾ ਹੈ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਕਿਰਿਆ ਇਸ ਵੇਲੇ ਚੱਲ ਰਹੀ ਹੈ ਅਤੇ ਅਜੇ ਪੂਰੀ ਨਹੀਂ ਹੋਈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R006",donorIds:[],priorApprovedIds:["ASP-006"],sentence:"ਕੁੜੀ ਇਸ ਸਮੇਂ ਗੀਤ ਗਾ ਰਹੀ ਹੈ।",verbPhrase:"ਗਾ ਰਹੀ ਹੈ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"‘ਗਾ ਰਹੀ ਹੈ’ ਚੱਲ ਰਹੀ ਕਿਰਿਆ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R007",donorIds:[],priorApprovedIds:["ASP-007"],sentence:"ਕਿਸਾਨ ਖੇਤ ਵਿੱਚ ਕਣਕ ਬੀਜ ਰਿਹਾ ਹੈ।",verbPhrase:"ਬੀਜ ਰਿਹਾ ਹੈ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਕਿਰਿਆ ਜਾਰੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਚਾਲੂ ਜਾਂ ਅਪੂਰਨ ਪੱਖ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R008",donorIds:[],priorApprovedIds:["ASP-008"],sentence:"ਬੱਚੇ ਮੈਦਾਨ ਵਿੱਚ ਖੇਡ ਰਹੇ ਹਨ।",verbPhrase:"ਖੇਡ ਰਹੇ ਹਨ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"‘ਖੇਡ ਰਹੇ ਹਨ’ ਚੱਲ ਰਹੀ ਕਿਰਿਆ ਦੱਸਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R009",donorIds:[],priorApprovedIds:["ASP-009"],sentence:"ਉਹ ਆਪਣਾ ਕੰਮ ਕਰ ਚੁੱਕਾ ਹੈ।",verbPhrase:"ਕਰ ਚੁੱਕਾ ਹੈ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"‘ਕਰ ਚੁੱਕਾ ਹੈ’ ਕਿਰਿਆ ਦੇ ਪੂਰਾ ਹੋ ਜਾਣ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R010",donorIds:[],priorApprovedIds:["ASP-010"],sentence:"ਕੁੜੀ ਪਾਠ ਯਾਦ ਕਰ ਚੁੱਕੀ ਹੈ।",verbPhrase:"ਯਾਦ ਕਰ ਚੁੱਕੀ ਹੈ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਕਿਰਿਆ ਪੂਰੀ ਹੋ ਚੁੱਕੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਪੂਰਨ ਪੱਖ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R011",donorIds:[],priorApprovedIds:["ASP-011"],sentence:"ਕਿਸਾਨ ਫਸਲ ਕੱਟ ਚੁੱਕਾ ਹੈ।",verbPhrase:"ਕੱਟ ਚੁੱਕਾ ਹੈ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"‘ਕੱਟ ਚੁੱਕਾ ਹੈ’ ਪੂਰੀ ਹੋਈ ਕਿਰਿਆ ਦੱਸਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R012",donorIds:[],priorApprovedIds:["ASP-012"],sentence:"ਵਿਦਿਆਰਥੀ ਉੱਤਰ ਲਿਖ ਚੁੱਕੇ ਹਨ।",verbPhrase:"ਲਿਖ ਚੁੱਕੇ ਹਨ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਵਾਕ ਵਿੱਚ ਲਿਖਣ ਦੀ ਕਿਰਿਆ ਪੂਰੀ ਹੋ ਚੁੱਕੀ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R013",donorIds:["ASP-D001"],priorApprovedIds:[],sentence:"ਸੂਰਜ ਹਰ ਰੋਜ਼ ਪੂਰਬ ਵਿੱਚੋਂ ਚੜ੍ਹਦਾ ਹੈ।",verbPhrase:"ਚੜ੍ਹਦਾ ਹੈ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਨਿਯਮਿਤ ਜਾਂ ਰੋਜ਼ਾਨਾ ਹੋਣ ਵਾਲੇ ਕੰਮ ਲਈ ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ (ਸਧਾਰਨ ਵਰਤਮਾਨ) ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R014",donorIds:["ASP-D002"],priorApprovedIds:[],sentence:"ਕਿਸਾਨ ਖੇਤਾਂ ਵਿੱਚ ਹਲ ਵਾਹ ਰਿਹਾ ਹੈ।",verbPhrase:"ਵਾਹ ਰਿਹਾ ਹੈ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਜਦੋਂ ਕਿਰਿਆ ਮੌਜੂਦਾ ਸਮੇਂ ਨਿਰੰਤਰ ਜਾਰੀ ਹੋਵੇ, ਤਾਂ ਇਹ ਅਪੂਰਨ ਜਾਂ ਚਾਲੂ ਪੱਖ ਹੁੰਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R015",donorIds:["ASP-D003"],priorApprovedIds:[],sentence:"ਵਿਦਿਆਰਥੀ ਲਾਇਬ੍ਰੇਰੀ ਵਿੱਚ ਪੜ੍ਹ ਰਹੇ ਸਨ।",verbPhrase:"ਪੜ੍ਹ ਰਹੇ ਸਨ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਭੂਤਕਾਲ ਵਿੱਚ ਜਾਰੀ ਰਹਿਣ ਵਾਲੀ ਕਿਰਿਆ ਅਪੂਰਨ ਭੂਤਕਾਲ (ਚਾਲੂ ਭੂਤਕਾਲ) ਅਖਵਾਉਂਦੀ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R016",donorIds:["ASP-D004"],priorApprovedIds:[],sentence:"ਕੱਲ੍ਹ ਇਸ ਵੇਲੇ ਮੀਂਹ ਪੈ ਰਿਹਾ ਹੋਵੇਗਾ।",verbPhrase:"ਪੈ ਰਿਹਾ ਹੋਵੇਗਾ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਭਵਿੱਖ ਵਿੱਚ ਜਾਰੀ ਰਹਿਣ ਵਾਲੀ ਕਿਰਿਆ ਚਾਲੂ ਭਵਿੱਖਤ ਕਾਲ ਹੁੰਦੀ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R017",donorIds:["ASP-D005"],priorApprovedIds:[],sentence:"ਅਸੀਂ ਸਾਰਾ ਸਬਕ ਯਾਦ ਕਰ ਲਿਆ ਹੈ।",verbPhrase:"ਕਰ ਲਿਆ ਹੈ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਕੰਮ ਦਾ ਹੁਣੇ-ਹੁਣੇ ਮੁਕੰਮਲ ਹੋਣਾ ‘ਪੂਰਨ ਵਰਤਮਾਨ ਕਾਲ’ (ਪੂਰਨ ਪੱਖ) ਦਰਸਾਉਂਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R018",donorIds:["ASP-D006"],priorApprovedIds:[],sentence:"ਰੇਲਗੱਡੀ ਸਟੇਸ਼ਨ ਤੋਂ ਜਾ ਚੁੱਕੀ ਸੀ।",verbPhrase:"ਜਾ ਚੁੱਕੀ ਸੀ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਭੂਤਕਾਲ ਵਿੱਚ ਕੰਮ ਦਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸਮਾਪਤ ਹੋਣਾ ‘ਪੂਰਨ ਭੂਤਕਾਲ’ ਹੁੰਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R019",donorIds:["ASP-D007"],priorApprovedIds:[],sentence:"ਮਹਿਮਾਨ ਆਪਣੇ ਘਰ ਪਹੁੰਚ ਚੁੱਕੇ ਹੋਣਗੇ।",verbPhrase:"ਪਹੁੰਚ ਚੁੱਕੇ ਹੋਣਗੇ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਭਵਿੱਖ ਵਿੱਚ ਕੰਮ ਦੇ ਮੁਕੰਮਲ ਹੋਣ ਦਾ ਅਨੁਮਾਨ ‘ਪੂਰਨ ਭਵਿੱਖਤ ਕਾਲ’ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R020",donorIds:["ASP-D012"],priorApprovedIds:[],sentence:"ਬੱਚੇ ਮੈਦਾਨ ਵਿੱਚ ਫੁੱਟਬਾਲ ਖੇਡਦੇ ਹਨ।",verbPhrase:"ਖੇਡਦੇ ਹਨ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਸਧਾਰਨ ਵਰਤਮਾਨ ਕਾਲ ਆਮ ਆਦਤ ਜਾਂ ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ ਨੂੰ ਪ੍ਰਗਟ ਕਰਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R021",donorIds:["ASP-D013"],priorApprovedIds:[],sentence:"ਪੰਛੀ ਸ਼ਾਮ ਨੂੰ ਆਲ੍ਹਣਿਆਂ ਵੱਲ ਪਰਤਦੇ ਹਨ।",verbPhrase:"ਪਰਤਦੇ ਹਨ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਇਹ ਨਿੱਤ ਨੇਮ ਦੀ ਕਿਰਿਆ ਹੋਣ ਕਾਰਨ ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R022",donorIds:["ASP-D014"],priorApprovedIds:[],sentence:"ਮਾਲੀ ਬਗੀਚੇ ਵਿੱਚ ਬੂਟਿਆਂ ਨੂੰ ਪਾਣੀ ਦੇ ਰਿਹਾ ਹੈ।",verbPhrase:"ਦੇ ਰਿਹਾ ਹੈ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਕਿਰਿਆ ਦਾ ਵਰਤਮਾਨ ਵਿੱਚ ਜਾਰੀ ਰਹਿਣਾ ਅਪੂਰਨ ਜਾਂ ਚਾਲੂ ਪੱਖ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R023",donorIds:["ASP-D015"],priorApprovedIds:[],sentence:"ਸਿਪਾਹੀ ਸਰਹੱਦ 'ਤੇ ਪਹਿਰਾ ਦੇ ਰਹੇ ਸਨ।",verbPhrase:"ਦੇ ਰਹੇ ਸਨ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਭੂਤਕਾਲ ਵਿੱਚ ਚੱਲ ਰਹੇ ਕਾਰਜ ਨੂੰ ਅਪੂਰਨ ਭੂਤਕਾਲ ਕਿਹਾ ਜਾਂਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R024",donorIds:["ASP-D016"],priorApprovedIds:[],sentence:"ਉਸਨੇ ਸਾਰਾ ਇਮਤਿਹਾਨ ਦੇ ਲਿਆ ਹੈ।",verbPhrase:"ਦੇ ਲਿਆ ਹੈ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਕਾਰਜ ਦਾ ਸੰਪੂਰਨ ਹੋ ਚੁੱਕਣਾ ਪੂਰਨ ਪੱਖ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R025",donorIds:["ASP-D017"],priorApprovedIds:[],sentence:"ਡਾਕਟਰ ਨੇ ਮਰੀਜ਼ ਦਾ ਇਲਾਜ ਕਰ ਦਿੱਤਾ ਸੀ।",verbPhrase:"ਕਰ ਦਿੱਤਾ ਸੀ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਭੂਤਕਾਲ ਵਿੱਚ ਕਾਰਜ ਸੰਪੂਰਨ ਹੋਣ ਕਾਰਨ ਇਹ ਪੂਰਨ ਭੂਤਕਾਲ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R026",donorIds:["ASP-D018"],priorApprovedIds:[],sentence:"ਉਹ ਆਪਣਾ ਸਫ਼ਰ ਖ਼ਤਮ ਕਰ ਚੁੱਕੇ ਹੋਣਗੇ।",verbPhrase:"ਖ਼ਤਮ ਕਰ ਚੁੱਕੇ ਹੋਣਗੇ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਭਵਿੱਖ ਵਿੱਚ ਕੰਮ ਦੇ ਮੁਕੰਮਲ ਹੋਣ ਦਾ ਬੋਧ ‘ਪੂਰਨ ਭਵਿੱਖਤ ਕਾਲ’ ਕਰਵਾਉਂਦਾ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R027",donorIds:["ASP-D021"],priorApprovedIds:[],sentence:"ਪਾਣੀ ਹਮੇਸ਼ਾ ਹੇਠਾਂ ਵੱਲ ਵਗਦਾ ਹੈ।",verbPhrase:"ਵਗਦਾ ਹੈ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਸਦਾ ਸੱਚ ਰਹਿਣ ਵਾਲੀ ਗੱਲ ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ ਵਿੱਚ ਆਉਂਦੀ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R028",donorIds:["ASP-D022"],priorApprovedIds:[],sentence:"ਗਵੱਈਆ ਮਹਿਫ਼ਿਲ ਵਿੱਚ ਗੀਤ ਗਾ ਰਿਹਾ ਸੀ।",verbPhrase:"ਗਾ ਰਿਹਾ ਸੀ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਭੂਤਕਾਲ ਵਿੱਚ ਕਿਰਿਆ ਜਾਰੀ ਰਹਿਣ ਕਾਰਨ ਇਹ ਚਾਲੂ ਭੂਤਕਾਲ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R029",donorIds:["ASP-D023"],priorApprovedIds:[],sentence:"ਮਜ਼ਦੂਰਾਂ ਨੇ ਕੰਧ ਉਸਾਰ ਲਈ ਹੈ।",verbPhrase:"ਉਸਾਰ ਲਈ ਹੈ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਵਰਤਮਾਨ ਵਿੱਚ ਕਾਰਜ ਦਾ ਸੰਪੂਰਨ ਹੋਣਾ ਪੂਰਨ ਵਰਤਮਾਨ ਕਾਲ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R030",donorIds:["ASP-D026"],priorApprovedIds:[],sentence:"ਧਰਤੀ ਸੂਰਜ ਦੁਆਲੇ ਘੁੰਮਦੀ ਹੈ।",verbPhrase:"ਘੁੰਮਦੀ ਹੈ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਸਦੀਵੀ ਸੱਚਾਈ ਵਾਲੀ ਕਿਰਿਆ ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ ਵਿੱਚ ਆਉਂਦੀ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R031",donorIds:["ASP-D027"],priorApprovedIds:[],sentence:"ਦਰਜ਼ੀ ਕੁੜਤਾ ਸਿਊਂ ਰਿਹਾ ਹੋਵੇਗਾ।",verbPhrase:"ਸਿਊਂ ਰਿਹਾ ਹੋਵੇਗਾ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਭਵਿੱਖ ਵਿੱਚ ਕਿਰਿਆ ਦਾ ਜਾਰੀ ਰਹਿਣਾ ਚਾਲੂ ਭਵਿੱਖਤ ਕਾਲ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R032",donorIds:["ASP-D028"],priorApprovedIds:[],sentence:"ਅਸੀਂ ਸਾਰਾ ਖਾਣਾ ਖਾ ਚੁੱਕੇ ਸਾਂ।",verbPhrase:"ਖਾ ਚੁੱਕੇ ਸਾਂ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਭੂਤਕਾਲ ਵਿੱਚ ਕੰਮ ਮੁਕੰਮਲ ਹੋਣਾ ਪੂਰਨ ਭੂਤਕਾਲ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R033",donorIds:["ASP-D031"],priorApprovedIds:[],sentence:"ਬਜ਼ੁਰਗ ਰੋਜ਼ ਸਵੇਰੇ ਗੁਰਦੁਆਰੇ ਜਾਂਦੇ ਹਨ।",verbPhrase:"ਜਾਂਦੇ ਹਨ",aspect:"HABITUAL" as CP006Aspect,aspectPa:"ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ",explanationPa:"ਰੋਜ਼ਾਨਾ ਨੇਮ ਦੀ ਕਿਰਿਆ ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R034",donorIds:["ASP-D032"],priorApprovedIds:[],sentence:"ਹਨੇਰੀ ਤੇਜ਼ੀ ਨਾਲ ਵਗ ਰਹੀ ਸੀ।",verbPhrase:"ਵਗ ਰਹੀ ਸੀ",aspect:"PROGRESSIVE" as CP006Aspect,aspectPa:"ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)",explanationPa:"ਭੂਤਕਾਲ ਵਿੱਚ ਜਾਰੀ ਅਵਸਥਾ ਅਪੂਰਨ ਭੂਤਕਾਲ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"ASP-R035",donorIds:["ASP-D033"],priorApprovedIds:[],sentence:"ਪੰਛੀ ਦੂਰ ਉੱਡ ਚੁੱਕੇ ਹਨ।",verbPhrase:"ਉੱਡ ਚੁੱਕੇ ਹਨ",aspect:"PERFECT" as CP006Aspect,aspectPa:"ਪੂਰਨ ਪੱਖ",explanationPa:"ਵਰਤਮਾਨ ਵਿੱਚ ਮੁਕੰਮਲ ਕਿਰਿਆ ਪੂਰਨ ਵਰਤਮਾਨ ਕਾਲ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
+] as const;
+export const CP006_ASPECT_LABELS=["ਨਿੱਤਤਾਵਾਚਕ ਪੱਖ","ਅਪੂਰਨ ਪੱਖ (ਚਾਲੂ)","ਪੂਰਨ ਪੱਖ","ਸਧਾਰਨ ਕਾਲ"] as const;

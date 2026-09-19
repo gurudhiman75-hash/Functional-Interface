@@ -1,22 +1,15 @@
-# CP006 Status
+# CP006 Retrofit Status
 
-`IMPLEMENTED / REVIEW_ONLY / HUMAN_REVIEW_PENDING`
-
-Parent authority: CP005 approved for continuation on 2026-09-17.
-
-Implemented:
-- 48 atomic authorities;
-- 9 operation-specific semantic families;
-- 731 governed semantic combinations;
-- sentence-grounded distractors for direct identification/object operations;
-- proposition-preserving tense transformations;
-- structural Easy/Medium/Hard progression;
-- exhaustive semantic gates;
-- deterministic 120-question review exporter.
-
-Not authorized:
-- permanent QL allocation;
-- Question Studio registration;
-- Question Bank writes;
-- test/mock eligibility;
-- public/student publication.
+- Lifecycle: `REVIEW_ONLY / HUMAN_REVIEW_PENDING`
+- Verb contexts: 138
+- Tense triplets: 12
+- Tense shifts: 72
+- Transitivity conversions: 39
+- Compound verbs: 35
+- Aspect authorities: 35
+- Total atomic authorities: 331
+- Families: 12
+- Governed semantic combinations: 1,462
+- Review: 120 questions = 40 Easy + 40 Medium + 40 Hard
+- Root/second-causative legacy pools remain quarantined
+- Fresh owner approval required
