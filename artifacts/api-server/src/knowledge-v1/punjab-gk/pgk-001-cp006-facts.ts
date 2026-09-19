@@ -6,6 +6,34 @@ export const PGK_001_CP006_SOURCE_IDS = Object.freeze({
   agriculturePolicy: "GOV-PUNJAB-AGRICULTURE-POLICY-NATURAL-RESOURCES",
 } as const);
 
+
+export const PGK_001_CP006_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP006_SOURCE_IDS.knowPunjab]: {
+    authority: "Government of Punjab",
+    title: "Know Punjab — Climate",
+    url: "https://punjab.gov.in/know-punjab/",
+  },
+  [PGK_001_CP006_SOURCE_IDS.psebClass9]: {
+    authority: "Punjab School Education Board",
+    title: "Social Science IX Part I",
+    url: "https://static.pseb.ac.in/media/1670479881_Social%20Science-9%28english%29%20Part-I.pdf",
+  },
+  [PGK_001_CP006_SOURCE_IDS.pauSouthWest]: {
+    authority: "Punjab Agricultural University",
+    title: "Regional Research Station, Bathinda — South-Western Zone",
+    url: "https://pau.edu/outstations/index.php?DO=viewHomePage&_act=manageOutstationData&intLinkID=3",
+  },
+  [PGK_001_CP006_SOURCE_IDS.soilWaterRti]: {
+    authority: "Department of Soil & Water Conservation, Government of Punjab",
+    title: "RTI Manual — Organisation and Functions",
+    url: "https://punjab.gov.in/wp-content/uploads/2021/10/rti_manual.pdf",
+  },
+  [PGK_001_CP006_SOURCE_IDS.agriculturePolicy]: {
+    authority: "Government of Punjab",
+    title: "Agriculture Policy for Punjab",
+    url: "https://punjab.gov.in/wp-content/uploads/2019/04/Agriculture-policy-of-punjab.pdf",
+  },
+} as const);
 export const PGK_001_CP006_CLIMATE = Object.freeze({
   summer: Object.freeze({ start: "mid-April", end: "end-June" }),
   monsoon: Object.freeze({ start: "early July", end: "end-September" }),
