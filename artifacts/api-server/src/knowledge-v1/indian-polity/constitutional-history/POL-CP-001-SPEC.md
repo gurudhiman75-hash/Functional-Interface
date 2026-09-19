@@ -2,8 +2,9 @@
 
 **Chapter:** POL-001 Indian Polity  
 **CP:** POL-CP-001 Constitutional History  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V1  
+**Runtime registration:** READY FOR POLITY PACKAGE BINDING  
+**Audit reconciliation:** lifecycle metadata aligned with the approved chapter state during the POL-001 final integration pass on 2026-09-19.  
 **Languages in this checkpoint:** English review surface only; canonical facts are locale-neutral.
 
 ## Scope
