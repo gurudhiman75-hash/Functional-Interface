@@ -13,6 +13,7 @@ const rows: readonly PolCp025SeedRow[] = [
 
 const GENERIC_CLUTTER =
   /Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i;
+const LEGALISTIC_STEM = /\\bwhom\\b|for the purposes of|what is the|appointed by whom|issued by whom/i;
 
 export function generatePolCp025ReviewBatchV1(): PolCp025ReviewQuestion[] {
   if (rows.length !== 80) throw new Error(`Expected 80 POL-CP-025 rows, got ${rows.length}`);
@@ -27,6 +28,7 @@ export function generatePolCp025ReviewBatchV1(): PolCp025ReviewQuestion[] {
     const words = explanation.trim().split(/\s+/).length;
     if (words < 12 || words > 45) throw new Error(`Explanation length ${words} outside 12–45 at question ${index + 1}`);
     if (GENERIC_CLUTTER.test(explanation)) throw new Error(`Generic clutter at question ${index + 1}`);
+    if (LEGALISTIC_STEM.test(stem)) throw new Error(`Legalistic stem at question ${index + 1}`);
     if (!stem.endsWith("?") || stem.trim().split(/\s+/).length > 30) throw new Error(`Invalid stem at question ${index + 1}`);
 
     return {
@@ -43,5 +45,10 @@ export function generatePolCp025ReviewBatchV1(): PolCp025ReviewQuestion[] {
 
   if (new Set(questions.map((q) => q.stem)).size !== 80) throw new Error("POL-CP-025 stems must be unique");
   if (new Set(questions.map((q) => q.explanation)).size !== 80) throw new Error("POL-CP-025 explanations must be unique");
+  const completionCount = questions.filter((q) => q.stem.endsWith(":")).length;
+  const questionCount = questions.filter((q) => q.stem.endsWith("?")).length;
+  if (completionCount !== 43 || questionCount !== 37) {
+    throw new Error(`Expected V3 stem mix 43 completion + 37 question, got ${completionCount} + ${questionCount}`);
+  }
   return questions;
 }
