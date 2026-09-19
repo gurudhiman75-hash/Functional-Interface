@@ -16,6 +16,7 @@ const STEM_REVISIONS_V3: Readonly<Record<string, string>> = Object.freeze({
   "Which approach is most consistent with FRBM principles?": "Which approach is consistent with FRBM principles?",
   "Consider the statements: I. Capital expenditure may create assets. II. Interest payments are generally revenue expenditure. Which is correct?": "Consider the statements: I. Capital expenditure may create assets. II. Interest payments are classified as revenue expenditure. Which is correct?",
   "Which deficit measure most directly shows the borrowing requirement before new debt financing?": "Which deficit measure shows the Government's overall borrowing requirement before new debt financing?",
+  "Which best distinguishes an automatic stabiliser from discretionary fiscal policy?": "Which statement correctly distinguishes an automatic stabiliser from discretionary fiscal policy?",
 });
 
 export function generateEcoCp012ReviewV3(): EcoCp012ReviewQuestion[] {
