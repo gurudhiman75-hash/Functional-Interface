@@ -3,6 +3,7 @@ import { semanticHash } from "../../../../core/semantic-hash";
 import type { PunjabiDifficulty, PunjabiGeneratedQuestion, PunjabiQuestionFamilyDefinition } from "../../../../core/types";
 import {
   CP004_AGREEMENT_CONTEXTS,
+  CP004_DIRECT_NUMBER_PAIRS,
   CP004_GENDER_PAIRS,
   CP004_NUMBER_PAIRS,
   CP004_TRANSFORM_SAFE_GENDER_PAIRS,
@@ -64,7 +65,7 @@ function assemble(input: {
       language: "pa-Guru",
       seed: input.seed,
       authorityIds: input.authorityIds,
-      generatorRevision: "1.3.0-forward-port",
+      generatorRevision: "2.0.0-retrofit-exhaustive",
       fingerprint,
       lifecycle: "REVIEW_ONLY",
     },
@@ -105,9 +106,17 @@ function numberDistractors(
   pair: (typeof CP004_NUMBER_PAIRS)[number],
   target: "singular" | "plural",
 ): string[] {
-  const peers = sameRuleNumberPairs(pair);
-  if (peers.length < 3) throw new Error(`CP004 ${pair.id}: insufficient rule-neighbour number distractors`);
-  return unique(peers.map((x) => x[target]));
+  const peers = sameRuleNumberPairs(pair).filter((x) => x.directSafe);
+  const fallback = peers.length >= 3
+    ? peers
+    : CP004_DIRECT_NUMBER_PAIRS.filter((x) =>
+        x.id !== pair.id && (x.rule === pair.rule || (
+          (pair.rule === "IRREGULAR" || pair.rule === "VOWEL_TO_VAAN") &&
+          (x.rule === "IRREGULAR" || x.rule === "VOWEL_TO_VAAN")
+        )),
+      );
+  if (fallback.length < 3) throw new Error(`CP004 ${pair.id}: insufficient rule-neighbour number distractors`);
+  return unique(fallback.map((x) => x[target]));
 }
 
 function genderMismatchCases() {
@@ -202,8 +211,8 @@ export function generateCP004F03(seed: number, difficulty: PunjabiDifficulty): P
 
 export function generateCP004F04(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   requireDifficulty(difficulty, "Easy", "F04");
-  const index = ordinal(seed, CP004_NUMBER_PAIRS.length);
-  const pair = CP004_NUMBER_PAIRS[index]!;
+  const index = ordinal(seed, CP004_DIRECT_NUMBER_PAIRS.length);
+  const pair = CP004_DIRECT_NUMBER_PAIRS[index]!;
   return assemble({
     seed, difficulty, familyId: "F04", subtype: "SINGULAR_TO_PLURAL",
     stem: directNumberStem(pair.singular, "ਬਹੁਵਚਨ", index),
@@ -216,8 +225,8 @@ export function generateCP004F04(seed: number, difficulty: PunjabiDifficulty): P
 
 export function generateCP004F05(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   requireDifficulty(difficulty, "Easy", "F05");
-  const index = ordinal(seed, CP004_NUMBER_PAIRS.length);
-  const pair = CP004_NUMBER_PAIRS[index]!;
+  const index = ordinal(seed, CP004_DIRECT_NUMBER_PAIRS.length);
+  const pair = CP004_DIRECT_NUMBER_PAIRS[index]!;
   return assemble({
     seed, difficulty, familyId: "F05", subtype: "PLURAL_TO_SINGULAR",
     stem: directNumberStem(pair.plural, "ਇਕਵਚਨ", index + 2),
@@ -344,8 +353,8 @@ export function getCP004BreadthReport() {
     F01: CP004_TRANSFORM_SAFE_GENDER_PAIRS.length * 2,
     F02: nGender,
     F03: f03Capacity,
-    F04: CP004_NUMBER_PAIRS.length,
-    F05: CP004_NUMBER_PAIRS.length,
+    F04: CP004_DIRECT_NUMBER_PAIRS.length,
+    F05: CP004_DIRECT_NUMBER_PAIRS.length,
     F06: CP004_NUMBER_PAIRS.length,
     F07: nContext,
     F08: nContext * 4,
@@ -355,6 +364,7 @@ export function getCP004BreadthReport() {
     genderAuthorityCount: CP004_GENDER_PAIRS.length,
     transformSafeGenderCount: CP004_TRANSFORM_SAFE_GENDER_PAIRS.length,
     numberAuthorityCount: CP004_NUMBER_PAIRS.length,
+    directNumberAuthorityCount: CP004_DIRECT_NUMBER_PAIRS.length,
     agreementContextCount: CP004_AGREEMENT_CONTEXTS.length,
     totalAtomicAuthorities: CP004_GENDER_PAIRS.length + CP004_NUMBER_PAIRS.length + CP004_AGREEMENT_CONTEXTS.length,
     familyCount: 9,

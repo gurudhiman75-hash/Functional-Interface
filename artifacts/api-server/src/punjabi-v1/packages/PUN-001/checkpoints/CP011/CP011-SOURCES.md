@@ -1,17 +1,24 @@
-# CP011 Source and Donor Boundary
+# CP011 Retrofit Source and Donor Boundary
 
-## Donor reference
-- Legacy Punjabi CP011 and merged semantic V2 PR #1639 were inspected as donor material.
-- The donor exposed 252 idiom records and 12 literal/figurative records.
-- Only 177 idiom strings were unique in the donor corpus; repeated idioms sometimes carried rephrased meanings or explanations.
+## Inputs
+- Historical CP011 donor corpus from Punjabi V1
+- Historical semantic V2 PR #1639
+- Previously approved CP011 head `90bc6464176ff08c84466a0fa13c383a59eec1f0`
 
-## Forward-port policy
-The audited checkpoint uses 64 high-confidence unique idioms:
-- one authority per idiom string;
-- authored context sentence for every idiom;
-- explicit literal-reading trap for every idiom;
-- balanced semantic themes;
-- false alternatives kept semantically distinct when near-equivalent idioms would make multiple answers defensible;
-- no English learner labels or option-analysis filler.
+## Audit
+Raw donor:
+- 252 rows
+- 177 unique idiom strings
 
-All CP011 authorities remain review material until human editorial approval.
+After spelling/inflection duplicate collapse:
+- 170 distinct idiom concepts
+
+The 64 previously approved idioms are used as canonical wording/context references where available; they are not treated as a cap.
+
+## Editorial rules
+- named/localized donor contexts generalized
+- exact duplicate meanings refined where reverse testing would otherwise be ambiguous
+- near-equivalent idioms retained as distinct authorities
+- near-equivalent meanings excluded from false-option pairing by semantic similarity gate
+- no English learner leakage
+- no fixed numerical target

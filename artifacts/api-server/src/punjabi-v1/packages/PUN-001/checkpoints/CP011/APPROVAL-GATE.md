@@ -1,7 +1,7 @@
-# CP011 Approval Gate
+# CP011 Retrofit Approval Gate
 
-CP011 is a human-review checkpoint.
+This retrofit materially changes CP011 from 64 to 170 idiom authorities and expands governed semantic breadth.
 
-Approval of the Markdown review pack authorizes continuation to the next Punjabi checkpoint only. It does not itself authorize permanent QL allocation, Question Studio registration, Question Bank writes, mock/test eligibility, or public/student delivery.
+Fresh owner approval is required on the exact reviewed SHA.
 
-Any material change to learner-facing authorities or generation behavior after approval creates a new review head and requires renewed editorial approval.
+Approval authorizes continuation/closeout of the retrofit pass only. It does not authorize runtime publication, permanent QL allocation, Question Studio registration, Question Bank writes, or mock/test eligibility.
