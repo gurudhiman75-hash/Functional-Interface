@@ -22,13 +22,13 @@ The constitutional text still prints Part IXB, but the Supreme Court in Union of
 
 ## Stem standard
 - V2 full stem-language pass across all 80 questions;
-- exactly 40 completion-style stems and 40 normal question stems;
+- V2 full exam-standard stem pass applied across all 80 questions;\n- exactly 40 completion-style stems and 40 normal question stems;
 - two completion and two question stems per QL;
 - concise SSC/Banking/state-exam style using direct fact, rule, exception, amendment, scenario and comparison patterns;
 - mechanical index wording such as “is dealt with in”, “is covered by”, “is contained in” and “expressly mentioned” is blocked;
-- no internal project wording;
+- no internal project wording or mechanical textbook-style stem phrasing;
 - no recurring legalistic “whom”, “by whom” or “for the purposes of” pattern;
-- maximum 30 words per stem.
+- maximum 30 words per stem;\n- content frozen after explicit project-owner approval.
 
 ## Review profile
 - 20 genuine QLs;
