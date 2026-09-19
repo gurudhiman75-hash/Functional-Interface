@@ -75,6 +75,16 @@ for (const record of full) {
         `${record.itemId}: CP005 native relation possessive grammar drifted.`,
       );
     }
+    if (record.checkpointId === "BLR-CP-006") {
+      const badPossessive = record.locale === "hi-IN"
+        ? / का (?:माता|पुत्री|बहन|पत्नी|दादी\/नानी|पोती\/नातिन|बुआ\/मौसी|भतीजी\/भांजी|सास|बहू)\b/u
+        : / ਦਾ (?:ਮਾਤਾ|ਧੀ|ਭੈਣ|ਪਤਨੀ|ਦਾਦੀ\/ਨਾਨੀ|ਪੋਤੀ\/ਨਾਤਿਨ|ਭੂਆ\/ਮਾਸੀ|ਭਤੀਜੀ\/ਭਾਣਜੀ|ਸੱਸ|ਨੂੰਹ)\b/u;
+      assert.doesNotMatch(
+        learnerProjection,
+        badPossessive,
+        `${record.itemId}: CP006 native relation possessive grammar drifted.`,
+      );
+    }
   }
 
   assert.equal(record.reviewOnly, true, `${record.itemId}: reviewOnly`);
