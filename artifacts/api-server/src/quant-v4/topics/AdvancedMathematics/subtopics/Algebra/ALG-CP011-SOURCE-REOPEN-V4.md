@@ -23,7 +23,7 @@ The approved English V3 learner source is not edited in place. This V4 candidate
 ## Learner-content changes proposed
 
 1. Broaden integer-root states with independently varied base values, root gaps and separation.
-2. Keep generated quadratics primitive so diversity comes from mathematical states rather than multiplying an unchanged equation by a common factor.
+2. Keep generated quadratics primitive so diversity comes from mathematical states rather than common-factor scaling. The equal-repeated-root semantic case alone may scale Equation II by 2 or 3 to avoid displaying two identical equations; that scale is excluded from the diversity measurement.
 3. Expand irrational-conjugate states across radicands 2, 3, 5, 6, 7 and 10.
 4. Replace the repeated one-line `Equation I ... Equation II ... Compare x and y.` frame with four natural Banking-style frames.
 5. Replace exhaustive pair-list explanations with a simpler range/boundary argument where possible.
@@ -35,7 +35,7 @@ The V4 proof must demonstrate, for every one of the seven variants:
 
 - deterministic generation;
 - independent solver agreement on the canonical relation;
-- at least 32 distinct mathematical states across 64 seeds;
+- at least 32 distinct mathematical root states across 64 seeds;
 - at least 32 distinct rendered questions and explanations across 64 seeds;
 - at least three natural stem frames exercised;
 - no lifecycle leakage.
