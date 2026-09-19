@@ -24,7 +24,7 @@ V2 keeps the verified exact arithmetic model and rebuilds the content layer.
 - exact difficulty mix: 1 Easy + 2 Medium + 2 Hard
 - 12 task families
 - three stem surfaces per task family
-- six standard business contexts with natural item labels
+- six standard business contexts with 24 natural item labels each (144 learner-facing objects total)
 - five unique options per question
 - misconception-owned distractors
 - simple question-specific worked explanations
@@ -75,6 +75,7 @@ Local V2 stress proof:
 - 640 Mains aggregate/weighted Medium/Hard checks
 - all 12 task families exercised
 - all 6 contexts exercised
+- all 144 configured learner-facing object labels exercised (24/24 in every context)
 - all 3 stem variants exercised for every task family
 - every task/profile reached answer positions A–E
 - 160 distinct shared mathematical states
