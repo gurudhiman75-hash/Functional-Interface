@@ -4,7 +4,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
   [
     6,
     "Easy",
-    "The theory of evolution by natural selection is most closely associated with:",
+    "Who developed the theory of evolution by natural selection?",
     "Charles Darwin",
     [
       "Gregor Mendel",
@@ -94,7 +94,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
   [
     7,
     "Easy",
-    "The first successful smallpox vaccine is associated with:",
+    "Who developed the first successful smallpox vaccine?",
     "Edward Jenner",
     [
       "Alexander Fleming",
@@ -154,7 +154,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
   [
     7,
     "Medium",
-    "The discovery and early therapeutic development of insulin is closely associated with Frederick Banting and:",
+    "Frederick Banting worked closely with whom in the early discovery and therapeutic development of insulin?",
     "Charles Best",
     [
       "James Watt",
@@ -184,7 +184,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
   [
     8,
     "Easy",
-    "The telephone is historically associated with:",
+    "Who is widely credited with key development and patenting of the telephone?",
     "Alexander Graham Bell",
     [
       "Guglielmo Marconi",
@@ -199,7 +199,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
   [
     8,
     "Easy",
-    "Practical radio communication is closely associated with:",
+    "Who developed and demonstrated practical wireless telegraphy systems?",
     "Guglielmo Marconi",
     [
       "Alexander Graham Bell",
@@ -214,7 +214,7 @@ export const PART_3: readonly SciCp037ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Early practical television development is associated with:",
+    "Who demonstrated an early working television system using mechanical scanning?",
     "John Logie Baird",
     [
       "Thomas Edison",
