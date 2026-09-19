@@ -4,7 +4,7 @@ export const PART_1: readonly SciCp039ReviewSpec[] = [
   [
     1,
     "Easy",
-    "Which SI unit is used for force?",
+    "Force is expressed in which SI unit?",
     "newton",
     [
       "joule",
@@ -49,7 +49,7 @@ export const PART_1: readonly SciCp039ReviewSpec[] = [
   [
     1,
     "Medium",
-    "A machine does 600 J of work in 3 s. Its power is:",
+    "A machine completes 600 J of work in 3 seconds. How much power does it develop?",
     "200 W",
     [
       "1800 W",
@@ -199,7 +199,7 @@ export const PART_1: readonly SciCp039ReviewSpec[] = [
   [
     3,
     "Easy",
-    "The magnetic effect of electric current was demonstrated by:",
+    "Which scientist showed that electric current produces a magnetic effect?",
     "Hans Christian Oersted",
     [
       "Dmitri Mendeleev",
