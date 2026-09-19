@@ -139,7 +139,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which pair is correctly matched?",
+    "Which ecosystem role–example pair is correctly matched?",
     "Producer — green plant",
     [
       "Primary consumer — grass",

@@ -139,7 +139,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which pair is correctly matched?",
+    "Which nutrient–deficiency pair is correctly matched?",
     "Vitamin A — night blindness",
     [
       "Vitamin C — rickets",

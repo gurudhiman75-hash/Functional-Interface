@@ -1,0 +1,42 @@
+name: SCI Final English Closure
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/science/**"
+      - ".github/workflows/sci-final-english-closure.yml"
+  workflow_dispatch:
+
+jobs:
+  science-final-english-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Science closure audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/science-final-english-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/science-final-english-audit.mjs
+
+      - name: Run Science closure audit
+        working-directory: artifacts/api-server
+        run: node dist/science-final-english-audit.mjs

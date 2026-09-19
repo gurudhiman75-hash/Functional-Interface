@@ -11,7 +11,7 @@ const S5:readonly S[]=[
 [1,"Easy","The SI unit of heat energy is:","joule (J)",["kelvin (K)","watt (W)","pascal (Pa)"],"Heat is a form of energy, so its SI unit is joule."],
 [1,"Easy","Heat naturally flows from a body at higher temperature to a body at:","lower temperature",["higher temperature only","the same mass","greater density"],"Heat flows spontaneously from higher to lower temperature."],
 [1,"Easy","When two bodies reach the same temperature and no net heat flows between them, they are in:","thermal equilibrium",["free fall","mechanical advantage","resonance"],"Equal temperature with no net heat flow means thermal equilibrium."],
-[2,"Easy","Which instrument is used to measure temperature?","thermometer",["barometer","hydrometer","ammeter"],"A thermometer measures temperature."],
+[2,"Easy","Which instrument is designed to measure temperature?","thermometer",["barometer","hydrometer","ammeter"],"A thermometer measures temperature."],
 [2,"Easy","On the Celsius scale, pure water freezes at approximately:","0°C",["100°C","273°C","32°C"],"At standard atmospheric pressure, water freezes at 0°C."],
 [2,"Easy","On the Celsius scale, pure water boils at approximately:","100°C",["0°C","212°C","373°C"],"At standard atmospheric pressure, water boils at 100°C."],
 [2,"Easy","0°C is approximately equal to:","273 K",["0 K","100 K","373 K"],"Kelvin temperature is approximately Celsius temperature + 273."],

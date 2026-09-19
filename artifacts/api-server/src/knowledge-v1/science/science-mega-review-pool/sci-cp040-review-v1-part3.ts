@@ -19,7 +19,7 @@ export const PART_3: readonly SciCp040ReviewSpec[] = [
   [
     6,
     "Easy",
-    "The opening and closing of stomata is controlled by:",
+    "Which cells regulate the opening and closing of stomata?",
     "guard cells",
     [
       "xylem vessels",

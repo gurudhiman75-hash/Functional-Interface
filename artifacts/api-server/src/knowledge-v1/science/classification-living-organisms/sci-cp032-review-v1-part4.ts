@@ -139,7 +139,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which pair is correctly matched?",
+    "Which plant group–example pair is correctly matched?",
     "Pine — Gymnosperm",
     [
       "Moss — Angiosperm",
