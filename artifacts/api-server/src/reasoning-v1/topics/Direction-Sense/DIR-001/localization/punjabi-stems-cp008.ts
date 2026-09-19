@@ -9,9 +9,9 @@ export function renderPunjabiStem036To044(english: R): string | null {
   const s = asR(english.structuredPrompt);
   switch (qlId) {
     case "DIR-QL-036":
-      return `${(s.visibleRelations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ਚੌਥਾ ਕਥਨ ${namePa(s.missingTo)} ਨੂੰ ${namePa(s.missingFrom)} ਤੋਂ ਬਿਲਕੁਲ ${metresPa(s.missingDistance)} ਦੂਰ ਰੱਖ ਕੇ ਪੂਰਾ ਬੰਦ ਨਕਸ਼ਾ ਬਣਾਉਂਦਾ ਹੈ। ${namePa(s.missingTo)} ਨੂੰ ${namePa(s.missingFrom)} ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ?`;
+      return `${(s.visibleRelations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ${namePa(s.missingTo)}, ${namePa(s.missingFrom)} ਤੋਂ ਬਿਲਕੁਲ ${metresPa(s.missingDistance)} ਦੂਰ ਹੈ। ${namePa(s.missingTo)}, ${namePa(s.missingFrom)} ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
     case "DIR-QL-037":
-      return `${(s.anchorRelations ?? []).map((r: R) => relationSentencePa(r, false)).join(" ")} ਹੁਣ ਇਹ ਚਾਰ ਹੋਰ ਕਥਨ ਵੇਖੋ: ${(s.relations ?? []).map((r: R, i: number) => `(${i + 1}) ${relationSentencePa(r, false)}`).join(" ")} ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਸਿਰਫ਼ ਇੱਕ ਕਥਨ ਪੂਰੇ ਨਕਸ਼ੇ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ। ਗਲਤ ਕਥਨ ਕਿਹੜਾ ਹੈ?`;
+      return `${(s.anchorRelations ?? []).map((r: R) => relationSentencePa(r, false)).join(" ")} ਹੁਣ ਇਨ੍ਹਾਂ ਚਾਰ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ: ${(s.relations ?? []).map((r: R, i: number) => `(${i + 1}) ${relationSentencePa(r, false)}`).join(" ")} ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕਥਨ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ?`;
     case "DIR-QL-038":
       return `${placePa(s.place)} ਵਿੱਚ ${namePa(s.subject)} ਇੱਕ ਨਿਸ਼ਾਨ ਲੱਗੇ ਬਿੰਦੂ ਤੋਂ ${startsWalkingPa(s.subject)}। ${absoluteLegJourneyPa(s.legs ?? [], s.subject)} ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(s.target)} ਹੈ। ਜਿਸ ਚਾਲ ਦੀ ਦਿਸ਼ਾ ਨਹੀਂ ਦਿੱਤੀ ਗਈ, ਉਹ ਕਿਹੜੀ ਸੀ?`;
     case "DIR-QL-039": {
