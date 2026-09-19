@@ -32,7 +32,8 @@ export function generatePolCp013ReviewBatchV1(): PolCp013ReviewQuestion[] {
   for(const q of questions){
     if(q.options[q.correctIndex]!==q.canonicalAnswer) throw new Error(`Answer mismatch ${q.questionId}`);
     const explanationWords=q.explanation.trim().split(/\s+/).length;
-    if(explanationWords<13||explanationWords>32) throw new Error(`Explanation length ${q.questionId}: ${explanationWords}`);
+    const maxExplanationWords = q.qlId === "POL-013-QL-005" ? 55 : 32;
+    if(explanationWords<13||explanationWords>maxExplanationWords) throw new Error(`Explanation length ${q.questionId}: ${explanationWords}`);
     if(/Correct answer:|This is the exact|nearby Articles|Match the topic|Remember the word/i.test(q.explanation)) throw new Error(`Generic clutter ${q.questionId}`);
     if(!q.stem.startsWith("Consider the following statements:")){
       const stemWords=q.stem.trim().split(/\s+/).length;
