@@ -2,8 +2,8 @@
 
 **Chapter:** POL-001 Indian Polity  
 **CP:** POL-CP-001 Constitutional History  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** blocked pending human approval  
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Runtime registration:** DEFERRED to Polity Question Studio integration pass  
 **Languages in this checkpoint:** English review surface only; canonical facts are locale-neutral.
 
 ## Scope
@@ -28,7 +28,7 @@ Included milestones:
 4. "First" claims are explicitly stored as milestone facts and never inferred by free text.
 5. 1919/1935 dyarchy questions must distinguish *introduced/provided for* from *actually operated*.
 6. The 1935 federal scheme is described as proposed and not brought into operation.
-7. Review questions remain `runtimeRegistered: false` until human approval.
+7. Approved review questions remain `runtimeRegistered: false` until the chapter-wide Question Studio integration pass.
 
 ## QL inventory
 
@@ -56,9 +56,9 @@ Included milestones:
 - No current political office-holder is present.
 - No fact depends on current law or current institutional membership.
 
-## Review acceptance gate
+## Approved review profile
 
-Before runtime registration:
+Before chapter-wide runtime registration:
 - minimum 36 review questions;
 - all 12 QLs represented;
 - at least 10 Easy, 16 Medium and 8 Hard review items;

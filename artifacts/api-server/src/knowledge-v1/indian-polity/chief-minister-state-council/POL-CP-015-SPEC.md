@@ -5,7 +5,7 @@
 
 ## Scope
 
-This CP covers the Chief Minister and State Council of Ministers centred on Articles 163, 164, 166 and 167, with Article 177 included for Ministers' legislative participation rights. The Advocate-General remains principally covered in POL-CP-014 and State Legislature structure remains for POL-CP-016.
+This CP covers the Chief Minister and State Council of Ministers centred on Articles 163, 164, 166 and 167, with Article 177 included for Ministers' legislative participation rights. The Advocate-General as a constitutional authority remains owned by POL-CP-022; State Legislature structure remains for POL-CP-016. POL-CP-014 may cross-link only Governor-facing interactions needed to explain the Governor's role.
 
 ## Constitutional coverage
 

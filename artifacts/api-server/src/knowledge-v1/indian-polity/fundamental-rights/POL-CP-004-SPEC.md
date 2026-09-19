@@ -1,8 +1,8 @@
 # POL-CP-004 — Fundamental Rights
 
 **Chapter:** POL-001 Indian Polity  
-**Lifecycle:** REVIEW CANDIDATE  
-**Runtime registration:** BLOCKED pending English review approval
+**Lifecycle:** APPROVED / CONTENT-FROZEN  
+**Runtime registration:** DEFERRED to Polity Question Studio integration pass
 
 ## Scope
 
@@ -69,9 +69,9 @@ This CP covers the constitutional Fundamental Rights framework in Part III with 
 - Article 31C uses the currently operative pre-Forty-second-Amendment scope tied to Article 39(b) and 39(c), supported by the 2024 Supreme Court Constitution Bench ruling.
 - Article 32 writ scenarios distinguish Habeas Corpus, Mandamus, Prohibition, Certiorari and Quo Warranto.
 
-## Review gate
+## Approved review profile
 
-Final V3 review target:
+Approved V3 profile:
 - 75 questions;
 - all 21 QLs represented;
 - 21 Easy / 46 Medium / 8 Hard;
@@ -80,4 +80,4 @@ Final V3 review target:
 - one canonical answer per question;
 - no exact duplicate semantic signatures;
 - every source ID resolves in the CP source registry;
-- production/runtime registration remains blocked until human approval.
+- production/runtime registration remains deferred to the chapter-wide Question Studio integration pass.
