@@ -224,6 +224,7 @@ const allowedAbbreviations = [
   "UTGST",
   "AFS",
   "CAG",
+  "CBDT",
 ] as const;
 
 export const ECO_TERM_POLICY_V1: readonly EcoTermPolicyEntryV1[] = Object.freeze([
