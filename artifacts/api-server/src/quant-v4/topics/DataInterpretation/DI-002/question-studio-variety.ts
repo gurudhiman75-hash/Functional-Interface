@@ -1,4 +1,4 @@
-import { presentationVariantIndex } from "../DI-001/exact";
+import { presentationVariantIndex, structuredPresentationVariantOffset } from "../DI-001/exact";
 import { generateDi002AdvancedTableSet as generateDi002AdvancedTableSetBase } from "./advanced-table-set";
 import type {
   Di002ExamProfile,
@@ -191,9 +191,19 @@ const STEM_VARIANTS: Readonly<Record<Di002TaskKind, readonly StemBuilder[]>> = O
   ]),
 });
 
+const STRUCTURED_OFFSET_KINDS = new Set<Di002TaskKind>([
+  "MISSING_REVERSE_PERCENTAGE",
+  "PERCENT_CHANGE_SELECTED",
+  "RELATIVE_SELECTION_RATE_CHANGE",
+]);
+
 function diversifyStem(seed: string, rows: readonly Di002Row[], question: Di002Question): string {
   const variants = STEM_VARIANTS[question.kind];
-  const variantIndex = presentationVariantIndex(`${seed}:stem-variety:${question.kind}`, variants.length);
+  const baseVariantIndex = presentationVariantIndex(`${seed}:stem-variety:${question.kind}`, variants.length);
+  const structuredOffset = STRUCTURED_OFFSET_KINDS.has(question.kind)
+    ? structuredPresentationVariantOffset(seed, variants.length)
+    : 0;
+  const variantIndex = (baseVariantIndex + structuredOffset) % variants.length;
   return variants[variantIndex]!({ rows, question });
 }
 
