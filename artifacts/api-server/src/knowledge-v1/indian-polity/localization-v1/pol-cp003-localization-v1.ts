@@ -281,7 +281,36 @@ function trimAnswerPunctuation(value: string): string {
 function explanation(q: (typeof ENGLISH)[number], locale: NativeLocale): string {
   const ql = Number(q.qlId.slice(-3));
   const ans = trimAnswerPunctuation(option(q.canonicalAnswer, locale));
-  if (ql <= 4) return locale === "hi" ? `सही उत्तर है: ${ans}। यह प्रस्तावना के स्वीकृत संवैधानिक पाठ से संबंधित है।` : `ਸਹੀ ਉੱਤਰ ਹੈ: ${ans}। ਇਹ ਪ੍ਰਸਤਾਵਨਾ ਦੇ ਮੰਨੇ ਹੋਏ ਸੰਵਿਧਾਨਕ ਪਾਠ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।`;
+  if (ql === 1 || ql === 2) {
+    const row = ql === 1
+      ? POL_CP003_PREAMBLE_OBJECTIVES_V1.find((x) => x.concept === q.canonicalAnswer)!
+      : POL_CP003_PREAMBLE_OBJECTIVES_V1.find((x) => x.wording === q.canonicalAnswer)!;
+    const concept = option(row.concept, locale);
+    const wording = option(row.wording, locale);
+    return locale === "hi"
+      ? `प्रस्तावना में ${concept} को “${wording}” के शब्दों से व्यक्त किया गया है।`
+      : `ਪ੍ਰਸਤਾਵਨਾ ਵਿੱਚ ${concept} ਨੂੰ “${wording}” ਵਾਲੇ ਸ਼ਬਦਾਂ ਨਾਲ ਦਰਸਾਇਆ ਗਿਆ ਹੈ।`;
+  }
+  if (ql === 3) {
+    if (q.canonicalAnswer === "Socialist and Secular") {
+      return locale === "hi"
+        ? "‘समाजवादी’ और ‘पंथनिरपेक्ष’ 1949 की मूल प्रस्तावना में नहीं थे; इन्हें 42वें संशोधन से जोड़ा गया।"
+        : "‘ਸਮਾਜਵਾਦੀ’ ਅਤੇ ‘ਧਰਮ ਨਿਰਪੱਖ’ 1949 ਦੀ ਮੂਲ ਪ੍ਰਸਤਾਵਨਾ ਵਿੱਚ ਨਹੀਂ ਸਨ; ਇਹ 42ਵੀਂ ਸੰਵਿਧਾਨ ਸੋਧ ਨਾਲ ਜੋੜੇ ਗਏ।";
+    }
+    if (q.canonicalAnswer === "Sovereign Socialist Secular Democratic Republic") {
+      return locale === "hi"
+        ? "वर्तमान प्रस्तावना भारत को संपूर्ण प्रभुत्व-संपन्न समाजवादी पंथनिरपेक्ष लोकतांत्रिक गणराज्य बताती है।"
+        : "ਮੌਜੂਦਾ ਪ੍ਰਸਤਾਵਨਾ ਭਾਰਤ ਨੂੰ ਸੰਪੂਰਨ ਪ੍ਰਭੂਸੱਤਾ-ਸੰਪੰਨ ਸਮਾਜਵਾਦੀ ਧਰਮ ਨਿਰਪੱਖ ਲੋਕਤੰਤਰੀ ਗਣਰਾਜ ਦੱਸਦੀ ਹੈ।";
+    }
+    return locale === "hi"
+      ? "‘लोकतांत्रिक’ शब्द 1949 में अंगीकृत मूल प्रस्तावना का हिस्सा था।"
+      : "‘ਲੋਕਤੰਤਰੀ’ ਸ਼ਬਦ 1949 ਵਿੱਚ ਅੰਗੀਕਾਰ ਕੀਤੀ ਮੂਲ ਪ੍ਰਸਤਾਵਨਾ ਦਾ ਹਿੱਸਾ ਸੀ।";
+  }
+  if (ql === 4) {
+    return locale === "hi"
+      ? "42वें संशोधन ने प्रस्तावना में ‘समाजवादी’ और ‘पंथनिरपेक्ष’ जोड़े तथा ‘राष्ट्र की एकता’ को ‘राष्ट्र की एकता और अखंडता’ किया।"
+      : "42ਵੀਂ ਸੰਵਿਧਾਨ ਸੋਧ ਨਾਲ ‘ਸਮਾਜਵਾਦੀ’ ਅਤੇ ‘ਧਰਮ ਨਿਰਪੱਖ’ ਸ਼ਬਦ ਜੋੜੇ ਗਏ ਅਤੇ ‘ਰਾਸ਼ਟਰ ਦੀ ਏਕਤਾ’ ਨੂੰ ‘ਰਾਸ਼ਟਰ ਦੀ ਏਕਤਾ ਤੇ ਅਖੰਡਤਾ’ ਕੀਤਾ ਗਿਆ।";
+  }
   if (ql >= 5 && ql <= 11 || ql === 14) {
     const a = q.canonicalAnswer.startsWith("Article ") ? Number(q.canonicalAnswer.replace("Article ","")) : subjectArticle(q.canonicalAnswer);
     if (a) return locale === "hi" ? `${ARTICLE(a,locale)} का विषय ${native(a <= 4 ? UNION_SUBJECTS[a]! : CIT_SUBJECTS[a]!,locale)} है।` : `${ARTICLE(a,locale)} ਦਾ ਵਿਸ਼ਾ ${native(a <= 4 ? UNION_SUBJECTS[a]! : CIT_SUBJECTS[a]!,locale)} ਹੈ।`;
