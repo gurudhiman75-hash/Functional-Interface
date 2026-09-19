@@ -4,7 +4,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
   [
     1,
     "Easy",
-    "The laws of motion are most closely associated with:",
+    "Who formulated the three laws of motion?",
     "Isaac Newton",
     [
       "Archimedes",
@@ -19,7 +19,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
   [
     1,
     "Easy",
-    "The principle of buoyancy is associated with:",
+    "Who gave the principle of buoyancy?",
     "Archimedes",
     [
       "Isaac Newton",
@@ -34,7 +34,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
   [
     1,
     "Medium",
-    "Pascal's law, used in hydraulic systems, is associated with:",
+    "Pascal's law, used in hydraulic systems, was formulated by:",
     "Blaise Pascal",
     [
       "Daniel Bernoulli",
@@ -49,7 +49,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
   [
     1,
     "Medium",
-    "The mercury barometer is historically associated with:",
+    "Who developed the mercury barometer?",
     "Evangelista Torricelli",
     [
       "Galileo Galilei",
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
       "Blaise Pascal",
       "Evangelista Torricelli"
     ],
-    "Newton is associated with both the laws of motion and the law of universal gravitation.",
+    "Newton formulated the laws of motion and the law of universal gravitation.",
     [
       "NEWTON-MOTION-GRAVITATION"
     ]
@@ -109,7 +109,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
   [
     2,
     "Easy",
-    "The electric battery or voltaic pile is associated with:",
+    "Who developed the voltaic pile, an early electric battery?",
     "Alessandro Volta",
     [
       "Hans Christian Oersted",
@@ -139,7 +139,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
   [
     2,
     "Medium",
-    "Electromagnetic induction is most closely associated with:",
+    "Who discovered electromagnetic induction?",
     "Michael Faraday",
     [
       "Alessandro Volta",
@@ -154,7 +154,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
   [
     2,
     "Medium",
-    "The SI unit ampere is named after the scientist associated with the study of:",
+    "The SI unit ampere is named after a scientist noted for work on:",
     "Electric currents and their magnetic effects",
     [
       "Radioactivity only",
@@ -199,7 +199,7 @@ export const PART_1: readonly SciCp037ReviewSpec[] = [
   [
     3,
     "Easy",
-    "The discovery of natural radioactivity is associated with:",
+    "Who discovered natural radioactivity?",
     "Henri Becquerel",
     [
       "Marie Curie",
