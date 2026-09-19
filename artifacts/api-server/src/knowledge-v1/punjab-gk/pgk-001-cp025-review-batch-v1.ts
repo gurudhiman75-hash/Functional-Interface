@@ -1,3 +1,4 @@
+import { PGK_001_CP025_FACTS } from "./pgk-001-cp025-facts";
 import { PGK_001_CP025_QL168 } from "./pgk-001-cp025-ql168";
 import { PGK_001_CP025_QL169 } from "./pgk-001-cp025-ql169";
 import { PGK_001_CP025_QL170 } from "./pgk-001-cp025-ql170";
@@ -16,11 +17,33 @@ const QLS = [
   ["PGK-001-QL-174", PGK_001_CP025_QL174],
 ] as const;
 
+const PROVENANCE_BY_QL: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "PGK-001-QL-168": ["milkha-flying-sikh","milkha-three-olympics","milkha-title-ayub","milkha-rome-1960"],
+  "PGK-001-QL-169": ["balbir-three-golds","balbir-1956-captain","balbir-1952-final-five"],
+  "PGK-001-QL-170": ["ajit-pal-1975","ajit-pal-final-pakistan","ajit-pal-world-cup-medals","ajit-pal-sansarpur"],
+  "PGK-001-QL-171": ["pargat-olympic-captain","pargat-mithapur","manpreet-tokyo","manpreet-mithapur"],
+  "PGK-001-QL-172": ["randhawa-athletics","randhawa-1962","randhawa-tokyo-1964","randhawa-arjuna-1961","randhawa-padma-2005"],
+  "PGK-001-QL-173": ["maharaja-ranjit-award","paramjeet-2006","paramjeet-athletics","paramjeet-400-record-1998"],
+  "PGK-001-QL-174": ["milkha-rome-1960","ajit-pal-1975","randhawa-1962","pargat-olympic-captain","pargat-mithapur","manpreet-tokyo","manpreet-mithapur","randhawa-tokyo-1964","randhawa-arjuna-1961","paramjeet-2006","balbir-1956-captain"],
+});
+
+function provenanceForQl(qlId: string) {
+  const factIds = PROVENANCE_BY_QL[qlId] ?? [];
+  const factSet = new Set(factIds);
+  const sourceIds = [...new Set(
+    PGK_001_CP025_FACTS
+      .filter((fact) => factSet.has(fact.id))
+      .flatMap((fact) => [...fact.sourceIds]),
+  )];
+  return Object.freeze({ factIds: Object.freeze([...factIds]), sourceIds: Object.freeze(sourceIds) });
+}
+
 export const PGK_001_CP025_REVIEW_BATCH_V1 = Object.freeze(
   QLS.flatMap(([qlId, payloads]) => payloads.map((payload, index) => Object.freeze({
     id: `${qlId}-R${String(index + 1).padStart(2, "0")}`,
     qlId,
     ...payload,
+    ...provenanceForQl(qlId),
     reviewOnly: true as const,
     runtimeRegistered: false as const,
   })))
