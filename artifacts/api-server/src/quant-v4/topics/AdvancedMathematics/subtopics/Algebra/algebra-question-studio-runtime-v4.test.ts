@@ -91,13 +91,16 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
   englishDistinctSourceSeedChecks += 1;
 }
 
-const targetedNumericDistractorPatterns = [
+const targetedVariableDistractorPatterns = [
   "ALG-CP002-CAND-003",
   "ALG-CP002-CAND-006",
   "ALG-CP003-CAND-006",
+  "ALG-CP004-CAND-002",
+  "ALG-CP008-CAND-007",
+  "ALG-CP012-CAND-011",
 ] as const;
 
-for (const patternId of targetedNumericDistractorPatterns) {
+for (const patternId of targetedVariableDistractorPatterns) {
   const pattern = ALGEBRA_QUESTION_STUDIO_PATTERNS.find((entry) => entry.prototypeId === patternId);
   assert(pattern, `Missing targeted Algebra distractor-diversity pattern ${patternId}`);
   const wrongOptionSets = new Set<string>();
