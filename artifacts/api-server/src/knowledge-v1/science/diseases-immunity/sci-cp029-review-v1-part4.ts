@@ -138,15 +138,15 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
   ],
   [
     10,
-    "Easy",
-    "Which measure best helps prevent malaria?",
-    "Prevent mosquito bites and breeding",
+    "Hard",
+    "A village reports repeated malaria cases after the rainy season. Which combined action would most directly interrupt transmission?",
+    "Remove mosquito breeding sites and prevent mosquito bites",
     [
-      "Avoid all dairy foods",
-      "Take antibiotics for every fever",
-      "Increase salt intake"
+      "Use antibiotics for every fever",
+      "Increase dietary protein and iron",
+      "Improve handwashing but leave stagnant water"
     ],
-    "Malaria prevention includes mosquito control, removal of breeding sites and protection from bites.",
+    "Malaria depends on Anopheles mosquitoes for transmission. Reducing breeding sites and preventing bites directly interrupts the vector pathway.",
     [
       "MALARIA-PREVENTION"
     ]
