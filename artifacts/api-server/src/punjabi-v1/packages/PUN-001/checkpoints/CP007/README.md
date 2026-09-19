@@ -1,38 +1,46 @@
-# PUN-001 CP007 — ਕਾਰਕ, ਸੰਬੰਧਕ, ਯੋਜਕ ਅਤੇ ਵਿਸਮਿਕ
+# PUN-001 CP007 Retrofit — ਕਾਰਕ, ਸੰਬੰਧਕ, ਯੋਜਕ ਅਤੇ ਵਿਸਮਿਕ
 
-Audited forward-port checkpoint for Punjabi grammar.
+Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
 
-## Authority surface
-- 24 sentence-grounded ਕਾਰਕ authorities covering all 8 governed case labels.
-- 9 narrow textbook-sensitive ਸੰਬੰਧਕ authorities: ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ.
-- 16 sentence-grounded ਯੋਜਕ authorities covering ਸਮਾਨ and ਅਧੀਨ usage.
-- 12 contextual ਵਿਸਮਿਕ authorities.
-- 61 atomic authorities total.
+## Final audited surface
+- **95 sentence-grounded ਕਾਰਕ authorities**
+- **9 reviewed ਸੰਬੰਧਕ authorities**
+- **23 sentence-grounded ਯੋਜਕ authorities**
+- **37 contextual ਵਿਸਮਿਕ authorities**
+- **164 total atomic authorities**
+- **9 reviewed operation families**
+- **3,390 governed semantic combinations**
+
+## Donor audit
+Historical donor:
+- 80 ਕਾਰਕ rows
+- 28 mixed connector-category rows
+- 8 sentence-grounded conjunction-type rows
+
+### ਕਾਰਕ
+The donor is expanded after:
+- exact duplicate collapse;
+- normalization of the marker actually present in the target phrase;
+- removal of weak/implicit marker examples such as `ਸਕੂਲੋਂ`, bare `ਕਿਨਾਰੇ`, and non-marker vocative forms;
+- replacement of personal/local/religious examples with neutral exam-grade contexts where the authority itself is sound;
+- sentence-derived distractors for context-to-ਕਾਰਕ operations.
+
+### ਸੰਬੰਧਕ
+The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy remains deliberately narrow at 9 authorities.
+
+The donor also contains `ਵਿਕਾਰੀ / ਅਵਿਕਾਰੀ / ਸਥਾਨ-ਵਾਚਕ / ਦਿਸ਼ਾ-ਵਾਚਕ / ਸਾਧਨ-ਵਾਚਕ / ਕਾਰਨ-ਵਾਚਕ` labels. Those are a different classification dimension and are **not mixed** into the approved three-way family.
+
+### ਯੋਜਕ
+Seven additional donor sentence contexts are retained, including `ਇਸ ਲਈ`, `ਜੇਕਰ ... ਤਾਂ`, and `ਤਾਂ ਜੋ`, without changing the approved two-way `ਸਮਾਨ / ਅਧੀਨ` classification.
+
+### ਵਿਸਮਿਕ
+Donor marker inventories are promoted only after being grounded in natural contextual sentences. No new abstract subtype-classification family is invented.
 
 ## Families
-- F01 ਕਾਰਕ identification — Easy
-- F02 ਕਾਰਕ-marker identification — Easy
-- F03 context-to-ਕਾਰਕ phrase mapping — Medium
-- F04 ਸੰਬੰਧਕ classification — Medium
-- F05 ਯੋਜਕ identification — Easy
-- F06 ਯੋਜਕ classification — Medium
-- F07 contextual ਵਿਸਮਿਕ choice — Medium
-- F08 combined ਕਾਰਕ + ਯੋਜਕ diagnosis — Hard
-- F09 two-statement verification — Hard
-
-## Breadth
-1,085 governed semantic combinations before answer-order permutations.
-
-## Editorial rules
-- Punjabi-only learner stems and explanations.
-- No option-by-option explanation filler.
-- No generic `ਸਿੱਧੇ ਅਰਥ` / `ਪ੍ਰਮਾਣਿਤ` boilerplate.
-- Sentence-grounded distractors wherever the operation allows them.
-- Hard difficulty combines multiple grammatical decisions rather than merely adding words.
-- F09 exposes all four truth outcomes.
-- Legacy donor material is source material only and is not automatically promoted.
+The previously reviewed nine-family architecture is retained:
+F01–F03 ਕਾਰਕ, F04 ਸੰਬੰਧਕ, F05–F06 ਯੋਜਕ, F07 contextual ਵਿਸਮਿਕ, F08 combined ਕਾਰਕ+ਯੋਜਕ diagnosis, F09 dual-statement verification.
 
 ## Lifecycle
-`REVIEW_ONLY / HUMAN_REVIEW_PENDING`
+The previous CP007 approval does not cover this material retrofit. Fresh owner approval is required on the exact reviewed SHA.
 
-No permanent QL allocation, Question Studio registration, Question Bank write, test/mock eligibility, or public/student publication before explicit human approval.
+No Question Bank, Question Studio, test/mock or public delivery promotion is authorized.
