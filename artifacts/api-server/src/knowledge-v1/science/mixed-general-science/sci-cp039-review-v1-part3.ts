@@ -11,21 +11,25 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "tissue",
       "organ system"
     ],
-    "Cells are the smallest units that perform essential life processes. Tissues, organs and organ systems are built from groups of specialized cells.",
-    "MIX-CELL"
+    "Cells are the smallest units that perform essential life processes. Tissues, organs and organ systems are built from groups of specialized cells. All larger structures in the body are ultimately built from cells.",
+    [
+      "MIX-CELL"
+    ]
   ],
   [
     6,
     "Easy",
-    "Photosynthesis occurs mainly in plant-cell structures called:",
+    "Photosynthesis occurs in plant-cell structures called:",
     "chloroplasts",
     [
       "lysosomes",
       "ribosomes only",
       "centrioles"
     ],
-    "Chloroplasts contain chlorophyll and other components needed to capture light energy. They are the main site of photosynthesis in green plant cells.",
-    "MIX-CHLOROPLAST"
+    "Chloroplasts contain chlorophyll and other components needed to capture light energy. They are the main site of photosynthesis in green plant cells. Chlorophyll absorbs light energy that drives the production of sugars.",
+    [
+      "MIX-CHLOROPLAST"
+    ]
   ],
   [
     6,
@@ -37,8 +41,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "epidermis",
       "meristem only"
     ],
-    "Xylem transports water and dissolved minerals from roots toward stems and leaves. Phloem mainly transports sugars and other organic food materials.",
-    "MIX-XYLEM"
+    "Xylem transports water and dissolved minerals from roots toward stems and leaves. Phloem transports sugars and other organic food materials. Knowing xylem and phloem separately prevents a common plant-transport mix-up.",
+    [
+      "MIX-XYLEM"
+    ]
   ],
   [
     6,
@@ -50,8 +56,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "causing photosynthesis",
       "digesting starch in leaves"
     ],
-    "Rhizobium lives in root nodules of legumes and converts atmospheric nitrogen into usable nitrogen compounds. This can improve nitrogen availability in the soil.",
-    "MIX-RHIZOBIUM"
+    "Rhizobium lives in root nodules of legumes and converts atmospheric nitrogen into usable nitrogen compounds. This can improve nitrogen availability in the soil. This relationship is also useful in crop rotation with leguminous plants.",
+    [
+      "MIX-RHIZOBIUM"
+    ]
   ],
   [
     6,
@@ -63,8 +71,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "Fungi",
       "Plantae"
     ],
-    "Monera includes prokaryotic organisms such as bacteria in the classic five-kingdom system. Their cells lack a membrane-bound nucleus.",
-    "MIX-MONERA"
+    "Monera includes prokaryotic organisms such as bacteria in the classic five-kingdom system. Their cells lack a membrane-bound nucleus. Modern classification is more detailed, but this remains standard five-kingdom exam content.",
+    [
+      "MIX-MONERA"
+    ]
   ],
   [
     6,
@@ -76,8 +86,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "Plantae only",
       "Animalia only"
     ],
-    "Protista includes many unicellular eukaryotes with a true nucleus. Monera is reserved for prokaryotic organisms without a membrane-bound nucleus.",
-    "MIX-PROTISTA-NUCLEUS"
+    "Protista includes many unicellular eukaryotes with a true nucleus. Monera is reserved for prokaryotic organisms without a membrane-bound nucleus. The key clue is the true nucleus, which rules out Monera.",
+    [
+      "MIX-PROTISTA-NUCLEUS"
+    ]
   ],
   [
     7,
@@ -89,8 +101,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "liver",
       "lung"
     ],
-    "The heart is a muscular pump that circulates blood through pulmonary and systemic circuits. This supplies tissues with oxygen and nutrients and removes wastes.",
-    "MIX-HEART"
+    "The heart is a muscular pump that circulates blood through pulmonary and systemic circuits. This supplies tissues with oxygen and nutrients and removes wastes. The pumping action maintains continuous movement through arteries, capillaries and veins.",
+    [
+      "MIX-HEART"
+    ]
   ],
   [
     7,
@@ -102,8 +116,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "alveolus",
       "villus"
     ],
-    "Nephrons filter blood and modify the filtrate to form urine. Each kidney contains many nephrons working together to regulate water and dissolved substances.",
-    "MIX-NEPHRON"
+    "Nephrons filter blood and modify the filtrate to form urine. Each kidney contains many nephrons working together to regulate water and dissolved substances. Nephrons also help regulate water, salts and acid-base balance in the body.",
+    [
+      "MIX-NEPHRON"
+    ]
   ],
   [
     7,
@@ -115,8 +131,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "large intestine",
       "oesophagus"
     ],
-    "The small intestine has a large surface area provided by folds and villi. This makes it the major site for absorption of digested nutrients into blood and lymph.",
-    "MIX-SMALL-INTESTINE"
+    "The small intestine has a large surface area provided by folds and villi. This makes it the major site for absorption of digested nutrients into blood and lymph. The large absorptive surface is one reason the small intestine is long and folded.",
+    [
+      "MIX-SMALL-INTESTINE"
+    ]
   ],
   [
     7,
@@ -128,8 +146,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "bronchi only",
       "diaphragm"
     ],
-    "Alveoli have thin walls and a rich blood supply, allowing rapid diffusion of oxygen and carbon dioxide. Their large total surface area improves gas exchange.",
-    "MIX-ALVEOLI"
+    "Alveoli have thin walls and a rich blood supply, allowing rapid diffusion of oxygen and carbon dioxide. Their large total surface area improves gas exchange. Thin alveolar walls shorten the diffusion distance for respiratory gases.",
+    [
+      "MIX-ALVEOLI"
+    ]
   ],
   [
     7,
@@ -141,8 +161,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "adrenaline",
       "thyroxine"
     ],
-    "Insulin promotes uptake and storage of glucose, helping lower blood glucose after meals. It is produced by beta cells in the pancreas.",
-    "MIX-INSULIN"
+    "Insulin promotes uptake and storage of glucose, helping lower blood glucose after meals. It is produced by beta cells in the pancreas. Glucagon has the opposite overall effect and tends to raise blood glucose.",
+    [
+      "MIX-INSULIN"
+    ]
   ],
   [
     7,
@@ -154,8 +176,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "Blood loses all glucose",
       "The stomach stops digestion permanently"
     ],
-    "Exercise increases cellular respiration in muscles. Faster breathing brings in more oxygen and removes the extra carbon dioxide produced by active tissues.",
-    "MIX-EXERCISE-BREATHING"
+    "Exercise increases cellular respiration in muscles. Faster breathing brings in more oxygen and removes the extra carbon dioxide produced by active tissues. The cardiovascular system also works harder to deliver oxygen to the active muscles.",
+    [
+      "MIX-EXERCISE-BREATHING"
+    ]
   ],
   [
     8,
@@ -167,8 +191,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "night blindness",
       "goitre"
     ],
-    "Vitamin C is needed for healthy connective tissue and wound healing. Severe deficiency can cause scurvy, with symptoms such as bleeding gums and poor healing.",
-    "MIX-SCURVY"
+    "Vitamin C is needed for healthy connective tissue and wound healing. Severe deficiency can cause scurvy, with symptoms such as bleeding gums and poor healing. Vitamin C also supports collagen formation, which explains several scurvy symptoms.",
+    [
+      "MIX-SCURVY"
+    ]
   ],
   [
     8,
@@ -180,8 +206,10 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "extra red blood cells only",
       "permanent fever"
     ],
-    "Vaccines expose the immune system to a safe form or part of a pathogen. This develops immune memory so later exposure can trigger a faster response.",
-    "MIX-VACCINE-MEMORY"
+    "Vaccines expose the immune system to a safe form or part of a pathogen. This develops immune memory so later exposure can trigger a faster response. Memory cells are the reason later exposure can produce a faster immune response.",
+    [
+      "MIX-VACCINE-MEMORY"
+    ]
   ],
   [
     8,
@@ -193,7 +221,9 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
       "all fungi automatically",
       "genetic disorders"
     ],
-    "Antibiotics target bacterial structures or processes. They do not treat viral infections such as the common cold unless a bacterial infection is also present.",
-    "MIX-ANTIBIOTICS"
+    "Antibiotics target bacterial structures or processes. They do not treat viral infections such as the common cold unless a bacterial infection is also present. Using antibiotics for viral illnesses also encourages unnecessary antibiotic exposure.",
+    [
+      "MIX-ANTIBIOTICS"
+    ]
   ]
 ] as const;
