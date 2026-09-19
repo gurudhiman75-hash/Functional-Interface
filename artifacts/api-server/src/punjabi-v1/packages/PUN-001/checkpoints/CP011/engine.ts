@@ -21,7 +21,7 @@ function assemble(input:{seed:number;difficulty:PunjabiDifficulty;familyId:strin
  if(ds.length<3)throw new Error(`CP011 ${input.familyId}: fewer than three distractors`);
  const selected=rng.pickDistinct(ds,3);
  const options=rng.shuffle([correct,...selected]);
- const fingerprint=`CP011-${semanticHash([input.familyId,input.subtype,input.difficulty,norm(input.stem),correct,[...selected].sort().join("|"),[...input.authorityIds].sort().join(",")])}`;
+ const semanticParts=[input.familyId,input.subtype,input.difficulty,norm(input.stem),correct,[...selected].sort().join("|"),[...input.authorityIds].sort().join(",")];\n const fingerprint=`CP011-${semanticHash(semanticParts)}${semanticHash(["SECONDARY",...semanticParts].reverse())}`;
  return {id:`PUN-001-CP011-${input.familyId}-${fingerprint}`,stem:norm(input.stem),options,correctIndex:options.indexOf(correct),explanation:norm(input.explanation),difficulty:input.difficulty,metadata:{engine:"punjabi-v1",packageId:"PUN-001",cpId:"PUN-001-CP011",familyId:input.familyId,subtype:input.subtype,difficulty:input.difficulty,language:"pa-Guru",seed:input.seed,authorityIds:input.authorityIds,generatorRevision:"2.0.0-retrofit-exhaustive",fingerprint,lifecycle:"REVIEW_ONLY"}};
 }
 function pickSafe(a:CP011Authority,count:number,seed:number){const p=safePeers(a);if(p.length<count)throw new Error(`CP011 ${a.id}: insufficient safe peers`);return createRng(`CP011:SAFE:${a.id}:${seed}`).pickDistinct(p,count);}
