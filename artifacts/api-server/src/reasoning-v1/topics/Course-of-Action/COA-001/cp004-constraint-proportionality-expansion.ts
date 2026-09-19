@@ -1,0 +1,627 @@
+import type {
+  CoaActionAuthority,
+  CoaReasonCode,
+  CoaScenarioAuthority,
+} from "./types.ts";
+
+type ActionOverrides = Partial<Omit<
+  CoaActionAuthority,
+  "id" | "text" | "explanation" | "expectedVerdict" | "reasonCodes"
+>>;
+
+function follows(
+  id: string,
+  text: string,
+  explanation: string,
+  reasonCodes: readonly CoaReasonCode[],
+  overrides: ActionOverrides = {},
+): CoaActionAuthority {
+  return Object.freeze({
+    id,
+    text,
+    explanation,
+    relevance: "DIRECT" as const,
+    actionability: "ACTIONABLE" as const,
+    authorityFit: "WITHIN_SCOPE" as const,
+    feasibility: "FEASIBLE" as const,
+    proportionality: "PROPORTIONATE" as const,
+    evidenceFit: "SUPPORTED" as const,
+    expectedUtility: "HIGH" as const,
+    urgencyFit: "IMMEDIATE" as const,
+    constraintFit: "COMPATIBLE" as const,
+    sequenceFit: "NOT_APPLICABLE" as const,
+    expectedVerdict: "FOLLOWS" as const,
+    reasonCodes: Object.freeze([...reasonCodes]),
+    ...overrides,
+  });
+}
+
+function rejects(
+  id: string,
+  text: string,
+  explanation: string,
+  reasonCode: CoaReasonCode,
+  overrides: ActionOverrides,
+): CoaActionAuthority {
+  return Object.freeze({
+    id,
+    text,
+    explanation,
+    relevance: "DIRECT" as const,
+    actionability: "ACTIONABLE" as const,
+    authorityFit: "WITHIN_SCOPE" as const,
+    feasibility: "FEASIBLE" as const,
+    proportionality: "PROPORTIONATE" as const,
+    evidenceFit: "SUPPORTED" as const,
+    expectedUtility: "HIGH" as const,
+    urgencyFit: "IMMEDIATE" as const,
+    constraintFit: "NOT_APPLICABLE" as const,
+    sequenceFit: "NOT_APPLICABLE" as const,
+    expectedVerdict: "DOES_NOT_FOLLOW" as const,
+    reasonCodes: Object.freeze([reasonCode]),
+    ...overrides,
+  });
+}
+
+export const COA_CP004_ENGLISH_EXPANSION: readonly CoaScenarioAuthority[] = Object.freeze([
+  // ---------------------------------------------------------------------------
+  // COA-QL-005 — constraint-aware action
+  // ---------------------------------------------------------------------------
+  {
+    id: "COA-SC-073",
+    qlId: "COA-QL-005",
+    difficulty: "MEDIUM",
+    domain: "HEALTH_SERVICE",
+    statement: "A clinic has only two reception staff during the afternoon rush, and at least one person must remain at the front desk at all times while a backlog of patient records also needs sorting before closing.",
+    actions: [
+      follows(
+        "COA-SC-073-I",
+        "The clinic should stagger the two staff members' record-sorting periods so that one person remains at reception while the other clears the backlog in short blocks.",
+        "This uses the available staff to address both tasks while respecting the explicit requirement that reception must remain covered throughout the afternoon.",
+        ["CONSTRAINT_COMPATIBLE", "WITHIN_OPERATIONAL_AUTHORITY"],
+      ),
+      rejects(
+        "COA-SC-073-II",
+        "The clinic should send both reception staff to the records room together for one hour so that the entire backlog can be cleared more quickly.",
+        "Sending both staff away may clear records faster, but it directly violates the stated requirement that at least one person remain at the reception desk.",
+        "CONSTRAINT_VIOLATION",
+        { constraintFit: "VIOLATES", feasibility: "CONSTRAINED" },
+      ),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
+  {
+    id: "COA-SC-074",
+    qlId: "COA-QL-005",
+    difficulty: "MEDIUM",
+    domain: "EXAM_ADMIN",
+    statement: "An examination centre has one room that cannot be used because of a ceiling leak. No extra room can be hired that day, but two existing halls still have enough unused seats within their permitted capacity.",
+    actions: [
+      rejects(
+        "COA-SC-074-I",
+        "The centre should hire an additional room outside the premises immediately and shift the affected candidates there before the examination begins.",
+        "Hiring another room conflicts with the explicit condition that no extra room can be hired that day, so this course depends on a resource the statement rules out.",
+        "CONSTRAINT_VIOLATION",
+        { feasibility: "IMPOSSIBLE", constraintFit: "VIOLATES" },
+      ),
+      follows(
+        "COA-SC-074-II",
+        "The centre should redistribute the affected candidates between the two usable halls while keeping each hall within its permitted seating capacity.",
+        "The available halls have sufficient unused capacity, so redistribution solves the room problem without assuming extra premises or exceeding the stated limits.",
+        ["CONSTRAINT_COMPATIBLE", "DIRECT_REMEDY"],
+      ),
+    ],
+    expectedAnswerClass: "ONLY_II",
+  },
+  {
+    id: "COA-SC-075",
+    qlId: "COA-QL-005",
+    difficulty: "HARD",
+    domain: "BANKING",
+    statement: "A small bank branch has only two service staff during peak hours. One counter must remain available for cash transactions, while a queue for simple statement and passbook requests is growing.",
+    actions: [
+      follows(
+        "COA-SC-075-I",
+        "The branch should keep one staff member on the required cash counter and use the second for a clearly marked quick-service queue for simple document requests.",
+        "This arrangement preserves the compulsory cash service while using the second available staff member to reduce the separate quick-service backlog.",
+        ["CONSTRAINT_COMPATIBLE", "WITHIN_OPERATIONAL_AUTHORITY"],
+      ),
+      follows(
+        "COA-SC-075-II",
+        "The branch should issue queue tokens by service type so cash customers remain assigned to the open cash counter and simple document requests are handled in order by the other staff member.",
+        "Service-type tokens organise the same two-person arrangement without removing the required cash counter and can reduce confusion between the two queues.",
+        ["CONSTRAINT_COMPATIBLE", "PROPORTIONATE_RESPONSE"],
+      ),
+    ],
+    expectedAnswerClass: "BOTH",
+  },
+  {
+    id: "COA-SC-076",
+    qlId: "COA-QL-005",
+    difficulty: "HARD",
+    domain: "TRANSPORT",
+    statement: "A bus depot has one spare bus that must remain available for emergency replacement on a long route. A short local route is temporarily crowded, but all scheduled buses on that route are still running.",
+    actions: [
+      rejects(
+        "COA-SC-076-I",
+        "The depot should put the emergency spare bus permanently on the crowded local route for the rest of the week to provide additional capacity.",
+        "Using the only emergency spare as a regular vehicle removes the reserve that the statement specifically requires to remain available for breakdown replacement.",
+        "CONSTRAINT_VIOLATION",
+        { constraintFit: "VIOLATES", feasibility: "CONSTRAINED" },
+      ),
+      rejects(
+        "COA-SC-076-II",
+        "The depot should cancel the scheduled inspection of the local-route buses and keep each vehicle running for longer hours to increase the number of trips.",
+        "Skipping scheduled inspection trades a temporary crowding problem for an avoidable operating risk and is not justified by the stated capacity pressure.",
+        "CONSTRAINT_VIOLATION",
+        { constraintFit: "VIOLATES", expectedUtility: "LOW" },
+      ),
+    ],
+    expectedAnswerClass: "NEITHER",
+  },
+  {
+    id: "COA-SC-077",
+    qlId: "COA-QL-005",
+    difficulty: "EASY",
+    domain: "EDUCATION",
+    statement: "A school must submit an attendance report before the end of the day. Its office printer has failed, there is no budget for an immediate replacement, but the education portal is working normally.",
+    actions: [
+      follows(
+        "COA-SC-077-I",
+        "The school should submit the attendance report through the working portal before the deadline and arrange printer repair separately for later office use.",
+        "Digital submission meets the immediate deadline with a resource that is already available, while printer repair can be handled without delaying the required report.",
+        ["CONSTRAINT_COMPATIBLE", "DIRECT_REMEDY"],
+      ),
+      rejects(
+        "COA-SC-077-II",
+        "The school should delay the report until it can purchase a new printer and send a printed copy instead of using the available portal.",
+        "This course ignores both the same-day deadline and the stated lack of budget even though a working submission channel is already available.",
+        "CONSTRAINT_VIOLATION",
+        { constraintFit: "VIOLATES", urgencyFit: "MISMATCHED", feasibility: "CONSTRAINED" },
+      ),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
+  {
+    id: "COA-SC-078",
+    qlId: "COA-QL-005",
+    difficulty: "MEDIUM",
+    domain: "CIVIC_SERVICE",
+    statement: "A municipal water service has only one tanker available because the second is under repair. The available tanker must continue one scheduled hospital supply while nearby residents also need temporary water delivery.",
+    actions: [
+      rejects(
+        "COA-SC-078-I",
+        "The service should cancel the scheduled hospital delivery and use the tanker only for repeated residential trips until the second vehicle is repaired.",
+        "The action addresses residential demand only by violating the explicit requirement that the scheduled hospital supply must continue.",
+        "CONSTRAINT_VIOLATION",
+        { constraintFit: "VIOLATES", expectedUtility: "LOW" },
+      ),
+      follows(
+        "COA-SC-078-II",
+        "The service should protect the scheduled hospital delivery and plan the remaining tanker trips for nearby residential points around that fixed supply commitment.",
+        "This uses the one available tanker for both needs while treating the mandatory hospital delivery as a fixed constraint rather than cancelling it.",
+        ["CONSTRAINT_COMPATIBLE", "PROPORTIONATE_RESPONSE"],
+      ),
+    ],
+    expectedAnswerClass: "ONLY_II",
+  },
+  {
+    id: "COA-SC-079",
+    qlId: "COA-QL-005",
+    difficulty: "HARD",
+    domain: "PUBLIC_ADMIN",
+    statement: "A public office has four clerks. At least two must remain on the citizen service counters during opening hours, while a one-day backlog of document scanning also has to be cleared without hiring temporary staff.",
+    actions: [
+      follows(
+        "COA-SC-079-I",
+        "The office should keep two clerks on the service counters and assign the other two to scanning, rotating duties later if needed so counter coverage never falls below two.",
+        "The plan uses the existing four clerks, preserves the minimum two-person counter requirement and still allocates staff to the scanning backlog.",
+        ["CONSTRAINT_COMPATIBLE", "WITHIN_OPERATIONAL_AUTHORITY"],
+      ),
+      follows(
+        "COA-SC-079-II",
+        "The office should schedule part of the scanning work during the quieter final hour while retaining at least two clerks on the counters and using only the existing staff.",
+        "Moving some scanning to a quieter period is compatible with both constraints: no temporary hiring and continuous minimum counter staffing.",
+        ["CONSTRAINT_COMPATIBLE", "PROPORTIONATE_RESPONSE"],
+      ),
+    ],
+    expectedAnswerClass: "BOTH",
+  },
+  {
+    id: "COA-SC-080",
+    qlId: "COA-QL-005",
+    difficulty: "MEDIUM",
+    domain: "DIGITAL_SERVICE",
+    statement: "An online application portal needs a thirty-minute database repair, but applications must remain available throughout the working day and the system already supports switching traffic to a standby database.",
+    actions: [
+      rejects(
+        "COA-SC-080-I",
+        "The portal team should shut the entire application service for the full working day so the repair can be completed without any live traffic.",
+        "A full-day shutdown violates the stated continuity requirement and is unnecessary when the system already has a standby database for maintaining service.",
+        "CONSTRAINT_VIOLATION",
+        { constraintFit: "VIOLATES", proportionality: "EXCESSIVE" },
+      ),
+      rejects(
+        "COA-SC-080-II",
+        "The portal team should leave the faulty database unchanged and postpone the repair indefinitely so there is no planned interruption at all.",
+        "Avoiding all repair preserves availability only temporarily and leaves a known database problem unresolved despite an available standby mechanism.",
+        "TOO_WEAK_TO_ADDRESS_PROBLEM",
+        { proportionality: "INSUFFICIENT", expectedUtility: "LOW" },
+      ),
+    ],
+    expectedAnswerClass: "NEITHER",
+  },
+  {
+    id: "COA-SC-081",
+    qlId: "COA-QL-005",
+    difficulty: "MEDIUM",
+    domain: "LOGISTICS",
+    statement: "A cold-storage warehouse has a backup generator that can support essential refrigeration for six hours. A failed power-control unit can be repaired in about four hours if work begins immediately.",
+    actions: [
+      follows(
+        "COA-SC-081-I",
+        "The warehouse should start the four-hour repair immediately while running essential refrigeration on the backup generator and monitoring the remaining backup time.",
+        "The repair duration fits inside the stated six-hour backup window, so this course uses the available contingency while directly restoring normal power control.",
+        ["CONSTRAINT_COMPATIBLE", "USEFUL_TEMPORARY_SAFEGUARD"],
+      ),
+      rejects(
+        "COA-SC-081-II",
+        "The warehouse should postpone repair for two days and depend on the same backup generator continuously until technicians are more convenient to schedule.",
+        "The generator is stated to support essential refrigeration for only six hours, so relying on it for two days is incompatible with the available backup duration.",
+        "CONSTRAINT_VIOLATION",
+        { feasibility: "IMPOSSIBLE", constraintFit: "VIOLATES" },
+      ),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
+  {
+    id: "COA-SC-082",
+    qlId: "COA-QL-005",
+    difficulty: "MEDIUM",
+    domain: "WORKPLACE",
+    statement: "A service team must complete a software rollout tonight, but only one administrator has permission to approve the final production change and that administrator is available remotely for the scheduled window.",
+    actions: [
+      rejects(
+        "COA-SC-082-I",
+        "The team should bypass the approval step and give a second employee temporary administrator credentials so the rollout can finish without contacting the authorised administrator.",
+        "The action avoids a permitted approval path by breaking the stated access-control constraint and creating authority the second employee does not have.",
+        "CONSTRAINT_VIOLATION",
+        { authorityFit: "OUTSIDE_SCOPE", constraintFit: "VIOLATES" },
+      ),
+      follows(
+        "COA-SC-082-II",
+        "The team should prepare the rollout in advance and obtain the required remote approval from the authorised administrator during the scheduled production window.",
+        "The authorised administrator is available remotely, so the rollout can proceed on time without bypassing the explicit approval requirement.",
+        ["CONSTRAINT_COMPATIBLE", "WITHIN_OPERATIONAL_AUTHORITY"],
+      ),
+    ],
+    expectedAnswerClass: "ONLY_II",
+  },
+  {
+    id: "COA-SC-083",
+    qlId: "COA-QL-005",
+    difficulty: "HARD",
+    domain: "PUBLIC_UTILITY",
+    statement: "Road repairs have reduced a bridge to one usable lane for two days. Traffic must continue in both directions because there is no practical diversion, and work crews need protected access to the closed lane.",
+    actions: [
+      follows(
+        "COA-SC-083-I",
+        "The traffic authority should operate alternating one-way movement through the usable lane with controlled signals or marshals so both directions continue to receive access.",
+        "Alternating movement respects the single-lane limit while preserving the explicit requirement that traffic continue in both directions during the repairs.",
+        ["CONSTRAINT_COMPATIBLE", "PROPORTIONATE_RESPONSE"],
+      ),
+      follows(
+        "COA-SC-083-II",
+        "The authority should mark a protected work zone and impose a temporary lower speed through the bridge so repair crews can work beside the controlled traffic flow.",
+        "A protected work zone and temporary speed control support worker safety without requiring closure of the only usable lane or a nonexistent diversion.",
+        ["CONSTRAINT_COMPATIBLE", "TARGETED_PREVENTION"],
+      ),
+    ],
+    expectedAnswerClass: "BOTH",
+  },
+  {
+    id: "COA-SC-084",
+    qlId: "COA-QL-005",
+    difficulty: "HARD",
+    domain: "CONSUMER_SERVICE",
+    statement: "A customer-support office has limited network bandwidth for the next day, and payment and account-security services must remain responsive while nonessential internal work can be rescheduled.",
+    actions: [
+      rejects(
+        "COA-SC-084-I",
+        "The office should run a high-bandwidth staff training broadcast throughout the day even if it slows payment and account-security services during the capacity restriction.",
+        "The training can be rescheduled, while the statement specifically requires payment and security services to remain responsive under the bandwidth limit.",
+        "CONSTRAINT_VIOLATION",
+        { constraintFit: "VIOLATES", expectedUtility: "LOW" },
+      ),
+      rejects(
+        "COA-SC-084-II",
+        "The office should disable account-security checks temporarily so payment requests use less processing and network capacity during the restricted period.",
+        "Reducing a required security control is not an acceptable way to satisfy the bandwidth limit and conflicts with the stated need to keep account-security services functioning.",
+        "CONSTRAINT_VIOLATION",
+        { constraintFit: "VIOLATES", expectedUtility: "HARMFUL" },
+      ),
+    ],
+    expectedAnswerClass: "NEITHER",
+  },
+
+  // ---------------------------------------------------------------------------
+  // COA-QL-006 — proportionality and overreaction
+  // ---------------------------------------------------------------------------
+  {
+    id: "COA-SC-085",
+    qlId: "COA-QL-006",
+    difficulty: "EASY",
+    domain: "EDUCATION",
+    statement: "Five chairs in one section of a college library have broken legs, while the rest of the library furniture and reading areas are safe and functioning normally.",
+    actions: [
+      follows(
+        "COA-SC-085-I",
+        "The library should remove the five damaged chairs from use and repair or replace those chairs before returning them to the reading area.",
+        "The problem is limited to five identified chairs, so isolating and repairing those items is a direct response matched to the scale of the defect.",
+        ["PROPORTIONATE_RESPONSE", "DIRECT_REMEDY"],
+      ),
+      rejects(
+        "COA-SC-085-II",
+        "The college should close the entire library for a month until every item of furniture in all reading areas has been replaced with new furniture.",
+        "The stated defect is limited to five chairs, so closing the whole library and replacing all furniture is far broader than the problem requires.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", expectedUtility: "LOW" },
+      ),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
+  {
+    id: "COA-SC-086",
+    qlId: "COA-QL-006",
+    difficulty: "MEDIUM",
+    domain: "PUBLIC_ADMIN",
+    statement: "A public office has opened late on three mornings because one entrance lock is sticking and staff have had to wait for maintenance to free it before opening.",
+    actions: [
+      rejects(
+        "COA-SC-086-I",
+        "The office should replace the entire security staff because repeated late opening shows that the whole security arrangement has failed.",
+        "The known cause is a sticking entrance lock, so replacing the whole security staff is a severe response aimed beyond the identified problem.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", evidenceFit: "UNSUPPORTED" },
+      ),
+      follows(
+        "COA-SC-086-II",
+        "The office should repair or replace the faulty lock promptly and keep an authorised backup entry arrangement until the lock works reliably.",
+        "Repairing the known faulty lock and using a limited backup arrangement directly addresses the repeated delay without imposing unrelated disruption.",
+        ["PROPORTIONATE_RESPONSE", "USEFUL_TEMPORARY_SAFEGUARD"],
+      ),
+    ],
+    expectedAnswerClass: "ONLY_II",
+  },
+  {
+    id: "COA-SC-087",
+    qlId: "COA-QL-006",
+    difficulty: "HARD",
+    domain: "CIVIC_SERVICE",
+    statement: "Several potholes have developed near the entrance to a busy public facility, and vehicles are slowing abruptly to avoid them while the rest of the access road remains in good condition.",
+    actions: [
+      follows(
+        "COA-SC-087-I",
+        "The civic authority should mark or barricade the affected spots promptly and repair the identified potholes as a priority on the otherwise usable road.",
+        "The action targets the hazardous section, provides an immediate warning and repairs the actual local defect without unnecessarily closing the whole road.",
+        ["PROPORTIONATE_RESPONSE", "DIRECT_REMEDY"],
+      ),
+      follows(
+        "COA-SC-087-II",
+        "The authority should place a temporary reduced-speed warning near the damaged section until the pothole repair is completed.",
+        "A temporary speed warning is a limited safety measure matched to the short hazardous section while the permanent repair is being arranged.",
+        ["PROPORTIONATE_RESPONSE", "USEFUL_TEMPORARY_SAFEGUARD"],
+      ),
+    ],
+    expectedAnswerClass: "BOTH",
+  },
+  {
+    id: "COA-SC-088",
+    qlId: "COA-QL-006",
+    difficulty: "MEDIUM",
+    domain: "CONSUMER_SERVICE",
+    statement: "A company discovers two incorrect contact numbers in one printed product leaflet, while the product, warranty service and all other published information remain correct.",
+    actions: [
+      rejects(
+        "COA-SC-088-I",
+        "The company should suspend all warranty service until every copy of the leaflet in circulation has been collected and replaced.",
+        "The incorrect contact numbers need correction, but stopping an otherwise functioning warranty service imposes a much wider disruption than the printing error requires.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", expectedUtility: "LOW" },
+      ),
+      rejects(
+        "COA-SC-088-II",
+        "The company should withdraw the entire product line from sale until a new leaflet is printed, even though the product itself has no reported defect.",
+        "The issue concerns contact information in the leaflet, not product safety or quality, so withdrawing the whole product line is disproportionate to the stated problem.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", evidenceFit: "UNSUPPORTED" },
+      ),
+    ],
+    expectedAnswerClass: "NEITHER",
+  },
+  {
+    id: "COA-SC-089",
+    qlId: "COA-QL-006",
+    difficulty: "MEDIUM",
+    domain: "WORKPLACE",
+    statement: "A few employees have repeatedly parked in marked emergency-access spaces despite reminders, while most employees are using the designated parking areas correctly.",
+    actions: [
+      follows(
+        "COA-SC-089-I",
+        "The organisation should enforce the marked restrictions against the vehicles using emergency-access spaces and apply the existing parking rules to repeat violations.",
+        "The action targets the employees creating the access problem and uses an existing rule without penalising staff who are parking correctly.",
+        ["PROPORTIONATE_RESPONSE", "WITHIN_OPERATIONAL_AUTHORITY"],
+      ),
+      rejects(
+        "COA-SC-089-II",
+        "The organisation should prohibit every employee from bringing a vehicle to the premises because a few employees have ignored the restricted spaces.",
+        "A complete vehicle ban affects all employees even though the problem is limited to repeated misuse by a small number of people.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", expectedUtility: "LOW" },
+      ),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
+  {
+    id: "COA-SC-090",
+    qlId: "COA-QL-006",
+    difficulty: "MEDIUM",
+    domain: "DIGITAL_SERVICE",
+    statement: "A short office-network outage is traced to one failed access switch, while the remaining switches, cabling and servers are operating normally after traffic is rerouted.",
+    actions: [
+      rejects(
+        "COA-SC-090-I",
+        "The organisation should replace the entire office network, including working switches and cabling, before normal use is allowed to continue.",
+        "The failure has been isolated to one switch, so replacing the functioning network as a whole is much broader and more disruptive than the identified fault requires.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", expectedUtility: "LOW" },
+      ),
+      follows(
+        "COA-SC-090-II",
+        "The network team should replace the failed switch, test the affected connections and continue monitoring the restored segment for further faults.",
+        "The failed component is known, so replacing and testing that component is a targeted response proportionate to the scope of the outage.",
+        ["PROPORTIONATE_RESPONSE", "DIRECT_REMEDY"],
+      ),
+    ],
+    expectedAnswerClass: "ONLY_II",
+  },
+  {
+    id: "COA-SC-091",
+    qlId: "COA-QL-006",
+    difficulty: "HARD",
+    domain: "LOGISTICS",
+    statement: "Packages from one packing line have shown a higher rate of crushed corners during the last shift, while packages from the other lines are passing normal quality checks.",
+    actions: [
+      follows(
+        "COA-SC-091-I",
+        "The warehouse should pause the affected packing line long enough to inspect its guides and packing settings while allowing the other verified lines to continue operating.",
+        "The action contains the problem at the line where it has been observed without unnecessarily stopping unaffected packing operations.",
+        ["PROPORTIONATE_RESPONSE", "DIRECT_REMEDY"],
+      ),
+      follows(
+        "COA-SC-091-II",
+        "The warehouse should review the affected shift's packing procedure with the relevant staff after the equipment check so any line-specific handling error is corrected.",
+        "A focused procedure review is a limited follow-up tied to the affected line and is reasonable once the equipment itself is checked.",
+        ["PROPORTIONATE_RESPONSE", "TARGETED_PREVENTION"],
+        { urgencyFit: "FOLLOW_UP" },
+      ),
+    ],
+    expectedAnswerClass: "BOTH",
+  },
+  {
+    id: "COA-SC-092",
+    qlId: "COA-QL-006",
+    difficulty: "MEDIUM",
+    domain: "EDUCATION",
+    statement: "Noise complaints are repeatedly coming from three study rooms in a large hostel during late evening hours, while the remaining hostel areas are not part of the complaints.",
+    actions: [
+      rejects(
+        "COA-SC-092-I",
+        "The hostel should close every common room for the rest of the academic term because some study rooms have generated repeated evening noise complaints.",
+        "Closing every common room for the term extends the restriction far beyond the three rooms and time period identified in the complaints.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", expectedUtility: "LOW" },
+      ),
+      rejects(
+        "COA-SC-092-II",
+        "The hostel should impose the same disciplinary penalty on all residents of the three rooms without establishing which users were responsible for the repeated disturbance.",
+        "A blanket penalty on everyone using the rooms is punitive beyond the evidence supplied and does not distinguish the people responsible for the repeated noise.",
+        "PREMATURE_PUNITIVE_ACTION",
+        { proportionality: "EXCESSIVE", evidenceFit: "UNSUPPORTED" },
+      ),
+    ],
+    expectedAnswerClass: "NEITHER",
+  },
+  {
+    id: "COA-SC-093",
+    qlId: "COA-QL-006",
+    difficulty: "MEDIUM",
+    domain: "BANKING",
+    statement: "A bank identifies an incorrect service fee in one batch of customer statements generated after a configuration change, while other transaction processing is working normally.",
+    actions: [
+      follows(
+        "COA-SC-093-I",
+        "The bank should identify the affected accounts, reverse the incorrect fee where charged and check that statement batch before the next statement run.",
+        "The action corrects the affected accounts and checks the specific batch linked to the configuration change without disrupting unrelated banking services.",
+        ["PROPORTIONATE_RESPONSE", "DIRECT_REMEDY"],
+      ),
+      rejects(
+        "COA-SC-093-II",
+        "The bank should suspend all customer transaction processing for a month because one statement batch contained an incorrect service fee.",
+        "The problem is confined to one statement batch, so stopping unrelated transaction processing for a month is much broader than necessary.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", expectedUtility: "LOW" },
+      ),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
+  {
+    id: "COA-SC-094",
+    qlId: "COA-QL-006",
+    difficulty: "HARD",
+    domain: "CONSUMER_SERVICE",
+    statement: "A service centre receives one documented complaint that an agent spoke rudely to a customer. The recording confirms the conversation, but there is no previous misconduct on the agent's record.",
+    actions: [
+      rejects(
+        "COA-SC-094-I",
+        "The centre should dismiss the entire customer-service team because one confirmed rude interaction shows that the team as a whole cannot handle customers properly.",
+        "The evidence concerns one agent and one incident, so dismissing the entire team extends punishment to people not connected with the confirmed conduct.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", evidenceFit: "UNSUPPORTED" },
+      ),
+      follows(
+        "COA-SC-094-II",
+        "The centre should address the confirmed incident with the agent through the applicable conduct process and coaching or proportionate discipline based on the case record.",
+        "The response is directed at the confirmed incident and allows the organisation to apply its normal conduct process without assuming wider misconduct.",
+        ["PROPORTIONATE_RESPONSE", "WITHIN_OPERATIONAL_AUTHORITY"],
+      ),
+    ],
+    expectedAnswerClass: "ONLY_II",
+  },
+  {
+    id: "COA-SC-095",
+    qlId: "COA-QL-006",
+    difficulty: "HARD",
+    domain: "PUBLIC_UTILITY",
+    statement: "A payment counter becomes overcrowded for about forty minutes after pension payments open each morning, but the same hall has normal demand for the rest of the day.",
+    actions: [
+      follows(
+        "COA-SC-095-I",
+        "The office should use temporary queue barriers and a clearly marked waiting line during the morning peak so customers are organised safely without changing the whole day's layout.",
+        "A temporary queue arrangement is matched to the short daily peak and addresses crowding without imposing a permanent restriction when demand is normal.",
+        ["PROPORTIONATE_RESPONSE", "USEFUL_TEMPORARY_SAFEGUARD"],
+      ),
+      follows(
+        "COA-SC-095-II",
+        "The office should shift an available staff member to the payment counter during the known forty-minute peak and return normal staffing after the queue subsides.",
+        "Temporary peak-hour staffing targets the exact period of excess demand and avoids an unnecessarily permanent staffing change.",
+        ["PROPORTIONATE_RESPONSE", "WITHIN_OPERATIONAL_AUTHORITY"],
+      ),
+    ],
+    expectedAnswerClass: "BOTH",
+  },
+  {
+    id: "COA-SC-096",
+    qlId: "COA-QL-006",
+    difficulty: "HARD",
+    domain: "PUBLIC_ADMIN",
+    statement: "Ten library books have gone missing over a term in a college with several thousand active borrowers, and the available records do not show that most borrowers have violated lending rules.",
+    actions: [
+      rejects(
+        "COA-SC-096-I",
+        "The college should require every borrower to pay the full replacement cost of all ten missing books before anyone is allowed to borrow again.",
+        "The loss is real, but charging every borrower for books not shown to be their responsibility imposes a blanket penalty unsupported by the records.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", evidenceFit: "UNSUPPORTED" },
+      ),
+      rejects(
+        "COA-SC-096-II",
+        "The college should stop all book lending for the next academic term so that no further books can go missing while the loss is reviewed.",
+        "Stopping lending to thousands of users for an entire term is a broad service restriction disproportionate to ten missing books and the limited evidence given.",
+        "EXCESSIVE_RESPONSE",
+        { proportionality: "EXCESSIVE", expectedUtility: "LOW" },
+      ),
+    ],
+    expectedAnswerClass: "NEITHER",
+  },
+]);

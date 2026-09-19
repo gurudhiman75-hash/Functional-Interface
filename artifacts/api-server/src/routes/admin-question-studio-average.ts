@@ -8,10 +8,15 @@ import { authenticate } from "../middlewares/auth";
 // while adding frozen Reasoning packages to the same authenticated review persistence workflow.
 import {
   generateQuestion as generateQuestionStudioQuestions,
+  isCoaCp012ApprovedQuestionStudioRequest,
   isSta001QuestionStudioRequest,
   isWor001QuestionStudioRequest,
   listQuestionStudioPackages,
 } from "../question-studio/shared-generation-engine";
+import {
+  COA_CP012_LEARNER_RELEASE,
+  COA_CP012_QUESTION_STUDIO_AUTHORITY,
+} from "../reasoning-v1/topics/Course-of-Action/COA-001/cp012-internal-eligibility-approved";
 
 const router = Router();
 const LANGUAGES = new Set(["en", "hi", "pa"]);
@@ -306,7 +311,8 @@ router.post(
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
     const staRequest = isSta001QuestionStudioRequest(req.body ?? {});
     const worRequest = isWor001QuestionStudioRequest(req.body ?? {});
-    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !staRequest && !worRequest) {
+    const coaRequest = isCoaCp012ApprovedQuestionStudioRequest(req.body ?? {});
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !staRequest && !worRequest && !coaRequest) {
       next();
       return;
     }
@@ -335,7 +341,9 @@ router.post(
       ? "STA-001"
       : worRequest
         ? "WOR-001"
-        : simplificationRequest
+        : coaRequest
+          ? "COA-001"
+          : simplificationRequest
           ? "SAP"
           : timeAndWorkRequest
             ? "TMW-001"
@@ -345,14 +353,16 @@ router.post(
       ? "Statement & Assumption"
       : worRequest
         ? "Word & Dictionary Order"
-        : simplificationRequest
+        : coaRequest
+          ? "Course of Action"
+          : simplificationRequest
           ? "Simplification & Approximation"
           : timeAndWorkRequest
             ? "Time & Work"
             : defaultSubtopic;
     const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
-    const reasoningRequest = staRequest || worRequest;
+    const reasoningRequest = staRequest || worRequest || coaRequest;
     const topic = reasoningRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
     const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
@@ -463,7 +473,9 @@ router.post(
         ? "reasoning-v1-sta-001"
         : worRequest
           ? "reasoning-v1-wor-001"
-          : "quant-v4";
+          : coaRequest
+            ? "reasoning-v1-coa-001-cp012-internal-eligible"
+            : "quant-v4";
 
       await sqlClient.begin(async (tx) => {
         await tx`
@@ -484,6 +496,24 @@ router.post(
           const itemId = randomUUID();
           const versionId = randomUUID();
           const question = generatedQuestions[index] as Record<string, unknown>;
+
+          if (coaRequest) {
+            if (
+              question.currentQuestionStudioAuthority !== COA_CP012_QUESTION_STUDIO_AUTHORITY
+              || question.questionBankWritable !== true
+              || question.testEligible !== true
+              || question.mockTestEligible !== true
+              || question.publiclyPublishable !== false
+              || question.publicReleaseAuthorized !== false
+              || question.studentDeliveryAuthorized !== false
+              || question.automaticStudentPublication !== false
+              || question.learnerRelease !== COA_CP012_LEARNER_RELEASE
+              || question.manualApprovalRequired !== false
+            ) {
+              throw new Error("COA-001 CP012 attempted to persist a question outside the approved internal-only lifecycle boundary.");
+            }
+          }
+
           const payload = {
             ...question,
             generationContext: result.generationContext,

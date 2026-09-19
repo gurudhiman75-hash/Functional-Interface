@@ -1,0 +1,336 @@
+import type { CoaActionAuthority, CoaReasonCode, CoaScenarioAuthority } from "./types.ts";
+
+type ActionOverrides = Partial<Omit<CoaActionAuthority, "id" | "text" | "explanation" | "expectedVerdict" | "reasonCodes">>;
+
+function follows(
+  id: string,
+  text: string,
+  explanation: string,
+  reasonCodes: readonly CoaReasonCode[],
+  overrides: ActionOverrides = {},
+): CoaActionAuthority {
+  return Object.freeze({
+    id,
+    text,
+    explanation,
+    relevance: "DIRECT" as const,
+    actionability: "ACTIONABLE" as const,
+    authorityFit: "WITHIN_SCOPE" as const,
+    feasibility: "FEASIBLE" as const,
+    proportionality: "PROPORTIONATE" as const,
+    evidenceFit: "SUPPORTED" as const,
+    expectedUtility: "HIGH" as const,
+    urgencyFit: "IMMEDIATE" as const,
+    constraintFit: "NOT_APPLICABLE" as const,
+    sequenceFit: "VALID_STEP" as const,
+    expectedVerdict: "FOLLOWS" as const,
+    reasonCodes: Object.freeze([...reasonCodes]),
+    ...overrides,
+  });
+}
+
+function rejects(
+  id: string,
+  text: string,
+  explanation: string,
+  reasonCode: CoaReasonCode,
+  overrides: ActionOverrides,
+): CoaActionAuthority {
+  return Object.freeze({
+    id,
+    text,
+    explanation,
+    relevance: "DIRECT" as const,
+    actionability: "ACTIONABLE" as const,
+    authorityFit: "WITHIN_SCOPE" as const,
+    feasibility: "FEASIBLE" as const,
+    proportionality: "PROPORTIONATE" as const,
+    evidenceFit: "SUPPORTED" as const,
+    expectedUtility: "HIGH" as const,
+    urgencyFit: "IMMEDIATE" as const,
+    constraintFit: "NOT_APPLICABLE" as const,
+    sequenceFit: "WRONG_ORDER" as const,
+    expectedVerdict: "DOES_NOT_FOLLOW" as const,
+    reasonCodes: Object.freeze([reasonCode]),
+    ...overrides,
+  });
+}
+
+export const COA_CP006_ENGLISH_EXPANSION: readonly CoaScenarioAuthority[] = Object.freeze([
+  {
+    id: "COA-SC-097",
+    qlId: "COA-QL-008",
+    difficulty: "HARD",
+    domain: "DIGITAL_SERVICE",
+    statement: "A company detects suspicious access to one employee account. The security team can temporarily block the account, preserve login records and contact the employee, but it does not yet know whether the access was unauthorised.",
+    actions: [
+      follows(
+        "COA-SC-097-I",
+        "The security team should first block further sensitive access, preserve the relevant logs and verify the activity with the employee before resetting credentials or taking disciplinary action.",
+        "The order contains the immediate risk, preserves evidence and verifies the facts before later corrective or disciplinary steps are taken.",
+        ["ORDERED_RESPONSE", "VERIFY_BEFORE_IRREVERSIBLE_ACTION", "USEFUL_TEMPORARY_SAFEGUARD"],
+      ),
+      rejects(
+        "COA-SC-097-II",
+        "The security team should first erase the account's recent login history and reset all access records, then try to determine from the remaining information whether the suspicious login was genuine.",
+        "Erasing the records before verification destroys evidence needed for the later investigation, so otherwise useful account-security steps are placed in a harmful order.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { expectedUtility: "HARMFUL" },
+      ),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
+  {
+    id: "COA-SC-098",
+    qlId: "COA-QL-008",
+    difficulty: "HARD",
+    domain: "HEALTH_SERVICE",
+    statement: "A clinic refrigerator gives a temperature alarm overnight. The medicines can be isolated from use while staff check the temperature log and maintenance record, but the alarm alone does not show that every stored item was damaged.",
+    actions: [
+      rejects(
+        "COA-SC-098-I",
+        "The clinic should first dispose of every medicine from the refrigerator and only afterwards review the temperature records to see whether the stock had actually been exposed outside the permitted range.",
+        "Disposal is irreversible and comes before the available verification that can establish which stock, if any, was affected.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { proportionality: "EXCESSIVE", evidenceFit: "UNSUPPORTED" },
+      ),
+      follows(
+        "COA-SC-098-II",
+        "The clinic should first isolate the refrigerator stock from use, review the temperature and maintenance records, and then release or discard items according to the verified exposure.",
+        "This sequence protects patients immediately without destroying usable stock before the available evidence is checked.",
+        ["ORDERED_RESPONSE", "VERIFY_BEFORE_IRREVERSIBLE_ACTION", "USEFUL_TEMPORARY_SAFEGUARD"],
+      ),
+    ],
+    expectedAnswerClass: "ONLY_II",
+  },
+  {
+    id: "COA-SC-099",
+    qlId: "COA-QL-008",
+    difficulty: "HARD",
+    domain: "EXAM_ADMIN",
+    statement: "Minutes before an online examination paper is released, the examination body discovers that the uploaded file may be an outdated draft. A verified final file is available in the controlled repository.",
+    actions: [
+      follows(
+        "COA-SC-099-I",
+        "The examination body should pause release, verify the final file from the controlled repository, replace the doubtful upload and only then reopen distribution.",
+        "The release is stopped before the questionable file reaches candidates, and verification precedes replacement and reopening.",
+        ["ORDERED_RESPONSE", "VERIFY_BEFORE_IRREVERSIBLE_ACTION", "DIRECT_REMEDY"],
+      ),
+      follows(
+        "COA-SC-099-II",
+        "The examination body should secure the correct final file first, update the distribution package, run a final file check and then notify centres that the release is ready.",
+        "The steps follow a safe dependency: obtain the authoritative file, update the package, verify it and only then confirm readiness to centres.",
+        ["ORDERED_RESPONSE", "TARGETED_PREVENTION"],
+      ),
+    ],
+    expectedAnswerClass: "BOTH",
+  },
+  {
+    id: "COA-SC-100",
+    qlId: "COA-QL-008",
+    difficulty: "MEDIUM",
+    domain: "PUBLIC_UTILITY",
+    statement: "A billing portal starts issuing duplicate payment confirmations after a software update. Transaction logs are available and customers are still able to make payments successfully.",
+    actions: [
+      rejects(
+        "COA-SC-100-I",
+        "The utility should first send final refund amounts to every customer who received two messages and only later compare the payment logs to determine whether any duplicate charge actually occurred.",
+        "A duplicate confirmation does not prove a duplicate charge, so final refunds should not be decided before the transaction records are checked.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { evidenceFit: "UNSUPPORTED" },
+      ),
+      rejects(
+        "COA-SC-100-II",
+        "The utility should first delete the update logs to reduce system load and then investigate the duplicate confirmations by asking customers to describe what they saw.",
+        "Deleting the most direct technical evidence before investigating makes the later diagnosis weaker and places cleanup before evidence preservation.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { expectedUtility: "HARMFUL" },
+      ),
+    ],
+    expectedAnswerClass: "NEITHER",
+  },
+  {
+    id: "COA-SC-101",
+    qlId: "COA-QL-008",
+    difficulty: "HARD",
+    domain: "BANKING",
+    statement: "A bank's fraud system flags a transfer that has not yet been completed. The customer can be contacted immediately, and the alert by itself does not establish whether the transfer is genuine or fraudulent.",
+    actions: [
+      follows(
+        "COA-SC-101-I",
+        "The bank should first place a temporary hold on the flagged transfer, verify it with the customer through an approved channel, and then either release or stop the transfer based on that verification.",
+        "The sequence limits possible loss while preserving reversibility, then uses verification to decide the final action.",
+        ["ORDERED_RESPONSE", "VERIFY_BEFORE_IRREVERSIBLE_ACTION", "USEFUL_TEMPORARY_SAFEGUARD"],
+      ),
+      rejects(
+        "COA-SC-101-II",
+        "The bank should first permanently close the customer's account because of the alert and then contact the customer to find out whether the transfer had actually been authorised.",
+        "Permanent closure comes before the available verification even though the alert alone does not establish customer misconduct.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { proportionality: "EXCESSIVE", evidenceFit: "UNSUPPORTED" },
+      ),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
+  {
+    id: "COA-SC-102",
+    qlId: "COA-QL-008",
+    difficulty: "MEDIUM",
+    domain: "TRANSPORT",
+    statement: "A passenger bus develops a brake-system warning while in service. A roadworthy replacement bus is nearby, and the warned vehicle can be inspected once passengers are transferred safely.",
+    actions: [
+      rejects(
+        "COA-SC-102-I",
+        "The operator should first complete the remaining passenger route with the warned bus and inspect the brake system after the final stop so that the schedule is not disturbed.",
+        "Continuing the route places schedule completion before an immediate safety check even though a replacement bus is available.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { urgencyFit: "MISMATCHED", expectedUtility: "HARMFUL" },
+      ),
+      follows(
+        "COA-SC-102-II",
+        "The operator should first stop the warned bus safely, transfer passengers to the available replacement, inspect and repair the affected vehicle, and return it to service only after it passes the required check.",
+        "The sequence removes the immediate risk, maintains passenger service and makes inspection a prerequisite for returning the bus to operation.",
+        ["ORDERED_RESPONSE", "USEFUL_TEMPORARY_SAFEGUARD", "DIRECT_REMEDY"],
+      ),
+    ],
+    expectedAnswerClass: "ONLY_II",
+  },
+  {
+    id: "COA-SC-103",
+    qlId: "COA-QL-008",
+    difficulty: "HARD",
+    domain: "LOGISTICS",
+    statement: "A warehouse finds destination mismatches in parcels from one dispatch lane after a scanner fault. Parcels already processed by the lane can be separated before trucks leave, and unaffected lanes are working normally.",
+    actions: [
+      follows(
+        "COA-SC-103-I",
+        "The warehouse should first stop the affected lane, separate parcels processed during the fault, repair or replace the scanner, verify the held parcels and then resume that lane.",
+        "The sequence contains further errors, fixes the known cause, checks the affected parcels and resumes only after the fault is controlled.",
+        ["ORDERED_RESPONSE", "DIRECT_REMEDY", "USEFUL_TEMPORARY_SAFEGUARD"],
+      ),
+      follows(
+        "COA-SC-103-II",
+        "The warehouse should first hold the affected parcels from loading, compare their labels with the dispatch records, correct confirmed mismatches and release only verified parcels to the trucks.",
+        "Holding the parcels before loading prevents wrong dispatches, and verification correctly precedes correction and release.",
+        ["ORDERED_RESPONSE", "VERIFY_BEFORE_IRREVERSIBLE_ACTION"],
+      ),
+    ],
+    expectedAnswerClass: "BOTH",
+  },
+  {
+    id: "COA-SC-104",
+    qlId: "COA-QL-008",
+    difficulty: "HARD",
+    domain: "EDUCATION",
+    statement: "A college discovers that marks from one assessment may have been imported into the wrong subject column. The original marked scripts and import file are available, and admission forms close in two days.",
+    actions: [
+      rejects(
+        "COA-SC-104-I",
+        "The college should first publish revised marks based on an estimate of the likely error and only later compare the original scripts and import file to confirm the correct scores.",
+        "Revised results should follow verification of the source records, not precede it on the basis of an estimate.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { evidenceFit: "UNSUPPORTED" },
+      ),
+      rejects(
+        "COA-SC-104-II",
+        "The college should wait until after the admission deadline to examine the records and then correct any marks found to be wrong.",
+        "The review itself is appropriate, but delaying it until after a known deadline can make the correction ineffective for affected students.",
+        "WRONG_TIMING",
+        { urgencyFit: "MISMATCHED", sequenceFit: "NOT_APPLICABLE", expectedUtility: "LOW" },
+      ),
+    ],
+    expectedAnswerClass: "NEITHER",
+  },
+  {
+    id: "COA-SC-105",
+    qlId: "COA-QL-008",
+    difficulty: "MEDIUM",
+    domain: "PUBLIC_ADMIN",
+    statement: "After maintenance, one floor of a public office has very low water pressure. Valve positions and pressure readings can be checked quickly, and there is no evidence that the building's pumps have failed.",
+    actions: [
+      follows(
+        "COA-SC-105-I",
+        "The maintenance team should first check the relevant valve positions and pressure readings, correct any confirmed setting error and then test the floor again before considering larger equipment replacement.",
+        "The sequence verifies the likely local cause, makes the narrow correction and checks the result before escalating to a broader intervention.",
+        ["ORDERED_RESPONSE", "VERIFY_BEFORE_IRREVERSIBLE_ACTION", "PROPORTIONATE_RESPONSE"],
+      ),
+      rejects(
+        "COA-SC-105-II",
+        "The office should first replace the building's main pumps and only afterwards check whether a maintenance valve had simply been left partly closed.",
+        "Replacing major working equipment before checking the quick local explanation reverses the sensible diagnostic order and is unnecessarily broad.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { proportionality: "EXCESSIVE", evidenceFit: "UNSUPPORTED" },
+      ),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
+  {
+    id: "COA-SC-106",
+    qlId: "COA-QL-008",
+    difficulty: "HARD",
+    domain: "WORKPLACE",
+    statement: "A payroll system shows two salary entries for the same employee in the upcoming payment batch. One entry may be a corrected replacement for the other, and payment can be paused for that employee without delaying the rest of the payroll.",
+    actions: [
+      rejects(
+        "COA-SC-106-I",
+        "The payroll team should first delete one of the two entries based on its timestamp and only afterwards compare the approval history to see which entry was valid.",
+        "Deleting an entry before checking the approval history can remove the valid corrected record and weakens the evidence needed to resolve the duplication.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { evidenceFit: "UNSUPPORTED" },
+      ),
+      follows(
+        "COA-SC-106-II",
+        "The payroll team should first pause the disputed employee payment, compare both entries with the approval history, keep the valid record, remove the confirmed duplicate and then release the payment.",
+        "The sequence contains the immediate payment risk, verifies the records and makes the correction before money is released.",
+        ["ORDERED_RESPONSE", "VERIFY_BEFORE_IRREVERSIBLE_ACTION", "USEFUL_TEMPORARY_SAFEGUARD"],
+      ),
+    ],
+    expectedAnswerClass: "ONLY_II",
+  },
+  {
+    id: "COA-SC-107",
+    qlId: "COA-QL-008",
+    difficulty: "HARD",
+    domain: "CIVIC_SERVICE",
+    statement: "Collection crews miss several streets after a route update because some handheld devices still contain the old route file. The approved master route is correct and can be redistributed before the next round.",
+    actions: [
+      follows(
+        "COA-SC-107-I",
+        "The service should first confirm the approved master route, distribute it to the affected devices, verify that the new file opened correctly and then send crews on the next collection round.",
+        "The authoritative route is confirmed before distribution, and a final device check prevents crews from leaving with another stale file.",
+        ["ORDERED_RESPONSE", "DIRECT_REMEDY", "TARGETED_PREVENTION"],
+      ),
+      follows(
+        "COA-SC-107-II",
+        "The service should first identify the devices still using the old file, update only those devices, test one route lookup on each and then confirm the revised assignment with the affected crews.",
+        "The sequence targets the affected devices, verifies the update before use and closes the communication gap with the crews.",
+        ["ORDERED_RESPONSE", "PROPORTIONATE_RESPONSE", "TARGETED_PREVENTION"],
+      ),
+    ],
+    expectedAnswerClass: "BOTH",
+  },
+  {
+    id: "COA-SC-108",
+    qlId: "COA-QL-008",
+    difficulty: "HARD",
+    domain: "CONSUMER_SERVICE",
+    statement: "A service centre receives several reports that one model of charger may overheat. The reports are credible enough to investigate, but the centre has not yet confirmed whether the fault affects all chargers or only one production batch.",
+    actions: [
+      rejects(
+        "COA-SC-108-I",
+        "The centre should first announce that every charger of the model is defective and demand replacement of all units, then inspect returned samples to determine whether the fault was actually batch-specific.",
+        "A model-wide conclusion and remedy come before the investigation needed to establish the actual scope of the defect.",
+        "CORRECT_ACTION_WRONG_SEQUENCE",
+        { evidenceFit: "UNSUPPORTED", proportionality: "EXCESSIVE" },
+      ),
+      rejects(
+        "COA-SC-108-II",
+        "The centre should continue normal sale and use without any temporary warning or sample check until the next routine monthly quality review, and investigate the overheating reports only then.",
+        "A potentially safety-relevant warning requires prompt containment and investigation; postponing all action until a routine review is the wrong timing.",
+        "WRONG_TIMING",
+        { urgencyFit: "MISMATCHED", sequenceFit: "NOT_APPLICABLE", expectedUtility: "LOW" },
+      ),
+    ],
+    expectedAnswerClass: "NEITHER",
+  },
+]);

@@ -1,0 +1,42 @@
+name: Validate COA CP-011 editorial diversity
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Course-of-Action/COA-001/**"
+      - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cp011-editorial-diversity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle COA CP-011 proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Course-of-Action/COA-001/cp011-final-editorial-diversity-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/course-of-action/cp011-final-editorial-diversity-proof.test.mjs
+      - name: Run COA CP-011 proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/course-of-action/cp011-final-editorial-diversity-proof.test.mjs
