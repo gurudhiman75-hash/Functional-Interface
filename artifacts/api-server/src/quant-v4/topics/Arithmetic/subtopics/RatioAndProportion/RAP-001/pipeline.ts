@@ -31,6 +31,126 @@ import { polishEnglishRapStem } from "../editorial-stem";
 import { stableBucket } from "./math";
 import { curateDefaultQuestionLanguageIds } from "../../../../../common/default-question-language-pool";
 
+type RapTargetedStemVariant = Readonly<{
+  id: string;
+  apply: (stem: string) => string;
+}>;
+
+const RAP_TARGETED_REPEAT_STEM_VARIANTS: Readonly<Record<string, readonly RapTargetedStemVariant[]>> = Object.freeze({
+  "RAP-QL-022": Object.freeze([
+    { id: "source", apply: (stem) => stem },
+    {
+      id: "number-of-coins",
+      apply: (stem) => stem.replace(
+        /how many coins of (.+?) are in the bag\?$/i,
+        "what is the number of coins of $1 in the bag?",
+      ),
+    },
+    {
+      id: "bag-contains",
+      apply: (stem) => stem.replace(
+        /how many coins of (.+?) are in the bag\?$/i,
+        "how many $1 coins does the bag contain?",
+      ),
+    },
+    {
+      id: "coin-count",
+      apply: (stem) => stem.replace(
+        /how many coins of (.+?) are in the bag\?$/i,
+        "what is the count of $1 coins in the bag?",
+      ),
+    },
+  ]),
+  "RAP-QL-028": Object.freeze([
+    { id: "source", apply: (stem) => stem },
+    {
+      id: "quantity-added",
+      apply: (stem) => stem.replace(
+        /How many litres of (.+?) should be added to make the ratio (.+?)\?$/i,
+        "What quantity of $1, in litres, should be added so that the ratio becomes $2?",
+      ),
+    },
+    {
+      id: "litres-required",
+      apply: (stem) => stem.replace(
+        /How many litres of (.+?) should be added to make the ratio (.+?)\?$/i,
+        "Find the quantity of $1, in litres, that must be added to obtain the ratio $2.",
+      ),
+    },
+    {
+      id: "final-ratio",
+      apply: (stem) => stem.replace(
+        /How many litres of (.+?) should be added to make the ratio (.+?)\?$/i,
+        "How much $1 should be added, in litres, for the final ratio to become $2?",
+      ),
+    },
+  ]),
+  "RAP-QL-032": Object.freeze([
+    { id: "source", apply: (stem) => stem },
+    {
+      id: "mixture-percent",
+      apply: (stem) => stem.replace(
+        /What is the percentage of acid in the solution\?$/i,
+        "What percentage of the mixture is acid?",
+      ),
+    },
+    {
+      id: "find-percent",
+      apply: (stem) => stem.replace(
+        /What is the percentage of acid in the solution\?$/i,
+        "Find the percentage of acid in the solution.",
+      ),
+    },
+    {
+      id: "concentration",
+      apply: (stem) => stem.replace(
+        /What is the percentage of acid in the solution\?$/i,
+        "Calculate the acid concentration as a percentage.",
+      ),
+    },
+  ]),
+});
+
+function rapTargetedStemVariantIndex(questionLanguageId: string, seed: string, variantCount: number) {
+  const numericTokens = seed
+    .split(":")
+    .filter((part) => /^\d+$/.test(part))
+    .map(Number);
+
+  if (numericTokens.length >= 2) {
+    const sectionOrdinal = numericTokens[0]!;
+    const slotOrdinal = numericTokens[1]!;
+    return (
+      stableBucket(`${questionLanguageId}:targeted-stem-offset`, variantCount) +
+      sectionOrdinal +
+      Math.floor(sectionOrdinal / 3) +
+      slotOrdinal
+    ) % variantCount;
+  }
+
+  return stableBucket(`${seed}:${questionLanguageId}:targeted-stem`, variantCount);
+}
+
+function applyRapTargetedRepeatStemVariant(
+  questionLanguageId: string,
+  seed: string,
+  stem: string,
+  language: Rap001Language,
+) {
+  if (language !== "en") return stem;
+  const variants = RAP_TARGETED_REPEAT_STEM_VARIANTS[questionLanguageId];
+  if (!variants?.length) return stem;
+  const variantIndex = rapTargetedStemVariantIndex(questionLanguageId, seed, variants.length);
+  const variant = variants[variantIndex]!;
+  const transformed = variant.apply(stem);
+  if (variantIndex > 0 && transformed === stem) {
+    throw new Error(
+      `${questionLanguageId}: RAP targeted stem variant '${variant.id}' did not match the source stem.`,
+    );
+  }
+  return transformed;
+}
+
 function resolveRap001DefaultInput(
   cpId: Rap001CanonicalProblemId,
   input: Rap001ParameterInput,
@@ -103,13 +223,19 @@ export function runRap001Pipeline(
     ).template,
     renderVariables,
   );
-  const stem = polishEnglishRapStem(
+  const polishedStem = polishEnglishRapStem(
     renderStemWithNumericDisplayPolicy(
       renderedStem,
       solver.answer,
       solver.answerType,
       parameters.language,
     ),
+    parameters.language,
+  );
+  const stem = applyRapTargetedRepeatStemVariant(
+    parameters.questionLanguageId,
+    String(resolvedInput.seed ?? ""),
+    polishedStem,
     parameters.language,
   );
   const semanticTrace = buildRap001SemanticTrace(parameters.semanticContext);
