@@ -44,6 +44,14 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
     assert(first.metadata.chapterId === "ENG-003" && first.metadata.cpId === "ENG-003-CP012", `${first.questionId} has wrong ids`);
     assert(first.metadata.reviewOnly === true, `${first.questionId} must remain review-only`);
     assert(allowedRules.has(first.metadata.ruleId), `${first.questionId} uses ineligible rule ${first.metadata.ruleId}`);
+    if (first.metadata.ruleId === "GR-VNR-001") {
+      const wrongs = first.options.filter((_, optionIndex) => optionIndex !== first.correctOptionIndex);
+      assert(!wrongs.some((option) => /\b(?:is|are|was|were) being\b|\bhad been\b/i.test(option)), `${first.questionId} VNR-001 should not use valid alternate passive tenses`);
+    }
+    if (first.metadata.ruleId === "GR-VNR-002") {
+      const wrongs = first.options.filter((_, optionIndex) => optionIndex !== first.correctOptionIndex);
+      assert(!wrongs.some((option) => /\b(?:is|are|was|were) being\b|\b(?:has|have|had) been\b|\bwill have been\b/i.test(option)), `${first.questionId} VNR-002 distractor looks like a valid competing passive chain`);
+    }
     if (first.metadata.ruleId === "GR-VNR-007") {
       assert(first.options.every((option) => /^[A-Za-z]+$/.test(option)), `${first.questionId} pronoun filler should use pronoun-only options`);
     }
