@@ -1,45 +1,49 @@
-# PUN-001 CP004 — ਲਿੰਗ ਅਤੇ ਵਚਨ
+# PUN-001 CP004 Retrofit — ਲਿੰਗ ਅਤੇ ਵਚਨ
 
-Status: **REVIEW ONLY / FORWARD PORT**
+Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
 
-CP004 implements the nine blueprint families for Punjabi gender and number without opening production delivery.
+## Why this retrofit exists
+The earlier forward-port retained 26 gender pairs, 32 number pairs and 12 agreement contexts. This pass re-audits the complete donor without using a target count.
 
-## Authority layer
+## Exhaustive audited authority surface
+- **58 distinct gender concepts**
+- **66 distinct number concepts**
+- **12 reviewed agreement contexts**
+- **136 total atomic authorities**
+- **39 direct-transform-safe gender pairs**
+- **59 direct-transform-safe number pairs**
+- **1,862 governed semantic combinations**
 
-- 26 audited gender pairs
-- 20 rule-safe gender pairs used by direct transformation family
-- 32 audited singular/plural pairs
-- 12 contextual agreement authorities
-- every authority remains `REVIEW_PENDING`
+Raw donor:
+- 90 gender rows
+- 70 number rows
+- 8 oblique-case records
 
-## Implemented families
+The oblique-case records remain outside CP004 because they belong to case grammar.
 
-- `F01` — change gender
-- `F02` — identify correct gender pair
-- `F03` — identify mismatched gender pair
-- `F04` — singular to plural
-- `F05` — plural to singular
-- `F06` — identify correct number pair
-- `F07` — contextual gender/number usage
-- `F08` — agreement error correction
-- `F09` — statement-pair correctness
+## Quality filtering
+Duplicate donor rows are collapsed by lexical concept rather than counted repeatedly.
 
-## Human-quality hardening
+Excluded gender mappings include ambiguous or non-gender relations such as:
+- ਵਰ — ਕੰਨਿਆ / ਵਧੂ
+- ਜਵਾਈ — ਧੀ
+- ਤੋਤਾ — ਮੈਨਾ
+- ਸੁਨਿਆਰ — ਸੁਨਿਆਰੀ / ਸੁਨਿਆਰਨ ambiguity
+- ਸੰਤ — ਸੰਤਣੀ
+- ਊਠ — ਊਠਣੀ where the audited lexical counterpart ਊਠ — ਡਾਚੀ is retained
 
-- fabricated suffix-based distractors were removed from the authority layer
-- direct gender options now use canonical forms from the same semantic domain
-- direct number options now use canonical forms from the same inflection-rule group
-- `F03` wrong gender pairs are constrained to the same semantic domain instead of arbitrary cross-category mismatches
-- all nine families use deterministic pools of natural exam-style stem instructions instead of repeating one fixed instruction
-- direct gender and number families rotate forms such as `‘X’ ਦਾ ... ਕਿਹੜਾ ਹੈ?`, `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ... ਚੁਣੋ`, `‘X’ ਸ਼ਬਦ ਦਾ ... ਕੀ ਹੈ?`, and `... ਪਛਾਣੋ`
-- contextual families remain sentence-derived and Punjabi-only
+Excluded weak number mappings:
+- ਮੇਜ਼ — ਮੇਜ਼ਾਂ
+- ਬਾਤ — ਬਾਤਾਂ
+- ਬਲਾ — ਬਲਾਵਾਂ
 
-## Quality gates
+Invariable number authorities are retained as valid grammatical authorities but are excluded from direct change-form families.
 
-`CP004.test.ts` exhaustively walks the declared semantic capacity and checks four unique options, deterministic metadata, Punjabi-only stems/explanations, authority traceability, semantic-neighbour distractor constraints, no generic stem clutter, no option-by-option explanation filler, review-only lifecycle, and cross-family fingerprint uniqueness.
+## Families
+The previously reviewed nine-family architecture is retained:
+F01 gender change; F02 correct gender pair; F03 mismatched gender pair; F04 singular→plural; F05 plural→singular; F06 correct number pair; F07 contextual agreement; F08 agreement correction; F09 two-statement agreement verification.
 
-Declared semantic capacity: **904** distinct content combinations before option-order permutations. The previous 1,400 figure was reduced deliberately when low-quality cross-domain mismatch combinations were removed.
+## Lifecycle
+The previous CP004 approval does not cover this material retrofit. Fresh owner approval is required on the exact reviewed head.
 
-`export-review.ts` produces a 240-question review pack with an 80/80/80 Easy/Medium/Hard split.
-
-No Question Bank, test, mock, or public delivery gate is enabled by this checkpoint.
+No Question Bank, Question Studio, test/mock or public delivery promotion is authorized.
