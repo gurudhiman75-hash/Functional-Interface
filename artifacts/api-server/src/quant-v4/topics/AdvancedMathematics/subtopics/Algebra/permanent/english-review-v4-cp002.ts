@@ -94,23 +94,27 @@ function explanationFor(mode: AlgCp002ReviewMode, k: number, answer: Rational): 
     return [
       `We are given x + 1/x = ${k}.`,
       "Square both sides: (x + 1/x)² = x² + 2 + 1/x².",
-      `So x² + 1/x² = ${k}² - 2 = ${k * k} - 2.`,
-      `Therefore x² + 1/x² = ${formatRational(answer)}.`,
+      `The left side becomes ${k}² = ${k * k}.`,
+      "Now subtract 2 from both sides to isolate x² + 1/x².",
+      `Therefore x² + 1/x² = ${k * k} - 2 = ${formatRational(answer)}.`,
     ].join(" ");
   }
   if (mode === "RECIPROCAL_SQUARE_MINUS") {
     return [
       `We are given x - 1/x = ${k}.`,
       "Square both sides: (x - 1/x)² = x² - 2 + 1/x².",
-      `Hence x² + 1/x² = ${k}² + 2 = ${k * k} + 2.`,
-      `Therefore x² + 1/x² = ${formatRational(answer)}.`,
+      `The left side becomes ${k}² = ${k * k}.`,
+      "Add 2 to both sides to isolate x² + 1/x².",
+      `Therefore x² + 1/x² = ${k * k} + 2 = ${formatRational(answer)}.`,
     ].join(" ");
   }
   return [
     `We are given x - 1/x = ${k}.`,
-    "Use (x - 1/x)³ = x³ - 1/x³ - 3(x - 1/x).",
-    `Rearranging gives x³ - 1/x³ = ${k}³ + 3(${k}).`,
-    `Thus x³ - 1/x³ = ${k * k * k} + ${3 * k} = ${formatRational(answer)}.`,
+    "Cube the relation using (a - b)³ = a³ - b³ - 3ab(a - b).",
+    "Here a = x and b = 1/x, so ab = 1.",
+    "Thus (x - 1/x)³ = x³ - 1/x³ - 3(x - 1/x).",
+    `Move the last term to the other side: x³ - 1/x³ = ${k}³ + 3(${k}).`,
+    `Hence x³ - 1/x³ = ${k * k * k} + ${3 * k} = ${formatRational(answer)}.`,
   ].join(" ");
 }
 
