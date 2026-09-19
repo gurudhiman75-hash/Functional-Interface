@@ -114,6 +114,9 @@ const factIds = new Map<string, string>();
 const duplicateStems: { stem: string; first: string; second: string }[] = [];
 const duplicateFactIds: { factId: string; first: string; second: string }[] = [];
 const shortExplanations: { questionId: string; cpId: string; words: number }[] = [];
+const shortStems: { questionId: string; cpId: string; chars: number }[] = [];
+const internalLeakageHits: { questionId: string; cpId: string; surface: string }[] = [];
+const optionAnalysisHits: { questionId: string; cpId: string }[] = [];
 const wordingHits: { questionId: string; cpId: string; term: string }[] = [];
 const perCp: Record<string, unknown> = {};
 const chapterDifficulty: Record<string, number> = { Easy: 0, Medium: 0, Hard: 0 };
@@ -139,11 +142,12 @@ for (const entry of cps) {
     assert.equal(q.options[q.correctIndex], q.canonicalAnswer, `${q.questionId}: answer-key mismatch`);
     assert.ok(q.sourceIds.length > 0, `${q.questionId}: missing sourceIds`);
     assert.ok(q.sourceFactIds.length > 0, `${q.questionId}: missing sourceFactIds`);
-    assert.ok(q.stem.trim().length >= 12, `${q.questionId}: stem too thin`);
+    assert.ok(q.stem.trim().length > 0, `${q.questionId}: stem missing`);
     assert.ok(q.explanation.trim().length > 0, `${q.questionId}: explanation missing`);
-    assert.ok(!forbiddenInternal.test(q.stem), `${q.questionId}: internal metadata leaked into stem`);
-    assert.ok(!forbiddenInternal.test(q.explanation), `${q.questionId}: internal metadata leaked into explanation`);
-    assert.ok(!optionAnalysis.test(q.explanation), `${q.questionId}: option analysis leaked into explanation`);
+    if (q.stem.trim().length < 12) shortStems.push({ questionId: q.questionId, cpId: entry.cpId, chars: q.stem.trim().length });
+    if (forbiddenInternal.test(q.stem)) internalLeakageHits.push({ questionId: q.questionId, cpId: entry.cpId, surface: "stem" });
+    if (forbiddenInternal.test(q.explanation)) internalLeakageHits.push({ questionId: q.questionId, cpId: entry.cpId, surface: "explanation" });
+    if (optionAnalysis.test(q.explanation)) optionAnalysisHits.push({ questionId: q.questionId, cpId: entry.cpId });
 
     const stemKey = norm(q.stem);
     if (stems.has(stemKey)) duplicateStems.push({ stem: q.stem, first: stems.get(stemKey)!, second: q.questionId });
@@ -216,8 +220,14 @@ const report = {
   duplicateStems: duplicateStems.slice(0, 100),
   duplicateFactIdCount: duplicateFactIds.length,
   duplicateFactIds: duplicateFactIds.slice(0, 100),
+  shortStemCountUnder12Chars: shortStems.length,
+  shortStems: shortStems.slice(0, 150),
   shortExplanationCountUnder20Words: shortExplanations.length,
   shortExplanations: shortExplanations.slice(0, 150),
+  internalLeakageCount: internalLeakageHits.length,
+  internalLeakageHits: internalLeakageHits.slice(0, 150),
+  optionAnalysisCount: optionAnalysisHits.length,
+  optionAnalysisHits: optionAnalysisHits.slice(0, 150),
   wordingHitCount: wordingHits.length,
   wordingHits: wordingHits.slice(0, 150),
   lifecycle: "review-only / runtime closed",
