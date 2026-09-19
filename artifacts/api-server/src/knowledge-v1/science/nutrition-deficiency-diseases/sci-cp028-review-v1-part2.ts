@@ -193,7 +193,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
     ],
     "Low iodine intake can cause goitre, an enlargement of the thyroid gland.",
     [
-      "IODINE-GOITRE"
+      "NUTRITION-IODINE-GOITRE"
     ]
   ],
   [
