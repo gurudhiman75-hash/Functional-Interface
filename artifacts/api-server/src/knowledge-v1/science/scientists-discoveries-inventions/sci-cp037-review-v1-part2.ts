@@ -1,0 +1,229 @@
+import type { KnowledgeV1Difficulty } from "../../types";
+export type SciCp037ReviewSpec = readonly [number, KnowledgeV1Difficulty, string, string, readonly [string,string,string], string, readonly string[]];
+export const PART_2: readonly SciCp037ReviewSpec[] = [
+  [
+    3,
+    "Medium",
+    "The atomic nucleus was revealed through the gold-foil experiment led by:",
+    "Ernest Rutherford",
+    [
+      "J. J. Thomson",
+      "Max Planck",
+      "Wilhelm Röntgen"
+    ],
+    "Rutherford's scattering experiment showed that most positive charge and mass are concentrated in a tiny nucleus.",
+    [
+      "RUTHERFORD-NUCLEUS"
+    ]
+  ],
+  [
+    3,
+    "Medium",
+    "The neutron was discovered by:",
+    "James Chadwick",
+    [
+      "Niels Bohr",
+      "Henri Becquerel",
+      "Albert Einstein"
+    ],
+    "Chadwick identified the neutron as an electrically neutral particle in the atomic nucleus.",
+    [
+      "CHADWICK-NEUTRON"
+    ]
+  ],
+  [
+    3,
+    "Hard",
+    "Which pair is correctly distinguished?",
+    "Becquerel — natural radioactivity; Röntgen — X-rays",
+    [
+      "Röntgen — neutron; Chadwick — X-rays",
+      "Rutherford — electron; Thomson — nucleus",
+      "Bohr — radioactivity; Becquerel — atomic model"
+    ],
+    "Becquerel discovered natural radioactivity, whereas Röntgen discovered X-rays.",
+    [
+      "BECQUEREL-RONTGEN-DISTINCTION"
+    ]
+  ],
+  [
+    4,
+    "Easy",
+    "The periodic table is most closely associated with:",
+    "Dmitri Mendeleev",
+    [
+      "John Dalton",
+      "Antoine Lavoisier",
+      "Amedeo Avogadro"
+    ],
+    "Mendeleev organized elements into a periodic table and predicted properties of undiscovered elements.",
+    [
+      "MENDELEEV-PERIODIC-TABLE"
+    ]
+  ],
+  [
+    4,
+    "Easy",
+    "The modern atomic theory of matter is strongly associated with:",
+    "John Dalton",
+    [
+      "Robert Hooke",
+      "Louis Pasteur",
+      "Charles Darwin"
+    ],
+    "Dalton proposed an influential atomic theory explaining matter in terms of atoms.",
+    [
+      "DALTON-ATOMIC-THEORY"
+    ]
+  ],
+  [
+    4,
+    "Medium",
+    "The law of conservation of mass in chemistry is closely associated with:",
+    "Antoine Lavoisier",
+    [
+      "Dmitri Mendeleev",
+      "Alfred Nobel",
+      "Fritz Haber"
+    ],
+    "Lavoisier's quantitative experiments helped establish conservation of mass in chemical reactions.",
+    [
+      "LAVOISIER-CONSERVATION-MASS"
+    ]
+  ],
+  [
+    4,
+    "Medium",
+    "Avogadro's hypothesis connects equal volumes of gases at the same temperature and pressure with equal numbers of:",
+    "Molecules",
+    [
+      "Neutrons",
+      "Electrons only",
+      "Atomic nuclei only"
+    ],
+    "Amedeo Avogadro proposed that equal gas volumes under the same conditions contain equal numbers of molecules.",
+    [
+      "AVOGADRO-HYPOTHESIS"
+    ]
+  ],
+  [
+    4,
+    "Medium",
+    "The industrial synthesis of ammonia by combining nitrogen and hydrogen is associated with the:",
+    "Haber process",
+    [
+      "Solvay process",
+      "Hall process",
+      "Bessemer process"
+    ],
+    "Fritz Haber developed the chemical basis for ammonia synthesis; industrial implementation was later scaled by Carl Bosch.",
+    [
+      "HABER-AMMONIA"
+    ]
+  ],
+  [
+    4,
+    "Hard",
+    "Which statement gives the more accurate historical match?",
+    "Haber developed ammonia synthesis chemistry, while Bosch helped develop the large-scale industrial process",
+    [
+      "Bosch discovered the electron and Haber the neutron",
+      "Haber created the periodic table alone",
+      "Mendeleev invented the Haber process"
+    ],
+    "The ammonia process is commonly called Haber–Bosch because Haber developed the chemistry and Bosch helped industrialize it.",
+    [
+      "HABER-BOSCH-DISTINCTION"
+    ]
+  ],
+  [
+    5,
+    "Easy",
+    "The term 'cell' was introduced after microscopic observations by:",
+    "Robert Hooke",
+    [
+      "Louis Pasteur",
+      "Robert Koch",
+      "Anton van Leeuwenhoek"
+    ],
+    "Hooke used the term 'cell' after observing compartments in cork.",
+    [
+      "HOOKE-CELL"
+    ]
+  ],
+  [
+    5,
+    "Easy",
+    "Early observations of living microorganisms with microscopes are associated with:",
+    "Anton van Leeuwenhoek",
+    [
+      "Robert Hooke",
+      "Charles Darwin",
+      "Gregor Mendel"
+    ],
+    "Leeuwenhoek observed microorganisms such as bacteria and protozoa using powerful simple microscopes.",
+    [
+      "LEEUWENHOEK-MICROORGANISMS"
+    ]
+  ],
+  [
+    5,
+    "Medium",
+    "Pasteurization is named after:",
+    "Louis Pasteur",
+    [
+      "Robert Koch",
+      "Edward Jenner",
+      "Alexander Fleming"
+    ],
+    "Pasteur developed heat-treatment methods to reduce spoilage-causing and harmful microorganisms.",
+    [
+      "PASTEUR-PASTEURIZATION"
+    ]
+  ],
+  [
+    5,
+    "Medium",
+    "Robert Koch is remembered for work showing that specific microorganisms can cause:",
+    "Specific diseases",
+    [
+      "Planetary motion",
+      "Radioactivity",
+      "Inheritance of pea traits"
+    ],
+    "Koch's work linked particular microorganisms with particular infectious diseases.",
+    [
+      "KOCH-DISEASE-MICROBES"
+    ]
+  ],
+  [
+    5,
+    "Medium",
+    "Which scientist's swan-neck flask experiments supported the idea that microorganisms do not arise spontaneously from sterile broth?",
+    "Louis Pasteur",
+    [
+      "Gregor Mendel",
+      "Robert Brown",
+      "Isaac Newton"
+    ],
+    "Pasteur's experiments showed that microbial growth came from contamination rather than spontaneous generation.",
+    [
+      "PASTEUR-SWAN-NECK"
+    ]
+  ],
+  [
+    5,
+    "Hard",
+    "Which distinction is correct?",
+    "Hooke named cells from cork observations; Leeuwenhoek observed living microorganisms",
+    [
+      "Leeuwenhoek discovered X-rays; Hooke discovered radioactivity",
+      "Hooke developed vaccination; Leeuwenhoek discovered insulin",
+      "Both scientists are known for the periodic table"
+    ],
+    "Hooke described cork compartments as cells, while Leeuwenhoek later observed living microscopic organisms.",
+    [
+      "HOOKE-LEEUWENHOEK-DISTINCTION"
+    ]
+  ]
+] as const;
