@@ -1,15 +1,18 @@
 {
   "cpId":"PUN-001-CP011",
+  "phase":"RETROFIT",
   "status":"HUMAN_REVIEW_PENDING",
-  "total":120,
+  "authorityInventory":{"idioms":170,"safeOrderedPairs":28344},
+  "semanticCapacity":170914,
+  "totalReviewQuestions":120,
   "difficulty":{"Easy":40,"Medium":40,"Hard":40},
   "families":{"F01":20,"F02":20,"F03":10,"F04":10,"F05":10,"F06":10,"F07":20,"F08":20},
   "requirements":[
     "all 8 families represented",
     "all 4 F08 truth outcomes represented",
-    "unique semantic fingerprints",
-    "authored contexts for F03",
-    "Punjabi-only learner stems and explanations",
+    "all retained idioms reachable through applicable families",
+    "near-equivalent meanings excluded from false-option pairing",
+    "Punjabi-only learner text",
     "REVIEW_ONLY lifecycle"
   ]
 }
