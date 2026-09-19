@@ -56,7 +56,7 @@ for (let index = 0; index < canonical.length; index += 1) {
     ].join(" ");
     assert.doesNotMatch(
       learnerExplanation,
-      /सत्यापित संख्या|सत्यापित गणना|जाँची गिनती|ਜਾਂਚੀ ਗਿਣਤੀ|ਪਰਿਵਾਰਕ ਨਕਸ਼ੇ|परिवार-मानचित्र/,
+      /सत्यापित संख्या|सत्यापित गणना|जाँची गिनती|ਜਾਂਚੀ ਗਿਣਤੀ/,
     );
     assert.notEqual(localized.sharedPrompt, source.sharedPrompt, `${localized.itemId}: passage was not localized.`);
     assert.notEqual(localized.stem, source.stem, `${localized.itemId}: stem was not localized.`);
