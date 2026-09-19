@@ -99,6 +99,35 @@ function blankSurface(prefix: string, suffix: string, punctuation: string) {
   return `${[prefix, "_____", suffix].filter(Boolean).join(" ")}${punctuation}`;
 }
 
+const PRONOUN_DISTRACTORS: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  his: ["her", "their", "my"],
+  her: ["his", "their", "my"],
+  my: ["his", "her", "their"],
+  your: ["his", "her", "their"],
+  their: ["his", "her", "my"],
+  she: ["he", "they", "I"],
+  he: ["she", "they", "I"],
+  they: ["he", "she", "we"],
+  him: ["her", "them", "me"],
+  them: ["him", "her", "us"],
+  our: ["their", "his", "my"],
+});
+
+function lastPronoun(text: string) {
+  const matches = [...text.matchAll(/\b(she|he|her|him|his|my|your|their|they|them|our)\b/gi)];
+  const match = matches.at(-1);
+  if (!match) throw new Error(`No pronoun focus found in ${text}`);
+  return match[0]!.toLowerCase();
+}
+
+function replaceLastWord(text: string, word: string, replacement: string) {
+  const regex = new RegExp(`\\b${word}\\b`, "gi");
+  const matches = [...text.matchAll(regex)];
+  const match = matches.at(-1);
+  if (!match || match.index == null) throw new Error(`Could not focus ${word} in ${text}`);
+  return `${text.slice(0, match.index)}${replacement}${text.slice(match.index + match[0]!.length)}`;
+}
+
 const SIMPLE_CONCEPT: Readonly<Record<VoiceNarrationRuleId, string>> = Object.freeze({
   "GR-VNR-001": "In the passive voice, use a form of 'be' followed by the past participle.",
   "GR-VNR-002": "A passive sentence must keep the correct tense through its helping verbs.",
@@ -170,13 +199,23 @@ export function generateEng003Cp012QuestionV1(input: GenerateEng003Cp012V1Input)
   const keys = new Set([correctTarget.toLowerCase(), ...distractors.map((value) => value.toLowerCase())]);
   if (keys.size !== 4) throw new Error(`${correction.questionId} does not provide four unique voice/narration choices`);
 
-  const factored = factorSharedChoiceContext([correctTarget, ...distractors]);
-  const [correctChoice, ...distractorChoices] = factored.cores;
-  if (!correctChoice || distractorChoices.length !== 3) throw new Error(`${correction.questionId} lost its factored choices`);
-
+  let correctChoice: string;
+  let distractorChoices: string[];
   const blankSegments = [...correction.segments];
-  const punctuation = trailingPunctuation(blankSegments[correction.targetIndex]!);
-  blankSegments[correction.targetIndex] = blankSurface(factored.prefix, factored.suffix, punctuation);
+
+  if (correction.metadata.ruleId === "GR-VNR-007") {
+    correctChoice = lastPronoun(correctTarget);
+    distractorChoices = [...(PRONOUN_DISTRACTORS[correctChoice] ?? ["his", "her", "their"])].filter((value) => value !== correctChoice).slice(0, 3);
+    if (distractorChoices.length !== 3) throw new Error(`${correction.questionId} lacks pronoun distractors`);
+    blankSegments[correction.targetIndex] = replaceLastWord(blankSegments[correction.targetIndex]!, correctChoice, "_____");
+  } else {
+    const factored = factorSharedChoiceContext([correctTarget, ...distractors]);
+    [correctChoice, ...distractorChoices] = factored.cores;
+    if (!correctChoice || distractorChoices.length !== 3) throw new Error(`${correction.questionId} lost its factored choices`);
+    const punctuation = trailingPunctuation(blankSegments[correction.targetIndex]!);
+    blankSegments[correction.targetIndex] = blankSurface(factored.prefix, factored.suffix, punctuation);
+  }
+
   const sentence = sentenceFromSegments(blankSegments);
   const { options, correctOptionIndex } = placeOptions(input.seed, correctChoice, distractorChoices);
   const reconstructed = materializeEng003Cp012AnswerV1(blankSegments, correction.targetIndex, options[correctOptionIndex]!);
