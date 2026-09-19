@@ -15,6 +15,8 @@ import {
   generateEcoCp012LocalizedReviewV1,
   generateEcoCp013LocalizedReviewV1,
   generateEcoCp014LocalizedReviewV1,
+  generateEcoCp015LocalizedReviewV1,
+  generateEcoCp016LocalizedReviewV1,
 } from "./eco-localization-generator-v1";
 import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
 
@@ -23,7 +25,7 @@ const locales: EcoLocaleV1[] = ["en", "hi", "pa"];
 const targetDir = path.resolve("dist/economy-review/ECO-MULTILINGUAL-V1");
 fs.mkdirSync(targetDir, { recursive: true });
 
-type Cp = "ECO-CP-001" | "ECO-CP-002" | "ECO-CP-003" | "ECO-CP-004" | "ECO-CP-005" | "ECO-CP-006" | "ECO-CP-007" | "ECO-CP-008" | "ECO-CP-009" | "ECO-CP-010" | "ECO-CP-011" | "ECO-CP-012" | "ECO-CP-013" | "ECO-CP-014";
+type Cp = "ECO-CP-001" | "ECO-CP-002" | "ECO-CP-003" | "ECO-CP-004" | "ECO-CP-005" | "ECO-CP-006" | "ECO-CP-007" | "ECO-CP-008" | "ECO-CP-009" | "ECO-CP-010" | "ECO-CP-011" | "ECO-CP-012" | "ECO-CP-013" | "ECO-CP-014" | "ECO-CP-015" | "ECO-CP-016";
 
 function renderQuestion(question: EcoLocalizedQuestionV1, index: number): string[] {
   const out = [`**${index + 1}. ${question.stem}**`];
@@ -47,7 +49,9 @@ function questionsFor(cp: Cp, locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
   if (cp === "ECO-CP-011") return generateEcoCp011LocalizedReviewV1(locale);
   if (cp === "ECO-CP-012") return generateEcoCp012LocalizedReviewV1(locale);
   if (cp === "ECO-CP-013") return generateEcoCp013LocalizedReviewV1(locale);
-  return generateEcoCp014LocalizedReviewV1(locale);
+  if (cp === "ECO-CP-014") return generateEcoCp014LocalizedReviewV1(locale);
+  if (cp === "ECO-CP-015") return generateEcoCp015LocalizedReviewV1(locale);
+  return generateEcoCp016LocalizedReviewV1(locale);
 }
 
 function materialize(cps: readonly Cp[], title: string, filename: string) {
@@ -82,3 +86,5 @@ materialize(["ECO-CP-009", "ECO-CP-010"], "CP009–CP010", "ECO-MULTILINGUAL-V1-
 materialize(["ECO-CP-011", "ECO-CP-012"], "CP011–CP012", "ECO-MULTILINGUAL-V1-CP011-CP012-REVIEW.md");
 
 materialize(["ECO-CP-013", "ECO-CP-014"], "CP013–CP014", "ECO-MULTILINGUAL-V1-CP013-CP014-REVIEW.md");
+
+materialize(["ECO-CP-015", "ECO-CP-016"], "CP015–CP016", "ECO-MULTILINGUAL-V1-CP015-CP016-REVIEW.md");
