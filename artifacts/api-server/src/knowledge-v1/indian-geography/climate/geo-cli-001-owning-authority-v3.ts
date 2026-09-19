@@ -208,14 +208,14 @@ const QUALITY_PATCHES_V3: Readonly<Record<string, QualityPatch>> = Object.freeze
       "Summer — westerly flow only; retreating season — westerly flow only",
       "Summer — southeasterly continental flow; retreating season — northwesterly oceanic flow"
     ],
-    "explanation": "The summer monsoon reaches India mainly as southwesterly flow, while the retreating or cooler-season circulation turns northeasterly. The contrast reflects the seasonal reversal of the monsoon."
+    "explanation": "The summer monsoon reaches India as southwesterly flow, while the retreating or cooler-season circulation turns northeasterly. The contrast reflects the seasonal reversal of the monsoon."
   },
   "GEO-CLI-001-CP011-Q023": {
     "stem": "Which agricultural contrast correctly follows from the two cool-season rainfall patterns?",
     "canonicalAnswer": "Northwest winter rain can support rabi crops; southeast rain is an important seasonal water source",
     "options": [
       "Northwest winter rain can support rabi crops; southeast rain is an important seasonal water source",
-      "Northwest winter rain starts kharif sowing; southeast rain mainly produces snowfall",
+      "Northwest winter rain starts kharif sowing; southeast rain produces snowfall",
       "Both rainfall patterns occur only in June-July and support the same crop season",
       "Neither rainfall pattern has an important agricultural or water-supply role"
     ],
