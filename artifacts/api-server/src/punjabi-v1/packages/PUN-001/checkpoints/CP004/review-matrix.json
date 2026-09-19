@@ -1,26 +1,25 @@
 {
-  "cpId": "PUN-001-CP004",
-  "status": "REVIEW_ONLY",
-  "topic": "ਲਿੰਗ ਅਤੇ ਵਚਨ",
-  "authorityStatus": "REVIEW_PENDING",
-  "families": [
-    { "familyId": "F01", "difficulty": "Easy", "reviewCount": 20 },
-    { "familyId": "F02", "difficulty": "Easy", "reviewCount": 20 },
-    { "familyId": "F03", "difficulty": "Medium", "reviewCount": 44 },
-    { "familyId": "F04", "difficulty": "Easy", "reviewCount": 20 },
-    { "familyId": "F05", "difficulty": "Easy", "reviewCount": 20 },
-    { "familyId": "F06", "difficulty": "Medium", "reviewCount": 24 },
-    { "familyId": "F07", "difficulty": "Medium", "reviewCount": 12 },
-    { "familyId": "F08", "difficulty": "Hard", "reviewCount": 32 },
-    { "familyId": "F09", "difficulty": "Hard", "reviewCount": 48 }
-  ],
-  "distribution": { "Easy": 80, "Medium": 80, "Hard": 80, "total": 240 },
-  "semanticCapacity": 904,
-  "humanQualityHardening": {
-    "fabricatedDirectDistractorsRemoved": true,
-    "genderDistractorsSameDomain": true,
-    "numberDistractorsSameRuleGroup": true,
-    "genderMismatchPairsSameDomain": true
+  "cpId":"PUN-001-CP004",
+  "phase":"RETROFIT",
+  "status":"HUMAN_REVIEW_PENDING",
+  "authorityInventory":{
+    "genderConcepts":58,
+    "transformSafeGender":39,
+    "numberConcepts":66,
+    "directSafeNumber":59,
+    "agreementContexts":12,
+    "totalAtomic":136
   },
-  "productionPromotion": false
+  "semanticCapacity":1862,
+  "totalReviewQuestions":120,
+  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
+  "families":{"F01":10,"F02":10,"F03":16,"F04":10,"F05":10,"F06":12,"F07":12,"F08":20,"F09":20},
+  "requirements":[
+    "all 9 families represented",
+    "all retained authorities reachable through applicable families",
+    "invariable number authorities excluded from direct transformation",
+    "Punjabi-only learner text",
+    "unique semantic fingerprints",
+    "REVIEW_ONLY lifecycle"
+  ]
 }
