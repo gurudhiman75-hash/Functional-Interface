@@ -166,16 +166,114 @@ function relationMatches(exact: string, target: BlrCp005RelationAnswerId): boole
   return exact === target || broadRelation(exact as never) === target;
 }
 
+const FEMININE_RELATIONS = new Set<string>([
+  "MOTHER",
+  "DAUGHTER",
+  "SISTER",
+  "WIFE",
+  "GRANDMOTHER",
+  "GRANDDAUGHTER",
+  "GREAT_GRANDMOTHER",
+  "GREAT_GRANDDAUGHTER",
+  "AUNT",
+  "NIECE",
+  "MOTHER_IN_LAW",
+  "DAUGHTER_IN_LAW",
+  "SISTER_IN_LAW",
+]);
+
+function relationSentence(
+  subject: string,
+  reference: string,
+  relationId: BlrCp005RelationAnswerId | string,
+  locale: Locale,
+): string {
+  const relation = localizedRelationLabel(relationId, locale);
+
+  if (relationId === "PARENT") {
+    return localeText(
+      locale,
+      `${subject}, ${reference} के माता-पिता में से एक है।`,
+      `${subject}, ${reference} ਦੇ ਮਾਤਾ-ਪਿਤਾ ਵਿੱਚੋਂ ਇੱਕ ਹੈ।`,
+    );
+  }
+  if (relationId === "CHILD") {
+    return localeText(
+      locale,
+      `${subject}, ${reference} की संतान है।`,
+      `${subject}, ${reference} ਦੀ ਸੰਤਾਨ ਹੈ।`,
+    );
+  }
+  if (relationId === "GRANDPARENT") {
+    return localeText(
+      locale,
+      `${subject}, ${reference} के दादा-दादी/नाना-नानी में से एक है।`,
+      `${subject}, ${reference} ਦੇ ਦਾਦਾ-ਦਾਦੀ/ਨਾਨਾ-ਨਾਨੀ ਵਿੱਚੋਂ ਇੱਕ ਹੈ।`,
+    );
+  }
+  if (relationId === "GREAT_GRANDPARENT") {
+    return localeText(
+      locale,
+      `${subject}, ${reference} के परदादा-परदादी/परनाना-परनानी में से एक है।`,
+      `${subject}, ${reference} ਦੇ ਪਰਦਾਦਾ-ਪਰਦਾਦੀ/ਪਰਨਾਨਾ-ਪਰਨਾਨੀ ਵਿੱਚੋਂ ਇੱਕ ਹੈ।`,
+    );
+  }
+  if (relationId === "PARENT_IN_LAW") {
+    return localeText(
+      locale,
+      `${subject}, ${reference} के सास-ससुर में से एक है।`,
+      `${subject}, ${reference} ਦੇ ਸੱਸ-ਸਹੁਰੇ ਵਿੱਚੋਂ ਇੱਕ ਹੈ।`,
+    );
+  }
+  if (relationId === "SIBLING_IN_LAW") {
+    return localeText(
+      locale,
+      `${subject}, विवाह के संबंध से ${reference} का भाई या बहन है।`,
+      `${subject}, ਵਿਆਹ ਦੇ ਰਿਸ਼ਤੇ ਰਾਹੀਂ ${reference} ਦਾ ਭਰਾ ਜਾਂ ਭੈਣ ਹੈ।`,
+    );
+  }
+
+  const feminine = FEMININE_RELATIONS.has(relationId);
+  return localeText(
+    locale,
+    `${subject}, ${reference} ${feminine ? "की" : "का"} ${relation} है।`,
+    `${subject}, ${reference} ${feminine ? "ਦੀ" : "ਦਾ"} ${relation} ਹੈ।`,
+  );
+}
+
+function sideRelationSentence(
+  subject: string,
+  reference: string,
+  relationId: BlrCp005RelationAnswerId | string,
+  side: string,
+  locale: Locale,
+): string {
+  const relation = localizedRelationLabel(relationId, locale);
+  return localeText(
+    locale,
+    `${subject}, ${reference} के ${side} ${relation} है।`,
+    `${subject}, ${reference} ਦੇ ${side} ${relation} ਹੈ।`,
+  );
+}
+
 function renderPredicate(record: GeneratedBlrCp005Question, predicate: BlrCp005Predicate, locale: Locale): string {
   const name = nameGetter(record, locale);
   if (predicate.kind === "RELATION") {
-    const relation = localizedRelationLabel(predicate.relationId, locale);
-    return localeText(locale, `${name(predicate.subjectId)} ${name(predicate.referenceId)} का ${relation} है।`, `${name(predicate.subjectId)} ${name(predicate.referenceId)} ਦਾ ${relation} ਹੈ।`);
+    return relationSentence(
+      name(predicate.subjectId),
+      name(predicate.referenceId),
+      predicate.relationId,
+      locale,
+    );
   }
   if (predicate.kind === "SIDE_RELATION") {
-    const relation = localizedRelationLabel(predicate.relationId, locale);
-    const side = localizedLineageSide(predicate.lineageSide, locale);
-    return localeText(locale, `${name(predicate.subjectId)} ${name(predicate.referenceId)} का ${side} ${relation} है।`, `${name(predicate.subjectId)} ${name(predicate.referenceId)} ਦਾ ${side} ${relation} ਹੈ।`);
+    return sideRelationSentence(
+      name(predicate.subjectId),
+      name(predicate.referenceId),
+      predicate.relationId,
+      localizedLineageSide(predicate.lineageSide, locale),
+      locale,
+    );
   }
   if (predicate.kind === "GENDER") {
     return localeText(locale, `${name(predicate.personId)} ${localizedGender(predicate.gender, locale)} है।`, `${name(predicate.personId)} ${localizedGender(predicate.gender, locale)} ਹੈ।`);
@@ -218,8 +316,8 @@ function localizedModelAudit(record: GeneratedBlrCp005Question, locale: Locale):
       const exact = relationInModel(model, query.subjectId, query.referenceId);
       lines.push(localeText(
         locale,
-        `स्थिति ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ${name(query.subjectId)}, ${name(query.referenceId)} का ${localizedRelationLabel(exact, locale)} है।`,
-        `ਸਥਿਤੀ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ${name(query.subjectId)}, ${name(query.referenceId)} ਦਾ ${localizedRelationLabel(exact, locale)} ਹੈ।`,
+        `स्थिति ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ${relationSentence(name(query.subjectId), name(query.referenceId), exact, locale)}`,
+        `ਸਥਿਤੀ ${index + 1} (${assignmentSummary(record, model.assignment, locale)}): ${relationSentence(name(query.subjectId), name(query.referenceId), exact, locale)}`,
       ));
     }
     if (record.answer.kind === "RELATION") {
