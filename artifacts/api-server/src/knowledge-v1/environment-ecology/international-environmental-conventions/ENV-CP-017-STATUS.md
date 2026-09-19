@@ -13,3 +13,6 @@
 - Mutable party counts, current COP details, current national targets and current Ramsar-site counts: excluded.
 - Source verification date: 2026-09-16.
 - Source baseline: official Convention on Wetlands, CITES, CMS, CBD, UNFCCC, UNEP Ozone Secretariat, Basel Convention, Stockholm Convention and Minamata Convention materials.
+- Multilingual V1 final wave: REVIEW CANDIDATE for Hindi and Punjabi.
+- Localization review surface: 48 questions / 12 QLs; approved V1 authority.
+- Frozen English semantics, option ordering, correct index and source provenance remain invariant; localization is review-only.

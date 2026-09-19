@@ -68,3 +68,33 @@ export {
   ENV_CP014_ENGLISH_AUTHORITY_V2,
   generateEnvCp014LocalizedReviewV1,
 } from "./env-cp014-localization-v1";
+export {
+  ENV_CP015_MULTILINGUAL_V1,
+  ENV_CP015_ENGLISH_AUTHORITY_V2,
+  generateEnvCp015LocalizedReviewV1,
+} from "./env-cp015-localization-v1";
+export {
+  ENV_CP016_MULTILINGUAL_V1,
+  ENV_CP016_ENGLISH_AUTHORITY_V2,
+  generateEnvCp016LocalizedReviewV1,
+} from "./env-cp016-localization-v1";
+export {
+  ENV_CP017_MULTILINGUAL_V1,
+  ENV_CP017_ENGLISH_AUTHORITY_V1,
+  generateEnvCp017LocalizedReviewV1,
+} from "./env-cp017-localization-v1";
+export {
+  ENV_CP018_MULTILINGUAL_V1,
+  ENV_CP018_ENGLISH_AUTHORITY_V1,
+  generateEnvCp018LocalizedReviewV1,
+} from "./env-cp018-localization-v1";
+export {
+  ENV_CP019_MULTILINGUAL_V1,
+  ENV_CP019_ENGLISH_AUTHORITY_V1,
+  generateEnvCp019LocalizedReviewV1,
+} from "./env-cp019-localization-v1";
+export {
+  ENV_CP020_MULTILINGUAL_V1,
+  ENV_CP020_ENGLISH_AUTHORITY_V2,
+  generateEnvCp020LocalizedReviewV1,
+} from "./env-cp020-localization-v1";

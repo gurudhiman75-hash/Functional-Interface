@@ -14,3 +14,6 @@
 - Next chapter step after merge: full exhaustive ENV-CP-001 through ENV-CP-020 audit before multilingual/localization work.
 - V2 remediation: APPROVED / CONTENT-FROZEN; preserves the 48-question/12-QL capstone, removes the learner-wording contradiction and integrates CP002/008/014/015/016 remediation coverage in the final integrated QL.
 - V2 review artifacts remain review-only; runtime integration is separate.
+- Multilingual V1 final wave: REVIEW CANDIDATE for Hindi and Punjabi.
+- Localization review surface: 48 questions / 12 QLs; approved V2 integrated capstone authority.
+- Frozen English semantics, option ordering, correct index and source provenance remain invariant; localization is review-only.

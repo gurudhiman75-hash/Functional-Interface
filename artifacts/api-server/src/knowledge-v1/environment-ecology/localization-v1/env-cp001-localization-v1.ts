@@ -230,7 +230,6 @@ const EXPLANATION: Readonly<Record<string, LocalePair>> = Object.freeze({
   "Species means an interbreeding group that can produce fertile offspring.": lp("प्रजाति ऐसा समूह है जिसके सदस्य आपस में प्रजनन करके उर्वर संतति उत्पन्न कर सकते हैं।", "ਪ੍ਰਜਾਤੀ ਉਹ ਸਮੂਹ ਹੈ ਜਿਸਦੇ ਜੀਵ ਆਪਸ ਵਿੱਚ ਪ੍ਰਜਨਨ ਕਰਕੇ ਉਪਜਾਊ ਸੰਤਾਨ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ।"),
   "A population is members of the same species living in one area.": lp("जनसंख्या एक क्षेत्र में रहने वाली समान प्रजाति के सदस्यों का समूह है।", "ਆਬਾਦੀ ਇੱਕ ਖੇਤਰ ਵਿੱਚ ਰਹਿਣ ਵਾਲੇ ਇੱਕੋ ਪ੍ਰਜਾਤੀ ਦੇ ਜੀਵਾਂ ਦਾ ਸਮੂਹ ਹੈ।"),
   "An ecosystem is a community interacting with its physical environment.": lp("पारितंत्र अपने भौतिक पर्यावरण के साथ परस्पर क्रिया करता समुदाय है।", "ਪਰਿਸਥਿਤਿਕ ਤੰਤਰ ਆਪਣੇ ਭੌਤਿਕ ਵਾਤਾਵਰਣ ਨਾਲ ਆਪਸੀ ਕਿਰਿਆ ਕਰਦਾ ਸਮੁਦਾਇ ਹੈ।"),
-  "A biome is a large region mainly defined by climate and vegetation.": lp("बायोम एक बड़ा क्षेत्र है, जो मुख्यतः जलवायु और वनस्पति से निर्धारित होता है।", "ਬਾਇਓਮ ਇੱਕ ਵੱਡਾ ਖੇਤਰ ਹੈ ਜੋ ਮੁੱਖ ਤੌਰ ਤੇ ਜਲਵਾਯੂ ਅਤੇ ਬਨਸਪਤੀ ਨਾਲ ਨਿਰਧਾਰਤ ਹੁੰਦਾ ਹੈ।"),
 
   "Habitat is where an organism lives; its role is its niche.": lp("आवास वह स्थान है जहाँ जीव रहता है; उसकी भूमिका उसका निच है।", "ਆਵਾਸ ਉਹ ਥਾਂ ਹੈ ਜਿੱਥੇ ਜੀਵ ਰਹਿੰਦਾ ਹੈ; ਉਸਦੀ ਭੂਮਿਕਾ ਉਸਦਾ ਨਿਚ ਹੈ।"),
   "Niche is an organism's role; the transition zone is an ecotone.": lp("निच जीव की भूमिका है; संक्रमण क्षेत्र इकोटोन है।", "ਨਿਚ ਜੀਵ ਦੀ ਭੂਮਿਕਾ ਹੈ; ਸੰਕ੍ਰਮਣ ਖੇਤਰ ਇਕੋਟੋਨ ਹੈ।"),
