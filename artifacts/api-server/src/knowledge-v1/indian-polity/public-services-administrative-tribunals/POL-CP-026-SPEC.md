@@ -1,6 +1,7 @@
 # POL-CP-026 — Public Services & Administrative Tribunals
 
-**Lifecycle:** APPROVED / CONTENT-FROZEN — V2  
+**Lifecycle:** APPROVED / CONTENT-FROZEN — V3 final-audit canonical  
+**Final-audit V3 approval:** 19 September 2026
 **Runtime registration:** DEFERRED TO POLITY QUESTION STUDIO INTEGRATION PASS
 
 > Scope note: the repository roadmap does not expose the historical CP026 title. This inferred high-yield scope was explicitly approved by the project owner on 2026-09-18.
@@ -38,4 +39,4 @@
 
 ## Final-audit ownership clarification
 
-The approved V2 scope remains frozen. Final-audit V3 is a review candidate that removes four direct Public Service Commission questions from QL013 because Articles 315–323 are explicitly owned by POL-CP-022. QL013 is redirected to Part XIV Chapter I service-boundary and transitional material from Articles 309–314. Approval is required before V3 becomes canonical.
+The approved V2 scope remains preserved as the historical frozen base. Final-audit V3 removes four direct Public Service Commission questions from QL013 because Articles 315–323 are explicitly owned by POL-CP-022. QL013 is redirected to Part XIV Chapter I service-boundary and transitional material from Articles 309–314. V3 was approved by the project owner on 19 September 2026 and is now canonical.
