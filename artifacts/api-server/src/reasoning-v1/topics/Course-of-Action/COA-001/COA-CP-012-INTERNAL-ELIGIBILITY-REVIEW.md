@@ -25,7 +25,7 @@ COA currently has:
 - Question Studio integration
 - semantic anti-repetition inside a review batch
 - truthful finite semantic capacity
-- QL008 Medium/Hard-only difficulty integrity
+- QL008 calibrated difficulty integrity (one approved Easy authority, remaining Medium/Hard)
 - genuine exclusive-Either and three-action profile handling
 
 ## Approved lifecycle
