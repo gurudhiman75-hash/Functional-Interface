@@ -73,3 +73,11 @@ Avoid database-style fragments and difficulty through verbosity.
 ## Deferred integration
 
 Question Studio exposure, localization and production registration remain deferred to the Polity integration checkpoint. English V1 is the approved canonical content version.
+## Final-audit ownership clarification
+
+The approved V1 remains the frozen base. Final-audit V3 is a review candidate that removes standalone ownership leaks without silently mutating V1:
+
+- direct Chief Minister / Council of Ministers mechanics belong to POL-CP-015; CP014 retains only Governor-facing appointment, aid/advice and interaction questions needed to understand the Governor's role;
+- the Advocate-General as a constitutional authority belongs to POL-CP-022; CP014 V3 removes the standalone Advocate-General QL;
+- the freed review space is reassigned to Governor-owned Article 154 executive-power mechanics and Article 175 address/message powers;
+- final-audit V3 requires project-owner review before replacing V1 as the canonical English authority.
