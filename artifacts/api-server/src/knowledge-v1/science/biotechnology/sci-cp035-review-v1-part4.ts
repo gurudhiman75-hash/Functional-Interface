@@ -139,7 +139,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which pair is correctly matched?",
+    "Which biotechnology tool–function pair is correctly matched?",
     "DNA ligase — joins DNA fragments",
     [
       "Restriction enzyme — joins DNA fragments",
