@@ -1,0 +1,62 @@
+.seed ?? "DI-008:ARITHMETIC:V2";
+  const examProfile = input.examProfile ?? "BANKING_PRELIMS";
+  const stimulus = buildStimulus(seed);
+  const tasks = chooseTasks(seed + ":" + examProfile);
+  const setId = "DI-008-V2-SET-" + hashSeed(seed + ":" + examProfile).toString(36);
+
+  const questions = tasks.map((kind, index): Di008V2Question => {
+    const draft = buildDraftForTask(seed + ":" + examProfile + ":" + kind, examProfile, stimulus, kind);
+    if (draft.difficulty !== DIFFICULTY_BY_TASK[kind]) throw new Error("DI-008 V2 difficulty ownership drifted for " + kind + ".");
+    const optionPackage = buildOptions(seed + ":" + examProfile + ":" + kind, draft.answer, draft.candidates);
+    return {
+      questionId: setId + "-Q" + String(index + 1),
+      setId,
+      kind,
+      difficulty: draft.difficulty,
+      stemVariant: draft.stemVariant,
+      stem: draft.stem,
+      options: optionPackage.options,
+      optionMetadata: optionPackage.optionMetadata,
+      correctIndex: optionPackage.correctIndex,
+      answer: draft.answer,
+      explanation: draft.explanation,
+      evidence: draft.evidence,
+    };
+  });
+
+  const withoutValidation: Omit<Di008V2QuestionSet, "validation"> = {
+    packageId: "DI-008",
+    setId,
+    seed,
+    language: "en",
+    examProfile,
+    optionCount: 5,
+    setDifficulty: "MIXED_ARITHMETIC_DI_V2",
+    stimulus,
+    questions,
+    traceability: {
+      packageId: "DI-008",
+      representation: "ARITHMETIC_DI",
+      sourceFoundation: "DI-008-PHASE7",
+      setContractVersion: "DI-008-SET-CONTRACT-V2",
+      arithmeticAuthority: "EXACT_INTEGER_RATIONAL",
+      reviewStatus: "HUMAN_REVIEW_PENDING",
+      questionStudioDiscoverable: false,
+      questionBankStatus: "NOT_STORED",
+      questionBankWritable: false,
+      testEligibility: "INELIGIBLE",
+      testEligible: false,
+      mockTestEligible: false,
+      publiclyPublishable: false,
+      automaticStudentPublication: false,
+      productionReleaseAuthorized: false,
+    },
+  };
+
+  const validation = validateSet(withoutValidation);
+  if (!validation.valid) {
+    const failed = validation.checks.filter((check) => !check.passed).map((check) => check.id).join(", ");
+    throw new Error("DI-008 V2 set validation failed: " + failed);
+  }
+  return { ...withoutValidation, validation };
+}
