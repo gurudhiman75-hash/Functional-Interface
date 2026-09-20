@@ -1,0 +1,36 @@
+name: Validate Punjabi Retrofit CP005
+
+on:
+  push:
+    branches:
+      - "feature/punjabi-retrofit-cp005-exhaustive-v1"
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+      - ".github/workflows/punjabi-forward-port-cp005.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+      - ".github/workflows/punjabi-forward-port-cp005.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-cp005-retrofit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP005 retrofit semantic proof
+        working-directory: artifacts/api-server
+        run: pnpm exec esbuild src/punjabi-v1/packages/PUN-001/checkpoints/CP005/CP005.test.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-retrofit-cp005.test.mjs
+      - name: Run CP005 retrofit semantic proof
+        working-directory: artifacts/api-server
+        run: node dist/punjabi-retrofit-cp005.test.mjs
+      - name: Build API server
+        working-directory: artifacts/api-server
+        run: pnpm run build

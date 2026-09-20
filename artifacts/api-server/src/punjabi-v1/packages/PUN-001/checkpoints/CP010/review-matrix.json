@@ -1,0 +1,23 @@
+{
+  "cpId":"PUN-001-CP010",
+  "phase":"RETROFIT",
+  "status":"HUMAN_REVIEW_PENDING",
+  "authorityInventory":{
+    "total":177,
+    "domains":10,
+    "orderedSameDomainPairs":4068
+  },
+  "semanticCapacity":25293,
+  "totalReviewQuestions":120,
+  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
+  "families":{"F01":20,"F02":20,"F03":10,"F04":10,"F05":10,"F06":10,"F07":20,"F08":20},
+  "requirements":[
+    "all 8 families represented",
+    "all 10 semantic domains represented",
+    "all 4 F08 truth outcomes represented",
+    "all retained authorities reachable through applicable families",
+    "unique semantic fingerprints",
+    "Punjabi-only learner text",
+    "REVIEW_ONLY lifecycle"
+  ]
+}

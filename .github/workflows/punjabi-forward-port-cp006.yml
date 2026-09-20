@@ -1,0 +1,34 @@
+name: Validate Punjabi Retrofit CP006
+
+on:
+  push:
+    branches:
+      - "feature/punjabi-retrofit-cp006-exhaustive-v1"
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+      - ".github/workflows/punjabi-forward-port-cp006.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+      - ".github/workflows/punjabi-forward-port-cp006.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-cp006-retrofit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: pnpm}
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP006 retrofit semantic proof
+        working-directory: artifacts/api-server
+        run: pnpm exec esbuild src/punjabi-v1/packages/PUN-001/checkpoints/CP006/CP006.test.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-retrofit-cp006.test.mjs
+      - name: Run CP006 retrofit semantic proof
+        working-directory: artifacts/api-server
+        run: node dist/punjabi-retrofit-cp006.test.mjs
+      - name: Build API server
+        working-directory: artifacts/api-server
+        run: pnpm run build
