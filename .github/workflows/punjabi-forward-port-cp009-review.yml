@@ -1,0 +1,47 @@
+name: Export Punjabi Retrofit CP009 Review
+
+on:
+  push:
+    branches:
+      - "New-main"
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+  pull_request:
+    branches:
+      - "New-main"
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  review-cp009-retrofit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP009 retrofit review exporter
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/punjabi-v1/packages/PUN-001/checkpoints/CP009/export-review.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/punjabi-retrofit-cp009-review.mjs
+      - name: Generate CP009 retrofit review pack
+        working-directory: artifacts/api-server
+        run: node dist/punjabi-retrofit-cp009-review.mjs
+      - name: Upload CP009 retrofit review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: PUN-001-CP009-RETROFIT-REVIEW-120
+          path: artifacts/api-server/PUN-001-CP009-RETROFIT-REVIEW.md
+          if-no-files-found: error

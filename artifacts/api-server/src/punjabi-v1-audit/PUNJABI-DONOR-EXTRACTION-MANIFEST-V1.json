@@ -1,0 +1,54 @@
+{
+  "manifestId": "PUNJABI-DONOR-EXTRACTION-MANIFEST-V1",
+  "date": "2026-09-12",
+  "donor": {
+    "branch": "feature/punjabi-v1-content-engine",
+    "head": "ea72103e655bd93221c0ed35e8eaf6031bd59576",
+    "role": "R&D_DONOR_ONLY"
+  },
+  "target": {
+    "baseBranch": "New-main",
+    "baseHead": "40d317e7eb30bc1fc9bf40e3fd7a85b05dc7698c",
+    "forwardPortBranch": "feature/punjabi-v1-forward-port",
+    "mode": "SELECTIVE_FORWARD_PORT__NO_HISTORY_MERGE"
+  },
+  "globalReject": [
+    "donor branch wholesale merge",
+    "seed-only fake fingerprints",
+    "generic CP001 validator as semantic truth gate",
+    "cosmetic hard difficulty",
+    "unrelated random distractor pools",
+    "duplicate linguistic truth inside generators",
+    "instruction paraphrase counted as semantic diversity",
+    "unreviewed English leakage outside explicit translation tasks"
+  ],
+  "checkpoints": [
+    {"cpId":"CP001","priority":"B","decision":"DONOR_AUTHORITIES_MAJOR_GENERATOR_REWRITE","extract":["orthographic authorities","lagaan/carrier records","lagakhar records","naveen-letter material","dutt/subjoined examples","word breakdown corpus","deterministic/provenance concepts"],"review":["family split","Unicode/dutt modelling","articulation weighting","distractors","semantic fingerprint"]},
+    {"cpId":"CP002","priority":"A","decision":"STRONG_DONOR_WORD_LEVEL_REVIEW","extract":["verified spelling records","confusion taxonomy","context sentences","blank-fill material"],"review":["every correct form","every incorrect variation","rule explanations","difficulty"]},
+    {"cpId":"CP003","priority":"B","decision":"EXTRACT_EXAMPLES_AND_INFLECTIONS_TAXONOMY_RECONCILE","extract":["noun/pronoun examples","pronoun inflections","functional sentences","verified collective nouns"],"review":["noun taxonomy overlap","collective pairings","category ambiguity"]},
+    {"cpId":"CP004","priority":"A","decision":"HIGH_VALUE_MORPHOLOGY_DONOR","extract":["gender records","number records","agreement examples","oblique forms","morphological distractors"],"review":["lexical counterpart vs grammatical gender","suppletive pairs","natural sentence agreement"]},
+    {"cpId":"CP005","priority":"B","decision":"EXTRACT_CORPUS_TAXONOMY_REVIEW","extract":["adjective/adverb examples","agreement examples","sentence extraction material"],"review":["exam terminology","phrase-vs-token roles","degree system authority","context ambiguity"]},
+    {"cpId":"CP006","priority":"A","decision":"VERY_HIGH_VALUE_CORPUS_HEAVY_GENERATOR_REWRITE","extract":["verb sentence records","tense shifts","transitivity conversions","compound verbs","aspect records","dhatu roots","causative ladders"],"review":["split mega-families","remove English leakage","sentence-derived distractors","transitivity/object semantics","difficulty"]},
+    {"cpId":"CP007","priority":"B","decision":"STRONG_STRUCTURED_DONOR_ROLE_VALIDATION","extract":["karak records","postpositions","conjunctions","interjections","contextual blank fills"],"review":["marker-vs-role distinction","target spans","family split","contextual single truth"]},
+    {"cpId":"CP008","priority":"A","decision":"HIGH_UPSIDE_HIGH_LINGUISTIC_REVIEW_COST","extract":["prefix inventory","suffix inventory","valid word candidates","pseudo-affix concept","root pairs"],"review":["all valid/spurious entries","morphological derivation","spelling normalization","productive vs lexicalized forms"]},
+    {"cpId":"CP009","priority":"A","decision":"HIGH_VALUE_LEXICAL_DONOR","extract":["synonym sets","antonym sets","context records","near-synonym concept"],"review":["sense/domain tagging","register variants","same-field distractors","near-synonym source distinctions"]},
+    {"cpId":"CP010","priority":"A","decision":"STRONG_DONOR_LEXICON","extract":["phrase-word pairs","word-definition pairs","context examples","semantic tags"],"review":["canonical source","accepted variants","plausible distractors","negative-family difficulty"]},
+    {"cpId":"CP011","priority":"A","decision":"VERY_HIGH_VALUE_IDIOM_CORPUS","extract":["idioms","figurative meanings","context sentences","scenario mappings"],"review":["canonical wording","accepted variants","context naturalness","literal distractor weighting"]},
+    {"cpId":"CP012","priority":"A","decision":"VERY_HIGH_VALUE_PROVERB_CORPUS","extract":["proverbs","completions","meanings","scenario mappings"],"review":["regional variants","multiple applicable proverbs","label conventions"]},
+    {"cpId":"CP013","priority":"B","decision":"CURATED_PAIRS_ONLY","extract":["verified classification sentences","verified transformations","agreement/case/word-order correction pairs"],"review":["Punjabi syntax convention","semantic preservation","unique correction","style-vs-grammar distinction"]},
+    {"cpId":"CP014","priority":"B","decision":"PASSAGE_AND_TERMINOLOGY_DONOR_AFTER_SOURCE_REVIEW","extract":["source-backed passages","factual QA","reviewed title/main idea records","official-source administrative terms"],"review":["inference depth","stem simplification","official terminology lineage","passage-grounded distractors"]}
+  ],
+  "admissionGates": [
+    "canonical source or REVIEW_PENDING status",
+    "native-language purity",
+    "single truth with explicit accepted variants",
+    "natural exam Punjabi",
+    "contextual/same-category distractors",
+    "semantic difficulty",
+    "simple coherent explanation",
+    "semantic content hash",
+    "fine-grained Question Studio family/subtype",
+    "no automatic downstream lifecycle promotion"
+  ],
+  "integrationStatus": "AUDIT_COMPLETE__FORWARD_PORT_BRANCH_CREATED__CANONICAL_REVIEWED_TREE_NOT_PRESENT_ON_NEW_MAIN"
+}

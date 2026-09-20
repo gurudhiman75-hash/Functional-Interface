@@ -1,0 +1,38 @@
+name: Validate Punjabi Retrofit CP007
+
+on:
+  push:
+    branches:
+      - "New-main"
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+  pull_request:
+    branches:
+      - "New-main"
+    paths:
+      - "artifacts/api-server/src/punjabi-v1/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp007-retrofit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: pnpm}
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP007 retrofit semantic proof
+        working-directory: artifacts/api-server
+        run: pnpm exec esbuild src/punjabi-v1/packages/PUN-001/checkpoints/CP007/CP007.test.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-retrofit-cp007.test.mjs
+      - name: Run CP007 retrofit semantic proof
+        working-directory: artifacts/api-server
+        run: node dist/punjabi-retrofit-cp007.test.mjs
+      - name: Build API server
+        working-directory: artifacts/api-server
+        run: pnpm run build

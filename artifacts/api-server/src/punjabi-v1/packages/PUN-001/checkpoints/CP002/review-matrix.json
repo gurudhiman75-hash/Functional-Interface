@@ -1,0 +1,33 @@
+{
+  "cpId": "PUN-001-CP002",
+  "status": "REVIEW_ONLY",
+  "families": [
+    {"familyId":"F01","subtype":"CORRECT_FORM_RECOGNITION","difficulty":["Easy"],"semanticCapacity":375},
+    {"familyId":"F02","subtype":"SENTENCE_ERROR_CORRECTION","difficulty":["Medium"],"semanticCapacity":756},
+    {"familyId":"F03","subtype":"CONTEXTUAL_COMPLETION","difficulty":["Medium"],"semanticCapacity":252},
+    {"familyId":"F04","subtype":"MULTI_ERROR_SENTENCE_REPAIR","difficulty":["Hard"],"semanticCapacity":284634},
+    {"familyId":"F05","subtype":"TWO_WORD_PRECISION","difficulty":["Hard"],"semanticCapacity":631125},
+    {"familyId":"F06","subtype":"INCORRECT_FORM_DETECTION","difficulty":["Medium"],"semanticCapacity":9730264500},
+    {"familyId":"F07","subtype":"TWO_SENTENCE_SPELLING_DIAGNOSIS","difficulty":["Hard"],"semanticCapacity":506016}
+  ],
+  "authorityCount": 375,
+  "contextualAuthorityCount": 252,
+  "activeCategoryCount": 8,
+  "categoryCounts": {
+    "SIHARI_BIHARI": 50,
+    "AUNKAR_DULANKAR": 41,
+    "HA_PAIRIN_SOUND": 43,
+    "TIPPI_BINDI": 55,
+    "ADDAK_OMISSION": 51,
+    "LOANWORD_PHONETICS": 54,
+    "VARG_CONFUSION": 45,
+    "HALVANT_PAIRIN": 36
+  },
+  "reviewPackSize": 240,
+  "reviewPackDifficultyDistribution": {"Easy":80,"Medium":80,"Hard":80},
+  "totalSemanticCapacity": 9731687658,
+  "optionOrderCountedAsSemanticVariation": false,
+  "quarantinedDonorCategory": "TATSAM_TADBHAV",
+  "authorityStatus": "REVIEW_PENDING",
+  "productionPromotion": false
+}
