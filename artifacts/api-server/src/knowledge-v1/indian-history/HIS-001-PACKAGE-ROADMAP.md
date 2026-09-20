@@ -1,6 +1,6 @@
 # HIS-001 Indian History — Package Roadmap
 
-Status: ENGLISH V1 FROZEN / MULTILINGUAL REVIEW NEXT  
+Status: V1 CORE FROZEN + MULTILINGUAL COMPLETE / V2 COVERAGE EXPANSION REQUIRED  
 Engine: `knowledge-v1`
 
 ## English V1 freeze
@@ -47,3 +47,14 @@ A CP may remain review-only while later CPs are being developed. Approval of one
 History facts must be traceable to authoritative textbooks, official/primary records or recognized academic references. PYQs may guide exam relevance and question form, but they are not the sole factual authority.
 
 Disputed archaeological or historiographical propositions must be either excluded or explicitly qualified.
+
+
+## V2 coverage expansion
+
+The completed CP001–CP016 corpus remains the frozen V1 core. A chapter-level coverage audit found major exam-relevant content families that are absent or materially thin, so final History closure is blocked pending V2 expansion.
+
+Authority: `HIS-001-COVERAGE-GAP-AUDIT-V1.md`
+
+Planned supplemental checkpoints: `HIS-CP-017` through `HIS-CP-024`, targeting approximately 480–576 genuinely new questions. The planning range is not a padding quota; only source-backed, exam-relevant facts should be promoted.
+
+World History remains outside HIS-001 unless separately authorized.
