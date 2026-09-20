@@ -254,7 +254,7 @@ function explanation(q:(typeof ENGLISH)[number],l:NativeLocale):string{
     return l==="hi"?`${ARTICLE(a!,l)} का विषय ${native(DPSP_SUBJECT[a!]!,l)} है।`:`${ARTICLE(a!,l)} ${native(DPSP_SUBJECT[a!]!,l)} ਬਾਰੇ ਹੈ।`;
   }
   if(ql===3)return native(DPSP_RULE["37"]!,l);
-  if(ql===4){const c=article39ForSubject(q.canonicalAnswer)!;return l==="hi"?`${ARTICLE(c,l)} ${native(A39[c]!,l)} से संबंधित है।`:`${ARTICLE(c,l)} ${native(A39[c]!,l)} ਬਾਰੇ ਹੈ।`;}
+  if(ql===4){const c=article39ForSubject(q.canonicalAnswer)!;return l==="hi"?`सही संबंध: ${ARTICLE(c,l)} — ${native(A39[c]!,l)}।`:`ਸਹੀ ਮਿਲਾਨ: ${ARTICLE(c,l)} — ${native(A39[c]!,l)}।`;}
   if(ql===5)return l==="hi"?`सही सुमेलित जोड़ी है: ${ans}।`:`ਸਹੀ ਮਿਲਾਨ: ${ans}।`;
   if(ql===8)return l==="hi"?`यह प्रावधान 42वें संविधान संशोधन से जोड़ा गया था।`:`ਇਹ ਪ੍ਰਬੰਧ 42ਵੀਂ ਸੰਵਿਧਾਨ ਸੋਧ ਨਾਲ ਜੋੜਿਆ ਗਿਆ ਸੀ।`;
   if(ql===9)return l==="hi"?`सही संबंध है: ${ans}।`:`ਸਹੀ ਸੰਬੰਧ: ${ans}।`;
