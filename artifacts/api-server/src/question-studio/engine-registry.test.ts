@@ -82,6 +82,43 @@ assert.equal(com002Result.generationContext.reviewRunPersistenceAllowed, true);
 assert.equal(com002Result.generationContext.canonicalQuestionPersistenceAllowed, true);
 assert.equal(com002Result.generationContext.questionBankWritable, true);
 
+const env001 = packages.find((pkg) => pkg.packageId === "ENV-001");
+const envLifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
+assert.ok(env001);
+assert.equal(env001.engineId, "knowledge-v1");
+assert.equal(env001.enabled, true);
+assert.deepEqual(env001.cpIds, Array.from({ length: 20 }, (_, index) => `ENV-CP-${String(index + 1).padStart(3, "0")}`));
+assert.deepEqual(env001.supportedLanguages, ["en", "hi", "pa"]);
+assert.deepEqual(env001.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+assert.equal(env001.runtimeMode, "review-only");
+assert.equal(env001.lifecycleId, envLifecycle.lifecycleId);
+assert.equal(env001.lifecycleStage, "REVIEW_ONLY");
+assert.equal(env001.questionBankStatus, envLifecycle.questionBankStatus);
+assert.equal(env001.questionBankWritable, false);
+assert.equal(env001.testEligible, false);
+assert.equal(env001.mockTestEligible, false);
+assert.equal(env001.publiclyPublishable, false);
+assert.equal(env001.metadata?.questionsPerLanguage, 1020);
+assert.equal(env001.metadata?.multilingualSurfaceCount, 3060);
+assert.equal(resolveQuestionStudioEngine({ packageId: "ENV-001" }).engineId, "knowledge-v1");
+
+const env001Result = await generateQuestionStudioQuestions({
+  packageId: "ENV-001",
+  canonicalProblemId: "ENV-CP-016",
+  language: "pa",
+  difficulty: "Medium",
+  runtimeMode: "review-only",
+  count: 2,
+  seed: "engine-registry-env001-smoke",
+});
+assert.equal(env001Result.engineId, "knowledge-v1");
+assert.equal(env001Result.questions.length, 2);
+assert.equal(env001Result.generationContext?.packageId, "ENV-001");
+assert.equal(env001Result.generationContext?.stage, "REVIEW_ONLY");
+assert.equal(env001Result.generationContext?.questionBankWritable, false);
+assert.equal(env001Result.questions.every((question) => question.cpId === "ENV-CP-016"), true);
+assert.equal(env001Result.questions.every((question) => question.language === "pa"), true);
+
 const eng001 = packages.find((pkg) => pkg.packageId === "ENG-001");
 const reviewLifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 assert.ok(eng001);

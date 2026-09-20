@@ -4,6 +4,7 @@ import { QuestionStudioCockpitPage } from './QuestionStudioCockpitPage';
 import { QuestionStudioCom003PreviewPanel } from './QuestionStudioCom003PreviewPanel';
 import { QuestionStudioCom003ReviewPanel } from './QuestionStudioCom003ReviewPanel';
 import { QuestionStudioComputerAwarenessReviewPanel } from './QuestionStudioComputerAwarenessReviewPanel';
+import { QuestionStudioEnvironmentReviewPanel } from './QuestionStudioEnvironmentReviewPanel';
 import { QuestionStudioCubesDiceReviewPanel } from './QuestionStudioCubesDiceReviewPanel';
 import { QuestionStudioDataSufficiencyReviewPanel } from './QuestionStudioDataSufficiencyReviewPanel';
 import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyMixControls';
@@ -22,6 +23,7 @@ export function QuestionStudioOperationsPage() {
     <>
       <QuestionStudioEnglishReviewPanel />
       <QuestionStudioComputerAwarenessReviewPanel />
+      <QuestionStudioEnvironmentReviewPanel />
       <QuestionStudioCom003PreviewPanel />
       <QuestionStudioCom003ReviewPanel />
       <QuestionStudioDataSufficiencyReviewPanel />

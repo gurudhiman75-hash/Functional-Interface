@@ -10,6 +10,7 @@ async function runStage(label: string, loader: () => Promise<unknown>) {
 
 await runStage("engine registry", () => import("./engine-registry.test"));
 await runStage("engine route integration", () => import("./engine-route-integration.test"));
+await runStage("ENV-001 multilingual Question Studio integration", () => import("./engines/knowledge-v1-env001-adapter-v1.test"));
 await runStage("standard Question Studio lifecycle", () => import("./standard-lifecycle.test"));
 await runStage("knowledge engine", () => import("../knowledge-v1/engine.test"));
 await runStage("composition verifier", () => import("../knowledge-v1/composition-verifier.test"));
