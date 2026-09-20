@@ -1,0 +1,33 @@
+name: Validate English ENG-004 Question Studio Integration V1
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/synonyms-antonyms/ENG-004/**
+      - artifacts/api-server/src/english-v1/tests/eng-004-*.test.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng004-adapter-v1.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng004-adapter-v1.test.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-adapter.ts
+      - .github/workflows/english-eng004-question-studio-integration-v1.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: english-eng004-question-studio-v1-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng004-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/eng004-qs.test.mjs
+      - run: node artifacts/api-server/dist/eng004-qs.test.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-004-final-audit-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/eng004-final.test.mjs
+      - run: node artifacts/api-server/dist/eng004-final.test.mjs
+      - run: pnpm --dir artifacts/api-server build
