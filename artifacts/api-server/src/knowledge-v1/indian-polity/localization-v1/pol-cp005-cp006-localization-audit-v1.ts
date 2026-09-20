@@ -19,6 +19,8 @@ function numericTokens(value:string){
  return [...new Set(withoutListNumbers.match(/\d+[A-Z]?(?:\([a-z0-9]+\))?/g)??[])].sort();
 }
 const PA_BANNED=["ਸੰਸ਼ੋਧਨ","ਰਜਿਸਟ੍ਰੇਸ਼ਨ","ਉਪਚਾਰ","ਅਭਿਵੈਕਤੀ","ਅਪ੍ਰਸੰਗਿਕ","ਬਾਧਕ","ਯੋਗਤਾ-ਸ਼ਰਤ","ਸੰਬੰਧਿਤ","ਹਰ ਵਿਅਕਤੀਆਂ","ਸੰਕਾਨੂੰਨ"] as const;
+const PA_STEM_BANNED=["ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ","ਕਿਹੜੇ ਕਿਸਮ","ਕਿਹੜੇ ਸਾਬਕਾ","ਕਿਹੜਾ ਅਨੁਛੇਦ 51A","ਕਿਸ ਅਨੁਛੇਦ ਦਾ ਵਿਸ਼ਾ","ਹੇਠ ਹੇਠ","ਸੰਵਿਧਾਨ ਸੋਧ ਦਾ ਕਿਹੜਾ ਜੋੜ","— ਇਹ ਕਿਹੜੀ ਸੰਵਿਧਾਨ ਸੋਧ ਨਾਲ ਹੋਇਆ?","ਇਸ ਅਧਿਆਇ ਵਿੱਚ ਮੁੱਖ ਤੌਰ 'ਤੇ"] as const;
+const HI_STEM_BANNED=["कौन-सा अनुच्छेद 51A","किस पूर्व देश","— यह किस संविधान संशोधन से हुआ?","इस अध्याय में मुख्यतः"] as const;
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
  const original=text(q);
  const stripped=original
@@ -27,7 +29,10 @@ function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
  assert.match(original,locale==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u,`${q.questionId}: native script missing`);
  if(locale==="pa"){
    for(const phrase of PA_BANNED) assert.equal(original.includes(phrase),false,`${q.questionId}: non-native Punjabi remains: ${phrase}`);
+   for(const phrase of PA_STEM_BANNED) assert.equal(q.stem.includes(phrase),false,`${q.questionId}: Punjabi stem grammar defect: ${phrase}`);
    assert.equal(/ਦਾ ਵਰਤੋਂ/u.test(original),false,`${q.questionId}: Punjabi agreement error`);
+ } else {
+   for(const phrase of HI_STEM_BANNED) assert.equal(q.stem.includes(phrase),false,`${q.questionId}: Hindi stem grammar defect: ${phrase}`);
  }
 }
 let total=0;
