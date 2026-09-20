@@ -61,7 +61,7 @@ Before Question Studio exposure:
 |---|---:|---|---|---|
 | POL-CP-001–002 | 92 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-003–004 | 133 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
-| POL-CP-005–006 | 170 | REVIEW CANDIDATE V1 | REVIEW CANDIDATE V1 | deferred until multilingual approval |
+| POL-CP-005–006 | 170 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-007–027 | pending | pending | pending | English-only remains active |
 
 The approved CP001–CP004 localization layers cover 225 English authority questions and 675 review surfaces across English, Hindi and Punjabi. CP005–CP006 now add 510 review-candidate surfaces (170 per locale). Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
@@ -75,3 +75,8 @@ Project-owner approval received on 19 September 2026. Hindi and Punjabi V1 for P
 ### CP003–CP004 localization approval
 
 Project-owner approval received on 20 September 2026. Hindi and Punjabi V1 for POL-CP-003–004 are approved/frozen and may be promoted into the multilingual `POL-001` package in the chapter localization integration pass. The approval also establishes the native-Punjabi exam-language standard and numeric/legal-form preservation rule for all later Polity CPs.
+
+
+### CP005–CP006 localization approval
+
+Project-owner approval received on 20 September 2026. Hindi and Punjabi V1 for POL-CP-005–006 are approved/frozen. The approved slice preserves exam-grade stems, native Punjabi/Hindi grammar, numeric/legal forms, QL/source parity, option order and correct-answer parity. The Punjabi article-location form `ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ...` is prohibited; use natural exam wording such as `ਕਿਹੜੇ ਅਨੁਛੇਦ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ?` or a context-specific equivalent.
