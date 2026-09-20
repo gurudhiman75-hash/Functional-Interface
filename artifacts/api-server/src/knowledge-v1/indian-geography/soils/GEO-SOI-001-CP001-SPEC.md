@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP001 — Soil Formation, Profile & Classification Basics
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-SOI-001-QL-001` to `GEO-SOI-001-QL-009`
 
@@ -25,10 +25,11 @@ Permanent QLs: `GEO-SOI-001-QL-001` to `GEO-SOI-001-QL-009`
 - Answer positions A14 / B14 / C13 / D13.
 - 54 unique stems and explanations.
 - Four unique options per question.
-- Simple, exam-grade learner language.\n- Explanations should usually use 2–3 short sentences: answer the question first, then add one useful why/how connection.
+- Simple, exam-grade learner language.
+- Explanations should usually use 2–3 short sentences: answer the question first, then add one useful why/how connection.
 - No learner-facing generator/review terminology or mechanical filler.
 - Every item carries source and fact provenance.
-- Review-only lifecycle; runtime publication disabled.
+- Content-approved checkpoint authority; runtime publication remains disabled and separately governed.
 
 ## Boundary
 
