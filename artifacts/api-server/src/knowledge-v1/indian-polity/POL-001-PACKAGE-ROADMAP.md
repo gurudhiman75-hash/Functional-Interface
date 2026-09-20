@@ -62,10 +62,10 @@ Before Question Studio exposure:
 | POL-CP-001–002 | 92 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-003–004 | 133 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-005–006 | 170 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
-| POL-CP-007–008 | 140 | REVIEW CANDIDATE V1 | REVIEW CANDIDATE V1 | deferred until multilingual approval |
+| POL-CP-007–008 | 140 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-009–027 | pending | pending | pending | English-only remains active |
 
-The approved CP001–CP006 localization layers cover 395 English authority questions and 1,185 review surfaces across English, Hindi and Punjabi. CP007–CP008 now add 420 review-candidate surfaces (140 per locale). Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
+The approved CP001–CP008 localization layers cover 535 English authority questions and 1,605 review surfaces across English, Hindi and Punjabi. Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
 
 
 ### CP001–CP002 localization approval
@@ -81,3 +81,8 @@ Project-owner approval received on 20 September 2026. Hindi and Punjabi V1 for P
 ### CP005–CP006 localization approval
 
 Project-owner approval received on 20 September 2026. Hindi and Punjabi V1 for POL-CP-005–006 are approved/frozen. The approved slice preserves exam-grade stems, native Punjabi/Hindi grammar, numeric/legal forms, QL/source parity, option order and correct-answer parity. The Punjabi article-location form `ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ...` is prohibited; use natural exam wording such as `ਕਿਹੜੇ ਅਨੁਛੇਦ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ?` or a context-specific equivalent.
+
+
+### CP007–CP008 localization approval
+
+Project-owner approval received on 20 September 2026. Hindi and Punjabi V1 for POL-CP-007–008 are approved/frozen. The approved slice preserves exam-grade stems, native Punjabi/Hindi grammar, numeric/legal forms, QL/source parity, option order and correct-answer parity. Article-location stems must remain natural in Punjabi; mechanical forms such as `ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ...` remain prohibited.
