@@ -44,6 +44,10 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
+      - name: Validate chapter-wide statement opener
+        run: |
+          pnpm --dir artifacts/api-server exec vitest run src/knowledge-v1/environment-ecology/localization-v1/env-statement-opener-consistency-v1.test.ts
+
       - name: Bundle final localization proof
         run: |
           mkdir -p artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1
