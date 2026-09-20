@@ -57,7 +57,7 @@ function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
       assert.equal(original.includes(phrase),false,`${q.questionId}: literal/non-native Punjabi phrase remains: ${phrase}`);
     }
     assert.equal(/ਦੀ ਵਰਤੋਂ[^।]+ਹੁੰਦਾ ਹੈ/u.test(original),false,`${q.questionId}: Punjabi agreement error in writ explanation`);
-    assert.equal(/ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ ਆਉਂਦਾ ਹੈ\?/u.test(original),false,`${q.questionId}: mechanical Punjabi article stem remains`);
+    assert.equal(/ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ(?: ਹੈ| ਆਉਂਦਾ ਹੈ)?\?/u.test(original),false,`${q.questionId}: mechanical Punjabi article-location stem remains`);
   }
 }
 let englishCount=0;
