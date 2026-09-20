@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP004 — Red & Yellow Soils
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-SOI-001-QL-028` to `GEO-SOI-001-QL-036`
 
@@ -29,7 +29,7 @@ Permanent QLs: `GEO-SOI-001-QL-028` to `GEO-SOI-001-QL-036`
 - Distractors remain geographically and scientifically plausible.
 - No option-by-option explanation clutter.
 - Every item carries source and fact provenance.
-- Review-only lifecycle; runtime publication disabled.
+- Content-approved checkpoint authority; runtime publication remains disabled and separately governed.
 
 ## Boundary
 
