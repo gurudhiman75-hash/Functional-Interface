@@ -118,6 +118,21 @@ function assertCp011Cp012LexicalQuality(question: EcoLocalizedQuestionV1, locale
   }
 }
 
+const CP015_CP016_BAD_LEXICAL_PATTERNS = {
+  hi: [] as readonly RegExp[],
+  pa: [
+    /ਸਮਾਯੋਜਨ/u,
+    /ਸਾਵਧਾਨ ਨਿਯਮਨ/u,
+  ],
+} as const;
+
+function assertCp015Cp016LexicalQuality(question: EcoLocalizedQuestionV1, locale: "hi" | "pa") {
+  const text = learnerText(question);
+  for (const pattern of CP015_CP016_BAD_LEXICAL_PATTERNS[locale]) {
+    fail(!pattern.test(text), `${question.questionId}: rejected multilingual wording: ${pattern}`);
+  }
+}
+
 function assertNative(question: EcoLocalizedQuestionV1, english: any, locale: "hi" | "pa") {
   const text = learnerText(question);
   const stripped = stripEcoAllowedRomanV1(text);
@@ -142,6 +157,7 @@ function assertNative(question: EcoLocalizedQuestionV1, english: any, locale: "h
   });
 
   if (["ECO-CP-011", "ECO-CP-012"].includes(english.cpId)) assertCp011Cp012LexicalQuality(question, locale);
+  if (["ECO-CP-015", "ECO-CP-016"].includes(english.cpId)) assertCp015Cp016LexicalQuality(question, locale);
 
   if (locale === "hi") fail(/[\u0900-\u097F]/u.test(text), `${question.questionId}: missing Devanagari`);
   if (locale === "pa") fail(/[\u0A00-\u0A7F]/u.test(text), `${question.questionId}: missing Gurmukhi`);
