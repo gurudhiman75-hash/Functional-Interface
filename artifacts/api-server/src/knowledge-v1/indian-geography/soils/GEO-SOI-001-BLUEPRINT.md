@@ -1,6 +1,6 @@
 # GEO-SOI-001 — Soils of India
 
-Status: FOUNDATION BLUEPRINT V1
+Status: ACTIVE IMPLEMENTATION — CP001–CP002 APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-SOI-001`
@@ -54,7 +54,7 @@ Later CPs may integrate facts from earlier checkpoints but must not take ownersh
 - Stems must read like real competitive-exam questions, not generated prompts.
 - Avoid filler such as `associated with`, `described as`, `in the context of`, `broad` / `broadly`, and repetitive `mainly`.
 - Every permanent QL must own six semantically distinct questions where the source supports them.
-- Explanations should be simple, question-specific and slightly explanatory.
+- Explanations should be simple, question-specific and usually 2–3 short sentences: answer directly first, then add one useful why/how connection.
 - Distractors must be real soil terms, regions, properties or processes and should form plausible exam confusions.
 - Hard questions should require relation depth, comparison or multi-statement reasoning rather than difficult English.
 - Do not use obscure pedological terminology merely to increase difficulty.
@@ -94,4 +94,4 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-Implementation begins with CP001 and CP002. Both remain review-only until explicit human approval.
+CP001 and CP002 were explicitly approved and merged through PR #1991. Their 108 owning questions across QL001–QL018 are frozen as the current approved authority for those checkpoints. The next implementation checkpoint is CP003 — Black Soils (QL019–QL027). Runtime publication and Question Bank/test/mock activation remain separately governed.
