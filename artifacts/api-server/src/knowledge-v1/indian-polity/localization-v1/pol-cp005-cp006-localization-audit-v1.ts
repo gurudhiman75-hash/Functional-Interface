@@ -18,7 +18,7 @@ function numericTokens(value:string){
  const withoutListNumbers=value.split("\n").map(line=>line.replace(/^\s*\d+[.)]\s+/,"")).join("\n");
  return [...new Set(withoutListNumbers.match(/\d+[A-Z]?(?:\([a-z0-9]+\))?/g)??[])].sort();
 }
-const PA_BANNED=["ਸੰਸ਼ੋਧਨ","ਰਜਿਸਟ੍ਰੇਸ਼ਨ","ਉਪਚਾਰ","ਅਭਿਵੈਕਤੀ","ਅਪ੍ਰਸੰਗਿਕ","ਬਾਧਕ","ਯੋਗਤਾ-ਸ਼ਰਤ","ਨਾਲ ਸੰਬੰਧਿਤ","ਹਰ ਵਿਅਕਤੀਆਂ"] as const;
+const PA_BANNED=["ਸੰਸ਼ੋਧਨ","ਰਜਿਸਟ੍ਰੇਸ਼ਨ","ਉਪਚਾਰ","ਅਭਿਵੈਕਤੀ","ਅਪ੍ਰਸੰਗਿਕ","ਬਾਧਕ","ਯੋਗਤਾ-ਸ਼ਰਤ","ਸੰਬੰਧਿਤ","ਹਰ ਵਿਅਕਤੀਆਂ","ਸੰਕਾਨੂੰਨ"] as const;
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
  const original=text(q);
  const stripped=original
