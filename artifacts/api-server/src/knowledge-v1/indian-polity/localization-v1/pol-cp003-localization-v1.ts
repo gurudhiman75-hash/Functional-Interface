@@ -250,7 +250,7 @@ function stem(q: (typeof ENGLISH)[number], locale: NativeLocale): string {
   if (ql === 13) {
     const source = POL_CP003_SCENARIO_ROWS_V1.find((x) => `Article ${x.article}` === q.canonicalAnswer && q.stem.includes(x.scenario.split(" ").slice(0,4).join(" "))) ??
       POL_CP003_SCENARIO_ROWS_V1.find((x) => `Article ${x.article}` === q.canonicalAnswer)!;
-    return `${native(SCENARIOS[source.scenario]!, locale)}\n${locale === "hi" ? "यह स्थिति मुख्य रूप से किस अनुच्छेद के अंतर्गत आती है?" : "ਇਹ ਸਥਿਤੀ ਮੁੱਖ ਤੌਰ ਤੇ ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ ਆਉਂਦੀ ਹੈ?"}`;
+    return `${native(SCENARIOS[source.scenario]!, locale)}\n${locale === "hi" ? "यह स्थिति मुख्य रूप से किस अनुच्छेद के अंतर्गत आती है?" : "ਇਸ ਮਾਮਲੇ 'ਤੇ ਮੁੱਖ ਤੌਰ 'ਤੇ ਕਿਹੜਾ ਅਨੁਛੇਦ ਲਾਗੂ ਹੁੰਦਾ ਹੈ?"}`;
   }
   if (ql === 15) {
     const lines = q.stem.split("\n").slice(1,4).map((x) => x.replace(/^\d\. /,""));
