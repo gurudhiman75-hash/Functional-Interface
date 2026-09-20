@@ -68,9 +68,10 @@ describe("Environment chapter-wide statement opener consistency", () => {
                 : (stem.includes("ਕਥਨਾਂ") || stem.includes("ਬਿਆਨਾਂ")) && stem.includes("ਵਿਚਾਰ");
 
           if (isStatementStem) {
-            expect(stem, `${question.questionId}: non-standard ${locale} statement opener`).toStartWith(
-              standard[locale],
-            );
+            expect(
+              stem.startsWith(standard[locale]),
+              `${question.questionId}: non-standard ${locale} statement opener`,
+            ).toBe(true);
           }
         }
       }
