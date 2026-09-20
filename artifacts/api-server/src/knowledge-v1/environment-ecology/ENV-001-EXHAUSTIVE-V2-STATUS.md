@@ -33,8 +33,8 @@ ENV-CP-014 V1 is recorded as approved/content-frozen. The stale pending-approval
 
 Article 48A and Article 51A(g) remain Polity-owned and are not duplicated in Environment.
 
-## Approval and next gate
+## Approval and closure
 
 Project-owner approval was recorded by merge of PR #1837 on 2026-09-18. The V2 remediation surface is content-frozen. Chapter-wide regression gates are present in `environment-exhaustive-v2.test.ts`.
 
-Next phase: multilingual localization, using frozen English as semantic authority.
+Multilingual localization is complete and approved through ENV-CP-020. English, Hindi and Punjabi content are content-frozen. Runtime / Question Studio integration remains a separate workflow.

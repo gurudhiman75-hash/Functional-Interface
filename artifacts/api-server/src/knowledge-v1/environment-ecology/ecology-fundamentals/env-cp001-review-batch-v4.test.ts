@@ -23,7 +23,7 @@ describe("ENV-CP-001 V4 simplified editorial review batch", () => {
 
   it("keeps learner-facing language concise", () => {
     for (const question of questions) {
-      const nonStatementStem = !question.stem.startsWith("Consider the statements:");
+      const nonStatementStem = !question.stem.startsWith("Consider the following statements:");
       if (nonStatementStem) {
         expect(question.stem.length).toBeLessThanOrEqual(105);
       }

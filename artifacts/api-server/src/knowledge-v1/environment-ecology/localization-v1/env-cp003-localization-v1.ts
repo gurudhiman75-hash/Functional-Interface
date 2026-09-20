@@ -173,10 +173,10 @@ const STEM_HI=[
 "A tiger killing and eating a deer is an example of:","In predation, the organism that is eaten is the:","Which pair best shows predator and prey?","Which statement describes predation?",
 "Which pair is correctly matched?","Which pair is correctly matched?","Which pair is correctly matched?","Which pair is correctly matched?",
 "Which pair is incorrectly matched?","Which pair is incorrectly matched?","Which pair is incorrectly matched?","Which pair is incorrectly matched?",
-"Consider the statements:\n1. Producers occupy the first trophic level.\n2. Energy flow is one-way.\n3. A food web contains only one feeding path.\nHow many are correct?",
-"Consider the statements:\n1. A grazing chain starts with green plants.\n2. A detritus chain starts with dead matter.\n3. The energy pyramid may be inverted.\nHow many are correct?",
-"Consider the statements:\n1. Primary consumers usually occupy level two.\n2. Food webs connect food chains.\n3. Predation involves a predator feeding on prey.\nHow many are correct?",
-"Consider the statements:\n1. Biomass pyramids can sometimes invert.\n2. Number pyramids can sometimes invert.\n3. Energy pyramids can sometimes invert.\nHow many are correct?",
+"Consider the following statements:\n1. Producers occupy the first trophic level.\n2. Energy flow is one-way.\n3. A food web contains only one feeding path.\nHow many are correct?",
+"Consider the following statements:\n1. A grazing chain starts with green plants.\n2. A detritus chain starts with dead matter.\n3. The energy pyramid may be inverted.\nHow many are correct?",
+"Consider the following statements:\n1. Primary consumers usually occupy level two.\n2. Food webs connect food chains.\n3. Predation involves a predator feeding on prey.\nHow many are correct?",
+"Consider the following statements:\n1. Biomass pyramids can sometimes invert.\n2. Number pyramids can sometimes invert.\n3. Energy pyramids can sometimes invert.\nHow many are correct?",
 "In grass → grasshopper → frog → snake, which organism is the primary consumer?","In algae → zooplankton → fish, which occupies the third trophic level?","A chain begins with fallen leaves. Which type is it?","Which change is expected as energy moves from grass to deer to tiger?"
 ].map((s,i)=>[
 "खाद्य शृंखला क्या दर्शाती है?","रेखीय भोजन क्रम को क्या कहा जाता है?","खाद्य शृंखला में तीर मुख्यतः किस दिशा को दिखाते हैं?","खाद्य शृंखला के बारे में कौन-सा कथन सही है?",
@@ -189,10 +189,10 @@ const STEM_HI=[
 "बाघ द्वारा हिरण को मारकर खाना किसका उदाहरण है?","परभक्षण में खाया जाने वाला जीव क्या कहलाता है?","कौन-सा युग्म शिकारी और शिकार को सही दिखाता है?","परभक्षण का सही वर्णन कौन-सा है?",
 "कौन-सा युग्म सही सुमेलित है?","कौन-सा युग्म सही सुमेलित है?","कौन-सा युग्म सही सुमेलित है?","कौन-सा युग्म सही सुमेलित है?",
 "कौन-सा युग्म गलत सुमेलित है?","कौन-सा युग्म गलत सुमेलित है?","कौन-सा युग्म गलत सुमेलित है?","कौन-सा युग्म गलत सुमेलित है?",
-"कथनों पर विचार कीजिए:\n1. उत्पादक पहले पोषी स्तर पर होते हैं।\n2. ऊर्जा प्रवाह एक दिशा में होता है।\n3. खाद्य जाल में केवल एक भोजन मार्ग होता है।\nकितने कथन सही हैं?",
-"कथनों पर विचार कीजिए:\n1. चराई शृंखला हरे पौधों से शुरू होती है।\n2. मृत-अवशेष शृंखला मृत पदार्थ से शुरू होती है।\n3. ऊर्जा पिरामिड उल्टा हो सकता है।\nकितने कथन सही हैं?",
-"कथनों पर विचार कीजिए:\n1. प्राथमिक उपभोक्ता सामान्यतः दूसरे पोषी स्तर पर होते हैं।\n2. खाद्य जाल खाद्य शृंखलाओं को जोड़ता है।\n3. परभक्षण में शिकारी शिकार को खाता है।\nकितने कथन सही हैं?",
-"कथनों पर विचार कीजिए:\n1. जैवभार पिरामिड कभी-कभी उल्टा हो सकता है।\n2. संख्या पिरामिड कभी-कभी उल्टा हो सकता है।\n3. ऊर्जा पिरामिड कभी-कभी उल्टा हो सकता है।\nकितने कथन सही हैं?",
+"निम्नलिखित कथनों पर विचार कीजिए:\n1. उत्पादक पहले पोषी स्तर पर होते हैं।\n2. ऊर्जा प्रवाह एक दिशा में होता है।\n3. खाद्य जाल में केवल एक भोजन मार्ग होता है।\nकितने कथन सही हैं?",
+"निम्नलिखित कथनों पर विचार कीजिए:\n1. चराई शृंखला हरे पौधों से शुरू होती है।\n2. मृत-अवशेष शृंखला मृत पदार्थ से शुरू होती है।\n3. ऊर्जा पिरामिड उल्टा हो सकता है।\nकितने कथन सही हैं?",
+"निम्नलिखित कथनों पर विचार कीजिए:\n1. प्राथमिक उपभोक्ता सामान्यतः दूसरे पोषी स्तर पर होते हैं।\n2. खाद्य जाल खाद्य शृंखलाओं को जोड़ता है।\n3. परभक्षण में शिकारी शिकार को खाता है।\nकितने कथन सही हैं?",
+"निम्नलिखित कथनों पर विचार कीजिए:\n1. जैवभार पिरामिड कभी-कभी उल्टा हो सकता है।\n2. संख्या पिरामिड कभी-कभी उल्टा हो सकता है।\n3. ऊर्जा पिरामिड कभी-कभी उल्टा हो सकता है।\nकितने कथन सही हैं?",
 "घास → टिड्डा → मेंढक → साँप में प्राथमिक उपभोक्ता कौन है?","शैवाल → जंतु प्लवक → मछली में तीसरे पोषी स्तर पर कौन है?","यदि शृंखला गिरे हुए पत्तों से शुरू हो, तो वह किस प्रकार की है?","घास से हिरण और फिर बाघ तक ऊर्जा जाने पर क्या परिवर्तन अपेक्षित है?"
 ][i]) as string[];
 
@@ -207,10 +207,10 @@ const STEM_PA=[
 "ਬਾਘ ਵੱਲੋਂ ਹਿਰਣ ਨੂੰ ਮਾਰ ਕੇ ਖਾਣਾ ਕਿਸਦਾ ਉਦਾਹਰਨ ਹੈ?","ਪਰਭੱਖਣ ਵਿੱਚ ਖਾਧਾ ਜਾਣ ਵਾਲਾ ਜੀਵ ਕੀ ਕਹਾਉਂਦਾ ਹੈ?","ਕਿਹੜਾ ਜੋੜ ਸ਼ਿਕਾਰੀ ਅਤੇ ਸ਼ਿਕਾਰ ਨੂੰ ਸਹੀ ਦਰਸਾਉਂਦਾ ਹੈ?","ਪਰਭੱਖਣ ਦਾ ਸਹੀ ਵਰਣਨ ਕਿਹੜਾ ਹੈ?",
 "ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?","ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?","ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?","ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?",
 "ਕਿਹੜਾ ਜੋੜ ਗਲਤ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?","ਕਿਹੜਾ ਜੋੜ ਗਲਤ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?","ਕਿਹੜਾ ਜੋੜ ਗਲਤ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?","ਕਿਹੜਾ ਜੋੜ ਗਲਤ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?",
-"ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਉਤਪਾਦਕ ਪਹਿਲੇ ਪੋਸ਼ੀ ਪੱਧਰ ਤੇ ਹੁੰਦੇ ਹਨ।\n2. ਊਰਜਾ ਪ੍ਰਵਾਹ ਇੱਕ ਦਿਸ਼ਾ ਵਿੱਚ ਹੁੰਦਾ ਹੈ।\n3. ਭੋਜਨ ਜਾਲ ਵਿੱਚ ਸਿਰਫ਼ ਇੱਕ ਭੋਜਨ ਮਾਰਗ ਹੁੰਦਾ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
-"ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਚਰਾਈ ਸ਼੍ਰਿੰਖਲਾ ਹਰੇ ਪੌਧਿਆਂ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ।\n2. ਮ੍ਰਿਤ-ਅਵਸ਼ੇਸ਼ ਸ਼੍ਰਿੰਖਲਾ ਮ੍ਰਿਤ ਪਦਾਰਥ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ।\n3. ਊਰਜਾ ਪਿਰਾਮਿਡ ਉਲਟਾ ਹੋ ਸਕਦਾ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
-"ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਪ੍ਰਾਥਮਿਕ ਉਪਭੋਗਤਾ ਆਮ ਤੌਰ ਤੇ ਦੂਜੇ ਪੋਸ਼ੀ ਪੱਧਰ ਤੇ ਹੁੰਦੇ ਹਨ।\n2. ਭੋਜਨ ਜਾਲ ਭੋਜਨ ਸ਼੍ਰਿੰਖਲਾਵਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ।\n3. ਪਰਭੱਖਣ ਵਿੱਚ ਸ਼ਿਕਾਰੀ ਸ਼ਿਕਾਰ ਨੂੰ ਖਾਂਦਾ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
-"ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਜੈਵਭਾਰ ਪਿਰਾਮਿਡ ਕਦੇ-ਕਦੇ ਉਲਟਾ ਹੋ ਸਕਦਾ ਹੈ।\n2. ਗਿਣਤੀ ਪਿਰਾਮਿਡ ਕਦੇ-ਕਦੇ ਉਲਟਾ ਹੋ ਸਕਦਾ ਹੈ।\n3. ਊਰਜਾ ਪਿਰਾਮਿਡ ਕਦੇ-ਕਦੇ ਉਲਟਾ ਹੋ ਸਕਦਾ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
+"ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਉਤਪਾਦਕ ਪਹਿਲੇ ਪੋਸ਼ੀ ਪੱਧਰ ਤੇ ਹੁੰਦੇ ਹਨ।\n2. ਊਰਜਾ ਪ੍ਰਵਾਹ ਇੱਕ ਦਿਸ਼ਾ ਵਿੱਚ ਹੁੰਦਾ ਹੈ।\n3. ਭੋਜਨ ਜਾਲ ਵਿੱਚ ਸਿਰਫ਼ ਇੱਕ ਭੋਜਨ ਮਾਰਗ ਹੁੰਦਾ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
+"ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਚਰਾਈ ਸ਼੍ਰਿੰਖਲਾ ਹਰੇ ਪੌਧਿਆਂ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ।\n2. ਮ੍ਰਿਤ-ਅਵਸ਼ੇਸ਼ ਸ਼੍ਰਿੰਖਲਾ ਮ੍ਰਿਤ ਪਦਾਰਥ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ।\n3. ਊਰਜਾ ਪਿਰਾਮਿਡ ਉਲਟਾ ਹੋ ਸਕਦਾ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
+"ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਪ੍ਰਾਥਮਿਕ ਉਪਭੋਗਤਾ ਆਮ ਤੌਰ ਤੇ ਦੂਜੇ ਪੋਸ਼ੀ ਪੱਧਰ ਤੇ ਹੁੰਦੇ ਹਨ।\n2. ਭੋਜਨ ਜਾਲ ਭੋਜਨ ਸ਼੍ਰਿੰਖਲਾਵਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ।\n3. ਪਰਭੱਖਣ ਵਿੱਚ ਸ਼ਿਕਾਰੀ ਸ਼ਿਕਾਰ ਨੂੰ ਖਾਂਦਾ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
+"ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਜੈਵਭਾਰ ਪਿਰਾਮਿਡ ਕਦੇ-ਕਦੇ ਉਲਟਾ ਹੋ ਸਕਦਾ ਹੈ।\n2. ਗਿਣਤੀ ਪਿਰਾਮਿਡ ਕਦੇ-ਕਦੇ ਉਲਟਾ ਹੋ ਸਕਦਾ ਹੈ।\n3. ਊਰਜਾ ਪਿਰਾਮਿਡ ਕਦੇ-ਕਦੇ ਉਲਟਾ ਹੋ ਸਕਦਾ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
 "ਘਾਹ → ਟਿੱਡਾ → ਡੱਡੂ → ਸੱਪ ਵਿੱਚ ਪ੍ਰਾਥਮਿਕ ਉਪਭੋਗਤਾ ਕਿਹੜਾ ਹੈ?","ਕਾਈ → ਜੰਤੂ ਪਲਵਕ → ਮੱਛੀ ਵਿੱਚ ਤੀਜੇ ਪੋਸ਼ੀ ਪੱਧਰ ਤੇ ਕਿਹੜਾ ਜੀਵ ਹੈ?","ਜੇ ਸ਼੍ਰਿੰਖਲਾ ਡਿੱਗੇ ਪੱਤਿਆਂ ਤੋਂ ਸ਼ੁਰੂ ਹੋਵੇ, ਤਾਂ ਇਹ ਕਿਸ ਕਿਸਮ ਦੀ ਹੈ?","ਘਾਹ ਤੋਂ ਹਿਰਣ ਅਤੇ ਫਿਰ ਬਾਘ ਤੱਕ ਊਰਜਾ ਜਾਣ ਤੇ ਕਿਹੜਾ ਬਦਲਾਅ ਉਮੀਦ ਕੀਤਾ ਜਾਂਦਾ ਹੈ?"
 ];
 

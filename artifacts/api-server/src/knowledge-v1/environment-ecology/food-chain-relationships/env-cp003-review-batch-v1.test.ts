@@ -29,7 +29,7 @@ describe("ENV-CP-003 V1 review batch",()=>{
   });
   it("keeps concise editorial language",()=>{
     for(const q of questions){
-      if(!q.stem.startsWith("Consider the statements:")) expect(q.stem.length).toBeLessThanOrEqual(110);
+      if(!q.stem.startsWith("Consider the following statements:")) expect(q.stem.length).toBeLessThanOrEqual(110);
       expect(q.explanation.length).toBeLessThanOrEqual(160);
     }
     const text=questions.map(q=>`${q.stem}\n${q.explanation}`).join("\n");

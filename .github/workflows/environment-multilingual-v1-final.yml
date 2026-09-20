@@ -44,6 +44,12 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
+      - name: Validate chapter-wide statement opener
+        run: |
+          mkdir -p artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/environment-ecology/localization-v1/env-statement-opener-consistency-proof-v1.ts --bundle --platform=node --format=esm --outfile=dist/environment-review/ENV-MULTILINGUAL-V1/env-statement-opener-consistency-proof-v1.mjs
+          node artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1/env-statement-opener-consistency-proof-v1.mjs
+
       - name: Bundle final localization proof
         run: |
           mkdir -p artifacts/api-server/dist/environment-review/ENV-MULTILINGUAL-V1
