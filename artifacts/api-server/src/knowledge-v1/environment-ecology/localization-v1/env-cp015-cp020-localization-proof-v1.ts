@@ -24,7 +24,7 @@ function learnerText(q:EnvLocalizedQuestionV1){return [q.stem,...q.options,q.exp
 function stripAllowedRoman(text:string){
  return text
   .replace(/M-STrIPES/gu,"")
-  .replace(/\b(?:IUCN|CPCB|SPCB|PCC|NBA|SBB|BMC|PBR|NTCA|CZA|WCCB|FSI|BSI|ZSI|WII|EIA|NGT|CITES|CMS|CBD|UNFCCC|NDCs?|POPs?|HFCs?|CFCs?|NAPCC|STPF|GPS|GIS|GK|COP21)\b/gu,"")
+  .replace(/\b(?:IUCN|CPCB|SPCB|PCC|NBA|SBB|BMC|PBR|NTCA|CZA|WCCB|FSI|BSI|ZSI|WII|EIA|NGT|CITES|CMS|CBD|UNFCCC|NDCs?|POPs?|HFCs?|CFCs?|NAPCC|STPF|GPS|GIS|GK|COP|COP21)\b/gu,"")
   .replace(/\b(?:I|II|III|B|C)\b/gu,"");
 }
 function assertNative(locale:"hi"|"pa",q:EnvLocalizedQuestionV1){
