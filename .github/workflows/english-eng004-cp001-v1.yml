@@ -1,0 +1,52 @@
+name: Validate English ENG-004 CP001 V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/synonyms-antonyms/ENG-004/**
+      - artifacts/api-server/src/english-v1/tests/eng-004-cp001-v1.test.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-eng004-cp001-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-eng004-cp001-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install workspace dependencies
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Compile ENG-004 CP001 V2 tests
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-004-cp001-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-004-cp001-v2.test.mjs
+      - name: Run ENG-004 CP001 V2 tests
+        run: node artifacts/api-server/dist/english-v1/eng-004-cp001-v2.test.mjs
+      - name: Compile ENG-004 CP001 V2 review exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/synonyms-antonyms/ENG-004/CP001/eng-004-cp001-review-v1-export.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-004-cp001-review-v2-export.mjs
+      - name: Generate ENG-004 CP001 V2 review file
+        run: node artifacts/api-server/dist/english-v1/eng-004-cp001-review-v2-export.mjs
+      - name: Upload ENG-004 CP001 V2 review file
+        uses: actions/upload-artifact@v4
+        with:
+          name: ENG-004-CP001-REVIEW-V2
+          path: dist/english-v1/ENG-004-CP001-REVIEW-V2.md
+          if-no-files-found: error
+          retention-days: 30
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
