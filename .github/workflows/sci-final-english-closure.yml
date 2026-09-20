@@ -2,10 +2,15 @@ name: SCI Final English Closure
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/knowledge-v1/science/**"
-      - ".github/workflows/sci-final-english-closure.yml"
   workflow_dispatch:
+
+concurrency:
+  group: sci-final-english-closure-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   science-final-english-closure:
