@@ -6,8 +6,11 @@ on:
       - feature/punjabi-v1-forward-port
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
-      - ".github/workflows/punjabi-forward-port-cp002.yml"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-cp002:

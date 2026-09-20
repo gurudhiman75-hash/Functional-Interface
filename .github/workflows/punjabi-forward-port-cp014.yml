@@ -3,15 +3,19 @@ name: Validate Punjabi Forward Port CP014
 on:
   push:
     branches:
-      - "feature/punjabi-forward-port-cp014-v1"
+      - "New-main"
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
-      - ".github/workflows/punjabi-forward-port-cp014.yml"
   pull_request:
+    branches:
+      - "New-main"
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
-      - ".github/workflows/punjabi-forward-port-cp014.yml"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-cp014:

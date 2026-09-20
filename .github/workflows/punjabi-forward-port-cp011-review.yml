@@ -3,15 +3,19 @@ name: Export Punjabi Retrofit CP011 Review
 on:
   push:
     branches:
-      - "feature/punjabi-retrofit-cp011-exhaustive-v1"
+      - "New-main"
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
-      - ".github/workflows/punjabi-forward-port-cp011-review.yml"
   pull_request:
+    branches:
+      - "New-main"
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
-      - ".github/workflows/punjabi-forward-port-cp011-review.yml"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   review-cp011-retrofit:
