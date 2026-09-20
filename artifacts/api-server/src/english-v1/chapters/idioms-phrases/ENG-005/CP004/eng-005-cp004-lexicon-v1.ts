@@ -1,6 +1,6 @@
 export type Eng005Cp004Difficulty="easy"|"medium"|"hard";
-export type Eng005Cp004Mode="context-to-meaning"|"meaning-to-idiom";
-export interface Eng005Cp004EntryV1{id:string;phrase:string;meaning:string;context:string;category:string;difficulty:Eng005Cp004Difficulty;}
+export type Eng005Cp004Mode="idiom-to-meaning"|"meaning-to-idiom";
+export interface Eng005Cp004EntryV1{id:string;phrase:string;meaning:string;contextTemplate:string;category:string;difficulty:Eng005Cp004Difficulty;}
 
 const RAW=`
 #decision_action
@@ -198,6 +198,6 @@ all thumbs|clumsy with one's hands|He felt {idiom} while trying to repair the ti
 `.trim();
 
 const rows:Eng005Cp004EntryV1[]=[];let category="";let within=0;
-for(const raw of RAW.split("\n")){const line=raw.trim();if(!line)continue;if(line.startsWith("#")){category=line.slice(1);within=0;continue;}const [phrase,meaning,template]=line.split("|");if(!phrase||!meaning||!template)throw new Error(`Invalid ENG-005 CP004 row: ${line}`);const difficulty:Eng005Cp004Difficulty=within<3?"easy":within<9?"medium":"hard";rows.push({id:`IDIOM4-${String(rows.length+1).padStart(3,"0")}`,phrase,meaning,context:template.replace("{idiom}",phrase),category,difficulty});within++;}
+for(const raw of RAW.split("\n")){const line=raw.trim();if(!line)continue;if(line.startsWith("#")){category=line.slice(1);within=0;continue;}const [phrase,meaning,template]=line.split("|");if(!phrase||!meaning||!template)throw new Error(`Invalid ENG-005 CP004 row: ${line}`);const difficulty:Eng005Cp004Difficulty=within<3?"easy":within<9?"medium":"hard";rows.push({id:`IDIOM4-${String(rows.length+1).padStart(3,"0")}`,phrase,meaning,contextTemplate:template,category,difficulty});within++;}
 export const ENG005_CP004_IDIOMS_V1=Object.freeze(rows);
 export function eng005Cp004PoolV1(difficulty:Eng005Cp004Difficulty){return ENG005_CP004_IDIOMS_V1.filter(x=>x.difficulty===difficulty);}
