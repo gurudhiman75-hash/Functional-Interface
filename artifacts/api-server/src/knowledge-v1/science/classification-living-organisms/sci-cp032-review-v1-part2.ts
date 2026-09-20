@@ -64,7 +64,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
   [
     4,
     "Easy",
-    "Yeast is best described as a:",
+    "In classification, yeast is best described as a:",
     "Unicellular fungus",
     [
       "Bacterium",
