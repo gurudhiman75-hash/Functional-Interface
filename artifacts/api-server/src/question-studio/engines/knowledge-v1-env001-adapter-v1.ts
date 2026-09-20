@@ -372,6 +372,7 @@ export const knowledgeV1Env001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         engineId: "knowledge-v1",
         packageId: ENV_001_QUESTION_STUDIO_PACKAGE_ID_V1,
         runtimeMode: ENV_001_QUESTION_STUDIO_RUNTIME_MODE_V1,
+        lifecycleStage: lifecycle.stage,
         registrationStatus: "REGISTERED_REVIEW_ONLY",
         registrationAuthorityId: ENV_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
         authoringReviewApproved: true,
