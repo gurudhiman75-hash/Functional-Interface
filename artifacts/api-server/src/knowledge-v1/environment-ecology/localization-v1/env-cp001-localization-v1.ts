@@ -156,38 +156,38 @@ const STEM: Readonly<Record<string, LocalePair>> = Object.freeze({
   "Which pair is correctly matched?": lp("कौन-सा युग्म सही सुमेलित है?", "ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?"),
   "Which pair is incorrectly matched?": lp("कौन-सा युग्म गलत सुमेलित है?", "ਕਿਹੜਾ ਜੋੜ ਗਲਤ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?"),
 
-  "Consider the statements:\nI. A population contains members of the same species living in one area.\nII. A community contains populations of different species.\nWhich is correct?": lp(
-    "कथनों पर विचार कीजिए:\nI. जनसंख्या में एक क्षेत्र में रहने वाली समान प्रजाति के सदस्य होते हैं।\nII. समुदाय में विभिन्न प्रजातियों की जनसंख्याएँ होती हैं।\nकौन-सा विकल्प सही है?",
-    "ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\nI. ਆਬਾਦੀ ਵਿੱਚ ਇੱਕ ਖੇਤਰ ਵਿੱਚ ਰਹਿਣ ਵਾਲੇ ਇੱਕੋ ਪ੍ਰਜਾਤੀ ਦੇ ਜੀਵ ਹੁੰਦੇ ਹਨ।\nII. ਸਮੁਦਾਇ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਦੀਆਂ ਆਬਾਦੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?",
+  "Consider the following statements:\nI. A population contains members of the same species living in one area.\nII. A community contains populations of different species.\nWhich is correct?": lp(
+    "निम्नलिखित कथनों पर विचार कीजिए:\nI. जनसंख्या में एक क्षेत्र में रहने वाली समान प्रजाति के सदस्य होते हैं।\nII. समुदाय में विभिन्न प्रजातियों की जनसंख्याएँ होती हैं।\nकौन-सा विकल्प सही है?",
+    "ਹੇਠ ਲਿਖੇ ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\nI. ਆਬਾਦੀ ਵਿੱਚ ਇੱਕ ਖੇਤਰ ਵਿੱਚ ਰਹਿਣ ਵਾਲੇ ਇੱਕੋ ਪ੍ਰਜਾਤੀ ਦੇ ਜੀਵ ਹੁੰਦੇ ਹਨ।\nII. ਸਮੁਦਾਇ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਦੀਆਂ ਆਬਾਦੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?",
   ),
-  "Consider the statements:\nI. A community contains populations of different species.\nII. An ecosystem excludes non-living factors.\nWhich is correct?": lp(
-    "कथनों पर विचार कीजिए:\nI. समुदाय में विभिन्न प्रजातियों की जनसंख्याएँ होती हैं।\nII. पारितंत्र में अजैविक कारक शामिल नहीं होते।\nकौन-सा विकल्प सही है?",
-    "ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\nI. ਸਮੁਦਾਇ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਦੀਆਂ ਆਬਾਦੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\nII. ਪਰਿਸਥਿਤਿਕ ਤੰਤਰ ਵਿੱਚ ਅਜੈਵਿਕ ਕਾਰਕ ਸ਼ਾਮਲ ਨਹੀਂ ਹੁੰਦੇ।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?",
+  "Consider the following statements:\nI. A community contains populations of different species.\nII. An ecosystem excludes non-living factors.\nWhich is correct?": lp(
+    "निम्नलिखित कथनों पर विचार कीजिए:\nI. समुदाय में विभिन्न प्रजातियों की जनसंख्याएँ होती हैं।\nII. पारितंत्र में अजैविक कारक शामिल नहीं होते।\nकौन-सा विकल्प सही है?",
+    "ਹੇਠ ਲਿਖੇ ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\nI. ਸਮੁਦਾਇ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਦੀਆਂ ਆਬਾਦੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\nII. ਪਰਿਸਥਿਤਿਕ ਤੰਤਰ ਵਿੱਚ ਅਜੈਵਿਕ ਕਾਰਕ ਸ਼ਾਮਲ ਨਹੀਂ ਹੁੰਦੇ।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?",
   ),
-  "Consider the statements:\nI. Habitat means an organism's functional role.\nII. Niche includes an organism's role and resource use.\nWhich is correct?": lp(
-    "कथनों पर विचार कीजिए:\nI. आवास का अर्थ जीव की कार्यात्मक भूमिका है।\nII. निच में जीव की भूमिका और संसाधनों का उपयोग शामिल है।\nकौन-सा विकल्प सही है?",
-    "ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\nI. ਆਵਾਸ ਦਾ ਅਰਥ ਜੀਵ ਦੀ ਕਾਰਜਾਤਮਕ ਭੂਮਿਕਾ ਹੈ।\nII. ਨਿਚ ਵਿੱਚ ਜੀਵ ਦੀ ਭੂਮਿਕਾ ਅਤੇ ਸਰੋਤਾਂ ਦੀ ਵਰਤੋਂ ਸ਼ਾਮਲ ਹੈ।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?",
+  "Consider the following statements:\nI. Habitat means an organism's functional role.\nII. Niche includes an organism's role and resource use.\nWhich is correct?": lp(
+    "निम्नलिखित कथनों पर विचार कीजिए:\nI. आवास का अर्थ जीव की कार्यात्मक भूमिका है।\nII. निच में जीव की भूमिका और संसाधनों का उपयोग शामिल है।\nकौन-सा विकल्प सही है?",
+    "ਹੇਠ ਲਿਖੇ ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\nI. ਆਵਾਸ ਦਾ ਅਰਥ ਜੀਵ ਦੀ ਕਾਰਜਾਤਮਕ ਭੂਮਿਕਾ ਹੈ।\nII. ਨਿਚ ਵਿੱਚ ਜੀਵ ਦੀ ਭੂਮਿਕਾ ਅਤੇ ਸਰੋਤਾਂ ਦੀ ਵਰਤੋਂ ਸ਼ਾਮਲ ਹੈ।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?",
   ),
-  "Consider the statements:\nI. An ecotone is the ecological change seen at a boundary.\nII. Edge effect is the boundary zone itself.\nWhich is correct?": lp(
-    "कथनों पर विचार कीजिए:\nI. इकोटोन सीमा पर दिखाई देने वाला पारिस्थितिक परिवर्तन है।\nII. किनारी प्रभाव स्वयं सीमा क्षेत्र है।\nकौन-सा विकल्प सही है?",
-    "ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\nI. ਇਕੋਟੋਨ ਸੀਮਾ ਤੇ ਦਿਖਾਈ ਦੇਣ ਵਾਲਾ ਪਰਿਸਥਿਤਿਕ ਬਦਲਾਅ ਹੈ।\nII. ਕਿਨਾਰੀ ਪ੍ਰਭਾਵ ਖੁਦ ਸੀਮਾ ਖੇਤਰ ਹੈ।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?",
+  "Consider the following statements:\nI. An ecotone is the ecological change seen at a boundary.\nII. Edge effect is the boundary zone itself.\nWhich is correct?": lp(
+    "निम्नलिखित कथनों पर विचार कीजिए:\nI. इकोटोन सीमा पर दिखाई देने वाला पारिस्थितिक परिवर्तन है।\nII. किनारी प्रभाव स्वयं सीमा क्षेत्र है।\nकौन-सा विकल्प सही है?",
+    "ਹੇਠ ਲਿਖੇ ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\nI. ਇਕੋਟੋਨ ਸੀਮਾ ਤੇ ਦਿਖਾਈ ਦੇਣ ਵਾਲਾ ਪਰਿਸਥਿਤਿਕ ਬਦਲਾਅ ਹੈ।\nII. ਕਿਨਾਰੀ ਪ੍ਰਭਾਵ ਖੁਦ ਸੀਮਾ ਖੇਤਰ ਹੈ।\nਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?",
   ),
 
-  "Consider the statements:\n1. An organism is one living individual.\n2. A population contains different species.\n3. A community contains populations of different species.\nHow many are correct?": lp(
-    "कथनों पर विचार कीजिए:\n1. जीव एक व्यक्तिगत जीवित इकाई है।\n2. जनसंख्या में विभिन्न प्रजातियाँ होती हैं।\n3. समुदाय में विभिन्न प्रजातियों की जनसंख्याएँ होती हैं।\nकितने कथन सही हैं?",
-    "ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਜੀਵ ਇੱਕ ਵਿਅਕਤੀਗਤ ਜੀਵਤ ਇਕਾਈ ਹੈ।\n2. ਆਬਾਦੀ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\n3. ਸਮੁਦਾਇ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਦੀਆਂ ਆਬਾਦੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
+  "Consider the following statements:\n1. An organism is one living individual.\n2. A population contains different species.\n3. A community contains populations of different species.\nHow many are correct?": lp(
+    "निम्नलिखित कथनों पर विचार कीजिए:\n1. जीव एक व्यक्तिगत जीवित इकाई है।\n2. जनसंख्या में विभिन्न प्रजातियाँ होती हैं।\n3. समुदाय में विभिन्न प्रजातियों की जनसंख्याएँ होती हैं।\nकितने कथन सही हैं?",
+    "ਹੇਠ ਲਿਖੇ ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਜੀਵ ਇੱਕ ਵਿਅਕਤੀਗਤ ਜੀਵਤ ਇਕਾਈ ਹੈ।\n2. ਆਬਾਦੀ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\n3. ਸਮੁਦਾਇ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਦੀਆਂ ਆਬਾਦੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
   ),
-  "Consider the statements:\n1. A community contains different species.\n2. An ecosystem includes the physical environment.\n3. A biome is the global zone of life.\nHow many are correct?": lp(
-    "कथनों पर विचार कीजिए:\n1. समुदाय में विभिन्न प्रजातियाँ होती हैं।\n2. पारितंत्र में भौतिक पर्यावरण शामिल होता है।\n3. बायोम वैश्विक जीवन क्षेत्र है।\nकितने कथन सही हैं?",
-    "ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਸਮੁਦਾਇ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\n2. ਪਰਿਸਥਿਤਿਕ ਤੰਤਰ ਵਿੱਚ ਭੌਤਿਕ ਵਾਤਾਵਰਣ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ।\n3. ਬਾਇਓਮ ਵਿਸ਼ਵ ਜੀਵਨ ਖੇਤਰ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
+  "Consider the following statements:\n1. A community contains different species.\n2. An ecosystem includes the physical environment.\n3. A biome is the global zone of life.\nHow many are correct?": lp(
+    "निम्नलिखित कथनों पर विचार कीजिए:\n1. समुदाय में विभिन्न प्रजातियाँ होती हैं।\n2. पारितंत्र में भौतिक पर्यावरण शामिल होता है।\n3. बायोम वैश्विक जीवन क्षेत्र है।\nकितने कथन सही हैं?",
+    "ਹੇਠ ਲਿਖੇ ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਸਮੁਦਾਇ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।\n2. ਪਰਿਸਥਿਤਿਕ ਤੰਤਰ ਵਿੱਚ ਭੌਤਿਕ ਵਾਤਾਵਰਣ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ।\n3. ਬਾਇਓਮ ਵਿਸ਼ਵ ਜੀਵਨ ਖੇਤਰ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
   ),
-  "Consider the statements:\n1. Habitat is where an organism lives.\n2. Niche describes its role and resource use.\n3. An ecotone is a transition zone between communities.\nHow many are correct?": lp(
-    "कथनों पर विचार कीजिए:\n1. आवास वह स्थान है जहाँ जीव रहता है।\n2. निच उसकी भूमिका और संसाधनों के उपयोग को बताता है।\n3. इकोटोन समुदायों के बीच संक्रमण क्षेत्र है।\nकितने कथन सही हैं?",
-    "ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਆਵਾਸ ਉਹ ਥਾਂ ਹੈ ਜਿੱਥੇ ਜੀਵ ਰਹਿੰਦਾ ਹੈ।\n2. ਨਿਚ ਉਸਦੀ ਭੂਮਿਕਾ ਅਤੇ ਸਰੋਤਾਂ ਦੀ ਵਰਤੋਂ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।\n3. ਇਕੋਟੋਨ ਸਮੁਦਾਇਆਂ ਵਿਚਕਾਰ ਸੰਕ੍ਰਮਣ ਖੇਤਰ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
+  "Consider the following statements:\n1. Habitat is where an organism lives.\n2. Niche describes its role and resource use.\n3. An ecotone is a transition zone between communities.\nHow many are correct?": lp(
+    "निम्नलिखित कथनों पर विचार कीजिए:\n1. आवास वह स्थान है जहाँ जीव रहता है।\n2. निच उसकी भूमिका और संसाधनों के उपयोग को बताता है।\n3. इकोटोन समुदायों के बीच संक्रमण क्षेत्र है।\nकितने कथन सही हैं?",
+    "ਹੇਠ ਲਿਖੇ ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਆਵਾਸ ਉਹ ਥਾਂ ਹੈ ਜਿੱਥੇ ਜੀਵ ਰਹਿੰਦਾ ਹੈ।\n2. ਨਿਚ ਉਸਦੀ ਭੂਮਿਕਾ ਅਤੇ ਸਰੋਤਾਂ ਦੀ ਵਰਤੋਂ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।\n3. ਇਕੋਟੋਨ ਸਮੁਦਾਇਆਂ ਵਿਚਕਾਰ ਸੰਕ੍ਰਮਣ ਖੇਤਰ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
   ),
-  "Consider the statements:\n1. A biome is a large ecological region.\n2. The biosphere includes all ecosystems on Earth.\n3. Edge effect is an ecological change at a boundary.\nHow many are correct?": lp(
-    "कथनों पर विचार कीजिए:\n1. बायोम एक बड़ा पारिस्थितिक क्षेत्र है।\n2. जैवमंडल में पृथ्वी के सभी पारितंत्र शामिल हैं।\n3. किनारी प्रभाव सीमा पर होने वाला पारिस्थितिक परिवर्तन है।\nकितने कथन सही हैं?",
-    "ਬਿਆਨਾਂ ਤੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਬਾਇਓਮ ਇੱਕ ਵੱਡਾ ਪਰਿਸਥਿਤਿਕ ਖੇਤਰ ਹੈ।\n2. ਜੀਵ ਮੰਡਲ ਵਿੱਚ ਧਰਤੀ ਦੇ ਸਾਰੇ ਪਰਿਸਥਿਤਿਕ ਤੰਤਰ ਸ਼ਾਮਲ ਹਨ।\n3. ਕਿਨਾਰੀ ਪ੍ਰਭਾਵ ਸੀਮਾ ਤੇ ਹੋਣ ਵਾਲਾ ਪਰਿਸਥਿਤਿਕ ਬਦਲਾਅ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
+  "Consider the following statements:\n1. A biome is a large ecological region.\n2. The biosphere includes all ecosystems on Earth.\n3. Edge effect is an ecological change at a boundary.\nHow many are correct?": lp(
+    "निम्नलिखित कथनों पर विचार कीजिए:\n1. बायोम एक बड़ा पारिस्थितिक क्षेत्र है।\n2. जैवमंडल में पृथ्वी के सभी पारितंत्र शामिल हैं।\n3. किनारी प्रभाव सीमा पर होने वाला पारिस्थितिक परिवर्तन है।\nकितने कथन सही हैं?",
+    "ਹੇਠ ਲਿਖੇ ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:\n1. ਬਾਇਓਮ ਇੱਕ ਵੱਡਾ ਪਰਿਸਥਿਤਿਕ ਖੇਤਰ ਹੈ।\n2. ਜੀਵ ਮੰਡਲ ਵਿੱਚ ਧਰਤੀ ਦੇ ਸਾਰੇ ਪਰਿਸਥਿਤਿਕ ਤੰਤਰ ਸ਼ਾਮਲ ਹਨ।\n3. ਕਿਨਾਰੀ ਪ੍ਰਭਾਵ ਸੀਮਾ ਤੇ ਹੋਣ ਵਾਲਾ ਪਰਿਸਥਿਤਿਕ ਬਦਲਾਅ ਹੈ।\nਕਿੰਨੇ ਬਿਆਨ ਸਹੀ ਹਨ?",
   ),
 
   "Which statement correctly compares habitat and niche?": lp("आवास और निच की सही तुलना कौन-सा कथन करता है?", "ਆਵਾਸ ਅਤੇ ਨਿਚ ਦੀ ਸਹੀ ਤੁਲਨਾ ਕਿਹੜਾ ਬਿਆਨ ਕਰਦਾ ਹੈ?"),
