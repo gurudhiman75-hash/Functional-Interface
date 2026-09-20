@@ -2,7 +2,7 @@ import type { EcoCp011ReviewQuestion } from "./eco-cp011-review-types";
 import { ECO_CP011_REVIEW_V1 } from "./eco-cp011-review-generator-v1";
 
 const STEM_REVISIONS_V2: Readonly<Record<string, string>> = Object.freeze({
-  "What is the main purpose of a Development Financial Institution?": "What is the primary role of a Development Financial Institution (DFI)?",
+  "What is the main purpose of a Development Financial Institution?": "What does a Development Financial Institution (DFI) do?",
   "Why were DFIs important when commercial banks mainly focused on shorter-term finance?": "Why were DFIs important when commercial banks focused on shorter-term finance?",
   "Which feature best separates a DFI from an ordinary retail-banking role?": "Which feature distinguishes a DFI from ordinary retail banking?",
   "IFCI was originally created mainly to meet which need?": "IFCI was originally created to meet which need?",
