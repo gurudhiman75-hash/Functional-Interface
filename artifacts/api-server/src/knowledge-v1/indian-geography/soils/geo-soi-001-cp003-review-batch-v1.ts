@@ -421,7 +421,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-023",
     "qlName": "Cracking and self-ploughing character",
     "difficulty": "Easy",
-    "stem": "Why is black soil sometimes described as 'self-ploughing'?",
+    "stem": "Why is black soil sometimes called 'self-ploughing'?",
     "answer": "Drying creates deep cracks that loosen and aerate the soil",
     "distractors": [
       "Floods plough it every year",
@@ -676,7 +676,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-025",
     "qlName": "Black soil and cotton cultivation",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "A farmer must choose between a deep clayey soil with strong moisture retention and a loose sandy soil for rain-fed cotton. Which soil condition is more favourable?",
     "answer": "The deep clayey, moisture-retaining soil",
     "distractors": [
