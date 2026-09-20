@@ -3,7 +3,7 @@ name: Validate Punjabi Forward Port CP002
 on:
   pull_request:
     branches:
-      - feature/punjabi-v1-forward-port
+      - "New-main"
     paths:
       - "artifacts/api-server/src/punjabi-v1/**"
   workflow_dispatch:
