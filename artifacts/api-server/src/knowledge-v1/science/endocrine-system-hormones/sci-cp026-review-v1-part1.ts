@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Red blood cells",
       "Digestive fibres"
     ],
-    "Endocrine glands release hormones into the blood, which carries them to target organs or tissues.",
+    "Endocrine glands release hormones into the blood, which carries them to target organs or tissues. Unlike exocrine glands, endocrine glands do not send their products through ducts.",
     [
       "HORMONES-ENDOCRINE-GLANDS"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Produce only digestive juices",
       "Store hormones in ducts"
     ],
-    "Endocrine glands do not use ducts. Their hormones enter nearby blood vessels and travel through the circulation.",
+    "Endocrine glands do not use ducts. Their hormones enter nearby blood vessels and travel through the circulation. This allows hormones to reach distant organs through the circulation.",
     [
       "ENDOCRINE-DUCTLESS"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Thicker cell walls",
       "More water"
     ],
-    "Target cells respond to a hormone only if they possess the appropriate receptor.",
+    "Target cells respond to a hormone only if they possess the appropriate receptor. Cells without the matching receptor usually show little or no direct response.",
     [
       "HORMONE-TARGET-RECEPTORS"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Through the alimentary canal",
       "Through the spinal cord only"
     ],
-    "Hormones are carried in blood from the gland that secretes them to target tissues elsewhere in the body.",
+    "Hormones are carried in blood from the gland that secretes them to target tissues elsewhere in the body. The blood distributes the signal widely, but only responsive target cells act on it.",
     [
       "HORMONE-BLOOD-TRANSPORT"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Restricted to neurons only",
       "Independent of target receptors"
     ],
-    "Hormones travel through the blood and may act for longer periods, while nerve signals are usually faster and brief.",
+    "Hormones travel through the blood and may act for longer periods, while nerve signals are usually faster and brief. Endocrine control is therefore well suited to sustained regulation such as growth and metabolism.",
     [
       "HORMONE-VS-NERVE-TIMING"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Antibody",
       "Neurotransmitter confined to one synapse"
     ],
-    "Hormones are blood-borne chemical messengers that act on cells with suitable receptors.",
+    "Hormones are blood-borne chemical messengers that act on cells with suitable receptors. Its defining features are secretion, transport and receptor-specific action.",
     [
       "HORMONE-DEFINITION-REASONING"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Adrenal gland",
       "Pancreas"
     ],
-    "The pituitary is often called the master gland because several of its hormones regulate other endocrine glands.",
+    "The pituitary is often called the master gland because several of its hormones regulate other endocrine glands. It is itself regulated closely by the hypothalamus.",
     [
       "PITUITARY-MASTER"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Pancreas",
       "Adrenal medulla"
     ],
-    "Growth hormone is produced by the anterior pituitary and influences growth of bones and other tissues.",
+    "Growth hormone is produced by the anterior pituitary and influences growth of bones and other tissues. Its effects are partly mediated through growth-promoting factors produced in other tissues.",
     [
       "GROWTH-HORMONE-PITUITARY"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Blood clotting",
       "Urine storage"
     ],
-    "Growth hormone supports normal growth, especially during childhood and adolescence.",
+    "Growth hormone supports normal growth, especially during childhood and adolescence. It also influences protein synthesis and metabolism during growth.",
     [
       "GH-GROWTH"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Goitre",
       "Diabetes insipidus"
     ],
-    "Too much growth hormone before the growth plates close can cause excessive height, called gigantism.",
+    "Too much growth hormone before the growth plates close can cause excessive height, called gigantism. The effect occurs because long bones can still lengthen before growth plates close.",
     [
       "GH-EXCESS-GIGANTISM"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Hyperthyroidism",
       "Excess insulin secretion"
     ],
-    "Too little growth hormone during childhood can result in proportionate short stature called pituitary dwarfism.",
+    "Too little growth hormone during childhood can result in proportionate short stature called pituitary dwarfism. Body proportions are generally preserved in classic pituitary growth-hormone deficiency.",
     [
       "GH-DEFICIENCY-DWARFISM"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Insulin",
       "Thyroxine only"
     ],
-    "When nutrition and thyroid function are normal, deficient pituitary growth hormone can directly reduce childhood growth.",
+    "When nutrition and thyroid function are normal, deficient pituitary growth hormone can directly reduce childhood growth. The clue is reduced linear growth despite adequate nutrition and normal thyroid status.",
     [
       "GH-DEFICIENCY-REASONING"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Adrenaline",
       "Growth hormone"
     ],
-    "The thyroid gland secretes thyroid hormones, commonly represented in general science by thyroxine.",
+    "The thyroid gland secretes thyroid hormones, commonly represented in general science by thyroxine. These hormones influence metabolism, growth and development throughout the body.",
     [
       "THYROID-THYROXINE"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Calcium only",
       "Sodium only"
     ],
-    "Iodine is an essential component of thyroid hormones such as thyroxine.",
+    "Iodine is an essential component of thyroid hormones such as thyroxine. Without enough iodine, the gland cannot synthesize normal amounts of thyroid hormone.",
     [
       "IODINE-THYROID"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp026ReviewSpec[] = [
       "Gigantism",
       "Anaemia"
     ],
-    "When iodine intake is too low, the thyroid may enlarge as it tries to produce adequate thyroid hormone.",
+    "When iodine intake is too low, the thyroid may enlarge as it tries to produce adequate thyroid hormone. Persistent stimulation can enlarge the gland while hormone production remains inadequate.",
     [
       "IODINE-GOITRE"
     ]
