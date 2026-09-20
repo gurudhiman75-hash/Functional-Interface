@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Urine storage",
       "Vision only"
     ],
-    "Thyroid hormones influence the rate at which cells use energy and therefore affect overall metabolism.",
+    "Thyroid hormones influence the rate at which cells use energy and therefore affect overall metabolism. Too much or too little thyroid hormone can therefore alter energy use throughout the body.",
     [
       "THYROID-METABOLISM"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Salivary amylase",
       "Pupil size"
     ],
-    "Parathyroid hormone helps maintain calcium balance in the blood and body tissues.",
+    "Parathyroid hormone helps maintain calcium balance in the blood and body tissues. It acts on bone, kidneys and indirectly the intestine to help raise blood calcium when needed.",
     [
       "PTH-CALCIUM"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "The adrenal gland has stopped secreting adrenaline",
       "The pituitary no longer releases any hormones"
     ],
-    "Low thyroid hormone can increase stimulatory signals to the thyroid, causing the gland to enlarge when iodine remains insufficient.",
+    "Low thyroid hormone can increase stimulatory signals to the thyroid, causing the gland to enlarge when iodine remains insufficient. This is a feedback response, but iodine shortage prevents normal hormone production despite greater stimulation.",
     [
       "GOITRE-FEEDBACK-REASONING"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Adrenaline",
       "Thyroxine"
     ],
-    "Insulin helps cells take up glucose and promotes its storage, lowering blood-glucose concentration.",
+    "Insulin helps cells take up glucose and promotes its storage, lowering blood-glucose concentration. It especially promotes glucose entry into muscle and fat cells and storage as glycogen.",
     [
       "INSULIN-LOWERS-GLUCOSE"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Red blood cells",
       "Acinar cells only"
     ],
-    "Beta cells in the pancreatic islets secrete insulin.",
+    "Beta cells in the pancreatic islets secrete insulin. These cells are located in clusters called the islets of Langerhans.",
     [
       "BETA-CELLS-INSULIN"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Remain fixed at zero",
       "Convert directly into urea"
     ],
-    "Glucagon raises blood glucose by promoting release of stored glucose, especially from the liver.",
+    "Glucagon raises blood glucose by promoting release of stored glucose, especially from the liver. It is especially important between meals or during fasting.",
     [
       "GLUCAGON-RAISES-GLUCOSE"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Regulate hearing",
       "Form blood clots"
     ],
-    "Insulin lowers blood glucose while glucagon raises it, helping keep glucose within a suitable range.",
+    "Insulin lowers blood glucose while glucagon raises it, helping keep glucose within a suitable range. Their opposing actions keep glucose available without allowing excessive rises or falls.",
     [
       "INSULIN-GLUCAGON-BALANCE"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Clot blood",
       "Form urine in the kidneys"
     ],
-    "Without enough insulin, blood glucose rises because cells cannot take up and store glucose normally.",
+    "Without enough insulin, blood glucose rises because cells cannot take up and store glucose normally. Persistent high blood glucose is a central feature of diabetes mellitus.",
     [
       "INSULIN-DEFICIENCY-EFFECT"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Reduced insulin with increased glucagon",
       "Increased growth hormone only"
     ],
-    "High blood glucose stimulates insulin release, which promotes glucose uptake and storage.",
+    "High blood glucose stimulates insulin release, which promotes glucose uptake and storage. The response stores part of the absorbed glucose and limits the post-meal rise.",
     [
       "POSTMEAL-INSULIN-RESPONSE"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Pancreas",
       "Pituitary gland"
     ],
-    "The adrenal glands, located above the kidneys, secrete adrenaline from the adrenal medulla.",
+    "The adrenal glands, located above the kidneys, secrete adrenaline from the adrenal medulla. Its release rises rapidly during acute stress through nervous stimulation.",
     [
       "ADRENALINE-ADRENAL"
     ]
@@ -154,14 +154,14 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
   [
     5,
     "Easy",
-    "Adrenaline is commonly associated with the:",
+    "Adrenaline produces which emergency response?",
     "Fight-or-flight response",
     [
       "Digestion of starch",
       "Formation of urine",
       "Blood clotting"
     ],
-    "Adrenaline prepares the body for rapid action during stress or danger.",
+    "Adrenaline prepares the body for rapid action during stress or danger. The response prepares circulation, breathing and metabolism for immediate physical action.",
     [
       "ADRENALINE-FIGHT-FLIGHT"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Immediate sleep",
       "Complete stoppage of breathing"
     ],
-    "Adrenaline increases heart rate and redirects resources toward organs needed for rapid action.",
+    "Adrenaline increases heart rate and redirects resources toward organs needed for rapid action. This increases blood delivery to muscles and other organs needed during an emergency.",
     [
       "ADRENALINE-HEART-RATE"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "To stop cellular respiration",
       "To reduce blood flow"
     ],
-    "Adrenaline prepares tissues for intense activity, increasing oxygen demand and therefore ventilation.",
+    "Adrenaline prepares tissues for intense activity, increasing oxygen demand and therefore ventilation. Faster ventilation supports the increased rate of aerobic metabolism in active tissues.",
     [
       "ADRENALINE-BREATHING"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Loss of glucose through sweat only",
       "Complete shutdown of liver metabolism"
     ],
-    "Adrenaline helps mobilize stored energy, including glucose, for rapid use during stress.",
+    "Adrenaline helps mobilize stored energy, including glucose, for rapid use during stress. The extra circulating glucose provides rapidly available fuel for working cells.",
     [
       "ADRENALINE-GLUCOSE"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp026ReviewSpec[] = [
       "Thyroxine",
       "Oxytocin"
     ],
-    "Adrenaline coordinates several rapid fight-or-flight changes, including increased heart rate, ventilation and energy availability.",
+    "Adrenaline coordinates several rapid fight-or-flight changes, including increased heart rate, ventilation and energy availability. The simultaneous changes are characteristic of a coordinated emergency response.",
     [
       "ADRENALINE-INTEGRATED"
     ]
