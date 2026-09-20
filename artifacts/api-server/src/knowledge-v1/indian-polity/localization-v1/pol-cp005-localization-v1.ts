@@ -196,6 +196,7 @@ function stem(q:(typeof ENGLISH)[number],l:NativeLocale):string{
   if(ql===2||ql===6){const a=q.canonicalAnswer.replace("Article ","");return l==="hi"?`${native(DPSP_SUBJECT[a]!,l)} किस अनुच्छेद में है?`:`${native(DPSP_SUBJECT[a]!,l)} ਕਿਹੜੇ ਅਨੁਛੇਦ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ?`;}
   if(ql===3){
     if(q.canonicalAnswer==="A duty of the State")return l==="hi"?"अनुच्छेद 37 के अनुसार कानून बनाते समय नीति-निदेशक तत्व लागू करना किसका कर्तव्य है?":"ਅਨੁਛੇਦ 37 ਅਨੁਸਾਰ ਕਾਨੂੰਨ ਬਣਾਉਂਦਿਆਂ ਨੀਤੀ-ਨਿਰਦੇਸ਼ਕ ਤੱਤ ਲਾਗੂ ਕਰਨਾ ਕਿਸ ਦਾ ਫ਼ਰਜ਼ ਹੈ?";
+    if(q.stem.startsWith("Article 37"))return l==="hi"?"अनुच्छेद 37 नीति-निदेशक तत्वों की प्रकृति को कैसे बताता है?":"ਅਨੁਛੇਦ 37 ਨੀਤੀ-ਨਿਰਦੇਸ਼ਕ ਤੱਤਾਂ ਦੀ ਪ੍ਰਕਿਰਤੀ ਨੂੰ ਕਿਵੇਂ ਦਰਸਾਉਂਦਾ ਹੈ?";
     return l==="hi"?"राज्य के नीति-निदेशक तत्वों की प्रकृति के बारे में कौन-सा कथन सही है?":"ਰਾਜ ਦੇ ਨੀਤੀ-ਨਿਰਦੇਸ਼ਕ ਤੱਤਾਂ ਦੀ ਪ੍ਰਕਿਰਤੀ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?";
   }
   if(ql===4){const c=article39ForSubject(q.canonicalAnswer)!;return l==="hi"?`${c} किस विषय से संबंधित है?`:`${c} ਕਿਸ ਵਿਸ਼ੇ ਬਾਰੇ ਹੈ?`;}
