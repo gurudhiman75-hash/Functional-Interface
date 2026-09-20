@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP003 — Black Soils
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-SOI-001-QL-019` to `GEO-SOI-001-QL-027`
 
@@ -28,7 +28,7 @@ Permanent QLs: `GEO-SOI-001-QL-019` to `GEO-SOI-001-QL-027`
 - Distractors remain real soil terms, regions, properties or processes.
 - No option-by-option explanation clutter.
 - Every item carries source and fact provenance.
-- Review-only lifecycle; runtime publication disabled.
+- Content-approved checkpoint authority; runtime publication remains disabled and separately governed.
 
 ## Boundary
 
