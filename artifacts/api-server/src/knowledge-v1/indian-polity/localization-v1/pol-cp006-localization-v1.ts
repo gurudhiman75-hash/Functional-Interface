@@ -306,7 +306,13 @@ function stem(q:(typeof ENGLISH)[number],l:NativeLocale):string{
    return l==="hi"?"बारहवीं अनुसूची किससे जुड़ी है?":"12ਵੀਂ ਅਨੁਸੂਚੀ ਕਿਸ ਨਾਲ ਜੁੜੀ ਹੈ?";
  }
  if(ql===21){const am=amendByChange(q.canonicalAnswer)!;const row=POL_CP006_HIGH_YIELD_AMENDMENTS_V1.find(x=>x.amendment===am)!;return l==="hi"?`${native(AMEND[am]!,l)} (${row.year}) किस बदलाव से जुड़ा है?`:`${native(AMEND[am]!,l)} (${row.year}) ਕਿਸ ਬਦਲਾਅ ਨਾਲ ਜੁੜੀ ਹੈ?`;}
- if(ql===22){return l==="hi"?`${native(CHANGE[POL_CP006_HIGH_YIELD_AMENDMENTS_V1.find(x=>x.amendment===q.canonicalAnswer)!.change]!,l)} — यह किस संविधान संशोधन से हुआ?`:`${native(CHANGE[POL_CP006_HIGH_YIELD_AMENDMENTS_V1.find(x=>x.amendment===q.canonicalAnswer)!.change]!,l)} — ਇਹ ਕਿਹੜੀ ਸੰਵਿਧਾਨ ਸੋਧ ਨਾਲ ਹੋਇਆ?`;}
+ if(ql===22){
+   if(q.canonicalAnswer==="First Amendment")return l==="hi"?"अनुच्छेद 31A और 31B तथा नौवीं अनुसूची किस संविधान संशोधन से जोड़े गए?":"ਅਨੁਛੇਦ 31A, 31B ਅਤੇ 9ਵੀਂ ਅਨੁਸੂਚੀ ਕਿਹੜੀ ਸੰਵਿਧਾਨ ਸੋਧ ਨਾਲ ਜੋੜੇ ਗਏ?";
+   if(q.canonicalAnswer==="Twenty-fourth Amendment")return l==="hi"?"संसद की संविधान संशोधन शक्ति की पुष्टि और विधिवत पारित संशोधन विधेयक पर राष्ट्रपति की स्वीकृति अनिवार्य किस संशोधन ने की?":"ਸੰਸਦ ਦੀ ਸੰਵਿਧਾਨ ਸੋਧਣ ਦੀ ਸ਼ਕਤੀ ਦੀ ਪੁਸ਼ਟੀ ਅਤੇ ਢੰਗ ਨਾਲ ਪਾਸ ਸੋਧ ਬਿੱਲ 'ਤੇ ਰਾਸ਼ਟਰਪਤੀ ਦੀ ਮਨਜ਼ੂਰੀ ਲਾਜ਼ਮੀ ਕਿਸ ਸੋਧ ਨੇ ਕੀਤੀ?";
+   if(q.canonicalAnswer==="Eighty-sixth Amendment")return l==="hi"?"अनुच्छेद 21A जोड़ने, अनुच्छेद 45 बदलने और मौलिक कर्तव्य 51A(k) जोड़ने वाला संशोधन कौन-सा है?":"ਅਨੁਛੇਦ 21A ਜੋੜਨ, ਅਨੁਛੇਦ 45 ਬਦਲਣ ਅਤੇ ਮੂਲ ਫ਼ਰਜ਼ 51A(k) ਜੋੜਨ ਵਾਲੀ ਸੋਧ ਕਿਹੜੀ ਹੈ?";
+   if(q.canonicalAnswer==="One Hundred and First Amendment")return l==="hi"?"वस्तु एवं सेवा कर (GST) के लिए संवैधानिक ढाँचा किस संशोधन से आया?":"ਵਸਤੂ ਅਤੇ ਸੇਵਾ ਕਰ (GST) ਲਈ ਸੰਵਿਧਾਨਕ ਢਾਂਚਾ ਕਿਹੜੀ ਸੋਧ ਨਾਲ ਆਇਆ?";
+   return l==="hi"?"लोकसभा, राज्य विधानसभाओं और दिल्ली विधानसभा में महिलाओं के लिए एक-तिहाई सीटों के आरक्षण का संवैधानिक प्रावधान किस संशोधन ने किया?":"ਲੋਕ ਸਭਾ, ਰਾਜ ਵਿਧਾਨ ਸਭਾਵਾਂ ਅਤੇ ਦਿੱਲੀ ਵਿਧਾਨ ਸਭਾ ਵਿੱਚ ਔਰਤਾਂ ਲਈ ਇੱਕ-ਤਿਹਾਈ ਸੀਟਾਂ ਦੇ ਰਾਖਵੇਂਕਰਨ ਦਾ ਸੰਵਿਧਾਨਕ ਪ੍ਰਬੰਧ ਕਿਹੜੀ ਸੋਧ ਨੇ ਕੀਤਾ?";
+ }
  if(ql===23)return l==="hi"?"निम्न में से कौन-सा क्रम सबसे पुराने से सबसे नए तक सही है?":"ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕ੍ਰਮ ਸਭ ਤੋਂ ਪੁਰਾਣੀ ਤੋਂ ਸਭ ਤੋਂ ਨਵੀਂ ਸੋਧ ਤੱਕ ਸਹੀ ਹੈ?";
  if(ql===24){
    if(q.canonicalAnswer==="Forty-second Amendment")return l==="hi"?"प्रस्तावना में ‘समाजवादी’ और ‘पंथनिरपेक्ष’ शब्द किस संशोधन से जोड़े गए?":"ਪ੍ਰਸਤਾਵਨਾ ਵਿੱਚ ‘ਸਮਾਜਵਾਦੀ’ ਅਤੇ ‘ਧਰਮ ਨਿਰਪੱਖ’ ਸ਼ਬਦ ਕਿਹੜੀ ਸੋਧ ਨਾਲ ਜੋੜੇ ਗਏ?";
