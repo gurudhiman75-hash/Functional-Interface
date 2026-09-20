@@ -2,8 +2,7 @@ name: Validate ENV-001 Question Studio Integration V1
 
 on:
   pull_request:
-    branches:
-      - New-main
+    branches: [New-main]
     paths:
       - "artifacts/api-server/src/knowledge-v1/environment-ecology/**"
       - "artifacts/api-server/src/question-studio/engine-registry.ts"
@@ -14,7 +13,6 @@ on:
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-env001-adapter-v1.test.ts"
       - "artifacts/admin-app/src/pages/content/QuestionStudioEnvironmentReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
-      - ".github/workflows/environment-question-studio-integration-v1.yml"
   workflow_dispatch:
 
 concurrency:
