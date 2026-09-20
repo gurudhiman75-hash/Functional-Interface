@@ -16,6 +16,6 @@
 - Source baseline: official CPCB, National Biodiversity Authority, NTCA, Central Zoo Authority, Wildlife Crime Control Bureau, Forest Survey of India, Botanical Survey of India, Zoological Survey of India and Wildlife Institute of India material.
 - V2 remediation: APPROVED / CONTENT-FROZEN; 12 additional questions across 3 QLs covering Chipko, Appiko, Save Silent Valley and the Khejarli/Bishnoi tradition.
 - V2 review artifacts remain review-only; runtime integration is separate.
-- Multilingual V1 final wave: REVIEW CANDIDATE for Hindi and Punjabi.
+- Multilingual V1 final wave: APPROVED / CONTENT-FROZEN for Hindi and Punjabi on 2026-09-20.
 - Localization review surface: 60 questions / 15 QLs; combined approved V1 + environmental-movements V2 authority.
 - Frozen English semantics, option ordering, correct index and source provenance remain invariant; localization is review-only.
