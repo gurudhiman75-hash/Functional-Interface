@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Oesophagus",
       "Large intestine"
     ],
-    "The small intestine receives bile, pancreatic juice and intestinal secretions, so most digestion is completed there.",
+    "The small intestine receives bile, pancreatic juice and intestinal secretions, so most digestion is completed there. Its long length gives enough time and surface for these reactions to occur.",
     [
       "SMALL-INTESTINE-DIGESTION"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Colon",
       "Oesophagus"
     ],
-    "The duodenum is the first part of the small intestine and receives secretions from the liver/gallbladder and pancreas.",
+    "The duodenum is the first part of the small intestine and receives secretions from the liver/gallbladder and pancreas. This makes the duodenum an important mixing site for several digestive secretions.",
     [
       "DUODENUM-SECRETIONS"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Glucose only",
       "Glycerol"
     ],
-    "Digestive proteases break proteins into smaller peptides and finally amino acids, which can be absorbed.",
+    "Digestive proteases break proteins into smaller peptides and finally amino acids, which can be absorbed. Amino acids can then cross the intestinal wall and enter the bloodstream.",
     [
       "PROTEIN-END-PRODUCT"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Glucose and fructose only",
       "Starch and glycogen"
     ],
-    "Lipases digest fats into fatty acids and glycerol, which can then be absorbed through the intestinal lining.",
+    "Lipases digest fats into fatty acids and glycerol, which can then be absorbed through the intestinal lining. Many absorbed fat products enter lymphatic lacteals before reaching the blood.",
     [
       "FAT-END-PRODUCT"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Fatty acids only",
       "Mineral salts"
     ],
-    "Digestive enzymes break complex carbohydrates into simple sugars, especially glucose, for absorption and use by cells.",
+    "Digestive enzymes break complex carbohydrates into simple sugars, especially glucose, for absorption and use by cells. Glucose can be carried by blood and used by cells for respiration.",
     [
       "CARBOHYDRATE-END-PRODUCT"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Large intestine",
       "Oesophagus"
     ],
-    "The small intestine is the main site where digested nutrients cross the intestinal wall and enter blood or lymph.",
+    "The small intestine is the main site where digested nutrients cross the intestinal wall and enter blood or lymph. Its villi and microvilli provide the very large surface needed for efficient uptake.",
     [
       "ABSORPTION-SMALL-INTESTINE"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Nephrons",
       "Cilia"
     ],
-    "Villi greatly increase the inner surface area of the small intestine, allowing efficient absorption of digested nutrients.",
+    "Villi greatly increase the inner surface area of the small intestine, allowing efficient absorption of digested nutrients. Each villus also contains blood vessels and a lacteal for transporting absorbed nutrients.",
     [
       "VILLI-SURFACE-AREA"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Intestinal glands",
       "Lymph nodes"
     ],
-    "Villi contain a rich network of blood capillaries. Glucose and amino acids pass into these capillaries after absorption.",
+    "Villi contain a rich network of blood capillaries. Glucose and amino acids pass into these capillaries after absorption. The blood then carries these water-soluble nutrients to tissues throughout the body.",
     [
       "VILLI-BLOOD-CAPILLARIES"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Loss of bile production by the liver",
       "No hydrochloric acid secretion in the stomach"
     ],
-    "Damaged or flattened villi reduce the intestinal surface area available for absorption, so fewer digested nutrients enter the body.",
+    "Damaged or flattened villi reduce the intestinal surface area available for absorption, so fewer digested nutrients enter the body. This can lead to nutrient deficiencies even when food digestion itself is adequate.",
     [
       "VILLI-DAMAGE-ABSORPTION"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Most glucose",
       "Bile pigments for reuse only"
     ],
-    "Much of the remaining water and some salts are absorbed in the large intestine before faeces are formed.",
+    "Much of the remaining water and some salts are absorbed in the large intestine before faeces are formed. This water recovery helps maintain body fluid balance and concentrates the remaining waste.",
     [
       "LARGE-INTESTINE-WATER"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp021ReviewSpec[] = [
       "Duodenum",
       "Oesophagus"
     ],
-    "The rectum is the terminal storage region of the large intestine where faeces remain before defecation.",
+    "The rectum is the terminal storage region of the large intestine where faeces remain before defecation. Stretching of the rectum helps trigger the urge to defecate.",
     [
       "RECTUM-STORAGE"
     ]
