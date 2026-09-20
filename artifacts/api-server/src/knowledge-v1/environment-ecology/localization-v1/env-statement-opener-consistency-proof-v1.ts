@@ -57,34 +57,60 @@ assert.equal(generators.length, 20, "ENV statement-opener proof must cover CP001
 const questionCounts: Record<EnvLocaleV1, number> = { en: 0, hi: 0, pa: 0 };
 const statementCounts: Record<EnvLocaleV1, number> = { en: 0, hi: 0, pa: 0 };
 
-for (const locale of ["en", "hi", "pa"] as const) {
-  for (const generate of generators) {
-    const questions = generate(locale);
-    questionCounts[locale] += questions.length;
+for (const generate of generators) {
+  const en = generate("en");
+  const hi = generate("hi");
+  const pa = generate("pa");
 
-    for (const question of questions) {
+  assert.equal(en.length, hi.length, "Hindi question count must match English");
+  assert.equal(en.length, pa.length, "Punjabi question count must match English");
+
+  questionCounts.en += en.length;
+  questionCounts.hi += hi.length;
+  questionCounts.pa += pa.length;
+
+  for (let i = 0; i < en.length; i += 1) {
+    const rows = { en: en[i], hi: hi[i], pa: pa[i] } as const;
+
+    for (const locale of ["en", "hi", "pa"] as const) {
+      const question = rows[locale];
       const stem = question.stem;
-      const isStatementStem =
+      const looksLikeStatementPrompt =
         locale === "en"
           ? stem.includes("statements:")
           : locale === "hi"
             ? stem.includes("कथनों") && stem.includes("विचार")
             : (stem.includes("ਕਥਨਾਂ") || stem.includes("ਬਿਆਨਾਂ")) && stem.includes("ਵਿਚਾਰ");
 
-      if (!isStatementStem) continue;
-      statementCounts[locale] += 1;
+      if (looksLikeStatementPrompt) {
+        statementCounts[locale] += 1;
+        assert.ok(
+          stem.startsWith(standard[locale]),
+          `${question.questionId}: non-standard ${locale} statement opener: ${stem.split("\n")[0]}`,
+        );
+      }
+    }
+
+    if (en[i].stem.startsWith(standard.en)) {
       assert.ok(
-        stem.startsWith(standard[locale]),
-        `${question.questionId}: non-standard ${locale} statement opener: ${stem.split("\n")[0]}`,
+        hi[i].stem.startsWith(standard.hi),
+        `${hi[i].questionId}: English statement prompt did not preserve standardized Hindi opener`,
+      );
+      assert.ok(
+        pa[i].stem.startsWith(standard.pa),
+        `${pa[i].questionId}: English statement prompt did not preserve standardized Punjabi opener`,
       );
     }
   }
+}
 
+for (const locale of ["en", "hi", "pa"] as const) {
   assert.equal(questionCounts[locale], 1020, `${locale}: expected 1,020 ENV questions`);
 }
 
-assert.equal(statementCounts.hi, statementCounts.en, "Hindi statement-question count must match English");
-assert.equal(statementCounts.pa, statementCounts.en, "Punjabi statement-question count must match English");
+assert.ok(statementCounts.en > 0, "Expected English statement questions");
+assert.ok(statementCounts.hi >= statementCounts.en, "Hindi must cover all English statement questions");
+assert.ok(statementCounts.pa >= statementCounts.en, "Punjabi must cover all English statement questions");
 
 console.log(JSON.stringify({
   chapterId: "ENV-001",
