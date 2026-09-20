@@ -106,6 +106,10 @@ const RATIFY:Readonly<Record<string,Pair>>=Object.freeze({
 });
 
 const COMMON:Readonly<Record<string,Pair>>=Object.freeze({
+"Power of Parliament to amend the Constitution and procedure therefor":ARTICLE368_SUBJECT,
+"Emergency provisions":lp("आपातकालीन प्रावधान","ਐਮਰਜੈਂਸੀ ਪ੍ਰਬੰਧ"),
+"Citizenship at commencement":lp("संविधान लागू होने के समय नागरिकता","ਸੰਵਿਧਾਨ ਲਾਗੂ ਹੋਣ ਵੇਲੇ ਨਾਗਰਿਕਤਾ"),
+"Inter-State trade":lp("अंतर्राज्यीय व्यापार","ਅੰਤਰ-ਰਾਜੀ ਵਪਾਰ"),
 "Either House of Parliament":lp("संसद के किसी भी सदन में","ਸੰਸਦ ਦੇ ਕਿਸੇ ਵੀ ਸਦਨ ਵਿੱਚ"),
 "Lok Sabha only":lp("केवल लोकसभा में","ਸਿਰਫ਼ ਲੋਕ ਸਭਾ ਵਿੱਚ"),
 "Rajya Sabha only":lp("केवल राज्यसभा में","ਸਿਰਫ਼ ਰਾਜ ਸਭਾ ਵਿੱਚ"),
@@ -172,7 +176,7 @@ const COMMON:Readonly<Record<string,Pair>>=Object.freeze({
 "Forty-second — Fundamental Duties; Forty-fourth — right to property moved out of Fundamental Rights":lp("42वाँ—मौलिक कर्तव्य; 44वाँ—संपत्ति का अधिकार मौलिक अधिकारों से बाहर","42ਵੀਂ—ਮੂਲ ਫ਼ਰਜ਼; 44ਵੀਂ—ਸੰਪਤੀ ਦਾ ਅਧਿਕਾਰ ਮੂਲ ਅਧਿਕਾਰਾਂ ਤੋਂ ਬਾਹਰ"),
 "Forty-second — voting age 18; Forty-fourth — anti-defection":lp("42वाँ—मतदान आयु 18; 44वाँ—दल-बदल विरोध","42ਵੀਂ—ਵੋਟ ਦੀ ਉਮਰ 18; 44ਵੀਂ—ਦਲ-ਬਦਲ ਵਿਰੋਧ"),
 "Forty-second — GST; Forty-fourth — Panchayats":lp("42वाँ—जीएसटी; 44वाँ—पंचायतें","42ਵੀਂ—ਜੀਐਸਟੀ; 44ਵੀਂ—ਪੰਚਾਇਤਾਂ"),
-"Forty-second — EWS reservation; Forty-fourth — Municipalities":lp("42वाँ—EWS आरक्षण; 44वाँ—नगरपालिकाएँ","42ਵੀਂ—EWS ਰਾਖਵਾਂਕਰਨ; 44ਵੀਂ—ਨਗਰ ਪਾਲਿਕਾਵਾਂ"),
+"Forty-second — EWS reservation; Forty-fourth — Municipalities":lp("42वाँ—आर्थिक रूप से कमजोर वर्गों का आरक्षण; 44वाँ—नगरपालिकाएँ","42ਵੀਂ—ਆਰਥਿਕ ਤੌਰ 'ਤੇ ਕਮਜ਼ੋਰ ਵਰਗਾਂ ਦਾ ਰਾਖਵਾਂਕਰਨ; 44ਵੀਂ—ਨਗਰ ਪਾਲਿਕਾਵਾਂ"),
 "Anti-defection under the Tenth Schedule":lp("दसवीं अनुसूची के तहत दल-बदल विरोध","10ਵੀਂ ਅਨੁਸੂਚੀ ਹੇਠ ਦਲ-ਬਦਲ ਵਿਰੋਧ"),
 });
 
