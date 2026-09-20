@@ -1,0 +1,35 @@
+name: Validate English ENG-004 Final Audit V1
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/synonyms-antonyms/ENG-004/**
+      - artifacts/api-server/src/english-v1/tests/eng-004-final-audit-v1.test.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-eng004-final-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+        timeout-minutes: 10
+      - run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-004-final-audit-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-004-final-audit-v1.test.mjs
+      - run: node artifacts/api-server/dist/english-v1/eng-004-final-audit-v1.test.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/synonyms-antonyms/ENG-004/eng-004-chapter-review-v1-export.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-004-chapter-review-v1-export.mjs
+      - run: node artifacts/api-server/dist/english-v1/eng-004-chapter-review-v1-export.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ENG-004-CHAPTER-REVIEW-V1
+          path: dist/english-v1/ENG-004-CHAPTER-REVIEW-V1.md
+          if-no-files-found: error
+          retention-days: 30
+      - run: pnpm --dir artifacts/api-server build
