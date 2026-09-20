@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "Eustachian tube",
       "Eardrum"
     ],
-    "The cochlea contains sensory hair cells that convert mechanical vibrations into electrical nerve signals.",
+    "The cochlea contains sensory hair cells that convert mechanical vibrations into electrical nerve signals. The auditory nerve then carries these signals to the brain for interpretation.",
     [
       "COCHLEA-HEARING"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "Vision in dim light",
       "Taste"
     ],
-    "The semicircular canals detect rotational movement of the head and contribute to balance.",
+    "The semicircular canals detect rotational movement of the head and contribute to balance. Fluid movement inside them stimulates receptors when the head rotates.",
     [
       "SEMICIRCULAR-CANALS"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "Eardrum",
       "Auditory canal"
     ],
-    "Normal hearing with impaired balance points to damage of vestibular structures such as the semicircular canals.",
+    "Normal hearing with impaired balance points to damage of vestibular structures such as the semicircular canals. This separates a vestibular problem from damage to the sound-detecting cochlea.",
     [
       "BALANCE-INNER-EAR"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "Middle ear",
       "Retina"
     ],
-    "Olfactory receptors in the upper nasal cavity detect airborne chemical molecules.",
+    "Olfactory receptors in the upper nasal cavity detect airborne chemical molecules. Odour molecules must dissolve in nasal mucus before stimulating these receptors.",
     [
       "SMELL-RECEPTORS"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "Eardrum",
       "Nasal hairs"
     ],
-    "Taste buds on the tongue contain receptor cells that respond to dissolved chemicals in food.",
+    "Taste buds on the tongue contain receptor cells that respond to dissolved chemicals in food. Different receptor cells contribute to sensations such as sweet, salty, sour, bitter and umami.",
     [
       "TASTE-BUDS"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "Chemoreceptors only",
       "Osmoreceptors only"
     ],
-    "Skin contains mechanoreceptors that respond to touch, pressure and vibration.",
+    "Skin contains mechanoreceptors that respond to touch, pressure and vibration. Other skin receptors detect temperature, pain and tissue damage.",
     [
       "SKIN-MECHANORECEPTORS"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "The tongue loses all nerves",
       "Saliva cannot form"
     ],
-    "Flavour depends on both taste and smell. Blocking airflow to olfactory receptors reduces the smell component.",
+    "Flavour depends on both taste and smell. Blocking airflow to olfactory receptors reduces the smell component. Much of what is called taste in everyday speech is actually combined taste and smell.",
     [
       "SMELL-TASTE-FLAVOUR"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "Auditory pathway",
       "Motor pathway to the hand"
     ],
-    "Taste is intact, but loss of aroma perception points to the smell, or olfactory, pathway.",
+    "Taste is intact, but loss of aroma perception points to the smell, or olfactory, pathway. The preserved basic tastes show that taste receptors and gustatory pathways still function.",
     [
       "OLFACTORY-LOSS-REASONING"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "CNS processing → Receptor activation → Sensory signal",
       "Receptor activation → Hormone release only → Motor response"
     ],
-    "Receptors detect the stimulus, sensory neurons carry the signal to the CNS, and motor pathways activate the muscles.",
+    "Receptors detect the stimulus, sensory neurons carry the signal to the CNS, and motor pathways activate the muscles. The sequence links detection, communication, central integration and action.",
     [
       "SENSORY-RESPONSE-SEQUENCE"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "Nose",
       "Tongue"
     ],
-    "The retina is the light-sensitive layer at the back of the eye.",
+    "The retina is the light-sensitive layer at the back of the eye. Its photoreceptors are essential for converting light into neural information.",
     [
       "RETINA-EYE"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "A hormone always reaches the brain before any nerve impulse",
       "The effector responds before the stimulus is detected"
     ],
-    "After a receptor is stimulated, sensory neurons carry information toward the CNS for processing.",
+    "After a receptor is stimulated, sensory neurons carry information toward the CNS for processing. The CNS then interprets the input and may generate an appropriate response.",
     [
       "RECEPTOR-TO-CNS"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "The cochlea must contain no fluid",
       "The pinna has stopped collecting sound"
     ],
-    "Sensation begins in the ear, but interpretation occurs in the brain. Hearing can therefore be detected without normal recognition.",
+    "Sensation begins in the ear, but interpretation occurs in the brain. Hearing can therefore be detected without normal recognition. The case shows that detecting a stimulus and understanding it are separate nervous functions.",
     [
       "HEARING-BRAIN-PROCESSING"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "Cerebellar motor output only",
       "Endocrine pathway"
     ],
-    "Normal movement with absent sensation points to damage in the sensory pathway carrying signals toward the CNS.",
+    "Normal movement with absent sensation points to damage in the sensory pathway carrying signals toward the CNS. The intact motor function makes a purely motor lesion much less likely.",
     [
       "SENSORY-PATHWAY-LOSS"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp025ReviewSpec[] = [
       "The spinal cord supplies blood to every muscle directly",
       "All sense organs are located inside it"
     ],
-    "The spinal cord carries sensory information upward and motor commands downward, so injury can disrupt both types of pathways.",
+    "The spinal cord carries sensory information upward and motor commands downward, so injury can disrupt both types of pathways. The level of injury therefore determines which regions below it lose function.",
     [
       "SPINAL-CORD-MIXED-PATHWAYS"
     ]
