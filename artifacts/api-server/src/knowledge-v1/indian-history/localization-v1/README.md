@@ -50,7 +50,7 @@ Implemented scope:
 - `HIS-CP-015` National Movement 1885–1919 — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
-- `HIS-CP-016` National Movement 1919–1947 — approved for merge
+- `HIS-CP-016` National Movement 1919–1947 — approved and merged
   - 60 questions per locale
   - 180 English/Hindi/Punjabi learner surfaces
 - cumulative CP001–CP016: 954 questions per locale / 2862 EN-HI-PA surfaces
@@ -89,3 +89,7 @@ Review exports:
 - `dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP016-REVIEW.md`
 
 These localization checkpoints do not enable Question Studio runtime registration, Question Bank persistence, test/mock eligibility, publication, or automatic learner release.
+
+## Completion status
+
+Multilingual V1 complete through HIS-CP-016: 954 questions per locale / 2862 English-Hindi-Punjabi learner surfaces. English semantics remain frozen; localization remains review-only and runtime registration is unchanged.
