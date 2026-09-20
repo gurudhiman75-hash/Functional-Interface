@@ -1,6 +1,6 @@
 # ENG-005 — Idioms & Phrases — Final Audit V1
 
-Status: `IMPLEMENTATION_COMPLETE__HUMAN_EDITORIAL_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REGISTERED_REVIEW_ONLY`
 
 ## Final coverage
 
@@ -35,7 +35,7 @@ This is intentional quality control, not missing lexical coverage.
 
 ## Lifecycle
 
-ENG-005 remains **review-only**.
+ENG-005 is **human-approved** and registered in Question Studio in **review-only** mode.
 
 Implementation completion does not authorize:
 - Question Studio registration;
@@ -45,4 +45,4 @@ Implementation completion does not authorize:
 - automatic publication;
 - production release.
 
-Explicit human editorial approval is required before Question Studio review-only registration.
+Question Bank persistence, test/mock eligibility, learner/public exposure, automatic publication, and production release remain separately blocked. CP004 context templates also remain runtime-disabled pending their separate surface-realisation review.
