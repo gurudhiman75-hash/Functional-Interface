@@ -1,0 +1,42 @@
+import { SIF_CP_IDS } from "./types.ts";
+
+export const SIF_001_MANIFEST = {
+  chapterId: "SIF-001",
+  subjectCode: "REAS-SIF",
+  title: "Statement and Inference",
+  family: "FAMILY_C_LOGIC_AND_DEDUCTION",
+  examinations: ["SSC", "BANKING", "INSURANCE", "PUNJAB_STATE"] as const,
+  locales: ["en-IN", "hi-IN", "pa-IN"] as const,
+  cpCount: 17,
+  cpIds: SIF_CP_IDS,
+  waves: [
+    { wave: 1, cpIds: ["SIF-CP001", "SIF-CP002", "SIF-CP003"] },
+    { wave: 2, cpIds: ["SIF-CP004", "SIF-CP005", "SIF-CP006"] },
+    { wave: 3, cpIds: ["SIF-CP007", "SIF-CP008", "SIF-CP009", "SIF-CP010"] },
+    { wave: 4, cpIds: ["SIF-CP011", "SIF-CP012", "SIF-CP013", "SIF-CP014"] },
+    { wave: 5, cpIds: ["SIF-CP015", "SIF-CP016", "SIF-CP017"] },
+  ],
+  productionMix: { foundation: 25, applied: 30, advanced: 30, mixed: 15, easy: 30, medium: 50, hard: 20 },
+  boundary: {
+    structuredLogicBeforeText: true,
+    freeFormAnswerDerivationAllowed: false,
+    outsideKnowledgeAllowed: false,
+    assumptionsOwnedBy: "STA-001",
+    conclusionsOwnedBy: "STC-001",
+    argumentsOwnedBy: "ARG-001",
+    courseOfActionOwnedBy: "COA-001",
+    formalCauseEffectOwnedBy: "CAE-001",
+  },
+  lifecycle: {
+    implementationStatus: "IMPLEMENTED_REVIEW_CANDIDATE_V1",
+    chapterFrozen: false,
+    multilingualFrozen: false,
+    questionStudio: "REGISTERED_REVIEW_ONLY",
+    questionBankWritable: false,
+    testEligible: false,
+    mockEligible: false,
+    publicEligible: false,
+    automaticPublication: false,
+    humanEditorialApprovalRequired: true,
+  },
+} as const;
