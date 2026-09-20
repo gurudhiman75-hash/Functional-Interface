@@ -75,10 +75,12 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     return [
       ...languageV1Eng001Cp013QuestionStudioAdapterV1.listPackages(),
       ...languageV1Eng002Cp013QuestionStudioAdapterV1.listPackages(),
-      ...languageV1Eng003Cp001QuestionStudioAdapterV1.listPackages(),\n      ...languageV1Eng004QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng003Cp001QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng004QuestionStudioAdapterV1.listPackages(),
     ];
   },
-  async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {\n    if (isEng004QuestionStudioRequestV1(request)) return languageV1Eng004QuestionStudioAdapterV1.generate(request);
+  async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isEng004QuestionStudioRequestV1(request)) return languageV1Eng004QuestionStudioAdapterV1.generate(request);
     // ENG-003 reuses the ENG-001/ENG-002 grammar rule IDs. Resolve its explicit checkpoint/package
     // before the shared GR-* fallback so ENG-003 requests cannot be stolen by ENG-002.
     const eng003CpSelector = explicitEng003CpSelector(request);
