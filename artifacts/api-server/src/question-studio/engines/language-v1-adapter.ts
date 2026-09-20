@@ -38,7 +38,8 @@ import { languageV1Eng003Cp008QuestionStudioAdapterV1 } from "./language-v1-eng0
 import { languageV1Eng003Cp009QuestionStudioAdapterV1 } from "./language-v1-eng003-cp009-adapter-v1";
 import { languageV1Eng003Cp010QuestionStudioAdapterV1 } from "./language-v1-eng003-cp010-adapter-v1";
 import { languageV1Eng003Cp011QuestionStudioAdapterV1 } from "./language-v1-eng003-cp011-adapter-v1";
-import { languageV1Eng003Cp012QuestionStudioAdapterV1 } from "./language-v1-eng003-cp012-adapter-v1";\nimport { isEng004QuestionStudioRequestV1, languageV1Eng004QuestionStudioAdapterV1 } from "./language-v1-eng004-adapter-v1";
+import { languageV1Eng003Cp012QuestionStudioAdapterV1 } from "./language-v1-eng003-cp012-adapter-v1";
+import { isEng004QuestionStudioRequestV1, languageV1Eng004QuestionStudioAdapterV1 } from "./language-v1-eng004-adapter-v1";
 
 function explicitSelectorValues(request: QuestionStudioGenerationRequest) {
   return [request.patternId, request.canonicalProblemId, request.questionLanguageId]
