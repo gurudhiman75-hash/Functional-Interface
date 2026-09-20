@@ -1,0 +1,52 @@
+name: Validate Punjabi Question Studio V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/punjabi-v1/**
+      - artifacts/api-server/src/question-studio/**
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/punjabi-v1/**
+      - artifacts/api-server/src/question-studio/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: punjabi-question-studio-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pun001-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Compile PUN-001 Question Studio integration test
+        run: |
+          mkdir -p artifacts/api-server/dist/punjabi-v1
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-pun001-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-v1/language-v1-pun001-adapter-v1.test.mjs
+      - name: Run PUN-001 Question Studio review-only integration
+        run: node artifacts/api-server/dist/punjabi-v1/language-v1-pun001-adapter-v1.test.mjs
+      - name: Compile shared Question Studio engine-registry regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engine-registry.test.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-v1/engine-registry.test.mjs
+      - name: Run shared Question Studio engine-registry regression
+        run: node artifacts/api-server/dist/punjabi-v1/engine-registry.test.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
