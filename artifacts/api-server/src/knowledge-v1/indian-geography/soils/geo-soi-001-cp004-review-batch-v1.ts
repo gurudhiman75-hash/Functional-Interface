@@ -268,7 +268,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "High calcium nodules only",
       "Permanent waterlogging"
     ],
-    "explanation": "The red colour is primarily a mineral-colour effect caused by iron oxidation. It is not produced by flood renewal or by the calcium nodules associated with older alluvium.",
+    "explanation": "The red colour is primarily a mineral-colour effect caused by iron oxidation. It is not produced by flood renewal or by the calcium nodules found in older alluvium.",
     "sourceFactIds": [
       "RY-OXIDISED-IRON"
     ]
@@ -277,7 +277,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-030",
     "qlName": "Red colour and iron diffusion",
     "difficulty": "Medium",
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which Western-Ghats soil-location pair is correct?",
     "answer": "Red soil — colour from iron diffusion",
     "distractors": [
       "Black soil — red colour from iron diffusion",
@@ -613,7 +613,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-034",
     "qlName": "Western Ghats piedmont red loamy belt",
     "difficulty": "Easy",
-    "stem": "The red soil along the foothill belt of the Western Ghats is commonly described as what?",
+    "stem": "What type of red soil occurs along the foothill belt of the Western Ghats?",
     "answer": "Red loamy soil",
     "distractors": [
       "Black cotton soil only",
@@ -676,7 +676,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-034",
     "qlName": "Western Ghats piedmont red loamy belt",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "A map marks a narrow foothill belt along the Western Ghats rather than a river floodplain. The legend says 'red loamy'. Which soil family should the map key use?",
     "answer": "Red and yellow soils",
     "distractors": [
