@@ -1,6 +1,6 @@
 # ENG-004 — Synonyms & Antonyms — Final Expansion Audit V1
 
-Status: `EXPANSION_COMPLETE__HUMAN_EDITORIAL_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REGISTERED_REVIEW_ONLY`
 
 ## Final lexical coverage
 
@@ -38,7 +38,7 @@ The final automated audit must verify:
 
 ## Lifecycle
 
-ENG-004 remains **review-only**.
+ENG-004 is **human-approved** and registered in Question Studio in **review-only** mode.
 
 Expansion completion does not authorize:
 - Question Studio registration;
