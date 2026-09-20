@@ -103,7 +103,7 @@ eat one's heart out|feel intense unhappiness or envy
 heart and soul|with complete energy and commitment
 get under someone's skin|annoy or strongly affect someone
 keep company with someone|spend time socially with someone
-have a change of heart|change one's opinion or feelings
+one's heart goes out to someone|feel deep sympathy for someone
 bury one's differences|stop quarrelling despite disagreements
 patch up a quarrel|restore friendly relations after a dispute
 be on good terms|have a friendly relationship
