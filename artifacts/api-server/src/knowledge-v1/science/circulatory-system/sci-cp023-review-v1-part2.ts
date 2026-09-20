@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "It destroys all red blood cells",
       "It lowers body temperature"
     ],
-    "A clot seals the wound, limits blood loss and forms a barrier that can reduce entry of microorganisms.",
+    "A clot seals the wound, limits blood loss and forms a barrier that can reduce entry of microorganisms. The clot later supports tissue repair while the damaged vessel heals.",
     [
       "CLOTTING-FUNCTION"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Digesting fats",
       "Producing urine"
     ],
-    "Platelets are essential for normal clot formation, so a low count can make bleeding harder to stop.",
+    "Platelets are essential for normal clot formation, so a low count can make bleeding harder to stop. Easy bruising or prolonged bleeding can therefore occur when platelet numbers are severely reduced.",
     [
       "LOW-PLATELETS"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Plasma water",
       "Antibodies only"
     ],
-    "Prolonged bleeding with otherwise normal blood cell counts points to a problem with platelets or clotting factors.",
+    "Prolonged bleeding with otherwise normal blood cell counts points to a problem with platelets or clotting factors. Normal platelet function is required for the early plug that starts haemostasis.",
     [
       "BLEEDING-PLATELETS"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Three",
       "Five"
     ],
-    "The human heart has four chambers: two atria and two ventricles.",
+    "The human heart has four chambers: two atria and two ventricles. The right side handles deoxygenated blood, while the left side handles oxygenated blood.",
     [
       "HEART-FOUR-CHAMBERS"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Right ventricle",
       "Left ventricle"
     ],
-    "The right atrium receives deoxygenated blood returning from the body through the venae cavae.",
+    "The right atrium receives deoxygenated blood returning from the body through the venae cavae. It then passes this blood through the tricuspid valve into the right ventricle.",
     [
       "RIGHT-ATRIUM-RECEIVES"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Left atrium",
       "Right atrium"
     ],
-    "The left ventricle pumps oxygenated blood into the aorta for distribution to the body.",
+    "The left ventricle pumps oxygenated blood into the aorta for distribution to the body. Its muscular wall is especially thick because it pumps blood around the whole body.",
     [
       "LEFT-VENTRICLE-AORTA"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Left atrium",
       "Right atrium"
     ],
-    "The right ventricle pumps deoxygenated blood through the pulmonary artery to the lungs.",
+    "The right ventricle pumps deoxygenated blood through the pulmonary artery to the lungs. The pulmonary circuit then carries this blood to alveoli for gas exchange.",
     [
       "RIGHT-VENTRICLE-LUNGS"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Coronary circulation only",
       "Lymph flow only"
     ],
-    "The left ventricle drives blood into the aorta and therefore powers most of the systemic circulation.",
+    "The left ventricle drives blood into the aorta and therefore powers most of the systemic circulation. Weak pumping reduces pressure and flow reaching organs and body tissues.",
     [
       "LEFT-VENTRICLE-SYSTEMIC"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Exchange gases",
       "Filter wastes"
     ],
-    "Heart valves ensure that blood moves in one direction by preventing backward flow when chambers contract or relax.",
+    "Heart valves ensure that blood moves in one direction by preventing backward flow when chambers contract or relax. One-way flow makes the heart's pumping action efficient.",
     [
       "HEART-VALVES-FUNCTION"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Pulmonary valve",
       "Aortic semilunar valve"
     ],
-    "The left atrioventricular valve is called the bicuspid or mitral valve.",
+    "The left atrioventricular valve is called the bicuspid or mitral valve. It closes during ventricular contraction to stop blood returning to the left atrium.",
     [
       "MITRAL-VALVE"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Right ventricle and pulmonary artery",
       "Left ventricle and aorta"
     ],
-    "The tricuspid valve is the right atrioventricular valve and prevents backflow into the right atrium.",
+    "The tricuspid valve is the right atrioventricular valve and prevents backflow into the right atrium. Its three flaps give the valve its name.",
     [
       "TRICUSPID-LOCATION"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Atria only",
       "Capillaries"
     ],
-    "The aortic and pulmonary semilunar valves prevent blood from flowing back into the ventricles after ejection.",
+    "The aortic and pulmonary semilunar valves prevent blood from flowing back into the ventricles after ejection. They open during ventricular ejection and close when arterial pressure exceeds ventricular pressure.",
     [
       "SEMILUNAR-VALVES"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "No pulse anywhere",
       "Complete stoppage of gas exchange"
     ],
-    "A faulty valve can allow some blood to move backward instead of continuing in the intended direction.",
+    "A faulty valve can allow some blood to move backward instead of continuing in the intended direction. This leakage can reduce the amount of blood pumped forward with each heartbeat.",
     [
       "VALVE-FAILURE-BACKFLOW"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp023ReviewSpec[] = [
       "Tricuspid valve",
       "Pulmonary semilunar valve"
     ],
-    "Blood exits the left ventricle through the aortic semilunar valve and enters the aorta.",
+    "Blood exits the left ventricle through the aortic semilunar valve and enters the aorta. From the aorta, the blood enters systemic arteries supplying the body.",
     [
       "LEFT-VENTRICLE-AORTIC-VALVE"
     ]
