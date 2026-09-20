@@ -80,6 +80,32 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      - name: Run POL-001 CP003-CP004 multilingual parity audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp003-cp004-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp003-cp004-localization-audit-v1.mjs
+          node dist/polity/pol-cp003-cp004-localization-audit-v1.mjs
+
+      - name: Generate POL-001 CP003-CP004 multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp003-cp004-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp003-cp004-localization-export-v1.mjs
+          node dist/polity/pol-cp003-cp004-localization-export-v1.mjs
+
+      - name: Upload POL-001 CP003-CP004 multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: polity-cp003-cp004-multilingual-review
+          path: artifacts/api-server/dist/polity-review/POL-MULTILINGUAL-V1/POL-CP003-CP004-*
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Run POL-001 Question Studio runtime smoke test
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
