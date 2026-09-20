@@ -72,6 +72,24 @@ const CPS = [
   ['ENV-CP-020', 'Integrated Environment GK'],
 ] as const;
 
+const QL_COUNT_BY_CP: Record<string, number> = {
+  'ENV-CP-002': 15,
+  'ENV-CP-008': 15,
+  'ENV-CP-014': 15,
+  'ENV-CP-015': 15,
+  'ENV-CP-016': 15,
+};
+const ALL_QLS = 'all';
+
+function qlsForCp(cpId: string) {
+  if (cpId === ALL_CPS) return [];
+  const cpNumber = cpId.slice(-3);
+  const count = QL_COUNT_BY_CP[cpId] ?? 12;
+  return Array.from({ length: count }, (_, index) =>
+    `ENV-${cpNumber}-QL-${String(index + 1).padStart(3, '0')}`,
+  );
+}
+
 const LANGUAGE_LABELS: Record<string, string> = {
   en: 'English',
   hi: 'Hindi',
@@ -104,6 +122,7 @@ export function QuestionStudioEnvironmentReviewPanel() {
   const [runs, setRuns] = useState<QuestionStudioRun[]>([]);
   const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL');
   const [cpId, setCpId] = useState(ALL_CPS);
+  const [qlId, setQlId] = useState(ALL_QLS);
   const [language, setLanguage] = useState('en');
   const [difficulty, setDifficulty] = useState(MIXED_DIFFICULTY);
   const [count, setCount] = useState(10);
@@ -141,6 +160,17 @@ export function QuestionStudioEnvironmentReviewPanel() {
   }, [refresh]);
 
   const recentRuns = useMemo(() => runs.slice(0, 6), [runs]);
+  const availableQls = useMemo(() => qlsForCp(cpId), [cpId]);
+  const maximum = qlId === ALL_QLS ? 50 : 4;
+  const effectiveCount = Math.max(1, Math.min(maximum, count));
+
+  useEffect(() => {
+    setQlId(ALL_QLS);
+  }, [cpId]);
+
+  useEffect(() => {
+    if (count > maximum) setCount(maximum);
+  }, [count, maximum]);
 
   const generate = async () => {
     if (!available) {
@@ -160,8 +190,9 @@ export function QuestionStudioEnvironmentReviewPanel() {
         exam: selectedExam?.name ?? exam,
         subject: 'Static GK',
         difficulty,
-        count: Math.max(1, Math.min(50, count)),
+        count: effectiveCount,
         packageId: PACKAGE_ID,
+        patternId: qlId === ALL_QLS ? undefined : qlId,
         topic: 'Environment & Ecology',
         subtopic: 'Complete Chapter',
         language,
@@ -277,6 +308,16 @@ export function QuestionStudioEnvironmentReviewPanel() {
             </Select>
           </Field>
 
+          <Field label="QL / subtopic">
+            <Select value={qlId} onValueChange={setQlId} disabled={cpId === ALL_CPS}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL_QLS}>{cpId === ALL_CPS ? 'Select a CP first' : 'Mixed across this CP'}</SelectItem>
+                {availableQls.map((id) => <SelectItem key={id} value={id}>{id}</SelectItem>)}
+              </SelectContent>
+            </Select>
+          </Field>
+
           <Field label="Language">
             <Select value={language} onValueChange={setLanguage}>
               <SelectTrigger><SelectValue /></SelectTrigger>
@@ -299,7 +340,7 @@ export function QuestionStudioEnvironmentReviewPanel() {
             <Input
               type="number"
               min={1}
-              max={50}
+              max={maximum}
               value={count}
               onChange={(event) => setCount(Number(event.target.value) || 1)}
             />
@@ -377,6 +418,7 @@ function EnvironmentRun({
 }) {
   const language = asText(run.requestSnapshot?.language) || 'en';
   const selectedCp = asText(run.requestSnapshot?.canonicalProblemId) || 'All 20 CPs';
+  const selectedQl = asText(run.requestSnapshot?.patternId) || 'Mixed QLs';
   const selectedDifficulty = asText(run.requestSnapshot?.difficulty) || MIXED_DIFFICULTY;
 
   return (
@@ -385,7 +427,7 @@ function EnvironmentRun({
         <div>
           <p className="font-mono text-xs font-bold">{run.publicCode}</p>
           <p className="mt-1 text-[11px] text-muted-foreground">
-            {asText(run.requestSnapshot?.exam) || 'Exam not recorded'} · {LANGUAGE_LABELS[language] ?? language} · {selectedCp === 'All 20 CPs' ? selectedCp : `${selectedCp} · ${cpLabel(selectedCp)}`} · {selectedDifficulty}
+            {asText(run.requestSnapshot?.exam) || 'Exam not recorded'} · {LANGUAGE_LABELS[language] ?? language} · {selectedCp === 'All 20 CPs' ? selectedCp : `${selectedCp} · ${cpLabel(selectedCp)}`} · {selectedQl} · {selectedDifficulty}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
