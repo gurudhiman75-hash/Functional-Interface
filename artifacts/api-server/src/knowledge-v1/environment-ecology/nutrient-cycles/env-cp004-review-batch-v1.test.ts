@@ -23,7 +23,7 @@ describe("ENV-CP-004 V1 review batch",()=>{
   }
  });
  it("keeps concise editorial language",()=>{
-  for(const q of questions){if(!q.stem.startsWith("Consider the statements:"))expect(q.stem.length).toBeLessThanOrEqual(110);expect(q.explanation.length).toBeLessThanOrEqual(165);}
+  for(const q of questions){if(!q.stem.startsWith("Consider the following statements:"))expect(q.stem.length).toBeLessThanOrEqual(110);expect(q.explanation.length).toBeLessThanOrEqual(165);}
   const text=questions.map(q=>`${q.stem}\n${q.explanation}`).join("\n");
   expect(text).not.toMatch(/associated with/i);expect(text).not.toMatch(/option\s+[abcd]/i);
  });
