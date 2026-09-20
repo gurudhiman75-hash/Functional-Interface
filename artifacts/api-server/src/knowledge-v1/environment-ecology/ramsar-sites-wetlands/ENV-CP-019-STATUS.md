@@ -13,3 +13,6 @@
 - Mutable current Ramsar counts, latest designations, changing state-wise counts, current area rankings and current ecological-status statistics: excluded.
 - Source verification date: 2026-09-16.
 - Source baseline: official MoEFCC wetlands/Ramsar material and Ramsar Sites Information Service site records.
+- Multilingual V1 final wave: APPROVED / CONTENT-FROZEN for Hindi and Punjabi on 2026-09-20.
+- Localization review surface: 48 questions / 12 QLs; approved V1 authority.
+- Frozen English semantics, option ordering, correct index and source provenance remain invariant; localization is review-only.

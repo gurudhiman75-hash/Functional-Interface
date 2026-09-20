@@ -15,3 +15,6 @@
 - Source baseline: India Code for the seven principal Acts and CPCB's statutory mandate material for CPCB/SPCB role distinctions.
 - V2 remediation: APPROVED / CONTENT-FROZEN; 12 additional questions across 3 QLs covering EIA purpose, EIA Notification 2006, prior environmental clearance and EIA/monitoring distinctions.
 - V2 review artifacts remain review-only; runtime integration is separate.
+- Multilingual V1 final wave: APPROVED / CONTENT-FROZEN for Hindi and Punjabi on 2026-09-20.
+- Localization review surface: 60 questions / 15 QLs; combined approved V1 + EIA V2 authority.
+- Frozen English semantics, option ordering, correct index and source provenance remain invariant; localization is review-only.
