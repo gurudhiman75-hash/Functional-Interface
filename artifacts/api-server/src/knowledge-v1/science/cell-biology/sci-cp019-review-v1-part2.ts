@@ -58,7 +58,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
       "Lysosome",
       "Vacuole"
     ],
-    "The nucleus contains chromosomes made of DNA and proteins. It stores most of the cell's hereditary information.",
+    "The nucleus contains chromosomes made of DNA and proteins. It stores most of the cell's hereditary information. This DNA carries genes that direct cell function and pass hereditary information to new cells.",
     [
       "NUCLEUS-GENETIC"
     ]
@@ -73,7 +73,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
       "starch and proteins",
       "RNA and cellulose"
     ],
-    "Chromosomes are structures made of DNA and proteins. Genes are located on DNA within chromosomes.",
+    "Chromosomes are structures made of DNA and proteins. Genes are located on DNA within chromosomes. Proteins help package the long DNA molecules into organized chromosome structures.",
     [
       "CHROMOSOME-COMPOSITION"
     ]
@@ -103,7 +103,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
       "DNA is made of many nuclei arranged in genes",
       "Genes are organelles present outside chromosomes"
     ],
-    "Genes are functional segments of DNA. DNA is organized into chromosomes inside the nucleus of eukaryotic cells.",
+    "Genes are functional segments of DNA. DNA is organized into chromosomes inside the nucleus of eukaryotic cells. A chromosome therefore contains many genes arranged along its DNA molecule.",
     [
       "GENE-DNA-CHROMOSOME"
     ]
