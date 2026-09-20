@@ -94,7 +94,7 @@ export const PART_1: readonly SciCp039ReviewSpec[] = [
   [
     2,
     "Easy",
-    "Heat from the Sun reaches Earth by:",
+    "Which mode of heat transfer carries solar energy through space to Earth?",
     "radiation",
     [
       "conduction",
