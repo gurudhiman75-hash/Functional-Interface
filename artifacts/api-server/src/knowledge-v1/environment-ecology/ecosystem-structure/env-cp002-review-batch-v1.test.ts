@@ -52,7 +52,7 @@ describe("ENV-CP-002 V1 review batch", () => {
     expect(new Set(signatures).size).toBe(48);
 
     for (const question of questions) {
-      if (!question.stem.startsWith("Consider the statements:")) {
+      if (!question.stem.startsWith("Consider the following statements:")) {
         expect(question.stem.length).toBeLessThanOrEqual(105);
       }
       expect(question.explanation.length).toBeLessThanOrEqual(150);
