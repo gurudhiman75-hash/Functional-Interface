@@ -7,6 +7,48 @@ export const PGK_001_CP013_SOURCE_IDS = Object.freeze({
   censusSangrur: "CENSUS-INDIA-SANGRUR-HISTORY-BANDA",
 } as const);
 
+
+export const PGK_001_CP013_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP013_SOURCE_IDS.psebBandaLesson]: {
+    authority: "Punjab School Education Board",
+    title: "Class XII Punjab History & Culture Question Bank — Banda Singh Bahadur",
+    url: "https://static.pseb.ac.in/media/1655981990_N_5131_1655355982934.pdf",
+    classification: "PRIMARY_EDUCATION_AUTHORITY",
+  },
+  [PGK_001_CP013_SOURCE_IDS.psebClass12Model]: {
+    authority: "Punjab School Education Board",
+    title: "Punjab History & Culture Class XII syllabus",
+    url: "https://static.pseb.ac.in/media/1775112498_12thPunjabHistoryandCultureSyllabus2026-27.pdf",
+    classification: "SUPPORTING_CURRICULUM",
+  },
+  [PGK_001_CP013_SOURCE_IDS.sgpcGuruGobindSingh]: {
+    authority: "Shiromani Gurdwara Parbandhak Committee",
+    title: "Sri Guru Gobind Singh Ji — Nanded and Banda Singh",
+    url: "https://sgpc.net/ten-guru-sahibs/guru-gobind-singh-sahib/",
+    classification: "PRIMARY_INSTITUTIONAL",
+  },
+  [PGK_001_CP013_SOURCE_IDS.sgpcGazetteBanda]: {
+    authority: "Shiromani Gurdwara Parbandhak Committee",
+    title: "Gurdwara Gazette — Banda Singh Bahadur historical chronology",
+    url: "https://sgpc.net/gazette/2018/May/May-English.pdf",
+    supportingUrls: Object.freeze(["https://sgpc.net/gazette/2018/September/September-English.pdf"]),
+    classification: "PRIMARY_INSTITUTIONAL_ARCHIVE",
+  },
+  [PGK_001_CP013_SOURCE_IDS.pibBanda]: {
+    authority: "Press Information Bureau, Government of India / Ministry of Culture",
+    title: "Baba Banda Singh Bahadur — historical profile and agrarian measures",
+    url: "https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1837026",
+    supportingUrls: Object.freeze(["https://www.pib.gov.in/newsite/erelcontent.aspx?lang=2&reg=48&relid=149104"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP013_SOURCE_IDS.censusSangrur]: {
+    authority: "Directorate of Census Operations, Punjab",
+    title: "Census of India 2011 — District Census Handbook, Sangrur, Part XII-A",
+    url: "https://censusindia.gov.in/nada/index.php/catalog/1016",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+} as const);
+
 export const PGK_001_CP013_FACTS = Object.freeze({
   earlyNames: {
     id: "banda-early-names",
