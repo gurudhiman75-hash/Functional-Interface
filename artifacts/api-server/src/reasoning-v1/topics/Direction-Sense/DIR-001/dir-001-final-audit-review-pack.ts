@@ -28,14 +28,25 @@ function strings(value: unknown, out: string[] = []): string[] {
   return out;
 }
 
+function renderExplanationStep(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (!value || typeof value !== "object" || Array.isArray(value)) return String(value ?? "");
+  const record = value as Record<string, unknown>;
+  if (typeof record.statement === "string" && typeof record.result === "string") {
+    return `${record.statement} → ${record.result}`;
+  }
+  if (typeof record.text === "string") return record.text;
+  return strings(record).filter(Boolean).join(" — ");
+}
+
 function explanationLines(question: AnyQuestion): string[] {
   const e = question.explanation ?? {};
   const ordered = [
     e.given,
-    ...(Array.isArray(e.steps) ? e.steps : []),
+    ...(Array.isArray(e.steps) ? e.steps.map(renderExplanationStep) : []),
     e.resultLine,
     e.conclusion,
-  ].filter(Boolean).map(String);
+  ].filter(Boolean).map(renderExplanationStep).filter(Boolean);
   return ordered.length ? ordered : strings(e).filter(Boolean);
 }
 

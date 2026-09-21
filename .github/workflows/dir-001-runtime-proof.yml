@@ -1,10 +1,9 @@
 name: Reasoning DIR-001 Runtime
+# CI-FANOUT-ALLOW: non-main-base
+
 
 on:
   pull_request:
-    branches:
-      - New-main
-    types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
   push:
@@ -52,6 +51,7 @@ jobs:
             "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-006/dir-cp-006.test.ts"
             "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-007/dir-cp-007.test.ts"
             "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-008/dir-cp-008.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-final-audit-review-pack.test.ts"
           )
           for file in "${files[@]}"; do
             out="dist/reasoning-v1/$(basename "${file%.ts}").mjs"
