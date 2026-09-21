@@ -24,6 +24,7 @@ const lines: string[] = [
   "- Punjabi: pa-IN",
   "- Localized Question Studio activation: NOT AUTHORIZED",
   "- Question Bank/tests/mocks/publication: locked",
+  "- Whole-number learner policy: no decimal values; percentage/mean/mode use explicit nearest-whole wording",
   "",
 ];
 
