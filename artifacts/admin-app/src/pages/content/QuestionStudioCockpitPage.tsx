@@ -235,14 +235,15 @@ export function QuestionStudioCockpitPage() {
 
   const handleGenerate = async () => {
     if (!activePackage) {
-      showToast.error('Generation package required', 'Select an enabled Quant V4 package.');
+      showToast.error('Generation package required', 'Select an enabled generation package.');
       return;
     }
     try {
       const selectedExam = EXAMS.find((entry) => entry.code === exam);
       const result = await generate({
         exam: selectedExam?.name ?? exam,
-        subject: 'Quantitative Aptitude',
+        engineId: activePackage.engineId,
+        subject: activePackage.subject ?? 'Quantitative Aptitude',
         difficulty,
         count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
         packageId: activePackage.packageId,
@@ -332,7 +333,7 @@ export function QuestionStudioCockpitPage() {
       </div>
 
       <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Sparkles className="h-4 w-4 text-primary" /> Create generation run</CardTitle><p className="text-xs text-muted-foreground">Generate immutable Quant V4 review items. Approval is blocked until the payload passes the production quality gate.</p></CardHeader>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Sparkles className="h-4 w-4 text-primary" /> Create generation run</CardTitle><p className="text-xs text-muted-foreground">Generate immutable review items from the selected registered engine. Approval remains subject to the package lifecycle and quality gates.</p></CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
             <Field label="Exam"><Select value={exam} onValueChange={setExam}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{EXAMS.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.name}</SelectItem>)}</SelectContent></Select></Field>
@@ -345,7 +346,7 @@ export function QuestionStudioCockpitPage() {
             <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for a fresh generated seed" /></Field>
             <Button onClick={() => void handleGenerate()} disabled={loading || generating || !activePackage || !canRun} className="min-w-44">{generating ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating ? 'Generating…' : 'Generate review batch'}</Button>
           </div>
-          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{activePackage.topic} · {activePackage.subtopic}</span> · {activePackage.cpIds.length} canonical problems · {capabilities.generationSystem}</div>}
+          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{activePackage.topic} · {activePackage.subtopic}</span> · {activePackage.cpIds.length} CP(s) · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
         </CardContent>
       </Card>
 
