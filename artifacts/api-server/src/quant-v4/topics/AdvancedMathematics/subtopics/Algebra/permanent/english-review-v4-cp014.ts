@@ -196,9 +196,9 @@ function statementExplanation(
     if (solved.kind !== "UNIQUE") {
       throw new Error(`${label} was expected to have one exact solution`);
     }
-    return `${label} (${visible}) gives x = ${formatRational(solved.value)}, so it fixes x at one exact value.`;
+    return `${label} (${visible}) gives x = ${formatRational(solved.value)} after solving the linear equation. Because the non-zero coefficient leaves only this single value of x, the statement is sufficient by itself.`;
   }
-  return `${label} (${visible}) is an inequality, so it gives a range of possible x-values rather than one unique value.`;
+  return `${label} (${visible}) is an inequality. It restricts x to one side of a boundary but still allows many possible x-values, so the statement does not determine one unique value of x.`;
 }
 
 function dataSufficiencyExplanation(
