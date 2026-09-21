@@ -55,7 +55,8 @@ function option(v:string,l:NativeLocale):string{
  if(T[v])return n(T[v]!,l);
  const a=v.match(/^Article (\d+)$/);if(a)return ARTICLE(a[1]!,l);
  if(/^\d+$/.test(v))return v;
- return v.replace(/^(\d+) years$/,(_,x)=>l==="hi"?`${x} वर्ष`:`${x} ਸਾਲ`);
+ const years=v.match(/^(\d+) years$/);if(years)return l==="hi"?`${years[1]} वर्ष`:`${years[1]} ਸਾਲ`;
+ throw new Error(`Untranslated POL-CP-010 option: ${v}`);
 }
 
 const STEMS:Readonly<Record<number,readonly Pair[]>>=Object.freeze({
