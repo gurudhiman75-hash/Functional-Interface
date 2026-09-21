@@ -126,6 +126,7 @@ const nativeTerms = [
   "Trade liberalisation",
   "Stabilisation",
   "Structural reform",
+  "New Industrial Policy",
 ] as const;
 
 const protectedExamTerms = [
@@ -178,7 +179,6 @@ const protectedExamTerms = [
   "GST Council",
   "Harrod-Domar model",
   "Mahalanobis model",
-  "New Industrial Policy",
   "Narasimham Committee",
 ] as const;
 
