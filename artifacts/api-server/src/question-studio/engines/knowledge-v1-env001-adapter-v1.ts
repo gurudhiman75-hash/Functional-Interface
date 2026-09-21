@@ -285,7 +285,7 @@ export const knowledgeV1Env001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
 
     const selected = deterministicShuffle(
       candidates,
-      `${seed}:${language}:${cpId ?? "ALL_CPS"}:${qlId ?? "ALL_QLS"}:${difficulty}`,
+      `${seed}:${cpId ?? "ALL_CPS"}:${qlId ?? "ALL_QLS"}:${difficulty}`,
     ).slice(0, count);
 
     const questions = selected.map((question) => ({
