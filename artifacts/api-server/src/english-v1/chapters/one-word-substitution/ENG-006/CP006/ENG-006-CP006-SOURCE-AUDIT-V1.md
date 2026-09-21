@@ -9,7 +9,7 @@ Coverage:
 - 96 Medium
 - 96 Hard
 - 12 focused high-confusion domains
-- fields of study
+- logic and reasoning
 - crafts and trades
 - speech/language disorders
 - legal contracts
@@ -24,6 +24,8 @@ Coverage:
 - same-domain distractors
 - 18,000-question soak
 - 60-question review export
+
+A derivative field-of-study block was deliberately removed after semantic QA showed it duplicated earlier specialist concepts too closely.
 
 No exact answer overlap exists against CP001-CP005.
 
