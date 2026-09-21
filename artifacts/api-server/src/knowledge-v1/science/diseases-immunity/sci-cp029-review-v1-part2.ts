@@ -1,3 +1,229 @@
 import type { KnowledgeV1Difficulty } from "../../types";
 export type SciCp029ReviewSpec = readonly [number, KnowledgeV1Difficulty, string, string, readonly [string,string,string], string, readonly string[]];
-export const PART_2: readonly SciCp029ReviewSpec[] = [[3,"Medium","Why is safe drinking water especially important in preventing cholera?","The bacterium often spreads through contaminated water",["Cholera spreads only by mosquito bite","Cholera is caused by vitamin deficiency","Water destroys all antibodies"],"Cholera commonly spreads when water or food is contaminated with Vibrio cholerae. Clean water, sanitation and safe food handling therefore directly interrupt the transmission pathway.",["CHOLERA-WATER"]],[3,"Medium","Tuberculosis most often affects which organ?","Lungs",["Kidneys only","Skin only","Pancreas"],"Pulmonary tuberculosis primarily affects the lungs, although other organs can also be involved. Cough, prolonged fever and weight loss are common warning features of pulmonary tuberculosis.",["TB-LUNGS"]],[3,"Hard","A patient has a bacterial disease and receives an appropriate antibiotic. Why can the same drug not be assumed to cure influenza?","Influenza is caused by a virus, not a bacterium",["Viruses are larger than all bacteria","Antibiotics work only against fungi","Influenza is caused by a mineral deficiency"],"Antibiotics target bacterial structures or processes and do not treat viral infections such as influenza. Antiviral or supportive approaches are needed for viral disease because bacterial targets are absent.",["ANTIBIOTIC-BACTERIA-VS-VIRUS"]],[4,"Easy","AIDS is caused by:","HIV",["Salmonella Typhi","Plasmodium","Vibrio cholerae"],"Human immunodeficiency virus, or HIV, damages the immune system and can lead to AIDS. Untreated infection gradually damages immune defence and increases vulnerability to opportunistic infections.",["AIDS-HIV"]],[4,"Easy","Polio is caused by a:","Virus",["Bacterium","Protozoan","Fungus"],"Poliomyelitis is caused by poliovirus. Vaccination is an important preventive measure because there is no role for antibiotics against poliovirus itself.",["POLIO-VIRUS"]],[4,"Medium","Measles is best described as a:","Viral disease",["Bacterial disease","Deficiency disease","Protozoan disease"],"Measles is caused by the measles virus and is highly contagious. Vaccination can produce long-lasting immune memory that greatly reduces severe disease and spread.",["MEASLES-VIRAL"]],[4,"Medium","Which disease is spread by Aedes mosquitoes and is caused by a virus?","Dengue",["Malaria","Typhoid","Tuberculosis"],"Dengue is caused by dengue viruses and is transmitted by Aedes mosquitoes. Because the mosquito is the vector, controlling breeding sites and preventing bites help reduce transmission.",["DENGUE-AEDES-VIRUS"]],[4,"Medium","HIV weakens the body chiefly by attacking cells important for:","Immune defence",["Bone mineralization","Bile storage","Urine formation"],"HIV infects important immune cells, especially CD4 T cells, reducing the body's ability to fight infections. Loss of these immune cells makes it harder to coordinate effective responses against other infections.",["HIV-IMMUNE-CELLS"]],[4,"Hard","Why can antibiotics fail to help a person with an uncomplicated common viral cold?","The illness is caused by viruses, which antibiotics do not target",["Antibiotics work only above normal body temperature","Viruses are vitamins","Antibiotics always increase viral growth directly"],"Antibiotics act against bacteria, not the viruses that cause most common colds. Unnecessary antibiotics can instead promote resistance among bacteria without helping the viral illness.",["VIRAL-COLD-ANTIBIOTICS"]],[5,"Easy","Malaria is caused by:","Plasmodium",["Salmonella","HIV","Vibrio"],"Malaria is caused by protozoan parasites of the genus Plasmodium. Infected liver and red blood cells are part of the parasite's life cycle inside the human host.",["MALARIA-PLASMODIUM"]],[5,"Easy","The mosquito that transmits malaria to humans is the female:","Anopheles mosquito",["Aedes mosquito only","Culex mosquito only","Housefly"],"Female Anopheles mosquitoes transmit Plasmodium parasites between humans. Only female mosquitoes take blood meals, which is why they transmit the malaria parasite.",["MALARIA-ANOPHELES"]],[5,"Medium","Which mosquito is an important vector of dengue?","Aedes",["Anopheles only","Sandfly","Tsetse fly"],"Aedes mosquitoes, especially Aedes aegypti, are major dengue vectors. Removing standing water and preventing bites are therefore important parts of dengue control.",["DENGUE-AEDES"]],[5,"Medium","Why does eliminating stagnant water help control dengue?","It reduces breeding sites of Aedes mosquitoes",["It kills all viruses in human blood","It prevents vitamin deficiency","It increases antibody production immediately"],"Aedes mosquitoes commonly breed in small collections of standing water, so removing them reduces vector numbers. Containers, tyres and small water collections around homes can all become useful Aedes breeding sites.",["DENGUE-STAGNANT-WATER"]],[5,"Medium","Malaria is classified as vector-borne because:","A mosquito carries the parasite from one host to another",["It spreads only through food","It is caused by a vitamin deficiency","It never involves a pathogen"],"The mosquito is the vector that transmits Plasmodium parasites between people. Without the mosquito vector, Plasmodium cannot complete normal person-to-person transmission.",["MALARIA-VECTOR-BORNE"]],[5,"Hard","A town controls mosquitoes effectively but makes no change to drinking-water sanitation. Which disease should fall more directly as a result?","Dengue",["Cholera","Typhoid from contaminated water","Scurvy"],"Dengue depends on mosquito transmission, so mosquito control directly interrupts its transmission cycle. Water sanitation alone would not directly stop dengue because the virus depends on mosquito transmission.",["VECTOR-CONTROL-REASONING"]]] as const;
+export const PART_2: readonly SciCp029ReviewSpec[] = [
+  [
+    3,
+    "Medium",
+    "Why is safe drinking water especially important in preventing cholera?",
+    "The bacterium often spreads through contaminated water",
+    [
+      "Cholera spreads only by mosquito bite",
+      "Cholera is caused by vitamin deficiency",
+      "Water destroys all antibodies"
+    ],
+    "Cholera commonly spreads when water or food is contaminated with Vibrio cholerae. Clean water, sanitation and safe food handling therefore directly interrupt the transmission pathway.",
+    [
+      "CHOLERA-WATER"
+    ]
+  ],
+  [
+    3,
+    "Medium",
+    "Tuberculosis most often affects which organ?",
+    "Lungs",
+    [
+      "Kidneys only",
+      "Skin only",
+      "Pancreas"
+    ],
+    "Pulmonary tuberculosis primarily affects the lungs, although other organs can also be involved. Cough, prolonged fever and weight loss are common warning features of pulmonary tuberculosis.",
+    [
+      "TB-LUNGS"
+    ]
+  ],
+  [
+    3,
+    "Hard",
+    "A patient has a bacterial disease and receives an appropriate antibiotic. Why can the same drug not be assumed to cure influenza?",
+    "Influenza is caused by a virus, not a bacterium",
+    [
+      "Viruses are larger than all bacteria",
+      "Antibiotics work only against fungi",
+      "Influenza is caused by a mineral deficiency"
+    ],
+    "Antibiotics target bacterial structures or processes and do not treat viral infections such as influenza. Antiviral or supportive approaches are needed for viral disease because bacterial targets are absent.",
+    [
+      "ANTIBIOTIC-BACTERIA-VS-VIRUS"
+    ]
+  ],
+  [
+    4,
+    "Easy",
+    "AIDS is caused by:",
+    "HIV",
+    [
+      "Salmonella Typhi",
+      "Plasmodium",
+      "Vibrio cholerae"
+    ],
+    "Human immunodeficiency virus, or HIV, damages the immune system and can lead to AIDS. Untreated infection gradually damages immune defence and increases vulnerability to opportunistic infections.",
+    [
+      "AIDS-HIV"
+    ]
+  ],
+  [
+    4,
+    "Easy",
+    "Polio is caused by a:",
+    "Virus",
+    [
+      "Bacterium",
+      "Protozoan",
+      "Fungus"
+    ],
+    "Poliomyelitis is caused by poliovirus. Vaccination is an important preventive measure because there is no role for antibiotics against poliovirus itself.",
+    [
+      "POLIO-VIRUS"
+    ]
+  ],
+  [
+    4,
+    "Medium",
+    "Measles is best described as a:",
+    "Viral disease",
+    [
+      "Bacterial disease",
+      "Deficiency disease",
+      "Protozoan disease"
+    ],
+    "Measles is caused by the measles virus and is highly contagious. Vaccination can produce long-lasting immune memory that greatly reduces severe disease and spread.",
+    [
+      "MEASLES-VIRAL"
+    ]
+  ],
+  [
+    4,
+    "Medium",
+    "Which disease is spread by Aedes mosquitoes and is caused by a virus?",
+    "Dengue",
+    [
+      "Malaria",
+      "Typhoid",
+      "Tuberculosis"
+    ],
+    "Dengue is caused by dengue viruses and is transmitted by Aedes mosquitoes. Because the mosquito is the vector, controlling breeding sites and preventing bites help reduce transmission.",
+    [
+      "DENGUE-AEDES-VIRUS"
+    ]
+  ],
+  [
+    4,
+    "Medium",
+    "HIV weakens the body chiefly by attacking cells important for:",
+    "Immune defence",
+    [
+      "Bone mineralization",
+      "Bile storage",
+      "Urine formation"
+    ],
+    "HIV infects important immune cells, especially CD4 T cells, reducing the body's ability to fight infections. Loss of these immune cells makes it harder to coordinate effective responses against other infections.",
+    [
+      "HIV-IMMUNE-CELLS"
+    ]
+  ],
+  [
+    4,
+    "Hard",
+    "Why can antibiotics fail to help a person with an uncomplicated common viral cold?",
+    "The illness is caused by viruses, which antibiotics do not target",
+    [
+      "Antibiotics work only above normal body temperature",
+      "Viruses are vitamins",
+      "Antibiotics always increase viral growth directly"
+    ],
+    "Antibiotics act against bacteria, not the viruses that cause most common colds. Unnecessary antibiotics can instead promote resistance among bacteria without helping the viral illness.",
+    [
+      "VIRAL-COLD-ANTIBIOTICS"
+    ]
+  ],
+  [
+    5,
+    "Easy",
+    "Malaria is caused by:",
+    "Plasmodium",
+    [
+      "Salmonella",
+      "HIV",
+      "Vibrio"
+    ],
+    "Malaria is caused by protozoan parasites of the genus Plasmodium. Infected liver and red blood cells are part of the parasite's life cycle inside the human host.",
+    [
+      "MALARIA-PLASMODIUM"
+    ]
+  ],
+  [
+    5,
+    "Easy",
+    "The mosquito that transmits malaria to humans is the female:",
+    "Anopheles mosquito",
+    [
+      "Aedes mosquito only",
+      "Culex mosquito only",
+      "Housefly"
+    ],
+    "Female Anopheles mosquitoes transmit Plasmodium parasites between humans. Only female mosquitoes take blood meals, which is why they transmit the malaria parasite.",
+    [
+      "MALARIA-ANOPHELES"
+    ]
+  ],
+  [
+    5,
+    "Medium",
+    "Which mosquito is an important vector of dengue?",
+    "Aedes",
+    [
+      "Anopheles only",
+      "Sandfly",
+      "Tsetse fly"
+    ],
+    "Aedes mosquitoes, especially Aedes aegypti, are major dengue vectors. Removing standing water and preventing bites are therefore important parts of dengue control.",
+    [
+      "DENGUE-AEDES"
+    ]
+  ],
+  [
+    5,
+    "Medium",
+    "Why does eliminating stagnant water help control dengue?",
+    "It reduces breeding sites of Aedes mosquitoes",
+    [
+      "It kills all viruses in human blood",
+      "It prevents vitamin deficiency",
+      "It increases antibody production immediately"
+    ],
+    "Aedes mosquitoes commonly breed in small collections of standing water, so removing them reduces vector numbers. Containers, tyres and small water collections around homes can all become useful Aedes breeding sites.",
+    [
+      "DENGUE-STAGNANT-WATER"
+    ]
+  ],
+  [
+    5,
+    "Medium",
+    "Malaria is classified as vector-borne because:",
+    "A mosquito carries the parasite from one host to another",
+    [
+      "It spreads only through food",
+      "It is caused by a vitamin deficiency",
+      "It never involves a pathogen"
+    ],
+    "The mosquito is the vector that transmits Plasmodium parasites between people. Without the mosquito vector, Plasmodium cannot complete normal person-to-person transmission.",
+    [
+      "MALARIA-VECTOR-BORNE"
+    ]
+  ],
+  [
+    5,
+    "Hard",
+    "A town controls mosquitoes effectively but makes no change to drinking-water sanitation. Which disease should fall more directly as a result?",
+    "Dengue",
+    [
+      "Cholera",
+      "Typhoid from contaminated water",
+      "Scurvy"
+    ],
+    "Dengue depends on mosquito transmission, so mosquito control directly interrupts its transmission cycle. Water sanitation alone would not directly stop dengue because the virus depends on mosquito transmission.",
+    [
+      "VECTOR-CONTROL-REASONING"
+    ]
+  ]
+] as const;
