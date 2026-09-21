@@ -1,6 +1,6 @@
 import type { Di009Difficulty, Di009ExamProfile, Di009TaskKind } from "./types";
 
-export const DI009_PERMANENT_RELEASE_ID = "DI-009-PERMANENT-ENGLISH-REVIEW-P1" as const;
+export const DI009_PERMANENT_RELEASE_ID = "DI-009-PERMANENT-ENGLISH-REVIEW-P2" as const;
 
 export type Di009PermanentQlId =
   | "DI-QL-001"
