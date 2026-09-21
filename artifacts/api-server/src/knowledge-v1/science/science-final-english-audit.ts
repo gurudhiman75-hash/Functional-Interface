@@ -205,9 +205,19 @@ assert.equal(chapterQlIds.size, 400, "SCI-001 must expose exactly 400 CP-owned Q
 assert.ok([...chapterQlIds.values()].every((n) => n === 6), "every SCI-001 QL must contribute exactly six questions");
 assert.deepEqual(chapterDifficulty, { Easy: 720, Medium: 1200, Hard: 480 }, "chapter-wide difficulty totals drifted");
 assert.deepEqual(chapterAnswerPositions, [600, 600, 600, 600], "chapter-wide answer positions drifted");
+assert.equal(duplicateStems.length, 0, "chapter-wide duplicate stems must be zero");
+assert.equal(shortStems.length, 0, "all stems must meet the minimum editorial length");
+assert.equal(shortExplanations.length, 0, "all explanations must contain at least 20 words");
+assert.equal(internalLeakageHits.length, 0, "internal metadata must not leak into learner-facing text");
+assert.equal(optionAnalysisHits.length, 0, "option-by-option analysis must not appear in explanations");
+assert.equal(wordingHits.length, 0, "mechanical wording hits (mainly/associated) must be zero");
+
+const crossCpSourceFactReuses = duplicateFactIds.filter(
+  (item) => ids.get(item.first) !== ids.get(item.second),
+);
 
 const report = {
-  status: "STRUCTURAL_PASS",
+  status: "EDITORIAL_AND_STRUCTURAL_PASS",
   scope: "SCI-CP-001 through SCI-CP-040 English review pools",
   cps: cps.length,
   qls: chapterQlIds.size,
@@ -218,8 +228,11 @@ const report = {
   uniqueNormalizedStems: stems.size,
   duplicateStemCount: duplicateStems.length,
   duplicateStems: duplicateStems.slice(0, 100),
-  duplicateFactIdCount: duplicateFactIds.length,
-  duplicateFactIds: duplicateFactIds.slice(0, 100),
+  reusedSourceFactReferenceCount: duplicateFactIds.length,
+  reusedSourceFactReferences: duplicateFactIds.slice(0, 100),
+  crossCpSourceFactReuseCount: crossCpSourceFactReuses.length,
+  crossCpSourceFactReuses: crossCpSourceFactReuses.slice(0, 100),
+  sourceFactReuseNote: "A source fact may intentionally support more than one question; reuse is diagnostic, not a failure.",
   shortStemCountUnder12Chars: shortStems.length,
   shortStems: shortStems.slice(0, 150),
   shortExplanationCountUnder20Words: shortExplanations.length,
