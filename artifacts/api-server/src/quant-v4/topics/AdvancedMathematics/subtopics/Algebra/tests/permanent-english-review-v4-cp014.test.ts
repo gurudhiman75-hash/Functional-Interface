@@ -74,6 +74,12 @@ for (const prototypeId of ALG_CP014_ENGLISH_REVIEW_V4_TARGETS) {
       assert(first.answer.value === baseline.answer.value, `${prefix}: V4 changed the retained data-sufficiency verdict`);
       assert(numericSpecificity(first.explanation) >= 3, `${prefix}: explanation lacks question-specific numerical working`);
       assert(first.question.includes("I.") && first.question.includes("II."), `${prefix}: data-sufficiency statements are not visible in the review question`);
+      if (prototypeId === "ALG-CP014-CAND-007") {
+        assert(/x = -?\d/.test(first.explanation) && /y = -?\d/.test(first.explanation), `${prefix}: combined-system explanation must show the solved x and y values`);
+      }
+      if (prototypeId === "ALG-CP014-CAND-008") {
+        assert(/times those in Statement I/.test(first.explanation), `${prefix}: dependent-system explanation must show the concrete row multiple`);
+      }
     }
 
     states.add(stable(first.math));
