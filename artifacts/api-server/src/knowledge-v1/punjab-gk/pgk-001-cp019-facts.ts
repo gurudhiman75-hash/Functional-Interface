@@ -9,6 +9,51 @@ export const PGK_001_CP019_SOURCE_IDS = Object.freeze({
   localPunjab: "punjab-local-government",
 } as const);
 
+
+export const PGK_001_CP019_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP019_SOURCE_IDS.constitutionIndia]: {
+    authority: "Legislative Department, Ministry of Law and Justice, Government of India",
+    title: "The Constitution of India — 2024 English edition",
+    url: "https://lddashboard.legislative.gov.in/sites/default/files/coi/COI_2024.pdf",
+  },
+  [PGK_001_CP019_SOURCE_IDS.assemblyPunjab]: {
+    authority: "Punjab Legislative Assembly / National eVidhan Application",
+    title: "Punjab Vidhan Sabha official portal",
+    url: "https://pvs.neva.gov.in/",
+  },
+  [PGK_001_CP019_SOURCE_IDS.councilAbolition]: {
+    authority: "India Code, Government of India",
+    title: "The Punjab Legislative Council (Abolition) Act, 1969",
+    url: "https://www.indiacode.nic.in/repealedfileopen?rfilename=A1969-46.pdf",
+  },
+  [PGK_001_CP019_SOURCE_IDS.eciDelimitation]: {
+    authority: "Election Commission of India / Delimitation Commission",
+    title: "Delimitation Order No. 22 — Punjab, 19 June 2006",
+    url: "https://www.eci.gov.in/eci-backend/public/api/download?url=LMAhAK6sOPBp%2FNFF0iRfXbEB1EVSLT41NNLRjYNJJP1KivrUxbfqkDatmHy12e%2FzVx8fLfn2ReU7TfrqYobgIrJuU8WtqkDIN3tXVcSIGhQDHLeNGKvjJA5iFFtHS48Axmy%2B9NgztC16Meup0w7IydNOZaQW5xIkvZ5NYVR2Fnk%3D",
+  },
+  [PGK_001_CP019_SOURCE_IDS.rajyaSabha]: {
+    authority: "Rajya Sabha Secretariat",
+    title: "Sixty Years of Rajya Sabha — allocation of seats",
+    url: "https://cms.rajyasabha.nic.in/UploadedFiles/ElectronicPublications/Sixty%20Year%20RS_New.pdf",
+  },
+  [PGK_001_CP019_SOURCE_IDS.highCourt]: {
+    authority: "High Court of Punjab and Haryana",
+    title: "Official history and jurisdiction",
+    url: "https://www.highcourtchd.gov.in/index.php/left_menu/rti/left_menu/?mod=history",
+    supportingUrls: Object.freeze(["https://highcourtchd.gov.in/?mod=jurisdication"]),
+  },
+  [PGK_001_CP019_SOURCE_IDS.ruralPunjab]: {
+    authority: "Department of Rural Development and Panchayats, Government of Punjab",
+    title: "RTI manual — laws and institutional framework",
+    url: "https://punjab.gov.in/wp-content/uploads/2023/01/rti-chapter5-eng.pdf",
+  },
+  [PGK_001_CP019_SOURCE_IDS.localPunjab]: {
+    authority: "Government of Punjab / Department of Local Government",
+    title: "Punjab local-government laws",
+    url: "https://punjab.gov.in/wp-content/uploads/2025/11/Rules-Circulars-Notifications-Acts-From-01.07.2025-To-30.09.2025.pdf",
+  },
+} as const);
+
 export const PGK_001_CP019_FACTS = Object.freeze([
   { id: "assembly-unicameral", statement: "Punjab has a unicameral State Legislature.", sourceKeys: ["constitutionIndia", "councilAbolition"] },
   { id: "council-abolished-1970", statement: "The Punjab Legislative Council was abolished with effect from 7 January 1970.", sourceKeys: ["councilAbolition"] },
