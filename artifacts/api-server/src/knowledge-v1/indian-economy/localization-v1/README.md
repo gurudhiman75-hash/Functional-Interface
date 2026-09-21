@@ -55,11 +55,11 @@ Quality gates:
 - shared terminology registry with `NATIVE`, `PROTECTED_ENGLISH` and `ABBREVIATION` classifications
 - `NATIVE` terms must not remain as English labels in Hindi/Punjabi learner text
 - `PROTECTED_ENGLISH` terms retain their familiar exam label exactly when translation would be awkward or non-standard
-- `ABBREVIATION` entries retain standard forms such as GDP, CPI, WPI, GVA, LFPR, MGNREGA, RBI, FEMA, PSS, SEBI, NABARD, MPC, SDF, MSF, CRR, OMO, RRB, PACS, NPA, PSL, MSME, DICGC, DFI, IFCI, SIDBI, NHB, NaBFID, NBFC, HFC, FRBM, GST, CGST, SGST, IGST, UTGST, CBDT, CAG, LERMS, FERA, NDC and LPG
+- `ABBREVIATION` entries retain standard forms such as GDP, CPI, WPI, GVA, LFPR, MGNREGA, RBI, FEMA, PSS, SEBI, NABARD, MPC, SDF, MSF, CRR, OMO, RRB, PACS, NPA, PSL, MSME, DICGC, DFI, IFCI, SIDBI, NHB, NaBFID, NBFC, HFC, FRBM, GST, CGST, SGST, IGST, UTGST, CBDT, CAG, LERMS, FERA and LPG
 - all other Latin-script text is treated as leakage and fails the executable audit
 - current protected labels include Disinflation, Demand-pull inflation, Cost-push inflation, Headline inflation, Core inflation, GDP deflator, Core CPI, Hyperinflation, Headcount ratio, Fiat money, Legal tender, Reserve money, High-powered money, Narrow money, Broad money, Money multiplier, Lender of last resort, Repo, Reverse Repo, Bank Rate, Open Market Operations, Standing Deposit Facility, Marginal Standing Facility, LAF corridor, Small Finance Bank, Payments Bank, Priority Sector Lending, Commercial Paper, and official committee/group names
 - full CP001–CP016 terminology/parity audit runs in Economy CI across 700 questions per locale / 2,100 surfaces
-- CP009–CP016 stems pass a mechanical-phrasing guard covering generated fillers such as `other things equal`, `mainly`, `generally`, `primarily`, `normally`, `best fits`, `most directly`, `main role`, `best represents`, `best distinguishes` and native-language equivalents
+- CP009–CP016 stems pass a mechanical-phrasing guard covering generated fillers such as `other things equal`, `mainly`, `generally`, `primarily`, `normally`, `best fits`, `most directly`, `main role`, `best represents`, `best shows`, `closely linked`, `best distinguishes` and native-language equivalents
 
 Review exports:
 - `ECO-MULTILINGUAL-V1-CP001-CP002-REVIEW.md`
