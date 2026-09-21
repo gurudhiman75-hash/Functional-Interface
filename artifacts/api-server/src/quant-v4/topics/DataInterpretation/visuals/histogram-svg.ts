@@ -41,8 +41,8 @@ function niceYAxisStep(maxFrequency: number) {
   const rough = Math.max(1, maxFrequency / 6);
   const magnitude = 10 ** Math.floor(Math.log10(rough));
   const normalized = rough / magnitude;
-  const nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10;
-  return nice * magnitude;
+  const nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 2.5 ? 2.5 : normalized <= 5 ? 5 : 10;
+  return Math.max(1, Math.ceil(nice * magnitude));
 }
 
 function escapeSvgText(value: string) {
