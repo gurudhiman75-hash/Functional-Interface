@@ -2,12 +2,12 @@ import { createRng } from "../../../../core/deterministic-rng";
 import { semanticHash } from "../../../../core/semantic-hash";
 import type { PunjabiDifficulty,PunjabiGeneratedQuestion } from "../../../../core/types";
 import {
-  CP014_PASSAGES,
   CP014_ADMIN_TERMS,
   type PassageQuestion,
   type ReadingPassageItem,
   type CP014AdministrativeAuthority,
 } from "./CP014-authorities";
+import { CP014_ALL_PASSAGES } from "./CP014-passages";
 
 function norm(v:string){return v.normalize("NFC").trim();}
 function ord(seed:number,cap:number){const n=Math.trunc(seed)-1;return ((n%cap)+cap)%cap;}
@@ -33,14 +33,14 @@ function assemble(input:{seed:number;difficulty:PunjabiDifficulty;familyId:strin
   metadata:{
    engine:"punjabi-v1",packageId:"PUN-001",cpId:"PUN-001-CP014",familyId:input.familyId,subtype:input.subtype,
    difficulty:input.difficulty,language:"pa-Guru",seed:input.seed,authorityIds:input.authorityIds,
-   generatorRevision:"1.0.0-forward-port",fingerprint,lifecycle:"REVIEW_ONLY"
+   generatorRevision:"1.1.0-comprehension-breadth",fingerprint,lifecycle:"REVIEW_ONLY"
   }
  };
 }
 
 type PassageAuthority={passage:ReadingPassageItem;q:PassageQuestion};
 const FACTUAL:PassageAuthority[]=[],INFERENTIAL:PassageAuthority[]=[],TITLE_SUMMARY:PassageAuthority[]=[];
-for(const passage of CP014_PASSAGES){
+for(const passage of CP014_ALL_PASSAGES){
  for(const q of passage.questions){
   const item={passage,q};
   if(q.type==="factual")FACTUAL.push(item);
@@ -176,7 +176,7 @@ export function generateCP014F06(seed:number,difficulty:PunjabiDifficulty){
 
 type PassagePair={passage:ReadingPassageItem;q1:PassageQuestion;q2:PassageQuestion};
 const PASSAGE_PAIRS:PassagePair[]=[];
-for(const passage of CP014_PASSAGES){
+for(const passage of CP014_ALL_PASSAGES){
  for(const q1 of passage.questions)for(const q2 of passage.questions)if(q1.qId!==q2.qId)PASSAGE_PAIRS.push({passage,q1,q2});
 }
 export function generateCP014F07(seed:number,difficulty:PunjabiDifficulty){
@@ -240,10 +240,10 @@ export function generateCP014Question(seed:number,difficulty:PunjabiDifficulty="
 export function getCP014BreadthReport(){
  const capacities=Object.fromEntries(CP014_FAMILIES.map(f=>[f.familyId,f.semanticCapacity]));
  return {
-  passageCount:CP014_PASSAGES.length,
-  passageQuestionAuthorities:CP014_PASSAGES.reduce((n,p)=>n+p.questions.length,0),
+  passageCount:CP014_ALL_PASSAGES.length,
+  passageQuestionAuthorities:CP014_ALL_PASSAGES.reduce((n,p)=>n+p.questions.length,0),
   administrativeAuthorities:CP014_ADMIN_TERMS.length,
-  totalAtomicAuthorities:CP014_PASSAGES.reduce((n,p)=>n+p.questions.length,0)+CP014_ADMIN_TERMS.length,
+  totalAtomicAuthorities:CP014_ALL_PASSAGES.reduce((n,p)=>n+p.questions.length,0)+CP014_ADMIN_TERMS.length,
   totalSemanticCapacity:CP014_FAMILIES.reduce((n,f)=>n+f.semanticCapacity,0),
   capacities
  };
