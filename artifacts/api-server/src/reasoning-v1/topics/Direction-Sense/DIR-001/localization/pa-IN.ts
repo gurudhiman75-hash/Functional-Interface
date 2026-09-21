@@ -1,5 +1,5 @@
 import { generateDirectionQuestion } from "../chapter-registry";
-import { asR, coordinateTextPa, directionAnglePa, directionPa, metresPa, namePa, reverseTurnCalculationStepsPa, turnCalculationStepsPa, type R } from "./punjabi-foundation";
+import { asR, coordinateTextPa, directionAnglePa, directionPa, metresPa, namePa, relationSentencePa, reverseTurnCalculationStepsPa, turnCalculationStepsPa, type R } from "./punjabi-foundation";
 import { localizeDiagramPunjabi, optionLabelPunjabi } from "./punjabi-editorial-overrides";
 import { renderPunjabiStem } from "./punjabi-stems";
 import type { LocalizedDirectionExplanationPunjabi, LocalizedDirectionOptionPunjabi, LocalizedDirectionQuestionPunjabi } from "./punjabi-types";
@@ -165,28 +165,69 @@ function renderExplanationPunjabi(english: R): LocalizedDirectionExplanationPunj
   }
 
   if (["DIR-QL-011", "DIR-QL-012", "DIR-QL-013", "DIR-QL-014", "DIR-QL-015"].includes(qlId)) {
-    return {
-      ...base,
-      steps: [
-        "ਇੱਕ ਬਿੰਦੂ ਨੂੰ ਪੱਕਾ ਮੰਨ ਕੇ ਬਾਕੀ ਬਿੰਦੂ ਦਿੱਤੇ ਸੰਬੰਧਾਂ ਅਨੁਸਾਰ ਨਕਸ਼ੇ ਉੱਤੇ ਰੱਖੋ।",
-        qlId === "DIR-QL-037"
-          ? "ਹਰ ਵਾਧੂ ਕਥਨ ਨੂੰ ਵਾਰੀ-ਵਾਰੀ ਜਾਂਚੋ; ਜੋ ਕਥਨ ਬਾਕੀ ਨਕਸ਼ੇ ਨਾਲ ਮੇਲ ਨਾ ਖਾਏ, ਉਹੀ ਗਲਤ ਹੈ।"
-          : "ਵੱਖ-ਵੱਖ ਕਥਨਾਂ ਤੋਂ ਮਿਲੇ ਬਿੰਦੂ ਇੱਕੋ ਨਕਸ਼ੇ ਉੱਤੇ ਆਪਸ ਵਿੱਚ ਮੇਲ ਖਾਣੇ ਚਾਹੀਦੇ ਹਨ।",
-        "ਹੁਣ ਸਵਾਲ ਵਿੱਚ ਪੁੱਛੇ ਦੋ ਬਿੰਦੂਆਂ ਦਾ ਆਪਸੀ ਸੰਬੰਧ ਪੜ੍ਹੋ।",
-      ],
-      resultLine: `ਤਿਆਰ ਨਕਸ਼ੇ ਤੋਂ ਉੱਤਰ ${answerSentence}`,
-    };
+    const relations = (s.relations ?? []).map((relation: R) => relationSentencePa(relation, true));
+    const steps: string[] = ["ਦਿੱਤੇ ਸੰਬੰਧਾਂ ਨੂੰ ਇੱਕੋ ਨਕਸ਼ੇ ਉੱਤੇ ਰੱਖੋ:", ...relations];
+    if (qlId === "DIR-QL-012") {
+      const query = asR(s.query);
+      const coordinates = asR(s.coordinates);
+      const subject = asR(coordinates[query.subject]);
+      const reference = asR(coordinates[query.reference]);
+      const dx = Number(subject.x ?? 0) - Number(reference.x ?? 0);
+      const dy = Number(subject.y ?? 0) - Number(reference.y ?? 0);
+      const horizontal = Math.abs(dx), vertical = Math.abs(dy);
+      steps.push(`${namePa(query.reference)} ਤੋਂ ${namePa(query.subject)} ਤੱਕ ਫ਼ਰਕ: ${coordinateTextPa({ x: dx, y: dy })}।`);
+      const distance = Number(asR(english.correctAnswer).distance ?? 0);
+      steps.push(
+        horizontal === 0 || vertical === 0
+          ? `ਕੇਵਲ ਇੱਕ ਦਿਸ਼ਾ ਦਾ ਫ਼ਰਕ ਬਚਦਾ ਹੈ, ਇਸ ਲਈ ਸਿੱਧੀ ਦੂਰੀ ${metresPa(distance)} ਹੈ।`
+          : `ਸਿੱਧੀ ਦੂਰੀ = √(${horizontal}² + ${vertical}²) = ${metresPa(distance)}।`,
+      );
+    } else {
+      steps.push(`ਪੂਰੇ ਨਕਸ਼ੇ ਤੋਂ ਪੁੱਛਿਆ ਗਿਆ ਸੰਬੰਧ/ਸਥਿਤੀ ${answerSentence}`);
+    }
+    return { ...base, steps, resultLine: `ਨਕਸ਼ੇ ਤੋਂ ਸਹੀ ਉੱਤਰ ${answerSentence}` };
   }
 
   if (["DIR-QL-016", "DIR-QL-017", "DIR-QL-018", "DIR-QL-019", "DIR-QL-020", "DIR-QL-021", "DIR-QL-022"].includes(qlId)) {
-    return {
-      ...base,
-      steps: [
-        "ਹਰ ਵਿਅਕਤੀ ਦੀ ਚਾਲ ਕ੍ਰਮਵਾਰ ਲਗਾ ਕੇ ਉਸ ਦਾ ਅੰਤਿਮ ਬਿੰਦੂ ਨਕਸ਼ੇ ਉੱਤੇ ਨਿਸ਼ਾਨ ਲਗਾਓ।",
-        "ਫਿਰ ਸਵਾਲ ਅਨੁਸਾਰ ਦਿਸ਼ਾ, ਦੂਰੀ, ਸਭ ਤੋਂ ਨੇੜੇ ਜਾਂ ਸਭ ਤੋਂ ਦੂਰ ਬਿੰਦੂ, ਜਾਂ ਇੱਕੋ ਬਿੰਦੂ ਉੱਤੇ ਪਹੁੰਚਣ ਵਾਲੀ ਜੋੜੀ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      ],
-      resultLine: `ਅੰਤਿਮ ਬਿੰਦੂਆਂ ਦੀ ਤੁਲਨਾ ਤੋਂ ਉੱਤਰ ${answerSentence}`,
-    };
+    const paths = (s.paths ?? []) as R[];
+    const referenceLabel = english.metadata?.sameOrigin ? "O" : "P";
+    const steps: string[] = [];
+    for (const path of paths) {
+      const movements = (path.steps ?? []).map(
+        (step: R) => `${metresPa(step.distance)} ${directionPa(step.direction)} ਵੱਲ`,
+      ).join(" → ");
+      steps.push(`${namePa(path.name)}: ${movements}।`);
+      steps.push(`${namePa(path.name)} ਦਾ ਅੰਤਿਮ ਬਿੰਦੂ ${referenceLabel} ਤੋਂ ${coordinateTextPa(asR(path.endpoint))} ਹੈ।`);
+    }
+    const query = asR(s.query);
+    if (["DIR-QL-016", "DIR-QL-017", "DIR-QL-018"].includes(qlId)) {
+      const subjectName = String(query.subject ?? query.left);
+      const referenceName = String(query.reference ?? query.right);
+      const subjectPath = paths.find((path) => String(path.name) === subjectName);
+      const referencePath = paths.find((path) => String(path.name) === referenceName);
+      if (subjectPath && referencePath) {
+        const dx = Number(subjectPath.endpoint.x) - Number(referencePath.endpoint.x);
+        const dy = Number(subjectPath.endpoint.y) - Number(referencePath.endpoint.y);
+        steps.push(`${namePa(referenceName)} ਦੇ ਅੰਤਿਮ ਬਿੰਦੂ ਤੋਂ ${namePa(subjectName)} ਦੇ ਅੰਤਿਮ ਬਿੰਦੂ ਤੱਕ ਫ਼ਰਕ: ${coordinateTextPa({ x: dx, y: dy })}।`);
+        if (qlId !== "DIR-QL-016") {
+          const distance = Number(asR(english.correctAnswer).distance ?? 0);
+          const horizontal = Math.abs(dx), vertical = Math.abs(dy);
+          steps.push(
+            horizontal === 0 || vertical === 0
+              ? `ਅੰਤਿਮ ਬਿੰਦੂਆਂ ਦੀ ਸਿੱਧੀ ਦੂਰੀ ${metresPa(distance)} ਹੈ।`
+              : `ਸਿੱਧੀ ਦੂਰੀ = √(${horizontal}² + ${vertical}²) = ${metresPa(distance)}।`,
+          );
+        }
+      }
+    } else if (qlId === "DIR-QL-021") {
+      for (const path of paths) {
+        const distance = Math.round(Math.hypot(Number(path.endpoint.x), Number(path.endpoint.y)));
+        steps.push(`${namePa(path.name)} ਦੀ ਬਿੰਦੂ O ਤੋਂ ਦੂਰੀ = ${metresPa(distance)}।`);
+      }
+    } else {
+      steps.push(`ਇਨ੍ਹਾਂ ਅੰਤਿਮ ਬਿੰਦੂਆਂ ਦੀ ਤੁਲਨਾ ਕਰਨ ਉੱਤੇ ਸਹੀ ਵਿਕਲਪ ${answerSentence}`);
+    }
+    return { ...base, steps, resultLine: `ਅੰਤਿਮ ਬਿੰਦੂਆਂ ਦੀ ਤੁਲਨਾ ਤੋਂ ਉੱਤਰ ${answerSentence}` };
   }
 
   if (["DIR-QL-023", "DIR-QL-024", "DIR-QL-025", "DIR-QL-026", "DIR-QL-027", "DIR-QL-028", "DIR-QL-029"].includes(qlId)) {
