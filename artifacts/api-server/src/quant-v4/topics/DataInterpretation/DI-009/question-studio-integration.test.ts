@@ -15,6 +15,18 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function previewLearnerText(question: Record<string, any>) {
+  const table = question.richExplanation?.workingTable;
+  return [
+    question.stem,
+    ...(question.options ?? []),
+    question.answer,
+    question.explanation,
+    ...(table?.headers ?? []),
+    ...(table?.rows?.flat?.() ?? []),
+  ].join(" ");
+}
+
 assert(!isDi009QuestionStudioRequest({ questionLanguageId: "DI-QL-014" }), "DI-009 must not intercept DI-010 QLs.");
 assert(!isDi009QuestionStudioRequest({ questionLanguageId: "DI-QL-085" }), "DI-009 must not intercept DI-008 QLs.");
 
@@ -48,6 +60,7 @@ for (const descriptor of DI009_PERMANENT_QLS) {
   assert(question.difficulty === descriptor.difficulty, `${descriptor.qlId} drifted from ${descriptor.difficulty}.`);
   assert(Array.isArray(question.options) && question.options.length === 4 && new Set(question.options).size === 4, `${descriptor.qlId} has invalid options.`);
   assert(question.options[question.correctIndex] === question.answer, `${descriptor.qlId} correct index does not point to the answer.`);
+  assert(!/\d+\.\d+/u.test(previewLearnerText(question)), `${descriptor.qlId} exposes decimal learner-facing values.`);
   assert(Array.isArray(question.stimulusSvgs) && question.stimulusSvgs.length === 1 && question.stimulusSvgs[0].includes("<svg"), `${descriptor.qlId} is missing its histogram stimulus SVG.`);
   assert(question.stimulusSvgs[0].includes('data-di-presentation-layer="shared"'), `${descriptor.qlId} bypassed the shared DI presentation layer.`);
   assert(!("svg" in question.stimulus), `${descriptor.qlId} re-embedded SVG into semantic stimulus data.`);
@@ -75,6 +88,7 @@ for (const examProfile of ["SSC_CGL_TIER_I", "SSC_CGL_TIER_II"] as const) {
     });
     assert(first.question.kind === "APPROX_GROUPED_MODE_FROM_HISTOGRAM", `${seed} failed to materialize DI-QL-013.`);
     assert(first.question.answer === replay.question.answer && first.sourceSeed === replay.sourceSeed, `${seed} grouped-mode fallback is not deterministic.`);
+    assert(!/\d+\.\d+/u.test(first.question.answer), `${seed} grouped-mode answer is not integer-only.`);
     assert(Number.isInteger(first.generationAttempt) && first.generationAttempt >= 0 && first.generationAttempt < 128, `${seed} exposed an invalid materialization attempt.`);
   }
 }
