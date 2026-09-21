@@ -74,6 +74,7 @@ for (const prototypeId of ALG_CP014_ENGLISH_REVIEW_V4_TARGETS) {
       assert(first.answer.value === baseline.answer.value, `${prefix}: V4 changed the retained data-sufficiency verdict`);
       assert(numericSpecificity(first.explanation) >= 3, `${prefix}: explanation lacks question-specific numerical working`);
       assert(first.question.includes("I.") && first.question.includes("II."), `${prefix}: data-sufficiency statements are not visible in the review question`);
+      assert(!/Therefore,?\s+(?:Either|Even|Both)/.test(first.explanation), `${prefix}: final verdict sentence has awkward capitalization`);
       if (prototypeId === "ALG-CP014-CAND-006") {
         const lines = first.question.split("\n");
         assert(lines[1] !== lines[2], `${prefix}: either-alone case repeats the exact same statement twice`);
@@ -91,7 +92,7 @@ for (const prototypeId of ALG_CP014_ENGLISH_REVIEW_V4_TARGETS) {
     explanations.add(first.explanation);
     frames.add(first.question.replace(/-?\d+(?:\/\d+)?/g, "<n>"));
 
-    if ([7, 30, 52].includes(seed)) reviewRows.push(first);
+    if ([7, 30, 53].includes(seed)) reviewRows.push(first);
   }
 
   if (prototypeId === "ALG-CP014-CAND-002" || prototypeId === "ALG-CP014-CAND-003") {
