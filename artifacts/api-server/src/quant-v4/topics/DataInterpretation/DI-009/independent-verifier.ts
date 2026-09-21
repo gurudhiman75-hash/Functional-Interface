@@ -16,8 +16,8 @@ function whole(numerator: number, denominator: number) {
   return String(Math.round(numerator / denominator));
 }
 
-function percent(part: number, whole: number) {
-  return `${whole(part * 100, whole)}%`;
+function percent(part: number, total: number) {
+  return `${whole(part * 100, total)}%`;
 }
 
 function interval(bin: Di009HistogramBin) {
