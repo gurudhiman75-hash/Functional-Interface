@@ -6,6 +6,41 @@ export const PGK_001_CP015_SOURCE_IDS = Object.freeze({
   britannicaRanjit: "BRITANNICA-RANJIT-SINGH",
 } as const);
 
+
+export const PGK_001_CP015_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP015_SOURCE_IDS.psebRanjitLesson]: {
+    authority: "Punjab School Education Board",
+    title: "Class XII Punjab History & Culture — Punjab under Maharaja Ranjit Singh",
+    url: "https://static.pseb.ac.in/media/1655981990_N_5131_1655355982934.pdf",
+    classification: "PRIMARY_EDUCATION_AUTHORITY",
+  },
+  [PGK_001_CP015_SOURCE_IDS.psebAdminLesson]: {
+    authority: "Punjab School Education Board",
+    title: "Punjab History & Culture Class XII syllabus — Ranjit Singh and administration",
+    url: "https://static.pseb.ac.in/media/1775112498_12thPunjabHistoryandCultureSyllabus2026-27.pdf",
+    classification: "SUPPORTING_CURRICULUM",
+  },
+  [PGK_001_CP015_SOURCE_IDS.districtAmritsarHistory]: {
+    authority: "District Amritsar, Government of Punjab",
+    title: "History — Maharaja Ranjit Singh and Amritsar",
+    url: "https://amritsar.nic.in/history/",
+    supportingUrls: Object.freeze(["https://amritsar.nic.in/tourist-place/maharaja-ranjit-singh-museum/"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP015_SOURCE_IDS.igncaPunjabHistory]: {
+    authority: "Indira Gandhi National Centre for the Arts — ASI digital archive",
+    title: "Ranjit Singh and the Sikh Barrier Between Our Growing Empire and Central Asia",
+    url: "https://ignca.gov.in/Asi_data/36922.pdf",
+    classification: "PRIMARY_ARCHIVAL_COPY",
+  },
+  [PGK_001_CP015_SOURCE_IDS.britannicaRanjit]: {
+    authority: "Encyclopaedia Britannica",
+    title: "Ranjit Singh",
+    url: "https://www.britannica.com/biography/Ranjit-Singh",
+    classification: "STRONG_SECONDARY",
+  },
+} as const);
+
 export const PGK_001_CP015_FACTS = Object.freeze({
   birth: {
     id: "ranjit-birth-1780-gujranwala",
