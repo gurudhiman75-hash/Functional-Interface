@@ -380,7 +380,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Desert winds carry black soil across the plateau",
       "Coastal tides deposit basaltic soil inland"
     ],
-    "explanation": "Black soil is tied to the extensive Deccan volcanic region rather than to one single landform. River valleys cut through the same broad basaltic landscape, so black-soil tracts occur in both plateau and valley settings.",
+    "explanation": "Black soil is tied to the extensive Deccan volcanic region rather than to one single landform. River valleys cut through the same extensive basaltic landscape, so black-soil tracts occur in both plateau and valley settings.",
     "sourceFactIds": [
       "BLACK-PLATEAU-VALLEY"
     ]
@@ -484,7 +484,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-068",
     "qlName": "Red and yellow soil distribution",
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "stem": "A map shades eastern and southern Deccan uplands, parts of Odisha and Chhattisgarh, and a limited middle-Ganga margin. Which soil fits best?",
     "answer": "Red and yellow soil",
     "distractors": [
@@ -580,7 +580,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-SOI-001-QL-069",
     "qlName": "Laterite soil distribution",
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "stem": "A map shows laterite patches in the southern peninsula, central India and hilly parts of eastern and northeastern India. Which interpretation is correct?",
     "answer": "Laterite soil has a scattered upland distribution across these regions",
     "distractors": [
@@ -620,7 +620,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Black soil",
       "Laterite soil"
     ],
-    "explanation": "Arid soil dominates large dry tracts of western Rajasthan. The regional climate produces sandy, low-moisture and often saline soil conditions.",
+    "explanation": "Arid soil dominates large dry tracts of western Rajasthan. The regional climate produces sandy, low-moisture and often saline soil conditions, making this belt the clearest national map clue for arid soil.",
     "sourceFactIds": [
       "ARID-RAJASTHAN-BELT"
     ]
@@ -789,7 +789,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-072",
     "qlName": "Integrated soil-distribution map reasoning",
     "difficulty": "Easy",
-    "stem": "Which soil-region pair is correctly matched?",
+    "stem": "Which Maharashtra soil-region match is correct?",
     "answer": "Black soil — Maharashtra",
     "distractors": [
       "Arid soil — Assam hills",
@@ -805,7 +805,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-072",
     "qlName": "Integrated soil-distribution map reasoning",
     "difficulty": "Easy",
-    "stem": "Which soil-region pair is correctly matched?",
+    "stem": "Which hilly-Odisha soil-region match is correct?",
     "answer": "Laterite soil — hilly Odisha",
     "distractors": [
       "Black soil — Punjab floodplain",
@@ -876,7 +876,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Arid, alluvial, forest, black and laterite soils respectively",
       "Laterite, arid, black, forest and alluvial soils respectively"
     ],
-    "explanation": "Each map clue points to a standard national distribution: alluvial in the northern plains, black in the Deccan belt, red-yellow in eastern uplands, arid in the western desert and forest soil in the Himalayas.",
+    "explanation": "Each map clue points to a standard national distribution. The northern plains are alluvial, the Deccan belt is black-soil country, eastern uplands carry red-yellow soils, western Rajasthan is arid and Himalayan hills carry forest soils.",
     "sourceFactIds": [
       "DIST-FIVE-ZONES"
     ]
