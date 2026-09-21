@@ -65,7 +65,7 @@ export const HIS_CP018_FACTS_V1:readonly Fact[]=[
 ["med-sushruta-surgery","Sushruta was a pioneer of surgery and described 121 surgical instruments.",["NIOS-ICH-223-CH14-SCIENCE-TECH"]],
 ["med-plastic-surgery","Ancient Indian surgeons were familiar with reconstructive procedures involving the nose, ears and lips.",["NIOS-ICH-223-CH14-SCIENCE-TECH"]],
 ["sci-nagarjuna-text","Nagarjuna's Rasaratnakara discusses methods for extracting metals such as gold, silver, tin and copper.",["NIOS-ICH-223-CH15-ANCIENT-SCIENTISTS"]],
-["sci-nagarjuna-alchemy","The Nagarjuna described in the NIOS science text experimented with transforming base metals and developed methods that produced a gold-like appearance.",["NIOS-ICH-223-CH15-ANCIENT-SCIENTISTS"]],
+["sci-nagarjuna-alchemy","A scientific tradition linked with Nagarjuna includes experiments on changing base metals and producing a gold-like appearance.",["NIOS-ICH-223-CH15-ANCIENT-SCIENTISTS"]],
 ];
 export const HIS_CP018_FACT_BY_ID_V1=new Map(HIS_CP018_FACTS_V1.map(f=>[f[0],f] as const));
 export const HIS_CP018_SOURCE_IDS_V1=new Set<string>(HIS_CP018_SOURCES_V1.map(s=>s[0]));
