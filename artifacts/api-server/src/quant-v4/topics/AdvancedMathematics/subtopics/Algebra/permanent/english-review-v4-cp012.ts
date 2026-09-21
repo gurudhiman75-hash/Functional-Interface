@@ -141,7 +141,8 @@ export function generateAlgCp012EnglishReviewV4(
     explanation: [
       "Use the Cauchy inequality (x + y + z)² ≤ 3(x² + y² + z²).",
       `With x + y + z = ${sum}, this gives x² + y² + z² ≥ ${fractionWorking(sum * sum, 3, canonicalAnswer)}.`,
-      `Equality occurs when x = y = z = ${formatRational(balancedVariable)}.`,
+      "So no positive triple with the given sum can make x² + y² + z² smaller than this bound.",
+      `Equality occurs when x = y = z = ${formatRational(balancedVariable)}, which shows that the bound can actually be reached.`,
       `Therefore the minimum value is ${formatRational(canonicalAnswer)}.`,
     ].join(" "),
     state: { sum, target: "SQUARE_SUM" },
