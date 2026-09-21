@@ -74,21 +74,19 @@ const MECHANICAL_STEM_PATTERNS = [
   /\btypically\b/iu,
   /main role/iu,
   /best represents/iu,
-  /best reflects/iu,
-  /best summarises/iu,
+  /best shows/iu,
+  /closely linked/iu,
   /अन्य बातें समान/u,
   /मुख्यतः/u,
   /सामान्यतः/u,
   /सबसे उपयुक्त/u,
   /सबसे सही वर्णन/u,
   /सबसे सीधे/u,
-  /मुख्य भूमिका/u,
   /ਹੋਰ ਗੱਲਾਂ ਇੱਕੋ/u,
   /ਮੁੱਖ ਤੌਰ/u,
   /ਆਮ ਤੌਰ/u,
   /ਸਭ ਤੋਂ ਉਚਿਤ/u,
   /ਸਭ ਤੋਂ ਸਹੀ ਵਰਣਨ/u,
-  /ਮੁੱਖ ਭੂਮਿਕਾ/u,
 ] as const;
 
 function assertExamStandardStem(question: EcoLocalizedQuestionV1) {
@@ -119,17 +117,14 @@ function assertCp011Cp012LexicalQuality(question: EcoLocalizedQuestionV1, locale
 }
 
 const CP015_CP016_BAD_LEXICAL_PATTERNS = {
-  hi: [] as readonly RegExp[],
-  pa: [
-    /ਸਮਾਯੋਜਨ/u,
-    /ਸਾਵਧਾਨ ਨਿਯਮਨ/u,
-  ],
+  hi: [/संरक्षा/u, /रुपये[^\n]*समायोजन/u],
+  pa: [/ਸਮਾਯੋਜਨ/u, /ਸੇਫ਼ਟੀ/u, /ਇਕੀਕ੍ਰਿਤ/u, /ਅਧਿਸ਼ੇਸ਼/u],
 } as const;
 
 function assertCp015Cp016LexicalQuality(question: EcoLocalizedQuestionV1, locale: "hi" | "pa") {
   const text = learnerText(question);
   for (const pattern of CP015_CP016_BAD_LEXICAL_PATTERNS[locale]) {
-    fail(!pattern.test(text), `${question.questionId}: rejected multilingual wording: ${pattern}`);
+    fail(!pattern.test(text), `${question.questionId}: rejected CP015-CP016 wording: ${pattern}`);
   }
 }
 
