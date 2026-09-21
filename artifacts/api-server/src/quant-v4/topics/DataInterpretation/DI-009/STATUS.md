@@ -14,9 +14,10 @@
 
 ## Architecture contract
 
-DI-009 keeps the original-DI data-first architecture accepted at V6:
-- question logic remains `DI-009-QUESTION-LOGIC-V2`
+DI-009 keeps the original-DI data-first architecture while the no-decimal learner policy advances question logic:
+- question logic: `DI-009-QUESTION-LOGIC-V3`
 - set/stimulus contract remains `DI-009-SET-CONTRACT-V3`
+- arithmetic authority: `EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING`
 - presentation authority is `DATA_INTERPRETATION_SHARED_VISUALS`
 - `Di009Stimulus` stores semantic histogram data only
 - no SVG or other presentation markup is stored in the question set
