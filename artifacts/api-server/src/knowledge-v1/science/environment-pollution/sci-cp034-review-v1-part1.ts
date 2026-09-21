@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Taxonomy",
       "Adaptation"
     ],
-    "Pollution occurs when contaminants or harmful forms of energy degrade environmental quality.",
+    "Pollution occurs when contaminants or harmful forms of energy degrade environmental quality. Pollution becomes significant when the change is large enough to harm health, ecosystems or normal environmental processes.",
     [
       "POLLUTION-DEFINITION"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Decomposer",
       "Nutrient"
     ],
-    "A pollutant is a substance or agent that causes harmful environmental change.",
+    "A pollutant is a substance or agent that causes harmful environmental change. Pollutants may be chemical substances, biological materials or harmful physical agents such as excessive sound.",
     [
       "POLLUTANT-DEFINITION"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "It affects only humans",
       "It refers only to visible waste"
     ],
-    "Pollution can occur in different environmental media and can harm both ecosystems and human health.",
+    "Pollution can occur in different environmental media and can harm both ecosystems and human health. Because these parts are connected, contamination can spread beyond the place where it first entered the environment.",
     [
       "POLLUTION-MULTIPLE-MEDIA"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Lead compounds",
       "Pesticide residue"
     ],
-    "Noise is a harmful form of energy and is treated as a physical pollutant.",
+    "Noise is a harmful form of energy and is treated as a physical pollutant. Heat, light and radiation can also become physical pollutants when present at harmful levels.",
     [
       "PHYSICAL-POLLUTION-NOISE"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Pollutants cannot move",
       "Only plants interact with the environment"
     ],
-    "Pollutants can move between air, water, soil and food chains because environmental systems are connected.",
+    "Pollutants can move between air, water, soil and food chains because environmental systems are connected. Wind, runoff, groundwater movement and food chains can all transport contaminants between environmental compartments.",
     [
       "POLLUTION-INTERCONNECTED"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Fish remove all pollutants permanently",
       "Birds are abiotic factors"
     ],
-    "Persistent pollutants can enter organisms and be transferred through feeding relationships.",
+    "Persistent pollutants can enter organisms and be transferred through feeding relationships. This transfer can expose predators even when they never contact the original polluted water directly.",
     [
       "POLLUTANT-FOOD-CHAIN-MOVEMENT"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Nitrogen",
       "Helium"
     ],
-    "Combustion of sulfur-containing coal and oil can release sulfur dioxide.",
+    "Combustion of sulfur-containing coal and oil can release sulfur dioxide. Once in air, sulfur dioxide can also take part in reactions that contribute to acid deposition.",
     [
       "SO2-FUEL-BURNING"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Humus",
       "Ozone layer"
     ],
-    "Particulate matter includes small airborne particles such as dust, soot and droplets.",
+    "Particulate matter includes small airborne particles such as dust, soot and droplets. Smaller particles are especially important because they can remain airborne and enter the respiratory system.",
     [
       "PARTICULATE-MATTER"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Forms bones",
       "Increases haemoglobin function"
     ],
-    "Carbon monoxide binds strongly to haemoglobin and reduces oxygen transport.",
+    "Carbon monoxide binds strongly to haemoglobin and reduces oxygen transport. This lowers oxygen delivery to tissues even when enough oxygen is present in the lungs.",
     [
       "CO-HAEMOGLOBIN"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Rainfall",
       "Nitrogen fixation"
     ],
-    "Fuel combustion from vehicles and other sources produces soot and fine particles.",
+    "Fuel combustion from vehicles and other sources produces soot and fine particles. Controlling combustion emissions and road dust therefore requires different measures from controlling gaseous pollutants.",
     [
       "URBAN-PM-COMBUSTION"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "They always dissolve harmlessly",
       "They increase oxygen transport"
     ],
-    "Fine particulate matter can reach deep parts of the lungs and contribute to respiratory and cardiovascular problems.",
+    "Fine particulate matter can reach deep parts of the lungs and contribute to respiratory and cardiovascular problems. The smallest particles can pass deep into the lungs and some may even enter the bloodstream.",
     [
       "FINE-PARTICLES-LUNGS"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Particulates are gases",
       "Road dust is not air pollution"
     ],
-    "Air pollution is a mixture; reducing one pollutant does not automatically remove other sources.",
+    "Air pollution is a mixture; reducing one pollutant does not automatically remove other sources. Effective air-quality policy must therefore target several pollutant sources at the same time.",
     [
       "MULTI-POLLUTANT-CONTROL"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Noise pollution",
       "Soil formation"
     ],
-    "Untreated sewage adds organic matter, pathogens and nutrients to water.",
+    "Untreated sewage adds organic matter, pathogens and nutrients to water. Pathogens can spread disease, while decomposition of the organic matter can reduce dissolved oxygen.",
     [
       "SEWAGE-WATER-POLLUTION"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Denitrification",
       "Succession"
     ],
-    "Eutrophication occurs when nutrient enrichment stimulates excessive algal and plant growth.",
+    "Eutrophication occurs when nutrient enrichment stimulates excessive algal and plant growth. Excessive nutrient enrichment can therefore change both water quality and the structure of the aquatic community.",
     [
       "EUTROPHICATION-DEFINITION"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp034ReviewSpec[] = [
       "Fish stop using oxygen",
       "Water loses all nitrogen"
     ],
-    "Decomposition of sewage increases biological oxygen demand and reduces dissolved oxygen.",
+    "Decomposition of sewage increases biological oxygen demand and reduces dissolved oxygen. Fish and other aquatic organisms may then suffocate even though the water still contains abundant organic matter.",
     [
       "SEWAGE-OXYGEN-DEMAND"
     ]

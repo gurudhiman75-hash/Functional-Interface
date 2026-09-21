@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "The nervous system stops developing",
       "All body cells become gametes"
     ],
-    "Sex hormones affect reproductive maturation as well as secondary sexual characteristics in other tissues.",
+    "Sex hormones affect reproductive maturation as well as secondary sexual characteristics in other tissues. The same hormones act outside reproductive organs, producing secondary sexual characteristics throughout the body.",
     [
       "PUBERTY-MULTIPLE-CHANGES"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Permanent closure of the cervix",
       "Stopping growth of the uterus"
     ],
-    "Menarche, the first menstruation, marks the start of menstrual cyclic activity.",
+    "Menarche, the first menstruation, marks the start of menstrual cyclic activity. Menarche does not mean every cycle is immediately regular, especially during early adolescence.",
     [
       "MENARCHE"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Later puberty always means disease",
       "Puberty timing is unrelated to hormones or development"
     ],
-    "The onset and pace of puberty vary naturally among healthy individuals.",
+    "The onset and pace of puberty vary naturally among healthy individuals. Variation in timing can depend on genetics, nutrition, health and normal individual development.",
     [
       "PUBERTY-VARIATION"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Fallopian tube permanently",
       "Urethra"
     ],
-    "Copper-T is an intrauterine contraceptive device placed in the uterus.",
+    "Copper-T is an intrauterine contraceptive device placed in the uterus. Its position inside the uterine cavity allows it to interfere with the conditions needed for pregnancy.",
     [
       "COPPER-T-UTERUS"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Epididymis only",
       "Prostate gland"
     ],
-    "Vasectomy blocks the vas deferens so sperm do not enter the ejaculatory pathway.",
+    "Vasectomy blocks the vas deferens so sperm do not enter the ejaculatory pathway. Sperm may still be produced, but they can no longer travel through the blocked ducts into semen.",
     [
       "VASECTOMY-VAS"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Uterus",
       "Vagina"
     ],
-    "Tubectomy blocks the fallopian tubes, preventing sperm and ovum from meeting normally.",
+    "Tubectomy blocks the fallopian tubes, preventing sperm and ovum from meeting normally. The blocked tubes prevent the two gametes from reaching each other under normal conditions.",
     [
       "TUBECTOMY-TUBES"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Hormonal implant",
       "Emergency hormonal contraception"
     ],
-    "A condom is a physical barrier and does not depend on changing ovulation or hormone levels.",
+    "A condom is a physical barrier and does not depend on changing ovulation or hormone levels. Because it is non-hormonal, it does not need to suppress ovarian hormone cycles to work as a barrier.",
     [
       "CONTRACEPTION-BARRIER-REASONING"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Presence of sperm in semen",
       "Fertilization through normal intercourse"
     ],
-    "Vasectomy blocks sperm transport but does not stop the testes from producing testosterone.",
+    "Vasectomy blocks sperm transport but does not stop the testes from producing testosterone. Sexual function and testosterone secretion are generally preserved because the testes themselves are not removed.",
     [
       "VASECTOMY-HORMONE-PRESERVED"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Foetal development",
       "Childbirth"
     ],
-    "Gametes must be formed before fertilization, implantation and later development can occur.",
+    "Gametes must be formed before fertilization, implantation and later development can occur. Gamete formation produces the sperm and ova that must exist before fertilization is possible.",
     [
       "REPRODUCTION-SEQUENCE-FIRST"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Menstruation → Implantation → Fertilization → Ovulation",
       "Foetal development → Fertilization → Implantation → Ovulation"
     ],
-    "After ovulation, fertilization may occur, followed by early cell divisions, implantation and continued development.",
+    "After ovulation, fertilization may occur, followed by early cell divisions, implantation and continued development. Cleavage means repeated early cell divisions of the zygote before implantation in the uterus.",
     [
       "REPRODUCTION-SEQUENCE"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Cervix",
       "Vagina"
     ],
-    "Once pregnancy is established, the placenta becomes the key exchange organ between mother and foetus.",
+    "Once pregnancy is established, the placenta becomes the key exchange organ between mother and foetus. The placenta has already become the principal organ for exchange between maternal and foetal circulations.",
     [
       "PLACENTA-INTEGRATED"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Body cells are haploid",
       "The zygote loses half its chromosomes immediately"
     ],
-    "Meiosis produces haploid gametes, so fertilization restores rather than doubles the species chromosome number.",
+    "Meiosis produces haploid gametes, so fertilization restores rather than doubles the species chromosome number. Meiosis halves chromosome number before fertilization, maintaining a stable chromosome number across generations.",
     [
       "CHROMOSOME-NUMBER-STABILITY"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Puberty",
       "Milk secretion after childbirth"
     ],
-    "The early embryo must reach the uterus before normal implantation can occur.",
+    "The early embryo must reach the uterus before normal implantation can occur. Failure of transport prevents the early embryo from arriving at the endometrium at the proper time.",
     [
       "TUBE-TRANSPORT-IMPLANTATION"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp027ReviewSpec[] = [
       "Storage of urine and bile",
       "Control of pupil size and hearing"
     ],
-    "The placenta supports exchange of respiratory gases, nutrients and metabolic wastes between maternal and foetal circulations.",
+    "The placenta supports exchange of respiratory gases, nutrients and metabolic wastes between maternal and foetal circulations. Placental damage can therefore impair both delivery of essential materials and removal of foetal metabolic wastes.",
     [
       "PLACENTA-DAMAGE-INTEGRATED"
     ]

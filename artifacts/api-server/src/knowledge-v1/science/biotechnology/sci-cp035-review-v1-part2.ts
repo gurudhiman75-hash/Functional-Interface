@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "Both destroy all DNA",
       "One makes proteins and the other makes lipids"
     ],
-    "Restriction enzymes create DNA fragments, and ligase can join compatible fragments into recombinant molecules.",
+    "Restriction enzymes create DNA fragments, and ligase can join compatible fragments into recombinant molecules. Cutting and joining are complementary steps used to assemble a new DNA combination deliberately.",
     [
       "RESTRICTION-LIGASE-COMPLEMENT"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "Contain no bases",
       "Always destroy genes"
     ],
-    "Complementary overhangs can base-pair, helping compatible DNA fragments align for joining.",
+    "Complementary overhangs can base-pair, helping compatible DNA fragments align for joining. Temporary base pairing holds the matching fragments together long enough for ligase to seal them covalently.",
     [
       "STICKY-ENDS"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "It removes the need for ligase",
       "It converts DNA into protein"
     ],
-    "Using the same enzyme can produce matching ends on vector and insert, making recombinant DNA formation easier.",
+    "Using the same enzyme can produce matching ends on vector and insert, making recombinant DNA formation easier. Compatible ends increase the chance that the target gene inserts into the plasmid in the intended way.",
     [
       "SAME-RESTRICTION-ENZYME"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "Ribosome",
       "Lysosome"
     ],
-    "Plasmids are small circular DNA molecules separate from the main bacterial chromosome.",
+    "Plasmids are small circular DNA molecules separate from the main bacterial chromosome. Plasmids can carry accessory genes and replicate independently from the main bacterial chromosome.",
     [
       "PLASMID-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "Destroy every host cell",
       "Classify species"
     ],
-    "Vectors such as plasmids deliver selected DNA into host cells.",
+    "Vectors such as plasmids deliver selected DNA into host cells. The vector acts as a delivery vehicle so the chosen DNA can enter and be maintained inside the host.",
     [
       "VECTOR-FUNCTION"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "They are proteins",
       "They cannot enter cells"
     ],
-    "Plasmids can be introduced into bacteria and copied as the host cells grow.",
+    "Plasmids can be introduced into bacteria and copied as the host cells grow. Replication lets the inserted gene be copied many times as the bacterial population grows.",
     [
       "PLASMID-REPLICATION"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "Mango tree only",
       "Human red blood cell"
     ],
-    "E. coli is widely used because it grows rapidly and can carry recombinant plasmids.",
+    "E. coli is widely used because it grows rapidly and can carry recombinant plasmids. E. coli is easy to culture, genetically well studied and compatible with many standard laboratory plasmids.",
     [
       "ECOLI-HOST"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "Make sunlight",
       "Remove all genes"
     ],
-    "Selectable markers allow transformed cells to be distinguished from cells that did not take up the vector.",
+    "Selectable markers allow transformed cells to be distinguished from cells that did not take up the vector. Antibiotic-resistance markers or other selectable traits can reveal which cells successfully received the recombinant vector.",
     [
       "SELECTABLE-MARKER"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "To remove the inserted gene",
       "To stop plasmid replication"
     ],
-    "Only some cells take up the vector, so a selectable marker helps identify those carrying it.",
+    "Only some cells take up the vector, so a selectable marker helps identify those carrying it. Selection prevents researchers from wasting effort on the many cells that never took up the desired plasmid.",
     [
       "TRANSFORMATION-SELECTION"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "Measure blood pressure",
       "Destroy all DNA"
     ],
-    "Polymerase chain reaction rapidly amplifies a chosen DNA region.",
+    "Polymerase chain reaction rapidly amplifies a chosen DNA region. Repeated temperature cycles can double the target DNA each round, producing a very large number of copies.",
     [
       "PCR-DEFINITION"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "Plasmid Cell Replication",
       "Primary Chromosome Reading"
     ],
-    "PCR stands for Polymerase Chain Reaction.",
+    "PCR stands for Polymerase Chain Reaction. The name describes the enzyme-driven chain reaction used to copy a selected DNA region repeatedly.",
     [
       "PCR-FULL-FORM"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "It cuts DNA like a restriction enzyme",
       "It prevents DNA copying"
     ],
-    "PCR repeatedly heats DNA, so a thermostable polymerase can survive the cycles.",
+    "PCR repeatedly heats DNA, so a thermostable polymerase can survive the cycles. Thermostable enzymes such as Taq polymerase avoid being destroyed during the high-temperature denaturation step.",
     [
       "PCR-THERMOSTABLE-POLYMERASE"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "Proteins are translated",
       "Bacteria divide"
     ],
-    "Heating breaks the hydrogen bonds between complementary strands, separating them.",
+    "Heating breaks the hydrogen bonds between complementary strands, separating them. Once separated, each strand can act as a template for synthesis of a new complementary strand.",
     [
       "PCR-DENATURATION"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "They replace DNA polymerase",
       "They destroy the template"
     ],
-    "Primers bind to target sequences and give DNA polymerase a starting point.",
+    "Primers bind to target sequences and give DNA polymerase a starting point. Primer sequences determine the boundaries of the DNA region that will be copied during amplification.",
     [
       "PCR-PRIMERS"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp035ReviewSpec[] = [
       "It converts DNA into fingerprints directly without copying",
       "It removes all variation"
     ],
-    "PCR can make millions of copies from a small starting quantity, enabling further testing.",
+    "PCR can make millions of copies from a small starting quantity, enabling further testing. Amplification increases the amount of target material without requiring the original sample to contain much DNA.",
     [
       "PCR-FORENSIC-SMALL-SAMPLE"
     ]

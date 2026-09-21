@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "To stop plant cells dividing",
       "To increase dust"
     ],
-    "Microbial contamination can quickly outgrow or damage the desired plant tissue.",
+    "Microbial contamination can quickly outgrow or damage the desired plant tissue. Sterility prevents contaminating microbes from consuming nutrients or damaging the growing plant cells.",
     [
       "TISSUE-CULTURE-STERILE"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "Plants with no cells",
       "Natural mutation in every plant"
     ],
-    "Micropropagation can rapidly multiply selected plant material with similar characteristics.",
+    "Micropropagation can rapidly multiply selected plant material with similar characteristics. Growers can therefore reproduce desirable disease-free or high-yielding material quickly and uniformly.",
     [
       "MICROPROPAGATION"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "Binomial nomenclature",
       "Nitrogen fixation"
     ],
-    "Tissue culture allows rapid clonal multiplication from small pieces of selected plant tissue.",
+    "Tissue culture allows rapid clonal multiplication from small pieces of selected plant tissue. Each plantlet originates from the selected tissue, so the propagated plants retain the desired characteristics.",
     [
       "BANANA-MICROPROPAGATION"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "Blood pressure",
       "Soil pH"
     ],
-    "DNA fingerprinting examines variable DNA regions to compare biological samples.",
+    "DNA fingerprinting examines variable DNA regions to compare biological samples. Highly variable DNA regions generate a profile that can be compared between samples.",
     [
       "DNA-FINGERPRINTING-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "Fermentation",
       "Nitrogen fixation"
     ],
-    "DNA fingerprinting compares variable DNA patterns and is widely used to match biological samples in forensic investigations.",
+    "DNA fingerprinting compares variable DNA patterns and is widely used to match biological samples in forensic investigations. A close match across many variable regions can link a sample to an individual with very high confidence.",
     [
       "DNA-FINGERPRINTING-FORENSIC"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "DNA contains no inherited variation",
       "Only proteins differ"
     ],
-    "Variable regions of DNA create characteristic profiles that usually differ among unrelated individuals.",
+    "Variable regions of DNA create characteristic profiles that usually differ among unrelated individuals. These differences create the pattern of bands, peaks or markers used in an identification profile.",
     [
       "DNA-FINGERPRINTING-VARIATION"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "Fingerprints change DNA",
       "Only environmental traits are compared"
     ],
-    "Children inherit DNA from both parents, so shared markers can support relationship testing.",
+    "Children inherit DNA from both parents, so shared markers can support relationship testing. Parentage analysis checks whether a child's markers can be accounted for by the alleged biological parents.",
     [
       "DNA-PARENTAGE"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "Fermentation followed by composting",
       "Photosynthesis followed by respiration"
     ],
-    "PCR can amplify small amounts of DNA so variable regions can be analysed.",
+    "PCR can amplify small amounts of DNA so variable regions can be analysed. Amplification is especially valuable when forensic samples are old, degraded or available only in tiny amounts.",
     [
       "PCR-DNA-FINGERPRINT-COMBINATION"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "Belong to different species",
       "Always have different blood groups"
     ],
-    "Identical twins originate from the same zygote and therefore share nearly the same nuclear DNA sequence.",
+    "Identical twins originate from the same zygote and therefore share nearly the same nuclear DNA sequence. Rare mutations can create small differences, but ordinary inherited nuclear DNA profiles are essentially the same.",
     [
       "IDENTICAL-TWINS-DNA"
     ]
@@ -139,14 +139,14 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which pair is correctly matched?",
+    "Which biotechnology tool–function pair is correctly matched?",
     "DNA ligase — joins DNA fragments",
     [
       "Restriction enzyme — joins DNA fragments",
       "PCR — destroys DNA",
       "Plasmid — protein enzyme"
     ],
-    "DNA ligase joins DNA fragments by forming phosphodiester bonds.",
+    "DNA ligase joins DNA fragments by forming phosphodiester bonds. Without ligase, compatible fragments may align but would not be permanently joined into one continuous DNA molecule.",
     [
       "MATCH-LIGASE-JOIN"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "Join cells → remove genes → stop growth → add sunlight",
       "PCR → composting → pollination → cloning"
     ],
-    "A typical workflow cuts DNA, constructs a recombinant vector, transfers it to a host and identifies transformed cells.",
+    "A typical workflow cuts DNA, constructs a recombinant vector, transfers it to a host and identifies transformed cells. Selection then identifies host cells that received the recombinant vector before the desired gene is expressed or copied.",
     [
       "RECOMBINANT-WORKFLOW"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "It replaces all bacterial DNA",
       "It measures protein mass"
     ],
-    "The vector delivers the gene so the host can replicate and potentially express it.",
+    "The vector delivers the gene so the host can replicate and potentially express it. Vectors also contain sequences needed for replication and, when protein production is required, suitable expression control.",
     [
       "VECTOR-TARGET-GENE-HOST"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "Fermentation only",
       "Microscopy"
     ],
-    "PCR selectively amplifies a chosen DNA sequence.",
+    "PCR selectively amplifies a chosen DNA sequence. PCR is faster and more specific than copying DNA by growing whole organisms or cells.",
     [
       "PCR-CHOICE"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "DNA ligase will stop existing",
       "The host automatically becomes a plant"
     ],
-    "A promoter is needed to initiate transcription; without a suitable promoter, gene expression may fail.",
+    "A promoter is needed to initiate transcription; without a suitable promoter, gene expression may fail. The gene may be copied normally but transcription cannot begin efficiently without a promoter recognized by the host.",
     [
       "PROMOTER-EXPRESSION-REASONING"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp035ReviewSpec[] = [
       "DNA fingerprinting and fermentation",
       "Restriction digestion and composting"
     ],
-    "Tissue culture multiplies plant material, while PCR amplifies a selected DNA sequence.",
+    "Tissue culture multiplies plant material, while PCR amplifies a selected DNA sequence. The two techniques multiply very different things: tissue culture multiplies plant cells, while PCR multiplies DNA molecules.",
     [
       "TISSUE-CULTURE-VS-PCR"
     ]

@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Genetic trait",
       "Nutritional disorder only"
     ],
-    "Communicable diseases are caused by infectious agents and can spread directly or indirectly between hosts.",
+    "Communicable diseases are caused by infectious agents and can spread directly or indirectly between hosts. Transmission may occur through air, water, food, vectors, blood or direct contact depending on the pathogen.",
     [
       "COMMUNICABLE-DEFINITION"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Measles",
       "Cholera"
     ],
-    "Diabetes mellitus does not spread from one person to another and is classed as a non-communicable disease.",
+    "Diabetes mellitus does not spread from one person to another and is classed as a non-communicable disease. Non-communicable diseases may still be serious, but they are not passed between people as infections are.",
     [
       "NONCOMMUNICABLE-DIABETES"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "It cannot spread",
       "It never produces fever"
     ],
-    "Infectious diseases are caused by disease-producing organisms or agents, while deficiency diseases result from inadequate nutrients.",
+    "Infectious diseases are caused by disease-producing organisms or agents, while deficiency diseases result from inadequate nutrients. The presence of a disease-causing organism is the defining feature that separates infection from nutrient deficiency.",
     [
       "INFECTIOUS-VS-DEFICIENCY"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Malaria",
       "Influenza"
     ],
-    "Scurvy results from vitamin C deficiency rather than infection by a pathogen.",
+    "Scurvy results from vitamin C deficiency rather than infection by a pathogen. Vitamin C replacement can correct the underlying nutritional cause, unlike treatment aimed at killing pathogens.",
     [
       "DEFICIENCY-SCURVY"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Lasts only a few hours",
       "Is caused only by bacteria"
     ],
-    "Chronic diseases generally persist for long periods and may require prolonged management.",
+    "Chronic diseases generally persist for long periods and may require prolonged management. Examples include diabetes, hypertension and other long-term conditions that may continue for years.",
     [
       "CHRONIC-DISEASE"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Vaccine",
       "Nutrient"
     ],
-    "A pathogen is a disease-causing biological agent such as a bacterium, virus, fungus or protozoan.",
+    "A pathogen is a disease-causing biological agent such as a bacterium, virus, fungus or protozoan. Pathogens differ in structure and life cycle, which is why prevention and treatment strategies also differ.",
     [
       "PATHOGEN-DEFINITION"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Genetic diseases",
       "Deficiency diseases"
     ],
-    "Some pathogens spread when contaminated food or water is consumed.",
+    "Some pathogens spread when contaminated food or water is consumed. Breaking contamination between faeces, food and drinking water is central to preventing many such infections.",
     [
       "FOOD-WATER-BORNE"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Vaccine",
       "Antigen"
     ],
-    "A vector carries a pathogen between hosts without itself being the main disease-causing agent.",
+    "A vector carries a pathogen between hosts without itself being the main disease-causing agent. The vector provides the transmission route even though the disease itself is caused by the pathogen it carries.",
     [
       "VECTOR-DEFINITION"
     ]
@@ -139,14 +139,14 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
   [
     2,
     "Medium",
-    "Which route is most closely associated with influenza transmission?",
+    "Which route is most closely linked to influenza transmission?",
     "Respiratory droplets and aerosols",
     [
       "Mosquito bite",
       "Contaminated soil only",
       "Vitamin deficiency"
     ],
-    "Influenza viruses spread efficiently through respiratory droplets and aerosols from infected people.",
+    "Influenza viruses spread efficiently through respiratory droplets and aerosols from infected people. Reducing close-range exposure and improving ventilation can lower the number of infectious respiratory particles inhaled.",
     [
       "INFLUENZA-TRANSMISSION"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Leaving food uncovered",
       "Avoiding sunlight only"
     ],
-    "Clean water, sanitation and handwashing reduce contamination of food and water with infectious material.",
+    "Clean water, sanitation and handwashing reduce contamination of food and water with infectious material. These steps interrupt the pathway by which intestinal pathogens move from infected waste to another person's mouth.",
     [
       "FAECAL-ORAL-PREVENTION"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Boil all vegetables only",
       "Increase dietary vitamin D"
     ],
-    "Blood screening and safe injection practices reduce transmission of pathogens spread through infected blood.",
+    "Blood screening and safe injection practices reduce transmission of pathogens spread through infected blood. Screened blood and sterile needles prevent direct transfer of blood-borne pathogens between people.",
     [
       "BLOODBORNE-PREVENTION"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Protozoan",
       "Fungus"
     ],
-    "Tuberculosis is caused by the bacterium Mycobacterium tuberculosis.",
+    "Tuberculosis is caused by the bacterium Mycobacterium tuberculosis. It most often spreads through airborne respiratory particles released by a person with active pulmonary tuberculosis.",
     [
       "TB-BACTERIUM"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "HIV",
       "Rhizobium"
     ],
-    "Vibrio cholerae causes cholera, a severe diarrhoeal disease often linked with contaminated water.",
+    "Vibrio cholerae causes cholera, a severe diarrhoeal disease often linked with contaminated water. Severe fluid loss makes rapid rehydration especially important in cholera treatment.",
     [
       "CHOLERA-VIBRIO"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp029ReviewSpec[] = [
       "Vibrio cholerae",
       "Plasmodium falciparum"
     ],
-    "Typhoid fever is caused by the bacterium Salmonella Typhi.",
+    "Typhoid fever is caused by the bacterium Salmonella Typhi. Contaminated food or water can spread the organism through the faecal-oral route.",
     [
       "TYPHOID-SALMONELLA"
     ]

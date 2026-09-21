@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "Tt",
       "Either TT or Tt"
     ],
-    "The recessive phenotype appears only when both alleles are recessive.",
+    "The recessive phenotype appears only when both alleles are recessive. A Tt individual would still appear tall because one dominant T allele is enough for the dominant phenotype.",
     [
       "RECESSIVE-GENOTYPE"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "Dominant alleles vanish in F2",
       "F1 plants have no genes"
     ],
-    "F1 individuals can carry the recessive allele without showing it, then pass it to offspring.",
+    "F1 individuals can carry the recessive allele without showing it, then pass it to offspring. When two carriers reproduce, some offspring can receive the recessive allele from both parents.",
     [
       "RECESSIVE-REAPPEARS"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "Dwarfness is dominant",
       "Height is not inherited"
     ],
-    "A dwarf offspring is tt, so each parent must contribute a t allele; tall parents must therefore be Tt.",
+    "A dwarf offspring is tt, so each parent must contribute a t allele; tall parents must therefore be Tt. The birth of a dwarf offspring therefore reveals that both apparently tall parents are carriers.",
     [
       "TALL-PARENTS-DWARF-OFFSPRING"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "Allele",
       "Chromosome"
     ],
-    "Phenotype refers to the observable expression of a trait.",
+    "Phenotype refers to the observable expression of a trait. Phenotype can be influenced by both genotype and environmental conditions. The same visible trait can sometimes result from more than one genotype.",
     [
       "PHENOTYPE-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "Adaptation",
       "Fossil"
     ],
-    "Genotype is the allele combination carried by an individual for a trait.",
+    "Genotype is the allele combination carried by an individual for a trait. Two individuals may share a phenotype while carrying different genotypes, such as TT and Tt.",
     [
       "GENOTYPE-DEFINITION"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "TT and tt",
       "tt only"
     ],
-    "Both homozygous dominant and heterozygous genotypes express the dominant trait.",
+    "Both homozygous dominant and heterozygous genotypes express the dominant trait. The dominant allele masks the recessive one in Tt, so both TT and Tt appear dominant.",
     [
       "DOMINANT-PHENOTYPE-GENOTYPES"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "1 Tt : 1 tt",
       "All Tt"
     ],
-    "Each heterozygous parent produces T and t gametes, giving the classic 1:2:1 genotype ratio.",
+    "Each heterozygous parent produces T and t gametes, giving the classic 1:2:1 genotype ratio. A Punnett square shows four equally likely allele combinations for the two heterozygous parents.",
     [
       "MONOHYBRID-GENOTYPE-RATIO"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "Three-fourths",
       "All"
     ],
-    "Only tt offspring show the recessive phenotype, expected in one of four combinations.",
+    "Only tt offspring show the recessive phenotype, expected in one of four combinations. The other three expected combinations contain at least one dominant allele and show the dominant phenotype.",
     [
       "MONOHYBRID-RECESSIVE-FRACTION"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "tt",
       "Unable to carry t"
     ],
-    "Dwarf offspring require a t allele from each parent, so the tall parent must be heterozygous Tt.",
+    "Dwarf offspring require a t allele from each parent, so the tall parent must be heterozygous Tt. The dwarf parent can contribute only t, so dwarf offspring prove that the tall parent also contributes t.",
     [
       "TEST-CROSS-REASONING"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "Twenty-two",
       "Forty-four"
     ],
-    "Human body cells contain one pair of sex chromosomes among 23 chromosome pairs.",
+    "Human body cells contain one pair of sex chromosomes among 23 chromosome pairs. The other 22 chromosome pairs are autosomes rather than sex chromosomes.",
     [
       "SEX-CHROMOSOME-PAIR"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "YY",
       "XO only"
     ],
-    "Females typically have two X chromosomes.",
+    "Females typically have two X chromosomes. This combination normally develops because the ovum contributes X and the fertilizing sperm also contributes X.",
     [
       "FEMALE-XX"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "YY",
       "XXX"
     ],
-    "Males typically have one X and one Y chromosome.",
+    "Males typically have one X and one Y chromosome. The Y chromosome is contributed by the sperm and is absent from normal ova.",
     [
       "MALE-XY"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "Both always contribute Y",
       "Neither parent contributes sex chromosomes"
     ],
-    "All ova carry X, while sperm may carry either X or Y.",
+    "All ova carry X, while sperm may carry either X or Y. The sperm determines this because it may carry either X or Y, while the ovum contributes only X.",
     [
       "FATHER-SEX-DETERMINATION"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "Either X or Y equally",
       "No sex chromosome"
     ],
-    "Normal human ova carry an X chromosome.",
+    "Normal human ova carry an X chromosome. An X-bearing ovum therefore combines with either an X-bearing or Y-bearing sperm. This is why the ovum does not determine whether the zygote is XX or XY.",
     [
       "OVUM-X"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp030ReviewSpec[] = [
       "The mother determines the sex because ova vary between X and Y",
       "Previous births change the father's chromosomes"
     ],
-    "Each fertilization independently depends on whether an X- or Y-bearing sperm fertilizes the X-bearing ovum.",
+    "Each fertilization independently depends on whether an X- or Y-bearing sperm fertilizes the X-bearing ovum. Previous births do not change the chromosome carried by the sperm that fertilizes the next ovum.",
     [
       "SEX-DETERMINATION-INDEPENDENT"
     ]

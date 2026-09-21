@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Seminal vesicle",
       "Urethra"
     ],
-    "The testes produce sperm and also secrete testosterone.",
+    "The testes produce sperm and also secrete testosterone. The same organs also secrete testosterone, so the testes have both reproductive and endocrine functions.",
     [
       "MALE-TESTES-SPERM"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Urethra",
       "Seminal vesicle"
     ],
-    "The epididymis lies along the testis and is an important site for sperm maturation and storage.",
+    "The epididymis lies along the testis and is an important site for sperm maturation and storage. During this period sperm gain greater motility and are held until they move into the vas deferens.",
     [
       "EPIDIDYMIS-FUNCTION"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Prostate to the kidney",
       "Seminal vesicle to the bladder"
     ],
-    "The vas deferens transports sperm away from the epididymis toward the ducts that open into the urethra.",
+    "The vas deferens transports sperm away from the epididymis toward the ducts that open into the urethra. This duct therefore forms the transport route between sperm-storage structures and the urethral pathway.",
     [
       "VAS-DEFERENS"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Testosterone cannot enter the blood inside the abdomen",
       "The scrotum produces sperm itself"
     ],
-    "The scrotum helps keep the testes slightly cooler than core body temperature, which supports normal sperm formation.",
+    "The scrotum helps keep the testes slightly cooler than core body temperature, which supports normal sperm formation. The cooler position helps maintain the temperature range required for efficient spermatogenesis.",
     [
       "SCROTUM-TEMPERATURE"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Urine",
       "Bile"
     ],
-    "Accessory glands add fluid that helps nourish, protect and transport sperm.",
+    "Accessory glands add fluid that helps nourish, protect and transport sperm. These secretions also provide a fluid medium that supports sperm movement during ejaculation.",
     [
       "SEMEN-ACCESSORY-GLANDS"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Urine cannot leave the bladder",
       "The testes stop producing all cells"
     ],
-    "The testes may continue producing sperm and testosterone, but blocked vas deferens prevent sperm from reaching the urethral pathway.",
+    "The testes may continue producing sperm and testosterone, but blocked vas deferens prevent sperm from reaching the urethral pathway. Blocking transport affects fertility even though hormone production and sperm formation in the testes may continue.",
     [
       "VAS-DEFERENS-BLOCKAGE"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Fallopian tubes",
       "Cervix"
     ],
-    "The ovaries produce ova and secrete hormones such as oestrogen and progesterone.",
+    "The ovaries produce ova and secrete hormones such as oestrogen and progesterone. The ovaries therefore have both gamete-producing and hormone-secreting roles in female reproduction.",
     [
       "OVARIES-OVA"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Vagina",
       "Fallopian tube"
     ],
-    "After implantation, the embryo develops in the uterus.",
+    "After implantation, the embryo develops in the uterus. The uterine lining provides the site for implantation and supports later embryonic and foetal development.",
     [
       "UTERUS-DEVELOPMENT"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Vagina",
       "Urethra"
     ],
-    "The fallopian tube receives the ovum after ovulation and carries it toward the uterus.",
+    "The fallopian tube receives the ovum after ovulation and carries it toward the uterus. Fertilization also usually takes place in this tube before the early embryo travels onward to the uterus.",
     [
       "FALLOPIAN-TUBE-OVUM"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Endometrium",
       "Fimbria"
     ],
-    "The cervix forms the lower part of the uterus and connects it with the vagina.",
+    "The cervix forms the lower part of the uterus and connects it with the vagina. During childbirth the cervix dilates so the baby can pass from the uterus into the birth canal.",
     [
       "CERVIX-LOCATION"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Ovarian cortex",
       "Vaginal wall"
     ],
-    "The endometrium thickens in preparation for possible implantation.",
+    "The endometrium thickens in preparation for possible implantation. Progesterone and oestrogen help prepare and maintain this lining during the reproductive cycle.",
     [
       "ENDOMETRIUM"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Menstrual shedding of the uterine lining",
       "Secretion of ovarian hormones"
     ],
-    "Fertilization usually occurs in a fallopian tube, so complete blockage prevents sperm and ovum from meeting normally.",
+    "Fertilization usually occurs in a fallopian tube, so complete blockage prevents sperm and ovum from meeting normally. The blockage therefore reduces the chance of fertilization even when ovulation and sperm production are normal.",
     [
       "FALLOPIAN-BLOCK-FERTILIZATION"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Zygote",
       "Embryo"
     ],
-    "Sperm is the male gamete and carries one set of chromosomes.",
+    "Sperm is the male gamete and carries one set of chromosomes. As a haploid cell, it contributes one set of chromosomes during fertilization.",
     [
       "SPERM-MALE-GAMETE"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "Zygote",
       "Foetus"
     ],
-    "The ovum, or egg cell, is the female gamete.",
+    "The ovum, or egg cell, is the female gamete. It also contains one set of chromosomes and contributes half of the zygote's genetic material.",
     [
       "OVUM-FEMALE-GAMETE"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp027ReviewSpec[] = [
       "22",
       "44"
     ],
-    "Gametes are haploid and contain 23 chromosomes, half the number found in most body cells.",
+    "Gametes are haploid and contain 23 chromosomes, half the number found in most body cells. This reduction prevents chromosome number from doubling every time fertilization occurs.",
     [
       "GAMETE-CHROMOSOME-23"
     ]

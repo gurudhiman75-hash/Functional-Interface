@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Reduce all antibody formation",
       "Replace antibiotics"
     ],
-    "Boosters re-expose the immune system to antigen and can raise protective antibody and memory responses.",
+    "Boosters re-expose the immune system to antigen and can raise protective antibody and memory responses. Repeated exposure can raise antibody levels and strengthen immune memory after the first vaccine dose.",
     [
       "BOOSTER-DOSE"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Every unvaccinated person receives antibodies automatically",
       "Pathogens stop mutating completely"
     ],
-    "When many people are immune, transmission chains are harder to sustain, indirectly reducing exposure of others.",
+    "When many people are immune, transmission chains are harder to sustain, indirectly reducing exposure of others. This population effect is called community or herd immunity and depends on high levels of protection.",
     [
       "COMMUNITY-IMMUNITY"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Platelets",
       "Skin cells only"
     ],
-    "Memory lymphocytes formed after vaccination recognize the antigen and drive a faster secondary immune response.",
+    "Memory lymphocytes formed after vaccination recognize the antigen and drive a faster secondary immune response. The secondary response is quicker because the immune system has already recognized and stored information about the antigen.",
     [
       "VACCINE-MEMORY-CELLS"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Vitamin deficiencies",
       "Genetic traits"
     ],
-    "Antibiotics act against bacteria by targeting bacterial structures or processes.",
+    "Antibiotics act against bacteria by targeting bacterial structures or processes. Different antibiotics act on different bacterial targets, so the drug must also be appropriate for the organism involved.",
     [
       "ANTIBIOTICS-BACTERIA"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Typhoid",
       "Some bacterial skin infections"
     ],
-    "Influenza is viral, and antibiotics do not act against influenza viruses.",
+    "Influenza is viral, and antibiotics do not act against influenza viruses. Using antibiotics for influenza provides no antiviral benefit and can still contribute to bacterial resistance.",
     [
       "ANTIBIOTICS-NOT-INFLUENZA"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "It causes viruses to become bacteria",
       "It removes every useful gene from the body"
     ],
-    "Antibiotic exposure kills susceptible bacteria while resistant ones can survive and multiply.",
+    "Antibiotic exposure kills susceptible bacteria while resistant ones can survive and multiply. Resistant bacteria survive treatment more successfully and can pass their resistance traits to future generations.",
     [
       "ANTIBIOTIC-RESISTANCE-SELECTION"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Antibiotics work only on the final day",
       "The medicine becomes a vaccine after completion"
     ],
-    "Correct use improves treatment and reduces opportunities for resistant bacteria to survive and spread.",
+    "Correct use improves treatment and reduces opportunities for resistant bacteria to survive and spread. Following the correct dose and duration also helps maintain drug levels needed to clear susceptible bacteria effectively.",
     [
       "ANTIBIOTIC-COURSE"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Viruses turn into bacteria",
       "Antibiotics lose their chemical identity"
     ],
-    "Resistance is a property of bacteria that enables survival despite exposure to an antibiotic.",
+    "Resistance is a property of bacteria that enables survival despite exposure to an antibiotic. Resistance does not mean the patient is resistant; it means the bacterial population can withstand the drug.",
     [
       "ANTIBIOTIC-RESISTANCE-DEFINITION"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "All susceptible bacteria change into viruses",
       "Resistance is caused by vitamin deficiency"
     ],
-    "Antibiotics create selection pressure: susceptible bacteria die, while resistant variants survive and leave more descendants.",
+    "Antibiotics create selection pressure: susceptible bacteria die, while resistant variants survive and leave more descendants. Selection increases the proportion of resistant variants even though the antibiotic does not intentionally create resistance.",
     [
       "RESISTANCE-SELECTION-REASONING"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Increase dietary protein and iron",
       "Improve handwashing but leave stagnant water"
     ],
-    "Malaria depends on Anopheles mosquitoes for transmission. Reducing breeding sites and preventing bites directly interrupts the vector pathway.",
+    "Malaria depends on Anopheles mosquitoes for transmission. Reducing breeding sites and preventing bites directly interrupts the vector pathway. Bed nets, repellents and environmental mosquito control can all reduce the chance of infectious bites.",
     [
       "MALARIA-PREVENTION"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Mosquito transmission only",
       "Hormonal transmission"
     ],
-    "Hand hygiene and safe water reduce ingestion of pathogens that spread through contaminated food and water.",
+    "Hand hygiene and safe water reduce ingestion of pathogens that spread through contaminated food and water. These measures are especially important for diseases such as cholera and typhoid.",
     [
       "HYGIENE-FAECAL-ORAL"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "They kill every pathogen instantly",
       "They replace vaccination"
     ],
-    "Respiratory hygiene and ventilation reduce exposure to droplets and aerosols that may carry pathogens.",
+    "Respiratory hygiene and ventilation reduce exposure to droplets and aerosols that may carry pathogens. Ventilation lowers the concentration of airborne particles, while covering coughs reduces how many are released.",
     [
       "RESPIRATORY-PREVENTION"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Extra platelets",
       "Lower body temperature"
     ],
-    "Memory cells formed after the first infection can generate a quicker specific response during re-exposure.",
+    "Memory cells formed after the first infection can generate a quicker specific response during re-exposure. Memory B and T cells can react faster than they did during the first infection.",
     [
       "MEASLES-MEMORY"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Both diseases disappear completely",
       "Neither disease can change"
     ],
-    "Clean water interrupts faecal-oral transmission of cholera, while dengue depends on mosquito vectors and needs separate control.",
+    "Clean water interrupts faecal-oral transmission of cholera, while dengue depends on mosquito vectors and needs separate control. Different diseases respond to different prevention routes, so one control measure does not reduce every infection equally.",
     [
       "PREVENTION-ROUTE-REASONING"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp029ReviewSpec[] = [
       "Stop vaccination against unrelated diseases",
       "Treat viral infections with higher antibiotic doses"
     ],
-    "Resistance is reduced by appropriate antibiotic use, while hygiene and infection control limit spread of resistant bacteria.",
+    "Resistance is reduced by appropriate antibiotic use, while hygiene and infection control limit spread of resistant bacteria. Responsible antibiotic use tackles selection pressure, while infection control reduces opportunities for resistant strains to spread.",
     [
       "AMR-CONTROL-INTEGRATED"
     ]

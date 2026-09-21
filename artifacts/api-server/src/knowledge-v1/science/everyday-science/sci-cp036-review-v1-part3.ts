@@ -4,7 +4,7 @@ export const PART_3: readonly SciCp036ReviewSpec[] = [
   [
     6,
     "Easy",
-    "Sound cannot travel through:",
+    "Which medium cannot transmit sound?",
     "Vacuum",
     [
       "Air",
@@ -49,7 +49,7 @@ export const PART_3: readonly SciCp036ReviewSpec[] = [
   [
     6,
     "Medium",
-    "Why are soft materials such as curtains used in auditoriums?",
+    "Why are curtains and other soft materials added to auditoriums?",
     "They absorb sound and reduce unwanted reflections",
     [
       "They increase echoes",

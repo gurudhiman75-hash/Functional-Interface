@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Ecology",
       "Anatomy"
     ],
-    "Taxonomy deals with identification, naming and classification of organisms.",
+    "Taxonomy deals with identification, naming and classification of organisms. It provides a systematic way to organize biological diversity so organisms can be compared and studied consistently.",
     [
       "TAXONOMY-DEFINITION"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Phylum",
       "Class"
     ],
-    "Species is the basic taxonomic unit and groups organisms that are most closely related.",
+    "Species is the basic taxonomic unit and groups organisms that are most closely related. Members of one species are more closely related to each other than to organisms placed in different species.",
     [
       "SPECIES-BASIC-UNIT"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Kingdom → Class → Phylum → Family → Order → Genus → Species",
       "Phylum → Kingdom → Class → Order → Family → Species → Genus"
     ],
-    "The standard hierarchy becomes progressively more specific from kingdom down to species.",
+    "The standard hierarchy becomes progressively more specific from kingdom down to species. Each step downward narrows the group and increases the similarity among the organisms included.",
     [
       "TAXONOMIC-HIERARCHY"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Family",
       "Order"
     ],
-    "In binomial nomenclature, the first word is the genus name and the second is the specific epithet.",
+    "In binomial nomenclature, the first word is the genus name and the second is the specific epithet. The complete binomial name combines genus and specific epithet, with the genus written first.",
     [
       "BINOMIAL-GENUS"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "It uses only local common names",
       "It groups all organisms into one genus"
     ],
-    "Scientific names reduce confusion caused by different common names in different languages and regions.",
+    "Scientific names reduce confusion caused by different common names in different languages and regions. A universal naming system lets scientists in different countries refer to the same organism unambiguously.",
     [
       "BINOMIAL-USE"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "They belong to different kingdoms",
       "They cannot share any ancestry"
     ],
-    "Sharing a genus indicates relatively close taxonomic relationship, but different species names show they are distinct species.",
+    "Sharing a genus indicates relatively close taxonomic relationship, but different species names show they are distinct species. Organisms in one genus usually share more features than organisms that meet only at a higher taxonomic rank.",
     [
       "SAME-GENUS-DIFFERENT-SPECIES"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Gregor Mendel",
       "Robert Hooke"
     ],
-    "R. H. Whittaker proposed the five-kingdom system in 1969.",
+    "R. H. Whittaker proposed the five-kingdom system in 1969. His system used cell type, body organization and mode of nutrition among the important classification criteria.",
     [
       "WHITTAKER-FIVE-KINGDOM"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Fungi",
       "Animalia"
     ],
-    "Monera includes prokaryotic organisms such as bacteria and cyanobacteria.",
+    "Monera includes prokaryotic organisms such as bacteria and cyanobacteria. These cells lack a membrane-bound nucleus and other membrane-bound organelles. This kingdom therefore contains organisms with prokaryotic rather than eukaryotic cell organization.",
     [
       "MONERA-PROKARYOTES"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Plantae",
       "Animalia"
     ],
-    "Protista includes many unicellular eukaryotic organisms such as Amoeba and Paramecium.",
+    "Protista includes many unicellular eukaryotic organisms such as Amoeba and Paramecium. Unlike Monera, protists possess a true nucleus and other eukaryotic cell structures.",
     [
       "PROTISTA-UNICELLULAR-EUKARYOTES"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Animalia",
       "Monera only"
     ],
-    "Fungi absorb nutrients from organic matter and generally have cell walls containing chitin.",
+    "Fungi absorb nutrients from organic matter and generally have cell walls containing chitin. Chitin and absorptive nutrition help distinguish fungi from both plants and animals.",
     [
       "FUNGI-KINGDOM-FEATURES"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Plants lack cells",
       "Plants are all unicellular"
     ],
-    "Animals obtain food from other organisms and their cells do not have rigid cell walls.",
+    "Animals obtain food from other organisms and their cells do not have rigid cell walls. Plants generally make food by photosynthesis and have cell walls, whereas animals ingest food and lack cell walls.",
     [
       "ANIMALIA-VS-PLANTAE"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Fungi",
       "Monera"
     ],
-    "Multicellularity, cellulose cell walls and photosynthetic nutrition are characteristic of Plantae.",
+    "Multicellularity, cellulose cell walls and photosynthetic nutrition are characteristic of Plantae. The combination of these three traits strongly identifies a typical green plant.",
     [
       "IDENTIFY-PLANTAE"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Eukaryotic fungi",
       "Seed plants"
     ],
-    "Bacteria lack a membrane-bound nucleus and are therefore prokaryotic.",
+    "Bacteria lack a membrane-bound nucleus and are therefore prokaryotic. Prokaryotic organization means the genetic material is not enclosed inside a true nucleus.",
     [
       "MONERA-PROKARYOTIC"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Fungi",
       "Plantae"
     ],
-    "Amoeba is a unicellular eukaryote and is traditionally placed in Protista.",
+    "Amoeba is a unicellular eukaryote and is traditionally placed in Protista. This placement reflects its eukaryotic cell structure rather than similarities in size to bacteria.",
     [
       "AMOEBA-PROTISTA"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp032ReviewSpec[] = [
       "Monerans are always multicellular",
       "Protists have no cell membrane"
     ],
-    "Protists are eukaryotic, whereas monerans are prokaryotic.",
+    "Protists are eukaryotic, whereas monerans are prokaryotic. The presence or absence of a true nucleus is therefore a major classification boundary.",
     [
       "PROTISTA-VS-MONERA"
     ]

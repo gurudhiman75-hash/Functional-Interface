@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Capillaries",
       "Venules only"
     ],
-    "Arteries carry blood away from the heart, regardless of whether the blood is oxygenated or deoxygenated.",
+    "Arteries carry blood away from the heart, regardless of whether the blood is oxygenated or deoxygenated. Most arteries carry oxygenated blood, but the pulmonary artery is an important exception.",
     [
       "ARTERIES-AWAY"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Capillaries",
       "Arterioles only"
     ],
-    "Veins return blood toward the heart.",
+    "Veins return blood toward the heart. Most veins carry deoxygenated blood, while pulmonary veins are an important exception. This antigen pattern is a key feature used when determining ABO blood-group compatibility.",
     [
       "VEINS-TOWARD"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "They can store large volumes of blood",
       "They can produce platelets"
     ],
-    "Thin capillary walls create a short diffusion distance for gases, nutrients and wastes.",
+    "Thin capillary walls create a short diffusion distance for gases, nutrients and wastes. Their tiny diameter also keeps blood cells close to the exchange surface.",
     [
       "CAPILLARY-THIN-WALL"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Contains no plasma",
       "Cannot carry carbon dioxide"
     ],
-    "Venous pressure is lower than arterial pressure, especially in the limbs, so valves help maintain one-way flow.",
+    "Venous pressure is lower than arterial pressure, especially in the limbs, so valves help maintain one-way flow. Skeletal-muscle contractions also help squeeze venous blood back toward the heart.",
     [
       "VEIN-VALVES"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Capillary",
       "Lymph capillary"
     ],
-    "Arteries must withstand and maintain relatively high pressure from the heart, so their walls are thick and elastic.",
+    "Arteries must withstand and maintain relatively high pressure from the heart, so their walls are thick and elastic. Elastic recoil helps maintain blood flow between heartbeats.",
     [
       "ARTERY-THICK-WALL"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Vein",
       "Aorta"
     ],
-    "Capillaries are microscopic exchange vessels with walls only one cell thick.",
+    "Capillaries are microscopic exchange vessels with walls only one cell thick. Their structure is specialized for exchange rather than for carrying blood at high pressure.",
     [
       "CAPILLARY-IDENTIFY"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Aorta",
       "Vena cava"
     ],
-    "The pulmonary artery carries deoxygenated blood from the right ventricle to the lungs.",
+    "The pulmonary artery carries deoxygenated blood from the right ventricle to the lungs. It is an artery because direction from the heart, not oxygen content, determines vessel type.",
     [
       "PULMONARY-ARTERY"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Aorta",
       "Vena cava"
     ],
-    "Pulmonary veins return oxygenated blood from the lungs to the left atrium.",
+    "Pulmonary veins return oxygenated blood from the lungs to the left atrium. It is a vein because it returns blood to the heart despite carrying oxygen-rich blood.",
     [
       "PULMONARY-VEIN"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Left atrium",
       "Aorta"
     ],
-    "Pulmonary circulation starts as the right ventricle pumps deoxygenated blood toward the lungs.",
+    "Pulmonary circulation starts as the right ventricle pumps deoxygenated blood toward the lungs. The circuit ends when oxygenated blood returns to the left atrium through pulmonary veins.",
     [
       "PULMONARY-CIRCULATION-START"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Right atrium to lungs",
       "Left atrium to pulmonary artery"
     ],
-    "The left ventricle pumps oxygenated blood through the aorta into systemic circulation.",
+    "The left ventricle pumps oxygenated blood through the aorta into systemic circulation. Deoxygenated blood then returns through systemic veins to the right atrium.",
     [
       "SYSTEMIC-CIRCULATION"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Contains two types of cells",
       "Moves in two directions inside one vessel"
     ],
-    "In one complete circuit, blood passes through the heart once during pulmonary circulation and again during systemic circulation.",
+    "In one complete circuit, blood passes through the heart once during pulmonary circulation and again during systemic circulation. This separation helps maintain high-pressure systemic flow without mixing oxygenated and deoxygenated blood.",
     [
       "DOUBLE-CIRCULATION"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Movement of lymph",
       "Air entering the lungs"
     ],
-    "Each ventricular contraction creates a pressure wave that travels through arteries and can be felt as the pulse.",
+    "Each ventricular contraction creates a pressure wave that travels through arteries and can be felt as the pulse. Pulse rate normally matches heart rate when each contraction produces an effective arterial wave.",
     [
       "PULSE-DEFINITION"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Millimetres of mercury only",
       "Breaths per minute"
     ],
-    "Heart rate is the number of heartbeats in one minute.",
+    "Heart rate is the number of heartbeats in one minute. It can rise with exercise, fever or stress and fall during rest.",
     [
       "HEART-RATE-UNIT"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp023ReviewSpec[] = [
       "Less carbon dioxide removal",
       "No glucose"
     ],
-    "Active muscles need faster delivery of oxygen and nutrients and faster removal of carbon dioxide, so cardiac output increases.",
+    "Active muscles need faster delivery of oxygen and nutrients and faster removal of carbon dioxide, so cardiac output increases. Faster pumping raises cardiac output to match the higher metabolic demand.",
     [
       "EXERCISE-HEART-RATE"
     ]

@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Pure rubber only",
       "Glass in every condition"
     ],
-    "Acids react with calcium carbonate in limestone and marble, causing surface damage.",
+    "Acids react with calcium carbonate in limestone and marble, causing surface damage. Calcium carbonate in these stones reacts with acids, gradually eroding surfaces and monuments.",
     [
       "ACID-RAIN-MARBLE"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "It converts water into oil",
       "It removes all salts"
     ],
-    "Acidification can exceed the tolerance of aquatic organisms and alter water chemistry.",
+    "Acidification can exceed the tolerance of aquatic organisms and alter water chemistry. Low pH can also release metals such as aluminium into water, adding further stress to aquatic life.",
     [
       "ACID-RAIN-AQUATIC-PH"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Noise from aircraft",
       "Plastic accumulation in oceans"
     ],
-    "Reducing sulfur dioxide lowers formation of sulfuric acid and therefore acid deposition.",
+    "Reducing sulfur dioxide lowers formation of sulfuric acid and therefore acid deposition. Flue-gas desulfurization therefore targets one of the major precursor gases responsible for acid rain.",
     [
       "SO2-CONTROL-ACID-RAIN"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Buy more disposable items",
       "Mix all waste together"
     ],
-    "Reducing consumption prevents waste before it is created.",
+    "Reducing consumption prevents waste before it is created. This strategy saves raw materials and energy because fewer products need to be manufactured in the first place.",
     [
       "REDUCE-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Landfilling",
       "Incineration"
     ],
-    "Reuse keeps an item in service again with little or no reprocessing, unlike recycling which converts material into a new product.",
+    "Reuse keeps an item in service again with little or no reprocessing, unlike recycling which converts material into a new product. Repeated use also delays the point at which the container becomes waste requiring treatment or disposal.",
     [
       "REUSE-EXAMPLE"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Means throwing waste away",
       "Applies only to food"
     ],
-    "Recycling involves reprocessing materials, whereas reuse keeps an item in service with little or no reprocessing.",
+    "Recycling involves reprocessing materials, whereas reuse keeps an item in service with little or no reprocessing. Recycling still requires collection and processing, so it is usually placed below reduction and reuse in the hierarchy.",
     [
       "RECYCLE-VS-REUSE"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Broken glass only",
       "Plastic wrappers"
     ],
-    "Food and plant wastes are biodegradable and can be converted into compost.",
+    "Food and plant wastes are biodegradable and can be converted into compost. Microbial decomposition converts this organic waste into a soil-improving material instead of persistent landfill waste.",
     [
       "COMPOSTABLE-WASTE"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Reduction applies only to water",
       "Recycling cannot recover any materials"
     ],
-    "Prevention avoids the material, energy and transport demands associated with making and later processing products.",
+    "Prevention avoids the material, energy and transport demands linked to making and later processing products. Preventing unnecessary products also avoids emissions and resource use that recycling cannot fully eliminate.",
     [
       "REDUCE-BEFORE-RECYCLE"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Hazardous waste becomes compost",
       "Recyclables no longer need sorting"
     ],
-    "Source segregation improves composting and recycling and enables safer handling of hazardous materials.",
+    "Source segregation improves composting and recycling and enables safer handling of hazardous materials. Cleaner separated streams improve the quality of recovered materials and reduce risk during waste handling.",
     [
       "SOURCE-SEGREGATION-BENEFIT"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Biomagnification",
       "Ozonation"
     ],
-    "Afforestation establishes tree cover on land that lacks forest.",
+    "Afforestation establishes tree cover on land that lacks forest. Afforestation can help stabilize soil, store carbon and create habitat when suitable native species are used.",
     [
       "AFFORESTATION"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "They prevent all evolution",
       "They contain no people or ecosystems"
     ],
-    "Protected areas help conserve habitats and the populations that depend on them.",
+    "Protected areas help conserve habitats and the populations that depend on them. Protection works best when habitat management also limits poaching, invasive species and other major pressures.",
     [
       "PROTECTED-AREAS-BIODIVERSITY"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Removal of catalytic controls",
       "Burning more fuel"
     ],
-    "Reducing fuel use and shifting to cleaner transport can lower both local pollutants and carbon emissions.",
+    "Reducing fuel use and shifting to cleaner transport can lower both local pollutants and carbon emissions. Fewer private vehicle kilometres can reduce particulate matter, nitrogen oxides and fuel-related carbon dioxide together.",
     [
       "CLEAN-TRANSPORT-DUAL-BENEFIT"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "It affects only zoos",
       "It increases every food web connection"
     ],
-    "Biodiversity supports ecological functions and resilience, and lost species cannot simply be replaced.",
+    "Biodiversity supports ecological functions and resilience, and lost species cannot simply be replaced. Loss of genetic and species diversity can make ecosystems less able to recover from disease, climate stress or disturbance.",
     [
       "BIODIVERSITY-LOSS-CONCERN"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Release more carbon monoxide",
       "Add more phosphate fertilizer"
     ],
-    "The root cause is excess nutrient input, so controlling nitrogen and phosphorus runoff targets the problem directly.",
+    "The root cause is excess nutrient input, so controlling nitrogen and phosphorus runoff targets the problem directly. Stopping the nutrients before they reach the lake addresses the cause instead of only treating the algal bloom afterward.",
     [
       "EUTROPHICATION-SOURCE-CONTROL"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp034ReviewSpec[] = [
       "Mix hazardous and organic waste",
       "Send all material directly to landfill"
     ],
-    "Waste prevention and reuse reduce demand for new resources and the amount requiring later treatment or disposal.",
+    "Waste prevention and reuse reduce demand for new resources and the amount requiring later treatment or disposal. The hierarchy minimizes waste at the earliest stage, reducing pressure on recycling systems and final disposal sites.",
     [
       "WASTE-HIERARCHY-INTEGRATED"
     ]

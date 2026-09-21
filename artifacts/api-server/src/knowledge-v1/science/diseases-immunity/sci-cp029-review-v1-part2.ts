@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Cholera is caused by vitamin deficiency",
       "Water destroys all antibodies"
     ],
-    "Cholera commonly spreads when water or food is contaminated with Vibrio cholerae.",
+    "Cholera commonly spreads when water or food is contaminated with Vibrio cholerae. Clean water, sanitation and safe food handling therefore directly interrupt the transmission pathway.",
     [
       "CHOLERA-WATER"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Skin only",
       "Pancreas"
     ],
-    "Pulmonary tuberculosis primarily affects the lungs, although other organs can also be involved.",
+    "Pulmonary tuberculosis primarily affects the lungs, although other organs can also be involved. Cough, prolonged fever and weight loss are common warning features of pulmonary tuberculosis.",
     [
       "TB-LUNGS"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Antibiotics work only against fungi",
       "Influenza is caused by a mineral deficiency"
     ],
-    "Antibiotics target bacterial structures or processes and do not treat viral infections such as influenza.",
+    "Antibiotics target bacterial structures or processes and do not treat viral infections such as influenza. Antiviral or supportive approaches are needed for viral disease because bacterial targets are absent.",
     [
       "ANTIBIOTIC-BACTERIA-VS-VIRUS"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Plasmodium",
       "Vibrio cholerae"
     ],
-    "Human immunodeficiency virus, or HIV, damages the immune system and can lead to AIDS.",
+    "Human immunodeficiency virus, or HIV, damages the immune system and can lead to AIDS. Untreated infection gradually damages immune defence and increases vulnerability to opportunistic infections.",
     [
       "AIDS-HIV"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Protozoan",
       "Fungus"
     ],
-    "Poliomyelitis is caused by poliovirus.",
+    "Poliomyelitis is caused by poliovirus. Vaccination is an important preventive measure because there is no role for antibiotics against poliovirus itself.",
     [
       "POLIO-VIRUS"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Deficiency disease",
       "Protozoan disease"
     ],
-    "Measles is caused by the measles virus and is highly contagious.",
+    "Measles is caused by the measles virus and is highly contagious. Vaccination can produce long-lasting immune memory that greatly reduces severe disease and spread.",
     [
       "MEASLES-VIRAL"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Typhoid",
       "Tuberculosis"
     ],
-    "Dengue is caused by dengue viruses and is transmitted by Aedes mosquitoes.",
+    "Dengue is caused by dengue viruses and is transmitted by Aedes mosquitoes. Because the mosquito is the vector, controlling breeding sites and preventing bites help reduce transmission.",
     [
       "DENGUE-AEDES-VIRUS"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Bile storage",
       "Urine formation"
     ],
-    "HIV infects important immune cells, especially CD4 T cells, reducing the body's ability to fight infections.",
+    "HIV infects important immune cells, especially CD4 T cells, reducing the body's ability to fight infections. Loss of these immune cells makes it harder to coordinate effective responses against other infections.",
     [
       "HIV-IMMUNE-CELLS"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Viruses are vitamins",
       "Antibiotics always increase viral growth directly"
     ],
-    "Antibiotics act against bacteria, not the viruses that cause most common colds.",
+    "Antibiotics act against bacteria, not the viruses that cause most common colds. Unnecessary antibiotics can instead promote resistance among bacteria without helping the viral illness.",
     [
       "VIRAL-COLD-ANTIBIOTICS"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "HIV",
       "Vibrio"
     ],
-    "Malaria is caused by protozoan parasites of the genus Plasmodium.",
+    "Malaria is caused by protozoan parasites of the genus Plasmodium. Infected liver and red blood cells are part of the parasite's life cycle inside the human host.",
     [
       "MALARIA-PLASMODIUM"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Culex mosquito only",
       "Housefly"
     ],
-    "Female Anopheles mosquitoes transmit Plasmodium parasites between humans.",
+    "Female Anopheles mosquitoes transmit Plasmodium parasites between humans. Only female mosquitoes take blood meals, which is why they transmit the malaria parasite.",
     [
       "MALARIA-ANOPHELES"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Sandfly",
       "Tsetse fly"
     ],
-    "Aedes mosquitoes, especially Aedes aegypti, are major dengue vectors.",
+    "Aedes mosquitoes, especially Aedes aegypti, are major dengue vectors. Removing standing water and preventing bites are therefore important parts of dengue control.",
     [
       "DENGUE-AEDES"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "It prevents vitamin deficiency",
       "It increases antibody production immediately"
     ],
-    "Aedes mosquitoes commonly breed in small collections of standing water, so removing them reduces vector numbers.",
+    "Aedes mosquitoes commonly breed in small collections of standing water, so removing them reduces vector numbers. Containers, tyres and small water collections around homes can all become useful Aedes breeding sites.",
     [
       "DENGUE-STAGNANT-WATER"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "It is caused by a vitamin deficiency",
       "It never involves a pathogen"
     ],
-    "The mosquito is the vector that transmits Plasmodium parasites between people.",
+    "The mosquito is the vector that transmits Plasmodium parasites between people. Without the mosquito vector, Plasmodium cannot complete normal person-to-person transmission.",
     [
       "MALARIA-VECTOR-BORNE"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp029ReviewSpec[] = [
       "Typhoid from contaminated water",
       "Scurvy"
     ],
-    "Dengue depends on mosquito transmission, so mosquito control directly interrupts its transmission cycle.",
+    "Dengue depends on mosquito transmission, so mosquito control directly interrupts its transmission cycle. Water sanitation alone would not directly stop dengue because the virus depends on mosquito transmission.",
     [
       "VECTOR-CONTROL-REASONING"
     ]

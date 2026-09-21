@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Have true nuclei",
       "Are multicellular plants"
     ],
-    "Cyanobacteria photosynthesize but have prokaryotic cell organization, placing them in Monera in the five-kingdom system.",
+    "Cyanobacteria photosynthesize but have prokaryotic cell organization, placing them in Monera in the five-kingdom system. Photosynthesis alone does not make an organism a plant if its cell organization is prokaryotic.",
     [
       "CYANOBACTERIA-MONERA"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Is always photosynthetic",
       "Has a cellulose cell wall"
     ],
-    "Paramecium is a eukaryotic protist with a true nucleus and membrane-bound organelles.",
+    "Paramecium is a eukaryotic protist with a true nucleus and membrane-bound organelles. Membrane-bound organelles allow more internal compartmentalization than is present in bacterial cells.",
     [
       "PARAMECIUM-EUKARYOTE"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Fungus",
       "Bryophyte"
     ],
-    "Amoeba-like organisms with pseudopodia are unicellular eukaryotes and belong to Protista.",
+    "Amoeba-like organisms with pseudopodia are unicellular eukaryotes and belong to Protista. Pseudopodia and a true nucleus point toward an Amoeba-like protist rather than a bacterium.",
     [
       "IDENTIFY-PROTIST"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Protista",
       "Monera"
     ],
-    "Mushrooms are multicellular fungi.",
+    "Mushrooms are multicellular fungi. Mushrooms obtain nutrients by absorption and produce spores, both characteristic fungal features. They also obtain nutrients by absorption and reproduce through fungal life-cycle processes.",
     [
       "MUSHROOM-FUNGI"
     ]
@@ -64,14 +64,14 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
   [
     4,
     "Easy",
-    "Yeast is best described as a:",
+    "In classification, yeast is best described as a:",
     "Unicellular fungus",
     [
       "Bacterium",
       "Protozoan",
       "Alga"
     ],
-    "Yeast is a single-celled member of the fungi.",
+    "Yeast is a single-celled member of the fungi. Although unicellular, yeast shares fungal cell organization and absorptive nutrition. Despite being unicellular, it shares the defining cellular and nutritional features of fungi.",
     [
       "YEAST-FUNGUS"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Always lack cell walls",
       "Are prokaryotic"
     ],
-    "Fungi do not photosynthesize; they absorb nutrients from organic material.",
+    "Fungi do not photosynthesize; they absorb nutrients from organic material. Fungal cells therefore depend on preformed organic matter rather than making food from light energy.",
     [
       "FUNGI-VS-PLANTS"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Lignin only",
       "Haemoglobin"
     ],
-    "Fungal cell walls typically contain chitin.",
+    "Fungal cell walls typically contain chitin. Chitin gives structural support to fungal cells and differs from the cellulose found in plant cell walls.",
     [
       "FUNGI-CHITIN"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Carries out photosynthesis",
       "Is prokaryotic"
     ],
-    "Moulds consist of hyphae and use absorptive heterotrophic nutrition.",
+    "Moulds consist of hyphae and use absorptive heterotrophic nutrition. Hyphae form the body of many moulds and increase the surface area available for nutrient absorption.",
     [
       "MOULD-FUNGAL-FEATURES"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Animalia",
       "Protista only"
     ],
-    "External digestion followed by absorption, together with a non-photosynthetic cell wall, strongly indicates a fungus.",
+    "External digestion followed by absorption, together with a non-photosynthetic cell wall, strongly indicates a fungus. Secretion of digestive enzymes outside the body followed by absorption is a characteristic fungal feeding strategy.",
     [
       "IDENTIFY-FUNGUS"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Have flowers and fruits",
       "Produce naked seeds"
     ],
-    "Bryophytes are terrestrial plants but water is needed for movement of male gametes during sexual reproduction.",
+    "Bryophytes are terrestrial plants but water is needed for movement of male gametes during sexual reproduction. This dependence on water links bryophytes to moist habitats despite their life on land.",
     [
       "BRYOPHYTES-AMPHIBIANS"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Gymnosperms",
       "Angiosperms"
     ],
-    "Pteridophytes such as ferns have vascular tissues and reproduce by spores.",
+    "Pteridophytes such as ferns have vascular tissues and reproduce by spores. They represent an evolutionary step beyond non-vascular bryophytes because water-conducting tissues are present.",
     [
       "PTERIDOPHYTES-VASCULAR-SPORES"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Produces seeds in cones",
       "Has a vertebral column"
     ],
-    "A thallus is a simple plant body lacking true root, stem and leaf differentiation.",
+    "A thallus is a simple plant body lacking true root, stem and leaf differentiation. This simple thallus organization lacks the specialized organs seen in more advanced land plants.",
     [
       "THALLOPHYTA-THALLUS"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Production of flowers",
       "Production of fruits"
     ],
-    "Bryophytes lack true vascular tissue, while pteridophytes possess xylem and phloem.",
+    "Bryophytes lack true vascular tissue, while pteridophytes possess xylem and phloem. Vascular tissue allows more efficient transport of water, minerals and food through the plant body.",
     [
       "PTERIDOPHYTE-VS-BRYOPHYTE"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Pine",
       "Mango"
     ],
-    "Mosses are bryophytes, small non-vascular land plants.",
+    "Mosses are bryophytes, small non-vascular land plants. Mosses lack true vascular tissues and remain relatively small compared with vascular land plants.",
     [
       "MOSS-BRYOPHYTE"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp032ReviewSpec[] = [
       "Gymnosperm",
       "Angiosperm"
     ],
-    "Vascular tissue with true organs but reproduction by spores rather than seeds is characteristic of pteridophytes.",
+    "Vascular tissue with true organs but reproduction by spores rather than seeds is characteristic of pteridophytes. Ferns are familiar examples showing this combination of vascular tissue and spore reproduction.",
     [
       "IDENTIFY-PTERIDOPHYTE"
     ]

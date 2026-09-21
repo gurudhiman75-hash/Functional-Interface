@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Sand only",
       "Calcium carbonate only"
     ],
-    "Nutrients such as nitrogen and phosphorus can stimulate rapid algal growth.",
+    "Nutrients such as nitrogen and phosphorus can stimulate rapid algal growth. Reducing fertilizer runoff and improving sewage treatment are direct ways to limit this nutrient loading.",
     [
       "FERTILIZER-NUTRIENTS-EUTROPHICATION"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Algae remove all water",
       "Algae stop gravity"
     ],
-    "When large algal populations die, decomposition can consume oxygen and create low-oxygen conditions.",
+    "When large algal populations die, decomposition can consume oxygen and create low-oxygen conditions. The later oxygen shortage is caused by microbial decomposition rather than simply by the presence of living algae.",
     [
       "ALGAL-BLOOM-FISH-OXYGEN"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Noise pollution → algae → acid rain",
       "Soil erosion → ozone depletion → fish death"
     ],
-    "Eutrophication begins with nutrient enrichment and can end in oxygen depletion after decomposition.",
+    "Eutrophication begins with nutrient enrichment and can end in oxygen depletion after decomposition. This sequence is the classic pathway by which eutrophication can lead to hypoxic water and fish deaths.",
     [
       "EUTROPHICATION-SEQUENCE"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Thermal energy",
       "Groundwater recharge"
     ],
-    "Plastic waste is a common form of persistent solid waste.",
+    "Plastic waste is a common form of persistent solid waste. Because many plastics degrade slowly, they can persist in landfills, rivers and oceans for long periods.",
     [
       "PLASTIC-SOLID-WASTE"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Composting kitchen waste",
       "Rainwater harvesting"
     ],
-    "Persistent or excessive pesticide residues can accumulate in soil and affect organisms.",
+    "Persistent or excessive pesticide residues can accumulate in soil and affect organisms. These chemicals can harm soil organisms and may move into water or food chains.",
     [
       "PESTICIDE-SOIL-POLLUTION"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "They are always edible",
       "They convert directly into oxygen"
     ],
-    "Many common plastics persist for long periods and can accumulate in land and water.",
+    "Many common plastics persist for long periods and can accumulate in land and water. Fragmentation can also produce microplastics rather than fully removing the plastic from the environment.",
     [
       "PLASTIC-PERSISTENCE"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Only water",
       "No recoverable materials"
     ],
-    "Electronic waste can contain lead, mercury and other hazardous substances.",
+    "Electronic waste can contain lead, mercury and other hazardous substances. Unsafe handling can release these substances into soil, water and the bodies of workers.",
     [
       "EWASTE-TOXIC-MATERIALS"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "They are radioactive",
       "They cannot be decomposed"
     ],
-    "Microorganisms can break down biodegradable organic waste into compost.",
+    "Microorganisms can break down biodegradable organic waste into compost. Composting returns organic material to soil and reduces the amount of biodegradable waste sent to landfill.",
     [
       "COMPOST-BIODEGRADABLE"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Segregation increases contamination",
       "Batteries are ideal compost material"
     ],
-    "Segregation allows recycling, composting and safe handling of hazardous waste.",
+    "Segregation allows recycling, composting and safe handling of hazardous waste. Separating at the source prevents hazardous materials from contaminating recyclable or compostable waste.",
     [
       "WASTE-SEGREGATION-REASONING"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Eutrophication",
       "Biomagnification"
     ],
-    "Noise pollution is harmful or disturbing sound in the environment.",
+    "Noise pollution is harmful or disturbing sound in the environment. Noise is considered pollution when its level, duration or timing causes disturbance or harm.",
     [
       "NOISE-POLLUTION-DEFINITION"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Litres",
       "Kelvin"
     ],
-    "Sound level is commonly measured on the decibel scale.",
+    "Sound level is commonly measured on the decibel scale. The decibel scale is logarithmic, so a modest numerical increase represents a substantial increase in sound intensity.",
     [
       "DECIBEL"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Higher soil fertility",
       "Ozone formation in the stratosphere"
     ],
-    "Repeated exposure to intense sound can damage structures involved in hearing.",
+    "Repeated exposure to intense sound can damage structures involved in hearing. Damage can affect inner-ear structures and may become permanent after repeated intense exposure.",
     [
       "LOUD-NOISE-HEARING"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Groundwater recharge",
       "Seed germination"
     ],
-    "Road traffic, horns, machinery and construction are major urban noise sources.",
+    "Road traffic, horns, machinery and construction are major urban noise sources. Traffic management and limiting unnecessary horn use can therefore reduce a major urban noise source.",
     [
       "URBAN-NOISE-TRAFFIC"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "It improves concentration for everyone",
       "It lowers sound intensity automatically"
     ],
-    "Noise during normal sleeping hours can disturb sleep and affect health and well-being.",
+    "Noise during normal sleeping hours can disturb sleep and affect health and well-being. Disturbed sleep can affect concentration, stress levels and general physical and mental health.",
     [
       "NIGHT-NOISE-SLEEP"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp034ReviewSpec[] = [
       "Convert noise into air pollution",
       "Raise traffic speed"
     ],
-    "Noise control can act at the source and along the pathway between source and receiver.",
+    "Noise control can act at the source and along the pathway between source and receiver. Combining source control with barriers reduces both generation and transmission of unwanted sound.",
     [
       "NOISE-CONTROL-SOURCE-PATH"
     ]

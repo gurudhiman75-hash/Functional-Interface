@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Small intestine",
       "Oesophagus"
     ],
-    "Digestion begins in the mouth, where food is ingested, chewed and mixed with saliva before passing into the oesophagus.",
+    "Digestion begins in the mouth, where food is ingested, chewed and mixed with saliva before passing into the oesophagus. The mouth therefore begins both the mechanical and chemical preparation of food.",
     [
       "DIGESTIVE-MOUTH-FIRST"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Absorption",
       "Assimilation"
     ],
-    "Ingestion means taking food into the body. Digestion, absorption and assimilation occur after food has been ingested.",
+    "Ingestion means taking food into the body. Digestion, absorption and assimilation occur after food has been ingested. It is the first step in nutrition before food can be broken down.",
     [
       "DIGESTIVE-INGESTION"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Mouth → Small intestine → Stomach → Oesophagus → Large intestine",
       "Mouth → Oesophagus → Large intestine → Stomach → Small intestine"
     ],
-    "Food normally passes from the mouth to the oesophagus, then stomach, small intestine and large intestine before egestion.",
+    "Food normally passes from the mouth to the oesophagus, then stomach, small intestine and large intestine before egestion. Each region performs a different part of digestion, absorption or waste handling.",
     [
       "DIGESTIVE-TRACT-ORDER"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Pancreatic enzymes",
       "Absorption by villi"
     ],
-    "Teeth physically break food into smaller pieces. This increases surface area and makes chemical digestion by enzymes more effective.",
+    "Teeth physically break food into smaller pieces. This increases surface area and makes chemical digestion by enzymes more effective. Chewing also mixes food thoroughly with saliva before swallowing.",
     [
       "DIGESTION-MECHANICAL-CHEWING"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "It removes the need for digestive juices",
       "It prevents food from reaching the stomach"
     ],
-    "Smaller pieces expose more surface area to digestive enzymes. This allows enzymes to act on food more efficiently.",
+    "Smaller pieces expose more surface area to digestive enzymes. This allows enzymes to act on food more efficiently. More exposed food surface lets more enzyme molecules make contact at the same time.",
     [
       "DIGESTION-SURFACE-AREA"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Premolars",
       "Molars"
     ],
-    "Incisors are the front teeth with sharp edges used for cutting and biting food.",
+    "Incisors are the front teeth with sharp edges used for cutting and biting food. Their chisel-shaped edges are suited to slicing pieces from food.",
     [
       "TEETH-INCISORS"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Canines",
       "Premolars"
     ],
-    "Molars have broad surfaces suited for crushing and grinding food during chewing.",
+    "Molars have broad surfaces suited for crushing and grinding food during chewing. Their wide, ridged crowns provide a large surface for mechanical breakdown.",
     [
       "TEETH-MOLARS"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Fats",
       "Vitamins"
     ],
-    "Salivary amylase acts on starch in the mouth and begins converting it into simpler sugars.",
+    "Salivary amylase acts on starch in the mouth and begins converting it into simpler sugars. It starts carbohydrate digestion before the food reaches the stomach.",
     [
       "SALIVA-AMYLASE-STARCH"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Digest all proteins completely",
       "Absorb amino acids into blood"
     ],
-    "Saliva moistens and lubricates food, helping form a soft bolus that can be swallowed easily.",
+    "Saliva moistens and lubricates food, helping form a soft bolus that can be swallowed easily. Lubrication also reduces friction as the bolus passes through the oesophagus.",
     [
       "SALIVA-MOISTEN"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Filtration",
       "Transpiration"
     ],
-    "Peristalsis is the wave-like contraction of muscles in the alimentary canal that moves food forward.",
+    "Peristalsis is the wave-like contraction of muscles in the alimentary canal that moves food forward. These coordinated contractions can move food even when a person is not upright.",
     [
       "OESOPHAGUS-PERISTALSIS"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Nitric acid",
       "Acetic acid"
     ],
-    "The stomach secretes hydrochloric acid. It creates an acidic medium and helps activate protein-digesting enzymes.",
+    "The stomach secretes hydrochloric acid. It creates an acidic medium and helps activate protein-digesting enzymes. The acid also helps kill many microorganisms swallowed with food.",
     [
       "STOMACH-HCL"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp021ReviewSpec[] = [
       "Lipase",
       "Maltase"
     ],
-    "Pepsin is a protein-digesting enzyme that works effectively in the acidic environment of the stomach.",
+    "Pepsin is a protein-digesting enzyme that works effectively in the acidic environment of the stomach. It breaks large protein molecules into smaller peptide fragments.",
     [
       "STOMACH-PEPSIN"
     ]

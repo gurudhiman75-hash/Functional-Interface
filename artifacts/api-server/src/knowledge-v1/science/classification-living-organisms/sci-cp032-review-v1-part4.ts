@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Porifera",
       "Cnidaria"
     ],
-    "Snails are molluscs, generally characterized by a soft body and muscular foot.",
+    "Snails are molluscs, generally characterized by a soft body and muscular foot. Many molluscs also possess a mantle and, in some groups, a hard shell.",
     [
       "SNAIL-MOLLUSCA"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Platyhelminthes",
       "Nematoda"
     ],
-    "Starfish are echinoderms with spiny skin and a water vascular system.",
+    "Starfish are echinoderms with spiny skin and a water vascular system. Adult echinoderms also show radial organization and are exclusively marine animals.",
     [
       "STARFISH-ECHINODERMATA"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Mollusca",
       "Porifera"
     ],
-    "Jointed appendages together with an exoskeleton are defining features of arthropods.",
+    "Jointed appendages together with an exoskeleton are defining features of arthropods. Jointed limbs are the strongest clue because they are a defining feature of Arthropoda.",
     [
       "IDENTIFY-ARTHROPOD"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Water vascular system",
       "Pseudopodia"
     ],
-    "Chordates possess a notochord at least during some stage of development.",
+    "Chordates possess a notochord at least during some stage of development. Other chordate features include a dorsal hollow nerve cord and pharyngeal slits at some developmental stage.",
     [
       "CHORDATE-NOTOCHORD"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Reptilia",
       "Amphibia"
     ],
-    "Birds belong to Aves and feathers are their distinctive external covering.",
+    "Birds belong to Aves and feathers are their distinctive external covering. Feathers are unique among living vertebrates and are strongly linked with the bird body plan.",
     [
       "AVES-FEATHERS"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Reptilia",
       "Pisces"
     ],
-    "Mammals possess hair and females have mammary glands that produce milk.",
+    "Mammals possess hair and females have mammary glands that produce milk. Milk production for young is the defining feature reflected in the name Mammalia.",
     [
       "MAMMALIA-HAIR-MAMMARY"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Have dry scales and never depend on water",
       "Have mammary glands"
     ],
-    "Amphibians typically spend part of their life in water and part on land.",
+    "Amphibians typically spend part of their life in water and part on land. The aquatic larval stage and more terrestrial adult stage explain the name amphibian.",
     [
       "FROG-AMPHIBIA"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Reptilia",
       "Amphibia"
     ],
-    "Feathers and wings are defining bird features, placing the animal in Aves.",
+    "Feathers and wings are defining bird features, placing the animal in Aves. Feathers provide the clearest classification clue even when other features such as egg laying occur elsewhere too.",
     [
       "IDENTIFY-AVES"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Mammalia",
       "Aves"
     ],
-    "Moist skin and a life cycle involving aquatic larvae and more terrestrial adults are characteristic of amphibians.",
+    "Moist skin and a life cycle involving aquatic larvae and more terrestrial adults are characteristic of amphibians. This combination of aquatic development and terrestrial adulthood is characteristic of the amphibian life cycle.",
     [
       "IDENTIFY-AMPHIBIA"
     ]
@@ -139,14 +139,14 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which pair is correctly matched?",
+    "Which plant group–example pair is correctly matched?",
     "Pine — Gymnosperm",
     [
       "Moss — Angiosperm",
       "Fern — Bryophyte",
       "Mango — Pteridophyte"
     ],
-    "Pine is a gymnosperm, a seed plant with exposed seeds and no fruits.",
+    "Pine is a gymnosperm, a seed plant with exposed seeds and no fruits. Pine is correctly placed because gymnosperms are seed plants whose seeds are not enclosed in fruits.",
     [
       "MATCH-PINE-GYMNOSPERM"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Pteridophytes → Bryophytes → Angiosperms → Gymnosperms",
       "Gymnosperms → Angiosperms → Bryophytes → Pteridophytes"
     ],
-    "This sequence broadly moves from non-vascular plants to vascular spore plants and then seed plants.",
+    "This sequence broadly moves from non-vascular plants to vascular spore plants and then seed plants. The sequence also reflects increasing specialization of vascular and reproductive structures.",
     [
       "PLANT-GROUP-SEQUENCE"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Plantae",
       "Animalia"
     ],
-    "Protista contains many unicellular eukaryotes, while Monera contains prokaryotes.",
+    "Protista contains many unicellular eukaryotes, while Monera contains prokaryotes. The true nucleus rules out Monera and makes Protista the best first placement for a unicellular eukaryote.",
     [
       "UNICELLULAR-EUKARYOTE-PROTISTA"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Starfish — Mollusca",
       "Sponge — Echinodermata"
     ],
-    "Earthworms are segmented worms belonging to Annelida.",
+    "Earthworms are segmented worms belonging to Annelida. Segmentation is the key feature linking earthworms with other members of Annelida. This classification is supported by the earthworm's repeated body segmentation.",
     [
       "MATCH-EARTHWORM-ANNELIDA"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "Plantae → Pteridophyte",
       "Protista → Angiosperm"
     ],
-    "The organism is a plant, and flowers/fruits with enclosed seeds identify it as an angiosperm.",
+    "The organism is a plant, and flowers/fruits with enclosed seeds identify it as an angiosperm. Seed enclosure within fruit is the decisive feature that places the plant among angiosperms.",
     [
       "INTEGRATED-ANGIOSPERM"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp032ReviewSpec[] = [
       "It is a mollusc because all invertebrates are molluscs",
       "It must be an amphibian"
     ],
-    "Absence of a backbone makes it an invertebrate, while jointed legs and segmentation identify Arthropoda.",
+    "Absence of a backbone makes it an invertebrate, while jointed legs and segmentation identify Arthropoda. The jointed appendages identify the arthropod group even before a more specific class is determined.",
     [
       "INTEGRATED-ARTHROPOD"
     ]

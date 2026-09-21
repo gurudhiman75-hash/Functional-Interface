@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Fossil",
       "Abiotic factor"
     ],
-    "A GMO carries genetic changes introduced through modern biotechnology.",
+    "A GMO carries genetic changes introduced through modern biotechnology. The altered DNA may contain an inserted gene, a changed gene or another deliberate genetic modification.",
     [
       "GMO-DEFINITION"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Fungal cell walls",
       "Viruses in humans"
     ],
-    "Bt cotton produces a protein derived from Bacillus thuringiensis that targets certain insect pests.",
+    "Bt cotton produces a protein derived from Bacillus thuringiensis that targets certain insect pests. Reducing pest damage can lower crop losses and in some settings reduce the need for specific insecticides.",
     [
       "BT-COTTON-INSECT"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Biological tissue",
       "Beta toxin only"
     ],
-    "Bt stands for the bacterium Bacillus thuringiensis, the source of the insecticidal protein gene.",
+    "Bt stands for the bacterium Bacillus thuringiensis, the source of the insecticidal protein gene. The bacterial name identifies the natural source from which the insecticidal gene was originally obtained.",
     [
       "BT-FULL-SOURCE"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Stop photosynthesis",
       "Remove every plant gene"
     ],
-    "Pest-resistant crops are designed to protect plants from particular damaging insects.",
+    "Pest-resistant crops are designed to protect plants from particular damaging insects. The goal is targeted protection rather than making the crop resistant to every possible pest.",
     [
       "GM-PEST-RESISTANCE-AIM"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Chlorophyll only",
       "Vitamin C only"
     ],
-    "Golden Rice is engineered to produce beta-carotene, a precursor of vitamin A, in the grain.",
+    "Golden Rice is engineered to produce beta-carotene, a precursor of vitamin A, in the grain. Beta-carotene can be converted by the body into vitamin A, so the trait was developed to improve nutritional value.",
     [
       "GOLDEN-RICE-BETA-CAROTENE"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "No need for water",
       "Permanent elimination of all weeds"
     ],
-    "The introduced trait is specific to certain pests and is intended to reduce their damage.",
+    "The introduced trait is specific to certain pests and is intended to reduce their damage. The benefit is expected only against pests sensitive to that protein, not against unrelated insects or diseases.",
     [
       "GM-CROP-TARGETED-TRAIT"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Minerals",
       "Red blood cells only"
     ],
-    "Engineered bacteria or yeast can manufacture human insulin using an inserted insulin gene.",
+    "Engineered bacteria or yeast can manufacture human insulin using an inserted insulin gene. The engineered microbes act as biological factories that express the inserted human gene and produce insulin.",
     [
       "RECOMBINANT-INSULIN-MICROBES"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Only metals",
       "Only plastics"
     ],
-    "Modern biotechnology produces medicines such as vaccines, hormones and other proteins.",
+    "Modern biotechnology produces medicines such as vaccines, hormones and other proteins. Recombinant methods can make medically useful biological molecules at large scale and with controlled quality.",
     [
       "BIOTECH-MEDICAL-PRODUCTS"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "It turned insulin into an antibiotic",
       "It made insulin from minerals"
     ],
-    "Recombinant technology enabled reliable production of human insulin without depending on animal extraction.",
+    "Recombinant technology enabled reliable production of human insulin without depending on animal extraction. It also reduced dependence on extracting insulin from animal tissues and improved consistency of the product.",
     [
       "RECOMBINANT-INSULIN-ADVANCE"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Only red blood cells",
       "No biological material"
     ],
-    "Some vaccines use specific antigens produced by recombinant DNA methods.",
+    "Some vaccines use specific antigens produced by recombinant DNA methods. The antigen can stimulate protective immunity without using the complete disease-causing organism.",
     [
       "RECOMBINANT-VACCINE"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Only temperature without biomarkers",
       "Only blood pressure"
     ],
-    "Molecular diagnostic methods identify characteristic nucleic acids or proteins.",
+    "Molecular diagnostic methods identify characteristic nucleic acids or proteins. Detecting a pathogen's genetic material can identify infection even when only a small amount is present.",
     [
       "MOLECULAR-DIAGNOSIS"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Photosynthesis and transpiration",
       "Predation and competition"
     ],
-    "The gene is inserted by recombinant-DNA methods and the engineered microbe produces the protein.",
+    "The gene is inserted by recombinant-DNA methods and the engineered microbe produces the protein. The process combines gene engineering with controlled microbial growth to manufacture the therapeutic protein.",
     [
       "MEDICINE-RECOMBINANT-MICROBE"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Transpiration",
       "Composting"
     ],
-    "Plant tissue culture grows cells, tissues or organs under controlled sterile conditions.",
+    "Plant tissue culture grows cells, tissues or organs under controlled sterile conditions. Plant hormones in the culture medium can direct small pieces of tissue to form shoots, roots or whole plants.",
     [
       "TISSUE-CULTURE-DEFINITION"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Vector",
       "Antigen"
     ],
-    "A clone is genetically identical or nearly identical to the source organism or cell.",
+    "A clone is genetically identical or nearly identical to the source organism or cell. Cloning preserves the selected genotype, although minor mutations can still arise during repeated propagation.",
     [
       "CLONE-DEFINITION"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp035ReviewSpec[] = [
       "Eliminating all plant hormones",
       "Changing every chromosome"
     ],
-    "Small amounts of plant tissue can generate many plantlets under suitable conditions.",
+    "Small amounts of plant tissue can generate many plantlets under suitable conditions. This is especially useful for crops that are difficult or slow to multiply by seeds or cuttings.",
     [
       "TISSUE-CULTURE-MASS-PROPAGATION"
     ]
