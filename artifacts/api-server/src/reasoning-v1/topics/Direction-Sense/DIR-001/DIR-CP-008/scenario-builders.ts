@@ -63,7 +63,7 @@ export function contradictionScenario(seed: number): ContradictionScenario {
     relation(b, dPoint, diagonal, distance),
     relation(a, dPoint, wrong, distance),
   ];
-  const shift = seed % 4;
+  const shift = Math.floor(Math.abs(seed) / 32) % 4;
   const relations = [...base.slice(shift), ...base.slice(0, shift)];
   const wrongRelation = base[3];
   const inconsistentIndex = relations.indexOf(wrongRelation);
