@@ -38,6 +38,8 @@ jobs:
           mkdir -p artifacts/api-server/dist/punjab-gk
           for test_file in \
             src/knowledge-v1/punjab-gk/pgk-001-cp004-review-batch-v2.test.ts \
+            src/knowledge-v1/punjab-gk/pgk-001-source-audit-v2.test.ts \
+            src/knowledge-v1/punjab-gk/pgk-001-source-provenance-v2.test.ts \
             src/question-studio/engines/knowledge-v1-pgk001-adapter-v1.test.ts
           do
             output_name="$(basename "${test_file}" .ts).mjs"

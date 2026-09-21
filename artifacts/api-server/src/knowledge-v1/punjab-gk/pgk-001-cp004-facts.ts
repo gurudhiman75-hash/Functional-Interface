@@ -130,3 +130,51 @@ export const PGK_001_CP004_FACT_IDS = Object.freeze([
   ...PGK_001_CP004_ANCIENT_RIVER_NAMES.map((row) => row.id),
   ...PGK_001_CP004_DOABS.map((row) => row.id),
 ]);
+
+
+export const PGK_001_CP004_FACT_SOURCE_IDS: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "historical-five-rivers": Object.freeze([PGK_001_CP004_SOURCE_IDS.knowPunjab]),
+  "present-punjab-three-from-five": Object.freeze([PGK_001_CP004_SOURCE_IDS.knowPunjab]),
+  "eastern-rivers": Object.freeze([
+    PGK_001_CP004_SOURCE_IDS.knowPunjab,
+    PGK_001_CP004_SOURCE_IDS.bbmbFormation,
+  ]),
+  "beas-sutlej-harike": Object.freeze([PGK_001_CP004_SOURCE_IDS.tarnTaranPlan]),
+  "ghaggar-seasonal": Object.freeze([PGK_001_CP004_SOURCE_IDS.rajpuraPlan]),
+  "doab-meaning": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9Geography]),
+  "ancient-sutlej-shutudri": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9PunjabIntro]),
+  "ancient-beas-vipasa": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9PunjabIntro]),
+  "ancient-ravi-purushni": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9PunjabIntro]),
+  "ancient-chenab-askini": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9PunjabIntro]),
+  "ancient-jhelum-vitista": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9PunjabIntro]),
+  "bist-doab": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9Geography]),
+  "bari-doab": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9Geography]),
+  "rachna-doab": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9Geography]),
+  "chaj-doab": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9Geography]),
+  "sind-sagar-doab": Object.freeze([PGK_001_CP004_SOURCE_IDS.psebClass9Geography]),
+});
+
+export function auditPgk001Cp004FactSources() {
+  const issues: string[] = [];
+  const validSourceIds = new Set(Object.keys(PGK_001_CP004_SOURCE_REGISTRY));
+  const validFactIds = new Set(PGK_001_CP004_FACT_IDS);
+
+  for (const factId of validFactIds) {
+    const sourceIds = PGK_001_CP004_FACT_SOURCE_IDS[factId] ?? [];
+    if (sourceIds.length === 0) issues.push(`${factId}: missing fact-level source authority`);
+    for (const sourceId of sourceIds) {
+      if (!validSourceIds.has(sourceId)) issues.push(`${factId}: unresolved source id ${sourceId}`);
+    }
+  }
+
+  for (const factId of Object.keys(PGK_001_CP004_FACT_SOURCE_IDS)) {
+    if (!validFactIds.has(factId)) issues.push(`${factId}: source mapping points to unknown fact id`);
+  }
+
+  return Object.freeze({
+    valid: issues.length === 0,
+    issues: Object.freeze(issues),
+    factCount: validFactIds.size,
+    mappedFactCount: Object.keys(PGK_001_CP004_FACT_SOURCE_IDS).length,
+  });
+}
