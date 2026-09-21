@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Rhizobium",
       "Plasmodium"
     ],
-    "Yeast ferments sugars and releases carbon dioxide, which helps bread dough rise.",
+    "Yeast ferments sugars and releases carbon dioxide, which helps bread dough rise. The released carbon dioxide becomes trapped in the dough's gluten network and increases its volume.",
     [
       "YEAST-BREAD"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Transpiration",
       "Filtration"
     ],
-    "Yeast can ferment sugars anaerobically, producing ethanol and carbon dioxide.",
+    "Yeast can ferment sugars anaerobically, producing ethanol and carbon dioxide. Low oxygen favours alcoholic fermentation instead of complete aerobic breakdown of sugar.",
     [
       "YEAST-FERMENTATION"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Alcohol expands into solid starch",
       "Yeast forms roots inside dough"
     ],
-    "Carbon dioxide from yeast fermentation becomes trapped in the dough and makes it expand.",
+    "Carbon dioxide from yeast fermentation becomes trapped in the dough and makes it expand. Heat during baking later kills the yeast while the gas-expanded structure remains in the bread.",
     [
       "BREAD-CO2"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Uric acid",
       "Nitric acid"
     ],
-    "Lactobacillus converts part of the milk sugar into lactic acid, causing milk proteins to set.",
+    "Lactobacillus converts part of the milk sugar into lactic acid, causing milk proteins to set. The acid lowers pH and causes casein proteins to coagulate, changing liquid milk into curd.",
     [
       "CURD-LACTIC-ACID"
     ]
@@ -64,14 +64,14 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
   [
     6,
     "Medium",
-    "Which pair is correctly matched?",
+    "Which microorganism–use pair is correctly matched?",
     "Yeast — bread fermentation",
     [
       "Amoeba — curd formation",
       "Rhizobium — bread rising",
       "Virus — yoghurt production"
     ],
-    "Yeast is used to ferment sugars in bread dough and other food processes.",
+    "Yeast is used to ferment sugars in bread dough and other food processes. The same fermentative ability is also used in brewing and other food-production processes.",
     [
       "YEAST-BREAD-MATCH"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "The yeast will photosynthesize",
       "More nitrogen fixation will occur"
     ],
-    "Dead yeast cannot carry out fermentation effectively, so little carbon dioxide is produced.",
+    "Dead yeast cannot carry out fermentation effectively, so little carbon dioxide is produced. Without living yeast, little carbon dioxide is generated and the dough remains dense.",
     [
       "YEAST-TEMPERATURE-REASONING"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Salmonella",
       "Vibrio"
     ],
-    "Rhizobium forms a symbiotic association with roots of legumes and fixes atmospheric nitrogen.",
+    "Rhizobium forms a symbiotic association with roots of legumes and fixes atmospheric nitrogen. In return for plant sugars, the bacteria supply nitrogen compounds useful to the host plant.",
     [
       "RHIZOBIUM-ROOT-NODULES"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Carbon dioxide only",
       "Cellulose"
     ],
-    "Nitrogen-fixing microorganisms convert nitrogen gas into compounds that can enter biological nutrient cycles.",
+    "Nitrogen-fixing microorganisms convert nitrogen gas into compounds that can enter biological nutrient cycles. This makes otherwise unavailable atmospheric nitrogen accessible to plants and the wider food web.",
     [
       "NITROGEN-FIXATION"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Their roots contain no microbes",
       "They convert oxygen into protein directly"
     ],
-    "Symbiotic Rhizobium supplies nitrogen compounds that can enrich soil nitrogen over time.",
+    "Symbiotic Rhizobium supplies nitrogen compounds that can enrich soil nitrogen over time. Crop rotation with legumes can therefore reduce the need for added nitrogen fertilizer.",
     [
       "LEGUMES-SOIL-NITROGEN"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Destroy all soil microbes",
       "Remove all water from soil"
     ],
-    "Certain cyanobacteria fix nitrogen and act as natural biofertilizers in wet agricultural soils.",
+    "Certain cyanobacteria fix nitrogen and act as natural biofertilizers in wet agricultural soils. These organisms can be especially useful in flooded paddy soils where they grow readily.",
     [
       "CYANOBACTERIA-NITROGEN-FIX"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Only insecticides",
       "Pure table salt"
     ],
-    "Biofertilizers contain beneficial microbes that enhance nutrient availability, such as nitrogen fixers.",
+    "Biofertilizers contain beneficial microbes that enhance nutrient availability, such as nitrogen fixers. They supplement rather than directly replace all soil nutrients, depending on crop and field conditions.",
     [
       "BIOFERTILIZER-DEFINITION"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Loss of all decomposers",
       "Conversion of nitrogen into oxygen"
     ],
-    "Legumes associated with nitrogen-fixing bacteria can add biologically available nitrogen to the system.",
+    "Legumes linked to nitrogen-fixing bacteria can add biologically available nitrogen to the system. The pulse crop supports nitrogen-fixing bacteria, leaving more biologically available nitrogen in the soil system.",
     [
       "CROP-ROTATION-NITROGEN"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Protozoan",
       "Alga"
     ],
-    "Penicillin was discovered from substances produced by Penicillium mould.",
+    "Penicillin was discovered from substances produced by Penicillium mould. Alexander Fleming's observation of bacterial inhibition by Penicillium led to the discovery of penicillin.",
     [
       "PENICILLIN-PENICILLIUM"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "Only metals",
       "Only oxygen cylinders"
     ],
-    "Microbes are widely used to manufacture enzymes, organic acids, alcohols and other useful products.",
+    "Microbes are widely used to manufacture enzymes, organic acids, alcohols and other useful products. Controlled microbial production can be scaled in fermenters to manufacture useful chemicals consistently.",
     [
       "MICROBIAL-INDUSTRY"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp031ReviewSpec[] = [
       "They always grow without water",
       "They have no enzymes"
     ],
-    "Microbial metabolism can be directed to produce desired substances efficiently.",
+    "Microbial metabolism can be directed to produce desired substances efficiently. Temperature, pH, nutrients and oxygen can be controlled to favour production of the desired substance.",
     [
       "INDUSTRIAL-FERMENTATION"
     ]

@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Bread has no nutrients",
       "Fungi require direct sunlight"
     ],
-    "Fungi grow well where moisture and suitable organic nutrients are available.",
+    "Fungi grow well where moisture and suitable organic nutrients are available. Drying food slows mould growth because it removes the moisture needed for fungal metabolism.",
     [
       "MOULD-MOIST-BREAD"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Eggs only",
       "Red blood cells"
     ],
-    "Fungal spores can disperse through air or other routes and grow when conditions become favourable.",
+    "Fungal spores can disperse through air or other routes and grow when conditions become favourable. Dispersal lets fungi reach new substrates where nutrients and moisture may support growth.",
     [
       "FUNGI-SPORES"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Fungi turn into bacteria during dryness",
       "Food begins producing mould cells itself"
     ],
-    "Resistant or dormant spores may remain and later germinate when moisture and nutrients are suitable.",
+    "Resistant or dormant spores may remain and later germinate when moisture and nutrients are suitable. Visible mould can therefore return even after active fungal growth temporarily stops.",
     [
       "FUNGAL-SPORE-REASONING"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Bacteria",
       "Viruses"
     ],
-    "Amoeba is a unicellular protozoan.",
+    "Amoeba is a unicellular protozoan. Unlike bacteria, Amoeba contains membrane-bound cell structures typical of eukaryotes. It changes shape by extending pseudopodia for movement and feeding.",
     [
       "AMOEBA-PROTOZOA"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Wings",
       "Hyphae"
     ],
-    "Paramecium is covered with many tiny cilia that beat to move the cell.",
+    "Paramecium is covered with many tiny cilia that beat to move the cell. The coordinated beating of many cilia also helps move food particles toward the oral groove.",
     [
       "PARAMECIUM-CILIA"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Hyphae",
       "Spores"
     ],
-    "Amoeba extends temporary projections called pseudopodia for movement and feeding.",
+    "Amoeba extends temporary projections called pseudopodia for movement and feeding. Pseudopodia surround food particles as well as pulling the cell forward during movement.",
     [
       "AMOEBA-PSEUDOPODIA"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Are always multicellular",
       "Cannot live in water"
     ],
-    "Protozoa are eukaryotic cells with a membrane-bound nucleus, unlike bacteria.",
+    "Protozoa are eukaryotic cells with a membrane-bound nucleus, unlike bacteria. This nuclear difference is one of the simplest ways to distinguish protozoa from bacteria.",
     [
       "PROTOZOA-EUKARYOTIC"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "All are bacteria",
       "All make their own food"
     ],
-    "Protozoa are generally unicellular eukaryotic organisms with varied modes of life.",
+    "Protozoa are generally unicellular eukaryotic organisms with varied modes of life. Some protozoa are free-living, while others are parasites that can cause disease.",
     [
       "PROTOZOA-UNICELLULAR-EUKARYOTE"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Yeast with budding only",
       "Bacteriophage"
     ],
-    "Amoeba is a nucleated protozoan that forms pseudopodia for movement and feeding.",
+    "Amoeba is a nucleated protozoan that forms pseudopodia for movement and feeding. The changing shape and temporary projections are characteristic clues for identifying Amoeba.",
     [
       "AMOEBA-IDENTIFY"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Melanin",
       "Keratin"
     ],
-    "Many algae contain chlorophyll and can manufacture food by photosynthesis.",
+    "Many algae contain chlorophyll and can manufacture food by photosynthesis. Photosynthesis allows many algae to act as producers in aquatic food chains.",
     [
       "ALGAE-CHLOROPHYLL"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "On dry glass",
       "In soil without cells"
     ],
-    "Viruses depend on the machinery of living host cells for replication.",
+    "Viruses depend on the machinery of living host cells for replication. Outside a suitable host cell, viruses lack the machinery needed for independent reproduction.",
     [
       "VIRUS-HOST-CELL"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Protozoa",
       "Viruses"
     ],
-    "Cyanobacteria are photosynthetic prokaryotes and belong to the bacteria.",
+    "Cyanobacteria are photosynthetic prokaryotes and belong to the bacteria. Although their older name contains 'algae,' their cellular organization is prokaryotic rather than algal eukaryotic.",
     [
       "CYANOBACTERIA-BACTERIA"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "They are always harmless",
       "They are larger than fungi"
     ],
-    "Viruses consist of genetic material enclosed in a protein coat or related structure rather than a cellular body.",
+    "Viruses consist of genetic material enclosed in a protein coat or related structure rather than a cellular body. They also lack independent metabolism, another reason viruses are not treated as ordinary cellular organisms.",
     [
       "VIRUS-ACELLULAR"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Only fungi",
       "Only human red blood cells"
     ],
-    "Bacteriophages are viruses whose hosts are bacterial cells.",
+    "Bacteriophages are viruses whose hosts are bacterial cells. Different bacteriophages are often specific to particular bacterial hosts. The viral particles therefore reproduce only after entering suitable bacterial cells.",
     [
       "BACTERIOPHAGE-BACTERIA"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp031ReviewSpec[] = [
       "Fungus",
       "Protozoan"
     ],
-    "Dependence on host-cell machinery and an acellular structure are characteristic of viruses.",
+    "Dependence on host-cell machinery and an acellular structure are characteristic of viruses. This dependence on host machinery is the defining clue that separates viruses from cellular microorganisms.",
     [
       "VIRUS-IDENTIFY"
     ]
