@@ -94,3 +94,4 @@ The promotion keeps the 240-set / 1,200-question deterministic and independent-v
 - DI-009 QL routing narrowed to DI-QL-001 through DI-QL-013
 - permanent grouped-mode generation now retries deterministically only when the first histogram cannot support the grouped-mode formula, preserving valid first-seed outputs while making DI-QL-013 total for fixed-seed requests
 - localized Question Studio activation: NOT AUTHORIZED pending human review
+- learner-facing numeric values are integer-only: decimal percentages, grouped means/modes, intermediate table values and histogram axis labels are excluded by deterministic state selection
