@@ -2,12 +2,14 @@ name: Reasoning DIR-001 English Freeze
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
   push:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
   workflow_dispatch:
