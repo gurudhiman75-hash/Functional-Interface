@@ -1,6 +1,6 @@
 {
   "cpId":"PUN-001-CP014",
-  "status":"HUMAN_REVIEW_PENDING",
+  "status":"HUMAN_APPROVED",
   "authorityInventory":{
     "passages":50,
     "passageQuestions":190,
