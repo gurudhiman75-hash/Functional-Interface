@@ -1,6 +1,6 @@
 # GEO-SOI-001 — Soils of India
 
-Status: ACTIVE IMPLEMENTATION — CP001–CP005 APPROVED
+Status: ACTIVE IMPLEMENTATION — CP006–CP007 REVIEW
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-SOI-001`
@@ -94,4 +94,4 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-CP001 and CP002 were explicitly approved and merged through PR #1991. CP003 — Black Soils (QL019–QL027) and CP004 — Red & Yellow Soils (QL028–QL036) were explicitly approved and merged through PR #2012. QL001–QL036 contain 216 approved owning questions. CP005 — Laterite Soils (QL037–QL045) is implemented as a 54-question review candidate and remains unmerged until explicit human approval. Runtime publication and Question Bank/test/mock activation remain separately governed.
+CP001–CP005 are approved and merged, covering QL001–QL045 with 270 approved owning questions. CP006 — Arid Soils (QL046–QL054) and CP007 — Forest / Mountain Soils (QL055–QL063) are implemented as 54-question review candidates and remain unmerged until explicit human approval. The next permanent checkpoint after approval will be CP008 — Soil Distribution & Region/State Associations (QL064–QL072). Runtime publication and Question Bank/test/mock activation remain separately governed.
