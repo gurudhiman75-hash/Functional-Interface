@@ -245,7 +245,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-057",
     "qlName": "Loamy and silty valley-side soils",
     "difficulty": "Medium",
-    "stem": "Which high-Himalayan soil-property pair is correct?",
+    "stem": "Which valley-side soil-texture pair is correct?",
     "answer": "Valley sides — loamy and silty forest soil",
     "distractors": [
       "Upper slopes — always silty clay",
@@ -533,7 +533,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-060",
     "qlName": "Acidic character in high Himalayan soils",
     "difficulty": "Medium",
-    "stem": "Which lower-valley soil-location pair is correct?",
+    "stem": "Which high-Himalayan soil-property pair is correct?",
     "answer": "High Himalayan forest soil — acidic",
     "distractors": [
       "Arid soil — acidic because of heavy rainfall",
@@ -741,7 +741,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-062",
     "qlName": "Fertile lower valleys, terraces and alluvial fans",
     "difficulty": "Medium",
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which lower-valley soil-location pair is correct?",
     "answer": "River terraces — relatively fertile forest soil",
     "distractors": [
       "Upper snowy slopes — deepest fertile soil everywhere",
