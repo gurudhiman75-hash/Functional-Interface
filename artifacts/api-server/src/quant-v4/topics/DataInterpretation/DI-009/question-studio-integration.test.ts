@@ -1,5 +1,6 @@
 import { quantV4QuestionStudioAdapter } from "../../../../question-studio/engines/quant-v4-adapter";
 import { generateDi009PermanentQuestion } from "./permanent-question-generator";
+import { DI009_LOCALIZATION_RELEASE_ID } from "./localization-review-v1";
 import {
   DI009_PERMANENT_QLS,
   DI009_PERMANENT_RELEASE_ID,
@@ -38,6 +39,7 @@ assert(card.runtimeMode === DI009_QUESTION_STUDIO_RUNTIME_MODE, "DI-009 package 
 assert(card.questionBankStatus === "NOT_STORED" && card.questionBankWritable === false, "DI-009 must remain outside Question Bank writes.");
 assert(card.testEligibility === "INELIGIBLE" && card.testEligible === false && card.mockTestEligible === false, "DI-009 must remain ineligible for tests and mocks.");
 assert(card.publiclyPublishable === false && card.automaticStudentPublication === false && card.productionReleaseAuthorized === false, "DI-009 publication locks drifted.");
+assert(["en", "hi", "pa"].every((language) => card.supportedLanguages.includes(language as any)), "DI-009 package card must expose approved English, Hindi and Punjabi controlled-review languages.");
 
 const seen = new Set<string>();
 for (const descriptor of DI009_PERMANENT_QLS) {
@@ -106,8 +108,34 @@ assert(shared.questions.length === 13, "Shared Quant V4 adapter did not route DI
 assert(new Set(shared.questions.map((question) => question.questionLanguageId)).size === 13, "A 13-question mixed DI-009 batch must cover all permanent QLs once.");
 assert(shared.questions.every((question) => question.packageId === "DI-009" && question.questionBankWritable === false && question.testEligible === false), "Shared adapter widened DI-009 lifecycle authority.");
 
+for (const language of ["hi", "pa"] as const) {
+  const localized = await quantV4QuestionStudioAdapter.generate({
+    packageId: "DI-009",
+    canonicalProblemId: DI009_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
+    language,
+    count: 13,
+    seed: `DI009-MULTILINGUAL-QS-${language}`,
+    exam: "SSC CGL Tier II",
+  });
+  assert(localized.questions.length === 13, `DI-009 ${language} controlled review did not generate all 13 permanent QLs.`);
+  assert(new Set(localized.questions.map((question) => question.questionLanguageId)).size === 13, `DI-009 ${language} batch did not cover all permanent QLs.`);
+  for (const raw of localized.questions) {
+    const question = raw as Record<string, any>;
+    assert(question.language === language, `DI-009 ${language} question lost requested language.`);
+    assert(question.reviewStatus === "MULTILINGUAL_FROZEN", `DI-009 ${language} question is not frozen multilingual authority.`);
+    assert(question.releaseId === DI009_LOCALIZATION_RELEASE_ID, `DI-009 ${language} question lost localization release identity.`);
+    assert(!/\d+\.\d+/u.test(previewLearnerText(question)), `DI-009 ${language} exposes decimal learner-facing values.`);
+    assert(question.questionBankWritable === false && question.testEligible === false && question.mockTestEligible === false, `DI-009 ${language} widened learner lifecycle authority.`);
+    assert(question.publiclyPublishable === false && question.automaticStudentPublication === false && question.productionReleaseAuthorized === false, `DI-009 ${language} widened publication authority.`);
+    const text = previewLearnerText(question);
+    assert(!/[A-Za-z]/u.test(text), `DI-009 ${language} learner surface leaks Roman text: ${text}`);
+    if (language === "hi") assert(/[\u0900-\u097F]/u.test(text), "DI-009 Hindi Question Studio surface lacks Devanagari.");
+    else assert(/[\u0A00-\u0A7F]/u.test(text), "DI-009 Punjabi Question Studio surface lacks Gurmukhi.");
+  }
+}
+
 console.log(JSON.stringify({
-  status: "PASS_DI_009_QUESTION_STUDIO_CONTROLLED_REVIEW",
+  status: "PASS_DI_009_QUESTION_STUDIO_MULTILINGUAL_CONTROLLED_REVIEW",
   releaseId: DI009_PERMANENT_RELEASE_ID,
   runtimeMode: DI009_QUESTION_STUDIO_RUNTIME_MODE,
   permanentQlCount: DI009_PERMANENT_QLS.length,
