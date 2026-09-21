@@ -1,6 +1,6 @@
 # GEO-SOI-001 — Soils of India
 
-Status: ACTIVE IMPLEMENTATION — CP006–CP007 REVIEW
+Status: ACTIVE IMPLEMENTATION — CP001–CP007 APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-SOI-001`
@@ -94,4 +94,4 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-CP001–CP005 are approved and merged, covering QL001–QL045 with 270 approved owning questions. CP006 — Arid Soils (QL046–QL054) and CP007 — Forest / Mountain Soils (QL055–QL063) are implemented as 54-question review candidates and remain unmerged until explicit human approval. The next permanent checkpoint after approval will be CP008 — Soil Distribution & Region/State Associations (QL064–QL072). Runtime publication and Question Bank/test/mock activation remain separately governed.
+CP001–CP007 are approved and merged, covering QL001–QL063 with 378 approved owning questions. CP006 — Arid Soils (QL046–QL054) and CP007 — Forest / Mountain Soils (QL055–QL063) were explicitly approved and merged through PR #2043. The next checkpoint is CP008 — Soil Distribution & Region/State Associations (QL064–QL072). Runtime publication and Question Bank/test/mock activation remain separately governed.
