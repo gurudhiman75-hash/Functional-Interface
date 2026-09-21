@@ -22,7 +22,7 @@ const T:Readonly<Record<string,Pair>>=Object.freeze({
 "Definition of Union Cabinet for national emergency":lp("राष्ट्रीय आपातकाल के लिए संघीय मंत्रिमंडल की परिभाषा","ਰਾਸ਼ਟਰੀ ਐਮਰਜੈਂਸੀ ਲਈ ਕੇਂਦਰੀ ਕੈਬਿਨੇਟ ਦੀ ਪਰਿਭਾਸ਼ਾ"),
 "Constitutional meaning of Union Cabinet":lp("संघीय कैबिनेट का संवैधानिक अर्थ","ਕੇਂਦਰੀ ਕੈਬਿਨੇਟ ਦਾ ਸੰਵਿਧਾਨਕ ਅਰਥ"),
 "President":lp("राष्ट्रपति","ਰਾਸ਼ਟਰਪਤੀ"),"Prime Minister":lp("प्रधानमंत्री","ਪ੍ਰਧਾਨ ਮੰਤਰੀ"),
-"Chief Justice of India":lp("भारत के मुख्य न्यायाधीश","ਭਾਰਤ ਦੇ ਮੁੱਖ ਨਿਆਂਧੀਸ਼"),"Speaker of Lok Sabha":lp("लोकसभा अध्यक्ष","ਲੋਕ ਸਭਾ ਦੇ ਸਪੀਕਰ"),"Rajya Sabha Chairman":lp("राज्यसभा सभापति","ਰਾਜ ਸਭਾ ਦੇ ਚੇਅਰਮੈਨ"),"Lok Sabha":lp("लोकसभा","ਲੋਕ ਸਭਾ"),"Rajya Sabha":lp("राज्यसभा","ਰਾਜ ਸਭਾ"),
+"Chief Justice of India":lp("भारत के मुख्य न्यायाधीश","ਭਾਰਤ ਦੇ ਮੁੱਖ ਨਿਆਂਧੀਸ਼"),"Speaker of Lok Sabha":lp("लोकसभा अध्यक्ष","ਲੋਕ ਸਭਾ ਦੇ ਸਪੀਕਰ"),"Lok Sabha Speaker":lp("लोकसभा अध्यक्ष","ਲੋਕ ਸਭਾ ਦੇ ਸਪੀਕਰ"),"Rajya Sabha Chairman":lp("राज्यसभा सभापति","ਰਾਜ ਸਭਾ ਦੇ ਚੇਅਰਮੈਨ"),"Lok Sabha":lp("लोकसभा","ਲੋਕ ਸਭਾ"),"Rajya Sabha":lp("राज्यसभा","ਰਾਜ ਸਭਾ"),
 "Vice-President":lp("उपराष्ट्रपति","ਉਪ-ਰਾਸ਼ਟਰਪਤੀ"),
 "Once":lp("एक बार","ਇੱਕ ਵਾਰ"),"Twice":lp("दो बार","ਦੋ ਵਾਰ"),"Without limit":lp("बिना सीमा","ਬਿਨਾਂ ਸੀਮਾ"),"Yes":lp("हाँ","ਹਾਂ"),"No":lp("नहीं","ਨਹੀਂ"),"Only during an emergency":lp("केवल आपातकाल के दौरान","ਸਿਰਫ਼ ਐਮਰਜੈਂਸੀ ਦੌਰਾਨ"),
 "Both Houses equally":lp("दोनों सदनों के प्रति समान रूप से","ਦੋਵੇਂ ਸਦਨਾਂ ਪ੍ਰਤੀ ਇੱਕੋ ਜਿਹੀ"),"President alone":lp("केवल राष्ट्रपति के प्रति","ਸਿਰਫ਼ ਰਾਸ਼ਟਰਪਤੀ ਪ੍ਰਤੀ"),"Separate Ministers only":lp("केवल अलग-अलग मंत्री","ਸਿਰਫ਼ ਵੱਖ-ਵੱਖ ਮੰਤਰੀ"),"A body":lp("एक सामूहिक निकाय के रूप में","ਇੱਕ ਸਮੂਹ ਵਜੋਂ"),
