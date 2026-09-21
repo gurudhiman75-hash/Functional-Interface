@@ -75,6 +75,27 @@ for (const ql of DIR_001_QLS) {
       }
       if (/√/.test(String(english.explanation?.calculationLine ?? ""))) assert.match(explanationText, /√/);
     }
+    const qlNumber = Number(ql.qlId.slice(-3));
+    if (qlNumber >= 11 && qlNumber <= 15) {
+      assert.doesNotMatch(explanationText, /एक संदर्भ बिंदु को स्थिर मानकर|स्वतंत्र मार्गों से प्राप्त स्थान/);
+      const firstRelation = english.structuredPrompt.relations?.[0];
+      if (firstRelation?.distance != null) {
+        assert.match(explanationText, new RegExp(`${firstRelation.distance} मीटर`));
+      }
+      if (ql.qlId === "DIR-QL-012" && /√/.test(String(english.explanation?.calculationLine ?? ""))) {
+        assert.match(explanationText, /√/);
+      }
+    }
+    if (qlNumber >= 16 && qlNumber <= 22) {
+      assert.doesNotMatch(explanationText, /सभी अंतिम स्थानों को समान आरंभिक निर्देशांक-फ्रेम में रखें|प्रश्न के अनुसार दिशा, दूरी, चरम स्थान/);
+      const firstStep = english.structuredPrompt.paths?.[0]?.steps?.[0];
+      if (firstStep?.distance != null) {
+        assert.match(explanationText, new RegExp(`${firstStep.distance} मीटर`));
+      }
+      if (["DIR-QL-017", "DIR-QL-018"].includes(ql.qlId) && /√/.test(String(english.explanation?.calculationLine ?? ""))) {
+        assert.match(explanationText, /√/);
+      }
+    }
     const diagrams = [hindi.questionDiagram, hindi.explanation.diagram].filter(Boolean) as any[];
     for (const diagram of diagrams) {
       assert.ok(typeof diagram.svg === "string" && diagram.svg.includes("<svg"));
