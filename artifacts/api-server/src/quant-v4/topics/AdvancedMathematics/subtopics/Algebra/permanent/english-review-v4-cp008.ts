@@ -98,6 +98,17 @@ function fractionText(value: RationalFunction1) {
   return `(${polynomialText(value.numerator)})/(${polynomialText(value.denominator)})`;
 }
 
+function rationalFunctionText(value: RationalFunction1) {
+  const denominator = polynomialText(value.denominator);
+  return denominator === "1" ? polynomialText(value.numerator) : fractionText(value);
+}
+
+function denominatorSubstitutionText(forbidden: number, testValue: number, denominatorValue: number) {
+  if (forbidden === 0) return `${testValue} = ${denominatorValue}`;
+  if (forbidden < 0) return `${testValue} + ${Math.abs(forbidden)} = ${denominatorValue}`;
+  return `${testValue} - ${forbidden} = ${denominatorValue}`;
+}
+
 function scaledFactor(multiplier: number, excluded: number): Polynomial1 {
   return polynomial("x", [
     rational(BigInt(-multiplier * excluded)),
@@ -146,7 +157,7 @@ function generateDomainCheck(seed: number): AlgCp008EnglishReviewV4Item {
     answerText: defined ? "Yes" : "No",
     explanation: [
       `The denominator is ${denominatorText(forbidden)}, and a rational expression is defined only when its denominator is non-zero.`,
-      `Substitute x = ${testValue}: the denominator becomes ${testValue} - (${forbidden}) = ${denominatorValue}.`,
+      `Substitute x = ${testValue}: the denominator becomes ${denominatorSubstitutionText(forbidden, testValue, denominatorValue)}.`,
       denominatorValue === 0
         ? "Because the denominator becomes 0, division is not defined at this value."
         : `Because ${denominatorValue} is non-zero, the denominator is valid and the expression has a defined value.`,
@@ -167,7 +178,7 @@ function generateDomainCheck(seed: number): AlgCp008EnglishReviewV4Item {
 }
 
 function rationalEquationQuestion(equation: RationalEquation1, mode: "NO_SOLUTION" | "INFINITE", frame: number) {
-  const equationText = `${fractionText(equation.left)} = ${fractionText(equation.right)}`;
+  const equationText = `${rationalFunctionText(equation.left)} = ${rationalFunctionText(equation.right)}`;
   if (mode === "NO_SOLUTION") {
     switch (frame % 4) {
       case 0: return `Solve ${equationText}.`;
@@ -180,7 +191,7 @@ function rationalEquationQuestion(equation: RationalEquation1, mode: "NO_SOLUTIO
     case 0: return `Describe the solution set of ${equationText}.`;
     case 1: return `For which real values of x does ${equationText} hold?`;
     case 2: return `Determine the complete real solution set of ${equationText}.`;
-    default: return `State all real x satisfying ${equationText}, including any excluded value from the original denominator.`;
+    default: return `State all real x satisfying ${equationText}, taking the original domain restriction into account.`;
   }
 }
 
