@@ -246,14 +246,15 @@ export function QuestionStudioLivePage() {
 
   const handleGenerate = async () => {
     if (!activePackage) {
-      showToast.error('Generation package required', 'Select an enabled Quant V4 package.');
+      showToast.error('Generation package required', 'Select an enabled generation package.');
       return;
     }
     try {
       const selectedExam = EXAMS.find((entry) => entry.code === exam);
       const result = await generate({
         exam: selectedExam?.name ?? exam,
-        subject: 'Quantitative Aptitude',
+        engineId: activePackage.engineId,
+        subject: activePackage.subject ?? 'Quantitative Aptitude',
         difficulty,
         count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
         packageId: activePackage.packageId,
@@ -300,7 +301,7 @@ export function QuestionStudioLivePage() {
     <div className="space-y-6">
       <PageHeader
         title="Question Studio"
-        description="Generate Quant V4 questions, review immutable run items, and control their production lifecycle from Neon."
+        description="Generate questions from registered engines, review immutable run items, and control their lifecycle from Neon."
         icon={<Sparkles className="h-5 w-5" />}
         actions={(
           <>
@@ -339,7 +340,7 @@ export function QuestionStudioLivePage() {
             <Sparkles className="h-4 w-4 text-primary" /> Create generation run
           </CardTitle>
           <p className="text-xs text-muted-foreground">
-            Uses ExamTree Quant V4 and persists the run, item records, immutable payload versions, audit event, and outbox event in one transaction.
+            Uses the selected registered Question Studio engine and persists the run, item records, immutable payload versions, audit event, and outbox event in one transaction.
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -404,7 +405,7 @@ export function QuestionStudioLivePage() {
           {activePackage && (
             <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground">
               <span className="font-semibold text-foreground">{activePackage.topic} · {activePackage.subtopic}</span>
-              {' '}· {activePackage.cpIds.length} active canonical problem(s) · {capabilities.generationSystem}
+              {' '}· {activePackage.cpIds.length} CP(s) · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}
             </div>
           )}
         </CardContent>
