@@ -14,6 +14,11 @@ const DIRECTION_HI: Readonly<Record<string, string>> = {
   SAME_POSITION: "उसी स्थान पर",
 };
 
+const DIRECTION_ANGLE_HI: Readonly<Record<string, number>> = {
+  NORTH: 0, NORTH_EAST: 45, EAST: 90, SOUTH_EAST: 135,
+  SOUTH: 180, SOUTH_WEST: 225, WEST: 270, NORTH_WEST: 315,
+};
+
 const TURN_HI: Readonly<Record<string, string>> = {
   LEFT: "बाएँ मुड़ना", RIGHT: "दाएँ मुड़ना", ABOUT: "पीछे मुड़ना", NO_TURN: "बिना मुड़े सीधे चलना",
   LEFT_TURN: "बाएँ मुड़ना", RIGHT_TURN: "दाएँ मुड़ना", ABOUT_TURN: "पीछे मुड़ना",
@@ -177,6 +182,94 @@ export function evidenceChain(evidence: R): string {
 export function sunTime(period: string, variation: number): string {
   const minute = 20 + (Math.abs(variation) % 35);
   return period === "EVENING" ? `शाम 5:${String(minute).padStart(2, "0")} बजे` : `सुबह 6:${String(minute).padStart(2, "0")} बजे`;
+}
+
+export function directionAngleHi(direction: unknown): number {
+  return DIRECTION_ANGLE_HI[String(direction)] ?? 0;
+}
+
+export function directionFromAngleHi(angle: number): string {
+  const normalized = ((angle % 360) + 360) % 360;
+  const entry = Object.entries(DIRECTION_ANGLE_HI).find(([, value]) => value === normalized);
+  return entry?.[0] ?? "NORTH";
+}
+
+export function applyTurnAngleHi(angle: number, turn: R): number {
+  const degrees = Number(turn.degrees ?? 0);
+  const signed = turn.sense === "CLOCKWISE" ? degrees : -degrees;
+  return ((angle + signed) % 360 + 360) % 360;
+}
+
+function turnCalculationLabelHi(turn: R): string {
+  const degrees = Number(turn.degrees ?? 0);
+  if (degrees === 180) return "पीछे 180° मुड़ना";
+  if (degrees === 90) return turn.sense === "CLOCKWISE" ? "दाएँ 90° मुड़ना" : "बाएँ 90° मुड़ना";
+  return turn.sense === "CLOCKWISE"
+    ? `घड़ी की दिशा में ${degrees}° घूमना`
+    : `घड़ी की विपरीत दिशा में ${degrees}° घूमना`;
+}
+
+export function turnCalculationStepsHi(initialFacing: unknown, turns: readonly R[]): string[] {
+  let angle = directionAngleHi(initialFacing);
+  const steps = [`आरंभिक दिशा ${directionHi(initialFacing)} है, अर्थात ${angle}°।`];
+  for (const turn of turns) {
+    const before = angle;
+    angle = applyTurnAngleHi(angle, turn);
+    const degrees = Number(turn.degrees ?? 0);
+    const raw = turn.sense === "CLOCKWISE" ? before + degrees : before - degrees;
+    const sign = turn.sense === "CLOCKWISE" ? "+" : "−";
+    steps.push(
+      `${turnCalculationLabelHi(turn)}: ${before}° ${sign} ${degrees}° = ${raw}° ≡ ${angle}° (${directionHi(directionFromAngleHi(angle))})।`,
+    );
+  }
+  return steps;
+}
+
+export function reverseTurnCalculationStepsHi(finalFacing: unknown, turns: readonly R[]): string[] {
+  let angle = directionAngleHi(finalFacing);
+  const steps = [`अंतिम दिशा ${directionHi(finalFacing)} है, अर्थात ${angle}°। अब मोड़ों को उलटे क्रम में वापस लें।`];
+  for (const turn of [...turns].reverse()) {
+    const reverse = { ...turn, sense: turn.sense === "CLOCKWISE" ? "ANTICLOCKWISE" : "CLOCKWISE" };
+    const before = angle;
+    angle = applyTurnAngleHi(angle, reverse);
+    const degrees = Number(turn.degrees ?? 0);
+    const raw = reverse.sense === "CLOCKWISE" ? before + degrees : before - degrees;
+    const sign = reverse.sense === "CLOCKWISE" ? "+" : "−";
+    steps.push(
+      `${before}° ${sign} ${degrees}° = ${raw}° ≡ ${angle}° (${directionHi(directionFromAngleHi(angle))})।`,
+    );
+  }
+  return steps;
+}
+
+export function pathMovementLineHi(line: string): string {
+  let match = /^First, .+? walks (\d+) metres ([A-Za-z-]+)\.$/.exec(line);
+  if (match) {
+    const canonical = match[2].toUpperCase().replaceAll("-", "_");
+    return `पहली चाल: ${match[1]} मीटर ${directionHi(canonical)} की ओर।`;
+  }
+  match = /^After turning (left|right), .+? walks (\d+) metres ([A-Za-z-]+)\.$/.exec(line);
+  if (match) {
+    const canonical = match[3].toUpperCase().replaceAll("-", "_");
+    return `${match[1] === "left" ? "बाएँ" : "दाएँ"} मुड़ने के बाद: ${match[2]} मीटर ${directionHi(canonical)} की ओर।`;
+  }
+  return localizeFreeText(line);
+}
+
+export function pathSummaryLineHi(line: string): string {
+  const net = /^The net movement is (.+)\.$/.exec(line);
+  if (net) {
+    return `शुद्ध विस्थापन: ${localizeFreeText(net[1]).replace(/\band\b/gi, "और")}।`;
+  }
+  const oneAxis = /^Only one net direction remains after cancellation\. Therefore, the straight line from Start to Finish is (.+)\.$/.exec(line);
+  if (oneAxis) {
+    return `विपरीत दिशाओं की चालें काटने के बाद एक ही घटक बचता है; इसलिए आरंभ से अंत तक सीधी दूरी ${localizeFreeText(oneAxis[1])} है।`;
+  }
+  const pythagoras = /^The shortest route is the straight line from Start to Finish: (.+)\.$/.exec(line);
+  if (pythagoras) {
+    return `सीधी न्यूनतम दूरी: ${localizeFreeText(pythagoras[1])}।`;
+  }
+  return localizeFreeText(line).replace(/\band\b/gi, "और");
 }
 
 export function answerLabel(value: unknown, fallback = ""): string {
