@@ -312,12 +312,17 @@ function rangeRatioDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   };
 }
 
-function classShareDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
+function classShareDraft(seed: string, stimulus: Di009Stimulus): Di009Draft | null {
   const bins = stimulus.bins;
-  const targetIndex = pick(seededRandom(`${seed}:share:index`), bins.map((_, index) => index));
-  const target = bins[targetIndex]!;
   const total = totalFrequency(bins);
-  const answer = formatPercent(target.frequency, total);
+  const integerPercentageIndices = bins
+    .map((bin, index) => ({ bin, index }))
+    .filter(({ bin }) => (bin.frequency * 100) % total === 0)
+    .map(({ index }) => index);
+  if (!integerPercentageIndices.length) return null;
+  const targetIndex = pick(seededRandom(`${seed}:share:index`), integerPercentageIndices);
+  const target = bins[targetIndex]!;
+  const answer = `${(target.frequency * 100) / total}%`;
   const s = surface(seed, "CLASS_SHARE_OF_TOTAL", [
     `The class ${interval(target)} represents what percentage of the total frequency?`,
     `What percentage of all ${stimulus.unit} fall in the interval ${interval(target)}?`,
@@ -403,10 +408,11 @@ function modalClassDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   };
 }
 
-function medianClassDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
+function medianClassDraft(seed: string, stimulus: Di009Stimulus): Di009Draft | null {
   const bins = stimulus.bins;
   const cumulative = cumulativeFrequencies(bins);
   const total = cumulative.at(-1)!;
+  if (total % 2 !== 0) return null;
   const target = total / 2;
   const medianIndex = firstCumulativeAtLeast(cumulative, target);
   const s = surface(seed, "MEDIAN_CLASS_IDENTIFICATION", [
@@ -423,7 +429,7 @@ function medianClassDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
     candidates: classAlternatives(bins, medianIndex),
     explanation: {
       keyIdea: "Form cumulative frequencies and locate the first class whose cumulative frequency reaches or exceeds N/2.",
-      steps: [`Total frequency N = ${total}, so N/2 = ${formatDecimal(total, 2)}.`, `The first cumulative frequency reaching this position is ${cumulative[medianIndex]}, in class ${interval(bins[medianIndex]!)}.`],
+      steps: [`Total frequency N = ${total}, so N/2 = ${target}.`, `The first cumulative frequency reaching this position is ${cumulative[medianIndex]}, in class ${interval(bins[medianIndex]!)}.`],
       workingTable: {
         headers: ["Class", "f", "Cumulative f"],
         rows: bins.map((bin, index) => [interval(bin), String(bin.frequency), String(cumulative[index])]),
@@ -468,11 +474,14 @@ function kthObservationDraft(seed: string, stimulus: Di009Stimulus): Di009Draft 
   };
 }
 
-function groupedMeanDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
+function groupedMeanDraft(seed: string, stimulus: Di009Stimulus): Di009Draft | null {
   const bins = stimulus.bins;
+  if (stimulus.classWidth % 2 !== 0) return null;
   const total = totalFrequency(bins);
   const doubledWeighted = bins.reduce((sum, bin) => sum + (bin.lower + bin.upper) * bin.frequency, 0);
-  const answer = formatDecimal(doubledWeighted, 2 * total);
+  const denominator = 2 * total;
+  if (doubledWeighted % denominator !== 0) return null;
+  const answer = String(doubledWeighted / denominator);
   const weightedLower = formatDecimal(bins.reduce((sum, bin) => sum + bin.lower * bin.frequency, 0), total);
   const weightedUpper = formatDecimal(bins.reduce((sum, bin) => sum + bin.upper * bin.frequency, 0), total);
   const unweightedMidpointMean = formatDecimal(bins.reduce((sum, bin) => sum + bin.lower + bin.upper, 0), 2 * bins.length);
@@ -496,12 +505,12 @@ function groupedMeanDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
     ],
     explanation: {
       keyIdea: "Use each class midpoint x with its frequency f, then compute Σfx / Σf.",
-      steps: [`Σf = ${total}.`, `Σfx = ${formatDecimal(doubledWeighted, 2)}.`, `Mean = Σfx/Σf = ${answer}.`],
+      steps: [`Σf = ${total}.`, `Σfx = ${doubledWeighted / 2}.`, `Mean = Σfx/Σf = ${answer}.`],
       workingTable: {
         headers: ["Class", "f", "Class mark x", "fx"],
         rows: bins.map((bin) => {
           const midpointNumerator = bin.lower + bin.upper;
-          return [interval(bin), String(bin.frequency), formatDecimal(midpointNumerator, 2), formatDecimal(midpointNumerator * bin.frequency, 2)];
+          return [interval(bin), String(bin.frequency), String(midpointNumerator / 2), String((midpointNumerator * bin.frequency) / 2)];
         }),
       },
     },
@@ -520,7 +529,8 @@ function groupedModeDraft(seed: string, stimulus: Di009Stimulus): Di009Draft | n
   const denominator = 2 * f1 - f0 - f2;
   if (denominator <= 0) return null;
   const numerator = modal.lower * denominator + (f1 - f0) * stimulus.classWidth;
-  const answer = formatDecimal(numerator, denominator);
+  if (numerator % denominator !== 0) return null;
+  const answer = String(numerator / denominator);
   const midpoint = formatDecimal(modal.lower + modal.upper, 2);
   const lowerShift = formatDecimal((modal.lower - stimulus.classWidth) * denominator + (f1 - f0) * stimulus.classWidth, denominator);
   const wrongSwap = formatDecimal(modal.lower * denominator + (f1 - f2) * stimulus.classWidth, denominator);
