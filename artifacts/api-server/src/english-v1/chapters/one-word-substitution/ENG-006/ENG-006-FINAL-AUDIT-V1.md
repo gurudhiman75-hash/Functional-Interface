@@ -1,4 +1,4 @@
-# ENG-006 — One-word Substitution — Final Audit V1
+# ENG-006 — One-word Substitution — Final Audit V2
 
 Status: `IMPLEMENTATION_COMPLETE__HUMAN_EDITORIAL_REVIEW_PENDING__REVIEW_ONLY`
 
@@ -10,22 +10,27 @@ Status: `IMPLEMENTATION_COMPLETE__HUMAN_EDITORIAL_REVIEW_PENDING__REVIEW_ONLY`
 | CP002 — Standard competitive substitutions | 240 | 72 | 96 | 72 |
 | CP003 — Advanced substitutions | 240 | 48 | 96 | 96 |
 | CP004 — Confusable/context-sensitive substitutions | 180 | 36 | 72 | 72 |
-| **Total** | **840** | **216** | **348** | **276** |
+| CP005 — Extended competitive breadth | 320 | 80 | 128 | 112 |
+| CP006 — Long-tail/high-confusion calibration | 240 | 48 | 96 | 96 |
+| **Total** | **1,400** | **344** | **572** | **484** |
 
 ## Final quality invariants
 
 The chapter-wide audit verifies:
 
-- exactly **840 unique answer keys** across all four checkpoints;
+- exactly **1,400 unique answer keys** across all six checkpoints;
 - no exact answer overlap between checkpoints;
 - no exact duplicate definitions;
+- cross-CP semantic-similarity inspection for inflated lexical variants;
 - every term has a non-empty definition and semantic category;
 - every checkpoint supports Easy / Medium / Hard;
 - each generated question has four unique options;
 - the correct answer is deterministic and replayable;
-- all generated distractors come from the same broad semantic domain;
-- every one of the 840 entries is exercised by the final soak;
-- CP004 specifically stresses confusable role/family terminology rather than random option mixing.
+- generated distractors come from the same broad semantic domain;
+- every one of the 1,400 entries is exercised by the final soak;
+- CP004 stresses close legal/social/confusable families;
+- CP005 expands competitive-exam breadth rather than adding trivial variants;
+- CP006 adds high-confusion long-tail material and replaces derivative study-field padding with genuinely new logic/reasoning vocabulary.
 
 ## Lifecycle
 
