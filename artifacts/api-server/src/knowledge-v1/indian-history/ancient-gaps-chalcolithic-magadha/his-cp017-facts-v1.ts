@@ -11,7 +11,7 @@ export const HIS_CP017_FACTS_V1:readonly Fact[]=[
   ["chal-banas-region","The Banas culture developed in south-eastern Rajasthan.",["NIOS-HISTORY-315-LESSON3-CHALCOLITHIC"]],
   ["chal-banas-sites","Ahar near Udaipur and Gilund were important sites of the Banas culture.",["NIOS-HISTORY-315-LESSON3-CHALCOLITHIC"]],
   ["chal-banas-dates","The Banas culture is placed approximately between 2600 BCE and 1900 BCE.",["NIOS-HISTORY-315-LESSON3-CHALCOLITHIC"]],
-  ["chal-kayatha-region","Kayatha culture is associated with the Chambal region of Madhya Pradesh.",["NIOS-HISTORY-315-LESSON3-CHALCOLITHIC"]],
+  ["chal-kayatha-region","Kayatha culture developed in the Chambal region of Madhya Pradesh.",["NIOS-HISTORY-315-LESSON3-CHALCOLITHIC"]],
   ["chal-kayatha-dates","The Kayatha culture is placed approximately between 2100 BCE and 2000 BCE.",["NIOS-HISTORY-315-LESSON3-CHALCOLITHIC"]],
   ["chal-malwa-dates","The Malwa culture is placed approximately between 1700 BCE and 1400 BCE.",["NIOS-HISTORY-315-LESSON3-CHALCOLITHIC"]],
   ["chal-navdatoli","Navdatoli in western Madhya Pradesh was an important site of the Malwa culture.",["NIOS-HISTORY-315-LESSON3-CHALCOLITHIC"]],
