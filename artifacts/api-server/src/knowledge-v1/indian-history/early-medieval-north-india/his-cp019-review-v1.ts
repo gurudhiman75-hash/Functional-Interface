@@ -34,7 +34,9 @@ export function generateHisCp019ReviewBatchV1():HisCp019ReviewQuestion[]{
     const correctIndex=options.indexOf(answer);
     const note=HIS_CP019_EXPLANATION_NOTES_V1[n];
     if(!note)throw new Error(`Missing HIS-CP-019 explanation note ${n}`);
-    const explanation=`${canonicalExplanation(factIds)} ${note}`.trim();
+    const explanation=n===60
+      ? "After Gurjara-Pratihara decline, several Rajput states became prominent in northern India. Mahmud of Ghazni exposed regional defensive weaknesses through repeated raids, while Muhammad Ghori converted later victories at Tarain and Chandawar into lasting territorial control."
+      : `${canonicalExplanation(factIds)} ${note}`.trim();
     return{
       questionId:`HIS-CP019-V1-${String(n).padStart(3,"0")}`,
       chapterId:"HIS-001",cpId:"HIS-CP-019",
