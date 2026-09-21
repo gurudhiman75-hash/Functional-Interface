@@ -12,6 +12,8 @@ const STEM_REVISIONS_V2: Readonly<Record<string,string>> = Object.freeze({
   "What did current-account convertibility mainly allow?": "What did current-account convertibility allow?",
   "Which reform pair deals mainly with different areas of the economy?": "Which reform pair deals with different areas of the economy?",
   "Which statement best summarises the direction of the 1991 reforms?": "Which statement correctly summarises the direction of the 1991 reforms?",
+  "Which change best shows the shift away from the Licence Raj in 1991?": "Which reform marked the shift away from the Licence Raj in 1991?",
+  "Which committee is closely linked with India's financial-sector reforms of 1991?": "Which committee examined India's financial sector in 1991?",
 });
 
 export function generateEcoCp016ReviewV2(): EcoCp016ReviewQuestion[] {
