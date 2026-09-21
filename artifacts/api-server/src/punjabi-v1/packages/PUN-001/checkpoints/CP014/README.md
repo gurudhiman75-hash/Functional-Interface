@@ -3,14 +3,14 @@
 Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
 
 ## Exhaustive audited authority surface
-- 13 curated Punjabi passages
+- 50 curated Punjabi passages (13 retained donor passages + 37 new breadth-expansion passages)
 - 42 authored passage-question authorities
   - 15 factual
   - 11 inferential
   - 13 title
   - 3 summary
 - 215 distinct administrative terminology concepts
-- 257 total atomic authorities
+- 405 total atomic authorities
 
 The donor administrative bank contained 300 rows. Case, spacing, hyphen, punctuation and duplicate concept variants collapse to 215 distinct English administrative concepts. Each concept has one concise exam-facing Punjabi term; all donor variant IDs remain traceable.
 
@@ -27,7 +27,7 @@ No fixed numerical authority target is used.
 - F08 Two-statement terminology verification — Hard
 
 ## Governed semantic breadth
-1,643 semantic combinations before answer-order permutations.
+2,235 semantic combinations before answer-order permutations.
 
 ### Passage breadth
 F07 enumerates every ordered pair of two distinct questions from the same passage.
