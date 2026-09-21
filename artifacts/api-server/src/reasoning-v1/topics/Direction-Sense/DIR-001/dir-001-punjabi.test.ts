@@ -89,6 +89,27 @@ for (const ql of DIR_001_QLS) {
     assert.ok(!internalLeak.test(explanationText), `${ql.qlId} explanation internal leak: ${explanationText}`);
     assert.ok(!unnatural.test(explanationText), `${ql.qlId} unnatural explanation: ${explanationText}`);
     assert.ok(punjabi.explanation.steps.length >= 2);
+    const qlNumber = Number(ql.qlId.slice(-3));
+    if (qlNumber >= 11 && qlNumber <= 15) {
+      assert.doesNotMatch(explanationText, /ਇੱਕ ਬਿੰਦੂ ਨੂੰ ਪੱਕਾ ਮੰਨ ਕੇ|ਵੱਖ-ਵੱਖ ਕਥਨਾਂ ਤੋਂ ਮਿਲੇ ਬਿੰਦੂ/);
+      const firstRelation = english.structuredPrompt.relations?.[0];
+      if (firstRelation?.distance != null) {
+        assert.match(explanationText, new RegExp(`${firstRelation.distance} ਮੀਟਰ`));
+      }
+      if (ql.qlId === "DIR-QL-012" && /√/.test(String(english.explanation?.calculationLine ?? ""))) {
+        assert.match(explanationText, /√/);
+      }
+    }
+    if (qlNumber >= 16 && qlNumber <= 22) {
+      assert.doesNotMatch(explanationText, /ਹਰ ਵਿਅਕਤੀ ਦੀ ਚਾਲ ਕ੍ਰਮਵਾਰ ਲਗਾ ਕੇ|ਸਭ ਤੋਂ ਨੇੜੇ ਜਾਂ ਸਭ ਤੋਂ ਦੂਰ ਬਿੰਦੂ/);
+      const firstStep = english.structuredPrompt.paths?.[0]?.steps?.[0];
+      if (firstStep?.distance != null) {
+        assert.match(explanationText, new RegExp(`${firstStep.distance} ਮੀਟਰ`));
+      }
+      if (["DIR-QL-017", "DIR-QL-018"].includes(ql.qlId) && /√/.test(String(english.explanation?.calculationLine ?? ""))) {
+        assert.match(explanationText, /√/);
+      }
+    }
     const diagrams = [punjabi.questionDiagram, punjabi.explanation.diagram].filter(Boolean) as any[];
     for (const diagram of diagrams) {
       assert.ok(typeof diagram.svg === "string" && diagram.svg.includes("<svg"));
