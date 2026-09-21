@@ -1,11 +1,12 @@
 import { writeFileSync } from "node:fs";
 import type { PunjabiDifficulty } from "../../../../core/types";
-import { CP014_FAMILIES } from "./engine";\nimport { CP014_ALL_PASSAGES } from "./CP014-passages";
+import { CP014_FAMILIES } from "./engine";
+import { CP014_ALL_PASSAGES } from "./CP014-passages";
 
 const plan:Record<PunjabiDifficulty,readonly [string,number][]>={
- Easy:[["F01",15],["F04",25]],
- Medium:[["F02",10],["F03",10],["F05",10],["F06",10]],
- Hard:[["F07",20],["F08",20]],
+ Easy:[["F01",20],["F04",20]],
+ Medium:[["F02",15],["F03",15],["F05",5],["F06",5]],
+ Hard:[["F07",30],["F08",10]],
 };
 const strides:Record<string,number>={F01:1,F02:3,F03:5,F04:17,F05:19,F06:23,F07:13,F08:29};
 const out:string[]=[
@@ -18,6 +19,7 @@ const out:string[]=[
  "Easy tests factual retrieval and English-to-Punjabi terminology. Medium tests inference, title/summary, Punjabi-to-English terminology and mapping. Hard tests two-question passage resolution and two-statement terminology verification.",
  ""
 ];
+
 const fingerprints=new Set<string>(),familyCounts=new Map<string,number>(),f08Outcomes=new Set<string>();
 for(const difficulty of ["Easy","Medium","Hard"] as PunjabiDifficulty[]){
  out.push("## "+difficulty,"");
@@ -45,5 +47,20 @@ for(const difficulty of ["Easy","Medium","Hard"] as PunjabiDifficulty[]){
 if(fingerprints.size!==120)throw new Error("Expected 120 unique review questions, got "+fingerprints.size);
 for(const family of CP014_FAMILIES)if((familyCounts.get(family.familyId)??0)===0)throw new Error(family.familyId+" missing from review pack");
 if(f08Outcomes.size!==4)throw new Error("F08 review must expose all four truth outcomes");
+
+out.push("## Complete passage authority appendix","");
+for(const passage of CP014_ALL_PASSAGES){
+ out.push("### "+passage.id+" — "+passage.title,"",passage.textPa,"");
+ for(const q of passage.questions){
+  out.push(
+   "#### "+q.qId+" — "+q.type,"",
+   q.questionStem,"",
+   "A. "+q.correctAnswer,
+   ...q.distractors.map((d,i)=>String.fromCharCode(66+i)+". "+d),"",
+   "**Answer:** A. "+q.correctAnswer,"",
+   "**Explanation:** "+q.explanationPa,""
+  );
+ }
+}
 writeFileSync("PUN-001-CP014-REVIEW.md",out.join("\n"),"utf8");
-console.log("Wrote PUN-001-CP014-REVIEW.md with "+fingerprints.size+" unique questions across all "+CP014_FAMILIES.length+" families");
+console.log("Wrote PUN-001-CP014-REVIEW.md with "+fingerprints.size+" generated questions plus complete "+CP014_ALL_PASSAGES.length+"-passage appendix");
