@@ -58,6 +58,23 @@ for (const ql of DIR_001_QLS) {
       assert.ok(hindi.options.every((option) => /^\d+\.\d मीटर$/.test(option.label)), `DIR-QL-010 decimal formatting: ${hindi.options.map((option) => option.label)}`);
     }
     assert.ok(hindi.explanation.steps.length >= 2);
+    if (["DIR-QL-001", "DIR-QL-002"].includes(ql.qlId)) {
+      assert.ok(hindi.explanation.steps.length >= 1 + (english.structuredPrompt.turns?.length ?? 0));
+      assert.ok(hindi.explanation.steps.slice(1).every((step) => /°/.test(step)), `${ql.qlId} must show degree arithmetic`);
+    }
+    if (ql.qlId === "DIR-QL-003") {
+      assert.ok(hindi.explanation.steps.length >= 3);
+      assert.ok(hindi.explanation.steps.slice(0, 2).every((step) => /°/.test(step)), "DIR-QL-003 must show initial/final angles");
+    }
+    if (Number(ql.qlId.slice(-3)) >= 4 && Number(ql.qlId.slice(-3)) <= 10) {
+      assert.doesNotMatch(explanationText, /हर मोड़ के बाद नई मुख-दिशा तय करें|अंतिम विस्थापन से दिशा या न्यूनतम दूरी प्राप्त करें/);
+      const sourceLines = english.explanation?.movementLines ?? [];
+      for (const line of sourceLines) {
+        const match = String(line).match(/(\d+) metres?/);
+        if (match) assert.match(explanationText, new RegExp(`${match[1]} मीटर`), `${ql.qlId} missing movement distance ${match[1]}`);
+      }
+      if (/√/.test(String(english.explanation?.calculationLine ?? ""))) assert.match(explanationText, /√/);
+    }
     const diagrams = [hindi.questionDiagram, hindi.explanation.diagram].filter(Boolean) as any[];
     for (const diagram of diagrams) {
       assert.ok(typeof diagram.svg === "string" && diagram.svg.includes("<svg"));

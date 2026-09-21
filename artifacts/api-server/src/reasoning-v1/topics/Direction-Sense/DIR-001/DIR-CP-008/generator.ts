@@ -321,7 +321,14 @@ function generateHybrid(seed: number): GeneratedAdvancedQuestion {
   const solved = solveHybridIndependent(scenario);
   if (solved !== scenario.answerDirection) throw new Error("Hybrid solver mismatch");
   const answer = { kind: "DIRECTION", direction: solved } as const;
-  const stem = `The diagram gives two position relations. In addition, ${statementText(scenario.textRelation)} Using both sources, in which direction is ${scenario.queryTo} from ${scenario.queryFrom}?`;
+  const writtenRelation = statementText(scenario.textRelation);
+  const stem = variant(seed, [
+    `The diagram shows two position relations. It is also given that ${writtenRelation} Using all the information, in which direction is ${scenario.queryTo} from ${scenario.queryFrom}?`,
+    `Study the two position relations shown in the diagram. In addition, ${writtenRelation} In which direction is ${scenario.queryTo} from ${scenario.queryFrom}?`,
+    `Two position relations are shown in the diagram. Also, ${writtenRelation} Using the diagram and this statement, find the direction of ${scenario.queryTo} from ${scenario.queryFrom}.`,
+    `Use the two relations in the diagram along with this fact: ${writtenRelation} What is the direction of ${scenario.queryTo} from ${scenario.queryFrom}?`,
+    `The diagram provides two position relations, and ${writtenRelation} Considering both sources, where is ${scenario.queryTo} with respect to ${scenario.queryFrom}?`,
+  ]);
   return base({
     qlId: "DIR-QL-044", seed, scenario, answer, options: directionOptions(solved, seed + 401), difficulty: "HARD", stem,
     questionDiagram: buildHybridQuestionDiagram(scenario),
