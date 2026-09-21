@@ -112,20 +112,6 @@ const nativeTerms = [
   "Automatic stabiliser",
   "Debt-creating capital receipt",
   "Non-debt capital receipt",
-  "Economic planning",
-  "Five-Year Plan",
-  "Annual Plan",
-  "Indicative planning",
-  "Cooperative federalism",
-  "Liberalisation",
-  "Privatisation",
-  "Globalisation",
-  "Disinvestment",
-  "Industrial delicensing",
-  "Current-account convertibility",
-  "Trade liberalisation",
-  "Stabilisation",
-  "Structural reform",
 ] as const;
 
 const protectedExamTerms = [
@@ -176,10 +162,6 @@ const protectedExamTerms = [
   "Exceptional Grant",
   "Input Tax Credit",
   "GST Council",
-  "Harrod-Domar model",
-  "Mahalanobis model",
-  "New Industrial Policy",
-  "Narasimham Committee",
 ] as const;
 
 const allowedAbbreviations = [
@@ -245,7 +227,6 @@ const allowedAbbreviations = [
   "CBDT",
   "LERMS",
   "FERA",
-  "NDC",
   "LPG",
 ] as const;
 
