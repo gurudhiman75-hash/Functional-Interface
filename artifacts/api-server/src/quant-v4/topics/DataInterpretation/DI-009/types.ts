@@ -105,9 +105,9 @@ export type Di009QuestionSet = Readonly<{
     statisticsSibling: "STAT-003";
     frequencyPolygonSibling: "DI-010_PLANNED";
     presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS";
-    questionLogicVersion: "DI-009-QUESTION-LOGIC-V2";
+    questionLogicVersion: "DI-009-QUESTION-LOGIC-V3";
     setContractVersion: "DI-009-SET-CONTRACT-V3";
-    arithmeticAuthority: "EXACT_INTEGER_RATIONAL";
+    arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING";
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
     questionBankStatus: "NOT_STORED";
