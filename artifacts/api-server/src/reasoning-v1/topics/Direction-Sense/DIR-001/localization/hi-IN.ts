@@ -8,6 +8,7 @@ import {
   nameHi,
   pathMovementLineHi,
   pathSummaryLineHi,
+  relationSentence,
   reverseTurnCalculationStepsHi,
   turnCalculationStepsHi,
   type R,
@@ -182,10 +183,68 @@ function renderExplanation(english: R): LocalizedDirectionExplanation {
   }
 
   if (["DIR-QL-011", "DIR-QL-012", "DIR-QL-013", "DIR-QL-014", "DIR-QL-015"].includes(qlId)) {
-    return { ...base, steps: ["एक संदर्भ बिंदु को स्थिर मानकर बाकी बिंदुओं को क्रम से रखें।", qlId === "DIR-QL-037" ? "प्रत्येक अतिरिक्त कथन को हटाकर शेष विन्यास की संगति जाँचें।" : "स्वतंत्र मार्गों से प्राप्त स्थान एक-दूसरे से मेल खाने चाहिए।", "अब पूछे गए बिंदुओं का आपसी संबंध पढ़ें।"], resultLine: `विन्यास से उत्तर ${answer} मिलता है।` };
+    const relations = (s.relations ?? []).map((relation: R) => relationSentence(relation, true));
+    const steps: string[] = ["दिए गए संबंधों को एक ही मानचित्र पर रखें:", ...relations];
+    if (qlId === "DIR-QL-012") {
+      const query = asR(s.query);
+      const coordinates = asR(s.coordinates);
+      const subject = asR(coordinates[query.subject]);
+      const reference = asR(coordinates[query.reference]);
+      const dx = Number(subject.x ?? 0) - Number(reference.x ?? 0);
+      const dy = Number(subject.y ?? 0) - Number(reference.y ?? 0);
+      const horizontal = Math.abs(dx), vertical = Math.abs(dy);
+      steps.push(`${nameHi(query.reference)} से ${nameHi(query.subject)} तक अंतर: ${coordinateText({ x: dx, y: dy })}।`);
+      const distance = Number(asR(english.correctAnswer).distance ?? 0);
+      steps.push(
+        horizontal === 0 || vertical === 0
+          ? `एक ही दिशा में अंतर बचता है, इसलिए सीधी दूरी ${metres(distance)} है।`
+          : `सीधी दूरी = √(${horizontal}² + ${vertical}²) = ${metres(distance)}।`,
+      );
+    } else {
+      steps.push(`पूरे विन्यास से पूछी गई स्थिति/संबंध ${answer} मिलता है।`);
+    }
+    return { ...base, steps, resultLine: `विन्यास से सही उत्तर ${answer} है।` };
   }
   if (["DIR-QL-016", "DIR-QL-017", "DIR-QL-018", "DIR-QL-019", "DIR-QL-020", "DIR-QL-021", "DIR-QL-022"].includes(qlId)) {
-    return { ...base, steps: ["सभी अंतिम स्थानों को समान आरंभिक निर्देशांक-फ्रेम में रखें।", "प्रश्न के अनुसार दिशा, दूरी, चरम स्थान या समान स्थान की तुलना करें।"], resultLine: `अंतिम स्थानों की तुलना से उत्तर ${answer} है।` };
+    const paths = (s.paths ?? []) as R[];
+    const referenceLabel = english.metadata?.sameOrigin ? "O" : "P";
+    const steps: string[] = [];
+    for (const path of paths) {
+      const movements = (path.steps ?? []).map(
+        (step: R) => `${metres(step.distance)} ${directionHi(step.direction)} की ओर`,
+      ).join(" → ");
+      steps.push(`${nameHi(path.name)}: ${movements}।`);
+      steps.push(`${nameHi(path.name)} का अंतिम स्थान बिंदु ${referenceLabel} से ${coordinateText(asR(path.endpoint))} है।`);
+    }
+    const query = asR(s.query);
+    if (["DIR-QL-016", "DIR-QL-017", "DIR-QL-018"].includes(qlId)) {
+      const subjectName = String(query.subject ?? query.left);
+      const referenceName = String(query.reference ?? query.right);
+      const subjectPath = paths.find((path) => String(path.name) === subjectName);
+      const referencePath = paths.find((path) => String(path.name) === referenceName);
+      if (subjectPath && referencePath) {
+        const dx = Number(subjectPath.endpoint.x) - Number(referencePath.endpoint.x);
+        const dy = Number(subjectPath.endpoint.y) - Number(referencePath.endpoint.y);
+        steps.push(`${nameHi(referenceName)} के अंतिम स्थान से ${nameHi(subjectName)} के अंतिम स्थान तक अंतर: ${coordinateText({ x: dx, y: dy })}।`);
+        if (qlId !== "DIR-QL-016") {
+          const distance = Number(asR(english.correctAnswer).distance ?? 0);
+          const horizontal = Math.abs(dx), vertical = Math.abs(dy);
+          steps.push(
+            horizontal === 0 || vertical === 0
+              ? `अंतिम स्थानों की सीधी दूरी ${metres(distance)} है।`
+              : `सीधी दूरी = √(${horizontal}² + ${vertical}²) = ${metres(distance)}।`,
+          );
+        }
+      }
+    } else if (qlId === "DIR-QL-021") {
+      for (const path of paths) {
+        const distance = Math.round(Math.hypot(Number(path.endpoint.x), Number(path.endpoint.y)));
+        steps.push(`${nameHi(path.name)} की बिंदु O से दूरी = ${metres(distance)}।`);
+      }
+    } else {
+      steps.push(`इन अंतिम स्थानों की तुलना करने पर सही विकल्प ${answer} है।`);
+    }
+    return { ...base, steps, resultLine: `अंतिम स्थानों की तुलना से उत्तर ${answer} है।` };
   }
   if (["DIR-QL-023", "DIR-QL-024", "DIR-QL-025", "DIR-QL-026", "DIR-QL-027", "DIR-QL-028", "DIR-QL-029"].includes(qlId)) {
     return { ...base, steps: ["संकेतित कथनों को विषय–चिह्न–संदर्भ क्रम में पढ़ें।", qlId === "DIR-QL-025" || qlId === "DIR-QL-028" ? "संभावित चिह्नों को एक-एक करके जाँचें और केवल संगत विकल्प रखें।" : "डिकोड किए गए संबंधों या चालों को क्रम से जोड़ें।"], resultLine: `डिकोड करने पर सही उत्तर ${answer} है।` };
