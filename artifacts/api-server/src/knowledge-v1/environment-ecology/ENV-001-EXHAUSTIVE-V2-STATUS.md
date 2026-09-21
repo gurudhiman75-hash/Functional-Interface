@@ -4,7 +4,7 @@
 
 **Lifecycle:** APPROVED / CONTENT-FROZEN  
 **Architecture:** ENV-CP-001 through ENV-CP-020 preserved; no ENV-CP-021 added  
-**Runtime / Question Studio:** content approved and frozen; runtime integration remains a separate workflow
+**Runtime / Question Studio:** ENV-001 registered in the shared `knowledge-v1` Question Studio workflow as REVIEW_ONLY; Question Bank, tests, mock tests, automatic publication and production release remain locked
 
 ## Audit gaps now implemented
 
@@ -37,4 +37,4 @@ Article 48A and Article 51A(g) remain Polity-owned and are not duplicated in Env
 
 Project-owner approval was recorded by merge of PR #1837 on 2026-09-18. The V2 remediation surface is content-frozen. Chapter-wide regression gates are present in `environment-exhaustive-v2.test.ts`.
 
-Multilingual localization is complete and approved through ENV-CP-020. English, Hindi and Punjabi content are content-frozen. Runtime / Question Studio integration remains a separate workflow.
+Multilingual localization is complete and approved through ENV-CP-020. English, Hindi and Punjabi content are content-frozen. ENV-001 is integrated into the shared Question Studio workflow with 20 CPs, 255 QLs and 1,020 frozen questions per language; the integration is review-only and does not authorize Question Bank storage or student release.
