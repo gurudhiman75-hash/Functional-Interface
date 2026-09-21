@@ -14,6 +14,7 @@ assert.equal(HIS_CP017_REVIEW_BATCH_V1.every(q=>q.reviewOnly&&!q.runtimeRegister
 assert.equal(HIS_CP017_REVIEW_BATCH_V1.filter(q=>q.difficulty==="Hard").every(q=>q.sourceFactIds.length>=2),true);
 assert.equal(HIS_CP017_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.stem)),false);
 assert.equal(HIS_CP017_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.explanation)),false);
+assert.equal(HIS_CP017_REVIEW_BATCH_V1.some(q=>/\bbest describ(?:e|es)\b|\bassociated with\b/i.test(q.stem)),false);
 assert.equal(HIS_CP017_REVIEW_BATCH_V1.some(q=>q.stem.length>190),false);
 assert.equal(HIS_CP017_REVIEW_BATCH_V1.some(q=>q.explanation.length<140||q.explanation.length>500),false);
 assert.equal(HIS_CP017_REVIEW_BATCH_V1.some(q=>(q.explanation.match(/[.!?](?:\s|$)/g)??[]).length<2),false);
