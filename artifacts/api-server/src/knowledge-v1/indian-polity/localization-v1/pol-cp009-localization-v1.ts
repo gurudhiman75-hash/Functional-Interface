@@ -119,10 +119,10 @@ function explanation(q:(typeof ENGLISH)[number],l:NativeLocale):string{
  return n(m[ql]!,l)+(l==="hi"?` सही उत्तर: ${ans}।`:` ਸਹੀ ਜਵਾਬ: ${ans}।`);
 }
 function localize(q:(typeof ENGLISH)[number],locale:PolLocaleV1):PolLocalizedQuestionV1{
- if(locale==="en")return {...q,chapterId:"POL-001",cpId:"POL-CP-009",qlName:q.qlName,runtimeRegistered:false,options:[...q.options],locale,localizationV1:{version:POL_LOCALIZATION_V1,englishQuestionId:q.questionId,semanticInvariant:true,cpInvariant:true,qlInvariant:true,difficultyInvariant:true,sourceInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,reviewOnly:true}};
+ if(locale==="en")return {...q,chapterId:"POL-001",cpId:"POL-CP-009",qlName:q.qlName,reviewOnly:true,runtimeRegistered:false,options:[...q.options],locale,localizationV1:{version:POL_LOCALIZATION_V1,englishQuestionId:q.questionId,semanticInvariant:true,cpInvariant:true,qlInvariant:true,difficultyInvariant:true,sourceInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,reviewOnly:true}};
  let options=q.options.map(x=>option(x,locale));let s=stem(q,locale),e=explanation(q,locale);
  if(locale==="pa"){options=options.map(applyPolityPunjabiNativePassV1);s=applyPolityPunjabiNativePassV1(s);e=applyPolityPunjabiNativePassV1(e);}
- return {...q,chapterId:"POL-001",cpId:"POL-CP-009",qlName:q.qlName,runtimeRegistered:false,questionId:`${q.questionId}-${locale.toUpperCase()}`,stem:s,options,canonicalAnswer:options[q.correctIndex]!,explanation:e,locale,localizationV1:{version:POL_LOCALIZATION_V1,englishQuestionId:q.questionId,semanticInvariant:true,cpInvariant:true,qlInvariant:true,difficultyInvariant:true,sourceInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,reviewOnly:true}};
+ return {...q,chapterId:"POL-001",cpId:"POL-CP-009",qlName:q.qlName,reviewOnly:true,runtimeRegistered:false,questionId:`${q.questionId}-${locale.toUpperCase()}`,stem:s,options,canonicalAnswer:options[q.correctIndex]!,explanation:e,locale,localizationV1:{version:POL_LOCALIZATION_V1,englishQuestionId:q.questionId,semanticInvariant:true,cpInvariant:true,qlInvariant:true,difficultyInvariant:true,sourceInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,reviewOnly:true}};
 }
 export function generatePolCp009LocalizedReviewV1(locale:PolLocaleV1):PolLocalizedQuestionV1[]{return ENGLISH.map(q=>localize(q,locale));}
 export const POL_CP009_LOCALIZATION_V1_ENGLISH_COUNT=ENGLISH.length;
