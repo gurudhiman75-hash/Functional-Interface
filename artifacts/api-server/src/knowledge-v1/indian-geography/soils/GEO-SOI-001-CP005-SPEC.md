@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP005 — Laterite Soils
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-SOI-001-QL-037` to `GEO-SOI-001-QL-045`
 
@@ -30,7 +30,7 @@ Permanent QLs: `GEO-SOI-001-QL-037` to `GEO-SOI-001-QL-045`
 - Distractors remain plausible Indian soil, climate, region or crop confusions.
 - No option-by-option explanation clutter.
 - Every item carries source and fact provenance.
-- Review-only lifecycle; runtime publication disabled.
+- Content-approved checkpoint authority; runtime publication remains disabled and separately governed.
 
 ## Boundary
 
