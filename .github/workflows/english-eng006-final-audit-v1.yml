@@ -1,7 +1,7 @@
-name: Validate English ENG-006 Final Audit V1
+name: Validate English ENG-006 Final Audit V2
 on:
   pull_request:
-    branches: [feature/eng-006-cp003-advanced-ows-v1, New-main]
+    branches: [feature/eng-006-cp005-extended-ows-v1, New-main]
     types: [opened,reopened,synchronize,ready_for_review]
     paths:
       - artifacts/api-server/src/english-v1/chapters/one-word-substitution/ENG-006/**
@@ -11,7 +11,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: english-eng006-final-audit-v1-${{ github.ref }}
+  group: english-eng006-final-audit-v2-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   validate:
@@ -29,8 +29,8 @@ jobs:
       - run: node artifacts/api-server/dist/eng006-chapter-review.mjs
       - uses: actions/upload-artifact@v4
         with:
-          name: ENG-006-CHAPTER-REVIEW-V1
-          path: dist/english-v1/ENG-006-CHAPTER-REVIEW-V1.md
+          name: ENG-006-CHAPTER-REVIEW-V2
+          path: dist/english-v1/ENG-006-CHAPTER-REVIEW-V2.md
           if-no-files-found: error
           retention-days: 30
       - run: pnpm --dir artifacts/api-server build
