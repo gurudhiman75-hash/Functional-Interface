@@ -156,7 +156,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Laterite soil",
       "Mountain forest soil"
     ],
-    "explanation": "Loose sandy material is typical of arid soil, especially when the region is very dry. Black soil is much more clay-rich and becomes sticky when wet.",
+    "explanation": "Loose sandy material is typical of arid soil, especially when the region is very dry. Black soil is much more clay-rich and becomes sticky when wet, so the textures are easy to separate in field identification.",
     "sourceFactIds": [
       "ARID-SANDY-ID"
     ]
@@ -169,7 +169,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "answer": "Arid soil is generally sandy, while black soil is generally clayey",
     "distractors": [
       "Both soils are usually heavy clay",
-      "Arid soil is mainly peat, while black soil is pure sand",
+      "Arid soil is peat-rich, while black soil is pure sand",
       "Black soil is always coarser than arid soil"
     ],
     "explanation": "Arid soil is usually sandy, whereas black soil has a fine clay-rich texture. This contrast is useful for separating two soil groups that occur in different climatic settings.",
@@ -428,7 +428,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Thick peat and permanent saturation",
       "Fresh silt and annual renewal"
     ],
-    "explanation": "Arid soil is typically poor in both humus and moisture. Dry climate and rapid evaporation limit the water and organic matter available in the soil.",
+    "explanation": "Arid soil is typically poor in both humus and moisture. Dry climate and rapid evaporation limit the water and organic matter available in the soil, reducing its natural productivity.",
     "sourceFactIds": [
       "ARID-HUMUS-MOISTURE"
     ]
@@ -572,7 +572,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Black soil",
       "Forest soil"
     ],
-    "explanation": "Calcium-rich kankar in lower horizons is a standard feature of arid soil. Combined with a dry setting, it strongly supports the identification.",
+    "explanation": "Calcium-rich kankar in lower horizons is a standard feature of arid soil. Combined with a dry setting and sandy surface material, it strongly supports the identification.",
     "sourceFactIds": [
       "ARID-KANKAR-ID"
     ]
@@ -668,7 +668,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Floods deposit silt → kankar disappears → soil freezes",
       "Sand becomes clay → salts vanish → water stops"
     ],
-    "explanation": "Calcium enrichment in lower horizons produces kankar. Once the layer becomes hard and continuous, it can obstruct the downward movement of water.",
+    "explanation": "Calcium enrichment in lower horizons produces kankar. Once the layer becomes hard and continuous, it can obstruct the downward movement of water and reduce deep infiltration.",
     "sourceFactIds": [
       "ARID-KANKAR-WATER-CHAIN"
     ]
