@@ -24,7 +24,7 @@ for(const e of all){assert.ok(e.answer.trim().length>1);assert.ok(e.definition.t
 const generators=[generateEng006Cp001QuestionV1,generateEng006Cp002QuestionV1,generateEng006Cp003QuestionV1,generateEng006Cp004QuestionV1,generateEng006Cp005QuestionV1,generateEng006Cp006QuestionV1] as const;
 const seen=new Set<string>(),positions=[0,0,0,0];
 for(let i=0;i<42000;i++){
-  const cp=i%6,difficulty=(["easy","medium","hard"]as const)[i%3],generator=generators[cp]!;
+  const cp=i%6,difficulty=(["easy","medium","hard"]as const)[Math.floor(i/6)%3],generator=generators[cp]!;
   const q:any=generator({seed:`eng006-final-v2:${i}`,difficulty});
   seen.add(`${cp+1}:${q.metadata.entryId}`);
   positions[q.correctOptionIndex]++;
