@@ -62,6 +62,12 @@ function reciprocalQuestion(sum: number, frame: number) {
   }
 }
 
+function fractionWorking(numerator: number, denominator: number, value: Rational) {
+  const raw = `${numerator}/${denominator}`;
+  const simplified = formatRational(value);
+  return raw === simplified ? raw : `${raw} = ${simplified}`;
+}
+
 function squareQuestion(sum: number, frame: number) {
   switch (frame % 4) {
     case 0:
@@ -101,7 +107,7 @@ export function generateAlgCp012EnglishReviewV4(
       explanation: [
         "For positive x, y and z, use the Cauchy inequality:",
         "(x + y + z)(1/x + 1/y + 1/z) ≥ (1 + 1 + 1)² = 9.",
-        `Since x + y + z = ${sum}, we get 1/x + 1/y + 1/z ≥ 9/${sum} = ${formatRational(canonicalAnswer)}.`,
+        `Since x + y + z = ${sum}, we get 1/x + 1/y + 1/z ≥ ${fractionWorking(9, sum, canonicalAnswer)}.`,
         `Equality occurs when x = y = z = ${formatRational(balancedVariable)}, so this lower bound is attainable.`,
         `Therefore the least value is ${formatRational(canonicalAnswer)}.`,
       ].join(" "),
@@ -134,7 +140,7 @@ export function generateAlgCp012EnglishReviewV4(
     balancedVariable,
     explanation: [
       "Use the Cauchy inequality (x + y + z)² ≤ 3(x² + y² + z²).",
-      `With x + y + z = ${sum}, this gives x² + y² + z² ≥ ${sum * sum}/3 = ${formatRational(canonicalAnswer)}.`,
+      `With x + y + z = ${sum}, this gives x² + y² + z² ≥ ${fractionWorking(sum * sum, 3, canonicalAnswer)}.`,
       `Equality occurs when x = y = z = ${formatRational(balancedVariable)}.`,
       `Therefore the minimum value is ${formatRational(canonicalAnswer)}.`,
     ].join(" "),
