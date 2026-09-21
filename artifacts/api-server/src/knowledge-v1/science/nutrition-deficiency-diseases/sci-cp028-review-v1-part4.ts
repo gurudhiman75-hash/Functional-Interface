@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Sweating prevents kidney filtration",
       "Water cannot be absorbed by the intestine"
     ],
-    "Sweat is largely water, so heavy sweating increases body-water loss.",
+    "Sweat is largely water, so heavy sweating increases body-water loss. Replacing both water and electrolytes is important after prolonged or heavy sweating.",
     [
       "SWEATING-WATER-LOSS"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "It is the body's chief protein",
       "It can be omitted from a balanced diet"
     ],
-    "Water does not provide energy, but it is indispensable for normal physiology.",
+    "Water does not provide energy, but it is indispensable for normal physiology. Its lack of calories does not reduce its importance for circulation, chemical reactions and temperature regulation.",
     [
       "WATER-NO-CALORIES"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Excess dietary fibre",
       "Excess protein storage"
     ],
-    "Rapid fluid and salt loss can disturb circulation and cellular function even when food intake is otherwise adequate.",
+    "Rapid fluid and salt loss can disturb circulation and cellular function even when food intake is otherwise adequate. Severe diarrhoea can quickly cause dehydration and electrolyte imbalance before calorie deficiency becomes the immediate threat.",
     [
       "DIARRHOEA-WATER-ELECTROLYTES"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Vitamin B12 only",
       "Iodine"
     ],
-    "Citrus fruits such as oranges and lemons are common dietary sources of vitamin C.",
+    "Citrus fruits such as oranges and lemons are common dietary sources of vitamin C. These fruits are especially useful because vitamin C is water-soluble and needs regular dietary replacement.",
     [
       "CITRUS-VITAMIN-C"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Cooking salt",
       "Water"
     ],
-    "Pulses are important plant sources of protein.",
+    "Pulses are important plant sources of protein. They also provide fibre, minerals and other nutrients in addition to plant protein.",
     [
       "PULSES-PROTEIN"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Vegetable oil only",
       "Table salt only"
     ],
-    "Milk and dairy products are common sources of calcium.",
+    "Milk and dairy products are common sources of calcium. Calcium from dairy supports bone mineralization and many other calcium-dependent body processes.",
     [
       "DAIRY-CALCIUM"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Plain water only",
       "Starch alone"
     ],
-    "Green leafy vegetables and pulses can contribute useful dietary iron.",
+    "Green leafy vegetables and pulses can contribute useful dietary iron. Combining plant iron sources with vitamin-C-rich foods can improve absorption of non-haem iron.",
     [
       "FOOD-SOURCES-IRON"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Only cooking oil",
       "Only salt and water"
     ],
-    "Calcium can be obtained from several non-dairy sources, including certain greens, fortified foods, pulses and seeds.",
+    "Calcium can be obtained from several non-dairy sources, including certain greens, fortified foods, pulses and seeds. A varied selection of these foods is useful because calcium content and absorption differ among plant sources.",
     [
       "NONDAIRY-CALCIUM"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Only saturated fat",
       "An iodine tablet"
     ],
-    "Vitamin C can improve absorption of non-haem iron from plant foods.",
+    "Vitamin C can improve absorption of non-haem iron from plant foods. Vitamin C keeps non-haem iron in a form that is absorbed more readily from the intestine.",
     [
       "VITAMIN-C-IRON-ABSORPTION"
     ]
@@ -139,14 +139,14 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which pair is correctly matched?",
+    "Which nutrient–deficiency pair is correctly matched?",
     "Vitamin A — night blindness",
     [
       "Vitamin C — rickets",
       "Vitamin D — scurvy",
       "Iron — goitre"
     ],
-    "Vitamin A deficiency is classically associated with night blindness.",
+    "Vitamin A deficiency is classically linked to night blindness. Night blindness is the classic visual clue because vitamin A is required for normal dim-light vision.",
     [
       "MATCH-A-NIGHT-BLINDNESS"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Water intoxication",
       "Iodine excess"
     ],
-    "Adequate energy cannot substitute for protein needed for tissue growth and repair.",
+    "Adequate energy cannot substitute for protein needed for tissue growth and repair. Protein-rich foods must therefore be added rather than simply increasing the amount of starch eaten.",
     [
       "PROTEIN-MALNUTRITION-INTEGRATED"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Iodine",
       "Iron"
     ],
-    "The symptom and diet pattern both point toward inadequate vitamin A.",
+    "The symptom and diet pattern both point toward inadequate vitamin A. Foods rich in beta-carotene or preformed vitamin A can help correct inadequate intake.",
     [
       "VITAMIN-A-DIET-REASONING"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Variety eliminates the need for water",
       "Only vitamins require varied foods"
     ],
-    "No single common food supplies all nutrients in ideal amounts, so dietary variety improves nutrient adequacy.",
+    "No single common food supplies all nutrients in ideal amounts, so dietary variety improves nutrient adequacy. Variety also reduces the chance that repeated reliance on one food leaves a particular nutrient consistently low.",
     [
       "DIET-VARIETY"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Vitamin C deficiency",
       "Vitamin A deficiency"
     ],
-    "Bowed legs in a growing child are typical of rickets due to impaired bone mineralization from vitamin D deficiency.",
+    "Bowed legs in a growing child are typical of rickets due to impaired bone mineralization from vitamin D deficiency. The absence of anaemia or scurvy signs helps separate vitamin D deficiency from iron or vitamin C deficiency.",
     [
       "DEFICIENCY-DISCRIMINATION-RICKETS"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp028ReviewSpec[] = [
       "Iodine deficiency",
       "Vitamin C deficiency"
     ],
-    "The combination of pallor, fatigue and low haemoglobin strongly matches iron-deficiency anaemia.",
+    "The combination of pallor, fatigue and low haemoglobin strongly matches iron-deficiency anaemia. Iron is the first nutrient to consider because the defining laboratory clue is reduced haemoglobin.",
     [
       "DEFICIENCY-DISCRIMINATION-IRON"
     ]
