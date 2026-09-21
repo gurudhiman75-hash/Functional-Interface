@@ -7,6 +7,25 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function visibleSvgText(svg: string) {
+  return [...svg.matchAll(/<(?:title|desc|text)[^>]*>([^<]*)<\/(?:title|desc|text)>/g)]
+    .map((match) => match[1] ?? "")
+    .join(" ");
+}
+
+function questionLearnerText(question: { stem: string; options: readonly string[]; answer: string; explanation: { keyIdea: string; steps: readonly string[]; workingTable?: { headers: readonly string[]; rows: readonly (readonly string[])[] } } }) {
+  const table = question.explanation.workingTable;
+  return [
+    question.stem,
+    ...question.options,
+    question.answer,
+    question.explanation.keyIdea,
+    ...question.explanation.steps,
+    ...(table?.headers ?? []),
+    ...(table?.rows.flat() ?? []),
+  ].join(" ");
+}
+
 function parseBarGeometry(svg: string) {
   return [...svg.matchAll(/<rect data-bin-index="(\d+)"[^>]* x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)"[^>]* fill="([^"]+)"/g)].map((match) => ({
     index: Number(match[1]),
@@ -86,6 +105,7 @@ for (const profile of profiles) {
     assert(new Set(bars.map((bar) => bar.fill)).size === bars.length, `${profile} ${seed} did not render distinct class colours.`);
     assert(!svg.includes("data-bar-top=") && !svg.includes("data-bar-value-label="), `${profile} ${seed} leaked decorative or answer-helping bar labels.`);
     assert(svg.includes('preserveAspectRatio="xMidYMid meet"') && svg.includes("<title>") && svg.includes("<desc>"), `${profile} ${seed} lost responsive/accessibility metadata.`);
+    assert(!/\d+\.\d+/u.test(visibleSvgText(svg)), `${profile} ${seed} histogram shows decimal learner-facing labels.`);
 
     for (let index = 1; index < bars.length; index += 1) {
       const previousRight = bars[index - 1]!.x + bars[index - 1]!.width;
@@ -107,6 +127,7 @@ for (const profile of profiles) {
 
     for (const question of first.questions) {
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${profile} ${seed} ${question.kind} has invalid options.`);
+      assert(!/\d+\.\d+/u.test(questionLearnerText(question)), `${profile} ${seed} ${question.kind} exposes decimal learner-facing values.`);
       assert(!/\bassociated\b|\bshortcut\b|\bcommon trap\b|\btrap\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${profile} ${seed} ${question.kind} leaked machine-like filler.`);
       const tableRequired = new Set<Di009TaskKind>(["MEDIAN_CLASS_IDENTIFICATION", "KTH_OBSERVATION_CLASS", "APPROX_GROUPED_MEAN_FROM_HISTOGRAM", "APPROX_GROUPED_MODE_FROM_HISTOGRAM"]);
       if (tableRequired.has(question.kind)) assert(question.explanation.workingTable, `${profile} ${seed} ${question.kind} is missing its working table.`);
