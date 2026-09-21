@@ -2,12 +2,12 @@ import { createRng } from "../../../../core/deterministic-rng";
 import { semanticHash } from "../../../../core/semantic-hash";
 import type { PunjabiDifficulty,PunjabiGeneratedQuestion } from "../../../../core/types";
 import {
-  CP014_ALL_PASSAGES,
   CP014_ADMIN_TERMS,
   type PassageQuestion,
   type ReadingPassageItem,
   type CP014AdministrativeAuthority,
-} from "./CP014-authorities";\nimport { CP014_ALL_PASSAGES } from "./CP014-passages";
+} from "./CP014-authorities";
+import { CP014_ALL_PASSAGES } from "./CP014-passages";
 
 function norm(v:string){return v.normalize("NFC").trim();}
 function ord(seed:number,cap:number){const n=Math.trunc(seed)-1;return ((n%cap)+cap)%cap;}
