@@ -2,27 +2,27 @@ export type Eng006Cp006Difficulty="easy"|"medium"|"hard";
 export interface Eng006Cp006EntryV1{id:string;answer:string;definition:string;category:string;difficulty:Eng006Cp006Difficulty;}
 
 const RAW=`
-#fields_of_study
-anthropology|the scientific study of humans, their societies, and cultures
-archaeology|the study of human history through excavation and material remains
-ornithology|the scientific study of birds
-entomology|the scientific study of insects
-numismatics|the study or collection of coins and currency
-philately|the study or collection of postage stamps
-palaeontology|the scientific study of fossils and prehistoric life
-seismology|the scientific study of earthquakes and seismic waves
-meteorology|the scientific study of weather and the atmosphere
-etymology|the study of the origin and historical development of words
-genealogy|the study or tracing of family descent and ancestry
-mycology|the scientific study of fungi
-ichthyology|the scientific study of fish
-herpetology|the scientific study of reptiles and amphibians
-climatology|the scientific study of climate
-volcanology|the scientific study of volcanoes and volcanic phenomena
-oceanography|the scientific study of oceans
-demography|the statistical study of human populations
-criminology|the scientific study of crime and criminal behaviour
-sociology|the scientific study of society and social relationships
+#logic_reasoning
+axiom|a statement accepted as true without needing proof and used as a basis for reasoning
+postulate|a principle assumed to be true as a starting point for argument or theory
+theorem|a proposition proved by logical reasoning from accepted principles
+hypothesis|a proposed explanation that can be tested by evidence
+conjecture|an opinion or conclusion formed on incomplete evidence
+corollary|a result that follows naturally from an already established proposition
+premise|a statement on which an argument or conclusion is based
+inference|a conclusion reached from evidence and reasoning
+deduction|reasoning from general principles to a specific conclusion
+induction|reasoning from specific observations to a general conclusion
+syllogism|a form of reasoning in which a conclusion follows from two stated premises
+fallacy|an error in reasoning that makes an argument invalid or misleading
+sophistry|clever but misleading reasoning intended to deceive
+analogy|a comparison used to explain a similarity between otherwise different things
+dictum|a formal or authoritative statement or pronouncement
+maxim|a short statement expressing a general rule of conduct or truth
+truism|a statement that is obviously true and says little that is new
+platitude|an overused statement presented as meaningful or original
+cliché|an expression or idea that has become unoriginal through overuse
+proposition|a statement put forward for consideration, proof, or argument
 #crafts_trades
 luthier|a person who makes or repairs stringed musical instruments
 engraver|a person who cuts designs or lettering into hard surfaces
