@@ -58,12 +58,17 @@ function numericRescueCandidates(answer: string): Di009Candidate[] {
   return [];
 }
 
+function hasDecimalToken(value: string) {
+  return /\d+\.\d+/u.test(value);
+}
+
 function buildOptions(seed: string, answer: string, candidates: readonly Di009Candidate[]) {
+  if (hasDecimalToken(answer)) throw new Error(`DI-009 ${seed} produced a decimal answer '${answer}' after the integer-only policy.`);
   const retained: Di009Option[] = [];
   const seen = new Set<string>();
   const add = (candidate: Di009Candidate) => {
     const key = candidate.text.trim().toLowerCase();
-    if (!candidate.text.trim() || seen.has(key)) return;
+    if (!candidate.text.trim() || hasDecimalToken(candidate.text) || seen.has(key)) return;
     seen.add(key);
     retained.push(candidate);
   };
