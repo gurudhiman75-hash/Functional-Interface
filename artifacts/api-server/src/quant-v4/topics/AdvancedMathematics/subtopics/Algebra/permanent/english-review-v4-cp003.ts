@@ -130,9 +130,10 @@ function cyclicExplanation(q: number, answer: Rational) {
     ? `-${q}a/${denominator}`
     : `-${Math.abs(q)}a/${denominator}`;
   return [
-    `From a + ${coefficient}/b = ${q}, we get b = ${bExpression}.`,
-    `Substitute this in b + ${coefficient}/c = ${q}. Then ${coefficient}/c = ${q} - b = ${simplified}.`,
-    `So c = ${q} - ${coefficient}/a, and therefore c + ${coefficient}/a = ${formatRational(answer)}.`,
+    `From a + ${coefficient}/b = ${q}, move a to the other side and solve for b. This gives b = ${bExpression}.`,
+    `Now substitute this value of b into b + ${coefficient}/c = ${q}. Then ${coefficient}/c = ${q} - b = ${simplified}.`,
+    `Rearranging this relation gives c = ${q} - ${coefficient}/a.`,
+    `Therefore the required expression is c + ${coefficient}/a = (${q} - ${coefficient}/a) + ${coefficient}/a = ${formatRational(answer)}.`,
   ].join(" ");
 }
 
