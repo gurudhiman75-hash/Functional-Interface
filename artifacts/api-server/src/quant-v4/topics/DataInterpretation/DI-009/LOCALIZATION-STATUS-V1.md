@@ -1,6 +1,6 @@
 # DI-009 Histogram — Hindi/Punjabi Localization Review V1
 
-Status: HI_PA_REVIEW_CANDIDATE · NOT QUESTION-STUDIO-ACTIVE
+Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## Scope
 
@@ -26,7 +26,7 @@ DI-009 now recognizes only its owned permanent QLs DI-QL-001 through DI-QL-013. 
 - Deterministic replay is required.
 - Numeric/arithmetic parity with the approved English authority is required.
 - Learner-facing numeric values are integer-only. Percentage, grouped-mean and grouped-mode questions explicitly use nearest-whole answers; working tables and histogram axis labels contain no decimals.
-- Question Studio remains English-only until localized editorial approval.
+- Question Studio supports English, Hindi and Punjabi in CONTROLLED_REVIEW.
 - Question Bank remains NOT_STORED.
 - Tests and mocks remain INELIGIBLE.
 - Public/student publication remains disabled.
@@ -34,4 +34,4 @@ DI-009 now recognizes only its owned permanent QLs DI-QL-001 through DI-QL-013. 
 
 ## Next gate
 
-Human editorial review of Hindi/Punjabi sample output. Only after explicit approval should the localized surfaces be frozen and exposed in controlled Question Studio review.
+Question Bank, tests, mocks, public/student publication and production release remain closed. Any widening beyond controlled Question Studio review requires a later explicit release decision.
