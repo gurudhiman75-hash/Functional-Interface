@@ -33,7 +33,7 @@ function assemble(input:{seed:number;difficulty:PunjabiDifficulty;familyId:strin
   metadata:{
    engine:"punjabi-v1",packageId:"PUN-001",cpId:"PUN-001-CP014",familyId:input.familyId,subtype:input.subtype,
    difficulty:input.difficulty,language:"pa-Guru",seed:input.seed,authorityIds:input.authorityIds,
-   generatorRevision:"1.0.0-forward-port",fingerprint,lifecycle:"REVIEW_ONLY"
+   generatorRevision:"1.1.0-comprehension-breadth",fingerprint,lifecycle:"REVIEW_ONLY"
   }
  };
 }
