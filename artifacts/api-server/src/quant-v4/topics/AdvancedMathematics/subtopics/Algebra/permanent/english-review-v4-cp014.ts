@@ -186,6 +186,13 @@ function generateIndeterminateSetComparison(seed: number): AlgCp014EnglishReview
   };
 }
 
+function verdictSentence(text: string) {
+  const normalized = text.startsWith("Statement ")
+    ? text
+    : `${text.charAt(0).toLowerCase()}${text.slice(1)}`;
+  return `Therefore, ${normalized}.`;
+}
+
 function statementExplanation(
   label: "Statement I" | "Statement II",
   statement: AlgCp014SingleVariableStatement,
@@ -213,7 +220,7 @@ function dataSufficiencyExplanation(
     return [
       first,
       second,
-      `Therefore ${base.answer.text}.`,
+      verdictSentence(base.answer.text),
     ].join(" ");
   }
 
@@ -240,7 +247,7 @@ function dataSufficiencyExplanation(
       `Statement I is ${statementI.replace(/^I\.\s*/, "")}.`,
       `Statement II is ${statementII.replace(/^II\.\s*/, "")}, and every coefficient and the constant are ${formatRational(scale)} times those in Statement I.`,
       `So both statements represent the same line, not two independent equations. Infinitely many (x, y) pairs remain possible, so x is not unique.`,
-      `Therefore ${base.answer.text}.`,
+      verdictSentence(base.answer.text),
     ].join(" ");
   }
 
