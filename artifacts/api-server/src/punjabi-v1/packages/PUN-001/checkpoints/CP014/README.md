@@ -1,14 +1,14 @@
 # PUN-001 CP014 — ਪਾਠ-ਬੋਧ ਅਤੇ ਪ੍ਰਬੰਧਕੀ ਅਨੁਵਾਦ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Exhaustive audited authority surface
 - 50 curated Punjabi passages (13 retained donor passages + 37 new breadth-expansion passages)
-- 42 authored passage-question authorities
-  - 15 factual
-  - 11 inferential
-  - 13 title
-  - 3 summary
+- 190 authored passage-question authorities
+  - 52 factual
+  - 48 inferential
+  - 50 title
+  - 40 summary
 - 215 distinct administrative terminology concepts
 - 405 total atomic authorities
 
@@ -44,4 +44,4 @@ Every retained terminology authority participates in forward translation, revers
 - review lifecycle remains closed to runtime publication
 
 ## Lifecycle
-No permanent QL allocation, Question Studio registration, Question Bank write, test/mock eligibility, or public/student publication is authorized by this checkpoint.
+Owner editorial approval is recorded for this expanded CP014 content. Runtime lifecycle remains REVIEW_ONLY; no Question Bank write, test/mock eligibility, or public/student publication is authorized by this approval.
