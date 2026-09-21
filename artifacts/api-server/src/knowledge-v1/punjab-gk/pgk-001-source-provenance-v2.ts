@@ -46,7 +46,22 @@ function reviewBatch(module: Record<string, unknown>): readonly ReviewRow[] {
 }
 
 function canonicalFactIds(module: Record<string, unknown>): readonly string[] {
-  return exportedValue<readonly string[]>(module, "_FACT_IDS") ?? [];
+  const explicit = exportedValue<readonly string[]>(module, "_FACT_IDS");
+  if (explicit?.length) return explicit;
+
+  const factArrays = Object.entries(module)
+    .filter(([name, value]) => /_FACTS(?:_V\d+)?$/.test(name) && Array.isArray(value))
+    .sort(([a], [b]) => b.localeCompare(a));
+
+  const rows = (factArrays[0]?.[1] as readonly unknown[] | undefined) ?? [];
+  return Object.freeze(
+    rows
+      .map((row) => {
+        if (!row || typeof row !== "object") return "";
+        return String((row as Record<string, unknown>).id ?? "").trim();
+      })
+      .filter(Boolean),
+  );
 }
 
 function sourceRegistry(module: Record<string, unknown>): Readonly<Record<string, unknown>> {
