@@ -49,6 +49,8 @@ for (const prototypeId of ALG_CP008_ENGLISH_REVIEW_V4_TARGETS) {
     assert(!first.questionBankWritable && !first.testEligible && !first.publiclyPublishable, `${prefix}: production eligibility leaked`);
     assert(first.explanation.length >= 190, `${prefix}: explanation is too thin`);
     assert(!/associated|mainly|therefore therefore/i.test(first.question + " " + first.explanation), `${prefix}: mechanical wording leaked`);
+    assert(!first.question.includes("(0)/(1)") && !first.question.includes("(1)/(1)"), `${prefix}: constant side is rendered as a trivial fraction`);
+    assert(!/including any excluded value/i.test(first.question), `${prefix}: ambiguous excluded-value wording leaked`);
 
     if (prototypeId === "ALG-CP001-CAND-006") {
       assert(first.state.kind === "DOMAIN_CHECK", `${prefix}: wrong domain-check state`);
