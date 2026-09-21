@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP006 — Arid Soils
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-SOI-001-QL-046` to `GEO-SOI-001-QL-054`
 
@@ -30,7 +30,7 @@ Permanent QLs: `GEO-SOI-001-QL-046` to `GEO-SOI-001-QL-054`
 - Irrigation questions may use western Rajasthan as the standard cultivability example without taking over CP008 distribution ownership.
 - No option-by-option explanation clutter.
 - Every item carries source and fact provenance.
-- Review-only lifecycle; runtime publication disabled.
+- Content-approved checkpoint authority; runtime publication remains disabled and separately governed.
 
 ## Boundary
 
