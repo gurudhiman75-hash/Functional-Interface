@@ -121,7 +121,7 @@ export function generateDi009PermanentQuestion(input: { seed: string; examProfil
       question,
       traceability: {
         representation: "HISTOGRAM" as const,
-        questionLogicVersion: "DI-009-QUESTION-LOGIC-V2" as const,
+        questionLogicVersion: "DI-009-QUESTION-LOGIC-V3" as const,
         setContractVersion: "DI-009-SET-CONTRACT-V3" as const,
         presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS" as const,
         permanentTaskMaterialization: "DETERMINISTIC_RETRY_IF_REQUIRED" as const,
