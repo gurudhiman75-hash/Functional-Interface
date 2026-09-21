@@ -76,7 +76,7 @@ for (const profile of profiles) {
     assert(first.stimulus.kind === "HISTOGRAM", `${profile} ${seed} lost histogram semantics.`);
     assert(!("svg" in first.stimulus), `${profile} ${seed} embedded presentation markup inside semantic stimulus.`);
     assert(first.traceability.presentationAuthority === "DATA_INTERPRETATION_SHARED_VISUALS", `${profile} ${seed} lost shared presentation authority.`);
-    assert(first.traceability.questionLogicVersion === "DI-009-QUESTION-LOGIC-V2", `${profile} ${seed} changed approved question logic version.`);
+    assert(first.traceability.questionLogicVersion === "DI-009-QUESTION-LOGIC-V3", `${profile} ${seed} changed approved question logic version.`);
     assert(first.traceability.setContractVersion === "DI-009-SET-CONTRACT-V3", `${profile} ${seed} lost semantic stimulus contract.`);
     assert(first.stimulus.bins.length >= 5 && first.stimulus.bins.length <= 9, `${profile} ${seed} has invalid class count.`);
     assert(first.stimulus.bins.every((bin, index) => index === 0 || first.stimulus.bins[index - 1]!.upper === bin.lower), `${profile} ${seed} has non-contiguous classes.`);
@@ -161,7 +161,7 @@ for (const profile of profiles) {
 
 console.log(JSON.stringify({
   status: "PASS_DI_009_SEMANTIC_V3_SHARED_VISUAL_V1",
-  questionLogicVersion: "DI-009-QUESTION-LOGIC-V2",
+  questionLogicVersion: "DI-009-QUESTION-LOGIC-V3",
   setContractVersion: "DI-009-SET-CONTRACT-V3",
   presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS",
   diagramTheme: DI_HISTOGRAM_VISUAL_THEME,
