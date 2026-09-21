@@ -19,7 +19,7 @@ function numericTokens(value:string){
  return [...new Set(withoutListNumbers.match(/\d+[A-Z]?(?:\([a-z0-9]+\))?/g)??[])].sort();
 }
 const PA_BANNED=["ਸੰਸ਼ੋਧਨ","ਰਜਿਸਟ੍ਰੇਸ਼ਨ","ਉਪਚਾਰ","ਅਭਿਵੈਕਤੀ","ਅਪ੍ਰਸੰਗਿਕ","ਬਾਧਕ","ਯੋਗਤਾ-ਸ਼ਰਤ","ਸੰਬੰਧਿਤ","ਹਰ ਵਿਅਕਤੀਆਂ","ਸੰਕਾਨੂੰਨ"] as const;
-const PA_STEM_BANNED=["ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ","ਕਿਹੜੇ ਕਿਸਮ","ਕਿਹੜੇ ਸਾਬਕਾ","ਕਿਹੜਾ ਅਨੁਛੇਦ 51A","ਕਿਸ ਅਨੁਛੇਦ ਦਾ ਵਿਸ਼ਾ","ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ","ਹੇਠ ਹੇਠ","ਇਸ ਅਧਿਆਇ ਵਿੱਚ ਮੁੱਖ ਤੌਰ 'ਤੇ","ਕਿਹੜੇ ਅਨੁਛੇਦ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ? ਕਿਹੜੇ"] as const;
+const PA_STEM_BANNED=["ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ","ਕਿਹੜੇ ਕਿਸਮ","ਕਿਹੜੇ ਸਾਬਕਾ","ਕਿਹੜਾ ਅਨੁਛੇਦ 51A","ਕਿਸ ਅਨੁਛੇਦ ਦਾ ਵਿਸ਼ਾ","ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ","ਹੇਠ ਹੇਠ","ਇਸ ਅਧਿਆਇ ਵਿੱਚ ਮੁੱਖ ਤੌਰ 'ਤੇ","ਕਿਹੜੇ ਅਨੁਛੇਦ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ? ਕਿਹੜੇ","ਨਿਯਮ ਕਿਹੜੇ ਅਨੁਛੇਦ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ","ਅਧਿਕਾਰ ਕਿਹੜੇ ਅਨੁਛੇਦ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ","ਪਰਿਭਾਸ਼ਾ ਕਿਹੜੇ ਅਨੁਛੇਦ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ","ਮੁੜ-ਸਮਾਂਜਸ","ਕਿਸਦੀ ਪ੍ਰਸੰਨਤਾ"] as const;
 const HI_STEM_BANNED=["कौन-सा अनुच्छेद 51A","किस पूर्व देश","इस अध्याय में मुख्यतः"] as const;
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
  const original=text(q);
@@ -43,7 +43,11 @@ for(const [cpId,english,gen] of cps){
   localized.forEach((q,i)=>{
    const e=english[i]!;
    assert.equal(q.localizationV1.englishQuestionId,e.questionId);
-   assert.equal(q.cpId,e.cpId);assert.equal(q.qlId,e.qlId);assert.equal(q.difficulty,e.difficulty);
+   assert.equal(q.chapterId,"POL-001",`${q.questionId}: chapter invariant`);
+   assert.equal(q.cpId,cpId,`${q.questionId}: CP invariant`);
+   assert.equal(typeof q.qlName,"string");assert.ok(q.qlName.length>0,`${q.questionId}: qlName missing`);
+   assert.equal(q.reviewOnly,true);assert.equal(q.runtimeRegistered,false);
+   assert.equal(q.qlId,e.qlId);assert.equal(q.difficulty,e.difficulty);
    assert.equal(q.correctIndex,e.correctIndex);assert.deepEqual(q.sourceIds,e.sourceIds);assert.deepEqual(q.sourceFactIds,e.sourceFactIds);
    assert.equal(q.options.length,4);assert.equal(new Set(q.options).size,4,`${q.questionId}: options unique`);
    assert.equal(q.canonicalAnswer,q.options[q.correctIndex],`${q.questionId}: answer/index parity`);
