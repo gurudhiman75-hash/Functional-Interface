@@ -25,7 +25,7 @@ DI-009 now recognizes only its owned permanent QLs DI-QL-001 through DI-QL-013. 
 - At least three stem surfaces per permanent QL are exercised in both locales.
 - Deterministic replay is required.
 - Numeric/arithmetic parity with the approved English authority is required.
-- Learner-facing numeric values are integer-only; decimal percentages, grouped means/modes, intermediate working values and histogram axis labels are excluded.
+- Learner-facing numeric values are integer-only. Percentage, grouped-mean and grouped-mode questions explicitly use nearest-whole answers; working tables and histogram axis labels contain no decimals.
 - Question Studio remains English-only until localized editorial approval.
 - Question Bank remains NOT_STORED.
 - Tests and mocks remain INELIGIBLE.
