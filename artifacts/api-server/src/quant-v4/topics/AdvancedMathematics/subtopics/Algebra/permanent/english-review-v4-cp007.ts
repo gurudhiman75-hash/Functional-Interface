@@ -92,10 +92,10 @@ export function generateAlgCp007EnglishReviewV4(
 ): AlgCp007EnglishReviewV4Item {
   if (!Number.isInteger(seed)) throw new Error("ALG-CP007 V4 review requires an integer seed");
   const base = generateAlgCp007DiscoveryItem(prototypeId, seed);
-  if (base.system && "a1" in base.system === false) {
+  if ("d1" in base.system) {
     throw new Error("ALG-CP007 V4 review expected a 2x2 system");
   }
-  const system = base.system as LinearSystem2V;
+  const system: LinearSystem2V = base.system;
   const solved = solveLinearSystem2V(system);
 
   if (prototypeId === "ALG-CP007-CAND-005" && solved.kind !== "NO_SOLUTION") {
