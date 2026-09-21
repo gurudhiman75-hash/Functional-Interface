@@ -92,7 +92,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Desert winds control all mountain soils",
       "The parent material is always the same everywhere"
     ],
-    "explanation": "Mountain environments change quickly with elevation, slope position and vegetation. Forest soil therefore shows noticeable differences in texture and fertility within the same broad region.",
+    "explanation": "Mountain environments change quickly with elevation, slope position and vegetation. Forest soil therefore shows noticeable differences in texture and fertility within the same mountain region.",
     "sourceFactIds": [
       "FOREST-MOUNTAIN-VARIATION"
     ]
@@ -220,7 +220,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Pure peat",
       "Heavy black clay only"
     ],
-    "explanation": "Valley-side forest soils are commonly loamy and silty. Finer particles are more easily retained or deposited there than on steep upper slopes.",
+    "explanation": "Valley-side forest soils are commonly loamy and silty. Finer particles are more easily retained or deposited there than on steep upper slopes, producing a softer and more workable texture.",
     "sourceFactIds": [
       "FOREST-VALLEY-LOAMY-SILTY"
     ]
@@ -245,14 +245,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-057",
     "qlName": "Loamy and silty valley-side soils",
     "difficulty": "Medium",
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which high-Himalayan soil-property pair is correct?",
     "answer": "Valley sides — loamy and silty forest soil",
     "distractors": [
       "Upper slopes — always silty clay",
       "Desert dunes — loamy forest soil",
       "Active floodplains — coarse mountain forest soil"
     ],
-    "explanation": "Forest soil on valley sides is commonly loamy or silty. Upper slopes usually contain coarser material because erosion removes many fine particles.",
+    "explanation": "Forest soil on valley sides is commonly loamy or silty. Upper slopes usually contain coarser material because erosion removes many fine particles and carries them downslope.",
     "sourceFactIds": [
       "FOREST-VALLEY-PAIR"
     ]
@@ -332,7 +332,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Alluvial fans at valley bottoms",
       "Flat floodplains only"
     ],
-    "explanation": "Upper slopes are more exposed to erosion, so fine material is removed more easily. The remaining soil is therefore often coarse-grained.",
+    "explanation": "Upper slopes are more exposed to erosion, so fine material is removed more easily. The remaining soil is therefore often coarse-grained and thinner than soil in protected lower positions.",
     "sourceFactIds": [
       "FOREST-COARSE-SLOPE"
     ]
@@ -348,7 +348,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "High humus turns clay into gravel",
       "Irrigation removes all fine material"
     ],
-    "explanation": "Steep upper slopes experience stronger runoff and denudation. Fine particles are carried downslope, leaving a coarser soil texture behind.",
+    "explanation": "Steep upper slopes experience stronger runoff and denudation. Fine particles are carried downslope, leaving a coarser soil texture behind and reducing the amount of fine material that can accumulate.",
     "sourceFactIds": [
       "FOREST-UPPER-EROSION"
     ]
@@ -364,7 +364,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Valley sides contain only gravel",
       "Slope position does not affect texture"
     ],
-    "explanation": "Upper slopes lose more fine material through erosion, so they are commonly coarse. Valley sides can retain or receive finer loamy and silty material.",
+    "explanation": "Upper slopes lose more fine material through erosion, so they are commonly coarse. Valley sides can retain or receive finer loamy and silty material, producing a clear slope-based contrast.",
     "sourceFactIds": [
       "FOREST-UPPER-VS-VALLEY"
     ]
@@ -524,7 +524,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Strong alkalinity only",
       "High calcium carbonate crusts everywhere"
     ],
-    "explanation": "Acidity is a standard feature of forest soil in high Himalayan snow-zone areas. It commonly appears together with low humus and strong denudation.",
+    "explanation": "Acidity is a standard feature of forest soil in high Himalayan snow-zone areas. It commonly appears together with low humus and strong denudation in exposed high-altitude settings.",
     "sourceFactIds": [
       "FOREST-ACIDITY"
     ]
@@ -533,7 +533,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-060",
     "qlName": "Acidic character in high Himalayan soils",
     "difficulty": "Medium",
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which lower-valley soil-location pair is correct?",
     "answer": "High Himalayan forest soil — acidic",
     "distractors": [
       "Arid soil — acidic because of heavy rainfall",
@@ -620,7 +620,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Continuous fresh flood humus",
       "Very high humus at every altitude"
     ],
-    "explanation": "Low humus is one of the standard traits of forest soil in snow-covered Himalayan areas. It is usually mentioned together with acidity and denudation.",
+    "explanation": "Low humus is one of the standard traits of forest soil in snow-covered Himalayan areas. It is usually mentioned together with acidity and denudation on exposed high slopes.",
     "sourceFactIds": [
       "FOREST-HUMUS-CLUE"
     ]
@@ -652,7 +652,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "High kankar content",
       "Fresh alluvial deposition"
     ],
-    "explanation": "Humus is the decomposed organic component of soil. A low organic-matter reserve therefore means the soil has low humus content.",
+    "explanation": "Humus is the decomposed organic component of soil. A low organic-matter reserve therefore means the soil has low humus content and a weaker organic nutrient store.",
     "sourceFactIds": [
       "FOREST-HUMUS-MEANING"
     ]
