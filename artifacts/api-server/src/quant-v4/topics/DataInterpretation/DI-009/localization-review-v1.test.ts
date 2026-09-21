@@ -80,6 +80,7 @@ for (const locale of locales) {
 
       const text = learnerText(localized);
       assert(!/[A-Za-z]/u.test(text), `${key} leaks Roman learner-facing text: ${text}`);
+      assert(!/\d+\.\d+/u.test(text), `${key} exposes decimal learner-facing values: ${text}`);
       if (locale === "hi-IN") assert(/[\u0900-\u097F]/u.test(text), `${key} lacks Devanagari learner surface.`);
       else assert(/[\u0A00-\u0A7F]/u.test(text), `${key} lacks Gurmukhi learner surface.`);
       assert(localized.question.explanation.steps.length >= 1, `${key} localized explanation is empty.`);
@@ -92,6 +93,7 @@ for (const locale of locales) {
       assert(svg.includes("<svg") && svg.includes('data-di-presentation-layer="shared"'), `${key} did not render through shared histogram presentation.`);
       const svgText = svgLearnerText(svg);
       assert(!/[A-Za-z]/u.test(svgText), `${key} localized histogram text leaks Roman content: ${svgText}`);
+      assert(!/\d+\.\d+/u.test(svgText), `${key} localized histogram shows decimal labels: ${svgText}`);
       if (locale === "hi-IN") assert(/[\u0900-\u097F]/u.test(svgText), `${key} localized histogram lacks Devanagari text.`);
       else assert(/[\u0A00-\u0A7F]/u.test(svgText), `${key} localized histogram lacks Gurmukhi text.`);
       svgChecks += 1;
