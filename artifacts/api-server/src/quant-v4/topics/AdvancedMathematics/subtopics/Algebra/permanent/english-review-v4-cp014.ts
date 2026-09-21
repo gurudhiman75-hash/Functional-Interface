@@ -213,7 +213,7 @@ function dataSufficiencyExplanation(
     return [
       first,
       second,
-      `Therefore ${base.answer.text.toLowerCase()}.`,
+      `Therefore ${base.answer.text}.`,
     ].join(" ");
   }
 
@@ -240,7 +240,7 @@ function dataSufficiencyExplanation(
       `Statement I is ${statementI.replace(/^I\.\s*/, "")}.`,
       `Statement II is ${statementII.replace(/^II\.\s*/, "")}, and every coefficient and the constant are ${formatRational(scale)} times those in Statement I.`,
       `So both statements represent the same line, not two independent equations. Infinitely many (x, y) pairs remain possible, so x is not unique.`,
-      `Therefore ${base.answer.text.toLowerCase()}.`,
+      `Therefore ${base.answer.text}.`,
     ].join(" ");
   }
 
@@ -251,9 +251,21 @@ function generateDataSufficiencyReview(
   prototypeId: Exclude<AlgCp014ReviewV4PrototypeId, "ALG-CP014-CAND-002" | "ALG-CP014-CAND-003">,
   seed: number,
 ): AlgCp014EnglishReviewV4Item {
-  const base = generateAlgCp014DiscoveryItem(prototypeId, seed);
+  let base = generateAlgCp014DiscoveryItem(prototypeId, seed);
+  if (prototypeId === "ALG-CP014-CAND-006" && base.statements?.[0] === base.statements?.[1]) {
+    for (let attempt = 1; attempt <= 12; attempt += 1) {
+      const candidate = generateAlgCp014DiscoveryItem(prototypeId, seed + attempt * 104729);
+      if (candidate.statements?.[0] !== candidate.statements?.[1]) {
+        base = candidate;
+        break;
+      }
+    }
+  }
   if (base.answer.kind !== "DATA_SUFFICIENCY") {
     throw new Error(`${prototypeId} did not produce a data-sufficiency answer`);
+  }
+  if (prototypeId === "ALG-CP014-CAND-006" && base.statements?.[0] === base.statements?.[1]) {
+    throw new Error("CAND-006 review must not repeat the exact same sufficient statement twice");
   }
   const question = [base.stem, ...(base.statements ?? [])].join("\n");
 
