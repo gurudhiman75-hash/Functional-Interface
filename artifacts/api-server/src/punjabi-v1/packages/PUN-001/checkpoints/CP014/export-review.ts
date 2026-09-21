@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
 import type { PunjabiDifficulty } from "../../../../core/types";
-import { CP014_FAMILIES } from "./engine";
+import { CP014_FAMILIES } from "./engine";\nimport { CP014_ALL_PASSAGES } from "./CP014-passages";
 
 const plan:Record<PunjabiDifficulty,readonly [string,number][]>={
  Easy:[["F01",15],["F04",25]],
@@ -13,7 +13,7 @@ const out:string[]=[
  "",
  "Status: HUMAN REVIEW PENDING",
  "",
- "Authority inventory: 42 passage-question authorities + 215 distinct administrative terminology concepts = 257 atomic authorities.",
+ "Authority inventory: 190 passage-question authorities + 215 distinct administrative terminology concepts = 405 atomic authorities.",
  "",
  "Easy tests factual retrieval and English-to-Punjabi terminology. Medium tests inference, title/summary, Punjabi-to-English terminology and mapping. Hard tests two-question passage resolution and two-statement terminology verification.",
  ""
