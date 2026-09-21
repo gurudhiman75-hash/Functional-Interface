@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { CP014_ADMIN_TERMS } from "./CP014-authorities";\nimport { CP014_ALL_PASSAGES } from "./CP014-passages";
+import { CP014_ADMIN_TERMS } from "./CP014-authorities";
+import { CP014_ALL_PASSAGES } from "./CP014-passages";
 import { CP014_FAMILIES,getCP014BreadthReport } from "./engine";
 
 assert.equal(CP014_ALL_PASSAGES.length,50);
