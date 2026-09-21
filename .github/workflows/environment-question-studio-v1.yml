@@ -19,7 +19,6 @@ on:
       - "artifacts/admin-app/src/features/question-studio/api.ts"
       - "artifacts/admin-app/src/pages/content/QuestionStudioLivePage.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx"
-      - ".github/workflows/environment-question-studio-v1.yml"
   workflow_dispatch:
 
 concurrency:
