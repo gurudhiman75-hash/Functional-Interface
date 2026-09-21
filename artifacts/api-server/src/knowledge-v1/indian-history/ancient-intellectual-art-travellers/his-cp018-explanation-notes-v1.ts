@@ -38,7 +38,7 @@ export const HIS_CP018_EXPLANATION_NOTES_V1:Readonly<Record<number,string>>={
 37:"Ajanta painters used Buddhist biography and Jataka narratives as major themes. The paintings therefore worked as both art and religious storytelling.",
 38:"Structural temples marked a shift from rock-cut or more perishable forms to freestanding sacred buildings. The Gupta period is important in this development in north India.",
 39:"Nagara is the conventional name for the north Indian temple style in this context. It is commonly contrasted with the Dravida tradition of the south.",
-40:"Bhitargaon and Deogarh show different building materials within Gupta structural architecture. Both examples also place Vishnu at the centre of their religious imagery."
+40:"Bhitargaon and Deogarh show different building materials within Gupta structural architecture. Both examples also place Vishnu at the centre of their religious imagery.",
 41:"Nalanda's foreign students show that its reputation extended beyond India. Its importance was educational and religious rather than military.",
 42:"Land revenue helped sustain a large residential centre of learning. Hsuan Tsang's reference to one hundred supporting villages shows the scale of its economic base.",
 43:"Mahabalipuram's rathas were cut from single masses of stone. Narasimhavarman's patronage links the Pallava dynasty directly with these monuments.",
