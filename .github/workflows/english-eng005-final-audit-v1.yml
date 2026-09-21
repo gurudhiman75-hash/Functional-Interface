@@ -1,0 +1,36 @@
+name: Validate English ENG-005 Final Audit V1
+on:
+  pull_request:
+    branches: [feature/eng-005-cp003-advanced-idioms-v1, New-main]
+    types: [opened,reopened,synchronize,ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/idioms-phrases/ENG-005/**
+      - artifacts/api-server/src/english-v1/tests/eng-005-*.test.ts
+      - .github/workflows/english-eng005-final-audit-v1.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: english-eng005-final-audit-v1-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-005-final-audit-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/eng005-final.test.mjs
+      - run: node artifacts/api-server/dist/eng005-final.test.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/idioms-phrases/ENG-005/eng-005-chapter-review-v1-export.ts --bundle --platform=node --format=esm --outfile=dist/eng005-chapter-review.mjs
+      - run: node artifacts/api-server/dist/eng005-chapter-review.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ENG-005-CHAPTER-REVIEW-V1
+          path: dist/english-v1/ENG-005-CHAPTER-REVIEW-V1.md
+          if-no-files-found: error
+          retention-days: 30
+      - run: pnpm --dir artifacts/api-server build

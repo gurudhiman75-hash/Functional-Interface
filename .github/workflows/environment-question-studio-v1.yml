@@ -1,0 +1,70 @@
+name: Validate Environment Question Studio V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/environment-ecology/**"
+      - "artifacts/api-server/src/question-studio/engine-registry.ts"
+      - "artifacts/api-server/src/question-studio/engine-registry.test.ts"
+      - "artifacts/api-server/src/question-studio/engine-types.ts"
+      - "artifacts/api-server/src/question-studio/standard-lifecycle.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-env001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-env001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
+      - "artifacts/admin-app/src/features/question-studio/api.ts"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioLivePage.tsx"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx"
+  workflow_dispatch:
+
+concurrency:
+  group: environment-question-studio-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-environment-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ENV-001 Question Studio contract
+        run: |
+          mkdir -p artifacts/api-server/dist/environment-question-studio
+          pnpm --dir artifacts/api-server exec esbuild             src/question-studio/engines/knowledge-v1-env001-adapter-v1.test.ts             --bundle --packages=external --platform=node --format=esm             --outfile=dist/environment-question-studio/knowledge-v1-env001-adapter-v1.test.mjs
+          node artifacts/api-server/dist/environment-question-studio/knowledge-v1-env001-adapter-v1.test.mjs
+
+      - name: Run shared engine registry contract
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild             src/question-studio/engine-registry.test.ts             --bundle --packages=external --platform=node --format=esm             --outfile=dist/environment-question-studio/engine-registry.test.mjs
+          node artifacts/api-server/dist/environment-question-studio/engine-registry.test.mjs
+
+      - name: Revalidate Environment statement opener and multilingual corpus
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild             src/knowledge-v1/environment-ecology/localization-v1/env-statement-opener-consistency-proof-v1.ts             --bundle --packages=external --platform=node --format=esm             --outfile=dist/environment-question-studio/env-statement-opener-consistency-proof-v1.mjs
+          node artifacts/api-server/dist/environment-question-studio/env-statement-opener-consistency-proof-v1.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+
+      - name: Build admin application
+        run: pnpm run build:admin

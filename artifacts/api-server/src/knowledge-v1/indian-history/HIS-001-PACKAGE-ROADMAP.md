@@ -58,3 +58,8 @@ Authority: `HIS-001-COVERAGE-GAP-AUDIT-V1.md`
 Planned supplemental checkpoints: `HIS-CP-017` through `HIS-CP-024`, targeting approximately 480–576 genuinely new questions. The planning range is not a padding quota; only source-backed, exam-relevant facts should be promoted.
 
 World History remains outside HIS-001 unless separately authorized.
+
+
+### Stem-language rule
+
+History stems should use direct exam wording. Avoid filler such as **“best describes”**, **“associated with”**, **“which correctly identifies”**, and similar mechanical constructions when a direct question can ask the same fact more naturally. Use such wording only when the relationship itself is genuinely what is being tested.

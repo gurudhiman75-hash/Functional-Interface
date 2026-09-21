@@ -134,4 +134,40 @@ for (const [cpId, subtopic, rulePrefix, difficulty] of [
   assert.equal(result.questions.every((question) => question.reviewOnly === true), true);
 }
 
+const env001 = packages.find((pkg) => pkg.packageId === "ENV-001");
+assert.ok(env001);
+assert.equal(env001.engineId, "knowledge-v1");
+assert.equal(env001.enabled, true);
+assert.equal(env001.cpIds.length, 20);
+assert.deepEqual(env001.supportedLanguages, ["en", "hi", "pa"]);
+assert.deepEqual(env001.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+assert.equal(env001.runtimeMode, "review-only");
+assert.equal(env001.lifecycleStage, "REVIEW_ONLY");
+assert.equal(env001.questionBankStatus, "NOT_STORED");
+assert.equal(env001.questionBankWritable, false);
+assert.equal(env001.testEligible, false);
+assert.equal(env001.mockTestEligible, false);
+assert.equal(env001.publiclyPublishable, false);
+assert.equal(env001.productionReleaseAuthorized, false);
+assert.equal(env001.metadata?.qlCount, 255);
+assert.equal(env001.metadata?.questionsPerLanguage, 1020);
+assert.equal(resolveQuestionStudioEngine({ packageId: "ENV-001" }).engineId, "knowledge-v1");
+
+const env001Result = await generateQuestionStudioQuestions({
+  packageId: "ENV-001",
+  canonicalProblemId: "ENV-CP-018",
+  language: "pa",
+  difficulty: "Mixed",
+  runtimeMode: "review-only",
+  count: 2,
+  seed: "engine-registry-env001-smoke",
+});
+assert.equal(env001Result.engineId, "knowledge-v1");
+assert.equal(env001Result.questions.length, 2);
+assert.equal(env001Result.questions.every((question) => question.packageId === "ENV-001"), true);
+assert.equal(env001Result.questions.every((question) => question.cpId === "ENV-CP-018"), true);
+assert.equal(env001Result.questions.every((question) => question.language === "pa"), true);
+assert.equal(env001Result.questions.every((question) => question.reviewOnly === true), true);
+assert.equal(env001Result.questions.every((question) => question.questionBankWritable === false), true);
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");

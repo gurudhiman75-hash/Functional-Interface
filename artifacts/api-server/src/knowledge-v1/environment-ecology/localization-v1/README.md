@@ -61,4 +61,4 @@ Quality gates:
 - CP016 explicitly combines V1 institutions with approved Indian environmental-movements V2 remediation
 - CP020 is bound to the approved V2 integrated capstone
 
-Environment Exhaustive V2 English authority and Multilingual V1 CP001–CP020 are APPROVED / CONTENT-FROZEN. Localized artifacts remain review-only by design and do not change runtime or Question Studio registration.
+Environment Exhaustive V2 English authority and Multilingual V1 CP001–CP020 are APPROVED / CONTENT-FROZEN. ENV-001 is registered in Question Studio through the shared `knowledge-v1` engine for EN/HI/PA review generation. The registration remains REVIEW_ONLY: Question Bank writes, test/mock eligibility, automatic publication and production release are disabled.
