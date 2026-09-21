@@ -4,9 +4,9 @@
 
 ## Permanent authority
 
-- Release: `DI-009-PERMANENT-ENGLISH-REVIEW-P1`
+- Release: `DI-009-PERMANENT-ENGLISH-REVIEW-P2`
 - Canonical problem: `DI-CP-009`
-- Question Studio runtime: `DI009_PERMANENT_ENGLISH_REVIEW_P1`
+- Question Studio runtime: `DI009_PERMANENT_ENGLISH_REVIEW_P2`
 - Permanent QLs: `DI-QL-001` through `DI-QL-013`
 - Question Studio discovery: enabled in `CONTROLLED_REVIEW`
 - English editorial status: `ENGLISH_REVIEW_APPROVED`
