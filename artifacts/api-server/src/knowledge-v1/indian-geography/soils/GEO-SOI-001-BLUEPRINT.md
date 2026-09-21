@@ -1,6 +1,6 @@
 # GEO-SOI-001 — Soils of India
 
-Status: ACTIVE IMPLEMENTATION — CP005 REVIEW
+Status: ACTIVE IMPLEMENTATION — CP001–CP005 APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-SOI-001`
