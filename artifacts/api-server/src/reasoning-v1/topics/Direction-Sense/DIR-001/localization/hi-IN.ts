@@ -1,5 +1,17 @@
 import { generateDirectionQuestion } from "../chapter-registry";
-import { asR, coordinateText, directionHi, metres, nameHi, turnSequence, type R } from "./hindi-foundation";
+import {
+  asR,
+  coordinateText,
+  directionAngleHi,
+  directionHi,
+  metres,
+  nameHi,
+  pathMovementLineHi,
+  pathSummaryLineHi,
+  reverseTurnCalculationStepsHi,
+  turnCalculationStepsHi,
+  type R,
+} from "./hindi-foundation";
 import { localizeDiagramHindi, optionLabelHindi } from "./hindi-editorial-overrides";
 import { renderHindiStem } from "./hindi-stems";
 import type { LocalizedDirectionExplanation, LocalizedDirectionOption, LocalizedDirectionQuestion } from "./types";
@@ -18,11 +30,56 @@ function renderExplanation(english: R): LocalizedDirectionExplanation {
     conclusion: /है[।.]?$/.test(answer) ? `अतः सही निष्कर्ष: ${answer}` : `अतः सही उत्तर ${answer} है।`,
     ...(diagram ? { diagram } : {}),
   };
-  if (["DIR-QL-001", "DIR-QL-002", "DIR-QL-003"].includes(qlId)) {
-    return { ...base, steps: [`निर्देशों को क्रम से लागू करें: ${turnSequence(s.turns ?? []) || `${directionHi(s.initialFacing)} से ${directionHi(s.finalFacing)}`}.`, "दाएँ और बाएँ घुमाव को मूल दिशा पर बार-बार नहीं, वर्तमान दिशा पर लागू करें।"], resultLine: `आवश्यक दिशा/निर्देश ${answer} है।` };
+  if (qlId === "DIR-QL-001") {
+    return {
+      ...base,
+      steps: turnCalculationStepsHi(s.initialFacing, s.turns ?? []),
+      resultLine: `सभी मोड़ लगाने के बाद मुख ${answer} की ओर है।`,
+    };
+  }
+  if (qlId === "DIR-QL-002") {
+    return {
+      ...base,
+      steps: reverseTurnCalculationStepsHi(s.finalFacing, s.turns ?? []),
+      resultLine: `मोड़ों को उलटे क्रम में वापस लेने पर आरंभिक दिशा ${answer} मिलती है।`,
+    };
+  }
+  if (qlId === "DIR-QL-003") {
+    const initialAngle = directionAngleHi(s.initialFacing);
+    const finalAngle = directionAngleHi(s.finalFacing);
+    return {
+      ...base,
+      steps: [
+        `आरंभिक दिशा ${directionHi(s.initialFacing)} है, अर्थात ${initialAngle}°।`,
+        `अंतिम दिशा ${directionHi(s.finalFacing)} है, अर्थात ${finalAngle}°।`,
+        `इन दोनों दिशाओं के बीच आवश्यक परिवर्तन ${answer} है।`,
+      ],
+      resultLine: `इसलिए लिया गया मोड़ ${answer} है।`,
+    };
   }
   if (["DIR-QL-004", "DIR-QL-005", "DIR-QL-006", "DIR-QL-007", "DIR-QL-008", "DIR-QL-009", "DIR-QL-010"].includes(qlId)) {
-    return { ...base, steps: ["हर मोड़ के बाद नई मुख-दिशा तय करें और अगली चाल उसी दिशा में रखें।", "पूर्व-पश्चिम तथा उत्तर-दक्षिण की शुद्ध चालों को अलग-अलग जोड़ें।", qlId === "DIR-QL-008" ? "कुल चली दूरी और सीधी न्यूनतम दूरी अलग राशियाँ हैं।" : "अंतिम विस्थापन से दिशा या न्यूनतम दूरी प्राप्त करें।"], resultLine: `मार्ग का सही परिणाम ${answer} है।` };
+    const sourceExplanation = asR(english.explanation);
+    const movementLines = (sourceExplanation.movementLines ?? []).map((line: string) => pathMovementLineHi(String(line)));
+    const points = asR(sourceExplanation.diagram)?.points ?? [];
+    const endPoint = asR(points.find((point: R) => point.role === "END") ?? {}).coordinate;
+    const steps: string[] = [...movementLines];
+    if (endPoint) {
+      steps.push(`सभी चालें जोड़ने पर अंतिम बिंदु आरंभ से ${coordinateText(asR(endPoint))} है।`);
+    }
+    if (sourceExplanation.netLine) steps.push(pathSummaryLineHi(String(sourceExplanation.netLine)));
+    if (sourceExplanation.calculationLine) steps.push(pathSummaryLineHi(String(sourceExplanation.calculationLine)));
+    if (qlId === "DIR-QL-008") {
+      const total = (asR(sourceExplanation.diagram)?.segments ?? []).reduce(
+        (sum: number, segment: R) => sum + Number(segment.distance ?? 0),
+        0,
+      );
+      steps.push(`कुल चली दूरी = ${total} मीटर; सीधी न्यूनतम दूरी अंतिम विस्थापन से अलग मिलती है।`);
+    }
+    return {
+      ...base,
+      steps,
+      resultLine: `इस मार्ग से सही परिणाम ${answer} है।`,
+    };
   }
   if (["DIR-QL-036", "DIR-QL-037", "DIR-QL-038", "DIR-QL-039", "DIR-QL-040", "DIR-QL-041", "DIR-QL-042", "DIR-QL-043", "DIR-QL-044"].includes(qlId)) {
     if (qlId === "DIR-QL-036") {
