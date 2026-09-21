@@ -142,16 +142,6 @@ function cumulativeFrequencies(bins: readonly Di009HistogramBin[]) {
   return bins.map((bin) => (running += bin.frequency));
 }
 
-function formatDecimal(numerator: number, denominator: number) {
-  const hundredths = Math.floor((Math.abs(numerator) * 100 + denominator / 2) / denominator);
-  const sign = numerator < 0 ? "-" : "";
-  const whole = Math.floor(hundredths / 100);
-  const fraction = hundredths % 100;
-  if (fraction === 0) return `${sign}${whole}`;
-  if (fraction % 10 === 0) return `${sign}${whole}.${fraction / 10}`;
-  return `${sign}${whole}.${String(fraction).padStart(2, "0")}`;
-}
-
 function contextFor(stimulus: Di009Stimulus, locale: Di009LocalizationLocale) {
   const context = CONTEXTS[stimulus.title];
   if (!context) throw new Error(`DI-009 localization is missing context '${stimulus.title}'.`);
@@ -282,14 +272,14 @@ function localizedStem(
       const target = bins[Number(evidence.targetIndex)]!;
       const value = interval(target);
       const surfacesHi = [
-        `वर्ग ${value}, कुल आवृत्ति का कितने प्रतिशत है?`,
-        `कुल प्रेक्षणों में से कितने प्रतिशत अंतराल ${value} में आते हैं?`,
-        `पूरे हिस्टोग्राम में वर्ग ${value} की प्रतिशत हिस्सेदारी ज्ञात कीजिए।`,
+        `निकटतम पूर्ण प्रतिशत में, वर्ग ${value} कुल आवृत्ति का कितने प्रतिशत है?`,
+        `लगभग कितने पूर्ण प्रतिशत प्रेक्षण अंतराल ${value} में आते हैं?`,
+        `पूरे हिस्टोग्राम में वर्ग ${value} की प्रतिशत हिस्सेदारी निकटतम पूर्ण प्रतिशत में ज्ञात कीजिए।`,
       ];
       const surfacesPa = [
-        `ਵਰਗ ${value}, ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`,
-        `ਕੁੱਲ ਪ੍ਰੇਖਣਾਂ ਵਿੱਚੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਅੰਤਰਾਲ ${value} ਵਿੱਚ ਆਉਂਦੇ ਹਨ?`,
-        `ਪੂਰੇ ਹਿਸਟੋਗ੍ਰਾਮ ਵਿੱਚ ਵਰਗ ${value} ਦੀ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸੇਦਾਰੀ ਕੱਢੋ।`,
+        `ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ, ਵਰਗ ${value} ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`,
+        `ਲਗਭਗ ਕਿੰਨੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਪ੍ਰੇਖਣ ਅੰਤਰਾਲ ${value} ਵਿੱਚ ਆਉਂਦੇ ਹਨ?`,
+        `ਪੂਰੇ ਹਿਸਟੋਗ੍ਰਾਮ ਵਿੱਚ ਵਰਗ ${value} ਦੀ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸੇਦਾਰੀ ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਕੱਢੋ।`,
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -352,29 +342,29 @@ function localizedStem(
     }
     case "APPROX_GROUPED_MEAN_FROM_HISTOGRAM": {
       const surfacesHi = [
-        "वर्ग-मध्य मानों का उपयोग करके हिस्टोग्राम द्वारा दर्शाए गए वितरण का अनुमानित औसत ज्ञात कीजिए।",
-        "हिस्टोग्राम से दर्शाया गया अनुमानित अंकगणितीय औसत कितना है?",
-        "प्रत्येक वर्ग के मध्य मान का उपयोग करके समूहित औसत ज्ञात कीजिए।",
-        "वर्ग-मध्य विधि से हिस्टोग्राम का औसत अनुमानित कीजिए।",
+        "वर्ग-मध्य मानों का उपयोग करके वितरण का अनुमानित औसत निकटतम पूर्ण संख्या में ज्ञात कीजिए।",
+        "हिस्टोग्राम से दर्शाया गया अनुमानित अंकगणितीय औसत निकटतम पूर्ण संख्या में कितना है?",
+        "प्रत्येक वर्ग के मध्य मान का उपयोग करके समूहित औसत ज्ञात कीजिए और निकटतम पूर्ण संख्या दीजिए।",
+        "वर्ग-मध्य विधि से हिस्टोग्राम का औसत निकटतम पूर्ण संख्या में अनुमानित कीजिए।",
       ];
       const surfacesPa = [
-        "ਵਰਗ-ਮੱਧ ਮੁੱਲਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਹਿਸਟੋਗ੍ਰਾਮ ਦੁਆਰਾ ਦਰਸਾਈ ਵੰਡ ਦਾ ਅਨੁਮਾਨਿਤ ਔਸਤ ਕੱਢੋ।",
-        "ਹਿਸਟੋਗ੍ਰਾਮ ਤੋਂ ਦਰਸਾਇਆ ਅਨੁਮਾਨਿਤ ਅੰਕਗਣਿਤ ਔਸਤ ਕਿੰਨਾ ਹੈ?",
-        "ਹਰੇਕ ਵਰਗ ਦੇ ਮੱਧ ਮੁੱਲ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਸਮੂਹਿਤ ਔਸਤ ਕੱਢੋ।",
-        "ਵਰਗ-ਮੱਧ ਵਿਧੀ ਨਾਲ ਹਿਸਟੋਗ੍ਰਾਮ ਦਾ ਔਸਤ ਅਨੁਮਾਨਿਤ ਕਰੋ।",
+        "ਵਰਗ-ਮੱਧ ਮੁੱਲਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਵੰਡ ਦਾ ਅਨੁਮਾਨਿਤ ਔਸਤ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਵਿੱਚ ਕੱਢੋ।",
+        "ਹਿਸਟੋਗ੍ਰਾਮ ਤੋਂ ਦਰਸਾਇਆ ਅਨੁਮਾਨਿਤ ਅੰਕਗਣਿਤ ਔਸਤ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਵਿੱਚ ਕਿੰਨਾ ਹੈ?",
+        "ਹਰੇਕ ਵਰਗ ਦੇ ਮੱਧ ਮੁੱਲ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਸਮੂਹਿਤ ਔਸਤ ਕੱਢੋ ਅਤੇ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਦਿਓ।",
+        "ਵਰਗ-ਮੱਧ ਵਿਧੀ ਨਾਲ ਹਿਸਟੋਗ੍ਰਾਮ ਦਾ ਔਸਤ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਵਿੱਚ ਅਨੁਮਾਨਿਤ ਕਰੋ।",
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
     case "APPROX_GROUPED_MODE_FROM_HISTOGRAM": {
       const surfacesHi = [
-        "समूहित आँकड़ों के बहुलक सूत्र से हिस्टोग्राम का अनुमानित बहुलक ज्ञात कीजिए।",
-        "हिस्टोग्राम द्वारा दर्शाए गए वितरण का अनुमानित बहुलक ज्ञात कीजिए।",
-        "बहुलक वर्ग और उसके दोनों पड़ोसी वर्गों की आवृत्तियों से समूहित बहुलक ज्ञात कीजिए।",
+        "समूहित आँकड़ों के बहुलक सूत्र से अनुमानित बहुलक निकटतम पूर्ण संख्या में ज्ञात कीजिए।",
+        "हिस्टोग्राम द्वारा दर्शाए गए वितरण का अनुमानित बहुलक निकटतम पूर्ण संख्या में ज्ञात कीजिए।",
+        "बहुलक वर्ग और उसके दोनों पड़ोसी वर्गों की आवृत्तियों से समूहित बहुलक ज्ञात कीजिए और निकटतम पूर्ण संख्या दीजिए।",
       ];
       const surfacesPa = [
-        "ਸਮੂਹਿਤ ਅੰਕੜਿਆਂ ਦੇ ਬਹੁਲਕ ਸੂਤਰ ਨਾਲ ਹਿਸਟੋਗ੍ਰਾਮ ਦਾ ਅਨੁਮਾਨਿਤ ਬਹੁਲਕ ਕੱਢੋ।",
-        "ਹਿਸਟੋਗ੍ਰਾਮ ਦੁਆਰਾ ਦਰਸਾਈ ਵੰਡ ਦਾ ਅਨੁਮਾਨਿਤ ਬਹੁਲਕ ਕੱਢੋ।",
-        "ਬਹੁਲਕ ਵਰਗ ਅਤੇ ਉਸ ਦੇ ਦੋਨੋਂ ਗੁਆਂਢੀ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਨਾਲ ਸਮੂਹਿਤ ਬਹੁਲਕ ਕੱਢੋ।",
+        "ਸਮੂਹਿਤ ਅੰਕੜਿਆਂ ਦੇ ਬਹੁਲਕ ਸੂਤਰ ਨਾਲ ਅਨੁਮਾਨਿਤ ਬਹੁਲਕ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਵਿੱਚ ਕੱਢੋ।",
+        "ਹਿਸਟੋਗ੍ਰਾਮ ਦੁਆਰਾ ਦਰਸਾਈ ਵੰਡ ਦਾ ਅਨੁਮਾਨਿਤ ਬਹੁਲਕ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਵਿੱਚ ਕੱਢੋ।",
+        "ਬਹੁਲਕ ਵਰਗ ਅਤੇ ਉਸ ਦੇ ਦੋਨੋਂ ਗੁਆਂਢੀ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਨਾਲ ਸਮੂਹਿਤ ਬਹੁਲਕ ਕੱਢੋ ਅਤੇ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਦਿਓ।",
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -467,8 +457,8 @@ function localizedExplanation(
       return pack(
         "वर्ग की आवृत्ति को कुल आवृत्ति से भाग देकर 100 से गुणा करें।",
         "ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ ਨੂੰ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਭਾਗ ਦੇ ਕੇ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।",
-        [`कुल आवृत्ति = ${total}।`, `वर्ग ${interval(target)} की आवृत्ति = ${target.frequency}।`, `प्रतिशत = ${target.frequency}/${total} × 100 = ${question.answer}।`],
-        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}।`, `ਵਰਗ ${interval(target)} ਦੀ ਬਾਰੰਬਾਰਤਾ = ${target.frequency}।`, `ਪ੍ਰਤੀਸ਼ਤ = ${target.frequency}/${total} × 100 = ${question.answer}।`],
+        [`कुल आवृत्ति = ${total}।`, `वर्ग ${interval(target)} की आवृत्ति = ${target.frequency}।`, `प्रतिशत = ${target.frequency}/${total} × 100 ≈ ${question.answer} (निकटतम पूर्ण प्रतिशत)।`],
+        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}।`, `ਵਰਗ ${interval(target)} ਦੀ ਬਾਰੰਬਾਰਤਾ = ${target.frequency}।`, `ਪ੍ਰਤੀਸ਼ਤ = ${target.frequency}/${total} × 100 ≈ ${question.answer} (ਨਜ਼ਦੀਕੀ ਪੂਰਾ ਪ੍ਰਤੀਸ਼ਤ)।`],
       );
     }
     case "FREQUENCY_DIFFERENCE_BETWEEN_CLASSES": {
@@ -493,14 +483,14 @@ function localizedExplanation(
     case "MEDIAN_CLASS_IDENTIFICATION": {
       const cumulative = cumulativeFrequencies(bins);
       const index = Number(evidence.medianIndex);
-      const half = formatDecimal(total, 2);
+      const observationPosition = Math.ceil(total / 2);
       const headers = hi ? ["वर्ग", "आवृत्ति", "संचयी आवृत्ति"] : ["ਵਰਗ", "ਬਾਰੰਬਾਰਤਾ", "ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ"];
       const rows = bins.map((bin, rowIndex) => [interval(bin), String(bin.frequency), String(cumulative[rowIndex])]);
       return pack(
         "कुल आवृत्ति का आधा स्थान निकालें और पहली ऐसी संचयी आवृत्ति खोजें जो उस स्थान तक पहुँचती या उससे आगे जाती है।",
         "ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਦਾ ਅੱਧਾ ਸਥਾਨ ਕੱਢੋ ਅਤੇ ਪਹਿਲੀ ਐਸੀ ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ ਲੱਭੋ ਜੋ ਉਸ ਸਥਾਨ ਤੱਕ ਪਹੁੰਚਦੀ ਜਾਂ ਉਸ ਤੋਂ ਅੱਗੇ ਜਾਂਦੀ ਹੈ।",
-        [`कुल आवृत्ति = ${total}, इसलिए आधा स्थान = ${half}।`, `पहली उपयुक्त संचयी आवृत्ति ${cumulative[index]} है, जो वर्ग ${interval(bins[index]!)} में आती है।`],
-        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}, ਇਸ ਲਈ ਅੱਧਾ ਸਥਾਨ = ${half}।`, `ਪਹਿਲੀ ਉਚਿਤ ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ ${cumulative[index]} ਹੈ, ਜੋ ਵਰਗ ${interval(bins[index]!)} ਵਿੱਚ ਆਉਂਦੀ ਹੈ।`],
+        [`कुल आवृत्ति = ${total}। संचयी आवृत्ति से माध्यिका वर्ग खोजने के लिए प्रेक्षण क्रमांक ${observationPosition} देखें।`, `पहली उपयुक्त संचयी आवृत्ति ${cumulative[index]} है, जो वर्ग ${interval(bins[index]!)} में आती है।`],
+        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}। ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਮੱਧਿਕਾ ਵਰਗ ਲੱਭਣ ਲਈ ਪ੍ਰੇਖਣ ਨੰਬਰ ${observationPosition} ਵੇਖੋ।`, `ਪਹਿਲੀ ਉਚਿਤ ਸੰਚਿਤ ਬਾਰੰਬਾਰਤਾ ${cumulative[index]} ਹੈ, ਜੋ ਵਰਗ ${interval(bins[index]!)} ਵਿੱਚ ਆਉਂਦੀ ਹੈ।`],
         { headers, rows },
       );
     }
@@ -519,19 +509,19 @@ function localizedExplanation(
     }
     case "APPROX_GROUPED_MEAN_FROM_HISTOGRAM": {
       const doubledWeighted = bins.reduce((sum, bin) => sum + (bin.lower + bin.upper) * bin.frequency, 0);
-      const weighted = formatDecimal(doubledWeighted, 2);
+      const weighted = String(doubledWeighted / 2);
       const headers = hi
         ? ["वर्ग", "आवृत्ति", "वर्ग-मध्य", "आवृत्ति × वर्ग-मध्य"]
         : ["ਵਰਗ", "ਬਾਰੰਬਾਰਤਾ", "ਵਰਗ-ਮੱਧ", "ਬਾਰੰਬਾਰਤਾ × ਵਰਗ-ਮੱਧ"];
       const rows = bins.map((bin) => {
         const midpointNumerator = bin.lower + bin.upper;
-        return [interval(bin), String(bin.frequency), formatDecimal(midpointNumerator, 2), formatDecimal(midpointNumerator * bin.frequency, 2)];
+        return [interval(bin), String(bin.frequency), String(midpointNumerator / 2), String((midpointNumerator * bin.frequency) / 2)];
       });
       return pack(
         "प्रत्येक वर्ग का मध्य मान लेकर उसे उसकी आवृत्ति से गुणा करें। इन गुणनफलों के योग को कुल आवृत्ति से भाग दें।",
         "ਹਰੇਕ ਵਰਗ ਦਾ ਮੱਧ ਮੁੱਲ ਲੈ ਕੇ ਉਸ ਨੂੰ ਉਸ ਦੀ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਗੁਣਾ ਕਰੋ। ਇਨ੍ਹਾਂ ਗੁਣਨਫਲਾਂ ਦੇ ਜੋੜ ਨੂੰ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਭਾਗ ਦਿਓ।",
-        [`कुल आवृत्ति = ${total}।`, `आवृत्ति × वर्ग-मध्य का योग = ${weighted}।`, `औसत = ${weighted}/${total} = ${question.answer}।`],
-        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}।`, `ਬਾਰੰਬਾਰਤਾ × ਵਰਗ-ਮੱਧ ਦਾ ਜੋੜ = ${weighted}।`, `ਔਸਤ = ${weighted}/${total} = ${question.answer}।`],
+        [`कुल आवृत्ति = ${total}।`, `आवृत्ति × वर्ग-मध्य का योग = ${weighted}।`, `औसत = ${weighted}/${total} ≈ ${question.answer} (निकटतम पूर्ण संख्या)।`],
+        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}।`, `ਬਾਰੰਬਾਰਤਾ × ਵਰਗ-ਮੱਧ ਦਾ ਜੋੜ = ${weighted}।`, `ਔਸਤ = ${weighted}/${total} ≈ ${question.answer} (ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ)।`],
         { headers, rows },
       );
     }
@@ -548,8 +538,8 @@ function localizedExplanation(
       return pack(
         "समूहित बहुलक के लिए बहुलक वर्ग, उसके पिछले और अगले वर्ग की आवृत्तियों तथा वर्ग-चौड़ाई का उपयोग करें।",
         "ਸਮੂਹਿਤ ਬਹੁਲਕ ਲਈ ਬਹੁਲਕ ਵਰਗ, ਉਸ ਦੇ ਪਿਛਲੇ ਅਤੇ ਅਗਲੇ ਵਰਗ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਅਤੇ ਵਰਗ-ਚੌੜਾਈ ਵਰਤੋ।",
-        [`बहुलक वर्ग = ${interval(modal)}।`, `पिछले वर्ग की आवृत्ति = ${previous.frequency}, बहुलक वर्ग की आवृत्ति = ${modal.frequency}, अगले वर्ग की आवृत्ति = ${next.frequency}, वर्ग-चौड़ाई = ${stimulus.classWidth}।`, `इन मानों को समूहित बहुलक सूत्र में रखने पर बहुलक = ${question.answer}।`],
-        [`ਬਹੁਲਕ ਵਰਗ = ${interval(modal)}।`, `ਪਿਛਲੇ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ = ${previous.frequency}, ਬਹੁਲਕ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ = ${modal.frequency}, ਅਗਲੇ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ = ${next.frequency}, ਵਰਗ-ਚੌੜਾਈ = ${stimulus.classWidth}।`, `ਇਨ੍ਹਾਂ ਮੁੱਲਾਂ ਨੂੰ ਸਮੂਹਿਤ ਬਹੁਲਕ ਸੂਤਰ ਵਿੱਚ ਰੱਖਣ ਤੇ ਬਹੁਲਕ = ${question.answer}।`],
+        [`बहुलक वर्ग = ${interval(modal)}।`, `पिछले वर्ग की आवृत्ति = ${previous.frequency}, बहुलक वर्ग की आवृत्ति = ${modal.frequency}, अगले वर्ग की आवृत्ति = ${next.frequency}, वर्ग-चौड़ाई = ${stimulus.classWidth}।`, `इन मानों को समूहित बहुलक सूत्र में रखने पर बहुलक ≈ ${question.answer} (निकटतम पूर्ण संख्या)।`],
+        [`ਬਹੁਲਕ ਵਰਗ = ${interval(modal)}।`, `ਪਿਛਲੇ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ = ${previous.frequency}, ਬਹੁਲਕ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ = ${modal.frequency}, ਅਗਲੇ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ = ${next.frequency}, ਵਰਗ-ਚੌੜਾਈ = ${stimulus.classWidth}।`, `ਇਨ੍ਹਾਂ ਮੁੱਲਾਂ ਨੂੰ ਸਮੂਹਿਤ ਬਹੁਲਕ ਸੂਤਰ ਵਿੱਚ ਰੱਖਣ ਤੇ ਬਹੁਲਕ ≈ ${question.answer} (ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ)।`],
         { headers, rows },
       );
     }
