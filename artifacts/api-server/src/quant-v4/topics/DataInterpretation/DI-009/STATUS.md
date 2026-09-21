@@ -1,16 +1,16 @@
-# DI-009 Histogram — Permanent English Controlled Review
+# DI-009 Histogram — Multilingual Frozen Controlled Review
 
-`APPROVED_CONTROLLED_REVIEW_P1` — the user-approved DI-009 histogram package has been promoted to permanent English Question Studio review authority. Question Bank writes, test/mock eligibility, public publication and automatic student publication remain disabled.
+`MULTILINGUAL_FROZEN_CONTROLLED_REVIEW` — the approved DI-009 histogram package is available in English, Hindi and Punjabi controlled Question Studio review. Question Bank writes, test/mock eligibility, public publication and automatic student publication remain disabled.
 
 ## Permanent authority
 
 - Release: `DI-009-PERMANENT-ENGLISH-REVIEW-P2`
 - Canonical problem: `DI-CP-009`
-- Question Studio runtime: `DI009_PERMANENT_ENGLISH_REVIEW_P2`
+- Question Studio runtime: `DI009_PERMANENT_MULTILINGUAL_REVIEW_V1`
 - Permanent QLs: `DI-QL-001` through `DI-QL-013`
 - Question Studio discovery: enabled in `CONTROLLED_REVIEW`
 - English editorial status: `ENGLISH_REVIEW_APPROVED`
-- Localization: `HI_PA_REVIEW_CANDIDATE`
+- Localization: `HI_PA_FROZEN`
 
 ## Architecture contract
 
@@ -76,14 +76,14 @@ The presentation can be refined later without changing question semantics or per
 - `publiclyPublishable: false`
 - `automaticStudentPublication: false`
 - `productionReleaseAuthorized: false`
-- Hindi/Punjabi localization is a review candidate; manual localized approval remains required before multilingual Question Studio activation
+- Hindi/Punjabi localization is frozen and active only in Question Studio `CONTROLLED_REVIEW`
 
 ## Proof
 
 The promotion keeps the 240-set / 1,200-question deterministic and independent-verification matrix, separately validates the shared renderer, and adds a Question Studio integration gate covering all 13 permanent QLs, deterministic fixed-seed previews, semantic-stimulus purity, shared-renderer usage, and lifecycle locks.
 
 
-## Hindi/Punjabi localization candidate V1
+## Hindi/Punjabi frozen multilingual authority V1
 
 - locales: hi-IN and pa-IN
 - 13/13 permanent QLs localized
@@ -94,5 +94,5 @@ The promotion keeps the 240-set / 1,200-question deterministic and independent-v
 - histogram bins/frequencies, options, correct index and answers remain identical to English
 - DI-009 QL routing narrowed to DI-QL-001 through DI-QL-013
 - permanent grouped-mode generation now retries deterministically only when the first histogram cannot support the grouped-mode formula, preserving valid first-seed outputs while making DI-QL-013 total for fixed-seed requests
-- localized Question Studio activation: NOT AUTHORIZED pending human review
+- localized Question Studio activation: CONTROLLED_REVIEW authorized
 - learner-facing numeric values are integer-only: percentage, grouped-mean and grouped-mode results use an explicit nearest-whole instruction; class intervals use integer midpoints; working tables and histogram axis labels contain no decimals
