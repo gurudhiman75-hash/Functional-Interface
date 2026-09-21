@@ -23,7 +23,7 @@ const sourceIds=(ids:readonly string[])=>[...new Set(ids.flatMap(id=>HIS_CP017_F
 const normalize=(s:string)=>s.toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
 const SOURCE_LEAK=/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i;
 const META_WORDING=/(?:school-level|this CP|review batch|internal wording|source fact|checkpoint)/i;
-const AWKWARD_STEM=/(?:associated with which phase of the:|commonly called the:|what happened regarding|which correctly identifies)/i;
+const AWKWARD_STEM=/(?:\bbest describ(?:e|es)\b|\bassociated with\b|associated with which phase of the:|commonly called the:|what happened regarding|which correctly identifies)/i;
 
 export function generateHisCp017ReviewBatchV1():HisCp017ReviewQuestion[]{
   return HIS_CP017_SPECS_V1.map((s,i)=>{
