@@ -58,7 +58,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
       "Lysosome",
       "Vacuole"
     ],
-    "The nucleus contains chromosomes made of DNA and proteins. It stores most of the cell's hereditary information.",
+    "The nucleus contains chromosomes made of DNA and proteins. It stores most of the cell's hereditary information. This DNA carries genes that direct cell function and pass hereditary information to new cells.",
     [
       "NUCLEUS-GENETIC"
     ]
@@ -66,14 +66,14 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     4,
     "Easy",
-    "Chromosomes are mainly composed of:",
+    "Chromosomes are composed of:",
     "DNA and proteins",
     [
       "cellulose and lipids",
       "starch and proteins",
       "RNA and cellulose"
     ],
-    "Chromosomes are structures made mainly of DNA associated with proteins. Genes are located on DNA within chromosomes.",
+    "Chromosomes are structures made of DNA and proteins. Genes are located on DNA within chromosomes. Proteins help package the long DNA molecules into organized chromosome structures.",
     [
       "CHROMOSOME-COMPOSITION"
     ]
@@ -81,7 +81,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     4,
     "Medium",
-    "The nucleolus is mainly involved in the formation of:",
+    "The nucleolus is involved in the formation of:",
     "ribosomal components",
     [
       "cell wall fibres",
@@ -103,7 +103,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
       "DNA is made of many nuclei arranged in genes",
       "Genes are organelles present outside chromosomes"
     ],
-    "Genes are functional segments of DNA. DNA is organized into chromosomes inside the nucleus of eukaryotic cells.",
+    "Genes are functional segments of DNA. DNA is organized into chromosomes inside the nucleus of eukaryotic cells. A chromosome therefore contains many genes arranged along its DNA molecule.",
     [
       "GENE-DNA-CHROMOSOME"
     ]
@@ -126,7 +126,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     4,
     "Hard",
-    "Body cells of the same organism may differ in shape and function despite having the same chromosomes mainly because:",
+    "Body cells of the same organism may differ in shape and function despite having the same chromosomes because:",
     "different genes are active in the two cell types",
     [
       "one cell has no DNA at all",
@@ -186,7 +186,7 @@ export const PART_2: readonly SciCp019ReviewSpec[] = [
   [
     5,
     "Medium",
-    "Smooth endoplasmic reticulum is mainly associated with the synthesis of:",
+    "Smooth endoplasmic reticulum helps synthesize:",
     "lipids",
     [
       "cellulose walls",

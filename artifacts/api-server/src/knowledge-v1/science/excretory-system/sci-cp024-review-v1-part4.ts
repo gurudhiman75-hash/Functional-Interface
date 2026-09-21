@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Red blood cells pump it across",
       "The membrane blocks all small solutes"
     ],
-    "Urea diffuses down its concentration gradient across the semipermeable dialysis membrane.",
+    "Urea diffuses down its concentration gradient across the semipermeable dialysis membrane. Fresh dialysis fluid maintains this gradient so urea removal can continue.",
     [
       "DIALYSIS-UREA-DIFFUSION"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Excess salts",
       "Excess water"
     ],
-    "The dialysis membrane permits small wastes and water to cross but retains blood cells and large proteins.",
+    "The dialysis membrane permits small wastes and water to cross but retains blood cells and large proteins. Losing these large components would be dangerous and is prevented by the membrane's pore size.",
     [
       "DIALYSIS-RBC-RETAINED"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Immediate production of urine by the machine",
       "Increase in red blood cell formation"
     ],
-    "Dialysis membranes must retain large proteins. Oversized pores could allow valuable plasma proteins to escape.",
+    "Dialysis membranes must retain large proteins. Oversized pores could allow valuable plasma proteins to escape. Such loss would disturb blood osmotic balance and remove essential transport proteins.",
     [
       "DIALYSIS-LARGE-PORES"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Uric acid",
       "Bile pigment"
     ],
-    "The lungs remove carbon dioxide produced during cellular respiration.",
+    "The lungs remove carbon dioxide produced during cellular respiration. Carbon dioxide diffuses into alveoli and leaves the body during exhalation.",
     [
       "LUNGS-CO2-EXCRETION"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Starch",
       "Bile"
     ],
-    "Sweat is mostly water and salts but can also contain small quantities of urea.",
+    "Sweat is mostly water and salts but can also contain small quantities of urea. Sweating therefore contributes slightly to excretion as well as temperature regulation.",
     [
       "SWEAT-UREA"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Haemoglobin",
       "Bile salts only"
     ],
-    "The liver converts toxic nitrogenous breakdown products into urea, which is then carried to the kidneys.",
+    "The liver converts toxic nitrogenous breakdown products into urea, which is then carried to the kidneys. Converting ammonia-related nitrogen to urea makes it safer for transport in blood.",
     [
       "LIVER-UREA-FORMATION"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Urinary bladder",
       "Ureters"
     ],
-    "The lungs excrete carbon dioxide and water vapour, while urine is formed in the kidneys.",
+    "The lungs excrete carbon dioxide and water vapour, while urine is formed in the kidneys. This shows that several organs participate in excretion even though only kidneys form urine.",
     [
       "LUNGS-NOT-URINE"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Hair follicles only",
       "Nail beds"
     ],
-    "Sweat glands release water, salts and small amounts of metabolic waste onto the skin surface.",
+    "Sweat glands release water, salts and small amounts of metabolic waste onto the skin surface. Most of sweat's role is cooling, but it also removes small amounts of waste.",
     [
       "SKIN-SWEAT-EXCRETION"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Ureter",
       "Urethra"
     ],
-    "The renal vein carries blood away from the kidney after filtration and regulation have occurred.",
+    "The renal vein carries blood away from the kidney after filtration and regulation have occurred. Its blood generally contains less urea than blood arriving through the renal artery.",
     [
       "RENAL-VEIN"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "The ureter adds glucose to blood",
       "Glucose cannot enter the kidney"
     ],
-    "Although glucose is filtered, healthy nephrons reabsorb nearly all of it back into blood.",
+    "Although glucose is filtered, healthy nephrons reabsorb nearly all of it back into blood. This conservation is why healthy urine normally contains little or no glucose.",
     [
       "RENAL-GLUCOSE-REASONING"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Blood flow to the kidneys",
       "Urea formation in the liver"
     ],
-    "If less water is reabsorbed from the nephron, more water remains in urine, increasing its volume and lowering concentration.",
+    "If less water is reabsorbed from the nephron, more water remains in urine, increasing its volume and lowering concentration. Low ADH action is one possible reason for reduced water reabsorption.",
     [
       "POLYURIA-REABSORPTION"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "More glucose is reabsorbed",
       "More urine reaches the ureters"
     ],
-    "Without filtration, small wastes such as urea cannot enter the nephron filtrate and begin the urine-forming process.",
+    "Without filtration, small wastes such as urea cannot enter the nephron filtrate and begin the urine-forming process. Waste concentrations in blood would therefore rise rapidly if both kidneys stopped filtering.",
     [
       "NO-FILTRATION-WASTES"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp024ReviewSpec[] = [
       "Ventilation",
       "Peristalsis"
     ],
-    "Useful small molecules may enter the filtrate but are later returned to the blood through selective reabsorption.",
+    "Useful small molecules may enter the filtrate but are later returned to the blood through selective reabsorption. Glucose is a classic example of this filter-then-reclaim process in healthy kidneys.",
     [
       "FILTERED-THEN-REABSORBED"
     ]
