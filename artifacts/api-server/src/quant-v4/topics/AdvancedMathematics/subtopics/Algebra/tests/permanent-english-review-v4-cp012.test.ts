@@ -70,6 +70,7 @@ for (const prototypeId of ALG_CP012_ENGLISH_REVIEW_V4_TARGETS) {
     assert(first.explanation.length >= 185, `${prefix}: explanation is too thin`);
     assert(first.explanation.includes("x = y = z"), `${prefix}: equality condition is missing`);
     assert(!/associated|mainly|therefore therefore/i.test(first.question + " " + first.explanation), `${prefix}: mechanical wording leaked`);
+    assert(!/(\d+\/\d+) = \1/.test(first.explanation), `${prefix}: tautological fraction simplification leaked`);
 
     states.add(stable(first.state));
     questions.add(first.question);
