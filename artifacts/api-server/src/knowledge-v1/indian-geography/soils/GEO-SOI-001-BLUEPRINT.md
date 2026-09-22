@@ -1,6 +1,6 @@
 # GEO-SOI-001 — Soils of India
 
-Status: ACTIVE IMPLEMENTATION — CP008 REVIEW
+Status: ACTIVE IMPLEMENTATION — CP001–CP008 APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-SOI-001`
@@ -94,4 +94,4 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-CP001–CP007 are approved and merged, covering QL001–QL063 with 378 approved owning questions. CP008 — Soil Distribution & Region/State Associations (QL064–QL072) is implemented as a 54-question review candidate and remains unmerged until explicit human approval. The next permanent checkpoint after approval will be CP009 — Soil–Crop Relations (QL073–QL081). Runtime publication and Question Bank/test/mock activation remain separately governed.
+CP001–CP008 are approved and merged, covering QL001–QL072 with 432 approved owning questions. CP008 — Soil Distribution & Region/State Associations (QL064–QL072) was explicitly approved and merged through PR #2052. The next checkpoints are CP009 — Soil–Crop Relations (QL073–QL081) and CP010 — Soil Properties & Comparative Identification (QL082–QL090). Runtime publication and Question Bank/test/mock activation remain separately governed.
