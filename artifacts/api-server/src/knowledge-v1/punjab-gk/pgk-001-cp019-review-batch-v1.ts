@@ -1,3 +1,4 @@
+import { PGK_001_CP019_FACTS, PGK_001_CP019_SOURCE_IDS } from "./pgk-001-cp019-facts";
 import { PGK_001_CP019_QL126 } from "./pgk-001-cp019-ql126";
 import { PGK_001_CP019_QL127 } from "./pgk-001-cp019-ql127";
 import { PGK_001_CP019_QL128 } from "./pgk-001-cp019-ql128";
@@ -16,11 +17,32 @@ const QLS = [
   ["PGK-001-QL-132", PGK_001_CP019_QL132],
 ] as const;
 
+const PROVENANCE_BY_QL: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "PGK-001-QL-126": ["assembly-unicameral","council-abolished-1970","assembly-117","assembly-sc-34","legislature-governor-assembly"],
+  "PGK-001-QL-127": ["executive-governor","cm-appointed-governor","ministers-on-cm-advice","council-aid-advice","collective-responsibility","advocate-general"],
+  "PGK-001-QL-128": ["assembly-term","speaker-deputy","legislature-governor-assembly","assembly-unicameral"],
+  "PGK-001-QL-129": ["lok-sabha-13","lok-sabha-sc-4","rajya-sabha-7"],
+  "PGK-001-QL-130": ["hc-name","hc-seat","hc-jurisdiction","hc-court-record","hc-judges"],
+  "PGK-001-QL-131": ["panchayat-three-tier","panchayat-act-1994","gram-village","samiti-intermediate","zila-district"],
+  "PGK-001-QL-132": ["urban-types","sec-local","eci-assembly-parliament","part-ix","part-ixa","gram-village","zila-district"],
+});
+
+function provenanceForQl(qlId: string) {
+  const factIds = PROVENANCE_BY_QL[qlId] ?? [];
+  const factSet = new Set(factIds);
+  const sourceKeys = (PGK_001_CP019_FACTS as readonly { id: string; sourceKeys: readonly string[] }[])
+    .filter((fact) => factSet.has(fact.id))
+    .flatMap((fact) => fact.sourceKeys);
+  const sourceIds = [...new Set(sourceKeys.map((key) => PGK_001_CP019_SOURCE_IDS[key as keyof typeof PGK_001_CP019_SOURCE_IDS]))];
+  return Object.freeze({ factIds: Object.freeze([...factIds]), sourceIds: Object.freeze(sourceIds) });
+}
+
 export const PGK_001_CP019_REVIEW_BATCH_V1 = Object.freeze(
   QLS.flatMap(([qlId, payloads]) => payloads.map((payload, index) => Object.freeze({
     id: `${qlId}-R${String(index + 1).padStart(2, "0")}`,
     qlId,
     ...payload,
+    ...provenanceForQl(qlId),
     reviewOnly: true as const,
     runtimeRegistered: false as const,
   })))

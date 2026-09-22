@@ -6,6 +6,34 @@ export const PGK_001_CP007_SOURCE_IDS = Object.freeze({
   paList: "MOEFCC-PUNJAB-WILDLIFE-SANCTUARIES",
 } as const);
 
+
+export const PGK_001_CP007_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP007_SOURCE_IDS.sapccPunjab]: {
+    authority: "Ministry of Environment, Forest and Climate Change, Government of India",
+    title: "Punjab State Action Plan for Climate Change",
+    url: "https://www.moef.gov.in/uploads/2017/09/Punjab.pdf",
+  },
+  [PGK_001_CP007_SOURCE_IDS.ramsarPunjab2024]: {
+    authority: "Ministry of Environment, Forest and Climate Change, Government of India",
+    title: "Ramsar Sites of India as on 24 January 2024",
+    url: "https://www.moef.gov.in/uploads/2024/03/80-Ramsar-sites-of-India-31-01-2024.pdf",
+  },
+  [PGK_001_CP007_SOURCE_IDS.ramsarNewPunjabSites]: {
+    authority: "Convention on Wetlands (Ramsar)",
+    title: "India designates ten wetlands for World Wetlands Day",
+    url: "https://www.ramsar.org/news/india-designates-ten-wetlands-world-wetlands-day",
+  },
+  [PGK_001_CP007_SOURCE_IDS.kanjliRis]: {
+    authority: "Ramsar Sites Information Service",
+    title: "Kanjli — Ramsar Information Sheet",
+    url: "https://rsis.ramsar.org/RISapp/files/RISrep/IN1160RIS.pdf",
+  },
+  [PGK_001_CP007_SOURCE_IDS.paList]: {
+    authority: "Wildlife Institute of India EIACP / ENVIS",
+    title: "Wildlife Sanctuaries of India — Punjab",
+    url: "https://wiienvis.nic.in/Database/wls_8230.aspx",
+  },
+} as const);
 export type Pgk001Cp007ForestFact = Readonly<{
   id: string;
   formation: string;
