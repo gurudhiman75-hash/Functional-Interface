@@ -41,8 +41,9 @@ CP005 and CP006 deliberately expand beyond the original 840-term core into:
 - physics, chemistry and computing;
 - biology, anatomy and botany;
 - architecture and military terminology;
-- astronomy and navigation;
-- collective/social and geometric terms;
+- astronomy, chemistry, botany and architecture;
+- military and computing terminology;
+- crafts/trades, speech-language, legal, crime, residence and education vocabulary;
 - additional high-confusion long-tail exam vocabulary.
 
 The chapter should not be considered approved or Question-Studio registered until the expanded six-CP review receives explicit human approval.
