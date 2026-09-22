@@ -22,7 +22,7 @@ Permanent QLs: `GEO-SOI-001-QL-073` to `GEO-SOI-001-QL-081`
 
 - 54 questions; six per QL.
 - Easy 18 / Medium 30 / Hard 6.
-- Answer positions A14 / B14 / C13 / D13.
+- Final answer positions A13 / B13 / C14 / D14.
 - Crop relations must remain source-grounded; no generic crop lists added merely for breadth.
 - Alluvial questions may use sugarcane, paddy, wheat, cereals and pulses.
 - Black-soil questions own the classic cotton relation.
