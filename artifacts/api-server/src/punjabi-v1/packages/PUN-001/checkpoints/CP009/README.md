@@ -42,7 +42,7 @@ Weak synonym members are removed without deleting otherwise valid headword autho
 ## Families
 - F01 direct synonym — Easy
 - F02 direct antonym — Easy
-- F03 meaning-relation classification — Easy
+- F03 synonym/antonym pair recognition — Easy
 - F04 authored context precision — Medium
 - F05 synonym outsider — Medium
 - F06 synonym-set completion — Medium
