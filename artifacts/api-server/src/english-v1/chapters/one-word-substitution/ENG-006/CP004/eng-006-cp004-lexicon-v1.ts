@@ -191,7 +191,7 @@ arbitrary|based on personal choice rather than a fixed reason or system
 compulsory|required by rule or law
 voluntary|done by free choice without being forced
 optional|available by choice but not required
-mandatory|required by law or rule
+gratuitous|given or done without requiring payment
 unanimous|fully agreed by all members
 clandestine|kept secret because it is illicit or sensitive
 `.trim();
