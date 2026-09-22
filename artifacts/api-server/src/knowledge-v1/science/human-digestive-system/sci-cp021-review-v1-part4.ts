@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Increased bile storage",
       "Higher saliva production only"
     ],
-    "Frequent diarrhoeal stools can remove large amounts of water and salts from the body, causing dehydration.",
+    "Frequent diarrhoeal stools can remove large amounts of water and salts from the body, causing dehydration. Replacing both water and electrolytes is therefore important during significant diarrhoea.",
     [
       "DIARRHOEA-DEHYDRATION"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Protein digestion becomes faster",
       "Saliva enters the large intestine"
     ],
-    "Longer contact with the large-intestinal wall allows more water to be absorbed, making the faecal material drier and harder.",
+    "Longer contact with the large-intestinal wall allows more water to be absorbed, making the faecal material drier and harder. This is one reason slow bowel movement can contribute to constipation.",
     [
       "COLON-SLOW-TRANSIT"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Glycerol",
       "Cellulose"
     ],
-    "Starch is broken down through smaller carbohydrates to simple sugars such as glucose, which can be absorbed.",
+    "Starch is broken down through smaller carbohydrates to simple sugars such as glucose, which can be absorbed. Glucose is small and soluble enough to be absorbed through the intestinal wall.",
     [
       "STARCH-GLUCOSE"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Starch — lipase",
       "Protein — bile"
     ],
-    "Proteases act on proteins, amylases on starch and lipases on fats.",
+    "Proteases act on proteins, amylases on starch and lipases on fats. Enzyme names and their specific substrates are key to understanding digestive pathways.",
     [
       "ENZYME-SUBSTRATE-PROTEASE"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Starch",
       "Mineral salts"
     ],
-    "Lipase breaks fats into fatty acids and glycerol. It does not digest proteins or starch.",
+    "Lipase breaks fats into fatty acids and glycerol. It does not digest proteins or starch. Its products are small enough to be absorbed after further processing in the intestine.",
     [
       "ENZYME-SUBSTRATE-LIPASE"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Fat as the main oral substrate",
       "Vitamins"
     ],
-    "Salivary amylase begins starch digestion in the mouth. Protein digestion begins in the stomach.",
+    "Salivary amylase begins starch digestion in the mouth. Protein digestion begins in the stomach. This early digestion continues later through pancreatic and intestinal enzymes.",
     [
       "STARCH-DIGESTION-MOUTH"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Breakdown of proteins by pepsin",
       "Absorption of water in the colon"
     ],
-    "Lipase is the enzyme that chemically digests fats. Bile can emulsify fats but cannot replace lipase's enzymatic action.",
+    "Lipase is the enzyme that chemically digests fats. Bile can emulsify fats but cannot replace lipase's enzymatic action. Fat absorption may therefore fall even when emulsification by bile remains normal.",
     [
       "LIPASE-DEFICIENCY-FAT"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Producing bile in the liver",
       "Absorbing glucose into blood"
     ],
-    "Dietary fibre adds bulk and holds water in intestinal contents, which helps their movement through the bowel.",
+    "Dietary fibre adds bulk and holds water in intestinal contents, which helps their movement through the bowel. The increased bulk stimulates intestinal movement and helps prevent constipation.",
     [
       "FIBRE-BOWEL-MOVEMENT"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "It releases bile into the mouth",
       "It absorbs fats through the tongue"
     ],
-    "Chewing breaks food into smaller pieces and mixes it with saliva. Both actions help later digestion proceed more efficiently.",
+    "Chewing breaks food into smaller pieces and mixes it with saliva. Both actions help later digestion proceed more efficiently. It also makes swallowing safer by producing a softer, more uniform bolus.",
     [
       "CHEWING-DIGESTION-BENEFIT"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Bile converts starch directly to glucose",
       "The large intestine secretes salivary enzymes"
     ],
-    "Pancreatic amylase can continue starch digestion in the small intestine even if the oral stage is absent.",
+    "Pancreatic amylase can continue starch digestion in the small intestine even if the oral stage is absent. The absence of salivary amylase delays rather than completely prevents starch digestion.",
     [
       "STARCH-PANCREATIC-BACKUP"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp021ReviewSpec[] = [
       "Stomach",
       "Large intestine"
     ],
-    "The gallbladder stores bile but does not produce it. The liver continues making bile after gallbladder removal.",
+    "The gallbladder stores bile but does not produce it. The liver continues making bile after gallbladder removal. Bile flows more continuously from the liver rather than being stored between meals.",
     [
       "GALLBLADDER-REMOVAL-BILE"
     ]

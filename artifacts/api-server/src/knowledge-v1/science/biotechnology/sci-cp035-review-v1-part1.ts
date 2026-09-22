@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Ecology",
       "Anatomy"
     ],
-    "Biotechnology uses biological systems or their components to develop useful products and processes.",
+    "Biotechnology uses biological systems or their components to develop useful products and processes. The field ranges from traditional fermentation to modern genetic engineering, tissue culture and molecular diagnostics.",
     [
       "BIOTECHNOLOGY-DEFINITION"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Using a telescope",
       "Mining iron ore"
     ],
-    "Fermentation by microorganisms has been used for centuries to make foods such as curd, bread and cheese.",
+    "Fermentation by microorganisms has been used for centuries to make foods such as curd, bread and cheese. Microbial activity changes raw food materials in useful and predictable ways without requiring direct DNA manipulation.",
     [
       "TRADITIONAL-BIOTECH-CURD"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Only mechanical mixing",
       "No use of living systems"
     ],
-    "Modern biotechnology can modify genes, cells or biological pathways in controlled ways.",
+    "Modern biotechnology can modify genes, cells or biological pathways in controlled ways. These methods allow specific biological functions to be added or altered rather than relying only on naturally occurring strains.",
     [
       "MODERN-BIOTECH-DNA"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Geology",
       "Meteorology"
     ],
-    "Biotechnology applies biological knowledge to practical production and problem-solving.",
+    "Biotechnology applies biological knowledge to practical production and problem-solving. The same approach is used in agriculture, medicine, food production, diagnostics and environmental applications.",
     [
       "BIOTECH-APPLICATIONS"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "They never require nutrients",
       "They cannot be cultured"
     ],
-    "Many microbes reproduce quickly and can be grown under controlled conditions to produce enzymes, medicines and other products.",
+    "Many microbes reproduce quickly and can be grown under controlled conditions to produce enzymes, medicines and other products. Rapid growth also lets useful microbial products be produced efficiently in large controlled fermentation vessels.",
     [
       "MICROBES-BIOTECH-USE"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "The process uses a vessel",
       "The bacteria grow in liquid"
     ],
-    "Engineering bacteria with a human gene is a modern biotechnology application based on recombinant DNA.",
+    "Engineering bacteria with a human gene is a modern biotechnology application based on recombinant DNA. The introduced gene gives the bacterium a new capability that it did not naturally possess.",
     [
       "ENGINEERED-BACTERIA-BIOTECH"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Cellulose",
       "Cholesterol"
     ],
-    "DNA stores hereditary information in genes.",
+    "DNA stores hereditary information in genes. DNA stores instructions in nucleotide sequences that cells can copy and use to make functional products.",
     [
       "DNA-GENETIC-MATERIAL"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Hormone",
       "Mineral"
     ],
-    "Genes are functional segments of DNA that carry hereditary information.",
+    "Genes are functional segments of DNA that carry hereditary information. A gene may code for a protein or help regulate when and how biological processes occur.",
     [
       "GENE-DNA-SEGMENT"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Changing only environmental temperature",
       "Classifying it into a kingdom"
     ],
-    "Genetic engineering changes DNA to introduce, remove or alter genetic information.",
+    "Genetic engineering changes DNA to introduce, remove or alter genetic information. Such modification can change a trait, add a new product or alter the activity of an existing gene.",
     [
       "GENETIC-ENGINEERING-DEFINITION"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Genes contain no chemical information",
       "Proteins are made without RNA"
     ],
-    "Because the genetic code is highly conserved, many genes can be read and expressed in different organisms.",
+    "Because the genetic code is highly conserved, many genes can be read and expressed in different organisms. Shared coding rules allow a bacterial cell to translate many human genes into the corresponding protein.",
     [
       "UNIVERSAL-GENETIC-CODE"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Taxonomic classification",
       "Ecological succession"
     ],
-    "Introducing a foreign gene into a host is a standard recombinant-DNA technique.",
+    "Introducing a foreign gene into a host is a standard recombinant-DNA technique. The inserted gene is combined with vector DNA, creating recombinant genetic material inside the host.",
     [
       "GENE-INSERTION-RECOMBINANT"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Adding more water",
       "Lowering the room light"
     ],
-    "The introduced insulin gene provides instructions for making the human protein.",
+    "The introduced insulin gene provides instructions for making the human protein. The new gene provides a biological instruction set that the bacterium can transcribe and translate.",
     [
       "INSULIN-GENE-CAPABILITY"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Copy entire chromosomes by themselves",
       "Translate RNA into protein"
     ],
-    "Restriction endonucleases recognize particular DNA sequences and cut the DNA.",
+    "Restriction endonucleases recognize particular DNA sequences and cut the DNA. This sequence-specific cutting makes it possible to isolate genes and open vectors at planned locations.",
     [
       "RESTRICTION-ENZYME-CUT"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Destroy plasmids",
       "Make ATP from light"
     ],
-    "DNA ligase forms bonds that connect DNA fragments.",
+    "DNA ligase forms bonds that connect DNA fragments. Ligase seals breaks in the sugar-phosphate backbone after compatible DNA pieces have been aligned.",
     [
       "DNA-LIGASE-JOIN"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp035ReviewSpec[] = [
       "Is found only in viruses",
       "Cannot replicate"
     ],
-    "Recombinant DNA is constructed by joining DNA sequences from different sources.",
+    "Recombinant DNA is constructed by joining DNA sequences from different sources. The resulting molecule can carry a gene from one organism inside DNA originating from another source.",
     [
       "RECOMBINANT-DNA-DEFINITION"
     ]

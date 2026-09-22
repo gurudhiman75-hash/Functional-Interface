@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Cervix",
       "Vagina"
     ],
-    "The placenta forms an exchange interface between maternal and foetal circulations.",
+    "The placenta forms an exchange interface between maternal and foetal circulations. Nutrients and oxygen move toward the foetus, while carbon dioxide and other wastes move toward the mother.",
     [
       "PLACENTA-EXCHANGE"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Ureter",
       "Vas deferens"
     ],
-    "The umbilical cord connects the foetus to the placenta.",
+    "The umbilical cord connects the foetus to the placenta. Blood vessels inside the cord carry substances between the foetus and the placental exchange surface.",
     [
       "UMBILICAL-CORD"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Cervix",
       "Amniotic sac only"
     ],
-    "Oxygen diffuses across the placental exchange surface into foetal circulation.",
+    "Oxygen diffuses across the placental exchange surface into foetal circulation. Maternal and foetal blood normally do not mix directly even though oxygen crosses between the two circulations.",
     [
       "PLACENTA-OXYGEN"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Bladder",
       "Cervix"
     ],
-    "Foetal carbon dioxide passes across the placenta into maternal blood for removal by the mother's lungs.",
+    "Foetal carbon dioxide passes across the placenta into maternal blood for removal by the mother's lungs. The mother's respiratory system then removes this carbon dioxide from her blood.",
     [
       "PLACENTA-CO2"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Digesting proteins",
       "Filtering maternal urine"
     ],
-    "Amniotic fluid surrounds the foetus and provides physical cushioning.",
+    "Amniotic fluid surrounds the foetus and provides physical cushioning. The fluid also allows movement and helps keep the foetus in a relatively stable physical environment.",
     [
       "AMNIOTIC-FLUID-CUSHION"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "The foetus breathes directly through the uterus",
       "The umbilical cord contains maternal arteries only"
     ],
-    "Maternal and foetal blood come close at the placenta, allowing diffusion and transport without normally mixing directly.",
+    "Maternal and foetal blood come close at the placenta, allowing diffusion and transport without normally mixing directly. This close separation permits efficient exchange while reducing direct mixing of the two blood supplies.",
     [
       "PLACENTA-SEPARATE-CIRCULATION"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Implantation",
       "Fertilization"
     ],
-    "Childbirth, or parturition, is the delivery of the baby at the end of pregnancy.",
+    "Childbirth, or parturition, is the delivery of the baby at the end of pregnancy. Labour involves coordinated uterine contractions and widening of the cervix before delivery.",
     [
       "CHILDBIRTH-DEFINITION"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Pituitary gland alone",
       "Thyroid gland"
     ],
-    "Mammary glands in the breasts produce milk after childbirth.",
+    "Mammary glands in the breasts produce milk after childbirth. Milk production is stimulated hormonally after delivery so the newborn can receive nutrition.",
     [
       "MAMMARY-MILK"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Thyroxine",
       "Adrenaline"
     ],
-    "Prolactin from the pituitary promotes milk synthesis in the mammary glands.",
+    "Prolactin from the pituitary promotes milk synthesis in the mammary glands. Prolactin supports synthesis of milk, whereas oxytocin has a different role in milk release.",
     [
       "PROLACTIN-MILK"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Growth hormone",
       "Thyroxine"
     ],
-    "Oxytocin causes contraction of cells around milk-producing structures and helps milk ejection.",
+    "Oxytocin causes contraction of cells around milk-producing structures and helps milk ejection. This reflex moves stored milk through the ducts toward the nipple during feeding.",
     [
       "OXYTOCIN-MILK-EJECTION"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "It is richer in urea than blood",
       "It prevents all future infections permanently"
     ],
-    "Colostrum contains nutrients and maternal antibodies that provide early immune protection.",
+    "Colostrum contains nutrients and maternal antibodies that provide early immune protection. These antibodies are especially valuable before the infant's own immune system is fully mature.",
     [
       "COLOSTRUM-ANTIBODIES"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Insulin",
       "Melatonin"
     ],
-    "Prolactin supports milk production, while oxytocin triggers milk ejection.",
+    "Prolactin supports milk production, while oxytocin triggers milk ejection. The distinction matters because normal milk synthesis can occur even when the ejection reflex is impaired.",
     [
       "MILK-PRODUCTION-VS-EJECTION"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Independent of hormones",
       "Free of secondary sexual characteristics"
     ],
-    "Puberty is the developmental period in which reproductive organs mature and secondary sexual characteristics appear.",
+    "Puberty is the developmental period in which reproductive organs mature and secondary sexual characteristics appear. Rising sex-hormone levels drive both reproductive maturity and many visible body changes.",
     [
       "PUBERTY-DEFINITION"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "ADH",
       "Thyroxine only"
     ],
-    "Testosterone contributes to male secondary sexual characteristics during puberty.",
+    "Testosterone contributes to male secondary sexual characteristics during puberty. Testosterone also supports growth of reproductive organs and increased muscle and body-hair development.",
     [
       "PUBERTY-TESTOSTERONE"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp027ReviewSpec[] = [
       "Glucagon",
       "Melatonin"
     ],
-    "Oestrogen contributes to female secondary sexual characteristics.",
+    "Oestrogen contributes to female secondary sexual characteristics. Oestrogen acts on several body tissues as the female reproductive system matures. These changes occur as ovarian hormone levels rise during normal female pubertal development.",
     [
       "PUBERTY-OESTROGEN"
     ]

@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Contain no embryo",
       "Are produced without fertilization"
     ],
-    "Gymnosperm seeds are exposed on structures such as cones rather than enclosed inside fruits.",
+    "Gymnosperm seeds are exposed on structures such as cones rather than enclosed inside fruits. Because no ovary encloses the seed, gymnosperm seeds remain exposed on cone scales or related structures.",
     [
       "GYMNOSPERM-NAKED-SEEDS"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Pteridophytes",
       "Gymnosperms"
     ],
-    "Angiosperms are flowering plants whose seeds develop within fruits.",
+    "Angiosperms are flowering plants whose seeds develop within fruits. The ovary develops into a fruit after fertilization, enclosing the seeds.",
     [
       "ANGIOSPERMS-FLOWERS-FRUITS"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Bryophyte",
       "Pteridophyte"
     ],
-    "Pines are cone-bearing gymnosperms with naked seeds.",
+    "Pines are cone-bearing gymnosperms with naked seeds. Pine produces cones rather than flowers and does not enclose its seeds in fruits.",
     [
       "PINE-GYMNOSPERM"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Has naked seeds in cones",
       "Lacks vascular tissue"
     ],
-    "Mango is a flowering plant, and its seeds are enclosed within a fruit.",
+    "Mango is a flowering plant, and its seeds are enclosed within a fruit. The seed develops inside an ovary that later forms the mango fruit.",
     [
       "MANGO-ANGIOSPERM"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Presence of roots",
       "Presence of chlorophyll"
     ],
-    "Both groups are vascular seed plants, but only angiosperms enclose seeds within fruits.",
+    "Both groups are vascular seed plants, but only angiosperms enclose seeds within fruits. Fruit enclosure is therefore the clearest reproductive distinction between the two seed-plant groups.",
     [
       "ANGIOSPERM-VS-GYMNOSPERM"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Pteridophyte",
       "Angiosperm"
     ],
-    "A seed plant without flowers or fruits, with exposed seeds, is characteristic of gymnosperms.",
+    "A seed plant without flowers or fruits, with exposed seeds, is characteristic of gymnosperms. Cones and naked seeds identify gymnosperms even though the plant possesses vascular tissue and pollen.",
     [
       "IDENTIFY-GYMNOSPERM"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Unicellular plants",
       "Fungi with chitin walls"
     ],
-    "Animal cells lack cell walls and animals obtain food heterotrophically.",
+    "Animal cells lack cell walls and animals obtain food heterotrophically. This combination separates animals from plants, fungi and other multicellular groups.",
     [
       "ANIMALIA-BASIC-FEATURES"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Colour alone",
       "Daily food intake only"
     ],
-    "Animal classification uses structural features such as symmetry, body organization and presence of specialized tissues.",
+    "Animal classification uses structural features such as symmetry, body organization and presence of specialized tissues. Symmetry and body plan help reveal how tissues and organs are organized in different animal groups.",
     [
       "ANIMAL-CLASSIFICATION-FEATURES"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "In identical head and tail halves",
       "Without any pattern"
     ],
-    "Radial symmetry means similar body parts are arranged around a central axis.",
+    "Radial symmetry means similar body parts are arranged around a central axis. Cnidarians such as jellyfish are familiar animals showing this general radial arrangement.",
     [
       "RADIAL-SYMMETRY"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "No comparable halves",
       "Upper and lower halves only in every plane"
     ],
-    "Bilaterally symmetrical animals have a single plane that produces comparable right and left halves.",
+    "Bilaterally symmetrical animals have a single plane that produces comparable right and left halves. Most actively moving animals show bilateral symmetry, which is linked with a distinct head end.",
     [
       "BILATERAL-SYMMETRY"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "They all have cell walls",
       "They all reproduce by spores"
     ],
-    "Animals are heterotrophic and obtain nutrients by consuming or otherwise taking in organic matter.",
+    "Animals are heterotrophic and obtain nutrients by consuming or otherwise taking in organic matter. This dependence on external organic food defines the heterotrophic nutrition of animals.",
     [
       "ANIMAL-HETEROTROPHIC"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Fungi",
       "Monera"
     ],
-    "Multicellularity, ingestion of food and absence of cell walls are characteristic of animals.",
+    "Multicellularity, ingestion of food and absence of cell walls are characteristic of animals. Ingestion rather than absorption of dissolved food is another useful clue supporting Animalia.",
     [
       "IDENTIFY-ANIMALIA"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Mollusca",
       "Annelida"
     ],
-    "Porifera includes sponges, which have numerous pores in their bodies.",
+    "Porifera includes sponges, which have numerous pores in their bodies. Water passes through the many body pores, which is the feature that gives Porifera its name.",
     [
       "PORIFERA-SPONGES"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Annelida",
       "Cnidaria"
     ],
-    "Arthropods are characterized by jointed limbs and a chitinous exoskeleton.",
+    "Arthropods are characterized by jointed limbs and a chitinous exoskeleton. Insects, spiders and crustaceans all belong to this very large phylum.",
     [
       "ARTHROPODA-JOINTED-APPENDAGES"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp032ReviewSpec[] = [
       "Mollusca",
       "Echinodermata"
     ],
-    "Earthworms are segmented worms and belong to Annelida.",
+    "Earthworms are segmented worms and belong to Annelida. Repeated body segments are a characteristic feature of annelid worms such as the earthworm.",
     [
       "EARTHWORM-ANNELIDA"
     ]

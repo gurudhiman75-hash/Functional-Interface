@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Body cells contain only one chromosome set",
       "Half the chromosomes are lost after birth"
     ],
-    "Each gamete contributes one chromosome set, so their fusion restores the normal diploid number.",
+    "Each gamete contributes one chromosome set, so their fusion restores the normal diploid number. Fusion of the two haploid sets restores the normal 46-chromosome diploid number in the zygote.",
     [
       "GAMETE-HAPLOID-REASON"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Thick cellulose wall",
       "Chloroplast"
     ],
-    "The sperm tail provides movement and helps the cell travel through the female reproductive tract.",
+    "The sperm tail provides movement and helps the cell travel through the female reproductive tract. The tail is powered by cellular energy and helps the sperm move toward the site of fertilization.",
     [
       "SPERM-FLAGELLUM"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "69 chromosomes",
       "92 chromosomes"
     ],
-    "Fertilization combines two haploid gametes, restoring the diploid human chromosome number of 46.",
+    "Fertilization combines two haploid gametes, restoring the diploid human chromosome number of 46. The zygote therefore receives one chromosome set from each parent.",
     [
       "ZYGOTE-46-CHROMOSOMES"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Fertilization",
       "Menstruation"
     ],
-    "Ovulation is the release of a mature ovum from an ovary.",
+    "Ovulation is the release of a mature ovum from an ovary. The released ovum normally enters a nearby fallopian tube after leaving the ovary.",
     [
       "OVULATION-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Fallopian tube",
       "Cervix only"
     ],
-    "When pregnancy does not occur, part of the thickened endometrium is shed during menstruation.",
+    "When pregnancy does not occur, part of the thickened endometrium is shed during menstruation. This shedding produces menstrual bleeding and marks the start of a new cycle.",
     [
       "MENSTRUATION-ENDOMETRIUM"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "To digest the ovum",
       "To form urine"
     ],
-    "The endometrium becomes thicker and more vascular so it can support an implanted embryo.",
+    "The endometrium becomes thicker and more vascular so it can support an implanted embryo. The increased blood supply and tissue thickness create a suitable surface for a possible early embryo.",
     [
       "ENDOMETRIUM-THICKENING"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Moved into the ovary",
       "Stored permanently"
     ],
-    "Falling ovarian hormone levels lead to breakdown and shedding of the endometrium.",
+    "Falling ovarian hormone levels lead to breakdown and shedding of the endometrium. This breakdown occurs because the hormonal support that maintained the lining declines.",
     [
       "NO-FERTILIZATION-MENSTRUATION"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Birth",
       "Lactation"
     ],
-    "Ovulation occurs earlier in the cycle; if pregnancy does not follow, menstruation occurs later.",
+    "Ovulation occurs earlier in the cycle; if pregnancy does not follow, menstruation occurs later. Ovulation releases the ovum that would need to be fertilized before pregnancy can begin.",
     [
       "OVULATION-BEFORE-MENSTRUATION"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Ovary",
       "Vagina"
     ],
-    "The usual site of fertilization is the fallopian tube.",
+    "The usual site of fertilization is the fallopian tube. Sperm and ovum usually meet in the fallopian tube rather than inside the uterus.",
     [
       "FERTILIZATION-SITE"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Foetus",
       "Placenta"
     ],
-    "Fusion of the two gametes forms a single diploid cell called the zygote.",
+    "Fusion of the two gametes forms a single diploid cell called the zygote. The zygote contains genetic material from both parents and begins the first stages of a new individual.",
     [
       "ZYGOTE-DEFINITION"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Ovary for permanent storage",
       "Urinary bladder"
     ],
-    "The early conceptus divides as it travels through the fallopian tube toward the uterus.",
+    "The early conceptus divides as it travels through the fallopian tube toward the uterus. These early divisions increase cell number without immediately increasing the overall size greatly.",
     [
       "ZYGOTE-TO-UTERUS"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Menstruation",
       "Ejaculation"
     ],
-    "Implantation occurs when the developing embryo attaches to and embeds in the endometrium.",
+    "Implantation occurs when the developing embryo attaches to and embeds in the endometrium. The embryo must first reach the uterus before normal implantation can take place.",
     [
       "IMPLANTATION-DEFINITION"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "It prevents any blood flow",
       "It stores urine"
     ],
-    "A vascular endometrium provides a suitable site for implantation and supports the early embryo.",
+    "A vascular endometrium provides a suitable site for implantation and supports the early embryo. This early support continues until placental exchange becomes well established.",
     [
       "ENDOMETRIUM-IMPLANTATION"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp027ReviewSpec[] = [
       "Gamete formation",
       "Sperm maturation"
     ],
-    "Fertilization can occur before implantation; failure to attach to the uterine lining is specifically an implantation failure.",
+    "Fertilization can occur before implantation; failure to attach to the uterine lining is specifically an implantation failure. The problem occurs after fertilization, because attachment rather than gamete fusion is the failed step.",
     [
       "IMPLANTATION-FAILURE"
     ]

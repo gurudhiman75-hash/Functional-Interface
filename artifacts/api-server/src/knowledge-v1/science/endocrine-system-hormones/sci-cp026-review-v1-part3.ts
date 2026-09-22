@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Progesterone",
       "Thyroxine"
     ],
-    "The testes secrete testosterone, which contributes to male reproductive development and secondary sexual characteristics.",
+    "The testes secrete testosterone, which contributes to male reproductive development and secondary sexual characteristics. It also supports sperm production and the development of male secondary sexual characteristics.",
     [
       "TESTOSTERONE-TESTES"
     ]
@@ -19,14 +19,14 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
   [
     6,
     "Easy",
-    "Which hormone is strongly associated with female secondary sexual characteristics?",
+    "Which hormone is strongly linked to female secondary sexual characteristics?",
     "Oestrogen",
     [
       "Insulin",
       "Adrenaline",
       "Growth hormone"
     ],
-    "Oestrogen, produced largely by the ovaries, supports female reproductive development and secondary sexual characteristics.",
+    "Oestrogen, produced largely by the ovaries, supports female reproductive development and secondary sexual characteristics. Its effects include breast development and other changes that appear during female puberty.",
     [
       "OESTROGEN-SECONDARY-CHARACTERS"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Secretion of saliva",
       "Contraction of the pupil"
     ],
-    "Progesterone helps maintain the uterine lining, especially after ovulation and during early pregnancy.",
+    "Progesterone helps maintain the uterine lining, especially after ovulation and during early pregnancy. This support is especially important after ovulation and during the earliest stages of pregnancy.",
     [
       "PROGESTERONE-UTERINE-LINING"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Loss of body hair",
       "Cessation of reproductive-organ growth"
     ],
-    "Testosterone promotes changes such as deeper voice, facial hair and increased muscle development during puberty.",
+    "Testosterone promotes changes such as deeper voice, facial hair and increased muscle development during puberty. These changes occur because many body tissues respond to rising testosterone levels.",
     [
       "TESTOSTERONE-PUBERTY"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Adrenaline and thyroxine",
       "Growth hormone and ADH"
     ],
-    "The ovaries produce oestrogen and progesterone, both important in female reproductive physiology.",
+    "The ovaries produce oestrogen and progesterone, both important in female reproductive physiology. Their changing levels also help regulate ovulation and the menstrual cycle.",
     [
       "OVARIAN-HORMONES"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Insulin",
       "Growth hormone"
     ],
-    "Progesterone rises after ovulation and helps prepare and maintain the uterine lining.",
+    "Progesterone rises after ovulation and helps prepare and maintain the uterine lining. It is produced largely by the corpus luteum during this phase of the cycle.",
     [
       "PROGESTERONE-AFTER-OVULATION"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Hearing",
       "Vision"
     ],
-    "Antidiuretic hormone increases water reabsorption by the kidneys and helps regulate body-water balance.",
+    "Antidiuretic hormone increases water reabsorption by the kidneys and helps regulate body-water balance. By conserving water, ADH helps prevent excessive water loss when the body is dehydrated.",
     [
       "ADH-WATER-BALANCE"
     ]
@@ -109,14 +109,14 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
   [
     7,
     "Easy",
-    "Oxytocin is closely associated with:",
+    "Oxytocin is closely linked to:",
     "Uterine contractions during childbirth",
     [
       "Lowering blood glucose",
       "Increasing metabolic rate",
       "Forming red blood cells"
     ],
-    "Oxytocin stimulates uterine contractions during labour and also helps milk ejection after childbirth.",
+    "Oxytocin stimulates uterine contractions during labour and also helps milk ejection after childbirth. The same hormone also produces the milk-ejection reflex during breastfeeding.",
     [
       "OXYTOCIN-LABOUR"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Free of urea",
       "Rich in glucose"
     ],
-    "Higher ADH increases water reabsorption in the kidneys, producing a smaller volume of more concentrated urine.",
+    "Higher ADH increases water reabsorption in the kidneys, producing a smaller volume of more concentrated urine. Less water is therefore lost from the body even though waste products are still excreted.",
     [
       "ADH-CONCENTRATED-URINE"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Blood glucose to fall directly",
       "Thyroid hormone to rise immediately"
     ],
-    "Low ADH reduces water reabsorption, so urine volume increases.",
+    "Low ADH reduces water reabsorption, so urine volume increases. The kidneys then return less water to the blood, so the urine becomes more dilute.",
     [
       "LOW-ADH-WATER-LOSS"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Blood clotting",
       "Digestion of fats"
     ],
-    "Melatonin helps coordinate daily biological rhythms, especially the sleep-wake cycle.",
+    "Melatonin helps coordinate daily biological rhythms, especially the sleep-wake cycle. Its secretion is influenced by the light-dark cycle, with levels usually rising at night.",
     [
       "MELATONIN-SLEEP"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Adrenaline",
       "Thyroxine"
     ],
-    "ADH promotes water reabsorption in the kidneys. Too little ADH can cause excessive dilute urine.",
+    "ADH promotes water reabsorption in the kidneys. Too little ADH can cause excessive dilute urine. This pattern can occur in diabetes insipidus when ADH secretion or action is inadequate.",
     [
       "ADH-DEFICIENCY-POLYURIA"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Skeletal system",
       "Digestive system"
     ],
-    "Nervous responses are generally faster because electrical impulses travel rapidly along neurons.",
+    "Nervous responses are generally faster because electrical impulses travel rapidly along neurons. This speed makes nervous control suitable for immediate responses such as reflexes and movement.",
     [
       "NERVOUS-FASTER"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Bile ducts",
       "Spinal canal only"
     ],
-    "Endocrine hormones enter the bloodstream and travel to their target tissues.",
+    "Endocrine hormones enter the bloodstream and travel to their target tissues. Circulation allows a hormone to reach distant target organs throughout the body.",
     [
       "HORMONES-THROUGH-BLOOD"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp026ReviewSpec[] = [
       "Stopping all hormone secretion permanently",
       "Preventing target cells from having receptors"
     ],
-    "Negative feedback counteracts deviations and helps restore internal conditions toward a set range.",
+    "Negative feedback counteracts deviations and helps restore internal conditions toward a set range. Once the variable approaches its normal range, the corrective signal becomes weaker.",
     [
       "NEGATIVE-FEEDBACK"
     ]

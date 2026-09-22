@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Protein molecules only",
       "Atmospheric ozone"
     ],
-    "Most plants take up inorganic nitrogen compounds such as nitrate and ammonium through roots.",
+    "Most plants take up inorganic nitrogen compounds such as nitrate and ammonium through roots. Plants then use absorbed nitrogen to build proteins, nucleic acids and other nitrogen-containing compounds.",
     [
       "PLANT-NITROGEN-UPTAKE"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Oxygen",
       "Glucose"
     ],
-    "Denitrification converts soil nitrates back into gaseous nitrogen.",
+    "Denitrification converts soil nitrates back into gaseous nitrogen. Denitrification closes part of the cycle by returning nitrogen from soil compounds to atmospheric N₂.",
     [
       "DENITRIFICATION"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Cereals begin fixing atmospheric nitrogen themselves",
       "The carbon cycle stops"
     ],
-    "Legume-associated nitrogen-fixing microbes can enrich soil nitrogen for later crops.",
+    "Legume-linked nitrogen-fixing microbes can enrich soil nitrogen for later crops. Some of the added nitrogen can remain in soil or organic matter and benefit the crop planted afterward.",
     [
       "LEGUME-ROTATION-NITROGEN"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Mutation",
       "Photosynthesis"
     ],
-    "Ecological succession is the orderly change in community composition over time.",
+    "Ecological succession is the orderly change in community composition over time. Succession can follow the creation of new habitat or the disturbance of an existing community.",
     [
       "SUCCESSION-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Contains a complete food web",
       "Has never experienced disturbance"
     ],
-    "Primary succession starts on newly exposed surfaces such as bare rock where soil is absent or poorly developed.",
+    "Primary succession starts on newly exposed surfaces such as bare rock where soil is absent or poorly developed. Because soil must first develop, primary succession is usually much slower than secondary succession.",
     [
       "PRIMARY-SUCCESSION"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Only aquatic organisms can live",
       "No previous community existed"
     ],
-    "Secondary succession follows disturbance of an existing community where soil and often seeds or organisms remain.",
+    "Secondary succession follows disturbance of an existing community where soil and often seeds or organisms remain. Existing soil, microbes and seed banks let secondary succession proceed more rapidly after disturbance.",
     [
       "SECONDARY-SUCCESSION"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Prevent soil formation",
       "Eliminate all later species"
     ],
-    "Pioneer species tolerate harsh conditions and help modify the environment for later colonists.",
+    "Pioneer species tolerate harsh conditions and help modify the environment for later colonists. Lichens, grasses or other early colonists can change soil and microclimate conditions for later species.",
     [
       "PIONEER-SPECIES"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Speciation",
       "Nitrogen fixation only"
     ],
-    "Because soil and biological remnants remain, recovery proceeds through secondary rather than primary succession.",
+    "Because soil and biological remnants remain, recovery proceeds through secondary rather than primary succession. Fire removes much vegetation but often leaves the basic soil system intact.",
     [
       "FIRE-SECONDARY-SUCCESSION"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Energy loss stops in a food web",
       "Predation disappears completely"
     ],
-    "Multiple connections can provide alternative food sources and pathways when one population changes.",
+    "Multiple connections can provide alternative food sources and pathways when one population changes. Alternative links allow some consumers to switch resources if one food species becomes temporarily scarce.",
     [
       "FOOD-WEB-STABILITY"
     ]
@@ -139,14 +139,14 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which pair is correctly matched?",
+    "Which ecosystem role–example pair is correctly matched?",
     "Producer — green plant",
     [
       "Primary consumer — grass",
       "Decomposer — tiger",
       "Abiotic factor — fungus"
     ],
-    "Green plants are producers because they make organic food through photosynthesis.",
+    "Green plants are producers because they make organic food through photosynthesis. The producer role means the plant introduces newly fixed chemical energy into the food web.",
     [
       "MATCH-PRODUCER-PLANT"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "All decomposers disappear",
       "Rainfall must decrease"
     ],
-    "Reduced predation can allow prey populations such as insects to rise.",
+    "Reduced predation can allow prey populations such as insects to rise. The increase could then affect the plants eaten by insects and predators that feed on the frogs.",
     [
       "FROG-DECLINE-INSECTS"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Condensation",
       "Predation"
     ],
-    "Photosynthesis removes carbon dioxide and releases oxygen.",
+    "Photosynthesis removes carbon dioxide and releases oxygen. Photosynthesis therefore couples carbon uptake with oxygen release in one major biological process.",
     [
       "PHOTOSYNTHESIS-CARBON-OXYGEN"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Matter disappears after decomposition",
       "Sunlight is recycled by decomposers"
     ],
-    "Atoms such as carbon and nitrogen circulate, but usable energy progressively leaves the system as heat.",
+    "Atoms such as carbon and nitrogen circulate, but usable energy progressively leaves the system as heat. Energy enters largely as sunlight and eventually leaves as heat rather than cycling endlessly through organisms.",
     [
       "MATTER-VS-ENERGY"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Plant photosynthesis stops immediately",
       "Nitrogen fixation ends"
     ],
-    "Reducing a major prey species can lower food availability for predators and affect higher trophic levels.",
+    "Reducing a major prey species can lower food availability for predators and affect higher trophic levels. This is an example of an indirect trophic effect caused by changing the food supply of a predator.",
     [
       "TROPHIC-CASCADE-INSECT-BIRD"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp033ReviewSpec[] = [
       "Nitrogen gas replaces all water",
       "Food chains begin producing oxygen"
     ],
-    "Heavy decomposition increases microbial respiration, which can lower dissolved oxygen.",
+    "Heavy decomposition increases microbial respiration, which can lower dissolved oxygen. The large microbial oxygen demand can produce hypoxic conditions that stress or kill fish and other aquatic animals.",
     [
       "DECOMPOSITION-OXYGEN-DEMAND"
     ]

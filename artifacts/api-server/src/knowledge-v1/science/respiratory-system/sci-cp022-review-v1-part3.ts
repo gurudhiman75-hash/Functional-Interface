@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Fibrin",
       "Platelets"
     ],
-    "Haemoglobin binds oxygen in the lungs and carries it in red blood cells to body tissues.",
+    "Haemoglobin binds oxygen in the lungs and carries it in red blood cells to body tissues. The iron-containing haem group binds oxygen reversibly for transport.",
     [
       "HAEMOGLOBIN-OXYGEN"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Bicarbonate",
       "Fibrinogen"
     ],
-    "Oxygen combines reversibly with haemoglobin to form oxyhaemoglobin, especially in the lungs.",
+    "Oxygen combines reversibly with haemoglobin to form oxyhaemoglobin, especially in the lungs. The bond loosens in tissues where oxygen concentration is lower.",
     [
       "OXYHAEMOGLOBIN"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Carbaminohaemoglobin",
       "Oxyhaemoglobin"
     ],
-    "Much of the carbon dioxide entering blood is converted into bicarbonate ions and carried in the plasma.",
+    "Much of the carbon dioxide entering blood is converted into bicarbonate ions and carried in the plasma. This conversion allows large amounts of carbon dioxide to be transported efficiently.",
     [
       "CO2-BICARBONATE"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Acts as a digestive enzyme",
       "Converts alveoli into bronchi"
     ],
-    "Carbon monoxide has a high affinity for haemoglobin and occupies oxygen-binding sites, reducing the blood's oxygen-carrying capacity.",
+    "Carbon monoxide has a high affinity for haemoglobin and occupies oxygen-binding sites, reducing the blood's oxygen-carrying capacity. Even a relatively small exposure can therefore reduce oxygen delivery to tissues.",
     [
       "CO-HAEMOGLOBIN"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "The diaphragm cannot change chest volume",
       "The alveoli stop containing air"
     ],
-    "Even with normal gas exchange, too little haemoglobin reduces the amount of oxygen blood can transport to active tissues.",
+    "Even with normal gas exchange, too little haemoglobin reduces the amount of oxygen blood can transport to active tissues. The limitation is transport capacity rather than movement of oxygen across the alveoli.",
     [
       "LOW-HB-OXYGEN-TRANSPORT"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Bile",
       "Sunlight"
     ],
-    "Aerobic respiration uses oxygen to release energy from food molecules such as glucose.",
+    "Aerobic respiration uses oxygen to release energy from food molecules such as glucose. It yields much more ATP from glucose than anaerobic respiration does.",
     [
       "AEROBIC-OXYGEN"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Urea directly",
       "Bile"
     ],
-    "When oxygen supply is insufficient, muscle cells can release some energy anaerobically and form lactic acid.",
+    "When oxygen supply is insufficient, muscle cells can release some energy anaerobically and form lactic acid. This pathway provides rapid ATP but is less efficient than aerobic respiration.",
     [
       "MUSCLE-ANAEROBIC-LACTIC"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "No usable energy",
       "Only heat and no ATP"
     ],
-    "Aerobic respiration breaks down glucose more completely and therefore yields much more usable energy.",
+    "Aerobic respiration breaks down glucose more completely and therefore yields much more usable energy. Oxygen permits complete oxidation of glucose to carbon dioxide and water.",
     [
       "AEROBIC-MORE-ENERGY"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Lysosomes",
       "Nucleus"
     ],
-    "Mitochondria carry out major stages of aerobic respiration and produce most cellular ATP.",
+    "Mitochondria carry out major stages of aerobic respiration and produce most cellular ATP. Their inner membranes contain many enzymes involved in ATP production.",
     [
       "RESPIRATION-MITOCHONDRIA"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Oxygen and water only",
       "Protein and starch"
     ],
-    "Yeast can respire anaerobically by fermentation, producing ethanol and carbon dioxide.",
+    "Yeast can respire anaerobically by fermentation, producing ethanol and carbon dioxide. This fermentation process is used in bread making and alcoholic-beverage production.",
     [
       "YEAST-ANAEROBIC"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Muscle cells cannot use glucose aerobically",
       "Carbon dioxide production stops during exercise"
     ],
-    "During intense exercise, energy demand can rise faster than oxygen delivery. Anaerobic pathways then contribute temporarily to ATP production.",
+    "During intense exercise, energy demand can rise faster than oxygen delivery. Anaerobic pathways then contribute temporarily to ATP production. It helps supply energy until oxygen delivery catches up with muscular demand.",
     [
       "EXERCISE-ANAEROBIC"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Remains exactly unchanged",
       "Stops temporarily"
     ],
-    "Working muscles use more oxygen and produce more carbon dioxide, so ventilation usually increases.",
+    "Working muscles use more oxygen and produce more carbon dioxide, so ventilation usually increases. The increase raises oxygen intake and speeds removal of carbon dioxide.",
     [
       "EXERCISE-BREATHING-RATE"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp022ReviewSpec[] = [
       "Stopping blood circulation",
       "Preventing all cellular respiration"
     ],
-    "Elevated breathing after exercise helps meet recovery needs and remove excess carbon dioxide while restoring normal internal conditions.",
+    "Elevated breathing after exercise helps meet recovery needs and remove excess carbon dioxide while restoring normal internal conditions. Oxygen is also needed for several processes that restore muscle chemistry after intense activity.",
     [
       "POST-EXERCISE-BREATHING"
     ]

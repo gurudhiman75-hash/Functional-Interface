@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Acid rain",
       "Eutrophication"
     ],
-    "Greenhouse gases absorb and re-emit infrared radiation, keeping Earth warmer than it would otherwise be.",
+    "Greenhouse gases absorb and re-emit infrared radiation, keeping Earth warmer than it would otherwise be. This natural effect is essential for a habitable climate; the problem is an excessive human-driven increase.",
     [
       "GREENHOUSE-EFFECT"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Neon",
       "Hydrogen only"
     ],
-    "Burning coal, oil and gas releases carbon dioxide, an important greenhouse gas.",
+    "Burning coal, oil and gas releases carbon dioxide, an important greenhouse gas. Carbon released from fossil fuels adds to atmospheric greenhouse-gas concentrations over time.",
     [
       "CO2-GREENHOUSE-GAS"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Is the main component of ozone",
       "Blocks all sunlight"
     ],
-    "Methane absorbs infrared radiation and contributes to the greenhouse effect.",
+    "Methane absorbs infrared radiation and contributes to the greenhouse effect. Methane is emitted from sources such as wetlands, livestock, waste sites and fossil-fuel systems.",
     [
       "METHANE-GREENHOUSE"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Forests prevent all respiration",
       "Cutting trees creates ozone"
     ],
-    "Removing forests lowers photosynthetic carbon uptake and may release carbon through burning or decay.",
+    "Removing forests lowers photosynthetic carbon uptake and may release carbon through burning or decay. Forest loss therefore affects climate through both reduced uptake and increased release of stored carbon.",
     [
       "DEFORESTATION-CO2"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Cooling caused by shade",
       "The temperature inside greenhouses only"
     ],
-    "Global warming describes the long-term increase in average global temperature, largely linked to enhanced greenhouse forcing.",
+    "Global warming describes the long-term increase in average global temperature, largely linked to enhanced greenhouse forcing. It describes a temperature trend rather than the temperature change of one place on one particular day.",
     [
       "GLOBAL-WARMING-DEFINITION"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Higher sulfur dioxide by definition",
       "Complete end of climate variability"
     ],
-    "Replacing coal with lower-carbon energy reduces direct fossil-fuel carbon emissions.",
+    "Replacing coal with lower-carbon energy reduces direct fossil-fuel carbon emissions. This reduces greenhouse-gas emissions without necessarily reducing the amount of useful electricity supplied.",
     [
       "DECARBONIZE-POWER-CO2"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Mesosphere only",
       "Ionosphere only"
     ],
-    "Most protective atmospheric ozone is concentrated in the stratosphere.",
+    "Most protective atmospheric ozone is concentrated in the stratosphere. This location matters because ozone near the ground behaves differently and can itself be an air pollutant.",
     [
       "OZONE-STRATOSPHERE"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Radio waves only",
       "Infrared radiation only"
     ],
-    "Stratospheric ozone absorbs a large fraction of harmful ultraviolet radiation.",
+    "Stratospheric ozone absorbs a large fraction of harmful ultraviolet radiation. By absorbing UV, stratospheric ozone reduces damage to DNA, skin, eyes and other biological tissues.",
     [
       "OZONE-UV"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Glucose",
       "Nitrogen gas"
     ],
-    "CFCs can release chlorine radicals in the stratosphere that destroy ozone molecules.",
+    "CFCs can release chlorine radicals in the stratosphere that destroy ozone molecules. Chlorine released from CFCs can participate repeatedly in ozone-destroying reactions before being removed.",
     [
       "CFC-OZONE-DEPLETION"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Rain becomes louder",
       "Carbon dioxide disappears"
     ],
-    "Reduced ozone allows greater UV exposure, increasing risks such as skin and eye damage.",
+    "Reduced ozone allows greater UV exposure, increasing risks such as skin and eye damage. Greater UV exposure can increase skin-cancer risk, cataracts and damage to plants and aquatic organisms.",
     [
       "OZONE-DEPLETION-UV-RISK"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "All ozone is produced by plants",
       "Ozone is not a gas"
     ],
-    "Ozone's effect depends on location: high-altitude ozone shields UV, while tropospheric ozone can harm health.",
+    "Ozone's effect depends on location: high-altitude ozone shields UV, while tropospheric ozone can harm health. The same molecule can therefore be beneficial high in the atmosphere but harmful near the surface.",
     [
       "GOOD-BAD-OZONE"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Noise pollution",
       "Soil salinity"
     ],
-    "CFC controls target chlorine-driven destruction of stratospheric ozone.",
+    "CFC controls target chlorine-driven destruction of stratospheric ozone. International CFC controls allow the ozone layer to recover gradually because these compounds persist for years.",
     [
       "CFC-POLICY-OZONE"
     ]
@@ -184,14 +184,14 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
   [
     8,
     "Easy",
-    "Acid rain is associated chiefly with emissions of sulfur dioxide and:",
+    "Acid rain is linked chiefly with emissions of sulfur dioxide and:",
     "Nitrogen oxides",
     [
       "Oxygen",
       "Hydrogen",
       "Helium"
     ],
-    "Sulfur dioxide and nitrogen oxides can form sulfuric and nitric acids in the atmosphere.",
+    "Sulfur dioxide and nitrogen oxides can form sulfuric and nitric acids in the atmosphere. Both gases are produced by combustion and can form strong acids after atmospheric chemical reactions.",
     [
       "ACID-RAIN-PRECURSORS"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "Only oceans",
       "Only sound levels"
     ],
-    "Acid deposition can affect aquatic ecosystems, soils, vegetation and stone structures.",
+    "Acid deposition can affect aquatic ecosystems, soils, vegetation and stone structures. Acidification can remove nutrients from soil, mobilize toxic metals and damage sensitive organisms.",
     [
       "ACID-RAIN-EFFECTS"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp034ReviewSpec[] = [
       "It removes all water vapour",
       "It becomes glucose"
     ],
-    "Atmospheric reactions convert sulfur dioxide into acidic sulfur compounds that can be deposited with rain.",
+    "Atmospheric reactions convert sulfur dioxide into acidic sulfur compounds that can be deposited with rain. The resulting sulfuric compounds can be carried long distances before falling as wet or dry deposition.",
     [
       "SO2-ACID-RAIN"
     ]

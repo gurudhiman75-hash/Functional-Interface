@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Anatomy",
       "Genetics"
     ],
-    "Ecology studies how organisms interact with one another and with the physical environment.",
+    "Ecology studies how organisms interact with one another and with the physical environment. Ecological study can range from a single organism to populations, communities, ecosystems and the whole biosphere.",
     [
       "ECOLOGY-DEFINITION"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Community",
       "Trophic level"
     ],
-    "A habitat is the physical place or environment in which an organism lives.",
+    "A habitat is the physical place or environment in which an organism lives. Habitat describes location, whereas the organism's niche describes how it lives and functions there.",
     [
       "HABITAT-DEFINITION"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Only animals in an area",
       "Only soil and water"
     ],
-    "An ecosystem consists of biotic communities interacting with abiotic factors such as water, soil, light and temperature.",
+    "An ecosystem consists of biotic communities interacting with abiotic factors such as water, soil, light and temperature. The continuous interaction between living and non-living components is what makes an ecosystem a functioning unit.",
     [
       "ECOSYSTEM-DEFINITION"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Organism",
       "Habitat"
     ],
-    "A community includes all the populations of different species living and interacting in one area.",
+    "A community includes all the populations of different species living and interacting in one area. Communities can include plants, animals, fungi and microorganisms linked through many interactions.",
     [
       "COMMUNITY-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Niche refers only to climate",
       "Habitat refers only to food"
     ],
-    "Habitat describes place, while niche includes the organism's functional role, resource use and interactions.",
+    "Habitat describes place, while niche includes the organism's functional role, resource use and interactions. Two species can share one habitat yet avoid direct competition by using resources in different ways.",
     [
       "HABITAT-VS-NICHE"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "They have identical niches",
       "They cannot interact"
     ],
-    "The forest is their shared habitat, while differences in food use and nesting position indicate different niches.",
+    "The forest is their shared habitat, while differences in food use and nesting position indicate different niches. This resource separation reduces direct overlap even though both species live in the same physical environment.",
     [
       "SHARED-HABITAT-DIFFERENT-NICHE"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Rabbit",
       "Bacteria"
     ],
-    "Temperature is a non-living physical component of the environment.",
+    "Temperature is a non-living physical component of the environment. Other abiotic factors include light, water, soil, pH and dissolved gases.",
     [
       "ABIOTIC-TEMPERATURE"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Soil pH",
       "Rainfall"
     ],
-    "Fungi are living organisms and therefore part of the biotic component.",
+    "Fungi are living organisms and therefore part of the biotic component. Biotic components include producers, consumers, decomposers and all other living organisms in the system.",
     [
       "BIOTIC-FUNGI"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Soil texture only",
       "Humidity only"
     ],
-    "Sunlight supplies the energy captured by photosynthetic organisms.",
+    "Sunlight supplies the energy captured by photosynthetic organisms. Without this energy input, most producer-based food chains could not support higher trophic levels.",
     [
       "SUNLIGHT-PHOTOSYNTHESIS"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "The speed of light",
       "The species name of the plant"
     ],
-    "Soil pH affects the chemical form and availability of many nutrients to plant roots.",
+    "Soil pH affects the chemical form and availability of many nutrients to plant roots. Extreme pH can make essential minerals less available or increase the availability of harmful ions.",
     [
       "SOIL-PH-NUTRIENTS"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "A taxonomic rank",
       "A chromosome number"
     ],
-    "Rainfall is an abiotic factor, and changes in it can later affect living populations.",
+    "Rainfall is an abiotic factor, and changes in it can later affect living populations. The change can later alter plant growth, animal survival and many other biological processes.",
     [
       "RAINFALL-ABIOTIC"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Fish changed the temperature before oxygen changed",
       "The habitat became a new kingdom"
     ],
-    "Temperature and dissolved oxygen are abiotic factors; changes in them can directly affect fish survival.",
+    "Temperature and dissolved oxygen are abiotic factors; changes in them can directly affect fish survival. This shows how a physical environmental change can produce a population-level biological response.",
     [
       "ABIOTIC-CHANGE-BIOTIC-EFFECT"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Break down dead matter",
       "Obtain energy only from soil"
     ],
-    "Producers convert light energy into chemical energy through photosynthesis.",
+    "Producers convert light energy into chemical energy through photosynthesis. The chemical energy stored in producer biomass becomes the starting food energy for consumers.",
     [
       "PRODUCER-DEFINITION"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Abiotic factors",
       "Minerals"
     ],
-    "Consumers depend directly or indirectly on producers for food energy.",
+    "Consumers depend directly or indirectly on producers for food energy. Herbivores, carnivores and omnivores are all consumers because they cannot make all their own food.",
     [
       "CONSUMER-DEFINITION"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp033ReviewSpec[] = [
       "Top predators only",
       "Herbivores only"
     ],
-    "Decomposers such as many bacteria and fungi break dead material into simpler substances.",
+    "Decomposers such as many bacteria and fungi break dead material into simpler substances. Decomposition also releases mineral nutrients that producers can absorb again.",
     [
       "DECOMPOSERS-ROLE"
     ]

@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Oxytocin",
       "Melatonin"
     ],
-    "Low blood glucose stimulates glucagon release, which promotes release of stored glucose.",
+    "Low blood glucose stimulates glucagon release, which promotes release of stored glucose. The hormone acts especially on the liver to mobilize stored glucose into the blood.",
     [
       "LOW-GLUCOSE-GLUCAGON"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Blood multiplies hormone molecules",
       "Hormones change every cell equally"
     ],
-    "Hormone-receptor interactions can activate signalling pathways that amplify the original signal inside target cells.",
+    "Hormone-receptor interactions can activate signalling pathways that amplify the original signal inside target cells. A single receptor event can activate many intracellular molecules and produce a much larger cellular effect.",
     [
       "HORMONE-SIGNAL-AMPLIFICATION"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "A reflex arc",
       "Blood clotting"
     ],
-    "In negative feedback, the response reduces the original stimulus, helping stabilize hormone levels.",
+    "In negative feedback, the response reduces the original stimulus, helping stabilize hormone levels. This prevents uncontrolled hormone production and keeps endocrine conditions relatively stable.",
     [
       "NEGATIVE-FEEDBACK-REASONING"
     ]
@@ -49,7 +49,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
   [
     9,
     "Easy",
-    "Diabetes mellitus is commonly associated with problems involving:",
+    "Diabetes mellitus is commonly linked to problems involving:",
     "Insulin",
     [
       "Melatonin",
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Goitre",
       "Hyperglycaemia from excess insulin"
     ],
-    "Insufficient growth hormone during childhood can lead to proportionate short stature.",
+    "Insufficient growth hormone during childhood can lead to proportionate short stature. The short stature is typically proportionate because many body parts grow less than expected.",
     [
       "ENDOCRINE-DWARFISM"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Iodine-deficiency goitre",
       "Diabetes insipidus"
     ],
-    "Excess growth hormone before growth plates close can produce excessive linear growth.",
+    "Excess growth hormone before growth plates close can produce excessive linear growth. Long bones can still lengthen in childhood, producing unusually great height.",
     [
       "ENDOCRINE-GIGANTISM"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Adrenal gland",
       "Pancreas"
     ],
-    "Goitre due to iodine deficiency is enlargement of the thyroid gland.",
+    "Goitre due to iodine deficiency is enlargement of the thyroid gland. The enlargement occurs in the neck because the thyroid lies in front of the trachea.",
     [
       "GOITRE-THYROID"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Adrenaline",
       "ADH"
     ],
-    "Pancreatic beta cells produce insulin. Too little insulin allows blood glucose to remain elevated.",
+    "Pancreatic beta cells produce insulin. Too little insulin allows blood glucose to remain elevated. Without sufficient insulin, tissues cannot handle the absorbed glucose efficiently after meals.",
     [
       "BETA-CELL-INSULIN-DEFICIENCY"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Too little adrenaline",
       "Too much melatonin"
     ],
-    "With normal blood glucose, excessive dilute urine points more strongly to impaired ADH action than to diabetes mellitus.",
+    "With normal blood glucose, excessive dilute urine points more strongly to impaired ADH action than to diabetes mellitus. Reduced water reabsorption explains both the large urine volume and the excessive thirst.",
     [
       "DIABETES-INSIPIDUS-ADH-REASONING"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Pituitary",
       "Adrenal"
     ],
-    "The endocrine cells of the pancreas secrete insulin and glucagon to regulate blood glucose.",
+    "The endocrine cells of the pancreas secrete insulin and glucagon to regulate blood glucose. The opposing actions of these two hormones help stabilize blood glucose around a normal range.",
     [
       "PANCREAS-TWO-HORMONES"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Urine stops forming",
       "Heart rate doubles immediately"
     ],
-    "Insulin promotes glucose uptake and storage, while reduced glucagon limits glucose release from stores.",
+    "Insulin promotes glucose uptake and storage, while reduced glucagon limits glucose release from stores. Together these changes move circulating glucose toward storage and use rather than further release.",
     [
       "POSTMEAL-GLUCOSE-HOMEOSTASIS"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "It reduces all liver activity",
       "It stops cellular respiration"
     ],
-    "Glucagon helps keep blood glucose available between meals by promoting release of stored glucose.",
+    "Glucagon helps keep blood glucose available between meals by promoting release of stored glucose. The liver responds by breaking down glycogen and releasing glucose into the bloodstream.",
     [
       "FASTING-GLUCAGON"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Growth hormone only",
       "Melatonin only"
     ],
-    "Rapid stress responses involve autonomic nerves and adrenaline, allowing quick coordinated changes.",
+    "Rapid stress responses involve autonomic nerves and adrenaline, allowing quick coordinated changes. Nervous input starts the response quickly, while adrenaline reinforces changes in circulation and metabolism.",
     [
       "STRESS-NERVE-ENDOCRINE"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Melatonin is too low",
       "Thyroxine is completely absent"
     ],
-    "Failure of insulin secretion or action prevents efficient glucose uptake and storage after a meal.",
+    "Failure of insulin secretion or action prevents efficient glucose uptake and storage after a meal. This is why abnormal insulin function is strongly linked with persistent post-meal hyperglycaemia.",
     [
       "HIGH-POSTMEAL-GLUCOSE-INSULIN"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp026ReviewSpec[] = [
       "Reflexes require hormones to reach muscles first",
       "Nerve impulses move only through plasma"
     ],
-    "Endocrine signals depend on hormone transport and receptor responses, while nervous signals travel rapidly along neurons and synapses.",
+    "Endocrine signals depend on hormone transport and receptor responses, while nervous signals travel rapidly along neurons and synapses. The different transport routes explain why hormonal control is usually slower but can last longer.",
     [
       "ENDOCRINE-VS-NERVOUS-INTEGRATED"
     ]

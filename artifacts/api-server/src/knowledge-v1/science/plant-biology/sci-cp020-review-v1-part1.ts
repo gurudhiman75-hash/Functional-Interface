@@ -6,14 +6,14 @@ export const PART_1: readonly SciCp020ReviewSpec[] = [
   [
     1,
     "Easy",
-    "Which meristem is mainly responsible for increase in the length of a root or shoot?",
+    "Which meristem is responsible for increase in the length of a root or shoot?",
     "Apical meristem",
     [
       "Lateral meristem",
       "Cork cambium",
       "Permanent tissue"
     ],
-    "Apical meristems occur near root and shoot tips. Their actively dividing cells increase the length of the plant body.",
+    "Apical meristems occur near root and shoot tips. Their actively dividing cells increase the length of the plant body. This primary growth lengthens young stems and roots as new cells are produced.",
     [
       "PLANT-MERISTEM-APICAL"
     ]
@@ -21,7 +21,7 @@ export const PART_1: readonly SciCp020ReviewSpec[] = [
   [
     1,
     "Easy",
-    "Which plant tissue is made of thick-walled dead cells and mainly provides mechanical strength?",
+    "Which plant tissue is made of thick-walled dead cells and provides mechanical strength?",
     "Sclerenchyma",
     [
       "Parenchyma",
@@ -66,7 +66,7 @@ export const PART_1: readonly SciCp020ReviewSpec[] = [
   [
     1,
     "Medium",
-    "Increase in the girth of a woody stem is mainly due to the activity of:",
+    "Increase in the girth of a woody stem is due to the activity of:",
     "Lateral meristem",
     [
       "Apical meristem",
@@ -103,7 +103,7 @@ export const PART_1: readonly SciCp020ReviewSpec[] = [
       "Root tip meristem",
       "Lateral root base"
     ],
-    "Root hairs greatly increase the absorbing surface of roots. Water and dissolved mineral salts enter mainly through these thin extensions of root epidermal cells.",
+    "Root hairs greatly increase the absorbing surface of roots. Water and dissolved mineral salts enter through these thin extensions of root epidermal cells.",
     [
       "ROOT-HAIRS-ABSORPTION"
     ]
@@ -141,7 +141,7 @@ export const PART_1: readonly SciCp020ReviewSpec[] = [
   [
     2,
     "Medium",
-    "Prop roots in a banyan tree mainly help in:",
+    "Prop roots in a banyan tree help in:",
     "Supporting heavy spreading branches",
     [
       "Carrying out pollination",
@@ -156,14 +156,14 @@ export const PART_1: readonly SciCp020ReviewSpec[] = [
   [
     2,
     "Medium",
-    "Carrot stores reserve food mainly in its modified:",
+    "Carrot stores reserve food in its modified:",
     "Root",
     [
       "Leaf",
       "Flower",
       "Fruit wall"
     ],
-    "The carrot is a modified storage tap root. It becomes swollen because reserve food accumulates in the root.",
+    "The carrot is a modified storage tap root. It becomes swollen because reserve food accumulates in the root. The swollen root stores carbohydrates that the plant can use later.",
     [
       "ROOT-STORAGE-CARROT"
     ]
@@ -171,7 +171,7 @@ export const PART_1: readonly SciCp020ReviewSpec[] = [
   [
     2,
     "Hard",
-    "A plant growing in waterlogged soil develops roots that grow upward above the soil surface. These roots mainly help the plant to:",
+    "A plant growing in waterlogged soil develops roots that grow upward above the soil surface. These roots help the plant to:",
     "Obtain oxygen for respiration",
     [
       "Absorb more sunlight for photosynthesis",

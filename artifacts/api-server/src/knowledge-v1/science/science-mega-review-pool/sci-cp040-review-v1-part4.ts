@@ -64,7 +64,7 @@ export const PART_4: readonly SciCp040ReviewSpec[] = [
   [
     9,
     "Medium",
-    "Why are food chains usually short?",
+    "What is the main reason most food chains contain only a few trophic levels?",
     "Available energy decreases at higher trophic levels",
     [
       "Energy increases at each level",

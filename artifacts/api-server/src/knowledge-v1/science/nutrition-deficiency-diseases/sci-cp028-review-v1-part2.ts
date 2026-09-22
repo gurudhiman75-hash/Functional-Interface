@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Urine formation only",
       "Hearing only"
     ],
-    "Vitamin A supports vision, especially in dim light, and helps maintain epithelial tissues.",
+    "Vitamin A supports vision, especially in dim light, and helps maintain epithelial tissues. Deficiency can therefore affect both night vision and the health of skin and other epithelial surfaces.",
     [
       "VITAMIN-A-ROLE"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Carrying oxygen in haemoglobin",
       "Forming thyroid hormone"
     ],
-    "Vitamin C supports collagen formation and normal wound healing.",
+    "Vitamin C supports collagen formation and normal wound healing. Poor collagen formation explains bleeding gums, fragile tissues and slow wound repair in severe deficiency.",
     [
       "VITAMIN-C-ROLE"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "They are destroyed by all digestion",
       "They provide no biological function"
     ],
-    "Because body stores of many water-soluble vitamins are limited, regular dietary intake is important.",
+    "Because body stores of many water-soluble vitamins are limited, regular dietary intake is important. This is why regular dietary supply is especially important for vitamin C and many B-complex vitamins.",
     [
       "WATER-SOLUBLE-STORAGE"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Vitamin D",
       "Vitamin K"
     ],
-    "Vitamin A is needed for normal visual function, and deficiency can impair vision in dim light.",
+    "Vitamin A is needed for normal visual function, and deficiency can impair vision in dim light. Vitamin A is needed for visual pigment function in the retina, especially under low-light conditions.",
     [
       "VITAMIN-A-NIGHT-BLINDNESS"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Vitamin D",
       "Vitamin B12"
     ],
-    "Severe vitamin C deficiency causes scurvy, with features such as bleeding gums and poor wound healing.",
+    "Severe vitamin C deficiency causes scurvy, with features such as bleeding gums and poor wound healing. Collagen weakness in scurvy affects blood vessels, gums and healing tissues.",
     [
       "VITAMIN-C-SCURVY"
     ]
@@ -79,14 +79,14 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
   [
     4,
     "Medium",
-    "Rickets in children is commonly associated with deficiency of:",
+    "Rickets in children is commonly linked to deficiency of:",
     "Vitamin D",
     [
       "Vitamin C",
       "Vitamin K",
       "Vitamin B1"
     ],
-    "Vitamin D deficiency reduces calcium absorption and can impair mineralization of growing bones, causing rickets.",
+    "Vitamin D deficiency reduces calcium absorption and can impair mineralization of growing bones, causing rickets. Poor bone mineralization can cause soft, weak or deformed bones during growth.",
     [
       "VITAMIN-D-RICKETS"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Thyroid hormone synthesis",
       "Glucose absorption"
     ],
-    "Vitamin K is required for normal synthesis of several clotting factors.",
+    "Vitamin K is required for normal synthesis of several clotting factors. Without adequate vitamin K, several clotting proteins cannot function normally and bleeding may be prolonged.",
     [
       "VITAMIN-K-CLOTTING"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Vitamin C",
       "Vitamin D"
     ],
-    "Thiamine deficiency can cause beriberi, affecting nerves, muscles and the cardiovascular system.",
+    "Thiamine deficiency can cause beriberi, affecting nerves, muscles and the cardiovascular system. Thiamine is important in energy metabolism, so severe deficiency can affect nerves, muscles and the heart.",
     [
       "B1-BERIBERI"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Vitamin K excess",
       "Vitamin A excess"
     ],
-    "Vitamin D deficiency in children can impair calcium absorption and bone mineralization, producing rickets.",
+    "Vitamin D deficiency in children can impair calcium absorption and bone mineralization, producing rickets. Growing bones are especially vulnerable because they need calcium and phosphate to be deposited properly.",
     [
       "RICKETS-REASONING"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Bile",
       "Thyroxine only"
     ],
-    "Iron is an essential component of haemoglobin in red blood cells.",
+    "Iron is an essential component of haemoglobin in red blood cells. Haemoglobin uses iron to bind and transport oxygen from the lungs to body tissues.",
     [
       "IRON-HAEMOGLOBIN"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Adrenaline only",
       "Haemoglobin"
     ],
-    "Iodine is required to make thyroid hormones such as thyroxine.",
+    "Iodine is required to make thyroid hormones such as thyroxine. Insufficient iodine can reduce thyroid-hormone production and disturb normal metabolic regulation.",
     [
       "IODINE-THYROID-HORMONES"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Rickets",
       "Scurvy"
     ],
-    "Iron deficiency reduces haemoglobin formation and can lead to iron-deficiency anaemia.",
+    "Iron deficiency reduces haemoglobin formation and can lead to iron-deficiency anaemia. Reduced haemoglobin lowers oxygen-carrying capacity, producing tiredness, weakness and pallor.",
     [
       "IRON-ANAEMIA"
     ]
@@ -191,9 +191,9 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Pituitary gland",
       "Adrenal gland"
     ],
-    "Low iodine intake can cause goitre, an enlargement of the thyroid gland.",
+    "Low iodine intake can cause goitre, an enlargement of the thyroid gland. The gland enlarges as it is stimulated to work harder despite limited iodine availability.",
     [
-      "IODINE-GOITRE"
+      "NUTRITION-IODINE-GOITRE"
     ]
   ],
   [
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Night vision only",
       "Carrying carbon dioxide only"
     ],
-    "Calcium is a major mineral of bones and teeth and also supports muscle and nerve function.",
+    "Calcium is a major mineral of bones and teeth and also supports muscle and nerve function. It also supports muscle contraction, nerve signalling and several other body functions.",
     [
       "CALCIUM-BONES"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp028ReviewSpec[] = [
       "Vitamin A deficiency",
       "Calcium excess"
     ],
-    "Low haemoglobin with pallor and fatigue strongly suggests inadequate iron when other causes are not considered.",
+    "Low haemoglobin with pallor and fatigue strongly suggests inadequate iron when other causes are not considered. Low iron intake is therefore a direct nutritional explanation for the reduced haemoglobin finding.",
     [
       "IRON-ANAEMIA-REASONING"
     ]

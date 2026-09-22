@@ -6,7 +6,7 @@ export const PART_2: readonly SciCp020ReviewSpec[] = [
   [
     3,
     "Medium",
-    "In cactus, leaves are modified into spines mainly to:",
+    "In cactus, leaves are modified into spines to:",
     "Reduce water loss",
     [
       "Increase transpiration",
@@ -21,7 +21,7 @@ export const PART_2: readonly SciCp020ReviewSpec[] = [
   [
     3,
     "Medium",
-    "A tendril that helps a climber attach to a support is mainly an adaptation for:",
+    "A tendril that helps a climber attach to a support is an adaptation for:",
     "Climbing",
     [
       "Water absorption",
@@ -51,14 +51,14 @@ export const PART_2: readonly SciCp020ReviewSpec[] = [
   [
     4,
     "Easy",
-    "Which vascular tissue mainly transports water and minerals from roots to other parts of a plant?",
+    "Which vascular tissue transports water and minerals from roots to other parts of a plant?",
     "Xylem",
     [
       "Phloem",
       "Epidermis",
       "Cambium only"
     ],
-    "Xylem conducts water and dissolved mineral salts mainly upward from the roots. Its vessels and tracheids form the main water-conducting pathway.",
+    "Xylem conducts water and dissolved mineral salts upward from the roots. Its vessels and tracheids form the main water-conducting pathway.",
     [
       "XYLEM-WATER"
     ]
@@ -66,7 +66,7 @@ export const PART_2: readonly SciCp020ReviewSpec[] = [
   [
     4,
     "Easy",
-    "Food prepared in leaves is transported to other plant parts mainly through:",
+    "Food prepared in leaves is transported to other plant parts through:",
     "Phloem",
     [
       "Xylem",
@@ -178,7 +178,7 @@ export const PART_2: readonly SciCp020ReviewSpec[] = [
       "Respiration",
       "Germination"
     ],
-    "Transpiration is the loss of water in the form of vapour, mainly through stomata in leaves. A smaller amount may also be lost through other aerial surfaces.",
+    "Transpiration is the loss of water in the form of vapour, through stomata in leaves. A smaller amount may also be lost through other aerial surfaces.",
     [
       "TRANSPIRATION-DEFINITION"
     ]

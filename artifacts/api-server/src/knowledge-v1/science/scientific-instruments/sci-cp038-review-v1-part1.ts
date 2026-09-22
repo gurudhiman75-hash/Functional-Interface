@@ -4,7 +4,7 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
   [
     1,
     "Easy",
-    "Which instrument is used to measure temperature?",
+    "What does a thermometer measure?",
     "Thermometer",
     [
       "Barometer",

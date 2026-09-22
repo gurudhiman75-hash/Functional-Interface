@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Ecosystem",
       "Biome"
     ],
-    "A population consists of individuals of the same species living in a defined area.",
+    "A population consists of individuals of the same species living in a defined area. A population is therefore narrower than a community, which contains populations of many species.",
     [
       "POPULATION-DEFINITION"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Predation",
       "Decomposition"
     ],
-    "Competition occurs when organisms depend on the same limited resource.",
+    "Competition occurs when organisms depend on the same limited resource. Competition can occur within one species or between different species when resources are limited.",
     [
       "COMPETITION-DEFINITION"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Neither species is affected",
       "One organism kills and eats the other"
     ],
-    "Mutualism is an interaction in which both partners gain a benefit.",
+    "Mutualism is an interaction in which both partners gain a benefit. Pollination and some plant-microbe partnerships are common examples of mutually beneficial interactions.",
     [
       "MUTUALISM-DEFINITION"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Commensalism",
       "Competition only"
     ],
-    "Predation occurs when one organism captures and consumes another.",
+    "Predation occurs when one organism captures and consumes another. Predation transfers energy from prey to predator and also influences prey population size.",
     [
       "PREDATION-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Always helped equally",
       "Converted into a producer"
     ],
-    "Commensalism benefits one partner without a major effect on the other.",
+    "Commensalism benefits one partner without a major effect on the other. The unaffected partner neither gains a major benefit nor suffers a major cost in the interaction.",
     [
       "COMMENSALISM-DEFINITION"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Predation",
       "Commensalism"
     ],
-    "Both species require the same limited resource, so they compete for it.",
+    "Both species require the same limited resource, so they compete for it. As the shared nutrient becomes scarce, each species reduces the amount available to the other.",
     [
       "RESOURCE-COMPETITION"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Nitrogen fixation",
       "Decomposition only"
     ],
-    "Plants release water vapour from leaves through transpiration.",
+    "Plants release water vapour from leaves through transpiration. Transpiration links plants directly to the atmospheric part of the water cycle.",
     [
       "TRANSPIRATION-WATER-CYCLE"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Transpiration",
       "Infiltration"
     ],
-    "Condensation forms liquid water from water vapour, contributing to cloud formation.",
+    "Condensation forms liquid water from water vapour, contributing to cloud formation. Cooling of moist air promotes condensation and can lead to cloud droplets and later precipitation.",
     [
       "CONDENSATION-DEFINITION"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Oxygen",
       "Argon"
     ],
-    "Plants and other photosynthetic organisms take up carbon dioxide to make organic compounds.",
+    "Plants and other photosynthetic organisms take up carbon dioxide to make organic compounds. The captured carbon becomes part of sugars and other organic molecules in plant biomass.",
     [
       "PHOTOSYNTHESIS-CO2"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Ozone",
       "Methane in all organisms"
     ],
-    "Cellular respiration releases carbon dioxide from the breakdown of organic molecules.",
+    "Cellular respiration releases carbon dioxide from the breakdown of organic molecules. This process returns carbon that was stored in food molecules back to the atmosphere.",
     [
       "RESPIRATION-CO2"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Fixing nitrogen",
       "Stopping respiration"
     ],
-    "Combustion transfers carbon stored in fuels into atmospheric carbon dioxide.",
+    "Combustion transfers carbon stored in fuels into atmospheric carbon dioxide. Fossil-fuel combustion transfers carbon from long-term geological stores into the active atmospheric carbon cycle.",
     [
       "FOSSIL-FUEL-CARBON"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "More photosynthesis and less combustion",
       "Less respiration and more condensation"
     ],
-    "Deforestation reduces carbon uptake, while burning releases stored carbon.",
+    "Deforestation reduces carbon uptake, while burning releases stored carbon. Both reduced uptake and increased release push atmospheric carbon dioxide in the same direction.",
     [
       "DEFORESTATION-CARBON-DOUBLE-EFFECT"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Denitrification",
       "Transpiration"
     ],
-    "Nitrogen fixation converts nitrogen gas into compounds that can enter biological systems.",
+    "Nitrogen fixation converts nitrogen gas into compounds that can enter biological systems. Specialized bacteria and some cyanobacteria perform much of the biological nitrogen fixation in ecosystems.",
     [
       "NITROGEN-FIXATION-DEFINITION"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Converts nitrate directly to sunlight",
       "Stops decomposition"
     ],
-    "Rhizobium bacteria in legume root nodules fix atmospheric nitrogen.",
+    "Rhizobium bacteria in legume root nodules fix atmospheric nitrogen. The plant benefits from fixed nitrogen while the bacteria receive sugars and a protected root habitat.",
     [
       "RHIZOBIUM-NITROGEN-CYCLE"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp033ReviewSpec[] = [
       "Converting oxygen into nitrogen gas",
       "Preventing plant uptake"
     ],
-    "Decomposers break organic nitrogen compounds and return usable nitrogen forms to soil.",
+    "Decomposers break organic nitrogen compounds and return usable nitrogen forms to soil. Ammonification and related decomposition processes convert organic nitrogen into forms that re-enter the soil cycle.",
     [
       "DECOMPOSITION-NITROGEN"
     ]

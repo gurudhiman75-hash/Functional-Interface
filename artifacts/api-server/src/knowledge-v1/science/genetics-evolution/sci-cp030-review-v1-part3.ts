@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Reflexes",
       "Deficiencies"
     ],
-    "Variation refers to differences in characteristics among members of a species.",
+    "Variation refers to differences in characteristics among members of a species. Variation may be genetic, environmental or produced by interaction between genes and environment.",
     [
       "VARIATION-DEFINITION"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Digestion",
       "Respiration"
     ],
-    "Sexual reproduction combines genetic material from two parents and creates new allele combinations.",
+    "Sexual reproduction combines genetic material from two parents and creates new allele combinations. Meiosis and fertilization reshuffle alleles and therefore generate genetic diversity among offspring.",
     [
       "SEXUAL-REPRODUCTION-VARIATION"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Muscle gain from exercise only",
       "A suntan"
     ],
-    "Inherited variation must involve genetic information that can be passed through gametes.",
+    "Inherited variation must involve genetic information that can be passed through gametes. Only changes present in reproductive cells can normally be transmitted to the next generation.",
     [
       "INHERITED-VARIATION"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Offspring receive no genes from parents",
       "Only dominant traits are inherited"
     ],
-    "Acquired body changes generally do not alter the genetic information in gametes.",
+    "Acquired body changes generally do not alter the genetic information in gametes. A scar changes somatic tissue after birth and is not encoded into the DNA of sperm or ova.",
     [
       "ACQUIRED-SCAR-NOT-INHERITED"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Prevents reproduction",
       "Produces only harmful traits"
     ],
-    "Mutations change DNA and can introduce new alleles into a population.",
+    "Mutations change DNA and can introduce new alleles into a population. If a mutation occurs in germ-line DNA, the new allele can potentially be inherited by descendants.",
     [
       "MUTATION-VARIATION"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "All organisms become identical to the environment",
       "Genes are unnecessary for evolution"
     ],
-    "Natural selection acts on existing heritable variation; without alternatives, differential survival cannot shift that trait.",
+    "Natural selection acts on existing heritable variation; without alternatives, differential survival cannot shift that trait. Without heritable differences, individuals cannot differ consistently in reproductive success because of that trait.",
     [
       "NO-VARIATION-SELECTION"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Never show variation",
       "Choose their genes consciously"
     ],
-    "Traits that improve survival and reproduction in a given environment can become more common over generations.",
+    "Traits that improve survival and reproduction in a given environment can become more common over generations. Fitness is measured by reproductive contribution to future generations, not simply by physical strength.",
     [
       "NATURAL-SELECTION-FITNESS"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Deficiency",
       "Mutation only"
     ],
-    "An adaptation is an inherited feature that increases fitness in a particular environment.",
+    "An adaptation is an inherited feature that increases fitness in a particular environment. An adaptation is therefore environment-dependent: a useful feature in one setting may not help in another.",
     [
       "ADAPTATION-DEFINITION"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "All bacteria become resistant at the same moment",
       "Resistance is caused by exercise"
     ],
-    "Antibiotics act as a selection pressure, favouring bacteria with resistance traits.",
+    "Antibiotics act as a selection pressure, favouring bacteria with resistance traits. Repeated antibiotic use increases the proportion of resistant variants by killing susceptible competitors.",
     [
       "AMR-NATURAL-SELECTION"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Genes disappear from the population",
       "Shallow roots become dominant regardless of survival"
     ],
-    "Plants with heritable deeper roots may survive and reproduce more successfully under drought conditions.",
+    "Plants with heritable deeper roots may survive and reproduce more successfully under drought conditions. Over generations, selection can shift the population toward root systems better suited to drought.",
     [
       "DROUGHT-SELECTION"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Traits organisms decide to acquire",
       "All genes equally regardless of effect"
     ],
-    "Selection acts through differences in expressed traits and their effects on reproductive success.",
+    "Selection acts through differences in expressed traits and their effects on reproductive success. Selection acts on the expressed organism, but evolutionary change is tracked through inherited allele frequencies.",
     [
       "SELECTION-PHENOTYPE"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Predators stop evolving",
       "The allele must disappear"
     ],
-    "Individuals with better camouflage may survive and reproduce more, increasing the frequency of the underlying allele.",
+    "Individuals with better camouflage may survive and reproduce more, increasing the frequency of the underlying allele. Predation creates a selection pressure that can favour the colour pattern providing better concealment.",
     [
       "CAMOUFLAGE-SELECTION"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Antibodies",
       "Hormones"
     ],
-    "Fossils are preserved remains, impressions or traces of organisms from the past.",
+    "Fossils are preserved remains, impressions or traces of organisms from the past. Fossils include bones, shells, footprints, impressions and other preserved evidence of earlier life.",
     [
       "FOSSIL-DEFINITION"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "Living muscle only",
       "Pure metals"
     ],
-    "Sedimentary rocks often preserve remains or impressions of organisms as layers accumulate.",
+    "Sedimentary rocks often preserve remains or impressions of organisms as layers accumulate. Sediment can bury remains quickly and protect them from complete destruction long enough for fossilization.",
     [
       "FOSSILS-SEDIMENTARY"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp030ReviewSpec[] = [
       "They contain no biological information",
       "They prove every organism appeared at once"
     ],
-    "Fossils allow comparison of past and present life forms and reveal changes through geological time.",
+    "Fossils allow comparison of past and present life forms and reveal changes through geological time. Sequences of fossils can show appearance, modification and disappearance of lineages through time.",
     [
       "FOSSIL-EVIDENCE"
     ]

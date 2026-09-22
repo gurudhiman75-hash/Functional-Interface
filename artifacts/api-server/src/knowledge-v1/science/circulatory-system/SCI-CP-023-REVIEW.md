@@ -810,7 +810,7 @@ D. AB positive blood has no plasma and therefore cannot agglutinate
 
 **Explanation:** AB plasma normally lacks anti-A and anti-B antibodies, so A or B antigens on donor red cells are not attacked. Rh-positive recipients can also receive Rh-positive or Rh-negative red cells.
 
-**Source fact:** `ABO-IDENTIFY-A`
+**Source fact:** `BLOOD-GROUP-AB-POSITIVE-COMPATIBILITY`
 
 ## Q55 · Easy · Lymph and mixed circulatory reasoning
 

@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Earthworm",
       "House cat"
     ],
-    "Bacteria are microscopic organisms that generally require magnification to be seen clearly.",
+    "Bacteria are microscopic organisms that generally require magnification to be seen clearly. Other major microorganism groups include fungi, protozoa, microscopic algae and viruses studied with microbiology.",
     [
       "MICROORGANISM-BACTERIUM"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Algae only",
       "Bacteria"
     ],
-    "Yeasts and moulds belong to the fungi.",
+    "Yeasts and moulds belong to the fungi. Fungal cells are eukaryotic and differ fundamentally from prokaryotic bacterial cells. They obtain nutrients by absorption rather than by photosynthesis.",
     [
       "FUNGI-YEAST-MOULDS"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Only in oceans",
       "Only inside plants"
     ],
-    "Microorganisms occur in almost every environment, including soil, water, air and living bodies.",
+    "Microorganisms occur in almost every environment, including soil, water, air and living bodies. Some live freely while others form close beneficial or harmful relationships with plants, animals and humans.",
     [
       "MICROBES-WIDESPREAD"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Viruses",
       "Mosses"
     ],
-    "Amoeba and Paramecium are unicellular protozoans.",
+    "Amoeba and Paramecium are unicellular protozoans. These organisms have a true nucleus and carry out all essential life functions within one cell.",
     [
       "PROTOZOA-EXAMPLES"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "They only cause disease",
       "They exist only in laboratories"
     ],
-    "Microorganisms perform many useful ecological and industrial roles in addition to some causing disease.",
+    "Microorganisms perform many useful ecological and industrial roles in addition to some causing disease. Decomposition and nutrient cycling by microbes are especially important for maintaining ecosystem fertility.",
     [
       "MICROBES-IMPORTANCE"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Protozoa",
       "Algae with nuclei"
     ],
-    "Bacteria are prokaryotic cells without a true membrane-bound nucleus and commonly reproduce by binary fission.",
+    "Bacteria are prokaryotic cells without a true membrane-bound nucleus and commonly reproduce by binary fission. The absence of a membrane-bound nucleus is the key feature that identifies the organism as prokaryotic.",
     [
       "BACTERIA-PROKARYOTE-REASONING"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Non-living minerals",
       "Plant organs"
     ],
-    "Most bacteria are unicellular prokaryotic organisms.",
+    "Most bacteria are unicellular prokaryotic organisms. Even though they are single-celled, bacteria can perform all the essential functions needed for life.",
     [
       "BACTERIA-UNICELLULAR"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Seed formation",
       "Fragmentation of roots"
     ],
-    "Many bacteria reproduce asexually by splitting into two cells through binary fission.",
+    "Many bacteria reproduce asexually by splitting into two cells through binary fission. Each division can double the population when nutrients, temperature and other conditions remain favourable.",
     [
       "BACTERIA-BINARY-FISSION"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Have no cell membrane",
       "Are always harmful"
     ],
-    "Bacterial DNA is not enclosed within a membrane-bound nucleus.",
+    "Bacterial DNA is not enclosed within a membrane-bound nucleus. The DNA lies in a nucleoid region instead of being enclosed by a nuclear membrane.",
     [
       "BACTERIA-PROKARYOTIC"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Vibrio cholerae",
       "Salmonella Typhi"
     ],
-    "Lactobacillus ferments lactose and helps produce lactic acid during curd formation.",
+    "Lactobacillus ferments lactose and helps produce lactic acid during curd formation. The lactic acid produced changes milk proteins and gives curd its characteristic texture and sour taste.",
     [
       "LACTOBACILLUS-CURD"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Become viruses",
       "Photosynthesize in every case"
     ],
-    "Certain bacterial spores can withstand heat, drying and other adverse conditions.",
+    "Certain bacterial spores can withstand heat, drying and other adverse conditions. Spores allow survival rather than rapid reproduction and can germinate again when conditions improve.",
     [
       "BACTERIAL-SPORES"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Pollination",
       "Spore formation in plants"
     ],
-    "Binary fission allows one bacterial cell to divide into two, so repeated divisions can rapidly increase population size.",
+    "Binary fission allows one bacterial cell to divide into two, so repeated divisions can rapidly increase population size. This exponential pattern explains why bacterial numbers can rise very quickly in favourable food or laboratory conditions.",
     [
       "BINARY-FISSION-GROWTH"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Protozoa",
       "Viruses"
     ],
-    "Bread moulds such as Rhizopus are fungi.",
+    "Bread moulds such as Rhizopus are fungi. Rhizopus grows as thread-like hyphae that form a visible network called a mycelium.",
     [
       "BREAD-MOULD-FUNGUS"
     ]
@@ -199,14 +199,14 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
   [
     3,
     "Easy",
-    "Yeast is a:",
+    "Yeast is best described as a:",
     "Unicellular fungus",
     [
       "Bacterium",
       "Protozoan",
       "Virus"
     ],
-    "Yeast is a single-celled fungus used in baking and fermentation.",
+    "Yeast is a single-celled fungus used in baking and fermentation. Yeast differs from most familiar moulds because it exists as individual cells rather than long hyphae.",
     [
       "YEAST-UNICELLULAR-FUNGUS"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp031ReviewSpec[] = [
       "Swallowing food through a mouth",
       "Making glucose from nitrogen gas"
     ],
-    "Fungi secrete enzymes onto organic material and absorb the dissolved nutrients.",
+    "Fungi secrete enzymes onto organic material and absorb the dissolved nutrients. This external digestion lets fungi obtain nutrients from dead matter, living hosts or food materials.",
     [
       "FUNGI-ABSORPTIVE-NUTRITION"
     ]

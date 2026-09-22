@@ -4,7 +4,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
   [
     6,
     "Easy",
-    "Kwashiorkor is associated chiefly with severe deficiency of:",
+    "Kwashiorkor is linked chiefly with severe deficiency of:",
     "Protein",
     [
       "Vitamin C",
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Iodine only",
       "Vitamin K only"
     ],
-    "Marasmus is severe overall undernutrition involving inadequate energy and protein intake.",
+    "Marasmus is severe overall undernutrition involving inadequate energy and protein intake. The body lacks enough overall fuel as well as building material, causing profound wasting and loss of tissue.",
     [
       "MARASMUS-ENERGY-PROTEIN"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Enlarged fatty liver only",
       "Normal body weight"
     ],
-    "Marasmus typically causes marked wasting, very low body weight and loss of fat and muscle.",
+    "Marasmus typically causes marked wasting, very low body weight and loss of fat and muscle. Because body fat and muscle are depleted, the child often appears extremely thin.",
     [
       "MARASMUS-WASTING"
     ]
@@ -56,7 +56,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Scurvy only",
       "Rickets only"
     ],
-    "Low protein status in kwashiorkor contributes to fluid accumulation and swelling.",
+    "Low protein status in kwashiorkor contributes to fluid accumulation and swelling. Low blood protein can reduce the pull that normally keeps fluid inside blood vessels, contributing to oedema.",
     [
       "KWASHIORKOR-OEDEMA"
     ]
@@ -71,7 +71,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Carbohydrates prevent all protein digestion",
       "Only water causes kwashiorkor"
     ],
-    "A diet dominated by carbohydrate can provide calories but still lack enough high-quality protein.",
+    "A diet dominated by carbohydrate can provide calories but still lack enough high-quality protein. Calories from starch do not provide the essential amino acids required to synthesize body proteins.",
     [
       "KWASHIORKOR-CALORIES-PROTEIN"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Scurvy; rickets",
       "Goitre; anaemia"
     ],
-    "Severe wasting is typical of marasmus, while oedema is a classic sign of kwashiorkor.",
+    "Severe wasting is typical of marasmus, while oedema is a classic sign of kwashiorkor. The contrasting patterns help distinguish overall energy deficiency from severe protein-predominant malnutrition.",
     [
       "MARASMUS-KWASHIORKOR-DIFFERENCE"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Iodine",
       "Iron only"
     ],
-    "Vitamin C deficiency impairs collagen formation and can cause bleeding gums and delayed wound healing.",
+    "Vitamin C deficiency impairs collagen formation and can cause bleeding gums and delayed wound healing. Fragile capillaries and weak connective tissue explain several of the characteristic signs of scurvy.",
     [
       "SCURVY-SYMPTOMS"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Vitamin B1",
       "Iodine"
     ],
-    "Night blindness is an early, classic sign of vitamin A deficiency.",
+    "Night blindness is an early, classic sign of vitamin A deficiency. Vitamin A is required to regenerate visual pigments used by rod cells in dim light.",
     [
       "NIGHT-BLINDNESS-SYMPTOM"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Beriberi",
       "Rickets"
     ],
-    "Iodine deficiency can reduce thyroid hormone production and lead to compensatory thyroid enlargement.",
+    "Iodine deficiency can reduce thyroid hormone production and lead to compensatory thyroid enlargement. Thyroid enlargement is a compensatory response to inadequate hormone synthesis when iodine remains scarce.",
     [
       "GOITRE-SYMPTOM"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Beriberi",
       "Anaemia"
     ],
-    "Rickets results from impaired mineralization of growing bones, commonly due to vitamin D deficiency.",
+    "Rickets results from impaired mineralization of growing bones, commonly due to vitamin D deficiency. Vitamin D supports calcium and phosphate balance needed to harden the growing bone matrix.",
     [
       "RICKETS-SYMPTOMS"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Vitamin A",
       "Iodine"
     ],
-    "Thiamine deficiency can affect nerves and muscles and is classically associated with beriberi.",
+    "Thiamine deficiency can affect nerves and muscles and is classically linked to beriberi. Thiamine-dependent energy pathways are especially important in nerve and muscle tissue.",
     [
       "BERIBERI-SYMPTOMS"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Vitamin C deficiency only",
       "Iodine deficiency"
     ],
-    "Vitamin K is needed for normal clotting-factor synthesis, whereas vitamin A deficiency is more closely linked with night blindness.",
+    "Vitamin K is needed for normal clotting-factor synthesis, whereas vitamin A deficiency is more closely linked with night blindness. Normal night vision makes vitamin A deficiency less likely, while prolonged bleeding points directly toward clotting problems.",
     [
       "VITAMIN-K-BLEEDING-REASONING"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Producing insulin",
       "Carrying oxygen"
     ],
-    "Fibre adds bulk and helps movement of material through the intestine.",
+    "Fibre adds bulk and helps movement of material through the intestine. Fibre also holds water and supports softer stools that pass more easily through the bowel.",
     [
       "FIBRE-BOWEL"
     ]
@@ -206,7 +206,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Forms haemoglobin directly",
       "Replaces all vitamins"
     ],
-    "Water participates in transport, chemical reactions and temperature regulation.",
+    "Water participates in transport, chemical reactions and temperature regulation. It forms much of blood plasma and body fluids and is essential for nearly every cellular process.",
     [
       "WATER-FUNCTIONS"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp028ReviewSpec[] = [
       "Goitre",
       "Rickets"
     ],
-    "Low fibre can reduce stool bulk and make bowel movements more difficult.",
+    "Low fibre can reduce stool bulk and make bowel movements more difficult. Low stool bulk can slow intestinal movement and make stools harder to pass.",
     [
       "LOW-FIBRE-CONSTIPATION"
     ]

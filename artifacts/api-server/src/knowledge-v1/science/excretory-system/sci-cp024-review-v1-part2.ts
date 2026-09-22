@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Stores urine for hours",
       "Produces bile"
     ],
-    "As filtrate passes through the renal tubule, useful substances and water can be reabsorbed while some wastes are secreted.",
+    "As filtrate passes through the renal tubule, useful substances and water can be reabsorbed while some wastes are secreted. These processes determine which substances are conserved and which remain in final urine.",
     [
       "NEPHRON-TUBULE-FUNCTION"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Bowman's capsule",
       "Renal artery"
     ],
-    "Collecting ducts receive fluid from nephrons and carry it toward the renal pelvis.",
+    "Collecting ducts receive fluid from nephrons and carry it toward the renal pelvis. Water reabsorption can continue in the collecting duct under hormonal control.",
     [
       "COLLECTING-DUCT"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Lymph node",
       "Villus"
     ],
-    "A nephron consists of the renal corpuscle, which includes the glomerulus and Bowman's capsule, plus a renal tubule.",
+    "A nephron consists of the renal corpuscle, which includes the glomerulus and Bowman's capsule, plus a renal tubule. This complete structure is the kidney's basic urine-forming unit.",
     [
       "NEPHRON-IDENTIFY"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Urinary bladder",
       "Urethra"
     ],
-    "Blood filtration starts in the glomerular capillaries, where water and small solutes move into Bowman's capsule.",
+    "Blood filtration starts in the glomerular capillaries, where water and small solutes move into Bowman's capsule. Large cells and most plasma proteins stay in the bloodstream during normal filtration.",
     [
       "FILTRATION-GLOMERULUS"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "They are reabsorbed before filtration",
       "They dissolve in plasma"
     ],
-    "The filtration barrier allows small molecules through but prevents blood cells from entering the filtrate.",
+    "The filtration barrier allows small molecules through but prevents blood cells from entering the filtrate. Finding many red cells in urine is therefore an abnormal sign.",
     [
       "FILTRATION-RBC-RETAINED"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Peristalsis of the ureter",
       "Bile pressure"
     ],
-    "Relatively high pressure in glomerular capillaries forces water and small solutes across the filtration membrane.",
+    "Relatively high pressure in glomerular capillaries forces water and small solutes across the filtration membrane. The pressure must be sufficient to move fluid across the selective filtration barrier.",
     [
       "FILTRATION-PRESSURE"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Water",
       "Mineral ions"
     ],
-    "Large plasma proteins are generally too large to pass through the healthy glomerular filtration barrier.",
+    "Large plasma proteins are generally too large to pass through the healthy glomerular filtration barrier. Their retention also helps maintain the osmotic properties of blood plasma.",
     [
       "FILTRATION-PROTEINS"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Converted into urea in the nephron",
       "Stored in the bladder"
     ],
-    "In healthy kidneys, filtered glucose is reabsorbed from the nephron tubule back into blood.",
+    "In healthy kidneys, filtered glucose is reabsorbed from the nephron tubule back into blood. Glucose normally disappears from filtrate before final urine is produced.",
     [
       "GLUCOSE-REABSORPTION"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Stores all wastes in the kidney",
       "Moves urine back into arteries"
     ],
-    "Selective reabsorption conserves useful substances such as glucose, amino acids, ions and much of the water.",
+    "Selective reabsorption conserves useful substances such as glucose, amino acids, ions and much of the water. This prevents the body from losing valuable nutrients and excessive water.",
     [
       "SELECTIVE-REABSORPTION"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Glucose forms kidney stones",
       "Glucose cannot dissolve in water"
     ],
-    "The body normally conserves glucose because cells use it as an important energy source.",
+    "The body normally conserves glucose because cells use it as an important energy source. Losing large amounts of glucose in urine would waste both nutrient and chemical energy.",
     [
       "REABSORB-GLUCOSE-REASON"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Digest proteins",
       "Store carbon dioxide"
     ],
-    "Reabsorbing water prevents excessive fluid loss and helps maintain blood volume and internal water balance.",
+    "Reabsorbing water prevents excessive fluid loss and helps maintain blood volume and internal water balance. The amount reabsorbed changes according to the body's hydration state.",
     [
       "WATER-REABSORPTION"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "Producing digestive enzymes",
       "Moving urine into the renal artery"
     ],
-    "Tubular secretion transfers selected substances from blood into the nephron tubule and helps regulate ions and remove wastes.",
+    "Tubular secretion transfers selected substances from blood into the nephron tubule and helps regulate ions and remove wastes. It also contributes to acid-base regulation by controlling ions such as hydrogen and potassium.",
     [
       "TUBULAR-SECRETION"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp024ReviewSpec[] = [
       "It entered the urine through the urethra",
       "It was stored in the glomerulus"
     ],
-    "A large difference between the amount filtered and the amount excreted usually indicates substantial reabsorption.",
+    "A large difference between the amount filtered and the amount excreted usually indicates substantial reabsorption. The substance entered the nephron initially but was conserved before urine left the kidney.",
     [
       "REABSORPTION-REASONING"
     ]

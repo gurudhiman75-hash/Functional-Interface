@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Amoeba",
       "Bacteriophage"
     ],
-    "Yeast converts sugars into ethanol and carbon dioxide during fermentation.",
+    "Yeast converts sugars into ethanol and carbon dioxide during fermentation. Yeast is useful because it tolerates fermentation conditions and efficiently converts sugars to alcohol.",
     [
       "YEAST-ALCOHOL"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Always kill bacteria",
       "Replace all nutrients"
     ],
-    "Enzymes speed particular biochemical reactions and can be produced in large amounts using microorganisms.",
+    "Enzymes speed particular biochemical reactions and can be produced in large amounts using microorganisms. Industrial enzymes are used in food processing, detergents, textiles and many other applications.",
     [
       "MICROBIAL-ENZYMES"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Amoeba",
       "Cyanobacterium used for nitrogen fixation"
     ],
-    "Yeast carries out alcoholic fermentation and is widely used for ethanol production.",
+    "Yeast carries out alcoholic fermentation and is widely used for ethanol production. Under low oxygen, yeast directs sugar metabolism toward ethanol rather than complete aerobic respiration.",
     [
       "ETHANOL-MICROBE-CHOICE"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Vectors",
       "Hormones"
     ],
-    "Decomposer microbes break complex organic remains into simpler substances.",
+    "Decomposer microbes break complex organic remains into simpler substances. This activity returns carbon, nitrogen and minerals from dead organisms to the soil and atmosphere.",
     [
       "DECOMPOSERS"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "It prevents plant growth",
       "It produces no useful products"
     ],
-    "Decomposition releases mineral nutrients from dead material so they can be reused by other organisms.",
+    "Decomposition releases mineral nutrients from dead material so they can be reused by other organisms. Without nutrient recycling, essential elements would remain locked in dead organic material.",
     [
       "DECOMPOSITION-NUTRIENT-CYCLE"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Only mammals",
       "Only flowering plants"
     ],
-    "Many bacteria and fungi digest dead organic matter and drive decomposition.",
+    "Many bacteria and fungi digest dead organic matter and drive decomposition. Together these groups carry out much of the breakdown of litter, wood, dead organisms and waste.",
     [
       "BACTERIA-FUNGI-DECOMPOSERS"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Stop all chemical reactions",
       "Remove every mineral"
     ],
-    "Microbes decompose plant and food wastes, converting them into simpler, humus-like material.",
+    "Microbes decompose plant and food wastes, converting them into simpler, humus-like material. Composting speeds this natural process by providing concentrated organic matter under favourable conditions.",
     [
       "COMPOST-MICROBES"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Fossil formation would stop every process",
       "Nitrogen fixation would automatically double"
     ],
-    "Without decomposers, dead material would build up and nutrients would be returned to soil much more slowly.",
+    "Without decomposers, dead material would build up and nutrients would be returned to soil much more slowly. Producers would eventually face nutrient shortages even though dead material continued to accumulate.",
     [
       "NO-DECOMPOSERS-REASONING"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Freeze the pile",
       "Add only sterile plastic"
     ],
-    "Decomposer microbes require suitable moisture along with organic material and appropriate temperature.",
+    "Decomposer microbes require suitable moisture along with organic material and appropriate temperature. Moisture supports enzyme action and transport inside microbial cells during decomposition.",
     [
       "COMPOST-MOISTURE"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Creates vitamins",
       "Converts microbes into minerals"
     ],
-    "Cold temperatures slow microbial metabolism and reproduction, extending food shelf life.",
+    "Cold temperatures slow microbial metabolism and reproduction, extending food shelf life. Cold storage slows rather than sterilizes food, so microbes may grow again when the food warms.",
     [
       "REFRIGERATION-SLOWS-MICROBES"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Adding oxygen to every cell",
       "Converting food into antibiotics"
     ],
-    "Most spoilage microbes need available water, so drying strongly limits their growth.",
+    "Most spoilage microbes need available water, so drying strongly limits their growth. Lower water activity prevents many microbial cells from carrying out normal metabolism and reproduction.",
     [
       "DRYING-PRESERVATION"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Make all microbes photosynthetic",
       "Turn fungi into bacteria"
     ],
-    "Salt and sugar draw water and lower water availability, creating conditions that inhibit many microbes.",
+    "Salt and sugar draw water and lower water availability, creating conditions that inhibit many microbes. This principle explains traditional preservation methods such as jams, pickles and salted foods.",
     [
       "SALT-SUGAR-PRESERVATION"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Add nitrogen-fixing bacteria",
       "Increase all microbial growth"
     ],
-    "Pasteurization uses controlled heat treatment to greatly reduce pathogens and spoilage microbes while limiting changes to the food.",
+    "Pasteurization uses controlled heat treatment to greatly reduce pathogens and spoilage microbes while limiting changes to the food. The process does not sterilize milk completely but reduces disease risk and slows spoilage.",
     [
       "PASTEURIZATION"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "Microbes require freezing to reproduce",
       "Warm food contains no water"
     ],
-    "After cooking, food can be recontaminated, and warm nutrient-rich conditions can support rapid microbial growth.",
+    "After cooking, food can be recontaminated, and warm nutrient-rich conditions can support rapid microbial growth. Covering and cooling cooked food quickly reduces both contamination and the speed of microbial multiplication.",
     [
       "FOOD-SPOILAGE-CONDITIONS"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp031ReviewSpec[] = [
       "It supplies microbes with extra nutrients",
       "It guarantees complete sterilization"
     ],
-    "Drying deprives microbes of available water, while refrigeration slows their growth and metabolism.",
+    "Drying deprives microbes of available water, while refrigeration slows their growth and metabolism. The two preservation methods attack different microbial requirements and therefore provide stronger combined protection.",
     [
       "COMBINED-PRESERVATION"
     ]

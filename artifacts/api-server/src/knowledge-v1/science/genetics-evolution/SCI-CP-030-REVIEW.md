@@ -60,7 +60,7 @@ D. DNA and proteins
 
 **Explanation:** Chromosomes consist of DNA associated with proteins.
 
-**Source fact:** `CHROMOSOME-COMPOSITION`
+**Source fact:** `GENETICS-CHROMOSOME-COMPOSITION`
 
 ## Q05 · Medium · Heredity, genes and chromosomes
 

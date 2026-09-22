@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "Capillaries",
       "Lymph vessels"
     ],
-    "Arteries receive blood directly from the heart and therefore experience the highest pressure.",
+    "Arteries receive blood directly from the heart and therefore experience the highest pressure. Pressure falls progressively as blood moves through smaller vessels and capillaries.",
     [
       "BLOOD-PRESSURE-ARTERIES"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "Atrial filling only",
       "Complete cardiac arrest"
     ],
-    "Systolic pressure is the higher arterial pressure produced when the ventricles contract.",
+    "Systolic pressure is the higher arterial pressure produced when the ventricles contract. The lower diastolic value is measured while the ventricles relax between contractions.",
     [
       "SYSTOLIC-PRESSURE"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "All veins have closed",
       "Red blood cells have stopped carrying oxygen"
     ],
-    "Exercise increases tissue demand for oxygen and nutrients, so the heart beats faster to increase blood flow.",
+    "Exercise increases tissue demand for oxygen and nutrients, so the heart beats faster to increase blood flow. This supports increased respiration and waste removal in working muscles.",
     [
       "PULSE-EXERCISE-REASON"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "Both A and B antigens",
       "No A or B antigen"
     ],
-    "Group A red blood cells carry A antigen on their surface.",
+    "Group A red blood cells carry A antigen on their surface. Its plasma normally contains antibodies against the B antigen.",
     [
       "BLOOD-GROUP-A-ANTIGEN"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "Only B antigen",
       "Both A and B antigens"
     ],
-    "Group O red blood cells lack both A and B antigens.",
+    "Group O red blood cells lack both A and B antigens. Its plasma normally contains antibodies against both A and B antigens.",
     [
       "BLOOD-GROUP-O-ANTIGENS"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "It prevents digestion",
       "It controls breathing rate"
     ],
-    "Antibodies can react with incompatible red-cell antigens, causing clumping and serious transfusion reactions.",
+    "Antibodies can react with incompatible red-cell antigens, causing clumping and serious transfusion reactions. Severe reactions can damage red cells and threaten circulation and kidney function.",
     [
       "TRANSFUSION-COMPATIBILITY"
     ]
@@ -133,7 +133,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
     ],
     "AB plasma normally lacks anti-A and anti-B antibodies, so A or B antigens on donor red cells are not attacked. Rh-positive recipients can also receive Rh-positive or Rh-negative red cells.",
     [
-      "ABO-IDENTIFY-A"
+      "BLOOD-GROUP-AB-POSITIVE-COMPATIBILITY"
     ]
   ],
   [
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "Kidney tubules",
       "Stomach glands"
     ],
-    "Some plasma filters out of capillaries into tissues. Part of this tissue fluid enters lymphatic vessels and becomes lymph.",
+    "Some plasma filters out of capillaries into tissues. Part of this tissue fluid enters lymphatic vessels and becomes lymph. This pathway prevents excess fluid from accumulating permanently between tissue cells.",
     [
       "LYMPH-FORMATION"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "Produce hydrochloric acid",
       "Filter urine"
     ],
-    "The lymphatic system collects excess tissue fluid and returns it to the blood circulation.",
+    "The lymphatic system collects excess tissue fluid and returns it to the blood circulation. Without this return pathway, swelling or oedema can develop in tissues.",
     [
       "LYMPH-RETURN-FLUID"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "Oxygen",
       "Urea"
     ],
-    "Lacteals absorb many products of fat digestion and transport them through lymph before they enter the bloodstream.",
+    "Lacteals absorb many products of fat digestion and transport them through lymph before they enter the bloodstream. These absorbed lipids eventually re-enter the bloodstream through larger lymphatic vessels.",
     [
       "LYMPH-LACTEALS-FAT"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "Capillaries store bile",
       "Capillaries produce red blood cells"
     ],
-    "Only capillaries have walls thin enough for efficient exchange of gases, nutrients and wastes with tissues.",
+    "Only capillaries have walls thin enough for efficient exchange of gases, nutrients and wastes with tissues. Arteries and veins serve transport, while capillaries connect transport with tissue exchange.",
     [
       "CAPILLARY-EXCHANGE-ROLE"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp023ReviewSpec[] = [
       "Formation of pulse waves",
       "Movement of air into lungs"
     ],
-    "Capillaries connect the arterial and venous sides of circulation and are the main exchange vessels.",
+    "Capillaries connect the arterial and venous sides of circulation and are the main exchange vessels. Cells would be unable to receive oxygen and nutrients efficiently or remove wastes.",
     [
       "NO-CAPILLARY-EXCHANGE"
     ]

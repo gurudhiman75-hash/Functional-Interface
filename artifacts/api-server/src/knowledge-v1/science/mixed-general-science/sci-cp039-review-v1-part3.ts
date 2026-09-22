@@ -109,7 +109,7 @@ export const PART_3: readonly SciCp039ReviewSpec[] = [
   [
     7,
     "Easy",
-    "The functional unit of the kidney is the:",
+    "Which microscopic unit of the kidney filters blood and helps form urine?",
     "nephron",
     [
       "neuron",

@@ -11,7 +11,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Younger layers above all other fossils",
       "Living tissues"
     ],
-    "In undisturbed sedimentary sequences, deeper layers are usually older than layers above them.",
+    "In undisturbed sedimentary sequences, deeper layers are usually older than layers above them. This principle of superposition allows relative dating when rock layers have not been overturned.",
     [
       "FOSSIL-STRATA"
     ]
@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Only acquired traits",
       "That all species are identical"
     ],
-    "Transitional forms can contain combinations of features that help connect evolutionary lineages.",
+    "Transitional forms can contain combinations of features that help connect evolutionary lineages. Such combinations can help show how major structural changes accumulated during evolutionary transitions.",
     [
       "TRANSITIONAL-FOSSILS"
     ]
@@ -41,7 +41,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Rock layers determine genes directly",
       "Evolution always occurs within one lifetime"
     ],
-    "A sequence of related features through time can support an evolutionary relationship.",
+    "A sequence of related features through time can support an evolutionary relationship. The interpretation is strongest when anatomy, age and other fossil evidence fit the same lineage pattern.",
     [
       "FOSSIL-LINEAGE-REASONING"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Vestigial structures only",
       "Acquired traits"
     ],
-    "Homologous structures share a common structural origin despite serving different functions.",
+    "Homologous structures share a common structural origin despite serving different functions. Human arms, whale flippers and bat wings are classic examples built from the same underlying limb plan.",
     [
       "HOMOLOGOUS-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Genes",
       "Alleles"
     ],
-    "Analogous structures perform similar functions but evolved independently.",
+    "Analogous structures perform similar functions but evolved independently. Similarity of function alone does not prove close ancestry because similar solutions can evolve independently.",
     [
       "ANALOGOUS-DEFINITION"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "No evolutionary relationship",
       "Vestigial organs"
     ],
-    "These forelimbs share the same basic bone plan but are adapted for different functions.",
+    "These forelimbs share the same basic bone plan but are adapted for different functions. The shared pattern of humerus, radius, ulna and other bones points to inheritance from a common ancestor.",
     [
       "FORELIMB-HOMOLOGOUS"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Vestigial structures",
       "Identical genes"
     ],
-    "Bird and insect wings serve flight but have very different structural origins.",
+    "Bird and insect wings serve flight but have very different structural origins. Flight evolved independently in the two groups, producing similar function without the same anatomical origin.",
     [
       "WINGS-ANALOGOUS"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Must be harmful",
       "Is acquired during exercise"
     ],
-    "Vestigial structures are reduced remnants of features that were more functional in ancestors.",
+    "Vestigial structures are reduced remnants of features that were more functional in ancestors. Examples can retain little present function while still revealing features inherited from ancestors.",
     [
       "VESTIGIAL-DEFINITION"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "They are always vestigial",
       "They occur only in unrelated species"
     ],
-    "Homology reflects shared ancestry, while analogy can arise independently through similar selective pressures.",
+    "Homology reflects shared ancestry, while analogy can arise independently through similar selective pressures. Shared developmental and anatomical patterns are harder to explain by independent adaptation alone.",
     [
       "HOMOLOGY-COMMON-ANCESTRY"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "The environment must create identical mutations in all organisms",
       "Reproduction must stop while the stress continues"
     ],
-    "Natural selection needs heritable variation. If some inherited differences affect survival or reproduction, their frequencies can change across generations.",
+    "Natural selection needs heritable variation. If some inherited differences affect survival or reproduction, their frequencies can change across generations. Selection can only change the population if the useful differences are inherited and influence reproductive success.",
     [
       "VARIATION-RAW-MATERIAL"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "It always becomes dominant",
       "It cannot be inherited"
     ],
-    "Selection depends on how a trait affects reproductive success in a particular environment.",
+    "Selection depends on how a trait affects reproductive success in a particular environment. A heritable trait can persist neutrally if it neither improves nor reduces reproductive success in that environment.",
     [
       "NEUTRAL-TRAIT-SELECTION"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Exercise → acquired trait → guaranteed inheritance",
       "No variation → rapid selection"
     ],
-    "Selection changes populations when heritable differences affect reproductive success.",
+    "Selection changes populations when heritable differences affect reproductive success. Repeated differential reproduction makes advantageous heritable variants more common over successive generations.",
     [
       "SELECTION-SEQUENCE"
     ]
@@ -191,7 +191,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Every individual becomes a new species",
       "Evolution requires no reproduction"
     ],
-    "Evolution is a change in inherited characteristics of populations over generations.",
+    "Evolution is a change in inherited characteristics of populations over generations. Individuals may change during life, but evolution specifically refers to inherited population-level change across generations.",
     [
       "POPULATION-EVOLUTION"
     ]
@@ -206,7 +206,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "Every insect becomes susceptible",
       "The pesticide becomes a vitamin"
     ],
-    "Repeated selection favours resistant insects, increasing the frequency of resistance alleles.",
+    "Repeated selection favours resistant insects, increasing the frequency of resistance alleles. Continued pesticide pressure repeatedly removes susceptible insects and leaves resistant individuals to reproduce.",
     [
       "PESTICIDE-RESISTANCE-EVOLUTION"
     ]
@@ -221,7 +221,7 @@ export const PART_4: readonly SciCp030ReviewSpec[] = [
       "They evolved independently with no relationship",
       "Their genes must be identical"
     ],
-    "Shared homologous structures suggest common ancestry, while functional differences reflect divergence and adaptation.",
+    "Shared homologous structures suggest common ancestry, while functional differences reflect divergence and adaptation. Different functions can evolve from the same ancestral structure as populations adapt to different environments.",
     [
       "HOMOLOGY-INTEGRATED"
     ]

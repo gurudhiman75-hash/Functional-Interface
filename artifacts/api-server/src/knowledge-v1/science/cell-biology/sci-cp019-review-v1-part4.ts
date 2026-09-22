@@ -43,7 +43,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
       "30",
       "40"
     ],
-    "Gametes are produced by meiosis and normally contain half the diploid chromosome number. Half of 20 is 10.",
+    "Gametes are produced by meiosis and normally contain half the diploid chromosome number. Half of 20 is 10. This halving allows fertilization to restore the normal diploid chromosome number.",
     [
       "MEIOSIS-COUNT"
     ]

@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Secondary consumer",
       "Decomposer"
     ],
-    "Herbivores that feed directly on producers occupy the primary-consumer level.",
+    "Herbivores that feed directly on producers occupy the primary-consumer level. Energy stored in grass is transferred to the rabbit when it feeds directly on the producer.",
     [
       "RABBIT-PRIMARY-CONSUMER"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "They stop all predation",
       "They permanently remove minerals"
     ],
-    "Decomposition returns nutrients to soil and water so producers can use them again.",
+    "Decomposition returns nutrients to soil and water so producers can use them again. Nutrient recycling prevents essential elements from remaining permanently locked in dead organisms.",
     [
       "DECOMPOSER-NUTRIENT-RECYCLING"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Food chains would gain extra energy",
       "Soil minerals would increase without limit"
     ],
-    "Without decomposition, organic remains would build up and nutrients would be locked in dead material.",
+    "Without decomposition, organic remains would build up and nutrients would be locked in dead material. Over time, producer growth would decline because fewer mineral nutrients would be returned to the soil.",
     [
       "NO-DECOMPOSERS-FOREST"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Taxonomic key",
       "Population curve"
     ],
-    "A food chain shows a linear feeding relationship through which matter and energy move.",
+    "A food chain shows a linear feeding relationship through which matter and energy move. Arrows in a food chain represent the direction of energy transfer from food to feeder.",
     [
       "FOOD-CHAIN-DEFINITION"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Secondary consumer",
       "Decomposer"
     ],
-    "The grasshopper eats the producer directly, so it is a primary consumer.",
+    "The grasshopper eats the producer directly, so it is a primary consumer. The frog is a secondary consumer because it feeds on the primary consumer.",
     [
       "GRASSHOPPER-PRIMARY"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Shows only decomposers",
       "Has no consumers"
     ],
-    "Food webs combine many food chains and show multiple feeding links in a community.",
+    "Food webs combine many food chains and show multiple feeding links in a community. A food web therefore gives a more realistic picture of feeding relationships in a natural community.",
     [
       "FOOD-WEB-DEFINITION"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Second trophic level",
       "Producer level"
     ],
-    "Grass is level one, deer level two and tiger level three.",
+    "Grass is level one, deer level two and tiger level three. Trophic level counts feeding position rather than body size or importance in the ecosystem.",
     [
       "TIGER-THIRD-TROPHIC"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Food webs exclude producers",
       "Food chains contain no energy flow"
     ],
-    "Natural communities contain many interconnected feeding relationships rather than one simple chain.",
+    "Natural communities contain many interconnected feeding relationships rather than one simple chain. An organism may switch foods seasonally or at different life stages, creating multiple feeding links.",
     [
       "FOOD-WEB-REALISTIC"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Tiger numbers rise immediately",
       "Decomposers stop functioning"
     ],
-    "Removing the herbivore reduces food for predators and reduces consumption of the producer.",
+    "Removing the herbivore reduces food for predators and reduces consumption of the producer. Changes at one trophic level can therefore produce indirect effects on both lower and higher levels.",
     [
       "REMOVE-HERBIVORE-EFFECT"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Rainwater",
       "Wind alone"
     ],
-    "Most ecosystems ultimately depend on solar energy captured by producers.",
+    "Most ecosystems ultimately depend on solar energy captured by producers. Producers capture solar energy and convert part of it into chemical energy stored in organic molecules.",
     [
       "ECOSYSTEM-ENERGY-SUN"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Remains exactly equal at all levels",
       "Is created by consumers"
     ],
-    "Much energy is lost as heat and through metabolism at each trophic transfer.",
+    "Much energy is lost as heat and through metabolism at each trophic transfer. Respiration, movement and other life processes use much of the energy before the next transfer occurs.",
     [
       "ENERGY-DECREASE-TROPHIC"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "About 50 percent",
       "All of it"
     ],
-    "Only a small part, often approximated as 10%, becomes biomass available to the next level.",
+    "Only a small part, often approximated as 10%, becomes biomass available to the next level. The approximation describes transfer of stored biomass energy, not total energy originally received from sunlight.",
     [
       "TEN-PERCENT-LAW"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Producers contain no energy",
       "Decomposers stop energy loss"
     ],
-    "Progressive energy loss limits the biomass and number of organisms that can be supported at high trophic levels.",
+    "Progressive energy loss limits the biomass and number of organisms that can be supported at high trophic levels. Very little usable energy remains after several transfers, limiting how many trophic levels can be maintained.",
     [
       "FOOD-CHAIN-LENGTH-ENERGY"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "Energy increases with trophic level",
       "All levels receive equal energy"
     ],
-    "Energy pyramids are always upright because energy is lost between trophic levels.",
+    "Energy pyramids are always upright because energy is lost between trophic levels. Unlike some biomass pyramids, an energy pyramid cannot be inverted because energy is lost at every transfer.",
     [
       "ENERGY-PYRAMID-UPRIGHT"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp033ReviewSpec[] = [
       "About 10,000 units",
       "About 9,000 units"
     ],
-    "Primary consumers may receive about 1,000 units and secondary consumers about 100 units.",
+    "Primary consumers may receive about 1,000 units and secondary consumers about 100 units. Two successive 10% transfers reduce 10,000 units first to about 1,000 and then to about 100.",
     [
       "TEN-PERCENT-CALCULATION"
     ]
