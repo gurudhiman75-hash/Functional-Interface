@@ -1,6 +1,6 @@
 # GEO-SOI-001 — Soils of India
 
-Status: ACTIVE IMPLEMENTATION — CP001–CP010 APPROVED
+Status: ACTIVE IMPLEMENTATION — CP011–CP013 REVIEW
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-SOI-001`
@@ -94,4 +94,4 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-CP001–CP010 are approved and merged, covering QL001–QL090 with 540 approved owning questions. CP009 — Soil–Crop Relations (QL073–QL081) and CP010 — Soil Properties & Comparative Identification (QL082–QL090) were explicitly approved and merged through PR #2059. The remaining implementation checkpoints are CP011 — Soil Erosion & Conservation (QL091–QL099), CP012 — Multi-fact / Statement / Match Integration (QL100–QL108), and CP013 — Exhaustive Mixed Soils Mastery. Runtime publication and Question Bank/test/mock activation remain separately governed.
+CP001–CP010 are approved and merged, covering QL001–QL090 with 540 approved owning questions. CP011 — Soil Erosion & Conservation (QL091–QL099) and CP012 — Multi-fact / Statement / Match Integration (QL100–QL108) are implemented as 54-question review candidates. CP013 — Exhaustive Mixed Soils Mastery is implemented as a 108-question review candidate with exactly one representative from every QL001–QL108, Easy36 / Medium60 / Hard12, and A27 / B27 / C27 / D27. All three remain unmerged until explicit human approval. Final chapter closure, owning-pool answer-position rebalance and closure audit remain separately gated after approval. Runtime publication and Question Bank/test/mock activation remain separately governed.
