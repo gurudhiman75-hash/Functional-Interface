@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP011 — Soil Erosion & Conservation
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-SOI-001-QL-091` to `GEO-SOI-001-QL-099`
 
@@ -29,7 +29,7 @@ Permanent QLs: `GEO-SOI-001-QL-091` to `GEO-SOI-001-QL-099`
 - Terrace cultivation may use western/central Himalayas as the standard regional example.
 - Shelter belts may use western India and sand-dune stabilisation as the standard application.
 - Explanations use simple 2–3 sentence teaching language.
-- Review-only lifecycle; runtime publication disabled.
+- Content-approved checkpoint authority; runtime publication remains disabled and separately governed.
 
 ## Boundary
 
