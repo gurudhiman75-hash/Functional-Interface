@@ -2,10 +2,10 @@
   "cpId":"PUN-001-CP007",
   "phase":"RETROFIT",
   "status":"HUMAN_REVIEW_PENDING",
-  "authorityInventory":{"karak":95,"sambandhak":36,"yojak":23,"vismik":37,"totalAtomic":191},
-  "semanticCapacity":5901,
+  "authorityInventory":{"karak":95,"sambandhak":39,"yojak":23,"vismik":37,"totalAtomic":194},
+  "semanticCapacity":6180,
   "totalReviewQuestions":120,
   "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":14,"F02":13,"F03":9,"F04":12,"F05":13,"F06":8,"F07":11,"F08":20,"F09":20},
-  "requirements":["all 9 families represented","all four F09 truth outcomes represented","all eight ਕਾਰਕ labels reachable","all three approved ਸੰਬੰਧਕ labels reachable","all 36 ਸੰਬੰਧਕ authorities represented in review appendix","12 authorities per ਸੰਬੰਧਕ class","both ਯੋਜਕ labels reachable","Punjabi-only learner text","REVIEW_ONLY lifecycle"]
+  "families":{"F01":14,"F02":13,"F03":8,"F04":15,"F05":13,"F06":7,"F07":10,"F08":20,"F09":20},
+  "requirements":["all 9 families represented","all four F09 truth outcomes represented","all eight ਕਾਰਕ labels reachable","all three approved ਸੰਬੰਧਕ labels reachable","all 39 ਸੰਬੰਧਕ authorities represented in review appendix","13 authorities per ਸੰਬੰਧਕ class","ਸਾਹਮਣੇ governed as ਅਪੂਰਨ","both ਯੋਜਕ labels reachable","Punjabi-only learner text","REVIEW_ONLY lifecycle"]
 }
