@@ -3,7 +3,7 @@ export const PGK_001_CP001_SOURCE_IDS = Object.freeze({
   atAGlance2022: "GOV-PUNJAB-AT-A-GLANCE-2022",
   psebAgriculture8: "PSEB-AGRICULTURE-CLASS8-NURSERY",
   punjabOfficialPaper2024: "GOV-PUNJAB-MRSAFPI-QUESTION-PAPER-2024",
-  pscstEnvisBird: "PSCST-ENVIS-NORTHERN-GOSHAWK-2016",
+  goshawkAuthority: "CZA-BNHS-NORTHERN-GOSHAWK-PUNJAB",
   nfdbStateAquatic: "GOV-INDIA-NFDB-STATE-FISHES-AQUATIC-ANIMALS",
 } as const);
 
@@ -235,11 +235,11 @@ export const PGK_001_CP001_FACTS_V1: readonly Pgk001Cp001FactRow[] = Object.free
   },
   {
     id: "state-bird-northern-goshawk",
-    fact: "The Northern Goshawk is the state bird of Punjab; the Punjab ENVIS reference cites the 18 September 2015 state notification correcting the earlier designation.",
+    fact: "The Northern Goshawk is the state bird of Punjab; BNHS records the Government of Punjab declaration date as 18 September 2015.",
     shortFact: "State bird: Northern Goshawk",
     scope: "CURRENT_PUNJAB",
     freshness: "SLOW_MUTABLE",
-    sourceIds: [S.pscstEnvisBird],
+    sourceIds: [S.goshawkAuthority],
     sourceFactIds: ["pgk-001-cp001-state-bird-northern-goshawk"],
   },
   {
