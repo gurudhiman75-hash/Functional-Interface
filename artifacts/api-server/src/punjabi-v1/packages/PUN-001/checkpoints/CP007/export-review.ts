@@ -12,19 +12,19 @@ const specs:{difficulty:PunjabiDifficulty;familyId:string;seeds:number[]}[]=[
  {difficulty:"Easy",familyId:"F01",seeds:fill(seedByKinds(CP007_KARAK_AUTHORITIES),14,breadth.capacities.F01,11)},
  {difficulty:"Easy",familyId:"F02",seeds:fill(seedByKinds(CP007_KARAK_AUTHORITIES),13,breadth.capacities.F02,13)},
  {difficulty:"Easy",familyId:"F05",seeds:fill(seedByKinds(CP007_YOJAK_AUTHORITIES),13,breadth.capacities.F05,5)},
- {difficulty:"Medium",familyId:"F03",seeds:fill(seedByKinds(CP007_KARAK_AUTHORITIES),9,breadth.capacities.F03,17)},
- {difficulty:"Medium",familyId:"F04",seeds:fill(seedByKinds(CP007_ALL_SAMBANDHAK_AUTHORITIES),12,breadth.capacities.F04,5)},
- {difficulty:"Medium",familyId:"F06",seeds:fill(seedByKinds(CP007_YOJAK_AUTHORITIES),8,breadth.capacities.F06,7)},
- {difficulty:"Medium",familyId:"F07",seeds:fill(seedByContexts(CP007_VISMIK_AUTHORITIES),11,breadth.capacities.F07,5)},
+ {difficulty:"Medium",familyId:"F03",seeds:fill(seedByKinds(CP007_KARAK_AUTHORITIES),8,breadth.capacities.F03,17)},
+ {difficulty:"Medium",familyId:"F04",seeds:fill(seedByKinds(CP007_ALL_SAMBANDHAK_AUTHORITIES),15,breadth.capacities.F04,5)},
+ {difficulty:"Medium",familyId:"F06",seeds:fill(seedByKinds(CP007_YOJAK_AUTHORITIES),7,breadth.capacities.F06,7)},
+ {difficulty:"Medium",familyId:"F07",seeds:fill(seedByContexts(CP007_VISMIK_AUTHORITIES),10,breadth.capacities.F07,5)},
  {difficulty:"Hard",familyId:"F08",seeds:fill([],20,breadth.capacities.F08,109)},
  {difficulty:"Hard",familyId:"F09",seeds:Array.from({length:20},(_,i)=>i+1)}
 ];
 const out:string[]=[
  "# PUN-001 CP007 Retrofit Review — ਕਾਰਕ, ਸੰਬੰਧਕ, ਯੋਜਕ ਅਤੇ ਵਿਸਮਿਕ","",
  "Status: HUMAN REVIEW PENDING","",
- "Authority inventory: 95 ਕਾਰਕ + 36 ਸੰਬੰਧਕ + 23 ਯੋਜਕ + 37 contextual ਵਿਸਮਿਕ = 191 atomic authorities.","",
- "The approved three-way ਸੰਬੰਧਕ taxonomy remains unchanged. The 36 sentence-grounded authorities are balanced at 12 ਪੂਰਨ + 12 ਅਪੂਰਨ + 12 ਦੁਬਾਜਰਾ.","",
- "Governed semantic breadth: 5,901 combinations before option-order permutations.",""
+ "Authority inventory: 95 ਕਾਰਕ + 39 ਸੰਬੰਧਕ + 23 ਯੋਜਕ + 37 contextual ਵਿਸਮਿਕ = 194 atomic authorities.","",
+ "The approved three-way ਸੰਬੰਧਕ taxonomy remains unchanged. The 39 sentence-grounded authorities are balanced at 13 ਪੂਰਨ + 13 ਅਪੂਰਨ + 13 ਦੁਬਾਜਰਾ.","",
+ "Governed semantic breadth: 6,180 combinations before option-order permutations.",""
 ];
 const seen=new Set<string>(),families=new Set<string>(),verdicts=new Set<string>();
 for(const difficulty of ["Easy","Medium","Hard"] as PunjabiDifficulty[]){
