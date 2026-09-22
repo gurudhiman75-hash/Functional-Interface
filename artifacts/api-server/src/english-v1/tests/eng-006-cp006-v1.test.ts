@@ -1,0 +1,20 @@
+import assert from"node:assert/strict";
+import{ENG006_CP001_ENTRIES_V1}from"../chapters/one-word-substitution/ENG-006/CP001/eng-006-cp001-lexicon-v1";
+import{ENG006_CP002_ENTRIES_V1}from"../chapters/one-word-substitution/ENG-006/CP002/eng-006-cp002-lexicon-v1";
+import{ENG006_CP003_ENTRIES_V1}from"../chapters/one-word-substitution/ENG-006/CP003/eng-006-cp003-lexicon-v1";
+import{ENG006_CP004_ENTRIES_V1}from"../chapters/one-word-substitution/ENG-006/CP004/eng-006-cp004-lexicon-v1";
+import{ENG006_CP005_ENTRIES_V1}from"../chapters/one-word-substitution/ENG-006/CP005/eng-006-cp005-lexicon-v1";
+import{ENG006_CP006_ENTRIES_V1,eng006Cp006PoolV1,type Eng006Cp006Difficulty}from"../chapters/one-word-substitution/ENG-006/CP006/eng-006-cp006-lexicon-v1";
+import{generateEng006Cp006QuestionV1}from"../chapters/one-word-substitution/ENG-006/CP006/eng-006-cp006-v1";
+assert.equal(ENG006_CP006_ENTRIES_V1.length,240);
+assert.equal(new Set(ENG006_CP006_ENTRIES_V1.map(x=>x.answer.toLowerCase())).size,240);
+assert.equal(new Set(ENG006_CP006_ENTRIES_V1.map(x=>x.category)).size,12);
+assert.equal(eng006Cp006PoolV1("easy").length,60);
+assert.equal(eng006Cp006PoolV1("medium").length,96);
+assert.equal(eng006Cp006PoolV1("hard").length,84);
+const prior=new Set([...ENG006_CP001_ENTRIES_V1,...ENG006_CP002_ENTRIES_V1,...ENG006_CP003_ENTRIES_V1,...ENG006_CP004_ENTRIES_V1,...ENG006_CP005_ENTRIES_V1].map(x=>x.answer.toLowerCase()));
+for(const e of ENG006_CP006_ENTRIES_V1)assert.ok(!prior.has(e.answer.toLowerCase()),`prior overlap: ${e.answer}`);
+for(const e of ENG006_CP006_ENTRIES_V1){const q=generateEng006Cp006QuestionV1({seed:`entry:${e.id}`,difficulty:e.difficulty,entryId:e.id});assert.equal(q.options.length,4);assert.equal(new Set(q.options.map(x=>x.toLowerCase())).size,4);assert.equal(q.options[q.correctOptionIndex],e.answer);}
+const families=[["aphelion","perihelion"],["apogee","perigee"],["solute","solvent"],["isotope","isobar","isotone"],["oxidation","reduction"],["port","starboard"],["bow","stern"],["benevolent","malevolent"],["credulous","sceptical"],["frugal","prodigal"]]as const;
+for(const family of families){for(const answer of family){const e=ENG006_CP006_ENTRIES_V1.find(x=>x.answer===answer)!;assert.ok(e,`missing family answer: ${answer}`);for(let i=0;i<20;i++){const q=generateEng006Cp006QuestionV1({seed:`cp006:family:${answer}:${i}`,difficulty:e.difficulty,entryId:e.id});const opts=q.options.map(x=>x.toLowerCase());for(const other of family)if(other!==answer)assert.ok(!opts.includes(other.toLowerCase()),`cp006 near-equivalent leakage: ${answer} -> ${other}`);}}}
+const seen=new Set<string>(),pos=[0,0,0,0];for(let i=0;i<20000;i++){const d=(["easy","medium","hard"]as const)[i%3]as Eng006Cp006Difficulty,q=generateEng006Cp006QuestionV1({seed:`eng006-cp006-soak:${i}`,difficulty:d});seen.add(q.metadata.entryId);pos[q.correctOptionIndex]++;assert.equal(new Set(q.options.map(x=>x.toLowerCase())).size,4);}assert.equal(seen.size,240);for(const n of pos)assert.ok(n>=4500&&n<=5500,`Answer-position imbalance: ${pos.join(",")}`);console.log("ENG-006 CP006 validation passed.",{entries:240,positions:pos});
