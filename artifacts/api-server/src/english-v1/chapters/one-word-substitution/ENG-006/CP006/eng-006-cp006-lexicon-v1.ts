@@ -128,132 +128,132 @@ client|a computer or program that requests services from a server
 router|a device that directs data packets between computer networks
 modem|a device that converts signals to enable digital communication over a transmission line
 debugging|the process of finding and correcting errors in software or a system
-#personality_traits
-gregarious|fond of company and sociable with other people
-reticent|not revealing one's thoughts or feelings readily
-reserved|slow to reveal emotions or opinions and not very demonstrative
-impulsive|acting suddenly without adequate thought
-meticulous|showing great attention to small details
-fastidious|very attentive to detail and difficult to please
-parsimonious|extremely unwilling to spend money or use resources
-frugal|careful and economical in the use of money or resources
-prodigal|spending money or resources recklessly and wastefully
-avaricious|having an extreme desire for wealth or possessions
-magnanimous|very generous or forgiving, especially toward a rival
-vindictive|having a strong desire for revenge
-benevolent|kind, generous, and wishing to do good
-malevolent|having or showing a wish to do harm to others
-credulous|too ready to believe things without enough evidence
-gullible|easily persuaded to believe something false
-intrepid|fearless and showing great courage
-eccentric|behaving in an unusual or unconventional way
-imperturbable|remaining calm and not easily upset or excited
-pragmatic|dealing with problems in a practical rather than theoretical way
-#symptoms_clinical
-haemorrhage|heavy or uncontrolled bleeding
-convulsion|a sudden violent and involuntary contraction of muscles
-palpitation|an unusually noticeable rapid or irregular heartbeat
-nausea|a feeling of sickness with an urge to vomit
-emesis|the act of vomiting
-dyspepsia|indigestion or discomfort in the upper abdomen
-diarrhoea|frequent passage of loose or watery stools
-constipation|difficulty in emptying the bowels
-hypersomnia|a condition marked by excessive sleepiness or unusually long periods of sleep
-somnolence|a state of drowsiness or sleepiness
-tremor|an involuntary rhythmic shaking movement
-spasm|a sudden involuntary contraction of a muscle
-paresis|partial loss of voluntary movement or muscular weakness
-ataxia|loss of full control of bodily movements
-aphonia|loss of the ability to produce voiced speech
-dysphonia|difficulty in speaking because of a disorder of the voice
-anosmia|loss of the sense of smell
-ageusia|loss of the sense of taste
-paresthesia|an abnormal tingling, prickling, or numb sensation
-pruritus|an unpleasant sensation of the skin that causes a desire to scratch
-#collective_social
-congregation|a group of people assembled for religious worship
-audience|a group of people gathered to watch or listen to a performance or speaker
-assembly|a group of people gathered together for a common purpose
-mob|a large disorderly crowd, especially one intent on violence
-throng|a large densely packed crowd of people
-troupe|a group of actors, dancers, or performers
-crew|a group of people who work together on a ship, aircraft, or other operation
-panel|a small group of people chosen to discuss, judge, or investigate something
-delegation|a group of people chosen to represent a larger body
-committee|a group appointed to consider, investigate, or manage a particular matter
-council|a group elected or appointed to make decisions or give advice
-syndicate|a group of individuals or organisations combined for a common business purpose
-guild|an association of people in the same trade, craft, or profession
-fraternity|an organised group united by a common interest or profession
-sorority|a society or club mainly for women or female students
-clique|a small exclusive group of people with shared interests
-coterie|a small exclusive circle of people with common tastes or interests
-entourage|a group of attendants or associates accompanying an important person
-retinue|a group of advisers, assistants, or servants accompanying an important person
-cohort|a group of people sharing a common characteristic or experience
-#geometry_shapes
-triangle|a plane figure with three straight sides
-quadrilateral|a plane figure with four straight sides
-pentagon|a polygon with five sides
-hexagon|a polygon with six sides
-heptagon|a polygon with seven sides
-octagon|a polygon with eight sides
-nonagon|a polygon with nine sides
-decagon|a polygon with ten sides
-dodecagon|a polygon with twelve sides
-equilateral|having all sides equal in length
-isosceles|having two sides of equal length
-scalene|having all sides of different lengths
-parallel|lying in the same plane and never meeting however far extended
-perpendicular|meeting another line or surface at a right angle
-tangent|a line touching a curve at exactly one point locally
-diameter|a straight line through the centre of a circle joining two points on the circumference
-radius|a straight line from the centre of a circle to its circumference
-chord|a straight line joining two points on a curve or circle
-arc|a part of the circumference of a circle or other curve
-sector|the region of a circle bounded by two radii and the connecting arc
-#navigation_seafaring
-port|the left side of a ship when facing forward
-starboard|the right side of a ship when facing forward
-bow|the front part of a ship or boat
-stern|the rear part of a ship or boat
-hull|the main body of a ship or boat
-keel|the principal structural member running along the bottom of a ship
-deck|a horizontal platform forming a floor on a ship
-berth|a designated place where a ship is moored or a sleeping place on a vessel
-anchor|a heavy object used to hold a ship in place on the seabed
-rudder|a flat movable surface used to steer a ship
-mast|a tall vertical pole on a ship that supports sails or equipment
-helm|the steering position or apparatus of a ship
-harbour|a sheltered body of water where ships can anchor safely
-marina|a specially designed harbour for small boats and yachts
-jetty|a structure projecting into water where boats can dock
-quay|a solid platform beside water where ships load and unload
-pier|a platform built out over water and supported by pillars
-breakwater|a barrier built offshore to protect a harbour from waves
-buoy|a floating marker anchored in water to guide or warn vessels
-nautical|relating to ships, sailors, or navigation at sea
-#phobias_long_tail
-autophobia|an extreme fear of being alone or isolated
-anthropophobia|an extreme fear of people or social contact
-ergophobia|an extreme fear of work or the workplace
-chronophobia|an extreme fear of the passage of time
-gerascophobia|an extreme fear of growing old
-necrophobia|an extreme fear of death, dead bodies, or things associated with death
-nosophobia|an extreme fear of developing a disease
-photophobia|an abnormal intolerance or fear of bright light
-phonophobia|an extreme fear or intolerance of loud sounds
-bibliophobia|an extreme fear or dislike of books
-zoophobia|an extreme fear of animals
-entomophobia|an extreme fear of insects
-ornithophobia|an extreme fear of birds
-pyrophobia|an extreme fear of fire
-basophobia|an extreme fear of falling while standing or walking
-triskaidekaphobia|an extreme fear of the number thirteen
-atelophobia|an extreme fear of imperfection or not being good enough
-emetophobia|an extreme fear of vomiting
-dentophobia|an extreme fear of dentists or dental treatment
-haphephobia|an extreme fear of being touched
+#crafts_trades
+luthier|a person who makes or repairs stringed musical instruments
+engraver|a person who cuts designs or lettering into hard surfaces
+sculptor|an artist who creates three-dimensional works by carving or modelling
+potter|a person who makes objects from clay
+weaver|a person who makes fabric by interlacing threads
+jeweller|a person who makes, repairs, or sells jewellery
+florist|a person who sells and arranges flowers
+perfumer|a person who creates or sells perfumes
+milliner|a person who makes or sells women's hats
+haberdasher|a dealer in sewing materials or men's small clothing items
+upholsterer|a person who fits furniture with padding, springs, and fabric
+carpenter|a person skilled in making and repairing wooden structures
+mason|a worker skilled in building with stone or brick
+glazier|a person whose trade is fitting glass into windows and frames
+plumber|a person who installs and repairs water pipes and sanitary systems
+farrier|a person who shoes horses and cares for their hooves
+cooper|a person who makes or repairs wooden barrels and casks
+tanner|a person who converts animal hides into leather
+blacksmith|a person who shapes iron or steel by heating and hammering
+watchmaker|a person who makes or repairs watches and clocks
+#speech_language_disorders
+aphonia|loss of the ability to produce voiced sound
+dysarthria|difficulty speaking clearly because of impaired control of speech muscles
+dysphonia|a disorder affecting the quality, pitch, or loudness of the voice
+dysgraphia|a learning difficulty affecting writing
+dyscalculia|a learning difficulty affecting understanding of numbers and arithmetic
+alexia|loss of the ability to read despite previously having that ability
+agraphia|loss of the ability to write despite previously having that ability
+anomia|difficulty recalling or producing the names of objects or people
+echolalia|automatic repetition of words or phrases spoken by another person
+palilalia|involuntary repetition of one's own words or phrases
+mutism|the inability or refusal to speak
+lisp|a speech defect involving incorrect production of certain consonant sounds
+stammer|speech marked by involuntary pauses or repetition of sounds
+logorrhoea|excessive and often incoherent talkativeness
+glossolalia|speech-like utterance of unintelligible sounds, often in a religious context
+paraphasia|production of unintended words or sounds during speech
+coprolalia|involuntary utterance of obscene or socially inappropriate words
+bradylalia|abnormally slow speech
+tachylalia|abnormally rapid speech
+dysprosody|abnormal rhythm, stress, or intonation in speech
+#legal_contracts
+covenant|a formal binding agreement or promise
+deed|a signed legal document that records a transfer, right, or obligation
+lease|a contract granting the use of property for a period in return for payment
+tenancy|the legal condition of occupying property as a tenant
+easement|a legal right to use another person's land for a specific purpose
+lien|a legal claim over property as security for a debt
+usufruct|the legal right to use and benefit from property owned by another
+bequest|property or money left to someone by a will
+legacy|money or property left to someone in a will
+probate|the legal process of proving and administering a will
+codicil|a legal document that modifies an existing will
+intestacy|the condition of dying without a valid will
+guardianship|legal responsibility for caring for a person unable to manage their own affairs
+surety|a person or arrangement guaranteeing another person's debt or obligation
+indemnity|protection or compensation against financial loss or legal liability
+escrow|property or money held by a third party until agreed conditions are met
+novation|replacement of an existing contract with a new one by agreement
+subrogation|the legal substitution of one party for another in claiming rights or remedies
+forfeiture|loss of property or rights as a penalty for wrongdoing or breach
+foreclosure|the legal process by which a lender takes possession of mortgaged property after default
+#crime_offences
+embezzlement|dishonest appropriation of money entrusted to one's care
+fraud|intentional deception for financial or personal gain
+forgery|the making of a false document, signature, or object with intent to deceive
+bribery|the giving or receiving of something valuable to influence an official action
+corruption|dishonest or unlawful conduct by a person in authority
+racketeering|organised criminal activity carried on as an illegal business
+trespass|unlawful entry onto another person's land or property
+assault|an act that intentionally causes another person to fear immediate unlawful violence
+battery|unlawful physical contact or force against another person
+manslaughter|unlawful killing of a person without the intent required for murder
+shoplifting|stealing goods from a shop while pretending to be a customer
+pickpocketing|stealing from a person's pocket or bag without their noticing
+mugging|attacking and robbing someone in a public place
+stalking|repeatedly following or harassing someone in a threatening manner
+trafficking|illegal trade in people, drugs, or other prohibited goods
+bootlegging|illegal manufacture, distribution, or sale of restricted goods
+laundering|concealing the criminal origin of money by making it appear legitimate
+plagiarism|presenting another person's words or ideas as one's own
+impersonation|pretending to be another person, often to deceive
+cybercrime|criminal activity carried out using computers or networks
+#residence_inhabitants
+resident|a person who lives in a particular place
+citizen|a legally recognised member of a state with rights and duties
+alien|a person living in a country who is not a citizen of that country
+foreigner|a person from a country other than the one being considered
+settler|a person who moves to a new area and establishes a permanent home there
+colonist|a person who settles in a colony
+migrant|a person who moves from one place to another, often for work
+diaspora|a population dispersed from its original homeland
+domicile|a person's permanent legal home
+denizen|an inhabitant or regular occupant of a particular place
+urbanite|a person who lives in a city
+villager|a person who lives in a village
+islander|a person who lives on an island
+highlander|a person who lives in a highland or mountainous region
+mountaineer|a person skilled in climbing mountains
+frontiersman|a person who lives or works on the frontier of settled territory
+countryman|a person from the same country as another
+compatriot|a fellow citizen or person from the same country
+native|a person born in a particular place
+aborigine|an indigenous inhabitant of a region, especially from its earliest known population
+#education_learning
+pedagogue|a teacher, especially one who is strict or formal
+autodidact|a person who has taught themselves without formal instruction
+scholar|a person with deep learning in a particular subject
+savant|a person with profound or specialised knowledge
+polymath|a person with wide knowledge across many different subjects
+laureate|a person honoured for outstanding achievement in a field
+alumnus|a male graduate or former student of an institution
+alumna|a female graduate or former student of an institution
+dropout|a person who leaves school or a course before completing it
+undergraduate|a student studying for a first university degree
+postgraduate|a student studying after completing a first degree
+valedictorian|the student who delivers the farewell speech at a graduation ceremony
+salutatorian|the graduate ranked second in a class who gives a welcoming speech at graduation
+apprentice|a person learning a trade from a skilled worker
+intern|a trainee working to gain practical professional experience
+trainee|a person undergoing training for a job or skill
+tutor|a person who gives individual or small-group instruction
+preceptor|an instructor or mentor responsible for guiding a student
+invigilator|a person who supervises candidates during an examination
+examiner|a person who sets, conducts, or assesses an examination
 `.trim();
 
 const rows:Eng006Cp006EntryV1[]=[];let category="";let within=0;
