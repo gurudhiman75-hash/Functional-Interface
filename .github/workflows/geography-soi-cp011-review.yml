@@ -1,7 +1,8 @@
 name: Validate GEO-SOI-001 CP011 Review
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/knowledge-v1/indian-geography/soils/GEO-SOI-001-CP011-SPEC.md"
       - "artifacts/api-server/src/knowledge-v1/indian-geography/soils/geo-soi-001-cp011-*"
