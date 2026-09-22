@@ -1,22 +1,22 @@
 {
   "cpId":"PUN-001-CP014",
-  "status":"HUMAN_REVIEW_PENDING",
+  "status":"HUMAN_APPROVED",
   "authorityInventory":{
-    "passages":13,
-    "passageQuestions":42,
+    "passages":50,
+    "passageQuestions":190,
     "administrativeTerms":215,
-    "totalAtomic":257
+    "totalAtomic":405
   },
-  "semanticCapacity":1643,
+  "semanticCapacity":2235,
   "totalReviewQuestions":120,
   "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":15,"F02":10,"F03":10,"F04":25,"F05":10,"F06":10,"F07":20,"F08":20},
+  "families":{"F01":20,"F02":15,"F03":15,"F04":20,"F05":5,"F06":5,"F07":30,"F08":10},
   "requirements":[
     "all 8 families represented",
     "all 4 F08 truth outcomes represented",
     "all retained authorities reachable through each applicable family",
     "unique semantic fingerprints",
-    "Punjabi-only passage learner text",
+    "Punjabi-only passage learner text",\n    "complete 50-passage / 190-authority appendix included in human review",
     "concise Punjabi administrative answer terms",
     "REVIEW_ONLY lifecycle"
   ]
