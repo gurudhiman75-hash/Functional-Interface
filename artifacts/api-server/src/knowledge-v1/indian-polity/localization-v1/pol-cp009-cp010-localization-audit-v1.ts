@@ -65,6 +65,11 @@ for(const [cpId,english,gen] of cps){
 assert.equal(generatePolCp009ReviewBatchV1().length,72,"CP009 authority must contain 72 questions");
 assert.equal(generatePolCp010ReviewBatchV1().length,80,"CP010 authority must contain 80 questions");
 assert.equal(total,152,"CP009-CP010 authority must contain 152 questions");
+const cp009q65=generatePolCp009ReviewBatchV1().find(q=>q.questionId==="POL-CP009-V1-065");
+assert.ok(cp009q65,"CP009 Q65 regression target missing");
+assert.equal(cp009q65.canonicalAnswer,"Statements 1 and 2 only","CP009 Q65 answer changed");
+assert.match(cp009q65.explanation,/Statements 1 and 2 are correct/,"CP009 Q65 explanation must agree with answer");
+assert.doesNotMatch(cp009q65.explanation,/All three statements are correct/,"CP009 Q65 contradictory explanation regressed");
 const evidence={chapterId:"POL-001",cps:["POL-CP-009","POL-CP-010"],localizationVersion:"POL-LOCALIZATION-V1",englishQuestions:total,questionsPerLocale:total,locales,totalReviewSurfaces:total*3,semanticInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,qlInvariant:true,sourceInvariant:true,numericFormInvariant:true,punjabiNativeEditorialGuard:true,stemGrammarGuard:true,examStandardGuard:true,reviewOnly:true,runtimeRegistered:false};
 const dir=path.resolve("dist/polity-review/POL-MULTILINGUAL-V1");fs.mkdirSync(dir,{recursive:true});
 fs.writeFileSync(path.join(dir,"POL-CP009-CP010-MULTILINGUAL-PROOF.json"),JSON.stringify(evidence,null,2));
