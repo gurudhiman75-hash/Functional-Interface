@@ -98,6 +98,7 @@ for(const family of CP009_FAMILIES){
    assert(!/[A-Za-z]/.test(q.stem),q.id+": English leaked into stem");
    assert(!/[A-Za-z]/.test(q.explanation),q.id+": English leaked into explanation");
    assert(!banned.test(q.stem+" "+q.explanation),q.id+": editorial filler");
+   assert(!q.options.includes("ਇੱਕੋ ਸ਼ਬਦ ਦੇ ਰੂਪ"),q.id+": weak relation-label option leaked");
    assert(!local.has(q.metadata.fingerprint),q.id+": duplicate family fingerprint");local.add(q.metadata.fingerprint);
    assert(!global.has(q.metadata.fingerprint),q.id+": cross-family fingerprint collision");global.add(q.metadata.fingerprint);
    firstCoverage.add(q.metadata.authorityIds[0]!);
