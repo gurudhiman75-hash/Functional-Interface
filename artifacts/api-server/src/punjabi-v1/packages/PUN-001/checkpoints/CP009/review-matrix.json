@@ -1,22 +1,22 @@
 {
   "cpId":"PUN-001-CP009",
   "phase":"RETROFIT",
-  "status":"HUMAN_REVIEW_PENDING",
+  "status":"HUMAN_APPROVED",
   "authorityInventory":{
     "synonymHeadwords":98,
     "synonymEdges":378,
     "deepSynonymAuthorities":86,
     "antonymConcepts":110,
-    "contexts":10,
-    "totalAtomic":218
+    "contexts":60,
+    "totalAtomic":268
   },
-  "semanticCapacity":66413,
+  "semanticCapacity":66463,
   "totalReviewQuestions":120,
   "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":14,"F02":13,"F03":13,"F04":10,"F05":15,"F06":15,"F07":20,"F08":20},
+  "families":{"F01":14,"F02":13,"F03":13,"F04":20,"F05":10,"F06":10,"F07":20,"F08":20},
   "requirements":[
     "all 8 families represented",
-    "all 10 authored contexts represented in review",
+    "all 60 authored contexts represented in review appendix",
     "all 4 F08 truth outcomes represented",
     "all retained authorities reachable through applicable families",
     "all 378 validated synonym edges reachable through direct/relation families",
