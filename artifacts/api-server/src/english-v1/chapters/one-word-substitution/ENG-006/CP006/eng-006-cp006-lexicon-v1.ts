@@ -105,7 +105,7 @@ barrage|a concentrated and continuous artillery attack
 salvo|the simultaneous firing of several guns or weapons
 trench|a long narrow ditch used by soldiers for protection
 fortification|a defensive military structure or the act of strengthening a place against attack
-armoury|a place where weapons and military equipment are stored
+redoubt|a small enclosed defensive fortification used to protect troops
 convoy|a group of vehicles or ships travelling together for protection
 #computing_digital
 algorithm|a precise sequence of steps for solving a problem or performing a calculation
