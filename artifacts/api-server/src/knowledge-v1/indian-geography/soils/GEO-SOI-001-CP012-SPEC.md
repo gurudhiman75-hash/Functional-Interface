@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP012 — Multi-fact / Statement / Match Integration
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-SOI-001-QL-100` to `GEO-SOI-001-QL-108`
 
@@ -22,13 +22,13 @@ Permanent QLs: `GEO-SOI-001-QL-100` to `GEO-SOI-001-QL-108`
 
 - 54 questions; six per QL.
 - Easy 18 / Medium 30 / Hard 6.
-- Answer positions A14 / B14 / C13 / D13.
+- Final answer positions A14 / B13 / C13 / D14.
 - Statement questions must combine previously established canonical facts rather than introduce new truth claims.
 - Match questions should test real contrasts among soil groups, regions, crops and conservation methods.
 - Hard items should combine several relations while keeping wording simple.
 - No obscure pedological vocabulary used only to increase difficulty.
 - Explanations use simple 2–3 sentence teaching language.
-- Review-only lifecycle; runtime publication disabled.
+- Content-approved checkpoint authority; runtime publication remains disabled and separately governed.
 
 ## Boundary
 

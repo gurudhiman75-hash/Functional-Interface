@@ -22,7 +22,7 @@ Permanent QLs: `GEO-SOI-001-QL-064` to `GEO-SOI-001-QL-072`
 
 - 54 questions; six per QL.
 - Easy 18 / Medium 30 / Hard 6.
-- Answer positions A14 / B14 / C13 / D13.
+- Final answer positions A13 / B13 / C14 / D14.
 - 54 unique stems and explanations.
 - Distribution questions must test real map/state/region recognition rather than repeat property definitions.
 - State and region lists must remain source-grounded and avoid overclaiming whole-state coverage where only parts are standard.

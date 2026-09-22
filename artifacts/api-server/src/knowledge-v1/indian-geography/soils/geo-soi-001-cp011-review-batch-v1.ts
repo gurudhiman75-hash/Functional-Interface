@@ -885,7 +885,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
 
 export const GEO_SOI_001_CP011_REVIEW_BATCH_V1: readonly GeoSoi001Question[] = Object.freeze(
   RAW.map((raw, index) => {
-    const correctIndex = index % 4;
+    const correctIndex = (index + 3) % 4;
     return Object.freeze({
       questionId: `GEO-SOI-001-CP011-Q${String(index + 1).padStart(3, "0")}`,
       qlId: raw.qlId,
@@ -939,7 +939,7 @@ export function auditGeoSoi001Cp011ReviewBatchV1() {
   if (GEO_SOI_001_CP011_REVIEW_BATCH_V1.length !== 54) issues.push("COUNT:" + GEO_SOI_001_CP011_REVIEW_BATCH_V1.length);
   for (let n=91;n<=99;n+=1){const qlId="GEO-SOI-001-QL-"+String(n).padStart(3,"0");if(qlCounts[qlId]!==6)issues.push("QL_COUNT:"+qlId+":"+(qlCounts[qlId]??0));}
   if (difficultyCounts.Easy !== 18 || difficultyCounts.Medium !== 30 || difficultyCounts.Hard !== 6) issues.push("DIFFICULTY:" + JSON.stringify(difficultyCounts));
-  if (answerPositions.join(",") !== "14,14,13,13") issues.push("ANSWER_POSITIONS:" + answerPositions.join(","));
+  if (answerPositions.join(",") !== "14,13,13,14") issues.push("ANSWER_POSITIONS:" + answerPositions.join(","));
   if (stems.size !== 54) issues.push("STEM_COUNT:" + stems.size);
   if (explanations.size !== 54) issues.push("EXPLANATION_COUNT:" + explanations.size);
   return Object.freeze({valid:issues.length===0,issues:Object.freeze(issues),questionCount:GEO_SOI_001_CP011_REVIEW_BATCH_V1.length,stemCount:stems.size,explanationCount:explanations.size,qlCounts:Object.freeze(qlCounts),difficultyCounts:Object.freeze(difficultyCounts),answerPositions:Object.freeze(answerPositions)});

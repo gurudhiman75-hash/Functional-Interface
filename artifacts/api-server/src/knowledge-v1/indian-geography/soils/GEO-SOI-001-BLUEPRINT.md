@@ -1,6 +1,6 @@
 # GEO-SOI-001 — Soils of India
 
-Status: ACTIVE IMPLEMENTATION — CP011–CP013 REVIEW
+Status: CLOSURE CANDIDATE — CP001–CP013 APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-SOI-001`
@@ -94,4 +94,4 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-CP001–CP010 are approved and merged, covering QL001–QL090 with 540 approved owning questions. CP011 — Soil Erosion & Conservation (QL091–QL099) and CP012 — Multi-fact / Statement / Match Integration (QL100–QL108) are implemented as 54-question review candidates. CP013 — Exhaustive Mixed Soils Mastery is implemented as a 108-question review candidate with exactly one representative from every QL001–QL108, Easy36 / Medium60 / Hard12, and A27 / B27 / C27 / D27. All three remain unmerged until explicit human approval. Final chapter closure, owning-pool answer-position rebalance and closure audit remain separately gated after approval. Runtime publication and Question Bank/test/mock activation remain separately governed.
+CP001–CP012 are approved and merged, covering all QL001–QL108 with 648 owning questions. CP013 is approved and merged as the 108-question exhaustive mastery authority. The owning pool has been rebalanced to Easy216 / Medium360 / Hard72 and A162 / B162 / C162 / D162; CP013 remains Easy36 / Medium60 / Hard12 and A27 / B27 / C27 / D27. The chapter closure audit is now the only remaining content gate. Runtime publication, Question Studio registration, Question Bank persistence and test/mock activation remain separately governed.
