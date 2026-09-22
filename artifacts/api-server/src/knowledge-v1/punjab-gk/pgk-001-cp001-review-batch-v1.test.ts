@@ -51,3 +51,24 @@ for (const question of PGK_001_CP001_REVIEW_BATCH_V1) {
     assert.equal(lowerStem.includes(banned), false, `${question.questionId} contains banned learner-facing terminology: ${banned}`);
   }
 }
+
+const bannedLearnerSourcePhrases = [
+  "state government profile",
+  "government of punjab gives",
+  "punjab government profile",
+  "official punjab profile",
+  "punjab at a glance",
+  "envis reference",
+  "official statistical profile",
+  "cited 2022 statistical snapshot",
+];
+for (const question of PGK_001_CP001_REVIEW_BATCH_V1) {
+  const learnerText = `${question.stem} ${question.explanation} ${question.options.join(" ")}`.toLowerCase();
+  for (const banned of bannedLearnerSourcePhrases) {
+    assert.equal(
+      learnerText.includes(banned),
+      false,
+      `${question.questionId} leaks source/provenance wording to learner text: ${banned}`,
+    );
+  }
+}
