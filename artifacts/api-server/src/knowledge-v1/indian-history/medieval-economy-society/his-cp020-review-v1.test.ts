@@ -12,7 +12,7 @@ assert.ok(Object.values(audit.qlCounts).every(count=>count===6));
 assert.deepEqual(audit.answerPositions,[15,15,15,15]);
 assert.equal(HIS_CP020_REVIEW_BATCH_V1.every(q=>q.reviewOnly&&!q.runtimeRegistered),true);
 assert.equal(HIS_CP020_REVIEW_BATCH_V1.filter(q=>q.difficulty==="Hard").every(q=>q.sourceFactIds.length>=2),true);
-assert.equal(HIS_CP020_REVIEW_BATCH_V1.some(q=>/\bbest describ(?:e|es)\b|\bassociated with\b|which correctly identifies/i.test(q.stem)),false);
+assert.equal(HIS_CP020_REVIEW_BATCH_V1.some(q=>/\bbest describ(?:e|es)\b|\bassociated with\b|which correctly identifies|^how did\b|^what was the usual relationship\b|^what was the main purpose\b|^what effect did\b/i.test(q.stem)),false);
 assert.equal(HIS_CP020_REVIEW_BATCH_V1.some(q=>/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i.test(q.stem+" "+q.explanation)),false);
 assert.equal(HIS_CP020_REVIEW_BATCH_V1.some(q=>q.stem.length>225),false);
 assert.equal(HIS_CP020_REVIEW_BATCH_V1.some(q=>q.explanation.length<150||q.explanation.length>760),false);
