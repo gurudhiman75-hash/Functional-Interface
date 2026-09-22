@@ -2,258 +2,258 @@ export type Eng006Cp006Difficulty="easy"|"medium"|"hard";
 export interface Eng006Cp006EntryV1{id:string;answer:string;definition:string;category:string;difficulty:Eng006Cp006Difficulty;}
 
 const RAW=`
-#people_lifestyles
-bibliophile|a person who loves or collects books
-cinephile|a person who is very fond of films and cinema
-audiophile|a person who is enthusiastic about high-quality sound reproduction
-gourmet|a person with expert knowledge and refined taste in food and drink
-gourmand|a person who greatly enjoys eating and often eats large amounts
-teetotaller|a person who completely abstains from alcoholic drinks
-cannibal|a person who eats the flesh of other human beings
-misogynist|a person who strongly dislikes or is prejudiced against women
-misandrist|a person who strongly dislikes or is prejudiced against men
-misogamist|a person who dislikes or avoids marriage
-polyglot|a person who knows and can use several languages
-hermit|a person who lives alone and apart from society, often for religious reasons
-nomad|a person who moves from place to place instead of living permanently in one place
-bohemian|a person who lives an unconventional life, especially in artistic circles
-conformist|a person who behaves according to accepted customs or standards
-nonconformist|a person who refuses to follow accepted customs, beliefs, or standards
-ascetic|a person who practises severe self-discipline and abstains from physical pleasures
-epicure|a person who takes particular pleasure in fine food and comfort
-recluse|a person who lives in seclusion and avoids other people
-mendicant|a person who lives by begging, especially a member of a religious order
-#specialist_sciences
-epidemiologist|a specialist who studies the distribution and causes of disease in populations
-immunologist|a scientist or doctor who specialises in the immune system
-endocrinologist|a doctor who specialises in hormones and endocrine glands
-nephrologist|a doctor who specialises in kidney diseases
-oncologist|a doctor who specialises in cancer
-radiologist|a doctor who specialises in medical imaging
-anaesthesiologist|a doctor who specialises in anaesthesia and pain control during surgery
-obstetrician|a doctor who specialises in pregnancy and childbirth
-geriatrician|a doctor who specialises in the medical care of older people
-podiatrist|a specialist who treats disorders of the feet
-toxicologist|a scientist who studies poisons and their effects
-cytologist|a scientist who studies cells
-histologist|a scientist who studies the microscopic structure of tissues
-palaeontologist|a scientist who studies fossils and prehistoric life
-hydrologist|a scientist who studies water and its movement on and below the Earth's surface
-limnologist|a scientist who studies inland waters such as lakes and rivers
-dendrologist|a scientist who studies trees and woody plants
-geodesist|a scientist who measures the shape, size, and gravitational field of the Earth
-palaeographer|a specialist who studies ancient forms of handwriting and manuscripts
-epigraphist|a specialist who studies and interprets inscriptions
-#impossibility_qualities
-invincible|incapable of being defeated or conquered
-impregnable|too strong to be captured or entered by force
-indelible|impossible to remove, erase, or forget
-immutable|unable to be changed
-inevitable|certain to happen and impossible to avoid
-infallible|incapable of making mistakes or being wrong
-impeccable|without fault or error
-incorrigible|not capable of being corrected or reformed
-illegible|impossible or very difficult to read
-inaudible|impossible or too quiet to be heard
-intangible|unable to be touched or physically grasped
-irreparable|impossible to repair or put right
-irreversible|impossible to reverse or return to a previous state
-irrevocable|impossible to revoke, cancel, or change
-indomitable|impossible to defeat or discourage
-indefatigable|incapable of becoming tired despite prolonged effort
-indestructible|impossible to destroy
-inimitable|so distinctive or excellent that it cannot be copied successfully
-inscrutable|impossible or extremely difficult to understand
-inaccessible|impossible or very difficult to reach or enter
-#law_crime_procedure
-recidivist|a convicted criminal who repeatedly commits offences
-extradition|the legal surrender of an accused or convicted person to another jurisdiction
-jurisdiction|the official authority of a court or legal body to make decisions
-litigation|the process of taking a dispute to court
-misdemeanour|a relatively minor criminal offence
-felony|a serious criminal offence
-alibi|a claim or evidence that a person was elsewhere when an offence occurred
-bail|temporary release of an accused person while awaiting trial, usually under conditions
-remand|the act of keeping an accused person in custody while awaiting further court action
-acquiescence|acceptance of something without protest
-exoneration|the act of officially clearing someone from blame or fault
-exculpation|the act of freeing someone from blame or guilt
-incrimination|the act of making someone appear guilty of a crime
-arbitrator|an independent person appointed to settle a dispute
-mediator|a neutral person who helps opposing sides reach an agreement
-appellant|a person who appeals against a court decision
-respondent|a person against whom an appeal or petition is brought
-testator|a person who has made a valid will
-legatee|a person who receives a legacy under a will
-beneficiary|a person entitled to receive money, property, or advantage from a will, trust, or arrangement
-#language_writing
-lexicon|the vocabulary of a language, person, subject, or field
-codex|an ancient manuscript text in book form
-folio|a large sheet of paper folded once to make two leaves, or a book of such sheets
-palimpsest|a manuscript on which earlier writing has been erased and replaced by later writing
-incunabulum|a book printed in Europe before the year 1501
-manuscript|a text written by hand or an author's original written or typed work
-encyclopaedia|a reference work containing information on many subjects or all branches of knowledge
-almanac|an annual publication containing useful facts, dates, and statistics
-catalogue|a complete arranged list of items, often with descriptions
-directory|an organised list of names, addresses, or other information
-handbook|a concise practical reference book on a particular subject
-manual|a book giving instructions for operating something or performing a task
-periodical|a publication issued at regular intervals
-serial|a story or publication issued in successive parts
-bulletin|a short official statement or news report issued for public information
-circular|a notice or letter distributed to many people
-leaflet|a small printed sheet or folded paper giving information
-broadsheet|a large-format newspaper or a single large printed sheet
-pseudonym|a fictitious name used by an author or another person
-eponym|a person or thing after whom or which something is named
-#government_politics
-bureaucracy|a system of administration run by officials according to fixed rules
-meritocracy|a system in which advancement is based on ability or achievement
-aristocracy|government or social control by a privileged hereditary class
-gerontocracy|government by elderly people
-kleptocracy|government by rulers who use power to steal national resources
-kakistocracy|government by the least suitable or least competent citizens
-stratocracy|government by the military
-theocracy|government by religious authorities or according to religious law
-autarchy|absolute rule by one person, or complete economic self-sufficiency
-bicameral|having a legislature made up of two chambers
-unicameral|having a legislature made up of one chamber
-franchise|the legal right to vote in elections
-suffrage|the right to vote in political elections
-disenfranchisement|the removal or denial of the right to vote
-coalition|an alliance of political parties or groups formed for a common purpose
-caucus|a meeting of members of a political party to choose candidates or decide policy
-prorogation|the formal ending or suspension of a session of a legislature
-dissolution|the formal ending of a legislative body so that new elections can be held
-secession|the formal withdrawal of a region or group from a larger political unit
-annexation|the formal acquisition and incorporation of territory into another state
-#earth_environment
-isthmus|a narrow strip of land connecting two larger land areas
-peninsula|a piece of land almost surrounded by water but connected to the mainland
-delta|a landform of deposited sediment at the mouth of a river
-estuary|the tidal mouth of a river where fresh water meets the sea
-lagoon|a shallow body of water separated from the sea by a barrier
-atoll|a ring-shaped coral island or reef surrounding a lagoon
-plateau|a broad area of elevated flat land
-canyon|a deep narrow valley with steep sides, often cut by a river
-gorge|a narrow valley with steep rocky walls
-oasis|a fertile place in a desert where water is available
-watershed|a line of high ground separating drainage basins
-tributary|a river or stream that flows into a larger river
-distributary|a branch of a river that flows away from the main stream
-confluence|the point where two rivers or streams meet
-aquifer|an underground layer of rock or sediment that stores and transmits groundwater
-archipelago|a group or chain of islands
-peninsula|land almost surrounded by water and joined to a larger landmass
-topography|the physical features and surface shape of an area
-erosion|the gradual wearing away and removal of soil or rock
-sedimentation|the process by which particles settle and accumulate as sediment
-#medical_conditions
-tachycardia|an abnormally rapid heartbeat
-bradycardia|an abnormally slow heartbeat
-hypertension|abnormally high blood pressure
-hypotension|abnormally low blood pressure
-hyperglycaemia|an abnormally high level of glucose in the blood
-hypoglycaemia|an abnormally low level of glucose in the blood
-hyperthermia|an abnormally high body temperature
-hypothermia|an abnormally low body temperature
-dyspnoea|difficulty or discomfort in breathing
-apnoea|temporary stopping of breathing
-cyanosis|bluish discoloration of the skin caused by insufficient oxygen in the blood
-oedema|swelling caused by excess fluid in body tissues
-jaundice|yellowing of the skin and eyes caused by excess bilirubin
-sepsis|a life-threatening reaction to infection causing organ dysfunction
-syncope|a temporary loss of consciousness caused by reduced blood flow to the brain
-myopia|short-sightedness in which distant objects appear blurred
-hypermetropia|long-sightedness in which nearby objects are difficult to focus on
-astigmatism|blurred vision caused by irregular curvature of the cornea or lens
-tinnitus|the perception of ringing or other noise in the ears without an external source
-dysphagia|difficulty in swallowing
-#economics_commerce
-insolvent|unable to pay debts as they become due
-solvent|able to pay debts and financial obligations
-liquidity|the availability of cash or assets that can quickly be converted into cash
-capitalisation|the total value of a company based on its shares, or the process of providing capital
-amortisation|gradual repayment of a debt or reduction of an asset's book value over time
-collateral|property pledged as security for repayment of a loan
-mortgage|a loan secured against real property
-debenture|a long-term debt instrument issued by a company without physical collateral
-equity|ownership value in an asset or company after liabilities are deducted
-arbitrage|profit from buying and selling the same asset in different markets at different prices
-speculation|financial trading involving substantial risk in expectation of profit
-hedging|reducing financial risk by taking an offsetting position
-underwriting|the process of accepting financial risk in return for a fee or premium
-brokerage|the business of buying and selling assets on behalf of clients
-commission|a fee paid to an agent or salesperson for arranging a transaction
-consignment|goods sent to another person or business for sale while ownership remains with the sender
-inventory|the stock of goods and materials held by a business
-turnover|the total sales of a business during a period
-arrears|money that is overdue and should already have been paid
-restitution|the restoration of money or property to its rightful owner
-#physics_technology
-acceleration|the rate at which velocity changes with time
-velocity|speed in a specified direction
-momentum|the quantity of motion of an object, equal to mass multiplied by velocity
-inertia|the tendency of an object to resist changes in its state of motion
-friction|the force that resists motion between surfaces in contact
-buoyancy|the upward force exerted by a fluid on an immersed object
-refraction|the bending of a wave as it passes from one medium to another
-reflection|the return of a wave from a surface
-diffraction|the spreading or bending of waves around obstacles or openings
-interference|the combination of waves that produces a resultant pattern
-conduction|transfer of heat or electricity through direct contact
-convection|transfer of heat through the movement of a fluid
-radiation|transfer of energy by electromagnetic waves or particles
-capacitance|the ability of a system to store electric charge
-resistance|the opposition offered to the flow of electric current
-inductance|the property of a conductor by which changing current induces an electromotive force
-semiconductor|a material whose electrical conductivity lies between that of a conductor and an insulator
-transducer|a device that converts one form of energy or signal into another
-oscillator|a device or system that produces repeated periodic variation
-rectifier|a device that converts alternating current into direct current
-#biology_anatomy
-haematology|the branch of medicine concerned with blood and blood disorders
-osteology|the study of bones
-myology|the study of muscles
-neurology|the branch of medicine concerned with the nervous system
-embryology|the study of embryos and their development
-genetics|the study of heredity and variation
-cytology|the study of cells
-histology|the study of the microscopic structure of tissues
-anatomy|the study of the structure of living organisms
-physiology|the study of the functions of living organisms and their parts
-taxonomy|the science of classification of organisms
-ecology|the study of relationships between organisms and their environment
-ethology|the scientific study of animal behaviour
-pathology|the study of disease and its causes and effects
-bacteriology|the study of bacteria
-virology|the study of viruses
-parasitology|the study of parasites
-entomology|the study of insects
-ornithology|the study of birds
-ichthyology|the study of fish
-#actions_processes
-acclimatisation|the process of adjusting to a new climate or environment
-assimilation|the process of becoming similar to or absorbed into a wider group
-amalgamation|the process of combining two or more organisations or things into one
-aggregation|the process of collecting separate things into a whole
-segregation|the separation of people or things into different groups
-integration|the process of combining parts into a unified whole
-consolidation|the process of making something stronger or combining it into a single whole
-dissemination|the process of spreading information widely
-proliferation|rapid increase in the number or amount of something
-deterioration|the process of becoming progressively worse
-rejuvenation|the process of making something or someone feel or appear younger or renewed
-rehabilitation|the process of restoring health, ability, or reputation
-reconciliation|the restoration of friendly relations after disagreement
-repatriation|the process of returning someone to their own country
-resuscitation|the process of reviving someone from unconsciousness or apparent death
-transplantation|the process of transferring tissue or an organ from one body or site to another
-vaccination|the administration of a vaccine to produce immunity
-immunisation|the process of making a person immune to a disease
-fumigation|the process of using chemical fumes to disinfect or remove pests
-pasteurisation|the process of heating food or drink to destroy harmful microorganisms
+#astronomy_space
+aphelion|the point in a planet's orbit farthest from the Sun
+perihelion|the point in a planet's orbit nearest to the Sun
+apogee|the point in an orbit farthest from the Earth
+perigee|the point in an orbit nearest to the Earth
+solstice|either of the two times each year when the Sun is farthest north or south of the equator
+equinox|either of the two times each year when day and night are nearly equal in length
+zenith|the point in the sky directly above an observer
+nadir|the point in the sky directly below an observer
+nebula|a vast cloud of gas and dust in space
+supernova|a powerful stellar explosion marking the death of certain stars
+asteroid|a small rocky body orbiting the Sun
+meteor|a streak of light produced when a space particle burns in the atmosphere
+meteorite|a space rock that survives passage through the atmosphere and reaches the ground
+comet|an icy body orbiting the Sun that may develop a glowing tail
+satellite|a body that revolves around a planet or other larger body
+orbit|the curved path followed by one body around another in space
+rotation|the spinning of a body about its own axis
+revolution|the movement of one celestial body around another
+cosmology|the scientific study of the origin, structure, and development of the universe
+cosmogony|a theory or account of the origin of the universe
+#chemistry_materials
+catalyst|a substance that changes the rate of a chemical reaction without being permanently consumed
+reagent|a substance used to cause or test a chemical reaction
+solute|a substance dissolved in a solvent to form a solution
+solvent|a substance in which another substance is dissolved
+emulsion|a mixture of two liquids in which one is dispersed as tiny droplets in the other
+suspension|a mixture containing particles dispersed in a fluid but not dissolved
+alloy|a mixture of a metal with one or more other elements
+amalgam|an alloy containing mercury
+isotope|an atom of an element having the same proton number but a different neutron number
+isobar|an atom of a different element having the same mass number as another atom
+isotone|an atom having the same number of neutrons as another atom but a different proton number
+monomer|a small molecule capable of joining with similar molecules to form a polymer
+polymer|a large molecule made of many repeating smaller units
+oxidation|a chemical process involving loss of electrons or increase in oxidation state
+reduction|a chemical process involving gain of electrons or decrease in oxidation state
+electroplating|coating an object with a thin metal layer by electrolysis
+crystallisation|the process of forming solid crystals from a solution or melt
+neutralisation|a reaction in which an acid and a base react to form salt and usually water
+titration|a method of finding concentration by reacting a measured solution with a solution of known concentration
+hydrolysis|chemical breakdown of a compound through reaction with water
+#botany_plants
+xerophyte|a plant adapted to grow in very dry conditions
+hydrophyte|a plant adapted to live in water or very wet conditions
+mesophyte|a plant adapted to grow where water supply is moderate
+halophyte|a plant adapted to grow in salty soil or water
+epiphyte|a plant that grows on another plant for support without taking food from it
+deciduous|shedding leaves seasonally each year
+evergreen|retaining green leaves throughout the year
+herbaceous|having soft green stems rather than woody stems
+succulent|a plant with thick fleshy tissues adapted for storing water
+rhizome|a horizontal underground stem that can produce new shoots and roots
+tuber|a swollen underground stem or root used for food storage
+bulb|an underground storage organ made of a short stem surrounded by fleshy leaves
+corm|a short swollen underground plant stem used for food storage
+stolon|a horizontal stem that grows along the ground and produces new plants
+tendril|a slender plant structure used for climbing or support
+stamen|the male reproductive part of a flower
+pistil|the female reproductive structure of a flower
+sepal|one of the usually green outer parts that protect a flower bud
+petiole|the stalk attaching a leaf blade to a stem
+cotyledon|a seed leaf present in the embryo of a flowering plant
+#architecture_buildings
+rotunda|a round building or room, often covered by a dome
+portico|a covered entrance supported by columns
+colonnade|a row of evenly spaced columns supporting a roof or arches
+minaret|a tall slender tower of a mosque
+steeple|a tall tower on a church, often topped by a spire
+spire|a tall narrow pointed structure rising from a roof or tower
+dome|a rounded roof or ceiling shaped like part of a sphere
+vault|an arched roof or ceiling made of masonry
+lintel|a horizontal support across the top of a door or window
+buttress|a projecting support built against a wall to strengthen it
+parapet|a low protective wall along the edge of a roof, bridge, or balcony
+foyer|an entrance hall in a public building
+vestibule|a small entrance hall or passage between an outer door and the interior
+nave|the main central part of a church where the congregation sits
+transept|either arm of a cross-shaped church crossing the nave
+alcove|a small recessed section of a room
+cupola|a small dome-like structure on top of a roof
+pediment|a triangular upper part of a classical building above a portico
+arcade|a covered passage lined with arches or shops
+balustrade|a row of small columns topped by a rail, used as a barrier
+#military_warfare
+battalion|a military unit made up of several companies
+regiment|a large military unit usually made up of several battalions
+platoon|a small military unit consisting of several squads or sections
+brigade|a military formation consisting of several battalions
+infantry|soldiers who fight mainly on foot
+cavalry|soldiers who traditionally fight on horseback or in armoured mobile units
+artillery|large guns and the military units that operate them
+garrison|troops stationed in a fortress, town, or base for defence
+sortie|a sudden attack made by troops from a defended position
+siege|a military operation in which a place is surrounded to force surrender
+blockade|the sealing off of a place to prevent goods or people entering or leaving
+ambush|a surprise attack launched from a concealed position
+reconnaissance|military observation carried out to gather information about an enemy or area
+skirmish|a brief minor fight between small groups of troops
+barrage|a concentrated and continuous artillery attack
+salvo|the simultaneous firing of several guns or weapons
+trench|a long narrow ditch used by soldiers for protection
+fortification|a defensive military structure or the act of strengthening a place against attack
+armoury|a place where weapons and military equipment are stored
+convoy|a group of vehicles or ships travelling together for protection
+#computing_digital
+algorithm|a precise sequence of steps for solving a problem or performing a calculation
+compiler|a program that translates source code into machine code or another executable form
+browser|software used to access and view information on the web
+database|an organised electronic collection of data
+firewall|a security system that controls network traffic according to rules
+malware|software designed to damage, disrupt, or gain unauthorised access to computer systems
+phishing|the fraudulent attempt to obtain sensitive information by pretending to be trustworthy
+encryption|the process of converting information into coded form to prevent unauthorised access
+decryption|the process of converting coded information back into readable form
+bandwidth|the maximum amount of data that can be transmitted over a connection in a given time
+latency|the delay between sending a request or signal and receiving a response
+firmware|software permanently or semi-permanently stored in a hardware device
+hardware|the physical components of a computer or electronic system
+software|programs and data used by a computer
+peripheral|an external or auxiliary device connected to a computer
+server|a computer or program that provides services or resources to other computers
+client|a computer or program that requests services from a server
+router|a device that directs data packets between computer networks
+modem|a device that converts signals to enable digital communication over a transmission line
+debugging|the process of finding and correcting errors in software or a system
+#personality_traits
+gregarious|fond of company and sociable with other people
+reticent|not revealing one's thoughts or feelings readily
+reserved|slow to reveal emotions or opinions and not very demonstrative
+impulsive|acting suddenly without adequate thought
+meticulous|showing great attention to small details
+fastidious|very attentive to detail and difficult to please
+parsimonious|extremely unwilling to spend money or use resources
+frugal|careful and economical in the use of money or resources
+prodigal|spending money or resources recklessly and wastefully
+avaricious|having an extreme desire for wealth or possessions
+magnanimous|very generous or forgiving, especially toward a rival
+vindictive|having a strong desire for revenge
+benevolent|kind, generous, and wishing to do good
+malevolent|having or showing a wish to do harm to others
+credulous|too ready to believe things without enough evidence
+gullible|easily persuaded to believe something false
+sceptical|not easily convinced and inclined to question claims
+eccentric|behaving in an unusual or unconventional way
+stoical|enduring pain or difficulty without showing complaint
+pragmatic|dealing with problems in a practical rather than theoretical way
+#symptoms_clinical
+haemorrhage|heavy or uncontrolled bleeding
+convulsion|a sudden violent and involuntary contraction of muscles
+palpitation|an unusually noticeable rapid or irregular heartbeat
+nausea|a feeling of sickness with an urge to vomit
+emesis|the act of vomiting
+dyspepsia|indigestion or discomfort in the upper abdomen
+diarrhoea|frequent passage of loose or watery stools
+constipation|difficulty in emptying the bowels
+insomnia|persistent difficulty in falling asleep or staying asleep
+somnolence|a state of drowsiness or sleepiness
+tremor|an involuntary rhythmic shaking movement
+spasm|a sudden involuntary contraction of a muscle
+paresis|partial loss of voluntary movement or muscular weakness
+ataxia|loss of full control of bodily movements
+aphonia|loss of the ability to produce voiced speech
+dysphonia|difficulty in speaking because of a disorder of the voice
+anosmia|loss of the sense of smell
+ageusia|loss of the sense of taste
+paresthesia|an abnormal tingling, prickling, or numb sensation
+pruritus|an unpleasant sensation of the skin that causes a desire to scratch
+#collective_social
+congregation|a group of people assembled for religious worship
+audience|a group of people gathered to watch or listen to a performance or speaker
+assembly|a group of people gathered together for a common purpose
+mob|a large disorderly crowd, especially one intent on violence
+throng|a large densely packed crowd of people
+troupe|a group of actors, dancers, or performers
+crew|a group of people who work together on a ship, aircraft, or other operation
+panel|a small group of people chosen to discuss, judge, or investigate something
+delegation|a group of people chosen to represent a larger body
+committee|a group appointed to consider, investigate, or manage a particular matter
+council|a group elected or appointed to make decisions or give advice
+syndicate|a group of individuals or organisations combined for a common business purpose
+guild|an association of people in the same trade, craft, or profession
+fraternity|an organised group united by a common interest or profession
+sorority|a society or club mainly for women or female students
+clique|a small exclusive group of people with shared interests
+coterie|a small exclusive circle of people with common tastes or interests
+entourage|a group of attendants or associates accompanying an important person
+retinue|a group of advisers, assistants, or servants accompanying an important person
+cohort|a group of people sharing a common characteristic or experience
+#geometry_shapes
+triangle|a plane figure with three straight sides
+quadrilateral|a plane figure with four straight sides
+pentagon|a polygon with five sides
+hexagon|a polygon with six sides
+heptagon|a polygon with seven sides
+octagon|a polygon with eight sides
+nonagon|a polygon with nine sides
+decagon|a polygon with ten sides
+dodecagon|a polygon with twelve sides
+equilateral|having all sides equal in length
+isosceles|having two sides of equal length
+scalene|having all sides of different lengths
+parallel|lying in the same plane and never meeting however far extended
+perpendicular|meeting another line or surface at a right angle
+tangent|a line touching a curve at exactly one point locally
+diameter|a straight line through the centre of a circle joining two points on the circumference
+radius|a straight line from the centre of a circle to its circumference
+chord|a straight line joining two points on a curve or circle
+arc|a part of the circumference of a circle or other curve
+sector|the region of a circle bounded by two radii and the connecting arc
+#navigation_seafaring
+port|the left side of a ship when facing forward
+starboard|the right side of a ship when facing forward
+bow|the front part of a ship or boat
+stern|the rear part of a ship or boat
+hull|the main body of a ship or boat
+keel|the principal structural member running along the bottom of a ship
+deck|a horizontal platform forming a floor on a ship
+berth|a designated place where a ship is moored or a sleeping place on a vessel
+anchor|a heavy object used to hold a ship in place on the seabed
+rudder|a flat movable surface used to steer a ship
+mast|a tall vertical pole on a ship that supports sails or equipment
+helm|the steering position or apparatus of a ship
+harbour|a sheltered body of water where ships can anchor safely
+marina|a specially designed harbour for small boats and yachts
+jetty|a structure projecting into water where boats can dock
+quay|a solid platform beside water where ships load and unload
+pier|a platform built out over water and supported by pillars
+breakwater|a barrier built offshore to protect a harbour from waves
+buoy|a floating marker anchored in water to guide or warn vessels
+nautical|relating to ships, sailors, or navigation at sea
+#phobias_long_tail
+autophobia|an extreme fear of being alone or isolated
+anthropophobia|an extreme fear of people or social contact
+ergophobia|an extreme fear of work or the workplace
+chronophobia|an extreme fear of the passage of time
+gerascophobia|an extreme fear of growing old
+necrophobia|an extreme fear of death, dead bodies, or things associated with death
+nosophobia|an extreme fear of developing a disease
+photophobia|an abnormal intolerance or fear of bright light
+phonophobia|an extreme fear or intolerance of loud sounds
+bibliophobia|an extreme fear or dislike of books
+zoophobia|an extreme fear of animals
+entomophobia|an extreme fear of insects
+ornithophobia|an extreme fear of birds
+pyrophobia|an extreme fear of fire
+monophobia|an extreme fear of being alone
+triskaidekaphobia|an extreme fear of the number thirteen
+atelophobia|an extreme fear of imperfection or not being good enough
+emetophobia|an extreme fear of vomiting
+dentophobia|an extreme fear of dentists or dental treatment
+thanatophobia|an extreme fear of death
 `.trim();
 
 const rows:Eng006Cp006EntryV1[]=[];let category="";let within=0;
