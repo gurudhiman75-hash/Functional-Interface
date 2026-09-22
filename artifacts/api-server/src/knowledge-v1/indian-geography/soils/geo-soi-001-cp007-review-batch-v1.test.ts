@@ -10,7 +10,7 @@ assert.equal(audit.questionCount, 54);
 assert.equal(audit.stemCount, 54);
 assert.equal(audit.explanationCount, 54);
 assert.deepEqual(audit.difficultyCounts, { Easy: 18, Medium: 30, Hard: 6 });
-assert.deepEqual(audit.answerPositions, [14, 14, 13, 13]);
+assert.deepEqual(audit.answerPositions, [13, 13, 14, 14]);
 for (let n = 55; n <= 63; n += 1) {
   const qlId = "GEO-SOI-001-QL-" + String(n).padStart(3, "0");
   assert.equal(audit.qlCounts[qlId], 6);
