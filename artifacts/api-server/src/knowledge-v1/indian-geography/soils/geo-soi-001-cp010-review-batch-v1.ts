@@ -44,7 +44,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Laterite soil only",
       "Khadar only"
     ],
-    "explanation": "Arid soil is generally sandy in texture, reflecting its dry desert environment. This contrasts strongly with the fine clayey material of black soil.",
+    "explanation": "Arid soil is generally sandy in texture, reflecting its dry desert environment. This contrasts strongly with the fine clayey material of black soil and provides a useful texture-based identification clue.",
     "sourceFactIds": [
       "TEXTURE-ARID-SANDY"
     ]
@@ -181,7 +181,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-083",
     "qlName": "Moisture retention, cracking and workability comparison",
     "difficulty": "Medium",
-    "stem": "Which comparison is correct?",
+    "stem": "Which moisture comparison between black and arid soils is correct?",
     "answer": "Black soil retains moisture strongly, while arid soil commonly has little moisture",
     "distractors": [
       "Arid soil holds more moisture than black soil",
@@ -220,7 +220,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Arid soil",
       "Laterite soil"
     ],
-    "explanation": "Black soil is dark in colour and is also known as regur. The colour is one of its most direct identifying features in Indian geography questions.",
+    "explanation": "Black soil is dark in colour and is also known as regur. The colour is one of its most direct identifying features in Indian geography questions, especially when paired with clayey texture.",
     "sourceFactIds": [
       "COLOUR-BLACK"
     ]
@@ -252,7 +252,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Khadar",
       "Forest soil only"
     ],
-    "explanation": "Arid soil commonly ranges from red to brown. The colour clue becomes stronger when it appears with sandy texture, salinity and a dry western setting.",
+    "explanation": "Arid soil commonly ranges from red to brown. The colour clue becomes stronger when it appears with sandy texture, salinity and a dry western setting such as western Rajasthan.",
     "sourceFactIds": [
       "COLOUR-ARID-RED-BROWN"
     ]
@@ -396,7 +396,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Black, alluvial, arid",
       "Laterite, black, forest"
     ],
-    "explanation": "Very fertile river soil points to alluvium, strong leaching and nutrient deficiency point to laterite, and dark clay rich in several minerals but poor in phosphoric content points to black soil.",
+    "explanation": "Very fertile river soil points to alluvium, while strong leaching and nutrient deficiency point to laterite. Dark clay rich in several minerals but poor in phosphoric content identifies black soil.",
     "sourceFactIds": [
       "FERTILITY-INTEGRATED"
     ]
@@ -645,7 +645,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-088",
     "qlName": "Climate and relief comparison",
     "difficulty": "Medium",
-    "stem": "Which soil is most typical of broad depositional plains and river deltas?",
+    "stem": "Which soil is most typical of extensive depositional plains and river deltas?",
     "answer": "Alluvial soil",
     "distractors": [
       "Forest soil",
@@ -661,7 +661,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-088",
     "qlName": "Climate and relief comparison",
     "difficulty": "Medium",
-    "stem": "Which comparison is correct?",
+    "stem": "Which climate comparison between laterite and arid soils is correct?",
     "answer": "Laterite reflects heavy rainfall, while arid soil reflects dryness and rapid evaporation",
     "distractors": [
       "Both require identical rainfall",
@@ -700,7 +700,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Laterite soil",
       "Forest soil"
     ],
-    "explanation": "Black colour plus very fine clay and strong moisture retention identifies black soil. The combination is more reliable than using colour alone.",
+    "explanation": "Black colour plus very fine clay and strong moisture retention identifies black soil. The combination is more reliable than using colour alone because several Indian soils can share reddish or brownish shades.",
     "sourceFactIds": [
       "ID-BLACK-TWO-CLUE"
     ]
@@ -876,7 +876,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Laterite, red-yellow, alluvial, black, forest",
       "Arid, forest, black, alluvial, laterite"
     ],
-    "explanation": "River deposits indicate alluvial soil, basaltic dark clay indicates black soil, iron-red crystalline material indicates red-yellow soil, strong leaching indicates laterite and sandy salinity indicates arid soil.",
+    "explanation": "River deposits indicate alluvial soil, while basaltic dark clay indicates black soil and iron-red crystalline material indicates red-yellow soil. Strong leaching then identifies laterite, while sandy salinity identifies arid soil.",
     "sourceFactIds": [
       "DIAG-FIVE-SOILS"
     ]
