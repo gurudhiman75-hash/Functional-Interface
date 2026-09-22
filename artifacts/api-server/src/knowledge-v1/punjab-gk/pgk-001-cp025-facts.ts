@@ -1,14 +1,109 @@
+export const PGK_001_CP025_SOURCE_IDS = Object.freeze({
+  pibMilkha: "PIB-NEW-INDIA-SAMACHAR-MILKHA-SINGH",
+  worldAthleticsMilkha: "WORLD-ATHLETICS-MILKHA-SINGH",
+  hockeyIndiaOlympics: "HOCKEY-INDIA-OLYMPIC-HISTORY",
+  hockeyIndiaAjitPal: "HOCKEY-INDIA-AJIT-PAL-SINGH",
+  cecAjitPal: "CEC-BPED-AJIT-PAL-SINGH",
+  worldAthleticsRandhawa: "WORLD-ATHLETICS-GURBACHAN-SINGH-RANDHAWA",
+  myasArjuna: "MYAS-ARJUNA-AWARD-ATHLETICS",
+  padmaAwards: "MHA-PADMA-AWARDS-2005",
+  crpfParamjeet: "CRPF-PARAMJEET-SINGH-PROFILE",
+  punjabSports: "GOV-PUNJAB-MAHARAJA-RANJIT-SINGH-AWARD",
+} as const);
+
+export const PGK_001_CP025_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP025_SOURCE_IDS.pibMilkha]: {
+    authority: "Press Information Bureau / New India Samachar, Government of India",
+    title: "Milkha Singh — The Flying Sikh",
+    url: "https://newindiasamachar.pib.gov.in/WriteReadData/Magazine/2022/Jun/M202206161.pdf",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP025_SOURCE_IDS.worldAthleticsMilkha]: {
+    authority: "World Athletics",
+    title: "Milkha Singh — athlete profile",
+    url: "https://worldathletics.org/athletes/_/14348698",
+    classification: "PRIMARY_SPORT_GOVERNING_BODY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics]: {
+    authority: "Hockey India",
+    title: "Olympic Captains of India / Milestones",
+    url: "https://hockeyindia.org/hall-of-fame/olympic-captains-of-india",
+    supportingUrls: Object.freeze(["https://www.hockeyindia.org/hall-of-fame/milestones","https://www.hockeyindia.org/hall-of-fame/gold-medalists"]),
+    classification: "PRIMARY_SPORT_GOVERNING_BODY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.hockeyIndiaAjitPal]: {
+    authority: "Hockey India",
+    title: "Gold Medalists — 1975 Men's World Cup",
+    url: "https://www.hockeyindia.org/hall-of-fame/gold-medalists",
+    classification: "PRIMARY_SPORT_GOVERNING_BODY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.cecAjitPal]: {
+    authority: "Consortium for Educational Communication, University Grants Commission",
+    title: "Bachelor of Physical Education — Ajit Pal Singh profile",
+    url: "https://cec.nic.in/webpath/curriculum/Module/BPED/Paper01/20/downloads/script.pdf",
+    classification: "PRIMARY_EDUCATION_AUTHORITY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.worldAthleticsRandhawa]: {
+    authority: "World Athletics",
+    title: "Gurbachan Singh Randhawa — athlete profile",
+    url: "https://worldathletics.org/athletes/_/14344030",
+    classification: "PRIMARY_SPORT_GOVERNING_BODY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.myasArjuna]: {
+    authority: "Ministry of Youth Affairs and Sports, Government of India",
+    title: "Arjuna Award Winners for Athletics",
+    url: "https://yas.nic.in/arjun-award-winners-athletics",
+    classification: "PRIMARY_GOVERNMENT_AWARD_AUTHORITY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.padmaAwards]: {
+    authority: "Ministry of Home Affairs, Government of India",
+    title: "Padma Awards 2005 notification",
+    url: "https://www.padmaawards.gov.in/Document/pdf/notifications/PadmaAwards/2005.pdf",
+    classification: "PRIMARY_GOVERNMENT_AWARD_AUTHORITY",
+  },
+  [PGK_001_CP025_SOURCE_IDS.crpfParamjeet]: {
+    authority: "Central Reserve Police Force, Government of India",
+    title: "Paramjeet Singh — athletics profile",
+    url: "https://crpf.gov.in/Upload/MediaGallery/13841117.pdf",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP025_SOURCE_IDS.punjabSports]: {
+    authority: "Government of Punjab",
+    title: "Government achievements — Maharaja Ranjit Singh Award and Scholarship",
+    url: "https://punjab.gov.in/wp-content/uploads/2019/08/Achievements-of-the-Govt-31.07.2019-Final-1.pdf",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+} as const);
+
 export const PGK_001_CP025_FACTS = Object.freeze([
-  { id: "milkha-flying-sikh", value: "Milkha Singh was an Indian track athlete known as the Flying Sikh." },
-  { id: "milkha-rome-1960", value: "Milkha Singh finished fourth in the 400 metres at the 1960 Rome Olympics." },
-  { id: "balbir-three-golds", value: "Balbir Singh Sr. won Olympic hockey gold as a player in 1948, 1952 and 1956." },
-  { id: "balbir-1956-captain", value: "Balbir Singh Sr. captained India to men's hockey gold at the 1956 Melbourne Olympics." },
-  { id: "ajit-pal-1975", value: "Ajit Pal Singh captained India to the 1975 Men's Hockey World Cup title in Kuala Lumpur." },
-  { id: "pargat-olympic-captain", value: "Pargat Singh captained India at the 1992 and 1996 Olympic Games." },
-  { id: "manpreet-tokyo", value: "Manpreet Singh captained India's men's hockey team to bronze at Tokyo 2020." },
-  { id: "harmanpreet-paris", value: "Harmanpreet Singh captained India's men's hockey team to bronze at Paris 2024." },
-  { id: "randhawa-1962", value: "Gurbachan Singh Randhawa won the decathlon gold medal at the 1962 Asian Games." },
-  { id: "randhawa-tokyo-1964", value: "Gurbachan Singh Randhawa finished fifth in the 110 metres hurdles at the 1964 Tokyo Olympics." },
-  { id: "maharaja-ranjit-award", value: "The Maharaja Ranjit Singh Award is a Punjab Government sports honour." },
-  { id: "paramjeet-2006", value: "Athlete Paramjeet Singh received the Maharaja Ranjit Singh Award in 2006." },
+  { id: "milkha-flying-sikh", value: "Milkha Singh was an Indian track athlete known as the Flying Sikh.", sourceIds: [PGK_001_CP025_SOURCE_IDS.pibMilkha, PGK_001_CP025_SOURCE_IDS.worldAthleticsMilkha] },
+  { id: "milkha-three-olympics", value: "Milkha Singh represented India at the 1956 Melbourne, 1960 Rome and 1964 Tokyo Olympic Games.", sourceIds: [PGK_001_CP025_SOURCE_IDS.pibMilkha, PGK_001_CP025_SOURCE_IDS.worldAthleticsMilkha] },
+  { id: "milkha-title-ayub", value: "Pakistan President Ayub Khan bestowed the Flying Sikh title on Milkha Singh after his 1960 Lahore race.", sourceIds: [PGK_001_CP025_SOURCE_IDS.pibMilkha] },
+  { id: "milkha-rome-1960", value: "Milkha Singh finished fourth in the 400 metres at the 1960 Rome Olympics.", sourceIds: [PGK_001_CP025_SOURCE_IDS.worldAthleticsMilkha, PGK_001_CP025_SOURCE_IDS.pibMilkha] },
+
+  { id: "balbir-three-golds", value: "Balbir Singh Sr. won Olympic hockey gold as a player in 1948, 1952 and 1956.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
+  { id: "balbir-1956-captain", value: "Balbir Singh Sr. captained India to men's hockey gold at the 1956 Melbourne Olympics.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
+  { id: "balbir-1952-final-five", value: "Balbir Singh Sr. scored five goals in the 1952 Olympic men's hockey final, recorded by Hockey India as the most by an individual in an Olympic men's hockey final.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
+
+  { id: "ajit-pal-1975", value: "Ajit Pal Singh captained India to the 1975 Men's Hockey World Cup title in Kuala Lumpur.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaAjitPal] },
+  { id: "ajit-pal-final-pakistan", value: "India defeated Pakistan in the 1975 Men's Hockey World Cup final.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaAjitPal] },
+  { id: "ajit-pal-world-cup-medals", value: "Ajit Pal Singh's three World Cup appearances produced bronze in 1971, silver in 1973 and gold in 1975.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaAjitPal] },
+  { id: "ajit-pal-sansarpur", value: "Ajit Pal Singh was born in Sansarpur, Punjab.", sourceIds: [PGK_001_CP025_SOURCE_IDS.cecAjitPal] },
+
+  { id: "pargat-olympic-captain", value: "Pargat Singh captained India at the 1992 and 1996 Olympic Games.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
+  { id: "pargat-mithapur", value: "Pargat Singh was born at Mithapur in Punjab.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
+  { id: "manpreet-tokyo", value: "Manpreet Singh captained India's men's hockey team to bronze at Tokyo 2020.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
+  { id: "manpreet-mithapur", value: "Manpreet Singh was born at Mithapur in Punjab.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
+  { id: "harmanpreet-paris", value: "Harmanpreet Singh captained India's men's hockey team to bronze at Paris 2024.", sourceIds: [PGK_001_CP025_SOURCE_IDS.hockeyIndiaOlympics] },
+
+  { id: "randhawa-athletics", value: "Gurbachan Singh Randhawa represented India in athletics.", sourceIds: [PGK_001_CP025_SOURCE_IDS.worldAthleticsRandhawa] },
+  { id: "randhawa-1962", value: "Gurbachan Singh Randhawa won the decathlon gold medal at the 1962 Asian Games.", sourceIds: [PGK_001_CP025_SOURCE_IDS.worldAthleticsRandhawa] },
+  { id: "randhawa-tokyo-1964", value: "Gurbachan Singh Randhawa finished fifth in the 110 metres hurdles at the 1964 Tokyo Olympics.", sourceIds: [PGK_001_CP025_SOURCE_IDS.worldAthleticsRandhawa] },
+  { id: "randhawa-arjuna-1961", value: "Gurbachan Singh Randhawa received the Arjuna Award in 1961.", sourceIds: [PGK_001_CP025_SOURCE_IDS.myasArjuna] },
+  { id: "randhawa-padma-2005", value: "Gurbachan Singh Randhawa received the Padma Shri in 2005.", sourceIds: [PGK_001_CP025_SOURCE_IDS.padmaAwards] },
+
+  { id: "maharaja-ranjit-award", value: "The Maharaja Ranjit Singh Award is a Punjab Government sports honour.", sourceIds: [PGK_001_CP025_SOURCE_IDS.punjabSports, PGK_001_CP025_SOURCE_IDS.crpfParamjeet] },
+  { id: "paramjeet-2006", value: "Athlete Paramjeet Singh received the Maharaja Ranjit Singh Award in 2006.", sourceIds: [PGK_001_CP025_SOURCE_IDS.crpfParamjeet] },
+  { id: "paramjeet-athletics", value: "Paramjeet Singh competed in athletics, especially the 400 metres.", sourceIds: [PGK_001_CP025_SOURCE_IDS.crpfParamjeet] },
+  { id: "paramjeet-400-record-1998", value: "Paramjeet Singh broke Milkha Singh's long-standing Indian 400 metres record in 1998.", sourceIds: [PGK_001_CP025_SOURCE_IDS.crpfParamjeet, PGK_001_CP025_SOURCE_IDS.worldAthleticsMilkha] },
 ] as const);

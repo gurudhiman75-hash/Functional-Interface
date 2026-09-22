@@ -1,7 +1,7 @@
 export const PGK_001_CP017_SOURCE_IDS = Object.freeze({
   ministryCultureKuka: "ministry-culture-kuka-movement",
   ministryCultureRamSingh: "ministry-culture-baba-ram-singh",
-  singhSabhaHistory: "singh-sabha-standard-history",
+  singhSabhaHistory: "PUNJABI-UNIVERSITY-PUNJABIPEDIA-SINGH-SABHA",
   ministryCultureAjitSingh: "ministry-culture-ajit-singh",
   ministryCultureGhadar: "ministry-culture-ghadar-movement",
   ministryCultureKartar: "ministry-culture-kartar-singh-sarabha",
@@ -9,6 +9,69 @@ export const PGK_001_CP017_SOURCE_IDS = Object.freeze({
   ministryCultureJallianwala: "ministry-culture-jallianwala-bagh",
   ministryCultureGurdwaraReform: "ministry-culture-gurdwara-reform",
   ministryCultureBabbar: "ministry-culture-babbar-akali",
+} as const);
+
+export const PGK_001_CP017_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP017_SOURCE_IDS.ministryCultureKuka]: {
+    authority: "Ministry of Culture, Government of India — Azadi Ka Amrit Mahotsav",
+    title: "Kuka Movement — Ludhiana, Punjab",
+    url: "https://amritmahotsav.nic.in/district-reopsitory-detail.htm?2649=",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP017_SOURCE_IDS.ministryCultureRamSingh]: {
+    authority: "Ministry of Culture, Government of India — Azadi Ka Amrit Mahotsav",
+    title: "Baba Ram Singh Kuka",
+    url: "https://amritmahotsav.nic.in/unsung-heroes-detail.htm?11005=",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP017_SOURCE_IDS.singhSabhaHistory]: {
+    authority: "Punjabi University, Patiala — Punjabipedia",
+    title: "Singh Sabha Movement",
+    url: "https://punjabipedia.org/topic.aspx?txt=%E0%A8%B8%E0%A8%BF%E0%A9%B0%E0%A8%98+%E0%A8%B8%E0%A8%AD%E0%A8%BE+%E0%A8%B2%E0%A8%B9%E0%A8%BF%E0%A8%B0",
+    classification: "ACADEMIC_REFERENCE",
+  },
+  [PGK_001_CP017_SOURCE_IDS.ministryCultureAjitSingh]: {
+    authority: "Ministry of Culture, Government of India — Azadi Ka Amrit Mahotsav",
+    title: "Ajit Singh — Pagri Sambhal Jatta",
+    url: "https://cmsadmin.amritmahotsav.nic.in/unsung-heroes-detail.htm?12526=",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP017_SOURCE_IDS.ministryCultureGhadar]: {
+    authority: "Ministry of Culture, Government of India — Azadi Ka Amrit Mahotsav",
+    title: "The Ghadr Movement",
+    url: "https://cmsadmin.amritmahotsav.nic.in/the-ghadr-movement.htm",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP017_SOURCE_IDS.ministryCultureKartar]: {
+    authority: "Ministry of Culture, Government of India — Azadi Ka Amrit Mahotsav",
+    title: "Kartar Singh Sarabha",
+    url: "https://cmsadmin.amritmahotsav.nic.in/unsung-heroes-detail.htm?237=",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP017_SOURCE_IDS.jallianwalaMemorial]: {
+    authority: "Jallianwala Bagh National Memorial",
+    title: "History of Jallianwala Bagh",
+    url: "https://www.jallianwalabagh.in/history-of-jallianwalabagh/",
+    classification: "PRIMARY_MEMORIAL_AUTHORITY",
+  },
+  [PGK_001_CP017_SOURCE_IDS.ministryCultureJallianwala]: {
+    authority: "Ministry of Culture, Government of India",
+    title: "Jallianwala Bagh — historical commemoration",
+    url: "https://www.jallianwalabagh.in/history-of-jallianwalabagh/",
+    classification: "PRIMARY_MEMORIAL_AUTHORITY",
+  },
+  [PGK_001_CP017_SOURCE_IDS.ministryCultureGurdwaraReform]: {
+    authority: "Ministry of Culture, Government of India — Azadi Ka Amrit Mahotsav",
+    title: "The Gurdwara Reform Movement (1920–25)",
+    url: "https://cmsadmin.amritmahotsav.nic.in/freedom-movement-detail.htm?21=",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP017_SOURCE_IDS.ministryCultureBabbar]: {
+    authority: "Ministry of Culture, Government of India — Azadi Ka Amrit Mahotsav",
+    title: "Kishan Singh Gargaj — Babbar Akali Movement",
+    url: "https://cmsadmin.amritmahotsav.nic.in/unsung-heroes-detail.htm?5262=",
+    classification: "PRIMARY_GOVERNMENT",
+  },
 } as const);
 
 export const PGK_001_CP017_FACTS = Object.freeze([
@@ -50,3 +113,13 @@ export const PGK_001_CP017_FACTS = Object.freeze([
 ] as const);
 
 export const PGK_001_CP017_FACT_IDS = Object.freeze(PGK_001_CP017_FACTS.map((fact) => fact.id));
+
+
+export const PGK_001_CP017_SOURCE_NOTES = Object.freeze({
+  "PUNJABI-UNIVERSITY-PUNJABIPEDIA-SINGH-SABHA": {
+    authority: "Punjabi University, Patiala — Punjabipedia / Encyclopaedia of Sikhism",
+    title: "Singh Sabha Movement / Khalsa Diwan Amritsar",
+    url: "https://punjabipedia.org/topic.aspx?txt=%E0%A8%B8%E0%A8%BF%E0%A9%B0%E0%A8%98+%E0%A8%B8%E0%A8%AD%E0%A8%BE+%E0%A8%B2%E0%A8%B9%E0%A8%BF%E0%A8%B0",
+    supports: Object.freeze(["Amritsar Singh Sabha — 1873", "Lahore Singh Sabha — 1879", "religious, educational and social reform aims"]),
+  },
+} as const);
