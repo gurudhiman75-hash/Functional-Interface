@@ -1,10 +1,43 @@
 export const PGK_001_CP018_SOURCE_IDS = Object.freeze({
   punjabHistory: "punjab-government-history",
   chandigarhHistory: "chandigarh-administration-history",
-  whitePaperPepsu: "government-india-white-paper-pepsu",
+  rajBhavanPepsu: "punjab-raj-bhavan-pepsu-history",
   statesReorganisation1956: "india-code-states-reorganisation-1956",
   punjabReorganisation1966: "india-code-punjab-reorganisation-1966",
   highCourtHistory: "punjab-haryana-high-court-history",
+} as const);
+
+export const PGK_001_CP018_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP018_SOURCE_IDS.punjabHistory]: {
+    authority: "Government of Punjab",
+    title: "History of Punjab",
+    url: "https://punjab.gov.in/know-punjab/history/",
+  },
+  [PGK_001_CP018_SOURCE_IDS.chandigarhHistory]: {
+    authority: "Chandigarh Administration",
+    title: "General Information — Chandigarh history and capital",
+    url: "https://chandigarh.gov.in/general-information",
+  },
+  [PGK_001_CP018_SOURCE_IDS.rajBhavanPepsu]: {
+    authority: "Punjab Raj Bhavan",
+    title: "Historical note on PEPSU formation",
+    url: "https://punjabrajbhavan.gov.in/home/speechesDetails/NjA2",
+  },
+  [PGK_001_CP018_SOURCE_IDS.statesReorganisation1956]: {
+    authority: "India Code, Government of India",
+    title: "The States Reorganisation Act, 1956",
+    url: "https://www.indiacode.nic.in/bitstream/123456789/1680/1/a1956-37.pdf",
+  },
+  [PGK_001_CP018_SOURCE_IDS.punjabReorganisation1966]: {
+    authority: "India Code, Government of India",
+    title: "The Punjab Reorganisation Act, 1966",
+    url: "https://www.indiacode.nic.in/bitstream/123456789/1645/1/196631.pdf",
+  },
+  [PGK_001_CP018_SOURCE_IDS.highCourtHistory]: {
+    authority: "High Court of Punjab and Haryana",
+    title: "Historical Background",
+    url: "https://www.highcourtchd.gov.in/index.php/left_menu/rti/left_menu/?mod=history",
+  },
 } as const);
 
 export const PGK_001_CP018_FACTS = Object.freeze([
@@ -18,10 +51,10 @@ export const PGK_001_CP018_FACTS = Object.freeze([
   { id: "chandigarh-foundation-1952", statement: "The foundation stone of Chandigarh was laid in 1952.", sourceKeys: ["chandigarhHistory"] },
   { id: "chandigarh-capital-pre1966", statement: "Chandigarh served as the capital of Punjab before the 1966 reorganisation.", sourceKeys: ["chandigarhHistory"] },
 
-  { id: "pepsu-full-form", statement: "PEPSU stands for Patiala and East Punjab States Union.", sourceKeys: ["whitePaperPepsu", "punjabHistory"] },
-  { id: "pepsu-inaugurated-1948", statement: "PEPSU was inaugurated on 15 July 1948.", sourceKeys: ["whitePaperPepsu"] },
-  { id: "pepsu-eight-states", statement: "PEPSU was formed from eight princely states: Patiala, Kapurthala, Jind, Nabha, Faridkot, Malerkotla, Nalagarh and Kalsia.", sourceKeys: ["whitePaperPepsu"] },
-  { id: "pepsu-patiala-member", statement: "Patiala was one of the constituent princely states of PEPSU.", sourceKeys: ["whitePaperPepsu"] },
+  { id: "pepsu-full-form", statement: "PEPSU stands for Patiala and East Punjab States Union.", sourceKeys: ["rajBhavanPepsu", "punjabHistory"] },
+  { id: "pepsu-inaugurated-1948", statement: "PEPSU was inaugurated on 15 July 1948.", sourceKeys: ["rajBhavanPepsu"] },
+  { id: "pepsu-eight-states", statement: "PEPSU was formed from eight princely states: Patiala, Kapurthala, Jind, Nabha, Faridkot, Malerkotla, Nalagarh and Kalsia.", sourceKeys: ["rajBhavanPepsu"] },
+  { id: "pepsu-patiala-member", statement: "Patiala was one of the constituent princely states of PEPSU.", sourceKeys: ["rajBhavanPepsu"] },
 
   { id: "pepsu-merged-1956", statement: "PEPSU was merged with Punjab during the States Reorganisation of 1956.", sourceKeys: ["statesReorganisation1956", "punjabHistory", "highCourtHistory"] },
   { id: "pepsu-merger-date", statement: "The merger of PEPSU with Punjab took effect on 1 November 1956.", sourceKeys: ["statesReorganisation1956", "highCourtHistory"] },

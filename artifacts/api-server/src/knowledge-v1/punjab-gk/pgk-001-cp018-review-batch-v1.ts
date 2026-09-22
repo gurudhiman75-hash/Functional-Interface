@@ -1,3 +1,5 @@
+import { PGK_001_CP018_FACTS, PGK_001_CP018_SOURCE_IDS } from "./pgk-001-cp018-facts";
+
 export type Pgk001Cp018Difficulty = "Easy" | "Medium" | "Hard";
 
 export type Pgk001Cp018ReviewQuestion = Readonly<{
@@ -9,8 +11,30 @@ export type Pgk001Cp018ReviewQuestion = Readonly<{
   correctIndex: 0 | 1 | 2 | 3;
   explanation: string;
   reviewOnly: true;
+  factIds: readonly string[];
+  sourceIds: readonly string[];
   runtimeRegistered: false;
 }>;
+
+const PROVENANCE_BY_QL: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "PGK-001-QL-119": ["partition-1947","east-punjab-india","west-punjab-pakistan","lahore-pakistan","partition-displacement"],
+  "PGK-001-QL-120": ["lahore-pakistan","chandigarh-site-1948","chandigarh-foundation-1952","chandigarh-capital-pre1966","chandigarh-ut-1966"],
+  "PGK-001-QL-121": ["pepsu-full-form","pepsu-inaugurated-1948","pepsu-eight-states","pepsu-patiala-member"],
+  "PGK-001-QL-122": ["pepsu-merged-1956","pepsu-merger-date","pepsu-high-court-merged"],
+  "PGK-001-QL-123": ["punjab-reorganisation-act-1966","appointed-day-1966","haryana-formed-1966","chandigarh-ut-1966","hill-territories-himachal"],
+  "PGK-001-QL-124": ["appointed-day-1966","haryana-formed-1966","chandigarh-ut-1966","chandigarh-shared-capital","hill-territories-himachal"],
+  "PGK-001-QL-125": ["partition-1947","lahore-pakistan","chandigarh-site-1948","pepsu-inaugurated-1948","pepsu-merged-1956","punjab-reorganisation-act-1966","appointed-day-1966","haryana-formed-1966","chandigarh-ut-1966","chandigarh-shared-capital"],
+});
+
+function provenanceForQl(qlId: string) {
+  const factIds = PROVENANCE_BY_QL[qlId] ?? [];
+  const factSet = new Set(factIds);
+  const sourceKeys = (PGK_001_CP018_FACTS as readonly { id: string; sourceKeys: readonly string[] }[])
+    .filter((fact) => factSet.has(fact.id))
+    .flatMap((fact) => fact.sourceKeys);
+  const sourceIds = [...new Set(sourceKeys.map((key) => PGK_001_CP018_SOURCE_IDS[key as keyof typeof PGK_001_CP018_SOURCE_IDS]))];
+  return Object.freeze({ factIds: Object.freeze([...factIds]), sourceIds: Object.freeze(sourceIds) });
+}
 
 const q = (
   id: string,
@@ -20,17 +44,21 @@ const q = (
   options: readonly [string, string, string, string],
   correctIndex: 0 | 1 | 2 | 3,
   explanation: string,
-): Pgk001Cp018ReviewQuestion => Object.freeze({
+): Pgk001Cp018ReviewQuestion => {
+  const qlId = `PGK-001-QL-${ql}`;
+  return Object.freeze({
   id,
-  qlId: `PGK-001-QL-${ql}`,
+  qlId,
   difficulty,
   question,
   options,
   correctIndex,
   explanation,
+  ...provenanceForQl(qlId),
   reviewOnly: true,
   runtimeRegistered: false,
-});
+  });
+};
 
 export const PGK_001_CP018_REVIEW_BATCH_V1 = Object.freeze([
   q("PGK-001-CP018-Q001",119,"Easy","The Punjab province was divided between India and Pakistan in which year?",["1947","1948","1956","1966"],0,"Punjab was divided at the time of the Partition of India in 1947. The former province was split into eastern and western parts."),
@@ -72,7 +100,7 @@ export const PGK_001_CP018_REVIEW_BATCH_V1 = Object.freeze([
   q("PGK-001-CP018-Q032",124,"Easy","Haryana came into existence on:",["1 November 1966","18 September 1966","1 November 1956","15 August 1947"],0,"Haryana came into existence on 1 November 1966. That was the appointed day under the Punjab Reorganisation Act."),
   q("PGK-001-CP018-Q033",124,"Medium","Which of the following was NOT an outcome of the Punjab Reorganisation Act, 1966?",["Formation of PEPSU","Formation of Haryana","Creation of the Union Territory of Chandigarh","Transfer of some hill territories to Himachal Pradesh"],0,"PEPSU had been formed much earlier, in 1948. The 1966 Act created Haryana, made Chandigarh a Union Territory and transferred specified hill territories to Himachal Pradesh."),
   q("PGK-001-CP018-Q034",124,"Medium","Which statement about Chandigarh after 1 November 1966 is correct?",["It was a Union Territory and capital of both Punjab and Haryana","It became the capital of Haryana only","It became part of Himachal Pradesh","It remained solely within the State of Punjab"],0,"From 1 November 1966, Chandigarh functioned as a Union Territory under the Central Government. It also served as the capital of both Punjab and Haryana."),
-  q("PGK-001-CP018-Q035",124,"Medium","The 1966 reorganisation of the existing Punjab mainly resulted in:",["A reorganised Punjab and the new State of Haryana","Punjab and PEPSU becoming separate states","Punjab and Pakistan becoming one state","Punjab being merged into Delhi"],0,"The Punjab Reorganisation Act created Haryana from specified territories and left a reorganised State of Punjab. It also dealt separately with Chandigarh and transferred specified hill territories."),
+  q("PGK-001-CP018-Q035",124,"Medium","What was a principal territorial result of the 1966 reorganisation of Punjab?",["A reorganised Punjab and the new State of Haryana","Punjab and PEPSU becoming separate states","Punjab and Pakistan becoming one state","Punjab being merged into Delhi"],0,"The Punjab Reorganisation Act created Haryana from specified territories and left a reorganised State of Punjab. It also dealt separately with Chandigarh and transferred specified hill territories."),
   q("PGK-001-CP018-Q036",124,"Hard","Which set correctly lists three territorial outcomes of the 1966 reorganisation?",["Haryana formed; Chandigarh made a Union Territory; some hill areas transferred to Himachal Pradesh","PEPSU formed; Lahore transferred to India; Chandigarh merged with Himachal Pradesh","Haryana formed; PEPSU created; Delhi merged with Punjab","West Punjab formed; Chandigarh transferred to Pakistan; Patiala made a Union Territory"],0,"The 1966 reorganisation created Haryana, constituted Chandigarh as a Union Territory and transferred specified hill territories to Himachal Pradesh. These changes took effect on 1 November 1966."),
 
   q("PGK-001-CP018-Q037",125,"Hard","Which is the correct chronological order?",["Partition of Punjab → formation of PEPSU → merger of PEPSU with Punjab → Punjab Reorganisation Act takes effect","Formation of PEPSU → Partition of Punjab → Punjab Reorganisation Act takes effect → merger of PEPSU with Punjab","Merger of PEPSU with Punjab → Partition of Punjab → formation of PEPSU → Punjab Reorganisation Act takes effect","Punjab Reorganisation Act takes effect → formation of PEPSU → Partition of Punjab → merger of PEPSU with Punjab"],0,"Punjab was partitioned in 1947, PEPSU was formed in 1948 and merged with Punjab in 1956. The Punjab Reorganisation Act then took effect on 1 November 1966."),

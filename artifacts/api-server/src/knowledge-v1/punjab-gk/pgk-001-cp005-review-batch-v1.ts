@@ -144,7 +144,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Pong Dam is best described as a:",
+      stem: "Pong Dam is which type of dam?",
       canonical: "Earth-core gravel-shell dam",
       options: ["Earth-core gravel-shell dam", "Concrete straight gravity dam", "Masonry arch dam", "Mass-concrete barrage"],
       explanation: "Pong is an earth-core gravel-shell dam on the Beas River.",
@@ -154,7 +154,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
   "PGK-001-QL-030": [
     {
       difficulty: "Easy",
-      stem: "Nangal is best classified as a:",
+      stem: "Nangal is a:",
       canonical: "Mass-concrete barrage",
       options: ["Mass-concrete barrage", "Earth-core dam", "Canal distributary", "Natural lake"],
       explanation: "Nangal is a mass-concrete barrage in the Bhakra-Nangal system on the Sutlej.",
