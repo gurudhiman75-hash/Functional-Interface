@@ -139,7 +139,7 @@ export const PART_4: readonly SciCp039ReviewSpec[] = [
   [
     10,
     "Easy",
-    "Which instrument measures atmospheric pressure?",
+    "Which weather instrument is used for measuring atmospheric pressure?",
     "barometer",
     [
       "hygrometer",

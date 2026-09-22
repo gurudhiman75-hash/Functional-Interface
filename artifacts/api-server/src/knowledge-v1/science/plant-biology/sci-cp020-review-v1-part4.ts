@@ -13,7 +13,7 @@ export const PART_4: readonly SciCp020ReviewSpec[] = [
       "Ovary",
       "Sepal"
     ],
-    "The anther is the pollen-producing part of the stamen, the male reproductive organ of a flower.",
+    "The anther is the pollen-producing part of the stamen, the male reproductive organ of a flower. Pollen grains contain or carry the male gamete-producing cells of flowering plants.",
     [
       "FLOWER-ANTHER-POLLEN"
     ]
@@ -43,7 +43,7 @@ export const PART_4: readonly SciCp020ReviewSpec[] = [
       "Stigma",
       "Anther"
     ],
-    "Following fertilization, the ovule develops into a seed containing the embryo. The ovary usually develops into the fruit.",
+    "Following fertilization, the ovule develops into a seed containing the embryo. The ovary usually develops into the fruit. The seed later protects the embryo and contains or receives food reserves for germination.",
     [
       "OVULE-SEED"
     ]
@@ -58,7 +58,7 @@ export const PART_4: readonly SciCp020ReviewSpec[] = [
       "Pollen grain",
       "Root"
     ],
-    "The ovary enlarges and develops into the fruit, while the ovules inside it generally become seeds.",
+    "The ovary enlarges and develops into the fruit, while the ovules inside it generally become seeds. The fruit helps protect the developing seeds and can also assist in seed dispersal.",
     [
       "OVARY-FRUIT"
     ]
@@ -141,7 +141,7 @@ export const PART_4: readonly SciCp020ReviewSpec[] = [
   [
     10,
     "Medium",
-    "During the early stages of germination, the embryo mainly uses food stored in the:",
+    "During the early stages of germination, the embryo uses food stored in the:",
     "Seed",
     [
       "Stigma",
@@ -171,7 +171,7 @@ export const PART_4: readonly SciCp020ReviewSpec[] = [
   [
     10,
     "Hard",
-    "A germinating seed is kept in moist soil but the soil is tightly waterlogged and contains very little air. Germination may fail mainly because the seed lacks enough:",
+    "A germinating seed is kept in moist soil but the soil is tightly waterlogged and contains very little air. Germination may fail because the seed lacks enough:",
     "Oxygen for respiration",
     [
       "Carbon dioxide for photosynthesis",

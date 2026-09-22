@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Absorption",
       "Assimilation"
     ],
-    "Excretion is the removal of wastes produced by metabolism, such as urea and carbon dioxide.",
+    "Excretion is the removal of wastes produced by metabolism, such as urea and carbon dioxide. It differs from egestion, which removes undigested food from the digestive tract.",
     [
       "EXCRETION-DEFINITION"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Pancreas",
       "Spleen"
     ],
-    "The kidneys filter blood, regulate water and salt balance, and form urine.",
+    "The kidneys filter blood, regulate water and salt balance, and form urine. They also help regulate blood pH and the concentration of many dissolved ions.",
     [
       "KIDNEY-MAIN-ORGAN"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Haemoglobin",
       "Bile pigment"
     ],
-    "Urea is formed from the breakdown of amino acids and is the major nitrogenous waste excreted in human urine.",
+    "Urea is formed from the breakdown of amino acids and is the major nitrogenous waste excreted in human urine. The liver produces urea, which is then carried by blood to the kidneys.",
     [
       "URINE-UREA"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "They improve digestion",
       "They produce hormones"
     ],
-    "Many metabolic wastes become harmful when they accumulate, so the body must eliminate them to maintain internal balance.",
+    "Many metabolic wastes become harmful when they accumulate, so the body must eliminate them to maintain internal balance. Excretion therefore supports homeostasis by keeping the internal environment chemically stable.",
     [
       "EXCRETION-NEED"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Chewing food",
       "Absorption of glucose"
     ],
-    "Excretion removes metabolic wastes made by cells. Egestion removes undigested material from the alimentary canal.",
+    "Excretion removes metabolic wastes made by cells. Egestion removes undigested material from the alimentary canal. The distinction depends on whether the material was produced by metabolism inside cells.",
     [
       "EXCRETION-VS-EGESTION"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Nephron",
       "Renal artery"
     ],
-    "Each ureter carries urine from a kidney to the urinary bladder.",
+    "Each ureter carries urine from a kidney to the urinary bladder. Muscular contractions in the ureter help propel urine toward the bladder.",
     [
       "URETER-FUNCTION"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Ureter",
       "Urethra"
     ],
-    "The urinary bladder stores urine until it is expelled from the body.",
+    "The urinary bladder stores urine until it is expelled from the body. Its muscular wall can stretch as urine accumulates.",
     [
       "BLADDER-STORAGE"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Renal vein",
       "Glomerulus"
     ],
-    "The urethra carries urine from the bladder to the outside of the body.",
+    "The urethra carries urine from the bladder to the outside of the body. Sphincter muscles help control the timing of urination.",
     [
       "URETHRA-FUNCTION"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Bladder → Kidney → Ureter → Urethra",
       "Kidney → Renal artery → Bladder → Urethra"
     ],
-    "Urine passes from the kidney through a ureter to the bladder and then leaves through the urethra.",
+    "Urine passes from the kidney through a ureter to the bladder and then leaves through the urethra. This sequence should not be confused with the path taken by blood through the kidney.",
     [
       "URINE-PATH"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "From the bladder to the kidney",
       "From the ureter to the kidney"
     ],
-    "The renal artery brings blood containing wastes to the kidney.",
+    "The renal artery brings blood containing wastes to the kidney. The renal vein later carries the regulated blood away from the kidney.",
     [
       "RENAL-ARTERY"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Villus",
       "Neuron"
     ],
-    "Each kidney contains many nephrons, which filter blood and process the filtrate to form urine.",
+    "Each kidney contains many nephrons, which filter blood and process the filtrate to form urine. Each nephron performs filtration, reabsorption and secretion.",
     [
       "NEPHRON-FUNCTIONAL-UNIT"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Collecting duct",
       "Ureter"
     ],
-    "The glomerulus is a knot-like network of capillaries where filtration begins.",
+    "The glomerulus is a knot-like network of capillaries where filtration begins. Its high blood pressure helps drive small molecules into Bowman's capsule.",
     [
       "GLOMERULUS-CAPILLARIES"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp024ReviewSpec[] = [
       "Renal pelvis",
       "Urinary bladder"
     ],
-    "Bowman's capsule cups around the glomerulus and receives the filtrate formed from blood.",
+    "Bowman's capsule cups around the glomerulus and receives the filtrate formed from blood. Together with the glomerulus, it forms the renal corpuscle.",
     [
       "BOWMANS-CAPSULE"
     ]

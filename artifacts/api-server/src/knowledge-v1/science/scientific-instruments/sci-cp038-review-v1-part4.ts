@@ -154,7 +154,7 @@ export const PART_4: readonly SciCp038ReviewSpec[] = [
   [
     10,
     "Medium",
-    "Which pair is correctly matched?",
+    "Which medical instrument–quantity pair is correctly matched?",
     "Sphygmomanometer — blood pressure",
     [
       "Spirometer — brain activity",

@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Digestion of starch",
       "Secretion of bile"
     ],
-    "The cerebellum fine-tunes muscular movements and helps maintain balance.",
+    "The cerebellum fine-tunes muscular movements and helps maintain balance. Movement may become unsteady or poorly timed even when muscle strength is preserved.",
     [
       "CEREBELLUM-DAMAGE"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Cerebellum",
       "Occipital bone"
     ],
-    "The hypothalamus helps regulate body temperature, hunger, thirst and several homeostatic functions.",
+    "The hypothalamus helps regulate body temperature, hunger, thirst and several homeostatic functions. It also links nervous control with endocrine regulation through the pituitary gland.",
     [
       "HYPOTHALAMUS-HOMEOSTASIS"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Retina",
       "Spinal nerve root only"
     ],
-    "Understanding depends largely on the cerebrum, while smooth coordination of movement depends strongly on the cerebellum.",
+    "Understanding depends largely on the cerebrum, while smooth coordination of movement depends strongly on the cerebellum. The pattern separates a coordination problem from loss of understanding or muscle power.",
     [
       "CEREBELLUM-COORDINATION-REASONING"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Skull only",
       "Pelvic girdle"
     ],
-    "The spinal cord runs through the vertebral canal and is protected by the vertebral column.",
+    "The spinal cord runs through the vertebral canal and is protected by the vertebral column. Bony protection is important because damage can disrupt both sensory and motor pathways.",
     [
       "SPINAL-CORD-PROTECTION"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Voluntary action",
       "Growth response"
     ],
-    "A reflex action is a quick, automatic response that occurs without conscious planning.",
+    "A reflex action is a quick, automatic response that occurs without conscious planning. Reflexes protect the body by reducing the delay before a response begins.",
     [
       "REFLEX-ACTION"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Cerebellum only",
       "Pituitary gland"
     ],
-    "Many simple reflexes are integrated in the spinal cord, allowing a rapid response before conscious awareness.",
+    "Many simple reflexes are integrated in the spinal cord, allowing a rapid response before conscious awareness. The brain is informed afterward, but the protective movement can already be underway.",
     [
       "REFLEX-SPINAL-CORD"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "The brain does not receive the signal",
       "Muscles act without any nerve signal"
     ],
-    "The spinal cord can produce the withdrawal response quickly, while sensory information continues to the brain for conscious perception.",
+    "The spinal cord can produce the withdrawal response quickly, while sensory information continues to the brain for conscious perception. This arrangement minimizes reaction time when rapid protection is useful.",
     [
       "REFLEX-BEFORE-AWARENESS"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Mixed nerve",
       "Autonomic gland"
     ],
-    "Sensory nerves carry impulses from receptors to the central nervous system.",
+    "Sensory nerves carry impulses from receptors to the central nervous system. The impulses begin at receptors that detect changes inside or outside the body.",
     [
       "SENSORY-NERVE"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Optic receptor",
       "Endocrine nerve"
     ],
-    "Motor nerves carry commands from the CNS to effectors such as skeletal muscles.",
+    "Motor nerves carry commands from the CNS to effectors such as skeletal muscles. The target muscle then contracts or the gland changes its activity.",
     [
       "MOTOR-NERVE"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Only motor fibres",
       "Only endocrine cells"
     ],
-    "Mixed nerves carry both incoming sensory impulses and outgoing motor impulses.",
+    "Mixed nerves carry both incoming sensory impulses and outgoing motor impulses. Many spinal nerves are mixed because they contain fibres travelling in both directions.",
     [
       "MIXED-NERVE"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Skeletal system",
       "Endocrine pancreas only"
     ],
-    "The autonomic nervous system regulates many involuntary activities of internal organs.",
+    "The autonomic nervous system regulates many involuntary activities of internal organs. Its sympathetic and parasympathetic divisions help adjust organ activity automatically.",
     [
       "AUTONOMIC-SYSTEM"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Endocrine system",
       "Lymphatic system"
     ],
-    "The somatic nervous system carries motor commands to skeletal muscles and supports voluntary movement.",
+    "The somatic nervous system carries motor commands to skeletal muscles and supports voluntary movement. Sensory information from skin and joints is also handled through somatic pathways.",
     [
       "SOMATIC-SYSTEM"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp025ReviewSpec[] = [
       "Retinal pathway",
       "Auditory pathway"
     ],
-    "Preserved sensation suggests the sensory pathway still works, while loss of voluntary movement points to a motor-pathway problem.",
+    "Preserved sensation suggests the sensory pathway still works, while loss of voluntary movement points to a motor-pathway problem. This pattern helps localize the problem to outgoing rather than incoming nerve signals.",
     [
       "SENSORY-MOTOR-DISCRIMINATION"
     ]

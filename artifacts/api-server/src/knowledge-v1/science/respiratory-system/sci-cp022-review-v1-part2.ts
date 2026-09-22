@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Dry inner surface",
       "Absence of blood capillaries"
     ],
-    "Alveolar walls are extremely thin, so respiratory gases have only a short distance to diffuse.",
+    "Alveolar walls are extremely thin, so respiratory gases have only a short distance to diffuse. A short diffusion distance lets gases move rapidly between air and blood.",
     [
       "ALVEOLI-THIN-WALLS"
     ]
@@ -26,7 +26,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "A thick barrier to diffusion",
       "A site for bile production"
     ],
-    "Millions of alveoli greatly increase the total respiratory surface area, improving the rate of diffusion.",
+    "Millions of alveoli greatly increase the total respiratory surface area, improving the rate of diffusion. A larger surface allows many gas molecules to diffuse simultaneously.",
     [
       "ALVEOLI-SURFACE-AREA"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Makes the trachea shorter",
       "Increases salivary secretion"
     ],
-    "Loss of alveolar walls reduces total gas-exchange area and can make oxygen transfer into blood less efficient.",
+    "Loss of alveolar walls reduces total gas-exchange area and can make oxygen transfer into blood less efficient. This loss of surface area is an important problem in diseases such as emphysema.",
     [
       "ALVEOLI-DESTRUCTION"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Stops moving completely",
       "Moves upward while contracting"
     ],
-    "When the diaphragm contracts, it flattens and increases the volume of the chest cavity.",
+    "When the diaphragm contracts, it flattens and increases the volume of the chest cavity. The resulting lower pressure draws air from the atmosphere into the lungs.",
     [
       "INHALATION-DIAPHRAGM"
     ]
@@ -71,7 +71,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Moves downward forcefully",
       "Remains fixed"
     ],
-    "During quiet exhalation the diaphragm relaxes and returns toward its dome shape, reducing chest volume.",
+    "During quiet exhalation the diaphragm relaxes and returns toward its dome shape, reducing chest volume. Elastic recoil of the lungs also helps push air outward during quiet breathing.",
     [
       "EXHALATION-DIAPHRAGM"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Only downward",
       "Without any movement"
     ],
-    "External intercostal muscles raise the ribs upward and outward, increasing thoracic volume during inhalation.",
+    "External intercostal muscles raise the ribs upward and outward, increasing thoracic volume during inhalation. This movement expands the chest from the sides as the diaphragm expands it downward.",
     [
       "INHALATION-RIBS"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Exactly zero",
       "Unrelated to chest volume"
     ],
-    "Expansion of the chest increases lung volume and lowers pressure inside the lungs, so air flows inward.",
+    "Expansion of the chest increases lung volume and lowers pressure inside the lungs, so air flows inward. Air continues moving inward until the pressure difference is reduced.",
     [
       "INHALATION-PRESSURE"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "The lungs actively pump air using alveolar muscles",
       "The trachea closes completely"
     ],
-    "Relaxation of breathing muscles reduces thoracic volume. Elastic recoil raises pressure inside the lungs and pushes air outward.",
+    "Relaxation of breathing muscles reduces thoracic volume. Elastic recoil raises pressure inside the lungs and pushes air outward. Air flows outward because gases move from higher pressure toward lower pressure.",
     [
       "EXHALATION-PRESSURE"
     ]
@@ -131,7 +131,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Filtration in the kidneys",
       "Bile storage in the gallbladder"
     ],
-    "Diaphragm contraction is a major cause of increased thoracic volume during inhalation. Weak contraction therefore reduces air intake.",
+    "Diaphragm contraction is a major cause of increased thoracic volume during inhalation. Weak contraction therefore reduces air intake. Less chest expansion reduces the volume of fresh air reaching the lungs.",
     [
       "DIAPHRAGM-IMPAIRMENT"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Filtration",
       "Peristalsis"
     ],
-    "Oxygen diffuses across the thin alveolar-capillary membrane from a region of higher oxygen concentration to lower oxygen concentration.",
+    "Oxygen diffuses across the thin alveolar-capillary membrane from a region of higher oxygen concentration to lower oxygen concentration. Haemoglobin binding helps keep blood oxygen low enough to maintain this gradient.",
     [
       "OXYGEN-DIFFUSION"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Peristalsis",
       "Active pumping by alveoli"
     ],
-    "Carbon dioxide diffuses down its concentration/partial-pressure gradient from blood into alveolar air.",
+    "Carbon dioxide diffuses down its concentration/partial-pressure gradient from blood into alveolar air. The gas is then removed from the body when the person exhales.",
     [
       "CO2-DIFFUSION"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "A lower oxygen concentration than deoxygenated blood",
       "The same oxygen concentration as venous blood"
     ],
-    "Freshly ventilated alveoli contain more oxygen than incoming deoxygenated blood, creating a diffusion gradient.",
+    "Freshly ventilated alveoli contain more oxygen than incoming deoxygenated blood, creating a diffusion gradient. Continuous blood flow and ventilation help preserve this difference in oxygen level.",
     [
       "ALVEOLI-OXYGEN-GRADIENT"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "A lower carbon dioxide concentration than alveolar air",
       "Only oxygen"
     ],
-    "Blood arriving at the lungs carries carbon dioxide from tissues. Its higher carbon dioxide level drives diffusion into alveoli.",
+    "Blood arriving at the lungs carries carbon dioxide from tissues. Its higher carbon dioxide level drives diffusion into alveoli. Ventilation removes carbon dioxide from alveoli and maintains the outward diffusion gradient.",
     [
       "ALVEOLI-CO2-GRADIENT"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Dry walls and no capillaries",
       "Cartilage rings and digestive enzymes"
     ],
-    "Efficient respiratory surfaces are thin, extensive, moist and well supplied with blood, allowing rapid diffusion.",
+    "Efficient respiratory surfaces are thin, extensive, moist and well supplied with blood, allowing rapid diffusion. Moist surfaces also allow oxygen and carbon dioxide to dissolve before crossing membranes.",
     [
       "ALVEOLI-EFFICIENT-FEATURES"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp022ReviewSpec[] = [
       "Atmospheric oxygen disappears",
       "The diaphragm stops receiving nerves"
     ],
-    "Diffusion is faster across a short distance. Thickening the alveolar-capillary barrier increases the distance gases must cross.",
+    "Diffusion is faster across a short distance. Thickening the alveolar-capillary barrier increases the distance gases must cross. A longer diffusion path reduces how quickly oxygen can enter and carbon dioxide can leave.",
     [
       "ALVEOLI-THICKENING"
     ]
