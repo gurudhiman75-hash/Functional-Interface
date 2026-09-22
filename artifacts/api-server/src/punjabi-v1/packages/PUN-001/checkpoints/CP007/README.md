@@ -4,12 +4,12 @@ Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
 
 ## Final audited surface
 - **95 sentence-grounded ਕਾਰਕ authorities**
-- **9 reviewed ਸੰਬੰਧਕ authorities**
+- **36 sentence-grounded ਸੰਬੰਧਕ authorities** — 12 ਪੂਰਨ + 12 ਅਪੂਰਨ + 12 ਦੁਬਾਜਰਾ
 - **23 sentence-grounded ਯੋਜਕ authorities**
 - **37 contextual ਵਿਸਮਿਕ authorities**
-- **164 total atomic authorities**
+- **191 total atomic authorities**
 - **9 reviewed operation families**
-- **3,390 governed semantic combinations**
+- **5,901 governed semantic combinations**
 
 ## Donor audit
 Historical donor:
@@ -26,9 +26,9 @@ The donor is expanded after:
 - sentence-derived distractors for context-to-ਕਾਰਕ operations.
 
 ### ਸੰਬੰਧਕ
-The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy remains deliberately narrow at 9 authorities.
+The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy is retained unchanged and expanded from 9 to 36 sentence-grounded authorities, balanced at 12 per class.
 
-The donor also contains `ਵਿਕਾਰੀ / ਅਵਿਕਾਰੀ / ਸਥਾਨ-ਵਾਚਕ / ਦਿਸ਼ਾ-ਵਾਚਕ / ਸਾਧਨ-ਵਾਚਕ / ਕਾਰਨ-ਵਾਚਕ` labels. Those are a different classification dimension and are **not mixed** into the approved three-way family.
+The breadth pass adds only examples that fit the existing structural taxonomy; it does not reinterpret the separate donor taxonomy. The donor also contains `ਵਿਕਾਰੀ / ਅਵਿਕਾਰੀ / ਸਥਾਨ-ਵਾਚਕ / ਦਿਸ਼ਾ-ਵਾਚਕ / ਸਾਧਨ-ਵਾਚਕ / ਕਾਰਨ-ਵਾਚਕ` labels. Those are a different classification dimension and are **not mixed** into the approved three-way family.
 
 ### ਯੋਜਕ
 Seven additional donor sentence contexts are retained, including `ਇਸ ਲਈ`, `ਜੇਕਰ ... ਤਾਂ`, and `ਤਾਂ ਜੋ`, without changing the approved two-way `ਸਮਾਨ / ਅਧੀਨ` classification.
