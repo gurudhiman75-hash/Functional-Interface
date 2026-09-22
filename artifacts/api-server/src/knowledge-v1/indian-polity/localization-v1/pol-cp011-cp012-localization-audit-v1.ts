@@ -17,9 +17,9 @@ function numericTokens(value:string){
  const withoutListNumbers=value.split("\n").map(line=>line.replace(/^\s*\d+[.)]\s+/,"")).join("\n");
  return [...new Set(withoutListNumbers.match(/\d+[A-Z]?(?:\([a-z0-9]+\))?/g)??[])].sort();
 }
-const PA_BANNED=["ਸੰਸ਼ੋਧਨ","ਪ੍ਰਸੰਨਤਾ","ਕਿਸਦੀ ਪ੍ਰਸੰਨਤਾ","ਸੰਬੰਧਿਤ","ਅਪ੍ਰਸੰਗਿਕ","ਬਾਧਕ","ਉਪਚਾਰ"] as const;
-const PA_STEM_BANNED=["ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ","ਕਿਸ ਅਨੁਛੇਦ ਦਾ ਵਿਸ਼ਾ","ਇਸ ਅਧਿਆਇ ਵਿੱਚ ਮੁੱਖ ਤੌਰ 'ਤੇ","ਹੇਠ ਹੇਠ"] as const;
-const HI_STEM_BANNED=["इस अध्याय में मुख्यतः","किस पूर्व देश"] as const;
+const PA_BANNED=["ਸੰਸ਼ੋਧਨ","ਪ੍ਰਸੰਨਤਾ","ਕਿਸਦੀ ਪ੍ਰਸੰਨਤਾ","ਸੰਬੰਧਿਤ","ਅਪ੍ਰਸੰਗਿਕ","ਬਾਧਕ","ਉਪਚਾਰ","ਗਤੀਰੋਧ"] as const;
+const PA_STEM_BANNED=["ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ","ਕਿਸ ਅਨੁਛੇਦ ਦਾ ਵਿਸ਼ਾ","ਇਸ ਅਧਿਆਇ ਵਿੱਚ ਮੁੱਖ ਤੌਰ 'ਤੇ","ਹੇਠ ਹੇਠ","ਕਿਹੜੇ ਕਿਸਮ"] as const;
+const HI_STEM_BANNED=["इस अध्याय में मुख्यतः","किस पूर्व देश","किससे संबंधित है?"] as const;
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
  const original=learnerText(q);
  const stripped=original
