@@ -1,11 +1,12 @@
 import assert from "node:assert/strict";
-import { CP009_ANTONYM_AUTHORITIES,CP009_CONTEXT_AUTHORITIES,CP009_SYNONYM_AUTHORITIES } from "./CP009-authorities";
+import { CP009_ANTONYM_AUTHORITIES,CP009_SYNONYM_AUTHORITIES } from "./CP009-authorities";
+import { CP009_ALL_CONTEXT_AUTHORITIES } from "./CP009-contexts";
 import { CP009_FAMILIES,getCP009BreadthReport } from "./engine";
 
 const banned=/(ਟਕਸਾਲੀ|ਸਿੱਧੇ ਅਰਥ|ਪ੍ਰਮਾਣਿਤ|ਬਾਕੀ ਤਿੰਨ|ਬਾਕੀ ਵਿਕਲਪ|ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ)/u;
 assert.equal(CP009_SYNONYM_AUTHORITIES.length,98);
 assert.equal(CP009_ANTONYM_AUTHORITIES.length,110);
-assert.equal(CP009_CONTEXT_AUTHORITIES.length,10);
+assert.equal(CP009_ALL_CONTEXT_AUTHORITIES.length,60);
 assert.equal(CP009_FAMILIES.length,8);
 
 const synIds=new Set<string>(),heads=new Set<string>();
@@ -53,7 +54,7 @@ for(const a of CP009_ANTONYM_AUTHORITIES){
 }
 
 const ctxIds=new Set<string>();
-for(const a of CP009_CONTEXT_AUTHORITIES){
+for(const a of CP009_ALL_CONTEXT_AUTHORITIES){
  assert(!ctxIds.has(a.id),a.id+": duplicate context id");ctxIds.add(a.id);
  assert(a.donorIds.length>=1,a.id+": donor provenance required");
  assert.equal(a.sourceStatus,"REVIEW_PENDING");
@@ -76,11 +77,11 @@ assert.equal(breadth.synonymHeadwordAuthorities,98);
 assert.equal(breadth.synonymEdgeCount,378);
 assert.equal(breadth.deepSynonymAuthorities,86);
 assert.equal(breadth.antonymConceptAuthorities,110);
-assert.equal(breadth.contextAuthorities,10);
-assert.equal(breadth.totalAtomicAuthorities,218);
-assert.equal(breadth.totalSemanticCapacity,66413);
+assert.equal(breadth.contextAuthorities,60);
+assert.equal(breadth.totalAtomicAuthorities,268);
+assert.equal(breadth.totalSemanticCapacity,66463);
 
-const expectedCapacity:Record<string,number>={F01:378,F02:110,F03:488,F04:10,F05:392,F06:355,F07:21560,F08:43120};
+const expectedCapacity:Record<string,number>={F01:378,F02:110,F03:488,F04:60,F05:392,F06:355,F07:21560,F08:43120};
 const global=new Set<string>(),f08Outcomes=new Set<string>();
 for(const family of CP009_FAMILIES){
  assert.equal(family.semanticCapacity,expectedCapacity[family.familyId],family.familyId+": wrong capacity");
@@ -108,14 +109,14 @@ for(const family of CP009_FAMILIES){
  if(family.familyId==="F01")assert.equal(firstCoverage.size,98,"F01 must reach all synonym headwords");
  if(family.familyId==="F02")assert.equal(firstCoverage.size,110,"F02 must reach all antonym concepts");
  if(family.familyId==="F03")assert.equal(firstCoverage.size,208,"F03 must reach all synonym and antonym authorities");
- if(family.familyId==="F04")assert.equal(firstCoverage.size,10,"F04 must reach all authored contexts");
+ if(family.familyId==="F04")assert.equal(firstCoverage.size,60,"F04 must reach all authored contexts");
  if(family.familyId==="F05"||family.familyId==="F06")assert.equal(firstCoverage.size,86,family.familyId+": must reach all deep synonym authorities");
  if(family.familyId==="F07"||family.familyId==="F08"){
   assert.equal(firstCoverage.size,98,family.familyId+": must reach all synonym authorities");
   assert.equal(secondCoverage.size,110,family.familyId+": must reach all antonym authorities");
  }
 }
-assert.equal(global.size,66413);
+assert.equal(global.size,66463);
 assert.equal(f08Outcomes.size,4,"F08 must expose all four truth outcomes");
 console.log("CP009 retrofit exhaustive semantic gates passed: "+global.size+" governed questions");
 console.log(JSON.stringify({...breadth,f08TruthOutcomes:[...f08Outcomes]},null,2));
