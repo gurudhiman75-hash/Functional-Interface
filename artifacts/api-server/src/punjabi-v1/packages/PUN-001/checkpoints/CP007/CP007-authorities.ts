@@ -101,7 +101,7 @@ export const CP007_KARAK_AUTHORITIES:readonly CP007KarakAuthority[]=[
 
 export type CP007SambandhakKind="PURAN"|"APURAN"|"DUBAJRA";
 export const CP007_SAMBANDHAK_LABELS:Record<CP007SambandhakKind,string>={PURAN:"ਪੂਰਨ ਸੰਬੰਧਕ",APURAN:"ਅਪੂਰਨ ਸੰਬੰਧਕ",DUBAJRA:"ਦੁਬਾਜਰਾ ਸੰਬੰਧਕ"};
-export interface CP007SambandhakAuthority{readonly id:string;readonly priorApprovedIds:readonly string[];readonly expression:string;readonly kind:CP007SambandhakKind;readonly sentence:string;readonly explanationPa:string;readonly sourceStatus:"REVIEW_PENDING";}
+export interface CP007SambandhakAuthority{readonly id:string;readonly priorApprovedIds:readonly string[];readonly breadthSource?:"AUTHORED_V2";readonly expression:string;readonly kind:CP007SambandhakKind;readonly sentence:string;readonly explanationPa:string;readonly sourceStatus:"REVIEW_PENDING";}
 export const CP007_SAMBANDHAK_AUTHORITIES:readonly CP007SambandhakAuthority[]=[
  {id:"CP007-SR01",priorApprovedIds:["CP007-S01"],expression:"ਦਾ",kind:"PURAN" as CP007SambandhakKind,sentence:"ਵਿਦਿਆਰਥੀ ਦਾ ਘਰ ਨੇੜੇ ਹੈ।",explanationPa:"‘ਦਾ’ ਆਪਣੇ ਆਪ ਦੋ ਸ਼ਬਦਾਂ ਦਾ ਸੰਬੰਧ ਜੋੜਦਾ ਹੈ, ਇਸ ਲਈ ਇਹ ਪੂਰਨ ਸੰਬੰਧਕ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
  {id:"CP007-SR02",priorApprovedIds:["CP007-S02"],expression:"ਦੀ",kind:"PURAN" as CP007SambandhakKind,sentence:"ਵਿਦਿਆਰਥੀ ਦੀ ਕਿਤਾਬ ਮੇਜ਼ ਉੱਤੇ ਹੈ।",explanationPa:"‘ਦੀ’ ਸੰਬੰਧ ਸਪਸ਼ਟ ਕਰਦਾ ਹੈ, ਇਸ ਲਈ ਇਹ ਪੂਰਨ ਸੰਬੰਧਕ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
