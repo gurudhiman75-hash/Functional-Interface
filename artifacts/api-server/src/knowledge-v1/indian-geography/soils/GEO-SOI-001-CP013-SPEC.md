@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP013 — Exhaustive Mixed Soils Mastery
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: no new QLs
 
@@ -17,4 +17,4 @@ CP013 is the chapter-closure mastery pack. It does not own new facts; it selects
 - 108 unique stems and explanations.
 - Representatives retain the original source and source-fact provenance.
 - No new truth claims are introduced by CP013.
-- Runtime publication remains disabled until separately governed.
+- Content-approved mastery authority; runtime publication remains disabled and separately governed.
