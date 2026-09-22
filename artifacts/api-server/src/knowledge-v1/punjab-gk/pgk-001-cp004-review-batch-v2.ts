@@ -27,7 +27,7 @@ type Override = Readonly<{
   sourceIds: readonly string[];
 }>;
 
-const ancientSource = [PGK_001_CP004_SOURCE_IDS.psebClass9PunjabIntro] as const;
+const ancientSource = [PGK_001_CP004_SOURCE_IDS.psebClass9PunjabIntro, PGK_001_CP004_SOURCE_IDS.psebClass6VedicRivers] as const;
 
 const overrides: Readonly<Record<string, Override>> = Object.freeze({
   "PGK-001-CP004-Q005": {
@@ -35,7 +35,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     stem: "What is the ancient name of the Sutlej River?",
     options: ["Shutudri", "Vipasa", "Purushni", "Askini"],
     canonicalAnswer: "Shutudri",
-    explanation: "Sutlej was known as Shutudri in ancient tradition. Sutudri and Shatadru are also encountered as spelling variants.",
+    explanation: "PSEB texts render the ancient name of the Sutlej as Shutudri or Sutudri. Shatadru is another transliteration encountered for the same name.",
     factIds: ["ancient-sutlej-shutudri"],
     sourceIds: ancientSource,
   },
@@ -44,7 +44,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     stem: "Vipasa was the ancient name of which river?",
     options: ["Beas", "Ravi", "Chenab", "Jhelum"],
     canonicalAnswer: "Beas",
-    explanation: "Vipasa was the ancient name of the Beas. It is also commonly written as Vipasha.",
+    explanation: "Vipasa was the ancient name of the Beas. Vipasha is an alternate transliteration.",
     factIds: ["ancient-beas-vipasa"],
     sourceIds: ancientSource,
   },
@@ -53,7 +53,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     stem: "Which river was known as Purushni in ancient times?",
     options: ["Ravi", "Beas", "Sutlej", "Jhelum"],
     canonicalAnswer: "Ravi",
-    explanation: "Ravi was known as Purushni in ancient tradition. Parushni is another common spelling of the same name.",
+    explanation: "Ravi was known as Purushni in ancient tradition. Parushni is an alternate transliteration.",
     factIds: ["ancient-ravi-purushni"],
     sourceIds: ancientSource,
   },
@@ -62,7 +62,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     stem: "Askini was the ancient name of which river?",
     options: ["Chenab", "Jhelum", "Ravi", "Beas"],
     canonicalAnswer: "Chenab",
-    explanation: "Chenab was known as Askini in ancient tradition. The name is also commonly written as Asikni.",
+    explanation: "Chenab was known as Askini in ancient tradition. PSEB texts also use the transliteration Asikni.",
     factIds: ["ancient-chenab-askini"],
     sourceIds: ancientSource,
   },
@@ -76,7 +76,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
       "Beas — Purushni",
     ],
     canonicalAnswer: "Jhelum — Vitista",
-    explanation: "Jhelum was known as Vitista, also commonly written as Vitasta. Vipasa belongs to Beas, Askini to Chenab and Purushni to Ravi.",
+    explanation: "Jhelum is rendered as Vitista in the PSEB Class IX text and as Vitasta in the Class VI text. Both forms refer to the ancient name of the Jhelum.",
     factIds: ["ancient-jhelum-vitista", "ancient-beas-vipasa", "ancient-chenab-askini", "ancient-ravi-purushni"],
     sourceIds: ancientSource,
   },
