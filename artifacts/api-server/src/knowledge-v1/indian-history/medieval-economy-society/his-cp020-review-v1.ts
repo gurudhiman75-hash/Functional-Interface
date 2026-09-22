@@ -24,7 +24,7 @@ const sourceIds=(ids:readonly string[])=>[...new Set(ids.flatMap(id=>HIS_CP020_F
 const normalize=(s:string)=>s.toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
 const SOURCE_LEAK=/\b(?:NIOS|NCERT|UNESCO|textbook)\b/i;
 const META_WORDING=/(?:school-level|this CP|review batch|internal wording|source fact|checkpoint)/i;
-const MECHANICAL_STEM=/(?:\bbest describ(?:e|es)\b|\bassociated with\b|which correctly identifies|commonly called the:|what happened regarding)/i;
+const MECHANICAL_STEM=/(?:\bbest describ(?:e|es)\b|\bassociated with\b|which correctly identifies|commonly called the:|what happened regarding|^how did\b|^what was the usual relationship\b|^what was the main purpose\b|^what effect did\b)/i;
 
 export function generateHisCp020ReviewBatchV1():HisCp020ReviewQuestion[]{
   return HIS_CP020_SPECS_V1.map((s,i)=>{
