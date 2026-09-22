@@ -69,7 +69,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-100",
     "qlName": "Integrated formation and classification statements",
     "difficulty": "Medium",
-    "stem": "Which statement set is correct? I. Soil formation depends on parent material, climate, relief and organisms. II. Different combinations of these factors help create different soil groups.",
+    "stem": "Consider the statements: I. Soil formation depends on parent material, climate, relief and organisms. II. Different combinations of these factors help create different soil groups. Which option is correct?",
     "answer": "Both statements are correct",
     "distractors": [
       "Only I is correct",
@@ -101,7 +101,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-101",
     "qlName": "Alluvial and black soil statement integration",
     "difficulty": "Easy",
-    "stem": "Which statement pair is correct? I. Khadar is newer alluvium. II. Black soil is ideal for cotton.",
+    "stem": "Consider the statements: I. Khadar is newer alluvium. II. Black soil is ideal for cotton. Which option is correct?",
     "answer": "Both I and II",
     "distractors": [
       "I only",
@@ -197,7 +197,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-102",
     "qlName": "Red-yellow and laterite statement integration",
     "difficulty": "Easy",
-    "stem": "Which statement pair is correct? I. Red-yellow soil colour reflects iron. II. Laterite forms under intense leaching.",
+    "stem": "Consider the statements: I. Red-yellow soil colour reflects iron. II. Laterite forms under intense leaching. Which option is correct?",
     "answer": "Both I and II",
     "distractors": [
       "I only",
@@ -268,7 +268,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
       "Alluvial soil and black soil",
       "Forest soil and khadar"
     ],
-    "explanation": "Iron-red colouring over crystalline uplands points to red-yellow soil, while a strongly leached acidic hot-wet profile points to laterite. The two may occur in similar broad regions but form differently.",
+    "explanation": "Iron-red colouring over crystalline uplands points to red-yellow soil, while a strongly leached acidic hot-wet profile points to laterite. The two may occur in similar peninsular regions but form through different processes.",
     "sourceFactIds": [
       "INT-RED-LATERITE-ID"
     ]
@@ -293,7 +293,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-103",
     "qlName": "Arid and forest soil statement integration",
     "difficulty": "Easy",
-    "stem": "Which statement pair is correct? I. Arid soil is commonly sandy and saline. II. Forest soil varies with mountain relief.",
+    "stem": "Consider the statements: I. Arid soil is commonly sandy and saline. II. Forest soil varies with mountain relief. Which option is correct?",
     "answer": "Both I and II",
     "distractors": [
       "I only",
@@ -309,7 +309,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-103",
     "qlName": "Arid and forest soil statement integration",
     "difficulty": "Easy",
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which arid–forest soil pair is correctly matched?",
     "answer": "Arid—lower-horizon kankar; forest—coarse upper slopes",
     "distractors": [
       "Arid—annual flood silt; forest—desert salinity",
@@ -341,7 +341,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-103",
     "qlName": "Arid and forest soil statement integration",
     "difficulty": "Medium",
-    "stem": "Which comparison is correct?",
+    "stem": "Which climate-and-relief comparison of arid and forest soils is correct?",
     "answer": "Arid soil reflects rapid evaporation, while forest soil reflects mountain relief and vegetation",
     "distractors": [
       "Both are defined by heavy river deposition",
@@ -373,7 +373,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-103",
     "qlName": "Arid and forest soil statement integration",
     "difficulty": "Hard",
-    "stem": "Which set is fully correct?",
+    "stem": "Which combined description of arid and forest soils is fully correct?",
     "answer": "Arid: low moisture, salinity, kankar; forest: relief-linked texture, high-slope denudation, fertile lower valleys",
     "distractors": [
       "Arid: annual floods; forest: black clay cracks",
@@ -405,7 +405,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-104",
     "qlName": "Distribution statement integration",
     "difficulty": "Easy",
-    "stem": "Which distribution pair is correct?",
+    "stem": "Which arid–forest distribution pair is correct?",
     "answer": "Arid—western Rajasthan; forest—Himalayan hills",
     "distractors": [
       "Arid—Kerala coast; forest—Thar dunes",
@@ -421,14 +421,14 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-104",
     "qlName": "Distribution statement integration",
     "difficulty": "Medium",
-    "stem": "Which set is fully correct?",
+    "stem": "Which three-soil distribution set is fully correct?",
     "answer": "Laterite—Karnataka/Kerala; red-yellow—Odisha/Chhattisgarh; black—Maharashtra/Malwa",
     "distractors": [
       "Laterite—Punjab; red-yellow—Thar; black—Assam",
       "Laterite—Ganga plain; red-yellow—Kerala coast only; black—Himalayas",
       "Laterite—Ladakh; red-yellow—Punjab; black—Brahmaputra valley"
     ],
-    "explanation": "The correct set matches laterite with warm wet uplands, red-yellow soils with eastern/southern peninsular areas and black soil with western-central Deccan regions.",
+    "explanation": "The correct set matches laterite with warm wet uplands, red-yellow soils with eastern and southern peninsular areas, and black soil with western-central Deccan regions. Each region follows the standard national soil-distribution pattern.",
     "sourceFactIds": [
       "INT-DIST-TRIPLE"
     ]
@@ -453,7 +453,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-104",
     "qlName": "Distribution statement integration",
     "difficulty": "Medium",
-    "stem": "Which statement is correct? I. Alluvial soil also occurs in major eastern coastal deltas. II. Black soil extends through parts of the Godavari-Krishna valleys.",
+    "stem": "Consider the statements: I. Alluvial soil also occurs in major eastern coastal deltas. II. Black soil extends through parts of the Godavari-Krishna valleys. Which option is correct?",
     "answer": "Both statements are correct",
     "distractors": [
       "Only I is correct",
@@ -485,7 +485,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-105",
     "qlName": "Soil-crop statement integration",
     "difficulty": "Easy",
-    "stem": "Which crop-soil pair is correct?",
+    "stem": "Which cotton–soil relation is correct?",
     "answer": "Cotton—black soil",
     "distractors": [
       "Tea—arid soil",
@@ -501,14 +501,14 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-105",
     "qlName": "Soil-crop statement integration",
     "difficulty": "Easy",
-    "stem": "Which crop-soil pair is correct?",
+    "stem": "Which sugarcane–soil relation is correct?",
     "answer": "Sugarcane—alluvial soil",
     "distractors": [
       "Cotton—laterite",
       "Tea—arid",
       "Cashew—black soil"
     ],
-    "explanation": "Sugarcane is one of the major crops suited to fertile alluvial soil. The relation is especially common in intensively cultivated river-plain regions.",
+    "explanation": "Sugarcane is one of the major crops suited to fertile alluvial soil. This relation is especially common in intensively cultivated river-plain regions where alluvial fertility supports demanding crops.",
     "sourceFactIds": [
       "INT-CROP-SUGARCANE"
     ]
@@ -533,7 +533,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-105",
     "qlName": "Soil-crop statement integration",
     "difficulty": "Medium",
-    "stem": "Which statement pair is correct? I. Red laterite in parts of south India suits cashew. II. Arid soil can become cultivable after irrigation.",
+    "stem": "Consider the statements: I. Red laterite in parts of south India suits cashew. II. Arid soil can become cultivable after irrigation. Which option is correct?",
     "answer": "Both I and II",
     "distractors": [
       "I only",
@@ -581,14 +581,14 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-106",
     "qlName": "Erosion and conservation statement integration",
     "difficulty": "Easy",
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which gully–sheet erosion pair is correctly matched?",
     "answer": "Gully erosion—deep channels; sheet erosion—thin layer removed widely",
     "distractors": [
       "Gully erosion—wind only; sheet erosion—river deposition",
       "Gully erosion—terrace farming; sheet erosion—black-soil cracking",
       "Gully erosion—salt accumulation; sheet erosion—lava weathering"
     ],
-    "explanation": "Gully erosion cuts deep channels through concentrated runoff, while sheet erosion removes a thinner layer over a broad surface. The two are major but visually different forms of water erosion.",
+    "explanation": "Gully erosion cuts deep channels through concentrated runoff, while sheet erosion removes a thinner layer over a wide surface. The two are major but visually different forms of water erosion.",
     "sourceFactIds": [
       "INT-EROSION-GULLY-SHEET"
     ]
@@ -597,7 +597,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-106",
     "qlName": "Erosion and conservation statement integration",
     "difficulty": "Easy",
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which wind-erosion and shelter-belt pair is correctly matched?",
     "answer": "Wind erosion—dry exposed soil; shelter belts—wind control",
     "distractors": [
       "Wind erosion—annual floods; shelter belts—gully formation",
@@ -613,7 +613,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-106",
     "qlName": "Erosion and conservation statement integration",
     "difficulty": "Medium",
-    "stem": "Which statement set is correct? I. Deforestation can accelerate erosion. II. Overgrazing can expose soil. III. Mining may disturb protective land cover.",
+    "stem": "Consider the statements: I. Deforestation can accelerate erosion. II. Overgrazing can expose soil. III. Mining may disturb protective land cover. Which option is correct?",
     "answer": "I, II and III",
     "distractors": [
       "I and II only",
@@ -645,7 +645,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-106",
     "qlName": "Erosion and conservation statement integration",
     "difficulty": "Medium",
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which strip-cropping and shelter-belt pair is correctly matched?",
     "answer": "Strip cropping—alternating protective bands; shelter belts—rows of trees or shrubs",
     "distractors": [
       "Strip cropping—ravines; shelter belts—downhill furrows",
@@ -668,7 +668,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
       "Removing vegetation",
       "Deepening gullies"
     ],
-    "explanation": "All of these practices are designed to keep soil in place. Contours and terraces mainly control water on slopes, while shelter belts mainly reduce wind erosion on exposed dry land.",
+    "explanation": "All of these practices are designed to keep soil in place. Contours and terraces primarily control water on slopes, while shelter belts primarily reduce wind erosion on exposed dry land.",
     "sourceFactIds": [
       "INT-CONSERVATION-COMMON-GOAL"
     ]
@@ -677,7 +677,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-107",
     "qlName": "Match-the-pairs soil integration",
     "difficulty": "Easy",
-    "stem": "Which match is correct?",
+    "stem": "Which khadar match is correct?",
     "answer": "Khadar—newer alluvium",
     "distractors": [
       "Bangar—newer alluvium",
@@ -693,7 +693,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-107",
     "qlName": "Match-the-pairs soil integration",
     "difficulty": "Easy",
-    "stem": "Which match is correct?",
+    "stem": "Which black-soil match is correct?",
     "answer": "Black soil—Deccan basalt and cotton",
     "distractors": [
       "Arid soil—heavy rainfall and tea",
@@ -773,7 +773,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-108",
     "qlName": "Full mixed-soils mastery statements",
     "difficulty": "Easy",
-    "stem": "Which statement pair is correct? I. Black soil cracks deeply when dry. II. Arid soil may contain lower-horizon kankar.",
+    "stem": "Consider the statements: I. Black soil cracks deeply when dry. II. Arid soil may contain lower-horizon kankar. Which option is correct?",
     "answer": "Both I and II",
     "distractors": [
       "I only",
@@ -789,7 +789,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-108",
     "qlName": "Full mixed-soils mastery statements",
     "difficulty": "Easy",
-    "stem": "Which statement pair is correct? I. Laterite is strongly leached. II. Alluvial soil is generally fertile.",
+    "stem": "Consider the statements: I. Laterite is strongly leached. II. Alluvial soil is generally fertile. Which option is correct?",
     "answer": "Both I and II",
     "distractors": [
       "I only",
@@ -805,7 +805,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-108",
     "qlName": "Full mixed-soils mastery statements",
     "difficulty": "Medium",
-    "stem": "Which set is fully correct?",
+    "stem": "Which four-part soil–crop and management set is fully correct?",
     "answer": "Black—cotton; alluvial—wheat; laterite—tea after conservation; arid—cultivable after irrigation",
     "distractors": [
       "Black—tea; alluvial—desert shrubs; laterite—cotton; arid—coffee",
@@ -837,7 +837,7 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "qlId": "GEO-SOI-001-QL-108",
     "qlName": "Full mixed-soils mastery statements",
     "difficulty": "Medium",
-    "stem": "Which statement set is correct? I. Forest soil varies with slope position. II. Lower valley forest soils can be more fertile. III. High Himalayan forest soils may be acidic.",
+    "stem": "Consider the statements: I. Forest soil varies with slope position. II. Lower valley forest soils can be more fertile. III. High Himalayan forest soils may be acidic. Which option is correct?",
     "answer": "I, II and III",
     "distractors": [
       "I and II only",
