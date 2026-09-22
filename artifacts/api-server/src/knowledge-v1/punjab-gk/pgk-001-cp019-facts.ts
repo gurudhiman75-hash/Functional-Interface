@@ -47,9 +47,10 @@ export const PGK_001_CP019_SOURCE_REGISTRY = Object.freeze({
     url: "https://punjab.gov.in/wp-content/uploads/2023/01/rti-chapter5-eng.pdf",
   },
   [PGK_001_CP019_SOURCE_IDS.localPunjab]: {
-    authority: "Government of Punjab / Department of Local Government",
-    title: "Punjab local-government laws",
-    url: "https://punjab.gov.in/wp-content/uploads/2025/11/Rules-Circulars-Notifications-Acts-From-01.07.2025-To-30.09.2025.pdf",
+    authority: "India Code / Government of Punjab",
+    title: "Punjab Municipal Act, 1911 and Punjab Municipal Corporation Act, 1976",
+    url: "https://www.indiacode.nic.in/bitstream/123456789/8166/1/the_punjab_municipal_act_1911.pdf",
+    supportingUrls: Object.freeze(["https://www.indiacode.nic.in/bitstream/123456789/15332/1/punjab-municipal-corporation-act-1976.pdf"]),
   },
 } as const);
 
