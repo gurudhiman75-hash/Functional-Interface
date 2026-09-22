@@ -3,11 +3,11 @@ import { semanticHash } from "../../../../core/semantic-hash";
 import type { PunjabiDifficulty,PunjabiGeneratedQuestion } from "../../../../core/types";
 import {
   CP009_ANTONYM_AUTHORITIES,
-  CP009_CONTEXT_AUTHORITIES,
   CP009_SYNONYM_AUTHORITIES,
   type CP009AntonymAuthority,
   type CP009SynonymAuthority,
 } from "./CP009-authorities";
+import { CP009_ALL_CONTEXT_AUTHORITIES } from "./CP009-contexts";
 
 function norm(v:string){return v.normalize("NFC").trim();}
 function ord(seed:number,cap:number){const n=Math.trunc(seed)-1;return ((n%cap)+cap)%cap;}
@@ -22,7 +22,7 @@ function assemble(input:{seed:number;difficulty:PunjabiDifficulty;familyId:strin
  const selected=rng.pickDistinct(ds,3);
  const options=rng.shuffle([correct,...selected]);
  const fingerprint=`CP009-${semanticHash([input.familyId,input.subtype,input.difficulty,norm(input.stem),correct,[...selected].sort().join("|"),[...input.authorityIds].sort().join(",")])}`;
- return {id:`PUN-001-CP009-${input.familyId}-${fingerprint}`,stem:norm(input.stem),options,correctIndex:options.indexOf(correct),explanation:norm(input.explanation),difficulty:input.difficulty,metadata:{engine:"punjabi-v1",packageId:"PUN-001",cpId:"PUN-001-CP009",familyId:input.familyId,subtype:input.subtype,difficulty:input.difficulty,language:"pa-Guru",seed:input.seed,authorityIds:input.authorityIds,generatorRevision:"2.0.0-retrofit-exhaustive",fingerprint,lifecycle:"REVIEW_ONLY"}};
+ return {id:`PUN-001-CP009-${input.familyId}-${fingerprint}`,stem:norm(input.stem),options,correctIndex:options.indexOf(correct),explanation:norm(input.explanation),difficulty:input.difficulty,metadata:{engine:"punjabi-v1",packageId:"PUN-001",cpId:"PUN-001-CP009",familyId:input.familyId,subtype:input.subtype,difficulty:input.difficulty,language:"pa-Guru",seed:input.seed,authorityIds:input.authorityIds,generatorRevision:"2.1.0-context-breadth",fingerprint,lifecycle:"REVIEW_ONLY"}};
 }
 
 type SynonymEdge={authority:CP009SynonymAuthority;synonym:string};
@@ -57,7 +57,7 @@ export function generateCP009F03(seed:number,difficulty:PunjabiDifficulty){
 
 export function generateCP009F04(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Medium"],"F04");
- const i=ord(seed,CP009_CONTEXT_AUTHORITIES.length),a=CP009_CONTEXT_AUTHORITIES[i]!;
+ const i=ord(seed,CP009_ALL_CONTEXT_AUTHORITIES.length),a=CP009_ALL_CONTEXT_AUTHORITIES[i]!;
  return assemble({seed,difficulty,familyId:"F04",subtype:"CONTEXT_PRECISION",stem:pickVariant([`ਖਾਲੀ ਥਾਂ ਲਈ ਸਭ ਤੋਂ ਢੁਕਵਾਂ ਸ਼ਬਦ ਚੁਣੋ।\n${a.sentence}`,`ਵਾਕ ਦੇ ਭਾਵ ਅਨੁਸਾਰ ਸਹੀ ਸ਼ਬਦ ਚੁਣੋ।\n${a.sentence}`,`ਦਿੱਤੇ ਪ੍ਰਸੰਗ ਵਿੱਚ ਕਿਹੜਾ ਸ਼ਬਦ ਸਭ ਤੋਂ ਸਹੀ ਹੈ?\n${a.sentence}`],i),correctAnswer:a.correctTerm,distractors:a.distractors,explanation:a.explanationPa,authorityIds:[a.id]});
 }
 
@@ -101,11 +101,11 @@ export const CP009_FAMILIES=[
  {familyId:"F01",subtype:"DIRECT_SYNONYM",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:DIRECT_SYNONYM_CASES.length,generate:generateCP009F01},
  {familyId:"F02",subtype:"DIRECT_ANTONYM",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:CP009_ANTONYM_AUTHORITIES.length,generate:generateCP009F02},
  {familyId:"F03",subtype:"MEANING_RELATION",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:DIRECT_SYNONYM_CASES.length+CP009_ANTONYM_AUTHORITIES.length,generate:generateCP009F03},
- {familyId:"F04",subtype:"CONTEXT_PRECISION",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:CP009_CONTEXT_AUTHORITIES.length,generate:generateCP009F04},
+ {familyId:"F04",subtype:"CONTEXT_PRECISION",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:CP009_ALL_CONTEXT_AUTHORITIES.length,generate:generateCP009F04},
  {familyId:"F05",subtype:"SYNONYM_OUTSIDER",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:OUTSIDER_CASES.length,generate:generateCP009F05},
  {familyId:"F06",subtype:"SYNONYM_SET_COMPLETION",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:COMPLETION_CASES.length,generate:generateCP009F06},
  {familyId:"F07",subtype:"DUAL_RELATION_DIAGNOSIS",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:CP009_SYNONYM_AUTHORITIES.length*CP009_ANTONYM_AUTHORITIES.length*2,generate:generateCP009F07},
  {familyId:"F08",subtype:"DUAL_STATEMENT_VERIFICATION",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:CP009_SYNONYM_AUTHORITIES.length*CP009_ANTONYM_AUTHORITIES.length*4,generate:generateCP009F08},
 ] as const;
 export function generateCP009Question(seed:number,difficulty:PunjabiDifficulty="Medium",requestedFamilyId?:string){const eligible=CP009_FAMILIES.filter(f=>f.targetDifficulties.includes(difficulty));const family=requestedFamilyId?CP009_FAMILIES.find(f=>f.familyId===requestedFamilyId):eligible[ord(seed,eligible.length)];if(!family)throw new Error(`Unknown CP009 family ${requestedFamilyId}`);if(!family.targetDifficulties.includes(difficulty))throw new Error(`${family.familyId} does not support ${difficulty}`);return family.generate(seed,difficulty);}
-export function getCP009BreadthReport(){const capacities=Object.fromEntries(CP009_FAMILIES.map(f=>[f.familyId,f.semanticCapacity]));return{synonymHeadwordAuthorities:CP009_SYNONYM_AUTHORITIES.length,synonymEdgeCount:DIRECT_SYNONYM_CASES.length,deepSynonymAuthorities:DEEP_SYNONYM_AUTHORITIES.length,antonymConceptAuthorities:CP009_ANTONYM_AUTHORITIES.length,contextAuthorities:CP009_CONTEXT_AUTHORITIES.length,totalAtomicAuthorities:CP009_SYNONYM_AUTHORITIES.length+CP009_ANTONYM_AUTHORITIES.length+CP009_CONTEXT_AUTHORITIES.length,totalSemanticCapacity:CP009_FAMILIES.reduce((n,f)=>n+f.semanticCapacity,0),capacities};}
+export function getCP009BreadthReport(){const capacities=Object.fromEntries(CP009_FAMILIES.map(f=>[f.familyId,f.semanticCapacity]));return{synonymHeadwordAuthorities:CP009_SYNONYM_AUTHORITIES.length,synonymEdgeCount:DIRECT_SYNONYM_CASES.length,deepSynonymAuthorities:DEEP_SYNONYM_AUTHORITIES.length,antonymConceptAuthorities:CP009_ANTONYM_AUTHORITIES.length,contextAuthorities:CP009_ALL_CONTEXT_AUTHORITIES.length,totalAtomicAuthorities:CP009_SYNONYM_AUTHORITIES.length+CP009_ANTONYM_AUTHORITIES.length+CP009_ALL_CONTEXT_AUTHORITIES.length,totalSemanticCapacity:CP009_FAMILIES.reduce((n,f)=>n+f.semanticCapacity,0),capacities};}
