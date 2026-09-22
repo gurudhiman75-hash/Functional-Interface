@@ -145,9 +145,9 @@ benevolent|kind, generous, and wishing to do good
 malevolent|having or showing a wish to do harm to others
 credulous|too ready to believe things without enough evidence
 gullible|easily persuaded to believe something false
-sceptical|not easily convinced and inclined to question claims
+intrepid|fearless and showing great courage
 eccentric|behaving in an unusual or unconventional way
-stoical|enduring pain or difficulty without showing complaint
+imperturbable|remaining calm and not easily upset or excited
 pragmatic|dealing with problems in a practical rather than theoretical way
 #symptoms_clinical
 haemorrhage|heavy or uncontrolled bleeding
