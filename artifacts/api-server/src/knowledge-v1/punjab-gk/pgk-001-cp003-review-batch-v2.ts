@@ -23,7 +23,7 @@ const overrides: Readonly<Record<string, Override>> = Object.freeze({
     stem: "Punjab is broadly divided into which three regions?",
     options: ["Majha, Doaba and Malwa", "Majha, Doaba and Kandi", "Majha, Malwa and Kandi", "Doaba, Malwa and Kandi"],
     canonicalAnswer: "Majha, Doaba and Malwa",
-    explanation: "Punjab is broadly divided into Majha, Doaba and Malwa. These three names are commonly used for the state's major geographical-cultural regions.",
+    explanation: "Punjab is broadly divided into Majha, Doaba and Malwa. These three names identify Punjab's broad geographical-cultural regions.",
     factIds: ["gov-punjab-three-region"],
     sourceIds: [PGK_001_CP003_SOURCE_IDS.knowPunjab],
   },
