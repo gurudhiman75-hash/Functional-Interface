@@ -180,7 +180,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP004_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "After the Beas joins the Sutlej at Harike, which river name continues downstream?",
+      stem: "At Harike, the Beas merges into which eastern river of the Indus system?",
       canonical: "Sutlej",
       options: ["Sutlej", "Beas", "Ravi", "Chenab"],
       explanation: "The Beas joins the Sutlej at Harike. The combined flow continues downstream as the Sutlej.",

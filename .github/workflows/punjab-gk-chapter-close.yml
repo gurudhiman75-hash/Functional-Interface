@@ -8,6 +8,7 @@ on:
       - "artifacts/api-server/src/knowledge-v1/punjab-gk/**"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-pgk001-adapter-v1.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-pgk001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-pgk001-exhaustive-audit-v1.test.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
   workflow_dispatch:
 
@@ -38,7 +39,8 @@ jobs:
           mkdir -p artifacts/api-server/dist/punjab-gk
           for test_file in \
             src/knowledge-v1/punjab-gk/pgk-001-cp004-review-batch-v2.test.ts \
-            src/question-studio/engines/knowledge-v1-pgk001-adapter-v1.test.ts
+            src/question-studio/engines/knowledge-v1-pgk001-adapter-v1.test.ts \
+            src/question-studio/engines/knowledge-v1-pgk001-exhaustive-audit-v1.test.ts
           do
             output_name="$(basename "${test_file}" .ts).mjs"
             pnpm --dir artifacts/api-server exec esbuild \
@@ -47,5 +49,12 @@ jobs:
               --outfile="dist/punjab-gk/${output_name}"
             node "artifacts/api-server/dist/punjab-gk/${output_name}"
           done
+      - name: Upload exhaustive Punjab GK audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PGK-001-EXHAUSTIVE-CONTENT-AUDIT-V1
+          path: artifacts/api-server/dist/pgk-001-exhaustive-audit-v1.json
+          if-no-files-found: error
       - name: Build API server
         run: pnpm --dir artifacts/api-server build

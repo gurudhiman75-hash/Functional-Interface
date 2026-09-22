@@ -144,7 +144,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "Pong Dam is best described as a:",
+      stem: "What type of dam is Pong Dam?",
       canonical: "Earth-core gravel-shell dam",
       options: ["Earth-core gravel-shell dam", "Concrete straight gravity dam", "Masonry arch dam", "Mass-concrete barrage"],
       explanation: "Pong is an earth-core gravel-shell dam on the Beas River.",
@@ -264,7 +264,7 @@ const rowsByQl: Record<keyof typeof PGK_001_CP005_QL_NAMES, readonly Row[]> = {
     },
     {
       difficulty: "Medium",
-      stem: "The Beas-Sutlej Link transfers water from the Beas toward which river system?",
+      stem: "Which river system receives water diverted through the inter-basin link from the Beas Project?",
       canonical: "Sutlej",
       options: ["Sutlej", "Ravi", "Chenab", "Jhelum"],
       explanation: "The Beas-Sutlej Link diverts part of the Beas water toward the Sutlej system.",
