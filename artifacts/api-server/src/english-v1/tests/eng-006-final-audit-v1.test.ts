@@ -29,7 +29,7 @@ for(let i=0;i<42000;i++){
   seen.add(`${cp+1}:${q.metadata.entryId}`);
   positions[q.correctOptionIndex]++;
   assert.equal(q.options.length,4);
-  assert.equal(new Set(q.options.map((x:string)=>x.toLowerCase())).size,4);
+  assert.equal(new Set(q.options.map((x:string)=>x.toLowerCase())).size,4);\n  assert.ok(q.explanation.includes(`“${q.metadata.answer}”`));\n  assert.ok(q.explanation.length>=20);\n  assert.ok(!/one-word term for|precise term for/i.test(q.explanation));
 }
 assert.equal(seen.size,1400);
 for(const n of positions)assert.ok(n>=9500&&n<=11500,`Final answer-position imbalance: ${positions.join(",")}`);
