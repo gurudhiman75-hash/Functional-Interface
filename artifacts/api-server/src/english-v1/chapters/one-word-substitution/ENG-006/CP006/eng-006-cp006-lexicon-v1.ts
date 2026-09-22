@@ -248,7 +248,7 @@ zoophobia|an extreme fear of animals
 entomophobia|an extreme fear of insects
 ornithophobia|an extreme fear of birds
 pyrophobia|an extreme fear of fire
-monophobia|an extreme fear of being alone
+basophobia|an extreme fear of falling while standing or walking
 triskaidekaphobia|an extreme fear of the number thirteen
 atelophobia|an extreme fear of imperfection or not being good enough
 emetophobia|an extreme fear of vomiting
