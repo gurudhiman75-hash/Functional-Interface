@@ -88,7 +88,7 @@ export const PGK_001_CP005_HEADWORKS = Object.freeze([
     name: "Harike Headworks",
     kind: "Headworks",
     river: "Beas-Sutlej confluence",
-    sourceIds: [PGK_001_CP005_SOURCE_IDS.PunjabHarike],
+    sourceIds: [PGK_001_CP005_SOURCE_IDS.bbmbProjectsAtGlance, PGK_001_CP005_SOURCE_IDS.PunjabHarike],
   },
   {
     id: "madhopur-headworks",
@@ -135,7 +135,7 @@ export const PGK_001_CP005_CANAL_RELATIONS = Object.freeze([
     canal: "Ferozepur Feeder",
     headworks: "Harike Headworks",
     river: "Beas-Sutlej confluence",
-    sourceIds: [PGK_001_CP005_SOURCE_IDS.PunjabHarike],
+    sourceIds: [PGK_001_CP005_SOURCE_IDS.bbmbProjectsAtGlance, PGK_001_CP005_SOURCE_IDS.PunjabHarike],
   },
   {
     id: "nangal-hydel-channel",
