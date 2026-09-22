@@ -63,9 +63,10 @@ Before Question Studio exposure:
 | POL-CP-003–004 | 133 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-005–006 | 170 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-007–008 | 140 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
-| POL-CP-009–027 | pending | pending | pending | English-only remains active |
+| POL-CP-009–010 | 152 | REVIEW CANDIDATE V1 | REVIEW CANDIDATE V1 | deferred until multilingual approval |
+| POL-CP-011–027 | pending | pending | pending | English-only remains active |
 
-The approved CP001–CP008 localization layers cover 535 English authority questions and 1,605 review surfaces across English, Hindi and Punjabi. Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
+The approved CP001–CP008 localization layers cover 535 English authority questions and 1,605 review surfaces across English, Hindi and Punjabi. CP009–CP010 now add 456 review-candidate surfaces (152 per locale). Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
 
 
 ### CP001–CP002 localization approval

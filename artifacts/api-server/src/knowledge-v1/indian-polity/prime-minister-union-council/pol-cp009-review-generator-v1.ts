@@ -153,7 +153,7 @@ function explanation(ql: number, row: number, answer: string): string {
       "Article 75 covers salaries and allowances as one of its additional rules concerning Union Ministers.",
     ],
     17: [
-      "All three statements are correct: the President appoints the Prime Minister, the Council is responsible to Lok Sabha, and the six-month rule applies.",
+      "Statements 1 and 2 are correct. A non-MP Minister cannot remain outside Parliament indefinitely; under Article 75, the Minister must become a member of either House within six consecutive months.",
       "Only the first and third statements are correct; collective responsibility is to Lok Sabha, not Rajya Sabha.",
       "All three are correct: the fifteen per cent cap includes the Prime Minister, ministerial oaths are administered by the President, and Article 78 lists PM duties.",
       "Only two statements are correct; Article 88 allows participation in either House but does not itself create a voting right there.",
