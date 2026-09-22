@@ -30,6 +30,7 @@ function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
    for(const phrase of PA_BANNED)assert.equal(original.includes(phrase),false,`${q.questionId}: non-native Punjabi remains: ${phrase}`);
    for(const phrase of PA_STEM_BANNED)assert.equal(q.stem.includes(phrase),false,`${q.questionId}: Punjabi stem grammar defect: ${phrase}`);
    assert.equal(/ਦਾ ਵਰਤੋਂ/u.test(original),false,`${q.questionId}: Punjabi agreement error`);
+   assert.equal(/ਅਨੁਛੇਦ\s+\d+(?:\(\d+[A-Z]?\))?\s+ਹੇਠ/u.test(original),false,`${q.questionId}: translated Punjabi article-reference phrasing`);
  }else{
    for(const phrase of HI_STEM_BANNED)assert.equal(q.stem.includes(phrase),false,`${q.questionId}: Hindi stem grammar defect: ${phrase}`);
  }
