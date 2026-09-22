@@ -43,16 +43,39 @@ export function generateCP009F02(seed:number,difficulty:PunjabiDifficulty){
  return assemble({seed,difficulty,familyId:"F02",subtype:"DIRECT_ANTONYM",stem:pickVariant([`‘${a.word}’ ਦਾ ਵਿਰੋਧੀ ਸ਼ਬਦ ਕਿਹੜਾ ਹੈ?`,`ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ‘${a.word}’ ਦੇ ਉਲਟ ਅਰਥ ਵਾਲਾ ਸ਼ਬਦ ਚੁਣੋ।`,`‘${a.word}’ ਦਾ ਸਹੀ ਵਿਰੋਧੀ ਸ਼ਬਦ ਦੱਸੋ।`],i),correctAnswer:a.antonym,distractors:a.sourceConfusables,explanation:a.explanationPa,authorityIds:[a.id]});
 }
 
-const RELATION_OPTIONS=["ਸਮਾਨਾਰਥਕ","ਵਿਰੋਧੀ","ਇੱਕੋ ਸ਼ਬਦ ਦੇ ਰੂਪ","ਕੋਈ ਨਿਸ਼ਚਿਤ ਅਰਥ-ਸੰਬੰਧ ਨਹੀਂ"] as const;
 export function generateCP009F03(seed:number,difficulty:PunjabiDifficulty){
  requireDiff(difficulty,["Easy"],"F03");
  const cap=DIRECT_SYNONYM_CASES.length+CP009_ANTONYM_AUTHORITIES.length,i=ord(seed,cap);
  if(i<DIRECT_SYNONYM_CASES.length){
   const {authority:a,synonym}=DIRECT_SYNONYM_CASES[i]!;
-  return assemble({seed,difficulty,familyId:"F03",subtype:"MEANING_RELATION",stem:`‘${a.headword}’ ਅਤੇ ‘${synonym}’ ਵਿਚਲਾ ਅਰਥ-ਸੰਬੰਧ ਕਿਹੜਾ ਹੈ?`,correctAnswer:"ਸਮਾਨਾਰਥਕ",distractors:RELATION_OPTIONS,explanation:`‘${a.headword}’ ਅਤੇ ‘${synonym}’ ਸਮਾਨ ਜਾਂ ਨੇੜਲਾ ਅਰਥ ਪ੍ਰਗਟ ਕਰਦੇ ਹਨ।`,authorityIds:[a.id]});
+  const correct=`${a.headword} — ${synonym}`;
+  const distractors=a.outsiders.map(word=>`${a.headword} — ${word}`);
+  return assemble({
+   seed,difficulty,familyId:"F03",subtype:"MEANING_RELATION",
+   stem:pickVariant([
+    "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਸ਼ਬਦ-ਜੋੜਾ ਸਮਾਨਾਰਥਕ ਹੈ?",
+    "ਸਮਾਨ ਅਰਥ ਵਾਲਾ ਸਹੀ ਸ਼ਬਦ-ਜੋੜਾ ਚੁਣੋ।",
+    "ਕਿਹੜੇ ਸ਼ਬਦ-ਜੋੜੇ ਦੇ ਦੋਵੇਂ ਸ਼ਬਦ ਇੱਕੋ ਜਾਂ ਨੇੜਲਾ ਅਰਥ ਦਿੰਦੇ ਹਨ?"
+   ],i),
+   correctAnswer:correct,distractors,
+   explanation:`‘${a.headword}’ ਅਤੇ ‘${synonym}’ ਸਮਾਨ ਜਾਂ ਨੇੜਲਾ ਅਰਥ ਪ੍ਰਗਟ ਕਰਦੇ ਹਨ।`,
+   authorityIds:[a.id]
+  });
  }
  const a=CP009_ANTONYM_AUTHORITIES[i-DIRECT_SYNONYM_CASES.length]!;
- return assemble({seed,difficulty,familyId:"F03",subtype:"MEANING_RELATION",stem:`‘${a.word}’ ਅਤੇ ‘${a.antonym}’ ਵਿਚਲਾ ਅਰਥ-ਸੰਬੰਧ ਕਿਹੜਾ ਹੈ?`,correctAnswer:"ਵਿਰੋਧੀ",distractors:RELATION_OPTIONS,explanation:a.explanationPa,authorityIds:[a.id]});
+ const correct=`${a.word} — ${a.antonym}`;
+ const distractors=a.sourceConfusables.map(word=>`${a.word} — ${word}`);
+ return assemble({
+  seed,difficulty,familyId:"F03",subtype:"MEANING_RELATION",
+  stem:pickVariant([
+   "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਸ਼ਬਦ-ਜੋੜਾ ਵਿਰੋਧੀ ਹੈ?",
+   "ਉਲਟ ਅਰਥ ਵਾਲਾ ਸਹੀ ਸ਼ਬਦ-ਜੋੜਾ ਚੁਣੋ।",
+   "ਕਿਹੜੇ ਸ਼ਬਦ-ਜੋੜੇ ਦੇ ਦੋਵੇਂ ਸ਼ਬਦ ਵਿਰੋਧੀ ਅਰਥ ਦਿੰਦੇ ਹਨ?"
+  ],i),
+  correctAnswer:correct,distractors,
+  explanation:a.explanationPa,
+  authorityIds:[a.id]
+ });
 }
 
 export function generateCP009F04(seed:number,difficulty:PunjabiDifficulty){
