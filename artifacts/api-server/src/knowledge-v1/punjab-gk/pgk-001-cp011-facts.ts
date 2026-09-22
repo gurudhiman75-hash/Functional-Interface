@@ -7,6 +7,47 @@ export const PGK_001_CP011_SOURCE_IDS = Object.freeze({
   lbsnaaMedievalIndia: "LBSNAA-MEDIEVAL-INDIA",
 } as const);
 
+
+export const PGK_001_CP011_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP011_SOURCE_IDS.psebClass11Turks]: {
+    authority: "Punjab School Education Board",
+    title: "Punjab History and Culture Class XI syllabus — The Turks in the Punjab",
+    url: "https://static.pseb.ac.in/media/1775037521_11thPunjabHistoryandCultureSyllabus2026-27.pdf",
+    classification: "SUPPORTING_CURRICULUM",
+  },
+  [PGK_001_CP011_SOURCE_IDS.psebClass12Mughals]: {
+    authority: "Punjab School Education Board",
+    title: "Class XII Punjab History & Culture Question Bank — Great Mughals and Punjab",
+    url: "https://static.pseb.ac.in/media/1655981990_N_5131_1655355982934.pdf",
+    classification: "PRIMARY_EDUCATION_AUTHORITY",
+  },
+  [PGK_001_CP011_SOURCE_IDS.govtPunjabHistory]: {
+    authority: "Government of Punjab",
+    title: "History of Punjab",
+    url: "https://punjab.gov.in/know-punjab/history/",
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP011_SOURCE_IDS.lahoreGovHistory]: {
+    authority: "District Lahore, Government of Punjab, Pakistan",
+    title: "Our History / District Profile",
+    url: "https://lahore.punjab.gov.pk/our_history",
+    supportingUrls: Object.freeze(["https://lahore.punjab.gov.pk/district_profile"]),
+    classification: "PRIMARY_GOVERNMENT",
+  },
+  [PGK_001_CP011_SOURCE_IDS.igncaLahore]: {
+    authority: "Indira Gandhi National Centre for the Arts — ASI digital archive",
+    title: "Five Thousand Years of Pakistan — Lahore monuments and Mughal architecture",
+    url: "https://ignca.gov.in/Asi_data/17045.pdf",
+    classification: "PRIMARY_ARCHIVAL_COPY",
+  },
+  [PGK_001_CP011_SOURCE_IDS.lbsnaaMedievalIndia]: {
+    authority: "National Institute of Open Schooling",
+    title: "History Lesson 9 — Establishment and Expansion of the Delhi Sultanate",
+    url: "https://digital.nios.ac.in/content/315en/315_History_Eng_Lesson9.pdf",
+    classification: "PRIMARY_EDUCATION_AUTHORITY",
+  },
+} as const);
+
 export const PGK_001_CP011_FACTS = Object.freeze({
   ghaznavidPunjab: {
     id: "ghaznavid-punjab-lahore",

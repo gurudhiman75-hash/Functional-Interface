@@ -6,6 +6,39 @@ export const PGK_001_CP006_SOURCE_IDS = Object.freeze({
   agriculturePolicy: "GOV-PUNJAB-AGRICULTURE-POLICY-NATURAL-RESOURCES",
 } as const);
 
+export const PGK_001_CP006_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP006_SOURCE_IDS.knowPunjab]: {
+    authority: "Government of Punjab",
+    title: "Know Punjab — Climate",
+    url: "https://punjab.gov.in/know-punjab/",
+    classification: "PRIMARY",
+  },
+  [PGK_001_CP006_SOURCE_IDS.psebClass9]: {
+    authority: "Punjab School Education Board",
+    title: "Social Science IX Part I",
+    url: "https://static.pseb.ac.in/media/1670479881_Social%20Science-9%28english%29%20Part-I.pdf",
+    classification: "STRONG_SECONDARY",
+  },
+  [PGK_001_CP006_SOURCE_IDS.pauSouthWest]: {
+    authority: "Punjab Agricultural University",
+    title: "Regional Research Station, Bathinda — South-Western Zone",
+    url: "https://pau.edu/outstations/index.php?DO=viewHomePage&_act=manageOutstationData&intLinkID=3",
+    classification: "PRIMARY_INSTITUTIONAL",
+  },
+  [PGK_001_CP006_SOURCE_IDS.soilWaterRti]: {
+    authority: "Department of Soil & Water Conservation, Government of Punjab",
+    title: "RTI Manual — Organisation and Functions",
+    url: "https://punjab.gov.in/wp-content/uploads/2021/10/rti_manual.pdf",
+    classification: "PRIMARY",
+  },
+  [PGK_001_CP006_SOURCE_IDS.agriculturePolicy]: {
+    authority: "Government of Punjab",
+    title: "Agriculture Policy for Punjab",
+    url: "https://punjab.gov.in/wp-content/uploads/2019/04/Agriculture-policy-of-punjab.pdf",
+    classification: "PRIMARY",
+  },
+} as const);
+
 export const PGK_001_CP006_CLIMATE = Object.freeze({
   summer: Object.freeze({ start: "mid-April", end: "end-June" }),
   monsoon: Object.freeze({ start: "early July", end: "end-September" }),
@@ -90,3 +123,53 @@ export const PGK_001_CP006_FACT_IDS = Object.freeze([
   ...PGK_001_CP006_RESOURCE_PROBLEMS.map((row) => row.id),
   ...PGK_001_CP006_CONSERVATION.map((row) => row.id),
 ]);
+
+
+export const PGK_001_CP006_FACT_SOURCE_IDS: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "summer-season": Object.freeze([PGK_001_CP006_SOURCE_IDS.knowPunjab]),
+  "monsoon-season": Object.freeze([PGK_001_CP006_SOURCE_IDS.knowPunjab]),
+  "winter-season": Object.freeze([PGK_001_CP006_SOURCE_IDS.knowPunjab]),
+  "rainfall-gradient": Object.freeze([PGK_001_CP006_SOURCE_IDS.knowPunjab]),
+  "temperature-extremes": Object.freeze([PGK_001_CP006_SOURCE_IDS.knowPunjab]),
+  "alluvial-dominant": Object.freeze([PGK_001_CP006_SOURCE_IDS.psebClass9]),
+  "bangar-old-alluvium": Object.freeze([PGK_001_CP006_SOURCE_IDS.psebClass9]),
+  "khadar-new-alluvium": Object.freeze([PGK_001_CP006_SOURCE_IDS.psebClass9]),
+  "southwest-alkaline": Object.freeze([PGK_001_CP006_SOURCE_IDS.pauSouthWest]),
+  "southwest-brackish-water": Object.freeze([PGK_001_CP006_SOURCE_IDS.pauSouthWest]),
+  "soil-erosion": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti, PGK_001_CP006_SOURCE_IDS.agriculturePolicy]),
+  "salt-affected-soils": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti, PGK_001_CP006_SOURCE_IDS.agriculturePolicy]),
+  "waterlogging": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti, PGK_001_CP006_SOURCE_IDS.agriculturePolicy]),
+  "groundwater-overuse": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti, PGK_001_CP006_SOURCE_IDS.agriculturePolicy]),
+  "brackish-groundwater": Object.freeze([PGK_001_CP006_SOURCE_IDS.pauSouthWest, PGK_001_CP006_SOURCE_IDS.agriculturePolicy]),
+  "land-levelling": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti]),
+  "field-drainage": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti]),
+  "rainwater-harvesting": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti]),
+  "watershed-treatment": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti]),
+  "drip-irrigation": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti]),
+  "contour-bunding": Object.freeze([PGK_001_CP006_SOURCE_IDS.soilWaterRti]),
+});
+
+export function auditPgk001Cp006FactSources() {
+  const issues: string[] = [];
+  const validSourceIds = new Set(Object.keys(PGK_001_CP006_SOURCE_REGISTRY));
+  const validFactIds = new Set(PGK_001_CP006_FACT_IDS);
+
+  for (const factId of validFactIds) {
+    const sourceIds = PGK_001_CP006_FACT_SOURCE_IDS[factId] ?? [];
+    if (sourceIds.length === 0) issues.push(`${factId}: missing fact-level source authority`);
+    for (const sourceId of sourceIds) {
+      if (!validSourceIds.has(sourceId)) issues.push(`${factId}: unresolved source id ${sourceId}`);
+    }
+  }
+
+  for (const factId of Object.keys(PGK_001_CP006_FACT_SOURCE_IDS)) {
+    if (!validFactIds.has(factId)) issues.push(`${factId}: source mapping points to unknown fact id`);
+  }
+
+  return Object.freeze({
+    valid: issues.length === 0,
+    issues: Object.freeze(issues),
+    factCount: validFactIds.size,
+    mappedFactCount: Object.keys(PGK_001_CP006_FACT_SOURCE_IDS).length,
+  });
+}

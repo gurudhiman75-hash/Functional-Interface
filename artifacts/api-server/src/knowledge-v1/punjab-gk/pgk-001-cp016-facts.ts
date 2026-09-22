@@ -9,6 +9,34 @@ export const PGK_001_CP016_SOURCE_IDS = {
   igncaTreatyLahore: "IGNCA-TREATY-LAHORE-1846",
 } as const;
 
+
+export const PGK_001_CP016_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP016_SOURCE_IDS.namFirstSikhWar]: {
+    authority: "National Army Museum, London", title: "First Sikh War", url: "https://www.nam.ac.uk/explore/first-sikh-war", classification: "STRONG_INSTITUTIONAL_SECONDARY",
+  },
+  [PGK_001_CP016_SOURCE_IDS.namAliwal]: {
+    authority: "National Army Museum, London", title: "Battle of Aliwal", url: "https://www.nam.ac.uk/explore/battle-aliwal", classification: "STRONG_INSTITUTIONAL_SECONDARY",
+  },
+  [PGK_001_CP016_SOURCE_IDS.namSecondSikhWar]: {
+    authority: "National Army Museum, London", title: "Second Sikh War", url: "https://www.nam.ac.uk/explore/second-sikh-war", classification: "STRONG_INSTITUTIONAL_SECONDARY",
+  },
+  [PGK_001_CP016_SOURCE_IDS.namGujrat]: {
+    authority: "National Army Museum, London", title: "Battle of Gujerat, 21 February 1849", url: "https://collection.nam.ac.uk/detail.php?acc=1971-02-33-181-1", classification: "PRIMARY_MUSEUM_COLLECTION",
+  },
+  [PGK_001_CP016_SOURCE_IDS.igncaFirstWarGazetteer]: {
+    authority: "Indira Gandhi National Centre for the Arts — ASI digital archive", title: "Punjab Gazetteer — First Anglo-Sikh War archival material", url: "https://ignca.gov.in/Asi_data/3224.pdf", classification: "PRIMARY_ARCHIVAL_COPY",
+  },
+  [PGK_001_CP016_SOURCE_IDS.igncaTreatyBhairowal]: {
+    authority: "Indira Gandhi National Centre for the Arts — ASI digital archive", title: "Punjab Gazetteer — Treaty of Bhairowal context", url: "https://ignca.gov.in/Asi_data/30636.pdf", classification: "PRIMARY_ARCHIVAL_COPY",
+  },
+  [PGK_001_CP016_SOURCE_IDS.igncaTreatyAmritsar]: {
+    authority: "Indira Gandhi National Centre for the Arts — ASI digital archive", title: "Treaty of Amritsar, 16 March 1846 — archival reference", url: "https://ignca.gov.in/Asi_data/63964.pdf", classification: "PRIMARY_ARCHIVAL_COPY",
+  },
+  [PGK_001_CP016_SOURCE_IDS.igncaTreatyLahore]: {
+    authority: "National Army Museum / IGNCA archival material", title: "Treaty of Lahore, 1846", url: "https://www.nam.ac.uk/explore/first-sikh-war", supportingUrls: Object.freeze(["https://ignca.gov.in/Asi_data/63964.pdf"]), classification: "STRONG_INSTITUTIONAL_SECONDARY",
+  },
+} as const);
+
 export const PGK_001_CP016_FACTS = [
   { id: "post-1839-instability", fact: "After Ranjit Singh's death in 1839, the Lahore state entered a period of political instability.", sourceIds: [PGK_001_CP016_SOURCE_IDS.namFirstSikhWar] },
   { id: "duleep-singh-maharaja-rani-jindan-regent", fact: "The young Duleep Singh was Maharaja and Rani Jindan served as Regent before the First Anglo-Sikh War.", sourceIds: [PGK_001_CP016_SOURCE_IDS.namFirstSikhWar] },

@@ -7,6 +7,40 @@ export const PGK_001_CP018_SOURCE_IDS = Object.freeze({
   highCourtHistory: "punjab-haryana-high-court-history",
 } as const);
 
+
+export const PGK_001_CP018_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP018_SOURCE_IDS.punjabHistory]: {
+    authority: "Government of Punjab",
+    title: "History of Punjab",
+    url: "https://punjab.gov.in/know-punjab/history/",
+  },
+  [PGK_001_CP018_SOURCE_IDS.chandigarhHistory]: {
+    authority: "Chandigarh Administration",
+    title: "General Information — Chandigarh history and capital",
+    url: "https://chandigarh.gov.in/general-information",
+  },
+  [PGK_001_CP018_SOURCE_IDS.whitePaperPepsu]: {
+    authority: "Government of India, Ministry of States",
+    title: "White Paper on Indian States (1948) — archival scan",
+    url: "https://archive.org/details/dli.granth.109615",
+  },
+  [PGK_001_CP018_SOURCE_IDS.statesReorganisation1956]: {
+    authority: "India Code, Government of India",
+    title: "The States Reorganisation Act, 1956",
+    url: "https://www.indiacode.nic.in/bitstream/123456789/1680/1/a1956-37.pdf",
+  },
+  [PGK_001_CP018_SOURCE_IDS.punjabReorganisation1966]: {
+    authority: "India Code, Government of India",
+    title: "The Punjab Reorganisation Act, 1966",
+    url: "https://www.indiacode.nic.in/bitstream/123456789/1645/1/196631.pdf",
+  },
+  [PGK_001_CP018_SOURCE_IDS.highCourtHistory]: {
+    authority: "High Court of Punjab and Haryana",
+    title: "Historical Background",
+    url: "https://www.highcourtchd.gov.in/index.php/left_menu/rti/left_menu/?mod=history",
+  },
+} as const);
+
 export const PGK_001_CP018_FACTS = Object.freeze([
   { id: "partition-1947", statement: "The former Punjab province was divided between India and Pakistan in 1947.", sourceKeys: ["punjabHistory"] },
   { id: "east-punjab-india", statement: "East Punjab became part of India after the 1947 Partition.", sourceKeys: ["punjabHistory"] },
