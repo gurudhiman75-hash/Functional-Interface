@@ -7,7 +7,6 @@ on:
     paths:
       - "artifacts/api-server/src/knowledge-v1/science/cell-biology/**"
       - "artifacts/api-server/src/knowledge-v1/science/biology-localization-v1/**"
-      - ".github/workflows/sci-biology-localization-v1.yml"
   workflow_dispatch:
 
 concurrency:
