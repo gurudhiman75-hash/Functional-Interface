@@ -32,7 +32,7 @@ The expanded chapter-wide audit verifies:
 
 ## Expanded breadth
 
-The six-checkpoint bank now reaches substantially beyond the original core into people/personality, specialist roles, medicine, law, government, rhetoric, geography, environment, economics, physics, chemistry, biology, botany, architecture, military terminology, computing, astronomy, navigation, collective/social terminology, geometry and selected long-tail phobias.
+The six-checkpoint bank now reaches substantially beyond the original core into people/personality, specialist roles, medicine, law, government, rhetoric, geography, environment, economics, physics, chemistry, biology, botany, architecture, military terminology, computing, astronomy, crafts/trades, speech-language, crime, residence and education vocabulary.
 
 ## Lifecycle
 
