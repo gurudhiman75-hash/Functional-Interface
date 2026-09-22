@@ -1,7 +1,7 @@
 {
   "cpId":"PUN-001-CP009",
   "phase":"RETROFIT",
-  "status":"HUMAN_REVIEW_PENDING",
+  "status":"HUMAN_APPROVED",
   "authorityInventory":{
     "synonymHeadwords":98,
     "synonymEdges":378,
