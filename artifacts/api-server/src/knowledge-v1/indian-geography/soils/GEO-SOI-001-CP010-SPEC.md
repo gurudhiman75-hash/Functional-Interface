@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP010 — Soil Properties & Comparative Identification
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-SOI-001-QL-082` to `GEO-SOI-001-QL-090`
 
@@ -29,7 +29,7 @@ Permanent QLs: `GEO-SOI-001-QL-082` to `GEO-SOI-001-QL-090`
 - Explanations use simple 2–3 sentence teaching language.
 - No option-by-option explanation clutter.
 - Every item carries source and fact provenance.
-- Review-only lifecycle; runtime publication disabled.
+- Content-approved checkpoint authority; runtime publication remains disabled and separately governed.
 
 ## Boundary
 
