@@ -22,7 +22,7 @@ Permanent QLs: `GEO-SOI-001-QL-082` to `GEO-SOI-001-QL-090`
 
 - 54 questions; six per QL.
 - Easy 18 / Medium 30 / Hard 6.
-- Answer positions A14 / B14 / C13 / D13.
+- Final answer positions A14 / B13 / C13 / D14.
 - Comparison items must rely on canonical features already established in CP001–CP008.
 - Difficulty comes from combining clues, not obscure pedological terminology.
 - Questions should distinguish similar-looking clues such as bangar kankar versus arid lower-horizon kankar.
