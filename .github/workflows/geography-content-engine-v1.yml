@@ -493,5 +493,31 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      - name: Run GEO-SOI-001 chapter closure audit
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-chapter-closure-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-chapter-closure-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-chapter-closure-v1.test.mjs
+
+      - name: Materialize GEO-SOI-001 closure report
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-export-closure-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-export-closure-v1.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-soi-001-export-closure-v1.mjs
+
+      - name: Upload GEO-SOI-001 closure report
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CHAPTER-CLOSURE-AUDIT-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CLOSURE-V1/
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
