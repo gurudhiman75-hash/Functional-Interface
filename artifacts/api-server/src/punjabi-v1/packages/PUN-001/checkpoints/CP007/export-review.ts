@@ -1,6 +1,7 @@
 import { writeFileSync } from "node:fs";
 import type { PunjabiDifficulty } from "../../../../core/types";
-import { CP007_KARAK_AUTHORITIES,CP007_SAMBANDHAK_AUTHORITIES,CP007_VISMIK_AUTHORITIES,CP007_YOJAK_AUTHORITIES } from "./CP007-authorities";
+import { CP007_KARAK_AUTHORITIES,CP007_VISMIK_AUTHORITIES,CP007_YOJAK_AUTHORITIES } from "./CP007-authorities";
+import { CP007_ALL_SAMBANDHAK_AUTHORITIES } from "./CP007-sambandhak";
 import { CP007_FAMILIES,getCP007BreadthReport } from "./engine";
 
 const breadth=getCP007BreadthReport();
@@ -11,19 +12,19 @@ const specs:{difficulty:PunjabiDifficulty;familyId:string;seeds:number[]}[]=[
  {difficulty:"Easy",familyId:"F01",seeds:fill(seedByKinds(CP007_KARAK_AUTHORITIES),14,breadth.capacities.F01,11)},
  {difficulty:"Easy",familyId:"F02",seeds:fill(seedByKinds(CP007_KARAK_AUTHORITIES),13,breadth.capacities.F02,13)},
  {difficulty:"Easy",familyId:"F05",seeds:fill(seedByKinds(CP007_YOJAK_AUTHORITIES),13,breadth.capacities.F05,5)},
- {difficulty:"Medium",familyId:"F03",seeds:fill(seedByKinds(CP007_KARAK_AUTHORITIES),10,breadth.capacities.F03,17)},
- {difficulty:"Medium",familyId:"F04",seeds:Array.from({length:9},(_,i)=>i+1)},
- {difficulty:"Medium",familyId:"F06",seeds:fill(seedByKinds(CP007_YOJAK_AUTHORITIES),9,breadth.capacities.F06,7)},
- {difficulty:"Medium",familyId:"F07",seeds:fill(seedByContexts(CP007_VISMIK_AUTHORITIES),12,breadth.capacities.F07,5)},
+ {difficulty:"Medium",familyId:"F03",seeds:fill(seedByKinds(CP007_KARAK_AUTHORITIES),9,breadth.capacities.F03,17)},
+ {difficulty:"Medium",familyId:"F04",seeds:fill(seedByKinds(CP007_ALL_SAMBANDHAK_AUTHORITIES),12,breadth.capacities.F04,5)},
+ {difficulty:"Medium",familyId:"F06",seeds:fill(seedByKinds(CP007_YOJAK_AUTHORITIES),8,breadth.capacities.F06,7)},
+ {difficulty:"Medium",familyId:"F07",seeds:fill(seedByContexts(CP007_VISMIK_AUTHORITIES),11,breadth.capacities.F07,5)},
  {difficulty:"Hard",familyId:"F08",seeds:fill([],20,breadth.capacities.F08,109)},
  {difficulty:"Hard",familyId:"F09",seeds:Array.from({length:20},(_,i)=>i+1)}
 ];
 const out:string[]=[
  "# PUN-001 CP007 Retrofit Review — ਕਾਰਕ, ਸੰਬੰਧਕ, ਯੋਜਕ ਅਤੇ ਵਿਸਮਿਕ","",
  "Status: HUMAN REVIEW PENDING","",
- "Authority inventory: 95 ਕਾਰਕ + 9 ਸੰਬੰਧਕ + 23 ਯੋਜਕ + 37 contextual ਵਿਸਮਿਕ = 164 atomic authorities.","",
- "The approved three-way ਸੰਬੰਧਕ taxonomy remains deliberately narrow; donor records using other classification dimensions are not mixed into it.","",
- "Governed semantic breadth: 3,390 combinations before option-order permutations.",""
+ "Authority inventory: 95 ਕਾਰਕ + 36 ਸੰਬੰਧਕ + 23 ਯੋਜਕ + 37 contextual ਵਿਸਮਿਕ = 191 atomic authorities.","",
+ "The approved three-way ਸੰਬੰਧਕ taxonomy remains unchanged. The 36 sentence-grounded authorities are balanced at 12 ਪੂਰਨ + 12 ਅਪੂਰਨ + 12 ਦੁਬਾਜਰਾ.","",
+ "Governed semantic breadth: 5,901 combinations before option-order permutations.",""
 ];
 const seen=new Set<string>(),families=new Set<string>(),verdicts=new Set<string>();
 for(const difficulty of ["Easy","Medium","Hard"] as PunjabiDifficulty[]){
@@ -38,5 +39,15 @@ for(const difficulty of ["Easy","Medium","Hard"] as PunjabiDifficulty[]){
 if(seen.size!==120)throw new Error("Expected 120 review questions, got "+seen.size);
 if(families.size!==9)throw new Error("All 9 families must appear");
 if(verdicts.size!==4)throw new Error("F09 must show all four truth outcomes");
+
+out.push("## Complete ਸੰਬੰਧਕ authority appendix","");
+for(const a of CP007_ALL_SAMBANDHAK_AUTHORITIES){
+ out.push(
+  "### "+a.id+" — "+a.expression+" — "+a.kind,"",
+  a.sentence,"",
+  "**Classification:** "+(a.kind==="PURAN"?"ਪੂਰਨ ਸੰਬੰਧਕ":a.kind==="APURAN"?"ਅਪੂਰਨ ਸੰਬੰਧਕ":"ਦੁਬਾਜਰਾ ਸੰਬੰਧਕ"),"",
+  "**Explanation:** "+a.explanationPa,""
+ );
+}
 writeFileSync("PUN-001-CP007-RETROFIT-REVIEW.md",out.join("\n"),"utf8");
-console.log("Wrote 120 CP007 retrofit review questions");
+console.log("Wrote 120 CP007 retrofit review questions plus "+CP007_ALL_SAMBANDHAK_AUTHORITIES.length+" sambandhak authorities");
