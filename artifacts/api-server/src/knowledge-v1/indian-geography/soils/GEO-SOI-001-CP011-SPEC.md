@@ -22,7 +22,7 @@ Permanent QLs: `GEO-SOI-001-QL-091` to `GEO-SOI-001-QL-099`
 
 - 54 questions; six per QL.
 - Easy 18 / Medium 30 / Hard 6.
-- Answer positions A14 / B14 / C13 / D13.
+- Final answer positions A14 / B13 / C13 / D14.
 - Erosion types must be distinguished by process and field appearance.
 - Conservation methods must explain mechanism, not only name the technique.
 - Chambal ravines may be used as the standard gully-erosion example.
