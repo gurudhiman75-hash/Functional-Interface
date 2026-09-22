@@ -188,7 +188,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Contour ploughing, strip cropping and afforestation",
       "Terracing, contouring and shelter-belt planting"
     ],
-    "explanation": "Deforestation, overgrazing and mining all remove or disturb protective land cover and can accelerate erosion. The other groups mainly contain practices used to reduce soil loss.",
+    "explanation": "Deforestation, overgrazing and mining all remove or disturb protective land cover and can accelerate erosion. The other groups contain practices used to reduce soil loss rather than increase it.",
     "sourceFactIds": [
       "EROSION-HUMAN-CAUSES"
     ]
@@ -332,7 +332,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Wind erosion only",
       "River deposition"
     ],
-    "explanation": "Sheet erosion removes a thin, fairly even layer of topsoil from a broad surface. It is produced by unchannelled runoff rather than deep concentrated flow.",
+    "explanation": "Sheet erosion removes a thin, fairly even layer of topsoil from a wide surface. It is produced by unchannelled runoff rather than deep concentrated flow.",
     "sourceFactIds": [
       "EROSION-SHEET-UNIFORM"
     ]
@@ -348,7 +348,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Sheet erosion is caused only by wind",
       "Gully erosion deposits new topsoil"
     ],
-    "explanation": "Sheet erosion spreads across the surface and gradually strips topsoil, whereas gully erosion concentrates water into channels. The difference is mainly in the pattern and depth of soil removal.",
+    "explanation": "Sheet erosion spreads across the surface and gradually strips topsoil, whereas gully erosion concentrates water into channels. The difference is primarily in the pattern and depth of soil removal.",
     "sourceFactIds": [
       "EROSION-SHEET-VS-GULLY"
     ]
@@ -358,7 +358,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlName": "Sheet erosion",
     "difficulty": "Medium",
     "stem": "Why can sheet erosion be difficult to notice early?",
-    "answer": "The soil is removed gradually across a broad area without deep channels",
+    "answer": "The soil is removed gradually across a wide area without deep channels",
     "distractors": [
       "It always creates large ravines immediately",
       "It adds a visible salt crust",
@@ -565,7 +565,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-096",
     "qlName": "Contour ploughing",
     "difficulty": "Medium",
-    "stem": "Which erosion problem is contour ploughing designed mainly to reduce?",
+    "stem": "Which erosion problem is contour ploughing designed primarily to reduce?",
     "answer": "Water erosion on sloping farmland",
     "distractors": [
       "Glacial erosion",
@@ -693,7 +693,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-098",
     "qlName": "Strip cropping",
     "difficulty": "Easy",
-    "stem": "What is strip cropping?",
+    "stem": "Which description best defines strip cropping?",
     "answer": "Growing crops in alternating strips that interrupt wind or water flow",
     "distractors": [
       "Leaving the entire field bare",
@@ -789,7 +789,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-099",
     "qlName": "Shelter belts and dune stabilisation",
     "difficulty": "Easy",
-    "stem": "What is a shelter belt?",
+    "stem": "Which description best defines a shelter belt?",
     "answer": "A row or belt of trees and shrubs planted to reduce wind speed",
     "distractors": [
       "A deep drainage gully",
@@ -853,8 +853,8 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-099",
     "qlName": "Shelter belts and dune stabilisation",
     "difficulty": "Medium",
-    "stem": "Which comparison is correct?",
-    "answer": "Shelter belts reduce wind speed, while contour ploughing mainly slows water runoff on slopes",
+    "stem": "Which erosion-control comparison is correct?",
+    "answer": "Shelter belts reduce wind speed, while contour ploughing primarily slows water runoff on slopes",
     "distractors": [
       "Both methods create deep gullies",
       "Shelter belts work only under water",
