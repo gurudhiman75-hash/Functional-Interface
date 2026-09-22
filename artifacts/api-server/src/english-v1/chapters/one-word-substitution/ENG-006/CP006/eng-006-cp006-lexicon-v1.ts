@@ -84,7 +84,7 @@ transept|either arm of a cross-shaped church crossing the nave
 alcove|a small recessed section of a room
 cupola|a small dome-like structure on top of a roof
 pediment|a triangular upper part of a classical building above a portico
-arcade|a covered passage lined with arches or shops
+loggia|a roofed open-sided gallery or corridor, usually attached to a building
 balustrade|a row of small columns topped by a rail, used as a barrier
 #military_warfare
 battalion|a military unit made up of several companies
@@ -158,7 +158,7 @@ emesis|the act of vomiting
 dyspepsia|indigestion or discomfort in the upper abdomen
 diarrhoea|frequent passage of loose or watery stools
 constipation|difficulty in emptying the bowels
-insomnia|persistent difficulty in falling asleep or staying asleep
+hypersomnia|a condition marked by excessive sleepiness or unusually long periods of sleep
 somnolence|a state of drowsiness or sleepiness
 tremor|an involuntary rhythmic shaking movement
 spasm|a sudden involuntary contraction of a muscle
@@ -253,7 +253,7 @@ triskaidekaphobia|an extreme fear of the number thirteen
 atelophobia|an extreme fear of imperfection or not being good enough
 emetophobia|an extreme fear of vomiting
 dentophobia|an extreme fear of dentists or dental treatment
-thanatophobia|an extreme fear of death
+haphephobia|an extreme fear of being touched
 `.trim();
 
 const rows:Eng006Cp006EntryV1[]=[];let category="";let within=0;
