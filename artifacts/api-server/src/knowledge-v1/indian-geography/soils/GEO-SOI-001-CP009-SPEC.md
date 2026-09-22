@@ -1,6 +1,6 @@
 # GEO-SOI-001 CP009 — Soil–Crop Relations
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED V1 — MERGED
 Parent blueprint: `GEO-SOI-001-BLUEPRINT.md`
 Permanent QLs: `GEO-SOI-001-QL-073` to `GEO-SOI-001-QL-081`
 
@@ -29,7 +29,7 @@ Permanent QLs: `GEO-SOI-001-QL-073` to `GEO-SOI-001-QL-081`
 - Laterite questions must preserve the management condition for tea/coffee and the red-laterite cashew relation.
 - Arid questions own cultivability after proper irrigation rather than an unsupported defining crop.
 - Explanations use simple 2–3 sentence teaching language.
-- Review-only lifecycle; runtime publication disabled.
+- Content-approved checkpoint authority; runtime publication remains disabled and separately governed.
 
 ## Boundary
 
