@@ -6,7 +6,7 @@ import { CP007_FAMILIES,getCP007BreadthReport } from "./engine";
 const banned=/(ਟਕਸਾਲੀ|ਸਿੱਧੇ ਅਰਥ|ਪ੍ਰਮਾਣਿਤ|ਬਾਕੀ ਤਿੰਨ|ਬਾਕੀ ਤਿੰਨੇ|ਬਾਕੀ ਵਿਕਲਪ|ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ)/u;
 const personal=/(ਗੁਰਪ੍ਰੀਤ|ਰੀਨਾ|ਮੋਹਨ|ਸੋਹਨ|ਸੁਖਵਿੰਦਰ|ਪੰਜਾਬ)/u;
 assert.equal(CP007_KARAK_AUTHORITIES.length,95);
-assert.equal(CP007_ALL_SAMBANDHAK_AUTHORITIES.length,36);
+assert.equal(CP007_ALL_SAMBANDHAK_AUTHORITIES.length,39);
 assert.equal(CP007_YOJAK_AUTHORITIES.length,23);
 assert.equal(CP007_VISMIK_AUTHORITIES.length,37);
 assert.equal(CP007_FAMILIES.length,9);
@@ -35,9 +35,9 @@ for(const a of CP007_VISMIK_AUTHORITIES){
 for(const weak of ["ਸਕੂਲੋਂ","ਕਿਨਾਰੇ","ਭਾਈਆ!","ਬੀਬਾ!"])assert(!CP007_KARAK_AUTHORITIES.some(x=>x.target===weak),weak+": weak-marker karak leaked");
 
 const breadth=getCP007BreadthReport();
-assert.equal(breadth.totalAtomicAuthorities,191);
-assert.deepEqual(breadth.capacities,{F01:95,F02:95,F03:95,F04:36,F05:23,F06:23,F07:37,F08:2185,F09:3312});
-assert.equal(breadth.totalSemanticCapacity,5901);
+assert.equal(breadth.totalAtomicAuthorities,194);
+assert.deepEqual(breadth.capacities,{F01:95,F02:95,F03:95,F04:39,F05:23,F06:23,F07:37,F08:2185,F09:3588});
+assert.equal(breadth.totalSemanticCapacity,6180);
 
 const global=new Set<string>(),verdicts=new Set<string>();
 for(const family of CP007_FAMILIES){
@@ -54,15 +54,18 @@ for(const family of CP007_FAMILIES){
  }
  assert.equal(local.size,cap,family.familyId+": capacity mismatch");
  if(["F01","F02","F03"].includes(family.familyId))assert.equal(first.size,95);
- if(family.familyId==="F04")assert.equal(first.size,36);
+ if(family.familyId==="F04")assert.equal(first.size,39);
  if(["F05","F06"].includes(family.familyId))assert.equal(first.size,23);
  if(family.familyId==="F07")assert.equal(first.size,37);
  if(family.familyId==="F08"){assert.equal(first.size,95);assert.equal(second.size,23);}
- if(family.familyId==="F09"){assert.equal(first.size,36);assert.equal(second.size,23);}
+ if(family.familyId==="F09"){assert.equal(first.size,39);assert.equal(second.size,23);}
 }
-assert.equal(global.size,5901);assert.equal(verdicts.size,4);
+assert.equal(global.size,6180);assert.equal(verdicts.size,4);
 const karakKinds=new Set(CP007_KARAK_AUTHORITIES.map(x=>x.kind));assert.equal(karakKinds.size,8);
 const yKinds=new Set(CP007_YOJAK_AUTHORITIES.map(x=>x.kind));assert.equal(yKinds.size,2);
-const sKinds=new Set(CP007_ALL_SAMBANDHAK_AUTHORITIES.map(x=>x.kind));assert.equal(sKinds.size,3);for(const kind of sKinds)assert.equal(CP007_ALL_SAMBANDHAK_AUTHORITIES.filter(x=>x.kind===kind).length,12,kind+": expected balanced 12-authority sambandhak class");
+const sKinds=new Set(CP007_ALL_SAMBANDHAK_AUTHORITIES.map(x=>x.kind));assert.equal(sKinds.size,3);for(const kind of sKinds)assert.equal(CP007_ALL_SAMBANDHAK_AUTHORITIES.filter(x=>x.kind===kind).length,13,kind+": expected balanced 13-authority sambandhak class");
+const saamne=CP007_ALL_SAMBANDHAK_AUTHORITIES.filter(x=>x.expression==="ਸਾਹਮਣੇ");
+assert(saamne.length>=1,"ਸਾਹਮਣੇ authority missing");
+for(const a of saamne)assert.equal(a.kind,"APURAN",a.id+": ਸਾਹਮਣੇ must remain ਅਪੂਰਨ in this taxonomy");
 console.log("CP007 retrofit exhaustive semantic gates passed: "+global.size+" governed questions");
 console.log(JSON.stringify({...breadth,f09TruthOutcomes:[...verdicts]},null,2));
