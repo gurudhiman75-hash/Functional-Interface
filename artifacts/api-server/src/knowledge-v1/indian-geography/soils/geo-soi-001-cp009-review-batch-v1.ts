@@ -789,7 +789,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-081",
     "qlName": "Integrated soil-crop reasoning",
     "difficulty": "Easy",
-    "stem": "Which crop-soil pair is correctly matched?",
+    "stem": "Which cotton-soil pair is correctly matched?",
     "answer": "Cotton — black soil",
     "distractors": [
       "Tea — arid soil",
@@ -805,7 +805,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-SOI-001-QL-081",
     "qlName": "Integrated soil-crop reasoning",
     "difficulty": "Easy",
-    "stem": "Which crop-soil pair is correctly matched?",
+    "stem": "Which sugarcane-soil pair is correctly matched?",
     "answer": "Sugarcane — alluvial soil",
     "distractors": [
       "Coffee — arid soil",
@@ -844,7 +844,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Laterite, alluvial, forest",
       "Arid, forest, black"
     ],
-    "explanation": "Wheat on fertile river plains points to alluvial soil, cotton on dark Deccan clay points to black soil and coffee on conserved hilly laterite points to laterite soil.",
+    "explanation": "Wheat on a fertile river plain points to alluvial soil, while cotton on dark Deccan clay points to black soil. Coffee on conserved hilly laterite completes the sequence with laterite soil.",
     "sourceFactIds": [
       "CROP-INTEGRATED-SEQUENCE"
     ]
