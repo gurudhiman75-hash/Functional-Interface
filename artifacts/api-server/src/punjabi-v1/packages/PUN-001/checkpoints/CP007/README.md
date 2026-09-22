@@ -4,12 +4,12 @@ Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
 
 ## Final audited surface
 - **95 sentence-grounded ਕਾਰਕ authorities**
-- **36 sentence-grounded ਸੰਬੰਧਕ authorities** — 12 ਪੂਰਨ + 12 ਅਪੂਰਨ + 12 ਦੁਬਾਜਰਾ
+- **39 sentence-grounded ਸੰਬੰਧਕ authorities** — 13 ਪੂਰਨ + 13 ਅਪੂਰਨ + 13 ਦੁਬਾਜਰਾ
 - **23 sentence-grounded ਯੋਜਕ authorities**
 - **37 contextual ਵਿਸਮਿਕ authorities**
-- **191 total atomic authorities**
+- **194 total atomic authorities**
 - **9 reviewed operation families**
-- **5,901 governed semantic combinations**
+- **6,180 governed semantic combinations**
 
 ## Donor audit
 Historical donor:
@@ -26,7 +26,7 @@ The donor is expanded after:
 - sentence-derived distractors for context-to-ਕਾਰਕ operations.
 
 ### ਸੰਬੰਧਕ
-The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy is retained unchanged and expanded from 9 to 36 sentence-grounded authorities, balanced at 12 per class.
+The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy is retained unchanged and expanded from 9 to 39 sentence-grounded authorities, balanced at 13 per class. The breadth pass also corrects the earlier `ਸਾਹਮਣੇ` classification to ਅਪੂਰਨ because it requires a supporting relation form such as `ਦੇ` in the governed examples.
 
 The breadth pass adds only examples that fit the existing structural taxonomy; it does not reinterpret the separate donor taxonomy. The donor also contains `ਵਿਕਾਰੀ / ਅਵਿਕਾਰੀ / ਸਥਾਨ-ਵਾਚਕ / ਦਿਸ਼ਾ-ਵਾਚਕ / ਸਾਧਨ-ਵਾਚਕ / ਕਾਰਨ-ਵਾਚਕ` labels. Those are a different classification dimension and are **not mixed** into the approved three-way family.
 
