@@ -29,7 +29,7 @@ export const HIS_CP024_FACTS_V1:readonly Fact[]=[
   ["kakori-arrests","The colonial authorities arrested more than a dozen HRA members within about a month of the Kakori action.",["GOI-CULTURE-KAKORI-MARTYRS"]],
   ["kakori-four-martyrs","Ram Prasad Bismil, Ashfaqulla Khan, Roshan Singh and Rajendra Nath Lahiri were sentenced to death in the Kakori case.",["GOI-CULTURE-KAKORI-MARTYRS"]],
   ["kakori-lahiri-date","Rajendra Nath Lahiri was executed on 17 December 1927, two days before the other three principal Kakori martyrs.",["GOI-CULTURE-KAKORI-MARTYRS"]],
-  ["hra-up-founders","NIOS identifies Sachin Sanyal and Jogesh Chatterji among the revolutionaries who organised the HRA in the United Provinces.",["NIOS-HIS-315-L21"]],
+  ["hra-up-founders","Sachin Sanyal and Jogesh Chatterji were among the revolutionaries who organised the HRA in the United Provinces.",["NIOS-HIS-315-L21"]],
   ["hra-bhagat-link","The HRA developed links with the Punjab revolutionary group led by Bhagat Singh.",["NIOS-HIS-315-L21"]],
   ["hsra-socialist","Under the influence of socialist ideas, the organisation was renamed the Hindustan Socialist Republican Association and aimed at complete independence through a broader mass struggle.",["NIOS-HIS-315-L21"]],
   ["communal-award-date","British Prime Minister Ramsay MacDonald announced the Communal Award on 17 August 1932.",["GANDHI-HERITAGE-POONA-PACT"]],
@@ -71,8 +71,8 @@ export const HIS_CP024_FACTS_V1:readonly Fact[]=[
   ["postwar-talks-fail","The first post-war round of talks failed because the Muslim League claimed to be the sole representative of Indian Muslims and the Congress rejected that claim.",["NIOS-SS-213-L08"]],
   ["cabinet-federal","The Cabinet Mission of 1946 proposed a plan for a federal government in India.",["NIOS-SS-213-L08"]],
   ["cabinet-party-response","The Cabinet Mission Plan was initially criticised by major parties before they later gave consent to it.",["NIOS-SS-213-L08"]],
-  ["ca-election-congress","In the Constituent Assembly election, the Congress won 199 seats according to the NIOS account.",["NIOS-SS-213-L08"]],
-  ["ca-election-league","In the same Constituent Assembly election, the Muslim League won 73 seats according to the NIOS account.",["NIOS-SS-213-L08"]],
+  ["ca-election-congress","In the Constituent Assembly election, the Congress won 199 seats.",["NIOS-SS-213-L08"]],
+  ["ca-election-league","In the same Constituent Assembly election, the Muslim League won 73 seats.",["NIOS-SS-213-L08"]],
   ["league-reject-mid1946","The Muslim League rejected the Cabinet Mission Plan in the middle of 1946 after disagreements over the powers of the Constituent Assembly.",["NIOS-SS-213-L08"]],
 ];
 export const HIS_CP024_FACT_BY_ID_V1=new Map(HIS_CP024_FACTS_V1.map(f=>[f[0],f] as const));
