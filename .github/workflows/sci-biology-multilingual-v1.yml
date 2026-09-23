@@ -7,6 +7,7 @@ on:
     paths:
       - "artifacts/api-server/src/knowledge-v1/science/biology-localization-v1/**"
       - "artifacts/api-server/src/knowledge-v1/science/cell-biology/**"
+      - "artifacts/api-server/src/knowledge-v1/science/plant-biology/**"
   workflow_dispatch:
 
 concurrency:
@@ -38,6 +39,18 @@ jobs:
           --platform=node
           --format=esm
           --outfile=dist/sci-biology-cp019-multilingual-audit-v1.mjs
-      - name: Run Biology multilingual audit
+      - name: Run Biology CP019 multilingual audit
         working-directory: artifacts/api-server
         run: node dist/sci-biology-cp019-multilingual-audit-v1.mjs
+      - name: Bundle Biology CP020 multilingual audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/biology-localization-v1/sci-biology-cp020-multilingual-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-biology-cp020-multilingual-audit-v1.mjs
+      - name: Run Biology CP020 multilingual audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-biology-cp020-multilingual-audit-v1.mjs
