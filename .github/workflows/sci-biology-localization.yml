@@ -1,0 +1,46 @@
+name: SCI Biology Localization
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/science/biology-localization-v1/**"
+      - "artifacts/api-server/src/knowledge-v1/science/cell-biology/**"
+  workflow_dispatch:
+
+concurrency:
+  group: sci-biology-localization-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  biology-localization:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Enable pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run SCI-CP-019 localization test
+        working-directory: artifacts/api-server
+        run: pnpm exec vitest run src/knowledge-v1/science/biology-localization-v1/sci-biology-cp019-localization-v1.test.ts
+      - name: Bundle SCI-CP-019 localization audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/biology-localization-v1/sci-biology-cp019-localization-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-biology-cp019-localization-audit-v1.mjs
+      - name: Run SCI-CP-019 localization audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-biology-cp019-localization-audit-v1.mjs

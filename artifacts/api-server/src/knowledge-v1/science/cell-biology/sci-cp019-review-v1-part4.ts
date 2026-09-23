@@ -51,7 +51,7 @@ export const PART_4: readonly SciCp019ReviewSpec[] = [
   [
     9,
     "Easy",
-    "DNA is replicated before mitosis so that:",
+    "Which organelle is commonly present in both plant and animal cells?",
     "Mitochondrion",
     [
       "Cellulose cell wall",
