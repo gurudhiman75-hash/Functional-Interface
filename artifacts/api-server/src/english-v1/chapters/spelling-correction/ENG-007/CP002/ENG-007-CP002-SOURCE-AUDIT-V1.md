@@ -1,6 +1,6 @@
 # ENG-007-CP002 — Structural Spelling Traps — Source & Coverage Audit V1
 
-Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__REVIEW_ONLY__QUESTION_STUDIO_BLOCKED_UNTIL_CHAPTER_APPROVAL`
 
 ## Coverage
 - **260 governed spellings**: 80 Easy / 100 Medium / 80 Hard.
@@ -14,4 +14,4 @@ Cambridge English Grammar identifies doubled letters and vowel clusters as commo
 ## Quality rules
 No accepted British/American variant is used as an error choice. Misspellings must remain unambiguous, plausible and distinct from every canonical spelling in ENG-007 CP001-CP004.
 
-Review-only; Question Studio and downstream release remain blocked pending chapter-level approval.
+Human-approved for this checkpoint. Question Studio registration remains blocked until ENG-007 chapter-level approval; Question Bank, tests/mocks, public publication and production release remain disabled.
