@@ -21,7 +21,7 @@ for(const a of CP007_KARAK_AUTHORITIES){
 }
 for(const a of CP007_ALL_SAMBANDHAK_AUTHORITIES){
  assert(!ids.has(a.id));ids.add(a.id);assert.equal(a.sourceStatus,"REVIEW_PENDING");assert(a.priorApprovedIds.length===1||Boolean(a.breadthSourceId),a.id+": provenance required");assert(a.sentence.includes(a.expression),a.id+": expression missing from sentence");
- for(const v of [a.expression,a.sentence,a.explanationPa]){assert(!/[A-Za-z]/.test(v));assert(!banned.test(v));assert(!personal.test(v));}
+ for(const v of [a.expression,a.sentence,a.explanationPa]){assert.equal(v,v.normalize("NFC"),a.id+": NFC required");assert(!/[A-Za-z]/.test(v));assert(!banned.test(v));assert(!personal.test(v));}
 }
 for(const a of CP007_YOJAK_AUTHORITIES){
  assert(!ids.has(a.id));ids.add(a.id);assert.equal(a.sourceStatus,"REVIEW_PENDING");assert(a.donorId||a.priorApprovedIds.length,a.id+": provenance required");
