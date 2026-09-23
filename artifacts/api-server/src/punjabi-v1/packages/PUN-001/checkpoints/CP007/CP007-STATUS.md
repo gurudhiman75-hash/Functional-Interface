@@ -2,7 +2,8 @@
 
 - Lifecycle: `REVIEW_ONLY / HUMAN_REVIEW_PENDING`
 - ਕਾਰਕ authorities: 95
-- ਸੰਬੰਧਕ authorities: 42 (14 ਪੂਰਨ + 14 ਅਪੂਰਨ + 14 ਦੁਬਾਜਰਾ)
+- ਸੰਬੰਧਕ context authorities: 42 (14 ਪੂਰਨ + 14 ਅਪੂਰਨ + 14 ਦੁਬਾਜਰਾ)
+- Distinct ਸੰਬੰਧਕ surface forms: 20 (10 ਪੂਰਨ + 6 ਅਪੂਰਨ + 4 ਦੁਬਾਜਰਾ)
 - ਯੋਜਕ authorities: 23
 - ਵਿਸਮਿਕ authorities: 37
 - Total atomic authorities: 197
