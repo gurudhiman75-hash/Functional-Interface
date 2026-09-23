@@ -48,6 +48,7 @@ const packages = [
 const norm=(s:string)=>s.toLowerCase().normalize("NFKD").replace(/[’‘]/g,"'").replace(/[^a-z0-9]+/g," ").trim();
 const sentenceCount=(s:string)=>(s.match(/[.!?](?:\s|$)/g)??[]).length;
 const mechanicalStem=/\b(?:best describes?|associated with|which correctly identifies?)\b/i;
+const genericInstructionStem=/^(?:which (?:pair|sequence|statement|combination|set) (?:is|are) (?:correct|correctly matched)|consider the statements)$/i;
 const sourceLeak=/\b(?:nios|ncert|review batch|canonical fact|source fact|this cp)\b/i;
 
 const issues:string[]=[];
