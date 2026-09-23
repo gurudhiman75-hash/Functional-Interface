@@ -1,6 +1,6 @@
 # ENG-006 — One-word Substitution — Final Audit V2
 
-Status: `IMPLEMENTATION_COMPLETE__1400_TERMS__HUMAN_EDITORIAL_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REGISTERED_REVIEW_ONLY`
 
 ## Final coverage
 
@@ -36,14 +36,11 @@ The six-checkpoint bank now reaches substantially beyond the original core into 
 
 ## Lifecycle
 
-ENG-006 remains **review-only**.
+ENG-006 is **human-approved** and registered in Question Studio in **review-only** mode.
 
-Implementation completion does not authorize:
-- Question Studio registration;
+Human approval authorizes Question Studio review-only discovery and generation. It does not authorize:
 - Question Bank persistence;
 - test/mock-test eligibility;
 - learner/public exposure;
 - automatic publication;
 - production release.
-
-Explicit human editorial approval is required before Question Studio review-only registration.
