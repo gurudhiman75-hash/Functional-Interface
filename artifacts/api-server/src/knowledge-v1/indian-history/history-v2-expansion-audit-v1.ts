@@ -175,7 +175,7 @@ const md=[
   "- Correct-answer positions balanced 15/15/15/15.",
   "- 10 QLs × 6 questions per CP.",
   "- Four options and canonical-answer parity.",
-  "- No exact duplicate stems across CP017–CP024.",
+  "- No exact duplicate substantive stems across CP017–CP024; standard exam instruction stems may repeat.",
   "- No mechanical filler phrases: “best describe”, “associated with”, “which correctly identifies”.",
   "- Explanations at least 120 characters and at least two sentences.",
   "- No learner-facing source/meta leakage.",
