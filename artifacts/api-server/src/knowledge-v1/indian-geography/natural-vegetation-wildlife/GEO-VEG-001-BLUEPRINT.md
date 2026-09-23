@@ -1,6 +1,6 @@
 # GEO-VEG-001 — Natural Vegetation & Wildlife of India
 
-Status: ACTIVE IMPLEMENTATION — CP001
+Status: ACTIVE IMPLEMENTATION — CP001 REVIEW
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-VEG-001`
@@ -102,4 +102,11 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-CP001 — Vegetation Basics & Controlling Factors (QL001–QL009) is the active first implementation checkpoint. No GEO-VEG-001 content is runtime-published.
+CP001 — Vegetation Basics & Controlling Factors (QL001–QL009) is implemented as a 54-question review candidate.
+
+- Easy18 / Medium30 / Hard6.
+- A14 / B14 / C13 / D13.
+- Six questions per QL.
+- 54 unique stems and explanations.
+- Foundational definitions and vegetation controls only; forest-type ownership begins in CP002.
+- Runtime publication remains disabled.
