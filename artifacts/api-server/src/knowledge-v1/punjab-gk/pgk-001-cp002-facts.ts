@@ -11,6 +11,61 @@ export const PGK_001_CP002_SOURCE_IDS = Object.freeze({
   sasNagar: "NIC-PUNJAB-SAS-NAGAR-HISTORY",
 } as const);
 
+
+export const PGK_001_CP002_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP002_SOURCE_IDS.atGlance2022]: {
+    authority: "Government of Punjab",
+    title: "Punjab at a Glance 2022",
+    url: "https://punjab.gov.in/wp-content/uploads/2023/10/Punjab-at-Glance-2022-Punjabi-English.pdf",
+  },
+  [PGK_001_CP002_SOURCE_IDS.epos2026]: {
+    authority: "Department of Food, Civil Supplies & Consumer Affairs, Government of Punjab",
+    title: "AePDS Punjab — Districts in Punjab",
+    url: "https://www.epos.punjab.gov.in/",
+  },
+  [PGK_001_CP002_SOURCE_IDS.civilList2020]: {
+    authority: "Department of Personnel, Government of Punjab",
+    title: "Civil List as on 17 August 2020",
+    url: "https://punjab.gov.in/wp-content/uploads/2020/04/Civil-List-as-on-17-08-2020_Compressed.pdf",
+  },
+  [PGK_001_CP002_SOURCE_IDS.moga]: {
+    authority: "District Moga, Government of Punjab",
+    title: "History",
+    url: "https://moga.nic.in/history/",
+  },
+  [PGK_001_CP002_SOURCE_IDS.malerkotla]: {
+    authority: "District Malerkotla, Government of Punjab",
+    title: "About District",
+    url: "https://malerkotla.nic.in/about-district/",
+  },
+  [PGK_001_CP002_SOURCE_IDS.barnala]: {
+    authority: "District Barnala, Government of Punjab",
+    title: "About District / History",
+    url: "https://barnala.gov.in/about-district/history/",
+    supportingUrls: Object.freeze(["https://barnala.gov.in/about-district/"]),
+  },
+  [PGK_001_CP002_SOURCE_IDS.tarnTaran]: {
+    authority: "District Tarn Taran, Government of Punjab",
+    title: "History / About District",
+    url: "https://tarntaran.nic.in/history/",
+    supportingUrls: Object.freeze(["https://tarntaran.nic.in/"]),
+  },
+  [PGK_001_CP002_SOURCE_IDS.pathankot]: {
+    authority: "District Pathankot, Government of Punjab",
+    title: "About District",
+    url: "https://pathankot.nic.in/about-district/",
+  },
+  [PGK_001_CP002_SOURCE_IDS.fazilka]: {
+    authority: "District Fazilka, Government of Punjab",
+    title: "How to Reach — district formation note",
+    url: "https://fazilka.nic.in/how-to-reach/",
+  },
+  [PGK_001_CP002_SOURCE_IDS.sasNagar]: {
+    authority: "District S.A.S. Nagar, Government of Punjab",
+    title: "History",
+    url: "https://sasnagar.nic.in/history/",
+  },
+} as const);
 export type Pgk001Cp002DistrictRow = Readonly<{
   id: string;
   district: string;

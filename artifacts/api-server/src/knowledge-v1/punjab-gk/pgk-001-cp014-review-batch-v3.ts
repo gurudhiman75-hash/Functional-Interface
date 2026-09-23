@@ -15,8 +15,8 @@ const revisions: readonly Revision[] = Object.freeze([
   { stem: "Which option correctly matches Dal Khalsa with its year, place and leaders?", explanation: "Dal Khalsa was organised at Amritsar in 1748 under Nawab Kapur Singh. Jassa Singh Ahluwalia became its chief commander." },
 
   { stem: "Who organised Budha Dal and Taruna Dal?", explanation: "Nawab Kapur Singh organised the Sikh fighting groups into Budha Dal and Taruna Dal. This division helped separate the older veterans from the younger fighting force." },
-  { stem: "Budha Dal mainly consisted of which group?", explanation: "Budha Dal mainly consisted of older and experienced veterans. The younger fighters were placed mainly in Taruna Dal." },
-  { stem: "Taruna Dal mainly consisted of which group?", explanation: "Taruna Dal mainly consisted of younger fighters. It functioned alongside Budha Dal, which contained the older veterans." },
+  { stem: "Which group formed the Budha Dal?", explanation: "Budha Dal consisted of older veterans, generally above the age of 40 in the PSEB account. Younger fighters formed the Taruna Dal." },
+  { stem: "Which group formed the Taruna Dal?", explanation: "Taruna Dal consisted of younger fighters. Budha Dal contained the older veterans." },
   { stem: "Into how many jathas was Taruna Dal divided?", explanation: "Taruna Dal was divided into five jathas. Each jatha functioned under its own leader within the wider Sikh military organisation." },
   { stem: "What was the general assembly of the Sikhs at Amritsar called?", explanation: "The general Sikh assembly was called Sarbat Khalsa. It met at Amritsar to discuss important matters affecting the community as a whole." },
   { stem: "The resolutions passed by the Sarbat Khalsa were called:", explanation: "The collective resolutions of the Sarbat Khalsa were called Gurmata. These decisions dealt with important common political and military matters." },
