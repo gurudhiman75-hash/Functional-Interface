@@ -1,6 +1,6 @@
 # GEO-RIV-001 — Indian Rivers & Drainage System
 
-Status: CONTENT CLOSED V1
+Status: CONTENT CLOSED — APPROVED AND MERGED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-RIV-001`
