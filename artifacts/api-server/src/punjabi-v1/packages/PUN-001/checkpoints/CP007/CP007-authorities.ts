@@ -111,7 +111,7 @@ export const CP007_SAMBANDHAK_AUTHORITIES:readonly CP007SambandhakAuthority[]=[
  {id:"CP007-SR06",priorApprovedIds:["CP007-S06"],expression:"ਦੂਰ",kind:"APURAN" as CP007SambandhakKind,sentence:"ਸ਼ਹਿਰ ਤੋਂ ਦੂਰ ਇੱਕ ਪਿੰਡ ਹੈ।",explanationPa:"‘ਦੂਰ’ ਦਾ ਸੰਬੰਧ ‘ਤੋਂ’ ਦੇ ਸਹਾਰੇ ਨਾਲ ਪੂਰਾ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਇਹ ਅਪੂਰਨ ਸੰਬੰਧਕ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
  {id:"CP007-SR07",priorApprovedIds:["CP007-S07"],expression:"ਦੇ ਉੱਤੇ",kind:"DUBAJRA" as CP007SambandhakKind,sentence:"ਮੇਜ਼ ਦੇ ਉੱਤੇ ਕਿਤਾਬ ਪਈ ਹੈ।",explanationPa:"‘ਦੇ ਉੱਤੇ’ ਮਿਲ ਕੇ ਸੰਬੰਧ ਦੱਸਦੇ ਹਨ, ਇਸ ਲਈ ਇਹ ਦੁਬਾਜਰਾ ਸੰਬੰਧਕ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
  {id:"CP007-SR08",priorApprovedIds:["CP007-S08"],expression:"ਦੇ ਬਗੈਰ",kind:"DUBAJRA" as CP007SambandhakKind,sentence:"ਮਿਹਨਤ ਦੇ ਬਗੈਰ ਸਫਲਤਾ ਔਖੀ ਹੈ।",explanationPa:"‘ਦੇ ਬਗੈਰ’ ਮਿਲ ਕੇ ਸੰਬੰਧ ਦੱਸਦੇ ਹਨ, ਇਸ ਲਈ ਇਹ ਦੁਬਾਜਰਾ ਸੰਬੰਧਕ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
- {id:"CP007-SR09",priorApprovedIds:["CP007-S09"],expression:"ਦੇ ਸਾਹਮਣੇ",kind:"DUBAJRA" as CP007SambandhakKind,sentence:"ਸਕੂਲ ਦੇ ਸਾਹਮਣੇ ਬਾਗ ਹੈ।",explanationPa:"‘ਦੇ ਸਾਹਮਣੇ’ ਮਿਲ ਕੇ ਦੋ ਪੱਖਾਂ ਦਾ ਸਥਾਨਕ ਸੰਬੰਧ ਦੱਸਦੇ ਹਨ।",sourceStatus:"REVIEW_PENDING"},
+ {id:"CP007-SR09",priorApprovedIds:["CP007-S09"],expression:"ਸਾਹਮਣੇ",kind:"APURAN" as CP007SambandhakKind,sentence:"ਸਕੂਲ ਦੇ ਸਾਹਮਣੇ ਬਾਗ ਹੈ।",explanationPa:"‘ਸਾਹਮਣੇ’ ਨੂੰ ਸਥਾਨਕ ਸੰਬੰਧ ਪੂਰਾ ਕਰਨ ਲਈ ‘ਦੇ’ ਦਾ ਸਹਾਰਾ ਚਾਹੀਦਾ ਹੈ, ਇਸ ਲਈ ਇਹ ਅਪੂਰਨ ਸੰਬੰਧਕ ਹੈ।",sourceStatus:"REVIEW_PENDING"},
 ] as const;
 
 export type CP007YojakKind="SAMAN"|"ADHIN";
