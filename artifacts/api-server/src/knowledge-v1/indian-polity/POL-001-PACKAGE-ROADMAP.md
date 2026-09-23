@@ -36,7 +36,7 @@ This file is the chapter-level binding authority for Polity content status and p
 
 English content implementation has reached POL-CP-027. All 27 CPs are approved/content-frozen, and the Final Audit V1 English surface was approved on 19 September 2026.
 
-`POL-001` is bound to the shared `knowledge-v1` Question Studio engine in **REVIEW_ONLY** mode. All 27 CPs are discoverable through the English package, with deterministic selection and CP/QL/difficulty filters. Question Bank writes, test/mock eligibility, public publication and production release remain disabled. Hindi/Punjabi localization is now in progress: CP001–CP004 are approved/frozen multilingual V1 with strict semantic, QL, option-order, correct-index, source, numeric/legal-form and native-Punjabi parity gates.
+`POL-001` is bound to the shared `knowledge-v1` Question Studio engine in **REVIEW_ONLY** mode. All 27 CPs are discoverable through the English package, with deterministic selection and CP/QL/difficulty filters. Question Bank writes, test/mock eligibility, public publication and production release remain disabled. Hindi/Punjabi localization is now in progress: CP001–CP010 are approved/frozen multilingual V1 with strict semantic, QL, option-order, correct-index, source, numeric/legal-form and native-Punjabi parity gates. CP011–CP012 are the active review-candidate slice.
 
 ## Binding rule
 
@@ -66,7 +66,7 @@ Before Question Studio exposure:
 | POL-CP-009–010 | 152 | REVIEW CANDIDATE V1 | REVIEW CANDIDATE V1 | deferred until multilingual approval |
 | POL-CP-011–027 | pending | pending | pending | English-only remains active |
 
-The approved CP001–CP008 localization layers cover 535 English authority questions and 1,605 review surfaces across English, Hindi and Punjabi. CP009–CP010 now add 456 review-candidate surfaces (152 per locale). Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
+The approved CP001–CP010 localization layers cover 687 English authority questions and 2,061 review surfaces across English, Hindi and Punjabi. CP011–CP012 add 504 review-candidate surfaces (168 per locale). Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity are executable CI gates.
 
 
 ### CP001–CP002 localization approval
@@ -87,3 +87,4 @@ Project-owner approval received on 20 September 2026. Hindi and Punjabi V1 for P
 ### CP007–CP008 localization approval
 
 Project-owner approval received on 20 September 2026. Hindi and Punjabi V1 for POL-CP-007–008 are approved/frozen. The approved slice preserves exam-grade stems, native Punjabi/Hindi grammar, numeric/legal forms, QL/source parity, option order and correct-answer parity. Article-location stems must remain natural in Punjabi; mechanical forms such as `ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ...` remain prohibited.
+\n\n### CP009–CP010 localization approval\n\nProject-owner approval received on 22 September 2026. Hindi and Punjabi V1 for POL-CP-009–010 are approved/frozen. The final pass corrected the CP009 Q65 answer/explanation contradiction, made the integrated hard-question explanations question-specific, and polished remaining Hindi/Punjabi exam wording before merge.\n\n### CP011–CP012 localization review candidate\n\nPOL-CP-011 Parliament Procedure, Bills & Financial Business and POL-CP-012 Supreme Court are implemented as multilingual V1 review candidates. The slice preserves 168 frozen English authority questions exactly and adds native Hindi/Punjabi learner surfaces with CP/QL/difficulty/source/option-order/correct-index parity, numeric/legal-form preservation, CP012 Article 124(3) qualification-overlay guards and native-language editorial checks. Runtime promotion remains blocked until explicit project-owner approval.\n
