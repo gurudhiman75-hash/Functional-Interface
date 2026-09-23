@@ -115,7 +115,7 @@ rescind|recsind|medium|advanced-vocabulary|ENG-004-CP003|letter-order
 scarcity|scracity|medium|advanced-vocabulary|ENG-004-CP002|letter-order
 scrupulous|scurpulous|medium|advanced-vocabulary|ENG-004-CP002|letter-order
 tractability|tracatbility|medium|advanced-vocabulary|ENG-004-CP005|letter-order
-tranquility|trnaquility|medium|advanced-vocabulary|ENG-004-CP002|letter-order
+deficient|defecient|medium|advanced-vocabulary|ENG-004-CP001|vowel-sequence
 transitory|transtiory|medium|advanced-vocabulary|ENG-004-CP003|letter-order
 advance|advnace|medium|advanced-vocabulary|ENG-004-CP001|letter-order
 capable|capible|medium|advanced-vocabulary|ENG-004-CP001|ending-pattern
