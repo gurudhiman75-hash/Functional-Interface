@@ -3,7 +3,7 @@
 Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
 
 ## Coverage
-- **260 governed spellings**: 50 Easy / 110 Medium / 100 Hard.
+- **260 governed spellings**: 60 Easy / 120 Medium / 80 Hard.
 - Focus: advanced competitive-exam vocabulary with genuine orthographic confusion.
 - Canonical words are snapshotted from unused ENG-004 vocabulary authority entries and deduplicated against ENG-007 CP001-CP004.
 - Known British/American variant families are excluded from error-pair selection.
