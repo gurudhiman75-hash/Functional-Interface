@@ -5,9 +5,10 @@
 - English roadmap: COMPLETE
 - English CPs approved/frozen: 23 / 23
 - CP range: `ECO-CP-001` through `ECO-CP-023`
-- Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY`
+- Chapter implementation: `CLOSED`
+- Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY` — EN/HI/PA
 - Question Studio package: `ECO-001`
-- Registration authority: `ECO-001-ENGLISH-23CP-FREEZE-2026-09-16`
+- Registration authority: `ECO-001-CP001-CP023-MULTILINGUAL-CONTENT-FROZEN-V1`
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
@@ -28,13 +29,14 @@ The audit removed legacy label/colon-style stems, tightened classification-axis 
 
 ## Question Studio registration
 
-The approved runtime promotion registers the completed English chapter through the shared `knowledge-v1` Question Studio engine as package `ECO-001`.
+The approved runtime promotion registers the completed multilingual chapter through the shared `knowledge-v1` Question Studio engine as package `ECO-001`.
 
 Registration properties:
 - lifecycle: `QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1`;
 - runtime mode: `review-only`;
-- all 23 frozen English CPs available through CP and QL selectors;
-- Easy / Medium / Hard / Mixed review generation supported;
+- all 23 frozen CPs available through CP and QL selectors in English, Hindi and Punjabi;
+- Easy / Medium / Hard / Mixed review generation supported in all three languages;
+- identical seeded draws preserve semantic identity across EN/HI/PA;
 - deterministic selection without replacement;
 - source questions remain frozen and are not silently mutated by runtime registration;
 - generated review wrappers are marked `REGISTERED_REVIEW_ONLY`.
@@ -72,10 +74,10 @@ Localization preserves CP, QL, difficulty, source provenance, option order and c
 - Hard questions based on real distinctions, chronology or application rather than verbosity;
 - no volatile current figures unless a future separately sourced/current-affairs workflow explicitly requires them.
 
-## Next checkpoint
+## Chapter closure
 
-English and multilingual editorial coverage are complete across all 23 CPs. Keep `ECO-001` at `REVIEW_ONLY` unless a separate approval explicitly promotes multilingual runtime generation or downstream Question Bank/test publication.
+Economy content authoring, multilingual localization and Question Studio review-only runtime integration are complete across all 23 CPs. The chapter is closed for the current Static GK implementation scope.
 
-Any move beyond review-only Question Studio generation requires another explicit gate. Do not enable Question Bank storage, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release, or production release without separate approval.
+Any move beyond review-only Question Studio generation remains a separate release gate. Do not enable Question Bank storage, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release, or production release without separate approval.
 
 Frozen English content must not be silently revised; any hardening pass must be documented and reviewed.

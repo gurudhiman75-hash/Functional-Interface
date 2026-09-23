@@ -1,27 +1,9 @@
 import { deterministicShuffle } from "../../knowledge-v1/deterministic";
-import * as cp001 from "../../knowledge-v1/indian-economy/basic-economic-concepts/eco-cp001-review-generator-v2";
-import * as cp002 from "../../knowledge-v1/indian-economy/economic-systems-sectors/eco-cp002-review-generator-v2";
-import * as cp003 from "../../knowledge-v1/indian-economy/national-income-aggregates/eco-cp003-review-generator-v2";
-import * as cp004 from "../../knowledge-v1/indian-economy/national-income-measurement-india/eco-cp004-review-generator-v2";
-import * as cp005 from "../../knowledge-v1/indian-economy/inflation-price-concepts/eco-cp005-review-generator-v1";
-import * as cp006 from "../../knowledge-v1/indian-economy/employment-unemployment-poverty/eco-cp006-review-generator-v1";
-import * as cp007 from "../../knowledge-v1/indian-economy/money-monetary-system/eco-cp007-review-generator-v1";
-import * as cp008 from "../../knowledge-v1/indian-economy/reserve-bank-of-india/eco-cp008-review-generator-v1";
-import * as cp009 from "../../knowledge-v1/indian-economy/monetary-policy/eco-cp009-review-generator-v1";
-import * as cp010 from "../../knowledge-v1/indian-economy/banking-system/eco-cp010-review-generator-v1";
-import * as cp011 from "../../knowledge-v1/indian-economy/financial-institutions/eco-cp011-review-generator-v1";
-import * as cp012 from "../../knowledge-v1/indian-economy/public-finance-fiscal-policy/eco-cp012-review-generator-v2";
-import * as cp013 from "../../knowledge-v1/indian-economy/government-budget/eco-cp013-review-generator-v1";
-import * as cp014 from "../../knowledge-v1/indian-economy/taxation/eco-cp014-review-generator-v1";
-import * as cp015 from "../../knowledge-v1/indian-economy/economic-planning/eco-cp015-review-generator-v2";
-import * as cp016 from "../../knowledge-v1/indian-economy/economic-reforms-1991/eco-cp016-review-generator-v1";
-import * as cp017 from "../../knowledge-v1/indian-economy/agriculture-indian-economy/eco-cp017-review-generator-v1";
-import * as cp018 from "../../knowledge-v1/indian-economy/industrial-development/eco-cp018-review-generator-v1";
-import * as cp019 from "../../knowledge-v1/indian-economy/financial-markets/eco-cp019-review-generator-v1";
-import * as cp020 from "../../knowledge-v1/indian-economy/external-sector-bop/eco-cp020-review-generator-v1";
-import * as cp021 from "../../knowledge-v1/indian-economy/international-economic-institutions/eco-cp021-review-generator-v2";
-import * as cp022 from "../../knowledge-v1/indian-economy/human-development-development-economics/eco-cp022-review-generator-v1";
-import * as cp023 from "../../knowledge-v1/indian-economy/important-economic-events-milestones/eco-cp023-review-generator-v1";
+import { generateEcoCp001Cp023LocalizedReviewV1 } from "../../knowledge-v1/indian-economy/localization-v1/eco-localization-generator-v1";
+import type {
+  EcoLocaleV1,
+  EcoLocalizedQuestionV1,
+} from "../../knowledge-v1/indian-economy/localization-v1/eco-localization-types-v1";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -34,70 +16,87 @@ import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-l
 export const ECO_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "ECO-001" as const;
 export const ECO_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
 export const ECO_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 =
-  "ECO-001-ENGLISH-23CP-FREEZE-2026-09-16" as const;
-export const ECO_001_REVISION_POLICY_V1 = "SOURCE_GENERATOR_ONLY" as const;
+  "ECO-001-CP001-CP023-MULTILINGUAL-CONTENT-FROZEN-V1" as const;
+export const ECO_001_REVISION_POLICY_V1 = "SOURCE_LOCALIZATION_AUTHORITY_ONLY" as const;
 
-type FrozenEconomyQuestion = {
-  questionId: string;
-  cpId: string;
-  qlId: string;
-  difficulty: "Easy" | "Medium" | "Hard";
-  stem: string;
-  options: string[];
-  correctIndex: number;
-  canonicalAnswer: string;
-  explanation: string;
-  sourceIds: string[];
-  sourceFactIds: string[];
-  reviewOnly: true;
-  runtimeRegistered: false;
-};
+const languages: readonly EcoLocaleV1[] = ["en", "hi", "pa"] as const;
+const locales: Readonly<Record<EcoLocaleV1, string>> = Object.freeze({
+  en: "en-IN",
+  hi: "hi-IN",
+  pa: "pa-IN",
+});
 
-function materializeGeneratorModule(module: Record<string, unknown>): FrozenEconomyQuestion[] {
-  const batchFunctions = Object.entries(module).filter(
-    ([name, value]) => /^generateEcoCp\d+ReviewBatchV\d+$/.test(name) && typeof value === "function",
-  );
-  if (batchFunctions.length) {
-    const highest = batchFunctions.sort(([a], [b]) => b.localeCompare(a))[0]![1] as () => unknown;
-    const questions = highest();
-    if (!Array.isArray(questions)) throw new Error("Economy review generator did not return an array");
-    return questions as FrozenEconomyQuestion[];
-  }
-
-  const arrays = Object.entries(module).filter(
-    ([name, value]) => /^ECO_CP\d+_REVIEW_V\d+$/.test(name) && Array.isArray(value),
-  );
-  if (!arrays.length) throw new Error("Economy generator module has no review batch export");
-  const highest = arrays.sort(([a], [b]) => b.localeCompare(a))[0]![1];
-  return highest as FrozenEconomyQuestion[];
+function materialize(locale: EcoLocaleV1): readonly EcoLocalizedQuestionV1[] {
+  return Object.freeze(generateEcoCp001Cp023LocalizedReviewV1(locale));
 }
 
-const modules = [
-  cp001, cp002, cp003, cp004, cp005, cp006, cp007, cp008, cp009, cp010, cp011, cp012,
-  cp013, cp014, cp015, cp016, cp017, cp018, cp019, cp020, cp021, cp022, cp023,
-] as const;
+const corpusByLanguage: Readonly<Record<EcoLocaleV1, readonly EcoLocalizedQuestionV1[]>> =
+  Object.freeze({
+    en: materialize("en"),
+    hi: materialize("hi"),
+    pa: materialize("pa"),
+  });
 
-const frozenQuestions = modules.flatMap((module) =>
-  materializeGeneratorModule(module as unknown as Record<string, unknown>),
-);
+export const ECO_001_QUESTION_STUDIO_CORPUS_V1 = corpusByLanguage;
 
-const cpIds = [...new Set(frozenQuestions.map((question) => question.cpId))].sort();
-const qlIds = [...new Set(frozenQuestions.map((question) => question.qlId))].sort();
+const english = corpusByLanguage.en;
+const cpIds = [...new Set(english.map((question) => question.cpId))].sort();
+const qlIds = [...new Set(english.map((question) => question.qlId))].sort();
+
+for (const locale of languages) {
+  const corpus = corpusByLanguage[locale];
+  if (corpus.length !== 1008) {
+    throw new Error(`ECO-001 ${locale} Question Studio corpus must contain 1008 questions; found ${corpus.length}`);
+  }
+  if (new Set(corpus.map((question) => question.questionId)).size !== corpus.length) {
+    throw new Error(`ECO-001 ${locale} corpus contains duplicate question IDs`);
+  }
+
+  for (const question of corpus) {
+    if (question.reviewOnly !== true || question.runtimeRegistered !== false) {
+      throw new Error(`${question.questionId}: frozen Economy lifecycle mismatch`);
+    }
+    if (question.options.length !== 4 || new Set(question.options).size !== 4) {
+      throw new Error(`${question.questionId}: options must contain four unique values`);
+    }
+    if (question.options[question.correctIndex] !== question.canonicalAnswer) {
+      throw new Error(`${question.questionId}: canonical answer/index mismatch`);
+    }
+  }
+}
 
 if (cpIds.length !== 23) {
   throw new Error(`ECO-001 Question Studio registration requires 23 frozen CPs; found ${cpIds.length}`);
 }
-if (new Set(frozenQuestions.map((question) => question.questionId)).size !== frozenQuestions.length) {
-  throw new Error("ECO-001 frozen runtime corpus contains duplicate question IDs");
+
+for (let index = 0; index < english.length; index += 1) {
+  const en = english[index]!;
+  for (const locale of ["hi", "pa"] as const) {
+    const localized = corpusByLanguage[locale][index]!;
+    if (localized.localizationV1.englishQuestionId !== en.questionId) {
+      throw new Error(`${localized.questionId}: localization/English identity mismatch`);
+    }
+    if (
+      localized.cpId !== en.cpId ||
+      localized.qlId !== en.qlId ||
+      localized.difficulty !== en.difficulty ||
+      localized.correctIndex !== en.correctIndex ||
+      JSON.stringify(localized.sourceIds) !== JSON.stringify(en.sourceIds) ||
+      JSON.stringify(localized.sourceFactIds) !== JSON.stringify(en.sourceFactIds)
+    ) {
+      throw new Error(`${localized.questionId}: frozen localization parity mismatch`);
+    }
+  }
 }
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
-const supportedLanguages: QuestionStudioLanguage[] = ["en"];
+const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
 
-function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
-  if (!language || language === "en") return "en";
-  throw new Error(`ECO-001 currently supports English only; ${String(language)} is not frozen`);
+function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): EcoLocaleV1 {
+  if (!language) return "en";
+  if (language === "en" || language === "hi" || language === "pa") return language;
+  throw new Error(`ECO-001 language ${String(language)} is not supported`);
 }
 
 function normalizeCount(count: number | undefined) {
@@ -114,34 +113,40 @@ function normalizeDifficulty(difficulty: QuestionStudioGenerationRequest["diffic
   throw new Error("ECO-001 difficulty must be Easy, Medium, Hard, or Mixed");
 }
 
+function normalizeSelector(value: unknown) {
+  const raw = String(value ?? "").trim().toUpperCase();
+  const compactCp = raw.match(/^ECO-CP(\d{3})$/);
+  return compactCp ? `ECO-CP-${compactCp[1]}` : raw;
+}
+
 function selectorValues(request: QuestionStudioGenerationRequest) {
   return [request.patternId, request.canonicalProblemId, request.questionLanguageId]
-    .map((value) => String(value ?? "").trim().toUpperCase())
+    .map(normalizeSelector)
     .filter(Boolean);
 }
 
 function normalizeSelectors(request: QuestionStudioGenerationRequest) {
   const values = selectorValues(request);
   const qlMatches = values.filter((value) => qlIds.includes(value));
-  const cpMatches = values.filter((value) => cpIds.includes(value));
+  const cpMatches = values.filter((value) => cpIds.includes(value as (typeof cpIds)[number]));
   const unknown = values.filter(
     (value) =>
       value !== ECO_001_QUESTION_STUDIO_PACKAGE_ID_V1 &&
       !qlIds.includes(value) &&
-      !cpIds.includes(value),
+      !cpIds.includes(value as (typeof cpIds)[number]),
   );
+
   if (unknown.length) throw new Error(`Unknown ECO-001 selector ${unknown[0]}`);
   if (new Set(qlMatches).size > 1) throw new Error(`Conflicting ECO-001 QL selectors ${qlMatches.join(", ")}`);
   if (new Set(cpMatches).size > 1) throw new Error(`Conflicting ECO-001 CP selectors ${cpMatches.join(", ")}`);
 
   const qlId = qlMatches[0];
   const explicitCpId = cpMatches[0];
-  const qlCpId = qlId
-    ? String(frozenQuestions.find((question) => question.qlId === qlId)?.cpId ?? "")
-    : undefined;
+  const qlCpId = qlId ? english.find((question) => question.qlId === qlId)?.cpId : undefined;
   if (explicitCpId && qlCpId && explicitCpId !== qlCpId) {
     throw new Error(`Conflicting ECO-001 CP/QL selectors ${explicitCpId} and ${qlId}`);
   }
+
   return { qlId, cpId: explicitCpId ?? qlCpId };
 }
 
@@ -151,7 +156,7 @@ export const ECO_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
   subject: "Static GK",
   topic: "Indian Economy",
   subtopic: "Complete Chapter",
-  label: "Static GK · Indian Economy · ECO-CP-001–023 Frozen",
+  label: "Static GK · Indian Economy · ECO-CP-001–023 Multilingual Frozen",
   enabled: true,
   cpIds: [...cpIds],
   supportedLanguages,
@@ -175,18 +180,21 @@ export const ECO_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     ...lifecycle,
     registrationAuthorityId: ECO_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
     authoringReviewApproved: true,
-    englishEditorialComplete: true,
+    chapterContentComplete: true,
+    multilingualContentFrozen: true,
     reviewOnly: true,
     frozenCorpusOnly: true,
     immutableCorpus: true,
     deterministicSelection: true,
     selectionWithoutReplacement: true,
+    localeIndependentSemanticDraw: true,
     revisionPolicy: ECO_001_REVISION_POLICY_V1,
     permanentQlIds: qlIds,
     qlCount: qlIds.length,
     cpIds: [...cpIds],
     cpCount: cpIds.length,
-    englishQuestionCount: frozenQuestions.length,
+    questionsPerLanguage: 1008,
+    multilingualSurfaceCount: 3024,
     supportedDifficulties: [...supportedDifficulties],
     productionDifficultyClaimsAuthorized: false,
   },
@@ -228,9 +236,10 @@ export const knowledgeV1Eco001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
     const count = normalizeCount(request.count);
     const difficulty = normalizeDifficulty(request.difficulty);
     const { qlId, cpId } = normalizeSelectors(request);
-    const seed = request.seed?.trim() || "eco-001-question-studio-freeze-v1";
+    const seed = request.seed?.trim() || "eco-001-question-studio-multilingual-freeze-v1";
+    const corpus = corpusByLanguage[language];
 
-    const candidates = frozenQuestions.filter(
+    const candidates = corpus.filter(
       (question) =>
         (!cpId || question.cpId === cpId) &&
         (!qlId || question.qlId === qlId) &&
@@ -239,7 +248,9 @@ export const knowledgeV1Eco001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
 
     if (!candidates.length) throw new Error(`ECO-001 selectors produced no ${difficulty} frozen questions`);
     if (count > candidates.length) {
-      throw new Error(`ECO-001 cannot fill ${count} questions from a ${candidates.length}-question frozen pool without repeats`);
+      throw new Error(
+        `ECO-001 cannot fill ${count} questions from a ${candidates.length}-question frozen pool without repeats`,
+      );
     }
 
     const selected = deterministicShuffle(
@@ -251,15 +262,17 @@ export const knowledgeV1Eco001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       ...lifecycle,
       id: question.questionId,
       questionId: question.questionId,
+      sourceQuestionId: question.localizationV1.englishQuestionId,
       packageId: ECO_001_QUESTION_STUDIO_PACKAGE_ID_V1,
       patternId: question.qlId,
       qlId: question.qlId,
+      qlName: question.qlName,
       cpId: question.cpId,
       subject: "Static GK",
       topic: "Indian Economy",
       subtopic: "Complete Chapter",
       language,
-      locale: "en-IN",
+      locale: locales[language],
       stem: question.stem,
       text: question.stem,
       options: [...question.options],
@@ -275,26 +288,44 @@ export const knowledgeV1Eco001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       registrationStatus: "REGISTERED_REVIEW_ONLY",
       registrationAuthorityId: ECO_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
       authoringReviewApproved: true,
+      multilingualContentFrozen: true,
+      questionStudioDiscoverable: true,
+      questionStudioGenerationEnabled: true,
       reviewOnly: true,
       runtimeRegistered: true,
+      readOnly: true,
+      revisionPolicy: ECO_001_REVISION_POLICY_V1,
+      productionReleased: false,
     }));
 
     return {
       questions,
       generationContext: {
+        ...lifecycle,
         engineId: "knowledge-v1",
         packageId: ECO_001_QUESTION_STUDIO_PACKAGE_ID_V1,
         runtimeMode: ECO_001_QUESTION_STUDIO_RUNTIME_MODE_V1,
-        lifecycleStage: lifecycle.stage,
+        registrationStatus: "REGISTERED_REVIEW_ONLY",
         registrationAuthorityId: ECO_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
+        authoringReviewApproved: true,
+        chapterContentComplete: true,
+        multilingualContentFrozen: true,
+        reviewOnly: true,
+        frozenCorpusOnly: true,
+        immutableCorpus: true,
+        deterministicSelection: true,
+        selectionWithoutReplacement: true,
+        localeIndependentSemanticDraw: true,
+        revisionPolicy: ECO_001_REVISION_POLICY_V1,
         language,
+        locale: locales[language],
         difficulty,
         cpId: cpId ?? null,
         qlId: qlId ?? null,
         seed,
         requestedCount: count,
         candidateCount: candidates.length,
-        corpusQuestionCount: frozenQuestions.length,
+        corpusQuestionCount: corpus.length,
         cpCount: cpIds.length,
         qlCount: qlIds.length,
       },

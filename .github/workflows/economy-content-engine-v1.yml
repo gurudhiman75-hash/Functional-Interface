@@ -72,6 +72,9 @@ jobs:
           assert(pkg.enabled === true, 'ECO-001 package must be enabled');
           assert(pkg.cpIds.length === 23, `Expected 23 CPs, found ${pkg.cpIds.length}`);
           assert(new Set(pkg.cpIds).size === 23, 'ECO-001 CP ids must be unique');
+          assert(JSON.stringify(pkg.supportedLanguages) === JSON.stringify(['en', 'hi', 'pa']), 'ECO-001 must expose EN/HI/PA');
+          assert(pkg.metadata.questionsPerLanguage === 1008, 'ECO-001 per-language corpus size mismatch');
+          assert(pkg.metadata.multilingualSurfaceCount === 3024, 'ECO-001 multilingual surface count mismatch');
           assert(pkg.lifecycleStage === 'REVIEW_ONLY', 'ECO-001 must remain REVIEW_ONLY');
           assert(pkg.questionBankWritable === false, 'Question Bank writes must remain disabled');
           assert(pkg.testEligible === false, 'Test eligibility must remain disabled');
@@ -120,13 +123,20 @@ jobs:
           assert(hard.questions.length === 10, 'Hard filter did not return requested count');
           assert(hard.questions.every((q) => q.difficulty === 'Hard'), 'Hard filter leaked another difficulty');
 
-          let rejectedHindi = false;
-          try {
-            await knowledgeV1Eco001QuestionStudioAdapterV1.generate({ packageId: 'ECO-001', language: 'hi' });
-          } catch {
-            rejectedHindi = true;
-          }
-          assert(rejectedHindi, 'Unsupported Hindi generation was not rejected');
+          const nativeRequest = {
+            packageId: 'ECO-001',
+            difficulty: 'Mixed',
+            count: 20,
+            seed: 'eco001-ci-multilingual-contract',
+          };
+          const enNative = await knowledgeV1Eco001QuestionStudioAdapterV1.generate({ ...nativeRequest, language: 'en' });
+          const hiNative = await knowledgeV1Eco001QuestionStudioAdapterV1.generate({ ...nativeRequest, language: 'hi' });
+          const paNative = await knowledgeV1Eco001QuestionStudioAdapterV1.generate({ ...nativeRequest, language: 'pa' });
+          const sourceIds = (result) => result.questions.map((q) => q.sourceQuestionId);
+          assert(JSON.stringify(sourceIds(hiNative)) === JSON.stringify(sourceIds(enNative)), 'Hindi semantic draw drifted from English');
+          assert(JSON.stringify(sourceIds(paNative)) === JSON.stringify(sourceIds(enNative)), 'Punjabi semantic draw drifted from English');
+          assert(hiNative.questions.every((q) => q.language === 'hi' && q.locale === 'hi-IN'), 'Hindi runtime surface mismatch');
+          assert(paNative.questions.every((q) => q.language === 'pa' && q.locale === 'pa-IN'), 'Punjabi runtime surface mismatch');
           NODE
 
       - name: Verify composite knowledge-v1 registry exposes ECO-001 once
