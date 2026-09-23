@@ -1,6 +1,6 @@
 # ENG-007-CP004 — Scientific, Medical & Technical Spelling — Source & Coverage Audit V1
 
-Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__REVIEW_ONLY__QUESTION_STUDIO_BLOCKED_UNTIL_CHAPTER_APPROVAL`
 
 ## Coverage
 - **260 governed spellings**: 70 Easy / 110 Medium / 80 Hard.
@@ -11,4 +11,4 @@ Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
 ## Quality rules
 Technical meaning is not required to solve the question. Options test spelling recognition only, with same-level distractors and no regional-variant traps.
 
-Review-only; Question Studio and downstream release remain blocked pending chapter-level approval.
+Human-approved for this checkpoint. Question Studio registration remains blocked until ENG-007 chapter-level approval; Question Bank, tests/mocks, public publication and production release remain disabled.
