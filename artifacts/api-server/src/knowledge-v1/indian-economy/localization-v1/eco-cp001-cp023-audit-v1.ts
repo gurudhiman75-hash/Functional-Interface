@@ -91,7 +91,6 @@ const MECHANICAL_STEM_PATTERNS = [
   /best reflects/iu,
   /best summarises/iu,
   /all else equal/iu,
-  /associated with/iu,
   /अन्य बातें समान/u,
   /मुख्यतः/u,
   /सामान्यतः/u,
@@ -196,6 +195,7 @@ function assertParity(source: readonly any[], localized: readonly EcoLocalizedQu
     fail(question.reviewOnly === true && question.runtimeRegistered === false, `${question.questionId}: lifecycle boundary changed`);
 
     if (["ECO-CP-009", "ECO-CP-010", "ECO-CP-011", "ECO-CP-012", "ECO-CP-013", "ECO-CP-014", "ECO-CP-015", "ECO-CP-016", "ECO-CP-017", "ECO-CP-018", "ECO-CP-019", "ECO-CP-020", "ECO-CP-021", "ECO-CP-022", "ECO-CP-023"].includes(english.cpId)) assertExamStandardStem(question);
+    if (["ECO-CP-021", "ECO-CP-022", "ECO-CP-023"].includes(english.cpId)) fail(!/associated with/iu.test(question.stem), `${question.questionId}: mechanical stem wording: /associated with/iu`);
 
     if (locale === "en") {
       fail(question.questionId === english.questionId, `${question.questionId}: English id drift`);
