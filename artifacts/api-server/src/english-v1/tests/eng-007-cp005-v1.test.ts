@@ -2,7 +2,7 @@ import assert from"node:assert/strict";
 import{ENG007_CP005_ENTRIES_V1}from"../chapters/spelling-correction/ENG-007/CP005/eng-007-cp005-lexicon-v1";
 import{generateEng007CP005QuestionV1}from"../chapters/spelling-correction/ENG-007/CP005/eng-007-cp005-v1";
 assert.equal(ENG007_CP005_ENTRIES_V1.length,260);
-assert.deepEqual(["easy","medium","hard"].map(d=>ENG007_CP005_ENTRIES_V1.filter(x=>x.difficulty===d).length),[50,110,100]);
+assert.deepEqual(["easy","medium","hard"].map(d=>ENG007_CP005_ENTRIES_V1.filter(x=>x.difficulty===d).length),[60,120,80]);
 assert.equal(new Set(ENG007_CP005_ENTRIES_V1.map(x=>x.correct.toLowerCase())).size,ENG007_CP005_ENTRIES_V1.length);
 assert.equal(new Set(ENG007_CP005_ENTRIES_V1.map(x=>x.misspelling.toLowerCase())).size,ENG007_CP005_ENTRIES_V1.length);
 for(const e of ENG007_CP005_ENTRIES_V1){
