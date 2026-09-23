@@ -237,7 +237,20 @@ function fallbackOption(x:string,l:NativeLocale):string{
  "Only after a Governor's Ordinance":p("केवल राज्यपाल के अध्यादेश के बाद","ਸਿਰਫ਼ ਰਾਜਪਾਲ ਦੇ ਆਰਡੀਨੈਂਸ ਤੋਂ ਬਾਅਦ"),"Only Parliament may do so":p("केवल संसद ऐसा कर सकती है","ਸਿਰਫ਼ ਸੰਸਦ ਅਜਿਹਾ ਕਰ ਸਕਦੀ ਹੈ"),"Only the High Court may do so":p("केवल उच्च न्यायालय ऐसा कर सकता है","ਸਿਰਫ਼ ਹਾਈ ਕੋਰਟ ਅਜਿਹਾ ਕਰ ਸਕਦੀ ਹੈ"),
  "It makes every State function personal to the Governor":p("यह हर राज्य कार्य को राज्यपाल का व्यक्तिगत कार्य बना देता है","ਇਹ ਹਰ ਰਾਜ ਕੰਮ ਨੂੰ ਰਾਜਪਾਲ ਦਾ ਨਿੱਜੀ ਕੰਮ ਬਣਾ ਦਿੰਦਾ ਹੈ"),"It transfers judicial power to the Governor":p("यह न्यायिक शक्ति राज्यपाल को दे देता है","ਇਹ ਨਿਆਂਇਕ ਸ਼ਕਤੀ ਰਾਜਪਾਲ ਨੂੰ ਦੇ ਦਿੰਦਾ ਹੈ"),"It abolishes subordinate executive authorities":p("यह अधीनस्थ कार्यपालिका प्राधिकारियों को समाप्त कर देता है","ਇਹ ਅਧੀਨ ਕਾਰਜਪਾਲਿਕਾ ਅਧਿਕਾਰੀਆਂ ਨੂੰ ਖਤਮ ਕਰ ਦਿੰਦਾ ਹੈ"),
  "Only the President may do so":p("केवल राष्ट्रपति ऐसा कर सकता है","ਸਿਰਫ਼ ਰਾਸ਼ਟਰਪਤੀ ਅਜਿਹਾ ਕਰ ਸਕਦਾ ਹੈ"),
- "Wait until the next general election":p("अगले आम चुनाव तक प्रतीक्षा करना","ਅਗਲੀ ਆਮ ਚੋਣ ਤੱਕ ਉਡੀਕ ਕਰਨੀ"),"Seek judicial approval before consideration":p("विचार से पहले न्यायिक मंजूरी लेना","ਵਿਚਾਰ ਤੋਂ ਪਹਿਲਾਂ ਨਿਆਂਇਕ ਮਨਜ਼ੂਰੀ ਲੈਣੀ")
+ "Wait until the next general election":p("अगले आम चुनाव तक प्रतीक्षा करना","ਅਗਲੀ ਆਮ ਚੋਣ ਤੱਕ ਉਡੀਕ ਕਰਨੀ"),"Seek judicial approval before consideration":p("विचार से पहले न्यायिक मंजूरी लेना","ਵਿਚਾਰ ਤੋਂ ਪਹਿਲਾਂ ਨਿਆਂਇਕ ਮਨਜ਼ੂਰੀ ਲੈਣੀ"),
+ "8":p("8","8"),
+ "Appointing High Court Judges":p("उच्च न्यायालय के न्यायाधीशों की नियुक्ति","ਹਾਈ ਕੋਰਟ ਦੇ ਨਿਆਂਧੀਸ਼ਾਂ ਦੀ ਨਿਯੁਕਤੀ"),
+ "Certifying Money Bills":p("धन विधेयकों को प्रमाणित करना","ਧਨ ਵਿਧੇਯਕਾਂ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰਨਾ"),
+ "Dissolving the Legislative Council":p("विधान परिषद को भंग करना","ਵਿਧਾਨ ਪਰਿਸ਼ਦ ਨੂੰ ਭੰਗ ਕਰਨਾ"),
+ "First session after each Assembly general election and first session of each year":p("हर विधानसभा आम चुनाव के बाद पहला सत्र और हर वर्ष का पहला सत्र","ਹਰ ਵਿਧਾਨ ਸਭਾ ਆਮ ਚੋਣ ਤੋਂ ਬਾਅਦ ਪਹਿਲਾ ਸੈਸ਼ਨ ਅਤੇ ਹਰ ਸਾਲ ਦਾ ਪਹਿਲਾ ਸੈਸ਼ਨ"),
+ "High Court Chief Justice":p("उच्च न्यायालय के मुख्य न्यायाधीश","ਹਾਈ ਕੋਰਟ ਦੇ ਮੁੱਖ ਨਿਆਂਧੀਸ਼"),
+ "Legislative Assembly Speaker":p("विधानसभा अध्यक्ष","ਵਿਧਾਨ ਸਭਾ ਦੇ ਸਪੀਕਰ"),
+ "Only for six months":p("केवल छह महीने के लिए","ਸਿਰਫ਼ 6 ਮਹੀਨੇ ਲਈ"),
+ "Only in a bicameral State":p("केवल द्विसदनीय राज्य में","ਸਿਰਫ਼ ਦੋ ਸਦਨਾਂ ਵਾਲੇ ਰਾਜ ਵਿੱਚ"),
+ "Rajya Sabha":p("राज्यसभा","ਰਾਜ ਸਭਾ"),
+ "Speaker":p("अध्यक्ष","ਸਪੀਕਰ"),
+ "Speaker alone":p("केवल अध्यक्ष","ਸਿਰਫ਼ ਸਪੀਕਰ"),
+ "When it would endanger the High Court's constitutional position by derogating from its powers":p("जब उच्च न्यायालय की शक्तियाँ घटाकर उसकी संवैधानिक स्थिति खतरे में पड़ती हो","ਜਦੋਂ ਹਾਈ ਕੋਰਟ ਦੀਆਂ ਸ਼ਕਤੀਆਂ ਘਟਾ ਕੇ ਉਸਦੀ ਸੰਵਿਧਾਨਕ ਸਥਿਤੀ ਖਤਰੇ ਵਿੱਚ ਪੈਂਦੀ ਹੋ")
  };
  const z=m[x];if(z)return z[l];
  throw new Error("POL-CP-014 missing localized option: "+x);
