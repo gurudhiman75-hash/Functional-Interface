@@ -28,7 +28,9 @@ The donor is expanded after:
 ### ਸੰਬੰਧਕ
 The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy is retained unchanged and expanded from 9 to 39 sentence-grounded authorities, balanced at 13 per class.
 
-The breadth pass is deliberately conservative: new ਪੂਰਨ examples use forms directly supported as complete ਸੰਬੰਧਕ; new ਅਪੂਰਨ examples stay with ਪਰੇ / ਉਰੇ / ਦੂਰ patterns; new ਦੁਬਾਜਰਾ examples stay with the explicitly paired ਉੱਤੇ / ਦੇ ਉੱਤੇ and ਬਗੈਰ / ਦੇ ਬਗੈਰ patterns.\n\nThe donor also contains `ਵਿਕਾਰੀ / ਅਵਿਕਾਰੀ / ਸਥਾਨ-ਵਾਚਕ / ਦਿਸ਼ਾ-ਵਾਚਕ / ਸਾਧਨ-ਵਾਚਕ / ਕਾਰਨ-ਵਾਚਕ` labels. Those are a different classification dimension and are **not mixed** into the approved three-way family.
+The breadth pass is deliberately conservative: new ਪੂਰਨ examples use forms directly supported as complete ਸੰਬੰਧਕ; new ਅਪੂਰਨ examples stay with ਪਰੇ / ਉਰੇ / ਦੂਰ patterns; new ਦੁਬਾਜਰਾ examples stay with the explicitly paired ਉੱਤੇ / ਦੇ ਉੱਤੇ and ਬਗੈਰ / ਦੇ ਬਗੈਰ patterns.
+
+The donor also contains `ਵਿਕਾਰੀ / ਅਵਿਕਾਰੀ / ਸਥਾਨ-ਵਾਚਕ / ਦਿਸ਼ਾ-ਵਾਚਕ / ਸਾਧਨ-ਵਾਚਕ / ਕਾਰਨ-ਵਾਚਕ` labels. Those are a different classification dimension and are **not mixed** into the approved three-way family.
 
 ### ਯੋਜਕ
 Seven additional donor sentence contexts are retained, including `ਇਸ ਲਈ`, `ਜੇਕਰ ... ਤਾਂ`, and `ਤਾਂ ਜੋ`, without changing the approved two-way `ਸਮਾਨ / ਅਧੀਨ` classification.
