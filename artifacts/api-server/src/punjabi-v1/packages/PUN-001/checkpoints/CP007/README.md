@@ -26,7 +26,7 @@ The donor is expanded after:
 - sentence-derived distractors for context-to-ਕਾਰਕ operations.
 
 ### ਸੰਬੰਧਕ
-The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy is retained unchanged and expanded from 9 to 39 sentence-grounded authorities, balanced at 13 per class.
+The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy is retained and expanded from 9 to 39 sentence-grounded authorities, balanced at 13 per class. The pass also corrects the inherited `ਸਾਹਮਣੇ` authority to ਅਪੂਰਨ because the governed sentence requires the supporting `ਦੇ` relation.
 
 The breadth pass is deliberately conservative: new ਪੂਰਨ examples use forms directly supported as complete ਸੰਬੰਧਕ; new ਅਪੂਰਨ examples stay with ਪਰੇ / ਉਰੇ / ਦੂਰ patterns; new ਦੁਬਾਜਰਾ examples stay with the explicitly paired ਉੱਤੇ / ਦੇ ਉੱਤੇ and ਬਗੈਰ / ਦੇ ਬਗੈਰ patterns.
 
