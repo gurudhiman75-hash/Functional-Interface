@@ -205,7 +205,7 @@ const OPT:Record<string,Pair>={
 "Statements 2 and 3 only":p("केवल कथन 2 और 3","ਸਿਰਫ਼ ਬਿਆਨ 2 ਅਤੇ 3"),"Statement 1 only":p("केवल कथन 1","ਸਿਰਫ਼ ਬਿਆਨ 1"),"Statements 1 and 2 only":p("केवल कथन 1 और 2","ਸਿਰਫ਼ ਬਿਆਨ 1 ਅਤੇ 2"),"All three statements":p("तीनों कथन","ਤਿੰਨੇ ਬਿਆਨ"),
 "Article 229 — High Court staff and administrative expenses":p("अनुच्छेद 229 — उच्च न्यायालय कर्मचारी और प्रशासनिक खर्च","ਅਨੁਛੇਦ 229 — ਹਾਈ ਕੋਰਟ ਸਟਾਫ਼ ਅਤੇ ਪ੍ਰਸ਼ਾਸਕੀ ਖਰਚ"),
 "Article 227 gives general superintendence; Article 235 gives administrative control over subordinate judiciary":p("अनुच्छेद 227 सामान्य अधीक्षण देता है; अनुच्छेद 235 अधीनस्थ न्यायपालिका का प्रशासनिक नियंत्रण देता है","ਅਨੁਛੇਦ 227 ਆਮ ਨਿਗਰਾਨੀ ਦਿੰਦਾ ਹੈ; ਅਨੁਛੇਦ 235 ਹੇਠਲੀ ਨਿਆਂਪਾਲਿਕਾ ਦਾ ਪ੍ਰਸ਼ਾਸਕੀ ਨਿਯੰਤਰਣ ਦਿੰਦਾ ਹੈ"),
-"Statements 1 and 2 only":p("केवल कथन 1 और 2","ਸਿਰਫ਼ ਬਿਆਨ 1 ਅਤੇ 2")
+
 };
 
 function fallbackOption(x:string,l:NativeLocale):string{
@@ -270,11 +270,24 @@ function fallbackOption(x:string,l:NativeLocale):string{
  "High Court by judgment alone":p("केवल उच्च न्यायालय के निर्णय से","ਸਿਰਫ਼ ਹਾਈ ਕੋਰਟ ਦੇ ਫ਼ੈਸਲੇ ਨਾਲ"),
  "Only after a constitutional amendment":p("केवल संविधान संशोधन के बाद","ਸਿਰਫ਼ ਸੰਵਿਧਾਨੀ ਸੋਧ ਤੋਂ ਬਾਅਦ"),
  "Power to dissolve the State Assembly":p("राज्य विधानसभा भंग करने की शक्ति","ਰਾਜ ਵਿਧਾਨ ਸਭਾ ਭੰਗ ਕਰਨ ਦੀ ਸ਼ਕਤੀ"),
- "Power to appoint Governors":p("राज्यपाल नियुक्त करने की शक्ति","ਰਾਜਪਾਲ ਨਿਯੁਕਤ ਕਰਨ ਦੀ ਸ਼ਕਤੀ"),
  "Power to amend the Constitution":p("संविधान में संशोधन की शक्ति","ਸੰਵਿਧਾਨ ਵਿੱਚ ਸੋਧ ਕਰਨ ਦੀ ਸ਼ਕਤੀ"),
  "Membership of Parliament":p("संसद की सदस्यता","ਸੰਸਦ ਦੀ ਮੈਂਬਰਸ਼ਿਪ"),
  "Age of at least 45 years":p("कम से कम 45 वर्ष की आयु","ਘੱਟੋ-ਘੱਟ 45 ਸਾਲ ਦੀ ਉਮਰ"),
- "Service as a District Judge only":p("केवल जिला न्यायाधीश के रूप में सेवा","ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਨਿਆਂਧੀਸ਼ ਵਜੋਂ ਸੇਵਾ")
+ "Service as a District Judge only":p("केवल जिला न्यायाधीश के रूप में सेवा","ਸਿਰਫ਼ ਜ਼ਿਲ੍ਹਾ ਨਿਆਂਧੀਸ਼ ਵਜੋਂ ਸੇਵਾ"),
+ "Chief Justice of the High Court":p("उच्च न्यायालय के मुख्य न्यायाधीश","ਹਾਈ ਕੋਰਟ ਦੇ ਮੁੱਖ ਨਿਆਂਧੀਸ਼"),
+ "District Court":p("जिला अदालत","ਜ਼ਿਲ੍ਹਾ ਅਦਾਲਤ"),"Subordinate Civil Court":p("अधीनस्थ दीवानी अदालत","ਹੇਠਲੀ ਸਿਵਲ ਅਦਾਲਤ"),"Court of Session only":p("केवल सत्र न्यायालय","ਸਿਰਫ਼ ਸੈਸ਼ਨ ਅਦਾਲਤ"),
+ "President only":p("केवल राष्ट्रपति","ਸਿਰਫ਼ ਰਾਸ਼ਟਰਪਤੀ"),"Chief Minister only":p("केवल मुख्यमंत्री","ਸਿਰਫ਼ ਮੁੱਖ ਮੰਤਰੀ"),"Speaker of the State Assembly":p("राज्य विधानसभा अध्यक्ष","ਰਾਜ ਵਿਧਾਨ ਸਭਾ ਦੇ ਸਪੀਕਰ"),
+ "Any subordinate court":p("किसी भी अधीनस्थ अदालत में","ਕਿਸੇ ਵੀ ਹੇਠਲੀ ਅਦਾਲਤ ਵਿੱਚ"),"The same High Court only":p("केवल उसी उच्च न्यायालय में","ਸਿਰਫ਼ ਉਸੇ ਹਾਈ ਕੋਰਟ ਵਿੱਚ"),"Any government tribunal without restriction":p("किसी भी सरकारी अधिकरण में बिना रोक","ਕਿਸੇ ਵੀ ਸਰਕਾਰੀ ਟ੍ਰਿਬਿਊਨਲ ਵਿੱਚ ਬਿਨਾਂ ਰੋਕ"),
+ "State Legislature":p("राज्य विधानमंडल","ਰਾਜ ਵਿਧਾਨ ਮੰਡਲ"),"Governor alone":p("केवल राज्यपाल","ਸਿਰਫ਼ ਰਾਜਪਾਲ"),"Parliament by resolution":p("संसद के प्रस्ताव द्वारा","ਸੰਸਦ ਦੇ ਪ੍ਰਸਤਾਵ ਰਾਹੀਂ"),"Chief Justice of India alone":p("केवल भारत के मुख्य न्यायाधीश","ਸਿਰਫ਼ ਭਾਰਤ ਦੇ ਮੁੱਖ ਨਿਆਂਧੀਸ਼"),"State Cabinet":p("राज्य मंत्रिमंडल","ਰਾਜ ਮੰਤਰੀ ਮੰਡਲ"),
+ "Permanent abolition of the court":p("अदालत का स्थायी उन्मूलन","ਅਦਾਲਤ ਨੂੰ ਸਥਾਈ ਤੌਰ 'ਤੇ ਖਤਮ ਕਰਨਾ"),"A vacancy in the Governor's office":p("राज्यपाल पद में रिक्ति","ਰਾਜਪਾਲ ਦੇ ਅਹੁਦੇ ਵਿੱਚ ਖਾਲੀਪਣ"),"Only by Parliament":p("केवल संसद द्वारा","ਸਿਰਫ਼ ਸੰਸਦ ਵੱਲੋਂ"),
+ "Both deal only with detention":p("दोनों केवल हिरासत से जुड़ी हैं","ਦੋਵੇਂ ਸਿਰਫ਼ ਹਿਰਾਸਤ ਬਾਰੇ ਹਨ"),"Both test title to public office":p("दोनों सार्वजनिक पद के अधिकार की जाँच करती हैं","ਦੋਵੇਂ ਜਨਤਕ ਅਹੁਦੇ ਦੇ ਹੱਕ ਦੀ ਜਾਂਚ ਕਰਦੀਆਂ ਹਨ"),"Mandamus and certiorari are identical":p("मैंडेमस और सर्टियोरारी एक समान हैं","ਮੈਂਡੇਮਸ ਅਤੇ ਸਰਟੀਓਰਾਰੀ ਇੱਕੋ ਜਿਹੀਆਂ ਹਨ"),
+ "Only for mandamus":p("केवल मैंडेमस के लिए","ਸਿਰਫ਼ ਮੈਂਡੇਮਸ ਲਈ"),"Only in civil cases":p("केवल दीवानी मामलों में","ਸਿਰਫ਼ ਸਿਵਲ ਮਾਮਲਿਆਂ ਵਿੱਚ"),
+ "Union Public Service Commission":p("संघ लोक सेवा आयोग","ਸੰਘ ਲੋਕ ਸੇਵਾ ਆਯੋਗ"),"State Legislature alone":p("केवल राज्य विधानमंडल","ਸਿਰਫ਼ ਰਾਜ ਵਿਧਾਨ ਮੰਡਲ"),"President by executive order alone":p("केवल राष्ट्रपति के कार्यपालिका आदेश से","ਸਿਰਫ਼ ਰਾਸ਼ਟਰਪਤੀ ਦੇ ਕਾਰਜਪਾਲਿਕਾ ਹੁਕਮ ਨਾਲ"),"Supreme Court by judgment":p("सर्वोच्च न्यायालय के निर्णय से","ਸੁਪਰੀਮ ਕੋਰਟ ਦੇ ਫ਼ੈਸਲੇ ਨਾਲ"),"Governors acting jointly":p("राज्यपालों द्वारा संयुक्त रूप से","ਰਾਜਪਾਲਾਂ ਵੱਲੋਂ ਮਿਲ ਕੇ"),
+ "Election by the State Legislature":p("राज्य विधानमंडल द्वारा चुनाव","ਰਾਜ ਵਿਧਾਨ ਮੰਡਲ ਵੱਲੋਂ ਚੋਣ"),"Approval of the Election Commission":p("निर्वाचन आयोग की मंजूरी","ਚੋਣ ਕਮਿਸ਼ਨ ਦੀ ਮਨਜ਼ੂਰੀ"),"Membership of the Bar Council for twenty years":p("बार काउंसिल की बीस वर्ष की सदस्यता","ਬਾਰ ਕੌਂਸਲ ਦੀ 20 ਸਾਲਾਂ ਦੀ ਮੈਂਬਰਸ਼ਿਪ"),
+ "Election of legislators":p("विधायकों का चुनाव","ਵਿਧਾਇਕਾਂ ਦੀ ਚੋਣ"),"Appointment of Governors":p("राज्यपालों की नियुक्ति","ਰਾਜਪਾਲਾਂ ਦੀ ਨਿਯੁਕਤੀ"),"Creation of new States":p("नए राज्यों का निर्माण","ਨਵੇਂ ਰਾਜਾਂ ਦੀ ਸਥਾਪਨਾ"),
+ "Attorney-General":p("महान्यायवादी","ਅਟਾਰਨੀ ਜਨਰਲ"),"Comptroller and Auditor-General":p("नियंत्रक एवं महालेखा परीक्षक","ਕੰਟਰੋਲਰ ਅਤੇ ਆਡੀਟਰ ਜਨਰਲ"),
+ "Only if the Governor waives one year":p("केवल यदि राज्यपाल एक वर्ष की कमी माफ कर दे","ਸਿਰਫ਼ ਜੇ ਰਾਜਪਾਲ ਇੱਕ ਸਾਲ ਦੀ ਘਾਟ ਮਾਫ਼ ਕਰ ਦੇਵੇ"),"Only if the State PSC approves":p("केवल यदि राज्य लोक सेवा आयोग मंजूरी दे","ਸਿਰਫ਼ ਜੇ ਰਾਜ ਲੋਕ ਸੇਵਾ ਆਯੋਗ ਮਨਜ਼ੂਰੀ ਦੇਵੇ"),
+ "Both Articles deal only with writs":p("दोनों अनुच्छेद केवल रिट से जुड़े हैं","ਦੋਵੇਂ ਅਨੁਛੇਦ ਸਿਰਫ਼ ਰਿਟ ਬਾਰੇ ਹਨ"),"Article 227 appoints district judges; Article 235 creates High Courts":p("अनुच्छेद 227 जिला न्यायाधीश नियुक्त करता है; अनुच्छेद 235 उच्च न्यायालय बनाता है","ਅਨੁਛੇਦ 227 ਜ਼ਿਲ੍ਹਾ ਨਿਆਂਧੀਸ਼ ਨਿਯੁਕਤ ਕਰਦਾ ਹੈ; ਅਨੁਛੇਦ 235 ਹਾਈ ਕੋਰਟ ਬਣਾਉਂਦਾ ਹੈ"),"Article 235 is the Supreme Court's appellate power":p("अनुच्छेद 235 सर्वोच्च न्यायालय की अपीलीय शक्ति है","ਅਨੁਛੇਦ 235 ਸੁਪਰੀਮ ਕੋਰਟ ਦੀ ਅਪੀਲੀ ਸ਼ਕਤੀ ਹੈ")
  };
  const z=simple[x];if(z)return z[l];
  throw new Error("POL-CP-013 missing localized option: "+x);
