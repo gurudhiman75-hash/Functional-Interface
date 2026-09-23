@@ -20,4 +20,14 @@ Alternative donor ਸੰਬੰਧਕ labels such as ਵਿਕਾਰੀ/ਅਵਿ
 
 Weak or implicit ਕਾਰਕ marker examples are rejected rather than retained for count. Named/local examples are generalized where the grammar authority itself is sound.
 
-## Breadth-pass source registry\n- `PSEB8-SAMB-PURAN` — PSEB 8th Class Punjabi Vyakaran ਸੰਬੰਧਕ: https://psebsolutions.in/pseb-8th-class-punjabi-vyakaran-sambandhan/ — complete/pੂਰਨ definition and examples including ਦਾ, ਦੇ, ਨੇ, ਤੋਂ.\n- `PSEB8-SAMB-APURAN` — same PSEB 8 source — ਅਪੂਰਨ definition and explicit ਪਰੇ / ਦੂਰ examples.\n- `PSEB7-SAMB-APURAN` — PSEB 7th Class Punjabi Vyakaran ਸੰਬੰਧਕ: https://psebsolutions.com/pseb-7th-class-punjabi-vyakaran-sambandhak/ — supports the reviewed ਉਰੇ / ਪਰੇ pattern.\n- `PSEB8-SAMB-DUBAJRA` — same PSEB 8 source — explicit paired examples ਬਗੈਰ / ਦੇ ਬਗੈਰ and ਉੱਤੇ / ਦੇ ਉੱਤੇ.\n\nThe breadth pass does not promote other mixed-taxonomy donor labels. New learner-facing sentences are authored examples constrained by these checked classifications.\n\nNo fixed numerical target is used beyond balancing the three already-approved classes for review.
+## Breadth-pass source registry
+These are public secondary transcriptions/solutions of the PSEB grammar exercises, used as cross-check references rather than represented as official PSEB-hosted pages.
+
+- `PSEB-SOLUTIONS-8-SAMB-PURAN` — PSEB 8th Class Punjabi Vyakaran ਸੰਬੰਧਕ: https://psebsolutions.in/pseb-8th-class-punjabi-vyakaran-sambandhan/ — complete/pੂਰਨ definition and examples including ਦਾ, ਦੇ, ਨੇ, ਤੋਂ.
+- `PSEB-SOLUTIONS-8-SAMB-APURAN` — same PSEB 8 source — ਅਪੂਰਨ definition and explicit ਪਰੇ / ਦੂਰ examples.
+- `PSEB-SOLUTIONS-7-SAMB-APURAN` — PSEB 7th Class Punjabi Vyakaran ਸੰਬੰਧਕ: https://psebsolutions.com/pseb-7th-class-punjabi-vyakaran-sambandhak/ — supports the reviewed ਉਰੇ / ਪਰੇ pattern.
+- `PSEB-SOLUTIONS-8-SAMB-DUBAJRA` — same PSEB 8 source — explicit paired examples ਬਗੈਰ / ਦੇ ਬਗੈਰ and ਉੱਤੇ / ਦੇ ਉੱਤੇ.
+
+The breadth pass does not promote other mixed-taxonomy donor labels. New learner-facing sentences are authored examples constrained by these checked classifications.
+
+No fixed numerical target is used beyond balancing the three already-approved classes for review.
