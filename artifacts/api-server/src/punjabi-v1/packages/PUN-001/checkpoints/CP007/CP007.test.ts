@@ -63,7 +63,7 @@ for(const family of CP007_FAMILIES){
 assert.equal(global.size,6459);assert.equal(verdicts.size,4);
 const karakKinds=new Set(CP007_KARAK_AUTHORITIES.map(x=>x.kind));assert.equal(karakKinds.size,8);
 const yKinds=new Set(CP007_YOJAK_AUTHORITIES.map(x=>x.kind));assert.equal(yKinds.size,2);
-const sKinds=new Set(CP007_ALL_SAMBANDHAK_AUTHORITIES.map(x=>x.kind));assert.equal(sKinds.size,3);for(const kind of sKinds)assert.equal(CP007_ALL_SAMBANDHAK_AUTHORITIES.filter(x=>x.kind===kind).length,13,kind+": expected balanced 14-authority sambandhak class");
+const sKinds=new Set(CP007_ALL_SAMBANDHAK_AUTHORITIES.map(x=>x.kind));assert.equal(sKinds.size,3);for(const kind of sKinds)assert.equal(CP007_ALL_SAMBANDHAK_AUTHORITIES.filter(x=>x.kind===kind).length,14,kind+": expected balanced 14-authority sambandhak class");
 const saamne=CP007_ALL_SAMBANDHAK_AUTHORITIES.filter(x=>x.expression==="ਸਾਹਮਣੇ");assert(saamne.length>=1,"ਸਾਹਮਣੇ authority missing");for(const a of saamne)assert.equal(a.kind,"APURAN",a.id+": ਸਾਹਮਣੇ must be ਅਪੂਰਨ in this taxonomy");
 console.log("CP007 retrofit exhaustive semantic gates passed: "+global.size+" governed questions");
 console.log(JSON.stringify({...breadth,f09TruthOutcomes:[...verdicts]},null,2));
