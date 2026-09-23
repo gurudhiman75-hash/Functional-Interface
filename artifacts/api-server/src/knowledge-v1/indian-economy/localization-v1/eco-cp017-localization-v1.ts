@@ -206,6 +206,7 @@ const OPTIONS: Readonly<Record<string, Pair>> = Object.freeze(Object.fromEntries
   ["RRBs do not provide agricultural credit", ["RRB कृषि ऋण नहीं देते", "RRB ਖੇਤੀਬਾੜੀ ਕਰਜ਼ਾ ਨਹੀਂ ਦਿੰਦੇ"]],
   ["To protect farmers against financial loss from covered crop damage", ["कवर किए गए फसल नुकसान से वित्तीय हानि के विरुद्ध किसानों की सुरक्षा करना", "ਕਵਰ ਕੀਤੇ ਫਸਲ ਨੁਕਸਾਨ ਤੋਂ ਵਿੱਤੀ ਹਾਨੀ ਵਿਰੁੱਧ ਕਿਸਾਨਾਂ ਦੀ ਸੁਰੱਖਿਆ ਕਰਨਾ"]],
   ["To provide fertiliser subsidies only", ["केवल उर्वरक सब्सिडी देना", "ਸਿਰਫ਼ ਖਾਦ ਸਬਸਿਡੀ ਦੇਣਾ"]],
+  ["To fix MSP", ["MSP तय करना", "MSP ਤੈਅ ਕਰਨਾ"]],
   ["To regulate APMC markets", ["APMC बाजारों का विनियमन करना", "APMC ਬਾਜ਼ਾਰਾਂ ਦਾ ਨਿਯਮਨ ਕਰਨਾ"]],
   ["Providing financial support after covered crop losses", ["कवर किए गए फसल नुकसान के बाद वित्तीय सहायता देना", "ਕਵਰ ਕੀਤੇ ਫਸਲ ਨੁਕਸਾਨ ਤੋਂ ਬਾਅਦ ਵਿੱਤੀ ਸਹਾਇਤਾ ਦੇਣਾ"]],
   ["Fixing all crop prices", ["सभी फसलों की कीमतें तय करना", "ਸਾਰੀਆਂ ਫਸਲਾਂ ਦੀਆਂ ਕੀਮਤਾਂ ਤੈਅ ਕਰਨਾ"]],
