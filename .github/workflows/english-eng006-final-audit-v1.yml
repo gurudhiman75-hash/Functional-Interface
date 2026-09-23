@@ -1,0 +1,35 @@
+name: Validate English ENG-006 Expanded Final Audit V2
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened,reopened,synchronize,ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/one-word-substitution/ENG-006/**
+      - artifacts/api-server/src/english-v1/tests/eng-006-*.test.ts
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: english-eng006-final-audit-v2-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-006-final-audit-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/eng006-final-v2.test.mjs
+      - run: node artifacts/api-server/dist/eng006-final-v2.test.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/one-word-substitution/ENG-006/eng-006-chapter-review-v1-export.ts --bundle --platform=node --format=esm --outfile=dist/eng006-chapter-review-v2.mjs
+      - run: node artifacts/api-server/dist/eng006-chapter-review-v2.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ENG-006-CHAPTER-REVIEW-V2
+          path: dist/english-v1/ENG-006-CHAPTER-REVIEW-V2.md
+          if-no-files-found: error
+          retention-days: 30
+      - run: pnpm --dir artifacts/api-server build
