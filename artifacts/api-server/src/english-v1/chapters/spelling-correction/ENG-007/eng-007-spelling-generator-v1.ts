@@ -61,7 +61,14 @@ function spellingVariants(entries:readonly Eng007SharedEntry[],target:Eng007Shar
     [extras[i],extras[j]]=[extras[j]!,extras[i]!];
   }
   const variants=[primary,...extras.slice(0,2)];
-  if(variants.length<3)throw new Error("ENG-007 requires three same-word spelling variants");
+  if(variants.length<3){
+    const fallback=distractors(entries,target,seed).map(x=>x.misspelling.toLowerCase());
+    for(const candidate of fallback){
+      if(variants.length>=3)break;
+      if(candidate!==w&&!variants.includes(candidate)&&!canonical.has(candidate))variants.push(candidate);
+    }
+  }
+  if(variants.length<3)throw new Error("ENG-007 requires three spelling distractors");
   return variants;
 }
 function trapAdvice(trap:string){
