@@ -2,7 +2,7 @@
 
 Status: **CONTENT CLOSED V1 — APPROVAL AUTHORITY**
 
-## What is being closed
+## Closure authority
 
 All planned content checkpoints `CP001` through `CP015` have completed editorial review and merge. This closeout does not add new learner facts or new question languages.
 
