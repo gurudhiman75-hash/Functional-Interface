@@ -6,7 +6,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/knowledge-v1/indian-history/**"
-      - ".github/workflows/history-v2-expansion-audit-v1.yml"
   workflow_dispatch:
 
 permissions:
