@@ -43,7 +43,7 @@ foreign|foriegn|easy
 piece|peice|easy
 chief|cheif|easy
 field|feild|easy
-quiet|quitet|easy
+language|langauge|easy
 writing|writting|easy
 written|writen|easy
 coming|comming|easy
@@ -151,7 +151,7 @@ vehicle|vehical|medium
 vicious|vicius|medium
 visible|visable|medium
 volunteer|volenteer|medium
-whether|wether|medium
+whether|wheter|medium
 withhold|withold|medium
 acquire|aquire|medium
 adolescent|adoloscent|medium
