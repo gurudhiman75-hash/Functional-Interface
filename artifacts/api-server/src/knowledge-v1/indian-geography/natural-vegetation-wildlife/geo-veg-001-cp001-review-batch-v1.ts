@@ -58,7 +58,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "distractors": [
       "Whether the tree is tall",
       "Whether the tree produces fruit",
-      "Whether the tree has broad leaves"
+      "Whether the tree has wide leaves"
     ],
     "explanation": "Natural vegetation is identified by its natural development and long undisturbed growth, not by the species alone. A wild tree in a natural community may qualify even when the same species is also planted in a garden.",
     "sourceFactIds": [
@@ -236,7 +236,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only domestic animals",
       "Only aquatic plants"
     ],
-    "explanation": "Fauna refers to the animal life of a region. The term is used as the animal counterpart of flora, which refers to plant life.",
+    "explanation": "Fauna refers to the animal life of a region, including wild species living in its different habitats. The term is the animal counterpart of flora, which refers to the plant life of that region.",
     "sourceFactIds": [
       "FAUNA-DEFINITION"
     ]
