@@ -10,7 +10,7 @@ for(const e of ENG007_CP002_ENTRIES_V1){
   const q=generateEng007CP002QuestionV1({seed:`entry:${e.id}:${mode}`,difficulty:e.difficulty,entryId:e.id,mode});
   assert.equal(q.options.length,4);assert.equal(new Set(q.options.map(x=>x.toLowerCase())).size,4);
   assert.equal(q.options[q.correctOptionIndex],mode==="correct-spelling"?e.correct:e.misspelling);
-  assert.ok(q.explanation.includes(e.correct));
+  assert.ok(q.explanation.includes(e.correct));assert.ok(q.explanation.length<=90);assert.ok(!/pay attention|standard spelling|common-type|internal letter|doubled-letter|word ending/i.test(q.explanation));
  }
 }
 const positions=[0,0,0,0],seen=new Set<string>();
