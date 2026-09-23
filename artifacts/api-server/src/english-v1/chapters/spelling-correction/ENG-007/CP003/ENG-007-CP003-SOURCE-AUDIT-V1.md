@@ -1,6 +1,6 @@
 # ENG-007-CP003 — Academic, Administrative & Legal Spelling — Source & Coverage Audit V1
 
-Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__REVIEW_ONLY__QUESTION_STUDIO_BLOCKED_UNTIL_CHAPTER_APPROVAL`
 
 ## Coverage
 - **260 governed spellings**: 70 Easy / 110 Medium / 80 Hard.
@@ -11,4 +11,4 @@ Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
 ## Quality rules
 The spelling item, not specialist subject knowledge, is tested. Distractors stay at the same spelling difficulty; accepted regional variants are never treated as errors.
 
-Review-only; Question Studio and downstream release remain blocked pending chapter-level approval.
+Human-approved for this checkpoint. Question Studio registration remains blocked until ENG-007 chapter-level approval; Question Bank, tests/mocks, public publication and production release remain disabled.
