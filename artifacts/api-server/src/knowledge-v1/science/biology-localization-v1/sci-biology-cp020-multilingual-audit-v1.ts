@@ -3,8 +3,8 @@ import { generateBiologyLocalizedCpV1 } from "./sci-biology-localization-generat
 
 const cpId="SCI-CP-020" as const;
 const locales=["en","hi","pa"] as const;
-const devanagari=/[ऀ-ॿ]/;
-const gurmukhi=/[਀-੿]/;
+const devanagari=/\p{Script=Devanagari}/u;
+const gurmukhi=/\p{Script=Gurmukhi}/u;
 const forbiddenEnglish=/\b(which|what|why|how|because|plant|plants|root|roots|leaf|leaves|stem|stems|flower|flowers|seed|seeds|water|food|xylem|phloem|stomata|transpiration|photosynthesis|respiration|pollen|fruit|hormone|oxygen|carbon|nitrogen|growth|tissue|meristem)\b/i;
 const allowedLatin=/\b(DNA|RNA|ATP|ER|pH)\b/g;
 const strayLatin=/[A-Za-z]{3,}/;
