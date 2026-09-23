@@ -1,6 +1,6 @@
 # ENG-007-CP001 — Core High-frequency Spelling — Source & Coverage Audit V1
 
-Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__REVIEW_ONLY__QUESTION_STUDIO_BLOCKED_UNTIL_CHAPTER_APPROVAL`
 
 ## Coverage
 
@@ -24,4 +24,4 @@ Before chapter freeze, disputed forms are checked against major learner/general 
 
 ## Lifecycle
 
-Review-only. No Question Studio registration, Question Bank persistence, test/mock eligibility, public publication, automatic learner release or production promotion before explicit human approval.
+Human-approved for CP001 source quality. Question Studio registration remains blocked until ENG-007 chapter-level approval. Question Bank persistence, test/mock eligibility, public publication, automatic learner release and production promotion remain disabled.
