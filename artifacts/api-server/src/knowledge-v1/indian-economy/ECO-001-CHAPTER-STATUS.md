@@ -11,11 +11,13 @@
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: NOT_STARTED
+- Localisation: IN PROGRESS — `ECO-CP-001` through `ECO-CP-016` implemented for Hindi and Punjabi review surfaces
+- Multilingual cumulative checkpoint: 700 questions per locale / 2,100 EN-HI-PA surfaces
+- Remaining localisation: `ECO-CP-017` through `ECO-CP-023`
 
 ## Closure audit
 
-The final closure audit revisited the earliest review candidates before declaring the English chapter complete:
+The final English closure audit revisited the earliest review candidates before declaring the English chapter complete:
 
 - `ECO-CP-001` Basic Economic Concepts — approved V2 and frozen;
 - `ECO-CP-002` Economic Systems & Sectors — approved V2 and frozen;
@@ -26,13 +28,12 @@ The audit removed legacy label/colon-style stems, tightened classification-axis 
 
 ## Question Studio registration
 
-The separately approved runtime promotion registers the completed English chapter through the shared `knowledge-v1` Question Studio engine as package `ECO-001`.
+The approved runtime promotion registers the completed English chapter through the shared `knowledge-v1` Question Studio engine as package `ECO-001`.
 
 Registration properties:
 - lifecycle: `QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1`;
 - runtime mode: `review-only`;
-- all 23 frozen CPs available through CP and QL selectors;
-- English only until localisation is separately approved;
+- all 23 frozen English CPs available through CP and QL selectors;
 - Easy / Medium / Hard / Mixed review generation supported;
 - deterministic selection without replacement;
 - source questions remain frozen and are not silently mutated by runtime registration;
@@ -40,11 +41,18 @@ Registration properties:
 
 Review-only registration does **not** authorize canonical Question Bank persistence, test/mock-test use, public publication, automatic student release, or production release.
 
-## Integration checkpoint
+## Multilingual checkpoint
 
-- Economy feature branch reconciled with `New-main` after the completed 23-CP registration work.
-- Shared `knowledge-v1` routing preserves newer Static GK adapters already present on `New-main` and adds `ECO-001` alongside them.
-- PR remains draft and unmerged pending integration checks; this checkpoint does not widen the review-only lifecycle.
+Hindi and Punjabi learner-facing review surfaces are implemented through `ECO-CP-016`.
+
+Current localization coverage:
+- `ECO-CP-001` through `ECO-CP-014` — merged earlier;
+- `ECO-CP-015` Economic Planning in India — multilingual V1 using V3 stem authority;
+- `ECO-CP-016` Economic Reforms of 1991 — multilingual V1 using V2 stem authority;
+- cumulative executable terminology/parity/stem-quality audit runs through CP016;
+- lifecycle remains `REVIEW_ONLY`.
+
+Localization preserves CP, QL, difficulty, source provenance, option order and correct-index parity. Native Hindi/Punjabi wording is enforced while approved abbreviations and protected exam terms remain intact.
 
 ## Frozen editorial standard
 
@@ -52,12 +60,14 @@ Review-only registration does **not** authorize canonical Question Bank persiste
 - complete questions rather than answer labels;
 - no explanation embedded in the stem;
 - plausible same-domain distractors;
-- simple, beginner-friendly explanations, normally 1–2 short sentences;
+- simple, beginner-friendly explanations;
 - Hard questions based on real distinctions, chronology or application rather than verbosity;
 - no volatile current figures unless a future separately sourced/current-affairs workflow explicitly requires them.
 
-## Next promotion boundary
+## Next checkpoint
 
-Any move beyond review-only Question Studio generation requires another explicit gate. In particular, do not enable Question Bank storage, BANK_ONLY lifecycle, tests/mocks, public publication, localisation, or production release without separate approval.
+Continue multilingual implementation with `ECO-CP-017` Agriculture & Indian Economy and `ECO-CP-018` Industry & Industrial Development, then continue sequentially through `ECO-CP-023`.
 
-Any future changes to frozen English content should be handled as a documented hardening/revision pass rather than silent edits.
+Any move beyond review-only Question Studio generation requires another explicit gate. Do not enable Question Bank storage, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release, or production release without separate approval.
+
+Frozen English content must not be silently revised; any hardening pass must be documented and reviewed.
