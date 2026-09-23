@@ -1,4 +1,4 @@
-import { ECO_CP018_REVIEW_V2 } from "../industrial-development/eco-cp018-review-generator-v2";
+import { ECO_CP018_REVIEW_V2 as ECO_CP018_SOURCE_V2 } from "../industrial-development/eco-cp018-review-generator-v2";
 import { ECO_LOCALIZATION_V1, type EcoLocaleV1, type EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
 
 type NativeLocale = Exclude<EcoLocaleV1, "en">;
@@ -272,7 +272,7 @@ const OPTIONS: Readonly<Record<string, Pair>> = Object.freeze(Object.fromEntries
   ["Industrial development stopped after the 1956 policy", ["1956 की नीति के बाद औद्योगिक विकास रुक गया", "1956 ਦੀ ਨੀਤੀ ਤੋਂ ਬਾਅਦ ਉਦਯੋਗਿਕ ਵਿਕਾਸ ਰੁਕ ਗਿਆ"]],
 ].map(([k, v]) => [k, pair(v as [string, string])])));
 
-const SOURCE = ECO_CP018_REVIEW_V2;
+const SOURCE = ECO_CP018_SOURCE_V2;
 
 function option(text: string, locale: NativeLocale): string {
   const hit = OPTIONS[text];

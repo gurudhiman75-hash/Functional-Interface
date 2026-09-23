@@ -1,4 +1,4 @@
-import { ECO_CP017_REVIEW_V2 } from "../agriculture-indian-economy/eco-cp017-review-generator-v2";
+import { ECO_CP017_REVIEW_V2 as ECO_CP017_SOURCE_V2 } from "../agriculture-indian-economy/eco-cp017-review-generator-v2";
 import { ECO_LOCALIZATION_V1, type EcoLocaleV1, type EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
 
 type NativeLocale = Exclude<EcoLocaleV1, "en">;
@@ -270,7 +270,7 @@ const OPTIONS: Readonly<Record<string, Pair>> = Object.freeze(Object.fromEntries
   ["Land ceiling—market price risk; FCI—weather insurance; CACP—loan default", ["भूमि सीमा—बाजार मूल्य जोखिम; FCI—मौसम बीमा; CACP—ऋण चूक", "ਜ਼ਮੀਨ ਹੱਦ—ਬਾਜ਼ਾਰ ਕੀਮਤ ਜੋਖ਼ਮ; FCI—ਮੌਸਮੀ ਬੀਮਾ; CACP—ਕਰਜ਼ਾ ਅਦਾਇਗੀ ਚੂਕ"]],
 ].map(([k, v]) => [k, pair(v as [string, string])])));
 
-const SOURCE = ECO_CP017_REVIEW_V2;
+const SOURCE = ECO_CP017_SOURCE_V2;
 
 function option(text: string, locale: NativeLocale): string {
   const hit = OPTIONS[text];
