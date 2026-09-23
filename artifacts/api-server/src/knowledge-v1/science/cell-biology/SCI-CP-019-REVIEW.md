@@ -724,7 +724,7 @@ D. 10
 
 ## Q49 · Easy · Organelle-function and cell-type reasoning
 
-DNA is replicated before mitosis so that:
+Which organelle is present in both typical plant and animal cells?
 
 A. Mitochondrion
 B. Cellulose cell wall
