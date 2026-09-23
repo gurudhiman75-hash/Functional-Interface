@@ -54,7 +54,7 @@ function trapAdvice(trap:string){
 }
 function explain(e:Eng007SharedEntry,m:Eng007SharedMode){
   return m==="correct-spelling"
-    ?`“${e.correct}” is the standard spelling; “${e.misspelling}” is a common-type spelling error. ${trapAdvice(e.trap)}`
+    ?`“${e.correct}” is correctly spelt. “${e.misspelling}” is incorrect. ${trapAdvice(e.trap)}`
     :`“${e.misspelling}” is misspelt. The correct spelling is “${e.correct}”. ${trapAdvice(e.trap)}`;
 }
 
