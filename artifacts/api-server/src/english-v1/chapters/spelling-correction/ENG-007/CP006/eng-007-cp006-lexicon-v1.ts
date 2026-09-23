@@ -81,6 +81,7 @@ apprise|appirse|medium|advanced-vocabulary|ENG-004-CP005|letter-order
 arachnophobia|arcahnophobia|medium|specific_fears|ENG-006-CP004|letter-order
 arbitration|arbirtation|medium|processes_actions|ENG-006-CP002|letter-order
 archaeologist|archeaologist|medium|experts_studies|ENG-006-CP001|letter-order
+assignor|assginor|medium|transaction_roles|ENG-006-CP004|letter-order
 baffling|baflfing|medium|advanced-vocabulary|ENG-004-CP001|letter-order
 behoove|behove|medium|advanced-vocabulary|ENG-004-CP005|omitted-letter
 bibliographer|bibliografer|medium|experts_studies|ENG-006-CP001|omitted-letter
@@ -89,6 +90,7 @@ brewery|breewry|medium|places_buildings|ENG-006-CP002|letter-order
 cadence|caednce|medium|music_sound_forms|ENG-006-CP004|letter-order
 callous|calluos|medium|advanced-vocabulary|ENG-004-CP002|letter-order
 capitalisation|capiatlisation|medium|economics_commerce|ENG-006-CP005|letter-order
+caption|capiton|medium|written_word_forms|ENG-006-CP004|letter-order
 chicanery|chicanary|medium|advanced-vocabulary|ENG-004-CP005|ending-pattern
 choreographer|chroeographer|medium|professions_specialists|ENG-006-CP002|letter-order
 chronicle|chroncile|medium|speech_writing|ENG-006-CP001|letter-order
@@ -100,6 +102,7 @@ condemn|codnemn|medium|advanced-vocabulary|ENG-004-CP001|letter-order
 confiscation|confiscasion|medium|processes_actions|ENG-006-CP002|ending-pattern
 constituent|constituant|medium|advanced-vocabulary|ENG-004-CP005|ending-pattern
 contemporaneous|conetmporaneous|medium|age_time_people|ENG-006-CP005|letter-order
+copious|copius|medium|advanced-vocabulary|ENG-004-CP001|omitted-letter
 curable|curbale|medium|qualities_conditions|ENG-006-CP002|letter-order
 decentralisation|decnetralisation|medium|processes_actions|ENG-006-CP002|letter-order
 demobilisation|deombilisation|medium|actions_processes|ENG-006-CP005|letter-order
@@ -193,16 +196,13 @@ afforestation|affroestation|hard|processes_actions|ENG-006-CP002|letter-order
 ailurophobia|aiulrophobia|hard|specific_fears|ENG-006-CP004|letter-order
 alliteration|aliteration|hard|literary_devices|ENG-006-CP003|omitted-letter
 appreciation|apperciation|hard|economic_financial|ENG-006-CP003|letter-order
-assignor|assginor|hard|transaction_roles|ENG-006-CP004|letter-order
 assimilation|assimilasion|hard|actions_processes|ENG-006-CP005|double-letter
 autobiography|autobiografy|hard|speech_writing|ENG-006-CP001|omitted-letter
 calligrapher|caligrapher|hard|professions_specialists|ENG-006-CP002|omitted-letter
-caption|capiton|hard|written_word_forms|ENG-006-CP004|letter-order
 claustrophobia|clasutrophobia|hard|medical_psychological|ENG-006-CP003|letter-order
 commemoration|comemmoration|hard|processes_actions|ENG-006-CP002|letter-order
 conscription|consrciption|hard|administrative_legal|ENG-006-CP003|letter-order
 constellation|contsellation|hard|collections_objects|ENG-006-CP002|letter-order
-copious|copius|hard|advanced-vocabulary|ENG-004-CP001|omitted-letter
 corruption|corrpution|hard|crime_offences|ENG-006-CP006|letter-order
 crystallisation|crystallisasion|hard|chemistry_materials|ENG-006-CP006|double-letter
 dissemination|dissmeination|hard|actions_processes|ENG-006-CP005|letter-order
