@@ -37,9 +37,9 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: IN PROGRESS — CP001–CP016 implemented for Hindi/Punjabi review surfaces
-- Multilingual cumulative checkpoint: 700 questions per locale / 2,100 EN-HI-PA surfaces
-- Remaining localisation: CP017–CP023
+- Localisation: IN PROGRESS — CP001–CP018 implemented for Hindi/Punjabi review surfaces
+- Multilingual cumulative checkpoint: 788 questions per locale / 2,364 EN-HI-PA surfaces
+- Remaining localisation: CP019–CP023
 - Closure record: `ECO-001-CHAPTER-STATUS.md`
 
 ## Binding rules
@@ -74,10 +74,12 @@ The registration:
 - CP001–CP014: merged multilingual V1
 - CP015: Economic Planning in India — multilingual V1, V3 stem authority
 - CP016: Economic Reforms of 1991 — multilingual V1, V2 stem authority
-- cumulative audit authority extends through CP016
-- remaining sequence: CP017 → CP018 → CP019 → CP020 → CP021 → CP022 → CP023
+- CP017: Agriculture & Indian Economy — multilingual V1, V2 stem authority
+- CP018: Industry & Industrial Development — multilingual V1, V2 stem authority
+- cumulative audit authority extends through CP018
+- remaining sequence: CP019 → CP020 → CP021 → CP022 → CP023
 - multilingual surfaces remain `REVIEW_ONLY`
 
 ## Next promotion gate
 
-Continue localisation from CP017. Any move to Question Bank storage / `BANK_ONLY`, test eligibility, mock-test eligibility, public publication or production release requires a separate explicit approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.
+Continue localisation from CP019. Any move to Question Bank storage / `BANK_ONLY`, test eligibility, mock-test eligibility, public publication or production release requires a separate explicit approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.
