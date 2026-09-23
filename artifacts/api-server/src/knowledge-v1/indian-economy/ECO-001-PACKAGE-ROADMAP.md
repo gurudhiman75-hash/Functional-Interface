@@ -32,7 +32,8 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 
 - English editorial review: COMPLETE
 - English CPs frozen: 23 / 23
-- Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY`
+- Chapter implementation: `CLOSED`
+- Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY` — EN/HI/PA
 - Question Studio package: `ECO-001`
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
@@ -58,12 +59,13 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 
 ## Question Studio review-only registration
 
-The completed English chapter is registered with the shared `knowledge-v1` Question Studio engine under package `ECO-001`.
+The completed multilingual chapter is registered with the shared `knowledge-v1` Question Studio engine under package `ECO-001`.
 
 The registration:
-- exposes all 23 approved/frozen English CPs;
+- exposes all 23 approved/frozen CPs in English, Hindi and Punjabi;
 - supports CP and QL selectors;
-- supports English Easy / Medium / Hard / Mixed review generation;
+- supports Easy / Medium / Hard / Mixed review generation in EN/HI/PA;
+- preserves the same seeded semantic draw across languages;
 - selects deterministically without replacement;
 - uses the standard `REVIEW_ONLY` lifecycle;
 - does not authorize canonical Question Bank persistence;
@@ -85,6 +87,6 @@ The registration:
 - multilingual localisation sequence is complete
 - multilingual surfaces remain `REVIEW_ONLY`
 
-## Next promotion gate
+## Chapter closure
 
-Multilingual localisation is complete. Any move to multilingual Question Studio runtime generation, Question Bank storage / `BANK_ONLY`, test eligibility, mock-test eligibility, public publication or production release requires a separate explicit approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.
+The Economy chapter is closed for content authoring, localization and Question Studio review-only integration. Any move to Question Bank storage / `BANK_ONLY`, test eligibility, mock-test eligibility, public publication or production release remains a separate explicit release approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.

@@ -25,7 +25,7 @@ Implemented multilingual scope:
 - ECO-CP-022 Human Development & Development Economics
 - ECO-CP-023 Important Economic Events & Milestones
 
-Lifecycle: REVIEW_ONLY. These localization checkpoints do not enable Question Bank persistence, test/mock eligibility, public publication, production release, or automatic learner release.
+Lifecycle: REVIEW_ONLY. All 23 multilingual localization checkpoints are wired into the `ECO-001` Question Studio review-only runtime for EN/HI/PA. They do not enable Question Bank persistence, test/mock eligibility, public publication, production release, or automatic learner release.
 
 Semantic authority: the frozen English review batches already merged on New-main. Hindi and Punjabi are native learner-facing surfaces that preserve CP, QL, difficulty, source provenance, option order and correct-index parity.
 
@@ -92,3 +92,14 @@ Review exports:
 - `ECO-MULTILINGUAL-V1-CP021-CP023-REVIEW.md`
 
 They are generated under `dist/economy-review/ECO-MULTILINGUAL-V1/` by `eco-localization-export-v1.ts`.
+
+## Question Studio closure
+
+- package: `ECO-001`
+- chapter implementation: `CLOSED`
+- languages: EN / HI / PA
+- runtime: `REGISTERED_REVIEW_ONLY`
+- questions per language: 1,008
+- total multilingual surfaces: 3,024
+- seeded selection is deterministic and preserves the same semantic question draw across languages
+- Question Bank, test/mock, public publication and production-release gates remain disabled
