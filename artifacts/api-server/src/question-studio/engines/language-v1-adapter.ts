@@ -41,6 +41,7 @@ import { languageV1Eng003Cp011QuestionStudioAdapterV1 } from "./language-v1-eng0
 import { languageV1Eng003Cp012QuestionStudioAdapterV1 } from "./language-v1-eng003-cp012-adapter-v1";
 import { isEng004QuestionStudioRequestV1, languageV1Eng004QuestionStudioAdapterV1 } from "./language-v1-eng004-adapter-v1";
 import { isEng005QuestionStudioRequestV1, languageV1Eng005QuestionStudioAdapterV1 } from "./language-v1-eng005-adapter-v1";
+import { isEng006QuestionStudioRequestV1, languageV1Eng006QuestionStudioAdapterV1 } from "./language-v1-eng006-adapter-v1";
 import { isPun001QuestionStudioRequestV1, languageV1Pun001QuestionStudioAdapterV1 } from "./language-v1-pun001-adapter-v1";
 
 function explicitSelectorValues(request: QuestionStudioGenerationRequest) {
@@ -80,6 +81,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...languageV1Eng003Cp001QuestionStudioAdapterV1.listPackages(),
       ...languageV1Eng004QuestionStudioAdapterV1.listPackages(),
       ...languageV1Eng005QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng006QuestionStudioAdapterV1.listPackages(),
       ...languageV1Pun001QuestionStudioAdapterV1.listPackages(),
     ];
   },
@@ -87,6 +89,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (isPun001QuestionStudioRequestV1(request)) return languageV1Pun001QuestionStudioAdapterV1.generate(request);
     if (isEng004QuestionStudioRequestV1(request)) return languageV1Eng004QuestionStudioAdapterV1.generate(request);
     if (isEng005QuestionStudioRequestV1(request)) return languageV1Eng005QuestionStudioAdapterV1.generate(request);
+    if (isEng006QuestionStudioRequestV1(request)) return languageV1Eng006QuestionStudioAdapterV1.generate(request);
     // ENG-003 reuses the ENG-001/ENG-002 grammar rule IDs. Resolve its explicit checkpoint/package
     // before the shared GR-* fallback so ENG-003 requests cannot be stolen by ENG-002.
     const eng003CpSelector = explicitEng003CpSelector(request);
