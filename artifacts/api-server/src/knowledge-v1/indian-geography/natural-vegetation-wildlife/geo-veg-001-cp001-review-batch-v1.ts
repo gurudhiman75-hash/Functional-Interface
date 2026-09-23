@@ -53,7 +53,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-VEG-001-QL-001",
     "qlName": "Natural vegetation meaning",
     "difficulty": "Medium",
-    "stem": "The same tree species grows wild in a forest and is also planted in a garden. Which factor decides whether it forms part of natural vegetation?",
+    "stem": "The same tree species grows wild in a forest and is also planted in a garden. What determines whether it forms part of natural vegetation?",
     "answer": "Whether it developed naturally without human planting and remained undisturbed",
     "distractors": [
       "Whether the tree is tall",
@@ -268,7 +268,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Relief",
       "Drainage"
     ],
-    "explanation": "Trees, grasses and shrubs are plant life, so the study concerns the flora of the district. Fauna would refer to the animals living in the same region.",
+    "explanation": "Trees, grasses and shrubs are plant life, so the study concerns the flora of the district. Fauna would refer to the animals living in the same region, making the plant–animal distinction clear.",
     "sourceFactIds": [
       "FLORA-STUDY"
     ]
