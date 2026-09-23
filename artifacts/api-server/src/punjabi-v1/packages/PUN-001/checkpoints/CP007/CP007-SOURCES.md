@@ -11,7 +11,7 @@
 
 ## Audit result
 - 95 final ਕਾਰਕ authorities after donor/current union and marker normalization
-- 9 approved three-way ਸੰਬੰਧਕ authorities retained
+- 9 approved three-way ਸੰਬੰਧਕ authorities retained as the baseline; 33 additional sentence-grounded authorities added in the breadth pass
 - 23 sentence-grounded ਯੋਜਕ authorities
 - 37 contextual ਵਿਸਮਿਕ authorities
 
@@ -20,4 +20,15 @@ Alternative donor ਸੰਬੰਧਕ labels such as ਵਿਕਾਰੀ/ਅਵਿ
 
 Weak or implicit ਕਾਰਕ marker examples are rejected rather than retained for count. Named/local examples are generalized where the grammar authority itself is sound.
 
-No fixed numerical target is used.
+## Breadth-pass source registry
+These are public secondary transcriptions/solutions of the PSEB grammar exercises, used as cross-check references rather than represented as official PSEB-hosted pages.
+
+- `PSEB-SOLUTIONS-8-SAMB-PURAN` — PSEB 8th Class Punjabi Vyakaran ਸੰਬੰਧਕ: https://psebsolutions.in/pseb-8th-class-punjabi-vyakaran-sambandhan/ — complete/pੂਰਨ definition and examples including ਦਾ, ਦੇ, ਨੇ, ਤੋਂ.
+- `PSEB-SOLUTIONS-8-SAMB-APURAN` — same PSEB 8 source — ਅਪੂਰਨ definition and explicit ਪਰੇ / ਦੂਰ examples.
+- `PSEB-SOLUTIONS-7-SAMB-APURAN` — PSEB 7th Class Punjabi Vyakaran ਸੰਬੰਧਕ: https://psebsolutions.com/pseb-7th-class-punjabi-vyakaran-sambandhak/ — supports the reviewed ਉਰੇ / ਪਰੇ pattern.
+- `PSEB-SOLUTIONS-8-SAMB-DUBAJRA` — same PSEB 8 source — explicit paired examples ਬਗੈਰ / ਦੇ ਬਗੈਰ and ਉੱਤੇ / ਦੇ ਉੱਤੇ.
+- `PUNJABI-GRAMMAR-SAMB-APURAN` — PunjabiGrammar public grammar reference: https://www.punjabigrammar.com/2021/10/punjabi-grammar-introduction-of-sambandhak-in-punjabi-language-for-kids-and-students-for-class-5-6-7-8-9-10.html — explicitly lists ਸਾਹਮਣੇ among ਅਪੂਰਨ forms; used to correct inherited SR09.
+
+The breadth pass does not promote other mixed-taxonomy donor labels. New learner-facing sentences are authored examples constrained by these checked classifications.
+
+The breadth pass now contains 42 sentence-grounded ਸੰਬੰਧਕ authorities, balanced at 14 per approved class.
