@@ -126,6 +126,17 @@ const nativeTerms = [
   "Trade liberalisation",
   "Stabilisation",
   "Structural reform",
+  "Minimum Support Price",
+  "Public Distribution System",
+  "Crop insurance",
+  "Agricultural diversification",
+  "Manufacturing",
+  "Industrial corridor",
+  "Special Economic Zone",
+  "Capital goods",
+  "Intermediate goods",
+  "Consumer durable",
+  "Industrial Policy Resolution",
 ] as const;
 
 const protectedExamTerms = [
@@ -180,6 +191,7 @@ const protectedExamTerms = [
   "Mahalanobis model",
   "New Industrial Policy",
   "Narasimham Committee",
+  "Make in India",
 ] as const;
 
 const allowedAbbreviations = [
@@ -247,6 +259,19 @@ const allowedAbbreviations = [
   "FERA",
   "NDC",
   "LPG",
+  "MSP",
+  "HYV",
+  "CACP",
+  "FCI",
+  "PDS",
+  "PMFBY",
+  "APMC",
+  "e-NAM",
+  "IIP",
+  "ICI",
+  "SEZ",
+  "SEZs",
+  "MSMED",
 ] as const;
 
 export const ECO_TERM_POLICY_V1: readonly EcoTermPolicyEntryV1[] = Object.freeze([

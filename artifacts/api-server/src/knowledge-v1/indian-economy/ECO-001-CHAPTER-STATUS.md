@@ -11,9 +11,9 @@
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: IN PROGRESS — `ECO-CP-001` through `ECO-CP-016` implemented for Hindi and Punjabi review surfaces
-- Multilingual cumulative checkpoint: 700 questions per locale / 2,100 EN-HI-PA surfaces
-- Remaining localisation: `ECO-CP-017` through `ECO-CP-023`
+- Localisation: IN PROGRESS — `ECO-CP-001` through `ECO-CP-018` implemented for Hindi and Punjabi review surfaces
+- Multilingual cumulative checkpoint: 788 questions per locale / 2,364 EN-HI-PA surfaces
+- Remaining localisation: `ECO-CP-019` through `ECO-CP-023`
 
 ## Closure audit
 
@@ -43,13 +43,15 @@ Review-only registration does **not** authorize canonical Question Bank persiste
 
 ## Multilingual checkpoint
 
-Hindi and Punjabi learner-facing review surfaces are implemented through `ECO-CP-016`.
+Hindi and Punjabi learner-facing review surfaces are implemented through `ECO-CP-018`.
 
 Current localization coverage:
 - `ECO-CP-001` through `ECO-CP-014` — merged earlier;
 - `ECO-CP-015` Economic Planning in India — multilingual V1 using V3 stem authority;
 - `ECO-CP-016` Economic Reforms of 1991 — multilingual V1 using V2 stem authority;
-- cumulative executable terminology/parity/stem-quality audit runs through CP016;
+- `ECO-CP-017` Agriculture & Indian Economy — multilingual V1 using V2 stem authority;
+- `ECO-CP-018` Industry & Industrial Development — multilingual V1 using V2 stem authority;
+- cumulative executable terminology/parity/stem-quality audit runs through CP018;
 - lifecycle remains `REVIEW_ONLY`.
 
 Localization preserves CP, QL, difficulty, source provenance, option order and correct-index parity. Native Hindi/Punjabi wording is enforced while approved abbreviations and protected exam terms remain intact.
@@ -66,7 +68,7 @@ Localization preserves CP, QL, difficulty, source provenance, option order and c
 
 ## Next checkpoint
 
-Continue multilingual implementation with `ECO-CP-017` Agriculture & Indian Economy and `ECO-CP-018` Industry & Industrial Development, then continue sequentially through `ECO-CP-023`.
+Continue multilingual implementation with `ECO-CP-019` Financial Markets and `ECO-CP-020` External Sector & Balance of Payments, then continue sequentially through `ECO-CP-023`.
 
 Any move beyond review-only Question Studio generation requires another explicit gate. Do not enable Question Bank storage, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release, or production release without separate approval.
 
