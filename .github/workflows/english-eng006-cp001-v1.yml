@@ -6,7 +6,6 @@ on:
     paths:
       - artifacts/api-server/src/english-v1/chapters/one-word-substitution/ENG-006/**
       - artifacts/api-server/src/english-v1/tests/eng-006-cp001-v1.test.ts
-      - .github/workflows/english-eng006-cp001-v1.yml
   workflow_dispatch:
 permissions:
   contents: read
