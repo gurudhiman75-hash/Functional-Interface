@@ -2,7 +2,8 @@ name: Validate English ENG-007 CP001 V1
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/english-v1/chapters/spelling-correction/ENG-007/**
