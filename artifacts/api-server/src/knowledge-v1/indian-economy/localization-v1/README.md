@@ -1,4 +1,4 @@
-# Economy Multilingual V1 — CP001–CP018
+# Economy Multilingual V1 — CP001–CP020
 
 Implemented multilingual scope:
 - ECO-CP-001 Basic Economic Concepts
@@ -19,6 +19,8 @@ Implemented multilingual scope:
 - ECO-CP-016 Economic Reforms of 1991
 - ECO-CP-017 Agriculture & Indian Economy
 - ECO-CP-018 Industry & Industrial Development
+- ECO-CP-019 Financial Markets
+- ECO-CP-020 External Sector & Balance of Payments
 
 Lifecycle: REVIEW_ONLY. These localization checkpoints do not enable Question Bank persistence, test/mock eligibility, public publication, production release, or automatic learner release.
 
@@ -43,13 +45,16 @@ Checkpoint sizes:
 - CP016: 44 questions per locale
 - CP017: 44 questions per locale
 - CP018: 44 questions per locale
-- CP001–CP018 cumulative: 788 questions per locale / 2,364 EN-HI-PA surfaces
-- Current CP017–CP018 checkpoint: 88 questions per locale / 264 EN-HI-PA surfaces
+- CP019: 44 questions per locale
+- CP020: 44 questions per locale
+- CP001–CP020 cumulative: 876 questions per locale / 2,628 EN-HI-PA surfaces
+- Current CP019–CP020 checkpoint: 88 questions per locale / 264 EN-HI-PA surfaces
 - CP009 and CP010 use V2 stem-polish authorities derived from frozen V1 batches
 - CP011 uses V2 and CP012 uses V3 stem-polish authority
 - CP013 and CP014 use V2 stem-polish authorities
 - CP015 uses V3 and CP016 uses V2 stem-polish authority
-- CP017 and CP018 use V2 stem-polish authorities; stem-only revisions preserve options, answers, explanations, QL, difficulty and source provenance
+- CP017 and CP018 use V2 stem-polish authorities
+- CP019 and CP020 use V2 stem-polish authorities; stem-only revisions preserve options, answers, explanations, QL, difficulty and source provenance
 
 Quality gates:
 - exact frozen-English no-drift
@@ -63,8 +68,8 @@ Quality gates:
 - `ABBREVIATION` entries retain standard forms such as GDP, CPI, WPI, GVA, LFPR, MGNREGA, RBI, FEMA, PSS, SEBI, NABARD, MPC, SDF, MSF, CRR, OMO, RRB, PACS, NPA, PSL, MSME, DICGC, DFI, IFCI, SIDBI, NHB, NaBFID, NBFC, HFC, FRBM, GST, CGST, SGST, IGST, UTGST, CBDT, CAG, LERMS, FERA, NDC and LPG
 - all other Latin-script text is treated as leakage and fails the executable audit
 - current protected labels include Disinflation, Demand-pull inflation, Cost-push inflation, Headline inflation, Core inflation, GDP deflator, Core CPI, Hyperinflation, Headcount ratio, Fiat money, Legal tender, Reserve money, High-powered money, Narrow money, Broad money, Money multiplier, Lender of last resort, Repo, Reverse Repo, Bank Rate, Open Market Operations, Standing Deposit Facility, Marginal Standing Facility, LAF corridor, Small Finance Bank, Payments Bank, Priority Sector Lending, Commercial Paper, and official committee/group names
-- full CP001–CP018 terminology/parity audit runs in Economy CI across 788 questions per locale / 2,364 surfaces
-- CP009–CP018 stems pass a mechanical-phrasing guard covering generated fillers such as `other things equal`, `mainly`, `generally`, `primarily`, `normally`, `best fits`, `most directly`, `main role`, `best represents`, `best distinguishes` and native-language equivalents
+- full CP001–CP020 terminology/parity audit runs in Economy CI across 876 questions per locale / 2,628 surfaces
+- CP009–CP020 stems pass a mechanical-phrasing guard covering generated fillers such as `other things equal`, `mainly`, `generally`, `primarily`, `normally`, `best fits`, `most directly`, `main role`, `best represents`, `best distinguishes` and native-language equivalents
 
 Review exports:
 - `ECO-MULTILINGUAL-V1-CP001-CP002-REVIEW.md`
@@ -76,5 +81,6 @@ Review exports:
 - `ECO-MULTILINGUAL-V1-CP013-CP014-REVIEW.md`
 - `ECO-MULTILINGUAL-V1-CP015-CP016-REVIEW.md`
 - `ECO-MULTILINGUAL-V1-CP017-CP018-REVIEW.md`
+- `ECO-MULTILINGUAL-V1-CP019-CP020-REVIEW.md`
 
 They are generated under `dist/economy-review/ECO-MULTILINGUAL-V1/` by `eco-localization-export-v1.ts`.

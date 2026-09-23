@@ -137,6 +137,33 @@ const nativeTerms = [
   "Intermediate goods",
   "Consumer durable",
   "Industrial Policy Resolution",
+  "Money market",
+  "Capital market",
+  "Primary market",
+  "Secondary market",
+  "Equity share",
+  "Debt security",
+  "Demat account",
+  "Trading account",
+  "Mutual fund",
+  "Treasury Bill",
+  "Certificate of Deposit",
+  "Call-money market",
+  "Repo transaction",
+  "Initial Public Offer",
+  "Diversification",
+  "Liquidity",
+  "Balance of Payments",
+  "Current account",
+  "Trade balance",
+  "Current transfer",
+  "Portfolio investment",
+  "Currency depreciation",
+  "Currency appreciation",
+  "Devaluation",
+  "Revaluation",
+  "Foreign-exchange reserves",
+  "Current-account convertibility",
 ] as const;
 
 const protectedExamTerms = [
@@ -272,6 +299,9 @@ const allowedAbbreviations = [
   "SEZ",
   "SEZs",
   "MSMED",
+  "FDI",
+  "FPI",
+  "NAV",
 ] as const;
 
 export const ECO_TERM_POLICY_V1: readonly EcoTermPolicyEntryV1[] = Object.freeze([

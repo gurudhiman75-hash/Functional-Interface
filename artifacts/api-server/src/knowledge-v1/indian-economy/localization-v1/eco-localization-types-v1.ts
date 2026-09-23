@@ -5,7 +5,7 @@ export type EcoLocaleV1 = "en" | "hi" | "pa";
 export type EcoLocalizedQuestionV1 = {
   questionId: string;
   chapterId: "ECO-001";
-  cpId: "ECO-CP-001" | "ECO-CP-002" | "ECO-CP-003" | "ECO-CP-004" | "ECO-CP-005" | "ECO-CP-006" | "ECO-CP-007" | "ECO-CP-008" | "ECO-CP-009" | "ECO-CP-010" | "ECO-CP-011" | "ECO-CP-012" | "ECO-CP-013" | "ECO-CP-014" | "ECO-CP-015" | "ECO-CP-016" | "ECO-CP-017" | "ECO-CP-018";
+  cpId: "ECO-CP-001" | "ECO-CP-002" | "ECO-CP-003" | "ECO-CP-004" | "ECO-CP-005" | "ECO-CP-006" | "ECO-CP-007" | "ECO-CP-008" | "ECO-CP-009" | "ECO-CP-010" | "ECO-CP-011" | "ECO-CP-012" | "ECO-CP-013" | "ECO-CP-014" | "ECO-CP-015" | "ECO-CP-016" | "ECO-CP-017" | "ECO-CP-018" | "ECO-CP-019" | "ECO-CP-020";
   qlId: string;
   qlName: string;
   difficulty: KnowledgeV1Difficulty;
