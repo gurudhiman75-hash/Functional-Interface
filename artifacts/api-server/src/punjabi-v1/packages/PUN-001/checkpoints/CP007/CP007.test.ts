@@ -7,6 +7,12 @@ const banned=/(ਟਕਸਾਲੀ|ਸਿੱਧੇ ਅਰਥ|ਪ੍ਰਮਾਣ�
 const personal=/(ਗੁਰਪ੍ਰੀਤ|ਰੀਨਾ|ਮੋਹਨ|ਸੋਹਨ|ਸੁਖਵਿੰਦਰ|ਪੰਜਾਬ)/u;
 assert.equal(CP007_KARAK_AUTHORITIES.length,95);
 assert.equal(CP007_ALL_SAMBANDHAK_AUTHORITIES.length,42);
+const sambandhakExpressions=new Set(CP007_ALL_SAMBANDHAK_AUTHORITIES.map(x=>x.expression));
+assert.equal(sambandhakExpressions.size,20);
+assert.equal(new Set(CP007_ALL_SAMBANDHAK_AUTHORITIES.filter(x=>x.kind==="PURAN").map(x=>x.expression)).size,10);
+assert.equal(new Set(CP007_ALL_SAMBANDHAK_AUTHORITIES.filter(x=>x.kind==="APURAN").map(x=>x.expression)).size,6);
+assert.equal(new Set(CP007_ALL_SAMBANDHAK_AUTHORITIES.filter(x=>x.kind==="DUBAJRA").map(x=>x.expression)).size,4);
+for(const form of ["ਦੀਆਂ","ਨੂੰ","ਤੀਕ","ਤੋੜੀਂ","ਥੋਂ","ਕੋਲ","ਵਾਸਤੇ"])assert(sambandhakExpressions.has(form),form+": expected source-backed ਸੰਬੰਧਕ form");
 assert.equal(CP007_YOJAK_AUTHORITIES.length,23);
 assert.equal(CP007_VISMIK_AUTHORITIES.length,37);
 assert.equal(CP007_FAMILIES.length,9);
