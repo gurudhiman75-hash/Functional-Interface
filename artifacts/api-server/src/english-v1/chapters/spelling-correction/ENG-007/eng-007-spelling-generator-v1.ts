@@ -71,21 +71,10 @@ function spellingVariants(entries:readonly Eng007SharedEntry[],target:Eng007Shar
   if(variants.length<3)throw new Error("ENG-007 requires three spelling distractors");
   return variants;
 }
-function trapAdvice(trap:string){
-  switch(trap){
-    case"omitted-letter":return"One letter has been omitted in the incorrect form.";
-    case"extra-letter":return"The incorrect form contains an extra letter.";
-    case"letter-order":return"Two letters are in the wrong order in the incorrect form.";
-    case"vowel-sequence":return"Pay attention to the vowel sequence.";
-    case"double-letter":return"Pay attention to the doubled-letter pattern.";
-    case"ending-pattern":return"Pay attention to the standard word ending.";
-    default:return"Compare the internal letter pattern carefully.";
-  }
-}
 function explain(e:Eng007SharedEntry,m:Eng007SharedMode){
   return m==="correct-spelling"
-    ?`“${e.correct}” is correctly spelt. “${e.misspelling}” is incorrect. ${trapAdvice(e.trap)}`
-    :`“${e.misspelling}” is misspelt. The correct spelling is “${e.correct}”. ${trapAdvice(e.trap)}`;
+    ? `Correct spelling: “${e.correct}”.`
+    : `“${e.misspelling}” is misspelt. Correct spelling: “${e.correct}”.`;
 }
 
 export function buildEng007SpellingQuestionV1(cpId:string,entries:readonly Eng007SharedEntry[],input:GenerateEng007SharedInput):Eng007SharedQuestion{
