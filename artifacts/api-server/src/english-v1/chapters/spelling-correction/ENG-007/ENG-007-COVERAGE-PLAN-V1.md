@@ -34,7 +34,6 @@ Target: **about 1,500 governed competitive-exam spellings** across six checkpoin
 ## Current breadth
 
 - Approved: **1,020** spellings (CP001-CP004).
-- Approved: **1,020** spellings (CP001-CP004).
 - Implemented and awaiting review: **480** spellings (CP005-CP006).
 - Current governed total: **1,500 unique spellings**.
 - Planned remaining: **0** spellings.
