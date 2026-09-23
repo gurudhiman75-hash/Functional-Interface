@@ -287,7 +287,16 @@ function fallbackOption(x:string,l:NativeLocale):string{
  "Election of legislators":p("विधायकों का चुनाव","ਵਿਧਾਇਕਾਂ ਦੀ ਚੋਣ"),"Appointment of Governors":p("राज्यपालों की नियुक्ति","ਰਾਜਪਾਲਾਂ ਦੀ ਨਿਯੁਕਤੀ"),"Creation of new States":p("नए राज्यों का निर्माण","ਨਵੇਂ ਰਾਜਾਂ ਦੀ ਸਥਾਪਨਾ"),
  "Attorney-General":p("महान्यायवादी","ਅਟਾਰਨੀ ਜਨਰਲ"),"Comptroller and Auditor-General":p("नियंत्रक एवं महालेखा परीक्षक","ਕੰਟਰੋਲਰ ਅਤੇ ਆਡੀਟਰ ਜਨਰਲ"),
  "Only if the Governor waives one year":p("केवल यदि राज्यपाल एक वर्ष की कमी माफ कर दे","ਸਿਰਫ਼ ਜੇ ਰਾਜਪਾਲ ਇੱਕ ਸਾਲ ਦੀ ਘਾਟ ਮਾਫ਼ ਕਰ ਦੇਵੇ"),"Only if the State PSC approves":p("केवल यदि राज्य लोक सेवा आयोग मंजूरी दे","ਸਿਰਫ਼ ਜੇ ਰਾਜ ਲੋਕ ਸੇਵਾ ਆਯੋਗ ਮਨਜ਼ੂਰੀ ਦੇਵੇ"),
- "Both Articles deal only with writs":p("दोनों अनुच्छेद केवल रिट से जुड़े हैं","ਦੋਵੇਂ ਅਨੁਛੇਦ ਸਿਰਫ਼ ਰਿਟ ਬਾਰੇ ਹਨ"),"Article 227 appoints district judges; Article 235 creates High Courts":p("अनुच्छेद 227 जिला न्यायाधीश नियुक्त करता है; अनुच्छेद 235 उच्च न्यायालय बनाता है","ਅਨੁਛੇਦ 227 ਜ਼ਿਲ੍ਹਾ ਨਿਆਂਧੀਸ਼ ਨਿਯੁਕਤ ਕਰਦਾ ਹੈ; ਅਨੁਛੇਦ 235 ਹਾਈ ਕੋਰਟ ਬਣਾਉਂਦਾ ਹੈ"),"Article 235 is the Supreme Court's appellate power":p("अनुच्छेद 235 सर्वोच्च न्यायालय की अपीलीय शक्ति है","ਅਨੁਛੇਦ 235 ਸੁਪਰੀਮ ਕੋਰਟ ਦੀ ਅਪੀਲੀ ਸ਼ਕਤੀ ਹੈ")
+ "Both Articles deal only with writs":p("दोनों अनुच्छेद केवल रिट से जुड़े हैं","ਦੋਵੇਂ ਅਨੁਛੇਦ ਸਿਰਫ਼ ਰਿਟ ਬਾਰੇ ਹਨ"),"Article 227 appoints district judges; Article 235 creates High Courts":p("अनुच्छेद 227 जिला न्यायाधीश नियुक्त करता है; अनुच्छेद 235 उच्च न्यायालय बनाता है","ਅਨੁਛੇਦ 227 ਜ਼ਿਲ੍ਹਾ ਨਿਆਂਧੀਸ਼ ਨਿਯੁਕਤ ਕਰਦਾ ਹੈ; ਅਨੁਛੇਦ 235 ਹਾਈ ਕੋਰਟ ਬਣਾਉਂਦਾ ਹੈ"),"Article 235 is the Supreme Court's appellate power":p("अनुच्छेद 235 सर्वोच्च न्यायालय की अपीलीय शक्ति है","ਅਨੁਛੇਦ 235 ਸੁਪਰੀਮ ਕੋਰਟ ਦੀ ਅਪੀਲੀ ਸ਼ਕਤੀ ਹੈ"),
+ "Citizenship of India":p("भारत की नागरिकता","ਭਾਰਤ ਦੀ ਨਾਗਰਿਕਤਾ"),
+ "Article 230 — district-judge appointment":p("अनुच्छेद 230 — जिला न्यायाधीश की नियुक्ति","ਅਨੁਛੇਦ 230 — ਜ਼ਿਲ੍ਹਾ ਨਿਆਂਧੀਸ਼ ਦੀ ਨਿਯੁਕਤੀ"),
+ "Article 233 — writ jurisdiction":p("अनुच्छेद 233 — रिट अधिकारिता","ਅਨੁਛੇਦ 233 — ਰਿਟ ਅਧਿਕਾਰ-ਖੇਤਰ"),
+ "Article 235 — common High Court":p("अनुच्छेद 235 — साझा उच्च न्यायालय","ਅਨੁਛੇਦ 235 — ਸਾਂਝਾ ਹਾਈ ਕੋਰਟ"),
+ "It abolishes Supreme Court writ jurisdiction":p("यह सर्वोच्च न्यायालय की रिट अधिकारिता समाप्त कर देता है","ਇਹ ਸੁਪਰੀਮ ਕੋਰਟ ਦਾ ਰਿਟ ਅਧਿਕਾਰ-ਖੇਤਰ ਖਤਮ ਕਰ ਦਿੰਦਾ ਹੈ"),
+ "It allows High Courts to amend laws":p("यह उच्च न्यायालयों को कानून संशोधित करने देता है","ਇਹ ਹਾਈ ਕੋਰਟਾਂ ਨੂੰ ਕਾਨੂੰਨ ਸੋਧਣ ਦੀ ਆਗਿਆ ਦਿੰਦਾ ਹੈ"),
+ "It covers Fundamental Rights and other legal purposes":p("यह मौलिक अधिकारों और अन्य कानूनी उद्देश्यों को शामिल करता है","ਇਹ ਮੂਲ ਅਧਿਕਾਰਾਂ ਅਤੇ ਹੋਰ ਕਾਨੂੰਨੀ ਮਕਸਦਾਂ ਨੂੰ ਸ਼ਾਮਲ ਕਰਦਾ ਹੈ"),
+ "It has no territorial limits":p("इसकी कोई क्षेत्रीय सीमा नहीं है","ਇਸਦੀ ਕੋਈ ਖੇਤਰੀ ਹੱਦ ਨਹੀਂ ਹੈ"),
+ "Prohibition stops pending proceedings; certiorari can quash a completed order":p("प्रोहिबिशन लंबित कार्यवाही रोकती है; सर्टियोरारी दिए जा चुके आदेश को रद्द कर सकती है","ਪ੍ਰੋਹਿਬਿਸ਼ਨ ਲੰਬਿਤ ਕਾਰਵਾਈ ਰੋਕਦੀ ਹੈ; ਸਰਟੀਓਰਾਰੀ ਦਿੱਤੇ ਜਾ ਚੁੱਕੇ ਹੁਕਮ ਨੂੰ ਰੱਦ ਕਰ ਸਕਦੀ ਹੈ")
  };
  const z=simple[x];if(z)return z[l];
  throw new Error("POL-CP-013 missing localized option: "+x);
