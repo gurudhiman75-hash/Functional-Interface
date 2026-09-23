@@ -11,9 +11,9 @@
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: IN PROGRESS — `ECO-CP-001` through `ECO-CP-020` implemented for Hindi and Punjabi review surfaces
-- Multilingual cumulative checkpoint: 876 questions per locale / 2,628 EN-HI-PA surfaces
-- Remaining localisation: `ECO-CP-021` through `ECO-CP-023`
+- Localisation: COMPLETE — `ECO-CP-001` through `ECO-CP-023` implemented for Hindi and Punjabi review surfaces
+- Multilingual cumulative checkpoint: 1,008 questions per locale / 3,024 EN-HI-PA surfaces
+- Remaining localisation: NONE
 
 ## Closure audit
 
@@ -43,7 +43,7 @@ Review-only registration does **not** authorize canonical Question Bank persiste
 
 ## Multilingual checkpoint
 
-Hindi and Punjabi learner-facing review surfaces are implemented through `ECO-CP-020`.
+Hindi and Punjabi learner-facing review surfaces are implemented through `ECO-CP-023`.
 
 Current localization coverage:
 - `ECO-CP-001` through `ECO-CP-014` — merged earlier;
@@ -53,7 +53,11 @@ Current localization coverage:
 - `ECO-CP-018` Industry & Industrial Development — multilingual V1 using V2 stem authority;
 - `ECO-CP-019` Financial Markets — multilingual V1 using V2 stem authority;
 - `ECO-CP-020` External Sector & Balance of Payments — multilingual V1 using V2 stem authority;
-- cumulative executable terminology/parity/stem-quality audit runs through CP020;
+- `ECO-CP-021` International Economic Institutions — multilingual V1 using V3 stem authority;
+- `ECO-CP-022` Human Development & Development Economics — multilingual V1 using V2 stem authority;
+- `ECO-CP-023` Important Economic Events & Milestones — multilingual V1 using V2 stem authority;
+- cumulative executable terminology/parity/stem-quality audit runs through CP023;
+- multilingual localisation is complete across all 23 CPs;
 - lifecycle remains `REVIEW_ONLY`.
 
 Localization preserves CP, QL, difficulty, source provenance, option order and correct-index parity. Native Hindi/Punjabi wording is enforced while approved abbreviations and protected exam terms remain intact.
@@ -70,7 +74,7 @@ Localization preserves CP, QL, difficulty, source provenance, option order and c
 
 ## Next checkpoint
 
-Continue multilingual implementation with `ECO-CP-021` International Economic Institutions and `ECO-CP-022` Human Development & Development Economics, then finish with `ECO-CP-023` Important Economic Events & Milestones.
+English and multilingual editorial coverage are complete across all 23 CPs. Keep `ECO-001` at `REVIEW_ONLY` unless a separate approval explicitly promotes multilingual runtime generation or downstream Question Bank/test publication.
 
 Any move beyond review-only Question Studio generation requires another explicit gate. Do not enable Question Bank storage, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release, or production release without separate approval.
 
