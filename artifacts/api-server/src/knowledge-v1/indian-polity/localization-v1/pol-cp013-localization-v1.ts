@@ -214,7 +214,7 @@ function fallbackOption(x:string,l:NativeLocale):string{
  if(y!==x)return y;
  const simple:Record<string,Pair>={
  "Only during an Emergency":p("केवल आपातकाल के दौरान","ਸਿਰਫ਼ ਐਮਰਜੈਂਸੀ ਦੌਰਾਨ"),
- "Only with Supreme Court approval":p("केवल सर्वोच्च न्यायालय की अनुमति से","ਸਿਰਫ਼ ਸੁਪਰੀਮ ਕੋਰਟ ਦੀ ਮਨਜ਼ੂਰੀ ਨਾਲ"),
+ "Only with Supreme Court approval":p("केवल सर्वोच्च न्यायालय की अनुमति से","ਸਿਰਫ਼ ਸੁਪਰੀਮ ਕੋਰਟ ਦੀ ਮਨਜ਼ੂਰੀ ਨਾਲ"),"Only with Supreme Court permission":p("केवल सर्वोच्च न्यायालय की अनुमति से","ਸਿਰਫ਼ ਸੁਪਰੀਮ ਕੋਰਟ ਦੀ ਮਨਜ਼ੂਰੀ ਨਾਲ"),
  "Only in Fundamental Rights cases":p("केवल मौलिक अधिकार के मामलों में","ਸਿਰਫ਼ ਮੂਲ ਅਧਿਕਾਰਾਂ ਦੇ ਮਾਮਲਿਆਂ ਵਿੱਚ"),
  "Only for habeas corpus":p("केवल हैबियस कॉर्पस के लिए","ਸਿਰਫ਼ ਹੇਬੀਅਸ ਕਾਰਪਸ ਲਈ"),
  "Only when a State is a party":p("केवल जब राज्य पक्षकार हो","ਸਿਰਫ਼ ਜਦੋਂ ਰਾਜ ਪੱਖ ਹੋਵੇ"),
