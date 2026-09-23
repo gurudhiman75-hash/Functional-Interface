@@ -3,7 +3,7 @@
 Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
 
 ## Coverage
-- **220 governed spellings**: 40 Easy / 100 Medium / 80 Hard.
+- **220 governed spellings**: 73 Easy / 111 Medium / 36 Hard.
 - Focus: long-tail, specialist and high-confusion spellings retained after the chapter-wide breadth pass.
 - Canonical words are drawn from unused ENG-006 specialist authorities plus remaining vetted ENG-004 vocabulary and deduplicated against CP001-CP005.
 - The final chapter total reaches **1,500 unique spellings**.
