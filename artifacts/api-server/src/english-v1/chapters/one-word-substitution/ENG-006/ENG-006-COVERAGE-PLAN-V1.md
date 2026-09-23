@@ -1,6 +1,6 @@
 # ENG-006 — One-word Substitution — Coverage Plan V1
 
-Status: `IMPLEMENTATION_COMPLETE__1400_SUBSTITUTIONS__HUMAN_REVIEW_PENDING`
+Status: `HUMAN_APPROVED__1400_SUBSTITUTIONS__QUESTION_STUDIO_REVIEW_ONLY`
 
 Chapter target expanded and achieved: **1,400 unique one-word substitutions**.
 
@@ -46,4 +46,4 @@ CP005 and CP006 deliberately expand beyond the original 840-term core into:
 - crafts/trades, speech-language, legal, crime, residence and education vocabulary;
 - additional high-confusion long-tail exam vocabulary.
 
-The chapter should not be considered approved or Question-Studio registered until the expanded six-CP review receives explicit human approval.
+The expanded six-CP review received explicit human approval on 2026-09-23. ENG-006 is registered in Question Studio in review-only mode; downstream learner/test/publication release remains separately locked.
