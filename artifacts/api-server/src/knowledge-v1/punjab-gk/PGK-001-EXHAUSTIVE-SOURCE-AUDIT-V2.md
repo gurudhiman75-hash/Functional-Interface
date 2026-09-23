@@ -1,7 +1,8 @@
 # PGK-001 — Exhaustive Source Audit V2
 
-Status: SOURCE PROVENANCE REMEDIATED / EXTERNAL FACTUAL CERTIFICATION STILL OPEN
+Status: SOURCE PROVENANCE REMEDIATED / SUPERSEDED BY FINAL FACTUAL CERTIFICATION V1
 Date: 22 September 2026
+Follow-on: `PGK-001-FINAL-FACTUAL-CERTIFICATION-V1.md` (23 September 2026) resolves the remaining factual-certification gate and strengthens the CP001 state-symbol evidence.
 Branch: `feature/pgk-001-exhaustive-source-audit-v2`
 Pull request: #2063
 Base: current `New-main`
