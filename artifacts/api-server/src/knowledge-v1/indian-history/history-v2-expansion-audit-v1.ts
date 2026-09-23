@@ -80,8 +80,9 @@ for(const [cpId,rawQuestions,rawFacts] of packages){
 
     const stemKey=norm(q.stem);
     const previous=seenStems.get(stemKey);
-    if(previous) cpIssues.push(`${q.questionId}: exact duplicate stem of ${previous}`);
-    else seenStems.set(stemKey,q.questionId);
+    const genericInstruction=genericInstructionStem.test(stemKey);
+    if(previous && !genericInstruction) cpIssues.push(`${q.questionId}: exact duplicate substantive stem of ${previous}`);
+    else if(!genericInstruction) seenStems.set(stemKey,q.questionId);
 
     difficulties[q.difficulty]++;
     if(q.correctIndex<0||q.correctIndex>3) cpIssues.push(`${q.questionId}: invalid correctIndex ${q.correctIndex}`);
