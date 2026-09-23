@@ -1,6 +1,6 @@
 # ENG-007 — Spelling Correction — Coverage Plan V1
 
-Status: `CP001_CP004_HUMAN_APPROVED__1020_OF_1500__REVIEW_ONLY`
+Status: `CP001_CP004_HUMAN_APPROVED__CP005_CP006_IMPLEMENTED__1500_OF_1500__HUMAN_REVIEW_PENDING`
 
 Target: **about 1,500 governed competitive-exam spellings** across six checkpoints.
 
@@ -10,8 +10,8 @@ Target: **about 1,500 governed competitive-exam spellings** across six checkpoin
 - CP002 — 260 structural spelling traps — **HUMAN APPROVED**.
 - CP003 — 260 academic, administrative, legal and institutional spellings — **HUMAN APPROVED**.
 - CP004 — 260 scientific, medical, technical and professional spellings — **HUMAN APPROVED**.
-- CP005 — 260 advanced/confusable competitive vocabulary.
-- CP006 — 220 long-tail and high-confusion spellings retained after chapter-wide audit.
+- CP005 — 260 advanced/confusable competitive vocabulary — **IMPLEMENTED / HUMAN REVIEW PENDING**.
+- CP006 — 220 long-tail and high-confusion spellings retained after chapter-wide audit — **IMPLEMENTED / HUMAN REVIEW PENDING**.
 
 ## Question surfaces
 
@@ -34,5 +34,7 @@ Target: **about 1,500 governed competitive-exam spellings** across six checkpoin
 ## Current breadth
 
 - Approved: **1,020** spellings (CP001-CP004).
-- Current governed total: **1,020 unique spellings**.
-- Planned remaining: **480** spellings (CP005-CP006).
+- Approved: **1,020** spellings (CP001-CP004).
+- Implemented and awaiting review: **480** spellings (CP005-CP006).
+- Current governed total: **1,500 unique spellings**.
+- Planned remaining: **0** spellings.
