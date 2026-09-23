@@ -37,7 +37,9 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: NOT_STARTED / separate workflow
+- Localisation: IN PROGRESS — CP001–CP016 implemented for Hindi/Punjabi review surfaces
+- Multilingual cumulative checkpoint: 700 questions per locale / 2,100 EN-HI-PA surfaces
+- Remaining localisation: CP017–CP023
 - Closure record: `ECO-001-CHAPTER-STATUS.md`
 
 ## Binding rules
@@ -51,8 +53,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Keep distractors on the same conceptual axis wherever the question tests a classification.
 - For legacy national-income formulas retained for exam preparation, label historical/traditional relationships clearly when current official presentation differs.
 - National-income measurement questions should distinguish final/intermediate use from expenditure or income components; do not use unrelated accounting families as easy distractors unless the distinction itself is being tested.
-- Explanations must be simple and beginner-friendly. Normally use 1–2 short sentences: the deciding fact plus only the minimum reason or distinction needed.
-- Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
+- Explanations must be simple and beginner-friendly. Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
 - Difficulty is assigned per generated variant under `ECO-DIFFICULTY-POLICY.md`, not permanently by QL or question format.
 
 ## Question Studio review-only registration
@@ -60,7 +61,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 The completed English chapter is registered with the shared `knowledge-v1` Question Studio engine under package `ECO-001`.
 
 The registration:
-- exposes all 23 approved/frozen CPs;
+- exposes all 23 approved/frozen English CPs;
 - supports CP and QL selectors;
 - supports English Easy / Medium / Hard / Mixed review generation;
 - selects deterministically without replacement;
@@ -68,6 +69,15 @@ The registration:
 - does not authorize canonical Question Bank persistence;
 - does not authorize tests, mock tests, public publication, automatic student release, or production release.
 
+## Multilingual promotion state
+
+- CP001–CP014: merged multilingual V1
+- CP015: Economic Planning in India — multilingual V1, V3 stem authority
+- CP016: Economic Reforms of 1991 — multilingual V1, V2 stem authority
+- cumulative audit authority extends through CP016
+- remaining sequence: CP017 → CP018 → CP019 → CP020 → CP021 → CP022 → CP023
+- multilingual surfaces remain `REVIEW_ONLY`
+
 ## Next promotion gate
 
-All 23 English CPs are frozen and `ECO-001` is available in Question Studio for review-only generation. Any move to Question Bank storage / `BANK_ONLY`, localisation, test eligibility, mock-test eligibility, public publication or production release requires a separate explicit approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.
+Continue localisation from CP017. Any move to Question Bank storage / `BANK_ONLY`, test eligibility, mock-test eligibility, public publication or production release requires a separate explicit approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.
