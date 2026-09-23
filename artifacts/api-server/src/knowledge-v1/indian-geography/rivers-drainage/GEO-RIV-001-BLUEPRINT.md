@@ -1,6 +1,6 @@
 # GEO-RIV-001 — Indian Rivers & Drainage System
 
-Status: FOUNDATION BLUEPRINT V1
+Status: CONTENT CLOSED V1
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-RIV-001`
@@ -344,45 +344,32 @@ When sources disagree:
 3. block the fact from generation if the answer would depend on the unresolved convention;
 4. never silently select the exam-prep wording as truth authority.
 
-## 15. Implementation order
+## 15. Completed implementation
 
-1. freeze source authority registry;
-2. build chapter taxonomy and relation vocabulary;
-3. implement CP001 canonical concept/classification pool;
-4. implement CP001 QLs and validators;
-5. generate review-ready question batch;
-6. audit real-exam fidelity;
-7. fix generator-level defects;
-8. qualify CP001;
-9. proceed to Indus, Ganga and Brahmaputra systems;
-10. defer mixed chapter generation until component CPs are qualified.
+All planned content checkpoints CP001–CP015 have completed editorial review and merge.
 
-## 16. First checkpoint
+- CP001–CP014 are the permanent semantic owners.
+- Permanent semantic coverage: 127 QLs and 762 frozen English review-only questions.
+- CP015 is the 60-question mixed-rivers mastery proof and does not create duplicate permanent QL ownership.
+- Question Studio discovery/generation remains limited to the frozen CP001–CP014 semantic authorities.
+- Question Bank writes, test/mock eligibility, public publication and production release remain separately disabled.
 
-Next implementation checkpoint:
+## 16. Closure authority
 
-`GEO-RIV-001-CP001 — Drainage Basics & River Classification — REVIEW-READY V1`
+The canonical closeout authority is `GEO-RIV-001-CHAPTER-CLOSE-V1`.
 
-The checkpoint must prove:
+Final content closure requires:
 
-- canonical geography fact representation;
-- relation-aware distractors;
-- multiple learner tasks;
-- deterministic replay;
-- source provenance;
-- clean explanations;
-- difficulty separation;
-- compatibility with the existing `knowledge-v1` engine and Question Studio lifecycle.
+- all permanent frozen questions to preserve unique IDs, valid four-option answers and provenance;
+- exactly 14 permanent semantic CPs;
+- exactly 127 permanent QLs;
+- exactly 762 frozen semantic questions;
+- CP015 to remain a non-owning 60-question mastery proof representing all 14 semantic CPs;
+- the dedicated chapter-close test to pass inside the main Geography qualification workflow;
+- the API build and full Geography validation to pass.
 
-## 17. Definition of chapter success
+## 17. Closure state
 
-GEO-RIV-001 is complete only when:
+`GEO-RIV-001` is **CONTENT CLOSED V1** at the content-authority level. Future changes must be deliberate revisions of the closed chapter rather than normal checkpoint continuation.
 
-- all planned CPs have audited source coverage;
-- canonical facts are provenance-backed and review-qualified;
-- generators produce unique-answer questions deterministically;
-- distractors remain geographically valid but incorrect for the asked relation;
-- explanations are question-specific;
-- generated review sets match real competitive-exam style;
-- chapter-level duplicate/repetition controls pass;
-- the package enters the shared Question Studio lifecycle without a parallel geography-specific review system.
+Content closure does not authorize public/runtime publication. Question Bank writes, test/mock eligibility, public publication and production release remain separately governed.
