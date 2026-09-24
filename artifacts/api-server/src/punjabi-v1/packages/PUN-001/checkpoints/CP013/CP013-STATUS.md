@@ -8,7 +8,7 @@
 - Total audited linguistic authorities: 223
 - Families: 11
 - Added blueprint operations: no-error selection, controlled grammatical blank completion, mixed-rule verification
-- Governed semantic combinations: computed exhaustively by the semantic proof after deriving valid blank surfaces
+- Controlled grammatical-blank surfaces: 71\n- Governed semantic combinations: 33,759
 - Review target: 120 questions = 40 Easy + 40 Medium + 40 Hard
 - All 11 families must be represented
 - Every retained authority must be reachable through every applicable family
