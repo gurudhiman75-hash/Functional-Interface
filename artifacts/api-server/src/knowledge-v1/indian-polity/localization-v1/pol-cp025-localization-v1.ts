@@ -195,6 +195,70 @@ const O:Record<string,Pair>={
 "Law and order":p("कानून-व्यवस्था","ਕਾਨੂੰਨ-ਵਿਵਸਥਾ"),"Official language":p("राजभाषा","ਅਧਿਕਾਰਤ ਭਾਸ਼ਾ"),"Tax devolution":p("कर-वितरण","ਕਰ ਵੰਡ"),"Local-body elections":p("स्थानीय निकाय चुनाव","ਸਥਾਨਕ ਨਿਕਾਇ ਚੋਣਾਂ")
 };
 
+const EXTRA:Record<string,Pair>={
+"President acting through an appointed administrator":p("नियुक्त प्रशासक के माध्यम से कार्य करता राष्ट्रपति","ਨਿਯੁਕਤ ਪ੍ਰਸ਼ਾਸਕ ਰਾਹੀਂ ਕੰਮ ਕਰਦਾ ਰਾਸ਼ਟਰਪਤੀ"),
+"Governor of the nearest State automatically":p("निकटतम राज्य का राज्यपाल स्वतः","ਨੇੜਲੇ ਰਾਜ ਦਾ ਰਾਜਪਾਲ ਆਪਣੇ ਆਪ"),
+"Lieutenant Governor alone":p("केवल उपराज्यपाल","ਸਿਰਫ਼ ਉਪ ਰਾਜਪਾਲ"),
+"Speaker of Lok Sabha":p("लोक सभा अध्यक्ष","ਲੋਕ ਸਭਾ ਸਪੀਕਰ"),
+"Rajya Sabha":p("राज्य सभा","ਰਾਜ ਸਭਾ"),
+"Delhi Assembly exclusively":p("केवल दिल्ली विधान सभा","ਸਿਰਫ਼ ਦਿੱਲੀ ਵਿਧਾਨ ਸਭਾ"),
+"Municipal Corporation":p("नगर निगम","ਨਗਰ ਨਿਗਮ"),
+"Supreme Court chooses one before either operates":p("दोनों के लागू होने से पहले सर्वोच्च न्यायालय किसी एक को चुनता है","ਦੋਵੇਂ ਲਾਗੂ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਸੁਪਰੀਮ ਕੋਰਟ ਕਿਸੇ ਇੱਕ ਨੂੰ ਚੁਣਦੀ ਹੈ"),
+"Speaker of the Assembly":p("विधान सभा अध्यक्ष","ਵਿਧਾਨ ਸਭਾ ਸਪੀਕਰ"),
+"Parliamentary Speaker":p("संसदीय अध्यक्ष","ਸੰਸਦੀ ਸਪੀਕਰ"),
+"Prime Minister personally":p("स्वयं प्रधानमंत्री","ਖੁਦ ਪ੍ਰਧਾਨ ਮੰਤਰੀ"),
+"Governor of a neighbouring State":p("पड़ोसी राज्य का राज्यपाल","ਨੇੜਲੇ ਰਾਜ ਦਾ ਰਾਜਪਾਲ"),
+"President by ordinance alone":p("केवल राष्ट्रपति, अध्यादेश द्वारा","ਸਿਰਫ਼ ਰਾਸ਼ਟਰਪਤੀ, ਅਧਿਆਦੇਸ਼ ਰਾਹੀਂ"),
+"Chief Justice of India alone":p("केवल भारत के मुख्य न्यायाधीश","ਸਿਰਫ਼ ਭਾਰਤ ਦੇ ਮੁੱਖ ਨਿਆਂਧੀਸ਼"),
+"Administrator by notification":p("प्रशासक, अधिसूचना द्वारा","ਪ੍ਰਸ਼ਾਸਕ, ਅਧਿਸੂਚਨਾ ਰਾਹੀਂ"),
+"Only during Emergency":p("केवल आपातकाल के दौरान","ਸਿਰਫ਼ ਐਮਰਜੈਂਸੀ ਦੌਰਾਨ"),
+"Only after State ratification":p("केवल राज्य की पुष्टि के बाद","ਸਿਰਫ਼ ਰਾਜ ਦੀ ਪੁਸ਼ਟੀ ਤੋਂ ਬਾਅਦ"),
+"Article 239—Union Territory administration":p("अनुच्छेद 239—केंद्र शासित प्रदेश प्रशासन","ਅਨੁਛੇਦ 239—ਕੇਂਦਰ ਸ਼ਾਸਿਤ ਪ੍ਰਦੇਸ਼ ਪ੍ਰਸ਼ਾਸਨ"),
+"Article 240—Delhi Assembly":p("अनुच्छेद 240—दिल्ली विधान सभा","ਅਨੁਛੇਦ 240—ਦਿੱਲੀ ਵਿਧਾਨ ਸਭਾ"),
+"Article 241—official language":p("अनुच्छेद 241—राजभाषा","ਅਨੁਛੇਦ 241—ਅਧਿਕਾਰਤ ਭਾਸ਼ਾ"),
+"Article 239AA—Fifth Schedule areas":p("अनुच्छेद 239AA—पाँचवीं अनुसूची क्षेत्र","ਅਨੁਛੇਦ 239AA—ਪੰਜਵੀਂ ਅਨੁਸੂਚੀ ਖੇਤਰ"),
+"Article 241—High Courts for Union Territories":p("अनुच्छेद 241—केंद्र शासित प्रदेशों के उच्च न्यायालय","ਅਨੁਛੇਦ 241—ਕੇਂਦਰ ਸ਼ਾਸਿਤ ਪ੍ਰਦੇਸ਼ਾਂ ਦੇ ਹਾਈ ਕੋਰਟ"),
+"Article 239B—Finance Commission":p("अनुच्छेद 239B—वित्त आयोग","ਅਨੁਛੇਦ 239B—ਵਿੱਤ ਕਮਿਸ਼ਨ"),
+"Article 240—Election Commission":p("अनुच्छेद 240—निर्वाचन आयोग","ਅਨੁਛੇਦ 240—ਚੋਣ ਕਮਿਸ਼ਨ"),
+"Article 239AB—official language":p("अनुच्छेद 239AB—राजभाषा","ਅਨੁਛੇਦ 239AB—ਅਧਿਕਾਰਤ ਭਾਸ਼ਾ"),
+"Konkan and Khandesh only":p("केवल कोंकण और खानदेश","ਸਿਰਫ਼ ਕੋਕਣ ਅਤੇ ਖਾਨਦੇਸ਼"),
+"Mumbai and Pune only":p("केवल मुंबई और पुणे","ਸਿਰਫ਼ ਮੁੰਬਈ ਅਤੇ ਪੁਣੇ"),
+"Nagpur and Nashik only":p("केवल नागपुर और नासिक","ਸਿਰਫ਼ ਨਾਗਪੁਰ ਅਤੇ ਨਾਸਿਕ"),
+"Ahmedabad and Surat":p("अहमदाबाद और सूरत","ਅਹਿਮਦਾਬਾਦ ਅਤੇ ਸੂਰਤ"),
+"Vadodara and Bharuch":p("वडोदरा और भरूच","ਵਡੋਦਰਾ ਅਤੇ ਭਰੂਚ"),
+"North Gujarat and South Gujarat only":p("केवल उत्तर गुजरात और दक्षिण गुजरात","ਸਿਰਫ਼ ਉੱਤਰੀ ਗੁਜਰਾਤ ਅਤੇ ਦੱਖਣੀ ਗੁਜਰਾਤ"),
+"Technical education, vocational training and State employment opportunities":p("तकनीकी शिक्षा, व्यावसायिक प्रशिक्षण और राज्य रोजगार के अवसर","ਤਕਨੀਕੀ ਸਿੱਖਿਆ, ਵੋਕੇਸ਼ਨਲ ਤਾਲੀਮ ਅਤੇ ਰਾਜੀ ਰੋਜ਼ਗਾਰ ਦੇ ਮੌਕੇ"),
+"Supreme Court appointments":p("सर्वोच्च न्यायालय की नियुक्तियाँ","ਸੁਪਰੀਮ ਕੋਰਟ ਦੀਆਂ ਨਿਯੁਕਤੀਆਂ"),
+"Union defence recruitment only":p("केवल संघ रक्षा भर्ती","ਸਿਰਫ਼ ਸੰਘੀ ਰੱਖਿਆ ਭਰਤੀ"),
+"Election Commission membership":p("निर्वाचन आयोग की सदस्यता","ਚੋਣ ਕਮਿਸ਼ਨ ਦੀ ਮੈਂਬਰਸ਼ਿਪ"),
+"Currency and coinage":p("मुद्रा और सिक्का","ਮੁਦਰਾ ਅਤੇ ਸਿੱਕੇ"),
+"Citizenship":p("नागरिकता","ਨਾਗਰਿਕਤਾ"),
+"Inter-State trade generally":p("सामान्य अंतर्राज्यीय व्यापार","ਆਮ ਅੰਤਰਰਾਜੀ ਵਪਾਰ"),
+"Union customs duties":p("संघ के सीमा शुल्क","ਸੰਘ ਦੇ ਕਸਟਮ ਸ਼ੁਲਕ"),
+"Railway fares":p("रेल किराए","ਰੇਲ ਕਿਰਾਏ"),
+"Foreign exchange":p("विदेशी मुद्रा","ਵਿਦੇਸ਼ੀ ਮੁਦਰਾ"),
+"Coastal Areas":p("तटीय क्षेत्र","ਤਟਵਰਤੀ ਖੇਤਰ"),
+"Capital Region":p("राजधानी क्षेत्र","ਰਾਜਧਾਨੀ ਖੇਤਰ"),
+"Border Districts only":p("केवल सीमावर्ती जिले","ਸਿਰਫ਼ ਸਰਹੱਦੀ ਜ਼ਿਲ੍ਹੇ"),
+"Every five years only":p("केवल हर पाँच वर्ष","ਸਿਰਫ਼ ਹਰ ਪੰਜ ਸਾਲ"),
+"Monthly":p("हर महीने","ਹਰ ਮਹੀਨੇ"),
+"Only once after appointment":p("नियुक्ति के बाद केवल एक बार","ਨਿਯੁਕਤੀ ਤੋਂ ਬਾਅਦ ਸਿਰਫ਼ ਇੱਕ ਵਾਰ"),
+"Parliamentary committee":p("संसदीय समिति","ਸੰਸਦੀ ਕਮੇਟੀ"),
+"Inter-State Council":p("अंतर्राज्यीय परिषद","ਅੰਤਰਰਾਜੀ ਕੌਂਸਲ"),
+"371A—Nagaland":p("371A—नागालैंड","371A—ਨਾਗਾਲੈਂਡ"),
+"371G—Goa":p("371G—गोवा","371G—ਗੋਆ"),
+"371H—Mizoram":p("371H—मिज़ोरम","371H—ਮਿਜ਼ੋਰਮ"),
+"371-I—Karnataka":p("371-I—कर्नाटक","371-I—ਕਰਨਾਟਕ"),
+"Delhi special provisions—239AA":p("दिल्ली के विशेष प्रावधान—239AA","ਦਿੱਲੀ ਦੇ ਖਾਸ ਪ੍ਰਬੰਧ—239AA"),
+"Puducherry Legislature—241":p("पुडुचेरी विधानमंडल—241","ਪੁਡੁਚੇਰੀ ਵਿਧਾਨ ਮੰਡਲ—241"),
+"Union Territory High Courts—240":p("केंद्र शासित प्रदेश उच्च न्यायालय—240","ਕੇਂਦਰ ਸ਼ਾਸਿਤ ਪ੍ਰਦੇਸ਼ ਹਾਈ ਕੋਰਟ—240"),
+"Karnataka special provision—371H":p("कर्नाटक का विशेष प्रावधान—371H","ਕਰਨਾਟਕ ਦਾ ਖਾਸ ਪ੍ਰਬੰਧ—371H"),
+"239AA structures Delhi government; 371A protects specified Nagaland matters":p("239AA दिल्ली सरकार की संरचना करता है; 371A नागालैंड के निर्दिष्ट विषयों की रक्षा करता है","239AA ਦਿੱਲੀ ਸਰਕਾਰ ਦੀ ਬਣਤਰ ਕਰਦਾ ਹੈ; 371A ਨਾਗਾਲੈਂਡ ਦੇ ਨਿਰਧਾਰਤ ਮਾਮਲਿਆਂ ਦੀ ਰੱਖਿਆ ਕਰਦਾ ਹੈ"),
+"Both create High Courts":p("दोनों उच्च न्यायालय बनाते हैं","ਦੋਵੇਂ ਹਾਈ ਕੋਰਟ ਬਣਾਉਂਦੇ ਹਨ"),
+"Both govern official languages":p("दोनों राजभाषाओं को नियंत्रित करते हैं","ਦੋਵੇਂ ਅਧਿਕਾਰਤ ਭਾਸ਼ਾਵਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦੇ ਹਨ"),
+"Both regulate Scheduled Areas":p("दोनों अनुसूचित क्षेत्रों को नियंत्रित करते हैं","ਦੋਵੇਂ ਅਨੁਸੂਚਿਤ ਖੇਤਰਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦੇ ਹਨ")
+};
+
 const namedAmend:Record<string,Pair>={
 "Sixty-ninth Amendment":p("69वाँ संशोधन","69ਵੀਂ ਸੋਧ"),"Forty-fourth Amendment":p("44वाँ संशोधन","44ਵੀਂ ਸੋਧ"),"Seventy-third Amendment":p("73वाँ संशोधन","73ਵੀਂ ਸੋਧ"),"Ninety-first Amendment":p("91वाँ संशोधन","91ਵੀਂ ਸੋਧ"),"Thirteenth Amendment":p("13वाँ संशोधन","13ਵੀਂ ਸੋਧ"),"Twenty-seventh Amendment":p("27वाँ संशोधन","27ਵੀਂ ਸੋਧ"),"Fifty-third Amendment":p("53वाँ संशोधन","53ਵੀਂ ਸੋਧ"),"Ninety-eighth Amendment":p("98वाँ संशोधन","98ਵੀਂ ਸੋਧ"),"Thirty-second Amendment":p("32वाँ संशोधन","32ਵੀਂ ਸੋਧ"),"Thirty-sixth Amendment":p("36वाँ संशोधन","36ਵੀਂ ਸੋਧ"),"Fifty-sixth Amendment":p("56वाँ संशोधन","56ਵੀਂ ਸੋਧ"),"Fifty-fifth Amendment":p("55वाँ संशोधन","55ਵੀਂ ਸੋਧ"),"Seventy-first Amendment":p("71वाँ संशोधन","71ਵੀਂ ਸੋਧ")
 };
@@ -205,7 +269,7 @@ function option(x:string,locale:NativeLocale):string{
  let m=x.match(/^Article\s+(\d+[A-Z-]*)$/);if(m)return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+m[1];
  m=x.match(/^Articles\s+(.+)$/);if(m)return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+m[1];
  m=x.match(/^Part\s+([IVX]+)$/);if(m)return (locale==="hi"?"भाग ":"ਭਾਗ ")+m[1];
- const z=O[x]??namedAmend[x]??nums[x];if(z)return z[locale];
+ const z=O[x]??namedAmend[x]??nums[x]??EXTRA[x];if(z)return z[locale];
  if(/^\d+[A-Z-]*(?: and \d+[A-Z-]*)?$/.test(x))return x.replace(" and ",locale==="hi"?" और ":" ਅਤੇ ");
  throw new Error("POL-CP-025 missing localized option: "+x);
 }
