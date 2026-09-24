@@ -1,6 +1,6 @@
 # ENG-007 — Spelling Correction — Coverage Plan V1
 
-Status: `CP001_CP005_HUMAN_APPROVED__POST_CP005_GAP_AUDIT_PENDING__REVIEW_ONLY`
+Status: `CP001_CP006_HUMAN_APPROVED__FINAL_RESIDUAL_AUDIT_PENDING__REVIEW_ONLY`
 
 ENG-007 has **no fixed final word-count target**. The chapter closes only after an exhaustive but exam-relevant breadth audit finds no material spelling gap worth adding.
 
@@ -11,7 +11,7 @@ ENG-007 has **no fixed final word-count target**. The chapter closes only after 
 - CP003 — 260 academic, administrative, legal and institutional spellings — **HUMAN APPROVED**.
 - CP004 — 260 scientific, medical, technical and professional spellings — **HUMAN APPROVED**.
 - CP005 — 265 audit-selected advanced/confusable structural gaps — **HUMAN APPROVED**.
-- CP006 — long-tail/high-confusion gap closure after chapter-wide audit, if still required.
+- CP006 — 107 spelling-specific SSC/RRB PYQ gaps found after CP005 — **HUMAN APPROVED**.
 - Additional checkpoint(s) may be added only when the audit finds a material exam-relevant gap; no checkpoint exists merely to satisfy a numeric target.
 
 ## Question surfaces
@@ -36,10 +36,10 @@ ENG-007 has **no fixed final word-count target**. The chapter closes only after 
 
 ## Current breadth
 
-- Approved: **1,285 unique spellings** across CP001-CP005.
+- Approved: **1,392 unique spellings** across CP001-CP006.
 - This is the **current observed breadth**, not a target fraction.
 - CP005 contributed 265 gap-audit additions (26 Easy / 181 Medium / 58 Hard).
-- Remaining work is determined by a **post-CP005 spelling-specific gap audit**; CP006 exists only if that audit finds material exam-relevant omissions.
+- CP006 closed 107 spelling-specific PYQ omissions. A final residual audit now determines whether ENG-007 can freeze.
 - ENG-007 is frozen only when that audit finds no material exam-relevant omissions.
 
 ## Closure criteria
