@@ -7,7 +7,7 @@
     "correction": 71,
     "total": 223
   },
-  "semanticCapacity": "computed by engine after derived blank-surface audit",
+  "semanticCapacity": 33759,
   "totalReviewQuestions": 120,
   "difficulty": {
     "Easy": 40,
@@ -38,5 +38,6 @@
     "REVIEW_ONLY lifecycle"
   ],
   "blueprintGapClosure": "F09 no-error + F10 grammatical blank + F11 mixed-rule verification",
-  "familyCount": 11
+  "familyCount": 11,
+  "blankCompletionAuthorities": 71
 }
