@@ -1,7 +1,7 @@
 import { HIS_CP019_REVIEW_BATCH_V1 } from "../early-medieval-north-india/his-cp019-review-v1";
 import { HIS_CP019_HI_V1 } from "./his-cp019-hi-v1";
 import { HIS_CP019_PA_V1 } from "./his-cp019-pa-v1";
-import { generateHisCp018LocalizedReviewV1 } from "./his-cp019-localization-v1";
+import { generateHisCp019LocalizedReviewV1 } from "./his-cp019-localization-v1";
 import type { HisLocaleV1, HisLocalizedQuestionV1 } from "./his-localization-types-v1";
 
 const locales:HisLocaleV1[]=["en","hi","pa"];
@@ -40,6 +40,7 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਪੰਜਾਬੀ ਅਧਾਰ",
       "ਵਿਆਪਕ ਕ੍ਰਮ",
       "ਸਹੀ ਤਰ੍ਹਾਂ ਦੱਸਦਾ",
+      "ਵਿਦਵਤ",
     ];
     for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
@@ -81,8 +82,8 @@ fail(HIS_CP019_REVIEW_BATCH_V1.length===60,`CP019 English expected 60, found ${H
 fail(Object.keys(HIS_CP019_HI_V1).length===60,`CP019 Hindi overlays expected 60, found ${Object.keys(HIS_CP019_HI_V1).length}`);
 fail(Object.keys(HIS_CP019_PA_V1).length===60,`CP019 Punjabi overlays expected 60, found ${Object.keys(HIS_CP019_PA_V1).length}`);
 
-for(const locale of locales)assertParity(HIS_CP019_REVIEW_BATCH_V1,generateHisCp018LocalizedReviewV1(locale),locale);
-const all=locales.flatMap((locale)=>generateHisCp018LocalizedReviewV1(locale));
+for(const locale of locales)assertParity(HIS_CP019_REVIEW_BATCH_V1,generateHisCp019LocalizedReviewV1(locale),locale);
+const all=locales.flatMap((locale)=>generateHisCp019LocalizedReviewV1(locale));
 fail(all.length===180,`CP019 expected 180 EN-HI-PA surfaces, found ${all.length}`);
 
 console.log("History CP019 multilingual audit passed: 60 questions per locale / 180 EN-HI-PA surfaces; English authority HIS-001-ENGLISH-FREEZE-V3.");
