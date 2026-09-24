@@ -1,22 +1,42 @@
 {
-  "cpId":"PUN-001-CP013",
-  "status":"HUMAN_REVIEW_PENDING",
-  "authorityInventory":{
-    "classification":89,
-    "transformation":63,
-    "correction":71,
-    "total":223
+  "cpId": "PUN-001-CP013",
+  "status": "HUMAN_REVIEW_PENDING",
+  "authorityInventory": {
+    "classification": 89,
+    "transformation": 63,
+    "correction": 71,
+    "total": 223
   },
-  "semanticCapacity":8341,
-  "totalReviewQuestions":120,
-  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":14,"F02":14,"F03":13,"F04":13,"F05":13,"F06":13,"F07":20,"F08":20},
-  "requirements":[
-    "all 8 families represented",
+  "semanticCapacity": "computed by engine after derived blank-surface audit",
+  "totalReviewQuestions": 120,
+  "difficulty": {
+    "Easy": 40,
+    "Medium": 40,
+    "Hard": 40
+  },
+  "families": {
+    "F01": 14,
+    "F02": 8,
+    "F03": 8,
+    "F04": 13,
+    "F05": 8,
+    "F06": 13,
+    "F07": 10,
+    "F08": 15,
+    "F09": 8,
+    "F10": 8,
+    "F11": 15
+  },
+  "requirements": [
+    "all 11 families represented",
     "all retained authorities reachable through each applicable family",
+    "controlled blank surfaces derived from reviewed correction alternatives only",
+    "all 4 F11 truth outcomes represented",
     "unique semantic fingerprints",
     "Punjabi-only learner stems and explanations",
     "no city-specific donor wording",
     "REVIEW_ONLY lifecycle"
-  ]
+  ],
+  "blueprintGapClosure": "F09 no-error + F10 grammatical blank + F11 mixed-rule verification",
+  "familyCount": 11
 }
