@@ -224,7 +224,6 @@ const protectedExamTerms = [
   "Real Time Gross Settlement",
   "Payment and Settlement Systems Act, 2007",
   "Payment and Settlement Systems Act",
-  "NITI Aayog",
   "Operation Flood",
   "Make in India",
 ] as const;
