@@ -28,6 +28,17 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
   }else{
     fail(/[\u0A00-\u0A7F]/u.test(scriptText),`${question.questionId}: missing Gurmukhi`);
     fail(!/[\u0900-\u097F]/u.test(scriptText),`${question.questionId}: Devanagari leakage in Punjabi`);
+    const editorialBans=[
+      "ਤਾਮ੍ਰਪਾਸ਼ਾਣ",
+      "ਕਿਹੜੇ ਕਿਸਮ",
+      "ਘਰਾਂ ਦੀ ਫਰਸ਼",
+      "ਭੂਗੋਲਿਕ ਮਿਲਾਪ",
+      "ਬਿਆਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ",
+      "ਵਿਆਪਕ ਸਮਾਂ",
+    ];
+    for(const banned of editorialBans){
+      fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
+    }
   }
 }
 
