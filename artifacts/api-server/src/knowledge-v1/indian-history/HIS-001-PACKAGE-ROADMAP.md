@@ -1,11 +1,11 @@
 # HIS-001 Indian History — Package Roadmap
 
-Status: V1 CORE FROZEN + MULTILINGUAL COMPLETE / V2 COVERAGE EXPANSION REQUIRED  
+Status: V2 ENGLISH FROZEN / V1 MULTILINGUAL COMPLETE / V2 LOCALIZATION PENDING  
 Engine: `knowledge-v1`
 
-## English V1 freeze
+## English freezes
 
-The English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md` after chapter-wide exhaustive, difficulty and fact-integrity audits passed. Localization must preserve frozen English semantics and remains review-only until separately approved.
+The V1 English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md`. The approved V2 expansion extends the English freeze through `HIS-CP-024` under `HIS-001-ENGLISH-FREEZE-V2.md`. Hindi and Punjabi are complete through CP016; CP017–CP024 remain pending localization.
 
 ## Binding rule
 
@@ -31,8 +31,16 @@ The blueprint units map to package CPs as follows:
 | HIS-CP-014 | Revolt of 1857 & Socio-Religious Reform |
 | HIS-CP-015 | National Movement, 1885–1919 |
 | HIS-CP-016 | National Movement, 1919–1947 |
+| HIS-CP-017 | Chalcolithic Cultures & Rise of Magadha |
+| HIS-CP-018 | Ancient Intellectual, Artistic & Traveller Supplements |
+| HIS-CP-019 | Early Medieval North India |
+| HIS-CP-020 | Medieval Economy, Society, Trade & Technology |
+| HIS-CP-021 | Bhakti, Sufism, Sikh Development & Medieval Cultural Synthesis |
+| HIS-CP-022 | Peasant, Tribal & Popular Resistance to Company Rule |
+| HIS-CP-023 | Colonial Education, Press, Constitutional Development & Reform Supplements |
+| HIS-CP-024 | National Movement Saturation Supplements |
 
-World History is outside History V1 and requires a separate later authorization.
+World History is outside HIS-001 and requires a separate later authorization.
 
 ## Promotion sequence
 
@@ -51,11 +59,11 @@ Disputed archaeological or historiographical propositions must be either exclude
 
 ## V2 coverage expansion
 
-The completed CP001–CP016 corpus remains the frozen V1 core. A chapter-level coverage audit found major exam-relevant content families that are absent or materially thin, so final History closure is blocked pending V2 expansion.
+The coverage-gap programme is complete. `HIS-CP-017` through `HIS-CP-024` add **480** source-backed questions and **480** canonical facts to the V1 core, taking the frozen English chapter to **1,434 questions** and **1,379 canonical facts**.
 
-Authority: `HIS-001-COVERAGE-GAP-AUDIT-V1.md`
+Authority: `HIS-001-COVERAGE-GAP-AUDIT-V1.md` and `HIS-001-ENGLISH-FREEZE-V2.md`.
 
-Planned supplemental checkpoints: `HIS-CP-017` through `HIS-CP-024`, targeting approximately 480–576 genuinely new questions. The planning range is not a padding quota; only source-backed, exam-relevant facts should be promoted.
+No further English CP is planned under the current coverage ledger. Final History closure is blocked only by Hindi/Punjabi localization for CP017–CP024 and subsequent multilingual parity / Question Studio registration review.
 
 World History remains outside HIS-001 unless separately authorized.
 
