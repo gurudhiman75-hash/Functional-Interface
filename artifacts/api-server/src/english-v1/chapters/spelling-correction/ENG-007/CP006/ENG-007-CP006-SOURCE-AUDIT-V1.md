@@ -6,7 +6,7 @@ Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
 
 CP006 was not created to satisfy a chapter count. After CP005, a spelling-specific external audit sampled SSC CGL, SSC MTS, SSC CHSL, SSC CPO and RRB/Banking previous-year spelling questions. The audit compared exam-attested spellings against the 1,285 governed ENG-007 words already present in CP001-CP005.
 
-The first curated PYQ candidate set contained 112 high-value spellings. Ten were already covered by ENG-007, leaving **102 genuine coverage gaps**. Those 102 become CP006.
+The first curated PYQ candidate set contained 112 high-value spellings. Ten were already covered by ENG-007, leaving 102 genuine gaps. A broader residual sweep of recent CGL spelling items then found five additional base-word gaps (`removal`, `necessity`, `moment`, `commercial`, `diffuse`). CP006 therefore contains **107 genuine coverage gaps**.
 
 ## Evidence pattern
 
@@ -19,12 +19,12 @@ Where an exam question exposed an actual misspelling, CP006 retains that form wh
 
 ## Result
 
-- CP006 adds **102 new governed spellings**.
+- CP006 adds **107 new governed spellings**.
 - Difficulty is exam/editorially calibrated rather than quota-balanced:
-  - Easy: **34**
-  - Medium: **52**
+  - Easy: **37**
+  - Medium: **54**
   - Hard: **16**
-- Combined ENG-007 breadth after CP006: **1,387 unique canonical spellings**.
+- Combined ENG-007 breadth after CP006: **1,392 unique canonical spellings**.
 - Accepted regional variants are not used as wrong answers.
 - Variant-sensitive forms that could create British/American ambiguity were excluded from this pass.
 
