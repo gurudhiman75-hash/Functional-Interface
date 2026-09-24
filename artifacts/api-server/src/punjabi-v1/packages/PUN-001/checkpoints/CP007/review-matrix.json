@@ -1,7 +1,7 @@
 {
   "cpId": "PUN-001-CP007",
   "phase": "RETROFIT",
-  "status": "HUMAN_REVIEW_PENDING",
+  "status": "HUMAN_APPROVED",
   "authorityInventory": {
     "karak": 95,
     "sambandhak": 42,
@@ -46,5 +46,7 @@
     "both ਯੋਜਕ labels reachable",
     "Punjabi-only learner text",
     "REVIEW_ONLY lifecycle"
-  ]
+  ],
+  "approvedReviewedSha": "607bcc72913d9f58002ec4b7e1f1897710d96158",
+  "approvalDate": "2026-09-24"
 }
