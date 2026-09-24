@@ -1,6 +1,6 @@
 # PUN-001 CP013 — ਵਾਕ-ਵਟਾਂਦਰਾ ਅਤੇ ਸ਼ੁੱਧੀ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Exhaustive audited authority surface
 - 89 sentence-classification authorities
@@ -19,7 +19,17 @@ The forward-port removes clear semantic duplicates and excludes correction claim
 Duplicate or near-duplicate:
 - CLS-083
 - TRF-044
-- TRF-057\n- TRF-009\n- TRF-010\n- TRF-023\n- TRF-030\n- TRF-037\n- TRF-060\n- TRF-063\n- TRF-066\n- TRF-074\n- TRF-075
+- TRF-057
+- TRF-009
+- TRF-010
+- TRF-023
+- TRF-030
+- TRF-037
+- TRF-060
+- TRF-063
+- TRF-066
+- TRF-074
+- TRF-075
 
 Debatable correction authorities:
 - COR-006
@@ -51,7 +61,9 @@ COR-048 is retained with a meaning-preserving minimal correction.
 The original eight families contribute 8,341 combinations before answer-order permutations. The blueprint-gap pass adds:
 - 71 no-error sentence decisions;
 - 8 strict grammatical-blank surfaces derived from the correction bank; 63 broader cases are excluded because they would require oversized or position-unstable blanks;
-- 25,276 mixed-rule verification cases (89 classification × 71 correction × 4 truth patterns).\n\nTotal governed semantic breadth after gap closure: **33,696 combinations** before answer-order permutations.
+- 25,276 mixed-rule verification cases (89 classification × 71 correction × 4 truth patterns).
+
+Total governed semantic breadth after gap closure: **33,696 combinations** before answer-order permutations.
 
 F08 still exhaustively enumerates every ordered pair of distinct classification authorities: 89 × 88 = 7,832 hard dual-analysis cases.
 
@@ -65,4 +77,4 @@ F08 still exhaustively enumerates every ordered pair of distinct classification 
 - no-error and mixed-rule families reuse the existing audited CP013 authorities; no unreviewed grammar truth is introduced
 
 ## Lifecycle
-No permanent QL allocation, Question Studio registration, Question Bank write, test/mock eligibility, or public/student publication is authorized by this checkpoint.
+Owner approval is recorded for the blueprint-gap review head `20e78288f6e4e5ee8a5488a05ed3780ea6b79cc2` on 2026-09-24. Runtime remains REVIEW_ONLY. No permanent QL allocation, Question Bank write, test/mock eligibility, or public/student publication is authorized by this approval.
