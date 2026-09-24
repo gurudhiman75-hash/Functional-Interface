@@ -1,23 +1,48 @@
 {
-  "cpId":"PUN-001-CP014",
-  "status":"HUMAN_APPROVED",
-  "authorityInventory":{
-    "passages":50,
-    "passageQuestions":190,
-    "administrativeTerms":215,
-    "totalAtomic":405
+  "cpId": "PUN-001-CP014",
+  "status": "HUMAN_REVIEW_PENDING",
+  "authorityInventory": {
+    "passages": 50,
+    "passageQuestions": 190,
+    "administrativeTerms": 215,
+    "vocabularyContext": 30,
+    "supportedStatements": 30,
+    "sentenceTranslations": 36,
+    "totalAtomic": 501
   },
-  "semanticCapacity":2235,
-  "totalReviewQuestions":120,
-  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":20,"F02":15,"F03":15,"F04":20,"F05":5,"F06":5,"F07":30,"F08":10},
-  "requirements":[
-    "all 8 families represented",
+  "semanticCapacity": 2475,
+  "totalReviewQuestions": 120,
+  "difficulty": {
+    "Easy": 40,
+    "Medium": 40,
+    "Hard": 40
+  },
+  "families": {
+    "F01": 12,
+    "F02": 8,
+    "F03": 8,
+    "F04": 12,
+    "F05": 4,
+    "F06": 4,
+    "F07": 16,
+    "F08": 8,
+    "F09": 8,
+    "F10": 4,
+    "F11": 16,
+    "F12": 4,
+    "F13": 16
+  },
+  "requirements": [
+    "all 13 families represented",
     "all 4 F08 truth outcomes represented",
-    "all retained authorities reachable through each applicable family",
+    "all vocabulary tokens occur in their referenced passages",
+    "all supported-statement authorities reference an existing passage",
+    "all 36 sentence translations grouped into 9 four-item semantic sets",
+    "forward and reverse controlled sentence translation both represented",
+    "meaning-changing translation error detection represented",
+    "all retained authorities reachable through applicable families",
     "unique semantic fingerprints",
-    "Punjabi-only passage learner text",\n    "complete 50-passage / 190-authority appendix included in human review",
-    "concise Punjabi administrative answer terms",
+    "Punjabi-only passage learner text except explicit bilingual translation tasks",
     "REVIEW_ONLY lifecycle"
   ]
 }
