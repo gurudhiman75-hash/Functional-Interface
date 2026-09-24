@@ -130,6 +130,13 @@ for(const [cpId,rawQuestions,rawFacts] of packages){
   for(const issue of cpIssues) issues.push(`${cpId}: ${issue}`);
 }
 
+const cp020Q33=HIS_CP020_REVIEW_BATCH_V1.find(q=>q.questionId==="HIS-CP020-V1-033");
+const cp020Q38=HIS_CP020_REVIEW_BATCH_V1.find(q=>q.questionId==="HIS-CP020-V1-038");
+if(cp020Q33?.canonicalAnswer!=="Shawl and carpet making") issues.push(`HIS-CP-020 integrity: Q33 malformed canonical answer: ${cp020Q33?.canonicalAnswer??"missing"}`);
+if(cp020Q38?.canonicalAnswer!=="Copper production") issues.push(`HIS-CP-020 integrity: Q38 malformed canonical answer: ${cp020Q38?.canonicalAnswer??"missing"}`);
+if(!cp020Q33?.options.includes("Shawl and carpet making")) issues.push("HIS-CP-020 integrity: Q33 corrected answer missing from options");
+if(!cp020Q38?.options.includes("Copper production")) issues.push("HIS-CP-020 integrity: Q38 corrected answer missing from options");
+
 const cp017Integrity=auditHisCp017ReviewBatchV1();
 if(!cp017Integrity.valid) for(const issue of cp017Integrity.issues) issues.push(`HIS-CP-017 integrity: ${issue}`);
 
