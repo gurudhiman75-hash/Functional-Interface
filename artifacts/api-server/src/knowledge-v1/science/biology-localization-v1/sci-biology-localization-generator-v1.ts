@@ -8,6 +8,9 @@ import { SCI_CP025_REVIEW_V1, type SciCp025ReviewQuestion } from "../nervous-sys
 import { SCI_CP026_REVIEW_V1, type SciCp026ReviewQuestion } from "../endocrine-system-hormones/sci-cp026-review-v1";
 import { SCI_CP027_REVIEW_V1, type SciCp027ReviewQuestion } from "../human-reproduction-development/sci-cp027-review-v1";
 import { SCI_CP028_REVIEW_V1, type SciCp028ReviewQuestion } from "../nutrition-deficiency-diseases/sci-cp028-review-v1";
+import { SCI_CP029_REVIEW_V1, type SciCp029ReviewQuestion } from "../diseases-immunity/sci-cp029-review-v1";
+import { SCI_CP030_REVIEW_V1, type SciCp030ReviewQuestion } from "../genetics-evolution/sci-cp030-review-v1";
+import { SCI_CP031_REVIEW_V1, type SciCp031ReviewQuestion } from "../microorganisms/sci-cp031-review-v1";
 import {
   SCI_BIOLOGY_LOCALIZATION_V1,
   type BiologyLocaleV1,
@@ -34,9 +37,15 @@ import { SCI_BIOLOGY_CP027_HI_V1 } from "./sci-biology-cp027-localization-data-h
 import { SCI_BIOLOGY_CP027_PA_V1 } from "./sci-biology-cp027-localization-data-pa-v1";
 import { SCI_BIOLOGY_CP028_HI_V1 } from "./sci-biology-cp028-localization-data-hi-v1";
 import { SCI_BIOLOGY_CP028_PA_V1 } from "./sci-biology-cp028-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP029_HI_V1 } from "./sci-biology-cp029-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP029_PA_V1 } from "./sci-biology-cp029-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP030_HI_V1 } from "./sci-biology-cp030-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP030_PA_V1 } from "./sci-biology-cp030-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP031_HI_V1 } from "./sci-biology-cp031-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP031_PA_V1 } from "./sci-biology-cp031-localization-data-pa-v1";
 
-export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020" | "SCI-CP-021" | "SCI-CP-022" | "SCI-CP-023" | "SCI-CP-024" | "SCI-CP-025" | "SCI-CP-026" | "SCI-CP-027" | "SCI-CP-028";
-type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion | SciCp021ReviewQuestion | SciCp022ReviewQuestion | SciCp023ReviewQuestion | SciCp024ReviewQuestion | SciCp025ReviewQuestion | SciCp026ReviewQuestion | SciCp027ReviewQuestion | SciCp028ReviewQuestion;
+export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020" | "SCI-CP-021" | "SCI-CP-022" | "SCI-CP-023" | "SCI-CP-024" | "SCI-CP-025" | "SCI-CP-026" | "SCI-CP-027" | "SCI-CP-028" | "SCI-CP-029" | "SCI-CP-030" | "SCI-CP-031";
+type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion | SciCp021ReviewQuestion | SciCp022ReviewQuestion | SciCp023ReviewQuestion | SciCp024ReviewQuestion | SciCp025ReviewQuestion | SciCp026ReviewQuestion | SciCp027ReviewQuestion | SciCp028ReviewQuestion | SciCp029ReviewQuestion | SciCp030ReviewQuestion | SciCp031ReviewQuestion;
 
 const QL_NAMES = {
   "SCI-CP-019": {
@@ -299,6 +308,84 @@ const QL_NAMES = {
       "ਮਿਲੀ-ਜੁਲੀ ਪੋਸ਼ਣ ਅਤੇ ਘਾਟ-ਰੋਗ ਸਮਝ",
     ],
   },
+  "SCI-CP-029": {
+    hi: [
+      "रोग की मूल बातें और वर्गीकरण",
+      "रोगजनक और संचरण",
+      "सामान्य बैक्टीरियल रोग",
+      "सामान्य वायरल रोग",
+      "प्रोटोजोआ और वाहक-जनित रोग",
+      "जन्मजात प्रतिरक्षा और शरीर की बाधाएँ",
+      "अर्जित प्रतिरक्षा और प्रतिरक्षी",
+      "टीकाकरण और प्रतिरक्षण",
+      "एंटीबायोटिक और रोगाणुरोधी प्रतिरोध",
+      "मिश्रित रोग-निवारण और प्रतिरक्षा तर्क",
+    ],
+    pa: [
+      "ਬਿਮਾਰੀਆਂ ਦੀਆਂ ਮੁੱਢਲੀਆਂ ਗੱਲਾਂ ਅਤੇ ਵਰਗੀਕਰਨ",
+      "ਰੋਗਾਣੂ ਅਤੇ ਫੈਲਾਅ",
+      "ਆਮ ਬੈਕਟੀਰੀਆ ਵਾਲੀਆਂ ਬਿਮਾਰੀਆਂ",
+      "ਆਮ ਵਾਇਰਲ ਬਿਮਾਰੀਆਂ",
+      "ਪ੍ਰੋਟੋਜ਼ੋਆ ਅਤੇ ਵੈਕਟਰ ਰਾਹੀਂ ਫੈਲਣ ਵਾਲੀਆਂ ਬਿਮਾਰੀਆਂ",
+      "ਜਨਮਜਾਤ ਰੋਗ-ਰੋਧਕਤਾ ਅਤੇ ਸਰੀਰ ਦੀਆਂ ਰੁਕਾਵਟਾਂ",
+      "ਹਾਸਲ ਕੀਤੀ ਰੋਗ-ਰੋਧਕਤਾ ਅਤੇ ਐਂਟੀਬਾਡੀਆਂ",
+      "ਟੀਕਾਕਰਨ ਅਤੇ ਰੋਗ-ਰੋਧਕਤਾ",
+      "ਐਂਟੀਬਾਇਓਟਿਕ ਅਤੇ ਦਵਾਈ-ਰੋਧ",
+      "ਮਿਲੀ-ਜੁਲੀ ਬਿਮਾਰੀ ਰੋਕਥਾਮ ਅਤੇ ਰੋਗ-ਰੋਧਕ ਸਮਝ",
+    ],
+  },
+  "SCI-CP-030": {
+    hi: [
+      "आनुवंशिकता, जीन और गुणसूत्र",
+      "मेंडल और मटर के प्रयोग",
+      "प्रभावी और अप्रभावी लक्षण",
+      "जीनोटाइप, फीनोटाइप और मोनोहाइब्रिड वंशानुक्रम",
+      "मानव लिंग निर्धारण",
+      "विविधता और उसके स्रोत",
+      "प्राकृतिक चयन और अनुकूलन",
+      "जीवाश्म और विकास के प्रमाण",
+      "समजात, समरूप और अवशेषी संरचनाएँ",
+      "मिश्रित आनुवंशिकी और विकास तर्क",
+    ],
+    pa: [
+      "ਵਿਰਾਸਤ, ਜੀਨ ਅਤੇ ਗੁਣਸੂਤਰ",
+      "ਮੈਂਡਲ ਅਤੇ ਮਟਰ ਦੇ ਪ੍ਰਯੋਗ",
+      "ਪ੍ਰਭਾਵੀ ਅਤੇ ਅਪ੍ਰਭਾਵੀ ਲੱਛਣ",
+      "ਜੀਨੋਟਾਈਪ, ਫੀਨੋਟਾਈਪ ਅਤੇ ਮੋਨੋਹਾਈਬ੍ਰਿਡ ਵਿਰਾਸਤ",
+      "ਮਨੁੱਖੀ ਲਿੰਗ ਨਿਰਧਾਰਣ",
+      "ਵਿਭਿੰਨਤਾ ਅਤੇ ਇਸ ਦੇ ਸਰੋਤ",
+      "ਕੁਦਰਤੀ ਚੋਣ ਅਤੇ ਅਨੁਕੂਲਨ",
+      "ਜੀਵਾਸ਼ਮ ਅਤੇ ਵਿਕਾਸ ਦੇ ਸਬੂਤ",
+      "ਹੋਮੋਲੋਗਸ, ਐਨਾਲੋਗਸ ਅਤੇ ਅਵਸ਼ੇਸ਼ੀ ਬਣਤਰਾਂ",
+      "ਮਿਲੀ-ਜੁਲੀ ਜੈਨੇਟਿਕਸ ਅਤੇ ਵਿਕਾਸ ਸਮਝ",
+    ],
+  },
+  "SCI-CP-031": {
+    hi: [
+      "सूक्ष्मजीव समूह और मूल विशेषताएँ",
+      "बैक्टीरिया",
+      "कवक",
+      "प्रोटोजोआ",
+      "शैवाल, सायनोबैक्टीरिया और वायरस",
+      "किण्वन और खाद्य उत्पादन",
+      "नाइट्रोजन स्थिरीकरण और कृषि",
+      "उपयोगी सूक्ष्मजीवी उत्पाद",
+      "अपघटन और पर्यावरणीय भूमिकाएँ",
+      "भोजन खराब होना, संरक्षण और मिश्रित तर्क",
+    ],
+    pa: [
+      "ਸੂਖਮਜੀਵ ਸਮੂਹ ਅਤੇ ਮੁੱਢਲੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ",
+      "ਬੈਕਟੀਰੀਆ",
+      "ਫੰਗਸ",
+      "ਪ੍ਰੋਟੋਜ਼ੋਆ",
+      "ਐਲਗੀ, ਸਾਇਨੋਬੈਕਟੀਰੀਆ ਅਤੇ ਵਾਇਰਸ",
+      "ਫਰਮੈਂਟੇਸ਼ਨ ਅਤੇ ਭੋਜਨ ਉਤਪਾਦਨ",
+      "ਨਾਈਟ੍ਰੋਜਨ ਸਥਿਰੀਕਰਨ ਅਤੇ ਖੇਤੀਬਾੜੀ",
+      "ਲਾਭਦਾਇਕ ਸੂਖਮਜੀਵੀ ਉਤਪਾਦ",
+      "ਸੜਨ-ਗਲਨ ਅਤੇ ਵਾਤਾਵਰਣੀ ਭੂਮਿਕਾਵਾਂ",
+      "ਭੋਜਨ ਖਰਾਬ ਹੋਣਾ, ਸੰਭਾਲ ਅਤੇ ਮਿਲੀ-ਜੁਲੀ ਸਮਝ",
+    ],
+  },
 } as const;
 
 const qlNumber=(qlId:string)=>Number(qlId.slice(-3));
@@ -363,7 +450,10 @@ function englishFor(cpId:BiologyLocalizedCpV1):readonly EnglishQuestion[]{
   if(cpId==="SCI-CP-025") return SCI_CP025_REVIEW_V1;
   if(cpId==="SCI-CP-026") return SCI_CP026_REVIEW_V1;
   if(cpId==="SCI-CP-027") return SCI_CP027_REVIEW_V1;
-  return SCI_CP028_REVIEW_V1;
+  if(cpId==="SCI-CP-028") return SCI_CP028_REVIEW_V1;
+  if(cpId==="SCI-CP-029") return SCI_CP029_REVIEW_V1;
+  if(cpId==="SCI-CP-030") return SCI_CP030_REVIEW_V1;
+  return SCI_CP031_REVIEW_V1;
 }
 
 function nativeFor(cpId:BiologyLocalizedCpV1,locale:Exclude<BiologyLocaleV1,"en">):readonly BiologyNativeSpecV1[]{
@@ -376,7 +466,10 @@ function nativeFor(cpId:BiologyLocalizedCpV1,locale:Exclude<BiologyLocaleV1,"en"
   if(cpId==="SCI-CP-025") return locale==="hi"?SCI_BIOLOGY_CP025_HI_V1:SCI_BIOLOGY_CP025_PA_V1;
   if(cpId==="SCI-CP-026") return locale==="hi"?SCI_BIOLOGY_CP026_HI_V1:SCI_BIOLOGY_CP026_PA_V1;
   if(cpId==="SCI-CP-027") return locale==="hi"?SCI_BIOLOGY_CP027_HI_V1:SCI_BIOLOGY_CP027_PA_V1;
-  return locale==="hi"?SCI_BIOLOGY_CP028_HI_V1:SCI_BIOLOGY_CP028_PA_V1;
+  if(cpId==="SCI-CP-028") return locale==="hi"?SCI_BIOLOGY_CP028_HI_V1:SCI_BIOLOGY_CP028_PA_V1;
+  if(cpId==="SCI-CP-029") return locale==="hi"?SCI_BIOLOGY_CP029_HI_V1:SCI_BIOLOGY_CP029_PA_V1;
+  if(cpId==="SCI-CP-030") return locale==="hi"?SCI_BIOLOGY_CP030_HI_V1:SCI_BIOLOGY_CP030_PA_V1;
+  return locale==="hi"?SCI_BIOLOGY_CP031_HI_V1:SCI_BIOLOGY_CP031_PA_V1;
 }
 
 export function generateBiologyLocalizedCpV1(cpId:BiologyLocalizedCpV1,locale:BiologyLocaleV1):readonly BiologyLocalizedQuestionV1[]{
@@ -387,5 +480,5 @@ export function generateBiologyLocalizedCpV1(cpId:BiologyLocalizedCpV1,locale:Bi
   return Object.freeze(english.map((q,index)=>localizeNative(q,locale,specs[index])));
 }
 
-export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020","SCI-CP-021","SCI-CP-022","SCI-CP-023","SCI-CP-024","SCI-CP-025","SCI-CP-026","SCI-CP-027","SCI-CP-028"] as const);
+export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020","SCI-CP-021","SCI-CP-022","SCI-CP-023","SCI-CP-024","SCI-CP-025","SCI-CP-026","SCI-CP-027","SCI-CP-028","SCI-CP-029","SCI-CP-030","SCI-CP-031"] as const);
 export const SCI_BIOLOGY_WAVE1_SUPPORTED_LOCALES_V1=Object.freeze(["en","hi","pa"] as const);
