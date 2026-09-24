@@ -1,6 +1,6 @@
 # PUN-001 CP014 — ਪਾਠ-ਬੋਧ ਅਤੇ ਨਿਯੰਤਰਿਤ ਅਨੁਵਾਦ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Exhaustive audited authority surface
 - 50 curated Punjabi passages (13 retained donor passages + 37 new breadth-expansion passages)
@@ -58,4 +58,4 @@ Every retained terminology authority participates in forward translation, revers
 - review lifecycle remains closed to runtime publication
 
 ## Lifecycle
-The previously approved CP014 passage/terminology surface remains preserved, but this blueprint-gap layer adds new learner-facing authorities and therefore requires fresh owner review. Runtime lifecycle remains REVIEW_ONLY; no Question Bank write, test/mock eligibility, or public/student publication is authorized.
+Owner approval is recorded for the blueprint-gap review head `20e78288f6e4e5ee8a5488a05ed3780ea6b79cc2` on 2026-09-24. The previously approved passage/terminology surface remains preserved. Runtime lifecycle remains REVIEW_ONLY; no Question Bank write, test/mock eligibility, or public/student publication is authorized by this approval.
