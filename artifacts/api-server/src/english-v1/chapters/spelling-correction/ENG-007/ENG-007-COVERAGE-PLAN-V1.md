@@ -1,6 +1,6 @@
 # ENG-007 — Spelling Correction — Coverage Plan V1
 
-Status: `CP001_CP006_HUMAN_APPROVED__FINAL_RESIDUAL_AUDIT_PENDING__REVIEW_ONLY`
+Status: `CP001_CP006_HUMAN_APPROVED__CP007_IMPLEMENTED__HUMAN_REVIEW_PENDING__FINAL_FREEZE_AUDIT_PENDING`
 
 ENG-007 has **no fixed final word-count target**. The chapter closes only after an exhaustive but exam-relevant breadth audit finds no material spelling gap worth adding.
 
@@ -12,6 +12,7 @@ ENG-007 has **no fixed final word-count target**. The chapter closes only after 
 - CP004 — 260 scientific, medical, technical and professional spellings — **HUMAN APPROVED**.
 - CP005 — 265 audit-selected advanced/confusable structural gaps — **HUMAN APPROVED**.
 - CP006 — 107 spelling-specific SSC/RRB PYQ gaps found after CP005 — **HUMAN APPROVED**.
+- CP007 — 53 final residual PYQ spellings found after the post-CP006 audit — **IMPLEMENTED / HUMAN REVIEW PENDING**.
 - Additional checkpoint(s) may be added only when the audit finds a material exam-relevant gap; no checkpoint exists merely to satisfy a numeric target.
 
 ## Question surfaces
@@ -37,9 +38,12 @@ ENG-007 has **no fixed final word-count target**. The chapter closes only after 
 ## Current breadth
 
 - Approved: **1,392 unique spellings** across CP001-CP006.
+- Implemented and awaiting review: **53 residual PYQ spellings** in CP007.
+- Current governed breadth after CP007: **1,445 unique spellings**.
 - This is the **current observed breadth**, not a target fraction.
 - CP005 contributed 265 gap-audit additions (26 Easy / 181 Medium / 58 Hard).
-- CP006 closed 107 spelling-specific PYQ omissions. A final residual audit now determines whether ENG-007 can freeze.
+- CP006 closed 107 spelling-specific PYQ omissions. The subsequent residual audit found 53 more unambiguous tested/corrected forms, now implemented in CP007.
+- After CP007 approval, one final freeze audit will decide whether any material gap remains.
 - ENG-007 is frozen only when that audit finds no material exam-relevant omissions.
 
 ## Closure criteria
