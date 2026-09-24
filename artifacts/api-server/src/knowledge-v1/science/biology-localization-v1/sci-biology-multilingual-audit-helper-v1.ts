@@ -4,7 +4,7 @@ import { generateBiologyLocalizedCpV1, type BiologyLocalizedCpV1 } from "./sci-b
 const locales=["en","hi","pa"] as const;
 const devanagari=/\p{Script=Devanagari}/u;
 const gurmukhi=/\p{Script=Gurmukhi}/u;
-const allowedLatin=/\b(DNA|RNA|ATP|ER|pH|HIV|AIDS|CD4|F1|F2|TT|Tt|tt|XX|XY|YY|XO|XXX|Amoeba|Paramecium|Lactobacillus|Rhizobium|Vibrio|cholerae|Salmonella|Typhi|Mycobacterium|tuberculosis|Plasmodium|vivax|falciparum|Aedes|aegypti|Anopheles|Culex|Penicillium|Rhizopus|Homo|sapiens|CFCs)\b/g;
+const allowedLatin=/\b(DNA|RNA|ATP|ER|pH|HIV|AIDS|CD4|F1|F2|TT|Tt|tt|XX|XY|YY|XO|XXX|Amoeba|Paramecium|Lactobacillus|Rhizobium|Vibrio|cholerae|Salmonella|Typhi|Mycobacterium|tuberculosis|Plasmodium|vivax|falciparum|Aedes|aegypti|Anopheles|Culex|Penicillium|Rhizopus|Homo|sapiens|CFC|CFCs)\b/g;
 const strayLatin=/[A-Za-z]{3,}/;
 const internalLeakage=/\b(review[- ]only|runtimeRegistered|sourceFactIds|candidate v\d+|question line|ql id)\b/i;
 const optionAnalysis=/\b(option|choice)\s*[ABCD]\b/i;
