@@ -2,10 +2,10 @@ import assert from"node:assert/strict";
 import{ENG007_CP006_ENTRIES_V1}from"../chapters/spelling-correction/ENG-007/CP006/eng-007-cp006-lexicon-v1";
 import{generateEng007CP006QuestionV1}from"../chapters/spelling-correction/ENG-007/CP006/eng-007-cp006-v1";
 
-assert.equal(ENG007_CP006_ENTRIES_V1.length,102);
-assert.deepEqual(["easy","medium","hard"].map(d=>ENG007_CP006_ENTRIES_V1.filter(x=>x.difficulty===d).length),[34,52,16]);
-assert.equal(new Set(ENG007_CP006_ENTRIES_V1.map(x=>x.correct.toLowerCase())).size,102);
-assert.equal(new Set(ENG007_CP006_ENTRIES_V1.map(x=>x.misspelling.toLowerCase())).size,102);
+assert.equal(ENG007_CP006_ENTRIES_V1.length,107);
+assert.deepEqual(["easy","medium","hard"].map(d=>ENG007_CP006_ENTRIES_V1.filter(x=>x.difficulty===d).length),[37,54,16]);
+assert.equal(new Set(ENG007_CP006_ENTRIES_V1.map(x=>x.correct.toLowerCase())).size,107);
+assert.equal(new Set(ENG007_CP006_ENTRIES_V1.map(x=>x.misspelling.toLowerCase())).size,107);
 const canonicalSet=new Set(ENG007_CP006_ENTRIES_V1.map(x=>x.correct.toLowerCase()));
 const misspellingSet=new Set(ENG007_CP006_ENTRIES_V1.map(x=>x.misspelling.toLowerCase()));
 
@@ -30,6 +30,6 @@ for(let i=0;i<18000;i++){
   const q=generateEng007CP006QuestionV1({seed:`eng007-cp006-soak:${i}`,difficulty,mode});
   positions[q.correctOptionIndex]++;seen.add(q.metadata.entryId);
 }
-assert.equal(seen.size,102);
+assert.equal(seen.size,107);
 for(const x of positions)assert.ok(x>=3900&&x<=5100,`Answer-position imbalance: ${positions.join(",")}`);
-console.log("ENG-007 CP006 validation passed.",{entries:102,positions});
+console.log("ENG-007 CP006 validation passed.",{entries:107,positions});
