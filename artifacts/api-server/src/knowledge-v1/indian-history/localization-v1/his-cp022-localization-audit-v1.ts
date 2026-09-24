@@ -50,6 +50,11 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਵਿਦਰੋਹ",
       "ਅਨੁਯਾਇਆਂ",
       "ਰਾਜੀ ਸਹਾਰੇ",
+      "ਬਗਾਵਤ ਪੱਛਮੀ ਉੱਤਰ ਪ੍ਰਦੇਸ਼ ਅਤੇ ਕਿਸ ਖੇਤਰ ਵਿੱਚ ਹੋਇਆ",
+      "ਤਟੀ ਵਪਾਰੀਆਂ",
+      "ਸੁਹਾਵਣਾ ਯੁੱਗ",
+      "ਭਾਈਚਾਰੇ ਦੀ ਆਪਣਾ",
+      "ਜ਼ਬਰਦਸਤੀ ਵਾਲੇ ਸੁਭਾਅ",
     ];  for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
     }
