@@ -1,7 +1,7 @@
 # CP014 Status
 
 - Topic: ਪਾਠ-ਬੋਧ ਅਤੇ ਨਿਯੰਤਰਿਤ ਅਨੁਵਾਦ
-- Lifecycle: `REVIEW_ONLY / HUMAN_REVIEW_PENDING`
+- Lifecycle: `REVIEW_ONLY / HUMAN_APPROVED`
 - Passages: 50
 - Passage-question authorities: 190
 - Administrative terminology authorities: 215
@@ -16,6 +16,7 @@
 - All 13 families must be represented
 - All 4 F08 truth outcomes must be represented
 - Forward and reverse sentence translation plus meaning-change detection must be represented
-- Runtime/publication promotion remains blocked pending fresh owner approval of this gap-closure head
+- Owner approval recorded for reviewed SHA `20e78288f6e4e5ee8a5488a05ed3780ea6b79cc2` on 2026-09-24
+- Runtime/publication promotion remains blocked pending a separate lifecycle-promotion decision
 
-The previously approved 50-passage / 215-term surface is preserved. The new context and sentence-translation layer is not covered by the earlier approval.
+The previously approved 50-passage / 215-term surface is preserved, and the new context and sentence-translation layer is covered by the approval recorded above.
