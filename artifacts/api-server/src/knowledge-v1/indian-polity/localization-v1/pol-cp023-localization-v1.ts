@@ -242,7 +242,7 @@ const NUM:Record<string,Pair>={
 };
 function option(x:string,locale:NativeLocale):string{
  const z=O[x]??LAW[x]??NUM[x]??EXTRA[x]; if(z)return z[locale];
- if(/^\d{1,2} (January|March|October|April|September) \d{4}$/.test(x)){const mm={January:["जनवरी","ਜਨਵਰੀ"],March:["मार्च","ਮਾਰਚ"],October:["अक्टूबर","ਅਕਤੂਬਰ"],April:["अप्रैल","ਅਪ੍ਰੈਲ"],September:["सितंबर","ਸਤੰਬਰ"]};const m=x.match(/^(\d{1,2}) (January|March|October|April) (\d{4})$/)!;return m[1]+" "+mm[m[2] as keyof typeof mm][locale==="hi"?0:1]+" "+m[3];}
+ if(/^\d{1,2} (January|March|October|April|September) \d{4}$/.test(x)){const mm={January:["जनवरी","ਜਨਵਰੀ"],March:["मार्च","ਮਾਰਚ"],October:["अक्टूबर","ਅਕਤੂਬਰ"],April:["अप्रैल","ਅਪ੍ਰੈਲ"],September:["सितंबर","ਸਤੰਬਰ"]};const m=x.match(/^(\d{1,2}) (January|March|October|April|September) (\d{4})$/)!;return m[1]+" "+mm[m[2] as keyof typeof mm][locale==="hi"?0:1]+" "+m[3];}
  let m=x.match(/^Section (\d+)(?: only)?$/);if(m)return (locale==="hi"?"धारा ":"ਧਾਰਾ ")+m[1]+(x.endsWith(" only")?(locale==="hi"?" केवल":" ਹੀ"):"");
  throw new Error("POL-CP-023 missing localized option: "+x);
 }
