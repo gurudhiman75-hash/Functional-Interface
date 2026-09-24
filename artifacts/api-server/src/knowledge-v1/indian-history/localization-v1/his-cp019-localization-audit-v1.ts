@@ -41,6 +41,8 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਵਿਆਪਕ ਕ੍ਰਮ",
       "ਸਹੀ ਤਰ੍ਹਾਂ ਦੱਸਦਾ",
       "ਵਿਦਵਤ",
+      "ਵਿਆਪਕ ਚਲਣ",
+      "ਅਧਾਰ",
     ];
     for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
