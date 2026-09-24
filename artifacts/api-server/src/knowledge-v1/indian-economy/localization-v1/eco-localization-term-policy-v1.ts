@@ -344,6 +344,7 @@ const allowedAbbreviations = [
   "NEFT",
   "SWIFT",
   "NDDB",
+  "SHG",
   "SBI",
 ] as const;
 
