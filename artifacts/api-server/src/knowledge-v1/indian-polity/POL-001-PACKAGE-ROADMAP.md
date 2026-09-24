@@ -69,10 +69,10 @@ Before Question Studio exposure:
 | POL-CP-015–016 | 176 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-017–019 | 256 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-020–022 | 240 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
-| POL-CP-023–025 | 240 | REVIEW CANDIDATE V1 | REVIEW CANDIDATE V1 | blocked pending project-owner approval |
+| POL-CP-023–025 | 240 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-026–027 | pending | pending | pending | English-only remains active |
 
-The approved CP001–CP022 localization layers cover 1,687 English authority questions and 5,061 EN/HI/PA review surfaces. CP023–CP025 add 240 English authority questions and 720 EN/HI/PA review-candidate surfaces. If approved, localization through CP025 will cover 1,927 English authorities and 5,781 EN/HI/PA surfaces. CP026–CP027 remain pending. Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity remain executable CI gates.
+The approved CP001–CP025 localization layers cover 1,927 English authority questions and 5,781 EN/HI/PA review surfaces. CP026–CP027 remain pending. Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity remain executable CI gates.
 
 ### CP001–CP002 localization approval
 
@@ -111,3 +111,8 @@ Project-owner approval received on 24 September 2026. Hindi and Punjabi V1 for P
 ### CP023–CP025 localization review candidate
 
 POL-CP-023 Statutory & Executive Bodies, POL-CP-024 Official Language, Scheduled Areas & Tribal Administration and POL-CP-025 Union Territories & Special Provisions for States are implemented as multilingual V1 review candidates. The slice preserves 240 frozen English authority questions exactly and adds 480 native Hindi/Punjabi learner surfaces, for 720 EN/HI/PA review surfaces. Executable gates preserve statutory-body facts and qualification overlays, Articles 343–351 and Fifth/Sixth Schedule identifiers, and the approved CP025 V3 43-completion/37-question stem contract together with Articles 239–241 and 371-series legal forms. Runtime promotion remains blocked until explicit project-owner approval.
+
+
+### CP023–CP025 localization approval
+
+Project-owner approval received on 24 September 2026. Hindi and Punjabi V1 for POL-CP-023 Statutory & Executive Bodies, POL-CP-024 Official Language, Scheduled Areas & Tribal Administration, and POL-CP-025 Union Territories & Special Provisions for States are approved/frozen. The approved slice preserves 240 frozen English authority questions and 720 EN/HI/PA review surfaces, including the frozen CP025 V3 stem-mode contract and executable legal/numeric, source, QL, option-order, correct-index, native-script and Punjabi editorial gates.
