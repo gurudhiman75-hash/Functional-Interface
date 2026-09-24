@@ -42,6 +42,10 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਵਿੱਤੀ ਵੈਧਤਾ",
       "ਅੰਤਰ-ਖੇਤਰੀ",
       "ਬਿਚੌਲਿਆਂ",
+      "ਕਿਹੜੇ ਚਾਰ ਕਿਸਮਾਂ",
+      "ਸ਼ੋਰੇ ਦਾ ਮੁੱਖ ਵਰਤੋਂ",
+      "ਵੱਡੀ ਨਕਦੀ ਨਾਲ ਲਿਜਾਏ",
+      "ਪੰਜਾਬੀ ਅਧਾਰ",
     ];    for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
     }
