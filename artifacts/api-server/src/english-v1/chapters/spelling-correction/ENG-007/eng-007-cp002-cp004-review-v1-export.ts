@@ -41,7 +41,7 @@ for(const cp of cps){
   }
  }
 }
-lines.push("## Review checklist","","- Options look like genuine competitive-exam spelling choices.","- No valid regional or alternative spelling is marked wrong.","- Misspellings are plausible rather than random letter noise.","- Difficulty calibration is realistic.","- Technical or formal subject knowledge is not required.","- Explanations are brief and useful.","");
+lines.push("## Review checklist","","- Correct-spelling questions contain exactly one correctly spelt option and three misspelt options.","- Incorrect-spelling questions may mix correct and incorrect forms, with exactly one keyed misspelling.","- Options look like genuine competitive-exam spelling choices.","- No valid regional or alternative spelling is marked wrong.","- Misspellings are plausible rather than random letter noise.","- Difficulty calibration is realistic.","- Technical or formal subject knowledge is not required.","- Explanations are brief and useful.","");
 await mkdir(dirname(OUT),{recursive:true});
 await writeFile(OUT,lines.join("\n")+"\n","utf8");
 console.log(OUT);
