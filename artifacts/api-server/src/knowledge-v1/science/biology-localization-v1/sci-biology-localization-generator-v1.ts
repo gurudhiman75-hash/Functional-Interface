@@ -2,6 +2,9 @@ import { SCI_CP019_REVIEW_V1, type SciCp019ReviewQuestion } from "../cell-biolog
 import { SCI_CP020_REVIEW_V1, type SciCp020ReviewQuestion } from "../plant-biology/sci-cp020-review-v1";
 import { SCI_CP021_REVIEW_V1, type SciCp021ReviewQuestion } from "../human-digestive-system/sci-cp021-review-v1";
 import { SCI_CP022_REVIEW_V1, type SciCp022ReviewQuestion } from "../respiratory-system/sci-cp022-review-v1";
+import { SCI_CP023_REVIEW_V1, type SciCp023ReviewQuestion } from "../circulatory-system/sci-cp023-review-v1";
+import { SCI_CP024_REVIEW_V1, type SciCp024ReviewQuestion } from "../excretory-system/sci-cp024-review-v1";
+import { SCI_CP025_REVIEW_V1, type SciCp025ReviewQuestion } from "../nervous-system-sense-organs/sci-cp025-review-v1";
 import {
   SCI_BIOLOGY_LOCALIZATION_V1,
   type BiologyLocaleV1,
@@ -16,9 +19,15 @@ import { SCI_BIOLOGY_CP021_HI_V1 } from "./sci-biology-cp021-localization-data-h
 import { SCI_BIOLOGY_CP021_PA_V1 } from "./sci-biology-cp021-localization-data-pa-v1";
 import { SCI_BIOLOGY_CP022_HI_V1 } from "./sci-biology-cp022-localization-data-hi-v1";
 import { SCI_BIOLOGY_CP022_PA_V1 } from "./sci-biology-cp022-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP023_HI_V1 } from "./sci-biology-cp023-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP023_PA_V1 } from "./sci-biology-cp023-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP024_HI_V1 } from "./sci-biology-cp024-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP024_PA_V1 } from "./sci-biology-cp024-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP025_HI_V1 } from "./sci-biology-cp025-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP025_PA_V1 } from "./sci-biology-cp025-localization-data-pa-v1";
 
-export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020" | "SCI-CP-021" | "SCI-CP-022";
-type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion | SciCp021ReviewQuestion | SciCp022ReviewQuestion;
+export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020" | "SCI-CP-021" | "SCI-CP-022" | "SCI-CP-023" | "SCI-CP-024" | "SCI-CP-025";
+type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion | SciCp021ReviewQuestion | SciCp022ReviewQuestion | SciCp023ReviewQuestion | SciCp024ReviewQuestion | SciCp025ReviewQuestion;
 
 const QL_NAMES = {
   "SCI-CP-019": {
@@ -125,6 +134,84 @@ const QL_NAMES = {
       "ਸ਼ਵਾਸ ਸਿਹਤ ਅਤੇ ਮਿਲੀ-ਜੁਲੀ ਸਮਝ",
     ],
   },
+  "SCI-CP-023": {
+    hi: [
+      "रक्त और उसके घटक",
+      "लाल रक्त कोशिकाएँ, हीमोग्लोबिन और ऑक्सीजन परिवहन",
+      "श्वेत रक्त कोशिकाएँ, प्लेटलेट और रक्त जमना",
+      "हृदय की संरचना और कक्ष",
+      "हृदय के वाल्व और रक्त प्रवाह की दिशा",
+      "धमनियाँ, शिराएँ और केशिकाएँ",
+      "फुफ्फुसीय और दैहिक परिसंचरण",
+      "नाड़ी, हृदय गति और रक्तचाप",
+      "रक्त समूह और आधान की मूल बातें",
+      "लसीका और मिश्रित परिसंचरण तर्क",
+    ],
+    pa: [
+      "ਖੂਨ ਅਤੇ ਇਸ ਦੇ ਹਿੱਸੇ",
+      "ਲਾਲ ਖੂਨ ਕੋਸ਼ਿਕਾਵਾਂ, ਹੀਮੋਗਲੋਬਿਨ ਅਤੇ ਆਕਸੀਜਨ ਦੀ ਆਵਾਜਾਈ",
+      "ਚਿੱਟੀਆਂ ਖੂਨ ਕੋਸ਼ਿਕਾਵਾਂ, ਪਲੇਟਲੈਟ ਅਤੇ ਖੂਨ ਜਮਣਾ",
+      "ਦਿਲ ਦੀ ਬਣਤਰ ਅਤੇ ਕਮਰੇ",
+      "ਦਿਲ ਦੇ ਵਾਲਵ ਅਤੇ ਖੂਨ ਦੇ ਵਹਾਅ ਦੀ ਦਿਸ਼ਾ",
+      "ਧਮਨੀਆਂ, ਨਸਾਂ ਅਤੇ ਕੇਸ਼ਿਕਾਵਾਂ",
+      "ਫੇਫੜਿਆਂ ਅਤੇ ਸਰੀਰ ਵਾਲਾ ਖੂਨ ਗੇੜ",
+      "ਨਬਜ਼, ਦਿਲ ਦੀ ਧੜਕਣ ਅਤੇ ਖੂਨ ਦਬਾਅ",
+      "ਖੂਨ ਸਮੂਹ ਅਤੇ ਖੂਨ ਚੜ੍ਹਾਉਣ ਦੀਆਂ ਮੁੱਢਲੀਆਂ ਗੱਲਾਂ",
+      "ਲਸੀਕਾ ਅਤੇ ਮਿਲੀ-ਜੁਲੀ ਖੂਨ ਗੇੜ ਸਮਝ",
+    ],
+  },
+  "SCI-CP-024": {
+    hi: [
+      "उत्सर्जन और मूत्र तंत्र",
+      "गुर्दे, मूत्रवाहिनी, मूत्राशय और मूत्रमार्ग",
+      "नेफ्रॉन की संरचना",
+      "ग्लोमेरुलस में निस्यंदन",
+      "चयनात्मक पुनःअवशोषण और नलिकीय स्राव",
+      "मूत्र निर्माण और संरचना",
+      "जल संतुलन और एडीएच",
+      "डायलिसिस और गुर्दा विफलता की मूल बातें",
+      "अन्य उत्सर्जी अंग और अपशिष्ट निष्कासन",
+      "मिश्रित उत्सर्जन तर्क",
+    ],
+    pa: [
+      "ਉਤਸਰਜਨ ਅਤੇ ਪਿਸ਼ਾਬ ਤੰਤਰ",
+      "ਗੁਰਦੇ, ਯੂਰੇਟਰ, ਪਿਸ਼ਾਬ ਦੀ ਥੈਲੀ ਅਤੇ ਯੂਰੇਥਰਾ",
+      "ਨੇਫਰੋਨ ਦੀ ਬਣਤਰ",
+      "ਗਲੋਮੇਰੁਲਸ ਵਿੱਚ ਛਾਣ",
+      "ਚੁਣਿੰਦੀ ਮੁੜ-ਸੋਖ ਅਤੇ ਨਲੀਦਾਰ ਸ੍ਰਾਵ",
+      "ਪਿਸ਼ਾਬ ਬਣਨਾ ਅਤੇ ਇਸ ਦੀ ਬਣਤਰ",
+      "ਪਾਣੀ ਦਾ ਸੰਤੁਲਨ ਅਤੇ ਏਡੀਐਚ",
+      "ਡਾਇਲਿਸਿਸ ਅਤੇ ਗੁਰਦਾ ਨਾਕਾਮੀ ਦੀਆਂ ਮੁੱਢਲੀਆਂ ਗੱਲਾਂ",
+      "ਹੋਰ ਉਤਸਰਜਕ ਅੰਗ ਅਤੇ ਕਚਰਾ ਹਟਾਉਣਾ",
+      "ਮਿਲੀ-ਜੁਲੀ ਉਤਸਰਜਨ ਸਮਝ",
+    ],
+  },
+  "SCI-CP-025": {
+    hi: [
+      "तंत्रिका तंत्र का संगठन",
+      "न्यूरॉन की संरचना और तंत्रिका आवेग",
+      "मस्तिष्क के भाग और उनके कार्य",
+      "मेरुरज्जु और प्रतिवर्त क्रिया",
+      "परिधीय नसें और स्वायत्त नियंत्रण",
+      "आँख की संरचना और दृष्टि",
+      "रेटिना, समंजन और सामान्य दृष्टिदोष",
+      "कान, श्रवण और संतुलन",
+      "गंध, स्वाद और त्वचा के रिसेप्टर",
+      "मिश्रित तंत्रिका और संवेदी तर्क",
+    ],
+    pa: [
+      "ਨਰਵ ਤੰਤਰ ਦੀ ਬਣਤਰ",
+      "ਨਿਊਰੋਨ ਦੀ ਬਣਤਰ ਅਤੇ ਨਰਵ ਸੰਕੇਤ",
+      "ਦਿਮਾਗ ਦੇ ਹਿੱਸੇ ਅਤੇ ਕੰਮ",
+      "ਰੀੜ੍ਹ ਦੀ ਨਰਵ ਰੱਜੂ ਅਤੇ ਰਿਫਲੈਕਸ ਕਿਰਿਆ",
+      "ਬਾਹਰੀ ਨਸਾਂ ਅਤੇ ਆਪਮਾਤਰ ਨਿਯੰਤਰਣ",
+      "ਅੱਖ ਦੀ ਬਣਤਰ ਅਤੇ ਦ੍ਰਿਸ਼ਟੀ",
+      "ਰੇਟਿਨਾ, ਅਕਾਮੋਡੇਸ਼ਨ ਅਤੇ ਆਮ ਦ੍ਰਿਸ਼ਟੀ ਦੋਸ਼",
+      "ਕਾਨ, ਸੁਣਨਾ ਅਤੇ ਸੰਤੁਲਨ",
+      "ਗੰਧ, ਸਵਾਦ ਅਤੇ ਚਮੜੀ ਦੇ ਰਿਸੈਪਟਰ",
+      "ਮਿਲੀ-ਜੁਲੀ ਨਰਵ ਅਤੇ ਸੰਵੇਦੀ ਸਮਝ",
+    ],
+  },
 } as const;
 
 const qlNumber=(qlId:string)=>Number(qlId.slice(-3));
@@ -183,14 +270,20 @@ function englishFor(cpId:BiologyLocalizedCpV1):readonly EnglishQuestion[]{
   if(cpId==="SCI-CP-019") return SCI_CP019_REVIEW_V1;
   if(cpId==="SCI-CP-020") return SCI_CP020_REVIEW_V1;
   if(cpId==="SCI-CP-021") return SCI_CP021_REVIEW_V1;
-  return SCI_CP022_REVIEW_V1;
+  if(cpId==="SCI-CP-022") return SCI_CP022_REVIEW_V1;
+  if(cpId==="SCI-CP-023") return SCI_CP023_REVIEW_V1;
+  if(cpId==="SCI-CP-024") return SCI_CP024_REVIEW_V1;
+  return SCI_CP025_REVIEW_V1;
 }
 
 function nativeFor(cpId:BiologyLocalizedCpV1,locale:Exclude<BiologyLocaleV1,"en">):readonly BiologyNativeSpecV1[]{
   if(cpId==="SCI-CP-019") return locale==="hi"?SCI_BIOLOGY_CP019_HI_V1:SCI_BIOLOGY_CP019_PA_V1;
   if(cpId==="SCI-CP-020") return locale==="hi"?SCI_BIOLOGY_CP020_HI_V1:SCI_BIOLOGY_CP020_PA_V1;
   if(cpId==="SCI-CP-021") return locale==="hi"?SCI_BIOLOGY_CP021_HI_V1:SCI_BIOLOGY_CP021_PA_V1;
-  return locale==="hi"?SCI_BIOLOGY_CP022_HI_V1:SCI_BIOLOGY_CP022_PA_V1;
+  if(cpId==="SCI-CP-022") return locale==="hi"?SCI_BIOLOGY_CP022_HI_V1:SCI_BIOLOGY_CP022_PA_V1;
+  if(cpId==="SCI-CP-023") return locale==="hi"?SCI_BIOLOGY_CP023_HI_V1:SCI_BIOLOGY_CP023_PA_V1;
+  if(cpId==="SCI-CP-024") return locale==="hi"?SCI_BIOLOGY_CP024_HI_V1:SCI_BIOLOGY_CP024_PA_V1;
+  return locale==="hi"?SCI_BIOLOGY_CP025_HI_V1:SCI_BIOLOGY_CP025_PA_V1;
 }
 
 export function generateBiologyLocalizedCpV1(cpId:BiologyLocalizedCpV1,locale:BiologyLocaleV1):readonly BiologyLocalizedQuestionV1[]{
@@ -201,5 +294,5 @@ export function generateBiologyLocalizedCpV1(cpId:BiologyLocalizedCpV1,locale:Bi
   return Object.freeze(english.map((q,index)=>localizeNative(q,locale,specs[index])));
 }
 
-export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020","SCI-CP-021","SCI-CP-022"] as const);
+export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020","SCI-CP-021","SCI-CP-022","SCI-CP-023","SCI-CP-024","SCI-CP-025"] as const);
 export const SCI_BIOLOGY_WAVE1_SUPPORTED_LOCALES_V1=Object.freeze(["en","hi","pa"] as const);
