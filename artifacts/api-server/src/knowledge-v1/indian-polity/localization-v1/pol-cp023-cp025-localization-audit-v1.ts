@@ -101,9 +101,9 @@ for(const locale of ["hi","pa"] as const){
  assert.match(learner(cp24[0]!),/343/);
  assert.match(cp24[0]!.explanation,locale==="hi"?/देवनागरी/:/ਦੇਵਨਾਗਰੀ/);
  assert.match(learner(cp24[8]!),/344/);
- assert.match(learner(cp24[12]!),/30/);
- assert.match(learner(cp24[13]!),/20/);
- assert.match(learner(cp24[14]!),/10/);
+ assert.match(learner(cp24[12]!),locale==="hi"?/तीस/:/ਤੀਹ/);
+ assert.match(learner(cp24[13]!),locale==="hi"?/बीस/:/ਵੀਹ/);
+ assert.match(learner(cp24[14]!),locale==="hi"?/दस/:/ਦਸ/);
  assert.match(learner(cp24[48]!),/22/);
  assert.match(learner(cp24[49]!),/344\(1\)/);
  assert.match(learner(cp24[56]!),/244\(1\)/);
