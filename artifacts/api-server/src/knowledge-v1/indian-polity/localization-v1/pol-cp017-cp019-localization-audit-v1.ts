@@ -72,7 +72,7 @@ for(const locale of ["hi","pa"] as const){
  assert.match(learnerText(cp19[2]!),/24/);assert.match(learnerText(cp19[2]!),/1993/);
  assert.match(cp19[17]!.explanation,/एक-तिहाई|ਇੱਕ-ਤਿਹਾਈ/);
  assert.match(cp19[22]!.explanation,/21/);assert.match(cp19[22]!.explanation,/25/);
- assert.match(cp19[63]!.explanation,/29/);
+ assert.match(cp19[60]!.explanation,/29/);
 }
 
 const evidence={chapterId:"POL-001",cps:["POL-CP-017","POL-CP-018","POL-CP-019"],localizationVersion:"POL-LOCALIZATION-V1",englishQuestions:total,questionsPerLocale:total,locales,totalReviewSurfaces:total*3,semanticInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,qlInvariant:true,sourceInvariant:true,numericLegalFormInvariant:true,punjabiNativeEditorialGuard:true,stemGrammarGuard:true,cp017FederalMechanicsGuard:true,cp018EmergencySafeguardsGuard:true,cp019PanchayatCoreFactsGuard:true,reviewOnly:true,runtimeRegistered:false};
