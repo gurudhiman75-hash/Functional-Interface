@@ -11,7 +11,7 @@ const strides:Record<string,number>={F01:3,F02:5,F03:7,F04:9,F05:11,F06:13,F07:2
 const out:string[]=[
  "# PUN-001 CP012 Review — ਅਖਾਣ / ਕਹਾਵਤਾਂ",
  "",
- "Status: HUMAN REVIEW PENDING",
+ "Status: HUMAN APPROVED",
  "",
  "The review is stratified across all eight audited families. Easy questions test meaning and forward completion; Medium uses reverse completion, authored situations and mapping; Hard requires two independent proverb judgments.",
  ""
