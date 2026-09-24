@@ -22,7 +22,7 @@ export type HisLocalizedQuestionV1 = {
   localizationV1: {
     version: "HIS-LOCALIZATION-V1";
     englishQuestionId: string;
-    englishFreeze: "HIS-001-ENGLISH-FREEZE-V1";
+    englishFreeze: "HIS-001-ENGLISH-FREEZE-V1" | "HIS-001-ENGLISH-FREEZE-V2";
     semanticInvariant: true;
     cpInvariant: true;
     qlInvariant: true;
@@ -47,3 +47,4 @@ export type HisLocalePairOverlayV1 = {
 
 export const HIS_LOCALIZATION_V1 = "HIS-LOCALIZATION-V1" as const;
 export const HIS_ENGLISH_FREEZE_V1 = "HIS-001-ENGLISH-FREEZE-V1" as const;
+export const HIS_ENGLISH_FREEZE_V2 = "HIS-001-ENGLISH-FREEZE-V2" as const;
