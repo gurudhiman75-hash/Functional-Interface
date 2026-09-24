@@ -16,6 +16,9 @@ on:
       - "artifacts/api-server/src/knowledge-v1/science/endocrine-system-hormones/**"
       - "artifacts/api-server/src/knowledge-v1/science/human-reproduction-development/**"
       - "artifacts/api-server/src/knowledge-v1/science/nutrition-deficiency-diseases/**"
+      - "artifacts/api-server/src/knowledge-v1/science/diseases-immunity/**"
+      - "artifacts/api-server/src/knowledge-v1/science/genetics-evolution/**"
+      - "artifacts/api-server/src/knowledge-v1/science/microorganisms/**"
   workflow_dispatch:
 
 concurrency:
@@ -166,3 +169,43 @@ jobs:
       - name: Run Biology CP028 multilingual audit
         working-directory: artifacts/api-server
         run: node dist/sci-biology-cp028-multilingual-audit-v1.mjs
+
+
+      - name: Bundle Biology CP029 multilingual audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/biology-localization-v1/sci-biology-cp029-multilingual-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-biology-cp029-multilingual-audit-v1.mjs
+      - name: Run Biology CP029 multilingual audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-biology-cp029-multilingual-audit-v1.mjs
+
+      - name: Bundle Biology CP030 multilingual audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/biology-localization-v1/sci-biology-cp030-multilingual-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-biology-cp030-multilingual-audit-v1.mjs
+      - name: Run Biology CP030 multilingual audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-biology-cp030-multilingual-audit-v1.mjs
+
+      - name: Bundle Biology CP031 multilingual audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/biology-localization-v1/sci-biology-cp031-multilingual-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-biology-cp031-multilingual-audit-v1.mjs
+      - name: Run Biology CP031 multilingual audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-biology-cp031-multilingual-audit-v1.mjs
