@@ -39,6 +39,8 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਸ਼ਲ੍ਯ-ਚਿਕਿਤਸਾ",
       "ਸੰਸਕ੍ਰਿਤੀ",
       "ਸਹੀ ਤਰ੍ਹਾਂ ਜੋੜਨ ਵਾਲਾ",
+      "ਤਰੀਕੇ ਇਹ ਗ੍ਰੰਥ",
+      "ਮਹਰੌਲੀ",
     ];
     for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
