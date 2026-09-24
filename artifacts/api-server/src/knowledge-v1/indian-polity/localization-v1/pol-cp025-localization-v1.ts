@@ -267,7 +267,7 @@ const nums:Record<string,Pair>={
 };
 function option(x:string,locale:NativeLocale):string{
  let m=x.match(/^Article\s+(\d+[A-Z-]*)$/);if(m)return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+m[1];
- m=x.match(/^Articles\s+(.+)$/);if(m)return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+m[1];
+ m=x.match(/^Articles\s+(.+)$/);if(m){const body=m[1].replace(/ to /g,locale==="hi"?" से ":" ਤੋਂ ").replace(/ and /g,locale==="hi"?" और ":" ਅਤੇ ");return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+body;}
  m=x.match(/^Part\s+([IVX]+)$/);if(m)return (locale==="hi"?"भाग ":"ਭਾਗ ")+m[1];
  const z=O[x]??namedAmend[x]??nums[x]??EXTRA[x];if(z)return z[locale];
  if(/^\d+[A-Z-]*(?: and \d+[A-Z-]*)?$/.test(x))return x.replace(" and ",locale==="hi"?" और ":" ਅਤੇ ");
