@@ -86,9 +86,9 @@ for(const locale of ["hi","pa"] as const){
  assert.match(learner(cp23[8]!),/1993/);
  assert.match(learner(cp23[12]!),locale==="hi"?/मुख्य न्यायाधीश/:/ਮੁੱਖ ਨਿਆਂਧੀਸ਼/);
  assert.match(learner(cp23[30]!),/65/);
- assert.match(learner(cp23[53]!),/8/);
- assert.match(learner(cp23[54]!),/50/);
- assert.match(learner(cp23[61]!),/25/);
+ assert.match(learner(cp23[53]!),locale==="hi"?/आठ/:/ਅੱਠ/);
+ assert.match(learner(cp23[54]!),locale==="hi"?/पचास/:/ਪੰਜਾਹ/);
+ assert.match(learner(cp23[61]!),locale==="hi"?/पच्चीस/:/ਪੱਚੀ/);
  assert.match(learner(cp23[62]!),/45/);
  assert.match(learner(cp23[63]!),/70/);
  assert.match(learner(cp23[68]!),/1963/);
@@ -100,16 +100,16 @@ for(const locale of ["hi","pa"] as const){
  assert.match(learner(cp24[0]!),/343/);
  assert.match(cp24[0]!.explanation,locale==="hi"?/देवनागरी/:/ਦੇਵਨਾਗਰੀ/);
  assert.match(learner(cp24[8]!),/344/);
- assert.match(learner(cp24[12]!),/30/);
- assert.match(learner(cp24[13]!),/20/);
- assert.match(learner(cp24[14]!),/10/);
- assert.match(learner(cp24[48]!),/22/);
+ assert.match(learner(cp24[12]!),locale==="hi"?/तीस/:/ਤੀਹ/);
+ assert.match(learner(cp24[13]!),locale==="hi"?/बीस/:/ਵੀਹ/);
+ assert.match(learner(cp24[14]!),locale==="hi"?/दस/:/ਦਸ/);
+ assert.match(learner(cp24[48]!),locale==="hi"?/बाईस/:/ਬਾਈ/);
  assert.match(learner(cp24[49]!),/344\(1\)/);
  assert.match(learner(cp24[56]!),/244\(1\)/);
  assert.match(learner(cp24[57]!),/244\(2\)/);
- assert.match(learner(cp24[61]!),/20/);
+ assert.match(learner(cp24[61]!),locale==="hi"?/बीस/:/ਵੀਹ/);
  assert.match(learner(cp24[62]!),locale==="hi"?/तीन-चौथाई/:/ਤਿੰਨ-ਚੌਥਾਈ/);
- assert.match(learner(cp24[72]!),/30/);
+ assert.match(learner(cp24[72]!),locale==="hi"?/तीस/:/ਤੀਹ/);
  assert.match(cp24[73]!.explanation,locale==="hi"?/चार/:/ਚਾਰ/);
 
  const cp25=generatePolCp025LocalizedReviewV1(locale);
