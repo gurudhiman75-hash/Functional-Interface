@@ -23,7 +23,7 @@ Corrected questions:
 - `HIS-CP020-V1-033`: Kashmir, Lahore and Agra are tested as centres of **shawl and carpet making**.
 - `HIS-CP020-V1-038`: Khetri in Rajasthan is tested as a centre of **copper production**.
 
-The two stems and distractor sets were also rewritten so each question now asks one clear exam-grade fact.
+The two stems and distractor sets were also rewritten so each question now asks one clear exam-grade fact. In the same pass, grammar-only wording defects in CP020 Q22, Q35, Q39 and Q45 were normalized without changing their facts, answer positions, QLs or provenance.
 
 ## Invariants preserved
 
