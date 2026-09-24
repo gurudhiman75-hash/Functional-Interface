@@ -2,7 +2,7 @@ import { HIS_CP017_REVIEW_BATCH_V1 } from "../ancient-gaps-chalcolithic-magadha/
 import { HIS_CP017_HI_V1 } from "./his-cp017-hi-v1";
 import { HIS_CP017_PA_V1 } from "./his-cp017-pa-v1";
 import {
-  HIS_ENGLISH_FREEZE_V2,
+  HIS_ENGLISH_FREEZE_V3,
   HIS_LOCALIZATION_V1,
   type HisLocaleV1,
   type HisLocalizedQuestionV1,
