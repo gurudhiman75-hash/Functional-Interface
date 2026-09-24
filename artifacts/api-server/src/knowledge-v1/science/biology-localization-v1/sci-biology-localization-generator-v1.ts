@@ -11,6 +11,9 @@ import { SCI_CP028_REVIEW_V1, type SciCp028ReviewQuestion } from "../nutrition-d
 import { SCI_CP029_REVIEW_V1, type SciCp029ReviewQuestion } from "../diseases-immunity/sci-cp029-review-v1";
 import { SCI_CP030_REVIEW_V1, type SciCp030ReviewQuestion } from "../genetics-evolution/sci-cp030-review-v1";
 import { SCI_CP031_REVIEW_V1, type SciCp031ReviewQuestion } from "../microorganisms/sci-cp031-review-v1";
+import { SCI_CP032_REVIEW_V1, type SciCp032ReviewQuestion } from "../classification-living-organisms/sci-cp032-review-v1";
+import { SCI_CP033_REVIEW_V1, type SciCp033ReviewQuestion } from "../ecology-ecosystems/sci-cp033-review-v1";
+import { SCI_CP034_REVIEW_V1, type SciCp034ReviewQuestion } from "../environment-pollution/sci-cp034-review-v1";
 import {
   SCI_BIOLOGY_LOCALIZATION_V1,
   type BiologyLocaleV1,
@@ -43,9 +46,15 @@ import { SCI_BIOLOGY_CP030_HI_V1 } from "./sci-biology-cp030-localization-data-h
 import { SCI_BIOLOGY_CP030_PA_V1 } from "./sci-biology-cp030-localization-data-pa-v1";
 import { SCI_BIOLOGY_CP031_HI_V1 } from "./sci-biology-cp031-localization-data-hi-v1";
 import { SCI_BIOLOGY_CP031_PA_V1 } from "./sci-biology-cp031-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP032_HI_V1 } from "./sci-biology-cp032-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP032_PA_V1 } from "./sci-biology-cp032-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP033_HI_V1 } from "./sci-biology-cp033-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP033_PA_V1 } from "./sci-biology-cp033-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP034_HI_V1 } from "./sci-biology-cp034-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP034_PA_V1 } from "./sci-biology-cp034-localization-data-pa-v1";
 
-export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020" | "SCI-CP-021" | "SCI-CP-022" | "SCI-CP-023" | "SCI-CP-024" | "SCI-CP-025" | "SCI-CP-026" | "SCI-CP-027" | "SCI-CP-028" | "SCI-CP-029" | "SCI-CP-030" | "SCI-CP-031";
-type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion | SciCp021ReviewQuestion | SciCp022ReviewQuestion | SciCp023ReviewQuestion | SciCp024ReviewQuestion | SciCp025ReviewQuestion | SciCp026ReviewQuestion | SciCp027ReviewQuestion | SciCp028ReviewQuestion | SciCp029ReviewQuestion | SciCp030ReviewQuestion | SciCp031ReviewQuestion;
+export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020" | "SCI-CP-021" | "SCI-CP-022" | "SCI-CP-023" | "SCI-CP-024" | "SCI-CP-025" | "SCI-CP-026" | "SCI-CP-027" | "SCI-CP-028" | "SCI-CP-029" | "SCI-CP-030" | "SCI-CP-031" | "SCI-CP-032" | "SCI-CP-033" | "SCI-CP-034";
+type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion | SciCp021ReviewQuestion | SciCp022ReviewQuestion | SciCp023ReviewQuestion | SciCp024ReviewQuestion | SciCp025ReviewQuestion | SciCp026ReviewQuestion | SciCp027ReviewQuestion | SciCp028ReviewQuestion | SciCp029ReviewQuestion | SciCp030ReviewQuestion | SciCp031ReviewQuestion | SciCp032ReviewQuestion | SciCp033ReviewQuestion | SciCp034ReviewQuestion;
 
 const QL_NAMES = {
   "SCI-CP-019": {
@@ -386,6 +395,84 @@ const QL_NAMES = {
       "ਭੋਜਨ ਖਰਾਬ ਹੋਣਾ, ਸੰਭਾਲ ਅਤੇ ਮਿਲੀ-ਜੁਲੀ ਸਮਝ",
     ],
   },
+  "SCI-CP-032": {
+    hi: [
+      "वर्गिकी, वर्गीकरण क्रम और द्विनाम नामकरण",
+      "पाँच-जगत वर्गीकरण",
+      "मोनेरा और प्रोटिस्टा",
+      "फंजाई",
+      "प्लांटी और निम्न पादप समूह",
+      "जिम्नोस्पर्म, एंजियोस्पर्म और फूल वाले पौधे",
+      "जन्तु जगत की मूल बातें",
+      "प्रमुख अकशेरुकी संघ",
+      "कॉर्डेट और कशेरुकी वर्ग",
+      "मिश्रित वर्गीकरण तर्क",
+    ],
+    pa: [
+      "ਟੈਕਸੋਨੋਮੀ, ਵਰਗੀਕਰਨ ਕ੍ਰਮ ਅਤੇ ਦੋ-ਨਾਮੀ ਨਾਮਕਰਨ",
+      "ਪੰਜ-ਜਗਤ ਵਰਗੀਕਰਨ",
+      "ਮੋਨੇਰਾ ਅਤੇ ਪ੍ਰੋਟਿਸਟਾ",
+      "ਫੰਜਾਈ",
+      "ਪਲਾਂਟੀ ਅਤੇ ਹੇਠਲੇ ਪੌਧਾ ਸਮੂਹ",
+      "ਜਿਮਨੋਸਪਰਮ, ਐਂਜੀਓਸਪਰਮ ਅਤੇ ਫੁੱਲ ਵਾਲੇ ਪੌਧੇ",
+      "ਜਾਨਵਰ ਜਗਤ ਦੀਆਂ ਮੁੱਢਲੀਆਂ ਗੱਲਾਂ",
+      "ਮੁੱਖ ਅਕਸ਼ੇਰੁਕੀ ਸੰਘ",
+      "ਕੋਰਡੇਟ ਅਤੇ ਕਸ਼ੇਰੁਕੀ ਵਰਗ",
+      "ਮਿਲੀ-ਜੁਲੀ ਵਰਗੀਕਰਨ ਸਮਝ",
+    ],
+  },
+  "SCI-CP-033": {
+    hi: [
+      "पारिस्थितिकी, आवास और पारिस्थितिकी तंत्र की मूल बातें",
+      "जैविक और अजैविक घटक",
+      "उत्पादक, उपभोक्ता और अपघटक",
+      "खाद्य शृंखला, खाद्य जाल और पोषण स्तर",
+      "ऊर्जा प्रवाह और पारिस्थितिक पिरामिड",
+      "आबादी, समुदाय और पारिस्थितिक संबंध",
+      "जल और कार्बन चक्र",
+      "नाइट्रोजन चक्र और पोषक पुनर्चक्रण",
+      "पारिस्थितिक अनुक्रमण और तंत्र संतुलन",
+      "मिश्रित पारिस्थितिकी तंत्र तर्क",
+    ],
+    pa: [
+      "ਪਰਿਸਥਿਤਿਕੀ, ਆਵਾਸ ਅਤੇ ਪਰਿਸਥਿਤਿਕ ਤੰਤਰ ਦੀਆਂ ਮੁੱਢਲੀਆਂ ਗੱਲਾਂ",
+      "ਜੈਵਿਕ ਅਤੇ ਅਜੈਵਿਕ ਹਿੱਸੇ",
+      "ਉਤਪਾਦਕ, ਖਪਤਕਾਰ ਅਤੇ ਡੀਕੰਪੋਜ਼ਰ",
+      "ਭੋਜਨ ਲੜੀ, ਭੋਜਨ ਜਾਲ ਅਤੇ ਪੋਸ਼ਣ ਪੱਧਰ",
+      "ਊਰਜਾ ਵਹਾਅ ਅਤੇ ਪਰਿਸਥਿਤਿਕ ਪਿਰਾਮਿਡ",
+      "ਆਬਾਦੀ, ਸਮੁਦਾਇ ਅਤੇ ਪਰਿਸਥਿਤਿਕ ਸੰਬੰਧ",
+      "ਜਲ ਅਤੇ ਕਾਰਬਨ ਚੱਕਰ",
+      "ਨਾਈਟ੍ਰੋਜਨ ਚੱਕਰ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦਾ ਮੁੜ-ਚੱਕਰ",
+      "ਪਰਿਸਥਿਤਿਕ ਉੱਤਰਾਧਿਕਾਰ ਅਤੇ ਤੰਤਰ ਸੰਤੁਲਨ",
+      "ਮਿਲੀ-ਜੁਲੀ ਪਰਿਸਥਿਤਿਕ ਤੰਤਰ ਸਮਝ",
+    ],
+  },
+  "SCI-CP-034": {
+    hi: [
+      "पर्यावरण और प्रदूषण की मूल बातें",
+      "वायु प्रदूषण और सामान्य प्रदूषक",
+      "जल प्रदूषण और यूट्रोफिकेशन",
+      "मिट्टी और भूमि प्रदूषण",
+      "ध्वनि प्रदूषण",
+      "ग्रीनहाउस प्रभाव और जलवायु परिवर्तन",
+      "ओज़ोन परत और ओज़ोन क्षय",
+      "अम्ल वर्षा और वायुमंडलीय प्रदूषण के प्रभाव",
+      "कचरा प्रबंधन और 3Rs",
+      "संरक्षण और मिश्रित पर्यावरणीय तर्क",
+    ],
+    pa: [
+      "ਵਾਤਾਵਰਣ ਅਤੇ ਪ੍ਰਦੂਸ਼ਣ ਦੀਆਂ ਮੁੱਢਲੀਆਂ ਗੱਲਾਂ",
+      "ਹਵਾ ਪ੍ਰਦੂਸ਼ਣ ਅਤੇ ਆਮ ਪ੍ਰਦੂਸ਼ਕ",
+      "ਪਾਣੀ ਪ੍ਰਦੂਸ਼ਣ ਅਤੇ ਯੂਟ੍ਰੋਫਿਕੇਸ਼ਨ",
+      "ਮਿੱਟੀ ਅਤੇ ਧਰਤੀ ਪ੍ਰਦੂਸ਼ਣ",
+      "ਸ਼ੋਰ ਪ੍ਰਦੂਸ਼ਣ",
+      "ਗ੍ਰੀਨਹਾਊਸ ਪ੍ਰਭਾਵ ਅਤੇ ਜਲਵਾਯੂ ਬਦਲਾਅ",
+      "ਓਜ਼ੋਨ ਪਰਤ ਅਤੇ ਓਜ਼ੋਨ ਘਟਣਾ",
+      "ਤੇਜ਼ਾਬੀ ਵਰਖਾ ਅਤੇ ਵਾਤਾਵਰਣੀ ਪ੍ਰਦੂਸ਼ਣ ਦੇ ਅਸਰ",
+      "ਕਚਰਾ ਪ੍ਰਬੰਧਨ ਅਤੇ 3Rs",
+      "ਸੰਰੱਖਣ ਅਤੇ ਮਿਲੀ-ਜੁਲੀ ਵਾਤਾਵਰਣੀ ਸਮਝ",
+    ],
+  },
 } as const;
 
 const qlNumber=(qlId:string)=>Number(qlId.slice(-3));
@@ -453,7 +540,10 @@ function englishFor(cpId:BiologyLocalizedCpV1):readonly EnglishQuestion[]{
   if(cpId==="SCI-CP-028") return SCI_CP028_REVIEW_V1;
   if(cpId==="SCI-CP-029") return SCI_CP029_REVIEW_V1;
   if(cpId==="SCI-CP-030") return SCI_CP030_REVIEW_V1;
-  return SCI_CP031_REVIEW_V1;
+  if(cpId==="SCI-CP-031") return SCI_CP031_REVIEW_V1;
+  if(cpId==="SCI-CP-032") return SCI_CP032_REVIEW_V1;
+  if(cpId==="SCI-CP-033") return SCI_CP033_REVIEW_V1;
+  return SCI_CP034_REVIEW_V1;
 }
 
 function nativeFor(cpId:BiologyLocalizedCpV1,locale:Exclude<BiologyLocaleV1,"en">):readonly BiologyNativeSpecV1[]{
@@ -469,7 +559,10 @@ function nativeFor(cpId:BiologyLocalizedCpV1,locale:Exclude<BiologyLocaleV1,"en"
   if(cpId==="SCI-CP-028") return locale==="hi"?SCI_BIOLOGY_CP028_HI_V1:SCI_BIOLOGY_CP028_PA_V1;
   if(cpId==="SCI-CP-029") return locale==="hi"?SCI_BIOLOGY_CP029_HI_V1:SCI_BIOLOGY_CP029_PA_V1;
   if(cpId==="SCI-CP-030") return locale==="hi"?SCI_BIOLOGY_CP030_HI_V1:SCI_BIOLOGY_CP030_PA_V1;
-  return locale==="hi"?SCI_BIOLOGY_CP031_HI_V1:SCI_BIOLOGY_CP031_PA_V1;
+  if(cpId==="SCI-CP-031") return locale==="hi"?SCI_BIOLOGY_CP031_HI_V1:SCI_BIOLOGY_CP031_PA_V1;
+  if(cpId==="SCI-CP-032") return locale==="hi"?SCI_BIOLOGY_CP032_HI_V1:SCI_BIOLOGY_CP032_PA_V1;
+  if(cpId==="SCI-CP-033") return locale==="hi"?SCI_BIOLOGY_CP033_HI_V1:SCI_BIOLOGY_CP033_PA_V1;
+  return locale==="hi"?SCI_BIOLOGY_CP034_HI_V1:SCI_BIOLOGY_CP034_PA_V1;
 }
 
 export function generateBiologyLocalizedCpV1(cpId:BiologyLocalizedCpV1,locale:BiologyLocaleV1):readonly BiologyLocalizedQuestionV1[]{
@@ -480,5 +573,5 @@ export function generateBiologyLocalizedCpV1(cpId:BiologyLocalizedCpV1,locale:Bi
   return Object.freeze(english.map((q,index)=>localizeNative(q,locale,specs[index])));
 }
 
-export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020","SCI-CP-021","SCI-CP-022","SCI-CP-023","SCI-CP-024","SCI-CP-025","SCI-CP-026","SCI-CP-027","SCI-CP-028","SCI-CP-029","SCI-CP-030","SCI-CP-031"] as const);
+export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020","SCI-CP-021","SCI-CP-022","SCI-CP-023","SCI-CP-024","SCI-CP-025","SCI-CP-026","SCI-CP-027","SCI-CP-028","SCI-CP-029","SCI-CP-030","SCI-CP-031","SCI-CP-032","SCI-CP-033","SCI-CP-034"] as const);
 export const SCI_BIOLOGY_WAVE1_SUPPORTED_LOCALES_V1=Object.freeze(["en","hi","pa"] as const);
