@@ -5,10 +5,12 @@
 - Classification authorities: 89
 - Transformation authorities: 63
 - Correction authorities: 71
-- Total audited authorities: 223
-- Families: 8
-- Governed semantic combinations: 8,341
+- Total audited linguistic authorities: 223
+- Families: 11
+- Added blueprint operations: no-error selection, controlled grammatical blank completion, mixed-rule verification
+- Governed semantic combinations: computed exhaustively by the semantic proof after deriving valid blank surfaces
 - Review target: 120 questions = 40 Easy + 40 Medium + 40 Hard
-- All 8 families must be represented
+- All 11 families must be represented
 - Every retained authority must be reachable through every applicable family
+- All 4 mixed-rule truth outcomes must be represented
 - Runtime/publication promotion remains blocked pending explicit owner approval and later integration workflow
