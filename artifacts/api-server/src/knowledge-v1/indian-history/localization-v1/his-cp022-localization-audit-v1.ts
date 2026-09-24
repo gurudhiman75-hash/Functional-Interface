@@ -45,6 +45,11 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਰਾਜਸਵ",
       "ਕਿਹੜਾ ਕ੍ਰਮ ਅੰਦੋਲਨ ਅਤੇ",
       "ਸਹੀ ਤਰ੍ਹਾਂ ਮਿਲਾਉਂਦੀ",
+      "ਪ੍ਰਵਿਰਤੀ",
+      "ਤਟੀ ਆਂਧਰਾ",
+      "ਵਿਦਰੋਹ",
+      "ਅਨੁਯਾਇਆਂ",
+      "ਰਾਜੀ ਸਹਾਰੇ",
     ];  for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
     }
