@@ -38,7 +38,7 @@ function localizedBase(
     localizationV1:{
       version:HIS_LOCALIZATION_V1,
       englishQuestionId:q.questionId,
-      englishFreeze:HIS_ENGLISH_FREEZE_V2,
+      englishFreeze:HIS_ENGLISH_FREEZE_V3,
       semanticInvariant:true,
       cpInvariant:true,
       qlInvariant:true,
