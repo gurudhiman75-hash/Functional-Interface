@@ -11,7 +11,7 @@ const strides:Record<string,number>={F01:7,F02:11,F03:13,F04:17,F05:19,F06:23,F0
 const out:string[]=[
  "# PUN-001 CP013 Review — ਵਾਕ-ਵਟਾਂਦਰਾ ਅਤੇ ਸ਼ੁੱਧੀ",
  "",
- "Status: HUMAN REVIEW PENDING",
+ "Status: HUMAN APPROVED",
  "",
  "Authority inventory: 89 sentence-classification + 63 transformation + 71 correction = 223 exhaustive high-confidence authorities.",
  "",
