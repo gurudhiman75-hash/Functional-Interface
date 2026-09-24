@@ -1,11 +1,11 @@
 # HIS-001 Indian History — Package Roadmap
 
-Status: V3 ENGLISH FROZEN / V1 MULTILINGUAL COMPLETE / CP017–CP024 LOCALIZATION PENDING  
+Status: V4 ENGLISH FROZEN / CP001–CP019 MULTILINGUAL COMPLETE / CP020–CP024 LOCALIZATION PENDING  
 Engine: `knowledge-v1`
 
 ## English freezes
 
-The V1 English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md`. V2 expanded the English corpus through CP024. A post-freeze CP017 explanation-context defect was corrected under `HIS-001-ENGLISH-FREEZE-V3.md`, which is now the semantic authority for new History localization. Hindi and Punjabi are complete through CP016; CP017–CP024 remain pending localization.
+The V1 English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md`. V2 expanded the English corpus through CP024. A post-freeze CP017 explanation-context defect was corrected under `HIS-001-ENGLISH-FREEZE-V3.md`. A later CP020 review found two malformed English answer mappings; these are corrected under `HIS-001-ENGLISH-FREEZE-V4.md`, which is now the semantic authority for new History localization. Hindi and Punjabi are complete through CP019; CP020–CP024 remain pending localization.
 
 ## Binding rule
 
@@ -61,7 +61,7 @@ Disputed archaeological or historiographical propositions must be either exclude
 
 The coverage-gap programme is complete. `HIS-CP-017` through `HIS-CP-024` add **480** source-backed questions and **480** canonical facts to the V1 core, taking the frozen English chapter to **1,434 questions** and **1,379 canonical facts**.
 
-Authority: `HIS-001-COVERAGE-GAP-AUDIT-V1.md` and current semantic freeze `HIS-001-ENGLISH-FREEZE-V3.md`.
+Authority: `HIS-001-COVERAGE-GAP-AUDIT-V1.md` and current semantic freeze `HIS-001-ENGLISH-FREEZE-V4.md`.
 
 No further English CP is planned under the current coverage ledger. Final History closure is blocked only by Hindi/Punjabi localization for CP017–CP024 and subsequent multilingual parity / Question Studio registration review.
 
