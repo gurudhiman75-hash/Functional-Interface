@@ -61,7 +61,7 @@ function localizeNative(q:EnglishQuestion,index:number,locale:NativeLocale):HisL
   return localizedBase(q,locale,overlay.stem,options,options[q.correctIndex]!,overlay.explanation);
 }
 
-export function generateHisCp018LocalizedReviewV1(locale:HisLocaleV1):HisLocalizedQuestionV1[]{
+export function generateHisCp019LocalizedReviewV1(locale:HisLocaleV1):HisLocalizedQuestionV1[]{
   return HIS_CP019_REVIEW_BATCH_V1.map((q,index)=>{
     if(locale==="en")return localizedBase(q,locale,q.stem,[...q.options],q.canonicalAnswer,q.explanation);
     return localizeNative(q,index,locale);
