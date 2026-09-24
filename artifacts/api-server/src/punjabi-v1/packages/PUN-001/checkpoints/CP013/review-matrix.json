@@ -7,7 +7,7 @@
     "correction": 71,
     "total": 223
   },
-  "semanticCapacity": 33759,
+  "semanticCapacity": 33696,
   "totalReviewQuestions": 120,
   "difficulty": {
     "Easy": 40,
@@ -30,7 +30,7 @@
   "requirements": [
     "all 11 families represented",
     "all retained authorities reachable through each applicable family",
-    "controlled blank surfaces derived from reviewed correction alternatives only",
+    "exactly 8 strict position-aligned 1–3 token blank surfaces; broader cases excluded",
     "all 4 F11 truth outcomes represented",
     "unique semantic fingerprints",
     "Punjabi-only learner stems and explanations",
@@ -39,5 +39,5 @@
   ],
   "blueprintGapClosure": "F09 no-error + F10 grammatical blank + F11 mixed-rule verification",
   "familyCount": 11,
-  "blankCompletionAuthorities": 71
+  "blankCompletionAuthorities": 8
 }
