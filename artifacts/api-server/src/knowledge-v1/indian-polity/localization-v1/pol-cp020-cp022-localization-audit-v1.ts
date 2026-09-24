@@ -26,7 +26,7 @@ const HI_STEM_BANNED=["इस अध्याय में मुख्यतः
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
  const original=learnerText(q);
  const stripped=original
-  .replace(/\b(?:IXA|IVA|III|VIII|VII|VI|IV|IX|II|I|X)\b/gu,"")
+  .replace(/\b[IVX]+A?\b/gu,"")
   .replace(/\b\d+(?:\.\d+)?[A-Z]{1,2}(?:\([0-9A-Za-z]+\))*\b/gu,"")
   .replace(/\b(?:Re|Rs)\.?/gu,"");
  assert.equal(/[A-Za-z]{2,}/u.test(stripped),false,`${q.questionId}: Latin-script leakage`);
