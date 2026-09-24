@@ -222,8 +222,24 @@ const MORE:Record<string,Pair>={
 "Only with a constitutional amendment":p("केवल संविधान संशोधन से","ਸਿਰਫ਼ ਸੰਵਿਧਾਨ ਸੋਧ ਨਾਲ"),"Only if Parliament amends Article 323A":p("केवल यदि संसद अनुच्छेद 323A में संशोधन करे","ਸਿਰਫ਼ ਜੇ ਸੰਸਦ ਅਨੁਛੇਦ 323A ਵਿੱਚ ਸੋਧ ਕਰੇ"),"Only the President":p("केवल राष्ट्रपति","ਸਿਰਫ਼ ਰਾਸ਼ਟਰਪਤੀ"),"Only the Supreme Court":p("केवल सर्वोच्च न्यायालय","ਸਿਰਫ਼ ਸੁਪਰੀਮ ਕੋਰਟ"),"Only Rajya Sabha":p("केवल राज्य सभा","ਸਿਰਫ਼ ਰਾਜ ਸਭਾ"),"323A covers elections only; 323B covers services only":p("323A केवल चुनाव; 323B केवल सेवाएँ कवर करता है","323A ਸਿਰਫ਼ ਚੋਣਾਂ; 323B ਸਿਰਫ਼ ਸੇਵਾਵਾਂ ਕਵਰ ਕਰਦਾ ਹੈ"),"Both deal only with public employment":p("दोनों केवल लोक रोजगार से जुड़े हैं","ਦੋਵੇਂ ਸਿਰਫ਼ ਲੋਕ ਰੋਜ਼ਗਾਰ ਨਾਲ ਜੁੜੇ ਹਨ"),"323B applies only to Union employees":p("323B केवल संघ कर्मचारियों पर लागू होता है","323B ਸਿਰਫ਼ ਸੰਘੀ ਕਰਮਚਾਰੀਆਂ 'ਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ"),"No, only Article 323A can":p("नहीं, केवल अनुच्छेद 323A ऐसा कर सकता है","ਨਹੀਂ, ਸਿਰਫ਼ ਅਨੁਛੇਦ 323A ਅਜਿਹਾ ਕਰ ਸਕਦਾ ਹੈ"),"No, only Article 323B can":p("नहीं, केवल अनुच्छेद 323B ऐसा कर सकता है","ਨਹੀਂ, ਸਿਰਫ਼ ਅਨੁਛੇਦ 323B ਅਜਿਹਾ ਕਰ ਸਕਦਾ ਹੈ"),"Yes, without exception":p("हाँ, बिना किसी अपवाद के","ਹਾਂ, ਬਿਨਾਂ ਕਿਸੇ ਅਪਵਾਦ ਦੇ"),"Only during peacetime":p("केवल शांतिकाल में","ਸਿਰਫ਼ ਸ਼ਾਂਤੀਕਾਲ ਵਿੱਚ"),"The Eighth Schedule":p("आठवीं अनुसूची","ਅੱਠਵੀਂ ਅਨੁਸੂਚੀ"),"The electoral-roll system":p("मतदाता सूची व्यवस्था","ਵੋਟਰ ਸੂਚੀ ਵਿਵਸਥਾ"),"Yes, in every service matter":p("हाँ, हर सेवा-मामले में","ਹਾਂ, ਹਰ ਸੇਵਾ-ਮਾਮਲੇ ਵਿੱਚ"),"Yes, if the tribunal has contempt power":p("हाँ, यदि अधिकरण को अवमानना की शक्ति हो","ਹਾਂ, ਜੇ ਟ੍ਰਿਬਿਊਨਲ ਕੋਲ ਅਵਮਾਨਨਾ ਦੀ ਸ਼ਕਤੀ ਹੋ")
 };
 
+const SPECIAL:Record<string,Pair>={
+"The pleasure doctrine":p("प्रसादपर्यंत सिद्धांत","ਮਰਜ਼ੀ ਤੱਕ ਅਹੁਦਾ ਸਿਧਾਂਤ"),
+"L. Chandra Kumar v. Union of India":p("एल. चंद्र कुमार बनाम भारत संघ","ਐਲ. ਚੰਦਰ ਕੁਮਾਰ ਬਨਾਮ ਭਾਰਤ ਸੰਘ"),
+"Kesavananda Bharati v. State of Kerala":p("केशवानंद भारती बनाम केरल राज्य","ਕੇਸ਼ਵਾਨੰਦ ਭਾਰਤੀ ਬਨਾਮ ਕੇਰਲ ਰਾਜ"),
+"S. R. Bommai v. Union of India":p("एस. आर. बोम्मई बनाम भारत संघ","ਐਸ. ਆਰ. ਬੋਮਈ ਬਨਾਮ ਭਾਰਤ ਸੰਘ"),
+"Minerva Mills v. Union of India":p("मिनर्वा मिल्स बनाम भारत संघ","ਮਿਨਰਵਾ ਮਿਲਜ਼ ਬਨਾਮ ਭਾਰਤ ਸੰਘ")
+};
+function cleanNative26(x:string,locale:NativeLocale):string{
+ if(locale==="hi") return x
+   .replaceAll("L. Chandra Kumar","एल. चंद्र कुमार")
+   .replaceAll("The प्रसादपर्यंत सिद्धांत","प्रसादपर्यंत सिद्धांत");
+ return x
+   .replaceAll("L. Chandra Kumar","ਐਲ. ਚੰਦਰ ਕੁਮਾਰ")
+   .replaceAll("The प्रसादपर्यंत सिद्धांत","ਮਰਜ਼ੀ ਤੱਕ ਅਹੁਦਾ ਸਿਧਾਂਤ");
+}
+
 function option(x:string,locale:NativeLocale):string{
- const z=O[x]??EXTRA[x]??MORE[x]; if(z)return z[locale];
+ const z=SPECIAL[x]??O[x]??EXTRA[x]??MORE[x]; if(z)return z[locale];
  let m=x.match(/^Article (\d+[A-Z]?(?:\(\d+\))?)(?: only)?$/);
  if(m)return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+m[1]+(x.endsWith(" only")?(locale==="hi"?" ही":" ਹੀ"):"");
  m=x.match(/^Articles (\d+) and (\d+)$/); if(m)return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+m[1]+(locale==="hi"?" और ":" ਅਤੇ ")+m[2];
@@ -239,7 +255,7 @@ function localize(q:(typeof ENGLISH)[number],i:number,locale:PolLocaleV1):PolLoc
  const base={...q,chapterId:"POL-001" as const,cpId:"POL-CP-026",qlName:q.qlId,reviewOnly:true as const,runtimeRegistered:false as const};
  if(locale==="en")return {...base,options:[...q.options],canonicalAnswer:q.options[q.correctIndex]!,locale,localizationV1:{version:POL_LOCALIZATION_V1,englishQuestionId:q.questionId,semanticInvariant:true,cpInvariant:true,qlInvariant:true,difficultyInvariant:true,sourceInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,reviewOnly:true}};
  let stem=STEMS[i]![locale]; if(q.stem.endsWith(":"))stem=stem.replace(/[?:]$/u,"")+":";
- let explanation=EXPS[i]![locale],options=q.options.map(x=>option(x,locale));
+ let explanation=EXPS[i]![locale],options=q.options.map(x=>option(x,locale)); stem=cleanNative26(stem,locale); explanation=cleanNative26(explanation,locale); options=options.map(x=>cleanNative26(x,locale));
  if(locale==="pa"){stem=applyPolityPunjabiNativePassV1(stem);explanation=applyPolityPunjabiNativePassV1(explanation);options=options.map(applyPolityPunjabiNativePassV1);}
  return {...base,questionId:q.questionId+"-"+locale.toUpperCase(),stem,options,canonicalAnswer:options[q.correctIndex]!,explanation,locale,localizationV1:{version:POL_LOCALIZATION_V1,englishQuestionId:q.questionId,semanticInvariant:true,cpInvariant:true,qlInvariant:true,difficultyInvariant:true,sourceInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,reviewOnly:true}};
 }
