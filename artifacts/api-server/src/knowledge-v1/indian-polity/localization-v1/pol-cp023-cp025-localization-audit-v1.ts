@@ -31,8 +31,7 @@ function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
  let stripped=original
    .replace(/\b\d+(?:\.\d+)?[A-Z]{1,2}(?:-[A-Z])?(?:\([0-9A-Za-z]+\))*\b/gu,"")
    .replace(/\b[IVX]+A?\b/gu,"")
-   .replace(/\b(?:DSPE|CBI)\b/gu,"")
-   .replace(/\b(?:Oriya|Odia)\b/gu,"");
+;
  assert.equal(/[A-Za-z]{2,}/u.test(stripped),false,`${q.questionId}: Latin-script leakage`);
  assert.match(original,locale==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u,`${q.questionId}: native script missing`);
  if(locale==="pa")for(const phrase of PA_BANNED)assert.equal(original.includes(phrase),false,`${q.questionId}: Punjabi editorial defect: ${phrase}`);
