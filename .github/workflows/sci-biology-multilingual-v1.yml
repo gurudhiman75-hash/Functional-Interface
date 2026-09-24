@@ -81,3 +81,12 @@ jobs:
       - name: Run Biology CP022 multilingual audit
         working-directory: artifacts/api-server
         run: node dist/sci-biology-cp022-multilingual-audit-v1.mjs
+
+      - name: Upload CP021-CP022 review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: sci-cp021-cp022-review-files
+          path: |
+            artifacts/api-server/src/knowledge-v1/science/biology-localization-v1/SCI-CP-021-MULTILINGUAL-REVIEW.md
+            artifacts/api-server/src/knowledge-v1/science/biology-localization-v1/SCI-CP-022-MULTILINGUAL-REVIEW.md
+          if-no-files-found: error
