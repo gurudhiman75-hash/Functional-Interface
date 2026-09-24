@@ -1,7 +1,7 @@
 import type { KnowledgeV1Difficulty } from "../../types";
 import { HIS_CP017_FACTS_V1,HIS_CP017_FACT_BY_ID_V1,HIS_CP017_SOURCE_IDS_V1,HIS_CP017_SOURCES_V1 } from "./his-cp017-facts-v1";
 import { HIS_CP017_QL_NAMES_V1,HIS_CP017_SPECS_V1 } from "./his-cp017-review-specs-v1";
-import { HIS_CP017_EXPLANATION_NOTES_V1,HIS_CP017_FULL_EXPLANATION_OVERRIDES_V1 } from "./his-cp017-explanation-notes-v1";
+import { HIS_CP017_EXPLANATION_NOTE_KEY_V2,HIS_CP017_EXPLANATION_NOTES_V2,HIS_CP017_FULL_EXPLANATION_OVERRIDES_V2 } from "./his-cp017-explanation-notes-v1";
 import { HIS_CP001_FACTS_V1 } from "../prehistory-harappan/his-cp001-facts-v1";
 import { HIS_CP003_FACTS_V1 } from "../mahajanapadas-jainism-buddhism/his-cp003-facts-v1";
 import { HIS_CP004_FACTS_V1 } from "../mauryan-empire/his-cp004-facts-v1";
@@ -33,8 +33,11 @@ export function generateHisCp017ReviewBatchV1():HisCp017ReviewQuestion[]{
     const shift=i%4;
     const options=[...base.slice(shift),...base.slice(0,shift)];
     const correctIndex=options.indexOf(answer);
-    const explanation=HIS_CP017_FULL_EXPLANATION_OVERRIDES_V1[n]
-      ?? `${canonicalExplanation(factIds)} ${HIS_CP017_EXPLANATION_NOTES_V1[n]??""}`.trim();
+    const explanationKey=HIS_CP017_EXPLANATION_NOTE_KEY_V2(factIds);
+    const explanationNote=HIS_CP017_EXPLANATION_NOTES_V2[explanationKey];
+    if(!explanationNote)throw new Error(`Missing HIS-CP-017 explanation note for ${explanationKey}`);
+    const explanation=HIS_CP017_FULL_EXPLANATION_OVERRIDES_V2[explanationKey]
+      ?? `${canonicalExplanation(factIds)} ${explanationNote}`.trim();
     return{
       questionId:`HIS-CP017-V1-${String(n).padStart(3,"0")}`,
       chapterId:"HIS-001",cpId:"HIS-CP-017",
@@ -51,7 +54,7 @@ export const HIS_CP017_REQUIRED_FACTS_V1=Object.freeze([...new Set(HIS_CP017_REV
 
 export function auditHisCp017ReviewBatchV1(){
   const issues:string[]=[];
-  const ids=new Set<string>(),semantic=new Set<string>();
+  const ids=new Set<string>(),semantic=new Set<string>(),usedExplanationKeys=new Set<string>();
   const qlCounts:Record<string,number>={};
   const answerPositions=[0,0,0,0];
   const difficultyCounts={Easy:0,Medium:0,Hard:0};
@@ -86,6 +89,9 @@ export function auditHisCp017ReviewBatchV1(){
     if(q.explanation.length>500)issues.push(`EXPLANATION_TOO_LONG:${q.questionId}:${q.explanation.length}`);
     if((q.explanation.match(/[.!?](?:\s|$)/g)??[]).length<2)issues.push(`EXPLANATION_NEEDS_CONTEXT:${q.questionId}`);
     if(q.explanation.trim()===canonicalExplanation(q.sourceFactIds).trim())issues.push(`MECHANICAL_EXPLANATION:${q.questionId}`);
+    const explanationKey=HIS_CP017_EXPLANATION_NOTE_KEY_V2(q.sourceFactIds);
+    usedExplanationKeys.add(explanationKey);
+    if(!HIS_CP017_EXPLANATION_NOTES_V2[explanationKey])issues.push(`MISSING_EXPLANATION_NOTE:${q.questionId}:${explanationKey}`);
     if(q.difficulty==="Hard"&&q.sourceFactIds.length<2)issues.push(`WEAK_HARD_SINGLE_FACT:${q.questionId}`);
     if(!q.reviewOnly||q.runtimeRegistered)issues.push(`LIFECYCLE_BREACH:${q.questionId}`);
   }
@@ -97,6 +103,9 @@ export function auditHisCp017ReviewBatchV1(){
   if(HIS_CP017_REVIEW_BATCH_V1.length!==60)issues.push(`QUESTION_COUNT:${HIS_CP017_REVIEW_BATCH_V1.length}`);
   if(semantic.size!==60)issues.push(`SEMANTIC_COUNT:${semantic.size}`);
   if(HIS_CP017_REQUIRED_FACTS_V1.length!==HIS_CP017_FACTS_V1.length)issues.push(`FACT_COVERAGE:${HIS_CP017_REQUIRED_FACTS_V1.length}/${HIS_CP017_FACTS_V1.length}`);
+  const definedExplanationKeys=Object.keys(HIS_CP017_EXPLANATION_NOTES_V2);
+  if(usedExplanationKeys.size!==HIS_CP017_REVIEW_BATCH_V1.length)issues.push(`EXPLANATION_KEY_REUSE:${usedExplanationKeys.size}/${HIS_CP017_REVIEW_BATCH_V1.length}`);
+  for(const key of definedExplanationKeys)if(!usedExplanationKeys.has(key))issues.push(`ORPHAN_EXPLANATION_NOTE:${key}`);
   if(Math.max(...answerPositions)-Math.min(...answerPositions)>1)issues.push(`ANSWER_POSITION_IMBALANCE:${answerPositions.join(",")}`);
 
   return{
