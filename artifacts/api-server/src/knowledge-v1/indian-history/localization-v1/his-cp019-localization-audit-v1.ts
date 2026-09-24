@@ -43,6 +43,7 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਵਿਦਵਤ",
       "ਵਿਆਪਕ ਚਲਣ",
       "ਅਧਾਰ",
+      "ਤੁਰਕੀ",
     ];
     for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
