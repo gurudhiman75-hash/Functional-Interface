@@ -1,6 +1,6 @@
 {
   "cpId": "PUN-001-CP013",
-  "status": "HUMAN_REVIEW_PENDING",
+  "status": "HUMAN_APPROVED",
   "authorityInventory": {
     "classification": 89,
     "transformation": 63,
@@ -39,5 +39,7 @@
   ],
   "blueprintGapClosure": "F09 no-error + F10 grammatical blank + F11 mixed-rule verification",
   "familyCount": 11,
-  "blankCompletionAuthorities": 8
+  "blankCompletionAuthorities": 8,
+  "approvedReviewedSha": "20e78288f6e4e5ee8a5488a05ed3780ea6b79cc2",
+  "approvalDate": "2026-09-24"
 }
