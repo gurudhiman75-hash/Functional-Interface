@@ -1,6 +1,6 @@
 {
   "cpId": "PUN-001-CP014",
-  "status": "HUMAN_REVIEW_PENDING",
+  "status": "HUMAN_APPROVED",
   "authorityInventory": {
     "passages": 50,
     "passageQuestions": 190,
@@ -44,5 +44,7 @@
     "unique semantic fingerprints",
     "Punjabi-only passage learner text except explicit bilingual translation tasks",
     "REVIEW_ONLY lifecycle"
-  ]
+  ],
+  "approvedReviewedSha": "20e78288f6e4e5ee8a5488a05ed3780ea6b79cc2",
+  "approvalDate": "2026-09-24"
 }
