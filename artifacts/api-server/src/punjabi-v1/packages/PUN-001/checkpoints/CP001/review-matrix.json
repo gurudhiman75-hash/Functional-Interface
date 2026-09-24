@@ -12,21 +12,108 @@
   "duttCount": 3,
   "familyCount": 12,
   "families": [
-    {"familyId":"F01","subtype":"ALPHABET_SEQUENCE","difficulty":["Easy"],"semanticCapacity":68},
-    {"familyId":"F02","subtype":"LETTER_GROUP_CLASSIFICATION","difficulty":["Easy"],"semanticCapacity":41},
-    {"familyId":"F03","subtype":"ARTICULATION_PLACE","difficulty":["Medium"],"semanticCapacity":25},
-    {"familyId":"F04","subtype":"VOWEL_CARRIER_COMPOSITION","difficulty":["Easy"],"semanticCapacity":10},
-    {"familyId":"F05","subtype":"LAGA_PROPERTY","difficulty":["Medium"],"semanticCapacity":30},
-    {"familyId":"F06","subtype":"WORD_LAGA_IDENTIFICATION","difficulty":["Medium"],"semanticCapacity":80},
-    {"familyId":"F07","subtype":"LAGAKHAR_DISTRIBUTION","difficulty":["Medium"],"semanticCapacity":13},
-    {"familyId":"F08","subtype":"WORD_LAGAKHAR_IDENTIFICATION","difficulty":["Medium"],"semanticCapacity":30},
-    {"familyId":"F09","subtype":"DUTT_AKKHAR_USAGE","difficulty":["Medium"],"semanticCapacity":15},
-    {"familyId":"F10","subtype":"TWO_WORD_ORTHOGRAPHY_ANALYSIS","difficulty":["Hard"],"semanticCapacity":2400},
-    {"familyId":"F11","subtype":"FOUR_WORD_FEATURE_MATCH","difficulty":["Hard"],"semanticCapacity":9691375},
-    {"familyId":"F12","subtype":"CROSS_SYSTEM_RELATION","difficulty":["Hard"],"semanticCapacity":51250}
+    {
+      "familyId": "F01",
+      "subtype": "ALPHABET_SEQUENCE",
+      "difficulty": [
+        "Easy"
+      ],
+      "semanticCapacity": 68
+    },
+    {
+      "familyId": "F02",
+      "subtype": "LETTER_GROUP_CLASSIFICATION",
+      "difficulty": [
+        "Easy"
+      ],
+      "semanticCapacity": 41
+    },
+    {
+      "familyId": "F03",
+      "subtype": "ARTICULATION_PLACE",
+      "difficulty": [
+        "Medium"
+      ],
+      "semanticCapacity": 25
+    },
+    {
+      "familyId": "F04",
+      "subtype": "VOWEL_CARRIER_COMPOSITION",
+      "difficulty": [
+        "Easy"
+      ],
+      "semanticCapacity": 10
+    },
+    {
+      "familyId": "F05",
+      "subtype": "LAGA_PROPERTY",
+      "difficulty": [
+        "Medium"
+      ],
+      "semanticCapacity": 30
+    },
+    {
+      "familyId": "F06",
+      "subtype": "WORD_LAGA_IDENTIFICATION",
+      "difficulty": [
+        "Medium"
+      ],
+      "semanticCapacity": 80
+    },
+    {
+      "familyId": "F07",
+      "subtype": "LAGAKHAR_DISTRIBUTION",
+      "difficulty": [
+        "Medium"
+      ],
+      "semanticCapacity": 13
+    },
+    {
+      "familyId": "F08",
+      "subtype": "WORD_LAGAKHAR_IDENTIFICATION",
+      "difficulty": [
+        "Medium"
+      ],
+      "semanticCapacity": 30
+    },
+    {
+      "familyId": "F09",
+      "subtype": "DUTT_AKKHAR_USAGE",
+      "difficulty": [
+        "Medium"
+      ],
+      "semanticCapacity": 15
+    },
+    {
+      "familyId": "F10",
+      "subtype": "TWO_WORD_ORTHOGRAPHY_ANALYSIS",
+      "difficulty": [
+        "Hard"
+      ],
+      "semanticCapacity": 2400
+    },
+    {
+      "familyId": "F11",
+      "subtype": "FOUR_WORD_FEATURE_MATCH",
+      "difficulty": [
+        "Hard"
+      ],
+      "semanticCapacity": 9691375
+    },
+    {
+      "familyId": "F12",
+      "subtype": "CROSS_SYSTEM_RELATION",
+      "difficulty": [
+        "Hard"
+      ],
+      "semanticCapacity": 51250
+    }
   ],
   "totalSemanticCapacity": 9745337,
   "optionOrderCountedAsSemanticVariation": false,
   "authorityStatus": "REVIEW_PENDING",
-  "productionPromotion": false
+  "productionPromotion": false,
+  "checkpointApprovalStatus": "HUMAN_APPROVED",
+  "approvalBasis": "Owner-approved chapter integration PR #2009 (2026-09-20); no later learner-facing changes before final freeze.",
+  "approvalDate": "2026-09-20"
 }
