@@ -34,6 +34,12 @@ function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
 ;
  assert.equal(/[A-Za-z]{2,}/u.test(stripped),false,`${q.questionId}: Latin-script leakage`);
  assert.match(original,locale==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u,`${q.questionId}: native script missing`);
+ if(locale==="hi"){
+  assert.equal(/[\u0A00-\u0A7F]/u.test(original),false,`${q.questionId}: Gurmukhi leakage in Hindi`);
+ }else{
+  const devanagariContent=[...original].some(ch=>{const n=ch.codePointAt(0)!;return n>=0x0900&&n<=0x097F&&n!==0x0964&&n!==0x0965;});
+  assert.equal(devanagariContent,false,`${q.questionId}: Devanagari leakage in Punjabi`);
+ }
  if(locale==="pa")for(const phrase of PA_BANNED)assert.equal(original.includes(phrase),false,`${q.questionId}: Punjabi editorial defect: ${phrase}`);
 }
 
