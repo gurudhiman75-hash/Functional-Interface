@@ -1,5 +1,7 @@
 import { SCI_CP019_REVIEW_V1, type SciCp019ReviewQuestion } from "../cell-biology/sci-cp019-review-v1";
 import { SCI_CP020_REVIEW_V1, type SciCp020ReviewQuestion } from "../plant-biology/sci-cp020-review-v1";
+import { SCI_CP021_REVIEW_V1, type SciCp021ReviewQuestion } from "../human-digestive-system/sci-cp021-review-v1";
+import { SCI_CP022_REVIEW_V1, type SciCp022ReviewQuestion } from "../respiratory-system/sci-cp022-review-v1";
 import {
   SCI_BIOLOGY_LOCALIZATION_V1,
   type BiologyLocaleV1,
@@ -10,9 +12,13 @@ import { SCI_BIOLOGY_CP019_HI_V1 } from "./sci-biology-cp019-localization-data-h
 import { SCI_BIOLOGY_CP019_PA_V1 } from "./sci-biology-cp019-localization-data-pa-v1";
 import { SCI_BIOLOGY_CP020_HI_V1 } from "./sci-biology-cp020-localization-data-hi-v1";
 import { SCI_BIOLOGY_CP020_PA_V1 } from "./sci-biology-cp020-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP021_HI_V1 } from "./sci-biology-cp021-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP021_PA_V1 } from "./sci-biology-cp021-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP022_HI_V1 } from "./sci-biology-cp022-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP022_PA_V1 } from "./sci-biology-cp022-localization-data-pa-v1";
 
-export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020";
-type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion;
+export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020" | "SCI-CP-021" | "SCI-CP-022";
+type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion | SciCp021ReviewQuestion | SciCp022ReviewQuestion;
 
 const QL_NAMES = {
   "SCI-CP-019": {
@@ -67,6 +73,58 @@ const QL_NAMES = {
       "ਵਨਸਪਤੀ ਪ੍ਰਸਾਰ, ਅੰਕੁਰਣ ਅਤੇ ਮਿਲੀ-ਜੁਲੀ ਪੌਧਾ ਸਮਝ",
     ],
   },
+  "SCI-CP-021": {
+    hi: [
+      "पाचन तंत्र का परिचय और आहार नाल",
+      "दाँत, जीभ और लार",
+      "ग्रासनली और आमाशय",
+      "यकृत, पित्त और पित्ताशय",
+      "अग्न्याशय और पाचक एंजाइम",
+      "छोटी आंत और पाचन की पूर्णता",
+      "अवशोषण, विल्ली और आत्मसात",
+      "बड़ी आंत, मलाशय और बहिर्ग्रहण",
+      "पोषक पदार्थों का पाचन और अंतिम उत्पाद",
+      "पाचन कार्य और मिश्रित तर्क",
+    ],
+    pa: [
+      "ਪਚਨ ਤੰਤਰ ਅਤੇ ਪਚਨ ਨਲੀ",
+      "ਦੰਦ, ਜੀਭ ਅਤੇ ਲਾਰ",
+      "ਭੋਜਨ ਨਲੀ ਅਤੇ ਅੰਨਦਰ",
+      "ਜਿਗਰ, ਪਿੱਤ ਅਤੇ ਪਿੱਤੇ ਦੀ ਥੈਲੀ",
+      "ਅਗਨਾਸ਼ਾ ਅਤੇ ਪਚਨ ਐਂਜ਼ਾਈਮ",
+      "ਛੋਟੀ ਆੰਤ ਅਤੇ ਪਚਨ ਦੀ ਪੂਰਨਤਾ",
+      "ਸੋਖ, ਵਿਲੀ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਵਰਤੋਂ",
+      "ਵੱਡੀ ਆੰਤ, ਮਲਾਸ਼ਯ ਅਤੇ ਮਲ ਤਿਆਗ",
+      "ਪੋਸ਼ਕ ਤੱਤਾਂ ਦਾ ਪਚਨ ਅਤੇ ਅੰਤਿਮ ਉਤਪਾਦ",
+      "ਪਚਨ ਕੰਮ ਅਤੇ ਮਿਲੀ-ਜੁਲੀ ਸਮਝ",
+    ],
+  },
+  "SCI-CP-022": {
+    hi: [
+      "श्वसन तंत्र का परिचय और वायु मार्ग",
+      "नाक, ग्रसनी, कंठ और श्वासनली",
+      "श्वसनी, फेफड़े और वायुकोष",
+      "श्वसन की क्रियाविधि",
+      "वायुकोषों में गैस विनिमय",
+      "श्वसन गैसों का परिवहन",
+      "वायवीय और अवायवीय श्वसन",
+      "श्वसन दर, व्यायाम और ऊँचाई",
+      "श्वास में ली और छोड़ी वायु",
+      "श्वसन स्वास्थ्य और मिश्रित तर्क",
+    ],
+    pa: [
+      "ਸ਼ਵਾਸ ਤੰਤਰ ਅਤੇ ਹਵਾ ਦਾ ਰਸਤਾ",
+      "ਨੱਕ, ਫੈਰਿੰਕਸ, ਲੈਰਿੰਕਸ ਅਤੇ ਸਾਹ ਨਲੀ",
+      "ਬਰਾਂਕਾਈ, ਫੇਫੜੇ ਅਤੇ ਐਲਵੀਓਲਾਈ",
+      "ਸਾਹ ਲੈਣ ਦੀ ਕਿਰਿਆ",
+      "ਐਲਵੀਓਲਾਈ ਵਿੱਚ ਗੈਸਾਂ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ",
+      "ਸ਼ਵਾਸ ਗੈਸਾਂ ਦੀ ਆਵਾਜਾਈ",
+      "ਵਾਯਵੀ ਅਤੇ ਅਵਾਯਵੀ ਸ਼ਵਾਸ",
+      "ਸਾਹ ਦੀ ਗਤੀ, ਕਸਰਤ ਅਤੇ ਉੱਚਾਈ",
+      "ਅੰਦਰ ਲਈ ਅਤੇ ਬਾਹਰ ਛੱਡੀ ਹਵਾ",
+      "ਸ਼ਵਾਸ ਸਿਹਤ ਅਤੇ ਮਿਲੀ-ਜੁਲੀ ਸਮਝ",
+    ],
+  },
 } as const;
 
 const qlNumber=(qlId:string)=>Number(qlId.slice(-3));
@@ -87,7 +145,9 @@ function metadata(englishQuestionId:string){
 }
 
 function insertAnswer(answer:string,distractors:readonly [string,string,string],correctIndex:number){
-  const options=[...distractors]; options.splice(correctIndex,0,answer); return Object.freeze(options);
+  const options=[...distractors];
+  options.splice(correctIndex,0,answer);
+  return Object.freeze(options);
 }
 
 function localizeEnglish(q:EnglishQuestion):BiologyLocalizedQuestionV1{
@@ -119,15 +179,27 @@ function localizeNative(q:EnglishQuestion,locale:Exclude<BiologyLocaleV1,"en">,s
   });
 }
 
+function englishFor(cpId:BiologyLocalizedCpV1):readonly EnglishQuestion[]{
+  if(cpId==="SCI-CP-019") return SCI_CP019_REVIEW_V1;
+  if(cpId==="SCI-CP-020") return SCI_CP020_REVIEW_V1;
+  if(cpId==="SCI-CP-021") return SCI_CP021_REVIEW_V1;
+  return SCI_CP022_REVIEW_V1;
+}
+
+function nativeFor(cpId:BiologyLocalizedCpV1,locale:Exclude<BiologyLocaleV1,"en">):readonly BiologyNativeSpecV1[]{
+  if(cpId==="SCI-CP-019") return locale==="hi"?SCI_BIOLOGY_CP019_HI_V1:SCI_BIOLOGY_CP019_PA_V1;
+  if(cpId==="SCI-CP-020") return locale==="hi"?SCI_BIOLOGY_CP020_HI_V1:SCI_BIOLOGY_CP020_PA_V1;
+  if(cpId==="SCI-CP-021") return locale==="hi"?SCI_BIOLOGY_CP021_HI_V1:SCI_BIOLOGY_CP021_PA_V1;
+  return locale==="hi"?SCI_BIOLOGY_CP022_HI_V1:SCI_BIOLOGY_CP022_PA_V1;
+}
+
 export function generateBiologyLocalizedCpV1(cpId:BiologyLocalizedCpV1,locale:BiologyLocaleV1):readonly BiologyLocalizedQuestionV1[]{
-  const english:readonly EnglishQuestion[]=cpId==="SCI-CP-019"?SCI_CP019_REVIEW_V1:SCI_CP020_REVIEW_V1;
+  const english=englishFor(cpId);
   if(locale==="en") return Object.freeze(english.map(localizeEnglish));
-  const specs:readonly BiologyNativeSpecV1[]=cpId==="SCI-CP-019"
-    ?(locale==="hi"?SCI_BIOLOGY_CP019_HI_V1:SCI_BIOLOGY_CP019_PA_V1)
-    :(locale==="hi"?SCI_BIOLOGY_CP020_HI_V1:SCI_BIOLOGY_CP020_PA_V1);
+  const specs=nativeFor(cpId,locale);
   if(specs.length!==english.length) throw new Error(`${cpId}/${locale}: expected ${english.length} native surfaces, found ${specs.length}`);
   return Object.freeze(english.map((q,index)=>localizeNative(q,locale,specs[index])));
 }
 
-export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020"] as const);
+export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020","SCI-CP-021","SCI-CP-022"] as const);
 export const SCI_BIOLOGY_WAVE1_SUPPORTED_LOCALES_V1=Object.freeze(["en","hi","pa"] as const);
