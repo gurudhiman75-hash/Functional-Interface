@@ -80,6 +80,12 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਸਹੀ ਫਰਕ ਕਿਹੜੀ",
       "ਆਪਣਾ ਆਪਣਾ",
       "ਇੱਕੋ ਇੱਕੋ",
+      "ਸਖ਼ਤ ਬਰਤਾਨਵੀ ਸਰਕਾਰ ਦੀ ਸਖ਼ਤ",
+      "ਮਿੱਟੀ ਦੀ ਉਪਜਾਊਪਣ",
+      "ਹਮਾਇਤ ਕੀਤਾ",
+      "ਅਮਰੀਕੀ ਕਪਾਹ ਦੇ ਬਾਹਰੋਂ",
+      "ਸਮਾਜਕ-ਆਪਣਾ ਰਾਜ",
+      "ਬਰਤਾਨਵੀ ਮਾਲੀਆ ਜ਼ੁਲਮ ਖ਼ਿਲਾਫ਼ ਇਹ",
     ];  for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
     }
