@@ -1,5 +1,5 @@
 import { deterministicShuffle } from "../../knowledge-v1/deterministic";
-import { generateEcoCp001Cp023LocalizedReviewV1 } from "../../knowledge-v1/indian-economy/localization-v1/eco-localization-generator-v1";
+import { generateEcoCp001Cp028LocalizedReviewV1 } from "../../knowledge-v1/indian-economy/localization-v1/eco-localization-generator-v1";
 import type {
   EcoLocaleV1,
   EcoLocalizedQuestionV1,
@@ -16,7 +16,7 @@ import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-l
 export const ECO_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "ECO-001" as const;
 export const ECO_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
 export const ECO_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 =
-  "ECO-001-CP001-CP023-MULTILINGUAL-CONTENT-FROZEN-V1" as const;
+  "ECO-001-CP001-CP028-COVERAGE-GAP-CLOSURE-V1" as const;
 export const ECO_001_REVISION_POLICY_V1 = "SOURCE_LOCALIZATION_AUTHORITY_ONLY" as const;
 
 const languages: readonly EcoLocaleV1[] = ["en", "hi", "pa"] as const;
@@ -27,7 +27,7 @@ const locales: Readonly<Record<EcoLocaleV1, string>> = Object.freeze({
 });
 
 function materialize(locale: EcoLocaleV1): readonly EcoLocalizedQuestionV1[] {
-  return Object.freeze(generateEcoCp001Cp023LocalizedReviewV1(locale));
+  return Object.freeze(generateEcoCp001Cp028LocalizedReviewV1(locale));
 }
 
 const corpusByLanguage: Readonly<Record<EcoLocaleV1, readonly EcoLocalizedQuestionV1[]>> =
@@ -45,8 +45,8 @@ const qlIds = [...new Set(english.map((question) => question.qlId))].sort();
 
 for (const locale of languages) {
   const corpus = corpusByLanguage[locale];
-  if (corpus.length !== 1008) {
-    throw new Error(`ECO-001 ${locale} Question Studio corpus must contain 1008 questions; found ${corpus.length}`);
+  if (corpus.length !== 1132) {
+    throw new Error(`ECO-001 ${locale} Question Studio corpus must contain 1132 questions; found ${corpus.length}`);
   }
   if (new Set(corpus.map((question) => question.questionId)).size !== corpus.length) {
     throw new Error(`ECO-001 ${locale} corpus contains duplicate question IDs`);
@@ -65,8 +65,8 @@ for (const locale of languages) {
   }
 }
 
-if (cpIds.length !== 23) {
-  throw new Error(`ECO-001 Question Studio registration requires 23 frozen CPs; found ${cpIds.length}`);
+if (cpIds.length !== 28) {
+  throw new Error(`ECO-001 Question Studio registration requires 28 frozen CPs; found ${cpIds.length}`);
 }
 
 for (let index = 0; index < english.length; index += 1) {
@@ -156,7 +156,7 @@ export const ECO_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
   subject: "Static GK",
   topic: "Indian Economy",
   subtopic: "Complete Chapter",
-  label: "Static GK · Indian Economy · ECO-CP-001–023 Multilingual Frozen",
+  label: "Static GK · Indian Economy · ECO-CP-001–028 Multilingual Frozen",
   enabled: true,
   cpIds: [...cpIds],
   supportedLanguages,
@@ -193,8 +193,8 @@ export const ECO_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     qlCount: qlIds.length,
     cpIds: [...cpIds],
     cpCount: cpIds.length,
-    questionsPerLanguage: 1008,
-    multilingualSurfaceCount: 3024,
+    questionsPerLanguage: 1132,
+    multilingualSurfaceCount: 3396,
     supportedDifficulties: [...supportedDifficulties],
     productionDifficultyClaimsAuthorized: false,
   },

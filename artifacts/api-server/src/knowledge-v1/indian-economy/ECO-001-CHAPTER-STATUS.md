@@ -3,17 +3,17 @@
 ## Editorial state
 
 - English roadmap: COMPLETE
-- English CPs approved/frozen: 23 / 23
-- CP range: `ECO-CP-001` through `ECO-CP-023`
+- English CPs approved/frozen: 28 / 28
+- CP range: `ECO-CP-001` through `ECO-CP-028`
 - Chapter implementation: `CLOSED`
 - Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY` — EN/HI/PA
 - Question Studio package: `ECO-001`
-- Registration authority: `ECO-001-CP001-CP023-MULTILINGUAL-CONTENT-FROZEN-V1`
+- Registration authority: `ECO-001-CP001-CP028-COVERAGE-GAP-CLOSURE-V1`
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: COMPLETE — `ECO-CP-001` through `ECO-CP-023` implemented for Hindi and Punjabi review surfaces
-- Multilingual cumulative checkpoint: 1,008 questions per locale / 3,024 EN-HI-PA surfaces
+- Localisation: COMPLETE — `ECO-CP-001` through `ECO-CP-028` implemented for Hindi and Punjabi review surfaces
+- Multilingual cumulative checkpoint: 1,132 questions per locale / 3,396 EN-HI-PA surfaces
 - Remaining localisation: NONE
 
 ## Closure audit
@@ -34,7 +34,7 @@ The approved runtime promotion registers the completed multilingual chapter thro
 Registration properties:
 - lifecycle: `QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1`;
 - runtime mode: `review-only`;
-- all 23 frozen CPs available through CP and QL selectors in English, Hindi and Punjabi;
+- all 28 frozen CPs available through CP and QL selectors in English, Hindi and Punjabi;
 - Easy / Medium / Hard / Mixed review generation supported in all three languages;
 - identical seeded draws preserve semantic identity across EN/HI/PA;
 - deterministic selection without replacement;
@@ -45,7 +45,7 @@ Review-only registration does **not** authorize canonical Question Bank persiste
 
 ## Multilingual checkpoint
 
-Hindi and Punjabi learner-facing review surfaces are implemented through `ECO-CP-023`.
+Hindi and Punjabi learner-facing review surfaces are implemented through `ECO-CP-028`.
 
 Current localization coverage:
 - `ECO-CP-001` through `ECO-CP-014` — merged earlier;
@@ -58,11 +58,29 @@ Current localization coverage:
 - `ECO-CP-021` International Economic Institutions — multilingual V1 using V3 stem authority;
 - `ECO-CP-022` Human Development & Development Economics — multilingual V1 using V2 stem authority;
 - `ECO-CP-023` Important Economic Events & Milestones — multilingual V1 using V2 stem authority;
-- cumulative executable terminology/parity/stem-quality audit runs through CP023;
-- multilingual localisation is complete across all 23 CPs;
+- `ECO-CP-024` Insurance & Pension System — coverage-gap closure V1;
+- `ECO-CP-025` Banking Regulation, Financial Inclusion & Payment Systems — coverage-gap closure V1;
+- `ECO-CP-026` White Revolution & Cooperative Dairy — coverage-gap closure V1;
+- `ECO-CP-027` Derivatives & Risk Management — coverage-gap closure V1;
+- `ECO-CP-028` Fiscal Federalism & Finance Commission — coverage-gap closure V1;
+- cumulative executable terminology/parity/stem-quality audit runs through CP028;
+- multilingual localisation is complete across all 28 CPs;
 - lifecycle remains `REVIEW_ONLY`.
 
 Localization preserves CP, QL, difficulty, source provenance, option order and correct-index parity. Native Hindi/Punjabi wording is enforced while approved abbreviations and protected exam terms remain intact.
+
+## Exhaustive coverage-gap audit
+
+The original 23-CP closure proved implementation completeness against the existing roadmap, but it did not independently prove that the roadmap itself was exhaustive. A separate breadth audit was therefore run and recorded in `ECO-001-COVERAGE-GAP-AUDIT-V1.md`.
+
+That audit found five substantive Static-GK gaps and closed them with CP024–CP028:
+- insurance and pension regulation/institutions;
+- Basel/capital adequacy, financial inclusion and payment systems;
+- White Revolution / Operation Flood / cooperative dairy;
+- derivatives recognition and basic hedging;
+- fiscal federalism / Finance Commission.
+
+The same audit explicitly rechecked planning, poverty committees, banking structure, GST, industrial policy, agriculture institutions, external sector and other major Economy domains and did not duplicate areas already substantively covered.
 
 ## Frozen editorial standard
 
@@ -76,7 +94,7 @@ Localization preserves CP, QL, difficulty, source provenance, option order and c
 
 ## Chapter closure
 
-Economy content authoring, multilingual localization and Question Studio review-only runtime integration are complete across all 23 CPs. The chapter is closed for the current Static GK implementation scope.
+Economy content authoring, multilingual localization and Question Studio review-only runtime integration are complete across all 28 CPs. The chapter is closed for the current Static GK implementation scope.
 
 Any move beyond review-only Question Studio generation remains a separate release gate. Do not enable Question Bank storage, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release, or production release without separate approval.
 

@@ -24,6 +24,11 @@ import {
   generateEcoCp021LocalizedReviewV1,
   generateEcoCp022LocalizedReviewV1,
   generateEcoCp023LocalizedReviewV1,
+  generateEcoCp024LocalizedReviewV1,
+  generateEcoCp025LocalizedReviewV1,
+  generateEcoCp026LocalizedReviewV1,
+  generateEcoCp027LocalizedReviewV1,
+  generateEcoCp028LocalizedReviewV1,
 } from "./eco-localization-generator-v1";
 import type { EcoLocaleV1, EcoLocalizedQuestionV1 } from "./eco-localization-types-v1";
 
@@ -32,7 +37,7 @@ const locales: EcoLocaleV1[] = ["en", "hi", "pa"];
 const targetDir = path.resolve("dist/economy-review/ECO-MULTILINGUAL-V1");
 fs.mkdirSync(targetDir, { recursive: true });
 
-type Cp = "ECO-CP-001" | "ECO-CP-002" | "ECO-CP-003" | "ECO-CP-004" | "ECO-CP-005" | "ECO-CP-006" | "ECO-CP-007" | "ECO-CP-008" | "ECO-CP-009" | "ECO-CP-010" | "ECO-CP-011" | "ECO-CP-012" | "ECO-CP-013" | "ECO-CP-014" | "ECO-CP-015" | "ECO-CP-016" | "ECO-CP-017" | "ECO-CP-018" | "ECO-CP-019" | "ECO-CP-020" | "ECO-CP-021" | "ECO-CP-022" | "ECO-CP-023";
+type Cp = "ECO-CP-001" | "ECO-CP-002" | "ECO-CP-003" | "ECO-CP-004" | "ECO-CP-005" | "ECO-CP-006" | "ECO-CP-007" | "ECO-CP-008" | "ECO-CP-009" | "ECO-CP-010" | "ECO-CP-011" | "ECO-CP-012" | "ECO-CP-013" | "ECO-CP-014" | "ECO-CP-015" | "ECO-CP-016" | "ECO-CP-017" | "ECO-CP-018" | "ECO-CP-019" | "ECO-CP-020" | "ECO-CP-021" | "ECO-CP-022" | "ECO-CP-023" | "ECO-CP-024" | "ECO-CP-025" | "ECO-CP-026" | "ECO-CP-027" | "ECO-CP-028";
 
 function renderQuestion(question: EcoLocalizedQuestionV1, index: number): string[] {
   const out = [`**${index + 1}. ${question.stem}**`];
@@ -65,7 +70,12 @@ function questionsFor(cp: Cp, locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
   if (cp === "ECO-CP-020") return generateEcoCp020LocalizedReviewV1(locale);
   if (cp === "ECO-CP-021") return generateEcoCp021LocalizedReviewV1(locale);
   if (cp === "ECO-CP-022") return generateEcoCp022LocalizedReviewV1(locale);
-  return generateEcoCp023LocalizedReviewV1(locale);
+  if (cp === "ECO-CP-023") return generateEcoCp023LocalizedReviewV1(locale);
+  if (cp === "ECO-CP-024") return generateEcoCp024LocalizedReviewV1(locale);
+  if (cp === "ECO-CP-025") return generateEcoCp025LocalizedReviewV1(locale);
+  if (cp === "ECO-CP-026") return generateEcoCp026LocalizedReviewV1(locale);
+  if (cp === "ECO-CP-027") return generateEcoCp027LocalizedReviewV1(locale);
+  return generateEcoCp028LocalizedReviewV1(locale);
 }
 
 function materialize(cps: readonly Cp[], title: string, filename: string) {
@@ -108,3 +118,5 @@ materialize(["ECO-CP-017", "ECO-CP-018"], "CP017–CP018", "ECO-MULTILINGUAL-V1-
 materialize(["ECO-CP-019", "ECO-CP-020"], "CP019–CP020", "ECO-MULTILINGUAL-V1-CP019-CP020-REVIEW.md");
 
 materialize(["ECO-CP-021", "ECO-CP-022", "ECO-CP-023"], "CP021–CP023", "ECO-MULTILINGUAL-V1-CP021-CP023-REVIEW.md");
+
+materialize(["ECO-CP-024", "ECO-CP-025", "ECO-CP-026", "ECO-CP-027", "ECO-CP-028"], "CP024–CP028 Coverage Gap Closure", "ECO-MULTILINGUAL-V1-CP024-CP028-REVIEW.md");

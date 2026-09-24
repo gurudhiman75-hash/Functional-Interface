@@ -7,16 +7,16 @@ import {
 } from "./knowledge-v1-eco001-adapter-v1";
 
 describe("ECO-001 Question Studio multilingual review-only registration", () => {
-  it("registers one enabled 23-CP trilingual Economy package", () => {
+  it("registers one enabled 28-CP trilingual Economy package", () => {
     const pkg = ECO_001_STANDARD_REVIEW_ONLY_PACKAGE_V1;
     expect(pkg.packageId).toBe("ECO-001");
     expect(pkg.engineId).toBe("knowledge-v1");
     expect(pkg.enabled).toBe(true);
-    expect(pkg.cpIds).toHaveLength(23);
+    expect(pkg.cpIds).toHaveLength(28);
     expect(new Set(pkg.cpIds).size).toBe(23);
     expect(pkg.supportedLanguages).toEqual(["en", "hi", "pa"]);
-    expect(pkg.metadata?.questionsPerLanguage).toBe(1008);
-    expect(pkg.metadata?.multilingualSurfaceCount).toBe(3024);
+    expect(pkg.metadata?.questionsPerLanguage).toBe(1132);
+    expect(pkg.metadata?.multilingualSurfaceCount).toBe(3396);
     expect(pkg.metadata?.multilingualContentFrozen).toBe(true);
   });
 
@@ -103,6 +103,27 @@ describe("ECO-001 Question Studio multilingual review-only registration", () => 
     await expect(
       knowledgeV1Eco001QuestionStudioAdapterV1.generate({ packageId: "ECO-001", patternId: "ECO-CP-999" }),
     ).rejects.toThrow(/Unknown ECO-001 selector/i);
+  });
+
+  it("exposes the new coverage-gap CPs through native-language selectors", async () => {
+    const cp024 = await knowledgeV1Eco001QuestionStudioAdapterV1.generate({
+      packageId: "ECO-001",
+      patternId: "ECO-CP-024",
+      language: "hi",
+      count: 5,
+      seed: "eco001-gap-cp024",
+    });
+    const cp028 = await knowledgeV1Eco001QuestionStudioAdapterV1.generate({
+      packageId: "ECO-001",
+      patternId: "ECO-CP-028",
+      language: "pa",
+      count: 5,
+      seed: "eco001-gap-cp028",
+    });
+    expect(cp024.questions).toHaveLength(5);
+    expect((cp024.questions as any[]).every((q) => q.cpId === "ECO-CP-024" && q.locale === "hi-IN")).toBe(true);
+    expect(cp028.questions).toHaveLength(5);
+    expect((cp028.questions as any[]).every((q) => q.cpId === "ECO-CP-028" && q.locale === "pa-IN")).toBe(true);
   });
 
   it("is exposed exactly once by the composite Question Studio registry", () => {
