@@ -70,11 +70,11 @@ jobs:
           assert(pkg.packageId === 'ECO-001', 'ECO-001 package id mismatch');
           assert(pkg.engineId === 'knowledge-v1', 'ECO-001 engine mismatch');
           assert(pkg.enabled === true, 'ECO-001 package must be enabled');
-          assert(pkg.cpIds.length === 23, `Expected 23 CPs, found ${pkg.cpIds.length}`);
-          assert(new Set(pkg.cpIds).size === 23, 'ECO-001 CP ids must be unique');
+          assert(pkg.cpIds.length === 28, `Expected 28 CPs, found ${pkg.cpIds.length}`);
+          assert(new Set(pkg.cpIds).size === 28, 'ECO-001 CP ids must be unique');
           assert(JSON.stringify(pkg.supportedLanguages) === JSON.stringify(['en', 'hi', 'pa']), 'ECO-001 must expose EN/HI/PA');
-          assert(pkg.metadata.questionsPerLanguage === 1008, 'ECO-001 per-language corpus size mismatch');
-          assert(pkg.metadata.multilingualSurfaceCount === 3024, 'ECO-001 multilingual surface count mismatch');
+          assert(pkg.metadata.questionsPerLanguage === 1132, 'ECO-001 per-language corpus size mismatch');
+          assert(pkg.metadata.multilingualSurfaceCount === 3396, 'ECO-001 multilingual surface count mismatch');
           assert(pkg.lifecycleStage === 'REVIEW_ONLY', 'ECO-001 must remain REVIEW_ONLY');
           assert(pkg.questionBankWritable === false, 'Question Bank writes must remain disabled');
           assert(pkg.testEligible === false, 'Test eligibility must remain disabled');
@@ -150,13 +150,21 @@ jobs:
           }
           NODE
 
-      - name: Run Economy multilingual CP001-CP023 audit
+      - name: Run Economy CP024-CP028 English coverage-gap audit
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/indian-economy/localization-v1/eco-cp001-cp023-audit-v1.ts \
+            src/knowledge-v1/indian-economy/eco-cp024-cp028-gap-audit-v1.ts \
             --bundle --packages=external --platform=node --format=esm \
-            --outfile=dist/economy/eco-cp001-cp023-audit-v1.mjs
-          node artifacts/api-server/dist/economy/eco-cp001-cp023-audit-v1.mjs
+            --outfile=dist/economy/eco-cp024-cp028-gap-audit-v1.mjs
+          node artifacts/api-server/dist/economy/eco-cp024-cp028-gap-audit-v1.mjs
+
+      - name: Run Economy multilingual CP001-CP028 audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-economy/localization-v1/eco-cp001-cp028-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/economy/eco-cp001-cp028-audit-v1.mjs
+          node artifacts/api-server/dist/economy/eco-cp001-cp028-audit-v1.mjs
 
       - name: Generate Economy multilingual review Markdown
         working-directory: artifacts/api-server

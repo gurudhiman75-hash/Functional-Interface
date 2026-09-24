@@ -27,19 +27,24 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 21. `ECO-CP-021` International Economic Institutions — ENGLISH APPROVED V2 / FROZEN
 22. `ECO-CP-022` Human Development & Development Economics — ENGLISH APPROVED V1 / FROZEN
 23. `ECO-CP-023` Important Economic Events & Milestones — ENGLISH APPROVED V1 / FROZEN
+24. `ECO-CP-024` Insurance & Pension System — COVERAGE-GAP CLOSURE V1 / FROZEN
+25. `ECO-CP-025` Banking Regulation, Financial Inclusion & Payment Systems — COVERAGE-GAP CLOSURE V1 / FROZEN
+26. `ECO-CP-026` White Revolution & Cooperative Dairy — COVERAGE-GAP CLOSURE V1 / FROZEN
+27. `ECO-CP-027` Derivatives & Risk Management — COVERAGE-GAP CLOSURE V1 / FROZEN
+28. `ECO-CP-028` Fiscal Federalism & Finance Commission — COVERAGE-GAP CLOSURE V1 / FROZEN
 
 ## Chapter state
 
 - English editorial review: COMPLETE
-- English CPs frozen: 23 / 23
+- English CPs frozen: 28 / 28
 - Chapter implementation: `CLOSED`
 - Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY` — EN/HI/PA
 - Question Studio package: `ECO-001`
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: COMPLETE — CP001–CP023 implemented for Hindi/Punjabi review surfaces
-- Multilingual cumulative checkpoint: 1,008 questions per locale / 3,024 EN-HI-PA surfaces
+- Localisation: COMPLETE — CP001–CP028 implemented for Hindi/Punjabi review surfaces
+- Multilingual cumulative checkpoint: 1,132 questions per locale / 3,396 EN-HI-PA surfaces
 - Remaining localisation: NONE
 - Closure record: `ECO-001-CHAPTER-STATUS.md`
 
@@ -62,7 +67,7 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 The completed multilingual chapter is registered with the shared `knowledge-v1` Question Studio engine under package `ECO-001`.
 
 The registration:
-- exposes all 23 approved/frozen CPs in English, Hindi and Punjabi;
+- exposes all 28 approved/frozen CPs in English, Hindi and Punjabi;
 - supports CP and QL selectors;
 - supports Easy / Medium / Hard / Mixed review generation in EN/HI/PA;
 - preserves the same seeded semantic draw across languages;
@@ -83,10 +88,19 @@ The registration:
 - CP021: International Economic Institutions — multilingual V1, V3 stem authority
 - CP022: Human Development & Development Economics — multilingual V1, V2 stem authority
 - CP023: Important Economic Events & Milestones — multilingual V1, V2 stem authority
-- cumulative audit authority extends through CP023
+- CP024: Insurance & Pension System — coverage-gap closure V1
+- CP025: Banking Regulation, Financial Inclusion & Payment Systems — coverage-gap closure V1
+- CP026: White Revolution & Cooperative Dairy — coverage-gap closure V1
+- CP027: Derivatives & Risk Management — coverage-gap closure V1
+- CP028: Fiscal Federalism & Finance Commission — coverage-gap closure V1
+- cumulative audit authority extends through CP028
 - multilingual localisation sequence is complete
 - multilingual surfaces remain `REVIEW_ONLY`
 
+## Coverage-gap closure authority
+
+`ECO-001-COVERAGE-GAP-AUDIT-V1.md` is the breadth authority for the final 28-CP structure. It records both the added gap packs and the major syllabus areas rechecked and found already covered.
+
 ## Chapter closure
 
-The Economy chapter is closed for content authoring, localization and Question Studio review-only integration. Any move to Question Bank storage / `BANK_ONLY`, test eligibility, mock-test eligibility, public publication or production release remains a separate explicit release approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.
+The Economy chapter is re-closed after the exhaustive coverage-gap audit for content authoring, localization and Question Studio review-only integration. Any move to Question Bank storage / `BANK_ONLY`, test eligibility, mock-test eligibility, public publication or production release remains a separate explicit release approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.

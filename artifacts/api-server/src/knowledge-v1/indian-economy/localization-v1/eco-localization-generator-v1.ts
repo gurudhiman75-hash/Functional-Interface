@@ -36,6 +36,11 @@ import { generateEcoCp020LocalizedReviewV1 } from "./eco-cp020-localization-v1";
 import { generateEcoCp021LocalizedReviewV1 } from "./eco-cp021-localization-v1";
 import { generateEcoCp022LocalizedReviewV1 } from "./eco-cp022-localization-v1";
 import { generateEcoCp023LocalizedReviewV1 } from "./eco-cp023-localization-v1";
+import { generateEcoCp024LocalizedReviewV1 } from "./eco-cp024-localization-v1";
+import { generateEcoCp025LocalizedReviewV1 } from "./eco-cp025-localization-v1";
+import { generateEcoCp026LocalizedReviewV1 } from "./eco-cp026-localization-v1";
+import { generateEcoCp027LocalizedReviewV1 } from "./eco-cp027-localization-v1";
+import { generateEcoCp028LocalizedReviewV1 } from "./eco-cp028-localization-v1";
 
 const CP001_FINAL_STEM_OVERRIDES: Readonly<Record<string, Readonly<Record<"hi" | "pa", string>>>> = Object.freeze({
   "ECO-CP001-V2-011": {
@@ -168,6 +173,23 @@ export function generateEcoCp001Cp023LocalizedReviewV1(locale: EcoLocaleV1): Eco
   ];
 }
 
+export function generateEcoCp024Cp028LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp024LocalizedReviewV1(locale),
+    ...generateEcoCp025LocalizedReviewV1(locale),
+    ...generateEcoCp026LocalizedReviewV1(locale),
+    ...generateEcoCp027LocalizedReviewV1(locale),
+    ...generateEcoCp028LocalizedReviewV1(locale),
+  ];
+}
+
+export function generateEcoCp001Cp028LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp001Cp023LocalizedReviewV1(locale),
+    ...generateEcoCp024Cp028LocalizedReviewV1(locale),
+  ];
+}
+
 export {
   generateEcoCp003LocalizedReviewV1,
   generateEcoCp004LocalizedReviewV1,
@@ -196,6 +218,11 @@ export {
   generateEcoCp021LocalizedReviewV1,
   generateEcoCp022LocalizedReviewV1,
   generateEcoCp023LocalizedReviewV1,
+  generateEcoCp024LocalizedReviewV1,
+  generateEcoCp025LocalizedReviewV1,
+  generateEcoCp026LocalizedReviewV1,
+  generateEcoCp027LocalizedReviewV1,
+  generateEcoCp028LocalizedReviewV1,
 };
 
 export const ECO_MULTILINGUAL_CP001_CP002_V1 = Object.freeze({
@@ -304,4 +331,16 @@ export const ECO_MULTILINGUAL_CP001_CP023_V1 = Object.freeze({
   en: generateEcoCp001Cp023LocalizedReviewV1("en"),
   hi: generateEcoCp001Cp023LocalizedReviewV1("hi"),
   pa: generateEcoCp001Cp023LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP024_CP028_V1 = Object.freeze({
+  en: generateEcoCp024Cp028LocalizedReviewV1("en"),
+  hi: generateEcoCp024Cp028LocalizedReviewV1("hi"),
+  pa: generateEcoCp024Cp028LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP001_CP028_V1 = Object.freeze({
+  en: generateEcoCp001Cp028LocalizedReviewV1("en"),
+  hi: generateEcoCp001Cp028LocalizedReviewV1("hi"),
+  pa: generateEcoCp001Cp028LocalizedReviewV1("pa"),
 });
