@@ -7,7 +7,7 @@ const LABELS=["A","B","C","D"],DIFFICULTIES=["easy","medium","hard"]as const;
 const lines:string[]=[
 "# ENG-007 CP006 — PYQ Spelling Gap Closure — Review V1","",
 "Status: `HUMAN_REVIEW_PENDING__REVIEW_ONLY`","",
-"CP006 contains **102 exam-attested gap spellings**: 34 Easy / 52 Medium / 16 Hard.","",
+"CP006 contains **107 exam-attested gap spellings**: 37 Easy / 54 Medium / 16 Hard.","",
 "These are residual PYQ gaps found after CP005; the count is not a quota.","",
 "Review sample: **60 questions — 20 per difficulty**.","","---",""
 ];
