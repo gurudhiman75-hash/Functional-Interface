@@ -21,7 +21,7 @@ const specs:{difficulty:PunjabiDifficulty;familyId:string;seeds:number[]}[]=[
 ];
 const out:string[]=[
  "# PUN-001 CP007 Retrofit Review — ਕਾਰਕ, ਸੰਬੰਧਕ, ਯੋਜਕ ਅਤੇ ਵਿਸਮਿਕ","",
- "Status: HUMAN REVIEW PENDING","",
+ "Status: HUMAN APPROVED","",
  "Authority inventory: 95 ਕਾਰਕ + 42 ਸੰਬੰਧਕ + 23 ਯੋਜਕ + 37 contextual ਵਿਸਮਿਕ = 197 atomic authorities.","",
  "The approved three-way ਸੰਬੰਧਕ taxonomy remains unchanged. The 42 sentence-grounded authorities are balanced at 14 ਪੂਰਨ + 14 ਅਪੂਰਨ + 14 ਦੁਬਾਜਰਾ.","",
  "Governed semantic breadth: 6,459 combinations before option-order permutations.",""
