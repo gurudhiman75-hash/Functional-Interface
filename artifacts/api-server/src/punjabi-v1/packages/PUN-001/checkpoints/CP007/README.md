@@ -1,6 +1,6 @@
 # PUN-001 CP007 Retrofit — ਕਾਰਕ, ਸੰਬੰਧਕ, ਯੋਜਕ ਅਤੇ ਵਿਸਮਿਕ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Final audited surface
 - **95 sentence-grounded ਕਾਰਕ authorities**
@@ -44,6 +44,6 @@ The previously reviewed nine-family architecture is retained:
 F01–F03 ਕਾਰਕ, F04 ਸੰਬੰਧਕ, F05–F06 ਯੋਜਕ, F07 contextual ਵਿਸਮਿਕ, F08 combined ਕਾਰਕ+ਯੋਜਕ diagnosis, F09 dual-statement verification.
 
 ## Lifecycle
-The previous CP007 approval does not cover this material retrofit. Fresh owner approval is required on the exact reviewed SHA.
+Owner approval is recorded for the material retrofit reviewed at SHA `607bcc72913d9f58002ec4b7e1f1897710d96158`.
 
 No Question Bank, Question Studio, test/mock or public delivery promotion is authorized.
