@@ -104,6 +104,11 @@ laughable|laughible|medium|exam-attested-pyq|SSC-RRB-PYQ-SPELLING-AUDIT-2017-202
 reasonable|reasonible|medium|exam-attested-pyq|SSC-RRB-PYQ-SPELLING-AUDIT-2017-2026|ending-pattern
 blessed|blesed|easy|exam-attested-pyq|SSC-RRB-PYQ-SPELLING-AUDIT-2017-2026|omitted-letter
 loser|losare|easy|exam-attested-pyq|SSC-RRB-PYQ-SPELLING-AUDIT-2017-2026|extra-letter
+removal|removel|easy|exam-attested-pyq|SSC-CGL-2024-09-18-S3|ending-pattern
+necessity|necesity|medium|exam-attested-pyq|SSC-CGL-2024-09-17-S3|omitted-letter
+moment|munent|easy|exam-attested-pyq|SSC-CGL-2024-09-25-S3|internal-pattern
+commercial|comercial|medium|exam-attested-pyq|SSC-CGL-2024-09-18-S2|omitted-letter
+diffuse|difuse|easy|exam-attested-pyq|SSC-CGL-2024-09-18-S1|omitted-letter
 `.trim();
 export const ENG007_CP006_ENTRIES_V1=Object.freeze(RAW.split("\n").map((line,index)=>{const[correct,misspelling,difficulty,domain,sourceRef,trap]=line.split("|")as[string,string,Eng007Difficulty,string,string,Eng007SpellingTrap];return{id:`SPL006-${String(index+1).padStart(3,"0")}`,correct,misspelling,difficulty,domain,sourceRef,trap}as const;}));
 export function eng007Cp006PoolV1(difficulty:Eng007Difficulty){return ENG007_CP006_ENTRIES_V1.filter(x=>x.difficulty===difficulty);}
