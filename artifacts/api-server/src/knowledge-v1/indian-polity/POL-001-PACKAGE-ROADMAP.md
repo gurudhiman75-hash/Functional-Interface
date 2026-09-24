@@ -36,7 +36,7 @@ This file is the chapter-level binding authority for Polity content status and p
 
 English content implementation has reached POL-CP-027. All 27 CPs are approved/content-frozen, and the Final Audit V1 English surface was approved on 19 September 2026.
 
-`POL-001` is bound to the shared `knowledge-v1` Question Studio engine in **REVIEW_ONLY** mode. All 27 CPs are discoverable through the English package, with deterministic selection and CP/QL/difficulty filters. Question Bank writes, test/mock eligibility, public publication and production release remain disabled. Hindi/Punjabi localization is approved/frozen through CP016 multilingual V1 with strict semantic, QL, option-order, correct-index, source, numeric/legal-form and native-Punjabi parity gates. CP017–CP027 remain pending localization.
+`POL-001` is bound to the shared `knowledge-v1` Question Studio engine in **REVIEW_ONLY** mode. All 27 CPs are discoverable through the English package, with deterministic selection and CP/QL/difficulty filters. Question Bank writes, test/mock eligibility, public publication and production release remain disabled. Hindi/Punjabi localization is approved/frozen through CP019 multilingual V1 with strict semantic, QL, option-order, correct-index, source, numeric/legal-form and native-Punjabi parity gates. CP020–CP027 remain pending localization.
 
 ## Binding rule
 
@@ -67,10 +67,11 @@ Before Question Studio exposure:
 | POL-CP-011–012 | 168 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-013–014 | 160 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
 | POL-CP-015–016 | 176 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
-| POL-CP-017–019 | 256 | REVIEW CANDIDATE V1 | REVIEW CANDIDATE V1 | blocked pending project-owner approval |
-| POL-CP-020–027 | pending | pending | pending | English-only remains active |
+| POL-CP-017–019 | 256 | APPROVED / FROZEN V1 | APPROVED / FROZEN V1 | eligible for multilingual package promotion |
+| POL-CP-020–022 | 240 | REVIEW CANDIDATE V1 | REVIEW CANDIDATE V1 | blocked pending project-owner approval |
+| POL-CP-023–027 | pending | pending | pending | English-only remains active |
 
-The approved CP001–CP016 localization layers cover 1,191 English authority questions and 3,573 EN/HI/PA review surfaces. CP017–CP019 add 256 English authority questions and 768 EN/HI/PA review-candidate surfaces. If approved, localization through CP019 will cover 1,447 English authorities and 4,341 EN/HI/PA surfaces. CP020–CP027 remain pending. Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity remain executable CI gates.
+The approved CP001–CP019 localization layers cover 1,447 English authority questions and 4,341 EN/HI/PA review surfaces. CP020–CP022 add 240 English authority questions and 720 EN/HI/PA review-candidate surfaces. If approved, localization through CP022 will cover 1,687 English authorities and 5,061 EN/HI/PA surfaces. CP023–CP027 remain pending. Native-script leakage, native-Punjabi editorial quality, numeric/legal-form preservation, question-count parity, QL parity, source parity, option-order parity and correct-index parity remain executable CI gates.
 
 ### CP001–CP002 localization approval
 
@@ -96,6 +97,11 @@ Project-owner approval received on 20 September 2026. Hindi and Punjabi V1 for P
 
 Project-owner approval received on 24 September 2026. Hindi and Punjabi V1 for POL-CP-015–016 are approved/frozen. CP015 contains 80 English authority questions and CP016 contains 96, for 176 questions per locale and 528 EN/HI/PA review surfaces. The slice preserves English authority text exactly, CP/QL/difficulty/source metadata, option order, correct index and numeric/legal forms. CP016 also preserves the full Article 173 qualification explanation on the Assembly/Council age questions.
 
-### CP017–CP019 localization review candidate
+### CP017–CP019 localization approval
 
-POL-CP-017 Centre–State Relations, POL-CP-018 Emergency Provisions and POL-CP-019 Panchayati Raj are implemented as multilingual V1 review candidates. The slice preserves 256 frozen English authority questions exactly and adds 512 native Hindi/Punjabi learner surfaces, for 768 EN/HI/PA review surfaces. Constitutional Article numbers, dates, durations, majority rules, option order, correct index, QL and source provenance are executable parity gates. Runtime promotion remains blocked until explicit project-owner approval.
+Project-owner approval received on 24 September 2026. Hindi and Punjabi V1 for POL-CP-017–019 are approved/frozen. The approved slice preserves 256 frozen English authority questions exactly and 768 EN/HI/PA review surfaces, with constitutional Article numbers, dates, durations, majority rules, option order, correct index, QL and source provenance protected by executable parity gates.
+
+
+### CP020–CP022 localization review candidate
+
+POL-CP-020 Municipalities, POL-CP-021 Elections, Representation & Anti-Defection and POL-CP-022 Constitutional Bodies & Constitutional Authorities are implemented as multilingual V1 review candidates. The slice preserves 240 frozen English authority questions exactly and adds 480 native Hindi/Punjabi learner surfaces, for 720 EN/HI/PA review surfaces. The audit preserves Article/date/age/legal identifiers, municipal threshold and planning-fraction rules, election and Tenth Schedule rules, and the Article 76 and Article 165 legal-office qualification overlays. Runtime promotion remains blocked until explicit project-owner approval.
