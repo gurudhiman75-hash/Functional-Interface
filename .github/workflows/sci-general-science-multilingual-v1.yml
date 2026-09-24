@@ -56,3 +56,12 @@ jobs:
       - name: Run General Science CP037 multilingual audit
         working-directory: artifacts/api-server
         run: node dist/sci-general-cp037-multilingual-audit-v1.mjs
+
+      - name: Export CP035-CP037 review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: sci-cp035-cp037-review-files
+          path: |
+            artifacts/api-server/src/knowledge-v1/science/biology-localization-v1/SCI-CP-035-MULTILINGUAL-REVIEW.md
+            artifacts/api-server/src/knowledge-v1/science/general-science-localization-v1/SCI-CP-036-MULTILINGUAL-REVIEW.md
+            artifacts/api-server/src/knowledge-v1/science/general-science-localization-v1/SCI-CP-037-MULTILINGUAL-REVIEW.md
