@@ -1,18 +1,22 @@
 # CP014 Status
 
-- Topic: ਪਾਠ-ਬੋਧ ਅਤੇ ਪ੍ਰਬੰਧਕੀ ਅਨੁਵਾਦ
+- Topic: ਪਾਠ-ਬੋਧ ਅਤੇ ਨਿਯੰਤਰਿਤ ਅਨੁਵਾਦ
 - Lifecycle: `REVIEW_ONLY / HUMAN_APPROVED`
 - Passages: 50
 - Passage-question authorities: 190
 - Administrative terminology authorities: 215
-- Total atomic authorities: 405
-- Families: 8
-- Governed semantic combinations: 2,235
+- Vocabulary-in-context authorities: 30
+- Passage supported-statement authorities: 30
+- Controlled sentence-translation authorities: 36
+- Total atomic authorities: 501
+- Families: 13
+- Governed semantic combinations: 2,475
 - Generated review target: 120 questions = 40 Easy + 40 Medium + 40 Hard
 - Full passage appendix: all 50 passages and all 190 passage-question authorities
-- All 8 families must be represented
+- All 13 families must be represented
 - All 4 F08 truth outcomes must be represented
-- Every retained authority must be reachable through each applicable family
-- Runtime/publication promotion remains blocked pending a separate explicit lifecycle-promotion decision
+- Forward and reverse sentence translation plus meaning-change detection must be represented
+- Owner approval recorded for reviewed SHA `20e78288f6e4e5ee8a5488a05ed3780ea6b79cc2` on 2026-09-24
+- Runtime/publication promotion remains blocked pending a separate lifecycle-promotion decision
 
-- Owner editorial approval recorded: 2026-09-21
+The previously approved 50-passage / 215-term surface is preserved, and the new context and sentence-translation layer is covered by the approval recorded above.
