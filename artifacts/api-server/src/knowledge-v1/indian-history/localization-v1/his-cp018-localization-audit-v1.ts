@@ -36,6 +36,9 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਆਮ ਤੌਰ ਤੇ",
       "ਮੁੱਖ ਤੌਰ ਤੇ",
       "ਖਾਸ ਤੌਰ ਤੇ",
+      "ਸ਼ਲ੍ਯ-ਚਿਕਿਤਸਾ",
+      "ਸੰਸਕ੍ਰਿਤੀ",
+      "ਸਹੀ ਤਰ੍ਹਾਂ ਜੋੜਨ ਵਾਲਾ",
     ];
     for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
