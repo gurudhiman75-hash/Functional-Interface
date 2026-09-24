@@ -86,7 +86,7 @@ for(const locale of ["hi","pa"] as const){
  assert.match(learner(cp23[8]!),/1993/);
  assert.match(learner(cp23[12]!),locale==="hi"?/मुख्य न्यायाधीश/:/ਮੁੱਖ ਨਿਆਂਧੀਸ਼/);
  assert.match(learner(cp23[30]!),/65/);
- assert.match(learner(cp23[53]!),/8/);
+ assert.match(learner(cp23[53]!),locale==="hi"?/आठ/:/ਅੱਠ/);
  assert.match(learner(cp23[54]!),/50/);
  assert.match(learner(cp23[61]!),/25/);
  assert.match(learner(cp23[62]!),/45/);
