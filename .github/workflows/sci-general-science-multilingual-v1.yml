@@ -1,0 +1,58 @@
+name: SCI General Science Multilingual V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/science/general-science-localization-v1/**"
+      - "artifacts/api-server/src/knowledge-v1/science/everyday-science/**"
+      - "artifacts/api-server/src/knowledge-v1/science/scientists-discoveries-inventions/**"
+  workflow_dispatch:
+
+concurrency:
+  group: sci-general-science-multilingual-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  general-science-multilingual-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Enable pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle General Science CP036 multilingual audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/general-science-localization-v1/sci-general-cp036-multilingual-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-general-cp036-multilingual-audit-v1.mjs
+      - name: Run General Science CP036 multilingual audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-general-cp036-multilingual-audit-v1.mjs
+
+      - name: Bundle General Science CP037 multilingual audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/general-science-localization-v1/sci-general-cp037-multilingual-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-general-cp037-multilingual-audit-v1.mjs
+      - name: Run General Science CP037 multilingual audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-general-cp037-multilingual-audit-v1.mjs
