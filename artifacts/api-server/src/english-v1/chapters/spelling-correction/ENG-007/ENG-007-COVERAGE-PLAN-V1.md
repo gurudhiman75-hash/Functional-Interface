@@ -1,6 +1,6 @@
 # ENG-007 — Spelling Correction — Coverage Plan V1
 
-Status: `CP001_CP004_HUMAN_APPROVED__BREADTH_AUDIT_PENDING__REVIEW_ONLY`
+Status: `CP001_CP004_HUMAN_APPROVED__CP005_IMPLEMENTED__HUMAN_REVIEW_PENDING__POST_CP005_AUDIT_PENDING`
 
 ENG-007 has **no fixed final word-count target**. The chapter closes only after an exhaustive but exam-relevant breadth audit finds no material spelling gap worth adding.
 
@@ -10,7 +10,7 @@ ENG-007 has **no fixed final word-count target**. The chapter closes only after 
 - CP002 — 260 structural spelling traps — **HUMAN APPROVED**.
 - CP003 — 260 academic, administrative, legal and institutional spellings — **HUMAN APPROVED**.
 - CP004 — 260 scientific, medical, technical and professional spellings — **HUMAN APPROVED**.
-- CP005 — advanced and confusable competitive-exam vocabulary identified by the breadth audit.
+- CP005 — advanced/confusable and structural coverage gaps identified by the breadth audit — **265 IMPLEMENTED / HUMAN REVIEW PENDING**.
 - CP006 — long-tail/high-confusion gap closure after chapter-wide audit, if still required.
 - Additional checkpoint(s) may be added only when the audit finds a material exam-relevant gap; no checkpoint exists merely to satisfy a numeric target.
 
@@ -37,8 +37,10 @@ ENG-007 has **no fixed final word-count target**. The chapter closes only after 
 ## Current breadth
 
 - Approved: **1,020 unique spellings** across CP001-CP004.
+- Implemented and awaiting review: **265 audit-selected spellings** in CP005.
+- Current governed breadth after CP005: **1,285 unique spellings**.
 - This is the **current observed breadth**, not a target fraction.
-- Remaining work is determined by a gap audit of advanced/confusable, long-tail, structural and domain-specific exam vocabulary.
+- Remaining work is determined by a **post-CP005 gap audit**; CP006 will be created only if material exam-relevant omissions remain.
 - ENG-007 is frozen only when that audit finds no material exam-relevant omissions.
 
 ## Closure criteria
