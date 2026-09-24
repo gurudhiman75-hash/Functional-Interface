@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { HIS_CP017_REVIEW_BATCH_V1 } from "./ancient-gaps-chalcolithic-magadha/his-cp017-review-v1";
+import { HIS_CP017_REVIEW_BATCH_V1, auditHisCp017ReviewBatchV1 } from "./ancient-gaps-chalcolithic-magadha/his-cp017-review-v1";
 import { HIS_CP017_FACTS_V1 } from "./ancient-gaps-chalcolithic-magadha/his-cp017-facts-v1";
 import { HIS_CP018_REVIEW_BATCH_V1 } from "./ancient-intellectual-art-travellers/his-cp018-review-v1";
 import { HIS_CP018_FACTS_V1 } from "./ancient-intellectual-art-travellers/his-cp018-facts-v1";
@@ -130,6 +130,9 @@ for(const [cpId,rawQuestions,rawFacts] of packages){
   for(const issue of cpIssues) issues.push(`${cpId}: ${issue}`);
 }
 
+const cp017Integrity=auditHisCp017ReviewBatchV1();
+if(!cp017Integrity.valid) for(const issue of cp017Integrity.issues) issues.push(`HIS-CP-017 integrity: ${issue}`);
+
 if(totalQuestions!==480) issues.push(`V2 total questions expected 480, found ${totalQuestions}`);
 if(totalFacts!==480) issues.push(`V2 total canonical facts expected 480, found ${totalFacts}`);
 
@@ -142,6 +145,7 @@ const result={
   chapterQuestions:954+totalQuestions,
   chapterFacts:899+totalFacts,
   cpCount:packages.length,
+  cp017Integrity,
   reports,
   issues,
 };
@@ -181,6 +185,7 @@ const md=[
   "- No mechanical filler phrases: “best describe”, “associated with”, “which correctly identifies”.",
   "- Explanations at least 120 characters and at least two sentences.",
   "- No learner-facing source/meta leakage.",
+  "- HIS-CP-017 explanation notes must remain bound to the exact source-fact combination used by each question.",
   "",
   ...(issues.length?["## Issues","",...issues.map(i=>`- ${i}`), ""]:["## Issues","","None.",""]),
 ];
