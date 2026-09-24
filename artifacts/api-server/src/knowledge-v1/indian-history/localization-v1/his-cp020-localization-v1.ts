@@ -2,7 +2,7 @@ import { HIS_CP020_REVIEW_BATCH_V1 } from "../medieval-economy-society/his-cp020
 import { HIS_CP020_HI_V1 } from "./his-cp020-hi-v1";
 import { HIS_CP020_PA_V1 } from "./his-cp020-pa-v1";
 import {
-  HIS_ENGLISH_FREEZE_V3,
+  HIS_ENGLISH_FREEZE_V4,
   HIS_LOCALIZATION_V1,
   type HisLocaleV1,
   type HisLocalizedQuestionV1,
@@ -38,7 +38,7 @@ function localizedBase(
     localizationV1:{
       version:HIS_LOCALIZATION_V1,
       englishQuestionId:q.questionId,
-      englishFreeze:HIS_ENGLISH_FREEZE_V3,
+      englishFreeze:HIS_ENGLISH_FREEZE_V4,
       semanticInvariant:true,
       cpInvariant:true,
       qlInvariant:true,
