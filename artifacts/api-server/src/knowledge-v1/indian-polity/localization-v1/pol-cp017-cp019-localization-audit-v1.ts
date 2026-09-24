@@ -16,14 +16,14 @@ const cps=[
  ["POL-CP-019",generatePolCp019ReviewBatchV1(),generatePolCp019LocalizedReviewV1],
 ] as const;
 const learnerText=(q:PolLocalizedQuestionV1)=>[q.stem,...q.options,q.explanation].join("\n");
-const legalTokens=(s:string)=>s.match(/\d+(?:\([0-9A-Za-z]+\))*%?|\bRe\.?\s*\d+\b/gu)??[];
+const legalTokens=(s:string)=>s.match(/\d+[A-Z]?(?:\([0-9A-Za-z]+\))*%?|\bRe\.?\s*\d+\b/gu)??[];
 const PA_BANNED=["ਸੰਸ਼ੋਧਨ","ਪ੍ਰਸੰਨਤਾ","ਕਿਸਦੀ ਪ੍ਰਸੰਨਤਾ","ਸੰਬੰਧਿਤ","ਅਪ੍ਰਸੰਗਿਕ","ਬਾਧਕ","ਉਪਚਾਰ","ਗਤੀਰੋਧ"] as const;
 const PA_STEM_BANNED=["ਕਿਹੜੇ ਅਨੁਛੇਦ ਹੇਠ","ਕਿਸ ਅਨੁਛੇਦ ਦਾ ਵਿਸ਼ਾ","ਕਿਹੜੇ ਕਿਸਮ","ਹੇਠ ਹੇਠ"] as const;
 const HI_STEM_BANNED=["इस अध्याय में मुख्यतः","किससे संबंधित है?","किस पूर्व देश"] as const;
 
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
  const original=learnerText(q);
- const stripped=original.replace(/\b(?:I|II|III|IV|V|VI|VII|VIII|IX|X)\b/gu,"").replace(/\b(?:Re|Rs)\.?/gu,"");
+ const stripped=original.replace(/\b(?:IXA|I|II|III|IV|V|VI|VII|VIII|IX|X)\b/gu,"").replace(/\b(?:Re|Rs)\.?/gu,"");
  assert.equal(/[A-Za-z]{2,}/u.test(stripped),false,`${q.questionId}: Latin-script leakage`);
  assert.match(original,locale==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u,`${q.questionId}: native script missing`);
  if(locale==="pa"){
