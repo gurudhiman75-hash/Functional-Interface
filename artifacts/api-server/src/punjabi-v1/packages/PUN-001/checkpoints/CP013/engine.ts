@@ -75,17 +75,18 @@ interface CP013BlankSurface{
 }
 function buildBlankSurface(item:SentenceCorrectionItem):CP013BlankSurface|null{
  const variants=[item.correctSentence,item.incorrectSentence,...item.distractors].map(v=>norm(v).split(/\s+/));
- const minLen=Math.min(...variants.map(v=>v.length));
- let prefix=0;
- while(prefix<minLen&&variants.every(v=>v[prefix]===variants[0]![prefix]))prefix++;
- let suffix=0;
- while(suffix<minLen-prefix&&variants.every(v=>v[v.length-1-suffix]===variants[0]![variants[0]!.length-1-suffix]))suffix++;
- const mids=variants.map(v=>v.slice(prefix,v.length-suffix).join(" ").trim());
- const correct=mids[0]!;
- const distractors=uniq(mids.slice(1)).filter(v=>v!==correct);
+ const length=variants[0]!.length;
+ if(!variants.every(v=>v.length===length))return null;
+ const changed:number[]=[];
+ for(let i=0;i<length;i++)if(!variants.every(v=>v[i]===variants[0]![i]))changed.push(i);
+ if(changed.length<1||changed.length>3)return null;
+ for(let i=1;i<changed.length;i++)if(changed[i]!==changed[i-1]!+1)return null;
+ const start=changed[0]!,end=changed[changed.length-1]!+1;
+ const fills=variants.map(v=>v.slice(start,end).join(" ").trim());
+ const correct=fills[0]!,distractors=uniq(fills.slice(1)).filter(v=>v!==correct);
  if(!correct||distractors.length<3)return null;
  const base=variants[0]!;
- const template=[...base.slice(0,prefix),"____",...base.slice(base.length-suffix)].join(" ").replace(/\s+([।?!,:;])/gu,"$1");
+ const template=[...base.slice(0,start),"____",...base.slice(end)].join(" ").replace(/\s+([।?!,:;])/gu,"$1");
  return {authorityId:item.id,template,correct,distractors,explanation:item.explanationPa};
 }
 export const CP013_BLANK_SURFACES=CP013_CORRECTION_ITEMS.map(buildBlankSurface).filter((x):x is CP013BlankSurface=>Boolean(x));
