@@ -87,6 +87,6 @@ No editorial item is silently promoted to production linguistic truth by being p
 
 ## Authority lifecycle
 
-All 375 records remain `REVIEW_PENDING`. The contextual pool now contains 252 authorities: the original 45 manually normalized records plus all 207 authorities from the exhaustive-breadth editorial wave. The remaining donor-derived authorities continue to support direct/pair/group families without fabricated generic sentence context.
+All 375 records retain provenance-level `REVIEW_PENDING` flags; checkpoint approval is recorded separately. The contextual pool now contains 252 authorities: the original 45 manually normalized records plus all 207 authorities from the exhaustive-breadth editorial wave. The remaining donor-derived authorities continue to support direct/pair/group families without fabricated generic sentence context.
 
 The semantic proof requires exactly 375 unique canonical forms, unique authority IDs, three distinct incorrect variants, NFC normalization, no incorrect variant colliding with another canonical form, at least 30 authorities in every active category, deterministic semantic uniqueness, and strict `REVIEW_ONLY` lifecycle metadata.
