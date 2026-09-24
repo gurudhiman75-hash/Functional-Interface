@@ -35,6 +35,14 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਭੂਗੋਲਿਕ ਮਿਲਾਪ",
       "ਬਿਆਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ",
       "ਵਿਆਪਕ ਸਮਾਂ",
+      "ਵਿਆਪਕ ਕ੍ਰਮ",
+      "ਵਿਆਪਕ ਕਾਲਕ੍ਰਮ",
+      "ਵਿਲੇਅ",
+      "ਦਾ ਵਾਧੂ ਪੈਦਾਵਾਰ",
+      "ਦੇ ਵਾਧੂ ਪੈਦਾਵਾਰ",
+      "ਕਈ ਤਾਂਬਾ-ਪੱਥਰ ਯੁੱਗ ਦੀਆਂ",
+      "ਤਾਂਬਾ-ਪੱਥਰ ਘਰਾਂ",
+      "ਤਾਂਬਾ-ਪੱਥਰ ਸਥਾਨਾਂ",
     ];
     for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
