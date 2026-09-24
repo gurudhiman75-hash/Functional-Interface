@@ -42,6 +42,11 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਵਿਦਵਤ",
       "ਅੰਤਰ-ਖੇਤਰੀ",
       "ਹਿੰਦੂਸਤਾਨੀ",
+      "ਸਹੀ ਤੌਰ 'ਤੇ",
+      "ਉੱਤਰਾਧਿਕਾਰੀ",
+      "ਅਭਿਵਿਅਕਤੀ",
+      "ਦੱਖਣੀ ਅਤੇ ਭਗਤੀ",
+      "ਦੱਖਣੀ ਦੱਕਣ",
     ];   for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
     }
