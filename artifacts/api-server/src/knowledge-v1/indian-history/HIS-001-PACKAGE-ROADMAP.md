@@ -1,11 +1,11 @@
 # HIS-001 Indian History — Package Roadmap
 
-Status: V4 ENGLISH FROZEN / CP001–CP020 MULTILINGUAL COMPLETE / CP021–CP024 LOCALIZATION PENDING  
+Status: V4 ENGLISH FROZEN / CP001–CP021 MULTILINGUAL COMPLETE / CP022–CP024 LOCALIZATION PENDING  
 Engine: `knowledge-v1`
 
 ## English freezes
 
-The V1 English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md`. V2 expanded the English corpus through CP024. A post-freeze CP017 explanation-context defect was corrected under `HIS-001-ENGLISH-FREEZE-V3.md`. A later CP020 review found two malformed English answer mappings; these are corrected under `HIS-001-ENGLISH-FREEZE-V4.md`, which is now the semantic authority for new History localization. Hindi and Punjabi are complete through CP020; CP021–CP024 remain pending localization.
+The V1 English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md`. V2 expanded the English corpus through CP024. A post-freeze CP017 explanation-context defect was corrected under `HIS-001-ENGLISH-FREEZE-V3.md`. A later CP020 review found two malformed English answer mappings; these are corrected under `HIS-001-ENGLISH-FREEZE-V4.md`, which is now the semantic authority for new History localization. Hindi and Punjabi are complete through CP021; CP022–CP024 remain pending localization.
 
 ## Binding rule
 
