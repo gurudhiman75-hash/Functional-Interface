@@ -3,11 +3,11 @@ import type { PunjabiDifficulty } from "../../../../core/types";
 import { CP013_FAMILIES } from "./engine";
 
 const plan:Record<PunjabiDifficulty,readonly [string,number][]>={
- Easy:[["F02",14],["F03",13],["F05",13]],
+ Easy:[["F02",8],["F03",8],["F05",8],["F09",8],["F10",8]],
  Medium:[["F01",14],["F04",13],["F06",13]],
- Hard:[["F07",20],["F08",20]],
+ Hard:[["F07",10],["F08",15],["F11",15]],
 };
-const strides:Record<string,number>={F01:7,F02:11,F03:13,F04:17,F05:19,F06:23,F07:29,F08:307};
+const strides:Record<string,number>={F01:7,F02:11,F03:13,F04:17,F05:19,F06:23,F07:29,F08:307,F09:31,F10:5,F11:997};
 const out:string[]=[
  "# PUN-001 CP013 Review — ਵਾਕ-ਵਟਾਂਦਰਾ ਅਤੇ ਸ਼ੁੱਧੀ",
  "",
@@ -15,7 +15,7 @@ const out:string[]=[
  "",
  "Authority inventory: 89 sentence-classification + 63 transformation + 71 correction = 223 exhaustive high-confidence authorities.",
  "",
- "Easy tests direct function, forward transformation and correction. Medium tests combined classification, reverse transformation and error diagnosis. Hard tests valid transformation pairs and two-sentence structural analysis.",
+ "Easy tests direct function, forward transformation, correction, no-error selection and grammatical blanks. Medium tests combined classification, reverse transformation and error diagnosis. Hard tests transformation validity, dual structural analysis and mixed-rule verification.",
  ""
 ];
 const fingerprints=new Set<string>();
