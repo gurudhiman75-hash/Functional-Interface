@@ -203,7 +203,7 @@ const namedAmendments:Record<string,Pair>={
 };
 function option(x:string,locale:NativeLocale):string{
  let m=x.match(/^Article\s+(\d+[A-Z]?(?:\([0-9]+\))?)$/);if(m)return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+m[1];
- m=x.match(/^Articles\s+(.+)$/);if(m)return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+m[1];
+ m=x.match(/^Articles\s+(.+)$/);if(m){const rest=m[1].replace(/ and /g,locale==="hi"?" और ":" ਅਤੇ ");return (locale==="hi"?"अनुच्छेद ":"ਅਨੁਛੇਦ ")+rest;}
  const sched:Record<string,Pair>={"Second Schedule":p("दूसरी अनुसूची","ਦੂਜੀ ਅਨੁਸੂਚੀ"),"Fourth Schedule":p("चौथी अनुसूची","ਚੌਥੀ ਅਨੁਸੂਚੀ"),"Fifth Schedule":p("पाँचवीं अनुसूची","ਪੰਜਵੀਂ ਅਨੁਸੂਚੀ"),"Sixth Schedule":p("छठी अनुसूची","ਛੇਵੀਂ ਅਨੁਸੂਚੀ"),"Seventh Schedule":p("सातवीं अनुसूची","ਸੱਤਵੀਂ ਅਨੁਸੂਚੀ"),"Eighth Schedule":p("आठवीं अनुसूची","ਅੱਠਵੀਂ ਅਨੁਸੂਚੀ"),"Ninth Schedule":p("नौवीं अनुसूची","ਨੌਵੀਂ ਅਨੁਸੂਚੀ"),"Tenth Schedule":p("दसवीं अनुसूची","ਦਸਵੀਂ ਅਨੁਸੂਚੀ")}; if(sched[x])return sched[x]![locale];
  m=x.match(/^(\d+)(?:st|nd|rd|th) Amendment$/);if(m)return m[1]+(locale==="hi"?"वाँ संशोधन":"ਵੀਂ ਸੋਧ");
  m=x.match(/^(\d+)(?:st|nd|rd|th) Constitutional Amendment$/);if(m)return m[1]+(locale==="hi"?"वाँ संविधान संशोधन":"ਵੀਂ ਸੰਵਿਧਾਨ ਸੋਧ");
