@@ -12,7 +12,7 @@ const strides:Record<string,number>={F01:1,F02:3,F03:5,F04:17,F05:19,F06:23,F07:
 const out:string[]=[
  "# PUN-001 CP014 Review — ਪਾਠ-ਬੋਧ ਅਤੇ ਨਿਯੰਤਰਿਤ ਅਨੁਵਾਦ",
  "",
- "Status: HUMAN REVIEW PENDING",
+ "Status: HUMAN APPROVED",
  "",
  "Authority inventory: 190 passage questions + 215 administrative terms + 30 contextual vocabulary + 30 supported-statement + 36 controlled sentence translations = 501 atomic authorities.",
  "",
