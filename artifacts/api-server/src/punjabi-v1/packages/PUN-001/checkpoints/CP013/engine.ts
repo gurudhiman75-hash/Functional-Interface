@@ -37,7 +37,7 @@ function assemble(input:{seed:number;difficulty:PunjabiDifficulty;familyId:strin
   metadata:{
    engine:"punjabi-v1",packageId:"PUN-001",cpId:"PUN-001-CP013",familyId:input.familyId,subtype:input.subtype,
    difficulty:input.difficulty,language:"pa-Guru",seed:input.seed,authorityIds:input.authorityIds,
-   generatorRevision:"1.0.0-forward-port",fingerprint,lifecycle:"REVIEW_ONLY"
+   generatorRevision:"1.1.0-blueprint-gap-closure",fingerprint,lifecycle:"REVIEW_ONLY"
   }
  };
 }
@@ -64,6 +64,37 @@ function transformationPeers(item:SentenceTransformationItem,count:number,seed:n
 
 function errorTypes(item:SentenceCorrectionItem){
  return uniq(CP013_CORRECTION_ITEMS.filter(x=>x.id!==item.id).map(x=>x.errorType)).filter(x=>x!==norm(item.errorType));
+}
+
+interface CP013BlankSurface{
+ readonly authorityId:string;
+ readonly template:string;
+ readonly correct:string;
+ readonly distractors:readonly string[];
+ readonly explanation:string;
+}
+function buildBlankSurface(item:SentenceCorrectionItem):CP013BlankSurface|null{
+ const variants=[item.correctSentence,item.incorrectSentence,...item.distractors].map(v=>norm(v).split(/\s+/));
+ const minLen=Math.min(...variants.map(v=>v.length));
+ let prefix=0;
+ while(prefix<minLen&&variants.every(v=>v[prefix]===variants[0]![prefix]))prefix++;
+ let suffix=0;
+ while(suffix<minLen-prefix&&variants.every(v=>v[v.length-1-suffix]===variants[0]![variants[0]!.length-1-suffix]))suffix++;
+ const mids=variants.map(v=>v.slice(prefix,v.length-suffix).join(" ").trim());
+ const correct=mids[0]!;
+ const distractors=uniq(mids.slice(1)).filter(v=>v!==correct);
+ if(!correct||distractors.length<3)return null;
+ const base=variants[0]!;
+ const template=[...base.slice(0,prefix),"____",...base.slice(base.length-suffix)].join(" ").replace(/\s+([।?!,:;])/gu,"$1");
+ return {authorityId:item.id,template,correct,distractors,explanation:item.explanationPa};
+}
+export const CP013_BLANK_SURFACES=CP013_CORRECTION_ITEMS.map(buildBlankSurface).filter((x):x is CP013BlankSurface=>Boolean(x));
+
+const VERDICTS=["ਦੋਵੇਂ ਕਥਨ ਸਹੀ ਹਨ","ਕੇਵਲ ਕਥਨ 1 ਸਹੀ ਹੈ","ਕੇਵਲ ਕਥਨ 2 ਸਹੀ ਹੈ","ਦੋਵੇਂ ਕਥਨ ਗਲਤ ਹਨ"] as const;
+function wrongClassLabel(item:SentenceClassificationItem,seed:number){
+ const correct=classLabel(item),candidates:string[]=[];
+ for(const structure of STRUCTURES)for(const fn of FUNCTIONS){const v=`${structure} — ${fn}`;if(v!==correct)candidates.push(v);}
+ return candidates[ord(seed,candidates.length)]!;
 }
 
 function classLabel(item:SentenceClassificationItem){return `${item.structureType} — ${item.functionType}`;}
@@ -216,6 +247,60 @@ export function generateCP013F08(seed:number,difficulty:PunjabiDifficulty){
  });
 }
 
+export function generateCP013F09(seed:number,difficulty:PunjabiDifficulty){
+ requireDiff(difficulty,["Easy"],"F09");
+ const i=ord(seed,CP013_CORRECTION_ITEMS.length),a=CP013_CORRECTION_ITEMS[i]!;
+ return assemble({
+  seed,difficulty,familyId:"F09",subtype:"NO_ERROR_SENTENCE_SELECTION",
+  stem:pickVariant([
+   "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਸ਼ੁੱਧ ਵਾਕ ਚੁਣੋ।",
+   "ਕਿਹੜਾ ਵਾਕ ਵਿਆਕਰਨ ਪੱਖੋਂ ਸਹੀ ਹੈ?",
+   "ਹੇਠ ਦਿੱਤੇ ਵਾਕਾਂ ਵਿੱਚੋਂ ਅਸ਼ੁੱਧੀ-ਰਹਿਤ ਵਾਕ ਕਿਹੜਾ ਹੈ?"
+  ],i),
+  correctAnswer:a.correctSentence,distractors:[a.incorrectSentence,...a.distractors],
+  explanation:a.explanationPa,authorityIds:[a.id]
+ });
+}
+
+export function generateCP013F10(seed:number,difficulty:PunjabiDifficulty){
+ requireDiff(difficulty,["Easy"],"F10");
+ const i=ord(seed,CP013_BLANK_SURFACES.length),a=CP013_BLANK_SURFACES[i]!;
+ return assemble({
+  seed,difficulty,familyId:"F10",subtype:"GRAMMATICAL_BLANK_COMPLETION",
+  stem:pickVariant([
+   `ਖਾਲੀ ਥਾਂ ਲਈ ਸਹੀ ਰੂਪ ਚੁਣੋ।\n${a.template}`,
+   `ਵਾਕ ਨੂੰ ਵਿਆਕਰਨ ਪੱਖੋਂ ਸ਼ੁੱਧ ਕਰਨ ਲਈ ਖਾਲੀ ਥਾਂ ਭਰੋ।\n${a.template}`,
+   `ਦਿੱਤੇ ਵਾਕ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਉੱਤੇ ਕਿਹੜਾ ਰੂਪ ਢੁਕਵਾਂ ਹੈ?\n${a.template}`
+  ],i),
+  correctAnswer:a.correct,distractors:a.distractors,
+  explanation:a.explanation,authorityIds:[a.authorityId]
+ });
+}
+
+export function generateCP013F11(seed:number,difficulty:PunjabiDifficulty){
+ requireDiff(difficulty,["Hard"],"F11");
+ const nC=CP013_CLASSIFICATION_ITEMS.length,nR=CP013_CORRECTION_ITEMS.length,cap=nC*nR*4;
+ const r=ord(seed,cap),pattern=r%4,pairIndex=Math.floor(r/4);
+ const first=CP013_CLASSIFICATION_ITEMS[Math.floor(pairIndex/nR)]!;
+ const second=CP013_CORRECTION_ITEMS[pairIndex%nR]!;
+ const t1=pattern===0||pattern===1,t2=pattern===0||pattern===2;
+ const classClaim=t1?classLabel(first):wrongClassLabel(first,r+7);
+ const correctionClaim=t2?second.correctSentence:second.distractors[ord(r+11,second.distractors.length)]!;
+ const claim1=`“${first.sentencePa}” ਦਾ ਸਹੀ ਵਰਗੀਕਰਨ ‘${classClaim}’ ਹੈ।`;
+ const claim2=`“${second.incorrectSentence}” ਦਾ ਸ਼ੁੱਧ ਰੂਪ “${correctionClaim}” ਹੈ।`;
+ return assemble({
+  seed,difficulty,familyId:"F11",subtype:"MIXED_RULE_VERIFICATION",
+  stem:pickVariant([
+   `ਹੇਠਲੇ ਦੋ ਕਥਨਾਂ ਨੂੰ ਵਿਆਕਰਨ ਅਨੁਸਾਰ ਪਰਖੋ।\nਕਥਨ 1: ${claim1}\nਕਥਨ 2: ${claim2}`,
+   `ਦੋਵੇਂ ਕਥਨਾਂ ਦੀ ਸਹੀ ਸਥਿਤੀ ਚੁਣੋ।\nਕਥਨ 1: ${claim1}\nਕਥਨ 2: ${claim2}`,
+   `ਵਾਕ-ਵਰਗੀਕਰਨ ਅਤੇ ਵਾਕ-ਸ਼ੁੱਧੀ ਬਾਰੇ ਦੋਵੇਂ ਕਥਨਾਂ ਨੂੰ ਪਰਖੋ।\nਕਥਨ 1: ${claim1}\nਕਥਨ 2: ${claim2}`
+  ],r),
+  correctAnswer:VERDICTS[pattern]!,distractors:VERDICTS,
+  explanation:`ਪਹਿਲੇ ਵਾਕ ਦਾ ਸਹੀ ਵਰਗੀਕਰਨ ‘${classLabel(first)}’ ਹੈ। ਦੂਜੇ ਵਾਕ ਦਾ ਸ਼ੁੱਧ ਰੂਪ “${second.correctSentence}” ਹੈ। ਇਸ ਲਈ ${VERDICTS[pattern]}।`,
+  authorityIds:[first.id,second.id]
+ });
+}
+
 export const CP013_FAMILIES=[
  {familyId:"F01",subtype:"COMBINED_STRUCTURE_FUNCTION_CLASSIFICATION",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:CP013_CLASSIFICATION_ITEMS.length,generate:generateCP013F01},
  {familyId:"F02",subtype:"FUNCTION_CLASSIFICATION",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:CP013_CLASSIFICATION_ITEMS.length,generate:generateCP013F02},
@@ -225,6 +310,9 @@ export const CP013_FAMILIES=[
  {familyId:"F06",subtype:"GRAMMATICAL_ERROR_DIAGNOSIS",targetDifficulties:["Medium"] as PunjabiDifficulty[],semanticCapacity:CP013_CORRECTION_ITEMS.length,generate:generateCP013F06},
  {familyId:"F07",subtype:"VALID_TRANSFORMATION_PAIR",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:CP013_TRANSFORMATION_ITEMS.length,generate:generateCP013F07},
  {familyId:"F08",subtype:"DUAL_STRUCTURAL_ANALYSIS",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:CP013_CLASSIFICATION_ITEMS.length*(CP013_CLASSIFICATION_ITEMS.length-1),generate:generateCP013F08},
+ {familyId:"F09",subtype:"NO_ERROR_SENTENCE_SELECTION",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:CP013_CORRECTION_ITEMS.length,generate:generateCP013F09},
+ {familyId:"F10",subtype:"GRAMMATICAL_BLANK_COMPLETION",targetDifficulties:["Easy"] as PunjabiDifficulty[],semanticCapacity:CP013_BLANK_SURFACES.length,generate:generateCP013F10},
+ {familyId:"F11",subtype:"MIXED_RULE_VERIFICATION",targetDifficulties:["Hard"] as PunjabiDifficulty[],semanticCapacity:CP013_CLASSIFICATION_ITEMS.length*CP013_CORRECTION_ITEMS.length*4,generate:generateCP013F11},
 ] as const;
 
 export function generateCP013Question(seed:number,difficulty:PunjabiDifficulty="Medium",requestedFamilyId?:string){
@@ -241,6 +329,7 @@ export function getCP013BreadthReport(){
   classificationAuthorities:CP013_CLASSIFICATION_ITEMS.length,
   transformationAuthorities:CP013_TRANSFORMATION_ITEMS.length,
   correctionAuthorities:CP013_CORRECTION_ITEMS.length,
+  blankCompletionAuthorities:CP013_BLANK_SURFACES.length,
   totalAtomicAuthorities:CP013_CLASSIFICATION_ITEMS.length+CP013_TRANSFORMATION_ITEMS.length+CP013_CORRECTION_ITEMS.length,
   totalSemanticCapacity:CP013_FAMILIES.reduce((n,f)=>n+f.semanticCapacity,0),
   capacities
