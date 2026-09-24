@@ -271,7 +271,7 @@ function option(x:string,locale:NativeLocale):string{
  throw new Error("POL-CP-017 missing localized option: "+x);
 }
 function localize(q:(typeof ENGLISH)[number],i:number,locale:PolLocaleV1):PolLocalizedQuestionV1{
- const base={...q,chapterId:"POL-001" as const,cpId:"POL-CP-017",qlName:q.qlId,sourceFactIds:[],reviewOnly:true as const,runtimeRegistered:false as const};
+ const base={...q,chapterId:"POL-001" as const,cpId:"POL-CP-017",qlName:q.qlId,reviewOnly:true as const,runtimeRegistered:false as const};
  if(locale==="en")return {...base,options:[...q.options],canonicalAnswer:q.options[q.correctIndex]!,locale,localizationV1:{version:POL_LOCALIZATION_V1,englishQuestionId:q.questionId,semanticInvariant:true,cpInvariant:true,qlInvariant:true,difficultyInvariant:true,sourceInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,reviewOnly:true}};
  let stem=STEMS[i]![locale],explanation=EXPS[i]![locale],options=q.options.map(x=>option(x,locale));
  if(locale==="pa"){stem=applyPolityPunjabiNativePassV1(stem);explanation=applyPolityPunjabiNativePassV1(explanation);options=options.map(applyPolityPunjabiNativePassV1);}
