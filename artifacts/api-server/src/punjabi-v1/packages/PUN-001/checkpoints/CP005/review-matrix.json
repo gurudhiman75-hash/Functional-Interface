@@ -1,17 +1,30 @@
 {
-  "cpId":"PUN-001-CP005",
-  "phase":"RETROFIT",
-  "status":"HUMAN_REVIEW_PENDING",
-  "authorityInventory":{
-    "adjectives":151,
-    "adverbs":110,
-    "totalAtomic":261
+  "cpId": "PUN-001-CP005",
+  "phase": "RETROFIT",
+  "status": "HUMAN_APPROVED",
+  "authorityInventory": {
+    "adjectives": 151,
+    "adverbs": 110,
+    "totalAtomic": 261
   },
-  "semanticCapacity":100333,
-  "totalReviewQuestions":120,
-  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":14,"F02":13,"F03":13,"F04":13,"F05":13,"F06":14,"F07":20,"F08":20},
-  "requirements":[
+  "semanticCapacity": 100333,
+  "totalReviewQuestions": 120,
+  "difficulty": {
+    "Easy": 40,
+    "Medium": 40,
+    "Hard": 40
+  },
+  "families": {
+    "F01": 14,
+    "F02": 13,
+    "F03": 13,
+    "F04": 13,
+    "F05": 13,
+    "F06": 14,
+    "F07": 20,
+    "F08": 20
+  },
+  "requirements": [
     "all 8 families represented",
     "all five adjective classes represented",
     "all five retained adverb classes represented",
@@ -19,5 +32,7 @@
     "all authorities reachable through applicable families",
     "Punjabi-only learner text",
     "REVIEW_ONLY lifecycle"
-  ]
+  ],
+  "approvalBasis": "Owner-approved chapter integration PR #2009; this retrofit was included in the approved combined content tip and had no later learner-facing change before final freeze.",
+  "approvalDate": "2026-09-20"
 }

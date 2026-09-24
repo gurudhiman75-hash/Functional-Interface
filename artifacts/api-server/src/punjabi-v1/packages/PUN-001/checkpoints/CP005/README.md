@@ -1,6 +1,6 @@
 # PUN-001 CP005 Retrofit — ਵਿਸ਼ੇਸ਼ਣ ਅਤੇ ਕਿਰਿਆ-ਵਿਸ਼ੇਸ਼ਣ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Exhaustive audited authority surface
 - **151 sentence-grounded adjective authorities**
@@ -40,7 +40,10 @@ Every authority is sentence-grounded. Added authorities must contain their targe
 
 Semantic fingerprints use a strengthened double content hash because the governed space now exceeds 100k combinations.
 
+## Approval
+Owner approval basis: PR #2009 chapter integration on 2026-09-20. Runtime remains REVIEW_ONLY.
+
 ## Lifecycle
-The previous CP005 approval does not cover this material retrofit. Fresh owner approval is required on the exact reviewed head.
+This material retrofit was subsequently included in owner-approved chapter integration PR #2009 on 2026-09-20.
 
 No Question Studio, Question Bank, test/mock or public delivery promotion is authorized.

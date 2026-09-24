@@ -1,6 +1,6 @@
 # PUN-001 CP010 Retrofit — ਬਹੁਤੇ ਸ਼ਬਦਾਂ ਦੀ ਥਾਂ ਇੱਕ ਸ਼ਬਦ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Why this retrofit exists
 The earlier forward-port intentionally used 64 authorities arranged as 8 domains × 8. That numerical symmetry is now removed.
@@ -75,7 +75,10 @@ Every domain has at least four authorities, so same-domain Medium families are s
 - 16,272 dual-statement truth cases in F08
 - **25,293 total governed combinations**
 
+## Approval
+Owner approval basis: PR #2009 chapter integration on 2026-09-20. Runtime remains REVIEW_ONLY.
+
 ## Lifecycle
-This retrofit materially changes learner-facing authorities and generation breadth, so the previous CP010 approval does not cover this head.
+This retrofit was subsequently included in owner-approved chapter integration PR #2009 on 2026-09-20.
 
 No runtime/publication promotion is authorized.

@@ -65,7 +65,7 @@ const letters = ["A", "B", "C", "D"] as const;
 const out: string[] = [
   "# PUN-001 CP002 — Exhaustive-Breadth Forward-Port Review Pack",
   "",
-  "> REVIEW ONLY — lexical authorities remain REVIEW_PENDING. This file does not imply Question Bank/test/mock/public eligibility.",
+  "> REVIEW ONLY — checkpoint HUMAN_APPROVED; authority provenance flags remain REVIEW_PENDING. Question Bank/test/mock/public eligibility stays closed.",
   "",
   "Distribution: **80 Easy / 80 Medium / 80 Hard**",
   "",

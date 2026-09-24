@@ -1,25 +1,41 @@
 {
-  "cpId":"PUN-001-CP004",
-  "phase":"RETROFIT",
-  "status":"HUMAN_REVIEW_PENDING",
-  "authorityInventory":{
-    "genderConcepts":58,
-    "transformSafeGender":39,
-    "numberConcepts":66,
-    "directSafeNumber":59,
-    "agreementContexts":12,
-    "totalAtomic":136
+  "cpId": "PUN-001-CP004",
+  "phase": "RETROFIT",
+  "status": "HUMAN_APPROVED",
+  "authorityInventory": {
+    "genderConcepts": 58,
+    "transformSafeGender": 39,
+    "numberConcepts": 66,
+    "directSafeNumber": 59,
+    "agreementContexts": 12,
+    "totalAtomic": 136
   },
-  "semanticCapacity":1862,
-  "totalReviewQuestions":120,
-  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":10,"F02":10,"F03":16,"F04":10,"F05":10,"F06":12,"F07":12,"F08":20,"F09":20},
-  "requirements":[
+  "semanticCapacity": 1862,
+  "totalReviewQuestions": 120,
+  "difficulty": {
+    "Easy": 40,
+    "Medium": 40,
+    "Hard": 40
+  },
+  "families": {
+    "F01": 10,
+    "F02": 10,
+    "F03": 16,
+    "F04": 10,
+    "F05": 10,
+    "F06": 12,
+    "F07": 12,
+    "F08": 20,
+    "F09": 20
+  },
+  "requirements": [
     "all 9 families represented",
     "all retained authorities reachable through applicable families",
     "invariable number authorities excluded from direct transformation",
     "Punjabi-only learner text",
     "unique semantic fingerprints",
     "REVIEW_ONLY lifecycle"
-  ]
+  ],
+  "approvalBasis": "Owner-approved chapter integration PR #2009; this retrofit was included in the approved combined content tip and had no later learner-facing change before final freeze.",
+  "approvalDate": "2026-09-20"
 }

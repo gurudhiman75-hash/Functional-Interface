@@ -1,7 +1,7 @@
 # CP011 Retrofit Status
 
 - Topic: ਮੁਹਾਵਰੇ
-- Lifecycle: `REVIEW_ONLY / HUMAN_REVIEW_PENDING`
+- Lifecycle: `REVIEW_ONLY / HUMAN_APPROVED`
 - Audited idiom authorities: 170
 - Safe ordered semantic pairs: 28,344
 - Families: 8
@@ -10,4 +10,6 @@
 - All 8 families represented
 - All 4 F08 truth outcomes represented
 - All retained idioms reachable through applicable families
-- Previous 64-authority approval superseded for this retrofit
+- Material retrofit included in owner-approved chapter integration PR #2009
+
+- Owner approval recorded through chapter integration PR #2009 on 2026-09-20

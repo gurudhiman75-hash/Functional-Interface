@@ -1,6 +1,6 @@
 # PUN-001 CP012 — ਅਖਾਣ / ਕਹਾਵਤਾਂ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Audited authority surface
 - 133 exhaustive distinct Punjabi proverb concepts
@@ -27,6 +27,9 @@ Difficulty is structural:
 - Easy uses one target proverb for direct recognition/completion.
 - Medium requires reverse recall, contextual application or mapping discrimination.
 - Hard combines two independent proverb judgments.
+
+## Approval
+Owner approval basis: PR #2009 chapter integration on 2026-09-20. Runtime remains REVIEW_ONLY.
 
 ## Lifecycle
 No permanent QL allocation, Question Studio registration, Question Bank write, test/mock eligibility, or public/student publication is authorized by this checkpoint.
