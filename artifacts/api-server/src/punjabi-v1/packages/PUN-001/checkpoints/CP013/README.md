@@ -50,8 +50,8 @@ COR-048 is retained with a meaning-preserving minimal correction.
 ## Governed semantic breadth
 The original eight families contribute 8,341 combinations before answer-order permutations. The blueprint-gap pass adds:
 - 71 no-error sentence decisions;
-- 71 controlled grammatical-blank surfaces derived from all 71 reviewed correction authorities;
-- 25,276 mixed-rule verification cases (89 classification × 71 correction × 4 truth patterns).\n\nTotal governed semantic breadth after gap closure: **33,759 combinations** before answer-order permutations.
+- 8 strict grammatical-blank surfaces derived from the correction bank; 63 broader cases are excluded because they would require oversized or position-unstable blanks;
+- 25,276 mixed-rule verification cases (89 classification × 71 correction × 4 truth patterns).\n\nTotal governed semantic breadth after gap closure: **33,696 combinations** before answer-order permutations.
 
 F08 still exhaustively enumerates every ordered pair of distinct classification authorities: 89 × 88 = 7,832 hard dual-analysis cases.
 
