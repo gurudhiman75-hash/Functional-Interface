@@ -43,11 +43,17 @@ COR-048 is retained with a meaning-preserving minimal correction.
 - F06 Grammatical error diagnosis — Medium
 - F07 Valid transformation-pair discrimination — Hard
 - F08 Dual structural analysis — Hard
+- F09 No-error / correct-sentence selection — Easy
+- F10 Controlled grammatical blank completion — Easy
+- F11 Mixed-rule verification (sentence classification + correction) — Hard
 
 ## Governed semantic breadth
-8,341 semantic combinations before answer-order permutations.
+The original eight families contribute 8,341 combinations before answer-order permutations. The blueprint-gap pass adds:
+- 71 no-error sentence decisions;
+- a derived bank of controlled grammatical-blank surfaces from the 71 reviewed correction authorities;
+- 25,276 mixed-rule verification cases (89 classification × 71 correction × 4 truth patterns).
 
-F08 exhaustively enumerates every ordered pair of distinct classification authorities: 89 × 88 = 7,832 hard dual-analysis cases.
+F08 still exhaustively enumerates every ordered pair of distinct classification authorities: 89 × 88 = 7,832 hard dual-analysis cases.
 
 ## Editorial controls
 - Punjabi-only learner stems and explanations
@@ -55,6 +61,8 @@ F08 exhaustively enumerates every ordered pair of distinct classification author
 - no “ਟਕਸਾਲੀ”, trick, shortcut, or option-analysis filler
 - every retained authority must be exercised as a target by every applicable family
 - Easy/Medium/Hard are structurally different tasks, not cosmetic wording changes
+- grammatical blanks are derived only when the reviewed correction alternatives yield at least four distinct governed fills
+- no-error and mixed-rule families reuse the existing audited CP013 authorities; no unreviewed grammar truth is introduced
 
 ## Lifecycle
 No permanent QL allocation, Question Studio registration, Question Bank write, test/mock eligibility, or public/student publication is authorized by this checkpoint.
