@@ -36,7 +36,7 @@ function assertParity(source:readonly any[],localized:readonly HisLocalizedQuest
   localized.forEach((question,index)=>{
     const english=source[index]!;
     fail(question.localizationV1.englishQuestionId===english.questionId,`${question.questionId}: English id mismatch`);
-    fail(question.localizationV1.englishFreeze==="HIS-001-ENGLISH-FREEZE-V2",`${question.questionId}: English freeze mismatch`);
+    fail(question.localizationV1.englishFreeze==="HIS-001-ENGLISH-FREEZE-V3",`${question.questionId}: English freeze mismatch`);
     fail(question.cpId===english.cpId,`${question.questionId}: CP mismatch`);
     fail(question.qlId===english.qlId,`${question.questionId}: QL mismatch`);
     fail(question.difficulty===english.difficulty,`${question.questionId}: difficulty mismatch`);
@@ -69,4 +69,4 @@ for(const locale of locales)assertParity(HIS_CP017_REVIEW_BATCH_V1,generateHisCp
 const all=locales.flatMap((locale)=>generateHisCp017LocalizedReviewV1(locale));
 fail(all.length===180,`CP017 expected 180 EN-HI-PA surfaces, found ${all.length}`);
 
-console.log("History CP017 multilingual audit passed: 60 questions per locale / 180 EN-HI-PA surfaces; English authority HIS-001-ENGLISH-FREEZE-V2.");
+console.log("History CP017 multilingual audit passed: 60 questions per locale / 180 EN-HI-PA surfaces; English authority HIS-001-ENGLISH-FREEZE-V3.");
