@@ -1,6 +1,6 @@
 # ENG-007-CP005 — Gap-Audit Expansion — Source & Coverage Audit V1
 
-Status: `REVIEW_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__REVIEW_ONLY__QUESTION_STUDIO_BLOCKED_UNTIL_CHAPTER_APPROVAL`
 
 ## Why this checkpoint exists
 
