@@ -7,7 +7,7 @@ const plan:Record<PunjabiDifficulty,readonly [string,number][]>={
  Hard:[["F07",20],["F08",20]],
 };
 const stride:Record<string,number>={F01:7,F02:11,F03:13,F04:17,F05:19,F06:1549,F07:1553,F08:1};
-const out:string[]=["# PUN-001 CP011 Retrofit Review — ਮੁਹਾਵਰੇ","","Status: HUMAN REVIEW PENDING","","Authority inventory: 170 exhaustive idiom concepts.","","Safe ordered semantic pairs: 28,344. Governed breadth: 170,914 combinations.",""];
+const out:string[]=["# PUN-001 CP011 Retrofit Review — ਮੁਹਾਵਰੇ","","Status: HUMAN APPROVED","","Authority inventory: 170 exhaustive idiom concepts.","","Safe ordered semantic pairs: 28,344. Governed breadth: 170,914 combinations.",""];
 const seen=new Set<string>(),counts=new Map<string,number>(),outcomes=new Set<string>();
 for(const difficulty of ["Easy","Medium","Hard"] as PunjabiDifficulty[]){
  out.push("## "+difficulty,"");let n=0;
