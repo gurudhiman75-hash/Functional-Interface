@@ -21,7 +21,7 @@ function renderQuestion(q:HisLocalizedQuestionV1,index:number):string[]{
 const lines:string[]=[
   "# History Multilingual V1 — HIS-CP-020 Review",
   "",
-  "Review-only candidate. HIS-001-ENGLISH-FREEZE-V3 is the semantic authority. Hindi and Punjabi preserve CP, QL, difficulty, source provenance, option order and correct-index parity.",
+  "Review-only candidate. HIS-001-ENGLISH-FREEZE-V4 is the semantic authority. Hindi and Punjabi preserve CP, QL, difficulty, source provenance, option order and correct-index parity.",
   "",
 ];
 for(const locale of locales){
