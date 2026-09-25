@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: history-his-cp023-localization-v1-\${{ github.event.pull_request.number || github.ref }}
+  group: history-his-cp023-localization-v1-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
