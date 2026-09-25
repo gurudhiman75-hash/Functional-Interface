@@ -47,6 +47,8 @@ fail(english.length===1434,"HIS-001 English final corpus must contain 1434 quest
 fail(HIS_001_FINAL_CP_IDS_V1.length===24,"HIS-001 final corpus must contain 24 CPs");
 fail(new Set(HIS_001_FINAL_CP_IDS_V1).size===24,"HIS-001 CP IDs must be unique");
 fail(new Set(english.map(q=>q.questionId)).size===1434,"HIS-001 English question IDs must be unique");
+const uniqueFactIds=new Set(english.flatMap(q=>q.sourceFactIds));
+fail(uniqueFactIds.size===1379,"HIS-001 final corpus must expose 1379 unique canonical fact IDs; found "+uniqueFactIds.size);
 fail(new Set(english.map(q=>q.cpId)).size===24,"HIS-001 English corpus must expose 24 CPs");
 fail(HIS_001_FINAL_QL_IDS_V1.length===239,"HIS-001 must expose 239 permanent QLs; found "+HIS_001_FINAL_QL_IDS_V1.length);
 
@@ -110,5 +112,5 @@ fail(totalSurfaces===4302,"HIS-001 final multilingual surface count must be 4302
 console.log(
   "[HIS-001-FINAL-MULTILINGUAL] PASS questionsPerLanguage=1434 surfaces=4302 CPs=24 QLs="+
   HIS_001_FINAL_QL_IDS_V1.length+
-  " freezes=V1/V3/V4/V5",
+  " canonicalFacts="+uniqueFactIds.size+" freezes=V1/V3/V4/V5",
 );
