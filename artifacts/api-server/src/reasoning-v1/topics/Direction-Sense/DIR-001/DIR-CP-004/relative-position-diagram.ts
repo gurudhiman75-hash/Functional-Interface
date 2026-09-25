@@ -236,7 +236,7 @@ const queryOverlay = options.queryPair
     relationLabels,
     nodes,
     compass,
-    `<text x="360" y="448" text-anchor="middle" font-size="11" fill="#64748b">Relative positions are plotted proportionally from the solved coordinates.</text>`,
+    `<text x="360" y="448" text-anchor="middle" font-size="11" fill="#64748b">Relative positions are plotted proportionally from the solved layout.</text>`,
     `</svg>`,
   ].join("");
 
