@@ -6,3 +6,5 @@ export * from "./table-set-v2";
 export * from "./permanent-ql-registry";
 export * from "./permanent-question-generator";
 export * from "./question-studio-adapter";
+
+export * from "./localization-review-v1";
