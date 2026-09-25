@@ -15,7 +15,7 @@ export const HIS_CP023_SPECS_V1:readonly HisCp023Spec[]=[
   [1,"Which institution was founded by Warren Hastings in 1781?","Calcutta Madrasa",["Asiatic Society of Bengal","Fort William College","Sanskrit College, Benares"],["edu-calcutta-madrasa"]],
   [1,"The Asiatic Society of Bengal was founded in 1784 by:","William Jones",["Jonathan Duncan","Charles Wood","T.B. Macaulay"],["edu-asiatic-society"]],
   [1,"The Sanskrit College at Benares was founded by:","Jonathan Duncan",["Warren Hastings","Wellesley","W.W. Hunter"],["edu-benares-sanskrit"]],
-  [1,"Fort William College was founded in 1801 mainly to train:","Company civil servants",["Indian sepoys","Missionary priests","Indian merchants"],["edu-fort-william"]],
+  [1,"Fort William College was founded in 1800 mainly to train:","Company civil servants",["Indian sepoys","Missionary priests","Indian merchants"],["edu-fort-william"]],
   [1,"The Charter Act of 1813 earmarked how much annually for education?","One lakh rupees",["Ten thousand rupees","Five lakh rupees","Ten lakh rupees"],["edu-charter-lakh"]],
   [1,"The early Orientalists favoured the study of:","Indian languages, laws and traditions",["Only English literature","Only military science","Only European law"],["edu-orientalists"]],
   [2,"T.B. Macaulay became Law Member of the Governor-General's Council in:","1834",["1813","1854","1882"],["edu-macaulay-lawmember"]],
