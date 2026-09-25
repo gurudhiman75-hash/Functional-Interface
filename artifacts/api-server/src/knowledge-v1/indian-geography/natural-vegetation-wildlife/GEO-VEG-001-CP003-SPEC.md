@@ -1,6 +1,6 @@
 # GEO-VEG-001 CP003 — Tropical Deciduous Forests
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED — WAVE 1 HUMAN REVIEW
 Parent blueprint: `GEO-VEG-001-BLUEPRINT.md`
 Permanent QLs: `GEO-VEG-001-QL-019` to `GEO-VEG-001-QL-027`
 
