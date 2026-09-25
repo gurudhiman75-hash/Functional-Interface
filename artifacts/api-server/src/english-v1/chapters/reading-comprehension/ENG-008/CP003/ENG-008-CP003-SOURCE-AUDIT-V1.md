@@ -1,0 +1,66 @@
+# ENG-008 CP003 — Banking Prelims Reading Comprehension — Source Audit V1
+
+Status: `IMPLEMENTED_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+
+## Purpose
+
+CP003 adds a distinct Banking Prelims Reading Comprehension profile to ENG-008.
+
+This is not presented as a granular official IBPS/SBI syllabus claim. Current official recruitment notices define English Language / General English sections, while the detailed RC genre and question mix is governed here by recent paper-pattern evidence.
+
+## Pattern evidence
+
+Recent Banking Prelims paper analyses show:
+- RC commonly contributes about 9–10 questions in a set;
+- passages can be narrative, travel/general-interest, community/social, science/ocean, business/economy-light, or everyday public-interest material;
+- synonym/antonym questions are frequently embedded inside the RC set;
+- overall passage difficulty is usually readable and time-pressure oriented rather than abstract mains-style prose.
+
+## CP003 breadth
+
+**8 original Banking Prelims-style passages × 9 linked question authorities = 72 authorities**
+
+Passage mix:
+- 2 narrative / anecdotal;
+- 2 social / community / everyday-life;
+- 2 science / environment / technology-light;
+- 2 business / work / economy-light.
+
+No passage is copied from a live newspaper, coaching source, or previous-year paper.
+
+## Question families
+
+- `BP-F01` — Direct detail
+- `BP-F02` — Local inference
+- `BP-F03` — Main idea / central theme
+- `BP-F04` — Supported / not-supported statement
+- `BP-F05` — Synonym in context
+- `BP-F06` — Antonym in context
+- `BP-F07` — Phrase / reference meaning
+- `BP-F08` — Cause-effect / logical relation
+- `BP-F09` — Suitable title / best description
+
+Every passage carries all nine families so the passage can later be surfaced as a full RC set.
+
+## Difficulty
+
+Banking Prelims difficulty is driven by speed and close reading:
+- Easy: direct retrieval, basic contextual vocabulary.
+- Medium: local inference, supported statement, phrase meaning, cause-effect, title/theme.
+- Hard is intentionally rare at this checkpoint and should not turn prelims into mains-style abstraction.
+
+## Validation
+
+- 8 unique passages;
+- 72 unique authorities;
+- each family exactly 8 times;
+- all four passage-domain classes represented;
+- 4 unique options;
+- one defensible keyed answer;
+- deterministic replay;
+- 7,200-question soak;
+- no downstream lifecycle leakage.
+
+## Lifecycle
+
+Review-only. No Question Studio registration, Question Bank write, scored-test eligibility, mock eligibility, learner/public publication or production release until explicit human approval.
