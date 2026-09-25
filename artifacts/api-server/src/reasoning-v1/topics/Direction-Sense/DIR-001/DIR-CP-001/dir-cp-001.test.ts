@@ -41,6 +41,16 @@ for (const ql of DIR_CP001_QLS) {
     assert.ok(generated.explanation.steps.length >= 1);
     assert.ok(generated.explanation.conclusion.length > 20);
     assert.ok(generated.explanation.closestTrapRejection.length > 30);
+    if (ql.qlId !== "DIR-QL-003") {
+      const turns = generated.structuredPrompt.turns as readonly { readonly sense: string; readonly degrees: number }[];
+      for (let index = 1; index < turns.length; index += 1) {
+        const signed = (turn: { readonly sense: string; readonly degrees: number }) => turn.sense === "CLOCKWISE" ? turn.degrees : -turn.degrees;
+        const net = ((signed(turns[index - 1]) + signed(turns[index])) % 360 + 360) % 360;
+        assert.notEqual(net, 0, `${ql.qlId} seed ${seed}: adjacent turns cancel trivially`);
+      }
+      const expectedDifficulty = turns.length <= 1 ? "EASY" : turns.length <= 3 ? "MEDIUM" : "HARD";
+      assert.equal(generated.difficulty, expectedDifficulty, `${ql.qlId} seed ${seed}: turn-burden difficulty`);
+    }
 
     answerPositionCounts[generated.correctIndex] += 1;
     difficultyCoverage.add(generated.difficulty);
