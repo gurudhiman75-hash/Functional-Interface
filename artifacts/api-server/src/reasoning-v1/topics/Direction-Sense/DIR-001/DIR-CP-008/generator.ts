@@ -147,7 +147,7 @@ function relativeWalkthrough(
     if (operation.kind === "TURN") {
       const before = facing;
       facing = turnFacing(facing, operation.turn);
-      lines.push(`${TURN_LABELS[operation.turn]} changes the facing from ${DIRECTION_LABELS[before]} to ${DIRECTION_LABELS[facing]}.`);
+      lines.push(`${TURN_LABELS[operation.turn as keyof typeof TURN_LABELS]} changes the facing from ${DIRECTION_LABELS[before]} to ${DIRECTION_LABELS[facing]}.`);
       continue;
     }
     endpoint = addCoordinates(endpoint, cardinalVector(facing, operation.distance));
