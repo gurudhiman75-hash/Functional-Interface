@@ -20,6 +20,10 @@ Recent Banking Prelims paper analyses show:
 
 **8 original Banking Prelims-style passages × 9 linked question authorities = 72 authorities**
 
+### Passage-length contract
+
+Banking Prelims RC should normally carry a noticeably larger reading load than SSC foundation RC. Recent IBPS Clerk analyses describe RC passages as moderately/a bit lengthy while still straightforward, and recent SBI PO prelims sets carried roughly 8–12 RC questions. CP003 therefore targets **roughly 320–500 words per passage**, usually **4–6 paragraphs**, with the difficulty kept primarily in reading speed, evidence location and contextual vocabulary rather than abstract prose.
+
 Passage mix:
 - 2 narrative / anecdotal;
 - 2 social / community / everyday-life;
@@ -44,7 +48,7 @@ Every passage carries all nine families so the passage can later be surfaced as 
 
 ## Difficulty
 
-Banking Prelims difficulty is driven by speed and close reading:
+Banking Prelims difficulty is driven by **longer reading load, speed and close reading**:
 - Easy: direct retrieval, basic contextual vocabulary.
 - Medium: local inference, supported statement, phrase meaning, cause-effect, title/theme.
 - Hard is intentionally rare at this checkpoint and should not turn prelims into mains-style abstraction.
@@ -52,6 +56,7 @@ Banking Prelims difficulty is driven by speed and close reading:
 ## Validation
 
 - 8 unique passages;
+- each passage normally 320–500 words and 4–6 paragraphs;
 - 72 unique authorities;
 - each family exactly 8 times;
 - all four passage-domain classes represented;
