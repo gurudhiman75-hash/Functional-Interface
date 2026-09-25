@@ -1,16 +1,16 @@
-# DI-001 Table Interpretation — Permanent English Controlled Review
+# DI-001 Table Interpretation — Multilingual Frozen Controlled Review
 
-`PERMANENT_ENGLISH_CONTROLLED_REVIEW` — the approved V2 table question layer is promoted to permanent Question Studio review authority while all learner-delivery gates remain closed.
+`MULTILINGUAL_FROZEN_CONTROLLED_REVIEW` — the approved no-decimal table package is available in English, Hindi and Punjabi controlled Question Studio review while all learner-delivery gates remain closed.
 
 ## Authority
 
 - Release: `DI-001-PERMANENT-ENGLISH-REVIEW-P2`
 - Canonical problem: `DI-CP-001`
-- Question Studio runtime: `DI001_PERMANENT_ENGLISH_REVIEW_P2`
+- Question Studio runtime: `DI001_PERMANENT_MULTILINGUAL_REVIEW_V1`
 - Permanent QLs: `DI-QL-027` through `DI-QL-036`
 - Question Studio discovery: enabled in `CONTROLLED_REVIEW`
 - English editorial status: `ENGLISH_REVIEW_APPROVED`
-- Localization: `HI_PA_REVIEW_CANDIDATE`
+- Localization: `HI_PA_FROZEN`
 
 ## Certified V2 task families
 
@@ -53,7 +53,7 @@ Promotion to controlled Question Studio review does not authorize Question Bank 
 - selection-rate gap uses explicit nearest-whole-percentage-point wording
 - answers, options and working tables contain no decimal learner values
 
-## Hindi/Punjabi localization candidate V1
+## Hindi/Punjabi frozen multilingual authority V1
 
 - locales: hi-IN and pa-IN
 - 10/10 permanent QLs localized
@@ -63,4 +63,4 @@ Promotion to controlled Question Studio review does not authorize Question Bank 
 - required hard-task working tables are localized
 - numeric/ratio options preserve English authority values
 - centre-name and percentage-point textual options are localized while preserving correct-option identity
-- localized Question Studio activation: NOT AUTHORIZED pending human review
+- localized Question Studio activation: CONTROLLED_REVIEW authorized
