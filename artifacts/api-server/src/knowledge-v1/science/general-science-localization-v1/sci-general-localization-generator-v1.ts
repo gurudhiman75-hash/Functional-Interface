@@ -1,5 +1,6 @@
 import { SCI_CP036_REVIEW_V1, type SciCp036ReviewQuestion } from "../everyday-science/sci-cp036-review-v1";
 import { SCI_CP037_REVIEW_V1, type SciCp037ReviewQuestion } from "../scientists-discoveries-inventions/sci-cp037-review-v1";
+import { SCI_CP038_REVIEW_V1, type SciCp038ReviewQuestion } from "../scientific-instruments/sci-cp038-review-v1";
 import {
   SCI_GENERAL_SCIENCE_LOCALIZATION_V1,
   type GeneralScienceLocaleV1,
@@ -10,9 +11,11 @@ import { SCI_GENERAL_CP036_HI_V1 } from "./sci-general-cp036-localization-data-h
 import { SCI_GENERAL_CP036_PA_V1 } from "./sci-general-cp036-localization-data-pa-v1";
 import { SCI_GENERAL_CP037_HI_V1 } from "./sci-general-cp037-localization-data-hi-v1";
 import { SCI_GENERAL_CP037_PA_V1 } from "./sci-general-cp037-localization-data-pa-v1";
+import { SCI_GENERAL_CP038_HI_V1 } from "./sci-general-cp038-localization-data-hi-v1";
+import { SCI_GENERAL_CP038_PA_V1 } from "./sci-general-cp038-localization-data-pa-v1";
 
-export type GeneralScienceLocalizedCpV1 = "SCI-CP-036" | "SCI-CP-037";
-type EnglishQuestion = SciCp036ReviewQuestion | SciCp037ReviewQuestion;
+export type GeneralScienceLocalizedCpV1 = "SCI-CP-036" | "SCI-CP-037" | "SCI-CP-038";
+type EnglishQuestion = SciCp036ReviewQuestion | SciCp037ReviewQuestion | SciCp038ReviewQuestion;
 
 const QL_NAMES = {
   "SCI-CP-036": {
@@ -65,6 +68,32 @@ const QL_NAMES = {
       "ਸੰਚਾਰ ਅਤੇ ਜਾਣੇ-ਪਛਾਣੇ ਆਵਿਸ਼ਕਾਰ",
       "ਭਾਰਤੀ ਵਿਗਿਆਨੀ ਅਤੇ ਮੁੱਖ ਯੋਗਦਾਨ",
       "ਮਿਲੀ-ਜੁਲੀ ਵਿਗਿਆਨੀ–ਖੋਜ–ਆਵਿਸ਼ਕਾਰ ਸਮਝ",
+    ],
+  },
+  "SCI-CP-038": {
+    hi: [
+      "तापमान और ऊष्मा मापन यंत्र",
+      "दाब, आर्द्रता और मौसम यंत्र",
+      "विद्युत मापन यंत्र",
+      "प्रकाशीय यंत्र",
+      "ध्वनि, कंपन और भूकंप यंत्र",
+      "चिकित्सा और शरीर-क्रिया मापन यंत्र",
+      "प्रयोगशाला मापन उपकरण",
+      "नौवहन, ऊँचाई और खगोल यंत्र",
+      "रासायनिक और पर्यावरणीय मापन यंत्र",
+      "मिश्रित वैज्ञानिक-यंत्र तर्क",
+    ],
+    pa: [
+      "ਤਾਪਮਾਨ ਅਤੇ ਗਰਮੀ ਮਾਪਣ ਵਾਲੇ ਯੰਤਰ",
+      "ਦਬਾਅ, ਨਮੀ ਅਤੇ ਮੌਸਮੀ ਯੰਤਰ",
+      "ਬਿਜਲਈ ਮਾਪਣ ਵਾਲੇ ਯੰਤਰ",
+      "ਰੌਸ਼ਨੀ ਨਾਲ ਸੰਬੰਧਿਤ ਯੰਤਰ",
+      "ਧੁਨੀ, ਕੰਪਨ ਅਤੇ ਭੂਚਾਲ ਮਾਪਣ ਵਾਲੇ ਯੰਤਰ",
+      "ਮੈਡੀਕਲ ਅਤੇ ਸਰੀਰਕ ਮਾਪਣ ਵਾਲੇ ਯੰਤਰ",
+      "ਲੈਬ ਮਾਪਣ ਵਾਲੇ ਸਾਜ਼",
+      "ਨੈਵੀਗੇਸ਼ਨ, ਉਚਾਈ ਅਤੇ ਖਗੋਲ ਯੰਤਰ",
+      "ਰਸਾਇਣਕ ਅਤੇ ਵਾਤਾਵਰਣੀ ਮਾਪਣ ਵਾਲੇ ਯੰਤਰ",
+      "ਮਿਲੀ-ਜੁਲੀ ਵਿਗਿਆਨਕ ਯੰਤਰ ਸਮਝ",
     ],
   },
 } as const;
@@ -120,11 +149,13 @@ function localizeNative(q:EnglishQuestion,locale:Exclude<GeneralScienceLocaleV1,
 }
 function englishFor(cpId:GeneralScienceLocalizedCpV1):readonly EnglishQuestion[]{
   if(cpId==="SCI-CP-036") return SCI_CP036_REVIEW_V1;
-  return SCI_CP037_REVIEW_V1;
+  if(cpId==="SCI-CP-037") return SCI_CP037_REVIEW_V1;
+  return SCI_CP038_REVIEW_V1;
 }
 function nativeFor(cpId:GeneralScienceLocalizedCpV1,locale:Exclude<GeneralScienceLocaleV1,"en">):readonly GeneralScienceNativeSpecV1[]{
   if(cpId==="SCI-CP-036") return locale==="hi"?SCI_GENERAL_CP036_HI_V1:SCI_GENERAL_CP036_PA_V1;
-  return locale==="hi"?SCI_GENERAL_CP037_HI_V1:SCI_GENERAL_CP037_PA_V1;
+  if(cpId==="SCI-CP-037") return locale==="hi"?SCI_GENERAL_CP037_HI_V1:SCI_GENERAL_CP037_PA_V1;
+  return locale==="hi"?SCI_GENERAL_CP038_HI_V1:SCI_GENERAL_CP038_PA_V1;
 }
 export function generateGeneralScienceLocalizedCpV1(cpId:GeneralScienceLocalizedCpV1,locale:GeneralScienceLocaleV1):readonly GeneralScienceLocalizedQuestionV1[]{
   const english=englishFor(cpId);
@@ -133,5 +164,5 @@ export function generateGeneralScienceLocalizedCpV1(cpId:GeneralScienceLocalized
   if(specs.length!==english.length) throw new Error(`${cpId}/${locale}: expected ${english.length} native surfaces, found ${specs.length}`);
   return Object.freeze(english.map((q,index)=>localizeNative(q,locale,specs[index])));
 }
-export const SCI_GENERAL_SCIENCE_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-036","SCI-CP-037"] as const);
+export const SCI_GENERAL_SCIENCE_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-036","SCI-CP-037","SCI-CP-038"] as const);
 export const SCI_GENERAL_SCIENCE_SUPPORTED_LOCALES_V1=Object.freeze(["en","hi","pa"] as const);

@@ -1,5 +1,8 @@
 name: SCI General Science Multilingual V1
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     branches:
@@ -8,6 +11,7 @@ on:
       - "artifacts/api-server/src/knowledge-v1/science/general-science-localization-v1/**"
       - "artifacts/api-server/src/knowledge-v1/science/everyday-science/**"
       - "artifacts/api-server/src/knowledge-v1/science/scientists-discoveries-inventions/**"
+      - "artifacts/api-server/src/knowledge-v1/science/scientific-instruments/**"
   workflow_dispatch:
 
 concurrency:
@@ -56,3 +60,16 @@ jobs:
       - name: Run General Science CP037 multilingual audit
         working-directory: artifacts/api-server
         run: node dist/sci-general-cp037-multilingual-audit-v1.mjs
+
+      - name: Bundle General Science CP038 multilingual audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/general-science-localization-v1/sci-general-cp038-multilingual-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-general-cp038-multilingual-audit-v1.mjs
+      - name: Run General Science CP038 multilingual audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-general-cp038-multilingual-audit-v1.mjs
