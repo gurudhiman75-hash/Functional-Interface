@@ -39,6 +39,7 @@ import { languageV1Eng003Cp009QuestionStudioAdapterV1 } from "./language-v1-eng0
 import { languageV1Eng003Cp010QuestionStudioAdapterV1 } from "./language-v1-eng003-cp010-adapter-v1";
 import { languageV1Eng003Cp011QuestionStudioAdapterV1 } from "./language-v1-eng003-cp011-adapter-v1";
 import { languageV1Eng003Cp012QuestionStudioAdapterV1 } from "./language-v1-eng003-cp012-adapter-v1";
+import { languageV1Eng003Cp013QuestionStudioAdapterV1 } from "./language-v1-eng003-cp013-adapter-v1";
 import { isEng004QuestionStudioRequestV1, languageV1Eng004QuestionStudioAdapterV1 } from "./language-v1-eng004-adapter-v1";
 import { isEng005QuestionStudioRequestV1, languageV1Eng005QuestionStudioAdapterV1 } from "./language-v1-eng005-adapter-v1";
 import { isEng006QuestionStudioRequestV1, languageV1Eng006QuestionStudioAdapterV1 } from "./language-v1-eng006-adapter-v1";
@@ -105,6 +106,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (eng003CpSelector === "ENG-003-CP010") return languageV1Eng003Cp010QuestionStudioAdapterV1.generate(request);
     if (eng003CpSelector === "ENG-003-CP011") return languageV1Eng003Cp011QuestionStudioAdapterV1.generate(request);
     if (eng003CpSelector === "ENG-003-CP012") return languageV1Eng003Cp012QuestionStudioAdapterV1.generate(request);
+    if (eng003CpSelector === "ENG-003-CP013") return languageV1Eng003Cp013QuestionStudioAdapterV1.generate(request);
     if (eng003PackageSelected(request)) {
       const selectors = explicitSelectorValues(request);
       const topic = eng003TopicText(request);
@@ -140,6 +142,9 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       }
       if (selectors.some((value) => value.startsWith("GR-VNR-")) || /voice|narration|reported speech|passive/.test(topic)) {
         return languageV1Eng003Cp012QuestionStudioAdapterV1.generate(request);
+      }
+      if (selectors.some((value) => value.startsWith("GR-USG-")) || /common usage|idiomatic|usage/.test(topic)) {
+        return languageV1Eng003Cp013QuestionStudioAdapterV1.generate(request);
       }
       if (selectors.some((value) => value.startsWith("GR-SVA-")) || /subject.?verb|agreement/.test(topic)) {
         return languageV1Eng003Cp001QuestionStudioAdapterV1.generate(request);
