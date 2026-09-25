@@ -2,7 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 import {
+  equalsRational,
   quadraticDiscriminant,
+  rational,
   solveQuadraticEquation,
 } from "../../../../../shared/algebra";
 import {
@@ -53,15 +55,34 @@ for (let seed = 1; seed <= samples; seed += 1) {
   assert(!first.learnerContentFrozen && first.reviewStatus === "REVIEW_CANDIDATE_ONLY", `${prefix}: review-only state missing`);
   assert(!first.active && !first.questionStudioDiscoverable, `${prefix}: activation leaked`);
   assert(!first.questionBankWritable && !first.testEligible && !first.publiclyPublishable, `${prefix}: production eligibility leaked`);
-  assert(gcd(first.state.m, first.state.n) === 1, `${prefix}: state is a removable scaled duplicate`);
+
+  const { a, repeatedRoot, kCoefficient } = first.state;
+  const b = -2 * a * repeatedRoot;
+  assert(gcd(gcd(a, Math.abs(b)), kCoefficient) === 1, `${prefix}: parameter family has removable common content`);
+  assert(a >= 1 && a <= 6, `${prefix}: leading coefficient left exam-safe range`);
+  assert(Math.abs(b) <= 60, `${prefix}: middle coefficient left exam-safe range`);
+  assert(kCoefficient >= 1 && kCoefficient <= 6, `${prefix}: k coefficient left exam-safe range`);
+  assert(first.parameterValue >= 1 && first.parameterValue <= 30, `${prefix}: k answer left exam-safe range`);
+
+  const expectedK = (a * repeatedRoot * repeatedRoot) / kCoefficient;
+  assert(Number.isInteger(expectedK), `${prefix}: expected integral k`);
+  assert(first.parameterValue === expectedK, `${prefix}: parameter value does not match the constructed state`);
 
   const discriminant = quadraticDiscriminant(first.equation);
   const solved = solveQuadraticEquation(first.equation);
   assert(discriminant.numerator === 0n, `${prefix}: discriminant is not zero`);
   assert(solved.kind === "REPEATED_ROOT", `${prefix}: exact solver did not confirm equal roots`);
-  assert(first.parameterValue === first.state.n * first.state.n, `${prefix}: parameter value does not match n²`);
+  if (solved.kind === "REPEATED_ROOT") {
+    assert(
+      equalsRational(solved.root, rational(BigInt(repeatedRoot))),
+      `${prefix}: repeated root does not match the constructed state`,
+    );
+  }
+
   assert(first.explanation.length >= 220, `${prefix}: explanation is too thin`);
+  assert(first.explanation.includes("D = b² - 4ac = 0"), `${prefix}: discriminant method is not explicit`);
   assert(!/associated|mainly|therefore therefore/i.test(first.question + " " + first.explanation), `${prefix}: mechanical wording leaked`);
+  assert(!/\+ -/.test(first.question + " " + first.explanation), `${prefix}: awkward signed arithmetic leaked`);
 
   states.add(stable(first.state));
   questions.add(first.question);
@@ -98,6 +119,7 @@ const md = [
   "- targeted patterns: **1**",
   `- deterministic semantic samples: **${samples}**`,
   "- distinct primitive mathematical states: **64/64**",
+  "- exam-safe coefficients: **a ≤ 6, |b| ≤ 60, coefficient of k ≤ 6, answer k ≤ 30**",
   "- exact condition: **D = 0 independently verified**",
   "- exact solver: **repeated root independently verified**",
   "- natural stem frames: **4**",
