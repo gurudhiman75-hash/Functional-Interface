@@ -24,14 +24,14 @@ const CONTEXTS: Readonly<Record<string, LocalizedContext>> = Object.freeze({
       xAxisLabel: "अंक",
       yAxisLabel: "विद्यार्थियों की संख्या",
       unit: "विद्यार्थी",
-      description: "समान वर्ग-चौड़ाई वाला हिस्टोग्राम, जिसमें स्तंभ की ऊँचाई आवृत्ति दर्शाती है।",
+      description: "समान वर्ग-चौड़ाई वाला हिस्टोग्राम, जिसमें प्रत्येक वर्ग की आवृत्ति दिखाई गई है।",
     },
     pa: {
       title: "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਵਿਦਿਆਰਥੀਆਂ ਵੱਲੋਂ ਪ੍ਰਾਪਤ ਅੰਕ",
       xAxisLabel: "ਅੰਕ",
       yAxisLabel: "ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ",
       unit: "ਵਿਦਿਆਰਥੀ",
-      description: "ਬਰਾਬਰ ਵਰਗ-ਚੌੜਾਈ ਵਾਲਾ ਹਿਸਟੋਗ੍ਰਾਮ, ਜਿਸ ਵਿੱਚ ਸਤੰਭ ਦੀ ਉਚਾਈ ਬਾਰੰਬਾਰਤਾ ਦਿਖਾਉਂਦੀ ਹੈ।",
+      description: "ਬਰਾਬਰ ਵਰਗ-ਚੌੜਾਈ ਵਾਲਾ ਹਿਸਟੋਗ੍ਰਾਮ, ਜਿਸ ਵਿੱਚ ਹਰ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ ਦਿਖਾਈ ਗਈ ਹੈ।",
     },
   },
   "Heights of students in a sports group": {
@@ -290,12 +290,12 @@ function localizedStem(
       const surfacesHi = [
         `वर्ग ${left} और ${right} की आवृत्तियों का अंतर कितना है?`,
         `वर्ग ${left} और ${right} की आवृत्तियाँ कितनी अलग हैं?`,
-        `${left} और ${right} के स्तंभों की ऊँचाइयों का निरपेक्ष अंतर ज्ञात कीजिए।`,
+        `${left} और ${right} की आवृत्तियों का निरपेक्ष अंतर ज्ञात कीजिए।`,
       ];
       const surfacesPa = [
         `ਵਰਗ ${left} ਅਤੇ ${right} ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਦਾ ਅੰਤਰ ਕਿੰਨਾ ਹੈ?`,
         `ਵਰਗ ${left} ਅਤੇ ${right} ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫਰਕ ਹੈ?`,
-        `${left} ਅਤੇ ${right} ਦੇ ਸਤੰਭਾਂ ਦੀਆਂ ਉਚਾਈਆਂ ਦਾ ਨਿਰਪੇਖ ਅੰਤਰ ਕੱਢੋ।`,
+        `${left} ਅਤੇ ${right} ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਦਾ ਨਿਰਪੇਖ ਅੰਤਰ ਕੱਢੋ।`,
       ];
       return (hi ? surfacesHi : surfacesPa)[variant]!;
     }
@@ -465,8 +465,8 @@ function localizedExplanation(
     case "FREQUENCY_DIFFERENCE_BETWEEN_CLASSES": {
       const left = bins[Number(evidence.leftIndex)]!, right = bins[Number(evidence.rightIndex)]!;
       return pack(
-        "दोनों स्तंभों की ऊँचाइयाँ पढ़ें और बड़ी आवृत्ति में से छोटी आवृत्ति घटाएँ।",
-        "ਦੋਵੇਂ ਸਤੰਭਾਂ ਦੀਆਂ ਉਚਾਈਆਂ ਪੜ੍ਹੋ ਅਤੇ ਵੱਡੀ ਬਾਰੰਬਾਰਤਾ ਵਿੱਚੋਂ ਛੋਟੀ ਬਾਰੰਬਾਰਤਾ ਘਟਾਓ।",
+        "दोनों वर्गों की आवृत्तियाँ पढ़ें और बड़ी आवृत्ति में से छोटी आवृत्ति घटाएँ।",
+        "ਦੋਵੇਂ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਪੜ੍ਹੋ ਅਤੇ ਵੱਡੀ ਬਾਰੰਬਾਰਤਾ ਵਿੱਚੋਂ ਛੋਟੀ ਬਾਰੰਬਾਰਤਾ ਘਟਾਓ।",
         [`आवृत्तियाँ = ${left.frequency} और ${right.frequency}।`, `अंतर = |${left.frequency} - ${right.frequency}| = ${question.answer}।`],
         [`ਬਾਰੰਬਾਰਤਾਵਾਂ = ${left.frequency} ਅਤੇ ${right.frequency}।`, `ਅੰਤਰ = |${left.frequency} - ${right.frequency}| = ${question.answer}।`],
       );
@@ -477,8 +477,8 @@ function localizedExplanation(
       return pack(
         "सबसे अधिक आवृत्ति वाला वर्ग बहुलक वर्ग होता है।",
         "ਸਭ ਤੋਂ ਵੱਧ ਬਾਰੰਬਾਰਤਾ ਵਾਲਾ ਵਰਗ ਬਹੁਲਕ ਵਰਗ ਹੁੰਦਾ ਹੈ।",
-        [`सबसे ऊँचे स्तंभ की आवृत्ति ${modal.frequency} है।`, `इसका वर्ग अंतराल ${interval(modal)} है।`],
-        [`ਸਭ ਤੋਂ ਉੱਚੇ ਸਤੰਭ ਦੀ ਬਾਰੰਬਾਰਤਾ ${modal.frequency} ਹੈ।`, `ਇਸ ਦਾ ਵਰਗ ਅੰਤਰਾਲ ${interval(modal)} ਹੈ।`],
+        [`सबसे अधिक आवृत्ति ${modal.frequency} है।`, `इसका वर्ग अंतराल ${interval(modal)} है।`],
+        [`ਸਭ ਤੋਂ ਵੱਧ ਬਾਰੰਬਾਰਤਾ ${modal.frequency} ਹੈ।`, `ਇਸ ਦਾ ਵਰਗ ਅੰਤਰਾਲ ${interval(modal)} ਹੈ।`],
       );
     }
     case "MEDIAN_CLASS_IDENTIFICATION": {
