@@ -10,10 +10,10 @@ fs.mkdirSync(outDir,{recursive:true});
 
 function renderQuestion(q:HisLocalizedQuestionV1,index:number):string[]{
   return [
-    \`**\${index+1}. \${q.stem}**\`,
-    ...q.options.map((option,i)=>\`\${String.fromCharCode(65+i)}. \${option}\`),
-    \`**Answer:** \${String.fromCharCode(65+q.correctIndex)} — \${q.canonicalAnswer}\`,
-    \`**Explanation:** \${q.explanation}\`,
+    `**${index+1}. ${q.stem}**`,
+    ...q.options.map((option,i)=>`${String.fromCharCode(65+i)}. ${option}`),
+    `**Answer:** ${String.fromCharCode(65+q.correctIndex)} — ${q.canonicalAnswer}`,
+    `**Explanation:** ${q.explanation}`,
     "",
   ];
 }
@@ -25,7 +25,7 @@ const lines:string[]=[
   "",
 ];
 for(const locale of locales){
-  lines.push(\`## \${labels[locale]}\`,"");
+  lines.push(`## ${labels[locale]}`,"");
   generateHisCp023LocalizedReviewV1(locale).forEach((q,index)=>lines.push(...renderQuestion(q,index)));
 }
 const target=path.join(outDir,"HIS-MULTILINGUAL-V1-CP023-REVIEW.md");
