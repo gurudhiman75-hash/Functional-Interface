@@ -26,9 +26,9 @@ export function generateDi003PermanentQuestion(input: {
       question,
       traceability: {
         representation: "GROUPED_BAR" as const,
-        questionLogicVersion: "DI-003-QUESTION-LOGIC-V2" as const,
+        questionLogicVersion: "DI-003-QUESTION-LOGIC-V3" as const,
         setContractVersion: "DI-003-SET-CONTRACT-V2" as const,
-        arithmeticAuthority: "EXACT_INTEGER_RATIONAL" as const,
+        arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING" as const,
         sourceFoundation: "DI-003-GROUPED-BAR-V2" as const,
         reviewStatus: "ENGLISH_REVIEW_APPROVED" as const,
         questionStudioDiscoverable: false as const,
