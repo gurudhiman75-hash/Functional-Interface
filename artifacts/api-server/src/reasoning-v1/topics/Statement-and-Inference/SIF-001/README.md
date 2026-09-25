@@ -13,6 +13,10 @@ The runtime is logic-first:
 
 The package does not infer its answer from generated prose. It also keeps inference separate from Statement & Assumption, Statement & Conclusion, Statement & Arguments, Course of Action and formal Cause & Effect.
 
+## CP006 review candidate
+
+`SIF-CP006-REVIEW-V1.md` contains the human-review sample for Intention / Purpose Inference. Its 48 trilingual authorities cover eight practical-purpose families across seven contexts. The review sampler selects 24 distinct medium-level scenarios, with three per family and balanced inference positions. CP006 infers a likely operational purpose from a stated need and response; it does not infer unsupported motives, guaranteed outcomes, causal proof or recommended action.
+
 ## Review boundary
 
 All 17 content packs are executable and registered for Question Studio review. Question Bank persistence, tests, mocks, public delivery and automatic publication remain locked until CP-level human review, multilingual parity review, novelty expansion and the chapter freeze are approved.
