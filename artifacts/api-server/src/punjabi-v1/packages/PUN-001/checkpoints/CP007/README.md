@@ -1,15 +1,16 @@
 # PUN-001 CP007 Retrofit — ਕਾਰਕ, ਸੰਬੰਧਕ, ਯੋਜਕ ਅਤੇ ਵਿਸਮਿਕ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Final audited surface
 - **95 sentence-grounded ਕਾਰਕ authorities**
-- **9 reviewed ਸੰਬੰਧਕ authorities**
+- **42 sentence-grounded ਸੰਬੰਧਕ context authorities** — 14 ਪੂਰਨ + 14 ਅਪੂਰਨ + 14 ਦੁਬਾਜਰਾ
+- **20 distinct ਸੰਬੰਧਕ surface forms** — 10 ਪੂਰਨ + 6 ਅਪੂਰਨ + 4 ਦੁਬਾਜਰਾ
 - **23 sentence-grounded ਯੋਜਕ authorities**
 - **37 contextual ਵਿਸਮਿਕ authorities**
-- **164 total atomic authorities**
+- **197 total atomic authorities**
 - **9 reviewed operation families**
-- **3,390 governed semantic combinations**
+- **6,459 governed semantic combinations**
 
 ## Donor audit
 Historical donor:
@@ -26,7 +27,9 @@ The donor is expanded after:
 - sentence-derived distractors for context-to-ਕਾਰਕ operations.
 
 ### ਸੰਬੰਧਕ
-The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy remains deliberately narrow at 9 authorities.
+The approved `ਪੂਰਨ / ਅਪੂਰਨ / ਦੁਬਾਜਰਾ` taxonomy is retained and expanded from 9 to 42 sentence-grounded authorities, balanced at 14 per class. The pass also corrects the inherited `ਸਾਹਮਣੇ` authority to ਅਪੂਰਨ because the governed sentence requires the supporting `ਦੇ` relation.
+
+The breadth pass is deliberately conservative: new ਪੂਰਨ examples use forms explicitly supported as complete ਸੰਬੰਧਕ, including ਦੀਆਂ, ਨੂੰ, ਤੀਕ, ਤੋੜੀਂ and ਥੋਂ; new ਅਪੂਰਨ examples add source-backed ਕੋਲ and ਵਾਸਤੇ alongside ਪਰੇ / ਉਰੇ / ਦੂਰ / ਸਾਹਮਣੇ; new ਦੁਬਾਜਰਾ examples stay with the explicitly paired ਉੱਤੇ / ਦੇ ਉੱਤੇ and ਬਗੈਰ / ਦੇ ਬਗੈਰ patterns. The 42 count measures sentence-grounded classification contexts, while lexical breadth is reported separately as 20 distinct surface forms.
 
 The donor also contains `ਵਿਕਾਰੀ / ਅਵਿਕਾਰੀ / ਸਥਾਨ-ਵਾਚਕ / ਦਿਸ਼ਾ-ਵਾਚਕ / ਸਾਧਨ-ਵਾਚਕ / ਕਾਰਨ-ਵਾਚਕ` labels. Those are a different classification dimension and are **not mixed** into the approved three-way family.
 
@@ -41,6 +44,6 @@ The previously reviewed nine-family architecture is retained:
 F01–F03 ਕਾਰਕ, F04 ਸੰਬੰਧਕ, F05–F06 ਯੋਜਕ, F07 contextual ਵਿਸਮਿਕ, F08 combined ਕਾਰਕ+ਯੋਜਕ diagnosis, F09 dual-statement verification.
 
 ## Lifecycle
-The previous CP007 approval does not cover this material retrofit. Fresh owner approval is required on the exact reviewed SHA.
+Owner approval is recorded for the material retrofit reviewed at SHA `607bcc72913d9f58002ec4b7e1f1897710d96158` on 2026-09-24.
 
 No Question Bank, Question Studio, test/mock or public delivery promotion is authorized.

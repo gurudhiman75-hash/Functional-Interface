@@ -2,6 +2,7 @@ export * from "./types.ts";
 export * from "./chapter-manifest.ts";
 export * from "./authorities.ts";
 export * from "./cp001-expansion.ts";
+export * from "./cp003-quantifier-authorities.ts";
 export * from "./solver.ts";
 export * from "./validators.ts";
 export * from "./generator.ts";

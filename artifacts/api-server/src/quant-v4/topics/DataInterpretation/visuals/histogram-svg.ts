@@ -9,6 +9,7 @@ export type DiHistogramVisualModel = Readonly<{
   xAxisLabel: string;
   yAxisLabel: string;
   bins: readonly DiHistogramVisualBin[];
+  description?: string;
 }>;
 
 export const DI_HISTOGRAM_VISUAL_THEME = "EXAMTREE_DI_ORIGINAL_FAMILY_V1" as const;
@@ -41,7 +42,7 @@ function niceYAxisStep(maxFrequency: number) {
   const magnitude = 10 ** Math.floor(Math.log10(rough));
   const normalized = rough / magnitude;
   const nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 2.5 ? 2.5 : normalized <= 5 ? 5 : 10;
-  return nice * magnitude;
+  return Math.max(1, Math.ceil(nice * magnitude));
 }
 
 function escapeSvgText(value: string) {
@@ -67,10 +68,11 @@ export function renderDiHistogramSvg(model: DiHistogramVisualModel): string {
   const yStep = niceYAxisStep(maxFrequency), roundedYMax = yStep * Math.ceil(maxFrequency / yStep), yMax = roundedYMax === maxFrequency ? roundedYMax + yStep : roundedYMax;
   const boundaryPositions = Array.from({ length: model.bins.length + 1 }, (_, index) => Number((left + (plotWidth * index) / model.bins.length).toFixed(3)));
   const safeTitle = escapeSvgText(model.title), safeXAxis = escapeSvgText(model.xAxisLabel), safeYAxis = escapeSvgText(model.yAxisLabel);
+  const safeDescription = escapeSvgText(model.description ?? `Continuous equal-width histogram with ${model.bins.length} class intervals. Frequency is represented by bar height.`);
   const parts: string[] = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-di-chart-theme="${DI_HISTOGRAM_VISUAL_THEME}" data-color-palette="${DI_HISTOGRAM_COLOR_PALETTE}" data-clean-axis="true" data-vertical-axis-spine="none" data-boundary-ticks="none" data-plot-headroom="true" shape-rendering="geometricPrecision">`,
     `<title>${safeTitle}</title>`,
-    `<desc>Continuous equal-width histogram with ${model.bins.length} class intervals. Frequency is represented by bar height.</desc>`,
+    `<desc>${safeDescription}</desc>`,
     `<rect x="0" y="0" width="${width}" height="${height}" fill="${COLORS.canvas}"/>`,
     `<text x="${width / 2}" y="32" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="${COLORS.title}">${safeTitle}</text>`,
     `<rect data-plot-area="true" x="${left}" y="${top}" width="${plotWidth}" height="${plotHeight}" fill="none" stroke="none"/>`,

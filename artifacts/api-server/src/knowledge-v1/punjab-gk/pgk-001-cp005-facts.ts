@@ -20,10 +20,10 @@ export const PGK_001_CP005_SOURCE_REGISTRY = Object.freeze({
   [PGK_001_CP005_SOURCE_IDS.bbmbBeasProject]: { authority: "Bhakra Beas Management Board", title: "Beas Project", url: "https://bbmb.gov.in/beas-project-.htm" },
   [PGK_001_CP005_SOURCE_IDS.pspclRanjitSagar]: { authority: "Punjab State Power Corporation Limited", title: "Ranjit Sagar Dam", url: "https://pspcl.in/Otherlinks/ranjit-sagar-dam.aspx" },
   [PGK_001_CP005_SOURCE_IDS.pspclShahpurkandi]: { authority: "Punjab State Power Corporation Limited", title: "Shahpurkandi Dam Project", url: "https://pspcl.in/Otherlinks/shahpurkandi-dam-project.aspx" },
-  [PGK_001_CP005_SOURCE_IDS.pspclUbdc]: { authority: "Punjab State Power Corporation Limited", title: "Upper Bari Doab Canal Hydel material", url: "https://www.pspcl.in/" },
+  [PGK_001_CP005_SOURCE_IDS.pspclUbdc]: { authority: "Punjab State Power Corporation Limited", title: "UBDC Hydel Project — detailed project report", url: "https://docs.pspcl.in/docs/cearrtp20250903122952423.pdf", classification: "PRIMARY_UTILITY_PROJECT_DOCUMENT" },
   [PGK_001_CP005_SOURCE_IDS.pudaRopar]: { authority: "Punjab Urban Planning and Development Authority", title: "Rupnagar Master Plan", url: "https://puda.punjab.gov.in/sites/default/files/final_report_16.3.2012_0_0.pdf" },
   [PGK_001_CP005_SOURCE_IDS.pudaAmritsar]: { authority: "Punjab Urban Planning and Development Authority", title: "Amritsar Master Plan", url: "https://puda.punjab.gov.in/sites/default/files/AMT_rpt_2011.pdf" },
-  [PGK_001_CP005_SOURCE_IDS.PunjabHarike]: { authority: "Department of Water Resources Punjab", title: "Harike Headworks canal records", url: "https://eproc.punjab.gov.in/" },
+  [PGK_001_CP005_SOURCE_IDS.PunjabHarike]: { authority: "Ministry of Environment, Forest and Climate Change / Department of Water Resources Punjab", title: "Harike location and Harike Canal Division records", url: "https://www.moef.gov.in/uploads/2017/06/Harike%20Wildlife%20Sanctuary%2C%20Punjab_0.pdf", supportingUrls: Object.freeze(["https://eproc.punjab.gov.in/nicgep/app?component=view&page=WebTenderStatusLists&service=direct&sp=Sos2g0oEzTOWU0q2JLl8a7g%3D%3D"]), classification: "PRIMARY_GOVERNMENT" },
 } as const);
 
 export type Pgk001Cp005DamFact = Readonly<{

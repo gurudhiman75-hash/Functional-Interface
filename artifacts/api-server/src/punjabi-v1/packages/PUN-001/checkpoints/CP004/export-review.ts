@@ -12,7 +12,7 @@ const plan:Record<PunjabiDifficulty,readonly [string,number][]>={
 const strides:Record<string,number>={F01:7,F02:11,F03:53,F04:13,F05:17,F06:19,F07:1,F08:5,F09:29};
 const out:string[]=[
  "# PUN-001 CP004 Retrofit Review — ਲਿੰਗ ਅਤੇ ਵਚਨ","",
- "Status: HUMAN REVIEW PENDING","",
+ "Status: HUMAN APPROVED","",
  "Authority inventory: 58 gender concepts + 66 number concepts + 12 agreement contexts = 136 atomic authorities.","",
  "Direct-safe pools: 39 gender pairs and 59 number pairs. Invariable nouns remain in recognition families only.","",
  "Governed semantic breadth: 1,862 combinations before option-order permutations.",""

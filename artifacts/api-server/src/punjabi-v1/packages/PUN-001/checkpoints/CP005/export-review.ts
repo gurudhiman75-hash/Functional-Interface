@@ -27,10 +27,10 @@ const specs:{difficulty:PunjabiDifficulty;familyId:string;seeds:number[]}[]=[
 ];
 const out:string[]=[
  "# PUN-001 CP005 Retrofit Review — ਵਿਸ਼ੇਸ਼ਣ ਅਤੇ ਕਿਰਿਆ-ਵਿਸ਼ੇਸ਼ਣ","",
- "Status: HUMAN REVIEW PENDING","",
- "Authority inventory: 151 adjective + 111 adverb sentence authorities = 262 atomic authorities.","",
+ "Status: HUMAN APPROVED","",
+ "Authority inventory: 151 adjective + 110 adverb sentence authorities = 261 atomic authorities.","",
  "Adverb taxonomy: time, place, manner, repetition/frequency and degree. Noisy legacy conjunction/particle/response buckets remain quarantined.","",
- "Governed semantic breadth: 101,241 combinations before option-order permutations.",""
+ "Governed semantic breadth: 100,333 combinations before option-order permutations.",""
 ];
 const seen=new Set<string>(),adjTypes=new Set<string>(),advTypes=new Set<string>(),outcomes=new Set<string>();
 for(const difficulty of ["Easy","Medium","Hard"] as PunjabiDifficulty[]){

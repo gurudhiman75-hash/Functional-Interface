@@ -1,6 +1,6 @@
 # PUN-001 CP011 Retrofit — ਮੁਹਾਵਰੇ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Why this retrofit exists
 The earlier forward-port intentionally retained 64 idiom authorities. The historical donor contained 252 rows / 177 unique idiom strings. This retrofit removes the cap and audits the full donor corpus.
@@ -29,5 +29,8 @@ Named historical/national donor contexts were generalized while preserving the i
 
 Wrong-option pairing is similarity-aware. Near-equivalent meanings are never used as false alternatives.
 
+## Approval
+Owner approval basis: PR #2009 chapter integration on 2026-09-20. Runtime remains REVIEW_ONLY.
+
 ## Lifecycle
-The previous 64-authority approval does not cover this retrofit head. Fresh owner approval is required.
+This retrofit was subsequently included in owner-approved chapter integration PR #2009 on 2026-09-20.

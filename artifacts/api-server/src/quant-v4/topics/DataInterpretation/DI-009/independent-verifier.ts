@@ -12,18 +12,12 @@ function ratio(left: number, right: number) {
   return `${left / divisor}:${right / divisor}`;
 }
 
-function decimal(numerator: number, denominator: number) {
-  const hundredths = Math.floor((Math.abs(numerator) * 100 + denominator / 2) / denominator);
-  const sign = numerator < 0 ? "-" : "";
-  const whole = Math.floor(hundredths / 100);
-  const fraction = hundredths % 100;
-  if (fraction === 0) return `${sign}${whole}`;
-  if (fraction % 10 === 0) return `${sign}${whole}.${fraction / 10}`;
-  return `${sign}${whole}.${String(fraction).padStart(2, "0")}`;
+function whole(numerator: number, denominator: number) {
+  return String(Math.round(numerator / denominator));
 }
 
-function percent(part: number, whole: number) {
-  return `${decimal(part * 100, whole)}%`;
+function percent(part: number, total: number) {
+  return `${whole(part * 100, total)}%`;
 }
 
 function interval(bin: Di009HistogramBin) {
@@ -92,7 +86,7 @@ function expected(question: Di009Question, bins: readonly Di009HistogramBin[], c
     }
     case "APPROX_GROUPED_MEAN_FROM_HISTOGRAM": {
       const doubledWeighted = bins.reduce((sum, bin) => sum + (bin.lower + bin.upper) * bin.frequency, 0);
-      return decimal(doubledWeighted, 2 * total);
+      return whole(doubledWeighted, 2 * total);
     }
     case "APPROX_GROUPED_MODE_FROM_HISTOGRAM": {
       const modalIndex = modalIndexOf(bins);
@@ -102,7 +96,7 @@ function expected(question: Di009Question, bins: readonly Di009HistogramBin[], c
       const f1 = modal.frequency;
       const f2 = bins[modalIndex + 1]!.frequency;
       const denominator = 2 * f1 - f0 - f2;
-      return decimal(modal.lower * denominator + (f1 - f0) * classWidth, denominator);
+      return whole(modal.lower * denominator + (f1 - f0) * classWidth, denominator);
     }
   }
 }

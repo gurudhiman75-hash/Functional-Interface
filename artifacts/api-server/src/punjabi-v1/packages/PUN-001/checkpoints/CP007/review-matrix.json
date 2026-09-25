@@ -1,11 +1,52 @@
 {
-  "cpId":"PUN-001-CP007",
-  "phase":"RETROFIT",
-  "status":"HUMAN_REVIEW_PENDING",
-  "authorityInventory":{"karak":95,"sambandhak":9,"yojak":23,"vismik":37,"totalAtomic":164},
-  "semanticCapacity":3390,
-  "totalReviewQuestions":120,
-  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":14,"F02":13,"F03":10,"F04":9,"F05":13,"F06":9,"F07":12,"F08":20,"F09":20},
-  "requirements":["all 9 families represented","all four F09 truth outcomes represented","all eight ਕਾਰਕ labels reachable","all three approved ਸੰਬੰਧਕ labels reachable","both ਯੋਜਕ labels reachable","Punjabi-only learner text","REVIEW_ONLY lifecycle"]
+  "cpId": "PUN-001-CP007",
+  "phase": "RETROFIT",
+  "status": "HUMAN_APPROVED",
+  "authorityInventory": {
+    "karak": 95,
+    "sambandhak": 42,
+    "yojak": 23,
+    "vismik": 37,
+    "totalAtomic": 197,
+    "sambandhakContextAuthorities": 42,
+    "sambandhakUniqueExpressions": 20,
+    "sambandhakUniqueByClass": {
+      "PURAN": 10,
+      "APURAN": 6,
+      "DUBAJRA": 4
+    }
+  },
+  "semanticCapacity": 6459,
+  "totalReviewQuestions": 120,
+  "difficulty": {
+    "Easy": 40,
+    "Medium": 40,
+    "Hard": 40
+  },
+  "families": {
+    "F01": 14,
+    "F02": 13,
+    "F03": 8,
+    "F04": 15,
+    "F05": 13,
+    "F06": 7,
+    "F07": 10,
+    "F08": 20,
+    "F09": 20
+  },
+  "requirements": [
+    "all 9 families represented",
+    "all four F09 truth outcomes represented",
+    "all eight ਕਾਰਕ labels reachable",
+    "all three approved ਸੰਬੰਧਕ labels reachable",
+    "all 42 ਸੰਬੰਧਕ authorities represented in review appendix",
+    "20 distinct ਸੰਬੰਧਕ surface forms represented",
+    "14 authorities per ਸੰਬੰਧਕ class",
+    "ਸਾਹਮਣੇ governed as ਅਪੂਰਨ",
+    "both ਯੋਜਕ labels reachable",
+    "Punjabi-only learner text",
+    "REVIEW_ONLY lifecycle"
+  ],
+  "approvedReviewedSha": "607bcc72913d9f58002ec4b7e1f1897710d96158",
+  "approvalDate": "2026-09-24"
 }

@@ -1,6 +1,6 @@
 # PUN-001 CP006 Retrofit — ਕਿਰਿਆ, ਕਾਲ ਅਤੇ ਰੂਪਾਂਤਰਣ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Final audited surface
 - 138 sentence-grounded verb authorities
@@ -19,7 +19,7 @@ Historical donor pools:
 - 75 tense-shift rows → exact dedupe + remove personal-name/Delhi-specific examples → 72
 - 40 transitivity conversions → 39 retained; questionable ਰਿੱਝਣਾ → ਰਿੰਨ੍ਹਣਾ excluded
 - 35 compound-verb rows → 35 retained with minor wording normalization
-- 35 aspect rows → 23 valid aspect rows retained; 12 conditional/subjunctive tense rows excluded as misclassified aspect material
+- 35 donor aspect rows → 23 valid donor aspect rows retained; together with 12 prior-approved aspect authorities this yields the 35-authority final aspect bank. The 12 conditional/subjunctive donor rows remain excluded as misclassified aspect material
 - 75 root-word rows and 45 causative rows remain quarantined
 
 The root/causative tables are not silently promoted because the approved CP006 boundary is sentence-grounded transitivity, auxiliaries, tense, compound verbs and aspect. Several second-causative forms also require a separate lexical-standardization pass.
@@ -29,7 +29,10 @@ F01 verb phrase identification; F02 transitivity classification; F03 tense ident
 
 F01/F05/F12 use source-sentence material for distractors wherever the operation permits.
 
+## Approval
+Owner approval basis: PR #2009 chapter integration on 2026-09-20. Runtime remains REVIEW_ONLY.
+
 ## Lifecycle
-The previous CP006 approval does not cover this material retrofit. Fresh owner approval is required on the exact reviewed SHA.
+This material retrofit was subsequently included in owner-approved chapter integration PR #2009 on 2026-09-20.
 
 No Question Bank, Question Studio, test/mock or public delivery promotion is authorized.

@@ -7,10 +7,43 @@ export const PGK_001_CP021_SOURCE_IDS = Object.freeze({
   punjabiUniversityLanguage: "punjabi-university-language-teaching-material",
 } as const);
 
+export const PGK_001_CP021_SOURCE_REGISTRY = Object.freeze({
+  [PGK_001_CP021_SOURCE_IDS.punjabOfficialLanguageAct]: {
+    authority: "India Code / Government of Punjab",
+    title: "The Punjab Official Language Act, 1967",
+    url: "https://www.indiacode.nic.in/bitstream/123456789/22096/1/the_punjab_official_languages_act.pdf",
+  },
+  [PGK_001_CP021_SOURCE_IDS.punjabGovLanguage]: {
+    authority: "Government of Punjab",
+    title: "Know Punjab — Language",
+    url: "https://punjab.gov.in/know-punjab/",
+  },
+  [PGK_001_CP021_SOURCE_IDS.unicodeGurmukhi]: {
+    authority: "Unicode Consortium",
+    title: "The Unicode Standard — Gurmukhi",
+    url: "https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-12/",
+  },
+  [PGK_001_CP021_SOURCE_IDS.unicodeNames]: {
+    authority: "Unicode Consortium",
+    title: "Gurmukhi Names List U+0A00–U+0A7F",
+    url: "https://www.unicode.org/charts/nameslist/n_0A00.html",
+  },
+  [PGK_001_CP021_SOURCE_IDS.guruAngadOfficial]: {
+    authority: "Shiromani Gurdwara Parbandhak Committee",
+    title: "Sri Guru Angad Dev Ji",
+    url: "https://sgpc.net/ten-guru-sahibs/guru-angad-sahib/",
+  },
+  [PGK_001_CP021_SOURCE_IDS.punjabiUniversityLanguage]: {
+    authority: "Punjabi University, Patiala — Punjabi Pedia",
+    title: "Gurmukhi script",
+    url: "https://punjabipedia.org/topic.aspx?txt=%E0%A8%97%E0%A9%81%E0%A8%B0%E0%A8%AE%E0%A9%81%E0%A8%96%E0%A9%80+%E0%A8%B2%E0%A8%BF%E0%A8%AA%E0%A9%80",
+  },
+} as const);
+
 export const PGK_001_CP021_FACTS = Object.freeze([
   { id: "official-language-punjabi", statement: "Punjabi is the official language of the State of Punjab.", sourceKeys: ["punjabOfficialLanguageAct", "punjabGovLanguage"] },
   { id: "official-language-gurmukhi", statement: "The Punjab Official Language Act, 1967 defines Punjabi as Punjabi in Gurmukhi script.", sourceKeys: ["punjabOfficialLanguageAct"] },
-  { id: "gurmukhi-guru-angad", statement: "Guru Angad Dev is credited with developing, standardising and popularising the Gurmukhi script.", sourceKeys: ["guruAngadOfficial"] },
+  { id: "gurmukhi-guru-angad", statement: "Guru Angad Dev gave Gurmukhi a revised, systematised form and promoted its wider use; the underlying letter tradition predates him.", sourceKeys: ["guruAngadOfficial", "punjabiUniversityLanguage"] },
   { id: "gurmukhi-khadur", statement: "Khadur Sahib was an important centre for Guru Angad Dev's work and the teaching of Gurmukhi.", sourceKeys: ["guruAngadOfficial"] },
   { id: "painti-35", statement: "The traditional Painti Akhari contains 35 basic Gurmukhi letters.", sourceKeys: ["punjabiUniversityLanguage"] },
   { id: "vowel-bearers", statement: "The three traditional Gurmukhi vowel bearers are ੳ, ਅ and ੲ.", sourceKeys: ["unicodeGurmukhi", "punjabiUniversityLanguage"] },
