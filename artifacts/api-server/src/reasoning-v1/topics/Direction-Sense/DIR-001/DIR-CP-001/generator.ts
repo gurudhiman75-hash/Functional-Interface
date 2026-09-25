@@ -79,14 +79,45 @@ function shuffle<T>(items: readonly T[], random: () => number): T[] {
   return result;
 }
 
+function signedTurnDegrees(turn: TurnOperation): number {
+  return turn.sense === "CLOCKWISE" ? turn.degrees : -turn.degrees;
+}
+
+function turnsCancel(left: TurnOperation, right: TurnOperation): boolean {
+  const net = (signedTurnDegrees(left) + signedTurnDegrees(right)) % 360;
+  return (net + 360) % 360 === 0;
+}
+
 function buildTurns(seed: number): readonly TurnOperation[] {
   const random = seededRandom(seed * 31 + 7);
   const turnCount = 1 + Math.floor(random() * 4);
-  return Array.from({ length: turnCount }, () => ({
-    kind: "TURN" as const,
-    sense: pick(["CLOCKWISE", "ANTICLOCKWISE"] as const, random),
-    degrees: pick(TURN_DEGREES, random),
-  }));
+  const turns: TurnOperation[] = [];
+
+  for (let index = 0; index < turnCount; index += 1) {
+    let candidate: TurnOperation = {
+      kind: "TURN",
+      sense: pick(["CLOCKWISE", "ANTICLOCKWISE"] as const, random),
+      degrees: pick(TURN_DEGREES, random),
+    };
+    let attempts = 0;
+    while (turns.length > 0 && turnsCancel(turns[turns.length - 1], candidate) && attempts < 8) {
+      candidate = {
+        kind: "TURN",
+        sense: pick(["CLOCKWISE", "ANTICLOCKWISE"] as const, random),
+        degrees: pick(TURN_DEGREES, random),
+      };
+      attempts += 1;
+    }
+    if (turns.length > 0 && turnsCancel(turns[turns.length - 1], candidate)) {
+      const previous = turns[turns.length - 1];
+      candidate = (["CLOCKWISE", "ANTICLOCKWISE"] as const)
+        .flatMap((sense) => TURN_DEGREES.map((degrees) => ({ kind: "TURN" as const, sense, degrees })))
+        .find((turn) => !turnsCancel(previous, turn))!;
+    }
+    turns.push(candidate);
+  }
+
+  return turns;
 }
 
 function applyTurns(initialFacing: Direction, turns: readonly TurnOperation[]): Direction {

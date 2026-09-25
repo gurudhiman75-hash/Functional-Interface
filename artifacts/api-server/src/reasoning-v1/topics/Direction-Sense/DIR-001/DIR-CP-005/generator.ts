@@ -22,8 +22,31 @@ import type { MoverPath, MultiMoverDiagramSpec } from "./types";
 
 export type { GeneratedMultiMoverQuestion, MultiMoverAnswer, MultiMoverExplanation, RenderedMultiMoverOption } from "./model";
 
-function difficulty(answerDemand: DirCp005AnswerDemand): "EASY" | "MEDIUM" | "HARD" {
-  if (answerDemand === "ENDPOINT_RELATIVE_DIRECTION" || answerDemand === "MOVER_AT_RELATION" || answerDemand === "ENDPOINT_EXTREMUM") return "MEDIUM";
+function difficulty(
+  answerDemand: DirCp005AnswerDemand,
+  paths: readonly MoverPath[],
+  sameOrigin: boolean,
+): "EASY" | "MEDIUM" | "HARD" {
+  const totalLegs = paths.reduce((sum, path) => sum + path.steps.length, 0);
+
+  // Four independent paths create enough tracking burden to remain hard
+  // even when the final demand is only an entity lookup or extremum.
+  if (paths.length >= 4) return "HARD";
+
+  if (answerDemand === "ENDPOINT_DIRECTION_AND_DISTANCE") return "HARD";
+
+  if (answerDemand === "ENDPOINT_SEPARATION_DISTANCE") {
+    const [left, right] = paths;
+    const dx = Math.abs(Number(left?.endpoint.x ?? 0) - Number(right?.endpoint.x ?? 0));
+    const dy = Math.abs(Number(left?.endpoint.y ?? 0) - Number(right?.endpoint.y ?? 0));
+    const needsPythagoras = dx > 0 && dy > 0;
+    return !sameOrigin || totalLegs >= 6 || needsPythagoras ? "HARD" : "MEDIUM";
+  }
+
+  if (answerDemand === "ENDPOINT_RELATIVE_DIRECTION") {
+    return !sameOrigin || totalLegs >= 6 ? "HARD" : "MEDIUM";
+  }
+
   return "HARD";
 }
 
@@ -48,7 +71,7 @@ function baseQuestion(
     checkpointId: "DIR-CP-005",
     ruleId: ql.ruleId,
     seed,
-    difficulty: difficulty(ql.answerDemand),
+    difficulty: difficulty(ql.answerDemand, paths, sameOrigin),
     stem,
     structuredPrompt: { paths, answerDemand: ql.answerDemand, query },
     options,

@@ -151,6 +151,8 @@ for (const seed of Array.from({ length: 120 }, (_, index) => index)) {
   const distanceQuestion = generateDirCp008Question("DIR-QL-043", seed);
   assert.equal(directionQuestion.metadata.caseletId, distanceQuestion.metadata.caseletId);
   assert.deepEqual(directionQuestion.structuredPrompt as CaseletScenario, distanceQuestion.structuredPrompt as CaseletScenario);
+  assert.equal(directionQuestion.difficulty, "MEDIUM");
+  assert.equal(distanceQuestion.difficulty, "HARD");
 }
 
 for (const id of ["DIR-QL-036", "DIR-QL-038", "DIR-QL-040", "DIR-QL-041", "DIR-QL-042", "DIR-QL-044"]) {

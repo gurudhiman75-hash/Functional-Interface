@@ -310,7 +310,7 @@ function generateCaseletDistance(seed: number): GeneratedAdvancedQuestion {
   return base({
     qlId: "DIR-QL-043", seed, scenario, answer,
     options: distanceOptions(solved.distance, totalDistance, solved.endpoint.x, solved.endpoint.y, seed),
-    difficulty: "MEDIUM", caseletId: scenario.caseletId,
+    difficulty: "HARD", caseletId: scenario.caseletId,
     stem: `${stimulus} What is the shortest distance between the final position and the checkpoint?`,
     explanation: {
       given: `Use ${scenario.subject}'s shared patrol route from ${scenario.checkpoint} in ${scenario.place} and derive its net horizontal and vertical components.`,

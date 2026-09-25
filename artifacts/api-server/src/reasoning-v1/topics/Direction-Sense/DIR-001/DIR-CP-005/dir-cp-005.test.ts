@@ -48,6 +48,22 @@ for (const ql of DIR_CP005_QLS) {
     assert.equal((generated.explanation.diagram.svg.match(/data-role="endpoint-node"/g) ?? []).length, new Set((generated.structuredPrompt.paths as readonly MoverPath[]).map((path) => `${path.endpoint.x}:${path.endpoint.y}`)).size);
 
     const paths = generated.structuredPrompt.paths as readonly MoverPath[];
+    const totalLegs = paths.reduce((sum, path) => sum + path.steps.length, 0);
+    if (paths.length >= 4) {
+      assert.equal(generated.difficulty, "HARD", `${ql.qlId} seed ${seed}: four-mover burden must be hard`);
+    } else if (ql.answerDemand === "ENDPOINT_DIRECTION_AND_DISTANCE") {
+      assert.equal(generated.difficulty, "HARD");
+    } else if (ql.answerDemand === "ENDPOINT_RELATIVE_DIRECTION") {
+      assert.equal(generated.difficulty, !generated.metadata.sameOrigin || totalLegs >= 6 ? "HARD" : "MEDIUM");
+    } else if (ql.answerDemand === "ENDPOINT_SEPARATION_DISTANCE") {
+      const [leftPath, rightPath] = paths;
+      const dx = Math.abs(leftPath.endpoint.x - rightPath.endpoint.x);
+      const dy = Math.abs(leftPath.endpoint.y - rightPath.endpoint.y);
+      assert.equal(
+        generated.difficulty,
+        !generated.metadata.sameOrigin || totalLegs >= 6 || (dx > 0 && dy > 0) ? "HARD" : "MEDIUM",
+      );
+    }
     for (const path of paths) {
       const solved = solveMoverIndependent(path.start, path.steps);
       assert.deepEqual(solved, path.endpoint);
