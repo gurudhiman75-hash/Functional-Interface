@@ -11,7 +11,7 @@ import type { Di001ExamProfile } from "./types";
 import type { Di001V2Difficulty } from "./table-v2-types";
 
 export const DI001_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-001" as const;
-export const DI001_QUESTION_STUDIO_RUNTIME_MODE = "DI001_PERMANENT_ENGLISH_REVIEW_P1" as const;
+export const DI001_QUESTION_STUDIO_RUNTIME_MODE = "DI001_PERMANENT_ENGLISH_REVIEW_P2" as const;
 
 export type Di001QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -213,7 +213,7 @@ export async function generateDi001QuestionStudioBatch(request: Di001QuestionStu
     throw new Error(`Unknown canonical problem '${cpId}' for package DI-001.`);
   }
   const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") throw new Error("DI-001 permanent Question Studio review is English-only; localization has not started.");
+  if (language !== "en") throw new Error("DI-001 Hindi/Punjabi localization is a review candidate and is not yet enabled in Question Studio.");
 
   const profile = normalizeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
@@ -312,6 +312,6 @@ export function di001QuestionStudioPackageCard() {
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   };
 }
