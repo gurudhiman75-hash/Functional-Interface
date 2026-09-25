@@ -166,7 +166,7 @@ function totalFrequencyDraft(seed: string, stimulus: Di009Stimulus): Di009Draft 
     ],
     explanation: {
       keyIdea: "The total frequency is the sum of the frequencies of all histogram classes.",
-      steps: [`Add the bar heights: ${frequencies.join(" + ")} = ${total}.`],
+      steps: [`Add the class frequencies: ${frequencies.join(" + ")} = ${total}.`],
     },
     evidence: { surfaceId: s.index },
   };
@@ -328,7 +328,7 @@ function classShareDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
       ...percentShiftCandidates(target.frequency, total, 5),
     ],
     explanation: {
-      keyIdea: "Use the class frequency as the part and the sum of all bar frequencies as the whole.",
+      keyIdea: "Use the class frequency as the part and the total frequency as the whole.",
       steps: [`Total frequency = ${total}.`, `Required percentage = ${target.frequency}/${total} × 100 ≈ ${answer} to the nearest whole percent.`],
     },
     evidence: { targetIndex, surfaceId: s.index },
@@ -350,7 +350,7 @@ function frequencyDifferenceDraft(seed: string, stimulus: Di009Stimulus): Di009D
   const s = surface(seed, "FREQUENCY_DIFFERENCE_BETWEEN_CLASSES", [
     `What is the difference between the frequencies of ${interval(left)} and ${interval(right)}?`,
     `By how much do the frequencies of the classes ${interval(left)} and ${interval(right)} differ?`,
-    `Find the absolute difference between the two bar heights for ${interval(left)} and ${interval(right)}.`,
+    `Find the absolute difference between the frequencies of ${interval(left)} and ${interval(right)}.`,
   ]);
   return {
     kind: "FREQUENCY_DIFFERENCE_BETWEEN_CLASSES",
@@ -364,7 +364,7 @@ function frequencyDifferenceDraft(seed: string, stimulus: Di009Stimulus): Di009D
       ...frequencyShiftCandidates(answerValue, 5),
     ],
     explanation: {
-      keyIdea: "Read the two bar heights and subtract the smaller frequency from the larger one.",
+      keyIdea: "Read the two class frequencies and subtract the smaller from the larger one.",
       steps: [`Frequencies = ${left.frequency} and ${right.frequency}.`, `Difference = |${left.frequency} - ${right.frequency}| = ${answerValue}.`],
     },
     evidence: { leftIndex, rightIndex, surfaceId: s.index },
@@ -388,7 +388,7 @@ function modalClassDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
     candidates: classAlternatives(bins, modalIndex),
     explanation: {
       keyIdea: "The modal class is the class interval with the highest frequency.",
-      steps: [`The highest bar has frequency ${modal.frequency}.`, `Its class interval is ${interval(modal)}.`],
+      steps: [`The highest frequency is ${modal.frequency}.`, `Its class interval is ${interval(modal)}.`],
     },
     evidence: { modalIndex, surfaceId: s.index },
   };
