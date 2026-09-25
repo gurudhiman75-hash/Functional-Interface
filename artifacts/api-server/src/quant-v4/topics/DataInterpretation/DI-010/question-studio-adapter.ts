@@ -11,7 +11,7 @@ import { generateDi010PermanentQuestion } from "./permanent-question-generator";
 import type { Di010Difficulty, Di010ExamProfile } from "./types";
 
 export const DI010_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-010" as const;
-export const DI010_QUESTION_STUDIO_RUNTIME_MODE = "DI010_PERMANENT_ENGLISH_REVIEW_P1" as const;
+export const DI010_QUESTION_STUDIO_RUNTIME_MODE = "DI010_PERMANENT_ENGLISH_REVIEW_P2" as const;
 
 export type Di010QuestionStudioRequest = Readonly<{
   packageId?: string;
