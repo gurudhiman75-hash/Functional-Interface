@@ -25,12 +25,22 @@ function normalizePoints(coordinates: Readonly<Record<string, Coordinate>>, widt
 function relationSvg(relations: readonly PositionRelation[], coordinates: Readonly<Record<string, Coordinate>>, role = "relation-edge"): string {
   return relations.map((relation, index) => {
     const from = coordinates[relation.fromEntity], to = coordinates[relation.toEntity];
-    const direction = directionFromVector(relation.vector);
     const distance = Math.max(Math.abs(relation.vector.x), Math.abs(relation.vector.y));
-    return `<g data-role="${role}" data-index="${index}"><line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/><text x="${(from.x + to.x) / 2}" y="${(from.y + to.y) / 2 - 8}" text-anchor="middle" font-size="13" fill="#334155">${distance} m ${DIRECTION_LABELS[direction]}</text></g>`;
+    const dx = to.x - from.x, dy = to.y - from.y;
+    const length = Math.max(Math.hypot(dx, dy), 1);
+    const perpX = -dy / length, perpY = dx / length;
+    const offsetPattern = [22, -22, 38, -38, 54, -54] as const;
+    const offset = offsetPattern[index % offsetPattern.length];
+    const labelX = (from.x + to.x) / 2 + perpX * offset;
+    const labelY = (from.y + to.y) / 2 + perpY * offset;
+    return [
+      `<g data-role="${role}" data-index="${index}">`,
+      `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>`,
+      `<g data-role="relation-distance"><rect x="${labelX - 25}" y="${labelY - 13}" width="50" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1"/><text x="${labelX}" y="${labelY + 4}" text-anchor="middle" font-size="12" font-weight="800" fill="#334155">${distance} m</text></g>`,
+      `</g>`,
+    ].join("");
   }).join("");
 }
-
 function nodeSvg(coordinates: Readonly<Record<string, Coordinate>>): string {
   return Object.entries(coordinates).map(([name, point]) => `<g data-role="entity-node"><circle cx="${point.x}" cy="${point.y}" r="19" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="${point.x}" y="${point.y + 5}" text-anchor="middle" font-size="13" font-weight="800">${esc(name)}</text></g>`).join("");
 }
@@ -141,19 +151,53 @@ export function buildRelationDiagram(relations: readonly PositionRelation[], tit
 export function buildMixedGraphMovementDiagram(scenario: MixedGraphMovementScenario): AdvancedDiagram {
   const solved = solveEntityPositions(scenario.relations);
   if (!solved.connected || solved.contradictions.length) throw new Error("Cannot draw an invalid mixed graph");
+
   const raw: Record<string, Coordinate> = { ...solved.coordinates };
-  let current = raw[scenario.startEntity];
-  for (const movement of scenario.movements) current = addCoordinates(current, cardinalVector(movement.direction, movement.distance));
-  raw["Final"] = current;
+  const movementPoints: Coordinate[] = [raw[scenario.startEntity]];
+  for (const movement of scenario.movements) {
+    movementPoints.push(addCoordinates(
+      movementPoints[movementPoints.length - 1],
+      cardinalVector(movement.direction, movement.distance),
+    ));
+  }
+  movementPoints.forEach((point, index) => {
+    raw[`__move_${index}`] = point;
+  });
+
   const coordinates = normalizePoints(raw);
-  const start = coordinates[scenario.startEntity], endpoint = coordinates["Final"];
-  const movementLine = `<line data-role="movement-segment" x1="${start.x}" y1="${start.y}" x2="${endpoint.x}" y2="${endpoint.y}" stroke="#059669" stroke-width="4" marker-end="url(#path-arrow)"/><text x="${(start.x + endpoint.x) / 2}" y="${(start.y + endpoint.y) / 2 - 10}" text-anchor="middle" font-size="13" font-weight="700" fill="#047857">movement</text>`;
-  const graphCoordinates = Object.fromEntries(Object.entries(coordinates).filter(([name]) => name !== "Final"));
+  const graphCoordinates = Object.fromEntries(
+    Object.entries(coordinates).filter(([name]) => !name.startsWith("__move_")),
+  );
+  const projectedMovement = movementPoints.map((_, index) => coordinates[`__move_${index}`]);
+
+  const movementSegments = scenario.movements.map((movement, index) => {
+    const from = projectedMovement[index];
+    const to = projectedMovement[index + 1];
+    const dx = to.x - from.x, dy = to.y - from.y;
+    const length = Math.max(Math.hypot(dx, dy), 1);
+    const perpX = -dy / length, perpY = dx / length;
+    const side = index % 2 === 0 ? 1 : -1;
+    const labelX = (from.x + to.x) / 2 + perpX * 22 * side;
+    const labelY = (from.y + to.y) / 2 + perpY * 22 * side;
+    return [
+      `<line data-role="movement-segment" data-index="${index}" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#059669" stroke-width="4" stroke-linecap="round" marker-end="url(#path-arrow)"/>`,
+      `<g data-role="movement-distance"><rect x="${labelX - 28}" y="${labelY - 13}" width="56" height="26" rx="6" fill="#ffffff" stroke="#86efac"/><text x="${labelX}" y="${labelY + 4}" text-anchor="middle" font-size="12" font-weight="800" fill="#047857">${movement.distance} m</text></g>`,
+    ].join("");
+  }).join("");
+
+  const movementWaypoints = projectedMovement.slice(1, -1).map((point, index) =>
+    `<circle data-role="movement-waypoint" data-index="${index + 1}" cx="${point.x}" cy="${point.y}" r="5" fill="#ffffff" stroke="#059669" stroke-width="2"/>`
+  ).join("");
+
+  const endpoint = projectedMovement[projectedMovement.length - 1];
   const endpointNode = `<g data-role="final-point"><circle cx="${endpoint.x}" cy="${endpoint.y}" r="17" fill="#dcfce7" stroke="#059669" stroke-width="2"/><text x="${endpoint.x}" y="${endpoint.y + 5}" text-anchor="middle" font-size="12" font-weight="800">Final</text></g>`;
-  const svg = frame("Static layout followed by movement", `${relationSvg(scenario.relations, graphCoordinates)}${movementLine}${nodeSvg(graphCoordinates)}${endpointNode}`);
+
+  const svg = frame(
+    "Static layout followed by movement",
+    `${relationSvg(scenario.relations, graphCoordinates)}${movementSegments}${movementWaypoints}${nodeSvg(graphCoordinates)}${endpointNode}`,
+  );
   return { kind: "GRAPH_AND_PATH", title: "Static layout followed by movement", svg };
 }
-
 export function buildHybridExplanationDiagram(scenario: HybridScenario): AdvancedDiagram {
   const all = [...scenario.diagramRelations, scenario.textRelation];
   const solved = solveEntityPositions(all);
