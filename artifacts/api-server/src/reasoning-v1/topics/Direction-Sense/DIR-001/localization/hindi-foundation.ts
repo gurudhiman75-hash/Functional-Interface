@@ -407,7 +407,7 @@ export function localizeDiagram(value: unknown): Readonly<Record<string, unknown
   const diagram = asR(value);
   return {
     ...diagram,
-    title: diagram.title ? localizeFreeText(String(diagram.title)) : diagram.title,
+    title: diagram.title ? localizeSvg(String(diagram.title)) : diagram.title,
     svg: diagram.svg ? localizeSvg(String(diagram.svg)) : diagram.svg,
   };
 }
