@@ -44,6 +44,7 @@ import { isEng004QuestionStudioRequestV1, languageV1Eng004QuestionStudioAdapterV
 import { isEng005QuestionStudioRequestV1, languageV1Eng005QuestionStudioAdapterV1 } from "./language-v1-eng005-adapter-v1";
 import { isEng006QuestionStudioRequestV1, languageV1Eng006QuestionStudioAdapterV1 } from "./language-v1-eng006-adapter-v1";
 import { isEng007QuestionStudioRequestV1, languageV1Eng007QuestionStudioAdapterV1 } from "./language-v1-eng007-adapter-v1";
+import { isEng008QuestionStudioRequestV1, languageV1Eng008QuestionStudioAdapterV1 } from "./language-v1-eng008-adapter-v1";
 import { isPun001QuestionStudioRequestV1, languageV1Pun001QuestionStudioAdapterV1 } from "./language-v1-pun001-adapter-v1";
 
 function explicitSelectorValues(request: QuestionStudioGenerationRequest) {
@@ -85,6 +86,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...languageV1Eng005QuestionStudioAdapterV1.listPackages(),
       ...languageV1Eng006QuestionStudioAdapterV1.listPackages(),
       ...languageV1Eng007QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng008QuestionStudioAdapterV1.listPackages(),
       ...languageV1Pun001QuestionStudioAdapterV1.listPackages(),
     ];
   },
@@ -94,6 +96,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (isEng005QuestionStudioRequestV1(request)) return languageV1Eng005QuestionStudioAdapterV1.generate(request);
     if (isEng006QuestionStudioRequestV1(request)) return languageV1Eng006QuestionStudioAdapterV1.generate(request);
     if (isEng007QuestionStudioRequestV1(request)) return languageV1Eng007QuestionStudioAdapterV1.generate(request);
+    if (isEng008QuestionStudioRequestV1(request)) return languageV1Eng008QuestionStudioAdapterV1.generate(request);
     // ENG-003 reuses the ENG-001/ENG-002 grammar rule IDs. Resolve its explicit checkpoint/package
     // before the shared GR-* fallback so ENG-003 requests cannot be stolen by ENG-002.
     const eng003CpSelector = explicitEng003CpSelector(request);
