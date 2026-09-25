@@ -1,6 +1,6 @@
 # ENG-008 CP001 — SSC Foundation Reading Comprehension — Source Audit V1
 
-Status: `IMPLEMENTED_CANDIDATE_V2__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY`
 
 ## Purpose
 
@@ -66,4 +66,4 @@ This is a foundation checkpoint, not a final passage-count target.
 
 ## Lifecycle
 
-Review-only. No Question Studio registration or downstream release until explicit human approval.
+Human approval was recorded on **2026-09-25** against review artifact `ENG-008-CP001-REVIEW-V1` (artifact `10852440253`, digest `sha256:29ad5043739b07bebbf3fa5866ce5d8c40b5b70c411a193af1334ce341c2cc68`). CP001 is registered in Question Studio in **review-only** mode. Question Bank writes, tests, mocks, learner/public publication, automatic publication and production release remain locked.
