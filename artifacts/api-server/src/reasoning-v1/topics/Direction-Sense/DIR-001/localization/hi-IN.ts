@@ -5,6 +5,7 @@ import {
   codedChain,
   coordinateText,
   directionAngleHi,
+  directionFromAngleHi,
   directionHi,
   evidenceChain,
   metres,
@@ -22,6 +23,50 @@ import {
 import { localizeDiagramHindi, optionLabelHindi } from "./hindi-editorial-overrides";
 import { renderHindiStem } from "./hindi-stems";
 import type { LocalizedDirectionExplanation, LocalizedDirectionOption, LocalizedDirectionQuestion } from "./types";
+
+function cardinalVectorHi(direction: unknown, distance: unknown): R {
+  const d = Number(distance ?? 0);
+  switch (String(direction)) {
+    case "NORTH": return { x: 0, y: d };
+    case "NORTH_EAST": return { x: d, y: d };
+    case "EAST": return { x: d, y: 0 };
+    case "SOUTH_EAST": return { x: d, y: -d };
+    case "SOUTH": return { x: 0, y: -d };
+    case "SOUTH_WEST": return { x: -d, y: -d };
+    case "WEST": return { x: -d, y: 0 };
+    case "NORTH_WEST": return { x: -d, y: d };
+    default: return { x: 0, y: 0 };
+  }
+}
+
+function addCoordinateHi(left: R, right: R): R {
+  return { x: Number(left.x ?? 0) + Number(right.x ?? 0), y: Number(left.y ?? 0) + Number(right.y ?? 0) };
+}
+
+function applyNamedTurnHi(facing: unknown, turn: unknown): string {
+  const offset = String(turn) === "LEFT" ? -90
+    : String(turn) === "RIGHT" ? 90
+      : String(turn) === "ABOUT" ? 180
+        : 0;
+  return directionFromAngleHi(directionAngleHi(facing) + offset);
+}
+
+function replayAdvancedHi(initialFacing: unknown, operations: readonly R[]): { readonly steps: string[]; readonly endpoint: R; readonly finalFacing: string } {
+  let facing = String(initialFacing);
+  let endpoint: R = { x: 0, y: 0 };
+  const steps: string[] = [];
+  for (const operation of operations) {
+    if (operation.kind === "TURN") {
+      const before = facing;
+      facing = applyNamedTurnHi(facing, operation.turn);
+      steps.push(`${turnHi(operation.turn)}: मुख ${directionHi(before)} से ${directionHi(facing)} हो जाता है।`);
+      continue;
+    }
+    endpoint = addCoordinateHi(endpoint, cardinalVectorHi(facing, operation.distance));
+    steps.push(`${metres(operation.distance)} ${directionHi(facing)} की ओर चलें; अब स्थान आरंभ से ${coordinateText(endpoint)} है।`);
+  }
+  return { steps, endpoint, finalFacing: facing };
+}
 
 function renderExplanation(english: R): LocalizedDirectionExplanation {
   const qlId = String(english.qlId);
@@ -90,101 +135,142 @@ function renderExplanation(english: R): LocalizedDirectionExplanation {
   }
   if (["DIR-QL-036", "DIR-QL-037", "DIR-QL-038", "DIR-QL-039", "DIR-QL-040", "DIR-QL-041", "DIR-QL-042", "DIR-QL-043", "DIR-QL-044"].includes(qlId)) {
     if (qlId === "DIR-QL-036") {
-      return {
-        ...base,
-        steps: [
-          `दिए गए तीन संबंधों से ${nameHi(s.missingFrom)} और ${nameHi(s.missingTo)} की स्थिति तय करें।`,
-          `दोनों स्थानों की तुलना करने पर ${nameHi(s.missingTo)}, ${nameHi(s.missingFrom)} के ${answer} में है।`,
-        ],
-        resultLine: `इसलिए छूटी हुई दिशा ${answer} है।`,
-      };
+      const steps = (s.visibleRelations ?? []).map((relation: R) => relationSentence(relation, true));
+      steps.push(
+        `इन संबंधों से ${nameHi(s.missingTo)}, ${nameHi(s.missingFrom)} से ${metres(s.missingDistance)} ${answer} में स्थित है।`,
+      );
+      return { ...base, steps, resultLine: `इसलिए छूटी हुई दिशा ${answer} है।` };
     }
+
     if (qlId === "DIR-QL-037") {
-      return {
-        ...base,
-        steps: [
-          "पहले दिए गए दो आधार संबंधों से पहले तीन बिंदुओं की स्थिति तय करें।",
-          "अब चारों कथनों को एक-एक करके उन्हीं स्थानों से मिलाएँ।",
-          `जो कथन किसी बिंदु को बाकी जानकारी से अलग स्थान पर रखता है, वही असंगत है; यहाँ वह ${answer} है।`,
-        ],
-        resultLine: `असंगत कथन ${answer} है।`,
-      };
+      const steps: string[] = [
+        "पहले आधार संबंधों से निश्चित विन्यास बनाएं:",
+        ...(s.anchorRelations ?? []).map((relation: R) => relationSentence(relation, true)),
+        "अब प्रत्येक कथन को इसी विन्यास से मिलाएं:",
+      ];
+      for (let index = 0; index < (s.relations ?? []).length; index += 1) {
+        steps.push(`कथन ${index + 1}: ${relationSentence(s.relations[index], true)}`);
+      }
+      steps.push(`जो कथन बाकी संबंधों से मेल नहीं खाता, वह ${answer} है।`);
+      return { ...base, steps, resultLine: `असंगत कथन ${answer} है।` };
     }
+
     if (qlId === "DIR-QL-038") {
-      const unknown = asR((s.legs ?? [])[Number(s.unknownIndex ?? 0)] ?? {});
-      return {
-        ...base,
-        steps: [
-          "पहले सभी ज्ञात चालों को जोड़कर उनका अंतिम स्थान निकालें।",
-          `दिया गया अंतिम स्थान आरंभिक बिंदु से ${coordinateText(asR(s.target))} है।`,
-          `बाकी ${metres(unknown.distance)} की चाल को इस अंतिम स्थान तक पहुँचाने के लिए ${answer} दिशा में होना चाहिए।`,
-        ],
-        resultLine: `अज्ञात चाल की दिशा ${answer} है।`,
-      };
+      const unknownIndex = Number(s.unknownIndex ?? 0);
+      const unknown = asR((s.legs ?? [])[unknownIndex] ?? {});
+      let knownEndpoint: R = { x: 0, y: 0 };
+      const steps: string[] = [];
+      for (let index = 0; index < (s.legs ?? []).length; index += 1) {
+        const leg = asR(s.legs[index]);
+        if (index === unknownIndex || leg.direction === "UNKNOWN") {
+          steps.push(`चाल ${index + 1}: ${metres(leg.distance)}, दिशा ज्ञात नहीं है।`);
+          continue;
+        }
+        knownEndpoint = addCoordinateHi(knownEndpoint, cardinalVectorHi(leg.direction, leg.distance));
+        steps.push(`चाल ${index + 1}: ${metres(leg.distance)} ${directionHi(leg.direction)} की ओर; ज्ञात चालों का स्थान ${coordinateText(knownEndpoint)}।`);
+      }
+      const required = cardinalVectorHi(s.answerDirection, unknown.distance);
+      const restored = addCoordinateHi(knownEndpoint, required);
+      steps.push(`दिया गया अंतिम स्थान आरंभ से ${coordinateText(asR(s.target))} है।`);
+      steps.push(`बाकी ${metres(unknown.distance)} की चाल ${directionHi(s.answerDirection)} की ओर रखने पर अंतिम स्थान ${coordinateText(restored)} बनता है।`);
+      return { ...base, steps, resultLine: `अज्ञात चाल की दिशा ${answer} है।` };
     }
+
     if (qlId === "DIR-QL-039") {
-      return {
-        ...base,
-        steps: [
-          `पहली ${metres(s.firstDistance)} की चाल को आरंभिक मुख-दिशा से लागू करें।`,
-          "फिर बाएँ, दाएँ, पीछे मुड़ना और बिना मुड़े चलना—इन चारों सम्भावनाओं को बाकी चालों के साथ जाँचें।",
-          `केवल ${answer} लेने पर दिया गया अंतिम स्थान मिलता है।`,
-        ],
-        resultLine: `अज्ञात मोड़ ${answer} है।`,
-      };
+      const firstDirection = String(s.initialFacing);
+      const secondDirection = applyNamedTurnHi(firstDirection, s.answerTurn);
+      const thirdDirection = applyNamedTurnHi(secondDirection, s.knownTurn);
+      let endpoint: R = { x: 0, y: 0 };
+      endpoint = addCoordinateHi(endpoint, cardinalVectorHi(firstDirection, s.firstDistance));
+      const steps: string[] = [
+        `आरंभिक मुख ${directionHi(firstDirection)} है; पहली चाल ${metres(s.firstDistance)} ${directionHi(firstDirection)} की ओर जाती है।`,
+        `अज्ञात मोड़ ${answer} लेने पर अगली दिशा ${directionHi(secondDirection)} बनती है; दूसरी चाल ${metres(s.secondDistance)} इसी दिशा में है।`,
+      ];
+      endpoint = addCoordinateHi(endpoint, cardinalVectorHi(secondDirection, s.secondDistance));
+      steps.push(`पहली दो चालों के बाद स्थान आरंभ से ${coordinateText(endpoint)} है।`);
+      endpoint = addCoordinateHi(endpoint, cardinalVectorHi(thirdDirection, s.thirdDistance));
+      steps.push(`${turnHi(s.knownTurn)} के बाद तीसरी चाल ${metres(s.thirdDistance)} ${directionHi(thirdDirection)} की ओर जाती है।`);
+      steps.push(`इससे अंतिम स्थान ${coordinateText(endpoint)} मिलता है, जो दिए गए ${coordinateText(asR(s.target))} से मेल खाता है।`);
+      return { ...base, steps, resultLine: `अज्ञात मोड़ ${answer} है।` };
     }
+
     if (qlId === "DIR-QL-040") {
-      return {
-        ...base,
-        steps: [
-          "उत्तर, पूर्व, दक्षिण और पश्चिम—चारों को सम्भावित आरंभिक दिशा मानकर वही मार्ग चलाएँ।",
-          `दिया गया अंतिम स्थान आरंभिक बिंदु से ${coordinateText(asR(s.target))} है।`,
-          `केवल ${answer} से शुरू करने पर मार्ग उसी अंतिम स्थान तक पहुँचता है।`,
-        ],
-        resultLine: `आरंभिक मुख-दिशा ${answer} है।`,
-      };
+      const replay = replayAdvancedHi(s.answerFacing, (s.operations ?? []) as R[]);
+      const steps = [
+        `सही आरंभिक मुख ${directionHi(s.answerFacing)} मानकर मार्ग चलाते हैं:`,
+        ...replay.steps,
+        `अंतिम स्थान ${coordinateText(replay.endpoint)} है, जो प्रश्न में दिए ${coordinateText(asR(s.target))} से मेल खाता है।`,
+      ];
+      return { ...base, steps, resultLine: `आरंभिक मुख-दिशा ${answer} है।` };
     }
+
     if (qlId === "DIR-QL-041") {
+      const steps: string[] = [
+        ...(s.relations ?? []).map((relation: R) => relationSentence(relation, true)),
+      ];
+      for (const movement of (s.movements ?? []) as R[]) {
+        steps.push(`${nameHi(s.startEntity)} से ${metres(movement.distance)} ${directionHi(movement.direction)} की ओर चलने पर अंतिम बिंदु आरंभिक आधार से ${coordinateText(asR(s.endpoint))} है।`);
+      }
+      const referenceRelation = ((s.relations ?? []) as R[]).find((relation: R) => relation.toEntity === s.referenceEntity);
+      const reference = referenceRelation ? asR(referenceRelation.vector) : { x: 0, y: 0 };
+      const endpoint = asR(s.endpoint);
+      const dx = Number(endpoint.x ?? 0) - Number(reference.x ?? 0);
+      const dy = Number(endpoint.y ?? 0) - Number(reference.y ?? 0);
+      const horizontal = Math.abs(dx), vertical = Math.abs(dy);
+      steps.push(`${nameHi(s.referenceEntity)} से अंतिम बिंदु तक अंतर ${coordinateText({ x: dx, y: dy })} है।`);
+      steps.push(
+        horizontal === 0 || vertical === 0
+          ? `सीधी दूरी ${metres(s.answerDistance)} है।`
+          : `सीधी दूरी = √(${horizontal}² + ${vertical}²) = ${metres(s.answerDistance)}।`,
+      );
+      steps.push(`इसलिए दिशा और दूरी का सही युग्म ${answer} है।`);
+      return { ...base, steps, resultLine: `अंतिम संबंध ${answer} है।` };
+    }
+
+    if (qlId === "DIR-QL-042" || qlId === "DIR-QL-043") {
+      const replay = replayAdvancedHi(s.initialFacing, (s.operations ?? []) as R[]);
+      const steps: string[] = [
+        `चौकी ${String(s.checkpoint)} से आरंभिक मुख ${directionHi(s.initialFacing)} है।`,
+        ...replay.steps,
+        `अंतिम बिंदु चौकी से ${coordinateText(asR(s.endpoint))} है।`,
+      ];
+      if (qlId === "DIR-QL-043") {
+        const endpoint = asR(s.endpoint);
+        const horizontal = Math.abs(Number(endpoint.x ?? 0));
+        const vertical = Math.abs(Number(endpoint.y ?? 0));
+        steps.push(
+          horizontal === 0 || vertical === 0
+            ? `सीधी न्यूनतम दूरी ${metres(s.answerDistance)} है।`
+            : `सीधी न्यूनतम दूरी = √(${horizontal}² + ${vertical}²) = ${metres(s.answerDistance)}।`,
+        );
+      } else {
+        steps.push(`अंतिम बिंदु की चौकी से दिशा ${answer} है; अंतिम मुख-दिशा अलग तथ्य है।`);
+      }
       return {
         ...base,
-        steps: [
-          `पहले दिए गए स्थान-संबंधों से ${nameHi(s.startEntity)} और ${nameHi(s.referenceEntity)} की स्थिति तय करें।`,
-          `फिर ${nameHi(s.startEntity)} से दी गई चालों को क्रम से लागू करके अंतिम स्थान निकालें।`,
-          `अंतिम स्थान की ${nameHi(s.referenceEntity)} से सीधी तुलना करने पर उत्तर ${answer} मिलता है।`,
-        ],
-        resultLine: `अंतिम संबंध ${answer} है।`,
+        steps,
+        resultLine: qlId === "DIR-QL-043"
+          ? `चौकी से न्यूनतम दूरी ${answer} है।`
+          : `चौकी से आवश्यक दिशा ${answer} है।`,
       };
     }
-    if (qlId === "DIR-QL-042") {
-      return {
-        ...base,
-        steps: [
-          `चौकी ${String(s.checkpoint)} से आरंभ करके सभी चाल और मोड़ क्रम से लागू करें।`,
-          "अंतिम बिंदु मिलने के बाद उसकी चौकी से सीधी दिशा देखें; अंतिम मुख-दिशा को उत्तर न मानें।",
-          `अंतिम बिंदु चौकी के ${answer} में है।`,
-        ],
-        resultLine: `चौकी से आवश्यक दिशा ${answer} है।`,
-      };
+
+    const hybridSteps: string[] = [
+      "चित्र में दिए संबंध:",
+      ...(s.diagramRelations ?? []).map((relation: R) => relationSentence(relation, true)),
+      "लिखित संबंध:",
+      relationSentence(asR(s.textRelation), true),
+    ];
+    let combined: R = { x: 0, y: 0 };
+    for (const relation of [...((s.diagramRelations ?? []) as R[]), asR(s.textRelation)]) {
+      combined = addCoordinateHi(combined, asR(relation.vector));
     }
-    if (qlId === "DIR-QL-043") {
-      return {
-        ...base,
-        steps: [
-          `चौकी ${String(s.checkpoint)} से पूरा मार्ग चलाकर अंतिम बिंदु निकालें।`,
-          "चौकी और अंतिम बिंदु के पूर्व-पश्चिम तथा उत्तर-दक्षिण अंतर को अलग-अलग निकालें।",
-          `इन दोनों अंतर से सीधी न्यूनतम दूरी ${answer} मिलती है।`,
-        ],
-        resultLine: `चौकी से न्यूनतम दूरी ${answer} है।`,
-      };
-    }
+    hybridSteps.push(`${nameHi(s.queryFrom)} से ${nameHi(s.queryTo)} तक कुल अंतर ${coordinateText(combined)} है।`);
+    hybridSteps.push(`इसलिए पूछी गई दिशा ${answer} है।`);
     return {
       ...base,
-      steps: [
-        "चित्र में दिए गए दोनों स्थान-संबंध पहले पढ़ें।",
-        "इसके बाद लिखित संबंध को उसी जानकारी से जोड़ें।",
-        `तीनों संबंधों को साथ रखने पर पूछे गए दोनों बिंदुओं की दिशा ${answer} मिलती है।`,
-      ],
-      resultLine: `चित्र और कथन दोनों से उत्तर ${answer} है।`,
+      steps: hybridSteps,
+      resultLine: `चित्र और लिखित संबंध दोनों से उत्तर ${answer} है।`,
     };
   }
 
