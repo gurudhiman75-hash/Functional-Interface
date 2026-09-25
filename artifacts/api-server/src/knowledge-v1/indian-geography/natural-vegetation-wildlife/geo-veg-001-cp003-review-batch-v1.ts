@@ -658,9 +658,9 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "stem": "Which factor most directly explains the general difference between moist and dry deciduous forests?",
     "answer": "Amount and seasonality of rainfall",
     "distractors": [
-      "Longitude alone",
-      "Ocean depth",
-      "Earth's magnetic field"
+      "Soil colour alone",
+      "Tree species alone",
+      "Altitude alone"
     ],
     "explanation": "Both types are tropical monsoon forests, but they receive different amounts of usable moisture. Rainfall amount and dry-season strength shape canopy density and leaf-fall duration.",
     "sourceFactIds": [
