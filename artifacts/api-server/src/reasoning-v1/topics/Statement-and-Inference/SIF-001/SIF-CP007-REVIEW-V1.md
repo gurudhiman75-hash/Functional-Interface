@@ -97,7 +97,7 @@ E. Both Inference I and II follow
 
 **Instruction:** Consider the following inferences and determine which of them follows.
 
-**Statement:** Not every invited supplier submitted a bid; the register contains several bids and several invitations without a response.; The procurement audit compares invited suppliers with the bid register.
+**Statement:** Not every invited supplier submitted a bid; the register contains several bids and several invitations without a response; The procurement audit compares invited suppliers with the bid register.
 
 **Inference I:** At least one invited supplier did not submit a bid.
 **Inference II:** No invited supplier submitted a bid.
@@ -181,7 +181,7 @@ E. Both Inference I and II follow
 
 **Instruction:** Consider the following inferences and determine which of them follows.
 
-**Statement:** Only staff accompanied by an archivist may consult the restricted files; two staff members consulted files during the morning shift.; The access register records the accompanying archivist for each file consultation.
+**Statement:** Only staff accompanied by an archivist may consult the restricted files; two staff members consulted files during the morning shift; The access register records the accompanying archivist for each file consultation.
 
 **Inference I:** Every staff member accompanied by an archivist consulted the restricted files.
 **Inference II:** The staff members who consulted the restricted files were accompanied by an archivist.
@@ -265,7 +265,7 @@ E. Both Inference I and II follow
 
 **Instruction:** Consider the following inferences and determine which of them follows.
 
-**Statement:** The meeting room cannot be booked for the evening unless a staff member confirms the request; two requests are awaiting confirmation.; The room calendar shows no confirmed evening booking.
+**Statement:** The meeting room cannot be booked for the evening unless a staff member confirms the request; two requests are awaiting confirmation; The room calendar shows no confirmed evening booking.
 
 **Inference I:** The requests awaiting confirmation have not yet established that the room is booked.
 **Inference II:** The room is booked for both requests.
@@ -349,7 +349,7 @@ E. Both Inference I and II follow
 
 **Instruction:** Consider the following inferences and determine which of them follows.
 
-**Statement:** Every applicant except those missing the required transcript was assessed; applications without the transcript were returned for completion.; The review log separates assessed applications from those returned for completion.
+**Statement:** Every applicant except those missing the required transcript was assessed; applications without the transcript were returned for completion; The review log separates assessed applications from those returned for completion.
 
 **Inference I:** All applicants without the transcript were rejected as ineligible.
 **Inference II:** Applicants whose applications lacked the required transcript were not assessed in this round.
@@ -405,7 +405,7 @@ E. Both Inference I and II follow
 
 **Instruction:** What can reasonably be inferred from the information given?
 
-**Statement:** The student could not read the printed test because the requested large-print copy was unavailable; an accessible copy was provided later.; The test report distinguishes successful use from completion of the test.
+**Statement:** The student could not read the printed test because the requested large-print copy was unavailable; an accessible copy was provided later; The test report distinguishes successful use from completion of the test.
 
 **Inference I:** The student chose not to read the test.
 **Inference II:** The student was unable to read that printed test before receiving the accessible copy.
@@ -433,7 +433,7 @@ E. Both Inference I and II follow
 
 **Instruction:** Consider the following inferences and determine which of them follows.
 
-**Statement:** The bus could not use the usual route because a road closure blocked the underpass; it followed the diversion instead.; The traffic notice says the underpass remains closed until inspection approval.
+**Statement:** The bus could not use the usual route because a road closure blocked the underpass; it followed the diversion instead; The traffic notice says the underpass remains closed until inspection approval.
 
 **Inference I:** The closure prevented the bus from using its usual route at that time.
 **Inference II:** The driver was unwilling to use the usual route.
@@ -489,7 +489,7 @@ E. Both Inference I and II follow
 
 **Instruction:** What can reasonably be inferred from the information given?
 
-**Statement:** No incident report was found for the night shift in the inspected folder; the review covered only that folder.; The audit checked the incident register but not the separate attendance log.
+**Statement:** No incident report was found for the night shift in the inspected folder; the review covered only that folder; The audit checked the incident register but not the separate attendance log.
 
 **Inference I:** The inspected folder contained no incident report for the night shift.
 **Inference II:** No incident occurred during the night shift.
@@ -517,7 +517,7 @@ E. Both Inference I and II follow
 
 **Instruction:** Consider the following inferences and determine which of them follows.
 
-**Statement:** The register contains no entry for one delivery; the register was incomplete for two dates and the recipient has not been contacted.; The register records only deliveries entered by the receiving desk.
+**Statement:** The register contains no entry for one delivery; the register was incomplete for two dates and the recipient has not been contacted; The register records only deliveries entered by the receiving desk.
 
 **Inference I:** The delivery definitely did not occur.
 **Inference II:** The register does not confirm whether that delivery occurred.
@@ -573,7 +573,7 @@ E. Both Inference I and II follow
 
 **Instruction:** What can reasonably be inferred from the information given?
 
-**Statement:** Neither of the two shortlisted vendors met the delivery deadline in the trial; a new tender has not yet been issued.; The trial report records each vendor's delivery against the stated deadline.
+**Statement:** Neither of the two shortlisted vendors met the delivery deadline in the trial; a new tender has not yet been issued; The trial report records each vendor's delivery against the stated deadline.
 
 **Inference I:** The contract has been awarded to a third vendor.
 **Inference II:** Both shortlisted vendors missed the trial deadline.
@@ -601,7 +601,7 @@ E. Both Inference I and II follow
 
 **Instruction:** Consider the following inferences and determine which of them follows.
 
-**Statement:** Neither cash nor cheque payments are accepted at this counter; online payment is available.; The payment notice lists online transfer as an available method.
+**Statement:** Neither cash nor cheque payments are accepted at this counter; online payment is available; The payment notice lists online transfer as an available method.
 
 **Inference I:** Cash and cheque payments are both excluded at this counter.
 **Inference II:** No form of payment is accepted at this counter.
@@ -657,7 +657,7 @@ E. Both Inference I and II follow
 
 **Instruction:** What can reasonably be inferred from the information given?
 
-**Statement:** The revised leave rule does not necessarily apply to contractors; the notice refers only to permanent staff.; The notice contains no separate direction for contractors.
+**Statement:** The revised leave rule does not necessarily apply to contractors; the notice refers only to permanent staff; The notice contains no separate direction for contractors.
 
 **Inference I:** The notice does not establish whether the revised rule applies to contractors.
 **Inference II:** The revised rule definitely excludes every contractor.
@@ -685,7 +685,7 @@ E. Both Inference I and II follow
 
 **Instruction:** Consider the following inferences and determine which of them follows.
 
-**Statement:** The help desk is no longer open on Sundays; it used to operate on Sundays before the schedule changed.; The current timetable lists no Sunday opening hours.
+**Statement:** The help desk is no longer open on Sundays; it used to operate on Sundays before the schedule changed; The current timetable lists no Sunday opening hours.
 
 **Inference I:** The help desk has never operated on Sundays.
 **Inference II:** The help desk operated on Sundays earlier but does not do so under the current schedule.
@@ -708,7 +708,7 @@ E. Both Inference I and II follow
 
 ## SIF-CP007-EVIDENCE_GAP-INCIDENT-LOG · en-IN
 
-**Statement:** No incident report was found for the night shift in the inspected folder; the review covered only that folder.; The audit checked the incident register but not the separate attendance log.
+**Statement:** No incident report was found for the night shift in the inspected folder; the review covered only that folder; The audit checked the incident register but not the separate attendance log.
 
 **Inference I:** The inspected folder contained no incident report for the night shift.
 **Inference II:** No incident occurred during the night shift.
@@ -747,7 +747,7 @@ E. Both Inference I and II follow
 
 ## SIF-CP007-EVIDENCE_GAP-UNLISTED-DELIVERY · en-IN
 
-**Statement:** The register contains no entry for one delivery; the register was incomplete for two dates and the recipient has not been contacted.; The register records only deliveries entered by the receiving desk.
+**Statement:** The register contains no entry for one delivery; the register was incomplete for two dates and the recipient has not been contacted; The register records only deliveries entered by the receiving desk.
 
 **Inference I:** The delivery definitely did not occur.
 **Inference II:** The register does not confirm whether that delivery occurred.

@@ -75,7 +75,7 @@ const trapType: Readonly<Record<Kind, "QUANTITY_DISTORTION" | "SCOPE_CHANGE" | "
 export const SIF_CP007_NEGATIVE_AUTHORITIES: readonly SifScenarioAuthority[] = kindOrder.flatMap((kind, familyIndex) => rows[kind].map(([key, domain, difficulty, statement, follows, doesNotFollow], rowIndex) => {
   const id = `SIF-CP007-${kind}-${key}`;
   const supplemental = difficulty === "HARD" ? additionalHardFacts[key] : undefined;
-  const localizedStatements = statement.map((text, localeIndex) => supplemental ? `${text}; ${supplemental[localeIndex]}` : text) as unknown as L;
+  const localizedStatements = statement.map((text, localeIndex) => supplemental ? `${text.replace(/[.!?]\s*$/, "")}; ${supplemental[localeIndex]}` : text) as unknown as L;
   const factsByLocale = localizedStatements.map((text) => text.split(/[;,]|\s+and\s+|\s+और\s+|\s+ਅਤੇ\s+/i).map((part) => part.trim()).filter(Boolean));
   const factCount = Math.min(...factsByLocale.map((facts) => facts.length));
   const facts = Array.from({ length: factCount }, (_, i) => ({ id: `F${i + 1}`, text: t([factsByLocale[0][i], factsByLocale[1][i], factsByLocale[2][i]] as L) }));
