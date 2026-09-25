@@ -1,6 +1,6 @@
 # GEO-VEG-001 CP004 — Tropical Thorn Forests & Scrub
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED — WAVE 1 HUMAN REVIEW
 Parent blueprint: `GEO-VEG-001-BLUEPRINT.md`
 Permanent QLs: `GEO-VEG-001-QL-028` to `GEO-VEG-001-QL-036`
 
