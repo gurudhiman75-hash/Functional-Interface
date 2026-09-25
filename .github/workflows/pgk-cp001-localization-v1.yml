@@ -7,7 +7,6 @@ on:
     paths:
       - "artifacts/api-server/src/knowledge-v1/punjab-gk/localization-v1/**"
       - "artifacts/api-server/src/knowledge-v1/punjab-gk/pgk-001-cp001-review-batch-v1.ts"
-      - ".github/workflows/pgk-cp001-localization-v1.yml"
   workflow_dispatch:
 
 permissions:
