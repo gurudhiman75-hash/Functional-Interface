@@ -82,6 +82,10 @@ for (const locale of locales) {
       if (descriptor.taskKind === "CONSTRUCTION_PROPERTY") {
         assert(localized.question.answer === localized.question.options[localized.question.correctIndex], `${key} localized construction answer does not match correct option.`);
         assert(stable(localized.question.options) !== stable(source.question.options), `${key} construction options were not localized.`);
+      } else if (descriptor.taskKind === "ZERO_CLOSING_ENDPOINTS") {
+        assert(localized.question.answer === localized.question.options[localized.question.correctIndex], `${key} localized closing-endpoint answer does not match correct option.`);
+        const normalized = localized.question.options.map((option) => option.replace(" और ", " and ").replace(" ਅਤੇ ", " and "));
+        assert(stable(normalized) === stable(source.question.options), `${key} closing-endpoint coordinates changed during localization.`);
       } else {
         assert(stable(localized.question.options) === stable(source.question.options), `${key} numeric/symbolic options changed during localization.`);
         assert(localized.question.answer === source.question.answer, `${key} canonical numeric/symbolic answer changed during localization.`);
