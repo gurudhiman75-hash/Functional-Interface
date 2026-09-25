@@ -6,6 +6,7 @@ export * from "./cp003-quantifier-authorities.ts";
 export * from "./cp004-comparison-authorities.ts";
 export * from "./cp005-suggestive-reason-authorities.ts";
 export * from "./cp006-purpose-authorities.ts";
+export * from "./cp007-negative-authorities.ts";
 export * from "./solver.ts";
 export * from "./validators.ts";
 export * from "./generator.ts";
