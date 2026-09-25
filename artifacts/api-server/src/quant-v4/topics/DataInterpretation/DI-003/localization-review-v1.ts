@@ -82,14 +82,14 @@ function localizeCategoryValue(stimulus: Di003V2Stimulus, locale: Di003Localizat
 export function localizeDi003Stimulus(stimulus: Di003V2Stimulus, locale: Di003LocalizationLocale) {
   const context = contextFor(stimulus, locale);
   const description = isHindi(locale)
-    ? `पाँच श्रेणियों में ${context.seriesA} और ${context.seriesB} के मान दर्शाने वाला समूहित बार ग्राफ; मान स्तंभों की ऊँचाई से दिखाए गए हैं।`
-    : `ਪੰਜ ਸ਼੍ਰੇਣੀਆਂ ਵਿੱਚ ${context.seriesA} ਅਤੇ ${context.seriesB} ਦੇ ਮੁੱਲ ਦਰਸਾਉਂਦਾ ਸਮੂਹਿਤ ਬਾਰ ਗ੍ਰਾਫ਼; ਮੁੱਲ ਸਤੰਭਾਂ ਦੀ ਉਚਾਈ ਨਾਲ ਦਰਸਾਏ ਗਏ ਹਨ।`;
+    ? `पाँच श्रेणियों में ${context.seriesA} और ${context.seriesB} के मान दर्शाने वाला ग्राफ।`
+    : `ਪੰਜ ਸ਼੍ਰੇਣੀਆਂ ਵਿੱਚ ${context.seriesA} ਅਤੇ ${context.seriesB} ਦੇ ਮੁੱਲ ਦਰਸਾਉਂਦਾ ਗ੍ਰਾਫ਼।`;
   return {
     ...stimulus,
     title: context.title,
     instruction: isHindi(locale)
-      ? "समूहित बार ग्राफ का अध्ययन कीजिए और दिए गए प्रश्नों के उत्तर दीजिए।"
-      : "ਸਮੂਹਿਤ ਬਾਰ ਗ੍ਰਾਫ਼ ਦਾ ਅਧਿਐਨ ਕਰੋ ਅਤੇ ਦਿੱਤੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਉੱਤਰ ਦਿਓ।",
+      ? "ग्राफ का अध्ययन कीजिए और दिए गए प्रश्नों के उत्तर दीजिए।"
+      : "ਗ੍ਰਾਫ਼ ਦਾ ਅਧਿਐਨ ਕਰੋ ਅਤੇ ਦਿੱਤੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਉੱਤਰ ਦਿਓ।",
     categories: context.categories,
     series: [
       { id: "SERIES_A" as const, label: context.seriesA },
@@ -117,38 +117,38 @@ function localizedStem(question: Di003V2Question, stimulus: Di003V2Stimulus, loc
   switch (question.kind) {
     case "DIRECT_BAR_VALUE": {
       const index = Number(e.categoryIndex), label = seriesLabel(stimulus, locale, e.seriesId), category = categoryAt(stimulus, locale, index);
-      const h = [`${category} में ${label} का मान कितना है?`, `ग्राफ के अनुसार ${category} में ${label} का मान कितना है?`, `${category} के लिए ${label} का स्तंभ कितना मान दिखाता है?`];
-      const p = [`${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `ਗ੍ਰਾਫ਼ ਅਨੁਸਾਰ ${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${category} ਲਈ ${label} ਦਾ ਸਤੰਭ ਕਿੰਨਾ ਮੁੱਲ ਦਰਸਾਉਂਦਾ ਹੈ?`];
+      const h = [`${category} में ${label} का मान कितना है?`, `ग्राफ के अनुसार ${category} में ${label} का मान कितना है?`, `${category} के लिए ${label} का मान कितना दिखाया गया है?`];
+      const p = [`${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `ਗ੍ਰਾਫ਼ ਅਨੁਸਾਰ ${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${category} ਲਈ ${label} ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਦਰਸਾਇਆ ਗਿਆ ਹੈ?`];
       return (hi ? h : p)[s]!;
     }
     case "HIGHEST_CATEGORY_FOR_SERIES": {
       const label = seriesLabel(stimulus, locale, e.seriesId);
-      const h = [`${label} का मान किस श्रेणी में सबसे अधिक है?`, `${label} के लिए अधिकतम मान किस श्रेणी में है?`, `${label} का सबसे ऊँचा स्तंभ किस श्रेणी का है?`];
-      const p = [`${label} ਦਾ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਹੈ?`, `${label} ਲਈ ਸਭ ਤੋਂ ਵੱਧ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਹੈ?`, `${label} ਦਾ ਸਭ ਤੋਂ ਉੱਚਾ ਸਤੰਭ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਦਾ ਹੈ?`];
+      const h = [`${label} का मान किस श्रेणी में सबसे अधिक है?`, `${label} के लिए अधिकतम मान किस श्रेणी में है?`, `${label} का सबसे अधिक मान किस श्रेणी में है?`];
+      const p = [`${label} ਦਾ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਹੈ?`, `${label} ਲਈ ਸਭ ਤੋਂ ਵੱਧ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਹੈ?`, `${label} ਦਾ ਸਭ ਤੋਂ ਵੱਧ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਹੈ?`];
       return (hi ? h : p)[s]!;
     }
     case "LOWEST_CATEGORY_FOR_SERIES": {
       const label = seriesLabel(stimulus, locale, e.seriesId);
-      const h = [`${label} का मान किस श्रेणी में सबसे कम है?`, `${label} के लिए न्यूनतम मान किस श्रेणी में है?`, `${label} का सबसे छोटा स्तंभ किस श्रेणी का है?`];
-      const p = [`${label} ਦਾ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਸਭ ਤੋਂ ਘੱਟ ਹੈ?`, `${label} ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਹੈ?`, `${label} ਦਾ ਸਭ ਤੋਂ ਛੋਟਾ ਸਤੰਭ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਦਾ ਹੈ?`];
+      const h = [`${label} का मान किस श्रेणी में सबसे कम है?`, `${label} के लिए न्यूनतम मान किस श्रेणी में है?`, `${label} का सबसे कम मान किस श्रेणी में है?`];
+      const p = [`${label} ਦਾ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਸਭ ਤੋਂ ਘੱਟ ਹੈ?`, `${label} ਲਈ ਸਭ ਤੋਂ ਘੱਟ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਹੈ?`, `${label} ਦਾ ਸਭ ਤੋਂ ਘੱਟ ਮੁੱਲ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਹੈ?`];
       return (hi ? h : p)[s]!;
     }
     case "CROSS_SERIES_DIFFERENCE": {
       const category = categoryAt(stimulus, locale, Number(e.categoryIndex)), a = seriesLabel(stimulus, locale, "SERIES_A"), b = seriesLabel(stimulus, locale, "SERIES_B");
-      const h = [`${category} में ${a} और ${b} के मानों का अंतर कितना है?`, `${category} में दोनों स्तंभों के मानों में कितना अंतर है?`, `${category} के लिए ${a} और ${b} का निरपेक्ष अंतर ज्ञात कीजिए।`];
-      const p = [`${category} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੇ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਕਿੰਨਾ ਹੈ?`, `${category} ਵਿੱਚ ਦੋਵੇਂ ਸਤੰਭਾਂ ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?`, `${category} ਲਈ ${a} ਅਤੇ ${b} ਦਾ ਨਿਰਪੇਖ ਅੰਤਰ ਕੱਢੋ।`];
+      const h = [`${category} में ${a} और ${b} के मानों का अंतर कितना है?`, `${category} में दोनों शृंखलाओं के मानों में कितना अंतर है?`, `${category} के लिए ${a} और ${b} का निरपेक्ष अंतर ज्ञात कीजिए।`];
+      const p = [`${category} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੇ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਕਿੰਨਾ ਹੈ?`, `${category} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?`, `${category} ਲਈ ${a} ਅਤੇ ${b} ਦਾ ਨਿਰਪੇਖ ਅੰਤਰ ਕੱਢੋ।`];
       return (hi ? h : p)[s]!;
     }
     case "COMBINED_CATEGORY_TOTAL": {
       const category = categoryAt(stimulus, locale, Number(e.categoryIndex)), a = seriesLabel(stimulus, locale, "SERIES_A"), b = seriesLabel(stimulus, locale, "SERIES_B");
-      const h = [`${category} में ${a} और ${b} का संयुक्त मान कितना है?`, `${category} के दोनों स्तंभों का कुल योग ज्ञात कीजिए।`, `${category} में ${a} और ${b} को मिलाकर कुल मान कितना है?`];
-      const p = [`${category} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${category} ਦੇ ਦੋਵੇਂ ਸਤੰਭਾਂ ਦਾ ਕੁੱਲ ਜੋੜ ਕੱਢੋ।`, `${category} ਵਿੱਚ ${a} ਅਤੇ ${b} ਨੂੰ ਮਿਲਾ ਕੇ ਕੁੱਲ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`];
+      const h = [`${category} में ${a} और ${b} का संयुक्त मान कितना है?`, `${category} में दोनों शृंखलाओं के मानों का कुल योग ज्ञात कीजिए।`, `${category} में ${a} और ${b} को मिलाकर कुल मान कितना है?`];
+      const p = [`${category} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${category} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਕੁੱਲ ਜੋੜ ਕੱਢੋ।`, `${category} ਵਿੱਚ ${a} ਅਤੇ ${b} ਨੂੰ ਮਿਲਾ ਕੇ ਕੁੱਲ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`];
       return (hi ? h : p)[s]!;
     }
     case "WITHIN_SERIES_DIFFERENCE": {
       const first = Number(e.firstIndex), second = Number(e.secondIndex), label = seriesLabel(stimulus, locale, e.seriesId), c1 = categoryAt(stimulus, locale, first), c2 = categoryAt(stimulus, locale, second);
-      const h = [`${label} के ${c1} और ${c2} के मानों में कितना अंतर है?`, `${label} के लिए ${c1} और ${c2} के मान कितने अलग हैं?`, `${label} के ${c1} और ${c2} स्तंभों का निरपेक्ष अंतर ज्ञात कीजिए।`];
-      const p = [`${label} ਦੇ ${c1} ਅਤੇ ${c2} ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?`, `${label} ਲਈ ${c1} ਅਤੇ ${c2} ਦੇ ਮੁੱਲ ਕਿੰਨੇ ਵੱਖਰੇ ਹਨ?`, `${label} ਦੇ ${c1} ਅਤੇ ${c2} ਸਤੰਭਾਂ ਦਾ ਨਿਰਪੇਖ ਅੰਤਰ ਕੱਢੋ।`];
+      const h = [`${label} के ${c1} और ${c2} के मानों में कितना अंतर है?`, `${label} के लिए ${c1} और ${c2} के मान कितने अलग हैं?`, `${label} के ${c1} और ${c2} के मानों का निरपेक्ष अंतर ज्ञात कीजिए।`];
+      const p = [`${label} ਦੇ ${c1} ਅਤੇ ${c2} ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?`, `${label} ਲਈ ${c1} ਅਤੇ ${c2} ਦੇ ਮੁੱਲ ਕਿੰਨੇ ਵੱਖਰੇ ਹਨ?`, `${label} ਦੇ ${c1} ਅਤੇ ${c2} ਦੇ ਮੁੱਲਾਂ ਦਾ ਨਿਰਪੇਖ ਅੰਤਰ ਕੱਢੋ।`];
       return (hi ? h : p)[s]!;
     }
     case "CATEGORY_RATIO_WITHIN_SERIES": {
@@ -159,14 +159,14 @@ function localizedStem(question: Di003V2Question, stimulus: Di003V2Stimulus, loc
     }
     case "SERIES_AVERAGE": {
       const label = seriesLabel(stimulus, locale, e.seriesId);
-      const h = [`सभी पाँच श्रेणियों में ${label} का औसत मान कितना है?`, `${label} के पाँचों स्तंभों का औसत ज्ञात कीजिए।`, `प्रति श्रेणी ${label} का औसत मान कितना है?`];
-      const p = [`ਸਾਰੀਆਂ ਪੰਜ ਸ਼੍ਰੇਣੀਆਂ ਵਿੱਚ ${label} ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${label} ਦੇ ਪੰਜਾਂ ਸਤੰਭਾਂ ਦੀ ਔਸਤ ਕੱਢੋ।`, `ਪ੍ਰਤੀ ਸ਼੍ਰੇਣੀ ${label} ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`];
+      const h = [`सभी पाँच श्रेणियों में ${label} का औसत मान कितना है?`, `${label} के पाँचों मानों का औसत ज्ञात कीजिए।`, `प्रति श्रेणी ${label} का औसत मान कितना है?`];
+      const p = [`ਸਾਰੀਆਂ ਪੰਜ ਸ਼੍ਰੇਣੀਆਂ ਵਿੱਚ ${label} ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${label} ਦੇ ਪੰਜਾਂ ਮੁੱਲਾਂ ਦੀ ਔਸਤ ਕੱਢੋ।`, `ਪ੍ਰਤੀ ਸ਼੍ਰੇਣੀ ${label} ਦਾ ਔਸਤ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`];
       return (hi ? h : p)[s]!;
     }
     case "COMBINED_CATEGORY_RATIO": {
       const first = Number(e.firstIndex), second = Number(e.secondIndex), c1 = categoryAt(stimulus, locale, first), c2 = categoryAt(stimulus, locale, second);
-      const h = [`${c1} और ${c2} के संयुक्त मानों का अनुपात क्या है?`, `दोनों स्तंभ जोड़ने के बाद ${c1} : ${c2} का सरल अनुपात ज्ञात कीजिए।`, `${c1} और ${c2} के संयुक्त कुल किस अनुपात में हैं?`];
-      const p = [`${c1} ਅਤੇ ${c2} ਦੇ ਮਿਲੇ ਹੋਏ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `ਦੋਵੇਂ ਸਤੰਭ ਜੋੜਣ ਤੋਂ ਬਾਅਦ ${c1} : ${c2} ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੱਢੋ।`, `${c1} ਅਤੇ ${c2} ਦੇ ਮਿਲੇ ਹੋਏ ਕੁੱਲ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ?`];
+      const h = [`${c1} और ${c2} के संयुक्त मानों का अनुपात क्या है?`, `दोनों शृंखलाओं के मान जोड़ने के बाद ${c1} : ${c2} का सरल अनुपात ज्ञात कीजिए।`, `${c1} और ${c2} के संयुक्त कुल किस अनुपात में हैं?`];
+      const p = [`${c1} ਅਤੇ ${c2} ਦੇ ਮਿਲੇ ਹੋਏ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਮੁੱਲ ਜੋੜਣ ਤੋਂ ਬਾਅਦ ${c1} : ${c2} ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੱਢੋ।`, `${c1} ਅਤੇ ${c2} ਦੇ ਮਿਲੇ ਹੋਏ ਕੁੱਲ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ?`];
       return (hi ? h : p)[s]!;
     }
     case "PERCENT_CHANGE_WITHIN_SERIES": {
@@ -204,21 +204,21 @@ function localizedExplanation(question: Di003V2Question, stimulus: Di003V2Stimul
   switch (question.kind) {
     case "DIRECT_BAR_VALUE": {
       const index = Number(e.categoryIndex), label = seriesLabel(stimulus, locale, e.seriesId), category = categoryAt(stimulus, locale, index), value = seriesValue(stimulus, e.seriesId, index);
-      return pack("दिए गए श्रेणी में संबंधित शृंखला के स्तंभ की ऊँचाई पढ़ें।","ਦਿੱਤੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਸੰਬੰਧਿਤ ਲੜੀ ਦੇ ਸਤੰਭ ਦੀ ਉਚਾਈ ਪੜ੍ਹੋ।",[`${category} में ${label} का स्तंभ ${value} दिखाता है।`,`अतः उत्तर ${value} है।`],[`${category} ਵਿੱਚ ${label} ਦਾ ਸਤੰਭ ${value} ਦਰਸਾਉਂਦਾ ਹੈ।`,`ਇਸ ਲਈ ਉੱਤਰ ${value} ਹੈ।`]);
+      return pack("दी गई श्रेणी में संबंधित शृंखला का मान पढ़ें।","ਦਿੱਤੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਸੰਬੰਧਿਤ ਲੜੀ ਦਾ ਮੁੱਲ ਪੜ੍ਹੋ।",[`${category} में ${label} का मान ${value} है।`,`अतः उत्तर ${value} है।`],[`${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${value} ਹੈ।`,`ਇਸ ਲਈ ਉੱਤਰ ${value} ਹੈ।`]);
     }
     case "HIGHEST_CATEGORY_FOR_SERIES":
     case "LOWEST_CATEGORY_FOR_SERIES": {
       const label = seriesLabel(stimulus, locale, e.seriesId), target = Number(e.categoryIndex), values = stimulus.points.map((_,i)=>`${categoryAt(stimulus,locale,i)}: ${seriesValue(stimulus,e.seriesId,i)}`).join(", "), category = categoryAt(stimulus,locale,target);
       const highest = question.kind === "HIGHEST_CATEGORY_FOR_SERIES";
-      return pack(highest?"सभी पाँच स्तंभों की तुलना करके सबसे बड़ा मान चुनें।":"सभी पाँच स्तंभों की तुलना करके सबसे छोटा मान चुनें।",highest?"ਸਾਰੇ ਪੰਜ ਸਤੰਭਾਂ ਦੀ ਤੁਲਨਾ ਕਰਕੇ ਸਭ ਤੋਂ ਵੱਡਾ ਮੁੱਲ ਚੁਣੋ।":"ਸਾਰੇ ਪੰਜ ਸਤੰਭਾਂ ਦੀ ਤੁਲਨਾ ਕਰਕੇ ਸਭ ਤੋਂ ਛੋਟਾ ਮੁੱਲ ਚੁਣੋ।",[`${label} के मान: ${values}।`,`${highest?"सबसे बड़ा":"सबसे छोटा"} मान ${seriesValue(stimulus,e.seriesId,target)} है, इसलिए उत्तर ${category} है।`],[`${label} ਦੇ ਮੁੱਲ: ${values}।`,`${highest?"ਸਭ ਤੋਂ ਵੱਡਾ":"ਸਭ ਤੋਂ ਛੋਟਾ"} ਮੁੱਲ ${seriesValue(stimulus,e.seriesId,target)} ਹੈ, ਇਸ ਲਈ ਉੱਤਰ ${category} ਹੈ।`]);
+      return pack(highest?"सभी पाँच मानों की तुलना करके सबसे बड़ा मान चुनें।":"सभी पाँच मानों की तुलना करके सबसे छोटा मान चुनें।",highest?"ਸਾਰੇ ਪੰਜ ਮੁੱਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰਕੇ ਸਭ ਤੋਂ ਵੱਡਾ ਮੁੱਲ ਚੁਣੋ।":"ਸਾਰੇ ਪੰਜ ਮੁੱਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰਕੇ ਸਭ ਤੋਂ ਛੋਟਾ ਮੁੱਲ ਚੁਣੋ।",[`${label} के मान: ${values}।`,`${highest?"सबसे बड़ा":"सबसे छोटा"} मान ${seriesValue(stimulus,e.seriesId,target)} है, इसलिए उत्तर ${category} है।`],[`${label} ਦੇ ਮੁੱਲ: ${values}।`,`${highest?"ਸਭ ਤੋਂ ਵੱਡਾ":"ਸਭ ਤੋਂ ਛੋਟਾ"} ਮੁੱਲ ${seriesValue(stimulus,e.seriesId,target)} ਹੈ, ਇਸ ਲਈ ਉੱਤਰ ${category} ਹੈ।`]);
     }
     case "CROSS_SERIES_DIFFERENCE": {
       const index=Number(e.categoryIndex), p=stimulus.points[index]!, category=categoryAt(stimulus,locale,index), diff=Math.abs(p.seriesA-p.seriesB);
-      return pack("एक ही श्रेणी के दोनों स्तंभों के मान पढ़ें और छोटे को बड़े से घटाएँ।","ਇੱਕੋ ਸ਼੍ਰੇਣੀ ਦੇ ਦੋਵੇਂ ਸਤੰਭਾਂ ਦੇ ਮੁੱਲ ਪੜ੍ਹੋ ਅਤੇ ਛੋਟੇ ਨੂੰ ਵੱਡੇ ਵਿੱਚੋਂ ਘਟਾਓ।",[`${category}: ${aLabel} = ${p.seriesA}, ${bLabel} = ${p.seriesB}।`,`अंतर = |${p.seriesA} − ${p.seriesB}| = ${diff}।`],[`${category}: ${aLabel} = ${p.seriesA}, ${bLabel} = ${p.seriesB}।`,`ਅੰਤਰ = |${p.seriesA} − ${p.seriesB}| = ${diff}।`]);
+      return pack("एक ही श्रेणी में दोनों शृंखलाओं के मान पढ़ें और छोटे को बड़े से घटाएँ।","ਇੱਕੋ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਮੁੱਲ ਪੜ੍ਹੋ ਅਤੇ ਛੋਟੇ ਨੂੰ ਵੱਡੇ ਵਿੱਚੋਂ ਘਟਾਓ।",[`${category}: ${aLabel} = ${p.seriesA}, ${bLabel} = ${p.seriesB}।`,`अंतर = |${p.seriesA} − ${p.seriesB}| = ${diff}।`],[`${category}: ${aLabel} = ${p.seriesA}, ${bLabel} = ${p.seriesB}।`,`ਅੰਤਰ = |${p.seriesA} − ${p.seriesB}| = ${diff}।`]);
     }
     case "COMBINED_CATEGORY_TOTAL": {
       const index=Number(e.categoryIndex), p=stimulus.points[index]!, category=categoryAt(stimulus,locale,index), total=p.seriesA+p.seriesB;
-      return pack("दिए गए श्रेणी के दोनों स्तंभों के मान जोड़ें।","ਦਿੱਤੀ ਸ਼੍ਰੇਣੀ ਦੇ ਦੋਵੇਂ ਸਤੰਭਾਂ ਦੇ ਮੁੱਲ ਜੋੜੋ।",[`${category}: ${p.seriesA} + ${p.seriesB} = ${total}।`,`अतः संयुक्त मान ${total} है।`],[`${category}: ${p.seriesA} + ${p.seriesB} = ${total}।`,`ਇਸ ਲਈ ਮਿਲਿਆ ਹੋਇਆ ਮੁੱਲ ${total} ਹੈ।`]);
+      return pack("दी गई श्रेणी में दोनों शृंखलाओं के मान जोड़ें।","ਦਿੱਤੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਮੁੱਲ ਜੋੜੋ।",[`${category}: ${p.seriesA} + ${p.seriesB} = ${total}।`,`अतः संयुक्त मान ${total} है।`],[`${category}: ${p.seriesA} + ${p.seriesB} = ${total}।`,`ਇਸ ਲਈ ਮਿਲਿਆ ਹੋਇਆ ਮੁੱਲ ${total} ਹੈ।`]);
     }
     case "WITHIN_SERIES_DIFFERENCE": {
       const i=Number(e.firstIndex),j=Number(e.secondIndex),v1=seriesValue(stimulus,e.seriesId,i),v2=seriesValue(stimulus,e.seriesId,j),label=seriesLabel(stimulus,locale,e.seriesId);
@@ -236,7 +236,7 @@ function localizedExplanation(question: Di003V2Question, stimulus: Di003V2Stimul
     case "COMBINED_CATEGORY_RATIO": {
       const i=Number(e.firstIndex),j=Number(e.secondIndex),p1=stimulus.points[i]!,p2=stimulus.points[j]!,t1=p1.seriesA+p1.seriesB,t2=p2.seriesA+p2.seriesB;
       const headers=hi?["श्रेणी",aLabel,bLabel,"संयुक्त"]:["ਸ਼੍ਰੇਣੀ",aLabel,bLabel,"ਮਿਲਿਆ ਕੁੱਲ"];
-      return pack("पहले प्रत्येक श्रेणी में दोनों स्तंभ जोड़ें, फिर दिए क्रम में अनुपात सरल करें।","ਪਹਿਲਾਂ ਹਰ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਦੋਵੇਂ ਸਤੰਭ ਜੋੜੋ, ਫਿਰ ਦਿੱਤੇ ਕ੍ਰਮ ਵਿੱਚ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।",[`${categoryAt(stimulus,locale,i)}: ${p1.seriesA} + ${p1.seriesB} = ${t1}।`,`${categoryAt(stimulus,locale,j)}: ${p2.seriesA} + ${p2.seriesB} = ${t2}।`,`${t1}:${t2} = ${question.answer}।`],[`${categoryAt(stimulus,locale,i)}: ${p1.seriesA} + ${p1.seriesB} = ${t1}।`,`${categoryAt(stimulus,locale,j)}: ${p2.seriesA} + ${p2.seriesB} = ${t2}।`,`${t1}:${t2} = ${question.answer}।`],{headers,rows:[[categoryAt(stimulus,locale,i),String(p1.seriesA),String(p1.seriesB),String(t1)],[categoryAt(stimulus,locale,j),String(p2.seriesA),String(p2.seriesB),String(t2)]]});
+      return pack("पहले प्रत्येक श्रेणी में दोनों शृंखलाओं के मान जोड़ें, फिर दिए क्रम में अनुपात सरल करें।","ਪਹਿਲਾਂ ਹਰ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਮੁੱਲ ਜੋੜੋ, ਫਿਰ ਦਿੱਤੇ ਕ੍ਰਮ ਵਿੱਚ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।",[`${categoryAt(stimulus,locale,i)}: ${p1.seriesA} + ${p1.seriesB} = ${t1}।`,`${categoryAt(stimulus,locale,j)}: ${p2.seriesA} + ${p2.seriesB} = ${t2}।`,`${t1}:${t2} = ${question.answer}।`],[`${categoryAt(stimulus,locale,i)}: ${p1.seriesA} + ${p1.seriesB} = ${t1}।`,`${categoryAt(stimulus,locale,j)}: ${p2.seriesA} + ${p2.seriesB} = ${t2}।`,`${t1}:${t2} = ${question.answer}।`],{headers,rows:[[categoryAt(stimulus,locale,i),String(p1.seriesA),String(p1.seriesB),String(t1)],[categoryAt(stimulus,locale,j),String(p2.seriesA),String(p2.seriesB),String(t2)]]});
     }
     case "PERCENT_CHANGE_WITHIN_SERIES": {
       const i=Number(e.lowerIndex),j=Number(e.higherIndex),lower=stimulus.points[i]!.seriesA,higher=stimulus.points[j]!.seriesA,diff=higher-lower,label=seriesLabel(stimulus,locale,"SERIES_A");
