@@ -15,7 +15,7 @@ type NativeLocale = Exclude<HisLocaleV1, "en">;
 function overlayFor(index:number,locale:NativeLocale):HisNativeOverlayV1{
   const n=index+1;
   const overlay=locale==="hi"?HIS_CP023_HI_V1[n]:HIS_CP023_PA_V1[n];
-  if(!overlay)throw new Error(\`HIS-CP-023 #\${n}: missing \${locale} localization overlay\`);
+  if(!overlay)throw new Error(`HIS-CP-023 #${n}: missing ${locale} localization overlay`);
   return overlay;
 }
 
@@ -29,7 +29,7 @@ function localizedBase(
 ):HisLocalizedQuestionV1{
   return {
     ...q,
-    questionId:locale==="en"?q.questionId:\`\${q.questionId}-\${locale.toUpperCase()}\`,
+    questionId:locale==="en"?q.questionId:`${q.questionId}-${locale.toUpperCase()}`,
     stem,
     options,
     canonicalAnswer,
@@ -55,7 +55,7 @@ function localizeNative(q:EnglishQuestion,index:number,locale:NativeLocale):HisL
   const overlay=overlayFor(index,locale);
   const options=q.options.map((englishOption)=>{
     const localized=overlay.optionsByEnglish[englishOption];
-    if(!localized)throw new Error(\`\${q.questionId}: missing \${locale} option mapping for "\${englishOption}"\`);
+    if(!localized)throw new Error(`${q.questionId}: missing ${locale} option mapping for "${englishOption}"`);
     return localized;
   });
   return localizedBase(q,locale,overlay.stem,options,options[q.correctIndex]!,overlay.explanation);
