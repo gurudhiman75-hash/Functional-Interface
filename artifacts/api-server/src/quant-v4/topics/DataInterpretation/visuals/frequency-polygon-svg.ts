@@ -1,5 +1,5 @@
 export type DiFrequencyPolygonVisualClass = Readonly<{ lower: number; upper: number; classMark: number; frequency: number }>;
-export type DiFrequencyPolygonVisualModel = Readonly<{ title: string; xAxisLabel: string; yAxisLabel: string; classWidth: number; classes: readonly DiFrequencyPolygonVisualClass[] }>;
+export type DiFrequencyPolygonVisualModel = Readonly<{ title: string; xAxisLabel: string; yAxisLabel: string; classWidth: number; classes: readonly DiFrequencyPolygonVisualClass[]; description?: string }>;
 
 export const DI_FREQUENCY_POLYGON_VISUAL_THEME = "EXAMTREE_DI_ORIGINAL_FAMILY_V1" as const;
 
@@ -10,7 +10,7 @@ function niceYAxisStep(maxFrequency: number) {
   const magnitude = 10 ** Math.floor(Math.log10(rough));
   const normalized = rough / magnitude;
   const nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 2.5 ? 2.5 : normalized <= 5 ? 5 : 10;
-  return nice * magnitude;
+  return Math.max(1, Math.ceil(nice * magnitude));
 }
 
 function escapeSvgText(value: string) {
@@ -32,10 +32,11 @@ export function renderDiFrequencyPolygonSvg(model: DiFrequencyPolygonVisualModel
   const y = (value: number) => plotBottom - (value / yMax) * plotHeight;
   const points = [{ x: xMin, y: 0 }, ...model.classes.map((item) => ({ x: item.classMark, y: item.frequency })), { x: xMax, y: 0 }];
   const safeTitle = escapeSvgText(model.title), safeXAxis = escapeSvgText(model.xAxisLabel), safeYAxis = escapeSvgText(model.yAxisLabel);
+  const safeDescription = escapeSvgText(model.description ?? "Frequency polygon formed by joining class-mark frequency points with straight segments and closing to zero frequency one class width outside the data range.");
   const parts: string[] = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-di-chart-theme="${DI_FREQUENCY_POLYGON_VISUAL_THEME}" data-frequency-polygon="true" data-straight-segments="true" data-zero-closing-endpoints="true" data-no-value-labels="true" shape-rendering="geometricPrecision">`,
     `<title>${safeTitle}</title>`,
-    `<desc>Frequency polygon formed by joining class-mark frequency points with straight segments and closing to zero frequency one class width outside the data range.</desc>`,
+    `<desc>${safeDescription}</desc>`,
     `<rect x="0" y="0" width="${width}" height="${height}" fill="${COLORS.canvas}"/>`,
     `<text x="${width / 2}" y="32" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="${COLORS.title}">${safeTitle}</text>`,
   ];
