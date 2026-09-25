@@ -11,7 +11,7 @@ const plan:Record<PunjabiDifficulty,readonly [string,number][]>={
 const stride:Record<string,number>={F01:11,F02:13,F03:17,F04:7,F05:11,F06:13,F07:19,F08:1,F09:6,F10:11,F11:7,F12:7};
 const out:string[]=[
  "# PUN-001 CP006 Retrofit Review — ਕਿਰਿਆ, ਕਾਲ ਅਤੇ ਰੂਪਾਂਤਰਣ","",
- "Status: HUMAN REVIEW PENDING","",
+ "Status: HUMAN APPROVED","",
  "Authority inventory: 331 atomic authorities across verb context, tense, transitivity, compound-verb and aspect operations.","",
  "Governed semantic breadth: 1,462 combinations before option-order permutations.","",
  "Legacy root and second-causative tables remain quarantined pending a separate lexical-standardization scope.",""

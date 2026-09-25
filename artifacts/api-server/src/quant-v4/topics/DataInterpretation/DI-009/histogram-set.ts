@@ -100,12 +100,17 @@ function numericRescueCandidates(answer: string): Di009Candidate[] {
   return [];
 }
 
+function hasDecimalToken(value: string) {
+  return /\d+\.\d+/u.test(value);
+}
+
 function buildOptions(seed: string, answer: string, candidates: readonly Di009Candidate[]) {
+  if (hasDecimalToken(answer)) throw new Error(`DI-009 ${seed} produced a decimal answer '${answer}' after the integer-only policy.`);
   const retained: Di009Option[] = [];
   const seen = new Set<string>();
   const add = (candidate: Di009Candidate) => {
     const key = candidate.text.trim().toLowerCase();
-    if (!candidate.text.trim() || seen.has(key)) return;
+    if (!candidate.text.trim() || hasDecimalToken(candidate.text) || seen.has(key)) return;
     seen.add(key);
     retained.push(candidate);
   };
@@ -133,6 +138,20 @@ function chooseQuestionMix(seed: string, drafts: readonly Di009Draft[]): Di009Dr
   return shuffle(seededRandom(`${seed}:mix:order`), [easy[0]!, medium[0]!, medium[1]!, hard[0]!, hard[1]!]);
 }
 
+function hasDecimalLearnerSurface(question: Di009Question) {
+  const table = question.explanation.workingTable;
+  const text = [
+    question.stem,
+    ...question.options,
+    question.answer,
+    question.explanation.keyIdea,
+    ...question.explanation.steps,
+    ...(table?.headers ?? []),
+    ...(table?.rows.flat() ?? []),
+  ].join(" ");
+  return /\d+\.\d+/u.test(text);
+}
+
 function validateSet(set: Omit<Di009QuestionSet, "validation">) {
   const checks: Di009ValidationCheck[] = [];
   const add = (id: string, passed: boolean, message: string) => checks.push({ id, passed, message });
@@ -152,6 +171,7 @@ function validateSet(set: Omit<Di009QuestionSet, "validation">) {
   add("DIFFICULTY_MIX", set.questions.filter((question) => question.difficulty === "Easy").length === 1 && set.questions.filter((question) => question.difficulty === "Medium").length === 2 && set.questions.filter((question) => question.difficulty === "Hard").length === 2, "Each set must contain 1 Easy, 2 Medium and 2 Hard questions.");
   add("FOUR_UNIQUE_OPTIONS", set.questions.every((question) => question.options.length === 4 && new Set(question.options).size === 4), "Every question must expose four unique options.");
   add("ANSWER_INDEX_VALID", set.questions.every((question) => question.options[question.correctIndex] === question.answer), "Correct-index metadata must point to the exact answer.");
+  add("NO_DECIMAL_LEARNER_SURFACE", set.questions.every((question) => !hasDecimalLearnerSurface(question)), "DI-009 learner-facing questions, options and explanations must use integer values only.");
   add("MISCONCEPTION_OWNED_DISTRACTORS", set.questions.every((question) => question.optionMetadata.filter((option) => option.misconceptionId !== "CORRECT").every((option) => option.misconceptionId.length > 3 && option.derivation.length > 12)), "Every distractor must carry a misconception id and derivation.");
   add("EXPLANATION_PRESENT", set.questions.every((question) => question.explanation.keyIdea.length > 10 && question.explanation.steps.length >= 1), "Every question needs a concise question-specific explanation.");
   add("WORKING_TABLE_SHAPE", set.questions.every((question) => !question.explanation.workingTable || question.explanation.workingTable.rows.every((row) => row.length === question.explanation.workingTable!.headers.length)), "Explanation working tables must be rectangular.");
@@ -206,9 +226,9 @@ export function generateDi009HistogramSet(input: {
       statisticsSibling: "STAT-003" as const,
       frequencyPolygonSibling: "DI-010_PLANNED" as const,
       presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS" as const,
-      questionLogicVersion: "DI-009-QUESTION-LOGIC-V2" as const,
+      questionLogicVersion: "DI-009-QUESTION-LOGIC-V3" as const,
       setContractVersion: "DI-009-SET-CONTRACT-V3" as const,
-      arithmeticAuthority: "EXACT_INTEGER_RATIONAL" as const,
+      arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING" as const,
       reviewStatus: "UNREVIEWED" as const,
       questionStudioDiscoverable: false as const,
       questionBankStatus: "NOT_STORED" as const,

@@ -49,11 +49,15 @@ The forward-port is grounded in Punjabi University / LearnPunjabi teaching mater
 - modern subjoined ਹ, ਰ and ਵ are represented as virama-based subjoined forms;
 - U+0A75 `ੵ` is Yakash and is **not** treated as modern pairin haha.
 
-All authorities remain `REVIEW_PENDING`; source grounding does not imply automatic production promotion.
+Authority records retain their provenance-level `REVIEW_PENDING` flag, while the checkpoint itself is owner-approved for `REVIEW_ONLY` use. This does not authorize production promotion.
 
 ## Semantic gates
 
 The proof suite requires exact finite-system cardinalities, unique authority IDs and words, NFC normalization, carrier/laga truth, lagakhar distribution truth, modern dutt-form encoding, four unique options, no seed-only fingerprints, Punjabi-only stems/explanations, family-local and cross-family semantic uniqueness, operation-based difficulty, and strict `REVIEW_ONLY` lifecycle metadata.
+
+## Approval
+
+Checkpoint approval is inherited from owner-approved chapter integration PR #2009 on 2026-09-20. No later learner-facing changes were made before the final freeze.
 
 ## Production lock
 

@@ -21,14 +21,14 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     6,
     "Easy",
-    "Photosynthesis in plant cells mainly takes place in the:",
+    "Photosynthesis in plant cells takes place in the:",
     "chloroplast",
     [
       "mitochondrion",
       "lysosome",
       "nucleolus"
     ],
-    "Chloroplasts contain chlorophyll and the internal membranes needed for photosynthesis. They capture light energy to help make carbohydrates.",
+    "Chloroplasts contain chlorophyll and the internal membranes needed for photosynthesis. They capture light energy to help make carbohydrates. The captured energy is converted into chemical energy stored in sugars.",
     [
       "CHLOROPLAST-PHOTOSYN"
     ]
@@ -43,7 +43,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
       "Melanin",
       "Keratin"
     ],
-    "Chlorophyll is the principal green pigment in chloroplasts. It absorbs light energy that drives photosynthesis.",
+    "Chlorophyll is the principal green pigment in chloroplasts. It absorbs light energy that drives photosynthesis. Its green colour comes from the wavelengths it reflects more strongly than it absorbs.",
     [
       "CHLOROPHYLL"
     ]
@@ -103,7 +103,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
       "Centrosome",
       "Nucleolus"
     ],
-    "Lysosomes contain hydrolytic enzymes that digest worn-out organelles and various cellular materials. They help recycle components within the cell.",
+    "Lysosomes contain hydrolytic enzymes that digest worn-out organelles and various cellular materials. They help recycle components within the cell. Their enzymes are kept separated from most of the cell by a surrounding membrane.",
     [
       "LYSOSOME-DIGEST"
     ]
@@ -111,7 +111,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     7,
     "Easy",
-    "The large central vacuole of a plant cell mainly helps in maintaining:",
+    "The large central vacuole of a plant cell helps maintain:",
     "turgidity and storage",
     [
       "chromosome number",
@@ -216,7 +216,7 @@ export const PART_3: readonly SciCp019ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Replacement of worn-out skin cells mainly occurs through:",
+    "Replacement of worn-out skin cells occurs through:",
     "Mitosis",
     [
       "Meiosis",

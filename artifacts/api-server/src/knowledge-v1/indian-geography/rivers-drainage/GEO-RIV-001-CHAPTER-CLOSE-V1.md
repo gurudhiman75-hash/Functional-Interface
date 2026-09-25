@@ -1,8 +1,8 @@
 # GEO-RIV-001 — Indian Rivers & Drainage — Chapter Close V1
 
-Status: **REVIEW CANDIDATE / INTEGRATION CLOSE**
+Status: **CONTENT CLOSED V1 — APPROVAL AUTHORITY**
 
-## What is being closed
+## Closure authority
 
 All planned content checkpoints `CP001` through `CP015` have completed editorial review and merge. This closeout does not add new learner facts or new question languages.
 
@@ -43,4 +43,4 @@ The entire package remains `REVIEW_ONLY`:
 - not publicly publishable;
 - no automatic production release.
 
-A later explicit lifecycle promotion must be a separate governed change.
+A later explicit lifecycle promotion must be a separate governed change. Content closure itself does not authorize Question Bank writes, tests/mocks, public publication or production release.

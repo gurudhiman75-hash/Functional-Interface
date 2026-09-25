@@ -14,7 +14,7 @@ const lines: string[] = [
   `- Contract library represented: ${new Set(sets.flatMap((set) => set.questions.map((question) => question.kind))).size} / 13`,
   `- Shapes represented: ${[...new Set(sets.map((set) => set.stimulus.shape))].join(", ")}`,
   `- Class counts represented: ${[...new Set(sets.map((set) => set.stimulus.bins.length))].sort((a, b) => a - b).join(", ")}`,
-  "- Question logic: DI-009-QUESTION-LOGIC-V2",
+  "- Question logic: DI-009-QUESTION-LOGIC-V3",
   "- Set contract: DI-009-SET-CONTRACT-V3",
   "- Presentation authority: DATA_INTERPRETATION_SHARED_VISUALS",
   `- Shared visual theme: ${DI_HISTOGRAM_VISUAL_THEME}`,
@@ -49,7 +49,7 @@ writeFileSync(outputPath, lines.join("\n"), "utf8");
 console.log(JSON.stringify({
   outputPath,
   architecture: "SEMANTIC_STIMULUS_PLUS_SHARED_DI_RENDERER",
-  questionLogicVersion: "DI-009-QUESTION-LOGIC-V2",
+  questionLogicVersion: "DI-009-QUESTION-LOGIC-V3",
   setContractVersion: "DI-009-SET-CONTRACT-V3",
   visualTheme: DI_HISTOGRAM_VISUAL_THEME,
   sets: sets.length,

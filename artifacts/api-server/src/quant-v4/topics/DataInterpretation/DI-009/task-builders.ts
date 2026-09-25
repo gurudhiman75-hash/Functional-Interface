@@ -23,24 +23,15 @@ export type Di009Draft = Readonly<{
   evidence: Readonly<Record<string, number | string>>;
 }>;
 
-function formatDecimal(numerator: number, denominator: number): string {
+function formatWhole(numerator: number, denominator: number): string {
   if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || denominator <= 0) {
-    throw new Error("DI-009 received an invalid decimal fraction.");
+    throw new Error("DI-009 received an invalid whole-number fraction.");
   }
-  const negative = numerator < 0;
-  const n = BigInt(Math.abs(numerator));
-  const d = BigInt(denominator);
-  const hundredths = (n * 100n + d / 2n) / d;
-  const whole = hundredths / 100n;
-  const fraction = Number(hundredths % 100n);
-  const sign = negative ? "-" : "";
-  if (fraction === 0) return `${sign}${whole}`;
-  if (fraction % 10 === 0) return `${sign}${whole}.${fraction / 10}`;
-  return `${sign}${whole}.${String(fraction).padStart(2, "0")}`;
+  return String(Math.round(numerator / denominator));
 }
 
 function formatPercent(part: number, whole: number) {
-  return `${formatDecimal(part * 100, whole)}%`;
+  return `${formatWhole(part * 100, whole)}%`;
 }
 
 function interval(bin: Di009HistogramBin) {
@@ -314,14 +305,14 @@ function rangeRatioDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
 
 function classShareDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   const bins = stimulus.bins;
+  const total = totalFrequency(bins);
   const targetIndex = pick(seededRandom(`${seed}:share:index`), bins.map((_, index) => index));
   const target = bins[targetIndex]!;
-  const total = totalFrequency(bins);
   const answer = formatPercent(target.frequency, total);
   const s = surface(seed, "CLASS_SHARE_OF_TOTAL", [
-    `The class ${interval(target)} represents what percentage of the total frequency?`,
-    `What percentage of all ${stimulus.unit} fall in the interval ${interval(target)}?`,
-    `Find the percentage share of the class ${interval(target)} in the complete histogram.`,
+    `To the nearest whole percent, what percentage of the total frequency is represented by class ${interval(target)}?`,
+    `Approximately what whole percentage of all ${stimulus.unit} fall in the interval ${interval(target)}?`,
+    `Find the percentage share of class ${interval(target)} in the complete histogram, rounded to the nearest whole percent.`,
   ]);
   const neighbour = bins[targetIndex === bins.length - 1 ? targetIndex - 1 : targetIndex + 1]!;
   return {
@@ -338,7 +329,7 @@ function classShareDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
     ],
     explanation: {
       keyIdea: "Use the class frequency as the part and the sum of all bar frequencies as the whole.",
-      steps: [`Total frequency = ${total}.`, `Required percentage = ${target.frequency}/${total} × 100 = ${answer}.`],
+      steps: [`Total frequency = ${total}.`, `Required percentage = ${target.frequency}/${total} × 100 ≈ ${answer} to the nearest whole percent.`],
     },
     evidence: { targetIndex, surfaceId: s.index },
   };
@@ -408,6 +399,7 @@ function medianClassDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   const cumulative = cumulativeFrequencies(bins);
   const total = cumulative.at(-1)!;
   const target = total / 2;
+  const observationPosition = Math.ceil(target);
   const medianIndex = firstCumulativeAtLeast(cumulative, target);
   const s = surface(seed, "MEDIAN_CLASS_IDENTIFICATION", [
     `Which class interval contains the median observation?`,
@@ -423,7 +415,7 @@ function medianClassDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
     candidates: classAlternatives(bins, medianIndex),
     explanation: {
       keyIdea: "Form cumulative frequencies and locate the first class whose cumulative frequency reaches or exceeds N/2.",
-      steps: [`Total frequency N = ${total}, so N/2 = ${formatDecimal(total, 2)}.`, `The first cumulative frequency reaching this position is ${cumulative[medianIndex]}, in class ${interval(bins[medianIndex]!)}.`],
+      steps: [`Total frequency N = ${total}. For cumulative-frequency location, use observation number ${observationPosition}.`, `The first cumulative frequency reaching this position is ${cumulative[medianIndex]}, in class ${interval(bins[medianIndex]!)}.`],
       workingTable: {
         headers: ["Class", "f", "Cumulative f"],
         rows: bins.map((bin, index) => [interval(bin), String(bin.frequency), String(cumulative[index])]),
@@ -472,15 +464,16 @@ function groupedMeanDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   const bins = stimulus.bins;
   const total = totalFrequency(bins);
   const doubledWeighted = bins.reduce((sum, bin) => sum + (bin.lower + bin.upper) * bin.frequency, 0);
-  const answer = formatDecimal(doubledWeighted, 2 * total);
-  const weightedLower = formatDecimal(bins.reduce((sum, bin) => sum + bin.lower * bin.frequency, 0), total);
-  const weightedUpper = formatDecimal(bins.reduce((sum, bin) => sum + bin.upper * bin.frequency, 0), total);
-  const unweightedMidpointMean = formatDecimal(bins.reduce((sum, bin) => sum + bin.lower + bin.upper, 0), 2 * bins.length);
+  const denominator = 2 * total;
+  const answer = formatWhole(doubledWeighted, denominator);
+  const weightedLower = formatWhole(bins.reduce((sum, bin) => sum + bin.lower * bin.frequency, 0), total);
+  const weightedUpper = formatWhole(bins.reduce((sum, bin) => sum + bin.upper * bin.frequency, 0), total);
+  const unweightedMidpointMean = formatWhole(bins.reduce((sum, bin) => sum + bin.lower + bin.upper, 0), 2 * bins.length);
   const s = surface(seed, "APPROX_GROUPED_MEAN_FROM_HISTOGRAM", [
-    `Using class marks, find the approximate mean of the distribution shown by the histogram.`,
-    `What is the approximate arithmetic mean represented by this histogram?`,
-    `Calculate the grouped mean of the distribution using the midpoint of each class.`,
-    `Estimate the mean from the histogram by the class-mark method.`,
+    `Using class marks, find the approximate mean of the distribution to the nearest whole number.`,
+    `What is the approximate arithmetic mean represented by this histogram, rounded to the nearest whole number?`,
+    `Calculate the grouped mean using the midpoint of each class and give the nearest whole number.`,
+    `Estimate the mean from the histogram by the class-mark method, to the nearest whole number.`,
   ]);
   return {
     kind: "APPROX_GROUPED_MEAN_FROM_HISTOGRAM",
@@ -491,17 +484,17 @@ function groupedMeanDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
       { text: weightedLower, misconceptionId: "USE_LOWER_LIMITS", derivation: "Uses lower class limits instead of class marks." },
       { text: weightedUpper, misconceptionId: "USE_UPPER_LIMITS", derivation: "Uses upper class limits instead of class marks." },
       { text: unweightedMidpointMean, misconceptionId: "IGNORE_FREQUENCIES", derivation: "Averages the class marks without weighting them by frequency." },
-      { text: formatDecimal(doubledWeighted, 2 * bins.length), misconceptionId: "DIVIDE_BY_CLASS_COUNT", derivation: "Divides the weighted total by the number of classes instead of total frequency." },
-      { text: formatDecimal(doubledWeighted + stimulus.classWidth * total, 2 * total), misconceptionId: "SHIFT_CLASS_MARKS_UP", derivation: "Uses class marks shifted upward by half a class width." },
+      { text: formatWhole(doubledWeighted, 2 * bins.length), misconceptionId: "DIVIDE_BY_CLASS_COUNT", derivation: "Divides the weighted total by the number of classes instead of total frequency." },
+      { text: formatWhole(doubledWeighted + stimulus.classWidth * total, 2 * total), misconceptionId: "SHIFT_CLASS_MARKS_UP", derivation: "Uses class marks shifted upward by half a class width." },
     ],
     explanation: {
       keyIdea: "Use each class midpoint x with its frequency f, then compute Σfx / Σf.",
-      steps: [`Σf = ${total}.`, `Σfx = ${formatDecimal(doubledWeighted, 2)}.`, `Mean = Σfx/Σf = ${answer}.`],
+      steps: [`Σf = ${total}.`, `Σfx = ${doubledWeighted / 2}.`, `Mean = Σfx/Σf ≈ ${answer} to the nearest whole number.`],
       workingTable: {
         headers: ["Class", "f", "Class mark x", "fx"],
         rows: bins.map((bin) => {
           const midpointNumerator = bin.lower + bin.upper;
-          return [interval(bin), String(bin.frequency), formatDecimal(midpointNumerator, 2), formatDecimal(midpointNumerator * bin.frequency, 2)];
+          return [interval(bin), String(bin.frequency), String(midpointNumerator / 2), String((midpointNumerator * bin.frequency) / 2)];
         }),
       },
     },
@@ -520,14 +513,14 @@ function groupedModeDraft(seed: string, stimulus: Di009Stimulus): Di009Draft | n
   const denominator = 2 * f1 - f0 - f2;
   if (denominator <= 0) return null;
   const numerator = modal.lower * denominator + (f1 - f0) * stimulus.classWidth;
-  const answer = formatDecimal(numerator, denominator);
-  const midpoint = formatDecimal(modal.lower + modal.upper, 2);
-  const lowerShift = formatDecimal((modal.lower - stimulus.classWidth) * denominator + (f1 - f0) * stimulus.classWidth, denominator);
-  const wrongSwap = formatDecimal(modal.lower * denominator + (f1 - f2) * stimulus.classWidth, denominator);
+  const answer = formatWhole(numerator, denominator);
+  const midpoint = formatWhole(modal.lower + modal.upper, 2);
+  const lowerShift = formatWhole((modal.lower - stimulus.classWidth) * denominator + (f1 - f0) * stimulus.classWidth, denominator);
+  const wrongSwap = formatWhole(modal.lower * denominator + (f1 - f2) * stimulus.classWidth, denominator);
   const s = surface(seed, "APPROX_GROUPED_MODE_FROM_HISTOGRAM", [
-    `Using the grouped-data mode formula, estimate the mode from the histogram.`,
-    `Find the approximate mode of the distribution represented by the histogram.`,
-    `Calculate the grouped mode using the modal class and its two neighbouring frequencies.`,
+    `Using the grouped-data mode formula, estimate the mode to the nearest whole number.`,
+    `Find the approximate mode of the distribution, rounded to the nearest whole number.`,
+    `Calculate the grouped mode using the modal class and its two neighbouring frequencies, and give the nearest whole number.`,
   ]);
   return {
     kind: "APPROX_GROUPED_MODE_FROM_HISTOGRAM",
@@ -543,7 +536,7 @@ function groupedModeDraft(seed: string, stimulus: Di009Stimulus): Di009Draft | n
     ],
     explanation: {
       keyIdea: "For grouped data, use Mode = l + [(f1−f0)/(2f1−f0−f2)]h.",
-      steps: [`Modal class = ${interval(modal)}.`, `l = ${modal.lower}, h = ${stimulus.classWidth}, f0 = ${f0}, f1 = ${f1}, f2 = ${f2}.`, `Mode = ${modal.lower} + [(${f1}−${f0})/(2×${f1}−${f0}−${f2})]×${stimulus.classWidth} = ${answer}.`],
+      steps: [`Modal class = ${interval(modal)}.`, `l = ${modal.lower}, h = ${stimulus.classWidth}, f0 = ${f0}, f1 = ${f1}, f2 = ${f2}.`, `Mode = ${modal.lower} + [(${f1}−${f0})/(2×${f1}−${f0}−${f2})]×${stimulus.classWidth} ≈ ${answer} to the nearest whole number.`],
       workingTable: {
         headers: ["Class", "Frequency", "Role"],
         rows: [

@@ -19,7 +19,7 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
   [
     1,
     "Easy",
-    "Acceleration is the rate of change of:",
+    "What physical quantity describes the rate at which velocity changes?",
     "velocity",
     [
       "mass",
@@ -124,7 +124,7 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
   [
     2,
     "Medium",
-    "Why does a pressure cooker cook food faster?",
+    "How does increased pressure inside a pressure cooker shorten cooking time?",
     "The increased pressure raises water's boiling point",
     [
       "Pressure removes heat",

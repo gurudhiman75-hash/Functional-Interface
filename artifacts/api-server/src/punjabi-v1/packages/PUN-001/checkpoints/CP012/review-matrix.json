@@ -1,15 +1,35 @@
 {
-  "cpId":"PUN-001-CP012",
-  "status":"HUMAN_REVIEW_PENDING",
-  "total":120,
-  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":14,"F02":13,"F03":13,"F04":14,"F05":13,"F06":13,"F07":20,"F08":20},
-  "requirements":[
+  "cpId": "PUN-001-CP012",
+  "status": "HUMAN_APPROVED",
+  "difficulty": {
+    "Easy": 40,
+    "Medium": 40,
+    "Hard": 40
+  },
+  "families": {
+    "F01": 14,
+    "F02": 13,
+    "F03": 13,
+    "F04": 14,
+    "F05": 13,
+    "F06": 13,
+    "F07": 20,
+    "F08": 20
+  },
+  "requirements": [
     "all 8 families represented",
     "all 4 F08 truth outcomes represented",
     "unique semantic fingerprints",
     "authored situations for F05",
     "Punjabi-only learner stems and explanations",
     "REVIEW_ONLY lifecycle"
-  ]
+  ],
+  "approvalBasis": "Owner-approved chapter integration PR #2009; this checkpoint was included in the approved combined content tip and had no later learner-facing change before final freeze.",
+  "approvalDate": "2026-09-20",
+  "authorityInventory": {
+    "proverbs": 133,
+    "totalAtomic": 133
+  },
+  "semanticCapacity": 6118,
+  "totalReviewQuestions": 120
 }

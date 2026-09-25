@@ -7,6 +7,7 @@ export const PGK_001_CP004_SOURCE_IDS = Object.freeze({
   amritsarPlan: "PUDA-AMRITSAR-BEAS-RAVI",
   psebClass9Geography: "PSEB-SOCIAL-SCIENCE-IX-PUNJAB-PLAINS-DOABS",
   psebClass9PunjabIntro: "PSEB-SOCIAL-SCIENCE-IX-PUNJAB-INTRO-RIVER-NAMES",
+  psebClass6VedicRivers: "PSEB-SOCIAL-SCIENCE-VI-VEDIC-RIVER-NAMES",
 } as const);
 
 export const PGK_001_CP004_SOURCE_REGISTRY = Object.freeze({
@@ -49,6 +50,11 @@ export const PGK_001_CP004_SOURCE_REGISTRY = Object.freeze({
     authority: "Punjab School Education Board",
     title: "Social Science IX Part I — Punjab: An Introduction",
     url: "https://static.pseb.ac.in/media/1670479881_Social%20Science-9%28english%29%20Part-I.pdf",
+  },
+  [PGK_001_CP004_SOURCE_IDS.psebClass6VedicRivers]: {
+    authority: "Punjab School Education Board",
+    title: "Social Science VI — Vedic river names",
+    url: "https://static.pseb.ac.in/media/1668576925_Social%20Science-6%28e%29.pdf",
   },
 } as const);
 

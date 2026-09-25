@@ -1,3 +1,4 @@
+import { PGK_001_CP026_FACTS } from "./pgk-001-cp026-facts";
 import { PGK_001_CP026_QL175 } from "./pgk-001-cp026-ql175";
 import { PGK_001_CP026_QL176 } from "./pgk-001-cp026-ql176";
 import { PGK_001_CP026_QL177 } from "./pgk-001-cp026-ql177";
@@ -18,11 +19,34 @@ const QLS = [
   ["PGK-001-QL-182", PGK_001_CP026_QL182],
 ] as const;
 
+const PROVENANCE_BY_QL: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "PGK-001-QL-175": ["amritsar-harmandir-jallianwala","tarn-taran-goindwal","gurdaspur-kalanaur","pathankot-ranjit-sagar"],
+  "PGK-001-QL-176": ["jalandhar-sports-goods","kapurthala-science-city","kapurthala-sultanpur-jagatjit","hoshiarpur-wood-inlay","sbs-khatkar-kalan"],
+  "PGK-001-QL-177": ["ludhiana-pau-bicycles","moga-food-processing","barnala-textile-combine","sangrur-sunam","malerkotla-princely"],
+  "PGK-001-QL-178": ["patiala-nis-qila","patiala-old-moti-bagh","fatehgarh-mandi-gobindgarh","sas-iiser","rupnagar-harappan"],
+  "PGK-001-QL-179": ["bathinda-qila-damdama","mansa-cotton","faridkot-baba-farid","ferozepur-hussainiwala","fazilka-abohar","muktsar-chali-mukte"],
+  "PGK-001-QL-180": ["jalandhar-sports-goods","ludhiana-pau-bicycles","fatehgarh-mandi-gobindgarh","moga-food-processing","barnala-textile-combine","sas-iiser","kapurthala-science-city"],
+  "PGK-001-QL-181": ["amritsar-harmandir-jallianwala","harike-confluence-multidistrict","gurdaspur-kalanaur","gurdaspur-dera-baba-nanak","kapurthala-sultanpur-jagatjit","rupnagar-harappan","ferozepur-hussainiwala","muktsar-mukta-minar"],
+  "PGK-001-QL-182": ["pathankot-ranjit-sagar","hoshiarpur-wood-inlay","sangrur-sunam","mansa-cotton","sbs-khatkar-kalan","kapurthala-science-city","jalandhar-sports-goods","patiala-nis-qila","fatehgarh-mandi-gobindgarh","sas-iiser","rupnagar-harappan","bathinda-qila-damdama","faridkot-baba-farid","ferozepur-hussainiwala","fazilka-abohar","barnala-textile-combine","moga-food-processing","malerkotla-princely","amritsar-harmandir-jallianwala","gurdaspur-kalanaur","ludhiana-pau-bicycles","muktsar-chali-mukte"],
+});
+
+function provenanceForQl(qlId: string) {
+  const factIds = PROVENANCE_BY_QL[qlId] ?? [];
+  const factSet = new Set(factIds);
+  const sourceIds = [...new Set(
+    PGK_001_CP026_FACTS
+      .filter((fact) => factSet.has(fact.id))
+      .flatMap((fact) => [...fact.sourceIds]),
+  )];
+  return Object.freeze({ factIds: Object.freeze([...factIds]), sourceIds: Object.freeze(sourceIds) });
+}
+
 export const PGK_001_CP026_REVIEW_BATCH_V1 = Object.freeze(
   QLS.flatMap(([qlId, payloads]) => payloads.map((payload, index) => Object.freeze({
     id: `${qlId}-R${String(index + 1).padStart(2, "0")}`,
     qlId,
     ...payload,
+    ...provenanceForQl(qlId),
     reviewOnly: true as const,
     runtimeRegistered: false as const,
   })))

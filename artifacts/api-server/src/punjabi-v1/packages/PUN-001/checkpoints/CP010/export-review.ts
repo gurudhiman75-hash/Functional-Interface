@@ -37,7 +37,7 @@ const specs:{difficulty:PunjabiDifficulty;familyId:string;seeds:number[]}[]=[
 const desired:Record<string,number>={F01:20,F02:20,F03:10,F04:10,F05:10,F06:10,F07:20,F08:20};
 const out:string[]=[
  "# PUN-001 CP010 Retrofit Review — ਬਹੁਤੇ ਸ਼ਬਦਾਂ ਦੀ ਥਾਂ ਇੱਕ ਸ਼ਬਦ","",
- "Status: HUMAN REVIEW PENDING","",
+ "Status: HUMAN APPROVED","",
  "Authority inventory: 177 exhaustive one-word substitution concepts across 10 organic semantic domains.","",
  "Governed breadth: 25,293 semantic combinations before option-order permutations.","",
  "The review intentionally covers all 10 domains and all 8 operation families.",""
