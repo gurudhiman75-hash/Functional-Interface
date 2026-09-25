@@ -1,4 +1,5 @@
 import { DI003_V2_PROHIBITED_PERCENT_MISCONCEPTIONS, generateDi003GroupedBarV2ReviewSet } from "./grouped-bar-set-v2-review";
+import { generateDi003PermanentQuestion } from "./permanent-question-generator";
 import type { Di003V2ExamProfile } from "./grouped-bar-v2-types";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -56,11 +57,44 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
 assert(sets === 240 && questions === 1200, `Unexpected distractor qualification size: ${sets} sets / ${questions} questions.`);
 assert(percentageQuestions >= 200, `Percentage-family coverage is unexpectedly low: ${percentageQuestions}.`);
 
+const permanentPercentageKinds = [
+  "PERCENT_CHANGE_WITHIN_SERIES",
+  "CATEGORY_SHARE_OF_SERIES_TOTAL",
+  "TOTAL_SERIES_PERCENT_EXCESS",
+] as const;
+let permanentPercentageChecks = 0;
+for (const examProfile of profiles) {
+  for (const kind of permanentPercentageKinds) {
+    for (let seedIndex = 1; seedIndex <= 80; seedIndex += 1) {
+      const pkg = generateDi003PermanentQuestion({
+        seed: `DI003-PERMANENT-PERCENT-${examProfile}-${kind}-${seedIndex}`,
+        examProfile,
+        taskKind: kind,
+      });
+      const question = pkg.question;
+      assert(
+        question.optionMetadata.every((option) => !DI003_V2_PROHIBITED_PERCENT_MISCONCEPTIONS.includes(option.misconceptionId as never)),
+        `${question.questionId} permanent authority retained an implausible percentage misconception.`,
+      );
+      for (const option of question.options) {
+        const value = parsePercent(option);
+        assert(value !== null && Number.isFinite(value) && value > 0, `${question.questionId} permanent authority has malformed percentage option: ${option}.`);
+        assert(!/\d+\.\d+/u.test(option), `${question.questionId} permanent authority has decimal percentage option: ${option}.`);
+        if (kind === "CATEGORY_SHARE_OF_SERIES_TOTAL") {
+          assert(value <= 100, `${question.questionId} permanent category-share option exceeds 100%: ${option}.`);
+        }
+      }
+      permanentPercentageChecks += 1;
+    }
+  }
+}
+
 console.log(JSON.stringify({
   status: "PASS_DI_003_V3_WHOLE_PERCENT_DISTRACTOR_PLAUSIBILITY",
   sets,
   questions,
   percentageQuestions,
   optionChecks,
+  permanentPercentageChecks,
   prohibitedMisconceptions: DI003_V2_PROHIBITED_PERCENT_MISCONCEPTIONS,
 }));
