@@ -54,6 +54,7 @@ jobs:
             "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-008/dir-cp-008.test.ts"
             "src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-final-audit-review-pack.test.ts"
             "src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-question-studio-integration.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-multilingual-freeze.test.ts"
           )
           for file in "${files[@]}"; do
             out="dist/reasoning-v1/$(basename "${file%.ts}").mjs"
