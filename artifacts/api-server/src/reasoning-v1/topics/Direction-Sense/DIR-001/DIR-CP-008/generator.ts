@@ -187,6 +187,7 @@ function generateMissingMovement(seed: number): GeneratedAdvancedQuestion {
       })(),
       resultLine: `${scenario.subject}'s missing leg is towards ${DIRECTION_LABELS[solved]}.`,
       conclusion: `Therefore, ${scenario.subject} used the ${DIRECTION_LABELS[solved]} direction for the missing movement.`,
+      diagram: buildAbsoluteMovementSolutionDiagram(scenario.legs.map((leg) => ({ direction: leg.direction === "UNKNOWN" ? solved : leg.direction, distance: leg.distance }))),
     },
   });
 }
