@@ -93,6 +93,12 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਅੰਦੋਲਨ",
       "ਸਥਾਨਕ",
       "ਖੇਤਰ",
+      "ਨਿਰਭਰ",
+      "ਖੇਤੀਯੋਗ",
+      "ਅਗਾਊਂ ਰਕਮ",
+      "ਕਾਲਕ੍ਰਮ",
+      "ਸਮੂਹਕ ਕਾਰਵਾਈ",
+      "ਰਾਸ਼ਟਰੀ ਸਰਕਾਰ",
     ];  for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
     }
