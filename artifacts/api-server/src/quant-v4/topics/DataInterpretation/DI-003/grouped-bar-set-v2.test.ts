@@ -106,6 +106,7 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
       assert(question.optionMetadata.filter((option) => option.misconceptionId === "CORRECT").length === 1, `${question.questionId} has multiple correct metadata entries.`);
       assert(question.explanation.keyIdea.length >= 20 && question.explanation.steps.length >= 2, `${question.questionId} explanation is too thin.`);
       assert(!/associated|shortcut|common trap|\btrap\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${question.questionId} contains blocked learner wording.`);
+      assert(!/\bbars?\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${question.questionId} uses unnecessary chart-shape wording instead of the underlying values.`);
       assert(!/generator|question library|ql[- ]?id|review[- ]?only/iu.test(question.stem), `${question.questionId} leaks internal wording.`);
       familyCount.set(question.kind, familyCount.get(question.kind)! + 1);
       stemSurfaces.get(question.kind)!.add(question.stemSurfaceId);
