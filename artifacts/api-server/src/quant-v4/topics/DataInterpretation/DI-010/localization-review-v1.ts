@@ -544,6 +544,7 @@ export function localizeDi010Question(source: ReturnType<typeof generateDi010Per
       ...source.question,
       stem: localizedStem(source.question, source.stimulus, locale),
       options: localizedOptions,
+      optionMetadata: source.question.optionMetadata.map((option, index) => ({ ...option, text: localizedOptions[index]! })),
       answer,
       explanation: localizedExplanation(source.question, source.stimulus, locale),
     },
