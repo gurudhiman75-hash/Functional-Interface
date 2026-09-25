@@ -59,9 +59,10 @@ function noSolutionExplanation(system: LinearSystem2V) {
 
   return [
     "Compare the second equation with the first instead of solving the system directly.",
-    `For the x-coefficients, the ratio is ${ratioText(system.a2, system.a1)}. For the y-coefficients, the ratio is also ${ratioText(system.b2, system.b1)}.`,
-    `So if both equations represented the same line, the second constant would have to be ${formatRational(xRatio)} × ${formatRational(system.c1)} = ${formatRational(expectedSecondConstant)}.`,
-    `But the actual second constant is ${formatRational(system.c2)}, so the constants are not in the same ratio.`,
+    `For x, ${formatRational(system.a2)} = ${formatRational(xRatio)} × ${formatRational(system.a1)}; for y, ${formatRational(system.b2)} = ${formatRational(yRatio)} × ${formatRational(system.b1)}.`,
+    `So both variable coefficients use the same multiplier ${formatRational(xRatio)}.`,
+    `If the equations represented the same line, the second constant would also have to be ${formatRational(xRatio)} × ${formatRational(system.c1)} = ${formatRational(expectedSecondConstant)}.`,
+    `The actual second constant is ${formatRational(system.c2)}, not ${formatRational(expectedSecondConstant)}.`,
     "Therefore the two lines are parallel but distinct, and the system has no solution.",
   ].join(" ");
 }
@@ -78,10 +79,10 @@ function infiniteSolutionExplanation(system: LinearSystem2V) {
   }
 
   return [
-    "Compare the coefficients and constants of the two equations.",
-    `The second x-coefficient is ${formatRational(xRatio)} times the first, and the second y-coefficient has the same ratio ${formatRational(yRatio)}.`,
-    `The second constant is also ${formatRational(xRatio)} × ${formatRational(system.c1)} = ${formatRational(system.c2)}.`,
-    "Thus the entire second equation is just a non-zero multiple of the first equation.",
+    "Compare the coefficients and constant of the second equation with the first.",
+    `For x, ${formatRational(system.a2)} = ${formatRational(xRatio)} × ${formatRational(system.a1)}; for y, ${formatRational(system.b2)} = ${formatRational(yRatio)} × ${formatRational(system.b1)}.`,
+    `The constant follows the same multiplier: ${formatRational(system.c2)} = ${formatRational(xRatio)} × ${formatRational(system.c1)}.`,
+    `So every term of the second equation is exactly ${formatRational(xRatio)} times the corresponding term of the first equation.`,
     "Both equations represent the same line, so every point on that line satisfies both equations. Therefore the system has infinitely many solutions.",
   ].join(" ");
 }
