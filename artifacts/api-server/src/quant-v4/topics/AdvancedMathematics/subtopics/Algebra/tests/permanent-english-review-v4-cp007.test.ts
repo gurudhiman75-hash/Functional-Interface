@@ -61,7 +61,7 @@ for (const prototypeId of ALG_CP007_ENGLISH_REVIEW_V4_TARGETS) {
       assert(solved.kind === "INFINITE_SOLUTIONS", `${prefix}: exact solver did not confirm infinite solutions`);
       assert(first.answerText === "Infinitely many solutions", `${prefix}: wrong learner-facing classification`);
       assert(/same line/.test(first.explanation), `${prefix}: infinite-solution geometric conclusion is missing`);
-      assert(/second constant is also/.test(first.explanation), `${prefix}: constant-ratio equality is not shown`);
+      assert(/constant follows the same multiplier/.test(first.explanation), `${prefix}: constant-ratio equality is not shown`);
     }
 
     assert(first.explanation.length >= 260, `${prefix}: explanation is too thin`);
