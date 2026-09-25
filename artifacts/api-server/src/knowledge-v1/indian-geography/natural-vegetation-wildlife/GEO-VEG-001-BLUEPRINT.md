@@ -1,6 +1,6 @@
 # GEO-VEG-001 — Natural Vegetation & Wildlife of India
 
-Status: ACTIVE IMPLEMENTATION — WAVE 2 (CP005–CP007) REVIEW
+Status: ACTIVE IMPLEMENTATION — WAVE 2 (CP005–CP007) APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-VEG-001`
@@ -111,7 +111,7 @@ Wave 1 is human-approved and merged in content terms:
 
 Wave 1 qualifies 36 permanent QLs and 216 owning questions.
 
-Wave 2 is implemented as three 54-question review candidates:
+Wave 2 is human-approved as three 54-question owning checkpoints:
 
 - CP005 — Montane Vegetation — QL037–QL045.
 - CP006 — Mangrove / Tidal / Littoral & Swamp Vegetation — QL046–QL054.
@@ -126,4 +126,4 @@ Each Wave 2 checkpoint preserves:
 - static source-governed facts only;
 - review-only lifecycle with runtime publication disabled.
 
-Wave 2 therefore adds 27 permanent QLs and 162 owning questions for human review. CP008 begins Characteristic Trees & Forest-Species Identification.
+Wave 2 adds 27 permanent QLs and 162 owning questions and has explicit human approval. CP008 begins Characteristic Trees & Forest-Species Identification.
