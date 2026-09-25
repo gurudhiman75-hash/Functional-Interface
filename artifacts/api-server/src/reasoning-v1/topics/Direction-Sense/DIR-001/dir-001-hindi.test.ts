@@ -96,6 +96,36 @@ for (const ql of DIR_001_QLS) {
         assert.match(explanationText, /√/);
       }
     }
+    if (qlNumber >= 23 && qlNumber <= 29) {
+      const stepsText = hindi.explanation.steps.join(" ");
+      assert.doesNotMatch(
+        stepsText,
+        /संकेतित कथनों को विषय–चिह्न–संदर्भ क्रम में पढ़ें|संभावित चिह्नों को एक-एक करके जाँचें|डिकोड किए गए संबंधों या चालों को क्रम से जोड़ें/,
+      );
+      const codeMap = english.structuredPrompt.codeMap ?? english.structuredPrompt.recoveredCodeMap;
+      if (codeMap) {
+        for (const symbol of Object.keys(codeMap)) {
+          assert.ok(stepsText.includes(symbol), `${ql.qlId} missing decoded symbol ${symbol}`);
+        }
+      }
+      if (ql.qlId === "DIR-QL-029") {
+        const firstMovement = english.structuredPrompt.steps?.[0];
+        if (firstMovement?.distance != null) {
+          assert.match(stepsText, new RegExp(`${firstMovement.distance} मीटर`));
+        }
+      }
+    }
+    if (qlNumber >= 30 && qlNumber <= 35) {
+      const stepsText = hindi.explanation.steps.join(" ");
+      assert.doesNotMatch(
+        stepsText,
+        /पहले समय से सूर्य और छाया की वास्तविक दिशा तय करें|फिर व्यक्ति के मुख के सापेक्ष बाएँ, दाएँ, सामने या पीछे का संबंध लगाएँ|दिए गए व्यक्ति-संबंध के अनुसार अंतिम मुख तय करें/,
+      );
+      assert.ok(
+        stepsText.includes(hindi.options[hindi.correctIndex].label),
+        `${ql.qlId} explanation must show the solved localized answer`,
+      );
+    }
     const diagrams = [hindi.questionDiagram, hindi.explanation.diagram].filter(Boolean) as any[];
     for (const diagram of diagrams) {
       assert.ok(typeof diagram.svg === "string" && diagram.svg.includes("<svg"));
