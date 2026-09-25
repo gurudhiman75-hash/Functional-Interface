@@ -41,6 +41,7 @@ V2 remains the coverage-expansion freeze in the historical chain, but no final l
 - English-freeze lineage remains correct for every CP.
 
 The closure pass also corrected copy/paste export-name drift in CP012–CP016 localization modules. That change affects integration symbols only; learner content and approved answer semantics are unchanged.
+The matching CP012–CP016 review exporters were rebound to those corrected generator names so future review-artifact regeneration uses the same canonical localization modules.
 
 ## Question Studio lifecycle
 
