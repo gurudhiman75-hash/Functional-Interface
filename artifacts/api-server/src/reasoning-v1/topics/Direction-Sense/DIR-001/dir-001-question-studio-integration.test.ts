@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 function source(relativePath: string): string {
-  return readFileSync(new URL(relativePath, import.meta.url), "utf8");
+  return readFileSync(resolve(process.cwd(), relativePath), "utf8");
 }
 
 import {
@@ -54,12 +55,12 @@ assert.equal(isDir001QuestionStudioRequest({ topic: "Direction Sense" }), true);
 assert.equal(isDir001QuestionStudioRequest({ subtopic: "Direction & Distance" }), true);
 assert.equal(isDir001QuestionStudioRequest({ packageId: "OPS-001" }), false);
 
-const reasoningAdapterSource = source("../../../../question-studio/engines/reasoning-v1-adapter.ts");
+const reasoningAdapterSource = source("src/question-studio/engines/reasoning-v1-adapter.ts");
 assert.match(reasoningAdapterSource, /DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1/);
 assert.match(reasoningAdapterSource, /isDir001QuestionStudioRequest\(request\)/);
 assert.match(reasoningAdapterSource, /generateDir001QuestionStudioBatch\(request\)/);
 
-const globalRegistrySource = source("../../../../question-studio/engine-registry.ts");
+const globalRegistrySource = source("src/question-studio/engine-registry.ts");
 assert.match(globalRegistrySource, /reasoningV1QuestionStudioAdapter/);
 assert.match(globalRegistrySource, /\[reasoningV1QuestionStudioAdapter\.engineId,\s*reasoningV1QuestionStudioAdapter\]/);
 
