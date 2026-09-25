@@ -59,6 +59,7 @@ for (const prototypeId of ALG_CP013_ENGLISH_REVIEW_V4_TARGETS) {
     assert(first.explanation.length >= 190, `${prefix}: explanation is too thin`);
     assert(numericSpecificity(first.explanation) >= 2, `${prefix}: explanation lacks question-specific numerical working`);
     assert(!/associated|mainly|therefore therefore/i.test(first.question + " " + first.explanation), `${prefix}: mechanical wording leaked`);
+    assert(!/Therefore[^.]*, so /i.test(first.explanation), `${prefix}: redundant conclusion wording leaked`);
 
     if (prototypeId === "ALG-CP013-CAND-004") {
       assert(first.qlId === "ALG-QL-037", `${prefix}: absolute-equation QL changed`);
