@@ -8,10 +8,11 @@ import {
   type Di010PermanentQlDescriptor,
 } from "./permanent-ql-registry";
 import { generateDi010PermanentQuestion } from "./permanent-question-generator";
+import { DI010_LOCALIZATION_RELEASE_ID, localizeDi010Question } from "./localization-review-v1";
 import type { Di010Difficulty, Di010ExamProfile } from "./types";
 
 export const DI010_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-010" as const;
-export const DI010_QUESTION_STUDIO_RUNTIME_MODE = "DI010_PERMANENT_ENGLISH_REVIEW_P2" as const;
+export const DI010_QUESTION_STUDIO_RUNTIME_MODE = "DI010_PERMANENT_MULTILINGUAL_REVIEW_V1" as const;
 
 export type Di010QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -59,7 +60,7 @@ function normalizeProfile(value: unknown): Di010ExamProfile {
   const normalized = normalizeSelector(value);
   if (!normalized || normalized === "ssc cgl" || normalized === "ssc cgl tier i" || normalized === "ssc cgl tier 1" || normalized.includes("chsl") || normalized.includes("mts") || normalized.includes("punjab")) return "SSC_CGL_TIER_I";
   if (normalized === "ssc cgl tier ii" || normalized === "ssc cgl tier 2") return "SSC_CGL_TIER_II";
-  throw new Error(`DI-010 does not support exam profile '${String(value ?? "")}' in the permanent English review checkpoint.`);
+  throw new Error(`DI-010 does not support exam profile '${String(value ?? "")}' in the controlled multilingual review checkpoint.`);
 }
 
 function stableOrder(items: readonly Di010PermanentQlDescriptor[], seed: string) {
@@ -68,7 +69,7 @@ function stableOrder(items: readonly Di010PermanentQlDescriptor[], seed: string)
 
 function eligibleDescriptors(profile: Di010ExamProfile, difficulty?: Di010Difficulty) {
   const filtered = DI010_PERMANENT_QLS.filter((descriptor) => descriptor.supportedProfiles.includes(profile) && (!difficulty || descriptor.difficulty === difficulty));
-  if (!filtered.length) throw new Error(`DI-010 has no permanent English review QL for ${profile}${difficulty ? ` at ${difficulty} difficulty` : ""}.`);
+  if (!filtered.length) throw new Error(`DI-010 has no permanent review QL for ${profile}${difficulty ? ` at ${difficulty} difficulty` : ""}.`);
   return filtered;
 }
 
@@ -86,14 +87,23 @@ function explanationText(explanation: { keyIdea: string; steps: readonly string[
   return [explanation.keyIdea, ...explanation.steps].join("\n\n");
 }
 
-function toQuestionStudioPreview(source: ReturnType<typeof generateDi010PermanentQuestion>, descriptor: Di010PermanentQlDescriptor, context: { seed: string; index: number; count: number }) {
-  const question = source.question;
-  const stimulusSvg = renderDiFrequencyPolygonSvg(source.stimulus);
+function toQuestionStudioPreview(
+  source: ReturnType<typeof generateDi010PermanentQuestion>,
+  descriptor: Di010PermanentQlDescriptor,
+  context: { seed: string; index: number; count: number },
+  language: "en" | "hi" | "pa",
+) {
+  const localized = language === "en" ? undefined : localizeDi010Question(source, language === "hi" ? "hi-IN" : "pa-IN");
+  const question = localized?.question ?? source.question;
+  const stimulus = localized?.stimulus ?? source.stimulus;
+  const stimulusSvg = renderDiFrequencyPolygonSvg(stimulus);
+  const reviewStatus = language === "en" ? "ENGLISH_REVIEW_APPROVED" as const : "MULTILINGUAL_FROZEN" as const;
+  const releaseId = language === "en" ? DI010_PERMANENT_RELEASE_ID : DI010_LOCALIZATION_RELEASE_ID;
   return {
     text: question.stem,
     stem: question.stem,
     stimulusSvgs: [stimulusSvg],
-    stimulus: source.stimulus,
+    stimulus,
     options: [...question.options],
     optionMetadata: question.optionMetadata.map((option) => ({ ...option })),
     correct: question.correctIndex,
@@ -109,7 +119,7 @@ function toQuestionStudioPreview(source: ReturnType<typeof generateDi010Permanen
     topic: "Data Interpretation",
     subtopic: "Frequency Polygon",
     generationBackend: "quant-v4",
-    debugSource: "quant-v4-di010-permanent-english-review",
+    debugSource: language === "en" ? "quant-v4-di010-permanent-english-review" : "quant-v4-di010-multilingual-frozen-review",
     questionId: `${question.questionId}:${descriptor.qlId}`,
     sourceQuestionId: question.questionId,
     seed: context.seed,
@@ -122,8 +132,8 @@ function toQuestionStudioPreview(source: ReturnType<typeof generateDi010Permanen
     semanticContract: descriptor.semanticContract,
     taskKind: descriptor.taskKind,
     runtimeMode: DI010_QUESTION_STUDIO_RUNTIME_MODE,
-    reviewStatus: "ENGLISH_REVIEW_APPROVED" as const,
-    releaseId: DI010_PERMANENT_RELEASE_ID,
+    reviewStatus,
+    releaseId,
     questionBankStatus: "NOT_STORED" as const,
     questionBankWritable: false as const,
     questionBankEligible: false as const,
@@ -135,30 +145,31 @@ function toQuestionStudioPreview(source: ReturnType<typeof generateDi010Permanen
     productionReleaseAuthorized: false as const,
     reviewOnly: true as const,
     manualApprovalRequired: true as const,
-    releaseFreezeStatus: "PERMANENT_ENGLISH_CONTROLLED_REVIEW" as const,
-    language: "en" as const,
+    releaseFreezeStatus: language === "en" ? "PERMANENT_ENGLISH_CONTROLLED_REVIEW" as const : "MULTILINGUAL_FROZEN_CONTROLLED_REVIEW" as const,
+    language,
     traceability: {
-      ...source.traceability,
+      ...(localized?.traceability ?? source.traceability),
       contractStatus: "PERMANENT_REVIEW_QL" as const,
       permanentQlId: descriptor.qlId,
-      releaseId: DI010_PERMANENT_RELEASE_ID,
+      releaseId,
       questionStudioDiscoverable: true as const,
       questionStudioMode: "CONTROLLED_REVIEW" as const,
       questionBankStatus: "NOT_STORED" as const,
       testEligibility: "INELIGIBLE" as const,
       publiclyPublishable: false as const,
       automaticStudentPublication: false as const,
+      localizationStatus: language === "en" ? "ENGLISH_AUTHORITY" as const : "HI_PA_FROZEN" as const,
     },
     metadata: {
       packageId: "DI-010",
       canonicalProblemId: DI010_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
       questionLanguageId: descriptor.qlId,
       permanentQlId: descriptor.qlId,
-      releaseId: DI010_PERMANENT_RELEASE_ID,
+      releaseId,
       taskKind: descriptor.taskKind,
       examProfile: source.examProfile,
       runtimeMode: DI010_QUESTION_STUDIO_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_APPROVED",
+      reviewStatus,
       presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS",
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
@@ -173,8 +184,9 @@ function toQuestionStudioPreview(source: ReturnType<typeof generateDi010Permanen
 export async function generateDi010QuestionStudioBatch(request: Di010QuestionStudioRequest = {}) {
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
   if (cpId && cpId !== DI010_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package DI-010.`);
-  const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") throw new Error("DI-010 Hindi/Punjabi localization is a review candidate and is not yet enabled in Question Studio.");
+  const languageValue = String(request.language ?? "en").trim().toLowerCase();
+  if (!["en", "hi", "pa"].includes(languageValue)) throw new Error(`DI-010 controlled review supports en, hi and pa; received '${String(request.language ?? "")}'.`);
+  const language = languageValue as "en" | "hi" | "pa";
   const profile = normalizeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
   const explicit = resolveExplicitQl(request, profile, difficulty);
@@ -191,7 +203,7 @@ export async function generateDi010QuestionStudioBatch(request: Di010QuestionStu
     const source = generateDi010PermanentQuestion({ seed, examProfile: profile, taskKind: descriptor.taskKind });
     if (source.question.kind !== descriptor.taskKind || source.question.difficulty !== descriptor.difficulty) throw new Error(`${descriptor.qlId} semantic ownership drifted from its certified DI-010 contract.`);
     questionPackages.push(source);
-    questions.push(toQuestionStudioPreview(source, descriptor, { seed, index, count }));
+    questions.push(toQuestionStudioPreview(source, descriptor, { seed, index, count }, language));
   }
 
   return {
@@ -202,11 +214,11 @@ export async function generateDi010QuestionStudioBatch(request: Di010QuestionStu
       canonicalProblemId: DI010_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
       seed: batchSeed,
       timestamp: Date.now(),
-      language: "en" as const,
+      language,
       examProfile: profile,
       runtimeMode: DI010_QUESTION_STUDIO_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_APPROVED" as const,
-      releaseId: DI010_PERMANENT_RELEASE_ID,
+      reviewStatus: language === "en" ? "ENGLISH_REVIEW_APPROVED" as const : "MULTILINGUAL_FROZEN" as const,
+      releaseId: language === "en" ? DI010_PERMANENT_RELEASE_ID : DI010_LOCALIZATION_RELEASE_ID,
       permanentQlCount: DI010_PERMANENT_QLS.length,
       questionStudioDiscoverable: true as const,
       questionStudioMode: "CONTROLLED_REVIEW" as const,
@@ -243,13 +255,13 @@ export function di010QuestionStudioPackageCard() {
     permanentQlCount: DI010_PERMANENT_QLS.length,
     qls: DI010_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, taskKind: descriptor.taskKind })),
     supportedDifficulties: ["easy", "medium", "hard"],
-    supportedLanguages: ["en"],
+    supportedLanguages: ["en", "hi", "pa"],
     supportedExamProfiles: ["SSC_CGL_TIER_I", "SSC_CGL_TIER_II"],
     enabled: true,
     runtimeMode: DI010_QUESTION_STUDIO_RUNTIME_MODE,
     supportedRuntimeModes: [DI010_QUESTION_STUDIO_RUNTIME_MODE],
-    reviewStatus: "ENGLISH_REVIEW_APPROVED",
-    releaseId: DI010_PERMANENT_RELEASE_ID,
+    reviewStatus: "MULTILINGUAL_FROZEN",
+    releaseId: DI010_LOCALIZATION_RELEASE_ID,
     questionStudioDiscoverable: DI010_PERMANENT_OWNERSHIP.lifecycle.questionStudioDiscoverable,
     questionStudioMode: DI010_PERMANENT_OWNERSHIP.lifecycle.questionStudioMode,
     questionBankStatus: "NOT_STORED",
@@ -261,6 +273,6 @@ export function di010QuestionStudioPackageCard() {
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   };
 }
