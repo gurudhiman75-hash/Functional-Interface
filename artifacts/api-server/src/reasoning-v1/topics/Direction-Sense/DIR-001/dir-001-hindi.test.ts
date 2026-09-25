@@ -9,6 +9,12 @@ const forbiddenEnglish = /\b(?:North|South|East|West|metres?|turns?|walks?|walki
 const internalLeak = /DIR-(?:QL|CP)-\d+|\bundefined\b|\bnull\b/;
 const latinWordLeak = /[A-Za-z]{2,}/;
 
+function visibleSvgText(svg: string): string {
+  const text = [...svg.matchAll(/<text\b[^>]*>([\s\S]*?)<\/text>/g)].map((match) => match[1]);
+  const aria = [...svg.matchAll(/\baria-label="([^"]*)"/g)].map((match) => match[1]);
+  return [...text, ...aria].join(" ").replace(/&(?:amp|quot|apos|lt|gt);/g, " ");
+}
+
 assert.equal(DIR_001_QLS.length, 44);
 assert.deepEqual(
   DIR_001_QLS.map((ql) => ql.qlId),
@@ -23,6 +29,7 @@ for (const ql of DIR_001_QLS) {
     const hindi = generateDirectionQuestionHindi(ql.qlId, seed);
     assert.deepEqual(hindi, generateDirectionQuestionHindi(ql.qlId, seed));
     assert.equal(hindi.locale, "hi-IN");
+    assert.equal(hindi.questionDiagram, undefined, `${ql.qlId} Hindi question must not show a diagram`);
     assert.equal(hindi.qlId, english.qlId);
     assert.equal(hindi.checkpointId, english.checkpointId);
     assert.equal(hindi.ruleId, english.ruleId);
@@ -187,7 +194,7 @@ for (const ql of DIR_001_QLS) {
       assert.ok(typeof diagram.svg === "string" && diagram.svg.includes("<svg"));
       assert.ok(diagram.svg.includes('role="img"'));
       assert.ok(diagram.svg.includes("aria-label="));
-      assert.ok(!/\b(?:North|South|East|West|metres?|Morning|Evening|Shadow|Sun|Taran)\b/.test(diagram.svg), `${ql.qlId} diagram English leak`);
+      assert.doesNotMatch(visibleSvgText(diagram.svg), latinWordLeak, `${ql.qlId} visible Hindi diagram text leaked Latin words: ${visibleSvgText(diagram.svg)}`);
     }
     stems.get(ql.qlId)!.add(hindi.stem);
     explanations.get(ql.qlId)!.add(explanationText);
