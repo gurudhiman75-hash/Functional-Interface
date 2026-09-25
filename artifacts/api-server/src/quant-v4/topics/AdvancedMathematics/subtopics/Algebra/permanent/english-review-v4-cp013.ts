@@ -65,7 +65,7 @@ function negativeRhsExplanation(base: AlgCp013DiscoveryItem) {
     `The left side is |${inside}|. An absolute value is always at least 0.`,
     `Here the right side is ${rhs}, which is negative.`,
     `Even if ${inside} = 0, the left side would be 0, not ${rhs}; for every other x the absolute value is positive.`,
-    `Therefore no real value of x can satisfy the equation, so ${base.answer.text.toLowerCase()}.`,
+    "Therefore the equation has no real solution.",
   ].join(" ");
 }
 
