@@ -41,7 +41,7 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa",english:a
   }else{
     fail(/[\u0A00-\u0A7F]/u.test(scriptText),question.questionId+": missing Gurmukhi");
     fail(!/[\u0900-\u097F]/u.test(scriptText),question.questionId+": Devanagari leakage in Punjabi");
-    const editorialBans=["ਕੜਾ","ਕੜੀ","ਕੜੀਆਂ","ਟਾਈਟ","ਕਿਹੜੇ ਕਿਸਮ","ਸਹੀ ਤਰ੍ਹਾਂ","ਹੇਠ ਹੇਠ"];
+    const editorialBans=["ਕੜਾ","ਕੜੀ","ਕੜੀਆਂ","ਟਾਈਟ","ਉਪਵਾਸ","ਕਿਹੜੇ ਕਿਸਮ","ਸਹੀ ਤਰ੍ਹਾਂ","ਹੇਠ ਹੇਠ"];
     for(const banned of editorialBans){
       fail(!text.includes(banned),question.questionId+": Punjabi editorial regression: "+banned);
     }
