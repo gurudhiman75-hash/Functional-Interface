@@ -86,6 +86,10 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਅਮਰੀਕੀ ਕਪਾਹ ਦੇ ਬਾਹਰੋਂ",
       "ਸਮਾਜਕ-ਆਪਣਾ ਰਾਜ",
       "ਬਰਤਾਨਵੀ ਮਾਲੀਆ ਜ਼ੁਲਮ ਖ਼ਿਲਾਫ਼ ਇਹ",
+      "ਉਨ੍ਹਾਂ ਦੀ ਨਿਰਭਰਤਾ",
+      "ਯੂਨੀਵਰਸਿਟੀਆਂ ਦਾ ਵਿਸਥਾਰ",
+      "ਨਾਰਾਜ਼ਗੀ ਦਾ ਉਦਾਹਰਨ",
+      "ਮੁੜ ਸਥਾਪਨਾ",
     ];  for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
     }
