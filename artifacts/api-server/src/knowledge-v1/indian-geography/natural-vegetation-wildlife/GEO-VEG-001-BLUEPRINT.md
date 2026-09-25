@@ -1,6 +1,6 @@
 # GEO-VEG-001 — Natural Vegetation & Wildlife of India
 
-Status: ACTIVE IMPLEMENTATION — WAVE 1 (CP001–CP004) REVIEW
+Status: ACTIVE IMPLEMENTATION — WAVE 1 (CP001–CP004) APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-VEG-001`
@@ -102,7 +102,7 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-Wave 1 is implemented as four independent 54-question review candidates on the current `New-main` base:
+Wave 1 is human-approved as four independent 54-question owning checkpoints on the current `New-main` base:
 
 - CP001 — Vegetation Basics & Controlling Factors — QL001–QL009.
 - CP002 — Tropical Evergreen & Semi-Evergreen Forests — QL010–QL018.
@@ -118,4 +118,4 @@ Each checkpoint preserves:
 - static NCERT-grade facts only;
 - review-only lifecycle with runtime publication disabled.
 
-Wave 1 therefore qualifies 36 permanent QLs and 216 owning questions before human approval. CP005 begins Montane Vegetation.
+Wave 1 qualifies 36 permanent QLs and 216 owning questions and has explicit human approval. CP005 begins Montane Vegetation.
