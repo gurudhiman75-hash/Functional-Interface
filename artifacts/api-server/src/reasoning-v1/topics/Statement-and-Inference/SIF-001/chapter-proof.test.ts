@@ -7,6 +7,7 @@ import { assertSifLanguageParity, fingerprintSifAuthority, validateSifAuthority 
 import { buildSifCpReviewPack } from "./review-pack.ts";
 import { SIF_CP003_PROFILE_BY_AUTHORITY_ID } from "./cp003-quantifier-authorities.ts";
 import { solveSifScenario } from "./solver.ts";
+import { SIF_CP004_PROFILE_BY_AUTHORITY_ID } from "./cp004-comparison-authorities.ts";
 
 const locales: readonly SifLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 assert.equal(SIF_001_MANIFEST.cpCount, 17);
@@ -28,7 +29,7 @@ for (const cpId of SIF_CP_IDS) {
     assert.equal(question.metadata.questionBankWritable, false);
   }
   const review = buildSifCpReviewPack({ cpId, locale: "en-IN", seed: 9000 });
-  assert.equal(review.questions.length, cpId === "SIF-CP003" ? 24 : 20, `${cpId}: review pack size`);
+  assert.equal(review.questions.length, cpId === "SIF-CP003" || cpId === "SIF-CP004" ? 24 : 20, `${cpId}: review pack size`);
 }
 
 const cp001Authorities = listSifAuthorities("SIF-CP001");
@@ -73,5 +74,23 @@ assert.equal(new Set(cp003Review.questions.map((entry) => entry.scenarioId)).siz
 assert.deepEqual(cp003Review.effectiveDistribution, { EASY: 6, MEDIUM: 10, HARD: 8 }, "SIF-CP003 review difficulty balance");
 assert.equal(new Set(cp003Review.questions.map((entry) => SIF_CP003_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.quantifier)).size, 10, "SIF-CP003 review must expose all quantifier families");
 assert.deepEqual(new Set(cp003Review.questions.map((entry) => entry.answerClass)), new Set(["ONLY_I", "ONLY_II", "BOTH", "NEITHER"]), "SIF-CP003 review must cover all applicable answer states");
+
+const cp004Authorities = listSifAuthorities("SIF-CP004");
+assert.equal(cp004Authorities.length, 48, "SIF-CP004 requires forty-eight distinct comparison authorities");
+assert.equal(new Set(cp004Authorities.map(fingerprintSifAuthority)).size, 48, "SIF-CP004 authorities must be semantically distinct");
+assert.equal(Object.keys(SIF_CP004_PROFILE_BY_AUTHORITY_ID).length, 48, "SIF-CP004 profile ledger must cover every authority");
+assert.equal(new Set(Object.values(SIF_CP004_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.kind)).size, 8, "SIF-CP004 must cover eight comparison families");
+for (const kind of new Set(Object.values(SIF_CP004_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.kind))) assert.equal(Object.values(SIF_CP004_PROFILE_BY_AUTHORITY_ID).filter((profile) => profile.kind === kind).length, 6, `SIF-CP004 ${kind} authority count`);
+assert.equal(new Set(cp004Authorities.map((entry) => entry.domain)).size, 8, "SIF-CP004 must cover eight context domains");
+assert.equal(cp004Authorities.filter((entry) => entry.difficulty === "EASY").length, 19, "SIF-CP004 easy authority count");
+assert.equal(cp004Authorities.filter((entry) => entry.difficulty === "MEDIUM").length, 29, "SIF-CP004 medium authority count");
+assert.ok(cp004Authorities.every((entry) => !entry.identityGuard.causeEffectQuestion && entry.mechanisms.includes("COMPARISON")), "SIF-CP004 must remain comparison inference, not cause/effect");
+const cp004Review = buildSifCpReviewPack({ cpId: "SIF-CP004", locale: "en-IN", seed: 40_000 });
+assert.equal(cp004Review.questions.length, 24, "SIF-CP004 review pack size");
+assert.equal(new Set(cp004Review.questions.map((entry) => entry.scenarioId)).size, 24, "SIF-CP004 review must not repeat scenarios");
+assert.deepEqual(cp004Review.effectiveDistribution, { EASY: 10, MEDIUM: 14, HARD: 0 }, "SIF-CP004 review difficulty balance");
+assert.equal(new Set(cp004Review.questions.map((entry) => SIF_CP004_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.kind)).size, 8, "SIF-CP004 review must expose all comparison families");
+for (const kind of new Set(Object.values(SIF_CP004_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.kind))) assert.equal(cp004Review.questions.filter((entry) => SIF_CP004_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.kind === kind).length, 3, `SIF-CP004 review must sample three ${kind} scenarios`);
+assert.equal(new Set(cp004Review.questions.map((entry) => entry.answerClass)).size, 2, "SIF-CP004 review must balance valid inference position");
 
 console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
