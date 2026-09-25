@@ -1,16 +1,16 @@
-# DI-010 Frequency Polygon — Permanent English Controlled Review
+# DI-010 Frequency Polygon — Multilingual Frozen Controlled Review
 
-`PERMANENT_ENGLISH_CONTROLLED_REVIEW` — P2 questions and the shared frequency-polygon diagram were explicitly approved and promoted to permanent Question Studio review authority.
+`MULTILINGUAL_FROZEN_CONTROLLED_REVIEW` — DI-010 no-decimal frequency-polygon questions are approved in English, Hindi and Punjabi for controlled Question Studio review.
 
 ## Authority
 
 - Release: `DI-010-PERMANENT-ENGLISH-REVIEW-P2`
 - Canonical problem: `DI-CP-010`
-- Question Studio runtime: `DI010_PERMANENT_ENGLISH_REVIEW_P2`
+- Question Studio runtime: `DI010_PERMANENT_MULTILINGUAL_REVIEW_V1`
 - Permanent QLs: `DI-QL-014` through `DI-QL-026`
 - Question Studio discovery: enabled in `CONTROLLED_REVIEW`
 - English editorial status: `ENGLISH_REVIEW_APPROVED`
-- Localization: `HI_PA_REVIEW_CANDIDATE`
+- Localization: `HI_PA_FROZEN`
 
 ## Certified P2 task families
 
@@ -49,7 +49,7 @@ Promotion to controlled Question Studio review does not authorize Question Bank 
 - median explanations use an integer observation position
 - answers, options, explanation tables and visible polygon labels contain no decimal values
 
-## Hindi/Punjabi localization candidate V1
+## Hindi/Punjabi frozen multilingual authority V1
 
 - locales: hi-IN and pa-IN
 - 13/13 permanent QLs localized
@@ -59,4 +59,4 @@ Promotion to controlled Question Studio review does not authorize Question Bank 
 - grouped-mean and median working tables localized
 - construction-property text options localized while preserving correct-option identity
 - numeric/symbolic options and answers remain identical to English
-- localized Question Studio activation: NOT AUTHORIZED pending human review
+- localized Question Studio activation: CONTROLLED_REVIEW authorized
