@@ -30,7 +30,7 @@ export function renderPunjabiStem036To044(english: R): string | null {
     case "DIR-QL-043":
       return `${placePa(s.place)} ਵਿੱਚ ${namePa(s.subject)} ਚੌਕੀ ${s.checkpoint} ਤੋਂ ${startsWalkingPa(s.subject)} ਅਤੇ ਸ਼ੁਰੂ ਵਿੱਚ ਉਸ ਦਾ ਮੂੰਹ ${directionPa(s.initialFacing)} ਦਿਸ਼ਾ ਵੱਲ ਹੈ। ${advancedJourneyPa(s.operations ?? [], s.subject)} ਅੰਤਿਮ ਬਿੰਦੂ ਅਤੇ ਚੌਕੀ ਵਿਚਕਾਰ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ਕਿੰਨੀ ਹੈ?`;
     case "DIR-QL-044":
-      return `ਚਿੱਤਰ ਦੋ ਬਿੰਦੂਆਂ ਦੇ ਆਪਸੀ ਸੰਬੰਧ ਦਿਖਾਉਂਦਾ ਹੈ। ਇਸ ਤੋਂ ਇਲਾਵਾ, ${relationSentencePa(s.textRelation)} ਚਿੱਤਰ ਅਤੇ ਲਿਖੇ ਕਥਨ ਦੋਵਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਦੱਸੋ ਕਿ ${namePa(s.queryTo)}, ${namePa(s.queryFrom)} ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
+      return `${(s.diagramRelations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ਇਸ ਤੋਂ ਇਲਾਵਾ, ${relationSentencePa(s.textRelation)} ਸਾਰੇ ਸੰਬੰਧਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਦੱਸੋ ਕਿ ${namePa(s.queryTo)}, ${namePa(s.queryFrom)} ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
     default: return null;
   }
 }
