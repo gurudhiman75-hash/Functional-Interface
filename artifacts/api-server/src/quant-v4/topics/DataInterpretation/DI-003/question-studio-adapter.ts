@@ -7,10 +7,11 @@ import {
   type Di003PermanentQlDescriptor,
 } from "./permanent-ql-registry";
 import { generateDi003PermanentQuestion } from "./permanent-question-generator";
+import { DI003_LOCALIZATION_RELEASE_ID, localizeDi003Question } from "./localization-review-v1";
 import type { Di003V2Difficulty, Di003V2ExamProfile } from "./grouped-bar-v2-types";
 
 export const DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-003" as const;
-export const DI003_QUESTION_STUDIO_RUNTIME_MODE = "DI003_PERMANENT_ENGLISH_REVIEW_P1" as const;
+export const DI003_QUESTION_STUDIO_RUNTIME_MODE = "DI003_PERMANENT_MULTILINGUAL_REVIEW_V1" as const;
 
 export type Di003QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -89,12 +90,21 @@ function explanationText(explanation: { keyIdea: string; steps: readonly string[
   return [explanation.keyIdea, ...explanation.steps].join("\n\n");
 }
 
-function toQuestionStudioPreview(source: ReturnType<typeof generateDi003PermanentQuestion>, descriptor: Di003PermanentQlDescriptor, context: { seed: string; index: number; count: number }) {
-  const question = source.question;
+function toQuestionStudioPreview(
+  source: ReturnType<typeof generateDi003PermanentQuestion>,
+  descriptor: Di003PermanentQlDescriptor,
+  context: { seed: string; index: number; count: number },
+  language: "en" | "hi" | "pa",
+) {
+  const localized = language === "en" ? undefined : localizeDi003Question(source, language === "hi" ? "hi-IN" : "pa-IN");
+  const question = localized?.question ?? source.question;
+  const stimulus = localized?.stimulus ?? source.stimulus;
+  const reviewStatus = language === "en" ? "ENGLISH_REVIEW_APPROVED" as const : "MULTILINGUAL_FROZEN" as const;
+  const releaseId = language === "en" ? DI003_PERMANENT_RELEASE_ID : DI003_LOCALIZATION_RELEASE_ID;
   return {
     text: question.stem,
     stem: question.stem,
-    stimulus: source.stimulus,
+    stimulus,
     options: [...question.options],
     optionMetadata: question.optionMetadata.map((option) => ({ ...option })),
     correct: question.correctIndex,
@@ -110,7 +120,7 @@ function toQuestionStudioPreview(source: ReturnType<typeof generateDi003Permanen
     topic: "Data Interpretation",
     subtopic: "Grouped Bar Chart",
     generationBackend: "quant-v4",
-    debugSource: "quant-v4-di003-permanent-english-review",
+    debugSource: language === "en" ? "quant-v4-di003-permanent-english-review" : "quant-v4-di003-multilingual-frozen-review",
     questionId: `${question.questionId}:${descriptor.qlId}`,
     sourceQuestionId: question.questionId,
     seed: context.seed,
@@ -124,8 +134,8 @@ function toQuestionStudioPreview(source: ReturnType<typeof generateDi003Permanen
     semanticContract: descriptor.semanticContract,
     taskKind: descriptor.taskKind,
     runtimeMode: DI003_QUESTION_STUDIO_RUNTIME_MODE,
-    reviewStatus: "ENGLISH_REVIEW_APPROVED" as const,
-    releaseId: DI003_PERMANENT_RELEASE_ID,
+    reviewStatus,
+    releaseId,
     questionBankStatus: "NOT_STORED" as const,
     questionBankWritable: false as const,
     questionBankEligible: false as const,
@@ -137,26 +147,27 @@ function toQuestionStudioPreview(source: ReturnType<typeof generateDi003Permanen
     productionReleaseAuthorized: false as const,
     reviewOnly: true as const,
     manualApprovalRequired: true as const,
-    releaseFreezeStatus: "PERMANENT_ENGLISH_CONTROLLED_REVIEW" as const,
-    language: "en" as const,
+    releaseFreezeStatus: language === "en" ? "PERMANENT_ENGLISH_CONTROLLED_REVIEW" as const : "MULTILINGUAL_FROZEN_CONTROLLED_REVIEW" as const,
+    language,
     traceability: {
-      ...source.traceability,
+      ...(localized?.traceability ?? source.traceability),
       contractStatus: "PERMANENT_REVIEW_QL" as const,
       permanentQlId: descriptor.qlId,
-      releaseId: DI003_PERMANENT_RELEASE_ID,
+      releaseId,
       questionStudioDiscoverable: true as const,
       questionStudioMode: "CONTROLLED_REVIEW" as const,
+      localizationStatus: language === "en" ? "ENGLISH_AUTHORITY" as const : "HI_PA_FROZEN" as const,
     },
     metadata: {
       packageId: "DI-003",
       canonicalProblemId: DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
       questionLanguageId: descriptor.qlId,
       permanentQlId: descriptor.qlId,
-      releaseId: DI003_PERMANENT_RELEASE_ID,
+      releaseId,
       taskKind: descriptor.taskKind,
       examProfile: source.examProfile,
       runtimeMode: DI003_QUESTION_STUDIO_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_APPROVED",
+      reviewStatus,
       presentationAuthority: "DATA_INTERPRETATION_SHARED_GROUPED_BAR",
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
@@ -171,8 +182,9 @@ function toQuestionStudioPreview(source: ReturnType<typeof generateDi003Permanen
 export async function generateDi003QuestionStudioBatch(request: Di003QuestionStudioRequest = {}) {
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
   if (cpId && cpId !== DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package DI-003.`);
-  const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") throw new Error("DI-003 permanent Question Studio review is English-only; localization has not started.");
+  const languageValue = String(request.language ?? "en").trim().toLowerCase();
+  if (!["en", "hi", "pa"].includes(languageValue)) throw new Error(`DI-003 controlled review supports en, hi and pa; received '${String(request.language ?? "")}'.`);
+  const language = languageValue as "en" | "hi" | "pa";
 
   const profile = normalizeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
@@ -190,7 +202,7 @@ export async function generateDi003QuestionStudioBatch(request: Di003QuestionStu
     const source = generateDi003PermanentQuestion({ seed, examProfile: profile, taskKind: descriptor.taskKind });
     if (source.question.kind !== descriptor.taskKind || source.question.difficulty !== descriptor.difficulty) throw new Error(`${descriptor.qlId} semantic ownership drifted from its certified DI-003 V2 contract.`);
     questionPackages.push(source);
-    questions.push(toQuestionStudioPreview(source, descriptor, { seed, index, count }));
+    questions.push(toQuestionStudioPreview(source, descriptor, { seed, index, count }, language));
   }
 
   return {
@@ -201,11 +213,11 @@ export async function generateDi003QuestionStudioBatch(request: Di003QuestionStu
       canonicalProblemId: DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
       seed: batchSeed,
       timestamp: Date.now(),
-      language: "en" as const,
+      language,
       examProfile: profile,
       runtimeMode: DI003_QUESTION_STUDIO_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_APPROVED" as const,
-      releaseId: DI003_PERMANENT_RELEASE_ID,
+      reviewStatus: language === "en" ? "ENGLISH_REVIEW_APPROVED" as const : "MULTILINGUAL_FROZEN" as const,
+      releaseId: language === "en" ? DI003_PERMANENT_RELEASE_ID : DI003_LOCALIZATION_RELEASE_ID,
       permanentQlCount: DI003_PERMANENT_QLS.length,
       questionStudioDiscoverable: true as const,
       questionStudioMode: "CONTROLLED_REVIEW" as const,
@@ -242,13 +254,13 @@ export function di003QuestionStudioPackageCard() {
     permanentQlCount: DI003_PERMANENT_QLS.length,
     qls: DI003_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, taskKind: descriptor.taskKind })),
     supportedDifficulties: ["easy", "medium", "hard"],
-    supportedLanguages: ["en"],
+    supportedLanguages: ["en", "hi", "pa"],
     supportedExamProfiles: ["SSC_CGL_TIER_I", "BANKING_PRELIMS"],
     enabled: true,
     runtimeMode: DI003_QUESTION_STUDIO_RUNTIME_MODE,
     supportedRuntimeModes: [DI003_QUESTION_STUDIO_RUNTIME_MODE],
-    reviewStatus: "ENGLISH_REVIEW_APPROVED",
-    releaseId: DI003_PERMANENT_RELEASE_ID,
+    reviewStatus: "MULTILINGUAL_FROZEN",
+    releaseId: DI003_LOCALIZATION_RELEASE_ID,
     questionStudioDiscoverable: DI003_PERMANENT_OWNERSHIP.lifecycle.questionStudioDiscoverable,
     questionStudioMode: DI003_PERMANENT_OWNERSHIP.lifecycle.questionStudioMode,
     questionBankStatus: "NOT_STORED",
@@ -260,6 +272,6 @@ export function di003QuestionStudioPackageCard() {
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_FROZEN",
   };
 }

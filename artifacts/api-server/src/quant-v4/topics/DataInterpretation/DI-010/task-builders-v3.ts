@@ -336,9 +336,9 @@ function histogramBarHeight(seed: string, stimulus: Di010Stimulus): Di010Draft {
   const previous = stimulus.classes[Math.max(0, index - 1)]!.frequency;
   const next = stimulus.classes[Math.min(stimulus.classes.length - 1, index + 1)]!.frequency;
   const s = surface(seed, "HISTOGRAM_BAR_HEIGHT_FROM_POLYGON", [
-    `If the same distribution is shown as a histogram, what should be the height of the bar for ${interval(stimulus, index)}?`,
+    `If the same distribution is shown as a histogram, what frequency should be shown for ${interval(stimulus, index)}?`,
     `The data are redrawn as a histogram. What frequency should the rectangle for ${interval(stimulus, index)} represent?`,
-    `For the equivalent histogram, what will be the bar height for the class ${interval(stimulus, index)}?`,
+    `For the equivalent histogram, what frequency will be shown for the class ${interval(stimulus, index)}?`,
   ]);
   return {
     kind: "HISTOGRAM_BAR_HEIGHT_FROM_POLYGON",
@@ -350,7 +350,7 @@ function histogramBarHeight(seed: string, stimulus: Di010Stimulus): Di010Draft {
       { text: String(next), misconceptionId: "USE_NEXT_POLYGON_POINT", derivation: "Uses the frequency at the next polygon point." },
       { text: String(item.classMark), misconceptionId: "CONFUSE_CLASS_MARK_WITH_HEIGHT", derivation: "Uses the class mark as the bar height instead of the class frequency." },
     ],
-    explanation: { keyIdea: "A histogram and its frequency polygon represent the same frequency for each class.", steps: [`The class ${interval(stimulus, index)} has frequency ${item.frequency}.`, `Therefore the corresponding histogram bar has height ${item.frequency}.`] },
+    explanation: { keyIdea: "A histogram and its frequency polygon represent the same frequency for each class.", steps: [`The class ${interval(stimulus, index)} has frequency ${item.frequency}.`, `Therefore the histogram will show frequency ${item.frequency} for this class.`] },
     evidence: { targetIndex: index, surfaceId: s.id },
   };
 }

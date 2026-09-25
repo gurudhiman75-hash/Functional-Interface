@@ -14,6 +14,15 @@ function stable(value: unknown) {
   return JSON.stringify(value);
 }
 
+function learnerText(question: { stem: string; options: readonly string[]; answer: string; explanation: { keyIdea: string; steps: readonly string[]; workingTable?: { headers: readonly string[]; rows: readonly (readonly string[])[] } } }) {
+  const table = question.explanation.workingTable;
+  return [question.stem, ...question.options, question.answer, question.explanation.keyIdea, ...question.explanation.steps, ...(table?.headers ?? []), ...(table?.rows.flat() ?? [])].join(" ");
+}
+
+function visibleSvgText(svg: string) {
+  return [...svg.matchAll(/<(?:title|desc|text)[^>]*>([^<]*)<\/(?:title|desc|text)>/gu)].map((match) => match[1] ?? "").join(" ");
+}
+
 function walkFiles(directory: string): string[] {
   return readdirSync(directory).flatMap((name) => {
     const path = join(directory, name);
@@ -92,10 +101,12 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
       assert(question.optionMetadata.length === first.optionCount, `${question.questionId} option metadata count drifted.`);
       assert(new Set(question.options).size === first.optionCount, `${question.questionId} has duplicate options.`);
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId} correct index does not point to the answer.`);
+      assert(!/\d+\.\d+/u.test(learnerText(question)), `${question.questionId} exposes decimal learner-facing values.`);
       assert(question.optionMetadata[question.correctIndex]?.misconceptionId === "CORRECT", `${question.questionId} lost correct-option metadata.`);
       assert(question.optionMetadata.filter((option) => option.misconceptionId === "CORRECT").length === 1, `${question.questionId} has multiple correct metadata entries.`);
       assert(question.explanation.keyIdea.length >= 20 && question.explanation.steps.length >= 2, `${question.questionId} explanation is too thin.`);
       assert(!/associated|shortcut|common trap|\btrap\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${question.questionId} contains blocked learner wording.`);
+      assert(!/\bbars?\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${question.questionId} uses unnecessary chart-shape wording instead of the underlying values.`);
       assert(!/generator|question library|ql[- ]?id|review[- ]?only/iu.test(question.stem), `${question.questionId} leaks internal wording.`);
       familyCount.set(question.kind, familyCount.get(question.kind)! + 1);
       stemSurfaces.get(question.kind)!.add(question.stemSurfaceId);
@@ -115,6 +126,7 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
     assert((svg.match(/data-series-id="SERIES_A"/gu) ?? []).length === 5 && (svg.match(/data-series-id="SERIES_B"/gu) ?? []).length === 5, `${profile} ${seed} must render five bars per series.`);
     assert((svg.match(/data-category-label=/gu) ?? []).length === 5, `${profile} ${seed} must render five category labels.`);
     assert((svg.match(/data-legend="true"/gu) ?? []).length === 1, `${profile} ${seed} must render one legend.`);
+    assert(!/\d+\.\d+/u.test(visibleSvgText(svg)), `${profile} ${seed} visible grouped-bar text contains decimals.`);
     const gridlineCount = (svg.match(/data-gridline=/gu) ?? []).length;
     const lineCount = (svg.match(/<line /gu) ?? []).length;
     assert(gridlineCount >= 4 && lineCount === gridlineCount + 1, `${profile} ${seed} must contain only horizontal guides plus one baseline.`);
@@ -158,7 +170,7 @@ for (const file of walkFiles(scope).filter((path) => path.endsWith(".ts"))) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_DI_003_GROUPED_BAR_V2",
+  status: "PASS_DI_003_GROUPED_BAR_V3_NO_DECIMALS",
   sets: setCount,
   questions: questionCount,
   deterministicReplays,

@@ -95,7 +95,7 @@ export type Di003V2QuestionSet = Readonly<{
     representation: "GROUPED_BAR";
     parentFoundation: "DI-001";
     setContractVersion: "DI-003-SET-CONTRACT-V2";
-    arithmeticAuthority: "EXACT_INTEGER_RATIONAL";
+    arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING";
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
     questionBankStatus: "NOT_STORED";

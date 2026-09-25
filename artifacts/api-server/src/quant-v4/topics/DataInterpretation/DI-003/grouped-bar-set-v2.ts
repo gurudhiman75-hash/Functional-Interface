@@ -126,21 +126,14 @@ type Draft = Readonly<{
 }>;
 
 function fmt(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
+  return String(Math.round(value));
 }
 
 function formatPercent(numerator: number, denominator: number): string {
   if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || numerator < 0 || denominator <= 0) {
     throw new Error("DI-003 V2 received an invalid percentage fraction.");
   }
-  const n = BigInt(numerator);
-  const d = BigInt(denominator);
-  const hundredths = (n * 10_000n + d / 2n) / d;
-  const whole = hundredths / 100n;
-  const fraction = Number(hundredths % 100n);
-  if (fraction === 0) return `${whole}%`;
-  if (fraction % 10 === 0) return `${whole}.${fraction / 10}%`;
-  return `${whole}.${String(fraction).padStart(2, "0")}%`;
+  return `${Math.round((numerator * 100) / denominator)}%`;
 }
 
 function normalText(value: string) {
@@ -270,7 +263,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const directSurface = surface(`${seed}:DIRECT_BAR_VALUE:stem`, [
     `What is the value of ${directLabel} for ${directPoint.category}?`,
     `According to the chart, how many ${stimulus.unit} are shown for ${directLabel} in ${directPoint.category}?`,
-    `Read the ${directLabel} bar for ${directPoint.category}. What value does it show?`,
+    `For ${directPoint.category}, what value is shown for ${directLabel}?`,
   ]);
 
   const highestSeriesA = hashSeed(`${seed}:highest-series`) % 2 === 0;
@@ -279,7 +272,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const highestSurface = surface(`${seed}:HIGHEST_CATEGORY_FOR_SERIES:stem`, [
     `In which category is ${highestLabel} the highest?`,
     `For ${highestLabel}, which category has the maximum value?`,
-    `The tallest ${highestLabel} bar belongs to which category?`,
+    `Which category has the highest ${highestLabel} value?`,
   ]);
 
   const lowestSeriesA = hashSeed(`${seed}:lowest-series`) % 2 === 0;
@@ -288,7 +281,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const lowestSurface = surface(`${seed}:LOWEST_CATEGORY_FOR_SERIES:stem`, [
     `In which category is ${lowestLabel} the lowest?`,
     `For ${lowestLabel}, which category has the minimum value?`,
-    `The shortest ${lowestLabel} bar belongs to which category?`,
+    `Which category has the lowest ${lowestLabel} value?`,
   ]);
 
   const differenceChoices = points.map((point, index) => ({ index, value: Math.abs(point.seriesA - point.seriesB) })).filter((entry) => entry.value > 0);
@@ -297,7 +290,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const crossDifference = differenceEntry.value;
   const differenceSurface = surface(`${seed}:CROSS_SERIES_DIFFERENCE:stem`, [
     `What is the difference between ${aLabel} and ${bLabel} in ${differencePoint.category}?`,
-    `In ${differencePoint.category}, by how much do the two bars differ?`,
+    `In ${differencePoint.category}, what is the difference between the two series?`,
     `Find the absolute difference between ${aLabel} and ${bLabel} for ${differencePoint.category}.`,
   ]);
 
@@ -306,7 +299,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const combinedTotal = combinedPoint.seriesA + combinedPoint.seriesB;
   const combinedSurface = surface(`${seed}:COMBINED_CATEGORY_TOTAL:stem`, [
     `What is the combined value of ${aLabel} and ${bLabel} in ${combinedPoint.category}?`,
-    `Find the total of the two bars for ${combinedPoint.category}.`,
+    `Find the total of ${aLabel} and ${bLabel} for ${combinedPoint.category}.`,
     `Together, what value do ${aLabel} and ${bLabel} give for ${combinedPoint.category}?`,
   ]);
 
@@ -319,7 +312,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const withinSurface = surface(`${seed}:WITHIN_SERIES_DIFFERENCE:stem`, [
     `What is the difference in ${withinLabel} between ${points[withinLeft]!.category} and ${points[withinRight]!.category}?`,
     `For ${withinLabel}, how much do the values for ${points[withinLeft]!.category} and ${points[withinRight]!.category} differ?`,
-    `Find the absolute difference between the ${withinLabel} bars for ${points[withinLeft]!.category} and ${points[withinRight]!.category}.`,
+    `Find the absolute difference between the ${withinLabel} values for ${points[withinLeft]!.category} and ${points[withinRight]!.category}.`,
   ]);
 
   const ratioSeriesA = hashSeed(`${seed}:ratio-series`) % 2 === 0;
@@ -341,7 +334,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const average = averageTotal / points.length;
   const averageSurface = surface(`${seed}:SERIES_AVERAGE:stem`, [
     `What is the average value of ${averageLabel} across all five categories?`,
-    `Find the mean of the five ${averageLabel} bar values.`,
+    `Find the mean of the five ${averageLabel} values.`,
     `On average, what value does ${averageLabel} have per category?`,
   ]);
 
@@ -351,7 +344,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const combinedRatio = ratioDisplay(firstCombined, secondCombined);
   const combinedRatioSurface = surface(`${seed}:COMBINED_CATEGORY_RATIO:stem`, [
     `What is the ratio of the combined values of both series in ${points[firstIndex]!.category} to ${points[secondIndex]!.category}?`,
-    `Add the two bars in each named category. What is ${points[firstIndex]!.category} : ${points[secondIndex]!.category}?`,
+    `Add the two series values in each named category. What is ${points[firstIndex]!.category} : ${points[secondIndex]!.category}?`,
     `The combined totals for ${points[firstIndex]!.category} and ${points[secondIndex]!.category} are in what ratio, in that order?`,
   ]);
 
@@ -363,9 +356,9 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const changeDifference = higherValue - lowerValue;
   const percentChange = formatPercent(changeDifference, lowerValue);
   const percentSurface = surface(`${seed}:PERCENT_CHANGE_WITHIN_SERIES:stem`, [
-    `${aLabel} in ${points[higherIndex]!.category} is what percentage higher than in ${points[lowerIndex]!.category}?`,
-    `By what percent does ${aLabel} increase from ${points[lowerIndex]!.category} to ${points[higherIndex]!.category}?`,
-    `Find the percentage by which the ${aLabel} value for ${points[higherIndex]!.category} exceeds that for ${points[lowerIndex]!.category}.`,
+    `To the nearest whole percent, ${aLabel} in ${points[higherIndex]!.category} is what percentage higher than in ${points[lowerIndex]!.category}?`,
+    `By approximately what whole percent does ${aLabel} increase from ${points[lowerIndex]!.category} to ${points[higherIndex]!.category}?`,
+    `Find the percentage by which the ${aLabel} value for ${points[higherIndex]!.category} exceeds that for ${points[lowerIndex]!.category}, rounded to the nearest whole percent.`,
   ]);
 
   const shareSeriesA = hashSeed(`${seed}:share-series`) % 2 === 0;
@@ -375,17 +368,17 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const shareValue = shareSeriesA ? points[shareIndex]!.seriesA : points[shareIndex]!.seriesB;
   const shareAnswer = formatPercent(shareValue, shareTotal);
   const shareSurface = surface(`${seed}:CATEGORY_SHARE_OF_SERIES_TOTAL:stem`, [
-    `${shareLabel} in ${points[shareIndex]!.category} is what percentage of the ${shareLabel} total across all five categories?`,
-    `What percent of the five-category ${shareLabel} total comes from ${points[shareIndex]!.category}?`,
-    `Find the share of ${points[shareIndex]!.category} in the total of ${shareLabel}, as a percentage.`,
+    `To the nearest whole percent, ${shareLabel} in ${points[shareIndex]!.category} is what percentage of the ${shareLabel} total across all five categories?`,
+    `Approximately what whole percent of the five-category ${shareLabel} total comes from ${points[shareIndex]!.category}?`,
+    `Find the share of ${points[shareIndex]!.category} in the total of ${shareLabel}, rounded to the nearest whole percent.`,
   ]);
 
   const totalDifference = totalA - totalB;
   const totalExcess = formatPercent(totalDifference, totalB);
   const excessSurface = surface(`${seed}:TOTAL_SERIES_PERCENT_EXCESS:stem`, [
-    `By what percentage does the total of ${aLabel} exceed the total of ${bLabel}?`,
-    `The five-category total for ${aLabel} is what percent higher than the total for ${bLabel}?`,
-    `Find the percentage by which the overall ${aLabel} total is greater than the overall ${bLabel} total.`,
+    `To the nearest whole percent, by what percentage does the total of ${aLabel} exceed the total of ${bLabel}?`,
+    `The five-category total for ${aLabel} is approximately what whole percent higher than the total for ${bLabel}?`,
+    `Find the percentage by which the overall ${aLabel} total is greater than the overall ${bLabel} total, rounded to the nearest whole percent.`,
   ]);
 
   const categoryTextCandidates = (answerCategory: string): Candidate[] => points
@@ -411,19 +404,19 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: String(otherSeriesValue), misconceptionId: "OTHER_SERIES_SAME_CATEGORY", derivation: "Reads the other series in the named category." },
         ...otherCategoryValues(directSeriesA, directIndex),
       ],
-      explanation: { keyIdea: `Read the ${directLabel} bar for ${directPoint.category}.`, steps: [`The chart shows ${directLabel} = ${directValue} ${stimulus.unit} for ${directPoint.category}.`, `Therefore, the required value is ${directValue}.`] },
+      explanation: { keyIdea: `Read the ${directLabel} value for ${directPoint.category}.`, steps: [`The chart shows ${directLabel} = ${directValue} ${stimulus.unit} for ${directPoint.category}.`, `Therefore, the required value is ${directValue}.`] },
       evidence: { categoryIndex: directIndex, seriesId: directSeriesA ? "SERIES_A" : "SERIES_B" },
     },
     {
       kind: "HIGHEST_CATEGORY_FOR_SERIES", difficulty: "Easy", stemSurfaceId: highestSurface.id, stem: highestSurface.text, answer: highestPoint.category,
       candidates: categoryTextCandidates(highestPoint.category),
-      explanation: { keyIdea: `Compare the five ${highestLabel} bars and identify the tallest one.`, steps: [`The largest ${highestLabel} value is ${highestSeriesA ? highestPoint.seriesA : highestPoint.seriesB}.`, `That bar belongs to ${highestPoint.category}.`] },
+      explanation: { keyIdea: `Compare the five ${highestLabel} values and identify the largest one.`, steps: [`The largest ${highestLabel} value is ${highestSeriesA ? highestPoint.seriesA : highestPoint.seriesB}.`, `It occurs in ${highestPoint.category}.`] },
       evidence: { seriesId: highestSeriesA ? "SERIES_A" : "SERIES_B", categoryIndex: points.indexOf(highestPoint) },
     },
     {
       kind: "LOWEST_CATEGORY_FOR_SERIES", difficulty: "Easy", stemSurfaceId: lowestSurface.id, stem: lowestSurface.text, answer: lowestPoint.category,
       candidates: categoryTextCandidates(lowestPoint.category),
-      explanation: { keyIdea: `Compare the five ${lowestLabel} bars and identify the shortest one.`, steps: [`The smallest ${lowestLabel} value is ${lowestSeriesA ? lowestPoint.seriesA : lowestPoint.seriesB}.`, `That bar belongs to ${lowestPoint.category}.`] },
+      explanation: { keyIdea: `Compare the five ${lowestLabel} values and identify the smallest one.`, steps: [`The smallest ${lowestLabel} value is ${lowestSeriesA ? lowestPoint.seriesA : lowestPoint.seriesB}.`, `It occurs in ${lowestPoint.category}.`] },
       evidence: { seriesId: lowestSeriesA ? "SERIES_A" : "SERIES_B", categoryIndex: points.indexOf(lowestPoint) },
     },
     {
@@ -435,7 +428,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: String(totalA), misconceptionId: "USE_SERIES_A_TOTAL", derivation: `Uses the full ${aLabel} total instead of the same-category difference.` },
         { text: String(totalB), misconceptionId: "USE_SERIES_B_TOTAL", derivation: `Uses the full ${bLabel} total instead of the same-category difference.` },
       ],
-      explanation: { keyIdea: "Use the two bars in the named category and subtract the smaller value from the larger.", steps: [`${aLabel} = ${differencePoint.seriesA}; ${bLabel} = ${differencePoint.seriesB}.`, `Difference = |${differencePoint.seriesA} - ${differencePoint.seriesB}| = ${crossDifference}.`] },
+      explanation: { keyIdea: "Use the two series values in the named category and subtract the smaller value from the larger.", steps: [`${aLabel} = ${differencePoint.seriesA}; ${bLabel} = ${differencePoint.seriesB}.`, `Difference = |${differencePoint.seriesA} - ${differencePoint.seriesB}| = ${crossDifference}.`] },
       evidence: { categoryIndex: differenceEntry.index },
     },
     {
@@ -447,7 +440,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: String(totalA), misconceptionId: "WHOLE_SERIES_A_TOTAL", derivation: `Uses the five-category ${aLabel} total.` },
         { text: String(totalB), misconceptionId: "WHOLE_SERIES_B_TOTAL", derivation: `Uses the five-category ${bLabel} total.` },
       ],
-      explanation: { keyIdea: "A combined category total is found by adding the two bars in that category.", steps: [`${aLabel} = ${combinedPoint.seriesA}; ${bLabel} = ${combinedPoint.seriesB}.`, `${combinedPoint.seriesA} + ${combinedPoint.seriesB} = ${combinedTotal}.`] },
+      explanation: { keyIdea: "A combined category total is found by adding the two series values in that category.", steps: [`${aLabel} = ${combinedPoint.seriesA}; ${bLabel} = ${combinedPoint.seriesB}.`, `${combinedPoint.seriesA} + ${combinedPoint.seriesB} = ${combinedTotal}.`] },
       evidence: { categoryIndex: combinedIndex },
     },
     {
@@ -459,7 +452,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: String(Math.abs(points[withinLeft]!.seriesA - points[withinLeft]!.seriesB)), misconceptionId: "CROSS_SERIES_FIRST_CATEGORY", derivation: "Compares the two series within the first category instead." },
         { text: String(Math.abs(points[withinRight]!.seriesA - points[withinRight]!.seriesB)), misconceptionId: "CROSS_SERIES_SECOND_CATEGORY", derivation: "Compares the two series within the second category instead." },
       ],
-      explanation: { keyIdea: `Use only the two ${withinLabel} bars named in the question.`, steps: [`The two values are ${withinA} and ${withinB}.`, `Difference = |${withinA} - ${withinB}| = ${withinDifference}.`] },
+      explanation: { keyIdea: `Use only the two ${withinLabel} values named in the question.`, steps: [`The two values are ${withinA} and ${withinB}.`, `Difference = |${withinA} - ${withinB}| = ${withinDifference}.`] },
       evidence: { seriesId: withinSeriesA ? "SERIES_A" : "SERIES_B", firstIndex: withinLeft, secondIndex: withinRight },
     },
     {
@@ -493,7 +486,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: ratioDisplay(points[firstIndex]!.seriesA + points[secondIndex]!.seriesA, points[firstIndex]!.seriesB + points[secondIndex]!.seriesB), misconceptionId: "GROUP_BY_SERIES", derivation: "Groups the four bars by series instead of by category." },
         { text: ratioDisplay(firstCombined, points[secondIndex]!.seriesA), misconceptionId: "OMIT_SECOND_BAR", derivation: "Omits one bar from the second category total." },
       ],
-      explanation: { keyIdea: "First add both bars within each category, then form the ratio in the stated order.", steps: [`${points[firstIndex]!.category}: ${points[firstIndex]!.seriesA} + ${points[firstIndex]!.seriesB} = ${firstCombined}.`, `${points[secondIndex]!.category}: ${points[secondIndex]!.seriesA} + ${points[secondIndex]!.seriesB} = ${secondCombined}.`, `${firstCombined}:${secondCombined} = ${combinedRatio}.`], workingTable: { headers: ["Category", aLabel, bLabel, "Combined"], rows: [[points[firstIndex]!.category, String(points[firstIndex]!.seriesA), String(points[firstIndex]!.seriesB), String(firstCombined)], [points[secondIndex]!.category, String(points[secondIndex]!.seriesA), String(points[secondIndex]!.seriesB), String(secondCombined)]] } },
+      explanation: { keyIdea: "First add both series values within each category, then form the ratio in the stated order.", steps: [`${points[firstIndex]!.category}: ${points[firstIndex]!.seriesA} + ${points[firstIndex]!.seriesB} = ${firstCombined}.`, `${points[secondIndex]!.category}: ${points[secondIndex]!.seriesA} + ${points[secondIndex]!.seriesB} = ${secondCombined}.`, `${firstCombined}:${secondCombined} = ${combinedRatio}.`], workingTable: { headers: ["Category", aLabel, bLabel, "Combined"], rows: [[points[firstIndex]!.category, String(points[firstIndex]!.seriesA), String(points[firstIndex]!.seriesB), String(firstCombined)], [points[secondIndex]!.category, String(points[secondIndex]!.seriesA), String(points[secondIndex]!.seriesB), String(secondCombined)]] } },
       evidence: { firstIndex, secondIndex },
     },
     {
@@ -505,7 +498,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: formatPercent(changeDifference, totalA), misconceptionId: "SERIES_TOTAL_AS_BASE", derivation: "Uses the five-category series total as the denominator." },
         { text: formatPercent(changeDifference, lowerValue + higherValue), misconceptionId: "PAIR_SUM_AS_BASE", derivation: "Uses the sum of the two bars as the denominator." },
       ],
-      explanation: { keyIdea: "For percentage increase, divide the increase by the lower starting value and multiply by 100.", steps: [`Increase = ${higherValue} - ${lowerValue} = ${changeDifference}.`, `Percentage increase = ${changeDifference}/${lowerValue} × 100 = ${percentChange}.`], workingTable: { headers: ["Lower value", "Higher value", "Increase", "% increase"], rows: [[String(lowerValue), String(higherValue), String(changeDifference), percentChange]] } },
+      explanation: { keyIdea: "For percentage increase, divide the increase by the lower starting value and multiply by 100.", steps: [`Increase = ${higherValue} - ${lowerValue} = ${changeDifference}.`, `Percentage increase = ${changeDifference}/${lowerValue} × 100 ≈ ${percentChange} to the nearest whole percent.`], workingTable: { headers: ["Lower value", "Higher value", "Increase", "% increase"], rows: [[String(lowerValue), String(higherValue), String(changeDifference), percentChange]] } },
       evidence: { lowerIndex, higherIndex },
     },
     {
@@ -517,7 +510,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: formatPercent(shareValue, shareTotal - shareValue), misconceptionId: "EXCLUDE_TARGET_FROM_TOTAL", derivation: "Excludes the named category from the series total." },
         { text: formatPercent(points[shareIndex]!.seriesA + points[shareIndex]!.seriesB, totalA + totalB), misconceptionId: "CATEGORY_SHARE_OF_ALL", derivation: "Finds the named category's share of both series combined." },
       ],
-      explanation: { keyIdea: `Use the ${shareLabel} bar in the named category as the part and the five-category ${shareLabel} total as the whole.`, steps: [`${shareLabel} total = ${shareSeriesA ? points.map((point) => point.seriesA).join(" + ") : points.map((point) => point.seriesB).join(" + ")} = ${shareTotal}.`, `Required percentage = ${shareValue}/${shareTotal} × 100 = ${shareAnswer}.`], workingTable: { headers: ["Named-category value", "Series total", "Share"], rows: [[String(shareValue), String(shareTotal), shareAnswer]] } },
+      explanation: { keyIdea: `Use the ${shareLabel} value in the named category as the part and the five-category ${shareLabel} total as the whole.`, steps: [`${shareLabel} total = ${shareSeriesA ? points.map((point) => point.seriesA).join(" + ") : points.map((point) => point.seriesB).join(" + ")} = ${shareTotal}.`, `Required percentage = ${shareValue}/${shareTotal} × 100 ≈ ${shareAnswer} to the nearest whole percent.`], workingTable: { headers: ["Named-category value", "Series total", "Share"], rows: [[String(shareValue), String(shareTotal), shareAnswer]] } },
       evidence: { seriesId: shareSeriesA ? "SERIES_A" : "SERIES_B", categoryIndex: shareIndex },
     },
     {
@@ -529,7 +522,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: formatPercent(totalDifference, totalA + totalB), misconceptionId: "COMBINED_TOTAL_AS_BASE", derivation: "Uses the combined total of both series as the denominator." },
         { text: formatPercent(totalB, totalA), misconceptionId: "REVERSE_TOTAL_SHARE", derivation: `Finds ${bLabel} as a percentage of ${aLabel} instead.` },
       ],
-      explanation: { keyIdea: `Compare the two series totals and use the smaller ${bLabel} total as the base for “percent higher”.`, steps: [`${aLabel} total = ${totalA}; ${bLabel} total = ${totalB}.`, `Excess = ${totalA} - ${totalB} = ${totalDifference}.`, `Percentage excess = ${totalDifference}/${totalB} × 100 = ${totalExcess}.`], workingTable: { headers: [aLabel, bLabel, "Difference", "% excess"], rows: [[String(totalA), String(totalB), String(totalDifference), totalExcess]] } },
+      explanation: { keyIdea: `Compare the two series totals and use the smaller ${bLabel} total as the base for “percent higher”.`, steps: [`${aLabel} total = ${totalA}; ${bLabel} total = ${totalB}.`, `Excess = ${totalA} - ${totalB} = ${totalDifference}.`, `Percentage excess = ${totalDifference}/${totalB} × 100 ≈ ${totalExcess} to the nearest whole percent.`], workingTable: { headers: [aLabel, bLabel, "Difference", "% excess"], rows: [[String(totalA), String(totalB), String(totalDifference), totalExcess]] } },
       evidence: { totalA, totalB },
     },
   ];
@@ -547,6 +540,19 @@ function chooseMixedTasks(seed: string, drafts: readonly Draft[]) {
   ]);
 }
 
+function hasDecimalLearnerSurface(question: Di003V2Question) {
+  const table = question.explanation.workingTable;
+  return /\d+\.\d+/u.test([
+    question.stem,
+    ...question.options,
+    question.answer,
+    question.explanation.keyIdea,
+    ...question.explanation.steps,
+    ...(table?.headers ?? []),
+    ...(table?.rows.flat() ?? []),
+  ].join(" "));
+}
+
 function validate(base: Omit<Di003V2QuestionSet, "validation">) {
   const checks: Di003V2ValidationCheck[] = [];
   const add = (id: string, passed: boolean, message: string) => checks.push({ id, passed, message });
@@ -558,6 +564,7 @@ function validate(base: Omit<Di003V2QuestionSet, "validation">) {
   add("DIFFICULTY_POLICY", base.questions.every((question) => question.difficulty === DI003_V2_DIFFICULTY[question.kind]), "A question drifted from its family difficulty.");
   add("OPTION_CONTRACT", base.questions.every((question) => question.options.length === base.optionCount && new Set(question.options).size === question.options.length), "Option count or uniqueness failed.");
   add("ANSWER_BINDING", base.questions.every((question) => question.options[question.correctIndex] === question.answer && question.optionMetadata[question.correctIndex]?.misconceptionId === "CORRECT"), "Answer binding failed.");
+  add("NO_DECIMAL_LEARNER_SURFACE", base.questions.every((question) => !hasDecimalLearnerSurface(question)), "DI-003 learner-facing questions, options and explanations must contain no decimal values.");
   add("EXPLANATION", base.questions.every((question) => question.explanation.keyIdea.length >= 20 && question.explanation.steps.length >= 2), "Explanation is too thin.");
   add("LEARNER_LANGUAGE", base.questions.every((question) => !/associated|shortcut|common trap|\btrap\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`)), "Blocked learner wording found.");
   add("LIFECYCLE_LOCKS", !base.traceability.questionStudioDiscoverable && base.traceability.questionBankStatus === "NOT_STORED" && !base.traceability.questionBankWritable && base.traceability.testEligibility === "INELIGIBLE" && !base.traceability.testEligible && !base.traceability.mockTestEligible && !base.traceability.publiclyPublishable && !base.traceability.automaticStudentPublication && !base.traceability.productionReleaseAuthorized, "Review-only lifecycle widened.");
@@ -612,7 +619,7 @@ export function generateDi003GroupedBarV2Set(input: { seed: string; examProfile:
       representation: "GROUPED_BAR" as const,
       parentFoundation: "DI-001" as const,
       setContractVersion: "DI-003-SET-CONTRACT-V2" as const,
-      arithmeticAuthority: "EXACT_INTEGER_RATIONAL" as const,
+      arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING" as const,
       reviewStatus: "UNREVIEWED" as const,
       questionStudioDiscoverable: false as const,
       questionBankStatus: "NOT_STORED" as const,

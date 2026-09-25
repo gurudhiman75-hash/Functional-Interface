@@ -67,6 +67,7 @@ for (const profile of profiles) {
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId}: answer index mismatch.`);
       assert(!/\d+\.\d+/u.test(learnerText(question)), `${question.questionId}: decimal learner-facing value leaked.`);
       assert(!/associated|shortcut|common trap|\btrap\b/i.test(question.stem), `${question.questionId}: banned machine-like wording leaked into stem.`);
+      assert(!/\bbars?\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${question.questionId}: unnecessary histogram-shape wording leaked into learner text.`);
       assert(!/^What class mark is used|^What is the coordinate of the point|absolute difference between the plotted frequencies/i.test(question.stem), `${question.questionId}: rejected P0-style mechanical stem leaked into P2.`);
       assert(!/\d+(?:\.\d+)?–\d+(?:\.\d+)?–\d+(?:\.\d+)?–\d+(?:\.\d+)?/.test(question.stem), `${question.questionId}: concatenated class intervals leaked into the stem.`);
       if (question.kind === "GROUPED_MEAN_FROM_POLYGON" || question.kind === "MEDIAN_CLASS_FROM_POLYGON") {

@@ -9,16 +9,9 @@ const PROHIBITED_PERCENT_MISCONCEPTIONS = new Set([
 
 function formatPercent(numerator: number, denominator: number): string {
   if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || numerator < 0 || denominator <= 0) {
-    throw new Error("DI-003 V2 review hardening received an invalid percentage fraction.");
+    throw new Error("DI-003 V3 review hardening received an invalid percentage fraction.");
   }
-  const n = BigInt(numerator);
-  const d = BigInt(denominator);
-  const hundredths = (n * 10_000n + d / 2n) / d;
-  const whole = hundredths / 100n;
-  const fraction = Number(hundredths % 100n);
-  if (fraction === 0) return `${whole}%`;
-  if (fraction % 10 === 0) return `${whole}.${fraction / 10}%`;
-  return `${whole}.${String(fraction).padStart(2, "0")}%`;
+  return `${Math.round((numerator * 100) / denominator)}%`;
 }
 
 function parsePercent(value: string) {
@@ -66,7 +59,7 @@ function nearbyReplacement(answer: string, occupied: ReadonlySet<string>, shareB
   if (answerValue === null) throw new Error(`DI-003 V2 review hardening expected a percentage answer, received ${answer}.`);
   const deltas = [5, -5, 10, -10, 15, -15, 20, -20];
   for (const delta of deltas) {
-    const candidateValue = Number((answerValue + delta).toFixed(2));
+    const candidateValue = Math.round(answerValue + delta);
     if (candidateValue <= 0) continue;
     if (shareBounded && candidateValue >= 100) continue;
     const candidate = `${candidateValue}%`;

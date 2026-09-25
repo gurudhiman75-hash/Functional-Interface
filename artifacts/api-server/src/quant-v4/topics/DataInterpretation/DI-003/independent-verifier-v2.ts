@@ -17,18 +17,11 @@ function ratio(left: number, right: number) {
 }
 
 function percent(numerator: number, denominator: number) {
-  const n = BigInt(numerator);
-  const d = BigInt(denominator);
-  const hundredths = (n * 10_000n + d / 2n) / d;
-  const whole = hundredths / 100n;
-  const fraction = Number(hundredths % 100n);
-  if (fraction === 0) return `${whole}%`;
-  if (fraction % 10 === 0) return `${whole}.${fraction / 10}%`;
-  return `${whole}.${String(fraction).padStart(2, "0")}%`;
+  return `${Math.round((numerator * 100) / denominator)}%`;
 }
 
 function fmt(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
+  return String(Math.round(value));
 }
 
 function seriesValue(stimulus: Di003V2Stimulus, seriesId: unknown, index: number) {

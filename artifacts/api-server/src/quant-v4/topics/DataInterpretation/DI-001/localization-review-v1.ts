@@ -265,7 +265,7 @@ function localizedExplanation(question: Di001V2Question, stimulus: Di001V2Stimul
       const centre = localizedCentre(index, locale);
       const values = rows.map((item, rowIndex) => `${localizedCentre(rowIndex, locale)}: ${item.selected}`).join(", ");
       return pack(
-        "चयनित स्तंभ के सभी मानों की तुलना करें।",
+        "चयनित कॉलम के सभी मानों की तुलना करें।",
         "ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰਾਂ ਵਾਲੇ ਕਾਲਮ ਦੇ ਸਾਰੇ ਮੁੱਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         [`चयनित मान: ${values}।`, `सबसे बड़ा मान ${row.selected} है, जो ${centre} का है।`],
         [`ਚੁਣੇ ਗਏ ਮੁੱਲ: ${values}।`, `ਸਭ ਤੋਂ ਵੱਡਾ ਮੁੱਲ ${row.selected} ਹੈ, ਜੋ ${centre} ਦਾ ਹੈ।`],

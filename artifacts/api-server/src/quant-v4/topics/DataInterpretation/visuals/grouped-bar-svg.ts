@@ -10,6 +10,7 @@ export type DiGroupedBarVisualModel = Readonly<{
   seriesALabel: string;
   seriesBLabel: string;
   points: readonly DiGroupedBarVisualPoint[];
+  description?: string;
 }>;
 
 export const DI_GROUPED_BAR_VISUAL_THEME = "EXAMTREE_DI_GROUPED_BAR_CLEAN_V1" as const;
@@ -91,11 +92,12 @@ export function renderDiGroupedBarSvg(model: DiGroupedBarVisualModel): string {
   const safeYAxis = escapeSvgText(model.yAxisLabel);
   const safeSeriesA = escapeSvgText(model.seriesALabel);
   const safeSeriesB = escapeSvgText(model.seriesBLabel);
+  const safeDescription = escapeSvgText(model.description ?? `Grouped bar chart with ${model.points.length} categories and two series, ${model.seriesALabel} and ${model.seriesBLabel}. Values are represented by bar height.`);
 
   const parts: string[] = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-grouped-bar="true" data-di-chart-theme="${DI_GROUPED_BAR_VISUAL_THEME}" data-color-palette="${DI_GROUPED_BAR_COLOR_PALETTE}" data-clean-axis="true" data-vertical-axis-spine="none" data-boundary-ticks="none" data-bar-value-labels="none" data-plot-headroom="true" shape-rendering="geometricPrecision">`,
     `<title>${safeTitle}</title>`,
-    `<desc>Grouped bar chart with ${model.points.length} categories and two series, ${safeSeriesA} and ${safeSeriesB}. Values are represented by bar height.</desc>`,
+    `<desc>${safeDescription}</desc>`,
     `<rect x="0" y="0" width="${width}" height="${height}" fill="${COLORS.canvas}"/>`,
     `<text x="${width / 2}" y="32" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="${COLORS.title}">${safeTitle}</text>`,
     `<rect data-plot-area="true" x="${left}" y="${top}" width="${plotWidth}" height="${plotHeight}" fill="none" stroke="none"/>`,
