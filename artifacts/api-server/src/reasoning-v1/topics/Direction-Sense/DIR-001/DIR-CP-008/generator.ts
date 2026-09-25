@@ -249,6 +249,7 @@ function generateInitialFacing(seed: number): GeneratedAdvancedQuestion {
       ],
       resultLine: `${scenario.subject}'s initial facing is ${DIRECTION_LABELS[solved]}.`,
       conclusion: `Therefore, ${scenario.subject} initially faced ${DIRECTION_LABELS[solved]}.`,
+      diagram: buildRelativeMovementSolutionDiagram(solved, scenario.operations),
     },
   });
 }
