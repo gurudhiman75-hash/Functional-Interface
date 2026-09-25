@@ -63,6 +63,7 @@ for (const ql of DIR_001_QLS) {
 }
 
 for (const record of records) {
+  assert.equal(record.questionDiagram, undefined, `${record.qlId}: learner question must remain text-only`);
   if (record.checkpointId === "DIR-CP-008") {
     assert.doesNotMatch(
       learnerText(record),
@@ -97,4 +98,5 @@ console.log(JSON.stringify({
   trilingualSemanticParity: true,
   chapterWideStemRealismGuard: true,
   misconceptionDistractorGuard: true,
+  explanationOnlyDiagramPolicy: true,
 }, null, 2));
