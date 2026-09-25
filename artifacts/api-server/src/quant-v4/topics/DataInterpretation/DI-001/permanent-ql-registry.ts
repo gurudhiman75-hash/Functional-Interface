@@ -24,7 +24,7 @@ export type Di001PermanentQlDescriptor = Readonly<{
   supportedProfiles: readonly Di001ExamProfile[];
   sourceStatus: "V2_CERTIFIED";
   editorialStatus: "ENGLISH_REVIEW_APPROVED";
-  localizationStatus: "HI_PA_REVIEW_CANDIDATE";
+  localizationStatus: "HI_PA_FROZEN";
 }>;
 
 const PROFILES = ["SSC_CGL_TIER_I", "BANKING_PRELIMS"] as const;
@@ -39,7 +39,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
   {
     qlId: "DI-QL-028",
@@ -50,7 +50,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
   {
     qlId: "DI-QL-029",
@@ -61,7 +61,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
   {
     qlId: "DI-QL-030",
@@ -72,7 +72,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
   {
     qlId: "DI-QL-031",
@@ -83,7 +83,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
   {
     qlId: "DI-QL-032",
@@ -94,7 +94,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
   {
     qlId: "DI-QL-033",
@@ -105,7 +105,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
   {
     qlId: "DI-QL-034",
@@ -116,7 +116,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
   {
     qlId: "DI-QL-035",
@@ -127,7 +127,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
   {
     qlId: "DI-QL-036",
@@ -138,7 +138,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    localizationStatus: "HI_PA_FROZEN",
   },
 ] as const);
 
