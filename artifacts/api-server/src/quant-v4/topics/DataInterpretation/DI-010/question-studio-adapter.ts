@@ -174,7 +174,7 @@ export async function generateDi010QuestionStudioBatch(request: Di010QuestionStu
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
   if (cpId && cpId !== DI010_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package DI-010.`);
   const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") throw new Error("DI-010 permanent Question Studio review is English-only; localization has not started.");
+  if (language !== "en") throw new Error("DI-010 Hindi/Punjabi localization is a review candidate and is not yet enabled in Question Studio.");
   const profile = normalizeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
   const explicit = resolveExplicitQl(request, profile, difficulty);
@@ -261,6 +261,6 @@ export function di010QuestionStudioPackageCard() {
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   };
 }
