@@ -96,7 +96,7 @@ function medianPhrase(stimulus: Di010Stimulus) {
 }
 
 function percentage(numerator: number, denominator: number) {
-  return `${Number(((numerator / denominator) * 100).toFixed(2))}%`;
+  return `${Math.round((numerator / denominator) * 100)}%`;
 }
 
 function gcd(left: number, right: number): number {
@@ -311,9 +311,9 @@ function classShare(seed: string, stimulus: Di010Stimulus): Di010Draft {
   const people = populationLabel(stimulus);
   const subject = classSubject(stimulus, index);
   const s = surface(seed, "CLASS_SHARE_OF_TOTAL", [
-    `What percentage of the total ${people} are ${subject}?`,
-    `${subject[0]!.toUpperCase()}${subject.slice(1)} form approximately what percentage of all ${people}?`,
-    `The class ${interval(stimulus, index)} represents approximately what percentage of the total ${people}?`,
+    `To the nearest whole percent, what percentage of the total ${people} are ${subject}?`,
+    `${subject[0]!.toUpperCase()}${subject.slice(1)} form approximately what whole percentage of all ${people}?`,
+    `The class ${interval(stimulus, index)} represents approximately what percentage of the total ${people}, to the nearest whole percent?`,
   ]);
   return {
     kind: "CLASS_SHARE_OF_TOTAL",
@@ -325,7 +325,7 @@ function classShare(seed: string, stimulus: Di010Stimulus): Di010Draft {
       { text: percentage(item.frequency, Math.max(1, total - item.frequency)), misconceptionId: "EXCLUDE_TARGET_FROM_TOTAL", derivation: "Removes the target class from the denominator instead of using the complete total." },
       { text: percentage(item.frequency, Math.max(...stimulus.classes.map((current) => current.frequency))), misconceptionId: "USE_MAX_FREQUENCY_AS_TOTAL", derivation: "Divides by the largest single class frequency instead of the total frequency." },
     ],
-    explanation: { keyIdea: "Use the required class frequency as the part and the total frequency as the whole.", steps: [`Total ${people} = ${total}.`, `Required percentage = ${item.frequency}/${total} × 100 = ${answer}.`] },
+    explanation: { keyIdea: "Use the required class frequency as the part and the total frequency as the whole.", steps: [`Total ${people} = ${total}.`, `Required percentage = ${item.frequency}/${total} × 100 ≈ ${answer} to the nearest whole percent.`] },
     evidence: { targetIndex: index, total, surfaceId: s.id },
   };
 }
@@ -422,15 +422,14 @@ function rangeRatio(seed: string, stimulus: Di010Stimulus): Di010Draft {
 function groupedMean(seed: string, stimulus: Di010Stimulus): Di010Draft {
   const total = stimulus.classes.reduce((sum, item) => sum + item.frequency, 0);
   const weighted = stimulus.classes.reduce((sum, item) => sum + item.classMark * item.frequency, 0);
-  const answerNumber = Number((weighted / total).toFixed(2));
-  const answer = fmt(answerNumber);
-  const simpleMean = Number((stimulus.classes.reduce((sum, item) => sum + item.classMark, 0) / stimulus.classes.length).toFixed(2));
-  const lowerMean = Number((stimulus.classes.reduce((sum, item) => sum + item.lower * item.frequency, 0) / total).toFixed(2));
-  const upperMean = Number((stimulus.classes.reduce((sum, item) => sum + item.upper * item.frequency, 0) / total).toFixed(2));
+  const answer = String(Math.round(weighted / total));
+  const simpleMean = Math.round(stimulus.classes.reduce((sum, item) => sum + item.classMark, 0) / stimulus.classes.length);
+  const lowerMean = Math.round(stimulus.classes.reduce((sum, item) => sum + item.lower * item.frequency, 0) / total);
+  const upperMean = Math.round(stimulus.classes.reduce((sum, item) => sum + item.upper * item.frequency, 0) / total);
   const s = surface(seed, "GROUPED_MEAN_FROM_POLYGON", [
-    `Using the class marks, find the approximate ${averagePhrase(stimulus)} represented by the graph.`,
-    `What is the approximate ${averagePhrase(stimulus)} for the grouped distribution shown?`,
-    `Estimate the ${averagePhrase(stimulus)} by treating each class mark as the value for that class.`,
+    `Using the class marks, find the approximate ${averagePhrase(stimulus)} to the nearest whole number.`,
+    `What is the approximate ${averagePhrase(stimulus)} for the grouped distribution shown, rounded to the nearest whole number?`,
+    `Estimate the ${averagePhrase(stimulus)} by treating each class mark as the value for that class and give the nearest whole number.`,
   ]);
   return {
     kind: "GROUPED_MEAN_FROM_POLYGON",
@@ -444,7 +443,7 @@ function groupedMean(seed: string, stimulus: Di010Stimulus): Di010Draft {
     ],
     explanation: {
       keyIdea: "For grouped data, use each class mark as x and calculate Σfx ÷ Σf.",
-      steps: [`Σf = ${total}.`, `Σfx = ${fmt(weighted)}.`, `Approximate mean = ${fmt(weighted)} ÷ ${total} = ${answer}.`],
+      steps: [`Σf = ${total}.`, `Σfx = ${fmt(weighted)}.`, `Approximate mean = ${fmt(weighted)} ÷ ${total} ≈ ${answer} to the nearest whole number.`],
       workingTable: {
         headers: ["Class", "Class mark (x)", "f", "fx"],
         rows: stimulus.classes.map((item, itemIndex) => [interval(stimulus, itemIndex), fmt(item.classMark), String(item.frequency), fmt(item.classMark * item.frequency)]),
@@ -482,7 +481,7 @@ function medianClass(seed: string, stimulus: Di010Stimulus): Di010Draft {
     candidates: alternatives.map((candidateIndex, optionIndex) => ({ text: interval(stimulus, candidateIndex), misconceptionId: `WRONG_CUMULATIVE_CLASS_${optionIndex}`, derivation: "Stops the cumulative count in a neighboring class instead of the first class reaching N/2." })),
     explanation: {
       keyIdea: "The median class is the first interval whose cumulative frequency reaches or exceeds N/2.",
-      steps: [`Total frequency N = ${total}, so N/2 = ${fmt(target)}.`, `The first cumulative frequency reaching or exceeding ${fmt(target)} is ${cumulativeValues[index]}.`, `Hence the median class is ${interval(stimulus, index)}.`],
+      steps: [`Total frequency N = ${total}. For cumulative-frequency location, use observation number ${Math.ceil(target)}.`, `The first cumulative frequency reaching or exceeding this position is ${cumulativeValues[index]}.`, `Hence the median class is ${interval(stimulus, index)}.`],
       workingTable: {
         headers: ["Class", "f", "Cumulative f"],
         rows: stimulus.classes.map((item, itemIndex) => [interval(stimulus, itemIndex), String(item.frequency), String(cumulativeValues[itemIndex])]),
