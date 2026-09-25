@@ -25,6 +25,7 @@ const q=(id:string,familyId:Eng008RcFamilyId,difficulty:Eng008Difficulty,questio
   id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence
 });
 
+
 export const ENG008_CP001_PASSAGES_V1:readonly Eng008RcPassageV1[]=[
 {
  id:"ENG008-RC-N01",title:"The Returned Notebook",genre:"narrative",
@@ -147,7 +148,16 @@ For the final two weeks, temporary no-parking signs were placed near that sectio
   q("R04-Q5","RC-F05","easy","In the passage, “punctuality” refers to:","being on time",["carrying more passengers","using less fuel","travelling a longer route"],"The pilot examined whether buses reached points on the route at the expected times.","six-week punctuality pilot"),
   q("R04-Q6","RC-F06","medium","Which statement is supported by the passage?","The temporary parking restriction reduced delays but did not remove them entirely",["The buses normally started the route late","Passenger boarding was identified as the main cause","The final arrival time showed the exact location of the problem"],"The passage says average delays fell after the signs were installed, but they did not disappear completely.","Average delays fell, although they did not disappear completely")
  ]
-},
+}
+] as const;
+
+/**
+ * Editorial authorities authored during the first ENG-008 design pass.
+ * They are intentionally excluded from CP001 after exam-profile separation and
+ * are retained as seed material for CP002 (SSC editorial/current-affairs RC).
+ * CP002 must expand and review them independently before runtime exposure.
+ */
+export const ENG008_CP002_SEED_PASSAGES_V1:readonly Eng008RcPassageV1[]=[
 {
  id:"ENG008-RC-E01",title:"Libraries Need More Than Shelves",genre:"editorial",
  text:`A public library is often judged by the number of books it owns, but that measure alone says little about how useful the library is to its community. A room full of books can remain underused if opening hours are inconvenient, study tables are scarce or visitors cannot easily find the material they need.
