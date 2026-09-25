@@ -14,6 +14,7 @@ import { SCI_CP031_REVIEW_V1, type SciCp031ReviewQuestion } from "../microorgani
 import { SCI_CP032_REVIEW_V1, type SciCp032ReviewQuestion } from "../classification-living-organisms/sci-cp032-review-v1";
 import { SCI_CP033_REVIEW_V1, type SciCp033ReviewQuestion } from "../ecology-ecosystems/sci-cp033-review-v1";
 import { SCI_CP034_REVIEW_V1, type SciCp034ReviewQuestion } from "../environment-pollution/sci-cp034-review-v1";
+import { SCI_CP035_REVIEW_V1, type SciCp035ReviewQuestion } from "../biotechnology/sci-cp035-review-v1";
 import {
   SCI_BIOLOGY_LOCALIZATION_V1,
   type BiologyLocaleV1,
@@ -52,9 +53,11 @@ import { SCI_BIOLOGY_CP033_HI_V1 } from "./sci-biology-cp033-localization-data-h
 import { SCI_BIOLOGY_CP033_PA_V1 } from "./sci-biology-cp033-localization-data-pa-v1";
 import { SCI_BIOLOGY_CP034_HI_V1 } from "./sci-biology-cp034-localization-data-hi-v1";
 import { SCI_BIOLOGY_CP034_PA_V1 } from "./sci-biology-cp034-localization-data-pa-v1";
+import { SCI_BIOLOGY_CP035_HI_V1 } from "./sci-biology-cp035-localization-data-hi-v1";
+import { SCI_BIOLOGY_CP035_PA_V1 } from "./sci-biology-cp035-localization-data-pa-v1";
 
-export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020" | "SCI-CP-021" | "SCI-CP-022" | "SCI-CP-023" | "SCI-CP-024" | "SCI-CP-025" | "SCI-CP-026" | "SCI-CP-027" | "SCI-CP-028" | "SCI-CP-029" | "SCI-CP-030" | "SCI-CP-031" | "SCI-CP-032" | "SCI-CP-033" | "SCI-CP-034";
-type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion | SciCp021ReviewQuestion | SciCp022ReviewQuestion | SciCp023ReviewQuestion | SciCp024ReviewQuestion | SciCp025ReviewQuestion | SciCp026ReviewQuestion | SciCp027ReviewQuestion | SciCp028ReviewQuestion | SciCp029ReviewQuestion | SciCp030ReviewQuestion | SciCp031ReviewQuestion | SciCp032ReviewQuestion | SciCp033ReviewQuestion | SciCp034ReviewQuestion;
+export type BiologyLocalizedCpV1 = "SCI-CP-019" | "SCI-CP-020" | "SCI-CP-021" | "SCI-CP-022" | "SCI-CP-023" | "SCI-CP-024" | "SCI-CP-025" | "SCI-CP-026" | "SCI-CP-027" | "SCI-CP-028" | "SCI-CP-029" | "SCI-CP-030" | "SCI-CP-031" | "SCI-CP-032" | "SCI-CP-033" | "SCI-CP-034" | "SCI-CP-035";
+type EnglishQuestion = SciCp019ReviewQuestion | SciCp020ReviewQuestion | SciCp021ReviewQuestion | SciCp022ReviewQuestion | SciCp023ReviewQuestion | SciCp024ReviewQuestion | SciCp025ReviewQuestion | SciCp026ReviewQuestion | SciCp027ReviewQuestion | SciCp028ReviewQuestion | SciCp029ReviewQuestion | SciCp030ReviewQuestion | SciCp031ReviewQuestion | SciCp032ReviewQuestion | SciCp033ReviewQuestion | SciCp034ReviewQuestion | SciCp035ReviewQuestion;
 
 const QL_NAMES = {
   "SCI-CP-019": {
@@ -473,6 +476,32 @@ const QL_NAMES = {
       "ਵਾਤਾਵਰਣ ਦੀ ਸੰਭਾਲ ਅਤੇ ਮਿਲੀ-ਜੁਲੀ ਸਮਝ",
     ],
   },
+  "SCI-CP-035": {
+    hi: [
+      "जैव प्रौद्योगिकी की मूल बातें और उपयोग",
+      "DNA, जीन और आनुवंशिक अभियांत्रिकी",
+      "प्रतिबंध एंजाइम, लाइगेज़ और पुनःसंयोजक DNA",
+      "प्लास्मिड, वेक्टर और मेजबान कोशिकाएँ",
+      "PCR और DNA प्रवर्धन",
+      "आनुवंशिक रूप से परिवर्तित जीव और फसलें",
+      "चिकित्सा में जैव प्रौद्योगिकी",
+      "ऊतक संवर्धन और क्लोनिंग की मूल बातें",
+      "DNA फिंगरप्रिंटिंग और अन्य उपयोग",
+      "मिश्रित जैव प्रौद्योगिकी तर्क",
+    ],
+    pa: [
+      "ਬਾਇਓਟੈਕਨੋਲੋਜੀ ਦੀਆਂ ਮੁੱਢਲੀਆਂ ਗੱਲਾਂ ਅਤੇ ਵਰਤੋਂ",
+      "DNA, ਜੀਨ ਅਤੇ ਜੈਨੇਟਿਕ ਇੰਜੀਨੀਅਰਿੰਗ",
+      "ਰਿਸਟ੍ਰਿਕਸ਼ਨ ਐਂਜ਼ਾਈਮ, ਲਾਇਗੇਜ਼ ਅਤੇ ਰੀਕੰਬਿਨੈਂਟ DNA",
+      "ਪਲਾਸਮਿਡ, ਵੈਕਟਰ ਅਤੇ ਹੋਸਟ ਕੋਸ਼ਿਕਾਵਾਂ",
+      "PCR ਅਤੇ DNA ਦੀਆਂ ਕਾਪੀਆਂ ਵਧਾਉਣਾ",
+      "ਜੈਨੇਟਿਕ ਤੌਰ ਤੇ ਬਦਲੇ ਜੀਵ ਅਤੇ ਫਸਲਾਂ",
+      "ਦਵਾਈ ਵਿੱਚ ਬਾਇਓਟੈਕਨੋਲੋਜੀ",
+      "ਟਿਸ਼ੂ ਕਲਚਰ ਅਤੇ ਕਲੋਨਿੰਗ ਦੀਆਂ ਮੁੱਢਲੀਆਂ ਗੱਲਾਂ",
+      "DNA ਫਿੰਗਰਪ੍ਰਿੰਟਿੰਗ ਅਤੇ ਹੋਰ ਵਰਤੋਂ",
+      "ਮਿਲੀ-ਜੁਲੀ ਬਾਇਓਟੈਕਨੋਲੋਜੀ ਸਮਝ",
+    ],
+  },
 } as const;
 
 const qlNumber=(qlId:string)=>Number(qlId.slice(-3));
@@ -543,7 +572,8 @@ function englishFor(cpId:BiologyLocalizedCpV1):readonly EnglishQuestion[]{
   if(cpId==="SCI-CP-031") return SCI_CP031_REVIEW_V1;
   if(cpId==="SCI-CP-032") return SCI_CP032_REVIEW_V1;
   if(cpId==="SCI-CP-033") return SCI_CP033_REVIEW_V1;
-  return SCI_CP034_REVIEW_V1;
+  if(cpId==="SCI-CP-034") return SCI_CP034_REVIEW_V1;
+  return SCI_CP035_REVIEW_V1;
 }
 
 function nativeFor(cpId:BiologyLocalizedCpV1,locale:Exclude<BiologyLocaleV1,"en">):readonly BiologyNativeSpecV1[]{
@@ -562,7 +592,8 @@ function nativeFor(cpId:BiologyLocalizedCpV1,locale:Exclude<BiologyLocaleV1,"en"
   if(cpId==="SCI-CP-031") return locale==="hi"?SCI_BIOLOGY_CP031_HI_V1:SCI_BIOLOGY_CP031_PA_V1;
   if(cpId==="SCI-CP-032") return locale==="hi"?SCI_BIOLOGY_CP032_HI_V1:SCI_BIOLOGY_CP032_PA_V1;
   if(cpId==="SCI-CP-033") return locale==="hi"?SCI_BIOLOGY_CP033_HI_V1:SCI_BIOLOGY_CP033_PA_V1;
-  return locale==="hi"?SCI_BIOLOGY_CP034_HI_V1:SCI_BIOLOGY_CP034_PA_V1;
+  if(cpId==="SCI-CP-034") return locale==="hi"?SCI_BIOLOGY_CP034_HI_V1:SCI_BIOLOGY_CP034_PA_V1;
+  return locale==="hi"?SCI_BIOLOGY_CP035_HI_V1:SCI_BIOLOGY_CP035_PA_V1;
 }
 
 export function generateBiologyLocalizedCpV1(cpId:BiologyLocalizedCpV1,locale:BiologyLocaleV1):readonly BiologyLocalizedQuestionV1[]{
@@ -573,5 +604,5 @@ export function generateBiologyLocalizedCpV1(cpId:BiologyLocalizedCpV1,locale:Bi
   return Object.freeze(english.map((q,index)=>localizeNative(q,locale,specs[index])));
 }
 
-export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020","SCI-CP-021","SCI-CP-022","SCI-CP-023","SCI-CP-024","SCI-CP-025","SCI-CP-026","SCI-CP-027","SCI-CP-028","SCI-CP-029","SCI-CP-030","SCI-CP-031","SCI-CP-032","SCI-CP-033","SCI-CP-034"] as const);
+export const SCI_BIOLOGY_WAVE1_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-019","SCI-CP-020","SCI-CP-021","SCI-CP-022","SCI-CP-023","SCI-CP-024","SCI-CP-025","SCI-CP-026","SCI-CP-027","SCI-CP-028","SCI-CP-029","SCI-CP-030","SCI-CP-031","SCI-CP-032","SCI-CP-033","SCI-CP-034","SCI-CP-035"] as const);
 export const SCI_BIOLOGY_WAVE1_SUPPORTED_LOCALES_V1=Object.freeze(["en","hi","pa"] as const);
