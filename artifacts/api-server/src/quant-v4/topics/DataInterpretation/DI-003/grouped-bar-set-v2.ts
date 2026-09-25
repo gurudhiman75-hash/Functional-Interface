@@ -126,21 +126,14 @@ type Draft = Readonly<{
 }>;
 
 function fmt(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
+  return String(Math.round(value));
 }
 
 function formatPercent(numerator: number, denominator: number): string {
   if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || numerator < 0 || denominator <= 0) {
     throw new Error("DI-003 V2 received an invalid percentage fraction.");
   }
-  const n = BigInt(numerator);
-  const d = BigInt(denominator);
-  const hundredths = (n * 10_000n + d / 2n) / d;
-  const whole = hundredths / 100n;
-  const fraction = Number(hundredths % 100n);
-  if (fraction === 0) return `${whole}%`;
-  if (fraction % 10 === 0) return `${whole}.${fraction / 10}%`;
-  return `${whole}.${String(fraction).padStart(2, "0")}%`;
+  return `${Math.round((numerator * 100) / denominator)}%`;
 }
 
 function normalText(value: string) {
@@ -363,9 +356,9 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const changeDifference = higherValue - lowerValue;
   const percentChange = formatPercent(changeDifference, lowerValue);
   const percentSurface = surface(`${seed}:PERCENT_CHANGE_WITHIN_SERIES:stem`, [
-    `${aLabel} in ${points[higherIndex]!.category} is what percentage higher than in ${points[lowerIndex]!.category}?`,
-    `By what percent does ${aLabel} increase from ${points[lowerIndex]!.category} to ${points[higherIndex]!.category}?`,
-    `Find the percentage by which the ${aLabel} value for ${points[higherIndex]!.category} exceeds that for ${points[lowerIndex]!.category}.`,
+    `To the nearest whole percent, ${aLabel} in ${points[higherIndex]!.category} is what percentage higher than in ${points[lowerIndex]!.category}?`,
+    `By approximately what whole percent does ${aLabel} increase from ${points[lowerIndex]!.category} to ${points[higherIndex]!.category}?`,
+    `Find the percentage by which the ${aLabel} value for ${points[higherIndex]!.category} exceeds that for ${points[lowerIndex]!.category}, rounded to the nearest whole percent.`,
   ]);
 
   const shareSeriesA = hashSeed(`${seed}:share-series`) % 2 === 0;
@@ -375,17 +368,17 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const shareValue = shareSeriesA ? points[shareIndex]!.seriesA : points[shareIndex]!.seriesB;
   const shareAnswer = formatPercent(shareValue, shareTotal);
   const shareSurface = surface(`${seed}:CATEGORY_SHARE_OF_SERIES_TOTAL:stem`, [
-    `${shareLabel} in ${points[shareIndex]!.category} is what percentage of the ${shareLabel} total across all five categories?`,
-    `What percent of the five-category ${shareLabel} total comes from ${points[shareIndex]!.category}?`,
-    `Find the share of ${points[shareIndex]!.category} in the total of ${shareLabel}, as a percentage.`,
+    `To the nearest whole percent, ${shareLabel} in ${points[shareIndex]!.category} is what percentage of the ${shareLabel} total across all five categories?`,
+    `Approximately what whole percent of the five-category ${shareLabel} total comes from ${points[shareIndex]!.category}?`,
+    `Find the share of ${points[shareIndex]!.category} in the total of ${shareLabel}, rounded to the nearest whole percent.`,
   ]);
 
   const totalDifference = totalA - totalB;
   const totalExcess = formatPercent(totalDifference, totalB);
   const excessSurface = surface(`${seed}:TOTAL_SERIES_PERCENT_EXCESS:stem`, [
-    `By what percentage does the total of ${aLabel} exceed the total of ${bLabel}?`,
-    `The five-category total for ${aLabel} is what percent higher than the total for ${bLabel}?`,
-    `Find the percentage by which the overall ${aLabel} total is greater than the overall ${bLabel} total.`,
+    `To the nearest whole percent, by what percentage does the total of ${aLabel} exceed the total of ${bLabel}?`,
+    `The five-category total for ${aLabel} is approximately what whole percent higher than the total for ${bLabel}?`,
+    `Find the percentage by which the overall ${aLabel} total is greater than the overall ${bLabel} total, rounded to the nearest whole percent.`,
   ]);
 
   const categoryTextCandidates = (answerCategory: string): Candidate[] => points
@@ -505,7 +498,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: formatPercent(changeDifference, totalA), misconceptionId: "SERIES_TOTAL_AS_BASE", derivation: "Uses the five-category series total as the denominator." },
         { text: formatPercent(changeDifference, lowerValue + higherValue), misconceptionId: "PAIR_SUM_AS_BASE", derivation: "Uses the sum of the two bars as the denominator." },
       ],
-      explanation: { keyIdea: "For percentage increase, divide the increase by the lower starting value and multiply by 100.", steps: [`Increase = ${higherValue} - ${lowerValue} = ${changeDifference}.`, `Percentage increase = ${changeDifference}/${lowerValue} × 100 = ${percentChange}.`], workingTable: { headers: ["Lower value", "Higher value", "Increase", "% increase"], rows: [[String(lowerValue), String(higherValue), String(changeDifference), percentChange]] } },
+      explanation: { keyIdea: "For percentage increase, divide the increase by the lower starting value and multiply by 100.", steps: [`Increase = ${higherValue} - ${lowerValue} = ${changeDifference}.`, `Percentage increase = ${changeDifference}/${lowerValue} × 100 ≈ ${percentChange} to the nearest whole percent.`], workingTable: { headers: ["Lower value", "Higher value", "Increase", "% increase"], rows: [[String(lowerValue), String(higherValue), String(changeDifference), percentChange]] } },
       evidence: { lowerIndex, higherIndex },
     },
     {
@@ -517,7 +510,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: formatPercent(shareValue, shareTotal - shareValue), misconceptionId: "EXCLUDE_TARGET_FROM_TOTAL", derivation: "Excludes the named category from the series total." },
         { text: formatPercent(points[shareIndex]!.seriesA + points[shareIndex]!.seriesB, totalA + totalB), misconceptionId: "CATEGORY_SHARE_OF_ALL", derivation: "Finds the named category's share of both series combined." },
       ],
-      explanation: { keyIdea: `Use the ${shareLabel} bar in the named category as the part and the five-category ${shareLabel} total as the whole.`, steps: [`${shareLabel} total = ${shareSeriesA ? points.map((point) => point.seriesA).join(" + ") : points.map((point) => point.seriesB).join(" + ")} = ${shareTotal}.`, `Required percentage = ${shareValue}/${shareTotal} × 100 = ${shareAnswer}.`], workingTable: { headers: ["Named-category value", "Series total", "Share"], rows: [[String(shareValue), String(shareTotal), shareAnswer]] } },
+      explanation: { keyIdea: `Use the ${shareLabel} bar in the named category as the part and the five-category ${shareLabel} total as the whole.`, steps: [`${shareLabel} total = ${shareSeriesA ? points.map((point) => point.seriesA).join(" + ") : points.map((point) => point.seriesB).join(" + ")} = ${shareTotal}.`, `Required percentage = ${shareValue}/${shareTotal} × 100 ≈ ${shareAnswer} to the nearest whole percent.`], workingTable: { headers: ["Named-category value", "Series total", "Share"], rows: [[String(shareValue), String(shareTotal), shareAnswer]] } },
       evidence: { seriesId: shareSeriesA ? "SERIES_A" : "SERIES_B", categoryIndex: shareIndex },
     },
     {
@@ -529,7 +522,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: formatPercent(totalDifference, totalA + totalB), misconceptionId: "COMBINED_TOTAL_AS_BASE", derivation: "Uses the combined total of both series as the denominator." },
         { text: formatPercent(totalB, totalA), misconceptionId: "REVERSE_TOTAL_SHARE", derivation: `Finds ${bLabel} as a percentage of ${aLabel} instead.` },
       ],
-      explanation: { keyIdea: `Compare the two series totals and use the smaller ${bLabel} total as the base for “percent higher”.`, steps: [`${aLabel} total = ${totalA}; ${bLabel} total = ${totalB}.`, `Excess = ${totalA} - ${totalB} = ${totalDifference}.`, `Percentage excess = ${totalDifference}/${totalB} × 100 = ${totalExcess}.`], workingTable: { headers: [aLabel, bLabel, "Difference", "% excess"], rows: [[String(totalA), String(totalB), String(totalDifference), totalExcess]] } },
+      explanation: { keyIdea: `Compare the two series totals and use the smaller ${bLabel} total as the base for “percent higher”.`, steps: [`${aLabel} total = ${totalA}; ${bLabel} total = ${totalB}.`, `Excess = ${totalA} - ${totalB} = ${totalDifference}.`, `Percentage excess = ${totalDifference}/${totalB} × 100 ≈ ${totalExcess} to the nearest whole percent.`], workingTable: { headers: [aLabel, bLabel, "Difference", "% excess"], rows: [[String(totalA), String(totalB), String(totalDifference), totalExcess]] } },
       evidence: { totalA, totalB },
     },
   ];
@@ -547,6 +540,19 @@ function chooseMixedTasks(seed: string, drafts: readonly Draft[]) {
   ]);
 }
 
+function hasDecimalLearnerSurface(question: Di003V2Question) {
+  const table = question.explanation.workingTable;
+  return /\d+\.\d+/u.test([
+    question.stem,
+    ...question.options,
+    question.answer,
+    question.explanation.keyIdea,
+    ...question.explanation.steps,
+    ...(table?.headers ?? []),
+    ...(table?.rows.flat() ?? []),
+  ].join(" "));
+}
+
 function validate(base: Omit<Di003V2QuestionSet, "validation">) {
   const checks: Di003V2ValidationCheck[] = [];
   const add = (id: string, passed: boolean, message: string) => checks.push({ id, passed, message });
@@ -558,6 +564,7 @@ function validate(base: Omit<Di003V2QuestionSet, "validation">) {
   add("DIFFICULTY_POLICY", base.questions.every((question) => question.difficulty === DI003_V2_DIFFICULTY[question.kind]), "A question drifted from its family difficulty.");
   add("OPTION_CONTRACT", base.questions.every((question) => question.options.length === base.optionCount && new Set(question.options).size === question.options.length), "Option count or uniqueness failed.");
   add("ANSWER_BINDING", base.questions.every((question) => question.options[question.correctIndex] === question.answer && question.optionMetadata[question.correctIndex]?.misconceptionId === "CORRECT"), "Answer binding failed.");
+  add("NO_DECIMAL_LEARNER_SURFACE", base.questions.every((question) => !hasDecimalLearnerSurface(question)), "DI-003 learner-facing questions, options and explanations must contain no decimal values.");
   add("EXPLANATION", base.questions.every((question) => question.explanation.keyIdea.length >= 20 && question.explanation.steps.length >= 2), "Explanation is too thin.");
   add("LEARNER_LANGUAGE", base.questions.every((question) => !/associated|shortcut|common trap|\btrap\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`)), "Blocked learner wording found.");
   add("LIFECYCLE_LOCKS", !base.traceability.questionStudioDiscoverable && base.traceability.questionBankStatus === "NOT_STORED" && !base.traceability.questionBankWritable && base.traceability.testEligibility === "INELIGIBLE" && !base.traceability.testEligible && !base.traceability.mockTestEligible && !base.traceability.publiclyPublishable && !base.traceability.automaticStudentPublication && !base.traceability.productionReleaseAuthorized, "Review-only lifecycle widened.");
@@ -612,7 +619,7 @@ export function generateDi003GroupedBarV2Set(input: { seed: string; examProfile:
       representation: "GROUPED_BAR" as const,
       parentFoundation: "DI-001" as const,
       setContractVersion: "DI-003-SET-CONTRACT-V2" as const,
-      arithmeticAuthority: "EXACT_INTEGER_RATIONAL" as const,
+      arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING" as const,
       reviewStatus: "UNREVIEWED" as const,
       questionStudioDiscoverable: false as const,
       questionBankStatus: "NOT_STORED" as const,
