@@ -48,7 +48,15 @@ fail(HIS_001_FINAL_CP_IDS_V1.length===24,"HIS-001 final corpus must contain 24 C
 fail(new Set(HIS_001_FINAL_CP_IDS_V1).size===24,"HIS-001 CP IDs must be unique");
 fail(new Set(english.map(q=>q.questionId)).size===1434,"HIS-001 English question IDs must be unique");
 fail(new Set(english.map(q=>q.cpId)).size===24,"HIS-001 English corpus must expose 24 CPs");
-fail(HIS_001_FINAL_QL_IDS_V1.length>0,"HIS-001 must expose permanent QLs");
+fail(HIS_001_FINAL_QL_IDS_V1.length===239,"HIS-001 must expose 239 permanent QLs; found "+HIS_001_FINAL_QL_IDS_V1.length);
+
+
+for(const qlId of HIS_001_FINAL_QL_IDS_V1){
+  for(const locale of HIS_001_FINAL_LANGUAGES_V1){
+    const count=HIS_001_FINAL_MULTILINGUAL_CORPUS_V1[locale].filter(q=>q.qlId===qlId).length;
+    fail(count===6,qlId+"/"+locale+": expected six frozen questions; found "+count);
+  }
+}
 
 for(const cpId of HIS_001_FINAL_CP_IDS_V1){
   fail(english.some(q=>q.cpId===cpId),cpId+": missing from final English corpus");
