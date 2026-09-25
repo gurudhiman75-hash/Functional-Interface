@@ -1,6 +1,6 @@
 # GEO-VEG-001 CP001 — Vegetation Basics & Controlling Factors
 
-Status: REVIEW CANDIDATE V1 — RESTACKED QUALITY PASS
+Status: APPROVED — WAVE 1 HUMAN REVIEW
 Parent blueprint: `GEO-VEG-001-BLUEPRINT.md`
 Permanent QLs: `GEO-VEG-001-QL-001` to `GEO-VEG-001-QL-009`
 
