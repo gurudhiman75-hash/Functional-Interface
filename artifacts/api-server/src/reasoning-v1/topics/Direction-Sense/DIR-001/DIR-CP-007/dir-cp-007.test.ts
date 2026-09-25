@@ -86,6 +86,8 @@ for (const ql of DIR_CP007_QLS) {
     }
 
     const prompt = question.structuredPrompt as Record<string, unknown>;
+    if (ql.qlId === "DIR-QL-030" || ql.qlId === "DIR-QL-032") assert.equal(question.difficulty, "EASY");
+    if (ql.qlId === "DIR-QL-031" || ql.qlId === "DIR-QL-033" || ql.qlId === "DIR-QL-035") assert.equal(question.difficulty, "MEDIUM");
     const period = prompt.period as SunTimePeriod;
     periods.get(ql.qlId)!.add(period);
 
@@ -145,6 +147,14 @@ for (const ql of DIR_CP007_QLS) {
     } else if (ql.qlId === "DIR-QL-034") {
       const side = prompt.side as RelativeShadowSide;
       const turns = prompt.turns as readonly TurnInstruction[];
+      assert.equal(question.difficulty, turns.length >= 3 ? "HARD" : "MEDIUM");
+      for (let index = 1; index < turns.length; index += 1) {
+        const left = turns[index - 1], right = turns[index];
+        const cancels = (left === "LEFT" && right === "RIGHT")
+          || (left === "RIGHT" && right === "LEFT")
+          || (left === "ABOUT" && right === "ABOUT");
+        assert.equal(cancels, false, `DIR-QL-034 seed ${seed}: adjacent turns cancel trivially`);
+      }
       const initial = solveFacingFromShadowSideIndependent(period, side);
       const expected = solveTurnsIndependent(initial, turns);
       assert.deepEqual(question.correctAnswer, { kind: "DIRECTION", direction: expected });
