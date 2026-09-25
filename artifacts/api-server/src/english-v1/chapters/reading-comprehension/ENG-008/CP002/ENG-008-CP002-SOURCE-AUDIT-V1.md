@@ -1,6 +1,6 @@
 # ENG-008 CP002 — SSC Editorial & Current-Affairs Reading Comprehension — Source Audit V1
 
-Status: `IMPLEMENTED_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY`
 
 ## Purpose
 
@@ -70,4 +70,4 @@ The checkpoint must prove:
 
 ## Lifecycle
 
-`REVIEW_ONLY`. No Question Studio registration, Question Bank write, test/mock eligibility, learner/public publication or production release until explicit human approval.
+Human approval was recorded on **2026-09-25** against `ENG-008-CP002-REVIEW-V1.md` at reviewed head `c15ab3dcce4321be5c7eaf91d60f1f63a6f3f03a`. CP002 is registered in the existing ENG-008 Question Studio package in **review-only** mode. Question Bank writes, scored tests, mocks, learner/public publication, automatic publication and production release remain locked.
