@@ -2,6 +2,7 @@ import { SCI_CP036_REVIEW_V1, type SciCp036ReviewQuestion } from "../everyday-sc
 import { SCI_CP037_REVIEW_V1, type SciCp037ReviewQuestion } from "../scientists-discoveries-inventions/sci-cp037-review-v1";
 import { SCI_CP038_REVIEW_V1, type SciCp038ReviewQuestion } from "../scientific-instruments/sci-cp038-review-v1";
 import { SCI_CP039_REVIEW_V1, type SciCp039ReviewQuestion } from "../mixed-general-science/sci-cp039-review-v1";
+import { SCI_CP040_REVIEW_V1, type SciCp040ReviewQuestion } from "../science-mega-review-pool/sci-cp040-review-v1";
 import {
   SCI_GENERAL_SCIENCE_LOCALIZATION_V1,
   type GeneralScienceLocaleV1,
@@ -16,9 +17,11 @@ import { SCI_GENERAL_CP038_HI_V1 } from "./sci-general-cp038-localization-data-h
 import { SCI_GENERAL_CP038_PA_V1 } from "./sci-general-cp038-localization-data-pa-v1";
 import { SCI_GENERAL_CP039_HI_V1 } from "./sci-general-cp039-localization-data-hi-v1";
 import { SCI_GENERAL_CP039_PA_V1 } from "./sci-general-cp039-localization-data-pa-v1";
+import { SCI_GENERAL_CP040_HI_V1 } from "./sci-general-cp040-localization-data-hi-v1";
+import { SCI_GENERAL_CP040_PA_V1 } from "./sci-general-cp040-localization-data-pa-v1";
 
-export type GeneralScienceLocalizedCpV1 = "SCI-CP-036" | "SCI-CP-037" | "SCI-CP-038" | "SCI-CP-039";
-type EnglishQuestion = SciCp036ReviewQuestion | SciCp037ReviewQuestion | SciCp038ReviewQuestion | SciCp039ReviewQuestion;
+export type GeneralScienceLocalizedCpV1 = "SCI-CP-036" | "SCI-CP-037" | "SCI-CP-038" | "SCI-CP-039" | "SCI-CP-040";
+type EnglishQuestion = SciCp036ReviewQuestion | SciCp037ReviewQuestion | SciCp038ReviewQuestion | SciCp039ReviewQuestion | SciCp040ReviewQuestion;
 
 const QL_NAMES = {
   "SCI-CP-036": {
@@ -125,6 +128,32 @@ const QL_NAMES = {
       "ਵਿਗਿਆਨੀ, ਯੰਤਰ ਅਤੇ ਰੋਜ਼ਾਨਾ ਵਿਗਿਆਨ ਮਿਲੀ-ਜੁਲੀ ਸਮਝ",
     ],
   },
+  "SCI-CP-040": {
+    hi: [
+      "भौतिकी की बुनियाद — मेगा रिव्यू",
+      "ऊष्मा, द्रव, ध्वनि और प्रकाशिकी — मेगा रिव्यू",
+      "विद्युत, चुंबकत्व और आधुनिक भौतिकी — मेगा रिव्यू",
+      "रसायन विज्ञान की बुनियाद — मेगा रिव्यू",
+      "अनुप्रयुक्त रसायन — मेगा रिव्यू",
+      "कोशिका, पौधे और वर्गीकरण — मेगा रिव्यू",
+      "मानव जीवविज्ञान — मेगा रिव्यू",
+      "स्वास्थ्य, वंशागति और सूक्ष्मजीव — मेगा रिव्यू",
+      "पारिस्थितिकी, पर्यावरण और जैवप्रौद्योगिकी — मेगा रिव्यू",
+      "अंतिम समेकित विज्ञान चुनौती",
+    ],
+    pa: [
+      "ਭੌਤਿਕ ਵਿਗਿਆਨ ਦੀ ਬੁਨਿਆਦ — ਮੇਗਾ ਰਿਵਿਊ",
+      "ਗਰਮੀ, ਤਰਲ, ਧੁਨੀ ਅਤੇ ਰੌਸ਼ਨੀ ਵਿਗਿਆਨ — ਮੇਗਾ ਰਿਵਿਊ",
+      "ਬਿਜਲੀ, ਚੁੰਬਕਤਾ ਅਤੇ ਆਧੁਨਿਕ ਭੌਤਿਕ ਵਿਗਿਆਨ — ਮੇਗਾ ਰਿਵਿਊ",
+      "ਰਸਾਇਣ ਵਿਗਿਆਨ ਦੀ ਬੁਨਿਆਦ — ਮੇਗਾ ਰਿਵਿਊ",
+      "ਲਾਗੂ ਰਸਾਇਣ ਵਿਗਿਆਨ — ਮੇਗਾ ਰਿਵਿਊ",
+      "ਕੋਸ਼ਿਕਾ, ਪੌਧੇ ਅਤੇ ਵਰਗੀਕਰਨ — ਮੇਗਾ ਰਿਵਿਊ",
+      "ਮਨੁੱਖੀ ਜੀਵ ਵਿਗਿਆਨ — ਮੇਗਾ ਰਿਵਿਊ",
+      "ਸਿਹਤ, ਵਿਰਾਸਤ ਅਤੇ ਸੂਖਮਜੀਵ — ਮੇਗਾ ਰਿਵਿਊ",
+      "ਪਰਿਸਥਿਤਿਕੀ, ਵਾਤਾਵਰਣ ਅਤੇ ਜੈਵ-ਤਕਨਾਲੋਜੀ — ਮੇਗਾ ਰਿਵਿਊ",
+      "ਅੰਤਿਮ ਮਿਲੀ-ਜੁਲੀ ਵਿਗਿਆਨ ਚੁਣੌਤੀ",
+    ],
+  },
 } as const;
 
 const qlNumber=(qlId:string)=>{
@@ -180,13 +209,15 @@ function englishFor(cpId:GeneralScienceLocalizedCpV1):readonly EnglishQuestion[]
   if(cpId==="SCI-CP-036") return SCI_CP036_REVIEW_V1;
   if(cpId==="SCI-CP-037") return SCI_CP037_REVIEW_V1;
   if(cpId==="SCI-CP-038") return SCI_CP038_REVIEW_V1;
-  return SCI_CP039_REVIEW_V1;
+  if(cpId==="SCI-CP-039") return SCI_CP039_REVIEW_V1;
+  return SCI_CP040_REVIEW_V1;
 }
 function nativeFor(cpId:GeneralScienceLocalizedCpV1,locale:Exclude<GeneralScienceLocaleV1,"en">):readonly GeneralScienceNativeSpecV1[]{
   if(cpId==="SCI-CP-036") return locale==="hi"?SCI_GENERAL_CP036_HI_V1:SCI_GENERAL_CP036_PA_V1;
   if(cpId==="SCI-CP-037") return locale==="hi"?SCI_GENERAL_CP037_HI_V1:SCI_GENERAL_CP037_PA_V1;
   if(cpId==="SCI-CP-038") return locale==="hi"?SCI_GENERAL_CP038_HI_V1:SCI_GENERAL_CP038_PA_V1;
-  return locale==="hi"?SCI_GENERAL_CP039_HI_V1:SCI_GENERAL_CP039_PA_V1;
+  if(cpId==="SCI-CP-039") return locale==="hi"?SCI_GENERAL_CP039_HI_V1:SCI_GENERAL_CP039_PA_V1;
+  return locale==="hi"?SCI_GENERAL_CP040_HI_V1:SCI_GENERAL_CP040_PA_V1;
 }
 export function generateGeneralScienceLocalizedCpV1(cpId:GeneralScienceLocalizedCpV1,locale:GeneralScienceLocaleV1):readonly GeneralScienceLocalizedQuestionV1[]{
   const english=englishFor(cpId);
@@ -195,5 +226,5 @@ export function generateGeneralScienceLocalizedCpV1(cpId:GeneralScienceLocalized
   if(specs.length!==english.length) throw new Error(`${cpId}/${locale}: expected ${english.length} native surfaces, found ${specs.length}`);
   return Object.freeze(english.map((q,index)=>localizeNative(q,locale,specs[index])));
 }
-export const SCI_GENERAL_SCIENCE_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-036","SCI-CP-037","SCI-CP-038","SCI-CP-039"] as const);
+export const SCI_GENERAL_SCIENCE_SUPPORTED_CPS_V1=Object.freeze(["SCI-CP-036","SCI-CP-037","SCI-CP-038","SCI-CP-039","SCI-CP-040"] as const);
 export const SCI_GENERAL_SCIENCE_SUPPORTED_LOCALES_V1=Object.freeze(["en","hi","pa"] as const);

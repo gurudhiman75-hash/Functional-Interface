@@ -13,6 +13,7 @@ on:
       - "artifacts/api-server/src/knowledge-v1/science/scientists-discoveries-inventions/**"
       - "artifacts/api-server/src/knowledge-v1/science/scientific-instruments/**"
       - "artifacts/api-server/src/knowledge-v1/science/mixed-general-science/**"
+      - "artifacts/api-server/src/knowledge-v1/science/science-mega-review-pool/**"
   workflow_dispatch:
 
 concurrency:
@@ -87,3 +88,23 @@ jobs:
       - name: Run General Science CP039 multilingual audit
         working-directory: artifacts/api-server
         run: node dist/sci-general-cp039-multilingual-audit-v1.mjs
+
+      - name: Bundle General Science CP040 multilingual audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/general-science-localization-v1/sci-general-cp040-multilingual-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-general-cp040-multilingual-audit-v1.mjs
+      - name: Run General Science CP040 multilingual audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-general-cp040-multilingual-audit-v1.mjs
+
+      - name: Upload CP040 multilingual review packet
+        uses: actions/upload-artifact@v4
+        with:
+          name: sci-cp040-multilingual-review
+          path: artifacts/api-server/src/knowledge-v1/science/science-mega-review-pool/SCI-CP-040-MULTILINGUAL-REVIEW.md
+          if-no-files-found: error
