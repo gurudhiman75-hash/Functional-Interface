@@ -69,6 +69,10 @@ import {
   isPol001QuestionStudioRequestV1,
   knowledgeV1Pol001QuestionStudioAdapterV1,
 } from "./knowledge-v1-pol001-adapter-v1";
+import {
+  isSci001QuestionStudioRequestV1,
+  knowledgeV1Sci001QuestionStudioAdapterV1,
+} from "./knowledge-v1-sci001-adapter-v1";
 
 /**
  * Subject-family composite for knowledge-v1. Individual chapter adapters own
@@ -98,6 +102,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1GeoSoi001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Pgk001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Pol001QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1Sci001QuestionStudioAdapterV1.listPackages(),
     ];
     const ids = packages.map((pkg) => pkg.packageId);
     if (new Set(ids).size !== ids.length) {
@@ -107,6 +112,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isSci001QuestionStudioRequestV1(request)) {
+      return knowledgeV1Sci001QuestionStudioAdapterV1.generate(request);
+    }
     if (isEnv001QuestionStudioRequestV1(request)) {
       return knowledgeV1Env001QuestionStudioAdapterV1.generate(request);
     }
