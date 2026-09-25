@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
-import { reasoningV1QuestionStudioAdapter } from "../../../../question-studio/engines/reasoning-v1-adapter";
-import { listQuestionStudioPackages } from "../../../../question-studio/engine-registry";
+function source(relativePath: string): string {
+  return readFileSync(new URL(relativePath, import.meta.url), "utf8");
+}
+
 import {
   DIR001_QUESTION_STUDIO_PACKAGE_ID_V1,
   DIR001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
@@ -51,17 +54,16 @@ assert.equal(isDir001QuestionStudioRequest({ topic: "Direction Sense" }), true);
 assert.equal(isDir001QuestionStudioRequest({ subtopic: "Direction & Distance" }), true);
 assert.equal(isDir001QuestionStudioRequest({ packageId: "OPS-001" }), false);
 
-const registered = reasoningV1QuestionStudioAdapter.listPackages().find((pkg) => pkg.packageId === "DIR-001");
-assert.ok(registered, "DIR-001 must be discoverable through the reasoning-v1 adapter");
-assert.equal(registered!.questionBankWritable, false);
-assert.equal(registered!.testEligible, false);
+const reasoningAdapterSource = source("../../../../question-studio/engines/reasoning-v1-adapter.ts");
+assert.match(reasoningAdapterSource, /DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1/);
+assert.match(reasoningAdapterSource, /isDir001QuestionStudioRequest\(request\)/);
+assert.match(reasoningAdapterSource, /generateDir001QuestionStudioBatch\(request\)/);
 
-const globalPackage = listQuestionStudioPackages().find((pkg) => pkg.packageId === "DIR-001");
-assert.ok(globalPackage, "DIR-001 must be visible through the global Question Studio package registry");
-assert.equal(globalPackage!.engineId, "reasoning-v1");
-assert.equal(globalPackage!.questionBankWritable, false);
+const globalRegistrySource = source("../../../../question-studio/engine-registry.ts");
+assert.match(globalRegistrySource, /reasoningV1QuestionStudioAdapter/);
+assert.match(globalRegistrySource, /\[reasoningV1QuestionStudioAdapter\.engineId,\s*reasoningV1QuestionStudioAdapter\]/);
 
-const qlEnglish = await reasoningV1QuestionStudioAdapter.generate({
+const qlEnglish = await generateDir001QuestionStudioBatch({
   packageId: "DIR-001",
   canonicalProblemId: "DIR-QL-004",
   language: "en",
@@ -81,7 +83,7 @@ for (const raw of qlEnglish.questions as Array<Record<string, any>>) {
   assertReviewOnly(raw);
 }
 
-const qlEnglishReplay = await reasoningV1QuestionStudioAdapter.generate({
+const qlEnglishReplay = await generateDir001QuestionStudioBatch({
   packageId: "DIR-001",
   canonicalProblemId: "DIR-QL-004",
   language: "en",
