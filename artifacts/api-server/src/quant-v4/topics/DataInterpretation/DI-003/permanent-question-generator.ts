@@ -1,4 +1,4 @@
-import { generateDi003GroupedBarV2Set } from "./grouped-bar-set-v2";
+import { generateDi003GroupedBarV2ReviewSet } from "./grouped-bar-set-v2-review";
 import type { Di003V2ExamProfile, Di003V2TaskKind } from "./grouped-bar-v2-types";
 
 const MAX_TASK_SEARCH_ATTEMPTS = 256;
@@ -13,7 +13,7 @@ export function generateDi003PermanentQuestion(input: {
 
   for (let attempt = 0; attempt < MAX_TASK_SEARCH_ATTEMPTS; attempt += 1) {
     const sourceSeed = `${seed}:PERM:${input.taskKind}:${attempt}`;
-    const set = generateDi003GroupedBarV2Set({ seed: sourceSeed, examProfile: input.examProfile });
+    const set = generateDi003GroupedBarV2ReviewSet({ seed: sourceSeed, examProfile: input.examProfile });
     const question = set.questions.find((item) => item.kind === input.taskKind);
     if (!question) continue;
 
@@ -29,7 +29,7 @@ export function generateDi003PermanentQuestion(input: {
         questionLogicVersion: "DI-003-QUESTION-LOGIC-V3" as const,
         setContractVersion: "DI-003-SET-CONTRACT-V2" as const,
         arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING" as const,
-        sourceFoundation: "DI-003-GROUPED-BAR-V2" as const,
+        sourceFoundation: "DI-003-GROUPED-BAR-V3-HARDENED" as const,
         reviewStatus: "ENGLISH_REVIEW_APPROVED" as const,
         questionStudioDiscoverable: false as const,
         questionBankStatus: "NOT_STORED" as const,
