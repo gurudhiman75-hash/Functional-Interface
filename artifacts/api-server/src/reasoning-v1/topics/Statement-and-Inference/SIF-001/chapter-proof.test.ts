@@ -8,6 +8,7 @@ import { buildSifCpReviewPack } from "./review-pack.ts";
 import { SIF_CP003_PROFILE_BY_AUTHORITY_ID } from "./cp003-quantifier-authorities.ts";
 import { solveSifScenario } from "./solver.ts";
 import { SIF_CP004_PROFILE_BY_AUTHORITY_ID } from "./cp004-comparison-authorities.ts";
+import { SIF_CP005_PROFILE_BY_AUTHORITY_ID } from "./cp005-suggestive-reason-authorities.ts";
 
 const locales: readonly SifLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 assert.equal(SIF_001_MANIFEST.cpCount, 17);
@@ -29,7 +30,7 @@ for (const cpId of SIF_CP_IDS) {
     assert.equal(question.metadata.questionBankWritable, false);
   }
   const review = buildSifCpReviewPack({ cpId, locale: "en-IN", seed: 9000 });
-  assert.equal(review.questions.length, cpId === "SIF-CP003" || cpId === "SIF-CP004" ? 24 : 20, `${cpId}: review pack size`);
+  assert.equal(review.questions.length, cpId === "SIF-CP003" || cpId === "SIF-CP004" || cpId === "SIF-CP005" ? 24 : 20, `${cpId}: review pack size`);
 }
 
 const cp001Authorities = listSifAuthorities("SIF-CP001");
@@ -92,5 +93,21 @@ assert.deepEqual(cp004Review.effectiveDistribution, { EASY: 10, MEDIUM: 14, HARD
 assert.equal(new Set(cp004Review.questions.map((entry) => SIF_CP004_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.kind)).size, 8, "SIF-CP004 review must expose all comparison families");
 for (const kind of new Set(Object.values(SIF_CP004_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.kind))) assert.equal(cp004Review.questions.filter((entry) => SIF_CP004_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.kind === kind).length, 3, `SIF-CP004 review must sample three ${kind} scenarios`);
 assert.equal(new Set(cp004Review.questions.map((entry) => entry.answerClass)).size, 2, "SIF-CP004 review must balance valid inference position");
+
+const cp005Authorities = listSifAuthorities("SIF-CP005");
+assert.equal(cp005Authorities.length, 48, "SIF-CP005 requires forty-eight suggestive-reason authorities");
+assert.equal(new Set(cp005Authorities.map(fingerprintSifAuthority)).size, 48, "SIF-CP005 authorities must be semantically distinct");
+assert.equal(Object.keys(SIF_CP005_PROFILE_BY_AUTHORITY_ID).length, 48, "SIF-CP005 profile ledger must cover every authority");
+assert.equal(new Set(Object.values(SIF_CP005_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.kind)).size, 8, "SIF-CP005 must cover eight evidence patterns");
+for (const kind of new Set(Object.values(SIF_CP005_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.kind))) assert.equal(Object.values(SIF_CP005_PROFILE_BY_AUTHORITY_ID).filter((profile) => profile.kind === kind).length, 6, `SIF-CP005 ${kind} authority count`);
+assert.equal(new Set(cp005Authorities.map((entry) => entry.domain)).size, 8, "SIF-CP005 must cover eight context domains");
+assert.ok(cp005Authorities.every((entry) => entry.difficulty === "MEDIUM" && entry.mechanisms.includes("SUGGESTIVE_REASON") && !entry.identityGuard.causeEffectQuestion), "SIF-CP005 must stay medium-level suggestive inference, separate from Cause & Effect");
+const cp005Review = buildSifCpReviewPack({ cpId: "SIF-CP005", locale: "en-IN", seed: 50_000 });
+assert.equal(cp005Review.questions.length, 24, "SIF-CP005 review pack size");
+assert.equal(new Set(cp005Review.questions.map((entry) => entry.scenarioId)).size, 24, "SIF-CP005 review must not repeat scenarios");
+assert.deepEqual(cp005Review.effectiveDistribution, { EASY: 0, MEDIUM: 24, HARD: 0 }, "SIF-CP005 must preserve its medium-only difficulty contract");
+for (const kind of new Set(Object.values(SIF_CP005_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.kind))) assert.equal(cp005Review.questions.filter((entry) => SIF_CP005_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.kind === kind).length, 3, `SIF-CP005 review must sample three ${kind} scenarios`);
+assert.equal(cp005Review.questions.filter((entry) => entry.answerClass === "ONLY_I").length, 12, "SIF-CP005 review must balance inference I");
+assert.equal(cp005Review.questions.filter((entry) => entry.answerClass === "ONLY_II").length, 12, "SIF-CP005 review must balance inference II");
 
 console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
