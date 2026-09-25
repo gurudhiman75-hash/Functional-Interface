@@ -459,9 +459,10 @@ export function localizeSvgPa(svg: string): string {
   let result = svg;
   const phrases: readonly [string, string][] = [
     ["Mover paths and final positions", "ਵਿਅਕਤੀਆਂ ਦੇ ਰਸਤੇ ਅਤੇ ਅੰਤਿਮ ਸਥਿਤੀਆਂ"],
+    ["Multiple mover endpoints", "ਵਿਅਕਤੀਆਂ ਦੇ ਅੰਤਿਮ ਬਿੰਦੂ"],
     ["Movement path", "ਚਾਲਾਂ ਦਾ ਰਸਤਾ"],
-    ["Segment proportions follow the solved coordinates; labels give the exact distances.", "ਰੇਖਾ-ਖੰਡਾਂ ਦੇ ਅਨੁਪਾਤ ਹੱਲ ਕੀਤੀਆਂ ਸਥਿਤੀਆਂ ਅਨੁਸਾਰ ਹਨ; ਲਿਖੀਆਂ ਦੂਰੀਆਂ ਸਹੀ ਹਨ।"],
-    ["Relative positions are plotted proportionally from the solved coordinates.", "ਆਪਸੀ ਸਥਿਤੀਆਂ ਹੱਲ ਕੀਤੀਆਂ ਸਥਿਤੀਆਂ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਦਿਖਾਈਆਂ ਗਈਆਂ ਹਨ।"],
+    ["Segment proportions follow the solved positions; labels give the exact distances.", "ਰੇਖਾ-ਖੰਡਾਂ ਦੇ ਅਨੁਪਾਤ ਹੱਲ ਕੀਤੀਆਂ ਸਥਿਤੀਆਂ ਅਨੁਸਾਰ ਹਨ; ਲਿਖੀਆਂ ਦੂਰੀਆਂ ਸਹੀ ਹਨ।"],
+    ["Relative positions are plotted proportionally from the solved layout.", "ਆਪਸੀ ਸਥਿਤੀਆਂ ਹੱਲ ਕੀਤੀਆਂ ਸਥਿਤੀਆਂ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਦਿਖਾਈਆਂ ਗਈਆਂ ਹਨ।"],
     ["Path geometry is plotted proportionally; movement statements remain the exact source values.", "ਰਸਤਾ ਹੱਲ ਕੀਤੀਆਂ ਸਥਿਤੀਆਂ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ; ਚਾਲਾਂ ਦੀਆਂ ਲਿਖੀਆਂ ਦੂਰੀਆਂ ਸਹੀ ਹਨ।"],
     ["Symbols are decoded using the code key; solved positions are plotted proportionally.", "ਚਿੰਨ੍ਹਾਂ ਦਾ ਅਰਥ ਕੋਡ-ਸੂਚੀ ਤੋਂ ਕੱਢਿਆ ਗਿਆ ਹੈ; ਸਥਿਤੀਆਂ ਹੱਲ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਦਿਖਾਈਆਂ ਗਈਆਂ ਹਨ।"],
     ["Shortest distance", "ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ"],
