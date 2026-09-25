@@ -219,6 +219,15 @@ function generateMissingTurn(seed: number): GeneratedAdvancedQuestion {
       })(),
       resultLine: `The missing step is “${TURN_LABELS[solved]}”.`,
       conclusion: `Therefore, “${TURN_LABELS[solved]}” is the correct instruction for ${scenario.subject}.`,
+      diagram: (() => {
+        const secondFacing = turnFacing(scenario.initialFacing, solved);
+        const thirdFacing = turnFacing(secondFacing, scenario.knownTurn);
+        return buildAbsoluteMovementSolutionDiagram([
+          { direction: scenario.initialFacing, distance: scenario.firstDistance },
+          { direction: secondFacing, distance: scenario.secondDistance },
+          { direction: thirdFacing, distance: scenario.thirdDistance },
+        ]);
+      })(),
     },
   });
 }
