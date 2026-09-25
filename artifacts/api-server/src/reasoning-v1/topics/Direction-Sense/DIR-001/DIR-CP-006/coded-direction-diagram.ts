@@ -149,7 +149,7 @@ export function buildCodedRelationDiagram(
   return {
     kind: "CODED_RELATION_DIAGRAM",
     title,
-    svg: svgFrame(title, body, "Symbols are decoded using the code key; the diagram is not necessarily to scale."),
+    svg: svgFrame(title, body, "Symbols are decoded using the code key; solved positions are plotted proportionally."),
   };
 }
 
