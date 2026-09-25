@@ -185,6 +185,12 @@ function generateDomainCheck(seed: number): AlgCp008EnglishReviewV4Item {
   };
 }
 
+function factoredZeroText(coefficient: number, factor: string) {
+  if (coefficient === 1) return `${factor} = 0`;
+  if (coefficient === -1) return `-(${factor}) = 0`;
+  return `${coefficient}(${factor}) = 0`;
+}
+
 function rationalEquationQuestion(equation: RationalEquation1, mode: "NO_SOLUTION" | "INFINITE", frame: number) {
   const equationText = `${rationalFunctionText(equation.left)} = ${rationalFunctionText(equation.right)}`;
   if (mode === "NO_SOLUTION") {
@@ -243,7 +249,7 @@ function generateNoValidRoot(seed: number): AlgCp008EnglishReviewV4Item {
     explanation: [
       `The original denominator is ${denominatorDisplay}, so x = ${excluded} is excluded from the domain.`,
       `Cross-multiplying gives (${denominatorDisplay})² = (${rightDisplay})(${denominatorDisplay}).`,
-      `Bringing the right side over and factoring gives ${difference}(${denominatorDisplay}) = 0, so the only algebraic candidate is x = ${excluded}.`,
+      `Bringing the right side over and factoring gives ${factoredZeroText(difference, denominatorDisplay)}, so the only algebraic candidate is x = ${excluded}.`,
       `But x = ${excluded} makes the original denominator 0, so that candidate must be rejected. Therefore the equation has no solution.`,
     ].join(" "),
     equation,
