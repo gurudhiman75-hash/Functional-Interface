@@ -90,6 +90,9 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਯੂਨੀਵਰਸਿਟੀਆਂ ਦਾ ਵਿਸਥਾਰ",
       "ਨਾਰਾਜ਼ਗੀ ਦਾ ਉਦਾਹਰਨ",
       "ਮੁੜ ਸਥਾਪਨਾ",
+      "ਅੰਦੋਲਨ",
+      "ਸਥਾਨਕ",
+      "ਖੇਤਰ",
     ];  for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
     }
