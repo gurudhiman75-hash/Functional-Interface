@@ -113,7 +113,6 @@ function localizedStem(question: Di003V2Question, stimulus: Di003V2Stimulus, loc
   const e = question.evidence;
   const hi = isHindi(locale);
   const s = surfaceIndex(question);
-  const unit = contextFor(stimulus, locale).unit;
 
   switch (question.kind) {
     case "DIRECT_BAR_VALUE": {
