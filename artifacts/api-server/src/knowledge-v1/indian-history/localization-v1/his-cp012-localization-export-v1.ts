@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { generateHisCp011LocalizedReviewV1 } from "./his-cp012-localization-v1";
+import { generateHisCp012LocalizedReviewV1 } from "./his-cp012-localization-v1";
 import type { HisLocaleV1, HisLocalizedQuestionV1 } from "./his-localization-types-v1";
 
 const labels: Record<HisLocaleV1, string> = { en: "English", hi: "Hindi", pa: "Punjabi" };
@@ -26,7 +26,7 @@ const lines: string[] = [
 ];
 for (const locale of locales) {
   lines.push(`## ${labels[locale]}`, "");
-  generateHisCp011LocalizedReviewV1(locale).forEach((q, index) => lines.push(...renderQuestion(q, index)));
+  generateHisCp012LocalizedReviewV1(locale).forEach((q, index) => lines.push(...renderQuestion(q, index)));
 }
 const target = path.join(outDir, "HIS-MULTILINGUAL-V1-CP012-REVIEW.md");
 fs.writeFileSync(target, lines.join("\n"));

@@ -1,0 +1,60 @@
+name: Validate HIS-001 Final Freeze and Question Studio
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-history/**"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-his001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-his001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
+      - ".github/workflows/history-his001-final-freeze-question-studio-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: history-his001-final-freeze-question-studio-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-his001-final-closure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build final History multilingual audit
+        run: |
+          mkdir -p artifacts/api-server/dist/history-review
+          pnpm --dir artifacts/api-server exec esbuild             src/knowledge-v1/indian-history/localization-v1/his-001-final-multilingual-audit-v1.ts             --bundle --packages=external --platform=node --format=esm             --outfile=dist/history-review/his-001-final-multilingual-audit-v1.mjs
+      - name: Run final History multilingual audit
+        run: |
+          cd artifacts/api-server
+          node dist/history-review/his-001-final-multilingual-audit-v1.mjs | tee dist/history-review/HIS-001-FINAL-CLOSURE-AUDIT.txt
+      - name: Build HIS-001 Question Studio integration test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild             src/question-studio/engines/knowledge-v1-his001-adapter-v1.test.ts             --bundle --packages=external --platform=node --format=esm             --outfile=dist/history-review/knowledge-v1-his001-adapter-v1.test.mjs
+      - name: Run HIS-001 Question Studio integration test
+        run: |
+          cd artifacts/api-server
+          node dist/history-review/knowledge-v1-his001-adapter-v1.test.mjs | tee -a dist/history-review/HIS-001-FINAL-CLOSURE-AUDIT.txt
+      - name: Upload final closure audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: HIS-001-FINAL-CLOSURE-AUDIT-V1
+          path: artifacts/api-server/dist/history-review/HIS-001-FINAL-CLOSURE-AUDIT.txt
+          if-no-files-found: error
+          retention-days: 30
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
