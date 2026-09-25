@@ -99,6 +99,11 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa"){
       "ਕਾਲਕ੍ਰਮ",
       "ਸਮੂਹਕ ਕਾਰਵਾਈ",
       "ਰਾਸ਼ਟਰੀ ਸਰਕਾਰ",
+      "ਕਿਸ ਤੋਂ ਚੱਲਦੀ ਸੀ",
+      "ਗੈਰ-ਸੰਥਾਲ ਇਲਾਕਾਈ ਵਰਗਾਂ",
+      "ਦਸਤਖ਼ਤ ਅਤੇ ਨਕਦ ਪੇਸ਼ਗੀ ਰਕਮ ਲੈਣੀ",
+      "ਪੇਸ਼ਗੀ ਰਕਮ ਠੁਕਰਾਈ",
+      "ਹੱਕਾਂ ਨਾਲ ਇਲਾਕਾਈ ਮਸਲਿਆਂ",
     ];  for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
     }
