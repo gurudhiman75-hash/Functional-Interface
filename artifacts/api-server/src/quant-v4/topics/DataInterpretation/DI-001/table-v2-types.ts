@@ -57,7 +57,7 @@ export type Di001V2Set = Readonly<{
     representation: "TABLE";
     sourceFoundation: "DI-001-PHASE0-TABLE-STATE";
     setContractVersion: "DI-001-SET-CONTRACT-V2";
-    arithmeticAuthority: "EXACT_INTEGER_RATIONAL";
+    arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING";
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
     questionBankStatus: "NOT_STORED";

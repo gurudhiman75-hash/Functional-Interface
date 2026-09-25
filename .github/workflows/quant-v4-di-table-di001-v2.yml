@@ -49,10 +49,25 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/permanent-ql-registry.ts \
             artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/permanent-question-generator.ts \
             artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/question-studio-adapter.ts
-      - name: DI-001 V2 deterministic, diversity and independent proof
+      - name: DI-001 V3 no-decimal deterministic, diversity and independent proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/table-set-v2.test.ts
       - name: DI-001 Question Studio controlled-review proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/question-studio-integration.test.ts
+      - name: Hindi Punjabi localization review proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/localization-review-v1.test.ts
+      - name: Export Hindi Punjabi localization review pack
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/export-localization-review-v1.ts /tmp/DI-001-LOCALIZATION-REVIEW-V1.md
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/export-localization-review-html-v1.ts /tmp/DI-001-LOCALIZATION-REVIEW-V1.html
+      - name: Upload Hindi Punjabi localization review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-001-localization-review-v1
+          path: |
+            /tmp/DI-001-LOCALIZATION-REVIEW-V1.md
+            /tmp/DI-001-LOCALIZATION-REVIEW-V1.html
+          if-no-files-found: error
+          retention-days: 30
       - name: Export Markdown review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/export-review-v2.ts DI-001-REVIEW-V2.md
       - name: Export standalone HTML review pack

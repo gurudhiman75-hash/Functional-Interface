@@ -1,16 +1,16 @@
-# DI-001 Table Interpretation — Permanent English Controlled Review
+# DI-001 Table Interpretation — Multilingual Frozen Controlled Review
 
-`PERMANENT_ENGLISH_CONTROLLED_REVIEW` — the approved V2 table question layer is promoted to permanent Question Studio review authority while all learner-delivery gates remain closed.
+`MULTILINGUAL_FROZEN_CONTROLLED_REVIEW` — the approved no-decimal table package is available in English, Hindi and Punjabi controlled Question Studio review while all learner-delivery gates remain closed.
 
 ## Authority
 
-- Release: `DI-001-PERMANENT-ENGLISH-REVIEW-P1`
+- Release: `DI-001-PERMANENT-ENGLISH-REVIEW-P2`
 - Canonical problem: `DI-CP-001`
-- Question Studio runtime: `DI001_PERMANENT_ENGLISH_REVIEW_P1`
+- Question Studio runtime: `DI001_PERMANENT_MULTILINGUAL_REVIEW_V1`
 - Permanent QLs: `DI-QL-027` through `DI-QL-036`
 - Question Studio discovery: enabled in `CONTROLLED_REVIEW`
 - English editorial status: `ENGLISH_REVIEW_APPROVED`
-- Localization: not started
+- Localization: `HI_PA_FROZEN`
 
 ## Certified V2 task families
 
@@ -41,3 +41,26 @@ The dedicated approval proof covered 240 sets / 1,200 questions across SSC CGL T
 - `productionReleaseAuthorized: false`
 
 Promotion to controlled Question Studio review does not authorize Question Bank writes, tests, mocks, public publication or automatic student publication.
+
+
+## No-decimal English review revision P2
+
+- question logic: `DI-001-QUESTION-LOGIC-V3`
+- arithmetic authority: `EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING`
+- selection percentages use explicit nearest-whole-percent wording
+- average selected uses explicit nearest-whole-number wording
+- overall selection percentage uses explicit nearest-whole-percent wording
+- selection-rate gap uses explicit nearest-whole-percentage-point wording
+- answers, options and working tables contain no decimal learner values
+
+## Hindi/Punjabi frozen multilingual authority V1
+
+- locales: hi-IN and pa-IN
+- 10/10 permanent QLs localized
+- table title, instruction, columns, unit and row labels localized
+- English centre letters/names are replaced by native-script numeric centre labels
+- stems and explanations are rebuilt from structured task evidence
+- required hard-task working tables are localized
+- numeric/ratio options preserve English authority values
+- centre-name and percentage-point textual options are localized while preserving correct-option identity
+- localized Question Studio activation: CONTROLLED_REVIEW authorized

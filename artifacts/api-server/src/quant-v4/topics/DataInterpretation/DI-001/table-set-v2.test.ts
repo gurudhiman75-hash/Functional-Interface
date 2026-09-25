@@ -13,6 +13,11 @@ function stable(value: unknown): string {
   return JSON.stringify(value);
 }
 
+function learnerText(question: { stem: string; options: readonly string[]; answer: string; explanation: { keyIdea: string; steps: readonly string[]; workingTable?: { headers: readonly string[]; rows: readonly (readonly string[])[] } } }) {
+  const table = question.explanation.workingTable;
+  return [question.stem, ...question.options, question.answer, question.explanation.keyIdea, ...question.explanation.steps, ...(table?.headers ?? []), ...(table?.rows.flat() ?? [])].join(" ");
+}
+
 function walkFiles(directory: string): string[] {
   return readdirSync(directory).flatMap((name) => {
     const path = join(directory, name);
@@ -71,6 +76,7 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
       assert(DI001_V2_TASK_KINDS.includes(question.kind), `${question.questionId} has an unknown task family.`);
       assert(question.options.length === first.optionCount && new Set(question.options).size === first.optionCount, `${question.questionId} has invalid options.`);
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId} has incorrect answer-index binding.`);
+      assert(!/\d+\.\d+/u.test(learnerText(question)), `${question.questionId} exposes decimal learner-facing values.`);
       assert(question.optionMetadata[question.correctIndex]?.misconceptionId === "CORRECT", `${question.questionId} lost correct-option metadata.`);
       assert(question.optionMetadata.filter((option) => option.misconceptionId === "CORRECT").length === 1, `${question.questionId} does not contain exactly one correct option.`);
       assert(question.optionMetadata.filter((option) => option.misconceptionId !== "CORRECT").every((option) => option.derivation.length >= 12), `${question.questionId} contains an unexplained distractor.`);
@@ -121,7 +127,7 @@ for (const file of walkFiles(scope).filter((path) => /table-(?:set-)?v2|review-u
 }
 
 console.log(JSON.stringify({
-  status: "PASS_DI_001_TABLE_V2_REVIEW",
+  status: "PASS_DI_001_TABLE_V3_NO_DECIMALS",
   sets: setCount,
   questions: questionCount,
   deterministicReplays,
