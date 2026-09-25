@@ -17,14 +17,14 @@ const CONTEXTS: Readonly<Record<string, LocalizedContext>> = Object.freeze({
       xAxisLabel: "अंक",
       yAxisLabel: "विद्यार्थियों की संख्या",
       unit: "विद्यार्थी",
-      description: "वर्ग-मध्य बिंदुओं को उनकी आवृत्तियों के अनुसार सीधी रेखाओं से जोड़कर बनाया गया आवृत्ति बहुभुज।",
+      description: "वर्ग-चिह्न बिंदुओं को उनकी आवृत्तियों के अनुसार सीधी रेखाओं से जोड़कर बनाया गया आवृत्ति बहुभुज।",
     },
     pa: {
       title: "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਅੰਕ",
       xAxisLabel: "ਅੰਕ",
       yAxisLabel: "ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ",
       unit: "ਵਿਦਿਆਰਥੀ",
-      description: "ਵਰਗ-ਮੱਧ ਬਿੰਦੂਆਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਅਨੁਸਾਰ ਸਿੱਧੀਆਂ ਰੇਖਾਵਾਂ ਨਾਲ ਜੋੜ ਕੇ ਬਣਾਇਆ ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ।",
+      description: "ਵਰਗ-ਚਿੰਨ੍ਹ ਬਿੰਦੂਆਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਅਨੁਸਾਰ ਸਿੱਧੀਆਂ ਰੇਖਾਵਾਂ ਨਾਲ ਜੋੜ ਕੇ ਬਣਾਇਆ ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ।",
     },
   },
   "Travel time of employees": {
@@ -153,8 +153,8 @@ export function localizeDi010Stimulus(stimulus: Di010Stimulus, locale: Di010Loca
 
 const CONSTRUCTION_OPTIONS = Object.freeze({
   "Class marks (midpoints)": {
-    hi: "वर्ग-मध्य (मध्य मान)",
-    pa: "ਵਰਗ-ਮੱਧ (ਮੱਧ ਮੁੱਲ)",
+    hi: "वर्ग-चिह्न (मध्य मान)",
+    pa: "ਵਰਗ-ਚਿੰਨ੍ਹ (ਮੱਧ-ਬਿੰਦੂ)",
   },
   "Lower class limits": {
     hi: "निम्न वर्ग सीमाएँ",
@@ -201,8 +201,8 @@ function localizedStem(question: Di010Question, stimulus: Di010Stimulus, locale:
       ];
       const p = [
         "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਵਿੱਚ ਮੁੱਖ ਬਿੰਦੂਆਂ ਦੇ ਖਿਤਿਜੀ ਨਿਰਦੇਸ਼ਾਂਕ ਕੀ ਦਰਸਾਉਂਦੇ ਹਨ?",
-        "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਦੇ ਬਿੰਦੂ ਖਿਤਿਜੀ ਅਕਸ ਉੱਤੇ ਕਿਹੜੇ ਮੁੱਲਾਂ ਦੇ ਉੱਪਰ ਬਣਾਏ ਜਾਂਦੇ ਹਨ?",
-        "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਬਣਾਉਂਦੇ ਸਮੇਂ ਹਰ ਵਰਗ ਲਈ ਖਿਤਿਜੀ ਅਕਸ ਉੱਤੇ ਕਿਹੜਾ ਮੁੱਲ ਲਿਆ ਜਾਂਦਾ ਹੈ?",
+        "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਦੇ ਬਿੰਦੂ ਖਿਤਿਜੀ ਧੁਰਾ ਉੱਤੇ ਕਿਹੜੇ ਮੁੱਲਾਂ ਦੇ ਉੱਪਰ ਬਣਾਏ ਜਾਂਦੇ ਹਨ?",
+        "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਬਣਾਉਂਦੇ ਸਮੇਂ ਹਰ ਵਰਗ ਲਈ ਖਿਤਿਜੀ ਧੁਰਾ ਉੱਤੇ ਕਿਹੜਾ ਮੁੱਲ ਲਿਆ ਜਾਂਦਾ ਹੈ?",
       ];
       return (hi ? h : p)[variant]!;
     }
@@ -238,12 +238,12 @@ function localizedStem(question: Di010Question, stimulus: Di010Stimulus, locale:
       const target = classes[Number(evidence.targetIndex)]!;
       const mark = target.classMark;
       const h = [
-        `वर्ग-मध्य ${mark} किस वर्ग अंतराल से संबंधित है?`,
+        `वर्ग-चिह्न ${mark} किस वर्ग अंतराल से संबंधित है?`,
         `जिस वर्ग का मध्य मान ${mark} है, उसका वर्ग अंतराल कौन-सा है?`,
         `बहुभुज में ${mark} पर बना बिंदु किस वर्ग को दर्शाता है?`,
       ];
       const p = [
-        `ਵਰਗ-ਮੱਧ ${mark} ਕਿਹੜੇ ਵਰਗ ਅੰਤਰਾਲ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ?`,
+        `ਵਰਗ-ਚਿੰਨ੍ਹ ${mark} ਕਿਹੜੇ ਵਰਗ ਅੰਤਰਾਲ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ?`,
         `ਜਿਸ ਵਰਗ ਦਾ ਮੱਧ ਮੁੱਲ ${mark} ਹੈ, ਉਸ ਦਾ ਵਰਗ ਅੰਤਰਾਲ ਕਿਹੜਾ ਹੈ?`,
         `ਬਹੁਭੁਜ ਵਿੱਚ ${mark} ਉੱਤੇ ਬਣਿਆ ਬਿੰਦੂ ਕਿਹੜਾ ਵਰਗ ਦਰਸਾਉਂਦਾ ਹੈ?`,
       ];
@@ -266,12 +266,12 @@ function localizedStem(question: Di010Question, stimulus: Di010Stimulus, locale:
       const start = Number(evidence.startIndex), end = Number(evidence.endIndex);
       const range = rangeLabel(classes, start, end);
       const h = [
-        `परास ${range} में कुल कितने ${unit} हैं?`,
+        `अंतराल ${range} में कुल कितने ${unit} हैं?`,
         `वर्गों ${range} की संयुक्त आवृत्ति कितनी है?`,
         `${range} के भीतर आने वाले वर्गों की कुल आवृत्ति ज्ञात कीजिए।`,
       ];
       const p = [
-        `ਪਰਾਸ ${range} ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ${unit} ਹਨ?`,
+        `ਅੰਤਰਾਲ ${range} ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ${unit} ਹਨ?`,
         `ਵਰਗਾਂ ${range} ਦੀ ਮਿਲੀ-ਜੁਲੀ ਬਾਰੰਬਾਰਤਾ ਕਿੰਨੀ ਹੈ?`,
         `${range} ਦੇ ਅੰਦਰ ਆਉਣ ਵਾਲੇ ਵਰਗਾਂ ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਕੱਢੋ।`,
       ];
@@ -331,7 +331,7 @@ function localizedStem(question: Di010Question, stimulus: Di010Stimulus, locale:
       const p = [
         "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਨੂੰ ਦੋਵੇਂ ਸਿਰਿਆਂ ਤੇ ਬੰਦ ਕਰਨ ਲਈ ਕਿਹੜੇ ਦੋ ਸਿਫ਼ਰ-ਬਾਰੰਬਾਰਤਾ ਬਿੰਦੂ ਜੋੜੇ ਜਾਣਗੇ?",
         "ਦੋਵੇਂ ਪਾਸੇ ਬਰਾਬਰ ਚੌੜਾਈ ਦਾ ਇੱਕ-ਇੱਕ ਕਲਪਿਤ ਵਰਗ ਜੋੜਨ ਤੇ ਬਹੁਭੁਜ ਨੂੰ ਬੰਦ ਕਰਨ ਵਾਲੇ ਬਿੰਦੂ ਕਿਹੜੇ ਹੋਣਗੇ?",
-        "ਇਸ ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਖਿਤਿਜੀ ਅਕਸ ਉੱਤੇ ਕਿਹੜੇ ਦੋ ਬਿੰਦੂ ਚਾਹੀਦੇ ਹਨ?",
+        "ਇਸ ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਖਿਤਿਜੀ ਧੁਰਾ ਉੱਤੇ ਕਿਹੜੇ ਦੋ ਬਿੰਦੂ ਚਾਹੀਦੇ ਹਨ?",
       ];
       return (hi ? h : p)[variant]!;
     }
@@ -340,27 +340,27 @@ function localizedStem(question: Di010Question, stimulus: Di010Stimulus, locale:
       const leftRange = rangeLabel(classes, leftStart, leftStart + 1);
       const rightRange = rangeLabel(classes, rightStart, rightStart + 1);
       const h = [
-        `परास ${leftRange} और ${rightRange} की कुल आवृत्तियों का अनुपात क्या है?`,
+        `अंतराल ${leftRange} और ${rightRange} की कुल आवृत्तियों का अनुपात क्या है?`,
         `${leftRange} की संयुक्त आवृत्ति का ${rightRange} की संयुक्त आवृत्ति से अनुपात ज्ञात कीजिए।`,
-        `दोनों परासों ${leftRange} और ${rightRange} के आवृत्ति योगों का सरल अनुपात क्या है?`,
+        `दोनों अंतरालों ${leftRange} और ${rightRange} के आवृत्ति योगों का सरल अनुपात क्या है?`,
       ];
       const p = [
-        `ਪਰਾਸ ${leftRange} ਅਤੇ ${rightRange} ਦੀਆਂ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`,
+        `ਅੰਤਰਾਲ ${leftRange} ਅਤੇ ${rightRange} ਦੀਆਂ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`,
         `${leftRange} ਦੀ ਮਿਲੀ-ਜੁਲੀ ਬਾਰੰਬਾਰਤਾ ਦਾ ${rightRange} ਦੀ ਮਿਲੀ-ਜੁਲੀ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਅਨੁਪਾਤ ਕੱਢੋ।`,
-        `ਦੋਵੇਂ ਪਰਾਸਾਂ ${leftRange} ਅਤੇ ${rightRange} ਦੇ ਬਾਰੰਬਾਰਤਾ ਜੋੜਾਂ ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੀ ਹੈ?`,
+        `ਦੋਵੇਂ ਅੰਤਰਾਲਾਂ ${leftRange} ਅਤੇ ${rightRange} ਦੇ ਬਾਰੰਬਾਰਤਾ ਜੋੜਾਂ ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੀ ਹੈ?`,
       ];
       return (hi ? h : p)[variant]!;
     }
     case "GROUPED_MEAN_FROM_POLYGON": {
       const h = [
-        "वर्ग-मध्य मानों का उपयोग करके वितरण का अनुमानित औसत निकटतम पूर्ण संख्या में ज्ञात कीजिए।",
+        "वर्ग-चिह्न मानों का उपयोग करके वितरण का अनुमानित औसत निकटतम पूर्ण संख्या में ज्ञात कीजिए।",
         "आवृत्ति बहुभुज से समूहित आँकड़ों का अनुमानित औसत निकटतम पूर्ण संख्या में कितना है?",
-        "प्रत्येक वर्ग-मध्य को उस वर्ग की आवृत्ति के साथ उपयोग करके औसत ज्ञात कीजिए और निकटतम पूर्ण संख्या दीजिए।",
+        "प्रत्येक वर्ग-चिह्न को उस वर्ग की आवृत्ति के साथ उपयोग करके औसत ज्ञात कीजिए और निकटतम पूर्ण संख्या दीजिए।",
       ];
       const p = [
-        "ਵਰਗ-ਮੱਧ ਮੁੱਲਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਵੰਡ ਦਾ ਅਨੁਮਾਨਿਤ ਔਸਤ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਵਿੱਚ ਕੱਢੋ।",
-        "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਤੋਂ ਸਮੂਹਿਤ ਅੰਕੜਿਆਂ ਦਾ ਅਨੁਮਾਨਿਤ ਔਸਤ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਵਿੱਚ ਕਿੰਨਾ ਹੈ?",
-        "ਹਰੇਕ ਵਰਗ-ਮੱਧ ਨੂੰ ਉਸ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਵਰਤ ਕੇ ਔਸਤ ਕੱਢੋ ਅਤੇ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਦਿਓ।",
+        "ਵਰਗ-ਚਿੰਨ੍ਹ ਮੁੱਲਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਵੰਡ ਦਾ ਅਨੁਮਾਨਿਤ ਮੱਧਮਾਨ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਵਿੱਚ ਕੱਢੋ।",
+        "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਤੋਂ ਸਮੂਹਿਤ ਅੰਕੜਿਆਂ ਦਾ ਅਨੁਮਾਨਿਤ ਮੱਧਮਾਨ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਵਿੱਚ ਕਿੰਨਾ ਹੈ?",
+        "ਹਰੇਕ ਵਰਗ-ਚਿੰਨ੍ਹ ਨੂੰ ਉਸ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਵਰਤ ਕੇ ਮੱਧਮਾਨ ਕੱਢੋ ਅਤੇ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਦਿਓ।",
       ];
       return (hi ? h : p)[variant]!;
     }
@@ -394,16 +394,16 @@ function localizedExplanation(question: Di010Question, stimulus: Di010Stimulus, 
   switch (question.kind) {
     case "CONSTRUCTION_PROPERTY":
       return pack(
-        "आवृत्ति बहुभुज में प्रत्येक वर्ग की आवृत्ति उसके वर्ग-मध्य पर दर्शाई जाती है।",
-        "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਵਿੱਚ ਹਰ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ ਉਸ ਦੇ ਵਰਗ-ਮੱਧ ਉੱਤੇ ਦਰਸਾਈ ਜਾਂਦੀ ਹੈ।",
+        "आवृत्ति बहुभुज में प्रत्येक वर्ग की आवृत्ति उसके वर्ग-चिह्न पर दर्शाई जाती है।",
+        "ਬਾਰੰਬਾਰਤਾ ਬਹੁਭੁਜ ਵਿੱਚ ਹਰ ਵਰਗ ਦੀ ਬਾਰੰਬਾਰਤਾ ਉਸ ਦੇ ਵਰਗ-ਚਿੰਨ੍ਹ ਉੱਤੇ ਦਰਸਾਈ ਜਾਂਦੀ ਹੈ।",
         ["प्रत्येक वर्ग का मध्य मान निकालें।", "उस मध्य मान पर संबंधित आवृत्ति का बिंदु लगाएँ।", "बिंदुओं को सीधी रेखाओं से जोड़ें।"],
         ["ਹਰੇਕ ਵਰਗ ਦਾ ਮੱਧ ਮੁੱਲ ਕੱਢੋ।", "ਉਸ ਮੱਧ ਮੁੱਲ ਉੱਤੇ ਸੰਬੰਧਿਤ ਬਾਰੰਬਾਰਤਾ ਦਾ ਬਿੰਦੂ ਲਗਾਓ।", "ਬਿੰਦੂਆਂ ਨੂੰ ਸਿੱਧੀਆਂ ਰੇਖਾਵਾਂ ਨਾਲ ਜੋੜੋ।"],
       );
     case "READ_CLASS_FREQUENCY_CONTEXT": {
       const target = classes[Number(evidence.targetIndex)]!;
       return pack(
-        "दिए गए वर्ग के वर्ग-मध्य पर बने बिंदु की ऊँचाई उसकी आवृत्ति बताती है।",
-        "ਦਿੱਤੇ ਵਰਗ ਦੇ ਵਰਗ-ਮੱਧ ਉੱਤੇ ਬਣੇ ਬਿੰਦੂ ਦੀ ਉਚਾਈ ਉਸ ਦੀ ਬਾਰੰਬਾਰਤਾ ਦੱਸਦੀ ਹੈ।",
+        "दिए गए वर्ग के वर्ग-चिह्न पर बने बिंदु की ऊँचाई उसकी आवृत्ति बताती है।",
+        "ਦਿੱਤੇ ਵਰਗ ਦੇ ਵਰਗ-ਚਿੰਨ੍ਹ ਉੱਤੇ ਬਣੇ ਬਿੰਦੂ ਦੀ ਉਚਾਈ ਉਸ ਦੀ ਬਾਰੰਬਾਰਤਾ ਦੱਸਦੀ ਹੈ।",
         [`वर्ग ${interval(target)} का बिंदु देखें।`, `इसकी आवृत्ति ${target.frequency} है।`],
         [`ਵਰਗ ${interval(target)} ਦਾ ਬਿੰਦੂ ਵੇਖੋ।`, `ਇਸ ਦੀ ਬਾਰੰਬਾਰਤਾ ${target.frequency} ਹੈ।`],
       );
@@ -423,8 +423,8 @@ function localizedExplanation(question: Di010Question, stimulus: Di010Stimulus, 
       const target = classes[index]!;
       const half = stimulus.classWidth / 2;
       return pack(
-        "वर्ग-मध्य से आधी वर्ग-चौड़ाई घटाने और जोड़ने पर वर्ग की सीमाएँ मिलती हैं।",
-        "ਵਰਗ-ਮੱਧ ਵਿੱਚੋਂ ਅੱਧੀ ਵਰਗ-ਚੌੜਾਈ ਘਟਾ ਕੇ ਅਤੇ ਜੋੜ ਕੇ ਵਰਗ ਦੀਆਂ ਸੀਮਾਵਾਂ ਮਿਲਦੀਆਂ ਹਨ।",
+        "वर्ग-चिह्न से आधी वर्ग-चौड़ाई घटाने और जोड़ने पर वर्ग की सीमाएँ मिलती हैं।",
+        "ਵਰਗ-ਚਿੰਨ੍ਹ ਵਿੱਚੋਂ ਅੱਧੀ ਵਰਗ-ਚੌੜਾਈ ਘਟਾ ਕੇ ਅਤੇ ਜੋੜ ਕੇ ਵਰਗ ਦੀਆਂ ਸੀਮਾਵਾਂ ਮਿਲਦੀਆਂ ਹਨ।",
         [`वर्ग-चौड़ाई = ${stimulus.classWidth}, इसलिए आधी चौड़ाई = ${half}।`, `${target.classMark} − ${half} = ${target.lower} और ${target.classMark} + ${half} = ${target.upper}।`, `अतः वर्ग ${interval(target)} है।`],
         [`ਵਰਗ-ਚੌੜਾਈ = ${stimulus.classWidth}, ਇਸ ਲਈ ਅੱਧੀ ਚੌੜਾਈ = ${half}।`, `${target.classMark} − ${half} = ${target.lower} ਅਤੇ ${target.classMark} + ${half} = ${target.upper}।`, `ਇਸ ਲਈ ਵਰਗ ${interval(target)} ਹੈ।`],
       );
@@ -441,8 +441,8 @@ function localizedExplanation(question: Di010Question, stimulus: Di010Stimulus, 
       const chosen = classes.slice(start, end + 1);
       const sum = chosen.reduce((value, item) => value + item.frequency, 0);
       return pack(
-        "दिए गए परास में आने वाले सभी लगातार वर्गों की आवृत्तियाँ जोड़ें।",
-        "ਦਿੱਤੇ ਪਰਾਸ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਸਾਰੇ ਲਗਾਤਾਰ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਜੋੜੋ।",
+        "दिए गए अंतराल में आने वाले सभी लगातार वर्गों की आवृत्तियाँ जोड़ें।",
+        "ਦਿੱਤੇ ਅੰਤਰਾਲ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਸਾਰੇ ਲਗਾਤਾਰ ਵਰਗਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਜੋੜੋ।",
         [`आवृत्तियाँ = ${chosen.map((item) => item.frequency).join(" + ")} = ${sum}।`],
         [`ਬਾਰੰਬਾਰਤਾਵਾਂ = ${chosen.map((item) => item.frequency).join(" + ")} = ${sum}।`],
       );
@@ -478,8 +478,8 @@ function localizedExplanation(question: Di010Question, stimulus: Di010Stimulus, 
       const left = Number(evidence.leftEndpoint), right = Number(evidence.rightEndpoint);
       const first = classes[0]!, last = classes[classes.length - 1]!;
       return pack(
-        "बहुभुज को बंद करने के लिए पहले और अंतिम वर्ग-मध्य से एक वर्ग-चौड़ाई बाहर शून्य आवृत्ति के बिंदु लें।",
-        "ਬਹੁਭੁਜ ਨੂੰ ਬੰਦ ਕਰਨ ਲਈ ਪਹਿਲੇ ਅਤੇ ਆਖਰੀ ਵਰਗ-ਮੱਧ ਤੋਂ ਇੱਕ ਵਰਗ-ਚੌੜਾਈ ਬਾਹਰ ਸਿਫ਼ਰ ਬਾਰੰਬਾਰਤਾ ਦੇ ਬਿੰਦੂ ਲਓ।",
+        "बहुभुज को बंद करने के लिए पहले और अंतिम वर्ग-चिह्न से एक वर्ग-चौड़ाई बाहर शून्य आवृत्ति के बिंदु लें।",
+        "ਬਹੁਭੁਜ ਨੂੰ ਬੰਦ ਕਰਨ ਲਈ ਪਹਿਲੇ ਅਤੇ ਆਖਰੀ ਵਰਗ-ਚਿੰਨ੍ਹ ਤੋਂ ਇੱਕ ਵਰਗ-ਚੌੜਾਈ ਬਾਹਰ ਸਿਫ਼ਰ ਬਾਰੰਬਾਰਤਾ ਦੇ ਬਿੰਦੂ ਲਓ।",
         [`बाईं ओर: ${first.classMark} − ${stimulus.classWidth} = ${left}।`, `दाईं ओर: ${last.classMark} + ${stimulus.classWidth} = ${right}।`, `बिंदु = (${left}, 0) और (${right}, 0)।`],
         [`ਖੱਬੇ ਪਾਸੇ: ${first.classMark} − ${stimulus.classWidth} = ${left}।`, `ਸੱਜੇ ਪਾਸੇ: ${last.classMark} + ${stimulus.classWidth} = ${right}।`, `ਬਿੰਦੂ = (${left}, 0) ਅਤੇ (${right}, 0)।`],
       );
@@ -488,8 +488,8 @@ function localizedExplanation(question: Di010Question, stimulus: Di010Stimulus, 
       const leftStart = Number(evidence.leftStart), rightStart = Number(evidence.rightStart);
       const left = Number(evidence.leftTotal), right = Number(evidence.rightTotal);
       return pack(
-        "दोनों परासों की आवृत्तियाँ अलग-अलग जोड़ें और उसी क्रम में अनुपात सरल करें।",
-        "ਦੋਵੇਂ ਪਰਾਸਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਵੱਖ-ਵੱਖ ਜੋੜੋ ਅਤੇ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।",
+        "दोनों अंतरालों की आवृत्तियाँ अलग-अलग जोड़ें और उसी क्रम में अनुपात सरल करें।",
+        "ਦੋਵੇਂ ਅੰਤਰਾਲਾਂ ਦੀਆਂ ਬਾਰੰਬਾਰਤਾਵਾਂ ਵੱਖ-ਵੱਖ ਜੋੜੋ ਅਤੇ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।",
         [`${rangeLabel(classes, leftStart, leftStart + 1)} की कुल आवृत्ति = ${left}।`, `${rangeLabel(classes, rightStart, rightStart + 1)} की कुल आवृत्ति = ${right}।`, `अनुपात = ${left}:${right} = ${question.answer}।`],
         [`${rangeLabel(classes, leftStart, leftStart + 1)} ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${left}।`, `${rangeLabel(classes, rightStart, rightStart + 1)} ਦੀ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${right}।`, `ਅਨੁਪਾਤ = ${left}:${right} = ${question.answer}।`],
       );
@@ -497,14 +497,14 @@ function localizedExplanation(question: Di010Question, stimulus: Di010Stimulus, 
     case "GROUPED_MEAN_FROM_POLYGON": {
       const weighted = Number(evidence.weighted);
       const headers = hi
-        ? ["वर्ग", "वर्ग-मध्य", "आवृत्ति", "आवृत्ति × वर्ग-मध्य"]
-        : ["ਵਰਗ", "ਵਰਗ-ਮੱਧ", "ਬਾਰੰਬਾਰਤਾ", "ਬਾਰੰਬਾਰਤਾ × ਵਰਗ-ਮੱਧ"];
+        ? ["वर्ग", "वर्ग-चिह्न", "आवृत्ति", "आवृत्ति × वर्ग-चिह्न"]
+        : ["ਵਰਗ", "ਵਰਗ-ਚਿੰਨ੍ਹ", "ਬਾਰੰਬਾਰਤਾ", "ਬਾਰੰਬਾਰਤਾ × ਵਰਗ-ਚਿੰਨ੍ਹ"];
       const rows = classes.map((item) => [interval(item), String(item.classMark), String(item.frequency), String(item.classMark * item.frequency)]);
       return pack(
-        "प्रत्येक वर्ग-मध्य को उसकी आवृत्ति से गुणा करें। इन गुणनफलों के योग को कुल आवृत्ति से भाग देकर निकटतम पूर्ण संख्या लें।",
-        "ਹਰੇਕ ਵਰਗ-ਮੱਧ ਨੂੰ ਉਸ ਦੀ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਗੁਣਾ ਕਰੋ। ਇਨ੍ਹਾਂ ਗੁਣਨਫਲਾਂ ਦੇ ਜੋੜ ਨੂੰ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਲਓ।",
-        [`कुल आवृत्ति = ${total}।`, `आवृत्ति × वर्ग-मध्य का योग = ${weighted}।`, `औसत = ${weighted}/${total} ≈ ${question.answer}।`],
-        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}।`, `ਬਾਰੰਬਾਰਤਾ × ਵਰਗ-ਮੱਧ ਦਾ ਜੋੜ = ${weighted}।`, `ਔਸਤ = ${weighted}/${total} ≈ ${question.answer}।`],
+        "प्रत्येक वर्ग-चिह्न को उसकी आवृत्ति से गुणा करें। इन गुणनफलों के योग को कुल आवृत्ति से भाग देकर निकटतम पूर्ण संख्या लें।",
+        "ਹਰੇਕ ਵਰਗ-ਚਿੰਨ੍ਹ ਨੂੰ ਉਸ ਦੀ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਗੁਣਾ ਕਰੋ। ਇਨ੍ਹਾਂ ਗੁਣਨਫਲਾਂ ਦੇ ਜੋੜ ਨੂੰ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਨਜ਼ਦੀਕੀ ਪੂਰੀ ਸੰਖਿਆ ਲਓ।",
+        [`कुल आवृत्ति = ${total}।`, `आवृत्ति × वर्ग-चिह्न का योग = ${weighted}।`, `औसत = ${weighted}/${total} ≈ ${question.answer}।`],
+        [`ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ = ${total}।`, `ਬਾਰੰਬਾਰਤਾ × ਵਰਗ-ਚਿੰਨ੍ਹ ਦਾ ਜੋੜ = ${weighted}।`, `ਮੱਧਮਾਨ = ${weighted}/${total} ≈ ${question.answer}।`],
         { headers, rows },
       );
     }
