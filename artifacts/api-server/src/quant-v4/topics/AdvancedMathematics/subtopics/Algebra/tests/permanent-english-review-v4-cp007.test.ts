@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { solveLinearSystem2V } from "../../../../../shared/algebra";
+import { formatRational, solveLinearSystem2V } from "../../../../../shared/algebra";
 import { generateAlgCp007DiscoveryItem } from "../ALG-002/ALG-CP-007";
 import {
   ALG_CP007_ENGLISH_REVIEW_V4_AUTHORITY,
@@ -67,6 +67,7 @@ for (const prototypeId of ALG_CP007_ENGLISH_REVIEW_V4_TARGETS) {
     assert(first.explanation.length >= 260, `${prefix}: explanation is too thin`);
     assert(numericSpecificity(first.explanation) >= 5, `${prefix}: explanation lacks question-specific numerical working`);
     assert(!/associated|mainly|therefore therefore/i.test(first.question + " " + first.explanation), `${prefix}: mechanical wording leaked`);
+    assert(first.explanation.includes(formatRational(first.system.a2)) && first.explanation.includes(formatRational(first.system.b2)), `${prefix}: actual second-row coefficients are missing from the explanation`);
 
     explanations.add(first.explanation);
     states.add(stable(first.system));
