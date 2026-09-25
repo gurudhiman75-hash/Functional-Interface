@@ -1,6 +1,6 @@
 # DI-010 Frequency Polygon — Hindi/Punjabi Localization Review V1
 
-Status: HI_PA_REVIEW_CANDIDATE · NOT QUESTION-STUDIO-ACTIVE
+Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## Scope
 
@@ -31,7 +31,7 @@ Status: HI_PA_REVIEW_CANDIDATE · NOT QUESTION-STUDIO-ACTIVE
 - At least three stem surfaces per permanent QL are exercised in both locales.
 - Deterministic replay is required.
 - Semantic/numeric parity with the approved English authority is required.
-- Question Studio remains English-only until localized editorial approval.
+- Question Studio supports English, Hindi and Punjabi in CONTROLLED_REVIEW.
 - Question Bank remains NOT_STORED.
 - Tests and mocks remain INELIGIBLE.
 - Public/student publication remains disabled.
@@ -39,4 +39,4 @@ Status: HI_PA_REVIEW_CANDIDATE · NOT QUESTION-STUDIO-ACTIVE
 
 ## Next gate
 
-Human editorial review of the Hindi/Punjabi sample output. Only after explicit approval should the localized surfaces be frozen and enabled in controlled Question Studio review.
+Question Bank, tests, mocks, public/student publication and production release remain closed. Any widening beyond controlled Question Studio review requires a later explicit release decision.
