@@ -1,6 +1,6 @@
 # GEO-VEG-001 CP010 — Biodiversity & Conservation Concepts
 
-Status: REVIEW CANDIDATE V2 — EXAM-STEM PASS
+Status: APPROVED — WAVE 3 HUMAN REVIEW
 Parent blueprint: `GEO-VEG-001-BLUEPRINT.md`
 Permanent QLs: `GEO-VEG-001-QL-082` to `GEO-VEG-001-QL-090`
 
