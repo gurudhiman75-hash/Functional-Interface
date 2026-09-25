@@ -109,7 +109,7 @@ export interface CaseletScenario {
 }
 
 export interface HybridScenario {
-  readonly kind: "DIAGRAM_TEXT_HYBRID";
+  readonly kind: "SPLIT_TEXT_RELATION_SYNTHESIS";
   readonly diagramRelations: readonly PositionRelation[];
   readonly textRelation: PositionRelation;
   readonly queryFrom: string;
