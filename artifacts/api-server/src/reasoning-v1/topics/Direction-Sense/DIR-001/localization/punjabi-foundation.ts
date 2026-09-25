@@ -456,13 +456,63 @@ export function localizeFreeTextPa(input: string): string {
 }
 
 export function localizeSvgPa(svg: string): string {
-  let result = localizeFreeTextPa(svg);
+  let result = svg;
+  const phrases: readonly [string, string][] = [
+    ["Mover paths and final positions", "ਵਿਅਕਤੀਆਂ ਦੇ ਰਸਤੇ ਅਤੇ ਅੰਤਿਮ ਸਥਿਤੀਆਂ"],
+    ["Movement path", "ਚਾਲਾਂ ਦਾ ਰਸਤਾ"],
+    ["Shortest distance", "ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ"],
+    ["Relative positions", "ਆਪਸੀ ਸਥਿਤੀਆਂ"],
+    ["Endpoint separation", "ਅੰਤਿਮ ਬਿੰਦੂਆਂ ਦੀ ਦੂਰੀ"],
+    ["Decoded coded relations", "ਕੋਡ ਕੀਤੇ ਸੰਬੰਧਾਂ ਦਾ ਅਰਥ"],
+    ["Recovered direction-code map", "ਮਿਲਿਆ ਦਿਸ਼ਾ-ਕੋਡ ਨਕਸ਼ਾ"],
+    ["Each displayed chain constrains the same one-to-one code map.", "ਹਰ ਦਿੱਤੀ ਲੜੀ ਉਸੇ ਇੱਕ-ਤੋਂ-ਇੱਕ ਕੋਡ ਨਕਸ਼ੇ ਨੂੰ ਨਿਰਧਾਰਤ ਕਰਦੀ ਹੈ।"],
+    ["Code key", "ਕੋਡ-ਸੂਚੀ"],
+    ["The four active symbols map one-to-one to North, East, South and West.", "ਚਾਰੋਂ ਚਿੰਨ੍ਹ ਚਾਰ ਮੁੱਖ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚੋਂ ਇੱਕ-ਇੱਕ ਦਿਸ਼ਾ ਦਰਸਾਉਂਦੇ ਹਨ।"],
+    ["Equivalent coded statement", "ਬਰਾਬਰ ਅਰਥ ਵਾਲਾ ਕੋਡ ਕੀਤਾ ਕਥਨ"],
+    ["Check the coded conclusion", "ਕੋਡ ਕੀਤੇ ਨਤੀਜੇ ਦੀ ਜਾਂਚ"],
+    ["Completed coded chain", "ਪੂਰੀ ਕੋਡ ਕੀਤੀ ਲੜੀ"],
+    ["Decoded coded movement path", "ਕੋਡ ਕੀਤੀਆਂ ਚਾਲਾਂ ਦਾ ਹੱਲ ਕੀਤਾ ਰਸਤਾ"],
+    ["Decode each symbol first, then follow the movement sequence in the stated order.", "ਪਹਿਲਾਂ ਹਰ ਚਿੰਨ੍ਹ ਦਾ ਅਰਥ ਕੱਢੋ, ਫਿਰ ਦਿੱਤੀਆਂ ਚਾਲਾਂ ਨੂੰ ਕ੍ਰਮ ਅਨੁਸਾਰ ਲਾਗੂ ਕਰੋ।"],
+    ["Morning sun and shadow", "ਸਵੇਰ ਦਾ ਸੂਰਜ ਅਤੇ ਪਰਛਾਂਵਾਂ"],
+    ["Evening sun and shadow", "ਸ਼ਾਮ ਦਾ ਸੂਰਜ ਅਤੇ ਪਰਛਾਂਵਾਂ"],
+    ["Morning observation", "ਸਵੇਰ ਦਾ ਅਵਲੋਕਨ"],
+    ["Evening observation", "ਸ਼ਾਮ ਦਾ ਅਵਲੋਕਨ"],
+    ["Vertical pole", "ਖੜ੍ਹਾ ਖੰਭਾ"],
+    ["Facing from the shadow's side", "ਪਰਛਾਂਵੇਂ ਦੀ ਸਥਿਤੀ ਤੋਂ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ"],
+    ["Shadow side from a known facing", "ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਤੋਂ ਪਰਛਾਂਵੇਂ ਦੀ ਸਥਿਤੀ"],
+    ["Time period from the shadow relation", "ਪਰਛਾਂਵੇਂ ਤੋਂ ਸਮੇਂ ਦਾ ਨਿਰਧਾਰਨ"],
+    ["Shadow inference followed by turns", "ਪਰਛਾਂਵੇਂ ਤੋਂ ਦਿਸ਼ਾ ਕੱਢ ਕੇ ਮੋੜ ਲਗਾਉਣਾ"],
+    ["Mutual orientation from a shadow clue", "ਪਰਛਾਂਵੇਂ ਤੋਂ ਦੋ ਵਿਅਕਤੀਆਂ ਦੀ ਦਿਸ਼ਾ"],
+    ["Same direction", "ਇੱਕੋ ਦਿਸ਼ਾ"],
+    ["Opposite directions", "ਉਲਟ ਦਿਸ਼ਾਵਾਂ"],
+    ["Completed relation cycle", "ਪੂਰਾ ਸੰਬੰਧ ਨਕਸ਼ਾ"],
+    ["Layout after removing the inconsistent statement", "ਗਲਤ ਕਥਨ ਹਟਾਉਣ ਤੋਂ ਬਾਅਦ ਨਕਸ਼ਾ"],
+    ["Static layout followed by movement", "ਸਥਿਰ ਨਕਸ਼ੇ ਤੋਂ ਬਾਅਦ ਚਾਲ"],
+    ["Combined diagram and text relations", "ਸਾਰੇ ਸੰਬੰਧਾਂ ਦਾ ਇਕੱਠਾ ਨਕਸ਼ਾ"],
+    ["Use the diagram together with the statement", "ਚਿੱਤਰ ਅਤੇ ਕਥਨ ਦੀ ਇਕੱਠੀ ਵਰਤੋਂ"],
+    ["Final facing:", "ਅੰਤਿਮ ਮੂੰਹ:"],
+    ["Facing ", "ਮੂੰਹ: "],
+    ["SUN", "ਸੂਰਜ"],
+    ["Shadow — left", "ਪਰਛਾਂਵਾਂ — ਖੱਬੇ"],
+    ["Shadow — right", "ਪਰਛਾਂਵਾਂ — ਸੱਜੇ"],
+    ["Shadow — in front", "ਪਰਛਾਂਵਾਂ — ਸਾਹਮਣੇ"],
+    ["Shadow — behind", "ਪਰਛਾਂਵਾਂ — ਪਿੱਛੇ"],
+    ["shadow — left", "ਪਰਛਾਂਵਾਂ — ਖੱਬੇ"],
+    ["shadow — right", "ਪਰਛਾਂਵਾਂ — ਸੱਜੇ"],
+    ["shadow — in front", "ਪਰਛਾਂਵਾਂ — ਸਾਹਮਣੇ"],
+    ["shadow — behind", "ਪਰਛਾਂਵਾਂ — ਪਿੱਛੇ"],
+  ];
+  for (const [english, punjabi] of phrases) result = result.replaceAll(english, punjabi);
+  result = localizeFreeTextPa(result);
   const replacements: readonly [string, string][] = [
     ["Start", "ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ"], ["Finish", "ਅੰਤਿਮ ਬਿੰਦੂ"], ["Final", "ਅੰਤਿਮ"], ["movement", "ਚਾਲ"], ["Movement", "ਚਾਲ"],
     ["Sun", "ਸੂਰਜ"], ["Shadow", "ਪਰਛਾਂਵਾਂ"], ["Person", "ਵਿਅਕਤੀ"], ["Morning", "ਸਵੇਰ"], ["Evening", "ਸ਼ਾਮ"],
-    ["Turn", "ਮੋੜ"], ["Reference", "ਦੂਜਾ ਬਿੰਦੂ"], ["Endpoint", "ਅੰਤਿਮ ਬਿੰਦੂ"], ["Static layout followed by movement", "ਸਥਿਰ ਨਕਸ਼ੇ ਤੋਂ ਬਾਅਦ ਚਾਲ"],
+    ["Turn", "ਮੋੜ"], ["Reference", "ਦੂਜਾ ਬਿੰਦੂ"], ["Endpoint", "ਅੰਤਿਮ ਬਿੰਦੂ"],
   ];
   for (const [english, punjabi] of replacements) result = result.replaceAll(english, punjabi);
+  result = result
+    .replace(/([^<>\s]+)'s ਪਰਛਾਂਵਾਂ/g, "$1 ਦੀ ਪਰਛਾਂਵਾਂ")
+    .replaceAll(" and ", " ਅਤੇ ");
   return result;
 }
 
