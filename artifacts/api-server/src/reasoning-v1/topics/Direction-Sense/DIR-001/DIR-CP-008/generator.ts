@@ -1,6 +1,6 @@
 import { addCoordinates } from "../foundation/coordinates";
 import type { Direction, PositionRelation } from "../foundation/types";
-import { buildHybridExplanationDiagram, buildHybridQuestionDiagram, buildMixedGraphMovementDiagram, buildRelationDiagram } from "./diagram";
+import { buildAbsoluteMovementSolutionDiagram, buildHybridExplanationDiagram, buildMixedGraphMovementDiagram, buildRelationDiagram, buildRelativeMovementSolutionDiagram } from "./diagram";
 import { DIRECTION_LABELS, TURN_LABELS, cardinalVector, relationVector, statementText, turnFacing } from "./geometry";
 import {
   solveCaseletIndependent,
