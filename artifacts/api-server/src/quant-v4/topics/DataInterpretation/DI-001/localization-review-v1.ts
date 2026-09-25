@@ -67,13 +67,17 @@ function localizeOptions(question: Di001V2Question, stimulus: Di001V2Stimulus, l
   return [...question.options];
 }
 
-function localizedStem(question: Di001V2Question, stimulus: Di001V2Stimulus, locale: Di001LocalizationLocale) {
+function localizedSurface(seed: string, kind: string) {
+  let value = 0;
+  for (const char of `${seed}:${kind}`) value = (value * 31 + char.charCodeAt(0)) >>> 0;
+  return value % 3;
+}
+
+function localizedStem(question: Di001V2Question, stimulus: Di001V2Stimulus, locale: Di001LocalizationLocale, seed: string) {
   const rows = stimulus.rows;
   const evidence = question.evidence;
-  const variantMatch = question.stem.match(/.*/u);
-  void variantMatch;
   const hi = isHindi(locale);
-  const surface = question.questionId.length % 3;
+  const surface = localizedSurface(seed, question.kind);
 
   switch (question.kind) {
     case "DIRECT_SELECTED": {
@@ -357,7 +361,7 @@ export function localizeDi001Question(source: ReturnType<typeof generateDi001Per
     stimulus: localizeDi001Stimulus(source.stimulus, locale),
     question: {
       ...source.question,
-      stem: localizedStem(source.question, source.stimulus, locale),
+      stem: localizedStem(source.question, source.stimulus, locale, source.requestedSeed),
       options: localizedOptions,
       optionMetadata: source.question.optionMetadata.map((option, index) => ({ ...option, text: localizedOptions[index]! })),
       answer,
