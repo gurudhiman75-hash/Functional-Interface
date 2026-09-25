@@ -299,7 +299,7 @@ function renderExplanationPunjabi(english: R): LocalizedDirectionExplanationPunj
       const target = asR(s.targetRelation);
       steps.push(`ਅਧੂਰੀ ਲੜੀ: ${codedChainPa((s.relations ?? []) as R[], Number(s.hiddenIndex ?? -1))}।`);
       steps.push(`${namePa(target.subject)}, ${namePa(target.reference)} ਤੋਂ ${directionPa(target.direction)} ਵੱਲ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।`);
-      steps.push(`ਇਹ ਸ਼ਰਤ ਸਿਰਫ਼ ${answerSentence} ਪੂਰੀ ਕਰਦਾ ਹੈ।`);
+      steps.push(`ਇਹ ਸ਼ਰਤ ਸਿਰਫ਼ ${answer} ਚਿੰਨ੍ਹ ਨਾਲ ਪੂਰੀ ਹੁੰਦੀ ਹੈ।`);
     } else if (qlId === "DIR-QL-029") {
       for (const movement of (s.steps ?? []) as R[]) {
         const direction = map[movement.symbol];
