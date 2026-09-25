@@ -263,7 +263,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const directSurface = surface(`${seed}:DIRECT_BAR_VALUE:stem`, [
     `What is the value of ${directLabel} for ${directPoint.category}?`,
     `According to the chart, how many ${stimulus.unit} are shown for ${directLabel} in ${directPoint.category}?`,
-    `Read the ${directLabel} bar for ${directPoint.category}. What value does it show?`,
+    `For ${directPoint.category}, what value is shown for ${directLabel}?`,
   ]);
 
   const highestSeriesA = hashSeed(`${seed}:highest-series`) % 2 === 0;
@@ -272,7 +272,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const highestSurface = surface(`${seed}:HIGHEST_CATEGORY_FOR_SERIES:stem`, [
     `In which category is ${highestLabel} the highest?`,
     `For ${highestLabel}, which category has the maximum value?`,
-    `The tallest ${highestLabel} bar belongs to which category?`,
+    `Which category has the highest ${highestLabel} value?`,
   ]);
 
   const lowestSeriesA = hashSeed(`${seed}:lowest-series`) % 2 === 0;
@@ -281,7 +281,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const lowestSurface = surface(`${seed}:LOWEST_CATEGORY_FOR_SERIES:stem`, [
     `In which category is ${lowestLabel} the lowest?`,
     `For ${lowestLabel}, which category has the minimum value?`,
-    `The shortest ${lowestLabel} bar belongs to which category?`,
+    `Which category has the lowest ${lowestLabel} value?`,
   ]);
 
   const differenceChoices = points.map((point, index) => ({ index, value: Math.abs(point.seriesA - point.seriesB) })).filter((entry) => entry.value > 0);
@@ -290,7 +290,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const crossDifference = differenceEntry.value;
   const differenceSurface = surface(`${seed}:CROSS_SERIES_DIFFERENCE:stem`, [
     `What is the difference between ${aLabel} and ${bLabel} in ${differencePoint.category}?`,
-    `In ${differencePoint.category}, by how much do the two bars differ?`,
+    `In ${differencePoint.category}, what is the difference between the two series?`,
     `Find the absolute difference between ${aLabel} and ${bLabel} for ${differencePoint.category}.`,
   ]);
 
@@ -299,7 +299,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const combinedTotal = combinedPoint.seriesA + combinedPoint.seriesB;
   const combinedSurface = surface(`${seed}:COMBINED_CATEGORY_TOTAL:stem`, [
     `What is the combined value of ${aLabel} and ${bLabel} in ${combinedPoint.category}?`,
-    `Find the total of the two bars for ${combinedPoint.category}.`,
+    `Find the total of ${aLabel} and ${bLabel} for ${combinedPoint.category}.`,
     `Together, what value do ${aLabel} and ${bLabel} give for ${combinedPoint.category}?`,
   ]);
 
@@ -312,7 +312,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const withinSurface = surface(`${seed}:WITHIN_SERIES_DIFFERENCE:stem`, [
     `What is the difference in ${withinLabel} between ${points[withinLeft]!.category} and ${points[withinRight]!.category}?`,
     `For ${withinLabel}, how much do the values for ${points[withinLeft]!.category} and ${points[withinRight]!.category} differ?`,
-    `Find the absolute difference between the ${withinLabel} bars for ${points[withinLeft]!.category} and ${points[withinRight]!.category}.`,
+    `Find the absolute difference between the ${withinLabel} values for ${points[withinLeft]!.category} and ${points[withinRight]!.category}.`,
   ]);
 
   const ratioSeriesA = hashSeed(`${seed}:ratio-series`) % 2 === 0;
@@ -334,7 +334,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const average = averageTotal / points.length;
   const averageSurface = surface(`${seed}:SERIES_AVERAGE:stem`, [
     `What is the average value of ${averageLabel} across all five categories?`,
-    `Find the mean of the five ${averageLabel} bar values.`,
+    `Find the mean of the five ${averageLabel} values.`,
     `On average, what value does ${averageLabel} have per category?`,
   ]);
 
@@ -344,7 +344,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const combinedRatio = ratioDisplay(firstCombined, secondCombined);
   const combinedRatioSurface = surface(`${seed}:COMBINED_CATEGORY_RATIO:stem`, [
     `What is the ratio of the combined values of both series in ${points[firstIndex]!.category} to ${points[secondIndex]!.category}?`,
-    `Add the two bars in each named category. What is ${points[firstIndex]!.category} : ${points[secondIndex]!.category}?`,
+    `Add the two series values in each named category. What is ${points[firstIndex]!.category} : ${points[secondIndex]!.category}?`,
     `The combined totals for ${points[firstIndex]!.category} and ${points[secondIndex]!.category} are in what ratio, in that order?`,
   ]);
 
@@ -404,19 +404,19 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: String(otherSeriesValue), misconceptionId: "OTHER_SERIES_SAME_CATEGORY", derivation: "Reads the other series in the named category." },
         ...otherCategoryValues(directSeriesA, directIndex),
       ],
-      explanation: { keyIdea: `Read the ${directLabel} bar for ${directPoint.category}.`, steps: [`The chart shows ${directLabel} = ${directValue} ${stimulus.unit} for ${directPoint.category}.`, `Therefore, the required value is ${directValue}.`] },
+      explanation: { keyIdea: `Read the ${directLabel} value for ${directPoint.category}.`, steps: [`The chart shows ${directLabel} = ${directValue} ${stimulus.unit} for ${directPoint.category}.`, `Therefore, the required value is ${directValue}.`] },
       evidence: { categoryIndex: directIndex, seriesId: directSeriesA ? "SERIES_A" : "SERIES_B" },
     },
     {
       kind: "HIGHEST_CATEGORY_FOR_SERIES", difficulty: "Easy", stemSurfaceId: highestSurface.id, stem: highestSurface.text, answer: highestPoint.category,
       candidates: categoryTextCandidates(highestPoint.category),
-      explanation: { keyIdea: `Compare the five ${highestLabel} bars and identify the tallest one.`, steps: [`The largest ${highestLabel} value is ${highestSeriesA ? highestPoint.seriesA : highestPoint.seriesB}.`, `That bar belongs to ${highestPoint.category}.`] },
+      explanation: { keyIdea: `Compare the five ${highestLabel} values and identify the largest one.`, steps: [`The largest ${highestLabel} value is ${highestSeriesA ? highestPoint.seriesA : highestPoint.seriesB}.`, `It occurs in ${highestPoint.category}.`] },
       evidence: { seriesId: highestSeriesA ? "SERIES_A" : "SERIES_B", categoryIndex: points.indexOf(highestPoint) },
     },
     {
       kind: "LOWEST_CATEGORY_FOR_SERIES", difficulty: "Easy", stemSurfaceId: lowestSurface.id, stem: lowestSurface.text, answer: lowestPoint.category,
       candidates: categoryTextCandidates(lowestPoint.category),
-      explanation: { keyIdea: `Compare the five ${lowestLabel} bars and identify the shortest one.`, steps: [`The smallest ${lowestLabel} value is ${lowestSeriesA ? lowestPoint.seriesA : lowestPoint.seriesB}.`, `That bar belongs to ${lowestPoint.category}.`] },
+      explanation: { keyIdea: `Compare the five ${lowestLabel} values and identify the smallest one.`, steps: [`The smallest ${lowestLabel} value is ${lowestSeriesA ? lowestPoint.seriesA : lowestPoint.seriesB}.`, `It occurs in ${lowestPoint.category}.`] },
       evidence: { seriesId: lowestSeriesA ? "SERIES_A" : "SERIES_B", categoryIndex: points.indexOf(lowestPoint) },
     },
     {
@@ -428,7 +428,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: String(totalA), misconceptionId: "USE_SERIES_A_TOTAL", derivation: `Uses the full ${aLabel} total instead of the same-category difference.` },
         { text: String(totalB), misconceptionId: "USE_SERIES_B_TOTAL", derivation: `Uses the full ${bLabel} total instead of the same-category difference.` },
       ],
-      explanation: { keyIdea: "Use the two bars in the named category and subtract the smaller value from the larger.", steps: [`${aLabel} = ${differencePoint.seriesA}; ${bLabel} = ${differencePoint.seriesB}.`, `Difference = |${differencePoint.seriesA} - ${differencePoint.seriesB}| = ${crossDifference}.`] },
+      explanation: { keyIdea: "Use the two series values in the named category and subtract the smaller value from the larger.", steps: [`${aLabel} = ${differencePoint.seriesA}; ${bLabel} = ${differencePoint.seriesB}.`, `Difference = |${differencePoint.seriesA} - ${differencePoint.seriesB}| = ${crossDifference}.`] },
       evidence: { categoryIndex: differenceEntry.index },
     },
     {
@@ -440,7 +440,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: String(totalA), misconceptionId: "WHOLE_SERIES_A_TOTAL", derivation: `Uses the five-category ${aLabel} total.` },
         { text: String(totalB), misconceptionId: "WHOLE_SERIES_B_TOTAL", derivation: `Uses the five-category ${bLabel} total.` },
       ],
-      explanation: { keyIdea: "A combined category total is found by adding the two bars in that category.", steps: [`${aLabel} = ${combinedPoint.seriesA}; ${bLabel} = ${combinedPoint.seriesB}.`, `${combinedPoint.seriesA} + ${combinedPoint.seriesB} = ${combinedTotal}.`] },
+      explanation: { keyIdea: "A combined category total is found by adding the two series values in that category.", steps: [`${aLabel} = ${combinedPoint.seriesA}; ${bLabel} = ${combinedPoint.seriesB}.`, `${combinedPoint.seriesA} + ${combinedPoint.seriesB} = ${combinedTotal}.`] },
       evidence: { categoryIndex: combinedIndex },
     },
     {
@@ -452,7 +452,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: String(Math.abs(points[withinLeft]!.seriesA - points[withinLeft]!.seriesB)), misconceptionId: "CROSS_SERIES_FIRST_CATEGORY", derivation: "Compares the two series within the first category instead." },
         { text: String(Math.abs(points[withinRight]!.seriesA - points[withinRight]!.seriesB)), misconceptionId: "CROSS_SERIES_SECOND_CATEGORY", derivation: "Compares the two series within the second category instead." },
       ],
-      explanation: { keyIdea: `Use only the two ${withinLabel} bars named in the question.`, steps: [`The two values are ${withinA} and ${withinB}.`, `Difference = |${withinA} - ${withinB}| = ${withinDifference}.`] },
+      explanation: { keyIdea: `Use only the two ${withinLabel} values named in the question.`, steps: [`The two values are ${withinA} and ${withinB}.`, `Difference = |${withinA} - ${withinB}| = ${withinDifference}.`] },
       evidence: { seriesId: withinSeriesA ? "SERIES_A" : "SERIES_B", firstIndex: withinLeft, secondIndex: withinRight },
     },
     {
@@ -486,7 +486,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: ratioDisplay(points[firstIndex]!.seriesA + points[secondIndex]!.seriesA, points[firstIndex]!.seriesB + points[secondIndex]!.seriesB), misconceptionId: "GROUP_BY_SERIES", derivation: "Groups the four bars by series instead of by category." },
         { text: ratioDisplay(firstCombined, points[secondIndex]!.seriesA), misconceptionId: "OMIT_SECOND_BAR", derivation: "Omits one bar from the second category total." },
       ],
-      explanation: { keyIdea: "First add both bars within each category, then form the ratio in the stated order.", steps: [`${points[firstIndex]!.category}: ${points[firstIndex]!.seriesA} + ${points[firstIndex]!.seriesB} = ${firstCombined}.`, `${points[secondIndex]!.category}: ${points[secondIndex]!.seriesA} + ${points[secondIndex]!.seriesB} = ${secondCombined}.`, `${firstCombined}:${secondCombined} = ${combinedRatio}.`], workingTable: { headers: ["Category", aLabel, bLabel, "Combined"], rows: [[points[firstIndex]!.category, String(points[firstIndex]!.seriesA), String(points[firstIndex]!.seriesB), String(firstCombined)], [points[secondIndex]!.category, String(points[secondIndex]!.seriesA), String(points[secondIndex]!.seriesB), String(secondCombined)]] } },
+      explanation: { keyIdea: "First add both series values within each category, then form the ratio in the stated order.", steps: [`${points[firstIndex]!.category}: ${points[firstIndex]!.seriesA} + ${points[firstIndex]!.seriesB} = ${firstCombined}.`, `${points[secondIndex]!.category}: ${points[secondIndex]!.seriesA} + ${points[secondIndex]!.seriesB} = ${secondCombined}.`, `${firstCombined}:${secondCombined} = ${combinedRatio}.`], workingTable: { headers: ["Category", aLabel, bLabel, "Combined"], rows: [[points[firstIndex]!.category, String(points[firstIndex]!.seriesA), String(points[firstIndex]!.seriesB), String(firstCombined)], [points[secondIndex]!.category, String(points[secondIndex]!.seriesA), String(points[secondIndex]!.seriesB), String(secondCombined)]] } },
       evidence: { firstIndex, secondIndex },
     },
     {
@@ -510,7 +510,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
         { text: formatPercent(shareValue, shareTotal - shareValue), misconceptionId: "EXCLUDE_TARGET_FROM_TOTAL", derivation: "Excludes the named category from the series total." },
         { text: formatPercent(points[shareIndex]!.seriesA + points[shareIndex]!.seriesB, totalA + totalB), misconceptionId: "CATEGORY_SHARE_OF_ALL", derivation: "Finds the named category's share of both series combined." },
       ],
-      explanation: { keyIdea: `Use the ${shareLabel} bar in the named category as the part and the five-category ${shareLabel} total as the whole.`, steps: [`${shareLabel} total = ${shareSeriesA ? points.map((point) => point.seriesA).join(" + ") : points.map((point) => point.seriesB).join(" + ")} = ${shareTotal}.`, `Required percentage = ${shareValue}/${shareTotal} × 100 ≈ ${shareAnswer} to the nearest whole percent.`], workingTable: { headers: ["Named-category value", "Series total", "Share"], rows: [[String(shareValue), String(shareTotal), shareAnswer]] } },
+      explanation: { keyIdea: `Use the ${shareLabel} value in the named category as the part and the five-category ${shareLabel} total as the whole.`, steps: [`${shareLabel} total = ${shareSeriesA ? points.map((point) => point.seriesA).join(" + ") : points.map((point) => point.seriesB).join(" + ")} = ${shareTotal}.`, `Required percentage = ${shareValue}/${shareTotal} × 100 ≈ ${shareAnswer} to the nearest whole percent.`], workingTable: { headers: ["Named-category value", "Series total", "Share"], rows: [[String(shareValue), String(shareTotal), shareAnswer]] } },
       evidence: { seriesId: shareSeriesA ? "SERIES_A" : "SERIES_B", categoryIndex: shareIndex },
     },
     {
