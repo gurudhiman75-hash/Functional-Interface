@@ -1,6 +1,6 @@
 # ENG-003-CP013 — Grammar Fillers: Common Usage / Idiomatic Grammar — Source Audit V1
 
-Status: `IMPLEMENTED_V1__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY`
 
 ## Boundary
 
@@ -50,4 +50,4 @@ The donor catalog contains **20 scenes per difficulty**. The 6,000-question soak
 
 ## Lifecycle
 
-CP013 remains review-only until explicit human editorial approval. It is not registered in Question Studio and cannot write to Question Bank or appear in tests, mocks, learner/public delivery or production release.
+CP013 was explicitly human-approved on **2026-09-25** from review artifact `ENG-003-CP013-REVIEW-V1` (artifact `10576582897`). It is registered in Question Studio in **review-only** mode. Question Bank writes, tests, mocks, learner/public delivery, automatic publication and production release remain locked.\n\nApproval authority: `ENG-003-CP013-HUMAN-EDITORIAL-APPROVAL-V1`.

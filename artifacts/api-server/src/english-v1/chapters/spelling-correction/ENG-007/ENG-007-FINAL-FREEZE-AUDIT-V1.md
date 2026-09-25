@@ -70,4 +70,4 @@ The chapter must not expand merely to increase its numeric breadth. Future addit
 
 **ENG-007 is frozen at CP007 with 1,445 governed spellings.**
 
-Lifecycle remains **review-only**. Freezing the content authority does not by itself authorize Question Bank writes, scored tests, mocks, learner/public release, or production promotion.
+Lifecycle remains **review-only**. The frozen CP001–CP007 authority is registered in Question Studio through the standard English review workflow. Question Bank writes, scored tests, mocks, learner/public release and production promotion remain locked.
