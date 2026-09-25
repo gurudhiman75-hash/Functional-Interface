@@ -189,9 +189,9 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "stem": "Why can thorn vegetation extend beyond the Thar Desert into adjoining semi-arid states?",
     "answer": "The controlling factor is low moisture availability, not the desert boundary itself",
     "distractors": [
-      "Thorn plants grow only inside mapped desert limits",
-      "State boundaries determine vegetation zones",
-      "Rainfall becomes highest just outside the desert"
+      "Thorn vegetation requires true desert sand everywhere",
+      "Only temperature controls thorn distribution",
+      "Semi-arid rainfall is too high for thorn vegetation"
     ],
     "explanation": "Vegetation follows climate and soil conditions rather than administrative or desert map lines. Semi-arid areas with similar water stress can support the same thorny plant forms.",
     "sourceFactIds": [
@@ -749,9 +749,9 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "stem": "Why is there no single sharp line everywhere between dry deciduous forest and thorn scrub?",
     "answer": "Vegetation changes gradually with rainfall, soil and local relief",
     "distractors": [
-      "Forest types follow state borders exactly",
-      "All places receive identical rainfall at the boundary",
-      "Species never overlap between vegetation zones"
+      "Rainfall alone changes abruptly at one fixed line",
+      "Soil differences cannot affect vegetation transitions",
+      "Dry deciduous and thorn species cannot occur together"
     ],
     "explanation": "Natural vegetation responds to several continuous environmental gradients. Transitional areas can therefore contain a mix of dry woodland and thorny scrub.",
     "sourceFactIds": [
@@ -765,9 +765,9 @@ const RAW:readonly RawQuestion[]=Object.freeze([
     "stem": "Which factor can modify the exact position of the dry deciduous–thorn transition even at similar rainfall?",
     "answer": "Soil moisture-holding capacity",
     "distractors": [
-      "Map projection",
-      "Calendar month names",
-      "Ocean depth far offshore"
+      "Annual rainfall total alone",
+      "Temperature alone",
+      "Slope direction alone"
     ],
     "explanation": "Soils that hold water well can reduce plant stress, while sandy or shallow soils dry faster. Soil therefore modifies the effect of the same rainfall total.",
     "sourceFactIds": [
