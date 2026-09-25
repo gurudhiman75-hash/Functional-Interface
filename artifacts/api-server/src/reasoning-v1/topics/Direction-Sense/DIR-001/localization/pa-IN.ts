@@ -282,9 +282,9 @@ function renderExplanationPunjabi(english: R): LocalizedDirectionExplanationPunj
     }
 
     const hybridSteps: string[] = [
-      "ਚਿੱਤਰ ਵਿੱਚ ਦਿੱਤੇ ਸੰਬੰਧ:",
+      "ਪਹਿਲਾਂ ਦਿੱਤੇ ਸੰਬੰਧ:",
       ...(s.diagramRelations ?? []).map((relation: R) => relationSentencePa(relation, true)),
-      "ਲਿਖਿਆ ਹੋਇਆ ਸੰਬੰਧ:",
+      "ਵਾਧੂ ਸੰਬੰਧ:",
       relationSentencePa(asR(s.textRelation), true),
     ];
     let combined: R = { x: 0, y: 0 };
@@ -296,7 +296,7 @@ function renderExplanationPunjabi(english: R): LocalizedDirectionExplanationPunj
     return {
       ...base,
       steps: hybridSteps,
-      resultLine: `ਚਿੱਤਰ ਅਤੇ ਲਿਖੇ ਸੰਬੰਧ ਦੋਵਾਂ ਤੋਂ ਉੱਤਰ ${answerSentence}`,
+      resultLine: `ਸਾਰੇ ਸੰਬੰਧ ਜੋੜਨ ਉੱਤੇ ਉੱਤਰ ${answerSentence}`,
     };
   }
 
