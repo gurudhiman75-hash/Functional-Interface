@@ -1,6 +1,6 @@
 # GEO-VEG-001 — Natural Vegetation & Wildlife of India
 
-Status: ACTIVE IMPLEMENTATION — WAVE 2 (CP005–CP007) APPROVED
+Status: ACTIVE IMPLEMENTATION — WAVE 3 (CP008–CP010) REVIEW
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-VEG-001`
@@ -102,28 +102,25 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-Wave 1 is human-approved and merged in content terms:
+Wave 1 is human-approved and merged:
+- CP001–CP004 — QL001–QL036 — 216 owning questions.
 
-- CP001 — Vegetation Basics & Controlling Factors — QL001–QL009.
-- CP002 — Tropical Evergreen & Semi-Evergreen Forests — QL010–QL018.
-- CP003 — Tropical Deciduous Forests — QL019–QL027.
-- CP004 — Tropical Thorn Forests & Scrub — QL028–QL036.
+Wave 2 is human-approved and merged:
+- CP005–CP007 — QL037–QL063 — 162 owning questions.
 
-Wave 1 qualifies 36 permanent QLs and 216 owning questions.
+Wave 3 is implemented as three 54-question review candidates:
+- CP008 — Characteristic Trees & Forest-Species Identification — QL064–QL072.
+- CP009 — Wildlife Habitats & Regional Distribution — QL073–QL081.
+- CP010 — Biodiversity & Conservation Concepts — QL082–QL090.
 
-Wave 2 is human-approved as three 54-question owning checkpoints:
-
-- CP005 — Montane Vegetation — QL037–QL045.
-- CP006 — Mangrove / Tidal / Littoral & Swamp Vegetation — QL046–QL054.
-- CP007 — Vegetation Distribution & Region Associations — QL055–QL063.
-
-Each Wave 2 checkpoint preserves:
+Each Wave 3 checkpoint preserves:
 - 54 questions and six questions per permanent QL;
 - Easy18 / Medium30 / Hard6;
 - A14 / B14 / C13 / D13;
 - unique stems and explanations;
 - domain-plausible distractors;
 - static source-governed facts only;
+- no dynamic population, protected-area-count or species-status snapshots;
 - review-only lifecycle with runtime publication disabled.
 
-Wave 2 adds 27 permanent QLs and 162 owning questions and has explicit human approval. CP008 begins Characteristic Trees & Forest-Species Identification.
+Wave 3 adds 27 permanent QLs and 162 owning questions for human review. CP011 begins Climate–Relief–Vegetation Comparative Identification.

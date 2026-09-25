@@ -1,0 +1,63 @@
+name: Validate GEO-VEG-001 Wave 3 Review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/natural-vegetation-wildlife/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geo-veg-001-wave3-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-wave3:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Qualify CP008–CP010
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for cp in 008 009 010; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp${cp}-review-batch-v1.test.ts" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/geo-veg-001-cp${cp}-review-batch-v1.test.mjs"
+            node "artifacts/api-server/dist/geography/geo-veg-001-cp${cp}-review-batch-v1.test.mjs"
+          done
+      - name: Materialize CP008–CP010 review files
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for cp in 008 009 010; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp${cp}-export-review-v1.ts" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/geo-veg-001-cp${cp}-export-review-v1.mjs"
+            (cd artifacts/api-server && node "dist/geography/geo-veg-001-cp${cp}-export-review-v1.mjs")
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP008-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP008-V1/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP009-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP009-V1/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP010-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP010-V1/
+          if-no-files-found: error
