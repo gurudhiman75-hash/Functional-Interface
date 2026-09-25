@@ -69,7 +69,11 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa",english:a
       "ਸਮੱਗਰੀ",
       "ਪ੍ਰਕਾਸ਼ਕ",
       "ਪੁਰਾਤਨ",
-      "ਪ੍ਰਭਾਵ"
+      "ਪ੍ਰਭਾਵ",
+      "ਕੜਾ",
+      "ਕੜੀ",
+      "ਕੜੀਆਂ",
+      "ਟਾਈਟ"
     ];
     for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
