@@ -1,7 +1,7 @@
 import { addCoordinates } from "../foundation/coordinates";
 import type { Direction, PositionRelation } from "../foundation/types";
 import { buildHybridExplanationDiagram, buildHybridQuestionDiagram, buildMixedGraphMovementDiagram, buildRelationDiagram } from "./diagram";
-import { DIRECTION_LABELS, TURN_LABELS, cardinalVector, relationVector, statementText } from "./geometry";
+import { DIRECTION_LABELS, TURN_LABELS, cardinalVector, relationVector, statementText, turnFacing } from "./geometry";
 import {
   solveCaseletIndependent,
   solveContradictionIndependent,
@@ -99,9 +99,8 @@ function generateMissingGraph(seed: number): GeneratedAdvancedQuestion {
         "The three given relations are enough to determine the relative positions of the four points.",
       ]),
       steps: [
-        `Place ${scenario.entities[1]} from ${scenario.entities[0]}, then ${scenario.entities[2]} from ${scenario.entities[1]}.`,
-        `The third relation fixes ${scenario.entities[3]} from ${scenario.entities[2]}.`,
-        `Comparing their positions, ${scenario.missingTo} lies ${DIRECTION_LABELS[solved]} of ${scenario.missingFrom}.`,
+        ...scenario.visibleRelations.map((relation) => statementText(relation)),
+        `These relations place ${scenario.missingTo} ${scenario.missingDistance} metres ${DIRECTION_LABELS[solved]} of ${scenario.missingFrom}.`,
       ],
       resultLine: `${scenario.missingTo} must be ${DIRECTION_LABELS[solved]} of ${scenario.missingFrom}.`,
       conclusion: `Therefore, the missing direction is ${DIRECTION_LABELS[solved]}.`,
@@ -122,15 +121,9 @@ function generateContradiction(seed: number): GeneratedAdvancedQuestion {
     explanation: {
       given: `Begin with the anchor facts about ${scenario.anchorRelations[0].fromEntity}, ${scenario.anchorRelations[0].toEntity} and ${scenario.anchorRelations[1].toEntity}.`,
       steps: [
-        variant(seed, [
-          "The two anchor statements fix the positions of the first three points.",
-          "First use the anchor facts to place the first three points.",
-          "Use the two anchor facts as the reference for checking the numbered statements.",
-          "Begin with the two given facts and locate the first three points.",
-          "Place the first three points from the anchor statements before checking the numbered claims.",
-        ]),
-        "The correct additional statements place the fourth point at the same position even when reached in different ways.",
-        `${scenario.statementLabels[solved]} places ${scenario.relations[solved].toEntity} from ${scenario.relations[solved].fromEntity} in a direction that conflicts with those routes.`,
+        ...scenario.anchorRelations.map((relation) => `Anchor: ${statementText(relation)}`),
+        ...scenario.relations.map((relation, index) => `${scenario.statementLabels[index]}: ${statementText(relation)}`),
+        `${scenario.statementLabels[solved]} conflicts with the position fixed by the other relations.`,
       ],
       resultLine: `${scenario.statementLabels[solved]} is the inconsistent statement.`,
       conclusion: `Therefore, the answer is ${scenario.statementLabels[solved]}.`,
@@ -143,6 +136,26 @@ function knownLegSummary(legs: readonly { readonly direction: Direction | "UNKNO
   return legs.map((leg, index) => leg.direction === "UNKNOWN" ? `leg ${index + 1}: unknown ${leg.distance}-metre movement` : `leg ${index + 1}: ${leg.distance} metres ${DIRECTION_LABELS[leg.direction]}`).join("; ");
 }
 
+function relativeWalkthrough(
+  initialFacing: Direction,
+  operations: readonly { readonly kind: "MOVE"; readonly distance: number }[] | readonly any[],
+): { readonly lines: string[]; readonly endpoint: { readonly x: number; readonly y: number }; readonly finalFacing: Direction } {
+  let facing = initialFacing;
+  let endpoint = { x: 0, y: 0 };
+  const lines: string[] = [];
+  for (const operation of operations as readonly any[]) {
+    if (operation.kind === "TURN") {
+      const before = facing;
+      facing = turnFacing(facing, operation.turn);
+      lines.push(`${TURN_LABELS[operation.turn]} changes the facing from ${DIRECTION_LABELS[before]} to ${DIRECTION_LABELS[facing]}.`);
+      continue;
+    }
+    endpoint = addCoordinates(endpoint, cardinalVector(facing, operation.distance));
+    lines.push(`Walk ${operation.distance} metres ${DIRECTION_LABELS[facing]}; the point is now ${componentDescription(endpoint)} of the start.`);
+  }
+  return { lines, endpoint, finalFacing: facing };
+}
+
 function generateMissingMovement(seed: number): GeneratedAdvancedQuestion {
   const scenario = missingMovementScenario(seed);
   const solved = solveMissingMovementIndependent(scenario);
@@ -153,17 +166,25 @@ function generateMissingMovement(seed: number): GeneratedAdvancedQuestion {
     stem: renderMissingMovementStem(scenario),
     explanation: {
       given: `${scenario.subject} follows this route in ${scenario.place}: ${knownLegSummary(scenario.legs)}.`,
-      steps: [
-        variant(seed, [
-          "Combine the known east-west and north-south movements first.",
-          "Find the net effect of the three stated legs before restoring the missing one.",
-          "Separate the known horizontal and vertical movements and simplify them.",
-          "Work out where the stated movements alone would finish.",
-          "Add the known legs first so the remaining vector can be read directly.",
-        ]),
-        `Compare that partial endpoint with the supplied final position, ${componentDescription(scenario.target)} of the start.`,
-        `The remaining ${scenario.legs[scenario.unknownIndex].distance}-metre vector must point ${DIRECTION_LABELS[solved]}.`,
-      ],
+      steps: (() => {
+        let knownEndpoint = { x: 0, y: 0 };
+        const lines: string[] = [];
+        scenario.legs.forEach((leg, index) => {
+          if (index === scenario.unknownIndex || leg.direction === "UNKNOWN") {
+            lines.push(`Leg ${index + 1}: ${leg.distance} metres in an unknown direction.`);
+            return;
+          }
+          knownEndpoint = addCoordinates(knownEndpoint, cardinalVector(leg.direction, leg.distance));
+          lines.push(`Leg ${index + 1}: ${leg.distance} metres ${DIRECTION_LABELS[leg.direction]}; known movements now place the point ${componentDescription(knownEndpoint)} of the start.`);
+        });
+        const restored = addCoordinates(
+          knownEndpoint,
+          cardinalVector(solved, scenario.legs[scenario.unknownIndex].distance),
+        );
+        lines.push(`The required final point is ${componentDescription(scenario.target)} of the start.`);
+        lines.push(`Adding the missing ${scenario.legs[scenario.unknownIndex].distance}-metre movement towards ${DIRECTION_LABELS[solved]} gives ${componentDescription(restored)}, exactly the required final point.`);
+        return lines;
+      })(),
       resultLine: `${scenario.subject}'s missing leg is towards ${DIRECTION_LABELS[solved]}.`,
       conclusion: `Therefore, ${scenario.subject} used the ${DIRECTION_LABELS[solved]} direction for the missing movement.`,
     },
@@ -180,17 +201,21 @@ function generateMissingTurn(seed: number): GeneratedAdvancedQuestion {
     stem: renderMissingTurnStem(scenario),
     explanation: {
       given: `${scenario.subject} starts in ${scenario.place} facing ${DIRECTION_LABELS[scenario.initialFacing]}, and the final point is fixed by the stem.`,
-      steps: [
-        `Replay the first ${scenario.firstDistance}-metre movement from the stated facing.`,
-        variant(seed, [
-          "Test left, right, about-turn and no-turn as the missing change, then replay both later movements.",
-          "Try each permitted instruction and carry the route through to the final point.",
-          "Replay the two later legs under all four possible direction instructions.",
-          "Check the endpoint produced by turning left, turning right, turning around or continuing straight.",
-          "Insert each candidate instruction in turn; only one must reproduce the stated endpoint.",
-        ]),
-        `Only the instruction “${TURN_LABELS[solved]}” reaches the supplied endpoint.`,
-      ],
+      steps: (() => {
+        const secondFacing = turnFacing(scenario.initialFacing, solved);
+        const thirdFacing = turnFacing(secondFacing, scenario.knownTurn);
+        let endpoint = cardinalVector(scenario.initialFacing, scenario.firstDistance);
+        const lines = [
+          `First move: ${scenario.firstDistance} metres ${DIRECTION_LABELS[scenario.initialFacing]}.`,
+          `${TURN_LABELS[solved]} changes the facing to ${DIRECTION_LABELS[secondFacing]}, so the second move is ${scenario.secondDistance} metres ${DIRECTION_LABELS[secondFacing]}.`,
+        ];
+        endpoint = addCoordinates(endpoint, cardinalVector(secondFacing, scenario.secondDistance));
+        lines.push(`After the first two moves, the point is ${componentDescription(endpoint)} of the start.`);
+        endpoint = addCoordinates(endpoint, cardinalVector(thirdFacing, scenario.thirdDistance));
+        lines.push(`${TURN_LABELS[scenario.knownTurn]} changes the facing to ${DIRECTION_LABELS[thirdFacing]}; the last move is ${scenario.thirdDistance} metres in that direction.`);
+        lines.push(`The route ends ${componentDescription(endpoint)} of the start, matching the supplied final point ${componentDescription(scenario.target)}.`);
+        return lines;
+      })(),
       resultLine: `The missing step is “${TURN_LABELS[solved]}”.`,
       conclusion: `Therefore, “${TURN_LABELS[solved]}” is the correct instruction for ${scenario.subject}.`,
     },
@@ -208,15 +233,9 @@ function generateInitialFacing(seed: number): GeneratedAdvancedQuestion {
     explanation: {
       given: `${scenario.subject}'s final position in ${scenario.place} is known, but the starting direction is not given.`,
       steps: [
-        variant(seed, [
-          "Try the same route starting from North, East, South and West.",
-          "Test North, East, South and West as the possible starting directions.",
-          "Keep all turns and movements unchanged and vary only the starting direction.",
-          "Compare the final point obtained from each possible starting direction.",
-          "Run the route from all four starting directions and keep the one that reaches the stated final point.",
-        ]),
-        `The path reaches ${componentDescription(scenario.target)} only when it begins facing ${DIRECTION_LABELS[solved]}.`,
-        "The other starting directions finish at different points.",
+        `Use the candidate that actually reaches the supplied endpoint: start facing ${DIRECTION_LABELS[solved]}.`,
+        ...relativeWalkthrough(solved, scenario.operations).lines,
+        `This route ends ${componentDescription(scenario.target)} of the start, exactly as stated.`,
       ],
       resultLine: `${scenario.subject}'s initial facing is ${DIRECTION_LABELS[solved]}.`,
       conclusion: `Therefore, ${scenario.subject} initially faced ${DIRECTION_LABELS[solved]}.`,
@@ -246,9 +265,10 @@ function generateMixed(seed: number): GeneratedAdvancedQuestion {
         `Separate the problem into the landmark layout and the later movement from ${scenario.startEntity}.`,
       ]),
       steps: [
-        `Apply the later movement only from ${scenario.startEntity}; the fixed landmarks do not move.`,
+        ...scenario.relations.map((relation) => statementText(relation)),
+        ...scenario.movements.map((movement) => `From ${scenario.startEntity}, move ${movement.distance} metres ${DIRECTION_LABELS[movement.direction]}.`),
         `Compared with ${scenario.referenceEntity}, the final point differs by ${horizontal} metres horizontally and ${vertical} metres vertically.`,
-        `Its shortest distance is √(${horizontal}² + ${vertical}²) = ${solved.distance} metres, and its compass quadrant is ${DIRECTION_LABELS[solved.direction]}.`,
+        `Shortest distance = √(${horizontal}² + ${vertical}²) = ${solved.distance} metres, and the direction is ${DIRECTION_LABELS[solved.direction]}.`,
       ],
       resultLine: `The final position is ${DIRECTION_LABELS[solved.direction]} of ${scenario.referenceEntity}, ${solved.distance} metres away.`,
       conclusion: `Therefore, the answer is ${DIRECTION_LABELS[solved.direction]}, ${solved.distance} metres.`,
@@ -269,15 +289,10 @@ function generateCaseletDirection(seed: number): GeneratedAdvancedQuestion {
     explanation: {
       given: `Use ${scenario.subject}'s shared patrol route from ${scenario.checkpoint} in ${scenario.place}.`,
       steps: [
-        `Replay the route from the initial facing ${DIRECTION_LABELS[scenario.initialFacing]}.`,
-        `The net endpoint lies in the ${DIRECTION_LABELS[solved.direction]} quadrant from the checkpoint.`,
-        variant(seed, [
-          "Only the final position matters here; the direction faced at the end is a separate fact.",
-          "The question compares the two locations, so the final facing is not used.",
-          "Compare the checkpoint directly with the finishing point, not with the last walking direction.",
-          "Use the direct direction from the checkpoint to the finishing point.",
-          "The answer comes from where the route ends relative to the checkpoint.",
-        ]),
+        `Start facing ${DIRECTION_LABELS[scenario.initialFacing]} at ${scenario.checkpoint}.`,
+        ...relativeWalkthrough(scenario.initialFacing, scenario.operations).lines,
+        `The final point is ${componentDescription(solved.endpoint)} of the checkpoint, so its direction is ${DIRECTION_LABELS[solved.direction]}.`,
+        "The final facing is a separate fact and is not the answer to this location question.",
       ],
       resultLine: `${scenario.subject}'s final position is ${DIRECTION_LABELS[solved.direction]} of ${scenario.checkpoint}.`,
       conclusion: `Therefore, the required direction from ${scenario.checkpoint} is ${DIRECTION_LABELS[solved.direction]}.`,
@@ -300,15 +315,11 @@ function generateCaseletDistance(seed: number): GeneratedAdvancedQuestion {
     explanation: {
       given: `Use ${scenario.subject}'s shared patrol route from ${scenario.checkpoint} in ${scenario.place} and derive its net horizontal and vertical components.`,
       steps: [
+        `Start facing ${DIRECTION_LABELS[scenario.initialFacing]} at ${scenario.checkpoint}.`,
+        ...relativeWalkthrough(scenario.initialFacing, scenario.operations).lines,
         `The endpoint components have magnitudes ${Math.abs(solved.endpoint.x)} metres and ${Math.abs(solved.endpoint.y)} metres.`,
         `Shortest distance = √(${Math.abs(solved.endpoint.x)}² + ${Math.abs(solved.endpoint.y)}²) = ${solved.distance} metres.`,
-        variant(seed, [
-          `The travelled distance is ${totalDistance} metres, but that is not the straight-line answer.`,
-          `${totalDistance} metres is the full route length; the question asks for displacement.`,
-          `Do not add the walking legs: their total is ${totalDistance} metres, not the shortest separation.`,
-          `The route covers ${totalDistance} metres, whereas the direct checkpoint-to-finish distance is shorter.`,
-          `Total travel and shortest distance are different here; ${totalDistance} metres is only the former.`,
-        ]),
+        `The full route length is ${totalDistance} metres, but the question asks for the straight-line separation.`,
       ],
       resultLine: `The displacement from ${scenario.checkpoint} is ${solved.distance} metres.`,
       conclusion: `Therefore, ${scenario.subject}'s shortest distance from ${scenario.checkpoint} is ${solved.distance} metres.`,
@@ -340,11 +351,19 @@ function generateHybrid(seed: number): GeneratedAdvancedQuestion {
         "Combine the information shown in the diagram with the extra sentence.",
         "Start with the diagram and then use the additional written relation.",
       ]),
-      steps: [
-        "Read the two position relations shown in the diagram in order.",
-        `Use the written fact: ${statementText(scenario.textRelation)}`,
-        `After combining the three relations, ${scenario.queryTo} lies ${DIRECTION_LABELS[solved]} of ${scenario.queryFrom}.`,
-      ],
+      steps: (() => {
+        const allRelations = [...scenario.diagramRelations, scenario.textRelation];
+        const combined = allRelations.reduce(
+          (position, relation) => addCoordinates(position, relation.vector),
+          { x: 0, y: 0 },
+        );
+        return [
+          ...scenario.diagramRelations.map((relation, index) => `Diagram relation ${index + 1}: ${statementText(relation)}`),
+          `Written relation: ${statementText(scenario.textRelation)}`,
+          `Together these place ${scenario.queryTo} ${componentDescription(combined)} of ${scenario.queryFrom}.`,
+          `Therefore, ${scenario.queryTo} lies ${DIRECTION_LABELS[solved]} of ${scenario.queryFrom}.`,
+        ];
+      })(),
       resultLine: `${scenario.queryTo} is ${DIRECTION_LABELS[solved]} of ${scenario.queryFrom}.`,
       conclusion: `Therefore, the required direction is ${DIRECTION_LABELS[solved]}.`,
       diagram: buildHybridExplanationDiagram(scenario),
