@@ -5,11 +5,11 @@ export const PART_1: readonly SciCp038ReviewSpec[] = [
     1,
     "Easy",
     "What does a thermometer measure?",
-    "Thermometer",
+    "Temperature",
     [
-      "Barometer",
-      "Hygrometer",
-      "Ammeter"
+      "Atmospheric pressure",
+      "Humidity",
+      "Electric current"
     ],
     "A thermometer measures temperature. Different thermometers are designed for body temperature, laboratory work or weather observations, but the measured quantity remains temperature. The important exam point is the quantity measured: temperature.",
     [
