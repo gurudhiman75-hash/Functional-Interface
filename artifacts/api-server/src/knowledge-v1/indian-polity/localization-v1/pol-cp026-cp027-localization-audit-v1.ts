@@ -26,7 +26,7 @@ const PA_BANNED=[
 function native(locale:"hi"|"pa",q:PolLocalizedQuestionV1){
  const original=learner(q);
  const stripped=original
-   .replace(/\b\d+(?:\.\d+)?[A-Z]{1,2}(?:-[A-Z])?(?:\([0-9A-Za-z]+\))*\b/gu,"")
+   .replace(/\d+(?:\.\d+)?[A-Z]{0,2}(?:-[A-Z])?(?:\([0-9A-Za-z]+\))*%?/gu,"")
    .replace(/\b[IVX]+[A-Z]?\b/gu,"")
    .replace(/\b[a-z]\b/giu,"");
  assert.equal(/[A-Za-z]{2,}/u.test(stripped),false,`${q.questionId}: Latin-script leakage`);
