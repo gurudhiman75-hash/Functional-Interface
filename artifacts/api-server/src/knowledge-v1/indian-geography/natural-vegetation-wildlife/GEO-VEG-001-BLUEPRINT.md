@@ -1,6 +1,6 @@
 # GEO-VEG-001 — Natural Vegetation & Wildlife of India
 
-Status: ACTIVE IMPLEMENTATION — CP001 REVIEW
+Status: ACTIVE IMPLEMENTATION — WAVE 1 (CP001–CP004) REVIEW
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-VEG-001`
@@ -102,11 +102,20 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-CP001 — Vegetation Basics & Controlling Factors (QL001–QL009) is implemented as a 54-question review candidate restacked on the current `New-main` base with a distractor-quality pass.
+Wave 1 is implemented as four independent 54-question review candidates on the current `New-main` base:
 
-- Easy18 / Medium30 / Hard6.
-- A14 / B14 / C13 / D13.
-- Six questions per QL.
-- 54 unique stems and explanations.
-- Foundational definitions and vegetation controls only; forest-type ownership begins in CP002.
-- Runtime publication remains disabled.
+- CP001 — Vegetation Basics & Controlling Factors — QL001–QL009.
+- CP002 — Tropical Evergreen & Semi-Evergreen Forests — QL010–QL018.
+- CP003 — Tropical Deciduous Forests — QL019–QL027.
+- CP004 — Tropical Thorn Forests & Scrub — QL028–QL036.
+
+Each checkpoint preserves:
+- 54 questions and six questions per permanent QL;
+- Easy18 / Medium30 / Hard6;
+- A14 / B14 / C13 / D13;
+- unique stems and explanations;
+- domain-plausible distractors;
+- static NCERT-grade facts only;
+- review-only lifecycle with runtime publication disabled.
+
+Wave 1 therefore qualifies 36 permanent QLs and 216 owning questions before human approval. CP005 begins Montane Vegetation.
