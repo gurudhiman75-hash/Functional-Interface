@@ -21,6 +21,10 @@ The package does not infer its answer from generated prose. It also keeps infere
 
 `SIF-CP007-REVIEW-V1.md` contains the human-review sample for Negative and Restrictive Statements. Its 24 trilingual authorities cover eight wording families, with 12 Medium and 12 Hard scenarios. The 24-question sampler uses three scenarios per family and balances which inference is supported. Hard scenarios combine at least three facts. The chapter tests negative quantifiers, restrictive scope, conditions, exceptions, inability, evidence gaps and time qualifiers; it remains in Question Studio review only.
 
+## CP008 review candidate
+
+`SIF-CP008-REVIEW-V1.md` contains the human-review sample for Multi-Sentence Contextual Inference. Its 32 trilingual authorities cover eight practical synthesis families, with 16 Medium and 16 Hard scenarios. The review sampler selects three scenarios per family, balances difficulty and inference positions, and expects candidates to connect information across short passages. It remains in Question Studio review only.
+
 ## Review boundary
 
 All 17 content packs are executable and registered for Question Studio review. Question Bank persistence, tests, mocks, public delivery and automatic publication remain locked until CP-level human review, multilingual parity review, novelty expansion and the chapter freeze are approved.
