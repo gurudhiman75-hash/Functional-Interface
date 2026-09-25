@@ -16,35 +16,43 @@ CAND-006 has only low-severity setter-shorthand findings and remains untouched.
 
 ## State expansion
 
-The old CAND-005 source was monic:
+The old CAND-005 source was primarily monic, so the visible equal-roots parameter pool remained narrow.
 
-`x² + bx + k = 0`
+V4 uses primitive exam-safe families of the form
 
-with even b, so the visible state pool was narrow.
+`ax² - 2arx + ck = 0`
 
-V4 uses primitive coprime integer pairs `m,n` and the quadratic:
+where `a`, the repeated root `r`, and the coefficient `c` of `k` vary independently within small integer bounds.
 
-`m²x² + 2mnx + k = 0`.
+Equal roots require
 
-Equal roots require:
+`D = (-2ar)² - 4a(ck) = 0`
 
-`D = (2mn)² - 4m²k = 0`
+so
 
-so:
+`k = ar²/c`.
 
-`k = n²`.
+Only states giving an integral `k` are admitted. The generated family is primitive as written, so diversity does not come from multiplying an unchanged equation by a common scalar.
 
-This preserves the exact equal-roots parameter contract while adding genuine leading-coefficient and middle-coefficient variation.
+The review gate also caps the visible arithmetic:
+
+- `1 ≤ a ≤ 6`;
+- `|b| ≤ 60`;
+- `1 ≤ c ≤ 6`;
+- `1 ≤ k ≤ 30`.
+
+This keeps the questions closer to normal SSC/Banking calculation load while still providing more than 64 genuine parameter states.
 
 ## Review gate
 
 Across 64 deterministic seeds:
 
-- all 64 `(m,n)` states must be distinct and primitive;
+- all 64 parameter states must be distinct and primitive;
 - discriminant must be exactly zero;
 - the exact quadratic solver must return `REPEATED_ROOT`;
+- the repeated root must match the constructed root state;
 - all four natural stem frames must appear;
-- explanations must show the actual discriminant substitution and repeated root;
+- explanations must show the actual discriminant substitution;
 - the approved V3 freeze remains unchanged.
 
 The CI exporter produces `algebra-cp009-source-reopen-v4-review.md`.
