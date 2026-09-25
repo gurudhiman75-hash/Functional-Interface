@@ -110,6 +110,50 @@ for (const ql of DIR_001_QLS) {
         assert.match(explanationText, /√/);
       }
     }
+    if (qlNumber >= 4 && qlNumber <= 10) {
+      assert.doesNotMatch(
+        explanationText,
+        /ਹਰ ਮੋੜ ਤੋਂ ਬਾਅਦ ਮੂੰਹ ਦੀ ਨਵੀਂ ਦਿਸ਼ਾ ਲਿਖੋ|ਪੂਰਬ-ਪੱਛਮ ਵਾਲੀਆਂ ਦੂਰੀਆਂ ਅਤੇ ਉੱਤਰ-ਦੱਖਣ ਵਾਲੀਆਂ ਦੂਰੀਆਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਜੋੜੋ/,
+      );
+      const firstSourceLine = String(english.explanation?.movementLines?.[0] ?? "");
+      const movementMatch = firstSourceLine.match(/(\d+(?:\.\d+)?) metres?/);
+      if (movementMatch) {
+        assert.match(explanationText, new RegExp(`${movementMatch[1]} ਮੀਟਰ`));
+      }
+      if (["DIR-QL-006", "DIR-QL-007", "DIR-QL-010"].includes(ql.qlId) && /√/.test(String(english.explanation?.calculationLine ?? ""))) {
+        assert.match(explanationText, /√/);
+      }
+    }
+    if (qlNumber >= 23 && qlNumber <= 29) {
+      const stepsText = punjabi.explanation.steps.join(" ");
+      assert.doesNotMatch(
+        stepsText,
+        /ਪਹਿਲਾਂ ਹਰ ਚਿੰਨ੍ਹ ਦਾ ਦਿੱਤਾ ਮਤਲਬ ਲਿਖੋ|ਫਿਰ ਹਰ ਕਥਨ ਨੂੰ ਪਹਿਲਾ ਨਾਮ–ਚਿੰਨ੍ਹ–ਦੂਜਾ ਨਾਮ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਪੜ੍ਹ ਕੇ|ਸੰਭਵ ਚਿੰਨ੍ਹਾਂ ਨੂੰ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਜਾਂਚੋ/,
+      );
+      const codeMap = english.structuredPrompt.codeMap ?? english.structuredPrompt.recoveredCodeMap;
+      if (codeMap) {
+        for (const symbol of Object.keys(codeMap)) {
+          assert.ok(stepsText.includes(symbol), `${ql.qlId} missing decoded symbol ${symbol}`);
+        }
+      }
+      if (ql.qlId === "DIR-QL-029") {
+        const firstMovement = english.structuredPrompt.steps?.[0];
+        if (firstMovement?.distance != null) {
+          assert.match(stepsText, new RegExp(`${firstMovement.distance} ਮੀਟਰ`));
+        }
+      }
+    }
+    if (qlNumber >= 30 && qlNumber <= 35) {
+      const stepsText = punjabi.explanation.steps.join(" ");
+      assert.doesNotMatch(
+        stepsText,
+        /ਵਿਅਕਤੀ ਦੇ ਮੂੰਹ ਦੇ ਹਿਸਾਬ ਨਾਲ ਖੱਬੇ, ਸੱਜੇ, ਸਾਹਮਣੇ ਜਾਂ ਪਿੱਛੇ ਵਾਲੀ ਦਿਸ਼ਾ ਤੈਅ ਕਰੋ|ਦੋ ਵਿਅਕਤੀਆਂ ਬਾਰੇ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਹੋਵੇ ਤਾਂ ਦੂਜੇ ਵਿਅਕਤੀ ਦੀ ਦਿਸ਼ਾ ਉਸੇ ਅਨੁਸਾਰ ਤੈਅ ਕਰੋ/,
+      );
+      assert.ok(
+        stepsText.includes(punjabi.options[punjabi.correctIndex].label),
+        `${ql.qlId} explanation must show the solved localized answer`,
+      );
+    }
     const diagrams = [punjabi.questionDiagram, punjabi.explanation.diagram].filter(Boolean) as any[];
     for (const diagram of diagrams) {
       assert.ok(typeof diagram.svg === "string" && diagram.svg.includes("<svg"));

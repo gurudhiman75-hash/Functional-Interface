@@ -1,16 +1,22 @@
 import { generateDirectionQuestion } from "../chapter-registry";
 import {
   asR,
+  codeMapText,
+  codedChain,
   coordinateText,
   directionAngleHi,
   directionHi,
+  evidenceChain,
   metres,
   nameHi,
   pathMovementLineHi,
   pathSummaryLineHi,
+  periodHi,
   relationSentence,
   reverseTurnCalculationStepsHi,
+  sideHi,
   turnCalculationStepsHi,
+  turnHi,
   type R,
 } from "./hindi-foundation";
 import { localizeDiagramHindi, optionLabelHindi } from "./hindi-editorial-overrides";
@@ -247,10 +253,80 @@ function renderExplanation(english: R): LocalizedDirectionExplanation {
     return { ...base, steps, resultLine: `अंतिम स्थानों की तुलना से उत्तर ${answer} है।` };
   }
   if (["DIR-QL-023", "DIR-QL-024", "DIR-QL-025", "DIR-QL-026", "DIR-QL-027", "DIR-QL-028", "DIR-QL-029"].includes(qlId)) {
-    return { ...base, steps: ["संकेतित कथनों को विषय–चिह्न–संदर्भ क्रम में पढ़ें।", qlId === "DIR-QL-025" || qlId === "DIR-QL-028" ? "संभावित चिह्नों को एक-एक करके जाँचें और केवल संगत विकल्प रखें।" : "डिकोड किए गए संबंधों या चालों को क्रम से जोड़ें।"], resultLine: `डिकोड करने पर सही उत्तर ${answer} है।` };
+    const map = asR(s.codeMap ?? s.recoveredCodeMap ?? {});
+    const steps: string[] = Object.keys(map).length > 0
+      ? codeMapText(map, qlId === "DIR-QL-029").split(", ").map((line) => `${line}।`)
+      : [];
+
+    if (qlId === "DIR-QL-025") {
+      for (const evidence of (s.evidence ?? []) as R[]) {
+        steps.push(`${evidenceChain(evidence)} से ${directionHi(evidence.resultDirection)} दिशा मिलती है।`);
+      }
+      steps.push(`सभी प्रमाणों से एक ही संकेत-मानचित्र बनता है; पूछी गई दिशा का चिह्न ${answer} है।`);
+    } else if (qlId === "DIR-QL-026") {
+      const target = asR(s.targetRelation);
+      steps.push(`${nameHi(target.subject)}, ${nameHi(target.reference)} के ${directionHi(target.direction)} में होना चाहिए।`);
+      steps.push(`इस दिशा के लिए सही चिह्न रखने पर कथन ${answer} बनता है।`);
+    } else if (qlId === "DIR-QL-028") {
+      const target = asR(s.targetRelation);
+      steps.push(`अधूरी श्रृंखला: ${codedChain((s.relations ?? []) as R[], Number(s.hiddenIndex ?? -1))}।`);
+      steps.push(`${nameHi(target.subject)}, ${nameHi(target.reference)} के ${directionHi(target.direction)} में होना चाहिए।`);
+      steps.push(`इस शर्त को केवल ${answer} पूरा करता है।`);
+    } else if (qlId === "DIR-QL-029") {
+      for (const movement of (s.steps ?? []) as R[]) {
+        const direction = map[movement.symbol];
+        steps.push(`${movement.symbol} का अर्थ ${directionHi(direction)} की ओर चलना है; इसलिए ${metres(movement.distance)} ${directionHi(direction)} की ओर चलें।`);
+      }
+      steps.push(`सभी चालों के बाद अंतिम बिंदु O से ${coordinateText(asR(s.endpoint))} है; इसलिए दिशा ${answer} है।`);
+    } else {
+      for (const relation of (s.relations ?? []) as R[]) {
+        steps.push(
+          `${nameHi(relation.subject)} ${relation.symbol} ${nameHi(relation.reference)} का अर्थ है: ${nameHi(relation.subject)}, ${nameHi(relation.reference)} के ${directionHi(map[relation.symbol])} में है।`,
+        );
+      }
+      if (qlId === "DIR-QL-024") {
+        const query = asR(s.query);
+        steps.push(`${nameHi(query.reference)} से ${directionHi(query.direction)} में केवल ${answer} है।`);
+      } else if (qlId === "DIR-QL-027") {
+        steps.push(`डिकोड किए गए संबंधों से सही निष्कर्ष ${answer} है।`);
+      } else {
+        steps.push(`पूरी संबंध-श्रृंखला जोड़ने पर दिशा ${answer} मिलती है।`);
+      }
+    }
+    return { ...base, steps, resultLine: `डिकोड किए गए तथ्यों से सही उत्तर ${answer} है।` };
   }
   if (["DIR-QL-030", "DIR-QL-031", "DIR-QL-032", "DIR-QL-033", "DIR-QL-034", "DIR-QL-035"].includes(qlId)) {
-    return { ...base, steps: ["पहले समय से सूर्य और छाया की वास्तविक दिशा तय करें।", "फिर व्यक्ति के मुख के सापेक्ष बाएँ, दाएँ, सामने या पीछे का संबंध लगाएँ।", qlId === "DIR-QL-034" ? "अंत में दिए गए मोड़ों को क्रम से लागू करें।" : "दिए गए व्यक्ति-संबंध के अनुसार अंतिम मुख तय करें।"], resultLine: `पर्यावरणीय संकेत से उत्तर ${answer} है।` };
+    const sunDirection = s.period === "EVENING" ? "WEST" : "EAST";
+    const shadowDirection = s.period === "EVENING" ? "EAST" : "WEST";
+    const steps: string[] = [
+      `${periodHi(s.period)} में सूर्य ${directionHi(sunDirection)} में होता है, इसलिए छाया ${directionHi(shadowDirection)} में पड़ती है।`,
+    ];
+
+    if (qlId === "DIR-QL-030") {
+      steps.push(`इसी नियम से पूछी गई दिशा ${answer} है।`);
+    } else if (qlId === "DIR-QL-031") {
+      steps.push(`${nameHi(s.name)} की छाया ${sideHi(s.side)} है; इस स्थिति में उसका मुख ${answer} की ओर होगा।`);
+    } else if (qlId === "DIR-QL-032") {
+      steps.push(`${nameHi(s.name)} का मुख ${directionHi(s.facing)} की ओर है और छाया ${directionHi(shadowDirection)} में पड़ती है।`);
+      steps.push(`इसलिए व्यक्ति के सापेक्ष छाया ${answer} है।`);
+    } else if (qlId === "DIR-QL-033") {
+      steps.push(`${nameHi(s.name)} का मुख ${directionHi(s.facing)} की ओर है और छाया ${sideHi(s.side)} है।`);
+      steps.push(`यह संबंध ${answer} के समय ही बनता है।`);
+    } else if (qlId === "DIR-QL-034") {
+      steps.push(`छाया ${sideHi(s.side)} होने से ${nameHi(s.name)} का आरंभिक मुख ${directionHi(s.initialFacing)} की ओर है।`);
+      for (const turn of (s.turns ?? []) as string[]) {
+        steps.push(`${turnHi(turn)} लगाने पर अगली मुख-दिशा तय होती है।`);
+      }
+      steps.push(`सभी मोड़ों के बाद अंतिम मुख ${answer} की ओर है।`);
+    } else {
+      steps.push(`छाया ${sideHi(s.side)} होने से ${nameHi(s.firstName)} का मुख ${directionHi(s.firstFacing)} की ओर है।`);
+      steps.push(
+        s.relation === "SAME_DIRECTION"
+          ? `${nameHi(s.secondName)} उसी दिशा में देख रहा है, इसलिए उसका मुख ${answer} की ओर है।`
+          : `${nameHi(s.secondName)} विपरीत दिशा में देख रहा है, इसलिए उसका मुख ${answer} की ओर है।`,
+      );
+    }
+    return { ...base, steps, resultLine: `दिए गए सूर्य-छाया संबंध से सही उत्तर ${answer} है।` };
   }
   if (["DIR-QL-038", "DIR-QL-039", "DIR-QL-040"].includes(qlId)) {
     return { ...base, steps: ["ज्ञात चालों को पहले लागू करें।", "हर सम्भव दिशा/मोड़/आरंभिक मुख का परीक्षण करें।", "जो एकमात्र विकल्प दिए गए अंतिम स्थान तक पहुँचता है, वही सही है।"], resultLine: `एकमात्र संगत उत्तर ${answer} है।` };

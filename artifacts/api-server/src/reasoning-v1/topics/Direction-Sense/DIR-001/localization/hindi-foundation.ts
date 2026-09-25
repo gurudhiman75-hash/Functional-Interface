@@ -5,7 +5,7 @@ const NAME_HI: Readonly<Record<string, string>> = {
   Gurpreet: "गुरप्रीत", Harpreet: "हरप्रीत", Isha: "ईशा", Jasleen: "जसलीन",
   Jatin: "जतिन", Karan: "करण", Kiran: "किरण", Manpreet: "मनप्रीत", Meena: "मीना",
   Naman: "नमन", Neha: "नेहा", Pawan: "पवन", Pooja: "पूजा", Ravi: "रवि",
-  Riya: "रिया", Simran: "सिमरन", Tanvi: "तन्वी",
+  Riya: "रिया", Simran: "सिमरन", Tanvi: "तन्वी", Taran: "तरण",
 };
 
 const DIRECTION_HI: Readonly<Record<string, string>> = {
