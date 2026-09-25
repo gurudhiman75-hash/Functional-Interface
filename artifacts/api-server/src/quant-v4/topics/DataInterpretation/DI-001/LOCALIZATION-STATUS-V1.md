@@ -1,6 +1,6 @@
 # DI-001 Table Interpretation — Hindi/Punjabi Localization Review V1
 
-Status: HI_PA_REVIEW_CANDIDATE · NOT QUESTION-STUDIO-ACTIVE
+Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## Scope
 
@@ -30,7 +30,7 @@ Status: HI_PA_REVIEW_CANDIDATE · NOT QUESTION-STUDIO-ACTIVE
 - Semantic/numeric parity with the approved English authority is required.
 - Both SSC CGL Tier I (4 options) and Banking Prelims (5 options) are covered.
 - At least three localized stem surfaces per permanent QL are exercised.
-- Question Studio remains English-only until localized editorial approval.
+- Question Studio supports English, Hindi and Punjabi in CONTROLLED_REVIEW.
 - Question Bank remains NOT_STORED.
 - Tests and mocks remain INELIGIBLE.
 - Public/student publication remains disabled.
@@ -38,4 +38,4 @@ Status: HI_PA_REVIEW_CANDIDATE · NOT QUESTION-STUDIO-ACTIVE
 
 ## Next gate
 
-Human editorial review of the Hindi/Punjabi sample output. Only explicit approval may freeze and enable the localized surfaces in controlled Question Studio review.
+Question Bank, tests, mocks, public/student publication and production release remain closed. Any widening beyond controlled Question Studio review requires a later explicit release decision.
