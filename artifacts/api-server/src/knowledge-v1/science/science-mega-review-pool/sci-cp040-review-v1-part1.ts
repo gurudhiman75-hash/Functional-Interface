@@ -20,7 +20,7 @@ export const PART_1: readonly SciCp040ReviewSpec[] = [
     1,
     "Easy",
     "What physical quantity describes the rate at which velocity changes?",
-    "velocity",
+    "acceleration",
     [
       "mass",
       "energy",
