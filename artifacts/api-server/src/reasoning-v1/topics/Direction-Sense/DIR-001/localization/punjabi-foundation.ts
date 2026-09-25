@@ -471,6 +471,7 @@ export function localizeSvgPa(svg: string): string {
     ["Decoded coded relations", "ਕੋਡ ਕੀਤੇ ਸੰਬੰਧਾਂ ਦਾ ਅਰਥ"],
     ["Recovered direction-code map", "ਮਿਲਿਆ ਦਿਸ਼ਾ-ਕੋਡ ਨਕਸ਼ਾ"],
     ["Each displayed chain constrains the same one-to-one code map.", "ਹਰ ਦਿੱਤੀ ਲੜੀ ਉਸੇ ਇੱਕ-ਤੋਂ-ਇੱਕ ਕੋਡ ਨਕਸ਼ੇ ਨੂੰ ਨਿਰਧਾਰਤ ਕਰਦੀ ਹੈ।"],
+    ["Use the recovered key to read the coded statement.", "ਮਿਲੀ ਕੋਡ-ਸੂਚੀ ਨਾਲ ਕੋਡ ਕੀਤਾ ਕਥਨ ਪੜ੍ਹੋ।"],
     ["Code key", "ਕੋਡ-ਸੂਚੀ"],
     ["The four active symbols map one-to-one to North, East, South and West.", "ਚਾਰੋਂ ਚਿੰਨ੍ਹ ਚਾਰ ਮੁੱਖ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚੋਂ ਇੱਕ-ਇੱਕ ਦਿਸ਼ਾ ਦਰਸਾਉਂਦੇ ਹਨ।"],
     ["Equivalent coded statement", "ਬਰਾਬਰ ਅਰਥ ਵਾਲਾ ਕੋਡ ਕੀਤਾ ਕਥਨ"],
