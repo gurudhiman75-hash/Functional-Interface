@@ -41,20 +41,20 @@ export function renderContradictionStem(anchorRelations: readonly PositionRelati
 
 export function renderMissingMovementStem(scenario: MissingMovementScenario): string {
   const legs = scenario.legs.map((leg, index) => leg.direction === "UNKNOWN"
-    ? `${index === 0 ? `${scenario.subject} starts from a marked point in ${scenario.place} and` : "then"} walks ${leg.distance} metres in a direction that is not stated`
-    : `${index === 0 ? `${scenario.subject} starts from a marked point in ${scenario.place} and` : "then"} walks ${leg.distance} metres ${DIRECTION_LABELS[leg.direction]}`).join(", ");
-  return `${legs}. The final point is ${componentDescription(scenario.target)} of the starting point. Which direction was used for the missing movement?`;
+    ? `${index === 0 ? "" : "then "}walks ${leg.distance} metres in an unknown direction`
+    : `${index === 0 ? "" : "then "}walks ${leg.distance} metres ${DIRECTION_LABELS[leg.direction]}`).join(", ");
+  return `${scenario.subject} starts from a point in ${scenario.place} and ${legs}. The final point is ${componentDescription(scenario.target)} of the starting point. Which direction was the unknown movement?`;
 }
 
 export function renderMissingTurnStem(scenario: MissingTurnScenario): string {
   const known = scenario.knownTurn === "LEFT" ? "turns left" : "turns right";
-  return `${scenario.subject}, while in ${scenario.place}, starts facing ${DIRECTION_LABELS[scenario.initialFacing]} and walks ${scenario.firstDistance} metres. ${scenario.subject} then takes an unknown turn and walks ${scenario.secondDistance} metres, ${known}, and walks another ${scenario.thirdDistance} metres. The final point is ${componentDescription(scenario.target)} of the starting point. What was the unknown turn?`;
+  return `${scenario.subject} starts in ${scenario.place} facing ${DIRECTION_LABELS[scenario.initialFacing]} and walks ${scenario.firstDistance} metres. ${scenario.subject} then makes an unknown turn, walks ${scenario.secondDistance} metres, ${known}, and walks ${scenario.thirdDistance} metres. The final point is ${componentDescription(scenario.target)} of the starting point. What was the unknown turn?`;
 }
 
 export function renderInitialFacingStem(scenario: InitialFacingScenario): string {
-  return `${scenario.subject} starts from a marked point in ${scenario.place}, ${pathSentence(scenario.operations)}. The final point is ${componentDescription(scenario.target)} of the starting point. In which direction was ${scenario.subject} facing initially?`;
+  return `${scenario.subject} starts from a point in ${scenario.place} and ${pathSentence(scenario.operations)}. The final point is ${componentDescription(scenario.target)} of the starting point. In which direction was ${scenario.subject} facing initially?`;
 }
 
 export function renderCaseletStimulus(scenario: CaseletScenario): string {
-  return `${scenario.subject}, a patrol officer at checkpoint ${scenario.checkpoint} in ${scenario.place}, starts facing ${DIRECTION_LABELS[scenario.initialFacing]} and ${pathSentence(scenario.operations)}.`;
+  return `${scenario.subject} starts from checkpoint ${scenario.checkpoint} in ${scenario.place}, facing ${DIRECTION_LABELS[scenario.initialFacing]}, and ${pathSentence(scenario.operations)}.`;
 }
