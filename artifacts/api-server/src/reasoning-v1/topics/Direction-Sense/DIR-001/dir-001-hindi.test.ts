@@ -45,6 +45,7 @@ for (const ql of DIR_001_QLS) {
     assert.ok(!internalLeak.test(hindi.stem), `${ql.qlId} internal leak: ${hindi.stem}`);
     assert.ok(!latinWordLeak.test(hindi.stem), `${ql.qlId} Latin word leak: ${hindi.stem}`);
     assert.ok(!/करता\/करती|था\/थी|है है|है। है/.test(hindi.stem), `${ql.qlId} unnatural gender or duplication: ${hindi.stem}`);
+    assert.doesNotMatch(hindi.stem, /इसके बाद निर्देश हैं|के लिए निर्देश हैं|प्रमाण हैं|चिह्नित बिंदु/, `${ql.qlId} machine-like Hindi stem: ${hindi.stem}`);
     if (ql.qlId === "DIR-QL-036" || ql.qlId === "DIR-QL-037") {
       assert.ok(!/संगत बंद विन्यास|पूरे विन्यास|बंद विन्यास/.test(hindi.stem), `${ql.qlId} construction jargon: ${hindi.stem}`);
     }
