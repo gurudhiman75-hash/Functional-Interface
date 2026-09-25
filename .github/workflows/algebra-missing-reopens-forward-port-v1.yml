@@ -1,0 +1,58 @@
+name: Validate Algebra missing V4 reopens forward-port
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp002.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp003.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp004.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp008.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp011.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp014.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp002.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp003.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp004.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp008.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp011.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp014.test.ts
+  workflow_dispatch:
+
+concurrency:
+  group: algebra-missing-v4-reopens-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-forward-port:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle V4 reopen proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/algebra
+          for cp in 002 003 004 008 011 014; do
+            pnpm --dir artifacts/api-server exec esbuild               src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp${cp}.test.ts               --bundle --platform=node --format=esm               --outfile=dist/quant-v4/algebra/permanent-english-review-v4-cp${cp}.test.mjs
+          done
+      - name: Run V4 reopen proofs
+        run: |
+          cd artifacts/api-server
+          for cp in 002 003 004 008 011 014; do
+            node dist/quant-v4/algebra/permanent-english-review-v4-cp${cp}.test.mjs
+          done
