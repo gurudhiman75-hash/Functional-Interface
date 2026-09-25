@@ -18,7 +18,11 @@ export const ENG008_CP003_PASSAGES_V1:readonly Eng008Cp003PassageV1[]=[
 
 One rainy day, the fruit seller did not arrive. The dog remained near the gate for several hours and refused food offered by a porter. The next morning, the seller returned and explained that he had been ill. He laughed when told about the dog's behaviour and admitted that he had been feeding it leftover fruit and bread for months.
 
-The staff then understood that the dog's daily visit was not random. It had quietly built a routine around a person who had shown it regular kindness.`,
+The staff then understood that the dog's daily visit was not random. It had quietly built a routine around a person who had shown it regular kindness.
+
+The station staff had also noticed that the dog behaved differently from other strays that wandered through the area. It did not search dustbins or follow passengers carrying food. It usually arrived at nearly the same time, watched the gate, and left only after the fruit seller had opened his stall. Because the pattern was so consistent, some staff members had started joking that the dog kept a more reliable schedule than a few regular commuters.
+
+After the rainy-day incident, the fruit seller began carrying a small bowl for water and a little extra food. The staff did not officially adopt the dog, but they became more attentive to its routine. What had first seemed like an unexplained habit now looked like a simple example of how repeated small acts can shape behaviour over time.`,
  questions:[
   q("N01-Q1","BP-F01","easy","Where did the dog usually wait?","Beside the outer gate of the station",["Inside the ticket office","On the railway tracks","Near the fruit seller's house"],"The passage directly says the dog waited beside the outer gate.","it waited beside the outer gate"),
   q("N01-Q2","BP-F02","medium","Why did the dog remain at the station for hours on the rainy day?","It was waiting for the fruit seller who usually arrived there",["It was afraid of the rain","It had missed the morning train","It was guarding the station"],"The fruit seller was absent that day, and the dog's routine had formed around him.","the fruit seller did not arrive ... The dog remained near the gate"),
@@ -37,7 +41,11 @@ The staff then understood that the dog's daily visit was not random. It had quie
 
 The driver suggested a smaller lake, an old market street and a public garden. None had appeared in the travel posts Rhea had read, but all were on the same bus route. She spent more time at each place than she had expected and spoke with shopkeepers and students along the way.
 
-By evening, Rhea realised that the trip had become less about completing a checklist and more about understanding the town at a slower pace. The road closure had changed her plan, but it had also made the day feel less rushed.`,
+By evening, Rhea realised that the trip had become less about completing a checklist and more about understanding the town at a slower pace. The road closure had changed her plan, but it had also made the day feel less rushed.
+
+The change also altered how Rhea used her time. On her original plan, she had allowed only twenty or thirty minutes at several viewpoints because she wanted to cover as many locations as possible. On the revised route, the stops were closer together, so she did not spend much time moving between them. That gave her more time to sit near the lake, browse the old market and speak with people who lived in the town.
+
+Rhea later compared the two versions of her itinerary. The first had looked more impressive on a map because it contained famous places, but it had left little room for delay or conversation. The second was less ambitious and had been created only because of a road closure, yet it gave her a clearer sense of the town. She decided that future trips would include fewer fixed stops and more time for unexpected changes.`,
  questions:[
   q("N02-Q1","BP-F01","easy","Why could Rhea not follow her original plan exactly?","One of the roads was closed for repairs",["Her phone stopped working","The viewpoints were too expensive","The bus service had ended"],"The bus driver told her that one road on her list was closed.","one of the roads ... was closed for repairs"),
   q("N02-Q2","BP-F02","medium","What can be inferred about the places suggested by the driver?","They were less famous online but convenient to visit together",["They were all outside the town","They were more expensive than the viewpoints","They could be reached only on foot"],"They were absent from Rhea's saved travel posts but lay on the same bus route.","None had appeared in the travel posts ... but all were on the same bus route"),
@@ -56,7 +64,11 @@ By evening, Rhea realised that the trip had become less about completing a check
 
 The idea initially received mixed reactions. Some residents worried that tools would be damaged or not returned. The group therefore introduced a simple sign-out sheet and asked borrowers to report faults instead of quietly returning damaged equipment.
 
-After three months, the shelf was being used regularly. Only two items had needed replacement, and both failures were due to age rather than misuse. The project did not remove the need for personal tools, but it reduced unnecessary purchases and made occasional repair work easier for many households.`,
+After three months, the shelf was being used regularly. Only two items had needed replacement, and both failures were due to age rather than misuse. The project did not remove the need for personal tools, but it reduced unnecessary purchases and made occasional repair work easier for many households.
+
+The group also learned that convenience mattered. At first, the storeroom could be opened only when one of two volunteers was available. Borrowing increased after the building manager agreed to keep the key at the reception desk during normal hours. Residents said they were more likely to borrow a ladder or drill when they did not have to arrange a special meeting to collect it.
+
+There were still limits to the idea. Small personal items, specialised equipment and frequently used tools were not added to the shelf. The residents also decided that anything unsafe or expensive to repair should not be shared casually. The project worked best for sturdy items that were needed only from time to time and could be checked easily after use.`,
  questions:[
   q("S01-Q1","BP-F01","easy","Why was the shared shelf proposed?","Many families owned the same tools that were rarely used",["The storeroom was empty","The building banned private tools","Residents wanted to sell old furniture"],"The first paragraph gives repeated ownership of rarely used tools as the reason.","many families owned the same rarely used tools"),
   q("S01-Q2","BP-F02","medium","Why was a sign-out sheet introduced?","To address concerns about responsibility and return of tools",["To calculate electricity use","To decide which tools residents could buy","To record apartment rents"],"Residents worried about damage and return, so the sheet added accountability.","worried that tools would be damaged or not returned"),
@@ -75,7 +87,11 @@ After three months, the shelf was being used regularly. Only two items had neede
 
 The volunteers began asking regular visitors to confirm attendance by noon on meal days. They also kept a small reserve rather than cooking exactly the confirmed number. This did not predict demand perfectly, but it reduced both shortages and leftovers.
 
-The kitchen later added a simple note explaining that confirmations helped with planning but were not required to receive a meal. The volunteers wanted better estimates without making the service difficult to access for people whose plans could change unexpectedly.`,
+The kitchen later added a simple note explaining that confirmations helped with planning but were not required to receive a meal. The volunteers wanted better estimates without making the service difficult to access for people whose plans could change unexpectedly.
+
+The volunteers also began recording which meal days were most difficult to predict. Attendance was relatively stable on ordinary weekdays but changed more sharply during local events, school holidays and periods of bad weather. Rather than trying to create a perfect forecast, they used the records to decide when a slightly larger reserve might be sensible.
+
+This made the planning process more flexible. The kitchen could prepare closer to expected demand without turning advance confirmation into a barrier. Volunteers also found that explaining why they asked for confirmations improved cooperation. Regular visitors understood that the request was not about restricting access; it was simply a way to reduce unnecessary waste while keeping enough food available for unexpected arrivals.`,
  questions:[
   q("S02-Q1","BP-F01","easy","What problem did the kitchen face in its first month?","The number of meals prepared did not match changing attendance",["Volunteers stopped serving evening meals","Visitors refused to eat the food","The kitchen opened only once a month"],"Attendance varied even though the same number of meals was prepared each time.","prepared the same number ... attendance varied widely"),
   q("S02-Q2","BP-F02","medium","Why did the kitchen keep a small reserve?","To handle people who came without being included in the confirmed count",["To sell meals the next day","To reduce the number of volunteers","To avoid asking for confirmations"],"A reserve protected against imperfect attendance estimates.","kept a small reserve rather than cooking exactly the confirmed number"),
@@ -94,7 +110,11 @@ The kitchen later added a simple note explaining that confirmations helped with 
 
 The microphones could not tell the team exactly how many animals were present. However, changes in the frequency and location of calls helped researchers identify periods when whale activity was higher in one part of the bay than another. Boat observations were still used on selected days to check how well the sound patterns matched what could be seen.
 
-The project showed that passive listening could extend the amount of time the bay was monitored while reducing the need for repeated boat trips. The researchers treated the method as an additional source of evidence, not a complete replacement for direct observation.`,
+The project showed that passive listening could extend the amount of time the bay was monitored while reducing the need for repeated boat trips. The researchers treated the method as an additional source of evidence, not a complete replacement for direct observation.
+
+The recordings created a large amount of data, so the researchers did not listen to every minute manually. Software first marked sections that were likely to contain whale calls, and researchers then reviewed samples to confirm whether the sounds had been identified correctly. Background noise from boats and weather occasionally made the recordings harder to interpret.
+
+The team was especially interested in whether the pattern changed across different parts of the day. Some fixed microphones recorded more calls during early morning hours, while others showed greater activity later. The researchers were careful not to assume that more calls always meant more whales, since the same animals might call at different rates. Even so, the pattern helped them decide where direct observations would be most useful.`,
  questions:[
   q("SC01-Q1","BP-F01","easy","Why did the team place underwater microphones in the bay?","To study whale activity without constantly following the animals by boat",["To measure the depth of the bay","To warn ships about storms","To record tourist boats"],"The first paragraph directly states the purpose of the microphones.","study the movement ... without following them constantly by boat"),
   q("SC01-Q2","BP-F02","medium","Why were boat observations still used?","To compare visible whale activity with the sound patterns",["To move the microphones every hour","To count fishing vessels","To repair the coastline"],"Boat observations acted as a check on the acoustic evidence.","check how well the sound patterns matched what could be seen"),
@@ -113,7 +133,11 @@ The project showed that passive listening could extend the amount of time the ba
 
 During the first month, engineers reviewed energy use and also collected complaints from residents. Most streets operated as expected, but one lane produced repeated complaints because trees were blocking a motion sensor. The lamp there stayed dim longer than intended.
 
-After the branches were trimmed and the sensor angle was adjusted, the problem largely disappeared. The trial showed that an automated system can save energy, but its performance still depends on ordinary physical conditions such as placement, maintenance and visibility.`,
+After the branches were trimmed and the sensor angle was adjusted, the problem largely disappeared. The trial showed that an automated system can save energy, but its performance still depends on ordinary physical conditions such as placement, maintenance and visibility.
+
+Engineers also compared electricity use with the previous lighting system. The largest savings appeared on quieter roads where the lamps spent more time in the lower-brightness setting. On busier roads, the difference was smaller because passing vehicles and pedestrians kept triggering full brightness.
+
+Residents were asked whether they felt less safe under the new system. Most did not report a problem, but the complaints from the lane with the blocked sensor showed why technical performance could not be judged by energy data alone. A system that saves electricity but fails to respond when people are present would not meet its purpose. For that reason, the town decided that future installations would include periodic checks of sensor visibility as part of routine maintenance.`,
  questions:[
   q("SC02-Q1","BP-F01","easy","What was the purpose of the new streetlights?","To reduce electricity use without leaving roads dark",["To remove all streetlights at night","To increase traffic speed","To replace road signs"],"The first paragraph directly states the aim.","reduce electricity use without leaving streets dark"),
   q("SC02-Q2","BP-F02","medium","Why did one lane receive repeated complaints?","A tree blocked the sensor and kept the light dim too long",["The lamp used too much electricity","Residents wanted the road closed","The sensor made the lamp too bright all day"],"The passage directly links the complaints to blocked sensor visibility.","trees were blocking a motion sensor"),
@@ -132,7 +156,11 @@ After the branches were trimmed and the sensor angle was adjusted, the problem l
 
 The owner expected most younger customers to choose the digital option, but the pattern was less predictable. Some older customers preferred digital receipts because they were easier to store, while some younger buyers still wanted paper for returns. The shop therefore kept both choices.
 
-After two months, paper use had fallen, but not disappeared. The owner concluded that the useful change was not replacing one format with another; it was allowing customers to choose the format that suited the transaction.`,
+After two months, paper use had fallen, but not disappeared. The owner concluded that the useful change was not replacing one format with another; it was allowing customers to choose the format that suited the transaction.
+
+The shop also noticed that digital receipts were useful in a different way than expected. Customers who returned after several weeks could often find an old message more easily than a small paper slip kept in a wallet or shopping bag. On the other hand, some buyers purchasing gifts preferred paper because it was easier to hand to another person.
+
+The owner briefly considered making digital receipts the default option and printing paper only on request. He decided against changing the process immediately because staff were still learning which customers found each format convenient. Instead, the shop continued asking at the counter. This added only a few seconds to each sale and gave the owner better information about actual customer behaviour than his original assumptions had provided.`,
  questions:[
   q("B01-Q1","BP-F01","easy","What choice did the shop give customers?","A printed receipt or a digital receipt sent by message",["Cash payment or no receipt","A discount or a receipt","Return or exchange only"],"The first paragraph directly describes the two receipt options.","printed receipt or one sent by message"),
   q("B01-Q2","BP-F02","medium","What surprised the owner?","Receipt preference did not follow age as neatly as expected",["No customer wanted a receipt","Paper use increased sharply","Digital receipts caused more returns"],"Older and younger customers did not divide neatly by format preference.","the pattern was less predictable"),
@@ -151,7 +179,11 @@ After two months, paper use had fallen, but not disappeared. The owner concluded
 
 Instead of buying faster packing machines, the supervisor first moved a day's supply of flat cartons to a rack beside the line. Workers could then open a carton when needed without leaving their stations.
 
-The change cost very little, but average packing time improved. The supervisor noted that the machines had never been the main problem; the delay came from the way materials were arranged. The experience encouraged the factory to examine other small interruptions before considering expensive equipment upgrades.`,
+The change cost very little, but average packing time improved. The supervisor noted that the machines had never been the main problem; the delay came from the way materials were arranged. The experience encouraged the factory to examine other small interruptions before considering expensive equipment upgrades.
+
+The supervisor then asked workers to identify other delays that appeared small but happened many times during a shift. They mentioned labels that were stored too far from the packing table and a shared tape dispenser that regularly had to be moved between two stations. Neither issue seemed important on its own, but repeated dozens of times, each one interrupted the flow of work.
+
+The factory did not reject investment in better machinery. Management simply decided that equipment purchases should follow a review of the existing process. If a delay could be removed through layout, storage or task arrangement, that option would be tested first. More expensive upgrades would still be considered when the existing machines genuinely limited production rather than when the problem came from avoidable movement or waiting.`,
  questions:[
   q("B02-Q1","BP-F01","easy","What were workers waiting for at the end of the packing line?","Empty cartons",["Finished toys","New machines","Delivery trucks"],"The opening sentence directly identifies the missing item.","waited for empty cartons"),
   q("B02-Q2","BP-F02","medium","Why did moving cartons beside the line improve packing time?","Workers no longer had to leave repeatedly to fetch them",["The cartons became larger","The machines ran faster","Fewer toys were packed"],"The new arrangement removed repeated trips away from the line.","without leaving their stations"),
