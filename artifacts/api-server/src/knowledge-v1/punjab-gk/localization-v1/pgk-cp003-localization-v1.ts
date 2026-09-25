@@ -1,0 +1,98 @@
+import { PGK_001_CP003_REVIEW_BATCH_V2 } from "../pgk-001-cp003-review-batch-v2";
+import { PGK_CP003_HI_V1 } from "./pgk-cp003-hi-v1";
+import { PGK_CP003_PA_V1 } from "./pgk-cp003-pa-v1";
+import {
+  PGK_ENGLISH_CERTIFICATION_V1,
+  PGK_LOCALIZATION_V1,
+  type PgkLocaleV1,
+  type PgkNativeOverlayV1,
+} from "./pgk-localization-types-v1";
+
+type EnglishQuestion = (typeof PGK_001_CP003_REVIEW_BATCH_V2)[number];
+type NativeLocale = Exclude<PgkLocaleV1, "en">;
+
+export type PgkCp003LocalizedQuestionV1 = {
+  questionId: string;
+  qlId: string;
+  qlName: string;
+  difficulty: EnglishQuestion["difficulty"];
+  stem: string;
+  options: string[];
+  correctIndex: number;
+  canonicalAnswer: string;
+  explanation: string;
+  factIds: string[];
+  sourceIds: string[];
+  reviewOnly: true;
+  runtimeRegistered: false;
+  locale: PgkLocaleV1;
+  localizationV1: {
+    version: typeof PGK_LOCALIZATION_V1;
+    englishQuestionId: string;
+    englishCertification: typeof PGK_ENGLISH_CERTIFICATION_V1;
+    semanticInvariant: true;
+    qlInvariant: true;
+    difficultyInvariant: true;
+    factInvariant: true;
+    sourceInvariant: true;
+    optionOrderInvariant: true;
+    correctIndexInvariant: true;
+    reviewOnly: true;
+  };
+};
+
+function overlayFor(index: number, locale: NativeLocale): PgkNativeOverlayV1 {
+  const number = index + 1;
+  const overlay = locale === "hi" ? PGK_CP003_HI_V1[number] : PGK_CP003_PA_V1[number];
+  if (!overlay) throw new Error(`PGK-001 CP003 #${number}: missing ${locale} localization overlay`);
+  return overlay;
+}
+
+function baseQuestion(
+  q: EnglishQuestion,
+  locale: PgkLocaleV1,
+  stem: string,
+  options: string[],
+  explanation: string,
+): PgkCp003LocalizedQuestionV1 {
+  return {
+    questionId: locale === "en" ? q.questionId : `${q.questionId}-${locale.toUpperCase()}`,
+    qlId: q.qlId,
+    qlName: q.qlName,
+    difficulty: q.difficulty,
+    stem,
+    options,
+    correctIndex: q.correctIndex,
+    canonicalAnswer: options[q.correctIndex]!,
+    explanation,
+    factIds: [...q.factIds],
+    sourceIds: [...q.sourceIds],
+    reviewOnly: true,
+    runtimeRegistered: false,
+    locale,
+    localizationV1: {
+      version: PGK_LOCALIZATION_V1,
+      englishQuestionId: q.questionId,
+      englishCertification: PGK_ENGLISH_CERTIFICATION_V1,
+      semanticInvariant: true,
+      qlInvariant: true,
+      difficultyInvariant: true,
+      factInvariant: true,
+      sourceInvariant: true,
+      optionOrderInvariant: true,
+      correctIndexInvariant: true,
+      reviewOnly: true,
+    },
+  };
+}
+
+export function generatePgkCp003LocalizedReviewV1(locale: PgkLocaleV1): PgkCp003LocalizedQuestionV1[] {
+  return PGK_001_CP003_REVIEW_BATCH_V2.map((q, index) => {
+    if (locale === "en") return baseQuestion(q, "en", q.stem, [...q.options], q.explanation);
+    const overlay = overlayFor(index, locale);
+    return baseQuestion(q, locale, overlay.stem, [...overlay.options], overlay.explanation);
+  });
+}
+
+export const PGK_CP003_LOCALIZATION_V1_SUPPORTED_LOCALES = ["en", "hi", "pa"] as const;
+export const PGK_CP003_LOCALIZATION_V1_SUPPORTED_CPS = ["PGK-001-CP-003"] as const;
