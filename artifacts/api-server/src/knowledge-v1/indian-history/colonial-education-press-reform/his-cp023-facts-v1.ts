@@ -12,7 +12,7 @@ export const HIS_CP023_FACTS_V1:readonly Fact[]=[
   ["edu-calcutta-madrasa","Warren Hastings founded the Calcutta Madrasa in 1781.",["NIOS-HIS-315-L18"]],
   ["edu-asiatic-society","William Jones founded the Asiatic Society of Bengal in 1784.",["NIOS-HIS-315-L18"]],
   ["edu-benares-sanskrit","Jonathan Duncan founded the Sanskrit College at Benares in 1794.",["NIOS-HIS-315-L18"]],
-  ["edu-fort-william","Lord Wellesley founded Fort William College in 1801 to train young Company civil servants in Indian languages and culture.",["NIOS-HIS-315-L18"]],
+  ["edu-fort-william","Lord Wellesley founded Fort William College in 1800 to train young Company civil servants in Indian languages and culture.",["NIOS-HIS-315-L18"]],
   ["edu-charter-lakh","The Charter Act of 1813 required the Company to spend one lakh rupees annually on education.",["NIOS-HIS-315-L18"]],
   ["edu-macaulay-lawmember","T.B. Macaulay became Law Member of the Governor-General's Council in 1834 and a leading advocate of English education.",["NIOS-HIS-315-L18"]],
   ["edu-macaulay-minute","Macaulay issued his Minute on Indian Education on 2 February 1835.",["NIOS-HIS-315-L18"]],
