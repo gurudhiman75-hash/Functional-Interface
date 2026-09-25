@@ -12,6 +12,7 @@ on:
       - "artifacts/api-server/src/knowledge-v1/science/everyday-science/**"
       - "artifacts/api-server/src/knowledge-v1/science/scientists-discoveries-inventions/**"
       - "artifacts/api-server/src/knowledge-v1/science/scientific-instruments/**"
+      - "artifacts/api-server/src/knowledge-v1/science/mixed-general-science/**"
   workflow_dispatch:
 
 concurrency:
@@ -73,3 +74,16 @@ jobs:
       - name: Run General Science CP038 multilingual audit
         working-directory: artifacts/api-server
         run: node dist/sci-general-cp038-multilingual-audit-v1.mjs
+
+      - name: Bundle General Science CP039 multilingual audit
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/knowledge-v1/science/general-science-localization-v1/sci-general-cp039-multilingual-audit-v1.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sci-general-cp039-multilingual-audit-v1.mjs
+      - name: Run General Science CP039 multilingual audit
+        working-directory: artifacts/api-server
+        run: node dist/sci-general-cp039-multilingual-audit-v1.mjs
