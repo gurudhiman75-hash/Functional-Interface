@@ -5,6 +5,7 @@ import {
   codedChainPa,
   coordinateTextPa,
   directionAnglePa,
+  directionFromAnglePa,
   directionPa,
   evidenceChainPa,
   metresPa,
@@ -20,6 +21,50 @@ import {
 import { localizeDiagramPunjabi, optionLabelPunjabi } from "./punjabi-editorial-overrides";
 import { renderPunjabiStem } from "./punjabi-stems";
 import type { LocalizedDirectionExplanationPunjabi, LocalizedDirectionOptionPunjabi, LocalizedDirectionQuestionPunjabi } from "./punjabi-types";
+
+function cardinalVectorPa(direction: unknown, distance: unknown): R {
+  const d = Number(distance ?? 0);
+  switch (String(direction)) {
+    case "NORTH": return { x: 0, y: d };
+    case "NORTH_EAST": return { x: d, y: d };
+    case "EAST": return { x: d, y: 0 };
+    case "SOUTH_EAST": return { x: d, y: -d };
+    case "SOUTH": return { x: 0, y: -d };
+    case "SOUTH_WEST": return { x: -d, y: -d };
+    case "WEST": return { x: -d, y: 0 };
+    case "NORTH_WEST": return { x: -d, y: d };
+    default: return { x: 0, y: 0 };
+  }
+}
+
+function addCoordinatePa(left: R, right: R): R {
+  return { x: Number(left.x ?? 0) + Number(right.x ?? 0), y: Number(left.y ?? 0) + Number(right.y ?? 0) };
+}
+
+function applyNamedTurnPa(facing: unknown, turn: unknown): string {
+  const offset = String(turn) === "LEFT" ? -90
+    : String(turn) === "RIGHT" ? 90
+      : String(turn) === "ABOUT" ? 180
+        : 0;
+  return directionFromAnglePa(directionAnglePa(facing) + offset);
+}
+
+function replayAdvancedPa(initialFacing: unknown, operations: readonly R[]): { readonly steps: string[]; readonly endpoint: R; readonly finalFacing: string } {
+  let facing = String(initialFacing);
+  let endpoint: R = { x: 0, y: 0 };
+  const steps: string[] = [];
+  for (const operation of operations) {
+    if (operation.kind === "TURN") {
+      const before = facing;
+      facing = applyNamedTurnPa(facing, operation.turn);
+      steps.push(`${turnPa(operation.turn)}: ਮੂੰਹ ${directionPa(before)} ਤੋਂ ${directionPa(facing)} ਵੱਲ ਹੋ ਜਾਂਦਾ ਹੈ।`);
+      continue;
+    }
+    endpoint = addCoordinatePa(endpoint, cardinalVectorPa(facing, operation.distance));
+    steps.push(`${metresPa(operation.distance)} ${directionPa(facing)} ਵੱਲ ਦੀ ਚਾਲ; ਹੁਣ ਥਾਂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(endpoint)} ਹੈ।`);
+  }
+  return { steps, endpoint, finalFacing: facing };
+}
 
 function renderExplanationPunjabi(english: R): LocalizedDirectionExplanationPunjabi {
   const qlId = String(english.qlId);
@@ -116,101 +161,142 @@ function renderExplanationPunjabi(english: R): LocalizedDirectionExplanationPunj
 
   if (["DIR-QL-036", "DIR-QL-037", "DIR-QL-038", "DIR-QL-039", "DIR-QL-040", "DIR-QL-041", "DIR-QL-042", "DIR-QL-043", "DIR-QL-044"].includes(qlId)) {
     if (qlId === "DIR-QL-036") {
-      return {
-        ...base,
-        steps: [
-          `ਦਿੱਤੇ ਤਿੰਨ ਰਿਸ਼ਤਿਆਂ ਤੋਂ ${namePa(s.missingFrom)} ਅਤੇ ${namePa(s.missingTo)} ਦੀ ਥਾਂ ਤੈਅ ਕਰੋ।`,
-          `ਦੋਨਾਂ ਥਾਵਾਂ ਦੀ ਤੁਲਨਾ ਕਰਨ ਉੱਤੇ ${namePa(s.missingTo)}, ${namePa(s.missingFrom)} ਤੋਂ ${answer} ਵੱਲ ਹੈ।`,
-        ],
-        resultLine: `ਇਸ ਲਈ ਛੱਡੀ ਹੋਈ ਦਿਸ਼ਾ ${answer} ਹੈ।`,
-      };
+      const steps = (s.visibleRelations ?? []).map((relation: R) => relationSentencePa(relation, true));
+      steps.push(
+        `ਇਨ੍ਹਾਂ ਸੰਬੰਧਾਂ ਤੋਂ ${namePa(s.missingTo)}, ${namePa(s.missingFrom)} ਤੋਂ ${metresPa(s.missingDistance)} ${answer} ਵੱਲ ਹੈ।`,
+      );
+      return { ...base, steps, resultLine: `ਇਸ ਲਈ ਛੱਡੀ ਹੋਈ ਦਿਸ਼ਾ ${answer} ਹੈ।` };
     }
+
     if (qlId === "DIR-QL-037") {
-      return {
-        ...base,
-        steps: [
-          "ਪਹਿਲਾਂ ਦਿੱਤੇ ਦੋ ਮੁੱਖ ਰਿਸ਼ਤਿਆਂ ਤੋਂ ਪਹਿਲੇ ਤਿੰਨ ਬਿੰਦੂਆਂ ਦੀ ਥਾਂ ਤੈਅ ਕਰੋ।",
-          "ਹੁਣ ਚਾਰਾਂ ਕਥਨਾਂ ਨੂੰ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਉਨ੍ਹਾਂ ਥਾਵਾਂ ਨਾਲ ਮਿਲਾਓ।",
-          `ਜਿਹੜਾ ਕਥਨ ਕਿਸੇ ਬਿੰਦੂ ਨੂੰ ਬਾਕੀ ਜਾਣਕਾਰੀ ਨਾਲ ਨਾ ਮਿਲਦੀ ਥਾਂ ਉੱਤੇ ਰੱਖਦਾ ਹੈ, ਉਹੀ ਗਲਤ ਹੈ; ਇੱਥੇ ਉਹ ${answer} ਹੈ।`,
-        ],
-        resultLine: `ਗਲਤ ਕਥਨ ${answer} ਹੈ।`,
-      };
+      const steps: string[] = [
+        "ਪਹਿਲਾਂ ਮੁੱਖ ਸੰਬੰਧਾਂ ਤੋਂ ਪੱਕਾ ਨਕਸ਼ਾ ਬਣਾਓ:",
+        ...(s.anchorRelations ?? []).map((relation: R) => relationSentencePa(relation, true)),
+        "ਹੁਣ ਹਰ ਕਥਨ ਨੂੰ ਇਸੇ ਨਕਸ਼ੇ ਨਾਲ ਮਿਲਾਓ:",
+      ];
+      for (let index = 0; index < (s.relations ?? []).length; index += 1) {
+        steps.push(`ਕਥਨ ${index + 1}: ${relationSentencePa(s.relations[index], true)}`);
+      }
+      steps.push(`ਜਿਹੜਾ ਕਥਨ ਬਾਕੀ ਸੰਬੰਧਾਂ ਨਾਲ ਨਹੀਂ ਮਿਲਦਾ, ਉਹ ${answerSentence}`);
+      return { ...base, steps, resultLine: `ਗਲਤ ਕਥਨ ${answerSentence}` };
     }
+
     if (qlId === "DIR-QL-038") {
-      const unknown = asR((s.legs ?? [])[Number(s.unknownIndex ?? 0)] ?? {});
-      return {
-        ...base,
-        steps: [
-          "ਪਹਿਲਾਂ ਸਾਰੀਆਂ ਦਿੱਤੀਆਂ ਚਾਲਾਂ ਨੂੰ ਜੋੜ ਕੇ ਉਹਨਾਂ ਦਾ ਅੰਤਿਮ ਬਿੰਦੂ ਕੱਢੋ।",
-          `ਦਿੱਤਾ ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(asR(s.target))} ਹੈ।`,
-          `ਬਾਕੀ ${metresPa(unknown.distance)} ਦੀ ਚਾਲ ਨੂੰ ਇਸ ਅੰਤਿਮ ਬਿੰਦੂ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ${answer} ਵੱਲ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।`,
-        ],
-        resultLine: `ਅਣਜਾਣ ਚਾਲ ਦੀ ਦਿਸ਼ਾ ${answer} ਹੈ।`,
-      };
+      const unknownIndex = Number(s.unknownIndex ?? 0);
+      const unknown = asR((s.legs ?? [])[unknownIndex] ?? {});
+      let knownEndpoint: R = { x: 0, y: 0 };
+      const steps: string[] = [];
+      for (let index = 0; index < (s.legs ?? []).length; index += 1) {
+        const leg = asR(s.legs[index]);
+        if (index === unknownIndex || leg.direction === "UNKNOWN") {
+          steps.push(`ਚਾਲ ${index + 1}: ${metresPa(leg.distance)}, ਦਿਸ਼ਾ ਨਹੀਂ ਦਿੱਤੀ ਗਈ।`);
+          continue;
+        }
+        knownEndpoint = addCoordinatePa(knownEndpoint, cardinalVectorPa(leg.direction, leg.distance));
+        steps.push(`ਚਾਲ ${index + 1}: ${metresPa(leg.distance)} ${directionPa(leg.direction)} ਵੱਲ; ਦਿੱਤੀਆਂ ਚਾਲਾਂ ਤੋਂ ਥਾਂ ${coordinateTextPa(knownEndpoint)} ਹੈ।`);
+      }
+      const required = cardinalVectorPa(s.answerDirection, unknown.distance);
+      const restored = addCoordinatePa(knownEndpoint, required);
+      steps.push(`ਦਿੱਤਾ ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(asR(s.target))} ਹੈ।`);
+      steps.push(`ਬਾਕੀ ${metresPa(unknown.distance)} ਦੀ ਚਾਲ ${directionPa(s.answerDirection)} ਵੱਲ ਰੱਖਣ ਉੱਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ${coordinateTextPa(restored)} ਬਣਦਾ ਹੈ।`);
+      return { ...base, steps, resultLine: `ਅਣਜਾਣ ਚਾਲ ਦੀ ਦਿਸ਼ਾ ${answer} ਹੈ।` };
     }
+
     if (qlId === "DIR-QL-039") {
-      return {
-        ...base,
-        steps: [
-          `ਪਹਿਲੀ ${metresPa(s.firstDistance)} ਦੀ ਚਾਲ ਸ਼ੁਰੂਆਤੀ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਅਨੁਸਾਰ ਲਗਾਓ।`,
-          "ਫਿਰ ਖੱਬਾ ਮੋੜ, ਸੱਜਾ ਮੋੜ, ਪਿੱਛੇ ਮੋੜ ਅਤੇ ਬਿਨਾਂ ਮੋੜ ਦੇ ਸਿੱਧੀ ਚਾਲ—ਚਾਰਾਂ ਸੰਭਾਵਨਾਵਾਂ ਨੂੰ ਬਾਕੀ ਚਾਲਾਂ ਨਾਲ ਜਾਂਚੋ।",
-          `ਕੇਵਲ ${answer} ਲੈਣ ਉੱਤੇ ਦਿੱਤਾ ਅੰਤਿਮ ਬਿੰਦੂ ਮਿਲਦਾ ਹੈ।`,
-        ],
-        resultLine: `ਅਣਜਾਣ ਮੋੜ ${answer} ਹੈ।`,
-      };
+      const firstDirection = String(s.initialFacing);
+      const secondDirection = applyNamedTurnPa(firstDirection, s.answerTurn);
+      const thirdDirection = applyNamedTurnPa(secondDirection, s.knownTurn);
+      let endpoint: R = { x: 0, y: 0 };
+      endpoint = addCoordinatePa(endpoint, cardinalVectorPa(firstDirection, s.firstDistance));
+      const steps: string[] = [
+        `ਸ਼ੁਰੂ ਵਿੱਚ ਮੂੰਹ ${directionPa(firstDirection)} ਵੱਲ ਹੈ; ਪਹਿਲੀ ਚਾਲ ${metresPa(s.firstDistance)} ${directionPa(firstDirection)} ਵੱਲ ਹੈ।`,
+        `ਅਣਜਾਣ ਮੋੜ ${answer} ਲੈਣ ਉੱਤੇ ਅਗਲੀ ਦਿਸ਼ਾ ${directionPa(secondDirection)} ਬਣਦੀ ਹੈ; ਦੂਜੀ ਚਾਲ ${metresPa(s.secondDistance)} ਇਸੇ ਦਿਸ਼ਾ ਵਿੱਚ ਹੈ।`,
+      ];
+      endpoint = addCoordinatePa(endpoint, cardinalVectorPa(secondDirection, s.secondDistance));
+      steps.push(`ਪਹਿਲੀਆਂ ਦੋ ਚਾਲਾਂ ਤੋਂ ਬਾਅਦ ਥਾਂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(endpoint)} ਹੈ।`);
+      endpoint = addCoordinatePa(endpoint, cardinalVectorPa(thirdDirection, s.thirdDistance));
+      steps.push(`${turnPa(s.knownTurn)} ਤੋਂ ਬਾਅਦ ਤੀਜੀ ਚਾਲ ${metresPa(s.thirdDistance)} ${directionPa(thirdDirection)} ਵੱਲ ਹੈ।`);
+      steps.push(`ਇਸ ਨਾਲ ਅੰਤਿਮ ਬਿੰਦੂ ${coordinateTextPa(endpoint)} ਮਿਲਦਾ ਹੈ, ਜੋ ਦਿੱਤੇ ${coordinateTextPa(asR(s.target))} ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।`);
+      return { ...base, steps, resultLine: `ਅਣਜਾਣ ਮੋੜ ${answer} ਹੈ।` };
     }
+
     if (qlId === "DIR-QL-040") {
-      return {
-        ...base,
-        steps: [
-          "ਉੱਤਰ, ਪੂਰਬ, ਦੱਖਣ ਅਤੇ ਪੱਛਮ—ਚਾਰਾਂ ਨੂੰ ਸੰਭਵ ਸ਼ੁਰੂਆਤੀ ਦਿਸ਼ਾ ਮੰਨ ਕੇ ਉਹੀ ਰਸਤਾ ਚਲਾਓ।",
-          `ਦਿੱਤਾ ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(asR(s.target))} ਹੈ।`,
-          `ਕੇਵਲ ${answer} ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਉੱਤੇ ਰਸਤਾ ਉਸੇ ਅੰਤਿਮ ਬਿੰਦੂ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ।`,
-        ],
-        resultLine: `ਸ਼ੁਰੂਆਤੀ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ${answer} ਹੈ।`,
-      };
+      const replay = replayAdvancedPa(s.answerFacing, (s.operations ?? []) as R[]);
+      const steps = [
+        `ਸਹੀ ਸ਼ੁਰੂਆਤੀ ਮੂੰਹ ${directionPa(s.answerFacing)} ਮੰਨ ਕੇ ਰਸਤਾ ਚਲਾਓ:`,
+        ...replay.steps,
+        `ਅੰਤਿਮ ਬਿੰਦੂ ${coordinateTextPa(replay.endpoint)} ਹੈ, ਜੋ ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੇ ${coordinateTextPa(asR(s.target))} ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।`,
+      ];
+      return { ...base, steps, resultLine: `ਸ਼ੁਰੂਆਤੀ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ${answer} ਹੈ।` };
     }
+
     if (qlId === "DIR-QL-041") {
+      const steps: string[] = [
+        ...(s.relations ?? []).map((relation: R) => relationSentencePa(relation, true)),
+      ];
+      for (const movement of (s.movements ?? []) as R[]) {
+        steps.push(`${namePa(s.startEntity)} ਤੋਂ ${metresPa(movement.distance)} ${directionPa(movement.direction)} ਵੱਲ ਚੱਲਣ ਉੱਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਮੁੱਖ ਆਧਾਰ ਤੋਂ ${coordinateTextPa(asR(s.endpoint))} ਹੈ।`);
+      }
+      const referenceRelation = ((s.relations ?? []) as R[]).find((relation: R) => relation.toEntity === s.referenceEntity);
+      const reference = referenceRelation ? asR(referenceRelation.vector) : { x: 0, y: 0 };
+      const endpoint = asR(s.endpoint);
+      const dx = Number(endpoint.x ?? 0) - Number(reference.x ?? 0);
+      const dy = Number(endpoint.y ?? 0) - Number(reference.y ?? 0);
+      const horizontal = Math.abs(dx), vertical = Math.abs(dy);
+      steps.push(`${namePa(s.referenceEntity)} ਤੋਂ ਅੰਤਿਮ ਬਿੰਦੂ ਤੱਕ ਫ਼ਰਕ ${coordinateTextPa({ x: dx, y: dy })} ਹੈ।`);
+      steps.push(
+        horizontal === 0 || vertical === 0
+          ? `ਸਿੱਧੀ ਦੂਰੀ ${metresPa(s.answerDistance)} ਹੈ।`
+          : `ਸਿੱਧੀ ਦੂਰੀ = √(${horizontal}² + ${vertical}²) = ${metresPa(s.answerDistance)}।`,
+      );
+      steps.push(`ਇਸ ਲਈ ਦਿਸ਼ਾ ਅਤੇ ਦੂਰੀ ਦਾ ਸਹੀ ਜੋੜ ${answerSentence}`);
+      return { ...base, steps, resultLine: `ਅੰਤਿਮ ਸੰਬੰਧ ${answerSentence}` };
+    }
+
+    if (qlId === "DIR-QL-042" || qlId === "DIR-QL-043") {
+      const replay = replayAdvancedPa(s.initialFacing, (s.operations ?? []) as R[]);
+      const steps: string[] = [
+        `ਚੌਕੀ ${String(s.checkpoint)} ਤੋਂ ਸ਼ੁਰੂ ਵਿੱਚ ਮੂੰਹ ${directionPa(s.initialFacing)} ਵੱਲ ਹੈ।`,
+        ...replay.steps,
+        `ਅੰਤਿਮ ਬਿੰਦੂ ਚੌਕੀ ਤੋਂ ${coordinateTextPa(asR(s.endpoint))} ਹੈ।`,
+      ];
+      if (qlId === "DIR-QL-043") {
+        const endpoint = asR(s.endpoint);
+        const horizontal = Math.abs(Number(endpoint.x ?? 0));
+        const vertical = Math.abs(Number(endpoint.y ?? 0));
+        steps.push(
+          horizontal === 0 || vertical === 0
+            ? `ਸਿੱਧੀ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ${metresPa(s.answerDistance)} ਹੈ।`
+            : `ਸਿੱਧੀ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ = √(${horizontal}² + ${vertical}²) = ${metresPa(s.answerDistance)}।`,
+        );
+      } else {
+        steps.push(`ਅੰਤਿਮ ਬਿੰਦੂ ਦੀ ਚੌਕੀ ਤੋਂ ਦਿਸ਼ਾ ${answer} ਹੈ; ਅੰਤ ਵਿੱਚ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਵੱਖਰੀ ਜਾਣਕਾਰੀ ਹੈ।`);
+      }
       return {
         ...base,
-        steps: [
-          `ਪਹਿਲਾਂ ਦਿੱਤੇ ਥਾਂ-ਰਿਸ਼ਤਿਆਂ ਤੋਂ ${namePa(s.startEntity)} ਅਤੇ ${namePa(s.referenceEntity)} ਦੀ ਥਾਂ ਤੈਅ ਕਰੋ।`,
-          `ਫਿਰ ${namePa(s.startEntity)} ਤੋਂ ਦਿੱਤੀਆਂ ਚਾਲਾਂ ਨੂੰ ਕ੍ਰਮਵਾਰ ਲਗਾ ਕੇ ਅੰਤਿਮ ਬਿੰਦੂ ਕੱਢੋ।`,
-          `ਅੰਤਿਮ ਬਿੰਦੂ ਦੀ ${namePa(s.referenceEntity)} ਨਾਲ ਸਿੱਧੀ ਤੁਲਨਾ ਕਰਨ ਉੱਤੇ ਉੱਤਰ ${answer} ਮਿਲਦਾ ਹੈ।`,
-        ],
-        resultLine: `ਅੰਤਿਮ ਰਿਸ਼ਤਾ ${answer} ਹੈ।`,
+        steps,
+        resultLine: qlId === "DIR-QL-043"
+          ? `ਚੌਕੀ ਤੋਂ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ${answerSentence}`
+          : `ਚੌਕੀ ਤੋਂ ਲੋੜੀਂਦੀ ਦਿਸ਼ਾ ${answerSentence}`,
       };
     }
-    if (qlId === "DIR-QL-042") {
-      return {
-        ...base,
-        steps: [
-          `ਚੌਕੀ ${String(s.checkpoint)} ਤੋਂ ਸ਼ੁਰੂ ਕਰਕੇ ਸਾਰੀਆਂ ਚਾਲਾਂ ਅਤੇ ਮੋੜ ਕ੍ਰਮਵਾਰ ਲਗਾਓ।`,
-          "ਅੰਤਿਮ ਬਿੰਦੂ ਮਿਲਣ ਤੋਂ ਬਾਅਦ ਉਸ ਦੀ ਚੌਕੀ ਤੋਂ ਸਿੱਧੀ ਦਿਸ਼ਾ ਵੇਖੋ; ਅੰਤ ਵਿੱਚ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਨੂੰ ਉੱਤਰ ਨਾ ਮੰਨੋ।",
-          `ਅੰਤਿਮ ਬਿੰਦੂ ਚੌਕੀ ਤੋਂ ${answer} ਵੱਲ ਹੈ।`,
-        ],
-        resultLine: `ਚੌਕੀ ਤੋਂ ਲੋੜੀਂਦੀ ਦਿਸ਼ਾ ${answer} ਹੈ।`,
-      };
+
+    const hybridSteps: string[] = [
+      "ਚਿੱਤਰ ਵਿੱਚ ਦਿੱਤੇ ਸੰਬੰਧ:",
+      ...(s.diagramRelations ?? []).map((relation: R) => relationSentencePa(relation, true)),
+      "ਲਿਖਿਆ ਹੋਇਆ ਸੰਬੰਧ:",
+      relationSentencePa(asR(s.textRelation), true),
+    ];
+    let combined: R = { x: 0, y: 0 };
+    for (const relation of [...((s.diagramRelations ?? []) as R[]), asR(s.textRelation)]) {
+      combined = addCoordinatePa(combined, asR(relation.vector));
     }
-    if (qlId === "DIR-QL-043") {
-      return {
-        ...base,
-        steps: [
-          `ਚੌਕੀ ${String(s.checkpoint)} ਤੋਂ ਪੂਰਾ ਰਸਤਾ ਚਲਾ ਕੇ ਅੰਤਿਮ ਬਿੰਦੂ ਕੱਢੋ।`,
-          "ਚੌਕੀ ਅਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਵਿਚਕਾਰ ਪੂਰਬ-ਪੱਛਮ ਅਤੇ ਉੱਤਰ-ਦੱਖਣ ਦਾ ਫ਼ਰਕ ਵੱਖ-ਵੱਖ ਕੱਢੋ।",
-          `ਇਨ੍ਹਾਂ ਦੋ ਫ਼ਰਕਾਂ ਤੋਂ ਸਿੱਧੀ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ${answer} ਮਿਲਦੀ ਹੈ।`,
-        ],
-        resultLine: `ਚੌਕੀ ਤੋਂ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ${answer} ਹੈ।`,
-      };
-    }
+    hybridSteps.push(`${namePa(s.queryFrom)} ਤੋਂ ${namePa(s.queryTo)} ਤੱਕ ਕੁੱਲ ਫ਼ਰਕ ${coordinateTextPa(combined)} ਹੈ।`);
+    hybridSteps.push(`ਇਸ ਲਈ ਪੁੱਛੀ ਦਿਸ਼ਾ ${answerSentence}`);
     return {
       ...base,
-      steps: [
-        "ਚਿੱਤਰ ਵਿੱਚ ਦਿੱਤੇ ਦੋਨਾਂ ਥਾਂ-ਰਿਸ਼ਤਿਆਂ ਨੂੰ ਪਹਿਲਾਂ ਪੜ੍ਹੋ।",
-        "ਇਸ ਤੋਂ ਬਾਅਦ ਲਿਖੇ ਹੋਏ ਰਿਸ਼ਤੇ ਨੂੰ ਉਸੇ ਜਾਣਕਾਰੀ ਨਾਲ ਜੋੜੋ।",
-        `ਤਿੰਨਾਂ ਰਿਸ਼ਤਿਆਂ ਨੂੰ ਇਕੱਠੇ ਰੱਖਣ ਉੱਤੇ ਪੁੱਛੇ ਦੋ ਬਿੰਦੂਆਂ ਦੀ ਦਿਸ਼ਾ ${answer} ਮਿਲਦੀ ਹੈ।`,
-      ],
-      resultLine: `ਚਿੱਤਰ ਅਤੇ ਲਿਖੇ ਕਥਨ ਦੋਨਾਂ ਤੋਂ ਉੱਤਰ ${answerSentence}`,
+      steps: hybridSteps,
+      resultLine: `ਚਿੱਤਰ ਅਤੇ ਲਿਖੇ ਸੰਬੰਧ ਦੋਵਾਂ ਤੋਂ ਉੱਤਰ ${answerSentence}`,
     };
   }
 
