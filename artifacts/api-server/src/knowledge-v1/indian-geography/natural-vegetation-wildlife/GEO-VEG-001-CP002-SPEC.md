@@ -1,6 +1,6 @@
 # GEO-VEG-001 CP002 — Tropical Evergreen & Semi-Evergreen Forests
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED — WAVE 1 HUMAN REVIEW
 Parent blueprint: `GEO-VEG-001-BLUEPRINT.md`
 Permanent QLs: `GEO-VEG-001-QL-010` to `GEO-VEG-001-QL-018`
 
