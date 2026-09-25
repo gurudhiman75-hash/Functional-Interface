@@ -9,11 +9,11 @@ export function renderHindiStem036To044(english: R): string | null {
     case "DIR-QL-037":
       return `${(s.anchorRelations ?? []).map((r: R) => relationSentence(r, false)).join(" ")} अब इन चार कथनों पर विचार कीजिए: ${(s.relations ?? []).map((r: R, i: number) => `(${i + 1}) ${relationSentence(r, false)}`).join(" ")} इनमें से कौन-सा कथन दी गई जानकारी से मेल नहीं खाता?`;
     case "DIR-QL-038":
-      return `${placeHi(s.place)} में ${nameHi(s.subject)} का मार्ग एक चिह्नित बिंदु से शुरू होता है। मार्ग: ${(s.legs ?? []).map((leg: R) => leg.direction === "UNKNOWN" ? `${metres(leg.distance)} अज्ञात दिशा में` : `${metres(leg.distance)} ${directionHi(leg.direction)} की ओर`).join(", फिर ")}। अंतिम स्थान आरंभिक बिंदु से ${coordinateText(s.target)} है। अज्ञात चाल किस दिशा में थी?`;
+      return `${placeHi(s.place)} में ${nameHi(s.subject)} का मार्ग एक बिंदु से शुरू होता है। मार्ग: ${(s.legs ?? []).map((leg: R) => leg.direction === "UNKNOWN" ? `${metres(leg.distance)} अज्ञात दिशा में` : `${metres(leg.distance)} ${directionHi(leg.direction)} की ओर`).join(", फिर ")}। अंतिम स्थान आरंभिक बिंदु से ${coordinateText(s.target)} है। अज्ञात चाल किस दिशा में थी?`;
     case "DIR-QL-039":
       return `${placeHi(s.place)} में ${nameHi(s.subject)} का मुख आरंभ में ${directionHi(s.initialFacing)} की ओर था। पहले ${metres(s.firstDistance)} सीधे चलने के बाद अगला दिशा-निर्देश नहीं बताया गया। फिर ${metres(s.secondDistance)} सीधे चलना, ${turnHi(s.knownTurn)} और ${metres(s.thirdDistance)} सीधे चलना होता है। अंतिम स्थान आरंभिक बिंदु से ${coordinateText(s.target)} है। छूटा हुआ निर्देश क्या है?`;
     case "DIR-QL-040":
-      return `${nameHi(s.subject)} की यात्रा ${placeHi(s.place)} में एक चिह्नित बिंदु से शुरू होती है। मार्ग: ${advancedOperations(s.operations ?? [])}। अंतिम स्थान आरंभिक बिंदु से ${coordinateText(s.target)} है। प्रारंभ में मुख किस दिशा में था?`;
+      return `${nameHi(s.subject)} की यात्रा ${placeHi(s.place)} में एक बिंदु से शुरू होती है। मार्ग: ${advancedOperations(s.operations ?? [])}। अंतिम स्थान आरंभिक बिंदु से ${coordinateText(s.target)} है। प्रारंभ में मुख किस दिशा में था?`;
     case "DIR-QL-041":
       return `${(s.relations ?? []).map((r: R) => relationSentence(r)).join(" ")} एक व्यक्ति ${nameHi(s.startEntity)} से चलकर ${absoluteSteps(s.movements ?? [])} जाता है। उसका अंतिम स्थान ${nameHi(s.referenceEntity)} से किस दिशा में और कितनी न्यूनतम दूरी पर है?`;
     case "DIR-QL-042":
