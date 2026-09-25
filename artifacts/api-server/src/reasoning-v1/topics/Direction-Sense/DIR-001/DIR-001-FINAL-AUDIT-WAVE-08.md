@@ -68,6 +68,21 @@ Remediation:
 - those captions now state that the geometry is plotted proportionally from the solved positions and that written distances are the exact source values;
 - the final-audit regression rejects the ambiguous “not necessarily to scale” wording.
 
+### 5. Post-render verification found two CP008 visual defects
+
+The first green render was inspected visually rather than accepted from structural tests alone.
+
+Two residual defects were found:
+
+- QL037 relation labels were too verbose and could crowd one another around shared nodes;
+- QL041 compressed several actual movement legs into one straight start-to-finish segment.
+
+Remediation:
+
+- CP008 relation edges now use compact boxed distance labels; direction is carried by the arrow geometry and compass, while the explanation text states the full direction relation;
+- QL041 now draws every generated movement leg separately, with its own distance label and intermediate waypoint;
+- regression tests require QL041 movement-segment count to equal the generated movement count and reject verbose direction text inside CP008 edge labels.
+
 ## Chapter-wide diagram policy
 
 The audit now enforces:
