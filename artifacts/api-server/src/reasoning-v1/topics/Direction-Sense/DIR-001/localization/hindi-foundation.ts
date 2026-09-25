@@ -353,6 +353,7 @@ export function localizeSvg(svg: string): string {
     ["Decoded coded relations", "कूटित संबंधों का अर्थ"],
     ["Recovered direction-code map", "प्राप्त दिशा-कूट मानचित्र"],
     ["Each displayed chain constrains the same one-to-one code map.", "हर दी गई शृंखला उसी एक-से-एक कूट मानचित्र को निर्धारित करती है।"],
+    ["Use the recovered key to read the coded statement.", "प्राप्त कूट-सूची से कूटित कथन को पढ़ें।"],
     ["Code key", "कूट-सूची"],
     ["The four active symbols map one-to-one to North, East, South and West.", "चारों चिह्न चार मुख्य दिशाओं में से एक-एक दिशा को दर्शाते हैं।"],
     ["Equivalent coded statement", "समतुल्य कूटित कथन"],
