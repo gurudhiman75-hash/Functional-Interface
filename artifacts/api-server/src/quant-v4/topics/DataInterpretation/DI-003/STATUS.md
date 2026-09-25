@@ -1,16 +1,16 @@
 # DI-003 Grouped Bar Interpretation
 
-Status: PERMANENT ENGLISH CONTROLLED REVIEW
+Status: MULTILINGUAL_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## Authority
 
 - Release: `DI-003-PERMANENT-ENGLISH-REVIEW-P2`
 - Canonical problem: `DI-CP-003`
-- Question Studio runtime: `DI003_PERMANENT_ENGLISH_REVIEW_P2`
+- Question Studio runtime: `DI003_PERMANENT_MULTILINGUAL_REVIEW_V1`
 - Permanent QLs: `DI-QL-037` through `DI-QL-048`
 - Question Studio discovery: enabled in `CONTROLLED_REVIEW`
 - English editorial status: `ENGLISH_REVIEW_APPROVED`
-- Localization: `HI_PA_REVIEW_CANDIDATE`
+- Localization: `HI_PA_FROZEN`
 
 ## Approved V2 learner surface
 
@@ -53,7 +53,7 @@ Controlled review does **not** authorize downstream publication:
 - answers, options, explanations, working tables and visible chart labels contain no decimal learner values
 - shared grouped-bar accessibility description is now localizable
 
-## Hindi/Punjabi localization candidate V1
+## Hindi/Punjabi frozen multilingual authority V1
 
 - locales: hi-IN and pa-IN
 - 12/12 permanent QLs localized
@@ -63,4 +63,4 @@ Controlled review does **not** authorize downstream publication:
 - useful multi-step working tables localized
 - category answers/options localized while preserving correct-option identity
 - numeric/ratio/percentage options retain English-authority semantics
-- localized Question Studio activation: NOT AUTHORIZED pending human review
+- localized Question Studio activation: CONTROLLED_REVIEW authorized
