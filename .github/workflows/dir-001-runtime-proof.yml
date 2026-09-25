@@ -1,0 +1,81 @@
+name: Reasoning DIR-001 Runtime
+# CI-FANOUT-ALLOW: non-main-base
+
+
+on:
+  pull_request:
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dir-001-runtime-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dir-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Typecheck DIR-001
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --allowSyntheticDefaultImports --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch --skipLibCheck --types node $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print)
+
+      - name: Prove foundation and CP001-CP008
+        working-directory: artifacts/api-server
+        run: |
+          set -euo pipefail
+          files=(
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/foundation/foundation.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-001/dir-cp-001.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004/dir-cp-004.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-005/dir-cp-005.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-006/dir-cp-006.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-007/dir-cp-007.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-008/dir-cp-008.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-final-audit-review-pack.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-question-studio-integration.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-multilingual-freeze.test.ts"
+            "src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-final-closure.test.ts"
+          )
+          for file in "${files[@]}"; do
+            out="dist/reasoning-v1/$(basename "${file%.ts}").mjs"
+            pnpm exec esbuild "$file" --bundle --platform=node --format=esm --outfile="$out"
+            node "$out"
+          done
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server run build
+
+      - name: Export final audit review pack
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-final-audit-review-pack.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/dir-001-final-audit-review-pack.mjs
+          node dist/reasoning-v1/dir-001-final-audit-review-pack.mjs
+
+      - name: Upload final audit review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-001-final-audit-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-001-final-audit-review/
+          if-no-files-found: error
+          retention-days: 14

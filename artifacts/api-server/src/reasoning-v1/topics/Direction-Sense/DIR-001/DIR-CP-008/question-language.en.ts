@@ -1,0 +1,60 @@
+import type { Coordinate, Direction, PositionRelation } from "../foundation/types";
+import { DIRECTION_LABELS, TURN_LABELS, directionFromVector, statementText } from "./geometry";
+import type { AdvancedTurn, CaseletScenario, InitialFacingScenario, MissingMovementScenario, MissingTurnScenario, RelativePathOperation } from "./types";
+
+export const directionLabel = (direction: Direction): string => DIRECTION_LABELS[direction];
+export const turnLabel = (turn: AdvancedTurn): string => TURN_LABELS[turn];
+
+export function directionOnlyStatement(relation: PositionRelation): string {
+  return `${relation.toEntity} is ${DIRECTION_LABELS[directionFromVector(relation.vector)]} of ${relation.fromEntity}.`;
+}
+
+export function componentDescription(target: Coordinate): string {
+  const parts: string[] = [];
+  const metres = (value: number): string => `${value} ${value === 1 ? "metre" : "metres"}`;
+  if (target.x > 0) parts.push(`${metres(target.x)} East`);
+  if (target.x < 0) parts.push(`${metres(Math.abs(target.x))} West`);
+  if (target.y > 0) parts.push(`${metres(target.y)} North`);
+  if (target.y < 0) parts.push(`${metres(Math.abs(target.y))} South`);
+  if (parts.length === 0) return "at the starting point";
+  return parts.length === 1 ? parts[0] : `${parts[0]} and ${parts[1]}`;
+}
+
+function operationText(operation: RelativePathOperation): string {
+  if (operation.kind === "MOVE") return `walks ${operation.distance} metres straight ahead`;
+  return operation.turn === "LEFT" ? "turns left" : operation.turn === "RIGHT" ? "turns right" : "turns around";
+}
+
+export function pathSentence(operations: readonly RelativePathOperation[]): string {
+  return operations.map((operation, index) => `${index === 0 ? "" : index === operations.length - 1 ? "and finally " : "then "}${operationText(operation)}`).join(", ");
+}
+
+export function renderMissingGraphStem(visible: readonly PositionRelation[], missingFrom: string, missingTo: string, missingDistance: number): string {
+  return `${visible.map(statementText).join(" ")} ${missingTo} is exactly ${missingDistance} metres from ${missingFrom}. In which direction is ${missingTo} from ${missingFrom}?`;
+}
+
+export function renderContradictionStem(anchorRelations: readonly PositionRelation[], relations: readonly PositionRelation[]): string {
+  const anchors = anchorRelations.map(directionOnlyStatement).join(" ");
+  const statements = relations.map((relation, index) => `(${index + 1}) ${directionOnlyStatement(relation)}`).join(" ");
+  return `${anchors} Now consider these four statements: ${statements} Which one of these statements is not consistent with the given information?`;
+}
+
+export function renderMissingMovementStem(scenario: MissingMovementScenario): string {
+  const legs = scenario.legs.map((leg, index) => leg.direction === "UNKNOWN"
+    ? `${index === 0 ? "" : "then "}walks ${leg.distance} metres in an unknown direction`
+    : `${index === 0 ? "" : "then "}walks ${leg.distance} metres ${DIRECTION_LABELS[leg.direction]}`).join(", ");
+  return `${scenario.subject} starts from a point in ${scenario.place} and ${legs}. The final point is ${componentDescription(scenario.target)} of the starting point. Which direction was the unknown movement?`;
+}
+
+export function renderMissingTurnStem(scenario: MissingTurnScenario): string {
+  const known = scenario.knownTurn === "LEFT" ? "turns left" : "turns right";
+  return `${scenario.subject} starts in ${scenario.place} facing ${DIRECTION_LABELS[scenario.initialFacing]} and walks ${scenario.firstDistance} metres. ${scenario.subject} then makes an unknown turn, walks ${scenario.secondDistance} metres, ${known}, and walks ${scenario.thirdDistance} metres. The final point is ${componentDescription(scenario.target)} of the starting point. What was the unknown turn?`;
+}
+
+export function renderInitialFacingStem(scenario: InitialFacingScenario): string {
+  return `${scenario.subject} starts from a point in ${scenario.place} and ${pathSentence(scenario.operations)}. The final point is ${componentDescription(scenario.target)} of the starting point. In which direction was ${scenario.subject} facing initially?`;
+}
+
+export function renderCaseletStimulus(scenario: CaseletScenario): string {
+  return `${scenario.subject} starts from checkpoint ${scenario.checkpoint} in ${scenario.place}, facing ${DIRECTION_LABELS[scenario.initialFacing]}, and ${pathSentence(scenario.operations)}.`;
+}

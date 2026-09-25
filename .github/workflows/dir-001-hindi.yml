@@ -1,0 +1,38 @@
+name: Reasoning DIR-001 Hindi
+# CI-FANOUT-ALLOW: non-main-base
+
+
+on:
+  pull_request:
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dir-001-hindi-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  hindi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Prove Hindi chapter corpus
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-hindi.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/dir-001-hindi.test.mjs
+          node dist/reasoning-v1/dir-001-hindi.test.mjs
