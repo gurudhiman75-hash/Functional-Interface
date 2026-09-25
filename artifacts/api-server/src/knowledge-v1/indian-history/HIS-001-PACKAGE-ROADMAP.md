@@ -1,11 +1,11 @@
 # HIS-001 Indian History — Package Roadmap
 
-Status: V5 ENGLISH FROZEN / CP001–CP023 MULTILINGUAL COMPLETE / CP024 REVIEW CANDIDATE  
+Status: FINAL MULTILINGUAL FROZEN / CP001–CP024 COMPLETE / QUESTION STUDIO REVIEW_ONLY INTEGRATED  
 Engine: `knowledge-v1`
 
 ## English freezes
 
-The V1 English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md`. V2 expanded the English corpus through CP024. A post-freeze CP017 explanation-context defect was corrected under `HIS-001-ENGLISH-FREEZE-V3.md`. A later CP020 review found two malformed English answer mappings, corrected under `HIS-001-ENGLISH-FREEZE-V4.md`. During CP023 localization, the Fort William College year was corrected from 1801 to 1800 under `HIS-001-ENGLISH-FREEZE-V5.md`, which is now the semantic authority for new History localization. Hindi and Punjabi are approved through CP023; CP024 is the final localization review candidate.
+The V1 English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md`. V2 expanded the English corpus through CP024. A post-freeze CP017 explanation-context defect was corrected under `HIS-001-ENGLISH-FREEZE-V3.md`. A later CP020 review found two malformed English answer mappings, corrected under `HIS-001-ENGLISH-FREEZE-V4.md`. During CP023 localization, the Fort William College year was corrected from 1801 to 1800 under `HIS-001-ENGLISH-FREEZE-V5.md`, which is now the semantic authority for new History localization. Hindi and Punjabi are approved through CP024. The complete EN-HI-PA chapter is frozen under `HIS-001-MULTILINGUAL-FREEZE-V1.md` and registered in Question Studio as review-only.
 
 ## Binding rule
 
@@ -63,7 +63,7 @@ The coverage-gap programme is complete. `HIS-CP-017` through `HIS-CP-024` add **
 
 Authority: `HIS-001-COVERAGE-GAP-AUDIT-V1.md` and current semantic freeze `HIS-001-ENGLISH-FREEZE-V5.md`.
 
-No further English CP is planned under the current coverage ledger. Final History closure is blocked only by approval of CP024 localization and the subsequent chapter-wide multilingual parity / Question Studio registration review.
+No further English CP is planned under the current coverage ledger. The chapter-wide multilingual parity audit and Question Studio review-only registration are complete under `HIS-001-MULTILINGUAL-FREEZE-V1.md`.
 
 World History remains outside HIS-001 unless separately authorized.
 
@@ -75,6 +75,8 @@ History stems should use direct exam wording. Avoid filler such as **“best des
 
 ## Multilingual progress
 
-- `HIS-CP-001` through `HIS-CP-023`: **APPROVED / MULTILINGUAL COMPLETE**
-- `HIS-CP-024`: **HINDI/PUNJABI V1 REVIEW CANDIDATE** — 60 English authorities / 180 EN-HI-PA review surfaces; binds to `HIS-001-ENGLISH-FREEZE-V5`
-- Runtime remains **DISABLED** until the remaining localization and final chapter parity review are approved.
+- `HIS-CP-001` through `HIS-CP-024`: **APPROVED / MULTILINGUAL COMPLETE**
+- Final multilingual corpus: **1,434 questions per language / 4,302 EN-HI-PA surfaces / 239 QLs / 1,379 canonical fact IDs**
+- Question Studio: **REGISTERED / REVIEW_ONLY** under `HIS-001-MULTILINGUAL-FREEZE-V1`
+- Source localization remains `reviewOnly: true` / `runtimeRegistered: false`; only generated Question Studio review payloads receive runtime registration metadata.
+- Question Bank storage, test eligibility, mock-test eligibility and public/automatic publication remain **DISABLED**.
