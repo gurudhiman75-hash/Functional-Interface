@@ -9,7 +9,7 @@ export function renderPunjabiStem023To035(english: R): string | null {
     case "DIR-QL-024":
       return `ਦਿਸ਼ਾ-ਚਿੰਨ੍ਹਾਂ ਦੇ ਇਸ ਨਿਯਮ ਅਨੁਸਾਰ ${codeMapTextPa(s.codeMap)}। ਦਿੱਤੇ ਕਥਨ ਹਨ: ${codedChainPa(s.relations ?? [])}। ${namePa(s.query.reference)} ਤੋਂ ${directionPa(s.query.direction)} ਵੱਲ ਕੌਣ ਹੈ?`;
     case "DIR-QL-025":
-      return `ਚਿੰਨ੍ਹ @, #, % ਅਤੇ & ਵਿੱਚੋਂ ਹਰ ਇੱਕ ਉੱਤਰ, ਪੂਰਬ, ਦੱਖਣ ਜਾਂ ਪੱਛਮ ਵਿੱਚੋਂ ਇੱਕ ਦਿਸ਼ਾ ਦੱਸਦਾ ਹੈ। ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਹੈ: ${(s.evidence ?? []).map((e: R) => `“${evidenceChainPa(e)}” ਦਾ ਨਤੀਜਾ ${directionPa(e.resultDirection)} ਹੈ`).join("; ")}। ਕਿਹੜਾ ਚਿੰਨ੍ਹ ${directionPa(s.targetDirection)} ਦਿਸ਼ਾ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?`;
+      return `ਚਿੰਨ੍ਹ @, #, % ਅਤੇ & ਵਿੱਚੋਂ ਹਰ ਇੱਕ ਉੱਤਰ, ਪੂਰਬ, ਦੱਖਣ ਜਾਂ ਪੱਛਮ ਵਿੱਚੋਂ ਇੱਕ ਦਿਸ਼ਾ ਦੱਸਦਾ ਹੈ। ਦਿੱਤੇ ਉਦਾਹਰਨ ਹਨ: ${(s.evidence ?? []).map((e: R) => { const names = e.displayEntities ?? []; return `“${evidenceChainPa(e)}” ਅਨੁਸਾਰ ${namePa(names[0])}, ${namePa(names[names.length - 1])} ਤੋਂ ${directionPa(e.resultDirection)} ਵੱਲ ਹੈ`; }).join("; ")}। ਕਿਹੜਾ ਚਿੰਨ੍ਹ ${directionPa(s.targetDirection)} ਦਿਸ਼ਾ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?`;
     case "DIR-QL-026":
       return `ਦਿਸ਼ਾ-ਚਿੰਨ੍ਹਾਂ ਦੇ ਇਸ ਨਿਯਮ ਅਨੁਸਾਰ ${codeMapTextPa(s.codeMap)}। ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕਥਨ ਦੱਸਦਾ ਹੈ ਕਿ ${namePa(s.targetRelation.subject)}, ${namePa(s.targetRelation.reference)} ਤੋਂ ${directionPa(s.targetRelation.direction)} ਵੱਲ ਹੈ?`;
     case "DIR-QL-027":
