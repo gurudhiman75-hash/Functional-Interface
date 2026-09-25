@@ -118,8 +118,8 @@ function localizedStem(question: Di003V2Question, stimulus: Di003V2Stimulus, loc
   switch (question.kind) {
     case "DIRECT_BAR_VALUE": {
       const index = Number(e.categoryIndex), label = seriesLabel(stimulus, locale, e.seriesId), category = categoryAt(stimulus, locale, index);
-      const h = [`${category} में ${label} का मान कितना है?`, `ग्राफ के अनुसार ${category} में ${label} के लिए कितनी ${unit} दर्शाई गई हैं?`, `${category} के लिए ${label} का स्तंभ कितना मान दिखाता है?`];
-      const p = [`${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `ਗ੍ਰਾਫ਼ ਅਨੁਸਾਰ ${category} ਵਿੱਚ ${label} ਲਈ ਕਿੰਨੀਆਂ ${unit} ਦਰਸਾਈਆਂ ਗਈਆਂ ਹਨ?`, `${category} ਲਈ ${label} ਦਾ ਸਤੰਭ ਕਿੰਨਾ ਮੁੱਲ ਦਰਸਾਉਂਦਾ ਹੈ?`];
+      const h = [`${category} में ${label} का मान कितना है?`, `ग्राफ के अनुसार ${category} में ${label} का मान कितना है?`, `${category} के लिए ${label} का स्तंभ कितना मान दिखाता है?`];
+      const p = [`${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `ਗ੍ਰਾਫ਼ ਅਨੁਸਾਰ ${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${category} ਲਈ ${label} ਦਾ ਸਤੰਭ ਕਿੰਨਾ ਮੁੱਲ ਦਰਸਾਉਂਦਾ ਹੈ?`];
       return (hi ? h : p)[s]!;
     }
     case "HIGHEST_CATEGORY_FOR_SERIES": {
@@ -166,20 +166,20 @@ function localizedStem(question: Di003V2Question, stimulus: Di003V2Stimulus, loc
     }
     case "COMBINED_CATEGORY_RATIO": {
       const first = Number(e.firstIndex), second = Number(e.secondIndex), c1 = categoryAt(stimulus, locale, first), c2 = categoryAt(stimulus, locale, second);
-      const h = [`दोनों शृंखलाओं के संयुक्त मानों में ${c1} और ${c2} का अनुपात क्या है?`, `दोनों स्तंभ जोड़ने के बाद ${c1} : ${c2} का सरल अनुपात ज्ञात कीजिए।`, `${c1} और ${c2} के संयुक्त कुल किस अनुपात में हैं?`];
-      const p = [`ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਮਿਲੇ ਹੋਏ ਮੁੱਲਾਂ ਵਿੱਚ ${c1} ਅਤੇ ${c2} ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `ਦੋਵੇਂ ਸਤੰਭ ਜੋੜਣ ਤੋਂ ਬਾਅਦ ${c1} : ${c2} ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੱਢੋ।`, `${c1} ਅਤੇ ${c2} ਦੇ ਮਿਲੇ ਹੋਏ ਕੁੱਲ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ?`];
+      const h = [`${c1} और ${c2} के संयुक्त मानों का अनुपात क्या है?`, `दोनों स्तंभ जोड़ने के बाद ${c1} : ${c2} का सरल अनुपात ज्ञात कीजिए।`, `${c1} और ${c2} के संयुक्त कुल किस अनुपात में हैं?`];
+      const p = [`${c1} ਅਤੇ ${c2} ਦੇ ਮਿਲੇ ਹੋਏ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `ਦੋਵੇਂ ਸਤੰਭ ਜੋੜਣ ਤੋਂ ਬਾਅਦ ${c1} : ${c2} ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੱਢੋ।`, `${c1} ਅਤੇ ${c2} ਦੇ ਮਿਲੇ ਹੋਏ ਕੁੱਲ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ?`];
       return (hi ? h : p)[s]!;
     }
     case "PERCENT_CHANGE_WITHIN_SERIES": {
       const lower = Number(e.lowerIndex), higher = Number(e.higherIndex), label = seriesLabel(stimulus, locale, "SERIES_A"), c1 = categoryAt(stimulus, locale, lower), c2 = categoryAt(stimulus, locale, higher);
-      const h = [`निकटतम पूर्ण प्रतिशत में, ${c2} में ${label} का मान ${c1} की तुलना में कितने प्रतिशत अधिक है?`, `${c1} से ${c2} तक ${label} में लगभग कितने पूर्ण प्रतिशत की वृद्धि हुई?`, `${c2} का ${label} मान ${c1} से कितने प्रतिशत अधिक है? निकटतम पूर्ण प्रतिशत दीजिए।`];
-      const p = [`ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ, ${c2} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${c1} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${c1} ਤੋਂ ${c2} ਤੱਕ ${label} ਵਿੱਚ ਲਗਭਗ ਕਿੰਨੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਵਾਧਾ ਹੋਇਆ?`, `${c2} ਦਾ ${label} ਮੁੱਲ ${c1} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ? ਨਜ਼ਦੀਕੀ ਪੂਰਾ ਪ੍ਰਤੀਸ਼ਤ ਦਿਓ।`];
+      const h = [`निकटतम पूर्ण प्रतिशत में, ${c2} में ${label} का मान ${c1} की तुलना में कितने प्रतिशत अधिक है?`, `${c1} से ${c2} तक ${label} में लगभग कितने पूर्ण प्रतिशत की वृद्धि हुई?`, `${c2} में ${label} का मान ${c1} की तुलना में कितने प्रतिशत अधिक है? निकटतम पूर्ण प्रतिशत दीजिए।`];
+      const p = [`ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ, ${c2} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${c1} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${c1} ਤੋਂ ${c2} ਤੱਕ ${label} ਵਿੱਚ ਲਗਭਗ ਕਿੰਨੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਵਾਧਾ ਹੋਇਆ?`, `${c2} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${c1} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ? ਨਜ਼ਦੀਕੀ ਪੂਰਾ ਪ੍ਰਤੀਸ਼ਤ ਦਿਓ।`];
       return (hi ? h : p)[s]!;
     }
     case "CATEGORY_SHARE_OF_SERIES_TOTAL": {
       const index = Number(e.categoryIndex), label = seriesLabel(stimulus, locale, e.seriesId), category = categoryAt(stimulus, locale, index);
-      const h = [`निकटतम पूर्ण प्रतिशत में, ${category} का ${label} मान ${label} के पाँच-श्रेणी कुल का कितने प्रतिशत है?`, `${label} के कुल में ${category} की हिस्सेदारी लगभग कितने पूर्ण प्रतिशत है?`, `${label} के कुल में ${category} का प्रतिशत हिस्सा निकटतम पूर्ण प्रतिशत में ज्ञात कीजिए।`];
-      const p = [`ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ, ${category} ਦਾ ${label} ਮੁੱਲ ${label} ਦੇ ਪੰਜ-ਸ਼੍ਰੇਣੀ ਕੁੱਲ ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${label} ਦੇ ਕੁੱਲ ਵਿੱਚ ${category} ਦੀ ਹਿੱਸੇਦਾਰੀ ਲਗਭਗ ਕਿੰਨੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${label} ਦੇ ਕੁੱਲ ਵਿੱਚ ${category} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸਾ ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਕੱਢੋ।`];
+      const h = [`निकटतम पूर्ण प्रतिशत में, ${category} में ${label} का मान ${label} के पाँच-श्रेणी कुल का कितने प्रतिशत है?`, `${label} के कुल में ${category} की हिस्सेदारी लगभग कितने पूर्ण प्रतिशत है?`, `${label} के कुल में ${category} का प्रतिशत हिस्सा निकटतम पूर्ण प्रतिशत में ज्ञात कीजिए।`];
+      const p = [`ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ, ${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${label} ਦੇ ਪੰਜ-ਸ਼੍ਰੇਣੀ ਕੁੱਲ ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${label} ਦੇ ਕੁੱਲ ਵਿੱਚ ${category} ਦੀ ਹਿੱਸੇਦਾਰੀ ਲਗਭਗ ਕਿੰਨੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${label} ਦੇ ਕੁੱਲ ਵਿੱਚ ${category} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸਾ ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਕੱਢੋ।`];
       return (hi ? h : p)[s]!;
     }
     case "TOTAL_SERIES_PERCENT_EXCESS": {
