@@ -61,7 +61,15 @@ function assertNative(question:HisLocalizedQuestionV1,locale:"hi"|"pa",english:a
       "ਅੰਦੋਲਨ",
       "ਕਿਹੜੇ ਕਿਸਮ",
       "ਸਹੀ ਤਰ੍ਹਾਂ",
-      "ਹੇਠ ਹੇਠ"
+      "ਹੇਠ ਹੇਠ",
+      "ਅਧਿਐਨ",
+      "ਲਾਭਕਾਰੀ",
+      "ਪ੍ਰਗਤੀ",
+      "ਲਿਪਿਕੀ",
+      "ਸਮੱਗਰੀ",
+      "ਪ੍ਰਕਾਸ਼ਕ",
+      "ਪੁਰਾਤਨ",
+      "ਪ੍ਰਭਾਵ"
     ];
     for(const banned of editorialBans){
       fail(!text.includes(banned),`${question.questionId}: Punjabi editorial regression: ${banned}`);
