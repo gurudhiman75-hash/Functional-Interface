@@ -6,6 +6,11 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function previewLearnerText(question: Record<string, any>) {
+  const table = question.richExplanation?.workingTable;
+  return [question.stem, ...(question.options ?? []), question.answer, question.explanation, ...(table?.headers ?? []), ...(table?.rows?.flat?.() ?? [])].join(" ");
+}
+
 const card = quantV4QuestionStudioAdapter.listPackages().find((pkg) => pkg.packageId === "DI-010");
 assert(card, "DI-010 is missing from the shared Quant V4 Question Studio package list.");
 assert(card.enabled, "DI-010 package card must be enabled for controlled review.");
@@ -37,6 +42,7 @@ for (const descriptor of DI010_PERMANENT_QLS) {
   assert(question.difficulty === descriptor.difficulty, `${descriptor.qlId} drifted from ${descriptor.difficulty}.`);
   assert(Array.isArray(question.options) && question.options.length === 4 && new Set(question.options).size === 4, `${descriptor.qlId} has invalid options.`);
   assert(question.options[question.correctIndex] === question.answer, `${descriptor.qlId} correct index does not point to the answer.`);
+  assert(!/\d+\.\d+/u.test(previewLearnerText(question)), `${descriptor.qlId} exposes decimal learner-facing values.`);
   assert(Array.isArray(question.stimulusSvgs) && question.stimulusSvgs.length === 1 && question.stimulusSvgs[0].includes("<svg"), `${descriptor.qlId} is missing its frequency-polygon stimulus SVG.`);
   assert(question.stimulusSvgs[0].includes('data-frequency-polygon="true"') && question.stimulusSvgs[0].includes('data-di-presentation-layer="shared"'), `${descriptor.qlId} bypassed the shared DI polygon presentation layer.`);
   assert(!("svg" in question.stimulus), `${descriptor.qlId} re-embedded SVG into semantic stimulus data.`);
