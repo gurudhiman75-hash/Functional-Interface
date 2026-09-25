@@ -84,6 +84,8 @@ The new integration proof verifies:
 
 The existing DIR runtime workflow now executes this integration proof on every relevant DIR pull request.
 
+The wiring assertions deliberately inspect the reasoning adapter and global engine-registry source rather than importing the entire global engine graph into the DIR-scoped strict TypeScript proof. This keeps the DIR audit isolated from unrelated legacy chapter type debt while still proving the actual registration path.
+
 ## Safety boundary
 
 This wave does not change:
