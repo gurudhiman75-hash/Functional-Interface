@@ -1,0 +1,18 @@
+export const ENG008_CP002_HUMAN_EDITORIAL_APPROVAL_V1=Object.freeze({
+ authorityId:"ENG-008-CP002-HUMAN-EDITORIAL-APPROVAL-V1" as const,
+ chapterId:"ENG-008" as const,
+ cpId:"ENG-008-CP002" as const,
+ approvedReviewArtifact:"ENG-008-CP002-REVIEW-V1.md" as const,
+ approvedGeneratorHeadSha:"c15ab3dcce4321be5c7eaf91d60f1f63a6f3f03a" as const,
+ approvedMergedSha:"a8613a2e32edbf158b5f6cb6dd6c82e614c62d5e" as const,
+ approvedOn:"2026-09-25" as const,
+ approvedScope:"SSC Editorial & Current-Affairs RC: 12 passages / 96 authorities / eight RC families" as const,
+ questionStudioReviewOnlyAuthorized:true as const,
+ questionBankWritable:false as const,
+ testEligible:false as const,
+ mockTestEligible:false as const,
+ publiclyPublishable:false as const,
+ automaticStudentPublication:false as const,
+ productionReleaseAuthorized:false as const,
+ revisionPolicy:"SOURCE_GENERATOR_ONLY" as const,
+});
