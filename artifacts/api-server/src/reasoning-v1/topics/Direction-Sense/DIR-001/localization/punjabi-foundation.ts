@@ -525,7 +525,7 @@ export function localizeDiagramPa(value: unknown): Readonly<Record<string, unkno
   const diagram = asR(value);
   return {
     ...diagram,
-    title: diagram.title ? localizeFreeTextPa(String(diagram.title)) : diagram.title,
+    title: diagram.title ? localizeSvgPa(String(diagram.title)) : diagram.title,
     svg: diagram.svg ? localizeSvgPa(String(diagram.svg)) : diagram.svg,
   };
 }
