@@ -53,8 +53,8 @@ for (const locale of locales) {
       `**Vertical axis:** ${s.yAxisLabel}`,
       "",
       locale === "hi-IN"
-        ? "| वर्ग अंतराल | वर्ग-मध्य | आवृत्ति |"
-        : "| ਵਰਗ ਅੰਤਰਾਲ | ਵਰਗ-ਮੱਧ | ਬਾਰੰਬਾਰਤਾ |",
+        ? "| वर्ग अंतराल | वर्ग-चिह्न | आवृत्ति |"
+        : "| ਵਰਗ ਅੰਤਰਾਲ | ਵਰਗ-ਚਿੰਨ੍ਹ | ਬਾਰੰਬਾਰਤਾ |",
       "|---|---:|---:|",
       ...s.classes.map((item) => `| ${item.lower}–${item.upper} | ${item.classMark} | ${item.frequency} |`),
       "",
