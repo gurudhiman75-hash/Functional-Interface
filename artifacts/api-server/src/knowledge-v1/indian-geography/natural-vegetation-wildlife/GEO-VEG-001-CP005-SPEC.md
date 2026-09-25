@@ -1,6 +1,6 @@
 # GEO-VEG-001 CP005 — Montane Vegetation
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED — WAVE 2 HUMAN REVIEW
 Parent blueprint: `GEO-VEG-001-BLUEPRINT.md`
 Permanent QLs: `GEO-VEG-001-QL-037` to `GEO-VEG-001-QL-045`
 
