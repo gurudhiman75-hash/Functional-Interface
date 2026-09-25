@@ -12,6 +12,12 @@ on:
       - "artifacts/api-server/src/knowledge-v1/question-validation.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-phy-001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-phy-001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-cli-001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-cli-001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-soi-001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-soi-001-adapter-v1.test.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
   workflow_dispatch:
 
@@ -519,6 +525,21 @@ jobs:
           path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CLOSURE-V1/
           if-no-files-found: error
           retention-days: 30
+
+      - name: Run closed Geography Question Studio adapter gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          tests=(
+            "src/question-studio/engines/knowledge-v1-geo-phy-001-adapter-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-geo-cli-001-adapter-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-geo-soi-001-adapter-v1.test.ts"
+          )
+          for test_file in "${tests[@]}"; do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild               "${test_file}"               --bundle --packages=external --platform=node --format=esm               --outfile="dist/geography/${output_name}"
+            node "artifacts/api-server/dist/geography/${output_name}"
+          done
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
