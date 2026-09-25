@@ -1,0 +1,60 @@
+name: SCI Final Multilingual + Question Studio V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/science/**"
+      - "artifacts/api-server/src/question-studio/engine-registry.ts"
+      - "artifacts/api-server/src/question-studio/engine-registry.test.ts"
+      - "artifacts/api-server/src/question-studio/engine-types.ts"
+      - "artifacts/api-server/src/question-studio/standard-lifecycle.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-sci001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-sci001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: science-final-multilingual-question-studio-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-science-final:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run SCI-001 final multilingual closure audit
+        run: |
+          mkdir -p artifacts/api-server/dist/science-final-v1
+          pnpm --dir artifacts/api-server exec esbuild             src/knowledge-v1/science/science-final-multilingual-audit-v1.ts             --bundle --packages=external --platform=node --format=esm             --outfile=dist/science-final-v1/science-final-multilingual-audit-v1.mjs
+          node artifacts/api-server/dist/science-final-v1/science-final-multilingual-audit-v1.mjs
+
+      - name: Run SCI-001 Question Studio contract
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild             src/question-studio/engines/knowledge-v1-sci001-adapter-v1.test.ts             --bundle --packages=external --platform=node --format=esm             --outfile=dist/science-final-v1/knowledge-v1-sci001-adapter-v1.test.mjs
+          node artifacts/api-server/dist/science-final-v1/knowledge-v1-sci001-adapter-v1.test.mjs
+
+      - name: Run shared engine registry contract
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild             src/question-studio/engine-registry.test.ts             --bundle --packages=external --platform=node --format=esm             --outfile=dist/science-final-v1/engine-registry.test.mjs
+          node artifacts/api-server/dist/science-final-v1/engine-registry.test.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
