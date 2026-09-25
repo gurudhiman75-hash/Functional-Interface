@@ -12,12 +12,12 @@ function cell(value: unknown) {
 const lines: string[] = [
   "# DI-003 Grouped Bar Interpretation — Hindi/Punjabi Localization Review V1",
   "",
-  "Status: HI_PA_REVIEW_CANDIDATE",
+  "Status: HI_PA_FROZEN",
   "",
   "- Permanent QLs: DI-QL-037 through DI-QL-048",
   "- Hindi: hi-IN",
   "- Punjabi: pa-IN",
-  "- Localized Question Studio activation: NOT AUTHORIZED",
+  "- Localized Question Studio activation: CONTROLLED_REVIEW",
   "- Question Bank/tests/mocks/publication: locked",
   "- Whole-number learner policy: no decimal values",
   "",
@@ -71,6 +71,6 @@ for (const locale of locales) {
   }
 }
 
-lines.push("## Review Gate", "", "Hindi/Punjabi remain review candidates. Approval is required before controlled Question Studio activation.", "");
+lines.push("## Review Gate", "", "Hindi/Punjabi are frozen multilingual authorities and are enabled only in controlled Question Studio review. Question Bank, tests, mocks and public/student publication remain locked.", "");
 writeFileSync(outputPath, lines.join("\n"), "utf8");
 console.log(JSON.stringify({ status: "WROTE_DI_003_LOCALIZATION_REVIEW_V1", outputPath, questions: DI003_PERMANENT_QLS.length * locales.length }));
