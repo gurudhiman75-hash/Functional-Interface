@@ -464,14 +464,30 @@ function distractorCandidates(answer: any, correct: string, language: AlgebraStu
   return textMathMutations(correct);
 }
 
-const TARGETED_DISTRACTOR_ROTATION_PATTERNS = new Set([\n  "ALG-CP009-CAND-002",\n  "ALG-CP012-CAND-009",\n]);\n\nfunction rotatePool(values: string[], seed: string): string[] {\n  if (values.length < 2) return values;\n  const offset = hashText(`${seed}:distractor-rotation`) % values.length;\n  return [...values.slice(offset), ...values.slice(0, offset)];\n}\n\nfunction buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string, prototypeId: string) {\n  const correct = renderAnswer(answer, language).trim();
+const TARGETED_DISTRACTOR_ROTATION_PATTERNS = new Set([
+  "ALG-CP009-CAND-002",
+  "ALG-CP012-CAND-009",
+]);
+
+function rotatePool(values: string[], seed: string): string[] {
+  if (values.length < 2) return values;
+  const offset = hashText(`${seed}:distractor-rotation`) % values.length;
+  return [...values.slice(offset), ...values.slice(0, offset)];
+}
+
+function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string, prototypeId: string) {
+  const correct = renderAnswer(answer, language).trim();
   const pool = [
     ...distractorCandidates(answer, correct, language),
     ...textMathMutations(correct),
     phrase(language, "Cannot be determined", "निर्धारित नहीं किया जा सकता", "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ"),
     phrase(language, "None of these", "इनमें से कोई नहीं", "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ"),
   ];
-  const uniqueWrongs = [...new Set(pool.map((value) => String(value).trim()).filter((value) => value && value !== correct))];\n  const orderedWrongs = TARGETED_DISTRACTOR_ROTATION_PATTERNS.has(prototypeId)\n    ? rotatePool(uniqueWrongs, `${seed}:${prototypeId}`)\n    : uniqueWrongs;\n  const wrongs = orderedWrongs.slice(0, 3);
+  const uniqueWrongs = [...new Set(pool.map((value) => String(value).trim()).filter((value) => value && value !== correct))];
+  const orderedWrongs = TARGETED_DISTRACTOR_ROTATION_PATTERNS.has(prototypeId)
+    ? rotatePool(uniqueWrongs, `${seed}:${prototypeId}`)
+    : uniqueWrongs;
+  const wrongs = orderedWrongs.slice(0, 3);
   if (!correct || wrongs.length !== 3) {
     throw new Error(`Algebra Question Studio V4 option coverage failed for ${answer?.kind ?? typeof answer}: '${correct}'`);
   }
@@ -526,7 +542,12 @@ export function generateAlgebraStudioQuestionV4(input: {
   const locale = localeFor(language);
   const sourceSeed = sourceStateSeed(input.pattern, input.seed);
   const source = frozenSource(input.pattern, sourceSeed, language);
-  const delivery = buildOptions(\n    source.canonicalAnswer,\n    language,\n    `${input.seed}:${input.pattern.prototypeId}:${language}`,\n    input.pattern.prototypeId,\n  );
+  const delivery = buildOptions(
+    source.canonicalAnswer,
+    language,
+    `${input.seed}:${input.pattern.prototypeId}:${language}`,
+    input.pattern.prototypeId,
+  );
   const steps = String(source.explanation ?? "").split(/\n+/).map((step) => step.trim()).filter(Boolean);
   const canonicalItemId = `${input.pattern.qlId}:${input.pattern.prototypeId}:${sourceSeed}`;
   const questionLanguageId = `${canonicalItemId}:${locale}`;
