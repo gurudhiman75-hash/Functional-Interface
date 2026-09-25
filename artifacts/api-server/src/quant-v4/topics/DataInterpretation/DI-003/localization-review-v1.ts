@@ -4,6 +4,7 @@ import type { Di003V2ExamProfile, Di003V2Question, Di003V2Stimulus, Di003V2TaskK
 export type Di003LocalizationLocale = "hi-IN" | "pa-IN";
 
 export const DI003_LOCALIZATION_REVIEW_ID = "DI-003-HI-PA-REVIEW-V1" as const;
+export const DI003_LOCALIZATION_RELEASE_ID = "DI-003-HI-PA-FROZEN-V1" as const;
 
 type LocalizedContext = Readonly<{
   hi: Readonly<{ title: string; categories: readonly string[]; seriesA: string; seriesB: string; yAxisLabel: string; unit: string }>;
@@ -267,7 +268,8 @@ export function localizeDi003Question(source: ReturnType<typeof generateDi003Per
     language: locale === "hi-IN" ? "hi" as const : "pa" as const,
     locale,
     localizationReviewId: DI003_LOCALIZATION_REVIEW_ID,
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
+    localizationReleaseId: DI003_LOCALIZATION_RELEASE_ID,
+    localizationStatus: "HI_PA_FROZEN" as const,
     sourceEnglishStatus: "ENGLISH_REVIEW_APPROVED" as const,
     stimulus: localizeDi003Stimulus(source.stimulus, locale),
     question: {
@@ -280,9 +282,9 @@ export function localizeDi003Question(source: ReturnType<typeof generateDi003Per
     },
     traceability: {
       ...source.traceability,
-      reviewStatus: "MULTILINGUAL_REVIEW_CANDIDATE" as const,
-      localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
-      questionStudioDiscoverable: false as const,
+      reviewStatus: "MULTILINGUAL_FROZEN" as const,
+      localizationStatus: "HI_PA_FROZEN" as const,
+      questionStudioDiscoverable: true as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,
       testEligibility: "INELIGIBLE" as const,
