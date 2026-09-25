@@ -18,13 +18,12 @@ import type {
 const NAMES = ["Aman", "Beena", "Charan", "Deepa", "Farhan", "Gurpreet", "Harpreet", "Isha", "Jasleen", "Karan", "Meena", "Naman", "Pooja", "Ravi", "Simran", "Tanvi"] as const;
 const POINTS = ["P", "Q", "R", "S", "T", "U", "V", "W"] as const;
 const PLACES = ["a school ground", "a public park", "a college campus", "an office compound", "a village square", "a sports complex", "a market yard", "a garden"] as const;
-const PLACE_DETAILS = ["near the main gate", "beside the central lawn", "along a marked track", "close to the entrance", "near the boundary wall"] as const;
 const TURNS: readonly AdvancedTurn[] = ["LEFT", "RIGHT", "ABOUT", "NO_TURN"];
 
 const rotate = (direction: Direction, quarterTurns: number): Direction => rotateDirection(direction, quarterTurns * 2);
 const name = (seed: number, offset: number): string => NAMES[(seed * 5 + offset * 7 + Math.floor(seed / 3)) % NAMES.length];
 const point = (seed: number, offset: number): string => POINTS[(Math.floor(Math.abs(seed) / 3) + offset) % POINTS.length];
-const context = (seed: number, offset = 0): { readonly subject: string; readonly place: string } => ({ subject: NAMES[(seed + offset) % NAMES.length], place: `${PLACES[(seed * 3 + offset) % PLACES.length]} ${PLACE_DETAILS[(Math.floor(seed / 8) + offset) % PLACE_DETAILS.length]}` });
+const context = (seed: number, offset = 0): { readonly subject: string; readonly place: string } => ({ subject: NAMES[(seed + offset) % NAMES.length], place: PLACES[(seed * 3 + offset) % PLACES.length] });
 const relation = (fromEntity: string, toEntity: string, direction: Direction, distance: number): PositionRelation => ({
   fromEntity,
   toEntity,
