@@ -1,7 +1,7 @@
 # CP010 Retrofit Status
 
 - Topic: ਬਹੁਤੇ ਸ਼ਬਦਾਂ ਦੀ ਥਾਂ ਇੱਕ ਸ਼ਬਦ
-- Lifecycle: `REVIEW_ONLY / HUMAN_REVIEW_PENDING`
+- Lifecycle: `REVIEW_ONLY / HUMAN_APPROVED`
 - Audited authorities: 177
 - Organic domains: 10
 - Ordered same-domain pairs: 4,068
@@ -12,5 +12,6 @@
 - All 10 semantic domains must be represented in the review
 - All 4 F08 truth outcomes must be represented
 - Every retained authority must be reachable through every applicable family
-- Previous 64-authority approval is superseded for this material retrofit
-- Runtime/publication promotion remains blocked pending fresh owner approval
+- Material retrofit included in owner-approved chapter integration PR #2009
+- Owner approval recorded through chapter integration PR #2009 on 2026-09-20
+- Runtime/publication promotion remains blocked pending a separate lifecycle-promotion decision

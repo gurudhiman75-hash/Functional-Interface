@@ -43,7 +43,7 @@ export const PART_3: readonly SciCp020ReviewSpec[] = [
       "Keratin",
       "Cellulose"
     ],
-    "Chlorophyll pigments absorb light energy in chloroplasts. This energy drives the reactions that ultimately produce carbohydrates.",
+    "Chlorophyll pigments absorb light energy in chloroplasts. This energy drives the reactions that ultimately produce carbohydrates. Chlorophyll is concentrated in chloroplasts of green leaf cells.",
     [
       "PHOTOSYNTHESIS-CHLOROPHYLL"
     ]
@@ -88,7 +88,7 @@ export const PART_3: readonly SciCp020ReviewSpec[] = [
       "The entire leaf regardless of colour",
       "Neither region if water is available"
     ],
-    "Only the green parts contain enough chlorophyll to carry out normal photosynthesis. Starch therefore accumulates mainly in those regions and turns blue-black with iodine.",
+    "Only the green parts contain enough chlorophyll to carry out normal photosynthesis. Starch therefore accumulates in those regions and turns blue-black with iodine.",
     [
       "PHOTOSYNTHESIS-VARIEGATED"
     ]
@@ -118,7 +118,7 @@ export const PART_3: readonly SciCp020ReviewSpec[] = [
       "Chlorine only",
       "Neon"
     ],
-    "Nitrogen is a major plant nutrient required for amino acids, proteins and nucleic acids. Plants commonly absorb it from soil mainly as nitrate or ammonium ions.",
+    "Nitrogen is a major plant nutrient required for amino acids, proteins and nucleic acids. Plants commonly absorb it from soil as nitrate or ammonium ions.",
     [
       "PLANT-NITROGEN-PROTEIN"
     ]
@@ -126,7 +126,7 @@ export const PART_3: readonly SciCp020ReviewSpec[] = [
   [
     7,
     "Medium",
-    "Roots obtain mineral nutrients from the soil mainly in the form of:",
+    "Roots obtain mineral nutrients from the soil in the form of:",
     "Dissolved ions",
     [
       "Solid rock particles",
@@ -208,7 +208,7 @@ export const PART_3: readonly SciCp020ReviewSpec[] = [
       "Positive phototropism",
       "Negative hydrotropism"
     ],
-    "Roots usually grow in the direction of gravitational pull and therefore show positive geotropism, also called positive gravitropism.",
+    "Roots usually grow in the direction of gravitational pull and therefore show positive geotropism, also called positive gravitropism. This response helps roots grow into the soil where water and minerals are available.",
     [
       "TROPISM-GEO-ROOT"
     ]
@@ -231,7 +231,7 @@ export const PART_3: readonly SciCp020ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Which plant hormone is strongly associated with cell elongation and bending of shoots toward light?",
+    "Which plant hormone promotes cell elongation and bending of shoots toward light?",
     "Auxin",
     [
       "Abscisic acid",
@@ -246,7 +246,7 @@ export const PART_3: readonly SciCp020ReviewSpec[] = [
   [
     8,
     "Medium",
-    "Which plant hormone is most closely associated with fruit ripening?",
+    "Which plant hormone promotes fruit ripening?",
     "Ethylene",
     [
       "Auxin",
@@ -261,7 +261,7 @@ export const PART_3: readonly SciCp020ReviewSpec[] = [
   [
     8,
     "Hard",
-    "A plant closes its stomata during water stress and slows growth. Which hormone is most closely associated with this stress response?",
+    "A plant closes its stomata during water stress and slows growth. Which hormone is linked with this stress response?",
     "Abscisic acid",
     [
       "Auxin",

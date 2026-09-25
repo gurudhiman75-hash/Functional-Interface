@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Red blood cells",
       "White blood cells"
     ],
-    "Plasma is the fluid part of blood. It carries cells, nutrients, hormones, wastes and dissolved substances around the body.",
+    "Plasma is the fluid part of blood. It carries cells, nutrients, hormones, wastes and dissolved substances around the body. Its high water content makes it an effective transport medium for dissolved materials.",
     [
       "BLOOD-PLASMA"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Water",
       "Dissolved glucose"
     ],
-    "Red blood cells are formed elements suspended in plasma. White blood cells and platelets are also formed elements.",
+    "Red blood cells are formed elements suspended in plasma. White blood cells and platelets are also formed elements. These cellular components perform transport, defence and clotting functions.",
     [
       "BLOOD-FORMED-ELEMENTS"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Only platelets",
       "Only carbon dioxide"
     ],
-    "Plasma carries many dissolved substances, including nutrients, hormones, salts and metabolic wastes.",
+    "Plasma carries many dissolved substances, including nutrients, hormones, salts and metabolic wastes. Water in plasma keeps these substances dissolved while blood circulates.",
     [
       "PLASMA-TRANSPORT"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Plasma contains no water",
       "Serum is the solid part of blood"
     ],
-    "Serum is the liquid left after blood clots, so it lacks fibrinogen and several clotting factors found in plasma.",
+    "Serum is the liquid left after blood clots, so it lacks fibrinogen and several clotting factors found in plasma. This difference is important in laboratory testing and transfusion-related work.",
     [
       "PLASMA-SERUM"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Stores bile",
       "Filters urine"
     ],
-    "Blood carries heat from active tissues and redistributes it, helping the body maintain a more stable temperature.",
+    "Blood carries heat from active tissues and redistributes it, helping the body maintain a more stable temperature. Widening or narrowing skin blood vessels also changes how much heat is lost.",
     [
       "BLOOD-TEMPERATURE"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Lymph",
       "Tissue fluid"
     ],
-    "If clotting has not occurred, the cell-free liquid still contains clotting factors and is therefore plasma.",
+    "If clotting has not occurred, the cell-free liquid still contains clotting factors and is therefore plasma. If the sample had been allowed to clot first, the remaining liquid would be serum.",
     [
       "BLOOD-CENTRIFUGE-PLASMA"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Platelets",
       "Plasma cells"
     ],
-    "Red blood cells contain haemoglobin, the pigment that binds oxygen and gives blood its red colour.",
+    "Red blood cells contain haemoglobin, the pigment that binds oxygen and gives blood its red colour. The enormous number of red cells makes haemoglobin-based oxygen transport highly efficient.",
     [
       "RBC-HAEMOGLOBIN"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Plasma proteins",
       "Antibodies"
     ],
-    "Haemoglobin is an iron-containing red pigment present in red blood cells.",
+    "Haemoglobin is an iron-containing red pigment present in red blood cells. Its iron-containing haem groups also give it the ability to bind oxygen.",
     [
       "HAEMOGLOBIN-RED"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Produce digestive enzymes",
       "Form blood clots"
     ],
-    "Haemoglobin binds oxygen, while the biconcave shape provides a large surface area for gas exchange.",
+    "Haemoglobin binds oxygen, while the biconcave shape provides a large surface area for gas exchange. The absence of a nucleus also leaves more internal space for haemoglobin.",
     [
       "RBC-ADAPTATION"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "It helps them divide rapidly in blood",
       "It lets them form fibrin"
     ],
-    "Loss of the nucleus creates more internal space for haemoglobin, increasing oxygen-carrying capacity.",
+    "Loss of the nucleus creates more internal space for haemoglobin, increasing oxygen-carrying capacity. Their biconcave shape further increases surface area for rapid oxygen exchange.",
     [
       "RBC-NO-NUCLEUS"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Inside platelets",
       "Attached to antibodies"
     ],
-    "Most oxygen combines reversibly with haemoglobin inside red blood cells to form oxyhaemoglobin.",
+    "Most oxygen combines reversibly with haemoglobin inside red blood cells to form oxyhaemoglobin. Only a small fraction of oxygen is transported simply dissolved in plasma.",
     [
       "OXYGEN-HAEMOGLOBIN"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Digestion of starch",
       "Filtration of urine"
     ],
-    "Fewer red blood cells mean less haemoglobin is available to carry oxygen from the lungs to body tissues.",
+    "Fewer red blood cells mean less haemoglobin is available to carry oxygen from the lungs to body tissues. This can cause fatigue or breathlessness even when the lungs exchange gases normally.",
     [
       "LOW-RBC-OXYGEN"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Platelets",
       "Plasma proteins only"
     ],
-    "White blood cells are part of the body's defence system and help destroy pathogens or coordinate immune responses.",
+    "White blood cells are part of the body's defence system and help destroy pathogens or coordinate immune responses. Different white-cell types use mechanisms such as phagocytosis or antibody-related responses.",
     [
       "WBC-DEFENCE"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Plasma water",
       "Haemoglobin"
     ],
-    "Platelets help start the clotting process at damaged blood vessels.",
+    "Platelets help start the clotting process at damaged blood vessels. They adhere at injury sites and help activate a sequence that produces a stable clot.",
     [
       "PLATELETS-CLOTTING"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp023ReviewSpec[] = [
       "Destroying bacteria",
       "Producing antibodies"
     ],
-    "During clotting, fibrin forms thread-like fibres that create a mesh and help seal the damaged area.",
+    "During clotting, fibrin forms thread-like fibres that create a mesh and help seal the damaged area. Platelets and blood cells become caught in this mesh, strengthening the clot.",
     [
       "FIBRIN-MESH"
     ]

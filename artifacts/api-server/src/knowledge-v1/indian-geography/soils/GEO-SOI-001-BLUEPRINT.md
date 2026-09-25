@@ -1,6 +1,6 @@
 # GEO-SOI-001 — Soils of India
 
-Status: ACTIVE IMPLEMENTATION — CP001–CP005 APPROVED
+Status: CLOSED — CONTENT APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-SOI-001`
@@ -94,4 +94,14 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-CP001 and CP002 were explicitly approved and merged through PR #1991. CP003 — Black Soils (QL019–QL027) and CP004 — Red & Yellow Soils (QL028–QL036) were explicitly approved and merged through PR #2012. QL001–QL036 contain 216 approved owning questions. CP005 — Laterite Soils (QL037–QL045) is implemented as a 54-question review candidate and remains unmerged until explicit human approval. Runtime publication and Question Bank/test/mock activation remain separately governed.
+GEO-SOI-001 is content-closed and approved.
+
+- CP001–CP012 are approved and merged.
+- QL001–QL108 are fully qualified with 648 owning questions.
+- Owning difficulty balance: Easy216 / Medium360 / Hard72.
+- Final owning answer-position balance: A162 / B162 / C162 / D162.
+- CP013 is approved and merged as the 108-question exhaustive mastery authority.
+- CP013 balance: Easy36 / Medium60 / Hard12 and A27 / B27 / C27 / D27.
+- The chapter closure audit, all affected CP validators, full Geography regression, API/production build, workflow hygiene, topology and CodeQL passed on closure PR #2064.
+- Closure merge commit: `4359b942d74911cf616f1b837b80ea1aab99da29`.
+- Content closure does not authorize runtime publication. Question Studio registration, Question Bank persistence, test/mock eligibility and public publication remain separately governed.

@@ -26,7 +26,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "Atmospheric pressure increases greatly",
       "Air becomes richer in carbon dioxide"
     ],
-    "At high altitude the atmospheric pressure, and therefore oxygen partial pressure, is lower. Faster breathing helps increase oxygen uptake.",
+    "At high altitude the atmospheric pressure, and therefore oxygen partial pressure, is lower. Faster breathing helps increase oxygen uptake. Acclimatization can later improve oxygen delivery through longer-term physiological changes.",
     [
       "ALTITUDE-LOW-OXYGEN"
     ]
@@ -56,7 +56,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "Nitrogen by a very large amount",
       "Argon only"
     ],
-    "Body tissues produce carbon dioxide during respiration, and the lungs remove part of it in exhaled air.",
+    "Body tissues produce carbon dioxide during respiration, and the lungs remove part of it in exhaled air. Exhaled air still contains only a few percent carbon dioxide, but more than inhaled air.",
     [
       "EXHALED-MORE-CO2"
     ]
@@ -71,7 +71,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "No nitrogen",
       "No water vapour"
     ],
-    "Some inhaled oxygen diffuses into blood, so exhaled air contains less oxygen than inhaled air.",
+    "Some inhaled oxygen diffuses into blood, so exhaled air contains less oxygen than inhaled air. It still contains substantial oxygen because not all inhaled oxygen is absorbed.",
     [
       "EXHALED-LESS-O2"
     ]
@@ -86,7 +86,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "It contains no nitrogen",
       "It is cooled strongly inside the lungs"
     ],
-    "Air passing over moist respiratory surfaces becomes humidified, so exhaled air generally contains more water vapour.",
+    "Air passing over moist respiratory surfaces becomes humidified, so exhaled air generally contains more water vapour. This is why condensation can appear when breathing onto a cold surface.",
     [
       "EXHALED-WATER-VAPOUR"
     ]
@@ -101,7 +101,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "Exhaled air contains more water vapour",
       "Exhaled air contains slightly warmer nitrogen"
     ],
-    "Carbon dioxide reacts with limewater to form insoluble calcium carbonate, producing a milky appearance.",
+    "Carbon dioxide reacts with limewater to form insoluble calcium carbonate, producing a milky appearance. The calcium carbonate particles scatter light and make the liquid look cloudy.",
     [
       "EXHALED-CO2-LIMEWATER"
     ]
@@ -116,7 +116,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "Exhaled after a maximum inhalation only",
       "Stored in the stomach during breathing"
     ],
-    "Tidal volume is the volume of air inhaled or exhaled in a normal resting breath.",
+    "Tidal volume is the volume of air inhaled or exhaled in a normal resting breath. It is much smaller than the maximum volume the lungs can move during forced breathing.",
     [
       "TIDAL-VOLUME"
     ]
@@ -131,7 +131,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "Gas exchange stops temporarily",
       "The trachea becomes sealed"
     ],
-    "Faster and deeper breathing increases minute ventilation, delivering more fresh air to the alveoli and removing more carbon dioxide.",
+    "Faster and deeper breathing increases minute ventilation, delivering more fresh air to the alveoli and removing more carbon dioxide. This helps match pulmonary gas exchange to the higher metabolic rate of exercising muscles.",
     [
       "EXERCISE-MINUTE-VENTILATION"
     ]
@@ -146,7 +146,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "Nephrons",
       "Platelets"
     ],
-    "Tobacco smoke can damage airway cilia, reducing the removal of mucus, dust and microbes.",
+    "Tobacco smoke can damage airway cilia, reducing the removal of mucus, dust and microbes. Poor clearance lets harmful particles and microbes remain in the airways for longer.",
     [
       "SMOKING-CILIA"
     ]
@@ -161,7 +161,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "Increases alveolar surface area",
       "Acts as a bronchodilator"
     ],
-    "Carbon monoxide binds strongly to haemoglobin and prevents some oxygen from being transported.",
+    "Carbon monoxide binds strongly to haemoglobin and prevents some oxygen from being transported. This can make the heart work harder to deliver enough oxygen to tissues.",
     [
       "SMOKING-CARBON-MONOXIDE"
     ]
@@ -176,7 +176,7 @@ export const PART_4: readonly SciCp022ReviewSpec[] = [
       "The diaphragm contracts continuously",
       "Haemoglobin concentration rises suddenly"
     ],
-    "Asthma involves narrowing and inflammation of airways, which increases resistance to airflow.",
+    "Asthma involves narrowing and inflammation of airways, which increases resistance to airflow. Smooth-muscle contraction, swelling and mucus can all reduce the airway diameter.",
     [
       "ASTHMA-AIRWAY-NARROWING"
     ]

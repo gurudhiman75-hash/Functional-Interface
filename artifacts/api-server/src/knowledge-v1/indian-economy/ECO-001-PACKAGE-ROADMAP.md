@@ -27,17 +27,25 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 21. `ECO-CP-021` International Economic Institutions — ENGLISH APPROVED V2 / FROZEN
 22. `ECO-CP-022` Human Development & Development Economics — ENGLISH APPROVED V1 / FROZEN
 23. `ECO-CP-023` Important Economic Events & Milestones — ENGLISH APPROVED V1 / FROZEN
+24. `ECO-CP-024` Insurance & Pension System — COVERAGE-GAP CLOSURE V1 / FROZEN
+25. `ECO-CP-025` Banking Regulation, Financial Inclusion & Payment Systems — COVERAGE-GAP CLOSURE V1 / FROZEN
+26. `ECO-CP-026` White Revolution & Cooperative Dairy — COVERAGE-GAP CLOSURE V1 / FROZEN
+27. `ECO-CP-027` Derivatives & Risk Management — COVERAGE-GAP CLOSURE V1 / FROZEN
+28. `ECO-CP-028` Fiscal Federalism & Finance Commission — COVERAGE-GAP CLOSURE V1 / FROZEN
 
 ## Chapter state
 
 - English editorial review: COMPLETE
-- English CPs frozen: 23 / 23
-- Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY`
+- English CPs frozen: 28 / 28
+- Chapter implementation: `CLOSED`
+- Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY` — EN/HI/PA
 - Question Studio package: `ECO-001`
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: NOT_STARTED / separate workflow
+- Localisation: COMPLETE — CP001–CP028 implemented for Hindi/Punjabi review surfaces
+- Multilingual cumulative checkpoint: 1,132 questions per locale / 3,396 EN-HI-PA surfaces
+- Remaining localisation: NONE
 - Closure record: `ECO-001-CHAPTER-STATUS.md`
 
 ## Binding rules
@@ -51,23 +59,48 @@ This file is the chapter-level binding authority for Indian Economy CP promotion
 - Keep distractors on the same conceptual axis wherever the question tests a classification.
 - For legacy national-income formulas retained for exam preparation, label historical/traditional relationships clearly when current official presentation differs.
 - National-income measurement questions should distinguish final/intermediate use from expenditure or income components; do not use unrelated accounting families as easy distractors unless the distinction itself is being tested.
-- Explanations must be simple and beginner-friendly. Normally use 1–2 short sentences: the deciding fact plus only the minimum reason or distinction needed.
-- Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
+- Explanations must be simple and beginner-friendly. Statement explanations should state why the relevant statement is true or false; numerical explanations should show the short working used.
 - Difficulty is assigned per generated variant under `ECO-DIFFICULTY-POLICY.md`, not permanently by QL or question format.
 
 ## Question Studio review-only registration
 
-The completed English chapter is registered with the shared `knowledge-v1` Question Studio engine under package `ECO-001`.
+The completed multilingual chapter is registered with the shared `knowledge-v1` Question Studio engine under package `ECO-001`.
 
 The registration:
-- exposes all 23 approved/frozen CPs;
+- exposes all 28 approved/frozen CPs in English, Hindi and Punjabi;
 - supports CP and QL selectors;
-- supports English Easy / Medium / Hard / Mixed review generation;
+- supports Easy / Medium / Hard / Mixed review generation in EN/HI/PA;
+- preserves the same seeded semantic draw across languages;
 - selects deterministically without replacement;
 - uses the standard `REVIEW_ONLY` lifecycle;
 - does not authorize canonical Question Bank persistence;
 - does not authorize tests, mock tests, public publication, automatic student release, or production release.
 
-## Next promotion gate
+## Multilingual promotion state
 
-All 23 English CPs are frozen and `ECO-001` is available in Question Studio for review-only generation. Any move to Question Bank storage / `BANK_ONLY`, localisation, test eligibility, mock-test eligibility, public publication or production release requires a separate explicit approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.
+- CP001–CP014: merged multilingual V1
+- CP015: Economic Planning in India — multilingual V1, V3 stem authority
+- CP016: Economic Reforms of 1991 — multilingual V1, V2 stem authority
+- CP017: Agriculture & Indian Economy — multilingual V1, V2 stem authority
+- CP018: Industry & Industrial Development — multilingual V1, V2 stem authority
+- CP019: Financial Markets — multilingual V1, V2 stem authority
+- CP020: External Sector & Balance of Payments — multilingual V1, V2 stem authority
+- CP021: International Economic Institutions — multilingual V1, V3 stem authority
+- CP022: Human Development & Development Economics — multilingual V1, V2 stem authority
+- CP023: Important Economic Events & Milestones — multilingual V1, V2 stem authority
+- CP024: Insurance & Pension System — coverage-gap closure V1
+- CP025: Banking Regulation, Financial Inclusion & Payment Systems — coverage-gap closure V1
+- CP026: White Revolution & Cooperative Dairy — coverage-gap closure V1
+- CP027: Derivatives & Risk Management — coverage-gap closure V1
+- CP028: Fiscal Federalism & Finance Commission — coverage-gap closure V1
+- cumulative audit authority extends through CP028
+- multilingual localisation sequence is complete
+- multilingual surfaces remain `REVIEW_ONLY`
+
+## Coverage-gap closure authority
+
+`ECO-001-COVERAGE-GAP-AUDIT-V1.md` is the breadth authority for the final 28-CP structure. It records both the added gap packs and the major syllabus areas rechecked and found already covered.
+
+## Chapter closure
+
+The Economy chapter is re-closed after the exhaustive coverage-gap audit for content authoring, localization and Question Studio review-only integration. Any move to Question Bank storage / `BANK_ONLY`, test eligibility, mock-test eligibility, public publication or production release remains a separate explicit release approval. Frozen English content must not be silently revised; any future hardening pass must be documented and reviewed.

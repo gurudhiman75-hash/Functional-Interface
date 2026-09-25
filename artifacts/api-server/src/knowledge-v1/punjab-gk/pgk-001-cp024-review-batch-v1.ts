@@ -1,3 +1,4 @@
+import { PGK_001_CP024_FACTS } from "./pgk-001-cp024-facts";
 import { PGK_001_CP024_QL161 } from "./pgk-001-cp024-ql161";
 import { PGK_001_CP024_QL162 } from "./pgk-001-cp024-ql162";
 import { PGK_001_CP024_QL163 } from "./pgk-001-cp024-ql163";
@@ -16,11 +17,33 @@ const QLS = [
   ["PGK-001-QL-167", PGK_001_CP024_QL167],
 ] as const;
 
+const PROVENANCE_BY_QL: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "PGK-001-QL-161": ["hola-anandpur","keshgarh-khalsa-1699","virasat-anandpur"],
+  "PGK-001-QL-162": ["maghi-muktsar","forty-mukte","muktsar-name"],
+  "PGK-001-QL-163": ["shaheedi-fatehgarh","shaheedi-december","fatehgarh-bhora"],
+  "PGK-001-QL-164": ["baisakhi-harvest","baisakhi-khalsa","harballabh-jalandhar","harballabh-1875","baba-sodal-jalandhar","kila-raipur"],
+  "PGK-001-QL-165": ["harmandir-amritsar","jallianwala-amritsar","gobindgarh-amritsar","ram-tirath-amritsar"],
+  "PGK-001-QL-166": ["qila-mubarak-patiala","qila-mubarak-1763","sheesh-mahal-patiala","moti-bagh-patiala","virasat-anandpur","virasat-open-2011","virasat-architect"],
+  "PGK-001-QL-167": ["hola-anandpur","keshgarh-khalsa-1699","virasat-anandpur","virasat-open-2011","maghi-muktsar","shaheedi-fatehgarh","baisakhi-harvest","baisakhi-khalsa","harballabh-jalandhar","harballabh-1875","kila-raipur","harmandir-amritsar","jallianwala-amritsar","gobindgarh-amritsar","qila-mubarak-patiala","qila-mubarak-1763","sheesh-mahal-patiala"],
+});
+
+function provenanceForQl(qlId: string) {
+  const factIds = PROVENANCE_BY_QL[qlId] ?? [];
+  const factSet = new Set(factIds);
+  const sourceIds = [...new Set(
+    PGK_001_CP024_FACTS
+      .filter((fact) => factSet.has(fact.id))
+      .flatMap((fact) => [...fact.sourceIds]),
+  )];
+  return Object.freeze({ factIds: Object.freeze([...factIds]), sourceIds: Object.freeze(sourceIds) });
+}
+
 export const PGK_001_CP024_REVIEW_BATCH_V1 = Object.freeze(
   QLS.flatMap(([qlId, payloads]) => payloads.map((payload, index) => Object.freeze({
     id: `${qlId}-R${String(index + 1).padStart(2, "0")}`,
     qlId,
     ...payload,
+    ...provenanceForQl(qlId),
     reviewOnly: true as const,
     runtimeRegistered: false as const,
   })))

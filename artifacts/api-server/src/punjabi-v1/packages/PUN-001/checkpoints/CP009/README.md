@@ -1,11 +1,11 @@
 # PUN-001 CP009 Retrofit — ਸਮਾਨਾਰਥਕ ਅਤੇ ਵਿਰੋਧੀ ਸ਼ਬਦ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Why this retrofit exists
 The earlier forward-port deliberately capped CP009 at 64 atomic authorities. That cap is now removed.
 
-The historical donor was re-audited exhaustively instead of sampling to a target number.
+The historical donor was re-audited exhaustively instead of sampling to a target number. A later breadth pass expands contextual application without altering the direct synonym/antonym banks.
 
 ## Exhaustive audited authority surface
 Raw donor:
@@ -17,8 +17,8 @@ Raw donor:
 After duplicate collapse and semantic audit:
 - **98 unique synonym headword authorities**
 - **110 unambiguous antonym concept authorities**
-- **10 authored context authorities**
-- **218 total authorities**
+- **60 authored context authorities** (10 retained donor contexts + 50 new exam-grade contextual distinctions)
+- **268 total authorities**
 
 Additional lexical breadth:
 - **378 validated synonym edges**
@@ -42,7 +42,7 @@ Weak synonym members are removed without deleting otherwise valid headword autho
 ## Families
 - F01 direct synonym — Easy
 - F02 direct antonym — Easy
-- F03 meaning-relation classification — Easy
+- F03 synonym/antonym pair recognition — Easy
 - F04 authored context precision — Medium
 - F05 synonym outsider — Medium
 - F06 synonym-set completion — Medium
@@ -50,11 +50,11 @@ Weak synonym members are removed without deleting otherwise valid headword autho
 - F08 dual statement verification — Hard
 
 ## Governed semantic breadth
-**66,413 combinations** before answer-order permutations.
+**66,463 combinations** before answer-order permutations.
 
-Every retained authority is reachable by its applicable families. Every validated synonym edge is exercised by F01/F03. All four F08 truth outcomes are governed.
+All 60 contextual authorities are reachable through F04. Every retained authority is reachable by its applicable families. Every validated synonym edge is exercised by F01/F03. All four F08 truth outcomes are governed.
 
 ## Lifecycle
-This retrofit materially changes learner-facing authorities and generation breadth, so the previous CP009 approval does not cover this head.
+Owner editorial approval is recorded for the reviewed CP009 retrofit head `a3269260ef14a601ecff5d4d36a66919100e2040`.
 
-No runtime/publication promotion is authorized.
+Runtime remains REVIEW_ONLY. No permanent QL allocation, Question Bank write, test/mock eligibility, or public/student publication is authorized by this approval.

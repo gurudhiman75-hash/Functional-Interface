@@ -23,6 +23,14 @@ assert.deepEqual(pkg.supportedLanguages, ["pa"]);
 assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(pkg.cpIds.length, 14);
 assert.deepEqual(pkg.cpIds, PUN_001_QUESTION_STUDIO_CP_IDS_V1);
+const metadata = pkg.metadata as Record<string, unknown>;
+assert.equal(metadata.approvedCombinedContentTip, "b1c416e0463dd16c4e388864ba75877e0c727934");
+assert.equal(metadata.finalGapClosureMergeCommit, "b1c416e0463dd16c4e388864ba75877e0c727934");
+assert.equal(metadata.finalClosureDate, "2026-09-24");
+assert.equal(metadata.chapterFreezeStatus, "OWNER_APPROVED_REVIEW_ONLY");
+assert.equal(metadata.atomicAuthorityCount, 3828);
+assert.equal(metadata.questionFamilyCount, 133);
+assert.equal(metadata.aggregateSemanticCapacity, 9755590464);
 
 const compositePackage = languageV1QuestionStudioAdapter
   .listPackages()

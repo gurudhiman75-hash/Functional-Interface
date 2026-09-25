@@ -28,7 +28,7 @@ writeFileSync(outputPath, html, "utf8");
 console.log(JSON.stringify({
   outputPath,
   architecture: "SEMANTIC_STIMULUS_PLUS_SHARED_DI_RENDERER",
-  questionLogicVersion: "DI-009-QUESTION-LOGIC-V2",
+  questionLogicVersion: "DI-009-QUESTION-LOGIC-V3",
   setContractVersion: "DI-009-SET-CONTRACT-V3",
   visualTheme: DI_HISTOGRAM_VISUAL_THEME,
   sets: sets.length,

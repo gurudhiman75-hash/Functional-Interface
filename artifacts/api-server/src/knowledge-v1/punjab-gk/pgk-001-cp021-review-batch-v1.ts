@@ -1,3 +1,4 @@
+import { PGK_001_CP021_FACTS, PGK_001_CP021_SOURCE_IDS } from "./pgk-001-cp021-facts";
 import { PGK_001_CP021_QL140 } from "./pgk-001-cp021-ql140";
 import { PGK_001_CP021_QL141 } from "./pgk-001-cp021-ql141";
 import { PGK_001_CP021_QL142 } from "./pgk-001-cp021-ql142";
@@ -16,11 +17,32 @@ const QLS = [
   ["PGK-001-QL-146", PGK_001_CP021_QL146],
 ] as const;
 
+const PROVENANCE_BY_QL: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "PGK-001-QL-140": ["official-language-punjabi","official-language-gurmukhi"],
+  "PGK-001-QL-141": ["gurmukhi-guru-angad","gurmukhi-khadur"],
+  "PGK-001-QL-142": ["painti-35","vowel-bearers","additional-consonants","nukta"],
+  "PGK-001-QL-143": ["matra-kanna","matra-sihari","matra-bihari","matra-aunkar","matra-dulainkar","matra-lavan","matra-dulavan","matra-hora","matra-kanaura"],
+  "PGK-001-QL-144": ["bindi","tippi","addak","nukta"],
+  "PGK-001-QL-145": ["punjabi-tonal","gurmukhi-tone","gurmukhi-direction","gurmukhi-digits"],
+  "PGK-001-QL-146": ["painti-35","vowel-bearers","additional-consonants","nukta","punjabi-tonal","gurmukhi-tone","gurmukhi-direction","gurmukhi-digits"],
+});
+
+function provenanceForQl(qlId: string) {
+  const factIds = PROVENANCE_BY_QL[qlId] ?? [];
+  const factSet = new Set(factIds);
+  const sourceKeys = (PGK_001_CP021_FACTS as readonly { id: string; sourceKeys: readonly string[] }[])
+    .filter((fact) => factSet.has(fact.id))
+    .flatMap((fact) => fact.sourceKeys);
+  const sourceIds = [...new Set(sourceKeys.map((key) => PGK_001_CP021_SOURCE_IDS[key as keyof typeof PGK_001_CP021_SOURCE_IDS]))];
+  return Object.freeze({ factIds: Object.freeze([...factIds]), sourceIds: Object.freeze(sourceIds) });
+}
+
 export const PGK_001_CP021_REVIEW_BATCH_V1 = Object.freeze(
   QLS.flatMap(([qlId, payloads]) => payloads.map((payload, index) => Object.freeze({
     id: `${qlId}-R${String(index + 1).padStart(2, "0")}`,
     qlId,
     ...payload,
+    ...provenanceForQl(qlId),
     reviewOnly: true as const,
     runtimeRegistered: false as const,
   })))

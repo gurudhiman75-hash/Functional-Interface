@@ -1,0 +1,63 @@
+name: Validate HIS-001 CP020 Localization V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-history/localization-v1/**"
+      - "artifacts/api-server/src/knowledge-v1/indian-history/medieval-economy-society/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: history-his-cp020-localization-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-his-cp020-localization:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build CP020 multilingual audit
+        run: |
+          mkdir -p artifacts/api-server/dist/history-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-history/localization-v1/his-cp020-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/history-review/his-cp020-localization-audit-v1.mjs
+      - name: Run CP020 multilingual audit
+        run: |
+          cd artifacts/api-server
+          node dist/history-review/his-cp020-localization-audit-v1.mjs
+      - name: Build CP020 multilingual review exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-history/localization-v1/his-cp020-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/history-review/his-cp020-localization-export-v1.mjs
+      - name: Materialize CP020 multilingual review artifact
+        run: |
+          cd artifacts/api-server
+          node dist/history-review/his-cp020-localization-export-v1.mjs
+      - name: Upload CP020 multilingual review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HIS-MULTILINGUAL-V1-CP020-REVIEW
+          path: artifacts/api-server/dist/history-review/HIS-MULTILINGUAL-V1/HIS-MULTILINGUAL-V1-CP020-REVIEW.md
+          if-no-files-found: error
+          retention-days: 30
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
