@@ -101,9 +101,9 @@ export type Di010QuestionSet = Readonly<{
     histogramSibling: "DI-009";
     statisticsSibling: "STAT-003";
     presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS";
-    questionLogicVersion: "DI-010-QUESTION-LOGIC-P2";
+    questionLogicVersion: "DI-010-QUESTION-LOGIC-P3";
     setContractVersion: "DI-010-SET-CONTRACT-P2";
-    arithmeticAuthority: "EXACT_INTEGER_MIDPOINT";
+    arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING";
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
     questionBankStatus: "NOT_STORED";

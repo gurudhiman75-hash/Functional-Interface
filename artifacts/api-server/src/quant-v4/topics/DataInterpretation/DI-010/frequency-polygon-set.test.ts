@@ -7,6 +7,15 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function learnerText(question: { stem: string; options: readonly string[]; answer: string; explanation: { keyIdea: string; steps: readonly string[]; workingTable?: { headers: readonly string[]; rows: readonly (readonly string[])[] } } }) {
+  const table = question.explanation.workingTable;
+  return [question.stem, ...question.options, question.answer, question.explanation.keyIdea, ...question.explanation.steps, ...(table?.headers ?? []), ...(table?.rows.flat() ?? [])].join(" ");
+}
+
+function svgText(svg: string) {
+  return [...svg.matchAll(/<(?:title|desc|text)[^>]*>([^<]*)<\/(?:title|desc|text)>/g)].map((match) => match[1] ?? "").join(" ");
+}
+
 const profiles: readonly Di010ExamProfile[] = ["SSC_CGL_TIER_I", "SSC_CGL_TIER_II"];
 const taskCounts = new Map<Di010TaskKind, number>(DI010_TASK_KINDS.map((kind) => [kind, 0]));
 const answerPositions = new Map<Di010TaskKind, Set<number>>(DI010_TASK_KINDS.map((kind) => [kind, new Set<number>()]));
@@ -44,6 +53,7 @@ for (const profile of profiles) {
     assert((svg.match(/data-point-index=/g) ?? []).length === first.stimulus.classes.length, `${seed}: plotted data-point count does not match class count.`);
     assert((svg.match(/data-x-label=/g) ?? []).length === first.stimulus.classes.length, `${seed}: class-mark label count drifted.`);
     assert(!svg.includes("data-point-value"), `${seed}: point-value labels would leak graph-reading answers.`);
+    assert(!/\d+\.\d+/u.test(svgText(svg)), `${seed}: visible polygon text contains decimal values.`);
 
     shapes.add(first.stimulus.shape);
     classCounts.add(first.stimulus.classes.length);
@@ -55,6 +65,7 @@ for (const profile of profiles) {
       stemSurfaces.get(question.kind)!.add(Number(question.evidence.surfaceId));
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${question.questionId}: invalid options.`);
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId}: answer index mismatch.`);
+      assert(!/\d+\.\d+/u.test(learnerText(question)), `${question.questionId}: decimal learner-facing value leaked.`);
       assert(!/associated|shortcut|common trap|\btrap\b/i.test(question.stem), `${question.questionId}: banned machine-like wording leaked into stem.`);
       assert(!/^What class mark is used|^What is the coordinate of the point|absolute difference between the plotted frequencies/i.test(question.stem), `${question.questionId}: rejected P0-style mechanical stem leaked into P2.`);
       assert(!/\d+(?:\.\d+)?–\d+(?:\.\d+)?–\d+(?:\.\d+)?–\d+(?:\.\d+)?/.test(question.stem), `${question.questionId}: concatenated class intervals leaked into the stem.`);
@@ -77,7 +88,7 @@ for (const kind of DI010_TASK_KINDS) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_DI_010_FREQUENCY_POLYGON_P2",
+  status: "PASS_DI_010_FREQUENCY_POLYGON_P3_NO_DECIMALS",
   sets,
   questions,
   deterministicReplays: sets,

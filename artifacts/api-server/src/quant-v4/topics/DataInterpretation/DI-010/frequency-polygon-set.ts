@@ -130,6 +130,20 @@ function chooseQuestionMix(seed: string, drafts: readonly Di010Draft[]) {
   return shuffle(seededRandom(`${seed}:mix:order`), [easy[0]!, medium[0]!, medium[1]!, hard[0]!, hard[1]!]);
 }
 
+function hasDecimalLearnerSurface(question: Di010Question) {
+  const table = question.explanation.workingTable;
+  const text = [
+    question.stem,
+    ...question.options,
+    question.answer,
+    question.explanation.keyIdea,
+    ...question.explanation.steps,
+    ...(table?.headers ?? []),
+    ...(table?.rows.flat() ?? []),
+  ].join(" ");
+  return /\d+\.\d+/u.test(text);
+}
+
 function validateSet(set: Omit<Di010QuestionSet, "validation">) {
   const checks: Di010ValidationCheck[] = [];
   const add = (id: string, passed: boolean, message: string) => checks.push({ id, passed, message });
@@ -148,6 +162,7 @@ function validateSet(set: Omit<Di010QuestionSet, "validation">) {
   add("DIFFICULTY_MIX", set.questions.filter((question) => question.difficulty === "Easy").length === 1 && set.questions.filter((question) => question.difficulty === "Medium").length === 2 && set.questions.filter((question) => question.difficulty === "Hard").length === 2, "Each set must contain 1 Easy, 2 Medium and 2 Hard questions.");
   add("FOUR_UNIQUE_OPTIONS", set.questions.every((question) => question.options.length === 4 && new Set(question.options).size === 4), "Every question must expose four unique options.");
   add("ANSWER_INDEX_VALID", set.questions.every((question) => question.options[question.correctIndex] === question.answer), "Correct-index metadata must point to the exact answer.");
+  add("NO_DECIMAL_LEARNER_SURFACE", set.questions.every((question) => !hasDecimalLearnerSurface(question)), "DI-010 learner-facing questions, options and explanations must contain no decimal values.");
   add("MISCONCEPTION_OWNED_DISTRACTORS", set.questions.every((question) => question.optionMetadata.filter((option) => option.misconceptionId !== "CORRECT").every((option) => option.misconceptionId.length > 3 && option.derivation.length > 12)), "Every distractor must carry misconception ownership.");
   add("EXPLANATION_PRESENT", set.questions.every((question) => question.explanation.keyIdea.length > 15 && question.explanation.steps.length >= 1), "Every question needs a beginner-readable explanation.");
   add("REVIEW_ONLY", !set.traceability.questionStudioDiscoverable && set.traceability.questionBankStatus === "NOT_STORED" && !set.traceability.questionBankWritable && set.traceability.testEligibility === "INELIGIBLE" && !set.traceability.testEligible && !set.traceability.mockTestEligible && !set.traceability.publiclyPublishable && !set.traceability.automaticStudentPublication && !set.traceability.productionReleaseAuthorized, "DI-010 P2 must remain fully review-only.");
@@ -181,9 +196,9 @@ export function generateDi010FrequencyPolygonSet(input: { seed: string; examProf
       histogramSibling: "DI-009" as const,
       statisticsSibling: "STAT-003" as const,
       presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS" as const,
-      questionLogicVersion: "DI-010-QUESTION-LOGIC-P2" as const,
+      questionLogicVersion: "DI-010-QUESTION-LOGIC-P3" as const,
       setContractVersion: "DI-010-SET-CONTRACT-P2" as const,
-      arithmeticAuthority: "EXACT_INTEGER_MIDPOINT" as const,
+      arithmeticAuthority: "EXACT_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING" as const,
       reviewStatus: "UNREVIEWED" as const,
       questionStudioDiscoverable: false as const,
       questionBankStatus: "NOT_STORED" as const,

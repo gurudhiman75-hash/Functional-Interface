@@ -46,12 +46,17 @@ function percentageRescue(answer: string): Di010Candidate[] {
   return [-10, -5, 5, 10].map((shift) => value + shift).filter((candidate) => candidate > 0 && candidate < 100).map((candidate, index) => ({ text: `${Number(candidate.toFixed(2))}%`, misconceptionId: `NEARBY_PERCENT_${index}`, derivation: "Represents a nearby percentage caused by using the wrong class frequency or denominator." }));
 }
 
+function hasDecimalToken(value: string) {
+  return /\d+\.\d+/u.test(value);
+}
+
 function buildOptions(seed: string, answer: string, candidates: readonly Di010Candidate[]) {
+  if (hasDecimalToken(answer)) throw new Error(`DI-010 ${seed} produced decimal answer '${answer}' after the no-decimal policy.`);
   const retained: Di010Option[] = [];
   const seen = new Set<string>();
   const add = (candidate: Di010Candidate) => {
     const key = candidate.text.trim().toLowerCase();
-    if (!candidate.text.trim() || seen.has(key)) return;
+    if (!candidate.text.trim() || hasDecimalToken(candidate.text) || seen.has(key)) return;
     seen.add(key);
     retained.push(candidate);
   };
@@ -102,7 +107,7 @@ export function generateDi010PermanentQuestion(input: { seed: string; examProfil
     question,
     traceability: {
       representation: "FREQUENCY_POLYGON" as const,
-      questionLogicVersion: "DI-010-QUESTION-LOGIC-P2" as const,
+      questionLogicVersion: "DI-010-QUESTION-LOGIC-P3" as const,
       setContractVersion: "DI-010-SET-CONTRACT-P2" as const,
       presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS" as const,
       questionStudioDiscoverable: false as const,

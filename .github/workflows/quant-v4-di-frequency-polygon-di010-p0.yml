@@ -44,10 +44,23 @@ jobs:
           test -d artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/frequency-polygon-svg.ts
           ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010
-      - name: Frequency-polygon P2 deterministic, diversity, independent and visual proof
+      - name: Frequency-polygon P3 no-decimal deterministic, diversity, independent and visual proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/frequency-polygon-set.test.ts
       - name: Question Studio controlled-review integration proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/question-studio-integration.test.ts
+      - name: Hindi Punjabi localization review proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/localization-review-v1.test.ts
+      - name: Export Hindi Punjabi localization review pack
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/export-localization-review-v1.ts /tmp/DI-010-LOCALIZATION-REVIEW-V1.md
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/export-localization-review-html-v1.ts /tmp/DI-010-LOCALIZATION-REVIEW-V1.html
+      - name: Upload Hindi Punjabi localization review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-010-localization-review-v1
+          path: |
+            /tmp/DI-010-LOCALIZATION-REVIEW-V1.md
+            /tmp/DI-010-LOCALIZATION-REVIEW-V1.html
       - name: API server build
         run: pnpm --filter @workspace/api-server build
       - name: Patch hygiene
