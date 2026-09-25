@@ -1,0 +1,64 @@
+name: Validate PGK-001 CP001 Localization V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/punjab-gk/localization-v1/**"
+      - "artifacts/api-server/src/knowledge-v1/punjab-gk/pgk-001-cp001-review-batch-v1.ts"
+      - ".github/workflows/pgk-cp001-localization-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pgk-cp001-localization-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pgk-cp001-localization:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build CP001 multilingual audit
+        run: |
+          mkdir -p artifacts/api-server/dist/pgk-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/punjab-gk/localization-v1/pgk-cp001-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/pgk-review/pgk-cp001-localization-audit-v1.mjs
+      - name: Run CP001 multilingual audit
+        run: |
+          cd artifacts/api-server
+          node dist/pgk-review/pgk-cp001-localization-audit-v1.mjs
+      - name: Build CP001 multilingual review exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/punjab-gk/localization-v1/pgk-cp001-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/pgk-review/pgk-cp001-localization-export-v1.mjs
+      - name: Materialize CP001 multilingual review artifact
+        run: |
+          cd artifacts/api-server
+          node dist/pgk-review/pgk-cp001-localization-export-v1.mjs
+      - name: Upload CP001 multilingual review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PGK-MULTILINGUAL-V1-CP001-REVIEW
+          path: artifacts/api-server/dist/pgk-review/PGK-MULTILINGUAL-V1/PGK-MULTILINGUAL-V1-CP001-REVIEW.md
+          if-no-files-found: error
+          retention-days: 30
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
