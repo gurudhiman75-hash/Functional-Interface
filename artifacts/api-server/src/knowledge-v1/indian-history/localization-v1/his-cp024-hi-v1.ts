@@ -3,7 +3,7 @@ import type { HisNativeOverlayV1 } from "./his-localization-types-v1";
 
 const englishBase=(n:number):readonly[string,string,string,string]=>{
   const s=HIS_CP024_SPECS_V1[n-1];
-  if(!s)throw new Error(\`HIS-CP-024 #\${n}: missing English review spec\`);
+  if(!s)throw new Error("HIS-CP-024 #"+n+": missing English review spec");
   return [s[2],s[3][0],s[3][1],s[3][2]];
 };
 const make=(n:number,stem:string,nativeBase:readonly[string,string,string,string],explanation:string):HisNativeOverlayV1=>{
