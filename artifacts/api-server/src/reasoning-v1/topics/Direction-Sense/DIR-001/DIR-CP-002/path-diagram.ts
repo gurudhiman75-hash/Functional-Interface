@@ -147,7 +147,7 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">, options: PathDiagramOptio
     points,
     distanceLabels,
     compass,
-    `<text x="360" y="438" text-anchor="middle" font-size="11" fill="#64748b">Diagram is not necessarily to scale.</text>`,
+    `<text x="360" y="438" text-anchor="middle" font-size="11" fill="#64748b">Segment proportions follow the solved coordinates; labels give the exact distances.</text>`,
     `</svg>`,
   ].join("");
 }
