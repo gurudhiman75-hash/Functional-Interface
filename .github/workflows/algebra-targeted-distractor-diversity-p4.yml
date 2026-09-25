@@ -8,8 +8,11 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v4.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/targeted-distractor-diversity-p4.test.ts
-      - .github/workflows/algebra-targeted-distractor-diversity-p4.yml
   workflow_dispatch:
+
+concurrency:
+  group: algebra-targeted-distractor-diversity-p4-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
