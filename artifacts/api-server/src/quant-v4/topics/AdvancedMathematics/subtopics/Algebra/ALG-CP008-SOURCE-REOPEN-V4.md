@@ -29,19 +29,19 @@ The proof covers 64 distinct states and both Boolean outcomes.
 
 ## No-valid-root remediation
 
-The no-solution family now varies the genuine factor state
+The no-solution family now varies two genuinely different linear roots:
 
-`[m(x-e)]² / [m(x-e)] = 0`.
+`(x-a)²/(x-a) = x-b`, with `a ≠ b`.
 
-The only algebraic candidate is `x=e`, but `x=e` is excluded by the original denominator. The exact rational-equation solver independently confirms `NO_SOLUTION`.
+Cross-multiplication gives `(b-a)(x-a)=0`, so the only algebraic candidate is `x=a`. That value is excluded by the original denominator, leaving no valid solution. The second root parameter changes the actual equation rather than multiplying an unchanged factor by a cosmetic scalar.
 
 ## Infinite-on-domain remediation
 
-The restricted identity family now varies
+The restricted identity family now varies two genuine domain exclusions:
 
-`m(x-e) / m(x-e) = 1`.
+`(x-a)/(x-a) = (x-b)/(x-b)`, with `a ≠ b`.
 
-It is true for every real x where the denominator is non-zero, while `x=e` remains excluded. The exact solver independently confirms `INFINITE_ON_DOMAIN`.
+Both sides equal 1 wherever they are defined. The exact solver therefore returns `INFINITE_ON_DOMAIN` with the two excluded values `a` and `b`. Diversity is measured from the excluded-value pair, not coefficient scaling.
 
 ## Frozen boundaries
 
