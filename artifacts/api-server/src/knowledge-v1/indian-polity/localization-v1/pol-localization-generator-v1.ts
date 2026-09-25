@@ -29,7 +29,7 @@ import type { PolLocaleV1, PolLocalizedQuestionV1 } from "./pol-localization-typ
 export function generatePolCp001Cp027LocalizedReviewV1(
   locale: PolLocaleV1,
 ): PolLocalizedQuestionV1[] {
-  return [
+  const questions = [
     ...generatePolCp001Cp002LocalizedReviewV1(locale),
     ...generatePolCp003LocalizedReviewV1(locale),
     ...generatePolCp004LocalizedReviewV1(locale),
@@ -57,6 +57,11 @@ export function generatePolCp001Cp027LocalizedReviewV1(
     ...generatePolCp026LocalizedReviewV1(locale),
     ...generatePolCp027LocalizedReviewV1(locale),
   ];
+
+  return questions.map((question) => ({
+    ...question,
+    sourceFactIds: [...(question.sourceFactIds ?? [])],
+  }));
 }
 
 export const POL_001_LOCALIZED_QUESTION_COUNT_V1 = 2087 as const;
