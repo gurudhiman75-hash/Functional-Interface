@@ -171,12 +171,18 @@ const CONSTRUCTION_OPTIONS = Object.freeze({
 } as const);
 
 function localizeOptions(question: Di010Question, locale: Di010LocalizationLocale) {
-  if (question.kind !== "CONSTRUCTION_PROPERTY") return [...question.options];
-  return question.options.map((option) => {
-    const mapped = CONSTRUCTION_OPTIONS[option as keyof typeof CONSTRUCTION_OPTIONS];
-    if (!mapped) throw new Error(`DI-010 localization is missing construction option '${option}'.`);
-    return isHindi(locale) ? mapped.hi : mapped.pa;
-  });
+  if (question.kind === "CONSTRUCTION_PROPERTY") {
+    return question.options.map((option) => {
+      const mapped = CONSTRUCTION_OPTIONS[option as keyof typeof CONSTRUCTION_OPTIONS];
+      if (!mapped) throw new Error(`DI-010 localization is missing construction option '${option}'.`);
+      return isHindi(locale) ? mapped.hi : mapped.pa;
+    });
+  }
+  if (question.kind === "ZERO_CLOSING_ENDPOINTS") {
+    const connector = isHindi(locale) ? " और " : " ਅਤੇ ";
+    return question.options.map((option) => option.replace(" and ", connector));
+  }
+  return [...question.options];
 }
 
 function localizedStem(question: Di010Question, stimulus: Di010Stimulus, locale: Di010LocalizationLocale) {
