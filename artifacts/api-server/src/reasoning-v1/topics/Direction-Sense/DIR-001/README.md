@@ -1,6 +1,6 @@
 # DIR-001 — Direction and Distance
 
-Status: **recovered to current mainline; final deep audit in progress**.
+Status: **final deep audit complete candidate; multilingual frozen and Question Studio integrated in review-only mode**.
 
 ## Authoritative reading order
 
@@ -9,22 +9,22 @@ Status: **recovered to current mainline; final deep audit in progress**.
 3. `DIR-001-CHAPTER-MANIFEST.ts` — machine-readable checkpoint inventory.
 4. `chapter-registry.ts` — current implemented QL registry and generation dispatch.
 5. `DIR-001-ENGLISH-FREEZE.ts` — historical approved English baseline.
-6. `dir-001-final-audit-review-pack.ts` — current trilingual audit-review exporter.
+6. `dir-001-final-audit-review-pack.ts` — trilingual audit-review exporter.\n7. `DIR-001-MULTILINGUAL-FREEZE.ts` — explicit EN/HI/PA freeze authority.\n8. `dir-001-question-studio-integration.ts` — standard review-only Question Studio integration.\n9. `DIR-001-FINAL-CLOSURE.ts` — final audit closure candidate and downstream release lock.
 
 ## Current chapter inventory
 
 ```text
-Foundation:      implemented
+Foundation:      implemented and re-audited
 Checkpoints:     DIR-CP-001..008
 Permanent QLs:   DIR-QL-001..044
-English:         historical frozen baseline; under final re-audit
-Hindi:           implemented; final language/freeze audit pending
-Punjabi:         implemented; final language/freeze audit pending
-Question Studio: not yet integrated on current mainline
-Question Bank:   locked
-Test/mock use:   locked
+English:         frozen baseline re-audited
+Hindi:           multilingual frozen
+Punjabi:         multilingual frozen
+Question Studio: integrated in standard reasoning-v1 review-only workflow
+Question Bank:   locked / NOT_STORED
+Test/mock use:   locked / INELIGIBLE
 Public release:  locked
-Final audit:     in progress
+Final audit:     complete closure candidate; human closure approval still required
 ```
 
 Checkpoint coverage:

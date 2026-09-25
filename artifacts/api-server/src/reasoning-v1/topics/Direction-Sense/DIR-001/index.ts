@@ -1,6 +1,7 @@
 export * from "./DIR-001-CHAPTER-MANIFEST";
 export * from "./DIR-001-ENGLISH-FREEZE";
 export * from "./DIR-001-MULTILINGUAL-FREEZE";
+export * from "./DIR-001-FINAL-CLOSURE";
 export * from "./chapter-registry";
 export * from "./dir-001-question-studio-integration";
 export * from "./foundation";
