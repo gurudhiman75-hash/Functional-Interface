@@ -1,6 +1,6 @@
 import { addCoordinates } from "../foundation/coordinates";
 import type { Direction, PositionRelation } from "../foundation/types";
-import { buildHybridExplanationDiagram, buildHybridQuestionDiagram, buildMixedGraphMovementDiagram, buildRelationDiagram } from "./diagram";
+import { buildAbsoluteMovementSolutionDiagram, buildHybridExplanationDiagram, buildMixedGraphMovementDiagram, buildRelationDiagram, buildRelativeMovementSolutionDiagram } from "./diagram";
 import { DIRECTION_LABELS, TURN_LABELS, cardinalVector, relationVector, statementText, turnFacing } from "./geometry";
 import {
   solveCaseletIndependent,
@@ -187,6 +187,7 @@ function generateMissingMovement(seed: number): GeneratedAdvancedQuestion {
       })(),
       resultLine: `${scenario.subject}'s missing leg is towards ${DIRECTION_LABELS[solved]}.`,
       conclusion: `Therefore, ${scenario.subject} used the ${DIRECTION_LABELS[solved]} direction for the missing movement.`,
+      diagram: buildAbsoluteMovementSolutionDiagram(scenario.legs.map((leg) => ({ direction: leg.direction === "UNKNOWN" ? solved : leg.direction, distance: leg.distance }))),
     },
   });
 }
@@ -218,6 +219,15 @@ function generateMissingTurn(seed: number): GeneratedAdvancedQuestion {
       })(),
       resultLine: `The missing step is “${TURN_LABELS[solved]}”.`,
       conclusion: `Therefore, “${TURN_LABELS[solved]}” is the correct instruction for ${scenario.subject}.`,
+      diagram: (() => {
+        const secondFacing = turnFacing(scenario.initialFacing, solved);
+        const thirdFacing = turnFacing(secondFacing, scenario.knownTurn);
+        return buildAbsoluteMovementSolutionDiagram([
+          { direction: scenario.initialFacing, distance: scenario.firstDistance },
+          { direction: secondFacing, distance: scenario.secondDistance },
+          { direction: thirdFacing, distance: scenario.thirdDistance },
+        ]);
+      })(),
     },
   });
 }
@@ -239,6 +249,7 @@ function generateInitialFacing(seed: number): GeneratedAdvancedQuestion {
       ],
       resultLine: `${scenario.subject}'s initial facing is ${DIRECTION_LABELS[solved]}.`,
       conclusion: `Therefore, ${scenario.subject} initially faced ${DIRECTION_LABELS[solved]}.`,
+      diagram: buildRelativeMovementSolutionDiagram(solved, scenario.operations),
     },
   });
 }
@@ -296,6 +307,7 @@ function generateCaseletDirection(seed: number): GeneratedAdvancedQuestion {
       ],
       resultLine: `${scenario.subject}'s final position is ${DIRECTION_LABELS[solved.direction]} of ${scenario.checkpoint}.`,
       conclusion: `Therefore, the required direction from ${scenario.checkpoint} is ${DIRECTION_LABELS[solved.direction]}.`,
+      diagram: buildRelativeMovementSolutionDiagram(scenario.initialFacing, scenario.operations),
     },
   });
 }
@@ -323,6 +335,7 @@ function generateCaseletDistance(seed: number): GeneratedAdvancedQuestion {
       ],
       resultLine: `The displacement from ${scenario.checkpoint} is ${solved.distance} metres.`,
       conclusion: `Therefore, ${scenario.subject}'s shortest distance from ${scenario.checkpoint} is ${solved.distance} metres.`,
+      diagram: buildRelativeMovementSolutionDiagram(scenario.initialFacing, scenario.operations, `${solved.distance} m`),
     },
   });
 }
@@ -332,24 +345,24 @@ function generateHybrid(seed: number): GeneratedAdvancedQuestion {
   const solved = solveHybridIndependent(scenario);
   if (solved !== scenario.answerDirection) throw new Error("Hybrid solver mismatch");
   const answer = { kind: "DIRECTION", direction: solved } as const;
-  const writtenRelation = statementText(scenario.textRelation);
+  const firstRelations = scenario.diagramRelations.map(statementText).join(" ");
+  const extraRelation = statementText(scenario.textRelation);
   const stem = variant(seed, [
-    `The diagram shows two position relations. It is also given that ${writtenRelation} Using all the information, in which direction is ${scenario.queryTo} from ${scenario.queryFrom}?`,
-    `Study the two position relations shown in the diagram. In addition, ${writtenRelation} In which direction is ${scenario.queryTo} from ${scenario.queryFrom}?`,
-    `Two position relations are shown in the diagram. Also, ${writtenRelation} Using the diagram and this statement, find the direction of ${scenario.queryTo} from ${scenario.queryFrom}.`,
-    `Use the two relations in the diagram along with this fact: ${writtenRelation} What is the direction of ${scenario.queryTo} from ${scenario.queryFrom}?`,
-    `The diagram provides two position relations, and ${writtenRelation} Considering both sources, where is ${scenario.queryTo} with respect to ${scenario.queryFrom}?`,
+    `${firstRelations} It is also given that ${extraRelation} Using all three relations, in which direction is ${scenario.queryTo} from ${scenario.queryFrom}?`,
+    `${firstRelations} In addition, ${extraRelation} In which direction is ${scenario.queryTo} from ${scenario.queryFrom}?`,
+    `${firstRelations} Also, ${extraRelation} Using the complete information, find the direction of ${scenario.queryTo} from ${scenario.queryFrom}.`,
+    `Use these relations together: ${firstRelations} ${extraRelation} What is the direction of ${scenario.queryTo} from ${scenario.queryFrom}?`,
+    `${firstRelations} One more relation is given: ${extraRelation} Where is ${scenario.queryTo} with respect to ${scenario.queryFrom}?`,
   ]);
   return base({
     qlId: "DIR-QL-044", seed, scenario, answer, options: directionOptions(solved, seed + 401), difficulty: "HARD", stem,
-    questionDiagram: buildHybridQuestionDiagram(scenario),
     explanation: {
       given: variant(seed, [
-        "Use the two relations in the diagram together with the written relation.",
-        "The diagram and the written fact are both needed to answer the question.",
-        "Read the two diagram relations first, then add the written relation.",
-        "Combine the information shown in the diagram with the extra sentence.",
-        "Start with the diagram and then use the additional written relation.",
+        "Place the three stated relations on one map.",
+        "Use all three relation facts together.",
+        "Read the first two relations, then add the third relation to the same layout.",
+        "Combine the three stated relations before comparing the required points.",
+        "Build one common layout from all three relations.",
       ]),
       steps: (() => {
         const allRelations = [...scenario.diagramRelations, scenario.textRelation];
@@ -358,8 +371,7 @@ function generateHybrid(seed: number): GeneratedAdvancedQuestion {
           { x: 0, y: 0 },
         );
         return [
-          ...scenario.diagramRelations.map((relation, index) => `Diagram relation ${index + 1}: ${statementText(relation)}`),
-          `Written relation: ${statementText(scenario.textRelation)}`,
+          ...allRelations.map((relation, index) => `Relation ${index + 1}: ${statementText(relation)}`),
           `Together these place ${scenario.queryTo} ${componentDescription(combined)} of ${scenario.queryFrom}.`,
           `Therefore, ${scenario.queryTo} lies ${DIRECTION_LABELS[solved]} of ${scenario.queryFrom}.`,
         ];

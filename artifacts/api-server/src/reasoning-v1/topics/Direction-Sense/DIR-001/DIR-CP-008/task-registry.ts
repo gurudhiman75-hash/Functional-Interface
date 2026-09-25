@@ -10,7 +10,7 @@ export type DirCp008AnswerDemand =
   | "GRAPH_MOVEMENT_DIRECTION_DISTANCE"
   | "CASELET_ENDPOINT_DIRECTION"
   | "CASELET_SHORTEST_DISTANCE"
-  | "DIAGRAM_TEXT_RELATION";
+  | "SPLIT_TEXT_RELATION_SYNTHESIS";
 
 export interface DirCp008Ql extends DirectionQuestionLogicContract {
   readonly checkpointId: "DIR-CP-008";
@@ -76,11 +76,11 @@ export const DIR_CP008_QLS: readonly DirCp008Ql[] = [
     needEvidence: { answerDemand: "A second independently usable item asks for the exact displacement of the same deterministic caselet state.", rendererContract: "QL-042 and QL-043 must preserve identical stimulus and caselet metadata for the same seed." },
   },
   {
-    qlId: "DIR-QL-044", checkpointId: "DIR-CP-008", ruleId: "DIR_DIAGRAM_TEXT_HYBRID_SYNTHESIS",
-    answerDemand: "DIAGRAM_TEXT_RELATION", solverCapabilities: ["ENTITY_GRAPH", "MERGE_DIAGRAM_AND_TEXT_PREMISES", "ARBITRARY_PAIR_QUERY"],
-    presentationMode: "DIAGRAM_TEXT_HYBRID", answerType: "DIRECTION", renderer: "QUESTION_DIAGRAM_AND_TEXT",
+    qlId: "DIR-QL-044", checkpointId: "DIR-CP-008", ruleId: "DIR_SPLIT_TEXT_RELATION_SYNTHESIS",
+    answerDemand: "SPLIT_TEXT_RELATION_SYNTHESIS", solverCapabilities: ["ENTITY_GRAPH", "MERGE_SPLIT_RELATION_PREMISES", "ARBITRARY_PAIR_QUERY"],
+    presentationMode: "SPLIT_TEXT_RELATIONS_WITH_EXPLANATION_DIAGRAM", answerType: "DIRECTION", renderer: "STRUCTURED_TEXT",
     localeMode: "TRANSLATABLE", status: "DRAFT",
-    needEvidence: { rendererContract: "The complete hidden graph is split across a question diagram and a textual relation; neither source alone is sufficient.", hiddenStateTopology: "The solver merges two modality-specific premise sets before answering." },
+    needEvidence: { rendererContract: "The learner question remains text-only; one combined solved diagram is shown only in the explanation.", hiddenStateTopology: "Two relation facts and one additional relation must be merged into one spatial layout before answering." },
   },
 ];
 

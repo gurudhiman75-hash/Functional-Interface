@@ -10,9 +10,14 @@ const multiLetterLatin = /\b[A-Za-z]{2,}\b/;
 const devanagariLettersOrDigits = /[\u0900-\u0963\u0966-\u097F]/;
 const internalLeak = /DIR-(?:QL|CP)-\d+|\bundefined\b|\bnull\b/;
 const unnatural = /ਕਰਦਾ\/ਕਰਦੀ|ਸੀ\/ਸਨ|ਹੈ ਹੈ|ਹੈ। ਹੈ|ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਤੁਰਨਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ|ਤੁਰਨਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ|ਇੱਕ ਵਿਅਕਤੀ[^।]*(?:ਤੁਰਦਾ|ਜਾਂਦਾ) ਹੈ|ਦਿਸ਼ਾ-ਫਰੇਮ|ਸ਼ੁੱਧ ਚਾਲ|ਅੰਤਿਮ ਖਿਸਕਾਅ|ਮਾਤਰਾਂ|ਸ਼ੁੱਧ ਲੰਬਕਾਰੀ|ਇੱਕ ਸਿੱਧੀ ਲਾਈਨ|ਠੀਕ ਬੰਦ ਬਣਤਰ|ਪੂਰੀ ਬਣਤਰ|ਦੇ ਕਿਹੜੀ ਦਿਸ਼ਾ|ਹੁਕਮ|ਰਸਤਾ\s*:|ਮੁੜਨਾ|ਘੁੰਮਣਾ|ਸਿੱਧਾ ਤੁਰਨਾ|ਅੰਤਿਮ ਥਾਂ|ਕਲਾਕਵਾਈਜ਼|ਐਂਟੀ-ਕਲਾਕਵਾਈਜ਼|ਚਾਲ ਬਿੰਦੂ O ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ\s*:/;
-const diagramEnglish = /\b(?:North|South|East|West|metres?|Morning|Evening|Shadow|Sun|Start|Finish|Final|Person|Reference|Endpoint|Movement)\b/;
 const masculineFinite = /ਚੱਲਦਾ ਹੈ|ਮੁੜਦਾ ਹੈ|ਘੁੰਮ ਜਾਂਦਾ ਹੈ|ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ/;
 const feminineFinite = /ਚੱਲਦੀ ਹੈ|ਮੁੜਦੀ ਹੈ|ਘੁੰਮ ਜਾਂਦੀ ਹੈ|ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ/;
+
+function visibleSvgText(svg: string): string {
+  const text = [...svg.matchAll(/<text\b[^>]*>([\s\S]*?)<\/text>/g)].map((match) => match[1]);
+  const aria = [...svg.matchAll(/\baria-label="([^"]*)"/g)].map((match) => match[1]);
+  return [...text, ...aria].join(" ").replace(/&(?:amp|quot|apos|lt|gt);/g, " ");
+}
 
 function directActor(qlId: string, prompt: any): unknown | undefined {
   if (["DIR-QL-001", "DIR-QL-002", "DIR-QL-004", "DIR-QL-005", "DIR-QL-006", "DIR-QL-007", "DIR-QL-008", "DIR-QL-009", "DIR-QL-010"].includes(qlId)) return prompt.person;
@@ -35,6 +40,7 @@ for (const ql of DIR_001_QLS) {
     const punjabi = generateDirectionQuestionPunjabi(ql.qlId, seed);
     assert.deepEqual(punjabi, generateDirectionQuestionPunjabi(ql.qlId, seed));
     assert.equal(punjabi.locale, "pa-IN");
+    assert.equal(punjabi.questionDiagram, undefined, `${ql.qlId} Punjabi question must not show a diagram`);
     assert.equal(punjabi.qlId, english.qlId);
     assert.equal(punjabi.checkpointId, english.checkpointId);
     assert.equal(punjabi.ruleId, english.ruleId);
@@ -216,7 +222,7 @@ for (const ql of DIR_001_QLS) {
       assert.ok(typeof diagram.svg === "string" && diagram.svg.includes("<svg"));
       assert.ok(diagram.svg.includes('role="img"'));
       assert.ok(diagram.svg.includes("aria-label="));
-      assert.ok(!diagramEnglish.test(diagram.svg), `${ql.qlId} diagram English leak`);
+      assert.doesNotMatch(visibleSvgText(diagram.svg), multiLetterLatin, `${ql.qlId} visible Punjabi diagram text leaked Latin words: ${visibleSvgText(diagram.svg)}`);
       assert.ok(!devanagariLettersOrDigits.test(diagram.svg), `${ql.qlId} diagram Devanagari leak`);
     }
     stems.get(ql.qlId)!.add(punjabi.stem);

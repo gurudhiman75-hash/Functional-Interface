@@ -63,6 +63,16 @@ for (const ql of DIR_001_QLS) {
 }
 
 for (const record of records) {
+  assert.equal(record.questionDiagram, undefined, `${record.qlId}: learner question must remain text-only`);
+  const qlNumber = Number(String(record.qlId).slice(-3));
+  if (qlNumber >= 4) {
+    assert.ok(record.explanation?.diagram, `${record.qlId}: QL004+ must provide one explanation diagram`);
+    assert.doesNotMatch(
+      String(record.explanation.diagram.svg ?? ""),
+      /not necessarily to scale/i,
+      `${record.qlId}: ambiguous diagram-scale disclaimer is forbidden`,
+    );
+  }
   if (record.checkpointId === "DIR-CP-008") {
     assert.doesNotMatch(
       learnerText(record),
@@ -97,4 +107,7 @@ console.log(JSON.stringify({
   trilingualSemanticParity: true,
   chapterWideStemRealismGuard: true,
   misconceptionDistractorGuard: true,
+  explanationOnlyDiagramPolicy: true,
+  ql004PlusExplanationDiagramCoverage: true,
+  proportionalDiagramCaptionGuard: true,
 }, null, 2));

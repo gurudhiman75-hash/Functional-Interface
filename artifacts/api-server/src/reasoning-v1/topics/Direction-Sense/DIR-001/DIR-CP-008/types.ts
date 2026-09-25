@@ -19,7 +19,7 @@ export interface AdvancedOption {
 }
 
 export interface AdvancedDiagram {
-  readonly kind: "RELATION_GRAPH" | "GRAPH_AND_PATH" | "DIAGRAM_TEXT_HYBRID";
+  readonly kind: "RELATION_GRAPH" | "GRAPH_AND_PATH" | "DIAGRAM_TEXT_HYBRID" | "PATH_SOLUTION";
   readonly title: string;
   readonly svg: string;
 }
@@ -109,7 +109,7 @@ export interface CaseletScenario {
 }
 
 export interface HybridScenario {
-  readonly kind: "DIAGRAM_TEXT_HYBRID";
+  readonly kind: "SPLIT_TEXT_RELATION_SYNTHESIS";
   readonly diagramRelations: readonly PositionRelation[];
   readonly textRelation: PositionRelation;
   readonly queryFrom: string;

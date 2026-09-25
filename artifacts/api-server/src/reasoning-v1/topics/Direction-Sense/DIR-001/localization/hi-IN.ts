@@ -256,9 +256,9 @@ function renderExplanation(english: R): LocalizedDirectionExplanation {
     }
 
     const hybridSteps: string[] = [
-      "चित्र में दिए संबंध:",
+      "पहले दिए संबंध:",
       ...(s.diagramRelations ?? []).map((relation: R) => relationSentence(relation, true)),
-      "लिखित संबंध:",
+      "अतिरिक्त संबंध:",
       relationSentence(asR(s.textRelation), true),
     ];
     let combined: R = { x: 0, y: 0 };
@@ -270,7 +270,7 @@ function renderExplanation(english: R): LocalizedDirectionExplanation {
     return {
       ...base,
       steps: hybridSteps,
-      resultLine: `चित्र और लिखित संबंध दोनों से उत्तर ${answer} है।`,
+      resultLine: `सभी संबंधों को जोड़ने पर उत्तर ${answer} है।`,
     };
   }
 

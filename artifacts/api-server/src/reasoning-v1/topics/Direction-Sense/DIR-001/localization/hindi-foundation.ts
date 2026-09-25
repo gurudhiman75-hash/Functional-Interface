@@ -338,13 +338,69 @@ export function localizeFreeText(input: string): string {
 }
 
 export function localizeSvg(svg: string): string {
-  let result = localizeFreeText(svg);
+  let result = svg;
+  const phrases: readonly [string, string][] = [
+    ["Mover paths and final positions", "व्यक्तियों के मार्ग और अंतिम स्थितियाँ"],
+    ["Multiple mover endpoints", "व्यक्तियों के अंतिम स्थान"],
+    ["Movement path", "चाल का मार्ग"],
+    ["Segment proportions follow the solved positions; labels give the exact distances.", "रेखाखंडों के अनुपात हल किए गए स्थानों के अनुसार हैं; लिखी दूरियाँ सटीक हैं।"],
+    ["Relative positions are plotted proportionally from the solved layout.", "सापेक्ष स्थितियाँ हल किए गए निर्देशांकों के अनुपात में दिखाई गई हैं।"],
+    ["Path geometry is plotted proportionally; movement statements remain the exact source values.", "मार्ग हल किए गए स्थानों के अनुपात में है; चालों की लिखी दूरियाँ सटीक हैं।"],
+    ["Symbols are decoded using the code key; solved positions are plotted proportionally.", "चिह्नों का अर्थ कूट-सूची से निकाला गया है; स्थितियाँ हल के अनुपात में दिखाई गई हैं।"],
+    ["Shortest distance", "न्यूनतम दूरी"],
+    ["Relative positions", "सापेक्ष स्थितियाँ"],
+    ["Endpoint separation", "अंतिम बिंदुओं की दूरी"],
+    ["Decoded coded relations", "कूटित संबंधों का अर्थ"],
+    ["Recovered direction-code map", "प्राप्त दिशा-कूट मानचित्र"],
+    ["Each displayed chain constrains the same one-to-one code map.", "हर दी गई शृंखला उसी एक-से-एक कूट मानचित्र को निर्धारित करती है।"],
+    ["Use the recovered key to read the coded statement.", "प्राप्त कूट-सूची से कूटित कथन को पढ़ें।"],
+    ["Code key", "कूट-सूची"],
+    ["The four active symbols map one-to-one to North, East, South and West.", "चारों चिह्न चार मुख्य दिशाओं में से एक-एक दिशा को दर्शाते हैं।"],
+    ["Equivalent coded statement", "समतुल्य कूटित कथन"],
+    ["Check the coded conclusion", "कूटित निष्कर्ष की जाँच"],
+    ["Completed coded chain", "पूर्ण कूटित शृंखला"],
+    ["Decoded coded movement path", "कूटित चालों का हल किया गया मार्ग"],
+    ["Decode each symbol first, then follow the movement sequence in the stated order.", "पहले प्रत्येक चिह्न का अर्थ निकालें, फिर दी गई चालों को क्रम से लागू करें।"],
+    ["Morning sun and shadow", "सुबह सूर्य और छाया"],
+    ["Evening sun and shadow", "शाम सूर्य और छाया"],
+    ["Morning observation", "सुबह का अवलोकन"],
+    ["Evening observation", "शाम का अवलोकन"],
+    ["Vertical pole", "खड़ा खंभा"],
+    ["Facing from the shadow's side", "छाया की स्थिति से मुख की दिशा"],
+    ["Shadow side from a known facing", "मुख की दिशा से छाया की स्थिति"],
+    ["Time period from the shadow relation", "छाया से समय का निर्धारण"],
+    ["Shadow inference followed by turns", "छाया से दिशा निकालकर मोड़ लागू करना"],
+    ["Mutual orientation from a shadow clue", "छाया से दो व्यक्तियों की दिशा"],
+    ["Same direction", "समान दिशा"],
+    ["Opposite directions", "विपरीत दिशाएँ"],
+    ["Completed relation cycle", "पूर्ण संबंध विन्यास"],
+    ["Layout after removing the inconsistent statement", "असंगत कथन हटाने के बाद विन्यास"],
+    ["Static layout followed by movement", "स्थिर विन्यास के बाद चाल"],
+    ["Combined diagram and text relations", "सभी संबंधों का संयुक्त विन्यास"],
+    ["Use the diagram together with the statement", "चित्र और कथन का संयुक्त उपयोग"],
+    ["Final facing:", "अंतिम मुख:"],
+    ["Facing ", "मुख: "],
+    ["SUN", "सूर्य"],
+    ["Shadow — left", "छाया — बाएँ"],
+    ["Shadow — right", "छाया — दाएँ"],
+    ["Shadow — in front", "छाया — सामने"],
+    ["Shadow — behind", "छाया — पीछे"],
+    ["shadow — left", "छाया — बाएँ"],
+    ["shadow — right", "छाया — दाएँ"],
+    ["shadow — in front", "छाया — सामने"],
+    ["shadow — behind", "छाया — पीछे"],
+  ];
+  for (const [english, hindi] of phrases) result = result.replaceAll(english, hindi);
+  result = localizeFreeText(result);
   const replacements: readonly [string, string][] = [
     ["Start", "आरंभ"], ["Finish", "अंत"], ["Final", "अंतिम"], ["movement", "चाल"], ["Movement", "चाल"],
     ["Sun", "सूर्य"], ["Shadow", "छाया"], ["Person", "व्यक्ति"], ["Morning", "सुबह"], ["Evening", "शाम"],
-    ["Turn", "मोड़"], ["Reference", "संदर्भ"], ["Endpoint", "अंतिम बिंदु"], ["Static layout followed by movement", "स्थिर विन्यास के बाद चाल"],
+    ["Turn", "मोड़"], ["Reference", "संदर्भ"], ["Endpoint", "अंतिम बिंदु"],
   ];
   for (const [english, hindi] of replacements) result = result.replaceAll(english, hindi);
+  result = result
+    .replace(/([^<>\s]+)'s छाया/g, "$1 की छाया")
+    .replaceAll(" and ", " और ");
   return result;
 }
 
@@ -353,7 +409,7 @@ export function localizeDiagram(value: unknown): Readonly<Record<string, unknown
   const diagram = asR(value);
   return {
     ...diagram,
-    title: diagram.title ? localizeFreeText(String(diagram.title)) : diagram.title,
+    title: diagram.title ? localizeSvg(String(diagram.title)) : diagram.title,
     svg: diagram.svg ? localizeSvg(String(diagram.svg)) : diagram.svg,
   };
 }

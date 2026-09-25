@@ -118,7 +118,7 @@ export function buildMultiMoverDiagram(paths: readonly MoverPath[], options: Mul
     endpointNodes,
     distanceKey,
     compass,
-    `<text x="380" y="477" text-anchor="middle" font-size="11" fill="#64748b">Paths are shown for comparison and are not necessarily to scale.</text>`,
+    `<text x="380" y="477" text-anchor="middle" font-size="11" fill="#64748b">Path geometry is plotted proportionally; movement statements remain the exact source values.</text>`,
     `</svg>`,
   ].join("");
 

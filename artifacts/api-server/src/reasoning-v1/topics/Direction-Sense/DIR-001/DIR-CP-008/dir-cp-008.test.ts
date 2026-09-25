@@ -38,6 +38,7 @@ for (const ql of DIR_CP008_QLS) {
     assert.equal(new Set(question.options.map((option) => option.label.toLowerCase())).size, 4);
     assert.equal(question.options.filter((option) => option.errorLabel === null).length, 1);
     assert.equal(answerKey(question.options[question.correctIndex].value), answerKey(question.correctAnswer));
+    assert.equal(question.questionDiagram, undefined, `${ql.qlId} must not render a diagram with the question`);
     assert.ok(question.stem.length >= 90, `${ql.qlId} short stem: ${question.stem}`);
     assert.ok(!/[{}]|\bundefined\b|\bnull\b/.test(question.stem));
     assert.doesNotMatch(question.stem, /near the main gate|beside the central lawn|along a marked track|close to the entrance|near the boundary wall|patrol officer|marked point|direction that is not stated|\bA courier\b/i, `machine-like CP008 stem padding: ${question.stem}`);
@@ -68,6 +69,12 @@ for (const ql of DIR_CP008_QLS) {
         assert.deepEqual(question.correctAnswer, { kind: "STATEMENT", statementIndex });
         contradictionIndexes.add(statementIndex);
         assert.ok(learnerText.includes("Statement 1:"));
+        assert.ok((question.explanation.diagram?.svg.match(/data-role="relation-distance"/g) ?? []).length >= 3);
+        assert.doesNotMatch(
+          question.explanation.diagram?.svg ?? "",
+          />\d+ m (?:North|South|East|West|North-East|North-West|South-East|South-West)</,
+          "CP008 relation diagrams should keep edge labels compact and unambiguous",
+        );
         assert.ok(learnerText.includes(scenario.anchorRelations[0].fromEntity));
         assert.ok(learnerText.includes(scenario.anchorRelations[0].toEntity));
         break;
@@ -78,6 +85,8 @@ for (const ql of DIR_CP008_QLS) {
         directionCoverage.get(ql.qlId)!.add(direction);
         assert.ok(learnerText.includes(`${scenario.legs[0].distance} metres`));
         assert.ok(learnerText.includes(`${Math.abs(scenario.target.x)} metres`) || learnerText.includes(`${Math.abs(scenario.target.y)} metres`));
+        assert.equal(question.explanation.diagram?.kind, "PATH_SOLUTION");
+        assert.equal((question.explanation.diagram?.svg.match(/data-role="movement-leg"/g) ?? []).length, scenario.legs.length);
         break;
       }
       case "MISSING_TURN": {
@@ -86,6 +95,8 @@ for (const ql of DIR_CP008_QLS) {
         turnCoverage.add(turn);
         assert.ok(learnerText.includes(`${scenario.secondDistance} metres`));
         assert.ok(learnerText.includes(`${scenario.thirdDistance} metres`));
+        assert.equal(question.explanation.diagram?.kind, "PATH_SOLUTION");
+        assert.equal((question.explanation.diagram?.svg.match(/data-role="movement-leg"/g) ?? []).length, 3);
         break;
       }
       case "INITIAL_FACING_FROM_ENDPOINT": {
@@ -94,6 +105,8 @@ for (const ql of DIR_CP008_QLS) {
         directionCoverage.get(ql.qlId)!.add(direction);
         const firstMove = scenario.operations.find((operation) => operation.kind === "MOVE");
         assert.ok(firstMove && learnerText.includes(`${firstMove.distance} metres`));
+        assert.equal(question.explanation.diagram?.kind, "PATH_SOLUTION");
+        assert.equal((question.explanation.diagram?.svg.match(/data-role="movement-leg"/g) ?? []).length, scenario.operations.filter((operation) => operation.kind === "MOVE").length);
         break;
       }
       case "GRAPH_AND_MOVEMENT": {
@@ -101,7 +114,15 @@ for (const ql of DIR_CP008_QLS) {
         assert.deepEqual(question.correctAnswer, { kind: "DIRECTION_DISTANCE", direction: solved.direction, distance: solved.distance });
         directionCoverage.get(ql.qlId)!.add(solved.direction);
         mixedDistanceCoverage.add(solved.distance);
-        assert.ok(question.explanation.diagram?.svg.includes('data-role="movement-segment"'));
+        assert.equal(
+          (question.explanation.diagram?.svg.match(/data-role="movement-segment"/g) ?? []).length,
+          scenario.movements.length,
+          "QL041 must render every movement leg instead of collapsing the route to one line",
+        );
+        assert.equal(
+          (question.explanation.diagram?.svg.match(/data-role="movement-distance"/g) ?? []).length,
+          scenario.movements.length,
+        );
         assert.match(learnerText, /√/);
         assert.ok(learnerText.includes(`${solved.distance} metres`));
         assert.ok(learnerText.includes(scenario.relations[0].fromEntity));
@@ -122,20 +143,25 @@ for (const ql of DIR_CP008_QLS) {
         const firstMove = scenario.operations.find((operation) => operation.kind === "MOVE");
         assert.ok(firstMove && learnerText.includes(`${firstMove.distance} metres`));
         if (ql.qlId === "DIR-QL-043") assert.match(learnerText, /√/);
+        assert.equal(question.explanation.diagram?.kind, "PATH_SOLUTION");
+        assert.equal((question.explanation.diagram?.svg.match(/data-role="movement-leg"/g) ?? []).length, scenario.operations.filter((operation) => operation.kind === "MOVE").length);
+        if (ql.qlId === "DIR-QL-043") assert.ok(question.explanation.diagram?.svg.includes('data-role="shortest-distance-key"'));
         break;
       }
-      case "DIAGRAM_TEXT_HYBRID": {
+      case "SPLIT_TEXT_RELATION_SYNTHESIS": {
         const direction = solveHybridIndependent(scenario);
         assert.deepEqual(question.correctAnswer, { kind: "DIRECTION", direction });
         directionCoverage.get(ql.qlId)!.add(direction);
-        assert.ok(question.questionDiagram?.svg.includes('data-role="diagram-premise"'));
+        assert.ok(question.explanation.diagram?.svg.includes('data-role="diagram-premise"'));
         assert.ok(question.explanation.diagram?.svg.includes('data-role="text-premise"'));
         assert.match(question.stem, /\d+ metres/);
+        for (const relation of [...scenario.diagramRelations, scenario.textRelation]) {
+          const distance = Math.max(Math.abs(relation.vector.x), Math.abs(relation.vector.y));
+          assert.ok(question.stem.includes(`${distance} metres`));
+          assert.ok(question.stem.includes(relation.fromEntity));
+          assert.ok(question.stem.includes(relation.toEntity));
+        }
         hybridStructureCoverage.add(JSON.stringify([scenario.diagramRelations.map((relation) => relation.vector), scenario.textRelation.vector]));
-        assert.ok(learnerText.includes(scenario.diagramRelations[0].fromEntity));
-        assert.ok(learnerText.includes(scenario.diagramRelations[0].toEntity));
-        assert.ok(learnerText.includes(scenario.textRelation.fromEntity));
-        assert.ok(learnerText.includes(scenario.textRelation.toEntity));
         break;
       }
     }
