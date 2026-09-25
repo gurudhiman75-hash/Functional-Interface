@@ -307,6 +307,7 @@ function generateCaseletDirection(seed: number): GeneratedAdvancedQuestion {
       ],
       resultLine: `${scenario.subject}'s final position is ${DIRECTION_LABELS[solved.direction]} of ${scenario.checkpoint}.`,
       conclusion: `Therefore, the required direction from ${scenario.checkpoint} is ${DIRECTION_LABELS[solved.direction]}.`,
+      diagram: buildRelativeMovementSolutionDiagram(scenario.initialFacing, scenario.operations),
     },
   });
 }
@@ -334,6 +335,7 @@ function generateCaseletDistance(seed: number): GeneratedAdvancedQuestion {
       ],
       resultLine: `The displacement from ${scenario.checkpoint} is ${solved.distance} metres.`,
       conclusion: `Therefore, ${scenario.subject}'s shortest distance from ${scenario.checkpoint} is ${solved.distance} metres.`,
+      diagram: buildRelativeMovementSolutionDiagram(scenario.initialFacing, scenario.operations, `${solved.distance} m`),
     },
   });
 }
