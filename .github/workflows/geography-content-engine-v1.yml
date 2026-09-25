@@ -206,6 +206,60 @@ jobs:
             --outfile=dist/geography/geo-cli-001-owning-authority-v3.test.mjs
           node artifacts/api-server/dist/geography/geo-cli-001-owning-authority-v3.test.mjs
 
+      - name: Run GEO-VEG-001 Wave 1 qualification gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for cp in 001 002 003 004; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp${cp}-review-batch-v1.test.ts" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/geo-veg-001-cp${cp}-review-batch-v1.test.mjs"
+            node "artifacts/api-server/dist/geography/geo-veg-001-cp${cp}-review-batch-v1.test.mjs"
+          done
+
+      - name: Materialize GEO-VEG-001 Wave 1 review artifacts
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for cp in 001 002 003 004; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp${cp}-export-review-v1.ts" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/geo-veg-001-cp${cp}-export-review-v1.mjs"
+            (cd artifacts/api-server && node "dist/geography/geo-veg-001-cp${cp}-export-review-v1.mjs")
+          done
+
+      - name: Upload GEO-VEG-001 CP001 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP001-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP001-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-VEG-001 CP002 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP002-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP002-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-VEG-001 CP003 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP003-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP003-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-VEG-001 CP004 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP004-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP004-V1/
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Run GEO-SOI-001 CP001 and CP002 qualification gates
         run: |
           mkdir -p artifacts/api-server/dist/geography
