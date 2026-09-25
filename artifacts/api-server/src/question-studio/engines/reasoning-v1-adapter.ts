@@ -23,6 +23,11 @@ import {
   isCoaCp012ApprovedQuestionStudioRequest,
 } from "../../reasoning-v1/topics/Course-of-Action/COA-001/cp012-internal-eligibility-approved";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import {
+  DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+  generateDir001QuestionStudioBatch,
+  isDir001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-question-studio-integration";
 
 export const OPS001_QUESTION_STUDIO_PACKAGE_ID_V1 = "OPS-001" as const;
 export const OPS001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -254,11 +259,15 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   listPackages() {
     return [
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+      DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
     ];
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isDir001QuestionStudioRequest(request)) {
+      return generateDir001QuestionStudioBatch(request);
+    }
     if (isCoaCp012ApprovedQuestionStudioRequest(request as Readonly<Record<string, unknown>>)) {
       return generateCoaCp012ApprovedQuestionStudioBatch(request);
     }
