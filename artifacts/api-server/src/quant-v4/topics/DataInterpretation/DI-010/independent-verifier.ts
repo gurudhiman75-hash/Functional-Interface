@@ -14,7 +14,7 @@ function coordinate(x: number, y: number) {
 }
 
 function percentage(numerator: number, denominator: number) {
-  return `${Number(((numerator / denominator) * 100).toFixed(2))}%`;
+  return `${Math.round((numerator / denominator) * 100)}%`;
 }
 
 function gcd(left: number, right: number): number {
@@ -76,7 +76,7 @@ function expectedAnswer(set: Di010QuestionSet, question: Di010Question): string 
     case "GROUPED_MEAN_FROM_POLYGON": {
       const total = classes.reduce((sum, item) => sum + item.frequency, 0);
       const weighted = classes.reduce((sum, item) => sum + item.classMark * item.frequency, 0);
-      return fmt(Number((weighted / total).toFixed(2)));
+      return String(Math.round(weighted / total));
     }
     case "MEDIAN_CLASS_FROM_POLYGON": {
       const total = classes.reduce((sum, item) => sum + item.frequency, 0);
