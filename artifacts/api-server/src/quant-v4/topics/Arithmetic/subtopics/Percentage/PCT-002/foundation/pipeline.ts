@@ -20,8 +20,37 @@ import {
   type Pct002QuestionPackage,
 } from "./types";
 import { validatePct002QuestionPackage } from "./validator";
-import { stableBucket } from "./math";
+import { stableHash } from "./math";
 import { curateDefaultQuestionLanguageIds } from "../../../../../../common/default-question-language-pool";
+
+function mixedStableHash(value: string) {
+  let hash = stableHash(value);
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x7feb352d);
+  hash ^= hash >>> 15;
+  hash = Math.imul(hash, 0x846ca68b);
+  hash ^= hash >>> 16;
+  return hash >>> 0;
+}
+
+function structuredCuratedSelectionIndex(value: string, poolSize: number) {
+  if (!Number.isInteger(poolSize) || poolSize < 1) {
+    throw new Error(`PCT-002 curated pool size must be a positive integer, received ${poolSize}.`);
+  }
+
+  const parts = value.split(":");
+  let ordinal = 0;
+  let foundNumericToken = false;
+  const normalized = parts.map((part) => {
+    if (!/^\d+$/.test(part)) return part;
+    foundNumericToken = true;
+    ordinal = (Math.imul(ordinal, 67) + Number(part)) >>> 0;
+    return "<n>";
+  }).join(":");
+
+  if (!foundNumericToken) return mixedStableHash(value) % poolSize;
+  return (mixedStableHash(normalized) + ordinal) % poolSize;
+}
 
 function resolvePct002DefaultInput(
   cpId: Pct002CanonicalProblemId,
@@ -53,7 +82,7 @@ function resolvePct002DefaultInput(
 
   return {
     ...input,
-    questionLanguageId: source[stableBucket(`${seed}:curated-default-ql`, source.length)]!,
+    questionLanguageId: source[structuredCuratedSelectionIndex(`${seed}:curated-default-ql`, source.length)]!,
   };
 }
 

@@ -103,6 +103,35 @@ function seededHash(value: string): number {
   return hash >>> 0;
 }
 
+function mixedSeedHash(value: string): number {
+  let hash = seededHash(value);
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x7feb352d);
+  hash ^= hash >>> 15;
+  hash = Math.imul(hash, 0x846ca68b);
+  hash ^= hash >>> 16;
+  return hash >>> 0;
+}
+
+function structuredQlOffset(value: string, poolSize: number): number {
+  if (!Number.isInteger(poolSize) || poolSize < 1) {
+    throw new Error(`GEO-001 QL pool size must be a positive integer, received ${poolSize}.`);
+  }
+
+  const parts = value.split(":");
+  let ordinal = 0;
+  let foundNumericToken = false;
+  const normalized = parts.map((part) => {
+    if (!/^\d+$/.test(part)) return part;
+    foundNumericToken = true;
+    ordinal = (Math.imul(ordinal, 67) + Number(part)) >>> 0;
+    return "<n>";
+  }).join(":");
+
+  if (!foundNumericToken) return mixedSeedHash(value) % poolSize;
+  return (mixedSeedHash(normalized) + ordinal) % poolSize;
+}
+
 export function inferGeo001QuestionStudioCpFromQl(
   value: unknown,
 ): Geo001QuestionStudioCpId | undefined {
@@ -415,7 +444,7 @@ export async function generateGeo001StandardQuestionStudioBatch(
     ?? `quant-v4:GEO-001:${language}:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
       .toString(36)
       .slice(2)}`;
-  const qlOffset = seededHash(`${batchSeed}:ql-offset`) % eligibleDefinitions.length;
+  const qlOffset = structuredQlOffset(`${batchSeed}:ql-offset`, eligibleDefinitions.length);
   const questionPackages: any[] = [];
   const questions: any[] = [];
 

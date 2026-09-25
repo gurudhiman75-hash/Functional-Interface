@@ -46,7 +46,7 @@ import {
 } from "./topics/Probability/PRB-002";
 import type { ProbabilityExamProfile } from "./topics/Probability/shared";
 import {
-  MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE,
+  MEN_002_FULL_CHAPTER_QUESTION_STUDIO_PACKAGE,
   generateMenCp009StandardQuestionStudioBatch,
   isMenCp009StandardQuestionStudioRequest,
   type MenCp009StandardQuestionStudioRequest,
@@ -262,6 +262,21 @@ function hash(value: string) {
   return result >>> 0;
 }
 
+function avalancheHash(value: string) {
+  let result = hash(value);
+  result ^= result >>> 16;
+  result = Math.imul(result, 0x7feb352d);
+  result ^= result >>> 15;
+  result = Math.imul(result, 0x846ca68b);
+  result ^= result >>> 16;
+  return result >>> 0;
+}
+
+function pickDeterministically<T>(items: readonly T[], seed: string): T {
+  if (!items.length) throw new Error("Cannot select from an empty deterministic pool.");
+  return items[avalancheHash(seed) % items.length]!;
+}
+
 function shuffled<T>(items: readonly T[], seed: string) {
   const result = [...items];
   let state = hash(seed) || 1;
@@ -441,7 +456,7 @@ export function listQuantV4Packages() {
   return [
     ...corePackages,
     CAL_001_QUESTION_STUDIO_PACKAGE,
-    MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE,
+    MEN_002_FULL_CHAPTER_QUESTION_STUDIO_PACKAGE,
     pnlPackageForQuestionStudio(),
     ...PRB_RUNTIME_PACKAGES.map(probabilityPackageForQuestionStudio),
   ].sort((left, right) => left.packageId.localeCompare(right.packageId));
@@ -484,7 +499,14 @@ async function generateWithRuntimePackage(
   const selectedCp = resolveCpId(runtimePackage, request);
   const cpOrder = explicitCp
     ? [selectedCp]
-    : shuffled(runtimeCpIds, `${batchSeed}:${pkg.packageId}:cp-order`);
+    : count === 1
+      ? [
+          pickDeterministically(
+            runtimeCpIds,
+            `${batchSeed}:${pkg.packageId}:cp-single`,
+          ),
+        ]
+      : shuffled(runtimeCpIds, `${batchSeed}:${pkg.packageId}:cp-order`);
   const results: Array<{ questionPackage: any; question: any }> = [];
 
   for (let index = 0; index < count; index += 1) {

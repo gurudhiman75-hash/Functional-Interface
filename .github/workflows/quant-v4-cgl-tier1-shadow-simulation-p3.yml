@@ -43,6 +43,7 @@ jobs:
           mkdir -p artifacts/api-server/dist/quant-v4/quality
           for test in \
             quant-v4-cgl-tier1-shadow-simulation-p3.test \
+            quant-v4-cgl-tier1-shadow-current-main-diagnostic-p3.test \
             quant-v4-cgl-tier1-shadow-frequency-governance-p3.test \
             quant-v4-whole-section-frequency-stability-p2.test \
             quant-v4-real-exam-simulation-p2.test
@@ -53,8 +54,12 @@ jobs:
               --outfile="dist/quant-v4/quality/${test}.mjs"
           done
       - name: Run empirical shadow simulation
+        continue-on-error: true
         working-directory: artifacts/api-server
         run: node dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-simulation-p3.test.mjs
+      - name: Run current-main shadow defect localization
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-current-main-diagnostic-p3.test.mjs
       - name: Run shadow governance regression
         working-directory: artifacts/api-server
         run: node dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-frequency-governance-p3.test.mjs

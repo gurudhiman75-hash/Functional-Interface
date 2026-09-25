@@ -7,8 +7,7 @@ import { getQuestionLanguageIds as getRap001QlIds } from "./RAP-001/library";
 import { RAP_001_CP_IDS } from "./RAP-001/types";
 import { getRap002QuestionLanguageIds } from "./RAP-002/library";
 import { RAP_002_CP_IDS } from "./RAP-002/types";
-import { getRap003QuestionLanguageIds } from "./RAP-003/library";
-import { RAP_003_CP_IDS } from "./RAP-003/types";
+import { getRap003ActiveCanonicalProblemIds, getRap003QuestionLanguageIds } from "./RAP-003/library";
 
 type PackageId = "RAP-001" | "RAP-002" | "RAP-003";
 
@@ -34,7 +33,7 @@ function ratioIsReducible(value: string) {
 const packages: Array<{ id: PackageId; cpIds: readonly string[]; qlIds: (cp: string) => string[] }> = [
   { id: "RAP-001", cpIds: RAP_001_CP_IDS, qlIds: (cp) => getRap001QlIds(cp as any, "en") },
   { id: "RAP-002", cpIds: RAP_002_CP_IDS, qlIds: (cp) => getRap002QuestionLanguageIds(cp as any) },
-  { id: "RAP-003", cpIds: RAP_003_CP_IDS, qlIds: (cp) => getRap003QuestionLanguageIds(cp as any) },
+  { id: "RAP-003", cpIds: getRap003ActiveCanonicalProblemIds(), qlIds: (cp) => getRap003QuestionLanguageIds(cp as any) },
 ];
 
 const report: Record<string, Record<string, number>> = {};
