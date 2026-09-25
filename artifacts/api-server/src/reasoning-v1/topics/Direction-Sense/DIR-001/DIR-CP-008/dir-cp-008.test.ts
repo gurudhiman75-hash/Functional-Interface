@@ -57,30 +57,42 @@ for (const ql of DIR_CP008_QLS) {
         const direction = solveMissingGraphDirectionIndependent(scenario);
         assert.deepEqual(question.correctAnswer, { kind: "DIRECTION", direction });
         directionCoverage.get(ql.qlId)!.add(direction);
+        assert.ok(learnerText.includes(`${scenario.missingDistance} metres`));
+        assert.ok(learnerText.includes(scenario.visibleRelations[0].fromEntity));
+        assert.ok(learnerText.includes(scenario.visibleRelations[0].toEntity));
         break;
       }
       case "CONTRADICTION": {
         const statementIndex = solveContradictionIndependent(scenario);
         assert.deepEqual(question.correctAnswer, { kind: "STATEMENT", statementIndex });
         contradictionIndexes.add(statementIndex);
+        assert.ok(learnerText.includes("Statement 1:"));
+        assert.ok(learnerText.includes(scenario.anchorRelations[0].fromEntity));
+        assert.ok(learnerText.includes(scenario.anchorRelations[0].toEntity));
         break;
       }
       case "MISSING_MOVEMENT": {
         const direction = solveMissingMovementIndependent(scenario);
         assert.deepEqual(question.correctAnswer, { kind: "DIRECTION", direction });
         directionCoverage.get(ql.qlId)!.add(direction);
+        assert.ok(learnerText.includes(`${scenario.legs[0].distance} metres`));
+        assert.ok(learnerText.includes(`${Math.abs(scenario.target.x)} metres`) || learnerText.includes(`${Math.abs(scenario.target.y)} metres`));
         break;
       }
       case "MISSING_TURN": {
         const turn = solveMissingTurnIndependent(scenario);
         assert.deepEqual(question.correctAnswer, { kind: "TURN", turn });
         turnCoverage.add(turn);
+        assert.ok(learnerText.includes(`${scenario.secondDistance} metres`));
+        assert.ok(learnerText.includes(`${scenario.thirdDistance} metres`));
         break;
       }
       case "INITIAL_FACING_FROM_ENDPOINT": {
         const direction = solveInitialFacingIndependent(scenario);
         assert.deepEqual(question.correctAnswer, { kind: "DIRECTION", direction });
         directionCoverage.get(ql.qlId)!.add(direction);
+        const firstMove = scenario.operations.find((operation) => operation.kind === "MOVE");
+        assert.ok(firstMove && learnerText.includes(`${firstMove.distance} metres`));
         break;
       }
       case "GRAPH_AND_MOVEMENT": {
@@ -89,6 +101,10 @@ for (const ql of DIR_CP008_QLS) {
         directionCoverage.get(ql.qlId)!.add(solved.direction);
         mixedDistanceCoverage.add(solved.distance);
         assert.ok(question.explanation.diagram?.svg.includes('data-role="movement-segment"'));
+        assert.match(learnerText, /√/);
+        assert.ok(learnerText.includes(`${solved.distance} metres`));
+        assert.ok(learnerText.includes(scenario.relations[0].fromEntity));
+        assert.ok(learnerText.includes(scenario.relations[0].toEntity));
         break;
       }
       case "SHARED_PATH_CASELET": {
@@ -102,6 +118,9 @@ for (const ql of DIR_CP008_QLS) {
         assert.equal(question.metadata.caseletId, scenario.caseletId);
         caseletDistanceCoverage.add(solved.distance);
         for (const operation of scenario.operations) if (operation.kind === "TURN") caseletTurnCoverage.add(operation.turn);
+        const firstMove = scenario.operations.find((operation) => operation.kind === "MOVE");
+        assert.ok(firstMove && learnerText.includes(`${firstMove.distance} metres`));
+        if (ql.qlId === "DIR-QL-043") assert.match(learnerText, /√/);
         break;
       }
       case "DIAGRAM_TEXT_HYBRID": {
@@ -112,6 +131,10 @@ for (const ql of DIR_CP008_QLS) {
         assert.ok(question.explanation.diagram?.svg.includes('data-role="text-premise"'));
         assert.match(question.stem, /\d+ metres/);
         hybridStructureCoverage.add(JSON.stringify([scenario.diagramRelations.map((relation) => relation.vector), scenario.textRelation.vector]));
+        assert.ok(learnerText.includes(scenario.diagramRelations[0].fromEntity));
+        assert.ok(learnerText.includes(scenario.diagramRelations[0].toEntity));
+        assert.ok(learnerText.includes(scenario.textRelation.fromEntity));
+        assert.ok(learnerText.includes(scenario.textRelation.toEntity));
         break;
       }
     }

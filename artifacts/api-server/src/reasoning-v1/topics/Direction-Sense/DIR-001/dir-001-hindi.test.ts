@@ -126,6 +126,61 @@ for (const ql of DIR_001_QLS) {
         `${ql.qlId} explanation must show the solved localized answer`,
       );
     }
+    if (qlNumber >= 36 && qlNumber <= 44) {
+      const stepsText = hindi.explanation.steps.join(" ");
+      assert.doesNotMatch(
+        stepsText,
+        /दिए गए तीन संबंधों से .* की स्थिति तय करें|पहले दिए गए दो आधार संबंधों से पहले तीन बिंदुओं की स्थिति तय करें|पहले सभी ज्ञात चालों को जोड़कर उनका अंतिम स्थान निकालें|उत्तर, पूर्व, दक्षिण और पश्चिम—चारों को सम्भावित आरंभिक दिशा मानकर वही मार्ग चलाएँ/,
+      );
+      assert.ok(
+        stepsText.includes(hindi.options[hindi.correctIndex].label),
+        `${ql.qlId} CP008 explanation must show the solved answer`,
+      );
+      if (ql.qlId === "DIR-QL-036") {
+        assert.match(stepsText, new RegExp(`${english.structuredPrompt.missingDistance} मीटर`));
+      }
+      if (ql.qlId === "DIR-QL-037") {
+        const d = Math.max(
+          Math.abs(Number(english.structuredPrompt.anchorRelations?.[0]?.vector?.x ?? 0)),
+          Math.abs(Number(english.structuredPrompt.anchorRelations?.[0]?.vector?.y ?? 0)),
+        );
+        assert.match(stepsText, new RegExp(`${Math.round(d)} मीटर`));
+        assert.match(stepsText, /कथन 1:/);
+      }
+      if (ql.qlId === "DIR-QL-038") {
+        const firstLeg = english.structuredPrompt.legs?.[0];
+        if (firstLeg?.distance != null) assert.match(stepsText, new RegExp(`${firstLeg.distance} मीटर`));
+      }
+      if (ql.qlId === "DIR-QL-039") {
+        assert.match(stepsText, new RegExp(`${english.structuredPrompt.secondDistance} मीटर`));
+        assert.match(stepsText, new RegExp(`${english.structuredPrompt.thirdDistance} मीटर`));
+      }
+      if (ql.qlId === "DIR-QL-040") {
+        const firstMove = english.structuredPrompt.operations?.find((operation: any) => operation.kind === "MOVE");
+        if (firstMove?.distance != null) assert.match(stepsText, new RegExp(`${firstMove.distance} मीटर`));
+      }
+      if (ql.qlId === "DIR-QL-041") {
+        assert.match(stepsText, /√/);
+        assert.match(stepsText, new RegExp(`${english.structuredPrompt.answerDistance} मीटर`));
+      }
+      if (ql.qlId === "DIR-QL-042" || ql.qlId === "DIR-QL-043") {
+        const firstMove = english.structuredPrompt.operations?.find((operation: any) => operation.kind === "MOVE");
+        if (firstMove?.distance != null) assert.match(stepsText, new RegExp(`${firstMove.distance} मीटर`));
+        if (ql.qlId === "DIR-QL-043") assert.match(stepsText, /√/);
+      }
+      if (ql.qlId === "DIR-QL-044") {
+        const firstRelation = english.structuredPrompt.diagramRelations?.[0];
+        const textRelation = english.structuredPrompt.textRelation;
+        const relationDistance = firstRelation
+          ? Math.max(Math.abs(Number(firstRelation.vector?.x ?? 0)), Math.abs(Number(firstRelation.vector?.y ?? 0)))
+          : 0;
+        const textDistance = textRelation
+          ? Math.max(Math.abs(Number(textRelation.vector?.x ?? 0)), Math.abs(Number(textRelation.vector?.y ?? 0)))
+          : 0;
+        assert.match(stepsText, new RegExp(`${Math.round(relationDistance)} मीटर`));
+        assert.match(stepsText, new RegExp(`${Math.round(textDistance)} मीटर`));
+      }
+    }
     const diagrams = [hindi.questionDiagram, hindi.explanation.diagram].filter(Boolean) as any[];
     for (const diagram of diagrams) {
       assert.ok(typeof diagram.svg === "string" && diagram.svg.includes("<svg"));
