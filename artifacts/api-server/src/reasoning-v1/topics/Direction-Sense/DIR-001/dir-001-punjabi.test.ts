@@ -57,6 +57,8 @@ for (const ql of DIR_001_QLS) {
     assert.ok(!devanagariLettersOrDigits.test(punjabi.stem), `${ql.qlId} Devanagari leak: ${punjabi.stem}`);
     assert.ok(!internalLeak.test(punjabi.stem), `${ql.qlId} internal leak: ${punjabi.stem}`);
     assert.ok(!unnatural.test(punjabi.stem), `${ql.qlId} unnatural wording: ${punjabi.stem}`);
+    assert.doesNotMatch(punjabi.stem, /ਨਿਸ਼ਾਨ ਲੱਗੇ ਬਿੰਦੂ/, `${ql.qlId} padded Punjabi stem: ${punjabi.stem}`);
+    if (ql.qlId === "DIR-QL-025") assert.doesNotMatch(punjabi.stem, /ਦਾ ਨਤੀਜਾ .* ਹੈ/, `DIR-QL-025 result-style Punjabi wording: ${punjabi.stem}`);
     if (ql.qlId === "DIR-QL-036" || ql.qlId === "DIR-QL-037") {
       assert.ok(!/ਪੂਰਾ ਬੰਦ ਨਕਸ਼ਾ|ਪੂਰੇ ਨਕਸ਼ੇ/.test(punjabi.stem), `${ql.qlId} construction jargon: ${punjabi.stem}`);
     }
