@@ -30,7 +30,7 @@ if (!closure.valid) {
 
 const SOURCE_ROWS = Object.freeze(
   GEO_CLI_001_OWNING_AUTHORITY_V3.map((question) => {
-    const match = question.questionId.match(/GEO-CLI-001-(CP\\d{3})-/);
+    const match = question.questionId.match(/GEO-CLI-001-(CP\d{3})-/);
     if (!match) throw new Error(`Cannot derive GEO-CLI-001 CP from ${question.questionId}`);
     return Object.freeze({ cpId: `GEO-CLI-001-${match[1]}`, question });
   }),
