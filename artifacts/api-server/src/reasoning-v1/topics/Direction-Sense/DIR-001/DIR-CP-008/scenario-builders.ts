@@ -199,5 +199,5 @@ export function hybridScenario(seed: number): HybridScenario {
     addCoordinates(relationVector(east, pattern.east), relationVector(north, pattern.north)),
     relationVector(west, pattern.west),
   );
-  return { kind: "DIAGRAM_TEXT_HYBRID", diagramRelations, textRelation, queryFrom: a, queryTo: d, answerDirection: directionFromVector(vector) };
+  return { kind: "SPLIT_TEXT_RELATION_SYNTHESIS", diagramRelations, textRelation, queryFrom: a, queryTo: d, answerDirection: directionFromVector(vector) };
 }
