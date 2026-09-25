@@ -23,7 +23,11 @@ export interface AlgCp009EnglishReviewV4Item {
   readonly parameterValue: number;
   readonly answerText: string;
   readonly explanation: string;
-  readonly state: Readonly<{ m: number; n: number }>;
+  readonly state: Readonly<{
+    a: number;
+    repeatedRoot: number;
+    kCoefficient: number;
+  }>;
   readonly permanentIdentityFrozen: true;
   readonly semanticContractFrozen: true;
   readonly solverAuthorityFrozen: true;
@@ -48,12 +52,26 @@ function gcd(a: number, b: number): number {
 }
 
 const STATES = Object.freeze(
-  Array.from({ length: 7 }, (_, i) => i + 1).flatMap((m) =>
-    Array.from({ length: 30 }, (_, i) => i - 15)
-      .filter((n) => n !== 0 && gcd(m, n) === 1)
-      .map((n) => ({ m, n })),
+  Array.from({ length: 6 }, (_, index) => index + 1).flatMap((a) =>
+    Array.from({ length: 11 }, (_, index) => index - 5)
+      .filter((repeatedRoot) => repeatedRoot !== 0)
+      .flatMap((repeatedRoot) =>
+        Array.from({ length: 6 }, (_, index) => index + 1)
+          .filter((kCoefficient) => {
+            const numerator = a * repeatedRoot * repeatedRoot;
+            const b = -2 * a * repeatedRoot;
+            return numerator % kCoefficient === 0
+              && numerator / kCoefficient <= 30
+              && gcd(gcd(a, Math.abs(b)), kCoefficient) === 1;
+          })
+          .map((kCoefficient) => ({ a, repeatedRoot, kCoefficient })),
+      ),
   ),
 );
+
+if (STATES.length < 64) {
+  throw new Error(`ALG-CP009 V4 requires at least 64 primitive review states; found ${STATES.length}`);
+}
 
 function positiveMod(value: number, modulus: number) {
   return ((value % modulus) + modulus) % modulus;
@@ -63,35 +81,61 @@ function ax2(a: number) {
   return a === 1 ? "x²" : `${a}x²`;
 }
 
-function bx(b: number) {
-  if (b === 0) return "";
-  const abs = Math.abs(b);
-  const body = abs === 1 ? "x" : `${abs}x`;
+function signedXTerm(b: number) {
+  const magnitude = Math.abs(b);
+  const body = magnitude === 1 ? "x" : `${magnitude}x`;
   return `${b < 0 ? "-" : "+"} ${body}`;
 }
 
-function questionText(a: number, b: number, frame: number) {
-  const equation = `${ax2(a)} ${bx(b)} + k = 0`.replace(/\s+/g, " ").trim();
+function kTerm(kCoefficient: number) {
+  return kCoefficient === 1 ? "k" : `${kCoefficient}k`;
+}
+
+function equationText(a: number, b: number, kCoefficient: number) {
+  return `${ax2(a)} ${signedXTerm(b)} + ${kTerm(kCoefficient)} = 0`;
+}
+
+function questionText(equation: string, frame: number) {
   switch (frame % 4) {
-    case 0: return `For what value of k does ${equation} have equal roots?`;
-    case 1: return `Find k if ${equation} has a repeated root.`;
-    case 2: return `Determine the value of k for which the quadratic ${equation} has equal roots.`;
-    default: return `If ${equation} has two equal real roots, calculate k.`;
+    case 0:
+      return `For what value of k does ${equation} have equal roots?`;
+    case 1:
+      return `Find k if the quadratic ${equation} has a repeated root.`;
+    case 2:
+      return `Determine k so that ${equation} has two equal real roots.`;
+    default:
+      return `If ${equation} has equal roots, calculate the value of k.`;
   }
 }
 
 export function generateAlgCp009EnglishReviewV4(seed: number): AlgCp009EnglishReviewV4Item {
   if (!Number.isInteger(seed)) throw new Error("ALG-CP009 V4 review requires an integer seed");
+
   const state = STATES[positiveMod(seed - 1, STATES.length)]!;
-  const a = state.m * state.m;
-  const b = 2 * state.m * state.n;
-  const k = state.n * state.n;
-  const equation: QuadraticEquation = { a: rational(a), b: rational(b), c: rational(k) };
+  const { a, repeatedRoot, kCoefficient } = state;
+  const b = -2 * a * repeatedRoot;
+  const parameterValue = (a * repeatedRoot * repeatedRoot) / kCoefficient;
+  const constant = kCoefficient * parameterValue;
+
+  if (!Number.isInteger(parameterValue)) {
+    throw new Error("ALG-CP009 V4 parameter construction must stay integral");
+  }
+
+  const equation: QuadraticEquation = {
+    a: rational(a),
+    b: rational(b),
+    c: rational(constant),
+  };
   const discriminant = quadraticDiscriminant(equation);
   const solved = solveQuadraticEquation(equation);
+
   if (discriminant.numerator !== 0n || solved.kind !== "REPEATED_ROOT") {
     throw new Error("ALG-CP009 V4 equal-root construction failed");
   }
+
+  const discriminantCoefficient = 4 * a * kCoefficient;
+  const bSquared = b * b;
+  const visibleEquation = equationText(a, b, kCoefficient);
 
   return {
     authority: ALG_CP009_ENGLISH_REVIEW_V4_AUTHORITY,
@@ -101,16 +145,16 @@ export function generateAlgCp009EnglishReviewV4(seed: number): AlgCp009EnglishRe
     qlId: "ALG-QL-026",
     prototypeId: "ALG-CP009-CAND-005",
     seed,
-    question: questionText(a, b, seed),
+    question: questionText(visibleEquation, seed - 1),
     equation,
-    parameterValue: k,
-    answerText: String(k),
+    parameterValue,
+    answerText: String(parameterValue),
     explanation: [
-      "Equal roots require the discriminant to be zero: D = b² - 4ac = 0.",
-      `Here a = ${a}, b = ${b}, and c = k, so (${b})² - 4(${a})(k) = 0.`,
-      `Thus ${b * b} - ${4 * a}k = 0, giving ${4 * a}k = ${b * b}.`,
-      `Therefore k = ${b * b}/${4 * a} = ${k}.`,
-      `With this value the repeated root is x = ${formatRational(solved.root)}, confirming that the roots are equal.`,
+      "For equal roots, the discriminant must be zero: D = b² - 4ac = 0.",
+      `Here a = ${a}, b = ${b}, and c = ${kTerm(kCoefficient)}, so (${b})² - 4(${a})(${kTerm(kCoefficient)}) = 0.`,
+      `This gives ${bSquared} - ${discriminantCoefficient}k = 0, hence ${discriminantCoefficient}k = ${bSquared}.`,
+      `Therefore k = ${bSquared}/${discriminantCoefficient} = ${parameterValue}.`,
+      `Substituting this value gives the repeated root x = ${formatRational(solved.root)}, which confirms the equal-root condition.`,
     ].join(" "),
     state,
     permanentIdentityFrozen: true,
