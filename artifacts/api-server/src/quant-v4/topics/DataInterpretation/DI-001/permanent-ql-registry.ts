@@ -1,7 +1,7 @@
 import type { Di001ExamProfile } from "./types";
 import type { Di001V2Difficulty, Di001V2TaskKind } from "./table-v2-types";
 
-export const DI001_PERMANENT_RELEASE_ID = "DI-001-PERMANENT-ENGLISH-REVIEW-P1" as const;
+export const DI001_PERMANENT_RELEASE_ID = "DI-001-PERMANENT-ENGLISH-REVIEW-P2" as const;
 
 export type Di001PermanentQlId =
   | "DI-QL-027"
@@ -24,7 +24,7 @@ export type Di001PermanentQlDescriptor = Readonly<{
   supportedProfiles: readonly Di001ExamProfile[];
   sourceStatus: "V2_CERTIFIED";
   editorialStatus: "ENGLISH_REVIEW_APPROVED";
-  localizationStatus: "NOT_STARTED";
+  localizationStatus: "HI_PA_REVIEW_CANDIDATE";
 }>;
 
 const PROFILES = ["SSC_CGL_TIER_I", "BANKING_PRELIMS"] as const;
@@ -39,7 +39,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "DI-QL-028",
@@ -50,7 +50,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "DI-QL-029",
@@ -61,7 +61,7 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "DI-QL-030",
@@ -72,18 +72,18 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "DI-QL-031",
     taskKind: "PERCENTAGE_SELECTED",
     label: "Selection percentage at one centre",
-    semanticContract: "Calculate Selected divided by Applicants multiplied by 100 for a named centre.",
+    semanticContract: "Calculate Selected divided by Applicants multiplied by 100 for a named centre and report the nearest whole percent.",
     difficulty: "Medium",
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "DI-QL-032",
@@ -94,29 +94,29 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "DI-QL-033",
     taskKind: "AVERAGE_SELECTED",
     label: "Average selected candidates",
-    semanticContract: "Add the five Selected values and divide by the number of centres.",
+    semanticContract: "Add the five Selected values, divide by the number of centres, and report the nearest whole number.",
     difficulty: "Medium",
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "DI-QL-034",
     taskKind: "OVERALL_SELECTION_PERCENTAGE",
     label: "Overall selection percentage",
-    semanticContract: "Aggregate applicants and selected candidates across all centres, then calculate selected as a percentage of combined applicants.",
+    semanticContract: "Aggregate applicants and selected candidates across all centres, then calculate selected as a percentage of combined applicants to the nearest whole percent.",
     difficulty: "Hard",
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "DI-QL-035",
@@ -127,18 +127,18 @@ export const DI001_PERMANENT_QLS: readonly Di001PermanentQlDescriptor[] = Object
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "DI-QL-036",
     taskKind: "SELECTION_RATE_DIFFERENCE",
     label: "Difference between two selection rates",
-    semanticContract: "Calculate two centre-specific selection percentages and find the absolute difference in percentage points.",
+    semanticContract: "Calculate two centre-specific selection percentages and report their absolute difference to the nearest whole percentage point.",
     difficulty: "Hard",
     supportedProfiles: PROFILES,
     sourceStatus: "V2_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
 ] as const);
 
