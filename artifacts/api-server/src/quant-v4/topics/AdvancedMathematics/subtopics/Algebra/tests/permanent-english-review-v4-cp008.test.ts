@@ -67,15 +67,24 @@ for (const prototypeId of ALG_CP008_ENGLISH_REVIEW_V4_TARGETS) {
         assert(first.state.kind === "NO_VALID_ROOT", `${prefix}: wrong no-root state`);
         assert(first.answer.kind === "NO_SOLUTION", `${prefix}: wrong no-solution answer kind`);
         assert(solved.kind === "NO_SOLUTION", `${prefix}: exact solver did not confirm no solution`);
+        assert(first.state.excluded !== first.state.rightRoot, `${prefix}: no-solution state collapsed to equal roots`);
+        assert(solved.rejectedExcludedRoots.length === 1, `${prefix}: expected exactly one rejected excluded candidate`);
+        assert(
+          equalsRational(solved.rejectedExcludedRoots[0]!, rational(BigInt(first.state.excluded))),
+          `${prefix}: rejected root is not the original excluded value`,
+        );
       } else {
         assert(first.state.kind === "INFINITE_ON_DOMAIN", `${prefix}: wrong restricted-domain state`);
         assert(first.answer.kind === "INFINITE_ON_DOMAIN", `${prefix}: wrong infinite-domain answer kind`);
         assert(solved.kind === "INFINITE_ON_DOMAIN", `${prefix}: exact solver did not confirm infinite-on-domain solution`);
-        assert(solved.excludedValues.length === 1, `${prefix}: expected one excluded value`);
-        assert(
-          equalsRational(solved.excludedValues[0]!, rational(BigInt(first.state.excluded))),
-          `${prefix}: excluded value mismatch`,
-        );
+        assert(solved.excludedValues.length === 2, `${prefix}: expected two genuine excluded values`);
+        assert(first.state.excludedValues[0] !== first.state.excludedValues[1], `${prefix}: restricted-domain state repeated the same exclusion`);
+        for (const excluded of first.state.excludedValues) {
+          assert(
+            solved.excludedValues.some((value) => equalsRational(value, rational(BigInt(excluded)))),
+            `${prefix}: excluded value ${excluded} is missing from the exact solver result`,
+          );
+        }
       }
     }
 
@@ -118,6 +127,7 @@ const md = [
   `- targeted patterns: **${ALG_CP008_ENGLISH_REVIEW_V4_TARGETS.length}**`,
   `- deterministic semantic samples: **${ALG_CP008_ENGLISH_REVIEW_V4_TARGETS.length * samplesPerTarget}**`,
   "- distinct mathematical states: **64/64 per target**",
+  "- no-solution and infinite families vary genuine excluded-value topology; coefficient scaling is not counted as diversity",
   "- domain check: **both defined and undefined outcomes exercised**",
   "- rational equations: **independently verified by the exact solver**",
   "- natural stem frames: **4 per target**",
