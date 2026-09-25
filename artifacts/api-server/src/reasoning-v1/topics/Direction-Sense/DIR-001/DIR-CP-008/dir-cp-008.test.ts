@@ -40,6 +40,7 @@ for (const ql of DIR_CP008_QLS) {
     assert.equal(answerKey(question.options[question.correctIndex].value), answerKey(question.correctAnswer));
     assert.ok(question.stem.length >= 90, `${ql.qlId} short stem: ${question.stem}`);
     assert.ok(!/[{}]|\bundefined\b|\bnull\b/.test(question.stem));
+    assert.doesNotMatch(question.stem, /near the main gate|beside the central lawn|along a marked track|close to the entrance|near the boundary wall|patrol officer|marked point|direction that is not stated|\bA courier\b/i, `machine-like CP008 stem padding: ${question.stem}`);
     const learnerText = [question.stem, question.explanation.given, ...question.explanation.steps, question.explanation.resultLine, question.explanation.conclusion].join("\n");
     assert.ok(!/\bcoordinates?\b/i.test(learnerText), `learner-facing coordinate jargon: ${learnerText}`);
     assert.ok(!/\bunreported\b/i.test(learnerText), `unnatural unreported wording: ${learnerText}`);
