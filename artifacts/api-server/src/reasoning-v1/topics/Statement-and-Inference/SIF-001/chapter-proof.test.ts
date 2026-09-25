@@ -9,6 +9,7 @@ import { SIF_CP003_PROFILE_BY_AUTHORITY_ID } from "./cp003-quantifier-authoritie
 import { solveSifScenario } from "./solver.ts";
 import { SIF_CP004_PROFILE_BY_AUTHORITY_ID } from "./cp004-comparison-authorities.ts";
 import { SIF_CP005_PROFILE_BY_AUTHORITY_ID } from "./cp005-suggestive-reason-authorities.ts";
+import { SIF_CP006_PROFILE_BY_AUTHORITY_ID } from "./cp006-purpose-authorities.ts";
 
 const locales: readonly SifLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 assert.equal(SIF_001_MANIFEST.cpCount, 17);
@@ -30,7 +31,7 @@ for (const cpId of SIF_CP_IDS) {
     assert.equal(question.metadata.questionBankWritable, false);
   }
   const review = buildSifCpReviewPack({ cpId, locale: "en-IN", seed: 9000 });
-  assert.equal(review.questions.length, cpId === "SIF-CP003" || cpId === "SIF-CP004" || cpId === "SIF-CP005" ? 24 : 20, `${cpId}: review pack size`);
+  assert.equal(review.questions.length, cpId === "SIF-CP003" || cpId === "SIF-CP004" || cpId === "SIF-CP005" || cpId === "SIF-CP006" ? 24 : 20, `${cpId}: review pack size`);
 }
 
 const cp001Authorities = listSifAuthorities("SIF-CP001");
@@ -109,5 +110,22 @@ assert.deepEqual(cp005Review.effectiveDistribution, { EASY: 0, MEDIUM: 24, HARD:
 for (const kind of new Set(Object.values(SIF_CP005_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.kind))) assert.equal(cp005Review.questions.filter((entry) => SIF_CP005_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.kind === kind).length, 3, `SIF-CP005 review must sample three ${kind} scenarios`);
 assert.equal(cp005Review.questions.filter((entry) => entry.answerClass === "ONLY_I").length, 12, "SIF-CP005 review must balance inference I");
 assert.equal(cp005Review.questions.filter((entry) => entry.answerClass === "ONLY_II").length, 12, "SIF-CP005 review must balance inference II");
+
+const cp006Authorities = listSifAuthorities("SIF-CP006");
+assert.equal(cp006Authorities.length, 48, "SIF-CP006 requires forty-eight purpose authorities");
+assert.equal(new Set(cp006Authorities.map(fingerprintSifAuthority)).size, 48, "SIF-CP006 authorities must be semantically distinct");
+assert.equal(Object.keys(SIF_CP006_PROFILE_BY_AUTHORITY_ID).length, 48, "SIF-CP006 profile ledger must cover every authority");
+assert.equal(new Set(Object.values(SIF_CP006_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.family)).size, 8, "SIF-CP006 must cover eight purpose families");
+for (const family of new Set(Object.values(SIF_CP006_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.family))) assert.equal(Object.values(SIF_CP006_PROFILE_BY_AUTHORITY_ID).filter((profile) => profile.family === family).length, 6, `SIF-CP006 ${family} authority count`);
+assert.equal(new Set(cp006Authorities.map((entry) => entry.domain)).size, 7, "SIF-CP006 must cover seven context domains");
+assert.ok(cp006Authorities.every((entry) => entry.difficulty === "MEDIUM" && entry.mechanisms.includes("PURPOSE") && !entry.identityGuard.causeEffectQuestion && !entry.identityGuard.courseOfActionQuestion), "SIF-CP006 must remain medium-level purpose inference");
+assert.ok(cp006Authorities.some((entry) => entry.candidates.some((candidate) => candidate.distractorType === "INTENT_WITHOUT_EVIDENCE")) && cp006Authorities.some((entry) => entry.candidates.some((candidate) => candidate.distractorType === "OVERGENERALISATION")), "SIF-CP006 must vary unsupported-motive and scope traps");
+const cp006Review = buildSifCpReviewPack({ cpId: "SIF-CP006", locale: "en-IN", seed: 60_000 });
+assert.equal(cp006Review.questions.length, 24, "SIF-CP006 review pack size");
+assert.equal(new Set(cp006Review.questions.map((entry) => entry.scenarioId)).size, 24, "SIF-CP006 review must not repeat scenarios");
+assert.deepEqual(cp006Review.effectiveDistribution, { EASY: 0, MEDIUM: 24, HARD: 0 }, "SIF-CP006 must preserve its medium-only difficulty contract");
+for (const family of new Set(Object.values(SIF_CP006_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.family))) assert.equal(cp006Review.questions.filter((entry) => SIF_CP006_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.family === family).length, 3, `SIF-CP006 review must sample three ${family} scenarios`);
+assert.equal(cp006Review.questions.filter((entry) => entry.answerClass === "ONLY_I").length, 12, "SIF-CP006 review must balance inference I");
+assert.equal(cp006Review.questions.filter((entry) => entry.answerClass === "ONLY_II").length, 12, "SIF-CP006 review must balance inference II");
 
 console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
