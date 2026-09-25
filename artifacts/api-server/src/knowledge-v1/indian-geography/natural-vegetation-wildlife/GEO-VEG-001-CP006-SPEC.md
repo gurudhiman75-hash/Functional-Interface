@@ -1,6 +1,6 @@
 # GEO-VEG-001 CP006 — Mangrove / Tidal / Littoral & Swamp Vegetation
 
-Status: REVIEW CANDIDATE V1
+Status: APPROVED — WAVE 2 HUMAN REVIEW
 Parent blueprint: `GEO-VEG-001-BLUEPRINT.md`
 Permanent QLs: `GEO-VEG-001-QL-046` to `GEO-VEG-001-QL-054`
 
