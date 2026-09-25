@@ -15,12 +15,12 @@ function cell(value: unknown) {
 const lines: string[] = [
   "# DI-010 Frequency Polygon Hindi/Punjabi Localization Review V1",
   "",
-  "Status: HI_PA_REVIEW_CANDIDATE",
+  "Status: HI_PA_FROZEN",
   "",
   "- Permanent QLs: DI-QL-014 through DI-QL-026",
   "- Hindi: hi-IN",
   "- Punjabi: pa-IN",
-  "- Localized Question Studio activation: NOT AUTHORIZED",
+  "- Localized Question Studio activation: CONTROLLED_REVIEW",
   "- Question Bank/tests/mocks/publication: locked",
   "- Whole-number learner policy: no decimal values; percentage/mean use explicit nearest-whole wording",
   "",
@@ -89,7 +89,7 @@ for (const locale of locales) {
 lines.push(
   "## Review Gate",
   "",
-  "Hindi/Punjabi remain review candidates. Approval is required before these localized surfaces can be frozen or enabled in controlled Question Studio review.",
+  "Hindi/Punjabi are frozen multilingual authorities and are enabled only in controlled Question Studio review. Question Bank, tests, mocks and public/student publication remain locked.",
   "",
 );
 
