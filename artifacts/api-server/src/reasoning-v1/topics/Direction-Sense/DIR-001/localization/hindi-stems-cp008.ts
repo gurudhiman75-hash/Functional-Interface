@@ -21,7 +21,7 @@ export function renderHindiStem036To044(english: R): string | null {
     case "DIR-QL-043":
       return `${placeHi(s.place)} में ${nameHi(s.subject)} की यात्रा चौकी ${s.checkpoint} से शुरू होती है; आरंभिक मुख ${directionHi(s.initialFacing)} की ओर है। मार्ग: ${advancedOperations(s.operations ?? [])}। अंतिम स्थान और चौकी के बीच न्यूनतम दूरी कितनी है?`;
     case "DIR-QL-044":
-      return `चित्र दो स्थान-संबंध दर्शाता है। इसके अतिरिक्त, ${relationSentence(s.textRelation)} चित्र और लिखित कथन दोनों का उपयोग करके बताइए कि ${nameHi(s.queryTo)} ${nameHi(s.queryFrom)} के किस दिशा में है?`;
+      return `${(s.diagramRelations ?? []).map((r: R) => relationSentence(r)).join(" ")} इसके अतिरिक्त, ${relationSentence(s.textRelation)} सभी संबंधों का उपयोग करके बताइए कि ${nameHi(s.queryTo)} ${nameHi(s.queryFrom)} के किस दिशा में है?`;
     default: return null;
   }
 }
