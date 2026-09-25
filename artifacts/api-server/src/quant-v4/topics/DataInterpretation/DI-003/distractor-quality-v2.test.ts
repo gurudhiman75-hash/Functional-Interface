@@ -40,6 +40,7 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
         for (const option of question.options) {
           const value = parsePercent(option);
           assert(value !== null && Number.isFinite(value) && value > 0, `${question.questionId} has a malformed percentage option: ${option}.`);
+          assert(!/\d+\.\d+/u.test(option), `${question.questionId} has a decimal percentage option after the whole-number policy: ${option}.`);
           if (question.kind === "CATEGORY_SHARE_OF_SERIES_TOTAL") {
             assert(value <= 100, `${question.questionId} has an impossible category-share option above 100%: ${option}.`);
           }
@@ -56,7 +57,7 @@ assert(sets === 240 && questions === 1200, `Unexpected distractor qualification 
 assert(percentageQuestions >= 200, `Percentage-family coverage is unexpectedly low: ${percentageQuestions}.`);
 
 console.log(JSON.stringify({
-  status: "PASS_DI_003_V2_DISTRACTOR_PLAUSIBILITY",
+  status: "PASS_DI_003_V3_WHOLE_PERCENT_DISTRACTOR_PLAUSIBILITY",
   sets,
   questions,
   percentageQuestions,
