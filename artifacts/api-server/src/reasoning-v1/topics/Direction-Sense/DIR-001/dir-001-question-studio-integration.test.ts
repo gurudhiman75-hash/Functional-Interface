@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 
 import { reasoningV1QuestionStudioAdapter } from "../../../../question-studio/engines/reasoning-v1-adapter";
+import { listQuestionStudioPackages } from "../../../../question-studio/engine-registry";
 import {
   DIR001_QUESTION_STUDIO_PACKAGE_ID_V1,
   DIR001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
@@ -54,6 +55,11 @@ const registered = reasoningV1QuestionStudioAdapter.listPackages().find((pkg) =>
 assert.ok(registered, "DIR-001 must be discoverable through the reasoning-v1 adapter");
 assert.equal(registered!.questionBankWritable, false);
 assert.equal(registered!.testEligible, false);
+
+const globalPackage = listQuestionStudioPackages().find((pkg) => pkg.packageId === "DIR-001");
+assert.ok(globalPackage, "DIR-001 must be visible through the global Question Studio package registry");
+assert.equal(globalPackage!.engineId, "reasoning-v1");
+assert.equal(globalPackage!.questionBankWritable, false);
 
 const qlEnglish = await reasoningV1QuestionStudioAdapter.generate({
   packageId: "DIR-001",
