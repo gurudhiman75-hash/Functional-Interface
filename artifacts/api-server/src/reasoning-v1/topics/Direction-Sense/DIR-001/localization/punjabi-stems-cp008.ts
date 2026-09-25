@@ -13,7 +13,7 @@ export function renderPunjabiStem036To044(english: R): string | null {
     case "DIR-QL-037":
       return `${(s.anchorRelations ?? []).map((r: R) => relationSentencePa(r, false)).join(" ")} ਹੁਣ ਇਨ੍ਹਾਂ ਚਾਰ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ: ${(s.relations ?? []).map((r: R, i: number) => `(${i + 1}) ${relationSentencePa(r, false)}`).join(" ")} ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕਥਨ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ?`;
     case "DIR-QL-038":
-      return `${placePa(s.place)} ਵਿੱਚ ${namePa(s.subject)} ਇੱਕ ਨਿਸ਼ਾਨ ਲੱਗੇ ਬਿੰਦੂ ਤੋਂ ${startsWalkingPa(s.subject)}। ${absoluteLegJourneyPa(s.legs ?? [], s.subject)} ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(s.target)} ਹੈ। ਜਿਸ ਚਾਲ ਦੀ ਦਿਸ਼ਾ ਨਹੀਂ ਦਿੱਤੀ ਗਈ, ਉਹ ਕਿਹੜੀ ਸੀ?`;
+      return `${placePa(s.place)} ਵਿੱਚ ${namePa(s.subject)} ਇੱਕ ਬਿੰਦੂ ਤੋਂ ${startsWalkingPa(s.subject)}। ${absoluteLegJourneyPa(s.legs ?? [], s.subject)} ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(s.target)} ਹੈ। ਜਿਸ ਚਾਲ ਦੀ ਦਿਸ਼ਾ ਨਹੀਂ ਦਿੱਤੀ ਗਈ, ਉਹ ਕਿਹੜੀ ਸੀ?`;
     case "DIR-QL-039": {
       const n = namePa(s.subject);
       const walk = walkVerbPa(s.subject);
