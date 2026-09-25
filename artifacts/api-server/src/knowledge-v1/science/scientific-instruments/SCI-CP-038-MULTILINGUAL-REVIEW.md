@@ -2,7 +2,7 @@
 
 Status: HUMAN REVIEW CANDIDATE / REVIEW-ONLY / RUNTIME CLOSED
 
-This packet mirrors the committed Hindi and Punjabi localization arrays. English remains the approved canonical semantic source. Each locale contains 60 questions; correct-answer position follows the canonical CP038 rotation and provenance/difficulty/QL metadata remain inherited from English.
+This packet mirrors the committed Hindi and Punjabi localization arrays. English remains the canonical semantic source. Each locale contains 60 questions; correct-answer position follows the canonical CP038 rotation and provenance/difficulty/QL metadata remain inherited from English.
 
 ## Q01
 
@@ -1170,7 +1170,7 @@ D. ਧੁਨੀ ਤੀਬਰਤਾ
 
 **Answer:** A. ਖਿਤਿਜ ਤੋਂ ਖਗੋਲੀ ਪਿੰਡ ਦੀ ਕੋਣੀ ਸਥਿਤੀ
 
-**Explanation:** ਸੈਕਸਟੈਂਟ ਕਿਸੇ ਖਗੋਲੀ ਪਿੰਡ ਅਤੇ क्षਿਤਿਜ ਵਿਚਕਾਰ ਕੋਣ ਮਾਪਦਾ ਹੈ। ਇਸ ਜਾਣਕਾਰੀ ਨਾਲ ਨੈਵੀਗੇਸ਼ਨ ਵਿੱਚ ਸਥਿਤੀ ਪਤਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਮਿਲਦੀ ਹੈ।
+**Explanation:** ਸੈਕਸਟੈਂਟ ਕਿਸੇ ਖਗੋਲੀ ਪਿੰਡ ਅਤੇ ਖਿਤਿਜ ਵਿਚਕਾਰ ਕੋਣ ਮਾਪਦਾ ਹੈ। ਇਸ ਜਾਣਕਾਰੀ ਨਾਲ ਨੈਵੀਗੇਸ਼ਨ ਵਿੱਚ ਸਥਿਤੀ ਪਤਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਮਿਲਦੀ ਹੈ।
 
 ---
 
@@ -1239,7 +1239,7 @@ D. अल्टीमीटर और सेक्सटेंट
 
 **Explanation:** अल्टीमीटर ऊँचाई देता है, जबकि सेक्सटेंट खगोलीय कोण मापता है। दोनों अलग-अलग नौवहन कार्यों के लिए उपयोग होते हैं।
 
-**Punjabi**: ਪਾਇਲਟ ਨੂੰ ਉਚਾਈ ਅਤੇ ਜਹਾਜ਼ ਦੇ ਨੈਵੀਗੇਟਰ ਨੂੰ ਤਾਰੇ ਦਾ क्षਿਤਿਜ ਨਾਲ ਕੋਣ ਮਾਪਣਾ ਹੋਵੇ ਤਾਂ ਕਿਹੜੇ ਯੰਤਰ ਸਹੀ ਹਨ?
+**Punjabi**: ਪਾਇਲਟ ਨੂੰ ਉਚਾਈ ਅਤੇ ਜਹਾਜ਼ ਦੇ ਨੈਵੀਗੇਟਰ ਨੂੰ ਤਾਰੇ ਦਾ ਖਿਤਿਜ ਨਾਲ ਕੋਣ ਮਾਪਣਾ ਹੋਵੇ ਤਾਂ ਕਿਹੜੇ ਯੰਤਰ ਸਹੀ ਹਨ?
 
 A. ਬੈਰੋਮੀਟਰ ਅਤੇ ਓਡੋਮੀਟਰ
 B. ਕੰਪਾਸ ਅਤੇ ਹਾਈਗ੍ਰੋਮੀਟਰ
