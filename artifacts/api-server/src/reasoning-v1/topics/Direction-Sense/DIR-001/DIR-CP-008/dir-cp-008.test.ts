@@ -69,6 +69,12 @@ for (const ql of DIR_CP008_QLS) {
         assert.deepEqual(question.correctAnswer, { kind: "STATEMENT", statementIndex });
         contradictionIndexes.add(statementIndex);
         assert.ok(learnerText.includes("Statement 1:"));
+        assert.ok((question.explanation.diagram?.svg.match(/data-role="relation-distance"/g) ?? []).length >= 3);
+        assert.doesNotMatch(
+          question.explanation.diagram?.svg ?? "",
+          />\d+ m (?:North|South|East|West|North-East|North-West|South-East|South-West)</,
+          "CP008 relation diagrams should keep edge labels compact and unambiguous",
+        );
         assert.ok(learnerText.includes(scenario.anchorRelations[0].fromEntity));
         assert.ok(learnerText.includes(scenario.anchorRelations[0].toEntity));
         break;
@@ -108,7 +114,15 @@ for (const ql of DIR_CP008_QLS) {
         assert.deepEqual(question.correctAnswer, { kind: "DIRECTION_DISTANCE", direction: solved.direction, distance: solved.distance });
         directionCoverage.get(ql.qlId)!.add(solved.direction);
         mixedDistanceCoverage.add(solved.distance);
-        assert.ok(question.explanation.diagram?.svg.includes('data-role="movement-segment"'));
+        assert.equal(
+          (question.explanation.diagram?.svg.match(/data-role="movement-segment"/g) ?? []).length,
+          scenario.movements.length,
+          "QL041 must render every movement leg instead of collapsing the route to one line",
+        );
+        assert.equal(
+          (question.explanation.diagram?.svg.match(/data-role="movement-distance"/g) ?? []).length,
+          scenario.movements.length,
+        );
         assert.match(learnerText, /√/);
         assert.ok(learnerText.includes(`${solved.distance} metres`));
         assert.ok(learnerText.includes(scenario.relations[0].fromEntity));
