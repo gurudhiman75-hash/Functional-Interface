@@ -11,7 +11,7 @@ const plan:Record<PunjabiDifficulty,readonly [string,number][]>={
 const stride:Record<string,number>={F01:13,F02:11,F03:8,F04:5,F05:29,F06:11,F07:1733,F08:1};
 const out:string[]=[
  "# PUN-001 CP008 Retrofit Review — ਅਗੇਤਰ, ਪਿਛੇਤਰ ਅਤੇ ਸ਼ਬਦ-ਰਚਨਾ","",
- "Status: HUMAN REVIEW PENDING","",
+ "Status: HUMAN APPROVED","",
  "Authority inventory: 69 affix concepts + 374 word↔affix memberships + 63 explicit root derivations = 506 atomic authorities.","",
  "Governed semantic breadth: 39,548 combinations before option-order permutations.","",
  "Root-recovery families use only explicit audited roots; membership-only words are never given invented roots.",""

@@ -1,6 +1,6 @@
 # PUN-001 CP008 Retrofit — ਅਗੇਤਰ, ਪਿਛੇਤਰ ਅਤੇ ਸ਼ਬਦ-ਰਚਨਾ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Final audited surface
 - **69 affix concepts**
@@ -48,7 +48,10 @@ These words may remain valid lexical formations elsewhere, but they are not simp
 - F07 dual prefix + suffix diagnosis — Hard
 - F08 two-statement root/affix verification — Hard
 
+## Approval
+Owner approval basis: PR #2009 chapter integration on 2026-09-20. Runtime remains REVIEW_ONLY.
+
 ## Lifecycle
-The previous CP008 approval does not cover this material retrofit. Fresh owner approval is required on the exact reviewed SHA.
+This material retrofit was subsequently included in owner-approved chapter integration PR #2009 on 2026-09-20.
 
 No Question Bank, Question Studio, test/mock or public delivery promotion is authorized.

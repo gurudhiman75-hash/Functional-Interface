@@ -19,7 +19,7 @@ export const PART_2: readonly SciCp037ReviewSpec[] = [
   [
     3,
     "Medium",
-    "The neutron was discovered by:",
+    "Who identified the neutron as a neutral particle in the atomic nucleus?",
     "James Chadwick",
     [
       "Niels Bohr",

@@ -4,12 +4,13 @@ import {
   CP013_TRANSFORMATION_ITEMS,
   CP013_CORRECTION_ITEMS,
 } from "./CP013-authorities";
-import { CP013_FAMILIES,getCP013BreadthReport } from "./engine";
+import { CP013_BLANK_SURFACES,CP013_FAMILIES,getCP013BreadthReport } from "./engine";
 
 assert.equal(CP013_CLASSIFICATION_ITEMS.length,89);
 assert.equal(CP013_TRANSFORMATION_ITEMS.length,63);
 assert.equal(CP013_CORRECTION_ITEMS.length,71);
-assert.equal(CP013_FAMILIES.length,8);
+assert.equal(CP013_FAMILIES.length,11);
+assert(CP013_BLANK_SURFACES.length>=8,"CP013 requires at least eight controlled grammatical-blank surfaces");
 
 const banned=/(ਟਕਸਾਲੀ|ਸਿੱਧੇ ਅਰਥ|ਪ੍ਰਮਾਣਿਤ|ਬਾਕੀ ਤਿੰਨ|ਬਾਕੀ ਵਿਕਲਪ|ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ)/u;
 const city=/(ਦਿੱਲੀ|ਚੰਡੀਗੜ੍ਹ|ਲੁਧਿਆਣਾ|ਅੰਮ੍ਰਿਤਸਰ|ਪਟਿਆਲਾ|ਜਲੰਧਰ|ਮੋਹਾਲੀ|ਬਠਿੰਡਾ|ਮਾਨਸਾ)/u;
@@ -73,9 +74,11 @@ assert.equal(breadth.classificationAuthorities,89);
 assert.equal(breadth.transformationAuthorities,63);
 assert.equal(breadth.correctionAuthorities,71);
 assert.equal(breadth.totalAtomicAuthorities,223);
-assert.equal(breadth.totalSemanticCapacity,8341);
+assert.equal(breadth.blankCompletionAuthorities,CP013_BLANK_SURFACES.length);
+assert.equal(breadth.totalSemanticCapacity,8341+71+CP013_BLANK_SURFACES.length+(89*71*4));
 
 const global=new Set<string>();
+const f11Outcomes=new Set<string>();
 for(const family of CP013_FAMILIES){
  const local=new Set<string>();
  const targetCoverage=new Set<string>();
@@ -97,25 +100,28 @@ for(const family of CP013_FAMILIES){
    assert(!global.has(q.metadata.fingerprint),q.id+": cross-family fingerprint collision");global.add(q.metadata.fingerprint);
    targetCoverage.add(q.metadata.authorityIds[0]!);
    if(family.familyId==="F08")secondCoverage.add(q.metadata.authorityIds[1]!);
+   if(family.familyId==="F11"){secondCoverage.add(q.metadata.authorityIds[1]!);f11Outcomes.add(q.options[q.correctIndex]!);}
   }
  }
  assert.equal(local.size,family.semanticCapacity,family.familyId+": semantic capacity mismatch");
- const expected=(family.familyId==="F01"||family.familyId==="F02"||family.familyId==="F08")
+ const expected=(family.familyId==="F01"||family.familyId==="F02"||family.familyId==="F08"||family.familyId==="F11")
   ?89
   :(family.familyId==="F03"||family.familyId==="F04"||family.familyId==="F07")
    ?63
-   :71;
+   :family.familyId==="F10"?CP013_BLANK_SURFACES.length:71;
  assert.equal(targetCoverage.size,expected,family.familyId+": exhaustive target authority coverage required");
  if(family.familyId==="F08")assert.equal(secondCoverage.size,89,"F08 must exercise every classification authority in second position");
+ if(family.familyId==="F11")assert.equal(secondCoverage.size,71,"F11 must exercise every correction authority in second position");
 }
-assert.equal(global.size,8341);
+assert.equal(global.size,breadth.totalSemanticCapacity);
+assert.equal(f11Outcomes.size,4,"F11 must expose all four truth outcomes");
 
 const easy=CP013_FAMILIES.find(x=>x.familyId==="F03")!.generate(1,"Easy");
 const medium=CP013_FAMILIES.find(x=>x.familyId==="F04")!.generate(1,"Medium");
-const hard=CP013_FAMILIES.find(x=>x.familyId==="F08")!.generate(1,"Hard");
+const hard=CP013_FAMILIES.find(x=>x.familyId==="F11")!.generate(1,"Hard");
 assert.equal(easy.metadata.authorityIds.length,1);
 assert(medium.metadata.authorityIds.length>1);
-assert(hard.stem.includes("1.")&&hard.stem.includes("2."));
+assert(hard.stem.includes("ਕਥਨ 1")&&hard.stem.includes("ਕਥਨ 2"));
 assert.equal(hard.metadata.authorityIds.length,2);
 
 console.log("CP013 exhaustive semantic gates passed: "+global.size+" governed questions");

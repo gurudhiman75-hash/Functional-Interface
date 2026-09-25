@@ -39,7 +39,32 @@ assert.equal(new Set(PGK_001_QUESTION_STUDIO_CORPUS_V1.map((q) => q.questionId))
 
 const cpCounts = new Map<string, number>();
 const qlCounts = new Map<string, number>();
-const bannedLearnerWording = /the correct answer is|the correct option|the other options|this question tests|review batch|runtimeRegistered|generator|sourceFactIds/i;
+const bannedLearnerWording = /associated with|linked with|known for|best described|the correct answer is|the correct option|the other options|this question tests|with reference to punjab|identify it|review batch|runtimeRegistered|generator|sourceFactIds/i;
+const semanticFingerprints = new Map<string, string>();
+const exhaustiveAuditErrors: string[] = [];
+const genericSourcePlaceholder = /(?:^|[-_])(?:reference|standard-history|generic)(?:$|[-_])/i;
+const rejectedFactualOverstatements = /most famous ruler of the Kushan|one of Punjab's oldest secondary-steel|invented the Gurmukhi/i;
+
+function normalizeLearnerText(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFKC")
+    .replace(/\\n/g, " ")
+    .replace(/[^a-z0-9%]+/g, " ")
+    .replace(/\\s+/g, " ")
+    .trim();
+}
+
+function countLearnerSentences(value: string) {
+  const normalized = value
+    .replace(/(\d)\.(\d)/g, "$1__DECIMAL__$2")
+    .replace(/\b(?:[A-Z]\.){2,}[A-Z]?\.?/g, (match) => match.replace(/\./g, ""));
+  return normalized
+    .split(/[.!?]+/)
+    .map((part) => part.replace(/__DECIMAL__/g, ".").trim())
+    .filter(Boolean)
+    .length;
+}
 
 for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
   cpCounts.set(q.cpId, (cpCounts.get(q.cpId) ?? 0) + 1);
@@ -50,8 +75,43 @@ for (const q of PGK_001_QUESTION_STUDIO_CORPUS_V1) {
   assert.equal(q.options[q.correctIndex], q.canonicalAnswer, `${q.questionId}: answer mismatch`);
   assert.ok(q.stem.trim().length > 0, `${q.questionId}: missing stem`);
   assert.ok(q.explanation.trim().length > 0, `${q.questionId}: missing explanation`);
-  assert.doesNotMatch(`${q.stem}\n${q.explanation}`, bannedLearnerWording);
+
+  if (q.sourceIds.length === 0) exhaustiveAuditErrors.push(`${q.questionId}: missing source provenance`);
+  if (q.sourceFactIds.length === 0) exhaustiveAuditErrors.push(`${q.questionId}: missing fact provenance`);
+  for (const sourceId of q.sourceIds) {
+    if (genericSourcePlaceholder.test(sourceId)) {
+      exhaustiveAuditErrors.push(`${q.questionId}: generic source placeholder :: ${sourceId}`);
+    }
+  }
+  if (bannedLearnerWording.test(`${q.stem}\n${q.explanation}`)) {
+    exhaustiveAuditErrors.push(`${q.questionId}: banned learner wording :: ${q.stem}`);
+  }
+  if (rejectedFactualOverstatements.test(`${q.stem}\n${q.explanation}`)) {
+    exhaustiveAuditErrors.push(`${q.questionId}: rejected factual overstatement :: ${q.stem}`);
+  }
+  if (q.stem.length > 420) exhaustiveAuditErrors.push(`${q.questionId}: stem is too long (${q.stem.length})`);
+  if (q.explanation.length > 520) exhaustiveAuditErrors.push(`${q.questionId}: explanation is too long (${q.explanation.length})`);
+
+  const explanationSentenceCount = countLearnerSentences(q.explanation);
+  if (explanationSentenceCount < 1 || explanationSentenceCount > 3) {
+    exhaustiveAuditErrors.push(`${q.questionId}: explanation has ${explanationSentenceCount} sentences`);
+  }
+
+  const semanticKey = `${normalizeLearnerText(q.stem)}|${normalizeLearnerText(q.canonicalAnswer)}`;
+  const previous = semanticFingerprints.get(semanticKey);
+  if (previous) exhaustiveAuditErrors.push(`${q.questionId}: semantic duplicate of ${previous}`);
+  else semanticFingerprints.set(semanticKey, q.questionId);
+
+  if (
+    /population|literacy|sex ratio|population density|scheduled caste/i.test(q.stem) &&
+    q.cpId === "PGK-001-CP-020" &&
+    !/2011/i.test(`${q.stem} ${q.explanation}`)
+  ) {
+    exhaustiveAuditErrors.push(`${q.questionId}: demographic fact is not explicitly Census-2011 versioned`);
+  }
 }
+
+assert.deepEqual(exhaustiveAuditErrors, [], `Exhaustive PGK audit failures:\n${exhaustiveAuditErrors.join("\n")}`);
 
 assert.equal(cpCounts.size, 26);
 assert.equal(qlCounts.size, 182);

@@ -11,19 +11,32 @@ export interface SifReviewPack {
   readonly questions: readonly GeneratedSifQuestion[];
 }
 
-const TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 5, MEDIUM: 8, HARD: 7 };
+const DEFAULT_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 5, MEDIUM: 8, HARD: 7 };
+const CP003_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 6, MEDIUM: 10, HARD: 8 };
 
 export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly locale: SifLocale; readonly seed?: number }): SifReviewPack {
   const baseSeed = input.seed ?? 10_001;
-  const requested = { ...TARGET };
+  const target = input.cpId === "SIF-CP003" ? CP003_TARGET : DEFAULT_TARGET;
+  const requested = { ...target };
   const effective: Record<SifDifficulty, number> = { EASY: 0, MEDIUM: 0, HARD: 0 };
   const questions: GeneratedSifQuestion[] = [];
+  const usedScenarioIds = new Set<string>();
   let sequence = 0;
   for (const difficulty of ["EASY", "MEDIUM", "HARD"] as const) {
-    const count = TARGET[difficulty];
+    const count = target[difficulty];
     for (let index = 0; index < count; index += 1) {
-      const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed: baseSeed + sequence });
+      let question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed: baseSeed + sequence });
+      if (input.cpId === "SIF-CP003") {
+        let attempts = 0;
+        while ((question.difficulty !== difficulty || usedScenarioIds.has(question.scenarioId)) && attempts < 600) {
+          sequence += 1;
+          attempts += 1;
+          question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed: baseSeed + sequence });
+        }
+        if (question.difficulty !== difficulty || usedScenarioIds.has(question.scenarioId)) throw new Error(`${input.cpId}: unable to build distinct ${difficulty} review sample`);
+      }
       questions.push(question);
+      usedScenarioIds.add(question.scenarioId);
       effective[question.difficulty] += 1;
       sequence += 1;
     }

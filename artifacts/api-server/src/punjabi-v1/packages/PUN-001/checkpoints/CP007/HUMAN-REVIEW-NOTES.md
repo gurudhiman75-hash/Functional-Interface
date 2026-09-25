@@ -10,4 +10,4 @@ Review focus:
 - no generic formal clutter such as `ਸਿੱਧੇ ਅਰਥ` or `ਪ੍ਰਮਾਣਿਤ`;
 - Hard questions should require multiple grammatical decisions.
 
-Current state: `HUMAN_REVIEW_PENDING`.
+Current state: `HUMAN_APPROVED` — final sambandhak breadth approved on 2026-09-24; runtime remains REVIEW_ONLY.

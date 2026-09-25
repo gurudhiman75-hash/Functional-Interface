@@ -12,6 +12,12 @@ on:
       - "artifacts/api-server/src/knowledge-v1/question-validation.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-phy-001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-phy-001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-cli-001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-cli-001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-soi-001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-soi-001-adapter-v1.test.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
   workflow_dispatch:
 
@@ -75,6 +81,7 @@ jobs:
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-review-generator-v2.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-review-batch-v4.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-freeze-v1.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-chapter-close-v1.test.ts"
             "src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
           )
           for test_file in "${tests[@]}"; do
@@ -312,6 +319,227 @@ jobs:
           path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CP005-V1/
           if-no-files-found: error
           retention-days: 30
+
+      - name: Run GEO-SOI-001 CP006 and CP007 qualification gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp006-review-batch-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp006-review-batch-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-cp006-review-batch-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp007-review-batch-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp007-review-batch-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-cp007-review-batch-v1.test.mjs
+
+      - name: Materialize GEO-SOI-001 CP006 and CP007 review artifacts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp006-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp006-export-review-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp007-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp007-export-review-v1.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-soi-001-cp006-export-review-v1.mjs
+          node dist/geography/geo-soi-001-cp007-export-review-v1.mjs
+
+      - name: Upload GEO-SOI-001 CP006 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CP006-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CP006-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-SOI-001 CP007 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CP007-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CP007-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run GEO-SOI-001 CP008 qualification gate
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp008-review-batch-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp008-review-batch-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-cp008-review-batch-v1.test.mjs
+
+      - name: Materialize GEO-SOI-001 CP008 review artifact
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp008-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp008-export-review-v1.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-soi-001-cp008-export-review-v1.mjs
+
+      - name: Upload GEO-SOI-001 CP008 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CP008-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CP008-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run GEO-SOI-001 CP009 and CP010 qualification gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp009-review-batch-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp009-review-batch-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-cp009-review-batch-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp010-review-batch-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp010-review-batch-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-cp010-review-batch-v1.test.mjs
+
+      - name: Materialize GEO-SOI-001 CP009 and CP010 review artifacts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp009-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp009-export-review-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp010-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp010-export-review-v1.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-soi-001-cp009-export-review-v1.mjs
+          node dist/geography/geo-soi-001-cp010-export-review-v1.mjs
+
+      - name: Upload GEO-SOI-001 CP009 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CP009-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CP009-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-SOI-001 CP010 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CP010-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CP010-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run GEO-SOI-001 CP011 and CP012 qualification gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp011-review-batch-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp011-review-batch-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-cp011-review-batch-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp012-review-batch-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp012-review-batch-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-cp012-review-batch-v1.test.mjs
+
+      - name: Run GEO-SOI-001 CP013 mastery gate
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp013-review-batch-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp013-review-batch-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-cp013-review-batch-v1.test.mjs
+
+      - name: Materialize GEO-SOI-001 CP011, CP012 and CP013 review artifacts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp011-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp011-export-review-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp012-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp012-export-review-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-cp013-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-cp013-export-review-v1.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-soi-001-cp011-export-review-v1.mjs
+          node dist/geography/geo-soi-001-cp012-export-review-v1.mjs
+          node dist/geography/geo-soi-001-cp013-export-review-v1.mjs
+
+      - name: Upload GEO-SOI-001 CP011 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CP011-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CP011-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-SOI-001 CP012 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CP012-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CP012-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-SOI-001 CP013 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CP013-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CP013-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run GEO-SOI-001 chapter closure audit
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-chapter-closure-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-chapter-closure-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-soi-001-chapter-closure-v1.test.mjs
+
+      - name: Materialize GEO-SOI-001 closure report
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/soils/geo-soi-001-export-closure-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-soi-001-export-closure-v1.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-soi-001-export-closure-v1.mjs
+
+      - name: Upload GEO-SOI-001 closure report
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-SOI-001-CHAPTER-CLOSURE-AUDIT-V1
+          path: artifacts/api-server/dist/geography-review/GEO-SOI-001-CLOSURE-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run closed Geography Question Studio adapter gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          tests=(
+            "src/question-studio/engines/knowledge-v1-geo-phy-001-adapter-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-geo-cli-001-adapter-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-geo-soi-001-adapter-v1.test.ts"
+          )
+          for test_file in "${tests[@]}"; do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild               "${test_file}"               --bundle --packages=external --platform=node --format=esm               --outfile="dist/geography/${output_name}"
+            node "artifacts/api-server/dist/geography/${output_name}"
+          done
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build

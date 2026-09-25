@@ -1,6 +1,6 @@
 # PUN-001 CP004 Retrofit — ਲਿੰਗ ਅਤੇ ਵਚਨ
 
-Status: **REVIEW_ONLY / HUMAN_REVIEW_PENDING**
+Status: **REVIEW_ONLY / HUMAN_APPROVED**
 
 ## Why this retrofit exists
 The earlier forward-port retained 26 gender pairs, 32 number pairs and 12 agreement contexts. This pass re-audits the complete donor without using a target count.
@@ -43,7 +43,10 @@ Invariable number authorities are retained as valid grammatical authorities but 
 The previously reviewed nine-family architecture is retained:
 F01 gender change; F02 correct gender pair; F03 mismatched gender pair; F04 singular→plural; F05 plural→singular; F06 correct number pair; F07 contextual agreement; F08 agreement correction; F09 two-statement agreement verification.
 
+## Approval
+Owner approval basis: PR #2009 chapter integration on 2026-09-20. Runtime remains REVIEW_ONLY.
+
 ## Lifecycle
-The previous CP004 approval does not cover this material retrofit. Fresh owner approval is required on the exact reviewed head.
+This material retrofit was subsequently included in owner-approved chapter integration PR #2009 on 2026-09-20.
 
 No Question Bank, Question Studio, test/mock or public delivery promotion is authorized.

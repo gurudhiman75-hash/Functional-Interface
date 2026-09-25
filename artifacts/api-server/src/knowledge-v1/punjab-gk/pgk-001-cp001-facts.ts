@@ -2,8 +2,10 @@ export const PGK_001_CP001_SOURCE_IDS = Object.freeze({
   knowPunjab: "GOV-PUNJAB-KNOW-PUNJAB",
   atAGlance2022: "GOV-PUNJAB-AT-A-GLANCE-2022",
   psebAgriculture8: "PSEB-AGRICULTURE-CLASS8-NURSERY",
+  bsiShishamNdf: "GOV-INDIA-BSI-DALBERGIA-SISSOO-NDF",
   punjabOfficialPaper2024: "GOV-PUNJAB-MRSAFPI-QUESTION-PAPER-2024",
-  pscstEnvisBird: "PSCST-ENVIS-NORTHERN-GOSHAWK-2016",
+  sutlejDprBlackbuck: "GOV-HP-SUTLEJ-DPR-PUNJAB-BLACKBUCK",
+  goshawkAuthority: "CZA-BNHS-NORTHERN-GOSHAWK-PUNJAB",
   nfdbStateAquatic: "GOV-INDIA-NFDB-STATE-FISHES-AQUATIC-ANIMALS",
 } as const);
 
@@ -23,15 +25,25 @@ export const PGK_001_CP001_SOURCE_REGISTRY = Object.freeze({
     url: "https://psebfiles.s3.ap-south-1.amazonaws.com/media/1724151829_Agriculture%208%20%28E%29.pdf",
     authority: "Punjab School Education Board",
   },
+  [PGK_001_CP001_SOURCE_IDS.bsiShishamNdf]: {
+    title: "Non-Detriment Findings of Dalbergia sissoo in India",
+    url: "https://bsi.gov.in/uploads/documents/Non-Detriment%20Findings%20%28NDFs%29/NDF%20report%20-%20Dalbergia%20sissoo-low-final%20%281%29.pdf",
+    authority: "Botanical Survey of India, Government of India",
+  },
   [PGK_001_CP001_SOURCE_IDS.punjabOfficialPaper2024]: {
     title: "Official Punjab Government Question Paper 2024 — MRSAFPI",
     url: "https://www.mrsafpi.punjab.gov.in/wp-content/uploads/2024/02/Question-Paper-2024-Code-A.pdf",
     authority: "Government of Punjab",
   },
-  [PGK_001_CP001_SOURCE_IDS.pscstEnvisBird]: {
-    title: "The State Bird of Punjab: Northern Goshawk — Punjab ENVIS Centre",
-    authority: "Punjab State Council for Science & Technology",
-    locator: "Notification No. 34/11/2015-Ft-5/592880/1 dated 18-09-2015",
+  [PGK_001_CP001_SOURCE_IDS.sutlejDprBlackbuck]: {
+    title: "Sutlej River Basin Detailed Project Report — Wildlife section",
+    url: "https://hpforest.gov.in/storage/files/1/pdf/DPR/Satluj/Sutlej%20Volume-I.pdf",
+    authority: "Forest Department, Government of Himachal Pradesh",
+  },
+  [PGK_001_CP001_SOURCE_IDS.goshawkAuthority]: {
+    title: "Northern Goshawk state-bird authority",
+    authority: "Central Zoo Authority / Bombay Natural History Society",
+    locator: "Government of Punjab declaration dated 18-09-2015",
   },
   [PGK_001_CP001_SOURCE_IDS.nfdbStateAquatic]: {
     title: "State Fishes and Aquatic Animals of India",
@@ -221,7 +233,7 @@ export const PGK_001_CP001_FACTS_V1: readonly Pgk001Cp001FactRow[] = Object.free
     shortFact: "State animal: Blackbuck",
     scope: "CURRENT_PUNJAB",
     freshness: "SLOW_MUTABLE",
-    sourceIds: [S.punjabOfficialPaper2024],
+    sourceIds: [S.punjabOfficialPaper2024, S.sutlejDprBlackbuck],
     sourceFactIds: ["pgk-001-cp001-state-animal-blackbuck"],
   },
   {
@@ -230,16 +242,16 @@ export const PGK_001_CP001_FACTS_V1: readonly Pgk001Cp001FactRow[] = Object.free
     shortFact: "State tree: Shisham / Tahli (Dalbergia sissoo)",
     scope: "CURRENT_PUNJAB",
     freshness: "SLOW_MUTABLE",
-    sourceIds: [S.psebAgriculture8],
+    sourceIds: [S.psebAgriculture8, S.bsiShishamNdf],
     sourceFactIds: ["pgk-001-cp001-state-tree-shisham"],
   },
   {
     id: "state-bird-northern-goshawk",
-    fact: "The Northern Goshawk is the state bird of Punjab; the Punjab ENVIS reference cites the 18 September 2015 state notification correcting the earlier designation.",
+    fact: "The Northern Goshawk is the state bird of Punjab; BNHS records the Government of Punjab declaration date as 18 September 2015.",
     shortFact: "State bird: Northern Goshawk",
     scope: "CURRENT_PUNJAB",
     freshness: "SLOW_MUTABLE",
-    sourceIds: [S.pscstEnvisBird],
+    sourceIds: [S.goshawkAuthority],
     sourceFactIds: ["pgk-001-cp001-state-bird-northern-goshawk"],
   },
   {

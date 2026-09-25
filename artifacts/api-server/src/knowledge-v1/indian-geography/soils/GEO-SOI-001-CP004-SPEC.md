@@ -22,7 +22,7 @@ Permanent QLs: `GEO-SOI-001-QL-028` to `GEO-SOI-001-QL-036`
 
 - 54 questions; six per QL.
 - Easy 18 / Medium 30 / Hard 6.
-- Answer positions A14 / B14 / C13 / D13.
+- Final answer positions A13 / B14 / C14 / D13.
 - 54 unique stems and explanations.
 - Red/yellow colour distinction must stay explicit: red from iron oxidation/diffusion, yellow from greater hydration of iron.
 - Explanations use simple 2–3 sentence teaching language.
