@@ -11,12 +11,12 @@ const SHAPES: readonly Di010DistributionShape[] = [
 ];
 
 const CONTEXTS = [
-  { title: "Marks of students", xAxisLabel: "Marks", yAxisLabel: "Number of students", unit: "students", startPool: [20, 30, 40], widthPool: [5, 10] },
-  { title: "Travel time of employees", xAxisLabel: "Travel time (minutes)", yAxisLabel: "Number of employees", unit: "employees", startPool: [10, 20, 30], widthPool: [5, 10] },
-  { title: "Weights in a fitness survey", xAxisLabel: "Weight (kg)", yAxisLabel: "Number of persons", unit: "persons", startPool: [40, 50, 60], widthPool: [5, 10] },
-  { title: "Heights in a sports group", xAxisLabel: "Height (cm)", yAxisLabel: "Number of players", unit: "players", startPool: [130, 140, 150], widthPool: [5, 10] },
+  { title: "Marks of students", xAxisLabel: "Marks", yAxisLabel: "Number of students", unit: "students", startPool: [20, 30, 40], widthPool: [10] },
+  { title: "Travel time of employees", xAxisLabel: "Travel time (minutes)", yAxisLabel: "Number of employees", unit: "employees", startPool: [10, 20, 30], widthPool: [10] },
+  { title: "Weights in a fitness survey", xAxisLabel: "Weight (kg)", yAxisLabel: "Number of persons", unit: "persons", startPool: [40, 50, 60], widthPool: [10] },
+  { title: "Heights in a sports group", xAxisLabel: "Height (cm)", yAxisLabel: "Number of players", unit: "players", startPool: [130, 140, 150], widthPool: [10] },
   { title: "Daily wages of workers", xAxisLabel: "Daily wage (₹)", yAxisLabel: "Number of workers", unit: "workers", startPool: [200, 300, 400], widthPool: [20] },
-  { title: "Ages of workers", xAxisLabel: "Age (years)", yAxisLabel: "Number of workers", unit: "workers", startPool: [20, 25, 30], widthPool: [5, 10] },
+  { title: "Ages of workers", xAxisLabel: "Age (years)", yAxisLabel: "Number of workers", unit: "workers", startPool: [20, 25, 30], widthPool: [10] },
 ] as const;
 
 function frequenciesFor(shape: Di010DistributionShape, count: number, seed: string) {
