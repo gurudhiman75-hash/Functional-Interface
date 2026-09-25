@@ -6,9 +6,9 @@ export function renderHindiStem001To010(english: R): string | null {
   const n = personName(s.person ?? s.name ?? s.subject);
   switch (qlId) {
     case "DIR-QL-001":
-      return `${n} का मुख प्रारंभ में ${directionHi(s.initialFacing)} की ओर है। इसके बाद निर्देश हैं: ${turnSequence(s.turns ?? [])}। अंत में मुख किस दिशा में होगा?`;
+      return `${n} का मुख प्रारंभ में ${directionHi(s.initialFacing)} की ओर है। इसके बाद क्रमशः ${turnSequence(s.turns ?? [])} किया जाता है। अंत में मुख किस दिशा में होगा?`;
     case "DIR-QL-002":
-      return `${n} के लिए निर्देश हैं: ${turnSequence(s.turns ?? [])}। इन निर्देशों के बाद मुख ${directionHi(s.finalFacing)} की ओर है। प्रारंभ में मुख किस दिशा में था?`;
+      return `${turnSequence(s.turns ?? [])} करने के बाद ${n} का मुख ${directionHi(s.finalFacing)} की ओर है। प्रारंभ में मुख किस दिशा में था?`;
     case "DIR-QL-003":
       return `${n} का मुख पहले ${directionHi(s.initialFacing)} की ओर था और बाद में ${directionHi(s.finalFacing)} की ओर हो गया। इस परिवर्तन के लिए कौन-सा निर्देश सही है?`;
     case "DIR-QL-004": {

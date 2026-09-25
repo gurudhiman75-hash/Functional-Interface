@@ -253,15 +253,15 @@ function generateMixed(seed: number): GeneratedAdvancedQuestion {
   if (!start || !reference) throw new Error("Mixed explanation is missing a graph vector");
   const endpoint = scenario.movements.reduce((position, movement) => addCoordinates(position, cardinalVector(movement.direction, movement.distance)), start);
   const horizontal = Math.abs(endpoint.x - reference.x), vertical = Math.abs(endpoint.y - reference.y);
-  const stem = `${scenario.relations.map(statementText).join(" ")} A courier starts from ${scenario.startEntity} and then walks ${scenario.movements.map((movement) => `${movement.distance} metres ${DIRECTION_LABELS[movement.direction]}`).join(", then ")}. In which direction, and at what shortest distance, is the courier's final position from ${scenario.referenceEntity}?`;
+  const stem = `${scenario.relations.map(statementText).join(" ")} A person starts from ${scenario.startEntity} and walks ${scenario.movements.map((movement) => `${movement.distance} metres ${DIRECTION_LABELS[movement.direction]}`).join(", then ")}. In which direction, and at what shortest distance, is the final position from ${scenario.referenceEntity}?`;
   return base({
     qlId: "DIR-QL-041", seed, scenario, answer, options: directionDistanceOptions(solved.direction, solved.distance, seed), difficulty: "HARD", stem,
     explanation: {
       given: variant(seed, [
         `First locate ${scenario.startEntity} and ${scenario.referenceEntity} from the static relations.`,
-        `Resolve the fixed positions of ${scenario.startEntity} and ${scenario.referenceEntity} before moving the courier.`,
-        `The landmark relations must be solved first because the courier starts at ${scenario.startEntity}.`,
-        `Use the static layout to place both named points, then apply the courier's movement.`,
+        `Resolve the fixed positions of ${scenario.startEntity} and ${scenario.referenceEntity} before moving the person.`,
+        `The landmark relations must be solved first because the person starts at ${scenario.startEntity}.`,
+        `Use the static layout to place both named points, then apply the person's movement.`,
         `Separate the problem into the landmark layout and the later movement from ${scenario.startEntity}.`,
       ]),
       steps: [

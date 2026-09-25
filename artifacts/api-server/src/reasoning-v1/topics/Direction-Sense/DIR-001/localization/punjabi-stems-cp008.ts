@@ -13,14 +13,14 @@ export function renderPunjabiStem036To044(english: R): string | null {
     case "DIR-QL-037":
       return `${(s.anchorRelations ?? []).map((r: R) => relationSentencePa(r, false)).join(" ")} ਹੁਣ ਇਨ੍ਹਾਂ ਚਾਰ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ: ${(s.relations ?? []).map((r: R, i: number) => `(${i + 1}) ${relationSentencePa(r, false)}`).join(" ")} ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕਥਨ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ?`;
     case "DIR-QL-038":
-      return `${placePa(s.place)} ਵਿੱਚ ${namePa(s.subject)} ਇੱਕ ਨਿਸ਼ਾਨ ਲੱਗੇ ਬਿੰਦੂ ਤੋਂ ${startsWalkingPa(s.subject)}। ${absoluteLegJourneyPa(s.legs ?? [], s.subject)} ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(s.target)} ਹੈ। ਜਿਸ ਚਾਲ ਦੀ ਦਿਸ਼ਾ ਨਹੀਂ ਦਿੱਤੀ ਗਈ, ਉਹ ਕਿਹੜੀ ਸੀ?`;
+      return `${placePa(s.place)} ਵਿੱਚ ${namePa(s.subject)} ਇੱਕ ਬਿੰਦੂ ਤੋਂ ${startsWalkingPa(s.subject)}। ${absoluteLegJourneyPa(s.legs ?? [], s.subject)} ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(s.target)} ਹੈ। ਜਿਸ ਚਾਲ ਦੀ ਦਿਸ਼ਾ ਨਹੀਂ ਦਿੱਤੀ ਗਈ, ਉਹ ਕਿਹੜੀ ਸੀ?`;
     case "DIR-QL-039": {
       const n = namePa(s.subject);
       const walk = walkVerbPa(s.subject);
       return `${placePa(s.place)} ਵਿੱਚ ${n} ਦਾ ਮੂੰਹ ਸ਼ੁਰੂ ਵਿੱਚ ${directionPa(s.initialFacing)} ਦਿਸ਼ਾ ਵੱਲ ਸੀ। ${n} ਪਹਿਲਾਂ ${metresPa(s.firstDistance)} ਸਿੱਧਾ ${walk}। ਇਸ ਤੋਂ ਬਾਅਦ ਲਿਆ ਗਿਆ ਮੋੜ ਨਹੀਂ ਦੱਸਿਆ ਗਿਆ। ਫਿਰ ਉਹ ${metresPa(s.secondDistance)} ਸਿੱਧਾ ${walk}। ਅੰਤ ਵਿੱਚ ਉਹ ${canonicalTurnLinkPa(s.knownTurn)} ${metresPa(s.thirdDistance)} ਹੋਰ ${walk}। ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(s.target)} ਹੈ। ਵਿਚਕਾਰ ਛੱਡਿਆ ਗਿਆ ਮੋੜ ਕਿਹੜਾ ਸੀ?`;
     }
     case "DIR-QL-040":
-      return `${placePa(s.place)} ਵਿੱਚ ${namePa(s.subject)} ਇੱਕ ਨਿਸ਼ਾਨ ਲੱਗੇ ਬਿੰਦੂ ਤੋਂ ${startsWalkingPa(s.subject)}। ${advancedJourneyPa(s.operations ?? [], s.subject)} ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(s.target)} ਹੈ। ਦੱਸੋ, ਸ਼ੁਰੂ ਵਿੱਚ ਉਸ ਦਾ ਮੂੰਹ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਸੀ?`;
+      return `${placePa(s.place)} ਵਿੱਚ ${namePa(s.subject)} ਇੱਕ ਬਿੰਦੂ ਤੋਂ ${startsWalkingPa(s.subject)}। ${advancedJourneyPa(s.operations ?? [], s.subject)} ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(s.target)} ਹੈ। ਦੱਸੋ, ਸ਼ੁਰੂ ਵਿੱਚ ਉਸ ਦਾ ਮੂੰਹ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਸੀ?`;
     case "DIR-QL-041": {
       const person = { name: "ਵਿਅਕਤੀ", pronoun: "He" };
       return `${(s.relations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ਇੱਕ ਵਿਅਕਤੀ ${namePa(s.startEntity)} ਤੋਂ ਚੱਲਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ। ${absoluteJourneyPa(s.movements ?? [], person)} ਉਸ ਦਾ ਅੰਤਿਮ ਬਿੰਦੂ ${namePa(s.referenceEntity)} ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਅਤੇ ਕਿੰਨੀ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ਉੱਤੇ ਹੈ?`;

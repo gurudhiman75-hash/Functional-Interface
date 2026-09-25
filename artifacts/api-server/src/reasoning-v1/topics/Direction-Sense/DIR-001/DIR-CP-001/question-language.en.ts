@@ -57,7 +57,7 @@ export function renderForwardFacingStem(
     case 1:
       return `Initially facing ${initial}, ${person} ${sequence}. What is ${person}'s final facing direction?`;
     default:
-      return `${person} starts by facing ${initial} and then ${sequence}. In which direction does ${person} finally face?`;
+      return `Starting from ${initial}, ${person} ${sequence}. In which direction does ${person} finally face?`;
   }
 }
 

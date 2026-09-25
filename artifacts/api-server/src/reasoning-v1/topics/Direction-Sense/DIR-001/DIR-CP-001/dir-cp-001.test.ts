@@ -36,6 +36,7 @@ for (const ql of DIR_CP001_QLS) {
     assert.equal(generated.metadata.solveMode, null);
     assert.ok(generated.stem.length > 45);
     assert.ok(!generated.stem.includes("DIR_"));
+    assert.doesNotMatch(generated.stem, /starts by facing/i, `${ql.qlId} machine-like opening: ${generated.stem}`);
     assert.ok(!generated.explanation.concept.includes("DIR_"));
     assert.ok(generated.explanation.steps.length >= 1);
     assert.ok(generated.explanation.conclusion.length > 20);
