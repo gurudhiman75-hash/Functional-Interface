@@ -1,11 +1,11 @@
 # HIS-001 Indian History — Package Roadmap
 
-Status: V4 ENGLISH FROZEN / CP001–CP021 MULTILINGUAL COMPLETE / CP022–CP024 LOCALIZATION PENDING  
+Status: V5 ENGLISH FROZEN / CP001–CP022 MULTILINGUAL COMPLETE / CP023 REVIEW CANDIDATE / CP024 LOCALIZATION PENDING  
 Engine: `knowledge-v1`
 
 ## English freezes
 
-The V1 English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md`. V2 expanded the English corpus through CP024. A post-freeze CP017 explanation-context defect was corrected under `HIS-001-ENGLISH-FREEZE-V3.md`. A later CP020 review found two malformed English answer mappings; these are corrected under `HIS-001-ENGLISH-FREEZE-V4.md`, which is now the semantic authority for new History localization. Hindi and Punjabi are complete through CP021; CP022–CP024 remain pending localization.
+The V1 English review corpus for `HIS-CP-001` through `HIS-CP-016` is frozen under `HIS-001-ENGLISH-FREEZE-V1.md`. V2 expanded the English corpus through CP024. A post-freeze CP017 explanation-context defect was corrected under `HIS-001-ENGLISH-FREEZE-V3.md`. A later CP020 review found two malformed English answer mappings, corrected under `HIS-001-ENGLISH-FREEZE-V4.md`. During CP023 localization, the Fort William College year was corrected from 1801 to 1800 under `HIS-001-ENGLISH-FREEZE-V5.md`, which is now the semantic authority for new History localization. Hindi and Punjabi are approved through CP022; CP023 is a review candidate and CP024 remains pending.
 
 ## Binding rule
 
@@ -61,9 +61,9 @@ Disputed archaeological or historiographical propositions must be either exclude
 
 The coverage-gap programme is complete. `HIS-CP-017` through `HIS-CP-024` add **480** source-backed questions and **480** canonical facts to the V1 core, taking the frozen English chapter to **1,434 questions** and **1,379 canonical facts**.
 
-Authority: `HIS-001-COVERAGE-GAP-AUDIT-V1.md` and current semantic freeze `HIS-001-ENGLISH-FREEZE-V4.md`.
+Authority: `HIS-001-COVERAGE-GAP-AUDIT-V1.md` and current semantic freeze `HIS-001-ENGLISH-FREEZE-V5.md`.
 
-No further English CP is planned under the current coverage ledger. Final History closure is blocked only by Hindi/Punjabi localization for CP017–CP024 and subsequent multilingual parity / Question Studio registration review.
+No further English CP is planned under the current coverage ledger. Final History closure is blocked by approval of CP023 localization, completion of CP024 localization, and the subsequent chapter-wide multilingual parity / Question Studio registration review.
 
 World History remains outside HIS-001 unless separately authorized.
 
@@ -71,3 +71,11 @@ World History remains outside HIS-001 unless separately authorized.
 ### Stem-language rule
 
 History stems should use direct exam wording. Avoid filler such as **“best describes”**, **“associated with”**, **“which correctly identifies”**, and similar mechanical constructions when a direct question can ask the same fact more naturally. Use such wording only when the relationship itself is genuinely what is being tested.
+
+
+## Multilingual progress
+
+- `HIS-CP-001` through `HIS-CP-022`: **APPROVED / MULTILINGUAL COMPLETE**
+- `HIS-CP-023`: **HINDI/PUNJABI V1 REVIEW CANDIDATE** — 60 English authorities / 180 EN-HI-PA review surfaces; binds to `HIS-001-ENGLISH-FREEZE-V5`
+- `HIS-CP-024`: **LOCALIZATION PENDING**
+- Runtime remains **DISABLED** until the remaining localization and final chapter parity review are approved.
