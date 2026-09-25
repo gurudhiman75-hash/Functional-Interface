@@ -1,6 +1,6 @@
 # GEO-VEG-001 — Natural Vegetation & Wildlife of India
 
-Status: ACTIVE IMPLEMENTATION — WAVE 3 (CP008–CP010) REVIEW
+Status: ACTIVE IMPLEMENTATION — WAVE 3 (CP008–CP010) APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-VEG-001`
@@ -108,7 +108,7 @@ Wave 1 is human-approved and merged:
 Wave 2 is human-approved and merged:
 - CP005–CP007 — QL037–QL063 — 162 owning questions.
 
-Wave 3 is implemented as three 54-question review candidates:
+Wave 3 is human-approved as three 54-question owning checkpoints:
 - CP008 — Characteristic Trees & Forest-Species Identification — QL064–QL072.
 - CP009 — Wildlife Habitats & Regional Distribution — QL073–QL081.
 - CP010 — Biodiversity & Conservation Concepts — QL082–QL090.
@@ -123,4 +123,4 @@ Each Wave 3 checkpoint preserves:
 - no dynamic population, protected-area-count or species-status snapshots;
 - review-only lifecycle with runtime publication disabled.
 
-Wave 3 adds 27 permanent QLs and 162 owning questions for human review. CP011 begins Climate–Relief–Vegetation Comparative Identification.
+Wave 3 adds 27 permanent QLs and 162 owning questions and has explicit human approval. CP011 begins Climate–Relief–Vegetation Comparative Identification.
