@@ -1,5 +1,22 @@
 import { generateDirectionQuestion } from "../chapter-registry";
-import { asR, coordinateTextPa, directionAnglePa, directionPa, metresPa, namePa, relationSentencePa, reverseTurnCalculationStepsPa, turnCalculationStepsPa, type R } from "./punjabi-foundation";
+import {
+  asR,
+  codeMapTextPa,
+  codedChainPa,
+  coordinateTextPa,
+  directionAnglePa,
+  directionPa,
+  evidenceChainPa,
+  metresPa,
+  namePa,
+  periodPa,
+  relationSentencePa,
+  reverseTurnCalculationStepsPa,
+  sidePa,
+  turnCalculationStepsPa,
+  turnPa,
+  type R,
+} from "./punjabi-foundation";
 import { localizeDiagramPunjabi, optionLabelPunjabi } from "./punjabi-editorial-overrides";
 import { renderPunjabiStem } from "./punjabi-stems";
 import type { LocalizedDirectionExplanationPunjabi, LocalizedDirectionOptionPunjabi, LocalizedDirectionQuestionPunjabi } from "./punjabi-types";
@@ -51,16 +68,49 @@ function renderExplanationPunjabi(english: R): LocalizedDirectionExplanationPunj
   }
 
   if (["DIR-QL-004", "DIR-QL-005", "DIR-QL-006", "DIR-QL-007", "DIR-QL-008", "DIR-QL-009", "DIR-QL-010"].includes(qlId)) {
+    const sourceExplanation = asR(english.explanation);
+    const directionKeys: Readonly<Record<string, string>> = {
+      north: "NORTH", south: "SOUTH", east: "EAST", west: "WEST",
+    };
+    const steps: string[] = [];
+    for (const line of (sourceExplanation.movementLines ?? []) as string[]) {
+      const match = String(line).match(/(\d+(?:\.\d+)?) metres? (North|South|East|West)/i);
+      if (!match) continue;
+      steps.push(`${metresPa(match[1])} ${directionPa(directionKeys[match[2].toLowerCase()])} ਵੱਲ ਦੀ ਚਾਲ।`);
+    }
+
+    const points = asR(sourceExplanation.diagram)?.points ?? [];
+    const endPoint = asR(points.find((point: R) => point.role === "END") ?? {});
+    const coordinate = asR(endPoint.coordinate ?? {});
+    if (endPoint.coordinate) {
+      steps.push(`ਸਾਰੀਆਂ ਚਾਲਾਂ ਜੋੜਨ ਉੱਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${coordinateTextPa(coordinate)} ਹੈ।`);
+    }
+
+    const horizontal = Math.abs(Number(coordinate.x ?? 0));
+    const vertical = Math.abs(Number(coordinate.y ?? 0));
+    if (["DIR-QL-006", "DIR-QL-007", "DIR-QL-010"].includes(qlId) && endPoint.coordinate) {
+      steps.push(
+        horizontal === 0 || vertical === 0
+          ? `ਕੇਵਲ ਇੱਕ ਪਾਸੇ ਦਾ ਫ਼ਰਕ ਬਚਦਾ ਹੈ; ਇਸ ਤੋਂ ਸਿੱਧੀ ਦੂਰੀ ਅਤੇ ਉੱਤਰ ${answerSentence}`
+          : `ਸਿੱਧੀ ਦੂਰੀ ਲਈ √(${horizontal}² + ${vertical}²) ਲਗਾਉਣ ਉੱਤੇ ਉੱਤਰ ${answerSentence}`,
+      );
+    } else if (qlId === "DIR-QL-008") {
+      const total = (asR(sourceExplanation.diagram)?.segments ?? []).reduce(
+        (sum: number, segment: R) => sum + Number(segment.distance ?? 0),
+        0,
+      );
+      steps.push(`ਤੈਅ ਕੀਤੀ ਕੁੱਲ ਦੂਰੀ ${metresPa(total)} ਹੈ; ਸ਼ੁਰੂਆਤੀ ਅਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਦੀ ਸਿੱਧੀ ਦੂਰੀ ਵੱਖਰੀ ਕੱਢੀ ਜਾਂਦੀ ਹੈ।`);
+      steps.push(`ਦੋਵੇਂ ਮੁੱਲ ਇਕੱਠੇ ਕਰਨ ਉੱਤੇ ਸਹੀ ਉੱਤਰ ${answerSentence}`);
+    } else if (qlId === "DIR-QL-009") {
+      steps.push(`ਦਿੱਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ਛੱਡੀ ਹੋਈ ਦੂਰੀ ${answerSentence}`);
+    } else {
+      steps.push(`ਅੰਤਿਮ ਬਿੰਦੂ ਦੀ ਸਥਿਤੀ ਤੋਂ ਸਹੀ ਉੱਤਰ ${answerSentence}`);
+    }
+
     return {
       ...base,
-      steps: [
-        "ਹਰ ਮੋੜ ਤੋਂ ਬਾਅਦ ਮੂੰਹ ਦੀ ਨਵੀਂ ਦਿਸ਼ਾ ਲਿਖੋ ਅਤੇ ਅਗਲੀ ਚਾਲ ਉਸੇ ਦਿਸ਼ਾ ਵਿੱਚ ਦਰਜ ਕਰੋ।",
-        "ਪੂਰਬ-ਪੱਛਮ ਵਾਲੀਆਂ ਦੂਰੀਆਂ ਅਤੇ ਉੱਤਰ-ਦੱਖਣ ਵਾਲੀਆਂ ਦੂਰੀਆਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਜੋੜੋ।",
-        qlId === "DIR-QL-008"
-          ? "ਕੁੱਲ ਤੈਅ ਕੀਤੀ ਦੂਰੀ ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ਅੰਤਿਮ ਬਿੰਦੂ ਦੀ ਸਿੱਧੀ ਦੂਰੀ ਵੱਖ-ਵੱਖ ਹਨ।"
-          : "ਸ਼ੁਰੂਆਤੀ ਅਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਦੇ ਫ਼ਰਕ ਤੋਂ ਲੋੜੀਂਦੀ ਦਿਸ਼ਾ ਜਾਂ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ਮਿਲਦੀ ਹੈ।",
-      ],
-      resultLine: `ਪੂਰੇ ਰਸਤੇ ਦੀ ਗਿਣਤੀ ਤੋਂ ਉੱਤਰ ${answerSentence}`,
+      steps,
+      resultLine: `ਦਿੱਤੀਆਂ ਚਾਲਾਂ ਦੀ ਗਿਣਤੀ ਤੋਂ ਉੱਤਰ ${answerSentence}`,
     };
   }
 
@@ -231,30 +281,88 @@ function renderExplanationPunjabi(english: R): LocalizedDirectionExplanationPunj
   }
 
   if (["DIR-QL-023", "DIR-QL-024", "DIR-QL-025", "DIR-QL-026", "DIR-QL-027", "DIR-QL-028", "DIR-QL-029"].includes(qlId)) {
+    const map = asR(s.codeMap ?? s.recoveredCodeMap ?? {});
+    const steps: string[] = Object.keys(map).length > 0
+      ? codeMapTextPa(map, qlId === "DIR-QL-029").split(", ").map((line) => `${line}।`)
+      : [];
+
+    if (qlId === "DIR-QL-025") {
+      for (const evidence of (s.evidence ?? []) as R[]) {
+        steps.push(`${evidenceChainPa(evidence)} ਤੋਂ ${directionPa(evidence.resultDirection)} ਦਿਸ਼ਾ ਮਿਲਦੀ ਹੈ।`);
+      }
+      steps.push(`ਸਾਰੇ ਸਬੂਤਾਂ ਨਾਲ ਇੱਕੋ ਚਿੰਨ੍ਹ-ਨਕਸ਼ਾ ਬਣਦਾ ਹੈ; ਪੁੱਛੀ ਦਿਸ਼ਾ ਦਾ ਚਿੰਨ੍ਹ ${answerSentence}`);
+    } else if (qlId === "DIR-QL-026") {
+      const target = asR(s.targetRelation);
+      steps.push(`${namePa(target.subject)}, ${namePa(target.reference)} ਤੋਂ ${directionPa(target.direction)} ਵੱਲ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।`);
+      steps.push(`ਇਸ ਦਿਸ਼ਾ ਲਈ ਸਹੀ ਚਿੰਨ੍ਹ ਰੱਖਣ ਉੱਤੇ ਕਥਨ ${answerSentence}`);
+    } else if (qlId === "DIR-QL-028") {
+      const target = asR(s.targetRelation);
+      steps.push(`ਅਧੂਰੀ ਲੜੀ: ${codedChainPa((s.relations ?? []) as R[], Number(s.hiddenIndex ?? -1))}।`);
+      steps.push(`${namePa(target.subject)}, ${namePa(target.reference)} ਤੋਂ ${directionPa(target.direction)} ਵੱਲ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।`);
+      steps.push(`ਇਹ ਸ਼ਰਤ ਸਿਰਫ਼ ${answerSentence} ਪੂਰੀ ਕਰਦਾ ਹੈ।`);
+    } else if (qlId === "DIR-QL-029") {
+      for (const movement of (s.steps ?? []) as R[]) {
+        const direction = map[movement.symbol];
+        steps.push(`${movement.symbol} ਦਾ ਅਰਥ ${directionPa(direction)} ਵੱਲ ਚੱਲਣਾ ਹੈ; ਇਸ ਲਈ ${metresPa(movement.distance)} ${directionPa(direction)} ਵੱਲ ਦੀ ਚਾਲ।`);
+      }
+      steps.push(`ਸਾਰੀਆਂ ਚਾਲਾਂ ਤੋਂ ਬਾਅਦ ਅੰਤਿਮ ਬਿੰਦੂ O ਤੋਂ ${coordinateTextPa(asR(s.endpoint))} ਹੈ; ਇਸ ਲਈ ਦਿਸ਼ਾ ${answerSentence}`);
+    } else {
+      for (const relation of (s.relations ?? []) as R[]) {
+        steps.push(
+          `${namePa(relation.subject)} ${relation.symbol} ${namePa(relation.reference)} ਦਾ ਅਰਥ ਹੈ: ${namePa(relation.subject)}, ${namePa(relation.reference)} ਤੋਂ ${directionPa(map[relation.symbol])} ਵੱਲ ਹੈ।`,
+        );
+      }
+      if (qlId === "DIR-QL-024") {
+        const query = asR(s.query);
+        steps.push(`${namePa(query.reference)} ਤੋਂ ${directionPa(query.direction)} ਵੱਲ ਸਿਰਫ਼ ${answerSentence}`);
+      } else if (qlId === "DIR-QL-027") {
+        steps.push(`ਖੋਲ੍ਹੇ ਹੋਏ ਦਿਸ਼ਾ-ਸੰਬੰਧਾਂ ਤੋਂ ਸਹੀ ਨਤੀਜਾ ${answerSentence}`);
+      } else {
+        steps.push(`ਪੂਰੀ ਸੰਬੰਧ-ਲੜੀ ਜੋੜਨ ਉੱਤੇ ਦਿਸ਼ਾ ${answerSentence}`);
+      }
+    }
     return {
       ...base,
-      steps: [
-        "ਪਹਿਲਾਂ ਹਰ ਚਿੰਨ੍ਹ ਦਾ ਦਿੱਤਾ ਮਤਲਬ ਲਿਖੋ।",
-        "ਫਿਰ ਹਰ ਕਥਨ ਨੂੰ ਪਹਿਲਾ ਨਾਮ–ਚਿੰਨ੍ਹ–ਦੂਜਾ ਨਾਮ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਪੜ੍ਹ ਕੇ ਸਧਾਰਨ ਦਿਸ਼ਾ-ਸੰਬੰਧ ਜਾਂ ਚਾਲ ਵਿੱਚ ਬਦਲੋ।",
-        qlId === "DIR-QL-025" || qlId === "DIR-QL-028"
-          ? "ਸੰਭਵ ਚਿੰਨ੍ਹਾਂ ਨੂੰ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਜਾਂਚੋ ਅਤੇ ਸਿਰਫ਼ ਉਹੀ ਚਿੰਨ੍ਹ ਰੱਖੋ ਜੋ ਸਾਰੀ ਜਾਣਕਾਰੀ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।"
-          : "ਬਦਲੇ ਹੋਏ ਸੰਬੰਧਾਂ ਜਾਂ ਚਾਲਾਂ ਨੂੰ ਕ੍ਰਮਵਾਰ ਜੋੜ ਕੇ ਨਤੀਜਾ ਕੱਢੋ।",
-      ],
-      resultLine: `ਚਿੰਨ੍ਹਾਂ ਦਾ ਮਤਲਬ ਲਗਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ ${answerSentence}`,
+      steps,
+      resultLine: `ਚਿੰਨ੍ਹਾਂ ਨਾਲ ਦਿੱਤੇ ਤੱਥਾਂ ਤੋਂ ਸਹੀ ਉੱਤਰ ${answerSentence}`,
     };
   }
 
   if (["DIR-QL-030", "DIR-QL-031", "DIR-QL-032", "DIR-QL-033", "DIR-QL-034", "DIR-QL-035"].includes(qlId)) {
+    const sunDirection = s.period === "EVENING" ? "WEST" : "EAST";
+    const shadowDirection = s.period === "EVENING" ? "EAST" : "WEST";
+    const steps: string[] = [
+      `${periodPa(s.period)} ਵਿੱਚ ਸੂਰਜ ${directionPa(sunDirection)} ਵੱਲ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਪਰਛਾਂਵਾਂ ${directionPa(shadowDirection)} ਵੱਲ ਪੈਂਦੀ ਹੈ।`,
+    ];
+
+    if (qlId === "DIR-QL-030") {
+      steps.push(`ਇਸੇ ਨਿਯਮ ਤੋਂ ਪੁੱਛੀ ਦਿਸ਼ਾ ${answerSentence}`);
+    } else if (qlId === "DIR-QL-031") {
+      steps.push(`${namePa(s.name)} ਦੀ ਪਰਛਾਂਵਾਂ ${sidePa(s.side)} ਹੈ; ਇਸ ਹਾਲਤ ਵਿੱਚ ਉਸ ਦਾ ਮੂੰਹ ${answer} ਵੱਲ ਹੈ।`);
+    } else if (qlId === "DIR-QL-032") {
+      steps.push(`${namePa(s.name)} ਦਾ ਮੂੰਹ ${directionPa(s.facing)} ਵੱਲ ਹੈ ਅਤੇ ਪਰਛਾਂਵਾਂ ${directionPa(shadowDirection)} ਵੱਲ ਪੈਂਦੀ ਹੈ।`);
+      steps.push(`ਇਸ ਲਈ ਵਿਅਕਤੀ ਦੇ ਹਿਸਾਬ ਨਾਲ ਪਰਛਾਂਵਾਂ ${answerSentence}`);
+    } else if (qlId === "DIR-QL-033") {
+      steps.push(`${namePa(s.name)} ਦਾ ਮੂੰਹ ${directionPa(s.facing)} ਵੱਲ ਹੈ ਅਤੇ ਪਰਛਾਂਵਾਂ ${sidePa(s.side)} ਹੈ।`);
+      steps.push(`ਇਹ ਸੰਬੰਧ ${answer} ਵੇਲੇ ਹੀ ਬਣਦਾ ਹੈ।`);
+    } else if (qlId === "DIR-QL-034") {
+      steps.push(`ਪਰਛਾਂਵਾਂ ${sidePa(s.side)} ਹੋਣ ਕਰਕੇ ${namePa(s.name)} ਦਾ ਸ਼ੁਰੂਆਤੀ ਮੂੰਹ ${directionPa(s.initialFacing)} ਵੱਲ ਹੈ।`);
+      for (const turn of (s.turns ?? []) as string[]) {
+        steps.push(`${turnPa(turn)} ਲਗਾਉਣ ਤੋਂ ਬਾਅਦ ਅਗਲੀ ਦਿਸ਼ਾ ਤੈਅ ਹੁੰਦੀ ਹੈ।`);
+      }
+      steps.push(`ਸਾਰੇ ਮੋੜਾਂ ਤੋਂ ਬਾਅਦ ਅੰਤਿਮ ਮੂੰਹ ${answer} ਵੱਲ ਹੈ।`);
+    } else {
+      steps.push(`ਪਰਛਾਂਵਾਂ ${sidePa(s.side)} ਹੋਣ ਕਰਕੇ ${namePa(s.firstName)} ਦਾ ਮੂੰਹ ${directionPa(s.firstFacing)} ਵੱਲ ਹੈ।`);
+      steps.push(
+        s.relation === "SAME_DIRECTION"
+          ? `${namePa(s.secondName)} ਵੀ ਉਸੇ ਦਿਸ਼ਾ ਵੱਲ ਹੈ, ਇਸ ਲਈ ਉਸ ਦਾ ਮੂੰਹ ${answer} ਵੱਲ ਹੈ।`
+          : `${namePa(s.secondName)} ਉਲਟੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ, ਇਸ ਲਈ ਉਸ ਦਾ ਮੂੰਹ ${answer} ਵੱਲ ਹੈ।`,
+      );
+    }
     return {
       ...base,
-      steps: [
-        "ਸਵੇਰੇ ਸੂਰਜ ਪੂਰਬ ਵੱਲ ਅਤੇ ਸ਼ਾਮ ਨੂੰ ਪੱਛਮ ਵੱਲ ਹੁੰਦਾ ਹੈ; ਪਰਛਾਂਵਾਂ ਇਸ ਦੀ ਉਲਟੀ ਦਿਸ਼ਾ ਵੱਲ ਪੈਂਦੀ ਹੈ।",
-        "ਵਿਅਕਤੀ ਦੇ ਮੂੰਹ ਦੇ ਹਿਸਾਬ ਨਾਲ ਖੱਬੇ, ਸੱਜੇ, ਸਾਹਮਣੇ ਜਾਂ ਪਿੱਛੇ ਵਾਲੀ ਦਿਸ਼ਾ ਤੈਅ ਕਰੋ।",
-        qlId === "DIR-QL-034"
-          ? "ਅੰਤ ਵਿੱਚ ਦਿੱਤੇ ਮੋੜ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਮੌਜੂਦਾ ਦਿਸ਼ਾ ਤੋਂ ਲਗਾਓ।"
-          : "ਦੋ ਵਿਅਕਤੀਆਂ ਬਾਰੇ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਹੋਵੇ ਤਾਂ ਦੂਜੇ ਵਿਅਕਤੀ ਦੀ ਦਿਸ਼ਾ ਉਸੇ ਅਨੁਸਾਰ ਤੈਅ ਕਰੋ।",
-      ],
-      resultLine: `ਸੂਰਜ ਅਤੇ ਪਰਛਾਂਵਾਂ ਦੇ ਸੰਬੰਧ ਤੋਂ ਉੱਤਰ ${answerSentence}`,
+      steps,
+      resultLine: `ਦਿੱਤੇ ਸੂਰਜ-ਪਰਛਾਂਵਾਂ ਸੰਬੰਧ ਤੋਂ ਸਹੀ ਉੱਤਰ ${answerSentence}`,
     };
   }
 
