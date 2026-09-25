@@ -1,4 +1,12 @@
 import { deterministicShuffle } from "../../knowledge-v1/deterministic";
+import {
+  generatePolCp001Cp027LocalizedReviewV1,
+  POL_001_LOCALIZED_QUESTION_COUNT_V1,
+} from "../../knowledge-v1/indian-polity/localization-v1/pol-localization-generator-v1";
+import type {
+  PolLocaleV1,
+  PolLocalizedQuestionV1,
+} from "../../knowledge-v1/indian-polity/localization-v1/pol-localization-types-v1";
 import { applyPolityFinalEditorialStemPass } from "../../knowledge-v1/indian-polity/pol-001-final-editorial-stem-pass-v1";
 import { generatePolCp001ReviewBatchV1 } from "../../knowledge-v1/indian-polity/constitutional-history/pol-cp001-review-generator-v1";
 import { generatePolCp002ReviewBatchV2 } from "../../knowledge-v1/indian-polity/constituent-assembly/pol-cp002-review-generator-v2";
@@ -39,7 +47,7 @@ import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-l
 export const POL_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "POL-001" as const;
 export const POL_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
 export const POL_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 =
-  "POL-001-FINAL-AUDIT-V1-APPROVED-2026-09-19" as const;
+  "POL-001-MULTILINGUAL-FREEZE-APPROVED-2026-09-25" as const;
 export const POL_001_REVISION_POLICY_V1 = "SOURCE_GENERATOR_ONLY" as const;
 
 type FrozenPolityQuestion = Readonly<{
@@ -178,6 +186,58 @@ export const POL_001_QUESTION_STUDIO_CORPUS_V1: readonly FrozenPolityQuestion[] 
 const cpIds = generators.map(([cpId]) => cpId);
 const qlIds = [...new Set(POL_001_QUESTION_STUDIO_CORPUS_V1.map((question) => question.qlId))].sort();
 
+const locales: Readonly<Record<PolLocaleV1, string>> = Object.freeze({
+  en: "en-IN",
+  hi: "hi-IN",
+  pa: "pa-IN",
+});
+
+const localizedNativeByLanguage: Readonly<
+  Record<Exclude<PolLocaleV1, "en">, readonly PolLocalizedQuestionV1[]>
+> = Object.freeze({
+  hi: Object.freeze(generatePolCp001Cp027LocalizedReviewV1("hi")),
+  pa: Object.freeze(generatePolCp001Cp027LocalizedReviewV1("pa")),
+});
+
+for (const locale of ["hi", "pa"] as const) {
+  const corpus = localizedNativeByLanguage[locale];
+  if (corpus.length !== POL_001_LOCALIZED_QUESTION_COUNT_V1) {
+    throw new Error(
+      `POL-001 ${locale} localization requires ${POL_001_LOCALIZED_QUESTION_COUNT_V1} questions; found ${corpus.length}`,
+    );
+  }
+  if (new Set(corpus.map((question) => question.questionId)).size !== corpus.length) {
+    throw new Error(`POL-001 ${locale} localization contains duplicate question IDs`);
+  }
+
+  for (let index = 0; index < POL_001_QUESTION_STUDIO_CORPUS_V1.length; index += 1) {
+    const english = POL_001_QUESTION_STUDIO_CORPUS_V1[index]!;
+    const localized = corpus[index]!;
+    if (localized.localizationV1.englishQuestionId !== english.questionId) {
+      throw new Error(`${localized.questionId}: English localization identity mismatch`);
+    }
+    if (
+      localized.cpId !== english.cpId ||
+      localized.qlId !== english.qlId ||
+      localized.difficulty !== english.difficulty ||
+      localized.correctIndex !== english.correctIndex ||
+      JSON.stringify(localized.sourceIds) !== JSON.stringify(english.sourceIds) ||
+      JSON.stringify(localized.sourceFactIds) !== JSON.stringify(english.sourceFactIds)
+    ) {
+      throw new Error(`${localized.questionId}: frozen multilingual parity mismatch`);
+    }
+    if (
+      localized.reviewOnly !== true ||
+      localized.runtimeRegistered !== false ||
+      localized.options.length !== 4 ||
+      new Set(localized.options).size !== 4 ||
+      localized.options[localized.correctIndex] !== localized.canonicalAnswer
+    ) {
+      throw new Error(`${localized.questionId}: invalid localized review contract`);
+    }
+  }
+}
+
 if (cpIds.length !== 27 || new Set(cpIds).size !== 27) {
   throw new Error("POL-001 Question Studio registration requires 27 unique CPs");
 }
@@ -194,12 +254,13 @@ if (
 }
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
-const supportedLanguages: QuestionStudioLanguage[] = ["en"];
+const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
 
-function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
-  if (!language || language === "en") return "en";
-  throw new Error(`POL-001 currently supports English only; ${String(language)} is not frozen`);
+function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): PolLocaleV1 {
+  if (!language) return "en";
+  if (language === "en" || language === "hi" || language === "pa") return language;
+  throw new Error(`POL-001 language ${String(language)} is not supported`);
 }
 
 function normalizeCount(count: number | undefined) {
@@ -261,7 +322,7 @@ export const POL_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
   subject: "Static GK",
   topic: "Indian Polity",
   subtopic: "Complete Chapter",
-  label: "Static GK · Indian Polity · POL-CP-001–027 Final Audit",
+  label: "Static GK · Indian Polity · POL-CP-001–027 Multilingual Frozen",
   enabled: true,
   cpIds: [...cpIds],
   supportedLanguages,
@@ -288,6 +349,8 @@ export const POL_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     finalAuditApproved: true,
     chapterContentComplete: true,
     englishEditorialComplete: true,
+    multilingualContentFrozen: true,
+    localeIndependentSemanticDraw: true,
     reviewOnly: true,
     frozenCorpusOnly: true,
     immutableCorpus: true,
@@ -299,6 +362,8 @@ export const POL_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     cpIds: [...cpIds],
     cpCount: cpIds.length,
     englishQuestionCount: POL_001_QUESTION_STUDIO_CORPUS_V1.length,
+    questionsPerLanguage: POL_001_QUESTION_STUDIO_CORPUS_V1.length,
+    multilingualSurfaceCount: POL_001_QUESTION_STUDIO_CORPUS_V1.length * supportedLanguages.length,
     supportedDifficulties: [...supportedDifficulties],
     productionDifficultyClaimsAuthorized: false,
   },
@@ -348,7 +413,12 @@ export const knowledgeV1Pol001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
     const { qlId, cpId } = normalizeSelectors(request);
     const seed = request.seed?.trim() || "pol-001-question-studio-final-audit-v1";
 
-    const candidates = POL_001_QUESTION_STUDIO_CORPUS_V1.filter(
+    const corpus =
+      language === "en"
+        ? POL_001_QUESTION_STUDIO_CORPUS_V1
+        : localizedNativeByLanguage[language];
+
+    const candidates = corpus.filter(
       (question) =>
         (!cpId || question.cpId === cpId) &&
         (!qlId || question.qlId === qlId) &&
@@ -367,19 +437,31 @@ export const knowledgeV1Pol001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       `${seed}:${cpId ?? "ALL_CPS"}:${qlId ?? "ALL_QLS"}:${difficulty}`,
     ).slice(0, count);
 
-    const questions = selected.map((question) => ({
+    const questions = selected.map((question) => {
+      const sourceQuestionId =
+        language === "en"
+          ? question.questionId
+          : (question as PolLocalizedQuestionV1).localizationV1.englishQuestionId;
+      const qlName =
+        language === "en"
+          ? question.qlId
+          : (question as PolLocalizedQuestionV1).qlName;
+
+      return {
       ...lifecycle,
       id: question.questionId,
       questionId: question.questionId,
+      sourceQuestionId,
       packageId: POL_001_QUESTION_STUDIO_PACKAGE_ID_V1,
       patternId: question.qlId,
       qlId: question.qlId,
+      qlName,
       cpId: question.cpId,
       subject: "Static GK",
       topic: "Indian Polity",
       subtopic: "Complete Chapter",
       language,
-      locale: "en-IN",
+      locale: locales[language],
       stem: question.stem,
       text: question.stem,
       options: [...question.options],
@@ -396,6 +478,7 @@ export const knowledgeV1Pol001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       registrationAuthorityId: POL_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
       authoringReviewApproved: true,
       finalAuditApproved: true,
+      multilingualContentFrozen: true,
       questionStudioDiscoverable: true,
       questionStudioGenerationEnabled: true,
       reviewOnly: true,
@@ -403,7 +486,8 @@ export const knowledgeV1Pol001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       readOnly: true,
       revisionPolicy: POL_001_REVISION_POLICY_V1,
       productionReleased: false,
-    }));
+      };
+    });
 
     return {
       questions,
@@ -417,20 +501,23 @@ export const knowledgeV1Pol001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         authoringReviewApproved: true,
         finalAuditApproved: true,
         chapterContentComplete: true,
+        multilingualContentFrozen: true,
         reviewOnly: true,
         frozenCorpusOnly: true,
         immutableCorpus: true,
         deterministicSelection: true,
         selectionWithoutReplacement: true,
+        localeIndependentSemanticDraw: true,
         revisionPolicy: POL_001_REVISION_POLICY_V1,
         language,
+        locale: locales[language],
         difficulty,
         cpId: cpId ?? null,
         qlId: qlId ?? null,
         seed,
         requestedCount: count,
         candidateCount: candidates.length,
-        corpusQuestionCount: POL_001_QUESTION_STUDIO_CORPUS_V1.length,
+        corpusQuestionCount: corpus.length,
         cpCount: cpIds.length,
         qlCount: qlIds.length,
       },

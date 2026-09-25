@@ -1,16 +1,22 @@
 import assert from "node:assert/strict";
-import { CP014_PASSAGES,CP014_ADMIN_TERMS } from "./CP014-authorities";
+import { CP014_ADMIN_TERMS } from "./CP014-authorities";
+import { CP014_ALL_PASSAGES } from "./CP014-passages";
+import { CP014_VOCABULARY_AUTHORITIES,CP014_SUPPORT_AUTHORITIES } from "./CP014-context-authorities";
+import { CP014_TRANSLATION_AUTHORITIES } from "./CP014-translation-authorities";
 import { CP014_FAMILIES,getCP014BreadthReport } from "./engine";
 
-assert.equal(CP014_PASSAGES.length,13);
+assert.equal(CP014_ALL_PASSAGES.length,50);
 assert.equal(CP014_ADMIN_TERMS.length,215);
-assert.equal(CP014_FAMILIES.length,8);
+assert.equal(CP014_VOCABULARY_AUTHORITIES.length,30);
+assert.equal(CP014_SUPPORT_AUTHORITIES.length,30);
+assert.equal(CP014_TRANSLATION_AUTHORITIES.length,36);
+assert.equal(CP014_FAMILIES.length,13);
 
 const banned=/(ਟਕਸਾਲੀ|ਸਿੱਧੇ ਅਰਥ|ਪ੍ਰਮਾਣਿਤ|ਬਾਕੀ ਤਿੰਨ|ਬਾਕੀ ਵਿਕਲਪ|ਟ੍ਰਿਕ|ਸ਼ਾਰਟਕੱਟ)/u;
 const passageIds=new Set<string>(),qIds=new Set<string>();
 const typeCounts=new Map<string,number>();
 let passageQuestions=0;
-for(const p of CP014_PASSAGES){
+for(const p of CP014_ALL_PASSAGES){
  assert(!passageIds.has(p.id),p.id+": duplicate passage id");passageIds.add(p.id);
  assert.equal(p.textPa,p.textPa.normalize("NFC"),p.id+": passage NFC required");
  assert(!/[A-Za-z]/.test(p.textPa),p.id+": English leakage in Punjabi passage");
@@ -30,11 +36,11 @@ for(const p of CP014_PASSAGES){
   }
  }
 }
-assert.equal(passageQuestions,42);
-assert.equal(typeCounts.get("factual"),15);
-assert.equal(typeCounts.get("inferential"),11);
-assert.equal(typeCounts.get("title"),13);
-assert.equal(typeCounts.get("summary"),3);
+assert.equal(passageQuestions,190);
+assert.equal(typeCounts.get("factual"),52);
+assert.equal(typeCounts.get("inferential"),48);
+assert.equal(typeCounts.get("title"),50);
+assert.equal(typeCounts.get("summary"),40);
 
 const adminIds=new Set<string>(),englishConcepts=new Set<string>(),punjabiTerms=new Set<string>();
 const normEn=(s:string)=>s.normalize("NFKC").toLowerCase().replace(/[‐‑‒–—-]/g," ").replace(/[().,:'"]/g,"").replace(/\s+/g," ").trim();
@@ -55,12 +61,42 @@ assert.equal(adminIds.size,215);
 assert.equal(englishConcepts.size,215);
 assert.equal(punjabiTerms.size,215);
 
+const passageMap=new Map(CP014_ALL_PASSAGES.map(p=>[p.id,p]));
+const contextIds=new Set<string>();
+for(const a of CP014_VOCABULARY_AUTHORITIES){
+ assert(!contextIds.has(a.id),a.id+": duplicate context id");contextIds.add(a.id);
+ const p=passageMap.get(a.passageId);assert(p,a.id+": passage missing");
+ assert(p!.textPa.includes(a.token),a.id+": vocabulary token must occur in passage");
+ assert.equal(a.distractors.length,3);assert.equal(new Set(a.distractors).size,3);assert(!a.distractors.includes(a.meaningPa as never));
+ for(const v of [a.token,a.meaningPa,...a.distractors,a.explanationPa]){assert(!/[A-Za-z]/.test(v),a.id+": English leakage");assert(!banned.test(v));}
+}
+for(const a of CP014_SUPPORT_AUTHORITIES){
+ assert(!contextIds.has(a.id),a.id+": duplicate context id");contextIds.add(a.id);
+ assert(passageMap.has(a.passageId),a.id+": passage missing");
+ assert.equal(a.distractors.length,3);assert.equal(new Set(a.distractors).size,3);assert(!a.distractors.includes(a.supportedStatement as never));
+ for(const v of [a.supportedStatement,...a.distractors,a.explanationPa]){assert(!/[A-Za-z]/.test(v),a.id+": English leakage");assert(!banned.test(v));}
+}
+const translationIds=new Set<string>(),translationGroups=new Map<string,number>();
+for(const a of CP014_TRANSLATION_AUTHORITIES){
+ assert(!translationIds.has(a.id),a.id+": duplicate translation id");translationIds.add(a.id);
+ translationGroups.set(a.group,(translationGroups.get(a.group)??0)+1);
+ assert(/[A-Za-z]/.test(a.english),a.id+": English source required");
+ assert(!/[A-Za-z]/.test(a.punjabi),a.id+": English leakage in Punjabi target");
+ assert.equal(a.wrongPunjabi.length,3);assert.equal(new Set(a.wrongPunjabi).size,3);assert(!a.wrongPunjabi.includes(a.punjabi as never));
+ for(const v of [a.punjabi,...a.wrongPunjabi,a.explanationPa]){assert(!banned.test(v));}
+}
+assert.equal(translationGroups.size,9);
+for(const [group,count] of translationGroups)assert.equal(count,4,group+": translation group must contain four authorities");
+
 const breadth=getCP014BreadthReport();
-assert.equal(breadth.passageCount,13);
-assert.equal(breadth.passageQuestionAuthorities,42);
+assert.equal(breadth.passageCount,50);
+assert.equal(breadth.passageQuestionAuthorities,190);
 assert.equal(breadth.administrativeAuthorities,215);
-assert.equal(breadth.totalAtomicAuthorities,257);
-assert.equal(breadth.totalSemanticCapacity,1643);
+assert.equal(breadth.vocabularyAuthorities,30);
+assert.equal(breadth.supportedStatementAuthorities,30);
+assert.equal(breadth.sentenceTranslationAuthorities,36);
+assert.equal(breadth.totalAtomicAuthorities,501);
+assert.equal(breadth.totalSemanticCapacity,2475);
 
 const global=new Set<string>();
 const f08Outcomes=new Set<string>();
@@ -96,21 +132,27 @@ for(const family of CP014_FAMILIES){
   }
  }
  assert.equal(local.size,family.semanticCapacity,family.familyId+": semantic capacity mismatch");
- const expected=family.familyId==="F01"?15:family.familyId==="F02"?11:family.familyId==="F03"?16:family.familyId==="F07"?42:215;
+ const expected=family.familyId==="F01"?52
+  :family.familyId==="F02"?48
+  :family.familyId==="F03"?90
+  :family.familyId==="F07"?190
+  :(family.familyId==="F04"||family.familyId==="F05"||family.familyId==="F06"||family.familyId==="F08")?215
+  :(family.familyId==="F09"||family.familyId==="F10")?30
+  :36;
  assert.equal(primaryCoverage.size,expected,family.familyId+": exhaustive primary authority coverage required");
- if(family.familyId==="F07")assert.equal(secondaryCoverage.size,42,"F07 must exercise all passage questions in second position");
+ if(family.familyId==="F07")assert.equal(secondaryCoverage.size,190,"F07 must exercise all passage questions in second position");
  if(family.familyId==="F08")assert.equal(secondaryCoverage.size,215,"F08 must exercise all admin authorities in second position");
 }
-assert.equal(global.size,1643);
+assert.equal(global.size,2475);
 assert.equal(f08Outcomes.size,4,"F08 must expose all four truth outcomes");
 
 const easy=CP014_FAMILIES.find(x=>x.familyId==="F01")!.generate(1,"Easy");
 const medium=CP014_FAMILIES.find(x=>x.familyId==="F02")!.generate(1,"Medium");
-const hard=CP014_FAMILIES.find(x=>x.familyId==="F07")!.generate(1,"Hard");
+const hard=CP014_FAMILIES.find(x=>x.familyId==="F13")!.generate(1,"Hard");
 assert(easy.metadata.authorityIds.length>=2);
 assert(medium.metadata.authorityIds.length>=2);
-assert(hard.stem.includes("1.")&&hard.stem.includes("2."));
-assert.equal(hard.metadata.authorityIds.length,3);
+assert(hard.stem.includes("ਅਨੁਵਾਦ")||hard.stem.includes("ਅੰਗਰੇਜ਼ੀ"));
+assert.equal(hard.metadata.authorityIds.length,4);
 
 console.log("CP014 exhaustive semantic gates passed: "+global.size+" governed questions");
 console.log(JSON.stringify({...breadth,f08TruthOutcomes:[...f08Outcomes]},null,2));

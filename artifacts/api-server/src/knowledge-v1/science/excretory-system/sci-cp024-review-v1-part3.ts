@@ -11,7 +11,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "Large proteins",
       "Platelets"
     ],
-    "Urine is mostly water, with dissolved urea, salts and other waste substances.",
+    "Urine is mostly water, with dissolved urea, salts and other waste substances. The exact water fraction changes with hydration and hormone levels.",
     [
       "URINE-WATER"
     ]
@@ -26,7 +26,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "Water",
       "Mineral salts"
     ],
-    "Healthy kidneys reabsorb virtually all filtered glucose, so it is normally absent or nearly absent from urine.",
+    "Healthy kidneys reabsorb virtually all filtered glucose, so it is normally absent or nearly absent from urine. Persistent glucose in urine can indicate that normal regulation has been exceeded or impaired.",
     [
       "URINE-NO-GLUCOSE"
     ]
@@ -41,7 +41,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "Ventilation and diffusion",
       "Clotting and coagulation"
     ],
-    "The nephron first filters blood, then modifies the filtrate through reabsorption and secretion to form urine.",
+    "The nephron first filters blood, then modifies the filtrate through reabsorption and secretion to form urine. These later steps make final urine very different from the original glomerular filtrate.",
     [
       "URINE-FORMATION-STEPS"
     ]
@@ -86,7 +86,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "The kidneys have increased glucose reabsorption",
       "The bladder is producing blood cells"
     ],
-    "Healthy filtration barriers retain blood cells. Their presence in urine suggests bleeding or damage somewhere in the urinary system.",
+    "Healthy filtration barriers retain blood cells. Their presence in urine suggests bleeding or damage somewhere in the urinary system. The source may be the kidney or another part of the urinary tract.",
     [
       "URINE-RBC-ABNORMAL"
     ]
@@ -101,7 +101,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "Thyroxine",
       "Adrenaline"
     ],
-    "Antidiuretic hormone, or ADH, increases water reabsorption by the kidneys.",
+    "Antidiuretic hormone, or ADH, increases water reabsorption by the kidneys. It acts especially on the collecting ducts to increase their permeability to water.",
     [
       "ADH-WATER"
     ]
@@ -116,7 +116,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "Free of urea",
       "Rich in red blood cells"
     ],
-    "During dehydration, the kidneys conserve water, reducing urine volume and increasing urine concentration.",
+    "During dehydration, the kidneys conserve water, reducing urine volume and increasing urine concentration. This response reduces further water loss from the body.",
     [
       "DEHYDRATION-URINE"
     ]
@@ -131,7 +131,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "Stop filtering blood",
       "Release bile"
     ],
-    "ADH increases the permeability of parts of the kidney tubules to water, so more water returns to the blood.",
+    "ADH increases the permeability of parts of the kidney tubules to water, so more water returns to the blood. As a result, urine volume usually decreases and urine becomes more concentrated.",
     [
       "ADH-REABSORPTION"
     ]
@@ -146,7 +146,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "It contains more red blood cells",
       "It stops forming"
     ],
-    "Lower ADH causes less water reabsorption, so more water is excreted in a larger volume of dilute urine.",
+    "Lower ADH causes less water reabsorption, so more water is excreted in a larger volume of dilute urine. This prevents the body from retaining more water than it needs.",
     [
       "LOW-ADH-DILUTE-URINE"
     ]
@@ -161,7 +161,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "It produces digestive enzymes",
       "It creates haemoglobin"
     ],
-    "Adjusting water reabsorption helps maintain osmotic balance and stable conditions for cells.",
+    "Adjusting water reabsorption helps maintain osmotic balance and stable conditions for cells. Cells function best when the concentration of body fluids stays within a narrow range.",
     [
       "WATER-BALANCE-HOMEOSTASIS"
     ]
@@ -176,7 +176,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "Glucose filtration stops completely",
       "Red blood cells enter the tubule"
     ],
-    "During dehydration, water-conserving mechanisms increase reabsorption so less water is lost in urine.",
+    "During dehydration, water-conserving mechanisms increase reabsorption so less water is lost in urine. ADH secretion commonly rises during dehydration and supports this response.",
     [
       "DEHYDRATION-REABSORPTION"
     ]
@@ -191,7 +191,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "Exchange gases in lungs",
       "Digest proteins"
     ],
-    "Dialysis performs some filtering functions of failed kidneys by removing wastes and excess fluid from blood.",
+    "Dialysis performs some filtering functions of failed kidneys by removing wastes and excess fluid from blood. It does not fully replace all hormonal and regulatory functions of healthy kidneys.",
     [
       "DIALYSIS-FUNCTION"
     ]
@@ -221,7 +221,7 @@ export const PART_3: readonly SciCp024ReviewSpec[] = [
       "To stop all diffusion",
       "To produce urea"
     ],
-    "Matching useful solute concentrations prevents a large diffusion gradient that would otherwise remove them from blood.",
+    "Matching useful solute concentrations prevents a large diffusion gradient that would otherwise remove them from blood. Wastes such as urea are kept low in the fluid so they still diffuse out of blood.",
     [
       "DIALYSIS-FLUID-GLUCOSE"
     ]

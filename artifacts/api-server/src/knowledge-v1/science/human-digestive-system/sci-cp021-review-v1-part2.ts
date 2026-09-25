@@ -11,7 +11,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Bile stored in the gallbladder",
       "Saliva from the mouth"
     ],
-    "Mucus forms a protective layer over the stomach wall, reducing damage from hydrochloric acid and protein-digesting enzymes.",
+    "Mucus forms a protective layer over the stomach wall, reducing damage from hydrochloric acid and protein-digesting enzymes. Without this barrier, the stomach's own secretions could injure its tissues.",
     [
       "STOMACH-MUCUS"
     ]
@@ -41,7 +41,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Bile production by the liver",
       "Water absorption in the large intestine"
     ],
-    "Pepsin requires an acidic medium for effective protein digestion. A large rise in stomach pH therefore reduces its activity.",
+    "Pepsin requires an acidic medium for effective protein digestion. A large rise in stomach pH therefore reduces its activity. The enzyme's shape and activity are best maintained in strongly acidic conditions.",
     [
       "STOMACH-PH-PEPSIN"
     ]
@@ -56,7 +56,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Salivary gland",
       "Thyroid"
     ],
-    "The liver is the largest gland in the human body and performs many metabolic functions, including production of bile.",
+    "The liver is the largest gland in the human body and performs many metabolic functions, including production of bile. It also processes nutrients, stores glycogen and detoxifies many substances.",
     [
       "LIVER-LARGEST-GLAND"
     ]
@@ -86,7 +86,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Absorb amino acids",
       "Secrete hydrochloric acid"
     ],
-    "The gallbladder stores and concentrates bile made by the liver and releases it into the small intestine when needed.",
+    "The gallbladder stores and concentrates bile made by the liver and releases it into the small intestine when needed. It does not make bile; bile production occurs continuously in the liver.",
     [
       "GALLBLADDER-BILE-STORAGE"
     ]
@@ -101,7 +101,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Digesting starch into glucose",
       "Absorbing fats into blood"
     ],
-    "Bile emulsifies fats, dividing large fat globules into small droplets. This increases the surface area available for lipase.",
+    "Bile emulsifies fats, dividing large fat globules into small droplets. This increases the surface area available for lipase. Emulsification is physical breakdown and does not itself chemically digest fat.",
     [
       "BILE-EMULSIFICATION"
     ]
@@ -116,7 +116,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Digesting cellulose in humans",
       "Producing salivary amylase"
     ],
-    "Bile is alkaline and helps neutralize the acidic food mixture entering the small intestine from the stomach.",
+    "Bile is alkaline and helps neutralize the acidic food mixture entering the small intestine from the stomach. This creates a better pH for pancreatic and intestinal enzymes.",
     [
       "BILE-ALKALINE"
     ]
@@ -146,7 +146,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Oesophagus",
       "Large intestine"
     ],
-    "The pancreas releases digestive juice through a duct into the first part of the small intestine.",
+    "The pancreas releases digestive juice through a duct into the first part of the small intestine. Its enzymes then act on carbohydrates, proteins and fats in the intestinal lumen.",
     [
       "PANCREAS-JUICE-SMALL-INTESTINE"
     ]
@@ -161,7 +161,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Lipase",
       "Pepsin"
     ],
-    "Trypsin is a protein-digesting enzyme in pancreatic juice. It acts in the small intestine.",
+    "Trypsin is a protein-digesting enzyme in pancreatic juice. It acts in the small intestine. It continues protein digestion after the stomach has begun the process.",
     [
       "PANCREAS-TRYPSIN"
     ]
@@ -176,7 +176,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Proteins",
       "Mineral salts"
     ],
-    "Lipase breaks fats into fatty acids and glycerol. Pancreatic lipase acts in the small intestine.",
+    "Lipase breaks fats into fatty acids and glycerol. Pancreatic lipase acts in the small intestine. Bile first increases fat surface area, making lipase action more effective.",
     [
       "PANCREAS-LIPASE"
     ]
@@ -191,7 +191,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Proteins",
       "Vitamins"
     ],
-    "Pancreatic amylase continues carbohydrate digestion in the small intestine by acting on starch.",
+    "Pancreatic amylase continues carbohydrate digestion in the small intestine by acting on starch. This continues the carbohydrate digestion that began with salivary amylase.",
     [
       "PANCREAS-AMYLASE"
     ]
@@ -206,7 +206,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Neutral and enzyme-free",
       "Rich in hydrochloric acid"
     ],
-    "Pancreatic juice contains bicarbonate and is alkaline. It helps neutralize acidic chyme entering from the stomach.",
+    "Pancreatic juice contains bicarbonate and is alkaline. It helps neutralize acidic chyme entering from the stomach. Neutralization protects the intestinal lining and creates suitable conditions for digestive enzymes.",
     [
       "PANCREAS-ALKALINE"
     ]
@@ -221,7 +221,7 @@ export const PART_2: readonly SciCp021ReviewSpec[] = [
       "Mineral salts only",
       "Water only"
     ],
-    "Pancreatic juice contains amylase, protein-digesting enzymes and lipase. Blocking it therefore impairs digestion of all three major food groups.",
+    "Pancreatic juice contains amylase, protein-digesting enzymes and lipase. Blocking it therefore impairs digestion of all three major food groups. The missing bicarbonate also makes neutralization of acidic chyme less effective.",
     [
       "PANCREATIC-DUCT-BLOCKAGE"
     ]

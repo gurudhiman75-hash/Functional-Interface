@@ -1,0 +1,54 @@
+# ENG-007 — Spelling Correction — Coverage Plan V1
+
+Status: `CP001_CP006_HUMAN_APPROVED__FINAL_RESIDUAL_AUDIT_PENDING__REVIEW_ONLY`
+
+ENG-007 has **no fixed final word-count target**. The chapter closes only after an exhaustive but exam-relevant breadth audit finds no material spelling gap worth adding.
+
+## Checkpoints
+
+- CP001 — 240 core high-frequency spellings and common exam traps — **HUMAN APPROVED**.
+- CP002 — 260 structural spelling traps — **HUMAN APPROVED**.
+- CP003 — 260 academic, administrative, legal and institutional spellings — **HUMAN APPROVED**.
+- CP004 — 260 scientific, medical, technical and professional spellings — **HUMAN APPROVED**.
+- CP005 — 265 audit-selected advanced/confusable structural gaps — **HUMAN APPROVED**.
+- CP006 — 107 spelling-specific SSC/RRB PYQ gaps found after CP005 — **HUMAN APPROVED**.
+- Additional checkpoint(s) may be added only when the audit finds a material exam-relevant gap; no checkpoint exists merely to satisfy a numeric target.
+
+## Question surfaces
+
+1. Select the correctly spelt word — exactly one option is correctly spelt; the other options are misspelt words of comparable difficulty. Same-word variant sets are not required.
+2. Identify the misspelt word — correct and incorrect forms may both appear in the option set; exactly one keyed answer remains.
+3. Contextual spelling correction where the sentence is natural and the spelling error is the only issue.
+4. Hard mixed sets using same-difficulty distractors.
+
+## Quality rules
+
+- canonical spellings must be standard dictionary forms;
+- accepted British/American variants are never used against one another as correct/error pairs;
+- distractors must be plausible misspellings, not random letter noise;
+- avoid forms that are valid words with a different meaning;
+- Easy / Medium / Hard must reflect recognition difficulty, not merely word length;
+- explanations are correction-only: state the correct spelling, and when needed identify the misspelt form; no generic trap commentary;
+- deterministic replay and balanced answer positions;
+- implemented counts are reported as observed breadth, never used as a quota;
+- chapter closure is based on coverage quality, not a preselected total;
+- chapter remains review-only until explicit human approval.
+
+## Current breadth
+
+- Approved: **1,392 unique spellings** across CP001-CP006.
+- This is the **current observed breadth**, not a target fraction.
+- CP005 contributed 265 gap-audit additions (26 Easy / 181 Medium / 58 Hard).
+- CP006 closed 107 spelling-specific PYQ omissions. A final residual audit now determines whether ENG-007 can freeze.
+- ENG-007 is frozen only when that audit finds no material exam-relevant omissions.
+
+## Closure criteria
+
+The final audit must confirm:
+- high-frequency competitive-exam spellings and common error families are represented;
+- doubled letters, vowel sequences, silent-letter patterns, suffix/endings and transposition traps have adequate breadth;
+- academic, administrative, legal, institutional, scientific, medical, technical and professional vocabulary is adequately covered;
+- advanced/confusable words add genuine exam value rather than obscure dictionary filler;
+- accepted British/American variants are not mislabelled as errors;
+- duplicate canonical words, duplicate misspellings and cross-collisions remain blocked;
+- generated options remain plausible and difficulty-calibrated.

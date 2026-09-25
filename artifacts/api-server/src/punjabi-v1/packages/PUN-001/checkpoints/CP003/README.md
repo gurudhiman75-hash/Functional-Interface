@@ -63,8 +63,12 @@ Negative wording, rare vocabulary and instruction paraphrases are not used to ma
 - no English leakage in native question surfaces;
 - NFC-normalized authority and generated text;
 - semantic fingerprints depend on actual content, not seed placeholders;
-- all authorities remain `REVIEW_PENDING`;
+- authority records retain provenance-level `REVIEW_PENDING` flags; checkpoint approval is recorded separately;
 - Question Bank/test/mock/public delivery remains closed until explicit promotion.
+
+## Approval
+
+Checkpoint approval is inherited from owner-approved chapter integration PR #2009 on 2026-09-20. No later learner-facing changes were made before the final freeze.
 
 ## Source basis
 

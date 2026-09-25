@@ -1,0 +1,41 @@
+name: Validate English ENG-007 CP001 V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/spelling-correction/ENG-007/**
+      - artifacts/api-server/src/english-v1/tests/eng-007-cp001-v1.test.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-eng007-cp001-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-007-cp001-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/eng007-cp001.test.mjs
+      - run: node artifacts/api-server/dist/eng007-cp001.test.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/spelling-correction/ENG-007/CP001/eng-007-cp001-review-v1-export.ts --bundle --platform=node --format=esm --outfile=dist/eng007-cp001-review.mjs
+      - run: node artifacts/api-server/dist/eng007-cp001-review.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ENG-007-CP001-REVIEW-V1
+          path: dist/english-v1/ENG-007-CP001-REVIEW-V1.md
+          if-no-files-found: error
+          retention-days: 30
+      - run: pnpm --dir artifacts/api-server build

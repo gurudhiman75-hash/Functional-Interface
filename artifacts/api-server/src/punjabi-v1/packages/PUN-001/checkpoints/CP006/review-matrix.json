@@ -1,11 +1,44 @@
 {
-  "cpId":"PUN-001-CP006",
-  "phase":"RETROFIT",
-  "status":"HUMAN_REVIEW_PENDING",
-  "authorityInventory":{"verbs":138,"tenseTriplets":12,"tenseShifts":72,"transitivityConversions":39,"compoundVerbs":35,"aspects":35,"totalAtomic":331},
-  "semanticCapacity":1462,
-  "totalReviewQuestions":120,
-  "difficulty":{"Easy":40,"Medium":40,"Hard":40},
-  "families":{"F01":14,"F02":13,"F03":13,"F04":6,"F05":6,"F06":6,"F07":20,"F08":20,"F09":6,"F10":6,"F11":5,"F12":5},
-  "requirements":["all 12 families represented","all four F08 truth outcomes represented","sentence-derived distractors where applicable","Punjabi-only learner text","REVIEW_ONLY lifecycle"]
+  "cpId": "PUN-001-CP006",
+  "phase": "RETROFIT",
+  "status": "HUMAN_APPROVED",
+  "authorityInventory": {
+    "verbs": 138,
+    "tenseTriplets": 12,
+    "tenseShifts": 72,
+    "transitivityConversions": 39,
+    "compoundVerbs": 35,
+    "aspects": 35,
+    "totalAtomic": 331
+  },
+  "semanticCapacity": 1462,
+  "totalReviewQuestions": 120,
+  "difficulty": {
+    "Easy": 40,
+    "Medium": 40,
+    "Hard": 40
+  },
+  "families": {
+    "F01": 14,
+    "F02": 13,
+    "F03": 13,
+    "F04": 6,
+    "F05": 6,
+    "F06": 6,
+    "F07": 20,
+    "F08": 20,
+    "F09": 6,
+    "F10": 6,
+    "F11": 5,
+    "F12": 5
+  },
+  "requirements": [
+    "all 12 families represented",
+    "all four F08 truth outcomes represented",
+    "sentence-derived distractors where applicable",
+    "Punjabi-only learner text",
+    "REVIEW_ONLY lifecycle"
+  ],
+  "approvalBasis": "Owner-approved chapter integration PR #2009; this retrofit was included in the approved combined content tip and had no later learner-facing change before final freeze.",
+  "approvalDate": "2026-09-20"
 }

@@ -49,7 +49,7 @@ const letters = ["A", "B", "C", "D"] as const;
 const out: string[] = [
   "# PUN-001 CP003 — Exhaustive Noun & Pronoun Review Pack",
   "",
-  "> REVIEW ONLY — all linguistic authorities remain REVIEW_PENDING. This file does not open Question Bank/test/mock/public delivery.",
+  "> REVIEW ONLY — checkpoint HUMAN_APPROVED; authority provenance flags remain REVIEW_PENDING. Question Bank/test/mock/public delivery stays closed.",
   "",
   "Distribution: **80 Easy / 80 Medium / 80 Hard**",
   "",

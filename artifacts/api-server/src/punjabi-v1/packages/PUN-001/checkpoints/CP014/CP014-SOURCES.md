@@ -7,7 +7,7 @@
 ## Passage audit
 - 13 donor passages retained
 - 42 authored passage questions retained
-- no exact duplicate passage-question authorities
+- no exact duplicate passage-question authorities\n- expansion passages cover varied everyday, educational, environmental, civic and language themes rather than repeating a single Punjab-GK pattern
 - two English intrusions removed from Punjabi learner text: “Alluvial soil” and “Gist”
 
 ## Administrative terminology audit

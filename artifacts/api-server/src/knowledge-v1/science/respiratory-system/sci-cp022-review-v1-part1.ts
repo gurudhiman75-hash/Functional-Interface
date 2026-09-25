@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Excretory system",
       "Endocrine system"
     ],
-    "The respiratory system brings oxygen into the body and removes carbon dioxide produced during cellular respiration.",
+    "The respiratory system brings oxygen into the body and removes carbon dioxide produced during cellular respiration. This gas exchange supports aerobic respiration in cells throughout the body.",
     [
       "RESPIRATORY-SYSTEM-FUNCTION"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Nose → Larynx → Pharynx → Bronchi → Trachea → Lungs",
       "Nose → Bronchi → Trachea → Pharynx → Larynx → Lungs"
     ],
-    "Inhaled air passes through the nose, pharynx, larynx and trachea before entering the bronchi and lungs.",
+    "Inhaled air passes through the nose, pharynx, larynx and trachea before entering the bronchi and lungs. The bronchi then divide repeatedly into smaller bronchioles ending at the alveoli.",
     [
       "RESPIRATORY-AIR-PATH"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "The production of ATP only in mitochondria",
       "The digestion of carbohydrates in the intestine"
     ],
-    "Breathing is ventilation of the lungs. Cellular respiration is the chemical release of energy from food inside cells.",
+    "Breathing is ventilation of the lungs. Cellular respiration is the chemical release of energy from food inside cells. The two processes are linked but occur at different levels of the body.",
     [
       "BREATHING-VS-RESPIRATION"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Filter metabolic wastes from blood",
       "Produce digestive enzymes"
     ],
-    "Breathing renews air in the lungs so oxygen can enter the blood and carbon dioxide can leave it.",
+    "Breathing renews air in the lungs so oxygen can enter the blood and carbon dioxide can leave it. Continuous ventilation helps maintain the concentration gradients needed for gas exchange.",
     [
       "BREATHING-PURPOSE"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Filtration of blood in the kidney",
       "Bile secretion by the liver"
     ],
-    "The trachea is the main airway between the larynx and bronchi. Blocking it prevents ventilation of the lungs.",
+    "The trachea is the main airway between the larynx and bronchi. Blocking it prevents ventilation of the lungs. Without air movement, alveolar oxygen rapidly falls and gas exchange cannot continue normally.",
     [
       "TRACHEA-BLOCKAGE"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Moistening inhaled air",
       "Producing mucus"
     ],
-    "Nasal hairs trap many larger particles before air moves deeper into the respiratory tract.",
+    "Nasal hairs trap many larger particles before air moves deeper into the respiratory tract. Smaller particles are further trapped by mucus deeper in the nasal passages.",
     [
       "NOSE-HAIRS-FILTER"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Food pipe",
       "Air sac"
     ],
-    "The larynx contains the vocal cords and is therefore commonly called the voice box.",
+    "The larynx contains the vocal cords and is therefore commonly called the voice box. Air passing the vocal cords can make them vibrate and produce sound.",
     [
       "LARYNX-VOICE-BOX"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Stomach",
       "Small intestine"
     ],
-    "During swallowing, the epiglottis helps cover the opening of the windpipe so food is directed into the oesophagus.",
+    "During swallowing, the epiglottis helps cover the opening of the windpipe so food is directed into the oesophagus. This protective action reduces the chance of food entering the respiratory passage.",
     [
       "EPIGLOTTIS-TRACHEA"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Producing mucus",
       "Dividing into bronchioles"
     ],
-    "Cartilage supports the tracheal wall and helps keep the airway open as pressure changes during breathing.",
+    "Cartilage supports the tracheal wall and helps keep the airway open as pressure changes during breathing. The incomplete rings support the airway while still allowing flexibility beside the oesophagus.",
     [
       "TRACHEA-CARTILAGE"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Produce carbon dioxide",
       "Expand the alveoli"
     ],
-    "Mucus traps dust and microbes, while cilia move the mucus toward the throat for removal.",
+    "Mucus traps dust and microbes, while cilia move the mucus toward the throat for removal. Together they form an important mechanical defence before particles reach delicate alveoli.",
     [
       "RESPIRATORY-MUCUS-CILIA"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Failure of the diaphragm to contract",
       "Complete loss of alveolar surface area"
     ],
-    "Cilia normally sweep trapped particles and mucus upward. Damaged cilia reduce this cleaning mechanism.",
+    "Cilia normally sweep trapped particles and mucus upward. Damaged cilia reduce this cleaning mechanism. Mucus and irritants can then accumulate, increasing coughing and infection risk.",
     [
       "CILIA-DAMAGE"
     ]
@@ -191,7 +191,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Liver lobes",
       "Salivary glands"
     ],
-    "The lungs contain the branching airways and alveoli where gas exchange occurs.",
+    "The lungs contain the branching airways and alveoli where gas exchange occurs. They also contain an extensive blood supply needed to transport respiratory gases.",
     [
       "LUNGS-MAIN-ORGANS"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Villi",
       "Nephrons"
     ],
-    "The trachea divides into right and left primary bronchi, each entering a lung.",
+    "The trachea divides into right and left primary bronchi, each entering a lung. Each bronchus branches further to distribute air throughout its lung.",
     [
       "TRACHEA-BRONCHI"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp022ReviewSpec[] = [
       "Larynx",
       "Nasal cavity"
     ],
-    "Alveoli are tiny air sacs surrounded by capillaries. Their thin walls allow rapid exchange of oxygen and carbon dioxide.",
+    "Alveoli are tiny air sacs surrounded by capillaries. Their thin walls allow rapid exchange of oxygen and carbon dioxide. Oxygen enters blood while carbon dioxide moves in the opposite direction.",
     [
       "ALVEOLI-GAS-EXCHANGE"
     ]

@@ -24,7 +24,11 @@ assert.equal(pkg.mockTestEligible, false);
 assert.equal(pkg.publiclyPublishable, false);
 assert.equal(pkg.automaticStudentPublication, false);
 assert.equal(pkg.productionReleaseAuthorized, false);
-assert.deepEqual(pkg.supportedLanguages, ["en"]);
+assert.deepEqual(pkg.supportedLanguages, ["en", "hi", "pa"]);
+assert.equal(pkg.metadata?.multilingualContentFrozen, true);
+assert.equal(pkg.metadata?.localeIndependentSemanticDraw, true);
+assert.equal(pkg.metadata?.questionsPerLanguage, 2087);
+assert.equal(pkg.metadata?.multilingualSurfaceCount, 6261);
 assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(pkg.cpIds?.length, 27);
 assert.equal(new Set(pkg.cpIds).size, 27);
@@ -127,11 +131,57 @@ assert.equal(ql014009.questions.every((q) => q.cpId === "POL-CP-014"), true);
 
 const hard = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
   packageId: "POL-001",
+  language: "pa",
   difficulty: "Hard",
   count: 25,
   seed: "pol001-hard",
 });
 assert.equal(hard.questions.every((q) => q.difficulty === "Hard"), true);
+assert.equal(hard.questions.every((q: any) => q.language === "pa" && q.locale === "pa-IN"), true);
+
+for (const language of ["hi", "pa"] as const) {
+  const native = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
+    packageId: "POL-001",
+    language,
+    difficulty: "Mixed",
+    count: 20,
+    seed: "pol001-native-runtime",
+  });
+  assert.equal(native.questions.length, 20);
+  assert.equal(new Set(native.questions.map((q) => q.questionId)).size, 20);
+  for (const q of native.questions as any[]) {
+    assert.equal(q.language, language);
+    assert.equal(q.locale, language === "hi" ? "hi-IN" : "pa-IN");
+    assert.equal(q.multilingualContentFrozen, true);
+    assert.equal(q.runtimeRegistered, true);
+    assert.equal(q.reviewOnly, true);
+    assert.equal(q.questionBankWritable, false);
+    assert.equal(q.testEligible, false);
+  }
+}
+
+const semanticRequest = {
+  packageId: "POL-001",
+  difficulty: "Mixed" as const,
+  count: 40,
+  seed: "pol001-cross-locale-semantic-draw",
+};
+const semanticEn = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({ ...semanticRequest, language: "en" });
+const semanticHi = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({ ...semanticRequest, language: "hi" });
+const semanticPa = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({ ...semanticRequest, language: "pa" });
+const sourceQuestionIds = (result: any) => result.questions.map((q: any) => q.sourceQuestionId);
+assert.deepEqual(sourceQuestionIds(semanticHi), sourceQuestionIds(semanticEn));
+assert.deepEqual(sourceQuestionIds(semanticPa), sourceQuestionIds(semanticEn));
+
+const nativeCp027 = await knowledgeV1Pol001QuestionStudioAdapterV1.generate({
+  packageId: "POL-001",
+  canonicalProblemId: "POL-CP-027",
+  language: "hi",
+  count: 8,
+  seed: "pol001-cp027-hi",
+});
+assert.equal(nativeCp027.questions.length, 8);
+assert.equal(nativeCp027.questions.every((q: any) => q.cpId === "POL-CP-027" && q.locale === "hi-IN"), true);
 
 await assert.rejects(
   knowledgeV1Pol001QuestionStudioAdapterV1.generate({
@@ -151,9 +201,9 @@ await assert.rejects(
 await assert.rejects(
   knowledgeV1Pol001QuestionStudioAdapterV1.generate({
     packageId: "POL-001",
-    language: "hi",
+    language: "fr" as any,
   }),
-  /currently supports English only/i,
+  /language fr is not supported/i,
 );
 await assert.rejects(
   knowledgeV1Pol001QuestionStudioAdapterV1.generate({

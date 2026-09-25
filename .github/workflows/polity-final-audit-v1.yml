@@ -158,6 +158,214 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      - name: Run POL-001 CP009-CP010 multilingual parity audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp009-cp010-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp009-cp010-localization-audit-v1.mjs
+          node dist/polity/pol-cp009-cp010-localization-audit-v1.mjs
+
+      - name: Generate POL-001 CP009-CP010 multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp009-cp010-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp009-cp010-localization-export-v1.mjs
+          node dist/polity/pol-cp009-cp010-localization-export-v1.mjs
+
+      - name: Upload POL-001 CP009-CP010 multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: polity-cp009-cp010-multilingual-review
+          path: artifacts/api-server/dist/polity-review/POL-MULTILINGUAL-V1/POL-CP009-CP010-*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run POL-001 CP011-CP012 multilingual parity audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp011-cp012-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp011-cp012-localization-audit-v1.mjs
+          node dist/polity/pol-cp011-cp012-localization-audit-v1.mjs
+
+      - name: Generate POL-001 CP011-CP012 multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp011-cp012-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp011-cp012-localization-export-v1.mjs
+          node dist/polity/pol-cp011-cp012-localization-export-v1.mjs
+
+      - name: Upload POL-001 CP011-CP012 multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: polity-cp011-cp012-multilingual-review
+          path: artifacts/api-server/dist/polity-review/POL-MULTILINGUAL-V1/POL-CP011-CP012-*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run POL-001 CP013-CP014 multilingual parity audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp013-cp014-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp013-cp014-localization-audit-v1.mjs
+          node dist/polity/pol-cp013-cp014-localization-audit-v1.mjs
+
+      - name: Generate POL-001 CP013-CP014 multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp013-cp014-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp013-cp014-localization-export-v1.mjs
+          node dist/polity/pol-cp013-cp014-localization-export-v1.mjs
+
+      - name: Upload POL-001 CP013-CP014 multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: polity-cp013-cp014-multilingual-review
+          path: artifacts/api-server/dist/polity-review/POL-MULTILINGUAL-V1/POL-CP013-CP014-*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run POL-001 CP015-CP016 multilingual parity audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp015-cp016-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp015-cp016-localization-audit-v1.mjs
+          node dist/polity/pol-cp015-cp016-localization-audit-v1.mjs
+
+      - name: Generate POL-001 CP015-CP016 multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp015-cp016-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp015-cp016-localization-export-v1.mjs
+          node dist/polity/pol-cp015-cp016-localization-export-v1.mjs
+
+      - name: Upload POL-001 CP015-CP016 multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: polity-cp015-cp016-multilingual-review
+          path: artifacts/api-server/dist/polity-review/POL-MULTILINGUAL-V1/POL-CP015-CP016-*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run POL-001 CP017-CP019 multilingual parity audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp017-cp019-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp017-cp019-localization-audit-v1.mjs
+          node dist/polity/pol-cp017-cp019-localization-audit-v1.mjs
+
+      - name: Generate POL-001 CP017-CP019 multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp017-cp019-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp017-cp019-localization-export-v1.mjs
+          node dist/polity/pol-cp017-cp019-localization-export-v1.mjs
+
+      - name: Upload POL-001 CP017-CP019 multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: polity-cp017-cp019-multilingual-review
+          path: artifacts/api-server/dist/polity-review/POL-MULTILINGUAL-V1/POL-CP017-CP019-*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run POL-001 CP020-CP022 multilingual parity audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp020-cp022-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp020-cp022-localization-audit-v1.mjs
+          node dist/polity/pol-cp020-cp022-localization-audit-v1.mjs
+
+      - name: Generate POL-001 CP020-CP022 multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp020-cp022-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp020-cp022-localization-export-v1.mjs
+          node dist/polity/pol-cp020-cp022-localization-export-v1.mjs
+
+      - name: Upload POL-001 CP020-CP022 multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: polity-cp020-cp022-multilingual-review
+          path: artifacts/api-server/dist/polity-review/POL-MULTILINGUAL-V1/POL-CP020-CP022-*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run POL-001 CP023-CP025 multilingual parity audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp023-cp025-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp023-cp025-localization-audit-v1.mjs
+          node dist/polity/pol-cp023-cp025-localization-audit-v1.mjs
+
+      - name: Generate POL-001 CP023-CP025 multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp023-cp025-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp023-cp025-localization-export-v1.mjs
+          node dist/polity/pol-cp023-cp025-localization-export-v1.mjs
+
+      - name: Upload POL-001 CP023-CP025 multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: polity-cp023-cp025-multilingual-review
+          path: artifacts/api-server/dist/polity-review/POL-MULTILINGUAL-V1/POL-CP023-CP025-*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run POL-001 CP026-CP027 multilingual parity audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp026-cp027-localization-audit-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp026-cp027-localization-audit-v1.mjs
+          node dist/polity/pol-cp026-cp027-localization-audit-v1.mjs
+
+      - name: Generate POL-001 CP026-CP027 multilingual review Markdown
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/knowledge-v1/indian-polity/localization-v1/pol-cp026-cp027-localization-export-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/polity/pol-cp026-cp027-localization-export-v1.mjs
+          node dist/polity/pol-cp026-cp027-localization-export-v1.mjs
+
+      - name: Upload POL-001 CP026-CP027 multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: polity-cp026-cp027-multilingual-review
+          path: artifacts/api-server/dist/polity-review/POL-MULTILINGUAL-V1/POL-CP026-CP027-*
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Run POL-001 Question Studio runtime smoke test
         run: |
           pnpm --dir artifacts/api-server exec esbuild \

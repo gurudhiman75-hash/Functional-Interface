@@ -11,7 +11,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Autonomic nervous system",
       "Endocrine system"
     ],
-    "The central nervous system, or CNS, consists of the brain and spinal cord.",
+    "The central nervous system, or CNS, consists of the brain and spinal cord. It acts as the main processing and coordinating centre of the nervous system.",
     [
       "CNS-BRAIN-SPINAL-CORD"
     ]
@@ -26,7 +26,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Digestive system",
       "Endocrine system"
     ],
-    "The peripheral nervous system includes nerves that connect the central nervous system with the rest of the body.",
+    "The peripheral nervous system includes nerves that connect the central nervous system with the rest of the body. It carries sensory information inward and motor commands outward.",
     [
       "PNS-DEFINITION"
     ]
@@ -41,7 +41,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Transport oxygen in blood",
       "Filter wastes from blood"
     ],
-    "The nervous system detects changes, processes information and sends signals that coordinate rapid responses.",
+    "The nervous system detects changes, processes information and sends signals that coordinate rapid responses. Its rapid electrical signalling allows the body to respond quickly to changing conditions.",
     [
       "NERVOUS-SYSTEM-ROLE"
     ]
@@ -56,7 +56,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Endocrine glands",
       "Circulatory system"
     ],
-    "Peripheral nerves carry information between the CNS and receptors, muscles and other organs.",
+    "Peripheral nerves carry information between the CNS and receptors, muscles and other organs. These nerves provide the communication link between central control and the rest of the body.",
     [
       "PNS-CONNECTION"
     ]
@@ -71,7 +71,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Neurons do not require energy",
       "Hormones never reach target organs"
     ],
-    "Electrical impulses move quickly along neurons, while hormones must travel through body fluids to target tissues.",
+    "Electrical impulses move quickly along neurons, while hormones must travel through body fluids to target tissues. This makes nervous responses especially suitable for immediate actions such as reflexes.",
     [
       "NERVOUS-VS-HORMONAL-SPEED"
     ]
@@ -86,7 +86,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Endocrine and skeletal systems only",
       "Respiratory and urinary systems"
     ],
-    "Sensory nerves carry information to the CNS, which processes it and sends motor signals back through peripheral nerves.",
+    "Sensory nerves carry information to the CNS, which processes it and sends motor signals back through peripheral nerves. The response therefore depends on two-way communication between peripheral pathways and central processing.",
     [
       "CNS-PNS-INTEGRATION"
     ]
@@ -101,7 +101,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Alveolus",
       "Villus"
     ],
-    "A neuron is a specialized cell that receives and transmits nerve impulses.",
+    "A neuron is a specialized cell that receives and transmits nerve impulses. Its structure is specialized for communication over short or long distances.",
     [
       "NEURON-UNIT"
     ]
@@ -116,7 +116,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Myelin sheath",
       "Synaptic terminal only"
     ],
-    "Dendrites are branched extensions that receive incoming signals and carry them toward the cell body.",
+    "Dendrites are branched extensions that receive incoming signals and carry them toward the cell body. Their branching shape increases the surface available for receiving information.",
     [
       "DENDRITES-RECEIVE"
     ]
@@ -131,7 +131,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Only inside the nucleus",
       "Directly into blood"
     ],
-    "The axon conducts nerve impulses away from the neuron's cell body toward another neuron, muscle or gland.",
+    "The axon conducts nerve impulses away from the neuron's cell body toward another neuron, muscle or gland. Long axons allow signals to travel from the cell body to distant targets.",
     [
       "AXON-AWAY"
     ]
@@ -146,7 +146,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "It stores glucose",
       "It forms blood clots"
     ],
-    "Myelin electrically insulates the axon and allows nerve impulses to travel faster.",
+    "Myelin electrically insulates the axon and allows nerve impulses to travel faster. In myelinated fibres, impulses effectively jump between gaps called nodes of Ranvier.",
     [
       "MYELIN-FUNCTION"
     ]
@@ -161,7 +161,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "A muscle and a bone only",
       "Two blood vessels"
     ],
-    "At a synapse, a neuron communicates with another neuron, muscle cell or gland cell.",
+    "At a synapse, a neuron communicates with another neuron, muscle cell or gland cell. Chemical neurotransmitters commonly carry the signal across the tiny synaptic gap.",
     [
       "SYNAPSE-DEFINITION"
     ]
@@ -176,7 +176,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "The axon becomes a blood vessel",
       "The cell body stops containing DNA"
     ],
-    "Loss of myelin reduces electrical insulation and slows conduction along the axon.",
+    "Loss of myelin reduces electrical insulation and slows conduction along the axon. This can impair timing and coordination even when the neuron itself remains alive.",
     [
       "MYELIN-DAMAGE"
     ]
@@ -184,14 +184,14 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
   [
     3,
     "Easy",
-    "Which part of the brain is associated with thinking, memory and voluntary actions?",
+    "Which part of the brain controls higher functions such as thinking, memory and voluntary actions?",
     "Cerebrum",
     [
       "Cerebellum",
       "Medulla oblongata",
       "Spinal cord"
     ],
-    "The cerebrum is the largest part of the brain and is involved in thinking, memory, sensation and voluntary movement.",
+    "The cerebrum is the largest part of the brain and is involved in thinking, memory, sensation and voluntary movement. Different regions specialize in functions such as language, vision, movement and memory.",
     [
       "CEREBRUM-FUNCTION"
     ]
@@ -206,7 +206,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Medulla oblongata",
       "Hypothalamus"
     ],
-    "The cerebellum coordinates voluntary muscle activity and helps maintain posture and balance.",
+    "The cerebellum coordinates voluntary muscle activity and helps maintain posture and balance. It compares intended movement with sensory feedback and corrects errors during motion.",
     [
       "CEREBELLUM-BALANCE"
     ]
@@ -221,7 +221,7 @@ export const PART_1: readonly SciCp025ReviewSpec[] = [
       "Retina",
       "Cerebellum"
     ],
-    "The medulla contains centres that regulate involuntary functions such as breathing and heart rate.",
+    "The medulla contains centres that regulate involuntary functions such as breathing and heart rate. These automatic controls continue without conscious attention during sleep.",
     [
       "MEDULLA-VITAL-FUNCTIONS"
     ]

@@ -27,6 +27,20 @@ import { generateEcoCp011LocalizedReviewV1 } from "./eco-cp011-localization-v1";
 import { generateEcoCp012LocalizedReviewV1 } from "./eco-cp012-localization-v1";
 import { generateEcoCp013LocalizedReviewV1 } from "./eco-cp013-localization-v1";
 import { generateEcoCp014LocalizedReviewV1 } from "./eco-cp014-localization-v1";
+import { generateEcoCp015LocalizedReviewV1 } from "./eco-cp015-localization-v1";
+import { generateEcoCp016LocalizedReviewV1 } from "./eco-cp016-localization-v1";
+import { generateEcoCp017LocalizedReviewV1 } from "./eco-cp017-localization-v1";
+import { generateEcoCp018LocalizedReviewV1 } from "./eco-cp018-localization-v1";
+import { generateEcoCp019LocalizedReviewV1 } from "./eco-cp019-localization-v1";
+import { generateEcoCp020LocalizedReviewV1 } from "./eco-cp020-localization-v1";
+import { generateEcoCp021LocalizedReviewV1 } from "./eco-cp021-localization-v1";
+import { generateEcoCp022LocalizedReviewV1 } from "./eco-cp022-localization-v1";
+import { generateEcoCp023LocalizedReviewV1 } from "./eco-cp023-localization-v1";
+import { generateEcoCp024LocalizedReviewV1 } from "./eco-cp024-localization-v1";
+import { generateEcoCp025LocalizedReviewV1 } from "./eco-cp025-localization-v1";
+import { generateEcoCp026LocalizedReviewV1 } from "./eco-cp026-localization-v1";
+import { generateEcoCp027LocalizedReviewV1 } from "./eco-cp027-localization-v1";
+import { generateEcoCp028LocalizedReviewV1 } from "./eco-cp028-localization-v1";
 
 const CP001_FINAL_STEM_OVERRIDES: Readonly<Record<string, Readonly<Record<"hi" | "pa", string>>>> = Object.freeze({
   "ECO-CP001-V2-011": {
@@ -111,6 +125,71 @@ export function generateEcoCp001Cp014LocalizedReviewV1(locale: EcoLocaleV1): Eco
   ];
 }
 
+export function generateEcoCp015Cp016LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [...generateEcoCp015LocalizedReviewV1(locale), ...generateEcoCp016LocalizedReviewV1(locale)];
+}
+
+export function generateEcoCp001Cp016LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp001Cp014LocalizedReviewV1(locale),
+    ...generateEcoCp015Cp016LocalizedReviewV1(locale),
+  ];
+}
+
+export function generateEcoCp017Cp018LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [...generateEcoCp017LocalizedReviewV1(locale), ...generateEcoCp018LocalizedReviewV1(locale)];
+}
+
+export function generateEcoCp001Cp018LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp001Cp016LocalizedReviewV1(locale),
+    ...generateEcoCp017Cp018LocalizedReviewV1(locale),
+  ];
+}
+
+export function generateEcoCp019Cp020LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [...generateEcoCp019LocalizedReviewV1(locale), ...generateEcoCp020LocalizedReviewV1(locale)];
+}
+
+export function generateEcoCp001Cp020LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp001Cp018LocalizedReviewV1(locale),
+    ...generateEcoCp019Cp020LocalizedReviewV1(locale),
+  ];
+}
+
+export function generateEcoCp021Cp023LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp021LocalizedReviewV1(locale),
+    ...generateEcoCp022LocalizedReviewV1(locale),
+    ...generateEcoCp023LocalizedReviewV1(locale),
+  ];
+}
+
+export function generateEcoCp001Cp023LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp001Cp020LocalizedReviewV1(locale),
+    ...generateEcoCp021Cp023LocalizedReviewV1(locale),
+  ];
+}
+
+export function generateEcoCp024Cp028LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp024LocalizedReviewV1(locale),
+    ...generateEcoCp025LocalizedReviewV1(locale),
+    ...generateEcoCp026LocalizedReviewV1(locale),
+    ...generateEcoCp027LocalizedReviewV1(locale),
+    ...generateEcoCp028LocalizedReviewV1(locale),
+  ];
+}
+
+export function generateEcoCp001Cp028LocalizedReviewV1(locale: EcoLocaleV1): EcoLocalizedQuestionV1[] {
+  return [
+    ...generateEcoCp001Cp023LocalizedReviewV1(locale),
+    ...generateEcoCp024Cp028LocalizedReviewV1(locale),
+  ];
+}
+
 export {
   generateEcoCp003LocalizedReviewV1,
   generateEcoCp004LocalizedReviewV1,
@@ -130,6 +209,20 @@ export {
   generateEcoCp012LocalizedReviewV1,
   generateEcoCp013LocalizedReviewV1,
   generateEcoCp014LocalizedReviewV1,
+  generateEcoCp015LocalizedReviewV1,
+  generateEcoCp016LocalizedReviewV1,
+  generateEcoCp017LocalizedReviewV1,
+  generateEcoCp018LocalizedReviewV1,
+  generateEcoCp019LocalizedReviewV1,
+  generateEcoCp020LocalizedReviewV1,
+  generateEcoCp021LocalizedReviewV1,
+  generateEcoCp022LocalizedReviewV1,
+  generateEcoCp023LocalizedReviewV1,
+  generateEcoCp024LocalizedReviewV1,
+  generateEcoCp025LocalizedReviewV1,
+  generateEcoCp026LocalizedReviewV1,
+  generateEcoCp027LocalizedReviewV1,
+  generateEcoCp028LocalizedReviewV1,
 };
 
 export const ECO_MULTILINGUAL_CP001_CP002_V1 = Object.freeze({
@@ -190,4 +283,64 @@ export const ECO_MULTILINGUAL_CP001_CP014_V1 = Object.freeze({
   en: generateEcoCp001Cp014LocalizedReviewV1("en"),
   hi: generateEcoCp001Cp014LocalizedReviewV1("hi"),
   pa: generateEcoCp001Cp014LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP015_CP016_V1 = Object.freeze({
+  en: generateEcoCp015Cp016LocalizedReviewV1("en"),
+  hi: generateEcoCp015Cp016LocalizedReviewV1("hi"),
+  pa: generateEcoCp015Cp016LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP001_CP016_V1 = Object.freeze({
+  en: generateEcoCp001Cp016LocalizedReviewV1("en"),
+  hi: generateEcoCp001Cp016LocalizedReviewV1("hi"),
+  pa: generateEcoCp001Cp016LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP017_CP018_V1 = Object.freeze({
+  en: generateEcoCp017Cp018LocalizedReviewV1("en"),
+  hi: generateEcoCp017Cp018LocalizedReviewV1("hi"),
+  pa: generateEcoCp017Cp018LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP001_CP018_V1 = Object.freeze({
+  en: generateEcoCp001Cp018LocalizedReviewV1("en"),
+  hi: generateEcoCp001Cp018LocalizedReviewV1("hi"),
+  pa: generateEcoCp001Cp018LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP019_CP020_V1 = Object.freeze({
+  en: generateEcoCp019Cp020LocalizedReviewV1("en"),
+  hi: generateEcoCp019Cp020LocalizedReviewV1("hi"),
+  pa: generateEcoCp019Cp020LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP001_CP020_V1 = Object.freeze({
+  en: generateEcoCp001Cp020LocalizedReviewV1("en"),
+  hi: generateEcoCp001Cp020LocalizedReviewV1("hi"),
+  pa: generateEcoCp001Cp020LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP021_CP023_V1 = Object.freeze({
+  en: generateEcoCp021Cp023LocalizedReviewV1("en"),
+  hi: generateEcoCp021Cp023LocalizedReviewV1("hi"),
+  pa: generateEcoCp021Cp023LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP001_CP023_V1 = Object.freeze({
+  en: generateEcoCp001Cp023LocalizedReviewV1("en"),
+  hi: generateEcoCp001Cp023LocalizedReviewV1("hi"),
+  pa: generateEcoCp001Cp023LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP024_CP028_V1 = Object.freeze({
+  en: generateEcoCp024Cp028LocalizedReviewV1("en"),
+  hi: generateEcoCp024Cp028LocalizedReviewV1("hi"),
+  pa: generateEcoCp024Cp028LocalizedReviewV1("pa"),
+});
+
+export const ECO_MULTILINGUAL_CP001_CP028_V1 = Object.freeze({
+  en: generateEcoCp001Cp028LocalizedReviewV1("en"),
+  hi: generateEcoCp001Cp028LocalizedReviewV1("hi"),
+  pa: generateEcoCp001Cp028LocalizedReviewV1("pa"),
 });

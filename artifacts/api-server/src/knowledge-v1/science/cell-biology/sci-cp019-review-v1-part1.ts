@@ -193,7 +193,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
       "Centrosome",
       "Chromosome"
     ],
-    "The plasma membrane forms the cell's selectively permeable boundary. It regulates the entry and exit of many substances.",
+    "The plasma membrane forms the cell's selectively permeable boundary. It regulates the entry and exit of many substances. This control helps the cell maintain a stable internal environment despite changes outside.",
     [
       "MEMBRANE-SELECTIVE"
     ]
@@ -201,14 +201,14 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
   [
     3,
     "Easy",
-    "The plant cell wall is mainly composed of:",
+    "The plant cell wall is composed chiefly of:",
     "cellulose",
     [
       "glycogen",
       "chitin only",
       "starch"
     ],
-    "Plant cell walls are mainly composed of cellulose. The wall gives strength, support and shape to the cell.",
+    "Plant cell walls are composed largely of cellulose. The wall gives strength, support and shape to the cell. Unlike the plasma membrane, the cell wall is rigid and freely permeable to many small substances.",
     [
       "CELL-WALL-CELLULOSE"
     ]
@@ -223,7 +223,7 @@ export const PART_1: readonly SciCp019ReviewSpec[] = [
       "It dissolves completely by diffusion",
       "It loses its cell wall"
     ],
-    "Water moves into the raisin cells through a selectively permeable membrane by osmosis. As a result, the raisin swells.",
+    "Water moves into the raisin cells through a selectively permeable membrane by osmosis. As a result, the raisin swells. The surrounding water has higher water potential than the concentrated cell contents, so net water enters.",
     [
       "OSMOSIS-RAISIN"
     ]
