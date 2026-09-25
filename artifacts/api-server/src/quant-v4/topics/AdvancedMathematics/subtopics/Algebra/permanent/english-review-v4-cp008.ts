@@ -1,5 +1,4 @@
 import {
-  constantRationalFunction,
   equalsRational,
   formatRational,
   multiplyPolynomials,
@@ -50,12 +49,11 @@ export interface AlgCp008EnglishReviewV4Item {
     | Readonly<{
         kind: "NO_VALID_ROOT";
         excluded: number;
-        multiplier: number;
+        rightRoot: number;
       }>
     | Readonly<{
         kind: "INFINITE_ON_DOMAIN";
-        excluded: number;
-        multiplier: number;
+        excludedValues: readonly [number, number];
       }>;
   readonly permanentIdentityFrozen: true;
   readonly semanticContractFrozen: true;
@@ -109,11 +107,21 @@ function denominatorSubstitutionText(forbidden: number, testValue: number, denom
   return `${testValue} - ${forbidden} = ${denominatorValue}`;
 }
 
-function scaledFactor(multiplier: number, excluded: number): Polynomial1 {
+function linearFactor(excluded: number): Polynomial1 {
   return polynomial("x", [
-    rational(BigInt(-multiplier * excluded)),
-    rational(BigInt(multiplier)),
+    rational(BigInt(-excluded)),
+    rational(1n),
   ]);
+}
+
+function pairState(seed: number) {
+  const index = positiveMod(seed - 1, 64);
+  const excluded = (index % 16) - 8;
+  const band = Math.floor(index / 16);
+  const deltas = [1, -2, 3, -4] as const;
+  const rightRoot = excluded + deltas[band]!;
+  if (rightRoot === excluded) throw new Error("CP-008 V4 pair state must use distinct roots");
+  return { excluded, rightRoot };
 }
 
 function rationalFunction(numerator: Polynomial1, denominator: Polynomial1): RationalFunction1 {
@@ -195,27 +203,31 @@ function rationalEquationQuestion(equation: RationalEquation1, mode: "NO_SOLUTIO
   }
 }
 
-function factorState(seed: number) {
-  const index = positiveMod(seed - 1, 84);
-  return {
-    excluded: (index % 21) - 10,
-    multiplier: 1 + (Math.floor(index / 21) % 4),
-  };
-}
-
 function generateNoValidRoot(seed: number): AlgCp008EnglishReviewV4Item {
-  const { excluded, multiplier } = factorState(seed);
-  const factor = scaledFactor(multiplier, excluded);
-  const numerator = multiplyPolynomials(factor, factor);
+  const { excluded, rightRoot } = pairState(seed);
+  const denominator = linearFactor(excluded);
+  const numerator = multiplyPolynomials(denominator, denominator);
+  const rightNumerator = linearFactor(rightRoot);
   const equation: RationalEquation1 = {
-    left: rationalFunction(numerator, factor),
-    right: constantRationalFunction("x", rational(0n)),
+    left: rationalFunction(numerator, denominator),
+    right: rationalFunction(rightNumerator, polynomial("x", [rational(1n)])),
   };
   const solved = solveRationalEquationOverRationals(equation);
   if (solved.kind !== "NO_SOLUTION") {
     throw new Error("CP-008 V4 no-valid-root construction did not produce NO_SOLUTION");
   }
-  const factorDisplay = polynomialText(factor);
+  if (
+    solved.excludedValues.length !== 1
+    || !equalsRational(solved.excludedValues[0]!, rational(BigInt(excluded)))
+    || solved.rejectedExcludedRoots.length !== 1
+    || !equalsRational(solved.rejectedExcludedRoots[0]!, rational(BigInt(excluded)))
+  ) {
+    throw new Error("CP-008 V4 no-valid-root exclusion proof mismatch");
+  }
+
+  const denominatorDisplay = polynomialText(denominator);
+  const rightDisplay = polynomialText(rightNumerator);
+  const difference = rightRoot - excluded;
 
   return {
     authority: ALG_CP008_ENGLISH_REVIEW_V4_AUTHORITY,
@@ -229,13 +241,13 @@ function generateNoValidRoot(seed: number): AlgCp008EnglishReviewV4Item {
     answer: { kind: "NO_SOLUTION" },
     answerText: "No solution",
     explanation: [
-      `Start with the original denominator ${factorDisplay}. Setting it equal to 0 gives x = ${excluded}, so x = ${excluded} is excluded from the domain.`,
-      `The numerator is (${factorDisplay})². For the fraction to equal 0, the numerator must be 0, which again gives x = ${excluded}.`,
-      `That is the only algebraic candidate, but it makes the original denominator 0 and must be rejected.`,
-      "Therefore the rational equation has no solution.",
+      `The original denominator is ${denominatorDisplay}, so x = ${excluded} is excluded from the domain.`,
+      `Cross-multiplying gives (${denominatorDisplay})² = (${rightDisplay})(${denominatorDisplay}).`,
+      `Bringing the right side over and factoring gives ${difference}(${denominatorDisplay}) = 0, so the only algebraic candidate is x = ${excluded}.`,
+      `But x = ${excluded} makes the original denominator 0, so that candidate must be rejected. Therefore the equation has no solution.`,
     ].join(" "),
     equation,
-    state: { kind: "NO_VALID_ROOT", excluded, multiplier },
+    state: { kind: "NO_VALID_ROOT", excluded, rightRoot },
     permanentIdentityFrozen: true,
     semanticContractFrozen: true,
     solverAuthorityFrozen: true,
@@ -250,21 +262,26 @@ function generateNoValidRoot(seed: number): AlgCp008EnglishReviewV4Item {
 }
 
 function generateInfiniteOnDomain(seed: number): AlgCp008EnglishReviewV4Item {
-  const { excluded, multiplier } = factorState(seed + 17);
-  const factor = scaledFactor(multiplier, excluded);
+  const { excluded, rightRoot } = pairState(seed + 17);
+  const leftFactor = linearFactor(excluded);
+  const rightFactor = linearFactor(rightRoot);
   const equation: RationalEquation1 = {
-    left: rationalFunction(factor, factor),
-    right: constantRationalFunction("x", rational(1n)),
+    left: rationalFunction(leftFactor, leftFactor),
+    right: rationalFunction(rightFactor, rightFactor),
   };
   const solved = solveRationalEquationOverRationals(equation);
   if (solved.kind !== "INFINITE_ON_DOMAIN") {
     throw new Error("CP-008 V4 restricted-domain identity did not produce INFINITE_ON_DOMAIN");
   }
-  const factorDisplay = polynomialText(factor);
-  const excludedValues = solved.excludedValues;
-  if (excludedValues.length !== 1 || !equalsRational(excludedValues[0]!, rational(BigInt(excluded)))) {
-    throw new Error("CP-008 V4 restricted-domain exclusion mismatch");
+  const expected = [rational(BigInt(excluded)), rational(BigInt(rightRoot))];
+  if (
+    solved.excludedValues.length !== 2
+    || !expected.every((value) => solved.excludedValues.some((actual) => equalsRational(actual, value)))
+  ) {
+    throw new Error("CP-008 V4 restricted-domain exclusions mismatch");
   }
+
+  const excludedText = [excluded, rightRoot].sort((a, b) => a - b).join(" and ");
 
   return {
     authority: ALG_CP008_ENGLISH_REVIEW_V4_AUTHORITY,
@@ -275,16 +292,16 @@ function generateInfiniteOnDomain(seed: number): AlgCp008EnglishReviewV4Item {
     prototypeId: "ALG-CP008-CAND-007",
     seed,
     question: rationalEquationQuestion(equation, "INFINITE", seed),
-    answer: { kind: "INFINITE_ON_DOMAIN", excludedValues },
-    answerText: `All real x except ${formatRational(excludedValues[0]!)}`,
+    answer: { kind: "INFINITE_ON_DOMAIN", excludedValues: solved.excludedValues },
+    answerText: `All real x except ${excludedText}`,
     explanation: [
-      `The numerator and denominator are the same factor, ${factorDisplay}. Their ratio is 1 whenever that factor is non-zero.`,
-      `The denominator becomes 0 when x = ${excluded}, so x = ${excluded} is not in the original domain.`,
-      `For every other real x, the common factor is non-zero and the left side simplifies to 1, matching the right side.`,
-      `Therefore every real x except ${excluded} is a solution.`,
+      `The left side is the same non-zero factor divided by itself, so it equals 1 whenever x ≠ ${excluded}.`,
+      `The right side also equals 1 whenever x ≠ ${rightRoot}.`,
+      `Thus both sides are equal for every real x in the original domain, but x = ${excluded} and x = ${rightRoot} are excluded because a denominator becomes 0.`,
+      `Therefore the solution set is all real x except ${excludedText}.`,
     ].join(" "),
     equation,
-    state: { kind: "INFINITE_ON_DOMAIN", excluded, multiplier },
+    state: { kind: "INFINITE_ON_DOMAIN", excludedValues: [excluded, rightRoot] },
     permanentIdentityFrozen: true,
     semanticContractFrozen: true,
     solverAuthorityFrozen: true,
