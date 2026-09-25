@@ -140,9 +140,9 @@ for (const ql of DIR_001_QLS) {
         assert.match(stepsText, new RegExp(`${english.structuredPrompt.missingDistance} मीटर`));
       }
       if (ql.qlId === "DIR-QL-037") {
-        const d = Math.hypot(
-          Number(english.structuredPrompt.anchorRelations?.[0]?.vector?.x ?? 0),
-          Number(english.structuredPrompt.anchorRelations?.[0]?.vector?.y ?? 0),
+        const d = Math.max(
+          Math.abs(Number(english.structuredPrompt.anchorRelations?.[0]?.vector?.x ?? 0)),
+          Math.abs(Number(english.structuredPrompt.anchorRelations?.[0]?.vector?.y ?? 0)),
         );
         assert.match(stepsText, new RegExp(`${Math.round(d)} मीटर`));
         assert.match(stepsText, /कथन 1:/);
@@ -171,8 +171,12 @@ for (const ql of DIR_001_QLS) {
       if (ql.qlId === "DIR-QL-044") {
         const firstRelation = english.structuredPrompt.diagramRelations?.[0];
         const textRelation = english.structuredPrompt.textRelation;
-        const relationDistance = firstRelation ? Math.hypot(Number(firstRelation.vector?.x ?? 0), Number(firstRelation.vector?.y ?? 0)) : 0;
-        const textDistance = textRelation ? Math.hypot(Number(textRelation.vector?.x ?? 0), Number(textRelation.vector?.y ?? 0)) : 0;
+        const relationDistance = firstRelation
+          ? Math.max(Math.abs(Number(firstRelation.vector?.x ?? 0)), Math.abs(Number(firstRelation.vector?.y ?? 0)))
+          : 0;
+        const textDistance = textRelation
+          ? Math.max(Math.abs(Number(textRelation.vector?.x ?? 0)), Math.abs(Number(textRelation.vector?.y ?? 0)))
+          : 0;
         assert.match(stepsText, new RegExp(`${Math.round(relationDistance)} मीटर`));
         assert.match(stepsText, new RegExp(`${Math.round(textDistance)} मीटर`));
       }
