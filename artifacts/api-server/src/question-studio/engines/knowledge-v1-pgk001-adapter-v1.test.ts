@@ -255,7 +255,7 @@ for (const q of first.questions as any[]) {
   assert.equal(q.registrationAuthorityId, PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1);
   assert.equal(q.authoringReviewApproved, true);
   assert.equal(q.runtimeRegistered, true);
-  assert.equal(q.readOnly, true);
+  assert.equal(q.readOnly, false);
   assert.equal(q.productionReleased, true);
   assert.equal(q.questionBankWritable, true);
   assert.equal(q.testEligible, true);
@@ -511,7 +511,7 @@ for (const q of mtfFirst.questions as any[]) {
   assert.equal(q.authoringReviewApproved, true);
   assert.equal(q.formatReviewApproved, true);
   assert.equal(q.runtimeRegistered, true);
-  assert.equal(q.readOnly, true);
+  assert.equal(q.readOnly, false);
   assert.equal(q.additiveExtension, true);
   assert.equal(q.frozenCoreQuestionCount, 1092);
   assert.equal(q.frozenCoreModified, false);
