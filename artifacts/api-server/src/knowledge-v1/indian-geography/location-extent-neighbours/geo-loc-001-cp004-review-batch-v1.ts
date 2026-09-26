@@ -844,7 +844,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Both coasts face only the Arabian Sea",
       "Both coasts face only the Bay of Bengal"
     ],
-    "explanation": "India's western maritime side opens through the Arabian Sea toward West Asia, while the eastern side opens through the Bay of Bengal toward Southeast Asia.",
+    "explanation": "India's western maritime side opens through the Arabian Sea toward West Asia. The eastern side opens through the Bay of Bengal toward Southeast Asia.",
     "sourceFactIds": [
       "MIXED-COAST-REGION-ORIENTATION"
     ]
