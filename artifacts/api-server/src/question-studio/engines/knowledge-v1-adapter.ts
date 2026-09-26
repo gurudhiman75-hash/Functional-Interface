@@ -1,3 +1,4 @@
+import { isWge001QuestionStudioRequestV1, knowledgeV1Wge001QuestionStudioAdapterV1 } from './knowledge-v1-wge001-adapter-v1';
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -93,6 +94,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
   listPackages() {
     const packages = [
+      ...knowledgeV1Wge001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com001QuestionStudioAdapter.listPackages(),
       ...knowledgeV1Com002QuestionStudioAdapterV3.listPackages(),
       ...knowledgeV1Com003QuestionStudioAdapterV2.listPackages(),
@@ -124,6 +126,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isWge001QuestionStudioRequestV1(request)) {
+      return knowledgeV1Wge001QuestionStudioAdapterV1.generate(request);
+    }
     if (isSci001QuestionStudioRequestV1(request)) {
       return knowledgeV1Sci001QuestionStudioAdapterV1.generate(request);
     }

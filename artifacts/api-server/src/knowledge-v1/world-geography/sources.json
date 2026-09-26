@@ -1,0 +1,173 @@
+[
+  {
+    "id": "NCERT-DOMAINS",
+    "title": "NCERT: Major Domains of the Earth (SATHEE/IIT Kanpur edition)",
+    "url": "https://sathee.iitk.ac.in/sathee-ssc/student-corner/ncert-books/class-06/social-science/the-earth-our-habitat/chapter-05-major-domains-of-the-earth/",
+    "section": "Continents; Oceans; world map",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "NOAA-OCEANS",
+    "title": "NOAA: How many oceans are there?",
+    "url": "https://oceanservice.noaa.gov/facts/howmanyoceans.html",
+    "section": "Connected ocean, five-ocean convention, surface water share",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NOAA-LONGITUDE",
+    "title": "NOAA: What is longitude?",
+    "url": "https://oceanservice.noaa.gov/facts/longitude.html",
+    "section": "Coordinate definition, meridians and civil-time boundaries",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NOAA-DATE-LINE",
+    "title": "NOAA: What is the international date line?",
+    "url": "https://oceanservice.noaa.gov/facts/international-date-line.html",
+    "section": "Location; west/east calendar adjustment",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NASA-EARTH",
+    "title": "NASA: Facts About Earth",
+    "url": "https://science.nasa.gov/earth/facts/",
+    "section": "Orbit and Rotation; Structure; Surface",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NASA-SEASONS",
+    "title": "NASA Space Place: What Causes the Seasons?",
+    "url": "https://spaceplace.nasa.gov/seasons/en/",
+    "section": "Axial tilt, opposite seasons, perihelion and aphelion",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NASA-ECLIPSES",
+    "title": "NASA Space Place: Lunar Eclipses and Solar Eclipses",
+    "url": "https://spaceplace.nasa.gov/eclipses/en/",
+    "section": "Solar and lunar eclipse geometry",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NCERT-INTERIOR",
+    "title": "NCERT XI: Interior of the Earth",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy203.pdf",
+    "section": "Printed pp. 18–26: interior evidence, waves, layers and volcanoes",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NCERT-ROCKS",
+    "title": "NCERT VII: Inside Our Earth",
+    "url": "https://ncert.nic.in/textbook/pdf/gess202.pdf",
+    "section": "Printed pp. 7–10: layers, rocks and minerals",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NPS-ROCKS",
+    "title": "NPS: How Rocks are Classified",
+    "url": "https://www.nps.gov/subjects/geology/how-rocks-are-classified.htm",
+    "section": "Igneous, sedimentary and metamorphic formation",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NPS-METAMORPHIC",
+    "title": "NPS: Metamorphic Rocks",
+    "url": "https://www.nps.gov/subjects/geology/metamorphic.htm",
+    "section": "Parent rocks, texture and metamorphic processes",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "USGS-TIME",
+    "title": "USGS: Fossils, Rocks, and Time — The Relative Time Scale",
+    "url": "https://pubs.usgs.gov/gip/fossils/scale.html",
+    "section": "Relative order of eras",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "USGS-GRAPHITE",
+    "title": "USGS: Earth Materials Scavenger Hunt",
+    "url": "https://www.usgs.gov/educational-resources/earth-materials-scavenger-hunt-activity",
+    "section": "Graphite in pencils",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "NCERT-PLATES",
+    "title": "NCERT XI: Distribution of Oceans and Continents",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy204.pdf",
+    "section": "Printed pp. 27–35: drift evidence, spreading, plate tectonics",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "USGS-MAGNITUDE",
+    "title": "USGS: Earthquake Magnitude, Energy Release, and Shaking Intensity",
+    "url": "https://www.usgs.gov/programs/earthquake-hazards/earthquake-magnitude-energy-release-and-shaking-intensity",
+    "section": "Magnitude versus intensity; moment magnitude; local effects",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NOAA-TSUNAMI",
+    "title": "NOAA: What is a tsunami?",
+    "url": "https://oceanservice.noaa.gov/facts/tsunami.html",
+    "section": "Generation, propagation and shallow-water effects",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NCERT-PROCESSES",
+    "title": "NCERT XI: Geomorphic Processes",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy205.pdf",
+    "section": "Printed pp. 36–46: weathering, mass movement, erosion and deposition",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NCERT-LANDFORMS",
+    "title": "NCERT XI: Landforms and their Evolution",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy206.pdf",
+    "section": "Printed pp. 47–62: running water; groundwater; glaciers; waves; winds",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NPS-GLACIERS",
+    "title": "NPS: Glaciers and Glacial Landforms",
+    "url": "https://www.nps.gov/subjects/geology/glacial-landforms.htm",
+    "section": "Linked cirques, valleys, moraines, till and outwash articles",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  }
+]
