@@ -92,7 +92,7 @@ For this reason, cities increasingly track generation per person, recovery rates
  ]
 },
 {
- id:"ENG008-BM-PH03",title:"Why More Choice Can Sometimes Make Decisions Harder",genre:"philosophy",
+ id:"ENG008-BM-PH03",title:"When Choice Becomes a Design Problem",genre:"philosophy",
  text:`Choice is usually associated with freedom, and having no choice can clearly be restrictive. Yet adding more options does not always make a decision easier or more satisfying.
 
 When alternatives are few, people can compare them directly. As the number grows, the time and attention required to evaluate differences also increase.
