@@ -204,31 +204,89 @@ function row(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocale, index: 
   return ctx(stimulus, locale).rows[index]!;
 }
 
+function fiveEntryPhrase(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocale) {
+  const isHi = hi(locale);
+  switch (stimulus.contextId) {
+    case "BANK_BRANCH_APPLICATIONS": return isHi ? "पाँचों शाखाओं की प्रविष्टियों में" : "ਪੰਜਾਂ ਸ਼ਾਖਾਵਾਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
+    case "INSURANCE_POLICIES": return isHi ? "पाँचों तिमाहियों की प्रविष्टियों में" : "ਪੰਜਾਂ ਤਿਮਾਹੀਆਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
+    case "FACTORY_OUTPUT": return isHi ? "पाँचों महीनों की प्रविष्टियों में" : "ਪੰਜਾਂ ਮਹੀਨਿਆਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
+    case "COURSE_ENROLMENT": return isHi ? "पाँचों केंद्रों की प्रविष्टियों में" : "ਪੰਜਾਂ ਕੇਂਦਰਾਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
+    case "ONLINE_ORDERS": return isHi ? "पाँचों दिनों की प्रविष्टियों में" : "ਪੰਜਾਂ ਦਿਨਾਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
+    case "BOOK_ISSUES": return isHi ? "पाँचों सप्ताहों की प्रविष्टियों में" : "ਪੰਜਾਂ ਹਫ਼ਤਿਆਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
+  }
+}
+
+function totalMeasure(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocale, series: "A" | "B") {
+  const isHi = hi(locale);
+  switch (stimulus.contextId) {
+    case "BANK_BRANCH_APPLICATIONS":
+      return isHi
+        ? (series === "A" ? "कुल प्राप्त आवेदनों की संख्या" : "कुल स्वीकृत आवेदनों की संख्या")
+        : (series === "A" ? "ਪ੍ਰਾਪਤ ਅਰਜ਼ੀਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ" : "ਮਨਜ਼ੂਰ ਅਰਜ਼ੀਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ");
+    case "INSURANCE_POLICIES":
+      return isHi
+        ? (series === "A" ? "नई पॉलिसियों की कुल संख्या" : "नवीनीकृत पॉलिसियों की कुल संख्या")
+        : (series === "A" ? "ਨਵੀਆਂ ਪਾਲਿਸੀਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ" : "ਨਵੀਕਰਿਤ ਪਾਲਿਸੀਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ");
+    case "FACTORY_OUTPUT":
+      return isHi
+        ? (series === "A" ? "लाइन 1 का कुल उत्पादन" : "लाइन 2 का कुल उत्पादन")
+        : (series === "A" ? "ਲਾਈਨ 1 ਦਾ ਕੁੱਲ ਉਤਪਾਦਨ" : "ਲਾਈਨ 2 ਦਾ ਕੁੱਲ ਉਤਪਾਦਨ");
+    case "COURSE_ENROLMENT":
+      return isHi
+        ? (series === "A" ? "समूह 1 का कुल नामांकन" : "समूह 2 का कुल नामांकन")
+        : (series === "A" ? "ਸਮੂਹ 1 ਦਾ ਕੁੱਲ ਦਾਖ਼ਲਾ" : "ਸਮੂਹ 2 ਦਾ ਕੁੱਲ ਦਾਖ਼ਲਾ");
+    case "ONLINE_ORDERS":
+      return isHi
+        ? (series === "A" ? "माध्यम 1 के ऑर्डरों की कुल संख्या" : "माध्यम 2 के ऑर्डरों की कुल संख्या")
+        : (series === "A" ? "ਮਾਧਿਅਮ 1 ਦੇ ਆਰਡਰਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ" : "ਮਾਧਿਅਮ 2 ਦੇ ਆਰਡਰਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ");
+    case "BOOK_ISSUES":
+      return isHi
+        ? (series === "A" ? "अनुभाग 1 से जारी पुस्तकों की कुल संख्या" : "अनुभाग 2 से जारी पुस्तकों की कुल संख्या")
+        : (series === "A" ? "ਭਾਗ 1 ਤੋਂ ਜਾਰੀ ਕਿਤਾਬਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ" : "ਭਾਗ 2 ਤੋਂ ਜਾਰੀ ਕਿਤਾਬਾਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ");
+  }
+}
+
+function averageMeasure(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocale) {
+  const isHi = hi(locale);
+  switch (stimulus.contextId) {
+    case "BANK_BRANCH_APPLICATIONS": return isHi ? "स्वीकृत आवेदनों की औसत संख्या" : "ਮਨਜ਼ੂਰ ਅਰਜ਼ੀਆਂ ਦੀ ਔਸਤ ਗਿਣਤੀ";
+    case "INSURANCE_POLICIES": return isHi ? "नवीनीकृत पॉलिसियों की औसत संख्या" : "ਨਵੀਕਰਿਤ ਪਾਲਿਸੀਆਂ ਦੀ ਔਸਤ ਗਿਣਤੀ";
+    case "FACTORY_OUTPUT": return isHi ? "लाइन 2 का औसत उत्पादन" : "ਲਾਈਨ 2 ਦਾ ਔਸਤ ਉਤਪਾਦਨ";
+    case "COURSE_ENROLMENT": return isHi ? "समूह 2 का औसत नामांकन" : "ਸਮੂਹ 2 ਦਾ ਔਸਤ ਦਾਖ਼ਲਾ";
+    case "ONLINE_ORDERS": return isHi ? "माध्यम 2 के ऑर्डरों की औसत संख्या" : "ਮਾਧਿਅਮ 2 ਦੇ ਆਰਡਰਾਂ ਦੀ ਔਸਤ ਗਿਣਤੀ";
+    case "BOOK_ISSUES": return isHi ? "अनुभाग 2 से जारी पुस्तकों की औसत संख्या" : "ਭਾਗ 2 ਤੋਂ ਜਾਰੀ ਕਿਤਾਬਾਂ ਦੀ ਔਸਤ ਗਿਣਤੀ";
+  }
+}
+
 function aggregateText(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocale) {
   const c = stimulus.aggregateCondition;
   const l = ctx(stimulus, locale);
   const isHi = hi(locale);
+  const entries = fiveEntryPhrase(stimulus, locale);
+  const totalAName = totalMeasure(stimulus, locale, "A");
+  const totalBName = totalMeasure(stimulus, locale, "B");
+  const averageBName = averageMeasure(stimulus, locale);
   switch (c.mode) {
     case "COLUMN_TOTAL":
       return isHi
-        ? `पाँचों ${l.rowLabel} प्रविष्टियों में ${l.seriesBMeasure} का कुल ${c.value} ${l.unit} है।`
-        : `ਪੰਜਾਂ ${l.rowLabel} ਦਰਜਾਂ ਵਿੱਚ ${l.seriesBMeasure} ਦਾ ਕੁੱਲ ${c.value} ${l.unit} ਹੈ।`;
+        ? `${entries} ${totalBName} ${c.value} ${l.unit} है।`
+        : `${entries} ${totalBName} ${c.value} ${l.unit} ਹੈ।`;
     case "COLUMN_AVERAGE":
       return isHi
-        ? `पाँचों ${l.rowLabel} प्रविष्टियों में ${l.seriesBMeasure} का औसत ${c.value} ${l.unit} है।`
-        : `ਪੰਜਾਂ ${l.rowLabel} ਦਰਜਾਂ ਵਿੱਚ ${l.seriesBMeasure} ਦੀ ਔਸਤ ${c.value} ${l.unit} ਹੈ।`;
+        ? `${entries} ${averageBName} ${c.value} ${l.unit} है।`
+        : `${entries} ${averageBName} ${c.value} ${l.unit} ਹੈ।`;
     case "COMBINED_TOTAL":
       return isHi
-        ? `${l.seriesALabel} और ${l.seriesBLabel} का संयुक्त कुल ${c.value} ${l.unit} है।`
-        : `${l.seriesALabel} ਅਤੇ ${l.seriesBLabel} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਕੁੱਲ ${c.value} ${l.unit} ਹੈ।`;
+        ? `${totalAName} और ${totalBName} का संयुक्त योग ${c.value} ${l.unit} है।`
+        : `${totalAName} ਅਤੇ ${totalBName} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਜੋੜ ${c.value} ${l.unit} ਹੈ।`;
     case "TOTAL_RATIO_TO_A":
       return isHi
-        ? `कुल ${l.seriesBMeasure} और कुल ${l.seriesAMeasure} का अनुपात ${c.numerator}:${c.denominator} है।`
-        : `ਕੁੱਲ ${l.seriesBMeasure} ਅਤੇ ਕੁੱਲ ${l.seriesAMeasure} ਦਾ ਅਨੁਪਾਤ ${c.numerator}:${c.denominator} ਹੈ।`;
+        ? `${totalBName} और ${totalAName} का अनुपात ${c.numerator}:${c.denominator} है।`
+        : `${totalBName} ਅਤੇ ${totalAName} ਦਾ ਅਨੁਪਾਤ ${c.numerator}:${c.denominator} ਹੈ।`;
     case "DIFFERENCE_FROM_A_TOTAL":
       return isHi
-        ? `कुल ${l.seriesBMeasure}, कुल ${l.seriesAMeasure} से ${c.value} ${l.unit} ${c.direction === "ABOVE" ? "अधिक" : "कम"} है।`
-        : `ਕੁੱਲ ${l.seriesBMeasure}, ਕੁੱਲ ${l.seriesAMeasure} ਨਾਲੋਂ ${c.value} ${l.unit} ${c.direction === "ABOVE" ? "ਵੱਧ" : "ਘੱਟ"} ਹੈ।`;
+        ? `${totalBName}, ${totalAName} से ${c.value} ${l.unit} ${c.direction === "ABOVE" ? "अधिक" : "कम"} है।`
+        : `${totalBName}, ${totalAName} ਨਾਲੋਂ ${c.value} ${l.unit} ${c.direction === "ABOVE" ? "ਵੱਧ" : "ਘੱਟ"} ਹੈ।`;
   }
 }
 
@@ -268,8 +326,8 @@ function stem(question: Di007V2Question, stimulus: Di007V2Stimulus, locale: Di00
     }
     case "VISIBLE_ROW_DIFFERENCE": {
       const name = r(Number(e.visibleIndex));
-      const H = [`${name} के लिए ${l.seriesAMeasure} और ${l.seriesBMeasure} में कितना अंतर है?`, `${name} की दोनों तालिका प्रविष्टियों में कितने ${l.unit} का अंतर है?`, `${name} के दोनों मानों का निरपेक्ष अंतर ज्ञात कीजिए।`];
-      const P = [`${name} ਲਈ ${l.seriesAMeasure} ਅਤੇ ${l.seriesBMeasure} ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?`, `${name} ਦੀਆਂ ਦੋਵੇਂ ਸਾਰਣੀ ਦਰਜਾਂ ਵਿੱਚ ਕਿੰਨੇ ${l.unit} ਦਾ ਅੰਤਰ ਹੈ?`, `${name} ਦੇ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਕੱਢੋ।`];
+      const H = [`${name} के लिए ${l.seriesAMeasure} और ${l.seriesBMeasure} में कितना अंतर है?`, `${name} की दोनों तालिका प्रविष्टियों के मानों में कितना अंतर है?`, `${name} के दोनों मानों का निरपेक्ष अंतर ज्ञात कीजिए।`];
+      const P = [`${name} ਲਈ ${l.seriesAMeasure} ਅਤੇ ${l.seriesBMeasure} ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?`, `${name} ਦੀਆਂ ਦੋਵੇਂ ਸਾਰਣੀ ਦਰਜਾਂ ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?`, `${name} ਦੇ ਦੋਵੇਂ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਕੱਢੋ।`];
       return (isHi ? H : P)[v]!;
     }
     case "RECOVER_MISSING_VALUE": {
@@ -291,8 +349,9 @@ function stem(question: Di007V2Question, stimulus: Di007V2Stimulus, locale: Di00
       return (isHi ? H : P)[v]!;
     }
     case "B_TOTAL_AS_PERCENT_OF_A_TOTAL": {
-      const H = [`पाँचों पंक्तियों में ${l.seriesBLabel} का कुल, ${l.seriesALabel} के कुल का कितने प्रतिशत है?`, `पाँचों पंक्तियों के कुल का उपयोग करते हुए ${l.seriesBLabel}, ${l.seriesALabel} का कितने प्रतिशत है?`, `दोनों स्तंभों के पाँच-पंक्ति कुल की तुलना कीजिए। ${l.seriesBLabel}, ${l.seriesALabel} का कितने प्रतिशत है?`];
-      const P = [`ਪੰਜਾਂ ਕਤਾਰਾਂ ਵਿੱਚ ${l.seriesBLabel} ਦਾ ਕੁੱਲ, ${l.seriesALabel} ਦੇ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਪੰਜਾਂ ਕਤਾਰਾਂ ਦੇ ਕੁੱਲ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋਏ ${l.seriesBLabel}, ${l.seriesALabel} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਦੋਵੇਂ ਕਾਲਮਾਂ ਦੇ ਪੰਜ-ਕਤਾਰ ਕੁੱਲ ਦੀ ਤੁਲਨਾ ਕਰੋ। ${l.seriesBLabel}, ${l.seriesALabel} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`];
+      const aName = totalMeasure(stimulus, locale, "A"), bName = totalMeasure(stimulus, locale, "B");
+      const H = [`${bName}, ${aName} का कितने प्रतिशत है?`, `${bName} को ${aName} के प्रतिशत के रूप में व्यक्त कीजिए।`, `दोनों स्तंभों के कुल की तुलना कीजिए। ${bName}, ${aName} का कितने प्रतिशत है?`];
+      const P = [`${bName}, ${aName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${bName} ਨੂੰ ${aName} ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।`, `ਦੋਵੇਂ ਕਾਲਮਾਂ ਦੇ ਕੁੱਲ ਦੀ ਤੁਲਨਾ ਕਰੋ। ${bName}, ${aName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`];
       return (isHi ? H : P)[v]!;
     }
     case "MISSING_SHARE_OF_B_TOTAL": {
@@ -303,8 +362,8 @@ function stem(question: Di007V2Question, stimulus: Di007V2Stimulus, locale: Di00
     }
     case "VISIBLE_TWO_ROW_B_TOTAL": {
       const a = r(Number(e.visibleI)), b = r(Number(e.visibleJ));
-      const H = [`${a} और ${b} के लिए कुल ${l.seriesBMeasure} कितना है?`, `${a} और ${b} के ${l.seriesBLabel} मानों का संयुक्त कुल ज्ञात कीजिए।`, `${a} और ${b} में ${l.seriesBLabel} के अंतर्गत कुल कितने ${l.unit} दर्ज हैं?`];
-      const P = [`${a} ਅਤੇ ${b} ਲਈ ਕੁੱਲ ${l.seriesBMeasure} ਕਿੰਨਾ ਹੈ?`, `${a} ਅਤੇ ${b} ਦੇ ${l.seriesBLabel} ਮੁੱਲਾਂ ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਕੁੱਲ ਕੱਢੋ।`, `${a} ਅਤੇ ${b} ਵਿੱਚ ${l.seriesBLabel} ਹੇਠਾਂ ਕੁੱਲ ਕਿੰਨੇ ${l.unit} ਦਰਜ ਹਨ?`];
+      const H = [`${a} और ${b} के लिए कुल ${l.seriesBMeasure} कितना है?`, `${a} और ${b} के ${l.seriesBLabel} मानों का संयुक्त कुल ज्ञात कीजिए।`, `${a} और ${b} के ${l.seriesBLabel} मानों का कुल क्या है?`];
+      const P = [`${a} ਅਤੇ ${b} ਲਈ ਕੁੱਲ ${l.seriesBMeasure} ਕਿੰਨਾ ਹੈ?`, `${a} ਅਤੇ ${b} ਦੇ ${l.seriesBLabel} ਮੁੱਲਾਂ ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਕੁੱਲ ਕੱਢੋ।`, `${a} ਅਤੇ ${b} ਦੇ ${l.seriesBLabel} ਮੁੱਲਾਂ ਦਾ ਕੁੱਲ ਕੀ ਹੈ?`];
       return (isHi ? H : P)[v]!;
     }
     case "MISSING_AS_PERCENT_OF_PAIRED_A": {
