@@ -522,6 +522,8 @@ export const knowledgeV1Pgk001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       runtimeRegistered: true,
       readOnly: true,
       revisionPolicy: PGK_001_REVISION_POLICY_V1,
+      englishFreezeAuthorityId: PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
+      multilingualLocalizationApproved: true,
       productionReleased: false,
     }));
 
@@ -536,6 +538,8 @@ export const knowledgeV1Pgk001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         registrationAuthorityId: PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
         authoringReviewApproved: true,
         chapterContentComplete: true,
+        multilingualLocalizationComplete: true,
+        englishFreezeAuthorityId: PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
         reviewOnly: true,
         frozenCorpusOnly: true,
         immutableCorpus: true,
