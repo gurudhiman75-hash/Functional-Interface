@@ -15,9 +15,9 @@ The study relied on self-reported sleep onset, which can be imprecise because pe
 
 Another pattern appeared during examination weeks. Routine use dropped while reported stress increased, making it difficult to separate the effect of the routine from changes in academic pressure.
 
-The team concluded that the wind-down routine was associated with faster reported sleep onset, but the observational design could not establish causation.
+The team concluded that the wind-down routine was associated with faster reported sleep onset, but the observational design could not establish causation. A follow-up experiment will randomly assign different pre-sleep routines and use wearable devices to estimate sleep timing. Researchers will also track stress and total sleep duration so that a faster sleep onset is not mistaken for better sleep overall.
 
-A follow-up experiment will randomly assign different pre-sleep routines and use wearable devices to estimate sleep timing. Researchers will also track stress and total sleep duration so that a faster sleep onset is not mistaken for better sleep overall.`,
+ Researchers also plan to separate routine quality from routine adherence. Two students may both report a twenty-minute wind-down, but one might read quietly while another keeps checking messages despite avoiding formal study. The content of the routine could therefore matter as much as its duration. The follow-up will include a brief activity log and compare whether different low-stimulation activities produce similar results. Researchers will also measure morning sleepiness and total sleep duration because falling asleep faster is useful only if overall rest is not reduced by later bedtimes or earlier waking.`,
  questions:[
  q("S03-Q1","RS-F01","medium","Which students reported shorter sleep-onset times?","Those who used the wind-down routine on at least five nights a week",["Only students who studied late","Students who drank more caffeine","Students with irregular bedtimes"],"The second paragraph directly reports this.","at least five nights a week"),
  q("S03-Q2","RS-F02","medium","What can be inferred from the adjustment results?","Other habits explain part, but not all, of the observed difference",["Caffeine explained everything","The routine was proven causal","Bedtime variation was irrelevant"],"The gap became smaller but remained.","became smaller but remained"),
@@ -43,11 +43,9 @@ Customer surveys showed that many buyers noticed the display, but only a minorit
 
 The team also checked whether the display merely shifted purchases away from other lower-sugar snacks. Some substitution occurred, so the gain was smaller when the whole healthier-snack category was considered.
 
-Price promotions complicated interpretation because two displayed products were discounted during part of the trial.
+Price promotions complicated interpretation because two displayed products were discounted during part of the trial. Researchers concluded that shelf-end placement was associated with higher purchases of the featured products, but store selection, substitution and discounting limited a simple causal interpretation. A future trial will randomly rotate displays across stores and hold prices constant. It will also examine category-level purchasing rather than only sales of the featured items.
 
-Researchers concluded that shelf-end placement was associated with higher purchases of the featured products, but store selection, substitution and discounting limited a simple causal interpretation.
-
-A future trial will randomly rotate displays across stores and hold prices constant. It will also examine category-level purchasing rather than only sales of the featured items.`,
+ The next trial will also examine whether the displays change basket composition or simply shift which snack is chosen. If customers buy a lower-sugar snack instead of another snack, that is different from adding an extra purchase to the basket. Researchers will therefore compare units per basket, category spending and whether the promoted item replaces or adds to existing snack choices. They also plan to keep packaging and price constant where possible so placement is the main changing factor. This will help distinguish visibility effects from product-specific appeal.`,
  questions:[
  q("C04-Q1","RS-F01","medium","What happened to sales of the displayed snacks?","They increased in the test stores",["They fell sharply","They were unchanged","They doubled everywhere"],"The second paragraph states this directly.","sales ... increased"),
  q("C04-Q2","RS-F02","medium","What can be inferred from category substitution?","Some featured-product gains came from shifting buyers between similar snacks",["All gains were new purchases","Substitution never occurred","Total snack sales collapsed"],"The passage says some sales shifted from other healthier snacks.","Some substitution occurred"),
@@ -73,9 +71,9 @@ Researchers adjusted for measured soil infiltration rates. The estimated benefit
 
 Maintenance also mattered. One garden became partly blocked by leaves, and runoff performance worsened until the inlet was cleared.
 
-The district concluded that rain gardens were associated with lower runoff peaks under moderate conditions, but soil differences and maintenance affected performance.
+The district concluded that rain gardens were associated with lower runoff peaks under moderate conditions, but soil differences and maintenance affected performance. A larger trial will randomly select treatment locations within similar soil zones and track maintenance time. It will also measure water quality to see whether the gardens reduce pollutants as well as runoff volume.
 
-A larger trial will randomly select treatment locations within similar soil zones and track maintenance time. It will also measure water quality to see whether the gardens reduce pollutants as well as runoff volume.`,
+ Researchers will also compare how quickly the gardens recover after very heavy storms. A system that performs well during moderate rain but remains saturated for many hours may be less useful if another storm arrives soon afterward. Soil moisture, ponding duration and overflow frequency will therefore be recorded together. The team also wants to compare plant survival because vegetation affects infiltration and long-term maintenance. If a design reduces runoff only when plants remain healthy, maintenance quality becomes part of the treatment rather than a separate operational detail.`,
  questions:[
  q("E04-Q1","RS-F01","medium","When were runoff peaks generally lower at rain-garden sites?","During most moderate storms",["Only during drought","During every extreme storm","Never"],"The second paragraph states this directly.","most moderate storms"),
  q("E04-Q2","RS-F02","medium","What can be inferred about very heavy rain?","The gardens may have limited capacity when they fill quickly",["Rain gardens work best only when full","Heavy rain improves infiltration","Bypass water disappears"],"The passage explains weaker performance under extreme rainfall.","filled quickly"),
@@ -101,11 +99,9 @@ The study measured repeated error categories rather than exam performance. A low
 
 Survey responses were mixed. Some users said writing a sentence forced them to notice the exact mistake, while others felt the prompt interrupted momentum.
 
-The platform also found that users skipped more prompts on mobile devices, where typing was slower.
+The platform also found that users skipped more prompts on mobile devices, where typing was slower. The company concluded that explanation prompts improved immediate error review but created a trade-off with practice volume and convenience. A follow-up experiment will test optional voice responses and a delayed quiz. Researchers will also compare whether prompts help more on conceptual mistakes than on simple factual slips.
 
-The company concluded that explanation prompts improved immediate error review but created a trade-off with practice volume and convenience.
-
-A follow-up experiment will test optional voice responses and a delayed quiz. Researchers will also compare whether prompts help more on conceptual mistakes than on simple factual slips.`,
+ The follow-up will also distinguish between explanation quality and explanation completion. A learner can type a vague sentence simply to continue, so researchers will sample responses and code whether they identify the actual misconception. This may reveal whether the benefit comes from genuine reflection or merely from slowing users down. The platform will also test shorter prompts such as selecting the reason for an error from a small set of categories. That could preserve reflection while reducing typing burden on mobile devices. Comparing written, voice and structured responses will show whether the learning effect depends on the act of explanation or the effort required to produce it.`,
  questions:[
  q("D05-Q1","RS-F01","medium","What happened to repeated error types among prompt users?","They were less likely within the same session",["They increased sharply","They were not measured","They disappeared permanently"],"The third paragraph states this directly.","less likely to repeat"),
  q("D05-Q2","RS-F02","medium","What can be inferred about the prompt's cost?","It reduced practice volume because review took longer",["It increased question count","It had no time cost","It removed explanations"],"Prompt users completed fewer total questions.","completed fewer total questions"),
