@@ -108,7 +108,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Northern mountain side",
       "Northeastern land frontier"
     ],
-    "explanation": "The Arabian Sea borders the western side of peninsular India. The eastern side faces the Bay of Bengal.",
+    "explanation": "The Arabian Sea borders the western side of peninsular India. The opposite side faces the Bay of Bengal, so the two waters frame the peninsula.",
     "sourceFactIds": [
       "ARABIAN-SEA-WEST-SIDE"
     ]
@@ -156,7 +156,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Mediterranean Sea",
       "Red Sea"
     ],
-    "explanation": "The Bay of Bengal borders India's eastern coast. A vessel departing eastward from that coast enters the bay.",
+    "explanation": "The Bay of Bengal borders India's eastern coast. A vessel departing eastward from that coast enters the bay before moving farther into the Indian Ocean region.",
     "sourceFactIds": [
       "EAST-COAST-SHIP-BAY"
     ]
@@ -172,7 +172,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Eastern coast — Persian Gulf",
       "Eastern coast — Caspian Sea"
     ],
-    "explanation": "The eastern coast faces the Bay of Bengal. The Arabian Sea lies on the western side of India.",
+    "explanation": "The eastern coast faces the Bay of Bengal. The Arabian Sea lies on India's western side, creating a clear east–west maritime contrast.",
     "sourceFactIds": [
       "EAST-COAST-WATER-PAIR"
     ]
@@ -405,7 +405,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-032",
     "qlName": "Western coast and links toward West Asia/Africa/Europe",
     "difficulty": "Easy",
-    "stem": "India's western coast provides a maritime approach toward which broad region?",
+    "stem": "India's western coast provides a maritime approach toward which region?",
     "answer": "West Asia",
     "distractors": [
       "East Asia only",
@@ -501,7 +501,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-033",
     "qlName": "Eastern coast and links toward Southeast/East Asia",
     "difficulty": "Easy",
-    "stem": "India's eastern coast is oriented toward which broad region across the Bay of Bengal?",
+    "stem": "India's eastern coast is oriented toward which region across the Bay of Bengal?",
     "answer": "Southeast Asia",
     "distractors": [
       "West Asia",
@@ -661,7 +661,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-034",
     "qlName": "India’s central position on trans-Indian Ocean routes",
     "difficulty": "Medium",
-    "stem": "A map shows sea routes from Europe and West Asia continuing past India toward East Asia. What does India's location illustrate?",
+    "stem": "A map shows sea routes from Europe and West Asia continuing past India toward East Asia. What geographic advantage does India's location illustrate?",
     "answer": "A central position on trans-Indian Ocean routes",
     "distractors": [
       "A landlocked position",
