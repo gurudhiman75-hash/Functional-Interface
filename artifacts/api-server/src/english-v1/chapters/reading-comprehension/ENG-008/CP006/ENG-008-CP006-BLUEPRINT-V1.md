@@ -1,6 +1,6 @@
 # ENG-008 CP006 — Full Multi-question Passage Sets — Blueprint V1
 
-Status: `IMPLEMENTED_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY`
 
 ## Purpose
 
@@ -57,4 +57,4 @@ Optional: competing explanation, recommendation.
 
 ## Lifecycle
 
-Review-only. CP006 does not authorize Question Bank writes, scored tests, mocks, public/learner publication or production release.
+Human approval was recorded on **2026-09-26** for the CP006 full multi-question passage-set checkpoint. CP006 is registered in Question Studio in **review-only** mode. Question Bank writes, scored tests, mocks, learner/public publication, automatic publication and production release remain locked.
