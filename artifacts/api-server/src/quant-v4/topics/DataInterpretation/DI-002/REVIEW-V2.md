@@ -1,6 +1,6 @@
 # DI-002 Advanced Table V2 — Editorial Review (Difficulty Floor Revised)
 
-Status: **ENGLISH_REVIEW_CANDIDATE · HUMAN APPROVAL PENDING**
+Status: **ENGLISH_REVIEW_APPROVED · HUMAN APPROVED**
 
 This pack reflects the revised DI-002 V2 blueprint after removing trivial lookup-only questions.
 
