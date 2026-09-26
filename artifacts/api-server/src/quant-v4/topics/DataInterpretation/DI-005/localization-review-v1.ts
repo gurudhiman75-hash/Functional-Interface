@@ -4,6 +4,7 @@ import type { Di005V2ExamProfile, Di005V2Question, Di005V2Stimulus, Di005V2TaskK
 export type Di005LocalizationLocale = "hi-IN" | "pa-IN";
 
 export const DI005_LOCALIZATION_REVIEW_ID = "DI-005-HI-PA-REVIEW-V1" as const;
+export const DI005_LOCALIZATION_RELEASE_ID = "DI-005-HI-PA-FROZEN-V1" as const;
 
 type LocalizedContext = Readonly<{
   hi: Readonly<{
@@ -403,22 +404,24 @@ export function localizeDi005Question(
     language: locale === "hi-IN" ? "hi" as const : "pa" as const,
     locale,
     localizationReviewId: DI005_LOCALIZATION_REVIEW_ID,
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
+    localizationReleaseId: DI005_LOCALIZATION_RELEASE_ID,
+    localizationStatus: "HI_PA_FROZEN" as const,
     sourceEnglishStatus: "ENGLISH_REVIEW_APPROVED" as const,
     stimulus,
     question: {
       ...question,
       stem: localizedStem(question, source.stimulus, locale),
       options,
+      optionMetadata: question.optionMetadata.map((option, index) => ({ ...option, text: options[index]! })),
       answer,
       explanation: explanationFor(question, source.stimulus, locale),
     },
     validation: source.validation,
     traceability: {
       ...source.traceability,
-      reviewStatus: "MULTILINGUAL_REVIEW_CANDIDATE" as const,
-      localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
-      questionStudioDiscoverable: false as const,
+      reviewStatus: "MULTILINGUAL_FROZEN" as const,
+      localizationStatus: "HI_PA_FROZEN" as const,
+      questionStudioDiscoverable: true as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,
       testEligibility: "INELIGIBLE" as const,
