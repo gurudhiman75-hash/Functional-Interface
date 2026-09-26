@@ -300,7 +300,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only 95°E falls between the limits",
       "Neither longitude falls between the limits"
     ],
-    "explanation": "India's stated mainland longitudes run from 68°7'E to 97°25'E. Both 70°E and 95°E lie numerically within that longitude range, though this alone does not prove that every point on those meridians is Indian territory.",
+    "explanation": "Mainland India extends from 68°7'E to 97°25'E in longitude. Both 70°E and 95°E lie numerically within that longitude range, though this alone does not prove that every point on those meridians is Indian territory.",
     "sourceFactIds": [
       "LONGITUDE-INTERVAL-INTERPRETATION"
     ]
@@ -844,7 +844,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "The eastern longitude limit",
       "The northern latitude limit"
     ],
-    "explanation": "The longitude 80°E lies within India's stated mainland east–west interval, but 5°N is south of the mainland's 8°4'N southern latitude limit. The failure is therefore latitudinal.",
+    "explanation": "The longitude 80°E lies within mainland India's east–west range, but 5°N is south of the 8°4'N southern latitude limit. The failure is therefore latitudinal.",
     "sourceFactIds": [
       "COORDINATE-SOUTH-EXCLUSION"
     ]
@@ -904,7 +904,7 @@ export const GEO_LOC_001_CP001_REVIEW_BATCH_V1: readonly GeoLoc001Question[] = O
   }),
 );
 
-const BANNED = /associated with|best describes|described as|in the context of|\bbroad(?:ly)?\b|\bmainly\b|sourceFact|runtimeRegistered|review-only|generator/i;
+const BANNED = /associated with|best describes|described as|in the context of|\bbroad(?:ly)?\b|\bmainly\b|given in NCERT|\bNCERT\b|\btextbook\b|stated mainland|sourceFact|runtimeRegistered|review-only|generator/i;
 const TRIVIAL_DISTRACTOR = /currency|literacy rate|stock market|crop price|movie|sports team|bank rate|tax slab/i;
 
 export function auditGeoLoc001Cp001ReviewBatchV1() {
