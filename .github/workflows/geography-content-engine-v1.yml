@@ -352,6 +352,81 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      - name: Run GEO-VEG-001 Final qualification gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for cp in 011 012; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp${cp}-review-batch-v1.test.ts" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/geo-veg-001-cp${cp}-review-batch-v1.test.mjs"
+            node "artifacts/api-server/dist/geography/geo-veg-001-cp${cp}-review-batch-v1.test.mjs"
+          done
+          pnpm --dir artifacts/api-server exec esbuild \
+            "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp013-mastery-v1.test.ts" \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile="dist/geography/geo-veg-001-cp013-mastery-v1.test.mjs"
+          node "artifacts/api-server/dist/geography/geo-veg-001-cp013-mastery-v1.test.mjs"
+
+      - name: Materialize GEO-VEG-001 final review artifacts
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for cp in 011 012 013; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp${cp}-export-review-v1.ts" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/geo-veg-001-cp${cp}-export-review-v1.mjs"
+            (cd artifacts/api-server && node "dist/geography/geo-veg-001-cp${cp}-export-review-v1.mjs")
+          done
+
+      - name: Upload GEO-VEG-001 CP011 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP011-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP011-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-VEG-001 CP012 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP012-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP012-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload GEO-VEG-001 CP013 mastery artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP013-MASTERY-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP013-V1/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Run GEO-VEG-001 chapter contract audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-chapter-audit-v1.test.ts" \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile="dist/geography/geo-veg-001-chapter-audit-v1.test.mjs"
+          node "artifacts/api-server/dist/geography/geo-veg-001-chapter-audit-v1.test.mjs"
+
+      - name: Materialize GEO-VEG-001 closure candidate
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-export-closure-candidate-v1.ts" \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile="dist/geography/geo-veg-001-export-closure-candidate-v1.mjs"
+          (cd artifacts/api-server && node "dist/geography/geo-veg-001-export-closure-candidate-v1.mjs")
+
+      - name: Upload GEO-VEG-001 closure candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CLOSURE-CANDIDATE-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CLOSURE-CANDIDATE-V1/
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Run GEO-SOI-001 CP001 and CP002 qualification gates
         run: |
           mkdir -p artifacts/api-server/dist/geography

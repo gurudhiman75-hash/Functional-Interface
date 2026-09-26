@@ -347,8 +347,8 @@ function cycleExplanation(question: ReviewQuestionV22, language: FigureMatrixLan
 
   if (language === "hi") return Object.freeze({
     ...question.explanation,
-    rule: `पंक्तियों और स्तंभों दोनों में यही चक्र दोहरता है: ${cycle}।`,
-    worked: "एक पूरी पंक्ति और एक पूरा स्तंभ दोनों एक-एक कदम आगे बढ़ते हैं; इसलिए दोनों दिशाएँ उसी चक्र की स्वतंत्र जाँच देती हैं।",
+    rule: `पंक्तियों और कॉलमों दोनों में यही चक्र दोहरता है: ${cycle}।`,
+    worked: "एक पूरी पंक्ति और एक पूरा कॉलम दोनों एक-एक कदम आगे बढ़ते हैं; इसलिए दोनों दिशाएँ उसी चक्र की स्वतंत्र जाँच देती हैं।",
     application: `दोनों दिशाओं से चक्र आगे बढ़ाने पर रिक्त खाने में ${target} मिलता है, जो विकल्प ${question.answer} से मेल खाता है।`,
   });
   if (language === "pa") return Object.freeze({

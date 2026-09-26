@@ -5,6 +5,7 @@ import { SIF_CP006_PROFILE_BY_AUTHORITY_ID } from "./cp006-purpose-authorities.t
 import { SIF_CP007_PROFILE_BY_AUTHORITY_ID } from "./cp007-negative-authorities.ts";
 import { SIF_CP008_PROFILE_BY_AUTHORITY_ID } from "./cp008-contextual-authorities.ts";
 import { SIF_CP009_PROFILE_BY_AUTHORITY_ID } from "./cp009-data-authorities.ts";
+import { SIF_CP010_PROFILE_BY_AUTHORITY_ID } from "./cp010-conditional-authorities.ts";
 import { generateSifQuestion } from "./generator.ts";
 import { listSifAuthorities } from "./authorities.ts";
 import type { GeneratedSifQuestion, SifCpId, SifDifficulty, SifLocale } from "./types.ts";
@@ -26,10 +27,11 @@ const CP006_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM:
 const CP007_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 12 };
 const CP008_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 12 };
 const CP009_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 24, HARD: 0 };
+const CP010_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 12 };
 
 export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly locale: SifLocale; readonly seed?: number }): SifReviewPack {
   const baseSeed = input.seed ?? 10_001;
-  const target = input.cpId === "SIF-CP003" ? CP003_TARGET : input.cpId === "SIF-CP004" ? CP004_TARGET : input.cpId === "SIF-CP005" ? CP005_TARGET : input.cpId === "SIF-CP006" ? CP006_TARGET : input.cpId === "SIF-CP007" ? CP007_TARGET : input.cpId === "SIF-CP008" ? CP008_TARGET : input.cpId === "SIF-CP009" ? CP009_TARGET : DEFAULT_TARGET;
+  const target = input.cpId === "SIF-CP003" ? CP003_TARGET : input.cpId === "SIF-CP004" ? CP004_TARGET : input.cpId === "SIF-CP005" ? CP005_TARGET : input.cpId === "SIF-CP006" ? CP006_TARGET : input.cpId === "SIF-CP007" ? CP007_TARGET : input.cpId === "SIF-CP008" ? CP008_TARGET : input.cpId === "SIF-CP009" ? CP009_TARGET : input.cpId === "SIF-CP010" ? CP010_TARGET : DEFAULT_TARGET;
   const requested = { ...target };
   const effective: Record<SifDifficulty, number> = { EASY: 0, MEDIUM: 0, HARD: 0 };
   const questions: GeneratedSifQuestion[] = [];
@@ -81,6 +83,24 @@ export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly l
         const offset = (index - (Math.abs(baseSeed) % pool.length) + pool.length) % pool.length;
         const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed: baseSeed + offset });
         if (question.scenarioId !== authority.id) throw new Error(`SIF-CP007: deterministic review selection mismatch for ${authority.id}`);
+        questions.push(question);
+        usedScenarioIds.add(question.scenarioId);
+        effective[question.difficulty] += 1;
+      }
+    }
+    return { chapterId: "SIF-001", cpId: input.cpId, locale: input.locale, requestedDistribution: requested, effectiveDistribution: effective, questions };
+  }
+  if (input.cpId === "SIF-CP010") {
+    const pool = listSifAuthorities(input.cpId);
+    const families = [...new Set(pool.map((authority) => SIF_CP010_PROFILE_BY_AUTHORITY_ID[authority.id].family))];
+    for (const family of families) {
+      const authorities = pool.filter((authority) => SIF_CP010_PROFILE_BY_AUTHORITY_ID[authority.id].family === family);
+      if (authorities.length !== 3) throw new Error(`SIF-CP010: expected three authorities for ${family}`);
+      for (const authority of authorities) {
+        const index = pool.findIndex((entry) => entry.id === authority.id);
+        const offset = (index - (Math.abs(baseSeed) % pool.length) + pool.length) % pool.length;
+        const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed: baseSeed + offset });
+        if (question.scenarioId !== authority.id) throw new Error(`SIF-CP010: deterministic review selection mismatch for ${authority.id}`);
         questions.push(question);
         usedScenarioIds.add(question.scenarioId);
         effective[question.difficulty] += 1;

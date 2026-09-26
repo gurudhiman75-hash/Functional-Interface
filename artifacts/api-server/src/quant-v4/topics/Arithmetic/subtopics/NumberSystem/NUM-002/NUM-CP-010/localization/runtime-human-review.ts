@@ -11,6 +11,7 @@ function numericState(value: unknown, key: string): number {
 function polish(value: string, language: NumCp010LocalizedLanguage): string {
   if (language === "hi") {
     return value
+      .replaceAll("स्तंभ", "कॉलम")
       .replace(/सैकड़ा स्थान से (\d+) बार/gu, "सैकड़ा स्थान पर $1 बार")
       .replace(/हर पूरे 100-संख्या खंड में/gu, "100 संख्याओं के हर पूरे खंड में");
   }

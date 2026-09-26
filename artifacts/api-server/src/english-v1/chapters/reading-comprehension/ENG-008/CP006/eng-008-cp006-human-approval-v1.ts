@@ -1,0 +1,16 @@
+export const ENG008_CP006_HUMAN_EDITORIAL_APPROVAL_V1=Object.freeze({
+ authorityId:"ENG-008-CP006-HUMAN-EDITORIAL-APPROVAL-V1" as const,
+ chapterId:"ENG-008" as const,
+ cpId:"ENG-008-CP006" as const,
+ approvedMergedSha:"8855a32a9d341edf8ce5f1ca92fdc058599159f2" as const,
+ approvedOn:"2026-09-26" as const,
+ approvedScope:"Full multi-question passage sets across five approved RC profiles" as const,
+ questionStudioReviewOnlyAuthorized:true as const,
+ questionBankWritable:false as const,
+ testEligible:false as const,
+ mockTestEligible:false as const,
+ publiclyPublishable:false as const,
+ automaticStudentPublication:false as const,
+ productionReleaseAuthorized:false as const,
+ revisionPolicy:"SOURCE_GENERATOR_ONLY" as const,
+});

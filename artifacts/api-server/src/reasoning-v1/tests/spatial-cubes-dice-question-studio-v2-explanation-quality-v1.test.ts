@@ -74,6 +74,8 @@ function assertSolution(question: CubesDiceQuestionStudioQuestionV2): void {
   assert.ok(!studentSurface.includes("the stable stack has column heights"), `${prefix}: rejected V3-style matrix prose returned.`);
   assert.ok(!studentSurface.includes("checking all six neighbours of every occupied cube"), `${prefix}: rejected solver-note prose returned.`);
   assert.ok(!studentSurface.includes("merge occupied cubes"), `${prefix}: rejected projection solver-note prose returned.`);
+  if (question.language === "hi") assert.doesNotMatch(studentSurface, /स्तंभ/u, `${prefix}: use plain cube-stack wording instead of literal स्तंभ`);
+  if (question.language === "pa") assert.doesNotMatch(studentSurface, /ਸਤੰਭ/u, `${prefix}: use plain cube-stack wording instead of literal ਸਤੰਭ`);
 
   if (question.qlId === "SPA-QL-043") {
     assert.ok(solution.tables.some((table) => table.rows.length === 2 && table.headers.length === 4), `${prefix}: dice solution must show the two views.`);

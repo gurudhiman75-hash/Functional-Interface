@@ -132,7 +132,7 @@ function localizedColumns(
     : source && /transaction|stage/i.test(source)
       ? labels.transactionColumns
       : labels.tableColumns;
-  return englishColumns.map((_, index) => preferred[index] ?? (language === "hi" ? `स्तंभ ${index + 1}` : `ਕਾਲਮ ${index + 1}`));
+  return englishColumns.map((_, index) => preferred[index] ?? (language === "hi" ? `कॉलम ${index + 1}` : `ਕਾਲਮ ${index + 1}`));
 }
 
 function nativeClaims(

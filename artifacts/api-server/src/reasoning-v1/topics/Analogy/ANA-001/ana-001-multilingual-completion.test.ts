@@ -131,6 +131,8 @@ for (const checkpoint of COVERAGE) {
     const source = readFileSync(join(root, sourcePath), "utf8");
     assert.ok(source.length > 50, `${sourcePath} must contain localized source material`);
     const words = gurmukhiWords(source);
+    assert.ok(!source.includes("स्तंभ"), `${sourcePath} should use कॉलम for learner-facing grid columns`);
+    assert.ok(!source.includes("ਸਤੰਭ"), `${sourcePath} should use ਕਾਲਮ for learner-facing grid columns`);
     for (const forbidden of forbiddenPunjabiEditorialTerms) {
       assert.ok(
         !words.has(forbidden),

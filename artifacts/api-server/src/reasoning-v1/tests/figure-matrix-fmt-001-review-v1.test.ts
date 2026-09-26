@@ -175,6 +175,8 @@ for (const qlId of qls) {
           assert.equal(localizedLearnerText.includes(phrase), false, `${qlId}/${seed}/${language} must not embed English explanation phrase '${phrase}'`);
         }
       }
+      if (language === "hi") assert.doesNotMatch(localizedLearnerText, /स्तंभ/u, `${qlId}/${seed}/hi must use कॉलम for matrix columns`);
+      if (language === "pa") assert.doesNotMatch(localizedLearnerText, /ਸਤੰਭ/u, `${qlId}/${seed}/pa must use ਕਾਲਮ for matrix columns`);
     }
   }
 }

@@ -117,10 +117,10 @@ function localizedRule(language: FigureMatrixLanguageV1, operation: string, para
     if (operation === "SUM") return "हर पंक्ति में तीसरे खाने के बिंदुओं की संख्या पहले और दूसरे खाने के बिंदुओं का योग है।";
     if (operation === "ABSOLUTE_DIFFERENCE") return "हर पंक्ति में तीसरे खाने के बिंदुओं की संख्या पहले दो खानों की संख्याओं का अंतर है।";
     if (operation === "DOUBLE_FIRST_PLUS_SECOND") return "हर पंक्ति में पहले खाने की संख्या को दो गुना करके दूसरे खाने की संख्या जोड़ने पर तीसरे खाने की संख्या मिलती है।";
-    if (operation === "CYCLIC_SHIFT") return "आकृति, दिशा या स्थान एक निश्चित चक्र में क्रमशः आगे बढ़ता है और यही क्रम पंक्तियों व स्तंभों दोनों में बना रहता है।";
-    if (operation === "ROW_ATTRIBUTE_PLUS_COLUMN_ATTRIBUTE") return "हर खाने में दो स्वतंत्र संकेत मिलते हैं—एक गुण पंक्ति से और दूसरा स्तंभ से तय होता है।";
+    if (operation === "CYCLIC_SHIFT") return "आकृति, दिशा या स्थान एक निश्चित चक्र में क्रमशः आगे बढ़ता है और यही क्रम पंक्तियों व कॉलमों दोनों में बना रहता है।";
+    if (operation === "ROW_ATTRIBUTE_PLUS_COLUMN_ATTRIBUTE") return "हर खाने में दो स्वतंत्र संकेत मिलते हैं—एक गुण पंक्ति से और दूसरा कॉलम से तय होता है।";
     if (operation === "ROTATE_AND_MOVE") return "हर अगले खाने में दो परिवर्तन साथ-साथ होते हैं—आकृति घूमती भी है और स्थान भी बदलती है।";
-    return "सभी पूर्ण पंक्तियों और स्तंभों में एक ही नियम दोहराया गया है।";
+    return "सभी पूर्ण पंक्तियों और कॉलमों में एक ही नियम दोहराया गया है।";
   }
   if (operation === "ROTATE") return `ਹਰ ਕਤਾਰ ਵਿੱਚ ਆਕ੍ਰਿਤੀ ਅਗਲੇ ਖਾਣੇ ਵਿੱਚ ${parameter} ਘੁੰਮਦੀ ਹੈ।`;
   if (operation === "UNION") return "ਹਰ ਕਤਾਰ ਵਿੱਚ ਤੀਜੇ ਖਾਣੇ ਵਿੱਚ ਪਹਿਲੇ ਦੋ ਖਾਣਿਆਂ ਦੀਆਂ ਸਾਰੀਆਂ ਦਿਖਾਈ ਦੇਣ ਵਾਲੀਆਂ ਰੇਖਾਵਾਂ ਸ਼ਾਮਲ ਹੁੰਦੀਆਂ ਹਨ।";
@@ -141,7 +141,7 @@ function localizedWorked(language: FigureMatrixLanguageV1, operation: string, ba
     if (["UNION", "XOR", "INTERSECTION"].includes(operation)) return "पहली दो पूरी पंक्तियों में पहले दो खानों की रेखाओं पर यही संयोजन नियम लगाने से तीसरा खाना ठीक बनता है।";
     if (["SUM", "ABSOLUTE_DIFFERENCE", "DOUBLE_FIRST_PLUS_SECOND"].includes(operation)) return "पहली दो पूरी पंक्तियों में बिंदुओं की गिनती पर यही संख्यात्मक संबंध सही बैठता है।";
     if (operation === "CYCLIC_SHIFT") return "हर पूरी पंक्ति में क्रम एक स्थान आगे बढ़ता है; अगली पंक्ति भी उसी चक्र के अगले स्थान से शुरू होती है।";
-    if (operation === "ROW_ATTRIBUTE_PLUS_COLUMN_ATTRIBUTE") return "पंक्ति में मुख्य आकृति समान रहती है, जबकि स्तंभ दूसरा गुण—दिशा, स्थान या गिनती—तय करता है।";
+    if (operation === "ROW_ATTRIBUTE_PLUS_COLUMN_ATTRIBUTE") return "पंक्ति में मुख्य आकृति समान रहती है, जबकि कॉलम दूसरा गुण—दिशा, स्थान या गिनती—तय करता है।";
     if (operation === "ROTATE_AND_MOVE") return "हर पूरी पंक्ति में दिशा और स्थान दोनों एक निश्चित कदम से साथ-साथ बदलते हैं।";
     return "पूरी पंक्तियाँ वही घूर्णन क्रम दोहराती हैं।";
   }
@@ -174,7 +174,7 @@ function localizedApplication(
     return `Applying both changes to the last visible arrow gives orientation ${rotation}° at the ${position} position. That is option ${answer}.`;
   }
   if (language === "en") return cleanEnglishInternalText(baseApplication);
-  if (language === "hi") return `अपूर्ण पंक्ति या स्तंभ में वही नियम लगाने पर विकल्प ${answer} वाली आकृति मिलती है।`;
+  if (language === "hi") return `अपूर्ण पंक्ति या कॉलम में वही नियम लगाने पर विकल्प ${answer} वाली आकृति मिलती है।`;
   return `ਅਧੂਰੀ ਕਤਾਰ ਜਾਂ ਕਾਲਮ ਵਿੱਚ ਉਹੀ ਨਿਯਮ ਲਗਾਉਣ ਨਾਲ ਵਿਕਲਪ ${answer} ਵਾਲੀ ਆਕ੍ਰਿਤੀ ਮਿਲਦੀ ਹੈ।`;
 }
 
@@ -222,7 +222,7 @@ export function generateFigureMatrixReviewQuestionV1_1(input: Readonly<{
     verification: input.language === "en"
       ? `${cleanEnglishInternalText(base.explanation.verification)}`
       : input.language === "hi"
-        ? `अन्य पूरी पंक्तियाँ/स्तंभ भी इसी नियम की पुष्टि करते हैं। इसलिए सही उत्तर विकल्प ${base.answer} है।`
+        ? `अन्य पूरी पंक्तियाँ/कॉलम भी इसी नियम की पुष्टि करते हैं। इसलिए सही उत्तर विकल्प ${base.answer} है।`
         : `ਹੋਰ ਪੂਰੀਆਂ ਕਤਾਰਾਂ/ਕਾਲਮ ਵੀ ਇਸੇ ਨਿਯਮ ਦੀ ਪੁਸ਼ਟੀ ਕਰਦੇ ਹਨ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ਵਿਕਲਪ ${base.answer} ਹੈ।`,
     distractorChecks: Object.freeze(base.solveFacts.distractorFailures.map((failure) => translateFailure(input.language, failure))),
   });

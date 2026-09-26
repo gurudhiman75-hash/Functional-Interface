@@ -12,7 +12,7 @@ const targetScript = {
   pa: /[\u0A00-\u0A7F]/u,
 } as const;
 const residualEnglish = /\b(?:what|which|find|last|unit|digit|digits|power|powers|cycle|answer|complete|set|positive|integer|choose|final|term|terms|sum|difference|product|residue|modulo|possible|impossible|range|count|given|only|therefore|because|position|positions)\b/iu;
-const terminologyDefect = /परस्पर सहभाज्य|सहभाज्य चक्र|शॉर्टकट|ਆਪਸ ਵਿੱਚ ਸਹਭਾਜੀ|ਸਹਭਾਜੀ ਚੱਕਰ|ਛੋਟਾ ਰਸਤਾ/u;
+const terminologyDefect = /परस्पर सहभाज्य|सहभाज्य चक्र|शॉर्टकट|घात-स्तंभ|ਆਪਸ ਵਿੱਚ ਸਹਭਾਜੀ|ਸਹਭਾਜੀ ਚੱਕਰ|ਛੋਟਾ ਰਸਤਾ|ਘਾਤ-ਸਤੰਭ/u;
 const implementationLeak = /prototype|generator|fingerprint|hidden state|source seed|authority package|question studio|question bank/iu;
 
 let packages = 0;

@@ -48,6 +48,7 @@ for (const qlId of NUM_CP010_PERMANENT_QL_IDS) {
       assert.doesNotMatch(learnerText, /ਸੈਂਕੜੇ ਦੇ ਸਥਾਨ ਤੋਂ \d+ ਵਾਰ/u, `${label}: stiff Punjabi hundreds-place wording`);
       assert.doesNotMatch(learnerText, /100-संख्या खंड/u, `${label}: stiff Hindi hundred-block wording`);
       assert.doesNotMatch(learnerText, /100-ਸੰਖਿਆ ਖੰਡ/u, `${label}: stiff Punjabi hundred-block wording`);
+      if (language === "hi") assert.doesNotMatch(learnerText, /स्तंभ/u, `${label}: literal pillar/column wording leaked into Hindi arithmetic`);
       if (q.temporaryPrototypeId === "NUM-CP010-PROT-018") {
         assert.match(q.stem, language === "hi" ? /^कुल कितनी दो-अंकीय संख्य/u : /^ਕੁੱਲ ਕਿੰਨੀਆਂ ਦੋ-ਅੰਕੀ ਸੰਖਿਆਵਾਂ/u, `${label}: multiplicity stem not human-refined`);
         assert.ok(q.options.every((option) => nativeScript[language].test(option.value)), `${label}: multiplicity options not localized`);

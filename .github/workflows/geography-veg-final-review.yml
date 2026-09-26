@@ -1,0 +1,92 @@
+name: Validate GEO-VEG-001 Final Review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/natural-vegetation-wildlife/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geo-veg-001-final-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-final:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Qualify CP011 and CP012
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for cp in 011 012; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp${cp}-review-batch-v1.test.ts" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/geo-veg-001-cp${cp}-review-batch-v1.test.mjs"
+            node "artifacts/api-server/dist/geography/geo-veg-001-cp${cp}-review-batch-v1.test.mjs"
+          done
+      - name: Qualify CP013 mastery
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp013-mastery-v1.test.ts" \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile="dist/geography/geo-veg-001-cp013-mastery-v1.test.mjs"
+          node "artifacts/api-server/dist/geography/geo-veg-001-cp013-mastery-v1.test.mjs"
+      - name: Materialize final review files
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for cp in 011 012 013; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-cp${cp}-export-review-v1.ts" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/geo-veg-001-cp${cp}-export-review-v1.mjs"
+            (cd artifacts/api-server && node "dist/geography/geo-veg-001-cp${cp}-export-review-v1.mjs")
+          done
+      - name: Run chapter contract audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-chapter-audit-v1.test.ts" \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile="dist/geography/geo-veg-001-chapter-audit-v1.test.mjs"
+          node "artifacts/api-server/dist/geography/geo-veg-001-chapter-audit-v1.test.mjs"
+
+      - name: Materialize chapter closure candidate
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            "src/knowledge-v1/indian-geography/natural-vegetation-wildlife/geo-veg-001-export-closure-candidate-v1.ts" \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile="dist/geography/geo-veg-001-export-closure-candidate-v1.mjs"
+          (cd artifacts/api-server && node "dist/geography/geo-veg-001-export-closure-candidate-v1.mjs")
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP011-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP011-V1/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP012-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP012-V1/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CP013-MASTERY-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CP013-V1/
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GEO-VEG-001-CLOSURE-CANDIDATE-V1
+          path: artifacts/api-server/dist/geography-review/GEO-VEG-001-CLOSURE-CANDIDATE-V1/
+          if-no-files-found: error
