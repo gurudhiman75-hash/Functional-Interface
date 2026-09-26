@@ -11,13 +11,9 @@ Arjun took it to the reception counter rather than leaving it near the lockers. 
 
 A few minutes later, the visitor came to reception looking for the missing token. He confirmed the locker number and described the blue wristband attached to it.
 
-Arjun noticed that the number alone had initially felt familiar because it was close to his own locker. That familiarity could have led him to make the wrong assumption.
+Arjun noticed that the number alone had initially felt familiar because it was close to his own locker. That familiarity could have led him to make the wrong assumption. The pool later added a small sign asking visitors to hand found tokens to reception. Staff explained that tokens often looked similar and could be moved easily if left on benches. The incident showed Arjun that a familiar number is not the same as personal ownership. Checking what he already had and then using the official issue record produced a clearer answer. He also realised that returning an object to a controlled point can be more reliable than leaving it where it happened to be found, especially in a shared space used by many people.
 
-The pool later added a small sign asking visitors to hand found tokens to reception. Staff explained that tokens often looked similar and could be moved easily if left on benches.
-
-The incident showed Arjun that a familiar number is not the same as personal ownership. Checking what he already had and then using the official issue record produced a clearer answer.
-
-He also realised that returning an object to a controlled point can be more reliable than leaving it where it happened to be found, especially in a shared space used by many people.`,
+ The receptionist later reviewed the token-return process and found that most lost tokens were handed in within ten minutes when a clear return point was available. Problems lasted longer when people left tokens on benches or windowsills, where they could be moved again. The pool therefore kept the sign and also reminded staff to record the exact locker number before placing a token in lost property. This created a simple chain of information from discovery to return. Arjun noticed that the system did not need a complicated tracking app; it only needed a dependable place and a record that connected the token to the right locker.`,
  questions:[
  q("N08-Q1","BP-F01","easy","How did Arjun know the loose token was not his?","He found his own token still in his pocket",["The receptionist told him first","The token was a different colour","His locker was empty"],"The passage directly states that his own token was still with him.","found his own token still there"),
  q("N08-Q2","BP-F02","medium","Why did the loose token initially seem familiar?","Its number was close to Arjun's locker row",["It had Arjun's name","It was attached to his bag","He had used it before"],"The number matched the row where his locker was located.","number ... matched the row"),
@@ -40,13 +36,9 @@ The garden committee introduced reusable checkout cards. Each card showed the to
 
 During the next six weeks, fewer tools were left unaccounted for at closing time. Volunteers also found it easier to see which items were already in use.
 
-The system still depended on people remembering to move the card back when they returned a tool. The committee placed the return slot beside the shed door so the final step happened naturally at the point of return.
+The system still depended on people remembering to move the card back when they returned a tool. The committee placed the return slot beside the shed door so the final step happened naturally at the point of return. One volunteer suggested locking every tool to a numbered rack, but the group decided that stronger control was unnecessary while the simpler process was working. The committee also kept a small notebook for damaged tools because a returned item was not always ready for immediate use. This separated location tracking from maintenance status. By the end of the trial, the garden had not added technology or extra supervision. It had simply made responsibility visible long enough for everyone to know where shared equipment was supposed to be.
 
-One volunteer suggested locking every tool to a numbered rack, but the group decided that stronger control was unnecessary while the simpler process was working.
-
-The committee also kept a small notebook for damaged tools because a returned item was not always ready for immediate use. This separated location tracking from maintenance status.
-
-By the end of the trial, the garden had not added technology or extra supervision. It had simply made responsibility visible long enough for everyone to know where shared equipment was supposed to be.`,
+ The committee later reviewed how often tools were actually overdue rather than merely hard to locate. Most delays came from people returning equipment to the wrong shelf, not from keeping it beyond the expected time. The garden therefore added small matching numbers to the shelf spaces as well as to the checkout cards. This reduced searching after return. Volunteers also agreed that the system should stay simple enough to use with muddy hands and during busy work sessions. The committee rejected a phone-based form because it would add friction for a problem that the physical cards were already solving reasonably well.`,
  questions:[
  q("S07-Q1","BP-F01","easy","What information was written on the new checkout cards?","Tool number, volunteer initials and expected return time",["Tool price, brand and colour","Only the volunteer's first name","Garden opening hours"],"The third paragraph lists the three fields.","tool number, volunteer initials and expected return time"),
  q("S07-Q2","BP-F02","medium","Why was the return slot placed beside the shed door?","To make the final checkout step easier to remember",["To store damaged tools","To reduce garden size","To lock every tool"],"The passage says the step happened naturally at the point of return.","final step happened naturally"),
@@ -69,13 +61,9 @@ The class repeated the test on another day and obtained the same general ranking
 
 Their teacher warned them not to conclude that brightness was the only factor affecting battery life in normal use. Wireless connections, background apps, processor activity and battery age can also matter.
 
-The students then ran a second small test with Wi-Fi switched on. Battery use rose across all brightness levels, but the high-brightness group still used more power.
+The students then ran a second small test with Wi-Fi switched on. Battery use rose across all brightness levels, but the high-brightness group still used more power. The experiment also revealed a measurement issue. One tablet had a battery-health reading slightly lower than the others, so the class excluded it from one comparison and noted the reason. Students discussed whether very low brightness would always be best. They realised that a setting that saves power but makes text difficult to read may not be practical. The class concluded that brighter screens increased battery drain under their controlled conditions, but useful settings must balance power use with visibility and other real-world demands.
 
-The experiment also revealed a measurement issue. One tablet had a battery-health reading slightly lower than the others, so the class excluded it from one comparison and noted the reason.
-
-Students discussed whether very low brightness would always be best. They realised that a setting that saves power but makes text difficult to read may not be practical.
-
-The class concluded that brighter screens increased battery drain under their controlled conditions, but useful settings must balance power use with visibility and other real-world demands.`,
+ The class extended the experiment by testing automatic brightness on two tablets near a window. The setting changed as room light varied, so battery use was less predictable than in the fixed-brightness groups. Students realised that a convenient feature can improve visibility while making controlled comparison harder. They also checked whether video volume changed the result and found only a small effect under their test conditions. Their teacher used the experiment to show why laboratory conclusions should state exactly what was held constant. The class could confidently say that brighter fixed screens used more power in their setup, but not that brightness alone determines battery life in every real situation.`,
  questions:[
  q("SC06-Q1","BP-F01","easy","Which tablets lost the most battery charge?","Those using high brightness",["Those using low brightness","All tablets equally","Only the Wi-Fi-off tablets"],"The second paragraph states this directly.","high-brightness tablets had lost the most"),
  q("SC06-Q2","BP-F02","medium","What can be inferred from the Wi-Fi test?","Brightness still mattered even when another source of battery use was added",["Wi-Fi removed the brightness effect","Battery use became identical","Only Wi-Fi affects battery life"],"All groups used more power, but high brightness still used the most.","still used more power"),
@@ -98,13 +86,9 @@ Instead of making every appointment longer, the shop added a fifteen-minute buff
 
 During the next month, later customers waited less often, even though the number of daily bookings changed very little.
 
-The buffer was not perfect. If several complex garments were scheduled together, delays could still accumulate. The receptionist therefore spread those appointments across the day when possible.
+The buffer was not perfect. If several complex garments were scheduled together, delays could still accumulate. The receptionist therefore spread those appointments across the day when possible. The shop also began noting the expected fitting type when customers booked. This improved scheduling before the garment reached the fitting room. Some customers asked why a fifteen-minute gap appeared on the calendar. Staff explained that it was not idle time guaranteed to remain unused; it was protection against predictable variation. The owner concluded that scheduling works better when time is matched to the type of work rather than forcing every task into one identical slot. The shop kept the buffer for complex fittings and planned to review the pattern again after festival season.
 
-The shop also began noting the expected fitting type when customers booked. This improved scheduling before the garment reached the fitting room.
-
-Some customers asked why a fifteen-minute gap appeared on the calendar. Staff explained that it was not idle time guaranteed to remain unused; it was protection against predictable variation.
-
-The owner concluded that scheduling works better when time is matched to the type of work rather than forcing every task into one identical slot. The shop kept the buffer for complex fittings and planned to review the pattern again after festival season.`,
+ The owner later compared customer satisfaction before and after the buffer system. Customers mainly noticed the change indirectly: fewer appointments began late, even though they were not always aware that extra time had been reserved earlier in the schedule. Staff also found that buffers could be shortened when a complex fitting finished quickly because the receptionist could call the next customer if that person had already arrived. This kept the schedule flexible rather than wasting time mechanically. The shop decided to keep tracking actual fitting duration by garment type so the buffer rule could be adjusted from evidence instead of becoming a permanent guess.`,
  questions:[
  q("B09-Q1","BP-F01","easy","Which appointments most often ran beyond thirty minutes?","First fittings for heavily altered garments",["Simple final fittings","All morning bookings","Only children's garments"],"The second paragraph states this directly.","first fittings for heavily altered garments"),
  q("B09-Q2","BP-F02","medium","Why did the shop avoid making every appointment longer?","Only certain fitting types regularly needed extra time",["Customers disliked all long appointments","The calendar had no space","Final fittings were cancelled"],"The data showed variation by fitting type.","Simple final fittings usually finished early"),
