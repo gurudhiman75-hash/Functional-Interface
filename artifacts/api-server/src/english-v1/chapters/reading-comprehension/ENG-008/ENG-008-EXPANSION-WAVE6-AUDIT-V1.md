@@ -1,6 +1,6 @@
 # ENG-008 — Large-Pool Expansion Wave 6 — Audit V1
 
-Status: `HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__REVIEW_ONLY`
 
 ## Additions
 
@@ -47,3 +47,7 @@ Wave 6 adds distinct scenarios around:
 ## Lifecycle
 
 Review-only. No Question Bank writes, scored tests, mocks, learner/public publication, automatic publication or production release are authorized before human approval.
+
+## Approval
+
+Human approval was granted in chat on 2026-09-26 for completion and merge of Wave 6. Review-only downstream locks remain unchanged.
