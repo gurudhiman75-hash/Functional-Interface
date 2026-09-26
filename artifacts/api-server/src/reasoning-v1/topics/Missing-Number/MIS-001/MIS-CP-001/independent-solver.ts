@@ -27,7 +27,7 @@ export interface MisCp001AmbiguityAudit {
 }
 
 function bounded(value: number | null): number | null {
-  return value != null && Number.isInteger(value) && value >= 0 && value <= 999 ? value : null;
+  return value != null && Number.isInteger(value) && value > 0 && value <= 999 ? value : null;
 }
 
 export function independentlyEvaluateMisCp001Rule(
