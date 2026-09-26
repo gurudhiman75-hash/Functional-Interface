@@ -96,8 +96,9 @@ function candidateSupportsDifficulty(candidateId: MisCandidateId, difficulty: 'E
     return misCp001RuleByCandidateId(candidateId).difficulty === difficulty;
   }
   const rule = misCp002RuleByCandidateId(candidateId);
-  if (rule.ruleId === 'THREE_INPUT_SUM') return difficulty === 'Easy';
-  if (rule.ruleId === 'TWO_ADD_ONE_SUBTRACT') return true;
+  if (rule.ruleId === 'THREE_INPUT_SUM' || rule.ruleId === 'TWO_ADD_ONE_SUBTRACT') {
+    return difficulty === 'Easy';
+  }
   return difficulty === 'Medium';
 }
 
