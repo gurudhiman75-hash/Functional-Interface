@@ -160,10 +160,10 @@ function hindi(q: NumCp009PermanentPackage): LocalizedContent {
       return {
         stem: chooseStem(q,
           `${expression} का इकाई अंक क्या है?`,
-          `घात-स्तंभ ${expression} का अंतिम अंक ज्ञात कीजिए।`,
+          `घातीय व्यंजक ${expression} का अंतिम अंक ज्ञात कीजिए।`,
           `${expression} में ऊपर की घात को केवल बाहरी आधार के इकाई-अंक चक्र के अनुसार घटाइए। अंतिम अंक क्या है?`,
         ),
-        coreConcept: "घात-स्तंभ में बाहरी आधार का इकाई-अंक चक्र तय करता है कि ऊपर की घात को कितना सरल करना है।",
+        coreConcept: "घातीय व्यंजक में बाहरी आधार का इकाई-अंक चक्र तय करता है कि ऊपर की घात को कितना सरल करना है।",
         strategy: "बाहरी आधार का चक्र निकालें, ऊपर की घात का उस चक्र की लंबाई से अवशेष लें और सही चक्र स्थान पढ़ें।",
         steps: [`बाहरी आधार ${outerBase} का अंतिम अंक ${lastDigit} है और चक्र ${cycleText(cycle)} है।`, `${innerBase}^${innerExponent} = ${actualExponent}; चक्र लंबाई ${cycle.length} से इसका अवशेष ${effectiveResidue} है।`, effectiveResidue === 0 ? `अवशेष 0 होने पर चक्र का अंतिम स्थान लिया जाता है, जिससे ${answer} मिलता है।` : `चक्र का स्थान ${effectiveResidue} इकाई अंक ${answer} देता है।`],
         finalAnswer: `इकाई अंक ${answer} है।`,
@@ -432,7 +432,7 @@ function punjabi(q: NumCp009PermanentPackage): LocalizedContent {
     }
     case "NUM-CP009-PROT-004": {
       const outerBase = numberValue(s, "outerBase"); const innerBase = numberValue(s, "innerBase"); const innerExponent = numberValue(s, "innerExponent"); const actualExponent = numberValue(s, "actualExponent"); const effectiveResidue = numberValue(s, "effectiveResidue"); const lastDigit = ((outerBase % 10) + 10) % 10; const cycle = cycleFromLastDigit(lastDigit); const expression = `${outerBase}^(${innerBase}^${innerExponent})`;
-      return { stem: chooseStem(q, `${expression} ਦਾ ਇਕਾਈ ਅੰਕ ਕੀ ਹੈ?`, `ਘਾਤ-ਸਤੰਭ ${expression} ਦਾ ਆਖਰੀ ਅੰਕ ਕੱਢੋ।`, `${expression} ਵਿੱਚ ਉੱਪਰਲੀ ਘਾਤ ਨੂੰ ਸਿਰਫ਼ ਬਾਹਰੀ ਆਧਾਰ ਦੇ ਇਕਾਈ-ਅੰਕ ਚੱਕਰ ਅਨੁਸਾਰ ਘਟਾਓ। ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?`), coreConcept: "ਘਾਤ-ਸਤੰਭ ਵਿੱਚ ਬਾਹਰੀ ਆਧਾਰ ਦਾ ਇਕਾਈ-ਅੰਕ ਚੱਕਰ ਤੈਅ ਕਰਦਾ ਹੈ ਕਿ ਉੱਪਰਲੀ ਘਾਤ ਨੂੰ ਕਿੰਨਾ ਸਰਲ ਕਰਨਾ ਹੈ।", strategy: "ਬਾਹਰੀ ਆਧਾਰ ਦਾ ਚੱਕਰ ਕੱਢੋ, ਉੱਪਰਲੀ ਘਾਤ ਦਾ ਉਸ ਚੱਕਰ ਦੀ ਲੰਬਾਈ ਨਾਲ ਬਾਕੀ ਲਓ ਅਤੇ ਸਹੀ ਚੱਕਰ-ਸਥਾਨ ਪੜ੍ਹੋ।", steps: [`ਬਾਹਰੀ ਆਧਾਰ ${outerBase} ਦਾ ਆਖਰੀ ਅੰਕ ${lastDigit} ਹੈ ਅਤੇ ਚੱਕਰ ${cycleText(cycle)} ਹੈ।`, `${innerBase}^${innerExponent} = ${actualExponent}; ਚੱਕਰ ਲੰਬਾਈ ${cycle.length} ਨਾਲ ਬਾਕੀ ${effectiveResidue} ਹੈ।`, effectiveResidue === 0 ? `ਬਾਕੀ 0 ਹੋਣ ਤੇ ਚੱਕਰ ਦਾ ਆਖਰੀ ਸਥਾਨ ਲਿਆ ਜਾਂਦਾ ਹੈ, ਜਿਸ ਨਾਲ ${answer} ਮਿਲਦਾ ਹੈ।` : `ਚੱਕਰ ਦਾ ਸਥਾਨ ${effectiveResidue} ਇਕਾਈ ਅੰਕ ${answer} ਦਿੰਦਾ ਹੈ।`], finalAnswer: `ਇਕਾਈ ਅੰਕ ${answer} ਹੈ।` };
+      return { stem: chooseStem(q, `${expression} ਦਾ ਇਕਾਈ ਅੰਕ ਕੀ ਹੈ?`, `ਘਾਤਾਂ ਵਾਲਾ ਪ੍ਰਗਟਾਵਾ ${expression} ਦਾ ਆਖਰੀ ਅੰਕ ਕੱਢੋ।`, `${expression} ਵਿੱਚ ਉੱਪਰਲੀ ਘਾਤ ਨੂੰ ਸਿਰਫ਼ ਬਾਹਰੀ ਆਧਾਰ ਦੇ ਇਕਾਈ-ਅੰਕ ਚੱਕਰ ਅਨੁਸਾਰ ਘਟਾਓ। ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?`), coreConcept: "ਘਾਤਾਂ ਵਾਲਾ ਪ੍ਰਗਟਾਵਾ ਵਿੱਚ ਬਾਹਰੀ ਆਧਾਰ ਦਾ ਇਕਾਈ-ਅੰਕ ਚੱਕਰ ਤੈਅ ਕਰਦਾ ਹੈ ਕਿ ਉੱਪਰਲੀ ਘਾਤ ਨੂੰ ਕਿੰਨਾ ਸਰਲ ਕਰਨਾ ਹੈ।", strategy: "ਬਾਹਰੀ ਆਧਾਰ ਦਾ ਚੱਕਰ ਕੱਢੋ, ਉੱਪਰਲੀ ਘਾਤ ਦਾ ਉਸ ਚੱਕਰ ਦੀ ਲੰਬਾਈ ਨਾਲ ਬਾਕੀ ਲਓ ਅਤੇ ਸਹੀ ਚੱਕਰ-ਸਥਾਨ ਪੜ੍ਹੋ।", steps: [`ਬਾਹਰੀ ਆਧਾਰ ${outerBase} ਦਾ ਆਖਰੀ ਅੰਕ ${lastDigit} ਹੈ ਅਤੇ ਚੱਕਰ ${cycleText(cycle)} ਹੈ।`, `${innerBase}^${innerExponent} = ${actualExponent}; ਚੱਕਰ ਲੰਬਾਈ ${cycle.length} ਨਾਲ ਬਾਕੀ ${effectiveResidue} ਹੈ।`, effectiveResidue === 0 ? `ਬਾਕੀ 0 ਹੋਣ ਤੇ ਚੱਕਰ ਦਾ ਆਖਰੀ ਸਥਾਨ ਲਿਆ ਜਾਂਦਾ ਹੈ, ਜਿਸ ਨਾਲ ${answer} ਮਿਲਦਾ ਹੈ।` : `ਚੱਕਰ ਦਾ ਸਥਾਨ ${effectiveResidue} ਇਕਾਈ ਅੰਕ ${answer} ਦਿੰਦਾ ਹੈ।`], finalAnswer: `ਇਕਾਈ ਅੰਕ ${answer} ਹੈ।` };
     }
     case "NUM-CP009-PROT-005": {
       const base = numberValue(s, "base"); const lastDigit = numberValue(s, "lastDigit"); const cycle = numberArray(s, "cycle");
