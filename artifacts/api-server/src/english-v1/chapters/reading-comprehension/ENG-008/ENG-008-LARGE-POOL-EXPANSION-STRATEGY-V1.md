@@ -117,3 +117,14 @@ After Wave 8, the candidate core pool is **192 passages**. If quality gates cont
 - after Wave 11: 312 passages.
 
 These are planning waypoints, not hard targets. Expansion should continue only while new passages remain genuinely distinct in scenario, evidence structure, inference path and exam value.
+
+
+## Wave 9 checkpoint
+
+Wave 9 continues the 40-passage large-wave cadence.
+
+- Wave 9 addition: **40 passages / 336 governed authorities**
+- Candidate core pool after Wave 9: **232 passages**
+- Candidate governed-authority pool after Wave 9: **1,948 authorities**
+
+The pool remains novelty-limited rather than hard-capped. The next planning waypoint, if Wave 9 is approved and quality remains strong, is approximately **272 core passages after Wave 10**.
