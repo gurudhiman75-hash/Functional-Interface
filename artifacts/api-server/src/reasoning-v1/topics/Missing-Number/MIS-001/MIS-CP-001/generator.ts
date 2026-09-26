@@ -91,7 +91,7 @@ function generatedEvaluate(
   else if (ruleId === 'PRODUCT_PLUS_CONSTANT') value = first * second + k;
   else if (ruleId === 'PRODUCT_MINUS_CONSTANT') value = first * second - k;
   else if (ruleId === 'DIFFERENCE_PLUS_CONSTANT') value = Math.abs(first - second) + k;
-  return value != null && Number.isInteger(value) && value >= 0 && value <= 999 ? value : null;
+  return value != null && Number.isInteger(value) && value > 0 && value <= 999 ? value : null;
 }
 
 function validGroups(rule: MisCp001RuleDefinition, context: MisCp001RuleContext): MisNumberGroup[] {
