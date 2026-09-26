@@ -159,32 +159,35 @@ function localizedRelationFact(
     }
   }
 
-  const fraction = `${relation.numerator}/${relation.denominator}`;
+  const fraction = relation.denominator === 1 ? String(relation.numerator) : `${relation.numerator}/${relation.denominator}`;
+  const fractionPhrase = relation.denominator === 1
+    ? (hi ? `${fraction} गुना` : `${fraction} ਗੁਣਾ`)
+    : fraction;
   switch (stimulus.contextId) {
     case "SERVICE_BRANCHES":
       return hi
-        ? `${targetName} ने ${sourceName} की तुलना में ${fraction} गुना सेवा अनुरोध संभाले।`
-        : `${targetName} ਨੇ ${sourceName} ਦੀਆਂ ਸੇਵਾ ਬੇਨਤੀਆਂ ਦੇ ${fraction} ਦੇ ਬਰਾਬਰ ਬੇਨਤੀਆਂ ਸੰਭਾਲੀਆਂ।`;
+        ? `${targetName} ने ${sourceName} की तुलना में ${fractionPhrase} सेवा अनुरोध संभाले।`
+        : relation.denominator === 1 ? `${targetName} ਨੇ ${sourceName} ਨਾਲੋਂ ${fractionPhrase} ਸੇਵਾ ਬੇਨਤੀਆਂ ਸੰਭਾਲੀਆਂ।` : `${targetName} ਨੇ ${sourceName} ਦੀਆਂ ਸੇਵਾ ਬੇਨਤੀਆਂ ਦੇ ${fraction} ਦੇ ਬਰਾਬਰ ਬੇਨਤੀਆਂ ਸੰਭਾਲੀਆਂ।`;
     case "DEPARTMENT_EMPLOYEES":
       return hi
-        ? `${targetName} में कर्मचारियों की संख्या ${sourceName} की संख्या का ${fraction} है।`
-        : `${targetName} ਵਿੱਚ ਕਰਮਚਾਰੀਆਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਦੀ ਗਿਣਤੀ ਦਾ ${fraction} ਹੈ।`;
+        ? relation.denominator === 1 ? `${targetName} में कर्मचारियों की संख्या ${sourceName} की संख्या से ${fractionPhrase} है।` : `${targetName} में कर्मचारियों की संख्या ${sourceName} की संख्या का ${fraction} है।`
+        : relation.denominator === 1 ? `${targetName} ਵਿੱਚ ਕਰਮਚਾਰੀਆਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਨਾਲੋਂ ${fractionPhrase} ਹੈ।` : `${targetName} ਵਿੱਚ ਕਰਮਚਾਰੀਆਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਦੀ ਗਿਣਤੀ ਦਾ ${fraction} ਹੈ।`;
     case "COURSE_ENROLMENT":
       return hi
-        ? `${targetName} में छात्रों की संख्या ${sourceName} की संख्या का ${fraction} है।`
-        : `${targetName} ਵਿੱਚ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਦੀ ਗਿਣਤੀ ਦਾ ${fraction} ਹੈ।`;
+        ? relation.denominator === 1 ? `${targetName} में छात्रों की संख्या ${sourceName} की संख्या से ${fractionPhrase} है।` : `${targetName} में छात्रों की संख्या ${sourceName} की संख्या का ${fraction} है।`
+        : relation.denominator === 1 ? `${targetName} ਵਿੱਚ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਨਾਲੋਂ ${fractionPhrase} ਹੈ।` : `${targetName} ਵਿੱਚ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਦੀ ਗਿਣਤੀ ਦਾ ${fraction} ਹੈ।`;
     case "PRODUCT_OUTPUT":
       return hi
-        ? `${targetName} का उत्पादन ${sourceName} के उत्पादन का ${fraction} है।`
-        : `${targetName} ਦਾ ਉਤਪਾਦਨ ${sourceName} ਦੇ ਉਤਪਾਦਨ ਦਾ ${fraction} ਹੈ।`;
+        ? relation.denominator === 1 ? `${targetName} का उत्पादन ${sourceName} के उत्पादन का ${fractionPhrase} है।` : `${targetName} का उत्पादन ${sourceName} के उत्पादन का ${fraction} है।`
+        : relation.denominator === 1 ? `${targetName} ਦਾ ਉਤਪਾਦਨ ${sourceName} ਦੇ ਉਤਪਾਦਨ ਨਾਲੋਂ ${fractionPhrase} ਹੈ।` : `${targetName} ਦਾ ਉਤਪਾਦਨ ${sourceName} ਦੇ ਉਤਪਾਦਨ ਦਾ ${fraction} ਹੈ।`;
     case "ORDER_CATEGORIES":
       return hi
-        ? `${targetName} में प्राप्त ऑर्डरों की संख्या ${sourceName} की संख्या का ${fraction} है।`
-        : `${targetName} ਵਿੱਚ ਪ੍ਰਾਪਤ ਆਰਡਰਾਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਦੀ ਗਿਣਤੀ ਦਾ ${fraction} ਹੈ।`;
+        ? relation.denominator === 1 ? `${targetName} में प्राप्त ऑर्डरों की संख्या ${sourceName} की संख्या से ${fractionPhrase} है।` : `${targetName} में प्राप्त ऑर्डरों की संख्या ${sourceName} की संख्या का ${fraction} है।`
+        : relation.denominator === 1 ? `${targetName} ਵਿੱਚ ਪ੍ਰਾਪਤ ਆਰਡਰਾਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਨਾਲੋਂ ${fractionPhrase} ਹੈ।` : `${targetName} ਵਿੱਚ ਪ੍ਰਾਪਤ ਆਰਡਰਾਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਦੀ ਗਿਣਤੀ ਦਾ ${fraction} ਹੈ।`;
     case "BOOK_CATEGORIES":
       return hi
-        ? `${targetName} में जारी पुस्तकों की संख्या ${sourceName} की संख्या का ${fraction} है।`
-        : `${targetName} ਵਿੱਚ ਜਾਰੀ ਕਿਤਾਬਾਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਦੀ ਗਿਣਤੀ ਦਾ ${fraction} ਹੈ।`;
+        ? relation.denominator === 1 ? `${targetName} में जारी पुस्तकों की संख्या ${sourceName} की संख्या से ${fractionPhrase} है।` : `${targetName} में जारी पुस्तकों की संख्या ${sourceName} की संख्या का ${fraction} है।`
+        : relation.denominator === 1 ? `${targetName} ਵਿੱਚ ਜਾਰੀ ਕਿਤਾਬਾਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਨਾਲੋਂ ${fractionPhrase} ਹੈ।` : `${targetName} ਵਿੱਚ ਜਾਰੀ ਕਿਤਾਬਾਂ ਦੀ ਗਿਣਤੀ ${sourceName} ਦੀ ਗਿਣਤੀ ਦਾ ${fraction} ਹੈ।`;
   }
   throw new Error("DI-006 localization unknown context.");
 }
@@ -204,7 +207,7 @@ function localizedRelationStep(
   if (Number.isInteger(differencePercent) && differencePercent !== 0 && Math.abs(differencePercent) <= 100) {
     return `${targetName} = ${sourceName} × ${100 + differencePercent}/100 = ${target} ${unit}।`;
   }
-  return `${targetName} = ${relation.numerator}/${relation.denominator} × ${sourceName} = ${target} ${unit}।`;
+  return relation.denominator === 1 ? `${targetName} = ${relation.numerator} × ${sourceName} = ${target} ${unit}।` : `${targetName} = ${relation.numerator}/${relation.denominator} × ${sourceName} = ${target} ${unit}।`;
 }
 
 function localizedDerivationSteps(
@@ -280,7 +283,7 @@ function localizedRemainderSentence(stimulus: Di006V2Stimulus, locale: Di006Loca
     case "COURSE_ENROLMENT": return hi ? `शेष छात्र ${name} में नामांकित हैं।` : `ਬਾਕੀ ਵਿਦਿਆਰਥੀ ${name} ਵਿੱਚ ਦਾਖ਼ਲ ਹਨ।`;
     case "PRODUCT_OUTPUT": return hi ? `शेष उत्पादन ${name} का है।` : `ਬਾਕੀ ਉਤਪਾਦਨ ${name} ਦਾ ਹੈ।`;
     case "ORDER_CATEGORIES": return hi ? `शेष ऑर्डर ${name} में प्राप्त हुए।` : `ਬਾਕੀ ਆਰਡਰ ${name} ਵਿੱਚ ਪ੍ਰਾਪਤ ਹੋਏ।`;
-    case "BOOK_CATEGORIES": return hi ? `शेष जारी पुस्तकें ${name} से हैं।` : `ਬਾਕੀ ਜਾਰੀ ਕਿਤਾਬਾਂ ${name} ਵਿੱਚੋਂ ਹਨ।`;
+    case "BOOK_CATEGORIES": return hi ? `शेष जारी पुस्तकें ${name} श्रेणी की हैं।` : `ਬਾਕੀ ਜਾਰੀ ਕਿਤਾਬਾਂ ${name} ਸ਼੍ਰੇਣੀ ਦੀਆਂ ਹਨ।`;
   }
   throw new Error("DI-006 localization unknown context.");
 }
