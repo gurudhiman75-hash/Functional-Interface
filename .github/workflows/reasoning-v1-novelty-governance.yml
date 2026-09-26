@@ -8,6 +8,8 @@ on:
       - artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-governance-v1.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-inventory-v1.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-provider-registry-v1.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-review-runtime-v1.test.ts
+      - artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-review-runtime-v1.ts
       - artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-provider-registry-v1.ts
       - artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-inventory-v1.ts
       - artifacts/api-server/src/reasoning-v1/shared/reasoning-final-audit-standard-v1.ts
@@ -66,6 +68,12 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/novelty/reasoning-novelty-provider-registry-v1.test.mjs
           node --test dist/reasoning-v1/novelty/reasoning-novelty-provider-registry-v1.test.mjs
+
+          pnpm exec esbuild \
+            src/reasoning-v1/tests/reasoning-novelty-review-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/novelty/reasoning-novelty-review-runtime-v1.test.mjs
+          node --test dist/reasoning-v1/novelty/reasoning-novelty-review-runtime-v1.test.mjs
 
           pnpm exec esbuild \
             src/reasoning-v1/tests/reasoning-final-audit-standard-v1.test.ts \
