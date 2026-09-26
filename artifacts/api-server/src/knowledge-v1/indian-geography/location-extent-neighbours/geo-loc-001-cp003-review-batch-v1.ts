@@ -130,7 +130,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Ahmedabad in Gujarat",
       "Guwahati in Assam"
     ],
-    "explanation": "The 82°30'E Standard Meridian passes through Mirzapur in Uttar Pradesh. This is the standard textbook location used to identify India's time-reference meridian.",
+    "explanation": "The 82°30'E Standard Meridian passes through Mirzapur in Uttar Pradesh. This place is commonly used to identify India's time-reference meridian in exam geography.",
     "sourceFactIds": [
       "IST-MIRZAPUR"
     ]
@@ -354,7 +354,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "10:30",
       "12:30"
     ],
-    "explanation": "IST is 5 hours 30 minutes ahead of UTC. Adding 5:30 to 06:00 gives 11:30 IST.",
+    "explanation": "IST is 5 hours 30 minutes ahead of UTC. Adding 5:30 to 06:00 gives 11:30 IST, so the Indian clock reads late morning.",
     "sourceFactIds": [
       "IST-UTC-CONVERSION-0600"
     ]
@@ -370,7 +370,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "13:30 UTC",
       "11:30 UTC"
     ],
-    "explanation": "To convert IST to UTC, subtract 5 hours 30 minutes. Subtracting 5:30 from 18:00 gives 12:30 UTC.",
+    "explanation": "To convert IST to UTC, subtract 5 hours 30 minutes. Subtracting 5:30 from 18:00 gives 12:30 UTC, which is the same instant on the UTC clock.",
     "sourceFactIds": [
       "IST-UTC-CONVERSION-1800"
     ]
@@ -402,7 +402,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "05:00 on Monday",
       "04:00 on Tuesday"
     ],
-    "explanation": "Adding 5 hours 30 minutes to 23:30 gives 05:00 after midnight. The clock therefore moves into Tuesday in India.",
+    "explanation": "Adding 5 hours 30 minutes to 23:30 gives 05:00 after midnight. Because the addition crosses 00:00, the date advances to Tuesday in India.",
     "sourceFactIds": [
       "IST-UTC-DATE-CHANGE"
     ]
@@ -530,7 +530,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "15°",
       "60°"
     ],
-    "explanation": "Fifteen degrees of longitude corresponds to one hour. A two-hour difference therefore corresponds to about 30°.",
+    "explanation": "Fifteen degrees of longitude corresponds to one hour of local solar time. A two-hour difference therefore represents about 30° of longitude.",
     "sourceFactIds": [
       "LONGITUDE-TIME-2H-DEGREES"
     ]
@@ -747,7 +747,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-026",
     "qlName": "Gujarat–Arunachal local-time difference",
     "difficulty": "Medium",
-    "stem": "The Gujarat–Arunachal local-time contrast is mainly evidence of India's large extent in which direction?",
+    "stem": "The Gujarat–Arunachal local-time contrast shows India's large extent in which direction?",
     "answer": "East to west",
     "distractors": [
       "North to south",
@@ -779,7 +779,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-026",
     "qlName": "Gujarat–Arunachal local-time difference",
     "difficulty": "Hard",
-    "stem": "If Gujarat's local solar time is about 08:00, what would the textbook two-hour approximation suggest for Arunachal Pradesh?",
+    "stem": "If Gujarat's local solar time is about 08:00, what would the usual two-hour approximation suggest for Arunachal Pradesh?",
     "answer": "About 10:00",
     "distractors": [
       "About 06:00",
@@ -818,7 +818,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Add 2 hours",
       "Subtract 30 minutes"
     ],
-    "explanation": "IST is UTC+5:30. Therefore converting from UTC to IST requires adding five hours and thirty minutes.",
+    "explanation": "IST is UTC+5:30. Therefore converting from UTC to IST requires adding five hours and thirty minutes to the UTC reading.",
     "sourceFactIds": [
       "MIXED-UTC-TO-IST-RULE"
     ]
@@ -850,7 +850,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "12:30",
       "18:00"
     ],
-    "explanation": "Indian Standard Time is five hours and thirty minutes ahead of UTC. Adding 5:30 to 12:00 gives 17:30 IST.",
+    "explanation": "Indian Standard Time is five hours and thirty minutes ahead of UTC. Adding 5:30 to 12:00 gives 17:30 IST, or 5:30 in the evening.",
     "sourceFactIds": [
       "MIXED-UTC-NOON-IST"
     ]
