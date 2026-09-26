@@ -166,10 +166,10 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlName": "Mainland latitudinal extent",
     "difficulty": "Medium",
     "stem": "A place lies at 40°N. How does this compare with mainland India's latitudinal extent?",
-    "answer": "It lies north of the stated mainland latitudinal limit",
+    "answer": "It lies north of mainland India's latitudinal extent",
     "distractors": [
-      "It lies within the stated mainland latitudinal limits",
-      "It lies south of the stated mainland latitudinal limits",
+      "It lies within mainland India's latitudinal extent",
+      "It lies south of mainland India's latitudinal extent",
       "It is a longitude, not a latitude"
     ],
     "explanation": "Mainland India's northern latitude limit is 37°6'N. A latitude of 40°N is farther north, so it falls outside mainland India's latitude range.",
@@ -262,10 +262,10 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlName": "Mainland longitudinal extent",
     "difficulty": "Medium",
     "stem": "A place lies at 100°E. How does this compare with mainland India's longitudinal extent?",
-    "answer": "It lies east of the stated mainland longitudinal limit",
+    "answer": "It lies east of mainland India's longitudinal extent",
     "distractors": [
-      "It lies within the stated mainland longitudinal limits",
-      "It lies west of the stated mainland longitudinal limits",
+      "It lies within mainland India's longitudinal extent",
+      "It lies west of mainland India's longitudinal extent",
       "It is a latitude, not a longitude"
     ],
     "explanation": "The eastern mainland limit is 97°25'E. A longitude of 100°E is farther east, so it falls outside mainland India's longitude range.",
@@ -421,7 +421,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-005",
     "qlName": "Standard Meridian of India",
     "difficulty": "Easy",
-    "stem": "The Standard Meridian of India passes through which place mentioned by NCERT?",
+    "stem": "Through which place does the Standard Meridian of India pass?",
     "answer": "Mirzapur in Uttar Pradesh",
     "distractors": [
       "Jaipur in Rajasthan",
@@ -661,14 +661,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-007",
     "qlName": "Area, world share and size rank",
     "difficulty": "Medium",
-    "stem": "Which fact about India's area is accurate?",
+    "stem": "Which statement matches India's position by area?",
     "answer": "India is the seventh-largest country by area in the world",
     "distractors": [
       "India is the world's largest country by area",
       "India covers about 24% of the world's geographical area",
       "India's area is about 0.328 million square kilometres"
     ],
-    "explanation": "India is placed seventh by area in NCERT's standard world comparison. Its area is about 3.28 million square kilometres, representing roughly 2.4% of world geographical area.",
+    "explanation": "India ranks seventh in the world by area. Its area is about 3.28 million square kilometres, representing roughly 2.4% of world geographical area.",
     "sourceFactIds": [
       "AREA-SIZE-INTERPRETATION"
     ]
