@@ -5,6 +5,8 @@ import { CLOCK_SOURCE_SATURATION_POLICY } from './runtime/source-saturation';
 import {
   CLK_001_PERMANENT_CONTRACTS,
   CLK_001_PERMANENT_FREEZE_VERSION,
+  CLK_001_DESIGN_ONLY_REPRESENTATION_QL_IDS,
+  CLK_001_EXTERNALLY_EVIDENCED_QL_IDS,
 } from './permanent-contracts';
 
 export const CLK_001_AUTHORING_COMPLETION_AUTHORITY_V1 = Object.freeze({
@@ -14,6 +16,9 @@ export const CLK_001_AUTHORING_COMPLETION_AUTHORITY_V1 = Object.freeze({
   targetExams: Object.freeze(['SSC', 'BANKING', 'PUNJAB_STATE'] as const),
   permanentQlCount: CLK_001_PERMANENT_CONTRACTS.length,
   permanentQlRange: 'CLK-QL-001..023' as const,
+  externallyEvidencedPermanentQlCount: CLK_001_EXTERNALLY_EVIDENCED_QL_IDS.length,
+  designOnlyRepresentationQlIds: Object.freeze([...CLK_001_DESIGN_ONLY_REPRESENTATION_QL_IDS]),
+  sourceEvidenceClaim: '22_EXTERNAL_OR_ADJACENT_SOURCE_AUTHORITIES__1_DESIGN_ONLY_REPRESENTATION_AUTHORITY' as const,
   sourceSaturationAcceptedForAuthoring: CLOCK_SOURCE_SATURATION_POLICY.sourceSaturationComplete,
   unresolvedSourceBackedHoldsResolved:
     CLOCK_EFFECTIVE_DISCOVERY_GATE_POLICY.unresolvedSourceBackedHoldsResolved,

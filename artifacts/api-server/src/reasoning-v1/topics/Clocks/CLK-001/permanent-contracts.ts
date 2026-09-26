@@ -73,6 +73,19 @@ export const CLK_001_PERMANENT_QL_IDS = CLK_001_PERMANENT_CONTRACTS.map(
   (contract) => contract.qlId,
 ) as ClockPermanentQlId[];
 
+export const CLK_001_DESIGN_ONLY_REPRESENTATION_QL_IDS =
+  CLK_001_PERMANENT_CONTRACTS
+    .filter((contract) =>
+      contract.sourceEvidenceRefs.length > 0 &&
+      contract.sourceEvidenceRefs.every((ref) => ref === 'CLK_V2_DESIGN'),
+    )
+    .map((contract) => contract.qlId) as ClockPermanentQlId[];
+
+export const CLK_001_EXTERNALLY_EVIDENCED_QL_IDS =
+  CLK_001_PERMANENT_QL_IDS.filter(
+    (qlId) => !CLK_001_DESIGN_ONLY_REPRESENTATION_QL_IDS.includes(qlId),
+  ) as ClockPermanentQlId[];
+
 export function getClockPermanentContract(qlId: ClockPermanentQlId): ClockPermanentContract {
   const contract = CLK_001_PERMANENT_CONTRACTS.find((candidate) => candidate.qlId === qlId);
   if (!contract) throw new Error('Unknown CLK-001 permanent QL: ' + qlId);

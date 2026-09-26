@@ -12,7 +12,7 @@ Permanent identities: `CLK-QL-001..023`
 - All 14 Clock checkpoints retained with deterministic exact solvers and independent verification paths.
 - The 100-row discovery/source-candidate registry remains preserved as audit history.
 - Source saturation is accepted for authoring against the audited corpus.
-- 23 source-backed semantic authority clusters are frozen as permanent learner QLs.
+- 23 permanent learner authority clusters are frozen. 22 have external/direct-or-adjacent source evidence; `CLK-QL-021` is retained as a normal-clock diagram representation authority under renderer/design governance rather than being presented as directly exam-sourced.
 - Merge/query/renderer variants remain owned by their permanent authority instead of becoming duplicate QLs.
 - Sparse advanced holds and internal-only verification rows remain excluded from learner authoring.
 - Semantic and item-level difficulty audits are retained; permanent QLs expose Easy/Medium/Hard authoring bands without claiming empirical student calibration.
