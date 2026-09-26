@@ -12,6 +12,7 @@ export interface GeneratedMisCp008Question {
   readonly ambiguityAudit:MisCp008AmbiguityAudit; readonly structuralFingerprint:string; readonly numericFingerprint:string;
   readonly operationDepth:1|2; readonly operandCount:2|3; readonly groupCount:number; readonly missingPosition:MisCp008MissingPosition;
   readonly forwardOrInverse:'FORWARD'|'INVERSE';
+  readonly semanticAuthorityCandidateId:string; readonly createsNewSemanticAuthority:boolean;
 }
 
 function hash(v:string):number{let h=2166136261;for(let i=0;i<v.length;i++){h^=v.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
@@ -102,6 +103,6 @@ export function generateMisCp008Question(candidateId:MisCp008CandidateId,seed:st
     ? 'Now use the same rule in reverse for the group with the question mark:'
     : 'Now apply the same rule to the group with the question mark:';
   const explanation=['The same rule is used in every group.',ruleWords(rule.ruleId),'','Look at the completed groups:',...sel.evidence.map(g=>calc(rule.ruleId,g)),'',targetInstruction,calc(rule.ruleId,sel.target),'',`So, ? = ${answer}.`].join('\n');
-  return{packageId:'MIS-001',checkpointId:'MIS-CP-008',candidateId,provisionalQl:true,ruleId:rule.ruleId,ruleFamily:rule.label,context:null,difficulty:rule.difficulty,renderer:rule.renderer,stem,evidenceGroups:sel.evidence,target:sel.target,figures,options,correctIndex,answer,explanation,solverTrace:[...sel.evidence.map(g=>calc(rule.ruleId,g)),calc(rule.ruleId,sel.target)],ambiguityAudit:sel.audit,structuralFingerprint:['MIS-CP-008',rule.ruleId,rule.renderer,missing,`ARITY_${rule.arity}`].join('|'),numericFingerprint:[...sel.evidence,sel.target].map(g=>`${g.first},${g.second},${g.third??'_'}:${g.result}`).join('|'),operationDepth:rule.operationDepth,operandCount:rule.arity,groupCount:sel.evidence.length+1,missingPosition:missing,forwardOrInverse:inverse?'INVERSE':'FORWARD'};
+  return{packageId:'MIS-001',checkpointId:'MIS-CP-008',candidateId,provisionalQl:true,ruleId:rule.ruleId,ruleFamily:rule.label,context:null,difficulty:rule.difficulty,renderer:rule.renderer,stem,evidenceGroups:sel.evidence,target:sel.target,figures,options,correctIndex,answer,explanation,solverTrace:[...sel.evidence.map(g=>calc(rule.ruleId,g)),calc(rule.ruleId,sel.target)],ambiguityAudit:sel.audit,structuralFingerprint:['MIS-CP-008',rule.ruleId,rule.renderer,missing,`ARITY_${rule.arity}`].join('|'),numericFingerprint:[...sel.evidence,sel.target].map(g=>`${g.first},${g.second},${g.third??'_'}:${g.result}`).join('|'),operationDepth:rule.operationDepth,operandCount:rule.arity,groupCount:sel.evidence.length+1,missingPosition:missing,forwardOrInverse:inverse?'INVERSE':'FORWARD',semanticAuthorityCandidateId:rule.semanticAuthorityCandidateId,createsNewSemanticAuthority:rule.createsNewSemanticAuthority};
 }
 export const MIS_CP008_CANDIDATE_IDS=Object.freeze(MIS_CP008_RULES.map(r=>r.candidateId));
