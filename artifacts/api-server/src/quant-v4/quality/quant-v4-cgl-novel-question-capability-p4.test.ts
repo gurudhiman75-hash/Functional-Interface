@@ -64,6 +64,7 @@ const global = auditNovelQuestionCapability(observations, {
   minCanonicalProblemBreadth: 8,
   minStateNoveltyRate: 0.70,
   minSeedSensitivityRate: 0.60,
+  maxCosmeticReskinRate: 0.15,
 });
 
 const packageIds = [...new Set(observations.map((row) => row.packageId))].sort();
@@ -79,6 +80,7 @@ const byPackage = packageIds.map((packageId) => {
       minCanonicalProblemBreadth: 1,
       minStateNoveltyRate: 0.60,
       minSeedSensitivityRate: 0.50,
+      maxCosmeticReskinRate: 0.20,
     }),
   };
 }).sort((left, right) =>
@@ -96,6 +98,7 @@ const packagesRequiringNoveltyRemediation = byPackage
     canonicalProblemBreadth: row.canonicalProblemBreadth,
     exactDuplicateRate: row.exact.duplicateRate,
     structuralDuplicateRate: row.structural.duplicateRate,
+    cosmeticReskinRate: row.cosmeticReskins.rate,
     heldOutStructuralNoveltyRate: row.heldOutStructuralNovelty.rate,
     stateEvidenceTier: row.state.tier,
     stateNoveltyRate: row.stateNoveltyRate,
@@ -120,6 +123,7 @@ console.log("QUANT_V4_CGL_NOVEL_QUESTION_CAPABILITY_P4", JSON.stringify({
       patternBreadth: row.patternBreadth,
       canonicalProblemBreadth: row.canonicalProblemBreadth,
       structuralDuplicateRate: row.structural.duplicateRate,
+      cosmeticReskinRate: row.cosmeticReskins.rate,
       heldOutStructuralNoveltyRate: row.heldOutStructuralNovelty.rate,
       stateEvidenceTier: row.state.tier,
       stateNoveltyRate: row.stateNoveltyRate,
