@@ -6,3 +6,6 @@ export * from "./line-set-v2";
 export * from "./independent-verifier-v2";
 export * from "./review-ql-registry-v2";
 export * from "./review-question-generator-v2";
+export * from "./permanent-ql-registry";
+export * from "./permanent-question-generator";
+export * from "./question-studio-adapter";
