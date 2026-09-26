@@ -14,7 +14,7 @@
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: IN_PROGRESS — CP001-CP019 merged; CP020-CP022 multilingual review candidate implemented
+- Localisation: IN_PROGRESS — CP001-CP022 merged; CP023-CP025 multilingual review candidate implemented
 
 ## Final closure audit
 
