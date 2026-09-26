@@ -162,7 +162,7 @@ export const PGK_001_MATCH_FOLLOWING_CONCEPTS_V1: readonly PgkMatchingConceptV1[
 const instructionByLocale: Record<PgkMatchingLocaleV1,string> = {
   en: "Match List I with List II and select the correct code.",
   hi: "सूची-1 को सूची-2 से मिलाइए और सही कूट चुनिए।",
-  pa: "ਸੂਚੀ-1 ਨੂੰ ਸੂਚੀ-2 ਨਾਲ ਮਿਲਾਓ ਅਤੇ ਸਹੀ ਕੋਡ ਚੁਣੋ।",
+  pa: "ਸੂਚੀ-1 ਨੂੰ ਸੂਚੀ-2 ਨਾਲ ਮਿਲਾਓ ਅਤੇ ਸਹੀ ਕੋਡ ਚੁਣੋ.",
 };
 
 function swap(mapping: Mapping4,a:number,b:number): Mapping4 {
