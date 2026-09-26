@@ -1,5 +1,6 @@
 import { quantV4QuestionStudioAdapter } from "../../../../question-studio/engines/quant-v4-adapter";
-import { DI006_PERMANENT_QLS, DI006_PERMANENT_RELEASE_ID } from "./permanent-ql-registry";\nimport { DI006_LOCALIZATION_RELEASE_ID } from "./localization-review-v1";
+import { DI006_PERMANENT_QLS, DI006_PERMANENT_RELEASE_ID } from "./permanent-ql-registry";
+import { DI006_LOCALIZATION_RELEASE_ID } from "./localization-review-v1";
 import {
   DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
   DI006_QUESTION_STUDIO_RUNTIME_MODE,
@@ -17,7 +18,8 @@ assert(card.cpIds.includes(DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID), "DI-006 
 assert(card.runtimeMode === DI006_QUESTION_STUDIO_RUNTIME_MODE, "DI-006 package card exposes the wrong runtime mode.");
 assert(card.questionBankStatus === "NOT_STORED" && card.questionBankWritable === false, "DI-006 must remain outside Question Bank writes.");
 assert(card.testEligibility === "INELIGIBLE" && card.testEligible === false && card.mockTestEligible === false, "DI-006 must remain ineligible for tests and mocks.");
-assert(card.publiclyPublishable === false && card.automaticStudentPublication === false && card.productionReleaseAuthorized === false, "DI-006 publication locks drifted.");\nassert(["en", "hi", "pa"].every((language) => card.supportedLanguages.includes(language as any)), "DI-006 package card must expose approved English, Hindi and Punjabi controlled-review languages.");
+assert(card.publiclyPublishable === false && card.automaticStudentPublication === false && card.productionReleaseAuthorized === false, "DI-006 publication locks drifted.");
+assert(["en", "hi", "pa"].every((language) => card.supportedLanguages.includes(language as any)), "DI-006 package card must expose approved English, Hindi and Punjabi controlled-review languages.");
 
 const seen = new Set<string>();
 for (const descriptor of DI006_PERMANENT_QLS) {
