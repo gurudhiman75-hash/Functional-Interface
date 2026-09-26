@@ -39,8 +39,8 @@ export function isDi004QuestionStudioRequest(request: Di004QuestionStudioRequest
   const subtopic = normalizeSelector(request.subtopic);
   const qlId = String(request.questionLanguageId ?? "").trim().toUpperCase();
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
-  return packageId === "di 002"
-    || patternId === "di 002"
+  return packageId === "di 004"
+    || patternId === "di 004"
     || Boolean(getDi004PermanentQl(qlId))
     || cpId === DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID
     || (topic === "data interpretation" && ["line graph", "line graph di", "line chart", "line di"].includes(subtopic));
