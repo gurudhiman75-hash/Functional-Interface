@@ -3,14 +3,20 @@ export const REASONING_V1_NOVELTY_GOVERNANCE_V1 = Object.freeze({
   purpose:
     'Preserve exhaustive source-backed coverage while reserving a meaningful share of generated questions for genuinely new, exam-natural reasoning constructions.' as const,
 
-  chapterMix: {
+  assemblyMix: {
     sourceBackedOperatingTarget: 0.80,
     controlledNovelOperatingTarget: 0.20,
     controlledNovelAcceptableBand: [0.15, 0.25] as const,
     exactShareIsNotAQuota: true,
     minimumBatchSizeForShareGate: 20,
+  },
+  chapterPolicy: {
+    perChapterTwentyPercentQuotaRequired: false,
     perQlNoveltyQuotaRequired: false,
+    noveltyMayBeConcentratedInSuitableChapters: true,
     noveltyMayBeConcentratedInSuitableQls: true,
+    approvedChapterSpecificMixMayDiffer: true,
+    assemblySchedulerMustRestoreOverallTarget: true,
   },
 
   provenance: {
@@ -166,7 +172,7 @@ export function buildReasoningNoveltyMixPlanV1(input: {
     input.count >= 5 ? 1 : 0,
     Math.round(
       input.count *
-      REASONING_V1_NOVELTY_GOVERNANCE_V1.chapterMix.controlledNovelOperatingTarget,
+      REASONING_V1_NOVELTY_GOVERNANCE_V1.assemblyMix.controlledNovelOperatingTarget,
     ),
   );
 
@@ -199,9 +205,9 @@ export function auditReasoningNoveltyMixV1(
   ).length;
   const controlledNovelShare = controlledNovelCount / total;
   const [minimum, maximum] =
-    REASONING_V1_NOVELTY_GOVERNANCE_V1.chapterMix.controlledNovelAcceptableBand;
+    REASONING_V1_NOVELTY_GOVERNANCE_V1.assemblyMix.controlledNovelAcceptableBand;
   const shareGateApplicable =
-    total >= REASONING_V1_NOVELTY_GOVERNANCE_V1.chapterMix.minimumBatchSizeForShareGate;
+    total >= REASONING_V1_NOVELTY_GOVERNANCE_V1.assemblyMix.minimumBatchSizeForShareGate;
 
   return {
     total,
@@ -210,7 +216,7 @@ export function auditReasoningNoveltyMixV1(
     experimentalStretchCount,
     controlledNovelShare,
     operatingTarget:
-      REASONING_V1_NOVELTY_GOVERNANCE_V1.chapterMix.controlledNovelOperatingTarget,
+      REASONING_V1_NOVELTY_GOVERNANCE_V1.assemblyMix.controlledNovelOperatingTarget,
     shareGateApplicable,
     withinOperatingBand:
       !shareGateApplicable ||
