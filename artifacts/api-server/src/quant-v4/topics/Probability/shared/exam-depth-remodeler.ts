@@ -45,6 +45,10 @@ function variant(entry: ProbabilityTaskRegistryEntry, count: number): number {
   return qlNumber(entry) % count;
 }
 
+function seriesVariant(entry: ProbabilityTaskRegistryEntry, stride: number, count: number): number {
+  return Math.floor(qlNumber(entry) / stride) % count;
+}
+
 function simplifiedRatio(left: number, right: number): string {
   const divisor = gcd(left, right);
   return `${left / divisor}:${right / divisor}`;
@@ -230,10 +234,17 @@ export function remodelProbabilityStem(
 
   if (["findConditionalProbabilityByCounting", "findConditionalFromTwoWayTable"].includes(mode)) {
     const total = numberValue(parameters, "mathTotal"), both = numberValue(parameters, "both");
-    const context = variant(entry, 2) === 0
-      ? { first: "Mathematics", second: "English", people: "students" }
-      : { first: "Quantitative Aptitude", second: "Reasoning", people: "candidates" };
-    return `Of the ${total} ${context.people} who cleared ${context.first}, ${both} also cleared ${context.second}. One of these ${total} ${context.people} is selected at random. What is the probability that the selected ${context.people.slice(0, -1)} also cleared ${context.second}?`;
+    const form = seriesVariant(entry, 6, 4);
+    if (form === 0) {
+      return `Of the ${total} students who passed Mathematics, ${both} also passed English. One Mathematics-pass student is selected at random. What is the probability that the selected student also passed English?`;
+    }
+    if (form === 1) {
+      return `${total} candidates cleared Quantitative Aptitude, and ${both} of them also cleared Reasoning. If one of these ${total} candidates is chosen at random, find the probability that the chosen candidate cleared Reasoning.`;
+    }
+    if (form === 2) {
+      return `Among the ${total} students known to have qualified in Mathematics, ${both} also qualified in English. One student is chosen at random from this restricted group. Find the probability that the student qualified in English as well.`;
+    }
+    return `A group contains ${total} candidates who have already cleared Section A; ${both} of them also cleared Section B. A candidate is selected at random from the Section A group. What is the probability that the candidate also cleared Section B?`;
   }
 
   if (mode === "findRandomArrangementPropertyProbability") {
