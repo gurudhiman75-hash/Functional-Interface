@@ -1,8 +1,13 @@
 import { strict as assert } from "node:assert";
 import { knowledgeV1Whi001QuestionStudioAdapterV1, isWhi001QuestionStudioRequestV1 } from "./knowledge-v1-whi001-adapter-v1";
+import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "../engine-registry";
 
 async function run() {
   const packages = knowledgeV1Whi001QuestionStudioAdapterV1.listPackages();
+  assert.ok(listQuestionStudioPackages().some((pkg) => pkg.packageId === "WHI-001"));
+  const routed = await generateQuestionStudioQuestions({ packageId: "WHI-001", language: "hi", count: 1, seed: "whi-registry-route" });
+  assert.equal(routed.engineId, "knowledge-v1");
+  assert.equal(routed.questions[0]!.language, "hi");
   assert.equal(packages.length, 1);
   assert.equal(packages[0]!.packageId, "WHI-001");
   assert.equal(packages[0]!.lifecycleStage, "REVIEW_ONLY");
