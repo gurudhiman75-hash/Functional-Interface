@@ -661,7 +661,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-043",
     "qlName": "Pakistan / Bangladesh / Myanmar directional comparison",
     "difficulty": "Medium",
-    "stem": "Which neighbour shares the same broad directional side of India as Bangladesh?",
+    "stem": "Which neighbour lies on the same directional side of India as Bangladesh?",
     "answer": "Myanmar",
     "distractors": [
       "Pakistan",
@@ -796,7 +796,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Nepal — Northwest",
       "Bangladesh — Northwest"
     ],
-    "explanation": "Myanmar lies east of India. Pakistan is northwest, Nepal is north and Bangladesh is east.",
+    "explanation": "Myanmar lies east of India. Pakistan is northwest, Nepal is north and Bangladesh is also east, showing the main directional groups clearly.",
     "sourceFactIds": [
       "MIXED-NEIGHBOUR-DIRECTION-MATCH"
     ]
@@ -812,7 +812,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Nepal — North",
       "Bangladesh — East"
     ],
-    "explanation": "Bhutan is a northern neighbour of India, not a northwestern one. The other three direction matches are correct.",
+    "explanation": "Bhutan is a northern neighbour of India, not a northwestern one. Pakistan fits northwest, while Nepal and Bangladesh fit north and east respectively.",
     "sourceFactIds": [
       "MIXED-NEIGHBOUR-DIRECTION-ERROR"
     ]
@@ -853,14 +853,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-045",
     "qlName": "Mixed neighbour-direction identification",
     "difficulty": "Medium",
-    "stem": "Which pair lies on different directional sides of India?",
+    "stem": "Which pair lies on different sides of India?",
     "answer": "Pakistan and Bangladesh",
     "distractors": [
       "Bangladesh and Myanmar",
       "Nepal and Bhutan",
       "China and Nepal"
     ],
-    "explanation": "Pakistan lies northwest while Bangladesh lies east. The other pairs share the same broad directional grouping.",
+    "explanation": "Pakistan lies northwest while Bangladesh lies east. The other pairs belong to the same directional group, so they do not show the same contrast.",
     "sourceFactIds": [
       "MIXED-DIFFERENT-DIRECTIONS"
     ]
