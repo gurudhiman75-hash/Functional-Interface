@@ -126,9 +126,9 @@ function content(q: NumCp010PermanentPackage, language: NumCp010LocalizedLanguag
       const addend = n(s, "addend"); const first = n(s, "first"); const result = n(s, "result"); const x = n(s, "correct");
       return {
         stem: L(`नीचे दिए जोड़ में x एक अंक है। x ज्ञात कीजिए।\n\n  ${Math.floor(first / 10)}x\n+ ${addend}\n-----\n  ${result}`, `ਹੇਠਾਂ ਦਿੱਤੇ ਜੋੜ ਵਿੱਚ x ਇੱਕ ਅੰਕ ਹੈ। x ਕੱਢੋ।\n\n  ${Math.floor(first / 10)}x\n+ ${addend}\n-----\n  ${result}`),
-        coreConcept: L("स्तंभ जोड़ में इकाई वाला स्तंभ लुप्त इकाई अंक और कैरी तय करता है।", "ਕਾਲਮ ਜੋੜ ਵਿੱਚ ਇਕਾਈ ਵਾਲਾ ਕਾਲਮ ਗੁੰਮ ਇਕਾਈ ਅੰਕ ਅਤੇ ਕੈਰੀ ਨਿਰਧਾਰਤ ਕਰਦਾ ਹੈ।"),
-        strategy: L("इकाई के स्तंभ से शुरू करें और फिर पूरे जोड़ से जाँच करें।", "ਇਕਾਈ ਦੇ ਕਾਲਮ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ ਅਤੇ ਫਿਰ ਪੂਰੇ ਜੋੜ ਨਾਲ ਜਾਂਚ ਕਰੋ।"),
-        steps: [L(`इकाई स्तंभ से x = ${x} मिलता है।`, `ਇਕਾਈ ਕਾਲਮ ਤੋਂ x = ${x} ਮਿਲਦਾ ਹੈ।`), L(`जाँच: ${first} + ${addend} = ${result}.`, `ਜਾਂਚ: ${first} + ${addend} = ${result}.`)],
+        coreConcept: L("कॉलम जोड़ में इकाई वाला कॉलम लुप्त इकाई अंक और कैरी तय करता है।", "ਕਾਲਮ ਜੋੜ ਵਿੱਚ ਇਕਾਈ ਵਾਲਾ ਕਾਲਮ ਗੁੰਮ ਇਕਾਈ ਅੰਕ ਅਤੇ ਕੈਰੀ ਨਿਰਧਾਰਤ ਕਰਦਾ ਹੈ।"),
+        strategy: L("इकाई के कॉलम से शुरू करें और फिर पूरे जोड़ से जाँच करें।", "ਇਕਾਈ ਦੇ ਕਾਲਮ ਤੋਂ ਸ਼ੁਰੂ ਕਰੋ ਅਤੇ ਫਿਰ ਪੂਰੇ ਜੋੜ ਨਾਲ ਜਾਂਚ ਕਰੋ।"),
+        steps: [L(`इकाई कॉलम से x = ${x} मिलता है।`, `ਇਕਾਈ ਕਾਲਮ ਤੋਂ x = ${x} ਮਿਲਦਾ ਹੈ।`), L(`जाँच: ${first} + ${addend} = ${result}.`, `ਜਾਂਚ: ${first} + ${addend} = ${result}.`)],
         finalAnswer: `x = ${answer}.`,
       };
     }
@@ -137,8 +137,8 @@ function content(q: NumCp010PermanentPackage, language: NumCp010LocalizedLanguag
       return {
         stem: L(`नीचे दिए घटाव में x एक अंक है। x ज्ञात कीजिए।\n\n  ${Math.floor(minuend / 10)}x\n- ${subtrahend}\n-----\n  ${String(result).padStart(2, "0")}`, `ਹੇਠਾਂ ਦਿੱਤੀ ਘਟਾਉ ਵਿੱਚ x ਇੱਕ ਅੰਕ ਹੈ। x ਕੱਢੋ।\n\n  ${Math.floor(minuend / 10)}x\n- ${subtrahend}\n-----\n  ${String(result).padStart(2, "0")}`),
         coreConcept: L("यदि ऊपर का इकाई अंक छोटा हो, तो दहाई से 1 उधार लेकर इकाई में 10 जोड़ा जाता है।", "ਜੇ ਉੱਪਰਲਾ ਇਕਾਈ ਅੰਕ ਛੋਟਾ ਹੋਵੇ, ਤਾਂ ਦਹਾਈ ਤੋਂ 1 ਉਧਾਰ ਲੈ ਕੇ ਇਕਾਈ ਵਿੱਚ 10 ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ।"),
-        strategy: L("उधार लेने के बाद इकाई वाले स्तंभ से x निकालें और पूरे घटाव से जाँच करें।", "ਉਧਾਰ ਲੈਣ ਤੋਂ ਬਾਅਦ ਇਕਾਈ ਵਾਲੇ ਕਾਲਮ ਤੋਂ x ਕੱਢੋ ਅਤੇ ਪੂਰੀ ਘਟਾਉ ਨਾਲ ਜਾਂਚ ਕਰੋ।"),
-        steps: [L(`इकाई स्तंभ में 10 + x − ${subUnits} = ${result % 10}.`, `ਇਕਾਈ ਕਾਲਮ ਵਿੱਚ 10 + x − ${subUnits} = ${result % 10}.`), L(`इससे x = ${x}. जाँच: ${minuend} − ${subtrahend} = ${result}.`, `ਇਸ ਤੋਂ x = ${x}. ਜਾਂਚ: ${minuend} − ${subtrahend} = ${result}.`)],
+        strategy: L("उधार लेने के बाद इकाई वाले कॉलम से x निकालें और पूरे घटाव से जाँच करें।", "ਉਧਾਰ ਲੈਣ ਤੋਂ ਬਾਅਦ ਇਕਾਈ ਵਾਲੇ ਕਾਲਮ ਤੋਂ x ਕੱਢੋ ਅਤੇ ਪੂਰੀ ਘਟਾਉ ਨਾਲ ਜਾਂਚ ਕਰੋ।"),
+        steps: [L(`इकाई कॉलम में 10 + x − ${subUnits} = ${result % 10}.`, `ਇਕਾਈ ਕਾਲਮ ਵਿੱਚ 10 + x − ${subUnits} = ${result % 10}.`), L(`इससे x = ${x}. जाँच: ${minuend} − ${subtrahend} = ${result}.`, `ਇਸ ਤੋਂ x = ${x}. ਜਾਂਚ: ${minuend} − ${subtrahend} = ${result}.`)],
         finalAnswer: `x = ${answer}.`,
       };
     }
@@ -189,8 +189,8 @@ function content(q: NumCp010PermanentPackage, language: NumCp010LocalizedLanguag
       const hundreds = n(s, "hundreds"); const x = n(s, "x"); const units = n(s, "units"); const addend = n(s, "addend"); const first = n(s, "first"); const result = n(s, "result"); const carry1 = n(s, "carry1"); const carry2 = n(s, "carry2"); const au = addend % 10; const at = Math.floor(addend / 10) % 10;
       return {
         stem: L(`नीचे दिए जोड़ में x एक अंक है। x ज्ञात कीजिए।\n\n  ${hundreds}x${units}\n+ ${addend}\n-----\n  ${result}`, `ਹੇਠਾਂ ਦਿੱਤੇ ਜੋੜ ਵਿੱਚ x ਇੱਕ ਅੰਕ ਹੈ। x ਕੱਢੋ।\n\n  ${hundreds}x${units}\n+ ${addend}\n-----\n  ${result}`),
-        coreConcept: L("लगातार कैरी वाले जोड़ में हर स्तंभ पर पिछले स्तंभ की कैरी शामिल करनी होती है।", "ਲਗਾਤਾਰ ਕੈਰੀ ਵਾਲੇ ਜੋੜ ਵਿੱਚ ਹਰ ਕਾਲਮ ਵਿੱਚ ਪਿਛਲੇ ਕਾਲਮ ਦੀ ਕੈਰੀ ਸ਼ਾਮਲ ਕਰਨੀ ਹੁੰਦੀ ਹੈ।"),
-        strategy: L("इकाई से पहली कैरी निकालें, फिर दहाई वाले स्तंभ से x तय करें।", "ਇਕਾਈ ਤੋਂ ਪਹਿਲੀ ਕੈਰੀ ਕੱਢੋ, ਫਿਰ ਦਹਾਈ ਵਾਲੇ ਕਾਲਮ ਤੋਂ x ਨਿਰਧਾਰਤ ਕਰੋ।"),
+        coreConcept: L("लगातार कैरी वाले जोड़ में हर कॉलम पर पिछले कॉलम की कैरी शामिल करनी होती है।", "ਲਗਾਤਾਰ ਕੈਰੀ ਵਾਲੇ ਜੋੜ ਵਿੱਚ ਹਰ ਕਾਲਮ ਵਿੱਚ ਪਿਛਲੇ ਕਾਲਮ ਦੀ ਕੈਰੀ ਸ਼ਾਮਲ ਕਰਨੀ ਹੁੰਦੀ ਹੈ।"),
+        strategy: L("इकाई से पहली कैरी निकालें, फिर दहाई वाले कॉलम से x तय करें।", "ਇਕਾਈ ਤੋਂ ਪਹਿਲੀ ਕੈਰੀ ਕੱਢੋ, ਫਿਰ ਦਹਾਈ ਵਾਲੇ ਕਾਲਮ ਤੋਂ x ਨਿਰਧਾਰਤ ਕਰੋ।"),
         steps: [L(`इकाई: ${units} + ${au}; कैरी ${carry1}.`, `ਇਕਾਈ: ${units} + ${au}; ਕੈਰੀ ${carry1}.`), L(`दहाई: x + ${at} + ${carry1}; इससे x = ${x} और अगली कैरी ${carry2}.`, `ਦਹਾਈ: x + ${at} + ${carry1}; ਇਸ ਤੋਂ x = ${x} ਅਤੇ ਅਗਲੀ ਕੈਰੀ ${carry2}.`), L(`जाँच: ${first} + ${addend} = ${result}.`, `ਜਾਂਚ: ${first} + ${addend} = ${result}.`)],
         finalAnswer: `x = ${answer}.`,
       };
@@ -199,7 +199,7 @@ function content(q: NumCp010PermanentPackage, language: NumCp010LocalizedLanguag
       const x = n(s, "x"); const units = n(s, "units"); const subtrahend = n(s, "subtrahend"); const minuend = n(s, "minuend"); const result = n(s, "result"); const su = subtrahend % 10; const st = Math.floor(subtrahend / 10) % 10;
       return {
         stem: L(`नीचे दिए घटाव में x एक अंक है। x ज्ञात कीजिए।\n\n  ${String(minuend).replace(String(x), "x")}\n- ${subtrahend}\n-----\n  ${String(result).padStart(3, "0")}`, `ਹੇਠਾਂ ਦਿੱਤੀ ਘਟਾਉ ਵਿੱਚ x ਇੱਕ ਅੰਕ ਹੈ। x ਕੱਢੋ।\n\n  ${String(minuend).replace(String(x), "x")}\n- ${subtrahend}\n-----\n  ${String(result).padStart(3, "0")}`),
-        coreConcept: L("उधार लेने पर वर्तमान स्तंभ में 10 जुड़ता है और बाईं ओर का स्तंभ 1 कम हो जाता है।", "ਉਧਾਰ ਲੈਣ ਤੇ ਮੌਜੂਦਾ ਕਾਲਮ ਵਿੱਚ 10 ਜੁੜਦਾ ਹੈ ਅਤੇ ਖੱਬੇ ਵਾਲਾ ਕਾਲਮ 1 ਘੱਟ ਹੋ ਜਾਂਦਾ ਹੈ।"),
+        coreConcept: L("उधार लेने पर वर्तमान कॉलम में 10 जुड़ता है और बाईं ओर का कॉलम 1 कम हो जाता है।", "ਉਧਾਰ ਲੈਣ ਤੇ ਮੌਜੂਦਾ ਕਾਲਮ ਵਿੱਚ 10 ਜੁੜਦਾ ਹੈ ਅਤੇ ਖੱਬੇ ਵਾਲਾ ਕਾਲਮ 1 ਘੱਟ ਹੋ ਜਾਂਦਾ ਹੈ।"),
         strategy: L("इकाई से दहाई और फिर दहाई से सैकड़ा तक दोनों उधारों को क्रम से लिखें।", "ਇਕਾਈ ਤੋਂ ਦਹਾਈ ਅਤੇ ਫਿਰ ਦਹਾਈ ਤੋਂ ਸੈਂਕੜੇ ਤੱਕ ਦੋਵੇਂ ਉਧਾਰ ਕ੍ਰਮ ਨਾਲ ਲਿਖੋ।"),
         steps: [L(`इकाई: ${units + 10} − ${su} = ${result % 10}.`, `ਇਕਾਈ: ${units + 10} − ${su} = ${result % 10}.`), L(`दहाई में x − 1 बचता है; फिर उधार लेकर x − 1 + 10 − ${st} = ${Math.floor(result / 10) % 10}.`, `ਦਹਾਈ ਵਿੱਚ x − 1 ਬਚਦਾ ਹੈ; ਫਿਰ ਉਧਾਰ ਲੈ ਕੇ x − 1 + 10 − ${st} = ${Math.floor(result / 10) % 10}.`), L(`इससे x = ${x}. जाँच: ${minuend} − ${subtrahend} = ${result}.`, `ਇਸ ਤੋਂ x = ${x}. ਜਾਂਚ: ${minuend} − ${subtrahend} = ${result}.`)],
         finalAnswer: `x = ${answer}.`,
@@ -284,9 +284,9 @@ function content(q: NumCp010PermanentPackage, language: NumCp010LocalizedLanguag
       const firstTens = n(s, "firstTens"); const x = n(s, "x"); const y = n(s, "y"); const fixedUnits = n(s, "fixedUnits"); const first = n(s, "first"); const second = n(s, "second"); const result = n(s, "result");
       return {
         stem: L(`नीचे दिए जोड़ में x और y अंक हैं। क्रमित युग्म (x, y) ज्ञात कीजिए।\n\n  ${firstTens}x\n+ y${fixedUnits}\n----\n  ${result}`, `ਹੇਠਾਂ ਦਿੱਤੇ ਜੋੜ ਵਿੱਚ x ਅਤੇ y ਅੰਕ ਹਨ। ਕ੍ਰਮਿਤ ਜੋੜਾ (x, y) ਕੱਢੋ।\n\n  ${firstTens}x\n+ y${fixedUnits}\n----\n  ${result}`),
-        coreConcept: L("इकाई स्तंभ x और कैरी तय करता है; वही कैरी दहाई स्तंभ में y तय करती है।", "ਇਕਾਈ ਕਾਲਮ x ਅਤੇ ਕੈਰੀ ਨਿਰਧਾਰਤ ਕਰਦਾ ਹੈ; ਉਹੀ ਕੈਰੀ ਦਹਾਈ ਕਾਲਮ ਵਿੱਚ y ਨਿਰਧਾਰਤ ਕਰਦੀ ਹੈ।"),
-        strategy: L("दाएँ से बाएँ हल करें और कैरी को अगले स्तंभ में अवश्य जोड़ें।", "ਸੱਜੇ ਤੋਂ ਖੱਬੇ ਹੱਲ ਕਰੋ ਅਤੇ ਕੈਰੀ ਨੂੰ ਅਗਲੇ ਕਾਲਮ ਵਿੱਚ ਜ਼ਰੂਰ ਜੋੜੋ।"),
-        steps: [L(`इकाई स्तंभ से x = ${x} और कैरी 1 मिलती है।`, `ਇਕਾਈ ਕਾਲਮ ਤੋਂ x = ${x} ਅਤੇ ਕੈਰੀ 1 ਮਿਲਦੀ ਹੈ।`), L(`दहाई स्तंभ से y = ${y}.`, `ਦਹਾਈ ਕਾਲਮ ਤੋਂ y = ${y}.`), L(`जाँच: ${first} + ${second} = ${result}; इसलिए (x, y) = ${answer}.`, `ਜਾਂਚ: ${first} + ${second} = ${result}; ਇਸ ਲਈ (x, y) = ${answer}.`)],
+        coreConcept: L("इकाई कॉलम x और कैरी तय करता है; वही कैरी दहाई कॉलम में y तय करती है।", "ਇਕਾਈ ਕਾਲਮ x ਅਤੇ ਕੈਰੀ ਨਿਰਧਾਰਤ ਕਰਦਾ ਹੈ; ਉਹੀ ਕੈਰੀ ਦਹਾਈ ਕਾਲਮ ਵਿੱਚ y ਨਿਰਧਾਰਤ ਕਰਦੀ ਹੈ।"),
+        strategy: L("दाएँ से बाएँ हल करें और कैरी को अगले कॉलम में अवश्य जोड़ें।", "ਸੱਜੇ ਤੋਂ ਖੱਬੇ ਹੱਲ ਕਰੋ ਅਤੇ ਕੈਰੀ ਨੂੰ ਅਗਲੇ ਕਾਲਮ ਵਿੱਚ ਜ਼ਰੂਰ ਜੋੜੋ।"),
+        steps: [L(`इकाई कॉलम से x = ${x} और कैरी 1 मिलती है।`, `ਇਕਾਈ ਕਾਲਮ ਤੋਂ x = ${x} ਅਤੇ ਕੈਰੀ 1 ਮਿਲਦੀ ਹੈ।`), L(`दहाई कॉलम से y = ${y}.`, `ਦਹਾਈ ਕਾਲਮ ਤੋਂ y = ${y}.`), L(`जाँच: ${first} + ${second} = ${result}; इसलिए (x, y) = ${answer}.`, `ਜਾਂਚ: ${first} + ${second} = ${result}; ਇਸ ਲਈ (x, y) = ${answer}.`)],
         finalAnswer: `(x, y) = ${answer}.`,
       };
     }

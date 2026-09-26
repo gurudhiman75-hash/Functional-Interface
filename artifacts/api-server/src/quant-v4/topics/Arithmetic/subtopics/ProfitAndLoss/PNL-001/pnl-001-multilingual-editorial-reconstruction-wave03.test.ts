@@ -210,6 +210,10 @@ for (
       );
     }
 
+    if (candidateLibrary.language === "hi") {
+      assert.doesNotMatch(JSON.stringify(candidateEntry.stem), /स्तंभ\s*\d+/u, `${qlId}: literal Hindi table-column fallback remains.`);
+    }
+
     if (candidateLibrary.language === "pa") {
       const entryProse = prose(candidateEntry);
       for (const phrase of PUNJABI_LITERAL_LEAKS) {

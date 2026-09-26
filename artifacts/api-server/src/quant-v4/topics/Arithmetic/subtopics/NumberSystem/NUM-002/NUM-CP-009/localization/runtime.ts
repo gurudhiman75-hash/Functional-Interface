@@ -160,10 +160,10 @@ function hindi(q: NumCp009PermanentPackage): LocalizedContent {
       return {
         stem: chooseStem(q,
           `${expression} का इकाई अंक क्या है?`,
-          `घात-स्तंभ ${expression} का अंतिम अंक ज्ञात कीजिए।`,
+          `घातीय व्यंजक ${expression} का अंतिम अंक ज्ञात कीजिए।`,
           `${expression} में ऊपर की घात को केवल बाहरी आधार के इकाई-अंक चक्र के अनुसार घटाइए। अंतिम अंक क्या है?`,
         ),
-        coreConcept: "घात-स्तंभ में बाहरी आधार का इकाई-अंक चक्र तय करता है कि ऊपर की घात को कितना सरल करना है।",
+        coreConcept: "घातीय व्यंजक में बाहरी आधार का इकाई-अंक चक्र तय करता है कि ऊपर की घात को कितना सरल करना है।",
         strategy: "बाहरी आधार का चक्र निकालें, ऊपर की घात का उस चक्र की लंबाई से अवशेष लें और सही चक्र स्थान पढ़ें।",
         steps: [`बाहरी आधार ${outerBase} का अंतिम अंक ${lastDigit} है और चक्र ${cycleText(cycle)} है।`, `${innerBase}^${innerExponent} = ${actualExponent}; चक्र लंबाई ${cycle.length} से इसका अवशेष ${effectiveResidue} है।`, effectiveResidue === 0 ? `अवशेष 0 होने पर चक्र का अंतिम स्थान लिया जाता है, जिससे ${answer} मिलता है।` : `चक्र का स्थान ${effectiveResidue} इकाई अंक ${answer} देता है।`],
         finalAnswer: `इकाई अंक ${answer} है।`,
@@ -380,7 +380,7 @@ function hindi(q: NumCp009PermanentPackage): LocalizedContent {
         coreConcept: "जब कई इकाई अंक स्वीकार्य हों, तो घात-चक्र के कई स्थान एक साथ मान्य हो सकते हैं।",
         strategy: "हर स्वीकार्य इकाई अंक को उसके चक्र-स्थान से मिलाएँ और सभी संबंधित घात-अवशेषों का संघ लें।",
         steps: [`${base} का अंतिम अंक ${lastDigit} है और चक्र ${cycleText(cycle)} है।`, `स्वीकार्य अंक ${allowedText} घात-अवशेष ${residues.join(", ")} (मॉड्यूलो 4) पर आते हैं।`, `सभी स्वीकार्य स्थान रखने पर ${answer} मिलता है।`],
-        finalAnswer: `पूरा घात-वर्ग समुच्चय ${answer} है।`,
+        finalAnswer: `पूरा घात के वर्गों का समुच्चय ${answer} है।`,
       };
     }
     case "NUM-CP009-PROT-017": {
@@ -432,7 +432,7 @@ function punjabi(q: NumCp009PermanentPackage): LocalizedContent {
     }
     case "NUM-CP009-PROT-004": {
       const outerBase = numberValue(s, "outerBase"); const innerBase = numberValue(s, "innerBase"); const innerExponent = numberValue(s, "innerExponent"); const actualExponent = numberValue(s, "actualExponent"); const effectiveResidue = numberValue(s, "effectiveResidue"); const lastDigit = ((outerBase % 10) + 10) % 10; const cycle = cycleFromLastDigit(lastDigit); const expression = `${outerBase}^(${innerBase}^${innerExponent})`;
-      return { stem: chooseStem(q, `${expression} ਦਾ ਇਕਾਈ ਅੰਕ ਕੀ ਹੈ?`, `ਘਾਤ-ਸਤੰਭ ${expression} ਦਾ ਆਖਰੀ ਅੰਕ ਕੱਢੋ।`, `${expression} ਵਿੱਚ ਉੱਪਰਲੀ ਘਾਤ ਨੂੰ ਸਿਰਫ਼ ਬਾਹਰੀ ਆਧਾਰ ਦੇ ਇਕਾਈ-ਅੰਕ ਚੱਕਰ ਅਨੁਸਾਰ ਘਟਾਓ। ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?`), coreConcept: "ਘਾਤ-ਸਤੰਭ ਵਿੱਚ ਬਾਹਰੀ ਆਧਾਰ ਦਾ ਇਕਾਈ-ਅੰਕ ਚੱਕਰ ਤੈਅ ਕਰਦਾ ਹੈ ਕਿ ਉੱਪਰਲੀ ਘਾਤ ਨੂੰ ਕਿੰਨਾ ਸਰਲ ਕਰਨਾ ਹੈ।", strategy: "ਬਾਹਰੀ ਆਧਾਰ ਦਾ ਚੱਕਰ ਕੱਢੋ, ਉੱਪਰਲੀ ਘਾਤ ਦਾ ਉਸ ਚੱਕਰ ਦੀ ਲੰਬਾਈ ਨਾਲ ਬਾਕੀ ਲਓ ਅਤੇ ਸਹੀ ਚੱਕਰ-ਸਥਾਨ ਪੜ੍ਹੋ।", steps: [`ਬਾਹਰੀ ਆਧਾਰ ${outerBase} ਦਾ ਆਖਰੀ ਅੰਕ ${lastDigit} ਹੈ ਅਤੇ ਚੱਕਰ ${cycleText(cycle)} ਹੈ।`, `${innerBase}^${innerExponent} = ${actualExponent}; ਚੱਕਰ ਲੰਬਾਈ ${cycle.length} ਨਾਲ ਬਾਕੀ ${effectiveResidue} ਹੈ।`, effectiveResidue === 0 ? `ਬਾਕੀ 0 ਹੋਣ ਤੇ ਚੱਕਰ ਦਾ ਆਖਰੀ ਸਥਾਨ ਲਿਆ ਜਾਂਦਾ ਹੈ, ਜਿਸ ਨਾਲ ${answer} ਮਿਲਦਾ ਹੈ।` : `ਚੱਕਰ ਦਾ ਸਥਾਨ ${effectiveResidue} ਇਕਾਈ ਅੰਕ ${answer} ਦਿੰਦਾ ਹੈ।`], finalAnswer: `ਇਕਾਈ ਅੰਕ ${answer} ਹੈ।` };
+      return { stem: chooseStem(q, `${expression} ਦਾ ਇਕਾਈ ਅੰਕ ਕੀ ਹੈ?`, `ਘਾਤਾਂ ਵਾਲਾ ਪ੍ਰਗਟਾਵਾ ${expression} ਦਾ ਆਖਰੀ ਅੰਕ ਕੱਢੋ।`, `${expression} ਵਿੱਚ ਉੱਪਰਲੀ ਘਾਤ ਨੂੰ ਸਿਰਫ਼ ਬਾਹਰੀ ਆਧਾਰ ਦੇ ਇਕਾਈ-ਅੰਕ ਚੱਕਰ ਅਨੁਸਾਰ ਘਟਾਓ। ਆਖਰੀ ਅੰਕ ਕੀ ਹੈ?`), coreConcept: "ਘਾਤਾਂ ਵਾਲਾ ਪ੍ਰਗਟਾਵਾ ਵਿੱਚ ਬਾਹਰੀ ਆਧਾਰ ਦਾ ਇਕਾਈ-ਅੰਕ ਚੱਕਰ ਤੈਅ ਕਰਦਾ ਹੈ ਕਿ ਉੱਪਰਲੀ ਘਾਤ ਨੂੰ ਕਿੰਨਾ ਸਰਲ ਕਰਨਾ ਹੈ।", strategy: "ਬਾਹਰੀ ਆਧਾਰ ਦਾ ਚੱਕਰ ਕੱਢੋ, ਉੱਪਰਲੀ ਘਾਤ ਦਾ ਉਸ ਚੱਕਰ ਦੀ ਲੰਬਾਈ ਨਾਲ ਬਾਕੀ ਲਓ ਅਤੇ ਸਹੀ ਚੱਕਰ-ਸਥਾਨ ਪੜ੍ਹੋ।", steps: [`ਬਾਹਰੀ ਆਧਾਰ ${outerBase} ਦਾ ਆਖਰੀ ਅੰਕ ${lastDigit} ਹੈ ਅਤੇ ਚੱਕਰ ${cycleText(cycle)} ਹੈ।`, `${innerBase}^${innerExponent} = ${actualExponent}; ਚੱਕਰ ਲੰਬਾਈ ${cycle.length} ਨਾਲ ਬਾਕੀ ${effectiveResidue} ਹੈ।`, effectiveResidue === 0 ? `ਬਾਕੀ 0 ਹੋਣ ਤੇ ਚੱਕਰ ਦਾ ਆਖਰੀ ਸਥਾਨ ਲਿਆ ਜਾਂਦਾ ਹੈ, ਜਿਸ ਨਾਲ ${answer} ਮਿਲਦਾ ਹੈ।` : `ਚੱਕਰ ਦਾ ਸਥਾਨ ${effectiveResidue} ਇਕਾਈ ਅੰਕ ${answer} ਦਿੰਦਾ ਹੈ।`], finalAnswer: `ਇਕਾਈ ਅੰਕ ${answer} ਹੈ।` };
     }
     case "NUM-CP009-PROT-005": {
       const base = numberValue(s, "base"); const lastDigit = numberValue(s, "lastDigit"); const cycle = numberArray(s, "cycle");
@@ -480,7 +480,7 @@ function punjabi(q: NumCp009PermanentPackage): LocalizedContent {
     }
     case "NUM-CP009-PROT-016": {
       const base = numberValue(s, "base"); const lastDigit = numberValue(s, "lastDigit"); const cycle = numberArray(s, "cycle"); const allowedDigits = numberArray(s, "allowedDigits"); const residues = numberArray(s, "residues"); const allowedText = `{${allowedDigits.join(", ")}}`;
-      return { stem: chooseStem(q, `ਧਨਾਤਮਕ ਪੂਰਨ ਅੰਕ n ਲਈ ${base}^n ਦਾ ਇਕਾਈ ਅੰਕ ${allowedText} ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। n ਦੇ ਸਾਰੇ ਮੰਨਣਯੋਗ ਸਰਵਾਂਗਸਮਤਾ ਵਰਗਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?`, `ਮਾਡਿਊਲੋ 4 ਵਿੱਚ n ਦੇ ਉਹ ਸਾਰੇ ਵਰਗ ਚੁਣੋ ਜਿਨ੍ਹਾਂ ਤੇ ${base}^n ਦਾ ਇਕਾਈ ਅੰਕ ${allowedText} ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`, `ਇਹ ਆਖਰੀ-ਅੰਕ ਸ਼ਰਤ ਚੱਕਰ ਦੇ ਇੱਕ ਤੋਂ ਵੱਧ ਸਥਾਨ ਮੰਨਦੀ ਹੈ। ਕਿਹੜਾ ਵਿਕਲਪ n ਦੇ ਸਾਰੇ ਮੰਨਣਯੋਗ ਵਰਗ ਦਿੰਦਾ ਹੈ?`), coreConcept: "ਜਦੋਂ ਕਈ ਇਕਾਈ ਅੰਕ ਮਨਜ਼ੂਰ ਹੋਣ, ਤਾਂ ਘਾਤ-ਚੱਕਰ ਦੇ ਕਈ ਸਥਾਨ ਇਕੱਠੇ ਮੰਨਣਯੋਗ ਹੋ ਸਕਦੇ ਹਨ।", strategy: "ਹਰ ਮਨਜ਼ੂਰ ਇਕਾਈ ਅੰਕ ਨੂੰ ਉਸ ਦੇ ਚੱਕਰ-ਸਥਾਨ ਨਾਲ ਮਿਲਾਓ ਅਤੇ ਸਾਰੇ ਸੰਬੰਧਿਤ ਘਾਤ-ਬਾਕੀਆਂ ਦਾ ਜੋੜਿਆ ਸਮੂਹ ਲਓ।", steps: [`${base} ਦਾ ਆਖਰੀ ਅੰਕ ${lastDigit} ਹੈ ਅਤੇ ਚੱਕਰ ${cycleText(cycle)} ਹੈ।`, `ਮਨਜ਼ੂਰ ਅੰਕ ${allowedText} ਘਾਤ-ਬਾਕੀ ${residues.join(", ")} (ਮਾਡਿਊਲੋ 4) ਤੇ ਆਉਂਦੇ ਹਨ।`, `ਸਾਰੇ ਮਨਜ਼ੂਰ ਸਥਾਨ ਰੱਖਣ ਤੇ ${answer} ਮਿਲਦਾ ਹੈ।`], finalAnswer: `ਪੂਰਾ ਘਾਤ-ਵਰਗ ਸਮੂਹ ${answer} ਹੈ।` };
+      return { stem: chooseStem(q, `ਧਨਾਤਮਕ ਪੂਰਨ ਅੰਕ n ਲਈ ${base}^n ਦਾ ਇਕਾਈ ਅੰਕ ${allowedText} ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। n ਦੇ ਸਾਰੇ ਮੰਨਣਯੋਗ ਸਰਵਾਂਗਸਮਤਾ ਵਰਗਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?`, `ਮਾਡਿਊਲੋ 4 ਵਿੱਚ n ਦੇ ਉਹ ਸਾਰੇ ਵਰਗ ਚੁਣੋ ਜਿਨ੍ਹਾਂ ਤੇ ${base}^n ਦਾ ਇਕਾਈ ਅੰਕ ${allowedText} ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`, `ਇਹ ਆਖਰੀ-ਅੰਕ ਸ਼ਰਤ ਚੱਕਰ ਦੇ ਇੱਕ ਤੋਂ ਵੱਧ ਸਥਾਨ ਮੰਨਦੀ ਹੈ। ਕਿਹੜਾ ਵਿਕਲਪ n ਦੇ ਸਾਰੇ ਮੰਨਣਯੋਗ ਵਰਗ ਦਿੰਦਾ ਹੈ?`), coreConcept: "ਜਦੋਂ ਕਈ ਇਕਾਈ ਅੰਕ ਮਨਜ਼ੂਰ ਹੋਣ, ਤਾਂ ਘਾਤ-ਚੱਕਰ ਦੇ ਕਈ ਸਥਾਨ ਇਕੱਠੇ ਮੰਨਣਯੋਗ ਹੋ ਸਕਦੇ ਹਨ।", strategy: "ਹਰ ਮਨਜ਼ੂਰ ਇਕਾਈ ਅੰਕ ਨੂੰ ਉਸ ਦੇ ਚੱਕਰ-ਸਥਾਨ ਨਾਲ ਮਿਲਾਓ ਅਤੇ ਸਾਰੇ ਸੰਬੰਧਿਤ ਘਾਤ-ਬਾਕੀਆਂ ਦਾ ਜੋੜਿਆ ਸਮੂਹ ਲਓ।", steps: [`${base} ਦਾ ਆਖਰੀ ਅੰਕ ${lastDigit} ਹੈ ਅਤੇ ਚੱਕਰ ${cycleText(cycle)} ਹੈ।`, `ਮਨਜ਼ੂਰ ਅੰਕ ${allowedText} ਘਾਤ-ਬਾਕੀ ${residues.join(", ")} (ਮਾਡਿਊਲੋ 4) ਤੇ ਆਉਂਦੇ ਹਨ।`, `ਸਾਰੇ ਮਨਜ਼ੂਰ ਸਥਾਨ ਰੱਖਣ ਤੇ ${answer} ਮਿਲਦਾ ਹੈ।`], finalAnswer: `ਪੂਰਾ ਘਾਤ ਦੇ ਵਰਗਾਂ ਦਾ ਸਮੂਹ ${answer} ਹੈ।` };
     }
     case "NUM-CP009-PROT-017": {
       const base = numberValue(s, "base"); const lastDigit = numberValue(s, "lastDigit"); const cycle = numberArray(s, "cycle"); const termCount = numberValue(s, "termCount"); const cycleSum = numberValue(s, "cycleSum"); const fullBlocks = numberValue(s, "fullBlocks"); const leftoverCount = numberValue(s, "leftoverCount"); const leftoverSum = numberValue(s, "leftoverSum");

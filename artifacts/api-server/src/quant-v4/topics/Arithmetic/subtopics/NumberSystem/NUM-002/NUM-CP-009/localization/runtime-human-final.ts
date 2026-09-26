@@ -11,6 +11,7 @@ function polishHindi(value: string): string {
     .replaceAll("चक्र-शॉर्टकट", "चक्र वाला छोटा तरीका")
     .replaceAll("शॉर्टकट", "छोटा तरीका")
     .replaceAll("संक्रिया-चिह्न से जोड़िए", "दी गई संक्रिया लागू कीजिए")
+    .replaceAll("घात-स्तंभ", "घातीय व्यंजक")
     .replaceAll("घात-वर्ग समुच्चय", "घात के वर्गों का समुच्चय")
     .replaceAll("बचे हुए पद", "शेष पद")
     .replaceAll("बचे हुए", "शेष")
@@ -24,6 +25,7 @@ function polishPunjabi(value: string): string {
     .replaceAll("ਸਹਭਾਜੀ ਚੱਕਰ ਵਾਲਾ ਛੋਟਾ ਰਸਤਾ", "ਪਰਸਪਰ-ਅਭਾਜ ਚੱਕਰ ਵਾਲਾ ਛੋਟਾ ਤਰੀਕਾ")
     .replaceAll("ਆਪਸੀ ਸਹਭਾਜਤਾ", "ਪਰਸਪਰ ਅਭਾਜਤਾ")
     .replaceAll("ਛੋਟਾ ਰਸਤਾ", "ਛੋਟਾ ਤਰੀਕਾ")
+    .replaceAll("ਘਾਤ-ਸਤੰਭ", "ਘਾਤਾਂ ਵਾਲਾ ਪ੍ਰਗਟਾਵਾ")
     .replaceAll("ਘਾਤ-ਵਰਗ ਸਮੂਹ", "ਘਾਤ ਦੇ ਵਰਗਾਂ ਦਾ ਸਮੂਹ")
     .replaceAll("ਬਚੇ ਪਦ", "ਬਾਕੀ ਪਦ")
     .replaceAll("ਬਚੇ ਹੋਏ ਪਦ", "ਬਾਕੀ ਪਦ");
