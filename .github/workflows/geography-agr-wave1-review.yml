@@ -1,4 +1,4 @@
-name: Validate GEO-AGR-001 Wave 1 Review
+name: Validate GEO-AGR-001 CP001 Review
 
 on:
   pull_request:
@@ -12,11 +12,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: geo-agr-001-wave1-${{ github.event.pull_request.number || github.ref }}
+  group: geo-agr-001-cp001-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-wave1:
+  validate-cp001:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -26,27 +26,20 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Qualify CP001–CP003
+      - name: Qualify thematic CP001
         run: |
           mkdir -p artifacts/api-server/dist/geography
-          for cp in 001 002 003; do
-            pnpm --dir artifacts/api-server exec esbuild "src/knowledge-v1/indian-geography/agriculture/geo-agr-001-cp${cp}-review-batch-v1.test.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/geography/geo-agr-001-cp${cp}-review-batch-v1.test.mjs"
-            node "artifacts/api-server/dist/geography/geo-agr-001-cp${cp}-review-batch-v1.test.mjs"
-          done
-      - name: Materialize CP001–CP003 review files
+          pnpm --dir artifacts/api-server exec esbuild "src/knowledge-v1/indian-geography/agriculture/geo-agr-001-cp001-review-batch-v1.test.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/geography/geo-agr-001-cp001-review-batch-v1.test.mjs"
+          node "artifacts/api-server/dist/geography/geo-agr-001-cp001-review-batch-v1.test.mjs"
+      - name: Materialize CP001 review files
         run: |
           mkdir -p artifacts/api-server/dist/geography
-          for cp in 001 002 003; do
-            pnpm --dir artifacts/api-server exec esbuild "src/knowledge-v1/indian-geography/agriculture/geo-agr-001-cp${cp}-export-review-v1.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/geography/geo-agr-001-cp${cp}-export-review-v1.mjs"
-            (cd artifacts/api-server && node "dist/geography/geo-agr-001-cp${cp}-export-review-v1.mjs")
-          done
+          pnpm --dir artifacts/api-server exec esbuild "src/knowledge-v1/indian-geography/agriculture/geo-agr-001-cp001-export-review-v1.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/geography/geo-agr-001-cp001-export-review-v1.mjs"
+          (cd artifacts/api-server && node "dist/geography/geo-agr-001-cp001-export-review-v1.mjs")
       - uses: actions/upload-artifact@v4
         with:
-          name: GEO-AGR-001-WAVE1-REVIEW
-          path: |
-            artifacts/api-server/dist/geography-review/GEO-AGR-001-CP001-V1/
-            artifacts/api-server/dist/geography-review/GEO-AGR-001-CP002-V1/
-            artifacts/api-server/dist/geography-review/GEO-AGR-001-CP003-V1/
+          name: GEO-AGR-001-CP001-REVIEW
+          path: artifacts/api-server/dist/geography-review/GEO-AGR-001-CP001-V1/
           if-no-files-found: error
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
