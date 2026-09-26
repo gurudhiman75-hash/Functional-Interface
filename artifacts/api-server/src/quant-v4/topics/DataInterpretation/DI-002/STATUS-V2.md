@@ -39,16 +39,16 @@ V2 keeps the exact table arithmetic foundation and rebuilds the learner/content 
 ## Task families
 
 Easy:
-1. DIRECT_SELECTED_VALUE
-2. DIRECT_SELECTION_RATE
+1. SELECTED_DIFFERENCE
+2. COMBINED_SELECTED
 
 Medium:
 3. MISSING_APPLICANTS_FROM_RATE
 4. REJECTED_COUNT
-5. SELECTED_DIFFERENCE
-6. COMBINED_SELECTED
-7. SELECTION_RATE_POINT_GAP
-8. SELECTED_SHARE_OF_TOTAL
+5. SELECTED_SHARE_OF_TOTAL
+6. COMBINED_REJECTED
+7. APPLICANTS_RATIO
+8. AVERAGE_SELECTED_THREE_ROWS
 
 Hard:
 9. COMBINED_SELECTED_RATIO
@@ -107,3 +107,14 @@ The V2 stress test is designed to cover:
 - production release authorized: false
 
 Approval is still required before permanent ownership promotion, Question Studio controlled-review routing, localization, or any wider lifecycle change.
+
+## Difficulty-floor correction after editorial review
+
+A review pass found that direct table lookups and a simple percentage-point-gap family were too trivial for an Advanced Table DI package. V2 now enforces:
+
+- no zero-operation lookup-only families;
+- Easy questions require at least one arithmetic operation;
+- Medium questions require a derived value or aggregation;
+- Hard questions remain multi-step;
+- removed: DIRECT_SELECTED_VALUE, DIRECT_SELECTION_RATE, SELECTION_RATE_POINT_GAP;
+- added: COMBINED_REJECTED, APPLICANTS_RATIO, AVERAGE_SELECTED_THREE_ROWS.
