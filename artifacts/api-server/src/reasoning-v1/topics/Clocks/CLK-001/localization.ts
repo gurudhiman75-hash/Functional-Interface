@@ -13,6 +13,16 @@ function scenarioValue(question: ClockQuestion, key: string): string {
 }
 
 function translateDisplay(value: string, language: Exclude<ClockAuthoringLanguage, 'en'>): string {
+  const gainLossMatch = value.trim().match(/^(gains?|loses?)\s+(.+)$/iu);
+  if (gainLossMatch) {
+    const direction = gainLossMatch[1]!.toLowerCase().startsWith('gain') ? 'GAIN' : 'LOSS';
+    const amount = gainLossMatch[2]!
+      .replace(/\bminutes?\b/giu, language === 'hi' ? 'मिनट' : 'ਮਿੰਟ')
+      .replace(/\bseconds?\b/giu, language === 'hi' ? 'सेकंड' : 'ਸਕਿੰਟ');
+    if (language === 'hi') return amount + (direction === 'GAIN' ? ' आगे' : ' पीछे');
+    return amount + (direction === 'GAIN' ? ' ਅੱਗੇ' : ' ਪਿੱਛੇ');
+  }
+
   const pastMatch = value.trim().match(/^(.+?)\s+minutes?\s+past\s+(\d{1,2})$/iu);
   if (pastMatch) {
     const amount = pastMatch[1]!;
