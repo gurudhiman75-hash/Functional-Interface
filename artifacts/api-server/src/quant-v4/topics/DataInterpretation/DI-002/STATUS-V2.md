@@ -25,7 +25,7 @@ V2 keeps the exact table arithmetic foundation and rebuilds the learner/content 
 - 12 task families
 - three stem surfaces per task family
 - six neutral scenario families
-- 60+ row-label objects across those scenarios
+- 144 configured row-label objects across those scenarios (6 × 24)
 - SSC CGL Tier I: 4 options
 - Banking Prelims: 5 options
 - misconception-owned distractors
@@ -84,6 +84,7 @@ The V2 stress test is designed to cover:
 - deterministic replay
 - all 12 task families
 - all 6 scenario families
+- configured object-pool breadth locked at 144 labels
 - all three stem surfaces for every task family
 - all four SSC answer positions and all five Banking answer positions
 - profile-specific unique option counts
