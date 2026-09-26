@@ -6,10 +6,13 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/shared/geometry/**
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/**
-      - .github/workflows/geometry-gap-remediation-wave12.yml
   workflow_dispatch:
-permissions: {contents: read}
-concurrency: {group: geometry-gap-remediation-wave12-${{ github.ref }}, cancel-in-progress: true}
+permissions:
+  contents: read
+
+concurrency:
+  group: geometry-gap-remediation-wave12-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   validate-geometry-gap-remediation-wave12:
     runs-on: ubuntu-latest
