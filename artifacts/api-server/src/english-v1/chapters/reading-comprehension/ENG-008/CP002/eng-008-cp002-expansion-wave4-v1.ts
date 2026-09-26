@@ -86,7 +86,7 @@ Parents surveyed after the trial said they valued reminders that included the da
 
 Staff also reported that SMS reminders took less time than repeated phone calls, although some parents still needed calls because messages were not delivered or numbers were outdated.
 
-The district concluded that SMS reminders were associated with fewer missed appointments and lower staff effort, but a larger randomised trial would be needed to estimate the effect more confidently. Officials also want to compare reminder timing because a message sent too early may be forgotten while one sent too late may leave little time to reschedule.`,
+The district concluded that SMS reminders were associated with fewer missed appointments and lower staff effort, but a larger randomised trial would be needed to estimate the effect more confidently. Officials also want to compare reminder timing because a message sent too early may be forgotten while one sent too late may leave little time to reschedule. The next trial will therefore test different reminder intervals while keeping the message content the same.`,
  questions:[
  q("R09-Q1","RC2-F01","easy","When were SMS reminders sent?","Two days before the appointment",["Two weeks after the appointment","On the same day only","One month earlier"],"The first paragraph directly states the timing.","two days before"),
  q("R09-Q2","RC2-F02","medium","What can be inferred about longer-advance bookings?","Reminders may be especially useful when more time has passed since booking",["Longer bookings are always cancelled","Families forget same-day appointments more","SMS works only after two weeks"],"The largest difference appeared among appointments booked more than two weeks earlier.","largest among families"),
