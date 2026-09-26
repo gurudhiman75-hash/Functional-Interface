@@ -3,6 +3,8 @@ import { test } from 'node:test';
 import {
   CLK_001_PERMANENT_CONTRACTS,
   CLK_001_PERMANENT_QL_IDS,
+  CLK_001_DESIGN_ONLY_REPRESENTATION_QL_IDS,
+  CLK_001_EXTERNALLY_EVIDENCED_QL_IDS,
 } from './permanent-contracts';
 import {
   CLK_001_QUESTION_STUDIO_PACKAGE,
@@ -15,6 +17,8 @@ test('CLK-001 freezes exactly 23 permanent semantic authorities', () => {
   assert.equal(CLK_001_PERMANENT_QL_IDS.length, 23);
   assert.equal(new Set(CLK_001_PERMANENT_QL_IDS).size, 23);
   assert.equal(new Set(CLK_001_PERMANENT_CONTRACTS.map((entry) => entry.cluster)).size, 23);
+  assert.equal(CLK_001_EXTERNALLY_EVIDENCED_QL_IDS.length, 22);
+  assert.deepEqual(CLK_001_DESIGN_ONLY_REPRESENTATION_QL_IDS, ['CLK-QL-021']);
   assert.equal(CLK_001_QUESTION_STUDIO_PACKAGE.enabled, true);
 });
 
@@ -96,6 +100,8 @@ test('reasoning-v1 adapter exposes and routes CLK-001', async () => {
   assert.deepEqual(pkg?.cpIds, CLOCK_CHECKPOINTS.map((checkpoint) => checkpoint.code));
   assert.deepEqual(pkg?.supportedLanguages, ['en', 'hi', 'pa']);
   assert.equal((pkg?.metadata as any)?.difficultyCalibrationStatus, 'GENERATED_INSTANCE_AUDITED_V1');
+  assert.equal((pkg?.metadata as any)?.externallyEvidencedPermanentQlCount, 22);
+  assert.deepEqual((pkg?.metadata as any)?.designOnlyRepresentationQlIds, ['CLK-QL-021']);
 
   const generated = await reasoningV1QuestionStudioAdapter.generate({
     engineId: 'reasoning-v1',
