@@ -35,3 +35,39 @@ console.log(JSON.stringify({
     conditionalUrnStructures:new Set(conditionalUrn).size,
   }
 }));
+
+
+const conditionalNumberWave2=surfaces(["PRB-QL-603","PRB-QL-609","PRB-QL-615","PRB-QL-621"]);
+const conditionalCountingWave2=surfaces(["PRB-QL-601","PRB-QL-607","PRB-QL-613","PRB-QL-619"]);
+assert(new Set(conditionalNumberWave2).size>=4,`Conditional-number QLs still collapse to ${new Set(conditionalNumberWave2).size} structures`);
+assert(new Set(conditionalCountingWave2).size>=4,`Conditional-counting QLs still collapse to ${new Set(conditionalCountingWave2).size} structures`);
+console.log(JSON.stringify({
+  packageId:"PRB-002",
+  surfaceStabilityWave2:{
+    conditionalNumberStructures:new Set(conditionalNumberWave2).size,
+    conditionalCountingStructures:new Set(conditionalCountingWave2).size,
+  }
+}));
+
+
+const wave3Families = {
+  successiveIndependent: surfaces(["PRB-QL-501","PRB-QL-509","PRB-QL-517"]),
+  withReplacement: surfaces(["PRB-QL-503","PRB-QL-511","PRB-QL-519"]),
+  orderedSequence: surfaces(["PRB-QL-505","PRB-QL-513","PRB-QL-521"]),
+  sameColour: surfaces(["PRB-QL-506","PRB-QL-514","PRB-QL-522"]),
+  differentColours: surfaces(["PRB-QL-507","PRB-QL-515","PRB-QL-523"]),
+  atLeastOneWithReplacement: surfaces(["PRB-QL-508","PRB-QL-516","PRB-QL-524"]),
+  randomArrangement: surfaces(["PRB-QL-703","PRB-QL-711","PRB-QL-719"]),
+  positionRestriction: surfaces(["PRB-QL-705","PRB-QL-713","PRB-QL-721"]),
+  numberFormation: surfaces(["PRB-QL-706","PRB-QL-714","PRB-QL-722"]),
+  restrictedSelection: surfaces(["PRB-QL-707","PRB-QL-715","PRB-QL-723"]),
+};
+for (const [family, values] of Object.entries(wave3Families)) {
+  assert(new Set(values).size>=3,`${family} QLs still collapse to ${new Set(values).size} structures`);
+}
+console.log(JSON.stringify({
+  packageId:"PRB-002",
+  surfaceStabilityWave3:Object.fromEntries(
+    Object.entries(wave3Families).map(([family, values])=>[family,new Set(values).size]),
+  ),
+}));
