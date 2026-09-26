@@ -2,7 +2,10 @@ import { strict as assert } from "node:assert";
 
 import { knowledgeV1QuestionStudioAdapter } from "./knowledge-v1-adapter";
 import {
+  PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
   PGK_001_QUESTION_STUDIO_CORPUS_V1,
+  PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1,
+  PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1,
   PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
   PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
   isPgk001QuestionStudioRequestV1,
@@ -31,18 +34,56 @@ assert.equal(pkg.mockTestEligible, false);
 assert.equal(pkg.publiclyPublishable, false);
 assert.equal(pkg.automaticStudentPublication, false);
 assert.equal(pkg.productionReleaseAuthorized, false);
-assert.deepEqual(pkg.supportedLanguages, ["en"]);
+assert.deepEqual(pkg.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(pkg.cpIds?.length, 26);
 assert.equal(new Set(pkg.cpIds).size, 26);
 assert.equal(pkg.metadata?.cpCount, 26);
 assert.equal(pkg.metadata?.qlCount, 182);
 assert.equal(pkg.metadata?.englishQuestionCount, 1092);
+assert.equal(pkg.metadata?.hindiQuestionCount, 1092);
+assert.equal(pkg.metadata?.punjabiQuestionCount, 1092);
+assert.equal(pkg.metadata?.multilingualReviewSurfaceCount, 3276);
+assert.equal(pkg.metadata?.englishFreezeAuthorityId, PGK_001_ENGLISH_FREEZE_AUTHORITY_V1);
+assert.equal(pkg.metadata?.multilingualLocalizationComplete, true);
 assert.equal(pkg.metadata?.payloadsPerPermanentQl, 6);
 assert.equal(pkg.metadata?.registrationAuthorityId, PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1);
 
 assert.equal(PGK_001_QUESTION_STUDIO_CORPUS_V1.length, 1092);
 assert.equal(new Set(PGK_001_QUESTION_STUDIO_CORPUS_V1.map((q) => q.questionId)).size, 1092);
+assert.equal(PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1.length, 1092);
+assert.equal(PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1.length, 1092);
+assert.equal(new Set(PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1.map((q) => q.questionId)).size, 1092);
+assert.equal(new Set(PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1.map((q) => q.questionId)).size, 1092);
+
+const englishById = new Map(PGK_001_QUESTION_STUDIO_CORPUS_V1.map((q) => [q.questionId, q]));
+for (const [locale, corpus] of [
+  ["hi", PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1],
+  ["pa", PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1],
+] as const) {
+  const localizedQlCounts = new Map<string, number>();
+  for (const q of corpus) {
+    const english = englishById.get(q.englishQuestionId);
+    assert.ok(english, `${q.questionId}: English identity missing`);
+    assert.equal(q.questionId, `${english.questionId}-${locale.toUpperCase()}`);
+    assert.equal(q.cpId, english.cpId);
+    assert.equal(q.qlId, english.qlId);
+    assert.equal(q.difficulty, english.difficulty);
+    assert.equal(q.correctIndex, english.correctIndex);
+    assert.deepEqual(q.sourceIds, english.sourceIds);
+    assert.deepEqual(q.sourceFactIds, english.sourceFactIds);
+    assert.equal(q.options.length, 4);
+    assert.equal(new Set(q.options).size, 4);
+    assert.equal(q.options[q.correctIndex], q.canonicalAnswer);
+    assert.ok(q.stem.trim().length > 0);
+    assert.ok(q.explanation.trim().length > 0);
+    localizedQlCounts.set(q.qlId, (localizedQlCounts.get(q.qlId) ?? 0) + 1);
+  }
+  assert.equal(localizedQlCounts.size, 182);
+  for (const [qlId, count] of localizedQlCounts) {
+    assert.equal(count, 6, `${qlId}: expected six ${locale} questions`);
+  }
+}
 
 const cpCounts = new Map<string, number>();
 const qlCounts = new Map<string, number>();
@@ -240,12 +281,84 @@ await assert.rejects(
   }),
   /Unknown PGK-001 selector/i,
 );
+const multilingualSeed = "pgk001-multilingual-parity";
+const englishParallel = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "en",
+  difficulty: "Mixed",
+  count: 30,
+  seed: multilingualSeed,
+});
+const hindiParallel = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "hi",
+  difficulty: "Mixed",
+  count: 30,
+  seed: multilingualSeed,
+});
+const punjabiParallel = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "pa",
+  difficulty: "Mixed",
+  count: 30,
+  seed: multilingualSeed,
+});
+assert.deepEqual(
+  englishParallel.questions.map((q) => q.canonicalProblemId),
+  hindiParallel.questions.map((q) => q.canonicalProblemId),
+);
+assert.deepEqual(
+  englishParallel.questions.map((q) => q.canonicalProblemId),
+  punjabiParallel.questions.map((q) => q.canonicalProblemId),
+);
+
+for (const [language, locale, result] of [
+  ["hi", "hi-IN", hindiParallel],
+  ["pa", "pa-IN", punjabiParallel],
+] as const) {
+  assert.equal(result.questions.length, 30);
+  for (const q of result.questions as any[]) {
+    assert.equal(q.language, language);
+    assert.equal(q.locale, locale);
+    assert.equal(q.questionLanguageId, q.questionId);
+    assert.equal(q.questionId, `${q.canonicalProblemId}-${language.toUpperCase()}`);
+    assert.equal(q.multilingualLocalizationApproved, true);
+    assert.equal(q.registrationStatus, "REGISTERED_REVIEW_ONLY");
+    assert.equal(q.questionBankWritable, false);
+    assert.equal(q.testEligible, false);
+    assert.equal(q.mockTestEligible, false);
+    assert.equal(q.publiclyPublishable, false);
+  }
+}
+
+const hindiQl175 = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "hi",
+  patternId: "PGK-001-QL-175",
+  count: 6,
+  seed: "ql175-hi-filter",
+});
+assert.equal(hindiQl175.questions.length, 6);
+assert.equal(hindiQl175.questions.every((q) => q.qlId === "PGK-001-QL-175"), true);
+assert.equal(hindiQl175.questions.every((q) => q.language === "hi"), true);
+
+const punjabiCp014 = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "pa",
+  canonicalProblemId: "PGK-001-CP-014",
+  count: 12,
+  seed: "cp014-pa-filter",
+});
+assert.equal(punjabiCp014.questions.length, 12);
+assert.equal(punjabiCp014.questions.every((q) => q.cpId === "PGK-001-CP-014"), true);
+assert.equal(punjabiCp014.questions.every((q) => q.language === "pa"), true);
+
 await assert.rejects(
   knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
     packageId: "PGK-001",
-    language: "pa",
+    language: "bn",
   }),
-  /currently supports English only/i,
+  /supports English, Hindi and Punjabi/i,
 );
 await assert.rejects(
   knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
