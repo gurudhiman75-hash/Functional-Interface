@@ -3,9 +3,9 @@ import { readFileSync } from "node:fs";
 
 import { getGeneratedItemApprovalDisposition } from "../../../../lib/admin-question-studio-approval-policy";
 import {
-  generateQuestion,
+  generateQuestionStudioQuestions,
   listQuestionStudioPackages,
-} from "../../../../question-studio/shared-generation-engine";
+} from "../../../../question-studio/engine-registry";
 import { RNK_001_CHAPTER_AUTHORITY } from "./manifest";
 
 const authority = RNK_001_CHAPTER_AUTHORITY;
@@ -61,12 +61,11 @@ assert.equal(rnk.publiclyPublishable, false);
 assert.deepEqual([...rnk.supportedLanguages], ["en", "hi", "pa"]);
 
 for (const language of ["en", "hi", "pa"] as const) {
-  const generated = await generateQuestion({
+  const generated = await generateQuestionStudioQuestions({
     packageId: "RNK-001",
     patternId: "RNK-QL-042",
     language,
     difficulty: "Medium",
-    examProfileId: "CHAPTER_COVERAGE",
     seed: `rnk-final-closeout:${language}`,
     count: 1,
   });
@@ -84,12 +83,12 @@ for (const language of ["en", "hi", "pa"] as const) {
   );
 }
 
-const banking = await generateQuestion({
+const banking = await generateQuestionStudioQuestions({
   packageId: "RNK-001",
   patternId: "RNK-QL-001",
   language: "pa",
   difficulty: "Medium",
-  examProfileId: "IBPS_PO_PRE",
+  exam: "IBPS PO Prelims",
   seed: "rnk-final-closeout:banking-pa",
   count: 1,
 });
