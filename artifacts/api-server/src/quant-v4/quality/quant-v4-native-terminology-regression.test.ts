@@ -23,6 +23,7 @@ function isLearnerLocalizationSource(path: string) {
   const normalized = path.replaceAll("\\", "/").toLowerCase();
   if (/\.test\.ts$/.test(normalized)) return false;
   if (normalized.includes("/quality/")) return false;
+  if (normalized.includes("runtime-human-final") || normalized.includes("runtime-human-review")) return false;
   return normalized.includes("/localization/")
     || normalized.includes("localization-review")
     || normalized.includes("multilingual-builder")
