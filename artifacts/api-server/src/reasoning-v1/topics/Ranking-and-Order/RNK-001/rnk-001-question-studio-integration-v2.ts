@@ -7,6 +7,7 @@ import type {
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import { RNK_001_CHAPTER_AUTHORITY } from "./manifest";
 import { declutterRnkExplanation } from "./rnk-001-explanation-declutter-v1";
+import { deriveRnkQuestionStudioDifficulty } from "./rnk-001-question-studio-difficulty-v2";
 import {
   RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   listRnk001QuestionStudioQlIds,
@@ -250,6 +251,9 @@ function learnerExplanation(question: Record<string, any>): string {
 function toQuestionPayload(question: Record<string, any>) {
   const visibleStem = learnerStem(question);
   const visibleExplanation = learnerExplanation(question);
+  const difficultyRecord = deriveRnkQuestionStudioDifficulty(
+    (question.source ?? question) as Record<string, any>,
+  );
   return {
     ...lifecycle,
     lifecycleStage: lifecycle.stage,
@@ -276,6 +280,12 @@ function toQuestionPayload(question: Record<string, any>) {
     explanation: visibleExplanation,
     difficulty: question.difficultyBand,
     difficultyLabel: question.difficultyBand,
+    difficultyCalibrationStatus: difficultyRecord.instanceDerived
+      ? "GENERATED_INSTANCE_DERIVED_V2"
+      : "SOURCE_LABEL",
+    difficultyScore: difficultyRecord.score,
+    difficultyFactors: [...difficultyRecord.factors],
+    sourceDifficultyLabel: difficultyRecord.sourceDifficulty,
     examProfile: question.examProfileId,
     examProfileApplied: question.examProfileId !== "CHAPTER_COVERAGE",
     realismTier: question.realismTier,
