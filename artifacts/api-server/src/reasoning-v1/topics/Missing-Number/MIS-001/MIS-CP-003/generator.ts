@@ -251,7 +251,7 @@ function chooseEvidenceAndTarget(
         if (used.has(index)) continue;
         const candidate = groups[index]!;
         if (evidence.some((shown) => shown.result === candidate.result)) continue;
-        if (evidence.some((shown) => sharedInputCount(shown, candidate) > 0)) continue;
+        if (evidence.some((shown) => sharedInputCount(shown, candidate) > 1)) continue;
         const audit = auditMisCp003Ambiguity(rule.ruleId, context, [...evidence, candidate]);
         const survivors = new Set(audit.matches.map((match) => match.semanticKey)).size;
         if (survivors < bestSurvivors) {
@@ -271,7 +271,7 @@ function chooseEvidenceAndTarget(
           !used.has(index)
           && governedDistractors(rule.ruleId, context, group).length >= 3
           && !evidence.some((shown) => shown.result === group.result)
-          && !evidence.some((shown) => sharedInputCount(shown, group) > 0),
+          && !evidence.some((shown) => sharedInputCount(shown, group) > 1),
         );
         if (target) return { evidence, target, ambiguity };
       }
