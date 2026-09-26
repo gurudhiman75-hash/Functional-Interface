@@ -213,14 +213,18 @@ function learnerStem(question: Record<string, any>): string {
 
 function learnerExplanation(question: Record<string, any>): string {
   const number = qlNumber(String(question.qlId));
-  if (number < 36 || number > 41) return String(question.explanation ?? "");
   const source = (question.source ?? {}) as Record<string, any>;
-  return declutterRnkExplanation({
-    explanation: source.explanation ?? question.explanation,
-    qlId: String(question.qlId),
-    locale: String(question.locale ?? "en-IN"),
-    answer: String(question.answer ?? ""),
-  });
+
+  if (question.language === "en" || (number >= 36 && number <= 41)) {
+    return declutterRnkExplanation({
+      explanation: source.explanation ?? question.explanation,
+      qlId: String(question.qlId),
+      locale: String(question.locale ?? "en-IN"),
+      answer: String(question.answer ?? ""),
+    });
+  }
+
+  return String(question.explanation ?? "");
 }
 
 function toQuestionPayload(question: Record<string, any>) {
