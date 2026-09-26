@@ -1,3 +1,4 @@
+import { ENG008_CP001_EXPANSION_WAVE1_V1 } from "./eng-008-cp001-expansion-wave1-v1";
 export type Eng008Difficulty="easy"|"medium"|"hard";
 export type Eng008Genre="narrative"|"report"|"editorial";
 export type Eng008RcFamilyId="RC-F01"|"RC-F02"|"RC-F03"|"RC-F04"|"RC-F05"|"RC-F06";
@@ -27,6 +28,7 @@ const q=(id:string,familyId:Eng008RcFamilyId,difficulty:Eng008Difficulty,questio
 
 
 export const ENG008_CP001_PASSAGES_V1:readonly Eng008RcPassageV1[]=[
+...ENG008_CP001_EXPANSION_WAVE1_V1,
 {
  id:"ENG008-RC-N01",title:"The Returned Notebook",genre:"narrative",
  text:`Mira found a small blue notebook under a chair in the public reading room. Its first pages contained ordinary class notes, but the last page listed three interview questions for a local history project. A name was written inside the cover, so she left the notebook with the librarian instead of taking it home.
