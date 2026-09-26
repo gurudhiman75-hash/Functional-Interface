@@ -10,6 +10,7 @@ test("shared novelty review runtime samples every discovery provider without act
     { providerId: "CAE-001-EDGE-FAMILIES", language: "pa" as const },
     { providerId: "DIR-001-GRAPH-RELATIVE-PATH", language: "en" as const },
     { providerId: "BLR-001-CODED-FILTERED-COUNT", language: "en" as const },
+    { providerId: "CAL-001-IMPLICIT-RANGE-FREQUENCY", language: "en" as const },
   ];
 
   for (let index = 0; index < requests.length; index += 1) {
