@@ -7,7 +7,6 @@ on:
     paths:
       - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/geo-loc-001-cp012-*"
       - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/GEO-LOC-001-CP012-*"
-      - ".github/workflows/geography-loc-cp012-review.yml"
   workflow_dispatch:
 
 permissions:
