@@ -1,4 +1,8 @@
 import { deterministicShuffle } from "../../knowledge-v1/deterministic";
+import {
+  generatePgk001LocalizedOverlayCorpusV1,
+  type PgkNativeLocaleV1,
+} from "../../knowledge-v1/punjab-gk/localization-v1/pgk-all-localized-corpus-v1";
 import * as cp001 from "../../knowledge-v1/punjab-gk/pgk-001-cp001-review-batch-v1";
 import * as cp002 from "../../knowledge-v1/punjab-gk/pgk-001-cp002-review-batch-v3";
 import * as cp003 from "../../knowledge-v1/punjab-gk/pgk-001-cp003-review-batch-v2";
@@ -38,7 +42,7 @@ export const PGK_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "PGK-001" as const;
 export const PGK_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
 export const PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 =
   "PGK-001-ENGLISH-26CP-FREEZE-2026-09-18" as const;
-export const PGK_001_REVISION_POLICY_V1 = "SOURCE_REVIEW_BATCH_ONLY" as const;
+export const PGK_001_REVISION_POLICY_V1 =\n  "SOURCE_REVIEW_BATCH_AND_APPROVED_LOCALIZATION_OVERLAY_ONLY" as const;
 
 type FrozenPgkQuestion = Readonly<{
   questionId: string;
@@ -52,6 +56,11 @@ type FrozenPgkQuestion = Readonly<{
   explanation: string;
   sourceIds: readonly string[];
   sourceFactIds: readonly string[];
+}>;
+
+type RegisteredPgkQuestion = FrozenPgkQuestion & Readonly<{
+  englishQuestionId: string;
+  language: QuestionStudioLanguage;
 }>;
 
 const modules = [
@@ -182,13 +191,120 @@ for (const qlId of qlIds) {
   if (count !== 6) throw new Error(`${qlId} must expose exactly six frozen questions; found ${count}`);
 }
 
+const englishByQuestionId = new Map(
+  PGK_001_QUESTION_STUDIO_CORPUS_V1.map((question) => [question.questionId, question]),
+);
+
+function arraysEqual(a: readonly string[], b: readonly string[]) {
+  return a.length === b.length && a.every((value, index) => value === b[index]);
+}
+
+function reconcileLocalizedCorpus(locale: PgkNativeLocaleV1): readonly RegisteredPgkQuestion[] {
+  const localized = generatePgk001LocalizedOverlayCorpusV1(locale);
+
+  const rows = localized.map((row) => {
+    const english = englishByQuestionId.get(row.englishQuestionId);
+    if (!english) {
+      throw new Error(`${row.questionId}: English frozen identity ${row.englishQuestionId} not found`);
+    }
+
+    if (row.cpId !== english.cpId) {
+      throw new Error(`${row.questionId}: CP drift from ${english.cpId} to ${row.cpId}`);
+    }
+    if (row.qlId !== english.qlId) {
+      throw new Error(`${row.questionId}: QL drift from ${english.qlId} to ${row.qlId}`);
+    }
+    if (row.difficulty !== english.difficulty) {
+      throw new Error(
+        `${row.questionId}: difficulty drift from ${english.difficulty} to ${row.difficulty}`,
+      );
+    }
+    if (row.correctIndex !== english.correctIndex) {
+      throw new Error(
+        `${row.questionId}: correct-index drift from ${english.correctIndex} to ${row.correctIndex}`,
+      );
+    }
+    if (row.sourceIds.length && !arraysEqual(row.sourceIds, english.sourceIds)) {
+      throw new Error(`${row.questionId}: source provenance drift`);
+    }
+    const localizedFactIds = row.sourceFactIds.length ? row.sourceFactIds : row.factIds;
+    if (localizedFactIds.length && !arraysEqual(localizedFactIds, english.sourceFactIds)) {
+      throw new Error(`${row.questionId}: fact provenance drift`);
+    }
+    if (row.questionId !== `${english.questionId}-${locale.toUpperCase()}`) {
+      throw new Error(`${row.questionId}: localized question ID is not tied to English identity`);
+    }
+
+    return Object.freeze({
+      questionId: row.questionId,
+      englishQuestionId: english.questionId,
+      cpId: english.cpId,
+      qlId: english.qlId,
+      difficulty: english.difficulty,
+      stem: row.stem,
+      options: Object.freeze([...row.options]),
+      correctIndex: english.correctIndex,
+      canonicalAnswer: row.options[english.correctIndex]!,
+      explanation: row.explanation,
+      sourceIds: english.sourceIds,
+      sourceFactIds: english.sourceFactIds,
+      language: locale,
+    });
+  });
+
+  if (rows.length !== PGK_001_QUESTION_STUDIO_CORPUS_V1.length) {
+    throw new Error(
+      `PGK-001 ${locale} Question Studio corpus requires ${PGK_001_QUESTION_STUDIO_CORPUS_V1.length} rows; found ${rows.length}`,
+    );
+  }
+  if (new Set(rows.map((row) => row.englishQuestionId)).size !== rows.length) {
+    throw new Error(`PGK-001 ${locale} corpus does not map one-to-one to English identities`);
+  }
+  for (const qlId of qlIds) {
+    const count = rows.filter((question) => question.qlId === qlId).length;
+    if (count !== 6) {
+      throw new Error(`${qlId} must expose exactly six ${locale} questions; found ${count}`);
+    }
+  }
+
+  return Object.freeze(rows);
+}
+
+export const PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1 =
+  reconcileLocalizedCorpus("hi");
+export const PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1 =
+  reconcileLocalizedCorpus("pa");
+
+const englishRegisteredCorpus: readonly RegisteredPgkQuestion[] = Object.freeze(
+  PGK_001_QUESTION_STUDIO_CORPUS_V1.map((question) =>
+    Object.freeze({
+      ...question,
+      englishQuestionId: question.questionId,
+      language: "en" as const,
+    }),
+  ),
+);
+
+export const PGK_001_QUESTION_STUDIO_MULTILINGUAL_CORPORA_V1 = Object.freeze({
+  en: englishRegisteredCorpus,
+  hi: PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1,
+  pa: PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1,
+});
+
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
-const supportedLanguages: QuestionStudioLanguage[] = ["en"];
+const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
 
 function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
   if (!language || language === "en") return "en";
-  throw new Error(`PGK-001 currently supports English only; ${String(language)} is not frozen`);
+  if (language === "hi" || language === "pa") return language;
+  throw new Error(`PGK-001 supports English, Hindi and Punjabi; ${String(language)} is unsupported`);
+}
+
+function localeFor(language: QuestionStudioLanguage) {
+  if (language === "hi") return "hi-IN";
+  if (language === "pa") return "pa-IN";
+  return "en-IN";
 }
 
 function normalizeCount(count: number | undefined) {
@@ -250,7 +366,7 @@ export const PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
   subject: "Static GK",
   topic: "Punjab GK",
   subtopic: "Complete Chapter",
-  label: "Static GK · Punjab GK · PGK-001 CP001–CP026 Frozen",
+  label: "Static GK · Punjab GK · PGK-001 CP001–CP026 Multilingual Frozen",
   enabled: true,
   cpIds: [...cpIds],
   supportedLanguages,
@@ -275,7 +391,7 @@ export const PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     registrationAuthorityId: PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
     authoringReviewApproved: true,
     chapterContentComplete: true,
-    englishEditorialComplete: true,
+    englishEditorialComplete: true,\n    hindiEditorialComplete: true,\n    punjabiEditorialComplete: true,\n    multilingualLocalizationComplete: true,
     reviewOnly: true,
     frozenCorpusOnly: true,
     immutableCorpus: true,
@@ -286,7 +402,7 @@ export const PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     qlCount: qlIds.length,
     cpIds: [...cpIds],
     cpCount: cpIds.length,
-    englishQuestionCount: PGK_001_QUESTION_STUDIO_CORPUS_V1.length,
+    englishQuestionCount: PGK_001_QUESTION_STUDIO_CORPUS_V1.length,\n    hindiQuestionCount: PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1.length,\n    punjabiQuestionCount: PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1.length,\n    multilingualReviewSurfaceCount:\n      PGK_001_QUESTION_STUDIO_CORPUS_V1.length * supportedLanguages.length,\n    englishFreezeAuthorityId: PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
     payloadsPerPermanentQl: 6,
     supportedDifficulties: [...supportedDifficulties],
     productionDifficultyClaimsAuthorized: false,
@@ -337,7 +453,10 @@ export const knowledgeV1Pgk001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
     const { qlId, cpId } = normalizeSelectors(request);
     const seed = request.seed?.trim() || "pgk-001-question-studio-freeze-v1";
 
-    const candidates = PGK_001_QUESTION_STUDIO_CORPUS_V1.filter(
+    const languageCorpus =
+      PGK_001_QUESTION_STUDIO_MULTILINGUAL_CORPORA_V1[language as "en" | "hi" | "pa"];
+
+    const candidates = languageCorpus.filter(
       (question) =>
         (!cpId || question.cpId === cpId) &&
         (!qlId || question.qlId === qlId) &&
@@ -360,6 +479,8 @@ export const knowledgeV1Pgk001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       ...lifecycle,
       id: question.questionId,
       questionId: question.questionId,
+      questionLanguageId: question.questionId,
+      canonicalProblemId: question.englishQuestionId,
       packageId: PGK_001_QUESTION_STUDIO_PACKAGE_ID_V1,
       patternId: question.qlId,
       qlId: question.qlId,
@@ -368,7 +489,7 @@ export const knowledgeV1Pgk001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       topic: "Punjab GK",
       subtopic: "Complete Chapter",
       language,
-      locale: "en-IN",
+      locale: localeFor(language),
       stem: question.stem,
       text: question.stem,
       options: [...question.options],
@@ -417,7 +538,7 @@ export const knowledgeV1Pgk001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         seed,
         requestedCount: count,
         candidateCount: candidates.length,
-        corpusQuestionCount: PGK_001_QUESTION_STUDIO_CORPUS_V1.length,
+        corpusQuestionCount: languageCorpus.length,\n        englishFrozenQuestionCount: PGK_001_QUESTION_STUDIO_CORPUS_V1.length,\n        multilingualReviewSurfaceCount:\n          PGK_001_QUESTION_STUDIO_CORPUS_V1.length * supportedLanguages.length,
         cpCount: cpIds.length,
         qlCount: qlIds.length,
       },
