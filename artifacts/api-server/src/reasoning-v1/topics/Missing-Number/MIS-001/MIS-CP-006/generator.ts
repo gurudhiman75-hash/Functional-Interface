@@ -4,7 +4,7 @@ import {auditMisCp006Ambiguity,independentlyEvaluateMisCp006Rule,independentlyVe
 
 export interface MisCp006Option{readonly value:number;readonly errorLabel:string|null;}
 export interface MisCp006RenderedFigure{
-  readonly positions:{readonly top:number;readonly right:number;readonly bottom:number;readonly left:number|'—';readonly centre:number|'?';};
+  readonly positions:{readonly top:number;readonly right:number;readonly bottom:number;readonly left:number|null;readonly centre:number|'?';};
   readonly svg:string;
 }
 export interface GeneratedMisCp006Question{
@@ -97,8 +97,8 @@ function calc(ruleId:MisCp006RuleId,g:MisCp006Group):string{
   }
 }
 function rendered(g:MisCp006Group,hide=false):MisCp006RenderedFigure{
-  const leftValue=g.left??'—'; const positions={top:g.top,right:g.right,bottom:g.bottom,left:leftValue,centre:hide?'?' as const:g.centre};
-  const svg=renderCircleSvg({top:g.top,right:g.right,bottom:g.bottom,left:g.left??'',centre:hide?'?':g.centre} as any);
+  const positions={top:g.top,right:g.right,bottom:g.bottom,left:g.left,centre:hide?'?' as const:g.centre};
+  const svg=renderCircleSvg(positions);
   return{positions,svg};
 }
 export function generateMisCp006Question(candidateId:MisCp006CandidateId,seed:string|number='mis-cp006-v1'):GeneratedMisCp006Question{
