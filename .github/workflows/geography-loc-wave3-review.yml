@@ -11,7 +11,6 @@ on:
       - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/GEO-LOC-001-CP007-*"
       - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/geo-loc-001-cp008-*"
       - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/GEO-LOC-001-CP008-*"
-      - ".github/workflows/geography-loc-wave3-review.yml"
   workflow_dispatch:
 
 permissions:
