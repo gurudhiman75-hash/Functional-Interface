@@ -13,6 +13,15 @@ function scenarioValue(question: ClockQuestion, key: string): string {
 }
 
 function translateDisplay(value: string, language: Exclude<ClockAuthoringLanguage, 'en'>): string {
+  const pastMatch = value.trim().match(/^(.+?)\s+minutes?\s+past\s+(\d{1,2})$/iu);
+  if (pastMatch) {
+    const amount = pastMatch[1]!;
+    const hour = pastMatch[2]!;
+    return language === 'hi'
+      ? hour + ' बजकर ' + amount + ' मिनट'
+      : hour + ' ਵੱਜ ਕੇ ' + amount + ' ਮਿੰਟ';
+  }
+
   let out = value;
   const replacements: readonly [RegExp, string, string][] = [
     [/gain of /gi, 'बढ़त ', 'ਵਾਧਾ '],
