@@ -26,6 +26,8 @@ function translateDisplay(value: string, language: Exclude<ClockAuthoringLanguag
     [/hour/gi, 'घंटा', 'ਘੰਟਾ'],
     [/days later/gi, 'दिन बाद', 'ਦਿਨ ਬਾਅਦ'],
     [/day later/gi, 'दिन बाद', 'ਦਿਨ ਬਾਅਦ'],
+    [/day \\+/gi, 'दिन +', 'ਦਿਨ +'],
+    [/day \\-/gi, 'दिन -', 'ਦਿਨ -'],
     [/coincide/gi, 'एक-दूसरे पर', 'ਇੱਕ-ਦੂਜੇ ਉੱਤੇ'],
     [/coincident/gi, 'एक-दूसरे पर', 'ਇੱਕ-ਦੂਜੇ ਉੱਤੇ'],
     [/right angle/gi, 'समकोण', 'ਸਮਕੋਣ'],
@@ -42,6 +44,19 @@ function translateDisplay(value: string, language: Exclude<ClockAuthoringLanguag
     out = out.replace(pattern, language === 'hi' ? hi : pa);
   }
   return out;
+}
+
+function localizedEventLabel(
+  eventType: string,
+  language: Exclude<ClockAuthoringLanguage, 'en'>,
+): string {
+  const labels: Record<string, readonly [string, string]> = {
+    COINCIDENCE: ['सुइयों के एक-दूसरे पर आने की घटना', 'ਸੂਈਆਂ ਦੇ ਇੱਕ-ਦੂਜੇ ਉੱਤੇ ਆਉਣ ਦੀ ਘਟਨਾ'],
+    OPPOSITION: ['सुइयों के विपरीत होने की घटना', 'ਸੂਈਆਂ ਦੇ ਵਿਰੁੱਧ ਹੋਣ ਦੀ ਘਟਨਾ'],
+    RIGHT_ANGLE: ['सुइयों के समकोण बनाने की घटना', 'ਸੂਈਆਂ ਦੇ ਸਮਕੋਣ ਬਣਾਉਣ ਦੀ ਘਟਨਾ'],
+  };
+  const value = labels[eventType] ?? ['घड़ी की घटना', 'ਘੜੀ ਦੀ ਘਟਨਾ'];
+  return language === 'hi' ? value[0] : value[1];
 }
 
 function translatedOptions(
@@ -152,8 +167,8 @@ function makeLocalizedSurface(
       );
     case 'ONE_TIME_FOR_ANGLE_IN_HOUR':
       return surface(
-        'दिए गए एक घंटे के अंतराल में सुइयों के बीच दिए गए छोटे कोण के लिए सही समय चुनें।',
-        'ਦਿੱਤੇ ਇੱਕ ਘੰਟੇ ਦੇ ਅੰਤਰਾਲ ਵਿੱਚ ਸੂਈਆਂ ਵਿਚਕਾਰ ਦਿੱਤੇ ਛੋਟੇ ਕੋਣ ਲਈ ਸਹੀ ਸਮਾਂ ਚੁਣੋ।',
+        s('hour') + ':00 और ' + (Number(s('hour')) + 1) + ':00 के बीच वह पहला समय कौन-सा है जब घंटे और मिनट की सुइयों के बीच छोटा कोण ' + s('targetAngleDeg') + '° हो?',
+        s('hour') + ':00 ਅਤੇ ' + (Number(s('hour')) + 1) + ':00 ਦੇ ਵਿਚਕਾਰ ਉਹ ਪਹਿਲਾ ਸਮਾਂ ਕਿਹੜਾ ਹੈ ਜਦੋਂ ਘੰਟੇ ਅਤੇ ਮਿੰਟ ਵਾਲੀਆਂ ਸੂਈਆਂ ਵਿਚਕਾਰ ਛੋਟਾ ਕੋਣ ' + s('targetAngleDeg') + '° ਹੋਵੇ?',
         'सापेक्ष चाल 5.5° प्रति मिनट लेकर कोण का समीकरण हल करें।',
         'ਸਾਪੇਖ ਚਾਲ 5.5° ਪ੍ਰਤੀ ਮਿੰਟ ਲੈ ਕੇ ਕੋਣ ਦਾ ਸਮੀਕਰਨ ਹੱਲ ਕਰੋ।',
         ['दोनों संभव कोण-शाखाओं की जाँच करें।', 'सही समय = ' + a + '।'],
@@ -161,8 +176,8 @@ function makeLocalizedSurface(
       );
     case 'COINCIDENCE_IN_HOUR':
       return surface(
-        'दिए गए घंटे में घंटे और मिनट की सुइयाँ कब एक-दूसरे पर आएँगी?',
-        'ਦਿੱਤੇ ਘੰਟੇ ਵਿੱਚ ਘੰਟੇ ਅਤੇ ਮਿੰਟ ਵਾਲੀਆਂ ਸੂਈਆਂ ਕਦੋਂ ਇੱਕ-ਦੂਜੇ ਉੱਤੇ ਆਉਣਗੀਆਂ?',
+        s('hour') + ':00 और ' + (Number(s('hour')) + 1) + ':00 के बीच घंटे और मिनट की सुइयाँ किस समय एक-दूसरे पर आएँगी?',
+        s('hour') + ':00 ਅਤੇ ' + (Number(s('hour')) + 1) + ':00 ਦੇ ਵਿਚਕਾਰ ਘੰਟੇ ਅਤੇ ਮਿੰਟ ਵਾਲੀਆਂ ਸੂਈਆਂ ਕਿਸ ਸਮੇਂ ਇੱਕ-ਦੂਜੇ ਉੱਤੇ ਆਉਣਗੀਆਂ?',
         'सुइयों की सापेक्ष चाल 5.5° प्रति मिनट है।',
         'ਸੂਈਆਂ ਦੀ ਸਾਪੇਖ ਚਾਲ 5.5° ਪ੍ਰਤੀ ਮਿੰਟ ਹੈ।',
         ['दिए गए घंटे की सीमा में मिलने का समय निकालें।', 'उत्तर = ' + a + '।'],
@@ -188,8 +203,8 @@ function makeLocalizedSurface(
       );
     case 'NTH_OCCURRENCE':
       return surface(
-        s('anchor') + ' के बाद दी गई घटना की ' + s('occurrence') + 'वीं स्थिति किस समय होगी?',
-        s('anchor') + ' ਤੋਂ ਬਾਅਦ ਦਿੱਤੀ ਘਟਨਾ ਦੀ ' + s('occurrence') + 'ਵੀਂ ਸਥਿਤੀ ਕਿਸ ਸਮੇਂ ਹੋਵੇਗੀ?',
+        s('anchor') + ' के बाद ' + localizedEventLabel(s('eventType'), language) + ' की ' + s('occurrence') + 'वीं बार का समय क्या होगा?',
+        s('anchor') + ' ਤੋਂ ਬਾਅਦ ' + localizedEventLabel(s('eventType'), language) + ' ਦੀ ' + s('occurrence') + 'ਵੀਂ ਵਾਰ ਦਾ ਸਮਾਂ ਕੀ ਹੋਵੇਗਾ?',
         'शुरुआती समय के बाद की घटनाओं को क्रम से गिनें।',
         'ਸ਼ੁਰੂਆਤੀ ਸਮੇਂ ਤੋਂ ਬਾਅਦ ਦੀਆਂ ਘਟਨਾਵਾਂ ਨੂੰ ਕ੍ਰਮ ਨਾਲ ਗਿਣੋ।',
         ['शुरुआती क्षण को पहली बाद वाली घटना न मानें।', 'उत्तर = ' + a + '।'],
@@ -233,8 +248,8 @@ function makeLocalizedSurface(
       );
     case 'MULTIDAY_ACTUAL_FROM_DISPLAY':
       return surface(
-        'दी गई तेज़/धीमी घड़ी के कई दिनों बाद के दिखाए समय से वास्तविक समय निकालें।',
-        'ਦਿੱਤੀ ਤੇਜ਼/ਹੌਲੀ ਘੜੀ ਦੇ ਕਈ ਦਿਨਾਂ ਬਾਅਦ ਦੇ ਦਿਖਾਏ ਸਮੇਂ ਤੋਂ ਅਸਲ ਸਮਾਂ ਕੱਢੋ।',
+        'एक घड़ी दिन 0 पर सुबह 6:00 बजे सही थी और हर वास्तविक दिन ' + s('errorMinutesPerDay') + ' मिनट ' + (s('direction') === 'GAIN' ? 'आगे' : 'पीछे') + ' होती है। जब वह ' + translateDisplay(s('displayedTarget'), language) + ' दिखाती है, तब वास्तविक समय क्या है?',
+        'ਇੱਕ ਘੜੀ ਦਿਨ 0 ਉੱਤੇ ਸਵੇਰੇ 6:00 ਵਜੇ ਸਹੀ ਸੀ ਅਤੇ ਹਰ ਅਸਲ ਦਿਨ ' + s('errorMinutesPerDay') + ' ਮਿੰਟ ' + (s('direction') === 'GAIN' ? 'ਅੱਗੇ' : 'ਪਿੱਛੇ') + ' ਹੁੰਦੀ ਹੈ। ਜਦੋਂ ਉਹ ' + translateDisplay(s('displayedTarget'), language) + ' ਦਿਖਾਉਂਦੀ ਹੈ, ਤਾਂ ਅਸਲ ਸਮਾਂ ਕੀ ਹੈ?',
         'दिन का अंतर बनाए रखते हुए घड़ी की चाल के अनुपात का उल्टा प्रयोग करें।',
         'ਦਿਨਾਂ ਦਾ ਅੰਤਰ ਕਾਇਮ ਰੱਖਦੇ ਹੋਏ ਘੜੀ ਦੀ ਚਾਲ ਦੇ ਅਨੁਪਾਤ ਦਾ ਉਲਟਾ ਵਰਤੋ।',
         ['दिखाए समय को शुरुआती समय से अंतर में बदलें।', 'वास्तविक समय = ' + a + '।'],
@@ -251,8 +266,8 @@ function makeLocalizedSurface(
       );
     case 'COMPARE_TWO_FAULTY_CLOCKS':
       return surface(
-        'दो अलग-अलग तेज़/धीमी घड़ियों की रीडिंग को समान वास्तविक समय पर तुलना करें। ' + s('actualHours') + ' घंटों बाद उनकी रीडिंग में कितना अंतर होगा?',
-        'ਦੋ ਵੱਖ-ਵੱਖ ਤੇਜ਼/ਹੌਲੀਆਂ ਘੜੀਆਂ ਦੀ ਰੀਡਿੰਗ ਨੂੰ ਇੱਕੋ ਅਸਲ ਸਮੇਂ ਉੱਤੇ ਤੁਲਨਾ ਕਰੋ। ' + s('actualHours') + ' ਘੰਟਿਆਂ ਬਾਅਦ ਉਹਨਾਂ ਦੀ ਰੀਡਿੰਗ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੋਵੇਗਾ?',
+        'दोपहर 12 बजे घड़ी A ' + s('leftInitialAhead') + ' मिनट आगे है और रोज़ ' + s('leftDailyGain') + ' मिनट आगे होती है। उसी समय घड़ी B ' + s('rightInitialBehind') + ' मिनट पीछे है और रोज़ ' + s('rightDailyLoss') + ' मिनट पीछे होती है। ' + s('elapsedHours') + ' वास्तविक घंटों बाद दोनों की रीडिंग में कितना अंतर होगा?',
+        'ਦੁਪਹਿਰ 12 ਵਜੇ ਘੜੀ A ' + s('leftInitialAhead') + ' ਮਿੰਟ ਅੱਗੇ ਹੈ ਅਤੇ ਹਰ ਰੋਜ਼ ' + s('leftDailyGain') + ' ਮਿੰਟ ਹੋਰ ਅੱਗੇ ਹੁੰਦੀ ਹੈ। ਉਸੇ ਸਮੇਂ ਘੜੀ B ' + s('rightInitialBehind') + ' ਮਿੰਟ ਪਿੱਛੇ ਹੈ ਅਤੇ ਹਰ ਰੋਜ਼ ' + s('rightDailyLoss') + ' ਮਿੰਟ ਹੋਰ ਪਿੱਛੇ ਹੁੰਦੀ ਹੈ। ' + s('elapsedHours') + ' ਅਸਲ ਘੰਟਿਆਂ ਬਾਅਦ ਦੋਵਾਂ ਦੀ ਰੀਡਿੰਗ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੋਵੇਗਾ?',
         'दोनों घड़ियों की शुरुआती त्रुटि और चाल अलग-अलग लागू करें।',
         'ਦੋਵੇਂ ਘੜੀਆਂ ਦੀ ਸ਼ੁਰੂਆਤੀ ਗਲਤੀ ਅਤੇ ਚਾਲ ਵੱਖ-ਵੱਖ ਲਾਗੂ ਕਰੋ।',
         ['एक ही वास्तविक समय पर दोनों रीडिंग निकालें।', 'अंतर = ' + a + '।'],
@@ -260,7 +275,7 @@ function makeLocalizedSurface(
       );
     case 'GAIN_FROM_COINCIDENCE_INTERVAL':
       return surface(
-        'एक तेज़ घड़ी में घंटे और मिनट की सुइयाँ हर ' + s('observedActualInterval') + ' वास्तविक समय बाद मिलती हैं। 24 वास्तविक घंटों में घड़ी कितनी आगे होगी?',
+        'एक तेज़ घड़ी में घंटे और मिनट की सुइयाँ हर ' + translateDisplay(s('observedActualInterval'), language) + ' वास्तविक समय बाद मिलती हैं। 24 वास्तविक घंटों में घड़ी कितनी आगे होगी?',
         'ਇੱਕ ਤੇਜ਼ ਘੜੀ ਵਿੱਚ ਘੰਟੇ ਅਤੇ ਮਿੰਟ ਵਾਲੀਆਂ ਸੂਈਆਂ ਹਰ ' + translateDisplay(s('observedActualInterval'), language) + ' ਅਸਲ ਸਮੇਂ ਬਾਅਦ ਮਿਲਦੀਆਂ ਹਨ। 24 ਅਸਲ ਘੰਟਿਆਂ ਵਿੱਚ ਘੜੀ ਕਿੰਨੀ ਅੱਗੇ ਹੋਵੇਗੀ?',
         'सही घड़ी के मिलने के अंतराल की तुलना दिए गए वास्तविक अंतराल से करें।',
         'ਸਹੀ ਘੜੀ ਦੇ ਮਿਲਣ ਵਾਲੇ ਅੰਤਰਾਲ ਦੀ ਤੁਲਨਾ ਦਿੱਤੇ ਅਸਲ ਅੰਤਰਾਲ ਨਾਲ ਕਰੋ।',
