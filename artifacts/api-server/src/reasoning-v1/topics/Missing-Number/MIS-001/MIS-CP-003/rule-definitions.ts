@@ -54,7 +54,7 @@ export const MIS_CP003_RULES: readonly MisCp003RuleDefinition[] = Object.freeze(
   { candidateId: 'MIS-CAND-022', ruleId: 'PRODUCT_PLUS_SECOND_SQUARE', label: 'multiply the numbers, then add the square of the second', baselineDifficulty: 'Medium', operationDepth: 2, operandCount: 2, minInput: 2, maxInput: 15, contexts: NONE },
   { candidateId: 'MIS-CAND-023', ruleId: 'CUBE_INPUT', label: 'cube a number', baselineDifficulty: 'Easy', operationDepth: 1, operandCount: 1, minInput: 2, maxInput: 9, contexts: NONE },
   { candidateId: 'MIS-CAND-024', ruleId: 'PAIR_SUM_OR_DIFFERENCE_SQUARE', label: 'square a small sum or positive difference', baselineDifficulty: 'Medium', operationDepth: 2, operandCount: 2, minInput: 2, maxInput: 12, contexts: PLUS_MINUS },
-  { candidateId: 'MIS-CAND-025', ruleId: 'PAIR_SUM_OR_DIFFERENCE_CUBE', label: 'cube a small sum or positive difference', baselineDifficulty: 'Medium', operationDepth: 2, operandCount: 2, minInput: 2, maxInput: 7, contexts: PLUS_MINUS },
+  { candidateId: 'MIS-CAND-025', ruleId: 'PAIR_SUM_OR_DIFFERENCE_CUBE', label: 'cube a small sum or positive difference', baselineDifficulty: 'Medium', operationDepth: 2, operandCount: 2, minInput: 2, maxInput: 14, contexts: PLUS_MINUS },
 ]);
 
 export function misCp003RuleByCandidateId(candidateId: string): MisCp003RuleDefinition {
