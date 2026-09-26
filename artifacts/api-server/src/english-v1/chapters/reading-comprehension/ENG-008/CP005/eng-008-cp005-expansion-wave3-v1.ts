@@ -6,7 +6,7 @@ export const ENG008_CP005_EXPANSION_WAVE3_V1:readonly Eng008Cp005PassageV1[]=[
  id:"ENG008-RS-S02",title:"Does a Fixed Bedtime Improve Morning Alertness?",genre:"sleep-study",
  text:`A college wellness team studied whether keeping a more regular bedtime was related to morning alertness. For five weeks, 360 students recorded when they went to bed, when they woke up and how alert they felt during their first class of the day.
 
-Students whose bedtime varied by less than forty-five minutes across the week reported higher average morning alertness than students whose bedtime shifted by more than two hours. They also missed fewer early classes.
+Students whose bedtime varied by less than one hour across the week reported higher average morning alertness than students whose bedtime shifted by more than two hours. They also missed fewer early classes.
 
 At first, the team considered whether regular bedtime itself explained the difference. However, students with regular schedules were also less likely to work late shifts and more likely to eat breakfast before class. Those factors could independently affect alertness.
 
