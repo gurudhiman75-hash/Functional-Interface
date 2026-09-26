@@ -17,7 +17,9 @@ A limitation is that the study was not random. Teams volunteered for the pilot, 
 
 Researchers will now compare volunteer teams with similar non-participating teams and track whether meeting load simply shifts across the week. They also plan to measure employee stress and after-hours work, because a quiet Wednesday would be less valuable if compressed meetings caused longer evenings elsewhere.
 
-The preliminary result is therefore narrower than “meeting-free days increase productivity.” The pilot suggests that a predictable low-meeting period can improve perceived focus and same-day completion of concentration-heavy tasks, but the effect on weekly output and workload balance remains uncertain.`,
+The preliminary result is therefore narrower than “meeting-free days increase productivity.” The pilot suggests that a predictable low-meeting period can improve perceived focus and same-day completion of concentration-heavy tasks, but the effect on weekly output and workload balance remains uncertain.
+
+The researchers also plan to compare the type of work completed on Wednesdays, not just the quantity. A day with fewer meetings may help employees finish deeper tasks that are difficult to divide into short intervals, even if the weekly count of completed items barely changes. They will therefore code tasks by estimated concentration demand and examine whether the policy shifts complex work into the protected blocks rather than simply moving routine work between days.`,
  questions:[
  q("W06-Q1","RS-F01","medium","What changed most clearly on Wednesdays during the pilot?","Employees had more uninterrupted work periods",["Weekly meeting time fell to zero","Every role produced more work","Client calls were banned"],"The survey and calendar pattern both show a clearer increase in uninterrupted Wednesday work than in total weekly output.","more uninterrupted work periods"),
  q("W06-Q2","RS-F02","medium","What can be inferred from the small change in total weekly output?","Some Wednesday gains may reflect work shifting from other days",["The policy had no effect on focus","Meeting time doubled","Task logs were not collected"],"The passage explicitly notes that same-day completion increased more than total weekly production, suggesting redistribution of work.","simply moved from other days"),
@@ -47,7 +49,9 @@ The comparison was not perfectly controlled. Teams worked on different mixes of 
 
 The warehouse plans a longer trial using randomly rotated team assignments and periodic observation of how workers actually interact with the checklist. Researchers also want to measure rework cost rather than error count alone, because different mistakes have very different consequences.
 
-The current evidence suggests that a well-timed checklist can reduce omissions in a complex process, but its value depends on how closely recorded confirmations match real actions.`,
+The current evidence suggests that a well-timed checklist can reduce omissions in a complex process, but its value depends on how closely recorded confirmations match real actions.
+
+Researchers will also compare error severity across the two groups. Missing a decorative insert and missing a temperature pack both count as one error in a simple total, but their operational consequences are very different. A cost-weighted measure may therefore show a larger or smaller benefit than the raw error count. The team will also examine whether checklist fatigue develops as experienced workers become familiar with repeated prompts over longer periods.`,
  questions:[
  q("W07-Q1","RS-F01","medium","Which errors declined most clearly in checklist teams?","Missed labels and temperature packs",["Barcode-selection errors only","Every possible error equally","Supplier invoicing errors"],"The largest observed improvement concerned packaging omissions that the checklist explicitly surfaced.","especially for missed labels and temperature packs"),
  q("W07-Q2","RS-F02","medium","What can be inferred from the small change in product-selection errors?","Barcode scanning was already controlling many selection mistakes",["The checklist caused more wrong products","Products were never scanned","Selection errors were not measured"],"The passage explains that both groups retained barcode scanning, leaving less room for the checklist to improve that error type.","barcode scanning already prevented"),
@@ -75,7 +79,9 @@ Another limitation is selection. Only app users who opted into tracking could be
 
 The agency will next test platform displays at major stops so non-app users receive the same information. It will also compare whether crowding labels redistribute passengers enough to make loads more even across closely spaced buses.
 
-Researchers caution against interpreting the pilot as evidence that information creates capacity. If every bus is crowded, a label cannot produce an empty seat. The value of the system lies in helping riders use existing alternatives more effectively when those alternatives are actually available.`,
+Researchers caution against interpreting the pilot as evidence that information creates capacity. If every bus is crowded, a label cannot produce an empty seat. The value of the system lies in helping riders use existing alternatives more effectively when those alternatives are actually available.
+
+The next analysis will also separate riders making discretionary trips from those travelling to fixed-time work or appointments. A traveller with a flexible arrival time may respond to a crowding warning differently from someone who cannot risk being late. Researchers will compare route frequency, trip purpose and waiting tolerance so that a small average effect does not hide much larger behavioural differences between groups with different constraints.`,
  questions:[
  q("T06-Q1","RS-F01","medium","When were riders most likely to skip a highly crowded bus?","When another bus was due within eight minutes",["When the next bus was over thirty minutes away","Only when the route was empty","Whenever the app was closed"],"The behavioural effect was strongest when waiting for the next bus imposed only a short additional delay.","another bus was due within eight minutes"),
  q("T06-Q2","RS-F02","medium","What can be inferred from the smaller effect with long waits?","Information changes behaviour less when travellers lack a practical alternative",["Crowding labels become more accurate with longer waits","Riders prefer long delays","Arrival time no longer matters"],"The passage explicitly links response strength to whether a realistic next option exists.","practical alternative"),
@@ -103,7 +109,9 @@ Researchers also observed that the wrist monitors estimate sleep from movement a
 
 A follow-up period will examine whether students maintain regular wake times after daily reminders stop. The researchers are particularly interested in whether regularity persists because a habit formed or disappears once external prompts are removed.
 
-The study does not show that everyone should use the same wake time, nor does it prove that regularity alone improves every aspect of sleep. It tests a narrower question: whether anchoring one part of the daily schedule can make sleep timing more consistent in students who begin with irregular routines.`,
+The study does not show that everyone should use the same wake time, nor does it prove that regularity alone improves every aspect of sleep. It tests a narrower question: whether anchoring one part of the daily schedule can make sleep timing more consistent in students who begin with irregular routines.
+
+Researchers will also examine whether the intervention changes light exposure and meal timing, because waking at a consistent hour may indirectly shift other daily cues that influence sleep. The follow-up will compare weekday and weekend effects separately and record caffeine use, late-night study and social events. These measurements may help distinguish whether improved regularity comes from the wake-time rule itself or from broader changes in routine that occur after participants begin planning mornings more consistently.`,
  questions:[
  q("S04-Q1","RS-F01","medium","What changed most clearly in the fixed-wake group?","Day-to-day variation in wake time decreased",["Average sleep duration doubled","Every bedtime became identical","Weekend adherence was perfect"],"The largest direct change was a reduction in variation around the targeted wake-time window.","larger reduction in day-to-day variation"),
  q("S04-Q2","RS-F02","medium","What can be inferred from stable average sleep duration?","Participants often adjusted bedtime rather than simply losing sleep",["The wake-time rule had no effect","Bedtime was fixed by researchers","Monitors stopped recording duration"],"Regularity improved while average duration stayed similar, consistent with gradual bedtime adaptation.","shifted bedtime gradually"),
@@ -131,7 +139,9 @@ After the tasks, participants rated both label formats. Most preferred the redes
 
 The study did not examine whether shoppers would actually buy different products or spend less money over time. Correctly identifying the lower unit price is only one step in a purchase decision; quality, brand preference and household needs still matter.
 
-Researchers plan an in-store trial using anonymised sales data and brief exit surveys. They will test whether clearer unit-price presentation changes real comparisons without confusing shoppers about the amount they pay at checkout.`,
+Researchers plan an in-store trial using anonymised sales data and brief exit surveys. They will test whether clearer unit-price presentation changes real comparisons without confusing shoppers about the amount they pay at checkout.
+
+The in-store phase will also test products sold in different units, such as price per 100 grams, per kilogram and per litre. Researchers want to know whether a larger label helps only when the comparison unit is already familiar or whether standardising the displayed unit produces an additional benefit. They will also track whether shoppers notice temporary promotions that make the lower total price differ from the lower unit price, since those situations require more careful interpretation.`,
  questions:[
  q("C05-Q1","RS-F01","medium","Which group was more accurate at unit-price comparisons?","Participants who saw the redesigned labels",["Only participants seeing standard labels","Both groups had identical accuracy","Participants who saw no prices"],"Random assignment produced higher comparison accuracy when unit price was made more visually prominent.","Accuracy was higher in the redesigned-label group"),
  q("C05-Q2","RS-F02","medium","Why were gains smaller among frequent unit-price users?","They already performed relatively well with standard labels",["They ignored every shelf tag","They were not randomly assigned","Their packages were smaller"],"Higher baseline skill left less room for the redesigned display to improve comparison accuracy.","baseline accuracy was relatively high"),
@@ -159,7 +169,9 @@ The coating also had a practical drawback: glare was higher around midday when t
 
 Researchers will revisit the yards after a year because dirt and wear may reduce reflectivity. They will also compare maintenance cost and measure whether students change where they gather during hot periods.
 
-The findings support a limited conclusion. Reflective pavement can lower exposed surface temperature and may improve perceived comfort, but it does not replace shade and should be evaluated alongside glare, durability and site design.`,
+The findings support a limited conclusion. Reflective pavement can lower exposed surface temperature and may improve perceived comfort, but it does not replace shade and should be evaluated alongside glare, durability and site design.
+
+A later phase will place wearable temperature and light sensors on volunteer staff walking fixed routes across the yards. The researchers want to compare stationary surface readings with actual short-term exposure during movement. They will also examine whether the coating changes evening heat release after sunset, because a surface that stays cooler in the afternoon may behave differently later in the day. These additions should help separate material performance from the broader question of how people experience the schoolyard.`,
  questions:[
  q("E06-Q1","RS-F01","medium","Which temperature effect was largest?","The reduction in paved surface temperature",["The reduction in indoor temperature","The reduction in air temperature far above the school","No temperature changed"],"The coated pavement showed a much stronger change in surface temperature than in air temperature one metre above it.","coated surfaces were substantially cooler"),
  q("E06-Q2","RS-F02","medium","What can be inferred from the comfort results in shaded areas?","Shade remained an important heat-control measure even with reflective pavement",["Reflective coating made shade unnecessary","Shade increased surface heat","Students avoided all shaded seating"],"The passage says shaded seating was more comfortable than either open pavement type.","Shaded seating remained more comfortable"),
@@ -187,7 +199,9 @@ A limitation is that the experiment measured isolated vocabulary rather than sen
 
 The platform will next test retrieval practice inside short passages and speaking tasks. Researchers also want to vary the spacing between review and test to determine how long the advantage persists.
 
-The current result supports a specific learning claim: attempting to retrieve recently studied vocabulary can strengthen later recall compared with simply seeing the same material again, even when immediate performance looks similar.`,
+The current result supports a specific learning claim: attempting to retrieve recently studied vocabulary can strengthen later recall compared with simply seeing the same material again, even when immediate performance looks similar.
+
+The next experiment will also vary feedback timing. One group will see the correct answer immediately after each retrieval attempt, while another will receive feedback after a short block of questions. Researchers want to determine whether delayed feedback changes retention or frustration. They will also classify words by frequency and similarity to known vocabulary, since retrieval may help unfamiliar terms differently from words that resemble forms learners already know. This should show whether the average advantage is broad or concentrated in particular item types.`,
  questions:[
  q("D07-Q1","RS-F01","medium","Where did the clearest performance difference appear?","On the delayed test one week later",["On the immediate ten-minute test only","Before any review occurred","In dropout rate"],"Immediate performance was similar, while delayed recall favoured the retrieval-practice group.","delayed test one week later"),
  q("D07-Q2","RS-F02","medium","What can be inferred from similar immediate scores?","A learning benefit may appear later even when short-term performance looks similar",["The methods are identical in every respect","Delayed testing is unnecessary","Retrieval caused lower recall"],"The delayed divergence shows that immediate success does not fully capture retention.","immediate performance looks similar"),
@@ -217,7 +231,9 @@ Another limitation is that only learners who had already stayed active for two w
 
 The next phase will begin at course registration and will test different wording for learners who are substantially behind schedule. Researchers want to know whether supportive planning options work better than simply displaying a demanding catch-up number.
 
-The pilot suggests that progress forecasts can influence short-term engagement, but usefulness depends on realistic estimates and on presenting a recommendation that learners can act on rather than merely observe.`,
+The pilot suggests that progress forecasts can influence short-term engagement, but usefulness depends on realistic estimates and on presenting a recommendation that learners can act on rather than merely observe.
+
+Researchers will additionally test whether learners respond differently to forecasts framed as a minimum weekly pace, a range of acceptable study plans or a calendar with suggested session dates. The underlying workload estimate can be identical while the presentation changes how demanding the plan feels. The team will also measure target-date changes explicitly, because moving a deadline may represent sensible replanning rather than disengagement. That distinction is important when interpreting whether a forecast truly improves progress.`,
  questions:[
  q("D08-Q1","RS-F01","medium","What did the experimental dashboard add?","An estimate of study sessions needed per week to meet a target date",["A guaranteed final grade","A live tutor in every lesson","A fixed daily exam"],"The forecast translated remaining work and recent pace into a planning estimate for weekly study sessions.","sessions per week"),
  q("D08-Q2","RS-F02","medium","What can be inferred from the strongest effect among near-target learners?","Recommendations may work better when the required change feels achievable",["Forecasts help only learners who are failing","Large catch-up targets always motivate users","Target dates have no effect"],"Interviews directly connect perceived achievability with usefulness and very large required increases with discouragement.","achievable recommendation felt useful"),
