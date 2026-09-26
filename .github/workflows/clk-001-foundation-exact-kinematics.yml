@@ -1,0 +1,77 @@
+name: Validate CLK-001 exact kinematics foundation
+
+on:
+  pull_request:
+    branches:
+      - feat/spa-fnd-001-wave03-perceptual-remediation
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/temporal/**
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/clock.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts
+      - .github/workflows/clk-001-foundation-exact-kinematics.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clk-001-foundation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle clock and spatial proof tests
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/clock
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock/clock-foundation.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
+      - name: Run exact clock foundation proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock/clock-foundation.test.mjs
+      - name: Run spatial foundation regression
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+      - name: Run Mirror and Water regression
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+      - name: Run clock-renderer regression corpus
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
