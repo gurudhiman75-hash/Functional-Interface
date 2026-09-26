@@ -383,7 +383,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-AGR-001-QL-022",
     "qlName": "Maize — season and conditions",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "District A is warm with well-drained loam; District B is warm but fields remain deeply flooded. Which district is better for maize?",
     "answer": "District A",
     "distractors": [
@@ -400,7 +400,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-023",
     "qlName": "Maize — regional associations",
     "difficulty": "Easy",
-    "stem": "Which broad region is well suited to maize where warm weather and well-drained soils occur?",
+    "stem": "Which landscape is well suited to maize where warm weather and well-drained soils occur?",
     "answer": "Interior plains and plateaus",
     "distractors": [
       "Permanent mangrove swamps only",
@@ -848,7 +848,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-027",
     "qlName": "Millet/maize/pulse integrated reasoning",
     "difficulty": "Medium",
-    "stem": "Which comparison is accurate?",
+    "stem": "How do bajra, maize and pulses differ in their geographic or soil roles?",
     "answer": "Bajra suits drier soils; maize prefers better-drained fertile soils; pulses can improve nitrogen",
     "distractors": [
       "Bajra requires flooding; maize grows only in marshes; pulses remove all nitrogen",
