@@ -85,6 +85,21 @@ const ALL_CANDIDATES: readonly MisCandidateId[] = Object.freeze([
   ...MIS_CP010_CANDIDATE_IDS,
 ]);
 
+function canonicalSemanticAuthorityId(candidateId: MisCandidateId): string {
+  if (isCp008Candidate(candidateId)) return misCp008RuleByCandidateId(candidateId).semanticAuthorityCandidateId;
+  if (isCp009Candidate(candidateId)) return misCp009RuleByCandidateId(candidateId).semanticAuthorityCandidateId;
+  return candidateId;
+}
+
+function createsNewSemanticAuthority(candidateId: MisCandidateId): boolean {
+  if (isCp008Candidate(candidateId)) return misCp008RuleByCandidateId(candidateId).createsNewSemanticAuthority;
+  if (isCp009Candidate(candidateId)) return misCp009RuleByCandidateId(candidateId).createsNewSemanticAuthority;
+  return true;
+}
+
+const SEMANTIC_AUTHORITY_IDS = Object.freeze([...new Set(ALL_CANDIDATES.map(canonicalSemanticAuthorityId))]);
+const REUSED_VARIANT_IDS = Object.freeze(ALL_CANDIDATES.filter((candidateId) => !createsNewSemanticAuthority(candidateId)));
+
 function text(value: unknown): string {
   return String(value ?? '').trim();
 }
@@ -416,7 +431,13 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
   metadata: {
     reviewAuthority: MIS_001_REVIEW_AUTHORITY,
     implementedCheckpoints: [...MIS_001_CHECKPOINT_IDS],
-    candidateCount: ALL_CANDIDATES.length,
+    candidateCount: SEMANTIC_AUTHORITY_IDS.length,
+    semanticAuthorityCount: SEMANTIC_AUTHORITY_IDS.length,
+    semanticAuthorityIds: [...SEMANTIC_AUTHORITY_IDS],
+    runtimePatternCount: ALL_CANDIDATES.length,
+    runtimePatternIds: [...ALL_CANDIDATES],
+    reusedSemanticVariantCount: REUSED_VARIANT_IDS.length,
+    reusedSemanticVariantIds: [...REUSED_VARIANT_IDS],
     candidateIds: [...ALL_CANDIDATES],
     cp001CandidateCount: MIS_CP001_CANDIDATE_IDS.length,
     cp002CandidateCount: MIS_CP002_CANDIDATE_IDS.length,
@@ -489,6 +510,12 @@ export async function generateMis001QuestionStudioBatch(
       packageId: MIS_001_PACKAGE_ID,
       patternId: candidateId,
       candidateId,
+      semanticAuthorityCandidateId: 'semanticAuthorityCandidateId' in generated
+        ? generated.semanticAuthorityCandidateId
+        : candidateId,
+      createsNewSemanticAuthority: 'createsNewSemanticAuthority' in generated
+        ? generated.createsNewSemanticAuthority
+        : true,
       qlId: null,
       provisionalQl: true,
       cpId: generated.checkpointId,
@@ -550,6 +577,12 @@ export async function generateMis001QuestionStudioBatch(
         packageId: MIS_001_PACKAGE_ID,
         checkpointId: generated.checkpointId,
         candidateId,
+        semanticAuthorityCandidateId: 'semanticAuthorityCandidateId' in generated
+          ? generated.semanticAuthorityCandidateId
+          : candidateId,
+        createsNewSemanticAuthority: 'createsNewSemanticAuthority' in generated
+          ? generated.createsNewSemanticAuthority
+          : true,
         ruleId: generated.ruleId,
         permanentQlAllocated: false,
         sourceSaturationComplete: false,
@@ -589,6 +622,10 @@ export async function generateMis001QuestionStudioBatch(
       permanentQlAllocation: false,
       permanentQlCount: 0,
       candidateIds: [...ALL_CANDIDATES],
+      semanticAuthorityIds: [...SEMANTIC_AUTHORITY_IDS],
+      semanticAuthorityCount: SEMANTIC_AUTHORITY_IDS.length,
+      runtimePatternCount: ALL_CANDIDATES.length,
+      reusedSemanticVariantIds: [...REUSED_VARIANT_IDS],
       sourceSaturationComplete: false,
       language,
       requestedDifficulty: requestedDifficulty ?? 'Mixed',
