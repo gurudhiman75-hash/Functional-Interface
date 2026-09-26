@@ -564,7 +564,7 @@ D. Nicobar Islands
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-052 — Ten Degree Channel — Andaman/Nicobar separation
 
-## 41. Which pairing is correct?
+## 41. The Ten Degree Channel forms the sea gap between which island groups?
 
 A. Ten Degree Channel — Andaman and Nicobar
 B. Ten Degree Channel — Minicoy and Maldives
@@ -718,7 +718,7 @@ D. Duncan Passage
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-054 — Great Channel — Nicobar/northern Sumatra setting
 
-## 52. Which pairing is correct?
+## 52. Great Channel forms the sea gap between which locations?
 
 A. Great Channel — Minicoy and Maldives
 B. Great Channel — India and Sri Lanka
