@@ -10,7 +10,8 @@ import type {
 
 export type Di006LocalizationLocale = "hi-IN" | "pa-IN";
 
-export const DI006_LOCALIZATION_REVIEW_ID = "DI-006-HI-PA-REVIEW-V1" as const;\nexport const DI006_LOCALIZATION_RELEASE_ID = "DI-006-HI-PA-FROZEN-V1" as const;
+export const DI006_LOCALIZATION_REVIEW_ID = "DI-006-HI-PA-REVIEW-V1" as const;
+export const DI006_LOCALIZATION_RELEASE_ID = "DI-006-HI-PA-FROZEN-V1" as const;
 
 type LocalizedContext = Readonly<{
   hi: Readonly<{
