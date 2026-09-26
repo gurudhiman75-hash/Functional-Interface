@@ -424,6 +424,7 @@ export async function generateMis001QuestionStudioBatch(
       ambiguityAudit: generated.ambiguityAudit,
       localizationParity: 'NOT_STARTED_ENGLISH_REVIEW_FIRST',
       editorialStatus: 'EXECUTABLE_PROTOTYPE',
+      sourceThin: generated.checkpointId === 'MIS-CP-004' ? generated.sourceThin : false,
       runtimeVersion: generated.checkpointId === 'MIS-CP-001' ? 'MIS-CP-001-V1' : generated.checkpointId === 'MIS-CP-002' ? 'MIS-CP-002-V1' : generated.checkpointId === 'MIS-CP-003' ? 'MIS-CP-003-V1' : 'MIS-CP-004-V1',
       traceability: {
         packageId: MIS_001_PACKAGE_ID,
