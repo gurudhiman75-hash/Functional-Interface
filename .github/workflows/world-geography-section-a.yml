@@ -1,0 +1,28 @@
+name: World Geography Section A
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/world-geography/**'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1*wge001*'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts'
+      - 'scripts/world-geography/**'
+      - '.github/workflows/world-geography-section-a.yml'
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install isolated runner
+        run: npm install --prefix /tmp/wge-runner esbuild@0.25.5
+      - name: Validate corpus and adapter
+        run: |
+          /tmp/wge-runner/node_modules/.bin/esbuild artifacts/api-server/src/question-studio/engines/knowledge-v1-wge001-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=/tmp/wge-test.mjs
+          node /tmp/wge-test.mjs
+      - name: Validate standard registry
+        run: |
+          /tmp/wge-runner/node_modules/.bin/esbuild artifacts/api-server/src/question-studio/engines/knowledge-v1-wge001-registry-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/wge-registry.mjs
+          node /tmp/wge-registry.mjs

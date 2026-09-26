@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "WGE-001-CP006-Q001",
+    "cpId": "WGE-001-CP006",
+    "objective": "focus",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the point within Earth where an earthquake originates called?",
+        "options": [
+          "Focus or hypocentre",
+          "Epicentre",
+          "Seismic station",
+          "Fault scarp"
+        ],
+        "explanation": "The focus is below the surface where rupture starts. The epicentre is the surface point directly above it."
+      },
+      "hi": {
+        "stem": "पृथ्वी के भीतर जिस बिंदु से भूकंप शुरू होता है, उसे क्या कहते हैं?",
+        "options": [
+          "उद्गम केंद्र या हाइपोसेंटर",
+          "अधिकेंद्र",
+          "भूकंपीय केंद्र",
+          "भ्रंश कगार"
+        ],
+        "explanation": "उद्गम केंद्र सतह के नीचे है जहाँ टूटना शुरू होता है। इसके ठीक ऊपर सतह का बिंदु अधिकेंद्र है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੇ ਅੰਦਰ ਜਿਸ ਬਿੰਦੂ ਤੋਂ ਭੂਚਾਲ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ, ਉਸ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਉਦਗਮ ਕੇਂਦਰ ਜਾਂ ਹਾਈਪੋਸੈਂਟਰ",
+          "ਅਧਿਕੇਂਦਰ",
+          "ਭੂਚਾਲੀ ਸਟੇਸ਼ਨ",
+          "ਭ੍ਰੰਸ਼ ਕਗਾਰ"
+        ],
+        "explanation": "ਉਦਗਮ ਕੇਂਦਰ ਸਤਹ ਹੇਠਾਂ ਹੈ ਜਿੱਥੇ ਟੁੱਟਣਾ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ। ਇਸ ਦੇ ਠੀਕ ਉੱਪਰ ਸਤਹ ਵਾਲਾ ਬਿੰਦੂ ਅਧਿਕੇਂਦਰ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q002",
+    "cpId": "WGE-001-CP006",
+    "objective": "epicentre",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the point on Earth's surface directly above an earthquake's focus called?",
+        "options": [
+          "Epicentre",
+          "Hypocentre",
+          "Magma chamber",
+          "Seismic gap"
+        ],
+        "explanation": "The epicentre locates the earthquake at the surface. It is distinct from the rupture's starting point at depth."
+      },
+      "hi": {
+        "stem": "भूकंप के उद्गम केंद्र के ठीक ऊपर पृथ्वी की सतह पर स्थित बिंदु क्या कहलाता है?",
+        "options": [
+          "अधिकेंद्र",
+          "उद्गम केंद्र",
+          "मैग्मा कक्ष",
+          "भूकंपीय अंतराल"
+        ],
+        "explanation": "अधिकेंद्र भूकंप की सतही स्थिति दर्शाता है। यह गहराई में टूटना शुरू होने वाले बिंदु से अलग है।"
+      },
+      "pa": {
+        "stem": "ਭੂਚਾਲ ਦੇ ਉਦਗਮ ਕੇਂਦਰ ਦੇ ਠੀਕ ਉੱਪਰ ਧਰਤੀ ਦੀ ਸਤਹ ਵਾਲੇ ਬਿੰਦੂ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਅਧਿਕੇਂਦਰ",
+          "ਉਦਗਮ ਕੇਂਦਰ",
+          "ਮੈਗਮਾ ਕਮਰਾ",
+          "ਭੂਚਾਲੀ ਅੰਤਰਾਲ"
+        ],
+        "explanation": "ਅਧਿਕੇਂਦਰ ਭੂਚਾਲ ਦੀ ਸਤਹੀ ਸਥਿਤੀ ਦੱਸਦਾ ਹੈ। ਇਹ ਡੂੰਘਾਈ ਵਿੱਚ ਟੁੱਟਣਾ ਸ਼ੁਰੂ ਹੋਣ ਵਾਲੇ ਬਿੰਦੂ ਤੋਂ ਵੱਖ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q003",
+    "cpId": "WGE-001-CP006",
+    "objective": "seismograph",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which instrument records ground motion caused by earthquakes?",
+        "options": [
+          "Seismograph",
+          "Barometer",
+          "Hygrometer",
+          "Anemometer"
+        ],
+        "explanation": "A seismograph records seismic motion. Its record is called a seismogram."
+      },
+      "hi": {
+        "stem": "भूकंप से उत्पन्न भूमि की गति कौन-सा यंत्र दर्ज करता है?",
+        "options": [
+          "भूकंपलेखी",
+          "वायुदाबमापी",
+          "आर्द्रतामापी",
+          "पवनवेगमापी"
+        ],
+        "explanation": "भूकंपलेखी भूकंपीय गति दर्ज करता है। उसके अभिलेख को सीस्मोग्राम कहते हैं।"
+      },
+      "pa": {
+        "stem": "ਭੂਚਾਲ ਨਾਲ ਪੈਦਾ ਧਰਤੀ ਦੀ ਹਿਲਜੁਲ ਕਿਹੜਾ ਯੰਤਰ ਦਰਜ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਭੂਚਾਲ-ਲੇਖੀ",
+          "ਹਵਾ-ਦਬਾਅ ਮਾਪਕ",
+          "ਨਮੀ ਮਾਪਕ",
+          "ਹਵਾ ਦੀ ਚਾਲ ਮਾਪਕ"
+        ],
+        "explanation": "ਭੂਚਾਲ-ਲੇਖੀ ਭੂਚਾਲੀ ਗਤੀ ਦਰਜ ਕਰਦਾ ਹੈ। ਇਸ ਦੇ ਰਿਕਾਰਡ ਨੂੰ ਸੀਸਮੋਗ੍ਰਾਮ ਕਹਿੰਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q004",
+    "cpId": "WGE-001-CP006",
+    "objective": "p-wave-first",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which seismic waves are the first to reach a recording station?",
+        "options": [
+          "P waves",
+          "S waves",
+          "Love waves",
+          "Rayleigh waves"
+        ],
+        "explanation": "P waves travel faster than S waves through the same material. Their name reflects their primary arrival."
+      },
+      "hi": {
+        "stem": "भूकंपीय तरंगों में से कौन-सी रिकॉर्डिंग केंद्र पर सबसे पहले पहुँचती हैं?",
+        "options": [
+          "पी तरंगें",
+          "एस तरंगें",
+          "लव तरंगें",
+          "रेले तरंगें"
+        ],
+        "explanation": "समान पदार्थ में पी तरंगें एस तरंगों से तेज चलती हैं। वे पहले पहुँचती हैं।"
+      },
+      "pa": {
+        "stem": "ਭੂਚਾਲ ਦੀਆਂ ਕਿਹੜੀਆਂ ਤਰੰਗਾਂ ਰਿਕਾਰਡਿੰਗ ਕੇਂਦਰ ਉੱਤੇ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਪਹੁੰਚਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਪੀ ਤਰੰਗਾਂ",
+          "ਐੱਸ ਤਰੰਗਾਂ",
+          "ਲਵ ਤਰੰਗਾਂ",
+          "ਰੇਲੇ ਤਰੰਗਾਂ"
+        ],
+        "explanation": "ਇੱਕੋ ਪਦਾਰਥ ਵਿੱਚ ਪੀ ਤਰੰਗਾਂ ਐੱਸ ਤਰੰਗਾਂ ਨਾਲੋਂ ਤੇਜ਼ ਚੱਲਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਉਹ ਪਹਿਲਾਂ ਪਹੁੰਚਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q005",
+    "cpId": "WGE-001-CP006",
+    "objective": "s-wave-liquid",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which seismic body waves cannot travel through liquid?",
+        "options": [
+          "S waves",
+          "P waves",
+          "Both P and S waves",
+          "Neither P nor S waves"
+        ],
+        "explanation": "S waves require shear rigidity. Their failure to pass through the outer core supports its liquid state."
+      },
+      "hi": {
+        "stem": "कौन-सी भूकंपीय भूगर्भीय तरंगें तरल से नहीं गुजर सकतीं?",
+        "options": [
+          "एस तरंगें",
+          "पी तरंगें",
+          "पी और एस दोनों",
+          "न पी न एस"
+        ],
+        "explanation": "एस तरंगों के लिए अपरूपण कठोरता जरूरी है। बाहरी क्रोड से न गुजरना उसकी तरल अवस्था का प्रमाण है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀਆਂ ਅੰਦਰੋਂ ਲੰਘਣ ਵਾਲੀਆਂ ਭੂਚਾਲੀ ਤਰੰਗਾਂ ਤਰਲ ਵਿੱਚੋਂ ਨਹੀਂ ਲੰਘ ਸਕਦੀਆਂ?",
+        "options": [
+          "ਐੱਸ ਤਰੰਗਾਂ",
+          "ਪੀ ਤਰੰਗਾਂ",
+          "ਪੀ ਅਤੇ ਐੱਸ ਦੋਵੇਂ",
+          "ਨਾ ਪੀ ਨਾ ਐੱਸ"
+        ],
+        "explanation": "ਐੱਸ ਤਰੰਗਾਂ ਲਈ ਕਤਰਣ ਵਾਲੀ ਸਖ਼ਤੀ ਲੋੜੀਂਦੀ ਹੈ। ਬਾਹਰਲੇ ਕੇਂਦਰੀ ਭਾਗ ਵਿੱਚੋਂ ਨਾ ਲੰਘਣਾ ਉਸ ਦੇ ਤਰਲ ਹੋਣ ਦਾ ਸਬੂਤ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q006",
+    "cpId": "WGE-001-CP006",
+    "objective": "p-wave-medium",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Through which media can P waves pass?",
+        "options": [
+          "Both solids and liquids",
+          "Only solids",
+          "Only liquids",
+          "Neither solids nor liquids"
+        ],
+        "explanation": "P waves are compressional waves. They can propagate through solids and liquids, with changes in speed and direction at boundaries."
+      },
+      "hi": {
+        "stem": "पी तरंगें किन माध्यमों से गुजर सकती हैं?",
+        "options": [
+          "ठोस और तरल दोनों",
+          "केवल ठोस",
+          "केवल तरल",
+          "न ठोस न तरल"
+        ],
+        "explanation": "पी तरंगें संपीडन तरंगें हैं। वे ठोस और तरल से गुजरती हैं, लेकिन सीमाओं पर उनकी गति और दिशा बदल सकती है।"
+      },
+      "pa": {
+        "stem": "ਪੀ ਤਰੰਗਾਂ ਕਿਹੜੇ ਮਾਧਿਅਮਾਂ ਵਿੱਚੋਂ ਲੰਘ ਸਕਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਠੋਸ ਅਤੇ ਤਰਲ ਦੋਵੇਂ",
+          "ਕੇਵਲ ਠੋਸ",
+          "ਕੇਵਲ ਤਰਲ",
+          "ਨਾ ਠੋਸ ਨਾ ਤਰਲ"
+        ],
+        "explanation": "ਪੀ ਤਰੰਗਾਂ ਦਬਾਅ ਵਾਲੀਆਂ ਤਰੰਗਾਂ ਹਨ। ਉਹ ਠੋਸ ਅਤੇ ਤਰਲ ਵਿੱਚੋਂ ਲੰਘਦੀਆਂ ਹਨ ਪਰ ਹੱਦਾਂ ਉੱਤੇ ਚਾਲ ਅਤੇ ਦਿਸ਼ਾ ਬਦਲ ਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q007",
+    "cpId": "WGE-001-CP006",
+    "objective": "surface-waves",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which seismic waves propagate along Earth's surface?",
+        "options": [
+          "Love and Rayleigh waves",
+          "P and S waves",
+          "P and Love waves",
+          "S and Rayleigh waves"
+        ],
+        "explanation": "Love and Rayleigh waves travel along Earth’s surface. P and S waves are body waves that travel through its interior."
+      },
+      "hi": {
+        "stem": "कौन-सी भूकंपीय तरंगें पृथ्वी की सतह के साथ चलती हैं?",
+        "options": [
+          "लव और रेले तरंगें",
+          "पी और एस तरंगें",
+          "पी और लव तरंगें",
+          "एस और रेले तरंगें"
+        ],
+        "explanation": "लव और रेले तरंगें पृथ्वी की सतह के साथ चलती हैं। पी और एस भूगर्भिक तरंगें हैं, जो पृथ्वी के भीतर से गुजरती हैं।"
+      },
+      "pa": {
+        "stem": "ਭੂਚਾਲ ਦੀਆਂ ਕਿਹੜੀਆਂ ਤਰੰਗਾਂ ਧਰਤੀ ਦੀ ਸਤਹ ਦੇ ਨਾਲ-ਨਾਲ ਚੱਲਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਲਵ ਅਤੇ ਰੇਲੇ ਤਰੰਗਾਂ",
+          "ਪੀ ਅਤੇ ਐੱਸ ਤਰੰਗਾਂ",
+          "ਪੀ ਅਤੇ ਲਵ ਤਰੰਗਾਂ",
+          "ਐੱਸ ਅਤੇ ਰੇਲੇ ਤਰੰਗਾਂ"
+        ],
+        "explanation": "ਲਵ ਅਤੇ ਰੇਲੇ ਤਰੰਗਾਂ ਧਰਤੀ ਦੀ ਸਤਹ ਦੇ ਨਾਲ-ਨਾਲ ਚੱਲਦੀਆਂ ਹਨ। ਪੀ ਅਤੇ ਐੱਸ ਅੰਦਰੂਨੀ ਤਰੰਗਾਂ ਹਨ ਜੋ ਧਰਤੀ ਦੇ ਅੰਦਰੋਂ ਲੰਘਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q008",
+    "cpId": "WGE-001-CP006",
+    "objective": "magnitude-intensity",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "USGS-MAGNITUDE"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How does earthquake magnitude differ from intensity?",
+        "options": [
+          "Magnitude describes source size; intensity describes effects at a place",
+          "Magnitude describes local damage; intensity describes source size",
+          "Both describe source size and remain identical at all places",
+          "Both measure only the depth of the focus"
+        ],
+        "explanation": "Magnitude estimates an earthquake's size. Intensity varies with distance, local ground conditions and structures."
+      },
+      "hi": {
+        "stem": "भूकंप का परिमाण उसकी तीव्रता से किस प्रकार अलग है?",
+        "options": [
+          "परिमाण उद्गम के आकार को और तीव्रता किसी स्थान पर प्रभावों को बताती है",
+          "परिमाण स्थानीय क्षति को और तीव्रता उद्गम के आकार को बताती है",
+          "दोनों उद्गम का आकार बताते हैं और सभी स्थानों पर समान रहते हैं",
+          "दोनों केवल उद्गम केंद्र की गहराई मापते हैं"
+        ],
+        "explanation": "परिमाण भूकंप का आकार बताता है। तीव्रता दूरी, स्थानीय भूमि और इमारतों के अनुसार बदलती है।"
+      },
+      "pa": {
+        "stem": "ਭੂਚਾਲ ਦਾ ਪਰਿਮਾਣ ਉਸ ਦੀ ਤੀਬਰਤਾ ਤੋਂ ਕਿਵੇਂ ਵੱਖ ਹੈ?",
+        "options": [
+          "ਪਰਿਮਾਣ ਉਦਗਮ ਦੇ ਆਕਾਰ ਨੂੰ ਅਤੇ ਤੀਬਰਤਾ ਕਿਸੇ ਥਾਂ ਦੇ ਪ੍ਰਭਾਵਾਂ ਨੂੰ ਦੱਸਦੀ ਹੈ",
+          "ਪਰਿਮਾਣ ਸਥਾਨਕ ਨੁਕਸਾਨ ਨੂੰ ਅਤੇ ਤੀਬਰਤਾ ਉਦਗਮ ਦੇ ਆਕਾਰ ਨੂੰ ਦੱਸਦੀ ਹੈ",
+          "ਦੋਵੇਂ ਉਦਗਮ ਦਾ ਆਕਾਰ ਦੱਸਦੇ ਹਨ ਅਤੇ ਹਰ ਥਾਂ ਇੱਕੋ ਰਹਿੰਦੇ ਹਨ",
+          "ਦੋਵੇਂ ਸਿਰਫ਼ ਉਦਗਮ ਕੇਂਦਰ ਦੀ ਡੂੰਘਾਈ ਮਾਪਦੇ ਹਨ"
+        ],
+        "explanation": "ਪਰਿਮਾਣ ਭੂਚਾਲ ਦਾ ਆਕਾਰ ਦੱਸਦਾ ਹੈ। ਤੀਬਰਤਾ ਦੂਰੀ, ਸਥਾਨਕ ਜ਼ਮੀਨ ਅਤੇ ਇਮਾਰਤਾਂ ਅਨੁਸਾਰ ਬਦਲਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q009",
+    "cpId": "WGE-001-CP006",
+    "objective": "mercalli",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "USGS-MAGNITUDE"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What does the Modified Mercalli scale measure?",
+        "options": [
+          "Observed shaking and damage intensity",
+          "Energy released at the source",
+          "Depth of the focus",
+          "Rate of plate movement"
+        ],
+        "explanation": "Mercalli intensity uses observed effects. It differs from magnitude measures based on instrumental source estimates."
+      },
+      "hi": {
+        "stem": "संशोधित मरकैली मापनी किसका मापन करती है?",
+        "options": [
+          "देखे गए कंपन और क्षति की तीव्रता",
+          "उद्गम पर मुक्त ऊर्जा",
+          "उद्गम केंद्र की गहराई",
+          "प्लेट की गति की दर"
+        ],
+        "explanation": "मरकैली तीव्रता देखे गए प्रभावों पर आधारित है। यह यंत्रों से आँके गए भूकंप परिमाण से अलग है।"
+      },
+      "pa": {
+        "stem": "ਸੋਧਿਆ ਹੋਇਆ ਮਰਕੈਲੀ ਪੈਮਾਨਾ ਕੀ ਮਾਪਦਾ ਹੈ?",
+        "options": [
+          "ਮਹਿਸੂਸ ਕੀਤੇ ਕੰਬਣ ਅਤੇ ਨੁਕਸਾਨ ਦੀ ਤੀਬਰਤਾ",
+          "ਉਦਗਮ ਉੱਤੇ ਨਿਕਲੀ ਊਰਜਾ",
+          "ਉਦਗਮ ਕੇਂਦਰ ਦੀ ਡੂੰਘਾਈ",
+          "ਪਲੇਟ ਦੀ ਗਤੀ ਦੀ ਦਰ"
+        ],
+        "explanation": "ਮਰਕੈਲੀ ਤੀਬਰਤਾ ਵੇਖੇ ਗਏ ਅਸਰਾਂ ਉੱਤੇ ਆਧਾਰਿਤ ਹੈ। ਇਹ ਯੰਤਰਾਂ ਨਾਲ ਮਾਪੇ ਭੂਚਾਲ ਦੇ ਪਰਿਮਾਣ ਤੋਂ ਵੱਖ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q010",
+    "cpId": "WGE-001-CP006",
+    "objective": "moment-magnitude",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "USGS-MAGNITUDE"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which factors determine an earthquake's seismic moment, used to calculate moment magnitude?",
+        "options": [
+          "Fault area, slip and rock rigidity",
+          "Epicentral distance, building height and soil moisture",
+          "Population density, damage and rescue time",
+          "Latitude, elevation and atmospheric pressure"
+        ],
+        "explanation": "Seismic moment depends on fault area, displacement and rigidity. Moment magnitude converts this source measure into a magnitude scale."
+      },
+      "hi": {
+        "stem": "आघूर्ण परिमाण की गणना में प्रयुक्त भूकंपीय आघूर्ण किन कारकों से निर्धारित होता है?",
+        "options": [
+          "भ्रंश क्षेत्रफल, खिसकाव और चट्टान की दृढ़ता",
+          "अधिकेंद्र से दूरी, भवन की ऊँचाई और मिट्टी की नमी",
+          "जनसंख्या घनत्व, क्षति और बचाव का समय",
+          "अक्षांश, ऊँचाई और वायुदाब"
+        ],
+        "explanation": "भूकंपीय आघूर्ण भ्रंश क्षेत्र, विस्थापन और कठोरता पर निर्भर है। आघूर्ण परिमाण इसे परिमाण मापनी में बदलता है।"
+      },
+      "pa": {
+        "stem": "ਮੋਮੈਂਟ ਮੈਗਨੀਟਿਊਡ ਦੀ ਗਣਨਾ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਭੂਚਾਲੀ ਮੋਮੈਂਟ ਕਿਹੜੇ ਕਾਰਕਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਭ੍ਰੰਸ਼ ਦਾ ਖੇਤਰਫਲ, ਖਿਸਕਾਅ ਅਤੇ ਚੱਟਾਨ ਦੀ ਸਖ਼ਤੀ",
+          "ਅਧਿਕੇਂਦਰ ਤੋਂ ਦੂਰੀ, ਇਮਾਰਤ ਦੀ ਉਚਾਈ ਅਤੇ ਮਿੱਟੀ ਦੀ ਨਮੀ",
+          "ਆਬਾਦੀ ਦੀ ਘਣਤਾ, ਨੁਕਸਾਨ ਅਤੇ ਬਚਾਅ ਦਾ ਸਮਾਂ",
+          "ਵਿਥਕਾਰ, ਉਚਾਈ ਅਤੇ ਹਵਾ ਦਾ ਦਬਾਅ"
+        ],
+        "explanation": "ਭੂਚਾਲੀ ਮੋਮੈਂਟ ਦਰਾਰ ਦੇ ਖੇਤਰ, ਖਿਸਕਾਅ ਅਤੇ ਸਖ਼ਤੀ ਉੱਤੇ ਨਿਰਭਰ ਹੈ। ਮੋਮੈਂਟ ਪਰਿਮਾਣ ਇਸ ਨੂੰ ਪਰਿਮਾਣ ਪੈਮਾਨੇ ਵਿੱਚ ਬਦਲਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q011",
+    "cpId": "WGE-001-CP006",
+    "objective": "fault-release",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the immediate cause of most tectonic earthquakes?",
+        "options": [
+          "Sudden fault slip releasing stored strain",
+          "Slow deposition of sediment on a floodplain",
+          "Gradual cooling of lava at the surface",
+          "Steady erosion of a mountain slope"
+        ],
+        "explanation": "Strain accumulates while a fault is locked. Sudden slip releases energy as seismic waves."
+      },
+      "hi": {
+        "stem": "अधिकांश विवर्तनिक भूकंपों का तात्कालिक कारण क्या है?",
+        "options": [
+          "भ्रंश पर अचानक खिसकाव से संचित विकृति का मुक्त होना",
+          "बाढ़ मैदान पर तलछट का धीमा निक्षेपण",
+          "सतह पर लावा का धीरे-धीरे ठंडा होना",
+          "पर्वतीय ढाल का लगातार अपरदन"
+        ],
+        "explanation": "भ्रंश के अटके रहने पर विकृति जमा होती है। अचानक खिसकने से ऊर्जा भूकंपीय तरंगों के रूप में निकलती है।"
+      },
+      "pa": {
+        "stem": "ਜ਼ਿਆਦਾਤਰ ਟੈਕਟੋਨਿਕ ਭੂਚਾਲਾਂ ਦਾ ਤੁਰੰਤ ਕਾਰਨ ਕੀ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਭ੍ਰੰਸ਼ ਉੱਤੇ ਅਚਾਨਕ ਖਿਸਕਾਅ ਨਾਲ ਜਮ੍ਹਾਂ ਖਿਚਾਅ ਦਾ ਮੁਕਤ ਹੋਣਾ",
+          "ਹੜ੍ਹ ਮੈਦਾਨ ਉੱਤੇ ਤਲਛਟ ਦਾ ਹੌਲੀ ਜਮ੍ਹਾਂ ਹੋਣਾ",
+          "ਸਤਹ ਉੱਤੇ ਲਾਵੇ ਦਾ ਹੌਲੀ-ਹੌਲੀ ਠੰਢਾ ਹੋਣਾ",
+          "ਪਹਾੜੀ ਢਲਾਣ ਦਾ ਲਗਾਤਾਰ ਕਟਾਅ"
+        ],
+        "explanation": "ਦਰਾਰ ਦੇ ਅਟਕੇ ਰਹਿਣ ਉੱਤੇ ਖਿੱਚ ਜਮ੍ਹਾਂ ਹੁੰਦੀ ਹੈ। ਅਚਾਨਕ ਖਿਸਕਣ ਨਾਲ ਊਰਜਾ ਭੂਚਾਲੀ ਤਰੰਗਾਂ ਵਜੋਂ ਨਿਕਲਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q012",
+    "cpId": "WGE-001-CP006",
+    "objective": "liquefaction",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which ground condition is most susceptible to liquefaction during an earthquake?",
+        "options": [
+          "Loose, water-saturated sediment",
+          "Dry, massive granite",
+          "Well-cemented sandstone",
+          "Dry, compact gravel"
+        ],
+        "explanation": "Shaking can raise pore-water pressure and reduce sediment strength. The ground may temporarily behave like a fluid."
+      },
+      "hi": {
+        "stem": "भूकंप के दौरान किस प्रकार की भूमि में द्रवीकरण की संभावना सबसे अधिक होती है?",
+        "options": [
+          "ढीली, जल-संतृप्त तलछट",
+          "सूखा, सघन ग्रेनाइट",
+          "अच्छी तरह सीमेंटित बलुआ पत्थर",
+          "सूखी, सघन बजरी"
+        ],
+        "explanation": "कंपन से छिद्रों के जल का दबाव बढ़कर अवसाद की मजबूती घटा सकता है। भूमि अस्थायी रूप से तरल जैसा व्यवहार कर सकती है।"
+      },
+      "pa": {
+        "stem": "ਭੂਚਾਲ ਵੇਲੇ ਕਿਸ ਕਿਸਮ ਦੀ ਜ਼ਮੀਨ ਵਿੱਚ ਦ੍ਰਵੀਕਰਨ ਦੀ ਸੰਭਾਵਨਾ ਸਭ ਤੋਂ ਵੱਧ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਢਿੱਲੀ, ਪਾਣੀ ਨਾਲ ਸੰਤ੍ਰਿਪਤ ਤਲਛਟ",
+          "ਸੁੱਕਾ, ਸਖ਼ਤ ਗ੍ਰੇਨਾਈਟ",
+          "ਚੰਗੀ ਤਰ੍ਹਾਂ ਜੁੜਿਆ ਰੇਤਲਾ ਪੱਥਰ",
+          "ਸੁੱਕੀ, ਦੱਬੀ ਹੋਈ ਬਜਰੀ"
+        ],
+        "explanation": "ਹਿਲਜੁਲ ਨਾਲ ਰੰਧਰਾਂ ਦੇ ਪਾਣੀ ਦਾ ਦਬਾਅ ਵਧਕੇ ਤਲਛਟ ਦੀ ਮਜ਼ਬੂਤੀ ਘਟਾ ਸਕਦਾ ਹੈ। ਜ਼ਮੀਨ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਤਰਲ ਵਰਗੀ ਹੋ ਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q013",
+    "cpId": "WGE-001-CP006",
+    "objective": "magma-lava",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is magma called after it reaches Earth's surface?",
+        "options": [
+          "Lava",
+          "Magma",
+          "Volcanic ash",
+          "Tuff"
+        ],
+        "explanation": "Molten rock underground is called magma; at the surface it is called lava. The distinction concerns location."
+      },
+      "hi": {
+        "stem": "पृथ्वी की सतह पर पहुँचने के बाद मैग्मा क्या कहलाता है?",
+        "options": [
+          "लावा",
+          "मैग्मा",
+          "ज्वालामुखीय राख",
+          "टफ"
+        ],
+        "explanation": "भूमिगत पिघली चट्टान मैग्मा और सतह पर लावा कहलाती है। यह अंतर स्थान का है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੀ ਸਤਹ ਉੱਤੇ ਪਹੁੰਚਣ ਮਗਰੋਂ ਮੈਗਮਾ ਕੀ ਅਖਵਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਲਾਵਾ",
+          "ਮੈਗਮਾ",
+          "ਜਵਾਲਾਮੁਖੀ ਰਾਖ",
+          "ਟਫ਼"
+        ],
+        "explanation": "ਧਰਤੀ ਹੇਠਾਂ ਪਿਘਲੀ ਚੱਟਾਨ ਮੈਗਮਾ ਅਤੇ ਸਤਹ ਉੱਤੇ ਲਾਵਾ ਅਖਵਾਉਂਦੀ ਹੈ। ਇਹ ਫ਼ਰਕ ਥਾਂ ਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q014",
+    "cpId": "WGE-001-CP006",
+    "objective": "shield-volcano",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Fluid lava spreads over a wide area and builds a volcano with gentle slopes. Which type of volcano forms?",
+        "options": [
+          "Shield volcano",
+          "Composite volcano",
+          "Cinder cone",
+          "Collapse sinkhole"
+        ],
+        "explanation": "Fluid basaltic lava can travel far before cooling. Repeated flows build the wide, gently sloping shield."
+      },
+      "hi": {
+        "stem": "पतला लावा बड़े क्षेत्र में फैलकर मंद ढाल वाला ज्वालामुखी बनाता है। यह किस प्रकार का ज्वालामुखी है?",
+        "options": [
+          "ढाल ज्वालामुखी",
+          "मिश्रित ज्वालामुखी",
+          "राख शंकु",
+          "धँसाव गर्त"
+        ],
+        "explanation": "तरल बेसाल्टिक लावा ठंडा होने से पहले दूर बह सकता है। बार-बार प्रवाह से चौड़ी, मंद ढाल बनती है।"
+      },
+      "pa": {
+        "stem": "ਪਤਲਾ ਲਾਵਾ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਫੈਲ ਕੇ ਹਲਕੀਆਂ ਢਲਾਣਾਂ ਵਾਲਾ ਜਵਾਲਾਮੁਖੀ ਬਣਾਉਂਦਾ ਹੈ। ਇਹ ਕਿਸ ਕਿਸਮ ਦਾ ਜਵਾਲਾਮੁਖੀ ਹੈ?",
+        "options": [
+          "ਢਾਲ ਜਵਾਲਾਮੁਖੀ",
+          "ਮਿਸ਼ਰਤ ਜਵਾਲਾਮੁਖੀ",
+          "ਰਾਖ ਸ਼ੰਕੂ",
+          "ਧਸਣ ਵਾਲਾ ਟੋਆ"
+        ],
+        "explanation": "ਪਤਲਾ ਬਸਾਲਟੀ ਲਾਵਾ ਠੰਢਾ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਦੂਰ ਵਹਿ ਸਕਦਾ ਹੈ। ਵਾਰ-ਵਾਰ ਵਹਿਣ ਨਾਲ ਚੌੜੀ, ਹੌਲੀ ਢਲਾਣ ਬਣਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q015",
+    "cpId": "WGE-001-CP006",
+    "objective": "composite-volcano",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Alternating layers of lava and volcanic fragments form a steep cone. Identify the type of volcano.",
+        "options": [
+          "Composite volcano",
+          "Shield volcano",
+          "Cinder cone",
+          "Lava dome"
+        ],
+        "explanation": "Composite or stratovolcanoes combine lava and pyroclastic layers. They commonly occur in subduction-related volcanic arcs."
+      },
+      "hi": {
+        "stem": "लावा और ज्वालामुखीय टुकड़ों की बारी-बारी से बनी परतें एक तीव्र ढाल वाला शंकु बनाती हैं। ज्वालामुखी का प्रकार पहचानें।",
+        "options": [
+          "मिश्रित ज्वालामुखी",
+          "शील्ड ज्वालामुखी",
+          "राख शंकु",
+          "लावा गुंबद"
+        ],
+        "explanation": "मिश्रित ज्वालामुखी लावा और ज्वालामुखीय खंडों की परतों से बनते हैं। वे अधोगमन से जुड़े चापों में सामान्य हैं।"
+      },
+      "pa": {
+        "stem": "ਲਾਵੇ ਅਤੇ ਜਵਾਲਾਮੁਖੀ ਦੇ ਟੁਕੜਿਆਂ ਦੀਆਂ ਵਾਰੀ-ਵਾਰੀ ਬਣੀਆਂ ਪਰਤਾਂ ਇੱਕ ਤਿੱਖੀ ਢਲਾਣ ਵਾਲਾ ਸ਼ੰਕੂ ਬਣਾਉਂਦੀਆਂ ਹਨ। ਜਵਾਲਾਮੁਖੀ ਦੀ ਕਿਸਮ ਪਛਾਣੋ।",
+        "options": [
+          "ਮਿਸ਼ਰਤ ਜਵਾਲਾਮੁਖੀ",
+          "ਸ਼ੀਲਡ ਜਵਾਲਾਮੁਖੀ",
+          "ਰਾਖ ਸ਼ੰਕੂ",
+          "ਲਾਵਾ ਗੁੰਬਦ"
+        ],
+        "explanation": "ਮਿਸ਼ਰਤ ਜਵਾਲਾਮੁਖੀ ਲਾਵੇ ਅਤੇ ਜਵਾਲਾਮੁਖੀ ਟੁਕੜਿਆਂ ਦੀਆਂ ਪਰਤਾਂ ਤੋਂ ਬਣਦੇ ਹਨ। ਉਹ ਹੇਠਾਂ ਜਾਂਦੀਆਂ ਪਲੇਟਾਂ ਨਾਲ ਜੁੜੇ ਚਾਪਾਂ ਵਿੱਚ ਆਮ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q016",
+    "cpId": "WGE-001-CP006",
+    "objective": "cinder-cone",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which volcanic cone is built mainly from loose fragments deposited around a vent?",
+        "options": [
+          "Cinder cone",
+          "Shield volcano",
+          "Lava dome",
+          "Composite volcano"
+        ],
+        "explanation": "Cinders and other fragments pile up around a vent. This produces a cone distinct from a large shield built by extensive flows."
+      },
+      "hi": {
+        "stem": "ज्वालामुखी के मुख के आसपास जमा ढीले टुकड़ों से मुख्यतः कौन-सा शंकु बनता है?",
+        "options": [
+          "राख शंकु",
+          "शील्ड ज्वालामुखी",
+          "लावा गुंबद",
+          "मिश्रित ज्वालामुखी"
+        ],
+        "explanation": "राखीय टुकड़े मुख के आसपास जमा होते हैं। इससे विस्तृत लावा प्रवाह वाले बड़े ढाल से अलग शंकु बनता है।"
+      },
+      "pa": {
+        "stem": "ਜਵਾਲਾਮੁਖੀ ਦੇ ਮੂੰਹ ਦੁਆਲੇ ਜਮ੍ਹਾਂ ਹੋਏ ਢਿੱਲੇ ਟੁਕੜਿਆਂ ਤੋਂ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕਿਹੜਾ ਸ਼ੰਕੂ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਰਾਖ ਸ਼ੰਕੂ",
+          "ਸ਼ੀਲਡ ਜਵਾਲਾਮੁਖੀ",
+          "ਲਾਵਾ ਗੁੰਬਦ",
+          "ਮਿਸ਼ਰਤ ਜਵਾਲਾਮੁਖੀ"
+        ],
+        "explanation": "ਰਾਖ ਅਤੇ ਹੋਰ ਟੁਕੜੇ ਮੂੰਹ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਜਮ੍ਹਾਂ ਹੁੰਦੇ ਹਨ। ਇਸ ਨਾਲ ਵੱਡੇ ਲਾਵਾ-ਢਾਲ ਤੋਂ ਵੱਖਰਾ ਸ਼ੰਕੂ ਬਣਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q017",
+    "cpId": "WGE-001-CP006",
+    "objective": "caldera",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is a large volcanic depression formed by collapse called?",
+        "options": [
+          "Caldera",
+          "Crater",
+          "Lava dome",
+          "Volcanic neck"
+        ],
+        "explanation": "A caldera commonly forms when overlying rock collapses after substantial magma withdrawal. It is usually larger than an ordinary crater."
+      },
+      "hi": {
+        "stem": "धँसाव से बना बड़ा ज्वालामुखीय गर्त क्या कहलाता है?",
+        "options": [
+          "काल्डेरा",
+          "क्रेटर",
+          "लावा गुंबद",
+          "ज्वालामुखीय ग्रीवा"
+        ],
+        "explanation": "बहुत मैग्मा निकलने के बाद ऊपर की चट्टान धँसने से काल्डेरा बन सकता है। यह साधारण क्रेटर से सामान्यतः बड़ा है।"
+      },
+      "pa": {
+        "stem": "ਧੱਸਣ ਨਾਲ ਬਣੇ ਵੱਡੇ ਜਵਾਲਾਮੁਖੀ ਖੱਡੇ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਕਾਲਡੇਰਾ",
+          "ਕ੍ਰੇਟਰ",
+          "ਲਾਵਾ ਗੁੰਬਦ",
+          "ਜਵਾਲਾਮੁਖੀ ਗਰਦਨ"
+        ],
+        "explanation": "ਬਹੁਤ ਮੈਗਮਾ ਨਿਕਲਣ ਤੋਂ ਬਾਅਦ ਉੱਪਰਲੀ ਚੱਟਾਨ ਧਸਣ ਨਾਲ ਕੈਲਡੇਰਾ ਬਣ ਸਕਦਾ ਹੈ। ਇਹ ਆਮ ਕ੍ਰੇਟਰ ਨਾਲੋਂ ਆਮ ਤੌਰ ਉੱਤੇ ਵੱਡਾ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q018",
+    "cpId": "WGE-001-CP006",
+    "objective": "dormant",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A volcano is presently inactive but may erupt again. It is classified as:",
+        "options": [
+          "Dormant",
+          "Extinct",
+          "Currently erupting",
+          "Permanently inactive"
+        ],
+        "explanation": "Dormant means temporarily inactive with potential for future eruption. A quiet interval alone does not prove extinction."
+      },
+      "hi": {
+        "stem": "एक ज्वालामुखी अभी निष्क्रिय है, लेकिन दोबारा फट सकता है। इसे किस श्रेणी में रखा जाता है?",
+        "options": [
+          "प्रसुप्त",
+          "मृत",
+          "वर्तमान में उद्गारित",
+          "स्थायी रूप से निष्क्रिय"
+        ],
+        "explanation": "सुप्त का अर्थ भविष्य में विस्फोट की संभावना के साथ अस्थायी निष्क्रियता है। केवल शांत अवधि मृत होने का प्रमाण नहीं है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਜਵਾਲਾਮੁਖੀ ਇਸ ਵੇਲੇ ਸ਼ਾਂਤ ਹੈ, ਪਰ ਮੁੜ ਫਟ ਸਕਦਾ ਹੈ। ਇਸ ਨੂੰ ਕਿਸ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਸੁੱਤਾ ਹੋਇਆ",
+          "ਮ੍ਰਿਤ",
+          "ਇਸ ਵੇਲੇ ਫਟ ਰਿਹਾ",
+          "ਸਥਾਈ ਤੌਰ ਉੱਤੇ ਨਿਸ਼ਕਿਰਿਆ"
+        ],
+        "explanation": "ਸੁੱਤੇ ਹੋਏ ਦਾ ਅਰਥ ਭਵਿੱਖ ਵਿੱਚ ਫਟਣ ਦੀ ਸੰਭਾਵਨਾ ਨਾਲ ਅਸਥਾਈ ਨਿਸ਼ਕਿਰਿਆਤਾ ਹੈ। ਸਿਰਫ਼ ਸ਼ਾਂਤ ਸਮਾਂ ਮ੍ਰਿਤ ਹੋਣ ਦਾ ਸਬੂਤ ਨਹੀਂ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q019",
+    "cpId": "WGE-001-CP006",
+    "objective": "fuji-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Mount Fuji is a volcano in which country?",
+        "options": [
+          "Japan",
+          "Italy",
+          "Indonesia",
+          "Mexico"
+        ],
+        "explanation": "Mount Fuji is in Japan. Japan lies in a tectonically active part of the Pacific margin."
+      },
+      "hi": {
+        "stem": "फूजी ज्वालामुखी किस देश में है?",
+        "options": [
+          "जापान",
+          "इटली",
+          "इंडोनेशिया",
+          "मेक्सिको"
+        ],
+        "explanation": "फूजी जापान में है। जापान प्रशांत किनारे के विवर्तनिक रूप से सक्रिय क्षेत्र में है।"
+      },
+      "pa": {
+        "stem": "ਫੂਜੀ ਜਵਾਲਾਮੁਖੀ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਜਪਾਨ",
+          "ਇਟਲੀ",
+          "ਇੰਡੋਨੇਸ਼ੀਆ",
+          "ਮੈਕਸੀਕੋ"
+        ],
+        "explanation": "ਫੂਜੀ ਜਪਾਨ ਵਿੱਚ ਹੈ। ਜਪਾਨ ਪ੍ਰਸ਼ਾਂਤ ਕਿਨਾਰੇ ਦੇ ਟੈਕਟੋਨਿਕ ਤੌਰ ਉੱਤੇ ਸਰਗਰਮ ਖੇਤਰ ਵਿੱਚ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q020",
+    "cpId": "WGE-001-CP006",
+    "objective": "vesuvius-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Mount Vesuvius lies near Naples in which country?",
+        "options": [
+          "Italy",
+          "Greece",
+          "Japan",
+          "Chile"
+        ],
+        "explanation": "Vesuvius is in southern Italy. It is a well-known Mediterranean volcanic example."
+      },
+      "hi": {
+        "stem": "नेपल्स के पास वेसुवियस ज्वालामुखी किस देश में है?",
+        "options": [
+          "इटली",
+          "यूनान",
+          "जापान",
+          "चिली"
+        ],
+        "explanation": "वेसुवियस दक्षिणी इटली में है। यह भूमध्यसागरीय ज्वालामुखी का प्रसिद्ध उदाहरण है।"
+      },
+      "pa": {
+        "stem": "ਨੇਪਲਜ਼ ਨੇੜੇ ਵੇਸੂਵੀਅਸ ਜਵਾਲਾਮੁਖੀ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਇਟਲੀ",
+          "ਯੂਨਾਨ",
+          "ਜਪਾਨ",
+          "ਚਿਲੀ"
+        ],
+        "explanation": "ਵੇਸੂਵੀਅਸ ਦੱਖਣੀ ਇਟਲੀ ਵਿੱਚ ਹੈ। ਇਹ ਭੂਮੱਧ ਸਾਗਰੀ ਜਵਾਲਾਮੁਖੀ ਦੀ ਮਸ਼ਹੂਰ ਮਿਸਾਲ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q021",
+    "cpId": "WGE-001-CP006",
+    "objective": "tsunami-trigger",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-TSUNAMI"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which sea-floor movement is most likely to generate a major tectonic tsunami?",
+        "options": [
+          "Sudden vertical displacement of the sea floor",
+          "Slow accumulation of sediment on the sea floor",
+          "Horizontal slip with negligible water displacement",
+          "Gradual cooling of oceanic crust"
+        ],
+        "explanation": "Rapid sea-floor displacement moves a large water column. Tsunamis can also result from landslides or volcanic events."
+      },
+      "hi": {
+        "stem": "समुद्र-तल की कौन-सी गति से बड़ी विवर्तनिक सुनामी उत्पन्न होने की संभावना सबसे अधिक है?",
+        "options": [
+          "समुद्र-तल का अचानक ऊर्ध्वाधर विस्थापन",
+          "समुद्र-तल पर तलछट का धीमा जमाव",
+          "बहुत कम जल विस्थापन वाला क्षैतिज खिसकाव",
+          "महासागरीय भूपर्पटी का धीरे-धीरे ठंडा होना"
+        ],
+        "explanation": "तेज समुद्र-तल विस्थापन बड़ी जलराशि को हिलाता है। भूस्खलन या ज्वालामुखीय घटनाएँ भी सुनामी बना सकती हैं।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਤਲ ਦੀ ਕਿਹੜੀ ਹਿਲਜੁਲ ਨਾਲ ਵੱਡੀ ਟੈਕਟੋਨਿਕ ਸੁਨਾਮੀ ਪੈਦਾ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਸਭ ਤੋਂ ਵੱਧ ਹੈ?",
+        "options": [
+          "ਸਮੁੰਦਰੀ ਤਲ ਦਾ ਅਚਾਨਕ ਉੱਪਰ ਜਾਂ ਹੇਠਾਂ ਖਿਸਕਣਾ",
+          "ਸਮੁੰਦਰੀ ਤਲ ਉੱਤੇ ਤਲਛਟ ਦਾ ਹੌਲੀ ਜਮ੍ਹਾਂ ਹੋਣਾ",
+          "ਬਹੁਤ ਘੱਟ ਪਾਣੀ ਹਿਲਾਉਣ ਵਾਲਾ ਖਿਤਿਜੀ ਖਿਸਕਾਅ",
+          "ਸਮੁੰਦਰੀ ਭੂ-ਪੇਪੜੀ ਦਾ ਹੌਲੀ-ਹੌਲੀ ਠੰਢਾ ਹੋਣਾ"
+        ],
+        "explanation": "ਤੇਜ਼ ਸਮੁੰਦਰ-ਤਲ ਖਿਸਕਾਅ ਵੱਡੇ ਪਾਣੀ ਦੇ ਭੰਡਾਰ ਨੂੰ ਹਿਲਾਉਂਦਾ ਹੈ। ਜ਼ਮੀਨ ਖਿਸਕਣ ਜਾਂ ਜਵਾਲਾਮੁਖੀ ਘਟਨਾਵਾਂ ਨਾਲ ਵੀ ਸੁਨਾਮੀ ਬਣ ਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q022",
+    "cpId": "WGE-001-CP006",
+    "objective": "tsunami-shoaling",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NOAA-TSUNAMI"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How do a tsunami's speed and height generally change as it enters shallow coastal water?",
+        "options": [
+          "Speed decreases and wave height can increase",
+          "Speed increases and wave height decreases",
+          "Both speed and wave height increase",
+          "Speed stays constant while wavelength increases"
+        ],
+        "explanation": "Shallower water slows the wave. Coastal shape and depth changes can concentrate energy and increase local wave height."
+      },
+      "hi": {
+        "stem": "तट के उथले जल में प्रवेश करने पर सुनामी की गति और ऊँचाई में सामान्यतः क्या परिवर्तन होता है?",
+        "options": [
+          "गति घटती है और तरंग की ऊँचाई बढ़ सकती है",
+          "गति बढ़ती है और तरंग की ऊँचाई घटती है",
+          "गति और तरंग की ऊँचाई दोनों बढ़ती हैं",
+          "गति स्थिर रहती है और तरंगदैर्घ्य बढ़ता है"
+        ],
+        "explanation": "उथला जल तरंग को धीमा करता है। तट की बनावट और गहराई ऊर्जा केंद्रित करके स्थानीय ऊँचाई बढ़ा सकती है।"
+      },
+      "pa": {
+        "stem": "ਤੱਟ ਦੇ ਘੱਟ ਡੂੰਘੇ ਪਾਣੀ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਣ ਉੱਤੇ ਸੁਨਾਮੀ ਦੀ ਰਫ਼ਤਾਰ ਅਤੇ ਉਚਾਈ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਵੇਂ ਬਦਲਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਰਫ਼ਤਾਰ ਘਟਦੀ ਹੈ ਅਤੇ ਲਹਿਰ ਦੀ ਉਚਾਈ ਵਧ ਸਕਦੀ ਹੈ",
+          "ਰਫ਼ਤਾਰ ਵਧਦੀ ਹੈ ਅਤੇ ਲਹਿਰ ਦੀ ਉਚਾਈ ਘਟਦੀ ਹੈ",
+          "ਰਫ਼ਤਾਰ ਅਤੇ ਲਹਿਰ ਦੀ ਉਚਾਈ ਦੋਵੇਂ ਵਧਦੀਆਂ ਹਨ",
+          "ਰਫ਼ਤਾਰ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ ਅਤੇ ਤਰੰਗ-ਲੰਬਾਈ ਵਧਦੀ ਹੈ"
+        ],
+        "explanation": "ਖੋਖਲਾ ਪਾਣੀ ਲਹਿਰ ਨੂੰ ਹੌਲਾ ਕਰਦਾ ਹੈ। ਤੱਟ ਦੀ ਬਣਤਰ ਅਤੇ ਡੂੰਘਾਈ ਊਰਜਾ ਕੇਂਦਰਿਤ ਕਰਕੇ ਸਥਾਨਕ ਉਚਾਈ ਵਧਾ ਸਕਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q023",
+    "cpId": "WGE-001-CP006",
+    "objective": "same-magnitude-effects",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "USGS-MAGNITUDE"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Two towns suffer different levels of damage from the same earthquake. Which factors can account for this difference?",
+        "options": [
+          "Differences in ground conditions, distance and construction",
+          "A different magnitude assigned to each damaged building",
+          "A different focal depth for each town",
+          "Identical shaking producing identical damage regardless of buildings"
+        ],
+        "explanation": "One earthquake can produce different intensities at different sites. Exposure and building vulnerability also affect damage."
+      },
+      "hi": {
+        "stem": "एक ही भूकंप से दो नगरों में अलग-अलग स्तर की क्षति होती है। किन कारकों से यह अंतर समझाया जा सकता है?",
+        "options": [
+          "भूमि, दूरी और निर्माण में अंतर",
+          "हर क्षतिग्रस्त भवन के लिए अलग भूकंप परिमाण",
+          "हर नगर के लिए उद्गम केंद्र की अलग गहराई",
+          "भवनों से स्वतंत्र, समान कंपन से समान क्षति"
+        ],
+        "explanation": "एक भूकंप अलग स्थानों पर अलग तीव्रता दे सकता है। आबादी और भवनों की मजबूती भी क्षति को प्रभावित करती हैं।"
+      },
+      "pa": {
+        "stem": "ਇੱਕੋ ਭੂਚਾਲ ਨਾਲ ਦੋ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਨੁਕਸਾਨ ਦਾ ਪੱਧਰ ਵੱਖਰਾ ਹੈ। ਕਿਹੜੇ ਕਾਰਕ ਇਸ ਫ਼ਰਕ ਨੂੰ ਸਮਝਾ ਸਕਦੇ ਹਨ?",
+        "options": [
+          "ਜ਼ਮੀਨ, ਦੂਰੀ ਅਤੇ ਇਮਾਰਤਾਂ ਦੀ ਬਣਤਰ ਵਿੱਚ ਫ਼ਰਕ",
+          "ਹਰ ਨੁਕਸਾਨੀ ਇਮਾਰਤ ਲਈ ਭੂਚਾਲ ਦਾ ਵੱਖਰਾ ਪਰਿਮਾਣ",
+          "ਹਰ ਸ਼ਹਿਰ ਲਈ ਉਦਗਮ ਕੇਂਦਰ ਦੀ ਵੱਖਰੀ ਡੂੰਘਾਈ",
+          "ਇਮਾਰਤਾਂ ਦੀ ਬਣਤਰ ਤੋਂ ਬਿਨਾਂ, ਇੱਕੋ ਕੰਬਣ ਨਾਲ ਇੱਕੋ ਨੁਕਸਾਨ"
+        ],
+        "explanation": "ਇੱਕ ਭੂਚਾਲ ਵੱਖਰੀਆਂ ਥਾਵਾਂ ਉੱਤੇ ਵੱਖਰੀ ਤੀਬਰਤਾ ਦੇ ਸਕਦਾ ਹੈ। ਵਸੋਂ ਅਤੇ ਇਮਾਰਤਾਂ ਦੀ ਮਜ਼ਬੂਤੀ ਵੀ ਨੁਕਸਾਨ ਉੱਤੇ ਅਸਰ ਪਾਉਂਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP006-Q024",
+    "cpId": "WGE-001-CP006",
+    "objective": "hazard-setting",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-INTERIOR"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which tectonic setting can produce both a volcanic arc and a major tsunami?",
+        "options": [
+          "An oceanic subduction margin",
+          "An inland continental collision zone",
+          "An inland transform fault",
+          "A passive continental margin"
+        ],
+        "explanation": "Subduction can generate arc volcanism and large sea-floor-displacing earthquakes. Not every earthquake there produces a tsunami."
+      },
+      "hi": {
+        "stem": "किस विवर्तनिक क्षेत्र में ज्वालामुखीय चाप और बड़ी सुनामी दोनों उत्पन्न हो सकते हैं?",
+        "options": [
+          "महासागरीय अधोगमन सीमा",
+          "स्थल के भीतर महाद्वीपीय टक्कर क्षेत्र",
+          "स्थल के भीतर रूपांतर भ्रंश",
+          "निष्क्रिय महाद्वीपीय किनारा"
+        ],
+        "explanation": "अधोगमन ज्वालामुखीय चाप और समुद्र-तल हिलाने वाले बड़े भूकंप बना सकता है। वहाँ का हर भूकंप सुनामी नहीं बनाता।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਟੈਕਟੋਨਿਕ ਖੇਤਰ ਵਿੱਚ ਜਵਾਲਾਮੁਖੀ ਚਾਪ ਅਤੇ ਵੱਡੀ ਸੁਨਾਮੀ ਦੋਵੇਂ ਪੈਦਾ ਹੋ ਸਕਦੇ ਹਨ?",
+        "options": [
+          "ਸਮੁੰਦਰੀ ਸਬਡਕਸ਼ਨ ਹੱਦ",
+          "ਥਲ ਅੰਦਰ ਮਹਾਂਦੀਪੀ ਟੱਕਰ ਖੇਤਰ",
+          "ਥਲ ਅੰਦਰ ਰੂਪਾਂਤਰ ਭ੍ਰੰਸ਼",
+          "ਨਿਸ਼ਕਿਰਿਆ ਮਹਾਂਦੀਪੀ ਕਿਨਾਰਾ"
+        ],
+        "explanation": "ਪਲੇਟ ਦਾ ਹੇਠਾਂ ਉਤਰਨਾ ਜਵਾਲਾਮੁਖੀ ਚਾਪ ਅਤੇ ਸਮੁੰਦਰ-ਤਲ ਹਿਲਾਉਣ ਵਾਲੇ ਵੱਡੇ ਭੂਚਾਲ ਪੈਦਾ ਕਰ ਸਕਦਾ ਹੈ। ਉੱਥੇ ਹਰ ਭੂਚਾਲ ਸੁਨਾਮੀ ਨਹੀਂ ਬਣਾਉਂਦਾ।"
+      }
+    },
+    "correctIndex": 0
+  }
+]
