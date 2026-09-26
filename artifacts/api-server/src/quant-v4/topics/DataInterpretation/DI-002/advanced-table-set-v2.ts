@@ -67,17 +67,17 @@ const CONTEXTS = [
 ] as const;
 
 const EASY_KINDS: readonly Di002V2TaskKind[] = [
-  "DIRECT_SELECTED_VALUE",
-  "DIRECT_SELECTION_RATE",
+  "SELECTED_DIFFERENCE",
+  "COMBINED_SELECTED",
 ];
 
 const MEDIUM_KINDS: readonly Di002V2TaskKind[] = [
   "MISSING_APPLICANTS_FROM_RATE",
   "REJECTED_COUNT",
-  "SELECTED_DIFFERENCE",
-  "COMBINED_SELECTED",
-  "SELECTION_RATE_POINT_GAP",
   "SELECTED_SHARE_OF_TOTAL",
+  "COMBINED_REJECTED",
+  "APPLICANTS_RATIO",
+  "AVERAGE_SELECTED_THREE_ROWS",
 ];
 
 const HARD_KINDS: readonly Di002V2TaskKind[] = [
@@ -211,7 +211,7 @@ function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidat
       }
     } else if (percent) {
       const value = Number(percent[1]);
-      const bounded = kind === "DIRECT_SELECTION_RATE" || kind === "SELECTED_SHARE_OF_TOTAL" || kind === "COMBINED_SELECTION_RATE";
+      const bounded = kind === "SELECTED_SHARE_OF_TOTAL" || kind === "COMBINED_SELECTION_RATE";
       for (const delta of [-20, -15, -10, -5, 5, 10, 15, 20]) {
         const distractor = value + delta;
         if (distractor <= 0 || (bounded && distractor > 100)) continue;
@@ -267,20 +267,6 @@ function pair(seed: string, allowed: readonly (readonly [number, number])[]) {
   return pick(seededRandom(seed), allowed);
 }
 
-function fourTuple(seed: string) {
-  return pick(
-    seededRandom(seed),
-    [
-      [0, 1, 2, 3],
-      [0, 2, 1, 4],
-      [0, 4, 1, 3],
-      [1, 2, 3, 4],
-      [1, 4, 0, 2],
-      [2, 4, 0, 3],
-    ] as const,
-  );
-}
-
 function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const rows = stimulus.rows;
   const applicants = actualApplicants(stimulus);
@@ -288,8 +274,6 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const rejected = rows.map((row, index) => applicants[index]! - row.selected);
   const totalSelected = selected.reduce((sum, value) => sum + value, 0);
 
-  const directIndex = pick(seededRandom(`${seed}:direct-index`), [0, 1, 2, 3, 4] as const);
-  const rateIndex = pick(seededRandom(`${seed}:rate-index`), [0, 1, 2, 3, 4] as const);
   const hiddenIndex = stimulus.hiddenApplicantIndex;
   const visibleIndexes = [0, 1, 2, 3, 4].filter((index) => index !== hiddenIndex);
   const rejectedCandidates = visibleIndexes.filter((index) => rows[index]!.selectionPercent !== 50);
@@ -297,8 +281,16 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
 
   const differencePair = pair(`${seed}:difference-pair`, [[0, 1], [0, 3], [1, 2], [1, 4], [2, 4], [3, 4]] as const);
   const combinedPair = pair(`${seed}:combined-pair`, [[0, 2], [0, 4], [1, 3], [2, 4], [1, 4]] as const);
-  const pointPair = pair(`${seed}:point-pair`, [[0, 1], [0, 2], [1, 3], [2, 4], [3, 4]] as const);
   const shareIndex = pick(seededRandom(`${seed}:share-index`), [0, 1, 2, 3, 4] as const);
+  const allPairs = [[0, 1], [0, 2], [0, 3], [0, 4], [1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]] as const;
+  const visiblePairs = allPairs.filter(([first, second]) => first !== hiddenIndex && second !== hiddenIndex);
+  const combinedRejectedPair = pick(seededRandom(`${seed}:combined-rejected-pair`), visiblePairs);
+  const applicantRatioCandidates = visiblePairs.filter(([first, second]) => applicants[first]! !== applicants[second]!);
+  const applicantsRatioPair = pick(seededRandom(`${seed}:applicants-ratio-pair`), applicantRatioCandidates);
+  const averageTuple = pick(
+    seededRandom(`${seed}:average-selected-three`),
+    [[0, 1, 2], [0, 1, 4], [0, 2, 3], [0, 3, 4], [1, 2, 4], [1, 3, 4], [2, 3, 4]] as const,
+  );
   const ratioTuple = shuffle(
     seededRandom(`${seed}:ratio-groups`),
     [
@@ -327,9 +319,15 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const diffAnswer = Math.abs(selected[diffA]! - selected[diffB]!);
   const [combA, combB] = combinedPair;
   const combinedAnswer = selected[combA]! + selected[combB]!;
-  const [pointA, pointB] = pointPair;
-  const pointGap = Math.abs(rows[pointA]!.selectionPercent - rows[pointB]!.selectionPercent);
   const sharePercent = nearestWholePercent(selected[shareIndex]!, totalSelected);
+
+  const [combinedRejectedA, combinedRejectedB] = combinedRejectedPair;
+  const combinedRejectedAnswer = rejected[combinedRejectedA]! + rejected[combinedRejectedB]!;
+  const [appRatioA, appRatioB] = applicantsRatioPair;
+  const applicantsRatioAnswer = ratioDisplay(applicants[appRatioA]!, applicants[appRatioB]!);
+  const [avgA, avgB, avgC] = averageTuple;
+  const averageSelectedAnswer = (selected[avgA]! + selected[avgB]! + selected[avgC]!) / 3;
+  if (!Number.isSafeInteger(averageSelectedAnswer)) throw new Error("DI-002 V2 average-selected task must stay integer-valued.");
 
   const [leftA, leftB, rightA, rightB] = ratioTuple;
   const leftSelected = selected[leftA]! + selected[leftB]!;
@@ -352,18 +350,6 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const combinedRejected = rejected[rejectA]! + rejected[rejectB]!;
   const combinedSelectedForRejectPair = selected[rejectA]! + selected[rejectB]!;
   const rejectedRatio = ratioDisplay(combinedRejected, combinedSelectedForRejectPair);
-
-  const directSurface = surface(`${seed}:DIRECT_SELECTED_VALUE:surface`, [
-    `How many candidates were selected from ${rows[directIndex]!.label}?`,
-    `Find the number of selected candidates for ${rows[directIndex]!.label}.`,
-    `According to the table, how many candidates were selected from ${rows[directIndex]!.label}?`,
-  ]);
-
-  const rateSurface = surface(`${seed}:DIRECT_SELECTION_RATE:surface`, [
-    `What was the selection percentage for ${rows[rateIndex]!.label}?`,
-    `Find the selection rate shown for ${rows[rateIndex]!.label}.`,
-    `According to the table, what percentage of applicants were selected from ${rows[rateIndex]!.label}?`,
-  ]);
 
   const hiddenRow = rows[hiddenIndex]!;
   const missingSurface = surface(`${seed}:MISSING_APPLICANTS_FROM_RATE:surface`, [
@@ -390,16 +376,28 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
     `The sum of selected candidates from ${rows[combA]!.label} and ${rows[combB]!.label} is:`,
   ]);
 
-  const pointSurface = surface(`${seed}:SELECTION_RATE_POINT_GAP:surface`, [
-    `What is the difference between the selection rates of ${rows[pointA]!.label} and ${rows[pointB]!.label}?`,
-    `By how many percentage points do the selection rates of ${rows[pointA]!.label} and ${rows[pointB]!.label} differ?`,
-    `Find the absolute gap in Selection % between ${rows[pointA]!.label} and ${rows[pointB]!.label}.`,
-  ]);
-
   const shareSurface = surface(`${seed}:SELECTED_SHARE_OF_TOTAL:surface`, [
     `The selected candidates from ${rows[shareIndex]!.label} form approximately what percentage of all selected candidates? Give the nearest whole percent.`,
     `To the nearest whole percent, what percentage of all selected candidates came from ${rows[shareIndex]!.label}?`,
     `What percent of the total number of selected candidates were selected from ${rows[shareIndex]!.label}? Round to the nearest whole percent.`,
+  ]);
+
+  const combinedRejectedSurface = surface(`${seed}:COMBINED_REJECTED:surface`, [
+    `How many applicants from ${rows[combinedRejectedA]!.label} and ${rows[combinedRejectedB]!.label} together were not selected?`,
+    `Find the combined number of candidates not selected from ${rows[combinedRejectedA]!.label} and ${rows[combinedRejectedB]!.label}.`,
+    `After finding the rejected candidates for ${rows[combinedRejectedA]!.label} and ${rows[combinedRejectedB]!.label}, what is their total?`,
+  ]);
+
+  const applicantsRatioSurface = surface(`${seed}:APPLICANTS_RATIO:surface`, [
+    `What is the ratio of applicants from ${rows[appRatioA]!.label} to applicants from ${rows[appRatioB]!.label}?`,
+    `Find the ratio of the numbers of applicants in ${rows[appRatioA]!.label} and ${rows[appRatioB]!.label}, in that order.`,
+    `The applicant counts for ${rows[appRatioA]!.label} and ${rows[appRatioB]!.label} are in what ratio?`,
+  ]);
+
+  const averageSelectedSurface = surface(`${seed}:AVERAGE_SELECTED_THREE_ROWS:surface`, [
+    `What is the average number of candidates selected from ${rows[avgA]!.label}, ${rows[avgB]!.label} and ${rows[avgC]!.label}?`,
+    `Find the average Selected value for ${rows[avgA]!.label}, ${rows[avgB]!.label} and ${rows[avgC]!.label}.`,
+    `The average number selected across ${rows[avgA]!.label}, ${rows[avgB]!.label} and ${rows[avgC]!.label} is:`,
   ]);
 
   const ratioSurface = surface(`${seed}:COMBINED_SELECTED_RATIO:surface`, [
@@ -427,36 +425,6 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   ]);
 
   return [
-    {
-      kind: "DIRECT_SELECTED_VALUE",
-      difficulty: "Easy",
-      ...directSurface,
-      answer: String(selected[directIndex]!),
-      candidates: rows
-        .map((row, index) => ({ row, index }))
-        .filter(({ index }) => index !== directIndex)
-        .map(({ row, index }) => ({ text: String(row.selected), misconceptionId: `READ_SELECTED_ROW_${index + 1}`, derivation: `Reads the Selected value from ${row.label} instead of the requested row.` })),
-      explanation: {
-        keyIdea: "Read the required entry directly from the Selected column.",
-        steps: [`${rows[directIndex]!.label} has ${selected[directIndex]} in the Selected column.`],
-      },
-      evidence: { targetIndex: directIndex },
-    },
-    {
-      kind: "DIRECT_SELECTION_RATE",
-      difficulty: "Easy",
-      ...rateSurface,
-      answer: `${rows[rateIndex]!.selectionPercent}%`,
-      candidates: rows
-        .map((row, index) => ({ row, index }))
-        .filter(({ index }) => index !== rateIndex)
-        .map(({ row, index }) => ({ text: `${row.selectionPercent}%`, misconceptionId: `READ_RATE_ROW_${index + 1}`, derivation: `Reads the Selection % from ${row.label} instead of the requested row.` })),
-      explanation: {
-        keyIdea: "Read the required percentage directly from the Selection % column.",
-        steps: [`${rows[rateIndex]!.label} shows a selection rate of ${rows[rateIndex]!.selectionPercent}%.`],
-      },
-      evidence: { targetIndex: rateIndex },
-    },
     {
       kind: "MISSING_APPLICANTS_FROM_RATE",
       difficulty: "Medium",
@@ -509,7 +477,7 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
     },
     {
       kind: "SELECTED_DIFFERENCE",
-      difficulty: "Medium",
+      difficulty: "Easy",
       ...differenceSurface,
       answer: String(diffAnswer),
       candidates: [
@@ -530,7 +498,7 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
     },
     {
       kind: "COMBINED_SELECTED",
-      difficulty: "Medium",
+      difficulty: "Easy",
       ...combinedSurface,
       answer: String(combinedAnswer),
       candidates: [
@@ -548,28 +516,6 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
         ],
       },
       evidence: { firstIndex: combA, secondIndex: combB },
-    },
-    {
-      kind: "SELECTION_RATE_POINT_GAP",
-      difficulty: "Medium",
-      ...pointSurface,
-      answer: `${pointGap} percentage points`,
-      candidates: [
-        { text: `${nearestWholePercent(pointGap, Math.min(rows[pointA]!.selectionPercent, rows[pointB]!.selectionPercent))} percentage points`, misconceptionId: "RELATIVE_PERCENT_AS_POINT_GAP", derivation: "Uses the numerical relative-percent change as though it were a percentage-point gap." },
-        ...[10, 20, 30, 40].map((value) => ({
-          text: `${value} percentage points`,
-          misconceptionId: `OTHER_RATE_GAP_${value}`,
-          derivation: "Uses another plausible gap between selection rates shown in the table.",
-        })),
-      ],
-      explanation: {
-        keyIdea: "A percentage-point gap is found by subtracting the two percentage rates.",
-        steps: [
-          `Rates = ${rows[pointA]!.selectionPercent}% and ${rows[pointB]!.selectionPercent}%.`,
-          `Gap = |${rows[pointA]!.selectionPercent} - ${rows[pointB]!.selectionPercent}| = ${pointGap} percentage points.`,
-        ],
-      },
-      evidence: { firstIndex: pointA, secondIndex: pointB },
     },
     {
       kind: "SELECTED_SHARE_OF_TOTAL",
@@ -591,6 +537,70 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
         ],
       },
       evidence: { targetIndex: shareIndex },
+    },
+    {
+      kind: "COMBINED_REJECTED",
+      difficulty: "Medium",
+      ...combinedRejectedSurface,
+      answer: String(combinedRejectedAnswer),
+      candidates: [
+        { text: String(selected[combinedRejectedA]! + selected[combinedRejectedB]!), misconceptionId: "ADD_SELECTED_INSTEAD", derivation: "Adds the Selected values instead of the rejected counts." },
+        { text: String(applicants[combinedRejectedA]! + applicants[combinedRejectedB]!), misconceptionId: "ADD_APPLICANTS_INSTEAD", derivation: "Adds total Applicants without subtracting Selected." },
+        { text: String(Math.abs(rejected[combinedRejectedA]! - rejected[combinedRejectedB]!)), misconceptionId: "SUBTRACT_REJECTED", derivation: "Finds the difference between the two rejected counts instead of their total." },
+        { text: String(rejected[combinedRejectedA]!), misconceptionId: "FIRST_REJECTED_ONLY", derivation: "Uses only the rejected count from the first named row." },
+        { text: String(rejected[combinedRejectedB]!), misconceptionId: "SECOND_REJECTED_ONLY", derivation: "Uses only the rejected count from the second named row." },
+      ],
+      explanation: {
+        keyIdea: "Find the rejected candidates in each row, then add those two results.",
+        steps: [
+          `${rows[combinedRejectedA]!.label}: ${applicants[combinedRejectedA]} - ${selected[combinedRejectedA]} = ${rejected[combinedRejectedA]} not selected.`,
+          `${rows[combinedRejectedB]!.label}: ${applicants[combinedRejectedB]} - ${selected[combinedRejectedB]} = ${rejected[combinedRejectedB]} not selected.`,
+          `Combined not selected = ${rejected[combinedRejectedA]} + ${rejected[combinedRejectedB]} = ${combinedRejectedAnswer}.`,
+        ],
+      },
+      evidence: { firstIndex: combinedRejectedA, secondIndex: combinedRejectedB },
+    },
+    {
+      kind: "APPLICANTS_RATIO",
+      difficulty: "Medium",
+      ...applicantsRatioSurface,
+      answer: applicantsRatioAnswer,
+      candidates: [
+        { text: ratioDisplay(applicants[appRatioB]!, applicants[appRatioA]!), misconceptionId: "REVERSE_APPLICANTS_RATIO", derivation: "Reverses the order of the two applicant counts." },
+        { text: ratioDisplay(selected[appRatioA]!, selected[appRatioB]!), misconceptionId: "USE_SELECTED_RATIO", derivation: "Uses Selected values instead of Applicants." },
+        { text: ratioDisplay(rejected[appRatioA]!, rejected[appRatioB]!), misconceptionId: "USE_REJECTED_RATIO", derivation: "Uses rejected counts instead of Applicants." },
+        { text: ratioDisplay(applicants[appRatioA]!, selected[appRatioB]!), misconceptionId: "MIX_COLUMNS", derivation: "Uses Applicants for the first row and Selected for the second." },
+        { text: ratioDisplay(selected[appRatioA]!, applicants[appRatioB]!), misconceptionId: "MIX_COLUMNS_REVERSE", derivation: "Uses Selected for the first row and Applicants for the second." },
+      ],
+      explanation: {
+        keyIdea: "Use the Applicants values for the two named rows, keep the stated order, and simplify the ratio.",
+        steps: [
+          `Applicants = ${applicants[appRatioA]} and ${applicants[appRatioB]}.`,
+          `${applicants[appRatioA]}:${applicants[appRatioB]} = ${applicantsRatioAnswer}.`,
+        ],
+      },
+      evidence: { firstIndex: appRatioA, secondIndex: appRatioB },
+    },
+    {
+      kind: "AVERAGE_SELECTED_THREE_ROWS",
+      difficulty: "Medium",
+      ...averageSelectedSurface,
+      answer: String(averageSelectedAnswer),
+      candidates: [
+        { text: String(selected[avgA]! + selected[avgB]! + selected[avgC]!), misconceptionId: "USE_SUM_NOT_AVERAGE", derivation: "Adds the three Selected values but does not divide by 3." },
+        { text: String((selected[avgA]! + selected[avgB]!) / 2), misconceptionId: "AVERAGE_FIRST_TWO_ONLY", derivation: "Averages only the first two named rows." },
+        { text: String((selected[avgB]! + selected[avgC]!) / 2), misconceptionId: "AVERAGE_LAST_TWO_ONLY", derivation: "Averages only the last two named rows." },
+        { text: String(selected[avgA]!), misconceptionId: "USE_FIRST_SELECTED", derivation: "Uses only the first named Selected value." },
+        { text: String(selected[avgC]!), misconceptionId: "USE_LAST_SELECTED", derivation: "Uses only the last named Selected value." },
+      ],
+      explanation: {
+        keyIdea: "Add the Selected values for all three named rows and divide by 3.",
+        steps: [
+          `Total Selected = ${selected[avgA]} + ${selected[avgB]} + ${selected[avgC]} = ${selected[avgA]! + selected[avgB]! + selected[avgC]!}.`,
+          `Average = ${selected[avgA]! + selected[avgB]! + selected[avgC]!} / 3 = ${averageSelectedAnswer}.`,
+        ],
+      },
+      evidence: { firstIndex: avgA, secondIndex: avgB, thirdIndex: avgC },
     },
     {
       kind: "COMBINED_SELECTED_RATIO",
