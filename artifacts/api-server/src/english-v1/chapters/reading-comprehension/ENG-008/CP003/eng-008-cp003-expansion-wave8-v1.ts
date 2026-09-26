@@ -5,9 +5,7 @@ export const ENG008_CP003_EXPANSION_WAVE8_V1:readonly Eng008Cp003PassageV1[]=[
  id:"ENG008-BP-N09",title:"The Two Similar Parcels",genre:"narrative",
  text:`Ravi ordered a set of reference books from an online store. The delivery app showed that one parcel had been left at the security desk of his apartment building. When he went downstairs, the guard pointed to two boxes with the same retailer logo and almost identical size.
 
-One box had Ravi's flat number, but the name printed above it belonged to another resident with a similar surname. The second box carried Ravi's full name and the correct order number. Ravi compared the label with the confirmation message on his phone before signing the collection register.
-
-The guard explained that two deliveries from the same store had arrived within a few minutes and had been placed next to each other. Because both boxes looked alike, he had nearly handed over the wrong one.
+One box had Ravi's flat number, but the name printed above it belonged to another resident with a similar surname. The second box carried Ravi's full name and the correct order number. Ravi compared the label with the confirmation message on his phone before signing the collection register. The guard explained that two deliveries from the same store had arrived within a few minutes and had been placed next to each other. Because both boxes looked alike, he had nearly handed over the wrong one.
 
 Ravi took the correct parcel upstairs and later told the other resident that her box was waiting at the desk. The incident seemed simple, but it showed that familiar branding and similar names can create a misleading sense of certainty. The apartment association later asked guards to check both flat number and recipient name when several parcels from the same company arrived together.
 
@@ -30,19 +28,13 @@ The change did not make collection noticeably slower. In most cases the extra ch
 },
 {
  id:"ENG008-BP-N10",title:"The Platform Change",genre:"narrative",
- text:`Simran was travelling by train for an entrance examination. Her ticket showed Platform 3, and the large departure board still displayed the same number when she entered the station. Ten minutes later, she received an app notification saying the train would leave from Platform 5.
-
-Several passengers began walking toward Platform 5 immediately. Simran looked again at the main board, which had not yet changed, and wondered whether the notification was delayed or incorrect.
+ text:`Simran was travelling by train for an entrance examination. Her ticket showed Platform 3, and the large departure board still displayed the same number when she entered the station. Ten minutes later, she received an app notification saying the train would leave from Platform 5. Several passengers began walking toward Platform 5 immediately. Simran looked again at the main board, which had not yet changed, and wondered whether the notification was delayed or incorrect.
 
 She checked a smaller platform display near the enquiry desk. It showed Platform 5 and marked the change as recent. An announcement followed a minute later. Station staff explained that the train had been moved because another service was occupying Platform 3 longer than expected.
 
-Simran reached the new platform with time to spare. She noticed that different information channels had updated at slightly different speeds. The app had been first, the small display second, and the main board last.
+Simran reached the new platform with time to spare. She noticed that different information channels had updated at slightly different speeds. The app had been first, the small display second, and the main board last. The experience taught her that conflicting information does not always mean one source is generally unreliable. Sometimes a system is in the middle of being updated. When a change matters, checking another current source can reveal whether the newer message is genuine.
 
-The experience taught her that conflicting information does not always mean one source is generally unreliable. Sometimes a system is in the middle of being updated. When a change matters, checking another current source can reveal whether the newer message is genuine.
-
-After the train departed, Simran saw the main board finally refresh. She understood why passengers should pay attention to timestamps, announcements and multiple official channels during fast operational changes instead of relying only on the first screen they saw.
-
-The station later explained that different displays were fed by separate update systems, so a short mismatch could occur during an operational change. Staff said passengers should prefer the most recent official information and seek confirmation when two sources disagree.
+After the train departed, Simran saw the main board finally refresh. She understood why passengers should pay attention to timestamps, announcements and multiple official channels during fast operational changes instead of relying only on the first screen they saw. The station later explained that different displays were fed by separate update systems, so a short mismatch could occur during an operational change. Staff said passengers should prefer the most recent official information and seek confirmation when two sources disagree.
 
 Simran also noticed that the newer message included the train number and departure time, not just the platform. Those matching details helped her judge that it referred to her service rather than another train. She concluded that checking context matters as much as checking the source. A message can be official and still be misunderstood if a traveller matches it to the wrong journey.
 
@@ -61,13 +53,9 @@ She also saved a screenshot so she could compare the change if another message a
 },
 {
  id:"ENG008-BP-S08",title:"Labels for a Community Refrigerator",genre:"social",
- text:`A neighbourhood group placed a community refrigerator outside a local hall so residents could leave sealed surplus food for others. At first, volunteers asked donors to write only the item name on each container.
+ text:`A neighbourhood group placed a community refrigerator outside a local hall so residents could leave sealed surplus food for others. At first, volunteers asked donors to write only the item name on each container. Within a few weeks, a problem appeared. Two boxes marked “rice” looked similar, but one had been cooked that morning and the other had been stored since the previous day. Volunteers could not tell which should be used first.
 
-Within a few weeks, a problem appeared. Two boxes marked “rice” looked similar, but one had been cooked that morning and the other had been stored since the previous day. Volunteers could not tell which should be used first.
-
-The group introduced a simple label showing the food name, preparation date and time, and whether the container needed reheating. Items without enough information were moved to a separate shelf until a volunteer could confirm the details.
-
-The new labels made rotation easier and reduced the number of containers discarded because their age was uncertain. However, the group avoided adding too many fields. Donors said a long form might discourage people from contributing.
+The group introduced a simple label showing the food name, preparation date and time, and whether the container needed reheating. Items without enough information were moved to a separate shelf until a volunteer could confirm the details. The new labels made rotation easier and reduced the number of containers discarded because their age was uncertain. However, the group avoided adding too many fields. Donors said a long form might discourage people from contributing.
 
 Volunteers also cleaned the refrigerator twice a day and kept a temperature log. They explained that labels could improve handling but could not make unsafe food safe. Donors were still asked to follow basic storage rules before leaving anything.
 
@@ -92,13 +80,9 @@ A monthly review showed that the shorter label was completed far more consistent
  id:"ENG008-BP-S09",title:"Booking Shared Study Rooms",genre:"social",
  text:`A coaching centre allowed students to book three small study rooms through a shared online calendar. The original system showed only the student's first name and the start time. Problems arose when two students had the same name or when someone forgot to cancel a booking.
 
-The centre changed the process so each reservation included a student ID suffix, start time and expected end time. A booking automatically expired ten minutes after the start if the student had not checked in at reception.
+The centre changed the process so each reservation included a student ID suffix, start time and expected end time. A booking automatically expired ten minutes after the start if the student had not checked in at reception. During the first month, the number of unused rooms with active bookings fell. Students also found it easier to see when a room would become available.
 
-During the first month, the number of unused rooms with active bookings fell. Students also found it easier to see when a room would become available.
-
-The new rule created one concern. Some students arrived a few minutes late because a class in another building ended at the same time as their booking. The centre therefore allowed reception staff to hold a reservation when the student sent a short delay message.
-
-The system remained simple. Staff did not track what students studied or how long they stayed beyond the reserved block. The goal was only to make access to a scarce shared space more predictable.
+The new rule created one concern. Some students arrived a few minutes late because a class in another building ended at the same time as their booking. The centre therefore allowed reception staff to hold a reservation when the student sent a short delay message. The system remained simple. Staff did not track what students studied or how long they stayed beyond the reserved block. The goal was only to make access to a scarce shared space more predictable.
 
 The centre later reviewed booking patterns and found that evening rooms were in much higher demand than morning rooms. It decided to test shorter evening slots instead of adding the same restriction all day. The change showed that a booking rule works better when it distinguishes genuine no-shows from small, explainable delays and when limits are applied where demand actually exists.
 
@@ -119,19 +103,13 @@ The centre therefore kept the expiry rule but added a visible status beside each
 },
 {
  id:"ENG008-BP-SC07",title:"Calibrating Rooftop Temperature Sensors",genre:"science",
- text:`Researchers at a college placed temperature sensors on three rooftops to compare how different surface materials affected daytime heat. One roof was dark concrete, one had a light reflective coating and one was partly covered with plants.
-
-Before the trial began, the team placed all sensors side by side for two hours. One device consistently read about 0.8 degrees higher than the others. Instead of discarding it, the researchers recorded the offset and corrected its later readings.
+ text:`Researchers at a college placed temperature sensors on three rooftops to compare how different surface materials affected daytime heat. One roof was dark concrete, one had a light reflective coating and one was partly covered with plants. Before the trial began, the team placed all sensors side by side for two hours. One device consistently read about 0.8 degrees higher than the others. Instead of discarding it, the researchers recorded the offset and corrected its later readings.
 
 Measurements were taken every ten minutes for four weeks. The dark roof reached the highest afternoon temperatures on clear days. The reflective roof was cooler, while the planted roof showed smaller temperature swings between afternoon and night.
 
-The team warned against treating the trial as a complete measure of building comfort. Indoor temperature also depends on insulation, ventilation and room use. The sensors measured roof-surface conditions, not the temperature experienced by occupants.
+The team warned against treating the trial as a complete measure of building comfort. Indoor temperature also depends on insulation, ventilation and room use. The sensors measured roof-surface conditions, not the temperature experienced by occupants. Rainy days also reduced the differences between the roofs. For that reason, the researchers reported results separately for clear and wet periods rather than averaging every day together.
 
-Rainy days also reduced the differences between the roofs. For that reason, the researchers reported results separately for clear and wet periods rather than averaging every day together.
-
-The calibration check at the start proved important because a small sensor bias could have looked like a real difference between roofs. By identifying the offset before comparing locations, the team reduced one source of measurement error.
-
-The team also compared two sensors on the same roof for one day midway through the project. Their readings stayed close, suggesting that no new large drift had developed after the initial calibration. Researchers noted that this check could not detect every possible fault, but it increased confidence that later differences were mainly related to surface conditions.
+The calibration check at the start proved important because a small sensor bias could have looked like a real difference between roofs. By identifying the offset before comparing locations, the team reduced one source of measurement error. The team also compared two sensors on the same roof for one day midway through the project. Their readings stayed close, suggesting that no new large drift had developed after the initial calibration. Researchers noted that this check could not detect every possible fault, but it increased confidence that later differences were mainly related to surface conditions.
 
 Another limitation was shade from nearby structures. A small section of the planted roof entered shade earlier in the evening than the other roofs. The team marked that period separately rather than treating every late-day reading as directly comparable. The researchers said careful comparison depends not only on collecting many measurements but also on knowing when test conditions stop being alike.
 
@@ -150,19 +128,13 @@ The college plans to repeat the study in winter. Researchers expect the ranking 
 },
 {
  id:"ENG008-BP-SC08",title:"Testing Water-Filter Flow and Particle Removal",genre:"science",
- text:`A school science club compared the flow rate of three household water filters using identical containers and the same volume of tap water. Students wanted to know whether a slower filter necessarily removed more visible particles.
-
-Each filter was flushed according to its instructions before testing. The club then poured two litres of the same mixed water through each unit and recorded how long filtration took. The slowest filter required almost twice as much time as the fastest.
+ text:`A school science club compared the flow rate of three household water filters using identical containers and the same volume of tap water. Students wanted to know whether a slower filter necessarily removed more visible particles. Each filter was flushed according to its instructions before testing. The club then poured two litres of the same mixed water through each unit and recorded how long filtration took. The slowest filter required almost twice as much time as the fastest.
 
 To examine visible particles, students collected the filtered water in clear jars and used a simple light-scattering sensor. The slowest filter produced the lowest reading, but the middle-speed filter gave a very similar result. The fastest filter showed a slightly higher particle reading.
 
-The club avoided claiming that the experiment measured drinking-water safety. The sensor could detect suspended material but not dissolved chemicals or microorganisms. Students also tested only one water source.
+The club avoided claiming that the experiment measured drinking-water safety. The sensor could detect suspended material but not dissolved chemicals or microorganisms. Students also tested only one water source. A second trial produced the same general ordering, although the exact times changed. The students concluded that flow rate and particle removal were related in their setup, but not in a simple “slower is always better” way.
 
-A second trial produced the same general ordering, although the exact times changed. The students concluded that flow rate and particle removal were related in their setup, but not in a simple “slower is always better” way.
-
-They also noticed that one filter became slower after repeated use. That raised a new question: the device might be collecting material effectively, or it might simply be clogging. The club decided to measure performance over a longer period before making any practical recommendation.
-
-Students then repeated one test after deliberately changing the amount of sediment mixed into the source water. All three filters produced higher sensor readings, but the relative pattern remained similar. This suggested that the first result was not caused only by one unusually clean or dirty batch.
+They also noticed that one filter became slower after repeated use. That raised a new question: the device might be collecting material effectively, or it might simply be clogging. The club decided to measure performance over a longer period before making any practical recommendation. Students then repeated one test after deliberately changing the amount of sediment mixed into the source water. All three filters produced higher sensor readings, but the relative pattern remained similar. This suggested that the first result was not caused only by one unusually clean or dirty batch.
 
 The club also weighed the filters before and after several trials. The measurement was too crude to show exactly how much material had been trapped, but it encouraged students to think about another variable beyond speed. Their teacher reminded them that a useful experiment often creates better questions rather than a final verdict. By the end, the club had a clearer plan for a longer study involving several water sources, repeated measurements and filter age.
 
@@ -181,17 +153,11 @@ The experiment showed why a single easy-to-see feature, such as speed, should no
 },
 {
  id:"ENG008-BP-B10",title:"Scheduled Grocery Pickup Windows",genre:"business",
- text:`A grocery store introduced scheduled pickup windows for online orders after customers complained that the collection counter became crowded between 6 p.m. and 7 p.m. The store offered thirty-minute windows and limited the number of orders assigned to each one.
+ text:`A grocery store introduced scheduled pickup windows for online orders after customers complained that the collection counter became crowded between 6 p.m. and 7 p.m. The store offered thirty-minute windows and limited the number of orders assigned to each one. During a six-week trial, average counter waiting time fell in the busiest hour. Customers who arrived within their selected window were usually served quickly because staff had already moved those orders to a nearby holding rack.
 
-During a six-week trial, average counter waiting time fell in the busiest hour. Customers who arrived within their selected window were usually served quickly because staff had already moved those orders to a nearby holding rack.
+The system did not eliminate delays. Some orders were incomplete when a supplier delivery arrived late, and some customers reached the store long after their booking. Staff created a separate shelf for delayed orders so they did not block ready collections. The store also found that many early-afternoon windows were underused. Rather than keeping the same limit all day, managers increased the evening capacity slightly and offered a small discount for customers who selected quieter periods.
 
-The system did not eliminate delays. Some orders were incomplete when a supplier delivery arrived late, and some customers reached the store long after their booking. Staff created a separate shelf for delayed orders so they did not block ready collections.
-
-The store also found that many early-afternoon windows were underused. Rather than keeping the same limit all day, managers increased the evening capacity slightly and offered a small discount for customers who selected quieter periods.
-
-One risk was overbooking. If the store allowed too many orders into a popular window, the benefit disappeared. Managers therefore used actual service time, not just order count, when deciding how many bookings a slot could handle.
-
-After the trial, the store kept scheduled pickup but allowed walk-in collection as well. Walk-in customers were shown the current estimated wait before joining the queue.
+One risk was overbooking. If the store allowed too many orders into a popular window, the benefit disappeared. Managers therefore used actual service time, not just order count, when deciding how many bookings a slot could handle. After the trial, the store kept scheduled pickup but allowed walk-in collection as well. Walk-in customers were shown the current estimated wait before joining the queue.
 
 The managers concluded that appointments were useful for smoothing demand, not for guaranteeing an exact service minute. The system worked best when capacity reflected real handling time and when staff had a clear process for late, incomplete and unscheduled orders.
 
@@ -214,15 +180,9 @@ The store added a cut-off time for self-service changes but allowed staff to ove
  id:"ENG008-BP-B11",title:"A Service Centre Adds Triage Tickets",genre:"business",
  text:`An electronics service centre handled repairs using one queue for every customer. A person collecting a finished device waited in the same line as someone describing a complex fault for the first time. Staff noticed that short transactions were often delayed behind long diagnostic conversations.
 
-The centre tested a triage desk for eight weeks. When customers arrived, an employee identified whether they needed collection, payment, a simple accessory replacement or a new repair assessment. They then received a ticket for the appropriate counter.
+The centre tested a triage desk for eight weeks. When customers arrived, an employee identified whether they needed collection, payment, a simple accessory replacement or a new repair assessment. They then received a ticket for the appropriate counter. Average time for collections and payments fell sharply. New repair assessments did not become much faster because they still required detailed discussion and testing.
 
-Average time for collections and payments fell sharply. New repair assessments did not become much faster because they still required detailed discussion and testing.
-
-The triage desk created another task: the first employee had to classify requests correctly. When the description was unclear, customers were sometimes sent to the wrong counter and had to be redirected. The centre responded by using four broad categories rather than a long list of specialised labels.
-
-Staff also kept one flexible counter that could take overflow from whichever queue became longest. This prevented the new categories from becoming rigid barriers.
-
-Managers concluded that separating very short and very long transactions could improve flow, but only if the initial classification remained simple and reversible.
+The triage desk created another task: the first employee had to classify requests correctly. When the description was unclear, customers were sometimes sent to the wrong counter and had to be redirected. The centre responded by using four broad categories rather than a long list of specialised labels. Staff also kept one flexible counter that could take overflow from whichever queue became longest. This prevented the new categories from becoming rigid barriers. Managers concluded that separating very short and very long transactions could improve flow, but only if the initial classification remained simple and reversible.
 
 The centre did not measure repair quality during the trial, so it did not claim that triage improved technical outcomes. Its evidence concerned waiting and routing. The next review will examine whether customers understand the category names without staff explanation and whether the flexible counter is used often enough to justify permanent staffing.
 
