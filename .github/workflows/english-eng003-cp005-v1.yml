@@ -10,7 +10,6 @@ on:
       - "artifacts/api-server/src/english-v1/tests/eng-003-cp005-v1.test.ts"
       - "artifacts/api-server/src/question-studio/engines/language-v1-eng003-cp005-adapter-v1.ts"
       - "artifacts/api-server/src/question-studio/engines/language-v1-eng003-cp005-adapter-v1.test.ts"
-      - ".github/workflows/english-eng003-cp005-v1.yml"
   workflow_dispatch:
 
 permissions:
