@@ -104,7 +104,12 @@ function reverseTotalStem(p: GeneratedParameters): string {
 }
 function committeeStem(entry: ProbabilityTaskRegistryEntry, p: GeneratedParameters, solved: SolvedProbability): string {
   const men = num(p, "men"), women = num(p, "women"), size = num(p, "committeeSize"), required = num(p, "requiredWomen", 1);
-  if (entry.solveMode === "findRestrictedSelectionProbability") return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that the committee includes at least one woman?`;
+  if (entry.solveMode === "findRestrictedSelectionProbability") {
+    const form = qlSeriesVariant(entry, 8, 3);
+    if (form === 0) return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that the committee includes at least one woman?`;
+    if (form === 1) return `From ${men} men and ${women} women, ${size} people are selected at random to form a committee. Find the probability that at least one selected member is a woman.`;
+    return `A committee of ${size} is formed at random from a group containing ${men} men and ${women} women. What is the probability that the committee is not made up entirely of men?`;
+  }
   if (entry.solveMode === "findReverseCountFromProbability") return `A ${size}-member committee is chosen from ${men} men and ${women} women. The probability that it contains exactly ${required} ${noun(required, "woman", "women")} is ${frac(solved.evidence.favourableOutcomeCount ?? 0n, solved.evidence.totalOutcomeCount ?? 1n)}. How many such committees can be formed?`;
   const form = qlVariant(entry, 3);
   if (form === 0) return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that it contains exactly ${required} ${noun(required, "woman", "women")}?`;
@@ -209,8 +214,20 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "findReverseConditionalCount": return `Among ${num(p, "restrictedTotal")} shortlisted candidates, the probability that a randomly selected candidate is ${text(p, "targetLabel", "certified")} is ${frac(num(p, "favourable"), num(p, "restrictedTotal", 1))}. How many candidates are ${text(p, "targetLabel", "certified")}?`;
     case "findRandomArrangementPropertyProbability": return `${num(p, "people")} people stand in a random order. What is the probability that a particular person is first?`;
     case "findTogetherOrApartProbability": return `${num(p, "people")} people stand in a random order. What is the probability that two particular people are ${text(p, "relation", "TOGETHER") === "APART" ? "not next to each other" : "next to each other"}?`;
-    case "findPositionRestrictionProbability": return `${num(p, "positions")} distinct posts are assigned at random among ${num(p, "men")} men and ${num(p, "women")} women. What is the probability that the first post is assigned to a woman?`;
-    case "findNumberFormationProbability": return `A ${num(p, "length")}-digit number is formed without repetition using the digits ${num(p, "minDigit", 1)} to ${num(p, "maxDigit")}. What is the probability that the number is even?`;
+    case "findPositionRestrictionProbability": {
+      const positions = num(p, "positions"), men = num(p, "men"), women = num(p, "women");
+      const form = qlSeriesVariant(entry, 8, 3);
+      if (form === 0) return `${positions} distinct posts are assigned at random among ${men} men and ${women} women. What is the probability that the first post is assigned to a woman?`;
+      if (form === 1) return `From ${men} men and ${women} women, candidates are assigned randomly to ${positions} distinct posts. Find the probability that a woman receives the first listed post.`;
+      return `${positions} different positions are filled at random from a group of ${men} men and ${women} women. What is the probability that the person chosen for the first position is a woman?`;
+    }
+    case "findNumberFormationProbability": {
+      const length = num(p, "length"), minDigit = num(p, "minDigit", 1), maxDigit = num(p, "maxDigit");
+      const form = qlSeriesVariant(entry, 8, 3);
+      if (form === 0) return `A ${length}-digit number is formed without repetition using the digits ${minDigit} to ${maxDigit}. What is the probability that the number is even?`;
+      if (form === 1) return `Using the digits ${minDigit} to ${maxDigit} without repetition, a ${length}-digit number is formed at random. Find the probability that its last digit is even.`;
+      return `One ${length}-digit number is chosen uniformly from all numbers that can be formed without repeating the digits ${minDigit} to ${maxDigit}. What is the probability that the chosen number is even?`;
+    }
     case "findUnionProbability":
     case "findIntersectionProbability":
     case "findExactlyOneOfTwoEvents":
