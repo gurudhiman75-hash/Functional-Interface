@@ -174,7 +174,65 @@ function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidat
   candidates.forEach(add);
 
   if (retained.length < optionCount) {
-    throw new Error(`DI-002 V2 could construct only ${retained.length} unique options for answer ${answer}; ${optionCount} are required.`);
+    const numeric = answer.match(/^(\\d+)$/u);
+    const percent = answer.match(/^(\\d+)%$/u);
+    const points = answer.match(/^(\\d+) percentage points$/u);
+    const ratio = answer.match(/^(\\d+):(\\d+)$/u);
+
+    if (numeric) {
+      const value = Number(numeric[1]);
+      const step = Math.max(1, Math.round(value / 10));
+      for (const multiplier of [-3, -2, -1, 1, 2, 3, 4, 5]) {
+        const distractor = value + multiplier * step;
+        if (distractor <= 0) continue;
+        add({
+          text: String(distractor),
+          misconceptionId: multiplier > 0 ? `SCALE_STEP_HIGH_${multiplier}` : `SCALE_STEP_LOW_${Math.abs(multiplier)}`,
+          derivation: "Uses a nearby arithmetic scale value after an incomplete or misread table calculation.",
+        });
+      }
+    } else if (percent) {
+      const value = Number(percent[1]);
+      for (const delta of [-20, -15, -10, -5, 5, 10, 15, 20]) {
+        const distractor = value + delta;
+        if (distractor <= 0) continue;
+        add({
+          text: `${distractor}%`,
+          misconceptionId: delta > 0 ? `PERCENT_STEP_HIGH_${delta}` : `PERCENT_STEP_LOW_${Math.abs(delta)}`,
+          derivation: "Moves the computed percentage by a common five-percentage-point scale step.",
+        });
+      }
+    } else if (points) {
+      const value = Number(points[1]);
+      for (const delta of [-30, -20, -10, 10, 20, 30, 40]) {
+        const distractor = value + delta;
+        if (distractor <= 0) continue;
+        add({
+          text: `${distractor} percentage points`,
+          misconceptionId: delta > 0 ? `POINT_STEP_HIGH_${delta}` : `POINT_STEP_LOW_${Math.abs(delta)}`,
+          derivation: "Uses a nearby rate-gap value after subtracting or reading the wrong pair of table rates.",
+        });
+      }
+    } else if (ratio) {
+      const left = Number(ratio[1]);
+      const right = Number(ratio[2]);
+      for (let delta = 1; delta <= 6; delta += 1) {
+        add({
+          text: ratioDisplay(left + delta, right),
+          misconceptionId: `RATIO_LEFT_STEP_${delta}`,
+          derivation: "Perturbs the first subtotal before simplifying the requested ratio.",
+        });
+        add({
+          text: ratioDisplay(left, right + delta),
+          misconceptionId: `RATIO_RIGHT_STEP_${delta}`,
+          derivation: "Perturbs the second subtotal before simplifying the requested ratio.",
+        });
+      }
+    }
+  }
+
+  if (retained.length < optionCount) {
+    throw new Error(`DI-002 V2 could construct only ${retained.length} unique options for answer ${answer}; ${optionCount} are required even after deterministic fallback construction.`);
   }
 
   const chosen = retained.slice(0, optionCount);
