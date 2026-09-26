@@ -307,16 +307,16 @@ function aggregateText(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocal
         : `${entries} ${averageBName} ${c.value} ${l.unit} ਹੈ।`;
     case "COMBINED_TOTAL":
       return isHi
-        ? `${totalAName} और ${totalBName} का संयुक्त योग ${c.value} ${l.unit} है।`
-        : `${totalAName} ਅਤੇ ${totalBName} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਜੋੜ ${c.value} ${l.unit} ਹੈ।`;
+        ? `दोनों स्तंभों का संयुक्त कुल ${c.value} ${l.unit} है।`
+        : `ਦੋਵੇਂ ਕਾਲਮਾਂ ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਕੁੱਲ ${c.value} ${l.unit} ਹੈ।`;
     case "TOTAL_RATIO_TO_A":
       return isHi
-        ? `${totalBName} और ${totalAName} का अनुपात ${c.numerator}:${c.denominator} है।`
-        : `${totalBName} ਅਤੇ ${totalAName} ਦਾ ਅਨੁਪਾਤ ${c.numerator}:${c.denominator} ਹੈ।`;
+        ? `दूसरे स्तंभ के कुल और पहले स्तंभ के कुल का अनुपात ${c.numerator}:${c.denominator} है।`
+        : `ਦੂਜੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਅਤੇ ਪਹਿਲੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਦਾ ਅਨੁਪਾਤ ${c.numerator}:${c.denominator} ਹੈ।`;
     case "DIFFERENCE_FROM_A_TOTAL":
       return isHi
-        ? `${totalBName}, ${totalAName} से ${c.value} ${l.unit} ${c.direction === "ABOVE" ? "अधिक" : "कम"} है।`
-        : `${totalBName}, ${totalAName} ਨਾਲੋਂ ${c.value} ${l.unit} ${c.direction === "ABOVE" ? "ਵੱਧ" : "ਘੱਟ"} ਹੈ।`;
+        ? `दूसरे स्तंभ का कुल, पहले स्तंभ के कुल से ${c.value} ${l.unit} ${c.direction === "ABOVE" ? "अधिक" : "कम"} है।`
+        : `ਦੂਜੇ ਕਾਲਮ ਦਾ ਕੁੱਲ, ਪਹਿਲੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਨਾਲੋਂ ${c.value} ${l.unit} ${c.direction === "ABOVE" ? "ਵੱਧ" : "ਘੱਟ"} ਹੈ।`;
   }
 }
 
@@ -381,16 +381,14 @@ function stem(question: Di007V2Question, stimulus: Di007V2Stimulus, locale: Di00
       return (isHi ? H : P)[v]!;
     }
     case "B_TOTAL_AS_PERCENT_OF_A_TOTAL": {
-      const aName = totalMeasure(stimulus, locale, "A"), bName = totalMeasure(stimulus, locale, "B");
-      const H = [`${bName}, ${aName} का कितने प्रतिशत है?`, `${bName} को ${aName} के प्रतिशत के रूप में व्यक्त कीजिए।`, `दोनों स्तंभों के कुल की तुलना कीजिए। ${bName}, ${aName} का कितने प्रतिशत है?`];
-      const P = [`${bName}, ${aName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${bName} ਨੂੰ ${aName} ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।`, `ਦੋਵੇਂ ਕਾਲਮਾਂ ਦੇ ਕੁੱਲ ਦੀ ਤੁਲਨਾ ਕਰੋ। ${bName}, ${aName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`];
+      const H = [`दूसरे स्तंभ का कुल, पहले स्तंभ के कुल का कितने प्रतिशत है?`, `दूसरे स्तंभ के कुल को पहले स्तंभ के कुल के प्रतिशत के रूप में व्यक्त कीजिए।`, `दोनों स्तंभों के कुल की तुलना कीजिए। दूसरे स्तंभ का कुल, पहले स्तंभ के कुल का कितने प्रतिशत है?`];
+      const P = [`ਦੂਜੇ ਕਾਲਮ ਦਾ ਕੁੱਲ, ਪਹਿਲੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਦੂਜੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਨੂੰ ਪਹਿਲੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।`, `ਦੋਵੇਂ ਕਾਲਮਾਂ ਦੇ ਕੁੱਲ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਦੂਜੇ ਕਾਲਮ ਦਾ ਕੁੱਲ, ਪਹਿਲੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`];
       return (isHi ? H : P)[v]!;
     }
     case "MISSING_SHARE_OF_B_TOTAL": {
       const name = r(stimulus.hiddenIndex);
-      const bTotalName = totalMeasure(stimulus, locale, "B");
-      const H = [`${name} का लुप्त मान, ${bTotalName} का कितने प्रतिशत है?`, `${bTotalName} में ${name} की हिस्सेदारी कितने प्रतिशत है?`, `${name} का लुप्त मान ज्ञात करने के बाद बताइए कि वह ${bTotalName} का कितने प्रतिशत है।`];
-      const P = [`${name} ਦਾ ਗੁੰਮ ਮੁੱਲ, ${bTotalName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${bTotalName} ਵਿੱਚ ${name} ਦਾ ਹਿੱਸਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${name} ਦਾ ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ਦੱਸੋ ਕਿ ਉਹ ${bTotalName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।`];
+      const H = [`${name} का लुप्त मान, दूसरे स्तंभ के कुल का कितने प्रतिशत है?`, `दूसरे स्तंभ के कुल में ${name} की हिस्सेदारी कितने प्रतिशत है?`, `${name} का लुप्त मान ज्ञात करने के बाद बताइए कि वह दूसरे स्तंभ के कुल का कितने प्रतिशत है।`];
+      const P = [`${name} ਦਾ ਗੁੰਮ ਮੁੱਲ, ਦੂਜੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਦੂਜੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਵਿੱਚ ${name} ਦਾ ਹਿੱਸਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${name} ਦਾ ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ਦੱਸੋ ਕਿ ਉਹ ਦੂਜੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।`];
       return (isHi ? H : P)[v]!;
     }
     case "VISIBLE_TWO_ROW_B_TOTAL": {
@@ -407,9 +405,8 @@ function stem(question: Di007V2Question, stimulus: Di007V2Stimulus, locale: Di00
     }
     case "COMBINED_HIDDEN_VISIBLE_SHARE_OF_B_TOTAL": {
       const hrow = r(stimulus.hiddenIndex), other = r(Number(e.visibleIndex));
-      const bTotalName = totalMeasure(stimulus, locale, "B");
-      const H = [`${hrow} और ${other} के दूसरे स्तंभ के मानों का योग, ${bTotalName} का कितने प्रतिशत है?`, `${bTotalName} में ${hrow} और ${other} की संयुक्त हिस्सेदारी कितने प्रतिशत है?`, `लुप्त मान ज्ञात करने के बाद ${hrow} और ${other} की संयुक्त हिस्सेदारी ${bTotalName} के प्रतिशत के रूप में ज्ञात कीजिए।`];
-      const P = [`${hrow} ਅਤੇ ${other} ਦੇ ਦੂਜੇ ਕਾਲਮ ਦੇ ਮੁੱਲਾਂ ਦਾ ਜੋੜ, ${bTotalName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${bTotalName} ਵਿੱਚ ${hrow} ਅਤੇ ${other} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਹਿੱਸਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ${hrow} ਅਤੇ ${other} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਹਿੱਸਾ ${bTotalName} ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਕੱਢੋ।`];
+      const H = [`${hrow} और ${other} के दूसरे स्तंभ के मानों का योग, दूसरे स्तंभ के कुल का कितने प्रतिशत है?`, `दूसरे स्तंभ के कुल में ${hrow} और ${other} की संयुक्त हिस्सेदारी कितने प्रतिशत है?`, `लुप्त मान ज्ञात करने के बाद ${hrow} और ${other} की संयुक्त हिस्सेदारी दूसरे स्तंभ के कुल के प्रतिशत के रूप में ज्ञात कीजिए।`];
+      const P = [`${hrow} ਅਤੇ ${other} ਦੇ ਦੂਜੇ ਕਾਲਮ ਦੇ ਮੁੱਲਾਂ ਦਾ ਜੋੜ, ਦੂਜੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਦੂਜੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਵਿੱਚ ${hrow} ਅਤੇ ${other} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਹਿੱਸਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ${hrow} ਅਤੇ ${other} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਹਿੱਸਾ ਦੂਜੇ ਕਾਲਮ ਦੇ ਕੁੱਲ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਕੱਢੋ।`];
       return (isHi ? H : P)[v]!;
     }
     case "HIDDEN_VS_VISIBLE_B_PERCENT_EXCESS": {
