@@ -2,13 +2,14 @@ name: Validate Probability multilingual foundation
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Probability/**"
       - "artifacts/api-server/src/routes/admin-question-studio-probability.ts"
       - "artifacts/admin-app/src/features/question-studio/probability-review-api.ts"
       - "artifacts/admin-app/src/pages/content/QuestionStudioProbabilityReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
-      - ".github/workflows/validate-prb-multilingual-foundation.yml"
   push:
     branches:
       - "feat/prb-probability-*"
@@ -20,7 +21,6 @@ on:
       - "artifacts/admin-app/src/features/question-studio/probability-review-api.ts"
       - "artifacts/admin-app/src/pages/content/QuestionStudioProbabilityReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
-      - ".github/workflows/validate-prb-multilingual-foundation.yml"
 
 jobs:
   validate-probability-multilingual-foundation:
@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Validate fail-closed multilingual manifest
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/multilingual-foundation.test.ts
       - name: Validate ML-02 native language primitives
@@ -38,6 +38,10 @@ jobs:
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/native-editorial.test.ts
       - name: Validate ML-04 PRB-002 native editorial draft
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/native-editorial.test.ts
+      - name: Validate PRB-001 deterministic package proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/package.test.ts
+      - name: Validate PRB-002 deterministic package proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/package.test.ts
       - name: Validate ML-05 multilingual runtime parity
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/multilingual-runtime.test.ts
       - name: Validate native math event labels
