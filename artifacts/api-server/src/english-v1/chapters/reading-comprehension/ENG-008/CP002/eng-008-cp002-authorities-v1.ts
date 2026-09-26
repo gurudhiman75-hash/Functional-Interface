@@ -1,3 +1,8 @@
+import { ENG008_CP002_EXPANSION_WAVE9_V1 } from "./eng-008-cp002-expansion-wave9-v1";
+import { ENG008_CP002_EXPANSION_WAVE8_V1 } from "./eng-008-cp002-expansion-wave8-v1";
+import { ENG008_CP002_EXPANSION_WAVE7_V1 } from "./eng-008-cp002-expansion-wave7-v1";
+import { ENG008_CP002_EXPANSION_WAVE6_V1 } from "./eng-008-cp002-expansion-wave6-v1";
+import { ENG008_CP002_EXPANSION_WAVE5_V1 } from "./eng-008-cp002-expansion-wave5-v1";
 import { ENG008_CP002_EXPANSION_WAVE4_V1 } from "./eng-008-cp002-expansion-wave4-v1";
 import { ENG008_CP002_SEED_PASSAGES_V1 } from "../CP001/eng-008-cp001-authorities-v1";
 import { ENG008_CP002_EXPANSION_WAVE1_V1 } from "./eng-008-cp002-expansion-wave1-v1";
@@ -19,6 +24,11 @@ const q=(id:string,familyId:Eng008Cp002FamilyId,difficulty:Eng008Cp002Difficulty
 const seed=(id:string)=>{const p=ENG008_CP002_SEED_PASSAGES_V1.find(x=>x.id===id);if(!p)throw new Error("Missing CP002 seed "+id);return p.text;};
 
 export const ENG008_CP002_PASSAGES_V1:readonly Eng008Cp002PassageV1[]=[
+...ENG008_CP002_EXPANSION_WAVE9_V1,
+...ENG008_CP002_EXPANSION_WAVE8_V1,
+...ENG008_CP002_EXPANSION_WAVE7_V1,
+...ENG008_CP002_EXPANSION_WAVE6_V1,
+...ENG008_CP002_EXPANSION_WAVE5_V1,
 ...ENG008_CP002_EXPANSION_WAVE4_V1,
 ...ENG008_CP002_EXPANSION_WAVE3_V1,
 ...ENG008_CP002_EXPANSION_WAVE2_V1,
