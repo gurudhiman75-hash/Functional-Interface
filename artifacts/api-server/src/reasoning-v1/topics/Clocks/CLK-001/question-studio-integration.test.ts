@@ -220,3 +220,28 @@ test('CLK-001 SSC and Punjab delivery keep the canonical four-option surface', a
     assert.equal(question.bankingFiveOptionDelivery, null);
   }
 });
+
+
+test('CLK-001 permanent QLs produce genuine stem variation across repeated generation', async () => {
+  const diversity = new Map<string, Set<string>>();
+  for (const qlId of CLK_001_PERMANENT_QL_IDS) {
+    const stems = new Set<string>();
+    for (let round = 0; round < 6; round += 1) {
+      const result = await generateClk001QuestionStudioBatch({
+        packageId: 'CLK-001',
+        canonicalProblemId: qlId,
+        language: 'en',
+        count: 1,
+        seed: 'clk-wave03-diversity-' + qlId + '-' + round,
+      });
+      stems.add(String(result.questions[0]?.stem ?? '').trim());
+    }
+    diversity.set(qlId, stems);
+    assert.ok(
+      stems.size >= 2,
+      qlId + ' generated six times without any learner-stem variation',
+    );
+  }
+
+  assert.equal(diversity.size, 23);
+});
