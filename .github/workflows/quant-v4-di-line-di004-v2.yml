@@ -6,7 +6,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/**"
-      - ".github/workflows/quant-v4-di-line-di004-v2.yml"
   workflow_dispatch:
 
 concurrency:
