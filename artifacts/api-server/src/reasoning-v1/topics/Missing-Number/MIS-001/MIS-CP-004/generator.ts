@@ -25,6 +25,7 @@ export interface GeneratedMisCp004Question {
   readonly provisionalQl: true;
   readonly ruleId: MisCp004RuleId;
   readonly ruleFamily: string;
+  readonly context: null;
   readonly difficulty: 'Easy' | 'Medium';
   readonly renderer: 'TABLE_OR_GROUP';
   readonly stem: string;
@@ -399,6 +400,7 @@ export function generateMisCp004Question(
     provisionalQl: true,
     ruleId: rule.ruleId,
     ruleFamily: rule.label,
+    context: null,
     difficulty: rule.baselineDifficulty,
     renderer: 'TABLE_OR_GROUP',
     stem: renderStem(selected.evidence, selected.target),
