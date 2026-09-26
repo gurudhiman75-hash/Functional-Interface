@@ -1,0 +1,22 @@
+import {
+  GEO_VEG_001_SOURCE_IDS,
+  placeGeoVegOptions,
+  type GeoVeg001Difficulty,
+  type GeoVeg001Question,
+} from "./geo-veg-001-review-types";
+import { GEO_VEG_001_CP012_RAW_PART1 } from "./geo-veg-001-cp012-raw-part1-v1";
+import { GEO_VEG_001_CP012_RAW_PART2 } from "./geo-veg-001-cp012-raw-part2-v1";
+import { GEO_VEG_001_CP012_RAW_PART3 } from "./geo-veg-001-cp012-raw-part3-v1";
+
+const RAW=Object.freeze([...GEO_VEG_001_CP012_RAW_PART1,...GEO_VEG_001_CP012_RAW_PART2,...GEO_VEG_001_CP012_RAW_PART3]);
+export const GEO_VEG_001_CP012_REVIEW_BATCH_V1:readonly GeoVeg001Question[]=Object.freeze(RAW.map((raw,index)=>{const baseIndex=index%4;const correctIndex=(index===0||index===20||index===40)?2:(index===1||index===21||index===41)?3:baseIndex;return Object.freeze({
+ questionId:`GEO-VEG-001-CP012-Q${String(index+1).padStart(3,"0")}`,qlId:raw.qlId,qlName:raw.qlName,difficulty:raw.difficulty as GeoVeg001Difficulty,stem:raw.stem,
+ options:placeGeoVegOptions(raw.answer,raw.distractors,correctIndex),correctIndex,canonicalAnswer:raw.answer,explanation:raw.explanation,
+ sourceIds:GEO_VEG_001_SOURCE_IDS,sourceFactIds:Object.freeze([...raw.sourceFactIds]),reviewOnly:true as const,runtimeRegistered:false as const
+});}));
+const BANNED=/associated with|described as|in the context of|\bbroadly\b|\bmainly\b|sourceFact|runtimeRegistered|review-only|generator/i;
+const META_STEM=/\ba question\b|\bquestion gives\b|\bwhich clue\b|\bstrongest match\b|\bwhich conclusion\b|\bbest fit\b|\bsafest for static gk\b|\ba student\b/i;
+const TRIVIAL_DISTRACTOR=/currency|population census|political boundary|time zone|magnetic declination|crop price|road density|literacy|mineral price|calendar month|map projection/i;
+export function auditGeoVeg001Cp012ReviewBatchV1(){const issues:string[]=[];const ids=new Set<string>();const stems=new Set<string>();const explanations=new Set<string>();const qlCounts:Record<string,number>={};const difficultyCounts:Record<GeoVeg001Difficulty,number>={Easy:0,Medium:0,Hard:0};const answerPositions=[0,0,0,0];
+for(const q of GEO_VEG_001_CP012_REVIEW_BATCH_V1){if(ids.has(q.questionId))issues.push("DUPLICATE_ID:"+q.questionId);ids.add(q.questionId);const st=q.stem.replace(/\s+/g," ").trim().toLowerCase();if(stems.has(st))issues.push("DUPLICATE_STEM:"+q.questionId);stems.add(st);const ex=q.explanation.replace(/\s+/g," ").trim().toLowerCase();if(explanations.has(ex))issues.push("DUPLICATE_EXPLANATION:"+q.questionId);explanations.add(ex);qlCounts[q.qlId]=(qlCounts[q.qlId]??0)+1;difficultyCounts[q.difficulty]+=1;answerPositions[q.correctIndex]+=1;if(q.options.length!==4||new Set(q.options).size!==4)issues.push("OPTIONS:"+q.questionId);if(q.options[q.correctIndex]!==q.canonicalAnswer)issues.push("ANSWER:"+q.questionId);const ds=q.options.filter((_,i)=>i!==q.correctIndex);if(ds.some(o=>TRIVIAL_DISTRACTOR.test(o)))issues.push("TRIVIAL_DISTRACTOR:"+q.questionId);if(!q.sourceIds.length||!q.sourceFactIds.length)issues.push("PROVENANCE:"+q.questionId);if(!q.reviewOnly||q.runtimeRegistered)issues.push("LIFECYCLE:"+q.questionId);const learner=q.stem+"\n"+q.options.join("\n")+"\n"+q.explanation;if(BANNED.test(learner))issues.push("STYLE:"+q.questionId);if(META_STEM.test(q.stem))issues.push("META_STEM:"+q.questionId);if(q.stem.length<22||q.stem.length>520||!q.stem.trim().endsWith("?"))issues.push("STEM_SHAPE:"+q.questionId);if(q.explanation.length<110)issues.push("SHORT_EXPLANATION:"+q.questionId);}
+if(GEO_VEG_001_CP012_REVIEW_BATCH_V1.length!==54)issues.push("COUNT:"+GEO_VEG_001_CP012_REVIEW_BATCH_V1.length);for(let n=100;n<=108;n++){const id="GEO-VEG-001-QL-"+String(n).padStart(3,"0");if(qlCounts[id]!==6)issues.push("QL_COUNT:"+id+":"+(qlCounts[id]??0));}if(difficultyCounts.Easy!==18||difficultyCounts.Medium!==30||difficultyCounts.Hard!==6)issues.push("DIFFICULTY:"+JSON.stringify(difficultyCounts));if(answerPositions.join(",")!=="11,11,16,16")issues.push("ANSWER_POSITIONS:"+answerPositions.join(","));if(stems.size!==54)issues.push("STEM_COUNT:"+stems.size);if(explanations.size!==54)issues.push("EXPLANATION_COUNT:"+explanations.size);return Object.freeze({valid:issues.length===0,issues:Object.freeze(issues),questionCount:GEO_VEG_001_CP012_REVIEW_BATCH_V1.length,stemCount:stems.size,explanationCount:explanations.size,qlCounts:Object.freeze(qlCounts),difficultyCounts:Object.freeze(difficultyCounts),answerPositions:Object.freeze(answerPositions)});}
