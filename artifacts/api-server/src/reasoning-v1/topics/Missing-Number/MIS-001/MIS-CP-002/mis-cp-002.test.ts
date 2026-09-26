@@ -105,6 +105,17 @@ for (const candidateId of MIS_CP002_CANDIDATE_IDS) {
     assert.ok(first.stem.startsWith('Find the number that will replace the question mark (?).'));
     assert.ok(first.stem.includes('?'));
     assert.ok(first.explanation.includes(String(first.answer)));
+    assert.ok(first.explanation.includes('The same rule is used in every row.'));
+    assert.ok(first.explanation.includes('Look at Row 1:'));
+    assert.ok(first.explanation.includes('Now apply the same rule to the row with the question mark:'));
+    assert.ok(first.explanation.includes(`So, ? = ${first.answer}.`));
+    if (first.ruleId !== 'THREE_INPUT_SUM') {
+      const targetExplanation = first.explanation.split('Now apply the same rule to the row with the question mark:')[1] ?? '';
+      assert.ok(
+        targetExplanation.trim().split('\n').length >= 4,
+        `${candidateId}/${seed}: two-stage target explanation should show intermediate working`,
+      );
+    }
     assert.equal(first.solverTrace.length, first.evidenceGroups.length + 1);
 
     candidateNumericFingerprints.add(first.numericFingerprint);
