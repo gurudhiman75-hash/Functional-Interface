@@ -25,15 +25,17 @@ export interface MisCp008RuleDefinition {
   readonly supportedMissingPositions: readonly MisCp008MissingPosition[];
   readonly minInput: number;
   readonly maxInput: number;
+  readonly semanticAuthorityCandidateId: string;
+  readonly createsNewSemanticAuthority: boolean;
 }
 
 export const MIS_CP008_RULES: readonly MisCp008RuleDefinition[] = Object.freeze([
-  { candidateId:'MIS-CAND-057', ruleId:'INVERSE_SUM', label:'inverse a + b = result', arity:2, renderer:'TABLE_GROUP', operationDepth:1, difficulty:'Medium', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','RESULT'], minInput:2, maxInput:30 },
-  { candidateId:'MIS-CAND-058', ruleId:'INVERSE_PRODUCT', label:'inverse a × b = result', arity:2, renderer:'TABLE_GROUP', operationDepth:1, difficulty:'Medium', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','RESULT'], minInput:2, maxInput:18 },
-  { candidateId:'MIS-CAND-059', ruleId:'INVERSE_PRODUCT_MINUS_SECOND', label:'inverse a × b − b = result', arity:2, renderer:'TABLE_GROUP', operationDepth:2, difficulty:'Hard', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','RESULT'], minInput:3, maxInput:18 },
-  { candidateId:'MIS-CAND-060', ruleId:'INVERSE_SQUARE_PLUS_SECOND', label:'inverse a² + b = result', arity:2, renderer:'TABLE_GROUP', operationDepth:2, difficulty:'Hard', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','RESULT'], minInput:2, maxInput:15 },
-  { candidateId:'MIS-CAND-061', ruleId:'INVERSE_SUM_TIMES_THIRD', label:'inverse (a + b) × c = result', arity:3, renderer:'TABLE_GROUP', operationDepth:2, difficulty:'Hard', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','THIRD_INPUT','RESULT'], minInput:2, maxInput:12 },
-  { candidateId:'MIS-CAND-062', ruleId:'INVERSE_TRIANGLE_PRODUCT_MINUS_TOP', label:'inverse triangle: left × right − top = centre', arity:3, renderer:'SVG_TRIANGLE', operationDepth:2, difficulty:'Hard', supportedMissingPositions:['TOP_VERTEX','LEFT_VERTEX','RIGHT_VERTEX','CENTRE'], minInput:2, maxInput:14 },
+  { candidateId:'MIS-CAND-057', ruleId:'INVERSE_SUM', label:'inverse a + b = result', arity:2, renderer:'TABLE_GROUP', operationDepth:1, difficulty:'Medium', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','RESULT'], minInput:2, maxInput:30, semanticAuthorityCandidateId:'MIS-CAND-001', createsNewSemanticAuthority:false },
+  { candidateId:'MIS-CAND-058', ruleId:'INVERSE_PRODUCT', label:'inverse a × b = result', arity:2, renderer:'TABLE_GROUP', operationDepth:1, difficulty:'Medium', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','RESULT'], minInput:2, maxInput:18, semanticAuthorityCandidateId:'MIS-CAND-003', createsNewSemanticAuthority:false },
+  { candidateId:'MIS-CAND-059', ruleId:'INVERSE_PRODUCT_MINUS_SECOND', label:'inverse a × b − b = result', arity:2, renderer:'TABLE_GROUP', operationDepth:2, difficulty:'Hard', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','RESULT'], minInput:3, maxInput:18, semanticAuthorityCandidateId:'MIS-CAND-059', createsNewSemanticAuthority:true },
+  { candidateId:'MIS-CAND-060', ruleId:'INVERSE_SQUARE_PLUS_SECOND', label:'inverse a² + b = result', arity:2, renderer:'TABLE_GROUP', operationDepth:2, difficulty:'Hard', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','RESULT'], minInput:2, maxInput:15, semanticAuthorityCandidateId:'MIS-CAND-017', createsNewSemanticAuthority:false },
+  { candidateId:'MIS-CAND-061', ruleId:'INVERSE_SUM_TIMES_THIRD', label:'inverse (a + b) × c = result', arity:3, renderer:'TABLE_GROUP', operationDepth:2, difficulty:'Hard', supportedMissingPositions:['FIRST_INPUT','SECOND_INPUT','THIRD_INPUT','RESULT'], minInput:2, maxInput:12, semanticAuthorityCandidateId:'MIS-CAND-012', createsNewSemanticAuthority:false },
+  { candidateId:'MIS-CAND-062', ruleId:'INVERSE_TRIANGLE_PRODUCT_MINUS_TOP', label:'inverse triangle: left × right − top = centre', arity:3, renderer:'SVG_TRIANGLE', operationDepth:2, difficulty:'Hard', supportedMissingPositions:['TOP_VERTEX','LEFT_VERTEX','RIGHT_VERTEX','CENTRE'], minInput:2, maxInput:14, semanticAuthorityCandidateId:'MIS-CAND-038', createsNewSemanticAuthority:false },
 ]);
 
 export function misCp008RuleByCandidateId(id:string): MisCp008RuleDefinition {
