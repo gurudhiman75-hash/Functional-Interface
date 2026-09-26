@@ -1,6 +1,6 @@
 # ENG-008 — Reading Comprehension — Coverage / Freeze Audit V1
 
-Status: `GAP_FOUND__CP007_REQUIRED__REVIEW_ONLY`
+Status: `COVERAGE_COMPLETE__FROZEN__REVIEW_ONLY`
 
 ## Audit scope
 
@@ -30,9 +30,9 @@ Recent SBI Clerk Prelims paper analyses report RC sets containing an **RC-intern
 
 This also explains the current CP006 constraint: Banking Prelims has only nine approved authorities per passage, so a 10-question RC set is intentionally rejected.
 
-## Decision
+## Gap closure result
 
-Create **CP007 — Banking Prelims Contextual Word-fit / Filler Gap Closure**.
+**CP007 — Banking Prelims Contextual Word-fit / Filler Gap Closure** was implemented and human-approved.
 
 CP007 adds one governed contextual blank authority to each of the eight approved CP003 passages:
 - no new passage content;
@@ -41,10 +41,18 @@ CP007 adds one governed contextual blank authority to each of the eight approved
 - passage rendering masks the keyed word/phrase so the visible passage does not reveal the answer;
 - 8 supplemental authorities total.
 
-After human approval, CP006 may be extended from Banking Prelims set sizes `8, 9` to `8, 9, 10`.
+CP006 has now been extended from Banking Prelims set sizes `8, 9` to **`8, 9, 10`** using the approved BP-F10 authority. The 10-question set renders one shared masked passage and does not fabricate or duplicate an authority.
 
-## Freeze condition
+## Final freeze decision
 
-If CP007 passes human review and the 10-question Banking Prelims set integration is approved, **no further ENG-008 checkpoint is justified by the current audit**.
+The demonstrated gap is closed. Current ENG-008 coverage includes:
+- SSC Foundation RC;
+- SSC Editorial / Current-Affairs RC;
+- Banking Prelims RC including contextual word-fit/filler and 8/9/10-question linked sets;
+- Banking Mains Analytical RC;
+- Research / Survey / Report RC;
+- governed one-passage multi-question set composition.
 
-Any CP008+ requires new exam evidence or a separately demonstrated content gap.
+**No CP008 is justified by the current audit. ENG-008 is frozen.**
+
+Any CP008+ requires new exam evidence or a separately demonstrated content gap. Existing approved content remains review-only: Question Bank writes, scored tests, mocks, learner/public publication, automatic publication and production release remain locked.

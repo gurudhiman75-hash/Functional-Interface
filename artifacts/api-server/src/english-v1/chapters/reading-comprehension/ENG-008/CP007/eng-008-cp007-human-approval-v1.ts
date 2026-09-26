@@ -1,0 +1,18 @@
+export const ENG008_CP007_HUMAN_EDITORIAL_APPROVAL_V1=Object.freeze({
+ authorityId:"ENG-008-CP007-HUMAN-EDITORIAL-APPROVAL-V1" as const,
+ chapterId:"ENG-008" as const,
+ cpId:"ENG-008-CP007" as const,
+ approvedReviewArtifact:"ENG-008-CP007-REVIEW-V1.md" as const,
+ approvedGeneratorHeadSha:"c5b1ffcb101df7f1398f32b6a6122ce818b064ad" as const,
+ approvedMergedSha:"ee507a8d123f1eb7b2ed99ee4371d218b5a5cb2b" as const,
+ approvedOn:"2026-09-26" as const,
+ approvedScope:"Banking Prelims contextual word-fit/filler: 8 BP-F10 authorities" as const,
+ questionStudioReviewOnlyAuthorized:true as const,
+ questionBankWritable:false as const,
+ testEligible:false as const,
+ mockTestEligible:false as const,
+ publiclyPublishable:false as const,
+ automaticStudentPublication:false as const,
+ productionReleaseAuthorized:false as const,
+ revisionPolicy:"SOURCE_GENERATOR_ONLY" as const,
+});
