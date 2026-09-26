@@ -727,7 +727,7 @@ D. West coast toward West Asia; east coast toward Southeast Asia
 
 **Answer:** D. West coast toward West Asia; east coast toward Southeast Asia
 
-**Explanation:** India's western maritime side opens through the Arabian Sea toward West Asia, while the eastern side opens through the Bay of Bengal toward Southeast Asia.
+**Explanation:** India's western maritime side opens through the Arabian Sea toward West Asia. The eastern side opens through the Bay of Bengal toward Southeast Asia.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-036 — Mixed maritime-direction reasoning
