@@ -1,3 +1,4 @@
+import { ENG008_CP001_EXPANSION_WAVE9_V1 } from "./eng-008-cp001-expansion-wave9-v1";
 import { ENG008_CP001_EXPANSION_WAVE8_V1 } from "./eng-008-cp001-expansion-wave8-v1";
 import { ENG008_CP001_EXPANSION_WAVE7_V1 } from "./eng-008-cp001-expansion-wave7-v1";
 import { ENG008_CP001_EXPANSION_WAVE6_V1 } from "./eng-008-cp001-expansion-wave6-v1";
@@ -36,6 +37,7 @@ const q=(id:string,familyId:Eng008RcFamilyId,difficulty:Eng008Difficulty,questio
 
 export const ENG008_CP001_PASSAGES_V1:readonly Eng008RcPassageV1[
 ...ENG008_CP001_EXPANSION_WAVE8_V1,]=[
+...ENG008_CP001_EXPANSION_WAVE9_V1,
 ...ENG008_CP001_EXPANSION_WAVE7_V1,
 ...ENG008_CP001_EXPANSION_WAVE6_V1,
 ...ENG008_CP001_EXPANSION_WAVE5_V1,
