@@ -670,7 +670,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-052",
     "qlName": "Ten Degree Channel — Andaman/Nicobar separation",
     "difficulty": "Medium",
-    "stem": "Which pairing is correct?",
+    "stem": "The Ten Degree Channel forms the sea gap between which island groups?",
     "answer": "Ten Degree Channel — Andaman and Nicobar",
     "distractors": [
       "Ten Degree Channel — Minicoy and Maldives",
@@ -846,7 +846,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-054",
     "qlName": "Great Channel — Nicobar/northern Sumatra setting",
     "difficulty": "Medium",
-    "stem": "Which pairing is correct?",
+    "stem": "Great Channel forms the sea gap between which locations?",
     "answer": "Great Channel — Nicobar Islands and northern Sumatra",
     "distractors": [
       "Great Channel — Minicoy and Maldives",
