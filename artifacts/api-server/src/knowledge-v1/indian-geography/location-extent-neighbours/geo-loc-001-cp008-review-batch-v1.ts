@@ -323,7 +323,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Jharkhand",
       "West Bengal"
     ],
-    "explanation": "Odisha is not crossed by the Tropic of Cancer. Chhattisgarh, Jharkhand and West Bengal all lie on the line.",
+    "explanation": "Odisha is not crossed by the Tropic of Cancer. Chhattisgarh, Jharkhand and West Bengal all lie on the line, so Odisha is the only non-member in this set.",
     "sourceFactIds": [
       "TOC-NOT-ODISHA"
     ]
@@ -531,7 +531,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Jharkhand",
       "Gujarat"
     ],
-    "explanation": "Odisha lies on the 82°30'E Standard Meridian. Rajasthan, Jharkhand and Gujarat are not crossed by this longitude.",
+    "explanation": "Odisha lies on the 82°30'E Standard Meridian. Rajasthan, Jharkhand and Gujarat are not crossed by this longitude, making Odisha the correct state-map match.",
     "sourceFactIds": [
       "STANDARD-MERIDIAN-ODISHA"
     ]
