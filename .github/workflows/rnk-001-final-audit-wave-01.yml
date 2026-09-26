@@ -55,6 +55,7 @@ jobs:
           set -euo pipefail
           files=(
             "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-01.test.ts"
+            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-02.test.ts"
             "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-chapter-closeout-v1.test.ts"
             "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.test.ts"
           )
