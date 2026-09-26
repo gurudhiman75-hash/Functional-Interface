@@ -22,11 +22,7 @@ export function independentlyVerifyDi002V2Question(set: Di002V2QuestionSet, ques
   const ev = question.evidence;
   let expected = "";
 
-  if (question.kind === "DIRECT_SELECTED_VALUE") {
-    expected = String(selected[Number(ev.targetIndex)]!);
-  } else if (question.kind === "DIRECT_SELECTION_RATE") {
-    expected = `${rows[Number(ev.targetIndex)]!.selectionPercent}%`;
-  } else if (question.kind === "MISSING_APPLICANTS_FROM_RATE") {
+  if (question.kind === "MISSING_APPLICANTS_FROM_RATE") {
     expected = String(applicants[Number(ev.targetIndex)]!);
   } else if (question.kind === "REJECTED_COUNT") {
     expected = String(rejected[Number(ev.targetIndex)]!);
@@ -34,10 +30,14 @@ export function independentlyVerifyDi002V2Question(set: Di002V2QuestionSet, ques
     expected = String(Math.abs(selected[Number(ev.firstIndex)]! - selected[Number(ev.secondIndex)]!));
   } else if (question.kind === "COMBINED_SELECTED") {
     expected = String(selected[Number(ev.firstIndex)]! + selected[Number(ev.secondIndex)]!);
-  } else if (question.kind === "SELECTION_RATE_POINT_GAP") {
-    expected = `${Math.abs(rows[Number(ev.firstIndex)]!.selectionPercent - rows[Number(ev.secondIndex)]!.selectionPercent)} percentage points`;
   } else if (question.kind === "SELECTED_SHARE_OF_TOTAL") {
     expected = `${nearestWholePercent(selected[Number(ev.targetIndex)]!, totalSelected)}%`;
+  } else if (question.kind === "COMBINED_REJECTED") {
+    expected = String(rejected[Number(ev.firstIndex)]! + rejected[Number(ev.secondIndex)]!);
+  } else if (question.kind === "APPLICANTS_RATIO") {
+    expected = ratioDisplay(applicants[Number(ev.firstIndex)]!, applicants[Number(ev.secondIndex)]!);
+  } else if (question.kind === "AVERAGE_SELECTED_THREE_ROWS") {
+    expected = String((selected[Number(ev.firstIndex)]! + selected[Number(ev.secondIndex)]! + selected[Number(ev.thirdIndex)]!) / 3);
   } else if (question.kind === "COMBINED_SELECTED_RATIO") {
     const left = selected[Number(ev.leftA)]! + selected[Number(ev.leftB)]!;
     const right = selected[Number(ev.rightA)]! + selected[Number(ev.rightB)]!;
