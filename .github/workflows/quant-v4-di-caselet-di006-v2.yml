@@ -45,8 +45,8 @@ jobs:
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/localization-review-v1.test.ts
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/export-localization-review-v1.ts
           grep -q 'questionStudioDiscoverable: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/permanent-ql-registry.ts
-          grep -q 'HI_PA_REVIEW_CANDIDATE' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/localization-review-v1.ts
-          grep -q 'questionStudioDiscoverable: false' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/localization-review-v1.ts
+          grep -q 'HI_PA_FROZEN' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/localization-review-v1.ts
+          grep -q 'questionStudioDiscoverable: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/localization-review-v1.ts
           grep -q 'DI-QL-061' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/permanent-ql-registry.ts
           grep -q 'DI-QL-072' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/permanent-ql-registry.ts
           ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' \
@@ -56,7 +56,7 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/caselet-set-v2.test.ts
       - name: DI-006 Question Studio controlled-review integration proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/question-studio-integration.test.ts
-      - name: Hindi Punjabi localization candidate proof
+      - name: Hindi Punjabi localization frozen proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/localization-review-v1.test.ts
       - name: Export Hindi Punjabi localization review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/export-localization-review-v1.ts /tmp/DI-006-LOCALIZATION-REVIEW-V1.md
