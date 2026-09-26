@@ -1,16 +1,23 @@
 name: World Geography Section A
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - 'artifacts/api-server/src/knowledge-v1/world-geography/**'
       - 'artifacts/api-server/src/question-studio/engines/knowledge-v1*wge001*'
       - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts'
       - 'scripts/world-geography/**'
-      - '.github/workflows/world-geography-section-a.yml'
   workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: world-geography-section-a-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,3 +33,4 @@ jobs:
         run: |
           /tmp/wge-runner/node_modules/.bin/esbuild artifacts/api-server/src/question-studio/engines/knowledge-v1-wge001-registry-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/wge-registry.mjs
           node /tmp/wge-registry.mjs
+
