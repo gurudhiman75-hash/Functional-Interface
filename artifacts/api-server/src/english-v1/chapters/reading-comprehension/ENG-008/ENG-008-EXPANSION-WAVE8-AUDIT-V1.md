@@ -1,6 +1,6 @@
 # ENG-008 — Large-Pool Expansion Wave 8 — Audit V1
 
-Status: `HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__REVIEW_ONLY`
 
 ## Expansion size
 
@@ -79,7 +79,7 @@ Still locked:
 - automatic publication;
 - production release.
 
-Human approval is required before Wave 8 can be marked approved and merged into the frozen ENG-008 authority.
+Human approval was explicitly granted in chat on 2026-09-26. Wave 8 is approved for merge into the ENG-008 review-only authority.
 
 ## Review asset
 
