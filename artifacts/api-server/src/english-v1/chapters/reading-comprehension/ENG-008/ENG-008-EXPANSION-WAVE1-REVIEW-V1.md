@@ -4,15 +4,19 @@ Status: `HUMAN_REVIEW_PENDING__REVIEW_ONLY`
 
 Scope: 10 new original passages and 84 new governed authorities across CP001–CP005 plus two CP007 BP-F10 supplements.
 
+Length calibration applied: SSC Foundation 180–250; SSC Editorial/Current Affairs 220–350; Banking Prelims 350–450 words.
+
 ---
 
-## CP001 · ENG008-RC-N05 — The Umbrella at the Gate [narrative]
+## CP001 · ENG008-RC-N05 — The Umbrella at the Gate [narrative] — 193 words
 
 After the last class, Kabir noticed a black umbrella leaning against the school gate. Rain had stopped an hour earlier, and most students had already left. He carried the umbrella to the security desk instead of taking it with him.
 
 The next morning, a new student came looking for it. She explained that she had borrowed the umbrella from her aunt and was worried about losing it on her first week at school. The guard returned it after asking her to describe the small red thread tied around the handle.
 
 Kabir had not expected to meet the owner, but he was glad he had left the umbrella where it could be found. The incident was ordinary, yet it reminded him that a small choice can matter greatly to someone whose situation we do not know.
+
+Later that week, the guard placed a small lost-and-found box near the desk because several students had started handing in pens, water bottles and notebooks instead of leaving them where they were found. Kabir noticed that none of those objects looked important by themselves. Their importance depended on who had lost them and what problem the loss created.
 
 ### N05-Q1 — RC-F01 — EASY
 
@@ -116,13 +120,15 @@ D. The guard returned the umbrella without asking any questions
 
 ---
 
-## CP001 · ENG008-RC-R05 — A Shorter Queue at the Clinic [report]
+## CP001 · ENG008-RC-R05 — A Shorter Queue at the Clinic [report] — 183 words
 
 A community clinic reviewed waiting times after patients repeatedly reported long queues at the registration desk. Staff recorded arrival times for two weeks and found that most delays occurred during the first hour after opening, when many patients arrived at once.
 
 The clinic did not add another counter immediately. Instead, it moved routine appointment confirmations to a separate desk and allowed patients with pre-booked visits to check in using a simpler form. During a second two-week review, the average registration wait during the busiest hour fell by nine minutes.
 
 The clinic noted that the change did not reduce waiting for doctors themselves. It improved only the registration stage. Staff therefore decided to study consultation scheduling separately rather than claiming that the entire patient journey had become faster.
+
+The clinic also separated walk-in patients from people who already had appointments when reviewing the new data. The change helped both groups, but pre-booked patients benefited more because their check-in process was easier to simplify. Staff said the result showed why a single average can hide differences between patient groups even in a small service improvement.
 
 ### R05-Q1 — RC-F01 — EASY
 
@@ -226,7 +232,7 @@ D. Waiting time disappeared completely
 
 ---
 
-## CP002 · ENG008-RC2-E09 — A City App Should Not Become the Only Door [editorial]
+## CP002 · ENG008-RC2-E09 — A City App Should Not Become the Only Door [editorial] — 252 words
 
 City governments increasingly use mobile apps for complaints, bill payments, service requests and public notices. For many residents, this is genuinely convenient. A photograph of a broken streetlight can be uploaded in seconds, and a digital receipt makes it easier to track whether a request has been registered.
 
@@ -235,6 +241,8 @@ The problem begins when convenience quietly turns into exclusivity. Not every re
 Keeping an offline option does not require rejecting digital services. It simply recognises that a public service has a different responsibility from a private app. A company may choose the customers it serves; a civic system is expected to remain usable by the public it represents.
 
 The better standard is therefore not “digital first” or “paper first,” but “accessible by more than one practical route.” Apps can remain the fastest channel while phone, desk or assisted options protect people who cannot use them. Efficiency matters, but a service is not fully efficient if it saves staff time by shifting unreasonable difficulty onto citizens.
+
+The same principle applies when systems are redesigned. If an app becomes easier for regular users but removes the only practical channel used by a smaller group, the overall service may look more streamlined while becoming less accessible. Good digital design therefore measures who gains convenience and who may lose access.
 
 ### E09-Q1 — RC2-F01 — EASY
 
@@ -372,7 +380,7 @@ D. being widely advertised
 
 ---
 
-## CP002 · ENG008-RC2-R05 — A District Tests Cooler School Roofs [current-affairs-report]
+## CP002 · ENG008-RC2-R05 — A District Tests Cooler School Roofs [current-affairs-report] — 228 words
 
 A district education office tested reflective roof coating on twelve government school buildings before the summer term. The aim was to see whether a lighter roof surface could reduce indoor heat during afternoon classes without requiring major structural changes.
 
@@ -381,6 +389,8 @@ Temperature sensors were placed in one treated classroom and one untreated class
 Teachers in nine schools also reported that afternoon rooms felt more comfortable, although the survey did not ask students to rate comfort directly. Electricity use fell slightly in the four schools that used ceiling fans heavily, but the district cautioned that the trial was too small to estimate financial savings reliably.
 
 The office plans to repeat the test through a second summer and compare coating durability before deciding whether to expand the programme. Officials said the early results were encouraging, but they did not treat a short trial as proof that the same effect would occur in every building.
+
+The district also noted that roof material, classroom ventilation and surrounding shade differed across schools. Those differences could influence how much benefit the coating produced. A larger trial will therefore compare buildings with similar construction so that the effect of the roof treatment can be estimated more carefully.
 
 ### R05-Q1 — RC2-F01 — EASY
 
@@ -518,7 +528,7 @@ D. speed of application
 
 ---
 
-## CP003 · ENG008-BP-N03 — The Library Card Left at Home [narrative]
+## CP003 · ENG008-BP-N03 — The Library Card Left at Home [narrative] — 363 words
 
 Ananya had planned to spend Saturday morning at the district library preparing for an entrance test. She reached the building just after it opened, only to realise that her library card was still on her study table at home. The trip back would take nearly an hour, and she considered giving up on the visit.
 
@@ -530,7 +540,7 @@ During lunch, she realised that she had almost treated one missing item as a rea
 
 When Ananya returned the next week with her card, she borrowed the books she had identified earlier. Because she had already read the most important chapters, she chose only the sections she still needed. The inconvenience had forced her to organise the material more carefully than she usually did.
 
-She later added a small note to the inside of her study folder: “Check essentials before leaving, but do not confuse a setback with the end of the plan.” The lesson she remembered was not that rules were flexible, but that a useful alternative can exist even when the original route is blocked. She also began keeping a photograph of important membership cards in a secure folder, not as a replacement for the originals, but as a reminder to check what she needed before leaving.
+She later added a small note to the inside of her study folder: “Check essentials before leaving, but do not confuse a setback with the end of the plan.” The lesson she remembered was not that rules were flexible, but that a useful alternative can exist even when the original route is blocked. She also began keeping a photograph of important membership cards in a secure folder, not as a replacement for the originals, but as a reminder to check what she needed before leaving. The next time she planned a long study visit, she made a short checklist the night before and found that the preparation itself reduced the rush she usually felt while leaving home.
 
 ### N03-Q1 — BP-F01 — EASY
 
@@ -702,7 +712,7 @@ D. delay
 
 ---
 
-## CP003 · ENG008-BP-SC03 — Measuring Noise Around a Hospital [science]
+## CP003 · ENG008-BP-SC03 — Measuring Noise Around a Hospital [science] — 363 words
 
 A city health team placed simple sound meters at six points around a large public hospital after patients and staff complained about traffic noise. The devices recorded average sound levels for ten minutes every hour over two weeks. The aim was not to identify every individual vehicle but to understand when and where noise was most persistent.
 
@@ -714,7 +724,7 @@ The team therefore avoided saying that traffic volume alone explained the patter
 
 Hospital administrators used the results to move one ambulance waiting point away from a congested gate and asked traffic police to discourage unnecessary horn use near the entrance. They did not expect these steps to remove all noise, but wanted to reduce the most avoidable sources first.
 
-A follow-up measurement is planned after the traffic changes. The team will use the same locations and times so that the new readings can be compared with the original pattern. The project treats noise as a problem that can be measured and managed gradually rather than solved by one dramatic action. Administrators also planned to compare weekday and weekend readings so that a temporary traffic pattern would not be mistaken for a permanent change.
+A follow-up measurement is planned after the traffic changes. The team will use the same locations and times so that the new readings can be compared with the original pattern. The project treats noise as a problem that can be measured and managed gradually rather than solved by one dramatic action. Administrators also planned to compare weekday and weekend readings so that a temporary traffic pattern would not be mistaken for a permanent change. They also wanted one measurement period during school holidays, when traffic around the hospital might follow a different pattern, to see whether the busiest noise periods were stable across the year.
 
 ### SC03-Q1 — BP-F01 — EASY
 
@@ -886,7 +896,7 @@ D. secretly
 
 ---
 
-## CP004 · ENG008-BM-B02 — When a Discount Makes a Subscription Harder to Judge [business]
+## CP004 · ENG008-BM-B02 — When a Discount Makes a Subscription Harder to Judge [business] — 462 words
 
 Subscription businesses often advertise savings by comparing a monthly plan with a discounted annual payment. The annual figure may genuinely be cheaper, but the comparison can still be difficult for customers because price is only one part of the commitment. A lower monthly equivalent may require a large payment in advance, limit cancellation or make unused months more costly.
 
@@ -1074,7 +1084,7 @@ D. That subscription services can renew
 
 ---
 
-## CP004 · ENG008-BM-H02 — Why Average Waiting Time Can Hide the Hardest Cases [health]
+## CP004 · ENG008-BM-H02 — Why Average Waiting Time Can Hide the Hardest Cases [health] — 450 words
 
 Hospitals often report average waiting time because it compresses thousands of patient experiences into one understandable number. If the average falls from forty minutes to thirty, the change appears straightforward. Yet an average can improve while a smaller group of patients continues to wait much longer than everyone else.
 
@@ -1262,7 +1272,7 @@ D. Communication and treatment are the same service
 
 ---
 
-## CP005 · ENG008-RS-T02 — Do Bus Arrival Displays Change Waiting Behaviour? [transport-survey]
+## CP005 · ENG008-RS-T02 — Do Bus Arrival Displays Change Waiting Behaviour? [transport-survey] — 384 words
 
 A city transport department evaluated electronic arrival displays at twenty bus stops over eight weeks. Ten stops received screens showing estimated minutes until the next bus, while ten similar stops continued using printed timetables. Researchers wanted to know whether real-time information changed how passengers experienced waiting.
 
@@ -1416,7 +1426,7 @@ D. Ignore service frequency in future analysis
 
 ---
 
-## CP005 · ENG008-RS-D02 — Video Explanations or Worked Examples? [digital-learning-evaluation]
+## CP005 · ENG008-RS-D02 — Video Explanations or Worked Examples? [digital-learning-evaluation] — 384 words
 
 An online learning programme tested two ways of supporting students who struggled with algebra practice. One group received short video explanations after an incorrect answer. Another group received a written worked example showing each step of a similar problem. Students could still attempt as many practice questions as they wished.
 
@@ -1573,6 +1583,7 @@ D. Measure satisfaction only
 ## Review checklist
 
 - Passage wording feels original and natural, not copied or mechanically paraphrased.
+- Passage length feels aligned with the stated SSC/Banking profile.
 - Topic breadth feels meaningfully wider than the existing pool.
 - Questions remain exam-grade and passage-bound.
 - Distractors are plausible and differ by evidence/scope rather than randomness.
