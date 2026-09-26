@@ -5,6 +5,10 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-governance-v1.ts
       - artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-governance-v1.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/rnk-001-controlled-novelty-discovery-v1.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clk-001-controlled-novelty-discovery-v1.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-controlled-novelty-discovery-v1.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Clocks/CLK-001/clk-001-controlled-novelty-discovery-v1.ts
   workflow_dispatch:
 
 permissions:
@@ -30,3 +34,15 @@ jobs:
           mkdir -p dist/reasoning-v1/novelty
           pnpm exec esbuild             src/reasoning-v1/tests/reasoning-novelty-governance-v1.test.ts             --bundle --platform=node --format=esm             --outfile=dist/reasoning-v1/novelty/reasoning-novelty-governance-v1.test.mjs
           node --test dist/reasoning-v1/novelty/reasoning-novelty-governance-v1.test.mjs
+
+          pnpm exec esbuild \
+            src/reasoning-v1/tests/rnk-001-controlled-novelty-discovery-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/novelty/rnk-001-controlled-novelty-discovery-v1.test.mjs
+          node --test dist/reasoning-v1/novelty/rnk-001-controlled-novelty-discovery-v1.test.mjs
+
+          pnpm exec esbuild \
+            src/reasoning-v1/tests/clk-001-controlled-novelty-discovery-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/novelty/clk-001-controlled-novelty-discovery-v1.test.mjs
+          node --test dist/reasoning-v1/novelty/clk-001-controlled-novelty-discovery-v1.test.mjs
