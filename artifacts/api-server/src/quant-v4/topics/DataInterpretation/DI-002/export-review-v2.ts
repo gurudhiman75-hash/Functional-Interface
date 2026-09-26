@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
-import { DI002_V2_REVIEW_QLS } from "./review-ql-registry-v2";
-import { generateDi002V2ReviewQuestion } from "./review-question-generator-v2";
+import { DI002_PERMANENT_QLS } from "./permanent-ql-registry";
+import { generateDi002PermanentQuestion } from "./permanent-question-generator";
 import type { Di002V2Stimulus } from "./advanced-table-v2-types";
 
 function table(stimulus: Di002V2Stimulus) {
@@ -13,8 +13,8 @@ function table(stimulus: Di002V2Stimulus) {
 function renderProfile(profile: "SSC_CGL_TIER_I" | "BANKING_PRELIMS") {
   const parts: string[] = [`# DI-002 V2 Review — ${profile}\n`];
 
-  for (const descriptor of DI002_V2_REVIEW_QLS) {
-    const source = generateDi002V2ReviewQuestion({
+  for (const descriptor of DI002_PERMANENT_QLS) {
+    const source = generateDi002PermanentQuestion({
       seed: `DI002-V2-REVIEW-PACK:${profile}:${descriptor.qlId}`,
       examProfile: profile,
       taskKind: descriptor.taskKind,
@@ -59,7 +59,7 @@ export function renderDi002V2ReviewMarkdown() {
   return [
     "# DI-002 Advanced Table V2 — Editorial Review Pack",
     "",
-    "This pack is generated from the review candidate. It does not authorize Question Studio, Question Bank, tests, mocks or public delivery.",
+    "This pack is generated from the approved permanent English source used by Question Studio CONTROLLED_REVIEW. Question Bank, tests, mocks and public delivery remain unauthorized.",
     "",
     renderProfile("SSC_CGL_TIER_I"),
     "",
