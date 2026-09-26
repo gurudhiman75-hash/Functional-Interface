@@ -42,7 +42,11 @@ Registration properties:
 - Easy / Medium / Hard / Mixed review generation supported;
 - deterministic selection without replacement;
 - 1,092 frozen English questions plus 1,092 approved Hindi and 1,092 approved Punjabi review surfaces (3,276 total language surfaces);
-- generated wrappers are marked `REGISTERED_PRODUCTION_READY`;\n- Question Bank persistence is enabled with `FULL_RELEASE` acceptance;\n- scored-test and mock-test eligibility are enabled;\n- public publication and student delivery are authorized through the normal manual approval workflow;\n- automatic student publication stays disabled to prevent accidental release.
+- generated wrappers are marked `REGISTERED_PRODUCTION_READY`;
+- Question Bank persistence is enabled with `FULL_RELEASE` acceptance;
+- scored-test and mock-test eligibility are enabled;
+- public publication and student delivery are authorized through the normal manual approval workflow;
+- automatic student publication stays disabled to prevent accidental release.
 
 Current registration authorizes canonical Question Bank persistence, test/mock-test use, public publication, student delivery and production release after the normal manual approval step. No additional Punjab GK code checkpoint is required for these actions.
 
