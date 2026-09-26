@@ -2,14 +2,18 @@ name: Validate Mensuration final realism remediation V1
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/**'
       - 'artifacts/api-server/src/routes/admin-question-studio-mensuration-full.ts'
       - 'artifacts/admin-app/src/features/question-studio/mensuration-review-api.ts'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioMensurationReviewPanel.tsx'
-      - '.github/workflows/mensuration-final-realism-remediation-v1.yml'
   workflow_dispatch:
+
+concurrency:
+  group: mensuration-final-realism-remediation-v1-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -68,6 +72,12 @@ jobs:
           set -euo pipefail
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-runtime-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-full-question-studio-v1-regression.mjs
           node artifacts/api-server/dist/quant-v4/mensuration-full-question-studio-v1-regression.mjs
+      - name: Prove central full Mensuration Question Studio breadth
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-full-question-studio-standard-integration-p4.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/mensuration-full-question-studio-standard-integration-p4.test.mjs
+          node artifacts/api-server/dist/quant-v4/mensuration-full-question-studio-standard-integration-p4.test.mjs
       - name: Build production application
         run: bash build-api.sh
       - name: Verify deployment artifacts
