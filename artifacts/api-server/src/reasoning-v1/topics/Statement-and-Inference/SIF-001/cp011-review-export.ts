@@ -41,7 +41,7 @@ export function buildSifCp011ReviewMarkdown(): string {
     `**Difficulty mix:** ${review.effectiveDistribution.MEDIUM} Medium; Easy ${review.effectiveDistribution.EASY}; Hard ${review.effectiveDistribution.HARD}`,
     `**Answer positions:** I ${review.questions.filter((entry) => entry.answerClass === "ONLY_I").length} / II ${review.questions.filter((entry) => entry.answerClass === "ONLY_II").length}`,
     `**Automated gates:** ${review.questions.every((entry) => entry.validation.every((gate) => gate.passed)) ? "PASS" : "FAIL"}`, "",
-    "## Conditional-family coverage", "", "| Family | Authorities | Review questions |", "|---|---:|---:|", ...familyRows, "",
+    "## Multiple-factor family coverage", "", "| Family | Authorities | Review questions |", "|---|---:|---:|", ...familyRows, "",
     ...review.questions.map(render),
     "# Multilingual parity spot-check", "",
     ...parity.map((question) => [`## ${question.scenarioId} · ${question.locale}`, "", `**Statement:** ${question.statement}`, "", `**Inference I:** ${question.inferences[0]}`, `**Inference II:** ${question.inferences[1]}`, "", `**Answer state:** ${question.answerClass}`, "", `**Explanation:** ${question.explanation}`, "", "---", ""].join("\n")),
