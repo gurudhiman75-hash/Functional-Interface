@@ -10,6 +10,12 @@ const tidy = (value: string) => value.replace(/\s+/g, " ").replace(/\s+([?.!,])/
 const clean = (value: string) => value.replace(/_/g, " ").replace(/\bnot \((.+)\)$/i, "not $1").toLowerCase().replace(/\s+/g, " ").trim();
 const eventName = (event: EventExpression) => clean(event.label);
 
+function qlVariant(entry: ProbabilityTaskRegistryEntry, count: number): number {
+  const match = entry.qlId.match(/(\d+)$/);
+  const value = match ? Number(match[1]) : 0;
+  return value % count;
+}
+
 function singularObject(value: string): string {
   if (value === "cards") return "card";
   if (value === "counters") return "counter";
@@ -94,7 +100,10 @@ function committeeStem(entry: ProbabilityTaskRegistryEntry, p: GeneratedParamete
   const men = num(p, "men"), women = num(p, "women"), size = num(p, "committeeSize"), required = num(p, "requiredWomen", 1);
   if (entry.solveMode === "findRestrictedSelectionProbability") return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that the committee includes at least one woman?`;
   if (entry.solveMode === "findReverseCountFromProbability") return `A ${size}-member committee is chosen from ${men} men and ${women} women. The probability that it contains exactly ${required} ${noun(required, "woman", "women")} is ${frac(solved.evidence.favourableOutcomeCount ?? 0n, solved.evidence.totalOutcomeCount ?? 1n)}. How many such committees can be formed?`;
-  return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that it contains exactly ${required} ${noun(required, "woman", "women")}?`;
+  const form = qlVariant(entry, 3);
+  if (form === 0) return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that it contains exactly ${required} ${noun(required, "woman", "women")}?`;
+  if (form === 1) return `From a group of ${men} men and ${women} women, ${size} members are selected at random. Find the probability that exactly ${required} of the selected ${noun(required, "member")} ${required === 1 ? "is a woman" : "are women"}.`;
+  return `${size} people are chosen at random from ${men} men and ${women} women to form a committee. What is the probability that the committee has exactly ${required} ${noun(required, "woman", "women")}?`;
 }
 
 function eventGroupStem(mode: string, p: GeneratedParameters): string {
@@ -176,9 +185,21 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "findAtLeastOneAcrossIndependentStages": return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn with replacement. What is the probability of drawing at least one red ball?`;
     case "findConditionalProbabilityByCounting":
     case "findConditionalFromTwoWayTable": return `Of the ${num(p, "mathTotal")} students who passed Mathematics, ${num(p, "both")} also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?`;
-    case "findConditionalCardProbability": return "A card is drawn from a standard deck and is known to be a face card. What is the probability that it is a king?";
+    case "findConditionalCardProbability": {
+      const form = qlVariant(entry, 4);
+      if (form === 0) return "A card drawn from a standard deck is known to be a face card. What is the probability that the card is a king?";
+      if (form === 1) return "One face card is selected at random from the face cards of a standard deck. Find the probability that it is a king.";
+      if (form === 2) return "Given that a card chosen from a standard deck is a face card, what is the probability that it is a king?";
+      return "A card has been selected from a standard deck and is known to belong to the set of face cards. Find the probability that the selected card is a king.";
+    }
     case "findConditionalNumberProbability": return `An integer selected from 1 to ${num(p, "upper")} is known to be divisible by ${num(p, "conditionDivisor")}. What is the probability that it is also divisible by ${num(p, "targetDivisor")}?`;
-    case "findConditionalUrnProbability": return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?`;
+    case "findConditionalUrnProbability": {
+      const form = qlVariant(entry, 4);
+      if (form === 0) return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?`;
+      if (form === 1) return `A bag has ${red} red and ${blue} blue balls. One red ball has already been drawn and is not replaced. What is the probability that the next ball drawn is red?`;
+      if (form === 2) return `From a bag containing ${red} red and ${blue} blue balls, two balls are drawn successively without replacement. If the first draw is known to be red, find the probability that the second draw is red.`;
+      return `A bag contains ${red} red and ${blue} blue balls. After a red ball is drawn and kept aside, another ball is drawn at random. Find the probability that the second ball is red.`;
+    }
     case "findReverseConditionalCount": return `Among ${num(p, "restrictedTotal")} shortlisted candidates, the probability that a randomly selected candidate is ${text(p, "targetLabel", "certified")} is ${frac(num(p, "favourable"), num(p, "restrictedTotal", 1))}. How many candidates are ${text(p, "targetLabel", "certified")}?`;
     case "findRandomArrangementPropertyProbability": return `${num(p, "people")} people stand in a random order. What is the probability that a particular person is first?`;
     case "findTogetherOrApartProbability": return `${num(p, "people")} people stand in a random order. What is the probability that two particular people are ${text(p, "relation", "TOGETHER") === "APART" ? "not next to each other" : "next to each other"}?`;
