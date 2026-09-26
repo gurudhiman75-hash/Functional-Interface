@@ -241,13 +241,13 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Syllogism',
     chapterId: 'SYL-001',
-    status: 'NOVELTY_SIGNAL_PRESENT_NEEDS_SEMANTIC_AUDIT',
+    status: 'DEDICATED_NOVELTY_AUDIT_PENDING',
     evidence: [
-      'Runtime contains novelCandidates selection in multiple banking shells.',
-      'This label has not yet been shown to mean chapter-level controlled novelty under the shared standard.',
+      'The historical novelCandidates helper only excluded conclusions that directly restated a premise.',
+      'It has been renamed nonRestatementCandidates so anti-triviality cannot be mistaken for controlled novelty.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Audit what novelCandidates means semantically before granting controlled-novel credit.',
+    nextGate: 'Design and prove a separate semantic controlled-novel lane beyond non-restatement filtering.',
   },
   {
     topicDirectory: 'Word-Dictionary-Order',
