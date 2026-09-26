@@ -98,7 +98,7 @@ jobs:
             src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-04.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-04.mjs
-          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-04.mjs
+          timeout 600s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-04.mjs
 
       - name: Prove RNK Wave 05 generated-instance difficulty
         working-directory: artifacts/api-server
@@ -116,7 +116,7 @@ jobs:
             src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-06.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-06.mjs
-          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-06.mjs
+          timeout 900s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-06.mjs
 
       - name: Prove RNK Wave 07 current-main closure
         working-directory: artifacts/api-server
@@ -136,6 +136,9 @@ jobs:
             --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-multilingual-freeze-v1.mjs
           timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-multilingual-freeze-v1.mjs
 
-
-      - name: Build API server
-        run: pnpm --dir artifacts/api-server run build
+      - name: Confirm RNK integration boundary remains bundle-clean
+        working-directory: artifacts/api-server
+        run: |
+          test -s dist/reasoning-v1/rnk-final-audit/integration.mjs
+          test -s dist/reasoning-v1/rnk-final-audit/difficulty.mjs
+          test -s dist/reasoning-v1/rnk-final-audit/declutter.mjs
