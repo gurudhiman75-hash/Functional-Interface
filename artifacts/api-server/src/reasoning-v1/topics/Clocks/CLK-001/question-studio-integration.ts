@@ -19,6 +19,7 @@ import {
 } from './permanent-contracts';
 import { CLK_001_AUTHORING_COMPLETION_AUTHORITY_V1 } from './final-freeze-authority';
 import { localizeClockAnchorQuestion, type ClockAuthoringLanguage } from './localization';
+import { adaptClockOptionsForBanking } from './banking-five-option-delivery';
 
 export const CLK_001_PACKAGE_ID = 'CLK-001' as const;
 export const CLK_001_RUNTIME_MODE = 'review-only' as const;
@@ -26,6 +27,7 @@ const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const cpIds = CLOCK_CHECKPOINTS.map((checkpoint) => checkpoint.code) as ClockCheckpointCode[];
 
 type PublicClockDifficulty = 'Easy' | 'Medium' | 'Hard';
+type ClockExamProfile = 'CHAPTER_COVERAGE' | 'SSC_MODERN' | 'BANKING' | 'PUNJAB_STATE';
 
 function normalizeCount(value: number | undefined): number {
   if (value == null) return 5;
@@ -61,6 +63,21 @@ function hash(value: string): number {
     result = Math.imul(result, 16777619);
   }
   return result >>> 0;
+}
+
+function resolveExamProfile(value: unknown): ClockExamProfile {
+  const normalized = String(value ?? '').trim().toLowerCase();
+  if (!normalized) return 'CHAPTER_COVERAGE';
+  if (/\bssc\b|\bcgl\b|\bchsl\b|\bcpo\b|\bmts\b|gd constable/u.test(normalized)) {
+    return 'SSC_MODERN';
+  }
+  if (/\bibps\b|\bsbi\b|\bbank\b|rrb officer|\bclerk\b|\bpo\b/u.test(normalized)) {
+    return 'BANKING';
+  }
+  if (/\bpunjab\b|\bpsssb\b|\bppsc\b|\bpatwari\b|\bpspcl\b|excise/u.test(normalized)) {
+    return 'PUNJAB_STATE';
+  }
+  return 'CHAPTER_COVERAGE';
 }
 
 function isCheckpointId(value: string): value is ClockCheckpointCode {
@@ -204,6 +221,9 @@ export const CLK_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     advancedHeldCandidatesExcluded: true,
     difficultyCalibrationStatus: 'GENERATED_INSTANCE_AUDITED_V1',
     checkpointRoutingStatus: 'PERMANENT_QL_OWNERSHIP_ROUTED',
+    examProfileDeliveryStatus: 'DELIVERY_FORMAT_ONLY_V1',
+    bankingFiveOptionDelivery: true,
+    examProfileContentWeightingApplied: false,
     reviewOnly: true,
   },
 };
@@ -231,6 +251,7 @@ export async function generateClk001QuestionStudioBatch(
   const count = normalizeCount(request.count);
   const language = normalizeLanguage(request.language);
   const requestedDifficulty = normalizeDifficulty(request.difficulty);
+  const examProfile = resolveExamProfile(request.exam);
   const basePool = resolveQlPool(request);
   const baseSeed = String(request.seed ?? '').trim() || 'clk001-question-studio-v1';
   const pool = shuffledQls(baseSeed + ':ql-order', basePool);
@@ -248,8 +269,21 @@ export async function generateClk001QuestionStudioBatch(
 
     const { qlId, contract, english, itemSeed, attempt, difficulty } = resolved;
     const localized = localizeClockAnchorQuestion(english, language);
-    const options = localized.options.map((option) => option.display);
-    const correctIndex = localized.correctOptionIndex;
+    const canonicalOptions = localized.options.map((option) => option.display);
+    const canonicalCorrectIndex = localized.correctOptionIndex;
+    const delivery = examProfile === 'BANKING'
+      ? adaptClockOptionsForBanking({
+          options: canonicalOptions,
+          correctIndex: canonicalCorrectIndex,
+          language,
+        })
+      : {
+          options: [...canonicalOptions],
+          correctIndex: canonicalCorrectIndex,
+          metadata: null,
+        };
+    const options = delivery.options;
+    const correctIndex = delivery.correctIndex;
     const questionId = 'CLK-001:' + qlId + ':' + language + ':' + hash(itemSeed);
     const explanation = [
       localized.explanation.given,
@@ -293,6 +327,12 @@ export async function generateClk001QuestionStudioBatch(
       requestedDifficulty: request.difficulty ?? null,
       requestedDifficultyApplied: requestedDifficulty ? difficulty === requestedDifficulty : false,
       difficultySearchAttempts: attempt + 1,
+      requestedExam: request.exam ?? null,
+      examProfile,
+      examProfileApplied: examProfile !== 'CHAPTER_COVERAGE',
+      examProfileContentWeightingApplied: false,
+      optionCountProfileApplied: examProfile === 'BANKING',
+      bankingFiveOptionDelivery: delivery.metadata,
       generationSeed: itemSeed,
       runtimeMode: CLK_001_RUNTIME_MODE,
       reviewOnly: true,
@@ -315,8 +355,9 @@ export async function generateClk001QuestionStudioBatch(
         solverProofLevel: english.solveTrace.proofLevel,
       },
       validation: {
-        fourOptions: options.length === 4,
-        uniqueOptions: new Set(options).size === 4,
+        canonicalFourOptions: canonicalOptions.length === 4,
+        deliveredOptionCount: options.length,
+        uniqueOptions: new Set(options).size === options.length,
         exactlyOneCorrect: localized.options.filter((option) => option.isCorrect).length === 1,
         solverAgreement: english.solveTrace.agreement === true,
         semanticParityPreserved: localized.answer.semanticKey === english.answer.semanticKey,
@@ -345,6 +386,12 @@ export async function generateClk001QuestionStudioBatch(
       requestedDifficulty: requestedDifficulty ?? 'Mixed',
       difficultyFilterApplied: Boolean(requestedDifficulty),
       difficultyCalibrationStatus: 'GENERATED_INSTANCE_AUDITED_V1',
+      requestedExam: request.exam ?? null,
+      examProfile,
+      examProfileApplied: examProfile !== 'CHAPTER_COVERAGE',
+      examProfileContentWeightingApplied: false,
+      optionCountProfileApplied: examProfile === 'BANKING',
+      bankingFiveOptionDelivery: examProfile === 'BANKING',
       seed: baseSeed,
       count,
     },
