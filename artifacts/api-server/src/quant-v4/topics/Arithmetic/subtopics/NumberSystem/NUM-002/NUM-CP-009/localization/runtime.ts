@@ -380,7 +380,7 @@ function hindi(q: NumCp009PermanentPackage): LocalizedContent {
         coreConcept: "जब कई इकाई अंक स्वीकार्य हों, तो घात-चक्र के कई स्थान एक साथ मान्य हो सकते हैं।",
         strategy: "हर स्वीकार्य इकाई अंक को उसके चक्र-स्थान से मिलाएँ और सभी संबंधित घात-अवशेषों का संघ लें।",
         steps: [`${base} का अंतिम अंक ${lastDigit} है और चक्र ${cycleText(cycle)} है।`, `स्वीकार्य अंक ${allowedText} घात-अवशेष ${residues.join(", ")} (मॉड्यूलो 4) पर आते हैं।`, `सभी स्वीकार्य स्थान रखने पर ${answer} मिलता है।`],
-        finalAnswer: `पूरा घात-वर्ग समुच्चय ${answer} है।`,
+        finalAnswer: `पूरा घात के वर्गों का समुच्चय ${answer} है।`,
       };
     }
     case "NUM-CP009-PROT-017": {
@@ -480,7 +480,7 @@ function punjabi(q: NumCp009PermanentPackage): LocalizedContent {
     }
     case "NUM-CP009-PROT-016": {
       const base = numberValue(s, "base"); const lastDigit = numberValue(s, "lastDigit"); const cycle = numberArray(s, "cycle"); const allowedDigits = numberArray(s, "allowedDigits"); const residues = numberArray(s, "residues"); const allowedText = `{${allowedDigits.join(", ")}}`;
-      return { stem: chooseStem(q, `ਧਨਾਤਮਕ ਪੂਰਨ ਅੰਕ n ਲਈ ${base}^n ਦਾ ਇਕਾਈ ਅੰਕ ${allowedText} ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। n ਦੇ ਸਾਰੇ ਮੰਨਣਯੋਗ ਸਰਵਾਂਗਸਮਤਾ ਵਰਗਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?`, `ਮਾਡਿਊਲੋ 4 ਵਿੱਚ n ਦੇ ਉਹ ਸਾਰੇ ਵਰਗ ਚੁਣੋ ਜਿਨ੍ਹਾਂ ਤੇ ${base}^n ਦਾ ਇਕਾਈ ਅੰਕ ${allowedText} ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`, `ਇਹ ਆਖਰੀ-ਅੰਕ ਸ਼ਰਤ ਚੱਕਰ ਦੇ ਇੱਕ ਤੋਂ ਵੱਧ ਸਥਾਨ ਮੰਨਦੀ ਹੈ। ਕਿਹੜਾ ਵਿਕਲਪ n ਦੇ ਸਾਰੇ ਮੰਨਣਯੋਗ ਵਰਗ ਦਿੰਦਾ ਹੈ?`), coreConcept: "ਜਦੋਂ ਕਈ ਇਕਾਈ ਅੰਕ ਮਨਜ਼ੂਰ ਹੋਣ, ਤਾਂ ਘਾਤ-ਚੱਕਰ ਦੇ ਕਈ ਸਥਾਨ ਇਕੱਠੇ ਮੰਨਣਯੋਗ ਹੋ ਸਕਦੇ ਹਨ।", strategy: "ਹਰ ਮਨਜ਼ੂਰ ਇਕਾਈ ਅੰਕ ਨੂੰ ਉਸ ਦੇ ਚੱਕਰ-ਸਥਾਨ ਨਾਲ ਮਿਲਾਓ ਅਤੇ ਸਾਰੇ ਸੰਬੰਧਿਤ ਘਾਤ-ਬਾਕੀਆਂ ਦਾ ਜੋੜਿਆ ਸਮੂਹ ਲਓ।", steps: [`${base} ਦਾ ਆਖਰੀ ਅੰਕ ${lastDigit} ਹੈ ਅਤੇ ਚੱਕਰ ${cycleText(cycle)} ਹੈ।`, `ਮਨਜ਼ੂਰ ਅੰਕ ${allowedText} ਘਾਤ-ਬਾਕੀ ${residues.join(", ")} (ਮਾਡਿਊਲੋ 4) ਤੇ ਆਉਂਦੇ ਹਨ।`, `ਸਾਰੇ ਮਨਜ਼ੂਰ ਸਥਾਨ ਰੱਖਣ ਤੇ ${answer} ਮਿਲਦਾ ਹੈ।`], finalAnswer: `ਪੂਰਾ ਘਾਤ-ਵਰਗ ਸਮੂਹ ${answer} ਹੈ।` };
+      return { stem: chooseStem(q, `ਧਨਾਤਮਕ ਪੂਰਨ ਅੰਕ n ਲਈ ${base}^n ਦਾ ਇਕਾਈ ਅੰਕ ${allowedText} ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। n ਦੇ ਸਾਰੇ ਮੰਨਣਯੋਗ ਸਰਵਾਂਗਸਮਤਾ ਵਰਗਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?`, `ਮਾਡਿਊਲੋ 4 ਵਿੱਚ n ਦੇ ਉਹ ਸਾਰੇ ਵਰਗ ਚੁਣੋ ਜਿਨ੍ਹਾਂ ਤੇ ${base}^n ਦਾ ਇਕਾਈ ਅੰਕ ${allowedText} ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`, `ਇਹ ਆਖਰੀ-ਅੰਕ ਸ਼ਰਤ ਚੱਕਰ ਦੇ ਇੱਕ ਤੋਂ ਵੱਧ ਸਥਾਨ ਮੰਨਦੀ ਹੈ। ਕਿਹੜਾ ਵਿਕਲਪ n ਦੇ ਸਾਰੇ ਮੰਨਣਯੋਗ ਵਰਗ ਦਿੰਦਾ ਹੈ?`), coreConcept: "ਜਦੋਂ ਕਈ ਇਕਾਈ ਅੰਕ ਮਨਜ਼ੂਰ ਹੋਣ, ਤਾਂ ਘਾਤ-ਚੱਕਰ ਦੇ ਕਈ ਸਥਾਨ ਇਕੱਠੇ ਮੰਨਣਯੋਗ ਹੋ ਸਕਦੇ ਹਨ।", strategy: "ਹਰ ਮਨਜ਼ੂਰ ਇਕਾਈ ਅੰਕ ਨੂੰ ਉਸ ਦੇ ਚੱਕਰ-ਸਥਾਨ ਨਾਲ ਮਿਲਾਓ ਅਤੇ ਸਾਰੇ ਸੰਬੰਧਿਤ ਘਾਤ-ਬਾਕੀਆਂ ਦਾ ਜੋੜਿਆ ਸਮੂਹ ਲਓ।", steps: [`${base} ਦਾ ਆਖਰੀ ਅੰਕ ${lastDigit} ਹੈ ਅਤੇ ਚੱਕਰ ${cycleText(cycle)} ਹੈ।`, `ਮਨਜ਼ੂਰ ਅੰਕ ${allowedText} ਘਾਤ-ਬਾਕੀ ${residues.join(", ")} (ਮਾਡਿਊਲੋ 4) ਤੇ ਆਉਂਦੇ ਹਨ।`, `ਸਾਰੇ ਮਨਜ਼ੂਰ ਸਥਾਨ ਰੱਖਣ ਤੇ ${answer} ਮਿਲਦਾ ਹੈ।`], finalAnswer: `ਪੂਰਾ ਘਾਤ ਦੇ ਵਰਗਾਂ ਦਾ ਸਮੂਹ ${answer} ਹੈ।` };
     }
     case "NUM-CP009-PROT-017": {
       const base = numberValue(s, "base"); const lastDigit = numberValue(s, "lastDigit"); const cycle = numberArray(s, "cycle"); const termCount = numberValue(s, "termCount"); const cycleSum = numberValue(s, "cycleSum"); const fullBlocks = numberValue(s, "fullBlocks"); const leftoverCount = numberValue(s, "leftoverCount"); const leftoverSum = numberValue(s, "leftoverSum");
