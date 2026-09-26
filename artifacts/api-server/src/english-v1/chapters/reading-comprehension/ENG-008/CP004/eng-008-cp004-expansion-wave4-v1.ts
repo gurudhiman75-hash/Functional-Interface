@@ -1,0 +1,125 @@
+import type{Eng008Cp004PassageV1}from"./eng-008-cp004-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+
+export const ENG008_CP004_EXPANSION_WAVE4_V1:readonly Eng008Cp004PassageV1[]=[
+{
+ id:"ENG008-BM-E03",title:"Why a Higher Average Income Can Hide Uneven Gains",genre:"economy",
+ text:`Average income is useful because it summarises a large population in one number, but it can change even when many households see little improvement. If a small group experiences very large income gains while most people see modest changes, the average may rise strongly without describing the typical experience.
+
+This does not make the average misleading by itself. It answers a specific question: total income divided across the population. The problem begins when that answer is treated as evidence that gains were distributed evenly.
+
+Median income can add useful context because it identifies the middle household rather than giving extra weight to very high values. Yet even the median can hide differences between regions, age groups or types of work.
+
+Consider two cities with the same increase in average income. In one, wages rise across many occupations. In the other, most of the increase comes from a small technology sector while service wages remain flat. The headline result is similar, but the effect on local spending and household security may be very different.
+
+Distribution also matters for policy. A programme designed to support low-income workers should not be judged only by whether the citywide average rises. Evaluators need to know whether the intended group actually gained.
+
+This is why analysts often examine several measures together: average, median, wage growth by group and the share of income going to different parts of the population. Each measure answers a different question.
+
+The same caution applies when comparing countries. A country with a higher average income may still contain large groups with low purchasing power if gains are concentrated.
+
+Good economic interpretation therefore asks not only “Did the average rise?” but also “Who gained, by how much, and how broadly?” A summary statistic is useful when it opens those questions rather than closing them.`,
+ questions:[
+ q("E03-Q1","BM-F01","medium","Why can average income rise even if many households see little improvement?","A small group may receive very large gains",["Median income always falls","Prices must decline","Every household earns the same amount"],"Large gains among a smaller group can pull the average upward.","small group experiences very large income gains"),
+ q("E03-Q2","BM-F02","hard","What can be inferred about two places with the same rise in average income?","The distribution of gains may still be very different",["Their wage structures must be identical","Their spending patterns must match","Their median income must also be equal"],"The city example explicitly shows similar averages with different underlying patterns.","headline result is similar"),
+ q("E03-Q3","BM-F03","hard","Which option best states the central argument?","Average income should be interpreted alongside distributional measures to understand who actually benefits",["Average income should never be used","Median income always gives the complete picture","Income distribution is irrelevant to policy"],"The passage repeatedly argues for combining summary measures with group-level evidence.","several measures together"),
+ q("E03-Q4","BM-F04","hard","What is the author's tone?","Analytical and explanatory",["Hostile toward economic statistics","Celebratory about inequality","Sarcastic"],"The author explains limits without rejecting the measure.","does not make the average misleading"),
+ q("E03-Q5","BM-F05","medium","Why does the author compare two cities?","To show that the same average change can reflect different patterns of gain",["To prove technology sectors always increase inequality","To show cities should avoid averages","To compare population size"],"The example demonstrates distributional differences beneath the same headline number.","same increase in average income"),
+ q("E03-Q6","BM-F06","hard","Which statement cannot be inferred?","A rising average income proves most households are better off",["Median income can add useful context","Group-level wage data can improve interpretation","Policy evaluation should examine intended beneficiaries"],"The passage explicitly rejects using the average as proof of broad gains.","treated as evidence that gains were distributed evenly"),
+ q("E03-Q7","BM-F07","hard","What role does the sixth paragraph play?","It presents a practical way to address the limits described earlier",["It defines population","It argues only median income matters","It introduces city comparisons"],"The paragraph lists complementary indicators.","examine several measures together"),
+ q("E03-Q8","BM-F08","hard","Which conclusion follows most logically?","Policy success should be assessed using measures that match the group the policy is intended to help",["Citywide averages are sufficient for targeted programmes","High earners should be excluded from statistics","Median income should replace all other measures"],"The passage says targeted programmes need targeted evaluation.","intended group actually gained"),
+ q("E03-Q9","BM-F09","medium","In context, “distribution” most nearly refers to:","how income gains are spread across people or groups",["where banks are located","how salaries are paid","the timing of tax collection"],"The passage contrasts broad and concentrated gains.","distributed evenly"),
+ q("E03-Q10","BM-F10","hard","Which assumption does the passage challenge?","That a higher average necessarily means broadly shared improvement",["Averages can summarise data","Median income identifies a middle point","Different groups may have different wages"],"This is the main misconception addressed throughout.","treated as evidence that gains were distributed evenly")
+ ]
+},
+{
+ id:"ENG008-BM-B03",title:"When Faster Delivery Changes What Customers Expect",genre:"business",
+ text:`Faster delivery can create value for customers, but it can also reset expectations in ways that are difficult for businesses to reverse. A retailer that moves from three-day delivery to next-day service may initially gain an advantage. After customers become used to that speed, however, returning to three days can feel like a decline even if the older service was once considered acceptable.
+
+This creates an operational challenge. Speed improvements often require more inventory, more local warehouses or more expensive transport. The cost is not limited to the first launch; the company must maintain the faster standard once it becomes part of the promise.
+
+Not every customer values speed equally. Some care more about price, delivery predictability or the ability to choose a convenient time. A firm that treats speed as the only dimension of service may spend heavily on customers who would have preferred a cheaper but slower option.
+
+There is also a reliability trade-off. A next-day promise that fails frequently can create more frustration than a two-day promise that is consistently met. The headline speed therefore matters less when customers cannot trust it.
+
+Businesses can respond by offering tiers. Urgent customers may pay more for faster service, while others choose a lower-cost standard option. This makes the trade-off visible rather than hiding it inside one default service.
+
+Yet tiering also increases complexity. Too many delivery choices can confuse customers and complicate warehouse planning. The best design may therefore use a small number of meaningful options rather than every possible speed.
+
+The broader point is that service improvements change reference points. Customers compare a current experience not only with competitors but also with what the same company previously taught them to expect.
+
+A sustainable delivery strategy therefore needs to consider not just whether faster service can be launched, but whether it can be maintained reliably and whether customers value the extra speed enough to justify the ongoing cost.`,
+ questions:[
+ q("B03-Q1","BM-F01","medium","What can happen after customers become accustomed to faster delivery?","A return to slower delivery may feel like a decline",["They stop caring about delivery","The original speed becomes faster","Costs automatically fall"],"The opening paragraph directly describes this expectation reset.","feel like a decline"),
+ q("B03-Q2","BM-F02","hard","What can be inferred about delivery speed as a competitive advantage?","It can become an ongoing obligation once customers expect it",["It has only one-time costs","It matters equally to all customers","It always improves reliability"],"The passage says the faster standard must be maintained after launch.","must maintain the faster standard"),
+ q("B03-Q3","BM-F03","hard","Which option best states the central argument?","Delivery strategy should balance speed, reliability, customer preferences and long-term operating cost",["Every retailer should offer next-day delivery","Customers care only about price","More delivery choices are always better"],"The passage repeatedly presents trade-offs rather than one best speed.","not just whether faster service can be launched"),
+ q("B03-Q4","BM-F04","hard","What is the author's tone?","Analytical and balanced",["Promotional","Dismissive of customers","Alarmist"],"Both benefits and costs are considered.","can create value ... can also reset expectations"),
+ q("B03-Q5","BM-F05","medium","Why does the author discuss predictable delivery?","To show that reliability may matter as much as headline speed",["To prove slower delivery is always better","To explain inventory accounting","To argue customers dislike choice"],"The passage contrasts unreliable next-day with reliable two-day service.","consistently met"),
+ q("B03-Q6","BM-F06","hard","Which statement cannot be inferred?","All customers are willing to pay more for faster delivery",["Some customers prefer lower cost","Reliability affects satisfaction","Faster service can raise operating costs"],"The passage explicitly says preferences differ.","Not every customer values speed equally"),
+ q("B03-Q7","BM-F07","hard","What role does the fifth paragraph play?","It presents tiered delivery as one way to make the speed-cost trade-off explicit",["It argues for unlimited delivery choices","It defines warehouse planning","It rejects standard delivery"],"The paragraph introduces service tiers as a response.","offering tiers"),
+ q("B03-Q8","BM-F08","hard","Which conclusion follows most logically?","A delivery promise should be judged partly by whether the firm can meet it consistently",["The fastest promise is always best","Customers should ignore delivery windows","Warehouses should remove slower options"],"The passage emphasises reliability and sustainability.","maintained reliably"),
+ q("B03-Q9","BM-F09","medium","In context, “tiers” most nearly means:","distinct service levels with different conditions",["warehouse floors","delivery routes","customer complaints"],"The passage describes fast and standard service options.","offering tiers"),
+ q("B03-Q10","BM-F10","hard","Which assumption does the passage challenge?","That faster delivery is automatically better for every customer and business",["Speed can influence expectations","Delivery requires operations","Customers compare service"],"The passage shows multiple costs and differing preferences.","Not every customer values speed equally")
+ ]
+},
+{
+ id:"ENG008-BM-H03",title:"Why Screening More People Can Initially Find More Disease",genre:"health",
+ text:`When a health system expands screening for a disease, the number of diagnosed cases may rise even if the underlying disease rate has not suddenly worsened. More testing can reveal cases that were previously present but undetected.
+
+This can create a communication problem. A public report may show diagnoses increasing after screening begins, and readers may interpret that rise as evidence that health conditions are deteriorating. In reality, part of the increase may reflect better detection.
+
+The distinction is especially important during the early years of a screening programme. As previously missed cases are found, recorded prevalence can jump. Later, the number of newly identified cases may stabilise as the backlog is reduced.
+
+Screening can also change which cases are found. Earlier testing may identify milder disease before symptoms become severe. That can improve treatment opportunities, but it can make comparisons with older data difficult because the diagnosed population is no longer the same.
+
+There are limits to screening. Tests can produce false positives, create anxiety and lead to additional procedures. A programme therefore needs evidence that the benefit of earlier detection outweighs these costs.
+
+Participation also matters. If screening is used mainly by people with better access to healthcare, recorded improvements may not represent the whole population. Outreach may be needed to reach groups with lower participation.
+
+Evaluation should therefore examine more than the number of diagnoses. Analysts may track stage at diagnosis, treatment outcomes, false-positive rates and participation across groups.
+
+The broader lesson is that better measurement can initially make a problem look larger. Interpreting health trends requires asking whether the data changed because disease changed, because detection changed, or because both changed at the same time.`,
+ questions:[
+ q("H03-Q1","BM-F01","medium","Why can recorded diagnoses rise after screening expands?","Previously undetected cases may be found",["Screening creates the disease","All tests produce false positives","Treatment stops"],"The opening paragraph directly explains the detection effect.","previously present but undetected"),
+ q("H03-Q2","BM-F02","hard","What can be inferred about early screening data?","A rise in cases may partly reflect improved detection rather than worsening health",["Case counts become meaningless","Disease rates always fall","Participation no longer matters"],"The passage explicitly separates measured diagnoses from underlying disease.","better detection"),
+ q("H03-Q3","BM-F03","hard","Which option best states the central argument?","Health trends after screening expansion must be interpreted with attention to changes in detection, case mix and participation",["More diagnoses always mean more disease","Screening should be avoided","Only false positives matter"],"The passage repeatedly qualifies raw diagnosis counts.","more than the number of diagnoses"),
+ q("H03-Q4","BM-F04","hard","What is the author's tone?","Analytical and cautious",["Hostile toward screening","Celebratory without qualification","Sarcastic"],"Benefits and limitations are both discussed.","There are limits to screening"),
+ q("H03-Q5","BM-F05","medium","Why does the author discuss milder cases?","To show that screening can change the composition of diagnosed patients",["To argue mild disease never needs treatment","To explain why tests are cheaper","To prove symptoms disappear"],"Earlier testing may identify different stages than older data did.","diagnosed population is no longer the same"),
+ q("H03-Q6","BM-F06","hard","Which statement cannot be inferred?","A rise in diagnoses after screening proves disease prevalence increased",["False positives are possible","Participation can vary across groups","Stage at diagnosis is useful to track"],"The passage directly rejects that simple interpretation.","may reflect better detection"),
+ q("H03-Q7","BM-F07","hard","What role does the seventh paragraph play?","It broadens evaluation beyond raw diagnosis counts",["It introduces screening","It argues only participation matters","It defines disease"],"The paragraph lists additional outcome measures.","more than the number of diagnoses"),
+ q("H03-Q8","BM-F08","hard","Which conclusion follows most logically?","Analysts should compare detection changes with health outcomes before interpreting rising case counts",["Higher case counts should always trigger panic","Screening participation can be ignored","Older data should be discarded"],"The final paragraph explicitly asks whether disease or detection changed.","because disease changed, because detection changed"),
+ q("H03-Q9","BM-F09","medium","In context, “prevalence” most nearly means:","how common a disease is in a population",["the price of a test","the number of hospitals","the duration of treatment"],"The passage discusses recorded disease burden.","recorded prevalence"),
+ q("H03-Q10","BM-F10","hard","Which distinction is fundamental to the passage?","More detected cases are not necessarily the same as more underlying disease",["Screening and treatment are identical","Mild disease is always harmless","Participation rates never change"],"This is the core interpretive distinction.","better measurement can initially make a problem look larger")
+ ]
+},
+{
+ id:"ENG008-BM-PH02",title:"Why Confidence Can Grow Faster Than Accuracy",genre:"philosophy",
+ text:`People often become more confident as they gain experience, but confidence and accuracy do not always improve at the same rate. Early familiarity with a subject can make decisions feel easier before a person has encountered enough difficult cases to understand the limits of a simple rule.
+
+This pattern appears in many fields. A beginner who learns several common examples may feel that the subject is becoming predictable. Later exposure to exceptions can temporarily reduce confidence even while knowledge is actually improving.
+
+That decline is not necessarily a setback. Recognising uncertainty can be a sign that a person has developed a more realistic model of the problem. Experts often know more, but they may also know more clearly where their knowledge is incomplete.
+
+The challenge is that confidence is visible to other people while calibration is harder to observe. A person who speaks decisively can appear more competent than someone who carefully states uncertainty, even when the cautious person is more accurate.
+
+Organisations can make this worse if they reward certainty without checking outcomes. Employees may learn that fast, confident answers receive more recognition than qualified answers that later prove correct.
+
+One solution is to compare predictions with results. When people routinely estimate their confidence and later see whether they were right, they can learn whether their certainty is well calibrated.
+
+This does not mean hesitation is always better. Decisions often need to be made under time pressure, and excessive caution can also be costly. The goal is not low confidence but confidence that reflects the quality of available evidence.
+
+The broader lesson is that feeling sure and being right are different variables. Good judgment improves when people learn not only more facts, but also how much trust to place in their own conclusions.`,
+ questions:[
+ q("PH02-Q1","BM-F01","medium","Why can early familiarity increase confidence quickly?","Common examples can make a subject seem more predictable than it really is",["Experience always reduces uncertainty","Beginners encounter only difficult cases","Accuracy stops improving"],"The opening paragraphs explain that simple early examples can create premature certainty.","subject is becoming predictable"),
+ q("PH02-Q2","BM-F02","hard","What can be inferred about a temporary drop in confidence after learning more?","It may reflect improved awareness of complexity",["It always means knowledge has declined","It proves the learner should stop","It has no relationship with understanding"],"The passage says recognising uncertainty can signal a more realistic model.","not necessarily a setback"),
+ q("PH02-Q3","BM-F03","hard","Which option best states the central argument?","Good judgment requires confidence to be calibrated to evidence rather than merely feeling certain",["Confidence should always be low","Experts should avoid decisions","Fast answers are usually wrong"],"The passage distinguishes confidence from accuracy and advocates calibration.","confidence that reflects the quality of available evidence"),
+ q("PH02-Q4","BM-F04","hard","What is the author's tone?","Reflective and analytical",["Mocking of confident people","Celebratory about uncertainty","Alarmist"],"The passage weighs both overconfidence and excessive hesitation.","excessive caution can also be costly"),
+ q("PH02-Q5","BM-F05","medium","Why does the author discuss organisational rewards?","To show that incentives can encourage visible certainty even when accuracy is not checked",["To argue employees should never speak confidently","To explain salary systems","To prove managers dislike expertise"],"Reward structures may favour confidence over calibration.","reward certainty without checking outcomes"),
+ q("PH02-Q6","BM-F06","hard","Which statement cannot be inferred?","The most confident person is usually the most accurate",["Experts may express uncertainty","Outcome feedback can improve calibration","Excessive caution can also be costly"],"The passage directly separates confidence from accuracy.","different variables"),
+ q("PH02-Q7","BM-F07","hard","What role does the sixth paragraph play?","It proposes feedback as a way to improve calibration",["It defines expertise","It argues decisions should be delayed","It introduces beginners"],"The paragraph describes comparing predictions with outcomes.","compare predictions with results"),
+ q("PH02-Q8","BM-F08","hard","Which conclusion follows most logically?","Decision systems should evaluate both outcomes and the confidence attached to predictions",["Confidence should be ignored","Only experts should make predictions","Uncertainty should never be stated"],"The passage argues that calibration improves when certainty is checked against results.","estimate their confidence and later see whether they were right"),
+ q("PH02-Q9","BM-F09","medium","In context, “calibrated” most nearly means:","matched appropriately to actual accuracy or evidence",["expressed loudly","made more quickly","reduced to zero"],"Calibration refers to how well confidence corresponds to being right.","well calibrated"),
+ q("PH02-Q10","BM-F10","hard","Which assumption does the passage challenge?","That feeling more certain necessarily means knowing more accurately",["Experience can change confidence","Feedback can improve judgment","Some decisions are time-sensitive"],"The entire passage distinguishes subjective certainty from correctness.","feeling sure and being right are different variables")
+ ]
+}
+] as const;
