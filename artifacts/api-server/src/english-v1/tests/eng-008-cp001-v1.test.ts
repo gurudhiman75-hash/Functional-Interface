@@ -13,7 +13,7 @@ for(const passage of ENG008_CP001_PASSAGES_V1){
  assert.equal(passage.questions.length,6,`${passage.id} must expose six RC families`);
  assert.equal(new Set(passage.questions.map(q=>q.familyId)).size,6,`${passage.id} must expose all six distinct families`);
  assert.ok(passage.text.includes("\n\n"),`${passage.id} should be multi-paragraph`);
- const wordCount=passage.text.trim().split(/\\s+/).length;assert.ok(wordCount>=180&&wordCount<=250,`${passage.id} word count ${wordCount} outside SSC Foundation band`);
+ const wordCount=passage.text.trim().split(/\s+/).length;assert.ok(wordCount>=180&&wordCount<=250,`${passage.id} word count ${wordCount} outside SSC Foundation band`);
  for(const authority of passage.questions){
   families.set(authority.familyId,(families.get(authority.familyId)??0)+1);
   difficulties.add(authority.difficulty);
