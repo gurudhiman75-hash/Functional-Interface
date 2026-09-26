@@ -12,12 +12,12 @@ function cell(value: unknown) {
 const lines: string[] = [
   "# DI-005 Pie Chart — Hindi/Punjabi Localization Review V1",
   "",
-  "Status: HI_PA_REVIEW_CANDIDATE · HUMAN APPROVAL PENDING",
+  "Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW",
   "",
   "- Permanent English QLs: DI-QL-049 through DI-QL-060",
   "- Hindi candidate: hi-IN",
   "- Punjabi candidate: pa-IN",
-  "- Localized Question Studio activation: LOCKED UNTIL HUMAN APPROVAL",
+  "- Localized Question Studio activation: CONTROLLED_REVIEW",
   "- Question Bank/tests/mocks/publication: locked",
   "- Shared pie renderer: localized title, legend, total and accessibility description",
   "",
@@ -70,7 +70,7 @@ for (const locale of locales) {
 lines.push(
   "## Review Gate",
   "",
-  "Hindi/Punjabi remain localization review candidates. They are not enabled in Question Studio until human approval. English controlled review remains unchanged; Question Bank, tests, mocks and public/student publication remain locked.",
+  "Hindi/Punjabi are frozen multilingual authorities and are enabled only in Question Studio CONTROLLED_REVIEW. Question Bank, tests, mocks and public/student publication remain locked.",
   "",
 );
 
