@@ -1,12 +1,6 @@
 name: Quant V4 Data Interpretation advanced table DI-002 V2
 
 on:
-  push:
-    branches:
-      - feature/di-002-advanced-table-v2-review
-    paths:
-      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/**"
-      - ".github/workflows/quant-v4-di-advanced-table-di002-v2.yml"
   pull_request:
     branches:
       - New-main
