@@ -97,7 +97,7 @@ export type Di004V2QuestionSet = Readonly<{
     setContractVersion: "DI-004-SET-CONTRACT-V2";
     questionLogicVersion: "DI-004-QUESTION-LOGIC-V2";
     arithmeticAuthority: "INTEGER_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING";
-    reviewStatus: "ENGLISH_REVIEW_CANDIDATE";
+    reviewStatus: "ENGLISH_REVIEW_APPROVED";
     questionStudioDiscoverable: false;
     questionBankStatus: "NOT_STORED";
     questionBankWritable: false;
