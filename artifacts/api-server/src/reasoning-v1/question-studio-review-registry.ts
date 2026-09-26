@@ -62,6 +62,13 @@ import {
   type PreviewStc001V22QuestionStudioInput,
 } from "./topics/Statement-and-Conclusion/STC-001/question-studio-review-v2-2";
 import {
+  WFM_001_QUESTION_STUDIO_PACKAGE_ID,
+  WFM_001_QUESTION_STUDIO_REVIEW_PACKAGE,
+  assertWfm001QuestionStudioPersistenceAllowed,
+  previewWfm001QuestionStudioReview,
+  type PreviewWfm001QuestionStudioInput,
+} from "./topics/Word-Formation/WFM-001/question-studio-review";
+import {
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   previewWor001QuestionStudioReview,
   type PreviewWor001QuestionStudioInput,
@@ -78,6 +85,7 @@ export type ReasoningV1QuestionStudioReviewPackageId =
   | typeof STC_001_V1_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
   | typeof STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
   | typeof STC_001_V22_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
+  | typeof WFM_001_QUESTION_STUDIO_PACKAGE_ID
   | typeof WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId;
 
 export type ReasoningV1QuestionStudioReviewRequest =
@@ -91,6 +99,7 @@ export type ReasoningV1QuestionStudioReviewRequest =
   | (PreviewStc001V1QuestionStudioInput & Readonly<{ packageId: typeof STC_001_V1_QUESTION_STUDIO_REVIEW_PACKAGE.packageId }>)
   | (PreviewStc001V2QuestionStudioInput & Readonly<{ packageId: typeof STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.packageId }>)
   | (PreviewStc001V22QuestionStudioInput & Readonly<{ packageId: typeof STC_001_V22_QUESTION_STUDIO_REVIEW_PACKAGE.packageId }>)
+  | (PreviewWfm001QuestionStudioInput & Readonly<{ packageId: typeof WFM_001_QUESTION_STUDIO_PACKAGE_ID }>)
   | (PreviewWor001QuestionStudioInput & Readonly<{ packageId: typeof WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId }>);
 
 const REVIEW_PACKAGES = [
@@ -104,6 +113,7 @@ const REVIEW_PACKAGES = [
   STC_001_V22_QUESTION_STUDIO_REVIEW_PACKAGE,
   STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE,
   STC_001_V1_QUESTION_STUDIO_REVIEW_PACKAGE,
+  WFM_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
 ] as const;
 
@@ -154,6 +164,10 @@ export function previewReasoningV1QuestionStudioReview(request: ReasoningV1Quest
     const { packageId: _packageId, ...input } = request;
     return previewStc001V1QuestionStudioReview(input);
   }
+  if (request.packageId === WFM_001_QUESTION_STUDIO_PACKAGE_ID) {
+    const { packageId: _packageId, ...input } = request;
+    return previewWfm001QuestionStudioReview(input);
+  }
   if (request.packageId === WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
     const { packageId: _packageId, ...input } = request;
     return previewWor001QuestionStudioReview(input);
@@ -191,6 +205,9 @@ export function persistReasoningV1QuestionStudioReview(request: ReasoningV1Quest
   }
   if (request.packageId === STC_001_V1_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
     return assertStc001V1QuestionStudioPersistenceAllowed();
+  }
+  if (request.packageId === WFM_001_QUESTION_STUDIO_PACKAGE_ID) {
+    return assertWfm001QuestionStudioPersistenceAllowed();
   }
   if (request.packageId === WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
     throw new Error("WOR-001 persistence is enabled only through the authenticated shared Question Studio review-run route so RBAC, audit events and release locks are preserved.");
