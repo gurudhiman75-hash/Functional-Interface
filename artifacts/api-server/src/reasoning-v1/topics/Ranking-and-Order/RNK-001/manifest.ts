@@ -1,3 +1,5 @@
+import { RNK_001_CURRENT_MAIN_FINAL_AUDIT_V1 } from "./rnk-001-current-main-final-audit-v1";
+
 export const RNK_001_CHAPTER_AUTHORITY = Object.freeze({
   packageId: "RNK-001",
   familyId: "REAS-RNK",
@@ -38,6 +40,7 @@ export const RNK_001_CHAPTER_AUTHORITY = Object.freeze({
   examProfileDeliveryValidated: true,
   bankingFiveOptionDeliveryValidated: true,
   percentagePresentationValidated: true,
+  currentMainFinalAudit: RNK_001_CURRENT_MAIN_FINAL_AUDIT_V1,
 
   questionStudioVisible: true,
   questionStudioGenerationEnabled: true,
