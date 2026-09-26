@@ -8,6 +8,7 @@ import { generateClockQuestion } from './runtime/generator';
 import {
   CLOCK_CHECKPOINTS,
   type ClockCheckpointCode,
+  type ClockTaskId,
 } from './runtime/catalog';
 import {
   CLK_001_PERMANENT_CONTRACTS,
@@ -65,6 +66,30 @@ function hash(value: string): number {
     result = Math.imul(result, 16777619);
   }
   return result >>> 0;
+}
+
+const VARIANT_ENABLED_TASKS_BY_QL: Partial<Record<ClockPermanentQlId, readonly ClockTaskId[]>> = {
+  'CLK-QL-019': [
+    'TOTAL_STRIKES_12_HOURS',
+    'TOTAL_STRIKES_24_HOURS',
+    'TOTAL_STRIKES_INCLUSIVE_RANGE',
+  ],
+};
+
+function authoringTaskForQl(
+  qlId: ClockPermanentQlId,
+  itemSeed: string,
+): ClockTaskId {
+  const contract = getClockPermanentContract(qlId);
+  const enabled = VARIANT_ENABLED_TASKS_BY_QL[qlId];
+  if (!enabled || enabled.length === 0) return contract.anchorTaskId;
+
+  for (const taskId of enabled) {
+    if (!contract.ownedTaskIds.includes(taskId)) {
+      throw new Error(qlId + ' cannot author unowned Clock task ' + taskId + '.');
+    }
+  }
+  return enabled[hash(itemSeed + ':owned-variant') % enabled.length]!;
 }
 
 function resolveExamProfile(value: unknown): ClockExamProfile {
@@ -182,8 +207,9 @@ function generateMatchingInstance(input: {
     const contract = getClockPermanentContract(qlId);
     for (let attempt = 0; attempt < attemptLimit; attempt += 1) {
       const itemSeed = input.baseSeed + ':' + qlId + ':' + input.index + ':attempt:' + attempt;
+      const generatedTaskId = authoringTaskForQl(qlId, itemSeed);
       const english = generateClockQuestion({
-        taskId: contract.anchorTaskId,
+        taskId: generatedTaskId,
         seed: itemSeed,
         locale: 'en-IN',
         correctOptionIndex: (hash(itemSeed + ':option') % 4) as 0 | 1 | 2 | 3,
@@ -196,6 +222,7 @@ function generateMatchingInstance(input: {
           contract,
           english,
           itemSeed,
+          generatedTaskId,
           attempt,
           difficulty: generatedDifficulty,
         };
@@ -257,6 +284,7 @@ export const CLK_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     bankingFiveOptionDelivery: true,
     examProfileContentWeightingApplied: false,
     nativeExplanationFillerRemoved: true,
+    ownedVariantAuthoringStatus: 'SAFE_LOCALIZED_VARIANTS_ENABLED_SELECTIVELY',
     reviewOnly: true,
   },
 };
@@ -300,7 +328,7 @@ export async function generateClk001QuestionStudioBatch(
       requestedDifficulty,
     });
 
-    const { qlId, contract, english, itemSeed, attempt, difficulty } = resolved;
+    const { qlId, contract, english, itemSeed, generatedTaskId, attempt, difficulty } = resolved;
     const localized = localizeClockAnchorQuestion(english, language);
     const canonicalOptions = localized.options.map((option) => option.display);
     const canonicalCorrectIndex = localized.correctOptionIndex;
@@ -374,6 +402,7 @@ export async function generateClk001QuestionStudioBatch(
         qlId,
         checkpointId: contract.checkpointCode,
         anchorTaskId: contract.anchorTaskId,
+        generatedTaskId,
         authorityCluster: contract.cluster,
         ownedDiscoveryTaskIds: [...contract.ownedTaskIds],
         sourceEvidenceRefs: [...contract.sourceEvidenceRefs],
