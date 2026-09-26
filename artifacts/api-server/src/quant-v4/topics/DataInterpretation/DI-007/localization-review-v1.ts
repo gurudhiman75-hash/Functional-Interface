@@ -207,12 +207,12 @@ function row(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocale, index: 
 function fiveEntryPhrase(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocale) {
   const isHi = hi(locale);
   switch (stimulus.contextId) {
-    case "BANK_BRANCH_APPLICATIONS": return isHi ? "पाँचों शाखाओं की प्रविष्टियों में" : "ਪੰਜਾਂ ਸ਼ਾਖਾਵਾਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
-    case "INSURANCE_POLICIES": return isHi ? "पाँचों तिमाहियों की प्रविष्टियों में" : "ਪੰਜਾਂ ਤਿਮਾਹੀਆਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
-    case "FACTORY_OUTPUT": return isHi ? "पाँचों महीनों की प्रविष्टियों में" : "ਪੰਜਾਂ ਮਹੀਨਿਆਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
-    case "COURSE_ENROLMENT": return isHi ? "पाँचों केंद्रों की प्रविष्टियों में" : "ਪੰਜਾਂ ਕੇਂਦਰਾਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
-    case "ONLINE_ORDERS": return isHi ? "पाँचों दिनों की प्रविष्टियों में" : "ਪੰਜਾਂ ਦਿਨਾਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
-    case "BOOK_ISSUES": return isHi ? "पाँचों सप्ताहों की प्रविष्टियों में" : "ਪੰਜਾਂ ਹਫ਼ਤਿਆਂ ਦੀਆਂ ਦਰਜਾਂ ਵਿੱਚ";
+    case "BANK_BRANCH_APPLICATIONS": return isHi ? "पाँचों शाखाओं में" : "ਪੰਜਾਂ ਸ਼ਾਖਾਵਾਂ ਵਿੱਚ";
+    case "INSURANCE_POLICIES": return isHi ? "पाँचों तिमाहियों में" : "ਪੰਜਾਂ ਤਿਮਾਹੀਆਂ ਵਿੱਚ";
+    case "FACTORY_OUTPUT": return isHi ? "पाँचों महीनों में" : "ਪੰਜਾਂ ਮਹੀਨਿਆਂ ਵਿੱਚ";
+    case "COURSE_ENROLMENT": return isHi ? "पाँचों केंद्रों में" : "ਪੰਜਾਂ ਕੇਂਦਰਾਂ ਵਿੱਚ";
+    case "ONLINE_ORDERS": return isHi ? "पाँचों दिनों में" : "ਪੰਜਾਂ ਦਿਨਾਂ ਵਿੱਚ";
+    case "BOOK_ISSUES": return isHi ? "पाँचों सप्ताहों में" : "ਪੰਜਾਂ ਹਫ਼ਤਿਆਂ ਵਿੱਚ";
   }
 }
 
