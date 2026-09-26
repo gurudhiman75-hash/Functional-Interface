@@ -18,10 +18,11 @@ async function run() {
   assert.ok(routed.questions.every((q) => q.cpId === "WHI-001-CP002" && q.language === "en"));
 
   const counts = new Map<string, number>();
-  for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
-    const result = await knowledgeV1Whi002QuestionStudioAdapterV1.generate({ packageId: "WHI-002", language: "en", count: 50, difficulty, seed: `whi002-${difficulty}` });
+  for (const [difficulty, expected] of [["Easy", 18], ["Medium", 30], ["Hard", 12]] as const) {
+    const result = await knowledgeV1Whi002QuestionStudioAdapterV1.generate({ packageId: "WHI-002", language: "en", count: expected, difficulty, seed: `whi002-${difficulty}` });
     counts.set(difficulty, result.generationContext.candidateCount as number);
     assert.ok(result.questions.every((q) => q.difficulty === difficulty));
+    assert.equal(result.questions.length, expected);
   }
   assert.deepEqual(Object.fromEntries(counts), { Easy: 18, Medium: 30, Hard: 12 });
 
