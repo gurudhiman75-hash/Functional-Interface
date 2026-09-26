@@ -60,6 +60,7 @@ jobs:
           broad_question_studio_path = 'artifacts/api-server/src/question-studio/**'
           shared_quant_adapter_path = 'artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts'
           central_adapter_workflow = '.github/workflows/question-studio-engine-adapters.yml'
+          policy_workflow = '.github/workflows/workflow-timeout-policy.yml'
 
           def event_blocks(lines, event_name):
               blocks = []
@@ -140,7 +141,7 @@ jobs:
               text = path.read_text()
               lines = text.splitlines()
 
-              if filename != central_adapter_workflow and broad_question_studio_path in text:
+              if filename not in {central_adapter_workflow, policy_workflow} and broad_question_studio_path in text:
                   print(
                       f'::error file={filename}::Chapter workflows must not watch the entire shared '
                       'Question Studio tree. Route shared adapter changes through '
@@ -148,7 +149,7 @@ jobs:
                   )
                   failed = True
 
-              if filename != central_adapter_workflow and shared_quant_adapter_path in text:
+              if filename not in {central_adapter_workflow, policy_workflow} and shared_quant_adapter_path in text:
                   print(
                       f'::error file={filename}::Chapter workflows must not watch the shared quant-v4 '
                       'Question Studio adapter. The central adapter-integrity workflow owns that path.'
