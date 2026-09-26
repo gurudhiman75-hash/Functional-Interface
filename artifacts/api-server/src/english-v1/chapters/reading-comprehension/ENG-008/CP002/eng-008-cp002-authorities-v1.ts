@@ -1,5 +1,7 @@
+import { ENG008_CP002_EXPANSION_WAVE2_V1 } from "./eng-008-cp002-expansion-wave2-v1";
 import { ENG008_CP002_SEED_PASSAGES_V1 } from "../CP001/eng-008-cp001-authorities-v1";
 import { ENG008_CP002_EXPANSION_WAVE1_V1 } from "./eng-008-cp002-expansion-wave1-v1";
+import { ENG008_CP002_EXPANSION_WAVE2_V1 } from "./eng-008-cp002-expansion-wave2-v1";
 
 export type Eng008Cp002Difficulty="easy"|"medium"|"hard";
 export type Eng008Cp002Genre="editorial"|"current-affairs-report";
