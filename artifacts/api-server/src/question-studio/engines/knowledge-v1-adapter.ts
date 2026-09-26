@@ -66,6 +66,10 @@ import {
   knowledgeV1Pgk001QuestionStudioAdapterV1,
 } from "./knowledge-v1-pgk001-adapter-v1";
 import {
+  isPgk001MatchFollowingQuestionStudioRequestV1,
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1,
+} from "./knowledge-v1-pgk001-match-following-adapter-v1";
+import {
   isHis001QuestionStudioRequestV1,
   knowledgeV1His001QuestionStudioAdapterV1,
 } from "./knowledge-v1-his001-adapter-v1";
@@ -106,6 +110,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1GeoRiv001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoSoi001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Pgk001QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1His001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Whi001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Pol001QuestionStudioAdapterV1.listPackages(),
@@ -139,6 +144,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isGeoSoi001QuestionStudioRequestV1(request)) {
       return knowledgeV1GeoSoi001QuestionStudioAdapterV1.generate(request);
+    }
+    if (isPgk001MatchFollowingQuestionStudioRequestV1(request)) {
+      return knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate(request);
     }
     if (isPgk001QuestionStudioRequestV1(request)) {
       return knowledgeV1Pgk001QuestionStudioAdapterV1.generate(request);
