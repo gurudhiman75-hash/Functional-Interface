@@ -6,7 +6,6 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**
       - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
-      - .github/workflows/rnk-001-final-audit-wave-01.yml
   workflow_dispatch:
 
 permissions:
