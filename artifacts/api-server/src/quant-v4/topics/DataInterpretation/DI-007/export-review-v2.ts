@@ -5,7 +5,7 @@ import type { Di007V2QuestionSet, Di007V2TaskKind } from "./missing-v2-types";
 
 const OUTPUT = resolve(process.cwd(), process.argv[2] || "DI-007-REVIEW-V2.md");
 const ALL_TASKS: readonly Di007V2TaskKind[] = [
-  "DIRECT_VISIBLE_VALUE",
+  "VISIBLE_ROW_COMBINED_TOTAL",
   "VISIBLE_ROW_DIFFERENCE",
   "RECOVER_MISSING_VALUE",
   "HIDDEN_ROW_COMBINED_TOTAL",
@@ -68,7 +68,7 @@ const taskCoverage = new Set(sets.flatMap((set) => set.questions.map((question) 
 const lines: string[] = [
   "# DI-007 — Missing Data Interpretation V2 Review",
   "",
-  "Status: HUMAN_REVIEW_PENDING · REVIEW_ONLY · NO_PERMANENT_QLS",
+  "Status: ENGLISH_REVIEW_APPROVED · DIFFICULTY-FLOOR CORRECTION REVIEW",
   "",
   "Review sets: " + String(sets.length),
   "Questions: " + String(sets.reduce((sum, set) => sum + set.questions.length, 0)),
@@ -102,7 +102,7 @@ sets.forEach((set, setIndex) => {
 lines.push("---", "", "## Review checklist", "");
 lines.push("- Missing-table condition is understandable without internal terminology.");
 lines.push("- Context labels read naturally for banking-exam DI.");
-lines.push("- Easy questions are genuinely easy; Hard questions require missing-value recovery plus another operation.");
+lines.push("- Every Easy question requires arithmetic; zero-operation direct lookup is not allowed. Hard questions require missing-value recovery plus another operation.");
 lines.push("- Distractors are plausible and not absurd numerical fillers.");
 lines.push("- Explanations are simple, worked and question-specific.");
 lines.push("- No forced shortcut/trap boilerplate appears.");
