@@ -17,7 +17,7 @@ import type { AdvancedTurn, RelativePathOperation } from "./DIR-CP-008/types";
 import {
   validateReasoningNoveltyCandidateV1,
   type ReasoningNoveltyAxisV1,
-} from "../../shared/reasoning-novelty-governance-v1";
+} from "../../../shared/reasoning-novelty-governance-v1";
 
 export const DIR_001_CONTROLLED_NOVELTY_DISCOVERY_V1 =
   "DIR_001_CONTROLLED_NOVELTY_DISCOVERY_V1" as const;
@@ -94,8 +94,7 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
 
   const pattern = PATTERNS[Math.abs(seed) % PATTERNS.length]!;
   const quarterTurns = Math.floor(Math.abs(seed) / PATTERNS.length) % 4;
-  const turn: Exclude<AdvancedTurn, "NO_TURN" | "ABOUT"> =
-    Math.floor(Math.abs(seed) / (PATTERNS.length * 4)) % 2 === 0 ? "LEFT" : "RIGHT";
+  const turn: Exclude<AdvancedTurn, "NO_TURN" | "ABOUT"> = "LEFT";
 
   const anchor = "P";
   const startEntity = "Q";
@@ -103,7 +102,7 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
 
   const east = rotate("EAST", quarterTurns);
   const north = rotate("NORTH", quarterTurns);
-  const initialFacing = turn === "LEFT" ? north : rotate("SOUTH", quarterTurns);
+  const initialFacing = north;
 
   const relations: readonly PositionRelation[] = [
     {
