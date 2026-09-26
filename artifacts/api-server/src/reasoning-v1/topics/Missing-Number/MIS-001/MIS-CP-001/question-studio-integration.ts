@@ -9,6 +9,10 @@ import {
   generateMisCp001Question,
 } from './generator';
 import {
+  independentlyEvaluateMisCp001Rule,
+  independentlyVerifyMisCp001Group,
+} from './independent-solver';
+import {
   misCp001RuleByCandidateId,
   type MisCp001CandidateId,
 } from './rule-definitions';
@@ -153,6 +157,12 @@ export async function generateMis001QuestionStudioBatch(
     const candidateId = pool[(start + index) % pool.length]!;
     const itemSeed = `${baseSeed}:${candidateId}:${index}`;
     const generated = generateMisCp001Question(candidateId, itemSeed);
+    const solverAnswer = independentlyEvaluateMisCp001Rule(
+      generated.ruleId,
+      generated.target.first,
+      generated.target.second,
+      generated.context,
+    );
     const options = generated.options.map((option) => String(option.value));
     const questionId = `MIS-001:${candidateId}:${hash(itemSeed)}:en`;
 
@@ -220,13 +230,15 @@ export async function generateMis001QuestionStudioBatch(
       },
       validation: {
         sameRuleFitsAllExamples: generated.evidenceGroups.every((group) =>
-          generated.solverTrace.some((trace) => trace.includes(String(group.result))),
+          independentlyVerifyMisCp001Group(generated.ruleId, generated.context, group),
         ),
-        exactlyOneIntendedRule: generated.ambiguityAudit.accepted,
+        exactlyOneIntendedRule:
+          generated.ambiguityAudit.accepted
+          && new Set(generated.ambiguityAudit.matches.map((match) => match.semanticKey)).size === 1,
         exactlyOneCorrect: generated.options.filter((option) => option.errorLabel === null).length === 1,
         fourUniqueOptions: generated.options.length === 4 && new Set(options).size === 4,
-        solverAgreement: generated.target.result === generated.answer,
-        resultWithinBounds: generated.answer >= 0 && generated.answer <= 999,
+        solverAgreement: solverAnswer === generated.answer,
+        resultWithinBounds: generated.answer > 0 && generated.answer <= 999,
         noDecimal: Number.isInteger(generated.answer),
         explanationUsesGeneratedValues: generated.explanation.includes(String(generated.answer)),
       },
