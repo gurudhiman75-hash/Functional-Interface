@@ -128,3 +128,14 @@ Wave 9 continues the 40-passage large-wave cadence.
 - Candidate governed-authority pool after Wave 9: **1,948 authorities**
 
 The pool remains novelty-limited rather than hard-capped. The next planning waypoint, if Wave 9 is approved and quality remains strong, is approximately **272 core passages after Wave 10**.
+
+
+## Wave 10 checkpoint
+
+Wave 10 continues the 40-passage large-wave cadence.
+
+- Wave 10 addition: **40 passages / 336 governed authorities**
+- Candidate core pool after Wave 10: **272 passages**
+- Candidate governed-authority pool after Wave 10: **2,284 authorities**
+
+The pool remains novelty-limited rather than hard-capped. If Wave 10 is approved and quality remains strong, the next planning waypoint is approximately **312 core passages after Wave 11**.
