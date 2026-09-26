@@ -1,6 +1,6 @@
 # ENG-008 CP005 — Research / Survey / Report Reading Comprehension — Source Audit V1
 
-Status: `IMPLEMENTED_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY`
 
 ## Purpose
 
@@ -68,4 +68,4 @@ Each passage carries all 8 families: **6 × 8 = 48 atomic authorities**.
 
 ## Lifecycle
 
-`REVIEW_ONLY`. No Question Studio registration, Question Bank writes, scored tests, mocks, public/learner publication, automatic publication or production release before explicit human approval.
+Human approval was recorded on **2026-09-26** against `ENG-008-CP005-REVIEW-V1.md` at reviewed head `88f969bd3b09f3b43db37c5a892c25498d1e6de4`. CP005 is registered in the existing ENG-008 Question Studio package in **review-only** mode. Question Bank writes, scored tests, mocks, learner/public publication, automatic publication and production release remain locked.
