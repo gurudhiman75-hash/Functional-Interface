@@ -99,4 +99,7 @@ for (const contract of CLK_001_PERMANENT_CONTRACTS) {
   if (!contract.ownedTaskIds.includes(contract.anchorTaskId)) {
     throw new Error(contract.qlId + ' does not own its anchor task.');
   }
+  if (CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION[contract.anchorTaskId].disposition !== 'PROVISIONAL_AUTHORITY_ANCHOR') {
+    throw new Error(contract.qlId + ' must point to a frozen authority anchor, not a merged or held variant.');
+  }
 }
