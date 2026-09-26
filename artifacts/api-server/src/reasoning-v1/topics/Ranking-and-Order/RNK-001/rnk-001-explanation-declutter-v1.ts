@@ -151,6 +151,14 @@ export function declutterRnkExplanation(input: RnkExplanationDeclutterInput): st
   if (typeof explanation === "string") {
     return compactStringExplanation(explanation, answer);
   }
+  if (Array.isArray(explanation)) {
+    const lines = explanation
+      .filter((entry): entry is string => typeof entry === "string")
+      .map(stripPresentationPrefix)
+      .filter(Boolean)
+      .filter((line) => !isTrivialConclusion(line, answer));
+    return uniqueLines(lines).join("\n").trim();
+  }
   if (!explanation || typeof explanation !== "object") {
     return cleanWhitespace(String(explanation ?? ""));
   }
