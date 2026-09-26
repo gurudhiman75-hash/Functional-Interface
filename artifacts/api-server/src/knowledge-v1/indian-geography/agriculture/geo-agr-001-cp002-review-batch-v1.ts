@@ -608,7 +608,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-016",
     "qlName": "Wheat — major geographic belt",
     "difficulty": "Easy",
-    "stem": "Which other broad physical region is known for wheat besides the northwestern plains?",
+    "stem": "Which other physical region is known for wheat besides the northwestern plains?",
     "answer": "Black-soil parts of the Deccan",
     "distractors": [
       "Mangrove swamps only",
