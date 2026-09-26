@@ -40,15 +40,25 @@ function difficultyFor(profile:Eng008SetProfile,family:string){
  return family==="RC2-F01"||family==="RC2-F08"?"easy":family==="RC2-F04"||family==="RC2-F06"?"hard":"medium";
 }
 function generate(profile:Eng008SetProfile,passageId:string,family:string,seed:string){
- const d=difficultyFor(profile,family) as any;
- if(profile==="SSC_FOUNDATION_RC")return generateEng008Cp001QuestionV1({seed,difficulty:d,familyId:family as any,passageId});
- if(profile==="SSC_EDITORIAL_CURRENT_AFFAIRS_RC")return generateEng008Cp002QuestionV1({seed,difficulty:d,familyId:family as any,authorityId:(ENG008_CP002_PASSAGES_V1.find(p=>p.id===passageId)!.questions.find(q=>q.familyId===family)!.id)});
+ if(profile==="SSC_FOUNDATION_RC"){
+  const authority=ENG008_CP001_PASSAGES_V1.find(p=>p.id===passageId)!.questions.find(q=>q.familyId===family)!;
+  return generateEng008Cp001QuestionV1({seed,difficulty:authority.difficulty,familyId:family as any,passageId,authorityId:authority.id});
+ }
+ if(profile==="SSC_EDITORIAL_CURRENT_AFFAIRS_RC"){
+  const authority=ENG008_CP002_PASSAGES_V1.find(p=>p.id===passageId)!.questions.find(q=>q.familyId===family)!;
+  return generateEng008Cp002QuestionV1({seed,difficulty:authority.difficulty,familyId:family as any,authorityId:authority.id});
+ }
  if(profile==="BANKING_PRELIMS_RC"){
   if(family==="BP-F10")return generateEng008Cp007QuestionV1({seed,authorityId:ENG008_CP007_AUTHORITIES_V1.find(a=>a.passageId===passageId)!.id});
-  return generateEng008Cp003QuestionV1({seed,difficulty:d,familyId:family as any,authorityId:(ENG008_CP003_PASSAGES_V1.find(p=>p.id===passageId)!.questions.find(q=>q.familyId===family)!.id)});
+  const authority=ENG008_CP003_PASSAGES_V1.find(p=>p.id===passageId)!.questions.find(q=>q.familyId===family)!;
+  return generateEng008Cp003QuestionV1({seed,difficulty:authority.difficulty,familyId:family as any,authorityId:authority.id});
  }
- if(profile==="BANKING_MAINS_RC")return generateEng008Cp004QuestionV1({seed,difficulty:d,familyId:family as any,authorityId:(ENG008_CP004_PASSAGES_V1.find(p=>p.id===passageId)!.questions.find(q=>q.familyId===family)!.id)});
- return generateEng008Cp005QuestionV1({seed,difficulty:d,familyId:family as any,authorityId:(ENG008_CP005_PASSAGES_V1.find(p=>p.id===passageId)!.questions.find(q=>q.familyId===family)!.id)});
+ if(profile==="BANKING_MAINS_RC"){
+  const authority=ENG008_CP004_PASSAGES_V1.find(p=>p.id===passageId)!.questions.find(q=>q.familyId===family)!;
+  return generateEng008Cp004QuestionV1({seed,difficulty:authority.difficulty,familyId:family as any,authorityId:authority.id});
+ }
+ const authority=ENG008_CP005_PASSAGES_V1.find(p=>p.id===passageId)!.questions.find(q=>q.familyId===family)!;
+ return generateEng008Cp005QuestionV1({seed,difficulty:authority.difficulty,familyId:family as any,authorityId:authority.id});
 }
 export function generateEng008Cp006SetV1(input:GenerateEng008Cp006SetV1Input){
  const cfg=configs[input.profile],count=input.questionCount??cfg.defaultCount;
