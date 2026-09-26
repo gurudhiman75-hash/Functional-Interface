@@ -2,6 +2,7 @@ name: Reasoning V1 Novelty Governance
 
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-governance-v1.ts
       - artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-governance-v1.test.ts
@@ -21,6 +22,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: reasoning-v1-novelty-governance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-reasoning-novelty-governance:
