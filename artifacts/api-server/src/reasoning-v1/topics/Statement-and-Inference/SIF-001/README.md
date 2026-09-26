@@ -33,6 +33,11 @@ The package does not infer its answer from generated prose. It also keeps infere
 
 `SIF-CP010-REVIEW-V1.md` contains 24 trilingual scenarios across eight conditional-inference families. The pool and review pack each cover if/then, only-if, unless, provided-that, whenever, negative-condition, conditional-chain and condition-scope cases. The set is balanced at 12 Medium / 12 Hard and 12 supported-I / 12 supported-II. It tests necessary versus sufficient conditions and avoids reversing one-way rules. It remains in Question Studio review only.
 
+
+## CP011 review candidate
+
+`SIF-CP011-REVIEW-V1.md` contains 24 trilingual multiple-factor scenarios across eight families. Each family contributes three scenarios; the pool balances 12 Medium / 12 Hard and 12 supported-Inference-I / 12 supported-Inference-II. Scenarios require combining conditions, records, comparisons, scope or status facts before deciding whether an inference follows. It remains in Question Studio review only.
+
 ## Review boundary
 
 All 17 content packs are executable and registered for Question Studio review. Question Bank persistence, tests, mocks, public delivery and automatic publication remain locked until CP-level human review, multilingual parity review, novelty expansion and the chapter freeze are approved.

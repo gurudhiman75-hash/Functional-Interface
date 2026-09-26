@@ -14,6 +14,7 @@ import { SIF_CP007_PROFILE_BY_AUTHORITY_ID } from "./cp007-negative-authorities.
 import { SIF_CP008_PROFILE_BY_AUTHORITY_ID } from "./cp008-contextual-authorities.ts";
 import { SIF_CP009_PROFILE_BY_AUTHORITY_ID } from "./cp009-data-authorities.ts";
 import { SIF_CP010_PROFILE_BY_AUTHORITY_ID } from "./cp010-conditional-authorities.ts";
+import { SIF_CP011_PROFILE_BY_AUTHORITY_ID } from "./cp011-multiple-factor-authorities.ts";
 
 const locales: readonly SifLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 assert.equal(SIF_001_MANIFEST.cpCount, 17);
@@ -232,5 +233,35 @@ assert.deepEqual(cp010Review.effectiveDistribution, { EASY: 0, MEDIUM: 12, HARD:
 for (const family of cp010Families) assert.equal(cp010Review.questions.filter((entry) => SIF_CP010_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.family === family).length, 3, `SIF-CP010 review must sample three ${family} scenarios`);
 assert.equal(cp010Review.questions.filter((entry) => entry.answerClass === "ONLY_I").length, 12, "SIF-CP010 review must balance inference I");
 assert.equal(cp010Review.questions.filter((entry) => entry.answerClass === "ONLY_II").length, 12, "SIF-CP010 review must balance inference II");
+
+console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
+
+const cp011Authorities = listSifAuthorities("SIF-CP011");
+assert.equal(cp011Authorities.length, 24, "SIF-CP011 requires twenty-four curated multiple-factor inference authorities");
+assert.equal(Object.keys(SIF_CP011_PROFILE_BY_AUTHORITY_ID).length, 24, "SIF-CP011 profile ledger must cover every authority");
+assert.equal(new Set(cp011Authorities.map(fingerprintSifAuthority)).size, 24, "SIF-CP011 authorities must be semantically distinct");
+const cp011Families = [...new Set(Object.values(SIF_CP011_PROFILE_BY_AUTHORITY_ID).map((profile) => profile.family))];
+assert.equal(cp011Families.length, 8, "SIF-CP011 must cover eight multiple-factor inference families");
+for (const family of cp011Families) assert.equal(Object.values(SIF_CP011_PROFILE_BY_AUTHORITY_ID).filter((profile) => profile.family === family).length, 3, `SIF-CP011 ${family} authority count`);
+assert.deepEqual(cp011Authorities.reduce((counts, entry) => ({ ...counts, [entry.difficulty]: counts[entry.difficulty] + 1 }), { EASY: 0, MEDIUM: 0, HARD: 0 }), { EASY: 0, MEDIUM: 12, HARD: 12 }, "SIF-CP011 pool must remain medium-to-hard");
+assert.ok(cp011Authorities.every((entry) => entry.mechanisms.includes("MULTIPLE_FACTOR") && entry.identityGuard.evaluatesSupport), "SIF-CP011 must remain multiple-factor verbal inference");
+for (const [authorityIndex, entry] of cp011Authorities.entries()) {
+  const triplet = locales.map((locale) => generateSifQuestion({ cpId: "SIF-CP011", locale, seed: 91_008 + authorityIndex }));
+  assert.ok(triplet.every((question) => question.scenarioId === entry.id && question.validation.every((gate) => gate.passed)), `SIF-CP011 ${entry.id} must pass all gates in all locales`);
+  assertSifLanguageParity(triplet);
+  for (const locale of locales) {
+    const passage = entry.statement[locale];
+    assert.equal(passage.trim().split(/(?<=[.!?।])\s+/).length, 3, `SIF-CP011 ${entry.id} ${locale} must contain three short sentences`);
+    assert.ok(entry.facts.every((fact) => fact.text[locale].trim().length > 0), `SIF-CP011 ${entry.id} ${locale} facts`);
+  }
+  for (const localized of [entry.statement, ...entry.facts.map((fact) => fact.text), ...entry.candidates.map((candidate) => candidate.text), entry.explanation]) assert.notEqual(localized["hi-IN"], localized["pa-IN"], `SIF-CP011 ${entry.id} must keep Hindi and Punjabi distinct`);
+}
+const cp011Review = buildSifCpReviewPack({ cpId: "SIF-CP011", locale: "en-IN", seed: 91_008 });
+assert.equal(cp011Review.questions.length, 24, "SIF-CP011 review pack size");
+assert.equal(new Set(cp011Review.questions.map((entry) => entry.scenarioId)).size, 24, "SIF-CP011 review must not repeat scenarios");
+assert.deepEqual(cp011Review.effectiveDistribution, { EASY: 0, MEDIUM: 12, HARD: 12 }, "SIF-CP011 must remain medium-to-hard");
+for (const family of cp011Families) assert.equal(cp011Review.questions.filter((entry) => SIF_CP011_PROFILE_BY_AUTHORITY_ID[entry.scenarioId]?.family === family).length, 3, `SIF-CP011 review must sample three ${family} scenarios`);
+assert.equal(cp011Review.questions.filter((entry) => entry.answerClass === "ONLY_I").length, 12, "SIF-CP011 review must balance inference I");
+assert.equal(cp011Review.questions.filter((entry) => entry.answerClass === "ONLY_II").length, 12, "SIF-CP011 review must balance inference II");
 
 console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
