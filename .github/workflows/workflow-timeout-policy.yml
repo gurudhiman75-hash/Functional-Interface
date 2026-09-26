@@ -60,6 +60,7 @@ jobs:
           broad_question_studio_path = 'artifacts/api-server/src/question-studio/**'
           shared_quant_adapter_path = 'artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts'
           central_adapter_workflow = '.github/workflows/question-studio-engine-adapters.yml'
+          policy_workflow = '.github/workflows/workflow-timeout-policy.yml'
 
           def event_blocks(lines, event_name):
               blocks = []
@@ -84,6 +85,25 @@ jobs:
 
           def has_path_scope(block):
               return any(re.fullmatch(r'    paths(?:-ignore)?:\s*', line) for line in block)
+
+          def has_nonempty_paths(block):
+              for index, line in enumerate(block):
+                  if not re.fullmatch(r'    paths:\s*', line):
+                      continue
+                  cursor = index + 1
+                  while cursor < len(block):
+                      candidate = block[cursor]
+                      if not candidate.strip():
+                          cursor += 1
+                          continue
+                      indent = len(candidate) - len(candidate.lstrip(' '))
+                      if indent <= 4:
+                          return False
+                      if re.fullmatch(r'\s{6}-\s+.+', candidate):
+                          return True
+                      cursor += 1
+                  return False
+              return True
 
           def has_new_main_base(block):
               for index, line in enumerate(block):
@@ -121,7 +141,7 @@ jobs:
               text = path.read_text()
               lines = text.splitlines()
 
-              if filename != central_adapter_workflow and broad_question_studio_path in text:
+              if filename not in {central_adapter_workflow, policy_workflow} and broad_question_studio_path in text:
                   print(
                       f'::error file={filename}::Chapter workflows must not watch the entire shared '
                       'Question Studio tree. Route shared adapter changes through '
@@ -129,7 +149,7 @@ jobs:
                   )
                   failed = True
 
-              if filename != central_adapter_workflow and shared_quant_adapter_path in text:
+              if filename not in {central_adapter_workflow, policy_workflow} and shared_quant_adapter_path in text:
                   print(
                       f'::error file={filename}::Chapter workflows must not watch the shared quant-v4 '
                       'Question Studio adapter. The central adapter-integrity workflow owns that path.'
@@ -143,6 +163,15 @@ jobs:
                       '>=30 for normal validation; 45 minutes is the default for long chapter validation.'
                   )
                   failed = True
+
+              for event_name in ('pull_request', 'push'):
+                  for event_index, event_block in event_blocks(lines, event_name):
+                      if has_path_scope(event_block) and not has_nonempty_paths(event_block):
+                          print(
+                              f'::error file={filename},line={event_index + 1}::{event_name} has an empty '
+                              'paths block. Add at least one owned path or remove the paths key.'
+                          )
+                          failed = True
 
               has_automatic_pr = bool(event_blocks(lines, 'pull_request')) or bool(
                   re.search(r'^on:\s*\[[^\]]*pull_request[^\]]*\]\s*$', text, re.MULTILINE)

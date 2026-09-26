@@ -5,7 +5,12 @@ on:
     branches:
       - New-main
     paths:
-      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/**"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/geo-loc-001-cp003-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/GEO-LOC-001-CP003-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/geo-loc-001-cp004-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/GEO-LOC-001-CP004-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/geo-loc-001-cp005-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/GEO-LOC-001-CP005-*"
   workflow_dispatch:
 
 permissions:

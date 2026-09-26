@@ -6,6 +6,10 @@ on:
       - New-main
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
+      - "artifacts/api-server/src/english-v1/chapters/grammar-fillers/ENG-003/CP005/**"
+      - "artifacts/api-server/src/english-v1/tests/eng-003-cp005-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/language-v1-eng003-cp005-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/language-v1-eng003-cp005-adapter-v1.test.ts"
   workflow_dispatch:
 
 permissions:
