@@ -53,7 +53,22 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
       assert(question.options[question.correctIndex] === question.answer, `${seed}/${question.kind}: correct index mismatch.`);
       assert(!/\bassociated\b/iu.test(question.stem), `${seed}/${question.kind}: mechanical 'associated' wording leaked into the stem.`);
       assert(!/\d+\.\d+%/u.test(question.stem + " " + question.answer), `${seed}/${question.kind}: decimal percentage leaked to the learner surface.`);
+      assert(!/Selected\(|Applicants\(/u.test(question.stem), `${seed}/${question.kind}: formula-like table notation leaked into an exam stem.`);
       assert((question.explanation as any).shortcut === undefined && (question.explanation as any).trap === undefined, `${seed}/${question.kind}: forced shortcut/trap fields returned.`);
+
+      if (["DIRECT_SELECTION_RATE", "SELECTED_SHARE_OF_TOTAL", "COMBINED_SELECTION_RATE"].includes(question.kind)) {
+        for (const option of question.options) {
+          const match = option.match(/^(\d+)%$/u);
+          assert(match && Number(match[1]) >= 0 && Number(match[1]) <= 100, `${seed}/${question.kind}: bounded percentage distractor escaped 0–100: ${option}.`);
+        }
+      }
+      if (question.kind === "SELECTION_RATE_POINT_GAP") {
+        for (const option of question.options) {
+          const points = option.match(/^(\d+) percentage points$/u);
+          if (points) assert(Number(points[1]) >= 10 && Number(points[1]) <= 40, `${seed}/${question.kind}: implausible percentage-point distractor: ${option}.`);
+        }
+      }
+
       if (question.difficulty === "Hard") {
         assert(question.explanation.steps.length >= 3, `${seed}/${question.kind}: Hard explanation is not multi-step.`);
       }
