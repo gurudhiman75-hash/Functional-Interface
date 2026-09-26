@@ -291,6 +291,10 @@ export interface QuantV4SimulatedQuestion {
   readonly slotKind: SimulationSlotKind;
   readonly sourceKind: "RUNTIME_GENERATED" | "CAPABILITY_GAP";
   readonly packageId: string;
+  readonly canonicalProblemId?: string;
+  readonly patternId?: string;
+  readonly mathematicalStateSignature?: string;
+  readonly parameterStateSignature?: string;
   readonly topic: string;
   readonly subtopic: string;
   readonly representation: string;
@@ -474,6 +478,20 @@ function runtimeRecord(input: {
     slotKind: input.slotKind,
     sourceKind: "RUNTIME_GENERATED",
     packageId: input.packageId,
+    canonicalProblemId: String(input.question?.canonicalProblemId ?? input.question?.cpId ?? "").trim() || undefined,
+    patternId: String(input.question?.patternId ?? input.question?.questionLanguageId ?? input.question?.qlId ?? input.question?.solveMode ?? "").trim() || undefined,
+    mathematicalStateSignature: String(
+      input.question?.mathematicalFingerprint
+      ?? input.question?.realism?.numericalStateSignature
+      ?? input.question?.reasoningEvidence?.mathematicalFingerprint
+      ?? "",
+    ).trim() || undefined,
+    parameterStateSignature: String(
+      input.question?.parameterFingerprint
+      ?? input.question?.realism?.numericalStateSignature
+      ?? input.question?.traceability?.parameterFingerprint
+      ?? "",
+    ).trim() || undefined,
     topic: input.topic,
     subtopic: input.subtopic,
     representation: input.representation,
