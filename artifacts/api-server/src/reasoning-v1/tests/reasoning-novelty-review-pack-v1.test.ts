@@ -14,7 +14,7 @@ test("controlled novelty review pack renders all discovery providers as review-o
     assert.match(markdown, new RegExp("## " + chapterId + "\\b", "u"));
   }
   assert.match(markdown, /Production novelty mixing: \*\*disabled\*\*/u);
-  assert.match(markdown, /Human review: ☐ Approve  ☐ Reject  ☐ Revise/u);
+  assert.match(markdown, /\*\*Human review:\*\* ☐ Approve  ☐ Reject  ☐ Revise/u);
   assert.equal((markdown.match(/^### Sample /gmu) ?? []).length, 10);
   assert.equal((markdown.match(/^\*\*Human review:\*\*/gmu) ?? []).length, 10);
   assert.doesNotMatch(markdown, /automatic student publication/iu);
