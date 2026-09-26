@@ -99,5 +99,6 @@ All implementation is review-only until explicit human approval. Question Studio
 ## 10. Current state
 
 - Blueprint established.
-- CP001 — Astronomical Location, Extent & Size Basics — under review.
+- CP001 — Astronomical Location, Extent & Size Basics — human-approved and merged.
+- CP002 — Extreme Points, Mainland Shape & Territorial Extent — human-approved; clean replay awaiting validation/merge.
 - No permanent runtime registration or public publication is authorized.
