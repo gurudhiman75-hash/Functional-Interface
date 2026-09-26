@@ -36,9 +36,29 @@ test('CLK-001 generates all permanent QLs in English Hindi and Punjabi with pari
       assert.equal(new Set(question.options as string[]).size, 4);
       assert.equal(question.validation && (question.validation as any).solverAgreement, true);
       const stem = String(question.stem ?? '');
+      const explanation = String(question.explanation ?? '');
+      const visible = [
+        stem,
+        ...(question.options as string[]),
+        explanation,
+      ].join('\n');
       assert.equal(/Solve this clock question about|[A-Z]{3,}_[A-Z_]+/.test(stem), false);
-      if (language === 'hi') assert.match(stem, /[\u0900-\u097F]/u);
-      if (language === 'pa') assert.match(stem, /[\u0A00-\u0A7F]/u);
+      assert.doesNotMatch(
+        visible,
+        /\\b(?:associated|best describes|canonical|prototype|authority|fingerprint|source audit|review metadata|undefined|NaN)\\b/iu,
+      );
+      if (language === 'hi') {
+        assert.match(stem, /[\u0900-\u097F]/u);
+        assert.doesNotMatch(visible, /[\u0A00-\u0A7F]/u);
+        assert.doesNotMatch(explanation, /दिए गए मानों को ध्यान से पढ़ें|उत्तर को स्वतंत्र गणना से भी मिलाया गया है/u);
+        assert.doesNotMatch(visible.replace(/\\b(?:AM|PM)\\b/gu, ''), /[A-Za-z]{2,}/u);
+      }
+      if (language === 'pa') {
+        assert.match(stem, /[\u0A00-\u0A7F]/u);
+        assert.doesNotMatch(visible, /[\u0900-\u097F]/u);
+        assert.doesNotMatch(explanation, /ਦਿੱਤੇ ਹੋਏ ਮਾਨ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ|ਉੱਤਰ ਨੂੰ ਵੱਖਰੀ ਗਣਨਾ ਨਾਲ ਵੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ/u);
+        assert.doesNotMatch(visible.replace(/\\b(?:AM|PM)\\b/gu, ''), /[A-Za-z]{2,}/u);
+      }
       byLanguage.push(question);
     }
     assert.equal(byLanguage[0]!.correctIndex, byLanguage[1]!.correctIndex);
