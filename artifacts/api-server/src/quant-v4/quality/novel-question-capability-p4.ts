@@ -25,6 +25,7 @@ export interface NovelQuestionCapabilityThresholds {
   readonly minPatternBreadth: number;
   readonly minCanonicalProblemBreadth: number;
   readonly minStateNoveltyRate: number;
+  readonly minSeedSensitivityRate: number;
 }
 
 export const DEFAULT_NOVEL_QUESTION_CAPABILITY_THRESHOLDS: NovelQuestionCapabilityThresholds =
@@ -35,6 +36,7 @@ export const DEFAULT_NOVEL_QUESTION_CAPABILITY_THRESHOLDS: NovelQuestionCapabili
     minPatternBreadth: 8,
     minCanonicalProblemBreadth: 3,
     minStateNoveltyRate: 0.70,
+    minSeedSensitivityRate: 0.60,
   });
 
 function normalized(value: unknown): string {
@@ -99,6 +101,42 @@ function heldOutStructuralNovelty(observations: readonly NovelQuestionObservatio
   });
 }
 
+function seedSensitivity(observations: readonly NovelQuestionObservation[]) {
+  const groups = new Map<string, NovelQuestionObservation[]>();
+  for (const row of observations) {
+    const key = [
+      normalized(row.packageId),
+      normalized(row.canonicalProblemId),
+      normalized(row.patternId),
+    ].join("|");
+    const bucket = groups.get(key) ?? [];
+    bucket.push(row);
+    groups.set(key, bucket);
+  }
+
+  const eligible = [...groups.entries()].filter(([, rows]) => rows.length >= 2);
+  let sensitiveGroups = 0;
+  const insensitiveGroups: string[] = [];
+
+  for (const [key, rows] of eligible) {
+    const stateSignatures = rows
+      .map((row) => normalized(row.mathematicalStateSignature) || normalized(row.parameterStateSignature))
+      .filter(Boolean);
+    const exactStems = new Set(rows.map((row) => normalized(row.exactStem)).filter(Boolean));
+    const stateSensitive = stateSignatures.length >= 2 && new Set(stateSignatures).size >= 2;
+    const surfaceSensitive = exactStems.size >= 2;
+    if (stateSensitive || (!stateSignatures.length && surfaceSensitive)) sensitiveGroups += 1;
+    else insensitiveGroups.push(key);
+  }
+
+  return Object.freeze({
+    comparableGroups: eligible.length,
+    sensitiveGroups,
+    insensitiveGroups: Object.freeze(insensitiveGroups),
+    rate: eligible.length ? sensitiveGroups / eligible.length : 0,
+  });
+}
+
 export function auditNovelQuestionCapability(
   observations: readonly NovelQuestionObservation[],
   thresholds: NovelQuestionCapabilityThresholds = DEFAULT_NOVEL_QUESTION_CAPABILITY_THRESHOLDS,
@@ -108,6 +146,7 @@ export function auditNovelQuestionCapability(
   const structural = duplicateSummary(usable.map((row) => row.structuralSignature));
   const state = stateEvidence(usable);
   const heldOut = heldOutStructuralNovelty(usable);
+  const seedSensitivityResult = seedSensitivity(usable);
   const patternBreadth = new Set(usable.map((row) => normalized(row.patternId)).filter(Boolean)).size;
   const canonicalProblemBreadth = new Set(usable.map((row) => normalized(row.canonicalProblemId)).filter(Boolean)).size;
   const packageBreadth = new Set(usable.map((row) => normalized(row.packageId)).filter(Boolean)).size;
@@ -122,6 +161,9 @@ export function auditNovelQuestionCapability(
   if (state.tier !== "STRUCTURAL_ONLY" && stateNoveltyRate < thresholds.minStateNoveltyRate) {
     blockers.push("MATHEMATICAL_STATE_NOVELTY_LOW");
   }
+  if (seedSensitivityResult.comparableGroups > 0 && seedSensitivityResult.rate < thresholds.minSeedSensitivityRate) {
+    blockers.push("SEED_SENSITIVITY_LOW");
+  }
   if (state.tier === "STRUCTURAL_ONLY") blockers.push("MATHEMATICAL_STATE_FINGERPRINT_MISSING");
 
   return Object.freeze({
@@ -135,6 +177,7 @@ export function auditNovelQuestionCapability(
     state,
     stateNoveltyRate,
     heldOutStructuralNovelty: heldOut,
+    seedSensitivity: seedSensitivityResult,
     thresholds,
     blockers: Object.freeze(blockers),
     auditComplete: blockers.length === 0,
