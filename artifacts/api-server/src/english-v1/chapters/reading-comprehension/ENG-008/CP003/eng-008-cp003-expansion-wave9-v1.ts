@@ -1,0 +1,286 @@
+import type{Eng008Cp003PassageV1}from"./eng-008-cp003-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP003_EXPANSION_WAVE9_V1:readonly Eng008Cp003PassageV1[]=[
+{
+ id:"ENG008-BP-N11",title:"The Changed Courier Pickup Point",genre:"narrative",
+ text:`Ananya ordered a replacement bank card that had to be collected from an authorised courier point. The confirmation message named a stationery shop near her office and included a collection code.
+
+When she arrived two days later, the shopkeeper said the courier counter had moved to another building nearby. A handwritten arrow on the shutter pointed toward a pharmacy, but the sign did not carry the courier company's logo or date.
+
+Ananya opened the tracking page on her phone. It showed a new pickup address and the same collection code. The page also stated that the original counter had been temporarily closed for renovation. She checked the building number before walking to the new location.
+
+At the pharmacy, a separate desk displayed the courier company's printed notice. The employee asked for the collection code and identity proof before handing over the sealed envelope.
+
+The move had been genuine, but Ananya noticed that the informal arrow alone would not have been enough evidence. It could have remained after another temporary arrangement or pointed to a nearby business for an unrelated reason.
+
+The courier company later sent a feedback request. Ananya suggested adding the date and destination address to temporary signs. She explained that customers should be able to distinguish a current relocation notice from an old instruction.
+
+A week later, she passed the original shop again. Renovation work had finished and a new printed notice said courier collection would return there the following Monday. The handwritten arrow had already been removed.
+
+Ananya realised that location information can change twice within a short period. A message that is correct during one stage of a temporary move may quickly become outdated when the original service resumes. She also saw why the collection code mattered: it stayed linked to her parcel even though the physical pickup point changed.
+
+The experience made her more careful about separating stable information from changing information. The parcel identity and collection code remained the same, while the address depended on the current operating arrangement. Checking both kinds of detail allowed her to act confidently without assuming that every part of an earlier message was still valid.`,
+ questions:[
+ q("N11-Q1","BP-F01","easy","Where was Ananya's card eventually collected?","At the temporary courier desk inside the pharmacy",["At the original stationery shop","At her bank branch","At the renovation site"],"The tracking page directed Ananya to the temporary location, where the pharmacy housed an authorised courier desk.","At the pharmacy, a separate desk"),
+ q("N11-Q2","BP-F02","medium","Why was the handwritten arrow not sufficient evidence by itself?","It had no date or official identification and could have been outdated",["It pointed in the wrong direction","It contained Ananya's name","It was inside the pharmacy"],"Ananya could not tell from the informal arrow whether it still represented the courier company's current arrangement.","did not carry the courier company's logo or date"),
+ q("N11-Q3","BP-F03","medium","What is the central idea of the passage?","Changing service locations should be verified using current official information while stable identifiers are checked separately",["Temporary service moves should be avoided","Handwritten signs are always false","Collection codes replace identity proof"],"The narrative distinguishes the changing address from the stable parcel code and shows how both help verify the correct collection process.","separating stable information from changing information"),
+ q("N11-Q4","BP-F04","medium","Which statement is supported?","The same collection code remained valid after the pickup point moved",["The card was collected without identity proof","The original shop stayed closed permanently","The pharmacy owned the courier company"],"The tracking page retained the same collection code even though it displayed a new address.","same collection code"),
+ q("N11-Q5","BP-F05","easy","In context, “relocation” is closest in meaning to:","a move to a different place",["a cancelled delivery","a payment request","a tracking number"],"The passage uses the word for the courier counter's temporary move from one address to another.","temporary relocation notice"),
+ q("N11-Q6","BP-F06","easy","Which word is opposite in meaning to “temporary”?","permanent",["short-term","brief","interim"],"Temporary describes something intended to last only for a limited period, while permanent means lasting indefinitely.","temporarily closed"),
+ q("N11-Q7","BP-F07","medium","What does the “stable information” in the final paragraph refer to?","The parcel identity and collection code",["The pharmacy address","The renovation dates","The handwritten arrow"],"The passage explicitly contrasts the unchanged parcel details with the changing physical pickup location.","parcel identity and collection code remained the same"),
+ q("N11-Q8","BP-F08","medium","Why did Ananya suggest adding dates to temporary signs?","So customers could tell whether a relocation notice was still current",["To make the sign more decorative","To replace tracking pages","To show the parcel price"],"A date would help distinguish an active temporary instruction from one left behind after the service moved again.","distinguish a current relocation notice"),
+ q("N11-Q9","BP-F09","medium","Which title best suits the passage?","The Changed Courier Pickup Point",["The Lost Bank Card","A Pharmacy Purchase","The Closed Office Building"],"The narrative centres on verifying a temporary change in the location where a courier item must be collected.","pickup address")
+ ]
+},
+{
+ id:"ENG008-BP-N12",title:"The Rebooked Medical Test",genre:"narrative",
+ text:`Karan had a blood test booked at a diagnostic centre for Saturday morning. On Friday evening, he received a text saying the appointment had been moved from 9:00 to 10:30 because one laboratory machine required maintenance.
+
+The message included his booking reference but did not mention whether the fasting instructions had changed. Karan had been told not to eat for eight hours before the original appointment, so the later time made him uncertain about when he should stop eating.
+
+Instead of extending the fast on his own, he opened the centre's patient portal. The appointment time had changed, but the preparation instructions still said “eight hours before sample collection”. A note advised patients to contact the helpline if rescheduling altered medication timing.
+
+Karan called the number and confirmed that he should count eight hours backward from the new appointment time. The staff member also told him that water remained permitted under the test instructions.
+
+At the centre the next morning, another patient said she had followed the original fasting start time because she had not checked whether the instructions moved with the appointment. Staff clarified that preparation periods were linked to the actual sample time, not to the earlier booking.
+
+Karan noticed that rescheduling one part of an appointment can affect another instruction even when the second instruction has not changed in wording. The rule remained “eight hours”, but its practical start time shifted because the appointment moved.
+
+The centre later updated its rescheduling message to include a link titled “Check preparation timing”. Staff said many questions came not from the medical rule itself but from uncertainty about how a time change affected the rule.
+
+The experience taught Karan to separate a fixed condition from the clock time at which that condition begins. The fasting duration remained stable; the appointment time did not. Applying the unchanged rule to the updated schedule gave the correct result.
+
+He also understood why guessing would have been risky. Extending a fast unnecessarily might be uncomfortable, while shortening it could affect the test. When a schedule changes, related instructions may need to be recalculated even if their wording stays exactly the same.`,
+ questions:[
+ q("N12-Q1","BP-F01","easy","Why was Karan's appointment moved?","A laboratory machine required maintenance",["The centre closed for the day","Karan requested a later time","The doctor changed the test type"],"The rescheduling message explained that maintenance on a laboratory machine caused the appointment to move later.","machine required maintenance"),
+ q("N12-Q2","BP-F02","medium","Why was Karan uncertain about fasting?","The appointment time changed while the eight-hour rule stayed the same",["The portal removed all instructions","He had never received fasting guidance","Water was prohibited"],"The unchanged duration had to be applied to a new sample time, so Karan needed to recalculate when the fast should begin.","preparation instructions still said “eight hours"),
+ q("N12-Q3","BP-F03","medium","What is the central idea of the passage?","When a schedule changes, related time-based instructions may need recalculation even if the rule itself is unchanged",["Medical instructions should never be given by text","Longer fasting is always safer","Appointment references are unnecessary"],"The narrative repeatedly separates the stable eight-hour condition from the changing appointment time and shows how they interact.","fixed condition from the clock time"),
+ q("N12-Q4","BP-F04","medium","Which statement is supported?","Karan was allowed to drink water under the test instructions",["The fasting rule changed to ten hours","The test was cancelled","The patient portal showed the old appointment only"],"The helpline confirmed both the recalculated fasting start and that water remained permitted.","water remained permitted"),
+ q("N12-Q5","BP-F05","easy","In context, “duration” is closest in meaning to:","the length of time something lasts",["the place where it happens","the reason for a delay","the name of the test"],"The final paragraphs use duration to describe the unchanged eight-hour length of the fasting period.","fasting duration remained stable"),
+ q("N12-Q6","BP-F06","easy","Which word is opposite in meaning to “stable”?","changing",["fixed","steady","unchanged"],"The passage contrasts the stable fasting duration with the changing appointment time, so changing is the opposite.","remained stable"),
+ q("N12-Q7","BP-F07","medium","What does “count eight hours backward” mean in the passage?","Calculate the fasting start from the new sample time",["Add eight hours after the appointment","Move the test back to 9:00","Ignore the changed schedule"],"The centre told Karan to use the new appointment as the endpoint and calculate when the eight-hour preparation period should begin.","count eight hours backward"),
+ q("N12-Q8","BP-F08","medium","Why did the centre add a preparation-timing link to rescheduling messages?","Patients were unsure how schedule changes affected related instructions",["The centre wanted to remove the helpline","The test no longer required fasting","Booking references stopped working"],"Staff found that questions arose from applying an unchanged medical rule to a newly scheduled time.","uncertainty about how a time change affected the rule"),
+ q("N12-Q9","BP-F09","medium","Which title best suits the passage?","The Rebooked Medical Test",["The Missing Laboratory Machine","A New Diet Plan","The Closed Patient Portal"],"The story focuses on a rescheduled test and how Karan correctly adjusts a related preparation instruction.","appointment had been moved")
+ ]
+},
+{
+ id:"ENG008-BP-S10",title:"A Shared Workshop Introduces Tool Status Tags",genre:"social",
+ text:`A community workshop allowed members to borrow drills, saws and measuring tools from open shelves. Each item had a numbered hook, but members often returned damaged tools to the same place as working ones.
+
+The problem became clear when a volunteer picked up a cordless drill for a repair class and discovered that its battery connection was loose. Someone had noticed the fault earlier but had mentioned it only in a group chat, where the message was quickly buried.
+
+The workshop introduced two-sided status tags. A green side meant the tool had been returned and was ready for normal use. A red side meant a fault had been reported and the item should remain on the shelf until checked by a maintenance volunteer.
+
+For six weeks, members were asked to flip the tag when they noticed a problem and write one short note describing the fault. The workshop did not ask users to diagnose the cause. A description such as “blade guard sticks” or “battery disconnects” was enough.
+
+Fewer damaged tools were accidentally taken into classes. Maintenance volunteers also found it easier to decide which items needed attention first.
+
+The system was not perfect. A red tag could remain after a repair if the volunteer forgot to turn it back. To reduce that problem, the person closing a maintenance ticket became responsible for resetting the tag.
+
+The workshop later added a small “awaiting part” label. This separated tools that had been inspected from tools that were still waiting for diagnosis.
+
+Members noticed that the tags did not repair anything by themselves. Their value was informational: they made the current condition visible at the point where someone was about to use the tool.
+
+The scheme also reduced reliance on memory and chat history. A member did not need to know who reported the problem or search through old messages. The tool carried its own current status.
+
+After the trial, the workshop kept the tags but simplified the written note area. Long descriptions were rarely necessary because maintenance volunteers performed the actual diagnosis. The group concluded that a useful status system should communicate what the next user needs to know without pretending that every user must understand the technical cause.`,
+ questions:[
+ q("S10-Q1","BP-F01","easy","What did a red status tag mean?","A fault had been reported and the tool should not be used normally",["The tool was newly purchased","The tool had been reserved for one member","The tool had no battery"],"The red side was introduced to mark equipment that required checking before another member used it.","fault had been reported"),
+ q("S10-Q2","BP-F02","medium","Why was the group chat a weak way to report tool faults?","Messages could be buried and were not visible when someone picked up the tool",["Members could not write messages","The workshop had no internet","Chat messages automatically repaired tools"],"A fault report separated from the physical item could be missed by later users who did not see the earlier conversation.","message was quickly buried"),
+ q("S10-Q3","BP-F03","medium","What is the central idea of the passage?","A simple visible status system can prevent unsafe or inconvenient reuse of shared equipment",["Every tool user should diagnose technical faults","Damaged tools should always be discarded","Chat groups should replace maintenance records"],"The tags make the current condition visible at the point of use and create a clearer handoff between users and maintenance.","made the current condition visible"),
+ q("S10-Q4","BP-F04","medium","Which statement is supported?","The person closing a maintenance ticket became responsible for resetting the tag",["Only workshop managers could report faults","A red tag meant the tool was permanently unusable","Members wrote full technical diagnoses"],"The workshop assigned responsibility for changing the tag after repair so outdated warning status would not remain.","responsible for resetting the tag"),
+ q("S10-Q5","BP-F05","easy","In context, “diagnose” is closest in meaning to:","identify the underlying cause of a problem",["label a shelf","borrow a tool","write a member's name"],"Members only described symptoms; maintenance volunteers determined the actual technical cause of a fault.","performed the actual diagnosis"),
+ q("S10-Q6","BP-F06","easy","Which word is opposite in meaning to “current” in “current condition”?","outdated",["present","recent","existing"],"The passage values status that reflects the tool now rather than an old condition, so outdated is the opposite.","current condition"),
+ q("S10-Q7","BP-F07","medium","What does the “awaiting part” label indicate?","The tool had been inspected but repair could not yet be completed",["The tool was ready for normal use","The tool had never been checked","A member had reserved the tool"],"The extra label distinguished an inspected item waiting for a component from one still needing diagnosis.","still waiting for diagnosis"),
+ q("S10-Q8","BP-F08","medium","Why was the written note area simplified?","Users mainly needed to describe the visible problem rather than provide a technical explanation",["Fault descriptions were prohibited","The tags became too expensive","Maintenance volunteers stopped checking tools"],"The workshop found that long user explanations added little because trained volunteers performed the detailed diagnosis.","Long descriptions were rarely necessary"),
+ q("S10-Q9","BP-F09","medium","Which title best suits the passage?","A Shared Workshop Introduces Tool Status Tags",["The Workshop Stops Lending Tools","How to Repair a Drill Battery","A New Group Chat"],"The passage describes a workshop system for displaying whether shared tools are ready, faulty or awaiting repair.","introduced two-sided status tags")
+ ]
+},
+{
+ id:"ENG008-BP-S11",title:"A Housing Society Tests Visitor Delivery Shelves",genre:"social",
+ text:`A large housing society received dozens of grocery and parcel deliveries each evening. Drivers often left packages at the security desk while residents were still travelling home, and the desk became crowded with bags from several buildings.
+
+The society installed numbered delivery shelves beside the lobby. Each shelf section corresponded to a building, and guards entered the flat number and arrival time in a simple register. Perishable grocery bags remained at the desk so they could be collected quickly.
+
+During the first month, misplaced parcels declined because residents no longer searched through one mixed pile. Guards also spent less time answering questions about whether a delivery had arrived.
+
+A new issue appeared when residents collected packages but forgot to tell the guard. The register still showed those items as present, so staff sometimes searched for parcels that had already gone upstairs.
+
+The society added a collection slip with a QR code. Residents could scan it themselves or ask the guard to mark the package as collected. The system recorded status, not the contents of the parcel.
+
+Some residents suggested photographing every package. The committee rejected the idea because it would collect more information than was needed to manage storage and could create privacy concerns.
+
+The committee also set a twelve-hour limit for ordinary parcels left on the shelves. Items remaining longer triggered a reminder message. The purpose was not to punish residents but to prevent shelves from filling with forgotten deliveries.
+
+After two months, the society kept the system. It had learned that physical organisation and information status had to match. A parcel on the correct shelf was still difficult to manage if the register showed the wrong state.
+
+The trial also highlighted the difference between location and ownership. A building section helped narrow where a parcel should be stored, but guards still checked the flat number before handover. A shelf label alone could not establish who the package belonged to.
+
+The committee decided to review shelf capacity before the festival season, when delivery volume usually rose sharply. It planned to add temporary sections rather than permanently expanding storage for a short annual peak.
+
+The broader lesson was that a shared delivery system works best when it records only the information needed for location, handover and current status, while avoiding unnecessary detail about what residents receive.`,
+ questions:[
+ q("S11-Q1","BP-F01","easy","Why were numbered delivery shelves introduced?","The security desk had become crowded with mixed packages",["Residents wanted to store furniture","Drivers refused to enter the society","The lobby had no security staff"],"The shelves separated deliveries by building and reduced the confusion created by one large mixed pile at the desk.","desk became crowded with bags"),
+ q("S11-Q2","BP-F02","medium","Why did the register sometimes become inaccurate?","Residents collected parcels without marking them as collected",["Drivers entered the wrong building every time","The shelves had no numbers","Guards stopped recording arrivals"],"The physical parcel could leave while the information record still showed it as present, creating a mismatch between location and status.","forgot to tell the guard"),
+ q("S11-Q3","BP-F03","medium","What is the central idea of the passage?","Shared delivery storage works better when physical location and current status are kept aligned with minimal necessary data",["Every parcel should be photographed","Building labels prove ownership","Permanent storage should match festival peaks"],"The system succeeds by combining shelf organisation, status updates and restrained data collection rather than recording unnecessary parcel details.","physical organisation and information status had to match"),
+ q("S11-Q4","BP-F04","medium","Which statement is supported?","Perishable groceries were kept at the desk for faster collection",["Every delivery was placed on a shelf","The QR code recorded parcel contents","Festival storage was permanently expanded"],"The passage specifically excludes perishable bags from normal shelf storage so residents could collect them quickly.","Perishable grocery bags remained at the desk"),
+ q("S11-Q5","BP-F05","easy","In context, “perishable” is closest in meaning to:","likely to spoil if left too long",["very heavy","already opened","difficult to label"],"The grocery bags were treated differently because food can deteriorate and therefore needs faster collection.","Perishable grocery bags"),
+ q("S11-Q6","BP-F06","easy","Which word is opposite in meaning to “temporary”?","permanent",["short-term","seasonal","brief"],"The committee considered temporary extra shelf sections rather than a lasting expansion for a seasonal peak.","temporary sections"),
+ q("S11-Q7","BP-F07","medium","What does “status” refer to in the delivery system?","Whether a parcel is still waiting or has already been collected",["The parcel's monetary value","The driver's employment","The type of product inside"],"The register and QR process track the current state of a delivery without recording its contents.","mark the package as collected"),
+ q("S11-Q8","BP-F08","medium","Why did the committee reject photographing every parcel?","It would collect unnecessary information and raise privacy concerns",["Cameras were unavailable","Photographs could not show flat numbers","Residents wanted more paperwork"],"The committee applied a data-minimisation principle because storage management did not require images of every delivery.","more information than was needed"),
+ q("S11-Q9","BP-F09","medium","Which title best suits the passage?","A Housing Society Tests Visitor Delivery Shelves",["The Festival Grocery Sale","A New Apartment Lift","Why Parcel Drivers Stop Working"],"The passage centres on organising package storage and status for deliveries arriving at a housing society lobby.","numbered delivery shelves")
+ ]
+},
+{
+ id:"ENG008-BP-SC09",title:"Comparing Indoor Air Sensors",genre:"science",
+ text:`A college environmental club compared three low-cost indoor air-quality sensors before deciding whether to place them in classrooms. The devices reported particulate matter, temperature and humidity, but the students wanted to know whether the readings were consistent enough to identify broad changes.
+
+All three sensors were placed side by side in an empty seminar room for two days. Their temperature readings were close, but one device regularly reported particulate matter about 15 per cent higher than the others.
+
+The club then created controlled changes. Students opened a window for thirty minutes, used a chalkboard for a short lesson and later ran an air purifier. All sensors detected the same general direction of change: particulate readings rose during chalk use and fell after the purifier started.
+
+The high-reading device remained higher throughout. Researchers therefore treated its values cautiously rather than assuming that its absolute number was directly comparable with the other two.
+
+The club did not have a laboratory-grade reference instrument, so it could not determine which low-cost sensor was closest to the true concentration. Its test could show agreement in pattern, not absolute accuracy.
+
+Humidity also affected readings slightly. On a damp morning, all three particulate readings increased even before the classroom was used. The students noted that low-cost optical sensors can respond to moisture as well as particles.
+
+For the next stage, the club placed one sensor in each of three classrooms. Because the devices had shown different baselines, students avoided comparing raw numbers across rooms as if the sensors were identical.
+
+Instead, they looked for changes within each room: whether readings rose during crowded periods and fell after ventilation.
+
+The experiment changed the club's original question. It had first wanted to know which sensor was “best”. It ended with a more useful distinction between detecting trends and measuring exact concentration.
+
+The students concluded that inexpensive sensors could help identify when conditions change, but stronger calibration would be needed before using their readings for precise comparisons or health claims.
+
+Their teacher also asked them to record maintenance and placement. A sensor near a window, doorway or fan might behave differently from one in the middle of a room even if both devices were technically identical.
+
+The study showed that a measurement can be useful for one purpose while still being insufficient for another. Recognising that boundary helped the club design a classroom-monitoring project that matched what its equipment could actually support.`,
+ questions:[
+ q("SC09-Q1","BP-F01","easy","What happened to particulate readings when the air purifier was used?","They fell on all three sensors",["They doubled permanently","Only one sensor changed","Temperature readings disappeared"],"Each device detected the same general decline after the purifier began operating, despite differences in absolute level.","fell after the purifier started"),
+ q("SC09-Q2","BP-F02","medium","Why could the club not identify which sensor gave the true particulate concentration?","It lacked a laboratory-grade reference instrument",["The sensors measured no particles","The room had no windows","Students did not record readings"],"The devices could be compared with one another, but without an accurate reference the club could not determine absolute truth.","did not have a laboratory-grade reference instrument"),
+ q("SC09-Q3","BP-F03","medium","What is the central idea of the passage?","Low-cost sensors may detect trends reliably even when their absolute readings are not directly comparable",["Every low-cost sensor is inaccurate","Humidity has no effect on optical sensors","Raw values should always be compared across rooms"],"The experiment separates pattern detection from exact measurement and adjusts later classroom analysis to match that limitation.","detecting trends and measuring exact concentration"),
+ q("SC09-Q4","BP-F04","medium","Which statement is supported?","One sensor consistently reported higher particulate values than the others",["All sensors had identical baselines","The purifier increased particulate matter","Temperature readings varied widely"],"The side-by-side test found a persistent roughly 15 per cent difference in one device's particulate readings.","about 15 per cent higher"),
+ q("SC09-Q5","BP-F05","easy","In context, “baseline” is closest in meaning to:","a starting or typical reference level",["a final health conclusion","the height of a sensor","a laboratory machine"],"The devices had different normal reading levels, so the club used changes within each sensor rather than assuming identical starting points.","different baselines"),
+ q("SC09-Q6","BP-F06","easy","Which word is opposite in meaning to “precise”?","approximate",["exact","accurate","specific"],"The passage distinguishes broad trend detection from precise exact measurement, so approximate provides the opposite meaning.","precise comparisons"),
+ q("SC09-Q7","BP-F07","medium","What does “agreement in pattern” mean?","The sensors moved in the same direction when conditions changed",["They always showed the same number","They used identical hardware","They were placed in different rooms"],"Even though one sensor read higher, all three rose during chalk use and fell with purification, showing similar response patterns.","same general direction of change"),
+ q("SC09-Q8","BP-F08","medium","Why did students compare changes within each classroom rather than raw numbers across rooms?","The sensors had different baseline readings",["Classrooms had no ventilation","Only one sensor measured humidity","The study required identical occupancy"],"Because device offsets remained, within-room trends were more defensible than treating absolute readings from different sensors as equivalent.","avoided comparing raw numbers across rooms"),
+ q("SC09-Q9","BP-F09","medium","Which title best suits the passage?","Comparing Indoor Air Sensors",["Building a Laboratory Purifier","Why Chalk Should Be Banned","A Lesson on Classroom Windows"],"The passage evaluates what several low-cost air sensors can and cannot reliably measure in preparation for classroom use.","compared three low-cost indoor air-quality sensors")
+ ]
+},
+{
+ id:"ENG008-BP-SC10",title:"Testing Soil Moisture After Mulching",genre:"science",
+ text:`Students in an agricultural college tested whether mulch helped small garden plots retain soil moisture after watering. They prepared twelve plots with the same soil mixture and planted no crops so that plant water use would not affect the first experiment.
+
+Six plots received a five-centimetre layer of dry straw. Six were left with bare soil. Each plot received the same amount of water early in the morning.
+
+Moisture probes were inserted at the same depth and readings were taken immediately after watering, six hours later and the next morning. Initial readings were similar. By evening, the mulched plots retained more moisture on average than the bare plots.
+
+The difference remained the next morning, although it was smaller after a cool night. Surface temperature was also lower under the straw during the hottest part of the day.
+
+The students avoided concluding that mulch would always reduce irrigation needs by the same amount. Their plots were small, no plants were growing and the trial lasted only three days.
+
+They also noticed that one corner plot stayed wetter than the others even without mulch. A nearby wall shaded it during part of the afternoon.
+
+Rather than removing that result, the group recorded the shade as a site condition and repeated the analysis with and without the corner plot. The general difference between mulched and bare soil remained.
+
+In a second trial, the students planted identical bean seedlings. They expected interpretation to become harder because plant roots and leaf area would introduce new differences in water use.
+
+The class also planned to compare straw with plastic and leaf mulch. Different materials can change evaporation, soil temperature and rain penetration in different ways.
+
+Their instructor emphasised that “mulch works” is too broad a conclusion. The evidence supported a narrower statement: under the tested conditions, straw-covered soil lost moisture more slowly after equal watering.
+
+The experiment also showed why repeated readings matter. If the students had measured only immediately after watering, the treatment difference would have been invisible because both groups started at similar moisture.
+
+By observing change over time, they could test the process they actually cared about: how quickly water left the soil after watering.
+
+The students ended the project with more questions than they began with, but also with a clearer experimental design. Future trials would need plants, longer periods, several weather conditions and different mulch materials before practical irrigation advice could be made confidently.`,
+ questions:[
+ q("SC10-Q1","BP-F01","easy","What was the main moisture result by evening?","Mulched plots retained more moisture than bare plots",["Bare plots became wetter","All plots had identical moisture","No moisture could be measured"],"After equal watering, the straw-covered plots lost moisture more slowly and therefore had higher evening readings.","mulched plots retained more moisture"),
+ q("SC10-Q2","BP-F02","medium","Why did the class initially use plots without plants?","To avoid plant water use affecting the first comparison",["The college had no seeds","Mulch prevents all plant growth","Moisture probes cannot be used near roots"],"Removing plants simplified the first experiment by reducing one source of variation in how quickly water left the soil.","plant water use would not affect"),
+ q("SC10-Q3","BP-F03","medium","What is the central idea of the passage?","The experiment supports a limited moisture-retention effect of straw mulch while showing why site conditions and repeated measurements matter",["Straw mulch always eliminates irrigation","One immediate reading is sufficient","Shade has no effect on soil moisture"],"The class finds a clear trend but deliberately limits the conclusion and investigates an unusual shaded plot instead of ignoring it.","under the tested conditions"),
+ q("SC10-Q4","BP-F04","medium","Which statement is supported?","The shaded corner plot stayed wetter even without mulch",["All unmulched plots dried at exactly the same rate","The experiment lasted several months","Plastic mulch was tested in the first trial"],"The students identified a wall-created shade effect that made one bare plot differ from the others.","corner plot stayed wetter"),
+ q("SC10-Q5","BP-F05","easy","In context, “retain” is closest in meaning to:","keep rather than lose",["measure exactly","heat rapidly","replace completely"],"The experiment asks whether mulch helps soil keep water for longer after equal watering.","retain soil moisture"),
+ q("SC10-Q6","BP-F06","easy","Which word is opposite in meaning to “identical”?","different",["same","matching","equal"],"Identical means exactly the same, so different expresses the opposite relationship.","identical bean seedlings"),
+ q("SC10-Q7","BP-F07","medium","What does the repeated analysis with and without the corner plot show?","The overall mulch pattern did not depend only on that unusual plot",["The corner plot was removed from the garden","Shade had no effect","All data became identical"],"The class tested whether one unusual site could be driving the result and found the main treatment difference remained.","general difference ... remained"),
+ q("SC10-Q8","BP-F08","medium","Why would one immediate reading after watering have been inadequate?","Both groups began at similar moisture, so the later rate of water loss would not be visible",["The probes worked only in the evening","Mulch had not been added yet","The plots received different amounts of water"],"The treatment effect appeared over time, so repeated measurements were needed to observe how quickly moisture declined.","treatment difference would have been invisible"),
+ q("SC10-Q9","BP-F09","medium","Which title best suits the passage?","Testing Soil Moisture After Mulching",["Growing Beans Without Water","Building a Garden Wall","Why Straw Should Replace Soil"],"The passage describes a controlled comparison of soil moisture loss in straw-covered and uncovered plots.","mulch helped small garden plots retain soil moisture")
+ ]
+},
+{
+ id:"ENG008-BP-B12",title:"A Bakery Changes Its Preorder Cut-Off",genre:"business",
+ text:`A neighbourhood bakery accepted online preorders for cakes, breads and snack boxes. Customers could place an order until 8 p.m. for collection the next morning.
+
+As demand grew, staff noticed that late-evening orders were difficult to prepare reliably. Custom cakes needed decoration time, and some breads required dough to rest overnight. The same 8 p.m. cut-off did not suit every product.
+
+The bakery reviewed six weeks of order data. Standard bread and snack boxes could usually be added late without disrupting production. Custom cakes ordered after 6 p.m. were much more likely to be delayed or require staff overtime.
+
+Managers introduced category-based cut-offs. Custom cakes had to be ordered by 6 p.m., while standard products kept the 8 p.m. deadline. The website displayed the relevant time beside each item rather than relying on one general policy page.
+
+Late custom-cake orders declined. Customer complaints about unclear deadlines also fell because the product page showed the rule before checkout.
+
+The change did create one challenge. Customers sometimes added a custom cake and standard bread to the same basket after 6 p.m. The system initially rejected the entire order.
+
+The bakery revised the cart so eligible items could still be ordered for the next morning while the cake was offered a later collection date. This required clearer messages but avoided blocking products that were still feasible to prepare.
+
+Managers also examined whether the earlier cut-off reduced cake sales. Order volume fell slightly during the first week but returned close to its previous level after customers became familiar with the rule.
+
+The bakery did not interpret the result as proof that earlier deadlines never reduce demand. Its customers may have adapted because the rule was predictable and because same-day alternatives were available for simpler products.
+
+Staff also found that production planning improved. Decorators could see the final next-day cake workload earlier and schedule specialised tasks before the evening shift ended.
+
+The bakery concluded that deadlines should reflect the actual preparation process rather than administrative convenience. A single time is simple to communicate, but simplicity becomes costly when products require very different lead times.
+
+The trial also showed that restrictions can be designed narrowly. The goal was not to stop late orders in general; it was to prevent commitments that the kitchen could not reliably fulfil by the promised collection time.`,
+ questions:[
+ q("B12-Q1","BP-F01","easy","Which products received the earlier 6 p.m. preorder cut-off?","Custom cakes",["Standard bread only","Snack boxes only","Every bakery item"],"The bakery kept an 8 p.m. deadline for standard products but moved custom cakes to an earlier cut-off because they required more preparation.","Custom cakes had to be ordered by 6 p.m."),
+ q("B12-Q2","BP-F02","medium","Why did the bakery reject the original single cut-off rule?","Different products required different preparation times",["Customers disliked ordering online","Bread could not be prepared overnight","The website could show only one time"],"Order data showed that late custom cakes caused delays while standard items could still be prepared reliably after 6 p.m.","did not suit every product"),
+ q("B12-Q3","BP-F03","medium","What is the central idea of the passage?","Order deadlines work better when they reflect actual production constraints and apply only where needed",["Earlier deadlines always increase sales","Every product should use one simple rule","Late orders should be prohibited entirely"],"The bakery targets the earlier deadline specifically to products whose preparation needs make late promises unreliable.","reflect the actual preparation process"),
+ q("B12-Q4","BP-F04","medium","Which statement is supported?","The cart was changed so standard items could still be ordered when a late cake was not eligible",["All mixed baskets were permanently rejected","Cake sales doubled immediately","Bread received a 6 p.m. cut-off"],"The revised cart separated eligible and ineligible items rather than blocking the customer's whole order.","eligible items could still be ordered"),
+ q("B12-Q5","BP-F05","easy","In context, “feasible” is closest in meaning to:","possible to complete successfully",["more expensive","already cancelled","difficult to display"],"The standard items remained practical to prepare by the next morning even when the custom cake no longer was.","still feasible to prepare"),
+ q("B12-Q6","BP-F06","easy","Which word is opposite in meaning to “specialised”?","general",["expert","specific","skilled"],"Specialised tasks require particular expertise, while general work is broader and less narrowly focused.","specialised tasks"),
+ q("B12-Q7","BP-F07","medium","What does “lead time” refer to?","The amount of preparation time needed before collection",["The bakery's opening hours","The time a customer spends paying","The delivery route length"],"The passage uses lead time to explain why custom cakes need an earlier ordering deadline than simpler products.","different lead times"),
+ q("B12-Q8","BP-F08","medium","Why was the deadline shown beside each product?","Customers could see the relevant restriction before reaching checkout",["The bakery removed its website","Every item had the same deadline","Staff wanted longer product descriptions"],"Placing the rule at the decision point made the category-specific deadline clearer and reduced complaints.","product page showed the rule before checkout"),
+ q("B12-Q9","BP-F09","medium","Which title best suits the passage?","A Bakery Changes Its Preorder Cut-Off",["The Bakery Stops Making Bread","A New Cake Decoration Course","Why Online Orders Were Removed"],"The passage evaluates how a bakery replaced one general ordering deadline with product-specific cut-offs.","introduced category-based cut-offs")
+ ]
+},
+{
+ id:"ENG008-BP-B13",title:"A Repair Shop Introduces Parts-Availability Estimates",genre:"business",
+ text:`A motorcycle repair shop often gave customers one completion estimate when a vehicle was booked in. Mechanics later found that the estimate became unreliable whenever an unexpected part had to be ordered.
+
+The shop reviewed three months of jobs and separated repair time from parts-waiting time. Routine services were usually completed close to the original estimate. Repairs requiring uncommon components showed much wider delays because supplier availability varied.
+
+Managers changed the customer update system. Instead of displaying one date, the job status showed two pieces of information: expected workshop time and current parts status.
+
+A customer might see “two hours of workshop work remaining; brake sensor ordered, supplier estimate Tuesday”. The shop made clear that the supplier date was an estimate rather than a guaranteed arrival.
+
+Customers said the new messages were easier to interpret because they could see whether a delay came from the workshop queue or from an external part.
+
+The change also helped staff. Service advisers received fewer repeated calls asking why a vehicle had not moved to the next repair stage.
+
+One risk was stale supplier information. If a part was delayed but the status page still showed the earlier estimate, the extra detail could become misleading. The shop therefore required advisers to update the page whenever the supplier changed an expected date.
+
+Managers also avoided showing highly precise workshop times far in advance. A complex diagnosis could reveal additional work, so the remaining labour estimate was updated only after major inspection steps.
+
+The shop did not promise that the new system would make repairs faster. Its purpose was to explain uncertainty more accurately.
+
+After six weeks, customer complaints about “missed completion promises” fell even though the average duration of parts-related repairs changed little. Managers interpreted this carefully: better information improved expectations, but it did not solve supplier delays.
+
+The shop is now testing whether common fast-moving parts should be stocked locally. That decision requires balancing storage cost against the delay and customer inconvenience caused by waiting for delivery.
+
+The trial showed that one completion date can hide several different processes. Workshop capacity, diagnosis and external supply each create uncertainty in different ways.
+
+By separating them, the shop could communicate which part of the job was under its direct control and which depended on information from a supplier.`,
+ questions:[
+ q("B13-Q1","BP-F01","easy","Which repairs showed the widest delays in the shop's review?","Repairs requiring uncommon components",["Routine services","Jobs with no parts","Only tyre-pressure checks"],"Jobs needing less common parts depended on uncertain supplier availability and therefore varied much more in total completion time.","uncommon components showed much wider delays"),
+ q("B13-Q2","BP-F02","medium","Why did the shop separate workshop time from parts status?","Customers could see whether delay came from repair work or external supply",["The shop wanted to hide supplier estimates","Mechanics stopped recording labour","Every part arrived on the same day"],"The two-part status makes different sources of uncertainty visible instead of hiding them inside one completion date.","whether a delay came from the workshop queue or from an external part"),
+ q("B13-Q3","BP-F03","medium","What is the central idea of the passage?","Separating different sources of delay can make uncertain repair estimates more informative",["Repair shops should guarantee exact completion dates","Parts delays are always the mechanic's fault","More detailed status automatically shortens repairs"],"The new system improves expectation management by distinguishing labour, diagnosis and supplier-dependent timing.","one completion date can hide several different processes"),
+ q("B13-Q4","BP-F04","medium","Which statement is supported?","Customer complaints fell even though parts-related repair duration changed little",["Supplier delays disappeared","Every repair became faster","The shop stopped giving estimates"],"The trial improved communication rather than repair speed, and the report explicitly contrasts lower complaints with similar duration.","average duration ... changed little"),
+ q("B13-Q5","BP-F05","easy","In context, “stale” is closest in meaning to:","outdated and no longer current",["physically damaged","cheap to replace","difficult to read"],"A supplier estimate becomes stale when the date has changed but the status page still displays the old information.","stale supplier information"),
+ q("B13-Q6","BP-F06","easy","Which word is opposite in meaning to “external”?","internal",["outside","supplier-based","remote"],"The passage contrasts factors inside the workshop with those depending on an outside supplier, so internal is the opposite.","external supply"),
+ q("B13-Q7","BP-F07","medium","What does “under its direct control” refer to?","Processes the repair shop itself can manage, such as workshop work",["Every supplier delivery date","Weather conditions","All customer travel"],"The closing paragraph distinguishes workshop-controlled processes from timing that depends on outside suppliers.","under its direct control"),
+ q("B13-Q8","BP-F08","medium","Why were highly precise workshop estimates avoided far in advance?","Later diagnosis could reveal additional work",["Mechanics did not know how to measure time","Routine service had no stages","Customers requested vague information"],"A detailed inspection can change the amount of work remaining, so early precision would imply more certainty than the shop actually had.","diagnosis could reveal additional work"),
+ q("B13-Q9","BP-F09","medium","Which title best suits the passage?","A Repair Shop Introduces Parts-Availability Estimates",["The Motorcycle Shop Stops Repairs","A New Supplier Opens","Why Customers Avoid Service"],"The passage centres on a new repair-status system that separates labour estimates from supplier-dependent parts timing.","current parts status")
+ ]
+}
+] as const;
