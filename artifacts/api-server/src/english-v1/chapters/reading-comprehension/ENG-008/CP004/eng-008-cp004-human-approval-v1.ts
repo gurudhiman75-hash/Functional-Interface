@@ -1,0 +1,18 @@
+export const ENG008_CP004_HUMAN_EDITORIAL_APPROVAL_V1=Object.freeze({
+ authorityId:"ENG-008-CP004-HUMAN-EDITORIAL-APPROVAL-V1" as const,
+ chapterId:"ENG-008" as const,
+ cpId:"ENG-008-CP004" as const,
+ approvedReviewArtifact:"ENG-008-CP004-REVIEW-V1.md" as const,
+ approvedGeneratorHeadSha:"1521a943d12b367b19b524500168d00d7f453767" as const,
+ approvedMergedSha:"c0d746649660725d498c4211dae7c5894214a434" as const,
+ approvedOn:"2026-09-26" as const,
+ approvedScope:"Banking Mains Analytical RC: 8 passages / 80 authorities / 450–650 word analytical passage contract" as const,
+ questionStudioReviewOnlyAuthorized:true as const,
+ questionBankWritable:false as const,
+ testEligible:false as const,
+ mockTestEligible:false as const,
+ publiclyPublishable:false as const,
+ automaticStudentPublication:false as const,
+ productionReleaseAuthorized:false as const,
+ revisionPolicy:"SOURCE_GENERATOR_ONLY" as const,
+});

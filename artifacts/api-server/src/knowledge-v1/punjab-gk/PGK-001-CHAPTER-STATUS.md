@@ -14,7 +14,7 @@
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: NOT_STARTED
+- Localisation: IN_PROGRESS — CP001-CP007 merged; CP008-CP010 multilingual review candidate implemented
 
 ## Final closure audit
 
