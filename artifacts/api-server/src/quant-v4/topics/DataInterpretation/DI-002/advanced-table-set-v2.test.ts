@@ -77,6 +77,7 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
 }
 
 assert(DI002_V2_OBJECT_LABEL_COUNT === 144, `DI-002 V2 object pool drifted to ${DI002_V2_OBJECT_LABEL_COUNT}; expected 144.`);
+assert(DI002_V2_OBJECT_LABEL_COUNT === 144, `DI-002 V2 object pool breadth drifted to ${DI002_V2_OBJECT_LABEL_COUNT}; expected 144.`);
 assert(taskSeen.size === DI002_V2_TASK_KINDS.length, `Only ${taskSeen.size}/${DI002_V2_TASK_KINDS.length} DI-002 V2 task families were exercised.`);
 assert(contextSeen.size === DI002_V2_CONTEXT_COUNT, `Only ${contextSeen.size}/${DI002_V2_CONTEXT_COUNT} DI-002 V2 contexts were exercised.`);
 for (const task of DI002_V2_TASK_KINDS) {
@@ -95,6 +96,7 @@ console.log(JSON.stringify({
   questions,
   taskFamilies: taskSeen.size,
   contexts: contextSeen.size,
+  configuredObjectLabels: DI002_V2_OBJECT_LABEL_COUNT,
   configuredObjectLabels: DI002_V2_OBJECT_LABEL_COUNT,
   stemSurfacesPerTask: 3,
   sscAnswerPositions: [...answerPositions.SSC_CGL_TIER_I].sort(),
