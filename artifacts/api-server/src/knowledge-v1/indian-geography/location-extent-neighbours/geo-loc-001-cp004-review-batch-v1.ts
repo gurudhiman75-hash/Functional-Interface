@@ -668,7 +668,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "A polar location",
       "Isolation from maritime trade"
     ],
-    "explanation": "India lies along the broad corridor connecting western and eastern regions across the Indian Ocean. Its central maritime location is the geographic idea being shown.",
+    "explanation": "India lies along a major corridor connecting western and eastern regions across the Indian Ocean. Its central maritime location is the geographic idea being shown.",
     "sourceFactIds": [
       "TRANS-OCEAN-MAP-INTERPRETATION"
     ]
