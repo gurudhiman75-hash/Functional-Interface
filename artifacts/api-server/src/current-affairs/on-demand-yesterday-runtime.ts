@@ -187,11 +187,10 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
   const oneDayRescueSourceDate = previousCalendarDate(targetDate);
   const oneDayRescueOfficialBackfill = await ensurePibHistoricalCandidates(oneDayRescueSourceDate);
 
-  // Rights-safe broad discovery. CP-043 keeps broad low-signal results in the
-  // discovery accounting while withholding them from clustering unless a targeted
-  // query or sufficient exam signal makes them clustering-eligible. CP-052 adds
-  // regulator/department and Punjab-governance target-day discovery plus the
-  // bounded previous-day official-evidence rescue; it does not widen the news day.
+  // Rights-safe broad discovery now runs a mandatory exam-category matrix,
+  // retries categories with zero target-date hits, and performs a bounded 72-hour
+  // missed-story catch-up. Search results remain metadata-only; catch-up candidates
+  // retain their original publication date and still require editorial selection.
   const openNewsDiscovery = await runOpenNewsDiscovery(targetDate);
 
   // Reclassify bounded official evidence before intelligence. CP-043 also makes a
@@ -316,6 +315,13 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
       rejectedLowSignalClusters: Number(openNewsDiscovery.rejectedLowSignalClusters ?? 0),
       rejectedLowSignalReviewEvents: Number(discoveryTriage.rejectedReviewEvents ?? 0),
       oneDayOfficialRescuedHeadlines: Number((openNewsDiscovery as any)?.oneDayOfficialRescue?.rescuedCandidates ?? 0),
+      coverageCategoriesSearched: Number((openNewsDiscovery as any)?.coverageDiagnostics?.mandatoryCategoryCount ?? 0),
+      coverageCategoriesWithResults: Number((openNewsDiscovery as any)?.coverageDiagnostics?.categoriesWithResults ?? 0),
+      coverageHoleCount: Array.isArray((openNewsDiscovery as any)?.coverageDiagnostics?.unresolvedCoverageHoles)
+        ? (openNewsDiscovery as any).coverageDiagnostics.unresolvedCoverageHoles.length
+        : 0,
+      observedPublisherDomainCount: Number((openNewsDiscovery as any)?.coverageDiagnostics?.observedPublisherDomainCount ?? 0),
+      lateCatchupCandidates: Number((openNewsDiscovery as any)?.coverageDiagnostics?.lateCatchupCandidates ?? 0),
       masterPackEventCount: Number((dailyMasterPack as any)?.eventCount ?? 0),
       coverageConfidenceScore: Number((discoveryCensus as any)?.coverageConfidenceScore ?? 0),
       readinessColor: readiness.evaluation.color,
@@ -328,8 +334,8 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
         ...(oneDayRescueOfficialBackfill.status === "failed" && oneDayRescueOfficialBackfill.error
           ? [`Previous-day PIB rescue backfill failed for ${oneDayRescueSourceDate}: ${oneDayRescueOfficialBackfill.error}`]
           : []),
-        ...(openNewsDiscovery.queryResults.every((item) => item.status === "failed")
-          ? ["Open-news discovery provider was unavailable for all target-date queries."]
+        ...(Number((openNewsDiscovery as any)?.coverageDiagnostics?.categorySearchesSucceeded ?? 0) === 0
+          ? ["Open-web category discovery was unavailable for all mandatory target-date sweeps."]
           : []),
         ...(selectedBoundaryActive && !selectedMasterPackMaterialization.created && !selectedMasterPackMaterialization.locked
           ? [`Selected canonical pack refresh was withheld (${String(selectedMasterPackMaterialization.reason ?? "unknown")}); broad materialization was not allowed to replace the admin-selected boundary.`]
