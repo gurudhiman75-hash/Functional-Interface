@@ -1,4 +1,4 @@
-import type { MisCp008MissingPosition, MisCp008RuleId } from './rule-definitions';
+import { MIS_CP008_RULES, type MisCp008MissingPosition, type MisCp008RuleId } from './rule-definitions';
 
 export interface MisCp008Group {
   readonly first:number;
@@ -54,4 +54,29 @@ export function independentlySolveMisCp008Missing(
     if(value===group.result) results.push(candidate);
   }
   return results;
+}
+
+
+export interface MisCp008RuleMatch { readonly ruleId:MisCp008RuleId; readonly semanticKey:string; }
+export interface MisCp008AmbiguityAudit {
+  readonly accepted:boolean;
+  readonly intendedSemanticKey:string;
+  readonly matches:readonly MisCp008RuleMatch[];
+  readonly reason:string;
+}
+
+export function matchingMisCp008Rules(evidence:readonly MisCp008Group[]):readonly MisCp008RuleMatch[]{
+  const arity=evidence.every(g=>g.third==null)?2:3;
+  return MIS_CP008_RULES
+    .filter(r=>r.arity===arity)
+    .filter(r=>evidence.every(g=>independentlyVerifyMisCp008Group(r.ruleId,g)))
+    .map(r=>({ruleId:r.ruleId,semanticKey:r.ruleId}));
+}
+
+export function auditMisCp008Ambiguity(ruleId:MisCp008RuleId,evidence:readonly MisCp008Group[]):MisCp008AmbiguityAudit{
+  const matches=matchingMisCp008Rules(evidence);
+  const keys=[...new Set(matches.map(m=>m.semanticKey))];
+  if(!keys.includes(ruleId)) return {accepted:false,intendedSemanticKey:ruleId,matches,reason:'Intended inverse rule does not fit every evidence group.'};
+  if(keys.length!==1) return {accepted:false,intendedSemanticKey:ruleId,matches,reason:'Competing inverse rules survive: '+keys.join(', ')};
+  return {accepted:true,intendedSemanticKey:ruleId,matches,reason:'Exactly one inverse semantic rule survives.'};
 }
