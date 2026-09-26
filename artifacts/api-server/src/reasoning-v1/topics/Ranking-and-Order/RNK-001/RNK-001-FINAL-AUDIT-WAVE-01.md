@@ -113,4 +113,11 @@ RNK-QL-043 remains unallocated unless a later audit proves a genuinely new seman
 
 ## CI boundary note — 2026-09-26
 
-The first combined Waves 01–06 run failed before RNK proofs executed because its ad-hoc TypeScript command followed the global reasoning adapter into unrelated repository modules with existing type errors. The gate now typechecks only the RNK current-integration boundary; executable Wave tests still traverse the current Question Studio registry/runtime path. This changes CI scope only, not learner content or authority.
+The first combined Waves 01–06 run failed before RNK proofs executed because its ad-hoc TypeScript command followed the global reasoning adapter into unrelated repository modules with existing type errors. A narrowed strict-TypeScript pass then exposed historical RNK CP003–CP006 type debt that predates the current recovery and is not part of the frozen runtime contract.
+
+The final recovery gate therefore uses:
+- bundled compile/import resolution for the current RNK integration, difficulty and explanation layers;
+- executable Waves 01–06 against the recovered frozen runtimes and current Question Studio registry;
+- the normal API build step.
+
+This avoids treating historical strict-type cleanup as a prerequisite for content/runtime closure while still failing on syntax, import, bundle, executable-proof or build regressions. This changes CI scope only, not learner content or authority.
