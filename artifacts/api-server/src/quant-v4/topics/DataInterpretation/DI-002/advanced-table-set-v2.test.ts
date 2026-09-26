@@ -56,21 +56,22 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
       assert(!/Selected\(|Applicants\(/u.test(question.stem), `${seed}/${question.kind}: formula-like table notation leaked into an exam stem.`);
       assert((question.explanation as any).shortcut === undefined && (question.explanation as any).trap === undefined, `${seed}/${question.kind}: forced shortcut/trap fields returned.`);
 
-      if (["DIRECT_SELECTION_RATE", "SELECTED_SHARE_OF_TOTAL", "COMBINED_SELECTION_RATE"].includes(question.kind)) {
+      if (["SELECTED_SHARE_OF_TOTAL", "COMBINED_SELECTION_RATE"].includes(question.kind)) {
         for (const option of question.options) {
           const match = option.match(/^(\d+)%$/u);
           assert(match && Number(match[1]) >= 0 && Number(match[1]) <= 100, `${seed}/${question.kind}: bounded percentage distractor escaped 0–100: ${option}.`);
         }
       }
-      if (question.kind === "SELECTION_RATE_POINT_GAP") {
-        for (const option of question.options) {
-          const points = option.match(/^(\d+) percentage points$/u);
-          assert(points, `${seed}/${question.kind}: option uses the wrong unit: ${option}.`);
-          assert(Number(points[1]) >= 10 && Number(points[1]) <= 100, `${seed}/${question.kind}: implausible percentage-point distractor: ${option}.`);
-        }
-      }
       if (question.kind === "COMBINED_SELECTED_RATIO" || question.kind === "REJECTED_TO_SELECTED_RATIO") {
         assert(question.answer !== "1:1", `${seed}/${question.kind}: Hard ratio collapsed to trivial 1:1.`);
+      }
+      assert(question.kind !== "DIRECT_SELECTED_VALUE" && question.kind !== "DIRECT_SELECTION_RATE" && question.kind !== "SELECTION_RATE_POINT_GAP", `${seed}: trivial DI-002 family leaked back into V2.`);
+      if (question.difficulty === "Easy") {
+        assert(["SELECTED_DIFFERENCE", "COMBINED_SELECTED"].includes(question.kind), `${seed}/${question.kind}: Easy task must still require arithmetic.`);
+        assert(question.explanation.steps.length >= 2, `${seed}/${question.kind}: Easy task collapsed to direct lookup.`);
+      }
+      if (question.difficulty === "Medium") {
+        assert(question.explanation.steps.length >= 2, `${seed}/${question.kind}: Medium task lacks derived/aggregate working.`);
       }
       if (question.kind === "REJECTED_COUNT") {
         const targetIndex = Number(question.evidence.targetIndex);
