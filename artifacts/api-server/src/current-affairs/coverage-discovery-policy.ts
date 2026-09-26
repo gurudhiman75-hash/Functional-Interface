@@ -1,4 +1,5 @@
 export const COVERAGE_DISCOVERY_VERSION = "ca-coverage-matrix-v1";
+// Coverage completeness is measured independently of competitor publication timing.
 export const COVERAGE_SEARCH_CONCURRENCY = 4;
 export const COVERAGE_CATCHUP_LOOKBACK_DAYS = 2;
 
