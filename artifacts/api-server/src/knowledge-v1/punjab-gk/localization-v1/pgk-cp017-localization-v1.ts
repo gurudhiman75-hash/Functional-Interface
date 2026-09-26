@@ -1,0 +1,11 @@
+import { PGK_001_CP017_REVIEW_BATCH_V1 } from "../pgk-001-cp017-review-batch-v1";
+import { PGK_CP017_HI_V1 } from "./pgk-cp017-hi-v1";
+import { PGK_CP017_PA_V1 } from "./pgk-cp017-pa-v1";
+import { PGK_ENGLISH_CERTIFICATION_V1, PGK_LOCALIZATION_V1, type PgkLocaleV1, type PgkNativeOverlayV1 } from "./pgk-localization-types-v1";
+
+type E=(typeof PGK_001_CP017_REVIEW_BATCH_V1)[number];
+type N=Exclude<PgkLocaleV1,"en">;
+export type PgkCp017LocalizedQuestionV1={questionId:string;qlId:string;qlName:string;difficulty:E["difficulty"];stem:string;options:string[];correctIndex:number;canonicalAnswer:string;explanation:string;factIds:string[];sourceIds:string[];reviewOnly:true;runtimeRegistered:false;locale:PgkLocaleV1;localizationV1:{version:typeof PGK_LOCALIZATION_V1;englishQuestionId:string;englishCertification:typeof PGK_ENGLISH_CERTIFICATION_V1;semanticInvariant:true;qlInvariant:true;difficultyInvariant:true;factInvariant:true;sourceInvariant:true;optionOrderInvariant:true;correctIndexInvariant:true;reviewOnly:true;}};
+function ov(i:number,l:N):PgkNativeOverlayV1{const n=i+1,o=l==="hi"?PGK_CP017_HI_V1[n]:PGK_CP017_PA_V1[n];if(!o)throw new Error(`CP017 #${n}: missing ${l}`);return o;}
+function b(q:E,l:PgkLocaleV1,s:string,o:string[],x:string):PgkCp017LocalizedQuestionV1{return{questionId:l==="en"?q.questionId:`${q.questionId}-${l.toUpperCase()}`,qlId:q.qlId,qlName:q.qlName,difficulty:q.difficulty,stem:s,options:o,correctIndex:q.correctIndex,canonicalAnswer:o[q.correctIndex]!,explanation:x,factIds:[...q.factIds],sourceIds:[...q.sourceIds],reviewOnly:true,runtimeRegistered:false,locale:l,localizationV1:{version:PGK_LOCALIZATION_V1,englishQuestionId:q.questionId,englishCertification:PGK_ENGLISH_CERTIFICATION_V1,semanticInvariant:true,qlInvariant:true,difficultyInvariant:true,factInvariant:true,sourceInvariant:true,optionOrderInvariant:true,correctIndexInvariant:true,reviewOnly:true}};}
+export function generatePgkCp017LocalizedReviewV1(l:PgkLocaleV1):PgkCp017LocalizedQuestionV1[]{return PGK_001_CP017_REVIEW_BATCH_V1.map((q,i)=>{if(l==="en")return b(q,"en",q.stem,[...q.options],q.explanation);const z=ov(i,l);return b(q,l,z.stem,[...z.options],z.explanation);});}
