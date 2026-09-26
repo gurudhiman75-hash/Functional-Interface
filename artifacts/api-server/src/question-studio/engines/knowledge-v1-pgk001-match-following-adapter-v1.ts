@@ -11,16 +11,16 @@ import type {
   QuestionStudioLanguage,
   QuestionStudioPackageDefinition,
 } from "../engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { PGK_001_FULL_RELEASE_LIFECYCLE_V1 } from "../../knowledge-v1/punjab-gk/pgk-001-full-question-studio-release-v1";
 
 export const PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1 = "PGK-001-MTF-V1" as const;
-export const PGK_001_MATCH_FOLLOWING_RUNTIME_MODE_V1 = "review-only" as const;
+export const PGK_001_MATCH_FOLLOWING_RUNTIME_MODE_V1 = "CANONICAL_REVIEW" as const;
 export const PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1 =
   "PGK-001-MATCH-FOLLOWING-EXTENSION-V1-APPROVED-2026-09-26" as const;
 export const PGK_001_MATCH_FOLLOWING_REVISION_POLICY_V1 =
   "APPROVED_EXTENSION_SOURCE_ONLY" as const;
 
-const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
+const lifecycle = PGK_001_FULL_RELEASE_LIFECYCLE_V1;
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties = ["Medium", "Hard"] as const;
 const conceptIds = PGK_001_MATCH_FOLLOWING_CONCEPTS_V1.map((concept) => concept.id);
@@ -138,12 +138,13 @@ export const PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPacka
   difficultyFilterSupported: true,
   runtimeMode: PGK_001_MATCH_FOLLOWING_RUNTIME_MODE_V1,
   supportedRuntimeModes: [PGK_001_MATCH_FOLLOWING_RUNTIME_MODE_V1],
-  lifecycleId: lifecycle.lifecycleId,
-  lifecycleStage: lifecycle.stage,
-  reviewSurfaceRequired: lifecycle.reviewSurfaceRequired,
+  lifecycleStage: "BANK_ONLY",
+  reviewSurfaceRequired: true,
   manualApprovalRequired: lifecycle.manualApprovalRequired,
   questionBankStatus: lifecycle.questionBankStatus,
   questionBankWritable: lifecycle.questionBankWritable,
+  questionBankAcceptanceMode: lifecycle.questionBankAcceptanceMode,
+  questionBankAcceptanceAuthority: lifecycle.questionBankAcceptanceAuthority,
   testEligibility: lifecycle.testEligibility,
   testEligible: lifecycle.testEligible,
   mockTestEligible: lifecycle.mockTestEligible,
@@ -155,7 +156,8 @@ export const PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPacka
     registrationAuthorityId: PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
     authoringReviewApproved: true,
     formatReviewApproved: true,
-    reviewOnly: true,
+    reviewOnly: false,
+    fullReleaseEnabled: true,
     additiveExtension: true,
     frozenCoreQuestionCount: 1092,
     frozenCoreModified: false,
@@ -280,20 +282,20 @@ export const knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1:
             answerCodeOptions: [...question.options],
             textFallbackAvailable: true,
           },
-          registrationStatus: "REGISTERED_REVIEW_ONLY",
+          registrationStatus: "REGISTERED_PRODUCTION_READY",
           registrationAuthorityId: PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
           authoringReviewApproved: true,
           formatReviewApproved: true,
           questionStudioDiscoverable: true,
           questionStudioGenerationEnabled: true,
-          reviewOnly: true,
+          reviewOnly: false,
           runtimeRegistered: true,
-          readOnly: true,
+          readOnly: false,
           additiveExtension: true,
           frozenCoreQuestionCount: 1092,
           frozenCoreModified: false,
           revisionPolicy: PGK_001_MATCH_FOLLOWING_REVISION_POLICY_V1,
-          productionReleased: false,
+          productionReleased: true,
         };
       });
 
@@ -304,11 +306,12 @@ export const knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1:
           engineId: "knowledge-v1",
           packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
           runtimeMode: PGK_001_MATCH_FOLLOWING_RUNTIME_MODE_V1,
-          registrationStatus: "REGISTERED_REVIEW_ONLY",
+          registrationStatus: "REGISTERED_PRODUCTION_READY",
           registrationAuthorityId: PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
           authoringReviewApproved: true,
           formatReviewApproved: true,
-          reviewOnly: true,
+          reviewOnly: false,
+          fullReleaseEnabled: true,
           additiveExtension: true,
           frozenCoreQuestionCount: 1092,
           frozenCoreModified: false,
