@@ -1,6 +1,6 @@
 # ENG-008 CP004 — Banking Mains Analytical Reading Comprehension — Source Audit V1
 
-Status: `IMPLEMENTED_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY`
 
 ## Purpose
 
@@ -83,4 +83,4 @@ No option-by-option filler unless ambiguity genuinely requires it.
 
 ## Lifecycle
 
-`REVIEW_ONLY`. No Question Studio registration, Question Bank writes, scored tests, mocks, learner/public publication, automatic publication or production release before explicit human approval.
+Human approval was recorded on **2026-09-26** against `ENG-008-CP004-REVIEW-V1.md` at reviewed head `1521a943d12b367b19b524500168d00d7f453767`. CP004 is registered in the existing ENG-008 Question Studio package in **review-only** mode. Question Bank writes, scored tests, mocks, learner/public publication, automatic publication and production release remain locked.
