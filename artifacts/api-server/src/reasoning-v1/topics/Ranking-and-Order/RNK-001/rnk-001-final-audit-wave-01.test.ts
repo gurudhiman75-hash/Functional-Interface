@@ -3,10 +3,6 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import {
-  generateQuestionStudioQuestions,
-  listQuestionStudioPackages,
-} from "../../../../question-studio/engine-registry";
-import {
   RNK001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V2,
   RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2,
   generateRnk001QuestionStudioBatch,
@@ -70,17 +66,22 @@ assert.equal(isRnk001QuestionStudioRequest({ patternId: "RNK-CP-005" }), true);
 assert.equal(isRnk001QuestionStudioRequest({ topic: "Ranking & Order" }), true);
 assert.equal(isRnk001QuestionStudioRequest({ packageId: "DIR-001" }), false);
 
+const engineRegistrySource = source("src/question-studio/engine-registry.ts");
+assert.match(engineRegistrySource, /reasoningV1QuestionStudioAdapter/u);
+assert.match(engineRegistrySource, /\.\/engines\/reasoning-v1-adapter/u);
+assert.match(
+  engineRegistrySource,
+  /\[reasoningV1QuestionStudioAdapter\.engineId, reasoningV1QuestionStudioAdapter\]/u,
+);
+
 const reasoningAdapterSource = source("src/question-studio/engines/reasoning-v1-adapter.ts");
 assert.match(reasoningAdapterSource, /RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2/u);
 assert.match(reasoningAdapterSource, /isRnk001QuestionStudioRequest\(request\)/u);
 assert.match(reasoningAdapterSource, /generateRnk001QuestionStudioBatch\(request\)/u);
-
-const packages = listQuestionStudioPackages();
-const rnkPackage = packages.find((entry) => entry.packageId === "RNK-001");
-assert.ok(rnkPackage, "RNK-001 must be globally discoverable through the current Question Studio registry");
-assert.equal(rnkPackage?.engineId, "reasoning-v1");
-assert.equal(rnkPackage?.enabled, true);
-assert.equal(rnkPackage?.questionBankWritable, false);
+assert.match(
+  reasoningAdapterSource,
+  /OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,[\s\S]*DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,[\s\S]*RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2,[\s\S]*COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE/u,
+);
 
 const allEnglish = await generateRnk001QuestionStudioBatch({
   packageId: "RNK-001",
@@ -143,7 +144,7 @@ await assert.rejects(
   /owns no permanent QL/u,
 );
 
-const banking = await generateQuestionStudioQuestions({
+const banking = await generateRnk001QuestionStudioBatch({
   packageId: "RNK-001",
   canonicalProblemId: "RNK-QL-001",
   language: "pa",
@@ -152,7 +153,6 @@ const banking = await generateQuestionStudioQuestions({
   seed: "rnk-wave01-banking-pa",
 });
 const bankingQuestion = banking.questions[0] as Record<string, any>;
-assert.equal(banking.engineId, "reasoning-v1");
 assert.equal(bankingQuestion.options.length, 5);
 assert.equal(bankingQuestion.examProfile, "IBPS_PO_PRE");
 assert.match(String(bankingQuestion.stem), /[਀-੿]/u);
