@@ -292,7 +292,8 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const rateIndex = pick(seededRandom(`${seed}:rate-index`), [0, 1, 2, 3, 4] as const);
   const hiddenIndex = stimulus.hiddenApplicantIndex;
   const visibleIndexes = [0, 1, 2, 3, 4].filter((index) => index !== hiddenIndex);
-  const rejectedIndex = pick(seededRandom(`${seed}:rejected-index`), visibleIndexes);
+  const rejectedCandidates = visibleIndexes.filter((index) => rows[index]!.selectionPercent !== 50);
+  const rejectedIndex = pick(seededRandom(`${seed}:rejected-index`), rejectedCandidates);
 
   const differencePair = pair(`${seed}:difference-pair`, [[0, 1], [0, 3], [1, 2], [1, 4], [2, 4], [3, 4]] as const);
   const combinedPair = pair(`${seed}:combined-pair`, [[0, 2], [0, 4], [1, 3], [2, 4], [1, 4]] as const);
