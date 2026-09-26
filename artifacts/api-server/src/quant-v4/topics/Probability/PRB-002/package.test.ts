@@ -35,3 +35,16 @@ console.log(JSON.stringify({
     conditionalUrnStructures:new Set(conditionalUrn).size,
   }
 }));
+
+
+const conditionalNumberWave2=surfaces(["PRB-QL-603","PRB-QL-609","PRB-QL-615","PRB-QL-621"]);
+const conditionalCountingWave2=surfaces(["PRB-QL-601","PRB-QL-607","PRB-QL-613","PRB-QL-619"]);
+assert(new Set(conditionalNumberWave2).size>=4,`Conditional-number QLs still collapse to ${new Set(conditionalNumberWave2).size} structures`);
+assert(new Set(conditionalCountingWave2).size>=4,`Conditional-counting QLs still collapse to ${new Set(conditionalCountingWave2).size} structures`);
+console.log(JSON.stringify({
+  packageId:"PRB-002",
+  surfaceStabilityWave2:{
+    conditionalNumberStructures:new Set(conditionalNumberWave2).size,
+    conditionalCountingStructures:new Set(conditionalCountingWave2).size,
+  }
+}));
