@@ -14,7 +14,8 @@
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: COMPLETE — CP001-CP026 Hindi/Punjabi localisation approved and merged\n- Format-diversity extension: APPROVED_MERGED — 24 genuine List-I/List-II match-the-following concepts across 12 CPs; additive Question Studio review-only integration implemented; frozen 1,092-question core unchanged
+- Localisation: COMPLETE — CP001-CP026 Hindi/Punjabi localisation approved and merged
+- Format-diversity extension: APPROVED_MERGED — 24 genuine List-I/List-II match-the-following concepts across 12 CPs; additive Question Studio review-only integration implemented; frozen 1,092-question core unchanged
 
 ## Final closure audit
 
@@ -30,17 +31,17 @@ Notable remediation:
 
 ## Question Studio registration
 
-The completed English chapter is exposed through the shared `knowledge-v1` Question Studio engine as package `PGK-001`.
+The completed multilingual chapter is exposed through the shared `knowledge-v1` Question Studio engine as package `PGK-001`.
 
 Registration properties:
 - lifecycle: `QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1`;
 - runtime mode: `review-only`;
 - all 26 frozen CPs available through CP selectors;
 - all 182 permanent QLs available through QL selectors;
-- English remains the currently registered Question Studio runtime corpus; CP001-CP026 Hindi/Punjabi localisation is approved and merged as review-only overlays;
+- English, Hindi and Punjabi are registered as parallel review-only Question Studio corpora, reconciled one-to-one against the frozen English metadata;
 - Easy / Medium / Hard / Mixed review generation supported;
 - deterministic selection without replacement;
-- 1,092 frozen questions in the registered English corpus;
+- 1,092 frozen English questions plus 1,092 approved Hindi and 1,092 approved Punjabi review surfaces (3,276 total language surfaces);
 - generated wrappers are marked `REGISTERED_REVIEW_ONLY`.
 
 Review-only registration does **not** authorize canonical Question Bank persistence, test/mock-test use, public publication, automatic student release or production release.
@@ -57,4 +58,4 @@ Review-only registration does **not** authorize canonical Question Bank persiste
 
 ## Next boundary
 
-Hindi/Punjabi localisation is complete through CP026. Multilingual runtime registration and any move beyond review-only Question Studio generation remain separate gates. Do not enable Question Bank writes, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release or production release without explicit approval.
+Hindi/Punjabi localisation and multilingual Question Studio registration are complete through CP026. Question Bank writes, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release and production release remain separate explicit gates.
