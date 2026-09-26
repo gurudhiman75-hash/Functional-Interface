@@ -45,19 +45,19 @@ test('CLK-001 generates all permanent QLs in English Hindi and Punjabi with pari
       assert.equal(/Solve this clock question about|[A-Z]{3,}_[A-Z_]+/.test(stem), false);
       assert.doesNotMatch(
         visible,
-        /\\b(?:associated|best describes|canonical|prototype|authority|fingerprint|source audit|review metadata|undefined|NaN)\\b/iu,
+        /\b(?:associated|best describes|canonical|prototype|authority|fingerprint|source audit|review metadata|undefined|NaN)\b/iu,
       );
       if (language === 'hi') {
         assert.match(stem, /[\u0900-\u097F]/u);
         assert.doesNotMatch(visible, /[\u0A00-\u0A7F]/u);
         assert.doesNotMatch(explanation, /दिए गए मानों को ध्यान से पढ़ें|उत्तर को स्वतंत्र गणना से भी मिलाया गया है/u);
-        assert.doesNotMatch(visible.replace(/\\b(?:AM|PM)\\b/gu, ''), /[A-Za-z]{2,}/u);
+        assert.doesNotMatch(visible.replace(/\b(?:AM|PM)\b/gu, ''), /[A-Za-z]{2,}/u);
       }
       if (language === 'pa') {
         assert.match(stem, /[\u0A00-\u0A7F]/u);
         assert.doesNotMatch(visible, /[\u0900-\u097F]/u);
         assert.doesNotMatch(explanation, /ਦਿੱਤੇ ਹੋਏ ਮਾਨ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ|ਉੱਤਰ ਨੂੰ ਵੱਖਰੀ ਗਣਨਾ ਨਾਲ ਵੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ/u);
-        assert.doesNotMatch(visible.replace(/\\b(?:AM|PM)\\b/gu, ''), /[A-Za-z]{2,}/u);
+        assert.doesNotMatch(visible.replace(/\b(?:AM|PM)\b/gu, ''), /[A-Za-z]{2,}/u);
       }
       byLanguage.push(question);
     }
