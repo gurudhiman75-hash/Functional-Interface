@@ -16,6 +16,12 @@ function qlVariant(entry: ProbabilityTaskRegistryEntry, count: number): number {
   return value % count;
 }
 
+function qlSeriesVariant(entry: ProbabilityTaskRegistryEntry, stride: number, count: number): number {
+  const match = entry.qlId.match(/(\d+)$/);
+  const value = match ? Number(match[1]) : 0;
+  return Math.floor(value / stride) % count;
+}
+
 function singularObject(value: string): string {
   if (value === "cards") return "card";
   if (value === "counters") return "counter";
@@ -186,7 +192,7 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "findConditionalProbabilityByCounting":
     case "findConditionalFromTwoWayTable": return `Of the ${num(p, "mathTotal")} students who passed Mathematics, ${num(p, "both")} also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?`;
     case "findConditionalCardProbability": {
-      const form = qlVariant(entry, 4);
+      const form = qlSeriesVariant(entry, 6, 4);
       if (form === 0) return "A card drawn from a standard deck is known to be a face card. What is the probability that the card is a king?";
       if (form === 1) return "One face card is selected at random from the face cards of a standard deck. Find the probability that it is a king.";
       if (form === 2) return "Given that a card chosen from a standard deck is a face card, what is the probability that it is a king?";
@@ -194,7 +200,7 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     }
     case "findConditionalNumberProbability": return `An integer selected from 1 to ${num(p, "upper")} is known to be divisible by ${num(p, "conditionDivisor")}. What is the probability that it is also divisible by ${num(p, "targetDivisor")}?`;
     case "findConditionalUrnProbability": {
-      const form = qlVariant(entry, 4);
+      const form = qlSeriesVariant(entry, 6, 4);
       if (form === 0) return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?`;
       if (form === 1) return `A bag has ${red} red and ${blue} blue balls. One red ball has already been drawn and is not replaced. What is the probability that the next ball drawn is red?`;
       if (form === 2) return `From a bag containing ${red} red and ${blue} blue balls, two balls are drawn successively without replacement. If the first draw is known to be red, find the probability that the second draw is red.`;
