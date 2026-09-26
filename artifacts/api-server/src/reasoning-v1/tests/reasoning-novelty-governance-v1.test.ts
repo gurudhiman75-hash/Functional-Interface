@@ -7,12 +7,15 @@ import {
   validateReasoningNoveltyCandidateV1,
 } from '../shared/reasoning-novelty-governance-v1';
 
-test('Reasoning novelty governance fixes the chapter-level 80/20 operating intent', () => {
-  assert.equal(policy.chapterMix.sourceBackedOperatingTarget, 0.80);
-  assert.equal(policy.chapterMix.controlledNovelOperatingTarget, 0.20);
-  assert.deepEqual(policy.chapterMix.controlledNovelAcceptableBand, [0.15, 0.25]);
-  assert.equal(policy.chapterMix.perQlNoveltyQuotaRequired, false);
-  assert.equal(policy.chapterMix.noveltyMayBeConcentratedInSuitableQls, true);
+test('Reasoning novelty governance fixes the assembly-level 80/20 operating intent', () => {
+  assert.equal(policy.assemblyMix.sourceBackedOperatingTarget, 0.80);
+  assert.equal(policy.assemblyMix.controlledNovelOperatingTarget, 0.20);
+  assert.deepEqual(policy.assemblyMix.controlledNovelAcceptableBand, [0.15, 0.25]);
+  assert.equal(policy.chapterPolicy.perChapterTwentyPercentQuotaRequired, false);
+  assert.equal(policy.chapterPolicy.perQlNoveltyQuotaRequired, false);
+  assert.equal(policy.chapterPolicy.noveltyMayBeConcentratedInSuitableChapters, true);
+  assert.equal(policy.chapterPolicy.noveltyMayBeConcentratedInSuitableQls, true);
+  assert.equal(policy.chapterPolicy.assemblySchedulerMustRestoreOverallTarget, true);
 });
 
 test('cosmetic changes cannot satisfy controlled novelty', () => {
@@ -73,7 +76,7 @@ test('experimental stretch never pads the controlled-novel target', () => {
 });
 
 
-test('shared novelty mixer produces a deterministic 80/20 chapter plan', () => {
+test('shared novelty mixer produces a deterministic 80/20 assembly plan', () => {
   const left = buildReasoningNoveltyMixPlanV1({ count: 100, seed: 'reasoning-v1-audit' });
   const right = buildReasoningNoveltyMixPlanV1({ count: 100, seed: 'reasoning-v1-audit' });
   assert.deepEqual(right, left);
