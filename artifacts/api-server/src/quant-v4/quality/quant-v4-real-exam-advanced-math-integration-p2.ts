@@ -156,6 +156,20 @@ function buildRuntimeRecord(input: {
     slotKind: input.source.slotKind,
     sourceKind: "RUNTIME_GENERATED",
     packageId: input.packageId,
+    canonicalProblemId: String(input.question?.canonicalProblemId ?? input.question?.cpId ?? "").trim() || undefined,
+    patternId: String(input.question?.patternId ?? input.question?.questionLanguageId ?? input.question?.qlId ?? input.question?.solveMode ?? "").trim() || undefined,
+    mathematicalStateSignature: String(
+      input.question?.mathematicalFingerprint
+      ?? input.question?.realism?.numericalStateSignature
+      ?? input.question?.reasoningEvidence?.mathematicalFingerprint
+      ?? "",
+    ).trim() || undefined,
+    parameterStateSignature: String(
+      input.question?.parameterFingerprint
+      ?? input.question?.realism?.numericalStateSignature
+      ?? input.question?.traceability?.parameterFingerprint
+      ?? "",
+    ).trim() || undefined,
     topic: "Advanced Mathematics",
     subtopic: algebra ? "Algebra" : "Trigonometry",
     representation: "DIRECT_MCQ",
