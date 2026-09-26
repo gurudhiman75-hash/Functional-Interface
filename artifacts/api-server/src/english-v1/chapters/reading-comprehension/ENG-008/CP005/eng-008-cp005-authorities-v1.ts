@@ -1,3 +1,4 @@
+import { ENG008_CP005_EXPANSION_WAVE1_V1 } from "./eng-008-cp005-expansion-wave1-v1";
 export type Eng008Cp005Difficulty="medium"|"hard";
 export type Eng008Cp005Genre="workplace-study"|"transport-survey"|"sleep-study"|"consumer-survey"|"environment-study"|"digital-learning-evaluation";
 export type Eng008Cp005FamilyId="RS-F01"|"RS-F02"|"RS-F03"|"RS-F04"|"RS-F05"|"RS-F06"|"RS-F07"|"RS-F08";
@@ -6,6 +7,7 @@ export interface Eng008Cp005PassageV1{id:string;title:string;genre:Eng008Cp005Ge
 const q=(id:string,familyId:Eng008Cp005FamilyId,difficulty:Eng008Cp005Difficulty,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string):Eng008Cp005QuestionAuthorityV1=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
 
 export const ENG008_CP005_PASSAGES_V1:readonly Eng008Cp005PassageV1[]=[
+...ENG008_CP005_EXPANSION_WAVE1_V1,
 {
  id:"ENG008-RS-W01",title:"Does a Quiet Hour Improve Office Output?",genre:"workplace-study",
  text:`A mid-sized services company tested a “quiet hour” policy in two departments for six weeks. Between 10 a.m. and 11 a.m., internal meetings were discouraged and employees were asked to avoid non-urgent messages. Managers wanted to know whether a protected period would help staff complete work that required concentration.

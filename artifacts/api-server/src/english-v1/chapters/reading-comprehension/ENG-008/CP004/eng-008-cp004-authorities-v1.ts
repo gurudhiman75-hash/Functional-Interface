@@ -1,3 +1,4 @@
+import { ENG008_CP004_EXPANSION_WAVE1_V1 } from "./eng-008-cp004-expansion-wave1-v1";
 export type Eng008Cp004Difficulty="medium"|"hard";
 export type Eng008Cp004Genre="economy"|"business"|"technology"|"health"|"environment"|"social-policy"|"philosophy"|"media";
 export type Eng008Cp004FamilyId="BM-F01"|"BM-F02"|"BM-F03"|"BM-F04"|"BM-F05"|"BM-F06"|"BM-F07"|"BM-F08"|"BM-F09"|"BM-F10";
@@ -12,6 +13,7 @@ export interface Eng008Cp004PassageV1{
 const q=(id:string,familyId:Eng008Cp004FamilyId,difficulty:Eng008Cp004Difficulty,question:string,correctAnswer:string,distractors:readonly [string,string,string],explanation:string,evidence:string):Eng008Cp004QuestionAuthorityV1=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
 
 export const ENG008_CP004_PASSAGES_V1:readonly Eng008Cp004PassageV1[]=[
+...ENG008_CP004_EXPANSION_WAVE1_V1,
 {
  id:"ENG008-BM-E01",title:"When Hiring Numbers Look Better Than Jobs Feel",genre:"economy",
  text:`Employment reports often attract attention through a single headline number: how many jobs were added or how low unemployment has fallen. Such figures are useful, but they can hide important changes in the quality and stability of work. A labour market may create many positions while workers still feel insecure if hours are irregular, wages fail to keep pace with living costs or new roles are concentrated in temporary contracts.
