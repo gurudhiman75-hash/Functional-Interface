@@ -7,6 +7,7 @@ import { buildRnkCp006PermanentRuntime, RNK_CP006_PERMANENT_AUTHORITY_ASSIGNMENT
 import { buildRnkCp007PermanentRuntime, RNK_CP007_PERMANENT_QL_ID } from "./RNK-CP-007/cp007-permanent-runtime-v1";
 import { adaptRnkQuestionForBankingFiveOptions } from "./rnk-001-banking-five-option-adapter-v1";
 import { RNK_EXAM_MODE_MIX_GUARD, auditRnkExamModeMix, rnkExamRealismTier, type RnkExamRealismTier } from "./rnk-001-exam-delivery-policy-v1";
+import { deriveRnkQuestionStudioDifficulty } from "./rnk-001-question-studio-difficulty-v2";
 
 export const RNK_001_QUESTION_STUDIO_REVIEW_AUTHORITY =
   "RNK-001-QUESTION-STUDIO-REVIEW-V1" as const;
@@ -127,10 +128,7 @@ function normalizeDifficulty(value: unknown): RnkQuestionStudioDifficulty | unde
 }
 
 function questionDifficulty(question: AnyQuestion): RnkQuestionStudioDifficulty {
-  const text = String(question.difficulty ?? question.difficultyBand ?? "Medium").toLowerCase();
-  if (text.includes("easy")) return "Easy";
-  if (text.includes("hard")) return "Hard";
-  return "Medium";
+  return deriveRnkQuestionStudioDifficulty(question).label;
 }
 
 function qlNumber(qlId: string): number {
