@@ -53,7 +53,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-001",
     "qlName": "Northern and Eastern Hemisphere position",
     "difficulty": "Medium",
-    "stem": "Which pair correctly states India's hemispheric position?",
+    "stem": "India lies in which two hemispheres?",
     "answer": "Northern and Eastern Hemispheres",
     "distractors": [
       "Northern and Western Hemispheres",
@@ -140,7 +140,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "23°30'N",
       "8°4'N"
     ],
-    "explanation": "The northern limit of mainland India's stated latitudinal extent is 37°6'N. Together with 8°4'N, it defines mainland India's north–south latitude range.",
+    "explanation": "The northernmost latitude of mainland India is 37°6'N. Together with 8°4'N, it defines mainland India's north–south latitude range.",
     "sourceFactIds": [
       "LATITUDE-NORTH-MAINLAND"
     ]
@@ -300,7 +300,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only 95°E falls between the limits",
       "Neither longitude falls between the limits"
     ],
-    "explanation": "India's stated mainland longitudes run from 68°7'E to 97°25'E. Both 70°E and 95°E lie numerically inside that interval, though this alone does not prove that every point on those meridians is Indian territory.",
+    "explanation": "India's stated mainland longitudes run from 68°7'E to 97°25'E. Both 70°E and 95°E lie numerically within that longitude range, though this alone does not prove that every point on those meridians is Indian territory.",
     "sourceFactIds": [
       "LONGITUDE-INTERVAL-INTERPRETATION"
     ]
@@ -572,7 +572,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "About 1,281 km",
       "About 2,933 km"
     ],
-    "explanation": "Subtracting the stated dimensions gives about 3,214 − 2,933 = 281 km. The question compares the two mainland spans rather than any boundary or coastline length.",
+    "explanation": "Subtracting the two dimensions gives about 3,214 − 2,933 = 281 km. The question compares the two mainland spans rather than any boundary or coastline length.",
     "sourceFactIds": [
       "DIMENSION-DIFFERENCE"
     ]
@@ -588,7 +588,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Only Statement II is correct",
       "Neither statement is correct"
     ],
-    "explanation": "Both figures match the standard NCERT dimensions of mainland India. Together they show that the north–south span is somewhat longer than the east–west span.",
+    "explanation": "Both figures match India's standard mainland dimensions. Together they show that the north–south span is somewhat longer than the east–west span.",
     "sourceFactIds": [
       "DIMENSION-STATEMENTS"
     ]
@@ -645,7 +645,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-007",
     "qlName": "Area, world share and size rank",
     "difficulty": "Medium",
-    "stem": "Which option gives India's approximate area and share of the world's geographical area?",
+    "stem": "What are India's approximate area and share of the world's geographical area?",
     "answer": "About 3.28 million sq km and about 2.4%",
     "distractors": [
       "About 2.4 million sq km and about 3.28%",
@@ -661,7 +661,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-007",
     "qlName": "Area, world share and size rank",
     "difficulty": "Medium",
-    "stem": "Which of the following is true about India's area?",
+    "stem": "Which fact about India's area is accurate?",
     "answer": "India is the seventh-largest country by area in the world",
     "distractors": [
       "India is the world's largest country by area",
@@ -732,7 +732,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Rajasthan",
       "Goa"
     ],
-    "explanation": "Places farther east reach the Sun's apparent daily positions earlier in local solar time. Arunachal Pradesh lies much farther east than Gujarat, creating the textbook two-hour local-time contrast.",
+    "explanation": "Places farther east reach the Sun's apparent daily positions earlier in local solar time. Arunachal Pradesh lies much farther east than Gujarat, creating the roughly two-hour local-time contrast.",
     "sourceFactIds": [
       "TIME-EAST-EARLIER"
     ]
@@ -876,7 +876,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Point C only",
       "Points B and C only"
     ],
-    "explanation": "Point A lies between both the stated latitude and longitude limits. B exceeds the northern latitude limit and C exceeds the eastern longitude limit; fitting both intervals still does not by itself prove territorial location.",
+    "explanation": "Point A lies between both mainland India's latitude and longitude ranges. B exceeds the northern latitude limit and C exceeds the eastern longitude limit; fitting both intervals still does not by itself prove territorial location.",
     "sourceFactIds": [
       "COORDINATE-MULTI-POINT-ELIMINATION"
     ]
