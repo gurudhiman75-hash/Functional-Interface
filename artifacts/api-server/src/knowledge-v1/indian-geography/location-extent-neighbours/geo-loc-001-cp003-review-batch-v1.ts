@@ -638,7 +638,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "stem": "Sunrise is generally experienced earlier by local solar time in eastern India than in western India. Which factor explains this?",
     "answer": "Difference in longitude",
     "distractors": [
-      "Difference in national currency",
+      "Difference in latitude",
       "Difference in coastline length",
       "Difference in state population"
     ],
