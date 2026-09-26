@@ -83,46 +83,36 @@ const auditLanguageRaw = String(process.env.RNK_WAVE01_LANGUAGE ?? "en").trim().
 assert.ok(["en", "hi", "pa"].includes(auditLanguageRaw), `Unsupported RNK Wave 01 audit language '${auditLanguageRaw}'.`);
 const auditLanguage = auditLanguageRaw as "en" | "hi" | "pa";
 
-const shardRaw = Number(process.env.RNK_WAVE01_SHARD ?? 0);
-assert.ok(Number.isInteger(shardRaw) && shardRaw >= 0 && shardRaw < 6, `Unsupported RNK Wave 01 shard '${String(process.env.RNK_WAVE01_SHARD)}'.`);
-const auditShard = shardRaw;
-const shardSize = 7;
-const shardQlIds = RNK_001_CHAPTER_AUTHORITY.permanentQlIds.slice(
-  auditShard * shardSize,
-  (auditShard + 1) * shardSize,
+const qlNumberRaw = Number(process.env.RNK_WAVE01_QL ?? 1);
+assert.ok(
+  Number.isInteger(qlNumberRaw) && qlNumberRaw >= 1 && qlNumberRaw <= 42,
+  `Unsupported RNK Wave 01 QL '${String(process.env.RNK_WAVE01_QL)}'.`,
 );
-assert.equal(shardQlIds.length, 7);
+const auditQlNumber = qlNumberRaw;
+const qlId = RNK_001_CHAPTER_AUTHORITY.permanentQlIds[auditQlNumber - 1]!;
+assert.ok(qlId);
 
-let trilingualQlSamples = 0;
-const shardQuestions: Array<Record<string, any>> = [];
-for (const qlId of shardQlIds) {
-  const generated = await generateRnk001QuestionStudioBatch({
-    packageId: "RNK-001",
-    canonicalProblemId: qlId,
-    language: auditLanguage,
-    count: 1,
-    seed: `rnk-wave01:${auditLanguage}:shard-${auditShard}:${qlId}`,
-  });
-  assert.equal(generated.questions.length, 1);
-  shardQuestions.push(generated.questions[0] as Record<string, any>);
-}
+const generated = await generateRnk001QuestionStudioBatch({
+  packageId: "RNK-001",
+  canonicalProblemId: qlId,
+  language: auditLanguage,
+  count: 1,
+  seed: `rnk-wave01:${auditLanguage}:${qlId}`,
+});
+assert.equal(generated.questions.length, 1);
 
-assert.deepEqual(
-  shardQuestions.map((question) => question.qlId),
-  shardQlIds,
-);
+const question = generated.questions[0] as Record<string, any>;
+assert.equal(question.qlId, qlId);
+assert.equal(question.language, auditLanguage);
+assert.equal(question.options.length >= 4, true);
+assert.equal(new Set(question.options).size, question.options.length);
+assert.equal(question.correctIndex >= 0 && question.correctIndex < question.options.length, true);
+assert.equal(question.validation.valid, true);
+if (auditLanguage === "hi") assert.match(String(question.stem), /[ऀ-ॿ]/u);
+if (auditLanguage === "pa") assert.match(String(question.stem), /[਀-੿]/u);
+assertReviewOnly(question);
 
-for (const question of shardQuestions) {
-  trilingualQlSamples += 1;
-  assert.equal(question.language, auditLanguage);
-  assert.equal(question.options.length >= 4, true);
-  assert.equal(new Set(question.options).size, question.options.length);
-  assert.equal(question.correctIndex >= 0 && question.correctIndex < question.options.length, true);
-  assert.equal(question.validation.valid, true);
-  if (auditLanguage === "hi") assert.match(String(question.stem), /[ऀ-ॿ]/u);
-  if (auditLanguage === "pa") assert.match(String(question.stem), /[਀-੿]/u);
-  assertReviewOnly(question);
-}
+const trilingualQlSamples = 1;
 
 console.log(JSON.stringify({
   verdict: "PASS_RNK_001_FINAL_AUDIT_WAVE_01_RECOVERY_AND_CURRENT_INTEGRATION",
@@ -130,9 +120,9 @@ console.log(JSON.stringify({
   permanentQlCount: 42,
   ql043Allocated: false,
   languages: [auditLanguage],
-  auditShard,
-  shardQlIds,
-  fullTrilingualCoverage: "EN_HI_PA_X_6_QL_SHARDS_EXECUTED_AS_BOUNDED_CI_INVOCATIONS",
+  auditQlNumber,
+  qlId,
+  fullTrilingualCoverage: "EN_HI_PA_X_42_QLS_EXECUTED_AS_INDEPENDENT_BOUNDED_PROCESSES",
   lifecycle: "REVIEW_ONLY",
   trilingualQlSamples,
   currentQuestionStudioRegistry: "BOUND_BY_SOURCE_AND_ADAPTER",
