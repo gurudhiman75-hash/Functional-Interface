@@ -112,13 +112,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Direction-Sense',
     chapterId: 'DIR-001',
-    status: 'DIVERSITY_PROVEN_NOVELTY_NOT_YET_PROVEN',
+    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
     evidence: [
-      'Final audit has generated-instance, multilingual and diagram-policy coverage.',
-      'No shared controlled-novel provenance proof has yet been recorded.',
+      'A solver-backed graph-to-relative-path composition combines existing DIR-QL-004 and DIR-QL-041 skills.',
+      'Primary and independent relative-path replays must agree before a candidate is emitted.',
+      'Exact Pythagorean distance families and misconception-labelled direction-distance options are preserved.',
+      'No permanent QL is allocated and Question Studio novelty mixing remains disabled.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Identify safe spatial/query compositions and prove they are more than route resampling.',
+    nextGate: 'Human-review the graph-relative-path learner surface before chapter-mix activation.',
   },
   {
     topicDirectory: 'InputOutput',
