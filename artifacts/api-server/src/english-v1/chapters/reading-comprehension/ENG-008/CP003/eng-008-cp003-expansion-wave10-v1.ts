@@ -1,0 +1,302 @@
+import type{Eng008Cp003PassageV1}from"./eng-008-cp003-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP003_EXPANSION_WAVE10_V1:readonly Eng008Cp003PassageV1[]=[
+{
+ id:"ENG008-BP-N13",title:"The Updated Scholarship Checklist",genre:"narrative",
+ text:`Mehak was applying for a college scholarship that required several documents. She downloaded the checklist from the scholarship portal and collected her income certificate, marksheet and bank details.
+
+Two days before the deadline, the college notice board displayed a shorter checklist. The new version no longer asked applicants to submit a printed bank passbook if the bank account had already been verified electronically.
+
+Mehak was unsure whether the notice board copy applied to her scholarship or to a different scheme. The heading looked similar, but the printed sheet did not show the portal reference number.
+
+She opened the official scholarship page and found a revision notice dated that morning. It confirmed the same change and listed the exact scheme code printed on her application. Her account status also showed “bank verification complete”.
+
+Mehak submitted the application without the passbook copy but kept a screenshot of the verification status. At the help desk, another student had brought the older full checklist and was surprised to learn that the requirement had changed.
+
+Staff explained that applicants were still allowed to attach the extra document, but it was no longer required for accounts already verified. They had posted the revised list to reduce unnecessary paperwork.
+
+The incident showed Mehak that a shorter checklist is not automatically incomplete. Requirements can change when another process begins supplying the same information.
+
+She also noticed that two details helped confirm the update: the revision date and the scheme code. A notice can look relevant because of similar wording, but a matching identifier is stronger evidence that it belongs to the same application process.
+
+The experience made her more careful about document lists near deadlines. Instead of assuming that the longest list was safest, she learned to check whether each requirement was still current and whether the system had already verified information through another channel.
+
+When the scholarship portal later sent a confirmation message, it listed the documents actually received and separately showed electronic bank verification. That final record matched what Mehak had submitted.`,
+ questions:[
+ q("N13-Q1","BP-F01","easy","Which document was no longer required for electronically verified accounts?","A printed bank passbook copy",["The marksheet","The income certificate","The scholarship form"],"The revised checklist removed the passbook-copy requirement when bank verification was already complete.","no longer asked applicants to submit a printed bank passbook"),
+ q("N13-Q2","BP-F02","medium","Why did Mehak check the official portal instead of relying only on the notice board?","The printed notice did not show the scheme reference number",["The college board was closed","The notice had no date at all","The portal required a new bank account"],"Mehak needed to confirm that the shorter checklist applied to her exact scholarship scheme.","did not show the portal reference number"),
+ q("N13-Q3","BP-F03","medium","What is the central idea of the passage?","Applicants should verify revised requirements using current identifiers and system status",["Longer checklists are always safer","Extra documents should never be submitted","Scholarship rules never change"],"The story shows how dates, scheme codes and verification status help distinguish an updated requirement from a possibly unrelated notice.","matching identifier is stronger evidence"),
+ q("N13-Q4","BP-F04","medium","Which statement is supported?","Applicants could still attach the extra passbook copy even though it was no longer required",["Bank verification had been cancelled","The income certificate was removed from the checklist","Mehak submitted after the deadline"],"Staff said the extra document remained allowed but unnecessary for verified accounts.","still allowed to attach the extra document"),
+ q("N13-Q5","BP-F05","easy","In context, “revision” is closest in meaning to:","an updated version or change",["a payment receipt","a rejected application","an exam result"],"The portal used the term for a newly changed checklist issued that morning.","revision notice"),
+ q("N13-Q6","BP-F06","easy","Which word is opposite in meaning to “required”?","optional",["necessary","compulsory","essential"],"Required means mandatory; optional means not compulsory.","no longer required"),
+ q("N13-Q7","BP-F07","medium","What does “bank verification complete” indicate?","The account details had already been confirmed electronically",["The scholarship had been paid","The bank account was closed","The passbook had been printed"],"The status explained why a paper copy was no longer necessary.","already been verified electronically"),
+ q("N13-Q8","BP-F08","medium","Why did the college shorten the checklist?","Electronic verification made one paper document unnecessary",["Applicants requested fewer marksheets","The scholarship budget was reduced","The portal could not accept documents"],"The revised process avoided duplicate evidence for information already confirmed digitally.","reduce unnecessary paperwork"),
+ q("N13-Q9","BP-F09","medium","Which title best suits the passage?","The Updated Scholarship Checklist",["The Missing Bank Account","A New College Notice Board","The Late Scholarship Payment"],"The passage centres on verifying a revised document requirement for a scholarship application.","revised checklist")
+ ]
+},
+{
+ id:"ENG008-BP-N14",title:"The Changed Airport Gate",genre:"narrative",
+ text:`Arjun reached the airport early for a morning flight. His printed boarding pass showed Gate 18, so after security he walked toward that area and sat near the display.
+
+About forty minutes before departure, his airline app sent a notification saying the flight would now leave from Gate 24. The large screen above Arjun's seating area still showed Gate 18.
+
+He checked the flight number carefully because another flight from the same airline was departing at a similar time. The notification matched his flight number and destination. A smaller screen closer to the central concourse also showed Gate 24 and marked the update as recent.
+
+Arjun walked to Gate 24, where staff announced that the aircraft had been moved because of a late-arriving flight at Gate 18. Several passengers arrived later after waiting for the older display to refresh.
+
+The gate agent explained that airport systems can update at slightly different times. Boarding passes printed earlier do not physically change, and individual screens may receive updates after the airline's central system.
+
+Arjun noticed that the newest information did not make his boarding pass useless. His name, flight number and seat remained correct; only the gate assignment had changed.
+
+He also learned why matching the flight number mattered. A nearby message saying “Gate 24” would not have been enough unless it clearly referred to his own flight.
+
+Before boarding, the airline app showed the final gate and a timestamp for the update. Arjun saved the notification until he was on the aircraft.
+
+The experience showed him how to deal with conflicting travel information: confirm the exact flight identity, prefer the most recent official update and seek a second current source when an older display disagrees.
+
+The airport later refreshed the original screen, but by then Arjun understood that a delayed display is not necessarily false in general; it may simply be behind the newest operational change.`,
+ questions:[
+ q("N14-Q1","BP-F01","easy","From which gate did Arjun's flight finally depart?","Gate 24",["Gate 18","Gate 14","Gate 28"],"The app, central screen and gate staff all confirmed the move to Gate 24.","leave from Gate 24"),
+ q("N14-Q2","BP-F02","medium","Why did Arjun check the flight number before acting on the notification?","Another flight from the same airline was leaving at a similar time",["His boarding pass had no name","The destination had changed","Gate 24 was closed"],"Matching the exact flight prevented Arjun from applying another flight's gate information to his journey.","another flight from the same airline"),
+ q("N14-Q3","BP-F03","medium","What is the central idea of the passage?","When travel information conflicts, the latest official update should be matched to the exact journey and cross-checked",["Printed boarding passes are unreliable","Airport screens should be ignored","Gate changes always indicate delay"],"Arjun resolves the conflict by checking flight identity, recency and another official source.","prefer the most recent official update"),
+ q("N14-Q4","BP-F04","medium","Which statement is supported?","The printed boarding pass still had correct seat and flight details",["Arjun changed flights","The app showed Gate 18 throughout","Every airport screen updated simultaneously"],"The passage says only the gate assignment had changed.","name, flight number and seat remained correct"),
+ q("N14-Q5","BP-F05","easy","In context, “concourse” is closest in meaning to:","a large public area connecting airport gates",["the aircraft cockpit","the luggage belt","the runway"],"Arjun checked a screen in the central passenger area before walking to the new gate.","central concourse"),
+ q("N14-Q6","BP-F06","easy","Which word is opposite in meaning to “recent”?","old",["new","current","latest"],"Recent means new or not long ago; old is the opposite.","marked the update as recent"),
+ q("N14-Q7","BP-F07","medium","What does the timestamp help show?","When the gate information was last updated",["When Arjun bought the ticket","How long security took","When the aircraft was built"],"The timestamp gives evidence of how current the displayed information is.","timestamp for the update"),
+ q("N14-Q8","BP-F08","medium","Why might the screen near Gate 18 have remained wrong for a short time?","Different airport systems can update at different speeds",["Gate 18 was removed permanently","The airline had cancelled the flight","Arjun read the wrong date"],"The agent explained that display systems do not always refresh simultaneously.","update at slightly different times"),
+ q("N14-Q9","BP-F09","medium","Which title best suits the passage?","The Changed Airport Gate",["The Missing Boarding Pass","A Delayed Security Check","The Empty Aircraft"],"The story centres on verifying a last-minute gate change.","flight would now leave from Gate 24")
+ ]
+},
+{
+ id:"ENG008-BP-S12",title:"Shared E-Bike Dock Status",genre:"social",
+ text:`A residential complex introduced six shared electric bicycles for short trips to a nearby market and metro station. Residents unlocked a bicycle through an app and returned it to one of two charging docks.
+
+During the first month, users complained that a bicycle sometimes appeared “available” in the app even though its battery was nearly empty. The app originally treated every bicycle sitting in a dock as ready for use.
+
+The committee changed the status system. A green symbol meant the bicycle was docked and had enough charge for normal use. An amber symbol meant it was charging and should be used only if the trip was short. A red symbol meant a fault had been reported.
+
+Residents were also asked to report simple problems such as a loose seat or weak brake through the app. They did not have to diagnose the technical cause.
+
+The new status reduced cases in which a rider unlocked a bicycle and immediately returned it because of low charge. It also helped the maintenance volunteer decide which bicycles needed attention.
+
+One problem remained: a bicycle could be physically returned without the dock registering the connection. In that case, the app still showed it as in use.
+
+The committee added a confirmation light on the dock and asked riders to wait for the light before walking away. If it failed to appear, they could use a support button in the app.
+
+The system also tracked charging duration. Committee members found that one dock charged more slowly during hot afternoons because it was exposed to direct sun. A shade cover was added, and the difference became smaller.
+
+The trial showed that “available” can hide several conditions. Location, battery level and mechanical status all matter when deciding whether a shared bicycle is actually ready for the next rider.
+
+The committee chose not to display every technical detail. Riders mainly needed to know whether the bicycle was usable, charging or awaiting maintenance. More detailed diagnostic information remained visible only to the maintenance volunteer.
+
+The project therefore became less about counting bicycles and more about communicating readiness accurately at the moment someone wanted to borrow one.`,
+ questions:[
+ q("S12-Q1","BP-F01","easy","What did a green symbol mean?","The bicycle was docked and sufficiently charged for normal use",["The bicycle had a reported fault","The bicycle was still being ridden","The dock was offline"],"Green represented a bike ready for ordinary borrowing.","enough charge for normal use"),
+ q("S12-Q2","BP-F02","medium","Why was the original “available” status misleading?","It treated every docked bicycle as ready regardless of battery level",["It showed bicycles in another city","It hid the location of the docks","It displayed maintenance staff names"],"A physically docked bike could still be unsuitable for a normal trip if charge was low.","treated every bicycle sitting in a dock as ready"),
+ q("S12-Q3","BP-F03","medium","What is the central idea of the passage?","Shared-resource status should reflect actual readiness, not just physical presence",["Every bicycle needs a technician beside it","Battery level is the only important condition","Apps should show all engineering data"],"The project expands availability from location to charge, faults and confirmed dock connection.","communicating readiness accurately"),
+ q("S12-Q4","BP-F04","medium","Which statement is supported?","A shade cover improved charging performance at one dock",["Every bike charged at the same speed","The app removed the amber status","Residents had to diagnose brake faults"],"The slower hot-afternoon dock improved after shading reduced heat exposure.","shade cover was added"),
+ q("S12-Q5","BP-F05","easy","In context, “diagnose” is closest in meaning to:","identify the technical cause of a problem",["unlock a bicycle","report a symptom","reserve a dock"],"Residents only described visible problems; they were not expected to determine the underlying mechanical cause.","diagnose the technical cause"),
+ q("S12-Q6","BP-F06","easy","Which word is opposite in meaning to “ready”?","unavailable",["prepared","usable","available"],"A bicycle not ready for use is effectively unavailable to the next rider.","actually ready"),
+ q("S12-Q7","BP-F07","medium","What does the confirmation light indicate?","The dock has successfully registered the returned bicycle",["The battery is fully charged","The bicycle has no mechanical fault","The user has paid a fee"],"The light verifies that the return connection has been recognised by the system.","wait for the light before walking away"),
+ q("S12-Q8","BP-F08","medium","Why did detailed diagnostic information remain hidden from ordinary riders?","Riders mainly needed a simple readiness status, while maintenance staff needed technical detail",["The app could not store data","Faults were kept secret","Residents were not allowed to report problems"],"The system separated user-facing information from maintenance information according to purpose.","Riders mainly needed to know whether"),
+ q("S12-Q9","BP-F09","medium","Which title best suits the passage?","Shared E-Bike Dock Status",["Building a New Metro Station","Why Bicycles Need No Charging","The Closed Market Road"],"The passage centres on improving how a shared e-bike system communicates readiness.","status system")
+ ]
+},
+{
+ id:"ENG008-BP-S13",title:"Community Compost Bin Tags",genre:"social",
+ text:`A neighbourhood association placed compost bins near three apartment blocks so residents could separate food scraps from ordinary waste. The bins were collected twice a week and taken to a local composting site.
+
+During the first month, workers found plastic bags and other non-compostable items mixed with the food waste. Residents said the printed instructions on the side of the bin were too long and difficult to read at night.
+
+The association replaced the paragraph with three large examples of accepted items and three examples of items that should stay out. It also added a coloured tag beside the lid.
+
+A green tag meant the bin was open for normal use. A yellow tag meant collection was due soon and residents should use another bin if possible. A red tag meant contamination had been found and the bin was temporarily closed for sorting.
+
+Contamination fell after the new signs were introduced. Workers also reported that residents asked fewer basic questions about what could go inside.
+
+The coloured tags created one small problem. A tag sometimes remained red after workers had already cleaned the bin. The association therefore made the collection team responsible for resetting the tag before leaving.
+
+Residents suggested using cameras to identify people who placed incorrect waste in the bins. The committee rejected the idea because it considered the privacy cost too high for the problem being addressed.
+
+Instead, it posted weekly contamination examples without naming any household. The purpose was to improve sorting behaviour rather than punish individuals.
+
+The association also learned that timing mattered. Bins near the largest block filled faster after weekends, so collection frequency was adjusted there.
+
+The project showed that waste separation depends on more than providing a container. People need simple instructions, accurate status and collection schedules that reflect actual use.
+
+The tags did not replace the written rules; they answered a different question. The examples explained what belonged in the bin, while the tag showed whether the bin was currently ready to accept waste.
+
+By separating content rules from current status, the system became easier to understand at the moment residents were making a disposal decision.`,
+ questions:[
+ q("S13-Q1","BP-F01","easy","What did a red tag mean?","The bin was temporarily closed because contamination had been found",["The bin was empty","Collection had just finished","Only plastic could be added"],"Red signalled that the bin should not be used until sorting was completed.","temporarily closed for sorting"),
+ q("S13-Q2","BP-F02","medium","Why were the original instructions replaced?","They were too long and difficult to read quickly, especially at night",["They contained no accepted items","Workers wanted smaller bins","Residents preferred cameras"],"The association simplified the guidance to visual examples because the paragraph was not practical at the point of disposal.","too long and difficult to read"),
+ q("S13-Q3","BP-F03","medium","What is the central idea of the passage?","Effective shared waste systems need simple sorting guidance, current bin status and suitable collection timing",["Cameras are necessary for waste control","Colour tags can replace all instructions","Every bin should be collected at the same frequency"],"The project improves behaviour by addressing information and operational factors together.","simple instructions, accurate status and collection schedules"),
+ q("S13-Q4","BP-F04","medium","Which statement is supported?","The collection team became responsible for resetting tags after cleaning",["Residents were fined for every mistake","All bins filled at the same rate","Cameras were installed"],"The change prevented old red warnings from remaining after a bin was ready again.","responsible for resetting the tag"),
+ q("S13-Q5","BP-F05","easy","In context, “contamination” is closest in meaning to:","unwanted material mixed with the compost waste",["a full bin","bad weather","slow collection"],"Plastic and other non-compostable items were the contamination problem.","plastic bags and other non-compostable items"),
+ q("S13-Q6","BP-F06","easy","Which word is opposite in meaning to “accepted”?","rejected",["allowed","approved","permitted"],"Accepted items are allowed; rejected items are not.","accepted items"),
+ q("S13-Q7","BP-F07","medium","What does the yellow tag indicate?","The bin is nearly due for collection and another bin may be preferable",["The bin contains hazardous waste","The bin has just been cleaned","The bin is permanently closed"],"Yellow communicated an approaching capacity or collection limit, not a contamination fault.","collection was due soon"),
+ q("S13-Q8","BP-F08","medium","Why did the committee reject cameras?","It judged the privacy cost too high for the benefit",["Cameras cannot work outdoors","Workers refused to view video","Residents wanted longer instructions"],"The association preferred anonymous education over individual surveillance.","privacy cost too high"),
+ q("S13-Q9","BP-F09","medium","Which title best suits the passage?","Community Compost Bin Tags",["The Apartment Recycling Ban","A New Waste Truck","Why Food Scraps Are Valuable"],"The passage centres on tags and clearer guidance for shared compost bins.","coloured tag beside the lid")
+ ]
+},
+{
+ id:"ENG008-BP-SC11",title:"Testing Phone Battery Charging Habits",genre:"science",
+ text:`A student science club compared how quickly four identical smartphones warmed during charging under different conditions. The students were interested in temperature, not long-term battery health.
+
+All phones began near the same battery level and used the same model of charger. One phone charged on an open desk, one was covered by a thick cloth, one was used continuously for video, and one charged inside a cool room near a fan.
+
+Temperature was measured every five minutes with the same external sensor. The covered phone became warmest, while the phone near the fan stayed coolest. The phone playing video also warmed more than the phone resting on the desk.
+
+The club repeated the trial on three afternoons. The general pattern remained similar, although exact temperatures changed with room conditions.
+
+Students avoided saying that the coolest phone would necessarily have the longest battery life. They had not measured battery capacity over months, and the external sensor did not record internal cell temperature directly.
+
+They also noticed that the phone near the fan charged slightly more slowly. The club could not tell whether airflow caused the difference or whether normal variation between devices was responsible.
+
+In a follow-up, the students swapped the phones between conditions so that one particular device was not always assigned to the same setup. The temperature pattern remained broadly similar.
+
+This strengthened the idea that the charging environment, rather than one unusual phone, contributed to the observed differences.
+
+The club also recorded screen use because active video created additional heat from the processor and display. That made the video condition different in more than one way from the resting phone.
+
+Their teacher used this point to discuss experimental interpretation. A result can be real without answering every possible question. The trial showed that covering a charging phone and using it heavily were associated with higher external temperature under the tested conditions.
+
+It did not prove a precise effect on long-term battery damage, charging efficiency or safety.
+
+The students planned a longer project using more devices and internal diagnostic readings where available. They also wanted to test different room temperatures.
+
+The main lesson was to keep the conclusion matched to what had actually been measured. Temperature data supported a temperature claim; it did not automatically support every claim people make about battery health.`,
+ questions:[
+ q("SC11-Q1","BP-F01","easy","Which charging condition produced the highest external temperature?","The phone covered by a thick cloth",["The phone near the fan","The phone resting on the desk","All phones were equal"],"Across repeated trials, the covered phone became the warmest.","covered phone became warmest"),
+ q("SC11-Q2","BP-F02","medium","Why did the club swap phones between conditions?","To reduce the chance that one unusual device was causing the pattern",["To change the charger model","To measure battery capacity over years","To increase screen brightness"],"Swapping devices tests whether the condition effect persists independently of a specific phone.","one particular device was not always assigned"),
+ q("SC11-Q3","BP-F03","medium","What is the central idea of the passage?","The experiment found temperature differences but kept conclusions limited to what was actually measured",["The coolest phone will always last longest","Charging near a fan is unsafe","External temperature proves battery damage"],"The passage repeatedly separates observed heat patterns from unmeasured long-term outcomes.","keep the conclusion matched to what had actually been measured"),
+ q("SC11-Q4","BP-F04","medium","Which statement is supported?","Video use increased temperature compared with resting on the desk",["The fan phone charged fastest","Internal cell temperature was measured directly","Battery health improved during the trial"],"The active phone warmed more than the resting phone under otherwise similar charging.","phone playing video also warmed more"),
+ q("SC11-Q5","BP-F05","easy","In context, “capacity” is closest in meaning to:","the amount of charge a battery can hold",["the number of phones in a room","the speed of a fan","the charger cable length"],"Long-term battery capacity refers to how much energy the battery can store.","battery capacity over months"),
+ q("SC11-Q6","BP-F06","easy","Which word is opposite in meaning to “external”?","internal",["outside","surface","visible"],"External refers to the outside; internal refers to the inside.","external sensor"),
+ q("SC11-Q7","BP-F07","medium","What does “general pattern remained similar” mean?","The relative temperature ordering was broadly repeated even when exact values changed",["Every reading was identical","All devices charged at the same speed","Room temperature never changed"],"The experiment reproduced the same broad relationships across days and device swaps.","general pattern remained similar"),
+ q("SC11-Q8","BP-F08","medium","Why was the video condition harder to interpret than the resting condition?","Video use added processor and screen heat as well as charging heat",["The phone had a different charger","The battery started empty","No temperature was recorded"],"More than one factor differed, making the source of additional heat less isolated.","additional heat from the processor and display"),
+ q("SC11-Q9","BP-F09","medium","Which title best suits the passage?","Testing Phone Battery Charging Habits",["Repairing a Broken Smartphone","Why Batteries Never Heat","Building a Cooling Fan"],"The passage describes a controlled comparison of phone temperatures under different charging-use conditions.","compared how quickly four identical smartphones warmed")
+ ]
+},
+{
+ id:"ENG008-BP-SC12",title:"Comparing Insulated Cups",genre:"science",
+ text:`A school physics group compared three insulated cups to see how quickly hot water cooled. The cups were made of stainless steel, thick plastic and ceramic with an insulating sleeve.
+
+Students poured the same volume of water at nearly the same starting temperature into each cup and covered them with fitted lids. Temperature was recorded every ten minutes for one hour.
+
+The steel cup kept the water warmest at the end of the hour. The plastic cup was close behind, while the ceramic cup cooled more quickly.
+
+At first, the students wanted to conclude that steel was always the best material. Their teacher pointed out that the cups differed in more than material. Wall thickness, lid fit, shape and air gaps could also affect heat loss.
+
+The group therefore described the result more carefully: among the three complete cups tested, the steel cup retained the most heat.
+
+They repeated the trial after deliberately leaving each lid slightly open. All three cups cooled faster, and the gap between them became smaller.
+
+This suggested that lid condition could be a large part of overall heat retention. A well-insulated wall cannot prevent heat escaping through a poorly covered opening.
+
+Students also noticed that the ceramic cup had the largest outer surface area. They measured dimensions and added them to their report rather than pretending that material alone explained every difference.
+
+A second group asked whether touching the cups changed the results. The experimenters had handled each cup only briefly while taking readings, but they agreed that repeated handling could transfer heat.
+
+The class decided that a stronger material comparison would require cups with more closely matched size, shape and lid design.
+
+The experiment still had value. It demonstrated how a product-level comparison differs from a pure material test.
+
+Consumers buy complete cups, so comparing finished products can be useful. Scientists asking which material insulates best would need tighter control of the other design features.
+
+The final report therefore separated two questions: “Which of these cups kept water warm longest?” and “Which material is the best insulator?” Their data answered the first much better than the second.`,
+ questions:[
+ q("SC12-Q1","BP-F01","easy","Which cup kept water warmest after one hour?","The stainless-steel cup",["The ceramic cup","All cups were equal","The plastic cup by a large margin"],"Among the three tested products, the steel cup had the highest final water temperature.","steel cup kept the water warmest"),
+ q("SC12-Q2","BP-F02","medium","Why did the teacher reject the conclusion that steel is always the best material?","The cups differed in design features besides material",["Steel cannot hold hot water","The thermometer was broken","Only one temperature was recorded"],"Shape, wall thickness, lid fit and other factors could contribute to the observed difference.","differed in more than material"),
+ q("SC12-Q3","BP-F03","medium","What is the central idea of the passage?","A finished-product comparison can be useful without proving which material alone is best",["Material never affects insulation","Lids do not matter","The ceramic cup should be redesigned"],"The class distinguishes a practical product result from a controlled material claim.","data answered the first much better than the second"),
+ q("SC12-Q4","BP-F04","medium","Which statement is supported?","Leaving lids partly open made all cups cool faster",["The temperature gap became larger","The ceramic cup had the smallest surface area","Students handled cups continuously"],"The follow-up directly showed faster cooling with partly open lids.","All three cups cooled faster"),
+ q("SC12-Q5","BP-F05","easy","In context, “retain” is closest in meaning to:","keep rather than lose",["measure","produce","increase"],"Heat retention describes how well the cup keeps thermal energy from escaping.","retained the most heat"),
+ q("SC12-Q6","BP-F06","easy","Which word is opposite in meaning to “briefly”?","continuously",["quickly","shortly","momentarily"],"Briefly means for a short time; continuously means without stopping.","handled each cup only briefly"),
+ q("SC12-Q7","BP-F07","medium","What does the smaller gap with open lids suggest?","Lid condition strongly affected overall heat loss",["Material no longer mattered at all","Water volume changed","The thermometer became less accurate"],"Opening the lids increased a common heat-loss path and reduced differences among the cups.","lid condition could be a large part"),
+ q("SC12-Q8","BP-F08","medium","Why did students add cup dimensions to the report?","Size and surface area could be competing explanations for cooling differences",["The cups had no labels","Dimensions determine water colour","The class needed a price comparison"],"Recording dimensions acknowledged design factors beyond material.","largest outer surface area"),
+ q("SC12-Q9","BP-F09","medium","Which title best suits the passage?","Comparing Insulated Cups",["Making Stainless Steel","Why Ceramic Cannot Hold Water","A Lesson on Thermometer Repair"],"The passage describes a comparative cooling experiment using three insulated cups.","compared three insulated cups")
+ ]
+},
+{
+ id:"ENG008-BP-B14",title:"A Store Introduces Reserve Stock Alerts",genre:"business",
+ text:`A small electronics retailer stocked popular chargers, cables and power banks in both its shop and a back-room reserve. Staff used the reserve when the shelf quantity became low.
+
+The original inventory system showed only total stock. A product could appear to have twelve units available even when ten were in sealed reserve boxes intended for weekend demand.
+
+Sales staff sometimes promised a customer that an item was available, only to discover that the shop manager did not want the reserve opened for a single weekday sale.
+
+The retailer changed the display so staff could see “selling stock”, “reserve stock” and “incoming stock” separately. Customers still saw only whether an item was available for immediate purchase.
+
+The system also introduced a low-stock alert when selling stock fell below a set level. The alert did not automatically move reserve units; a supervisor decided whether current demand justified releasing them.
+
+During the first month, fewer customers were told that an item was available when it could not actually be sold immediately. Staff also found it easier to explain why an online quantity differed from the total physical inventory.
+
+The retailer then discovered that one threshold did not suit every product. Cheap charging cables sold quickly and needed a higher buffer, while expensive power banks moved slowly and required less selling stock.
+
+Managers therefore set thresholds by product category rather than applying the same number to everything.
+
+Incoming deliveries added another complication. A supplier might confirm shipment but then arrive a day late. The retailer labelled incoming quantities with an expected date instead of treating them as present stock.
+
+The system improved clarity but did not remove judgement. Managers still had to decide when to release reserve items and how much buffer to keep.
+
+The store also tracked how often low-stock alerts were triggered without resulting in lost sales. Too many unnecessary alerts caused staff to stop paying attention.
+
+For that reason, thresholds were reviewed after several weeks using actual sales patterns.
+
+The broader lesson was that “stock” can mean different things depending on the decision. Total ownership matters for accounting, but immediate selling stock matters for what a customer can buy now. Reserve and incoming quantities answer still different questions.
+
+By separating those states, the retailer reduced false availability promises without pretending that inventory management could be fully automated.`,
+ questions:[
+ q("B14-Q1","BP-F01","easy","Why could total stock be misleading to sales staff?","Some units were reserved and not intended for immediate sale",["The system counted other stores","Products had no barcodes","All stock was damaged"],"A high total did not mean every unit was available to sell at that moment.","ten were in sealed reserve boxes"),
+ q("B14-Q2","BP-F02","medium","Why did the retailer use different low-stock thresholds by product category?","Products sold at different speeds and needed different buffers",["Every category had the same demand","Thresholds changed supplier prices","Expensive products require more alerts"],"Fast-moving cables needed more immediate stock than slower power banks.","sold quickly and needed a higher buffer"),
+ q("B14-Q3","BP-F03","medium","What is the central idea of the passage?","Inventory systems should distinguish stock states according to the decision being made",["Total stock is the only useful measure","Reserve stock should never be sold","Automated alerts should control inventory completely"],"The store separates immediate, reserve and incoming quantities because they answer different operational questions.","stock can mean different things depending on the decision"),
+ q("B14-Q4","BP-F04","medium","Which statement is supported?","Incoming stock was shown with an expected arrival date",["Supplier shipments were always on time","Customers saw all reserve quantities","Low-stock alerts automatically opened reserve boxes"],"The store avoided treating expected deliveries as if they were already physically available.","labelled incoming quantities with an expected date"),
+ q("B14-Q5","BP-F05","easy","In context, “buffer” is closest in meaning to:","extra stock kept to absorb demand or delay",["a sales receipt","a supplier discount","a product category"],"The higher buffer for fast-moving cables protected against running out between replenishments.","higher buffer"),
+ q("B14-Q6","BP-F06","easy","Which word is opposite in meaning to “incoming”?","outgoing",["arriving","expected","delivered"],"Incoming stock is coming in; outgoing is moving out.","incoming stock"),
+ q("B14-Q7","BP-F07","medium","What does “selling stock” refer to?","Units available for immediate customer purchase",["All products owned by the company","Only goods still with suppliers","Items reserved for weekends"],"The display separated units that staff could sell now from reserve and expected quantities.","immediate selling stock"),
+ q("B14-Q8","BP-F08","medium","Why did managers review alert thresholds after several weeks?","Too many unnecessary alerts could cause staff to ignore them",["Alerts changed the product price","Supplier dates became exact","Reserve stock disappeared"],"The retailer wanted signals that were frequent enough to help but not so frequent that they lost attention.","stop paying attention"),
+ q("B14-Q9","BP-F09","medium","Which title best suits the passage?","A Store Introduces Reserve Stock Alerts",["The Electronics Store Closes","A Supplier Cancels All Orders","Why Cables Should Cost More"],"The passage centres on separating sellable, reserve and incoming inventory with category-based alerts.","Reserve Stock Alerts")
+ ]
+},
+{
+ id:"ENG008-BP-B15",title:"Online Grocery Substitution Choices",genre:"business",
+ text:`An online grocery service allowed customers to choose what should happen if an ordered item was unavailable. The original system offered only two options: “substitute” or “refund”.
+
+Customers complained that the substitute option was too broad. Someone ordering a particular brand of tea might accept another brand, but a customer with a dietary restriction might not want any replacement.
+
+The service introduced more specific choices. Customers could allow “same product, different brand”, “similar item within ₹20”, “contact me before replacing” or “refund only”.
+
+During the first month, substitution acceptance increased and the number of support complaints about unwanted replacements fell.
+
+The new system created one challenge for fast deliveries. If a customer selected “contact me”, the picker could lose several minutes waiting for a reply. The service added a five-minute response window and showed customers when the picker was likely to contact them.
+
+If no reply arrived within the window, the app followed a fallback choice selected at checkout.
+
+The service also found that product categories behaved differently. Brand flexibility was high for ordinary table salt and cleaning cloths but much lower for infant food and allergy-sensitive products.
+
+Managers therefore avoided using one default substitution rule for every category. Some sensitive categories began with “refund only” unless the customer actively chose otherwise.
+
+Price was another issue. A substitute could be more expensive than the original item. The service capped automatic substitutions at the amount the customer had approved and displayed the final change before payment was completed.
+
+The company tracked not only how many substitutions were made but also how many were kept rather than later refunded. A high substitution rate would be meaningless if customers regularly rejected the replacements.
+
+Staff also reviewed picker comments. Some items looked similar in the catalogue but differed in size or ingredients in ways that mattered to customers.
+
+The trial showed that substitution is a decision under uncertainty. The service cannot know every preference from the original order alone.
+
+Better results came from asking customers what types of trade-offs they were willing to accept and making the fallback behaviour clear before the item went out of stock.
+
+The company concluded that a good substitution system should reduce delay without pretending that convenience is more important than dietary needs, price limits or personal preference.`,
+ questions:[
+ q("B15-Q1","BP-F01","easy","Why was the original “substitute” option considered too broad?","Customers differed in what kinds of replacements they would accept",["No products ever went out of stock","Refunds were unavailable","Pickers could not see item names"],"A single yes/no choice could not represent brand, dietary and price preferences.","too broad"),
+ q("B15-Q2","BP-F02","medium","Why was a response window added for “contact me” choices?","Waiting indefinitely for a reply could delay fast delivery",["Customers wanted longer invoices","Pickers could not send messages","The service removed fallback choices"],"The system needed a limit so unresolved contact attempts did not block the order for too long.","lose several minutes waiting for a reply"),
+ q("B15-Q3","BP-F03","medium","What is the central idea of the passage?","Substitution systems work better when customers define acceptable trade-offs and clear fallback rules",["Every unavailable item should be refunded","Brand is the only factor in substitution","Automatic replacement is always best"],"The service improves outcomes by letting customers specify limits on brand, price and contact.","asking customers what types of trade-offs"),
+ q("B15-Q4","BP-F04","medium","Which statement is supported?","Sensitive product categories sometimes defaulted to refund unless the customer chose otherwise",["All categories used the same substitution rule","Infant food had the highest brand flexibility","Automatic substitutes could exceed any price"],"The company used more conservative defaults where product differences mattered more.","refund only unless the customer actively chose otherwise"),
+ q("B15-Q5","BP-F05","easy","In context, “fallback” is closest in meaning to:","the backup action used if the preferred process cannot be completed",["the original item price","a customer complaint","a delivery address"],"The fallback choice determines what happens if the customer does not answer in time.","fallback choice selected at checkout"),
+ q("B15-Q6","BP-F06","easy","Which word is opposite in meaning to “sensitive” in this context?","ordinary",["delicate","restricted","special"],"Sensitive categories require extra care; ordinary categories are less constrained.","sensitive categories"),
+ q("B15-Q7","BP-F07","medium","What does the substitution price cap do?","Prevents automatic replacements from exceeding the amount the customer approved",["Guarantees the substitute is cheaper","Removes all price differences","Changes the delivery fee"],"The cap protects the customer's stated price limit.","capped automatic substitutions"),
+ q("B15-Q8","BP-F08","medium","Why did the company track whether substituted items were later kept?","A substitution count alone would not show whether customers actually accepted the replacements",["Returns never occur","Picker speed was the only goal","Kept items have no price"],"Longer-term acceptance is a stronger measure of useful substitution than raw replacement frequency.","meaningless if customers regularly rejected"),
+ q("B15-Q9","BP-F09","medium","Which title best suits the passage?","Online Grocery Substitution Choices",["The Grocery Service Stops Delivering","Why Infant Food Is Unavailable","A New Delivery Vehicle"],"The passage evaluates how an online grocer gives customers more control over replacement decisions.","substitution choices")
+ ]
+}
+] as const;
