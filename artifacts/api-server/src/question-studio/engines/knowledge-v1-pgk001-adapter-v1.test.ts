@@ -8,6 +8,13 @@ import {
   isPgk001QuestionStudioRequestV1,
   knowledgeV1Pgk001QuestionStudioAdapterV1,
 } from "./knowledge-v1-pgk001-adapter-v1";
+import {
+  PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
+  PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1,
+  isPgk001MatchFollowingQuestionStudioRequestV1,
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1,
+} from "./knowledge-v1-pgk001-match-following-adapter-v1";
 
 const pkg = PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1;
 
@@ -247,3 +254,185 @@ await assert.rejects(
   }),
   /only supports review-only runtime/i,
 );
+
+const mtfPkg = PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1;
+assert.equal(mtfPkg.packageId, "PGK-001-MTF-V1");
+assert.equal(mtfPkg.engineId, "knowledge-v1");
+assert.equal(mtfPkg.subject, "Static GK");
+assert.equal(mtfPkg.topic, "Punjab GK");
+assert.equal(mtfPkg.subtopic, "Match the Following");
+assert.equal(mtfPkg.enabled, true);
+assert.equal(mtfPkg.lifecycleStage, "REVIEW_ONLY");
+assert.equal(mtfPkg.questionBankWritable, false);
+assert.equal(mtfPkg.testEligible, false);
+assert.equal(mtfPkg.mockTestEligible, false);
+assert.equal(mtfPkg.publiclyPublishable, false);
+assert.equal(mtfPkg.automaticStudentPublication, false);
+assert.equal(mtfPkg.productionReleaseAuthorized, false);
+assert.deepEqual(mtfPkg.supportedLanguages, ["en", "hi", "pa"]);
+assert.deepEqual(mtfPkg.supportedDifficulties, ["Medium", "Hard"]);
+assert.equal(mtfPkg.cpIds.length, 12);
+assert.equal(new Set(mtfPkg.cpIds).size, 12);
+assert.equal(mtfPkg.metadata?.matchingConceptCount, 24);
+assert.equal(mtfPkg.metadata?.reviewSurfaceCount, 72);
+assert.equal(mtfPkg.metadata?.frozenCoreQuestionCount, 1092);
+assert.equal(mtfPkg.metadata?.frozenCoreModified, false);
+assert.equal(
+  mtfPkg.metadata?.registrationAuthorityId,
+  PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
+);
+
+assert.equal(
+  isPgk001MatchFollowingQuestionStudioRequestV1({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  }),
+  true,
+);
+assert.equal(
+  isPgk001MatchFollowingQuestionStudioRequestV1({
+    canonicalProblemId: "PGK-001-MTF-017",
+  }),
+  true,
+);
+assert.equal(
+  isPgk001MatchFollowingQuestionStudioRequestV1({ packageId: "PGK-001" }),
+  false,
+);
+
+const packagesWithMatching = knowledgeV1QuestionStudioAdapter.listPackages();
+assert.equal(
+  packagesWithMatching.some((p) => p.packageId === PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1),
+  true,
+);
+assert.equal(
+  new Set(packagesWithMatching.map((p) => p.packageId)).size,
+  packagesWithMatching.length,
+);
+
+const mtfRequest = {
+  packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  language: "en" as const,
+  difficulty: "Mixed" as const,
+  count: 24,
+  seed: "pgk001-mtf-integration-contract",
+};
+const mtfFirst = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate(mtfRequest);
+const mtfReplay = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate(mtfRequest);
+assert.equal(mtfFirst.questions.length, 24);
+assert.deepEqual(mtfFirst, mtfReplay);
+assert.equal(new Set(mtfFirst.questions.map((q) => q.questionId)).size, 24);
+assert.equal(PGK_001_QUESTION_STUDIO_CORPUS_V1.length, 1092);
+
+for (const q of mtfFirst.questions as any[]) {
+  assert.equal(q.packageId, PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1);
+  assert.equal(q.questionType, "Match the Following");
+  assert.equal(q.language, "en");
+  assert.equal(q.listI.length, 4);
+  assert.equal(q.listII.length, 4);
+  assert.equal(q.options.length, 4);
+  assert.equal(new Set(q.options).size, 4);
+  assert.equal(q.options[q.correctIndex], q.canonicalAnswer);
+  assert.equal(q.renderer.kind, "MATCH_LISTS");
+  assert.equal(q.registrationStatus, "REGISTERED_REVIEW_ONLY");
+  assert.equal(
+    q.registrationAuthorityId,
+    PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
+  );
+  assert.equal(q.authoringReviewApproved, true);
+  assert.equal(q.formatReviewApproved, true);
+  assert.equal(q.runtimeRegistered, true);
+  assert.equal(q.readOnly, true);
+  assert.equal(q.additiveExtension, true);
+  assert.equal(q.frozenCoreQuestionCount, 1092);
+  assert.equal(q.frozenCoreModified, false);
+  assert.equal(q.productionReleased, false);
+  assert.equal(q.questionBankWritable, false);
+  assert.equal(q.testEligible, false);
+  assert.equal(q.mockTestEligible, false);
+  assert.equal(q.publiclyPublishable, false);
+}
+
+const mtfComposite = await knowledgeV1QuestionStudioAdapter.generate({
+  ...mtfRequest,
+  language: "pa",
+  count: 6,
+  seed: "pgk001-mtf-composite-pa",
+});
+assert.equal(mtfComposite.questions.length, 6);
+assert.equal(
+  mtfComposite.questions.every(
+    (q) =>
+      q.packageId === PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1 &&
+      q.language === "pa" &&
+      q.questionType === "Match the Following",
+  ),
+  true,
+);
+
+const mtfHindi = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+  packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  language: "hi",
+  canonicalProblemId: "PGK-001-MTF-017",
+  count: 1,
+  seed: "pgk001-mtf-hindi-specific",
+});
+assert.equal(mtfHindi.questions.length, 1);
+assert.equal(mtfHindi.questions[0]?.canonicalProblemId, "PGK-001-MTF-017");
+assert.equal(mtfHindi.questions[0]?.language, "hi");
+assert.equal(mtfHindi.questions[0]?.cpId, "PGK-001-CP-022");
+
+const mtfCp020 = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+  packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  canonicalProblemId: "PGK-001-CP-020",
+  count: 2,
+  seed: "pgk001-mtf-cp020",
+});
+assert.equal(mtfCp020.questions.length, 2);
+assert.equal(mtfCp020.questions.every((q) => q.cpId === "PGK-001-CP-020"), true);
+
+const mtfHard = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+  packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  difficulty: "Hard",
+  count: 12,
+  seed: "pgk001-mtf-hard",
+});
+assert.equal(mtfHard.questions.every((q) => q.difficulty === "Hard"), true);
+
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    difficulty: "Easy",
+  }),
+  /supports Medium, Hard, or Mixed/i,
+);
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    canonicalProblemId: "PGK-001-CP-020",
+    count: 3,
+  }),
+  /without repeats/i,
+);
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    canonicalProblemId: "PGK-001-CP-004",
+    patternId: "PGK-001-MTF-017",
+  }),
+  /Conflicting PGK-001 matching CP\/concept selectors/i,
+);
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    canonicalProblemId: "PGK-001-MTF-999",
+  }),
+  /Unknown PGK-001 matching selector/i,
+);
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    runtimeMode: "bank-only",
+  }),
+  /only supports review-only runtime/i,
+);
+
