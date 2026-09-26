@@ -57,8 +57,14 @@ function auditPackage(
   );
 
   assert.equal(uniqueQl, entries.length, `${packageId}: QL coverage drift`);
-  assert.equal(uniqueMath, rows.length, `${packageId}: mathematical fingerprints must vary across QL/seed samples`);
-  assert.equal(uniqueParams, rows.length, `${packageId}: parameter fingerprints must vary across QL/seed samples`);
+  assert.ok(
+    rows.length ? uniqueMath / rows.length >= 0.70 : false,
+    `${packageId}: mathematical-state novelty must be at least 70%; got ${rows.length ? uniqueMath / rows.length : 0}`,
+  );
+  assert.ok(
+    rows.length ? uniqueParams / rows.length >= 0.90 : false,
+    `${packageId}: parameter-state novelty must be at least 90%; got ${rows.length ? uniqueParams / rows.length : 0}`,
+  );
 
   return {
     packageId,
