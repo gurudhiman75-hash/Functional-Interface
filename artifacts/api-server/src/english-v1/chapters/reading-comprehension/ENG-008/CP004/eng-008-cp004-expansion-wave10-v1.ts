@@ -7,23 +7,17 @@ export const ENG008_CP004_EXPANSION_WAVE10_V1:readonly Eng008Cp004PassageV1[]=[
 
 Productivity gains can come from better equipment, software, management, skills or a shift toward more productive industries. The income created by those gains does not automatically flow to labour in one fixed proportion. Some may appear as higher wages, some as profits, some as lower prices and some as returns to investment.
 
-Timing matters. A firm may invest in new technology and see output rise before wages are renegotiated. Alternatively, tight labour markets can push wages up before measured productivity changes. Comparing one year with another can therefore exaggerate a short-term gap.
-
-Measurement also matters. Productivity is easier to estimate in some sectors than others. Manufacturing output can often be counted physically, while the quality of education, healthcare or software services is harder to capture. If measured output misses quality improvements, recorded productivity may understate actual gains.
+Timing matters. A firm may invest in new technology and see output rise before wages are renegotiated. Alternatively, tight labour markets can push wages up before measured productivity changes. Comparing one year with another can therefore exaggerate a short-term gap. Measurement also matters. Productivity is easier to estimate in some sectors than others. Manufacturing output can often be counted physically, while the quality of education, healthcare or software services is harder to capture. If measured output misses quality improvements, recorded productivity may understate actual gains.
 
 Inflation complicates wage comparisons. Nominal wages can rise while real purchasing power falls if prices increase faster. For workers, real wages are usually more relevant than the cash amount on a payslip.
 
 Distribution is another issue. Average productivity can rise because highly productive firms or sectors expand, while many workers remain in areas with little change. An economy-wide average therefore does not imply that every workplace became more productive.
 
-Bargaining power and institutions influence how gains are shared. Labour shortages, union coverage, minimum-wage rules, competition between employers and the ability of workers to move jobs can affect wage outcomes even when underlying productivity is similar.
-
-Capital intensity matters as well. A factory that buys expensive machinery may produce more per worker because each employee is working with more capital. Part of the resulting income may reasonably be needed to finance, maintain and replace that capital.
+Bargaining power and institutions influence how gains are shared. Labour shortages, union coverage, minimum-wage rules, competition between employers and the ability of workers to move jobs can affect wage outcomes even when underlying productivity is similar. Capital intensity matters as well. A factory that buys expensive machinery may produce more per worker because each employee is working with more capital. Part of the resulting income may reasonably be needed to finance, maintain and replace that capital.
 
 This does not mean productivity is irrelevant to living standards. Over long periods, sustained real wage growth is difficult without sustained growth in what workers and firms can produce. The distinction is between creating a larger economic pie and deciding how that pie is distributed.
 
-For policy, the useful question is therefore not simply whether productivity rose. Analysts also examine real wages, labour's share of income, sector composition, hours worked and the distribution of gains across workers.
-
-The broader lesson is that productivity growth creates capacity for higher living standards, but it does not mechanically determine who receives the benefit or when. Understanding the connection requires attention to measurement, prices, investment and the institutions that shape bargaining and distribution.`,
+For policy, the useful question is therefore not simply whether productivity rose. Analysts also examine real wages, labour's share of income, sector composition, hours worked and the distribution of gains across workers. The broader lesson is that productivity growth creates capacity for higher living standards, but it does not mechanically determine who receives the benefit or when. Understanding the connection requires attention to measurement, prices, investment and the institutions that shape bargaining and distribution.`,
  questions:[
  q("E09-Q1","BM-F01","medium","Why does higher productivity not guarantee equal wage growth?","The additional income can be divided among wages, profits, prices and returns to investment",["Productivity never affects income","Wages are unrelated to output","Every firm uses identical technology"],"The passage explains that productivity gains create income but do not specify one automatic distribution.","does not automatically flow to labour"),
  q("E09-Q2","BM-F02","hard","What can be inferred if nominal wages rise more slowly than prices?","Workers' real purchasing power may fall despite higher cash wages",["Productivity must have fallen","Profits must be zero","Employment must increase"],"Real wages adjust cash pay for price changes, so inflation can reverse the apparent gain.","real purchasing power falls"),
@@ -41,29 +35,19 @@ The broader lesson is that productivity growth creates capacity for higher livin
  id:"ENG008-BM-B08",title:"Why Subscription Churn Needs Cohort Analysis",genre:"business",
  text:`Subscription businesses often track churn: the share of customers who cancel within a period. A lower churn rate generally sounds positive because it suggests that more customers are staying. Yet one overall percentage can hide large differences between customer groups.
 
-Imagine a streaming service that launches an aggressive discount campaign. Thousands of new customers join, many on a three-month introductory offer. During those months, the overall churn rate may look unusually low because the new subscribers have not yet reached the point where they decide whether to pay full price.
-
-When the discount expires, cancellations may rise sharply. If analysts compare only monthly headline churn, they can mistake timing created by the promotion for a lasting improvement in loyalty.
+Imagine a streaming service that launches an aggressive discount campaign. Thousands of new customers join, many on a three-month introductory offer. During those months, the overall churn rate may look unusually low because the new subscribers have not yet reached the point where they decide whether to pay full price. When the discount expires, cancellations may rise sharply. If analysts compare only monthly headline churn, they can mistake timing created by the promotion for a lasting improvement in loyalty.
 
 Cohort analysis helps by grouping customers according to when or how they joined. The business can compare customers acquired in January with those acquired in February, or compare full-price customers with promotional customers.
 
-This reveals retention curves rather than a single average. One cohort may retain 80 per cent of users after six months while another keeps only 50 per cent. The difference can suggest that acquisition channel, product experience or pricing affects long-term value.
+This reveals retention curves rather than a single average. One cohort may retain 80 per cent of users after six months while another keeps only 50 per cent. The difference can suggest that acquisition channel, product experience or pricing affects long-term value. Cohorts are not automatically causal evidence. Customers who respond to a deep discount may already differ from customers willing to pay full price. A lower retention rate in the discounted cohort does not prove that the discount caused people to leave.
 
-Cohorts are not automatically causal evidence. Customers who respond to a deep discount may already differ from customers willing to pay full price. A lower retention rate in the discounted cohort does not prove that the discount caused people to leave.
-
-Product changes can also overlap with cohort timing. If the app introduced a major redesign in March, users joining after March may have a different experience for reasons unrelated to the acquisition campaign.
-
-For this reason, businesses often combine cohort analysis with experiments, surveys and behavioural data. They may compare onboarding completion, usage frequency, support contacts and plan upgrades.
+Product changes can also overlap with cohort timing. If the app introduced a major redesign in March, users joining after March may have a different experience for reasons unrelated to the acquisition campaign. For this reason, businesses often combine cohort analysis with experiments, surveys and behavioural data. They may compare onboarding completion, usage frequency, support contacts and plan upgrades.
 
 Revenue retention matters as well. Losing five low-priced customers can have a different financial effect from losing one large enterprise account. Some companies therefore track both customer churn and revenue churn.
 
-Pauses complicate interpretation. A subscriber who temporarily suspends service may later return. Treating every pause as a permanent cancellation can make retention look worse than the relationship really is.
+Pauses complicate interpretation. A subscriber who temporarily suspends service may later return. Treating every pause as a permanent cancellation can make retention look worse than the relationship really is. The useful question is not merely “How many customers left this month?” It is “Which customers left, how long had they stayed, what price and experience did they have, and what happened before they cancelled?”
 
-The useful question is not merely “How many customers left this month?” It is “Which customers left, how long had they stayed, what price and experience did they have, and what happened before they cancelled?”
-
-This richer view also helps marketing. A campaign that attracts many sign-ups but produces weak six-month retention may be less valuable than a smaller campaign whose customers remain for years.
-
-The broader lesson is that subscription metrics are shaped by customer age, acquisition source and pricing history. Churn is useful, but its meaning becomes clearer when customers are followed through comparable stages of the relationship rather than blended into one moving average.`,
+This richer view also helps marketing. A campaign that attracts many sign-ups but produces weak six-month retention may be less valuable than a smaller campaign whose customers remain for years. The broader lesson is that subscription metrics are shaped by customer age, acquisition source and pricing history. Churn is useful, but its meaning becomes clearer when customers are followed through comparable stages of the relationship rather than blended into one moving average.`,
  questions:[
  q("B08-Q1","BM-F01","medium","Why can a large promotional campaign temporarily make overall churn look better?","Many new customers have not yet reached the stage when they decide whether to remain",["Discounts eliminate cancellation","Promotional customers cannot cancel","Headline churn excludes new users"],"A large young cohort can dilute cancellation rates before the introductory period ends.","not yet reached the point"),
  q("B08-Q2","BM-F02","hard","What can be inferred from weaker retention among discount-acquired customers?","The discount may be related, but customer self-selection could also explain the difference",["The discount definitely caused churn","Full-price customers never cancel","The cohort data is useless"],"The passage explicitly warns that cohorts differ in who they attract, so association is not proof of cause.","may already differ"),
@@ -81,31 +65,19 @@ The broader lesson is that subscription metrics are shaped by customer age, acqu
  id:"ENG008-BM-T07",title:"Why Uptime Can Hide Degraded Service",genre:"technology",
  text:`Online services often advertise uptime, such as 99.9 per cent availability. The metric is useful because customers need to know whether a system is generally reachable. But uptime can look excellent even when users regularly experience serious problems.
 
-A website may technically respond to requests while taking twenty seconds to load. A payment API may be online but return errors for one type of transaction. A messaging service may accept new messages while delaying delivery for an hour. Whether these events count as “down” depends on the service definition.
+A website may technically respond to requests while taking twenty seconds to load. A payment API may be online but return errors for one type of transaction. A messaging service may accept new messages while delaying delivery for an hour. Whether these events count as “down” depends on the service definition. This is why service-level objectives often include more than binary availability. Teams may track latency, error rate, successful transaction rate and freshness of data.
 
-This is why service-level objectives often include more than binary availability. Teams may track latency, error rate, successful transaction rate and freshness of data.
+The denominator matters too. If uptime is measured by minutes, a five-minute outage during the busiest shopping period counts the same as five minutes at 3 a.m., even though the customer impact can be very different. Some organisations therefore add request-weighted or user-impact measures. They ask how many transactions failed or how many users were affected, not merely how long the server was unreachable.
 
-The denominator matters too. If uptime is measured by minutes, a five-minute outage during the busiest shopping period counts the same as five minutes at 3 a.m., even though the customer impact can be very different.
-
-Some organisations therefore add request-weighted or user-impact measures. They ask how many transactions failed or how many users were affected, not merely how long the server was unreachable.
-
-Partial outages are another challenge. A global service can work normally in most regions while one data centre or internet provider has a failure. An overall average may hide severe local disruption.
-
-Monitoring itself can create blind spots. A synthetic test running from one location may report success while real users on another network cannot connect. Multiple monitoring sources are therefore valuable.
+Partial outages are another challenge. A global service can work normally in most regions while one data centre or internet provider has a failure. An overall average may hide severe local disruption. Monitoring itself can create blind spots. A synthetic test running from one location may report success while real users on another network cannot connect. Multiple monitoring sources are therefore valuable.
 
 Maintenance windows also need clear treatment. Excluding planned downtime from uptime calculations can be reasonable if customers were warned and the contract allows it. But the rule should be explicit rather than silently improving the number.
 
-A very high uptime target can also have costs. Engineering teams may build expensive redundancy to avoid short interruptions. For a banking payment system, that investment may be justified. For a low-stakes internal tool, the same target may waste resources.
+A very high uptime target can also have costs. Engineering teams may build expensive redundancy to avoid short interruptions. For a banking payment system, that investment may be justified. For a low-stakes internal tool, the same target may waste resources. Reliability is therefore relative to the service and the consequence of failure. The right objective depends on how users rely on the system.
 
-Reliability is therefore relative to the service and the consequence of failure. The right objective depends on how users rely on the system.
+Incident reviews add context that percentages cannot. A single rare outage caused by lost data may matter more than many brief harmless restarts. For management, the useful dashboard combines availability with performance and user impact. A green “online” indicator is not enough if customers cannot complete the action they came to perform.
 
-Incident reviews add context that percentages cannot. A single rare outage caused by lost data may matter more than many brief harmless restarts.
-
-For management, the useful dashboard combines availability with performance and user impact. A green “online” indicator is not enough if customers cannot complete the action they came to perform.
-
-This does not make uptime meaningless. It remains an important baseline. The problem is treating availability as identical to service quality.
-
-The broader lesson is that a reliable digital service is one that performs its important functions within acceptable limits. Measurement should therefore reflect what users can actually accomplish, not merely whether a server answers a health check.`,
+This does not make uptime meaningless. It remains an important baseline. The problem is treating availability as identical to service quality. The broader lesson is that a reliable digital service is one that performs its important functions within acceptable limits. Measurement should therefore reflect what users can actually accomplish, not merely whether a server answers a health check. Teams also reviewed whether degraded performance clustered around specific user journeys.`,
  questions:[
  q("T07-Q1","BM-F01","medium","How can a service have high uptime while users still face serious problems?","It may remain technically reachable while being slow or failing specific functions",["Uptime measures only user satisfaction","High uptime guarantees fast response","Errors cannot occur when a server responds"],"The passage gives examples of degraded performance that may not count as complete downtime.","technically respond ... while"),
  q("T07-Q2","BM-F02","hard","What can be inferred about five minutes of downtime during peak traffic?","Its user impact can be much larger than the same duration during a quiet period",["Time-based uptime automatically weights traffic","Peak outages do not count","Night outages are always harmless"],"Minute-based availability treats equal durations alike even when transaction volume differs.","customer impact can be very different"),
@@ -123,31 +95,19 @@ The broader lesson is that a reliable digital service is one that performs its i
  id:"ENG008-BM-H07",title:"Why Treatment Adherence Rates Need Clear Denominators",genre:"health",
  text:`Health programmes often report treatment adherence: the extent to which patients follow a prescribed medicine or care plan. A high percentage can suggest that treatment is being used as intended. But the meaning of the rate depends heavily on who is included in the calculation.
 
-Suppose a clinic reports that 90 per cent of patients collected every monthly refill. Does the denominator include everyone who was prescribed the medicine, only those who returned after the first month, or only those still enrolled in the programme at the end of the year?
+Suppose a clinic reports that 90 per cent of patients collected every monthly refill. Does the denominator include everyone who was prescribed the medicine, only those who returned after the first month, or only those still enrolled in the programme at the end of the year? If people who stop attending disappear from the denominator, the adherence rate can improve even though the programme has lost exactly the patients it most needs to understand.
 
-If people who stop attending disappear from the denominator, the adherence rate can improve even though the programme has lost exactly the patients it most needs to understand.
+Measurement method matters too. Pharmacy refill data shows that medicine was collected, not that every dose was taken. Self-reports can capture behaviour between refills but may be affected by memory or by patients wanting to give an acceptable answer. Electronic pill containers can record openings, yet opening a container still does not prove swallowing the medicine. Each method measures a different step.
 
-Measurement method matters too. Pharmacy refill data shows that medicine was collected, not that every dose was taken. Self-reports can capture behaviour between refills but may be affected by memory or by patients wanting to give an acceptable answer.
-
-Electronic pill containers can record openings, yet opening a container still does not prove swallowing the medicine. Each method measures a different step.
-
-Clinical context matters. A patient may deliberately stop a medicine because a doctor changes the prescription or because of a documented side effect. Counting that as non-adherence would treat an appropriate clinical decision as a failure.
-
-Affordability and access can also shape adherence. Missing a refill because a pharmacy is out of stock is different from choosing not to take a medicine that is available.
+Clinical context matters. A patient may deliberately stop a medicine because a doctor changes the prescription or because of a documented side effect. Counting that as non-adherence would treat an appropriate clinical decision as a failure. Affordability and access can also shape adherence. Missing a refill because a pharmacy is out of stock is different from choosing not to take a medicine that is available.
 
 For these reasons, programmes often separate persistence from day-to-day adherence. Persistence asks how long a patient remains on treatment. Adherence asks how closely use follows the prescribed schedule while treatment continues.
 
-Both outcomes can matter. A patient may remain enrolled for a year but take doses irregularly, or take every dose correctly for three months and then stop altogether.
+Both outcomes can matter. A patient may remain enrolled for a year but take doses irregularly, or take every dose correctly for three months and then stop altogether. Subgroup analysis is important because barriers vary. Shift workers may have trouble with clinic hours, rural patients with travel, and patients taking several medicines with schedule complexity.
 
-Subgroup analysis is important because barriers vary. Shift workers may have trouble with clinic hours, rural patients with travel, and patients taking several medicines with schedule complexity.
+Interventions should match the barrier. Reminder messages may help forgetfulness but do little when the real problem is cost or stock availability. Outcome evidence also matters. Perfect adherence to an ineffective or unnecessary treatment would not be a meaningful health goal. Programmes must connect medication use to appropriate prescribing and patient outcomes.
 
-Interventions should match the barrier. Reminder messages may help forgetfulness but do little when the real problem is cost or stock availability.
-
-Outcome evidence also matters. Perfect adherence to an ineffective or unnecessary treatment would not be a meaningful health goal. Programmes must connect medication use to appropriate prescribing and patient outcomes.
-
-The strongest reporting therefore describes the denominator, measurement method, reasons for discontinuation and relevant access barriers.
-
-The broader lesson is that an adherence percentage is not a complete description of patient behaviour. Clear definitions prevent a programme from looking successful simply because difficult cases disappeared from measurement.`,
+The strongest reporting therefore describes the denominator, measurement method, reasons for discontinuation and relevant access barriers. The broader lesson is that an adherence percentage is not a complete description of patient behaviour. Clear definitions prevent a programme from looking successful simply because difficult cases disappeared from measurement. Researchers should also report how many eligible patients were never successfully contacted, because invisible loss before enrolment can make later adherence appear stronger than population-level access really is.`,
  questions:[
  q("H07-Q1","BM-F01","medium","Why can an adherence rate rise when patients who stop attending are excluded?","The denominator removes people who may have had the greatest difficulty continuing treatment",["Every remaining patient improves automatically","Refill data becomes more accurate","The medicine becomes more effective"],"Dropping disengaged patients can mechanically improve the reported percentage.","lost exactly the patients"),
  q("H07-Q2","BM-F02","hard","What can be inferred from pharmacy refill data alone?","Medicine was obtained, but actual dose-taking remains uncertain",["Every collected dose was swallowed","The prescription was clinically appropriate","The patient had no side effects"],"Refill records measure collection rather than direct use.","shows that medicine was collected"),
@@ -165,31 +125,19 @@ The broader lesson is that an adherence percentage is not a complete description
  id:"ENG008-BM-EN06",title:"Why Recycling Collection Is Not the Same as Material Recovery",genre:"environment",
  text:`Cities often report how much recyclable material they collect from households. Higher collection can indicate that residents are separating more waste from general rubbish. Yet collected material is not the same as material successfully recycled into a usable resource.
 
-A recycling truck can collect paper, plastic, metal and glass that later contains too much contamination to process. Food residue, mixed materials or non-recyclable packaging may cause part of a load to be rejected.
+A recycling truck can collect paper, plastic, metal and glass that later contains too much contamination to process. Food residue, mixed materials or non-recyclable packaging may cause part of a load to be rejected. Sorting facilities also have technical limits. A plastic item may carry a recycling symbol but still be too small, too dark or made from a polymer that the local facility cannot separate economically.
 
-Sorting facilities also have technical limits. A plastic item may carry a recycling symbol but still be too small, too dark or made from a polymer that the local facility cannot separate economically.
+Markets matter as well. A material can be technically recyclable but have little demand from manufacturers. If no buyer exists at a sustainable price, stored material may eventually be disposed of. This is why analysts distinguish collection rate from recovery rate. Collection asks how much entered the recycling system. Recovery asks how much emerged as material suitable for reuse or manufacturing.
 
-Markets matter as well. A material can be technically recyclable but have little demand from manufacturers. If no buyer exists at a sustainable price, stored material may eventually be disposed of.
-
-This is why analysts distinguish collection rate from recovery rate. Collection asks how much entered the recycling system. Recovery asks how much emerged as material suitable for reuse or manufacturing.
-
-The difference is sometimes called loss or residue. A programme with very high collection but high residue may perform worse environmentally than a smaller, cleaner stream.
-
-Public instructions influence contamination. When rules are vague, residents may “wish-cycle” by placing doubtful items in recycling in the hope that they can be processed. This can increase collection weight while making sorting harder.
+The difference is sometimes called loss or residue. A programme with very high collection but high residue may perform worse environmentally than a smaller, cleaner stream. Public instructions influence contamination. When rules are vague, residents may “wish-cycle” by placing doubtful items in recycling in the hope that they can be processed. This can increase collection weight while making sorting harder.
 
 Clearer accepted-item lists can reduce contamination, but rules need to reflect local infrastructure. Telling residents that an item is recyclable in theory is unhelpful if their facility cannot process it.
 
-Product design also affects recovery. Multi-layer packaging can protect food efficiently but be difficult to separate into materials. Policy therefore extends beyond household behaviour to manufacturers and packaging standards.
+Product design also affects recovery. Multi-layer packaging can protect food efficiently but be difficult to separate into materials. Policy therefore extends beyond household behaviour to manufacturers and packaging standards. Transport and processing also have environmental costs. A recycling programme should not be judged only by tonnes collected; analysts consider energy use, avoided virgin material and final disposal.
 
-Transport and processing also have environmental costs. A recycling programme should not be judged only by tonnes collected; analysts consider energy use, avoided virgin material and final disposal.
+Comparisons between cities require care because programmes accept different materials and measure contamination differently. One city may count material when it reaches a sorting plant, while another counts only what leaves the plant for sale. For management, the strongest dashboard follows material through stages: collected, sorted, rejected, sold and actually reprocessed where data is available.
 
-Comparisons between cities require care because programmes accept different materials and measure contamination differently. One city may count material when it reaches a sorting plant, while another counts only what leaves the plant for sale.
-
-For management, the strongest dashboard follows material through stages: collected, sorted, rejected, sold and actually reprocessed where data is available.
-
-That approach can identify where improvement is needed. If contamination is high, public guidance may help. If clean material has no market, education alone will not solve the problem.
-
-The broader lesson is that recycling is a chain, not a bin. Collection is necessary, but environmental benefit depends on what happens after the truck leaves the street.`,
+That approach can identify where improvement is needed. If contamination is high, public guidance may help. If clean material has no market, education alone will not solve the problem. The broader lesson is that recycling is a chain, not a bin. Collection is necessary, but environmental benefit depends on what happens after the truck leaves the street. Facilities also need to report how recovered material is eventually used, because exporting a sorted bale does not by itself prove that the material displaced virgin production or avoided disposal elsewhere.`,
  questions:[
  q("EN06-Q1","BM-F01","medium","Why can a high recycling collection rate overstate environmental performance?","Some collected material may later be rejected or never reprocessed",["Collection trucks always create more waste","Residents never sort correctly","Recovered material is not counted"],"The passage distinguishes entering the system from successful recovery.","collected material is not the same as material successfully recycled"),
  q("EN06-Q2","BM-F02","hard","What can be inferred from high collection with high residue?","A large share of what residents put out may fail to become usable recycled material",["The programme necessarily saves more resources","Sorting is unnecessary","Every item is recyclable"],"Residue measures losses after collection, so high residue weakens the practical recovery result.","high collection but high residue"),
@@ -207,29 +155,19 @@ The broader lesson is that recycling is a chain, not a bin. Collection is necess
  id:"ENG008-BM-SP06",title:"Why Transport Subsidies May Not Solve Access",genre:"social-policy",
  text:`Public transport subsidies are often designed to make travel more affordable for low-income households, students, older people or workers in specific sectors. Lower fares can clearly help. Yet affordability is only one component of access.
 
-A discounted bus ticket has little value to someone who lives several kilometres from the nearest route. A worker on a night shift may qualify for a subsidy but finish work after the last bus. A parent may have a bus nearby but still find the journey impractical if multiple transfers make childcare pickup impossible.
-
-Frequency matters too. A route that runs once every two hours imposes a different time cost from one running every ten minutes, even if the fare is identical.
+A discounted bus ticket has little value to someone who lives several kilometres from the nearest route. A worker on a night shift may qualify for a subsidy but finish work after the last bus. A parent may have a bus nearby but still find the journey impractical if multiple transfers make childcare pickup impossible. Frequency matters too. A route that runs once every two hours imposes a different time cost from one running every ten minutes, even if the fare is identical.
 
 This means a programme can report high subsidy coverage while many eligible people remain unable to use the service effectively.
 
-Take-up data can help, but low take-up has several possible meanings. People may not know about the subsidy, the application process may be difficult, or the underlying transport network may not meet their needs.
+Take-up data can help, but low take-up has several possible meanings. People may not know about the subsidy, the application process may be difficult, or the underlying transport network may not meet their needs. High take-up is also not a complete success measure. Existing riders may claim the subsidy without making additional trips, producing financial relief but little change in mobility. That can still be valuable, but it is a different policy outcome.
 
-High take-up is also not a complete success measure. Existing riders may claim the subsidy without making additional trips, producing financial relief but little change in mobility. That can still be valuable, but it is a different policy outcome.
-
-For employment programmes, timing is crucial. A discounted monthly pass may help a worker keep a job by reducing commuting cost. But if service is unreliable, the worker may still face lateness penalties.
-
-Geography creates distributional trade-offs. Extending routes into low-density areas can be expensive per passenger. Concentrating service on busy corridors improves efficiency but may leave isolated communities with poor access.
+For employment programmes, timing is crucial. A discounted monthly pass may help a worker keep a job by reducing commuting cost. But if service is unreliable, the worker may still face lateness penalties. Geography creates distributional trade-offs. Extending routes into low-density areas can be expensive per passenger. Concentrating service on busy corridors improves efficiency but may leave isolated communities with poor access.
 
 Some systems use demand-responsive vans or feeder services to connect people to main routes. These can fill gaps but require booking, scheduling and additional operating cost.
 
-Digital eligibility systems can create another barrier if applicants lack smartphones or documents. A subsidy intended to improve access should not depend on an application channel that excludes part of its target population.
+Digital eligibility systems can create another barrier if applicants lack smartphones or documents. A subsidy intended to improve access should not depend on an application channel that excludes part of its target population. Evaluation should therefore separate affordability, availability, reliability and usability. Surveys can ask whether people can reach common destinations at the times they need, not merely whether they possess a discounted pass.
 
-Evaluation should therefore separate affordability, availability, reliability and usability. Surveys can ask whether people can reach common destinations at the times they need, not merely whether they possess a discounted pass.
-
-Policymakers also need to specify the desired outcome. Is the programme meant to reduce household expenses, increase job access, improve school attendance or shift trips away from private vehicles? Different goals require different measures.
-
-The broader lesson is that a fare subsidy changes price, not geography or timetable. It can be an important tool, but its effect depends on the transport network around it. Access improves only when the service is both affordable and practically usable.`,
+Policymakers also need to specify the desired outcome. Is the programme meant to reduce household expenses, increase job access, improve school attendance or shift trips away from private vehicles? Different goals require different measures. The broader lesson is that a fare subsidy changes price, not geography or timetable. It can be an important tool, but its effect depends on the transport network around it. Access improves only when the service is both affordable and practically usable. Service information and physical accessibility can also determine whether a subsidised trip is realistically usable.`,
  questions:[
  q("SP06-Q1","BM-F01","medium","Why might an eligible night-shift worker gain little from a fare subsidy?","Public transport may not operate when the worker needs it",["The subsidy automatically raises fares","Night workers cannot use buses","Eligibility ends after work"],"Affordability cannot compensate for a timetable that does not match travel needs.","after the last bus"),
  q("SP06-Q2","BM-F02","hard","What can be inferred from high subsidy take-up among existing riders?","The programme may reduce household costs even if it does not increase mobility",["High take-up proves route coverage is adequate","Every claimant travels more","The subsidy has no value"],"The passage distinguishes financial relief from additional trips.","financial relief but little change in mobility"),
@@ -247,31 +185,19 @@ The broader lesson is that a fare subsidy changes price, not geography or timeta
  id:"ENG008-BM-PH06",title:"Fair Process and Fair Outcome Are Not the Same Question",genre:"philosophy",
  text:`People often describe a decision as fair or unfair, but the word can refer to different things. Sometimes fairness concerns the process: were the rules clear, applied consistently and open to challenge? At other times fairness concerns the outcome: did people receive an appropriate share of benefits or burdens?
 
-A lottery can illustrate the difference. If every eligible person has an equal chance and the draw is honest, the process may be procedurally fair. Yet the outcome remains unequal because one person receives the prize and others receive nothing.
+A lottery can illustrate the difference. If every eligible person has an equal chance and the draw is honest, the process may be procedurally fair. Yet the outcome remains unequal because one person receives the prize and others receive nothing. Conversely, a decision can produce an outcome that looks balanced while using a questionable process. A manager might give equal bonuses to two employees but make the decision without any stated criteria or opportunity for review.
 
-Conversely, a decision can produce an outcome that looks balanced while using a questionable process. A manager might give equal bonuses to two employees but make the decision without any stated criteria or opportunity for review.
+This does not mean process and outcome are unrelated. Procedures often influence results. Transparent criteria can reduce arbitrary decisions, while biased rules can systematically disadvantage one group. Still, evaluating only one dimension can hide problems in the other.
 
-This does not mean process and outcome are unrelated. Procedures often influence results. Transparent criteria can reduce arbitrary decisions, while biased rules can systematically disadvantage one group.
-
-Still, evaluating only one dimension can hide problems in the other.
-
-Consistency is important but not always sufficient. Applying the same rule to everyone can be unfair if relevant circumstances differ. A building rule requiring everyone to use stairs treats people identically but ignores disability.
-
-This is why some theories of fairness focus on equal treatment while others emphasise equity, need, desert or opportunity. These principles can conflict.
+Consistency is important but not always sufficient. Applying the same rule to everyone can be unfair if relevant circumstances differ. A building rule requiring everyone to use stairs treats people identically but ignores disability. This is why some theories of fairness focus on equal treatment while others emphasise equity, need, desert or opportunity. These principles can conflict.
 
 Appeal mechanisms add another layer. A process may begin with a mistake but still be considered more legitimate if people can present evidence and obtain correction. The possibility of review does not erase the original error, but it changes the quality of the system.
 
-Information matters too. People are more likely to understand a decision when they know the rule and the reason it applies. Explanation is not the same as agreement, yet unexplained decisions can feel arbitrary even when the underlying rule is defensible.
+Information matters too. People are more likely to understand a decision when they know the rule and the reason it applies. Explanation is not the same as agreement, yet unexplained decisions can feel arbitrary even when the underlying rule is defensible. There is also a question of uncertainty. A fair process cannot guarantee the best outcome in every case if decision-makers lack perfect information. A medical triage system, for example, may use reasonable evidence and still make an occasional mistaken classification.
 
-There is also a question of uncertainty. A fair process cannot guarantee the best outcome in every case if decision-makers lack perfect information. A medical triage system, for example, may use reasonable evidence and still make an occasional mistaken classification.
+The temptation is to search for one formula that makes every decision fair. But different contexts place different weight on equality, need, consent, efficiency and rights. The useful approach is to specify which fairness claim is being made. Is the complaint that the rule was hidden, that exceptions were applied inconsistently, that the outcome was too unequal, or that important differences between people were ignored?
 
-The temptation is to search for one formula that makes every decision fair. But different contexts place different weight on equality, need, consent, efficiency and rights.
-
-The useful approach is to specify which fairness claim is being made. Is the complaint that the rule was hidden, that exceptions were applied inconsistently, that the outcome was too unequal, or that important differences between people were ignored?
-
-Once the claim is clearer, disagreement can become more precise.
-
-The broader lesson is that fairness is not one measurable property. Process and outcome are connected but distinct, and a serious evaluation should ask both how a decision was made and what consequences it produced.`,
+Once the claim is clearer, disagreement can become more precise. The broader lesson is that fairness is not one measurable property. Process and outcome are connected but distinct, and a serious evaluation should ask both how a decision was made and what consequences it produced.`,
  questions:[
  q("PH06-Q1","BM-F01","medium","How does the lottery example illustrate the passage's distinction?","An equal-chance process can still produce an unequal outcome",["Every lottery is unfair","Equal outcomes require random selection","Procedures never affect results"],"The lottery has a fair drawing procedure but only one winner.","process may be procedurally fair ... outcome remains unequal"),
  q("PH06-Q2","BM-F02","hard","What can be inferred from the stair-rule example?","Treating everyone identically can ignore relevant differences and still be unfair",["Consistency is never valuable","Buildings should have no rules","Disability is the only relevant difference"],"The passage shows that equal treatment is not always equivalent to equitable treatment.","ignores disability"),
@@ -289,29 +215,19 @@ The broader lesson is that fairness is not one measurable property. Process and 
  id:"ENG008-BM-M06",title:"Why Breaking-News Timelines Need Version Awareness",genre:"media",
  text:`Breaking news develops in stages. Early reports may contain a confirmed event but uncertain details about cause, scale or responsibility. As more evidence arrives, a newsroom updates the story. Readers who encounter different versions can therefore receive different levels of certainty.
 
-Digital publishing makes revision easy, but it can also hide the history of what changed. If a headline is quietly rewritten from “Officials investigate possible gas leak” to “Electrical fault caused fire”, a reader who remembers the first version may not know whether the original suspicion was disproved or simply omitted.
-
-Not every update requires a correction. New information can legitimately narrow uncertainty without making the earlier report wrong. A story saying “cause unknown” may later say “investigators identified faulty wiring”.
+Digital publishing makes revision easy, but it can also hide the history of what changed. If a headline is quietly rewritten from “Officials investigate possible gas leak” to “Electrical fault caused fire”, a reader who remembers the first version may not know whether the original suspicion was disproved or simply omitted. Not every update requires a correction. New information can legitimately narrow uncertainty without making the earlier report wrong. A story saying “cause unknown” may later say “investigators identified faulty wiring”.
 
 The challenge is to distinguish development from error. If an earlier report said officials had confirmed a gas leak when they had not, that is a factual mistake and deserves a correction. If it accurately reported that officials were investigating one possibility, later evidence can update the story without treating the first report as false.
 
-Timestamps help readers understand sequence. Showing “first published”, “last updated” and, for major changes, a short note about what was added can make the evolution visible.
+Timestamps help readers understand sequence. Showing “first published”, “last updated” and, for major changes, a short note about what was added can make the evolution visible. Source attribution matters especially early. “Police said”, “hospital officials reported” and “video appears to show” communicate different kinds of evidence. Removing attribution can make tentative information sound like established fact.
 
-Source attribution matters especially early. “Police said”, “hospital officials reported” and “video appears to show” communicate different kinds of evidence. Removing attribution can make tentative information sound like established fact.
-
-Social media complicates the timeline because screenshots of early headlines continue circulating after the article changes. Updating the webpage alone may not reach people exposed to the earlier version.
-
-News organisations can address this by posting corrections or major clarifications through the same social accounts that distributed the original claim.
+Social media complicates the timeline because screenshots of early headlines continue circulating after the article changes. Updating the webpage alone may not reach people exposed to the earlier version. News organisations can address this by posting corrections or major clarifications through the same social accounts that distributed the original claim.
 
 Speed creates pressure. Waiting for complete certainty may leave audiences without important information, while publishing too quickly can amplify rumours. The goal is not zero uncertainty but labelled uncertainty.
 
-Newsrooms also need internal records. Version history helps editors review whether an error came from a source, wording choice or verification failure.
+Newsrooms also need internal records. Version history helps editors review whether an error came from a source, wording choice or verification failure. Readers benefit when uncertainty becomes more specific over time. “We do not yet know” is informative if the report explains what is confirmed and what remains unresolved.
 
-Readers benefit when uncertainty becomes more specific over time. “We do not yet know” is informative if the report explains what is confirmed and what remains unresolved.
-
-A mature breaking-news workflow therefore treats a story as a sequence of evidence states rather than one static article.
-
-The broader lesson is that accuracy in live reporting includes showing the level of confidence appropriate to each stage. Updating is not a weakness. The risk comes when revisions erase the path from tentative information to firmer knowledge and leave readers unable to distinguish correction from normal development.`,
+A mature breaking-news workflow therefore treats a story as a sequence of evidence states rather than one static article. The broader lesson is that accuracy in live reporting includes showing the level of confidence appropriate to each stage. Updating is not a weakness. The risk comes when revisions erase the path from tentative information to firmer knowledge and leave readers unable to distinguish correction from normal development. For major stories, retaining a visible update log can also help later readers understand why wording changed and whether an earlier uncertainty was resolved, corrected or simply superseded by stronger evidence.`,
  questions:[
  q("M06-Q1","BM-F01","medium","Why can silent headline changes confuse readers?","Readers may not know whether earlier information was disproved or simply updated",["Headlines cannot be edited online","Every update is a correction","Screenshots always disappear"],"Without visible version context, the reason for a wording change is unclear.","may not know whether"),
  q("M06-Q2","BM-F02","hard","What can be inferred from a story that moves from “cause unknown” to a confirmed cause?","The later version can be a normal update rather than evidence that the first version was wrong",["The first story must be deleted","Unknown always means incorrect","A correction is mandatory for every added fact"],"The passage distinguishes uncertainty that is later resolved from factual error.","New information can legitimately narrow uncertainty"),
