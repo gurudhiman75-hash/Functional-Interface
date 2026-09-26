@@ -154,13 +154,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Mathematical-Operations',
     chapterId: 'OPS-001',
-    status: 'DIVERSITY_PROVEN_NOVELTY_NOT_YET_PROVEN',
+    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
     evidence: [
-      'Audited semantic QLs and generated-instance difficulty exist.',
-      'No controlled-novel provenance proof is yet part of the chapter audit.',
+      'A hidden bijective operator mapping is inferred first, then applied to recover a missing coded symbol in a fresh target equation.',
+      'The lane composes OPS-QL-028 hidden-mapping inference with OPS-QL-008 missing-operator recovery.',
+      'The existing exact mapping solver proves one inferred mapping and exactly one target symbol.',
+      'No permanent QL is allocated and Question Studio novelty mixing remains disabled.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Audit valid symbol-rule/query compositions without decorative operator complexity.',
+    nextGate: 'Human-review infer-then-fill learner surfaces before chapter-mix activation.',
   },
   {
     topicDirectory: 'Missing-Number',
