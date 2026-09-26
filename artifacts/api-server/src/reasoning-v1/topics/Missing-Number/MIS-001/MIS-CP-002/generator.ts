@@ -303,9 +303,8 @@ function explainGroup(
   return `(${left} + ${right}) ÷ ${third} = ${result}`;
 }
 
-function deriveDifficulty(rule: MisCp002RuleDefinition, evidenceCount: number): 'Easy' | 'Medium' {
-  if (rule.ruleId === 'THREE_INPUT_SUM') return 'Easy';
-  if (rule.ruleId === 'TWO_ADD_ONE_SUBTRACT' && evidenceCount === 2) return 'Easy';
+function deriveDifficulty(rule: MisCp002RuleDefinition, _evidenceCount: number): 'Easy' | 'Medium' {
+  if (rule.ruleId === 'THREE_INPUT_SUM' || rule.ruleId === 'TWO_ADD_ONE_SUBTRACT') return 'Easy';
   return 'Medium';
 }
 
