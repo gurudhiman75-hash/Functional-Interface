@@ -640,7 +640,7 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
   }
   if ((match = value.match(/^At the required transition, the column jumps are (.+)\.$/))) {
     return ok(
-      `आवश्यक चरण पर स्तंभों के परिवर्तन ${match[1]} हैं।`,
+      `आवश्यक चरण पर कॉलमों के परिवर्तन ${match[1]} हैं।`,
       `ਲੋੜੀਂਦੇ ਪੜਾਅ ਉੱਤੇ ਕਾਲਮਾਂ ਦੇ ਬਦਲਾਅ ${match[1]} ਹਨ।`,
     );
   }
