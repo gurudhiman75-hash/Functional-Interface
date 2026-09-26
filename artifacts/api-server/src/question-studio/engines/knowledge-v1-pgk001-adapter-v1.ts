@@ -36,10 +36,10 @@ import type {
   QuestionStudioLanguage,
   QuestionStudioPackageDefinition,
 } from "../engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { PGK_001_FULL_RELEASE_LIFECYCLE_V1 } from "../../knowledge-v1/punjab-gk/pgk-001-full-question-studio-release-v1";
 
 export const PGK_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "PGK-001" as const;
-export const PGK_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
+export const PGK_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "CANONICAL_REVIEW" as const;
 export const PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 =
   "PGK-001-MULTILINGUAL-26CP-QUESTION-STUDIO-2026-09-26" as const;
 export const PGK_001_ENGLISH_FREEZE_AUTHORITY_V1 =
@@ -294,7 +294,7 @@ export const PGK_001_QUESTION_STUDIO_MULTILINGUAL_CORPORA_V1 = Object.freeze({
   pa: PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1,
 });
 
-const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
+const lifecycle = PGK_001_FULL_RELEASE_LIFECYCLE_V1;
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
 
@@ -377,12 +377,13 @@ export const PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
   difficultyFilterSupported: true,
   runtimeMode: PGK_001_QUESTION_STUDIO_RUNTIME_MODE_V1,
   supportedRuntimeModes: [PGK_001_QUESTION_STUDIO_RUNTIME_MODE_V1],
-  lifecycleId: lifecycle.lifecycleId,
-  lifecycleStage: lifecycle.stage,
-  reviewSurfaceRequired: lifecycle.reviewSurfaceRequired,
+  lifecycleStage: "BANK_ONLY",
+  reviewSurfaceRequired: true,
   manualApprovalRequired: lifecycle.manualApprovalRequired,
   questionBankStatus: lifecycle.questionBankStatus,
   questionBankWritable: lifecycle.questionBankWritable,
+  questionBankAcceptanceMode: lifecycle.questionBankAcceptanceMode,
+  questionBankAcceptanceAuthority: lifecycle.questionBankAcceptanceAuthority,
   testEligibility: lifecycle.testEligibility,
   testEligible: lifecycle.testEligible,
   mockTestEligible: lifecycle.mockTestEligible,
@@ -398,7 +399,8 @@ export const PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     hindiEditorialComplete: true,
     punjabiEditorialComplete: true,
     multilingualLocalizationComplete: true,
-    reviewOnly: true,
+    reviewOnly: false,
+    fullReleaseEnabled: true,
     frozenCorpusOnly: true,
     immutableCorpus: true,
     deterministicSelection: true,
@@ -513,18 +515,18 @@ export const knowledgeV1Pgk001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       difficultyLabel: question.difficulty,
       sourceIds: [...question.sourceIds],
       sourceFactIds: [...question.sourceFactIds],
-      registrationStatus: "REGISTERED_REVIEW_ONLY",
+      registrationStatus: "REGISTERED_PRODUCTION_READY",
       registrationAuthorityId: PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
       authoringReviewApproved: true,
       questionStudioDiscoverable: true,
       questionStudioGenerationEnabled: true,
-      reviewOnly: true,
+      reviewOnly: false,
       runtimeRegistered: true,
-      readOnly: true,
+      readOnly: false,
       revisionPolicy: PGK_001_REVISION_POLICY_V1,
       englishFreezeAuthorityId: PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
       multilingualLocalizationApproved: true,
-      productionReleased: false,
+      productionReleased: true,
     }));
 
     return {
@@ -534,13 +536,14 @@ export const knowledgeV1Pgk001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         engineId: "knowledge-v1",
         packageId: PGK_001_QUESTION_STUDIO_PACKAGE_ID_V1,
         runtimeMode: PGK_001_QUESTION_STUDIO_RUNTIME_MODE_V1,
-        registrationStatus: "REGISTERED_REVIEW_ONLY",
+        registrationStatus: "REGISTERED_PRODUCTION_READY",
         registrationAuthorityId: PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
         authoringReviewApproved: true,
         chapterContentComplete: true,
         multilingualLocalizationComplete: true,
         englishFreezeAuthorityId: PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
-        reviewOnly: true,
+        reviewOnly: false,
+        fullReleaseEnabled: true,
         frozenCorpusOnly: true,
         immutableCorpus: true,
         deterministicSelection: true,
