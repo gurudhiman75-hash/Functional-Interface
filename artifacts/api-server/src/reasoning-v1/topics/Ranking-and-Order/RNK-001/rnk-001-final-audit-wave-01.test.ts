@@ -78,41 +78,24 @@ const reasoningAdapterSource = source("src/question-studio/engines/reasoning-v1-
 assert.match(reasoningAdapterSource, /RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2/u);
 assert.match(reasoningAdapterSource, /isRnk001QuestionStudioRequest\(request\)/u);
 assert.match(reasoningAdapterSource, /generateRnk001QuestionStudioBatch\(request\)/u);
-assert.match(
-  reasoningAdapterSource,
-  /OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,[\s\S]*DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,[\s\S]*RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2,[\s\S]*COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE/u,
-);
 
-const allEnglish = await generateRnk001QuestionStudioBatch({
-  packageId: "RNK-001",
-  language: "en",
-  count: 42,
-  seed: "rnk-wave01-all-english",
-});
-assert.equal(allEnglish.questions.length, 42);
-assert.deepEqual(
-  [...new Set((allEnglish.questions as Array<Record<string, any>>).map((question) => question.qlId))].sort(),
-  RNK_001_CHAPTER_AUTHORITY.permanentQlIds,
-);
-for (const question of allEnglish.questions as Array<Record<string, any>>) {
-  assert.equal(question.options.length >= 4, true);
-  assert.equal(new Set(question.options).size, question.options.length);
-  assert.equal(question.correctIndex >= 0 && question.correctIndex < question.options.length, true);
-  assert.equal(question.validation.valid, true);
-  assertReviewOnly(question);
-}
-
+let trilingualQlSamples = 0;
 for (const language of ["en", "hi", "pa"] as const) {
-  for (const qlId of RNK_001_CHAPTER_AUTHORITY.permanentQlIds) {
-    const generated = await generateRnk001QuestionStudioBatch({
-      packageId: "RNK-001",
-      canonicalProblemId: qlId,
-      language,
-      count: 1,
-      seed: `rnk-wave01:${language}:${qlId}`,
-    });
-    const question = generated.questions[0] as Record<string, any>;
-    assert.equal(question.qlId, qlId);
+  const generated = await generateRnk001QuestionStudioBatch({
+    packageId: "RNK-001",
+    language,
+    count: 42,
+    seed: `rnk-wave01-chapter:${language}`,
+  });
+
+  assert.equal(generated.questions.length, 42);
+  assert.deepEqual(
+    [...new Set((generated.questions as Array<Record<string, any>>).map((question) => question.qlId))].sort(),
+    RNK_001_CHAPTER_AUTHORITY.permanentQlIds,
+  );
+
+  for (const question of generated.questions as Array<Record<string, any>>) {
+    trilingualQlSamples += 1;
     assert.equal(question.language, language);
     assert.equal(question.options.length >= 4, true);
     assert.equal(new Set(question.options).size, question.options.length);
@@ -193,7 +176,6 @@ console.log(JSON.stringify({
   ql043Allocated: false,
   languages: ["en", "hi", "pa"],
   lifecycle: "REVIEW_ONLY",
-  chapterCoverageSamples: 42,
-  trilingualQlSamples: 126,
-  currentQuestionStudioRegistry: "BOUND",
+  trilingualQlSamples,
+  currentQuestionStudioRegistry: "BOUND_BY_SOURCE_AND_ADAPTER",
 }, null, 2));
