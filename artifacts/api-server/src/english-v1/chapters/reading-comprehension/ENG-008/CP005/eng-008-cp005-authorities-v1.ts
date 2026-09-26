@@ -18,7 +18,11 @@ The company also noticed that the trial coincided with the end of a major softwa
 
 Because the trial was not randomly assigned, the company did not claim that the quiet hour caused the full 11 percent increase. Instead, it concluded that the policy was associated with better morning output in the participating departments, especially for concentration-heavy work.
 
-Managers recommended extending the trial to more teams while continuing to track interruption levels, task type and technical disruptions. They also proposed allowing coordination-heavy teams to use a modified version rather than imposing the same rule everywhere.`,
+Managers recommended extending the trial to more teams while continuing to track interruption levels, task type and technical disruptions. They also proposed allowing coordination-heavy teams to use a modified version rather than imposing the same rule everywhere.
+
+The company also compared the pattern across days of the week. The strongest gains appeared on Tuesdays through Thursdays, while Mondays showed little change because planning meetings were already concentrated early in the week. This suggested that the policy interacted with existing routines rather than operating as an independent switch.
+
+Managers therefore decided that the next phase should record not only output, but also meeting load and task complexity. A rise in completed tasks could reflect easier work as well as better concentration. The company wanted to know whether the quiet hour improved the completion of demanding work, not merely the number of small tasks closed before noon.`,
  questions:[
  q("W01-Q1","RS-F01","medium","What happened to pre-noon task completion in the participating departments?","It rose by 11 percent",["It fell by 11 percent","It rose by 3 percent","It remained unchanged"],"The second paragraph directly reports an 11 percent increase.","rose by 11 percent"),
  q("W01-Q2","RS-F02","medium","What can be inferred about the policy's usefulness?","It may help concentration-heavy work more than coordination-heavy work",["It benefits every type of work equally","It is useful only when meetings are banned all day","It reduces software problems"],"The passage says coordination-heavy employees saw little benefit while concentration-heavy work benefited more.","especially for concentration-heavy work"),
@@ -42,7 +46,11 @@ The survey also found that crowding was the most common complaint among frequent
 
 The survey did not include people who had never tried the route, so it could not explain why some residents avoided the service entirely. Nor did it measure actual waiting times with tracking data; responses were based on riders' perceptions.
 
-The agency concluded that reliability perceptions were strongly related to where and how often people used the route, but the survey could not show that frequent use itself caused greater trust. It recommended combining passenger surveys with vehicle-tracking data before changing schedules.`,
+The agency concluded that reliability perceptions were strongly related to where and how often people used the route, but the survey could not show that frequent use itself caused greater trust. It recommended combining passenger surveys with vehicle-tracking data before changing schedules.
+
+The agency also compared responses by trip purpose. Commuters travelling to work were more sensitive to unpredictable waits than riders making occasional shopping or leisure trips. This did not mean work trips were objectively delayed more often; it showed that the same amount of uncertainty could matter differently depending on the cost of arriving late.
+
+For the next survey, the agency plans to sample non-users as well as current riders and to link survey responses with actual arrival records. That design would help distinguish whether people perceive a route as unreliable because the service is objectively irregular, because their tolerance for delay is lower, or because both factors operate together.`,
  questions:[
  q("T01-Q1","RS-F01","medium","What was the most common complaint among occasional riders?","Long waits",["Crowding","High fares","Unsafe stops"],"The fourth paragraph directly identifies long waits.","long waits were the most common complaint"),
  q("T01-Q2","RS-F02","medium","What can be inferred about the difference in reliability ratings?","Part of the difference may reflect unequal service frequency across locations",["Frequent use definitely causes trust","Occasional riders dislike public transport in general","Crowding explains the entire gap"],"The two groups were exposed to different headways, which could affect perceptions.","service frequency therefore differed between the two groups"),
@@ -66,7 +74,11 @@ The study also found that very long study hours were not consistently associated
 
 Because the study was observational, students were not assigned to different sleep schedules. Self-reported app records may also have contained errors, especially on days when students forgot to enter data until later.
 
-The researchers concluded that regular sleep and study patterns were associated with stronger performance, but they did not claim that simply increasing sleep would automatically raise an individual student's score. They recommended experimental or longer-term research to test causal effects more directly.`,
+The researchers concluded that regular sleep and study patterns were associated with stronger performance, but they did not claim that simply increasing sleep would automatically raise an individual student's score. They recommended experimental or longer-term research to test causal effects more directly.
+
+The researchers also examined variability, not only averages. Some students with short sleep still achieved high scores, and some well-rested students performed poorly. This reminded the team that group-level patterns do not determine individual outcomes. Prior knowledge, course difficulty and study quality may all matter alongside sleep duration.
+
+A follow-up project will therefore track students across an entire academic year instead of one examination period. Researchers hope that repeated observations will show whether changes within the same student over time are related to changes in sleep and study routines, reducing—but not eliminating—the problem of comparing students who differ in many other ways.`,
  questions:[
  q("S01-Q1","RS-F01","medium","Which students had the highest average scores in the reported comparison?","Those averaging seven to eight hours of sleep",["Those sleeping fewer than six hours","Those studying more than nine hours the day before","Those with late-night jobs"],"The second paragraph directly reports this pattern.","seven to eight hours of sleep had higher average scores"),
  q("S01-Q2","RS-F02","medium","What can be inferred about the higher-scoring sleep group?","Its advantage may reflect several related habits, not sleep alone",["Sleep had no relationship with performance","Early preparation always causes better scores","Late-night jobs improve study efficiency"],"The groups differed in work schedules and preparation timing as well as sleep.","groups differed in other ways"),
@@ -90,7 +102,11 @@ However, frequent shoppers also tended to live closer to the stores they used. P
 
 The survey also included only people who had made a recent purchase. It did not capture residents who had stopped using local stores entirely or those who considered a store but chose a larger retailer instead.
 
-The association concluded that service quality, convenience and price all appeared relevant to repeat visits, but the survey could not rank them as independent causes. It recommended that stores track repeat-purchase behaviour alongside customer feedback rather than relying on survey preferences alone.`,
+The association concluded that service quality, convenience and price all appeared relevant to repeat visits, but the survey could not rank them as independent causes. It recommended that stores track repeat-purchase behaviour alongside customer feedback rather than relying on survey preferences alone.
+
+The association also noted that respondents interpreted “helpfulness” differently. Some meant friendly conversation, while others meant quick problem-solving, product knowledge or willingness to handle returns. A single survey label may therefore combine several distinct service experiences.
+
+Future research will separate these dimensions and compare them with actual purchase histories where customers consent to data use. This would not automatically prove causation, but it could show whether particular service experiences predict later visits after accounting for distance and price. The association also wants to survey former customers, since people who stopped visiting may reveal barriers that satisfied current shoppers never mention.`,
  questions:[
  q("C01-Q1","RS-F01","medium","Which reason was selected most often for returning to a store?","Staff helpfulness",["Low price","Parking availability","Product advertising"],"The second paragraph reports staff helpfulness at 54 percent.","staff helpfulness ... 54 percent"),
  q("C01-Q2","RS-F02","medium","What can be inferred about frequent shoppers?","Their higher rating of helpful staff may partly reflect proximity and repeated contact",["They are unaffected by location","They always pay lower prices","They shop only because of staff"],"Frequent shoppers also lived closer and had more repeated interaction.","frequent shoppers also tended to live closer"),
@@ -114,12 +130,16 @@ The sixth site showed almost no temperature difference. It had very little tree 
 
 The study covered only one summer and six sites, so the findings may not apply equally to larger wetlands, different climates or other seasons. The sensors also measured air temperature, not how hot pedestrians felt in direct sunlight.
 
-The team concluded that small wetlands were associated with cooler nearby afternoon temperatures, but the size of the effect likely depended on surrounding vegetation and paving. It recommended studying more sites over several years before using a single cooling estimate in city planning.`,
+The team concluded that small wetlands were associated with cooler nearby afternoon temperatures, but the size of the effect likely depended on surrounding vegetation and paving. It recommended studying more sites over several years before using a single cooling estimate in city planning.
+
+Researchers also noted that distance alone may not capture how cooling spreads through a neighbourhood. Street orientation, building height and wind direction can move cooler air unevenly, so two points at the same distance from a wetland may experience different conditions. Future studies will therefore map surrounding streets more precisely instead of relying only on fixed distance bands.
+
+The team also plans to measure surface temperature and pedestrian heat exposure in addition to air temperature. That distinction matters because a location with slightly cooler air may still feel very hot if people are standing on unshaded pavement. The researchers want future planning advice to reflect the conditions people actually experience, not one environmental measure in isolation.`,
  questions:[
  q("E01-Q1","RS-F01","medium","What average temperature difference was observed between the wetland edge and locations 500 metres away?","1.4°C",["0.4°C","2.5°C","5°C"],"The second paragraph directly reports the average difference.","1.4°C cooler"),
  q("E01-Q2","RS-F02","medium","What can be inferred from the sixth site?","Wetland cooling may depend partly on surrounding land cover",["Wetlands never cool paved areas","Tree cover has no influence","The sensors at that site failed"],"The sixth site had little vegetation, much paving and little temperature difference.","surrounding land cover may influence"),
  q("E01-Q3","RS-F03","medium","Which summary is most accurate?","Wetlands were linked to cooler nearby temperatures, but surrounding conditions and limited scope prevent a simple causal estimate",["Wetlands were proven to cool every city by 1.4°C","Paving was proven to be the only temperature driver","The study found no consistent pattern"],"The conclusion uses association language and emphasises context.","associated with cooler nearby afternoon temperatures"),
- q("E01-Q4","RS-F04","hard","Which limitation most directly restricts generalisation?","Only six sites and one summer were studied",["Sensors were used","Measurements were taken in the afternoon","Five sites showed a pattern"],"The sample is small in place and time.","only one summer and six sites"),
+ q("E01-Q4","RS-F04","hard","Which limitation most directly restricts generalisation?","Only six sites and one summer were studied",["Sensors were used","Measurements were taken in the afternoon","Five sites showed a pattern"],"The sample covers only six locations and one summer, so broader seasonal or geographic generalisation is limited.","only one summer and six sites"),
  q("E01-Q5","RS-F05","hard","Which causal claim is not justified?","The wetlands alone caused the full 1.4°C temperature difference",["Nearby wetland areas were cooler on average","Land cover may influence the effect","The observed association varied by weather"],"Tree cover and paving differed too, so causation cannot be isolated.","did not prove the wetlands alone caused"),
  q("E01-Q6","RS-F06","hard","Which statement is a direct observation?","Five of six sites showed cooler temperatures near the wetland",["Trees were the main cause of cooling","Wetlands improve pedestrian comfort","The same effect will occur in winter"],"The five-of-six pattern is directly reported.","observed at five of the six sites"),
  q("E01-Q7","RS-F07","hard","Which factor is an explicitly identified confound?","More tree cover near the wetlands",["Sensor brand","Time zone","Number of researchers"],"Tree cover differed systematically and can affect temperature.","streets nearest the wetlands also tended to have more trees"),
@@ -138,7 +158,11 @@ Researchers adjusted statistically for prior grades and assignment completion, a
 
 The evaluation also found that students who used the hint feature repeatedly without attempting problems first showed little improvement over the semester. Students who attempted a problem before opening hints tended to improve more on later practice sets.
 
-The college concluded that use of the digital tutor was associated with stronger performance, especially when students actively attempted problems before requesting help. It did not claim that the tool alone caused the exam-score gap. The next evaluation will randomly assign access to some tutorial features to test causal effects more directly.`,
+The college concluded that use of the digital tutor was associated with stronger performance, especially when students actively attempted problems before requesting help. It did not claim that the tool alone caused the exam-score gap. The next evaluation will randomly assign access to some tutorial features to test causal effects more directly.
+
+The evaluation team also examined when students used the tutor. Many high-frequency users began using it early in the semester, whereas some low-frequency users opened it only shortly before the final exam. Timing may therefore be another marker of study discipline that is difficult to separate from the effect of the tool itself.
+
+In the next phase, researchers will record not only whether a feature is available but how students interact with it. They are particularly interested in whether attempting a problem before requesting help leads to better transfer to new problems. The aim is to distinguish simple exposure to the tutor from patterns of use that might plausibly support learning.`,
  questions:[
  q("D01-Q1","RS-F01","medium","How much higher were final-exam scores among frequent tool users on average?","Six percentage points",["Two percentage points","Ten percentage points","No difference"],"The second paragraph directly reports the six-point gap.","six percentage points higher"),
  q("D01-Q2","RS-F02","medium","What can be inferred about the score gap?","Part of it may reflect differences in motivation or study habits between users and non-users",["The tool definitely caused the entire gap","Prior grades had no relationship with performance","Review sessions lowered scores"],"Tool users also differed in assignment completion and review-session attendance.","motivation or study discipline may have differed"),
