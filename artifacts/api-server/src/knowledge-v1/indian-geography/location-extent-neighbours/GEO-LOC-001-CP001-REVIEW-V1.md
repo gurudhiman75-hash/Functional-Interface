@@ -1,4 +1,4 @@
-# GEO-LOC-001 CP001 — Astronomical Location, Extent & Size Basics — Review Batch V1
+# GEO-LOC-001 CP001 — Astronomical Location, Extent & Size Basics — Review Batch V2
 
 Questions: 54
 Difficulty: Easy 18 / Medium 30 / Hard 6
@@ -32,7 +32,7 @@ D. Arctic Circle
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-001 — Northern and Eastern Hemisphere position
 
-## 3. Which pair correctly states India's hemispheric position?
+## 3. India lies in which two hemispheres?
 
 A. Northern and Western Hemispheres
 B. Southern and Eastern Hemispheres
@@ -88,7 +88,7 @@ D. Neither P nor Q
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-001 — Northern and Eastern Hemisphere position
 
-## 7. What is the southern latitude of mainland India given in NCERT?
+## 7. What is the southernmost latitude of mainland India?
 
 A. 6°45'N
 B. 23°30'N
@@ -102,7 +102,7 @@ D. 37°6'N
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-002 — Mainland latitudinal extent
 
-## 8. What is the northern latitude of mainland India given in NCERT?
+## 8. What is the northernmost latitude of mainland India?
 
 A. 35°6'N
 B. 23°30'N
@@ -111,12 +111,12 @@ D. 37°6'N
 
 **Answer:** D. 37°6'N
 
-**Explanation:** The northern limit of mainland India's stated latitudinal extent is 37°6'N. Together with 8°4'N, it defines the textbook's mainland north–south latitude range.
+**Explanation:** The northernmost latitude of mainland India is 37°6'N. Together with 8°4'N, it defines mainland India's north–south latitude range.
 
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-002 — Mainland latitudinal extent
 
-## 9. Which pair gives the latitudinal extent of mainland India?
+## 9. What is the latitudinal extent of mainland India?
 
 A. 8°4'N to 37°6'N
 B. 68°7'E to 97°25'E
@@ -130,7 +130,7 @@ D. 23°30'N to 82°30'E
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-002 — Mainland latitudinal extent
 
-## 10. A latitude of 40°N is compared with India's stated mainland extent. What is correct?
+## 10. A place lies at 40°N. How does this compare with mainland India's latitudinal extent?
 
 A. It lies within the stated mainland latitudinal limits
 B. It lies north of the stated mainland latitudinal limit
@@ -139,12 +139,12 @@ D. It is a longitude, not a latitude
 
 **Answer:** B. It lies north of the stated mainland latitudinal limit
 
-**Explanation:** Mainland India's northern latitude limit is 37°6'N. A latitude of 40°N is farther north, so it falls outside the stated mainland latitude range.
+**Explanation:** Mainland India's northern latitude limit is 37°6'N. A latitude of 40°N is farther north, so it falls outside mainland India's latitude range.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-002 — Mainland latitudinal extent
 
-## 11. Which latitude falls between the stated southern and northern limits of mainland India?
+## 11. Which latitude lies within mainland India's latitudinal extent?
 
 A. 5°N
 B. 40°N
@@ -153,12 +153,12 @@ D. 2°S
 
 **Answer:** C. 25°N
 
-**Explanation:** The textbook range runs from 8°4'N to 37°6'N. A latitude of 25°N lies between those two limits, whereas 5°N and 2°S are too far south and 40°N is too far north.
+**Explanation:** The range runs from 8°4'N to 37°6'N. A latitude of 25°N lies between those two limits, whereas 5°N and 2°S are too far south and 40°N is too far north.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-002 — Mainland latitudinal extent
 
-## 12. Consider the statements: I. Mainland India lies entirely north of 8°N. II. Mainland India extends beyond 37°N. Which is correct?
+## 12. Consider the statements: I. Mainland India lies north of 8°N. II. Mainland India extends beyond 37°N. Which of the statements is/are correct?
 
 A. Only I is correct
 B. Only II is correct
@@ -172,7 +172,7 @@ D. Both I and II are correct
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-002 — Mainland latitudinal extent
 
-## 13. What is the western longitude of mainland India given in NCERT?
+## 13. What is the westernmost longitude of mainland India?
 
 A. 68°7'E
 B. 82°30'E
@@ -181,12 +181,12 @@ D. 37°6'N
 
 **Answer:** A. 68°7'E
 
-**Explanation:** The stated western longitude of mainland India is 68°7'E. It is the smaller of India's two mainland longitude limits because longitude values increase eastward here.
+**Explanation:** The westernmost longitude of mainland India is 68°7'E. It is the smaller of India's two mainland longitude limits because longitude values increase eastward here.
 
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-003 — Mainland longitudinal extent
 
-## 14. What is the eastern longitude of mainland India given in NCERT?
+## 14. What is the easternmost longitude of mainland India?
 
 A. 68°7'E
 B. 97°25'E
@@ -195,12 +195,12 @@ D. 23°30'N
 
 **Answer:** B. 97°25'E
 
-**Explanation:** The stated eastern longitude of mainland India is 97°25'E. Together with 68°7'E in the west, it forms the textbook's east–west longitude range.
+**Explanation:** The easternmost longitude of mainland India is 97°25'E. Together with 68°7'E in the west, it forms mainland India's east–west longitude range.
 
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-003 — Mainland longitudinal extent
 
-## 15. Which pair gives the longitudinal extent of mainland India?
+## 15. What is the longitudinal extent of mainland India?
 
 A. 8°4'N to 37°6'N
 B. 23°30'N to 82°30'E
@@ -214,7 +214,7 @@ D. 68°7'W to 97°25'E
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-003 — Mainland longitudinal extent
 
-## 16. A longitude of 100°E is compared with India's stated mainland extent. What is correct?
+## 16. A place lies at 100°E. How does this compare with mainland India's longitudinal extent?
 
 A. It lies within the stated mainland longitudinal limits
 B. It lies west of the stated mainland longitudinal limits
@@ -223,12 +223,12 @@ D. It lies east of the stated mainland longitudinal limit
 
 **Answer:** D. It lies east of the stated mainland longitudinal limit
 
-**Explanation:** The eastern mainland limit is 97°25'E. A longitude of 100°E is farther east, so it falls outside the stated mainland longitude range.
+**Explanation:** The eastern mainland limit is 97°25'E. A longitude of 100°E is farther east, so it falls outside mainland India's longitude range.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-003 — Mainland longitudinal extent
 
-## 17. Which longitude falls between the stated western and eastern limits of mainland India?
+## 17. Which longitude lies within mainland India's longitudinal extent?
 
 A. 80°E
 B. 60°E
@@ -242,21 +242,21 @@ D. 20°W
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-003 — Mainland longitudinal extent
 
-## 18. Which statement correctly compares 70°E and 95°E with India's stated mainland longitude limits?
+## 18. How do 70°E and 95°E relate to mainland India's longitudinal extent?
 
 A. Only 70°E falls between the limits
-B. Both longitudes fall between the stated western and eastern limits
+B. Both longitudes fall between the western and eastern longitude limits
 C. Only 95°E falls between the limits
 D. Neither longitude falls between the limits
 
-**Answer:** B. Both longitudes fall between the stated western and eastern limits
+**Answer:** B. Both longitudes fall between the western and eastern longitude limits
 
-**Explanation:** India's stated mainland longitudes run from 68°7'E to 97°25'E. Both 70°E and 95°E lie numerically inside that interval, though this alone does not prove that every point on those meridians is Indian territory.
+**Explanation:** India's stated mainland longitudes run from 68°7'E to 97°25'E. Both 70°E and 95°E lie numerically within that longitude range, though this alone does not prove that every point on those meridians is Indian territory.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-003 — Mainland longitudinal extent
 
-## 19. Which important latitude passes through India at 23°30'N?
+## 19. Which latitude passes through India at 23°30'N?
 
 A. Equator
 B. Tropic of Capricorn
@@ -284,7 +284,7 @@ D. 23°30'N
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-004 — Tropic of Cancer
 
-## 21. How does NCERT describe the Tropic of Cancer's position across India?
+## 21. How does the Tropic of Cancer divide India?
 
 A. It divides the country into almost two equal parts
 B. It forms India's western boundary
@@ -293,7 +293,7 @@ D. It marks the Standard Meridian of India
 
 **Answer:** A. It divides the country into almost two equal parts
 
-**Explanation:** NCERT notes that the Tropic of Cancer at 23°30'N divides India into almost two equal parts. It is a latitude, so it should not be confused with a boundary or the Standard Meridian.
+**Explanation:** The Tropic of Cancer at 23°30'N divides India into almost two equal parts. It is a latitude, so it should not be confused with a boundary or the Standard Meridian.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-004 — Tropic of Cancer
@@ -363,7 +363,7 @@ D. Kolkata in West Bengal
 
 **Answer:** B. Mirzapur in Uttar Pradesh
 
-**Explanation:** NCERT identifies 82°30'E passing through Mirzapur in Uttar Pradesh as India's Standard Meridian. This central reference helps the country use one standard time.
+**Explanation:** India's Standard Meridian, 82°30'E, passes through Mirzapur in Uttar Pradesh. This central reference helps the country use one standard time.
 
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-005 — Standard Meridian of India
@@ -382,7 +382,7 @@ D. It forms the western coast of India
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-005 — Standard Meridian of India
 
-## 28. Which statement correctly distinguishes the Tropic of Cancer from India's Standard Meridian?
+## 28. How do the Tropic of Cancer and India's Standard Meridian differ?
 
 A. Both are latitudes
 B. Both are longitudes
@@ -396,7 +396,7 @@ D. The Tropic is a latitude, while the Standard Meridian is a longitude
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-005 — Standard Meridian of India
 
-## 29. Which value is closer to the middle of India's stated mainland longitude range and is used for standard time?
+## 29. Which longitude, lying near the middle of India's east–west extent, is used for Indian Standard Time?
 
 A. 82°30'E
 B. 68°7'E
@@ -410,7 +410,7 @@ D. 23°30'N
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-005 — Standard Meridian of India
 
-## 30. A map labels 23°30'N and 82°30'E across India. Which identification is correct?
+## 30. On a map of India, what do 23°30'N and 82°30'E represent?
 
 A. 23°30'N is the Standard Meridian and 82°30'E is the Tropic of Cancer
 B. 23°30'N is the Tropic of Cancer and 82°30'E is the Standard Meridian
@@ -433,7 +433,7 @@ D. 15,200 km
 
 **Answer:** C. 3,214 km
 
-**Explanation:** NCERT gives India's mainland north–south extent as about 3,214 km. This is longer than the stated east–west mainland extent of about 2,933 km.
+**Explanation:** India's mainland north–south extent is about 3,214 km. This is longer than the stated east–west mainland extent of about 2,933 km.
 
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-006 — North-south and east-west mainland dimensions
@@ -466,7 +466,7 @@ D. Neither can be measured
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-006 — North-south and east-west mainland dimensions
 
-## 34. Which pair correctly matches India's mainland dimensions?
+## 34. Which pair gives India's approximate mainland dimensions?
 
 A. North–south: 2,933 km; east–west: 3,214 km
 B. North–south: 3,214 km; east–west: 2,933 km
@@ -475,7 +475,7 @@ D. North–south: 3.28 million km; east–west: 2.4 km
 
 **Answer:** B. North–south: 3,214 km; east–west: 2,933 km
 
-**Explanation:** The textbook gives about 3,214 km from north to south and about 2,933 km from east to west. Border length and coastline figures measure different geographic features.
+**Explanation:** The standard figures are about 3,214 km from north to south and about 2,933 km from east to west. Border length and coastline figures measure different geographic features.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-006 — North-south and east-west mainland dimensions
@@ -489,12 +489,12 @@ D. About 2,933 km
 
 **Answer:** C. About 281 km
 
-**Explanation:** Subtracting the stated dimensions gives about 3,214 − 2,933 = 281 km. The question compares the two mainland spans rather than any boundary or coastline length.
+**Explanation:** Subtracting the two dimensions gives about 3,214 − 2,933 = 281 km. The question compares the two mainland spans rather than any boundary or coastline length.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-006 — North-south and east-west mainland dimensions
 
-## 36. Statement I: India's mainland spans about 3,214 km north to south. Statement II: Its east–west span is about 2,933 km. Which is correct?
+## 36. Statement I: India's mainland spans about 3,214 km north to south. Statement II: Its east–west span is about 2,933 km. Which of the statements is/are correct?
 
 A. Only Statement I is correct
 B. Only Statement II is correct
@@ -503,12 +503,12 @@ D. Both statements are correct
 
 **Answer:** D. Both statements are correct
 
-**Explanation:** Both figures match the standard NCERT dimensions of mainland India. Together they show that the north–south span is somewhat longer than the east–west span.
+**Explanation:** Both figures match India's standard mainland dimensions. Together they show that the north–south span is somewhat longer than the east–west span.
 
 **Difficulty:** Hard
 **QL:** GEO-LOC-001-QL-006 — North-south and east-west mainland dimensions
 
-## 37. What is the approximate total area of India given in NCERT?
+## 37. What is the approximate total area of India?
 
 A. 3.28 million square kilometres
 B. 1.28 million square kilometres
@@ -531,12 +531,12 @@ D. 7.5%
 
 **Answer:** B. 2.4%
 
-**Explanation:** NCERT states that India occupies about 2.4% of the world's total geographical area. The percentage is small relative to the global total despite India's large absolute size.
+**Explanation:** India occupies about 2.4% of the world's total geographical area. The percentage is small relative to the global total despite India's large absolute size.
 
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-007 — Area, world share and size rank
 
-## 39. What is India's size rank by area in the NCERT framing?
+## 39. What is India's rank in the world by area?
 
 A. Third
 B. Fifth
@@ -545,12 +545,12 @@ D. Tenth
 
 **Answer:** C. Seventh
 
-**Explanation:** NCERT presents India as the seventh-largest country in the world by area. The rank is paired with an area of about 3.28 million square kilometres.
+**Explanation:** India is the seventh-largest country in the world by area. The rank is paired with an area of about 3.28 million square kilometres.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-007 — Area, world share and size rank
 
-## 40. Which combination correctly states India's area and share of world geographical area?
+## 40. What are India's approximate area and share of the world's geographical area?
 
 A. About 2.4 million sq km and about 3.28%
 B. About 7.5 million sq km and about 2.4%
@@ -564,21 +564,21 @@ D. About 3.28 million sq km and about 2.4%
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-007 — Area, world share and size rank
 
-## 41. Which statement about India's physical size is correct?
+## 41. Which fact about India's area is accurate?
 
-A. India is the seventh-largest country by area in the textbook comparison
+A. India is the seventh-largest country by area in the world
 B. India is the world's largest country by area
 C. India covers about 24% of the world's geographical area
 D. India's area is about 0.328 million square kilometres
 
-**Answer:** A. India is the seventh-largest country by area in the textbook comparison
+**Answer:** A. India is the seventh-largest country by area in the world
 
 **Explanation:** India is placed seventh by area in NCERT's standard world comparison. Its area is about 3.28 million square kilometres, representing roughly 2.4% of world geographical area.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-007 — Area, world share and size rank
 
-## 42. Consider the statements: I. India has about 3.28 million sq km of area. II. This is about 2.4% of world geographical area. III. India is seventh by area. Which is correct?
+## 42. Consider the statements: I. India has about 3.28 million sq km of area. II. This is about 2.4% of the world's geographical area. III. India ranks seventh in the world by area. Which of the statements is/are correct?
 
 A. I and II only
 B. I, II and III are correct
@@ -592,7 +592,7 @@ D. I and III only
 **Difficulty:** Hard
 **QL:** GEO-LOC-001-QL-007 — Area, world share and size rank
 
-## 43. About how much local-time difference exists from Gujarat to Arunachal Pradesh?
+## 43. What is the approximate local-time difference between Gujarat and Arunachal Pradesh?
 
 A. Thirty minutes
 B. Four hours
@@ -601,7 +601,7 @@ D. Six hours
 
 **Answer:** C. Two hours
 
-**Explanation:** NCERT notes a local-time lag of about two hours from Gujarat in the west to Arunachal Pradesh in the east. This arises from India's considerable longitudinal extent.
+**Explanation:** There is a local-time lag of about two hours from Gujarat in the west to Arunachal Pradesh in the east. This arises from India's considerable longitudinal extent.
 
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-008 — East-west time lag and one standard time
@@ -620,7 +620,7 @@ D. To avoid different official times caused by east–west longitude differences
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-008 — East-west time lag and one standard time
 
-## 45. Which part of India experiences local noon earlier because it lies farther east?
+## 45. Which of the following experiences local noon earlier because it lies farther east?
 
 A. Arunachal Pradesh
 B. Gujarat
@@ -629,12 +629,12 @@ D. Goa
 
 **Answer:** A. Arunachal Pradesh
 
-**Explanation:** Places farther east reach the Sun's apparent daily positions earlier in local solar time. Arunachal Pradesh lies much farther east than Gujarat, creating the textbook two-hour local-time contrast.
+**Explanation:** Places farther east reach the Sun's apparent daily positions earlier in local solar time. Arunachal Pradesh lies much farther east than Gujarat, creating the roughly two-hour local-time contrast.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-008 — East-west time lag and one standard time
 
-## 46. If local solar time differs across India, what keeps official clocks uniform?
+## 46. What keeps official clock time uniform across India despite differences in local solar time?
 
 A. The Tropic of Cancer
 B. Indian Standard Time based on 82°30'E
@@ -648,7 +648,7 @@ D. The westernmost longitude 68°7'E
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-008 — East-west time lag and one standard time
 
-## 47. What geographic feature causes the local-time difference between western and eastern India?
+## 47. What causes the local-time difference between western and eastern India?
 
 A. Latitudinal extent
 B. Altitude alone
@@ -662,7 +662,7 @@ D. Distance from the Equator alone
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-008 — East-west time lag and one standard time
 
-## 48. Two towns keep the same official clock time, but the eastern town sees local noon earlier. Which explanation fits India?
+## 48. Two Indian towns show the same official time, but the eastern town experiences local noon earlier. Why?
 
 A. The eastern town uses a different national time zone
 B. Latitude alone creates the clock difference
@@ -676,7 +676,7 @@ D. Both follow IST, while longitude still changes local solar time
 **Difficulty:** Hard
 **QL:** GEO-LOC-001-QL-008 — East-west time lag and one standard time
 
-## 49. Which coordinate pair fits India's stated mainland latitude and longitude limits?
+## 49. Which coordinate pair lies within both the latitude and longitude ranges of mainland India?
 
 A. 20°N, 80°E
 B. 40°N, 80°E
@@ -685,12 +685,12 @@ D. 10°S, 80°E
 
 **Answer:** A. 20°N, 80°E
 
-**Explanation:** The stated mainland limits are 8°4'N–37°6'N and 68°7'E–97°25'E. The pair 20°N, 80°E falls inside both numeric intervals; this test does not claim every such coordinate is Indian territory.
+**Explanation:** Mainland India's coordinate limits are 8°4'N–37°6'N and 68°7'E–97°25'E. The pair 20°N, 80°E falls inside both numeric intervals; this test does not claim every such coordinate is Indian territory.
 
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-009 — Mixed coordinate and extent interpretation
 
-## 50. Which coordinate cannot fit the stated mainland latitude limits of India?
+## 50. Which coordinate lies outside mainland India's latitudinal extent?
 
 A. 10°N, 75°E
 B. 42°N, 80°E
@@ -699,12 +699,12 @@ D. 30°N, 90°E
 
 **Answer:** B. 42°N, 80°E
 
-**Explanation:** Mainland India's northern latitude limit is 37°6'N. A coordinate at 42°N is therefore outside the stated mainland latitude interval regardless of its longitude.
+**Explanation:** Mainland India's northern latitude limit is 37°6'N. A coordinate at 42°N is therefore outside mainland India's latitude range regardless of its longitude.
 
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-009 — Mixed coordinate and extent interpretation
 
-## 51. Which coordinate cannot fit the stated mainland longitude limits of India?
+## 51. Which coordinate lies outside mainland India's longitudinal extent?
 
 A. 25°N, 70°E
 B. 25°N, 82°E
@@ -713,12 +713,12 @@ D. 25°N, 95°E
 
 **Answer:** C. 25°N, 105°E
 
-**Explanation:** Mainland India's eastern longitude limit is 97°25'E. A longitude of 105°E lies beyond that interval, while 70°E, 82°E and 95°E fall between the stated west and east limits.
+**Explanation:** Mainland India's eastern longitude limit is 97°25'E. A longitude of 105°E lies beyond that interval, while 70°E, 82°E and 95°E fall between the western and eastern longitude limits.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-009 — Mixed coordinate and extent interpretation
 
-## 52. A map point is at 5°N, 80°E. Which stated mainland limit does it fail?
+## 52. A point is located at 5°N, 80°E. Which mainland extent does it fall outside?
 
 A. The western longitude limit
 B. The eastern longitude limit
@@ -732,7 +732,7 @@ D. The southern latitude limit
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-009 — Mixed coordinate and extent interpretation
 
-## 53. A map point is at 25°N, 65°E. Which stated mainland limit does it fail?
+## 53. A point is located at 25°N, 65°E. Which mainland extent does it fall outside?
 
 A. The western longitude limit
 B. The southern latitude limit
@@ -746,7 +746,7 @@ D. The eastern longitude limit
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-009 — Mixed coordinate and extent interpretation
 
-## 54. Point A is 12°N, 75°E; B is 39°N, 75°E; C is 20°N, 100°E. Which point fits both stated mainland coordinate intervals?
+## 54. Point A is at 12°N, 75°E; B at 39°N, 75°E; and C at 20°N, 100°E. Which point lies within both mainland coordinate ranges?
 
 A. Point B only
 B. Point A only
@@ -755,7 +755,7 @@ D. Points B and C only
 
 **Answer:** B. Point A only
 
-**Explanation:** Point A lies between both the stated latitude and longitude limits. B exceeds the northern latitude limit and C exceeds the eastern longitude limit; fitting both intervals still does not by itself prove territorial location.
+**Explanation:** Point A lies between both mainland India's latitude and longitude ranges. B exceeds the northern latitude limit and C exceeds the eastern longitude limit; fitting both intervals still does not by itself prove territorial location.
 
 **Difficulty:** Hard
 **QL:** GEO-LOC-001-QL-009 — Mixed coordinate and extent interpretation
