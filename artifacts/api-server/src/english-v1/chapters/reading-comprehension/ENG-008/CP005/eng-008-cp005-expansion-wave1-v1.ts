@@ -1,0 +1,61 @@
+import type{Eng008Cp005PassageV1}from"./eng-008-cp005-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+
+export const ENG008_CP005_EXPANSION_WAVE1_V1:readonly Eng008Cp005PassageV1[]=[
+{
+ id:"ENG008-RS-T02",title:"Do Bus Arrival Displays Change Waiting Behaviour?",genre:"transport-survey",
+ text:`A city transport department evaluated electronic arrival displays at twenty bus stops over eight weeks. Ten stops received screens showing estimated minutes until the next bus, while ten similar stops continued using printed timetables. Researchers wanted to know whether real-time information changed how passengers experienced waiting.
+
+Observers recorded whether passengers stayed at the stop, walked to a nearby shop, or left before a bus arrived. Short interviews were also conducted with 640 passengers. At display-equipped stops, fewer passengers said they felt uncertain about how long they would wait.
+
+The number of people who left before a bus arrived was also slightly lower at the display stops. However, the researchers warned that the difference could not automatically be attributed to the screens. Several display stops were located on routes with somewhat more frequent service.
+
+To reduce this problem, the team compared stops with similar scheduled frequency and adjusted for time of day. The gap became smaller but remained present. Because the stops had not been randomly assigned, some unmeasured difference could still explain part of the result.
+
+The survey produced another finding: passengers valued accuracy more than detail. When a display repeatedly showed a bus as two minutes away but the bus arrived much later, trust in the screen fell quickly. Riders said an approximate but reliable range would be more useful than a precise number that changed unpredictably.
+
+The department concluded that real-time displays were associated with lower uncertainty and slightly fewer abandoned waits, but the evaluation did not establish the full causal effect. It recommended improving prediction accuracy before installing more screens.
+
+Researchers also suggested tracking the same stops before and after installation in a future phase. That design would allow each stop to serve partly as its own comparison and would make it easier to separate location differences from changes after the display appeared.
+
+The department will also examine whether benefits differ for infrequent riders, who may know the route less well, and regular commuters, who may already have strong expectations about service. The aim is to understand not only whether displays help on average, but who benefits most and under what conditions.`,
+ questions:[
+ q("T02-Q1","RS-F01","medium","What did passengers at display-equipped stops report less often?","Uncertainty about how long they would wait",["Concern about ticket prices","Difficulty finding the stop","Problems reading route numbers"],"The second paragraph directly reports lower uncertainty at stops with displays.","fewer passengers said they felt uncertain"),
+ q("T02-Q2","RS-F02","medium","What can be inferred about the screens' possible effect?","They may improve waiting experience, but route differences could explain part of the pattern",["They definitely caused every observed difference","They had no relationship with waiting behaviour","They mattered only because printed timetables were removed"],"The result remains after adjustment, but assignment was not random and service frequency differed.","some unmeasured difference could still explain part"),
+ q("T02-Q3","RS-F03","medium","Which summary is most accurate?","Real-time displays were linked to less uncertainty, but causal conclusions remain limited",["Displays proved that buses became more punctual","Passengers preferred more detailed but inaccurate predictions","Printed timetables caused people to leave stops"],"The conclusion explicitly states association and limits causation.","associated with lower uncertainty"),
+ q("T02-Q4","RS-F04","hard","Which limitation most directly weakens causal interpretation?","Display stops were not randomly assigned and differed somewhat in service frequency",["The study lasted eight weeks","Passengers were interviewed","Twenty stops were included"],"Non-random assignment creates potential confounding between screen presence and route characteristics.","had not been randomly assigned"),
+ q("T02-Q5","RS-F05","hard","Which statement confuses correlation with causation?","The screens caused passengers to abandon fewer waits",["Fewer passengers left at display stops","Display stops had somewhat more frequent service","Trust fell when predictions were inaccurate"],"The first claim treats an observed association as proven causation despite confounding.","could not automatically be attributed to the screens"),
+ q("T02-Q6","RS-F06","hard","Which is a directly reported finding rather than an interpretation?","Passengers valued prediction accuracy more than extra detail",["Displays improve trust in every city","Frequent riders benefit more than infrequent riders","Accurate ranges will certainly reduce waiting time"],"The survey directly reports what passengers said they valued.","passengers valued accuracy more than detail"),
+ q("T02-Q7","RS-F07","hard","Which competing explanation is explicitly identified?","Display stops may have looked better partly because their buses ran more frequently",["Passengers at display stops paid lower fares","The displays made buses travel faster","Printed timetables were incorrect at all control stops"],"The passage directly notes somewhat more frequent service at several display stops.","routes with somewhat more frequent service"),
+ q("T02-Q8","RS-F08","medium","Which next step is best supported?","Compare the same stops before and after display installation",["Remove all printed timetables immediately","Install screens everywhere before improving accuracy","Ignore service frequency in future analysis"],"The proposed before/after design helps reduce location-based confounding.","tracking the same stops before and after installation")
+ ]
+},
+{
+ id:"ENG008-RS-D02",title:"Video Explanations or Worked Examples?",genre:"digital-learning-evaluation",
+ text:`An online learning programme tested two ways of supporting students who struggled with algebra practice. One group received short video explanations after an incorrect answer. Another group received a written worked example showing each step of a similar problem. Students could still attempt as many practice questions as they wished.
+
+The evaluation included 520 learners who completed at least four weeks of practice. On a follow-up quiz, both groups improved from their starting scores. The written-example group improved slightly more on multi-step problems, while the video group reported higher satisfaction with the support they received.
+
+Researchers cautioned against interpreting this as proof that written examples were generally superior. Students were allowed to choose whether to replay videos or reread examples, and the programme recorded time spent but not whether learners were fully attentive during that time.
+
+The groups also differed modestly in prior achievement even after the programme tried to balance them. Students in the written-example group had slightly higher baseline scores. Statistical adjustment reduced the later score difference but did not remove it completely.
+
+A usage pattern attracted particular interest. Students who attempted a second problem before reopening the support material improved more than students who immediately returned to the explanation after every error. This pattern appeared in both groups.
+
+The researchers interpreted that finding cautiously. It may indicate that active retrieval helps learning, but it could also reflect stronger students being more willing to try again without assistance. The study could not separate those possibilities.
+
+The programme concluded that both formats were useful, with different strengths: videos were rated more positively, while written examples were associated with somewhat stronger performance on complex items. It recommended allowing both formats while testing how students use them rather than selecting one universal method.
+
+A future experiment will randomly vary when support becomes available after an error. By controlling the timing rather than leaving every choice to the learner, researchers hope to test whether a brief independent attempt before reopening help actually improves later performance.`,
+ questions:[
+ q("D02-Q1","RS-F01","medium","Which group improved slightly more on multi-step problems?","The written worked-example group",["The video group","Neither group","Only students who skipped support"],"The second paragraph directly reports a small advantage for written examples on multi-step problems.","written-example group improved slightly more"),
+ q("D02-Q2","RS-F02","medium","What can be inferred about the two support formats?","They may have different strengths rather than one being universally better",["Video is clearly superior for all outcomes","Written examples reduce satisfaction","Neither format supports learning"],"One format had higher satisfaction and the other somewhat stronger complex-item performance.","both formats were useful, with different strengths"),
+ q("D02-Q3","RS-F03","medium","Which summary is most accurate?","Both formats were linked to improvement, but design limits prevent a simple claim that one caused better learning",["Written examples were proven to be the best method","Video explanations reduced quiz performance","Student choice had no effect on the evaluation"],"The passage repeatedly qualifies the observed differences because of baseline and usage factors.","cautioned against interpreting this as proof"),
+ q("D02-Q4","RS-F04","hard","Which limitation most directly affects comparison of the two groups?","The groups differed in prior achievement and learners controlled how they used the support",["The programme taught algebra","The quiz contained multi-step problems","Students practised for four weeks"],"Baseline imbalance and self-directed usage make causal comparison less clean.","groups also differed modestly in prior achievement"),
+ q("D02-Q5","RS-F05","hard","Which statement makes an unjustified causal claim?","Written examples caused the higher multi-step scores",["The written-example group scored slightly higher","Both groups improved from baseline","Statistical adjustment reduced the difference"],"The study design does not isolate format as the sole cause of the score difference.","not proof that written examples were generally superior"),
+ q("D02-Q6","RS-F06","hard","Which is a direct finding?","The video group reported higher satisfaction",["Videos are more engaging for every learner","Active retrieval caused the improvement pattern","Written examples are easier to remember"],"Higher satisfaction in the video group is explicitly reported.","video group reported higher satisfaction"),
+ q("D02-Q7","RS-F07","hard","Which competing explanation is given for the benefit seen among students who tried again before reopening help?","Stronger students may have been more willing to attempt another problem independently",["The programme gave them easier questions","They watched longer videos","They had lower baseline scores"],"The passage explicitly identifies learner strength as an alternative explanation.","could also reflect stronger students"),
+ q("D02-Q8","RS-F08","medium","Which future design is best supported?","Randomly vary when support becomes available after an error",["Remove one support format permanently","Let students choose every condition in the experiment","Measure satisfaction only"],"Randomising support timing would help test whether independent retry causes later improvement.","randomly vary when support becomes available")
+ ]
+}
+] as const;
