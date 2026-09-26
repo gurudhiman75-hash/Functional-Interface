@@ -1,6 +1,6 @@
 # GEO-LOC-001 — India: Location, Extent, Neighbours & Map Basics
 
-Status: IMPLEMENTATION STARTED — REVIEW ONLY
+Status: CLOSURE REVIEW — REVIEW ONLY
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-LOC-001`
@@ -110,5 +110,8 @@ All implementation is review-only until explicit human approval. Question Studio
 - CP009 — Coastal & Border State/UT Geography — human-approved and merged.
 - CP010 — India in South Asia & the Indian Ocean — human-approved and merged.
 - CP011 — Relative Location, Direction & Coordinate Reasoning — human-approved and merged.
-- CP012 — Multi-fact / Statement / Match Integration — human-approved.
-- No permanent runtime registration or public publication is authorized.
+- CP012 — Multi-fact / Statement / Match Integration — human-approved and merged.
+- CP013 — Exhaustive Location & Map Mastery — under closure review.
+- Owning corpus: 108 permanent QLs / 648 questions.
+- CP013 mastery candidate: 108 non-owning questions, one per QL.
+- Runtime/public publication remains unauthorized.
