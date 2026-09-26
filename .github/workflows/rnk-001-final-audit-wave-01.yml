@@ -53,26 +53,78 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/rnk-final-audit/declutter.mjs
 
-      - name: Prove Wave 01 recovery and current integration
+      - name: Prove RNK Wave 01 recovery and current integration
         working-directory: artifacts/api-server
         run: |
-          set -euo pipefail
-          files=(
-            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-01.test.ts"
-            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-02.test.ts"
-            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-03.test.ts"
-            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-04.test.ts"
-            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-05.test.ts"
-            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-06.test.ts"
-            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-chapter-closeout-v1.test.ts"
-            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.test.ts"
-          )
-          mkdir -p dist/reasoning-v1
-          for file in "${files[@]}"; do
-            out="dist/reasoning-v1/$(basename "${file%.ts}").mjs"
-            pnpm exec esbuild "$file" --bundle --platform=node --format=esm --outfile="$out"
-            node "$out"
-          done
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-01.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+
+      - name: Prove RNK Wave 02 solve-relevant presentation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-02.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-02.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-02.mjs
+
+      - name: Prove RNK Wave 03 explanation hygiene
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-03.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-03.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-03.mjs
+
+      - name: Prove RNK Wave 04 stem and distractor quality
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-04.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-04.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-04.mjs
+
+      - name: Prove RNK Wave 05 generated-instance difficulty
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-05.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-05.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-05.mjs
+
+      - name: Prove RNK Wave 06 native learner surface
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-06.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-06.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-06.mjs
+
+      - name: Re-prove recovered RNK final chapter closeout
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-chapter-closeout-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-chapter-closeout-v1.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-chapter-closeout-v1.mjs
+
+      - name: Re-prove recovered RNK multilingual freeze
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-multilingual-freeze-v1.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-multilingual-freeze-v1.mjs
+
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server run build
