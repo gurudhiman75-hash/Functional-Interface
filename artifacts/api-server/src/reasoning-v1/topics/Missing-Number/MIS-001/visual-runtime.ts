@@ -20,11 +20,11 @@ export function renderTriangleSvg(values: {
 }): string {
   return [
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 180" role="img" aria-label="number triangle">',
-    '<polygon points="110,18 28,154 192,154" fill="none" stroke="currentColor" stroke-width="2.5"/>',
-    '<circle cx="110" cy="94" r="27" fill="none" stroke="currentColor" stroke-width="2"/>',
+    '<polygon points="110,28 38,146 182,146" fill="none" stroke="currentColor" stroke-width="2.5"/>',
+    '<circle cx="110" cy="94" r="29" fill="white" stroke="currentColor" stroke-width="2"/>',
     textNode(110, 13, values.top),
-    textNode(21, 163, values.left),
-    textNode(199, 163, values.right),
+    textNode(24, 164, values.left),
+    textNode(196, 164, values.right),
     textNode(110, 94, values.centre),
     '</svg>',
   ].join('');
@@ -45,10 +45,10 @@ export function renderCircleSvg(values: {
       ? '<line x1="110" y1="28" x2="110" y2="192" stroke="currentColor" stroke-width="1.5"/><line x1="28" y1="110" x2="192" y2="110" stroke="currentColor" stroke-width="1.5"/>'
       : '<line x1="110" y1="28" x2="110" y2="83" stroke="currentColor" stroke-width="1.5"/><line x1="181" y1="151" x2="134" y2="124" stroke="currentColor" stroke-width="1.5"/><line x1="39" y1="151" x2="86" y2="124" stroke="currentColor" stroke-width="1.5"/>',
     '<circle cx="110" cy="110" r="27" fill="none" stroke="currentColor" stroke-width="2"/>',
-    textNode(110, 62, values.top),
-    four ? textNode(158, 110, values.right) : textNode(166, 146, values.right),
-    textNode(110, 158, values.bottom),
-    four && values.left != null ? textNode(62, 110, values.left) : '',
+    textNode(110, 52, values.top),
+    four ? textNode(168, 110, values.right) : textNode(171, 151, values.right),
+    textNode(110, 168, values.bottom),
+    four && values.left != null ? textNode(52, 110, values.left) : '',
     textNode(110, 110, values.centre),
     '</svg>',
   ].join('');
@@ -66,11 +66,11 @@ export function renderBoxSvg(values: {
   return [
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 190" role="img" aria-label="corner centre number figure">',
     `<rect x="${x}" y="20" width="${width}" height="150" fill="none" stroke="currentColor" stroke-width="2.5"/>`,
-    '<circle cx="110" cy="95" r="27" fill="none" stroke="currentColor" stroke-width="2"/>',
-    textNode(x + 13, 35, values.topLeft),
-    textNode(x + width - 13, 35, values.topRight),
-    textNode(x + 13, 155, values.bottomLeft),
-    textNode(x + width - 13, 155, values.bottomRight),
+    '<circle cx="110" cy="95" r="30" fill="white" stroke="currentColor" stroke-width="2"/>',
+    textNode(x + 22, 42, values.topLeft),
+    textNode(x + width - 22, 42, values.topRight),
+    textNode(x + 22, 148, values.bottomLeft),
+    textNode(x + width - 22, 148, values.bottomRight),
     textNode(110, 95, values.centre),
     '</svg>',
   ].join('');
