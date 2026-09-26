@@ -656,38 +656,70 @@ async function generateCoreSlot(
   });
 }
 
+const PROBABILITY_SIMULATION_CANDIDATES = Object.freeze([
+  { packageId: "PRB-001", cpId: "PRB-CP-001" },
+  { packageId: "PRB-001", cpId: "PRB-CP-002" },
+  { packageId: "PRB-001", cpId: "PRB-CP-003" },
+  { packageId: "PRB-001", cpId: "PRB-CP-004" },
+  { packageId: "PRB-001", cpId: "PRB-CP-005" },
+  { packageId: "PRB-002", cpId: "PRB-CP-006" },
+  { packageId: "PRB-002", cpId: "PRB-CP-007" },
+  { packageId: "PRB-002", cpId: "PRB-CP-008" },
+  { packageId: "PRB-002", cpId: "PRB-CP-009" },
+] as const);
+
 async function generateProbabilitySlot(
   profile: QuantV4RealExamProfile,
   sectionIndex: number,
   ordinal: number,
   seed: string,
 ): Promise<QuantV4SimulatedQuestion> {
-  try {
-    const packageId = hash(seed) % 2 === 0 ? "PRB-001" : "PRB-002";
-    const batch = await generateQuantQuestion({
-      packageId: packageId as any,
-      language: "en",
-      difficulty: difficultyFor(`${seed}:difficulty`),
-      examProfile: resolveProbabilitySimulationProfile(profile) as any,
-      seed,
-      count: 1,
-    } as any);
-    const question = extractBatchQuestions(batch)[0];
-    if (!question) throw new Error("Probability runtime returned no question.");
-    return runtimeRecord({
-      profile,
-      sectionIndex,
-      ordinal,
-      slotKind: "PROBABILITY",
-      question,
-      packageId,
-      topic: "Advanced Mathematics",
-      subtopic: "Probability",
-      representation: "DIRECT_MCQ",
-    });
-  } catch (error) {
-    return gapRecord({ profile, sectionIndex, ordinal, slotKind: "PROBABILITY", reason: error instanceof Error ? error.message : String(error) });
+  const examProfile = resolveProbabilitySimulationProfile(profile);
+  const difficulty = difficultyFor(`${seed}:difficulty`);
+  const start = hash(`${seed}:probability-candidate`) % PROBABILITY_SIMULATION_CANDIDATES.length;
+  const errors: string[] = [];
+
+  for (let offset = 0; offset < PROBABILITY_SIMULATION_CANDIDATES.length; offset += 1) {
+    const candidate = PROBABILITY_SIMULATION_CANDIDATES[
+      (start + offset) % PROBABILITY_SIMULATION_CANDIDATES.length
+    ]!;
+    try {
+      const batch = await generateQuantQuestion({
+        packageId: candidate.packageId as any,
+        canonicalProblemId: candidate.cpId,
+        language: "en",
+        difficulty,
+        examProfile: examProfile as any,
+        seed: `${seed}:${candidate.packageId}:${candidate.cpId}`,
+        count: 1,
+      } as any);
+      const question = extractBatchQuestions(batch)[0];
+      if (!question) throw new Error("Probability runtime returned no question.");
+      return runtimeRecord({
+        profile,
+        sectionIndex,
+        ordinal,
+        slotKind: "PROBABILITY",
+        question,
+        packageId: candidate.packageId,
+        topic: "Advanced Mathematics",
+        subtopic: "Probability",
+        representation: "DIRECT_MCQ",
+      });
+    } catch (error) {
+      errors.push(
+        `${candidate.packageId}/${candidate.cpId}: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
   }
+
+  return gapRecord({
+    profile,
+    sectionIndex,
+    ordinal,
+    slotKind: "PROBABILITY",
+    reason: `No Probability candidate can satisfy ${examProfile}/${difficulty}: ${errors.slice(0, 4).join(" | ")}`,
+  });
 }
 
 function generateStatisticsSlot(
