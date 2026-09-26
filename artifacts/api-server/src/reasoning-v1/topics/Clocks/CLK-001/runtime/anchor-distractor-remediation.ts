@@ -1,4 +1,5 @@
 import {
+  addRationals,
   exactRational,
   multiplyRationals,
 } from "../../../../foundation/temporal";
@@ -40,6 +41,37 @@ export function remediateAnchorDistractors(
           ),
           reasonCode: "HOUR_HAND_RATE_AS_ONE_DEGREE_PER_MINUTE",
           reason: "This treats the hour hand as moving 1° per minute instead of its correct 0.5° per minute rate.",
+        },
+      ],
+    };
+  }
+
+  if (solved.taskId === "SMALLER_ANGLE_AT_TIME") {
+    const correct = exactAnswerValue(solved);
+    if (!correct) return solved;
+    const oneHourSpaceAdded = addRationals(correct, 30);
+    const twoHourSpacesAdded = addRationals(correct, 60);
+    return {
+      ...solved,
+      distractors: [
+        ...solved.distractors,
+        {
+          answer: rationalAnswer(
+            "ANGLE",
+            oneHourSpaceAdded,
+            formatAngle(oneHourSpaceAdded),
+          ),
+          reasonCode: "ONE_HOUR_SPACE_ADDED_TO_SMALLER_ANGLE",
+          reason: "This adds one 30-degree hour space after the hand separation has already been calculated.",
+        },
+        {
+          answer: rationalAnswer(
+            "ANGLE",
+            twoHourSpacesAdded,
+            formatAngle(twoHourSpacesAdded),
+          ),
+          reasonCode: "TWO_HOUR_SPACES_ADDED_TO_SMALLER_ANGLE",
+          reason: "This adds two extra hour spaces to the exact hand separation without support from the stated time.",
         },
       ],
     };

@@ -279,8 +279,8 @@ function countDistractors(count: number): SolvedClockPrototype["distractors"] {
     },
     {
       answer: rationalAnswer("COUNT", lower, `${lower}`),
-      reasonCode: "VALID_EVENT_OMITTED",
-      reason: "This drops one exact event that lies inside the stated interval.",
+      reasonCode: "EVENT_COUNT_ONE_ACCEPTED_ROOT_OMITTED",
+      reason: "This drops one accepted event from the exact interval count.",
     },
     {
       answer: rationalAnswer("COUNT", doubled, `${doubled}`),
