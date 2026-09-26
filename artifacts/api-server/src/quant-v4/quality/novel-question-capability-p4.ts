@@ -26,6 +26,7 @@ export interface NovelQuestionCapabilityThresholds {
   readonly minCanonicalProblemBreadth: number;
   readonly minStateNoveltyRate: number;
   readonly minSeedSensitivityRate: number;
+  readonly maxCosmeticReskinRate: number;
 }
 
 export const DEFAULT_NOVEL_QUESTION_CAPABILITY_THRESHOLDS: NovelQuestionCapabilityThresholds =
@@ -37,6 +38,7 @@ export const DEFAULT_NOVEL_QUESTION_CAPABILITY_THRESHOLDS: NovelQuestionCapabili
     minCanonicalProblemBreadth: 3,
     minStateNoveltyRate: 0.70,
     minSeedSensitivityRate: 0.60,
+    maxCosmeticReskinRate: 0.15,
   });
 
 function normalized(value: unknown): string {
@@ -53,6 +55,30 @@ function duplicateSummary(values: readonly string[]) {
     unique: counts.size,
     duplicateItems,
     duplicateRate: filtered.length ? duplicateItems / filtered.length : 0,
+  });
+}
+
+function cosmeticReskinSummary(observations: readonly NovelQuestionObservation[]) {
+  const groups = new Map<string, NovelQuestionObservation[]>();
+  for (const row of observations) {
+    const key = normalized(row.structuralSignature);
+    if (!key) continue;
+    const bucket = groups.get(key) ?? [];
+    bucket.push(row);
+    groups.set(key, bucket);
+  }
+
+  let cosmeticReskinItems = 0;
+  for (const rows of groups.values()) {
+    if (rows.length < 2) continue;
+    const uniqueExact = new Set(rows.map((row) => normalized(row.exactStem)).filter(Boolean)).size;
+    cosmeticReskinItems += Math.max(0, uniqueExact - 1);
+  }
+
+  return Object.freeze({
+    records: observations.length,
+    cosmeticReskinItems,
+    rate: observations.length ? cosmeticReskinItems / observations.length : 0,
   });
 }
 
@@ -144,6 +170,7 @@ export function auditNovelQuestionCapability(
   const usable = observations.filter((row) => normalized(row.exactStem) && normalized(row.structuralSignature));
   const exact = duplicateSummary(usable.map((row) => row.exactStem));
   const structural = duplicateSummary(usable.map((row) => row.structuralSignature));
+  const cosmeticReskins = cosmeticReskinSummary(usable);
   const state = stateEvidence(usable);
   const heldOut = heldOutStructuralNovelty(usable);
   const seedSensitivityResult = seedSensitivity(usable);
@@ -155,6 +182,7 @@ export function auditNovelQuestionCapability(
   const blockers: string[] = [];
   if (exact.duplicateRate > thresholds.maxExactDuplicateRate) blockers.push("EXACT_STEM_DUPLICATION_HIGH");
   if (structural.duplicateRate > thresholds.maxStructuralDuplicateRate) blockers.push("STRUCTURAL_REUSE_HIGH");
+  if (cosmeticReskins.rate > thresholds.maxCosmeticReskinRate) blockers.push("COSMETIC_RESKIN_RATE_HIGH");
   if (heldOut.rate < thresholds.minHeldOutStructuralNoveltyRate) blockers.push("HELD_OUT_STRUCTURAL_NOVELTY_LOW");
   if (patternBreadth < thresholds.minPatternBreadth) blockers.push("PATTERN_BREADTH_LOW");
   if (canonicalProblemBreadth < thresholds.minCanonicalProblemBreadth) blockers.push("CANONICAL_PROBLEM_BREADTH_LOW");
@@ -174,6 +202,7 @@ export function auditNovelQuestionCapability(
     canonicalProblemBreadth,
     exact,
     structural,
+    cosmeticReskins,
     state,
     stateNoveltyRate,
     heldOutStructuralNovelty: heldOut,
