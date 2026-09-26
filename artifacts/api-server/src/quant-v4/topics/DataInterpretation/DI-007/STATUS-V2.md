@@ -32,10 +32,17 @@ V2 preserves the exact recovery mathematics and rebuilds the content layer.
 - no forced shortcut/trap sections
 - no generic Series A / Series B wording on the learner surface
 
+## Difficulty-floor correction
+
+- Removed zero-operation `DIRECT_VISIBLE_VALUE` from the approved runtime.
+- Easy now always requires arithmetic: one-row combined total or one-row absolute difference.
+- DI-QL-073 is remapped to `VISIBLE_ROW_COMBINED_TOTAL`.
+- Permanent English release advanced to P2; downstream lifecycle authority remains unchanged.
+
 ## Task families
 
 Easy:
-1. DIRECT_VISIBLE_VALUE
+1. VISIBLE_ROW_COMBINED_TOTAL
 2. VISIBLE_ROW_DIFFERENCE
 
 Medium:
