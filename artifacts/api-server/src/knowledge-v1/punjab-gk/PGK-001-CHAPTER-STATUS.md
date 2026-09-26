@@ -8,14 +8,14 @@
 - Permanent QL range: `PGK-001-QL-001` through `PGK-001-QL-182`
 - Frozen English question corpus: 1,092
 - Payloads per permanent QL: 6
-- Runtime / Question Studio registration: `REGISTERED_REVIEW_ONLY`
+- Runtime / Question Studio registration: `REGISTERED_PRODUCTION_READY`
 - Question Studio package: `PGK-001`
-- Registration authority: `PGK-001-ENGLISH-26CP-FREEZE-2026-09-18`
-- Question Bank storage: NOT ENABLED
-- Test / mock-test eligibility: NOT ENABLED
-- Public / automatic student publication: NOT ENABLED
+- Registration authority: `PGK-001-FULL-QUESTION-STUDIO-RELEASE-2026-09-26`
+- Question Bank storage: ENABLED — `FULL_RELEASE` acceptance after manual approval
+- Test / mock-test eligibility: ENABLED
+- Public publication: ENABLED after manual approval; automatic student publication remains disabled
 - Localisation: COMPLETE — CP001-CP026 Hindi/Punjabi localisation approved and merged
-- Format-diversity extension: APPROVED_MERGED — 24 genuine List-I/List-II match-the-following concepts across 12 CPs; additive Question Studio review-only integration implemented; frozen 1,092-question core unchanged
+- Format-diversity extension: APPROVED_MERGED — 24 genuine List-I/List-II match-the-following concepts across 12 CPs; production-ready Question Studio integration enabled; frozen 1,092-question core unchanged
 
 ## Final closure audit
 
@@ -34,17 +34,17 @@ Notable remediation:
 The completed multilingual chapter is exposed through the shared `knowledge-v1` Question Studio engine as package `PGK-001`.
 
 Registration properties:
-- lifecycle: `QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1`;
-- runtime mode: `review-only`;
+- lifecycle: `PGK-001-FULL-QUESTION-STUDIO-RELEASE-2026-09-26`;
+- runtime mode: `CANONICAL_REVIEW`;
 - all 26 frozen CPs available through CP selectors;
 - all 182 permanent QLs available through QL selectors;
-- English, Hindi and Punjabi are registered as parallel review-only Question Studio corpora, reconciled one-to-one against the frozen English metadata;
+- English, Hindi and Punjabi are registered as parallel production-ready Question Studio corpora, reconciled one-to-one against the frozen English metadata;
 - Easy / Medium / Hard / Mixed review generation supported;
 - deterministic selection without replacement;
 - 1,092 frozen English questions plus 1,092 approved Hindi and 1,092 approved Punjabi review surfaces (3,276 total language surfaces);
-- generated wrappers are marked `REGISTERED_REVIEW_ONLY`.
+- generated wrappers are marked `REGISTERED_PRODUCTION_READY`;\n- Question Bank persistence is enabled with `FULL_RELEASE` acceptance;\n- scored-test and mock-test eligibility are enabled;\n- public publication and student delivery are authorized through the normal manual approval workflow;\n- automatic student publication stays disabled to prevent accidental release.
 
-Review-only registration does **not** authorize canonical Question Bank persistence, test/mock-test use, public publication, automatic student release or production release.
+Current registration authorizes canonical Question Bank persistence, test/mock-test use, public publication, student delivery and production release after the normal manual approval step. No additional Punjab GK code checkpoint is required for these actions.
 
 ## Frozen editorial standard
 
@@ -56,6 +56,6 @@ Review-only registration does **not** authorize canonical Question Bank persiste
 - hard questions based on chronology, relations, matching and synthesis rather than obscure trivia;
 - learner-facing text remains free of internal source-note/generator language.
 
-## Next boundary
+## Final operational state
 
-Hindi/Punjabi localisation and multilingual Question Studio registration are complete through CP026. Question Bank writes, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release and production release remain separate explicit gates.
+Punjab GK is closed for the current approved scope. Content, localisation, multilingual Question Studio registration, Question Bank conversion, scored-test/mock-test eligibility, public publication eligibility and production release authority are complete. Manual approval/publication remains an operational safety step inside Question Studio, not a future chapter-development gate. Reopen the chapter only for factual corrections, syllabus changes or deliberate new content.
