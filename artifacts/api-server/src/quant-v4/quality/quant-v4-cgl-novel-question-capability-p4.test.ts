@@ -2,10 +2,31 @@ import assert from "node:assert/strict";
 
 import { generateQuantV4RealExamSectionWithAdvancedMath } from "./quant-v4-real-exam-advanced-math-integration-p2";
 import {
+  QUANT_V4_REQUIRED_AUDIT_DIMENSIONS,
+  QUANT_V4_NOVEL_QUESTION_CAPABILITY_REQUIREMENTS,
+} from "./quant-v4-audit-dimensions-p4";
+import {
   auditNovelQuestionCapability,
   QUANT_V4_NOVEL_QUESTION_CAPABILITY_AUTHORITY,
   type NovelQuestionObservation,
 } from "./novel-question-capability-p4";
+
+assert.ok(
+  QUANT_V4_REQUIRED_AUDIT_DIMENSIONS.includes("NOVEL_QUESTION_CAPABILITY"),
+  "Novel-question capability must remain a required Quant V4 audit dimension.",
+);
+assert.deepEqual(
+  [...QUANT_V4_NOVEL_QUESTION_CAPABILITY_REQUIREMENTS],
+  [
+    "PATTERN_BREADTH",
+    "CANONICAL_PROBLEM_BREADTH",
+    "STRUCTURAL_NOVELTY",
+    "MATHEMATICAL_STATE_NOVELTY",
+    "HELD_OUT_SEED_NOVELTY",
+    "SEED_SENSITIVITY",
+    "NON_COSMETIC_VARIATION",
+  ],
+);
 
 const SECTIONS = 20;
 const questions = [];
