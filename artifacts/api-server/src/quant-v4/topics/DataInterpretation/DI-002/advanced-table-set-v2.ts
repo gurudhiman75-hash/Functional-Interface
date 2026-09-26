@@ -122,10 +122,28 @@ function actualApplicants(stimulus: Di002V2Stimulus): number[] {
 function buildStimulus(seed: string): Di002V2Stimulus {
   const context = pick(seededRandom(`${seed}:context`), CONTEXTS);
   const labels = shuffle(seededRandom(`${seed}:labels`), context.labels).slice(0, 5);
-  const factors = shuffle(seededRandom(`${seed}:factors`), SELECTED_FACTORS);
-  const percents = shuffle(seededRandom(`${seed}:rates`), SELECTION_PERCENT_POOL);
   const base = pick(seededRandom(`${seed}:base`), BASE_POOL);
   const hiddenApplicantIndex = pick(seededRandom(`${seed}:hidden`), [0, 1, 2, 3, 4] as const);
+  let factors: number[] = [];
+  let percents: number[] = [];
+
+  for (let attempt = 0; attempt < 32; attempt += 1) {
+    const candidateFactors = shuffle(seededRandom(`${seed}:factors:${attempt}`), SELECTED_FACTORS);
+    const candidatePercents = shuffle(seededRandom(`${seed}:rates:${attempt}`), SELECTION_PERCENT_POOL);
+    const candidateApplicants = candidateFactors.map((factor, index) => (base * factor * 100) / candidatePercents[index]!);
+    const candidateRejected = candidateApplicants.map((value, index) => value - base * candidateFactors[index]!);
+    if (candidateApplicants.every(Number.isSafeInteger)
+      && new Set(candidateApplicants).size >= 4
+      && new Set(candidateRejected).size >= 4) {
+      factors = candidateFactors;
+      percents = candidatePercents;
+      break;
+    }
+  }
+
+  if (factors.length !== 5 || percents.length !== 5) {
+    throw new Error("DI-002 V2 could not construct a sufficiently varied integer-safe table.");
+  }
 
   const rows = labels.map((label, index): Di002V2Row => {
     const selected = base * factors[index]!;
