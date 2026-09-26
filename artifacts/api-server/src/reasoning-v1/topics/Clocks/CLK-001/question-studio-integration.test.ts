@@ -9,6 +9,7 @@ import {
   generateClk001QuestionStudioBatch,
 } from './question-studio-integration';
 import { reasoningV1QuestionStudioAdapter } from '../../../../question-studio/engines/reasoning-v1-adapter';
+import { CLOCK_CHECKPOINTS } from './runtime/catalog';
 
 test('CLK-001 freezes exactly 23 permanent semantic authorities', () => {
   assert.equal(CLK_001_PERMANENT_QL_IDS.length, 23);
@@ -71,8 +72,10 @@ test('reasoning-v1 adapter exposes and routes CLK-001', async () => {
     .find((candidate) => candidate.packageId === 'CLK-001');
   assert.ok(pkg);
   assert.equal(pkg?.engineId, 'reasoning-v1');
-  assert.equal(pkg?.cpIds.length, 23);
+  assert.equal(pkg?.cpIds.length, 14);
+  assert.deepEqual(pkg?.cpIds, CLOCK_CHECKPOINTS.map((checkpoint) => checkpoint.code));
   assert.deepEqual(pkg?.supportedLanguages, ['en', 'hi', 'pa']);
+  assert.equal((pkg?.metadata as any)?.difficultyCalibrationStatus, 'GENERATED_INSTANCE_AUDITED_V1');
 
   const generated = await reasoningV1QuestionStudioAdapter.generate({
     engineId: 'reasoning-v1',
@@ -85,4 +88,64 @@ test('reasoning-v1 adapter exposes and routes CLK-001', async () => {
   assert.equal(generated.questions.length, 1);
   assert.equal(generated.questions[0]?.packageId, 'CLK-001');
   assert.equal(generated.questions[0]?.qlId, 'CLK-QL-001');
+});
+
+
+test('CLK-001 routes real checkpoint IDs and keeps CP014 explicitly non-authoring', async () => {
+  const cp1 = await generateClk001QuestionStudioBatch({
+    packageId: 'CLK-001',
+    canonicalProblemId: 'CLK-CP-001',
+    language: 'en',
+    count: 4,
+    seed: 'clk-wave01-cp001',
+  });
+  assert.equal(cp1.questions.length, 4);
+  assert.ok(cp1.questions.every((question) => question.checkpointId === 'CLK-CP-001'));
+  assert.ok(cp1.questions.every((question) => String(question.qlId).startsWith('CLK-QL-')));
+
+  await assert.rejects(
+    () => generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-CP-014',
+      language: 'en',
+      count: 1,
+      seed: 'clk-wave01-cp014',
+    }),
+    /owns no permanent learner QL/u,
+  );
+});
+
+test('CLK-001 uses generated-item difficulty and satisfies requested bands without relabelling', async () => {
+  for (const difficulty of ['Easy', 'Medium', 'Hard'] as const) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      language: 'en',
+      difficulty,
+      count: 3,
+      seed: 'clk-wave01-difficulty-' + difficulty,
+    });
+    assert.equal(result.questions.length, 3);
+    for (const question of result.questions) {
+      assert.equal(question.difficulty, difficulty);
+      assert.equal(question.difficultyLabel, difficulty);
+      assert.equal(question.difficultyCalibrationStatus, 'GENERATED_INSTANCE_AUDITED_V1');
+      assert.equal((question.validation as any).difficultyDerivedFromGeneratedItem, true);
+      assert.equal((question.validation as any).requestedDifficultySatisfied, true);
+      assert.equal(typeof question.difficultyScore, 'number');
+      assert.ok(Array.isArray(question.difficultyFactors));
+    }
+  }
+});
+
+test('CLK-001 item-difficulty generation remains deterministic', async () => {
+  const request = {
+    packageId: 'CLK-001',
+    language: 'pa' as const,
+    difficulty: 'Medium',
+    count: 3,
+    seed: 'clk-wave01-deterministic-medium',
+  };
+  const left = await generateClk001QuestionStudioBatch(request);
+  const right = await generateClk001QuestionStudioBatch(request);
+  assert.deepEqual(right, left);
 });
