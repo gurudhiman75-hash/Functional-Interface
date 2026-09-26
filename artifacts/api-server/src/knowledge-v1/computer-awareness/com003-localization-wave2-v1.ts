@@ -37,7 +37,7 @@ const TERM_TRANSLATIONS: Record<string, Bilingual> = {
   "Workbook": { hi: "Workbook (वर्कबुक)", pa: "Workbook (ਵਰਕਬੁੱਕ)" },
   "Worksheet": { hi: "Worksheet (वर्कशीट)", pa: "Worksheet (ਵਰਕਸ਼ੀਟ)" },
   "Row": { hi: "Row (पंक्ति)", pa: "Row (ਕਤਾਰ)" },
-  "Column": { hi: "Column (स्तंभ)", pa: "Column (ਕਾਲਮ)" },
+  "Column": { hi: "Column (कॉलम)", pa: "Column (ਕਾਲਮ)" },
   "Cell": { hi: "Cell (सेल)", pa: "Cell (ਸੈੱਲ)" },
 };
 
