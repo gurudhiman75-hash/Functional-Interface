@@ -8,6 +8,7 @@ export const REASONING_V1_NOVELTY_GOVERNANCE_V1 = Object.freeze({
     controlledNovelOperatingTarget: 0.20,
     controlledNovelAcceptableBand: [0.15, 0.25] as const,
     exactShareIsNotAQuota: true,
+    minimumBatchSizeForShareGate: 20,
     perQlNoveltyQuotaRequired: false,
     noveltyMayBeConcentratedInSuitableQls: true,
   },
@@ -142,6 +143,45 @@ export function validateReasoningNoveltyCandidateV1<T extends ReasoningNoveltyCa
   return candidate;
 }
 
+function noveltyHash(value: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+export type ReasoningNoveltyLaneV1 = 'SOURCE_BACKED' | 'CONTROLLED_NOVEL';
+
+export function buildReasoningNoveltyMixPlanV1(input: {
+  count: number;
+  seed: string;
+}): readonly ReasoningNoveltyLaneV1[] {
+  if (!Number.isInteger(input.count) || input.count < 1) {
+    throw new Error('Reasoning novelty mix count must be a positive integer.');
+  }
+
+  const novelCount = Math.max(
+    input.count >= 5 ? 1 : 0,
+    Math.round(
+      input.count *
+      REASONING_V1_NOVELTY_GOVERNANCE_V1.chapterMix.controlledNovelOperatingTarget,
+    ),
+  );
+
+  const lanes: ReasoningNoveltyLaneV1[] = [
+    ...Array.from({ length: input.count - novelCount }, () => 'SOURCE_BACKED' as const),
+    ...Array.from({ length: novelCount }, () => 'CONTROLLED_NOVEL' as const),
+  ];
+
+  for (let index = lanes.length - 1; index > 0; index -= 1) {
+    const swap = noveltyHash(input.seed + ':novelty-mix:' + index) % (index + 1);
+    [lanes[index], lanes[swap]] = [lanes[swap]!, lanes[index]!];
+  }
+  return lanes;
+}
+
 export function auditReasoningNoveltyMixV1(
   provenance: readonly ReasoningNoveltyProvenanceV1[],
 ) {
@@ -160,6 +200,8 @@ export function auditReasoningNoveltyMixV1(
   const controlledNovelShare = controlledNovelCount / total;
   const [minimum, maximum] =
     REASONING_V1_NOVELTY_GOVERNANCE_V1.chapterMix.controlledNovelAcceptableBand;
+  const shareGateApplicable =
+    total >= REASONING_V1_NOVELTY_GOVERNANCE_V1.chapterMix.minimumBatchSizeForShareGate;
 
   return {
     total,
@@ -169,8 +211,10 @@ export function auditReasoningNoveltyMixV1(
     controlledNovelShare,
     operatingTarget:
       REASONING_V1_NOVELTY_GOVERNANCE_V1.chapterMix.controlledNovelOperatingTarget,
+    shareGateApplicable,
     withinOperatingBand:
-      controlledNovelShare >= minimum && controlledNovelShare <= maximum,
+      !shareGateApplicable ||
+      (controlledNovelShare >= minimum && controlledNovelShare <= maximum),
     experimentalStretchCountsTowardTarget: false,
   } as const;
 }
