@@ -37,19 +37,23 @@ function visibleText(question: Record<string, any>): string {
 let audited = 0;
 
 for (const language of ["hi", "pa"] as const) {
-  for (const qlId of RNK_001_CHAPTER_AUTHORITY.permanentQlIds) {
+  for (let round = 0; round < 4; round += 1) {
     const batch = await generateRnk001QuestionStudioBatch({
       packageId: "RNK-001",
-      canonicalProblemId: qlId,
       language,
-      count: 4,
-      seed: `rnk-wave06:${language}:${qlId}`,
+      count: 42,
+      seed: `rnk-wave06:${language}:round-${round}`,
     });
 
-    assert.equal(batch.questions.length, 4);
+    assert.equal(batch.questions.length, 42);
+    assert.deepEqual(
+      [...new Set((batch.questions as Array<Record<string, any>>).map((question) => question.qlId))].sort(),
+      RNK_001_CHAPTER_AUTHORITY.permanentQlIds,
+    );
 
     for (const raw of batch.questions as Array<Record<string, any>>) {
       audited += 1;
+      const qlId = String(raw.qlId);
       const stem = String(raw.stem ?? "");
       const explanation = String(raw.explanation ?? "");
       const text = visibleText(raw);
@@ -91,6 +95,7 @@ console.log(JSON.stringify({
   qlCoverage: "RNK-QL-001..042",
   languages: ["hi", "pa"],
   generatedNativeInstancesAudited: audited,
+  generationCalls: 8,
   englishWordLeakageRejected: true,
   crossScriptLeakageRejected: true,
   historicalCalqueRegressionRejected: true,
