@@ -298,10 +298,29 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const combinedPair = pair(`${seed}:combined-pair`, [[0, 2], [0, 4], [1, 3], [2, 4], [1, 4]] as const);
   const pointPair = pair(`${seed}:point-pair`, [[0, 1], [0, 2], [1, 3], [2, 4], [3, 4]] as const);
   const shareIndex = pick(seededRandom(`${seed}:share-index`), [0, 1, 2, 3, 4] as const);
-  const ratioTuple = fourTuple(`${seed}:ratio-groups`);
+  const ratioTuple = shuffle(
+    seededRandom(`${seed}:ratio-groups`),
+    [
+      [0, 1, 2, 3],
+      [0, 2, 1, 4],
+      [0, 4, 1, 3],
+      [1, 2, 3, 4],
+      [1, 4, 0, 2],
+      [2, 4, 0, 3],
+    ] as const,
+  ).find(([leftA, leftB, rightA, rightB]) =>
+    selected[leftA]! + selected[leftB]! !== selected[rightA]! + selected[rightB]!,
+  );
+  if (!ratioTuple) throw new Error("DI-002 V2 could not find a non-trivial combined Selected ratio.");
   const relativePair = pair(`${seed}:relative-pair`, [[0, 1], [0, 3], [1, 2], [1, 4], [2, 3], [3, 4]] as const);
   const ratePair = pair(`${seed}:combined-rate-pair`, [[0, 2], [0, 4], [1, 3], [1, 4], [2, 4]] as const);
-  const rejectPair = pair(`${seed}:reject-ratio-pair`, [[0, 1], [0, 3], [1, 2], [1, 4], [2, 4]] as const);
+  const rejectPair = shuffle(
+    seededRandom(`${seed}:reject-ratio-pair`),
+    [[0, 1], [0, 3], [1, 2], [1, 4], [2, 4]] as const,
+  ).find(([first, second]) =>
+    rejected[first]! + rejected[second]! !== selected[first]! + selected[second]!,
+  );
+  if (!rejectPair) throw new Error("DI-002 V2 could not find a non-trivial Rejected-to-Selected ratio.");
 
   const [diffA, diffB] = differencePair;
   const diffAnswer = Math.abs(selected[diffA]! - selected[diffB]!);
@@ -390,8 +409,8 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
 
   const relativeSurface = surface(`${seed}:RELATIVE_SELECTED_PERCENT_EXCESS:surface`, [
     `The number selected from ${rows[largerIndex]!.label} is approximately what percent more than that from ${rows[smallerIndex]!.label}? Give the nearest whole percent.`,
-    `By what percentage does Selected for ${rows[largerIndex]!.label} exceed Selected for ${rows[smallerIndex]!.label}, to the nearest whole percent?`,
-    `Taking ${rows[smallerIndex]!.label} as the base, find the percentage excess of the Selected value for ${rows[largerIndex]!.label}. Round to the nearest whole percent.`,
+    `By what percentage is the number selected from ${rows[largerIndex]!.label} greater than the number selected from ${rows[smallerIndex]!.label}, to the nearest whole percent?`,
+    `Taking the number selected from ${rows[smallerIndex]!.label} as the base, by what percentage is the number selected from ${rows[largerIndex]!.label} higher? Round to the nearest whole percent.`,
   ]);
 
   const combinedRateSurface = surface(`${seed}:COMBINED_SELECTION_RATE:surface`, [
@@ -535,7 +554,7 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
       ...pointSurface,
       answer: `${pointGap} percentage points`,
       candidates: [
-        { text: `${nearestWholePercent(pointGap, Math.min(rows[pointA]!.selectionPercent, rows[pointB]!.selectionPercent))}%`, misconceptionId: "RELATIVE_PERCENT_NOT_POINTS", derivation: "Calculates relative percentage change instead of the percentage-point gap." },
+        { text: `${nearestWholePercent(pointGap, Math.min(rows[pointA]!.selectionPercent, rows[pointB]!.selectionPercent))} percentage points`, misconceptionId: "RELATIVE_PERCENT_AS_POINT_GAP", derivation: "Uses the numerical relative-percent change as though it were a percentage-point gap." },
         ...[10, 20, 30, 40].map((value) => ({
           text: `${value} percentage points`,
           misconceptionId: `OTHER_RATE_GAP_${value}`,
