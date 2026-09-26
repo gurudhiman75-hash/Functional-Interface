@@ -12,10 +12,12 @@ const outDir = path.resolve(process.cwd(), "dist/geography-review/GEO-AGR-001-CP
 fs.mkdirSync(outDir, { recursive: true });
 const letters = ["A", "B", "C", "D"];
 const lines = [
-  "# GEO-AGR-001 CP001 — Cropping Seasons & Farming Systems — Review Batch V1",
+  "# GEO-AGR-001 CP001 — Farming Foundation & Food Crops — Review Batch V1",
   "",
   "Questions: " + audit.questionCount,
+  "Permanent QLs: " + audit.permanentQlCount,
   "Difficulty: Easy " + audit.difficultyCounts.Easy + " / Medium " + audit.difficultyCounts.Medium + " / Hard " + audit.difficultyCounts.Hard,
+  "Answer positions: " + audit.answerPositions.join(" / "),
   "",
 ];
 GEO_AGR_001_CP001_REVIEW_BATCH_V1.forEach((q, i) => {
