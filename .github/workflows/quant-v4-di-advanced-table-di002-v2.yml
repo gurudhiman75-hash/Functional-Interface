@@ -1,0 +1,66 @@
+name: Quant V4 Data Interpretation advanced table DI-002 V2
+
+on:
+  push:
+    branches:
+      - feature/di-002-advanced-table-v2-review
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/**"
+      - ".github/workflows/quant-v4-di-advanced-table-di002-v2.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/**"
+      - ".github/workflows/quant-v4-di-advanced-table-di002-v2.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di002-advanced-table-v2-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  advanced-table-v2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Review lifecycle guard
+        run: |
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/advanced-table-v2-types.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/advanced-table-set-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/independent-verifier-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/review-ql-registry-v2.ts
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/review-question-generator-v2.ts
+          grep -q 'questionStudioDiscoverable: false' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/review-ql-registry-v2.ts
+          grep -q 'ENGLISH_REVIEW_PENDING' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/review-ql-registry-v2.ts
+          ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/advanced-table-v2-types.ts \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/advanced-table-set-v2.ts \
+            artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/review-ql-registry-v2.ts
+      - name: DI-002 V2 deterministic diversity and independent proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/advanced-table-set-v2.test.ts
+      - name: Legacy DI-002 regression
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/advanced-table-set.test.ts
+      - name: Export Markdown review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/export-review-v2.ts DI-002-REVIEW-V2.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: di-002-advanced-table-review-v2
+          path: DI-002-REVIEW-V2.md
+          if-no-files-found: error
+          retention-days: 30
+      - name: API server build
+        run: pnpm --filter @workspace/api-server build
+      - name: Patch hygiene
+        run: git diff --check
