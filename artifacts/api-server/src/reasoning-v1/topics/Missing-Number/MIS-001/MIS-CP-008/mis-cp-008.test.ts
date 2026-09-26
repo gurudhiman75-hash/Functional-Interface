@@ -10,6 +10,13 @@ for(const id of MIS_CP008_CANDIDATE_IDS){const numeric=new Set<string>();for(let
  const solved=independentlySolveMisCp008Missing(q.ruleId,q.target,q.missingPosition,rule.minInput,rule.maxInput);assert.deepEqual(solved,[q.answer]);
  assert.equal(q.options.length,4);assert.equal(new Set(q.options.map(o=>o.value)).size,4);assert.equal(q.options[q.correctIndex]!.value,q.answer);
  assert.ok(q.explanation.includes('same rule'));assert.ok(q.explanation.includes(`So, ? = ${q.answer}.`));
+ if(q.renderer==='TABLE_GROUP'){
+   const questionMarks=(q.stem.match(/\?/g)??[]).length;
+   assert.equal(questionMarks,2,`${id}/${seed}: rendered table should have exactly one blank plus the instruction mark`);
+   for(const g of q.evidenceGroups){
+     assert.ok(q.stem.includes(String(g.result)),`${id}/${seed}: completed evidence result must remain visible`);
+   }
+ }
  if(q.renderer==='SVG_TRIANGLE')assert.ok(q.figures?.every(f=>f.svg.includes('<polygon')));
  positions.add(q.missingPosition);numeric.add(q.numericFingerprint);pos[q.correctIndex]++;total++;
  }assert.ok(numeric.size>=20,`${id}: low numeric diversity`);}
