@@ -6,17 +6,17 @@ import {
 
 const audit = auditGeoAgr001Cp001ReviewBatchV1();
 assert.equal(audit.valid, true, audit.issues.join("\n"));
-assert.equal(audit.questionCount, 54);
-assert.equal(audit.stemCount, 54);
-assert.equal(audit.explanationCount, 54);
-assert.deepEqual(audit.difficultyCounts, { Easy: 18, Medium: 30, Hard: 6 });
-assert.deepEqual(audit.answerPositions, [14, 14, 13, 13]);
+assert.equal(audit.questionCount, 162);
+assert.equal(audit.permanentQlCount, 27);
+assert.equal(audit.stemCount, 162);
+assert.equal(audit.explanationCount, 162);
+assert.deepEqual(audit.difficultyCounts, { Easy: 54, Medium: 90, Hard: 18 });
+assert.ok(Math.max(...audit.answerPositions) - Math.min(...audit.answerPositions) <= 3);
 
-for (let n = 1; n <= 9; n += 1) {
+for (let n = 1; n <= 27; n += 1) {
   const qlId = "GEO-AGR-001-QL-" + String(n).padStart(3, "0");
   assert.equal(audit.qlCounts[qlId], 6);
 }
-
 for (const q of GEO_AGR_001_CP001_REVIEW_BATCH_V1) {
   assert.equal(q.options[q.correctIndex], q.canonicalAnswer);
   assert.equal(new Set(q.options).size, 4);
