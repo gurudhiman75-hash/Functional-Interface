@@ -6,19 +6,21 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-001/CP001/**
+      - artifacts/api-server/src/english-v1/**/eng-001-cp001*
+      - artifacts/api-server/src/english-v1/**/ENG-001-CP001*
+      - artifacts/api-server/src/question-studio/engines/*eng001-cp001*
       - artifacts/api-server/src/question-studio/engines/language-v1-*.ts
-      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
   push:
     branches:
       - New-main
     paths:
-      - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-001/CP001/**
+      - artifacts/api-server/src/english-v1/**/eng-001-cp001*
+      - artifacts/api-server/src/english-v1/**/ENG-001-CP001*
+      - artifacts/api-server/src/question-studio/engines/*eng001-cp001*
       - artifacts/api-server/src/question-studio/engines/language-v1-*.ts
-      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
   workflow_dispatch:
 

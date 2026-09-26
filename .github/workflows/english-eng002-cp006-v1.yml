@@ -5,11 +5,17 @@ on:
     branches: [New-main]
     types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-002/CP006/**
+      - artifacts/api-server/src/english-v1/**/eng-002-cp006*
+      - artifacts/api-server/src/english-v1/**/ENG-002-CP006*
+      - artifacts/api-server/src/question-studio/engines/*eng002-cp006*
   push:
     branches: [New-main]
     paths:
-      - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-002/CP006/**
+      - artifacts/api-server/src/english-v1/**/eng-002-cp006*
+      - artifacts/api-server/src/english-v1/**/ENG-002-CP006*
+      - artifacts/api-server/src/question-studio/engines/*eng002-cp006*
   workflow_dispatch:
 
 permissions:

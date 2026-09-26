@@ -6,14 +6,18 @@ on:
       - New-main
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
-      - artifacts/api-server/src/english-v1/**
-      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-001/CP013/**
+      - artifacts/api-server/src/english-v1/**/eng-001-cp013*
+      - artifacts/api-server/src/english-v1/**/ENG-001-CP013*
+      - artifacts/api-server/src/question-studio/engines/*eng001-cp013*
   push:
     branches:
       - New-main
     paths:
-      - artifacts/api-server/src/english-v1/**
-      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-001/CP013/**
+      - artifacts/api-server/src/english-v1/**/eng-001-cp013*
+      - artifacts/api-server/src/english-v1/**/ENG-001-CP013*
+      - artifacts/api-server/src/question-studio/engines/*eng001-cp013*
   workflow_dispatch:
 
 permissions:
