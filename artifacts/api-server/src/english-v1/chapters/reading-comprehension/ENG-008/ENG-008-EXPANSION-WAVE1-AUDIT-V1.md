@@ -20,7 +20,7 @@ All new learner-facing passage text is original Examtree-authored material. Real
 | CP007 Banking Prelims word-fit supplements | 8 | 2 | 10 | 2 |
 
 Total new passages: **10**  
-Total new governed authorities: **84** including the two BP-F10 supplements.
+Total new governed authorities: **84** including the two BP-F10 supplements.\n\nPost-recalibration runtime distributions:\n- SSC Foundation: **183–217 words**, average **205**;\n- SSC Editorial / Current Affairs: **225–262 words**, average **241**;\n- Banking Prelims: **352–383 words**, average **367**.
 
 ## New passage breadth
 
@@ -51,7 +51,7 @@ Both new Banking Prelims passages receive a tenth contextual word-fit authority 
 - CP001: 6 families per added passage.
 - CP002: 8 families per added passage.
 - CP003: 9 CP003 families + 1 CP007 BP-F10 supplement per added passage.
-- CP003 added passages: 320–500 words, 4–6 paragraphs.
+- CP001 runtime target: 180–250 words.\n- CP002 runtime target: 220–350 words.\n- CP003 runtime target: 350–450 words, 4–6 paragraphs.
 - CP004: 10 families per passage, 450–650 words, 6–8 paragraphs.
 - CP005: 8 families per passage, 380–520 words, 6–8 paragraphs.
 - Four unique answer options per question.
