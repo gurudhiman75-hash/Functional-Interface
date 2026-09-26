@@ -104,7 +104,7 @@ export const WHI_002_CP002_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefiniti
     ...lifecycle,
     registrationAuthorityId: WHI_002_CP002_REGISTRATION_AUTHORITY_V1,
     authoringReviewApproved: true,
-    localizationStatus: "PENDING_HINDI_PUNJABI_REVIEW",
+    localizationStatus: "LOCALIZATION_PENDING",
     reviewOnly: true,
     immutableCorpus: true,
     questionCountPerLanguage: 60,
@@ -152,7 +152,7 @@ export const knowledgeV1Whi002QuestionStudioAdapterV1: QuestionStudioEngineAdapt
     const packageId = String(request.packageId ?? "").trim().toUpperCase();
     if (packageId && packageId !== WHI_002_QUESTION_STUDIO_PACKAGE_ID_V1) throw new Error(`WHI-002 cannot generate package ${packageId}`);
     if (request.runtimeMode && request.runtimeMode !== WHI_002_CP002_RUNTIME_MODE_V1) throw new Error("WHI-002 only supports review-only runtime");
-    if (request.language && request.language !== "en") throw new Error("WHI-002 currently exposes English while Hindi and Punjabi review copies are prepared");
+    if (request.language && request.language !== "en") throw new Error("WHI-002 currently exposes English; Hindi and Punjabi localization has not been added");
     const difficulty = normalizeDifficulty(request.difficulty);
     const count = normalizeCount(request.count);
     const questionId = normalizeSelectors(request);
@@ -189,7 +189,7 @@ export const knowledgeV1Whi002QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       registrationStatus: "REGISTERED_REVIEW_ONLY",
       registrationAuthorityId: WHI_002_CP002_REGISTRATION_AUTHORITY_V1,
       authoringReviewApproved: true,
-      localizationStatus: "PENDING_HINDI_PUNJABI_REVIEW",
+      localizationStatus: "LOCALIZATION_PENDING",
       reviewOnly: true,
       runtimeRegistered: true,
       readOnly: true,
@@ -203,7 +203,7 @@ export const knowledgeV1Whi002QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       registrationStatus: "REGISTERED_REVIEW_ONLY",
       registrationAuthorityId: WHI_002_CP002_REGISTRATION_AUTHORITY_V1,
       authoringReviewApproved: true,
-      localizationStatus: "PENDING_HINDI_PUNJABI_REVIEW",
+      localizationStatus: "LOCALIZATION_PENDING",
       language: "en",
       locale: locales.en,
       difficulty,
