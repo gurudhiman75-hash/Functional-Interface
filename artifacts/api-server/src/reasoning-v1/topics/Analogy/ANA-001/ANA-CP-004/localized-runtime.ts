@@ -52,7 +52,7 @@ function translateStem(stem: string, layout: SetLayout, locale: SetLocale, selec
     return stem.replace("Complete the second row using the same rule.", hi ? "उसी नियम का प्रयोग करके दूसरी पंक्ति पूरी कीजिए।" : "ਉਸੇ ਨਿਯਮ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਦੂਜੀ ਕਤਾਰ ਪੂਰੀ ਕਰੋ।");
   }
   if (layout === "VERTICAL_GRID") {
-    return stem.replace("Find the missing number in the second column.", hi ? "दूसरे स्तंभ में लुप्त संख्या ज्ञात कीजिए।" : "ਦੂਜੇ ਕਾਲਮ ਵਿੱਚ ਗੁੰਮ ਸੰਖਿਆ ਲੱਭੋ।");
+    return stem.replace("Find the missing number in the second column.", hi ? "दूसरे कॉलम में लुप्त संख्या ज्ञात कीजिए।" : "ਦੂਜੇ ਕਾਲਮ ਵਿੱਚ ਗੁੰਮ ਸੰਖਿਆ ਲੱਭੋ।");
   }
   if (layout === "BOXED_SETS") {
     return stem.replace("The two boxes follow the same rule:", hi ? "दोनों बॉक्स एक ही नियम का पालन करते हैं:" : "ਦੋਵੇਂ ਖਾਨੇ ਇੱਕੋ ਨਿਯਮ ਦੀ ਪਾਲਣਾ ਕਰਦੇ ਹਨ:");

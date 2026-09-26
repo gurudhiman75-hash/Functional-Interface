@@ -434,7 +434,7 @@ function localizedStem(language: FigureMatrixLanguageV1, variant: number): strin
   ];
   const hi = [
     "आकृति मैट्रिक्स को ध्यान से देखिए और प्रश्नवाचक चिह्न के स्थान पर आने वाली सही आकृति चुनिए।",
-    "पंक्तियों और स्तंभों में चल रहे नियम के अनुसार कौन-सी उत्तर आकृति मैट्रिक्स को पूरा करती है?",
+    "पंक्तियों और कॉलमों में चल रहे नियम के अनुसार कौन-सी उत्तर आकृति मैट्रिक्स को पूरा करती है?",
     "मैट्रिक्स के रिक्त खाने को सही ढंग से पूरा करने वाली आकृति चुनिए।",
   ];
   const pa = [
@@ -447,8 +447,8 @@ function localizedStem(language: FigureMatrixLanguageV1, variant: number): strin
 
 function localizedExplanation(language: FigureMatrixLanguageV1, facts: RuleFacts, answer: string, distractorFailures: readonly string[]) {
   if (language === "hi") return Object.freeze({
-    rule: `मुख्य नियम (${facts.governingAxis === "BOTH" ? "पंक्ति + स्तंभ" : facts.governingAxis === "ROW" ? "पंक्ति" : "स्तंभ"}): ${facts.operation} — ${facts.parameter}.`,
-    worked: `पूरी पंक्तियों/स्तंभों से नियम की जाँच करें। ${facts.workedExample}`,
+    rule: `मुख्य नियम (${facts.governingAxis === "BOTH" ? "पंक्ति + कॉलम" : facts.governingAxis === "ROW" ? "पंक्ति" : "कॉलम"}): ${facts.operation} — ${facts.parameter}.`,
+    worked: `पूरी पंक्तियों/कॉलमों से नियम की जाँच करें। ${facts.workedExample}`,
     application: `रिक्त खाने पर वही नियम लगाएँ। ${facts.missingApplication}`,
     verification: `${facts.secondAxisCheck} इसलिए सही उत्तर विकल्प ${answer} है।`,
     distractorChecks: Object.freeze(distractorFailures.map((failure) => `निकट विकल्प जाँच: ${failure}`)),

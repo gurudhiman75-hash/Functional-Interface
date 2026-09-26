@@ -298,8 +298,8 @@ export function buildCubesDiceVoxelStudentSolutionV1(source: CubesDiceVoxelPerma
     ]);
     const capacity = `${metrics.columns} × ${metrics.rows} × ${metrics.maxHeight} = ${metrics.boundingCuboidVolume}`;
     const missing = `${metrics.boundingCuboidVolume} − ${metrics.totalCubes} = ${metrics.missingToCompleteCuboid}`;
-    if (language === "hi") return solution(language, "सबसे छोटा पूरा घनाभ वही आधार रखेगा और उसकी ऊँचाई सबसे ऊँचे स्तंभ के बराबर होगी।", [t], [`पूरे घनाभ में स्थान = ${capacity}।`, `जोड़ने वाले घन = ${missing}।`], answerSentence(language, answer));
-    if (language === "pa") return solution(language, "ਸਭ ਤੋਂ ਛੋਟੇ ਪੂਰੇ ਘਣਾਭ ਦਾ ਅਧਾਰ ਇਹੀ ਰਹੇਗਾ ਅਤੇ ਉਚਾਈ ਸਭ ਤੋਂ ਉੱਚੇ ਸਤੰਭ ਦੇ ਬਰਾਬਰ ਹੋਵੇਗੀ।", [t], [`ਪੂਰੇ ਘਣਾਭ ਵਿੱਚ ਥਾਵਾਂ = ${capacity}।`, `ਜੋੜਣ ਵਾਲੇ ਘਣ = ${missing}।`], answerSentence(language, answer));
+    if (language === "hi") return solution(language, "सबसे छोटा पूरा घनाभ वही आधार रखेगा और उसकी ऊँचाई घनों के सबसे ऊँचे खड़े ढेर के बराबर होगी।", [t], [`पूरे घनाभ में स्थान = ${capacity}।`, `जोड़ने वाले घन = ${missing}।`], answerSentence(language, answer));
+    if (language === "pa") return solution(language, "ਸਭ ਤੋਂ ਛੋਟੇ ਪੂਰੇ ਘਣਾਭ ਦਾ ਅਧਾਰ ਇਹੀ ਰਹੇਗਾ ਅਤੇ ਉਚਾਈ ਘਣਾਂ ਦੇ ਸਭ ਤੋਂ ਉੱਚੇ ਖੜ੍ਹੇ ਢੇਰ ਦੇ ਬਰਾਬਰ ਹੋਵੇਗੀ।", [t], [`ਪੂਰੇ ਘਣਾਭ ਵਿੱਚ ਥਾਵਾਂ = ${capacity}।`, `ਜੋੜਣ ਵਾਲੇ ਘਣ = ${missing}।`], answerSentence(language, answer));
     return solution(language, "The smallest complete cuboid has the same footprint and a height equal to the tallest column.", [t], [`Complete cuboid capacity = ${capacity}.`, `Missing cubes = ${missing}.`], answerSentence(language, answer));
   }
 
@@ -307,8 +307,8 @@ export function buildCubesDiceVoxelStudentSolutionV1(source: CubesDiceVoxelPerma
     const rows = facts.topOccupiedByRow.map((count, index) => [`${index + 1}`, `${count}`]);
     const t = table(language === "hi" ? "ऊपरी दृश्य की गिनती" : language === "pa" ? "ਉੱਪਰਲੇ ਦ੍ਰਿਸ਼ ਦੀ ਗਿਣਤੀ" : "Top-view count", [language === "hi" ? "आधार पंक्ति" : language === "pa" ? "ਅਧਾਰ ਕਤਾਰ" : "Ground row", language === "hi" ? "भरे स्थान" : language === "pa" ? "ਭਰੇ ਖਾਣੇ" : "Occupied cells"], rows);
     const calc = `${sum(facts.topOccupiedByRow)} = ${metrics.topProjectionCells}`;
-    if (language === "hi") return solution(language, "ऊपर से देखने पर स्तंभ की ऊँचाई नहीं गिनी जाती। हर गैर-खाली ऊर्ध्व स्तंभ एक वर्ग देता है।", [t], [`ऊपरी दृश्य के वर्ग = ${calc}।`], answerSentence(language, answer));
-    if (language === "pa") return solution(language, "ਉੱਪਰੋਂ ਵੇਖਣ ਤੇ ਸਤੰਭ ਦੀ ਉਚਾਈ ਨਹੀਂ ਗਿਣੀ ਜਾਂਦੀ। ਹਰ ਗੈਰ-ਖਾਲੀ ਖੜ੍ਹਾ ਸਤੰਭ ਇੱਕ ਵਰਗ ਦਿੰਦਾ ਹੈ।", [t], [`ਉੱਪਰਲੇ ਦ੍ਰਿਸ਼ ਦੇ ਵਰਗ = ${calc}।`], answerSentence(language, answer));
+    if (language === "hi") return solution(language, "ऊपर से देखने पर ढेर की ऊँचाई नहीं गिनी जाती। आधार का हर गैर-खाली स्थान ऊपर से एक वर्ग देता है।", [t], [`ऊपरी दृश्य के वर्ग = ${calc}।`], answerSentence(language, answer));
+    if (language === "pa") return solution(language, "ਉੱਪਰੋਂ ਵੇਖਣ ਤੇ ਢੇਰ ਦੀ ਉਚਾਈ ਨਹੀਂ ਗਿਣੀ ਜਾਂਦੀ। ਅਧਾਰ ਦੀ ਹਰ ਗੈਰ-ਖਾਲੀ ਥਾਂ ਉੱਪਰੋਂ ਇੱਕ ਵਰਗ ਦਿੰਦੀ ਹੈ।", [t], [`ਉੱਪਰਲੇ ਦ੍ਰਿਸ਼ ਦੇ ਵਰਗ = ${calc}।`], answerSentence(language, answer));
     return solution(language, "In the top view, height disappears. Every non-empty vertical column contributes exactly one square.", [t], [`Top-view squares = ${calc}.`], answerSentence(language, answer));
   }
 

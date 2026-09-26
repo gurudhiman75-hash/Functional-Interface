@@ -278,7 +278,7 @@ function localizedStem(language: FigureMatrixLanguageV2, variant: number): strin
     ],
     hi: [
       "आकृति मैट्रिक्स को ध्यान से देखिए और प्रश्नवाचक चिह्न के स्थान पर आने वाला सही विकल्प चुनिए।",
-      "पंक्तियों और स्तंभों में चल रहे नियम के अनुसार कौन-सी उत्तर आकृति मैट्रिक्स को पूरा करती है?",
+      "पंक्तियों और कॉलमों में चल रहे नियम के अनुसार कौन-सी उत्तर आकृति मैट्रिक्स को पूरा करती है?",
       "मैट्रिक्स के रिक्त खाने में आने वाली सही आकृति चुनिए।",
     ],
     pa: [
@@ -539,9 +539,9 @@ function cyclePuzzle(sourceVariant: string, seed: number): Puzzle {
     matrixSize, matrix: Object.freeze(matrix), missingIndex, correct, distractors: Object.freeze(distractors), difficulty: matrixSize === 4 ? "HARD" : "MODERATE",
     facts: Object.freeze({
       family: "CYCLIC_DISTRIBUTION_OR_PERMUTATION", sourceVariant, governingAxis: "BOTH", operation: "CYCLIC_SHIFT", parameter: readable,
-      rule: L(`The ${readable} advances one place through a fixed cycle across every row and down every column.`, `आकृति का ${readable === "figure type" ? "प्रकार" : readable === "position" ? "स्थान" : readable === "orientation" ? "दिशा" : "भराव"} हर पंक्ति और स्तंभ में एक निश्चित चक्र में एक कदम आगे बढ़ता है।`, `ਆਕ੍ਰਿਤੀ ਦਾ ${readable === "figure type" ? "ਰੂਪ" : readable === "position" ? "ਸਥਾਨ" : readable === "orientation" ? "ਦਿਸ਼ਾ" : "ਭਰਾਵ"} ਹਰ ਕਤਾਰ ਅਤੇ ਕਾਲਮ ਵਿੱਚ ਇੱਕ ਨਿਰਧਾਰਤ ਚੱਕਰ ਵਿੱਚ ਇੱਕ ਕਦਮ ਅੱਗੇ ਵਧਦਾ ਹੈ।`),
-      worked: L("A completed row and a completed column show the same one-step cyclic shift.", "एक पूरी पंक्ति और एक पूरा स्तंभ वही एक-कदम चक्र दिखाते हैं।", "ਇੱਕ ਪੂਰੀ ਕਤਾਰ ਅਤੇ ਇੱਕ ਪੂਰਾ ਕਾਲਮ ਉਹੀ ਇੱਕ-ਕਦਮ ਚੱਕਰ ਦਿਖਾਉਂਦੇ ਹਨ।"),
-      application: L("Continue the cycle into the missing cell from both its row and its column.", "रिक्त खाने तक पंक्ति और स्तंभ दोनों से वही चक्र आगे बढ़ाएँ।", "ਖਾਲੀ ਖਾਣੇ ਤੱਕ ਕਤਾਰ ਅਤੇ ਕਾਲਮ ਦੋਵਾਂ ਤੋਂ ਉਹੀ ਚੱਕਰ ਅੱਗੇ ਵਧਾਓ।"),
+      rule: L(`The ${readable} advances one place through a fixed cycle across every row and down every column.`, `आकृति का ${readable === "figure type" ? "प्रकार" : readable === "position" ? "स्थान" : readable === "orientation" ? "दिशा" : "भराव"} हर पंक्ति और कॉलम में एक निश्चित चक्र में एक कदम आगे बढ़ता है।`, `ਆਕ੍ਰਿਤੀ ਦਾ ${readable === "figure type" ? "ਰੂਪ" : readable === "position" ? "ਸਥਾਨ" : readable === "orientation" ? "ਦਿਸ਼ਾ" : "ਭਰਾਵ"} ਹਰ ਕਤਾਰ ਅਤੇ ਕਾਲਮ ਵਿੱਚ ਇੱਕ ਨਿਰਧਾਰਤ ਚੱਕਰ ਵਿੱਚ ਇੱਕ ਕਦਮ ਅੱਗੇ ਵਧਦਾ ਹੈ।`),
+      worked: L("A completed row and a completed column show the same one-step cyclic shift.", "एक पूरी पंक्ति और एक पूरा कॉलम वही एक-कदम चक्र दिखाते हैं।", "ਇੱਕ ਪੂਰੀ ਕਤਾਰ ਅਤੇ ਇੱਕ ਪੂਰਾ ਕਾਲਮ ਉਹੀ ਇੱਕ-ਕਦਮ ਚੱਕਰ ਦਿਖਾਉਂਦੇ ਹਨ।"),
+      application: L("Continue the cycle into the missing cell from both its row and its column.", "रिक्त खाने तक पंक्ति और कॉलम दोनों से वही चक्र आगे बढ़ाएँ।", "ਖਾਲੀ ਖਾਣੇ ਤੱਕ ਕਤਾਰ ਅਤੇ ਕਾਲਮ ਦੋਵਾਂ ਤੋਂ ਉਹੀ ਚੱਕਰ ਅੱਗੇ ਵਧਾਓ।"),
       verification: L("Both directions predict the same missing state.", "दोनों दिशाएँ एक ही रिक्त अवस्था देती हैं।", "ਦੋਵੇਂ ਦਿਸ਼ਾਵਾਂ ਇੱਕੋ ਖਾਲੀ ਅਵਸਥਾ ਦਿੰਦੀਆਂ ਹਨ।"),
     }),
   });
@@ -578,10 +578,10 @@ function orthogonalPuzzle(sourceVariant: string, seed: number): Puzzle {
     matrixSize: 3, matrix: Object.freeze(matrix), missingIndex, correct, distractors: Object.freeze(distractors), difficulty: "HARD",
     facts: Object.freeze({
       family: "ORTHOGONAL_ROW_COLUMN_ATTRIBUTES", sourceVariant, governingAxis: "BOTH", operation: "ROW_ATTRIBUTE_PLUS_COLUMN_ATTRIBUTE", parameter,
-      rule: L(`Two independent clues determine each cell: ${parameter}.`, "हर खाने की दो विशेषताएँ स्वतंत्र रूप से तय होती हैं—एक पंक्ति से और दूसरी स्तंभ से।", "ਹਰ ਖਾਣੇ ਦੀਆਂ ਦੋ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਸੁਤੰਤਰ ਤੌਰ ਤੇ ਤੈਅ ਹੁੰਦੀਆਂ ਹਨ—ਇੱਕ ਕਤਾਰ ਤੋਂ ਅਤੇ ਦੂਜੀ ਕਾਲਮ ਤੋਂ।"),
-      worked: L("Use another cell in the same row to identify the row-controlled feature, and another cell in the same column to identify the column-controlled feature.", "उसी पंक्ति के दूसरे खाने से पंक्ति वाला गुण और उसी स्तंभ के दूसरे खाने से स्तंभ वाला गुण पहचानें।", "ਉਸੇ ਕਤਾਰ ਦੇ ਦੂਜੇ ਖਾਣੇ ਤੋਂ ਕਤਾਰ ਵਾਲਾ ਗੁਣ ਅਤੇ ਉਸੇ ਕਾਲਮ ਦੇ ਦੂਜੇ ਖਾਣੇ ਤੋਂ ਕਾਲਮ ਵਾਲਾ ਗੁਣ ਪਛਾਣੋ।"),
+      rule: L(`Two independent clues determine each cell: ${parameter}.`, "हर खाने की दो विशेषताएँ स्वतंत्र रूप से तय होती हैं—एक पंक्ति से और दूसरी कॉलम से।", "ਹਰ ਖਾਣੇ ਦੀਆਂ ਦੋ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਸੁਤੰਤਰ ਤੌਰ ਤੇ ਤੈਅ ਹੁੰਦੀਆਂ ਹਨ—ਇੱਕ ਕਤਾਰ ਤੋਂ ਅਤੇ ਦੂਜੀ ਕਾਲਮ ਤੋਂ।"),
+      worked: L("Use another cell in the same row to identify the row-controlled feature, and another cell in the same column to identify the column-controlled feature.", "उसी पंक्ति के दूसरे खाने से पंक्ति वाला गुण और उसी कॉलम के दूसरे खाने से कॉलम वाला गुण पहचानें।", "ਉਸੇ ਕਤਾਰ ਦੇ ਦੂਜੇ ਖਾਣੇ ਤੋਂ ਕਤਾਰ ਵਾਲਾ ਗੁਣ ਅਤੇ ਉਸੇ ਕਾਲਮ ਦੇ ਦੂਜੇ ਖਾਣੇ ਤੋਂ ਕਾਲਮ ਵਾਲਾ ਗੁਣ ਪਛਾਣੋ।"),
       application: L("Combine those two independently determined features in the missing cell.", "रिक्त खाने में दोनों स्वतंत्र रूप से निर्धारित गुणों को मिलाएँ।", "ਖਾਲੀ ਖਾਣੇ ਵਿੱਚ ਦੋਵੇਂ ਸੁਤੰਤਰ ਤੌਰ ਤੇ ਤੈਅ ਕੀਤੇ ਗੁਣ ਮਿਲਾਓ।"),
-      verification: L("The correct option must satisfy its row and column simultaneously; satisfying only one is a near miss.", "सही विकल्प को पंक्ति और स्तंभ दोनों की शर्त एक साथ पूरी करनी होगी।", "ਸਹੀ ਵਿਕਲਪ ਨੂੰ ਕਤਾਰ ਅਤੇ ਕਾਲਮ ਦੋਵਾਂ ਦੀ ਸ਼ਰਤ ਇਕੱਠੇ ਪੂਰੀ ਕਰਨੀ ਹੋਵੇਗੀ।"),
+      verification: L("The correct option must satisfy its row and column simultaneously; satisfying only one is a near miss.", "सही विकल्प को पंक्ति और कॉलम दोनों की शर्त एक साथ पूरी करनी होगी।", "ਸਹੀ ਵਿਕਲਪ ਨੂੰ ਕਤਾਰ ਅਤੇ ਕਾਲਮ ਦੋਵਾਂ ਦੀ ਸ਼ਰਤ ਇਕੱਠੇ ਪੂਰੀ ਕਰਨੀ ਹੋਵੇਗੀ।"),
     }),
   });
 }
