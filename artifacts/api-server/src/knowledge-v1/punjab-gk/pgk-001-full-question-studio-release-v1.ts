@@ -11,6 +11,8 @@ export const PGK_001_FULL_RELEASE_LIFECYCLE_V1 = Object.freeze({
   questionStudioGeneratable: true as const,
   reviewAndRevisionEnabled: true as const,
   regenerationEnabled: true as const,
+  reviewRunPersistenceAllowed: true as const,
+  canonicalQuestionPersistenceAllowed: true as const,
   persistenceAllowed: true as const,
   databaseWriteEnabled: true as const,
 
