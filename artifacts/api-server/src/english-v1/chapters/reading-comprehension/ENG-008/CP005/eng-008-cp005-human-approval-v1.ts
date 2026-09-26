@@ -1,0 +1,18 @@
+export const ENG008_CP005_HUMAN_EDITORIAL_APPROVAL_V1=Object.freeze({
+ authorityId:"ENG-008-CP005-HUMAN-EDITORIAL-APPROVAL-V1" as const,
+ chapterId:"ENG-008" as const,
+ cpId:"ENG-008-CP005" as const,
+ approvedReviewArtifact:"ENG-008-CP005-REVIEW-V1.md" as const,
+ approvedGeneratorHeadSha:"88f969bd3b09f3b43db37c5a892c25498d1e6de4" as const,
+ approvedMergedSha:"7fe012bd97417bf03a0627ade2fddb254f507d67" as const,
+ approvedOn:"2026-09-26" as const,
+ approvedScope:"Research / Survey / Report RC: 6 passages / 48 authorities / 380–520 word research-style passage contract" as const,
+ questionStudioReviewOnlyAuthorized:true as const,
+ questionBankWritable:false as const,
+ testEligible:false as const,
+ mockTestEligible:false as const,
+ publiclyPublishable:false as const,
+ automaticStudentPublication:false as const,
+ productionReleaseAuthorized:false as const,
+ revisionPolicy:"SOURCE_GENERATOR_ONLY" as const,
+});
