@@ -5,7 +5,7 @@ import{ENG008_CP001_FAMILY_IDS_V1,generateEng008Cp001QuestionV1}from"../chapters
 assert.equal(ENG008_CP001_PASSAGES_V1.length,54);
 assert.equal(new Set(ENG008_CP001_PASSAGES_V1.map(x=>x.id)).size,54);
 assert.equal(ENG008_CP001_QUESTION_AUTHORITIES_V1.length,324);
-assert.equal(new Set(ENG008_CP001_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,228);
+assert.equal(new Set(ENG008_CP001_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,324);
 
 const genres=new Map<string,number>(),families=new Map<string,number>(),difficulties=new Set<string>();
 for(const passage of ENG008_CP001_PASSAGES_V1){
@@ -31,7 +31,7 @@ for(const passage of ENG008_CP001_PASSAGES_V1){
  }
 }
 assert.deepEqual(Object.fromEntries(genres),{narrative:19,report:19});
-for(const familyId of ENG008_CP001_FAMILY_IDS_V1)assert.equal(families.get(familyId),38,`${familyId} should have 30 authorities`);
+for(const familyId of ENG008_CP001_FAMILY_IDS_V1)assert.equal(families.get(familyId),54,`${familyId} should have 30 authorities`);
 assert.deepEqual([...difficulties].sort(),["easy","hard","medium"]);
 
 for(const difficulty of["easy","medium","hard"]as const){
