@@ -62,7 +62,7 @@ Two stops had lower use than expected because construction work temporarily chan
 
 Maintenance teams found that one sail loosened after strong winds and had to be tightened. No major damage occurred, but staff recommended stronger fittings before wider installation.
 
-The pilot concluded that shade sails could improve waiting comfort at exposed locations, but the agency would still prioritise permanent shelters at the busiest stops. Sails were viewed as a lower-cost option where space or construction constraints made larger structures difficult.`,
+The pilot concluded that shade sails could improve waiting comfort at exposed locations, but the agency would still prioritise permanent shelters at the busiest stops. Sails were viewed as a lower-cost option where space or construction constraints made larger structures difficult. The agency also plans to compare material lifespan because a cheaper structure is not necessarily cheaper over several years if it needs frequent replacement or repair.`,
  questions:[
  q("R08-Q1","RC2-F01","easy","What was the main physical benefit of the shade sails?","They blocked direct sunlight",["They lowered citywide air temperature","They stopped buses from heating","They increased tree cover"],"The report says the main benefit was blocking direct sunlight.","blocking direct sunlight"),
  q("R08-Q2","RC2-F02","medium","What can be inferred about passenger comfort?","Comfort can improve even when air temperature changes little",["Air temperature is the only factor affecting comfort","Passengers disliked all shaded stops","Shade works only after 4 p.m."],"The passage separates radiant heat from air temperature.","air temperature itself changed very little"),
@@ -86,7 +86,7 @@ Parents surveyed after the trial said they valued reminders that included the da
 
 Staff also reported that SMS reminders took less time than repeated phone calls, although some parents still needed calls because messages were not delivered or numbers were outdated.
 
-The district concluded that SMS reminders were associated with fewer missed appointments and lower staff effort, but a larger randomised trial would be needed to estimate the effect more confidently.`,
+The district concluded that SMS reminders were associated with fewer missed appointments and lower staff effort, but a larger randomised trial would be needed to estimate the effect more confidently. Officials also want to compare reminder timing because a message sent too early may be forgotten while one sent too late may leave little time to reschedule.`,
  questions:[
  q("R09-Q1","RC2-F01","easy","When were SMS reminders sent?","Two days before the appointment",["Two weeks after the appointment","On the same day only","One month earlier"],"The first paragraph directly states the timing.","two days before"),
  q("R09-Q2","RC2-F02","medium","What can be inferred about longer-advance bookings?","Reminders may be especially useful when more time has passed since booking",["Longer bookings are always cancelled","Families forget same-day appointments more","SMS works only after two weeks"],"The largest difference appeared among appointments booked more than two weeks earlier.","largest among families"),
