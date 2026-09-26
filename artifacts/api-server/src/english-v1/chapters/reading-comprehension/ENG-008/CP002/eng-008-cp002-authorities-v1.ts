@@ -22,8 +22,8 @@ export interface Eng008Cp002PassageV1{
 const q=(id:string,familyId:Eng008Cp002FamilyId,difficulty:Eng008Cp002Difficulty,question:string,correctAnswer:string,distractors:readonly [string,string,string],explanation:string,evidence:string):Eng008Cp002QuestionAuthorityV1=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
 const seed=(id:string)=>{const p=ENG008_CP002_SEED_PASSAGES_V1.find(x=>x.id===id);if(!p)throw new Error("Missing CP002 seed "+id);return p.text;};
 
-export const ENG008_CP002_PASSAGES_V1:readonly Eng008Cp002PassageV1[
-...ENG008_CP002_EXPANSION_WAVE8_V1,]=[
+export const ENG008_CP002_PASSAGES_V1:readonly Eng008Cp002PassageV1[]=[
+...ENG008_CP002_EXPANSION_WAVE8_V1,
 ...ENG008_CP002_EXPANSION_WAVE7_V1,
 ...ENG008_CP002_EXPANSION_WAVE6_V1,
 ...ENG008_CP002_EXPANSION_WAVE5_V1,
