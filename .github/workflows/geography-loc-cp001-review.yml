@@ -5,7 +5,9 @@ on:
     branches:
       - New-main
     paths:
-      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/**"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/geo-loc-001-cp001-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/location-extent-neighbours/GEO-LOC-001-CP001-*"
+      - ".github/workflows/geography-loc-cp001-review.yml"
   workflow_dispatch:
 
 permissions:
