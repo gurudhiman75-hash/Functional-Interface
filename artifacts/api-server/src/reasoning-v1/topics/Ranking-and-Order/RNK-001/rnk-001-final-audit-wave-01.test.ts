@@ -83,21 +83,36 @@ const auditLanguageRaw = String(process.env.RNK_WAVE01_LANGUAGE ?? "en").trim().
 assert.ok(["en", "hi", "pa"].includes(auditLanguageRaw), `Unsupported RNK Wave 01 audit language '${auditLanguageRaw}'.`);
 const auditLanguage = auditLanguageRaw as "en" | "hi" | "pa";
 
-let trilingualQlSamples = 0;
-const generated = await generateRnk001QuestionStudioBatch({
-  packageId: "RNK-001",
-  language: auditLanguage,
-  count: 42,
-  seed: `rnk-wave01-chapter:${auditLanguage}`,
-});
+const shardRaw = Number(process.env.RNK_WAVE01_SHARD ?? 0);
+assert.ok(Number.isInteger(shardRaw) && shardRaw >= 0 && shardRaw < 6, `Unsupported RNK Wave 01 shard '${String(process.env.RNK_WAVE01_SHARD)}'.`);
+const auditShard = shardRaw;
+const shardSize = 7;
+const shardQlIds = RNK_001_CHAPTER_AUTHORITY.permanentQlIds.slice(
+  auditShard * shardSize,
+  (auditShard + 1) * shardSize,
+);
+assert.equal(shardQlIds.length, 7);
 
-assert.equal(generated.questions.length, 42);
+let trilingualQlSamples = 0;
+const shardQuestions: Array<Record<string, any>> = [];
+for (const qlId of shardQlIds) {
+  const generated = await generateRnk001QuestionStudioBatch({
+    packageId: "RNK-001",
+    canonicalProblemId: qlId,
+    language: auditLanguage,
+    count: 1,
+    seed: `rnk-wave01:${auditLanguage}:shard-${auditShard}:${qlId}`,
+  });
+  assert.equal(generated.questions.length, 1);
+  shardQuestions.push(generated.questions[0] as Record<string, any>);
+}
+
 assert.deepEqual(
-  [...new Set((generated.questions as Array<Record<string, any>>).map((question) => question.qlId))].sort(),
-  RNK_001_CHAPTER_AUTHORITY.permanentQlIds,
+  shardQuestions.map((question) => question.qlId),
+  shardQlIds,
 );
 
-for (const question of generated.questions as Array<Record<string, any>>) {
+for (const question of shardQuestions) {
   trilingualQlSamples += 1;
   assert.equal(question.language, auditLanguage);
   assert.equal(question.options.length >= 4, true);
@@ -109,67 +124,69 @@ for (const question of generated.questions as Array<Record<string, any>>) {
   assertReviewOnly(question);
 }
 
-const cp005 = await generateRnk001QuestionStudioBatch({
-  packageId: "RNK-001",
-  canonicalProblemId: "RNK-CP-005",
-  language: "en",
-  count: 6,
-  seed: "rnk-wave01-cp005",
-});
-assert.ok((cp005.questions as Array<Record<string, any>>).every((question) => question.checkpointId === "RNK-CP-005"));
-
-await assert.rejects(
-  () => generateRnk001QuestionStudioBatch({
+if (auditLanguage === "en" && auditShard === 0) {
+  const cp005 = await generateRnk001QuestionStudioBatch({
     packageId: "RNK-001",
-    canonicalProblemId: "RNK-CP-008",
+    canonicalProblemId: "RNK-CP-005",
     language: "en",
+    count: 6,
+    seed: "rnk-wave01-cp005",
+  });
+  assert.ok((cp005.questions as Array<Record<string, any>>).every((question) => question.checkpointId === "RNK-CP-005"));
+
+  await assert.rejects(
+    () => generateRnk001QuestionStudioBatch({
+      packageId: "RNK-001",
+      canonicalProblemId: "RNK-CP-008",
+      language: "en",
+      count: 1,
+      seed: "rnk-wave01-cp008-no-ql",
+    }),
+    /owns no permanent QL/u,
+  );
+
+  const banking = await generateRnk001QuestionStudioBatch({
+    packageId: "RNK-001",
+    canonicalProblemId: "RNK-QL-001",
+    language: "pa",
+    exam: "IBPS PO Prelims",
     count: 1,
-    seed: "rnk-wave01-cp008-no-ql",
-  }),
-  /owns no permanent QL/u,
-);
+    seed: "rnk-wave01-banking-pa",
+  });
+  const bankingQuestion = banking.questions[0] as Record<string, any>;
+  assert.equal(bankingQuestion.options.length, 5);
+  assert.equal(bankingQuestion.examProfile, "IBPS_PO_PRE");
+  assert.match(String(bankingQuestion.stem), /[਀-੿]/u);
+  assertReviewOnly(bankingQuestion);
 
-const banking = await generateRnk001QuestionStudioBatch({
-  packageId: "RNK-001",
-  canonicalProblemId: "RNK-QL-001",
-  language: "pa",
-  exam: "IBPS PO Prelims",
-  count: 1,
-  seed: "rnk-wave01-banking-pa",
-});
-const bankingQuestion = banking.questions[0] as Record<string, any>;
-assert.equal(bankingQuestion.options.length, 5);
-assert.equal(bankingQuestion.examProfile, "IBPS_PO_PRE");
-assert.match(String(bankingQuestion.stem), /[਀-੿]/u);
-assertReviewOnly(bankingQuestion);
+  const replayA = await generateRnk001QuestionStudioBatch({
+    packageId: "RNK-001",
+    canonicalProblemId: "RNK-QL-020",
+    language: "hi",
+    difficulty: "Medium",
+    count: 2,
+    seed: "rnk-wave01-replay",
+  });
+  const replayB = await generateRnk001QuestionStudioBatch({
+    packageId: "RNK-001",
+    canonicalProblemId: "RNK-QL-020",
+    language: "hi",
+    difficulty: "Medium",
+    count: 2,
+    seed: "rnk-wave01-replay",
+  });
+  assert.deepEqual(replayB, replayA, "RNK recovered generation must remain deterministic");
 
-const replayA = await generateRnk001QuestionStudioBatch({
-  packageId: "RNK-001",
-  canonicalProblemId: "RNK-QL-020",
-  language: "hi",
-  difficulty: "Medium",
-  count: 2,
-  seed: "rnk-wave01-replay",
-});
-const replayB = await generateRnk001QuestionStudioBatch({
-  packageId: "RNK-001",
-  canonicalProblemId: "RNK-QL-020",
-  language: "hi",
-  difficulty: "Medium",
-  count: 2,
-  seed: "rnk-wave01-replay",
-});
-assert.deepEqual(replayB, replayA, "RNK recovered generation must remain deterministic");
-
-const context = banking.generationContext as Record<string, any>;
-assert.equal(context.packageId, "RNK-001");
-assert.equal(context.permanentQlCount, 42);
-assert.equal(context.ql043Allocated, false);
-assert.equal(context.questionBankWritable, false);
-assert.equal(context.testEligible, false);
-assert.equal(context.mockTestEligible, false);
-assert.equal(context.publiclyPublishable, false);
-assert.equal(context.productionReleaseAuthorized, false);
+  const context = banking.generationContext as Record<string, any>;
+  assert.equal(context.packageId, "RNK-001");
+  assert.equal(context.permanentQlCount, 42);
+  assert.equal(context.ql043Allocated, false);
+  assert.equal(context.questionBankWritable, false);
+  assert.equal(context.testEligible, false);
+  assert.equal(context.mockTestEligible, false);
+  assert.equal(context.publiclyPublishable, false);
+  assert.equal(context.productionReleaseAuthorized, false);
+}
 
 console.log(JSON.stringify({
   verdict: "PASS_RNK_001_FINAL_AUDIT_WAVE_01_RECOVERY_AND_CURRENT_INTEGRATION",
@@ -177,7 +194,9 @@ console.log(JSON.stringify({
   permanentQlCount: 42,
   ql043Allocated: false,
   languages: [auditLanguage],
-  fullTrilingualCoverage: "EN_HI_PA_EXECUTED_AS_THREE_BOUNDED_CI_INVOCATIONS",
+  auditShard,
+  shardQlIds,
+  fullTrilingualCoverage: "EN_HI_PA_X_6_QL_SHARDS_EXECUTED_AS_BOUNDED_CI_INVOCATIONS",
   lifecycle: "REVIEW_ONLY",
   trilingualQlSamples,
   currentQuestionStudioRegistry: "BOUND_BY_SOURCE_AND_ADAPTER",
