@@ -1,4 +1,4 @@
-import { ENG008_CP002_EXPANSION_WAVE3_V1 } from "./eng-008-cp002-expansion-wave3-v1";
+import { ENG008_CP002_EXPANSION_WAVE4_V1 } from "./eng-008-cp002-expansion-wave4-v1";
 import { ENG008_CP002_SEED_PASSAGES_V1 } from "../CP001/eng-008-cp001-authorities-v1";
 import { ENG008_CP002_EXPANSION_WAVE1_V1 } from "./eng-008-cp002-expansion-wave1-v1";
 import { ENG008_CP002_EXPANSION_WAVE2_V1 } from "./eng-008-cp002-expansion-wave2-v1";
@@ -19,6 +19,10 @@ const q=(id:string,familyId:Eng008Cp002FamilyId,difficulty:Eng008Cp002Difficulty
 const seed=(id:string)=>{const p=ENG008_CP002_SEED_PASSAGES_V1.find(x=>x.id===id);if(!p)throw new Error("Missing CP002 seed "+id);return p.text;};
 
 export const ENG008_CP002_PASSAGES_V1:readonly Eng008Cp002PassageV1[]=[
+...ENG008_CP002_EXPANSION_WAVE4_V1,
+...ENG008_CP002_EXPANSION_WAVE3_V1,
+...ENG008_CP002_EXPANSION_WAVE2_V1,
+...ENG008_CP002_EXPANSION_WAVE1_V1,
 {
  id:"ENG008-RC2-E01",title:"Libraries Need More Than Shelves",genre:"editorial",text:seed("ENG008-RC-E01"),
  questions:[
