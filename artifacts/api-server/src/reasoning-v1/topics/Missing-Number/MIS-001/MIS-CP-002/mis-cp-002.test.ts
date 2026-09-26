@@ -70,6 +70,9 @@ for (const candidateId of MIS_CP002_CANDIDATE_IDS) {
     assert.equal(first.target.result, first.answer);
     assert.ok(Number.isInteger(first.answer));
     assert.ok(first.answer > 0 && first.answer <= 999);
+    if (first.ruleId === 'PAIR_PRODUCT_DIVIDE_THIRD' || first.ruleId === 'PAIR_SUM_DIVIDE_THIRD') {
+      assert.ok(first.answer > 1, `${candidateId}/${seed}: division result 1 is too trivial for CP002`);
+    }
 
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options.map((option) => option.value)).size, 4);
