@@ -229,7 +229,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-084",
     "qlName": "Himalayan north: China, Nepal and Bhutan",
     "difficulty": "Easy",
-    "stem": "Nepal and Bhutan lie mainly on which side of India?",
+    "stem": "Nepal and Bhutan lie on which side of India?",
     "answer": "North",
     "distractors": [
       "Southwest",
@@ -524,7 +524,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Northern land frontier",
       "Northeastern mountain frontier"
     ],
-    "explanation": "India's western coast faces the Arabian Sea and western Indian Ocean, providing the natural maritime orientation toward eastern Africa.",
+    "explanation": "India's western coast faces the Arabian Sea and western Indian Ocean. This gives it the natural maritime orientation toward eastern Africa.",
     "sourceFactIds": [
       "REGIONAL-WEST-COAST-AFRICA"
     ]
@@ -572,7 +572,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Both coasts face only West Asia",
       "Both coasts face only Southeast Asia"
     ],
-    "explanation": "India's western maritime side opens through the Arabian Sea toward West Asia, while the eastern side opens through the Bay of Bengal toward Southeast Asia.",
+    "explanation": "India's western maritime side opens through the Arabian Sea toward West Asia. The eastern side opens through the Bay of Bengal toward Southeast Asia.",
     "sourceFactIds": [
       "REGIONAL-WEST-EAST-APPROACH-COMPARE"
     ]
@@ -828,7 +828,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Both sides toward West Asia",
       "Both sides toward Southeast Asia"
     ],
-    "explanation": "India's western side opens through the Arabian Sea toward West Asia, while its eastern side opens through the Bay of Bengal toward Southeast Asia.",
+    "explanation": "India's western side opens through the Arabian Sea toward West Asia. Its eastern side opens through the Bay of Bengal toward Southeast Asia.",
     "sourceFactIds": [
       "REGIONAL-INTEGRATED-WEST-EAST"
     ]
@@ -844,7 +844,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Himalayan neighbours south, Arabian Sea north, Bay of Bengal west",
       "Atlantic west, Pacific east, Arctic south"
     ],
-    "explanation": "India's northern side is framed by Himalayan neighbours, while its peninsula lies between the Arabian Sea and Bay of Bengal with the Indian Ocean to the south.",
+    "explanation": "India's northern side is framed by Himalayan neighbours. Its peninsula lies between the Arabian Sea and Bay of Bengal, with the Indian Ocean to the south.",
     "sourceFactIds": [
       "REGIONAL-INTEGRATED-FOUR-SIDES"
     ]
