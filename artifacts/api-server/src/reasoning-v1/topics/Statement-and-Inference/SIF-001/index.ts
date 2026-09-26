@@ -13,3 +13,5 @@ export * from "./generator.ts";
 export * from "./review-pack.ts";
 export * from "./question-studio-review.ts";
 export * from "./cp008-contextual-authorities.ts";
+
+export * from "./cp009-data-authorities.ts";

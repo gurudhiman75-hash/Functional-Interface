@@ -25,6 +25,10 @@ The package does not infer its answer from generated prose. It also keeps infere
 
 `SIF-CP008-REVIEW-V1.md` contains the human-review sample for Multi-Sentence Contextual Inference. Its 32 trilingual authorities cover eight practical synthesis families, with 16 Medium and 16 Hard scenarios. The review sampler selects three scenarios per family, balances difficulty and inference positions, and expects candidates to connect information across short passages. It remains in Question Studio review only.
 
+## CP009 review candidate
+
+`SIF-CP009-REVIEW-V1.md` contains 24 trilingual, Medium-level scenarios across eight numerical-reasoning families: percentage comparisons, counts, simple ratios, changes, rankings, frequencies, part-whole relationships and scoped numerical reports. The review pack covers three scenarios per family and balances the supported inference position. Questions require direct reading and comparison of figures stated in prose; lengthy arithmetic and data-interpretation tasks remain out of scope. CP009 remains in Question Studio review only.
+
 ## Review boundary
 
 All 17 content packs are executable and registered for Question Studio review. Question Bank persistence, tests, mocks, public delivery and automatic publication remain locked until CP-level human review, multilingual parity review, novelty expansion and the chapter freeze are approved.
