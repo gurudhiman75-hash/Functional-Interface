@@ -94,3 +94,26 @@ All existing family contracts remain unchanged.
 All passages remain original Examtree-authored text.
 
 Review-only lifecycle remains locked until human approval.
+
+
+## Large-wave cadence from Wave 8
+
+From Wave 8 onward, the preferred expansion unit is **40 passages per wave**:
+
+- 8 SSC Foundation;
+- 8 SSC Editorial / Current Affairs;
+- 8 Banking Prelims;
+- 8 Banking Mains;
+- 8 Research / Survey.
+
+The corresponding governed-authority addition is approximately **336 authorities per wave** once the eight linked BP-F10 contextual word-fit authorities are included.
+
+The pool remains **novelty-limited, not count-capped**. The 150-passage objective was a minimum breadth milestone, not a stopping point.
+
+After Wave 8, the candidate core pool is **192 passages**. If quality gates continue to pass, the natural large-wave sequence is approximately:
+
+- after Wave 9: 232 passages;
+- after Wave 10: 272 passages;
+- after Wave 11: 312 passages.
+
+These are planning waypoints, not hard targets. Expansion should continue only while new passages remain genuinely distinct in scenario, evidence structure, inference path and exam value.

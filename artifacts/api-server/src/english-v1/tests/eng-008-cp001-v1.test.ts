@@ -2,10 +2,10 @@ import assert from"node:assert/strict";
 import{ENG008_CP001_PASSAGES_V1,ENG008_CP001_QUESTION_AUTHORITIES_V1}from"../chapters/reading-comprehension/ENG-008/CP001/eng-008-cp001-authorities-v1";
 import{ENG008_CP001_FAMILY_IDS_V1,generateEng008Cp001QuestionV1}from"../chapters/reading-comprehension/ENG-008/CP001/eng-008-cp001-v1";
 
-assert.equal(ENG008_CP001_PASSAGES_V1.length,30);
-assert.equal(new Set(ENG008_CP001_PASSAGES_V1.map(x=>x.id)).size,30);
-assert.equal(ENG008_CP001_QUESTION_AUTHORITIES_V1.length,180);
-assert.equal(new Set(ENG008_CP001_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,180);
+assert.equal(ENG008_CP001_PASSAGES_V1.length,38);
+assert.equal(new Set(ENG008_CP001_PASSAGES_V1.map(x=>x.id)).size,38);
+assert.equal(ENG008_CP001_QUESTION_AUTHORITIES_V1.length,228);
+assert.equal(new Set(ENG008_CP001_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,228);
 
 const genres=new Map<string,number>(),families=new Map<string,number>(),difficulties=new Set<string>();
 for(const passage of ENG008_CP001_PASSAGES_V1){
@@ -30,8 +30,8 @@ for(const passage of ENG008_CP001_PASSAGES_V1){
   assert.equal(first.metadata.reviewOnly,true);
  }
 }
-assert.deepEqual(Object.fromEntries(genres),{narrative:15,report:15});
-for(const familyId of ENG008_CP001_FAMILY_IDS_V1)assert.equal(families.get(familyId),30,`${familyId} should have 30 authorities`);
+assert.deepEqual(Object.fromEntries(genres),{narrative:19,report:19});
+for(const familyId of ENG008_CP001_FAMILY_IDS_V1)assert.equal(families.get(familyId),38,`${familyId} should have 30 authorities`);
 assert.deepEqual([...difficulties].sort(),["easy","hard","medium"]);
 
 for(const difficulty of["easy","medium","hard"]as const){
@@ -44,4 +44,4 @@ for(const difficulty of["easy","medium","hard"]as const){
   assert.equal(q.metadata.reviewOnly,true);
  }
 }
-console.log("ENG-008 CP001 SSC foundation RC audit passed.",{passages:30,authorities:180,soak:6000});
+console.log("ENG-008 CP001 SSC foundation RC audit passed.",{passages:38,authorities:228,soak:6000});
