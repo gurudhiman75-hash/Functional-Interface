@@ -1,0 +1,37 @@
+name: Validate English ENG-008 Expansion Wave 1
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened,reopened,synchronize,ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/reading-comprehension/ENG-008/**
+      - artifacts/api-server/src/english-v1/tests/eng-008-cp001-v1.test.ts
+      - artifacts/api-server/src/english-v1/tests/eng-008-cp002-v1.test.ts
+      - artifacts/api-server/src/english-v1/tests/eng-008-cp003-v1.test.ts
+      - artifacts/api-server/src/english-v1/tests/eng-008-cp004-v1.test.ts
+      - artifacts/api-server/src/english-v1/tests/eng-008-cp005-v1.test.ts
+      - artifacts/api-server/src/english-v1/tests/eng-008-cp006-set-v1.test.ts
+      - artifacts/api-server/src/english-v1/tests/eng-008-cp007-v1.test.ts
+      - .github/workflows/english-eng008-expansion-wave1-v1.yml
+permissions: { contents: read }
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run ENG-008 checkpoint audits
+        run: |
+          for T in cp001 cp002 cp003 cp004 cp005; do
+            pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-008-$T-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-008-$T-v1.test.mjs
+            node artifacts/api-server/dist/english-v1/eng-008-$T-v1.test.mjs
+          done
+          pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-008-cp006-set-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-008-cp006-set-v1.test.mjs
+          node artifacts/api-server/dist/english-v1/eng-008-cp006-set-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-008-cp007-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-008-cp007-v1.test.mjs
+          node artifacts/api-server/dist/english-v1/eng-008-cp007-v1.test.mjs
+      - run: pnpm --dir artifacts/api-server build
