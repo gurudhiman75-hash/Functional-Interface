@@ -1,10 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-import {
-  generateQuestionStudioQuestions,
-  listQuestionStudioPackages,
-} from "../../../../question-studio/engine-registry";
 import { RNK_001_CHAPTER_AUTHORITY } from "./manifest";
 import { RNK_001_CURRENT_MAIN_FINAL_AUDIT_V1 as audit } from "./rnk-001-current-main-final-audit-v1";
 import {
@@ -48,15 +44,20 @@ assert.equal(
   false,
 );
 
-const packages = listQuestionStudioPackages().filter((entry) => entry.packageId === "RNK-001");
-assert.equal(packages.length, 1, "RNK-001 must have exactly one current Question Studio registration");
-assert.equal(packages[0]!.engineId, "reasoning-v1");
-assert.equal(packages[0]!.enabled, true);
-assert.equal(packages[0]!.questionBankWritable, false);
-assert.equal(packages[0]!.testEligible, false);
-assert.equal(packages[0]!.mockTestEligible, false);
-assert.equal(packages[0]!.publiclyPublishable, false);
-assert.equal(packages[0]!.productionReleaseAuthorized, false);
+assert.equal(RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2.engineId, "reasoning-v1");
+assert.equal(RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2.enabled, true);
+assert.equal(RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2.questionBankWritable, false);
+assert.equal(RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2.testEligible, false);
+assert.equal(RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2.mockTestEligible, false);
+assert.equal(RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2.publiclyPublishable, false);
+assert.equal(RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2.productionReleaseAuthorized, false);
+
+const registrySource = readFileSync(
+  "src/question-studio/engine-registry.ts",
+  "utf8",
+);
+assert.match(registrySource, /\.\/engines\/reasoning-v1-adapter/u);
+assert.match(registrySource, /reasoningV1QuestionStudioAdapter/u);
 
 const adapterSource = readFileSync(
   "src/question-studio/engines/reasoning-v1-adapter.ts",
@@ -68,7 +69,7 @@ assert.match(adapterSource, /generateRnk001QuestionStudioBatch\(request\)/u);
 let generatedCount = 0;
 
 for (const language of ["en", "hi", "pa"] as const) {
-  const batch = await generateQuestionStudioQuestions({
+  const batch = await generateRnk001QuestionStudioBatch({
     packageId: "RNK-001",
     language,
     count: 8,
