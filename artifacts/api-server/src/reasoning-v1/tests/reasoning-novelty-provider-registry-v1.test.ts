@@ -10,7 +10,7 @@ import {
 test("novelty provider registry has unique provider identities", () => {
   const ids = REASONING_V1_NOVELTY_PROVIDERS_V1.map((entry) => entry.providerId);
   assert.equal(new Set(ids).size, ids.length);
-  assert.ok(ids.length >= 8);
+  assert.ok(ids.length >= 9);
 });
 
 test("only explicitly approved Paper Folding runtime counts toward assembly novelty today", () => {
@@ -23,7 +23,7 @@ test("all new reasoning novelty generators remain review-only and production-mix
   const reviewOnly = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
     (entry) => entry.status === "DISCOVERY_REVIEW_ONLY",
   );
-  assert.ok(reviewOnly.length >= 7);
+  assert.ok(reviewOnly.length >= 8);
 
   for (const provider of reviewOnly) {
     assert.equal(provider.questionStudioNoveltyMixActivated, false, provider.providerId);
@@ -46,6 +46,7 @@ test("registered review lanes can be addressed deterministically by provider id"
     "BLR-001-CODED-FILTERED-COUNT",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     "OPS-001-INFER-THEN-FILL",
+    "LP-001-POST-SOLUTION-SWAP",
   ]) {
     const provider = reasoningNoveltyProviderByIdV1(providerId);
     assert.equal(provider.providerId, providerId);
