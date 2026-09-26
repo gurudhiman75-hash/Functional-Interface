@@ -287,10 +287,11 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const combinedRejectedPair = pick(seededRandom(`${seed}:combined-rejected-pair`), visiblePairs);
   const applicantRatioCandidates = visiblePairs.filter(([first, second]) => applicants[first]! !== applicants[second]!);
   const applicantsRatioPair = pick(seededRandom(`${seed}:applicants-ratio-pair`), applicantRatioCandidates);
-  const averageTuple = pick(
+  const averageTuple = shuffle(
     seededRandom(`${seed}:average-selected-three`),
-    [[0, 1, 2], [0, 1, 4], [0, 2, 3], [0, 3, 4], [1, 2, 4], [1, 3, 4], [2, 3, 4]] as const,
-  );
+    [[0, 1, 2], [0, 1, 3], [0, 1, 4], [0, 2, 3], [0, 2, 4], [0, 3, 4], [1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]] as const,
+  ).find(([first, second, third]) => (selected[first]! + selected[second]! + selected[third]!) % 3 === 0);
+  if (!averageTuple) throw new Error("DI-002 V2 could not find an integer-valued three-row Selected average.");
   const ratioTuple = shuffle(
     seededRandom(`${seed}:ratio-groups`),
     [
