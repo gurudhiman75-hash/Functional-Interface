@@ -202,7 +202,7 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "findConditionalUrnProbability": {
       const form = qlSeriesVariant(entry, 6, 4);
       if (form === 0) return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?`;
-      if (form === 1) return `A bag has ${red} red and ${blue} blue balls. One red ball has already been drawn and is not replaced. What is the probability that the next ball drawn is red?`;
+      if (form === 1) return `A bag has ${red} red and ${blue} blue balls. A red ball is drawn first without replacement. What is the probability that the next ball drawn is red?`;
       if (form === 2) return `From a bag containing ${red} red and ${blue} blue balls, two balls are drawn successively without replacement. If the first draw is known to be red, find the probability that the second draw is red.`;
       return `A bag contains ${red} red and ${blue} blue balls. After a red ball is drawn and kept aside, another ball is drawn at random. Find the probability that the second ball is red.`;
     }
