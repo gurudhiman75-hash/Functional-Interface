@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
-import { DI004_V2_REVIEW_QLS } from "./review-ql-registry-v2";
-import { generateDi004V2ReviewQuestion } from "./review-question-generator-v2";
+import { DI004_PERMANENT_QLS } from "./permanent-ql-registry";
+import { generateDi004PermanentQuestion } from "./permanent-question-generator";
 import type { Di004V2Stimulus } from "./line-v2-types";
 
 function lineDataTable(stimulus: Di004V2Stimulus) {
@@ -16,8 +16,8 @@ function lineDataTable(stimulus: Di004V2Stimulus) {
 function renderProfile(profile: "SSC_CGL_TIER_I" | "BANKING_PRELIMS") {
   const parts: string[] = [`# DI-004 V2 Review — ${profile}\n`];
 
-  for (const descriptor of DI004_V2_REVIEW_QLS) {
-    const source = generateDi004V2ReviewQuestion({
+  for (const descriptor of DI004_PERMANENT_QLS) {
+    const source = generateDi004PermanentQuestion({
       seed: `DI004-V2-REVIEW-PACK:${profile}:${descriptor.qlId}`,
       examProfile: profile,
       taskKind: descriptor.taskKind,
@@ -66,9 +66,9 @@ export function renderDi004V2ReviewMarkdown() {
   return [
     "# DI-004 Line Graph V2 — Editorial Review Pack",
     "",
-    "Status: ENGLISH_REVIEW_CANDIDATE · HUMAN APPROVAL PENDING",
+    "Status: ENGLISH_REVIEW_APPROVED · QUESTION STUDIO CONTROLLED REVIEW",
     "",
-    "The pack is generated from the V2 review candidate. The plotted-value table mirrors the values used by the semantic line graph. Question Studio, Question Bank, tests, mocks and public delivery remain unauthorized.",
+    "The pack is generated from the approved permanent English source used by Question Studio CONTROLLED_REVIEW. The plotted-value table mirrors the values used by the semantic line graph. Question Bank, tests, mocks and public delivery remain unauthorized.",
     "",
     renderProfile("SSC_CGL_TIER_I"),
     "",
