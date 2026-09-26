@@ -540,7 +540,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Rutland–Little Andaman; Minicoy–Maldives; Andaman–Nicobar",
       "India–Sri Lanka; Nicobar–Sumatra; Minicoy–Lakshadweep"
     ],
-    "explanation": "Ten Degree Channel divides the Andaman and Nicobar groups, Duncan Passage lies between Rutland and Little Andaman, and Great Channel lies toward northern Sumatra from the Nicobar region.",
+    "explanation": "Ten Degree Channel divides the Andaman and Nicobar groups. Duncan Passage lies between Rutland and Little Andaman, while Great Channel lies toward northern Sumatra from the Nicobar region.",
     "sourceFactIds": [
       "INTEGRATE-THREE-CHANNEL-MATCH"
     ]
@@ -844,7 +844,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "30°N, 90°E",
       "20°N, 90°E"
     ],
-    "explanation": "P needs latitude above 23°30'N and longitude below 82°30'E. Only 30°N, 75°E satisfies both directional conditions.",
+    "explanation": "P needs latitude above 23°30'N and longitude below 82°30'E. Only 30°N, 75°E satisfies both directional conditions and remains in the required northwestern quadrant.",
     "sourceFactIds": [
       "INTEGRATE-COORDINATE-NW"
     ]
