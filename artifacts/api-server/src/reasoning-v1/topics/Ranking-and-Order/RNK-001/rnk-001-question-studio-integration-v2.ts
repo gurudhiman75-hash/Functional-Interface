@@ -187,9 +187,29 @@ export const RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2: QuestionStudioPackageDefini
   },
 };
 
+function polishEnglishStem(text: string, qlId: string): string {
+  const number = qlNumber(qlId);
+  if (number < 18 || number > 26) return text;
+
+  return text
+    .replace(
+      /What are ([A-Z][A-Za-z'’-]*)'s rank (.+?) and ([A-Z][A-Za-z'’-]*)'s rank (.+?), respectively\?/u,
+      "What are the ranks of $1 $2 and $3 $4, respectively?",
+    )
+    .replace(
+      /What were ([A-Z][A-Za-z'’-]*)'s original rank (.+?) and ([A-Z][A-Za-z'’-]*)'s original rank (.+?), respectively\?/u,
+      "What were the original ranks of $1 $2 and $3 $4, respectively?",
+    );
+}
+
 function learnerStem(question: Record<string, any>): string {
   const number = qlNumber(String(question.qlId));
-  if (number < 36 || number > 41) return String(question.stem ?? "");
+  const baseStem = String(question.stem ?? "");
+  if (number < 36 || number > 41) {
+    return question.language === "en"
+      ? polishEnglishStem(baseStem, String(question.qlId))
+      : baseStem;
+  }
 
   const source = (question.source ?? {}) as Record<string, any>;
   const instruction = number <= 38 && typeof source.instruction === "string"
