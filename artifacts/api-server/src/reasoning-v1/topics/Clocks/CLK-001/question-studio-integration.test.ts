@@ -149,3 +149,48 @@ test('CLK-001 item-difficulty generation remains deterministic', async () => {
   const right = await generateClk001QuestionStudioBatch(request);
   assert.deepEqual(right, left);
 });
+
+
+test('CLK-001 banking profile delivers five options without moving the canonical answer', async () => {
+  for (const language of ['en', 'hi', 'pa'] as const) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-QL-003',
+      language,
+      exam: 'IBPS PO Prelims',
+      count: 1,
+      seed: 'clk-wave02-banking-' + language,
+    });
+    const question = result.questions[0]!;
+    assert.equal((question.options as string[]).length, 5);
+    assert.ok(Number(question.correctIndex) >= 0 && Number(question.correctIndex) < 4);
+    assert.equal(question.optionCountProfileApplied, true);
+    assert.equal(question.examProfile, 'BANKING');
+    assert.equal(question.examProfileContentWeightingApplied, false);
+    assert.equal((question.bankingFiveOptionDelivery as any)?.correctAnswerMoved, false);
+    assert.equal((question.bankingFiveOptionDelivery as any)?.canonicalOptionsMutated, false);
+    const expectedNone = language === 'hi'
+      ? 'इनमें से कोई नहीं'
+      : language === 'pa'
+        ? 'ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ'
+        : 'None of these';
+    assert.equal((question.options as string[])[4], expectedNone);
+  }
+});
+
+test('CLK-001 SSC and Punjab delivery keep the canonical four-option surface', async () => {
+  for (const exam of ['SSC CGL Tier 1', 'PSSSB Clerk']) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-QL-003',
+      language: 'en',
+      exam,
+      count: 1,
+      seed: 'clk-wave02-profile-' + exam,
+    });
+    const question = result.questions[0]!;
+    assert.equal((question.options as string[]).length, 4);
+    assert.equal(question.optionCountProfileApplied, false);
+    assert.equal(question.bankingFiveOptionDelivery, null);
+  }
+});
