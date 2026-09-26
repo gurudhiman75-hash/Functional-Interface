@@ -27,6 +27,11 @@ await esbuild({
   platform: "node",
   bundle: true,
   format: "esm",
+  // Preserve dynamic-import boundaries as separate root-level chunks. This
+  // keeps the large legacy Question Studio/generator graph out of API startup
+  // memory while retaining the same routes when they are requested.
+  splitting: true,
+  chunkNames: "[name]-[hash]",
   // esbuild-plugin-pino adds transport/worker entry points. That makes this a
   // multi-entry build even though the application has one explicit entry.
   // Multi-entry esbuild builds must use outdir rather than outfile.
