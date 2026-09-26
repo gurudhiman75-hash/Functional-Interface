@@ -100,7 +100,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-LOC-001-QL-001",
     "qlName": "Northern and Eastern Hemisphere position",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "Site P is at 15°N, 75°E and Site Q is at 15°S, 75°E. Which site has the same hemispheric combination as India?",
     "answer": "Site P only",
     "distractors": [
@@ -196,7 +196,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-LOC-001-QL-002",
     "qlName": "Mainland latitudinal extent",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "Consider the statements: I. Mainland India lies entirely north of 8°N. II. Mainland India extends beyond 37°N. Which is correct?",
     "answer": "Both I and II are correct",
     "distractors": [
@@ -292,7 +292,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-LOC-001-QL-003",
     "qlName": "Mainland longitudinal extent",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "Which statement correctly compares 70°E and 95°E with India's stated mainland longitude limits?",
     "answer": "Both longitudes fall between the stated western and eastern limits",
     "distractors": [
@@ -946,7 +946,7 @@ export function auditGeoLoc001Cp001ReviewBatchV1() {
     const qlId = "GEO-LOC-001-QL-" + String(n).padStart(3, "0");
     if (qlCounts[qlId] !== 6) issues.push("QL_COUNT:" + qlId + ":" + (qlCounts[qlId] ?? 0));
   }
-  if (difficultyCounts.Easy !== 18 || difficultyCounts.Medium !== 27 || difficultyCounts.Hard !== 9) {
+  if (difficultyCounts.Easy !== 18 || difficultyCounts.Medium !== 30 || difficultyCounts.Hard !== 6) {
     issues.push("DIFFICULTY:" + JSON.stringify(difficultyCounts));
   }
   if (answerPositions.join(",") !== "14,14,13,13") issues.push("ANSWER_POSITIONS:" + answerPositions.join(","));
