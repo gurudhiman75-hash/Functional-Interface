@@ -132,12 +132,12 @@ D. 23°30'N to 82°30'E
 
 ## 10. A place lies at 40°N. How does this compare with mainland India's latitudinal extent?
 
-A. It lies within the stated mainland latitudinal limits
-B. It lies north of the stated mainland latitudinal limit
-C. It lies south of the stated mainland latitudinal limits
+A. It lies within mainland India's latitudinal extent
+B. It lies north of mainland India's latitudinal extent
+C. It lies south of mainland India's latitudinal extent
 D. It is a longitude, not a latitude
 
-**Answer:** B. It lies north of the stated mainland latitudinal limit
+**Answer:** B. It lies north of mainland India's latitudinal extent
 
 **Explanation:** Mainland India's northern latitude limit is 37°6'N. A latitude of 40°N is farther north, so it falls outside mainland India's latitude range.
 
@@ -216,12 +216,12 @@ D. 68°7'W to 97°25'E
 
 ## 16. A place lies at 100°E. How does this compare with mainland India's longitudinal extent?
 
-A. It lies within the stated mainland longitudinal limits
-B. It lies west of the stated mainland longitudinal limits
+A. It lies within mainland India's longitudinal extent
+B. It lies west of mainland India's longitudinal extent
 C. It is a latitude, not a longitude
-D. It lies east of the stated mainland longitudinal limit
+D. It lies east of mainland India's longitudinal extent
 
-**Answer:** D. It lies east of the stated mainland longitudinal limit
+**Answer:** D. It lies east of mainland India's longitudinal extent
 
 **Explanation:** The eastern mainland limit is 97°25'E. A longitude of 100°E is farther east, so it falls outside mainland India's longitude range.
 
@@ -354,7 +354,7 @@ D. 23°30'N
 **Difficulty:** Easy
 **QL:** GEO-LOC-001-QL-005 — Standard Meridian of India
 
-## 26. The Standard Meridian of India passes through which place mentioned by NCERT?
+## 26. Through which place does the Standard Meridian of India pass?
 
 A. Jaipur in Rajasthan
 B. Mirzapur in Uttar Pradesh
@@ -564,7 +564,7 @@ D. About 3.28 million sq km and about 2.4%
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-007 — Area, world share and size rank
 
-## 41. Which fact about India's area is accurate?
+## 41. Which statement matches India's position by area?
 
 A. India is the seventh-largest country by area in the world
 B. India is the world's largest country by area
@@ -573,7 +573,7 @@ D. India's area is about 0.328 million square kilometres
 
 **Answer:** A. India is the seventh-largest country by area in the world
 
-**Explanation:** India is placed seventh by area in NCERT's standard world comparison. Its area is about 3.28 million square kilometres, representing roughly 2.4% of world geographical area.
+**Explanation:** India ranks seventh in the world by area. Its area is about 3.28 million square kilometres, representing roughly 2.4% of world geographical area.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-007 — Area, world share and size rank
