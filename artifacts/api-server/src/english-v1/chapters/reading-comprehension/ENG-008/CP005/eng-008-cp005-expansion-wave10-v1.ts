@@ -1,0 +1,330 @@
+import type{Eng008Cp005PassageV1}from"./eng-008-cp005-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP005_EXPANSION_WAVE10_V1:readonly Eng008Cp005PassageV1[]=[
+{
+ id:"ENG008-RS-W10",title:"Do Message-Batching Windows Improve Focus?",genre:"workplace-study",
+ text:`A software company tested whether grouping non-urgent internal messages into fixed checking windows could reduce interruptions. Forty-eight employees from two teams volunteered for a six-week pilot.
+
+During the first two weeks, employees worked normally and messaging software recorded notification counts, response time and active computer use. For the next four weeks, one team was encouraged to check non-urgent messages at 11 a.m., 2 p.m. and 4:30 p.m. Urgent channels remained available at all times. The comparison team kept its usual messaging habits.
+
+The batching team reported fewer perceived interruptions and longer uninterrupted work periods. Average response time for non-urgent messages increased, as expected, but urgent-message response did not change meaningfully.
+
+Task completion showed a mixed result. Employees in the batching team completed slightly more planned coding and analysis tasks, but the number of small administrative tasks completed each week changed little.
+
+The researchers cautioned that employees knew which condition they were in. People who liked the idea may have been more motivated to follow it or to report better focus.
+
+The teams also differed in job mix. One contained more developers, while the other included more project coordinators whose work required frequent communication. That difference made a simple team-to-team comparison difficult.
+
+To address this, the company analysed employees within each team according to how closely they actually followed the checking windows. Stronger adherence was associated with longer focus periods, but this observational comparison could also reflect personality or workload.
+
+The pilot did not measure code quality or long-term stress. It focused on interruption patterns, self-reported focus and task completion.
+
+For a follow-up, the company plans to rotate both teams through both conditions and use shorter two-week periods. That crossover design should reduce differences caused by team composition.
+
+Researchers will also classify tasks by concentration demand. The same messaging rule may help deep analytical work more than coordination-heavy work.
+
+The preliminary result is therefore limited. Fixed message windows appeared to reduce perceived interruption and delay non-urgent replies without slowing urgent responses, but the evidence is not strong enough to claim a universal productivity gain.
+
+The study suggests that interruption policy should be evaluated against the kind of work being done, not only against the number of messages sent.`,
+ questions:[
+ q("W10-Q1","RS-F01","medium","What changed for the batching team during the intervention?","Non-urgent messages were checked mainly at three fixed times",["Urgent channels were disabled","All messages were answered immediately","Employees stopped using messaging software"],"The intervention grouped routine message checking while preserving urgent communication.","11 a.m., 2 p.m. and 4:30 p.m."),
+ q("W10-Q2","RS-F02","hard","Why is the team-to-team productivity comparison difficult to interpret?","The teams had different job mixes and communication needs",["Neither team recorded task completion","The pilot had no baseline period","Urgent response time was not measured"],"Developers and coordinators may be affected differently by message batching, creating a confound.","teams also differed in job mix"),
+ q("W10-Q3","RS-F03","hard","Which conclusion is best supported?","Message batching reduced perceived interruption, but evidence for a general productivity increase remains limited",["Batching improves every type of work","Non-urgent response time became faster","Urgent communication deteriorated"],"The reported focus benefit was clearer than the mixed task-output evidence.","not strong enough to claim a universal productivity gain"),
+ q("W10-Q4","RS-F04","medium","What was one direct measured trade-off?","Non-urgent messages were answered more slowly",["Urgent messages were ignored","Administrative work stopped","Employees worked fewer hours"],"Longer response time for routine messages was an expected consequence of checking only at set windows.","Average response time ... increased"),
+ q("W10-Q5","RS-F05","medium","Why is the within-team adherence analysis still not causal?","People who follow the rule closely may differ in personality or workload",["Adherence cannot be measured","Focus periods were not recorded","Every employee followed equally"],"Self-selection into strong adherence can explain some of the association with better focus.","could also reflect personality or workload"),
+ q("W10-Q6","RS-F06","hard","Which is a directly reported finding?","Urgent-message response time did not change meaningfully",["Code quality improved","Long-term stress fell","Every planned task was completed"],"The study directly measured urgent response and found little change.","urgent-message response did not change meaningfully"),
+ q("W10-Q7","RS-F07","hard","Which competing explanation applies to the self-reported focus improvement?","Participants knew the intervention and may have expected it to help",["Messaging software failed","The comparison team had no messages","Task types were identical"],"Awareness of the treatment can influence both behaviour and reported experience.","knew which condition they were in"),
+ q("W10-Q8","RS-F08","medium","Which next step is best supported?","Use a crossover design and classify tasks by concentration demand",["Remove urgent channels","Measure only message counts","Exclude project coordinators"],"The proposed follow-up directly addresses team differences and task heterogeneity.","rotate both teams through both conditions")
+ ]
+},
+{
+ id:"ENG008-RS-W11",title:"Does a Structured Shift Handover Reduce Missed Tasks?",genre:"workplace-study",
+ text:`A maintenance company tested a structured handover form for technicians changing shifts at a large industrial site. Managers were concerned that unfinished tasks were sometimes mentioned verbally but not recorded clearly for the next team.
+
+For four weeks, the evening shift used the existing verbal handover. During the next four weeks, technicians completed a short form listing unfinished jobs, safety concerns, parts waiting and the person responsible for follow-up.
+
+Managers reviewed maintenance logs to count tasks that had to be rediscovered because the next shift did not know they were pending. They also recorded how long handover meetings lasted.
+
+Missed follow-up events declined during the structured-form period. Handover meetings became slightly shorter because technicians did not need to reconstruct every detail verbally.
+
+However, form completion was uneven. Some technicians wrote vague entries such as “check pump” without describing what had already been tested. Those entries still required follow-up questions.
+
+The company therefore added two prompts: “What has already been done?” and “What is the next action?” Entries became more specific in the final two weeks.
+
+The study had an important time-order limitation. The structured period always came after the verbal period. Technicians may have improved simply because managers had drawn attention to handover quality.
+
+Seasonal workload also changed. The second four weeks had fewer emergency breakdowns, which could itself reduce communication errors.
+
+Managers compared nights with similar numbers of open jobs and still observed fewer rediscovered tasks under the structured form, but the sample was small.
+
+Technicians reported that the form was most useful for multi-step repairs and less useful when a task could be finished in a few minutes.
+
+The company did not measure whether equipment downtime fell overall. Many other factors, including parts delivery and repair complexity, influenced downtime.
+
+A follow-up will alternate handover methods across two sites and randomly choose which site starts with the form. Managers will also score entry completeness rather than only whether a form was submitted.
+
+The preliminary evidence suggests that structured handover can reduce information loss, especially when the form asks for the next action rather than merely a task name.
+
+The study also shows that standardisation alone is not enough. A form can exist without improving communication if the fields do not capture the information the next person actually needs.`,
+ questions:[
+ q("W11-Q1","RS-F01","medium","What information did the structured handover form request?","Unfinished jobs, safety concerns, waiting parts and follow-up responsibility",["Only employee arrival times","Customer satisfaction scores","Annual maintenance budgets"],"The form focused on information the incoming shift needed to continue work.","unfinished jobs, safety concerns"),
+ q("W11-Q2","RS-F02","hard","What major design limitation affects the comparison?","The structured phase always followed the verbal phase",["No maintenance logs existed","Both methods were used simultaneously","The site had no shift changes"],"Time order creates a possible learning or attention effect unrelated to the form itself.","structured period always came after"),
+ q("W11-Q3","RS-F03","hard","Which conclusion is best supported?","Structured handover may reduce missed follow-up, but workload and time-order differences limit causal certainty",["The form definitely reduced equipment downtime","Verbal handover should be banned","Any written form is sufficient"],"The observed decline is promising but confounded by sequence and workload.","important time-order limitation"),
+ q("W11-Q4","RS-F04","medium","Why were two extra prompts added?","Early form entries were sometimes too vague to guide the next shift",["Meetings were too short","Technicians refused to write task names","Parts were arriving early"],"The prompts forced writers to state progress and next action rather than a vague task label.","entries still required follow-up questions"),
+ q("W11-Q5","RS-F05","medium","Why does comparing nights with similar open-job counts help?","It partially reduces the influence of workload differences",["It randomises the entire study","It removes the time-order problem","It proves every task is identical"],"Matching on workload addresses one competing explanation, though not all confounding.","nights with similar numbers of open jobs"),
+ q("W11-Q6","RS-F06","hard","Which is a directly reported finding?","Handover meetings became slightly shorter during the structured period",["Equipment downtime fell","Parts arrived faster","Emergency breakdowns increased"],"Meeting duration was measured directly and declined somewhat.","became slightly shorter"),
+ q("W11-Q7","RS-F07","hard","Which competing explanation could account for some improvement?","Managers had already drawn attention to handover quality before the second phase",["Technicians stopped changing shifts","The form eliminated breakdowns","No tasks remained open"],"Increased awareness can improve behaviour independently of the form design.","drawn attention to handover quality"),
+ q("W11-Q8","RS-F08","medium","Which next study is best supported?","Alternate methods across two sites and randomise which site starts with the form",["Use only one week of data","Measure form submission only","Remove all verbal communication"],"The proposed design directly addresses time order and improves comparison.","randomly choose which site starts")
+ ]
+},
+{
+ id:"ENG008-RS-T08",title:"Do Countdown Displays Change Bus-Boarding Decisions?",genre:"transport-survey",
+ text:`A transport authority tested countdown displays at four bus stops served by two routes to the same town centre. One route was faster but less frequent; the other was slower but arrived more often.
+
+Before the displays were installed, researchers observed which route passengers chose and asked a sample how long they expected to wait. Many passengers underestimated the wait for the less frequent express route.
+
+The new displays showed expected arrival times for both routes. During the six-week trial, more passengers chose the slower local route when the next express bus was far away.
+
+Average time spent waiting at the stop fell slightly, although total door-to-door journey time did not change much because the local bus took longer once passengers boarded.
+
+Surveys showed that passengers felt more certain about their choice. They were less likely to say they had waited for the express simply because they did not know when the local service would arrive.
+
+Prediction accuracy varied. During heavy traffic, arrival estimates sometimes jumped backward or forward by several minutes.
+
+The authority marked estimates as “low confidence” when vehicle-location data had not updated recently. Passengers said this warning was useful, although some did not understand what caused low confidence.
+
+The study cannot show that countdown displays created all of the route-choice change. A fare promotion on the local route began during the fourth week and may have attracted some riders.
+
+Researchers repeated the analysis using only the first three weeks and still observed a smaller shift toward the local route when express waits were long.
+
+The displays also affected perceived waiting. Passengers described ten minutes as less frustrating when the countdown appeared stable than when no estimate was available.
+
+The study did not measure whether crowding changed on either route. If many passengers switch to one service, comfort and boarding capacity could become relevant.
+
+A follow-up will test stops without overlapping routes and will randomise display activation by day. Researchers also plan to record actual arrival prediction error rather than only whether passengers say they trust the display.
+
+The preliminary evidence suggests that real-time information can change route choice and reduce uncertainty, but it may shift rather than eliminate total travel time.
+
+The study therefore separates informational benefit from service improvement. The buses did not become faster; passengers became better able to choose between the options already available.`,
+ questions:[
+ q("T08-Q1","RS-F01","medium","What information did the new displays provide?","Expected arrival times for both bus routes",["Only ticket prices","Passenger names","Exact door-to-door journey times"],"The intervention gave real-time arrival estimates for the express and local routes.","expected arrival times for both routes"),
+ q("T08-Q2","RS-F02","hard","Why did total journey time change little even though waiting fell?","More passengers chose the slower local route, which took longer after boarding",["Buses stopped operating","Countdowns delayed departures","Fares increased"],"Reduced waiting was partly offset by slower in-vehicle travel.","local bus took longer"),
+ q("T08-Q3","RS-F03","hard","Which conclusion is best supported?","Countdown information can improve route choice and perceived certainty without making the transport service itself faster",["Displays reduce every passenger's total travel time","Prediction error has no effect","Express buses became more frequent"],"The main benefit was better information about existing options.","informational benefit from service improvement"),
+ q("T08-Q4","RS-F04","medium","Why were some estimates labelled “low confidence”?","Vehicle-location data had not updated recently",["The bus was full","The fare was unknown","The route had changed permanently"],"Stale location data reduced confidence in the prediction.","had not updated recently"),
+ q("T08-Q5","RS-F05","medium","Why analyse only the first three weeks separately?","The fare promotion began later and could confound route-choice changes",["The displays were removed after three weeks","Traffic existed only later","Passengers stopped answering surveys"],"Restricting analysis reduces overlap with the promotional fare change.","fare promotion ... began during the fourth week"),
+ q("T08-Q6","RS-F06","hard","Which is a directly reported finding?","Passengers were more likely to choose the local route when the express wait was long",["Route crowding fell","Every estimate was accurate","The local route became faster"],"Observed route choice shifted under conditions of long express waits.","more passengers chose the slower local route"),
+ q("T08-Q7","RS-F07","hard","Which competing explanation applies to the later route-choice shift?","A fare promotion may have attracted riders to the local route",["The express route was cancelled","The countdown displayed no local buses","Passengers could not see the screen"],"The price change occurred during the study and could affect behaviour independently of information.","fare promotion"),
+ q("T08-Q8","RS-F08","medium","Which follow-up is best supported?","Randomise display activation and record actual prediction error",["Measure only passenger age","Remove arrival estimates","Ignore traffic periods"],"Randomisation strengthens causal inference, while error data tests information quality.","randomise display activation by day")
+ ]
+},
+{
+ id:"ENG008-RS-S06",title:"Does Morning Light Shift Sleep Timing?",genre:"sleep-study",
+ text:`Researchers recruited sixty university students who reported irregular sleep schedules and late bedtimes. The study tested whether increasing morning light exposure would shift sleep timing earlier over four weeks.
+
+Participants were randomly assigned to two groups. One group was asked to spend thirty minutes outdoors within an hour of waking. The comparison group received general sleep-hygiene advice but no specific light instruction.
+
+All participants wore wrist activity monitors and completed daily sleep diaries. The light group also recorded whether the outdoor session occurred in bright sun, cloud or indoor shelter.
+
+By the end of the study, the light group fell asleep and woke slightly earlier on average than the comparison group. Total sleep duration changed little.
+
+The effect was larger among participants who completed outdoor sessions on at least five mornings per week. However, adherence was self-selected after assignment: students who followed the instruction more closely may also have maintained more regular routines in other ways.
+
+Researchers measured evening caffeine and late-night screen use through self-report. Both declined slightly in the light group, creating a possible additional pathway for the observed change.
+
+The study therefore cannot say that light exposure alone caused the full shift. The instruction may have encouraged a more regular morning routine that influenced other behaviours.
+
+Weather was another limitation. The study took place during a relatively sunny month. Outdoor light exposure may differ during winter or in locations with darker mornings.
+
+The wrist monitors estimated sleep from movement rather than brain activity, so they could misclassify quiet wakefulness as sleep.
+
+Despite these limitations, random assignment strengthens the comparison between the two instruction groups. The modest average timing shift was consistent across both diaries and activity estimates.
+
+Researchers did not find evidence that participants slept longer overall. The result concerned timing more than duration.
+
+A follow-up will use small light sensors to measure actual brightness exposure and will repeat the study in winter. It will also record meal timing and morning exercise because both may change when students go outside soon after waking.
+
+The preliminary conclusion is narrow: a regular morning outdoor-light instruction was associated with slightly earlier sleep timing in students with initially irregular schedules.
+
+The study does not show that everyone should wake at the same time or that morning light alone can treat a sleep disorder. It suggests one behavioural cue that may help shift timing when used consistently.`,
+ questions:[
+ q("S06-Q1","RS-F01","medium","What was the main intervention?","Thirty minutes outdoors within an hour of waking",["Avoiding all screens","Sleeping exactly eight hours","Taking a sleep medicine"],"The treatment group received a specific morning outdoor-light instruction.","spend thirty minutes outdoors"),
+ q("S06-Q2","RS-F02","hard","Why is stronger improvement among highly adherent participants difficult to interpret causally?","Those participants may also have followed other regular routines more closely",["Adherence was randomly assigned","Sleep timing was not measured","The comparison group also received the light instruction"],"Post-assignment adherence is self-selected and can correlate with other behaviours.","may also have maintained more regular routines"),
+ q("S06-Q3","RS-F03","hard","Which conclusion is best supported?","Morning outdoor-light instruction produced a modest shift toward earlier sleep timing, with limited evidence about duration",["Morning light increases total sleep for everyone","The intervention treats all sleep disorders","Weather has no effect on exposure"],"The clearest effect was timing, not total sleep duration.","timing more than duration"),
+ q("S06-Q4","RS-F04","medium","What measurement limitation affected the wrist monitors?","They inferred sleep from movement and could mistake quiet wakefulness for sleep",["They recorded only daylight","They measured brain waves inaccurately","They were worn only once a week"],"Movement-based sleep estimates are indirect.","misclassify quiet wakefulness as sleep"),
+ q("S06-Q5","RS-F05","medium","Why could reduced caffeine and screen use matter?","They provide alternative pathways through which the instruction could influence sleep timing",["They prove light has no effect","They were not measured","They were identical in both groups"],"Behaviour changes accompanying the intervention may contribute to the observed outcome.","possible additional pathway"),
+ q("S06-Q6","RS-F06","hard","Which is a directly reported finding?","The light group shifted sleep and wake times slightly earlier on average",["Sleep duration increased greatly","Every participant complied","Winter results were identical"],"Earlier timing was the main measured group difference.","fell asleep and woke slightly earlier"),
+ q("S06-Q7","RS-F07","hard","Which factor limits generalisation?","The study occurred during a relatively sunny month",["Participants were randomly assigned","Two measurement methods were used","The sample included students"],"Season affects how much outdoor light the same instruction actually delivers.","relatively sunny month"),
+ q("S06-Q8","RS-F08","medium","Which next step is best supported?","Measure actual light exposure and repeat the study in winter",["Remove the comparison group","Measure only caffeine","Stop recording sleep timing"],"The proposed follow-up directly addresses exposure uncertainty and seasonal generalisation.","use small light sensors")
+ ]
+},
+{
+ id:"ENG008-RS-C07",title:"Do Warranty Labels Change Purchase Confidence?",genre:"consumer-survey",
+ text:`Researchers tested whether clearer warranty information changed how consumers evaluated small household appliances. They created online product pages for an electric kettle and a mixer using fictional but realistic brands.
+
+Six hundred adults were randomly shown one of three warranty formats. The first displayed only “2-year warranty”. The second added a short list of what was covered and excluded. The third showed the same list plus a link to a one-page claims process.
+
+Participants rated purchase confidence, perceived product quality and how easy they thought a warranty claim would be.
+
+The simple two-year label increased confidence compared with a page containing no warranty information in an earlier pilot. In the main experiment, however, the detailed coverage list did not further increase perceived product quality.
+
+It did increase confidence that consumers understood what the warranty meant. Adding the claims-process link produced the largest increase in expected ease of making a claim.
+
+The researchers noted that expected ease is not the same as real claims experience. Participants were judging hypothetical pages and did not have to return a faulty product.
+
+Price was held constant across conditions, which helped isolate the information format but made the shopping situation less realistic. In real stores, warranty terms may interact with price, brand reputation and retailer trust.
+
+Some participants interpreted exclusions negatively and rated the detailed warranty as less generous, even though the legal coverage was identical in all three formats.
+
+This suggests that transparency can improve understanding while making limits more visible.
+
+The study also found that many participants did not click the claims-process link. Yet simply seeing that a process link existed increased expected ease slightly, perhaps because it signalled that a procedure was available.
+
+Researchers cautioned against interpreting this as proof that links improve actual claim success. The next study will use a simulated return task in which participants must find required documents and submit a mock claim.
+
+They will also vary brand reputation and product price to see whether warranty detail matters more when consumers are uncertain about the seller.
+
+The main result is therefore about information comprehension, not product reliability. Clearer terms helped people understand coverage and expected process, but did not make the fictional appliances appear substantially better made.
+
+The study illustrates that consumer confidence has several components. Confidence in product quality, confidence in knowing one's rights and confidence in navigating a claim are related but not identical.`,
+ questions:[
+ q("C07-Q1","RS-F01","medium","What differed across the three main warranty formats?","The amount of coverage detail and whether a claims-process link was shown",["Product price","Appliance performance","Brand reputation"],"The experiment changed information presentation while keeping the products otherwise constant.","what was covered ... claims process"),
+ q("C07-Q2","RS-F02","hard","Why can't expected claim ease be treated as actual claim success?","Participants judged hypothetical pages and did not complete real claims",["No one saw warranty information","Claims never require documents","The products were already broken"],"Perception in an online scenario is different from successfully navigating a real process.","not the same as real claims experience"),
+ q("C07-Q3","RS-F03","hard","Which conclusion is best supported?","Detailed warranty information improved understanding and expected process clarity more than perceived product quality",["Longer warranties always increase sales","Exclusions reduce legal coverage","Claims links guarantee successful refunds"],"The clearest effects were on comprehension and perceived ease, not quality judgement.","did not further increase perceived product quality"),
+ q("C07-Q4","RS-F04","medium","Why was price held constant?","To reduce a competing explanation when comparing information formats",["All appliances have the same market price","Price cannot affect confidence","The researchers forgot to vary it"],"Keeping price fixed helps isolate the effect of warranty presentation.","helped isolate the information format"),
+ q("C07-Q5","RS-F05","medium","Why did some participants view the detailed warranty as less generous?","The exclusions made limitations more visible even though coverage had not changed",["The warranty period became shorter","The price increased","The claims link removed coverage"],"Transparency revealed boundaries that a short label left implicit.","making limits more visible"),
+ q("C07-Q6","RS-F06","hard","Which is a directly reported finding?","The claims-process link produced the largest increase in expected ease of claiming",["Actual claim success doubled","Product quality ratings rose sharply","Every participant clicked the link"],"The main measured process-confidence effect came from the linked procedure.","largest increase in expected ease"),
+ q("C07-Q7","RS-F07","hard","Which factor limits external validity?","The products and brands were fictional and the purchase was hypothetical",["Participants were randomly assigned","Warranty formats differed","Ratings were collected"],"Real shopping includes brand history, money and actual consequences.","fictional but realistic brands"),
+ q("C07-Q8","RS-F08","medium","Which next step is best supported?","Use a simulated claim task and vary brand reputation and price",["Remove warranty information","Measure only product quality","Ask participants to guess warranty law"],"The planned follow-up tests behaviour and interactions missing from the current design.","simulated return task")
+ ]
+},
+{
+ id:"ENG008-RS-E08",title:"Do Rain Gardens Reduce Runoff From Small Parking Areas?",genre:"environment-study",
+ text:`A municipal engineering team tested two small rain gardens beside parking areas that regularly produced puddles after heavy showers. Each garden was a shallow planted basin designed to receive water from a section of pavement and allow it to soak into the soil.
+
+For three months, sensors measured rainfall, water entering each basin and how long standing water remained after storms. Two nearby parking sections without rain gardens served as comparison areas.
+
+During moderate rain, the garden sites produced less surface runoff reaching the street drain than the comparison sites. Standing water in the basins usually disappeared within several hours.
+
+During two very intense storms, both gardens filled and overflowed. They still delayed some runoff, but they did not prevent water from reaching the drain.
+
+The two gardens performed differently. One had sandy soil and drained quickly. The other contained more compacted soil and held water much longer after similar rainfall.
+
+Engineers loosened the compacted soil and added organic material halfway through the study. Drainage improved afterward, but this mid-study intervention makes before-and-after comparison more complicated.
+
+Vegetation also changed over time as plants established. Root growth may improve infiltration, so performance during the first month may not represent a mature rain garden.
+
+The comparison parking areas were not perfectly identical. One had slightly more slope, which could affect runoff speed.
+
+Researchers adjusted calculations for pavement area and recorded slope, but a small field study cannot control every site difference.
+
+The study did not measure water quality, mosquito populations or maintenance cost. Those factors matter for a larger programme.
+
+Residents nearby reported fewer long-lasting puddles near one garden, but the survey sample was small and residents knew where the intervention was located.
+
+The engineering team concluded that the pilot supports a limited claim: the rain gardens captured and delayed part of the runoff from moderate storms, while soil condition strongly affected drainage.
+
+The next phase will add more sites, measure infiltration before installation and monitor pollutant concentrations in incoming and outgoing water.
+
+Researchers also plan to follow the existing gardens for a full year to see how plant growth, sediment and seasonal weather change performance.
+
+The project shows why nature-based infrastructure should be measured over time. A basin that performs well after construction can change as soil compacts, plants grow or sediment accumulates.`,
+ questions:[
+ q("E08-Q1","RS-F01","medium","What was the main function of the rain gardens?","Receive pavement runoff and allow part of it to soak into soil",["Store vehicles","Increase parking capacity","Pump water directly to the river"],"The planted basins were designed to capture runoff and promote infiltration.","allow it to soak into the soil"),
+ q("E08-Q2","RS-F02","hard","Why is the soil-loosening change a challenge for interpretation?","It altered one garden partway through the study, so later performance reflects both time and intervention",["Soil condition was never measured","The garden was removed","Rainfall stopped afterward"],"A mid-study change makes simple before-after comparisons ambiguous.","mid-study intervention"),
+ q("E08-Q3","RS-F03","hard","Which conclusion is best supported?","The gardens reduced and delayed some moderate-storm runoff, but performance depended strongly on site conditions",["Rain gardens prevent all flooding","Sandy soil is always best in every climate","The intervention improved water quality"],"The data show partial runoff control and clear soil-dependent differences.","soil condition strongly affected drainage"),
+ q("E08-Q4","RS-F04","medium","What happened during the most intense storms?","The gardens filled and overflowed but still delayed some runoff",["They absorbed all rainfall","They failed to receive any water","The comparison sites stayed dry"],"Extreme rainfall exceeded storage capacity without eliminating all benefit.","filled and overflowed"),
+ q("E08-Q5","RS-F05","medium","Why might first-month results differ from later performance?","Plant roots and soil conditions change as the garden matures",["Rainfall is identical every month","Pavement area grows","Sensors change the soil"],"The intervention itself evolves over time, affecting infiltration.","Root growth may improve infiltration"),
+ q("E08-Q6","RS-F06","hard","Which is a directly reported finding?","The sandy-soil garden drained faster than the compacted-soil garden",["Water quality improved","Mosquito numbers fell","Maintenance cost was low"],"Drainage time differed clearly between the two garden soils.","sandy soil and drained quickly"),
+ q("E08-Q7","RS-F07","hard","Which factor limits the comparison with untreated parking sections?","The comparison sites differed somewhat in slope",["They had no pavement","Rain was not measured","They were in another city"],"Slope can affect runoff speed independently of the rain-garden treatment.","slightly more slope"),
+ q("E08-Q8","RS-F08","medium","Which next step is best supported?","Add more sites and measure infiltration and water quality over a longer period",["Remove the gardens after three months","Measure only resident opinions","Ignore soil conditions"],"The proposed follow-up addresses sample size, mechanism, omitted outcomes and seasonal change.","add more sites")
+ ]
+},
+{
+ id:"ENG008-RS-D11",title:"Does Interleaved Practice Improve Transfer?",genre:"digital-learning-evaluation",
+ text:`An online mathematics course tested two ways of organising practice questions after students completed lessons on percentages, ratios and averages.
+
+Four hundred learners were randomly assigned to blocked or interleaved practice. The blocked group answered ten percentage questions, then ten ratio questions and then ten average questions. The interleaved group received the same thirty questions in a mixed order.
+
+Immediately after practice, the blocked group scored slightly higher on questions that closely resembled the examples used in the lesson.
+
+One week later, both groups completed a delayed quiz containing familiar question types and six transfer problems in which learners first had to decide which method applied.
+
+The interleaved group performed similarly on familiar items but better on the transfer problems. Researchers suggested that switching between problem types may have forced learners to identify the relevant method rather than repeating the same procedure.
+
+Time-on-task was slightly higher in the interleaved group. Those learners also rated practice as more difficult and less fluent.
+
+This creates an interpretation question. Better delayed transfer could result from desirable difficulty, but it could also partly reflect extra time spent thinking.
+
+Researchers adjusted statistically for practice time and the transfer difference became smaller but remained.
+
+The study recorded voluntary hint use. Interleaved learners opened more hints early in practice, but the difference disappeared by the final ten questions.
+
+The sample consisted of learners who had completed all three lessons, so the result may not generalise to students who struggle earlier or leave the course.
+
+The transfer quiz was also limited. Six problems provide only a modest sample of unfamiliar situations.
+
+Researchers did not measure long-term course completion or exam performance. The study concerned near-term transfer after one week.
+
+A follow-up will vary interleaving gradually rather than comparing fully blocked with fully mixed practice. One group will switch topic every five questions, allowing researchers to test whether some mixing provides benefit with less difficulty.
+
+They also plan to hold total practice time more tightly and include more transfer items.
+
+The preliminary evidence supports a specific conclusion: mixed practice may help learners choose among recently learned methods when the problem does not announce which method to use.
+
+It does not show that interleaving is superior for every stage of learning. Early blocked practice may still help students understand a new procedure before they are asked to discriminate among several procedures.`,
+ questions:[
+ q("D11-Q1","RS-F01","medium","How did practice differ between the two groups?","One group practised topics in blocks while the other received the same questions in mixed order",["The groups studied different lessons","Only one group used questions","The interleaved group had fewer items"],"Question content was the same; sequence was manipulated.","same thirty questions in a mixed order"),
+ q("D11-Q2","RS-F02","hard","What mechanism did researchers propose for better transfer?","Mixed practice may force learners to identify which method fits each problem",["Interleaving gives away the answer","Blocked practice prevents memory","Hints automatically improve transfer"],"Switching topics requires method discrimination rather than repeating one procedure.","identify the relevant method"),
+ q("D11-Q3","RS-F03","hard","Which conclusion is best supported?","Interleaving may improve short-term transfer among recently learned methods, though it feels harder and takes slightly longer",["Interleaving is always superior","Blocked practice harms immediate performance","Mixed practice guarantees exam success"],"The main advantage appeared on transfer after one week, not every outcome.","specific conclusion"),
+ q("D11-Q4","RS-F04","medium","What happened on immediate practice-like questions?","The blocked group scored slightly higher",["The interleaved group scored much higher","Both groups failed","No immediate test was given"],"Blocked repetition produced a small immediate advantage on similar items.","blocked group scored slightly higher"),
+ q("D11-Q5","RS-F05","medium","Why is extra time-on-task a competing explanation?","Interleaved learners may have learned more partly because they spent longer thinking",["Time cannot affect learning","Blocked learners had no time limit","Practice order determines time exactly"],"More time could contribute independently to the observed transfer benefit.","extra time spent thinking"),
+ q("D11-Q6","RS-F06","hard","Which is a directly reported finding?","Interleaved learners used more hints early but not by the final ten questions",["They completed more lessons","They had higher course completion","They scored higher on every familiar item"],"Hint-use data showed an early difference that disappeared later.","difference disappeared"),
+ q("D11-Q7","RS-F07","hard","Which factor limits generalisation?","Only learners who completed all three lessons were included",["Random assignment was used","Both groups received the same questions","The delayed quiz occurred after one week"],"Completers may differ from learners who struggle or drop out earlier.","may not generalise"),
+ q("D11-Q8","RS-F08","medium","Which next step is best supported?","Test intermediate levels of mixing while controlling practice time more tightly",["Use only blocked practice","Remove transfer questions","Measure immediate fluency only"],"The proposed follow-up targets intensity and the time confound.","switch topic every five questions")
+ ]
+},
+{
+ id:"ENG008-RS-D12",title:"Do Explanation Prompts Improve Learning From Mistakes?",genre:"digital-learning-evaluation",
+ text:`A digital test-preparation platform evaluated whether asking learners to explain an error before showing the full solution improved later performance.
+
+Six hundred learners who answered a practice question incorrectly were randomly assigned to two feedback formats. The standard group immediately saw the correct solution. The prompt group first answered one short question such as “Which step in your approach is most likely wrong?” and then saw the same full solution.
+
+The prompt took an average of forty seconds. Many responses were brief, but about two-thirds identified a specific calculation, rule or interpretation.
+
+On a quiz twenty-four hours later, the prompt group performed slightly better on new questions testing the same underlying concept.
+
+The advantage was larger for learners whose explanation identified a specific error rather than those who wrote vague responses such as “careless mistake”.
+
+This association is not fully causal because the quality of the explanation was not randomly assigned. Learners able to identify their mistake may already understand the concept better.
+
+Researchers also checked whether the extra forty seconds alone could explain the benefit. A third small pilot group received a forty-second waiting screen before the solution but no explanation prompt. Its later scores were closer to the standard group.
+
+That comparison suggests that active reflection, not merely delay, may contribute to the effect, although the pilot group was smaller.
+
+The intervention had a cost. Some learners abandoned the practice session after repeated prompts, especially when they made several errors in a row.
+
+The platform therefore tested a rule that showed the prompt only on selected errors rather than after every wrong answer. Early data suggested lower abandonment with similar quiz benefit, but the sample was not large enough for a firm conclusion.
+
+The study did not measure whether learners remembered their explanations or whether the benefit lasted beyond one day.
+
+It also focused on numerical and rule-based questions where an error can often be localised. Open-ended reading or writing tasks may behave differently.
+
+A follow-up will compare self-explanation prompts with multiple-choice diagnostic prompts and will test spacing the prompts so that learners are not interrupted after every mistake.
+
+Researchers will also include a one-week delayed test and examine whether the intervention helps transfer to questions with unfamiliar wording.
+
+The preliminary finding is narrow: a short reflection step before a solution can modestly improve next-day performance on related concepts, but repeated prompting may reduce engagement.
+
+The design challenge is therefore to obtain the learning benefit of reflection without making error feedback feel like an additional punishment.`,
+ questions:[
+ q("D12-Q1","RS-F01","medium","What did the prompt group do before seeing the full solution?","Answered a short question about the likely source of their error",["Retook the entire lesson","Waited without doing anything","Saw the correct answer first"],"The intervention inserted a brief self-explanation step before standard feedback.","Which step ... is most likely wrong"),
+ q("D12-Q2","RS-F02","hard","Why can't better outcomes among learners with specific explanations prove that explanation quality caused the improvement?","Ability to identify the error may reflect stronger prior understanding",["Explanation quality was randomly assigned","The later quiz had no concept questions","Every response was equally specific"],"Explanation specificity is an observed learner characteristic, not a randomized treatment.","quality ... was not randomly assigned"),
+ q("D12-Q3","RS-F03","hard","Which conclusion is best supported?","Brief error reflection may modestly improve next-day learning, but too many prompts can reduce engagement",["Prompts should follow every error","Waiting time alone explains the effect","The benefit lasts indefinitely"],"The study found a small learning gain and a clear potential abandonment cost.","repeated prompting may reduce engagement"),
+ q("D12-Q4","RS-F04","medium","What was the purpose of the forty-second waiting-screen pilot?","To test whether extra time alone could explain the benefit",["To increase abandonment","To change question difficulty","To measure reading speed"],"The pilot isolates delay from active reflection.","extra forty seconds alone"),
+ q("D12-Q5","RS-F05","medium","Why did the platform test prompts only on selected errors?","Repeated prompts after many mistakes caused some learners to abandon practice",["Solutions became unavailable","Learners stopped making errors","The prompts were too short"],"Reducing prompt frequency aimed to preserve engagement.","abandoned the practice session after repeated prompts"),
+ q("D12-Q6","RS-F06","hard","Which is a directly reported finding?","The prompt group scored slightly better on related concepts after twenty-four hours",["The benefit lasted a month","Every learner identified a specific error","Open-ended writing improved"],"Next-day related-concept performance was the primary observed benefit.","performed slightly better"),
+ q("D12-Q7","RS-F07","hard","Which factor limits generalisation?","The study focused on numerical and rule-based questions",["The sample was randomised","Solutions were identical","The prompt lasted forty seconds"],"Other task types may not allow errors to be localised as easily.","Open-ended reading or writing tasks may behave differently"),
+ q("D12-Q8","RS-F08","medium","Which next step is best supported?","Compare prompt formats, reduce prompt frequency and test one-week transfer",["Remove all solutions","Measure only session length","Show prompts after correct answers only"],"The planned follow-up directly examines durability, format and engagement trade-offs.","one-week delayed test")
+ ]
+}
+] as const;
