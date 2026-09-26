@@ -52,6 +52,23 @@ for (const candidateId of MIS_CP002_CANDIDATE_IDS) {
     for (const group of [...first.evidenceGroups, first.target]) {
       assert.equal(new Set([group.first, group.second, group.third]).size, 3);
     }
+    assert.equal(
+      new Set(first.evidenceGroups.map((group) => group.result)).size,
+      first.evidenceGroups.length,
+      `${candidateId}/${seed}: evidence results should be distinct`,
+    );
+    for (let leftIndex = 0; leftIndex < first.evidenceGroups.length; leftIndex += 1) {
+      const left = first.evidenceGroups[leftIndex]!;
+      for (let rightIndex = leftIndex + 1; rightIndex < first.evidenceGroups.length; rightIndex += 1) {
+        const right = first.evidenceGroups[rightIndex]!;
+        const shared = [right.first, right.second, right.third]
+          .filter((value) => new Set([left.first, left.second, left.third]).has(value)).length;
+        assert.ok(shared <= 1, `${candidateId}/${seed}: evidence rows reuse too many inputs`);
+      }
+      const targetShared = [first.target.first, first.target.second, first.target.third]
+        .filter((value) => new Set([left.first, left.second, left.third]).has(value)).length;
+      assert.ok(targetShared <= 1, `${candidateId}/${seed}: target reuses too many evidence inputs`);
+    }
 
     assert.equal(first.ambiguityAudit.accepted, true, `${candidateId}/${seed}: ambiguity audit rejected`);
     const matches = matchingMisCp002Rules(first.evidenceGroups);
