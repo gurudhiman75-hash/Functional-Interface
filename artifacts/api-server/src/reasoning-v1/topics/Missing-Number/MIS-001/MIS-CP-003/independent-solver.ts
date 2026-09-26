@@ -7,7 +7,7 @@ import {
 
 export interface MisCp003Group {
   readonly first: number;
-  readonly second: number;
+  readonly second: number | null;
   readonly result: number;
 }
 
@@ -31,22 +31,22 @@ function bounded(value: number | null): number | null {
 export function independentlyEvaluateMisCp003Rule(
   ruleId: MisCp003RuleId,
   first: number,
-  second: number,
+  second: number | null,
   context: MisCp003RuleContext,
 ): number | null {
   const squareFirst = first * first;
-  const squareSecond = second * second;
+  if (ruleId === 'SQUARE_INPUT') return bounded(squareFirst);
+  if (ruleId === 'CUBE_INPUT') return bounded(first * first * first);
+  if (second == null) return null;
 
+  const squareSecond = second * second;
   switch (ruleId) {
-    case 'SQUARE_FIRST': return bounded(squareFirst);
-    case 'SQUARE_SECOND': return bounded(squareSecond);
     case 'SQUARE_FIRST_PLUS_SECOND': return bounded(squareFirst + second);
     case 'SQUARE_FIRST_MINUS_SECOND': return bounded(squareFirst - second);
     case 'SUM_OF_SQUARES': return bounded(squareFirst + squareSecond);
     case 'DIFFERENCE_OF_SQUARES': return bounded(squareFirst - squareSecond);
     case 'PRODUCT_PLUS_FIRST_SQUARE': return bounded(first * second + squareFirst);
     case 'PRODUCT_PLUS_SECOND_SQUARE': return bounded(first * second + squareSecond);
-    case 'CUBE_FIRST': return bounded(first * first * first);
     case 'PAIR_SUM_OR_DIFFERENCE_SQUARE': {
       const base = context.sign === -1 ? first - second : first + second;
       return bounded(base > 1 ? base * base : null);
@@ -55,6 +55,9 @@ export function independentlyEvaluateMisCp003Rule(
       const base = context.sign === -1 ? first - second : first + second;
       return bounded(base > 1 ? base * base * base : null);
     }
+    case 'SQUARE_INPUT':
+    case 'CUBE_INPUT':
+      return null;
   }
 }
 
@@ -72,14 +75,12 @@ export function independentlyVerifyMisCp003Group(
 
 export function matchingMisCp003Rules(evidence: readonly MisCp003Group[]): readonly MisCp003RuleMatch[] {
   const matches: MisCp003RuleMatch[] = [];
+  const unary = evidence.every((group) => group.second == null);
   for (const rule of MIS_CP003_RULES) {
+    if ((rule.operandCount === 1) !== unary) continue;
     for (const context of rule.contexts) {
       if (evidence.every((group) => independentlyVerifyMisCp003Group(rule.ruleId, context, group))) {
-        matches.push({
-          ruleId: rule.ruleId,
-          context,
-          semanticKey: misCp003SemanticKey(rule.ruleId, context),
-        });
+        matches.push({ ruleId: rule.ruleId, context, semanticKey: misCp003SemanticKey(rule.ruleId, context) });
       }
     }
   }
