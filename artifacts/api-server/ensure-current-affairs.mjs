@@ -129,6 +129,20 @@ try {
     throw new Error("Current Affairs open-news discovery provider did not bootstrap with the required non-primary metadata-only policy");
   }
 
+  const [coverageDiscovery] = await sql`
+    SELECT source_key, source_tier, ingestion_mode, is_primary_source, allow_raw_text_persistence
+    FROM content.current_affairs_sources
+    WHERE source_key='tavily_open_news'
+    LIMIT 1
+  `;
+  if (!coverageDiscovery
+    || String(coverageDiscovery.source_tier) !== 'specialist'
+    || String(coverageDiscovery.ingestion_mode) !== 'api'
+    || Boolean(coverageDiscovery.is_primary_source)
+    || Boolean(coverageDiscovery.allow_raw_text_persistence)) {
+    throw new Error("Current Affairs coverage discovery provider did not bootstrap with the required metadata-only policy");
+  }
+
   const [countRow] = await sql`
     SELECT count(*)::int AS count
     FROM platform.current_affairs_schema_migrations
