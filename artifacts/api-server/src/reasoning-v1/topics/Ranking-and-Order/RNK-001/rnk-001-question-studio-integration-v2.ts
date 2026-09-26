@@ -6,6 +6,7 @@ import type {
 } from "../../../../question-studio/engine-types";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import { RNK_001_CHAPTER_AUTHORITY } from "./manifest";
+import { RNK_001_CURRENT_MAIN_FINAL_AUDIT_V1 } from "./rnk-001-current-main-final-audit-v1";
 import { declutterRnkExplanation } from "./rnk-001-explanation-declutter-v1";
 import { deriveRnkQuestionStudioDifficulty } from "./rnk-001-question-studio-difficulty-v2";
 import {
@@ -185,6 +186,10 @@ export const RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2: QuestionStudioPackageDefini
     bankingFiveOptionDeliveryValidated: true,
     percentagePresentationValidated: true,
     reviewOnly: true,
+    currentMainFinalAuditVersion: RNK_001_CURRENT_MAIN_FINAL_AUDIT_V1.version,
+    currentMainFinalAuditStatus: RNK_001_CURRENT_MAIN_FINAL_AUDIT_V1.status,
+    currentMainFinalAuditWaveCount: RNK_001_CURRENT_MAIN_FINAL_AUDIT_V1.completedWaves.length,
+    currentMainFinalAuditQl043Allocated: RNK_001_CURRENT_MAIN_FINAL_AUDIT_V1.ql043Allocated,
   },
 };
 
