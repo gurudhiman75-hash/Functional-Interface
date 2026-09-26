@@ -44,14 +44,23 @@ import {
   independentlyVerifyMisCp004Group,
 } from './MIS-CP-004/independent-solver';
 import { misCp004RuleByCandidateId, type MisCp004CandidateId } from './MIS-CP-004/rule-definitions';
+import { MIS_CP005_CANDIDATE_IDS, generateMisCp005Question, type GeneratedMisCp005Question } from './MIS-CP-005/generator';
+import { independentlyEvaluateMisCp005Rule, independentlyVerifyMisCp005Group } from './MIS-CP-005/independent-solver';
+import { misCp005RuleByCandidateId, type MisCp005CandidateId } from './MIS-CP-005/rule-definitions';
+import { MIS_CP006_CANDIDATE_IDS, generateMisCp006Question, type GeneratedMisCp006Question } from './MIS-CP-006/generator';
+import { independentlyEvaluateMisCp006Rule, independentlyVerifyMisCp006Group } from './MIS-CP-006/independent-solver';
+import { misCp006RuleByCandidateId, type MisCp006CandidateId } from './MIS-CP-006/rule-definitions';
+import { MIS_CP007_CANDIDATE_IDS, generateMisCp007Question, type GeneratedMisCp007Question } from './MIS-CP-007/generator';
+import { independentlyEvaluateMisCp007Rule, independentlyVerifyMisCp007Group } from './MIS-CP-007/independent-solver';
+import { misCp007RuleByCandidateId, type MisCp007CandidateId } from './MIS-CP-007/rule-definitions';
 
 export const MIS_001_PACKAGE_ID = 'MIS-001' as const;
 export const MIS_001_RUNTIME_MODE = 'review-only' as const;
-export const MIS_001_REVIEW_AUTHORITY = 'MIS-001-CP001-CP004-EXECUTABLE-PROTOTYPE-V1' as const;
-export const MIS_001_CHECKPOINT_IDS = ['MIS-CP-001', 'MIS-CP-002', 'MIS-CP-003', 'MIS-CP-004'] as const;
+export const MIS_001_REVIEW_AUTHORITY = 'MIS-001-CP001-CP007-EXECUTABLE-PROTOTYPE-V1' as const;
+export const MIS_001_CHECKPOINT_IDS = ['MIS-CP-001', 'MIS-CP-002', 'MIS-CP-003', 'MIS-CP-004', 'MIS-CP-005', 'MIS-CP-006', 'MIS-CP-007'] as const;
 
-type MisCandidateId = MisCp001CandidateId | MisCp002CandidateId | MisCp003CandidateId | MisCp004CandidateId;
-type MisGeneratedQuestion = GeneratedMisCp001Question | GeneratedMisCp002Question | GeneratedMisCp003Question | GeneratedMisCp004Question;
+type MisCandidateId = MisCp001CandidateId | MisCp002CandidateId | MisCp003CandidateId | MisCp004CandidateId | MisCp005CandidateId | MisCp006CandidateId | MisCp007CandidateId;
+type MisGeneratedQuestion = GeneratedMisCp001Question | GeneratedMisCp002Question | GeneratedMisCp003Question | GeneratedMisCp004Question | GeneratedMisCp005Question | GeneratedMisCp006Question | GeneratedMisCp007Question;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const ALL_CANDIDATES: readonly MisCandidateId[] = Object.freeze([
@@ -59,6 +68,9 @@ const ALL_CANDIDATES: readonly MisCandidateId[] = Object.freeze([
   ...MIS_CP002_CANDIDATE_IDS,
   ...MIS_CP003_CANDIDATE_IDS,
   ...MIS_CP004_CANDIDATE_IDS,
+  ...MIS_CP005_CANDIDATE_IDS,
+  ...MIS_CP006_CANDIDATE_IDS,
+  ...MIS_CP007_CANDIDATE_IDS,
 ]);
 
 function text(value: unknown): string {
@@ -93,7 +105,7 @@ function normalizeDifficulty(value: unknown): 'Easy' | 'Medium' | undefined {
   if (!difficulty || difficulty === 'mixed') return undefined;
   if (difficulty === 'easy') return 'Easy';
   if (difficulty === 'medium' || difficulty === 'moderate') return 'Medium';
-  if (difficulty === 'hard') throw new Error('MIS-001 CP001-CP004 do not yet expose Hard review candidates.');
+  if (difficulty === 'hard') throw new Error('MIS-001 CP001-CP007 do not yet expose Hard review candidates.');
   throw new Error('MIS-001 difficulty must be Easy, Medium or Mixed.');
 }
 
@@ -112,16 +124,29 @@ function isCp003Candidate(value: string): value is MisCp003CandidateId {
 function isCp004Candidate(value: string): value is MisCp004CandidateId {
   return MIS_CP004_CANDIDATE_IDS.includes(value as MisCp004CandidateId);
 }
-
-function isCandidate(value: string): value is MisCandidateId {
-  return isCp001Candidate(value) || isCp002Candidate(value) || isCp003Candidate(value) || isCp004Candidate(value);
+function isCp005Candidate(value: string): value is MisCp005CandidateId {
+  return MIS_CP005_CANDIDATE_IDS.includes(value as MisCp005CandidateId);
+}
+function isCp006Candidate(value: string): value is MisCp006CandidateId {
+  return MIS_CP006_CANDIDATE_IDS.includes(value as MisCp006CandidateId);
+}
+function isCp007Candidate(value: string): value is MisCp007CandidateId {
+  return MIS_CP007_CANDIDATE_IDS.includes(value as MisCp007CandidateId);
 }
 
-function candidateCheckpoint(candidateId: MisCandidateId): 'MIS-CP-001' | 'MIS-CP-002' | 'MIS-CP-003' | 'MIS-CP-004' {
+function isCandidate(value: string): value is MisCandidateId {
+  return isCp001Candidate(value) || isCp002Candidate(value) || isCp003Candidate(value) || isCp004Candidate(value)
+    || isCp005Candidate(value) || isCp006Candidate(value) || isCp007Candidate(value);
+}
+
+function candidateCheckpoint(candidateId: MisCandidateId): typeof MIS_001_CHECKPOINT_IDS[number] {
   if (isCp001Candidate(candidateId)) return 'MIS-CP-001';
   if (isCp002Candidate(candidateId)) return 'MIS-CP-002';
   if (isCp003Candidate(candidateId)) return 'MIS-CP-003';
-  return 'MIS-CP-004';
+  if (isCp004Candidate(candidateId)) return 'MIS-CP-004';
+  if (isCp005Candidate(candidateId)) return 'MIS-CP-005';
+  if (isCp006Candidate(candidateId)) return 'MIS-CP-006';
+  return 'MIS-CP-007';
 }
 
 function candidateSupportsDifficulty(candidateId: MisCandidateId, difficulty: 'Easy' | 'Medium'): boolean {
@@ -138,7 +163,10 @@ function candidateSupportsDifficulty(candidateId: MisCandidateId, difficulty: 'E
   if (isCp003Candidate(candidateId)) {
     return misCp003RuleByCandidateId(candidateId).baselineDifficulty === difficulty;
   }
-  return misCp004RuleByCandidateId(candidateId).baselineDifficulty === difficulty;
+  if (isCp004Candidate(candidateId)) return misCp004RuleByCandidateId(candidateId).baselineDifficulty === difficulty;
+  if (isCp005Candidate(candidateId)) return misCp005RuleByCandidateId(candidateId).difficulty === difficulty;
+  if (isCp006Candidate(candidateId)) return misCp006RuleByCandidateId(candidateId).difficulty === difficulty;
+  return misCp007RuleByCandidateId(candidateId).difficulty === difficulty;
 }
 
 function resolveCandidatePool(
@@ -153,8 +181,8 @@ function resolveCandidatePool(
 
   const candidates = [...new Set(selectors.filter(isCandidate))];
   const checkpoints = [...new Set(selectors.filter((value) =>
-    value === 'MIS-CP-001' || value === 'MIS-CP-002' || value === 'MIS-CP-003' || value === 'MIS-CP-004',
-  ))] as ('MIS-CP-001' | 'MIS-CP-002' | 'MIS-CP-003' | 'MIS-CP-004')[];
+    value === 'MIS-CP-001' || value === 'MIS-CP-002' || value === 'MIS-CP-003' || value === 'MIS-CP-004' || value === 'MIS-CP-005' || value === 'MIS-CP-006' || value === 'MIS-CP-007',
+  ))] as (typeof MIS_001_CHECKPOINT_IDS[number])[];
 
   if (candidates.length > 1) throw new Error('Conflicting MIS-001 candidate selectors.');
   if (checkpoints.length > 1) throw new Error('Conflicting MIS-001 checkpoint selectors.');
@@ -186,7 +214,10 @@ function generateCandidate(candidateId: MisCandidateId, seed: string): MisGenera
   if (isCp001Candidate(candidateId)) return generateMisCp001Question(candidateId, seed);
   if (isCp002Candidate(candidateId)) return generateMisCp002Question(candidateId, seed);
   if (isCp003Candidate(candidateId)) return generateMisCp003Question(candidateId, seed);
-  return generateMisCp004Question(candidateId, seed);
+  if (isCp004Candidate(candidateId)) return generateMisCp004Question(candidateId, seed);
+  if (isCp005Candidate(candidateId)) return generateMisCp005Question(candidateId, seed);
+  if (isCp006Candidate(candidateId)) return generateMisCp006Question(candidateId, seed);
+  return generateMisCp007Question(candidateId, seed);
 }
 
 function resolveGeneratedCandidate(
@@ -264,15 +295,35 @@ function independentValidation(question: MisGeneratedQuestion) {
     };
   }
 
-  const solved = independentlyEvaluateMisCp004Rule(
-    question.ruleId,
-    question.target.first,
-    question.target.second,
-  );
+  if (question.checkpointId === 'MIS-CP-004') {
+    const solved = independentlyEvaluateMisCp004Rule(question.ruleId, question.target.first, question.target.second);
+    return {
+      sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp004Group(question.ruleId, group)),
+      solverAgreement: solved === question.answer,
+    };
+  }
+  if (question.checkpointId === 'MIS-CP-005') {
+    const solved = independentlyEvaluateMisCp005Rule(question.ruleId, question.target.top, question.target.left, question.target.right);
+    return {
+      sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp005Group(question.ruleId, group)),
+      solverAgreement: solved === question.answer,
+    };
+  }
+  if (question.checkpointId === 'MIS-CP-006') {
+    const solved = independentlyEvaluateMisCp006Rule(question.ruleId, {
+      top: question.target.top, right: question.target.right, bottom: question.target.bottom, left: question.target.left,
+    });
+    return {
+      sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp006Group(question.ruleId, group)),
+      solverAgreement: solved === question.answer,
+    };
+  }
+  const solved = independentlyEvaluateMisCp007Rule(question.ruleId, {
+    topLeft: question.target.topLeft, topRight: question.target.topRight,
+    bottomLeft: question.target.bottomLeft, bottomRight: question.target.bottomRight,
+  });
   return {
-    sameRuleFitsAllExamples: question.evidenceGroups.every((group) =>
-      independentlyVerifyMisCp004Group(question.ruleId, group),
-    ),
+    sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp007Group(question.ruleId, group)),
     solverAgreement: solved === question.answer,
   };
 }
@@ -283,7 +334,7 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
   subject: 'Reasoning',
   topic: 'Reasoning',
   subtopic: 'Missing Number',
-  label: 'Reasoning · Missing Number · MIS-001 (CP001-CP004 review)',
+  label: 'Reasoning · Missing Number · MIS-001 (CP001-CP007 review)',
   enabled: true,
   cpIds: [...MIS_001_CHECKPOINT_IDS],
   supportedLanguages: ['en'],
@@ -314,6 +365,9 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     cp002CandidateCount: MIS_CP002_CANDIDATE_IDS.length,
     cp003CandidateCount: MIS_CP003_CANDIDATE_IDS.length,
     cp004CandidateCount: MIS_CP004_CANDIDATE_IDS.length,
+    cp005CandidateCount: MIS_CP005_CANDIDATE_IDS.length,
+    cp006CandidateCount: MIS_CP006_CANDIDATE_IDS.length,
+    cp007CandidateCount: MIS_CP007_CANDIDATE_IDS.length,
     permanentQlCount: 0,
     permanentQlAllocation: false,
     sourceSaturationComplete: false,
@@ -413,7 +467,9 @@ export async function generateMis001QuestionStudioBatch(
       readOnly: true,
       productionReleased: false,
       groupCount: generated.groupCount,
-      operandCount: generated.checkpointId === 'MIS-CP-003' || generated.checkpointId === 'MIS-CP-004' ? generated.operandCount : generated.checkpointId === 'MIS-CP-001' ? 2 : 3,
+      operandCount: ['MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007'].includes(generated.checkpointId)
+        ? generated.operandCount
+        : generated.checkpointId === 'MIS-CP-001' ? 2 : 3,
       missingPosition: generated.missingPosition,
       forwardOrInverse: 'FORWARD',
       operationDepth: generated.operationDepth,
@@ -425,7 +481,9 @@ export async function generateMis001QuestionStudioBatch(
       localizationParity: 'NOT_STARTED_ENGLISH_REVIEW_FIRST',
       editorialStatus: 'EXECUTABLE_PROTOTYPE',
       sourceThin: generated.checkpointId === 'MIS-CP-004' ? generated.sourceThin : false,
-      runtimeVersion: generated.checkpointId === 'MIS-CP-001' ? 'MIS-CP-001-V1' : generated.checkpointId === 'MIS-CP-002' ? 'MIS-CP-002-V1' : generated.checkpointId === 'MIS-CP-003' ? 'MIS-CP-003-V1' : 'MIS-CP-004-V1',
+      figures: 'figures' in generated ? generated.figures : null,
+      semanticPositions: 'semanticPositions' in generated ? generated.semanticPositions : null,
+      runtimeVersion: generated.checkpointId + '-V1',
       traceability: {
         packageId: MIS_001_PACKAGE_ID,
         checkpointId: generated.checkpointId,
