@@ -275,8 +275,15 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
         (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
       )=${targetDate}
         AND candidate.status NOT IN ('rejected','error')
-        AND source.source_tier <> 'specialist'
-        AND (source.is_primary_source=true OR source.trust_score >= 0.75)
+        AND (
+          source.source_tier <> 'specialist'
+          OR COALESCE(candidate.payload->>'discoveryProvider','')='tavily_open_web_v1'
+        )
+        AND (
+          source.is_primary_source=true
+          OR source.trust_score >= 0.75
+          OR COALESCE(candidate.payload->>'discoveryProvider','')='tavily_open_web_v1'
+        )
       GROUP BY candidate.id, member.cluster_id
     `,
   ]);
