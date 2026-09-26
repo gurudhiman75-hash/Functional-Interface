@@ -32,37 +32,37 @@ const CONTEXTS = [
     id: "RECRUITMENT_CENTRES",
     title: "Applications and selections at recruitment centres",
     rowHeader: "Centre",
-    labels: ["Centre P", "Centre Q", "Centre R", "Centre S", "Centre T", "Centre U", "Centre V", "Centre W", "Centre X", "Centre Y", "Centre Z", "Centre M"],
+    labels: ["Centre A", "Centre B", "Centre C", "Centre D", "Centre E", "Centre F", "Centre G", "Centre H", "Centre I", "Centre J", "Centre K", "Centre L", "Centre M", "Centre N", "Centre O", "Centre P", "Centre Q", "Centre R", "Centre S", "Centre T", "Centre U", "Centre V", "Centre W", "Centre X"],
   },
   {
     id: "TRAINING_BATCHES",
     title: "Candidates registered and selected from training batches",
     rowHeader: "Batch",
-    labels: ["Batch A", "Batch B", "Batch C", "Batch D", "Batch E", "Batch F", "Batch G", "Batch H", "Batch J", "Batch K", "Batch L", "Batch M"],
+    labels: ["Batch A", "Batch B", "Batch C", "Batch D", "Batch E", "Batch F", "Batch G", "Batch H", "Batch I", "Batch J", "Batch K", "Batch L", "Batch M", "Batch N", "Batch O", "Batch P", "Batch Q", "Batch R", "Batch S", "Batch T", "Batch U", "Batch V", "Batch W", "Batch X"],
   },
   {
     id: "DEPARTMENTS",
     title: "Applicants and final selections across departments",
     rowHeader: "Department",
-    labels: ["Accounts", "Operations", "Support", "Sales", "Logistics", "Quality", "Procurement", "Training", "Compliance", "Service", "Administration", "Planning"],
+    labels: ["Accounts", "Administration", "Audit", "Compliance", "Customer Care", "Finance", "Human Resources", "Information Technology", "Legal", "Logistics", "Marketing", "Operations", "Planning", "Procurement", "Production", "Quality", "Research", "Sales", "Service", "Stores", "Support", "Training", "Transport", "Verification"],
   },
   {
     id: "SERVICE_UNITS",
     title: "Applications processed and candidates selected by service units",
     rowHeader: "Unit",
-    labels: ["Unit A", "Unit B", "Unit C", "Unit D", "Unit E", "Unit F", "Unit G", "Unit H", "Unit J", "Unit K", "Unit L", "Unit M"],
+    labels: ["Unit A", "Unit B", "Unit C", "Unit D", "Unit E", "Unit F", "Unit G", "Unit H", "Unit I", "Unit J", "Unit K", "Unit L", "Unit M", "Unit N", "Unit O", "Unit P", "Unit Q", "Unit R", "Unit S", "Unit T", "Unit U", "Unit V", "Unit W", "Unit X"],
   },
   {
     id: "SCHOLARSHIP_ZONES",
     title: "Scholarship applications and final selections by zone",
     rowHeader: "Zone",
-    labels: ["Zone A", "Zone B", "Zone C", "Zone D", "Zone E", "Zone F", "Zone G", "Zone H", "Zone J", "Zone K", "Zone L", "Zone M"],
+    labels: ["Zone A", "Zone B", "Zone C", "Zone D", "Zone E", "Zone F", "Zone G", "Zone H", "Zone I", "Zone J", "Zone K", "Zone L", "Zone M", "Zone N", "Zone O", "Zone P", "Zone Q", "Zone R", "Zone S", "Zone T", "Zone U", "Zone V", "Zone W", "Zone X"],
   },
   {
     id: "BRANCH_RECRUITMENT",
     title: "Recruitment applications and selections at branches",
     rowHeader: "Branch",
-    labels: ["Branch P", "Branch Q", "Branch R", "Branch S", "Branch T", "Branch U", "Branch V", "Branch W", "Branch X", "Branch Y", "Branch Z", "Branch M"],
+    labels: ["Branch A", "Branch B", "Branch C", "Branch D", "Branch E", "Branch F", "Branch G", "Branch H", "Branch I", "Branch J", "Branch K", "Branch L", "Branch M", "Branch N", "Branch O", "Branch P", "Branch Q", "Branch R", "Branch S", "Branch T", "Branch U", "Branch V", "Branch W", "Branch X"],
   },
 ] as const;
 
@@ -701,4 +701,5 @@ export function generateDi002V2Set(input: { seed?: string; examProfile?: Di002V2
 }
 
 export const DI002_V2_CONTEXT_COUNT = CONTEXTS.length;
+export const DI002_V2_OBJECT_LABEL_COUNT = CONTEXTS.reduce((sum, context) => sum + context.labels.length, 0);
 export const DI002_V2_TASK_KINDS = Object.freeze([...EASY_KINDS, ...MEDIUM_KINDS, ...HARD_KINDS]);
