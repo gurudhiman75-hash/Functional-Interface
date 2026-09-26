@@ -168,7 +168,8 @@ function governedDistractors(
   if (ruleId === 'SQUARE_INPUT') {
     add(first * first * first, 'CUBED_INSTEAD_OF_SQUARED');
     add(first * (first + 1), 'MULTIPLIED_BY_NEXT_NUMBER');
-    add(first * first + first, 'NUMBER_ADDED_AFTER_SQUARING');
+    add(first * first - first, 'NUMBER_SUBTRACTED_AFTER_SQUARING');
+    add(first + first, 'DOUBLED_INSTEAD_OF_SQUARED');
   } else if (ruleId === 'CUBE_INPUT') {
     add(first * first, 'SQUARED_INSTEAD_OF_CUBED');
     add(first * first * first + first, 'NUMBER_ADDED_AFTER_CUBING');
