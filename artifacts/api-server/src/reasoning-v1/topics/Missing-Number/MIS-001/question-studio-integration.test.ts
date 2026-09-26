@@ -11,7 +11,10 @@ async function main() {
   assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.cpIds, ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010']);
   assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.supportedLanguages, ['en']);
   assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.supportedDifficulties, ['Easy', 'Medium', 'Hard']);
-  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.candidateCount, 74);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.candidateCount, 66);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.semanticAuthorityCount, 66);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.runtimePatternCount, 74);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.reusedSemanticVariantCount, 8);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp003CandidateCount, 10);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp004CandidateCount, 9);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp005CandidateCount, 8);
@@ -151,12 +154,30 @@ async function main() {
   assert.equal(new Set((cp008.questions as Record<string,any>[]).map(q=>q.candidateId)).size,6);
   assert.ok((cp008.questions as Record<string,any>[]).some(q=>q.forwardOrInverse==='INVERSE'));
   assert.ok((cp008.questions as Record<string,any>[]).some(q=>q.renderer==='SVG_TRIANGLE'));
+  const cp008Rows = cp008.questions as Record<string,any>[];
+  const cp008Authority = new Map(cp008Rows.map(q=>[q.candidateId,q.semanticAuthorityCandidateId]));
+  assert.equal(cp008Authority.get('MIS-CAND-057'),'MIS-CAND-001');
+  assert.equal(cp008Authority.get('MIS-CAND-058'),'MIS-CAND-003');
+  assert.equal(cp008Authority.get('MIS-CAND-059'),'MIS-CAND-059');
+  assert.equal(cp008Authority.get('MIS-CAND-060'),'MIS-CAND-017');
+  assert.equal(cp008Authority.get('MIS-CAND-061'),'MIS-CAND-012');
+  assert.equal(cp008Authority.get('MIS-CAND-062'),'MIS-CAND-038');
+  assert.equal(cp008Rows.filter(q=>q.createsNewSemanticAuthority===false).length,10);
 
   const cp009 = await generateMis001QuestionStudioBatch({
     packageId:'MIS-001', patternId:'MIS-CP-009', language:'en', count:12, seed:'MIS-QS-CP009-V1',
   });
   assert.equal(new Set((cp009.questions as Record<string,any>[]).map(q=>q.candidateId)).size,6);
   assert.ok((cp009.questions as Record<string,any>[]).every(q=>q.renderer==='SVG_BOX' && q.pairingAuthority));
+  const cp009Rows = cp009.questions as Record<string,any>[];
+  const cp009Authority = new Map(cp009Rows.map(q=>[q.candidateId,q.semanticAuthorityCandidateId]));
+  assert.equal(cp009Authority.get('MIS-CAND-063'),'MIS-CAND-051');
+  assert.equal(cp009Authority.get('MIS-CAND-064'),'MIS-CAND-064');
+  assert.equal(cp009Authority.get('MIS-CAND-065'),'MIS-CAND-052');
+  assert.equal(cp009Authority.get('MIS-CAND-066'),'MIS-CAND-055');
+  assert.equal(cp009Authority.get('MIS-CAND-067'),'MIS-CAND-067');
+  assert.equal(cp009Authority.get('MIS-CAND-068'),'MIS-CAND-068');
+  assert.equal(cp009Rows.filter(q=>q.createsNewSemanticAuthority===false).length,6);
 
   const cp010 = await generateMis001QuestionStudioBatch({
     packageId:'MIS-001', patternId:'MIS-CP-010', language:'en', count:12, seed:'MIS-QS-CP010-V1',
