@@ -1,0 +1,220 @@
+import type{Eng008Cp002PassageV1}from"./eng-008-cp002-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP002_EXPANSION_WAVE9_V1:readonly Eng008Cp002PassageV1[]=[
+{
+ id:"ENG008-RC2-E24",title:"Public Forms Should Distinguish Required and Optional Fields",genre:"editorial",
+ text:`Many public forms ask for more information than a person expects to provide. The problem becomes worse when users cannot tell which fields are compulsory and which are optional.
+
+A form may request an alternate phone number, a secondary address or an additional identity detail even when the service can be completed without them. If every field looks equally important, users may stop, guess or abandon the process.
+
+Clear labels solve much of this confusion. Required fields should be marked consistently, and optional fields should say why the information may be useful. A person is more likely to provide an optional contact number if the form explains that it can be used only when the primary number fails.
+
+Designers should also question whether a field is needed at all. Calling a field optional does not justify collecting information that has no clear purpose.
+
+Good form design therefore combines transparency with restraint. Users should know what they must provide, what they may provide and how each piece of information supports the service.
+
+This matters especially when the form concerns benefits, health, education or identity documents. People may assume that leaving any field blank will harm their application even when that is not true.
+
+The goal is not to remove every optional question. It is to ensure that the difference between necessary and merely useful information is visible enough that users can make an informed choice.`,
+ questions:[
+ q("E24-Q1","RC2-F01","easy","What problem occurs when required and optional fields look the same?","Users may think every field must be completed",["The form becomes shorter","Applications are automatically approved","Optional data becomes compulsory by law"],"The passage says unclear field status can cause people to guess, stop, or believe optional information is mandatory.","cannot tell which fields are compulsory"),
+ q("E24-Q2","RC2-F02","medium","What can be inferred about explaining why an optional phone number is requested?","It can help users decide whether providing it is worthwhile",["It makes the number legally required","It removes the need for a primary number","It guarantees the number will be used"],"A clear purpose lets the user understand the value and limits of the optional information before deciding whether to provide it.","explains that it can be used"),
+ q("E24-Q3","RC2-F03","medium","Which summary is most accurate?","Forms should clearly separate necessary information from optional information and avoid unnecessary collection",["Every form should contain only mandatory fields","Optional fields should never explain their purpose","More data always improves public services"],"The article combines clear labelling with a broader principle of collecting only information that has a defined purpose.","transparency with restraint"),
+ q("E24-Q4","RC2-F04","hard","What is the author's tone?","Practical and user-centred",["Hostile to public services","Humorous","Uncritically supportive of data collection"],"The passage focuses on reducing confusion and helping people understand what information is genuinely needed.","make an informed choice"),
+ q("E24-Q5","RC2-F05","medium","Why does the author mention benefits, health and education forms?","To show that unclear optional fields can be especially consequential in important services",["To argue those services should use no forms","To compare office opening hours","To explain tax rates"],"In high-stakes services, users may fear that leaving optional fields blank will damage their application, increasing the cost of unclear design.","may assume that leaving any field blank"),
+ q("E24-Q6","RC2-F06","hard","Which conclusion follows most logically?","A field should have a clear purpose even if the user is not required to complete it",["Optional fields need no justification","Every field should be compulsory","Users should always guess missing information"],"The passage explicitly says optional status does not justify collecting information that serves no clear purpose.","does not justify collecting information"),
+ q("E24-Q7","RC2-F07","medium","Which statement is supported?","Consistent labels can reduce uncertainty about what information is mandatory",["Secondary addresses are always required","Public forms should hide optional fields","Leaving any blank field harms an application"],"The passage presents consistent required and optional labels as a direct way to reduce confusion.","Required fields should be marked consistently"),
+ q("E24-Q8","RC2-F08","easy","In context, “restraint” most nearly means:","avoiding unnecessary collection",["collecting as much as possible","making a form longer","removing every question"],"The word is used alongside transparency to describe limiting information requests to fields with a real purpose.","transparency with restraint")
+ ]
+},
+{
+ id:"ENG008-RC2-E25",title:"Ratings Need Enough Context to Be Useful",genre:"editorial",
+ text:`A single star rating can make comparison easy. A restaurant with 4.6 stars appears better than one with 4.2, and a product with thousands of reviews seems more established than one with only a few. But ratings become misleading when the context behind them is ignored.
+
+Sample size is one obvious issue. A perfect score from four reviews is not equivalent to the same score from four thousand. Recency matters too. A business may have changed management, staff or product quality after older reviews were posted.
+
+The distribution of ratings can also reveal information hidden by an average. Two products may both score 4.3, yet one may receive mostly fours while the other receives many fives and many ones.
+
+Platforms should therefore make useful context visible without forcing users to read every review. Showing review count, date range and rating distribution can help.
+
+Verification matters as well. A rating from a confirmed purchase or completed service may carry different weight from an anonymous score with no evidence of use.
+
+None of this means numerical ratings are useless. They remain a quick summary. The problem begins when a compact signal is treated as if it contains all relevant information.
+
+A good rating system helps users move from summary to context. It should make it easy to see not only the average, but also how much evidence lies behind that number and whether the evidence is current enough to matter.`,
+ questions:[
+ q("E25-Q1","RC2-F01","easy","Why can two identical star averages have different meaning?","They may be based on different amounts and patterns of evidence",["Star values change by country","Every platform uses different mathematics","Only five-star reviews count"],"The passage highlights sample size, age and rating distribution as factors that can make the same average represent different evidence.","distribution of ratings can also reveal"),
+ q("E25-Q2","RC2-F02","medium","What can be inferred about an old high rating after a business changes management?","It may not fully represent current service quality",["It becomes legally invalid","It should always be deleted","New reviews cannot change it"],"The passage notes that recency matters because important operational changes can make older experiences less representative of the present.","may have changed management"),
+ q("E25-Q3","RC2-F03","medium","Which summary is most accurate?","Ratings are useful summaries but should be accompanied by context such as volume, recency and distribution",["Average ratings should be removed entirely","Only verified purchases should be visible","The highest score is always the best choice"],"The article supports ratings as a quick signal while arguing that users need accessible context to interpret them properly.","move from summary to context"),
+ q("E25-Q4","RC2-F04","hard","What is the author's tone?","Analytical and qualified",["Dismissive of reviews","Promotional","Alarmist"],"The author recognises the usefulness of ratings but repeatedly limits what can reasonably be concluded from an average alone.","None of this means numerical ratings are useless"),
+ q("E25-Q5","RC2-F05","medium","Why does the author mention two products that both score 4.3?","To show that averages can hide very different rating distributions",["To prove both products are identical","To explain product pricing","To argue ratings should use ten stars"],"The example demonstrates that the same mean score can arise from stable agreement or strongly divided customer experiences.","many fives and many ones"),
+ q("E25-Q6","RC2-F06","hard","Which conclusion follows most logically?","Platforms should make the evidence behind a rating easy to inspect",["Users should read every review before buying","Anonymous ratings have no value at all","Review count is the only context that matters"],"The conclusion argues for a path from the compact average to the amount, timing and pattern of supporting evidence.","how much evidence lies behind"),
+ q("E25-Q7","RC2-F07","medium","Which statement is supported?","A verified-use rating may deserve different weight from an unverified score",["Old ratings are always false","Four reviews are always enough","Rating distributions are unnecessary"],"The passage directly distinguishes confirmed use from anonymous scoring without claiming either must always be accepted or rejected.","confirmed purchase or completed service"),
+ q("E25-Q8","RC2-F08","easy","In context, “recency” most nearly means:","how recent or up-to-date something is",["how positive it is","how many people saw it","how expensive it was"],"The discussion concerns whether reviews were posted recently enough to reflect current conditions.","Recency matters too")
+ ]
+},
+{
+ id:"ENG008-RC2-E26",title:"Repair Queues Should Show More Than Position",genre:"editorial",
+ text:`Customers waiting for a repair often ask one question: “What number am I in the queue?” The answer can be useful, but queue position alone may create false expectations when jobs differ greatly in complexity.
+
+A phone-screen replacement may take twenty minutes once parts are available, while diagnosing an intermittent electrical fault can take hours across several visits. Moving from position five to position three does not necessarily mean the same amount of time has passed toward completion.
+
+Repair services should therefore distinguish queue order from estimated readiness. A customer may be third in line but still have a long wait if earlier jobs require extensive testing.
+
+Parts availability adds another complication. A job can be technically ready to begin yet remain delayed because a component has not arrived. Showing this status is often more informative than simply leaving the customer at the same queue number.
+
+Good communication should not pretend to predict an exact completion minute. Estimates should be updated when new information arrives and should explain what stage the repair has reached.
+
+This approach also reduces unnecessary calls. Customers are less likely to contact the service desk repeatedly if they can see whether a device is awaiting diagnosis, parts, repair or final testing.
+
+The broader principle applies to many service queues: position is only one piece of information. When tasks vary in length, status and estimated readiness can explain progress more accurately than a single number.`,
+ questions:[
+ q("E26-Q1","RC2-F01","easy","Why can queue position be misleading in repair work?","Different repair jobs can require very different amounts of time",["Queue numbers change randomly","Customers cannot count positions","Repairs are always completed together"],"The passage contrasts quick screen replacements with lengthy fault diagnosis, showing why equal queue movement does not imply equal time.","jobs differ greatly in complexity"),
+ q("E26-Q2","RC2-F02","medium","What can be inferred about a job waiting for a part?","Its delay may not reflect how many other jobs are ahead of it",["It has already been completed","It must return to the end of the queue","Diagnosis is always unnecessary"],"Parts availability can pause a repair regardless of simple queue order, so status adds information that position does not capture.","component has not arrived"),
+ q("E26-Q3","RC2-F03","medium","Which summary is most accurate?","Repair services should combine queue position with stage and readiness information",["Queue numbers should be removed","Every repair should receive an exact completion time","Parts delays should be hidden"],"The article argues that position alone is too simple when work differs in duration and can be delayed by parts or testing.","status and estimated readiness"),
+ q("E26-Q4","RC2-F04","hard","What is the author's tone?","Practical and explanatory",["Angry at repair shops","Humorous","Promotional"],"The passage identifies a communication problem and proposes a clearer status model without exaggerating what estimates can promise.","should not pretend to predict"),
+ q("E26-Q5","RC2-F05","medium","Why does the author mention repeated customer calls?","Better status information can reduce the need to ask for updates manually",["Phone calls make repairs faster","Customers should never contact a service desk","Queue numbers cannot be displayed online"],"If customers can see the repair stage themselves, they have less reason to call repeatedly for basic progress information.","reduces unnecessary calls"),
+ q("E26-Q6","RC2-F06","hard","Which conclusion follows most logically?","Progress should be described in a way that reflects both order and the nature of the work remaining",["Queue position has no value at all","All repairs take similar time","Exact completion times should always be guaranteed"],"The passage treats queue number as useful but incomplete and argues for additional information about stage, complexity and readiness.","only one piece of information"),
+ q("E26-Q7","RC2-F07","medium","Which statement is supported?","A customer may be near the front of the queue and still wait a long time",["Parts never affect repair timing","Diagnosis always takes twenty minutes","Final testing occurs before repair"],"The article explicitly notes that earlier complex jobs or missing parts can extend waiting even when queue position looks favourable.","third in line but still have a long wait"),
+ q("E26-Q8","RC2-F08","easy","In context, “readiness” most nearly means:","how close something is to being ready for completion or collection",["the repair price","the queue number","the customer's identity"],"The word describes whether the repair is actually approaching a usable finished state rather than simply moving numerically in a line.","estimated readiness")
+ ]
+},
+{
+ id:"ENG008-RC2-E27",title:"Small Print Should Not Carry the Main Meaning",genre:"editorial",
+ text:`Important information is sometimes technically disclosed but practically hidden. A website may advertise a low monthly price in large type while placing a compulsory fee, minimum term or cancellation condition in much smaller text.
+
+The defence is often that the information was available. Yet visibility matters as much as formal presence. A disclosure that most users are unlikely to notice cannot play the same role as information shown next to the claim it changes.
+
+This does not mean every condition deserves equal visual weight. Long contracts contain many details, and making all of them prominent would make a page unreadable.
+
+The useful question is whether a condition materially changes the meaning of the headline offer. If a service costs more after an introductory period, that change should be visible near the initial price. If cancellation requires thirty days' notice, users should learn that before they commit.
+
+Designers should also consider timing. Information shown only after payment details are entered may arrive too late to support a genuine choice.
+
+Good disclosure therefore depends on prominence, proximity and timing. A statement can be legally present yet still fail as communication if users encounter it only after forming a mistaken impression.
+
+The principle is simple: small print can contain detail, but it should not carry the main fact that a reasonable person needs in order to understand the offer.`,
+ questions:[
+ q("E27-Q1","RC2-F01","easy","What problem does the passage identify with some small-print disclosures?","They are technically present but too easy for users to miss",["They always make prices lower","They remove cancellation rules","They contain no information"],"The opening argument distinguishes formal availability from practical visibility when important conditions are hidden in small text.","technically disclosed but practically hidden"),
+ q("E27-Q2","RC2-F02","medium","What can be inferred about an introductory price that later increases?","The later increase should be shown near the initial price",["It should be revealed only after payment","It does not affect the offer's meaning","It should be removed from the contract"],"The author says a condition that materially changes the headline offer belongs close to the claim it modifies.","visible near the initial price"),
+ q("E27-Q3","RC2-F03","medium","Which summary is most accurate?","Important conditions should be disclosed where and when they can meaningfully affect a user's decision",["Every contract detail should use the largest font","Small print should be banned","Users should read only headlines"],"The passage focuses on prominence, proximity and timing so users can understand material conditions before committing.","support a genuine choice"),
+ q("E27-Q4","RC2-F04","hard","What is the author's tone?","Critical but practical",["Humorous","Indifferent to disclosure","Promotional"],"The author criticises misleading presentation while accepting that not every contractual detail can receive equal visual emphasis.","does not mean every condition deserves equal visual weight"),
+ q("E27-Q5","RC2-F05","medium","Why does the author say not every condition can receive equal visual weight?","Making all details equally prominent would make the page difficult to use",["Minor conditions are never important","Contracts contain no useful details","Large text is legally forbidden"],"The passage acknowledges a real design constraint before arguing that materially important terms still deserve prominence.","make a page unreadable"),
+ q("E27-Q6","RC2-F06","hard","Which conclusion follows most logically?","A disclosure can exist formally and still fail to inform users effectively",["Legal presence always guarantees understanding","Timing never affects choice","All small text is deceptive"],"The article repeatedly separates technical availability from whether people can notice and use the information before deciding.","legally present yet still fail as communication"),
+ q("E27-Q7","RC2-F07","medium","Which statement is supported?","A cancellation rule may need to be shown before a customer commits",["Cancellation terms never matter","All fees should be hidden until checkout","Headline prices should contain every contract clause"],"The author specifically says users should know a thirty-day cancellation requirement before making the commitment.","before they commit"),
+ q("E27-Q8","RC2-F08","easy","In context, “proximity” most nearly means:","being placed close to related information",["being legally approved","appearing very late","being written in technical language"],"The passage argues that important conditions should appear near the claim whose meaning they change.","prominence, proximity and timing")
+ ]
+},
+{
+ id:"ENG008-RC2-R20",title:"A Municipality Tests Night-Time Waste Collection",genre:"current-affairs-report",
+ text:`A municipality tested night-time waste collection on three commercial roads where daytime trucks often became trapped in traffic. The pilot moved collection from late morning to between 10 p.m. and midnight for six weeks.
+
+Average route time fell because roads were less congested. Businesses also reported fewer loading-area conflicts during opening hours.
+
+However, residents living above shops raised concerns about noise. The loudest complaints came from locations where metal bins were rolled across uneven pavement.
+
+The municipality responded by fitting rubber wheels to several bins and instructing crews to avoid unnecessary engine idling. Noise complaints fell but did not disappear.
+
+The trial also affected staffing. Night shifts required different rosters and a small pay premium, so faster routes did not automatically mean lower total cost.
+
+Officials concluded that night collection improved traffic efficiency but worked better on some streets than others. Roads with little residential housing produced fewer complaints.
+
+A second phase will compare fuel use, labour cost, complaint rates and missed collections. The municipality will also test an earlier evening window on mixed residential-commercial streets.
+
+The pilot therefore did not produce a simple yes-or-no answer. It showed that moving collection time can solve one operational problem while creating another, and that route design should reflect who uses the street at different hours. Officials will also compare missed pickups because a faster route is useful only if service reliability is preserved.`,
+ questions:[
+ q("R20-Q1","RC2-F01","easy","Why did the municipality test night-time collection?","Daytime waste trucks were delayed by traffic",["Businesses requested more daytime trucks","Roads closed every night","Residents wanted later shop hours"],"The trial was introduced because daytime collection vehicles became caught in congestion on busy commercial roads.","trapped in traffic"),
+ q("R20-Q2","RC2-F02","medium","What can be inferred about roads with little residential housing?","They may be better suited to late collection because fewer people are disturbed by noise",["They always have more waste","They require no workers","They cannot use metal bins"],"Complaint levels were lower where fewer residents lived directly above or beside the commercial collection routes.","produced fewer complaints"),
+ q("R20-Q3","RC2-F03","medium","Which summary is most accurate?","Night collection reduced traffic delays but introduced noise and staffing trade-offs",["Night collection was cheaper in every case","Residents supported all routes","Rubber wheels eliminated every complaint"],"The report presents an operational benefit together with costs and neighbourhood effects that vary by location.","solve one operational problem while creating another"),
+ q("R20-Q4","RC2-F04","hard","What is the tone of the report?","Balanced and evidence-based",["Promotional","Dismissive of residents","Alarmist"],"The report weighs route efficiency against noise and labour cost instead of presenting the pilot as an unqualified success.","worked better on some streets"),
+ q("R20-Q5","RC2-F05","medium","Why were rubber wheels fitted to some bins?","To reduce noise when bins moved over uneven pavement",["To increase waste volume","To make trucks faster","To remove night staffing"],"Complaints were strongest where metal wheels created noise, so the trial changed the equipment to reduce that specific problem.","fitting rubber wheels"),
+ q("R20-Q6","RC2-F06","hard","Which conclusion is justified?","Faster collection routes do not necessarily reduce total operating cost",["Night work is always cheaper","Fuel use was already the lowest possible","Noise has no effect on route design"],"The report notes that night staffing required different rosters and extra pay, which can offset time savings.","did not automatically mean lower total cost"),
+ q("R20-Q7","RC2-F07","medium","Which statement is supported?","Businesses reported fewer loading-area conflicts during the night-collection trial",["Collection time increased","Every resident complained","The pilot covered the entire municipality"],"The shift away from business hours reduced competition between waste vehicles and commercial loading activity.","fewer loading-area conflicts"),
+ q("R20-Q8","RC2-F08","easy","In context, “rosters” most nearly means:","staff work schedules",["road maps","waste categories","resident lists"],"The word appears in the discussion of arranging different night shifts for collection workers.","different rosters")
+ ]
+},
+{
+ id:"ENG008-RC2-R21",title:"A Public Hospital Tests Digital Queue Updates",genre:"current-affairs-report",
+ text:`A public hospital tested digital queue updates in its outpatient department after patients complained that they could not tell whether long waits were caused by high demand or temporary delays.
+
+The new display showed the current token number, estimated waiting range and a short status message. If a doctor was called to an emergency, the screen could say that the queue was temporarily delayed.
+
+During the eight-week trial, average consultation time did not change. Patient surveys nevertheless showed lower uncertainty and fewer repeated questions at the reception desk.
+
+The estimates were not always accurate. Some consultations took much longer than expected, causing later waiting ranges to shift. Staff therefore displayed a range rather than an exact minute.
+
+The hospital also kept spoken announcements because some patients had difficulty reading the screen or were unfamiliar with token numbers.
+
+Administrators concluded that better information could improve the waiting experience without increasing clinical capacity. They also warned that a screen must be updated quickly when conditions change or it can create new confusion.
+
+The hospital will next compare whether the system works as well in departments where consultation length varies even more. It will track reception workload, estimate accuracy and patient understanding.
+
+Officials stressed that queue information is not a substitute for more doctors where capacity is genuinely insufficient. It is a communication tool, not a treatment for every source of delay.`,
+ questions:[
+ q("R21-Q1","RC2-F01","easy","What did the new queue display show?","Token position, a waiting range and a status message",["Doctors' salaries","Medicine prices","Only the hospital address"],"The hospital combined position, an estimated range and current delay information so patients could understand the queue better.","current token number, estimated waiting range"),
+ q("R21-Q2","RC2-F02","medium","What can be inferred from using a waiting range instead of an exact minute?","Consultation length is too variable for precise timing to be reliable",["The hospital stopped measuring time","Patients preferred longer waits","Doctors followed fixed appointment lengths"],"Because individual consultations can take unexpectedly long, a range communicates uncertainty more honestly than one exact prediction.","consultations took much longer than expected"),
+ q("R21-Q3","RC2-F03","medium","Which summary is most accurate?","Digital queue updates reduced uncertainty but did not increase clinical capacity",["The system shortened every consultation","Spoken announcements became unnecessary","The hospital eliminated all delays"],"The trial improved communication and reduced questions while leaving consultation time and underlying capacity unchanged.","improve the waiting experience without increasing clinical capacity"),
+ q("R21-Q4","RC2-F04","hard","What is the tone of the report?","Cautiously positive",["Triumphant","Hostile to patients","Humorous"],"The report notes clear communication benefits but also discusses inaccurate estimates, accessibility and limits of what the system can solve.","not always accurate"),
+ q("R21-Q5","RC2-F05","medium","Why were spoken announcements retained?","Not every patient could easily use the visual display",["The screens had no token numbers","Doctors requested louder rooms","Consultations were held outside"],"The hospital kept another communication channel for patients who had difficulty reading or understanding the digital display.","difficulty reading the screen"),
+ q("R21-Q6","RC2-F06","hard","Which conclusion is justified?","Queue transparency can improve experience even when service speed stays the same",["Information alone eliminates capacity shortages","An exact wait time is always possible","Every department will show the same results"],"Survey improvements occurred without a change in average consultation time, showing that uncertainty itself affects waiting experience.","average consultation time did not change"),
+ q("R21-Q7","RC2-F07","medium","Which statement is supported?","Reception staff received fewer repeated queue-status questions",["Every estimate was exact","Emergency calls stopped","The trial reduced consultation length"],"The patient-information display reduced the need for people to ask reception repeatedly where the queue had reached.","fewer repeated questions"),
+ q("R21-Q8","RC2-F08","easy","In context, “capacity” most nearly means:","the amount of clinical service the hospital can provide",["the size of the display","the number of token colours","the length of a status message"],"The report distinguishes information from the actual number of consultations and staff available to treat patients.","clinical capacity")
+ ]
+},
+{
+ id:"ENG008-RC2-R22",title:"A City Tests Shaded Pedestrian Waiting Areas",genre:"current-affairs-report",
+ text:`A city transport department installed temporary shade structures at six pedestrian crossings where people often waited through long signal cycles in direct sun.
+
+Temperature sensors were placed under the structures and at nearby unshaded points. Surface and radiant heat were lower in the shaded areas, although air temperature differed only slightly.
+
+Pedestrian surveys found that people rated the shaded waiting points as more comfortable, especially during the hottest afternoon period.
+
+The structures also created a visibility concern. At one crossing, a support post partly blocked drivers' view of people waiting near the curb. Engineers moved the post and changed the design before the trial continued.
+
+Maintenance crews reported that fabric panels needed tightening after strong winds. This added a small recurring cost that permanent designs would need to consider.
+
+Officials concluded that shade could improve comfort, but installation must preserve sight lines and withstand local weather.
+
+The city will compare temporary shade with tree planting and permanent shelters before choosing a larger programme. Trees may provide broader environmental benefits but take years to mature, while built structures can provide immediate shade.
+
+The trial therefore treats heat protection as a design problem rather than a single-material choice. The best solution may differ by street width, traffic speed, available soil and how quickly shade is needed. Future monitoring will also record whether people actually choose the shaded waiting area when several crossing points are available.`,
+ questions:[
+ q("R22-Q1","RC2-F01","easy","What did sensors show about the shaded waiting areas?","Surface and radiant heat were lower",["Air temperature fell dramatically","Traffic speed doubled","Signal cycles became shorter"],"Measurements found clear reductions in heat from surfaces and radiation under shade, while air temperature changed much less.","Surface and radiant heat were lower"),
+ q("R22-Q2","RC2-F02","medium","Why was one support post moved?","It partly blocked drivers' view of waiting pedestrians",["It made the shade too cool","It reduced signal timing","It was too close to a tree"],"The city corrected a visibility problem because the shade structure must not interfere with safe sight lines at the crossing.","blocked drivers' view"),
+ q("R22-Q3","RC2-F03","medium","Which summary is most accurate?","Shade improved pedestrian comfort but design must also address visibility, weather and site conditions",["Temporary shade solves every heat problem","Tree planting is always better","Air temperature fell sharply everywhere"],"The trial supports heat protection while identifying safety, maintenance and location-specific trade-offs.","preserve sight lines and withstand local weather"),
+ q("R22-Q4","RC2-F04","hard","What is the tone of the report?","Practical and comparative",["Promotional","Dismissive of shade","Alarmist"],"The report compares benefits, design risks and alternative methods rather than presenting one universal solution.","compare temporary shade with tree planting"),
+ q("R22-Q5","RC2-F05","medium","Why does the report compare built shade with trees?","They provide shade on different timescales and with different additional benefits",["Trees are cheaper in every location","Structures require no maintenance","Both produce identical effects"],"The passage notes that structures work immediately while trees take years but may provide broader environmental benefits.","take years to mature"),
+ q("R22-Q6","RC2-F06","hard","Which conclusion is justified?","The best heat-protection design may depend on the specific crossing",["One structure should be copied everywhere","Air temperature is the only useful measure","Strong winds do not affect shade"],"The conclusion lists street width, traffic, soil and urgency as factors that can make different solutions appropriate.","may differ by street width"),
+ q("R22-Q7","RC2-F07","medium","Which statement is supported?","Fabric panels required maintenance after strong winds",["The shade shortened signal cycles","Every crossing used trees","Pedestrians disliked the shaded areas"],"Maintenance crews directly reported that the temporary fabric needed retightening after windy conditions.","needed tightening after strong winds"),
+ q("R22-Q8","RC2-F08","easy","In context, “sight lines” most nearly means:","clear lines of visibility",["painted road markings","walking distances","signal timings"],"The phrase refers to whether drivers can clearly see pedestrians waiting near the curb.","preserve sight lines")
+ ]
+},
+{
+ id:"ENG008-RC2-R23",title:"A University Revises Hostel Laundry Booking",genre:"current-affairs-report",
+ text:`A university hostel introduced booking slots for shared washing machines after students complained that they often waited without knowing when a machine would become free.
+
+The first system allowed one-hour reservations through an app. After four weeks, records showed that many students finished in less than an hour while some machines remained unused until the booked slot ended.
+
+The hostel changed the design. Students still reserved a start period, but the machine became available to the next person ten minutes after a cycle ended if the original user had not started another permitted cycle.
+
+Notifications told users when their cycle was nearly complete. The change increased machine use during busy evenings and reduced periods when an empty machine was blocked by a reservation.
+
+A new problem appeared when students left clothes inside after the cycle ended. The hostel created a clearly marked collection basket and a rule allowing staff to move finished laundry after a grace period.
+
+Managers avoided charging late fees during the trial because they wanted first to see whether reminders and clearer rules were enough.
+
+The revised system improved utilisation, but administrators said booking alone could not solve demand if too few machines existed.
+
+The next review will compare evening wait times, machine downtime and the number of disputes about moved laundry before deciding whether to add equipment.`,
+ questions:[
+ q("R23-Q1","RC2-F01","easy","What weakness appeared in the original one-hour booking system?","Machines could sit unused even after a washing cycle had finished",["Students could not make reservations","Every wash required more than an hour","The app removed all evening bookings"],"Fixed one-hour ownership sometimes blocked a machine after the actual cycle had ended, wasting available capacity.","machines remained unused until the booked slot ended"),
+ q("R23-Q2","RC2-F02","medium","What can be inferred from the ten-minute release rule?","The hostel wanted reservations to follow actual machine use more closely",["Students could no longer book in advance","Every cycle lasted ten minutes","Machines were available only in the morning"],"The revision reduces unused reserved time by reconnecting access to whether the machine is truly still in use.","became available to the next person"),
+ q("R23-Q3","RC2-F03","medium","Which summary is most accurate?","The hostel improved machine utilisation by making booking rules respond to actual cycle completion",["Booking eliminated the need for more machines","Late fees solved the problem","Students stopped using evening slots"],"The revised system targets idle reserved time, notifications and post-cycle laundry while acknowledging that capacity may still be limited.","improved utilisation"),
+ q("R23-Q4","RC2-F04","hard","What is the tone of the report?","Measured and operational",["Celebratory","Humorous","Hostile to students"],"The report describes incremental rule changes and remaining problems rather than presenting the booking system as a complete solution.","could not solve demand if too few machines existed"),
+ q("R23-Q5","RC2-F05","medium","Why did the hostel create a collection basket?","Finished clothes sometimes remained inside and blocked the machine",["Students needed storage for detergent","The app stopped working","Machines were being repaired"],"The basket supported a grace-period rule so completed laundry could be moved without leaving the machine unavailable.","left clothes inside after the cycle ended"),
+ q("R23-Q6","RC2-F06","hard","Which conclusion is justified?","Better scheduling can improve use of existing machines but cannot replace adequate capacity",["Booking always removes waiting","Adding machines is never useful","Reservations should last longer than cycles"],"The passage explicitly separates improvements in utilisation from the question of whether enough machines exist for total demand.","booking alone could not solve demand"),
+ q("R23-Q7","RC2-F07","medium","Which statement is supported?","The hostel did not introduce late fees during the trial",["All disputes ended","Every cycle used the full hour","Machines were added immediately"],"Administrators deliberately tested reminders and clearer rules before deciding whether penalties were necessary.","avoided charging late fees"),
+ q("R23-Q8","RC2-F08","easy","In context, “utilisation” most nearly means:","how effectively available machines are being used",["the price of laundry","the number of hostel rooms","the length of the app message"],"The revised system reduced idle reserved periods, so utilisation refers to productive use of the existing equipment.","improved utilisation")
+ ]
+}
+] as const;
