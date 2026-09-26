@@ -1,9 +1,9 @@
 import assert from"node:assert/strict";
 import{ENG008_CP005_PASSAGES_V1,ENG008_CP005_QUESTION_AUTHORITIES_V1}from"../chapters/reading-comprehension/ENG-008/CP005/eng-008-cp005-authorities-v1";
 import{ENG008_CP005_FAMILY_IDS_V1,generateEng008Cp005QuestionV1}from"../chapters/reading-comprehension/ENG-008/CP005/eng-008-cp005-v1";
-assert.equal(ENG008_CP005_PASSAGES_V1.length,28);assert.equal(ENG008_CP005_QUESTION_AUTHORITIES_V1.length,224);assert.equal(new Set(ENG008_CP005_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,224);
+assert.equal(ENG008_CP005_PASSAGES_V1.length,36);assert.equal(ENG008_CP005_QUESTION_AUTHORITIES_V1.length,288);assert.equal(new Set(ENG008_CP005_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,288);
 const fam=new Map<string,number>(),diff=new Map<string,number>(),genres=new Set<string>();
 for(const p of ENG008_CP005_PASSAGES_V1){genres.add(p.genre);const wc=p.text.trim().split(/\s+/).length,pc=p.text.split(/\n\n+/).filter(Boolean).length;assert.ok(wc>=380&&wc<=520,`${p.id} words=${wc}`);assert.ok(pc>=6&&pc<=8,`${p.id} paras=${pc}`);assert.equal(p.questions.length,8);assert.equal(new Set(p.questions.map(q=>q.familyId)).size,8);for(const a of p.questions){fam.set(a.familyId,(fam.get(a.familyId)??0)+1);diff.set(a.difficulty,(diff.get(a.difficulty)??0)+1);assert.equal(new Set([a.correctAnswer,...a.distractors].map(x=>x.toLowerCase())).size,4);assert.ok(a.explanation.length>=45);assert.ok(a.evidence.length>=12);const x=generateEng008Cp005QuestionV1({seed:`audit:${a.id}`,difficulty:a.difficulty,authorityId:a.id}),y=generateEng008Cp005QuestionV1({seed:`audit:${a.id}`,difficulty:a.difficulty,authorityId:a.id});assert.deepEqual(x,y);assert.equal(x.options[x.correctOptionIndex],a.correctAnswer);}}
-assert.equal(genres.size,6);for(const id of ENG008_CP005_FAMILY_IDS_V1)assert.equal(fam.get(id),28);assert.deepEqual(Object.fromEntries(diff),{medium:112,hard:112});
+assert.equal(genres.size,6);for(const id of ENG008_CP005_FAMILY_IDS_V1)assert.equal(fam.get(id),36);assert.deepEqual(Object.fromEntries(diff),{medium:144,hard:144});
 for(const d of["medium","hard"]as const)for(let i=0;i<2400;i++){const q=generateEng008Cp005QuestionV1({seed:`soak:${d}:${i}`,difficulty:d});assert.equal(q.options.length,4);assert.equal(q.metadata.reviewOnly,true);}
-console.log("ENG-008 CP005 research/survey RC audit passed.",{passages:28,authorities:224,soak:4800});
+console.log("ENG-008 CP005 research/survey RC audit passed.",{passages:36,authorities:288,soak:4800});
