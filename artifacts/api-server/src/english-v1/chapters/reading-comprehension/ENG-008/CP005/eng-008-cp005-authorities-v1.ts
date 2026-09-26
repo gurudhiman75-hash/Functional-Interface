@@ -14,9 +14,9 @@ export interface Eng008Cp005QuestionAuthorityV1{id:string;familyId:Eng008Cp005Fa
 export interface Eng008Cp005PassageV1{id:string;title:string;genre:Eng008Cp005Genre;text:string;questions:readonly Eng008Cp005QuestionAuthorityV1[];}
 const q=(id:string,familyId:Eng008Cp005FamilyId,difficulty:Eng008Cp005Difficulty,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string):Eng008Cp005QuestionAuthorityV1=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
 
-export const ENG008_CP005_PASSAGES_V1:readonly Eng008Cp005PassageV1[
-...ENG008_CP005_EXPANSION_WAVE8_V1,]=[
+export const ENG008_CP005_PASSAGES_V1:readonly Eng008Cp005PassageV1[]=[
 ...ENG008_CP005_EXPANSION_WAVE9_V1,
+...ENG008_CP005_EXPANSION_WAVE8_V1,
 ...ENG008_CP005_EXPANSION_WAVE7_V1,
 ...ENG008_CP005_EXPANSION_WAVE6_V1,
 ...ENG008_CP005_EXPANSION_WAVE5_V1,
