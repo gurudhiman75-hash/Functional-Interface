@@ -65,7 +65,7 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
       if (question.kind === "COMBINED_SELECTED_RATIO" || question.kind === "REJECTED_TO_SELECTED_RATIO") {
         assert(question.answer !== "1:1", `${seed}/${question.kind}: Hard ratio collapsed to trivial 1:1.`);
       }
-      assert(question.kind !== "DIRECT_SELECTED_VALUE" && question.kind !== "DIRECT_SELECTION_RATE" && question.kind !== "SELECTION_RATE_POINT_GAP", `${seed}: trivial DI-002 family leaked back into V2.`);
+      assert(!new Set<string>(["DIRECT_SELECTED_VALUE", "DIRECT_SELECTION_RATE", "SELECTION_RATE_POINT_GAP"]).has(String(question.kind)), `${seed}: trivial DI-002 family leaked back into V2.`);
       if (question.difficulty === "Easy") {
         assert(["SELECTED_DIFFERENCE", "COMBINED_SELECTED"].includes(question.kind), `${seed}/${question.kind}: Easy task must still require arithmetic.`);
         assert(question.explanation.steps.length >= 2, `${seed}/${question.kind}: Easy task collapsed to direct lookup.`);
