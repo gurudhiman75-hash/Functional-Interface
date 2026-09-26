@@ -134,8 +134,8 @@ for (const locale of locales) {
       else assert(/[\u0A00-\u0A7F]/u.test(svgText), `${key} localized pie visual lacks Gurmukhi text.`);
       visualChecks += 1;
 
-      assert(localized.localizationStatus === "HI_PA_REVIEW_CANDIDATE", `${key} localization status drifted.`);
-      assert(localized.traceability.questionStudioDiscoverable === false, `${key} localized candidate became Question Studio discoverable before approval.`);
+      assert(localized.localizationStatus === "HI_PA_FROZEN", `${key} localization status drifted.`);
+      assert(localized.traceability.questionStudioDiscoverable === true, `${key} localized frozen authority must be Question Studio discoverable.`);
       assert(localized.traceability.questionBankWritable === false && localized.traceability.testEligible === false && localized.traceability.mockTestEligible === false, `${key} widened learner lifecycle authority.`);
       assert(localized.traceability.publiclyPublishable === false && localized.traceability.automaticStudentPublication === false && localized.traceability.productionReleaseAuthorized === false, `${key} widened publication authority.`);
       lifecycleChecks += 1;
@@ -163,7 +163,7 @@ for (const [key, surfaces] of surfaceCoverage) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_DI_005_HI_PA_LOCALIZATION_REVIEW_CANDIDATE_V1",
+  status: "PASS_DI_005_HI_PA_FROZEN_V1",
   sourceContexts: sourceContexts.size,
   sourceCategoryLabels: sourceLabels.size,
   permanentQlCount: DI005_PERMANENT_QLS.length,
@@ -175,7 +175,7 @@ console.log(JSON.stringify({
   deterministicChecks,
   hardRecoveryChecks,
   localizedSurfaceFamilies: surfaceCoverage.size,
-  questionStudioDiscoverable: false,
+  questionStudioDiscoverable: true,
   questionBankWritable: false,
   testEligible: false,
   mockTestEligible: false,
