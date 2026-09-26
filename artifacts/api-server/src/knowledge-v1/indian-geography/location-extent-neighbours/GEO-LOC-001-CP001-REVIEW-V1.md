@@ -251,7 +251,7 @@ D. Neither longitude falls between the limits
 
 **Answer:** B. Both longitudes fall between the western and eastern longitude limits
 
-**Explanation:** India's stated mainland longitudes run from 68°7'E to 97°25'E. Both 70°E and 95°E lie numerically within that longitude range, though this alone does not prove that every point on those meridians is Indian territory.
+**Explanation:** Mainland India extends from 68°7'E to 97°25'E in longitude. Both 70°E and 95°E lie numerically within that longitude range, though this alone does not prove that every point on those meridians is Indian territory.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-003 — Mainland longitudinal extent
@@ -727,7 +727,7 @@ D. The southern latitude limit
 
 **Answer:** D. The southern latitude limit
 
-**Explanation:** The longitude 80°E lies within India's stated mainland east–west interval, but 5°N is south of the mainland's 8°4'N southern latitude limit. The failure is therefore latitudinal.
+**Explanation:** The longitude 80°E lies within mainland India's east–west range, but 5°N is south of the 8°4'N southern latitude limit. The failure is therefore latitudinal.
 
 **Difficulty:** Medium
 **QL:** GEO-LOC-001-QL-009 — Mixed coordinate and extent interpretation
