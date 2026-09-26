@@ -85,6 +85,25 @@ jobs:
           def has_path_scope(block):
               return any(re.fullmatch(r'    paths(?:-ignore)?:\s*', line) for line in block)
 
+          def has_nonempty_paths(block):
+              for index, line in enumerate(block):
+                  if not re.fullmatch(r'    paths:\s*', line):
+                      continue
+                  cursor = index + 1
+                  while cursor < len(block):
+                      candidate = block[cursor]
+                      if not candidate.strip():
+                          cursor += 1
+                          continue
+                      indent = len(candidate) - len(candidate.lstrip(' '))
+                      if indent <= 4:
+                          return False
+                      if re.fullmatch(r'\s{6}-\s+.+', candidate):
+                          return True
+                      cursor += 1
+                  return False
+              return True
+
           def has_new_main_base(block):
               for index, line in enumerate(block):
                   inline = re.fullmatch(r'    branches:\s*\[([^\]]*)\]\s*', line)
@@ -144,8 +163,143 @@ jobs:
                   )
                   failed = True
 
+              for event_name in ('pull_request', 'push'):
+                  for _, event_block in event_blocks(lines, event_name):
+                      if has_path_scope(event_block) and not has_nonempty_paths(event_block):
+                          print(
+                              f'::error file={filename}::{event_name} has an empty paths block. '
+                              'An empty path filter behaves like unscoped CI and can fan out onto unrelated changes.'
+                          )
+                          failed = True
+
+              broad_question_studio = 'artifacts/api-server/src/question-studio/' + '**'
+              broad_qs_allow = re.search(
+                  r'^# CI-FANOUT-ALLOW: shared-question-studio\s*              if has_automatic_pr:
+                  if 'concurrency:' not in text or not cancel_re.search(text):
+                      print(
+                          f'::error file={filename}::Automatic PR workflows must define concurrency '
+                          'with cancel-in-progress: true so superseded commits stop consuming runners.'
+                      )
+                      failed = True
+
+              if re.search(r'^on:\s*\[[^\]]*pull_request[^\]]*\]\s*$', text, re.MULTILINE):
+                  if global_pr_marker not in text:
+                      print(
+                          f'::error file={filename}::Shorthand pull_request triggers cannot be safely '
+                          'path/base scoped. Expand the on: block, or mark an intentional tiny all-PR guard '
+                          'with "CI-FANOUT-ALLOW: global-pr".'
+                      )
+                      failed = True
+
+              for index, block in event_blocks(lines, 'pull_request'):
+                  if global_pr_marker not in text and not has_path_scope(block):
+                      print(
+                          f'::error file={filename},line={index + 1}::Unscoped pull_request trigger '
+                          'would run on unrelated PRs. Add paths/paths-ignore, or add the explicit '
+                          'marker "CI-FANOUT-ALLOW: global-pr" only for a deliberately tiny all-PR guard.'
+                      )
+                      failed = True
+
+                  if global_pr_marker not in text and non_main_marker not in text and not has_new_main_base(block):
+                      print(
+                          f'::error file={filename},line={index + 1}::PR validation must target New-main '
+                          'explicitly via branches: [New-main]. Stacked/non-main-base validation requires '
+                          'the documented marker "CI-FANOUT-ALLOW: non-main-base".'
+                      )
+                      failed = True
+
+                  for candidate in block:
+                      effective = candidate.split('#', 1)[0]
+                      if filename in effective:
+                          print(
+                              f'::error file={filename},line={index + 1}::A workflow must not list its own '
+                              'workflow file in pull_request.paths. Editing CI definitions should run only '
+                              'the central workflow-hygiene gate, not every edited chapter validator.'
+                          )
+                          failed = True
+                          break
+
+              for index, block in event_blocks(lines, 'push'):
+                  if global_push_marker not in text and not has_path_scope(block):
+                      print(
+                          f'::error file={filename},line={index + 1}::Automatic push workflows must be '
+                          'path-scoped. Use "CI-FANOUT-ALLOW: global-push" only for a genuinely global '
+                          'and lightweight production guard.'
+                      )
+                      failed = True
+
+          raise SystemExit(1 if failed else 0)
+          PY
+,
+                  text,
+                  re.MULTILINE,
+              )
+              if broad_question_studio in text and not broad_qs_allow:
+                  print(
+                      f'::error file={filename}::Chapter-specific workflows must not watch the entire '
+                      'question-studio tree. Scope to the owned engine/adapter paths, or add the explicit '
+                      'shared-question-studio allow marker for a deliberately global guard.'
+                  )
+                  failed = True
+
               has_automatic_pr = bool(event_blocks(lines, 'pull_request')) or bool(
-                  re.search(r'^on:\s*\[[^\]]*pull_request[^\]]*\]\s*$', text, re.MULTILINE)
+                  re.search(r'^on:\s*\[[^\]]*pull_request[^\]]*\]\s*              if has_automatic_pr:
+                  if 'concurrency:' not in text or not cancel_re.search(text):
+                      print(
+                          f'::error file={filename}::Automatic PR workflows must define concurrency '
+                          'with cancel-in-progress: true so superseded commits stop consuming runners.'
+                      )
+                      failed = True
+
+              if re.search(r'^on:\s*\[[^\]]*pull_request[^\]]*\]\s*$', text, re.MULTILINE):
+                  if global_pr_marker not in text:
+                      print(
+                          f'::error file={filename}::Shorthand pull_request triggers cannot be safely '
+                          'path/base scoped. Expand the on: block, or mark an intentional tiny all-PR guard '
+                          'with "CI-FANOUT-ALLOW: global-pr".'
+                      )
+                      failed = True
+
+              for index, block in event_blocks(lines, 'pull_request'):
+                  if global_pr_marker not in text and not has_path_scope(block):
+                      print(
+                          f'::error file={filename},line={index + 1}::Unscoped pull_request trigger '
+                          'would run on unrelated PRs. Add paths/paths-ignore, or add the explicit '
+                          'marker "CI-FANOUT-ALLOW: global-pr" only for a deliberately tiny all-PR guard.'
+                      )
+                      failed = True
+
+                  if global_pr_marker not in text and non_main_marker not in text and not has_new_main_base(block):
+                      print(
+                          f'::error file={filename},line={index + 1}::PR validation must target New-main '
+                          'explicitly via branches: [New-main]. Stacked/non-main-base validation requires '
+                          'the documented marker "CI-FANOUT-ALLOW: non-main-base".'
+                      )
+                      failed = True
+
+                  for candidate in block:
+                      effective = candidate.split('#', 1)[0]
+                      if filename in effective:
+                          print(
+                              f'::error file={filename},line={index + 1}::A workflow must not list its own '
+                              'workflow file in pull_request.paths. Editing CI definitions should run only '
+                              'the central workflow-hygiene gate, not every edited chapter validator.'
+                          )
+                          failed = True
+                          break
+
+              for index, block in event_blocks(lines, 'push'):
+                  if global_push_marker not in text and not has_path_scope(block):
+                      print(
+                          f'::error file={filename},line={index + 1}::Automatic push workflows must be '
+                          'path-scoped. Use "CI-FANOUT-ALLOW: global-push" only for a genuinely global '
+                          'and lightweight production guard.'
+                      )
+                      failed = True
+
+          raise SystemExit(1 if failed else 0)
+          PY
+, text, re.MULTILINE)
               )
               if has_automatic_pr:
                   if 'concurrency:' not in text or not cancel_re.search(text):
