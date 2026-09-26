@@ -56,14 +56,14 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Cause-and-Effect',
     chapterId: 'CAE-001',
-    status: 'NOVEL_EDGE_PRESENT_NEEDS_STANDARDIZATION',
+    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
     evidence: [
-      'CP008 multi-event ordering is explicitly retained as Examtree edge coverage.',
-      'CP009 missing-causal-link is explicitly retained as advanced/novel coverage.',
-      'Competing-explanation depth is retained without claiming common historical-paper frequency.',
+      'CP008 multi-event ordering and CP009 integrated missing-link/reconstruction families are explicitly retained as Examtree edge coverage.',
+      'The existing reviewed multilingual runtime is wrapped with shared CONTROLLED_NOVEL provenance.',
+      'Solver trace, unique-answer and distractor gates remain intact; no historical-paper frequency claim is made.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Tag approved edge families with controlled-novel provenance and run semantic/learner review.',
+    nextGate: 'Human-review the standardized CP008/009 controlled-novel corpus before chapter-mix activation.',
   },
   {
     topicDirectory: 'Classification',
