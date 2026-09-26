@@ -3,7 +3,6 @@ import cors, { type CorsOptions } from "cors";
 import pinoHttp from "pino-http";
 import path from "path";
 import { fileURLToPath } from "url";
-import router from "./routes";
 import { logger } from "./lib/logger";
 import billingWebhookHandler from "./routes/billing-webhook";
 import adminCurrentAffairsProductionOpsRouter from "./routes/admin-current-affairs-production-ops";
@@ -95,7 +94,22 @@ app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAff
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsEditorialActivationRouter);
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsSelectedProcessingRouter);
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsPackEditorialRouter);
-app.use("/api", adminRequestObservability, router);
+
+// The legacy API router pulls in Question Studio generators and large static
+// content registries. Keep it out of the startup path so Render can bind /health
+// within the 512 MiB service envelope. The router is loaded once, on the first
+// request that actually needs the legacy API surface.
+let legacyRouterPromise: Promise<typeof import("./routes").default> | null = null;
+function loadLegacyRouter() {
+  legacyRouterPromise ??= import("./routes").then((module) => module.default);
+  return legacyRouterPromise;
+}
+
+app.use("/api", adminRequestObservability, (req, res, next) => {
+  void loadLegacyRouter()
+    .then((legacyRouter) => legacyRouter(req, res, next))
+    .catch(next);
+});
 
 // ── Serve frontend static files ───────────────────────────────────────────────
 // In production, serve both built Vite applications so one Render service can
