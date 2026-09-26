@@ -124,7 +124,7 @@ function normalizeSelectors(request: QuestionStudioGenerationRequest) {
   return { conceptId, cpId: explicitCpId ?? conceptCpId };
 }
 
-export const PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefinition = {
+export const PGK_001_MATCH_FOLLOWING_PRODUCTION_PACKAGE_V1: QuestionStudioPackageDefinition = {
   engineId: "knowledge-v1",
   packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
   subject: "Static GK",
@@ -176,6 +176,8 @@ export const PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPacka
   },
 };
 
+export const PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1 = PGK_001_MATCH_FOLLOWING_PRODUCTION_PACKAGE_V1;
+
 export function isPgk001MatchFollowingQuestionStudioRequestV1(
   request: QuestionStudioGenerationRequest,
 ) {
@@ -195,7 +197,7 @@ export const knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1:
     engineId: "knowledge-v1",
 
     listPackages() {
-      return [PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1];
+      return [PGK_001_MATCH_FOLLOWING_PRODUCTION_PACKAGE_V1];
     },
 
     async generate(
