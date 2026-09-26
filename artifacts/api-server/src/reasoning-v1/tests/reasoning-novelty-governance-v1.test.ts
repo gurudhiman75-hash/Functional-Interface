@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import {
   REASONING_V1_NOVELTY_GOVERNANCE_V1 as policy,
   auditReasoningNoveltyMixV1,
+  buildReasoningNoveltyMixPlanV1,
   validateReasoningNoveltyCandidateV1,
 } from '../shared/reasoning-novelty-governance-v1';
 
@@ -69,4 +70,31 @@ test('experimental stretch never pads the controlled-novel target', () => {
   ]);
   assert.equal(mix.controlledNovelShare, 0);
   assert.equal(mix.withinOperatingBand, false);
+});
+
+
+test('shared novelty mixer produces a deterministic 80/20 chapter plan', () => {
+  const left = buildReasoningNoveltyMixPlanV1({ count: 100, seed: 'reasoning-v1-audit' });
+  const right = buildReasoningNoveltyMixPlanV1({ count: 100, seed: 'reasoning-v1-audit' });
+  assert.deepEqual(right, left);
+  assert.equal(left.length, 100);
+  assert.equal(left.filter((lane) => lane === 'CONTROLLED_NOVEL').length, 20);
+  assert.equal(left.filter((lane) => lane === 'SOURCE_BACKED').length, 80);
+  assert.notDeepEqual(
+    left,
+    buildReasoningNoveltyMixPlanV1({ count: 100, seed: 'reasoning-v1-audit-alt' }),
+  );
+});
+
+test('small batches are not falsely failed by chapter-level share tolerance', () => {
+  const mix = auditReasoningNoveltyMixV1([
+    'SOURCE_BACKED_CORE',
+    'SOURCE_BACKED_CORE',
+    'SOURCE_BACKED_CORE',
+    'SOURCE_BACKED_CORE',
+    'CONTROLLED_NOVEL',
+  ]);
+  assert.equal(mix.controlledNovelShare, 0.20);
+  assert.equal(mix.shareGateApplicable, false);
+  assert.equal(mix.withinOperatingBand, true);
 });
