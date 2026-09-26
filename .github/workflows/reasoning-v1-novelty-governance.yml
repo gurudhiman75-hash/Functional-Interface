@@ -1,5 +1,7 @@
 name: Reasoning V1 Novelty Governance
 
+# Workflow self-observation keeps CI policy changes on the exact-head gate.
+
 on:
   pull_request:
     branches: [New-main]

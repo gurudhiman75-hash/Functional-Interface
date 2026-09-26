@@ -1,5 +1,7 @@
 name: Reasoning BLR-001 Standard Question Studio
 
+# Workflow self-observation keeps CI policy changes on the exact-head gate.
+
 # CI-FANOUT-ALLOW: non-main-base
 
 on:
@@ -12,7 +14,6 @@ on:
       - "artifacts/api-server/src/routes/index.ts"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
       - ".github/workflows/reasoning-blr-001-complete-question-studio.yml"
-      - ".github/workflows/reasoning-blr-001-complete-question-studio.yml"
   push:
     branches:
       - New-main
@@ -21,6 +22,7 @@ on:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/routes/index.ts"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
+      - ".github/workflows/reasoning-blr-001-complete-question-studio.yml"
   workflow_dispatch:
 
 permissions:

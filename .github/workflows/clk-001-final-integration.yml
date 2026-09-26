@@ -1,5 +1,7 @@
 name: Validate CLK-001 final integration
 
+# Workflow self-observation keeps CI policy changes on the exact-head gate.
+
 on:
   pull_request:
     branches:

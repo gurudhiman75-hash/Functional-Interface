@@ -1,5 +1,7 @@
 name: Validate RNK-001 English Content Closure
 
+# Workflow self-observation keeps CI policy changes on the exact-head gate.
+
 on:
   push:
     branches:
