@@ -29,3 +29,20 @@ Wave 1 is consistent with the ENG-008 provenance rule:
 ## Limit
 
 This remains a sampled web-search sanity check, not an exhaustive legal plagiarism certification. Search indexes are incomplete and common phrases can occur independently.
+
+
+## Post-recalibration sampling
+
+After the passage-length recalibration, additional distinctive long fragments from the newly added paragraphs were searched again.
+
+Sampled material included:
+- the clock/habit-adjustment expansion;
+- library access/navigation wording;
+- public-service accessibility wording;
+- hospital-noise measurement wording;
+- waiting-time subgroup/summary-measure wording;
+- learning-support retention wording.
+
+No distinctive long-fragment match indicating copied passage text was found. Search engines did return conceptually related material around measurement, subgroup analysis and public access, which is expected for common subject matter; the wording did not match the Examtree passages.
+
+This post-recalibration result remains a sampled sanity check, not an exhaustive plagiarism certification.
