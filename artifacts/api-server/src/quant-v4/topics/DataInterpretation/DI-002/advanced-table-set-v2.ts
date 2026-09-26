@@ -777,4 +777,5 @@ export function generateDi002V2Set(input: { seed?: string; examProfile?: Di002V2
 
 export const DI002_V2_CONTEXT_COUNT = CONTEXTS.length;
 export const DI002_V2_OBJECT_LABEL_COUNT = CONTEXTS.reduce((sum, context) => sum + context.labels.length, 0);
+export const DI002_V2_OBJECT_LABEL_COUNT = CONTEXTS.reduce((sum, context) => sum + context.labels.length, 0);
 export const DI002_V2_TASK_KINDS = Object.freeze([...EASY_KINDS, ...MEDIUM_KINDS, ...HARD_KINDS]);
