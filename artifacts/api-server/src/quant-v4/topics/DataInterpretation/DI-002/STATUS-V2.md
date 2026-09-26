@@ -1,6 +1,6 @@
 # DI-002 Advanced Table — V2 Review Candidate
 
-Status: ENGLISH_REVIEW_CANDIDATE · NOT YET QUESTION STUDIO ENABLED
+Status: ENGLISH_REVIEW_APPROVED · QUESTION STUDIO CONTROLLED REVIEW
 
 ## Why V2 exists
 
@@ -96,8 +96,8 @@ The V2 stress test is designed to cover:
 
 ## Lifecycle
 
-- reviewStatus: ENGLISH_REVIEW_CANDIDATE
-- Question Studio discoverable: false
+- reviewStatus: ENGLISH_REVIEW_APPROVED
+- Question Studio discoverable: true
 - Question Bank: NOT_STORED
 - Question Bank writable: false
 - test eligible: false
@@ -106,7 +106,7 @@ The V2 stress test is designed to cover:
 - automatic student publication: false
 - production release authorized: false
 
-Approval is still required before permanent ownership promotion, Question Studio controlled-review routing, localization, or any wider lifecycle change.
+English ownership is approved and Question Studio controlled review is enabled. Localization remains a separate approval gate; Question Bank, tests, mocks and public release remain locked.
 
 ## Difficulty-floor correction after editorial review
 
