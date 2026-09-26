@@ -14,7 +14,7 @@
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: COMPLETE — CP001-CP026 Hindi/Punjabi localisation approved and merged
+- Localisation: COMPLETE — CP001-CP026 Hindi/Punjabi localisation approved and merged\n- Format-diversity extension: REVIEW_CANDIDATE — 24 genuine List-I/List-II match-the-following concepts across 12 CPs; frozen 1,092-question core unchanged
 
 ## Final closure audit
 
