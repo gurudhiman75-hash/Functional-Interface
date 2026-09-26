@@ -1,6 +1,6 @@
 # ENG-008 CP003 — Banking Prelims Reading Comprehension — Source Audit V1
 
-Status: `IMPLEMENTED_CANDIDATE_V1__HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY`
 
 ## Purpose
 
@@ -68,4 +68,4 @@ Banking Prelims difficulty is driven by **longer reading load, speed and close r
 
 ## Lifecycle
 
-Review-only. No Question Studio registration, Question Bank write, scored-test eligibility, mock eligibility, learner/public publication or production release until explicit human approval.
+Human approval was recorded on **2026-09-26** against revised Review V2 `ENG-008-CP003-REVIEW-V1.md` at reviewed head `6e6aea69d1c2054e8124db40814414e70bbddc4f`. CP003 is registered in the existing ENG-008 Question Studio package in **review-only** mode. Question Bank writes, scored tests, mocks, learner/public publication, automatic publication and production release remain locked.
