@@ -60,6 +60,26 @@ for (const examId of structuralProbeIds) {
   assert.ok(section.questions.some((question) => question.sourceKind === "RUNTIME_GENERATED"), `${examId} did not exercise live generation.`);
 }
 
+const cglProbabilityProbe = [];
+for (let sectionIndex = 1; sectionIndex <= 20; sectionIndex += 1) {
+  const section = await generateQuantV4RealExamSection({
+    examId: "SSC_CGL_TIER_I",
+    sectionIndex,
+    seed: `QUANT-V4-CGL-PROBABILITY-ELIGIBILITY-P4:${sectionIndex}`,
+  });
+  cglProbabilityProbe.push(...section.questions.filter((question) => question.slotKind === "PROBABILITY"));
+}
+assert.equal(cglProbabilityProbe.length, 60, "SSC CGL Tier-I 20-section probe must exercise 60 Probability slots.");
+assert.equal(
+  cglProbabilityProbe.filter((question) => question.sourceKind === "CAPABILITY_GAP").length,
+  0,
+  "SSC CGL Tier-I Probability slots must retry profile-valid CPs before declaring capability gaps.",
+);
+assert.ok(
+  cglProbabilityProbe.every((question) => question.optionCount === 4),
+  "SSC CGL Tier-I Probability slots must preserve the four-option delivery contract.",
+);
+
 for (const examId of ["PSSSB", "PPSC", "PUNJAB_POLICE"] as const) {
   const section = await generateQuantV4RealExamSection({
     examId,
