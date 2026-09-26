@@ -50,7 +50,7 @@ function candidateMode(candidate: EvaluatedConclusion): "VERDICT" | "MODEL_SPACE
   return candidate.profile.classification === "UNDETERMINED" ? "MODEL_SPACE" : "VERDICT";
 }
 
-function novelCandidates(analysis: ScenarioAnalysis): readonly EvaluatedConclusion[] {
+function nonRestatementCandidates(analysis: ScenarioAnalysis): readonly EvaluatedConclusion[] {
   return analysis.candidates.filter((candidate) =>
     !conclusionDirectlyRestatesPremise(analysis.premises, candidate.conclusion));
 }
@@ -75,7 +75,7 @@ function chooseSelectionQuestion(
 
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
-    const candidateOrder = shuffle(novelCandidates(analysis), random);
+    const candidateOrder = shuffle(nonRestatementCandidates(analysis), random);
     const correctPool = candidateOrder.filter((candidate) => {
       const targetMatch = target === "ENTAILED"
         ? candidate.profile.classification === "ENTAILED"
@@ -127,7 +127,7 @@ function chooseModalQuestion(
   const scenarios = rotated(shuffle(scenariosForGroup(definition.scenarioGroup), random), seed);
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
-    const candidates = shuffle(novelCandidates(analysis), random).filter((candidate) => {
+    const candidates = shuffle(nonRestatementCandidates(analysis), random).filter((candidate) => {
       if (target === "DEFINITELY_TRUE") return candidate.profile.classification === "ENTAILED";
       if (target === "POSSIBLY_TRUE_NOT_DEFINITE") return candidate.profile.classification === "UNDETERMINED";
       return candidate.profile.classification === "CONTRADICTED";
@@ -162,7 +162,7 @@ function chooseTwoConclusionQuestion(
 
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
-    const candidates = shuffle(novelCandidates(analysis), random).slice(0, 60);
+    const candidates = shuffle(nonRestatementCandidates(analysis), random).slice(0, 60);
     for (let firstIndex = 0; firstIndex < candidates.length; firstIndex += 1) {
       for (let secondIndex = 0; secondIndex < candidates.length; secondIndex += 1) {
         if (firstIndex === secondIndex) continue;
@@ -206,7 +206,7 @@ function choosePairClassificationQuestion(
   const scenarios = rotated(shuffle(scenariosForGroup(definition.scenarioGroup), random), seed);
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
-    const candidates = shuffle(novelCandidates(analysis), random).slice(0, 60);
+    const candidates = shuffle(nonRestatementCandidates(analysis), random).slice(0, 60);
     for (const first of candidates) {
       for (const second of candidates) {
         if (conclusionSemanticKey(first) === conclusionSemanticKey(second)) continue;
@@ -237,7 +237,7 @@ function chooseThreeConclusionQuestion(
   const scenarios = rotated(shuffle(scenariosForGroup(definition.scenarioGroup), random), seed);
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
-    const candidates = novelCandidates(analysis);
+    const candidates = nonRestatementCandidates(analysis);
     const follows = shuffle(
       candidates.filter((candidate) => candidate.profile.classification === "ENTAILED"),
       random,
