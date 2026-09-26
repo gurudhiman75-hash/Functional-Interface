@@ -62,7 +62,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-046",
     "qlName": "Sri Lanka as India’s southern maritime neighbour",
     "difficulty": "Medium",
-    "stem": "Which statement correctly places Sri Lanka in relation to India?",
+    "stem": "How is Sri Lanka positioned in relation to India?",
     "answer": "It lies south of the peninsula across a narrow sea passage",
     "distractors": [
       "It lies northwest of India across a land border",
@@ -453,7 +453,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Duncan Passage",
       "Great Channel"
     ],
-    "explanation": "The Eight Degree Channel lies between Minicoy and the Maldives. The other channels are associated with the Andaman and Nicobar region.",
+    "explanation": "The Eight Degree Channel lies between Minicoy and the Maldives. The other channels belong to the Andaman and Nicobar region.",
     "sourceFactIds": [
       "EIGHT-DEGREE-SOUTH-FROM-MINICOY"
     ]
@@ -478,14 +478,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-050",
     "qlName": "Eight Degree Channel — Minicoy/Maldives",
     "difficulty": "Medium",
-    "stem": "Which pairing is correct?",
+    "stem": "Which channel-location match is accurate?",
     "answer": "Eight Degree Channel — Minicoy and Maldives",
     "distractors": [
       "Eight Degree Channel — Andaman and Nicobar groups",
       "Eight Degree Channel — Rutland and Little Andaman",
       "Eight Degree Channel — Minicoy and Kavaratti"
     ],
-    "explanation": "The Eight Degree Channel is associated with Minicoy and the Maldives. Andaman–Nicobar and Rutland–Little Andaman separations use different named channels.",
+    "explanation": "The Eight Degree Channel lies between Minicoy and the Maldives. Andaman–Nicobar and Rutland–Little Andaman separations use different named channels.",
     "sourceFactIds": [
       "EIGHT-DEGREE-PAIR"
     ]
