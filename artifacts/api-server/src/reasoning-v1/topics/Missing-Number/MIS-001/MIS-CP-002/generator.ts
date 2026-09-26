@@ -123,6 +123,10 @@ function validGroups(rule: MisCp002RuleDefinition, context: MisCp002RuleContext)
         const inputs = [first, second, third] as const;
         const result = generatedEvaluate(rule.ruleId, inputs, context);
         if (result == null || inputs.includes(result)) continue;
+        if (
+          (rule.ruleId === 'PAIR_PRODUCT_DIVIDE_THIRD' || rule.ruleId === 'PAIR_SUM_DIVIDE_THIRD')
+          && result === 1
+        ) continue;
         const group = { first, second, third, result };
         if (!independentlyVerifyMisCp002Group(rule.ruleId, context, group)) {
           throw new Error('Generator/independent-solver disagreement while constructing a CP002 group.');
