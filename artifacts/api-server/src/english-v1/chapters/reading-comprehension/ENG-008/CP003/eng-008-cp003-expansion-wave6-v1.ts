@@ -1,0 +1,112 @@
+import type{Eng008Cp003PassageV1}from"./eng-008-cp003-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP003_EXPANSION_WAVE6_V1:readonly Eng008Cp003PassageV1[]=[
+{
+ id:"ENG008-BP-N06",title:"The Receipt in the Grocery Bag",genre:"narrative",
+ text:`After returning from a supermarket, Neha found a receipt in one of her grocery bags that listed several items she had not bought. At first she thought the cashier had charged her incorrectly.
+
+She compared the receipt total with the amount shown in her payment message and noticed that the values were different. Her own payment matched the items she remembered buying.
+
+Neha then checked the time printed on the receipt. It was from fifteen minutes before her visit and had probably been placed in the bag accidentally while the counter was busy.
+
+Instead of returning to the store to dispute the charge, she called customer service and confirmed that her account showed the correct transaction. The receipt belonged to another customer.
+
+The incident reminded her that a document found with her belongings was not automatically evidence about her own purchase. Matching the payment amount and transaction time gave a clearer answer than the location of the paper.
+
+She kept her own digital payment record until the next day, then discarded the unrelated receipt. The problem had looked like a billing error only because one piece of evidence appeared in the wrong place.`,
+ questions:[
+ q("N06-Q1","BP-F01","easy","What first showed Neha that the receipt might not be hers?","The receipt total did not match her payment amount",["The bag was empty","The cashier called her","The store was closed"],"The payment message showed a different amount.","values were different"),
+ q("N06-Q2","BP-F02","medium","What can be inferred from the receipt time?","It likely belonged to an earlier customer",["Neha arrived before the store opened","The payment message was wrong","The cashier changed prices"],"The receipt was printed before Neha's visit.","fifteen minutes before her visit"),
+ q("N06-Q3","BP-F03","medium","What is the central idea of the passage?","Evidence should be matched carefully before assuming it belongs to the situation at hand",["Receipts are unreliable","Digital payments never fail","Supermarkets often overcharge"],"The wrong receipt created confusion because of where it was found.","not automatically evidence about her own purchase"),
+ q("N06-Q4","BP-F04","medium","Which statement is supported?","Neha's actual payment matched the items she remembered buying",["She was charged twice","The store refused to help","She returned all groceries"],"The passage states this directly.","own payment matched"),
+ q("N06-Q5","BP-F05","easy","In context, “transaction” is closest in meaning to:","a completed purchase or payment event",["a shopping bag","a product label","a queue number"],"The passage refers to the store payment record.","correct transaction"),
+ q("N06-Q6","BP-F06","easy","Which word is opposite in meaning to “unrelated”?","related",["separate","different","irrelevant"],"Related is the direct opposite.","unrelated receipt"),
+ q("N06-Q7","BP-F07","medium","What does “one piece of evidence appeared in the wrong place” mean?","The receipt was placed in Neha's bag even though it belonged to someone else",["The store moved location","The payment record disappeared","Neha used the wrong checkout"],"The receipt's location made it look relevant when it was not.","wrong place"),
+ q("N06-Q8","BP-F08","medium","Why did Neha call customer service?","To confirm which transaction was actually linked to her account",["To ask for a refund immediately","To change the receipt time","To cancel her payment"],"She verified her account before assuming an error.","confirmed that her account showed the correct transaction"),
+ q("N06-Q9","BP-F09","medium","Which title best suits the passage?","The Receipt in the Grocery Bag",["A Store Without Receipts","Why Digital Payments Fail","The Missing Shopping List"],"The narrative centres on the unrelated receipt found in her bag.","found a receipt")
+ ]
+},
+{
+ id:"ENG008-BP-N07",title:"The Message Sent to the Wrong Group",genre:"narrative",
+ text:`A teacher sent a reminder about a school trip to a class messaging group. Within minutes, one parent replied that the date in the message did not match the permission form sent earlier.
+
+Several parents began asking whether the trip had been changed. The teacher checked the message and realised she had copied a reminder prepared for another class visiting the same place on a different day.
+
+She immediately sent a correction, clearly stating that the original permission-form date was still valid. She also deleted the mistaken message where the app allowed it, but noted that some parents might already have read screenshots or notifications.
+
+The class representative suggested adding the class name and date at the start of future trip messages. The teacher adopted the idea.
+
+The incident showed that deleting an error does not always remove its effect. Once information has been seen, a clear correction may be more useful than silently replacing it.
+
+Parents later said the correction was easy to understand because it named both the wrong date and the correct one. That made it less likely that someone would remember only the first message.`,
+ questions:[
+ q("N07-Q1","BP-F01","easy","Why was the first reminder wrong?","It had been prepared for another class",["The trip was cancelled","The permission form was wrong","Parents changed the date"],"The teacher copied a reminder for a different class.","prepared for another class"),
+ q("N07-Q2","BP-F02","medium","Why was deleting the message not enough?","Some parents might already have seen it",["The app could not send corrections","Parents never read messages","The trip location changed"],"Notifications and screenshots may preserve the mistaken information.","already have read"),
+ q("N07-Q3","BP-F03","medium","What is the central idea of the passage?","A clear correction matters when wrong information may already have spread",["School trips should avoid messaging apps","Permission forms are always correct","Messages should never be deleted"],"The narrative emphasises correction over silent replacement.","clear correction may be more useful"),
+ q("N07-Q4","BP-F04","medium","Which statement is supported?","The correct trip date remained the one on the original permission form",["The trip was moved","Another class cancelled","Parents voted on a new date"],"The teacher explicitly confirmed the original date.","original permission-form date was still valid"),
+ q("N07-Q5","BP-F05","easy","In context, “correction” is closest in meaning to:","a message that fixes earlier wrong information",["a punishment","a permission form","a screenshot"],"The teacher sends a new message to correct the date.","sent a correction"),
+ q("N07-Q6","BP-F06","easy","Which word is opposite in meaning to “valid”?","invalid",["correct","current","accepted"],"Invalid is the direct opposite.","still valid"),
+ q("N07-Q7","BP-F07","medium","What does “silently replacing it” mean?","Changing the information without clearly telling people what was wrong",["Sending a louder message","Printing a new form","Cancelling the trip"],"The passage contrasts explicit correction with quiet replacement.","silently replacing it"),
+ q("N07-Q8","BP-F08","medium","Why did the correction name both dates?","To reduce confusion about which date had been wrong and which was correct",["To lengthen the message","To create a new trip","To compare two schools"],"Parents said this made the correction easier to understand.","named both the wrong date and the correct one"),
+ q("N07-Q9","BP-F09","medium","Which title best suits the passage?","The Message Sent to the Wrong Group",["The Cancelled School Trip","Why Parents Ignore Messages","The Missing Permission Form"],"The story begins with a reminder copied to the wrong class group.","sent a reminder")
+ ]
+},
+{
+ id:"ENG008-BP-SC05",title:"A College Tests Noise Levels in Study Areas",genre:"science",
+ text:`A college library team measured sound levels in four study areas after students disagreed about which spaces were actually quietest. One room had thick doors, another had carpeted floors, a third was near the staircase and the fourth opened onto a courtyard.
+
+For two weeks, sensors recorded average sound levels at fixed times. The carpeted room was usually quietest during the morning, while the room near the staircase had the greatest variation.
+
+Researchers also kept notes on crowd size because a nearly empty room could appear quiet regardless of design. On busy afternoons, the thick-door room performed better than expected because corridor noise was reduced.
+
+The courtyard room produced an unusual pattern. It was quiet on still days but much louder when events were held outside.
+
+Students initially wanted one permanent ranking of the rooms. The team decided that would oversimplify the results because time, occupancy and nearby activity changed the pattern.
+
+Instead, the library map began describing each area's typical conditions: “quiet most mornings,” “variable near stairs” and “affected by courtyard events.”
+
+The project showed that measurement can replace vague impressions, but it can also reveal that a simple ranking is less useful than describing when and why conditions change.
+
+The library plans to repeat the study during examination season, when crowding patterns are different and students may be more sensitive to noise.`,
+ questions:[
+ q("SC05-Q1","BP-F01","easy","Which room was usually quietest in the morning?","The carpeted room",["The staircase room","The courtyard room always","All rooms equally"],"The second paragraph states this directly.","carpeted room was usually quietest"),
+ q("SC05-Q2","BP-F02","medium","Why did researchers record crowd size?","Occupancy could affect noise independently of room design",["They wanted to count chairs","Crowds always improve quietness","Sensors could not measure sound"],"An empty room may seem quiet regardless of design.","regardless of design"),
+ q("SC05-Q3","BP-F03","medium","What is the central idea of the passage?","Study-area noise varies by time, occupancy and surroundings, so one simple ranking can mislead",["Carpet is always the best noise solution","Libraries should remove staircases","Outdoor events should be banned"],"The project replaced one ranking with conditional descriptions.","one permanent ranking ... oversimplify"),
+ q("SC05-Q4","BP-F04","medium","Which statement is supported?","The staircase room had the greatest variation in noise",["The courtyard was always loud","The thick-door room was always quietest","Crowd size was ignored"],"The second paragraph says this directly.","greatest variation"),
+ q("SC05-Q5","BP-F05","easy","In context, “variation” is closest in meaning to:","change or difference over time",["complete silence","room size","door thickness"],"The staircase room's noise changed more.","greatest variation"),
+ q("SC05-Q6","BP-F06","easy","Which word is opposite in meaning to “permanent”?","temporary",["lasting","fixed","continuous"],"Temporary is the opposite.","permanent ranking"),
+ q("SC05-Q7","BP-F07","medium","What does “typical conditions” mean here?","The pattern usually experienced in each area",["The official room capacity","The colour of the room","The library rules"],"The map describes the usual noise pattern by context.","typical conditions"),
+ q("SC05-Q8","BP-F08","medium","Why did the thick-door room perform better on busy afternoons?","The doors reduced corridor noise",["It had fewer students","The staircase closed","Events moved outside"],"The passage links thick doors with reduced corridor sound.","corridor noise was reduced"),
+ q("SC05-Q9","BP-F09","medium","Which title best suits the passage?","A College Tests Noise Levels in Study Areas",["The Loudest Library in Town","Why Carpets Solve Every Problem","The Closed Courtyard"],"The passage is about measured noise across study spaces.","measured sound levels")
+ ]
+},
+{
+ id:"ENG008-BP-B08",title:"A Pharmacy Changes Its Pickup Notification",genre:"business",
+ text:`A pharmacy sent customers a text message as soon as a prescription entered the preparation queue. Some customers interpreted the message as meaning the medicine was ready and arrived before staff had completed the order.
+
+The manager reviewed complaint records and found that the wording “your prescription is being processed” was too easy to misread when customers glanced at notifications quickly.
+
+The pharmacy changed to a two-message system. The first message confirmed that the prescription had been received. A second message, sent only after final checking, said “ready for pickup.”
+
+During the next six weeks, early-arrival complaints fell sharply. Staff also spent less time explaining why an order was not yet available.
+
+The pharmacy kept the first message because customers still wanted confirmation that the prescription had reached the system. Removing it entirely would have solved one confusion by creating another.
+
+The manager also checked whether two messages annoyed customers. Survey responses suggested that most preferred the clearer stages, especially when the second message included collection hours.
+
+One issue remained for urgent prescriptions. Customers sometimes needed an estimated preparation time before the final message. Staff therefore added an optional time range when a prescription was marked urgent.
+
+The trial showed that status communication works best when each message corresponds to a distinct stage. A notification should not merely be accurate; it should also be difficult to misinterpret when read quickly.`,
+ questions:[
+ q("B08-Q1","BP-F01","easy","Why were some customers arriving too early?","They thought the first message meant the prescription was ready",["The pharmacy closed early","The medicine was free","Doctors changed the pickup time"],"The initial wording was being misread.","interpreted the message as meaning the medicine was ready"),
+ q("B08-Q2","BP-F02","medium","Why did the pharmacy keep the first message?","Customers still wanted confirmation that the prescription had been received",["It was legally required","It reduced medicine prices","The second message often failed"],"The first message served a separate confirmation purpose.","wanted confirmation"),
+ q("B08-Q3","BP-F03","medium","What is the central idea of the passage?","Status messages should clearly distinguish different stages of a process",["Pharmacies should send fewer messages","Urgent prescriptions need no communication","Customers should call instead of reading texts"],"The trial separated received and ready stages.","each message corresponds to a distinct stage"),
+ q("B08-Q4","BP-F04","medium","Which statement is supported?","Complaints about early arrival fell after the two-message system",["Customers disliked every second message","Pickup hours were removed","Urgent prescriptions were banned"],"The fourth paragraph reports this directly.","complaints fell sharply"),
+ q("B08-Q5","BP-F05","easy","In context, “distinct” is closest in meaning to:","clearly separate or different",["hidden","temporary","expensive"],"Each message refers to a separate process stage.","distinct stage"),
+ q("B08-Q6","BP-F06","easy","Which word is opposite in meaning to “urgent”?","non-urgent",["immediate","important","pressing"],"Non-urgent is the opposite.","urgent prescriptions"),
+ q("B08-Q7","BP-F07","medium","What does “creating another” refer to?","Removing receipt confirmation would create a new uncertainty for customers",["Creating another pharmacy","Sending a third prescription","Making another complaint"],"The passage says removing the first message would solve one issue but cause another.","creating another"),
+ q("B08-Q8","BP-F08","medium","Why was an optional time range added?","Some urgent customers needed preparation guidance before the final ready message",["To delay all prescriptions","To remove collection hours","To reduce staff numbers"],"The seventh paragraph explains this need.","needed an estimated preparation time"),
+ q("B08-Q9","BP-F09","medium","Which title best suits the passage?","A Pharmacy Changes Its Pickup Notification",["The Pharmacy Without Text Messages","Why Prescriptions Take a Week","The Missing Doctor"],"The passage centres on redesigning prescription-status messages.","changed to a two-message system")
+ ]
+}
+] as const;
