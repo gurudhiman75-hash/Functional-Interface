@@ -2,10 +2,10 @@ import assert from"node:assert/strict";
 import{ENG008_CP001_PASSAGES_V1,ENG008_CP001_QUESTION_AUTHORITIES_V1}from"../chapters/reading-comprehension/ENG-008/CP001/eng-008-cp001-authorities-v1";
 import{ENG008_CP001_FAMILY_IDS_V1,generateEng008Cp001QuestionV1}from"../chapters/reading-comprehension/ENG-008/CP001/eng-008-cp001-v1";
 
-assert.equal(ENG008_CP001_PASSAGES_V1.length,12);
-assert.equal(new Set(ENG008_CP001_PASSAGES_V1.map(x=>x.id)).size,12);
-assert.equal(ENG008_CP001_QUESTION_AUTHORITIES_V1.length,72);
-assert.equal(new Set(ENG008_CP001_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,72);
+assert.equal(ENG008_CP001_PASSAGES_V1.length,14);
+assert.equal(new Set(ENG008_CP001_PASSAGES_V1.map(x=>x.id)).size,14);
+assert.equal(ENG008_CP001_QUESTION_AUTHORITIES_V1.length,84);
+assert.equal(new Set(ENG008_CP001_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,84);
 
 const genres=new Map<string,number>(),families=new Map<string,number>(),difficulties=new Set<string>();
 for(const passage of ENG008_CP001_PASSAGES_V1){
@@ -30,8 +30,8 @@ for(const passage of ENG008_CP001_PASSAGES_V1){
   assert.equal(first.metadata.reviewOnly,true);
  }
 }
-assert.deepEqual(Object.fromEntries(genres),{narrative:6,report:6});
-for(const familyId of ENG008_CP001_FAMILY_IDS_V1)assert.equal(families.get(familyId),12,`${familyId} should have 12 authorities`);
+assert.deepEqual(Object.fromEntries(genres),{narrative:7,report:7});
+for(const familyId of ENG008_CP001_FAMILY_IDS_V1)assert.equal(families.get(familyId),14,`${familyId} should have 14 authorities`);
 assert.deepEqual([...difficulties].sort(),["easy","hard","medium"]);
 
 for(const difficulty of["easy","medium","hard"]as const){
@@ -44,4 +44,4 @@ for(const difficulty of["easy","medium","hard"]as const){
   assert.equal(q.metadata.reviewOnly,true);
  }
 }
-console.log("ENG-008 CP001 SSC foundation RC audit passed.",{passages:12,authorities:72,soak:6000});
+console.log("ENG-008 CP001 SSC foundation RC audit passed.",{passages:14,authorities:84,soak:6000});
