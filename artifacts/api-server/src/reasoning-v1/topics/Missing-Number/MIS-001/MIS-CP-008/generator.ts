@@ -76,7 +76,7 @@ function distractors(answer:number,g:MisCp008Group,p:MisCp008MissingPosition):Mi
   const out:MisCp008Option[]=[];for(const [v,l] of raw){if(v!=null&&Number.isInteger(v)&&v>0&&v<=999&&v!==answer&&!out.some(x=>x.value===v))out.push({value:v,errorLabel:l});}
   return out;
 }
-function renderTable(g:MisCp008Group,p:MisCp008MissingPosition):string{
+function renderTable(g:MisCp008Group,p:MisCp008MissingPosition|null):string{
   const vals:[number|string,number|string,number|string,number|string]=[g.first,g.second,g.third??'',g.result];
   if(p==='FIRST_INPUT')vals[0]='?'; if(p==='SECOND_INPUT')vals[1]='?';if(p==='THIRD_INPUT')vals[2]='?';if(p==='RESULT')vals[3]='?';
   return g.third==null?`${vals[0]}   ${vals[1]}   ${vals[3]}`:`${vals[0]}   ${vals[1]}   ${vals[2]}   ${vals[3]}`;
@@ -96,9 +96,12 @@ export function generateMisCp008Question(candidateId:MisCp008CandidateId,seed:st
     figures=[...sel.evidence.map(g=>make(g)),make(sel.target,true)];
     stem=['Find the missing value in the following figure.','',...figures.map((f,i)=>`Figure ${i+1}:\n${figurePreview('SVG_TRIANGLE',f.positions)}`)].join('\n\n');
   }else{
-    stem=['Find the number that will replace the question mark (?).','',...sel.evidence.map(g=>renderTable(g,'RESULT')),renderTable(sel.target,missing)].join('\n');
+    stem=['Find the number that will replace the question mark (?).','',...sel.evidence.map(g=>renderTable(g,null)),renderTable(sel.target,missing)].join('\n');
   }
-  const explanation=['The same rule is used in every group.',ruleWords(rule.ruleId),'','Look at the completed groups:',...sel.evidence.map(g=>calc(rule.ruleId,g)),'','Now use the same rule in reverse for the group with the question mark:',calc(rule.ruleId,sel.target),'',`So, ? = ${answer}.`].join('\n');
+  const targetInstruction = inverse
+    ? 'Now use the same rule in reverse for the group with the question mark:'
+    : 'Now apply the same rule to the group with the question mark:';
+  const explanation=['The same rule is used in every group.',ruleWords(rule.ruleId),'','Look at the completed groups:',...sel.evidence.map(g=>calc(rule.ruleId,g)),'',targetInstruction,calc(rule.ruleId,sel.target),'',`So, ? = ${answer}.`].join('\n');
   return{packageId:'MIS-001',checkpointId:'MIS-CP-008',candidateId,provisionalQl:true,ruleId:rule.ruleId,ruleFamily:rule.label,context:null,difficulty:rule.difficulty,renderer:rule.renderer,stem,evidenceGroups:sel.evidence,target:sel.target,figures,options,correctIndex,answer,explanation,solverTrace:[...sel.evidence.map(g=>calc(rule.ruleId,g)),calc(rule.ruleId,sel.target)],ambiguityAudit:sel.audit,structuralFingerprint:['MIS-CP-008',rule.ruleId,rule.renderer,missing,`ARITY_${rule.arity}`].join('|'),numericFingerprint:[...sel.evidence,sel.target].map(g=>`${g.first},${g.second},${g.third??'_'}:${g.result}`).join('|'),operationDepth:rule.operationDepth,operandCount:rule.arity,groupCount:sel.evidence.length+1,missingPosition:missing,forwardOrInverse:inverse?'INVERSE':'FORWARD'};
 }
 export const MIS_CP008_CANDIDATE_IDS=Object.freeze(MIS_CP008_RULES.map(r=>r.candidateId));
