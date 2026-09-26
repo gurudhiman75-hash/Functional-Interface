@@ -244,9 +244,9 @@ function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidat
   candidates.forEach(add);
 
   if (retained.length < optionCount) {
-    const numeric = answer.match(/^(\\d+)$/u);
-    const percent = answer.match(/^(\\d+)%$/u);
-    const ratio = answer.match(/^(\\d+):(\\d+)$/u);
+    const numeric = answer.match(/^(\d+)$/u);
+    const percent = answer.match(/^(\d+)%$/u);
+    const ratio = answer.match(/^(\d+):(\d+)$/u);
 
     if (numeric) {
       const value = Number(numeric[1]);
@@ -771,7 +771,7 @@ function validateSet(set: Omit<Di004V2QuestionSet, "validation">) {
   "Each set must contain exactly 1 Easy, 2 Medium and 2 Hard questions.");
   add("OPTION_SHAPE", set.questions.every((q) => q.options.length === set.optionCount && new Set(q.options).size === set.optionCount), "Every question must expose the profile-specific number of unique options.");
   add("ANSWER_INDEX", set.questions.every((q) => q.options[q.correctIndex] === q.answer), "Every correct index must point to the canonical answer.");
-  add("NO_DECIMAL_PERCENT", set.questions.every((q) => !/\\d+\\.\\d+%/u.test(q.stem + " " + q.answer)), "Learner-facing percentage answers must not contain decimals.");
+  add("NO_DECIMAL_PERCENT", set.questions.every((q) => !/\d+\.\d+%/u.test(q.stem + " " + q.answer)), "Learner-facing percentage answers must not contain decimals.");
   add("NO_FORCED_SHORTCUT_TRAP", set.questions.every((q) => !(q.explanation as any).shortcut && !(q.explanation as any).trap), "V2 explanations must not contain forced shortcut/trap boilerplate.");
   add("HARD_MULTI_STEP", set.questions.filter((q) => q.difficulty === "Hard").every((q) => q.explanation.steps.length >= 3), "Hard questions must keep multi-step explanations.");
   add("LIFECYCLE_LOCK", !set.traceability.questionStudioDiscoverable && set.traceability.questionBankStatus === "NOT_STORED" && !set.traceability.questionBankWritable && set.traceability.testEligibility === "INELIGIBLE" && !set.traceability.testEligible && !set.traceability.mockTestEligible && !set.traceability.publiclyPublishable && !set.traceability.automaticStudentPublication && !set.traceability.productionReleaseAuthorized, "DI-004 V2 must remain review-only before approval.");
