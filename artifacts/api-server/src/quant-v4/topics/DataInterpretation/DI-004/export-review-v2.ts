@@ -10,11 +10,11 @@ function lineDataTable(stimulus: Di004V2Stimulus) {
     `| Period | ${labelA} | ${labelB} |`,
     "| --- | ---: | ---: |",
     ...stimulus.points.map((point) => `| ${point.period} | ${point.seriesA} | ${point.seriesB} |`),
-  ].join("\\n");
+  ].join("\n");
 }
 
 function renderProfile(profile: "SSC_CGL_TIER_I" | "BANKING_PRELIMS") {
-  const parts: string[] = [`# DI-004 V2 Review — ${profile}\\n`];
+  const parts: string[] = [`# DI-004 V2 Review — ${profile}\n`];
 
   for (const descriptor of DI004_V2_REVIEW_QLS) {
     const source = generateDi004V2ReviewQuestion({
@@ -59,7 +59,7 @@ function renderProfile(profile: "SSC_CGL_TIER_I" | "BANKING_PRELIMS") {
     parts.push("---", "");
   }
 
-  return parts.join("\\n");
+  return parts.join("\n");
 }
 
 export function renderDi004V2ReviewMarkdown() {
@@ -73,7 +73,7 @@ export function renderDi004V2ReviewMarkdown() {
     renderProfile("SSC_CGL_TIER_I"),
     "",
     renderProfile("BANKING_PRELIMS"),
-  ].join("\\n");
+  ].join("\n");
 }
 
 const outputPath = process.argv[2];
