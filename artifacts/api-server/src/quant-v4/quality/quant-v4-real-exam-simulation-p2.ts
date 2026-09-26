@@ -25,6 +25,9 @@ import {
   hasQuestionSpecificEvidence,
   semanticExplanationSignature,
 } from "./semantic-explanation-quality";
+import {
+  auditNovelQuestionCapability,
+} from "./novel-question-capability-p4";
 
 export const QUANT_V4_REAL_EXAM_SIMULATION_AUTHORITY =
   "QUANT-V4-REAL-EXAM-SIMULATION-AUDIT-P2" as const;
@@ -353,6 +356,7 @@ export interface QuantV4RealExamAuditSummary {
   readonly averageStemWords: number;
   readonly averageExplanationWords: number;
   readonly diSetCount: number;
+  readonly novelQuestionCapability: ReturnType<typeof auditNovelQuestionCapability>;
   readonly readiness: SimulationReadiness;
   readonly blockers: readonly string[];
 }
@@ -1083,6 +1087,19 @@ export function summarizeQuantV4RealExamSections(
   const releaseIneligibleCount = runtimeQuestions.filter((question) => !question.testEligible).length;
   const publiclyLockedCount = runtimeQuestions.filter((question) => !question.publiclyPublishable).length;
   const stimulusIds = new Set(runtimeQuestions.map((question) => question.stimulusId).filter(Boolean));
+  const novelQuestionCapability = auditNovelQuestionCapability(
+    runtimeQuestions.map((question, index) => ({
+      id: `${question.examId}:${question.sectionIndex}:${question.ordinal}:${index}`,
+      packageId: question.packageId,
+      canonicalProblemId: question.canonicalProblemId ?? null,
+      patternId: question.patternId ?? null,
+      exactStem: question.text,
+      structuralSignature: question.normalizedStemSignature,
+      mathematicalStateSignature: question.mathematicalStateSignature ?? null,
+      parameterStateSignature: question.parameterStateSignature ?? null,
+      seedGroup: String(question.sectionIndex),
+    })),
+  );
 
   const blockers: string[] = [];
   if (profile.centralProfileGap) blockers.push("CENTRAL_EXAM_PROFILE_MISSING");
@@ -1096,6 +1113,7 @@ export function summarizeQuantV4RealExamSections(
   const semanticExplanationDuplicateRate = duplicateRate(runtimeQuestions.map((question) => question.semanticExplanationSignature));
   if (semanticExplanationDuplicateRate > 0.2) blockers.push("EXPLANATION_REPETITION_ABOVE_20_PERCENT");
   if (releaseIneligibleCount) blockers.push("TEST_INELIGIBLE_RUNTIME_CONTENT_PRESENT");
+  if (novelQuestionCapability.blockers.length) blockers.push("NOVEL_QUESTION_CAPABILITY_BLOCKERS_PRESENT");
   if (profile.blueprintEvidence !== "STRUCTURAL_BASELINE") blockers.push("PYQ_FREQUENCY_WEIGHTING_PENDING");
 
   return Object.freeze({
@@ -1122,6 +1140,7 @@ export function summarizeQuantV4RealExamSections(
     averageStemWords: average(runtimeQuestions.map((question) => question.stemWordCount)),
     averageExplanationWords: average(runtimeQuestions.map((question) => question.explanationWordCount)),
     diSetCount: stimulusIds.size,
+    novelQuestionCapability,
     readiness: blockers.length ? "EXAM_SIMULATION_NOT_READY" : "EXAM_SIMULATION_READY_CANDIDATE",
     blockers: Object.freeze([...new Set(blockers)]),
   });
