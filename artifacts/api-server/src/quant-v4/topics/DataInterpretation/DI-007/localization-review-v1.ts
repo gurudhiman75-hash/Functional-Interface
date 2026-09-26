@@ -258,6 +258,36 @@ function averageMeasure(stimulus: Di007V2Stimulus, locale: Di007LocalizationLoca
   }
 }
 
+function valuePhrase(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocale, series: "A" | "B") {
+  const isHi = hi(locale);
+  switch (stimulus.contextId) {
+    case "BANK_BRANCH_APPLICATIONS":
+      return isHi
+        ? (series === "A" ? "प्राप्त आवेदनों की संख्या" : "स्वीकृत आवेदनों की संख्या")
+        : (series === "A" ? "ਪ੍ਰਾਪਤ ਅਰਜ਼ੀਆਂ ਦੀ ਗਿਣਤੀ" : "ਮਨਜ਼ੂਰ ਅਰਜ਼ੀਆਂ ਦੀ ਗਿਣਤੀ");
+    case "INSURANCE_POLICIES":
+      return isHi
+        ? (series === "A" ? "नई पॉलिसियों की संख्या" : "नवीनीकृत पॉलिसियों की संख्या")
+        : (series === "A" ? "ਨਵੀਆਂ ਪਾਲਿਸੀਆਂ ਦੀ ਗਿਣਤੀ" : "ਨਵੀਕਰਿਤ ਪਾਲਿਸੀਆਂ ਦੀ ਗਿਣਤੀ");
+    case "FACTORY_OUTPUT":
+      return isHi
+        ? (series === "A" ? "लाइन 1 का उत्पादन" : "लाइन 2 का उत्पादन")
+        : (series === "A" ? "ਲਾਈਨ 1 ਦਾ ਉਤਪਾਦਨ" : "ਲਾਈਨ 2 ਦਾ ਉਤਪਾਦਨ");
+    case "COURSE_ENROLMENT":
+      return isHi
+        ? (series === "A" ? "समूह 1 का नामांकन" : "समूह 2 का नामांकन")
+        : (series === "A" ? "ਸਮੂਹ 1 ਦਾ ਦਾਖ਼ਲਾ" : "ਸਮੂਹ 2 ਦਾ ਦਾਖ਼ਲਾ");
+    case "ONLINE_ORDERS":
+      return isHi
+        ? (series === "A" ? "माध्यम 1 के ऑर्डरों की संख्या" : "माध्यम 2 के ऑर्डरों की संख्या")
+        : (series === "A" ? "ਮਾਧਿਅਮ 1 ਦੇ ਆਰਡਰਾਂ ਦੀ ਗਿਣਤੀ" : "ਮਾਧਿਅਮ 2 ਦੇ ਆਰਡਰਾਂ ਦੀ ਗਿਣਤੀ");
+    case "BOOK_ISSUES":
+      return isHi
+        ? (series === "A" ? "अनुभाग 1 से जारी पुस्तकों की संख्या" : "अनुभाग 2 से जारी पुस्तकों की संख्या")
+        : (series === "A" ? "ਭਾਗ 1 ਤੋਂ ਜਾਰੀ ਕਿਤਾਬਾਂ ਦੀ ਗਿਣਤੀ" : "ਭਾਗ 2 ਤੋਂ ਜਾਰੀ ਕਿਤਾਬਾਂ ਦੀ ਗਿਣਤੀ");
+  }
+}
+
 function aggregateText(stimulus: Di007V2Stimulus, locale: Di007LocalizationLocale) {
   const c = stimulus.aggregateCondition;
   const l = ctx(stimulus, locale);
@@ -297,8 +327,8 @@ export function localizeDi007Stimulus(stimulus: Di007V2Stimulus, locale: Di007Lo
     ...stimulus,
     title: l.title,
     instruction: hi(locale)
-      ? `तालिका का अध्ययन कीजिए और प्रश्नों के उत्तर दीजिए। ${l.seriesBLabel} के अंतर्गत एक मान नहीं दिया गया है। ${condition}`
-      : `ਸਾਰਣੀ ਦਾ ਅਧਿਐਨ ਕਰੋ ਅਤੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਉੱਤਰ ਦਿਓ। ${l.seriesBLabel} ਹੇਠਾਂ ਇੱਕ ਮੁੱਲ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ। ${condition}`,
+      ? `तालिका का अध्ययन कीजिए और प्रश्नों के उत्तर दीजिए। दूसरे स्तंभ में एक मान नहीं दिया गया है। ${condition}`
+      : `ਸਾਰਣੀ ਦਾ ਅਧਿਐਨ ਕਰੋ ਅਤੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਉੱਤਰ ਦਿਓ। ਦੂਜੇ ਕਾਲਮ ਵਿੱਚ ਇੱਕ ਮੁੱਲ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ। ${condition}`,
     rowLabel: l.rowLabel,
     seriesALabel: l.seriesALabel,
     seriesBLabel: l.seriesBLabel,
@@ -315,13 +345,15 @@ function stem(question: Di007V2Question, stimulus: Di007V2Stimulus, locale: Di00
   const isHi = hi(locale);
   const v = question.stemVariant;
   const r = (index: number) => row(stimulus, locale, index);
+  const aValue = valuePhrase(stimulus, locale, "A");
+  const bValue = valuePhrase(stimulus, locale, "B");
   const e = question.evidence;
 
   switch (question.kind) {
     case "VISIBLE_ROW_COMBINED_TOTAL": {
       const name = r(Number(e.visibleIndex));
-      const H = [`${name} के लिए ${l.seriesALabel} और ${l.seriesBLabel} का संयुक्त मान कितना है?`, `${name} की दोनों दिखाई गई तालिका प्रविष्टियों का योग ज्ञात कीजिए।`, `${name} के ${l.seriesALabel} और ${l.seriesBLabel} मान जोड़िए।`];
-      const P = [`${name} ਲਈ ${l.seriesALabel} ਅਤੇ ${l.seriesBLabel} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${name} ਦੀਆਂ ਦੋਵੇਂ ਦਿਖਾਈ ਗਈਆਂ ਸਾਰਣੀ ਦਰਜਾਂ ਦਾ ਜੋੜ ਕੱਢੋ।`, `${name} ਦੇ ${l.seriesALabel} ਅਤੇ ${l.seriesBLabel} ਮੁੱਲ ਜੋੜੋ।`];
+      const H = [`${name} के लिए ${aValue} और ${bValue} का योग कितना है?`, `${name} की दोनों दिखाई गई तालिका प्रविष्टियों का योग ज्ञात कीजिए।`, `${name} के लिए ${aValue} और ${bValue} जोड़िए।`];
+      const P = [`${name} ਲਈ ${aValue} ਅਤੇ ${bValue} ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੈ?`, `${name} ਦੀਆਂ ਦੋਵੇਂ ਦਿਖਾਈ ਗਈਆਂ ਸਾਰਣੀ ਦਰਜਾਂ ਦਾ ਜੋੜ ਕੱਢੋ।`, `${name} ਲਈ ${aValue} ਅਤੇ ${bValue} ਜੋੜੋ।`];
       return (isHi ? H : P)[v]!;
     }
     case "VISIBLE_ROW_DIFFERENCE": {
@@ -344,8 +376,8 @@ function stem(question: Di007V2Question, stimulus: Di007V2Stimulus, locale: Di00
     }
     case "MISSING_TO_PAIRED_RATIO": {
       const name = r(stimulus.hiddenIndex);
-      const H = [`${name} के लिए ${l.seriesBMeasure} और ${l.seriesAMeasure} का अनुपात क्या है?`, `${name} के लिए ${l.seriesBLabel} : ${l.seriesALabel} का सरल अनुपात ज्ञात कीजिए।`, `लुप्त मान ज्ञात करने के बाद ${name} के लिए ${l.seriesBLabel} : ${l.seriesALabel} का अनुपात ज्ञात कीजिए।`];
-      const P = [`${name} ਲਈ ${l.seriesBMeasure} ਅਤੇ ${l.seriesAMeasure} ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `${name} ਲਈ ${l.seriesBLabel} : ${l.seriesALabel} ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੱਢੋ।`, `ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ${name} ਲਈ ${l.seriesBLabel} : ${l.seriesALabel} ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।`];
+      const H = [`${name} के लिए ${bValue} और ${aValue} का अनुपात क्या है?`, `${name} के लिए ${bValue} : ${aValue} का सरल अनुपात ज्ञात कीजिए।`, `लुप्त मान ज्ञात करने के बाद ${name} के लिए ${bValue} : ${aValue} का अनुपात ज्ञात कीजिए।`];
+      const P = [`${name} ਲਈ ${bValue} ਅਤੇ ${aValue} ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `${name} ਲਈ ${bValue} : ${aValue} ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੱਢੋ।`, `ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ${name} ਲਈ ${bValue} : ${aValue} ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।`];
       return (isHi ? H : P)[v]!;
     }
     case "B_TOTAL_AS_PERCENT_OF_A_TOTAL": {
@@ -356,8 +388,9 @@ function stem(question: Di007V2Question, stimulus: Di007V2Stimulus, locale: Di00
     }
     case "MISSING_SHARE_OF_B_TOTAL": {
       const name = r(stimulus.hiddenIndex);
-      const H = [`${name} का ${l.seriesBLabel} मान, पाँचों पंक्तियों के ${l.seriesBLabel} कुल का कितने प्रतिशत है?`, `पाँचों पंक्तियों के ${l.seriesBLabel} कुल में ${name} की हिस्सेदारी कितने प्रतिशत है?`, `${name} का लुप्त मान ज्ञात करने के बाद बताइए कि वह ${l.seriesBLabel} के कुल का कितने प्रतिशत है।`];
-      const P = [`${name} ਦਾ ${l.seriesBLabel} ਮੁੱਲ, ਪੰਜਾਂ ਕਤਾਰਾਂ ਦੇ ${l.seriesBLabel} ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਪੰਜਾਂ ਕਤਾਰਾਂ ਦੇ ${l.seriesBLabel} ਕੁੱਲ ਵਿੱਚ ${name} ਦਾ ਹਿੱਸਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${name} ਦਾ ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ਦੱਸੋ ਕਿ ਉਹ ${l.seriesBLabel} ਦੇ ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।`];
+      const bTotalName = totalMeasure(stimulus, locale, "B");
+      const H = [`${name} की ${bValue}, ${bTotalName} का कितने प्रतिशत है?`, `${bTotalName} में ${name} की हिस्सेदारी कितने प्रतिशत है?`, `${name} का लुप्त मान ज्ञात करने के बाद बताइए कि वह ${bTotalName} का कितने प्रतिशत है।`];
+      const P = [`${name} ਦੀ ${bValue}, ${bTotalName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${bTotalName} ਵਿੱਚ ${name} ਦਾ ਹਿੱਸਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${name} ਦਾ ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ਦੱਸੋ ਕਿ ਉਹ ${bTotalName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।`];
       return (isHi ? H : P)[v]!;
     }
     case "VISIBLE_TWO_ROW_B_TOTAL": {
@@ -368,22 +401,23 @@ function stem(question: Di007V2Question, stimulus: Di007V2Stimulus, locale: Di00
     }
     case "MISSING_AS_PERCENT_OF_PAIRED_A": {
       const name = r(stimulus.hiddenIndex);
-      const H = [`${name} के लिए ${l.seriesBLabel} मान, ${l.seriesALabel} मान का कितने प्रतिशत है?`, `${name} का लुप्त मान ज्ञात करने के बाद उसे ${l.seriesALabel} मान के प्रतिशत के रूप में व्यक्त कीजिए।`, `${name} के लिए ${l.seriesBLabel}, ${l.seriesALabel} का कितने प्रतिशत है?`];
-      const P = [`${name} ਲਈ ${l.seriesBLabel} ਮੁੱਲ, ${l.seriesALabel} ਮੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${name} ਦਾ ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ਉਸ ਨੂੰ ${l.seriesALabel} ਮੁੱਲ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।`, `${name} ਲਈ ${l.seriesBLabel}, ${l.seriesALabel} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`];
+      const H = [`${name} के लिए ${bValue}, ${aValue} का कितने प्रतिशत है?`, `${name} का लुप्त मान ज्ञात करने के बाद उसे ${aValue} के प्रतिशत के रूप में व्यक्त कीजिए।`, `${name} के लिए ${bValue}, ${aValue} का कितने प्रतिशत है?`];
+      const P = [`${name} ਲਈ ${bValue}, ${aValue} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${name} ਦਾ ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ਉਸ ਨੂੰ ${aValue} ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।`, `${name} ਲਈ ${bValue}, ${aValue} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`];
       return (isHi ? H : P)[v]!;
     }
     case "COMBINED_HIDDEN_VISIBLE_SHARE_OF_B_TOTAL": {
       const hrow = r(stimulus.hiddenIndex), other = r(Number(e.visibleIndex));
-      const H = [`${hrow} और ${other} के ${l.seriesBLabel} मान मिलकर पाँचों पंक्तियों के ${l.seriesBLabel} कुल का कितने प्रतिशत हैं?`, `पाँचों पंक्तियों के ${l.seriesBLabel} कुल में ${hrow} और ${other} की संयुक्त हिस्सेदारी कितने प्रतिशत है?`, `लुप्त मान ज्ञात करने के बाद ${hrow} और ${other} की संयुक्त ${l.seriesBLabel} हिस्सेदारी ज्ञात कीजिए।`];
-      const P = [`${hrow} ਅਤੇ ${other} ਦੇ ${l.seriesBLabel} ਮੁੱਲ ਮਿਲ ਕੇ ਪੰਜਾਂ ਕਤਾਰਾਂ ਦੇ ${l.seriesBLabel} ਕੁੱਲ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹਨ?`, `ਪੰਜਾਂ ਕਤਾਰਾਂ ਦੇ ${l.seriesBLabel} ਕੁੱਲ ਵਿੱਚ ${hrow} ਅਤੇ ${other} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਹਿੱਸਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ${hrow} ਅਤੇ ${other} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ${l.seriesBLabel} ਹਿੱਸਾ ਕੱਢੋ।`];
+      const bTotalName = totalMeasure(stimulus, locale, "B");
+      const H = [`${hrow} और ${other} के ${bValue} मिलकर ${bTotalName} का कितने प्रतिशत हैं?`, `${bTotalName} में ${hrow} और ${other} की संयुक्त हिस्सेदारी कितने प्रतिशत है?`, `लुप्त मान ज्ञात करने के बाद ${hrow} और ${other} की संयुक्त हिस्सेदारी ${bTotalName} के प्रतिशत के रूप में ज्ञात कीजिए।`];
+      const P = [`${hrow} ਅਤੇ ${other} ਦੀ ${bValue} ਮਿਲ ਕੇ ${bTotalName} ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${bTotalName} ਵਿੱਚ ${hrow} ਅਤੇ ${other} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਹਿੱਸਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `ਗੁੰਮ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਬਾਅਦ ${hrow} ਅਤੇ ${other} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਹਿੱਸਾ ${bTotalName} ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਕੱਢੋ।`];
       return (isHi ? H : P)[v]!;
     }
     case "HIDDEN_VS_VISIBLE_B_PERCENT_EXCESS": {
       const hrow = r(stimulus.hiddenIndex), other = r(Number(e.visibleIndex));
       const hidden = missingValue(stimulus), visible = stimulus.points[Number(e.visibleIndex)]!.seriesB;
       const larger = hidden >= visible ? hrow : other, smaller = hidden >= visible ? other : hrow;
-      const H = [`${larger} का ${l.seriesBLabel} मान, ${smaller} से कितने प्रतिशत अधिक है?`, `${hrow} और ${other} में अधिक ${l.seriesBLabel} मान, कम मान से कितने प्रतिशत अधिक है?`, `${hrow} और ${other} की तुलना कीजिए। अधिक ${l.seriesBLabel} मान, कम मान से कितने प्रतिशत अधिक है?`];
-      const P = [`${larger} ਦਾ ${l.seriesBLabel} ਮੁੱਲ, ${smaller} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${hrow} ਅਤੇ ${other} ਵਿੱਚ ਵੱਡਾ ${l.seriesBLabel} ਮੁੱਲ, ਛੋਟੇ ਮੁੱਲ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${hrow} ਅਤੇ ${other} ਦੀ ਤੁਲਨਾ ਕਰੋ। ਵੱਡਾ ${l.seriesBLabel} ਮੁੱਲ, ਛੋਟੇ ਮੁੱਲ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`];
+      const H = [`${larger} की ${bValue}, ${smaller} की ${bValue} से कितने प्रतिशत अधिक है?`, `${hrow} और ${other} में बड़ी ${bValue}, छोटी ${bValue} से कितने प्रतिशत अधिक है?`, `${hrow} और ${other} की तुलना कीजिए। बड़ी ${bValue}, छोटी ${bValue} से कितने प्रतिशत अधिक है?`];
+      const P = [`${larger} ਦੀ ${bValue}, ${smaller} ਦੀ ${bValue} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${hrow} ਅਤੇ ${other} ਵਿੱਚ ਵੱਡੀ ${bValue}, ਛੋਟੀ ${bValue} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${hrow} ਅਤੇ ${other} ਦੀ ਤੁਲਨਾ ਕਰੋ। ਵੱਡੀ ${bValue}, ਛੋਟੀ ${bValue} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`];
       return (isHi ? H : P)[v]!;
     }
     case "HIDDEN_ROW_TO_VISIBLE_ROW_TOTAL_RATIO": {
