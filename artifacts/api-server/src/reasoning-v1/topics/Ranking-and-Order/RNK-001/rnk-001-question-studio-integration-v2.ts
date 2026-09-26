@@ -6,6 +6,7 @@ import type {
 } from "../../../../question-studio/engine-types";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import { RNK_001_CHAPTER_AUTHORITY } from "./manifest";
+import { declutterRnkExplanation } from "./rnk-001-explanation-declutter-v1";
 import {
   RNK_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   listRnk001QuestionStudioQlIds,
@@ -186,7 +187,45 @@ export const RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2: QuestionStudioPackageDefini
   },
 };
 
+function learnerStem(question: Record<string, any>): string {
+  const number = qlNumber(String(question.qlId));
+  if (number < 36 || number > 41) return String(question.stem ?? "");
+
+  const source = (question.source ?? {}) as Record<string, any>;
+  const instruction = number <= 38 && typeof source.instruction === "string"
+    ? source.instruction.trim()
+    : "";
+  const clues = Array.isArray(source.clues)
+    ? source.clues.map(String).map((clue) => clue.trim()).filter(Boolean)
+    : [];
+  const query = String(question.stem ?? "").trim();
+
+  if (clues.length === 0) {
+    throw new Error(`${question.qlId} learner surface is missing its solve-relevant comparison statements`);
+  }
+
+  return [
+    instruction,
+    clues.map((clue, index) => `${index + 1}. ${clue}`).join("\n"),
+    query,
+  ].filter(Boolean).join("\n\n");
+}
+
+function learnerExplanation(question: Record<string, any>): string {
+  const number = qlNumber(String(question.qlId));
+  if (number < 36 || number > 41) return String(question.explanation ?? "");
+  const source = (question.source ?? {}) as Record<string, any>;
+  return declutterRnkExplanation({
+    explanation: source.explanation ?? question.explanation,
+    qlId: String(question.qlId),
+    locale: String(question.locale ?? "en-IN"),
+    answer: String(question.answer ?? ""),
+  });
+}
+
 function toQuestionPayload(question: Record<string, any>) {
+  const visibleStem = learnerStem(question);
+  const visibleExplanation = learnerExplanation(question);
   return {
     ...lifecycle,
     lifecycleStage: lifecycle.stage,
@@ -202,15 +241,15 @@ function toQuestionPayload(question: Record<string, any>) {
     subtopic: "Ranking & Order",
     language: question.language,
     locale: question.locale,
-    stem: question.stem,
-    text: question.stem,
+    stem: visibleStem,
+    text: visibleStem,
     options: [...question.options],
     optionDetails: question.optionDetails,
     correctIndex: question.correctIndex,
     correct: question.correctIndex,
     answer: question.answer,
     canonicalAnswer: question.answer,
-    explanation: question.explanation,
+    explanation: visibleExplanation,
     difficulty: question.difficultyBand,
     difficultyLabel: question.difficultyBand,
     examProfile: question.examProfileId,
