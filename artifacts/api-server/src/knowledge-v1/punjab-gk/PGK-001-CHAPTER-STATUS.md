@@ -14,7 +14,7 @@
 - Question Bank storage: NOT ENABLED
 - Test / mock-test eligibility: NOT ENABLED
 - Public / automatic student publication: NOT ENABLED
-- Localisation: REVIEW_CANDIDATE — CP001-CP025 merged; CP026 multilingual review candidate implemented
+- Localisation: COMPLETE — CP001-CP026 Hindi/Punjabi localisation approved and merged
 
 ## Final closure audit
 
@@ -37,7 +37,7 @@ Registration properties:
 - runtime mode: `review-only`;
 - all 26 frozen CPs available through CP selectors;
 - all 182 permanent QLs available through QL selectors;
-- English only until localisation is separately approved;
+- English remains the currently registered Question Studio runtime corpus; CP001-CP026 Hindi/Punjabi localisation is approved and merged as review-only overlays;
 - Easy / Medium / Hard / Mixed review generation supported;
 - deterministic selection without replacement;
 - 1,092 frozen questions in the registered English corpus;
@@ -57,4 +57,4 @@ Review-only registration does **not** authorize canonical Question Bank persiste
 
 ## Next boundary
 
-Localisation and any move beyond review-only Question Studio generation are separate gates. Do not enable Question Bank writes, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release or production release without explicit approval.
+Hindi/Punjabi localisation is complete through CP026. Multilingual runtime registration and any move beyond review-only Question Studio generation remain separate gates. Do not enable Question Bank writes, BANK_ONLY lifecycle, tests/mocks, public publication, automatic student release or production release without explicit approval.
