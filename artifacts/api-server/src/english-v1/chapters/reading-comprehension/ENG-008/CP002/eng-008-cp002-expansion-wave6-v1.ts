@@ -13,7 +13,9 @@ Form design should also consider sequence. Basic eligibility questions can come 
 
 Plain language matters for the same reason. A short question that uses an unfamiliar technical term can still create confusion.
 
-Good forms reduce unnecessary effort for both applicants and staff. When irrelevant fields disappear and instructions become clearer, fewer corrections are needed later. Simplicity is therefore not about making the process less serious; it is about making every requested piece of information earn its place.`,
+Good forms reduce unnecessary effort for both applicants and staff. When irrelevant fields disappear and instructions become clearer, fewer corrections are needed later. Simplicity is therefore not about making the process less serious; it is about making every requested piece of information earn its place.
+
+ Digital forms create the same problem in a different way. Because adding a field costs almost nothing technically, organisations may keep collecting information long after the original reason has disappeared. Periodic review is therefore useful: departments can ask which fields were actually used in decisions, which caused repeated confusion and which can be removed or made optional. This also improves privacy because information that is never needed does not have to be stored.`,
  questions:[
  q("E16-Q1","RC2-F01","easy","What question should designers ask about each form field?","Whether it is necessary for the decision, contact or legal requirement",["Whether it makes the form longer","Whether every old form used it","Whether it looks official"],"The passage lists these reasons directly.","necessary for deciding the application"),
  q("E16-Q2","RC2-F02","medium","What can be inferred about long forms?","Some length may come from information that is no longer necessary",["Every long form is illegal","Long forms are always more accurate","Applicants prefer more fields"],"The author says forms can accumulate fields over time without rechecking need.","grow over time"),
@@ -39,7 +41,9 @@ Testing matters because designers are often familiar with the system. A symbol t
 
 Warnings should also be reviewed after incidents or near misses. If people repeatedly misunderstand the same sign, the problem may be in the communication rather than in the user's attention.
 
-Good safety design does not choose between symbols and words. It uses each for what it does best: symbols attract attention quickly, while short text gives the meaning needed for safe action.`,
+Good safety design does not choose between symbols and words. It uses each for what it does best: symbols attract attention quickly, while short text gives the meaning needed for safe action.
+
+ Accessibility should be part of the same review. A warning that depends only on colour may fail for some users, while a small label placed too high may be difficult to read. Combining shape, contrast, short text and placement reduces dependence on any one signal. The aim is not to make every sign complex. It is to make the essential warning understandable under realistic conditions, including poor light, distance or unfamiliarity with the site.`,
  questions:[
  q("E17-Q1","RC2-F01","easy","What limitation can a warning symbol have?","It may not explain the exact danger or required action",["It is always too large","It cannot attract attention","It removes legal duties"],"The opening paragraph states this directly.","may not tell every user"),
  q("E17-Q2","RC2-F02","medium","Why can the same symbol be misunderstood in different settings?","People may recognise danger without knowing which hazard applies",["Symbols change colour automatically","Visitors never read signs","Engineers remove explanations"],"The passage lists different possible hazards under similar warning cues.","heat, electricity, chemicals"),
@@ -63,7 +67,9 @@ Staffing was adjusted so the first counter opened earlier while another shift en
 
 The centre also monitored whether afternoon queues became longer because of the shift. They did not, although one late-afternoon period became more dependent on fewer staff.
 
-Officials concluded that earlier opening improved convenience for some commuters without greatly increasing total workload. They plan to test whether the pattern continues outside the busy application season before making the schedule permanent.`,
+Officials concluded that earlier opening improved convenience for some commuters without greatly increasing total workload. They plan to test whether the pattern continues outside the busy application season before making the schedule permanent.
+
+ The district also asked early visitors whether they would still use the service if the centre returned to its old hours. Most said they would, but several commuters expected to take leave from work or send another family member instead. Officials therefore treated the early opening as an access improvement rather than a pure demand increase. They will also compare staff fatigue and service quality before deciding whether the schedule is sustainable across a full year.`,
  questions:[
  q("R12-Q1","RC2-F01","easy","Who used the earlier opening hours most?","People making short visits before work",["Only school children","Tourists","Evening shift workers"],"The report says early users often submitted short applications or collected documents.","before work"),
  q("R12-Q2","RC2-F02","medium","What can be inferred from the small rise in total daily visits?","Many people changed visit time rather than creating new demand",["The centre lost users","Every early visitor was new","Afternoon service stopped"],"The report states that many visits were shifted.","shifting the time of an existing visit"),
@@ -87,7 +93,9 @@ Maintenance teams cleaned the markings more often and added reflective strips wh
 
 The town did not measure whether total flooding decreased, because the markers were only an information tool. Their purpose was to help people interpret conditions that already existed.
 
-Officials concluded that simple depth markers improved situational awareness but required maintenance and clear supporting rules. The town will compare different marker designs before expanding the system to rural roads.`,
+Officials concluded that simple depth markers improved situational awareness but required maintenance and clear supporting rules. The town will compare different marker designs before expanding the system to rural roads.
+
+ Traffic police also compared the markers with temporary barricades used during the deepest flooding. The two tools served different purposes: the markers communicated changing depth, while barricades indicated that a road should not be entered at all. Officers said the distinction had to remain clear so that drivers did not interpret a visible marker as permission to proceed. Future designs may include a colour band that becomes visible only above a clearly marked danger threshold.`,
  questions:[
  q("R13-Q1","RC2-F01","easy","What was the purpose of the water-level markers?","To help drivers judge flood depth",["To reduce rainfall","To repair underpasses","To replace police"],"The opening paragraph states the purpose directly.","judge whether water was shallow or potentially dangerous"),
  q("R13-Q2","RC2-F02","medium","What can be inferred from the visibility problems?","An information tool is useful only if people can actually see and interpret it",["Markers reduce flooding","Night driving is always unsafe","Police instructions are unnecessary"],"Mud and poor lighting reduced the usefulness of the markers.","poorly lit at night"),
