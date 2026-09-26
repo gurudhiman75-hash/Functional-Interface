@@ -1,6 +1,6 @@
 # ENG-008 — Reading Comprehension — Blueprint V2
 
-Status: `IMPLEMENTATION_ACTIVE__EXAM_PROFILE_SEPARATED__REVIEW_ONLY`
+Status: `IMPLEMENTATION_COMPLETE__FROZEN__REVIEW_ONLY`
 
 ## 1. Ownership
 
@@ -184,9 +184,13 @@ Set profiles include:
 
 A set may contain 5/6/8/10 questions only when the target exam profile/source evidence supports that structure. The engine must not hardcode one universal question count.
 
-### CP007+ — Gap audit only if justified
+### CP007 — Banking Prelims Contextual Word-fit / Filler Gap Closure
 
-No arbitrary checkpoint count. Additional CPs require a demonstrated exam-relevant gap.
+Gap-audit checkpoint adding one BP-F10 contextual word-fit authority to each approved Banking Prelims passage. This closes the evidence-backed RC-internal filler gap and enables genuine 10-question Banking Prelims linked sets.
+
+### CP008+ — Gap audit only if newly justified
+
+No arbitrary checkpoint count. The current freeze audit found no remaining gap after CP007. Additional CPs require new exam evidence or a separately demonstrated exam-relevant gap.
 
 ## 5. Difficulty contract
 
