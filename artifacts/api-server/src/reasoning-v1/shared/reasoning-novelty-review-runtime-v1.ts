@@ -88,6 +88,12 @@ async function oneCandidate(
         seed,
       }) as unknown as Record<string, unknown>;
     }
+    case "CAL-001-IMPLICIT-RANGE-FREQUENCY": {
+      const module = await import(
+        "../topics/Calendar/CAL-001/cal-001-controlled-novelty-discovery-v1"
+      );
+      return module.generateCalControlledNovelImplicitRangeFrequencyCandidateV1(seed) as unknown as Record<string, unknown>;
+    }
     case "DIR-001-GRAPH-RELATIVE-PATH": {
       const module = await import(
         "../topics/Direction-Sense/DIR-001/dir-001-controlled-novelty-discovery-v1"

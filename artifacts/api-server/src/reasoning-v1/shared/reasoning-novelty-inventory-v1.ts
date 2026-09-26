@@ -53,10 +53,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Calendar',
     chapterId: 'CAL-001',
-    status: 'DEDICATED_NOVELTY_AUDIT_PENDING',
-    evidence: [],
+    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    evidence: [
+      'A duration-defined calendar span hides the end date, so the learner must derive the boundary before counting a named weekday.',
+      'The lane composes existing CAL-QL-005 date-shift semantics with CAL-QL-035 named-weekday range counting.',
+      'Closed-form frequency, enumerated-range frequency and day-by-day verification must agree exactly.',
+      'CAL-QL-037 remains unallocated and Question Studio novelty mixing remains disabled.',
+    ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Audit cross-operation calendar compositions without artificial arithmetic load.',
+    nextGate: 'Human-review the implicit-range weekday-count surface before chapter-mix activation.',
   },
   {
     topicDirectory: 'Cause-and-Effect',
