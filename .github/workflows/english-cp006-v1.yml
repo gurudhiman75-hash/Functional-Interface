@@ -9,18 +9,20 @@ on:
       - reopened
       - synchronize
     paths:
-      - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/engines/language-v1*.ts
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-001/CP006/**
+      - artifacts/api-server/src/english-v1/**/eng-001-cp006*
+      - artifacts/api-server/src/english-v1/**/ENG-001-CP006*
+      - artifacts/api-server/src/question-studio/engines/*eng001-cp006*
       - artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts
-      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
   push:
     branches:
       - New-main
     paths:
-      - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/engines/language-v1*.ts
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-001/CP006/**
+      - artifacts/api-server/src/english-v1/**/eng-001-cp006*
+      - artifacts/api-server/src/english-v1/**/ENG-001-CP006*
+      - artifacts/api-server/src/question-studio/engines/*eng001-cp006*
       - artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts
-      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
   workflow_dispatch:
 
 permissions:

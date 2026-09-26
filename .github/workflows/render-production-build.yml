@@ -25,9 +25,27 @@ on:
       - pnpm-workspace.yaml
       - artifacts/admin-app/**
       - artifacts/examtree/**
-      - artifacts/api-server/**
+      - artifacts/api-server/package.json
+      - artifacts/api-server/tsconfig*.json
+      - artifacts/api-server/src/app.ts
+      - artifacts/api-server/src/index.ts
+      - artifacts/api-server/src/db-*.ts
+      - artifacts/api-server/src/content-quality/**
+      - artifacts/api-server/src/current-affairs/**
+      - artifacts/api-server/src/domain/**
+      - artifacts/api-server/src/generators/**
+      - artifacts/api-server/src/legacy-percentage-engine/**
+      - artifacts/api-server/src/lib/**
+      - artifacts/api-server/src/middlewares/**
+      - artifacts/api-server/src/notes-studio/**
+      - artifacts/api-server/src/notes-studio-v2/**
+      - artifacts/api-server/src/routes/**
+      - artifacts/api-server/src/server/**
+      - artifacts/api-server/src/services/**
+      - artifacts/api-server/src/types/**
+      - artifacts/api-server/src/utils/**
+      - artifacts/api-server/src/question-studio-review-registry.ts
       - scripts/assemble-hosting.mjs
-      - .github/workflows/render-production-build.yml
   workflow_dispatch:
 
 permissions:
