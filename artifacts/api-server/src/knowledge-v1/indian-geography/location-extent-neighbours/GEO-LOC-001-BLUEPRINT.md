@@ -101,7 +101,10 @@ All implementation is review-only until explicit human approval. Question Studio
 - Blueprint established.
 - CP001 — Astronomical Location, Extent & Size Basics — human-approved and merged.
 - CP002 — Extreme Points, Mainland Shape & Territorial Extent — human-approved and merged.
-- CP003 — Indian Standard Time & Longitude Applications — human-approved.
-- CP004 — Surrounding Seas, Ocean & Maritime Position — human-approved.
-- CP005 — Land Neighbours & Directional Border Relations — human-approved.
+- CP003 — Indian Standard Time & Longitude Applications — human-approved; merge pending final repository build gate.
+- CP004 — Surrounding Seas, Ocean & Maritime Position — human-approved; merge pending final repository build gate.
+- CP005 — Land Neighbours & Directional Border Relations — human-approved; merge pending final repository build gate.
+- CP006 — Maritime Neighbours, Straits & Channels — under review.
+- CP007 — Island Groups & Key Location Facts — under review.
+- CP008 — Reference Lines & State/UT Map Associations — under review.
 - No permanent runtime registration or public publication is authorized.
