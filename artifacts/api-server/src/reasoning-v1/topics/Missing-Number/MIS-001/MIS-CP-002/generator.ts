@@ -304,16 +304,30 @@ function explainGroup(
   const result = group.result;
 
   if (ruleId === 'THREE_INPUT_SUM') return `${inputs[0]} + ${inputs[1]} + ${inputs[2]} = ${result}`;
-  if (ruleId === 'TWO_ADD_ONE_SUBTRACT') return `${left} + ${right} − ${third} = ${result}`;
-  if (ruleId === 'PAIR_PRODUCT_ADJUST_THIRD') {
-    return context.sign === -1
-      ? `(${left} × ${right}) − ${third} = ${result}`
-      : `(${left} × ${right}) + ${third} = ${result}`;
+  if (ruleId === 'TWO_ADD_ONE_SUBTRACT') {
+    const firstStep = left + right;
+    return `${left} + ${right} = ${firstStep}\n${firstStep} − ${third} = ${result}`;
   }
-  if (ruleId === 'PAIR_SUM_TIMES_THIRD') return `(${left} + ${right}) × ${third} = ${result}`;
-  if (ruleId === 'PAIR_DIFFERENCE_TIMES_THIRD') return `(${left} − ${right}) × ${third} = ${result}`;
-  if (ruleId === 'PAIR_PRODUCT_DIVIDE_THIRD') return `(${left} × ${right}) ÷ ${third} = ${result}`;
-  return `(${left} + ${right}) ÷ ${third} = ${result}`;
+  if (ruleId === 'PAIR_PRODUCT_ADJUST_THIRD') {
+    const firstStep = left * right;
+    return context.sign === -1
+      ? `${left} × ${right} = ${firstStep}\n${firstStep} − ${third} = ${result}`
+      : `${left} × ${right} = ${firstStep}\n${firstStep} + ${third} = ${result}`;
+  }
+  if (ruleId === 'PAIR_SUM_TIMES_THIRD') {
+    const firstStep = left + right;
+    return `${left} + ${right} = ${firstStep}\n${firstStep} × ${third} = ${result}`;
+  }
+  if (ruleId === 'PAIR_DIFFERENCE_TIMES_THIRD') {
+    const firstStep = left - right;
+    return `${left} − ${right} = ${firstStep}\n${firstStep} × ${third} = ${result}`;
+  }
+  if (ruleId === 'PAIR_PRODUCT_DIVIDE_THIRD') {
+    const firstStep = left * right;
+    return `${left} × ${right} = ${firstStep}\n${firstStep} ÷ ${third} = ${result}`;
+  }
+  const firstStep = left + right;
+  return `${left} + ${right} = ${firstStep}\n${firstStep} ÷ ${third} = ${result}`;
 }
 
 function deriveDifficulty(rule: MisCp002RuleDefinition, _evidenceCount: number): 'Easy' | 'Medium' {
@@ -392,18 +406,20 @@ export function generateMisCp002Question(
     throw new Error('MIS-CP-002 options must be unique.');
   }
 
-  const evidenceLines = selected.evidence.map((group, index) =>
-    `Row ${index + 1}: ${explainGroup(rule.ruleId, selected.context, group)}`,
-  );
-  const targetLine = `Target row: ${explainGroup(rule.ruleId, selected.context, selected.target)}`;
+  const evidenceLines = selected.evidence.flatMap((group, index) => [
+    index === 0 ? 'Look at Row 1:' : `Check Row ${index + 1} in the same way:`,
+    explainGroup(rule.ruleId, selected.context, group),
+    '',
+  ]);
   const explanation = [
+    'The same rule is used in every row.',
     ruleStatement(rule.ruleId, selected.context),
     '',
     ...evidenceLines,
+    'Now apply the same rule to the row with the question mark:',
+    explainGroup(rule.ruleId, selected.context, selected.target),
     '',
-    targetLine,
-    '',
-    `Therefore, the missing number is ${selected.target.result}.`,
+    `So, ? = ${selected.target.result}.`,
   ].join('\n');
 
   const solverTrace = [
