@@ -94,6 +94,7 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
 
   const pattern = PATTERNS[Math.abs(seed) % PATTERNS.length]!;
   const quarterTurns = Math.floor(Math.abs(seed) / PATTERNS.length) % 4;
+  const scale = 1 + (Math.floor(Math.abs(seed) / (PATTERNS.length * 4)) % 3);
   const turn: Exclude<AdvancedTurn, "NO_TURN" | "ABOUT"> = "LEFT";
 
   const anchor = "P";
@@ -108,19 +109,19 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
     {
       fromEntity: anchor,
       toEntity: startEntity,
-      vector: relationVector(east, pattern.startEast),
+      vector: relationVector(east, pattern.startEast * scale),
     },
     {
       fromEntity: anchor,
       toEntity: referenceEntity,
-      vector: relationVector(north, pattern.referenceNorth),
+      vector: relationVector(north, pattern.referenceNorth * scale),
     },
   ];
 
   const operations: readonly RelativePathOperation[] = [
-    { kind: "MOVE", distance: pattern.firstMove },
+    { kind: "MOVE", distance: pattern.firstMove * scale },
     { kind: "TURN", turn },
-    { kind: "MOVE", distance: pattern.secondMove },
+    { kind: "MOVE", distance: pattern.secondMove * scale },
   ];
 
   const relativePrimary = replayRelative(initialFacing, operations);
@@ -143,10 +144,11 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
   const answerDirection = directionFromVector(answerVector);
   const answerDistance = distanceFromVector(answerVector);
 
-  if (answerDistance !== pattern.distance) {
+  const expectedDistance = pattern.distance * scale;
+  if (answerDistance !== expectedDistance) {
     throw new Error(
       "DIR controlled-novel exact-distance pattern failed: expected " +
-      pattern.distance +
+      expectedDistance +
       ", received " +
       answerDistance +
       ".",
@@ -173,7 +175,7 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
   const stem = [
     statementText(relations[0]!),
     statementText(relations[1]!),
-    `A person starts from ${startEntity}, facing ${DIRECTION_LABELS[initialFacing]}, walks ${pattern.firstMove} metres, ${turnText}, and walks ${pattern.secondMove} metres.`,
+    `A person starts from ${startEntity}, facing ${DIRECTION_LABELS[initialFacing]}, walks ${pattern.firstMove * scale} metres, ${turnText}, and walks ${pattern.secondMove * scale} metres.`,
     `In which direction and at what shortest distance is the final position from ${referenceEntity}?`,
   ].join(" ");
 
