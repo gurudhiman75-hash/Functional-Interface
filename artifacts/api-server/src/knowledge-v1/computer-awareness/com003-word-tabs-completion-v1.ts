@@ -185,7 +185,7 @@ const D: readonly WordTabsDefinition[] = [
   {
     qlId: "COM-003-QL-022", targetFactId: "com003-word-insert-page-break", surfaceMode: "FEATURE_FROM_PURPOSE", examSurfaceFamily: "FUNCTIONAL_APPLICATION", difficulty: "EASY", correctIndex: 3,
     en: { stem: "Which Insert-tab command starts the following content on a new page?", options: ["Section", "Column", "Caption", "Page Break"], canonicalAnswer: "Page Break", explanation: "A Page Break starts the following content on the next page." },
-    hi: { stem: "निम्नलिखित सामग्री को नए पृष्ठ पर शुरू करने वाला Insert टैबटैब कमांड कौन-सा है?", options: ["Section", "स्तंभ", "Caption", "पृष्ठ विराम"], canonicalAnswer: "पृष्ठ विराम", explanation: "पृष्ठ विराम निम्नलिखित सामग्री को अगले पृष्ठ पर शुरू करता है।" },
+    hi: { stem: "निम्नलिखित सामग्री को नए पृष्ठ पर शुरू करने वाला Insert टैबटैब कमांड कौन-सा है?", options: ["Section", "कॉलम", "Caption", "पृष्ठ विराम"], canonicalAnswer: "पृष्ठ विराम", explanation: "पृष्ठ विराम निम्नलिखित सामग्री को अगले पृष्ठ पर शुरू करता है।" },
     pa: { stem: "ਹੇਠ ਲਿਖਿਆ ਸਮੱਗਰੀ ਨੂੰ ਨਵੇਂ ਪੰਨਾ ਉੱਤੇ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?", options: ["Section", "ਕਾਲਮ", "Caption", "ਪੰਨਾ ਵਿਰਾਮ"], canonicalAnswer: "ਪੰਨਾ ਵਿਰਾਮ", explanation: "ਪੰਨਾ ਵਿਰਾਮ ਹੇਠ ਲਿਖਿਆ ਸਮੱਗਰੀ ਨੂੰ ਅਗਲੇ ਪੰਨਾ ਉੱਤੇ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।" },
   },
 
@@ -198,7 +198,7 @@ const D: readonly WordTabsDefinition[] = [
   {
     qlId: "COM-003-QL-023", targetFactId: "com003-word-design-theme-colors", surfaceMode: "FEATURE_FROM_PURPOSE", examSurfaceFamily: "DIRECT_RECALL", difficulty: "EASY", correctIndex: 1,
     en: { stem: "Which Design-tab option changes the coordinated color set used by a theme?", options: ["Effects", "Colors", "Columns", "Indent"], canonicalAnswer: "Colors", explanation: "Theme Colors changes the coordinated set of document colors." },
-    hi: { stem: "थीम द्वारा उपयोग किए गए समन्वित रंग निर्धारित करना को बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?", options: ["Effects", "Colors", "स्तंभ", "Indent"], canonicalAnswer: "Colors", explanation: "थीम Colors दस्तावेज़ रंग के समन्वित निर्धारित करना को बदलता है।" },
+    hi: { stem: "थीम द्वारा उपयोग किए गए समन्वित रंग निर्धारित करना को बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?", options: ["Effects", "Colors", "कॉलम", "Indent"], canonicalAnswer: "Colors", explanation: "थीम Colors दस्तावेज़ रंग के समन्वित निर्धारित करना को बदलता है।" },
     pa: { stem: "ਥੀਮ ਵੱਲੋਂ ਵਰਤੇ ਸਮਨਵਿਤ ਰੰਗ ਨਿਰਧਾਰਤ ਕਰਨਾ ਨੂੰ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?", options: ["Effects", "Colors", "ਕਾਲਮ", "Indent"], canonicalAnswer: "Colors", explanation: "ਥੀਮ Colors ਦਸਤਾਵੇਜ਼ ਰੰਗ ਦੇ ਸਮਨਵਿਤ ਨਿਰਧਾਰਤ ਕਰਨਾ ਨੂੰ ਬਦਲਦਾ ਹੈ।" },
   },
   {
@@ -247,7 +247,7 @@ const D: readonly WordTabsDefinition[] = [
   {
     qlId: "COM-003-QL-024", targetFactId: "com003-word-layout-orientation", surfaceMode: "FEATURE_FROM_PURPOSE", examSurfaceFamily: "FUNCTIONAL_APPLICATION", difficulty: "EASY", correctIndex: 1,
     en: { stem: "Which Layout-tab command changes a page between portrait and landscape?", options: ["Size", "Orientation", "Columns", "Indent"], canonicalAnswer: "Orientation", explanation: "Orientation changes the page direction between portrait and landscape." },
-    hi: { stem: "पृष्ठ को पोर्ट्रेट और लैंडस्केप के बीच बदलने वाला Layout टैबटैब कमांड कौन-सा है?", options: ["आकार", "Orientation", "स्तंभ", "Indent"], canonicalAnswer: "Orientation", explanation: "Orientation पृष्ठ दिशा को पोर्ट्रेट और लैंडस्केप के बीच बदलता है।" },
+    hi: { stem: "पृष्ठ को पोर्ट्रेट और लैंडस्केप के बीच बदलने वाला Layout टैबटैब कमांड कौन-सा है?", options: ["आकार", "Orientation", "कॉलम", "Indent"], canonicalAnswer: "Orientation", explanation: "Orientation पृष्ठ दिशा को पोर्ट्रेट और लैंडस्केप के बीच बदलता है।" },
     pa: { stem: "ਪੰਨਾ ਨੂੰ ਪੋਰਟਰੇਟ ਅਤੇ ਲੈਂਡਸਕੇਪ ਵਿਚਕਾਰ ਬਦਲਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?", options: ["ਆਕਾਰ", "Orientation", "ਕਾਲਮ", "Indent"], canonicalAnswer: "Orientation", explanation: "Orientation ਪੰਨਾ ਦਿਸ਼ਾ ਨੂੰ ਪੋਰਟਰੇਟ ਅਤੇ ਲੈਂਡਸਕੇਪ ਵਿਚਕਾਰ ਬਦਲਦਾ ਹੈ।" },
   },
   {
@@ -259,7 +259,7 @@ const D: readonly WordTabsDefinition[] = [
   {
     qlId: "COM-003-QL-024", targetFactId: "com003-word-layout-columns", surfaceMode: "FEATURE_FROM_PURPOSE", examSurfaceFamily: "FUNCTIONAL_APPLICATION", difficulty: "EASY", correctIndex: 3,
     en: { stem: "Which Layout-tab feature divides text into newspaper-style vertical sections?", options: ["Orientation", "Hyphenation", "Line Numbers", "Columns"], canonicalAnswer: "Columns", explanation: "Columns divides page text into vertical columns, such as a newspaper layout." },
-    hi: { stem: "पाठ को समाचार-पत्र शैली ऊर्ध्वाधर अनुभाग में बाँटने वाला Layout टैबटैब सुविधा कौन-सा है?", options: ["Orientation", "हाइफ़नेशन", "पंक्ति संख्याएँ", "स्तंभ"], canonicalAnswer: "स्तंभ", explanation: "स्तंभ पृष्ठ पाठ को समाचार-पत्र लेआउट जैसी ऊर्ध्वाधर स्तंभ में बाँटता है।" },
+    hi: { stem: "पाठ को समाचार-पत्र शैली ऊर्ध्वाधर अनुभाग में बाँटने वाला Layout टैबटैब सुविधा कौन-सा है?", options: ["Orientation", "हाइफ़नेशन", "पंक्ति संख्याएँ", "कॉलम"], canonicalAnswer: "कॉलम", explanation: "कॉलम पृष्ठ पाठ को समाचार-पत्र लेआउट जैसी ऊर्ध्वाधर कॉलम में बाँटता है।" },
     pa: { stem: "ਲਿਖਤ ਨੂੰ ਅਖ਼ਬਾਰ ਸ਼ੈਲੀ ਲੰਬਕਾਰੀ ਭਾਗ ਵਿੱਚ ਵੰਡਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?", options: ["Orientation", "ਹਾਈਫ਼ਨੇਸ਼ਨ", "ਲਾਈਨ ਅੰਕ", "ਕਾਲਮ"], canonicalAnswer: "ਕਾਲਮ", explanation: "ਕਾਲਮ ਪੰਨਾ ਲਿਖਤ ਨੂੰ ਅਖ਼ਬਾਰ ਲੇਆਉਟ ਵਰਗੀਆਂ ਲੰਬਕਾਰੀ ਕਾਲਮ ਵਿੱਚ ਵੰਡਦਾ ਹੈ।" },
   },
   {
@@ -271,7 +271,7 @@ const D: readonly WordTabsDefinition[] = [
   {
     qlId: "COM-003-QL-024", targetFactId: "com003-word-layout-line-numbers", surfaceMode: "FEATURE_FROM_PURPOSE", examSurfaceFamily: "FUNCTIONAL_APPLICATION", difficulty: "EASY", correctIndex: 1,
     en: { stem: "Which Layout-tab command displays numbers beside lines of text?", options: ["Columns", "Line Numbers", "Breaks", "Size"], canonicalAnswer: "Line Numbers", explanation: "Line Numbers displays numbering beside lines of document text." },
-    hi: { stem: "पाठ की पंक्तियाँ के पास संख्याएँ दिखाने वाला Layout टैबटैब कमांड कौन-सा है?", options: ["स्तंभ", "पंक्ति संख्याएँ", "विराम", "आकार"], canonicalAnswer: "पंक्ति संख्याएँ", explanation: "पंक्ति संख्याएँ दस्तावेज़ पाठ की पंक्तियाँ के पास क्रमांकन दिखाता है।" },
+    hi: { stem: "पाठ की पंक्तियाँ के पास संख्याएँ दिखाने वाला Layout टैबटैब कमांड कौन-सा है?", options: ["कॉलम", "पंक्ति संख्याएँ", "विराम", "आकार"], canonicalAnswer: "पंक्ति संख्याएँ", explanation: "पंक्ति संख्याएँ दस्तावेज़ पाठ की पंक्तियाँ के पास क्रमांकन दिखाता है।" },
     pa: { stem: "ਲਿਖਤ ਦੀਆਂ ਲਾਈਨਾਂ ਦੇ ਕੋਲ ਅੰਕ ਦਿਖਾਉਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?", options: ["ਕਾਲਮ", "ਲਾਈਨ ਅੰਕ", "ਵਿਰਾਮ", "ਆਕਾਰ"], canonicalAnswer: "ਲਾਈਨ ਅੰਕ", explanation: "ਲਾਈਨ ਅੰਕ ਦਸਤਾਵੇਜ਼ ਲਿਖਤ ਦੀਆਂ ਲਾਈਨਾਂ ਦੇ ਕੋਲ ਕ੍ਰਮ-ਅੰਕਣ ਦਿਖਾਉਂਦਾ ਹੈ।" },
   },
   {
@@ -283,7 +283,7 @@ const D: readonly WordTabsDefinition[] = [
   {
     qlId: "COM-003-QL-024", targetFactId: "com003-word-layout-paragraph-spacing", surfaceMode: "FEATURE_FROM_PURPOSE", examSurfaceFamily: "FUNCTIONAL_APPLICATION", difficulty: "MEDIUM", correctIndex: 3,
     en: { stem: "Which Layout-tab paragraph setting changes space before or after a paragraph?", options: ["Columns", "Size", "Orientation", "Spacing"], canonicalAnswer: "Spacing", explanation: "Paragraph Spacing changes the space before or after a paragraph." },
-    hi: { stem: "Paragraph से पहले या बाद का स्थान बदलने वाली Layout टैबटैब अनुच्छेद सेटिंग कौन-सी है?", options: ["स्तंभ", "आकार", "Orientation", "अंतराल"], canonicalAnswer: "अंतराल", explanation: "Paragraph अंतराल अनुच्छेद से पहले या बाद का स्थान बदलता है।" },
+    hi: { stem: "Paragraph से पहले या बाद का स्थान बदलने वाली Layout टैबटैब अनुच्छेद सेटिंग कौन-सी है?", options: ["कॉलम", "आकार", "Orientation", "अंतराल"], canonicalAnswer: "अंतराल", explanation: "Paragraph अंतराल अनुच्छेद से पहले या बाद का स्थान बदलता है।" },
     pa: { stem: "Paragraph ਤੋਂ ਪਹਿਲਾਂ ਜਾਂ ਬਾਅਦ ਦਾ ਥਾਂ ਬਦਲਣ ਵਾਲੀ Layout ਟੈਬਟੈਬ ਪੈਰਾਗ੍ਰਾਫ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?", options: ["ਕਾਲਮ", "ਆਕਾਰ", "Orientation", "ਫ਼ਾਸਲਾ"], canonicalAnswer: "ਫ਼ਾਸਲਾ", explanation: "Paragraph ਫ਼ਾਸਲਾ ਪੈਰਾਗ੍ਰਾਫ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂ ਬਾਅਦ ਦਾ ਥਾਂ ਬਦਲਦਾ ਹੈ।" },
   },
 
@@ -386,7 +386,7 @@ const D: readonly WordTabsDefinition[] = [
   {
     qlId: "COM-003-QL-027", targetFactId: "com003-word-review-editor", surfaceMode: "FEATURE_FROM_PURPOSE", examSurfaceFamily: "FUNCTIONAL_APPLICATION", difficulty: "EASY", correctIndex: 0,
     en: { stem: "Which Review-tab feature checks spelling, grammar and writing suggestions?", options: ["Editor", "Mail Merge", "Themes", "Columns"], canonicalAnswer: "Editor", explanation: "Editor checks spelling, grammar and other writing issues for review." },
-    hi: { stem: "Spelling, व्याकरण और लेखन सुझाव जाँच करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?", options: ["Editor", "Mail Merge", "Themes", "स्तंभ"], canonicalAnswer: "Editor", explanation: "Editor वर्तनी, व्याकरण और अन्य लेखन समस्याएँ को समीक्षा के लिए जाँच करता है।" },
+    hi: { stem: "Spelling, व्याकरण और लेखन सुझाव जाँच करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?", options: ["Editor", "Mail Merge", "Themes", "कॉलम"], canonicalAnswer: "Editor", explanation: "Editor वर्तनी, व्याकरण और अन्य लेखन समस्याएँ को समीक्षा के लिए जाँच करता है।" },
     pa: { stem: "Spelling, ਵਿਆਕਰਨ ਅਤੇ ਲਿਖਤ ਸੁਝਾਅ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?", options: ["Editor", "Mail Merge", "Themes", "ਕਾਲਮ"], canonicalAnswer: "Editor", explanation: "Editor ਸ਼ਬਦ-ਜੋੜ, ਵਿਆਕਰਨ ਅਤੇ ਹੋਰ ਲਿਖਤ ਸਮੱਸਿਆਵਾਂ ਨੂੰ ਸਮੀਖਿਆ ਲਈ ਜਾਂਚ ਕਰਦਾ ਹੈ।" },
   },
   {
