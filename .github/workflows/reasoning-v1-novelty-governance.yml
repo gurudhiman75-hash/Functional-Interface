@@ -1,12 +1,9 @@
 name: Reasoning V1 Novelty Governance
 
-# Workflow self-observation keeps CI policy changes on the exact-head gate.
-
 on:
   pull_request:
     branches: [New-main]
     paths:
-      - .github/workflows/reasoning-v1-novelty-governance.yml
       - artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-governance-v1.ts
       - artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-governance-v1.test.ts
       - artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-inventory-v1.test.ts

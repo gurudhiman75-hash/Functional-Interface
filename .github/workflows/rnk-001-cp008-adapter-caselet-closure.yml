@@ -1,7 +1,5 @@
 name: Validate RNK-001 English Content Closure
 
-# Workflow self-observation keeps CI policy changes on the exact-head gate.
-
 on:
   push:
     branches:
@@ -16,9 +14,6 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**'
       - '.github/workflows/rnk-001-cp008-adapter-caselet-closure.yml'
   workflow_dispatch:
-
-permissions:
-  contents: read
 
 concurrency:
   group: rnk-001-english-content-closure-${{ github.ref }}
