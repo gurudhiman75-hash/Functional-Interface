@@ -87,6 +87,15 @@ jobs:
 
           def has_new_main_base(block):
               for index, line in enumerate(block):
+                  inline = re.fullmatch(r'    branches:\s*\[([^\]]*)\]\s*', line)
+                  if inline:
+                      values = [
+                          value.strip().strip('"\'')
+                          for value in inline.group(1).split(',')
+                      ]
+                      if 'New-main' in values:
+                          return True
+                      continue
                   if not re.fullmatch(r'    branches:\s*', line):
                       continue
                   cursor = index + 1
