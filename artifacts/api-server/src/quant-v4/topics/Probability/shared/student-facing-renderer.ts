@@ -10,6 +10,12 @@ const tidy = (value: string) => value.replace(/\s+/g, " ").replace(/\s+([?.!,])/
 const clean = (value: string) => value.replace(/_/g, " ").replace(/\bnot \((.+)\)$/i, "not $1").toLowerCase().replace(/\s+/g, " ").trim();
 const eventName = (event: EventExpression) => clean(event.label);
 
+function qlSeriesVariant(entry: ProbabilityTaskRegistryEntry, stride: number, count: number): number {
+  const match = entry.qlId.match(/(\d+)$/);
+  const value = match ? Number(match[1]) : 0;
+  return Math.floor(value / stride) % count;
+}
+
 function singularObject(value: string): string {
   if (value === "cards") return "card";
   if (value === "counters") return "counter";
@@ -177,7 +183,14 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "findConditionalProbabilityByCounting":
     case "findConditionalFromTwoWayTable": return `Of the ${num(p, "mathTotal")} students who passed Mathematics, ${num(p, "both")} also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?`;
     case "findConditionalCardProbability": return "A card is drawn from a standard deck and is known to be a face card. What is the probability that it is a king?";
-    case "findConditionalNumberProbability": return `An integer selected from 1 to ${num(p, "upper")} is known to be divisible by ${num(p, "conditionDivisor")}. What is the probability that it is also divisible by ${num(p, "targetDivisor")}?`;
+    case "findConditionalNumberProbability": {
+      const upper = num(p, "upper"), condition = num(p, "conditionDivisor"), target = num(p, "targetDivisor");
+      const form = qlSeriesVariant(entry, 6, 4);
+      if (form === 0) return `An integer is selected at random from 1 to ${upper} and is known to be divisible by ${condition}. What is the probability that it is also divisible by ${target}?`;
+      if (form === 1) return `One number is chosen at random from the multiples of ${condition} between 1 and ${upper}. Find the probability that the chosen number is also a multiple of ${target}.`;
+      if (form === 2) return `A number selected uniformly from 1 to ${upper} is known to lie among the multiples of ${condition}. Given this information, find the probability that it is divisible by ${target} as well.`;
+      return `Consider only the integers from 1 to ${upper} that are divisible by ${condition}. If one of these integers is selected at random, what is the probability that it is also divisible by ${target}?`;
+    }
     case "findConditionalUrnProbability": return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?`;
     case "findReverseConditionalCount": return `Among ${num(p, "restrictedTotal")} shortlisted candidates, the probability that a randomly selected candidate is ${text(p, "targetLabel", "certified")} is ${frac(num(p, "favourable"), num(p, "restrictedTotal", 1))}. How many candidates are ${text(p, "targetLabel", "certified")}?`;
     case "findRandomArrangementPropertyProbability": return `${num(p, "people")} people stand in a random order. What is the probability that a particular person is first?`;
