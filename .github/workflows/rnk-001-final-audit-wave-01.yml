@@ -62,75 +62,147 @@ jobs:
 
       - name: Prove RNK Wave 01 English QL 001-007
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=en RNK_WAVE01_SHARD=0 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 1 7); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 English QL 008-014
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=en RNK_WAVE01_SHARD=1 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 8 14); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 English QL 015-021
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=en RNK_WAVE01_SHARD=2 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 15 21); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 English QL 022-028
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=en RNK_WAVE01_SHARD=3 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 22 28); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 English QL 029-035
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=en RNK_WAVE01_SHARD=4 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 29 35); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 English QL 036-042
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=en RNK_WAVE01_SHARD=5 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 36 42); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Hindi QL 001-007
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_SHARD=0 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 1 7); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Hindi QL 008-014
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_SHARD=1 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 8 14); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Hindi QL 015-021
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_SHARD=2 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 15 21); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Hindi QL 022-028
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_SHARD=3 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 22 28); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Hindi QL 029-035
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_SHARD=4 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 29 35); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Hindi QL 036-042
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_SHARD=5 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 36 42); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Punjabi QL 001-007
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_SHARD=0 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 1 7); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Punjabi QL 008-014
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_SHARD=1 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 8 14); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Punjabi QL 015-021
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_SHARD=2 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 15 21); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Punjabi QL 022-028
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_SHARD=3 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 22 28); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Punjabi QL 029-035
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_SHARD=4 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 29 35); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 01 Punjabi QL 036-042
         working-directory: artifacts/api-server
-        run: RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_SHARD=5 timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+        run: |
+          for ql in $(seq 36 42); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
 
       - name: Prove RNK Wave 02 solve-relevant presentation
         working-directory: artifacts/api-server
