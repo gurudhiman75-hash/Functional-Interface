@@ -1,0 +1,61 @@
+import type{Eng008Cp003PassageV1}from"./eng-008-cp003-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+
+export const ENG008_CP003_EXPANSION_WAVE2_V1:readonly Eng008Cp003PassageV1[]=[
+{
+ id:"ENG008-BP-S03",title:"A Neighbourhood Book Exchange Learns to Track Demand",genre:"social",
+ text:`Residents of a large apartment complex created a small book-exchange shelf in the common hall. The idea was simple: anyone could take one book and leave another. During the first month, the shelf filled quickly, but many of the same titles remained untouched while a few popular books disappeared within days.
+
+The volunteer group initially assumed that people were simply returning books late. They placed a notebook beside the shelf and asked residents to write down the title they borrowed and the date. The record showed a different pattern. Most popular books were being returned within a week, but they were borrowed again almost immediately.
+
+The volunteers then divided the shelf into broad categories and added a small request box. Readers began leaving notes asking for children's stories, exam guides and short biographies. The group realised that the shelf had been organised around what donors happened to give rather than what readers actually wanted.
+
+Instead of buying many new books, the volunteers first circulated the request list among residents. Several families donated titles that matched the most common requests. Within two months, the number of books sitting untouched for more than three weeks fell noticeably.
+
+The group still kept the exchange informal. No fines were introduced, and residents were not required to register. The notebook was used only to understand circulation patterns, not to create a strict lending system.
+
+One unexpected result was that the request box also reduced duplicate donations. Before the change, three families had donated similar old encyclopaedias in the same week. Later, donors checked the request list before bringing books down.
+
+The volunteers concluded that a shared resource works better when organisers observe actual use rather than assuming that supply alone will create interest. The shelf did not need to become a formal library; it simply needed better information about what people were looking for.`,
+ questions:[
+ q("S03-Q1","BP-F01","easy","What did the borrowing notebook reveal?","Popular books were usually returned quickly and borrowed again",["Most books were never returned","Residents preferred encyclopaedias","Borrowers kept books for several months"],"The record showed that popular books circulated rapidly rather than remaining overdue.","returned within a week ... borrowed again almost immediately"),
+ q("S03-Q2","BP-F02","medium","What can be inferred about the original book supply?","It reflected donor choices more than reader demand",["It contained only children's books","It was selected by professional librarians","It matched resident preferences perfectly"],"The request box showed that available books did not fully match what readers wanted.","organised around what donors happened to give"),
+ q("S03-Q3","BP-F03","medium","What is the central idea of the passage?","A shared resource becomes more useful when organisers track what users actually need",["Book exchanges require strict fines","Residents should stop donating old books","Every apartment complex needs a formal library"],"The main lesson is that observing demand improved the exchange without formalising it.","observe actual use"),
+ q("S03-Q4","BP-F04","medium","Which statement is supported by the passage?","The exchange remained informal even after records were introduced",["Residents had to register before borrowing","The volunteers introduced late fees","The shelf was moved to a paid membership room"],"The passage explicitly says no fines or registration were introduced.","still kept the exchange informal"),
+ q("S03-Q5","BP-F05","easy","In context, “circulation” is closest in meaning to:","movement of books among readers",["printing of new books","sale of books","repair of shelves"],"The notebook tracked how books moved in and out of the exchange.","understand circulation patterns"),
+ q("S03-Q6","BP-F06","easy","Which word is opposite in meaning to “strict”?","flexible",["rigid","firm","controlled"],"Strict means rigid or tightly controlled, so flexible is the opposite.","strict lending system"),
+ q("S03-Q7","BP-F07","medium","What does “supply alone will create interest” mean in the passage?","Having many books does not guarantee that readers will want those particular books",["Readers dislike shelves with too many books","All donated books must be new","Interest depends only on advertising"],"The volunteers learned that quantity was not enough without matching demand.","supply alone will create interest"),
+ q("S03-Q8","BP-F08","medium","What most directly reduced the number of books remaining untouched?","Donations began to match the requests readers had made",["The shelf was made smaller","Borrowing was limited to one day","Encyclopaedias were removed entirely"],"Residents donated books based on the request list, improving the match between supply and demand.","donated titles that matched the most common requests"),
+ q("S03-Q9","BP-F09","medium","Which title best suits the passage?","A Book Exchange Learns What Readers Want",["Why Libraries Need Fines","The End of Book Donations","A Shelf Full of Encyclopaedias"],"The passage centres on using borrowing and request data to improve a shared shelf.","better information about what people were looking for")
+ ]
+},
+{
+ id:"ENG008-BP-B03",title:"A Café Tests a Simpler Lunch Menu",genre:"business",
+ text:`A busy café near an office district offered twenty-four lunch dishes, but staff noticed that orders slowed sharply between 1 p.m. and 2 p.m. Customers often stood at the counter reading the menu for several minutes, while the kitchen had to prepare many ingredients in small quantities.
+
+The owner first considered adding another cashier. Before doing so, she reviewed six weeks of sales data and found that eight dishes accounted for nearly three-quarters of lunch orders. Several of the least popular items also used ingredients that were not needed for anything else.
+
+For a four-week trial, the café displayed a shorter lunch menu during the busiest hour. Twelve dishes remained available, including all eight of the most popular items. The full menu returned after 2 p.m.
+
+Average order-taking time fell, and food preparation became more predictable. Staff also reported throwing away less of two ingredients that had previously been used mainly in low-demand dishes.
+
+However, not every response was positive. A small group of regular customers missed two vegetarian dishes that had been removed from the peak-hour menu. The owner added one of them back in the third week after receiving repeated requests.
+
+The trial did not show that smaller menus are always better. The café's evening customers spent more time choosing and often ordered less common dishes, so the owner kept the full menu later in the day.
+
+The owner also checked whether faster ordering had simply shifted the delay into the kitchen. Preparation time improved slightly rather than worsening because cooks handled fewer low-volume items during the rush.
+
+At the end of the trial, the café kept the shorter peak-hour menu but decided to review it every month. The lesson was not to reduce choice for its own sake, but to match the menu to demand and time pressure instead of offering the same range in every situation.`,
+ questions:[
+ q("B03-Q1","BP-F01","easy","How many dishes accounted for nearly three-quarters of lunch orders?","Eight",["Twelve","Twenty-four","Four"],"The second paragraph directly states that eight dishes accounted for most lunch orders.","eight dishes accounted for nearly three-quarters"),
+ q("B03-Q2","BP-F02","medium","Why did the owner add one vegetarian dish back during the trial?","Regular customers repeatedly requested it",["The kitchen had too much of its main ingredient","It was the cheapest dish to prepare","The cashier preferred it"],"The passage says repeated customer requests led to one removed dish being restored.","after receiving repeated requests"),
+ q("B03-Q3","BP-F03","medium","What is the central idea of the passage?","The café improved peak-hour service by matching menu breadth to actual demand",["Large menus always reduce profits","Customers prefer only eight lunch dishes","Adding staff is never useful"],"The café used sales data and timing to adjust choice during the busiest period.","match the menu to demand and time pressure"),
+ q("B03-Q4","BP-F04","medium","Which statement is supported?","The full menu was still offered later in the day",["The café permanently removed half its dishes","Evening customers preferred the shorter menu","Order-taking time increased during the trial"],"The passage explicitly says the full menu returned after 2 p.m.","full menu returned after 2 p.m."),
+ q("B03-Q5","BP-F05","easy","In context, “predictable” is closest in meaning to:","easier to anticipate",["more expensive","more varied","completely automatic"],"Kitchen work became easier to plan because fewer low-volume items were prepared during the rush.","food preparation became more predictable"),
+ q("B03-Q6","BP-F06","easy","Which word is opposite in meaning to “popular”?","unpopular",["common","favoured","frequent"],"Unpopular is the direct opposite of popular.","most popular items"),
+ q("B03-Q7","BP-F07","medium","What does “shifted the delay into the kitchen” mean?","Faster ordering might have caused longer food-preparation waits",["The kitchen was physically moved","Customers began ordering from the kitchen","Cashiers started cooking meals"],"The owner checked whether one faster stage simply made another stage slower.","shifted the delay into the kitchen"),
+ q("B03-Q8","BP-F08","medium","What most directly led the owner to test a shorter menu?","Sales data showed that a small number of dishes made up most lunch orders",["The café was required to reduce dishes","Customers asked for fewer seats","The kitchen ran out of menus"],"The review of sales concentration motivated the trial.","eight dishes accounted for nearly three-quarters"),
+ q("B03-Q9","BP-F09","medium","Which title best suits the passage?","A Simpler Menu for the Lunch Rush",["The Café That Stopped Serving Dinner","Why Cashiers Should Cook","Twenty-Four Dishes at Midnight"],"The passage is about reducing menu complexity specifically during the busiest lunch period.","shorter lunch menu during the busiest hour")
+ ]
+}
+] as const;
