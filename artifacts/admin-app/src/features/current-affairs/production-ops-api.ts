@@ -326,6 +326,11 @@ export type GenerateYesterdayCurrentAffairsResult = {
     localizedMasterPacksParityReady?: boolean;
     verifiedEvents: number;
     reviewEvents: number;
+    coverageCategoriesSearched?: number;
+    coverageCategoriesWithResults?: number;
+    coverageHoleCount?: number;
+    observedPublisherDomainCount?: number;
+    lateCatchupCandidates?: number;
     masterPackEventCount: number;
     coverageConfidenceScore: number;
     readinessColor: 'green' | 'amber' | 'red';
