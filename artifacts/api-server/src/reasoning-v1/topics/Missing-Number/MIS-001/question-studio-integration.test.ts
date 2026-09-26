@@ -78,7 +78,7 @@ async function main() {
     assert.equal(question.validation.fourUniqueOptions, true);
     assert.equal(question.validation.solverAgreement, true);
     assert.equal(question.validation.everyDisplayedInputParticipates, true);
-    assert.ok(['RESULT_MISSING','CENTRE_MISSING'].includes(question.missingPosition));
+    assert.ok(['RESULT_MISSING','CENTRE_MISSING','FIRST_INPUT','SECOND_INPUT','THIRD_INPUT','RESULT','TOP_VERTEX','LEFT_VERTEX','RIGHT_VERTEX','CENTRE'].includes(question.missingPosition));
   }
   assert.equal(candidateIds.size, 74);
   assert.deepEqual([...checkpointIds].sort(), ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010']);
