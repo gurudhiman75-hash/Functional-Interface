@@ -235,7 +235,7 @@ function localizedStem(question: Di005V2Question, stimulus: Di005V2Stimulus, loc
     case "RELATIVE_SECTOR_PERCENT_EXCESS": {
       const larger = categoryAt(stimulus, locale, Number(e.largerIndex)), smaller = categoryAt(stimulus, locale, Number(e.smallerIndex));
       const h = [`${larger} की संख्या ${smaller} से कितने प्रतिशत अधिक है?`, `${larger} की संख्या, ${smaller} की तुलना में कितने प्रतिशत अधिक है?`, `${smaller} को आधार मानते हुए ${larger} कितने प्रतिशत अधिक है?`];
-      const p = [`${larger} ਦੀ ਗਿਣਤੀ ${smaller} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${larger} ਦੀ ਗਿਣਤੀ, ${smaller} ਦੇ ਮੁਕਾਬਲੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${smaller} ਨੂੰ ਅਧਾਰ ਮੰਨ ਕੇ ${larger} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`];
+      const p = [`${larger} ਦੀ ਗਿਣਤੀ ${smaller} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${larger} ਦੀ ਗਿਣਤੀ, ${smaller} ਦੇ ਮੁਕਾਬਲੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${smaller} ਨੂੰ ਆਧਾਰ ਮੰਨ ਕੇ ${larger} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`];
       return (hi ? h : p)[s]!;
     }
     case "COMBINED_SECTOR_ANGLE": {
@@ -319,7 +319,7 @@ function explanationFor(question: Di005V2Question, stimulus: Di005V2Stimulus, lo
       return pack(
         "दिए गए प्रतिशत को कुल संख्या पर लागू करें।",
         "ਦਿੱਤੇ ਪ੍ਰਤੀਸ਼ਤ ਨੂੰ ਕੁੱਲ ਗਿਣਤੀ ਉੱਤੇ ਲਾਗੂ ਕਰੋ।",
-        [`${category} = ${slice.percent}% of ${stimulus.totalValue}।`.replace("of", "का"), `संख्या = ${stimulus.totalValue} × ${slice.percent}/100 = ${count}।`],
+        [`${category} = कुल ${stimulus.totalValue} का ${slice.percent}%।`, `संख्या = ${stimulus.totalValue} × ${slice.percent}/100 = ${count}।`],
         [`${category} = ${stimulus.totalValue} ਦਾ ${slice.percent}%।`, `ਗਿਣਤੀ = ${stimulus.totalValue} × ${slice.percent}/100 = ${count}।`],
       );
     }
