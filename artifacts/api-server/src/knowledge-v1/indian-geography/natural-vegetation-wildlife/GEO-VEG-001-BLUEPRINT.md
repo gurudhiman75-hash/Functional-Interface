@@ -125,3 +125,5 @@ CP013 is a non-owning mastery layer:
 - meta/generated-style stems rejected.
 
 The final batch has explicit human approval. Chapter closure now depends on the full 648-question chapter audit, CP013 mastery qualification, API/build checks and full Geography regression. Runtime/public publication remains separately governed.
+
+Closure validation requested after explicit human approval.
