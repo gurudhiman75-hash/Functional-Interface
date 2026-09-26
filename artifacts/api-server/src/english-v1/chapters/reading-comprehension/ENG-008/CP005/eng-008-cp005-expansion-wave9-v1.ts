@@ -1,0 +1,316 @@
+import type{Eng008Cp005PassageV1}from"./eng-008-cp005-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP005_EXPANSION_WAVE9_V1:readonly Eng008Cp005PassageV1[]=[
+{
+ id:"ENG008-RS-W08",title:"Do Quiet Notification Hours Improve Deep Work?",genre:"workplace-study",
+ text:`A financial-services company tested quiet notification hours with five analysis teams whose work required long periods of concentration. For two hours each morning, routine chat notifications were muted and employees were encouraged to send non-urgent messages that would appear after the focus block.
+
+The company compared eight weeks of the new policy with the previous eight weeks. Calendar meetings were unchanged, so researchers could examine whether reducing digital interruptions alone affected work patterns.
+
+Employees reported fewer task switches during quiet hours. Document-editing logs also showed longer uninterrupted sessions, especially among analysts working on forecasting and audit preparation.
+
+Total daily output changed only slightly. Some employees completed complex tasks earlier but then spent more time answering accumulated messages after the focus block. This suggested that the policy shifted interruption timing rather than eliminating communication work.
+
+Teams differed in how well the system worked. Employees supporting live customer issues found strict muting less practical. Their managers created an exception channel for urgent cases while keeping routine notifications delayed.
+
+Researchers also measured perceived stress. Average stress scores fell modestly on quiet-hour mornings, but the effect was concentrated among employees who previously received large numbers of chat alerts. Workers with few notifications showed little change.
+
+A limitation was self-selection. Managers volunteered their teams for the pilot, and those teams may already have been more willing to change communication habits.
+
+Another issue was message accumulation. On some days, employees received a large burst of notifications at the end of the focus period. Researchers began testing staggered delivery so delayed messages appeared gradually rather than all at once.
+
+The next phase will compare quiet hours with individual “do not disturb” settings chosen by employees. The company wants to know whether a shared team rule provides benefits beyond tools people can already activate for themselves.
+
+Researchers will also measure error rates and after-hours work. Faster document completion is not automatically beneficial if employees later spend extra evening time catching up on communication.
+
+The preliminary evidence supports a narrow conclusion: predictable low-notification periods can increase uninterrupted work time for some knowledge workers, but effects on total productivity depend on role, message volume and what happens to delayed communication afterward.`,
+ questions:[
+ q("W08-Q1","RS-F01","medium","What changed most clearly during quiet notification hours?","Employees had longer uninterrupted work periods",["Daily output doubled","Meetings disappeared","Every worker reported lower stress"],"The strongest observed change was fewer task switches and longer continuous editing sessions during the muted-notification period.","longer uninterrupted sessions"),
+ q("W08-Q2","RS-F02","medium","What can be inferred from the small change in total daily output?","The policy may have changed when interruptions occurred more than how much work existed",["The policy had no effect at all","Employees stopped communicating","All delayed messages were deleted"],"Workers gained focused time but later handled accumulated messages, suggesting a timing shift rather than elimination of communication demand.","shifted interruption timing"),
+ q("W08-Q3","RS-F03","medium","Which summary is most accurate?","Quiet notification hours improved focus for some roles but created delayed-communication trade-offs",["The policy eliminated all work stress","Customer-support teams benefited most","Total productivity rose sharply in every team"],"The study found clearer uninterrupted-work benefits than output gains and identified role-specific limits and message accumulation.","effects on total productivity depend"),
+ q("W08-Q4","RS-F04","hard","Which limitation most directly affects causal interpretation?","Teams volunteered for the pilot rather than being randomly assigned",["The policy lasted eight weeks","Employees used chat software","Meetings were recorded"],"Self-selection means participating teams may differ systematically from non-participating teams in ways related to communication behaviour.","Managers volunteered their teams"),
+ q("W08-Q5","RS-F05","hard","Which statement makes an unjustified causal claim?","Quiet notification hours always increase productivity",["Some analysts had longer uninterrupted sessions","Stress fell mainly among high-notification workers","Urgent channels were needed for live support"],"The study found only modest output change and substantial variation by role, so a universal productivity claim is not supported.","Total daily output changed only slightly"),
+ q("W08-Q6","RS-F06","hard","Which is a directly reported finding?","High-notification employees showed a larger stress reduction",["Every employee worked fewer hours","After-hours work definitely fell","Staggered delivery eliminated message bursts"],"The passage directly states that stress improvement was concentrated among workers who previously received many alerts.","concentrated among employees"),
+ q("W08-Q7","RS-F07","hard","Which competing mechanism is explicitly identified?","Delayed messages may simply shift interruption and communication work to later in the day",["Quiet hours reduce salary costs","Meetings become shorter automatically","Workers receive fewer total tasks"],"The researchers note that employees often handled accumulated messages after the focus block, which could offset part of the benefit.","answering accumulated messages"),
+ q("W08-Q8","RS-F08","medium","Which next step is best supported?","Compare shared quiet hours with individually chosen do-not-disturb settings",["Remove all urgent channels","Extend quiet hours to the full day","Measure only document length"],"The study specifically proposes testing whether a team-wide rule adds value beyond tools employees can already use individually.","compare quiet hours with individual")
+ ]
+},
+{
+ id:"ENG008-RS-W09",title:"Do Rotating Shift Handover Notes Reduce Missed Tasks?",genre:"workplace-study",
+ text:`A manufacturing plant tested structured handover notes between day and night maintenance shifts. Previously, outgoing technicians often gave verbal updates, while urgent unfinished tasks were written on a whiteboard near the workshop.
+
+Managers found that details were sometimes lost when a shift ended during a busy repair. The new system used a short digital template requiring four fields: equipment name, current condition, action already taken and next required step.
+
+For ten weeks, three maintenance teams used the template while three similar teams continued the previous system. Researchers reviewed delayed repairs, repeated diagnostic work and technician surveys.
+
+Teams using structured notes had fewer cases in which the incoming shift repeated a diagnostic test that had already been completed. Missed follow-up tasks also declined, especially on jobs that continued across more than one shift.
+
+The template did not shorten every repair. Jobs waiting for specialist parts or external contractors remained delayed regardless of how clearly the handover was written.
+
+Technicians initially complained that the form duplicated information already in the maintenance software. Managers responded by linking the handover note to the existing job record and removing two repetitive fields.
+
+A second issue was note quality. Some technicians wrote vague phrases such as “check again” instead of a clear next step. Supervisors introduced short examples showing the level of detail expected without requiring long explanations.
+
+The comparison groups were not perfectly matched. One template team worked on older machinery that generated more maintenance calls, so researchers adjusted results for job volume and equipment age.
+
+The plant also measured handover time. Digital notes took slightly longer to complete than a quick verbal update, but incoming shifts spent less time reconstructing what had already happened.
+
+Researchers plan to rotate the template across all teams so that each team experiences both systems. This crossover design may reduce differences caused by team culture or machinery.
+
+They will also examine serious safety incidents separately from routine missed tasks. The trial was too small to determine whether structured handovers reduce rare high-consequence events.
+
+The current evidence suggests that a concise handover template can reduce information loss across shifts, particularly for multi-stage work. Its benefit appears to come from making the next action and prior work visible, not from accelerating repairs that are constrained by parts or external resources.`,
+ questions:[
+ q("W09-Q1","RS-F01","medium","Which outcome improved most clearly with structured handover notes?","Repeated diagnostic work and missed follow-up tasks declined",["Every repair became faster","Parts arrived earlier","Night shifts became shorter"],"The study directly reports fewer repeated tests and fewer missed next steps on work that crossed shift boundaries.","fewer cases ... repeated a diagnostic test"),
+ q("W09-Q2","RS-F02","medium","What can be inferred about repairs waiting for external parts?","Better handover information cannot remove delays caused by missing resources",["The template makes parts arrive sooner","External contractors are unnecessary","Such repairs were excluded from the study"],"The passage explicitly notes that some delays persisted because their cause lay outside the information-transfer process.","remained delayed regardless"),
+ q("W09-Q3","RS-F03","medium","Which summary is most accurate?","Structured handovers reduced information loss but did not solve resource-related repair delays",["Digital notes made every job shorter","Verbal handovers were banned immediately","The new system removed all maintenance software"],"The study finds a specific coordination benefit while clearly limiting claims about repairs constrained by parts or contractors.","reduce information loss across shifts"),
+ q("W09-Q4","RS-F04","hard","Which limitation most directly threatens simple team-to-team comparison?","One template team worked on older machinery with more maintenance calls",["The study lasted ten weeks","Technicians used digital records","Some jobs crossed shifts"],"Different equipment burden could affect outcomes independently of the handover method, so adjustment was necessary.","worked on older machinery"),
+ q("W09-Q5","RS-F05","hard","Which statement makes an unjustified causal claim?","Structured notes prevent serious safety incidents",["They reduced repeated diagnostic work","Vague notes required clearer examples","Digital notes took slightly longer to complete"],"The study was too small to determine effects on rare serious incidents, so prevention of such events cannot be claimed.","too small to determine"),
+ q("W09-Q6","RS-F06","hard","Which is a directly reported finding?","Incoming shifts spent less time reconstructing prior work",["All template teams had identical machinery","Job volume fell","Every note contained detailed language"],"The plant observed a trade-off: writing notes took slightly longer, while later reconstruction time fell.","spent less time reconstructing"),
+ q("W09-Q7","RS-F07","hard","Which competing explanation does the planned crossover design address?","Differences in team culture or machinery may influence results",["Digital notes change equipment age","Night shifts receive fewer jobs","Parts prices affect note length"],"Having each team use both systems helps separate the handover method from persistent differences between teams and equipment.","reduce differences caused by team culture or machinery"),
+ q("W09-Q8","RS-F08","medium","Which next step is best supported?","Rotate the template so each team experiences both handover systems",["Remove the four required fields","Measure only verbal handover time","Stop recording equipment age"],"The passage explicitly proposes a crossover design to improve comparability and strengthen interpretation of the observed effects.","rotate the template across all teams")
+ ]
+},
+{
+ id:"ENG008-RS-T07",title:"Do Countdown Displays Change Platform Boarding Behaviour?",genre:"transport-survey",
+ text:`A suburban rail operator tested countdown displays showing how many minutes remained before train doors closed. The displays were installed on four platforms where passengers often rushed when they heard the arrival announcement.
+
+Researchers compared video-based movement counts and passenger surveys for six weeks before and six weeks after installation. The displays showed a simple countdown from three minutes once the train was ready for boarding.
+
+After installation, fewer passengers began running from the ticket-gate area during the final minute. More passengers who were still far from the platform appeared to wait for the next train rather than rushing.
+
+The effect was strongest on routes with frequent service. Where the next train was due within ten minutes, passengers had a practical alternative. On a route with a twenty-five-minute interval, late passengers were still more likely to run.
+
+Survey responses suggested that the display reduced uncertainty about how much boarding time remained. Some passengers had previously assumed an arrival announcement meant doors would close almost immediately.
+
+The operator also found a new risk. A small number of passengers treated the countdown as a target and tried to board during the final seconds. Staff added a message saying “boarding may close before zero for operational reasons”.
+
+The study did not measure injuries directly because such events were rare. Instead, researchers used running behaviour and last-second boarding attempts as intermediate indicators.
+
+Weather differed between the before and after periods, with more rain during part of the post-installation phase. Researchers adjusted for weather because wet platforms can independently change walking speed and rushing.
+
+Another limitation is that video counts could identify movement patterns but not each passenger's reason for running. Some people may have been hurrying for reasons unrelated to boarding.
+
+The next phase will randomise display activation across comparable days on more platforms. Researchers also want to test whether a simpler message such as “next train in 8 minutes” reduces last-second boarding better than a door-close countdown.
+
+The operator will examine whether passengers crowd closer to doors when the countdown begins, which could create a different safety issue even if running declines.
+
+The pilot therefore supports a limited conclusion: clearer time information can change boarding behaviour when passengers have a reasonable alternative, but display design can also create new incentives.
+
+The study highlights a common transport problem. Information does not merely describe a system; it can change how people respond to it. Designers therefore need to consider both the uncertainty a display removes and the behaviour its wording may encourage.`,
+ questions:[
+ q("T07-Q1","RS-F01","medium","What changed after the countdown displays were installed?","Fewer passengers ran from the gate area during the final minute",["Train frequency doubled","Every passenger boarded earlier","Platform crowding disappeared"],"Observed movement data showed less last-minute running after the displays made remaining boarding time more visible.","fewer passengers began running"),
+ q("T07-Q2","RS-F02","medium","What can be inferred from the stronger effect on frequent routes?","Information changes behaviour more when passengers have a practical alternative",["Countdowns work only on short platforms","Longer routes have no late passengers","Frequent trains cause more running"],"Passengers were more willing to wait when the next service was soon, linking the information effect to available choice.","practical alternative"),
+ q("T07-Q3","RS-F03","medium","Which summary is most accurate?","Countdowns reduced some rushing but could also encourage last-second boarding",["Displays eliminated unsafe behaviour","The operator measured injury reduction directly","Passengers ignored the countdown"],"The study reports both a decrease in running and a new tendency for a small group to treat zero as a target.","display design can also create new incentives"),
+ q("T07-Q4","RS-F04","hard","Which limitation most directly affects interpreting running as a safety outcome?","Video could not establish why each passenger was running",["The displays showed minutes","Some routes were frequent","The study included surveys"],"Running was used as an intermediate measure, but movement alone does not reveal whether the train actually caused the behaviour.","not each passenger's reason"),
+ q("T07-Q5","RS-F05","hard","Which statement makes an unjustified causal claim?","The displays reduced passenger injuries",["Running declined","Effect size varied by train frequency","Some riders attempted last-second boarding"],"The study did not measure injuries directly, so it cannot support a claim about actual injury reduction.","did not measure injuries directly"),
+ q("T07-Q6","RS-F06","hard","Which is a directly reported finding?","Some passengers used the final seconds as a boarding target",["Every route showed the same response","Rain had no effect on movement","All riders preferred countdowns"],"The operator directly observed a small group attempting to board near zero, prompting a warning message.","treated the countdown as a target"),
+ q("T07-Q7","RS-F07","hard","Which competing factor did researchers adjust for?","Weather differences between the before and after periods",["Ticket prices","Train colour","Station architecture"],"Rain can change walking speed independently of the display, so researchers adjusted for that difference across study periods.","adjusted for weather"),
+ q("T07-Q8","RS-F08","medium","Which next step is best supported?","Randomise display activation and compare alternative message designs",["Remove all time information","Measure only train punctuality","Use longer countdowns on every route"],"The proposed next phase directly addresses causal strength and whether different wording creates safer behavioural responses.","randomise display activation")
+ ]
+},
+{
+ id:"ENG008-RS-S05",title:"Does Morning Light Exposure Shift Sleep Timing?",genre:"sleep-study",
+ text:`A sleep research group studied whether additional morning light could shift the sleep timing of adults who regularly fell asleep very late. Participants were recruited if their usual bedtime was after 1 a.m. on at least five nights each week.
+
+Two hundred adults were randomly assigned to either a bright-light device used for thirty minutes after waking or a dim-light comparison device. Both groups kept their normal work and study schedules.
+
+After three weeks, the bright-light group fell asleep earlier on average and showed an earlier rise in evening melatonin in laboratory samples. Wake time also moved earlier, though the change was smaller than the bedtime shift.
+
+Total sleep duration changed little because participants generally shifted the timing of sleep rather than adding more hours.
+
+Adherence varied. Some participants skipped the light session on weekends because they woke much later. Those with the most irregular wake times showed smaller average shifts.
+
+Researchers also tracked outdoor light exposure using wearable sensors. Participants who already received strong morning sunlight appeared to gain less from the device than those whose mornings were usually spent indoors.
+
+A limitation is that participants knew whether the device looked bright or dim, so expectations could influence self-reported sleep quality. The biological timing measure was less vulnerable to that particular bias.
+
+The study did not test people with diagnosed sleep disorders or night-shift workers. Its findings therefore should not be extended automatically to those populations.
+
+The next phase will compare fixed clock-time light exposure with light scheduled relative to each participant's natural wake time. Researchers want to know whether timing relative to the body clock matters more than simply using light early in the day.
+
+They will also follow participants for a month after devices are removed to see whether earlier sleep timing persists.
+
+Another question is whether participants compensate by seeking less light later in the evening. Evening screen use and room lighting will be measured more carefully in the follow-up.
+
+The trial suggests that additional morning light can shift sleep timing earlier in adults with consistently late schedules, but the size of the effect depends on adherence and existing light exposure.
+
+The researchers caution that shifting timing is not the same as treating every sleep complaint. Someone can sleep at an earlier hour and still have poor sleep quality for other reasons.
+
+The broader value of the study is mechanistic. It tests whether altering one environmental time cue changes biological and behavioural timing, while keeping claims about sleep health narrower than the measured outcomes.`,
+ questions:[
+ q("S05-Q1","RS-F01","medium","What changed in the bright-light group?","Sleep timing and evening melatonin timing shifted earlier",["Total sleep duration doubled","Every participant woke at the same time","Sleep quality was cured"],"The study found earlier sleep onset and earlier biological timing without a large increase in total sleep hours.","fell asleep earlier"),
+ q("S05-Q2","RS-F02","medium","What can be inferred from the small change in sleep duration?","Participants mainly shifted when they slept rather than sleeping substantially longer",["The intervention prevented sleep","Light reduced every bedtime by the same amount","Wake time never changed"],"The passage explicitly distinguishes timing changes from total sleep quantity, which remained broadly similar between groups.","shifted the timing of sleep"),
+ q("S05-Q3","RS-F03","medium","Which summary is most accurate?","Morning bright light shifted late sleepers earlier, with effects depending on adherence and prior light exposure",["Bright light cured all sleep problems","Dim light produced larger biological changes","Night-shift workers showed the strongest effect"],"The trial reports a specific phase-shifting effect with important variation and population limits.","depends on adherence and existing light exposure"),
+ q("S05-Q4","RS-F04","hard","Which limitation most directly affects self-reported sleep-quality results?","Participants could tell whether their device was bright or dim",["Melatonin was measured","Participants slept at night","The trial lasted three weeks"],"Awareness of treatment assignment can change expectations and subjective reports even when biological measures are less affected.","expectations could influence self-reported sleep quality"),
+ q("S05-Q5","RS-F05","hard","Which statement makes an unjustified causal claim?","Morning light treats every type of sleep disorder",["Bright-light users shifted earlier on average","Existing sunlight modified the observed effect","Irregular adherence weakened average shifts"],"The study excluded diagnosed sleep disorders and measured timing rather than all forms of sleep health, so a universal treatment claim is unsupported.","not the same as treating every sleep complaint"),
+ q("S05-Q6","RS-F06","hard","Which is a directly reported finding?","Participants already receiving strong morning sunlight appeared to gain less from the device",["All participants reduced evening screen use","Sleep duration increased by two hours","Night workers were included"],"Wearable light data showed a smaller apparent benefit among people already exposed to substantial morning outdoor light.","gain less from the device"),
+ q("S05-Q7","RS-F07","hard","Which competing mechanism will the follow-up examine?","Changes in evening light exposure may contribute to the observed shift",["Morning light changes employment status","Melatonin controls device brightness","Participants stopped using clocks"],"Researchers plan to measure evening screens and room lighting because altered later-day light could also affect sleep timing.","compensate by seeking less light later"),
+ q("S05-Q8","RS-F08","medium","Which next step is best supported?","Compare light scheduled by clock time with light timed to individual wake patterns",["Test only dim devices","Measure no biological markers","Apply the findings directly to night-shift workers"],"The planned comparison directly tests whether timing relative to the body clock matters more than a fixed early schedule.","compare fixed clock-time light exposure")
+ ]
+},
+{
+ id:"ENG008-RS-C06",title:"Do Simplified Nutrition Labels Improve Comparison?",genre:"consumer-survey",
+ text:`A consumer research institute tested whether a simplified front-of-pack nutrition label helped shoppers compare similar breakfast cereals. The existing package already contained a detailed nutrition table on the back.
+
+Researchers created twelve mock cereal packages. Half of the participants saw only the standard back table, while the other half also saw a front label summarising sugar, fibre and sodium per serving.
+
+Six hundred adults were randomly assigned to the two label conditions. They completed comparison tasks asking which cereal had lower sugar, higher fibre or the more favourable combination of the three nutrients.
+
+Accuracy was higher when the front label was present, especially on tasks requiring comparison of one nutrient. The advantage was smaller when participants had to balance all three measures at once.
+
+Decision time also fell modestly in the front-label group. However, some participants focused so strongly on sugar that they overlooked meaningful fibre differences.
+
+The study therefore found evidence of both simplification and attentional narrowing. A prominent summary can make selected information easier to use while drawing attention away from information that is less visually prominent.
+
+Researchers tested only cereals, so the results may not transfer directly to products where serving sizes vary greatly or where nutrients such as protein and saturated fat matter more.
+
+Another limitation is that participants made hypothetical choices without spending their own money. Real shopping includes price, brand familiarity, taste and household preferences.
+
+The institute also measured label comprehension after the task. Most participants understood that the front label summarised only selected nutrients, but a minority incorrectly assumed that a product with the better front label was healthier in every respect.
+
+The next phase will test an explicit phrase such as “selected nutrients” and a link to the full table. Researchers want to see whether that wording preserves comparison speed while reducing overgeneralisation.
+
+An in-store experiment is also planned using shelf-level observation and brief exit interviews. It will examine whether people actually notice the label under normal time pressure.
+
+Researchers will compare results among shoppers with different levels of nutrition knowledge. The current study suggests that experienced label readers benefit less because they already navigate the full table effectively.
+
+The evidence supports a limited conclusion: a simplified front label can improve certain comparisons, but its design determines what information becomes salient.
+
+The broader lesson is that simplification is not neutral. Choosing which measures to highlight can change both ease of use and the weight shoppers give to different attributes.`,
+ questions:[
+ q("C06-Q1","RS-F01","medium","What improved when participants saw the front-of-pack label?","Accuracy and speed on several nutrient comparisons",["Brand preference disappeared","Every multi-nutrient choice became easy","Participants ignored sugar"],"The front label produced higher comparison accuracy and modestly faster decisions, particularly for single-nutrient tasks.","Accuracy was higher"),
+ q("C06-Q2","RS-F02","medium","What can be inferred from the sugar-focused errors?","Highlighting selected information can change which attributes receive attention",["Sugar is the only important nutrient","Front labels always reduce accuracy","Fibre cannot be compared"],"Some participants over-weighted the most salient nutrient and missed fibre differences, showing that simplification can reshape attention.","focused so strongly on sugar"),
+ q("C06-Q3","RS-F03","medium","Which summary is most accurate?","Simplified labels improved some comparisons but also risked narrowing attention to highlighted nutrients",["Front labels solved every nutrition decision","The back table became unnecessary","Participants understood all health implications"],"The study finds a usability benefit alongside a design risk created by selective emphasis.","both simplification and attentional narrowing"),
+ q("C06-Q4","RS-F04","hard","Which limitation most directly affects whether results predict real purchasing?","Participants made hypothetical choices without spending their own money",["Packages had cereal names","Nutrients were displayed per serving","The study used random assignment"],"Real purchases involve price, taste and actual financial consequences that are absent from hypothetical comparison tasks.","without spending their own money"),
+ q("C06-Q5","RS-F05","hard","Which statement makes an unjustified causal claim?","A favourable front label means a food is healthier in every respect",["The label improved some comparisons","Sugar received extra attention","Experienced readers benefited less"],"The label summarises only selected nutrients, and the passage explicitly notes that some participants wrongly overgeneralised from it.","incorrectly assumed"),
+ q("C06-Q6","RS-F06","hard","Which is a directly reported finding?","The benefit was smaller when participants balanced three nutrients at once",["Price became irrelevant","Every participant used the back table","Serving-size differences were tested across foods"],"The study directly reports a weaker advantage on more complex multi-attribute comparison tasks.","advantage was smaller"),
+ q("C06-Q7","RS-F07","hard","Which competing mechanism is identified?","Improvement may come partly from directing attention, not only from simplifying information",["Labels reduce food prices","Packaging changes nutrient content","Participants memorised all cereals"],"The sugar-focused pattern suggests that visual prominence changes attention as well as reducing search effort.","attentional narrowing"),
+ q("C06-Q8","RS-F08","medium","Which next step is best supported?","Test wording that signals the label covers selected nutrients and verify effects in real stores",["Remove the full nutrition table","Highlight only sugar more strongly","Measure only decision speed"],"The proposed follow-up directly addresses overgeneralisation and external validity in real shopping conditions.","test an explicit phrase")
+ ]
+},
+{
+ id:"ENG008-RS-E07",title:"Do Cool Roofs Reduce Indoor Heat in Top-Floor Rooms?",genre:"environment-study",
+ text:`An urban climate research team studied whether reflective roof coatings reduced indoor heat in top-floor rooms of small apartment buildings. Eight similar buildings scheduled roof maintenance during the same summer.
+
+Four roofs received a high-reflectance coating and four were repainted with conventional dark material. Temperature sensors were placed on the roof surface, in the roof cavity and inside top-floor rooms.
+
+During clear afternoon periods, coated roofs had much lower surface temperatures. Roof-cavity temperatures were also lower, while indoor air temperature fell by a smaller amount.
+
+The indoor effect varied across buildings. Apartments with ceiling insulation showed less additional benefit because insulation already reduced heat transfer from the roof. Poorly insulated buildings showed larger temperature differences.
+
+Researchers also recorded air-conditioner use where residents agreed to share smart-meter data. Cooling electricity use declined modestly in several coated-roof apartments, but behaviour differed widely between households.
+
+Some residents opened windows in the evening, while others kept air conditioning running continuously. These behavioural differences made it difficult to attribute every electricity change to the roof treatment.
+
+The study was not fully randomised because building owners chose whether to accept the reflective coating before recruitment was complete. Researchers matched buildings by size and construction and adjusted for shade, but unmeasured differences may remain.
+
+Another limitation was the short summer period. Reflective roofs may reduce beneficial solar warming during cooler months, so annual energy effects cannot be inferred from hot-weather measurements alone.
+
+Residents reported less afternoon ceiling heat in several coated buildings. The survey result broadly matched the sensor pattern, although subjective comfort also depends on airflow and humidity.
+
+The research team will follow the buildings through winter and repeat measurements during the next summer to test durability.
+
+They also plan to measure roof reflectance after dust accumulation. A coating that performs well when new may lose effectiveness if surface dirt reduces reflected sunlight.
+
+The next study will include more buildings and randomise treatment where owners agree. Researchers will also compare reflective coating with added insulation because the two approaches act at different points in the heat-transfer process.
+
+The current evidence supports a specific conclusion: reflective roofs can substantially reduce roof-surface heat and can lower top-floor indoor temperature under hot sunny conditions, but the indoor and energy effects depend on insulation, behaviour and season.
+
+The project illustrates why an environmental intervention should be measured at several stages. A large surface-temperature change does not translate one-for-one into indoor comfort or electricity savings.`,
+ questions:[
+ q("E07-Q1","RS-F01","medium","Where was the largest temperature effect observed?","On the roof surface",["Inside every room","In winter air","At ground-floor windows"],"The coating produced a large reduction at the roof surface, with smaller changes deeper in the building and indoors.","much lower surface temperatures"),
+ q("E07-Q2","RS-F02","medium","What can be inferred about insulated apartments?","They may show a smaller additional indoor benefit from reflective coating",["Insulation makes roofs hotter","They cannot use reflective coatings","Indoor temperature never changes"],"Existing insulation already limits roof heat transfer, leaving less additional heat for the reflective surface to block.","insulation already reduced heat transfer"),
+ q("E07-Q3","RS-F03","medium","Which summary is most accurate?","Reflective roofs reduced heat strongly at the surface, while indoor and energy benefits varied with building and household factors",["Reflective roofs always reduce annual energy use","Every coated apartment stopped using air conditioning","Indoor temperature fell as much as roof temperature"],"The study finds a clear physical surface effect but more variable downstream effects on rooms and electricity use.","depend on insulation, behaviour and season"),
+ q("E07-Q4","RS-F04","hard","Which limitation most directly affects causal comparison between roof types?","Building owners selected whether to accept the reflective treatment",["Sensors measured several locations","The study occurred in summer","Residents answered surveys"],"Non-random treatment choice may leave systematic differences between coated and control buildings even after matching and adjustment.","not fully randomised"),
+ q("E07-Q5","RS-F05","hard","Which statement makes an unjustified causal claim?","Reflective roofs necessarily reduce annual electricity use",["Surface temperature fell substantially","Insulation modified indoor effects","Household cooling behaviour varied"],"The study covered a short summer and notes possible winter trade-offs and behavioural variation, so annual savings are not established.","annual energy effects cannot be inferred"),
+ q("E07-Q6","RS-F06","hard","Which is a directly reported finding?","Cooling electricity use declined modestly in several coated-roof apartments",["All coated buildings had identical energy savings","Winter heating use fell","Dust had already reduced reflectance"],"Smart-meter data showed modest reductions in some treated apartments, though household behaviour varied widely.","declined modestly in several"),
+ q("E07-Q7","RS-F07","hard","Which competing mechanism complicates the electricity result?","Residents differed in window opening and air-conditioner use",["Roof colour changed building size","Sensors increased electricity demand","Insulation was removed"],"Household behaviour can change cooling electricity independently of roof treatment, making energy outcomes harder to attribute.","behaviour differed widely"),
+ q("E07-Q8","RS-F08","medium","Which next step is best supported?","Follow buildings across seasons and compare reflective coating with added insulation",["Measure only roof colour","Stop collecting indoor temperatures","Generalise immediately to all buildings"],"The planned follow-up addresses durability, seasonal trade-offs and whether different heat-control strategies provide distinct benefits.","compare reflective coating with added insulation")
+ ]
+},
+{
+ id:"ENG008-RS-D09",title:"Do Worked Examples Improve Algebra Transfer?",genre:"digital-learning-evaluation",
+ text:`An online mathematics platform tested whether worked examples improved students' ability to solve new algebra problems. The platform usually gave a short rule followed immediately by practice questions.
+
+In the experimental condition, learners first studied two fully worked solutions showing each transformation step and a brief explanation of why that step was valid. The comparison group spent the same amount of time on additional routine practice.
+
+Twelve hundred learners were randomly assigned to the two approaches for three algebra topics. Immediate quiz scores were similar, though the worked-example group completed the first practice problems faster.
+
+One week later, both groups took a transfer test containing problems that used the same principles in less familiar forms. The worked-example group performed better on these transfer items.
+
+The advantage was largest for learners with lower pre-test scores. Higher-performing learners showed smaller differences and sometimes skipped parts of the examples.
+
+Researchers examined clickstream data and found that weaker learners spent more time on explanatory annotations, while stronger learners moved quickly to practice.
+
+The study also found a possible downside. Some students copied the visible steps mechanically without checking why each transformation worked. Those learners did well on near-identical questions but poorly on transfer items.
+
+The platform therefore added short prediction prompts inside examples, asking learners to choose the next step before revealing it. A later pilot suggested these prompts increased active engagement, but that phase was not part of the original randomised comparison.
+
+A limitation is that the experiment covered only three algebra topics and one week of delayed testing. It does not establish whether worked examples improve long-term course performance.
+
+The comparison also held study time constant. In ordinary use, learners may spend more or less time depending on whether they find examples helpful, so real-world effects could differ.
+
+The next trial will vary example difficulty and gradually remove steps as learners gain experience. Researchers want to test whether this “fading” approach prevents dependence on fully shown solutions.
+
+They will also measure explanation quality, not only final answers, to see whether learners understand the underlying transformation rules.
+
+The current evidence supports a specific conclusion: worked examples can improve transfer for less-prepared learners when the examples make reasoning visible, but passive copying can weaken that benefit.
+
+The broader implication is that instructional support should change with learner knowledge. A format that reduces cognitive load for a beginner may become unnecessary or inefficient for someone who already understands the procedure.`,
+ questions:[
+ q("D09-Q1","RS-F01","medium","Which group performed better on the delayed transfer test?","The worked-example group",["The routine-practice group by a large margin","Both groups scored zero","Only high-performing learners improved"],"The study directly reports stronger performance on unfamiliar-form problems one week later among learners who studied worked solutions.","worked-example group performed better"),
+ q("D09-Q2","RS-F02","medium","What can be inferred from the larger benefit for lower pre-test learners?","Worked examples may be most useful when learners lack well-developed procedures",["Experts cannot learn from examples","Low scorers spent less time studying","Pre-test scores determine final grades"],"The pattern suggests that explicit step-by-step guidance reduces difficulty most for learners who have not yet automated the relevant reasoning.","largest for learners with lower pre-test scores"),
+ q("D09-Q3","RS-F03","medium","Which summary is most accurate?","Worked examples improved transfer for less-prepared learners, but passive copying reduced the benefit",["Worked examples improved every outcome equally","Routine practice had no value","Prediction prompts were part of the original randomised trial"],"The study reports an average transfer advantage together with evidence that how learners engage with the examples matters.","passive copying can weaken that benefit"),
+ q("D09-Q4","RS-F04","hard","Which limitation most directly restricts long-term generalisation?","The study covered three topics and only one week of delayed testing",["Learners used an online platform","The experiment measured pre-test scores","Worked examples contained steps"],"A narrow content range and short follow-up period limit conclusions about durable effects across a full mathematics course.","only three algebra topics"),
+ q("D09-Q5","RS-F05","hard","Which statement makes an unjustified causal claim?","Prediction prompts caused the original transfer advantage",["Worked examples improved transfer on average","Lower pre-test learners benefited more","Some students copied mechanically"],"Prediction prompts were added in a later pilot and were not part of the original randomised comparison that produced the main result.","not part of the original randomised comparison"),
+ q("D09-Q6","RS-F06","hard","Which is a directly reported finding?","Stronger learners often moved quickly through the examples",["Every learner read every annotation","Study time varied between conditions","Transfer performance was identical"],"Clickstream data showed higher-performing learners spent less time on the explanatory parts and sometimes skipped them.","stronger learners moved quickly"),
+ q("D09-Q7","RS-F07","hard","Which competing mechanism is identified?","Mechanical copying can produce success on similar items without real conceptual transfer",["Worked examples reduce internet speed","Practice questions become easier over time","Pre-tests reveal answers"],"The passage distinguishes genuine reasoning support from superficial imitation of visible solution steps.","copied the visible steps mechanically"),
+ q("D09-Q8","RS-F08","medium","Which next step is best supported?","Test fading of worked steps as learner expertise grows",["Give every learner full solutions forever","Remove delayed testing","Measure only final answer speed"],"The proposed fading design directly addresses the possibility that fixed full support becomes unnecessary or encourages dependence.","gradually remove steps")
+ ]
+},
+{
+ id:"ENG008-RS-D10",title:"Do Weekly Goal Reviews Improve Course Persistence?",genre:"digital-learning-evaluation",
+ text:`A professional certification platform tested a weekly goal-review feature for learners enrolled in six-month online courses. The normal dashboard showed completed modules and remaining assessments.
+
+The experimental version added a five-minute Sunday review. Learners saw what they had completed, compared it with the previous week's goal and selected a realistic target for the next seven days.
+
+Four thousand learners who had been active for at least three weeks were randomly assigned to the standard or review dashboard. Over the next ten weeks, the review group logged in on slightly more weeks and completed more planned study sessions.
+
+The effect on total completed modules was smaller. Some learners used the review to lower overly ambitious goals rather than increase study volume.
+
+Interviews suggested that this adjustment was often intentional. Learners said a smaller achievable target felt more useful than repeatedly missing a large goal.
+
+The platform also tracked whether participants postponed final assessments. There was little difference between groups during the first six weeks, but the review group had fewer long gaps without any activity later in the trial.
+
+A limitation is that the study included only learners who had already stayed active for three weeks. People who disengage immediately after enrolment may respond differently.
+
+Another issue is that goal selection itself can reflect motivation. A learner choosing a higher target may already be more committed, so researchers did not treat target size as a causal predictor of persistence.
+
+The randomised comparison concerns access to the review feature, not the effect of choosing any particular goal.
+
+Researchers also found that some users clicked through the Sunday review without changing or considering their target. The platform therefore added a prompt asking learners to identify one likely obstacle for the coming week.
+
+That obstacle prompt was introduced late and has not yet been evaluated experimentally.
+
+The next phase will start at enrolment and compare weekly reviews with automated goals generated from prior pace. Researchers want to know whether self-chosen targets are more motivating than system recommendations.
+
+They will also measure completion after the full six-month course period rather than relying on short-term engagement.
+
+The current evidence suggests that weekly goal review can reduce long inactive periods and improve consistency modestly, but it does not show a large increase in total learning volume.
+
+The study also illustrates that lowering a goal is not necessarily failure. A revised target can be a rational response to time constraints if it helps the learner maintain a sustainable study pattern.
+
+The broader question is whether planning tools help learners regulate effort over time, not simply whether they push people toward the largest possible weekly target.`,
+ questions:[
+ q("D10-Q1","RS-F01","medium","What changed most clearly in the weekly review group?","Learners were active in slightly more weeks and completed more planned sessions",["Total modules doubled","Every learner increased goals","Final assessments occurred immediately"],"The strongest behavioural effect was more consistent engagement rather than a dramatic increase in total course volume.","logged in on slightly more weeks"),
+ q("D10-Q2","RS-F02","medium","What can be inferred from learners lowering some goals?","Goal review may support realistic planning rather than simply increasing workload",["Lower goals always reduce persistence","Learners stopped studying","The feature failed"],"Interviews indicate that some participants deliberately adjusted unrealistic targets to create achievable plans they could sustain.","smaller achievable target felt more useful"),
+ q("D10-Q3","RS-F03","medium","Which summary is most accurate?","Weekly goal reviews modestly improved consistency but did not greatly increase total learning volume",["The feature guaranteed course completion","Automated goals were already tested","Higher goals caused persistence"],"The trial finds fewer inactive periods and more planned sessions, while the difference in total modules remains smaller.","does not show a large increase"),
+ q("D10-Q4","RS-F04","hard","Which limitation most directly affects generalising to newly enrolled learners?","Only learners active for at least three weeks entered the experiment",["The course lasted six months","The review happened on Sunday","Modules were counted"],"Early dropouts were excluded, so the observed effect may not represent users who disengage soon after enrolment.","already stayed active for three weeks"),
+ q("D10-Q5","RS-F05","hard","Which statement makes an unjustified causal claim?","Choosing a larger weekly goal causes greater persistence",["The review group had fewer long inactive gaps","Some users clicked through the review","Total-module effects were smaller"],"The passage explicitly warns that target size may reflect pre-existing motivation and was not randomly assigned.","did not treat target size as a causal predictor"),
+ q("D10-Q6","RS-F06","hard","Which is a directly reported finding?","The review group had fewer long gaps without activity later in the trial",["Every learner completed the course","Obstacle prompts increased completion","Automated goals outperformed self-chosen goals"],"The platform directly observed fewer extended inactive periods in the review group during the later weeks.","fewer long gaps"),
+ q("D10-Q7","RS-F07","hard","Which competing explanation applies when a learner chooses a high target?","The learner may already be more motivated",["The dashboard forces high goals","Course modules become shorter","Sunday reviews increase exam difficulty"],"Goal size is self-selected and can reflect prior commitment, so correlation with persistence would not establish a causal effect.","already be more committed"),
+ q("D10-Q8","RS-F08","medium","Which next step is best supported?","Begin at enrolment and compare self-chosen with automated goals through full-course completion",["Remove all goal choices","Measure only Sunday clicks","Exclude early disengagers again"],"The planned follow-up directly addresses external validity, goal-setting mechanism and long-term completion rather than short-term engagement alone.","start at enrolment")
+ ]
+}
+] as const;
