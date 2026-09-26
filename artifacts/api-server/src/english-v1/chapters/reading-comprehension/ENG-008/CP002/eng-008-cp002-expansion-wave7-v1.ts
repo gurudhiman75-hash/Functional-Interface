@@ -39,7 +39,7 @@ A useful system usually combines a manageable set of standard categories with a 
 
 Trend analysis also matters. A small category that doubles quickly may deserve attention even if it remains smaller than the largest category.
 
-Good complaint analysis therefore asks what people are complaining about, how often the pattern repeats and whether the underlying process has changed. Counting complaints is a start; understanding their structure is what makes them truly useful for improvement.
+Good complaint analysis therefore asks what people are complaining about, how often the pattern repeats and whether the underlying process has changed. Counting complaints is a start; understanding their structure is what makes them truly useful for sustained improvement.
 
  Staff training matters too. If different employees classify the same complaint differently, category totals become unstable. Short examples and periodic review can improve consistency without turning the process into a rigid checklist.`,
  questions:[
