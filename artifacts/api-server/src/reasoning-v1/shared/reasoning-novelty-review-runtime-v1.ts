@@ -152,7 +152,13 @@ export async function generateReasoningNoveltyReviewBatchV1(
         " emitted a candidate already activated for Question Studio novelty mixing.",
       );
     }
-    candidates.push(candidate);
+    candidates.push({
+      ...candidate,
+      noveltyReviewProviderId: provider.providerId,
+      noveltyReviewRuntimeVersion: REASONING_V1_NOVELTY_REVIEW_RUNTIME_VERSION,
+      reviewOnly: true,
+      questionStudioNoveltyMixActivated: false,
+    });
   }
 
   return {
