@@ -132,6 +132,18 @@ for (const summary of audit.summaries) {
   assert.ok(summary.explanationSpecificityRate >= 0 && summary.explanationSpecificityRate <= 1);
   assert.ok(summary.exactStemDuplicateRate >= 0 && summary.exactStemDuplicateRate <= 1);
   assert.ok(summary.semanticExplanationDuplicateRate >= 0 && summary.semanticExplanationDuplicateRate <= 1);
+  assert.equal(summary.novelQuestionCapability.authority, "QUANT-V4-NOVEL-QUESTION-CAPABILITY-P4");
+  assert.ok(summary.novelQuestionCapability.records === summary.runtimeGeneratedCount);
+  assert.ok(summary.novelQuestionCapability.patternBreadth >= 0);
+  assert.ok(summary.novelQuestionCapability.canonicalProblemBreadth >= 0);
+  assert.ok(summary.novelQuestionCapability.cosmeticReskins.rate >= 0 && summary.novelQuestionCapability.cosmeticReskins.rate <= 1);
+  assert.ok(summary.novelQuestionCapability.seedSensitivity.rate >= 0 && summary.novelQuestionCapability.seedSensitivity.rate <= 1);
+  if (summary.novelQuestionCapability.blockers.length) {
+    assert.ok(
+      summary.blockers.includes("NOVEL_QUESTION_CAPABILITY_BLOCKERS_PRESENT"),
+      `${summary.examId} must surface unresolved novelty as a readiness blocker.`,
+    );
+  }
   assert.equal(summary.readiness, "EXAM_SIMULATION_NOT_READY", `${summary.examId} must stay NOT_READY while PYQ frequency weighting is provisional.`);
   assert.ok(summary.blockers.includes("PYQ_FREQUENCY_WEIGHTING_PENDING"), `${summary.examId} lost the empirical-weighting blocker.`);
 
@@ -173,4 +185,15 @@ console.log(JSON.stringify({
   optionMismatchByExam: Object.fromEntries(audit.summaries.map((summary) => [summary.examId, summary.optionMismatchCount])),
   diSetsByExam: Object.fromEntries(audit.summaries.map((summary) => [summary.examId, summary.diSetCount])),
   blockersByExam: Object.fromEntries(audit.summaries.map((summary) => [summary.examId, summary.blockers])),
+  noveltyByExam: Object.fromEntries(audit.summaries.map((summary) => [summary.examId, {
+    blockers: summary.novelQuestionCapability.blockers,
+    patternBreadth: summary.novelQuestionCapability.patternBreadth,
+    canonicalProblemBreadth: summary.novelQuestionCapability.canonicalProblemBreadth,
+    structuralDuplicateRate: summary.novelQuestionCapability.structural.duplicateRate,
+    cosmeticReskinRate: summary.novelQuestionCapability.cosmeticReskins.rate,
+    heldOutStructuralNoveltyRate: summary.novelQuestionCapability.heldOutStructuralNovelty.rate,
+    stateEvidenceTier: summary.novelQuestionCapability.state.tier,
+    stateNoveltyRate: summary.novelQuestionCapability.stateNoveltyRate,
+    seedSensitivityRate: summary.novelQuestionCapability.seedSensitivity.rate,
+  }])),
 }));
