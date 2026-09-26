@@ -22,6 +22,10 @@ on:
       - "artifacts/admin-app/src/pages/content/QuestionStudioProbabilityReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
 
+concurrency:
+  group: validate-prb-multilingual-foundation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-probability-multilingual-foundation:
     runs-on: ubuntu-latest
