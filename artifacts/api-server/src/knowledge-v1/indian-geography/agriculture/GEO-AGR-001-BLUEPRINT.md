@@ -103,7 +103,7 @@ For CP001–CP012:
 ## 5. Current state
 
 - Blueprint established.
-- CP001 — under implementation.
-- CP002 — under implementation.
-- CP003 — under implementation.
+- CP001 — Cropping Seasons & Farming Systems — under review.
+- CP002 — Rice & Wheat Geography — under review.
+- CP003 — Millets, Maize & Pulses — under review.
 - No runtime/public registration is authorized.
