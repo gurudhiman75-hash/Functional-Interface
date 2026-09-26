@@ -100,7 +100,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-LOC-001-QL-091",
     "qlName": "Latitude-based north/south comparison",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "Point P is at 14°N, Q at 26°N and R at 33°N. Which point lies between the other two in north–south position?",
     "answer": "Point Q",
     "distractors": [
@@ -124,7 +124,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Both are equally east",
       "Latitude is needed to compare"
     ],
-    "explanation": "Among east longitudes, the larger value lies farther east of the Prime Meridian. Therefore 90°E lies east of 70°E.",
+    "explanation": "Among east longitudes, the larger value lies farther east of the Prime Meridian. Therefore 90°E lies east of 70°E, while 70°E is comparatively farther west.",
     "sourceFactIds": [
       "LONGITUDE-LARGER-EAST"
     ]
@@ -196,7 +196,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-LOC-001-QL-092",
     "qlName": "Longitude-based east/west comparison",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "Point P is at 69°E, Q at 83°E and R at 96°E. Which point lies between the other two in east–west position?",
     "answer": "Point Q",
     "distractors": [
@@ -268,7 +268,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Western longitude limit",
       "Eastern longitude limit"
     ],
-    "explanation": "The longitude 75°E lies within mainland India's east–west range, but 6°N is south of the 8°4'N southern latitude limit.",
+    "explanation": "The longitude 75°E lies within mainland India's east–west range. However, 6°N is south of the 8°4'N southern latitude limit, so the point falls outside the mainland range.",
     "sourceFactIds": [
       "COORDINATE-OUT-SOUTH"
     ]
@@ -300,7 +300,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Point R",
       "Points Q and R"
     ],
-    "explanation": "P lies inside both latitude and longitude intervals. Q is north of 37°6'N, while R lies east of 97°25'E.",
+    "explanation": "P lies inside both latitude and longitude intervals. Q exceeds the northern limit of 37°6'N, while R exceeds the eastern limit of 97°25'E.",
     "sourceFactIds": [
       "COORDINATE-THREE-POINT-INFERENCE"
     ]
@@ -316,7 +316,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Exactly on it",
       "Its longitude decides"
     ],
-    "explanation": "The Tropic of Cancer lies at 23°30'N. Since 20°N is a smaller north latitude, the place lies south of the Tropic.",
+    "explanation": "The Tropic of Cancer lies at 23°30'N. Since 20°N is a smaller north latitude, the place lies south of the Tropic and closer to the Equator.",
     "sourceFactIds": [
       "TOC-SOUTH-20N"
     ]
@@ -332,7 +332,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Exactly on it",
       "Its longitude decides"
     ],
-    "explanation": "The Tropic of Cancer lies at 23°30'N. Since 28°N is a larger north latitude, the place lies north of the Tropic.",
+    "explanation": "The Tropic of Cancer lies at 23°30'N. Since 28°N is a larger north latitude, the place lies north of the Tropic and farther from the Equator.",
     "sourceFactIds": [
       "TOC-NORTH-28N"
     ]
@@ -364,7 +364,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Both are north",
       "Both are south"
     ],
-    "explanation": "The Tropic of Cancer is at 23°30'N. The 22°N point lies south of it, while the 25°N point lies north.",
+    "explanation": "The Tropic of Cancer is at 23°30'N. The 22°N point lies south of it, while the 25°N point lies north, so the two points fall on opposite sides.",
     "sourceFactIds": [
       "TOC-TWO-POINT-SIDES"
     ]
@@ -396,7 +396,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "25°N",
       "30°N"
     ],
-    "explanation": "P must be greater than 20°N but less than 23°30'N. Only 22°N lies inside that narrow latitude interval.",
+    "explanation": "P must be greater than 20°N but less than 23°30'N. Only 22°N lies inside that narrow interval, so it satisfies both latitude clues.",
     "sourceFactIds": [
       "TOC-BOUNDED-INFERENCE"
     ]
@@ -460,7 +460,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Both are east",
       "Both are west"
     ],
-    "explanation": "The reference longitude is 82°30'E. The 80°E point lies west of it, while the 86°E point lies east.",
+    "explanation": "The reference longitude is 82°30'E. The 80°E point lies west of it, while the 86°E point lies east, so the two points fall on opposite sides.",
     "sourceFactIds": [
       "SM-TWO-POINT-SIDES"
     ]
@@ -492,7 +492,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "84°E",
       "90°E"
     ],
-    "explanation": "P must be greater than 80°E but less than 82°30'E. Among the options, only 82°E lies within that interval.",
+    "explanation": "P must be greater than 80°E but less than 82°30'E. Among the options, only 82°E lies within that interval and satisfies both longitude clues.",
     "sourceFactIds": [
       "SM-BOUNDED-INFERENCE"
     ]
@@ -580,7 +580,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-LOC-001-QL-096",
     "qlName": "Hemisphere and coordinate-sign interpretation",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "A point is east of the Prime Meridian and south of the Equator. Which coordinate pattern fits?",
     "answer": "South latitude, east longitude",
     "distractors": [
@@ -684,7 +684,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "C lies west of both A and B",
       "All three lie in the same island group"
     ],
-    "explanation": "Minicoy lies south of Kavaratti within Lakshadweep, while Great Nicobar lies far to the east in the Andaman and Nicobar region.",
+    "explanation": "Minicoy lies south of Kavaratti within Lakshadweep. Great Nicobar lies far to the east of both, in the Andaman and Nicobar region.",
     "sourceFactIds": [
       "RELATIVE-ISLAND-THREE-POINT"
     ]
@@ -732,7 +732,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Arabian Sea → Red Sea → Bay of Bengal",
       "Indian Ocean → Arabian Sea → Bay of Bengal"
     ],
-    "explanation": "The west coast faces the Arabian Sea, the southern peninsula projects into the Indian Ocean, and the east coast faces the Bay of Bengal.",
+    "explanation": "The west coast faces the Arabian Sea and the east coast faces the Bay of Bengal. Between them, the southern peninsula projects into the Indian Ocean.",
     "sourceFactIds": [
       "WATER-REASONING-ROUND-PENINSULA"
     ]
