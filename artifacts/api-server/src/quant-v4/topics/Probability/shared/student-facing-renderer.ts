@@ -198,7 +198,14 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
       if (form === 2) return "Given that a card chosen from a standard deck is a face card, what is the probability that it is a king?";
       return "A card has been selected from a standard deck and is known to belong to the set of face cards. Find the probability that the selected card is a king.";
     }
-    case "findConditionalNumberProbability": return `An integer selected from 1 to ${num(p, "upper")} is known to be divisible by ${num(p, "conditionDivisor")}. What is the probability that it is also divisible by ${num(p, "targetDivisor")}?`;
+    case "findConditionalNumberProbability": {
+      const upper = num(p, "upper"), condition = num(p, "conditionDivisor"), target = num(p, "targetDivisor");
+      const form = qlSeriesVariant(entry, 6, 4);
+      if (form === 0) return `An integer is selected at random from 1 to ${upper} and is known to be divisible by ${condition}. What is the probability that it is also divisible by ${target}?`;
+      if (form === 1) return `One number is chosen at random from the multiples of ${condition} between 1 and ${upper}. Find the probability that the chosen number is also a multiple of ${target}.`;
+      if (form === 2) return `A number selected uniformly from 1 to ${upper} is known to lie among the multiples of ${condition}. Given this information, find the probability that it is divisible by ${target} as well.`;
+      return `Consider only the integers from 1 to ${upper} that are divisible by ${condition}. If one of these integers is selected at random, what is the probability that it is also divisible by ${target}?`;
+    }
     case "findConditionalUrnProbability": {
       const form = qlSeriesVariant(entry, 6, 4);
       if (form === 0) return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?`;
