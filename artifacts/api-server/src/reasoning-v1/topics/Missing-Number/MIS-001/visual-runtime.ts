@@ -42,13 +42,13 @@ export function renderCircleSvg(values: {
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="number wheel">',
     '<circle cx="110" cy="110" r="82" fill="none" stroke="currentColor" stroke-width="2.5"/>',
     four
-      ? '<line x1="110" y1="28" x2="110" y2="192" stroke="currentColor" stroke-width="1.5"/><line x1="28" y1="110" x2="192" y2="110" stroke="currentColor" stroke-width="1.5"/>'
-      : '<line x1="110" y1="28" x2="110" y2="83" stroke="currentColor" stroke-width="1.5"/><line x1="181" y1="151" x2="134" y2="124" stroke="currentColor" stroke-width="1.5"/><line x1="39" y1="151" x2="86" y2="124" stroke="currentColor" stroke-width="1.5"/>',
-    '<circle cx="110" cy="110" r="27" fill="none" stroke="currentColor" stroke-width="2"/>',
-    textNode(110, 52, values.top),
-    four ? textNode(168, 110, values.right) : textNode(171, 151, values.right),
-    textNode(110, 168, values.bottom),
-    four && values.left != null ? textNode(52, 110, values.left) : '',
+      ? '<line x1="52" y1="52" x2="88" y2="88" stroke="currentColor" stroke-width="1.5"/><line x1="168" y1="52" x2="132" y2="88" stroke="currentColor" stroke-width="1.5"/><line x1="168" y1="168" x2="132" y2="132" stroke="currentColor" stroke-width="1.5"/><line x1="52" y1="168" x2="88" y2="132" stroke="currentColor" stroke-width="1.5"/>'
+      : '<line x1="181" y1="69" x2="136" y2="95" stroke="currentColor" stroke-width="1.5"/><line x1="39" y1="69" x2="84" y2="95" stroke="currentColor" stroke-width="1.5"/><line x1="110" y1="192" x2="110" y2="138" stroke="currentColor" stroke-width="1.5"/>',
+    '<circle cx="110" cy="110" r="29" fill="white" stroke="currentColor" stroke-width="2"/>',
+    textNode(110, 48, values.top),
+    four ? textNode(172, 110, values.right) : textNode(165, 157, values.right),
+    four ? textNode(110, 172, values.bottom) : textNode(55, 157, values.bottom),
+    four && values.left != null ? textNode(48, 110, values.left) : '',
     textNode(110, 110, values.centre),
     '</svg>',
   ].join('');
@@ -88,9 +88,9 @@ export function figurePreview(renderer: FigureRenderer, values: FigurePositionMa
   if (renderer === 'SVG_CIRCLE') {
     if (values.left == null) {
       return [
-        `      ${values.top}`,
-        `     [${values.centre}]`,
-        `   ${values.bottom}   ${values.right}`,
+        `        ${values.top}`,
+        `       [${values.centre}]`,
+        `  ${values.bottom}       ${values.right}`,
       ].join('\n');
     }
     return [
