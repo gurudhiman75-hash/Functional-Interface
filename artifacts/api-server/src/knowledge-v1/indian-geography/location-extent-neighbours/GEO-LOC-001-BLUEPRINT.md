@@ -107,7 +107,8 @@ All implementation is review-only until explicit human approval. Question Studio
 - CP006 — Maritime Neighbours, Straits & Channels — human-approved and merged.
 - CP007 — Island Groups & Key Location Facts — human-approved and merged.
 - CP008 — Reference Lines & State/UT Map Associations — human-approved and merged.
-- CP009 — Coastal & Border State/UT Geography — human-approved.
-- CP010 — India in South Asia & the Indian Ocean — human-approved.
-- CP011 — Relative Location, Direction & Coordinate Reasoning — human-approved.
+- CP009 — Coastal & Border State/UT Geography — human-approved and merged.
+- CP010 — India in South Asia & the Indian Ocean — human-approved and merged.
+- CP011 — Relative Location, Direction & Coordinate Reasoning — human-approved and merged.
+- CP012 — Multi-fact / Statement / Match Integration — under review.
 - No permanent runtime registration or public publication is authorized.
