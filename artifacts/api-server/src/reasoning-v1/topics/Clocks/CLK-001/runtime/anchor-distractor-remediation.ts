@@ -2,11 +2,14 @@ import {
   addRationals,
   exactRational,
   multiplyRationals,
+  subtractRationals,
 } from "../../../../foundation/temporal";
 import type { SolvedClockPrototype } from "./solver-types";
 import {
   formatAngle,
+  formatDurationSeconds,
   rationalAnswer,
+  timeAnswer,
 } from "./utils";
 
 function exactAnswerValue(solved: SolvedClockPrototype) {
@@ -72,6 +75,102 @@ export function remediateAnchorDistractors(
           ),
           reasonCode: "TWO_HOUR_SPACES_ADDED_TO_SMALLER_ANGLE",
           reason: "This adds two extra hour spaces to the exact hand separation without support from the stated time.",
+        },
+      ],
+    };
+  }
+
+  if (solved.taskId === "ERROR_AFTER_ACTUAL_DURATION") {
+    const dailyErrorMinutes = solved.scenario.errorMinutesPerDay;
+    const actualHours = solved.scenario.actualHours;
+    if (typeof dailyErrorMinutes !== "number" || typeof actualHours !== "number") return solved;
+    const fullDayError = exactRational(dailyErrorMinutes * 60);
+    const inverseScaledError = exactRational(dailyErrorMinutes * 60 * 24, actualHours);
+    return {
+      ...solved,
+      distractors: [
+        ...solved.distractors,
+        {
+          answer: rationalAnswer(
+            "DURATION",
+            fullDayError,
+            formatDurationSeconds(fullDayError),
+          ),
+          reasonCode: "FULL_DAY_ERROR_USED_FOR_PARTIAL_DURATION",
+          reason: "This applies the complete 24-hour gain or loss even though the stated actual duration may be only part of a day.",
+        },
+        {
+          answer: rationalAnswer(
+            "DURATION",
+            inverseScaledError,
+            formatDurationSeconds(inverseScaledError),
+          ),
+          reasonCode: "ACTUAL_DURATION_PROPORTION_INVERTED",
+          reason: "This inverts the elapsed-time proportion and scales the daily error by 24 divided by the stated hours.",
+        },
+      ],
+    };
+  }
+
+  if (solved.taskId === "COMPARE_TWO_FAULTY_CLOCKS") {
+    const leftInitialAhead = solved.scenario.leftInitialAhead;
+    const rightInitialBehind = solved.scenario.rightInitialBehind;
+    const leftDailyGain = solved.scenario.leftDailyGain;
+    const rightDailyLoss = solved.scenario.rightDailyLoss;
+    if (
+      typeof leftInitialAhead !== "number" ||
+      typeof rightInitialBehind !== "number" ||
+      typeof leftDailyGain !== "number" ||
+      typeof rightDailyLoss !== "number"
+    ) return solved;
+    const initialSeparation = leftInitialAhead + rightInitialBehind;
+    const dailySeparation = leftDailyGain + rightDailyLoss;
+    const halfDaySeparation = exactRational((initialSeparation * 2 + dailySeparation) * 30);
+    const twoDaySeparation = exactRational((initialSeparation + 2 * dailySeparation) * 60);
+    return {
+      ...solved,
+      distractors: [
+        ...solved.distractors,
+        {
+          answer: rationalAnswer(
+            "DURATION",
+            halfDaySeparation,
+            formatDurationSeconds(halfDaySeparation),
+          ),
+          reasonCode: "TWELVE_HOUR_DRIFT_USED_FOR_TWENTY_FOUR_HOURS",
+          reason: "This accumulates only half a day's extra separation although the question asks for the readings after 24 actual hours.",
+        },
+        {
+          answer: rationalAnswer(
+            "DURATION",
+            twoDaySeparation,
+            formatDurationSeconds(twoDaySeparation),
+          ),
+          reasonCode: "DAILY_DRIFT_APPLIED_TWICE",
+          reason: "This counts two full days of gain and loss instead of the single 24-hour interval stated in the question.",
+        },
+      ],
+    };
+  }
+
+  if (solved.taskId === "MIRROR_FROM_ACTUAL") {
+    const correct = exactAnswerValue(solved);
+    if (!correct) return solved;
+    const oneMinuteEarly = subtractRationals(correct, 60);
+    const oneHourLate = addRationals(correct, 3_600);
+    return {
+      ...solved,
+      distractors: [
+        ...solved.distractors,
+        {
+          answer: timeAnswer(oneMinuteEarly),
+          reasonCode: "MIRROR_BORROWING_ERROR_ONE_MINUTE_EARLY",
+          reason: "This makes a one-minute borrowing error while subtracting the actual time from the 12:00 mirror reference.",
+        },
+        {
+          answer: timeAnswer(oneHourLate),
+          reasonCode: "MIRROR_REFERENCE_SHIFTED_ONE_HOUR",
+          reason: "This shifts the correct mirror reading by one hour after the 12-hour complement has already been applied.",
         },
       ],
     };
