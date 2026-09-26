@@ -13,7 +13,9 @@ Digital noticeboards need the same discipline. Because old messages can remain o
 
 Responsibility should also be assigned. A notice that belongs to no one is less likely to be removed on time.
 
-Good information management therefore includes an end point as well as a publication point. A notice is useful not only when it appears at the right time, but also when it disappears once it is no longer relevant.`,
+Good information management therefore includes an end point as well as a publication point. A notice is useful not only when it appears at the right time, but also when it disappears once it is no longer relevant.
+
+ Archiving is different from display. Old notices may still need to be kept for records, but they do not need to remain mixed with current instructions. A clear archive can preserve history without forcing users to decide which version still applies.`,
  questions:[
  q("E18-Q1","RC2-F01","easy","What problem can outdated notices create?","They can compete with current information and cause uncertainty",["They always become illegal","They reduce printing costs","They improve attention"],"The second paragraph states both problems.","compete with current information"),
  q("E18-Q2","RC2-F02","medium","What can be inferred about expiry dates?","They can act as a reminder to review a notice even if the information does not automatically become invalid",["They always cancel a notice legally","They are useful only online","They replace staff responsibility"],"The passage distinguishes review timing from legal expiry.","tell staff when the notice should be reviewed"),
@@ -37,7 +39,9 @@ A useful system usually combines a manageable set of standard categories with a 
 
 Trend analysis also matters. A small category that doubles quickly may deserve attention even if it remains smaller than the largest category.
 
-Good complaint analysis therefore asks what people are complaining about, how often the pattern repeats and whether the underlying process has changed. Counting complaints is a start; understanding their structure is what makes them useful for improvement.`,
+Good complaint analysis therefore asks what people are complaining about, how often the pattern repeats and whether the underlying process has changed. Counting complaints is a start; understanding their structure is what makes them useful for improvement.
+
+ Staff training matters too. If different employees classify the same complaint differently, category totals become unstable. Short examples and periodic review can improve consistency without turning the process into a rigid checklist.`,
  questions:[
  q("E19-Q1","RC2-F01","easy","Why can total complaint count be misleading?","The number can change for reasons other than service quality",["Complaints are never useful","Customers always report the same issue","Counts cannot be measured"],"The opening paragraph lists easier reporting and temporary events.","can also result from easier reporting"),
  q("E19-Q2","RC2-F02","medium","What can be inferred about complaint categories?","They need enough detail to reveal patterns without becoming too fragmented",["The narrowest categories are always best","One category is sufficient","Free text should replace categories"],"The passage balances overly broad and overly narrow categories.","should not be too broad ... too narrow"),
@@ -61,7 +65,9 @@ A short survey found that regular cyclists valued the stands mainly for tyre pre
 
 The city added simple diagrams and QR links to short instructions. Officials cautioned that the stands were suitable only for minor adjustments, not serious mechanical faults.
 
-The pilot concluded that repair stands were useful as a small support facility but required routine inspection and clearer instructions. The city plans to compare maintenance cost with usage before deciding how many additional stands to install.`,
+The pilot concluded that repair stands were useful as a small support facility but required routine inspection and clearer instructions. The city plans to compare maintenance cost with usage before deciding how many additional stands to install.
+
+ The city also recorded repair frequency by component. Pumps required more routine servicing than tools, so future expansion decisions will consider which parts create the greatest maintenance burden as well as which receive the most use.`,
  questions:[
  q("R14-Q1","RC2-F01","easy","Which part of the repair stands was used most often?","The pumps",["The tool cables","The QR codes","The stands' lights"],"The second paragraph states this directly.","pumps were used far more often"),
  q("R14-Q2","RC2-F02","medium","What can be inferred from the survey of less experienced riders?","Clear instructions can affect whether equipment is practically usable",["They never used bicycles","Tools were unnecessary","Experienced riders disliked pumps"],"Some riders were unsure how to use the tools, prompting instructions.","unsure how to use the tools safely"),
@@ -85,7 +91,9 @@ Some visitors missed their chosen window because of transport delays. The museum
 
 Walk-in visitors sometimes faced longer uncertainty because online bookings took priority. The museum responded by showing the estimated next walk-in time on a screen near the entrance.
 
-Officials concluded that timed entry improved predictability and reduced crowding at peak moments, but it needed flexible rules for delays and clear information for people without bookings. The museum will test the system again during a school-holiday period before deciding whether to use it permanently.`,
+Officials concluded that timed entry improved predictability and reduced crowding at peak moments, but it needed flexible rules for delays and clear information for people without bookings. The museum will test the system again during a school-holiday period before deciding whether to use it permanently.
+
+ The museum also compared no-show rates between early and late booking windows. That information may help determine whether some slots should be released shortly before entry rather than remaining unused when a booked visitor does not arrive.`,
  questions:[
  q("R15-Q1","RC2-F01","easy","What happened to average queue length during the timed-entry trial?","It fell",["It doubled","It stayed exactly the same","It was not measured"],"The second paragraph directly reports the decline.","Average queue length fell"),
  q("R15-Q2","RC2-F02","medium","What can be inferred about timed entry?","It redistributed arrivals rather than increasing gallery capacity",["It made the gallery larger","It eliminated walk-ins","It increased safe capacity"],"The passage explicitly distinguishes timing from capacity.","changed when visitors arrived"),
