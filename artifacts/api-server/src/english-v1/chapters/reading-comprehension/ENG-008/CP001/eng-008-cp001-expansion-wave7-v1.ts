@@ -11,7 +11,9 @@ Kabir took it to the sports office. The coach checked the locker register and fo
 
 When the student collected the key, she explained that it had slipped from a loose pocket during warm-up. Kabir was pleased that the locker number had provided a useful clue without revealing private information.
 
-The experience showed him that a small identifying detail can be enough when it is checked against the right record. Leaving the key where it was found would have been quicker, but not necessarily more reliable.`,
+The experience showed him that a small identifying detail can be enough when it is checked against the right record. Leaving the key where it was found would have been quicker, but not necessarily more reliable.
+
+ The sports office later placed a small lost-property box beside the register and asked coaches to use it for unidentified tags, whistles and keys. Kabir saw that the new process gave found items a predictable destination instead of leaving each person to make a separate guess.`,
  questions:[
  q("N14-Q1","RC-F01","easy","Where did Kabir take the key tag?","To the sports office",["To the school gate","To his classroom","To the canteen"],"The passage says he took it to the sports office.","took it to the sports office"),
  q("N14-Q2","RC-F02","medium","Why did Kabir avoid leaving the key on the bench?","Many groups used the ground, so the wrong person might take it",["The bench was broken","Practice had been cancelled","The key was too large"],"The shared setting made the bench an unreliable return point.","many teams used the same ground"),
@@ -31,7 +33,9 @@ The driver wrote down the seat number and placed the coat in the bus lost-proper
 
 Mehak realised how easily similarity can be mistaken for identity. The colour had made the coat look familiar, but the label provided stronger evidence.
 
-Later she told her friend what had happened. They laughed about the mistake, but Mehak kept the lesson: when several people own similar things, one matching feature is not enough to prove ownership.`,
+Later she told her friend what had happened. They laughed about the mistake, but Mehak kept the lesson: when several people own similar things, one matching feature is not enough to prove ownership.
+
+ The bus driver later added a small label to the lost-property box asking students to mention one identifying detail before taking an item. Mehak understood why: many school raincoats looked almost identical, so description and labels mattered more than colour alone.`,
  questions:[
  q("N15-Q1","RC-F01","easy","What showed Mehak that the raincoat was not her friend's?","The initials on the label were different",["The colour was different","The driver recognised it","The coat was wet"],"She checked the collar label and saw different initials.","initials were different"),
  q("N15-Q2","RC-F02","medium","What can be inferred about the coat's colour?","It was a weak clue because more than one person could own a similar coat",["It proved ownership","It was unique in the school","It had no connection with Mehak's friend"],"The colour looked familiar but was not enough to identify the owner.","similarity can be mistaken for identity"),
@@ -51,7 +55,9 @@ The counters did not measure how much water each student drank. They recorded on
 
 Staff combined the count data with short observations of queue length. The sports station had the highest use but also the longest waits on training days.
 
-The school concluded that demand varied by location and time. Instead of simply installing another station beside the busiest one, staff decided to study whether adjusting break-time access or adding a station near the playground would spread use more effectively.`,
+The school concluded that demand varied by location and time. Instead of simply installing another station beside the busiest one, staff decided to study whether adjusting break-time access or adding a station near the playground would spread use more effectively.
+
+ The school also compared ordinary days with sports-practice days and found that the pressure on the busiest station was concentrated in short periods. That suggested a third station might be most useful only if it was placed where those peaks actually occurred.`,
  questions:[
  q("R14-Q1","RC-F01","easy","Which station recorded the most refills after lunch?","The station near the sports area",["The library station","A third station","The office tap"],"The second paragraph states this directly.","sports area recorded the most refills"),
  q("R14-Q2","RC-F02","medium","Why did staff also observe queue length?","High use does not by itself show how much waiting students experience",["The counters measured water quality","Students forgot bottles","The library was closed"],"Queue observations added information about congestion.","also the longest waits"),
@@ -71,7 +77,9 @@ The centre also noticed that some information leaflets were rarely read because 
 
 After the change, more visitors took the leaflets, especially those about local classes and health camps.
 
-The reading corner did not require a separate room or additional staff. The centre decided to keep it and rotate a small part of the material each month so that the space remained useful without becoming cluttered.`,
+The reading corner did not require a separate room or additional staff. The centre decided to keep it and rotate a small part of the material each month so that the space remained useful without becoming cluttered.
+
+ Staff also asked visitors whether the corner felt crowded. Most said the small size was comfortable as long as old material was removed regularly. This supported the decision to rotate content rather than simply adding more items every month.`,
  questions:[
  q("R15-Q1","RC-F01","easy","When were children's books used most?","In the late afternoon",["Only in the morning","At midnight","During weekends only"],"The second paragraph states this directly.","popular in the late afternoon"),
  q("R15-Q2","RC-F02","medium","Why did leaflet use increase after they were moved?","They became easier to see",["They became free","Newspapers were removed","Visitors were required to take them"],"The original stack hid them behind larger magazines.","stacked behind larger magazines"),
