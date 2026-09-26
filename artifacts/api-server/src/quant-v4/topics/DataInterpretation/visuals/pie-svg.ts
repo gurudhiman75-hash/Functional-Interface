@@ -53,12 +53,13 @@ export function renderDiPieSvg(model: Di005V2Stimulus): string {
   const radius = 168;
   const labelRadius = 103;
   const title = escapeSvgText(model.title);
+  const description = escapeSvgText(model.description ?? "Pie chart with five categories. One percentage label may be hidden and shown as a question mark.");
   const totalText = escapeSvgText(`${model.totalLabel}: ${model.totalValue} ${model.unit}`);
 
   const parts: string[] = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${title}" data-di-presentation-layer="shared" data-pie-chart="true" data-di-chart-theme="${DI_PIE_VISUAL_THEME}" data-color-palette="${DI_PIE_COLOR_PALETTE}" data-renderer-version="SHARED_V1" shape-rendering="geometricPrecision">`,
     `<title>${title}</title>`,
-    `<desc>Pie chart with five categories. One percentage label may be hidden and shown as a question mark.</desc>`,
+    `<desc>${description}</desc>`,
     `<rect x="0" y="0" width="${width}" height="${height}" fill="#ffffff"/>`,
     `<text x="${width / 2}" y="34" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#172033">${title}</text>`,
     `<text x="${width / 2}" y="60" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#667085">${totalText}</text>`,
