@@ -1,6 +1,6 @@
 # ENG-008 — Large-Pool Expansion Wave 8 — Review V1
 
-Status: `HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__REVIEW_ONLY`
 
 Scope: **40 new original passages / 336 new governed authorities**.
 
