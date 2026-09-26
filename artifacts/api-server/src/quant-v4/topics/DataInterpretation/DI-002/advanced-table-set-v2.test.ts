@@ -72,6 +72,10 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
       if (question.kind === "COMBINED_SELECTED_RATIO" || question.kind === "REJECTED_TO_SELECTED_RATIO") {
         assert(question.answer !== "1:1", `${seed}/${question.kind}: Hard ratio collapsed to trivial 1:1.`);
       }
+      if (question.kind === "REJECTED_COUNT") {
+        const targetIndex = Number(question.evidence.targetIndex);
+        assert(set.stimulus.rows[targetIndex]!.selectionPercent !== 50, `${seed}/REJECTED_COUNT: selected and rejected counts collapsed at a 50% row.`);
+      }
 
       if (question.difficulty === "Hard") {
         assert(question.explanation.steps.length >= 3, `${seed}/${question.kind}: Hard explanation is not multi-step.`);
