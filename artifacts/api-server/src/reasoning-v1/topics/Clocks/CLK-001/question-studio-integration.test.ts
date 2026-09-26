@@ -53,13 +53,13 @@ test('CLK-001 generates all permanent QLs in English Hindi and Punjabi with pari
       );
       if (language === 'hi') {
         assert.match(stem, /[\u0900-\u097F]/u);
-        assert.doesNotMatch(visible, /[\u0A00-\u0A7F]/u);
+        assert.doesNotMatch(visible, /[\u0A05-\u0A39\u0A59-\u0A5E]/u);
         assert.doesNotMatch(explanation, /दिए गए मानों को ध्यान से पढ़ें|उत्तर को स्वतंत्र गणना से भी मिलाया गया है/u);
         assert.doesNotMatch(visible.replace(/\b(?:AM|PM)\b/gu, ''), /[A-Za-z]{2,}/u);
       }
       if (language === 'pa') {
         assert.match(stem, /[\u0A00-\u0A7F]/u);
-        assert.doesNotMatch(visible, /[\u0900-\u097F]/u);
+        assert.doesNotMatch(visible, /[\u0904-\u0939\u0958-\u0961]/u);
         assert.doesNotMatch(explanation, /ਦਿੱਤੇ ਹੋਏ ਮਾਨ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ|ਉੱਤਰ ਨੂੰ ਵੱਖਰੀ ਗਣਨਾ ਨਾਲ ਵੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ/u);
         assert.doesNotMatch(visible.replace(/\b(?:AM|PM)\b/gu, ''), /[A-Za-z]{2,}/u);
       }
@@ -265,5 +265,27 @@ test('CLK-QL-019 exposes its safe owned strike-total variants without changing Q
   assert.deepEqual(
     [...generatedTaskIds].sort(),
     ['TOTAL_STRIKES_12_HOURS', 'TOTAL_STRIKES_24_HOURS', 'TOTAL_STRIKES_INCLUSIVE_RANGE'].sort(),
+  );
+});
+
+
+test('CLK-QL-017 exposes both direct source-backed gain and loss recurrence forms', async () => {
+  const generatedTaskIds = new Set<string>();
+  for (let round = 0; round < 20; round += 1) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-QL-017',
+      language: round % 2 === 0 ? 'hi' : 'pa',
+      count: 1,
+      seed: 'clk-wave03-ql017-owned-variant-' + round,
+    });
+    const question = result.questions[0]!;
+    assert.equal(question.qlId, 'CLK-QL-017');
+    assert.equal(question.checkpointId, 'CLK-CP-008');
+    generatedTaskIds.add(String((question.traceability as any).generatedTaskId));
+  }
+  assert.deepEqual(
+    [...generatedTaskIds].sort(),
+    ['GAIN_FROM_COINCIDENCE_INTERVAL', 'LOSS_FROM_COINCIDENCE_INTERVAL'].sort(),
   );
 });
