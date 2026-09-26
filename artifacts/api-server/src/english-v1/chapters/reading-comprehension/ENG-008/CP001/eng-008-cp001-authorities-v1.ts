@@ -1,3 +1,4 @@
+import { ENG008_CP001_EXPANSION_WAVE2_V1 } from "./eng-008-cp001-expansion-wave2-v1";
 import { ENG008_CP001_EXPANSION_WAVE1_V1 } from "./eng-008-cp001-expansion-wave1-v1";
 export type Eng008Difficulty="easy"|"medium"|"hard";
 export type Eng008Genre="narrative"|"report"|"editorial";
@@ -28,6 +29,7 @@ const q=(id:string,familyId:Eng008RcFamilyId,difficulty:Eng008Difficulty,questio
 
 
 export const ENG008_CP001_PASSAGES_V1:readonly Eng008RcPassageV1[]=[
+...ENG008_CP001_EXPANSION_WAVE2_V1,
 ...ENG008_CP001_EXPANSION_WAVE1_V1,
 {
  id:"ENG008-RC-N01",title:"The Returned Notebook",genre:"narrative",
