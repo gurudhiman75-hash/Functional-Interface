@@ -1,6 +1,6 @@
 # DI-004 Line Graph — V2 Review Candidate
 
-Status: ENGLISH_REVIEW_CANDIDATE · NOT YET QUESTION STUDIO ACTIVE
+Status: ENGLISH_REVIEW_APPROVED · QUESTION STUDIO CONTROLLED REVIEW
 
 ## Why V2 exists
 
@@ -96,8 +96,8 @@ The V2 stress gate covers:
 
 ## Lifecycle
 
-- reviewStatus: ENGLISH_REVIEW_CANDIDATE
-- Question Studio discoverable: false
+- reviewStatus: ENGLISH_REVIEW_APPROVED
+- Question Studio discoverable: true
 - Question Bank: NOT_STORED
 - Question Bank writable: false
 - test eligible: false
@@ -107,4 +107,4 @@ The V2 stress gate covers:
 - production release authorized: false
 - localization: not started
 
-Approval is required before permanent QL promotion, Question Studio controlled-review routing, localization, or any wider lifecycle change.
+English ownership is approved and Question Studio controlled review is enabled. Localization remains a separate approval gate; Question Bank, tests, mocks and public release remain locked.
