@@ -63,6 +63,7 @@ const global = auditNovelQuestionCapability(observations, {
   minPatternBreadth: 30,
   minCanonicalProblemBreadth: 8,
   minStateNoveltyRate: 0.70,
+  minSeedSensitivityRate: 0.60,
 });
 
 const packageIds = [...new Set(observations.map((row) => row.packageId))].sort();
@@ -77,6 +78,7 @@ const byPackage = packageIds.map((packageId) => {
       minPatternBreadth: Math.min(4, Math.max(1, rows.length)),
       minCanonicalProblemBreadth: 1,
       minStateNoveltyRate: 0.60,
+      minSeedSensitivityRate: 0.50,
     }),
   };
 }).sort((left, right) =>
@@ -97,6 +99,8 @@ const packagesRequiringNoveltyRemediation = byPackage
     heldOutStructuralNoveltyRate: row.heldOutStructuralNovelty.rate,
     stateEvidenceTier: row.state.tier,
     stateNoveltyRate: row.stateNoveltyRate,
+    seedSensitivityRate: row.seedSensitivity.rate,
+    seedComparableGroups: row.seedSensitivity.comparableGroups,
     blockers: row.blockers,
   }));
 
@@ -119,6 +123,8 @@ console.log("QUANT_V4_CGL_NOVEL_QUESTION_CAPABILITY_P4", JSON.stringify({
       heldOutStructuralNoveltyRate: row.heldOutStructuralNovelty.rate,
       stateEvidenceTier: row.state.tier,
       stateNoveltyRate: row.stateNoveltyRate,
+      seedSensitivityRate: row.seedSensitivity.rate,
+      seedComparableGroups: row.seedSensitivity.comparableGroups,
     })),
   productionPromotionAuthorized: false,
   noveltyHardGateEnabled: false,
