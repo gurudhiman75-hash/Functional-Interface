@@ -117,7 +117,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-002",
     "qlName": "Mainland latitudinal extent",
     "difficulty": "Easy",
-    "stem": "What is the southern latitude of mainland India given in NCERT?",
+    "stem": "What is the southernmost latitude of mainland India?",
     "answer": "8°4'N",
     "distractors": [
       "6°45'N",
@@ -133,14 +133,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-002",
     "qlName": "Mainland latitudinal extent",
     "difficulty": "Easy",
-    "stem": "What is the northern latitude of mainland India given in NCERT?",
+    "stem": "What is the northernmost latitude of mainland India?",
     "answer": "37°6'N",
     "distractors": [
       "35°6'N",
       "23°30'N",
       "8°4'N"
     ],
-    "explanation": "The northern limit of mainland India's stated latitudinal extent is 37°6'N. Together with 8°4'N, it defines the textbook's mainland north–south latitude range.",
+    "explanation": "The northern limit of mainland India's stated latitudinal extent is 37°6'N. Together with 8°4'N, it defines mainland India's north–south latitude range.",
     "sourceFactIds": [
       "LATITUDE-NORTH-MAINLAND"
     ]
@@ -149,7 +149,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-002",
     "qlName": "Mainland latitudinal extent",
     "difficulty": "Medium",
-    "stem": "Which pair gives the latitudinal extent of mainland India?",
+    "stem": "What is the latitudinal extent of mainland India?",
     "answer": "8°4'N to 37°6'N",
     "distractors": [
       "68°7'E to 97°25'E",
@@ -165,14 +165,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-002",
     "qlName": "Mainland latitudinal extent",
     "difficulty": "Medium",
-    "stem": "A latitude of 40°N is compared with India's stated mainland extent. What is correct?",
+    "stem": "A place lies at 40°N. How does this compare with mainland India's latitudinal extent?",
     "answer": "It lies north of the stated mainland latitudinal limit",
     "distractors": [
       "It lies within the stated mainland latitudinal limits",
       "It lies south of the stated mainland latitudinal limits",
       "It is a longitude, not a latitude"
     ],
-    "explanation": "Mainland India's northern latitude limit is 37°6'N. A latitude of 40°N is farther north, so it falls outside the stated mainland latitude range.",
+    "explanation": "Mainland India's northern latitude limit is 37°6'N. A latitude of 40°N is farther north, so it falls outside mainland India's latitude range.",
     "sourceFactIds": [
       "LATITUDE-OUTSIDE-NORTH"
     ]
@@ -181,14 +181,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-002",
     "qlName": "Mainland latitudinal extent",
     "difficulty": "Medium",
-    "stem": "Which latitude falls between the stated southern and northern limits of mainland India?",
+    "stem": "Which latitude lies within mainland India's latitudinal extent?",
     "answer": "25°N",
     "distractors": [
       "5°N",
       "40°N",
       "2°S"
     ],
-    "explanation": "The textbook range runs from 8°4'N to 37°6'N. A latitude of 25°N lies between those two limits, whereas 5°N and 2°S are too far south and 40°N is too far north.",
+    "explanation": "The range runs from 8°4'N to 37°6'N. A latitude of 25°N lies between those two limits, whereas 5°N and 2°S are too far south and 40°N is too far north.",
     "sourceFactIds": [
       "LATITUDE-IN-RANGE"
     ]
@@ -197,7 +197,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-002",
     "qlName": "Mainland latitudinal extent",
     "difficulty": "Medium",
-    "stem": "Consider the statements: I. Mainland India lies entirely north of 8°N. II. Mainland India extends beyond 37°N. Which is correct?",
+    "stem": "Consider the statements: I. Mainland India lies north of 8°N. II. Mainland India extends beyond 37°N. Which of the statements is/are correct?",
     "answer": "Both I and II are correct",
     "distractors": [
       "Only I is correct",
@@ -213,14 +213,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-003",
     "qlName": "Mainland longitudinal extent",
     "difficulty": "Easy",
-    "stem": "What is the western longitude of mainland India given in NCERT?",
+    "stem": "What is the westernmost longitude of mainland India?",
     "answer": "68°7'E",
     "distractors": [
       "82°30'E",
       "97°25'E",
       "37°6'N"
     ],
-    "explanation": "The stated western longitude of mainland India is 68°7'E. It is the smaller of India's two mainland longitude limits because longitude values increase eastward here.",
+    "explanation": "The westernmost longitude of mainland India is 68°7'E. It is the smaller of India's two mainland longitude limits because longitude values increase eastward here.",
     "sourceFactIds": [
       "LONGITUDE-WEST-MAINLAND"
     ]
@@ -229,14 +229,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-003",
     "qlName": "Mainland longitudinal extent",
     "difficulty": "Easy",
-    "stem": "What is the eastern longitude of mainland India given in NCERT?",
+    "stem": "What is the easternmost longitude of mainland India?",
     "answer": "97°25'E",
     "distractors": [
       "68°7'E",
       "82°30'E",
       "23°30'N"
     ],
-    "explanation": "The stated eastern longitude of mainland India is 97°25'E. Together with 68°7'E in the west, it forms the textbook's east–west longitude range.",
+    "explanation": "The easternmost longitude of mainland India is 97°25'E. Together with 68°7'E in the west, it forms mainland India's east–west longitude range.",
     "sourceFactIds": [
       "LONGITUDE-EAST-MAINLAND"
     ]
@@ -245,7 +245,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-003",
     "qlName": "Mainland longitudinal extent",
     "difficulty": "Medium",
-    "stem": "Which pair gives the longitudinal extent of mainland India?",
+    "stem": "What is the longitudinal extent of mainland India?",
     "answer": "68°7'E to 97°25'E",
     "distractors": [
       "8°4'N to 37°6'N",
@@ -261,14 +261,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-003",
     "qlName": "Mainland longitudinal extent",
     "difficulty": "Medium",
-    "stem": "A longitude of 100°E is compared with India's stated mainland extent. What is correct?",
+    "stem": "A place lies at 100°E. How does this compare with mainland India's longitudinal extent?",
     "answer": "It lies east of the stated mainland longitudinal limit",
     "distractors": [
       "It lies within the stated mainland longitudinal limits",
       "It lies west of the stated mainland longitudinal limits",
       "It is a latitude, not a longitude"
     ],
-    "explanation": "The eastern mainland limit is 97°25'E. A longitude of 100°E is farther east, so it falls outside the stated mainland longitude range.",
+    "explanation": "The eastern mainland limit is 97°25'E. A longitude of 100°E is farther east, so it falls outside mainland India's longitude range.",
     "sourceFactIds": [
       "LONGITUDE-OUTSIDE-EAST"
     ]
@@ -277,7 +277,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-003",
     "qlName": "Mainland longitudinal extent",
     "difficulty": "Medium",
-    "stem": "Which longitude falls between the stated western and eastern limits of mainland India?",
+    "stem": "Which longitude lies within mainland India's longitudinal extent?",
     "answer": "80°E",
     "distractors": [
       "60°E",
@@ -293,8 +293,8 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-003",
     "qlName": "Mainland longitudinal extent",
     "difficulty": "Medium",
-    "stem": "Which statement correctly compares 70°E and 95°E with India's stated mainland longitude limits?",
-    "answer": "Both longitudes fall between the stated western and eastern limits",
+    "stem": "How do 70°E and 95°E relate to mainland India's longitudinal extent?",
+    "answer": "Both longitudes fall between the western and eastern longitude limits",
     "distractors": [
       "Only 70°E falls between the limits",
       "Only 95°E falls between the limits",
@@ -309,7 +309,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-004",
     "qlName": "Tropic of Cancer",
     "difficulty": "Easy",
-    "stem": "Which important latitude passes through India at 23°30'N?",
+    "stem": "Which latitude passes through India at 23°30'N?",
     "answer": "Tropic of Cancer",
     "distractors": [
       "Equator",
@@ -341,14 +341,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-004",
     "qlName": "Tropic of Cancer",
     "difficulty": "Medium",
-    "stem": "How does NCERT describe the Tropic of Cancer's position across India?",
+    "stem": "How does the Tropic of Cancer divide India?",
     "answer": "It divides the country into almost two equal parts",
     "distractors": [
       "It forms India's western boundary",
       "It passes only through the island groups",
       "It marks the Standard Meridian of India"
     ],
-    "explanation": "NCERT notes that the Tropic of Cancer at 23°30'N divides India into almost two equal parts. It is a latitude, so it should not be confused with a boundary or the Standard Meridian.",
+    "explanation": "The Tropic of Cancer at 23°30'N divides India into almost two equal parts. It is a latitude, so it should not be confused with a boundary or the Standard Meridian.",
     "sourceFactIds": [
       "TROPIC-DIVISION"
     ]
@@ -428,7 +428,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Mumbai in Maharashtra",
       "Kolkata in West Bengal"
     ],
-    "explanation": "NCERT identifies 82°30'E passing through Mirzapur in Uttar Pradesh as India's Standard Meridian. This central reference helps the country use one standard time.",
+    "explanation": "India's Standard Meridian, 82°30'E, passes through Mirzapur in Uttar Pradesh. This central reference helps the country use one standard time.",
     "sourceFactIds": [
       "STANDARD-MERIDIAN-MIRZAPUR"
     ]
@@ -453,7 +453,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-005",
     "qlName": "Standard Meridian of India",
     "difficulty": "Medium",
-    "stem": "Which statement correctly distinguishes the Tropic of Cancer from India's Standard Meridian?",
+    "stem": "How do the Tropic of Cancer and India's Standard Meridian differ?",
     "answer": "The Tropic is a latitude, while the Standard Meridian is a longitude",
     "distractors": [
       "Both are latitudes",
@@ -469,7 +469,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-005",
     "qlName": "Standard Meridian of India",
     "difficulty": "Medium",
-    "stem": "Which value is closer to the middle of India's stated mainland longitude range and is used for standard time?",
+    "stem": "Which longitude, lying near the middle of India's east–west extent, is used for Indian Standard Time?",
     "answer": "82°30'E",
     "distractors": [
       "68°7'E",
@@ -485,7 +485,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-005",
     "qlName": "Standard Meridian of India",
     "difficulty": "Hard",
-    "stem": "A map labels 23°30'N and 82°30'E across India. Which identification is correct?",
+    "stem": "On a map of India, what do 23°30'N and 82°30'E represent?",
     "answer": "23°30'N is the Tropic of Cancer and 82°30'E is the Standard Meridian",
     "distractors": [
       "23°30'N is the Standard Meridian and 82°30'E is the Tropic of Cancer",
@@ -508,7 +508,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "7,516.6 km",
       "15,200 km"
     ],
-    "explanation": "NCERT gives India's mainland north–south extent as about 3,214 km. This is longer than the stated east–west mainland extent of about 2,933 km.",
+    "explanation": "India's mainland north–south extent is about 3,214 km. This is longer than the stated east–west mainland extent of about 2,933 km.",
     "sourceFactIds": [
       "DIMENSION-NORTH-SOUTH"
     ]
@@ -549,14 +549,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-006",
     "qlName": "North-south and east-west mainland dimensions",
     "difficulty": "Medium",
-    "stem": "Which pair correctly matches India's mainland dimensions?",
+    "stem": "Which pair gives India's approximate mainland dimensions?",
     "answer": "North–south: 3,214 km; east–west: 2,933 km",
     "distractors": [
       "North–south: 2,933 km; east–west: 3,214 km",
       "North–south: 15,200 km; east–west: 7,516.6 km",
       "North–south: 3.28 million km; east–west: 2.4 km"
     ],
-    "explanation": "The textbook gives about 3,214 km from north to south and about 2,933 km from east to west. Border length and coastline figures measure different geographic features.",
+    "explanation": "The standard figures are about 3,214 km from north to south and about 2,933 km from east to west. Border length and coastline figures measure different geographic features.",
     "sourceFactIds": [
       "DIMENSION-PAIR"
     ]
@@ -581,7 +581,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-006",
     "qlName": "North-south and east-west mainland dimensions",
     "difficulty": "Hard",
-    "stem": "Statement I: India's mainland spans about 3,214 km north to south. Statement II: Its east–west span is about 2,933 km. Which is correct?",
+    "stem": "Statement I: India's mainland spans about 3,214 km north to south. Statement II: Its east–west span is about 2,933 km. Which of the statements is/are correct?",
     "answer": "Both statements are correct",
     "distractors": [
       "Only Statement I is correct",
@@ -597,7 +597,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-007",
     "qlName": "Area, world share and size rank",
     "difficulty": "Easy",
-    "stem": "What is the approximate total area of India given in NCERT?",
+    "stem": "What is the approximate total area of India?",
     "answer": "3.28 million square kilometres",
     "distractors": [
       "1.28 million square kilometres",
@@ -620,7 +620,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "4.8%",
       "7.5%"
     ],
-    "explanation": "NCERT states that India occupies about 2.4% of the world's total geographical area. The percentage is small relative to the global total despite India's large absolute size.",
+    "explanation": "India occupies about 2.4% of the world's total geographical area. The percentage is small relative to the global total despite India's large absolute size.",
     "sourceFactIds": [
       "AREA-WORLD-SHARE"
     ]
@@ -629,14 +629,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-007",
     "qlName": "Area, world share and size rank",
     "difficulty": "Medium",
-    "stem": "What is India's size rank by area in the NCERT framing?",
+    "stem": "What is India's rank in the world by area?",
     "answer": "Seventh",
     "distractors": [
       "Third",
       "Fifth",
       "Tenth"
     ],
-    "explanation": "NCERT presents India as the seventh-largest country in the world by area. The rank is paired with an area of about 3.28 million square kilometres.",
+    "explanation": "India is the seventh-largest country in the world by area. The rank is paired with an area of about 3.28 million square kilometres.",
     "sourceFactIds": [
       "AREA-RANK"
     ]
@@ -645,7 +645,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-007",
     "qlName": "Area, world share and size rank",
     "difficulty": "Medium",
-    "stem": "Which combination correctly states India's area and share of world geographical area?",
+    "stem": "Which option gives India's approximate area and share of the world's geographical area?",
     "answer": "About 3.28 million sq km and about 2.4%",
     "distractors": [
       "About 2.4 million sq km and about 3.28%",
@@ -661,8 +661,8 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-007",
     "qlName": "Area, world share and size rank",
     "difficulty": "Medium",
-    "stem": "Which statement about India's physical size is correct?",
-    "answer": "India is the seventh-largest country by area in the textbook comparison",
+    "stem": "Which of the following is true about India's area?",
+    "answer": "India is the seventh-largest country by area in the world",
     "distractors": [
       "India is the world's largest country by area",
       "India covers about 24% of the world's geographical area",
@@ -677,7 +677,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-007",
     "qlName": "Area, world share and size rank",
     "difficulty": "Hard",
-    "stem": "Consider the statements: I. India has about 3.28 million sq km of area. II. This is about 2.4% of world geographical area. III. India is seventh by area. Which is correct?",
+    "stem": "Consider the statements: I. India has about 3.28 million sq km of area. II. This is about 2.4% of the world's geographical area. III. India ranks seventh in the world by area. Which of the statements is/are correct?",
     "answer": "I, II and III are correct",
     "distractors": [
       "I and II only",
@@ -693,14 +693,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-008",
     "qlName": "East-west time lag and one standard time",
     "difficulty": "Easy",
-    "stem": "About how much local-time difference exists from Gujarat to Arunachal Pradesh?",
+    "stem": "What is the approximate local-time difference between Gujarat and Arunachal Pradesh?",
     "answer": "Two hours",
     "distractors": [
       "Thirty minutes",
       "Four hours",
       "Six hours"
     ],
-    "explanation": "NCERT notes a local-time lag of about two hours from Gujarat in the west to Arunachal Pradesh in the east. This arises from India's considerable longitudinal extent.",
+    "explanation": "There is a local-time lag of about two hours from Gujarat in the west to Arunachal Pradesh in the east. This arises from India's considerable longitudinal extent.",
     "sourceFactIds": [
       "TIME-LAG-TWO-HOURS"
     ]
@@ -725,7 +725,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-008",
     "qlName": "East-west time lag and one standard time",
     "difficulty": "Medium",
-    "stem": "Which part of India experiences local noon earlier because it lies farther east?",
+    "stem": "Which of the following experiences local noon earlier because it lies farther east?",
     "answer": "Arunachal Pradesh",
     "distractors": [
       "Gujarat",
@@ -741,7 +741,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-008",
     "qlName": "East-west time lag and one standard time",
     "difficulty": "Medium",
-    "stem": "If local solar time differs across India, what keeps official clocks uniform?",
+    "stem": "What keeps official clock time uniform across India despite differences in local solar time?",
     "answer": "Indian Standard Time based on 82°30'E",
     "distractors": [
       "The Tropic of Cancer",
@@ -757,7 +757,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-008",
     "qlName": "East-west time lag and one standard time",
     "difficulty": "Medium",
-    "stem": "What geographic feature causes the local-time difference between western and eastern India?",
+    "stem": "What causes the local-time difference between western and eastern India?",
     "answer": "Longitudinal extent",
     "distractors": [
       "Latitudinal extent",
@@ -773,7 +773,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-008",
     "qlName": "East-west time lag and one standard time",
     "difficulty": "Hard",
-    "stem": "Two towns keep the same official clock time, but the eastern town sees local noon earlier. Which explanation fits India?",
+    "stem": "Two Indian towns show the same official time, but the eastern town experiences local noon earlier. Why?",
     "answer": "Both follow IST, while longitude still changes local solar time",
     "distractors": [
       "The eastern town uses a different national time zone",
@@ -789,14 +789,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-009",
     "qlName": "Mixed coordinate and extent interpretation",
     "difficulty": "Easy",
-    "stem": "Which coordinate pair fits India's stated mainland latitude and longitude limits?",
+    "stem": "Which coordinate pair lies within both the latitude and longitude ranges of mainland India?",
     "answer": "20°N, 80°E",
     "distractors": [
       "40°N, 80°E",
       "20°N, 60°E",
       "10°S, 80°E"
     ],
-    "explanation": "The stated mainland limits are 8°4'N–37°6'N and 68°7'E–97°25'E. The pair 20°N, 80°E falls inside both numeric intervals; this test does not claim every such coordinate is Indian territory.",
+    "explanation": "Mainland India's coordinate limits are 8°4'N–37°6'N and 68°7'E–97°25'E. The pair 20°N, 80°E falls inside both numeric intervals; this test does not claim every such coordinate is Indian territory.",
     "sourceFactIds": [
       "COORDINATE-COMPATIBLE-PAIR"
     ]
@@ -805,14 +805,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-009",
     "qlName": "Mixed coordinate and extent interpretation",
     "difficulty": "Easy",
-    "stem": "Which coordinate cannot fit the stated mainland latitude limits of India?",
+    "stem": "Which coordinate lies outside mainland India's latitudinal extent?",
     "answer": "42°N, 80°E",
     "distractors": [
       "10°N, 75°E",
       "20°N, 80°E",
       "30°N, 90°E"
     ],
-    "explanation": "Mainland India's northern latitude limit is 37°6'N. A coordinate at 42°N is therefore outside the stated mainland latitude interval regardless of its longitude.",
+    "explanation": "Mainland India's northern latitude limit is 37°6'N. A coordinate at 42°N is therefore outside mainland India's latitude range regardless of its longitude.",
     "sourceFactIds": [
       "COORDINATE-LATITUDE-EXCLUSION"
     ]
@@ -821,14 +821,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-009",
     "qlName": "Mixed coordinate and extent interpretation",
     "difficulty": "Medium",
-    "stem": "Which coordinate cannot fit the stated mainland longitude limits of India?",
+    "stem": "Which coordinate lies outside mainland India's longitudinal extent?",
     "answer": "25°N, 105°E",
     "distractors": [
       "25°N, 70°E",
       "25°N, 82°E",
       "25°N, 95°E"
     ],
-    "explanation": "Mainland India's eastern longitude limit is 97°25'E. A longitude of 105°E lies beyond that interval, while 70°E, 82°E and 95°E fall between the stated west and east limits.",
+    "explanation": "Mainland India's eastern longitude limit is 97°25'E. A longitude of 105°E lies beyond that interval, while 70°E, 82°E and 95°E fall between the western and eastern longitude limits.",
     "sourceFactIds": [
       "COORDINATE-LONGITUDE-EXCLUSION"
     ]
@@ -837,7 +837,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-009",
     "qlName": "Mixed coordinate and extent interpretation",
     "difficulty": "Medium",
-    "stem": "A map point is at 5°N, 80°E. Which stated mainland limit does it fail?",
+    "stem": "A point is located at 5°N, 80°E. Which mainland extent does it fall outside?",
     "answer": "The southern latitude limit",
     "distractors": [
       "The western longitude limit",
@@ -853,7 +853,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-009",
     "qlName": "Mixed coordinate and extent interpretation",
     "difficulty": "Medium",
-    "stem": "A map point is at 25°N, 65°E. Which stated mainland limit does it fail?",
+    "stem": "A point is located at 25°N, 65°E. Which mainland extent does it fall outside?",
     "answer": "The western longitude limit",
     "distractors": [
       "The southern latitude limit",
@@ -869,7 +869,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-009",
     "qlName": "Mixed coordinate and extent interpretation",
     "difficulty": "Hard",
-    "stem": "Point A is 12°N, 75°E; B is 39°N, 75°E; C is 20°N, 100°E. Which point fits both stated mainland coordinate intervals?",
+    "stem": "Point A is at 12°N, 75°E; B at 39°N, 75°E; and C at 20°N, 100°E. Which point lies within both mainland coordinate ranges?",
     "answer": "Point A only",
     "distractors": [
       "Point B only",
