@@ -80,6 +80,34 @@ function resolveExamProfile(value: unknown): ClockExamProfile {
   return 'CHAPTER_COVERAGE';
 }
 
+function learnerExplanation(
+  question: ReturnType<typeof localizeClockAnchorQuestion>,
+  language: ClockAuthoringLanguage,
+): string {
+  if (language === 'en') {
+    return [
+      question.explanation.given,
+      question.explanation.rule,
+      ...question.explanation.working,
+      question.explanation.validityCheck,
+      question.explanation.answer,
+    ].filter((part) => String(part ?? '').trim().length > 0).join('\n\n');
+  }
+
+  const working = [...question.explanation.working];
+  const answer = String(question.explanation.answer ?? '').trim();
+  const answerAlreadyShown = answer.length > 0 && working.some((step) => String(step).includes(answer));
+  const answerLine = language === 'hi'
+    ? 'अतः सही उत्तर: ' + answer
+    : 'ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ: ' + answer;
+
+  return [
+    question.explanation.rule,
+    ...working,
+    answerAlreadyShown ? '' : answerLine,
+  ].filter((part) => String(part ?? '').trim().length > 0).join('\n\n');
+}
+
 function isCheckpointId(value: string): value is ClockCheckpointCode {
   return cpIds.includes(value as ClockCheckpointCode);
 }
@@ -224,6 +252,7 @@ export const CLK_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     examProfileDeliveryStatus: 'DELIVERY_FORMAT_ONLY_V1',
     bankingFiveOptionDelivery: true,
     examProfileContentWeightingApplied: false,
+    nativeExplanationFillerRemoved: true,
     reviewOnly: true,
   },
 };
@@ -285,13 +314,7 @@ export async function generateClk001QuestionStudioBatch(
     const options = delivery.options;
     const correctIndex = delivery.correctIndex;
     const questionId = 'CLK-001:' + qlId + ':' + language + ':' + hash(itemSeed);
-    const explanation = [
-      localized.explanation.given,
-      localized.explanation.rule,
-      ...localized.explanation.working,
-      localized.explanation.validityCheck,
-      localized.explanation.answer,
-    ].join('\n\n');
+    const explanation = learnerExplanation(localized, language);
 
     questions.push({
       ...lifecycle,
