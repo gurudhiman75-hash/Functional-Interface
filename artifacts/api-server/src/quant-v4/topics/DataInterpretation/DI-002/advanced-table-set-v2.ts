@@ -192,10 +192,10 @@ function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidat
   candidates.forEach(add);
 
   if (retained.length < optionCount) {
-    const numeric = answer.match(/^(\\d+)$/u);
-    const percent = answer.match(/^(\\d+)%$/u);
-    const points = answer.match(/^(\\d+) percentage points$/u);
-    const ratio = answer.match(/^(\\d+):(\\d+)$/u);
+    const numeric = answer.match(/^(\d+)$/u);
+    const percent = answer.match(/^(\d+)%$/u);
+    const points = answer.match(/^(\d+) percentage points$/u);
+    const ratio = answer.match(/^(\d+):(\d+)$/u);
 
     if (numeric) {
       const value = Number(numeric[1]);
