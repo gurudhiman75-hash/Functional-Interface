@@ -9,18 +9,16 @@ import {
 } from "@workspace/db";
 import { db } from "./db";
 import { logger } from "./logger";
-import {
-  generateFromPattern,
-  inferGenerationDomain,
-  type GeneratorOptions,
-  type GeneratorResult,
-  type Pattern,
+import type {
+  GeneratorOptions,
+  GeneratorResult,
+  Pattern,
 } from "./generator";
 import {
   buildReasoningErrorMetadata,
   isReasoningEngineError,
   ReasoningEngineError,
-} from "./shared";
+} from "./shared/reasoning-engine-error";
 
 export type GenerationJobStatus =
   | "queued"
@@ -79,6 +77,13 @@ const JOB_MAX_CONCURRENCY =
 let workerStarted = false;
 let runningJobs = 0;
 let workerDisabled = false;
+
+let generatorModulePromise: Promise<typeof import("./generator")> | null = null;
+
+function loadGeneratorModule() {
+  generatorModulePromise ??= import("./generator");
+  return generatorModulePromise;
+}
 
 function isMissingGenerationJobsRelation(
   error: unknown,
@@ -266,8 +271,9 @@ async function processJob(
   const startedAt = Date.now();
 
   try {
+    const generator = await loadGeneratorModule();
     const result =
-      await generateFromPattern(
+      await generator.generateFromPattern(
         job.patternSnapshot,
         job.requestPayload.count,
         job.requestPayload.options,
@@ -277,7 +283,7 @@ async function processJob(
     const generationMetadata: GenerationJobMetadata =
       {
         generationDomain:
-          inferGenerationDomain(
+          generator.inferGenerationDomain(
             job.patternSnapshot,
           ),
         seed:
@@ -337,9 +343,7 @@ async function processJob(
     const generationMetadata: GenerationJobMetadata =
       {
         generationDomain:
-          inferGenerationDomain(
-            job.patternSnapshot,
-          ),
+          job.generationMetadata?.generationDomain,
         seed:
           job.requestPayload.options?.seed,
         requestedCount:
@@ -465,10 +469,11 @@ export async function enqueueGenerationJob(
   const id = createJobId();
   const source =
     input.source ?? "pattern";
+  const generator = await loadGeneratorModule();
   const generationMetadata: GenerationJobMetadata =
     {
       generationDomain:
-        inferGenerationDomain(
+        generator.inferGenerationDomain(
           input.pattern,
         ),
       seed:
