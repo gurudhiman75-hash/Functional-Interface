@@ -10,7 +10,7 @@ He began identifying people and places while Asha wrote short notes on the backs
 
 The activity took longer than Asha expected, but it changed the box from a collection of unidentified images into a record the family could understand. Her grandfather also enjoyed explaining why certain places had mattered to him.
 
-Asha later scanned a few photographs and saved the notes with them. She realised that preserving an object is not always enough. Sometimes its meaning also needs to be recorded before the people who remember it are no longer available to explain it.`,
+Asha later scanned a few photographs and saved the notes with them. She realised that preserving an object is not always enough. Sometimes its meaning also needs to be recorded before the people who remember it are no longer available to explain it. Asha also asked her grandfather to write the names of two relatives she had never met. That small addition turned the photographs into something younger family members could understand without needing someone beside them to explain every image.`,
  questions:[
  q("N08-Q1","RC-F01","easy","What did Asha write on the backs of the photographs?","Short notes identifying people and places",["Prices of the photographs","Directions to the market","Names of modern buildings"],"The passage directly says Asha wrote short identifying notes.","wrote short notes on the backs"),
  q("N08-Q2","RC-F02","medium","Why did the photographs become more useful after the conversation?","Their people and places had been identified and explained",["They became newer","They were moved to a different box","They were printed in larger sizes"],"The added context turned unidentified images into understandable records.","a record the family could understand"),
@@ -28,7 +28,7 @@ Simran agreed, but the teacher explained that calculators could not be passed be
 
 After the test, Dev thanked Simran even though he had not used her calculator. He said that her willingness to help had stopped him from panicking long enough to think clearly and ask the teacher for another solution.
 
-That evening, Dev replaced the battery in his own calculator and added spare batteries to his school bag. He understood that preparation could prevent the same problem next time, while asking calmly for help could solve an unexpected problem when preparation failed.`,
+That evening, Dev replaced the battery in his own calculator and added spare batteries to his school bag. He understood that preparation could prevent the same problem next time, while asking calmly for help could solve an unexpected problem when preparation failed. He also told a friend about the incident, and the friend began checking batteries before important tests. The problem had lasted only a few minutes, but it produced a habit that could prevent the same disruption later.`,
  questions:[
  q("N09-Q1","RC-F01","easy","Why could Dev not use Simran's calculator during the test?","Calculators could not be passed between students",["Simran's calculator was broken","Dev had forgotten how to use it","The teacher banned all calculators"],"The teacher directly explains that calculators cannot be passed during the test.","could not be passed between students"),
  q("N09-Q2","RC-F02","medium","How did Simran help Dev even though he did not use her calculator?","Her willingness to help reduced his panic and helped him think clearly",["She answered his questions","She changed the calculator battery","She spoke to the teacher for him"],"Dev explicitly says her response helped him stay calm enough to seek another solution.","stopped him from panicking"),
@@ -46,7 +46,7 @@ During a four-week trial, staff counted how many seats were used and asked stude
 
 The school also checked whether the new area caused crowding elsewhere. Overall dining-hall capacity did not change because the same tables were being used; only the expected noise level differed.
 
-Teachers concluded that the quiet zone served a specific preference without requiring the whole dining hall to become silent. They decided to keep it for another term and review whether its size should change depending on demand.`,
+Teachers concluded that the quiet zone served a specific preference without requiring the whole dining hall to become silent. They decided to keep it for another term and review whether its size should change depending on demand. The school also planned to check whether the area remained useful after examinations, when students might have less need to read or finish assignments during lunch. That would show whether the demand was temporary or more general.`,
  questions:[
  q("R08-Q1","RC-F01","easy","When was the quiet lunch zone busiest?","During examination weeks",["During school holidays","Only on Fridays","Before breakfast"],"The report directly says usage peaked during examination weeks.","busiest during examination weeks"),
  q("R08-Q2","RC-F02","medium","Why did the school check crowding in other areas?","To see whether creating the quiet zone caused a problem elsewhere",["To reduce the number of lunch tables","To close the dining hall","To move students outside"],"The check tested whether one change created a side effect in another part of the hall.","caused crowding elsewhere"),
@@ -64,7 +64,7 @@ Several commuters said the return desk was open only when the main library was o
 
 During the next six weeks, after-hours returns increased steadily and the number of books more than three days overdue fell. Staff still checked each returned book before removing it from a borrower's account.
 
-The library did not treat the box as a replacement for the return desk. It simply added another practical route for people whose schedules did not match opening hours. The trial suggested that small access changes can improve compliance without changing the borrowing rules themselves.`,
+The library did not treat the box as a replacement for the return desk. It simply added another practical route for people whose schedules did not match opening hours. The trial suggested that small access changes can improve compliance without changing the borrowing rules themselves. Staff also planned to compare weekday and weekend return patterns to see when the box was most useful. If most after-hours returns came from commuters, the library could use that information when planning future access improvements.`,
  questions:[
  q("R09-Q1","RC-F01","easy","Where was the new return box installed?","Beside the outer gate",["Inside the reading room","At the bus station","Behind the issue desk"],"The passage directly states the box was placed beside the outer gate.","beside the outer gate"),
  q("R09-Q2","RC-F02","medium","Why did some commuters delay returning books?","The return desk was unavailable when they passed the library",["They wanted to keep books permanently","They did not know where the library was","They were charged for every return"],"Their schedules did not match the desk's opening hours.","could not return books early ... or late"),
