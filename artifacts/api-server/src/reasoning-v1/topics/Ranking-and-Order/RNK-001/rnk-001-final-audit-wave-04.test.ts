@@ -48,25 +48,30 @@ function sourceOptionRecords(question: Record<string, any>): Array<Record<string
 
 let totalGenerated = 0;
 let structuredWrongExplanationsChecked = 0;
-const diversity: Record<string, number> = {};
+const diversity = new Map<string, Set<string>>(
+  RNK_001_CHAPTER_AUTHORITY.permanentQlIds.map((qlId) => [qlId, new Set<string>()]),
+);
 
-for (const qlId of RNK_001_CHAPTER_AUTHORITY.permanentQlIds) {
+for (let round = 0; round < 6; round += 1) {
   const batch = await generateRnk001QuestionStudioBatch({
     packageId: "RNK-001",
-    canonicalProblemId: qlId,
     language: "en",
-    count: 6,
-    seed: `rnk-wave04:${qlId}`,
+    count: 42,
+    seed: `rnk-wave04-round-${round}`,
   });
 
-  assert.equal(batch.questions.length, 6, `${qlId} must produce six review instances`);
-  const stems = new Set<string>();
+  assert.equal(batch.questions.length, 42);
+  assert.deepEqual(
+    [...new Set((batch.questions as Array<Record<string, any>>).map((question) => question.qlId))].sort(),
+    RNK_001_CHAPTER_AUTHORITY.permanentQlIds,
+  );
 
   for (const raw of batch.questions as Array<Record<string, any>>) {
     totalGenerated += 1;
-
+    const qlId = String(raw.qlId);
     const stem = String(raw.stem ?? "").trim();
-    stems.add(stem);
+    diversity.get(qlId)!.add(stem);
+
     assert.ok(stem.length >= 20, `${qlId} stem is too thin to be exam-ready`);
     assert.ok(stem.length <= 1800, `${qlId} stem is excessively long`);
     assert.equal(/\s{3,}/u.test(stem), false, `${qlId} has broken whitespace`);
@@ -114,9 +119,10 @@ for (const qlId of RNK_001_CHAPTER_AUTHORITY.permanentQlIds) {
     assert.equal(raw.publiclyPublishable, false);
     assert.equal(raw.productionReleaseAuthorized, false);
   }
+}
 
-  diversity[qlId] = stems.size;
-  assert.ok(stems.size >= 2, `${qlId} generated six times but did not vary its learner stem`);
+for (const qlId of RNK_001_CHAPTER_AUTHORITY.permanentQlIds) {
+  assert.ok(diversity.get(qlId)!.size >= 2, `${qlId} generated six times but did not vary its learner stem`);
 }
 
 assert.ok(structuredWrongExplanationsChecked >= 60, "Wave 04 must exercise a substantial structured-distractor sample");
@@ -125,8 +131,9 @@ console.log(JSON.stringify({
   verdict: "PASS_RNK_001_FINAL_AUDIT_WAVE_04_STEM_AND_DISTRACTOR_QUALITY",
   qlCoverage: "RNK-QL-001..042",
   generatedEnglishInstancesAudited: totalGenerated,
+  generationCalls: 6,
   structuredWrongExplanationsChecked,
-  minimumDistinctStemsPerQl: Math.min(...Object.values(diversity)),
+  minimumDistinctStemsPerQl: Math.min(...[...diversity.values()].map((stems) => stems.size)),
   bannedMechanicalStemLanguage: true,
   optionUniquenessGuard: true,
   reasonSpecificStructuredDistractorGuard: true,
