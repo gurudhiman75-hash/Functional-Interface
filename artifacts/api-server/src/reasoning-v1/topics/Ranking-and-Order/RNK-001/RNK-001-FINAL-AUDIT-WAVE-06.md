@@ -53,6 +53,10 @@ These are not new translations; they are regression guards over fixes already pr
 
 No native source authority, answer index, mathematical state, QL ownership or release state is changed by Wave 06.
 
+## CI gate
+
+CI gate: Waves 01–06 execute together on the exact PR head before final closure is considered.
+
 ## Next
 
 Once Waves 01–06 pass together on the exact current head, perform the final closure/freeze audit rather than adding new RNK authority.
