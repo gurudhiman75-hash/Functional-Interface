@@ -29,6 +29,10 @@ The package does not infer its answer from generated prose. It also keeps infere
 
 `SIF-CP009-REVIEW-V1.md` contains 24 trilingual, Medium-level scenarios across eight numerical-reasoning families: percentage comparisons, counts, simple ratios, changes, rankings, frequencies, part-whole relationships and scoped numerical reports. The review pack covers three scenarios per family and balances the supported inference position. Questions require direct reading and comparison of figures stated in prose; lengthy arithmetic and data-interpretation tasks remain out of scope. CP009 remains in Question Studio review only.
 
+## CP010 review candidate
+
+`SIF-CP010-REVIEW-V1.md` contains 24 trilingual scenarios across eight conditional-inference families. The pool and review pack each cover if/then, only-if, unless, provided-that, whenever, negative-condition, conditional-chain and condition-scope cases. The set is balanced at 12 Medium / 12 Hard and 12 supported-I / 12 supported-II. It tests necessary versus sufficient conditions and avoids reversing one-way rules. It remains in Question Studio review only.
+
 ## Review boundary
 
 All 17 content packs are executable and registered for Question Studio review. Question Bank persistence, tests, mocks, public delivery and automatic publication remain locked until CP-level human review, multilingual parity review, novelty expansion and the chapter freeze are approved.
