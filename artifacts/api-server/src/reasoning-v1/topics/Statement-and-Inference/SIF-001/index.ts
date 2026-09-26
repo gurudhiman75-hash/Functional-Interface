@@ -15,3 +15,6 @@ export * from "./question-studio-review.ts";
 export * from "./cp008-contextual-authorities.ts";
 
 export * from "./cp009-data-authorities.ts";export * from "./cp010-conditional-authorities.ts";
+
+export * from "./cp011-multiple-factor-authorities.ts";
+export * from "./cp011-review-export.ts";
