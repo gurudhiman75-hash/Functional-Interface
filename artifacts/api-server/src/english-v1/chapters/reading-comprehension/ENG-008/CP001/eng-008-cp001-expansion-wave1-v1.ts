@@ -8,7 +8,9 @@ export const ENG008_CP001_EXPANSION_WAVE1_V1:readonly Eng008RcPassageV1[]=[
 
 The next morning, a new student came looking for it. She explained that she had borrowed the umbrella from her aunt and was worried about losing it on her first week at school. The guard returned it after asking her to describe the small red thread tied around the handle.
 
-Kabir had not expected to meet the owner, but he was glad he had left the umbrella where it could be found. The incident was ordinary, yet it reminded him that a small choice can matter greatly to someone whose situation we do not know.`,
+Kabir had not expected to meet the owner, but he was glad he had left the umbrella where it could be found. The incident was ordinary, yet it reminded him that a small choice can matter greatly to someone whose situation we do not know.
+
+Later that week, the guard placed a small lost-and-found box near the desk because several students had started handing in pens, water bottles and notebooks instead of leaving them where they were found. Kabir noticed that none of those objects looked important by themselves. Their importance depended on who had lost them and what problem the loss created.`,
  questions:[
  q("N05-Q1","RC-F01","easy","Where did Kabir leave the umbrella?","At the school security desk",["In his classroom","At a nearby shop","Inside the school bus"],"The passage directly says Kabir carried the umbrella to the security desk.","carried the umbrella to the security desk"),
  q("N05-Q2","RC-F02","medium","Why was the umbrella especially important to the new student?","She had borrowed it and was afraid of losing it",["It contained her school books","It was a prize from the school","She needed it for a sports event"],"She explains that the umbrella belonged to her aunt and that she was worried about losing it.","borrowed the umbrella from her aunt"),
@@ -24,7 +26,9 @@ Kabir had not expected to meet the owner, but he was glad he had left the umbrel
 
 The clinic did not add another counter immediately. Instead, it moved routine appointment confirmations to a separate desk and allowed patients with pre-booked visits to check in using a simpler form. During a second two-week review, the average registration wait during the busiest hour fell by nine minutes.
 
-The clinic noted that the change did not reduce waiting for doctors themselves. It improved only the registration stage. Staff therefore decided to study consultation scheduling separately rather than claiming that the entire patient journey had become faster.`,
+The clinic noted that the change did not reduce waiting for doctors themselves. It improved only the registration stage. Staff therefore decided to study consultation scheduling separately rather than claiming that the entire patient journey had become faster.
+
+The clinic also separated walk-in patients from people who already had appointments when reviewing the new data. The change helped both groups, but pre-booked patients benefited more because their check-in process was easier to simplify. Staff said the result showed why a single average can hide differences between patient groups even in a small service improvement.`,
  questions:[
  q("R05-Q1","RC-F01","easy","When did most registration delays occur?","During the first hour after the clinic opened",["During the lunch break","Just before closing","Only on weekends"],"The first paragraph directly identifies the first hour after opening as the busiest period.","most delays occurred during the first hour after opening"),
  q("R05-Q2","RC-F02","medium","Why did the clinic create a separate desk for routine confirmations?","To reduce pressure on the main registration queue",["To increase consultation time","To collect more medical fees","To replace doctors with clerks"],"Separating simple confirmations reduced the number of people using the main registration process.","moved routine appointment confirmations to a separate desk"),
