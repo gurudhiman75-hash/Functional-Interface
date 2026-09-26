@@ -54,7 +54,7 @@ for (const candidateId of MIS_CP001_CANDIDATE_IDS) {
     assert.equal(solvedTarget, first.answer);
     assert.equal(first.target.result, first.answer);
     assert.ok(Number.isInteger(first.answer));
-    assert.ok(first.answer >= 0 && first.answer <= 999);
+    assert.ok(first.answer > 0 && first.answer <= 999);
 
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options.map((option) => option.value)).size, 4);
