@@ -1,6 +1,6 @@
 # DI-006 Caselet — Hindi/Punjabi Localization Review V1
 
-Status: HI_PA_REVIEW_CANDIDATE · HUMAN APPROVAL PENDING
+Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## Scope
 
@@ -22,7 +22,7 @@ Status: HI_PA_REVIEW_CANDIDATE · HUMAN APPROVAL PENDING
 - Semantic/numeric parity with the approved English authority is required.
 - Relation-fact order parity is required.
 - Localized caselets must remain prose; no table serialization is allowed.
-- Hindi/Punjabi Question Studio activation remains blocked pending human approval.
+- Hindi/Punjabi are enabled in Question Studio CONTROLLED_REVIEW.
 - Question Bank remains NOT_STORED.
 - Tests and mocks remain INELIGIBLE.
 - Public/student publication remains disabled.
