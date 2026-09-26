@@ -157,7 +157,7 @@ function buildRuntimeRecord(input: {
     sourceKind: "RUNTIME_GENERATED",
     packageId: input.packageId,
     canonicalProblemId: String(input.question?.canonicalProblemId ?? input.question?.cpId ?? "").trim() || undefined,
-    patternId: String(input.question?.patternId ?? input.question?.questionLanguageId ?? input.question?.qlId ?? input.question?.solveMode ?? "").trim() || undefined,
+    patternId: String(input.question?.questionLanguageId ?? input.question?.qlId ?? input.question?.patternId ?? input.question?.solveMode ?? "").trim() || undefined,
     mathematicalStateSignature: String(
       input.question?.mathematicalFingerprint
       ?? input.question?.realism?.numericalStateSignature
