@@ -36,6 +36,11 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
     assert(independent.valid, `${seed}: independent arithmetic verification failed for ${set.examProfile}.`);
 
     contextSeen.add(set.stimulus.contextId);
+    const reconstructedApplicants = set.stimulus.rows.map((row) => (row.selected * 100) / row.selectionPercent);
+    const reconstructedRejected = set.stimulus.rows.map((row, index) => reconstructedApplicants[index]! - row.selected);
+    assert(new Set(reconstructedApplicants).size >= 4, `${seed}: Applicants column is artificially repetitive.`);
+    assert(new Set(reconstructedRejected).size >= 4, `${seed}: derived rejected counts are artificially repetitive.`);
+
     for (const question of set.questions) {
       taskSeen.add(question.kind);
       const byTask = surfaces.get(question.kind) ?? new Set<string>();
