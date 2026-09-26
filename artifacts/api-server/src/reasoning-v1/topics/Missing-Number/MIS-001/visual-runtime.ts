@@ -1,7 +1,7 @@
 export type FigureRenderer = 'SVG_TRIANGLE' | 'SVG_CIRCLE' | 'SVG_BOX';
 
 export interface FigurePositionMap {
-  readonly [position: string]: number | '?';
+  readonly [position: string]: number | '?' | null;
 }
 
 function esc(value: number | '?'): string {
@@ -34,19 +34,21 @@ export function renderCircleSvg(values: {
   readonly top: number | '?';
   readonly right: number | '?';
   readonly bottom: number | '?';
-  readonly left: number | '?';
+  readonly left: number | '?' | null;
   readonly centre: number | '?';
 }): string {
+  const four = values.left != null;
   return [
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="number wheel">',
     '<circle cx="110" cy="110" r="82" fill="none" stroke="currentColor" stroke-width="2.5"/>',
-    '<line x1="110" y1="28" x2="110" y2="192" stroke="currentColor" stroke-width="1.5"/>',
-    '<line x1="28" y1="110" x2="192" y2="110" stroke="currentColor" stroke-width="1.5"/>',
+    four
+      ? '<line x1="110" y1="28" x2="110" y2="192" stroke="currentColor" stroke-width="1.5"/><line x1="28" y1="110" x2="192" y2="110" stroke="currentColor" stroke-width="1.5"/>'
+      : '<line x1="110" y1="28" x2="110" y2="83" stroke="currentColor" stroke-width="1.5"/><line x1="181" y1="151" x2="134" y2="124" stroke="currentColor" stroke-width="1.5"/><line x1="39" y1="151" x2="86" y2="124" stroke="currentColor" stroke-width="1.5"/>',
     '<circle cx="110" cy="110" r="27" fill="none" stroke="currentColor" stroke-width="2"/>',
     textNode(110, 62, values.top),
-    textNode(158, 110, values.right),
+    four ? textNode(158, 110, values.right) : textNode(166, 146, values.right),
     textNode(110, 158, values.bottom),
-    textNode(62, 110, values.left),
+    four && values.left != null ? textNode(62, 110, values.left) : '',
     textNode(110, 110, values.centre),
     '</svg>',
   ].join('');
@@ -84,6 +86,13 @@ export function figurePreview(renderer: FigureRenderer, values: FigurePositionMa
     ].join('\n');
   }
   if (renderer === 'SVG_CIRCLE') {
+    if (values.left == null) {
+      return [
+        `      ${values.top}`,
+        `     [${values.centre}]`,
+        `   ${values.bottom}   ${values.right}`,
+      ].join('\n');
+    }
     return [
       `      ${values.top}`,
       `  ${values.left}  [${values.centre}]  ${values.right}`,
