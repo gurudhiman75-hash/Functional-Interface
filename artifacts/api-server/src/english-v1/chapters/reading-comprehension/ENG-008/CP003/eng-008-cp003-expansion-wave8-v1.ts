@@ -1,0 +1,244 @@
+import type{Eng008Cp003PassageV1}from"./eng-008-cp003-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP003_EXPANSION_WAVE8_V1:readonly Eng008Cp003PassageV1[]=[
+{
+ id:"ENG008-BP-N09",title:"The Two Similar Parcels",genre:"narrative",
+ text:`Ravi ordered a set of reference books from an online store. The delivery app showed that one parcel had been left at the security desk of his apartment building. When he went downstairs, the guard pointed to two boxes with the same retailer logo and almost identical size.
+
+One box had Ravi's flat number, but the name printed above it belonged to another resident with a similar surname. The second box carried Ravi's full name and the correct order number. Ravi compared the label with the confirmation message on his phone before signing the collection register.
+
+The guard explained that two deliveries from the same store had arrived within a few minutes and had been placed next to each other. Because both boxes looked alike, he had nearly handed over the wrong one.
+
+Ravi took the correct parcel upstairs and later told the other resident that her box was waiting at the desk. The incident seemed simple, but it showed that familiar branding and similar names can create a misleading sense of certainty. The apartment association later asked guards to check both flat number and recipient name when several parcels from the same company arrived together.
+
+Ravi also noticed that the order number offered a stronger check than appearance. A package can share size, colour and seller with another package, but the transaction reference connects it to one specific purchase. He realised that verification does not always require a complicated process; two independent details can be enough to prevent a common handover error.
+
+The apartment association then reviewed its parcel register. It found that most handover mistakes involved packages from the same large retailers because the outer boxes were nearly identical. Guards were told not to rely on brand, box size or a familiar surname when several deliveries arrived together. Instead, they were asked to compare at least two recipient details before marking a parcel as collected.
+
+The change did not make collection noticeably slower. In most cases the extra check took only a few seconds, while correcting a mistaken handover could take much longer. Ravi liked that the new rule focused on the point where confusion was most likely rather than adding unnecessary steps to every delivery. He saw the process as a small example of how verification can be efficient when it uses the right information at the right moment.`,
+ questions:[
+ q("N09-Q1","BP-F01","easy","Which parcel did Ravi finally collect?","The box with his full name and correct order number",["The box with only his flat number","Both boxes from the retailer","The parcel belonging to the other resident"],"Ravi compared the labels and collected the package that matched both his full name and the order reference on his phone.","full name and the correct order number"),
+ q("N09-Q2","BP-F02","medium","Why did the first parcel initially seem plausible?","It had Ravi's flat number and a similar surname",["It contained his books visibly","The guard had opened it","It carried Ravi's exact order number"],"The first package shared enough familiar details to look possible even though the recipient name showed it belonged to someone else.","flat number ... similar surname"),
+ q("N09-Q3","BP-F03","medium","What is the central idea of the passage?","Two independent identifying details can prevent errors when similar items are handled together",["Apartment guards should open every parcel","Retailer logos prove ownership","Delivery apps should remove order numbers"],"The incident and the later rule both show that appearance or one familiar detail is weaker than checking two reliable identifiers.","compare at least two recipient details"),
+ q("N09-Q4","BP-F04","medium","Which statement is supported by the passage?","The extra verification usually took only a few seconds",["Parcel collection became much slower","The association banned online deliveries","Ravi's parcel had the wrong flat number"],"The final paragraph says the added check was quick in most cases and could save the much larger cost of correcting a wrong handover.","extra check took only a few seconds"),
+ q("N09-Q5","BP-F05","easy","In context, “verification” is closest in meaning to:","checking that details are correct",["delivering without checking","changing the order price","hiding a recipient name"],"The passage uses verification for comparing identifying details before a parcel is handed to the person collecting it.","verification does not always require"),
+ q("N09-Q6","BP-F06","easy","Which word is opposite in meaning to “identical”?","different",["matching","similar","same"],"The passage says some outer boxes were nearly identical, so “different” gives the opposite meaning.","outer boxes were nearly identical"),
+ q("N09-Q7","BP-F07","medium","What does “transaction reference” refer to in the passage?","The order number linking the parcel to one specific purchase",["The apartment's street address","The retailer's logo colour","The guard's shift timing"],"Ravi uses the order number as a stronger identifier because it connects the package to a particular purchase record.","connects it to one specific purchase"),
+ q("N09-Q8","BP-F08","medium","Why did the association focus the new rule on similar deliveries?","That was where handover confusion was most likely",["Every package required a longer inspection","Different retailers used no labels","Residents wanted slower collection"],"The review found that mistakes clustered around look-alike packages, so the response targeted the actual source of confusion.","point where confusion was most likely"),
+ q("N09-Q9","BP-F09","medium","Which title best suits the passage?","The Two Similar Parcels",["The Missing Security Guard","A Closed Online Store","The Apartment Lift Repair"],"The narrative centres on distinguishing two nearly identical deliveries and preventing a mistaken parcel handover.","two boxes with the same retailer logo")
+ ]
+},
+{
+ id:"ENG008-BP-N10",title:"The Platform Change",genre:"narrative",
+ text:`Simran was travelling by train for an entrance examination. Her ticket showed Platform 3, and the large departure board still displayed the same number when she entered the station. Ten minutes later, she received an app notification saying the train would leave from Platform 5.
+
+Several passengers began walking toward Platform 5 immediately. Simran looked again at the main board, which had not yet changed, and wondered whether the notification was delayed or incorrect.
+
+She checked a smaller platform display near the enquiry desk. It showed Platform 5 and marked the change as recent. An announcement followed a minute later. Station staff explained that the train had been moved because another service was occupying Platform 3 longer than expected.
+
+Simran reached the new platform with time to spare. She noticed that different information channels had updated at slightly different speeds. The app had been first, the small display second, and the main board last.
+
+The experience taught her that conflicting information does not always mean one source is generally unreliable. Sometimes a system is in the middle of being updated. When a change matters, checking another current source can reveal whether the newer message is genuine.
+
+After the train departed, Simran saw the main board finally refresh. She understood why passengers should pay attention to timestamps, announcements and multiple official channels during fast operational changes instead of relying only on the first screen they saw.
+
+The station later explained that different displays were fed by separate update systems, so a short mismatch could occur during an operational change. Staff said passengers should prefer the most recent official information and seek confirmation when two sources disagree.
+
+Simran also noticed that the newer message included the train number and departure time, not just the platform. Those matching details helped her judge that it referred to her service rather than another train. She concluded that checking context matters as much as checking the source. A message can be official and still be misunderstood if a traveller matches it to the wrong journey.
+
+She also saved a screenshot so she could compare the change if another message appeared.`,
+ questions:[
+ q("N10-Q1","BP-F01","easy","Which platform did Simran's train finally leave from?","Platform 5",["Platform 3","Platform 1","Platform 8"],"The app, smaller station display and later announcement all confirmed that the train had been moved to Platform 5.","leave from Platform 5"),
+ q("N10-Q2","BP-F02","medium","Why did the main board temporarily disagree with the app?","Different station information systems updated at different speeds",["The app showed another train","Simran had the wrong ticket","Platform 5 was permanently closed"],"The station later explained that separate update systems could create a short mismatch during an operational change.","updated at slightly different speeds"),
+ q("N10-Q3","BP-F03","medium","What is the central idea of the passage?","Conflicting current information should be checked through context and another reliable source",["The first screen is always correct","App notifications should never be trusted","Platform changes happen only during examinations"],"Simran resolves the conflict by using another official display, an announcement and matching journey details rather than trusting one source blindly.","checking another current source"),
+ q("N10-Q4","BP-F04","medium","Which statement is supported?","The platform change was caused by another service occupying Platform 3",["The train departed before Simran arrived","The app notification came after the announcement","The main board updated first"],"Station staff directly explained that Platform 3 remained occupied longer than expected by another train service.","another service was occupying Platform 3"),
+ q("N10-Q5","BP-F05","easy","In context, “recent” is closest in meaning to:","made or updated only a short time ago",["permanent","unofficial","unrelated"],"The smaller display marked the platform change as newly updated, which helped Simran judge that it reflected the latest situation.","marked the change as recent"),
+ q("N10-Q6","BP-F06","easy","Which word is opposite in meaning to “genuine”?","false",["real","authentic","valid"],"The passage asks whether the newer message is genuine, and “false” gives the direct opposite meaning.","whether the newer message is genuine"),
+ q("N10-Q7","BP-F07","medium","What does “matching details” refer to?","The train number and departure time agreeing with Simran's journey",["The colour of the platform signs","The names of other passengers","The station's opening hours"],"Simran used the train number and departure time to confirm that the message referred to her own service.","train number and departure time"),
+ q("N10-Q8","BP-F08","medium","Why does the passage mention timestamps and announcements?","They help travellers judge which information is current during a fast change",["They guarantee a train will never be delayed","They replace the need to read a ticket","They show ticket prices"],"These cues help distinguish newer operational information from a display that has not yet refreshed.","pay attention to timestamps, announcements"),
+ q("N10-Q9","BP-F09","medium","Which title best suits the passage?","The Platform Change",["The Lost Entrance Ticket","A Journey by Bus","The Closed Enquiry Desk"],"The narrative follows Simran as she confirms a last-minute change from one train platform to another.","train would leave from Platform 5")
+ ]
+},
+{
+ id:"ENG008-BP-S08",title:"Labels for a Community Refrigerator",genre:"social",
+ text:`A neighbourhood group placed a community refrigerator outside a local hall so residents could leave sealed surplus food for others. At first, volunteers asked donors to write only the item name on each container.
+
+Within a few weeks, a problem appeared. Two boxes marked “rice” looked similar, but one had been cooked that morning and the other had been stored since the previous day. Volunteers could not tell which should be used first.
+
+The group introduced a simple label showing the food name, preparation date and time, and whether the container needed reheating. Items without enough information were moved to a separate shelf until a volunteer could confirm the details.
+
+The new labels made rotation easier and reduced the number of containers discarded because their age was uncertain. However, the group avoided adding too many fields. Donors said a long form might discourage people from contributing.
+
+Volunteers also cleaned the refrigerator twice a day and kept a temperature log. They explained that labels could improve handling but could not make unsafe food safe. Donors were still asked to follow basic storage rules before leaving anything.
+
+After a month, the group kept the shorter label. It had learned that useful information must be specific enough to support a decision but simple enough to be used consistently. The refrigerator worked better not because it collected more data, but because it recorded the few details volunteers actually needed when deciding which item to place at the front.
+
+The group also added a small “use first” tray for items approaching the end of their safe storage period. Volunteers moved containers there only after checking the preparation information and refrigerator log. This prevented the tray from becoming a place for food that merely looked old.
+
+A monthly review showed that the shorter label was completed far more consistently than the earlier trial version with extra questions about ingredients, donor contact details and portion size. Those details could be useful in some situations, but they were not required for daily stock rotation. The group decided that collecting information only because it might someday be useful could make the whole system less reliable if donors stopped completing labels properly.`,
+ questions:[
+ q("S08-Q1","BP-F01","easy","Which details were added to the shorter food label?","Food name, preparation date and time, and reheating need",["Donor income and phone number","Only container colour","Market price and brand"],"The new label recorded a small set of practical details volunteers needed to rotate and handle donated food.","preparation date and time"),
+ q("S08-Q2","BP-F02","medium","Why did the group avoid a very long label?","Too many fields might discourage donors from completing it consistently",["There was no space in the refrigerator","Volunteers wanted less information about food age","Long labels made food unsafe"],"The passage explains that excessive information requirements could reduce participation or lead to incomplete labels.","long form might discourage people"),
+ q("S08-Q3","BP-F03","medium","What is the central idea of the passage?","A small set of relevant, consistently recorded details can be more useful than collecting excessive information",["Community refrigerators should accept unlabeled food","Temperature logs replace safe storage","Every donation needs a long questionnaire"],"The group improves handling by identifying the few pieces of information needed for decisions and keeping the process easy to follow.","specific enough ... simple enough"),
+ q("S08-Q4","BP-F04","medium","Which statement is supported?","Labels reduced uncertainty about which containers should be used first",["Labels made unsafe food safe","Every donated item was kept indefinitely","The refrigerator was cleaned once a month"],"The new dates and times made stock rotation easier and reduced discards caused by uncertainty about food age.","new labels made rotation easier"),
+ q("S08-Q5","BP-F05","easy","In context, “consistently” is closest in meaning to:","in the same reliable way over time",["secretly","occasionally","carelessly"],"The passage values a label that donors actually complete regularly and correctly rather than one used only sometimes.","used consistently"),
+ q("S08-Q6","BP-F06","easy","Which word is opposite in meaning to “surplus”?","shortage",["extra","excess","spare"],"Surplus means more than is needed, while a shortage means too little is available.","sealed surplus food"),
+ q("S08-Q7","BP-F07","medium","What does the “use first” tray indicate?","Items that should be prioritised after their storage information is checked",["Food that only looks unattractive","Containers with no labels at all","Items reserved for volunteers"],"The tray is used only after checking preparation details and the refrigerator record, so it supports planned stock rotation.","approaching the end of their safe storage period"),
+ q("S08-Q8","BP-F08","medium","Why did volunteers keep a temperature log as well as labels?","Labels help handling but do not by themselves ensure safe storage conditions",["The label had no food name","The group wanted to track donor attendance","Temperature determines container colour"],"The passage separates information about an item from the refrigerator conditions needed to store food safely.","labels could improve handling but could not make unsafe food safe"),
+ q("S08-Q9","BP-F09","medium","Which title best suits the passage?","Labels for a Community Refrigerator",["A New Restaurant Menu","The Empty Local Hall","Why Rice Should Not Be Shared"],"The passage centres on improving a community refrigerator through practical food labels and related handling rules.","introduced a simple label")
+ ]
+},
+{
+ id:"ENG008-BP-S09",title:"Booking Shared Study Rooms",genre:"social",
+ text:`A coaching centre allowed students to book three small study rooms through a shared online calendar. The original system showed only the student's first name and the start time. Problems arose when two students had the same name or when someone forgot to cancel a booking.
+
+The centre changed the process so each reservation included a student ID suffix, start time and expected end time. A booking automatically expired ten minutes after the start if the student had not checked in at reception.
+
+During the first month, the number of unused rooms with active bookings fell. Students also found it easier to see when a room would become available.
+
+The new rule created one concern. Some students arrived a few minutes late because a class in another building ended at the same time as their booking. The centre therefore allowed reception staff to hold a reservation when the student sent a short delay message.
+
+The system remained simple. Staff did not track what students studied or how long they stayed beyond the reserved block. The goal was only to make access to a scarce shared space more predictable.
+
+The centre later reviewed booking patterns and found that evening rooms were in much higher demand than morning rooms. It decided to test shorter evening slots instead of adding the same restriction all day. The change showed that a booking rule works better when it distinguishes genuine no-shows from small, explainable delays and when limits are applied where demand actually exists.
+
+Staff also compared the automatic expiry rule with actual check-in records. Most no-shows were released within ten minutes, and the freed rooms were usually taken by waiting students during the evening peak. Morning releases were less important because spare rooms were already available.
+
+The centre therefore kept the expiry rule but added a visible status beside each booking: reserved, checked in, delayed with notice or released. Students said this reduced arguments because they could see why a room that looked empty was still being held. The centre learned that a booking calendar becomes more useful when it records the current state of a reservation, not only the original plan.`,
+ questions:[
+ q("S09-Q1","BP-F01","easy","When did an unchecked booking normally expire?","Ten minutes after its start time",["One hour before the booking","At the end of the day","Only after a teacher approved it"],"The revised system automatically released a room ten minutes after the booked start if the student had not checked in.","expired ten minutes after the start"),
+ q("S09-Q2","BP-F02","medium","Why could reception staff hold a booking beyond the normal expiry point?","A student might report a small genuine delay from another class",["Morning rooms were always full","The centre wanted permanent reservations","Students could not send messages"],"The exception prevents the system from treating a short explained delay in the same way as a true no-show.","sent a short delay message"),
+ q("S09-Q3","BP-F03","medium","What is the central idea of the passage?","Shared-room booking works better when current status, real demand and reasonable exceptions are visible",["Every reservation should last all day","Morning and evening demand are identical","Bookings should contain details of what students study"],"The centre improves the system by distinguishing states and tailoring rules to actual demand rather than applying one rigid rule.","current state of a reservation"),
+ q("S09-Q4","BP-F04","medium","Which statement is supported?","Released evening rooms were often taken by waiting students",["Morning rooms had the highest demand","Every late student lost the booking","The centre tracked students' study topics"],"The later review found that evening no-show releases were useful because other students were waiting for scarce rooms.","taken by waiting students during the evening peak"),
+ q("S09-Q5","BP-F05","easy","In context, “predictable” is closest in meaning to:","easier to anticipate in advance",["more expensive","completely private","unlimited"],"The booking changes made it clearer when rooms would become available and whether a reservation was still active.","make access ... more predictable"),
+ q("S09-Q6","BP-F06","easy","Which word is opposite in meaning to “scarce”?","abundant",["limited","rare","restricted"],"Scarce means available in limited quantity, while abundant means plentiful or widely available.","scarce shared space"),
+ q("S09-Q7","BP-F07","medium","What does “current state” of a reservation refer to?","Whether it is reserved, checked in, delayed or released",["The room's wall colour","The student's exam score","The building's address"],"The centre added visible booking statuses so students could see what was happening now rather than only the original booking time.","reserved, checked in, delayed with notice or released"),
+ q("S09-Q8","BP-F08","medium","Why did the centre consider shorter slots mainly in the evening?","That was when demand was much higher",["Morning bookings had more no-shows","Evening rooms were larger","Students studied different subjects at night"],"The rule was targeted to the period where room scarcity was actually a problem instead of restricting all users equally.","evening rooms were in much higher demand"),
+ q("S09-Q9","BP-F09","medium","Which title best suits the passage?","Booking Shared Study Rooms",["Building a New Coaching Centre","The Cancelled Entrance Exam","A Lesson on Calendar Dates"],"The passage describes how a coaching centre changes its reservation system for a limited set of shared study rooms.","book three small study rooms")
+ ]
+},
+{
+ id:"ENG008-BP-SC07",title:"Calibrating Rooftop Temperature Sensors",genre:"science",
+ text:`Researchers at a college placed temperature sensors on three rooftops to compare how different surface materials affected daytime heat. One roof was dark concrete, one had a light reflective coating and one was partly covered with plants.
+
+Before the trial began, the team placed all sensors side by side for two hours. One device consistently read about 0.8 degrees higher than the others. Instead of discarding it, the researchers recorded the offset and corrected its later readings.
+
+Measurements were taken every ten minutes for four weeks. The dark roof reached the highest afternoon temperatures on clear days. The reflective roof was cooler, while the planted roof showed smaller temperature swings between afternoon and night.
+
+The team warned against treating the trial as a complete measure of building comfort. Indoor temperature also depends on insulation, ventilation and room use. The sensors measured roof-surface conditions, not the temperature experienced by occupants.
+
+Rainy days also reduced the differences between the roofs. For that reason, the researchers reported results separately for clear and wet periods rather than averaging every day together.
+
+The calibration check at the start proved important because a small sensor bias could have looked like a real difference between roofs. By identifying the offset before comparing locations, the team reduced one source of measurement error.
+
+The team also compared two sensors on the same roof for one day midway through the project. Their readings stayed close, suggesting that no new large drift had developed after the initial calibration. Researchers noted that this check could not detect every possible fault, but it increased confidence that later differences were mainly related to surface conditions.
+
+Another limitation was shade from nearby structures. A small section of the planted roof entered shade earlier in the evening than the other roofs. The team marked that period separately rather than treating every late-day reading as directly comparable. The researchers said careful comparison depends not only on collecting many measurements but also on knowing when test conditions stop being alike.
+
+The college plans to repeat the study in winter. Researchers expect the ranking of surface temperatures may remain similar, but the size and practical importance of the differences could change with season and sunlight.`,
+ questions:[
+ q("SC07-Q1","BP-F01","easy","What did the team discover when the sensors were placed side by side?","One sensor read about 0.8 degrees higher than the others",["All sensors gave identical readings","The planted roof was already warmer","One sensor stopped working completely"],"The pre-trial comparison revealed a consistent offset in one device before the sensors were separated across rooftops.","read about 0.8 degrees higher"),
+ q("SC07-Q2","BP-F02","medium","Why were rainy and clear days reported separately?","Weather reduced the temperature differences between the roof types",["Rain damaged every sensor","Clear days had no measurements","The researchers wanted fewer data points"],"Because rain changed the size of the observed differences, combining all days could hide how the surfaces behaved under distinct conditions.","Rainy days also reduced the differences"),
+ q("SC07-Q3","BP-F03","medium","What is the central idea of the passage?","Reliable comparison requires both repeated measurements and attention to calibration and changing test conditions",["The dark roof proves all buildings are uncomfortable","One sensor is enough for every experiment","Winter results must exactly match summer results"],"The study repeatedly checks whether observed differences come from roof surfaces or from measurement and environmental factors.","reduced one source of measurement error"),
+ q("SC07-Q4","BP-F04","medium","Which statement is supported?","The planted roof had smaller temperature swings between afternoon and night",["The reflective roof was always hottest","Indoor comfort was directly measured","Shade affected every roof equally"],"The passage directly reports smaller day-to-night surface variation on the roof that was partly covered with plants.","smaller temperature swings"),
+ q("SC07-Q5","BP-F05","easy","In context, “calibration” is closest in meaning to:","checking and adjusting measurement accuracy",["painting a roof surface","counting building occupants","changing the weather"],"The sensors were compared together so a consistent device offset could be identified and corrected before analysis.","initial calibration"),
+ q("SC07-Q6","BP-F06","easy","Which word is opposite in meaning to “similar”?","different",["alike","comparable","matching"],"The passage discusses readings that may remain similar, and “different” expresses the opposite relation.","may remain similar"),
+ q("SC07-Q7","BP-F07","medium","What does “offset” refer to in the experiment?","The consistent difference between one sensor's reading and the others",["The distance between roofs","The time between measurements","The amount of roof shade"],"The team found one device reading systematically higher and used that measured difference to correct its later values.","recorded the offset"),
+ q("SC07-Q8","BP-F08","medium","Why was the mid-project same-roof comparison useful?","It checked whether a large new sensor drift had developed",["It measured indoor comfort","It removed the need for winter testing","It created more shade"],"Putting sensors together again gave the team another check on whether device behaviour had changed during the experiment.","no new large drift"),
+ q("SC07-Q9","BP-F09","medium","Which title best suits the passage?","Calibrating Rooftop Temperature Sensors",["Designing a College Classroom","Why Rain Stops Experiments","Growing Plants Indoors"],"The passage focuses on a rooftop heat comparison and the measurement checks needed to interpret the sensor data correctly.","placed temperature sensors on three rooftops")
+ ]
+},
+{
+ id:"ENG008-BP-SC08",title:"Testing Water-Filter Flow and Particle Removal",genre:"science",
+ text:`A school science club compared the flow rate of three household water filters using identical containers and the same volume of tap water. Students wanted to know whether a slower filter necessarily removed more visible particles.
+
+Each filter was flushed according to its instructions before testing. The club then poured two litres of the same mixed water through each unit and recorded how long filtration took. The slowest filter required almost twice as much time as the fastest.
+
+To examine visible particles, students collected the filtered water in clear jars and used a simple light-scattering sensor. The slowest filter produced the lowest reading, but the middle-speed filter gave a very similar result. The fastest filter showed a slightly higher particle reading.
+
+The club avoided claiming that the experiment measured drinking-water safety. The sensor could detect suspended material but not dissolved chemicals or microorganisms. Students also tested only one water source.
+
+A second trial produced the same general ordering, although the exact times changed. The students concluded that flow rate and particle removal were related in their setup, but not in a simple “slower is always better” way.
+
+They also noticed that one filter became slower after repeated use. That raised a new question: the device might be collecting material effectively, or it might simply be clogging. The club decided to measure performance over a longer period before making any practical recommendation.
+
+Students then repeated one test after deliberately changing the amount of sediment mixed into the source water. All three filters produced higher sensor readings, but the relative pattern remained similar. This suggested that the first result was not caused only by one unusually clean or dirty batch.
+
+The club also weighed the filters before and after several trials. The measurement was too crude to show exactly how much material had been trapped, but it encouraged students to think about another variable beyond speed. Their teacher reminded them that a useful experiment often creates better questions rather than a final verdict. By the end, the club had a clearer plan for a longer study involving several water sources, repeated measurements and filter age.
+
+The experiment showed why a single easy-to-see feature, such as speed, should not be treated as a complete indicator of quality without checking what the measurement actually represents.`,
+ questions:[
+ q("SC08-Q1","BP-F01","easy","Which filter had the lowest light-scattering reading?","The slowest filter",["The fastest filter","All filters had identical readings","The unused filter"],"The first particle comparison found the lowest sensor reading after water passed through the slowest of the three filters.","slowest filter produced the lowest reading"),
+ q("SC08-Q2","BP-F02","medium","Why did the club avoid claiming that it had measured water safety?","The sensor did not measure dissolved chemicals or microorganisms",["The filters had no instructions","The water could not be collected","The club measured no particles"],"The instrument covered only suspended visible material, leaving important safety-related factors outside the experiment.","not dissolved chemicals or microorganisms"),
+ q("SC08-Q3","BP-F03","medium","What is the central idea of the passage?","Flow speed alone is not enough to judge filter performance",["The slowest filter is always safest","Fast filters remove no particles","One trial can prove long-term quality"],"The experiment finds some relationship between speed and particles but repeatedly shows why a single visible measure cannot support a broad conclusion.","not in a simple “slower is always better” way"),
+ q("SC08-Q4","BP-F04","medium","Which statement is supported?","A middle-speed filter produced a particle reading close to the slowest filter",["The fastest filter removed every microorganism","All filter times stayed identical in every trial","Only bottled water was tested"],"The passage directly says the middle-speed filter's light-scattering result was very similar to that of the slowest unit.","middle-speed filter gave a very similar result"),
+ q("SC08-Q5","BP-F05","easy","In context, “indicator” is closest in meaning to:","a measure used as a sign of something",["a cleaning chemical","a filter brand","a storage container"],"Speed is described as a visible measure that might suggest quality but does not capture every aspect of performance.","complete indicator of quality"),
+ q("SC08-Q6","BP-F06","easy","Which word is opposite in meaning to “crude” in the phrase “too crude to show exactly”?","precise",["rough","basic","approximate"],"Here “crude” means not sufficiently exact, so “precise” gives the opposite meaning in the measurement context.","measurement was too crude"),
+ q("SC08-Q7","BP-F07","medium","What does “relative pattern” refer to?","The ordering of the filters compared with one another",["The colour of the jars","The written instructions","The amount of time between school periods"],"Even after adding more sediment, the filters remained in a broadly similar relationship to one another despite higher readings overall.","relative pattern remained similar"),
+ q("SC08-Q8","BP-F08","medium","Why did the club plan a longer study?","Filter behaviour changed with repeated use and only one water source had been tested",["The first experiment had no measurements","Students wanted to avoid repetition","The filters were identical"],"The passage identifies filter age, clogging and water-source variation as unanswered factors needing more evidence.","measure performance over a longer period"),
+ q("SC08-Q9","BP-F09","medium","Which title best suits the passage?","Testing Water-Filter Flow and Particle Removal",["Building a School Water Tank","Why Fast Water Is Unsafe","A Lesson on Clear Jars"],"The investigation compares filtration speed with a simple measure of suspended particles while discussing the limits of that comparison.","compared the flow rate of three household water filters")
+ ]
+},
+{
+ id:"ENG008-BP-B10",title:"Scheduled Grocery Pickup Windows",genre:"business",
+ text:`A grocery store introduced scheduled pickup windows for online orders after customers complained that the collection counter became crowded between 6 p.m. and 7 p.m. The store offered thirty-minute windows and limited the number of orders assigned to each one.
+
+During a six-week trial, average counter waiting time fell in the busiest hour. Customers who arrived within their selected window were usually served quickly because staff had already moved those orders to a nearby holding rack.
+
+The system did not eliminate delays. Some orders were incomplete when a supplier delivery arrived late, and some customers reached the store long after their booking. Staff created a separate shelf for delayed orders so they did not block ready collections.
+
+The store also found that many early-afternoon windows were underused. Rather than keeping the same limit all day, managers increased the evening capacity slightly and offered a small discount for customers who selected quieter periods.
+
+One risk was overbooking. If the store allowed too many orders into a popular window, the benefit disappeared. Managers therefore used actual service time, not just order count, when deciding how many bookings a slot could handle.
+
+After the trial, the store kept scheduled pickup but allowed walk-in collection as well. Walk-in customers were shown the current estimated wait before joining the queue.
+
+The managers concluded that appointments were useful for smoothing demand, not for guaranteeing an exact service minute. The system worked best when capacity reflected real handling time and when staff had a clear process for late, incomplete and unscheduled orders.
+
+Managers also tracked how often customers changed their selected window. Most changes happened several hours before pickup and were easy to accommodate. Last-minute changes caused more difficulty because the order might already have been moved to the holding area assigned to a different period.
+
+The store added a cut-off time for self-service changes but allowed staff to override it when capacity was available. It also displayed estimated readiness separately from the pickup window, because a prepared order could still contain an item waiting for substitution approval. This distinction reduced confusion between “the order is being assembled” and “the counter is busy”. The trial therefore improved not only scheduling but also the way the store described different stages of readiness to customers.`,
+ questions:[
+ q("B10-Q1","BP-F01","easy","What happened to average waiting time during the busiest hour?","It fell during the trial",["It doubled","It stayed exactly the same","It was no longer measured"],"Scheduled windows spread collection demand and reduced average counter waiting during the store's busiest evening period.","waiting time fell in the busiest hour"),
+ q("B10-Q2","BP-F02","medium","Why did the store use actual service time when setting slot capacity?","Equal order counts can require different amounts of handling time",["Order count was never recorded","Every order took exactly the same time","Customers requested longer receipts"],"The passage explains that too many bookings erase the benefit, so capacity was based on the work needed rather than a simple count.","used actual service time, not just order count"),
+ q("B10-Q3","BP-F03","medium","What is the central idea of the passage?","Pickup appointments help smooth demand when capacity and exceptions are managed realistically",["Appointments guarantee service at an exact minute","Walk-in pickup should be banned","Every time window should have the same limit"],"The trial succeeds by matching bookings to real handling capacity while creating processes for late, incomplete and unscheduled orders.","useful for smoothing demand"),
+ q("B10-Q4","BP-F04","medium","Which statement is supported?","Early-afternoon pickup windows were often underused",["Evening demand disappeared","Every order was complete on time","Walk-in customers were refused"],"The store found spare capacity earlier in the day and used incentives and different limits to balance demand.","early-afternoon windows were underused"),
+ q("B10-Q5","BP-F05","easy","In context, “capacity” is closest in meaning to:","the amount of work a time slot can handle",["the size of a shopping basket","the value of a discount","the number of suppliers"],"Managers use the word for how many collections can be served effectively within a booking window based on handling time.","how many bookings a slot could handle"),
+ q("B10-Q6","BP-F06","easy","Which word is opposite in meaning to “incomplete”?","complete",["unfinished","partial","missing"],"The passage distinguishes orders that are not yet fully ready from those that are complete and available for collection.","Some orders were incomplete"),
+ q("B10-Q7","BP-F07","medium","What does “estimated readiness” refer to?","Whether the order itself is expected to be fully prepared",["The current counter queue length","The store's closing time","The customer's travel time"],"The store separates order preparation status from the pickup slot because a booking can exist before every item issue is resolved.","displayed estimated readiness separately"),
+ q("B10-Q8","BP-F08","medium","Why was a separate shelf created for delayed orders?","So incomplete orders would not obstruct collections that were ready",["To hide popular products","To replace the pickup counter","To store walk-in customers' bags"],"Separating delayed orders kept exceptions from blocking the physical flow of customers whose purchases were ready.","did not block ready collections"),
+ q("B10-Q9","BP-F09","medium","Which title best suits the passage?","Scheduled Grocery Pickup Windows",["The Closed Grocery Store","A Supplier Price Dispute","Why Online Orders Should End"],"The passage evaluates how scheduled collection windows affected crowding, readiness and capacity at a grocery pickup counter.","introduced scheduled pickup windows")
+ ]
+},
+{
+ id:"ENG008-BP-B11",title:"A Service Centre Adds Triage Tickets",genre:"business",
+ text:`An electronics service centre handled repairs using one queue for every customer. A person collecting a finished device waited in the same line as someone describing a complex fault for the first time. Staff noticed that short transactions were often delayed behind long diagnostic conversations.
+
+The centre tested a triage desk for eight weeks. When customers arrived, an employee identified whether they needed collection, payment, a simple accessory replacement or a new repair assessment. They then received a ticket for the appropriate counter.
+
+Average time for collections and payments fell sharply. New repair assessments did not become much faster because they still required detailed discussion and testing.
+
+The triage desk created another task: the first employee had to classify requests correctly. When the description was unclear, customers were sometimes sent to the wrong counter and had to be redirected. The centre responded by using four broad categories rather than a long list of specialised labels.
+
+Staff also kept one flexible counter that could take overflow from whichever queue became longest. This prevented the new categories from becoming rigid barriers.
+
+Managers concluded that separating very short and very long transactions could improve flow, but only if the initial classification remained simple and reversible.
+
+The centre did not measure repair quality during the trial, so it did not claim that triage improved technical outcomes. Its evidence concerned waiting and routing. The next review will examine whether customers understand the category names without staff explanation and whether the flexible counter is used often enough to justify permanent staffing.
+
+The service centre also studied queue lengths by hour. Collection traffic peaked just after office closing time, while new diagnostic requests were spread more evenly. Managers used that pattern to move one employee temporarily from assessment support to the collection counter during the evening rush.
+
+Some customers initially assumed that a lower ticket number meant they should be served before every higher number, even across different categories. The centre changed the display so each queue had a letter prefix and a short label. Staff explained that the system was not a single ranking anymore; it was several service streams with different average handling times. This reduced complaints about apparent skipping and made the purpose of triage easier to understand.`,
+ questions:[
+ q("B11-Q1","BP-F01","easy","Which transactions became much faster during the triage trial?","Collections and payments",["Complex repair assessments only","Every technical repair","Supplier deliveries"],"Short service tasks such as collection and payment benefited most because they no longer waited behind long diagnostic conversations.","collections and payments fell sharply"),
+ q("B11-Q2","BP-F02","medium","Why did the centre use four broad categories instead of many specialised ones?","Broad categories were easier to classify correctly and redirect when necessary",["Customers requested longer labels","The centre had only four employees","Repair quality depended on the number four"],"Too many narrow categories increased the risk of routing mistakes, so the centre kept the first decision simple and reversible.","using four broad categories"),
+ q("B11-Q3","BP-F03","medium","What is the central idea of the passage?","Triage can improve queue flow if routing remains simple, flexible and understandable",["Every customer should use one identical queue","Technical repair quality always improves with triage","Ticket numbers should rank all services together"],"The trial helps short transactions while repeatedly addressing the risks of wrong routing, rigid categories and confusing ticket order.","classification remained simple and reversible"),
+ q("B11-Q4","BP-F04","medium","Which statement is supported?","New repair assessments still required detailed discussion and testing",["Triage eliminated diagnostic work","Collections became slower","The centre measured repair quality and found it improved"],"The passage directly explains why complex new assessments did not gain the same speed benefit as short transactions.","still required detailed discussion and testing"),
+ q("B11-Q5","BP-F05","easy","In context, “flexible” is closest in meaning to:","able to shift according to changing queue needs",["permanently fixed","secret","unavailable"],"The flexible counter could serve whichever queue became longest instead of belonging to one category at all times.","take overflow from whichever queue became longest"),
+ q("B11-Q6","BP-F06","easy","Which word is opposite in meaning to “rigid”?","adaptable",["fixed","strict","inflexible"],"The passage warns against rigid barriers and uses a flexible counter, so “adaptable” expresses the opposite quality.","rigid barriers"),
+ q("B11-Q7","BP-F07","medium","What does “service streams” refer to?","Separate queues for different types of customer requests",["Different electricity supplies","Repair manuals from different brands","Routes used by delivery vehicles"],"The lettered tickets represented several parallel queues rather than one universal numerical order.","several service streams"),
+ q("B11-Q8","BP-F08","medium","Why did the centre change the ticket display to letter prefixes?","To show that lower numbers in different categories did not represent one common ranking",["To make ticket printing cheaper","To hide queue lengths","To remove category names"],"Customers had mistaken separate queues for a single number sequence, so the display needed to make the category structure clearer.","not a single ranking anymore"),
+ q("B11-Q9","BP-F09","medium","Which title best suits the passage?","A Service Centre Adds Triage Tickets",["The Repair Shop Stops Diagnostics","A New Electronics Warranty","Why Ticket Numbers Should Disappear"],"The report follows a service centre experiment that routes customers into different ticketed queues according to request type.","tested a triage desk")
+ ]
+}
+] as const;
