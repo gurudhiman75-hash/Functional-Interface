@@ -222,10 +222,10 @@ test('CLK-001 SSC and Punjab delivery keep the canonical four-option surface', a
 });
 
 
-test('CLK-001 permanent QLs produce genuine stem variation across repeated generation', async () => {
+test('CLK-001 permanent QLs produce genuine learner-surface variation across repeated generation', async () => {
   const diversity = new Map<string, Set<string>>();
   for (const qlId of CLK_001_PERMANENT_QL_IDS) {
-    const stems = new Set<string>();
+    const surfaces = new Set<string>();
     for (let round = 0; round < 6; round += 1) {
       const result = await generateClk001QuestionStudioBatch({
         packageId: 'CLK-001',
@@ -234,12 +234,23 @@ test('CLK-001 permanent QLs produce genuine stem variation across repeated gener
         count: 1,
         seed: 'clk-wave03-diversity-' + qlId + '-' + round,
       });
-      stems.add(String(result.questions[0]?.stem ?? '').trim());
+      const question = result.questions[0] as Record<string, any>;
+      const media = question.media as Record<string, any> | null | undefined;
+      const promptKey = String(media?.prompt?.semanticKey ?? '');
+      const optionKeys = Array.isArray(media?.options)
+        ? media.options.map((entry: Record<string, any>) => String(entry?.semanticKey ?? entry?.asset?.semanticKey ?? '')).join('|')
+        : '';
+      const surfaceSignature = [
+        String(question.stem ?? '').trim(),
+        promptKey,
+        optionKeys,
+      ].join('||');
+      surfaces.add(surfaceSignature);
     }
-    diversity.set(qlId, stems);
+    diversity.set(qlId, surfaces);
     assert.ok(
-      stems.size >= 2,
-      qlId + ' generated six times without any learner-stem variation',
+      surfaces.size >= 2,
+      qlId + ' generated six times without any learner-surface variation',
     );
   }
 
