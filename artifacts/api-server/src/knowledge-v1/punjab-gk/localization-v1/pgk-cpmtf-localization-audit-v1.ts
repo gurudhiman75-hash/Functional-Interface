@@ -76,6 +76,11 @@ function auditNative(locale: "hi"|"pa", q: ReturnType<typeof generatePgkMatchFol
   }
 }
 
+const englishRows=generatePgkMatchFollowingReviewV1("en");
+const answerPositionCounts=[0,0,0,0];
+for(const q of englishRows) answerPositionCounts[q.correctIndex]! += 1;
+assert(answerPositionCounts.every(n=>n===6), `Correct-code positions must be balanced 6/6/6/6; found ${answerPositionCounts.join("/")}`);
+
 for (const locale of ["en","hi","pa"] as PgkMatchingLocaleV1[]) {
   const rows=generatePgkMatchFollowingReviewV1(locale);
   assert(rows.length===24, `${locale}: expected 24 matching questions`);
