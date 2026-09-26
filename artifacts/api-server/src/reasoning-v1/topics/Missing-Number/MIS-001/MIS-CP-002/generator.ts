@@ -143,6 +143,11 @@ function values(group: MisCp002Group): readonly [number, number, number] {
   return [group.first, group.second, group.third];
 }
 
+function sharedVisibleInputCount(left: MisCp002Group, right: MisCp002Group): number {
+  const leftInputs = new Set([left.first, left.second, left.third]);
+  return [right.first, right.second, right.third].filter((value) => leftInputs.has(value)).length;
+}
+
 function governedDistractors(
   ruleId: MisCp002RuleId,
   context: MisCp002RuleContext,
@@ -233,7 +238,10 @@ function chooseEvidenceAndTarget(
       let bestSurvivorCount = Number.POSITIVE_INFINITY;
       for (let index = 0; index < Math.min(groups.length, 180); index += 1) {
         if (used.has(index)) continue;
-        const audit = auditMisCp002Ambiguity(rule.ruleId, context, [...evidence, groups[index]!]);
+        const candidate = groups[index]!;
+        if (evidence.some((shown) => shown.result === candidate.result)) continue;
+        if (evidence.some((shown) => sharedVisibleInputCount(shown, candidate) > 1)) continue;
+        const audit = auditMisCp002Ambiguity(rule.ruleId, context, [...evidence, candidate]);
         const survivorCount = new Set(audit.matches.map((match) => match.semanticKey)).size;
         if (survivorCount < bestSurvivorCount) {
           bestIndex = index;
@@ -251,7 +259,8 @@ function chooseEvidenceAndTarget(
         const target = groups.find((group, index) =>
           !used.has(index)
           && governedDistractors(rule.ruleId, context, group).length >= 3
-          && !evidence.some((shown) => shown.result === group.result),
+          && !evidence.some((shown) => shown.result === group.result)
+          && !evidence.some((shown) => sharedVisibleInputCount(shown, group) > 1),
         );
         if (target) return { evidence, target, ambiguity };
       }
