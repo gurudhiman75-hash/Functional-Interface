@@ -34,6 +34,7 @@ on:
       - artifacts/api-server/src/current-affairs/**
       - artifacts/api-server/src/domain/**
       - artifacts/api-server/src/generators/**
+      - artifacts/api-server/src/english-v1/chapters/reading-comprehension/ENG-008/**
       - artifacts/api-server/src/legacy-percentage-engine/**
       - artifacts/api-server/src/lib/**
       - artifacts/api-server/src/middlewares/**
