@@ -12,7 +12,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/**"
-      - ".github/workflows/quant-v4-di-advanced-table-di002-v2.yml"
   workflow_dispatch:
 
 concurrency:
