@@ -10,7 +10,7 @@ Behind a flower pot, she found a folded slip that read, “Key with Mrs Rao next
 
 That evening, her grandmother apologised for the confusion. Meera pointed out that the note had solved the problem even though the original plan had failed. They decided to keep a small written list of emergency contacts near the door so that future changes would be easier to handle.
 
-A week later, the same list helped a delivery worker contact the family when no one heard the bell. Meera realised that a simple backup plan becomes useful precisely because people cannot predict every small disruption in advance.`,
+A week later, the same list helped a delivery worker contact the family when no one heard the bell. Meera realised that a simple backup plan becomes useful precisely because people cannot predict every small disruption in advance. It also made small changes feel less stressful.`,
  questions:[
  q("N06-Q1","RC-F01","easy","Where was the spare key kept?","With Mrs Rao next door",["Under the flower pot","At the clinic","Inside Meera's school bag"],"The note beside the entrance said the key was with Mrs Rao next door.","Key with Mrs Rao next door"),
  q("N06-Q2","RC-F02","medium","What can be inferred about the note left by Meera's grandmother?","It served as a backup when the original plan failed",["It was intended for the delivery worker","It was written after Meera entered the house","It contained the clinic address"],"The note allowed Meera to solve the problem caused by the forgotten message.","the note had solved the problem"),
