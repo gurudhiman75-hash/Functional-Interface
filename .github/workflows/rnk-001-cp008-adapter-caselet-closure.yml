@@ -15,6 +15,9 @@ on:
       - '.github/workflows/rnk-001-cp008-adapter-caselet-closure.yml'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
   group: rnk-001-english-content-closure-${{ github.ref }}
   cancel-in-progress: true
