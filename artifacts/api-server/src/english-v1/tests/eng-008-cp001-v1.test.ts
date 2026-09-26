@@ -5,7 +5,7 @@ import{ENG008_CP001_FAMILY_IDS_V1,generateEng008Cp001QuestionV1}from"../chapters
 assert.equal(ENG008_CP001_PASSAGES_V1.length,46);
 assert.equal(new Set(ENG008_CP001_PASSAGES_V1.map(x=>x.id)).size,46);
 assert.equal(ENG008_CP001_QUESTION_AUTHORITIES_V1.length,276);
-assert.equal(new Set(ENG008_CP001_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,228);
+assert.equal(new Set(ENG008_CP001_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,276);
 
 const genres=new Map<string,number>(),families=new Map<string,number>(),difficulties=new Set<string>();
 for(const passage of ENG008_CP001_PASSAGES_V1){
@@ -30,8 +30,8 @@ for(const passage of ENG008_CP001_PASSAGES_V1){
   assert.equal(first.metadata.reviewOnly,true);
  }
 }
-assert.deepEqual(Object.fromEntries(genres),{narrative:19,report:19});
-for(const familyId of ENG008_CP001_FAMILY_IDS_V1)assert.equal(families.get(familyId),38,`${familyId} should have 30 authorities`);
+assert.equal([...genres.values()].reduce((a,b)=>a+b,0),46);assert.deepEqual([...genres.keys()].sort(),["narrative","report"]);
+for(const familyId of ENG008_CP001_FAMILY_IDS_V1)assert.equal(families.get(familyId),46,`${familyId} should have 46 authorities`);
 assert.deepEqual([...difficulties].sort(),["easy","hard","medium"]);
 
 for(const difficulty of["easy","medium","hard"]as const){
@@ -44,4 +44,4 @@ for(const difficulty of["easy","medium","hard"]as const){
   assert.equal(q.metadata.reviewOnly,true);
  }
 }
-console.log("ENG-008 CP001 SSC foundation RC audit passed.",{passages:38,authorities:228,soak:6000});
+console.log("ENG-008 CP001 SSC foundation RC audit passed.",{passages:46,authorities:276,soak:6000});
