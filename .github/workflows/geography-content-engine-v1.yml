@@ -18,6 +18,8 @@ on:
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-cli-001-adapter-v1.test.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-soi-001-adapter-v1.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-soi-001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-veg-001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-veg-001-adapter-v1.test.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
   workflow_dispatch:
 
@@ -755,6 +757,7 @@ jobs:
             "src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
             "src/question-studio/engines/knowledge-v1-geo-cli-001-adapter-v1.test.ts"
             "src/question-studio/engines/knowledge-v1-geo-soi-001-adapter-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-geo-veg-001-adapter-v1.test.ts"
           )
           for test_file in "${tests[@]}"; do
             output_name="$(basename "${test_file}" .ts).mjs"
