@@ -10,7 +10,9 @@ The problem begins when convenience quietly turns into exclusivity. Not every re
 
 Keeping an offline option does not require rejecting digital services. It simply recognises that a public service has a different responsibility from a private app. A company may choose the customers it serves; a civic system is expected to remain usable by the public it represents.
 
-The better standard is therefore not “digital first” or “paper first,” but “accessible by more than one practical route.” Apps can remain the fastest channel while phone, desk or assisted options protect people who cannot use them. Efficiency matters, but a service is not fully efficient if it saves staff time by shifting unreasonable difficulty onto citizens.`,
+The better standard is therefore not “digital first” or “paper first,” but “accessible by more than one practical route.” Apps can remain the fastest channel while phone, desk or assisted options protect people who cannot use them. Efficiency matters, but a service is not fully efficient if it saves staff time by shifting unreasonable difficulty onto citizens.
+
+The same principle applies when systems are redesigned. If an app becomes easier for regular users but removes the only practical channel used by a smaller group, the overall service may look more streamlined while becoming less accessible. Good digital design therefore measures who gains convenience and who may lose access.`,
  questions:[
  q("E09-Q1","RC2-F01","easy","Which benefit of city apps is mentioned directly?","Residents can track whether a request has been registered",["They remove the need for public notices","They guarantee every complaint is solved immediately","They make smartphones cheaper"],"The first paragraph says digital receipts make registration easier to track.","a digital receipt makes it easier to track"),
  q("E09-Q2","RC2-F02","medium","What can be inferred about the author's view of digital services?","They are useful but should not become the only practical access route",["They should be removed from government services","They are useful only for younger residents","They always increase inequality"],"The passage supports apps while arguing for alternative access routes.","Apps can remain the fastest channel"),
@@ -30,7 +32,9 @@ Temperature sensors were placed in one treated classroom and one untreated class
 
 Teachers in nine schools also reported that afternoon rooms felt more comfortable, although the survey did not ask students to rate comfort directly. Electricity use fell slightly in the four schools that used ceiling fans heavily, but the district cautioned that the trial was too small to estimate financial savings reliably.
 
-The office plans to repeat the test through a second summer and compare coating durability before deciding whether to expand the programme. Officials said the early results were encouraging, but they did not treat a short trial as proof that the same effect would occur in every building.`,
+The office plans to repeat the test through a second summer and compare coating durability before deciding whether to expand the programme. Officials said the early results were encouraging, but they did not treat a short trial as proof that the same effect would occur in every building.
+
+The district also noted that roof material, classroom ventilation and surrounding shade differed across schools. Those differences could influence how much benefit the coating produced. A larger trial will therefore compare buildings with similar construction so that the effect of the roof treatment can be estimated more carefully.`,
  questions:[
  q("R05-Q1","RC2-F01","easy","What average temperature difference was recorded in treated rooms?","1.8°C cooler",["0.8°C cooler","3.8°C cooler","1.8°C warmer"],"The second paragraph directly reports an average reduction of 1.8°C.","on average 1.8°C cooler"),
  q("R05-Q2","RC2-F02","medium","What can be inferred about weather conditions?","The cooling difference was not constant across all days",["Rain made treated rooms hotter than untreated rooms","Clear days prevented any cooling","Weather had no relationship with the measured difference"],"The passage says the effect was larger on clear days and smaller after rain.","larger on clear days and smaller after rain"),
