@@ -6,7 +6,6 @@ on:
       - New-main
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
-      - artifacts/api-server/src/english-v1/**\n      - artifacts/api-server/src/question-studio/**
   workflow_dispatch:
 
 permissions:

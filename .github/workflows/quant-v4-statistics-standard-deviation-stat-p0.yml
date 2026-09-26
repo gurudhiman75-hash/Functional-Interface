@@ -7,14 +7,12 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-002/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   workflow_dispatch:
 
 concurrency:

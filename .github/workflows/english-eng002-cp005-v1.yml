@@ -6,14 +6,10 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/**
-      - .github/workflows/english-eng002-cp005-v1.yml
   push:
     branches: [New-main]
     paths:
       - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/**
-      - .github/workflows/english-eng002-cp005-v1.yml
   workflow_dispatch:
 
 permissions:

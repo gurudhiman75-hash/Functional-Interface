@@ -10,17 +10,13 @@ on:
       - synchronize
     paths:
       - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/**
       - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
-      - .github/workflows/english-cp007-v1.yml
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/**
       - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
-      - .github/workflows/english-cp007-v1.yml
   workflow_dispatch:
 
 permissions:

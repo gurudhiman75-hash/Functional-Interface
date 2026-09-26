@@ -10,14 +10,12 @@ on:
       - synchronize
     paths:
       - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/**
       - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
-      - artifacts/api-server/src/question-studio/**
       - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
   workflow_dispatch:
 
