@@ -206,7 +206,10 @@ function buildStimulus(seed: string): Di004V2Stimulus {
     });
     const totalA = candidate.reduce((sum, point) => sum + point.seriesA, 0);
     const totalB = candidate.reduce((sum, point) => sum + point.seriesB, 0);
-    if (candidate.every((point) => point.seriesA > 0 && point.seriesB > 0) && totalA !== totalB) {
+    const largerTotal = Math.max(totalA, totalB);
+    const smallerTotal = Math.min(totalA, totalB);
+    const roundedTotalExcess = smallerTotal > 0 ? Math.round(((largerTotal - smallerTotal) * 100) / smallerTotal) : 0;
+    if (candidate.every((point) => point.seriesA > 0 && point.seriesB > 0) && totalA !== totalB && roundedTotalExcess >= 1) {
       points = candidate;
       break;
     }
