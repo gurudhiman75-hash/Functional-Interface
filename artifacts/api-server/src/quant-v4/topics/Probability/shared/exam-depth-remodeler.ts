@@ -45,6 +45,10 @@ function variant(entry: ProbabilityTaskRegistryEntry, count: number): number {
   return qlNumber(entry) % count;
 }
 
+function seriesVariant(entry: ProbabilityTaskRegistryEntry, stride: number, count: number): number {
+  return Math.floor(qlNumber(entry) / stride) % count;
+}
+
 function simplifiedRatio(left: number, right: number): string {
   const divisor = gcd(left, right);
   return `${left / divisor}:${right / divisor}`;
@@ -147,7 +151,14 @@ function renderObjectStem(entry: ProbabilityTaskRegistryEntry, parameters: Gener
     return `${composition} ${draw} ${context.item} are selected together without replacement. What is the probability that at least one is red?`;
   }
   if (["findSuccessiveIndependentProbability", "findWithReplacementProbability"].includes(mode)) {
-    return `${composition} One ${context.singular} is ${context.selectionVerb} and replaced before a second selection. What is the probability that both selected ${context.item} are red?`;
+    const form = seriesVariant(entry, 8, 3);
+    if (form === 0) {
+      return `${composition} One ${context.singular} is ${context.selectionVerb}, replaced, and then a second ${context.singular} is selected. What is the probability that both selected ${context.item} are red?`;
+    }
+    if (form === 1) {
+      return `${composition} Two successive selections are made with replacement after the first selection. Find the probability that red is obtained on both selections.`;
+    }
+    return `${composition} A ${context.singular} is selected at random and returned to the container before another selection is made. What is the probability that each selected ${context.singular} is red?`;
   }
   if (["findSuccessiveDependentProbability", "findWithoutReplacementProbability"].includes(mode)) {
     const form = variant(entry, 3);
@@ -160,16 +171,28 @@ function renderObjectStem(entry: ProbabilityTaskRegistryEntry, parameters: Gener
     return `${composition} Two successive selections are made without replacing the first ${context.singular}. Find the probability that each selected ${context.singular} is red.`;
   }
   if (mode === "findOrderedDrawSequenceProbability") {
-    return `${composition} Two ${context.item} are selected one after another without replacement. What is the probability of getting red first and blue second?`;
+    const form = seriesVariant(entry, 8, 3);
+    if (form === 0) return `${composition} Two ${context.item} are selected one after another without replacement. What is the probability of getting red first and blue second?`;
+    if (form === 1) return `${composition} A first ${context.singular} is selected and kept aside, followed by a second selection. Find the probability that the first is red and the second is blue.`;
+    return `${composition} Two successive selections are made without replacement. What is the probability that the colour sequence is red followed by blue?`;
   }
   if (mode === "findSameTypeInSuccessiveDraws") {
-    return `${composition} Two ${context.item} are selected one after another without replacement. What is the probability that both are of the same colour?`;
+    const form = seriesVariant(entry, 8, 3);
+    if (form === 0) return `${composition} Two ${context.item} are selected one after another without replacement. What is the probability that both are of the same colour?`;
+    if (form === 1) return `${composition} Two successive selections are made without replacement. Find the probability that the two selected ${context.item} match in colour.`;
+    return `${composition} One ${context.singular} is selected and kept aside before a second is selected. What is the probability that the two selected ${context.item} have the same colour?`;
   }
   if (mode === "findDifferentTypesInSuccessiveDraws") {
-    return `${composition} Two ${context.item} are selected one after another without replacement. What is the probability that they are of different colours?`;
+    const form = seriesVariant(entry, 8, 3);
+    if (form === 0) return `${composition} Two ${context.item} are selected one after another without replacement. What is the probability that they are of different colours?`;
+    if (form === 1) return `${composition} Two successive selections are made without replacement. Find the probability that one selected ${context.singular} is red and the other is blue.`;
+    return `${composition} A first ${context.singular} is selected and not replaced before the second selection. What is the probability that the two selected ${context.item} have different colours?`;
   }
   if (mode === "findAtLeastOneAcrossIndependentStages") {
-    return `${composition} Two selections are made with replacement. What is the probability of getting at least one red ${context.singular}?`;
+    const form = seriesVariant(entry, 8, 3);
+    if (form === 0) return `${composition} Two selections are made with replacement. What is the probability of getting at least one red ${context.singular}?`;
+    if (form === 1) return `${composition} A ${context.singular} is selected, replaced, and a second selection is made. Find the probability that red appears on at least one selection.`;
+    return `${composition} Two independent selections are made by replacing the first ${context.singular} before the second selection. What is the probability that at least one selected ${context.singular} is red?`;
   }
   return baseStem;
 }
@@ -245,7 +268,10 @@ export function remodelProbabilityStem(
 
   if (mode === "findRandomArrangementPropertyProbability") {
     const people = numberValue(parameters, "people");
-    return `${people} candidates stand in a queue in a random order. What is the probability that a specified candidate occupies the first position?`;
+    const form = seriesVariant(entry, 8, 3);
+    if (form === 0) return `${people} candidates stand in a queue in a random order. What is the probability that a specified candidate occupies the first position?`;
+    if (form === 1) return `${people} people are arranged randomly in a line. Find the probability that a particular person is at the front of the line.`;
+    return `A random ordering is formed from ${people} candidates. What is the probability that a specified candidate appears first?`;
   }
 
   if (mode === "findTogetherOrApartProbability") {
