@@ -79,32 +79,34 @@ assert.match(reasoningAdapterSource, /RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2/u);
 assert.match(reasoningAdapterSource, /isRnk001QuestionStudioRequest\(request\)/u);
 assert.match(reasoningAdapterSource, /generateRnk001QuestionStudioBatch\(request\)/u);
 
+const auditLanguageRaw = String(process.env.RNK_WAVE01_LANGUAGE ?? "en").trim().toLowerCase();
+assert.ok(["en", "hi", "pa"].includes(auditLanguageRaw), `Unsupported RNK Wave 01 audit language '${auditLanguageRaw}'.`);
+const auditLanguage = auditLanguageRaw as "en" | "hi" | "pa";
+
 let trilingualQlSamples = 0;
-for (const language of ["en", "hi", "pa"] as const) {
-  const generated = await generateRnk001QuestionStudioBatch({
-    packageId: "RNK-001",
-    language,
-    count: 42,
-    seed: `rnk-wave01-chapter:${language}`,
-  });
+const generated = await generateRnk001QuestionStudioBatch({
+  packageId: "RNK-001",
+  language: auditLanguage,
+  count: 42,
+  seed: `rnk-wave01-chapter:${auditLanguage}`,
+});
 
-  assert.equal(generated.questions.length, 42);
-  assert.deepEqual(
-    [...new Set((generated.questions as Array<Record<string, any>>).map((question) => question.qlId))].sort(),
-    RNK_001_CHAPTER_AUTHORITY.permanentQlIds,
-  );
+assert.equal(generated.questions.length, 42);
+assert.deepEqual(
+  [...new Set((generated.questions as Array<Record<string, any>>).map((question) => question.qlId))].sort(),
+  RNK_001_CHAPTER_AUTHORITY.permanentQlIds,
+);
 
-  for (const question of generated.questions as Array<Record<string, any>>) {
-    trilingualQlSamples += 1;
-    assert.equal(question.language, language);
-    assert.equal(question.options.length >= 4, true);
-    assert.equal(new Set(question.options).size, question.options.length);
-    assert.equal(question.correctIndex >= 0 && question.correctIndex < question.options.length, true);
-    assert.equal(question.validation.valid, true);
-    if (language === "hi") assert.match(String(question.stem), /[ऀ-ॿ]/u);
-    if (language === "pa") assert.match(String(question.stem), /[਀-੿]/u);
-    assertReviewOnly(question);
-  }
+for (const question of generated.questions as Array<Record<string, any>>) {
+  trilingualQlSamples += 1;
+  assert.equal(question.language, auditLanguage);
+  assert.equal(question.options.length >= 4, true);
+  assert.equal(new Set(question.options).size, question.options.length);
+  assert.equal(question.correctIndex >= 0 && question.correctIndex < question.options.length, true);
+  assert.equal(question.validation.valid, true);
+  if (auditLanguage === "hi") assert.match(String(question.stem), /[ऀ-ॿ]/u);
+  if (auditLanguage === "pa") assert.match(String(question.stem), /[਀-੿]/u);
+  assertReviewOnly(question);
 }
 
 const cp005 = await generateRnk001QuestionStudioBatch({
@@ -174,7 +176,8 @@ console.log(JSON.stringify({
   authority: RNK001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V2,
   permanentQlCount: 42,
   ql043Allocated: false,
-  languages: ["en", "hi", "pa"],
+  languages: [auditLanguage],
+  fullTrilingualCoverage: "EN_HI_PA_EXECUTED_AS_THREE_BOUNDED_CI_INVOCATIONS",
   lifecycle: "REVIEW_ONLY",
   trilingualQlSamples,
   currentQuestionStudioRegistry: "BOUND_BY_SOURCE_AND_ADAPTER",
