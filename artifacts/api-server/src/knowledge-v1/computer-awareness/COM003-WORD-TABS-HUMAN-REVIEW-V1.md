@@ -734,7 +734,7 @@ D. Page Break
 #### Hindi
 
 #### 1. COM003-WORD-TABS-017 — EASY
-**Question:** पंक्तियाँ और स्तंभ में जानकारी व्यवस्थित करने वाला Insert टैबटैब सुविधा कौन-सा है?
+**Question:** पंक्तियाँ और कॉलम में जानकारी व्यवस्थित करने वाला Insert टैबटैब सुविधा कौन-सा है?
 
 A. तालिका
 B. WordArt
@@ -742,7 +742,7 @@ C. बुकमार्क
 D. Equation
 
 **Answer:** तालिका
-**Explanation:** तालिका जानकारी को पंक्तियाँ और स्तंभ में व्यवस्थित करता है।
+**Explanation:** तालिका जानकारी को पंक्तियाँ और कॉलम में व्यवस्थित करता है।
 **Trace:** COM003-WORD-TABS-017 · com003-word-insert-table
 
 #### 2. COM003-WORD-TABS-018 — EASY
@@ -821,7 +821,7 @@ D. स्क्रीनशॉट
 **Question:** निम्नलिखित सामग्री को नए पृष्ठ पर शुरू करने वाला Insert टैबटैब कमांड कौन-सा है?
 
 A. Section
-B. स्तंभ
+B. कॉलम
 C. Caption
 D. पृष्ठ विराम
 
@@ -1046,7 +1046,7 @@ D. Mail Merge
 
 A. Effects
 B. Colors
-C. स्तंभ
+C. कॉलम
 D. Indent
 
 **Answer:** Colors
@@ -1342,7 +1342,7 @@ D. Comments
 
 A. आकार
 B. Orientation
-C. स्तंभ
+C. कॉलम
 D. Indent
 
 **Answer:** Orientation
@@ -1367,10 +1367,10 @@ D. पंक्ति संख्याएँ
 A. Orientation
 B. हाइफ़नेशन
 C. पंक्ति संख्याएँ
-D. स्तंभ
+D. कॉलम
 
-**Answer:** स्तंभ
-**Explanation:** स्तंभ पृष्ठ पाठ को समाचार-पत्र लेआउट जैसी ऊर्ध्वाधर स्तंभ में बाँटता है।
+**Answer:** कॉलम
+**Explanation:** कॉलम पृष्ठ पाठ को समाचार-पत्र लेआउट जैसी ऊर्ध्वाधर कॉलम में बाँटता है।
 **Trace:** COM003-WORD-TABS-036 · com003-word-layout-columns
 
 #### 5. COM003-WORD-TABS-037 — MEDIUM
@@ -1388,7 +1388,7 @@ D. Styles
 #### 6. COM003-WORD-TABS-038 — EASY
 **Question:** पाठ की पंक्तियाँ के पास संख्याएँ दिखाने वाला Layout टैबटैब कमांड कौन-सा है?
 
-A. स्तंभ
+A. कॉलम
 B. पंक्ति संख्याएँ
 C. विराम
 D. आकार
@@ -1412,7 +1412,7 @@ D. Watermark
 #### 8. COM003-WORD-TABS-040 — MEDIUM
 **Question:** Paragraph से पहले या बाद का स्थान बदलने वाली Layout टैबटैब अनुच्छेद सेटिंग कौन-सी है?
 
-A. स्तंभ
+A. कॉलम
 B. आकार
 C. Orientation
 D. अंतराल
@@ -2219,7 +2219,7 @@ D. Restrict Editing
 A. Editor
 B. Mail Merge
 C. Themes
-D. स्तंभ
+D. कॉलम
 
 **Answer:** Editor
 **Explanation:** Editor वर्तनी, व्याकरण और अन्य लेखन समस्याएँ को समीक्षा के लिए जाँच करता है।
