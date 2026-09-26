@@ -226,7 +226,7 @@ const D: readonly OfficeTabsDefinition[] = [
   // Excel — Data
   q("COM-003-QL-035", "com003-excel-data-sort", "COMMAND_FROM_PURPOSE", "FUNCTIONAL_APPLICATION", "EASY", 0,
     L("Which Data-tab command arranges records in ascending or descending order?", ["Sort", "Filter", "Consolidate", "Group"], "Sort", "Sort rearranges data according to the selected column or rule."),
-    L("अभिलेख को आरोही या अवरोही क्रम में लगाने वाला Data टैबटैब कमांड कौन-सा है?", ["Sort", "फ़िल्टर", "समेकित करना", "समूह"], "Sort", "Sort चयनित स्तंभ या नियम के अनुसार डेटा का क्रम बदलता है।"),
+    L("अभिलेख को आरोही या अवरोही क्रम में लगाने वाला Data टैबटैब कमांड कौन-सा है?", ["Sort", "फ़िल्टर", "समेकित करना", "समूह"], "Sort", "Sort चयनित कॉलम या नियम के अनुसार डेटा का क्रम बदलता है।"),
     L("ਰਿਕਾਰਡ ਨੂੰ ਵੱਧਦੇ ਕ੍ਰਮ ਵਿੱਚ ਜਾਂ ਘਟਦੇ ਕ੍ਰਮ ਵਿੱਚ ਕ੍ਰਮ ਵਿੱਚ ਲਗਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?", ["Sort", "ਫਿਲਟਰ", "ਇਕੱਠਾ ਕਰਨਾ", "ਸਮੂਹ"], "Sort", "Sort ਚੁਣਿਆ ਹੋਇਆ ਕਾਲਮ ਜਾਂ ਨਿਯਮ ਦੇ ਅਨੁਸਾਰ ਡਾਟਾ ਦਾ ਕ੍ਰਮ ਬਦਲਦਾ ਹੈ।")),
   q("COM-003-QL-035", "com003-excel-data-filter", "COMMAND_FROM_PURPOSE", "FUNCTIONAL_APPLICATION", "EASY", 1,
     L("Which Data-tab command displays only records that meet selected conditions?", ["Sort", "Filter", "Text to Columns", "Flash Fill"], "Filter", "Filter hides records that do not meet the selected criteria."),
@@ -242,7 +242,7 @@ const D: readonly OfficeTabsDefinition[] = [
     L("ਸੈੱਲ ਦੇ ਅੰਦਰ ਡ੍ਰੌਪ-ਡਾਊਨ ਸੂਚੀ ਬਣਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?", ["Remove Duplicates", "Sort", "Text to Columns", "Data Validation"], "Data Validation", "Data Validation ਵਿੱਚ ਸੂਚੀ ਨਿਯਮ ਸੈੱਲ ਦੇ ਅੰਦਰ ਡ੍ਰੌਪ-ਡਾਊਨ ਸੂਚੀ ਬਣਾਉਂਦਾ ਹੈ।")),
   q("COM-003-QL-035", "com003-excel-data-text-to-columns", "COMMAND_FROM_PURPOSE", "FUNCTIONAL_APPLICATION", "MEDIUM", 0,
     L("Which Data-tab command splits one column of text into multiple columns?", ["Text to Columns", "Flash Fill", "Remove Duplicates", "Data Validation"], "Text to Columns", "Text to Columns separates text using a delimiter or fixed width."),
-    L("एक स्तंभ की पाठ को कई स्तंभ में विभाजित करें करने वाला Data टैबटैब कमांड कौन-सा है?", ["Text to Columns", "Flash Fill", "Remove Duplicates", "Data Validation"], "Text to Columns", "Text to Columns सीमांकक या स्थिर चौड़ाई के आधार पर पाठ को अलग करता है।"),
+    L("एक कॉलम की पाठ को कई कॉलम में विभाजित करें करने वाला Data टैबटैब कमांड कौन-सा है?", ["Text to Columns", "Flash Fill", "Remove Duplicates", "Data Validation"], "Text to Columns", "Text to Columns सीमांकक या स्थिर चौड़ाई के आधार पर पाठ को अलग करता है।"),
     L("ਇੱਕ ਕਾਲਮ ਦੀ ਲਿਖਤ ਨੂੰ ਕਈ ਕਾਲਮ ਵਿੱਚ ਵੰਡੋ ਕਰਨ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?", ["Text to Columns", "Flash Fill", "Remove Duplicates", "Data Validation"], "Text to Columns", "Text to Columns ਵੱਖਰਾ ਕਰਨ ਵਾਲਾ ਨਿਸ਼ਾਨ ਜਾਂ ਸਥਿਰ ਚੌੜਾਈ ਦੇ ਆਧਾਰ ਉੱਤੇ ਲਿਖਤ ਨੂੰ ਵੱਖ ਕਰਦਾ ਹੈ।")),
   q("COM-003-QL-035", "com003-excel-data-remove-duplicates", "COMMAND_FROM_PURPOSE", "FUNCTIONAL_APPLICATION", "EASY", 1,
     L("Which Data-tab command removes repeated records from a selected range?", ["Flash Fill", "Remove Duplicates", "Sort", "Group"], "Remove Duplicates", "Remove Duplicates deletes repeated values or records from the selected range."),
@@ -306,7 +306,7 @@ const D: readonly OfficeTabsDefinition[] = [
     L("ਵਰਕਸ਼ੀਟ ਨੂੰ ਹਾਸ਼ੀਏ ਅਤੇ ਸਿਰਲੇਖ ਵਾਲੇ ਪੰਨੇ ਵਾਂਗ ਦਿਖਾਉਣ ਵਾਲਾ Excel ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?", ["ਆਮ", "Page Break Preview", "Page Layout", "ਫਾਰਮੂਲਾ ਦ੍ਰਿਸ਼"], "Page Layout", "Page Layout ਦ੍ਰਿਸ਼ ਵਰਕਸ਼ੀਟ ਨੂੰ ਛਪਾਈ-ਕੇਂਦਰਿਤ ਪੰਨਾ ਬਣਤਰ ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।")),
   q("COM-003-QL-037", "com003-excel-view-freeze-panes", "COMMAND_FROM_PURPOSE", "FUNCTIONAL_APPLICATION", "EASY", 3,
     L("Which View-tab command keeps selected top rows or left columns visible while scrolling?", ["Split", "Arrange All", "Gridlines", "Freeze Panes"], "Freeze Panes", "Freeze Panes keeps rows above and columns to the left of the selected cell visible during scrolling."),
-    L("स्क्रॉल करना के दौरान ऊपर पंक्तियाँ या बायाँ स्तंभ दृश्यमान रखने वाला दृश्य टैबटैब कमांड कौन-सा है?", ["विभाजित करें", "Arrange All", "ग्रिडलाइनें", "Freeze Panes"], "Freeze Panes", "Freeze Panes चयनित कक्ष के ऊपर की पंक्तियाँ और बायाँ की स्तंभ को स्क्रॉल करना के दौरान दृश्यमान रखता है।"),
+    L("स्क्रॉल करना के दौरान ऊपर पंक्तियाँ या बायाँ कॉलम दृश्यमान रखने वाला दृश्य टैबटैब कमांड कौन-सा है?", ["विभाजित करें", "Arrange All", "ग्रिडलाइनें", "Freeze Panes"], "Freeze Panes", "Freeze Panes चयनित कक्ष के ऊपर की पंक्तियाँ और बायाँ की कॉलम को स्क्रॉल करना के दौरान दृश्यमान रखता है।"),
     L("ਸਕ੍ਰੋਲ ਕਰਨਾ ਦੌਰਾਨ ਉੱਪਰ ਕਤਾਰਾਂ ਜਾਂ ਖੱਬਾ ਕਾਲਮ ਦਿੱਖਣਯੋਗ ਰੱਖਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?", ["ਵੰਡੋ", "Arrange All", "ਗ੍ਰਿਡਲਾਈਨਾਂ", "Freeze Panes"], "Freeze Panes", "Freeze Panes ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਦੇ ਉੱਪਰ ਦੀਆਂ ਕਤਾਰਾਂ ਅਤੇ ਖੱਬੇ ਪਾਸੇ ਦੀਆਂ ਕਾਲਮ ਨੂੰ ਸਕ੍ਰੋਲ ਕਰਨਾ ਦੌਰਾਨ ਦਿੱਖਣਯੋਗ ਰੱਖਦਾ ਹੈ।")),
   q("COM-003-QL-037", "com003-excel-view-gridlines", "DISPLAY_FROM_SETTING", "DIRECT_RECALL", "EASY", 0,
     L("Which View-tab setting shows or hides the lines separating worksheet cells?", ["Gridlines", "Headings", "Formula Bar", "Zoom"], "Gridlines", "Gridlines are the lines that visually separate worksheet cells."),
@@ -322,7 +322,7 @@ const D: readonly OfficeTabsDefinition[] = [
     L("ਵਰਕਸ਼ੀਟ ਦੀ ਉੱਤੇ-ਸਕ੍ਰੀਨ ਵੱਡਾ ਕਰਨਾ ਬਦਲਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਨਿਯੰਤਰਣ ਕਿਹੜਾ ਹੈ?", ["Freeze Panes", "ਵੰਡੋ", "Zoom", "Arrange All"], "Zoom", "Zoom ਡਾਟਾ ਬਦਲੇ ਬਿਨਾਂ ਵਰਕਸ਼ੀਟ ਨੂੰ ਸਕ੍ਰੀਨ ਉੱਤੇ ਵੱਡਾ ਜਾਂ ਛੋਟਾ ਦਿਖਾਉਂਦਾ ਹੈ।")),
   q("COM-003-QL-037", "com003-excel-view-hide-rows-columns", "COMMAND_FROM_PURPOSE", "FUNCTIONAL_APPLICATION", "MEDIUM", 3,
     L("Which Excel action hides selected rows or columns without deleting their data?", ["Clear", "Delete", "Filter", "Hide"], "Hide", "Hide removes rows or columns from view while retaining their data in the worksheet."),
-    L("चयनित पंक्तियाँ या स्तंभ का डेटा हटाना किए बिना उन्हें दृश्य से हटाने वाली क्रिया कौन-सी है?", ["Clear", "हटाना", "फ़िल्टर", "छिपाना"], "छिपाना", "छिपाना पंक्तियाँ या स्तंभ को दृश्य से हटाता है लेकिन उनका डेटा कार्यपत्रक में रखता है।"),
+    L("चयनित पंक्तियाँ या कॉलम का डेटा हटाना किए बिना उन्हें दृश्य से हटाने वाली क्रिया कौन-सी है?", ["Clear", "हटाना", "फ़िल्टर", "छिपाना"], "छिपाना", "छिपाना पंक्तियाँ या कॉलम को दृश्य से हटाता है लेकिन उनका डेटा कार्यपत्रक में रखता है।"),
     L("ਚੁਣਿਆ ਹੋਇਆ ਕਤਾਰਾਂ ਜਾਂ ਕਾਲਮ ਦਾ ਡਾਟਾ ਮਿਟਾਉਣਾ ਕੀਤੇ ਬਿਨਾਂ ਉਹਨਾਂ ਨੂੰ ਦ੍ਰਿਸ਼ ਤੋਂ ਹਟਾਉਣ ਵਾਲੀ ਕਾਰਵਾਈ ਕਿਹੜੀ ਹੈ?", ["Clear", "ਮਿਟਾਉਣਾ", "ਫਿਲਟਰ", "ਲੁਕਾਉਣਾ"], "ਲੁਕਾਉਣਾ", "ਲੁਕਾਉਣਾ ਕਤਾਰਾਂ ਜਾਂ ਕਾਲਮ ਨੂੰ ਦ੍ਰਿਸ਼ ਤੋਂ ਹਟਾਉਂਦਾ ਹੈ ਪਰ ਉਹਨਾਂ ਦਾ ਡਾਟਾ ਵਰਕਸ਼ੀਟ ਵਿੱਚ ਰੱਖਦਾ ਹੈ।")),
 
   // Excel — File
@@ -430,7 +430,7 @@ const D: readonly OfficeTabsDefinition[] = [
   // PowerPoint — Insert
   q("COM-003-QL-041", "com003-powerpoint-insert-table", "COMMAND_FROM_PURPOSE", "FUNCTIONAL_APPLICATION", "EASY", 0,
     L("Which Insert-tab feature places rows and columns in a PowerPoint slide?", ["Table", "Chart", "Text Box", "WordArt"], "Table", "Table inserts a grid of rows and columns on the slide."),
-    L("PowerPoint स्लाइड में पंक्तियाँ और स्तंभ रखने वाला Insert टैबटैब सुविधा कौन-सा है?", ["तालिका", "Chart", "Text Box", "WordArt"], "तालिका", "तालिका स्लाइड पर पंक्तियाँ और स्तंभ का ग्रिड डालना करता है।"),
+    L("PowerPoint स्लाइड में पंक्तियाँ और कॉलम रखने वाला Insert टैबटैब सुविधा कौन-सा है?", ["तालिका", "Chart", "Text Box", "WordArt"], "तालिका", "तालिका स्लाइड पर पंक्तियाँ और कॉलम का ग्रिड डालना करता है।"),
     L("PowerPoint ਸਲਾਈਡ ਵਿੱਚ ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਰੱਖਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?", ["ਟੇਬਲ", "Chart", "Text Box", "WordArt"], "ਟੇਬਲ", "ਟੇਬਲ ਸਲਾਈਡ ਉੱਤੇ ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਦਾ ਗ੍ਰਿਡ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਦਾ ਹੈ।")),
   q("COM-003-QL-041", "com003-powerpoint-insert-pictures", "COMMAND_FROM_PURPOSE", "FUNCTIONAL_APPLICATION", "EASY", 1,
     L("Which Insert-tab command adds an image to a PowerPoint slide?", ["Chart", "Pictures", "SmartArt", "Object"], "Pictures", "Pictures inserts an image from an available source."),
