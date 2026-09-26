@@ -1,5 +1,11 @@
 import { strict as assert } from "node:assert";
 
+import {
+  assertGeneratedQuestionBankEligible,
+  getGeneratedQuestionBankEligibilityIssue,
+  normalizeGeneratedQuestionPayload,
+} from "../../lib/admin-question-conversion";
+import { PGK_001_FULL_RELEASE_AUTHORITY_V1 } from "../../knowledge-v1/punjab-gk/pgk-001-full-question-studio-release-v1";
 import { knowledgeV1QuestionStudioAdapter } from "./knowledge-v1-adapter";
 import {
   PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
@@ -7,19 +13,19 @@ import {
   PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1,
   PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1,
   PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
-  PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+  PGK_001_PRODUCTION_PACKAGE_V1,
   isPgk001QuestionStudioRequestV1,
   knowledgeV1Pgk001QuestionStudioAdapterV1,
 } from "./knowledge-v1-pgk001-adapter-v1";
 import {
   PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
   PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
-  PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1,
+  PGK_001_MATCH_FOLLOWING_PRODUCTION_PACKAGE_V1,
   isPgk001MatchFollowingQuestionStudioRequestV1,
   knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1,
 } from "./knowledge-v1-pgk001-match-following-adapter-v1";
 
-const pkg = PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1;
+const pkg = PGK_001_PRODUCTION_PACKAGE_V1;
 
 assert.equal(pkg.packageId, "PGK-001");
 assert.equal(pkg.engineId, "knowledge-v1");
@@ -27,13 +33,23 @@ assert.equal(pkg.subject, "Static GK");
 assert.equal(pkg.topic, "Punjab GK");
 assert.equal(pkg.subtopic, "Complete Chapter");
 assert.equal(pkg.enabled, true);
-assert.equal(pkg.lifecycleStage, "REVIEW_ONLY");
-assert.equal(pkg.questionBankWritable, false);
-assert.equal(pkg.testEligible, false);
-assert.equal(pkg.mockTestEligible, false);
-assert.equal(pkg.publiclyPublishable, false);
+assert.equal(pkg.lifecycleStage, "BANK_ONLY");
+assert.equal(pkg.questionBankWritable, true);
+assert.equal(pkg.testEligible, true);
+assert.equal(pkg.mockTestEligible, true);
+assert.equal(pkg.publiclyPublishable, true);
 assert.equal(pkg.automaticStudentPublication, false);
-assert.equal(pkg.productionReleaseAuthorized, false);
+assert.equal(pkg.questionBankAcceptanceMode, "FULL_RELEASE");
+assert.equal(pkg.questionBankAcceptanceAuthority, PGK_001_FULL_RELEASE_AUTHORITY_V1);
+assert.equal(pkg.testEligibility, "ELIGIBLE");
+assert.equal(pkg.metadata?.runtimeMode, "CANONICAL_REVIEW");
+assert.equal(pkg.metadata?.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
+assert.equal(pkg.metadata?.manualQuestionPublicationRequired, true);
+assert.equal(pkg.metadata?.publicReleaseAuthorized, true);
+assert.equal(pkg.metadata?.studentDeliveryAuthorized, true);
+assert.equal(pkg.metadata?.currentScopeClosed, true);
+assert.equal(pkg.metadata?.futureCodeCheckpointRequiredForCurrentScope, false);
+assert.equal(pkg.productionReleaseAuthorized, true);
 assert.deepEqual(pkg.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(pkg.cpIds?.length, 26);
@@ -83,6 +99,30 @@ for (const [locale, corpus] of [
   for (const [qlId, count] of localizedQlCounts) {
     assert.equal(count, 6, `${qlId}: expected six ${locale} questions`);
   }
+}
+
+function assertFullReleasePayload(payload: any, itemId: string) {
+  assert.equal(payload.runtimeMode, "CANONICAL_REVIEW");
+  assert.equal(payload.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
+  assert.equal(payload.questionBankStatus, "READY_FOR_STORAGE");
+  assert.equal(payload.questionBankWritable, true);
+  assert.equal(payload.questionBankAcceptanceMode, "FULL_RELEASE");
+  assert.equal(payload.questionBankAcceptanceAuthority, PGK_001_FULL_RELEASE_AUTHORITY_V1);
+  assert.equal(payload.testEligibility, "ELIGIBLE");
+  assert.equal(payload.testEligible, true);
+  assert.equal(payload.mockTestEligible, true);
+  assert.equal(payload.publiclyPublishable, true);
+  assert.equal(payload.productionReleaseAuthorized, true);
+  assert.equal(payload.manualApprovalRequired, true);
+  assert.equal(payload.automaticStudentPublication, false);
+  assert.equal(getGeneratedQuestionBankEligibilityIssue(payload), null);
+  assertGeneratedQuestionBankEligible(payload);
+  const normalized = normalizeGeneratedQuestionPayload(payload, {
+    itemId,
+    generationRunCode: "PGK-001-FULL-RELEASE-PROOF",
+  });
+  assert.equal(normalized.options.length, 4);
+  assert.equal(normalized.correctIndex, payload.correctIndex);
 }
 
 const cpCounts = new Map<string, number>();
@@ -200,20 +240,28 @@ const replay = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate(request);
 assert.equal(first.questions.length, 30);
 assert.deepEqual(first, replay);
 assert.equal(new Set(first.questions.map((q) => q.questionId)).size, 30);
+assert.equal(first.generationContext?.questionBankWritable, true);
+assert.equal(first.generationContext?.testEligible, true);
+assert.equal(first.generationContext?.mockTestEligible, true);
+assert.equal(first.generationContext?.publiclyPublishable, true);
+assert.equal(first.generationContext?.productionReleaseAuthorized, true);
+assert.equal(first.generationContext?.automaticStudentPublication, false);
+
 
 for (const q of first.questions as any[]) {
   assert.equal(q.packageId, "PGK-001");
   assert.equal(q.language, "en");
-  assert.equal(q.registrationStatus, "REGISTERED_REVIEW_ONLY");
+  assert.equal(q.registrationStatus, "REGISTERED_PRODUCTION_READY");
   assert.equal(q.registrationAuthorityId, PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1);
   assert.equal(q.authoringReviewApproved, true);
   assert.equal(q.runtimeRegistered, true);
   assert.equal(q.readOnly, true);
-  assert.equal(q.productionReleased, false);
-  assert.equal(q.questionBankWritable, false);
-  assert.equal(q.testEligible, false);
-  assert.equal(q.mockTestEligible, false);
-  assert.equal(q.publiclyPublishable, false);
+  assert.equal(q.productionReleased, true);
+  assert.equal(q.questionBankWritable, true);
+  assert.equal(q.testEligible, true);
+  assert.equal(q.mockTestEligible, true);
+  assert.equal(q.publiclyPublishable, true);
+  assertFullReleasePayload(q, `pgk-main-${q.questionId}`);
 }
 
 const composite = await knowledgeV1QuestionStudioAdapter.generate({
@@ -323,11 +371,12 @@ for (const [language, locale, result] of [
     assert.equal(q.questionLanguageId, q.questionId);
     assert.equal(q.questionId, `${q.canonicalProblemId}-${language.toUpperCase()}`);
     assert.equal(q.multilingualLocalizationApproved, true);
-    assert.equal(q.registrationStatus, "REGISTERED_REVIEW_ONLY");
-    assert.equal(q.questionBankWritable, false);
-    assert.equal(q.testEligible, false);
-    assert.equal(q.mockTestEligible, false);
-    assert.equal(q.publiclyPublishable, false);
+    assert.equal(q.registrationStatus, "REGISTERED_PRODUCTION_READY");
+    assert.equal(q.questionBankWritable, true);
+    assert.equal(q.testEligible, true);
+    assert.equal(q.mockTestEligible, true);
+    assert.equal(q.publiclyPublishable, true);
+    assertFullReleasePayload(q, `pgk-${language}-${q.questionId}`);
   }
 }
 
@@ -363,25 +412,33 @@ await assert.rejects(
 await assert.rejects(
   knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
     packageId: "PGK-001",
-    runtimeMode: "bank-only",
+    runtimeMode: "review-only",
   }),
-  /only supports review-only runtime/i,
+  /only supports CANONICAL_REVIEW runtime/i,
 );
 
-const mtfPkg = PGK_001_MATCH_FOLLOWING_REVIEW_ONLY_PACKAGE_V1;
+const mtfPkg = PGK_001_MATCH_FOLLOWING_PRODUCTION_PACKAGE_V1;
 assert.equal(mtfPkg.packageId, "PGK-001-MTF-V1");
 assert.equal(mtfPkg.engineId, "knowledge-v1");
 assert.equal(mtfPkg.subject, "Static GK");
 assert.equal(mtfPkg.topic, "Punjab GK");
 assert.equal(mtfPkg.subtopic, "Match the Following");
 assert.equal(mtfPkg.enabled, true);
-assert.equal(mtfPkg.lifecycleStage, "REVIEW_ONLY");
-assert.equal(mtfPkg.questionBankWritable, false);
-assert.equal(mtfPkg.testEligible, false);
-assert.equal(mtfPkg.mockTestEligible, false);
-assert.equal(mtfPkg.publiclyPublishable, false);
+assert.equal(mtfPkg.lifecycleStage, "BANK_ONLY");
+assert.equal(mtfPkg.questionBankWritable, true);
+assert.equal(mtfPkg.testEligible, true);
+assert.equal(mtfPkg.mockTestEligible, true);
+assert.equal(mtfPkg.publiclyPublishable, true);
 assert.equal(mtfPkg.automaticStudentPublication, false);
-assert.equal(mtfPkg.productionReleaseAuthorized, false);
+assert.equal(mtfPkg.questionBankAcceptanceMode, "FULL_RELEASE");
+assert.equal(mtfPkg.questionBankAcceptanceAuthority, PGK_001_FULL_RELEASE_AUTHORITY_V1);
+assert.equal(mtfPkg.testEligibility, "ELIGIBLE");
+assert.equal(mtfPkg.metadata?.runtimeMode, "CANONICAL_REVIEW");
+assert.equal(mtfPkg.metadata?.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
+assert.equal(mtfPkg.metadata?.manualQuestionPublicationRequired, true);
+assert.equal(mtfPkg.metadata?.publicReleaseAuthorized, true);
+assert.equal(mtfPkg.metadata?.studentDeliveryAuthorized, true);
+assert.equal(mtfPkg.productionReleaseAuthorized, true);
 assert.deepEqual(mtfPkg.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(mtfPkg.supportedDifficulties, ["Medium", "Hard"]);
 assert.equal(mtfPkg.cpIds.length, 12);
@@ -446,7 +503,7 @@ for (const q of mtfFirst.questions as any[]) {
   assert.equal(new Set(q.options).size, 4);
   assert.equal(q.options[q.correctIndex], q.canonicalAnswer);
   assert.equal(q.renderer.kind, "MATCH_LISTS");
-  assert.equal(q.registrationStatus, "REGISTERED_REVIEW_ONLY");
+  assert.equal(q.registrationStatus, "REGISTERED_PRODUCTION_READY");
   assert.equal(
     q.registrationAuthorityId,
     PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
@@ -458,11 +515,12 @@ for (const q of mtfFirst.questions as any[]) {
   assert.equal(q.additiveExtension, true);
   assert.equal(q.frozenCoreQuestionCount, 1092);
   assert.equal(q.frozenCoreModified, false);
-  assert.equal(q.productionReleased, false);
-  assert.equal(q.questionBankWritable, false);
-  assert.equal(q.testEligible, false);
-  assert.equal(q.mockTestEligible, false);
-  assert.equal(q.publiclyPublishable, false);
+  assert.equal(q.productionReleased, true);
+  assert.equal(q.questionBankWritable, true);
+  assert.equal(q.testEligible, true);
+  assert.equal(q.mockTestEligible, true);
+  assert.equal(q.publiclyPublishable, true);
+  assertFullReleasePayload(q, `pgk-mtf-${q.questionId}`);
 }
 
 const mtfComposite = await knowledgeV1QuestionStudioAdapter.generate({
@@ -544,8 +602,8 @@ await assert.rejects(
 await assert.rejects(
   knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
     packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
-    runtimeMode: "bank-only",
+    runtimeMode: "review-only",
   }),
-  /only supports review-only runtime/i,
+  /only supports CANONICAL_REVIEW runtime/i,
 );
 
