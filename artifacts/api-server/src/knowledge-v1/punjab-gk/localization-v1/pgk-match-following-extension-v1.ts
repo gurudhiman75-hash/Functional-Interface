@@ -161,8 +161,8 @@ export const PGK_001_MATCH_FOLLOWING_CONCEPTS_V1: readonly PgkMatchingConceptV1[
 
 const instructionByLocale: Record<PgkMatchingLocaleV1,string> = {
   en: "Match List I with List II and select the correct code.",
-  hi: "सूची-I को सूची-II से मिलाइए और सही कूट चुनिए।",
-  pa: "ਸੂਚੀ-I ਨੂੰ ਸੂਚੀ-II ਨਾਲ ਮਿਲਾਓ ਅਤੇ ਸਹੀ ਕੋਡ ਚੁਣੋ।",
+  hi: "सूची-1 को सूची-2 से मिलाइए और सही कूट चुनिए।",
+  pa: "ਸੂਚੀ-1 ਨੂੰ ਸੂਚੀ-2 ਨਾਲ ਮਿਲਾਓ ਅਤੇ ਸਹੀ ਕੋਡ ਚੁਣੋ।",
 };
 
 function swap(mapping: Mapping4,a:number,b:number): Mapping4 {
@@ -191,10 +191,10 @@ function stemFor(c:PgkMatchingConceptV1,l:PgkMatchingLocaleV1){
   return [
     instructionByLocale[l],
     "",
-    l==="en" ? "List I" : l==="hi" ? "सूची-I" : "ਸੂਚੀ-I",
+    l==="en" ? "List I" : l==="hi" ? "सूची-1" : "ਸੂਚੀ-1",
     ...x.listI.map((v,i)=>`${String.fromCharCode(65+i)}. ${v}`),
     "",
-    l==="en" ? "List II" : l==="hi" ? "सूची-II" : "ਸੂਚੀ-II",
+    l==="en" ? "List II" : l==="hi" ? "सूची-2" : "ਸੂਚੀ-2",
     ...x.listII.map((v,i)=>`${i+1}. ${v}`),
   ].join("\n");
 }
