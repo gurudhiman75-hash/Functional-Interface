@@ -15,29 +15,34 @@ const bannedLearnerPatterns = [
 ];
 
 let audited = 0;
+const firstByQl = new Map<string, Record<string, any>>();
 
-for (const qlId of RNK_001_CHAPTER_AUTHORITY.permanentQlIds) {
+for (let round = 0; round < 3; round += 1) {
   const batch = await generateRnk001QuestionStudioBatch({
     packageId: "RNK-001",
-    canonicalProblemId: qlId,
     language: "en",
-    count: 3,
-    seed: `rnk-wave03:${qlId}`,
+    count: 42,
+    seed: `rnk-wave03-round-${round}`,
   });
 
-  assert.equal(batch.questions.length, 3);
+  assert.equal(batch.questions.length, 42);
+  assert.deepEqual(
+    [...new Set((batch.questions as Array<Record<string, any>>).map((question) => question.qlId))].sort(),
+    RNK_001_CHAPTER_AUTHORITY.permanentQlIds,
+  );
 
   for (const raw of batch.questions as Array<Record<string, any>>) {
     audited += 1;
-    const explanation = String(raw.explanation ?? "").trim();
+    firstByQl.set(String(raw.qlId), firstByQl.get(String(raw.qlId)) ?? raw);
 
-    assert.ok(explanation.length > 0, `${qlId} must have a learner explanation`);
+    const explanation = String(raw.explanation ?? "").trim();
+    assert.ok(explanation.length > 0, `${raw.qlId} must have a learner explanation`);
     assert.doesNotMatch(explanation, /^\s*\[/u);
     assert.doesNotMatch(explanation, /\["/u);
     assert.doesNotMatch(explanation, /"\]/u);
 
     for (const pattern of bannedLearnerPatterns) {
-      assert.doesNotMatch(explanation, pattern, `${qlId} leaked internal/editorial explanation text`);
+      assert.doesNotMatch(explanation, pattern, `${raw.qlId} leaked internal/editorial explanation text`);
     }
 
     assert.equal(raw.questionBankWritable, false);
@@ -57,22 +62,17 @@ for (const qlId of [
   "RNK-QL-034",
   "RNK-QL-035",
 ] as const) {
-  const question = (await generateRnk001QuestionStudioBatch({
-    packageId: "RNK-001",
-    canonicalProblemId: qlId,
-    language: "en",
-    count: 1,
-    seed: `rnk-wave03-admin-leak:${qlId}`,
-  })).questions[0] as Record<string, any>;
-
-  assert.doesNotMatch(String(question.explanation), /admin|metadata|validation/iu);
-  assert.ok(String(question.explanation).split(/\n+/u).filter(Boolean).length >= 2);
+  const question = firstByQl.get(qlId);
+  assert.ok(question, `${qlId} must exist in the batched audit sample`);
+  assert.doesNotMatch(String(question!.explanation), /admin|metadata|validation/iu);
+  assert.ok(String(question!.explanation).split(/\n+/u).filter(Boolean).length >= 2);
 }
 
 console.log(JSON.stringify({
   verdict: "PASS_RNK_001_FINAL_AUDIT_WAVE_03_EXPLANATION_HYGIENE",
   qlCoverage: "RNK-QL-001..042",
   generatedEnglishInstancesAudited: audited,
+  generationCalls: 3,
   bannedInternalEditorialLeakage: true,
   serializedArrayExplanationRejected: true,
   lifecycle: "REVIEW_ONLY",
