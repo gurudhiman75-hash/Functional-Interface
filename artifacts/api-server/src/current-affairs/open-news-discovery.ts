@@ -3,6 +3,16 @@ import { createHash, randomUUID } from "node:crypto";
 import { sqlClient } from "../lib/db";
 import { classifyCurrentAffairsSignal } from "./ingestion";
 import {
+  COVERAGE_CATEGORY_SWEEPS,
+  COVERAGE_CATCHUP_LOOKBACK_DAYS,
+  COVERAGE_CATCHUP_SWEEPS,
+  COVERAGE_DISCOVERY_VERSION,
+  COVERAGE_SEARCH_CONCURRENCY,
+  coverageHoleKeys,
+  isBlockedOpenWebDomain,
+  shiftCoverageDate,
+} from "./coverage-discovery-policy";
+import {
   isOneDayOfficialRescueMatch,
   ONE_DAY_RESCUE_POLICY_VERSION,
   previousCalendarDate,
@@ -11,11 +21,12 @@ import {
 const GDELT_API = "https://api.gdeltproject.org/api/v2/doc/doc";
 const TAVILY_API = "https://api.tavily.com";
 const PROVIDER_SOURCE_KEY = "gdelt_open_news";
+const TAVILY_PROVIDER_SOURCE_KEY = "tavily_open_news";
 const REQUEST_TIMEOUT_MS = 18_000;
 const SEARCH_TIMEOUT_MS = 15_000;
 const MAX_RECORDS_PER_QUERY = 250;
 const TRUSTED_NEWS_RESULTS_PER_QUERY = 20;
-const TRUSTED_NEWS_FALLBACK_FLOOR = 8;
+const TRUSTED_NEWS_FALLBACK_FLOOR = 20;
 const INDIA_OFFSET_MINUTES = 330;
 const MIN_CLUSTER_DISCOVERY_SCORE = 38;
 const BROAD_QUERY_KEYS = new Set(["india_press_broad", "india_global", "trusted_press_broad"]);
@@ -54,9 +65,11 @@ export type OpenNewsDiscoveryArticle = {
   sourceCountry: string | null;
 };
 
-type DiscoveryProvider = "tavily_trusted_news_v1" | "gdelt_doc_2";
+type DiscoveryProvider = "tavily_trusted_news_v1" | "tavily_open_web_v1" | "gdelt_doc_2";
 type CombinedDiscoveryArticle = OpenNewsDiscoveryArticle & {
   queryKeys: string[];
+  coverageCategories: string[];
+  searchPasses: string[];
   discoveryProvider: DiscoveryProvider;
   syntheticTimestamp: boolean;
 };
@@ -172,8 +185,15 @@ export function parseGdeltArticleList(payload: unknown, targetDate: string): Ope
   return results;
 }
 
-export function parseTavilySearchResults(payload: unknown, targetDate: string, allowedDomains: readonly string[]): OpenNewsDiscoveryArticle[] {
-  assertDateOnly(targetDate);
+export function parseTavilySearchResultsWindow(
+  payload: unknown,
+  startDate: string,
+  endDateExclusive: string,
+  allowedDomains: readonly string[] = [],
+  requirePublishedDate = false,
+): OpenNewsDiscoveryArticle[] {
+  assertDateOnly(startDate);
+  assertDateOnly(endDateExclusive);
   const root = payload && typeof payload === "object" ? payload as Record<string, unknown> : {};
   const rawResults = Array.isArray(root.results) ? root.results : [];
   const allowed = allowedDomains.map((item) => item.toLowerCase().replace(/^www\./, ""));
@@ -191,21 +211,30 @@ export function parseTavilySearchResults(payload: unknown, targetDate: string, a
     url.hash = "";
     const canonicalUrl = url.toString();
     const domain = normalizeDomain(canonicalUrl);
-    if (!domain || !allowed.some((registered) => domain === registered || domain.endsWith(`.${registered}`))) continue;
+    if (!domain || isBlockedOpenWebDomain(domain)) continue;
+    if (allowed.length > 0 && !allowed.some((registered) => domain === registered || domain.endsWith(`.${registered}`))) continue;
     if (seen.has(canonicalUrl)) continue;
     const published = normalizeSeenDate(result.published_date ?? result.publishedDate ?? result.date);
-    if (published && indiaDateForInstant(published) !== targetDate) continue;
+    if (requirePublishedDate && !published) continue;
+    if (published) {
+      const indiaDate = indiaDateForInstant(published);
+      if (!indiaDate || indiaDate < startDate || indiaDate >= endDateExclusive) continue;
+    }
     seen.add(canonicalUrl);
     output.push({
       url: canonicalUrl,
       title,
-      seenAt: published ?? syntheticTargetInstant(targetDate),
+      seenAt: published ?? syntheticTargetInstant(startDate),
       domain,
       language: "English",
       sourceCountry: "India",
     });
   }
   return output;
+}
+
+export function parseTavilySearchResults(payload: unknown, targetDate: string, allowedDomains: readonly string[]): OpenNewsDiscoveryArticle[] {
+  return parseTavilySearchResultsWindow(payload, targetDate, nextCalendarDate(targetDate), allowedDomains, false);
 }
 
 export function gdeltQueryUrl(query: string, targetDate: string, maxRecords = MAX_RECORDS_PER_QUERY) {
@@ -221,8 +250,13 @@ export function gdeltQueryUrl(query: string, targetDate: string, maxRecords = MA
   return url.toString();
 }
 
-export function trustedNewsSearchBody(query: string, targetDate: string, domains: readonly string[]) {
-  return {
+export function tavilyNewsSearchBody(
+  query: string,
+  startDate: string,
+  endDateExclusive: string,
+  domains: readonly string[] = [],
+) {
+  const body: Record<string, unknown> = {
     query,
     topic: "news",
     search_depth: "basic",
@@ -231,10 +265,15 @@ export function trustedNewsSearchBody(query: string, targetDate: string, domains
     include_answer: false,
     include_raw_content: false,
     include_images: false,
-    include_domains: [...domains],
-    start_date: assertDateOnly(targetDate),
-    end_date: nextCalendarDate(targetDate),
+    start_date: assertDateOnly(startDate),
+    end_date: assertDateOnly(endDateExclusive),
   };
+  if (domains.length > 0) body.include_domains = [...domains];
+  return body;
+}
+
+export function trustedNewsSearchBody(query: string, targetDate: string, domains: readonly string[]) {
+  return tavilyNewsSearchBody(query, targetDate, nextCalendarDate(targetDate), domains);
 }
 
 async function fetchGdeltQuery(query: string, targetDate: string) {
@@ -252,9 +291,15 @@ async function fetchGdeltQuery(query: string, targetDate: string) {
   } finally { clearTimeout(timer); }
 }
 
-async function fetchTrustedNewsQuery(query: string, targetDate: string, domains: readonly string[]) {
+async function fetchTavilyNewsQuery(
+  query: string,
+  startDate: string,
+  endDateExclusive: string,
+  domains: readonly string[] = [],
+  requirePublishedDate = false,
+) {
   const apiKey = String(process.env.TAVILY_API_KEY ?? "").trim();
-  if (!apiKey) throw new Error("TAVILY_API_KEY is not configured for Current Affairs trusted-news discovery");
+  if (!apiKey) throw new Error("TAVILY_API_KEY is not configured for Current Affairs news discovery");
   const baseUrl = String(process.env.TAVILY_BASE_URL ?? TAVILY_API).replace(/\/$/, "");
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), SEARCH_TIMEOUT_MS);
@@ -263,14 +308,18 @@ async function fetchTrustedNewsQuery(query: string, targetDate: string, domains:
       method: "POST",
       signal: controller.signal,
       headers: { Accept: "application/json", "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-      body: JSON.stringify(trustedNewsSearchBody(query, targetDate, domains)),
+      body: JSON.stringify(tavilyNewsSearchBody(query, startDate, endDateExclusive, domains)),
     });
     if (!response.ok) {
       const body = await response.text();
-      throw new Error(`Tavily trusted-news search returned HTTP ${response.status}: ${body.slice(0, 240)}`);
+      throw new Error(`Tavily news search returned HTTP ${response.status}: ${body.slice(0, 240)}`);
     }
-    return parseTavilySearchResults(await response.json() as unknown, targetDate, domains);
+    return parseTavilySearchResultsWindow(await response.json() as unknown, startDate, endDateExclusive, domains, requirePublishedDate);
   } finally { clearTimeout(timer); }
+}
+
+async function fetchTrustedNewsQuery(query: string, targetDate: string, domains: readonly string[]) {
+  return fetchTavilyNewsQuery(query, targetDate, nextCalendarDate(targetDate), domains, false);
 }
 
 function dedupeKey(sourceIdentity: string, url: string, title: string) {
@@ -286,7 +335,8 @@ async function loadDiscoverySources() {
     SELECT id::text AS id, source_key AS "sourceKey", base_url AS "baseUrl",
            source_family AS "sourceFamily", source_tier AS "sourceTier", trust_score::float8 AS "trustScore"
     FROM content.current_affairs_sources
-    WHERE is_active=true AND (source_key=${PROVIDER_SOURCE_KEY} OR source_tier IN ('trusted_news','specialist'))
+    WHERE is_active=true
+      AND (source_key IN (${PROVIDER_SOURCE_KEY}, ${TAVILY_PROVIDER_SOURCE_KEY}) OR source_tier='trusted_news')
   `;
   const normalized = rows.map((row) => ({
     id: String(row.id), sourceKey: String(row.sourceKey ?? ""), baseUrl: String(row.baseUrl ?? ""),
@@ -294,14 +344,16 @@ async function loadDiscoverySources() {
     sourceTier: row.sourceTier ? String(row.sourceTier) : null,
     trustScore: Number(row.trustScore ?? 0.5),
   })) as DiscoverySourceRow[];
-  const provider = normalized.find((row) => row.sourceKey === PROVIDER_SOURCE_KEY);
-  if (!provider) throw new Error("GDELT open-news discovery source is not registered");
+  const gdeltProvider = normalized.find((row) => row.sourceKey === PROVIDER_SOURCE_KEY);
+  if (!gdeltProvider) throw new Error("GDELT open-news discovery source is not registered");
+  const tavilyProvider = normalized.find((row) => row.sourceKey === TAVILY_PROVIDER_SOURCE_KEY);
+  if (!tavilyProvider) throw new Error("Tavily open-web discovery source is not registered");
   const publisherDomains = normalized
-    .filter((row) => row.sourceKey !== PROVIDER_SOURCE_KEY)
+    .filter((row) => row.sourceTier === "trusted_news")
     .map((row) => ({ row, domain: normalizeDomain(row.baseUrl) }))
     .filter((item) => item.domain);
-  const trustedNewsDomains = publisherDomains.filter((item) => item.row.sourceTier === "trusted_news").map((item) => item.domain);
-  return { provider, publisherDomains, trustedNewsDomains };
+  const trustedNewsDomains = publisherDomains.map((item) => item.domain);
+  return { gdeltProvider, tavilyProvider, publisherDomains, trustedNewsDomains };
 }
 
 function mappedPublisher<T extends { row: DiscoverySourceRow; domain: string }>(domain: string, publishers: T[]) {
@@ -421,11 +473,27 @@ async function rejectExistingBroadOnlyLowSignalClusters(targetDate: string) {
   return rows.length;
 }
 
-function mergeArticle(byUrl: Map<string, CombinedDiscoveryArticle>, article: OpenNewsDiscoveryArticle, queryKey: string, provider: DiscoveryProvider, syntheticTimestamp: boolean) {
+function providerRank(provider: DiscoveryProvider) {
+  if (provider === "tavily_trusted_news_v1") return 3;
+  if (provider === "tavily_open_web_v1") return 2;
+  return 1;
+}
+
+function mergeArticle(
+  byUrl: Map<string, CombinedDiscoveryArticle>,
+  article: OpenNewsDiscoveryArticle,
+  queryKey: string,
+  provider: DiscoveryProvider,
+  syntheticTimestamp: boolean,
+  coverageCategory = "",
+  searchPass = "target_date",
+) {
   const existing = byUrl.get(article.url);
   if (existing) {
     if (!existing.queryKeys.includes(queryKey)) existing.queryKeys.push(queryKey);
-    if (provider === "tavily_trusted_news_v1" && existing.discoveryProvider !== provider) {
+    if (coverageCategory && !existing.coverageCategories.includes(coverageCategory)) existing.coverageCategories.push(coverageCategory);
+    if (!existing.searchPasses.includes(searchPass)) existing.searchPasses.push(searchPass);
+    if (providerRank(provider) > providerRank(existing.discoveryProvider)) {
       existing.discoveryProvider = provider;
       existing.syntheticTimestamp = syntheticTimestamp;
       existing.title = article.title;
@@ -434,26 +502,64 @@ function mergeArticle(byUrl: Map<string, CombinedDiscoveryArticle>, article: Ope
     }
     return;
   }
-  byUrl.set(article.url, { ...article, queryKeys: [queryKey], discoveryProvider: provider, syntheticTimestamp });
+  byUrl.set(article.url, {
+    ...article,
+    queryKeys: [queryKey],
+    coverageCategories: coverageCategory ? [coverageCategory] : [],
+    searchPasses: [searchPass],
+    discoveryProvider: provider,
+    syntheticTimestamp,
+  });
 }
 
 async function insertDiscoveredArticle(article: CombinedDiscoveryArticle, targetDate: string, source: DiscoverySourceRow) {
   const classified = classifyCurrentAffairsSignal(article.title);
-  const triage = isOpenNewsClusterEligible({ discoveryScore: classified.score, queryKeys: article.queryKeys });
+  const baseTriage = isOpenNewsClusterEligible({ discoveryScore: classified.score, queryKeys: article.queryKeys });
+  const lateCatchup = article.searchPasses.includes("catchup_72h");
+  const triage = lateCatchup
+    ? {
+        eligible: classified.score >= 45,
+        targetedQueryHit: true,
+        reason: classified.score >= 45 ? "catchup_high_signal" : "catchup_low_signal",
+      }
+    : baseTriage;
   const payload = {
     discoveryProvider: article.discoveryProvider,
-    discoveryProviderSourceKey: article.discoveryProvider === "gdelt_doc_2" ? PROVIDER_SOURCE_KEY : "trusted_news_search",
-    discoveryTargetDate: targetDate, discoverySeenAt: article.seenAt, publisherDomain: article.domain,
-    queryKeys: article.queryKeys, language: article.language, sourceCountry: article.sourceCountry,
-    categoryGuess: classified.category, discoveryScore: classified.score, discoveryKeywords: classified.keywords,
-    discoveryEligible: triage.eligible, discoveryTriageReason: triage.reason, targetedQueryHit: triage.targetedQueryHit,
+    discoveryProviderSourceKey: article.discoveryProvider === "gdelt_doc_2"
+      ? PROVIDER_SOURCE_KEY
+      : article.discoveryProvider === "tavily_open_web_v1"
+        ? TAVILY_PROVIDER_SOURCE_KEY
+        : "trusted_news_search",
+    discoveryTargetDate: targetDate,
+    discoverySeenAt: article.seenAt,
+    originalPublicationDate: indiaDateForInstant(article.seenAt),
+    publisherDomain: article.domain,
+    queryKeys: article.queryKeys,
+    coverageCategories: article.coverageCategories,
+    coverageSearchPasses: article.searchPasses,
+    coverageDiscoveryVersion: COVERAGE_DISCOVERY_VERSION,
+    lateCatchup,
+    catchupLookbackDays: lateCatchup ? COVERAGE_CATCHUP_LOOKBACK_DAYS : 0,
+    language: article.language,
+    sourceCountry: article.sourceCountry,
+    categoryGuess: classified.category,
+    discoveryScore: classified.score,
+    discoveryKeywords: classified.keywords,
+    discoveryEligible: triage.eligible,
+    discoveryTriageReason: triage.reason,
+    targetedQueryHit: triage.targetedQueryHit,
     ...(article.discoveryProvider === "gdelt_doc_2" ? GDELT_DATE_POLICY : {
       dateSemantics: article.syntheticTimestamp ? "search_target_date_filter_synthetic_timestamp" : "provider_published_timestamp",
     }),
     dateConfidence: "discovery_only",
-    searchMetadataOnly: article.discoveryProvider === "tavily_trusted_news_v1",
-    snippetPersisted: false, rawArticlePersistence: false, fetchedPublisherBody: false, evidenceRole: "discovery_only",
-    automaticSelectionAuthority: false, automaticVerificationAuthority: false, automaticPublicationAuthority: false,
+    searchMetadataOnly: article.discoveryProvider !== "gdelt_doc_2",
+    snippetPersisted: false,
+    rawArticlePersistence: false,
+    fetchedPublisherBody: false,
+    evidenceRole: "discovery_only",
+    automaticSelectionAuthority: false,
+    automaticVerificationAuthority: false,
+    automaticPublicationAuthority: false,
   };
   const rows = await sqlClient`
     INSERT INTO content.current_affairs_ingestion_candidates (
@@ -472,43 +578,145 @@ async function insertDiscoveredArticle(article: CombinedDiscoveryArticle, target
         ELSE content.current_affairs_ingestion_candidates.status
       END,
       updated_at=now()
+    WHERE COALESCE(
+      NULLIF(content.current_affairs_ingestion_candidates.payload->>'historicalTargetDate',''),
+      NULLIF(content.current_affairs_ingestion_candidates.payload->>'discoveryTargetDate',''),
+      (content.current_affairs_ingestion_candidates.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+    )=${targetDate}
     RETURNING (xmax = 0) AS inserted
   `;
-  return { inserted: Boolean(rows[0]?.inserted), triage, category: classified.category };
+  return {
+    inserted: Boolean(rows[0]?.inserted),
+    skippedExistingOtherDate: rows.length === 0,
+    triage,
+    category: classified.category,
+  };
+}
+
+async function mapWithConcurrency<T, R>(items: readonly T[], worker: (item: T) => Promise<R>): Promise<R[]> {
+  const results: R[] = new Array(items.length);
+  let cursor = 0;
+  const runners = Array.from({ length: Math.min(COVERAGE_SEARCH_CONCURRENCY, Math.max(1, items.length)) }, async () => {
+    while (true) {
+      const index = cursor;
+      cursor += 1;
+      if (index >= items.length) return;
+      results[index] = await worker(items[index]!);
+    }
+  });
+  await Promise.all(runners);
+  return results;
 }
 
 export async function runOpenNewsDiscovery(targetDate: string) {
   assertDateOnly(targetDate);
-  const { provider, publisherDomains, trustedNewsDomains } = await loadDiscoverySources();
+  const { gdeltProvider, tavilyProvider, publisherDomains, trustedNewsDomains } = await loadDiscoverySources();
   const byUrl = new Map<string, CombinedDiscoveryArticle>();
   const trustedQueryResults: Array<{ key: string; status: "success" | "failed"; count: number; error: string | null }> = [];
+  const coverageQueryResults: Array<{ key: string; pass: string; status: "success" | "failed"; count: number; error: string | null }> = [];
+  const catchupQueryResults: Array<{ key: string; status: "success" | "failed"; count: number; error: string | null }> = [];
   const tavilyConfigured = Boolean(String(process.env.TAVILY_API_KEY ?? "").trim());
+  const targetEndDate = nextCalendarDate(targetDate);
+  const categoryCounts: Record<string, number> = {};
 
   if (tavilyConfigured && trustedNewsDomains.length > 0) {
-    for (const descriptor of TRUSTED_NEWS_DISCOVERY_QUERIES) {
+    const results = await mapWithConcurrency(TRUSTED_NEWS_DISCOVERY_QUERIES, async (descriptor) => {
       try {
         const articles = await fetchTrustedNewsQuery(descriptor.query(targetDate), targetDate, trustedNewsDomains);
         const synthetic = syntheticTargetInstant(targetDate);
-        for (const article of articles) mergeArticle(byUrl, article, descriptor.key, "tavily_trusted_news_v1", article.seenAt === synthetic);
-        trustedQueryResults.push({ key: descriptor.key, status: "success", count: articles.length, error: null });
+        for (const article of articles) {
+          mergeArticle(byUrl, article, descriptor.key, "tavily_trusted_news_v1", article.seenAt === synthetic, "", "trusted_source_matrix");
+        }
+        return { key: descriptor.key, status: "success" as const, count: articles.length, error: null };
       } catch (error) {
-        trustedQueryResults.push({ key: descriptor.key, status: "failed", count: 0,
-          error: error instanceof Error ? error.message.slice(0, 500) : "Unknown trusted-news search failure" });
+        return { key: descriptor.key, status: "failed" as const, count: 0,
+          error: error instanceof Error ? error.message.slice(0, 500) : "Unknown trusted-news search failure" };
       }
-    }
+    });
+    trustedQueryResults.push(...results);
   } else {
     trustedQueryResults.push({ key: "trusted_news_search", status: "failed", count: 0,
       error: tavilyConfigured ? "No active trusted-news publisher domains are registered" : "TAVILY_API_KEY is not configured" });
   }
 
-  const trustedNewsUniqueArticles = [...byUrl.values()].filter((item) => item.discoveryProvider === "tavily_trusted_news_v1").length;
-  const gdeltFallbackUsed = trustedNewsUniqueArticles < TRUSTED_NEWS_FALLBACK_FLOOR;
+  if (tavilyConfigured) {
+    const firstPass = await mapWithConcurrency(COVERAGE_CATEGORY_SWEEPS, async (descriptor) => {
+      try {
+        const articles = await fetchTavilyNewsQuery(descriptor.query(targetDate), targetDate, targetEndDate);
+        const synthetic = syntheticTargetInstant(targetDate);
+        categoryCounts[descriptor.key] = (categoryCounts[descriptor.key] ?? 0) + articles.length;
+        for (const article of articles) {
+          mergeArticle(byUrl, article, descriptor.key, "tavily_open_web_v1", article.seenAt === synthetic, descriptor.key, "target_date");
+        }
+        return { key: descriptor.key, pass: "target_date", status: "success" as const, count: articles.length, error: null };
+      } catch (error) {
+        categoryCounts[descriptor.key] ??= 0;
+        return { key: descriptor.key, pass: "target_date", status: "failed" as const, count: 0,
+          error: error instanceof Error ? error.message.slice(0, 500) : "Unknown category discovery failure" };
+      }
+    });
+    coverageQueryResults.push(...firstPass);
+
+    const initialHoles = coverageHoleKeys(categoryCounts);
+    const holeDescriptors = COVERAGE_CATEGORY_SWEEPS.filter((descriptor) => initialHoles.includes(descriptor.key));
+    const rescuePass = await mapWithConcurrency(holeDescriptors, async (descriptor) => {
+      try {
+        const articles = await fetchTavilyNewsQuery(descriptor.rescueQuery(targetDate), targetDate, targetEndDate);
+        const synthetic = syntheticTargetInstant(targetDate);
+        categoryCounts[descriptor.key] = (categoryCounts[descriptor.key] ?? 0) + articles.length;
+        for (const article of articles) {
+          mergeArticle(byUrl, article, `${descriptor.key}_rescue`, "tavily_open_web_v1", article.seenAt === synthetic, descriptor.key, "coverage_rescue");
+        }
+        return { key: descriptor.key, pass: "coverage_rescue", status: "success" as const, count: articles.length, error: null };
+      } catch (error) {
+        return { key: descriptor.key, pass: "coverage_rescue", status: "failed" as const, count: 0,
+          error: error instanceof Error ? error.message.slice(0, 500) : "Unknown coverage-hole rescue failure" };
+      }
+    });
+    coverageQueryResults.push(...rescuePass);
+
+    const catchupStart = shiftCoverageDate(targetDate, -COVERAGE_CATCHUP_LOOKBACK_DAYS);
+    const catchupPass = await mapWithConcurrency(COVERAGE_CATCHUP_SWEEPS, async (descriptor) => {
+      try {
+        const articles = (await fetchTavilyNewsQuery(descriptor.query(targetDate), catchupStart, targetEndDate, [], true))
+          .filter((article) => {
+            const day = indiaDateForInstant(article.seenAt);
+            return Boolean(day && day < targetDate);
+          });
+        for (const article of articles) {
+          mergeArticle(byUrl, article, descriptor.key, "tavily_open_web_v1", false, descriptor.category, "catchup_72h");
+        }
+        return { key: descriptor.key, status: "success" as const, count: articles.length, error: null };
+      } catch (error) {
+        return { key: descriptor.key, status: "failed" as const, count: 0,
+          error: error instanceof Error ? error.message.slice(0, 500) : "Unknown 72-hour catch-up failure" };
+      }
+    });
+    catchupQueryResults.push(...catchupPass);
+  } else {
+    for (const descriptor of COVERAGE_CATEGORY_SWEEPS) {
+      categoryCounts[descriptor.key] = 0;
+      coverageQueryResults.push({ key: descriptor.key, pass: "target_date", status: "failed", count: 0, error: "TAVILY_API_KEY is not configured" });
+    }
+    for (const descriptor of COVERAGE_CATCHUP_SWEEPS) {
+      catchupQueryResults.push({ key: descriptor.key, status: "failed", count: 0, error: "TAVILY_API_KEY is not configured" });
+    }
+  }
+
+  const initialCoverageHoles = COVERAGE_CATEGORY_SWEEPS
+    .filter((descriptor) => !coverageQueryResults.some((item) => item.key === descriptor.key && item.pass === "target_date" && item.count > 0))
+    .map((descriptor) => descriptor.key);
+  const unresolvedCoverageHoles = coverageHoleKeys(categoryCounts);
+  const tavilyTargetDateUniqueArticles = [...byUrl.values()]
+    .filter((item) => item.discoveryProvider !== "gdelt_doc_2" && !item.searchPasses.includes("catchup_72h")).length;
+  const gdeltFallbackUsed = tavilyTargetDateUniqueArticles < TRUSTED_NEWS_FALLBACK_FLOOR;
   const gdeltQueryResults: Array<{ key: string; status: "success" | "failed" | "skipped"; count: number; error: string | null }> = [];
+
   if (gdeltFallbackUsed) {
     for (const descriptor of OPEN_NEWS_DISCOVERY_QUERIES) {
       try {
         const articles = await fetchGdeltQuery(descriptor.query, targetDate);
-        for (const article of articles) mergeArticle(byUrl, article, descriptor.key, "gdelt_doc_2", false);
+        for (const article of articles) mergeArticle(byUrl, article, descriptor.key, "gdelt_doc_2", false, "", "gdelt_fallback");
         gdeltQueryResults.push({ key: descriptor.key, status: "success", count: articles.length, error: null });
       } catch (error) {
         gdeltQueryResults.push({ key: descriptor.key, status: "failed", count: 0,
@@ -516,7 +724,9 @@ export async function runOpenNewsDiscovery(targetDate: string) {
       }
     }
   } else {
-    for (const descriptor of OPEN_NEWS_DISCOVERY_QUERIES) gdeltQueryResults.push({ key: descriptor.key, status: "skipped", count: 0, error: null });
+    for (const descriptor of OPEN_NEWS_DISCOVERY_QUERIES) {
+      gdeltQueryResults.push({ key: descriptor.key, status: "skipped", count: 0, error: null });
+    }
   }
 
   let created = 0;
@@ -525,18 +735,26 @@ export async function runOpenNewsDiscovery(targetDate: string) {
   let withheldBroadLowSignal = 0;
   let knownPublisherMapped = 0;
   let providerFallback = 0;
-  let unmappedTrustedNewsSkipped = 0;
-  const categoryCounts: Record<string, number> = {};
+  let skippedExistingOtherDate = 0;
+  let lateCatchupCandidates = 0;
+  const classifiedCategoryCounts: Record<string, number> = {};
   const providerCounts: Record<string, number> = {};
+  const observedPublisherDomains = new Set<string>();
+
   for (const article of byUrl.values()) {
+    observedPublisherDomains.add(article.domain);
     const mapped = mappedPublisher(article.domain, publisherDomains);
-    if (article.discoveryProvider === "tavily_trusted_news_v1" && !mapped) { unmappedTrustedNewsSkipped += 1; continue; }
-    const source = mapped ?? provider;
+    const source = mapped ?? (article.discoveryProvider === "gdelt_doc_2" ? gdeltProvider : tavilyProvider);
     if (mapped) knownPublisherMapped += 1; else providerFallback += 1;
     const stored = await insertDiscoveredArticle(article, targetDate, source);
+    if (stored.skippedExistingOtherDate) {
+      skippedExistingOtherDate += 1;
+      continue;
+    }
     if (stored.inserted) created += 1; else updated += 1;
+    if (article.searchPasses.includes("catchup_72h")) lateCatchupCandidates += 1;
     if (stored.triage.eligible) eligibleArticles += 1; else withheldBroadLowSignal += 1;
-    categoryCounts[stored.category] = (categoryCounts[stored.category] ?? 0) + 1;
+    classifiedCategoryCounts[stored.category] = (classifiedCategoryCounts[stored.category] ?? 0) + 1;
     providerCounts[article.discoveryProvider] = (providerCounts[article.discoveryProvider] ?? 0) + 1;
   }
 
@@ -568,23 +786,93 @@ export async function runOpenNewsDiscovery(targetDate: string) {
         last_ingestion_error=${trustedSearchSucceeded ? null : trustedQueryResults.map((item) => item.error).filter(Boolean).join(" | ").slice(0, 2000)},
         metadata=metadata || ${JSON.stringify({
           trustedNewsSearchProvider: "tavily", lastTrustedNewsSearchDate: targetDate,
-          lastTrustedNewsQueryResults: trustedQueryResults, lastTrustedNewsUniqueArticleCount: trustedNewsUniqueArticles,
+          lastTrustedNewsQueryResults: trustedQueryResults,
           metadataOnly: true, rawArticlePersistence: false,
         })}::jsonb, updated_at=now()
     WHERE is_active=true AND source_tier='trusted_news'
   `;
 
+  const coverageDiagnostics = {
+    version: COVERAGE_DISCOVERY_VERSION,
+    targetDate,
+    sourceUniverseMode: "open_web_plus_registered_trusted_publishers",
+    mandatoryCategoryCount: COVERAGE_CATEGORY_SWEEPS.length,
+    categorySearchesSucceeded: coverageQueryResults.filter((item) => item.pass === "target_date" && item.status === "success").length,
+    categorySearchesFailed: coverageQueryResults.filter((item) => item.pass === "target_date" && item.status === "failed").length,
+    categoriesWithResults: COVERAGE_CATEGORY_SWEEPS.length - unresolvedCoverageHoles.length,
+    initialCoverageHoles,
+    unresolvedCoverageHoles,
+    rescueQueriesAttempted: coverageQueryResults.filter((item) => item.pass === "coverage_rescue").length,
+    rescueQueriesSucceeded: coverageQueryResults.filter((item) => item.pass === "coverage_rescue" && item.status === "success").length,
+    categoryCounts,
+    targetDateUniqueArticles: tavilyTargetDateUniqueArticles,
+    catchupLookbackDays: COVERAGE_CATCHUP_LOOKBACK_DAYS,
+    catchupSearchesSucceeded: catchupQueryResults.filter((item) => item.status === "success").length,
+    catchupSearchesFailed: catchupQueryResults.filter((item) => item.status === "failed").length,
+    catchupArticlesObserved: catchupQueryResults.reduce((sum, item) => sum + item.count, 0),
+    lateCatchupCandidates,
+    skippedExistingOtherDate,
+    registeredTrustedDomainCount: trustedNewsDomains.length,
+    observedPublisherDomainCount: observedPublisherDomains.size,
+    observedPublisherDomains: [...observedPublisherDomains].sort().slice(0, 100),
+    metadataOnly: true,
+    publisherArticleBodiesFetched: false,
+    snippetsPersisted: false,
+    rawArticlePersistence: false,
+    editorialApprovalRequired: true,
+  };
+
+  const coverageSearchSucceeded = coverageQueryResults.some((item) => item.status === "success");
+  await sqlClient`
+    UPDATE content.current_affairs_sources
+    SET last_ingested_at=now(),
+        last_ingestion_status=${coverageSearchSucceeded ? "success" : "failure"},
+        last_ingestion_error=${coverageSearchSucceeded ? null : coverageQueryResults.map((item) => item.error).filter(Boolean).join(" | ").slice(0, 2000)},
+        metadata=metadata || ${JSON.stringify({
+          lastCoverageTargetDate: targetDate,
+          lastCoverageDiagnostics: coverageDiagnostics,
+          lastCoverageQueryResults: coverageQueryResults,
+          lastCatchupQueryResults: catchupQueryResults,
+        })}::jsonb,
+        updated_at=now()
+    WHERE source_key=${TAVILY_PROVIDER_SOURCE_KEY}
+  `;
+
   return {
-    targetDate, provider: "trusted_news_search_with_gdelt_fallback",
+    targetDate,
+    provider: "tavily_coverage_matrix_with_trusted_news_and_gdelt_fallback",
     trustedNewsSearch: {
       provider: "tavily", configured: tavilyConfigured, registeredDomains: trustedNewsDomains,
-      queryResults: trustedQueryResults, uniqueArticles: trustedNewsUniqueArticles, fallbackFloor: TRUSTED_NEWS_FALLBACK_FLOOR,
+      queryResults: trustedQueryResults,
+      uniqueArticles: [...byUrl.values()].filter((item) => item.discoveryProvider === "tavily_trusted_news_v1").length,
       publisherArticleBodiesFetched: false, rawArticlePersistence: false, snippetsPersisted: false,
     },
-    gdeltFallbackUsed, queryResults: gdeltQueryResults, uniqueArticles: byUrl.size - unmappedTrustedNewsSkipped,
-    eligibleArticles, withheldBroadLowSignal, rejectedLowSignalClusters, created, updated,
-    knownPublisherMapped, providerFallback, unmappedTrustedNewsSkipped, categoryCounts, providerCounts, oneDayOfficialRescue,
-    publicationAuthority: false, verificationAuthority: false, editorialApprovalRequired: true,
-    publisherArticleBodiesFetched: false, rawArticlePersistence: false,
+    coverageDiscovery: {
+      queryResults: coverageQueryResults,
+      catchupQueryResults,
+      diagnostics: coverageDiagnostics,
+    },
+    gdeltFallbackUsed,
+    queryResults: gdeltQueryResults,
+    uniqueArticles: byUrl.size - skippedExistingOtherDate,
+    eligibleArticles,
+    withheldBroadLowSignal,
+    rejectedLowSignalClusters,
+    created,
+    updated,
+    knownPublisherMapped,
+    providerFallback,
+    unmappedTrustedNewsSkipped: 0,
+    skippedExistingOtherDate,
+    lateCatchupCandidates,
+    categoryCounts: classifiedCategoryCounts,
+    providerCounts,
+    oneDayOfficialRescue,
+    coverageDiagnostics,
+    publicationAuthority: false,
+    verificationAuthority: false,
+    editorialApprovalRequired: true,
+    publisherArticleBodiesFetched: false,
+    rawArticlePersistence: false,
   };
 }
