@@ -43,10 +43,26 @@ const ALL_QL_IDS = [
   RNK_CP007_PERMANENT_QL_ID,
 ] as readonly string[];
 
-const CP004 = buildRnkCp004PermanentRuntime() as readonly AnyQuestion[];
-const CP005 = buildRnkCp005PermanentRuntime() as readonly AnyQuestion[];
-const CP006 = buildRnkCp006PermanentRuntime() as readonly AnyQuestion[];
-const CP007 = buildRnkCp007PermanentRuntime() as readonly AnyQuestion[];
+let cp004Cache: readonly AnyQuestion[] | null = null;
+let cp005Cache: readonly AnyQuestion[] | null = null;
+let cp006Cache: readonly AnyQuestion[] | null = null;
+let cp007Cache: readonly AnyQuestion[] | null = null;
+
+function cp004Bank(): readonly AnyQuestion[] {
+  return cp004Cache ??= buildRnkCp004PermanentRuntime() as readonly AnyQuestion[];
+}
+
+function cp005Bank(): readonly AnyQuestion[] {
+  return cp005Cache ??= buildRnkCp005PermanentRuntime() as readonly AnyQuestion[];
+}
+
+function cp006Bank(): readonly AnyQuestion[] {
+  return cp006Cache ??= buildRnkCp006PermanentRuntime() as readonly AnyQuestion[];
+}
+
+function cp007Bank(): readonly AnyQuestion[] {
+  return cp007Cache ??= buildRnkCp007PermanentRuntime() as readonly AnyQuestion[];
+}
 
 const TIER_ORDER = ["CORE", "SECONDARY", "ADVANCED", "SOURCE_SPECIFIC"] as const;
 
@@ -150,10 +166,10 @@ function rawQuestionForQl(qlId: string, seed: number): AnyQuestion {
   if (number <= 9) return generateRnkCp001PermanentQuestion(qlId as any, seed) as unknown as AnyQuestion;
   if (number <= 17) return generateRnkCp002PermanentQuestion(qlId as any, seed) as unknown as AnyQuestion;
   if (number <= 26) return generateRnkCp003PermanentQuestion(qlId as any, seed) as unknown as AnyQuestion;
-  if (number <= 35) return selectFrozenBankQuestion(CP004, qlId, seed);
-  if (number <= 38) return selectFrozenBankQuestion(CP005, qlId, seed);
-  if (number <= 41) return selectFrozenBankQuestion(CP006, qlId, seed);
-  return selectFrozenBankQuestion(CP007, qlId, seed);
+  if (number <= 35) return selectFrozenBankQuestion(cp004Bank(), qlId, seed);
+  if (number <= 38) return selectFrozenBankQuestion(cp005Bank(), qlId, seed);
+  if (number <= 41) return selectFrozenBankQuestion(cp006Bank(), qlId, seed);
+  return selectFrozenBankQuestion(cp007Bank(), qlId, seed);
 }
 
 function questionForQl(qlId: string, seed: number, difficulty?: RnkQuestionStudioDifficulty): AnyQuestion {
