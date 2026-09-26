@@ -9,7 +9,9 @@ She first assumed the umbrella belonged to the elderly man who had sat nearby, b
 
 The receptionist checked the waiting list and asked the last few patients whether they had lost anything. Ten minutes later, a young woman returned looking worried and described the umbrella correctly.
 
-Riya was glad she had not acted on her first assumption. The object seemed ordinary, but deciding ownership from where it was found could easily have led to the wrong person. The receptionist's simple check took slightly longer but matched the item with someone who could actually describe it.`,
+Riya was glad she had not acted on her first assumption. The object seemed ordinary, but deciding ownership from where it was found could easily have led to the wrong person. The receptionist's simple check took slightly longer but matched the item with someone who could actually describe it.
+
+ Later that week, the clinic placed a small lost-property tray beside reception and added a note asking patients to hand in found items rather than leaving them on chairs. Staff said this made it easier to match objects with descriptions because items no longer moved around the waiting room. Riya noticed that the new process did not make every case instant, but it reduced the chance that a helpful guess would send an item in the wrong direction.`,
  questions:[
  q("N12-Q1","RC-F01","easy","Where did Riya take the umbrella?","To the reception desk",["Outside to the elderly man","To her home","To the pharmacy"],"She handed the umbrella to reception for checking.","handed the umbrella to the reception desk"),
  q("N12-Q2","RC-F02","medium","Why did Riya avoid following the elderly man?","She realised the seat location did not prove the umbrella was his",["He had already left the clinic","The umbrella was broken","The receptionist told her not to"],"Several people had used nearby seats, so ownership was uncertain.","another patient had moved chairs"),
@@ -27,7 +29,9 @@ He considered leaving it inside the book in case the student returned to the sam
 
 The librarian checked the card number and sent a message to the student's class teacher. Later that day, the student collected it and explained that she had used the card as a temporary bookmark.
 
-Manav realised that returning an item to the place where it was found is not always the same as returning it to its owner. A shared location can change quickly. The identifying information on the card gave the librarian a much more reliable way to reconnect the item with the right person.`,
+Manav realised that returning an item to the place where it was found is not always the same as returning it to its owner. A shared location can change quickly. The identifying information on the card gave the librarian a much more reliable way to reconnect the item with the right person.
+
+ The librarian later added a small reminder near the reference shelves asking students not to use important cards or documents as bookmarks. Manav smiled when he saw it, but he also understood the practical reason. Shared books pass through many hands, so anything left inside can travel far from where it was first forgotten. A simple reminder could prevent the same problem without changing how students used the books.`,
  questions:[
  q("N13-Q1","RC-F01","easy","Where did Manav take the library card?","To the issue desk",["To another classroom","Back inside the book","To the playground"],"He took it to the library issue desk.","took the card to the issue desk"),
  q("N13-Q2","RC-F02","medium","Why was leaving the card inside the book risky?","The shared book could be moved before the owner returned",["The card would expire immediately","The librarian never checked books","The owner had left school"],"The book belonged to a shared reference section and could change location.","could easily be moved"),
@@ -47,7 +51,9 @@ The colour system did not replace written labels. Each shelf still displayed the
 
 Teachers also found that new students learned the storage layout more quickly when both cues were present. The department kept the system and added the same colours to the return trays used during practical sessions.
 
-The trial suggested that simple visual organisation can reduce avoidable mistakes when it supports, rather than replaces, clear written information.`,
+The trial suggested that simple visual organisation can reduce avoidable mistakes when it supports, rather than replaces, clear written information.
+
+ The department also asked students whether the new system was easier to remember after several weeks. Most could identify the correct return area more quickly, but a few still relied mainly on the written names. Teachers treated that result as a strength rather than a failure: the design worked because it offered more than one useful cue. They decided that future storage changes would keep both text and visual signals whenever possible.`,
  questions:[
  q("R12-Q1","RC-F01","easy","Which item group was especially less likely to be misplaced after the change?","Small measuring tools",["School uniforms","Textbooks","Lunch boxes"],"The report directly notes a strong improvement for measuring tools.","especially for small measuring tools"),
  q("R12-Q2","RC-F02","medium","Why were written labels kept?","Colour alone might not work equally well for every student",["Teachers disliked colours","Shelves had no space","Equipment names changed daily"],"The passage mentions colour-vision differences.","might not benefit from colour alone"),
@@ -67,7 +73,9 @@ The tags did not replace species labels. Each tree still had its common and scie
 
 Staff noticed one practical issue after heavy rain: two paper maps became difficult to read. The department replaced them with weather-resistant boards and kept a few printed copies at the office.
 
-The trial showed that a simple numbering system can make a large space easier to navigate when it works alongside, rather than instead of, descriptive information.`,
+The trial showed that a simple numbering system can make a large space easier to navigate when it works alongside, rather than instead of, descriptive information.
+
+ Garden staff also began recording which numbered trees attracted the most questions. Popular stops included an old banyan tree and a flowering tree near the pond. The information helped staff decide where short educational notes might be useful in the future. Officials said the numbering system was valuable partly because it created a common reference: a visitor could ask about “tree 14” without needing to describe its exact location in a large garden.`,
  questions:[
  q("R13-Q1","RC-F01","easy","What did the tree numbers link to?","A simple garden map",["A ticket counter","A weather report","A school register"],"The numbers linked trees to a map near the entrance.","linked to a simple printed map"),
  q("R13-Q2","RC-F02","medium","Why did teachers find the numbers useful?","They could direct students to particular trees more easily",["The numbers replaced lessons","They showed tree prices","They measured rainfall"],"Teachers used them during observation activities.","guide students"),
