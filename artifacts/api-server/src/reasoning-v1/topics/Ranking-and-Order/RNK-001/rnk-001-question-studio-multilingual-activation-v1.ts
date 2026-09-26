@@ -1,0 +1,45 @@
+export const RNK_001_QUESTION_STUDIO_MULTILINGUAL_ACTIVATION_V1 = Object.freeze({
+  authority: "RNK_001_QUESTION_STUDIO_MULTILINGUAL_ACTIVATION_V1" as const,
+  chapterId: "RNK-001" as const,
+  permanentQlRange: "RNK-QL-001..042" as const,
+  permanentQlCount: 42 as const,
+  ql043Allocated: false as const,
+
+  contentAuthority: Object.freeze({
+    englishFrozen: true as const,
+    hindiApprovedAndFrozen: true as const,
+    punjabiApprovedAndFrozen: true as const,
+    multilingualFreeze: true as const,
+    freezePr: 945 as const,
+    freezeHead: "d73b445916d8c10b4551d1a05e75a7ca3973081c" as const,
+    freezeRun: 32335249084 as const,
+    freezeArtifactId: 9394423204 as const,
+    combinedSemanticProofPr: 938 as const,
+    combinedSemanticProofHead: "07ed844d248411ddd385ec0d620d56cb2692571f" as const,
+    combinedSemanticProofRun: 32327889203 as const,
+    combinedSemanticProofArtifactId: 9392687777 as const,
+    frozenLocaleFilesMaterialized: true as const,
+    frozenLocaleFileCount: 68 as const,
+  }),
+
+  questionStudio: Object.freeze({
+    visible: true as const,
+    reviewOnly: true as const,
+    multilingualReviewEnabled: true as const,
+    supportedLanguages: ["en", "hi", "pa"] as const,
+    nativeArrangementPresentation: "CLUE_BY_CLUE_QL027_034_V1" as const,
+    bankingFiveOptionAdapter: "LOCALIZED_NONE_OF_THESE_V1" as const,
+    percentagePresentation: "V2_NATIVE_GRAMMAR_FROZEN_AVAILABLE" as const,
+    reviewRunPersistenceAllowed: true as const,
+  }),
+
+  deliveryLocks: Object.freeze({
+    questionBankWritable: false as const,
+    questionBankStatus: "NOT_STORED" as const,
+    testEligible: false as const,
+    mockTestEligible: false as const,
+    publiclyPublishable: false as const,
+    automaticStudentPublication: false as const,
+    newMainMergeAuthorized: false as const,
+  }),
+});

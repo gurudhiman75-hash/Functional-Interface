@@ -33,6 +33,11 @@ import {
   generateClk001QuestionStudioBatch,
   isClk001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Clocks/CLK-001/question-studio-integration";
+import {
+  RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2,
+  generateRnk001QuestionStudioBatch,
+  isRnk001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-question-studio-integration-v2";
 
 export const OPS001_QUESTION_STUDIO_PACKAGE_ID_V1 = "OPS-001" as const;
 export const OPS001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -265,6 +270,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     return [
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+      RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2,
       CLK_001_QUESTION_STUDIO_PACKAGE,
       COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
     ];
@@ -276,6 +282,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isDir001QuestionStudioRequest(request)) {
       return generateDir001QuestionStudioBatch(request);
+    }
+    if (isRnk001QuestionStudioRequest(request)) {
+      return generateRnk001QuestionStudioBatch(request);
     }
     if (isCoaCp012ApprovedQuestionStudioRequest(request as Readonly<Record<string, unknown>>)) {
       return generateCoaCp012ApprovedQuestionStudioBatch(request);
