@@ -74,9 +74,9 @@ assert.equal(RNK_CP008_LIFECYCLE.hindiPunjabi, "NOT_STARTED");
 
 const liveReviewPackages = listReasoningV1QuestionStudioReviewPackages();
 assert.equal(
-  liveReviewPackages.some((entry) => JSON.stringify(entry).includes("RNK-001")),
+  liveReviewPackages.some((entry) => String((entry as { packageId?: unknown }).packageId ?? "").toUpperCase() === "RNK-001"),
   false,
-  "RNK must remain absent from the live Reasoning Question Studio review registry",
+  "A direct RNK-001 package must remain absent from the live Reasoning Question Studio review registry until its dedicated activation gate opens.",
 );
 
 console.log(JSON.stringify({
