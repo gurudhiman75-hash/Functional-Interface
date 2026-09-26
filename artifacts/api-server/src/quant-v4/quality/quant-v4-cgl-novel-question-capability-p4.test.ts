@@ -89,6 +89,30 @@ const byPackage = packageIds.map((packageId) => {
   || left.packageId.localeCompare(right.packageId)
 );
 
+const prb002Audit = byPackage.find((row) => row.packageId === "PRB-002");
+assert.ok(prb002Audit, "CGL novelty probe must exercise PRB-002.");
+assert.ok(
+  prb002Audit.patternBreadth >= 4,
+  `PRB-002 must preserve multiple QL identities through central preview; got ${prb002Audit.patternBreadth}.`,
+);
+assert.equal(
+  prb002Audit.state.tier,
+  "MATHEMATICAL_FINGERPRINT",
+  "PRB-002 must preserve its mathematical fingerprint into the novelty audit.",
+);
+
+const prb001Audit = byPackage.find((row) => row.packageId === "PRB-001");
+assert.ok(prb001Audit, "CGL novelty probe must exercise PRB-001.");
+assert.ok(
+  prb001Audit.patternBreadth >= 4,
+  `PRB-001 must preserve multiple QL identities through central preview; got ${prb001Audit.patternBreadth}.`,
+);
+assert.equal(
+  prb001Audit.state.tier,
+  "MATHEMATICAL_FINGERPRINT",
+  "PRB-001 must preserve its mathematical fingerprint into the novelty audit.",
+);
+
 const packagesRequiringNoveltyRemediation = byPackage
   .filter((row) => row.blockers.length > 0)
   .map((row) => ({
