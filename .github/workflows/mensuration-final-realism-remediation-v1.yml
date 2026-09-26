@@ -2,14 +2,18 @@ name: Validate Mensuration final realism remediation V1
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/**'
       - 'artifacts/api-server/src/routes/admin-question-studio-mensuration-full.ts'
       - 'artifacts/admin-app/src/features/question-studio/mensuration-review-api.ts'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioMensurationReviewPanel.tsx'
-      - '.github/workflows/mensuration-final-realism-remediation-v1.yml'
   workflow_dispatch:
+
+concurrency:
+  group: mensuration-final-realism-remediation-v1-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
