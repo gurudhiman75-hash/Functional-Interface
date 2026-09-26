@@ -97,3 +97,6 @@ htmlcov/
 *~
 .DS_Store
 Thumbs.db
+
+# Generated API audit/export artifacts
+artifacts/api-server/exports/
