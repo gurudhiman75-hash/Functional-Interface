@@ -20,7 +20,7 @@ function stable(value: unknown): string {
 
 const profiles: readonly Di007V2ExamProfile[] = ["BANKING_PRELIMS", "BANKING_MAINS"];
 const allTasks: readonly Di007V2TaskKind[] = [
-  "DIRECT_VISIBLE_VALUE",
+  "VISIBLE_ROW_COMBINED_TOTAL",
   "VISIBLE_ROW_DIFFERENCE",
   "RECOVER_MISSING_VALUE",
   "HIDDEN_ROW_COMBINED_TOTAL",
@@ -100,6 +100,11 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
       assert(question.optionMetadata.filter((option) => option.misconceptionId === "CORRECT").length === 1, `${question.questionId} does not have one correct metadata entry.`);
       assert(question.explanation.keyIdea.length >= 35 && question.explanation.steps.length >= 2, `${question.questionId} explanation is too thin.`);
       assert(!/shortcut|trap|template|generator|question library|mock-test problem/iu.test(question.stem + " " + question.explanation.keyIdea + " " + question.explanation.steps.join(" ")), `${question.questionId} leaked editorial/template language.`);
+      assert(String(question.kind) !== "DIRECT_VISIBLE_VALUE", `${question.questionId} reintroduced the retired zero-operation direct lookup family.`);
+      if (question.difficulty === "Easy") {
+        assert(["VISIBLE_ROW_COMBINED_TOTAL", "VISIBLE_ROW_DIFFERENCE"].includes(question.kind), `${question.questionId} Easy route must require arithmetic.`);
+        assert(question.explanation.steps.length >= 2, `${question.questionId} Easy explanation is too thin.`);
+      }
 
       taskCounts.set(question.kind, taskCounts.get(question.kind)! + 1);
       stemVariants.get(question.kind)!.add(question.stemVariant);
