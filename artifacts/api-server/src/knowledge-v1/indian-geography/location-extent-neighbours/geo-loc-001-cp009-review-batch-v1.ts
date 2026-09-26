@@ -66,7 +66,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Goa, Karnataka, Telangana, Tamil Nadu",
       "Maharashtra, Chhattisgarh, Odisha, West Bengal"
     ],
-    "explanation": "Gujarat, Goa, Kerala and Odisha all have sea coasts. Each distractor group includes at least one inland state.",
+    "explanation": "Gujarat, Goa, Kerala and Odisha all have sea coasts. Each distractor group includes at least one inland state, so only this set is entirely coastal.",
     "sourceFactIds": [
       "COASTAL-STATES-VALID-GROUP"
     ]
@@ -202,7 +202,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-LOC-001-QL-074",
     "qlName": "Western seaboard state/UT map relations",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "A coastal route moves south from Maharashtra and reaches Kerala after crossing two states. Which two states are crossed?",
     "answer": "Goa and Karnataka",
     "distractors": [
@@ -298,7 +298,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
   {
     "qlId": "GEO-LOC-001-QL-075",
     "qlName": "Eastern seaboard state/UT map relations",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "stem": "A coastal route moves south from West Bengal and reaches Tamil Nadu after crossing two coastal states. Which states are crossed?",
     "answer": "Odisha and Andhra Pradesh",
     "distractors": [
@@ -770,7 +770,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "West Bengal",
       "Assam"
     ],
-    "explanation": "Arunachal Pradesh borders Bhutan and Myanmar, and also China. The other Bhutan-border states do not touch Myanmar.",
+    "explanation": "Arunachal Pradesh borders Bhutan and Myanmar, and also China. The other Bhutan-border states do not touch Myanmar, which makes Arunachal Pradesh unique in this set.",
     "sourceFactIds": [
       "BHUTAN-MYANMAR-ARUNACHAL"
     ]
