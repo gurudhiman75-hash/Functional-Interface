@@ -538,7 +538,7 @@ D. B's time depends only on altitude
 
 ## 39. Sunrise is generally experienced earlier by local solar time in eastern India than in western India. Which factor explains this?
 
-A. Difference in national currency
+A. Difference in latitude
 B. Difference in coastline length
 C. Difference in longitude
 D. Difference in state population
