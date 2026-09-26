@@ -42,7 +42,8 @@ export const PGK_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "PGK-001" as const;
 export const PGK_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
 export const PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 =
   "PGK-001-ENGLISH-26CP-FREEZE-2026-09-18" as const;
-export const PGK_001_REVISION_POLICY_V1 =\n  "SOURCE_REVIEW_BATCH_AND_APPROVED_LOCALIZATION_OVERLAY_ONLY" as const;
+export const PGK_001_REVISION_POLICY_V1 =
+  "SOURCE_REVIEW_BATCH_AND_APPROVED_LOCALIZATION_OVERLAY_ONLY" as const;
 
 type FrozenPgkQuestion = Readonly<{
   questionId: string;
@@ -391,7 +392,10 @@ export const PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     registrationAuthorityId: PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
     authoringReviewApproved: true,
     chapterContentComplete: true,
-    englishEditorialComplete: true,\n    hindiEditorialComplete: true,\n    punjabiEditorialComplete: true,\n    multilingualLocalizationComplete: true,
+    englishEditorialComplete: true,
+    hindiEditorialComplete: true,
+    punjabiEditorialComplete: true,
+    multilingualLocalizationComplete: true,
     reviewOnly: true,
     frozenCorpusOnly: true,
     immutableCorpus: true,
@@ -402,7 +406,12 @@ export const PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
     qlCount: qlIds.length,
     cpIds: [...cpIds],
     cpCount: cpIds.length,
-    englishQuestionCount: PGK_001_QUESTION_STUDIO_CORPUS_V1.length,\n    hindiQuestionCount: PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1.length,\n    punjabiQuestionCount: PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1.length,\n    multilingualReviewSurfaceCount:\n      PGK_001_QUESTION_STUDIO_CORPUS_V1.length * supportedLanguages.length,\n    englishFreezeAuthorityId: PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
+    englishQuestionCount: PGK_001_QUESTION_STUDIO_CORPUS_V1.length,
+    hindiQuestionCount: PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1.length,
+    punjabiQuestionCount: PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1.length,
+    multilingualReviewSurfaceCount:
+      PGK_001_QUESTION_STUDIO_CORPUS_V1.length * supportedLanguages.length,
+    englishFreezeAuthorityId: PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
     payloadsPerPermanentQl: 6,
     supportedDifficulties: [...supportedDifficulties],
     productionDifficultyClaimsAuthorized: false,
@@ -538,7 +547,10 @@ export const knowledgeV1Pgk001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         seed,
         requestedCount: count,
         candidateCount: candidates.length,
-        corpusQuestionCount: languageCorpus.length,\n        englishFrozenQuestionCount: PGK_001_QUESTION_STUDIO_CORPUS_V1.length,\n        multilingualReviewSurfaceCount:\n          PGK_001_QUESTION_STUDIO_CORPUS_V1.length * supportedLanguages.length,
+        corpusQuestionCount: languageCorpus.length,
+        englishFrozenQuestionCount: PGK_001_QUESTION_STUDIO_CORPUS_V1.length,
+        multilingualReviewSurfaceCount:
+          PGK_001_QUESTION_STUDIO_CORPUS_V1.length * supportedLanguages.length,
         cpCount: cpIds.length,
         qlCount: qlIds.length,
       },
