@@ -2,9 +2,9 @@ import assert from"node:assert/strict";
 import{ENG008_CP001_PASSAGES_V1,ENG008_CP001_QUESTION_AUTHORITIES_V1}from"../chapters/reading-comprehension/ENG-008/CP001/eng-008-cp001-authorities-v1";
 import{ENG008_CP001_FAMILY_IDS_V1,generateEng008Cp001QuestionV1}from"../chapters/reading-comprehension/ENG-008/CP001/eng-008-cp001-v1";
 
-assert.equal(ENG008_CP001_PASSAGES_V1.length,46);
-assert.equal(new Set(ENG008_CP001_PASSAGES_V1.map(x=>x.id)).size,46);
-assert.equal(ENG008_CP001_QUESTION_AUTHORITIES_V1.length,276);
+assert.equal(ENG008_CP001_PASSAGES_V1.length,54);
+assert.equal(new Set(ENG008_CP001_PASSAGES_V1.map(x=>x.id)).size,54);
+assert.equal(ENG008_CP001_QUESTION_AUTHORITIES_V1.length,324);
 assert.equal(new Set(ENG008_CP001_QUESTION_AUTHORITIES_V1.map(x=>x.question.id)).size,228);
 
 const genres=new Map<string,number>(),families=new Map<string,number>(),difficulties=new Set<string>();
