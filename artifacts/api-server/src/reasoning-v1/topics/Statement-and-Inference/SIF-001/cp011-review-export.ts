@@ -21,18 +21,18 @@ function render(question: GeneratedSifQuestion, index: number): string {
   ].join("\n");
 }
 
-export function buildSifCp010ReviewMarkdown(): string {
+export function buildSifCp011ReviewMarkdown(): string {
   const authorities = listSifAuthorities("SIF-CP011");
   const review = buildSifCpReviewPack({ cpId: "SIF-CP011", locale: "en-IN", seed: 91_032 });
   const families = [...new Set(authorities.map((entry) => SIF_CP011_PROFILE_BY_AUTHORITY_ID[entry.id].family))];
   const familyRows = families.map((family) => `| ${family} | ${authorities.filter((entry) => SIF_CP011_PROFILE_BY_AUTHORITY_ID[entry.id].family === family).length} | ${review.questions.filter((entry) => SIF_CP011_PROFILE_BY_AUTHORITY_ID[entry.scenarioId].family === family).length} |`);
   const parity = [91_008, 91_009, 91_013, 91_019].flatMap((seed) => (["en-IN", "hi-IN", "pa-IN"] as const).map((locale) => generateSifQuestion({ cpId: "SIF-CP011", locale, seed })));
   return [
-    "# SIF-CP011 — Conditional Inference — Review V1", "",
+    "# SIF-CP011 — Multiple-Factor Inference — Review V1", "",
     "**Status:** Human-review candidate; not frozen", "**Chapter:** SIF-001 — Statement & Inference",
     "**Difficulty:** Medium to Hard", "**Delivery:** Review only; Question Bank, tests, mocks and public delivery remain locked", "",
     "## Review focus", "",
-    "- read conditional direction in if/then, only-if, unless, provided-that and whenever statements;",
+    "- read multi-factor relationships in if/then, only-if, unless, provided-that and whenever statements;",
     "- track necessary and sufficient conditions without reversing a one-way rule;",
     "- distinguish the condition that is required from a condition that is sufficient;",
     "- avoid inferring a condition from its outcome unless the rule permits that direction.", "",
@@ -51,5 +51,5 @@ export function buildSifCp010ReviewMarkdown(): string {
 if (process.argv[1]?.includes("cp011-review-export")) {
   const outputPath = process.argv[2];
   if (!outputPath) throw new Error("Output path is required.");
-  writeFileSync(outputPath, buildSifCp010ReviewMarkdown(), "utf8");
+  writeFileSync(outputPath, buildSifCp011ReviewMarkdown(), "utf8");
 }
