@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { reasoningV1QuestionStudioAdapter } from '../../../question-studio/engines/reasoning-v1-adapter';
+import { reasoningV1QuestionStudioAdapter } from '../../../../question-studio/engines/reasoning-v1-adapter';
 import {
   MIS_001_QUESTION_STUDIO_PACKAGE,
   generateMis001QuestionStudioBatch,
