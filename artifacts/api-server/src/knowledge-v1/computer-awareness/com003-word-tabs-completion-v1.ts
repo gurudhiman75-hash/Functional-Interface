@@ -143,7 +143,7 @@ const D: readonly WordTabsDefinition[] = [
   {
     qlId: "COM-003-QL-022", targetFactId: "com003-word-insert-table", surfaceMode: "FEATURE_FROM_PURPOSE", examSurfaceFamily: "FUNCTIONAL_APPLICATION", difficulty: "EASY", correctIndex: 0,
     en: { stem: "Which Insert-tab feature organizes information in rows and columns?", options: ["Table", "WordArt", "Bookmark", "Equation"], canonicalAnswer: "Table", explanation: "A table organizes information in rows and columns." },
-    hi: { stem: "पंक्तियाँ और स्तंभ में जानकारी व्यवस्थित करने वाला Insert टैबटैब सुविधा कौन-सा है?", options: ["तालिका", "WordArt", "बुकमार्क", "Equation"], canonicalAnswer: "तालिका", explanation: "तालिका जानकारी को पंक्तियाँ और स्तंभ में व्यवस्थित करता है।" },
+    hi: { stem: "जानकारी को पंक्तियों और कॉलमों में व्यवस्थित करने के लिए Insert टैब की कौन-सी सुविधा प्रयोग होती है?", options: ["तालिका", "WordArt", "बुकमार्क", "Equation"], canonicalAnswer: "तालिका", explanation: "तालिका जानकारी को पंक्तियों और कॉलमों में व्यवस्थित करती है।" },
     pa: { stem: "ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਵਿੱਚ ਜਾਣਕਾਰੀ व्यवस्थित ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?", options: ["ਟੇਬਲ", "WordArt", "ਬੁੱਕਮਾਰਕ", "Equation"], canonicalAnswer: "ਟੇਬਲ", explanation: "ਟੇਬਲ ਜਾਣਕਾਰੀ ਨੂੰ ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਵਿੱਚ व्यवस्थित ਕਰਦਾ ਹੈ।" },
   },
   {
