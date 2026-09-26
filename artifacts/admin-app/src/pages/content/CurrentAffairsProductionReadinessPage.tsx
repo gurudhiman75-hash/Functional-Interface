@@ -15,12 +15,14 @@ import {
   downloadCurrentAffairsMasterPackArtifact,
   generateYesterdayCurrentAffairs,
   getCurrentAffairsDailyMasterPacks,
+  getCurrentAffairsDiscoveryCensus,
   getCurrentAffairsProductionReadiness,
   getCurrentAffairsRecoveryRuns,
   runCurrentAffairsProductionRecovery,
   type CurrentAffairsMasterPackArtifact,
   type CurrentAffairsProductionReadiness,
   type CurrentAffairsRecoveryRuns,
+  type DailyDiscoveryCensus,
   type DailyMasterPack,
   type DailyMasterPackLanguage,
   type DailyMasterPackSet,
@@ -94,6 +96,7 @@ export function CurrentAffairsProductionReadinessPage() {
   const { hasPermission } = useAdminPermissions();
   const canRun = hasPermission('jobs.manage');
   const [readiness, setReadiness] = useState<CurrentAffairsProductionReadiness | null>(null);
+  const [discoveryCensus, setDiscoveryCensus] = useState<DailyDiscoveryCensus | null>(null);
   const [runs, setRuns] = useState<CurrentAffairsRecoveryRuns | null>(null);
   const [masterPacks, setMasterPacks] = useState<DailyMasterPackSet>(emptyMasterPacks);
   const [selectedMasterLanguage, setSelectedMasterLanguage] = useState<DailyMasterPackLanguage>('en');
@@ -111,14 +114,16 @@ export function CurrentAffairsProductionReadinessPage() {
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      const [nextReadiness, nextRuns, nextMasterPacks] = await Promise.all([
+      const [nextReadiness, nextRuns, nextMasterPacks, nextCensus] = await Promise.all([
         getCurrentAffairsProductionReadiness(),
         getCurrentAffairsRecoveryRuns(),
         getCurrentAffairsDailyMasterPacks(),
+        getCurrentAffairsDiscoveryCensus(),
       ]);
       setReadiness(nextReadiness);
       setRuns(nextRuns);
       setMasterPacks(nextMasterPacks.masterPacks);
+      setDiscoveryCensus(nextCensus.census);
       setError(null);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Current Affairs readiness.');
@@ -251,6 +256,12 @@ export function CurrentAffairsProductionReadinessPage() {
   const materializedMasterPackCount = Object.values(masterPacks).filter(Boolean).length;
   const historicalMinDate = shiftDate(readiness.targetDate, -30);
   const historicalSelectedPack = historicalAfter?.[selectedMasterLanguage] ?? null;
+  const discoveryCoverage = discoveryCensus?.targetDate === readiness.targetDate
+    ? discoveryCensus.domainSnapshot.discoveryCoverage ?? null
+    : null;
+  const coverageCategoryCounts = discoveryCoverage?.categoryCounts ?? {};
+  const coverageCategoryEntries = Object.entries(coverageCategoryCounts)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   return (
     <div className="space-y-5">
       <PageHeader
@@ -261,7 +272,7 @@ export function CurrentAffairsProductionReadinessPage() {
       />
 
       <Card className="border-primary/30 bg-primary/5">
-        <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, performs exact-day historical recovery and broad rights-safe discovery, enriches primary facts, reruns clustering and strict verification, and materializes SSC, Banking and Punjab EN/HI/PA drafts plus parity-locked canonical daily master packs. Trusted-news sources remain discovery-only and never replace official verification.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
+        <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, runs mandatory category-by-category open-web discovery, retries coverage holes, performs a bounded 72-hour missed-story catch-up, enriches facts, reruns clustering and strict verification, and materializes SSC, Banking and Punjab EN/HI/PA drafts plus parity-locked canonical daily master packs. Discovery sources remain metadata-only and never bypass editorial approval.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
       </Card>
 
       <CurrentAffairsPastDailyPacksCard currentDate={readiness.targetDate} />
@@ -313,7 +324,7 @@ export function CurrentAffairsProductionReadinessPage() {
 
       <CurrentAffairsMasterPackApprovalCard targetDate={readiness.targetDate} />
 
-      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating bounded Current Affairs replay…</p><p className="text-muted-foreground">Official sources → historical backfill → open-news discovery → facts → verification → notes → translations → review questions → EN/HI/PA parity-locked canonical master packs.</p></div></CardContent></Card> : null}
+      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating bounded Current Affairs replay…</p><p className="text-muted-foreground">Official sources → 24 category sweeps → coverage-hole rescue → 72-hour catch-up → facts → verification → notes → translations → review questions → EN/HI/PA parity-locked canonical master packs.</p></div></CardContent></Card> : null}
 
       {lastGeneration ? <Card className={lastGeneration.summary.allEnglishDraftsPresent ? 'border-success/30' : 'border-warning/30'}><CardHeader><CardTitle className="text-base">Last on-demand result · {lastGeneration.targetDate}</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6"><Metric label="Candidates" value={lastGeneration.after.candidateCount} /><Metric label="Verified events" value={lastGeneration.summary.verifiedEvents} /><Metric label="Needs review" value={lastGeneration.summary.reviewEvents} /><Metric label="English packs" value={`${lastGeneration.summary.englishDraftCount}/3`} /><Metric label="HI + PA packs" value={`${lastGeneration.summary.localizedDraftCount}/6`} /><Metric label="Master packs" value={`${(lastGeneration.summary.masterPackEventCount > 0 ? 1 : 0) + (lastGeneration.summary.localizedMasterPackCount ?? 0)}/3`} /></div>{lastGeneration.officialCandidatePreparation ? <p className="text-xs text-muted-foreground">Official reclassification: {lastGeneration.officialCandidatePreparation.candidateUpdated} candidate(s), {lastGeneration.officialCandidatePreparation.clusterUpdated} open cluster(s) updated before intelligence.</p> : null}{lastGeneration.summary.localizedMasterPacksParityReady === false ? <p className="text-xs text-warning">One or more localized canonical master packs were withheld because exact event-ID parity with English was not yet available.</p> : null}{lastGeneration.summary.blockers.length > 0 ? <p className="text-sm text-warning">{lastGeneration.summary.blockers[0]}</p> : null}</CardContent></Card> : null}
 
@@ -340,6 +351,35 @@ export function CurrentAffairsProductionReadinessPage() {
             <Metric label="Punjab eligible" value={inventory.familyEligible.punjab} />
           </div>
           {inventory.candidateCount === 0 ? <p className="rounded-md border border-destructive/20 bg-destructive/5 p-2 text-sm text-destructive">No source candidates are dated {readiness.targetDate}; the next issue is historical source discovery rather than pack generation.</p> : inventory.openOtherClusterCount > 0 ? <p className="rounded-md border border-warning/20 bg-warning/5 p-2 text-sm text-warning">{inventory.openOtherClusterCount} target-date cluster(s) are still uncategorized and cannot auto-promote.</p> : inventory.verifiedEventCount > 0 && inventory.authoringReadyCount === 0 ? <p className="rounded-md border border-warning/20 bg-warning/5 p-2 text-sm text-warning">Verified events exist, but none has reached learner-authoring readiness.</p> : null}
+        </CardContent>
+      </Card>
+
+      <Card className={discoveryCoverage && (discoveryCoverage.categorySearchesFailed ?? 0) === 0 ? 'border-primary/25' : 'border-warning/30'}>
+        <CardHeader>
+          <CardTitle className="flex flex-wrap items-center justify-between gap-2 text-base">
+            <span className="flex items-center gap-2"><Newspaper className="h-4 w-4" />Discovery coverage matrix · {readiness.targetDate}</span>
+            {discoveryCoverage ? <Badge variant="outline">{discoveryCoverage.categoriesWithResults ?? 0}/{discoveryCoverage.mandatoryCategoryCount ?? 0} categories found</Badge> : <Badge variant="outline">not observed</Badge>}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {discoveryCoverage ? <>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
+              <Metric label="Raw discoveries" value={discoveryCensus?.rawCandidateCount ?? 0} />
+              <Metric label="Target-date web hits" value={discoveryCoverage.targetDateUniqueArticles ?? 0} />
+              <Metric label="Publisher domains" value={discoveryCoverage.observedPublisherDomainCount ?? 0} />
+              <Metric label="Trusted domains" value={discoveryCoverage.registeredTrustedDomainCount ?? 0} />
+              <Metric label="Category sweeps" value={`${discoveryCoverage.categorySearchesSucceeded ?? 0}/${discoveryCoverage.mandatoryCategoryCount ?? 0}`} />
+              <Metric label="Hole rescues" value={`${discoveryCoverage.rescueQueriesSucceeded ?? 0}/${discoveryCoverage.rescueQueriesAttempted ?? 0}`} />
+              <Metric label="72h catch-up" value={discoveryCoverage.lateCatchupCandidates ?? 0} />
+              <Metric label="Coverage holes" value={(discoveryCoverage.unresolvedCoverageHoles ?? []).length} />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {coverageCategoryEntries.map(([key, count]) => <Badge key={key} variant="outline" className={count > 0 ? 'border-success/30 bg-success/5' : 'border-warning/30 bg-warning/5 text-warning'}>{titleCase(key)} · {count}</Badge>)}
+            </div>
+            {(discoveryCoverage.unresolvedCoverageHoles ?? []).length > 0 ? <p className="rounded-md border border-warning/20 bg-warning/5 p-3 text-sm text-warning">No target-date result remained after rescue for: {(discoveryCoverage.unresolvedCoverageHoles ?? []).map(titleCase).join(', ')}. This is a coverage warning, not an instruction to invent an item.</p> : <p className="text-sm text-success">All mandatory categories were searched and every category returned at least one discovery result after rescue.</p>}
+            {(discoveryCoverage.categorySearchesFailed ?? 0) > 0 ? <p className="text-sm text-warning">{discoveryCoverage.categorySearchesFailed} mandatory category search(es) failed. Retry discovery before approval if the missing categories matter for this day.</p> : null}
+            <p className="text-xs text-muted-foreground">Open-web search is metadata-only: headline, URL, source/date and classification signals. Article bodies and search snippets are not persisted. The 72-hour pass only surfaces previously missed dated stories; it does not automatically approve or publish them.</p>
+          </> : <p className="text-sm text-muted-foreground">Run Generate Yesterday Now with the coverage-matrix build to populate persistent category, source-domain and 72-hour catch-up diagnostics.</p>}
         </CardContent>
       </Card>
 
