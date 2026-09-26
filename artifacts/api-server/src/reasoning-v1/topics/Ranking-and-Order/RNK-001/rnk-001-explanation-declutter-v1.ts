@@ -22,10 +22,18 @@ function cleanWhitespace(value: string): string {
 }
 
 function stripPresentationPrefix(value: string): string {
-  return cleanWhitespace(value)
+  const cleaned = cleanWhitespace(value)
     .replace(/^(?:given facts?|given|now apply the relevant rule|apply the relevant rule|using the rule)\s*[:：]\s*/iu, "")
     .replace(/^(?:दिए गए तथ्य|दिया गया|अब संबंधित नियम लगाएँ|संबंधित नियम लगाएँ)\s*[:：]\s*/u, "")
     .replace(/^(?:ਦਿੱਤੇ ਤੱਥ|ਦਿੱਤਾ ਗਿਆ|ਹੁਣ ਸੰਬੰਧਿਤ ਨਿਯਮ ਲਗਾਓ|ਸੰਬੰਧਿਤ ਨਿਯਮ ਲਗਾਓ)\s*[:：]\s*/u, "");
+
+  if (/\b(?:admin metadata|option validation|learner fingerprint|runtime fingerprint|review metadata)\b/iu.test(cleaned)) {
+    return "";
+  }
+  if (/^use the smallest sufficient reasoning display for the task\b/iu.test(cleaned)) {
+    return "";
+  }
+  return cleaned;
 }
 
 function normalizedForComparison(value: string): string {
