@@ -1,3 +1,4 @@
+import { ENG008_CP004_EXPANSION_WAVE9_V1 } from "./eng-008-cp004-expansion-wave9-v1";
 import { ENG008_CP004_EXPANSION_WAVE8_V1 } from "./eng-008-cp004-expansion-wave8-v1";
 import { ENG008_CP004_EXPANSION_WAVE7_V1 } from "./eng-008-cp004-expansion-wave7-v1";
 import { ENG008_CP004_EXPANSION_WAVE6_V1 } from "./eng-008-cp004-expansion-wave6-v1";
@@ -21,6 +22,7 @@ const q=(id:string,familyId:Eng008Cp004FamilyId,difficulty:Eng008Cp004Difficulty
 
 export const ENG008_CP004_PASSAGES_V1:readonly Eng008Cp004PassageV1[
 ...ENG008_CP004_EXPANSION_WAVE8_V1,]=[
+...ENG008_CP004_EXPANSION_WAVE9_V1,
 ...ENG008_CP004_EXPANSION_WAVE7_V1,
 ...ENG008_CP004_EXPANSION_WAVE6_V1,
 ...ENG008_CP004_EXPANSION_WAVE5_V1,
