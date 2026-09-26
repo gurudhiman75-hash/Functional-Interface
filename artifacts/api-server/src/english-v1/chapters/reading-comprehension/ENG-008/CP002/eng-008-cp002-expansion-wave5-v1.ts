@@ -13,7 +13,7 @@ Visual design also matters. Large headings, short numbered steps and familiar sy
 
 Emergency communication should also be tested with ordinary users rather than only with the people who wrote it. An instruction that seems obvious to a trained employee may confuse someone seeing the situation for the first time.
 
-Good emergency guidance therefore combines accuracy with speed of understanding. The goal is not merely to include every correct fact, but to make the most important action hard to miss when attention is limited.`,
+Good emergency guidance therefore combines accuracy with speed of understanding. The goal is not merely to include every correct fact, but to make the most important action hard to miss when attention is limited. This approach also helps when instructions must work across languages. A clear hierarchy of actions makes translation easier because translators can preserve the order of urgent steps instead of reproducing a dense block of text.`,
  questions:[
  q("E14-Q1","RC2-F01","easy","What does the author say should appear first in emergency instructions?","The immediate actions people need to take",["The history of the building","Legal background","Decorative graphics"],"The passage says the first actions should be visible immediately.","first actions should therefore be visible immediately"),
  q("E14-Q2","RC2-F02","medium","Why can long paragraphs be a problem in emergencies?","People may be stressed and unable to read carefully",["Long text is always inaccurate","Legal information is unnecessary","People never read signs"],"The passage emphasises limited attention and hurried scanning.","anxious or in a hurry"),
@@ -37,7 +37,7 @@ This does not make the newer data less useful. A better method may produce more 
 
 Analysts also need to decide whether older data can be recalculated under the new definition. Sometimes that is possible; sometimes the underlying records do not contain enough detail.
 
-A transparent dashboard should not pretend away these limits. It should help readers distinguish real change from changes in measurement so that a clean-looking chart does not create false certainty.`,
+A transparent dashboard should not pretend away these limits. It should help readers distinguish real change from changes in measurement so that a clean-looking chart does not create false certainty. Version dates are useful for the same reason. If a dashboard clearly states when a definition changed, later readers can understand why two apparently continuous points may not represent exactly the same concept.`,
  questions:[
  q("E15-Q1","RC2-F01","easy","What problem can occur when a data definition changes?","Values from different periods may no longer be directly comparable",["All older data becomes false","Charts cannot be used","New data always falls"],"The passage directly warns against mechanical comparison across a definition change.","should not be compared mechanically"),
  q("E15-Q2","RC2-F02","medium","What can be inferred about improved reporting rules?","They can make recorded values rise even without an equally large real-world increase",["They always reduce recorded values","They make data useless","They remove the need for notes"],"The crime example illustrates a measurement-driven increase.","may rise after reporting rules improve"),
@@ -61,7 +61,7 @@ Residents living above shops also reported more noise from cleaning vehicles dur
 
 The trial did not measure whether total litter generation changed. It only tested whether a different cleaning time made existing work easier.
 
-Officials concluded that evening sweeping improved access on several market roads but needed local adjustment where late-night activity or residential noise was important. The next phase will compare labour time, complaints and cleanliness ratings before deciding whether to expand the schedule.`,
+Officials concluded that evening sweeping improved access on several market roads but needed local adjustment where late-night activity or residential noise was important. The next phase will compare labour time, complaints and cleanliness ratings before deciding whether to expand the schedule. The municipality also recorded fuel use because a later schedule could change travel patterns between roads. That measure did not show a large difference, but officials decided to keep it in the next trial so operational cost would not be judged only through labour time.`,
  questions:[
  q("R10-Q1","RC2-F01","easy","Why was evening sweeping tested?","Morning delivery vehicles were obstructing cleaning",["Streetlights were too bright","Shops opened only at night","Residents requested louder equipment"],"The opening paragraph directly identifies delivery traffic as the problem.","making it harder for sweepers to reach the kerb"),
  q("R10-Q2","RC2-F02","medium","What can be inferred about the two restaurant roads?","Late-night activity reduced some of the benefit of evening cleaning",["They had no litter","Restaurants closed early","Sweeping was cancelled permanently"],"Those roads still had obstacles because they remained busy late.","still faced obstacles"),
@@ -85,7 +85,7 @@ One centre initially had difficulty because visitors could not easily see the di
 
 Staff also found that some elderly visitors needed help understanding when their number was called, so a spoken announcement was added alongside the visual display.
 
-Officials concluded that the token system improved clarity and comfort without increasing service capacity. They plan to test whether appointment booking by time slot can reduce actual waiting, while keeping the token system for walk-in visitors.`,
+Officials concluded that the token system improved clarity and comfort without increasing service capacity. They plan to test whether appointment booking by time slot can reduce actual waiting, while keeping the token system for walk-in visitors. The district will also measure how often visitors leave before being served. A clearer queue may reduce uncertainty without reducing the wait, but abandonment rates could show whether comfort and predictability still affect whether people remain in the system.`,
  questions:[
  q("R11-Q1","RC2-F01","easy","What was the main purpose of the token system?","To make turn order clearer",["To increase the number of counters","To reduce every service time","To eliminate walk-in visits"],"The opening paragraph states the aim directly.","reduce uncertainty about turn order"),
  q("R11-Q2","RC2-F02","medium","Why did average waiting time change little?","Service capacity stayed the same",["Visitors refused tokens","The displays failed","Counters closed earlier"],"The same number of counters remained open.","same number of counters"),
