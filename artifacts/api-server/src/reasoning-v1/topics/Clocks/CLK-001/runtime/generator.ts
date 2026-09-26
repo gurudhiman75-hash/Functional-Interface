@@ -4,6 +4,7 @@ import {
   checkpointForClockTask,
   type ClockTaskId,
 } from "./catalog";
+import { remediateAnchorDistractors } from "./anchor-distractor-remediation";
 import { auditClockItemDifficulty } from "./difficulty-item";
 import {
   CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION,
@@ -49,7 +50,7 @@ function solvePrototype(input: {
   if (solved.taskId !== input.taskId) {
     throw new Error(`CLK-001 solver returned mismatched task ${solved.taskId} for ${input.taskId}.`);
   }
-  return normalizeSolvedClockPresentation(solved);
+  return normalizeSolvedClockPresentation(remediateAnchorDistractors(solved));
 }
 
 function assertContractEvidence(
