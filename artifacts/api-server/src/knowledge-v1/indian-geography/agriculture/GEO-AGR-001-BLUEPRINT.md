@@ -94,7 +94,8 @@ CP006 samples and audits the entire chapter after all owning QLs are approved. I
 - Blueprint restructured into five owning thematic CPs plus one mastery/closure CP.
 - CP001 — Farming Foundation & Food Crops — human-approved and merged.
 - CP002 — Commercial & Industrial Crops — human-approved and merged.
-- CP003 — Plantation, Horticulture & Other High-value Crops — under review.
-- CP004–CP005 — pending.
+- CP003 — Plantation, Horticulture & Other High-value Crops — human-approved and merged.
+- CP004 — Agricultural Systems, Irrigation, Inputs & Green Revolution — under review.
+- CP005 — pending.
 - CP006 — mastery/closure after owning content is approved.
 - No runtime/public registration is authorized.
