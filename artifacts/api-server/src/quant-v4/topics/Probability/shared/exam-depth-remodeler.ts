@@ -150,7 +150,14 @@ function renderObjectStem(entry: ProbabilityTaskRegistryEntry, parameters: Gener
     return `${composition} One ${context.singular} is ${context.selectionVerb} and replaced before a second selection. What is the probability that both selected ${context.item} are red?`;
   }
   if (["findSuccessiveDependentProbability", "findWithoutReplacementProbability"].includes(mode)) {
-    return `${composition} Two ${context.item} are selected one after another without replacement. What is the probability that both are red?`;
+    const form = variant(entry, 3);
+    if (form === 0) {
+      return `${composition} Two ${context.item} are selected one after another without replacement. What is the probability that both are red?`;
+    }
+    if (form === 1) {
+      return `${composition} A first ${context.singular} is selected and kept aside, then a second is selected. What is the probability that both selected ${context.item} are red?`;
+    }
+    return `${composition} Two successive selections are made without replacing the first ${context.singular}. Find the probability that each selected ${context.singular} is red.`;
   }
   if (mode === "findOrderedDrawSequenceProbability") {
     return `${composition} Two ${context.item} are selected one after another without replacement. What is the probability of getting red first and blue second?`;
