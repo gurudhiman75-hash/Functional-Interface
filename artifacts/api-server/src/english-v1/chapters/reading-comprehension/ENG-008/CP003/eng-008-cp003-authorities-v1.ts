@@ -1,3 +1,4 @@
+import { ENG008_CP003_EXPANSION_WAVE1_V1 } from "./eng-008-cp003-expansion-wave1-v1";
 export type Eng008Cp003Difficulty="easy"|"medium";
 export type Eng008Cp003Genre="narrative"|"social"|"science"|"business";
 export type Eng008Cp003FamilyId="BP-F01"|"BP-F02"|"BP-F03"|"BP-F04"|"BP-F05"|"BP-F06"|"BP-F07"|"BP-F08"|"BP-F09";
@@ -12,6 +13,7 @@ export interface Eng008Cp003PassageV1{
 const q=(id:string,familyId:Eng008Cp003FamilyId,difficulty:Eng008Cp003Difficulty,question:string,correctAnswer:string,distractors:readonly [string,string,string],explanation:string,evidence:string):Eng008Cp003QuestionAuthorityV1=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
 
 export const ENG008_CP003_PASSAGES_V1:readonly Eng008Cp003PassageV1[]=[
+...ENG008_CP003_EXPANSION_WAVE1_V1,
 {
  id:"ENG008-BP-N01",title:"The Dog at the Station",genre:"narrative",
  text:`Every morning, a brown dog appeared near the small railway station just before the first passenger train arrived. The station staff assumed it belonged to someone in the nearby market, but no one came to claim it. The dog never entered the platforms when trains were moving. Instead, it waited beside the outer gate and followed the same elderly fruit seller to his stall after the morning rush.
