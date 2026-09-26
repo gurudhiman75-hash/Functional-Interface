@@ -33,6 +33,11 @@ import {
   generateClk001QuestionStudioBatch,
   isClk001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Clocks/CLK-001/question-studio-integration";
+import {
+  MIS_001_QUESTION_STUDIO_PACKAGE,
+  generateMis001QuestionStudioBatch,
+  isMis001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Missing-Number/MIS-001/question-studio-integration";
 
 export const OPS001_QUESTION_STUDIO_PACKAGE_ID_V1 = "OPS-001" as const;
 export const OPS001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -266,6 +271,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
+      MIS_001_QUESTION_STUDIO_PACKAGE,
       COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
     ];
   },
@@ -273,6 +279,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
     if (isClk001QuestionStudioRequest(request)) {
       return generateClk001QuestionStudioBatch(request);
+    }
+    if (isMis001QuestionStudioRequest(request)) {
+      return generateMis001QuestionStudioBatch(request);
     }
     if (isDir001QuestionStudioRequest(request)) {
       return generateDir001QuestionStudioBatch(request);
