@@ -12,9 +12,7 @@ The volunteers then divided the shelf into broad categories and added a small re
 
 Instead of buying many new books, the volunteers first circulated the request list among residents. Several families donated titles that matched the most common requests. Within two months, the number of books sitting untouched for more than three weeks fell noticeably.
 
-The group still kept the exchange informal. No fines were introduced, and residents were not required to register. The notebook was used only to understand circulation patterns, not to create a strict lending system.
-
-One unexpected result was that the request box also reduced duplicate donations. Before the change, three families had donated similar old encyclopaedias in the same week. Later, donors checked the request list before bringing books down.
+The group still kept the exchange informal. No fines were introduced, and residents were not required to register. The notebook was used only to understand circulation patterns, not to create a strict lending system. One unexpected result was that the request box also reduced duplicate donations. Before the change, three families had donated similar old encyclopaedias in the same week. Later, donors checked the request list before bringing books down.
 
 The volunteers concluded that a shared resource works better when organisers observe actual use rather than assuming that supply alone will create interest. The shelf did not need to become a formal library; it simply needed better information about what people were looking for. The volunteers also began reviewing the request notes once a month instead of reacting to each request separately. This helped them notice repeated demand without allowing one unusual request to reshape the whole shelf. They kept a few older books even when they were borrowed less often because some residents still valued variety.`,
  questions:[
@@ -39,13 +37,9 @@ For a four-week trial, the café displayed a shorter lunch menu during the busie
 
 Average order-taking time fell, and food preparation became more predictable. Staff also reported throwing away less of two ingredients that had previously been used mainly in low-demand dishes.
 
-However, not every response was positive. A small group of regular customers missed two vegetarian dishes that had been removed from the peak-hour menu. The owner added one of them back in the third week after receiving repeated requests.
+However, not every response was positive. A small group of regular customers missed two vegetarian dishes that had been removed from the peak-hour menu. The owner added one of them back in the third week after receiving repeated requests. The trial did not show that smaller menus are always better. The café's evening customers spent more time choosing and often ordered less common dishes, so the owner kept the full menu later in the day.
 
-The trial did not show that smaller menus are always better. The café's evening customers spent more time choosing and often ordered less common dishes, so the owner kept the full menu later in the day.
-
-The owner also checked whether faster ordering had simply shifted the delay into the kitchen. Preparation time improved slightly rather than worsening because cooks handled fewer low-volume items during the rush.
-
-At the end of the trial, the café kept the shorter peak-hour menu but decided to review it every month. The lesson was not to reduce choice for its own sake, but to match the menu to demand and time pressure instead of offering the same range in every situation. The owner also compared customer complaints with sales before each monthly review. This prevented one loud preference from outweighing the broader ordering pattern. If demand for a removed dish rose steadily, it could return to the peak menu; if not, the shorter list would remain.`,
+The owner also checked whether faster ordering had simply shifted the delay into the kitchen. Preparation time improved slightly rather than worsening because cooks handled fewer low-volume items during the rush. At the end of the trial, the café kept the shorter peak-hour menu but decided to review it every month. The lesson was not to reduce choice for its own sake, but to match the menu to demand and time pressure instead of offering the same range in every situation. The owner also compared customer complaints with sales before each monthly review. This prevented one loud preference from outweighing the broader ordering pattern. If demand for a removed dish rose steadily, it could return to the peak menu; if not, the shorter list would remain.`,
  questions:[
  q("B03-Q1","BP-F01","easy","How many dishes accounted for nearly three-quarters of lunch orders?","Eight",["Twelve","Twenty-four","Four"],"The second paragraph directly states that eight dishes accounted for most lunch orders.","eight dishes accounted for nearly three-quarters"),
  q("B03-Q2","BP-F02","medium","Why did the owner add one vegetarian dish back during the trial?","Regular customers repeatedly requested it",["The kitchen had too much of its main ingredient","It was the cheapest dish to prepare","The cashier preferred it"],"The passage says repeated customer requests led to one removed dish being restored.","after receiving repeated requests"),
