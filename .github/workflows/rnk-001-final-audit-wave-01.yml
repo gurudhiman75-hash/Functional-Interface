@@ -1,0 +1,69 @@
+name: Reasoning RNK-001 Final Audit Wave 01
+# CI-FANOUT-ALLOW: non-main-base
+
+on:
+  pull_request:
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
+      - .github/workflows/rnk-001-final-audit-wave-01.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-001-final-audit-wave-01-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-001-wave-01:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Typecheck recovered RNK-001 and current adapter
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Ranking-and-Order/RNK-001 -name '*.ts' -print) \
+            src/question-studio/engines/reasoning-v1-adapter.ts
+
+      - name: Prove Wave 01 recovery and current integration
+        working-directory: artifacts/api-server
+        run: |
+          set -euo pipefail
+          files=(
+            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-01.test.ts"
+            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-chapter-closeout-v1.test.ts"
+            "src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.test.ts"
+          )
+          mkdir -p dist/reasoning-v1
+          for file in "${files[@]}"; do
+            out="dist/reasoning-v1/$(basename "${file%.ts}").mjs"
+            pnpm exec esbuild "$file" --bundle --platform=node --format=esm --outfile="$out"
+            node "$out"
+          done
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server run build
