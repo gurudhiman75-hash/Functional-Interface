@@ -39,11 +39,16 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   },
   {
     topicDirectory: 'Blood-Relations',
-    chapterId: null,
-    status: 'DEDICATED_NOVELTY_AUDIT_PENDING',
-    evidence: [],
+    chapterId: 'BLR-001',
+    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    evidence: [
+      'A coded-relation graph is decoded first, then a second-stage filtered granddaughter count is solved from the reconstructed family.',
+      'The lane composes existing BLR-QL-026 coded decoding with BLR-QL-013 family-counting semantics.',
+      'The existing CP006 decoder is reused; the count is independently recomputed from decoded parent edges and gender evidence.',
+      'BLR-QL-036 remains unallocated and Question Studio novelty mixing remains disabled.',
+    ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Audit family-graph/query recombination under exact kinship solving.',
+    nextGate: 'Human-review coded-count learner surfaces before chapter-mix activation.',
   },
   {
     topicDirectory: 'Calendar',
