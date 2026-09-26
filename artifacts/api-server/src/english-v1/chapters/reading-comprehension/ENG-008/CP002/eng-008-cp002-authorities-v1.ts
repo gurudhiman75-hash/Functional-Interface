@@ -74,7 +74,11 @@ export const ENG008_CP002_PASSAGES_V1:readonly Eng008Cp002PassageV1[]=[
 
 A stronger response begins by asking where people are exposed, who is most vulnerable and which parts of the day create the greatest risk. That may lead one neighbourhood to prioritise trees and another to improve shaded walking routes or public water access.
 
-The lesson is not that cities need every intervention everywhere. It is that heat planning works better when measures are matched to local conditions instead of being selected mainly because they are easy to announce.`,
+The lesson is not that cities need every intervention everywhere. It is that heat planning works better when measures are matched to local conditions instead of being selected mainly because they are easy to announce.
+
+Heat reduction also depends on when and where people experience the city. A shaded footpath may matter more to a pedestrian than a small change in average neighbourhood temperature, while a cool roof may help a top-floor household more directly than a distant park. This is why city plans should connect broad temperature goals with the places where exposure is actually highest.
+
+The practical lesson is that urban cooling works best as a package. Trees, reflective surfaces, ventilation, drinking-water access and building design solve different parts of the same problem. Treating one measure as a universal fix risks spending money without addressing the conditions that make particular streets or homes uncomfortable.`,
  questions:[
   q("E05-Q1","RC2-F01","easy","Which measure is mentioned as one possible response to urban heat?","Reflective roofs",["Underground parking","Fewer bus stops","Longer shopping hours"],"Reflective roofs are directly listed among possible measures.","more trees, reflective roofs, shaded bus stops"),
   q("E05-Q2","RC2-F02","medium","Why does the author mention older pedestrians?","To show that shade alone may not meet every user's needs",["To argue older people should avoid walking","To show benches create heat","To suggest only elderly residents need cooling measures"],"The example shows how the same intervention may be insufficient without seating or other support.","may still be difficult for older pedestrians if there is nowhere to sit"),
@@ -92,7 +96,11 @@ The lesson is not that cities need every intervention everywhere. It is that hea
 
 The answer is not to abandon online services. It is to design an offline route for cases where digital access fails. A staffed help point, assisted application desk or clearly published paper alternative can prevent a minor technical problem from becoming a barrier to an essential service.
 
-Good digital design therefore includes a fallback. The success of an online service should be measured not only by how many people use it easily, but also by how well the system handles those who cannot.`,
+Good digital design therefore includes a fallback. The success of an online service should be measured not only by how many people use it easily, but also by how well the system handles those who cannot.
+
+Offline access also matters when digital systems fail temporarily. A resident may understand an app perfectly and still be unable to use it because of a damaged phone, poor signal or a server outage. A backup channel therefore protects not only people who are less digitally confident, but anyone who happens to lose access at the wrong moment.
+
+This does not mean every service needs a large physical office. Phone support, assisted kiosks or scheduled help desks may provide enough redundancy. The key principle is that convenience should expand access rather than quietly redefine public participation as something available only to people with the right device and connection.`,
  questions:[
   q("E06-Q1","RC2-F01","easy","Which advantage of online forms is directly mentioned?","They can reduce queues",["They remove the need for staff entirely","They guarantee faster decisions","They eliminate documentation"],"Reducing queues is one of the stated benefits.","Online forms can reduce queues"),
   q("E06-Q2","RC2-F02","medium","What can be inferred about the author's view of digital services?","They are valuable but should not become the only route",["They should be abandoned","They work equally well for every user","They are useful only outside office hours"],"The author supports online services while arguing for an offline fallback.","The answer is not to abandon online services"),
@@ -110,7 +118,11 @@ Good digital design therefore includes a fallback. The success of an online serv
 
 Designing devices with repair in mind would not eliminate electronic waste, nor would it make every repair economical. It could, however, extend the life of many products and give owners more options.
 
-The strongest case for repairability is therefore not that repair is always better. It is that products should not become disposable merely because a replaceable component has failed.`,
+The strongest case for repairability is therefore not that repair is always better. It is that products should not become disposable merely because a replaceable component has failed.
+
+Repairability also affects competition after the original sale. When only an authorised centre can replace a battery or screen, customers may face higher prices or long delays even for routine faults. If parts, manuals and basic tools are available more widely, independent technicians can compete on price and service quality.
+
+There are limits. Some devices contain safety-sensitive parts, and poorly performed repairs can create new risks. But those cases argue for clear standards and training, not for making ordinary repair impossible. A sensible repair policy distinguishes between genuinely sensitive work and restrictions that mainly reduce consumer choice.`,
  questions:[
   q("E07-Q1","RC2-F01","easy","Which faulty component is mentioned in the passage?","A charging port",["A printer cartridge","A bicycle chain","A refrigerator shelf"],"A damaged charging port is directly listed as an example.","battery, screen or charging port"),
   q("E07-Q2","RC2-F02","medium","What can be inferred about the author's view of repairability?","It can increase consumer choice even when some repairs are not worthwhile",["It makes replacement unnecessary","It guarantees cheaper products","It should apply only to batteries"],"The author explicitly accepts that not every repair is economical while valuing more options.","give owners more options"),
@@ -128,7 +140,11 @@ The strongest case for repairability is therefore not that repair is always bett
 
 Transport agencies often treat information as something secondary to the physical service. In practice, passengers make decisions before a vehicle arrives: whether to wait, walk, change routes or choose another mode. Those decisions depend on accurate and visible information.
 
-Improving information will not fix overcrowding or traffic delays. But it can make the existing network easier to use and can reduce uncertainty during disruptions. A transport system is not only the vehicles that move; it is also the information that allows people to use them intelligently.`,
+Improving information will not fix overcrowding or traffic delays. But it can make the existing network easier to use and can reduce uncertainty during disruptions. A transport system is not only the vehicles that move; it is also the information that allows people to use them intelligently.
+
+Information quality matters most when a service is disrupted. A route map that works perfectly on an ordinary day is less helpful if passengers cannot tell where a temporary stop has moved or whether the next bus is twenty minutes away. In those moments, accurate updates become part of the transport service itself rather than an optional extra.
+
+Good information also reduces pressure on staff. When passengers can see delays, platform changes and expected arrival times clearly, fewer people need to ask the same questions individually. That makes transparency useful both to travellers and to the organisations trying to manage a busy network.`,
  questions:[
   q("E08-Q1","RC2-F01","easy","Which information problem is mentioned?","An outdated timetable",["Too many ticket counters","Too many route maps","Excessive bus frequency"],"An outdated timetable is directly listed in the first paragraph.","A timetable that is outdated"),
   q("E08-Q2","RC2-F02","medium","Why does the author say information affects journeys before a bus arrives?","Passengers use it to decide whether to wait, walk or change routes",["Drivers use it to repair vehicles","It determines road width","It controls fuel prices"],"The passage directly explains the decisions passengers make in advance.","whether to wait, walk, change routes or choose another mode"),
@@ -146,7 +162,11 @@ Improving information will not fix overcrowding or traffic delays. But it can ma
 
 Officials compared calls to a public helpline before and during the trial. Questions about the timing of peak heat fell, while requests for information about local cooling centres increased. The administration did not interpret this as proof that the messages had reduced heat-related illness; the trial was designed to test whether information reached people clearly and prompted useful questions.
 
-The next phase will examine whether messages should be offered in more languages and whether alerts need to be repeated later in the day.`,
+The next phase will examine whether messages should be offered in more languages and whether alerts need to be repeated later in the day.
+
+The district also compared how residents responded to different message formats. Short alerts that named the hottest hours and suggested two or three practical actions were more likely to be remembered than longer messages containing several paragraphs of explanation. Officials therefore decided that future alerts should keep essential advice visible first and place additional detail behind a link or helpline.
+
+Researchers cautioned that message recall was not the same as improved health outcomes. The pilot could show whether people noticed and understood the alerts, but it was not large enough to prove that the messages reduced heat-related illness.`,
  questions:[
   q("R01-Q1","RC2-F01","easy","What information did the morning alerts include?","Expected peak-heat hours",["Daily rainfall totals","Hospital waiting times","Electricity prices"],"Peak-heat hours are directly listed among the alert contents.","expected peak-heat hours"),
   q("R01-Q2","RC2-F02","medium","What does the increase in cooling-centre questions suggest?","Some recipients may have acted on the practical information in the alerts",["Cooling centres had closed","Residents ignored the messages","Peak temperatures had fallen"],"The trial observed a shift toward practical follow-up questions after messaging.","requests for information about local cooling centres increased"),
@@ -164,7 +184,11 @@ The next phase will examine whether messages should be offered in more languages
 
 During the first week, food waste was frequently mixed with plastic wrapping. After short demonstrations were held at the start of the second week, contamination of the wet-waste containers declined. However, some cardboard continued to be placed with food waste on rainy days because vendors were trying to keep it from becoming scattered around the market.
 
-The pilot report recommended clearer covered storage for dry waste before expanding the programme. It concluded that instructions had improved sorting, but that storage conditions also influenced behaviour.`,
+The pilot report recommended clearer covered storage for dry waste before expanding the programme. It concluded that instructions had improved sorting, but that storage conditions also influenced behaviour.
+
+Market supervisors also tracked whether sorting slowed down vendors during the busiest hour. At first, some stalls needed extra time because workers were unsure which container to use. After labels were simplified and the collection points were moved closer to the stalls, the delay became smaller.
+
+The pilot therefore showed that participation depended partly on design. Asking vendors to separate waste was easier when instructions were clear and the containers were placed where the work already happened. The council plans to test the revised layout before deciding whether the system should be expanded to other markets.`,
  questions:[
   q("R02-Q1","RC2-F01","easy","What two waste streams were vendors asked to separate?","Wet organic waste and dry packaging",["Glass and metal only","Food and wastewater","Paper and electronic waste"],"The first paragraph directly identifies the two streams.","wet organic waste and dry packaging"),
   q("R02-Q2","RC2-F02","medium","Why did some cardboard continue to be mixed with food waste?","Vendors were responding to poor storage conditions during rain",["They had not received any containers","They believed cardboard was organic","Collection workers requested it"],"The report explains that rain and lack of covered storage influenced the behaviour.","on rainy days because vendors were trying to keep it from becoming scattered"),
@@ -182,7 +206,11 @@ The pilot report recommended clearer covered storage for dry waste before expand
 
 Most loans were returned on schedule, but staff found that a small number of devices repeatedly came back with very low battery levels. Instead of treating this only as a discipline issue, the schools surveyed borrowers. Several students reported that they had limited access to charging points at home.
 
-The programme then added charging slots at school before devices were taken home and allowed students to exchange an uncharged tablet for a ready one. Late assignment submissions among participating borrowers fell during the following month, though the schools noted that the trial was too small to establish a broad causal claim.`,
+The programme then added charging slots at school before devices were taken home and allowed students to exchange an uncharged tablet for a ready one. Late assignment submissions among participating borrowers fell during the following month, though the schools noted that the trial was too small to establish a broad causal claim.
+
+The trial also revealed that device availability was only one part of the problem. A few students had a tablet at home but unreliable internet access, while others shared the device with siblings in the evening. Teachers therefore began allowing some assignments to be downloaded at school so that students could work offline later.
+
+The school did not treat this as proof that every student needed a personal device. Instead, the project helped identify different barriers hidden behind the broad phrase “digital access.” Future decisions will consider connectivity, sharing arrangements and the type of work students are expected to complete.`,
  questions:[
   q("R03-Q1","RC2-F01","easy","For how long could students borrow a tablet?","Three days",["One day","One week","One month"],"The first paragraph directly states the loan period.","three days at a time"),
   q("R03-Q2","RC2-F02","medium","Why did the schools survey borrowers?","To understand why some devices were repeatedly returned uncharged",["To decide which subjects should use tablets","To measure internet speed","To choose new tablet brands"],"The survey followed the repeated low-battery pattern and revealed charging constraints.","Instead of treating this only as a discipline issue, the schools surveyed borrowers"),
@@ -200,7 +228,11 @@ The programme then added charging slots at school before devices were taken home
 
 Attendance at water-management meetings increased modestly after the boards were introduced. Officials also reported that residents began asking more specific questions about irrigation timing and recharge work. The project team cautioned that the change could not be attributed to the notice boards alone because a separate awareness campaign was running at the same time.
 
-The pilot nevertheless suggested that simple, regularly updated information can make technical monitoring easier for the public to discuss, especially when uncertainty and seasonal variation are explained rather than hidden.`,
+The pilot nevertheless suggested that simple, regularly updated information can make technical monitoring easier for the public to discuss, especially when uncertainty and seasonal variation are explained rather than hidden.
+
+The notice boards also included simple explanations of why groundwater levels could change from one month to the next. This was important because residents sometimes interpreted a short-term rise after rain as proof that the long-term problem had disappeared. The added notes helped separate seasonal movement from the broader trend.
+
+Officials said the boards were most useful when they prompted better questions rather than when they merely displayed numbers. The next phase will test whether residents can explain the indicators in their own words and whether meeting discussions become more specific over time.`,
  questions:[
   q("R04-Q1","RC2-F01","easy","What did each notice board show?","Whether the monitored water level had risen, fallen or stayed broadly stable",["Daily rainfall forecasts only","Names of all well owners","Electricity use by pumps"],"The first paragraph directly describes the displayed comparison.","risen, fallen or remained broadly stable"),
   q("R04-Q2","RC2-F02","medium","Why were seasonal notes included?","To help residents interpret changes without oversimplifying them",["To replace groundwater measurements","To predict crop prices","To discourage public questions"],"The final paragraph values explaining seasonal variation and uncertainty.","seasonal influences"),
