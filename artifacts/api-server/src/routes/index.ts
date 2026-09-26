@@ -96,7 +96,6 @@ import studentAccountDeletionRouter from "./student-account-deletion";
 import studentAccountRecoveryRouter from "./student-account-recovery";
 import studentExamPreferencesRouter from "./student-exam-preferences";
 import studentTestSeriesRouter from "./student-test-series";
-import adminSessionRouter from "./admin-session";
 import retiredLegacyRouter from "./retired-legacy";
 
 const router: IRouter = Router();
@@ -119,7 +118,6 @@ router.use(canonicalStudentReadRouter);
 router.use(publishedTestMultilingualRunnerRouter);
 router.use(publishedTestRunnerRouter);
 router.use("/published-tests", publishedTestsRouter);
-router.use("/admin/session", adminSessionRouter);
 router.use("/admin/learning-resources", adminLearningResourcesRouter);
 router.use("/admin/learning-resource-editor", adminLearningResourceEditorRouter);
 router.use("/admin/notes-studio", adminNotesStudioJobListRouter);
