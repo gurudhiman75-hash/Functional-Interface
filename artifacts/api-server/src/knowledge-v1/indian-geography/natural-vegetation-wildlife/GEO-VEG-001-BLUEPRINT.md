@@ -1,6 +1,6 @@
 # GEO-VEG-001 — Natural Vegetation & Wildlife of India
 
-Status: ACTIVE IMPLEMENTATION — WAVE 3 (CP008–CP010) APPROVED
+Status: CONTENT CLOSED — HUMAN APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-VEG-001`
@@ -102,25 +102,37 @@ All implementation remains review-only until explicit human approval. Question S
 
 ## 10. Current state
 
-Wave 1 is human-approved and merged:
-- CP001–CP004 — QL001–QL036 — 216 owning questions.
+Human-approved and merged:
+- Wave 1: CP001–CP004 — QL001–QL036 — 216 owning questions.
+- Wave 2: CP005–CP007 — QL037–QL063 — 162 owning questions.
+- Wave 3: CP008–CP010 — QL064–QL090 — 162 owning questions.
 
-Wave 2 is human-approved and merged:
-- CP005–CP007 — QL037–QL063 — 162 owning questions.
+Human-approved final wave:
+- CP011 — Climate–Relief–Vegetation Comparative Identification — QL091–QL099 — 54 questions.
+- CP012 — Multi-fact / Statement / Match Integration — QL100–QL108 — 54 questions.
+- CP013 — Exhaustive Vegetation & Wildlife Mastery — 108 questions, exactly one representative from every QL001–QL108.
 
-Wave 3 is human-approved as three 54-question owning checkpoints:
-- CP008 — Characteristic Trees & Forest-Species Identification — QL064–QL072.
-- CP009 — Wildlife Habitats & Regional Distribution — QL073–QL081.
-- CP010 — Biodiversity & Conservation Concepts — QL082–QL090.
+After CP012, the owning pool reaches the chapter contract:
+- 108 permanent QLs;
+- 648 owning questions;
+- Easy216 / Medium360 / Hard72;
+- answer positions A162 / B162 / C162 / D162.
 
-Each Wave 3 checkpoint preserves:
-- 54 questions and six questions per permanent QL;
-- Easy18 / Medium30 / Hard6;
-- A14 / B14 / C13 / D13;
-- unique stems and explanations;
-- domain-plausible distractors;
-- static source-governed facts only;
-- no dynamic population, protected-area-count or species-status snapshots;
-- review-only lifecycle with runtime publication disabled.
+CP013 is a non-owning mastery layer:
+- Easy36 / Medium60 / Hard12;
+- answer positions A27 / B27 / C27 / D27;
+- no new permanent QLs;
+- meta/generated-style stems rejected.
 
-Wave 3 adds 27 permanent QLs and 162 owning questions and has explicit human approval. CP011 begins Climate–Relief–Vegetation Comparative Identification.
+The final batch has explicit human approval. The 648-question chapter audit and CP013 mastery qualification have passed, and the final review payload has passed the full Geography regression and production build. GEO-VEG-001 is content-closed. Runtime/public publication and Question Studio registration remain separately governed.
+
+Closure validation requested after explicit human approval.
+
+## 11. Closure proof
+
+- Owning pool: 648 questions across 108 permanent QLs, six per QL.
+- Difficulty: Easy216 / Medium360 / Hard72.
+- Answer positions: A162 / B162 / C162 / D162.
+- CP013 mastery: 108 questions, one per QL; Easy36 / Medium60 / Hard12; A27 / B27 / C27 / D27.
+- CP011, CP012, CP013, chapter audit, full Geography regression and production build passed on the final review payload.
+- Content is closed; runtime/public publication is not implied by content closure.
