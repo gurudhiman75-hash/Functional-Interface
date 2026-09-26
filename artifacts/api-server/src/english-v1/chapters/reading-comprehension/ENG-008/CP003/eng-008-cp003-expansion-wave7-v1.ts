@@ -1,0 +1,120 @@
+import type{Eng008Cp003PassageV1}from"./eng-008-cp003-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP003_EXPANSION_WAVE7_V1:readonly Eng008Cp003PassageV1[]=[
+{
+ id:"ENG008-BP-N08",title:"The Locker Token at the Swimming Pool",genre:"narrative",
+ text:`After a swimming session, Arjun found a plastic locker token near the changing-room entrance. The number on it matched the row where his own locker was located, so he first wondered whether it had fallen from his bag.
+
+He checked his pocket and found his own token still there. The loose token therefore belonged to someone else.
+
+Arjun took it to the reception counter rather than leaving it near the lockers. The receptionist checked the issue sheet and found that the number had been assigned to a visitor who was still in the pool area.
+
+A few minutes later, the visitor came to reception looking for the missing token. He confirmed the locker number and described the blue wristband attached to it.
+
+Arjun noticed that the number alone had initially felt familiar because it was close to his own locker. That familiarity could have led him to make the wrong assumption.
+
+The pool later added a small sign asking visitors to hand found tokens to reception. Staff explained that tokens often looked similar and could be moved easily if left on benches.
+
+The incident showed Arjun that a familiar number is not the same as personal ownership. Checking what he already had and then using the official issue record produced a clearer answer.
+
+He also realised that returning an object to a controlled point can be more reliable than leaving it where it happened to be found, especially in a shared space used by many people.`,
+ questions:[
+ q("N08-Q1","BP-F01","easy","How did Arjun know the loose token was not his?","He found his own token still in his pocket",["The receptionist told him first","The token was a different colour","His locker was empty"],"The passage directly states that his own token was still with him.","found his own token still there"),
+ q("N08-Q2","BP-F02","medium","Why did the loose token initially seem familiar?","Its number was close to Arjun's locker row",["It had Arjun's name","It was attached to his bag","He had used it before"],"The number matched the row where his locker was located.","number ... matched the row"),
+ q("N08-Q3","BP-F03","medium","What is the central idea of the passage?","Familiar details should be verified before they are treated as proof of ownership",["Pool tokens should carry photographs","Visitors should avoid lockers","Reception should keep every token"],"The story contrasts familiarity with verified ownership.","familiar number is not the same as personal ownership"),
+ q("N08-Q4","BP-F04","medium","Which statement is supported?","The owner identified the token using the locker number and wristband",["Arjun lost his own token","The token was left on a bench","The pool closed the changing room"],"The visitor confirmed both identifying details.","confirmed the locker number and described the blue wristband"),
+ q("N08-Q5","BP-F05","easy","In context, “controlled” is closest in meaning to:","managed and monitored",["crowded","private","temporary"],"Reception is a managed location for lost property.","controlled point"),
+ q("N08-Q6","BP-F06","easy","Which word is opposite in meaning to “familiar”?","unfamiliar",["known","recognisable","common"],"Unfamiliar is the direct opposite.","felt familiar"),
+ q("N08-Q7","BP-F07","medium","What does “official issue record” refer to?","The pool's list showing which locker token was assigned to which visitor",["Arjun's swimming schedule","The pool membership fee","The cleaning register"],"The receptionist checked the assignment sheet.","issue sheet"),
+ q("N08-Q8","BP-F08","medium","Why did the pool add a sign about found tokens?","Similar tokens could be moved or mistaken for someone else's",["Reception wanted fewer visitors","Lockers were being removed","Tokens were becoming more expensive"],"The sign responded to the risk of leaving similar tokens in shared areas.","tokens often looked similar"),
+ q("N08-Q9","BP-F09","medium","Which title best suits the passage?","The Locker Token at the Swimming Pool",["The Closed Swimming Pool","A Broken Locker","Why Wristbands Are Blue"],"The narrative centres on identifying a found locker token.","found a plastic locker token")
+ ]
+},
+{
+ id:"ENG008-BP-S07",title:"A Neighbourhood Garden Changes Its Tool Checkout",genre:"social",
+ text:`A neighbourhood garden kept shared tools in a shed that volunteers could open during working hours. The system was informal: people wrote their name on a whiteboard and erased it when a tool was returned.
+
+Over time, disagreements arose when entries were erased too early or when two people used similar first names. Volunteers sometimes spent more time locating a missing spade or rake than doing the planned work.
+
+The garden committee introduced reusable checkout cards. Each card showed the tool number, volunteer initials and expected return time. The card stayed on a board until the tool came back.
+
+During the next six weeks, fewer tools were left unaccounted for at closing time. Volunteers also found it easier to see which items were already in use.
+
+The system still depended on people remembering to move the card back when they returned a tool. The committee placed the return slot beside the shed door so the final step happened naturally at the point of return.
+
+One volunteer suggested locking every tool to a numbered rack, but the group decided that stronger control was unnecessary while the simpler process was working.
+
+The committee also kept a small notebook for damaged tools because a returned item was not always ready for immediate use. This separated location tracking from maintenance status.
+
+By the end of the trial, the garden had not added technology or extra supervision. It had simply made responsibility visible long enough for everyone to know where shared equipment was supposed to be.`,
+ questions:[
+ q("S07-Q1","BP-F01","easy","What information was written on the new checkout cards?","Tool number, volunteer initials and expected return time",["Tool price, brand and colour","Only the volunteer's first name","Garden opening hours"],"The third paragraph lists the three fields.","tool number, volunteer initials and expected return time"),
+ q("S07-Q2","BP-F02","medium","Why was the return slot placed beside the shed door?","To make the final checkout step easier to remember",["To store damaged tools","To reduce garden size","To lock every tool"],"The passage says the step happened naturally at the point of return.","final step happened naturally"),
+ q("S07-Q3","BP-F03","medium","What is the central idea of the passage?","A clearer shared-tool process reduced uncertainty without requiring heavy control",["Every community garden needs digital tracking","Shared tools should be locked permanently","Volunteers should buy their own tools"],"The system improved visibility with simple cards and placement.","made responsibility visible"),
+ q("S07-Q4","BP-F04","medium","Which statement is supported?","The garden kept damaged-tool information separately from checkout status",["Damaged tools were thrown away immediately","Every tool was locked to a rack","The whiteboard remained unchanged"],"The seventh paragraph describes the separate notebook.","separated location tracking from maintenance status"),
+ q("S07-Q5","BP-F05","easy","In context, “informal” is closest in meaning to:","not governed by a fixed structured process",["illegal","expensive","secret"],"The original whiteboard method had loose rules.","system was informal"),
+ q("S07-Q6","BP-F06","easy","Which word is opposite in meaning to “visible”?","hidden",["clear","obvious","open"],"Hidden is the opposite of visible.","made responsibility visible"),
+ q("S07-Q7","BP-F07","medium","What does “stronger control” refer to?","A more restrictive system such as locking every tool to a numbered rack",["Adding more flowers","Shortening working hours","Changing volunteer names"],"The suggestion immediately before it was a locking system.","locking every tool"),
+ q("S07-Q8","BP-F08","medium","Why were reusable cards better than erased whiteboard entries?","They kept the checkout information visible until the tool returned",["They repaired damaged tools","They removed the need for volunteers","They made tools lighter"],"The card stayed on the board until return.","stayed on a board until the tool came back"),
+ q("S07-Q9","BP-F09","medium","Which title best suits the passage?","A Neighbourhood Garden Changes Its Tool Checkout",["The Garden Without Volunteers","Why Rakes Should Be Locked","A New Flower Bed"],"The passage focuses on redesigning shared-tool tracking.","introduced reusable checkout cards")
+ ]
+},
+{
+ id:"ENG008-BP-SC06",title:"A Class Tests Screen Brightness and Battery Drain",genre:"science",
+ text:`A computer-science class tested how screen brightness affected battery use on identical tablets. Students charged six devices fully, closed unnecessary apps and played the same locally stored video for two hours.
+
+Two tablets used low brightness, two used medium brightness and two used high brightness. At the end of the test, the high-brightness tablets had lost the most battery charge.
+
+The class repeated the test on another day and obtained the same general ranking, though the exact percentages differed slightly.
+
+Their teacher warned them not to conclude that brightness was the only factor affecting battery life in normal use. Wireless connections, background apps, processor activity and battery age can also matter.
+
+The students then ran a second small test with Wi-Fi switched on. Battery use rose across all brightness levels, but the high-brightness group still used more power.
+
+The experiment also revealed a measurement issue. One tablet had a battery-health reading slightly lower than the others, so the class excluded it from one comparison and noted the reason.
+
+Students discussed whether very low brightness would always be best. They realised that a setting that saves power but makes text difficult to read may not be practical.
+
+The class concluded that brighter screens increased battery drain under their controlled conditions, but useful settings must balance power use with visibility and other real-world demands.`,
+ questions:[
+ q("SC06-Q1","BP-F01","easy","Which tablets lost the most battery charge?","Those using high brightness",["Those using low brightness","All tablets equally","Only the Wi-Fi-off tablets"],"The second paragraph states this directly.","high-brightness tablets had lost the most"),
+ q("SC06-Q2","BP-F02","medium","What can be inferred from the Wi-Fi test?","Brightness still mattered even when another source of battery use was added",["Wi-Fi removed the brightness effect","Battery use became identical","Only Wi-Fi affects battery life"],"All groups used more power, but high brightness still used the most.","still used more power"),
+ q("SC06-Q3","BP-F03","medium","What is the central idea of the passage?","Screen brightness affects battery drain, but practical battery life depends on several factors",["Brightness is the only factor in battery life","Low brightness is always the best setting","Battery age never matters"],"The conclusion combines the controlled result with real-world limitations.","balance power use with visibility"),
+ q("SC06-Q4","BP-F04","medium","Which statement is supported?","One tablet had slightly poorer battery health than the others",["All devices had different videos","The high-brightness tablets were older","Wi-Fi reduced battery use"],"The sixth paragraph states this directly.","battery-health reading slightly lower"),
+ q("SC06-Q5","BP-F05","easy","In context, “controlled” is closest in meaning to:","kept under deliberately similar test conditions",["unplanned","outdoor","random"],"The experiment held apps and video use constant.","controlled conditions"),
+ q("SC06-Q6","BP-F06","easy","Which word is opposite in meaning to “identical”?","different",["same","matching","equal"],"Different is the opposite.","identical tablets"),
+ q("SC06-Q7","BP-F07","medium","What does “the same general ranking” mean?","The brightness groups stayed in the same order of battery use",["Every percentage was exactly the same","The tablets received grades","The class changed device order"],"The repeated test preserved the overall pattern despite percentage differences.","same general ranking"),
+ q("SC06-Q8","BP-F08","medium","Why did the class exclude one tablet from one comparison?","Its battery health differed from the others and could distort the result",["Its screen was broken","It had no video","It belonged to the teacher"],"The passage identifies battery health as a measurement difference.","battery-health reading slightly lower"),
+ q("SC06-Q9","BP-F09","medium","Which title best suits the passage?","A Class Tests Screen Brightness and Battery Drain",["Why Tablets Need Wi-Fi","The Oldest Classroom Device","A Video Without Sound"],"The passage centres on a controlled brightness-and-battery experiment.","brightness affected battery use")
+ ]
+},
+{
+ id:"ENG008-BP-B09",title:"A Tailoring Shop Adds a Fitting Buffer",genre:"business",
+ text:`A tailoring shop scheduled customer fittings in thirty-minute blocks. During festival season, a few appointments regularly ran longer, causing the rest of the evening schedule to fall behind.
+
+The owner reviewed two months of bookings and found that first fittings for heavily altered garments were most likely to exceed thirty minutes. Simple final fittings usually finished early.
+
+Instead of making every appointment longer, the shop added a fifteen-minute buffer after selected complex fittings. Standard appointments kept their original schedule.
+
+During the next month, later customers waited less often, even though the number of daily bookings changed very little.
+
+The buffer was not perfect. If several complex garments were scheduled together, delays could still accumulate. The receptionist therefore spread those appointments across the day when possible.
+
+The shop also began noting the expected fitting type when customers booked. This improved scheduling before the garment reached the fitting room.
+
+Some customers asked why a fifteen-minute gap appeared on the calendar. Staff explained that it was not idle time guaranteed to remain unused; it was protection against predictable variation.
+
+The owner concluded that scheduling works better when time is matched to the type of work rather than forcing every task into one identical slot. The shop kept the buffer for complex fittings and planned to review the pattern again after festival season.`,
+ questions:[
+ q("B09-Q1","BP-F01","easy","Which appointments most often ran beyond thirty minutes?","First fittings for heavily altered garments",["Simple final fittings","All morning bookings","Only children's garments"],"The second paragraph states this directly.","first fittings for heavily altered garments"),
+ q("B09-Q2","BP-F02","medium","Why did the shop avoid making every appointment longer?","Only certain fitting types regularly needed extra time",["Customers disliked all long appointments","The calendar had no space","Final fittings were cancelled"],"The data showed variation by fitting type.","Simple final fittings usually finished early"),
+ q("B09-Q3","BP-F03","medium","What is the central idea of the passage?","Scheduling improves when time allowances reflect predictable differences in task complexity",["Every appointment should be the same length","Buffers always reduce daily bookings","Festival demand should be avoided"],"The shop matched buffer time to complex fittings.","time is matched to the type of work"),
+ q("B09-Q4","BP-F04","medium","Which statement is supported?","Later customers waited less often after the buffer was introduced",["Daily bookings fell sharply","Every delay disappeared","Final fittings became longer"],"The fourth paragraph directly reports this.","later customers waited less often"),
+ q("B09-Q5","BP-F05","easy","In context, “variation” is closest in meaning to:","difference in how long similar work can take",["a price discount","a fabric colour","a booking cancellation"],"The buffer protects against differences in task duration.","predictable variation"),
+ q("B09-Q6","BP-F06","easy","Which word is opposite in meaning to “complex”?","simple",["detailed","difficult","involved"],"Simple is the direct opposite.","complex fittings"),
+ q("B09-Q7","BP-F07","medium","What does “protection against predictable variation” mean?","Extra time was reserved because some fittings were known to overrun",["The shop insured every garment","Customers paid a buffer fee","The shop closed early"],"The gap absorbs expected duration uncertainty.","fifteen-minute buffer"),
+ q("B09-Q8","BP-F08","medium","Why did the receptionist record fitting type at booking time?","It helped assign time more appropriately before the appointment",["To change garment prices","To reduce customer names","To avoid taking measurements"],"The information improved scheduling in advance.","improved scheduling before"),
+ q("B09-Q9","BP-F09","medium","Which title best suits the passage?","A Tailoring Shop Adds a Fitting Buffer",["Why Tailors Need Longer Days","The Festival Without Customers","A Shop Stops Taking Measurements"],"The passage centres on adding buffer time for complex fittings.","added a fifteen-minute buffer")
+ ]
+}
+] as const;
