@@ -110,3 +110,7 @@ A successful Wave 01 establishes a trustworthy current baseline. The fresh final
 7. final current-main multilingual freeze / closure boundary.
 
 RNK-QL-043 remains unallocated unless a later audit proves a genuinely new semantic contract.
+
+## CI boundary note — 2026-09-26
+
+The first combined Waves 01–06 run failed before RNK proofs executed because its ad-hoc TypeScript command followed the global reasoning adapter into unrelated repository modules with existing type errors. The gate now typechecks only the RNK current-integration boundary; executable Wave tests still traverse the current Question Studio registry/runtime path. This changes CI scope only, not learner content or authority.
