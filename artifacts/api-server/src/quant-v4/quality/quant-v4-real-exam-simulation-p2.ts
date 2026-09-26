@@ -602,7 +602,7 @@ const ARITHMETIC_POOL = packagePool((pkg) => {
 
 const GEOMETRY_MENSURATION_POOL = packagePool((pkg) => {
   const id = String(pkg?.packageId ?? "");
-  return id === "GEO-001" || id === "MEN-002";
+  return id === "GEO-001" || id === "MENSURATION";
 });
 
 async function generateCoreSlot(
