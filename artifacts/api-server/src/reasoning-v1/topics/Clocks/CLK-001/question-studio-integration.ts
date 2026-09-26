@@ -69,6 +69,10 @@ function hash(value: string): number {
 }
 
 const VARIANT_ENABLED_TASKS_BY_QL: Partial<Record<ClockPermanentQlId, readonly ClockTaskId[]>> = {
+  'CLK-QL-017': [
+    'GAIN_FROM_COINCIDENCE_INTERVAL',
+    'LOSS_FROM_COINCIDENCE_INTERVAL',
+  ],
   'CLK-QL-019': [
     'TOTAL_STRIKES_12_HOURS',
     'TOTAL_STRIKES_24_HOURS',
@@ -98,11 +102,11 @@ function resolveExamProfile(value: unknown): ClockExamProfile {
   if (/\bssc\b|\bcgl\b|\bchsl\b|\bcpo\b|\bmts\b|gd constable/u.test(normalized)) {
     return 'SSC_MODERN';
   }
-  if (/\bibps\b|\bsbi\b|\bbank\b|rrb officer|\bclerk\b|\bpo\b/u.test(normalized)) {
-    return 'BANKING';
-  }
   if (/\bpunjab\b|\bpsssb\b|\bppsc\b|\bpatwari\b|\bpspcl\b|excise/u.test(normalized)) {
     return 'PUNJAB_STATE';
+  }
+  if (/\bibps\b|\bsbi\b|\bbank\b|rrb officer|\bclerk\b|\bpo\b/u.test(normalized)) {
+    return 'BANKING';
   }
   return 'CHAPTER_COVERAGE';
 }
