@@ -631,7 +631,23 @@ const distractor: Readonly<Record<Family, SifDistractorType>> = {
   CROSS_SENTENCE_RECORD: "STRONGER_CLAIM", SEQUENCE_AND_STATUS: "TIME_DISTORTION"
 };
 export const SIF_CP011_MULTIPLE_FACTOR_AUTHORITIES: readonly SifScenarioAuthority[] = familyOrder.flatMap((family, familyIndex) =>
-  families[family].map(([key, domain, difficulty, statement, supportedText, unsupportedText, reasoning, answerI], rowIndex) => {
+  families[family].map((rawRow, rowIndex) => {
+    const values = rawRow as unknown as readonly unknown[];
+    const normalized = values[0] === family ? values.slice(1) : values;
+    if (normalized.length !== 8) {
+      throw new Error(`SIF-CP011/${family}/row-${rowIndex}: expected 8 normalized fields, received ${normalized.length}.`);
+    }
+    const [key, domain, difficulty, statement, supportedText, unsupportedText, reasoning, answerI] =
+      normalized as unknown as Row;
+    if (!Array.isArray(statement) || statement.length !== 3) {
+      throw new Error(`SIF-CP011/${family}/${String(key)}: statement must contain EN/HI/PA text.`);
+    }
+    if (!Array.isArray(supportedText) || supportedText.length !== 3 || !Array.isArray(unsupportedText) || unsupportedText.length !== 3) {
+      throw new Error(`SIF-CP011/${family}/${String(key)}: both inference texts must contain EN/HI/PA text.`);
+    }
+    if (!Array.isArray(reasoning) || reasoning.length < 1 || typeof reasoning[0] !== "string") {
+      throw new Error(`SIF-CP011/${family}/${String(key)}: English reasoning text is required.`);
+    }
     const globalIndex = familyIndex * 3 + rowIndex;
     const seedSwapsInReview = globalIndex % 2 === 1;
     const supportedFirst = answerI !== seedSwapsInReview;
