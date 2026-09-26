@@ -1,6 +1,6 @@
 import type { Di007V2Difficulty, Di007V2ExamProfile, Di007V2TaskKind } from "./missing-v2-types";
 
-export const DI007_PERMANENT_RELEASE_ID = "DI-007-PERMANENT-ENGLISH-REVIEW-P1" as const;
+export const DI007_PERMANENT_RELEASE_ID = "DI-007-PERMANENT-ENGLISH-REVIEW-P2" as const;
 
 export type Di007PermanentQlId =
   | "DI-QL-073"
@@ -31,7 +31,7 @@ export type Di007PermanentQlDescriptor = Readonly<{
 const PROFILES = ["BANKING_PRELIMS", "BANKING_MAINS"] as const;
 
 export const DI007_PERMANENT_QLS: readonly Di007PermanentQlDescriptor[] = Object.freeze([
-  { qlId: "DI-QL-073", taskKind: "DIRECT_VISIBLE_VALUE", label: "Read a visible table value", semanticContract: "Read a directly visible value from the requested row and column of the missing-data table.", difficulty: "Easy", supportedProfiles: PROFILES, sourceStatus: "V2_CERTIFIED", editorialStatus: "ENGLISH_REVIEW_APPROVED", localizationStatus: "NOT_STARTED" },
+  { qlId: "DI-QL-073", taskKind: "VISIBLE_ROW_COMBINED_TOTAL", label: "Combined total of a visible row", semanticContract: "Use the two visible values in one non-hidden row and add them to obtain the combined row total.", difficulty: "Easy", supportedProfiles: PROFILES, sourceStatus: "V2_CERTIFIED", editorialStatus: "ENGLISH_REVIEW_APPROVED", localizationStatus: "NOT_STARTED" },
   { qlId: "DI-QL-074", taskKind: "VISIBLE_ROW_DIFFERENCE", label: "Difference between visible row values", semanticContract: "Use the two visible values in one row and find their absolute difference without reconstructing the missing cell.", difficulty: "Easy", supportedProfiles: PROFILES, sourceStatus: "V2_CERTIFIED", editorialStatus: "ENGLISH_REVIEW_APPROVED", localizationStatus: "NOT_STARTED" },
   { qlId: "DI-QL-075", taskKind: "RECOVER_MISSING_VALUE", label: "Recover the missing table value", semanticContract: "Use the aggregate condition to reconstruct the full target-column total and recover the hidden cell.", difficulty: "Medium", supportedProfiles: PROFILES, sourceStatus: "V2_CERTIFIED", editorialStatus: "ENGLISH_REVIEW_APPROVED", localizationStatus: "NOT_STARTED" },
   { qlId: "DI-QL-076", taskKind: "HIDDEN_ROW_COMBINED_TOTAL", label: "Combined total of hidden row", semanticContract: "Recover the hidden cell and add it to the visible value in the same row.", difficulty: "Medium", supportedProfiles: PROFILES, sourceStatus: "V2_CERTIFIED", editorialStatus: "ENGLISH_REVIEW_APPROVED", localizationStatus: "NOT_STARTED" },
