@@ -47,6 +47,13 @@ for (const descriptor of DI007_PERMANENT_QLS) {
   assert(question.releaseId === DI007_PERMANENT_RELEASE_ID && question.runtimeMode === DI007_QUESTION_STUDIO_RUNTIME_MODE, `${descriptor.qlId} lost release/runtime authority.`);
   assert(question.questionBankStatus === "NOT_STORED" && question.questionBankWritable === false && question.testEligibility === "INELIGIBLE", `${descriptor.qlId} lifecycle lock drifted.`);
   assert(question.mockTestEligible === false && question.publiclyPublishable === false && question.automaticStudentPublication === false && question.productionReleaseAuthorized === false, `${descriptor.qlId} publication lock drifted.`);
+  if (descriptor.difficulty === "Easy") {
+    assert(["VISIBLE_ROW_COMBINED_TOTAL", "VISIBLE_ROW_DIFFERENCE"].includes(question.taskKind), `${descriptor.qlId} Easy route must require arithmetic.`);
+    assert(Number(question.richExplanation?.steps?.length) >= 2, `${descriptor.qlId} Easy route collapsed to direct lookup.`);
+  }
+  if (descriptor.qlId === "DI-QL-073") {
+    assert(question.taskKind === "VISIBLE_ROW_COMBINED_TOTAL", "DI-QL-073 must remain mapped to the non-trivial combined-row Easy family.");
+  }
   if (descriptor.difficulty === "Hard") {
     assert(Number(question.richExplanation?.steps?.length) >= 2, `${descriptor.qlId} lost its approved multi-step explanation.`);
   }
