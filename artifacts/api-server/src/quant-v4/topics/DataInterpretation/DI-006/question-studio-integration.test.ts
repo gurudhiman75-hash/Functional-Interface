@@ -1,5 +1,5 @@
 import { quantV4QuestionStudioAdapter } from "../../../../question-studio/engines/quant-v4-adapter";
-import { DI006_PERMANENT_QLS, DI006_PERMANENT_RELEASE_ID } from "./permanent-ql-registry";
+import { DI006_PERMANENT_QLS, DI006_PERMANENT_RELEASE_ID } from "./permanent-ql-registry";\nimport { DI006_LOCALIZATION_RELEASE_ID } from "./localization-review-v1";
 import {
   DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
   DI006_QUESTION_STUDIO_RUNTIME_MODE,
@@ -17,7 +17,7 @@ assert(card.cpIds.includes(DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID), "DI-006 
 assert(card.runtimeMode === DI006_QUESTION_STUDIO_RUNTIME_MODE, "DI-006 package card exposes the wrong runtime mode.");
 assert(card.questionBankStatus === "NOT_STORED" && card.questionBankWritable === false, "DI-006 must remain outside Question Bank writes.");
 assert(card.testEligibility === "INELIGIBLE" && card.testEligible === false && card.mockTestEligible === false, "DI-006 must remain ineligible for tests and mocks.");
-assert(card.publiclyPublishable === false && card.automaticStudentPublication === false && card.productionReleaseAuthorized === false, "DI-006 publication locks drifted.");
+assert(card.publiclyPublishable === false && card.automaticStudentPublication === false && card.productionReleaseAuthorized === false, "DI-006 publication locks drifted.");\nassert(["en", "hi", "pa"].every((language) => card.supportedLanguages.includes(language as any)), "DI-006 package card must expose approved English, Hindi and Punjabi controlled-review languages.");
 
 const seen = new Set<string>();
 for (const descriptor of DI006_PERMANENT_QLS) {
@@ -77,6 +77,44 @@ assert(shared.questions.length === 12, "Shared Quant V4 adapter did not route DI
 assert(new Set(shared.questions.map((question) => question.questionLanguageId)).size === 12, "A 12-question mixed DI-006 batch must cover all permanent QLs once.");
 assert(shared.questions.every((question) => question.packageId === "DI-006" && question.questionBankWritable === false && question.testEligible === false), "Shared adapter widened DI-006 lifecycle authority.");
 
+for (const language of ["hi", "pa"] as const) {
+  const localized = await quantV4QuestionStudioAdapter.generate({
+    packageId: "DI-006",
+    canonicalProblemId: DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
+    language,
+    count: 12,
+    seed: `DI006-MULTILINGUAL-QS-${language}`,
+    exam: "SSC CGL Tier I",
+  });
+  assert(localized.questions.length === 12, `DI-006 ${language} controlled review did not generate all 12 permanent QLs.`);
+  assert(new Set(localized.questions.map((question) => question.questionLanguageId)).size === 12, `DI-006 ${language} batch did not cover all permanent QLs.`);
+  for (const raw of localized.questions) {
+    const question = raw as Record<string, any>;
+    const learnerText = [
+      question.stimulus?.title,
+      question.stimulus?.instruction,
+      question.stimulus?.learnerText,
+      ...(question.stimulus?.categories ?? []),
+      question.stem,
+      ...(question.options ?? []),
+      question.answer,
+      question.explanation,
+    ].join(" ");
+    assert(question.language === language, `DI-006 ${language} question lost requested language.`);
+    assert(question.reviewStatus === "MULTILINGUAL_FROZEN", `DI-006 ${language} question is not frozen multilingual authority.`);
+    assert(question.releaseId === DI006_LOCALIZATION_RELEASE_ID, `DI-006 ${language} question lost localization release identity.`);
+    assert(question.questionBankWritable === false && question.testEligible === false && question.mockTestEligible === false, `DI-006 ${language} widened learner lifecycle authority.`);
+    assert(question.publiclyPublishable === false && question.automaticStudentPublication === false && question.productionReleaseAuthorized === false, `DI-006 ${language} widened publication authority.`);
+    assert(!/[A-Za-z]/u.test(learnerText), `DI-006 ${language} learner surface leaks Roman text: ${learnerText}`);
+    if (language === "hi") assert(/[\u0900-\u097F]/u.test(learnerText), "DI-006 Hindi Question Studio surface lacks Devanagari.");
+    else assert(/[\u0A00-\u0A7F]/u.test(learnerText), "DI-006 Punjabi Question Studio surface lacks Gurmukhi.");
+    assert(question.options[question.correctIndex] === question.answer, `DI-006 ${language} localized answer-index binding failed.`);
+    if (question.difficulty === "Hard") {
+      assert(Number(question.richExplanation?.steps?.length) >= 2, `DI-006 ${language} Hard explanation lost multi-step reasoning.`);
+    }
+  }
+}
+
 const banking = await quantV4QuestionStudioAdapter.generate({
   packageId: "DI-006",
   language: "en",
@@ -97,7 +135,7 @@ const explicit = await quantV4QuestionStudioAdapter.generate({
 assert(explicit.questions[0]?.packageId === "DI-006", "DI-QL-061 was intercepted by another DI package selector.");
 
 console.log(JSON.stringify({
-  status: "PASS_DI_006_QUESTION_STUDIO_CONTROLLED_REVIEW",
+  status: "PASS_DI_006_QUESTION_STUDIO_MULTILINGUAL_CONTROLLED_REVIEW",
   releaseId: DI006_PERMANENT_RELEASE_ID,
   runtimeMode: DI006_QUESTION_STUDIO_RUNTIME_MODE,
   permanentQlCount: DI006_PERMANENT_QLS.length,
