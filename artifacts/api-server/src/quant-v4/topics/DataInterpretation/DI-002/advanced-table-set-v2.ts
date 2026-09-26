@@ -178,7 +178,7 @@ function surface(seed: string, variants: readonly [string, string, string]) {
   };
 }
 
-function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidates: readonly Candidate[]) {
+function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidates: readonly Candidate[], kind: Di002V2TaskKind) {
   const seen = new Set<string>();
   const retained: Di002V2Option[] = [];
   const add = (candidate: Candidate) => {
@@ -211,24 +211,22 @@ function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidat
       }
     } else if (percent) {
       const value = Number(percent[1]);
+      const bounded = kind === "DIRECT_SELECTION_RATE" || kind === "SELECTED_SHARE_OF_TOTAL" || kind === "COMBINED_SELECTION_RATE";
       for (const delta of [-20, -15, -10, -5, 5, 10, 15, 20]) {
         const distractor = value + delta;
-        if (distractor <= 0) continue;
+        if (distractor <= 0 || (bounded && distractor > 100)) continue;
         add({
           text: `${distractor}%`,
           misconceptionId: delta > 0 ? `PERCENT_STEP_HIGH_${delta}` : `PERCENT_STEP_LOW_${Math.abs(delta)}`,
-          derivation: "Moves the computed percentage by a common five-percentage-point scale step.",
+          derivation: "Uses a nearby percentage after a common base or rounding error.",
         });
       }
     } else if (points) {
-      const value = Number(points[1]);
-      for (const delta of [-30, -20, -10, 10, 20, 30, 40]) {
-        const distractor = value + delta;
-        if (distractor <= 0) continue;
+      for (const distractor of [10, 20, 30, 40]) {
         add({
           text: `${distractor} percentage points`,
-          misconceptionId: delta > 0 ? `POINT_STEP_HIGH_${delta}` : `POINT_STEP_LOW_${Math.abs(delta)}`,
-          derivation: "Uses a nearby rate-gap value after subtracting or reading the wrong pair of table rates.",
+          misconceptionId: `POINT_GAP_${distractor}`,
+          derivation: "Uses another plausible gap between rates available in the table.",
         });
       }
     } else if (ratio) {
@@ -338,13 +336,13 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const directSurface = surface(`${seed}:DIRECT_SELECTED_VALUE:surface`, [
     `How many candidates were selected from ${rows[directIndex]!.label}?`,
     `Find the number of selected candidates for ${rows[directIndex]!.label}.`,
-    `The Selected value for ${rows[directIndex]!.label} is:`,
+    `According to the table, how many candidates were selected from ${rows[directIndex]!.label}?`,
   ]);
 
   const rateSurface = surface(`${seed}:DIRECT_SELECTION_RATE:surface`, [
     `What was the selection percentage for ${rows[rateIndex]!.label}?`,
     `Find the selection rate shown for ${rows[rateIndex]!.label}.`,
-    `The Selection % for ${rows[rateIndex]!.label} is:`,
+    `According to the table, what percentage of applicants were selected from ${rows[rateIndex]!.label}?`,
   ]);
 
   const hiddenRow = rows[hiddenIndex]!;
@@ -357,7 +355,7 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const rejectedSurface = surface(`${seed}:REJECTED_COUNT:surface`, [
     `How many applicants from ${rows[rejectedIndex]!.label} were not selected?`,
     `Find the number of candidates not selected from ${rows[rejectedIndex]!.label}.`,
-    `Applicants minus Selected for ${rows[rejectedIndex]!.label} equals:`,
+    `Out of the applicants from ${rows[rejectedIndex]!.label}, how many were not selected?`,
   ]);
 
   const differenceSurface = surface(`${seed}:SELECTED_DIFFERENCE:surface`, [
@@ -380,14 +378,14 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
 
   const shareSurface = surface(`${seed}:SELECTED_SHARE_OF_TOTAL:surface`, [
     `The selected candidates from ${rows[shareIndex]!.label} form approximately what percentage of all selected candidates? Give the nearest whole percent.`,
-    `To the nearest whole percent, what share of the total Selected column comes from ${rows[shareIndex]!.label}?`,
-    `Selected candidates from ${rows[shareIndex]!.label} are what percent of the all-row selected total, to the nearest whole percent?`,
+    `To the nearest whole percent, what percentage of all selected candidates came from ${rows[shareIndex]!.label}?`,
+    `What percent of the total number of selected candidates were selected from ${rows[shareIndex]!.label}? Round to the nearest whole percent.`,
   ]);
 
   const ratioSurface = surface(`${seed}:COMBINED_SELECTED_RATIO:surface`, [
     `What is the ratio of the combined number selected from ${rows[leftA]!.label} and ${rows[leftB]!.label} to that from ${rows[rightA]!.label} and ${rows[rightB]!.label}?`,
-    `Find the ratio: Selected(${rows[leftA]!.label} + ${rows[leftB]!.label}) : Selected(${rows[rightA]!.label} + ${rows[rightB]!.label}).`,
-    `The combined selected totals of ${rows[leftA]!.label}, ${rows[leftB]!.label} and ${rows[rightA]!.label}, ${rows[rightB]!.label} are in what ratio, in that order?`,
+    `Find the ratio of the total selected from ${rows[leftA]!.label} and ${rows[leftB]!.label} to the total selected from ${rows[rightA]!.label} and ${rows[rightB]!.label}.`,
+    `Candidates selected from ${rows[leftA]!.label} and ${rows[leftB]!.label} together are in what ratio to those selected from ${rows[rightA]!.label} and ${rows[rightB]!.label} together?`,
   ]);
 
   const relativeSurface = surface(`${seed}:RELATIVE_SELECTED_PERCENT_EXCESS:surface`, [
@@ -398,14 +396,14 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
 
   const combinedRateSurface = surface(`${seed}:COMBINED_SELECTION_RATE:surface`, [
     `If ${rows[rateA]!.label} and ${rows[rateB]!.label} are considered together, what is their overall selection rate to the nearest whole percent?`,
-    `Find the combined selection percentage for ${rows[rateA]!.label} and ${rows[rateB]!.label}. Use their combined Selected and combined Applicants values and round to the nearest whole percent.`,
-    `To the nearest whole percent, Selected(${rows[rateA]!.label} + ${rows[rateB]!.label}) is what percent of Applicants(${rows[rateA]!.label} + ${rows[rateB]!.label})?`,
+    `Find the overall selection percentage for ${rows[rateA]!.label} and ${rows[rateB]!.label} together. Round to the nearest whole percent.`,
+    `Of all applicants from ${rows[rateA]!.label} and ${rows[rateB]!.label} together, approximately what percentage were selected? Give the nearest whole percent.`,
   ]);
 
   const rejectedRatioSurface = surface(`${seed}:REJECTED_TO_SELECTED_RATIO:surface`, [
     `For ${rows[rejectA]!.label} and ${rows[rejectB]!.label} together, what is the ratio of candidates not selected to candidates selected?`,
-    `Find the ratio of combined Rejected to combined Selected for ${rows[rejectA]!.label} and ${rows[rejectB]!.label}.`,
-    `After finding the rejected counts for ${rows[rejectA]!.label} and ${rows[rejectB]!.label}, form their combined Rejected : Selected ratio.`,
+    `For ${rows[rejectA]!.label} and ${rows[rejectB]!.label} together, find the ratio of candidates not selected to candidates selected.`,
+    `After combining the two rows, what is the ratio of the number not selected to the number selected?`,
   ]);
 
   return [
@@ -538,10 +536,11 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
       answer: `${pointGap} percentage points`,
       candidates: [
         { text: `${nearestWholePercent(pointGap, Math.min(rows[pointA]!.selectionPercent, rows[pointB]!.selectionPercent))}%`, misconceptionId: "RELATIVE_PERCENT_NOT_POINTS", derivation: "Calculates relative percentage change instead of the percentage-point gap." },
-        { text: `${Math.max(rows[pointA]!.selectionPercent, rows[pointB]!.selectionPercent)} percentage points`, misconceptionId: "USE_LARGER_RATE", derivation: "Copies the larger rate instead of subtracting." },
-        { text: `${Math.min(rows[pointA]!.selectionPercent, rows[pointB]!.selectionPercent)} percentage points`, misconceptionId: "USE_SMALLER_RATE", derivation: "Copies the smaller rate instead of subtracting." },
-        { text: `${rows[pointA]!.selectionPercent + rows[pointB]!.selectionPercent} percentage points`, misconceptionId: "ADD_RATES", derivation: "Adds the two rates instead of finding their gap." },
-        { text: `${Math.abs(selected[pointA]! - selected[pointB]!)} percentage points`, misconceptionId: "USE_SELECTED_GAP", derivation: "Uses the gap in Selected counts and labels it as percentage points." },
+        ...[10, 20, 30, 40].map((value) => ({
+          text: `${value} percentage points`,
+          misconceptionId: `OTHER_RATE_GAP_${value}`,
+          derivation: "Uses another plausible gap between selection rates shown in the table.",
+        })),
       ],
       explanation: {
         keyIdea: "A percentage-point gap is found by subtracting the two percentage rates.",
@@ -558,11 +557,11 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
       ...shareSurface,
       answer: `${sharePercent}%`,
       candidates: [
-        { text: `${nearestWholePercent(selected[shareIndex]!, applicants[shareIndex]!)}%`, misconceptionId: "USE_ROW_APPLICANTS_AS_WHOLE", derivation: "Calculates the row selection rate instead of share of all selected candidates." },
-        { text: `${nearestWholePercent(totalSelected, selected[shareIndex]!)}%`, misconceptionId: "REVERSE_PART_WHOLE", derivation: "Reverses part and whole." },
-        { text: `${rows[shareIndex]!.selectionPercent}%`, misconceptionId: "COPY_SELECTION_RATE", derivation: "Copies the row Selection % instead of using the Selected-column total." },
+        { text: `${rows[shareIndex]!.selectionPercent}%`, misconceptionId: "COPY_SELECTION_RATE", derivation: "Copies the row Selection % instead of finding its share of all selected candidates." },
         { text: `${nearestWholePercent(applicants[shareIndex]!, applicants.reduce((sum, value) => sum + value, 0))}%`, misconceptionId: "USE_APPLICANT_SHARE", derivation: "Finds the row share of Applicants rather than Selected." },
         { text: `${nearestWholePercent(selected[(shareIndex + 1) % 5]!, totalSelected)}%`, misconceptionId: "USE_ADJACENT_ROW_SHARE", derivation: "Calculates the Selected share for a different row." },
+        { text: `${nearestWholePercent(selected[shareIndex]!, totalSelected - selected[shareIndex]!)}%`, misconceptionId: "USE_OTHER_ROWS_AS_WHOLE", derivation: "Uses the selected total of the other four rows as the denominator." },
+        { text: `${nearestWholePercent(selected[shareIndex]!, totalSelected - selected[(shareIndex + 1) % 5]!)}%`, misconceptionId: "OMIT_ADJACENT_ROW_FROM_TOTAL", derivation: "Builds the total after accidentally omitting one row." },
       ],
       explanation: {
         keyIdea: "Use the requested Selected value as the part and the total of the Selected column as the whole.",
@@ -605,11 +604,11 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
       ...relativeSurface,
       answer: `${relativePercent}%`,
       candidates: [
-        { text: `${relativeDifference}%`, misconceptionId: "COUNT_GAP_AS_PERCENT", derivation: "Attaches a percent sign to the count difference without using a base." },
         { text: `${nearestWholePercent(relativeDifference, selected[largerIndex]!)}%`, misconceptionId: "USE_LARGER_AS_BASE", derivation: "Uses the larger Selected value as the base." },
         { text: `${nearestWholePercent(selected[largerIndex]!, selected[smallerIndex]!)}%`, misconceptionId: "REPORT_LARGER_AS_PERCENT_OF_SMALLER", derivation: "Reports the whole larger value relative to the smaller instead of only the excess." },
         { text: `${nearestWholePercent(selected[smallerIndex]!, selected[largerIndex]!)}%`, misconceptionId: "REVERSE_COMPARISON", derivation: "Forms the reverse relative comparison." },
-        { text: `${Math.abs(rows[largerIndex]!.selectionPercent - rows[smallerIndex]!.selectionPercent)}%`, misconceptionId: "COMPARE_SELECTION_RATES", derivation: "Compares Selection % values instead of Selected counts." },
+        { text: `${nearestWholePercent(relativeDifference, selected[largerIndex]! + selected[smallerIndex]!)}%`, misconceptionId: "USE_PAIR_TOTAL_AS_BASE", derivation: "Uses the combined value of the two rows as the percentage base." },
+        { text: `${Math.abs(rows[largerIndex]!.selectionPercent - rows[smallerIndex]!.selectionPercent)}%`, misconceptionId: "COMPARE_SELECTION_RATES", derivation: "Compares the two row selection rates instead of the Selected counts." },
       ],
       explanation: {
         keyIdea: "For 'percent more', divide the difference by the smaller/original value.",
@@ -630,8 +629,8 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
         { text: `${simpleRateAverage}%`, misconceptionId: "SIMPLE_AVERAGE_OF_RATES", derivation: "Averages the two row rates without weighting by Applicants." },
         { text: `${rows[rateA]!.selectionPercent}%`, misconceptionId: "USE_FIRST_RATE", derivation: "Uses only the first row's selection rate." },
         { text: `${rows[rateB]!.selectionPercent}%`, misconceptionId: "USE_SECOND_RATE", derivation: "Uses only the second row's selection rate." },
-        { text: `${nearestWholePercent(rateApplicants, rateSelected)}%`, misconceptionId: "REVERSE_SELECTED_APPLICANTS", derivation: "Divides combined Applicants by combined Selected." },
-        { text: `${nearestWholePercent(rateSelected, totalSelected)}%`, misconceptionId: "USE_ALL_SELECTED_AS_DENOMINATOR", derivation: "Uses the all-row Selected total as the denominator." },
+        { text: `${nearestWholePercent(selected[rateA]!, rateApplicants)}%`, misconceptionId: "USE_FIRST_SELECTED_OVER_COMBINED_APPLICANTS", derivation: "Uses only the first row's Selected count over the combined Applicants total." },
+        { text: `${nearestWholePercent(selected[rateB]!, rateApplicants)}%`, misconceptionId: "USE_SECOND_SELECTED_OVER_COMBINED_APPLICANTS", derivation: "Uses only the second row's Selected count over the combined Applicants total." },
       ],
       explanation: {
         keyIdea: "A combined selection rate must use combined Selected divided by combined Applicants; do not average the two rates directly.",
@@ -719,7 +718,7 @@ export function generateDi002V2Set(input: { seed?: string; examProfile?: Di002V2
   const questions = kinds.map((kind, index): Di002V2Question => {
     const draft = draftByKind.get(kind);
     if (!draft) throw new Error(`DI-002 V2 is missing draft logic for ${kind}.`);
-    const optionState = buildOptions(`${seed}:${kind}:${index}`, optionCount, draft.answer, draft.candidates);
+    const optionState = buildOptions(`${seed}:${kind}:${index}`, optionCount, draft.answer, draft.candidates, draft.kind);
     return {
       questionId: `${setId}:Q${index + 1}`,
       setId,
