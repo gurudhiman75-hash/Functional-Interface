@@ -1,6 +1,6 @@
 # GEO-VEG-001 — Natural Vegetation & Wildlife of India
 
-Status: CLOSURE CANDIDATE — FINAL WAVE HUMAN APPROVED
+Status: CONTENT CLOSED — HUMAN APPROVED
 Engine: `knowledge-v1`
 Subject: Static GK / Indian Geography
 Chapter: `GEO-VEG-001`
@@ -124,6 +124,15 @@ CP013 is a non-owning mastery layer:
 - no new permanent QLs;
 - meta/generated-style stems rejected.
 
-The final batch has explicit human approval. Chapter closure now depends on the full 648-question chapter audit, CP013 mastery qualification, API/build checks and full Geography regression. Runtime/public publication remains separately governed.
+The final batch has explicit human approval. The 648-question chapter audit and CP013 mastery qualification have passed, and the final review payload has passed the full Geography regression and production build. GEO-VEG-001 is content-closed. Runtime/public publication and Question Studio registration remain separately governed.
 
 Closure validation requested after explicit human approval.
+
+## 11. Closure proof
+
+- Owning pool: 648 questions across 108 permanent QLs, six per QL.
+- Difficulty: Easy216 / Medium360 / Hard72.
+- Answer positions: A162 / B162 / C162 / D162.
+- CP013 mastery: 108 questions, one per QL; Easy36 / Medium60 / Hard12; A27 / B27 / C27 / D27.
+- CP011, CP012, CP013, chapter audit, full Geography regression and production build passed on the final review payload.
+- Content is closed; runtime/public publication is not implied by content closure.
