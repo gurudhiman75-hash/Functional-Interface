@@ -830,7 +830,7 @@ export function generateDi004V2Set(input: { seed?: string; examProfile?: Di004V2
       setContractVersion: "DI-004-SET-CONTRACT-V2" as const,
       questionLogicVersion: "DI-004-QUESTION-LOGIC-V2" as const,
       arithmeticAuthority: "INTEGER_SOURCE_WITH_EXPLICIT_WHOLE_ROUNDING" as const,
-      reviewStatus: "ENGLISH_REVIEW_CANDIDATE" as const,
+      reviewStatus: "ENGLISH_REVIEW_APPROVED" as const,
       questionStudioDiscoverable: false as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,
