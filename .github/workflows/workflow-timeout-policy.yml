@@ -146,8 +146,13 @@ jobs:
               lines = text.splitlines()
 
               if re.search(r'cp\d{3}', path.name, re.IGNORECASE):
+                  declared_paths = {
+                      match.group(1).strip().strip('"\'')
+                      for line in lines
+                      if (match := re.fullmatch(r'\s*-\s+(.+?)\s*', line))
+                  }
                   for broad_subject_path in broad_cp_subject_paths:
-                      if broad_subject_path in text:
+                      if broad_subject_path in declared_paths:
                           print(
                               f'::error file={filename}::CP-specific workflows must not watch the whole '
                               f'subject tree ({broad_subject_path}). Scope the trigger to the owned CP '
