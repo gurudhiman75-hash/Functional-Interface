@@ -56,3 +56,19 @@ The demonstrated gap is closed. Current ENG-008 coverage includes:
 **No CP008 is justified by the current audit. ENG-008 is frozen.**
 
 Any CP008+ requires new exam evidence or a separately demonstrated content gap. Existing approved content remains review-only: Question Bank writes, scored tests, mocks, learner/public publication, automatic publication and production release remain locked.
+
+
+## SSC filler / cloze boundary clarification
+
+SSC does test passage-based deleted-word / fill-the-blank sets extensively. These are governed as **Cloze Test / Cloze Passage**, not duplicated inside ENG-008 ordinary Reading Comprehension.
+
+Evidence pattern:
+- SSC CGL/CHSL papers use directions such as “some words have been deleted/left out” and ask the most appropriate option for each numbered blank;
+- these are passage-level contextual fillers, but structurally they are cloze sets rather than normal RC question families.
+
+Therefore:
+- **ENG-008 remains frozen without an SSC filler CP**;
+- **ENG-009 owns SSC Cloze Test / Cloze Passage**, including multi-blank passage sets and contextual word fit;
+- ENG-008 CP007 remains Banking-Prelims-specific because banking paper analyses show the word-fit/filler operation embedded inside an RC set rather than as a separate cloze block.
+
+This boundary prevents duplicate authoring and duplicate runtime ownership.
