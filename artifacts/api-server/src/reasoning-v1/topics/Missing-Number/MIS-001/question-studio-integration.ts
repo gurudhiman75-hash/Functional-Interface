@@ -88,8 +88,8 @@ function hash(value: string): number {
 
 function normalizeCount(value: number | undefined): number {
   if (value == null) return 5;
-  if (!Number.isInteger(value) || value < 1 || value > 50) {
-    throw new Error('MIS-001 review batches require count between 1 and 50.');
+  if (!Number.isInteger(value) || value < 1 || value > 100) {
+    throw new Error('MIS-001 review batches require count between 1 and 100.');
   }
   return value;
 }
