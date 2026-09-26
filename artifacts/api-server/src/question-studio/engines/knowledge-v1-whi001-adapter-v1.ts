@@ -19,7 +19,32 @@ export const WHI_001_CP001_REVISION_POLICY_V1 = "REVISE_SOURCE_CORPUS_AND_RELOCA
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const languages: readonly QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const locales: Readonly<Record<QuestionStudioLanguage, string>> = { en: "en-IN", hi: "hi-IN", pa: "pa-IN" };
-const corpusByLanguage = Object.freeze({ en, hi, pa });
+type RawQuestion = {
+  questionId: string; englishQuestionId?: string; checkpointId: string; language: string;
+  difficulty: string; questionFamily: string; stem: string;
+  options: Array<{ key: string; text: string }>;
+  correctOption: string; explanation: string; sourceIds: string[];
+};
+type LocalizedQuestion = {
+  questionId: string; englishQuestionId: string; cpId: string; language: QuestionStudioLanguage;
+  difficulty: "Easy" | "Medium" | "Hard"; questionFamily: string; stem: string;
+  options: string[]; correctIndex: number; canonicalAnswer: string; explanation: string; sourceIds: string[];
+};
+function normalizeCorpus(rows: readonly RawQuestion[], language: QuestionStudioLanguage): readonly LocalizedQuestion[] {
+  return Object.freeze(rows.map((q) => {
+    const correctIndex = q.options.findIndex((option) => option.key === q.correctOption);
+    const options = q.options.map((option) => option.text);
+    if (correctIndex < 0) throw new Error(`${q.questionId}: missing keyed answer`);
+    return Object.freeze({
+      questionId: q.questionId, englishQuestionId: q.englishQuestionId ?? q.questionId,
+      cpId: q.checkpointId, language,
+      difficulty: (q.difficulty[0]!.toUpperCase() + q.difficulty.slice(1).toLowerCase()) as LocalizedQuestion["difficulty"],
+      questionFamily: q.questionFamily, stem: q.stem, options, correctIndex,
+      canonicalAnswer: options[correctIndex]!, explanation: q.explanation, sourceIds: [...q.sourceIds],
+    });
+  }));
+}
+const corpusByLanguage = Object.freeze({ en: normalizeCorpus(en as RawQuestion[], "en"), hi: normalizeCorpus(hi as RawQuestion[], "hi"), pa: normalizeCorpus(pa as RawQuestion[], "pa") });
 const cpId = "WHI-001-CP001";
 const english = corpusByLanguage.en;
 
