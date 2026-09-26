@@ -4,7 +4,7 @@ Status: **EXECUTABLE PROTOTYPE / ENGLISH REVIEW CANDIDATE**
 
 ## CP008 — inverse / missing-position reasoning
 
-Provisional candidates MIS-CAND-057..062 cover inverse queries over controlled arithmetic and one triangle relation.
+Runtime review variants MIS-CAND-057..062 cover inverse queries. Five reuse earlier semantic authorities: 057→001 (sum), 058→003 (product), 060→017 (a²+b), 061→012 ((a+b)×c), and 062→038 (left×right−top). Only MIS-CAND-059 (a×b−b) remains a new provisional semantic authority.
 
 Key governance:
 
@@ -17,7 +17,7 @@ Key governance:
 
 ## CP009 — pair-product and cross relationships
 
-Provisional candidates MIS-CAND-063..068 implement the blueprint examples:
+Runtime patterns MIS-CAND-063..068 implement the blueprint examples. Three are canonical aliases of CP007: 063→051 (row products sum), 065→052 (column products sum), 066→055 (diagonal products sum). Only 064, 067 and 068 remain new provisional semantic authorities:
 
 - ab + cd
 - ab − cd
@@ -56,6 +56,6 @@ Governance:
 - CP010: 6 × 60 = 360 deterministic questions.
 - New-wave total: 1,080 questions.
 
-Chapter Question Studio now covers CP001–CP010 with 74 provisional candidates and introduces Hard review filtering based on inference complexity.
+Chapter Question Studio now exposes 74 runtime review patterns across CP001–CP010 but only 66 distinct semantic authorities after deduplication. Eight CP008/CP009 patterns are explicitly reuse-only variants and cannot become separate permanent QLs.
 
 Permanent QL allocation remains deferred until source saturation and merge/split audit.
