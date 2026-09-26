@@ -93,7 +93,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-LOC-001-QL-055",
     "qlName": "Andaman & Nicobar — southeast/eastern island group",
     "difficulty": "Medium",
-    "stem": "Which statement correctly compares India's two main island Union Territories?",
+    "stem": "How do India's two main island Union Territories differ in location?",
     "answer": "Andaman and Nicobar lies east/southeast of the mainland, while Lakshadweep lies southwest",
     "distractors": [
       "Both lie only west of Gujarat",
@@ -196,7 +196,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Red Sea",
       "South China Sea"
     ],
-    "explanation": "Lakshadweep is an Arabian Sea archipelago west of the Indian peninsula. The Bay of Bengal is associated with India's eastern island geography.",
+    "explanation": "Lakshadweep is an Arabian Sea archipelago west of the Indian peninsula. The Bay of Bengal belongs to India's eastern island geography.",
     "sourceFactIds": [
       "LAK-ARABIAN-SEA"
     ]
@@ -436,7 +436,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Nicobar Islands",
       "Sundarbans"
     ],
-    "explanation": "Minicoy is part of Lakshadweep in the Arabian Sea. It is the southernmost island of that Union Territory.",
+    "explanation": "Minicoy is part of Lakshadweep in the Arabian Sea. It is the southernmost island of that Union Territory and lies well south of the main northern cluster.",
     "sourceFactIds": [
       "MINICOY-LAKSHADWEEP"
     ]
@@ -612,7 +612,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Maldives",
       "Sri Lanka"
     ],
-    "explanation": "The Andaman group occupies the northern part of the Union Territory. The Nicobar group lies farther south.",
+    "explanation": "The Andaman group occupies the northern part of the Union Territory. The Nicobar group lies farther south, creating a clear north–south division within the territory.",
     "sourceFactIds": [
       "ANDAMAN-NORTH-NICOBAR"
     ]
@@ -628,7 +628,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
       "Lakshadweep",
       "Sundarbans"
     ],
-    "explanation": "The Nicobar Islands form the southern portion of the Union Territory. The Andaman Islands lie to their north.",
+    "explanation": "The Nicobar Islands form the southern portion of the Union Territory. The Andaman Islands lie to their north, so a north-up map places Nicobar below Andaman.",
     "sourceFactIds": [
       "NICOBAR-SOUTHERN-GROUP"
     ]
