@@ -16,7 +16,7 @@ The incident also showed him that checking a second reliable source can be usefu
 
 The station later made a corrective announcement and updated the board at the same time. Passengers arriving after that point faced much less confusion.
 
-Arvind's main lesson was simple: speed is useful only after the information is clear. Running quickly toward the wrong platform would not have saved time.`,
+Arvind's main lesson was simple: speed is useful only after the information is clear. Running quickly toward the wrong platform would not have saved time. On his return journey a week later, Arvind noticed that the station had begun displaying a short “platform changed” banner whenever an announcement was corrected. The added message did not prevent operational changes, but it made the relationship between old and new information easier to understand. He also saw staff directing confused passengers toward the latest display instead of simply repeating the most recent announcement. The station had not eliminated uncertainty; it had improved how quickly conflicting information was resolved.`,
  questions:[
  q("N04-Q1","BP-F01","easy","Which platform did the station employee finally confirm?","Platform two",["Platform three","Platform one","Platform four"],"The employee confirmed that the train would use platform two.","confirmed platform two"),
  q("N04-Q2","BP-F02","medium","What can be inferred from the conflicting announcement and display?","Official information can become temporarily inconsistent after a late change",["Display boards are always more reliable than staff","Announcements should never be trusted","Passengers caused the platform change"],"The passage explains that a late operational change made the earlier announcement outdated.","before a last-minute operational change"),
@@ -45,7 +45,7 @@ The experience did not make her suspicious of every package. It simply made her 
 
 The building later changed its package register to include flat number, full name and courier company. The extra information took only a few seconds to record.
 
-The incident was ordinary, but it showed how verification becomes more useful when people already expect something to be true.`,
+The incident was ordinary, but it showed how verification becomes more useful when people already expect something to be true. The receptionist later reviewed the previous month's entries and found two other cases where shortened names could have caused confusion. Those packages had reached the correct residents, but the review showed that the weakness was not limited to Tara's incident. The building therefore kept the extra identification fields permanently and asked temporary reception staff to follow the same check.`,
  questions:[
  q("N05-Q1","BP-F01","easy","What first showed Tara that the package might not be hers?","The flat number on the label was different",["The package was already open","The courier company was unknown","The receptionist refused to show the label"],"The passage directly says Tara noticed the flat number did not match.","flat number ... was different"),
  q("N05-Q2","BP-F02","medium","Why did Tara almost accept the wrong package?","She was already expecting a delivery and saw a matching first name",["She knew the other resident","The package contained her book","The receptionist told her the surname matched"],"Expectation made one matching detail feel convincing.","already waiting for a delivery"),
@@ -74,7 +74,7 @@ The change was small, but compliance improved because writing the label became e
 
 The committee did not create strict penalties for every mistake. Its goal was to make the expected behaviour simple and visible before considering stronger rules.
 
-By the end of the term, the kitchen still required occasional reminders, but fewer disputes came from uncertainty about ownership. The experience suggested that shared spaces work better when basic information is recorded where decisions are actually made.`,
+By the end of the term, the kitchen still required occasional reminders, but fewer disputes came from uncertainty about ownership. The experience suggested that shared spaces work better when basic information is recorded where decisions are actually made. The committee later compared complaint types and found that disputes about ownership fell more than complaints about cleanliness. That distinction helped them avoid claiming that the labels had solved every kitchen problem. They began treating labelling, cleaning and refrigerator maintenance as separate issues, each requiring its own simple rule rather than one broad policy.`,
  questions:[
  q("S05-Q1","BP-F01","easy","Which three details were added to the new food labels?","Name, room number and storage date",["Price, meal type and shelf number","Name, phone number and expiry date","Room number, refrigerator brand and weight"],"The third paragraph lists the three fields directly.","name, room number and date stored"),
  q("S05-Q2","BP-F02","medium","Why were pens moved beside the refrigerators?","To make updating labels easier when food was actually stored",["To reduce refrigerator electricity use","To stop residents entering the kitchen","To record refrigerator temperatures"],"The passage says compliance improved when labelling became convenient at the point of use.","easier at the moment food was stored"),
@@ -103,7 +103,7 @@ The shop also began separating parts and labour on the confirmed estimate. Custo
 
 Not every customer wanted detailed messages, so repeat customers could choose a pre-approved spending limit for common repairs.
 
-The experiment showed that price communication is not only about accuracy. A useful estimate should also make uncertainty visible and give customers a clear point at which to accept or reject a larger expense.`,
+The experiment showed that price communication is not only about accuracy. A useful estimate should also make uncertainty visible and give customers a clear point at which to accept or reject a larger expense. The shop later added photographs of major damaged parts to some approval messages when the fault was difficult to explain in words. Customers did not need the image for every repair, but it helped when the additional cost was substantial. The owner found that transparency worked best when the amount of explanation matched the size and complexity of the change.`,
  questions:[
  q("B05-Q1","BP-F01","easy","What changed after the technician opened a device?","The shop sent a confirmed repair cost for approval",["The repair became free","The device was automatically replaced","The customer had to visit in person"],"The third paragraph directly explains the second-stage estimate.","confirmed repair cost"),
  q("B05-Q2","BP-F02","medium","Why were some customers less upset by a higher final price?","They had been warned that the first estimate was provisional",["They received discounts","They did not see the bill","The shop removed labour charges"],"Advance warning reduced surprise.","told in advance"),
