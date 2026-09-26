@@ -245,3 +245,25 @@ test('CLK-001 permanent QLs produce genuine stem variation across repeated gener
 
   assert.equal(diversity.size, 23);
 });
+
+
+test('CLK-QL-019 exposes its safe owned strike-total variants without changing QL ownership', async () => {
+  const generatedTaskIds = new Set<string>();
+  for (let round = 0; round < 30; round += 1) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-QL-019',
+      language: round % 3 === 0 ? 'hi' : round % 3 === 1 ? 'pa' : 'en',
+      count: 1,
+      seed: 'clk-wave03-ql019-owned-variant-' + round,
+    });
+    const question = result.questions[0]!;
+    assert.equal(question.qlId, 'CLK-QL-019');
+    assert.equal(question.checkpointId, 'CLK-CP-010');
+    generatedTaskIds.add(String((question.traceability as any).generatedTaskId));
+  }
+  assert.deepEqual(
+    [...generatedTaskIds].sort(),
+    ['TOTAL_STRIKES_12_HOURS', 'TOTAL_STRIKES_24_HOURS', 'TOTAL_STRIKES_INCLUSIVE_RANGE'].sort(),
+  );
+});
