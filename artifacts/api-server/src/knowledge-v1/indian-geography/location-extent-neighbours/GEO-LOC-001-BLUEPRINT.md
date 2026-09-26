@@ -100,5 +100,8 @@ All implementation is review-only until explicit human approval. Question Studio
 
 - Blueprint established.
 - CP001 — Astronomical Location, Extent & Size Basics — human-approved and merged.
-- CP002 — Extreme Points, Mainland Shape & Territorial Extent — human-approved.
+- CP002 — Extreme Points, Mainland Shape & Territorial Extent — human-approved and merged.
+- CP003 — Indian Standard Time & Longitude Applications — human-approved.
+- CP004 — Surrounding Seas, Ocean & Maritime Position — human-approved.
+- CP005 — Land Neighbours & Directional Border Relations — human-approved.
 - No permanent runtime registration or public publication is authorized.
