@@ -1,3 +1,4 @@
+import { ENG008_CP004_EXPANSION_WAVE2_V1 } from "./eng-008-cp004-expansion-wave2-v1";
 import { ENG008_CP004_EXPANSION_WAVE1_V1 } from "./eng-008-cp004-expansion-wave1-v1";
 export type Eng008Cp004Difficulty="medium"|"hard";
 export type Eng008Cp004Genre="economy"|"business"|"technology"|"health"|"environment"|"social-policy"|"philosophy"|"media";
@@ -13,6 +14,7 @@ export interface Eng008Cp004PassageV1{
 const q=(id:string,familyId:Eng008Cp004FamilyId,difficulty:Eng008Cp004Difficulty,question:string,correctAnswer:string,distractors:readonly [string,string,string],explanation:string,evidence:string):Eng008Cp004QuestionAuthorityV1=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
 
 export const ENG008_CP004_PASSAGES_V1:readonly Eng008Cp004PassageV1[]=[
+...ENG008_CP004_EXPANSION_WAVE2_V1,
 ...ENG008_CP004_EXPANSION_WAVE1_V1,
 {
  id:"ENG008-BM-E01",title:"When Hiring Numbers Look Better Than Jobs Feel",genre:"economy",
