@@ -38,7 +38,7 @@ jobs:
       - name: Bundle MIS-001 proofs
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/mis-001
-          for file in             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/mis-cp-001.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/mis-cp-002.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/mis-cp-003.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/mis-cp-004.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/mis-cp-005.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/mis-cp-006.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/mis-cp-007.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/export-review.ts
+          for file in             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/mis-cp-001.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/mis-cp-002.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/mis-cp-003.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/mis-cp-004.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/mis-cp-005.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/mis-cp-006.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/mis-cp-007.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/export-review-html.ts
           do
             name="$(basename "$file" .ts)"
             parent="$(basename "$(dirname "$file")")"
@@ -72,6 +72,9 @@ jobs:
           node dist/reasoning-v1/mis-001/MIS-CP-005-export-review.mjs
           node dist/reasoning-v1/mis-001/MIS-CP-006-export-review.mjs
           node dist/reasoning-v1/mis-001/MIS-CP-007-export-review.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-005-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-006-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-007-export-review-html.mjs
       - name: Upload MIS-001 review packs
         uses: actions/upload-artifact@v4
         with:
@@ -84,3 +87,6 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-005-REVIEW.md
             artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-006-REVIEW.md
             artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-007-REVIEW.md
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-005-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-006-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-007-REVIEW.html
