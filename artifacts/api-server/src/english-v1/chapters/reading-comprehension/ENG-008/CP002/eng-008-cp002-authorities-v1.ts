@@ -1,3 +1,4 @@
+import { ENG008_CP002_EXPANSION_WAVE9_V1 } from "./eng-008-cp002-expansion-wave9-v1";
 import { ENG008_CP002_EXPANSION_WAVE8_V1 } from "./eng-008-cp002-expansion-wave8-v1";
 import { ENG008_CP002_EXPANSION_WAVE7_V1 } from "./eng-008-cp002-expansion-wave7-v1";
 import { ENG008_CP002_EXPANSION_WAVE6_V1 } from "./eng-008-cp002-expansion-wave6-v1";
@@ -24,6 +25,7 @@ const seed=(id:string)=>{const p=ENG008_CP002_SEED_PASSAGES_V1.find(x=>x.id===id
 
 export const ENG008_CP002_PASSAGES_V1:readonly Eng008Cp002PassageV1[
 ...ENG008_CP002_EXPANSION_WAVE8_V1,]=[
+...ENG008_CP002_EXPANSION_WAVE9_V1,
 ...ENG008_CP002_EXPANSION_WAVE7_V1,
 ...ENG008_CP002_EXPANSION_WAVE6_V1,
 ...ENG008_CP002_EXPANSION_WAVE5_V1,
