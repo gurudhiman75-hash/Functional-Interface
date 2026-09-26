@@ -18,6 +18,11 @@ import {
   isDi003QuestionStudioRequest,
 } from "../../quant-v4/topics/DataInterpretation/DI-003/question-studio-adapter";
 import {
+  di004QuestionStudioPackageCard,
+  generateDi004QuestionStudioBatch,
+  isDi004QuestionStudioRequest,
+} from "../../quant-v4/topics/DataInterpretation/DI-004/question-studio-adapter";
+import {
   di005QuestionStudioPackageCard,
   generateDi005QuestionStudioBatch,
   isDi005QuestionStudioRequest,
@@ -190,6 +195,22 @@ function toDi003Request(request: QuestionStudioGenerationRequest) {
   };
 }
 
+function toDi004Request(request: QuestionStudioGenerationRequest) {
+  return {
+    packageId: request.packageId,
+    patternId: request.patternId,
+    topic: request.topic,
+    subtopic: request.subtopic,
+    difficulty: request.difficulty,
+    language: request.language,
+    seed: request.seed,
+    count: request.count,
+    canonicalProblemId: request.canonicalProblemId,
+    questionLanguageId: request.questionLanguageId,
+    examProfile: request.exam,
+  };
+}
+
 function toDi005Request(request: QuestionStudioGenerationRequest) {
   return {
     packageId: request.packageId,
@@ -302,6 +323,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-002", di002QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-003", di003QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-004", di004QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-005", di005QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-006", di006QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-007", di007QuestionStudioPackageCard() as unknown as Record<string, unknown>);
@@ -336,6 +358,11 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     const di003Request = toDi003Request(request);
     if (isDi003QuestionStudioRequest(di003Request)) {
       return generateDi003QuestionStudioBatch(di003Request) as unknown as QuestionStudioGenerationResult;
+    }
+
+    const di004Request = toDi004Request(request);
+    if (isDi004QuestionStudioRequest(di004Request)) {
+      return generateDi004QuestionStudioBatch(di004Request) as unknown as QuestionStudioGenerationResult;
     }
 
     const di005Request = toDi005Request(request);
