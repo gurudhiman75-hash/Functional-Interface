@@ -1,8 +1,10 @@
 # CLS-001 — Classification / Odd One Out: End-to-End Design
 
-Status: `OPEN_EXECUTABLE_DISCOVERY`
+Status: `HISTORICAL_DESIGN__SUPERSEDED_BY_FINAL_CHAPTER_CLOSURE`
 
 This document defines the initial architecture for ExamTree Reasoning V1 chapter `CLS-001`. It is subordinate to the Reasoning V1 master blueprint and implementation architecture.
+
+> **Current authority note (2026-09-18):** This file is preserved as the discovery-era architecture record. Current chapter authority is `README.md` plus `CLS-001-FINAL-CHAPTER-CLOSURE.md`. The historical four-tier explanation requirements below do not override the approved compact learner surfaces; forced shortcut/trap boilerplate is no longer required. Question Studio exposure is now a review-only overlay, while Question Bank, test/mock, student and public delivery remain locked.
 
 The design deliberately keeps permanent QL and solve-mode totals open. Checkpoint names, candidate families and prototype counts are discovery tools rather than quotas.
 
