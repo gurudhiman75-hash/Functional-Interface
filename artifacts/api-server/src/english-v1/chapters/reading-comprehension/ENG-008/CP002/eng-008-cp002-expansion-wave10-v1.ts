@@ -151,7 +151,7 @@ The trial showed that automatic release could improve room availability, but a r
 
 The library kept the revised system and published a simple status display showing “reserved”, “checked in”, “delayed with notice” or “released”.
 
-Administrators said the goal was to make scarce rooms easier to share, not to punish occasional mistakes. Future evaluation will compare wait lists, no-show rates and student complaints during examination periods.`,
+Administrators said the goal was to make scarce rooms easier to share, not to punish occasional mistakes. Future evaluation will compare wait lists, no-show rates and student complaints during examination periods. Staff will also record how quickly released rooms are actually taken by waiting students.`,
  questions:[
  q("R25-Q1","RC2-F01","easy","What happened if a student did not check in within the normal window?","The room was released to waiting students",["The booking extended automatically","The library closed the room","A fee was charged immediately"],"The no-show rule made unused rooms available again.","room was released"),
  q("R25-Q2","RC2-F02","medium","Why was a “running late” option added?","Some students had genuine short delays between buildings",["Students wanted longer study sessions","The app could not record check-ins","Rooms were too small"],"The exception prevented the automatic rule from treating every short delay as a true no-show.","previous classes ended in another building"),
