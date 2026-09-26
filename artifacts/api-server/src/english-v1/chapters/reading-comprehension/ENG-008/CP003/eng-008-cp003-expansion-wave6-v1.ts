@@ -11,9 +11,9 @@ Neha then checked the time printed on the receipt. It was from fifteen minutes b
 
 Instead of returning to the store to dispute the charge, she called customer service and confirmed that her account showed the correct transaction. The receipt belonged to another customer.
 
-The incident reminded her that a document found with her belongings was not automatically evidence about her own purchase. Matching the payment amount and transaction time gave a clearer answer than the location of the paper.
+The incident reminded her that a document found with her belongings was not automatically evidence about her own purchase. Matching the payment amount and transaction time gave a clearer answer than the location of the paper. She kept her own digital payment record until the next day, then discarded the unrelated receipt. The problem had looked like a billing error only because one piece of evidence appeared in the wrong place.
 
-She kept her own digital payment record until the next day, then discarded the unrelated receipt. The problem had looked like a billing error only because one piece of evidence appeared in the wrong place.`,
+ The next time she shopped, Neha deliberately checked her own receipt before leaving the counter. She noticed that the store had also begun placing printed receipts directly in the customer's hand instead of inside reusable bags when the checkout area was crowded. A cashier explained that this reduced accidental mixing between neighbouring transactions. Neha realised that small process changes can prevent confusion before verification is needed. The store still kept digital payment records as a second reference, because one system can correct uncertainty created by another. Her experience changed a simple habit: she no longer treated physical proximity as proof that a document belonged to her.`,
  questions:[
  q("N06-Q1","BP-F01","easy","What first showed Neha that the receipt might not be hers?","The receipt total did not match her payment amount",["The bag was empty","The cashier called her","The store was closed"],"The payment message showed a different amount.","values were different"),
  q("N06-Q2","BP-F02","medium","What can be inferred from the receipt time?","It likely belonged to an earlier customer",["Neha arrived before the store opened","The payment message was wrong","The cashier changed prices"],"The receipt was printed before Neha's visit.","fifteen minutes before her visit"),
@@ -36,9 +36,9 @@ She immediately sent a correction, clearly stating that the original permission-
 
 The class representative suggested adding the class name and date at the start of future trip messages. The teacher adopted the idea.
 
-The incident showed that deleting an error does not always remove its effect. Once information has been seen, a clear correction may be more useful than silently replacing it.
+The incident showed that deleting an error does not always remove its effect. Once information has been seen, a clear correction may be more useful than silently replacing it. Parents later said the correction was easy to understand because it named both the wrong date and the correct one. That made it less likely that someone would remember only the first message.
 
-Parents later said the correction was easy to understand because it named both the wrong date and the correct one. That made it less likely that someone would remember only the first message.`,
+ The school later adopted a simple message template for trips, competitions and timetable changes. The first line contained the class name, event and date, while the body gave details. Teachers were encouraged to send a correction as a new clearly labelled message rather than editing an earlier message without explanation. Parents said this was useful because notifications are often read quickly and sometimes out of order. The template did not remove all mistakes, but it made inconsistencies easier to notice. The school also reminded staff that a correction should state what changed, not merely repeat the final information.`,
  questions:[
  q("N07-Q1","BP-F01","easy","Why was the first reminder wrong?","It had been prepared for another class",["The trip was cancelled","The permission form was wrong","Parents changed the date"],"The teacher copied a reminder for a different class.","prepared for another class"),
  q("N07-Q2","BP-F02","medium","Why was deleting the message not enough?","Some parents might already have seen it",["The app could not send corrections","Parents never read messages","The trip location changed"],"Notifications and screenshots may preserve the mistaken information.","already have read"),
@@ -61,13 +61,9 @@ Researchers also kept notes on crowd size because a nearly empty room could appe
 
 The courtyard room produced an unusual pattern. It was quiet on still days but much louder when events were held outside.
 
-Students initially wanted one permanent ranking of the rooms. The team decided that would oversimplify the results because time, occupancy and nearby activity changed the pattern.
+Students initially wanted one permanent ranking of the rooms. The team decided that would oversimplify the results because time, occupancy and nearby activity changed the pattern. Instead, the library map began describing each area's typical conditions: “quiet most mornings,” “variable near stairs” and “affected by courtyard events.” The project showed that measurement can replace vague impressions, but it can also reveal that a simple ranking is less useful than describing when and why conditions change. The library plans to repeat the study during examination season, when crowding patterns are different and students may be more sensitive to noise.
 
-Instead, the library map began describing each area's typical conditions: “quiet most mornings,” “variable near stairs” and “affected by courtyard events.”
-
-The project showed that measurement can replace vague impressions, but it can also reveal that a simple ranking is less useful than describing when and why conditions change.
-
-The library plans to repeat the study during examination season, when crowding patterns are different and students may be more sensitive to noise.`,
+ The team also compared measured sound with student perceptions. In some rooms, students rated noise as more distracting than the decibel readings alone suggested because sudden voices or chair movement interrupted concentration even when the average level remained moderate. This showed that average sound intensity and perceived disturbance were related but not identical. The library therefore decided not to publish a single “quiet score.” Instead, it kept notes about variability, nearby activity and typical use. During the next study, researchers will record both average sound and short peaks to see whether sudden noise better predicts complaints.`,
  questions:[
  q("SC05-Q1","BP-F01","easy","Which room was usually quietest in the morning?","The carpeted room",["The staircase room","The courtyard room always","All rooms equally"],"The second paragraph states this directly.","carpeted room was usually quietest"),
  q("SC05-Q2","BP-F02","medium","Why did researchers record crowd size?","Occupancy could affect noise independently of room design",["They wanted to count chairs","Crowds always improve quietness","Sensors could not measure sound"],"An empty room may seem quiet regardless of design.","regardless of design"),
@@ -90,13 +86,9 @@ The pharmacy changed to a two-message system. The first message confirmed that t
 
 During the next six weeks, early-arrival complaints fell sharply. Staff also spent less time explaining why an order was not yet available.
 
-The pharmacy kept the first message because customers still wanted confirmation that the prescription had reached the system. Removing it entirely would have solved one confusion by creating another.
+The pharmacy kept the first message because customers still wanted confirmation that the prescription had reached the system. Removing it entirely would have solved one confusion by creating another. The manager also checked whether two messages annoyed customers. Survey responses suggested that most preferred the clearer stages, especially when the second message included collection hours. One issue remained for urgent prescriptions. Customers sometimes needed an estimated preparation time before the final message. Staff therefore added an optional time range when a prescription was marked urgent. The trial showed that status communication works best when each message corresponds to a distinct stage. A notification should not merely be accurate; it should also be difficult to misinterpret when read quickly.
 
-The manager also checked whether two messages annoyed customers. Survey responses suggested that most preferred the clearer stages, especially when the second message included collection hours.
-
-One issue remained for urgent prescriptions. Customers sometimes needed an estimated preparation time before the final message. Staff therefore added an optional time range when a prescription was marked urgent.
-
-The trial showed that status communication works best when each message corresponds to a distinct stage. A notification should not merely be accurate; it should also be difficult to misinterpret when read quickly.`,
+ The pharmacy later reviewed whether the clearer messages changed pickup timing. Customers arrived closer to the period when orders were actually ready, which reduced crowding near the counter during busy hours. Staff also noticed fewer calls asking whether a prescription had entered the system. The two-stage design therefore improved both expectations and workflow. The manager still avoided promising an exact ready time for routine orders because preparation could depend on stock checks or pharmacist review. Instead, the first message confirmed receipt and the second confirmed completion, keeping each notification tied to a fact the pharmacy could verify.`,
  questions:[
  q("B08-Q1","BP-F01","easy","Why were some customers arriving too early?","They thought the first message meant the prescription was ready",["The pharmacy closed early","The medicine was free","Doctors changed the pickup time"],"The initial wording was being misread.","interpreted the message as meaning the medicine was ready"),
  q("B08-Q2","BP-F02","medium","Why did the pharmacy keep the first message?","Customers still wanted confirmation that the prescription had been received",["It was legally required","It reduced medicine prices","The second message often failed"],"The first message served a separate confirmation purpose.","wanted confirmation"),
