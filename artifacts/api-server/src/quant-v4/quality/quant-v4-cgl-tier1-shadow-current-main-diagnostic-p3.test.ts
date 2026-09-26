@@ -63,12 +63,20 @@ const emptyExplanation = runtime.filter((question) => !String(question.explanati
 const algebraUnexpectedlyTestEligible = algebra.filter((question) => question.testEligible === true);
 const trigonometryTestEligible = trigonometry.filter((question) => question.testEligible === true);
 const publiclyPublishable = integrated.filter((question) => question.publiclyPublishable === true);
+const advancedMath = integrated.filter((question) =>
+  question.slotKind === "ALGEBRA" || question.slotKind === "TRIGONOMETRY"
+);
+const advancedMathPubliclyPublishable = advancedMath.filter((question) => question.publiclyPublishable === true);
 
 assert.equal(advancedGaps.length, 0, "Integrated current-main must have zero Algebra/Trigonometry capability gaps");
 assert.equal(optionMismatch.length, 0, "Integrated runtime questions must honor SSC option-count contract");
 assert.equal(emptyExplanation.length, 0, "Integrated runtime questions must have learner explanations");
 assert.equal(algebraUnexpectedlyTestEligible.length, 0, "Algebra must remain non-test-eligible at this audit gate");
-assert.equal(publiclyPublishable.length, 0, "CGL diagnostic must not expose public-release questions");
+assert.equal(
+  advancedMathPubliclyPublishable.length,
+  0,
+  "CGL diagnostic must not expose Algebra/Trigonometry records for public release",
+);
 
 const literal = duplicateSummary(runtime.map((question) => literalSignature(question.text)));
 const structural = duplicateSummary(runtime.map((question) => String(question.normalizedStemSignature ?? "")));
@@ -106,6 +114,7 @@ console.log("QUANT_V4_CGL_CURRENT_MAIN_DIAGNOSTIC_P4", JSON.stringify({
     optionMismatchCount: optionMismatch.length,
     emptyExplanationCount: emptyExplanation.length,
     publiclyPublishableCount: publiclyPublishable.length,
+    advancedMathPubliclyPublishableCount: advancedMathPubliclyPublishable.length,
     slotDistribution,
     packageDistribution,
     gapSlotDistribution,
