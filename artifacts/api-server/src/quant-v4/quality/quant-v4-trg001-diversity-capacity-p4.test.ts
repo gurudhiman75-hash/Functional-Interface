@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 
+import { TRG_001_PRODUCTION_REGISTRY } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-runtime";
 import {
   generateQuantV4AdvancedMathSectionQuestion,
   listQuantV4Trg001RuntimeDifficultyQlIds,
@@ -20,6 +21,20 @@ const poolSizes = Object.fromEntries(
     listQuantV4Trg001RuntimeDifficultyQlIds(difficulty).length,
   ]),
 ) as Record<QuantV4AdvancedMathDifficulty, number>;
+
+const runtimeDifficultyByQl = new Map<string, QuantV4AdvancedMathDifficulty>();
+for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+  for (const qlId of listQuantV4Trg001RuntimeDifficultyQlIds(difficulty)) {
+    runtimeDifficultyByQl.set(qlId, difficulty);
+  }
+}
+const registryDifficultyMismatches = TRG_001_PRODUCTION_REGISTRY
+  .filter((entry) => runtimeDifficultyByQl.get(entry.qlId) !== entry.difficulty)
+  .map((entry) => ({
+    qlId: entry.qlId,
+    registryDifficulty: entry.difficulty,
+    runtimeDifficulty: runtimeDifficultyByQl.get(entry.qlId) ?? null,
+  }));
 
 const currentQlIds: string[] = [];
 const capacityQlIds: string[] = [];
@@ -104,5 +119,7 @@ console.log("QUANT_V4_TRG001_DIVERSITY_CAPACITY_P4", JSON.stringify({
     uniqueQlIds: new Set(capacityQlIds).size,
     duplicateItems: capacityDuplicateItems,
   },
+  registryDifficultyMismatchCount: registryDifficultyMismatches.length,
+  registryDifficultyMismatches: registryDifficultyMismatches.slice(0, 30),
   productionBehaviorChanged: false,
 }));
