@@ -5,7 +5,7 @@ import {
   misCandidateCreatesSemanticAuthority,
 } from './semantic-authority-registry';
 
-assert.equal(MIS_SEMANTIC_AUTHORITY_ALIASES.length, 36);
+assert.equal(MIS_SEMANTIC_AUTHORITY_ALIASES.length, 37);
 
 const mappings: Record<string,string> = {
   'MIS-CAND-028':'MIS-CAND-021',
@@ -44,6 +44,7 @@ const mappings: Record<string,string> = {
   'MIS-CAND-086':'MIS-CAND-050',
   'MIS-CAND-097':'MIS-CAND-059',
   'MIS-CAND-109':'MIS-CAND-003',
+  'MIS-CAND-110':'MIS-CAND-016',
 };
 
 for (const [runtime, canonical] of Object.entries(mappings)) {
@@ -51,7 +52,7 @@ for (const [runtime, canonical] of Object.entries(mappings)) {
   assert.equal(misCandidateCreatesSemanticAuthority(runtime), false, runtime);
 }
 
-const all = Array.from({length:109},(_,i)=>'MIS-CAND-'+String(i+1).padStart(3,'0'));
+const all = Array.from({length:110},(_,i)=>'MIS-CAND-'+String(i+1).padStart(3,'0'));
 const authorities = new Set(all.map(canonicalMisSemanticAuthorityId));
 assert.equal(authorities.size,73);
 assert.equal(all.filter(misCandidateCreatesSemanticAuthority).length,73);
