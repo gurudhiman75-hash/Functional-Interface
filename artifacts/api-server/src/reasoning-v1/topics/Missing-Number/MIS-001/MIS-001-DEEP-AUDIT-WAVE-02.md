@@ -40,6 +40,16 @@ The source ledger includes previous-paper examples from SSC CPO, CGL, CHSL, GD a
 
 These establish source-backed **families**. They do not prove that every algebraically different formula deserves an independent QL.
 
+## Invalid implementation removed
+
+### MIS-CAND-078 — a×b + |a−b|
+
+The prototype displayed three inputs but its implemented rule ignored the third input. This violates the chapter requirement that every displayed input participate in the reasoning.
+
+Decision: **EXCLUDE FROM RUNTIME**.
+
+The audit does not invent a replacement formula to preserve the candidate count.
+
 ## Holds
 
 ### MIS-CAND-034 — small factorial
