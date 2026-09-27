@@ -48,10 +48,11 @@ State: `ENGINEERING_REVIEW_READY_HUMAN_SIGNOFF_PENDING`.
 ### Trigonometry · TRG-002 localization families
 
 - The approved/frozen English production authority is preserved.
-- Hindi/Punjabi CP007–CP010 localization layers remain `REVIEW_CANDIDATE_V1`/remediation candidates.
+- Hindi/Punjabi CP007–CP010 localization layers remain `REVIEW_CANDIDATE_V1`.
+- The P3 learner-text cleanup removes the remaining mixed-English prose found in CP007/CP010 and adds generated-surface regression coverage across CP007–CP010.
 - `humanReviewStatus` remains pending, freeze remains false, activation remains false.
 
-State: `REVIEW_CANDIDATE_ACTIVE_REMEDIATION`.
+State: `ENGINEERING_REVIEW_READY_HUMAN_SIGNOFF_PENDING`.
 
 ## Already-closed examples that must not be reopened
 
