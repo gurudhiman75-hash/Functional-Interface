@@ -41,6 +41,7 @@ async function main() {
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp025CandidateCount, 1);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp026CandidateCount, 1);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp027CandidateCount, 1);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp027CandidateCount, 1);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.permanentQlAllocation, false);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.sourceSaturationComplete, false);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.mergeSplitAuditComplete, true);
@@ -92,6 +93,8 @@ async function main() {
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CAND-109' }), true);
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CP-026' }), true);
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CAND-110' }), true);
+  assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CP-027' }), true);
+  assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CAND-111' }), true);
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CP-027' }), true);
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CAND-111' }), true);
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CAND-014' }), true);
@@ -405,6 +408,16 @@ async function main() {
   assert.ok(cp026Rows.every(q=>q.renderer==='SVG_OPPOSITE_SQUARE_WHEEL'));
   assert.ok(cp026Rows.every(q=>q.figures?.length===1));
   assert.ok(cp026Rows.every(q=>q.validation.solverAgreement===true && q.validation.exactlyOneIntendedRule===true));
+
+  const cp027 = await generateMis001QuestionStudioBatch({
+    packageId:'MIS-001', patternId:'MIS-CP-027', language:'en', count:8, seed:'MIS-QS-CP027-V1',
+  });
+  const cp027Rows = cp027.questions as Record<string,any>[];
+  assert.ok(cp027Rows.every(q=>q.candidateId==='MIS-CAND-111'));
+  assert.ok(cp027Rows.every(q=>q.sourceBacked===true));
+  assert.ok(cp027Rows.every(q=>q.createsNewSemanticAuthority===true));
+  assert.ok(cp027Rows.every(q=>q.structuralFingerprint.includes('SUM_OF_CUBES')));
+  assert.ok(cp027Rows.every(q=>q.validation.solverAgreement===true && q.validation.exactlyOneIntendedRule===true));
 
   const cp027 = await generateMis001QuestionStudioBatch({
     packageId:'MIS-001', patternId:'MIS-CP-027', language:'en', count:8, seed:'MIS-QS-CP027-V1',
