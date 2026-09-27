@@ -8,13 +8,13 @@ import {
 
 async function main() {
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.packageId, 'MIS-001');
-  assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.cpIds, ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016','MIS-CP-017','MIS-CP-018']);
+  assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.cpIds, ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016','MIS-CP-017','MIS-CP-018','MIS-CP-019']);
   assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.supportedLanguages, ['en']);
   assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.supportedDifficulties, ['Easy', 'Medium', 'Hard']);
-  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.candidateCount, 61);
-  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.semanticAuthorityCount, 61);
-  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.runtimePatternCount, 95);
-  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.reusedSemanticVariantCount, 34);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.candidateCount, 65);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.semanticAuthorityCount, 65);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.runtimePatternCount, 100);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.reusedSemanticVariantCount, 35);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp003CandidateCount, 10);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp004CandidateCount, 9);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp005CandidateCount, 8);
@@ -31,6 +31,7 @@ async function main() {
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp016CandidateCount, 1);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp017CandidateCount, 1);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp018CandidateCount, 4);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp019CandidateCount, 5);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.permanentQlAllocation, false);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.sourceSaturationComplete, false);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.mergeSplitAuditComplete, true);
@@ -38,7 +39,7 @@ async function main() {
   const listed = reasoningV1QuestionStudioAdapter.listPackages()
     .find((entry) => entry.packageId === 'MIS-001');
   assert.ok(listed);
-  assert.deepEqual(listed?.cpIds, ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016','MIS-CP-017','MIS-CP-018']);
+  assert.deepEqual(listed?.cpIds, ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016','MIS-CP-017','MIS-CP-018','MIS-CP-019']);
 
   assert.equal(isMis001QuestionStudioRequest({ packageId: 'MIS-001' }), true);
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CP-002' }), true);
@@ -66,23 +67,25 @@ async function main() {
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CAND-091' }), true);
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CP-018' }), true);
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CAND-095' }), true);
+  assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CP-019' }), true);
+  assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CAND-100' }), true);
   assert.equal(isMis001QuestionStudioRequest({ patternId: 'MIS-CAND-014' }), true);
   assert.equal(isMis001QuestionStudioRequest({ subtopic: 'Missing Number' }), true);
 
   const first = await generateMis001QuestionStudioBatch({
     packageId: 'MIS-001',
     language: 'en',
-    count: 95,
+    count: 100,
     seed: 'MIS-QS-CHAPTER-V1',
   });
   const replay = await generateMis001QuestionStudioBatch({
     packageId: 'MIS-001',
     language: 'en',
-    count: 95,
+    count: 100,
     seed: 'MIS-QS-CHAPTER-V1',
   });
   assert.deepEqual(first, replay);
-  assert.equal(first.questions.length, 95);
+  assert.equal(first.questions.length, 100);
 
   const candidateIds = new Set<string>();
   const checkpointIds = new Set<string>();
@@ -106,8 +109,8 @@ async function main() {
     assert.equal(question.validation.everyDisplayedInputParticipates, true);
     assert.ok(['RESULT_MISSING','CENTRE_MISSING','FIRST_INPUT','SECOND_INPUT','THIRD_INPUT','RESULT','TOP_VERTEX','LEFT_VERTEX','RIGHT_VERTEX','CENTRE','CORNER_MISSING'].includes(question.missingPosition));
   }
-  assert.equal(candidateIds.size, 95);
-  assert.deepEqual([...checkpointIds].sort(), ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016','MIS-CP-017','MIS-CP-018']);
+  assert.equal(candidateIds.size, 100);
+  assert.deepEqual([...checkpointIds].sort(), ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016','MIS-CP-017','MIS-CP-018','MIS-CP-019']);
 
   const cp002 = await generateMis001QuestionStudioBatch({
     packageId: 'MIS-001',
@@ -294,8 +297,18 @@ async function main() {
   assert.ok(cp018Rows.filter(q=>q.candidateId==='MIS-CAND-093').every(q=>q.structuralFingerprint.includes('D=2')));
   assert.ok(cp018Rows.filter(q=>q.candidateId==='MIS-CAND-095').every(q=>q.sourceThin===true && q.structuralFingerprint.includes('W=4') && q.structuralFingerprint.includes('K=1')));
 
+  const cp019 = await generateMis001QuestionStudioBatch({
+    packageId:'MIS-001', patternId:'MIS-CP-019', language:'en', count:15, seed:'MIS-QS-CP019-V1',
+  });
+  const cp019Rows = cp019.questions as Record<string,any>[];
+  assert.equal(new Set(cp019Rows.map(q=>q.candidateId)).size,5);
+  assert.ok(cp019Rows.every(q=>q.sourceBacked===true));
+  assert.equal(cp019Rows.filter(q=>q.candidateId==='MIS-CAND-097' && q.semanticAuthorityCandidateId==='MIS-CAND-059' && q.createsNewSemanticAuthority===false).length,3);
+  assert.ok(cp019Rows.filter(q=>q.candidateId!=='MIS-CAND-097').every(q=>q.createsNewSemanticAuthority===true));
+  assert.ok(cp019Rows.filter(q=>q.candidateId==='MIS-CAND-100').every(q=>q.operandCount===4 && q.structuralFingerprint.includes('K=2')));
+
   const hard = await generateMis001QuestionStudioBatch({
-    packageId:'MIS-001', language:'en', difficulty:'Hard', count:18, seed:'MIS-QS-HARD-CP001-CP018',
+    packageId:'MIS-001', language:'en', difficulty:'Hard', count:18, seed:'MIS-QS-HARD-CP001-CP019',
   });
   assert.ok((hard.questions as Record<string,any>[]).every(q=>q.difficulty==='Hard'));
 
@@ -304,7 +317,7 @@ async function main() {
     language: 'en',
     difficulty: 'Easy',
     count: 16,
-    seed: 'MIS-QS-EASY-CP001-CP018',
+    seed: 'MIS-QS-EASY-CP001-CP019',
   });
   assert.ok((easy.questions as Record<string, any>[]).every((question) => question.difficulty === 'Easy'));
 
@@ -313,7 +326,7 @@ async function main() {
     language: 'en',
     difficulty: 'Medium',
     count: 16,
-    seed: 'MIS-QS-MEDIUM-CP001-CP018',
+    seed: 'MIS-QS-MEDIUM-CP001-CP019',
   });
   assert.ok((medium.questions as Record<string, any>[]).every((question) => question.difficulty === 'Medium'));
 
@@ -332,7 +345,7 @@ async function main() {
     /is not owned by MIS-CP-002/,
   );
 
-  console.log('MIS-001 chapter Question Studio CP001-CP018 integration audit passed.');
+  console.log('MIS-001 chapter Question Studio CP001-CP019 integration audit passed.');
 }
 
 main().catch((error) => {
