@@ -6,7 +6,7 @@ Status: **MERGE-SPLIT COMPLETE AGAINST THE IMPLEMENTED BLUEPRINT; EXTERNAL SOURC
 
 The MIS-001 blueprint requires permanent QLs to represent semantic exam patterns rather than constants, number tuples, renderer shapes, blank positions or difficulty labels. It also requires source saturation across SSC, Banking and Punjab-state material before permanent QL allocation.
 
-The repository currently contains the full MIS-001 executable blueprint implementation through CP012, but no MIS-001-specific SSC/Banking/Punjab source pack or source-family crosswalk was found on `New-main`.
+The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP016. Source crosswalk waves V1–V4 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
 
 Therefore:
 
@@ -32,15 +32,17 @@ Current runtime review patterns:
 - CP012: 5
 - CP013: 2 source-discovered authorities
 - CP014: 1 source-backed missing-corner runtime variant
+- CP015: 3 SSC CHSL source-discovered authorities
+- CP016: 1 SSC GD source-discovered authority
 
-**Total runtime patterns: 86**
+**Total runtime patterns: 90**
 
 ## 3. Chapter-wide consolidation result
 
 After normalization by semantic rule rather than checkpoint/renderer/query direction:
 
-- runtime patterns: **86**
-- canonical semantic authorities: **52**
+- runtime patterns: **90**
+- canonical semantic authorities: **56**
 - reuse / alias patterns: **34**
 - permanent QLs allocated: **0**
 
@@ -118,6 +120,19 @@ All CP012 patterns are presentation/inference variants. They add evidence densit
 - 082 → 075
 - 083 → 051
 
+### Source-discovered authorities after the blueprint merge/split pass
+
+Target-exam discovery added semantic relations that were not present in the original blueprint-derived canonical inventory:
+
+- MIS-CAND-084: pair product divided by an evidenced constant (currently source-backed at k=2);
+- MIS-CAND-085: pair sum minus twice the absolute difference;
+- MIS-CAND-087: pair product plus the first input;
+- MIS-CAND-088: three-input product plus 1;
+- MIS-CAND-089: three-input product minus 1;
+- MIS-CAND-090: pair-product difference followed by an evidenced multiplier (currently k=2).
+
+MIS-CAND-086 is not a new authority; the PSPCL missing-corner form reuses MIS-CAND-050.
+
 ## 5. Families deliberately not merged
 
 The audit does **not** merge rules merely because algebraic identities can rewrite them when the visible structure materially changes the inference pattern.
@@ -170,9 +185,9 @@ Executable coverage exists for:
 
 Still pending before closure:
 
-- MIS-001-specific SSC source crosswalk
-- MIS-001-specific Banking source crosswalk where applicable
-- MIS-001-specific Punjab-state source crosswalk
+- additional SSC source waves until no meaningful new authority appears;
+- additional Punjab-state repeated-group/figure source evidence;
+- Banking repeated-group evidence if it exists (current previous-paper evidence mainly routes missing-number series to Quant);
 - English editorial freeze after source reconciliation
 - permanent QL allocation
 - Hindi localization
@@ -185,13 +200,11 @@ Still pending before closure:
 
 **Permanent QL allocation remains BLOCKED.**
 
-Source discovery has now started in `MIS-001-SOURCE-CROSSWALK-V1`.
-
-Wave 1 confirms SSC repeated-figure evidence for pair-product sum and sum-of-squares, while also documenting Punjab/Banking search results that correctly route to Series or Number Matrix rather than MIS-001.
+Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V4`. Those waves have confirmed existing authorities, added six source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
 
 Required next checkpoint:
 
-`MIS-001-SOURCE-CROSSWALK-V4`
+`MIS-001-SOURCE-CROSSWALK-V5`
 
 For each observed target-exam source family record:
 
@@ -204,4 +217,4 @@ For each observed target-exam source family record:
 - frequency confidence
 - source-thin flag
 
-Only after that crosswalk reaches practical saturation should the 50 current canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
+Only after the crosswalk reaches practical saturation should the current 56 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
