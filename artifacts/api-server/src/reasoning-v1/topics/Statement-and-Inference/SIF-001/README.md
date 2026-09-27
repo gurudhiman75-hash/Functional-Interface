@@ -38,6 +38,14 @@ The package does not infer its answer from generated prose. It also keeps infere
 
 `SIF-CP011-REVIEW-V1.md` contains 24 trilingual multiple-factor scenarios across eight families. Each family contributes three scenarios; the pool balances 12 Medium / 12 Hard and 12 supported-Inference-I / 12 supported-Inference-II. Scenarios require combining conditions, records, comparisons, scope or status facts before deciding whether an inference follows. It remains in Question Studio review only.
 
+## CP012–CP014 review candidates
+
+CP012 contains 20 scenarios about the boundary between supported and merely possible claims; CP013 contains 20 scenarios about sample and population scope; CP014 contains 12 scenarios about temporal order without unsupported causation. Each pool has a deterministic, non-repeating Question Studio review pack, trilingual parity checks, and difficulty-specific proofs.
+
+## CP015–CP017 review candidates
+
+CP015 contains 13 distinct trilingual scenarios about bounded attitudes and positions, including qualified support, reservations, and explicit opposition. CP016 contains 13 short, advanced passages that combine reported figures, conditions, time limits, and missing evidence without adding causal claims. CP017 contains 13 mixed-format passages spanning quantifiers, conditions, exceptions, comparisons, and scope. Each pack has its own deterministic review sampler; all pool scenarios are sampled once, and Hindi/Punjabi parity and answer-position balance are checked.
+
 ## Review boundary
 
-All 17 content packs are executable and registered for Question Studio review. Question Bank persistence, tests, mocks, public delivery and automatic publication remain locked until CP-level human review, multilingual parity review, novelty expansion and the chapter freeze are approved.
+All 17 content packs are executable and registered for Question Studio review. The full chapter is an implementation review candidate; it is not frozen. Question Bank persistence, tests, mocks, public delivery and automatic publication remain locked until CP-level human editorial review, multilingual parity review, novelty expansion and the chapter freeze are approved.
