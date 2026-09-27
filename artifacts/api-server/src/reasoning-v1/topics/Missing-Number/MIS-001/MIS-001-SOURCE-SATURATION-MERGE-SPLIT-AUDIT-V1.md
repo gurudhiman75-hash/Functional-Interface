@@ -244,9 +244,9 @@ Still pending before closure:
 
 **Permanent QL allocation remains BLOCKED.**
 
-Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V10`. Those waves have confirmed existing authorities, added eighteen source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
+Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V12`. Those waves have confirmed existing authorities, added eighteen source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
 
-V10 exposed two additional target-exam gaps—SSC arithmetic mean and a PSPCL mixed-root relation—so practical source saturation remains open.
+V10 exposed two semantic gaps. V11 then exposed one further SSC semantic gap (repeated affine transform) plus two RRB source-form capability gaps that were correctly retained as aliases rather than new semantic authorities. Practical source saturation remains open.
 
 V10 exposed a repeated-affine SSC CGL gap (`x→3x+1` applied twice), so practical source saturation remains open.
 
