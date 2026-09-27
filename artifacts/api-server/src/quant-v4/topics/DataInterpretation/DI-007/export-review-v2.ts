@@ -112,7 +112,7 @@ lines.push("- Five options remain unique for both Banking Prelims and Banking Ma
 lines.push("");
 
 lines.push("---", "", "## Hindi/Punjabi localization review", "");
-lines.push("Status: HI_PA_REVIEW_CANDIDATE · HUMAN APPROVAL PENDING", "");
+lines.push("Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW", "");
 for (const locale of ["hi-IN", "pa-IN"] as readonly Di007LocalizationLocale[]) {
   lines.push(locale === "hi-IN" ? "### Hindi (hi-IN)" : "### Punjabi (pa-IN)", "");
   for (const [index, descriptor] of DI007_PERMANENT_QLS.entries()) {
