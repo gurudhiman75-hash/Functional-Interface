@@ -1,3 +1,6 @@
+import { ENG008_CP001_EXPANSION_WAVE16_V1 } from "../eng-008-expansion-wave16-v1";
+import { ENG008_CP001_EXPANSION_WAVE15_V1 } from "../eng-008-expansion-wave15-v1";
+import { ENG008_CP001_EXPANSION_WAVE14_V1 } from "../eng-008-expansion-wave14-v1";
 import { ENG008_CP001_EXPANSION_WAVE13_V1 } from "./eng-008-cp001-expansion-wave13-v1";
 import { ENG008_CP001_EXPANSION_WAVE12_V1 } from "./eng-008-cp001-expansion-wave12-v1";
 import { ENG008_CP001_EXPANSION_WAVE11_V1 } from "./eng-008-cp001-expansion-wave11-v1";
@@ -40,6 +43,9 @@ const q=(id:string,familyId:Eng008RcFamilyId,difficulty:Eng008Difficulty,questio
 
 
 export const ENG008_CP001_PASSAGES_V1:readonly Eng008RcPassageV1[]=[
+...ENG008_CP001_EXPANSION_WAVE16_V1,
+...ENG008_CP001_EXPANSION_WAVE15_V1,
+...ENG008_CP001_EXPANSION_WAVE14_V1,
 ...ENG008_CP001_EXPANSION_WAVE13_V1,
 ...ENG008_CP001_EXPANSION_WAVE12_V1,
 ...ENG008_CP001_EXPANSION_WAVE11_V1,
