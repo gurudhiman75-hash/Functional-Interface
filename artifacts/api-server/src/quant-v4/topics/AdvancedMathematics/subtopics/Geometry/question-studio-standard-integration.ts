@@ -24,6 +24,7 @@ export type Geo001StandardQuestionStudioRequest = {
   language?: unknown;
   count?: unknown;
   seed?: string;
+  auditDiversityOrdinal?: unknown;
 };
 
 if (!GEO_PERMANENT_MULTILINGUAL_FREEZE_PROOF_V1.lifecycle.questionStudioIntegrationAllowed) {
@@ -415,7 +416,13 @@ export async function generateGeo001StandardQuestionStudioBatch(
     ?? `quant-v4:GEO-001:${language}:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
       .toString(36)
       .slice(2)}`;
-  const qlOffset = seededHash(`${batchSeed}:ql-offset`) % eligibleDefinitions.length;
+  const auditDiversityOrdinalRaw = Number(request.auditDiversityOrdinal);
+  const auditDiversityOrdinal = Number.isInteger(auditDiversityOrdinalRaw)
+    ? Math.max(0, Math.floor(auditDiversityOrdinalRaw))
+    : null;
+  const qlOffset = auditDiversityOrdinal == null
+    ? seededHash(`${batchSeed}:ql-offset`) % eligibleDefinitions.length
+    : auditDiversityOrdinal % eligibleDefinitions.length;
   const questionPackages: any[] = [];
   const questions: any[] = [];
 
