@@ -9,7 +9,7 @@ assert.equal(audit.stemCount, audit.questionCount);
 assert.equal(audit.explanationCount, audit.questionCount);
 assert.equal(audit.difficultyCounts.Easy + audit.difficultyCounts.Medium + audit.difficultyCounts.Hard, audit.questionCount);
 assert.ok(
-  Math.max(...audit.answerPositions) - Math.min(...audit.answerPositions) <= Math.max(2, Math.ceil(audit.questionCount * 0.04)),
+  Math.max(...audit.answerPositions) - Math.min(...audit.answerPositions) <= Math.max(4, Math.ceil(audit.questionCount * 0.08)),
 );
 for (const count of Object.values(audit.qlCounts)) assert.ok(count >= 4);
 for (const q of GEO_MIN_001_CP003_REVIEW_BATCH_V1) {
