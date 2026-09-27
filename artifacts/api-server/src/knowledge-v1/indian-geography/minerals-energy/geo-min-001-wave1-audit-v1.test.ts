@@ -1,0 +1,10 @@
+import assert from "node:assert/strict";
+import { auditGeoMin001Wave1V1 } from "./geo-min-001-wave1-audit-v1";
+const audit = auditGeoMin001Wave1V1();
+assert.equal(audit.valid, true, audit.issues.join("\n"));
+assert.equal(audit.questionCount, 270);
+assert.equal(audit.permanentQlCount, 45);
+assert.equal(audit.stemCount, 270);
+assert.equal(audit.explanationCount, 270);
+assert.deepEqual(audit.difficultyCounts, { Easy: 90, Medium: 150, Hard: 30 });
+console.log(JSON.stringify(audit, null, 2));
