@@ -107,8 +107,8 @@ const route = readFileSync(
   resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-calendar.ts"),
   "utf8",
 );
-const routeIndex = readFileSync(
-  resolve(repoRoot, "artifacts/api-server/src/routes/index.ts"),
+const questionStudioRegistry = readFileSync(
+  resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-registry.ts"),
   "utf8",
 );
 const api = readFileSync(
@@ -142,7 +142,9 @@ assert.match(route, /manualApprovalRequired/);
 assert.match(route, /automaticStudentPublication/);
 assert.doesNotMatch(route, /INSERT INTO content\.questions/);
 assert.doesNotMatch(route, /'approved'::generation_item_status/);
-assert.match(routeIndex, /adminQuestionStudioCalendarRouter/);
+assert.match(questionStudioRegistry, /adminQuestionStudioCalendarRouter/);
+assert.match(questionStudioRegistry, /import\("\.\/admin-question-studio-calendar"\)/);
+assert.match(questionStudioRegistry, /router\.use\(adminQuestionStudioCalendarRouter\)/);
 assert.match(api, /reasoning\/calendar\/preview/);
 assert.match(api, /reasoning\/calendar\/runs/);
 assert.match(api, /reasoning\/calendar\/status/);
