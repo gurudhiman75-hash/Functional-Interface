@@ -69,6 +69,9 @@ export const MIS_SEMANTIC_AUTHORITY_ALIASES: readonly MisSemanticAuthorityAlias[
 
   // CP014 source-backed missing-corner presentation.
   { runtimeCandidateId:'MIS-CAND-086', canonicalCandidateId:'MIS-CAND-050', disposition:'INVERSE_QUERY_VARIANT', reason:'PSPCL repeated-square missing-corner form reuses the four-corner-sum semantic authority; invariant total and blank position are query dimensions.' },
+
+  // CP019 stable pre-product subtraction is the same parameterized family as MIS-CAND-059.
+  { runtimeCandidateId:'MIS-CAND-097', canonicalCandidateId:'MIS-CAND-059', disposition:'ALGEBRAIC_DUPLICATE', reason:'(a−2)b and ab−b=(a−1)b share the same subtract-a-stable-constant-from-first, then multiply-by-second semantic family; the constant is rule context.' },
 ]);
 
 const DIRECT = new Map(MIS_SEMANTIC_AUTHORITY_ALIASES.map((entry) => [entry.runtimeCandidateId, entry.canonicalCandidateId]));
