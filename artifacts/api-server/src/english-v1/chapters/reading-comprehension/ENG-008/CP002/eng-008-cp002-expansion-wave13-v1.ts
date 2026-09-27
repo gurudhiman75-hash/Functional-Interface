@@ -77,7 +77,7 @@ This does not mean large review counts guarantee quality. Coordinated manipulati
 
 The point is narrower: a public rating should not look more certain than the evidence behind it.
 
-A useful summary helps users see both the central score and the amount and pattern of information supporting it.  Platforms can also show how recently the review set was updated, since an old large sample may describe a business that has changed substantially.`,
+A useful summary helps users see both the central score and the amount and pattern of information supporting it.  Platforms can also show how recently the review set was updated, since an old large sample may describe a business that has changed substantially.  Showing sample size makes this uncertainty easier to see.`,
  questions:[
  q("E42-Q1","RC2-F01","easy","Why should sample size appear beside a rating?","It helps users judge how much evidence supports the average",["It changes the rating scale","It guarantees review honesty","It removes old reviews"],"The passage explains that the same average is more or less stable depending on how many reviews contributed.","how many people"),
  q("E42-Q2","RC2-F02","medium","What can be inferred from a 5.0 rating based on two reviews?","The score may be genuine but highly uncertain",["It is definitely manipulated","It is better than every 4.8 rating","It cannot change"],"A tiny sample can produce an extreme average without much evidence.","less certain"),
@@ -107,7 +107,7 @@ The same principle applies inside organisations. If every email is marked “urg
 
 Urgency is a scarce signal.
 
-A responsible system protects that signal by reserving the strongest interruptions for information where delay has meaningful cost.  Systems that protect the strongest alert style also make it easier for users to trust that an interruption deserves immediate attention.`,
+A responsible system protects that signal by reserving the strongest interruptions for information where delay has meaningful cost.  Systems that protect the strongest alert style also make it easier for users to trust that an interruption deserves immediate attention.  That preserves the value of interruption.`,
  questions:[
  q("E43-Q1","RC2-F01","easy","Why can too many urgent alerts become ineffective?","Users stop treating the urgent signal as meaningful",["Phones cannot play many sounds","All alerts become slower","Promotions disappear"],"The passage argues that repeated low-value interruption weakens the credibility of the channel.","label stops helping"),
  q("E43-Q2","RC2-F02","medium","What can be inferred if users disable all notifications?","Overuse of low-priority alerts can also reduce reach for genuinely important alerts",["Urgent alerts become louder","Marketing improves","Security messages become unnecessary"],"Channel fatigue can cause users to remove the channel altogether.","disable notifications entirely"),
@@ -135,7 +135,7 @@ Drivers did not enter the codes themselves while moving. Depot staff updated the
 
 The district concluded that delay explanations are useful only when they remain current.
 
-The next phase will measure whether reason information reduces unnecessary early pickups by parents and whether families prefer broad categories or more detailed explanations.  The district will also compare whether families act differently when they understand the reason, such as waiting at home during traffic delay rather than driving to the route.`,
+The next phase will measure whether reason information reduces unnecessary early pickups by parents and whether families prefer broad categories or more detailed explanations.  The district will also compare whether families act differently when they understand the reason, such as waiting at home during traffic delay rather than driving to the route.  The district will also record how often the displayed cause changes during one delay, because frequent changes would show that a single early label is not enough for a long disruption. Parents will be surveyed on whether broad categories are clearer than more detailed technical explanations.`,
  questions:[
  q("R36-Q1","RC2-F01","easy","What did the new bus app add?","Reason codes for delays",["Driver salaries","Student grades","Fuel prices"],"Parents could see broad causes such as traffic or weather.","reason codes"),
  q("R36-Q2","RC2-F02","medium","Why was a timestamp added to the delay reason?","The original reason could become outdated as the situation changed",["Parents requested the driver's location history","Arrival estimates were removed","Weather never changed"],"A timestamp helps users judge whether the displayed explanation is still current.","could become stale"),
@@ -163,7 +163,7 @@ Staff also added a note explaining that some patients would not need every categ
 
 The ward concluded that discharge is a process, not a single moment.
 
-The next evaluation will measure whether the board changes actual discharge time or mainly reduces uncertainty while patients wait.  Staff will also examine whether clearer discharge stages reduce last-minute confusion over transport and medicines even when total hospital processing time is unchanged.`,
+The next evaluation will measure whether the board changes actual discharge time or mainly reduces uncertainty while patients wait.  Staff will also examine whether clearer discharge stages reduce last-minute confusion over transport and medicines even when total hospital processing time is unchanged.  The ward will also compare whether clearer status reduces early packing, repeated transport calls and unnecessary waiting near the exit. Staff want to know whether process visibility changes behaviour even when pharmacy, transport and paperwork durations remain the same.`,
  questions:[
  q("R37-Q1","RC2-F01","easy","What did the discharge board show?","Separate completion states for several discharge steps",["Only the doctor's name","Hospital bills only","Room availability"],"The board tracked doctor decision, medicines, transport and paperwork.","four steps"),
  q("R37-Q2","RC2-F02","medium","Why was a final “all required steps complete” message added?","One completed step could be mistaken for full discharge readiness",["Patients could not see green ticks","Doctors stopped making decisions","The pharmacy closed"],"The system needed a clear signal that the whole required pathway was complete.","guarantee of immediate discharge"),
@@ -191,7 +191,7 @@ Another problem involved traders joining the wrong bay queue for their goods cat
 
 Managers concluded that queue transparency requires both position and the rules that can legitimately alter position.
 
-The next phase will measure unloading time and whether traders switch bays unnecessarily when they see a shorter queue elsewhere.  Managers will also review whether category errors fall after product labels are added to bay queues and whether emergency-priority events remain understandable to traders.`,
+The next phase will measure unloading time and whether traders switch bays unnecessarily when they see a shorter queue elsewhere.  Managers will also review whether category errors fall after product labels are added to bay queues and whether emergency-priority events remain understandable to traders.  The market will also examine whether queue movement caused by priority inspections is understood equally well during busy periods, when traders may be less likely to read explanatory messages. Staff will compare complaint rates before and after the priority notice was added.`,
  questions:[
  q("R38-Q1","RC2-F01","easy","What did each queue ticket show?","Position in a specific loading-bay queue",["Wholesale prices","Driver licence status","Product quality score"],"The ticket identified both the bay and current position.","bay-specific queue"),
  q("R38-Q2","RC2-F02","medium","Why could a trader's position move backward?","A recognised priority inspection could move another vehicle ahead",["The app lost every ticket","Bay numbers changed randomly","Traders were removed from the market"],"The queue allowed explicit safety-related priority events.","priority access"),
@@ -221,7 +221,7 @@ Screens also showed a maintenance symbol when closure was not routine cleaning.
 
 Officials concluded that public status is most useful when it distinguishes reason and expected duration without pretending the estimate is guaranteed.
 
-The city will next compare screen accuracy across locations and measure whether users simply move to the nearest alternative facility.  The city will also test whether users trust the range more than an exact minute and whether maintenance closures need a separate expected-duration range from routine cleaning.`,
+The city will next compare screen accuracy across locations and measure whether users simply move to the nearest alternative facility.  The city will also test whether users trust the range more than an exact minute and whether maintenance closures need a separate expected-duration range from routine cleaning.  Officials will also track whether users abandon a facility and walk to an alternative when the displayed closure range is long. This will help the city understand whether status information mainly reduces uncertainty or also redistributes demand between nearby facilities.`,
  questions:[
  q("R39-Q1","RC2-F01","easy","What did the cleaning-status screens show?","Whether the facility was open, being cleaned or temporarily closed",["Only the cleaner's name","Entry fees","Water usage"],"The screens used three operational states for visitors.","open ... cleaning ... closed"),
  q("R39-Q2","RC2-F02","medium","Why was an exact reopening minute replaced by a range?","Cleaning or maintenance duration could vary",["The screens had no clock","Users requested less information","Every closure lasted an hour"],"A range better represented uncertainty in completion time.","could extend"),
