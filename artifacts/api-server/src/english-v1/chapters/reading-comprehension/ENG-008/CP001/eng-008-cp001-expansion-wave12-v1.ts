@@ -119,7 +119,7 @@ Average queue length fell slightly during the busiest periods, but total daily c
 
 Managers concluded that a capacity indicator can spread flexible demand but cannot move customers whose task is time-sensitive.
 
-The bank kept the system and added the next planned update time so customers would know how fresh the status was.`,
+The bank kept the system and added the next planned update time so customers would know how fresh the status was.  The bank will also compare which routine services are most easily shifted to quieter periods.`,
  questions:[
  q("R32-Q1","RC-F01","easy","What did the bank's indicator show?","How busy walk-in service currently was",["Interest rates","Account balances","ATM cash levels"],"The indicator used three categories to describe branch crowding.","normal, busy or very busy"),
  q("R32-Q2","RC-F02","medium","Why was the update interval shortened at lunch?","Customer numbers could change quickly during a busy period",["The bank closed after lunch","Staff stopped measuring queues","Lunch customers used only ATMs"],"More frequent updates reduced the risk that a status remained stale while demand changed.","sudden groups"),
@@ -143,7 +143,7 @@ The system also showed which tools were in heavy demand. Two measuring tools wer
 
 Managers concluded that the board was useful because it improved visibility, not because it physically prevented tools from being misplaced.
 
-The workshop kept the system but reminded students that a status board is reliable only when users update it at both check-out and return.`,
+The workshop kept the system but reminded students that a status board is reliable only when users update it at both check-out and return.  Staff will review demand again next term.`,
  questions:[
  q("R33-Q1","RC-F01","easy","What did students place on the board when taking a tool?","A magnetic name tag beside the tool number",["A payment receipt","A safety certificate","A written exam answer"],"The tag showed who had taken each shared item.","magnetic name tag"),
  q("R33-Q2","RC-F02","medium","Why could the board become inaccurate?","Students sometimes returned tools without removing their tags",["Tool numbers changed daily","The shelves had no labels","Staff removed the magnets"],"The physical tool and recorded status could become inconsistent if the return step was skipped.","forgot to remove"),
@@ -169,7 +169,7 @@ The school kept the standard 8 p.m. default but made exceptions more visible.
 
 Administrators concluded that defaults save effort only when departures from them are easy to notice. A hidden exception can be more confusing than having no default at all.
 
-The revised calendar therefore treated the normal deadline and the class-specific exception as equally important pieces of information.`,
+The revised calendar therefore treated the normal deadline and the class-specific exception as equally important pieces of information.  Teachers will also monitor whether visible changes reduce deadline-related questions.`,
  questions:[
  q("R34-Q1","RC-F01","easy","What was the normal homework deadline?","8 p.m.",["6 p.m.","Midnight","No fixed time"],"The calendar automatically used 8 p.m. unless a teacher changed it.","automatically marked assignments due at 8 p.m."),
  q("R34-Q2","RC-F02","medium","Why were some students late before the change?","The revised time was visible only inside the assignment page",["Teachers removed deadlines","The calendar was offline","Students had no accounts"],"The main grid continued to suggest the default time even when a class had an exception.","looked only at the calendar grid"),
