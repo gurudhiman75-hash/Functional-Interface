@@ -9,6 +9,11 @@ Permanent QLs: semantic registry; final count determined by coverage
 - limestone in cement/metallurgy
 - gypsum uses and Rajasthan
 - integrated non-metallic reasoning
+- graphite: properties, uses and Palamu/Balangir/Sivagangai geography
+- magnesite: Salem/Uttarakhand and refractory use
+- dolomite: flux/refractory role and major resource states
+- rock phosphate/apatite: Jhamarkotra and fertilizer linkage
+- salt: Sambhar, marine/inland sources and Mandi rock salt
 
 ## Review contract
 - no fixed QL count
