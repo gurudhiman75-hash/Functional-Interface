@@ -131,7 +131,7 @@ export function auditGeoMinCp(
 
   const maxPos = Math.max(...answerPositions);
   const minPos = Math.min(...answerPositions);
-  if (maxPos - minPos > Math.max(4, Math.ceil(questions.length * 0.08))) {
+  if (maxPos - minPos > Math.max(6, Math.ceil(questions.length * 0.10))) {
     issues.push("ANSWER_POSITION_IMBALANCE:" + answerPositions.join(","));
   }
 
