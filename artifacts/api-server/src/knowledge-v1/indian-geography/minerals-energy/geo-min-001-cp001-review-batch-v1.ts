@@ -36,7 +36,7 @@ buildGeoMinQl("MINERAL-MEANING-AND-BASIC-CHARACTER", "Mineral meaning and basic 
     "sourceFactId": "MINERAL-VS-ORE"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Mineral meaning and basic character?",
     "answer": "Mineral — naturally occurring homogeneous substance",
     "distractors": [
       "Ore — every mineral found in the crust",
@@ -116,7 +116,7 @@ buildGeoMinQl("VEINS-AND-LODES", "Veins and lodes", [
     "sourceFactId": "LODE-CLUE"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Veins and lodes?",
     "answer": "Lode — larger mineral deposit in a rock fissure",
     "distractors": [
       "Vein — river-borne heavy mineral deposit",
@@ -185,7 +185,7 @@ buildGeoMinQl("BEDS-AND-LAYERS-IN-SEDIMENTARY-ROCKS", "Beds and layers in sedime
     "sourceFactId": "BEDDED-CLUE"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Beds and layers in sedimentary rocks?",
     "answer": "Coal seam — bedded sedimentary occurrence",
     "distractors": [
       "Gold in river sand — lode occurrence",
@@ -254,7 +254,7 @@ buildGeoMinQl("RESIDUAL-DEPOSITS-AND-WEATHERING", "Residual deposits and weather
     "sourceFactId": "RESIDUAL-CLUE"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Residual deposits and weathering?",
     "answer": "Residual deposit — concentration left after weathering",
     "distractors": [
       "Placer deposit — mineral filling a deep rock crack",
@@ -323,7 +323,7 @@ buildGeoMinQl("PLACER-AND-ALLUVIAL-DEPOSITS", "Placer and alluvial deposits", [
     "sourceFactId": "PLACER-CLUE"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Placer and alluvial deposits?",
     "answer": "Placer — heavy mineral concentration in alluvial material",
     "distractors": [
       "Lode — mineral concentration in river sand",
@@ -392,7 +392,7 @@ buildGeoMinQl("FERROUS-MINERALS", "Ferrous minerals", [
     "sourceFactId": "FERROUS-NEGATIVE"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Ferrous minerals?",
     "answer": "Chromite — ferrous/ferro-alloy mineral",
     "distractors": [
       "Bauxite — ferrous mineral",
@@ -461,7 +461,7 @@ buildGeoMinQl("NON-FERROUS-METALLIC-MINERALS", "Non-ferrous metallic minerals", 
     "sourceFactId": "NONFERROUS-CLUE"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Non-ferrous metallic minerals?",
     "answer": "Bauxite — non-ferrous metallic mineral",
     "distractors": [
       "Manganese — non-ferrous mineral",
@@ -530,7 +530,7 @@ buildGeoMinQl("NON-METALLIC-MINERALS", "Non-metallic minerals", [
     "sourceFactId": "NONMETALLIC-CEMENT-CLUE"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Non-metallic minerals?",
     "answer": "Gypsum — non-metallic mineral",
     "distractors": [
       "Copper — non-metallic mineral",
@@ -599,7 +599,7 @@ buildGeoMinQl("MINERAL-CONSERVATION", "Mineral conservation", [
     "sourceFactId": "MINERAL-SCRAP"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Mineral conservation?",
     "answer": "Mineral conservation — recycling and efficient use",
     "distractors": [
       "Mineral conservation — faster disposal of metals",
