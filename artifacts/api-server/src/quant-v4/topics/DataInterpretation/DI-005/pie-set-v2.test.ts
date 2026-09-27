@@ -97,6 +97,14 @@ for (const profile of profiles) {
     assert.equal((svg.match(/data-slice="true"/gu) ?? []).length, 5, "Renderer must draw exactly five pie slices.");
     assert.equal((svg.match(/data-slice-label=/gu) ?? []).length, 5, "Renderer must draw exactly five sector labels.");
     assert.match(svg, />\?</u, "Renderer must visibly preserve the hidden percentage marker.");
+    const sliceLabels = [...svg.matchAll(/data-slice-label="\d+"[^>]*>([^<]+)<\/text>/gu)].map((match) => match[1]!);
+    assert.equal(sliceLabels.length, 5, "Pie renderer must expose one readable label for every sector.");
+    for (const slice of first.stimulus.slices) {
+      const expected = slice.displayPercent === "?" ? "?" : `${slice.displayPercent}%`;
+      assert.ok(sliceLabels.includes(expected), `Pie renderer did not expose expected sector label '${expected}'.`);
+    }
+    assert.equal(sliceLabels.filter((label) => label === "?").length, 1, "Pie renderer must hide exactly one sector percentage.");
+    assert.match(svg, new RegExp(`>${first.stimulus.totalLabel}: ${first.stimulus.totalValue} ${first.stimulus.unit}<`, "u"), "Pie renderer must expose the total needed for count-based questions.");
   }
 }
 
