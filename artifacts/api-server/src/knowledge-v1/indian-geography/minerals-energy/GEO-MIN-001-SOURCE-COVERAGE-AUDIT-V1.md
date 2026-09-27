@@ -93,7 +93,7 @@ Still inspect:
 - mining/conservation concepts only where they belong to Geography rather than legislation
 
 ### CP002 — Iron Ore
-Current core belts and major ore types are present.
+Current core belts and major ore types are present, with Noamundi/Singhbhum depth added.
 Still inspect:
 - Noamundi / Singhbhum depth
 - Keonjhar/Mayurbhanj depth
@@ -103,7 +103,7 @@ Still inspect:
 - any durable IBM/GSI belt fact absent from NCERT but frequently examinable
 
 ### CP003 — Manganese & Chromite
-Current manganese, Sukinda and ferro-alloy core is present.
+Current manganese, Sukinda and ferro-alloy core is present, with Nagpur–Bhandara depth added.
 Still inspect:
 - Nagpur–Bhandara manganese belt
 - additional Odisha/Karnataka manganese districts where durable and exam-relevant
@@ -111,7 +111,7 @@ Still inspect:
 - chromite distribution beyond Sukinda if it adds meaningful examination breadth
 
 ### CP004 — Non-ferrous
-Current bauxite, copper and lead-zinc core is present.
+Current bauxite, copper and lead-zinc core is present, with Malanjkhand/Balaghat copper depth added.
 Still inspect:
 - major bauxite plateau/state belts beyond the first examples
 - Malanjkhand/Balaghat copper distinction
@@ -122,12 +122,15 @@ Still inspect:
 
 ### CP005 — Non-metallic & industrial minerals
 This CP is NOT ready to freeze at mica + limestone + gypsum alone.
-Mandatory breadth decision required for:
+Implemented in the current review wave:
 - graphite
 - magnesite
 - dolomite
 - apatite / rock phosphate
 - salt
+
+Still inspect before freeze:
+- wollastonite, kyanite/sillimanite/andalusite, fluorite and other industrial minerals for genuine recurring exam value
 - other stable industrial minerals exposed by IBM reviews
 
 Each candidate must be tested against:
