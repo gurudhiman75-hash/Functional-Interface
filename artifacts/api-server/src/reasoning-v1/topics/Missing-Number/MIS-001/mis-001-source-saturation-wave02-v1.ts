@@ -243,7 +243,7 @@ export const MIS_001_SOURCE_DECISIONS_V1: readonly Mis001SourceDecisionV1[] =
 
 export const MIS_001_WAVE02_SOURCE_AUDIT_V1 = Object.freeze({
   version: "MIS_001_SOURCE_SATURATION_WAVE02_2026_09_27_V1" as const,
-  status: "SOURCE_FAMILY_SATURATED__FORMULA_LEVEL_MERGE_SPLIT_PENDING" as const,
+  status: "SOURCE_AUDIT_COMPLETE__TWO_SOURCE_THIN_HOLDS__MERGE_SPLIT_PENDING" as const,
   sourceDecisionCount: MIS_001_SOURCE_DECISIONS_V1.length,
   directPyqCount: MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "DIRECT_PYQ").length,
   familyCorroboratedCount: MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "FAMILY_CORROBORATED").length,
