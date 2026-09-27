@@ -243,6 +243,7 @@ export function generateMensurationLocalizedBatchV1(input: {
   seed?: string;
   count?: number;
   language?: MensurationStudioLanguage;
+  auditExcludedPatternIds?: readonly string[];
 }) {
   const language = input.language ?? "en";
   const canonical = generateMensurationStudioBatchV2({
@@ -252,6 +253,7 @@ export function generateMensurationLocalizedBatchV1(input: {
     examProfile: input.examProfile,
     seed: input.seed,
     count: input.count,
+    auditExcludedPatternIds: input.auditExcludedPatternIds,
   });
   const questions = language === "en"
     ? canonical.questions.map(normalizeCanonicalQuestion)
