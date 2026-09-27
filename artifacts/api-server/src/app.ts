@@ -9,6 +9,7 @@ import adminCurrentAffairsProductionOpsRouter from "./routes/admin-current-affai
 import adminCurrentAffairsEditorialActivationRouter from "./routes/admin-current-affairs-editorial-activation";
 import adminCurrentAffairsSelectedProcessingRouter from "./routes/admin-current-affairs-selected-processing";
 import adminCurrentAffairsPackEditorialRouter from "./routes/admin-current-affairs-pack-editorial";
+import adminSessionRouter from "./routes/admin-session";
 import { webhookRateLimit } from "./middlewares/rateLimit";
 import { adminRequestObservability } from "./middlewares/admin-request-observability";
 
@@ -86,6 +87,11 @@ app.use(
 app.get("/health", (_req, res) => {
   res.status(200).json({ status: "ok" });
 });
+
+// Lightweight admin bootstrap stays outside the large legacy router. The admin
+// shell calls this before rendering any workspace; keeping it here prevents a
+// Current Affairs visit from importing every legacy route and content registry.
+app.use("/api/admin/session", adminRequestObservability, adminSessionRouter);
 
 // Production-activation mounts stay separate from the large legacy router so
 // only the validated Current Affairs operations and bounded editorial surfaces
