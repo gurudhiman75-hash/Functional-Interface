@@ -2,12 +2,14 @@ export type Mis001SourceSupportV1 =
   | "DIRECT_PYQ"
   | "FAMILY_CORROBORATED"
   | "REUSE_ONLY"
-  | "SOURCE_THIN_HOLD";
+  | "SOURCE_THIN_HOLD"
+  | "EXCLUDED_INVALID";
 
 export type Mis001OwnershipDecisionV1 =
   | "RETAIN_FOR_MERGE_SPLIT"
   | "REUSE_EXISTING_AUTHORITY"
-  | "HOLD_NO_PERMANENT_QL";
+  | "HOLD_NO_PERMANENT_QL"
+  | "EXCLUDE_RUNTIME";
 
 export interface Mis001SourceDecisionV1 {
   readonly candidateId: string;
@@ -115,6 +117,8 @@ const reuseMap: Readonly<Record<string, string>> = Object.freeze({
   "MIS-CAND-083": "MIS-CAND-051",
 });
 
+const invalidExclude = new Set(["MIS-CAND-078"]);
+
 const sourceThinHold = new Set([
   "MIS-CAND-034", // small factorial: preparation references exist, but no strong direct missing-figure authority recovered
   "MIS-CAND-072", // number + reversed number: reversal is seen in other reasoning families, direct Missing Number support not established
@@ -219,6 +223,15 @@ export const MIS_001_SOURCE_DECISIONS_V1: readonly Mis001SourceDecisionV1[] =
         note: `Presentation/inverse/rule-competition variant of ${reusedAuthority}; no independent QL.`,
       });
     }
+    if (invalidExclude.has(candidateId)) {
+      return Object.freeze({
+        candidateId,
+        support: "EXCLUDED_INVALID" as const,
+        decision: "EXCLUDE_RUNTIME" as const,
+        family: labels[candidateId]!,
+        note: "Invalid three-input prototype: the implemented formula ignored the third displayed input. Removed from runtime rather than inventing a replacement rule.",
+      });
+    }
     if (sourceThinHold.has(candidateId)) {
       return Object.freeze({
         candidateId,
@@ -249,6 +262,9 @@ export const MIS_001_WAVE02_SOURCE_AUDIT_V1 = Object.freeze({
   familyCorroboratedCount: MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "FAMILY_CORROBORATED").length,
   reuseOnlyCount: MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "REUSE_ONLY").length,
   sourceThinHoldCount: MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "SOURCE_THIN_HOLD").length,
+  excludedInvalidCount: MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "EXCLUDED_INVALID").length,
+  activeRuntimePatternCount: 82 as const,
+  activeSemanticAuthorityCount: 69 as const,
   permanentQlAllocationAllowed: false as const,
   nextWave: "FORMULA_TO_LEARNER_SKILL_MERGE_SPLIT" as const,
   ownershipBoundary: Object.freeze({
