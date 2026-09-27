@@ -94,7 +94,7 @@ buildGeoMinQl("KODERMA-GAYA-HAZARIBAGH-MICA-BELT", "Koderma-Gaya-Hazaribagh mica
     "sourceFactId": "KODERMA-STATE"
   },
   {
-    "stem": "Consider the statements: I. Koderma is linked with mica. II. Hazaribagh lies within the same broad mica region. Which is correct?",
+    "stem": "Consider the statements: I. Koderma is linked with mica. II. Hazaribagh lies within the same mica region. Which is correct?",
     "answer": "Both I and II are correct",
     "distractors": [
       "Only I is correct",
@@ -497,7 +497,7 @@ buildGeoMinQl("GYPSUM-GEOGRAPHY-AND-RAJASTHAN", "Gypsum geography and Rajasthan"
     "sourceFactId": "GYPSUM-RAJASTHAN"
   },
   {
-    "stem": "A mineral map highlights gypsum deposits across western Rajasthan. Which broad environment helps explain this occurrence?",
+    "stem": "A mineral map highlights gypsum deposits across western Rajasthan. Which environment helps explain this occurrence?",
     "answer": "Arid sedimentary and evaporative conditions",
     "distractors": [
       "Humid tropical rainforest only",
