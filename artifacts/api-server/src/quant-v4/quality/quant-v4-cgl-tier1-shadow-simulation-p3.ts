@@ -9,9 +9,13 @@ import { generateDi004LineSet } from "../topics/DataInterpretation/DI-004";
 import { generateDi005PieSet } from "../topics/DataInterpretation/DI-005";
 import { generateDi006CaseletSet } from "../topics/DataInterpretation/DI-006";
 import {
+  generateQuantV4AdvancedMathSectionQuestion,
+} from "./quant-v4-real-exam-advanced-math-adapters-p2";
+import {
+  generateQuantV4RealExamSectionWithAdvancedMath,
+} from "./quant-v4-real-exam-advanced-math-integration-p2";
+import {
   QUANT_V4_REAL_EXAM_PROFILES,
-  generateQuantV4RealExamSection,
-  summarizeQuantV4RealExamSections,
   type QuantV4RealExamProfile,
 } from "./quant-v4-real-exam-simulation-p2";
 import {
@@ -34,9 +38,17 @@ export interface QuantV4CglTier1ShadowQuestionRecord {
   readonly slotKind: QuantV4CglTier1ShadowSlotKind;
   readonly sourceKind: "RUNTIME_GENERATED" | "CAPABILITY_GAP";
   readonly packageId: string;
+  readonly questionId?: string;
+  readonly canonicalProblemId?: string;
+  readonly questionLanguageId?: string;
+  readonly taskKind?: string;
   readonly optionCount: number;
   readonly emptyExplanation: boolean;
+  readonly literalStemSignature: string;
   readonly normalizedStemSignature: string;
+  readonly testEligible: boolean | null;
+  readonly publiclyPublishable: boolean | null;
+  readonly bankOnly: boolean;
   readonly gapReason?: string;
 }
 
@@ -54,13 +66,21 @@ export interface QuantV4CglTier1ShadowSimulationAudit {
   readonly recordsGenerated: number;
   readonly runtimeGeneratedCount: number;
   readonly capabilityGapCount: number;
+  readonly advancedMathCapabilityGapCount: number;
   readonly structuralCapabilityGapCount: number;
   readonly structuralCapabilityGapsPerSection: number;
   readonly currentStructuralCapabilityGapsPerSection: number;
+  readonly baseSimulatorHistoricalAdvancedMathGapsPerSection: number;
   readonly currentBaselineCapabilityGapCount: number;
+  readonly currentBaselineAlgebraBankOnlyCount: number;
+  readonly algebraRecordCount: number;
+  readonly algebraBankOnlyCount: number;
+  readonly trigonometryRecordCount: number;
+  readonly trigonometryTestEligibleCount: number;
   readonly optionMismatchCount: number;
   readonly emptyExplanationCount: number;
-  readonly exactStemDuplicateRate: number;
+  readonly literalStemDuplicateRate: number;
+  readonly normalizedStructuralStemReuseRate: number;
   readonly slotDistribution: Readonly<Record<string, number>>;
   readonly packageDistribution: Readonly<Record<string, number>>;
   readonly blockers: readonly string[];
@@ -90,6 +110,24 @@ function questionText(question: any): string {
   return String(question?.text ?? question?.stem ?? question?.question ?? "").trim();
 }
 
+function literalStemSignature(value: unknown): string {
+  return String(value ?? "")
+    .normalize("NFKC")
+    .replace(/\s+/gu, " ")
+    .trim();
+}
+
+function metadataValue(question: any, key: string): string | undefined {
+  const value =
+    question?.[key] ??
+    question?.traceability?.[key] ??
+    question?.parameters?.[key] ??
+    question?.sourceQuestion?.[key] ??
+    question?.sourceQuestion?.traceability?.[key];
+  const text = String(value ?? "").trim();
+  return text || undefined;
+}
+
 function explanationText(question: any): string {
   if (typeof question?.explanation === "string") return question.explanation.trim();
   if (Array.isArray(question?.explanation?.lines)) return question.explanation.lines.join("\n\n").trim();
@@ -117,6 +155,18 @@ function normalizeStemSignature(value: unknown): string {
     .replace(/[^a-z<>%+*/=\-]+/gu, " ")
     .replace(/\s+/gu, " ")
     .trim();
+}
+
+function triState(value: unknown): boolean | null {
+  return value === true ? true : value === false ? false : null;
+}
+
+function isBankOnlyQuestion(question: any): boolean {
+  return [
+    question?.questionBankAcceptanceMode,
+    question?.lifecycleStage,
+    question?.questionBankStatus,
+  ].some((value) => String(value ?? "").toUpperCase().includes("BANK_ONLY"));
 }
 
 function extractBatchQuestions(batch: any): any[] {
@@ -194,9 +244,19 @@ function runtimeRecord(input: {
     slotKind: input.slotKind,
     sourceKind: "RUNTIME_GENERATED",
     packageId: input.packageId,
+    questionId: metadataValue(input.question, "questionId"),
+    canonicalProblemId: metadataValue(input.question, "canonicalProblemId"),
+    questionLanguageId: metadataValue(input.question, "questionLanguageId"),
+    taskKind:
+      metadataValue(input.question, "taskKind") ??
+      metadataValue(input.question, "kind"),
     optionCount: optionTexts(input.question).length,
     emptyExplanation: !explanation,
+    literalStemSignature: literalStemSignature(stem),
     normalizedStemSignature: normalizeStemSignature(stem),
+    testEligible: triState(input.question?.testEligible),
+    publiclyPublishable: triState(input.question?.publiclyPublishable),
+    bankOnly: isBankOnlyQuestion(input.question),
   });
 }
 
@@ -214,7 +274,11 @@ function gapRecord(input: {
     packageId: "CAPABILITY_GAP",
     optionCount: 0,
     emptyExplanation: true,
+    literalStemSignature: "",
     normalizedStemSignature: "",
+    testEligible: null,
+    publiclyPublishable: null,
+    bankOnly: false,
     gapReason: input.reason,
   });
 }
@@ -269,13 +333,18 @@ function generateDiRecords(input: {
   const records: QuantV4CglTier1ShadowQuestionRecord[] = [];
   let setIndex = 0;
   while (records.length < input.requestedCount && setIndex < input.requestedCount + 6) {
-    const [packageId, generate] = DI_GENERATORS[hash(`${input.seed}:set:${setIndex}`) % DI_GENERATORS.length]!;
+    const setSeed = `${input.seed}:set:${setIndex}`;
+    const [packageId, generate] = DI_GENERATORS[hash(setSeed) % DI_GENERATORS.length]!;
     try {
-      const set = generate({ seed: `${input.seed}:set:${setIndex}`, examProfile: "SSC_CGL_TIER_I" } as any) as any;
+      const set = generate({ seed: setSeed, examProfile: "SSC_CGL_TIER_I" } as any) as any;
       const questions = Array.isArray(set?.questions) ? set.questions : [];
       if (!questions.length) throw new Error(`${packageId} returned no questions.`);
-      for (const question of questions) {
-        if (records.length >= input.requestedCount) break;
+
+      const remaining = input.requestedCount - records.length;
+      const takeCount = Math.min(remaining, questions.length);
+      const startQuestionIndex = hash(`${setSeed}:question-window`) % questions.length;
+      for (let offset = 0; offset < takeCount; offset += 1) {
+        const question = questions[(startQuestionIndex + offset) % questions.length]!;
         records.push(runtimeRecord({
           sectionIndex: input.sectionIndex,
           ordinal: input.startOrdinal + records.length,
@@ -303,6 +372,33 @@ function generateDiRecords(input: {
     }));
   }
   return records;
+}
+
+async function generateAdvancedMathRecord(input: {
+  sectionIndex: number;
+  ordinal: number;
+  slotKind: "ALGEBRA" | "TRIGONOMETRY";
+  seed: string;
+}): Promise<QuantV4CglTier1ShadowQuestionRecord> {
+  try {
+    const result = await generateQuantV4AdvancedMathSectionQuestion({
+      examId: "SSC_CGL_TIER_I",
+      slotKind: input.slotKind,
+      seed: input.seed,
+    });
+    return runtimeRecord({
+      sectionIndex: input.sectionIndex,
+      ordinal: input.ordinal,
+      slotKind: input.slotKind,
+      packageId: result.packageId,
+      question: result.question,
+    });
+  } catch (error) {
+    return gapRecord({
+      ...input,
+      reason: `Advanced Mathematics adapter failed: ${error instanceof Error ? error.message : String(error)}`,
+    });
+  }
 }
 
 export async function generateQuantV4CglTier1ShadowSection(input: {
@@ -335,20 +431,8 @@ export async function generateQuantV4CglTier1ShadowSection(input: {
       const slotSeed = `${seed}:${slot.kind}:${index}`;
       if (slot.kind === "ARITHMETIC_CORE" || slot.kind === "GEOMETRY_MENSURATION") {
         records.push(await generateCoreRecord({ sectionIndex, ordinal, slotKind: slot.kind, seed: slotSeed }));
-      } else if (slot.kind === "TRIGONOMETRY") {
-        records.push(gapRecord({
-          sectionIndex,
-          ordinal,
-          slotKind: slot.kind,
-          reason: "TRG-001/TRG-002 are not exposed through the central Quant section-simulation generation contract.",
-        }));
-      } else if (slot.kind === "ALGEBRA") {
-        records.push(gapRecord({
-          sectionIndex,
-          ordinal,
-          slotKind: slot.kind,
-          reason: "Algebra has no central Quant section-simulation adapter for deterministic SSC CGL Tier-I sampling.",
-        }));
+      } else if (slot.kind === "ALGEBRA" || slot.kind === "TRIGONOMETRY") {
+        records.push(await generateAdvancedMathRecord({ sectionIndex, ordinal, slotKind: slot.kind, seed: slotSeed }));
       } else {
         records.push(gapRecord({
           sectionIndex,
@@ -381,42 +465,61 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
   const seedPrefix = input.seedPrefix ?? QUANT_V4_CGL_TIER1_SHADOW_SIMULATION_AUTHORITY;
 
   const shadowSections: QuantV4CglTier1ShadowSection[] = [];
-  const baselineSections = [];
+  const integratedBaselineSections = [];
   for (let sectionIndex = 1; sectionIndex <= sections; sectionIndex += 1) {
     shadowSections.push(await generateQuantV4CglTier1ShadowSection({
       sectionIndex,
       seed: `${seedPrefix}:shadow:${sectionIndex}`,
     }));
-    baselineSections.push(await generateQuantV4RealExamSection({
+    integratedBaselineSections.push(await generateQuantV4RealExamSectionWithAdvancedMath({
       examId: "SSC_CGL_TIER_I",
       sectionIndex,
-      seed: `${seedPrefix}:baseline:${sectionIndex}`,
+      seed: `${seedPrefix}:baseline-integrated:${sectionIndex}`,
     }));
   }
 
-  const baselineSummary = summarizeQuantV4RealExamSections(current, baselineSections);
   const records = shadowSections.flatMap((section) => section.records);
   const runtimeRecords = records.filter((record) => record.sourceKind === "RUNTIME_GENERATED");
   const capabilityGapCount = records.length - runtimeRecords.length;
+  const advancedRecords = records.filter((record) => record.slotKind === "ALGEBRA" || record.slotKind === "TRIGONOMETRY");
+  const advancedMathCapabilityGapCount = advancedRecords.filter((record) => record.sourceKind === "CAPABILITY_GAP").length;
+  const algebraRecords = records.filter((record) => record.slotKind === "ALGEBRA");
+  const trigonometryRecords = records.filter((record) => record.slotKind === "TRIGONOMETRY");
+  const algebraBankOnlyCount = algebraRecords.filter((record) => record.sourceKind === "RUNTIME_GENERATED" && record.bankOnly).length;
+  const trigonometryTestEligibleCount = trigonometryRecords.filter((record) => record.sourceKind === "RUNTIME_GENERATED" && record.testEligible === true).length;
   const optionMismatchCount = runtimeRecords.filter((record) => record.optionCount !== 4).length;
   const emptyExplanationCount = runtimeRecords.filter((record) => record.emptyExplanation).length;
-  const exactStemDuplicateRate = duplicateRate(runtimeRecords.map((record) => record.normalizedStemSignature));
+  const literalStemDuplicateRate = duplicateRate(runtimeRecords.map((record) => record.literalStemSignature));
+  const normalizedStructuralStemReuseRate = duplicateRate(
+    runtimeRecords.map((record) => record.normalizedStemSignature),
+  );
 
-  const shadowStructuralGapSlots = governance.shadowSlotPlan
-    .filter((slot) => slot.kind === "TRIGONOMETRY" || slot.kind === "ALGEBRA")
-    .reduce((sum, slot) => sum + slot.shadowQuestionCount, 0);
-  const currentStructuralGapSlots = current.slotPlan
-    .filter((slot) => slot.kind === "TRIGONOMETRY" || slot.kind === "ALGEBRA")
-    .reduce((sum, slot) => sum + slot.count, 0);
+  const baselineQuestions = integratedBaselineSections.flatMap((section) => section.questions);
+  const currentBaselineCapabilityGapCount = baselineQuestions.filter((question) => question.sourceKind === "CAPABILITY_GAP").length;
+  const currentBaselineAlgebraBankOnlyCount = baselineQuestions.filter((question) =>
+    question.slotKind === "ALGEBRA" && question.sourceKind === "RUNTIME_GENERATED" && question.testEligible === false,
+  ).length;
+
+  const advancedLifecycleBreachCount = advancedRecords.filter((record) => {
+    if (record.sourceKind !== "RUNTIME_GENERATED") return false;
+    if (record.slotKind === "ALGEBRA") {
+      return !record.bankOnly || record.testEligible !== false || record.publiclyPublishable === true;
+    }
+    return record.testEligible !== true || record.publiclyPublishable === true;
+  }).length;
 
   const blockers: string[] = [];
   if (governance.status !== "SHADOW_EMPIRICAL_CANDIDATE_LOCKED") blockers.push("SHADOW_FREQUENCY_GOVERNANCE_NOT_CANDIDATE");
   if (capabilityGapCount) blockers.push("SHADOW_CAPABILITY_GAPS_PRESENT");
-  if (shadowStructuralGapSlots > currentStructuralGapSlots) blockers.push("SHADOW_STRUCTURAL_GAPS_EXCEED_CURRENT_BLUEPRINT");
-  if (capabilityGapCount > baselineSummary.capabilityGapCount) blockers.push("SHADOW_CAPABILITY_GAP_COUNT_EXCEEDS_CURRENT_SIMULATION");
+  if (advancedMathCapabilityGapCount) blockers.push("SHADOW_ADVANCED_MATH_CAPABILITY_GAPS_PRESENT");
+  if (currentBaselineCapabilityGapCount) blockers.push("CURRENT_INTEGRATED_BASELINE_CAPABILITY_GAPS_PRESENT");
+  if (advancedLifecycleBreachCount) blockers.push("ADVANCED_MATH_LIFECYCLE_CONTRACT_BREACH");
+  if (algebraBankOnlyCount) blockers.push("ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK");
   if (optionMismatchCount) blockers.push("SHADOW_OPTION_COUNT_PROFILE_DRIFT");
   if (emptyExplanationCount) blockers.push("SHADOW_EMPTY_EXPLANATIONS_PRESENT");
-  if (exactStemDuplicateRate > 0.05) blockers.push("SHADOW_STEM_REPETITION_ABOVE_5_PERCENT");
+  if (normalizedStructuralStemReuseRate > 0.05) {
+    blockers.push("SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT");
+  }
 
   return Object.freeze({
     authority: QUANT_V4_CGL_TIER1_SHADOW_SIMULATION_AUTHORITY,
@@ -426,13 +529,21 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
     recordsGenerated: records.length,
     runtimeGeneratedCount: runtimeRecords.length,
     capabilityGapCount,
-    structuralCapabilityGapCount: shadowStructuralGapSlots * sections,
-    structuralCapabilityGapsPerSection: shadowStructuralGapSlots,
-    currentStructuralCapabilityGapsPerSection: currentStructuralGapSlots,
-    currentBaselineCapabilityGapCount: baselineSummary.capabilityGapCount,
+    advancedMathCapabilityGapCount,
+    structuralCapabilityGapCount: advancedMathCapabilityGapCount,
+    structuralCapabilityGapsPerSection: advancedMathCapabilityGapCount / sections,
+    currentStructuralCapabilityGapsPerSection: currentBaselineCapabilityGapCount / sections,
+    baseSimulatorHistoricalAdvancedMathGapsPerSection: 5,
+    currentBaselineCapabilityGapCount,
+    currentBaselineAlgebraBankOnlyCount,
+    algebraRecordCount: algebraRecords.length,
+    algebraBankOnlyCount,
+    trigonometryRecordCount: trigonometryRecords.length,
+    trigonometryTestEligibleCount,
     optionMismatchCount,
     emptyExplanationCount,
-    exactStemDuplicateRate,
+    literalStemDuplicateRate,
+    normalizedStructuralStemReuseRate,
     slotDistribution: countBy(records, (record) => record.slotKind),
     packageDistribution: countBy(runtimeRecords, (record) => record.packageId),
     blockers: Object.freeze([...new Set(blockers)]),
