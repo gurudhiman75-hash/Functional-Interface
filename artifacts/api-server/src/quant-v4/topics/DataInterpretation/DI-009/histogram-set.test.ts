@@ -103,7 +103,7 @@ for (const profile of profiles) {
     assert(lineCount === gridlineCount + 1, `${profile} ${seed} contains an unexpected line beyond horizontal guides and the baseline.`);
     assert((svg.match(/data-class-interval-label=/g)?.length ?? 0) === first.stimulus.bins.length, `${profile} ${seed} must show one interval label per bar.`);
     assert(new Set(bars.map((bar) => bar.fill)).size === bars.length, `${profile} ${seed} did not render distinct class colours.`);
-    assert(!svg.includes("data-bar-top=") && !svg.includes("data-bar-value-label="), `${profile} ${seed} leaked decorative or answer-helping bar labels.`);
+    assert((svg.match(/data-frequency-value=/g)?.length ?? 0) === first.stimulus.bins.length, `${profile} ${seed} must visibly label every histogram frequency.`);
     assert(svg.includes('preserveAspectRatio="xMidYMid meet"') && svg.includes("<title>") && svg.includes("<desc>"), `${profile} ${seed} lost responsive/accessibility metadata.`);
     assert(!/\d+\.\d+/u.test(visibleSvgText(svg)), `${profile} ${seed} histogram shows decimal learner-facing labels.`);
 
@@ -129,6 +129,7 @@ for (const profile of profiles) {
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${profile} ${seed} ${question.kind} has invalid options.`);
       assert(!/\d+\.\d+/u.test(questionLearnerText(question)), `${profile} ${seed} ${question.kind} exposes decimal learner-facing values.`);
       assert(!/\bassociated\b|\bshortcut\b|\bcommon trap\b|\btrap\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${profile} ${seed} ${question.kind} leaked machine-like filler.`);
+      assert(!/nearest whole|rounded? to the nearest|give the nearest whole/iu.test(questionLearnerText(question)), `${profile} ${seed} ${question.kind} leaked explicit rounding instructions.`);
       assert(!/\bbars?\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${profile} ${seed} ${question.kind} uses unnecessary chart-shape wording instead of frequency language.`);
       const tableRequired = new Set<Di009TaskKind>(["MEDIAN_CLASS_IDENTIFICATION", "KTH_OBSERVATION_CLASS", "APPROX_GROUPED_MEAN_FROM_HISTOGRAM", "APPROX_GROUPED_MODE_FROM_HISTOGRAM"]);
       if (tableRequired.has(question.kind)) assert(question.explanation.workingTable, `${profile} ${seed} ${question.kind} is missing its working table.`);
