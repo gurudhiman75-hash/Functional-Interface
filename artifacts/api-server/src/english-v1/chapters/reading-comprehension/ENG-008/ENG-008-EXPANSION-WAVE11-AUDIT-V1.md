@@ -1,6 +1,6 @@
 # ENG-008 — Large-Pool Expansion Wave 11 — Audit V1
 
-Status: `HUMAN_REVIEW_PENDING__REVIEW_ONLY`
+Status: `HUMAN_APPROVED__REVIEW_ONLY`
 
 ## Expansion size
 
@@ -115,7 +115,7 @@ Still locked:
 - automatic publication;
 - production release.
 
-Human approval is required before Wave 11 is marked approved and merged.
+Human approval was explicitly granted in chat on 2026-09-27. Wave 11 is approved for merge into the ENG-008 review-only authority.
 
 ## Review asset
 
