@@ -285,7 +285,7 @@ for (const [cpId, expectedDifficulty] of [
     for (const locale of locales) assert.equal(authority.statement[locale].trim().split(/(?<=[.!?।])\s+/).length, 3, `${authority.id} ${locale}: three-sentence statement`);
   }
   const review = buildSifCpReviewPack({ cpId, locale: "en-IN", seed: 91_500 });
-  assert.equal(new Set(review.questions.map((question) => question.scenarioId)).size, 4, `${cpId}: no repeated review scenarios`);
+  assert.equal(new Set(review.questions.map((question) => question.scenarioId)).size, 12, `${cpId}: no repeated review scenarios`);
   assert.deepEqual(review.effectiveDistribution, expectedDifficulty, `${cpId}: sampler preserves pool difficulty`);
   assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_I").length, 6, `${cpId}: balance supported inference I`);
   assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_II").length, 6, `${cpId}: balance supported inference II`);
