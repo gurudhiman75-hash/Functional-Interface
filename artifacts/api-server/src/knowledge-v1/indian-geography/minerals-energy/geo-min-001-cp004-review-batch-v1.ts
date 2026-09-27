@@ -36,7 +36,7 @@ buildGeoMinQl("BAUXITE-AS-ALUMINIUM-ORE", "Bauxite as aluminium ore", [
     "sourceFactId": "BAUXITE-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Bauxite as aluminium ore?",
     "answer": "Bauxite — aluminium",
     "distractors": [
       "Bauxite — chromium",
@@ -116,7 +116,7 @@ buildGeoMinQl("BAUXITE-FORMATION-AND-RESIDUAL-OCCURRENCE", "Bauxite formation an
     "sourceFactId": "BAUXITE-CLUE-FORM"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Bauxite formation and residual occurrence?",
     "answer": "Bauxite — residual weathering deposit",
     "distractors": [
       "Gold in alluvium — residual deposit",
@@ -174,7 +174,7 @@ buildGeoMinQl("MAJOR-BAUXITE-REGIONS-AND-PLATEAUS", "Major bauxite regions and p
     "sourceFactId": "BAUXITE-ODISHA-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Major bauxite regions and plateaus?",
     "answer": "Panchpatmali — bauxite",
     "distractors": [
       "Panchpatmali — petroleum",
@@ -243,7 +243,7 @@ buildGeoMinQl("COPPER-PROPERTIES-AND-INDUSTRIAL-USES", "Copper properties and in
     "sourceFactId": "COPPER-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Copper properties and industrial uses?",
     "answer": "Copper — electrical conductor",
     "distractors": [
       "Copper — principal iron ore",
@@ -312,7 +312,7 @@ buildGeoMinQl("MAJOR-COPPER-FIELDS-KHETRI-BALAGHAT-AND-SINGHBHUM", "Major copper
     "sourceFactId": "COPPER-FIELDS-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Major copper fields: Khetri, Balaghat and Singhbhum?",
     "answer": "Singhbhum — copper",
     "distractors": [
       "Khetri — petroleum",
@@ -381,7 +381,7 @@ buildGeoMinQl("LEAD-AND-ZINC-AS-NON-FERROUS-MINERALS", "Lead and zinc as non-fer
     "sourceFactId": "LEAD-ZINC-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Lead and zinc as non-ferrous minerals?",
     "answer": "Zinc — non-ferrous metal",
     "distractors": [
       "Lead — ferrous mineral",
@@ -450,7 +450,7 @@ buildGeoMinQl("RAJASTHAN-LEAD-ZINC-BELT", "Rajasthan lead-zinc belt", [
     "sourceFactId": "ZAWAR-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Rajasthan lead-zinc belt?",
     "answer": "Rampura Agucha — lead-zinc",
     "distractors": [
       "Khetri — mica",
@@ -472,7 +472,7 @@ buildGeoMinQl("RAJASTHAN-LEAD-ZINC-BELT", "Rajasthan lead-zinc belt", [
     "sourceFactId": "LEAD-ZINC-MAP"
   },
   {
-    "stem": "Which comparison is correct?",
+    "stem": "Which comparison is correct for Rajasthan lead-zinc belt?",
     "answer": "Khetri is known for copper, while Zawar is known for lead-zinc",
     "distractors": [
       "Both are major coalfields",
@@ -519,7 +519,7 @@ buildGeoMinQl("ALUMINIUM-PROPERTIES-AND-USES", "Aluminium properties and uses", 
     "sourceFactId": "ALUMINIUM-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Aluminium properties and uses?",
     "answer": "Aluminium — light non-ferrous metal",
     "distractors": [
       "Aluminium — iron ore",
@@ -566,7 +566,7 @@ buildGeoMinQl("INTEGRATED-NON-FERROUS-MINERAL-REASONING", "Integrated non-ferrou
     "sourceFactId": "NONFERROUS-INTEGRATED-1"
   },
   {
-    "stem": "Which location-resource pair is incorrect?",
+    "stem": "Which location-resource pair is incorrect for Integrated non-ferrous mineral reasoning?",
     "answer": "Khetri — bauxite",
     "distractors": [
       "Khetri — copper",
@@ -599,7 +599,7 @@ buildGeoMinQl("INTEGRATED-NON-FERROUS-MINERAL-REASONING", "Integrated non-ferrou
     "sourceFactId": "NONFERROUS-INTEGRATED-4"
   },
   {
-    "stem": "Which chain is correct?",
+    "stem": "Which chain is correct for Integrated non-ferrous mineral reasoning?",
     "answer": "Panchpatmali → bauxite → aluminium",
     "distractors": [
       "Khetri → bauxite → aluminium",
@@ -672,7 +672,7 @@ buildGeoMinQl("MALANJKHAND-COPPER-BALAGHAT", "Malanjkhand copper mine and Balagh
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Malanjkhand copper mine and Balaghat?",
     "answer": "Malanjkhand — copper",
     "distractors": [
       "Malanjkhand — mica",
@@ -704,7 +704,7 @@ buildGeoMinQl("MALANJKHAND-COPPER-BALAGHAT", "Malanjkhand copper mine and Balagh
     ]
   },
   {
-    "stem": "Which comparison is correct?",
+    "stem": "Which comparison is correct for Malanjkhand copper mine and Balaghat?",
     "answer": "Khetri is in Rajasthan, Malanjkhand in Madhya Pradesh and Singhbhum in Jharkhand",
     "distractors": [
       "All three are in Rajasthan",
@@ -768,7 +768,7 @@ buildGeoMinQl("GOLD-HUTTI-KOLAR-KARNATAKA", "Gold geography: Hutti, Kolar and Ka
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Gold geography: Hutti, Kolar and Karnataka?",
     "answer": "Hutti — gold",
     "distractors": [
       "Hutti — mica",
@@ -798,7 +798,7 @@ buildGeoMinQl("GOLD-HUTTI-KOLAR-KARNATAKA", "Gold geography: Hutti, Kolar and Ka
     ]
   },
   {
-    "stem": "Which comparison is correct?",
+    "stem": "Which comparison is correct for Gold geography: Hutti, Kolar and Karnataka?",
     "answer": "Hutti is linked with gold in Karnataka, while Panna is linked with diamond in Madhya Pradesh",
     "distractors": [
       "Both are copper mines",
@@ -861,7 +861,7 @@ buildGeoMinQl("DIAMOND-PANNA-AND-INDIAN-DIAMOND-TRACTS", "Diamond, Panna and Ind
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Diamond, Panna and Indian diamond tracts?",
     "answer": "Panna — diamond",
     "distractors": [
       "Panna — petroleum",
@@ -954,7 +954,7 @@ buildGeoMinQl("TIN-CASSITERITE-CHHATTISGARH-DANTEWADA", "Tin, cassiterite and Ch
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Tin, cassiterite and Chhattisgarh?",
     "answer": "Dantewada — tin ore",
     "distractors": [
       "Dantewada — mica",
@@ -984,7 +984,7 @@ buildGeoMinQl("TIN-CASSITERITE-CHHATTISGARH-DANTEWADA", "Tin, cassiterite and Ch
     ]
   },
   {
-    "stem": "Which chain is correct?",
+    "stem": "Which chain is correct for Tin, cassiterite and Chhattisgarh?",
     "answer": "Dantewada → cassiterite → tin",
     "distractors": [
       "Sukinda → cassiterite → chromium",
