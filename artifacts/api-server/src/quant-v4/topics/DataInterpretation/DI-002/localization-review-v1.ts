@@ -178,7 +178,7 @@ function stem(question:Di002V2Question, stimulus:Di002V2Stimulus, locale:Di002Lo
     case "COMBINED_REJECTED": {
       const a=r(Number(e.firstIndex)),b=r(Number(e.secondIndex));
       const H=[`${a} और ${b} से मिलाकर कितने आवेदक चयनित नहीं हुए?`, `${a} और ${b} में चयनित न होने वाले उम्मीदवारों की संयुक्त संख्या ज्ञात कीजिए।`, `${a} और ${b} के चयनित न होने वाले उम्मीदवारों की संख्या ज्ञात करके उनका कुल बताइए।`];
-      const P=[`${a} ਅਤੇ ${b} ਤੋਂ ਮਿਲਾ ਕੇ ਕਿੰਨੇ ਅਰਜ਼ੀਕਾਰ ਚੁਣੇ ਨਹੀਂ ਗਏ?`, `${a} ਅਤੇ ${b} ਵਿੱਚ ਨਾ ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰਾਂ ਦੀ ਮਿਲੀ ਗਿਣਤੀ ਕੱਢੋ।`, `${a} ਅਤੇ ${b} ਦੇ ਨਾ ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢ ਕੇ ਉਨ੍ਹਾਂ ਦਾ ਕੁੱਲ ਦਿਓ।`];
+      const P=[`${a} ਅਤੇ ${b} ਤੋਂ ਇਕੱਠੇ ਕਿੰਨੇ ਅਰਜ਼ੀਕਾਰ ਚੁਣੇ ਨਹੀਂ ਗਏ?`, `${a} ਅਤੇ ${b} ਵਿੱਚ ਨਾ ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰਾਂ ਦੀ ਮਿਲੀ ਗਿਣਤੀ ਕੱਢੋ।`, `${a} ਅਤੇ ${b} ਦੇ ਨਾ ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢ ਕੇ ਉਨ੍ਹਾਂ ਦਾ ਕੁੱਲ ਦਿਓ।`];
       return (h?H:P)[s]!;
     }
     case "APPLICANTS_RATIO": {
@@ -196,7 +196,7 @@ function stem(question:Di002V2Question, stimulus:Di002V2Stimulus, locale:Di002Lo
     case "COMBINED_SELECTED_RATIO": {
       const a=r(Number(e.leftA)),b=r(Number(e.leftB)),c=r(Number(e.rightA)),d=r(Number(e.rightB));
       const H=[`${a} और ${b} से कुल चयनित उम्मीदवारों का ${c} और ${d} से कुल चयनित उम्मीदवारों से अनुपात क्या है?`, `${a} व ${b} के चयनित कुल का ${c} व ${d} के चयनित कुल से अनुपात ज्ञात कीजिए।`, `${a} और ${b} से मिलाकर चयनित उम्मीदवार, ${c} और ${d} से मिलाकर चयनित उम्मीदवारों के किस अनुपात में हैं?`];
-      const P=[`${a} ਅਤੇ ${b} ਤੋਂ ਕੁੱਲ ਚੁਣੇ ਉਮੀਦਵਾਰਾਂ ਦਾ ${c} ਅਤੇ ${d} ਤੋਂ ਕੁੱਲ ਚੁਣੇ ਉਮੀਦਵਾਰਾਂ ਨਾਲ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `${a} ਅਤੇ ${b} ਦੇ ਚੁਣੇ ਕੁੱਲ ਦਾ ${c} ਅਤੇ ${d} ਦੇ ਚੁਣੇ ਕੁੱਲ ਨਾਲ ਅਨੁਪਾਤ ਕੱਢੋ।`, `${a} ਅਤੇ ${b} ਤੋਂ ਮਿਲਾ ਕੇ ਚੁਣੇ ਉਮੀਦਵਾਰ, ${c} ਅਤੇ ${d} ਤੋਂ ਮਿਲਾ ਕੇ ਚੁਣੇ ਉਮੀਦਵਾਰਾਂ ਦੇ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ?`];
+      const P=[`${a} ਅਤੇ ${b} ਤੋਂ ਕੁੱਲ ਚੁਣੇ ਉਮੀਦਵਾਰਾਂ ਦਾ ${c} ਅਤੇ ${d} ਤੋਂ ਕੁੱਲ ਚੁਣੇ ਉਮੀਦਵਾਰਾਂ ਨਾਲ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `${a} ਅਤੇ ${b} ਦੇ ਚੁਣੇ ਕੁੱਲ ਦਾ ${c} ਅਤੇ ${d} ਦੇ ਚੁਣੇ ਕੁੱਲ ਨਾਲ ਅਨੁਪਾਤ ਕੱਢੋ।`, `${a} ਅਤੇ ${b} ਤੋਂ ਇਕੱਠੇ ਚੁਣੇ ਉਮੀਦਵਾਰ, ${c} ਅਤੇ ${d} ਤੋਂ ਇਕੱਠੇ ਚੁਣੇ ਉਮੀਦਵਾਰਾਂ ਦੇ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ?`];
       return (h?H:P)[s]!;
     }
     case "RELATIVE_SELECTED_PERCENT_EXCESS": {
@@ -208,7 +208,7 @@ function stem(question:Di002V2Question, stimulus:Di002V2Stimulus, locale:Di002Lo
     case "COMBINED_SELECTION_RATE": {
       const a=r(Number(e.firstIndex)),b=r(Number(e.secondIndex));
       const H=[`यदि ${a} और ${b} को साथ माना जाए, तो उनकी कुल चयन दर निकटतम पूर्ण प्रतिशत में कितनी है?`, `${a} और ${b} के लिए संयुक्त चयन प्रतिशत ज्ञात कीजिए। निकटतम पूर्ण प्रतिशत तक पूर्णांकित कीजिए।`, `${a} और ${b} के सभी आवेदकों में लगभग कितने प्रतिशत उम्मीदवार चयनित हुए?`];
-      const P=[`ਜੇ ${a} ਅਤੇ ${b} ਨੂੰ ਇਕੱਠੇ ਮੰਨਿਆ ਜਾਵੇ, ਤਾਂ ਉਨ੍ਹਾਂ ਦੀ ਕੁੱਲ ਚੋਣ ਦਰ ਸਭ ਤੋਂ ਨੇੜਲੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਕਿੰਨੀ ਹੈ?`, `${a} ਅਤੇ ${b} ਲਈ ਮਿਲਿਆ ਹੋਇਆ ਚੋਣ ਪ੍ਰਤੀਸ਼ਤ ਕੱਢੋ। ਸਭ ਤੋਂ ਨੇੜਲੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਤੱਕ ਗੋਲ ਕਰੋ।`, `${a} ਅਤੇ ${b} ਦੇ ਸਾਰੇ ਅਰਜ਼ੀਕਾਰਾਂ ਵਿੱਚ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਉਮੀਦਵਾਰ ਚੁਣੇ ਗਏ?`];
+      const P=[`ਜੇ ${a} ਅਤੇ ${b} ਨੂੰ ਇਕੱਠੇ ਮੰਨਿਆ ਜਾਵੇ, ਤਾਂ ਉਨ੍ਹਾਂ ਦੀ ਕੁੱਲ ਚੋਣ ਦਰ ਸਭ ਤੋਂ ਨੇੜਲੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਕਿੰਨੀ ਹੈ?`, `${a} ਅਤੇ ${b} ਲਈ ਕੁੱਲ ਚੋਣ ਪ੍ਰਤੀਸ਼ਤ ਕੱਢੋ। ਸਭ ਤੋਂ ਨੇੜਲੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਤੱਕ ਗੋਲ ਕਰੋ।`, `${a} ਅਤੇ ${b} ਦੇ ਸਾਰੇ ਅਰਜ਼ੀਕਾਰਾਂ ਵਿੱਚ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਉਮੀਦਵਾਰ ਚੁਣੇ ਗਏ?`];
       return (h?H:P)[s]!;
     }
     case "REJECTED_TO_SELECTED_RATIO": {
@@ -235,11 +235,11 @@ function explanation(question:Di002V2Question, stimulus:Di002V2Stimulus, locale:
     }
     case "MISSING_APPLICANTS_FROM_RATE": {
       const i=Number(e.targetIndex), row=stimulus.rows[i]!;
-      return {keyIdea:h?"चयनित संख्या, आवेदकों का दिया गया प्रतिशत है; इसलिए प्रतिशत को उलटकर आवेदकों की संख्या ज्ञात करें।":"ਚੁਣੀ ਗਿਣਤੀ, ਅਰਜ਼ੀਕਾਰਾਂ ਦਾ ਦਿੱਤਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ; ਇਸ ਲਈ ਪ੍ਰਤੀਸ਼ਤ ਨੂੰ ਉਲਟ ਕੇ ਅਰਜ਼ੀਕਾਰਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।",steps:[`${row.selectionPercent}% आवेदक = ${row.selected} चयनित।`,h?`आवेदक = ${row.selected} × 100 / ${row.selectionPercent} = ${apps[i]}।`:`ਅਰਜ਼ੀਕਾਰ = ${row.selected} × 100 / ${row.selectionPercent} = ${apps[i]}।`],workingTable:{headers:h?["चयनित","चयन %","आवेदक"]:["ਚੁਣੇ","ਚੋਣ %","ਅਰਜ਼ੀਕਾਰ"],rows:[[String(row.selected),`${row.selectionPercent}%`,String(apps[i])]]}};
+      return {keyIdea:h?"चयनित संख्या, आवेदकों का दिया गया प्रतिशत है; इसलिए प्रतिशत को उलटकर आवेदकों की संख्या ज्ञात करें।":"ਚੁਣੀ ਗਿਣਤੀ, ਅਰਜ਼ੀਕਾਰਾਂ ਦਾ ਦਿੱਤਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ; ਇਸ ਲਈ ਪ੍ਰਤੀਸ਼ਤ ਨੂੰ ਉਲਟ ਕੇ ਅਰਜ਼ੀਕਾਰਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।",steps:[h?`${row.selectionPercent}% आवेदक = ${row.selected} चयनित।`:`${row.selectionPercent}% ਅਰਜ਼ੀਕਾਰ = ${row.selected} ਚੁਣੇ।`,h?`आवेदक = ${row.selected} × 100 / ${row.selectionPercent} = ${apps[i]}।`:`ਅਰਜ਼ੀਕਾਰ = ${row.selected} × 100 / ${row.selectionPercent} = ${apps[i]}।`],workingTable:{headers:h?["चयनित","चयन %","आवेदक"]:["ਚੁਣੇ","ਚੋਣ %","ਅਰਜ਼ੀਕਾਰ"],rows:[[String(row.selected),`${row.selectionPercent}%`,String(apps[i])]]}};
     }
     case "REJECTED_COUNT": {
       const i=Number(e.targetIndex);
-      return {keyIdea:h?"चयनित न होने वाले उम्मीदवार = आवेदक - चयनित।":"ਨਾ ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰ = ਅਰਜ਼ੀਕਾਰ - ਚੁਣੇ।",steps:[`${r(i)}: आवेदक = ${apps[i]}, चयनित = ${sel[i]}।`,h?`चयनित नहीं = ${apps[i]} - ${sel[i]} = ${rej[i]}।`:`ਨਾ ਚੁਣੇ = ${apps[i]} - ${sel[i]} = ${rej[i]}।`]};
+      return {keyIdea:h?"चयनित न होने वाले उम्मीदवार = आवेदक - चयनित।":"ਨਾ ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰ = ਅਰਜ਼ੀਕਾਰ - ਚੁਣੇ।",steps:[h?`${r(i)}: आवेदक = ${apps[i]}, चयनित = ${sel[i]}।`:`${r(i)}: ਅਰਜ਼ੀਕਾਰ = ${apps[i]}, ਚੁਣੇ = ${sel[i]}।`,h?`चयनित नहीं = ${apps[i]} - ${sel[i]} = ${rej[i]}।`:`ਨਾ ਚੁਣੇ = ${apps[i]} - ${sel[i]} = ${rej[i]}।`]};
     }
     case "SELECTED_SHARE_OF_TOTAL": {
       const i=Number(e.targetIndex),total=sel.reduce((a,b)=>a+b,0),p=pct(sel[i]!,total);
@@ -247,7 +247,7 @@ function explanation(question:Di002V2Question, stimulus:Di002V2Stimulus, locale:
     }
     case "COMBINED_REJECTED": {
       const a=Number(e.firstIndex),b=Number(e.secondIndex),n=rej[a]!+rej[b]!;
-      return {keyIdea:h?"दोनों पंक्तियों में चयनित न होने वाले उम्मीदवार अलग-अलग निकालें, फिर जोड़ें।":"ਦੋਵੇਂ ਕਤਾਰਾਂ ਵਿੱਚ ਨਾ ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰ ਵੱਖ-ਵੱਖ ਕੱਢੋ, ਫਿਰ ਜੋੜੋ।",steps:[`${r(a)}: ${apps[a]} - ${sel[a]} = ${rej[a]}।`,`${r(b)}: ${apps[b]} - ${sel[b]} = ${rej[b]}।`,h?`संयुक्त कुल = ${rej[a]} + ${rej[b]} = ${n}।`:`ਮਿਲਿਆ ਕੁੱਲ = ${rej[a]} + ${rej[b]} = ${n}।`]};
+      return {keyIdea:h?"दोनों पंक्तियों में चयनित न होने वाले उम्मीदवार अलग-अलग निकालें, फिर जोड़ें।":"ਦੋਵੇਂ ਕਤਾਰਾਂ ਵਿੱਚ ਨਾ ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰ ਵੱਖ-ਵੱਖ ਕੱਢੋ, ਫਿਰ ਜੋੜੋ।",steps:[`${r(a)}: ${apps[a]} - ${sel[a]} = ${rej[a]}।`,`${r(b)}: ${apps[b]} - ${sel[b]} = ${rej[b]}।`,h?`संयुक्त कुल = ${rej[a]} + ${rej[b]} = ${n}।`:`ਕੁੱਲ = ${rej[a]} + ${rej[b]} = ${n}।`]};
     }
     case "APPLICANTS_RATIO": {
       const a=Number(e.firstIndex),b=Number(e.secondIndex);
@@ -267,7 +267,7 @@ function explanation(question:Di002V2Question, stimulus:Di002V2Stimulus, locale:
     }
     case "COMBINED_SELECTION_RATE": {
       const a=Number(e.firstIndex),b=Number(e.secondIndex),ss=sel[a]!+sel[b]!,aa=apps[a]!+apps[b]!,p=pct(ss,aa);
-      return {keyIdea:h?"संयुक्त चयन दर के लिए संयुक्त चयनित को संयुक्त आवेदकों से भाग दें।":"ਮਿਲੀ ਚੋਣ ਦਰ ਲਈ ਮਿਲੇ ਚੁਣੇ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਮਿਲੇ ਅਰਜ਼ੀਕਾਰਾਂ ਨਾਲ ਭਾਗ ਦਿਓ।",steps:[h?`संयुक्त चयनित = ${sel[a]} + ${sel[b]} = ${ss}।`:`ਮਿਲੇ ਚੁਣੇ = ${sel[a]} + ${sel[b]} = ${ss}।`,h?`संयुक्त आवेदक = ${apps[a]} + ${apps[b]} = ${aa}।`:`ਮਿਲੇ ਅਰਜ਼ੀਕਾਰ = ${apps[a]} + ${apps[b]} = ${aa}।`,`${ss}/${aa} × 100 ≈ ${p}%।`],workingTable:{headers:h?["पंक्तियाँ","आवेदक","चयनित"]:["ਕਤਾਰਾਂ","ਅਰਜ਼ੀਕਾਰ","ਚੁਣੇ"],rows:[[`${r(a)} + ${r(b)}`,String(aa),String(ss)]]}};
+      return {keyIdea:h?"संयुक्त चयन दर के लिए संयुक्त चयनित को संयुक्त आवेदकों से भाग दें।":"ਕੁੱਲ ਚੋਣ ਦਰ ਲਈ ਕੁੱਲ ਚੁਣੇ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਕੁੱਲ ਅਰਜ਼ੀਕਾਰਾਂ ਨਾਲ ਭਾਗ ਦਿਓ।",steps:[h?`संयुक्त चयनित = ${sel[a]} + ${sel[b]} = ${ss}।`:`ਕੁੱਲ ਚੁਣੇ = ${sel[a]} + ${sel[b]} = ${ss}।`,h?`संयुक्त आवेदक = ${apps[a]} + ${apps[b]} = ${aa}।`:`ਕੁੱਲ ਅਰਜ਼ੀਕਾਰ = ${apps[a]} + ${apps[b]} = ${aa}।`,`${ss}/${aa} × 100 ≈ ${p}%।`],workingTable:{headers:h?["पंक्तियाँ","आवेदक","चयनित"]:["ਕਤਾਰਾਂ","ਅਰਜ਼ੀਕਾਰ","ਚੁਣੇ"],rows:[[`${r(a)} + ${r(b)}`,String(aa),String(ss)]]}};
     }
     case "REJECTED_TO_SELECTED_RATIO": {
       const a=Number(e.firstIndex),b=Number(e.secondIndex),rr=rej[a]!+rej[b]!,ss=sel[a]!+sel[b]!;
