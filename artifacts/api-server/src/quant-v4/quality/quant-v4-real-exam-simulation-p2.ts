@@ -391,21 +391,47 @@ function optionTexts(question: any): string[] {
   );
 }
 
-function explanationText(question: any): string {
-  if (typeof question?.explanation === "string") return question.explanation.trim();
-  if (Array.isArray(question?.explanation?.lines)) return question.explanation.lines.join("\n\n").trim();
-  if (Array.isArray(question?.explanation?.steps)) {
-    const pieces = [
-      question.explanation.keyIdea,
-      ...question.explanation.steps,
-      question.explanation.shortcut,
-      question.explanation.trap,
-    ].filter(Boolean);
-    return pieces.join("\n\n").trim();
+function explanationPieces(value: unknown): string[] {
+  if (typeof value === "string") {
+    const text = value.trim();
+    return text ? [text] : [];
   }
-  if (typeof question?.learnerExplanation === "string") return question.learnerExplanation.trim();
-  if (Array.isArray(question?.learnerExplanation?.lines)) return question.learnerExplanation.lines.join("\n\n").trim();
-  if (Array.isArray(question?.packageExplanation?.lines)) return question.packageExplanation.lines.join("\n\n").trim();
+  if (Array.isArray(value)) return value.flatMap(explanationPieces);
+  if (!value || typeof value !== "object") return [];
+
+  const source = value as Record<string, unknown>;
+  const orderedKeys = [
+    "keyIdea",
+    "coreConcept",
+    "keyRule",
+    "concept",
+    "rule",
+    "working",
+    "steps",
+    "lines",
+    "calculation",
+    "reasoning",
+    "finalAnswer",
+    "verification",
+    "conclusion",
+    "shortcut",
+    "trap",
+  ] as const;
+
+  return orderedKeys.flatMap((key) => explanationPieces(source[key]));
+}
+
+function explanationText(question: any): string {
+  for (const candidate of [
+    question?.explanation,
+    question?.richExplanation,
+    question?.learnerExplanation,
+    question?.packageExplanation,
+    question?.solution,
+  ]) {
+    const pieces = explanationPieces(candidate);
+    if (pieces.length) return pieces.join("\n\n").trim();
+  }
   return "";
 }
 
