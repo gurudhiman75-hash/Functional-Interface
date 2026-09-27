@@ -37,7 +37,7 @@
         "stem": "ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਪੱਛਮੀ ਹਿੱਸੇ ਵਿੱਚ ਕਿਹੜੀ ਮੁੱਖ ਪਹਾੜੀ ਪ੍ਰਣਾਲੀ ਫੈਲੀ ਹੈ?",
         "options": [
           "ਰੌਕੀ ਪਹਾੜ",
-          "ਐਪਲੇਸ਼ियन ਪਹਾੜ",
+          "ਐਪਲੇਸ਼ੀਅਨ ਪਹਾੜ",
           "ਐਂਡੀਜ਼",
           "ਆਲਪਸ"
         ],
@@ -60,34 +60,34 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which older mountain system lies in eastern North America?",
+        "stem": "Which mountain range extends along eastern North America?",
         "options": [
           "Rockies",
           "Andes",
           "Alps",
           "Appalachians"
         ],
-        "explanation": "The Appalachian Mountains extend along eastern North America, east of the Great Plains."
+        "explanation": "The Appalachian Mountains extend along eastern North America, east of the central plains."
       },
       "hi": {
-        "stem": "पूर्वी उत्तरी अमेरिका में कौन-सी पुरानी पर्वत-प्रणाली स्थित है?",
+        "stem": "उत्तरी अमेरिका के पूर्वी भाग में कौन-सी पर्वत-श्रेणी फैली है?",
         "options": [
           "रॉकी पर्वत",
           "एंडीज़",
           "आल्प्स",
           "एपलाचियन पर्वत"
         ],
-        "explanation": "एपलाचियन पर्वत ग्रेट प्लेन्स के पूर्व में, उत्तरी अमेरिका के पूर्वी भाग में फैले हैं।"
+        "explanation": "एपलाचियन पर्वत मध्य मैदानों के पूर्व में, उत्तरी अमेरिका के पूर्वी भाग में फैले हैं।"
       },
       "pa": {
-        "stem": "ਪੂਰਬੀ ਉੱਤਰੀ ਅਮਰੀਕਾ ਵਿੱਚ ਕਿਹੜੀ ਪੁਰਾਣੀ ਪਹਾੜੀ ਪ੍ਰਣਾਲੀ ਸਥਿਤ ਹੈ?",
+        "stem": "ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਪੂਰਬੀ ਹਿੱਸੇ ਵਿੱਚ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਫੈਲੀ ਹੈ?",
         "options": [
           "ਰੌਕੀ ਪਹਾੜ",
           "ਐਂਡੀਜ਼",
           "ਆਲਪਸ",
-          "ਐਪਲੇਸ਼ियन ਪਹਾੜ"
+          "ਐਪਲੇਸ਼ੀਅਨ ਪਹਾੜ"
         ],
-        "explanation": "ਐਪਲੇਸ਼ियन ਪਹਾੜ ਗ੍ਰੇਟ ਪਲੇਨਜ਼ ਦੇ ਪੂਰਬ ਵੱਲ, ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਪੂਰਬੀ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲੇ ਹਨ।"
+        "explanation": "ਐਪਲੇਸ਼ੀਅਨ ਪਹਾੜ ਮੱਧਲੇ ਮੈਦਾਨਾਂ ਦੇ ਪੂਰਬ ਵੱਲ, ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਪੂਰਬੀ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲੇ ਹਨ।"
       }
     }
   },
@@ -129,9 +129,9 @@
         "stem": "ਰੌਕੀ ਪਹਾੜਾਂ ਅਤੇ ਮਿਸਿਸਿਪੀ ਬੇਸਿਨ ਵਿਚਕਾਰ ਕਿਹੜੀ ਵਿਸ਼ਾਲ ਮੈਦਾਨੀ ਧਰਤੀ ਸਥਿਤ ਹੈ?",
         "options": [
           "ਪ੍ਰੇਰੀ ਘਾਹ-ਭੂਮੀ",
-          "ਸिएਰਾ ਮਾਦਰੇ",
+          "ਸਿਏਰਾ ਮਾਦਰੇ",
           "ਗ੍ਰੇਟ ਪਲੇਨਜ਼",
-          "ਕੈਨੇਡੀਅਨ ਸ਼ीलਡ"
+          "ਕੈਨੇਡੀਅਨ ਸ਼ੀਲਡ"
         ],
         "explanation": "ਗ੍ਰੇਟ ਪਲੇਨਜ਼ ਰੌਕੀ ਪਹਾੜਾਂ ਤੋਂ ਪੂਰਬ ਵੱਲ ਕੇਂਦਰੀ ਨੀਵੀਂ ਧਰਤੀ ਤੱਕ ਢਲਦੇ ਹਨ।"
       }
@@ -152,7 +152,7 @@
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "Which river system drains much of the central United States and enters the Gulf of Mexico?",
+        "stem": "Which river system drains the central United States into the Gulf of Mexico?",
         "options": [
           "RioGrande",
           "Mississippi",
@@ -162,7 +162,7 @@
         "explanation": "The Mississippi River and its tributaries drain a large central basin and reach the Gulf of Mexico."
       },
       "hi": {
-        "stem": "मध्य संयुक्त राज्य के बड़े भाग का जल निकास कर मैक्सिको की खाड़ी में कौन-सी नदी गिरती है?",
+        "stem": "मध्य संयुक्त राज्य का जल निकास कर मैक्सिको की खाड़ी तक कौन-सी नदी-प्रणाली पहुँचती है?",
         "options": [
           "रियो ग्रांडे",
           "मिसिसिपी",
@@ -172,7 +172,7 @@
         "explanation": "मिसिसिपी नदी और उसकी सहायक नदियाँ बड़े मध्य बेसिन का जल निकास कर मैक्सिको की खाड़ी तक पहुँचती हैं।"
       },
       "pa": {
-        "stem": "ਕੇਂਦਰੀ ਸੰਯੁਕਤ ਰਾਜ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਦਾ ਪਾਣੀ ਲੈ ਕੇ ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ ਵਿੱਚ ਕਿਹੜਾ ਦਰਿਆ ਡਿੱਗਦਾ ਹੈ?",
+        "stem": "ਕੇਂਦਰੀ ਸੰਯੁਕਤ ਰਾਜ ਦਾ ਪਾਣੀ ਲੈ ਕੇ ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ ਤੱਕ ਕਿਹੜੀ ਦਰਿਆਈ ਪ੍ਰਣਾਲੀ ਪਹੁੰਚਦੀ ਹੈ?",
         "options": [
           "ਰਿਓ ਗ੍ਰਾਂਡੇ",
           "ਮਿਸਿਸਿਪੀ",
@@ -244,34 +244,34 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which group of freshwater lakes lies along the United States–Canada border, with Lake Michigan wholly in the United States?",
+        "stem": "Which group of lakes lies along the U.S.–Canada border and includes Lake Michigan?",
         "options": [
           "HudsonBay",
-          "Caribbean",
           "GulfMexico",
+          "GulfCalifornia",
           "GreatLakes"
         ],
-        "explanation": "Four Great Lakes straddle the border; Lake Michigan is the only one wholly within the United States."
+        "explanation": "The Great Lakes border the United States and Canada; Lake Michigan lies wholly within the United States."
       },
       "hi": {
-        "stem": "संयुक्त राज्य–कनाडा सीमा पर स्थित मीठे पानी की झीलों के समूह में कौन-सा है, जिसकी मिशिगन झील पूरी तरह संयुक्त राज्य में है?",
+        "stem": "कौन-सी झीलें अमेरिका–कनाडा सीमा पर हैं और जिनमें मिशिगन झील भी शामिल है?",
         "options": [
           "हडसन की खाड़ी",
-          "कैरेबियन सागर",
           "मैक्सिको की खाड़ी",
+          "कैलिफ़ोर्निया की खाड़ी",
           "महान झीलें"
         ],
-        "explanation": "महान झीलों में से चार सीमा पर हैं; मिशिगन झील एकमात्र है जो पूरी तरह संयुक्त राज्य में है।"
+        "explanation": "महान झीलें अमेरिका और कनाडा की सीमा पर हैं; मिशिगन झील पूरी तरह अमेरिका में है।"
       },
       "pa": {
-        "stem": "ਸੰਯੁਕਤ ਰਾਜ–ਕੈਨੇਡਾ ਸਰਹੱਦ ਉੱਤੇ ਮਿੱਠੇ ਪਾਣੀ ਦੀਆਂ ਝੀਲਾਂ ਦੇ ਸਮੂਹ ਵਿੱਚ ਕਿਹੜੀਆਂ ਝੀਲਾਂ ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਮਿਸ਼ੀਗਨ ਝੀਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੰਯੁਕਤ ਰਾਜ ਵਿੱਚ ਹੈ?",
+        "stem": "ਕਿਹੜੀਆਂ ਝੀਲਾਂ ਅਮਰੀਕਾ–ਕੈਨੇਡਾ ਸਰਹੱਦ ਉੱਤੇ ਹਨ ਅਤੇ ਇਨ੍ਹਾਂ ਵਿੱਚ ਮਿਸ਼ੀਗਨ ਝੀਲ ਵੀ ਸ਼ਾਮਲ ਹੈ?",
         "options": [
           "ਹਡਸਨ ਦੀ ਖਾੜੀ",
-          "ਕੈਰੇਬੀਅਨ ਸਾਗਰ",
           "ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ",
+          "ਕੈਲੀਫ਼ੋਰਨੀਆ ਦੀ ਖਾੜੀ",
           "ਮਹਾਨ ਝੀਲਾਂ"
         ],
-        "explanation": "ਮਹਾਨ ਝੀਲਾਂ ਵਿੱਚੋਂ ਚਾਰ ਸਰਹੱਦ ਉੱਤੇ ਹਨ; ਮਿਸ਼ੀਗਨ ਝੀਲ ਇਕੱਲੀ ਹੈ ਜੋ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੰਯੁਕਤ ਰਾਜ ਵਿੱਚ ਹੈ।"
+        "explanation": "ਮਹਾਨ ਝੀਲਾਂ ਅਮਰੀਕਾ ਅਤੇ ਕੈਨੇਡਾ ਦੀ ਸਰਹੱਦ ਉੱਤੇ ਹਨ; ਮਿਸ਼ੀਗਨ ਝੀਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਅਮਰੀਕਾ ਵਿੱਚ ਹੈ।"
       }
     }
   },
@@ -290,7 +290,7 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which ancient rock region curves around Hudson Bay across much of central and eastern Canada?",
+        "stem": "Which ancient rock region surrounds Hudson Bay?",
         "options": [
           "SierraMadre",
           "Appalachians",
@@ -300,7 +300,7 @@
         "explanation": "The Canadian Shield is an extensive area of ancient crystalline rocks surrounding Hudson Bay."
       },
       "hi": {
-        "stem": "कनाडा के मध्य और पूर्वी भाग में हडसन की खाड़ी के चारों ओर कौन-सा प्राचीन चट्टानी क्षेत्र फैला है?",
+        "stem": "हडसन की खाड़ी के चारों ओर कौन-सा प्राचीन चट्टानी क्षेत्र फैला है?",
         "options": [
           "सिएरा माद्रे",
           "एपलाचियन पर्वत",
@@ -310,11 +310,11 @@
         "explanation": "कनाडाई शील्ड हडसन की खाड़ी के आसपास फैला प्राचीन क्रिस्टलीय चट्टानों का विशाल क्षेत्र है।"
       },
       "pa": {
-        "stem": "ਕੈਨੇਡਾ ਦੇ ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਹਿੱਸੇ ਵਿੱਚ ਹਡਸਨ ਦੀ ਖਾੜੀ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕਿਹੜਾ ਪੁਰਾਤਨ ਚੱਟਾਨੀ ਖੇਤਰ ਫੈਲਿਆ ਹੈ?",
+        "stem": "ਹਡਸਨ ਦੀ ਖਾੜੀ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕਿਹੜਾ ਪੁਰਾਤਨ ਚੱਟਾਨੀ ਖੇਤਰ ਫੈਲਿਆ ਹੈ?",
         "options": [
-          "ਸिएਰਾ ਮਾਦਰੇ",
-          "ਐਪਲੇਸ਼ियन ਪਹਾੜ",
-          "ਕੈਨੇਡੀਅਨ ਸ਼ीलਡ",
+          "ਸਿਏਰਾ ਮਾਦਰੇ",
+          "ਐਪਲੇਸ਼ੀਅਨ ਪਹਾੜ",
+          "ਕੈਨੇਡੀਅਨ ਸ਼ੀਲਡ",
           "ਗ੍ਰੇਟ ਪਲੇਨਜ਼"
         ],
         "explanation": "ਕੈਨੇਡੀਅਨ ਸ਼ੀਲਡ ਹਡਸਨ ਦੀ ਖਾੜੀ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਫੈਲਿਆ ਪੁਰਾਤਨ ਕ੍ਰਿਸਟਲੀ ਚੱਟਾਨਾਂ ਦਾ ਵਿਸ਼ਾਲ ਖੇਤਰ ਹੈ।"
@@ -336,34 +336,34 @@
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "Which large inland sea is bordered mainly by northern and eastern Canada?",
+        "stem": "Which large inland sea lies in northeastern Canada?",
         "options": [
-          "GulfTonkin",
+          "GulfCalifornia",
           "HudsonBay",
           "GulfMexico",
           "Caribbean"
         ],
-        "explanation": "Hudson Bay is a large inland sea in northeastern Canada, connected to the Atlantic through Hudson Strait."
+        "explanation": "Hudson Bay is a large inland sea in northeastern Canada."
       },
       "hi": {
-        "stem": "कौन-सा बड़ा अंतर्देशीय सागर मुख्यतः उत्तरी और पूर्वी कनाडा से घिरा है?",
+        "stem": "उत्तर-पूर्वी कनाडा में कौन-सा बड़ा अंतर्देशीय सागर स्थित है?",
         "options": [
-          "टोंकिन की खाड़ी",
+          "कैलिफ़ोर्निया की खाड़ी",
           "हडसन की खाड़ी",
           "मैक्सिको की खाड़ी",
           "कैरेबियन सागर"
         ],
-        "explanation": "हडसन की खाड़ी उत्तर-पूर्वी कनाडा का बड़ा अंतर्देशीय सागर है, जो हडसन जलडमरूमध्य से अटलांटिक से जुड़ता है।"
+        "explanation": "हडसन की खाड़ी उत्तर-पूर्वी कनाडा का बड़ा अंतर्देशीय सागर है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਸਾਗਰ ਮੁੱਖ ਤੌਰ ’ਤੇ ਉੱਤਰੀ ਅਤੇ ਪੂਰਬੀ ਕੈਨੇਡਾ ਨਾਲ ਘਿਰਿਆ ਹੈ?",
+        "stem": "ਉੱਤਰ-ਪੂਰਬੀ ਕੈਨੇਡਾ ਵਿੱਚ ਕਿਹੜਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਸਾਗਰ ਸਥਿਤ ਹੈ?",
         "options": [
-          "ਟੋਂਕਿਨ ਦੀ ਖਾੜੀ",
+          "ਕੈਲੀਫ਼ੋਰਨੀਆ ਦੀ ਖਾੜੀ",
           "ਹਡਸਨ ਦੀ ਖਾੜੀ",
           "ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ",
           "ਕੈਰੇਬੀਅਨ ਸਾਗਰ"
         ],
-        "explanation": "ਹਡਸਨ ਦੀ ਖਾੜੀ ਉੱਤਰ-ਪੂਰਬੀ ਕੈਨੇਡਾ ਦਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਸਾਗਰ ਹੈ, ਜੋ ਹਡਸਨ ਜਲਡਮਰੂ ਰਾਹੀਂ ਐਟਲਾਂਟਿਕ ਨਾਲ ਜੁੜਦਾ ਹੈ।"
+        "explanation": "ਹਡਸਨ ਦੀ ਖਾੜੀ ਉੱਤਰ-ਪੂਰਬੀ ਕੈਨੇਡਾ ਦਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਸਾਗਰ ਹੈ।"
       }
     }
   },
@@ -428,7 +428,7 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which country contains the Mexican Plateau between the Sierra Madre Occidental and Sierra Madre Oriental?",
+        "stem": "The Mexican Plateau lies between the Sierra Madre ranges in which country?",
         "options": [
           "Canada",
           "USA",
@@ -438,7 +438,7 @@
         "explanation": "Mexico’s central plateau lies between its western and eastern Sierra Madre ranges."
       },
       "hi": {
-        "stem": "सिएरा माद्रे ऑक्सिडेंटल और सिएरा माद्रे ओरिएंटल के बीच मैक्सिकन पठार किस देश में है?",
+        "stem": "सिएरा माद्रे पर्वत-श्रेणियों के बीच मैक्सिकन पठार किस देश में है?",
         "options": [
           "कनाडा",
           "संयुक्त राज्य",
@@ -448,7 +448,7 @@
         "explanation": "मैक्सिको का मध्य पठार पश्चिमी और पूर्वी सिएरा माद्रे पर्वत-श्रेणियों के बीच है।"
       },
       "pa": {
-        "stem": "ਸਿਏਰਾ ਮਾਦਰੇ ਓਕਸੀਡੈਂਟਲ ਅਤੇ ਸਿਏਰਾ ਮਾਦਰੇ ਓਰੀਐਂਟਲ ਵਿਚਕਾਰ ਮੈਕਸੀਕਨ ਪਠਾਰ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
+        "stem": "ਸਿਏਰਾ ਮਾਦਰੇ ਪਹਾੜੀ ਲੜੀਆਂ ਵਿਚਕਾਰ ਮੈਕਸੀਕਨ ਪਠਾਰ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
         "options": [
           "ਕੈਨੇਡਾ",
           "ਸੰਯੁਕਤ ਰਾਜ",
@@ -542,7 +542,7 @@
       "pa": {
         "stem": "ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਨੂੰ ਜੋੜਨ ਵਾਲਾ ਅਤੇ ਪਨਾਮਾ ਨਹਿਰ ਜਿਸ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ, ਉਹ ਭੂ-ਸੰਯੋਜਕ ਕਿਹੜਾ ਹੈ?",
         "options": [
-          "ਜटलੈਂਡ ਪ੍ਰਾਇਦੀਪ",
+          "ਜਟਲੈਂਡ ਪ੍ਰਾਇਦੀਪ",
           "ਪਨਾਮਾ ਭੂ-ਸੰਯੋਜਕ",
           "ਯੂਕਾਤਾਨ ਪ੍ਰਾਇਦੀਪ",
           "ਬਾਜਾ ਕੈਲੀਫ਼ੋਰਨੀਆ ਪ੍ਰਾਇਦੀਪ"
@@ -612,34 +612,34 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which narrow region connects Mexico with Colombia and lies between the Pacific Ocean and the Caribbean Sea?",
+        "stem": "Which region forms the narrow land bridge between Mexico and Colombia?",
         "options": [
-          "Iberian",
-          "Balkan",
-          "Scandinavian",
+          "Caribbean",
+          "Yucatan",
+          "Baja",
           "CentralAmerica"
         ],
-        "explanation": "Central America is the land bridge between Mexico and South America, bordered by the Pacific and Caribbean."
+        "explanation": "Central America forms the land bridge between Mexico and South America."
       },
       "hi": {
-        "stem": "मैक्सिको को कोलंबिया से जोड़ने वाला और प्रशांत महासागर तथा कैरेबियन सागर के बीच स्थित संकरा क्षेत्र कौन-सा है?",
+        "stem": "मैक्सिको और कोलंबिया के बीच संकरा भू-संपर्क कौन-सा क्षेत्र बनाता है?",
         "options": [
-          "आइबेरियाई प्रायद्वीप",
-          "बाल्कन प्रायद्वीप",
-          "स्कैंडिनेवियाई प्रायद्वीप",
+          "कैरेबियन सागर",
+          "युकातान प्रायद्वीप",
+          "बाजा कैलिफ़ोर्निया प्रायद्वीप",
           "मध्य अमेरिका"
         ],
-        "explanation": "मध्य अमेरिका मैक्सिको और दक्षिण अमेरिका के बीच का भू-संपर्क है; इसके दोनों ओर प्रशांत और कैरेबियन हैं।"
+        "explanation": "मध्य अमेरिका मैक्सिको और दक्षिण अमेरिका के बीच भू-संपर्क बनाता है।"
       },
       "pa": {
-        "stem": "ਮੈਕਸੀਕੋ ਨੂੰ ਕੋਲੰਬੀਆ ਨਾਲ ਜੋੜਨ ਵਾਲਾ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਤੇ ਕੈਰੇਬੀਅਨ ਸਾਗਰ ਵਿਚਕਾਰ ਸਥਿਤ ਤੰਗ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?",
+        "stem": "ਮੈਕਸੀਕੋ ਅਤੇ ਕੋਲੰਬੀਆ ਵਿਚਕਾਰ ਤੰਗ ਧਰਤੀ ਦਾ ਜੋੜ ਕਿਹੜਾ ਖੇਤਰ ਬਣਾਉਂਦਾ ਹੈ?",
         "options": [
-          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
-          "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ",
-          "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਕੈਰੇਬੀਅਨ ਸਾਗਰ",
+          "ਯੂਕਾਤਾਨ ਪ੍ਰਾਇਦੀਪ",
+          "ਬਾਜਾ ਕੈਲੀਫ਼ੋਰਨੀਆ ਪ੍ਰਾਇਦੀਪ",
           "ਮੱਧ ਅਮਰੀਕਾ"
         ],
-        "explanation": "ਮੱਧ ਅਮਰੀਕਾ ਮੈਕਸੀਕੋ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿਚਕਾਰ ਧਰਤੀ ਦਾ ਜੋੜ ਹੈ; ਇਸਦੇ ਦੋਹਾਂ ਪਾਸੇ ਪ੍ਰਸ਼ਾਂਤ ਅਤੇ ਕੈਰੇਬੀਅਨ ਹਨ।"
+        "explanation": "ਮੱਧ ਅਮਰੀਕਾ ਮੈਕਸੀਕੋ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿਚਕਾਰ ਧਰਤੀ ਦਾ ਜੋੜ ਬਣਾਉਂਦਾ ਹੈ।"
       }
     }
   },
@@ -750,34 +750,34 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which sea lies east of Central America and north of South America?",
+        "stem": "Which sea lies between Central America and the Greater Antilles, north of South America?",
         "options": [
           "Caribbean",
           "GulfMexico",
           "HudsonBay",
-          "NorthSea"
+          "GulfCalifornia"
         ],
-        "explanation": "The Caribbean Sea lies between Central America, northern South America and the Greater Antilles."
+        "explanation": "The Caribbean Sea lies between Central America, the Greater Antilles and northern South America."
       },
       "hi": {
-        "stem": "मध्य अमेरिका के पूर्व और दक्षिण अमेरिका के उत्तर में कौन-सा सागर है?",
+        "stem": "मध्य अमेरिका और ग्रेटर एंटिलीज़ के बीच, दक्षिण अमेरिका के उत्तर में कौन-सा सागर है?",
         "options": [
           "कैरेबियन सागर",
           "मैक्सिको की खाड़ी",
           "हडसन की खाड़ी",
-          "उत्तरी सागर"
+          "कैलिफ़ोर्निया की खाड़ी"
         ],
-        "explanation": "कैरेबियन सागर मध्य अमेरिका, उत्तरी दक्षिण अमेरिका और ग्रेटर एंटिलीज़ के बीच स्थित है।"
+        "explanation": "कैरेबियन सागर मध्य अमेरिका, ग्रेटर एंटिलीज़ और उत्तरी दक्षिण अमेरिका के बीच है।"
       },
       "pa": {
-        "stem": "ਮੱਧ ਅਮਰੀਕਾ ਦੇ ਪੂਰਬ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਉੱਤਰ ਵੱਲ ਕਿਹੜਾ ਸਾਗਰ ਹੈ?",
+        "stem": "ਮੱਧ ਅਮਰੀਕਾ ਅਤੇ ਗ੍ਰੇਟਰ ਐਂਟੀਲੀਜ਼ ਵਿਚਕਾਰ, ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਉੱਤਰ ਵੱਲ ਕਿਹੜਾ ਸਾਗਰ ਹੈ?",
         "options": [
           "ਕੈਰੇਬੀਅਨ ਸਾਗਰ",
           "ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ",
           "ਹਡਸਨ ਦੀ ਖਾੜੀ",
-          "ਉੱਤਰੀ ਸਾਗਰ"
+          "ਕੈਲੀਫ਼ੋਰਨੀਆ ਦੀ ਖਾੜੀ"
         ],
-        "explanation": "ਕੈਰੇਬੀਅਨ ਸਾਗਰ ਮੱਧ ਅਮਰੀਕਾ, ਉੱਤਰੀ ਦੱਖਣੀ ਅਮਰੀਕਾ ਅਤੇ ਗ੍ਰੇਟਰ ਐਂਟੀਲੀਜ਼ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਕੈਰੇਬੀਅਨ ਸਾਗਰ ਮੱਧ ਅਮਰੀਕਾ, ਗ੍ਰੇਟਰ ਐਂਟੀਲੀਜ਼ ਅਤੇ ਉੱਤਰੀ ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
       }
     }
   },
@@ -796,7 +796,7 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which island country lies in the Atlantic Ocean southeast of Florida and north of Cuba?",
+        "stem": "Which Atlantic archipelago lies north of Cuba and southeast of Florida?",
         "options": [
           "Cuba",
           "Jamaica",
@@ -806,7 +806,7 @@
         "explanation": "The Bahamas is an Atlantic archipelago north of Cuba; it is not located within the Caribbean Sea."
       },
       "hi": {
-        "stem": "फ़्लोरिडा के दक्षिण-पूर्व और क्यूबा के उत्तर में अटलांटिक महासागर में कौन-सा द्वीपीय देश है?",
+        "stem": "क्यूबा के उत्तर और फ़्लोरिडा के दक्षिण-पूर्व में अटलांटिक का कौन-सा द्वीपसमूह है?",
         "options": [
           "क्यूबा",
           "जमैका",
@@ -816,7 +816,7 @@
         "explanation": "बहामास क्यूबा के उत्तर में अटलांटिक द्वीपसमूह है; यह कैरेबियन सागर में नहीं है।"
       },
       "pa": {
-        "stem": "ਫ਼ਲੋਰਿਡਾ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਅਤੇ ਕਿਊਬਾ ਦੇ ਉੱਤਰ ਵੱਲ ਐਟਲਾਂਟਿਕ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਕਿਹੜਾ ਟਾਪੂ-ਦੇਸ਼ ਹੈ?",
+        "stem": "ਕਿਊਬਾ ਦੇ ਉੱਤਰ ਅਤੇ ਫ਼ਲੋਰਿਡਾ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਐਟਲਾਂਟਿਕ ਦਾ ਕਿਹੜਾ ਟਾਪੂ-ਸਮੂਹ ਹੈ?",
         "options": [
           "ਕਿਊਬਾ",
           "ਜਮੈਕਾ",
@@ -842,7 +842,7 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which peninsula in northwestern Mexico separates the Pacific Ocean from the Gulf of California?",
+        "stem": "Which Mexican peninsula separates the Pacific from the Gulf of California?",
         "options": [
           "Jutland",
           "Iberian",
@@ -852,7 +852,7 @@
         "explanation": "Baja California projects south from the U.S.–Mexico border between the Pacific and Gulf of California."
       },
       "hi": {
-        "stem": "उत्तर-पश्चिमी मैक्सिको का कौन-सा प्रायद्वीप प्रशांत महासागर को कैलिफ़ोर्निया की खाड़ी से अलग करता है?",
+        "stem": "प्रशांत महासागर को कैलिफ़ोर्निया की खाड़ी से कौन-सा मैक्सिकन प्रायद्वीप अलग करता है?",
         "options": [
           "जटलैंड प्रायद्वीप",
           "आइबेरियाई प्रायद्वीप",
@@ -862,9 +862,9 @@
         "explanation": "बाजा कैलिफ़ोर्निया अमेरिका–मैक्सिको सीमा से दक्षिण की ओर प्रशांत और कैलिफ़ोर्निया की खाड़ी के बीच निकला है।"
       },
       "pa": {
-        "stem": "ਉੱਤਰ-ਪੱਛਮੀ ਮੈਕਸੀਕੋ ਦਾ ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਨੂੰ ਕੈਲੀਫ਼ੋਰਨੀਆ ਦੀ ਖਾੜੀ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "stem": "ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਨੂੰ ਕੈਲੀਫ਼ੋਰਨੀਆ ਦੀ ਖਾੜੀ ਤੋਂ ਕਿਹੜਾ ਮੈਕਸੀਕੀ ਪ੍ਰਾਇਦੀਪ ਵੱਖ ਕਰਦਾ ਹੈ?",
         "options": [
-          "ਜटलੈਂਡ ਪ੍ਰਾਇਦੀਪ",
+          "ਜਟਲੈਂਡ ਪ੍ਰਾਇਦੀਪ",
           "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
           "ਬਾਜਾ ਕੈਲੀਫ਼ੋਰਨੀਆ ਪ੍ਰਾਇਦੀਪ",
           "ਯੂਕਾਤਾਨ ਪ੍ਰਾਇਦੀਪ"
@@ -888,34 +888,34 @@
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "Which grassland belt extends across the interior of Canada and the northern United States?",
+        "stem": "What are the temperate grasslands of the central Canadian interior called?",
         "options": [
-          "Kalahari",
+          "Serengeti",
           "Prairies",
-          "GreatPlains",
-          "CanadianShield"
+          "Pampas",
+          "Kalahari"
         ],
-        "explanation": "The North American prairies are temperate grasslands across the Great Plains and adjacent Canadian interior."
+        "explanation": "The Prairies are temperate grasslands across the Canadian interior, continuing south into the Great Plains."
       },
       "hi": {
-        "stem": "कनाडा के भीतरी भाग और उत्तरी संयुक्त राज्य में कौन-सी घासभूमि पट्टी फैली है?",
+        "stem": "कनाडा के मध्यवर्ती भाग की समशीतोष्ण घासभूमियों को क्या कहते हैं?",
         "options": [
-          "कालाहारी क्षेत्र",
+          "सेरेन्गेटी",
           "प्रेयरी घासभूमि",
-          "ग्रेट प्लेन्स",
-          "कनाडाई शील्ड"
+          "पम्पास",
+          "कालाहारी क्षेत्र"
         ],
-        "explanation": "उत्तरी अमेरिकी प्रेयरी ग्रेट प्लेन्स और कनाडा के पास के भीतरी भाग में फैली समशीतोष्ण घासभूमि हैं।"
+        "explanation": "प्रेयरी कनाडा के भीतरी भाग की समशीतोष्ण घासभूमियाँ हैं, जो दक्षिण में ग्रेट प्लेन्स तक जारी रहती हैं।"
       },
       "pa": {
-        "stem": "ਕੈਨੇਡਾ ਦੇ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਅਤੇ ਉੱਤਰੀ ਸੰਯੁਕਤ ਰਾਜ ਵਿੱਚ ਕਿਹੜੀ ਘਾਹ-ਭੂਮੀ ਪੱਟੀ ਫੈਲੀ ਹੈ?",
+        "stem": "ਕੈਨੇਡਾ ਦੇ ਕੇਂਦਰੀ ਅੰਦਰੂਨੀ ਖੇਤਰ ਦੀਆਂ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਭੂਮੀਆਂ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
         "options": [
-          "ਕਾਲਾਹਾਰੀ ਖੇਤਰ",
+          "ਸੇਰੇਨਗੇਟੀ",
           "ਪ੍ਰੇਰੀ ਘਾਹ-ਭੂਮੀ",
-          "ਗ੍ਰੇਟ ਪਲੇਨਜ਼",
-          "ਕੈਨੇਡੀਅਨ ਸ਼ीलਡ"
+          "ਪੰਪਾਸ",
+          "ਕਾਲਾਹਾਰੀ ਖੇਤਰ"
         ],
-        "explanation": "ਉੱਤਰੀ ਅਮਰੀਕੀ ਪ੍ਰੇਰੀ ਗ੍ਰੇਟ ਪਲੇਨਜ਼ ਅਤੇ ਨਾਲ ਲੱਗਦੇ ਕੈਨੇਡੀਅਨ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਦੀ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਭੂਮੀ ਹੈ।"
+        "explanation": "ਪ੍ਰੇਰੀ ਕੈਨੇਡਾ ਦੇ ਅੰਦਰੂਨੀ ਖੇਤਰ ਦੀਆਂ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਭੂਮੀਆਂ ਹਨ, ਜੋ ਦੱਖਣ ਵੱਲ ਗ੍ਰੇਟ ਪਲੇਨਜ਼ ਤੱਕ ਫੈਲਦੀਆਂ ਹਨ।"
       }
     }
   },
@@ -934,7 +934,7 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which major mountain system forms much of the continental divide between rivers flowing toward the Pacific and those flowing toward the Atlantic or Gulf of Mexico?",
+        "stem": "Which mountain range forms much of North America’s Continental Divide?",
         "options": [
           "Rockies",
           "Appalachians",
@@ -944,7 +944,7 @@
         "explanation": "The Rocky Mountains form much of North America’s Continental Divide, although the divide follows varied terrain farther north and south."
       },
       "hi": {
-        "stem": "कौन-सी प्रमुख पर्वत-प्रणाली प्रशांत की ओर बहने वाली नदियों और अटलांटिक या मैक्सिको की खाड़ी की ओर बहने वाली नदियों के बीच महाद्वीपीय जल-विभाजक का बड़ा भाग बनाती है?",
+        "stem": "उत्तरी अमेरिका के महाद्वीपीय जल-विभाजक का बड़ा भाग कौन-सी पर्वत-श्रेणी बनाती है?",
         "options": [
           "रॉकी पर्वत",
           "एपलाचियन पर्वत",
@@ -954,12 +954,12 @@
         "explanation": "रॉकी पर्वत उत्तरी अमेरिका के महाद्वीपीय जल-विभाजक का बड़ा भाग बनाते हैं, हालाँकि उत्तर और दक्षिण में इसकी राह अलग भू-आकृतियों से गुजरती है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜੀ ਵੱਡੀ ਪਹਾੜੀ ਪ੍ਰਣਾਲੀ ਪ੍ਰਸ਼ਾਂਤ ਵੱਲ ਵਗਣ ਵਾਲੇ ਦਰਿਆਵਾਂ ਅਤੇ ਐਟਲਾਂਟਿਕ ਜਾਂ ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ ਵੱਲ ਵਗਣ ਵਾਲੇ ਦਰਿਆਵਾਂ ਵਿਚਕਾਰ ਮਹਾਂਦੀਪੀ ਜਲ-ਵਿਭਾਜਕ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਬਣਾਉਂਦੀ ਹੈ?",
+        "stem": "ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਮਹਾਂਦੀਪੀ ਜਲ-ਵਿਭਾਜਕ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਬਣਾਉਂਦੀ ਹੈ?",
         "options": [
           "ਰੌਕੀ ਪਹਾੜ",
-          "ਐਪਲੇਸ਼ियन ਪਹਾੜ",
-          "ਸिएਰਾ ਮਾਦਰੇ",
-          "ਕੈਨੇਡੀਅਨ ਸ਼ीलਡ"
+          "ਐਪਲੇਸ਼ੀਅਨ ਪਹਾੜ",
+          "ਸਿਏਰਾ ਮਾਦਰੇ",
+          "ਕੈਨੇਡੀਅਨ ਸ਼ੀਲਡ"
         ],
         "explanation": "ਰੌਕੀ ਪਹਾੜ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਮਹਾਂਦੀਪੀ ਜਲ-ਵਿਭਾਜਕ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਬਣਾਉਂਦੇ ਹਨ, ਹਾਲਾਂਕਿ ਉੱਤਰ ਅਤੇ ਦੱਖਣ ਵਿੱਚ ਇਹ ਵੱਖ-ਵੱਖ ਭੂ-ਆਕਾਰਾਂ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ।"
       }

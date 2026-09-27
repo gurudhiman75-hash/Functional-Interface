@@ -99,6 +99,8 @@ export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuesti
       const text = [l.stem, ...l.options, l.explanation].join(' ');
       if (/\{\{|\}\}|\b(?:TODO|TBD|undefined)\b/.test(text)) throw new Error(`Unresolved content: ${q.id}`);
       if (language !== 'en' && /[a-z]/i.test(text)) throw new Error(`English leakage: ${q.id}/${language}`);
+      if (Number(q.cpId.slice(-3)) >= 24 && language === 'hi' && /[\u0A00-\u0A7F]/.test(text)) throw new Error(`Punjabi-script leakage: ${q.id}/${language}`);
+      if (Number(q.cpId.slice(-3)) >= 24 && language === 'pa' && /[\u0900-\u097F]/.test(text.replace(/[।॥]/g, ''))) throw new Error(`Devanagari-script leakage: ${q.id}/${language}`);
       const stemKey = `${language}:${l.stem.normalize('NFC').trim().toLowerCase()}`;
       if (stems.has(stemKey)) throw new Error(`Duplicate stem: ${q.id}/${language}`);
       stems.add(stemKey);

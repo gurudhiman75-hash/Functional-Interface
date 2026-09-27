@@ -14,34 +14,34 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which mountain range runs along much of western Iran?",
+        "stem": "Which range forms a major divide between the Iranian Plateau and the Mesopotamian lowlands?",
         "options": [
           "Zagros",
-          "AnatolianPlateau",
           "Caucasus",
-          "Atlas"
+          "Atlas",
+          "Alps"
         ],
-        "explanation": "The Zagros Mountains extend along western Iran and continue toward the northwest."
+        "explanation": "The Zagros Mountains form a prominent barrier between the Iranian Plateau and Mesopotamia."
       },
       "hi": {
-        "stem": "पश्चिमी ईरान के बड़े भाग के साथ कौन-सी पर्वत-श्रेणी फैली है?",
+        "stem": "ईरानी पठार और मेसोपोटामिया की निम्नभूमि के बीच प्रमुख विभाजक कौन-सी पर्वत-श्रेणी है?",
         "options": [
           "ज़ाग्रोस पर्वत",
-          "अनातोलियाई पठार",
           "काकेशस पर्वत",
-          "एटलस पर्वत"
+          "एटलस पर्वत",
+          "आल्प्स"
         ],
-        "explanation": "ज़ाग्रोस पर्वत पश्चिमी ईरान के साथ फैले हैं और उत्तर-पश्चिम की ओर आगे बढ़ते हैं।"
+        "explanation": "ज़ाग्रोस पर्वत ईरानी पठार और मेसोपोटामिया के बीच प्रमुख बाधा बनाते हैं।"
       },
       "pa": {
-        "stem": "ਪੱਛਮੀ ਈਰਾਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਨਾਲ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਫੈਲੀ ਹੈ?",
+        "stem": "ਈਰਾਨੀ ਪਠਾਰ ਅਤੇ ਮੈਸੋਪੋਟੇਮੀਆ ਦੇ ਨੀਵੇਂ ਮੈਦਾਨਾਂ ਵਿਚਕਾਰ ਵੱਡਾ ਵਿਭਾਜਕ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਹੈ?",
         "options": [
-          "ਜ਼ागਰੋਸ ਪਹਾੜ",
-          "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ",
+          "ਜ਼ਾਗਰੋਸ ਪਹਾੜ",
           "ਕਾਕੇਸ਼ਸ ਪਹਾੜ",
-          "ਐਟਲਸ ਪਹਾੜ"
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਆਲਪਸ"
         ],
-        "explanation": "ਜ਼ਾਗਰੋਸ ਪਹਾੜ ਪੱਛਮੀ ਈਰਾਨ ਨਾਲ ਫੈਲੇ ਹਨ ਅਤੇ ਉੱਤਰ-ਪੱਛਮ ਵੱਲ ਅੱਗੇ ਜਾਂਦੇ ਹਨ।"
+        "explanation": "ਜ਼ਾਗਰੋਸ ਪਹਾੜ ਈਰਾਨੀ ਪਠਾਰ ਅਤੇ ਮੈਸੋਪੋਟੇਮੀਆ ਵਿਚਕਾਰ ਪ੍ਰਮੁੱਖ ਰੁਕਾਵਟ ਹਨ।"
       }
     }
   },
@@ -60,7 +60,7 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which plateau occupies much of Iran and extends into parts of Afghanistan and Pakistan?",
+        "stem": "Which plateau extends from Iran into Afghanistan and Pakistan?",
         "options": [
           "TibetanPlateau",
           "AnatolianPlateau",
@@ -70,7 +70,7 @@
         "explanation": "The Iranian Plateau covers much of Iran and extends eastward into neighbouring parts of South and Central Asia."
       },
       "hi": {
-        "stem": "कौन-सा पठार ईरान के बड़े भाग में है और अफ़ग़ानिस्तान व पाकिस्तान के कुछ हिस्सों तक फैला है?",
+        "stem": "कौन-सा पठार ईरान से अफ़ग़ानिस्तान और पाकिस्तान तक फैला है?",
         "options": [
           "तिब्बती पठार",
           "अनातोलियाई पठार",
@@ -80,7 +80,7 @@
         "explanation": "ईरानी पठार ईरान के बड़े भाग में फैला है और पूर्व में दक्षिण व मध्य एशिया के पड़ोसी क्षेत्रों तक जाता है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਪਠਾਰ ਈਰਾਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਹੈ ਅਤੇ ਅਫ਼ਗਾਨਿਸਤਾਨ ਤੇ ਪਾਕਿਸਤਾਨ ਦੇ ਕੁਝ ਹਿੱਸਿਆਂ ਤੱਕ ਫੈਲਦਾ ਹੈ?",
+        "stem": "ਕਿਹੜਾ ਪਠਾਰ ਈਰਾਨ ਤੋਂ ਅਫ਼ਗਾਨਿਸਤਾਨ ਅਤੇ ਪਾਕਿਸਤਾਨ ਤੱਕ ਫੈਲਿਆ ਹੈ?",
         "options": [
           "ਤਿੱਬਤੀ ਪਠਾਰ",
           "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ",
@@ -106,34 +106,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which mountain range runs along western Iran and forms part of its border with Iraq?",
+        "stem": "Which mountain range forms much of the Iran–Iraq border?",
         "options": [
-          "Atlas",
           "Carpathians",
+          "Alps",
           "Zagros",
-          "Alps"
+          "Atlas"
         ],
-        "explanation": "The Zagros Mountains extend along western Iran and continue toward southeastern Turkey and northern Iraq."
+        "explanation": "The Zagros Mountains run along western Iran and form much of its border with Iraq."
       },
       "hi": {
-        "stem": "ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਪੱਛਮੀ ਈਰਾਨ ਨਾਲ ਲੱਗਦੀ ਹੈ ਅਤੇ ਇਰਾਕ ਨਾਲ ਇਸਦੀ ਸਰਹੱਦ ਦਾ ਕੁਝ ਹਿੱਸਾ ਬਣਾਉਂਦੀ ਹੈ?",
+        "stem": "ईरान–इराक सीमा का बड़ा भाग कौन-सी पर्वत-श्रेणी बनाती है?",
         "options": [
-          "एटलस पर्वत",
           "कार्पेथियन पर्वत",
+          "आल्प्स",
           "ज़ाग्रोस पर्वत",
-          "आल्प्स"
+          "एटलस पर्वत"
         ],
-        "explanation": "ज़ाग्रोस पर्वत पश्चिमी ईरान के साथ फैले हैं और दक्षिण-पूर्वी तुर्किये तथा उत्तरी इराक की ओर बढ़ते हैं।"
+        "explanation": "ज़ाग्रोस पर्वत पश्चिमी ईरान में फैले हैं और इराक के साथ इसकी सीमा का बड़ा भाग बनाते हैं।"
       },
       "pa": {
-        "stem": "ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਪੱਛਮੀ ਈਰਾਨ ਨਾਲ ਲੱਗਦੀ ਹੈ ਅਤੇ ਇਰਾਕ ਨਾਲ ਇਸਦੀ ਸਰਹੱਦ ਦਾ ਕੁਝ ਹਿੱਸਾ ਬਣਦੀ ਹੈ?",
+        "stem": "ਈਰਾਨ–ਇਰਾਕ ਸਰਹੱਦ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਬਣਾਉਂਦੀ ਹੈ?",
         "options": [
-          "ਐਟਲਸ ਪਹਾੜ",
           "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ",
-          "ਜ਼ागਰੋਸ ਪਹਾੜ",
-          "ਆਲਪਸ"
+          "ਆਲਪਸ",
+          "ਜ਼ਾਗਰੋਸ ਪਹਾੜ",
+          "ਐਟਲਸ ਪਹਾੜ"
         ],
-        "explanation": "ਜ਼ਾਗਰੋਸ ਪਹਾੜ ਪੱਛਮੀ ਈਰਾਨ ਨਾਲ ਫੈਲੇ ਹਨ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਤੁਰਕੀਏ ਤੇ ਉੱਤਰੀ ਇਰਾਕ ਵੱਲ ਜਾਂਦੇ ਹਨ।"
+        "explanation": "ਜ਼ਾਗਰੋਸ ਪਹਾੜ ਪੱਛਮੀ ਈਰਾਨ ਨਾਲ ਫੈਲੇ ਹਨ ਅਤੇ ਇਰਾਕ ਨਾਲ ਇਸਦੀ ਸਰਹੱਦ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਬਣਾਉਂਦੇ ਹਨ।"
       }
     }
   },
@@ -152,34 +152,34 @@
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "The Tigris and Euphrates meet before reaching the Persian Gulf through which river?",
+        "stem": "The Tigris and Euphrates join to form which river?",
         "options": [
-          "Niger",
+          "JordanRiver",
           "ShattAlArab",
-          "Nile",
-          "JordanRiver"
+          "Niger",
+          "Nile"
         ],
-        "explanation": "The Tigris and Euphrates join to form the Shatt al-Arab, which flows to the Persian Gulf."
+        "explanation": "The Tigris and Euphrates join to form the Shatt al-Arab, which flows into the Persian Gulf."
       },
       "hi": {
-        "stem": "दजला और फ़रात किस नदी से होकर फ़ारस की खाड़ी तक पहुँचने से पहले मिलती हैं?",
+        "stem": "दजला और फ़रात मिलकर कौन-सी नदी बनाते हैं?",
         "options": [
-          "नाइजर",
+          "जॉर्डन नदी",
           "शत्त अल-अरब",
-          "नील",
-          "जॉर्डन नदी"
+          "नाइजर",
+          "नील"
         ],
         "explanation": "दजला और फ़रात मिलकर शत्त अल-अरब बनाती हैं, जो फ़ारस की खाड़ी में गिरती है।"
       },
       "pa": {
-        "stem": "ਦਜਲਾ ਅਤੇ ਫ਼ਰਾਤ ਕਿਹੜੇ ਦਰਿਆ ਰਾਹੀਂ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਤੱਕ ਪਹੁੰਚਣ ਤੋਂ ਪਹਿਲਾਂ ਮਿਲਦੇ ਹਨ?",
+        "stem": "ਦਜਲਾ ਅਤੇ ਫ਼ਰਾਤ ਮਿਲ ਕੇ ਕਿਹੜਾ ਦਰਿਆ ਬਣਾਉਂਦੇ ਹਨ?",
         "options": [
-          "ਨਾਈਜਰ",
+          "ਜਾਰਡਨ ਦਰਿਆ",
           "ਸ਼ੱਤ ਅਲ-ਅਰਬ",
-          "ਨੀਲ",
-          "ਜਾਰਡਨ ਦਰਿਆ"
+          "ਨਾਈਜਰ",
+          "ਨੀਲ"
         ],
-        "explanation": "ਦਜਲਾ ਅਤੇ ਫ਼ਰਾਤ ਮਿਲ ਕੇ ਸ਼ੱਤ ਅਲ-ਅਰਬ ਬਣਾਉਂਦੀਆਂ ਹਨ, ਜੋ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
+        "explanation": "ਦਜਲਾ ਅਤੇ ਫ਼ਰਾਤ ਮਿਲ ਕੇ ਸ਼ੱਤ ਅਲ-ਅਰਬ ਬਣਾਉਂਦੇ ਹਨ, ਜੋ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
       }
     }
   },
@@ -232,7 +232,7 @@
   {
     "id": "WGE-001-CP025-Q006",
     "cpId": "WGE-001-CP025",
-    "objective": "dead-sea-jordan-rift",
+    "objective": "dardanelles-aegean-marmara",
     "difficulty": "Medium",
     "sourceIds": [
       "WGE-REG-M49",
@@ -244,34 +244,34 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which saline lake lies in a rift valley between Jordan and Israel and is noted for its very low elevation?",
+        "stem": "The Dardanelles connects the Aegean Sea with the Sea of:",
         "options": [
-          "Caspian",
-          "Aral",
-          "RedSea",
-          "DeadSea"
+          "Bosporus",
+          "Hormuz",
+          "Malacca",
+          "Dardanelles"
         ],
-        "explanation": "The Dead Sea occupies the Jordan Rift Valley; its shoreline is among the lowest exposed land elevations on Earth."
+        "explanation": "The Dardanelles links the Aegean Sea with the Sea of Marmara."
       },
       "hi": {
-        "stem": "जॉर्डन और इज़राइल के बीच भ्रंश घाटी में स्थित और बहुत कम ऊँचाई के लिए जाना जाने वाला खारा जलाशय कौन-सा है?",
+        "stem": "डार्डानेल्स जलडमरूमध्य एजियन सागर को किस सागर से जोड़ता है?",
         "options": [
-          "कैस्पियन सागर",
-          "अराल सागर",
-          "लाल सागर",
-          "मृत सागर"
+          "बोस्फोरस",
+          "हॉर्मुज़ जलडमरूमध्य",
+          "मलक्का जलडमरूमध्य",
+          "डार्डानेल्स जलडमरूमध्य"
         ],
-        "explanation": "मृत सागर जॉर्डन भ्रंश घाटी में है; इसका तट पृथ्वी की सबसे कम खुली स्थल-ऊँचाइयों में आता है।"
+        "explanation": "डार्डानेल्स जलडमरूमध्य एजियन सागर को मरमरा सागर से जोड़ता है।"
       },
       "pa": {
-        "stem": "ਜਾਰਡਨ ਅਤੇ ਇਜ਼ਰਾਈਲ ਵਿਚਕਾਰ ਭ੍ਰੰਸ਼ ਘਾਟੀ ਵਿੱਚ ਸਥਿਤ ਅਤੇ ਬਹੁਤ ਘੱਟ ਉਚਾਈ ਲਈ ਜਾਣਿਆ ਜਾਂਦਾ ਖਾਰਾ ਜਲ-ਸਰੋਵਰ ਕਿਹੜਾ ਹੈ?",
+        "stem": "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ ਏਜੀਅਨ ਸਾਗਰ ਨੂੰ ਕਿਹੜੇ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ?",
         "options": [
-          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
-          "ਅਰਾਲ ਸਾਗਰ",
-          "ਲਾਲ ਸਾਗਰ",
-          "ਮ੍ਰਿਤ ਸਾਗਰ"
+          "ਬੋਸਫੋਰਸ",
+          "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ",
+          "ਮਲੱਕਾ ਜਲਡਮਰੂ",
+          "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ"
         ],
-        "explanation": "ਮ੍ਰਿਤ ਸਾਗਰ ਜਾਰਡਨ ਭ੍ਰੰਸ਼ ਘਾਟੀ ਵਿੱਚ ਹੈ; ਇਸਦਾ ਕੰਢਾ ਧਰਤੀ ਦੀਆਂ ਸਭ ਤੋਂ ਨੀਵੀਆਂ ਖੁੱਲ੍ਹੀਆਂ ਜ਼ਮੀਨੀ ਉਚਾਈਆਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ।"
+        "explanation": "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ ਏਜੀਅਨ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
       }
     }
   },
@@ -292,32 +292,32 @@
       "en": {
         "stem": "Which sea separates the Arabian Peninsula from northeast Africa?",
         "options": [
-          "Caspian",
           "NorthSea",
+          "BlackSea",
           "RedSea",
-          "BlackSea"
+          "Caspian"
         ],
-        "explanation": "The Red Sea lies between northeast Africa and the Arabian Peninsula."
+        "explanation": "The Red Sea separates the Arabian Peninsula from northeast Africa."
       },
       "hi": {
-        "stem": "कौन-सा सागर अरब प्रायद्वीप को उत्तर-पूर्वी अफ्रीका से अलग करता है?",
+        "stem": "अरब प्रायद्वीप और उत्तर-पूर्वी अफ्रीका के बीच कौन-सा सागर है?",
         "options": [
-          "कैस्पियन सागर",
           "उत्तरी सागर",
+          "काला सागर",
           "लाल सागर",
-          "काला सागर"
+          "कैस्पियन सागर"
         ],
-        "explanation": "लाल सागर उत्तर-पूर्वी अफ्रीका और अरब प्रायद्वीप के बीच स्थित है।"
+        "explanation": "लाल सागर अरब प्रायद्वीप को उत्तर-पूर्वी अफ्रीका से अलग करता है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਸਾਗਰ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਨੂੰ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "stem": "ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਵਿਚਕਾਰ ਕਿਹੜਾ ਸਾਗਰ ਹੈ?",
         "options": [
-          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
           "ਉੱਤਰੀ ਸਾਗਰ",
+          "ਕਾਲਾ ਸਾਗਰ",
           "ਲਾਲ ਸਾਗਰ",
-          "ਕਾਲਾ ਸਾਗਰ"
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ"
         ],
-        "explanation": "ਲਾਲ ਸਾਗਰ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਲਾਲ ਸਾਗਰ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਨੂੰ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ।"
       }
     }
   },
@@ -382,34 +382,34 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which plateau forms much of the interior of Türkiye?",
+        "stem": "Most of Türkiye’s interior lies on which plateau?",
         "options": [
           "AnatolianPlateau",
           "IranianPlateau",
           "TibetanPlateau",
-          "Mongolia"
+          "DeccanPlateau"
         ],
-        "explanation": "The Anatolian Plateau occupies much of central Türkiye, west of the Armenian Highlands."
+        "explanation": "The Anatolian Plateau occupies much of central Türkiye."
       },
       "hi": {
-        "stem": "तुर्किये के भीतरी भाग का बड़ा हिस्सा कौन-सा पठार बनाता है?",
+        "stem": "तुर्किये का अधिकांश आंतरिक भाग किस पठार पर स्थित है?",
         "options": [
           "अनातोलियाई पठार",
           "ईरानी पठार",
           "तिब्बती पठार",
-          "मंगोलिया"
+          "दक्कन का पठार"
         ],
-        "explanation": "अनातोलियाई पठार मध्य तुर्किये के बड़े भाग में है और आर्मेनियाई उच्चभूमि के पश्चिम में स्थित है।"
+        "explanation": "अनातोलियाई पठार तुर्किये के मध्यवर्ती भाग के बड़े क्षेत्र में फैला है।"
       },
       "pa": {
-        "stem": "ਤੁਰਕੀਏ ਦੇ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਦਾ ਵੱਡਾ ਭਾਗ ਕਿਹੜਾ ਪਠਾਰ ਬਣਾਉਂਦਾ ਹੈ?",
+        "stem": "ਤੁਰਕੀਏ ਦਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਭਾਗ ਕਿਹੜੇ ਪਠਾਰ ਉੱਤੇ ਸਥਿਤ ਹੈ?",
         "options": [
           "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ",
           "ਈਰਾਨੀ ਪਠਾਰ",
           "ਤਿੱਬਤੀ ਪਠਾਰ",
-          "ਮੰਗੋਲੀਆ"
+          "ਦੱਖਣੀ ਪਠਾਰ"
         ],
-        "explanation": "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ ਮੱਧ ਤੁਰਕੀਏ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਹੈ ਅਤੇ ਆਰਮੀਨੀਆਈ ਉੱਚਭੂਮੀ ਦੇ ਪੱਛਮ ਵੱਲ ਹੈ।"
+        "explanation": "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ ਤੁਰਕੀਏ ਦੇ ਕੇਂਦਰੀ ਹਿੱਸੇ ਦੇ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
       }
     }
   },
@@ -428,14 +428,14 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which strait links the Black Sea to the Sea of Marmara?",
+        "stem": "Which strait joins the Black Sea to the Sea of Marmara?",
         "options": [
           "Hormuz",
           "Dardanelles",
           "Malacca",
           "Bosporus"
         ],
-        "explanation": "The Bosporus runs through Istanbul and connects the Black Sea to the Sea of Marmara."
+        "explanation": "The Bosporus connects the Black Sea with the Sea of Marmara."
       },
       "hi": {
         "stem": "काला सागर को मरमरा सागर से कौन-सा जलडमरूमध्य जोड़ता है?",
@@ -445,7 +445,7 @@
           "मलक्का जलडमरूमध्य",
           "बोस्फोरस"
         ],
-        "explanation": "बोस्फोरस इस्तांबुल से होकर बहता है और काले सागर को मरमरा सागर से जोड़ता है।"
+        "explanation": "बोस्फोरस काला सागर को मरमरा सागर से जोड़ता है।"
       },
       "pa": {
         "stem": "ਕਾਲੇ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਕਿਹੜਾ ਜਲਡਮਰੂ ਜੋੜਦਾ ਹੈ?",
@@ -453,9 +453,9 @@
           "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ",
           "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ",
           "ਮਲੱਕਾ ਜਲਡਮਰੂ",
-          "ਬੋਸ्फੋਰਸ"
+          "ਬੋਸਫੋਰਸ"
         ],
-        "explanation": "ਬੋਸਫੋਰਸ ਇਸਤਾਂਬੁਲ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ ਅਤੇ ਕਾਲੇ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
+        "explanation": "ਬੋਸਫੋਰਸ ਕਾਲੇ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
       }
     }
   },
@@ -474,34 +474,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which region lies along the eastern Mediterranean coast and includes areas such as Lebanon and Syria?",
+        "stem": "Lebanon and Syria lie in which eastern Mediterranean region?",
         "options": [
-          "CentralAsia",
-          "Scandinavia",
+          "Caucasus",
+          "Anatolia",
           "Levant",
-          "Anatolia"
+          "ArabianPeninsula"
         ],
-        "explanation": "The Levant is a commonly used regional term for the eastern Mediterranean lands; its boundaries vary by context."
+        "explanation": "The Levant is the eastern Mediterranean region that includes Lebanon and Syria."
       },
       "hi": {
-        "stem": "पूर्वी भूमध्यसागरीय तट पर कौन-सा क्षेत्र है, जिसमें लेबनान और सीरिया जैसे इलाके आते हैं?",
+        "stem": "लेबनान और सीरिया पूर्वी भूमध्यसागरीय क्षेत्र के किस भाग में आते हैं?",
         "options": [
-          "मध्य एशिया",
-          "स्कैंडिनेविया",
+          "काकेशस पर्वत",
+          "अनातोलिया",
           "लेवांत",
-          "अनातोलिया"
+          "अरब प्रायद्वीप"
         ],
-        "explanation": "लेवांत पूर्वी भूमध्यसागर के तटीय भूभागों के लिए प्रचलित क्षेत्रीय नाम है; इसकी सीमाएँ संदर्भ के अनुसार बदल सकती हैं।"
+        "explanation": "लेवांत पूर्वी भूमध्यसागरीय क्षेत्र है, जिसमें लेबनान और सीरिया आते हैं।"
       },
       "pa": {
-        "stem": "ਪੂਰਬੀ ਭੂਮੱਧ ਸਾਗਰ ਦੇ ਤਟ ਨਾਲ ਕਿਹੜਾ ਖੇਤਰ ਹੈ, ਜਿਸ ਵਿੱਚ ਲੇਬਨਾਨ ਅਤੇ ਸੀਰੀਆ ਵਰਗੇ ਇਲਾਕੇ ਆਉਂਦੇ ਹਨ?",
+        "stem": "ਲੇਬਨਾਨ ਅਤੇ ਸੀਰੀਆ ਪੂਰਬੀ ਭੂਮੱਧ ਸਾਗਰੀ ਖੇਤਰ ਦੇ ਕਿਹੜੇ ਹਿੱਸੇ ਵਿੱਚ ਆਉਂਦੇ ਹਨ?",
         "options": [
-          "ਮੱਧ ਏਸ਼ੀਆ",
-          "ਸਕੈਂਡੀਨੇਵੀਆ",
-          "ਲੇवांत",
-          "ਅਨਾਤੋਲੀਆ"
+          "ਕਾਕੇਸ਼ਸ ਪਹਾੜ",
+          "ਅਨਾਤੋਲੀਆ",
+          "ਲੇਵਾਂਤ",
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ"
         ],
-        "explanation": "ਲੇਵਾਂਤ ਪੂਰਬੀ ਭੂਮੱਧ ਸਾਗਰ ਦੇ ਤਟੀ ਭੂਭਾਗਾਂ ਲਈ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਖੇਤਰੀ ਨਾਮ ਹੈ; ਇਸਦੀ ਹੱਦ ਸੰਦਰਭ ਅਨੁਸਾਰ ਬਦਲਦੀ ਹੈ।"
+        "explanation": "ਲੇਵਾਂਤ ਪੂਰਬੀ ਭੂਮੱਧ ਸਾਗਰੀ ਖੇਤਰ ਹੈ, ਜਿਸ ਵਿੱਚ ਲੇਬਨਾਨ ਅਤੇ ਸੀਰੀਆ ਆਉਂਦੇ ਹਨ।"
       }
     }
   },
@@ -520,34 +520,34 @@
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "Which gulf lies between the Arabian Peninsula and Iran?",
+        "stem": "Iran and the Arabian Peninsula lie on opposite sides of which gulf?",
         "options": [
-          "GulfTonkin",
+          "BlackSea",
           "PersianGulf",
-          "RedSea",
-          "BlackSea"
+          "GulfTonkin",
+          "RedSea"
         ],
-        "explanation": "The Persian Gulf is a marginal sea between Iran and the Arabian Peninsula."
+        "explanation": "The Persian Gulf lies between Iran and the Arabian Peninsula."
       },
       "hi": {
-        "stem": "अरब प्रायद्वीप और ईरान के बीच कौन-सी खाड़ी स्थित है?",
+        "stem": "ईरान और अरब प्रायद्वीप किस खाड़ी के विपरीत किनारों पर स्थित हैं?",
         "options": [
-          "टोंकिन की खाड़ी",
+          "काला सागर",
           "फ़ारस की खाड़ी",
-          "लाल सागर",
-          "काला सागर"
+          "टोंकिन की खाड़ी",
+          "लाल सागर"
         ],
-        "explanation": "फ़ारस की खाड़ी ईरान और अरब प्रायद्वीप के बीच स्थित सीमांत सागर है।"
+        "explanation": "फ़ारस की खाड़ी ईरान और अरब प्रायद्वीप के बीच स्थित है।"
       },
       "pa": {
-        "stem": "ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਈਰਾਨ ਵਿਚਕਾਰ ਕਿਹੜੀ ਖਾੜੀ ਸਥਿਤ ਹੈ?",
+        "stem": "ਈਰਾਨ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਕਿਹੜੀ ਖਾੜੀ ਦੇ ਦੋਹਾਂ ਪਾਸੇ ਸਥਿਤ ਹਨ?",
         "options": [
-          "ਟੋਂਕਿਨ ਦੀ ਖਾੜੀ",
+          "ਕਾਲਾ ਸਾਗਰ",
           "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ",
-          "ਲਾਲ ਸਾਗਰ",
-          "ਕਾਲਾ ਸਾਗਰ"
+          "ਟੋਂਕਿਨ ਦੀ ਖਾੜੀ",
+          "ਲਾਲ ਸਾਗਰ"
         ],
-        "explanation": "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਈਰਾਨ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹਾਸ਼ੀਆਈ ਸਾਗਰ ਹੈ।"
+        "explanation": "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਈਰਾਨ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
       }
     }
   },
@@ -566,34 +566,34 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which canal connects the Mediterranean Sea with the Red Sea?",
+        "stem": "Which canal links the Mediterranean Sea and the Red Sea?",
         "options": [
           "Suez",
           "PanamaIsthmus",
           "Hormuz",
           "Bosporus"
         ],
-        "explanation": "The Suez Canal crosses the Isthmus of Suez and connects the Mediterranean and Red seas."
+        "explanation": "The Suez Canal connects the Mediterranean Sea with the Red Sea."
       },
       "hi": {
-        "stem": "भूमध्य सागर को लाल सागर से कौन-सी नहर जोड़ती है?",
+        "stem": "भूमध्य सागर और लाल सागर को कौन-सी नहर जोड़ती है?",
         "options": [
           "स्वेज नहर",
           "पनामा स्थलडमरूमध्य",
           "हॉर्मुज़ जलडमरूमध्य",
           "बोस्फोरस"
         ],
-        "explanation": "स्वेज नहर स्वेज स्थलडमरूमध्य को पार कर भूमध्य और लाल सागर को जोड़ती है।"
+        "explanation": "स्वेज नहर भूमध्य सागर को लाल सागर से जोड़ती है।"
       },
       "pa": {
-        "stem": "ਭੂਮੱਧ ਸਾਗਰ ਨੂੰ ਲਾਲ ਸਾਗਰ ਨਾਲ ਕਿਹੜੀ ਨਹਿਰ ਜੋੜਦੀ ਹੈ?",
+        "stem": "ਭੂਮੱਧ ਸਾਗਰ ਅਤੇ ਲਾਲ ਸਾਗਰ ਨੂੰ ਕਿਹੜੀ ਨਹਿਰ ਜੋੜਦੀ ਹੈ?",
         "options": [
           "ਸੂਏਜ਼ ਨਹਿਰ",
           "ਪਨਾਮਾ ਭੂ-ਸੰਯੋਜਕ",
           "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ",
-          "ਬੋਸ्फੋਰਸ"
+          "ਬੋਸਫੋਰਸ"
         ],
-        "explanation": "ਸੂਏਜ਼ ਨਹਿਰ ਸੂਏਜ਼ ਭੂ-ਸੰਯੋਜਕ ਨੂੰ ਪਾਰ ਕਰਕੇ ਭੂਮੱਧ ਅਤੇ ਲਾਲ ਸਾਗਰਾਂ ਨੂੰ ਜੋੜਦੀ ਹੈ।"
+        "explanation": "ਸੂਏਜ਼ ਨਹਿਰ ਭੂਮੱਧ ਸਾਗਰ ਨੂੰ ਲਾਲ ਸਾਗਰ ਨਾਲ ਜੋੜਦੀ ਹੈ।"
       }
     }
   },
@@ -612,7 +612,7 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which country has a long coastline on the Gulf of Oman and borders the Strait of Hormuz?",
+        "stem": "Which country borders both the Strait of Hormuz and the Gulf of Oman?",
         "options": [
           "Yemen",
           "Jordan",
@@ -622,7 +622,7 @@
         "explanation": "Oman occupies the southeastern Arabian Peninsula and borders both the Gulf of Oman and the Strait of Hormuz."
       },
       "hi": {
-        "stem": "ओमान की खाड़ी पर लंबा तट किस देश का है, जो हॉर्मुज़ जलडमरूमध्य से भी लगता है?",
+        "stem": "हॉर्मुज़ जलडमरूमध्य और ओमान की खाड़ी, दोनों से कौन-सा देश लगता है?",
         "options": [
           "यमन",
           "जॉर्डन",
@@ -632,7 +632,7 @@
         "explanation": "ओमान अरब प्रायद्वीप के दक्षिण-पूर्व में है और ओमान की खाड़ी तथा हॉर्मुज़ जलडमरूमध्य दोनों से लगता है।"
       },
       "pa": {
-        "stem": "ਓਮਾਨ ਦੀ ਖਾੜੀ ਉੱਤੇ ਲੰਮਾ ਤਟ ਅਤੇ ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ ਨਾਲ ਸਰਹੱਦ ਕਿਹੜੇ ਦੇਸ਼ ਦੀ ਹੈ?",
+        "stem": "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ ਅਤੇ ਓਮਾਨ ਦੀ ਖਾੜੀ, ਦੋਹਾਂ ਨਾਲ ਕਿਹੜਾ ਦੇਸ਼ ਲੱਗਦਾ ਹੈ?",
         "options": [
           "ਯਮਨ",
           "ਜਾਰਡਨ",
@@ -658,34 +658,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which vast sand desert occupies parts of Saudi Arabia, Oman, the UAE and Yemen?",
+        "stem": "Which desert covers much of the southeastern Arabian Peninsula?",
         "options": [
-          "Gobi",
           "Namib",
+          "Sahara",
           "RubAlKhali",
-          "Sahara"
+          "Gobi"
         ],
-        "explanation": "The Rub al-Khali, or Empty Quarter, occupies the southern Arabian Peninsula."
+        "explanation": "Rub al-Khali, the Empty Quarter, covers a large area of the southern Arabian Peninsula."
       },
       "hi": {
-        "stem": "सऊदी अरब, ओमान, संयुक्त अरब अमीरात और यमन के कुछ हिस्सों में कौन-सा विशाल रेतीला मरुस्थल फैला है?",
+        "stem": "दक्षिण-पूर्वी अरब प्रायद्वीप का बड़ा भाग किस मरुस्थल से ढका है?",
         "options": [
-          "गोबी मरुस्थल",
           "नामिब मरुस्थल",
+          "सहारा",
           "रुब-अल-ख़ाली",
-          "सहारा"
+          "गोबी मरुस्थल"
         ],
-        "explanation": "रुब-अल-ख़ाली या खाली क्षेत्र अरब प्रायद्वीप के दक्षिणी भाग में फैला है।"
+        "explanation": "रुब-अल-ख़ाली यानी एम्प्टी क्वार्टर दक्षिणी अरब प्रायद्वीप के बड़े भाग में फैला है।"
       },
       "pa": {
-        "stem": "ਸਾਊਦੀ ਅਰਬ, ਓਮਾਨ, ਸੰਯੁਕਤ ਅਰਬ ਅਮੀਰਾਤ ਅਤੇ ਯਮਨ ਦੇ ਕੁਝ ਹਿੱਸਿਆਂ ਵਿੱਚ ਕਿਹੜਾ ਵਿਸ਼ਾਲ ਰੇਤੀਲਾ ਮਾਰੂਥਲ ਫੈਲਿਆ ਹੈ?",
+        "stem": "ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦੇ ਦੱਖਣ-ਪੂਰਬੀ ਵੱਡੇ ਹਿੱਸੇ ਉੱਤੇ ਕਿਹੜਾ ਮਾਰੂਥਲ ਫੈਲਿਆ ਹੈ?",
         "options": [
-          "ਗੋਬੀ ਮਾਰੂਥਲ",
           "ਨਾਮਿਬ ਮਾਰੂਥਲ",
-          "ਰੁਬ-ਅਲ-ਖ਼ाली",
-          "ਸਹਾਰਾ"
+          "ਸਹਾਰਾ",
+          "ਰੁਬ-ਅਲ-ਖ਼ਾਲੀ",
+          "ਗੋਬੀ ਮਾਰੂਥਲ"
         ],
-        "explanation": "ਰੁਬ-ਅਲ-ਖ਼ਾਲੀ ਜਾਂ ਖਾਲੀ ਇਲਾਕਾ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦੇ ਦੱਖਣੀ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+        "explanation": "ਰੁਬ-ਅਲ-ਖ਼ਾਲੀ ਦੱਖਣੀ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੋਇਆ ਹੈ।"
       }
     }
   },
@@ -704,34 +704,34 @@
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "Which country occupies most of Anatolia and also has territory in southeastern Europe?",
+        "stem": "Most of Türkiye occupies which peninsula?",
         "options": [
-          "SaudiArabia",
-          "Turkey",
-          "Iran",
-          "Iraq"
+          "ArabianPeninsula",
+          "Anatolia",
+          "Iberian",
+          "Balkan"
         ],
-        "explanation": "Türkiye is transcontinental: most of its territory is in Asia, with a smaller part in Europe."
+        "explanation": "Anatolia, also called Asia Minor, makes up most of Türkiye."
       },
       "hi": {
-        "stem": "कौन-सा देश अनातोलिया के अधिकांश भाग में है और दक्षिण-पूर्वी यूरोप में भी उसका भूभाग है?",
+        "stem": "तुर्किये का अधिकांश भाग किस प्रायद्वीप में आता है?",
         "options": [
-          "सऊदी अरब",
-          "तुर्किये",
-          "ईरान",
-          "इराक"
+          "अरब प्रायद्वीप",
+          "अनातोलिया",
+          "आइबेरियाई प्रायद्वीप",
+          "बाल्कन प्रायद्वीप"
         ],
-        "explanation": "तुर्किये अंतरमहाद्वीपीय देश है: इसका अधिकांश भूभाग एशिया में और छोटा भाग यूरोप में है।"
+        "explanation": "अनातोलिया, जिसे एशिया माइनर भी कहते हैं, तुर्किये का अधिकांश भाग है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਅਨਾਤੋਲੀਆ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਹੈ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਵੀ ਇਸਦਾ ਭੂਭਾਗ ਹੈ?",
+        "stem": "ਤੁਰਕੀਏ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੇ ਪ੍ਰਾਇਦੀਪ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
         "options": [
-          "ਸਾਊਦੀ ਅਰਬ",
-          "ਤੁਰਕੀਏ",
-          "ਈਰਾਨ",
-          "ਇਰਾਕ"
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ",
+          "ਅਨਾਤੋਲੀਆ",
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ"
         ],
-        "explanation": "ਤੁਰਕੀਏ ਦੋ ਮਹਾਂਦੀਪਾਂ ਵਿੱਚ ਫੈਲਿਆ ਦੇਸ਼ ਹੈ: ਇਸਦਾ ਵੱਡਾ ਹਿੱਸਾ ਏਸ਼ੀਆ ਅਤੇ ਛੋਟਾ ਹਿੱਸਾ ਯੂਰਪ ਵਿੱਚ ਹੈ।"
+        "explanation": "ਅਨਾਤੋਲੀਆ, ਜਿਸਨੂੰ ਏਸ਼ੀਆ ਮਾਈਨਰ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ, ਤੁਰਕੀਏ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਹੈ।"
       }
     }
   },
@@ -750,24 +750,24 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which country in the South Caucasus is landlocked?",
+        "stem": "Which landlocked country lies in the South Caucasus?",
         "options": [
           "Armenia",
           "Turkey",
           "UAE",
           "Oman"
         ],
-        "explanation": "Armenia is landlocked; neighbouring Georgia and Azerbaijan have Black Sea and Caspian Sea coasts respectively."
+        "explanation": "Armenia is a landlocked country in the South Caucasus."
       },
       "hi": {
-        "stem": "ਦੱਖਣੀ ਕਾਕੇਸ਼ਸ ਦਾ ਕਿਹੜਾ ਦੇਸ਼ ਭੂ-ਬੱਧ ਹੈ?",
+        "stem": "दक्षिण काकेशस का कौन-सा देश स्थलरुद्ध है?",
         "options": [
           "आर्मेनिया",
           "तुर्किये",
           "संयुक्त अरब अमीरात",
           "ओमान"
         ],
-        "explanation": "आर्मेनिया स्थलरुद्ध है; पड़ोसी जॉर्जिया का काला सागर और अज़रबैजान का कैस्पियन सागर तट है।"
+        "explanation": "आर्मेनिया दक्षिण काकेशस का स्थलरुद्ध देश है।"
       },
       "pa": {
         "stem": "ਦੱਖਣੀ ਕਾਕੇਸ਼ਸ ਦਾ ਕਿਹੜਾ ਦੇਸ਼ ਭੂ-ਬੱਧ ਹੈ?",
@@ -777,7 +777,7 @@
           "ਸੰਯੁਕਤ ਅਰਬ ਅਮੀਰਾਤ",
           "ਓਮਾਨ"
         ],
-        "explanation": "ਆਰਮੀਨੀਆ ਭੂ-ਬੱਧ ਹੈ; ਗੁਆਂਢੀ ਜਾਰਜੀਆ ਦਾ ਕਾਲੇ ਸਾਗਰ ਅਤੇ ਅਜ਼ਰਬਾਈਜਾਨ ਦਾ ਕੈਸਪੀਅਨ ਸਾਗਰ ਤਟ ਹੈ।"
+        "explanation": "ਅਰਮੀਨੀਆ ਦੱਖਣੀ ਕਾਕੇਸ਼ਸ ਦਾ ਭੂ-ਬੱਧ ਦੇਸ਼ ਹੈ।"
       }
     }
   },
@@ -796,34 +796,34 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which country links the Black Sea region with the eastern Mediterranean through the Bosporus and Dardanelles?",
+        "stem": "The Bosporus and Dardanelles are located in which country?",
         "options": [
           "Iran",
           "Egypt",
           "SaudiArabia",
           "Turkey"
         ],
-        "explanation": "Türkiye controls the shores of both straits and occupies the Anatolian peninsula between the Black and Mediterranean seas."
+        "explanation": "Both straits lie in Türkiye and connect the Black Sea region with the Aegean and Mediterranean seas."
       },
       "hi": {
-        "stem": "बोस्फोरस और डार्डानेल्स के रास्ते काला सागर क्षेत्र को पूर्वी भूमध्यसागर से कौन-सा देश जोड़ता है?",
+        "stem": "बोस्फोरस और डार्डानेल्स किस देश में स्थित हैं?",
         "options": [
           "ईरान",
           "मिस्र",
           "सऊदी अरब",
           "तुर्किये"
         ],
-        "explanation": "तुर्किये दोनों जलडमरूमध्यों के तटों पर स्थित है और काले तथा भूमध्य सागर के बीच अनातोलिया में फैला है।"
+        "explanation": "दोनों जलडमरूमध्य तुर्किये में हैं और काला सागर क्षेत्र को एजियन व भूमध्य सागर से जोड़ते हैं।"
       },
       "pa": {
-        "stem": "ਬੋਸਫੋਰਸ ਅਤੇ ਡਾਰਡਨੇਲਜ਼ ਰਾਹੀਂ ਕਾਲੇ ਸਾਗਰ ਦੇ ਖੇਤਰ ਨੂੰ ਪੂਰਬੀ ਭੂਮੱਧ ਸਾਗਰ ਨਾਲ ਕਿਹੜਾ ਦੇਸ਼ ਜੋੜਦਾ ਹੈ?",
+        "stem": "ਬੋਸਫੋਰਸ ਅਤੇ ਡਾਰਡਾਨੇਲਸ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਸਥਿਤ ਹਨ?",
         "options": [
           "ਈਰਾਨ",
           "ਮਿਸਰ",
           "ਸਾਊਦੀ ਅਰਬ",
           "ਤੁਰਕੀਏ"
         ],
-        "explanation": "ਤੁਰਕੀਏ ਦੋਹਾਂ ਜਲਡਮਰੂਆਂ ਦੇ ਕਿਨਾਰਿਆਂ ਉੱਤੇ ਹੈ ਅਤੇ ਕਾਲੇ ਤੇ ਭੂਮੱਧ ਸਾਗਰਾਂ ਵਿਚਕਾਰ ਅਨਾਤੋਲੀਆ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+        "explanation": "ਦੋਵੇਂ ਜਲਡਮਰੂ ਤੁਰਕੀਏ ਵਿੱਚ ਹਨ ਅਤੇ ਕਾਲੇ ਸਾਗਰ ਦੇ ਖੇਤਰ ਨੂੰ ਏਜੀਅਨ ਅਤੇ ਭੂਮੱਧ ਸਾਗਰਾਂ ਨਾਲ ਜੋੜਦੇ ਹਨ।"
       }
     }
   },

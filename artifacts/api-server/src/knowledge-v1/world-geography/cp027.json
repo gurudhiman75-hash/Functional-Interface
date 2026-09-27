@@ -13,7 +13,7 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which elevated region in northeastern Africa feeds the Blue Nile at Lake Tana?",
+        "stem": "Which highland region is the source of the Blue Nile at Lake Tana?",
         "options": [
           "EthiopianHighlands",
           "Atlas",
@@ -23,7 +23,7 @@
         "explanation": "The Blue Nile rises at Lake Tana in the Ethiopian Highlands."
       },
       "hi": {
-        "stem": "उत्तर-पूर्वी अफ्रीका का कौन-सा ऊँचा क्षेत्र टाना झील से निकलने वाली नीली नील नदी को जल देता है?",
+        "stem": "टाना झील से निकलने वाली नीली नील का स्रोत कौन-सा उच्चभूमि क्षेत्र है?",
         "options": [
           "इथियोपियाई उच्चभूमि",
           "एटलस पर्वत",
@@ -33,7 +33,7 @@
         "explanation": "नीली नील इथियोपियाई उच्चभूमि की टाना झील से निकलती है।"
       },
       "pa": {
-        "stem": "ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਦਾ ਕਿਹੜਾ ਉੱਚਾ ਖੇਤਰ ਟਾਨਾ ਝੀਲ ਤੋਂ ਨਿਕਲਣ ਵਾਲੇ ਨੀਲੇ ਨੀਲ ਦਰਿਆ ਨੂੰ ਪਾਣੀ ਦਿੰਦਾ ਹੈ?",
+        "stem": "ਟਾਨਾ ਝੀਲ ਤੋਂ ਨਿਕਲਣ ਵਾਲੇ ਨੀਲੇ ਨੀਲ ਦਾ ਸਰੋਤ ਕਿਹੜਾ ਉੱਚਭੂਮੀ ਖੇਤਰ ਹੈ?",
         "options": [
           "ਇਥੋਪੀਆਈ ਉੱਚਭੂਮੀ",
           "ਐਟਲਸ ਪਹਾੜ",
@@ -103,7 +103,7 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which African river flows north and forms a delta on the Mediterranean coast of Egypt?",
+        "stem": "Which river flows north through Egypt into the Mediterranean Sea?",
         "options": [
           "Niger",
           "Zambezi",
@@ -113,7 +113,7 @@
         "explanation": "The Nile flows north through Sudan and Egypt and reaches the Mediterranean Sea."
       },
       "hi": {
-        "stem": "कौन-सी अफ्रीकी नदी उत्तर की ओर बहकर मिस्र के भूमध्यसागरीय तट पर डेल्टा बनाती है?",
+        "stem": "मिस्र से उत्तर की ओर बहकर भूमध्य सागर में कौन-सी नदी गिरती है?",
         "options": [
           "नाइजर",
           "ज़ाम्बेज़ी",
@@ -123,7 +123,7 @@
         "explanation": "नील सूडान और मिस्र से उत्तर की ओर बहती है और भूमध्य सागर में गिरती है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਅਫ਼ਰੀਕੀ ਦਰਿਆ ਉੱਤਰ ਵੱਲ ਵਗ ਕੇ ਮਿਸਰ ਦੇ ਭੂਮੱਧ ਸਾਗਰੀ ਤਟ ਉੱਤੇ ਡੈਲਟਾ ਬਣਾਉਂਦਾ ਹੈ?",
+        "stem": "ਮਿਸਰ ਵਿੱਚੋਂ ਉੱਤਰ ਵੱਲ ਵਗ ਕੇ ਭੂਮੱਧ ਸਾਗਰ ਵਿੱਚ ਕਿਹੜਾ ਦਰਿਆ ਡਿੱਗਦਾ ਹੈ?",
         "options": [
           "ਨਾਈਜਰ",
           "ਜ਼ੈਂਬੇਜ਼ੀ",
@@ -193,34 +193,34 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which West African river bends inland before reaching the Gulf of Guinea through a delta in Nigeria?",
+        "stem": "Which West African river forms a delta in Nigeria before reaching the Gulf of Guinea?",
         "options": [
           "Niger",
           "Nile",
           "Congo",
           "Zambezi"
         ],
-        "explanation": "The Niger rises in West Africa, bends through the Sahel, and reaches the Gulf of Guinea in Nigeria."
+        "explanation": "The Niger River forms a large delta in Nigeria before entering the Gulf of Guinea."
       },
       "hi": {
-        "stem": "ਨਾਈਜੀਰੀਆ ਵਿੱਚ ਡੈਲਟਾ ਰਾਹੀਂ ਗਿਨੀ ਦੀ ਖਾੜੀ ਤੱਕ ਪਹੁੰਚਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੀ ਪੱਛਮੀ ਅਫ਼ਰੀਕੀ ਨਦੀ ਅੰਦਰੂਨੀ ਪਾਸੇ ਵੱਡਾ ਮੋੜ ਲੈਂਦੀ ਹੈ?",
+        "stem": "गिनी की खाड़ी में गिरने से पहले नाइजीरिया में डेल्टा बनाने वाली पश्चिमी अफ्रीका की नदी कौन-सी है?",
         "options": [
           "नाइजर",
           "नील",
           "कांगो",
           "ज़ाम्बेज़ी"
         ],
-        "explanation": "नाइजर पश्चिमी अफ्रीका में निकलती है, साहेल में बड़ा चाप बनाती है और नाइजीरिया में गिनी की खाड़ी तक पहुँचती है।"
+        "explanation": "नाइजर नदी गिनी की खाड़ी में गिरने से पहले नाइजीरिया में बड़ा डेल्टा बनाती है।"
       },
       "pa": {
-        "stem": "ਨਾਈਜੀਰੀਆ ਵਿੱਚ ਡੈਲਟੇ ਰਾਹੀਂ ਗਿਨੀ ਦੀ ਖਾੜੀ ਤੱਕ ਪਹੁੰਚਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜਾ ਪੱਛਮੀ ਅਫ਼ਰੀਕੀ ਦਰਿਆ ਅੰਦਰ ਵੱਲ ਵੱਡਾ ਮੋੜ ਲੈਂਦਾ ਹੈ?",
+        "stem": "ਗਿਨੀ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਨਾਈਜੀਰੀਆ ਵਿੱਚ ਡੈਲਟਾ ਬਣਾਉਣ ਵਾਲਾ ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਦਾ ਦਰਿਆ ਕਿਹੜਾ ਹੈ?",
         "options": [
           "ਨਾਈਜਰ",
           "ਨੀਲ",
           "ਕਾਂਗੋ",
           "ਜ਼ੈਂਬੇਜ਼ੀ"
         ],
-        "explanation": "ਨਾਈਜਰ ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚੋਂ ਨਿਕਲਦਾ ਹੈ, ਸਾਹੇਲ ਵਿੱਚ ਵੱਡਾ ਮੋੜ ਲੈਂਦਾ ਹੈ ਅਤੇ ਨਾਈਜੀਰੀਆ ਵਿੱਚ ਗਿਨੀ ਦੀ ਖਾੜੀ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ।"
+        "explanation": "ਨਾਈਜਰ ਦਰਿਆ ਗਿਨੀ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਨਾਈਜੀਰੀਆ ਵਿੱਚ ਵੱਡਾ ਡੈਲਟਾ ਬਣਾਉਂਦਾ ਹੈ।"
       }
     }
   },
@@ -238,7 +238,7 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which major rift system runs through eastern Africa and is associated with long lakes and volcanic highlands?",
+        "stem": "Which rift system crosses East Africa’s lake and volcanic region?",
         "options": [
           "Atlas",
           "Drakensberg",
@@ -248,7 +248,7 @@
         "explanation": "The East African Rift is an active continental rift zone with deep lakes, escarpments and volcanic areas."
       },
       "hi": {
-        "stem": "पूर्वी अफ्रीका से होकर गुजरने वाली और लंबी झीलों तथा ज्वालामुखीय उच्चभूमि से जुड़ी प्रमुख रिफ्ट प्रणाली कौन-सी है?",
+        "stem": "पूर्वी अफ्रीका के झीलों और ज्वालामुखियों वाले क्षेत्र से कौन-सी रिफ्ट प्रणाली गुजरती है?",
         "options": [
           "एटलस पर्वत",
           "ड्रैकन्सबर्ग पर्वत",
@@ -258,7 +258,7 @@
         "explanation": "पूर्वी अफ्रीकी रिफ्ट सक्रिय महाद्वीपीय दरार क्षेत्र है, जहाँ गहरी झीलें, कगार और ज्वालामुखीय क्षेत्र हैं।"
       },
       "pa": {
-        "stem": "ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚੋਂ ਲੰਘਣ ਵਾਲੀ ਅਤੇ ਲੰਬੀਆਂ ਝੀਲਾਂ ਤੇ ਜਵਾਲਾਮੁਖੀ ਉੱਚਭੂਮੀਆਂ ਨਾਲ ਜੁੜੀ ਮੁੱਖ ਰਿਫਟ ਪ੍ਰਣਾਲੀ ਕਿਹੜੀ ਹੈ?",
+        "stem": "ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਦੇ ਝੀਲਾਂ ਅਤੇ ਜਵਾਲਾਮੁਖੀਆਂ ਵਾਲੇ ਖੇਤਰ ਵਿੱਚੋਂ ਕਿਹੜੀ ਰਿਫਟ ਪ੍ਰਣਾਲੀ ਲੰਘਦੀ ਹੈ?",
         "options": [
           "ਐਟਲਸ ਪਹਾੜ",
           "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਪਹਾੜ",
@@ -272,7 +272,7 @@
   {
     "id": "WGE-001-CP027-Q007",
     "cpId": "WGE-001-CP027",
-    "objective": "ethiopian-highlands-source-blue-nile",
+    "objective": "somalia-horn-of-africa",
     "difficulty": "Hard",
     "sourceIds": [
       "WGE-REG-M49",
@@ -283,34 +283,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which African upland region contains the headwaters of the Blue Nile?",
+        "stem": "Which country occupies the eastern part of the Horn of Africa?",
         "options": [
-          "Drakensberg",
-          "Kalahari",
-          "EthiopianHighlands",
-          "Atlas"
+          "Nigeria",
+          "SouthAfrica",
+          "Somalia",
+          "Kenya"
         ],
-        "explanation": "The Blue Nile rises at Lake Tana in the Ethiopian Highlands before flowing into Sudan."
+        "explanation": "Somalia occupies the eastern part of the Horn of Africa, south of Djibouti and east of Ethiopia."
       },
       "hi": {
-        "stem": "नीली नील के ऊपरी जलस्रोत किस अफ्रीकी उच्चभूमि क्षेत्र में हैं?",
+        "stem": "अफ़्रीका के हॉर्न का पूर्वी भाग किस देश में आता है?",
         "options": [
-          "ड्रैकन्सबर्ग पर्वत",
-          "कालाहारी क्षेत्र",
-          "इथियोपियाई उच्चभूमि",
-          "एटलस पर्वत"
+          "नाइजीरिया",
+          "दक्षिण अफ्रीका",
+          "सोमालिया",
+          "केन्या"
         ],
-        "explanation": "नीली नील सूडान की ओर बहने से पहले इथियोपियाई उच्चभूमि की टाना झील से निकलती है।"
+        "explanation": "सोमालिया हॉर्न ऑफ़ अफ्रीका के पूर्वी भाग में, जिबूती के दक्षिण और इथियोपिया के पूर्व में है।"
       },
       "pa": {
-        "stem": "ਨੀਲੀ ਨੀਲ ਦੇ ਉੱਪਰੀ ਸਰੋਤ ਕਿਹੜੇ ਅਫ਼ਰੀਕੀ ਉੱਚਭੂਮੀ ਖੇਤਰ ਵਿੱਚ ਹਨ?",
+        "stem": "ਅਫ਼ਰੀਕਾ ਦੇ ਹੌਰਨ ਦਾ ਪੂਰਬੀ ਹਿੱਸਾ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
         "options": [
-          "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਪਹਾੜ",
-          "ਕਾਲਾਹਾਰੀ ਖੇਤਰ",
-          "ਇਥੋਪੀਆਈ ਉੱਚਭੂਮੀ",
-          "ਐਟਲਸ ਪਹਾੜ"
+          "ਨਾਈਜੀਰੀਆ",
+          "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ",
+          "ਸੋਮਾਲੀਆ",
+          "ਕੀਨੀਆ"
         ],
-        "explanation": "ਨੀਲੀ ਨੀਲ ਸੁਡਾਨ ਵੱਲ ਵਗਣ ਤੋਂ ਪਹਿਲਾਂ ਇਥੋਪੀਆਈ ਉੱਚਭੂਮੀ ਦੀ ਟਾਨਾ ਝੀਲ ਤੋਂ ਨਿਕਲਦੀ ਹੈ।"
+        "explanation": "ਸੋਮਾਲੀਆ ਅਫ਼ਰੀਕਾ ਦੇ ਹੌਰਨ ਦੇ ਪੂਰਬੀ ਹਿੱਸੇ ਵਿੱਚ, ਜਿਬੂਤੀ ਦੇ ਦੱਖਣ ਅਤੇ ਇਥੋਪੀਆ ਦੇ ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਹੈ।"
       }
     }
   },
@@ -463,7 +463,7 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which large island lies off the southeastern coast of Africa, across the Mozambique Channel?",
+        "stem": "Which large island lies across the Mozambique Channel from Africa?",
         "options": [
           "SriLanka",
           "Cuba",
@@ -473,7 +473,7 @@
         "explanation": "Madagascar lies in the Indian Ocean east of Mozambique, separated from mainland Africa by the Mozambique Channel."
       },
       "hi": {
-        "stem": "मोज़ाम्बिक चैनल के पार अफ्रीका के दक्षिण-पूर्वी तट से दूर कौन-सा बड़ा द्वीप है?",
+        "stem": "अफ्रीका से मोज़ाम्बिक चैनल के पार कौन-सा बड़ा द्वीप है?",
         "options": [
           "श्रीलंका",
           "क्यूबा",
@@ -483,7 +483,7 @@
         "explanation": "मेडागास्कर हिंद महासागर में मोज़ाम्बिक के पूर्व में है और मुख्यभूमि अफ्रीका से मोज़ाम्बिक चैनल द्वारा अलग है।"
       },
       "pa": {
-        "stem": "ਮੋਜ਼ਾਮਬੀਕ ਚੈਨਲ ਦੇ ਪਾਰ ਅਫ਼ਰੀਕਾ ਦੇ ਦੱਖਣ-ਪੂਰਬੀ ਤਟ ਤੋਂ ਦੂਰ ਕਿਹੜਾ ਵੱਡਾ ਟਾਪੂ ਹੈ?",
+        "stem": "ਅਫ਼ਰੀਕਾ ਤੋਂ ਮੋਜ਼ਾਮਬੀਕ ਚੈਨਲ ਦੇ ਪਾਰ ਕਿਹੜਾ ਵੱਡਾ ਟਾਪੂ ਹੈ?",
         "options": [
           "ਸ੍ਰੀਲੰਕਾ",
           "ਕਿਊਬਾ",
@@ -508,7 +508,7 @@
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "Which desert follows the Atlantic coast of Namibia and is influenced by the cold Benguela Current?",
+        "stem": "Which desert lies along Namibia’s Atlantic coast?",
         "options": [
           "Gobi",
           "Namib",
@@ -518,7 +518,7 @@
         "explanation": "The Namib is a coastal desert along the Atlantic side of Namibia; cold offshore waters help maintain aridity."
       },
       "hi": {
-        "stem": "नामीबिया के अटलांटिक तट के साथ कौन-सा मरुस्थल फैला है, जिस पर ठंडी बेंगुएला धारा का प्रभाव है?",
+        "stem": "नामीबिया के अटलांटिक तट पर कौन-सा मरुस्थल है?",
         "options": [
           "गोबी मरुस्थल",
           "नामिब मरुस्थल",
@@ -528,7 +528,7 @@
         "explanation": "नामिब नामीबिया के अटलांटिक तट पर स्थित तटीय मरुस्थल है; ठंडा समुद्री जल इसकी शुष्कता बनाए रखने में मदद करता है।"
       },
       "pa": {
-        "stem": "ਨਾਮੀਬੀਆ ਦੇ ਐਟਲਾਂਟਿਕ ਤਟ ਨਾਲ ਕਿਹੜਾ ਮਾਰੂਥਲ ਫੈਲਿਆ ਹੈ, ਜਿਸ ਉੱਤੇ ਠੰਢੀ ਬੇਂਗੁਏਲਾ ਧਾਰਾ ਦਾ ਅਸਰ ਹੈ?",
+        "stem": "ਨਾਮੀਬੀਆ ਦੇ ਐਟਲਾਂਟਿਕ ਤਟ ਨਾਲ ਕਿਹੜਾ ਮਾਰੂਥਲ ਲੱਗਦਾ ਹੈ?",
         "options": [
           "ਗੋਬੀ ਮਾਰੂਥਲ",
           "ਨਾਮਿਬ ਮਾਰੂਥਲ",
@@ -553,7 +553,7 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which mountain range forms part of the high escarpment along eastern South Africa and Lesotho?",
+        "stem": "Which range forms part of the escarpment between South Africa and Lesotho?",
         "options": [
           "Drakensberg",
           "Atlas",
@@ -563,7 +563,7 @@
         "explanation": "The Drakensberg is part of the Great Escarpment and runs along the Lesotho–South Africa region."
       },
       "hi": {
-        "stem": "पूर्वी दक्षिण अफ्रीका और लेसोथो के साथ ऊँचे कगार का भाग कौन-सी पर्वत-श्रेणी बनाती है?",
+        "stem": "दक्षिण अफ्रीका और लेसोथो के बीच कगार का भाग कौन-सी पर्वत-श्रेणी बनाती है?",
         "options": [
           "ड्रैकन्सबर्ग पर्वत",
           "एटलस पर्वत",
@@ -573,7 +573,7 @@
         "explanation": "ड्रैकन्सबर्ग महान कगार का भाग है और लेसोथो–दक्षिण अफ्रीका क्षेत्र के साथ फैला है।"
       },
       "pa": {
-        "stem": "ਪੂਰਬੀ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਲੇਸੋਥੋ ਨਾਲ ਉੱਚੇ ਕਿਨਾਰੇ ਦਾ ਹਿੱਸਾ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਬਣਾਉਂਦੀ ਹੈ?",
+        "stem": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਲੇਸੋਥੋ ਵਿਚਕਾਰ ਪਹਾੜੀ ਕਿਨਾਰੇ ਦਾ ਹਿੱਸਾ ਕਿਹੜੀ ਲੜੀ ਬਣਾਉਂਦੀ ਹੈ?",
         "options": [
           "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਪਹਾੜ",
           "ਐਟਲਸ ਪਹਾੜ",
@@ -767,7 +767,7 @@
   {
     "id": "WGE-001-CP027-Q018",
     "cpId": "WGE-001-CP027",
-    "objective": "nile-blue-white-confluence",
+    "objective": "blue-white-nile-confluence-khartoum",
     "difficulty": "Hard",
     "sourceIds": [
       "WGE-REG-M49",
@@ -778,34 +778,34 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "At which Sudanese city do the White Nile and Blue Nile meet?",
+        "stem": "The Blue Nile and White Nile meet at which city?",
         "options": [
-          "Congo",
-          "Niger",
-          "Zambezi",
-          "Nile"
+          "Cairo",
+          "Juba",
+          "AddisAbaba",
+          "Khartoum"
         ],
-        "explanation": "The two branches meet at Khartoum; the combined river then flows north as the Nile."
+        "explanation": "The Blue Nile and White Nile meet at Khartoum, the capital of Sudan."
       },
       "hi": {
-        "stem": "सूडान के किस शहर में श्वेत नील और नीली नील मिलती हैं?",
+        "stem": "नीली नील और श्वेत नील किस शहर में मिलती हैं?",
         "options": [
-          "कांगो",
-          "नाइजर",
-          "ज़ाम्बेज़ी",
-          "नील"
+          "काहिरा",
+          "जूबा",
+          "अदीस अबाबा",
+          "खार्तूम"
         ],
-        "explanation": "दोनों धाराएँ खार्तूम में मिलती हैं; इसके बाद संयुक्त नदी उत्तर की ओर नील के रूप में बहती है।"
+        "explanation": "नीली नील और श्वेत नील सूडान की राजधानी खार्तूम में मिलती हैं।"
       },
       "pa": {
-        "stem": "ਸੁਡਾਨ ਦੇ ਕਿਹੜੇ ਸ਼ਹਿਰ ਵਿੱਚ ਚਿੱਟੀ ਨੀਲ ਅਤੇ ਨੀਲੀ ਨੀਲ ਮਿਲਦੀਆਂ ਹਨ?",
+        "stem": "ਨੀਲਾ ਨੀਲ ਅਤੇ ਚਿੱਟਾ ਨੀਲ ਕਿਹੜੇ ਸ਼ਹਿਰ ਵਿੱਚ ਮਿਲਦੇ ਹਨ?",
         "options": [
-          "ਕਾਂਗੋ",
-          "ਨਾਈਜਰ",
-          "ਜ਼ੈਂਬੇਜ਼ੀ",
-          "ਨੀਲ"
+          "ਕਾਹਿਰਾ",
+          "ਜੂਬਾ",
+          "ਅਦੀਸ ਅਬਾਬਾ",
+          "ਖਾਰਤੂਮ"
         ],
-        "explanation": "ਦੋਵੇਂ ਧਾਰਾਵਾਂ ਖਾਰਤੂਮ ਵਿੱਚ ਮਿਲਦੀਆਂ ਹਨ; ਫਿਰ ਮਿਲਿਆ ਦਰਿਆ ਨੀਲ ਵਜੋਂ ਉੱਤਰ ਵੱਲ ਵਗਦਾ ਹੈ।"
+        "explanation": "ਨੀਲਾ ਨੀਲ ਅਤੇ ਚਿੱਟਾ ਨੀਲ ਸੁਡਾਨ ਦੀ ਰਾਜਧਾਨੀ ਖਾਰਤੂਮ ਵਿੱਚ ਮਿਲਦੇ ਹਨ।"
       }
     }
   }

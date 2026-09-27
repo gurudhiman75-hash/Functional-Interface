@@ -12,7 +12,7 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which mountain range arcs across Switzerland and Austria and extends into northern Italy?",
+        "stem": "Which range crosses Switzerland and Austria and extends into northern Italy?",
         "options": [
           "Alps",
           "Pyrenees",
@@ -22,7 +22,7 @@
         "explanation": "The Alps form a major arc across central Europe, including Switzerland and Austria, and reach northern Italy."
       },
       "hi": {
-        "stem": "कौन-सी पर्वत-श्रेणी स्विट्ज़रलैंड और ऑस्ट्रिया में चाप बनाती हुई उत्तरी इटली तक जाती है?",
+        "stem": "स्विट्ज़रलैंड और ऑस्ट्रिया से होकर उत्तरी इटली तक कौन-सी पर्वत-श्रेणी फैली है?",
         "options": [
           "आल्प्स",
           "पिरेनीज़",
@@ -32,7 +32,7 @@
         "explanation": "आल्प्स मध्य यूरोप में प्रमुख चाप बनाते हैं; इनमें स्विट्ज़रलैंड और ऑस्ट्रिया आते हैं तथा ये उत्तरी इटली तक फैले हैं।"
       },
       "pa": {
-        "stem": "ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਸਵਿਟਜ਼ਰਲੈਂਡ ਅਤੇ ਆਸਟਰੀਆ ਵਿੱਚੋਂ ਮੁੜਦੀ ਹੋਈ ਉੱਤਰੀ ਇਟਲੀ ਤੱਕ ਜਾਂਦੀ ਹੈ?",
+        "stem": "ਸਵਿਟਜ਼ਰਲੈਂਡ ਅਤੇ ਆਸਟਰੀਆ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਉੱਤਰੀ ਇਟਲੀ ਤੱਕ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਫੈਲੀ ਹੈ?",
         "options": [
           "ਆਲਪਸ",
           "ਪਿਰੀਨੀਜ਼",
@@ -123,7 +123,7 @@
         "stem": "ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਮੁੱਖ ਤੌਰ ’ਤੇ ਨਾਰਵੇ ਅਤੇ ਸਵੀਡਨ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
         "options": [
           "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ",
-          "ਜटलੈਂਡ ਪ੍ਰਾਇਦੀਪ",
+          "ਜਟਲੈਂਡ ਪ੍ਰਾਇਦੀਪ",
           "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ",
           "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ"
         ],
@@ -167,7 +167,7 @@
         "stem": "ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਡੈਨਮਾਰਕ ਦੀ ਮੁੱਖ ਧਰਤੀ ਵਿੱਚ ਹੈ ਅਤੇ ਦੱਖਣ ਵੱਲ ਜਰਮਨੀ ਤੱਕ ਜਾਂਦਾ ਹੈ?",
         "options": [
           "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ",
-          "ਜटलੈਂਡ ਪ੍ਰਾਇਦੀਪ",
+          "ਜਟਲੈਂਡ ਪ੍ਰਾਇਦੀਪ",
           "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
           "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ"
         ],
@@ -232,7 +232,7 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which European river reaches the Black Sea through a large delta in Romania and Ukraine?",
+        "stem": "Which river forms a large delta on the Black Sea coast of Romania and Ukraine?",
         "options": [
           "Rhine",
           "Volga",
@@ -242,7 +242,7 @@
         "explanation": "The Danube flows southeast across Europe and enters the Black Sea through its delta."
       },
       "hi": {
-        "stem": "रोमानिया और यूक्रेन के बड़े डेल्टा से होकर काला सागर तक कौन-सी यूरोपीय नदी पहुँचती है?",
+        "stem": "रोमानिया और यूक्रेन के काला सागर तट पर बड़ा डेल्टा कौन-सी नदी बनाती है?",
         "options": [
           "राइन",
           "वोल्गा",
@@ -252,7 +252,7 @@
         "explanation": "डेन्यूब यूरोप में दक्षिण-पूर्व की ओर बहती है और अपने डेल्टा से काला सागर में गिरती है।"
       },
       "pa": {
-        "stem": "ਰੋਮਾਨੀਆ ਅਤੇ ਯੂਕਰੇਨ ਦੇ ਵੱਡੇ ਡੈਲਟੇ ਰਾਹੀਂ ਕਾਲੇ ਸਾਗਰ ਤੱਕ ਕਿਹੜਾ ਯੂਰਪੀ ਦਰਿਆ ਪਹੁੰਚਦਾ ਹੈ?",
+        "stem": "ਰੋਮਾਨੀਆ ਅਤੇ ਯੂਕਰੇਨ ਦੇ ਕਾਲੇ ਸਾਗਰ ਤਟ ਉੱਤੇ ਵੱਡਾ ਡੈਲਟਾ ਕਿਹੜਾ ਦਰਿਆ ਬਣਾਉਂਦਾ ਹੈ?",
         "options": [
           "ਰਾਈਨ",
           "ਵੋਲਗਾ",
@@ -276,34 +276,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which river flows through or along Switzerland, Germany and the Netherlands before reaching the North Sea?",
+        "stem": "Which river reaches the North Sea after crossing Germany and the Netherlands?",
         "options": [
-          "Volga",
           "Po",
+          "Danube",
           "Rhine",
-          "Danube"
+          "Volga"
         ],
-        "explanation": "The Rhine runs northward through western Europe and reaches the North Sea in the Netherlands."
+        "explanation": "The Rhine flows through western Europe and reaches the North Sea in the Netherlands."
       },
       "hi": {
-        "stem": "उत्तरी सागर तक पहुँचने से पहले स्विट्ज़रलैंड, जर्मनी और नीदरलैंड से होकर या उनकी सीमा के साथ कौन-सी नदी बहती है?",
+        "stem": "जर्मनी और नीदरलैंड से होकर उत्तरी सागर तक कौन-सी नदी पहुँचती है?",
         "options": [
-          "वोल्गा",
           "पो नदी",
+          "डेन्यूब",
           "राइन",
-          "डेन्यूब"
+          "वोल्गा"
         ],
-        "explanation": "राइन पश्चिमी यूरोप में उत्तर की ओर बहती है और नीदरलैंड में उत्तरी सागर तक पहुँचती है।"
+        "explanation": "राइन पश्चिमी यूरोप से होकर बहती है और नीदरलैंड में उत्तरी सागर तक पहुँचती है।"
       },
       "pa": {
-        "stem": "ਉੱਤਰੀ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਣ ਤੋਂ ਪਹਿਲਾਂ ਸਵਿਟਜ਼ਰਲੈਂਡ, ਜਰਮਨੀ ਅਤੇ ਨੀਦरलੈਂਡ ਵਿੱਚੋਂ ਜਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਰਹੱਦ ਨਾਲ ਕਿਹੜਾ ਦਰਿਆ ਵਗਦਾ ਹੈ?",
+        "stem": "ਜਰਮਨੀ ਅਤੇ ਨੀਦਰਲੈਂਡ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਉੱਤਰੀ ਸਾਗਰ ਤੱਕ ਕਿਹੜਾ ਦਰਿਆ ਪਹੁੰਚਦਾ ਹੈ?",
         "options": [
-          "ਵੋਲਗਾ",
           "ਪੋ ਦਰਿਆ",
+          "ਡੈਨਿਊਬ",
           "ਰਾਈਨ",
-          "ਡੈਨਿਊਬ"
+          "ਵੋਲਗਾ"
         ],
-        "explanation": "ਰਾਈਨ ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਉੱਤਰ ਵੱਲ ਵਗਦੀ ਹੈ ਅਤੇ ਨੀਦਰਲੈਂਡ ਵਿੱਚ ਉੱਤਰੀ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦੀ ਹੈ।"
+        "explanation": "ਰਾਈਨ ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚੋਂ ਵਗਦਾ ਹੈ ਅਤੇ ਨੀਦਰਲੈਂਡ ਵਿੱਚ ਉੱਤਰੀ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ।"
       }
     }
   },
@@ -408,7 +408,7 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which mountain arc curves through Central and Eastern Europe, including Slovakia and Romania?",
+        "stem": "Which mountain arc extends across Slovakia and Romania?",
         "options": [
           "Alps",
           "Pyrenees",
@@ -418,7 +418,7 @@
         "explanation": "The Carpathians form a broad arc through Central and Eastern Europe."
       },
       "hi": {
-        "stem": "स्लोवाकिया और रोमानिया सहित मध्य और पूर्वी यूरोप में कौन-सा पर्वतीय चाप फैला है?",
+        "stem": "स्लोवाकिया और रोमानिया से होकर कौन-सा पर्वतीय चाप फैला है?",
         "options": [
           "आल्प्स",
           "पिरेनीज़",
@@ -428,7 +428,7 @@
         "explanation": "कार्पेथियन पर्वत मध्य और पूर्वी यूरोप में चौड़ा चाप बनाते हैं।"
       },
       "pa": {
-        "stem": "ਸਲੋਵਾਕੀਆ ਅਤੇ ਰੋਮਾਨੀਆ ਸਮੇਤ ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਕਿਹੜਾ ਪਹਾੜੀ ਚਾਪ ਫੈਲਿਆ ਹੈ?",
+        "stem": "ਸਲੋਵਾਕੀਆ ਅਤੇ ਰੋਮਾਨੀਆ ਵਿੱਚੋਂ ਕਿਹੜਾ ਪਹਾੜੀ ਚਾਪ ਲੰਘਦਾ ਹੈ?",
         "options": [
           "ਆਲਪਸ",
           "ਪਿਰੀਨੀਜ਼",
@@ -442,7 +442,7 @@
   {
     "id": "WGE-001-CP026-Q011",
     "cpId": "WGE-001-CP026",
-    "objective": "carpathian-arc",
+    "objective": "north-european-plain",
     "difficulty": "Medium",
     "sourceIds": [
       "WGE-REG-M49",
@@ -452,34 +452,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which mountain arc curves through Central and Eastern Europe around the Carpathian Basin?",
+        "stem": "Which plain stretches across northern Europe from France through Germany toward Poland?",
         "options": [
-          "Pyrenees",
-          "Atlas",
-          "Carpathians",
-          "Alps"
+          "EastEuropeanPlain",
+          "WestSiberianPlain",
+          "NorthEuropeanPlain",
+          "PannonianPlain"
         ],
-        "explanation": "The Carpathians form a broad arc across Central and Eastern Europe surrounding much of the Carpathian Basin."
+        "explanation": "The North European Plain extends across parts of France, Germany, Poland and neighbouring countries."
       },
       "hi": {
-        "stem": "मध्य और पूर्वी यूरोप में कार्पेथियन बेसिन के चारों ओर कौन-सी पर्वत-श्रेणी चाप बनाती है?",
+        "stem": "उत्तरी यूरोप का कौन-सा मैदान फ़्रांस से जर्मनी होते हुए पोलैंड की ओर फैला है?",
         "options": [
-          "पिरेनीज़",
-          "एटलस पर्वत",
-          "कार्पेथियन पर्वत",
-          "आल्प्स"
+          "पूर्वी यूरोपीय मैदान",
+          "पश्चिमी साइबेरियाई मैदान",
+          "उत्तरी यूरोपीय मैदान",
+          "पैनोनियन मैदान"
         ],
-        "explanation": "कार्पेथियन मध्य और पूर्वी यूरोप में विस्तृत चाप बनाते हैं और कार्पेथियन बेसिन के बड़े भाग को घेरते हैं।"
+        "explanation": "उत्तरी यूरोपीय मैदान फ़्रांस, जर्मनी, पोलैंड और पड़ोसी देशों के हिस्सों में फैला है।"
       },
       "pa": {
-        "stem": "ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਕਾਰਪੇਥੀਅਨ ਬੇਸਿਨ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਚਾਪ ਬਣਾਉਂਦੀ ਹੈ?",
+        "stem": "ਉੱਤਰੀ ਯੂਰਪ ਦਾ ਕਿਹੜਾ ਮੈਦਾਨ ਫ਼ਰਾਂਸ ਤੋਂ ਜਰਮਨੀ ਰਾਹੀਂ ਪੋਲੈਂਡ ਵੱਲ ਫੈਲਦਾ ਹੈ?",
         "options": [
-          "ਪਿਰੀਨੀਜ਼",
-          "ਐਟਲਸ ਪਹਾੜ",
-          "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ",
-          "ਆਲਪਸ"
+          "ਪੂਰਬੀ ਯੂਰਪੀ ਮੈਦਾਨ",
+          "ਪੱਛਮੀ ਸਾਇਬੇਰੀਆਈ ਮੈਦਾਨ",
+          "ਉੱਤਰੀ ਯੂਰਪੀ ਮੈਦਾਨ",
+          "ਪੈਨੋਨੀਅਨ ਮੈਦਾਨ"
         ],
-        "explanation": "ਕਾਰਪੇਥੀਅਨ ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਵਿਸ਼ਾਲ ਚਾਪ ਬਣਾਉਂਦੇ ਹਨ ਅਤੇ ਕਾਰਪੇਥੀਅਨ ਬੇਸਿਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਨੂੰ ਘੇਰਦੇ ਹਨ।"
+        "explanation": "ਉੱਤਰੀ ਯੂਰਪੀ ਮੈਦਾਨ ਫ਼ਰਾਂਸ, ਜਰਮਨੀ, ਪੋਲੈਂਡ ਅਤੇ ਗੁਆਂਢੀ ਦੇਸ਼ਾਂ ਦੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
       }
     }
   },
@@ -521,7 +521,7 @@
           "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ",
           "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
           "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ",
-          "ਜटलੈਂਡ ਪ੍ਰਾਇਦੀਪ"
+          "ਜਟਲੈਂਡ ਪ੍ਰਾਇਦੀਪ"
         ],
         "explanation": "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੱਖਣ-ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਸਪੇਨ ਤੇ ਪੁਰਤਗਾਲ ਆਉਂਦੇ ਹਨ।"
       }
@@ -584,7 +584,7 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which European island country lies in the North Atlantic between Greenland and Norway?",
+        "stem": "Which island country lies northwest of mainland Europe in the North Atlantic?",
         "options": [
           "Malta",
           "Cyprus",
@@ -594,7 +594,7 @@
         "explanation": "Iceland is a North Atlantic island country northwest of mainland Europe."
       },
       "hi": {
-        "stem": "ग्रीनलैंड और नॉर्वे के बीच उत्तरी अटलांटिक में कौन-सा यूरोपीय द्वीपीय देश स्थित है?",
+        "stem": "उत्तरी अटलांटिक में मुख्य यूरोप के उत्तर-पश्चिम में कौन-सा द्वीपीय देश है?",
         "options": [
           "माल्टा",
           "साइप्रस",
@@ -604,7 +604,7 @@
         "explanation": "आइसलैंड उत्तरी अटलांटिक में मुख्यभूमि यूरोप के उत्तर-पश्चिम में स्थित द्वीपीय देश है।"
       },
       "pa": {
-        "stem": "ਗ੍ਰੀਨਲੈਂਡ ਅਤੇ ਨਾਰਵੇ ਵਿਚਕਾਰ ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਵਿੱਚ ਕਿਹੜਾ ਯੂਰਪੀ ਟਾਪੂ-ਦੇਸ਼ ਸਥਿਤ ਹੈ?",
+        "stem": "ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਵਿੱਚ ਯੂਰਪ ਦੀ ਮੁੱਖ ਧਰਤੀ ਦੇ ਉੱਤਰ-ਪੱਛਮ ਵੱਲ ਕਿਹੜਾ ਟਾਪੂ-ਦੇਸ਼ ਹੈ?",
         "options": [
           "ਮਾਲਟਾ",
           "ਸਾਈਪ੍ਰਸ",
@@ -628,7 +628,7 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which Nordic country lies east of Sweden and west of Russia and is known for its many lakes?",
+        "stem": "Which Nordic country lies between Sweden and Russia and has many lakes?",
         "options": [
           "Greece",
           "Denmark",
@@ -638,7 +638,7 @@
         "explanation": "Finland lies between Sweden and Russia and has a lake-rich landscape shaped by glaciation."
       },
       "hi": {
-        "stem": "कौन-सा नॉर्डिक देश स्वीडन के पूर्व और रूस के पश्चिम में है तथा अनेक झीलों के लिए जाना जाता है?",
+        "stem": "स्वीडन और रूस के बीच स्थित अनेक झीलों वाला नॉर्डिक देश कौन-सा है?",
         "options": [
           "ग्रीस",
           "डेनमार्क",
@@ -648,7 +648,7 @@
         "explanation": "फ़िनलैंड स्वीडन और रूस के बीच है और हिमानी क्रिया से बना झीलों वाला भू-दृश्य रखता है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਨੌਰਡਿਕ ਦੇਸ਼ ਸਵੀਡਨ ਦੇ ਪੂਰਬ ਅਤੇ ਰੂਸ ਦੇ ਪੱਛਮ ਵੱਲ ਹੈ ਅਤੇ ਬਹੁਤ ਸਾਰੀਆਂ ਝੀਲਾਂ ਲਈ ਜਾਣਿਆ ਜਾਂਦਾ ਹੈ?",
+        "stem": "ਸਵੀਡਨ ਅਤੇ ਰੂਸ ਵਿਚਕਾਰ ਸਥਿਤ ਬਹੁਤ ਸਾਰੀਆਂ ਝੀਲਾਂ ਵਾਲਾ ਨੌਰਡਿਕ ਦੇਸ਼ ਕਿਹੜਾ ਹੈ?",
         "options": [
           "ਗ੍ਰੀਸ",
           "ਡੈਨਮਾਰਕ",
@@ -716,34 +716,34 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which river system links Central Europe to the Black Sea through southeastern Europe?",
+        "stem": "Which river crosses southeastern Europe and empties into the Black Sea?",
         "options": [
           "Danube",
           "Rhine",
           "Volga",
           "Po"
         ],
-        "explanation": "The Danube crosses or borders many countries and reaches the Black Sea, making it an important international river."
+        "explanation": "The Danube crosses or borders several countries before reaching the Black Sea."
       },
       "hi": {
-        "stem": "ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਰਾਹੀਂ ਮੱਧ ਯੂਰਪ ਨੂੰ ਕਾਲੇ ਸਾਗਰ ਨਾਲ ਜੋੜਨ ਵਾਲੀ ਨਦੀ ਕਿਹੜੀ ਹੈ?",
+        "stem": "दक्षिण-पूर्वी यूरोप से होकर काला सागर में कौन-सी नदी गिरती है?",
         "options": [
           "डेन्यूब",
           "राइन",
           "वोल्गा",
           "पो नदी"
         ],
-        "explanation": "डेन्यूब कई देशों से होकर या उनकी सीमा के साथ बहती है और काला सागर तक पहुँचती है; यह प्रमुख अंतरराष्ट्रीय नदी है।"
+        "explanation": "डेन्यूब कई देशों से होकर या उनकी सीमा के साथ बहती हुई काला सागर तक पहुँचती है।"
       },
       "pa": {
-        "stem": "ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਰਾਹੀਂ ਮੱਧ ਯੂਰਪ ਨੂੰ ਕਾਲੇ ਸਾਗਰ ਨਾਲ ਜੋੜਨ ਵਾਲਾ ਦਰਿਆ ਕਿਹੜਾ ਹੈ?",
+        "stem": "ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਕਾਲੇ ਸਾਗਰ ਵਿੱਚ ਕਿਹੜਾ ਦਰਿਆ ਡਿੱਗਦਾ ਹੈ?",
         "options": [
           "ਡੈਨਿਊਬ",
           "ਰਾਈਨ",
           "ਵੋਲਗਾ",
           "ਪੋ ਦਰਿਆ"
         ],
-        "explanation": "ਡੈਨਿਊਬ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚੋਂ ਜਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਰਹੱਦ ਨਾਲ ਵਗਦਾ ਹੈ ਅਤੇ ਕਾਲੇ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ; ਇਹ ਮਹੱਤਵਪੂਰਨ ਅੰਤਰਰਾਸ਼ਟਰੀ ਦਰਿਆ ਹੈ।"
+        "explanation": "ਡੈਨਿਊਬ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚੋਂ ਜਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਰਹੱਦ ਨਾਲ ਵਗਦਾ ਹੋਇਆ ਕਾਲੇ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ।"
       }
     }
   },

@@ -35,8 +35,8 @@
       "pa": {
         "stem": "ਕਿਹੜਾ ਦਰਿਆ ਚੀਨ ਵਿੱਚੋਂ ਪੂਰਬ ਵੱਲ ਵਗ ਕੇ ਪੂਰਬੀ ਚੀਨ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ?",
         "options": [
-          "ਯਾਂਗਤ्से",
-          "ਹ्वांग ਹੋ (ਪੀਲੀ ਨਦੀ)",
+          "ਯਾਂਗਤਸੇ",
+          "ਹਵਾਂਗ ਹੋ (ਪੀਲੀ ਨਦੀ)",
           "ਮੇਕਾਂਗ",
           "ਇਰਾਵਦੀ"
         ],
@@ -58,34 +58,34 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which major Chinese river flows into the Bohai Sea?",
+        "stem": "Which river empties into the Bohai Sea?",
         "options": [
           "Yangtze",
           "Mekong",
           "RedRiver",
           "YellowRiver"
         ],
-        "explanation": "The Huang He, or Yellow River, reaches the Bohai Sea in northern China."
+        "explanation": "The Huang He, or Yellow River, flows into the Bohai Sea."
       },
       "hi": {
-        "stem": "चीन की कौन-सी प्रमुख नदी बोहाई सागर में गिरती है?",
+        "stem": "बोहाई सागर में कौन-सी नदी गिरती है?",
         "options": [
           "यांग्त्से",
           "मेकांग",
           "लाल नदी",
           "ह्वांग हे (पीली नदी)"
         ],
-        "explanation": "ह्वांग हे या पीली नदी उत्तरी चीन में बोहाई सागर तक पहुँचती है।"
+        "explanation": "ह्वांग हे यानी पीली नदी बोहाई सागर में गिरती है।"
       },
       "pa": {
-        "stem": "ਚੀਨ ਦਾ ਕਿਹੜਾ ਵੱਡਾ ਦਰਿਆ ਬੋਹਾਈ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ?",
+        "stem": "ਬੋਹਾਈ ਸਾਗਰ ਵਿੱਚ ਕਿਹੜਾ ਦਰਿਆ ਡਿੱਗਦਾ ਹੈ?",
         "options": [
-          "ਯਾਂਗਤ्से",
+          "ਯਾਂਗਤਸੇ",
           "ਮੇਕਾਂਗ",
           "ਲਾਲ ਦਰਿਆ",
-          "ਹ्वांग ਹੋ (ਪੀਲੀ ਨਦੀ)"
+          "ਹਵਾਂਗ ਹੋ (ਪੀਲੀ ਨਦੀ)"
         ],
-        "explanation": "ਹਵਾਂਗ ਹੋ ਜਾਂ ਪੀਲੀ ਨਦੀ ਉੱਤਰੀ ਚੀਨ ਵਿੱਚ ਬੋਹਾਈ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦੀ ਹੈ।"
+        "explanation": "ਹਵਾਂਗ ਹੋ ਅਰਥਾਤ ਪੀਲਾ ਦਰਿਆ ਬੋਹਾਈ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
       }
     }
   },
@@ -103,34 +103,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which high plateau occupies much of southwestern China and is the source region of several major Asian rivers?",
+        "stem": "The Yangtze, Yellow River and Mekong rise on or near which plateau?",
         "options": [
-          "Karakum",
           "TienShan",
+          "Mongolia",
           "Tibet",
-          "Mongolia"
+          "Karakum"
         ],
-        "explanation": "The Tibetan Plateau lies north of the Himalaya and feeds headwaters of several major Asian rivers."
+        "explanation": "The Tibetan Plateau is the source region for several major Asian rivers, including these three."
       },
       "hi": {
-        "stem": "कौन-सा ऊँचा पठार दक्षिण-पश्चिमी चीन के बड़े भाग में फैला है और कई प्रमुख एशियाई नदियों का उद्गम क्षेत्र है?",
+        "stem": "यांग्त्से, ह्वांग हे और मेकांग नदियों का उद्गम किस पठार पर या उसके पास है?",
         "options": [
-          "कराकुम मरुस्थल",
           "तियान शान",
+          "मंगोलिया",
           "तिब्बती पठार",
-          "मंगोलिया"
+          "कराकुम मरुस्थल"
         ],
-        "explanation": "तिब्बती पठार हिमालय के उत्तर में है और कई प्रमुख एशियाई नदियों के ऊपरी जलस्रोत इसी क्षेत्र में हैं।"
+        "explanation": "तिब्बती पठार इन तीनों सहित एशिया की कई प्रमुख नदियों का उद्गम क्षेत्र है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਉੱਚਾ ਪਠਾਰ ਦੱਖਣ-ਪੱਛਮੀ ਚੀਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ ਅਤੇ ਕਈ ਵੱਡੇ ਏਸ਼ੀਆਈ ਦਰਿਆਵਾਂ ਦਾ ਸਰੋਤ ਖੇਤਰ ਹੈ?",
+        "stem": "ਯਾਂਗਤਸੇ, ਹਵਾਂਗ ਹੋ ਅਤੇ ਮੇਕਾਂਗ ਦਰਿਆਵਾਂ ਦੇ ਸਰੋਤ ਕਿਹੜੇ ਪਠਾਰ ਉੱਤੇ ਜਾਂ ਇਸਦੇ ਨੇੜੇ ਹਨ?",
         "options": [
-          "ਕਾਰਾਕੁਮ ਮਾਰੂਥਲ",
           "ਤਿਆਨ ਸ਼ਾਨ",
-          "ਤिब्बਤੀ ਪਠਾਰ",
-          "ਮੰਗੋਲੀਆ"
+          "ਮੰਗੋਲੀਆ",
+          "ਤਿੱਬਤੀ ਪਠਾਰ",
+          "ਕਾਰਾਕੁਮ ਮਾਰੂਥਲ"
         ],
-        "explanation": "ਤਿੱਬਤੀ ਪਠਾਰ ਹਿਮਾਲਿਆ ਦੇ ਉੱਤਰ ਵੱਲ ਹੈ ਅਤੇ ਕਈ ਵੱਡੇ ਏਸ਼ੀਆਈ ਦਰਿਆਵਾਂ ਦੇ ਉੱਪਰੀ ਸਰੋਤ ਇਸ ਖੇਤਰ ਵਿੱਚ ਹਨ।"
+        "explanation": "ਤਿੱਬਤੀ ਪਠਾਰ ਇਨ੍ਹਾਂ ਤਿੰਨਾਂ ਸਮੇਤ ਏਸ਼ੀਆ ਦੇ ਕਈ ਵੱਡੇ ਦਰਿਆਵਾਂ ਦਾ ਸਰੋਤ ਖੇਤਰ ਹੈ।"
       }
     }
   },
@@ -193,34 +193,34 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which peninsula lies between the Yellow Sea and the Sea of Japan (East Sea)?",
+        "stem": "The peninsula between the Yellow Sea and the Sea of Japan is the:",
         "options": [
           "Korea",
-          "Japan",
-          "Borneo",
-          "ArabianPeninsula"
+          "ArabianPeninsula",
+          "MalayPeninsula",
+          "Iberian"
         ],
-        "explanation": "The Korean Peninsula projects south from mainland Northeast Asia between these two seas."
+        "explanation": "The Korean Peninsula lies between the Yellow Sea and the Sea of Japan (East Sea)."
       },
       "hi": {
-        "stem": "पीले सागर और जापान सागर (पूर्वी सागर) के बीच कौन-सा प्रायद्वीप स्थित है?",
+        "stem": "पीले सागर और जापान सागर के बीच स्थित प्रायद्वीप कौन-सा है?",
         "options": [
           "कोरियाई प्रायद्वीप",
-          "जापान",
-          "बोर्नियो",
-          "अरब प्रायद्वीप"
+          "अरब प्रायद्वीप",
+          "मलय प्रायद्वीप",
+          "आइबेरियाई प्रायद्वीप"
         ],
-        "explanation": "कोरियाई प्रायद्वीप उत्तर-पूर्वी एशिया की मुख्यभूमि से दक्षिण की ओर इन दोनों सागरों के बीच निकला है।"
+        "explanation": "कोरियाई प्रायद्वीप पीले सागर और जापान सागर (पूर्वी सागर) के बीच स्थित है।"
       },
       "pa": {
-        "stem": "ਪੀਲੇ ਸਾਗਰ ਅਤੇ ਜਪਾਨ ਸਾਗਰ (ਪੂਰਬੀ ਸਾਗਰ) ਵਿਚਕਾਰ ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਸਥਿਤ ਹੈ?",
+        "stem": "ਪੀਲੇ ਸਾਗਰ ਅਤੇ ਜਪਾਨ ਸਾਗਰ ਵਿਚਕਾਰ ਸਥਿਤ ਪ੍ਰਾਇਦੀਪ ਕਿਹੜਾ ਹੈ?",
         "options": [
           "ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
-          "ਜਪਾਨ",
-          "ਬੋਰਨਿਓ",
-          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ"
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ",
+          "ਮਲਯ ਪ੍ਰਾਇਦੀਪ",
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ"
         ],
-        "explanation": "ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਉੱਤਰ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੀ ਮੁੱਖ ਧਰਤੀ ਤੋਂ ਦੱਖਣ ਵੱਲ ਇਨ੍ਹਾਂ ਦੋਹਾਂ ਸਾਗਰਾਂ ਵਿਚਕਾਰ ਨਿਕਲਦਾ ਹੈ।"
+        "explanation": "ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਪੀਲੇ ਸਾਗਰ ਅਤੇ ਜਪਾਨ ਸਾਗਰ (ਪੂਰਬੀ ਸਾਗਰ) ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
       }
     }
   },
@@ -238,34 +238,34 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which island chain lies east of the Korean Peninsula in the northwest Pacific?",
+        "stem": "Which archipelagic country lies east of the Korean Peninsula?",
         "options": [
           "Philippines",
           "Indonesia",
-          "Mongolia",
+          "Malaysia",
           "Japan"
         ],
-        "explanation": "Japan is an island arc east of the Korean Peninsula, along the Pacific margin of East Asia."
+        "explanation": "Japan is an island country in the northwest Pacific, east of the Korean Peninsula."
       },
       "hi": {
-        "stem": "ਉੱਤਰ-ਪੱਛਮੀ प्रशांत में कोरियाई प्रायद्वीप के पूर्व में कौन-सी द्वीप-शृंखला है?",
+        "stem": "कोरियाई प्रायद्वीप के पूर्व में कौन-सा द्वीपीय देश स्थित है?",
         "options": [
           "फ़िलिपींस",
           "इंडोनेशिया",
-          "मंगोलिया",
+          "मलेशिया",
           "जापान"
         ],
-        "explanation": "जापान पूर्वी एशिया के प्रशांत किनारे पर कोरियाई प्रायद्वीप के पूर्व में स्थित द्वीप-चाप है।"
+        "explanation": "जापान उत्तर-पश्चिमी प्रशांत में कोरियाई प्रायद्वीप के पूर्व में स्थित द्वीपीय देश है।"
       },
       "pa": {
-        "stem": "ਉੱਤਰ-ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੇ ਪੂਰਬ ਵੱਲ ਕਿਹੜੀ ਟਾਪੂ-ਲੜੀ ਹੈ?",
+        "stem": "ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੇ ਪੂਰਬ ਵੱਲ ਕਿਹੜਾ ਟਾਪੂ-ਦੇਸ਼ ਸਥਿਤ ਹੈ?",
         "options": [
           "ਫ਼ਿਲੀਪੀਨਜ਼",
           "ਇੰਡੋਨੇਸ਼ੀਆ",
-          "ਮੰਗੋਲੀਆ",
+          "ਮਲੇਸ਼ੀਆ",
           "ਜਪਾਨ"
         ],
-        "explanation": "ਜਪਾਨ ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੇ ਪ੍ਰਸ਼ਾਂਤ ਕਿਨਾਰੇ ਉੱਤੇ ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੇ ਪੂਰਬ ਵੱਲ ਟਾਪੂ-ਚਾਪ ਹੈ।"
+        "explanation": "ਜਪਾਨ ਉੱਤਰ-ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੇ ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਟਾਪੂ-ਦੇਸ਼ ਹੈ।"
       }
     }
   },
@@ -283,7 +283,7 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which river crosses mainland Southeast Asia and forms a large delta in southern Vietnam?",
+        "stem": "Which river flows through mainland Southeast Asia and forms a delta in southern Vietnam?",
         "options": [
           "Irrawaddy",
           "ChaoPhraya",
@@ -293,7 +293,7 @@
         "explanation": "The Mekong flows through or borders several mainland Southeast Asian countries before reaching the South China Sea in Vietnam."
       },
       "hi": {
-        "stem": "कौन-सी नदी दक्षिण-पूर्व एशिया की मुख्यभूमि से होकर बहती है और दक्षिणी वियतनाम में बड़ा डेल्टा बनाती है?",
+        "stem": "दक्षिण-पूर्वी एशिया की मुख्यभूमि से होकर दक्षिणी वियतनाम में डेल्टा बनाने वाली नदी कौन-सी है?",
         "options": [
           "इरावदी",
           "चाओ फ्राया",
@@ -303,12 +303,12 @@
         "explanation": "मेकांग वियतनाम में दक्षिण चीन सागर तक पहुँचने से पहले दक्षिण-पूर्व एशिया के कई देशों से होकर या उनकी सीमा के साथ बहती है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਦਰਿਆ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੀ ਮੁੱਖ ਧਰਤੀ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ ਅਤੇ ਦੱਖਣੀ ਵੀਅਤਨਾਮ ਵਿੱਚ ਵੱਡਾ ਡੈਲਟਾ ਬਣਾਉਂਦਾ ਹੈ?",
+        "stem": "ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੀ ਮੁੱਖ ਧਰਤੀ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਦੱਖਣੀ ਵੀਅਤਨਾਮ ਵਿੱਚ ਡੈਲਟਾ ਬਣਾਉਣ ਵਾਲਾ ਦਰਿਆ ਕਿਹੜਾ ਹੈ?",
         "options": [
           "ਇਰਾਵਦੀ",
           "ਚਾਓ ਫਰਾਇਆ",
           "ਮੇਕਾਂਗ",
-          "ਯਾਂਗਤ्से"
+          "ਯਾਂਗਤਸੇ"
         ],
         "explanation": "ਮੇਕਾਂਗ ਵੀਅਤਨਾਮ ਵਿੱਚ ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਣ ਤੋਂ ਪਹਿਲਾਂ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੇ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚੋਂ ਜਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਰਹੱਦ ਨਾਲ ਵਗਦਾ ਹੈ।"
       }
@@ -353,7 +353,7 @@
           "ਨਾਈਜਰ",
           "ਇਰਾਵਦੀ",
           "ਮੇਕਾਂਗ",
-          "ਯਾਂਗਤ्से"
+          "ਯਾਂਗਤਸੇ"
         ],
         "explanation": "ਇਰਾਵਦੀ ਮਿਆਂਮਾਰ ਵਿੱਚੋਂ ਦੱਖਣ ਵੱਲ ਵਗਦੀ ਹੈ ਅਤੇ ਆਪਣੇ ਡੈਲਟੇ ਰਾਹੀਂ ਅੰਡਮਾਨ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦੀ ਹੈ।"
       }
@@ -398,7 +398,7 @@
           "ਲਾਲ ਦਰਿਆ",
           "ਮੇਕਾਂਗ",
           "ਚਾਓ ਫਰਾਇਆ",
-          "ਹ्वांग ਹੋ (ਪੀਲੀ ਨਦੀ)"
+          "ਹਵਾਂਗ ਹੋ (ਪੀਲੀ ਨਦੀ)"
         ],
         "explanation": "ਲਾਲ ਦਰਿਆ (ਸੋਂਗ ਹੋਂਗ) ਟੋਂਕਿਨ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਹਨੋਈ ਨੇੜੇ ਡੈਲਟਾ ਬਣਾਉਂਦਾ ਹੈ।"
       }
@@ -463,34 +463,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which strait separates the Malay Peninsula from Sumatra and links the Andaman Sea with the South China Sea?",
+        "stem": "Which strait separates Sumatra from the Malay Peninsula?",
         "options": [
-          "Bosporus",
           "Bering",
+          "Hormuz",
           "Malacca",
-          "Hormuz"
+          "Bosporus"
         ],
-        "explanation": "The Strait of Malacca is a major sea passage between the Malay Peninsula and Sumatra."
+        "explanation": "The Strait of Malacca separates Sumatra from the Malay Peninsula."
       },
       "hi": {
-        "stem": "मलय प्रायद्वीप और सुमात्रा को अलग करते हुए अंडमान सागर को दक्षिण चीन सागर से कौन-सा जलडमरूमध्य जोड़ता है?",
+        "stem": "सुमात्रा और मलय प्रायद्वीप के बीच कौन-सा जलडमरूमध्य है?",
         "options": [
-          "बोस्फोरस",
           "बेरिंग जलडमरूमध्य",
+          "हॉर्मुज़ जलडमरूमध्य",
           "मलक्का जलडमरूमध्य",
-          "हॉर्मुज़ जलडमरूमध्य"
+          "बोस्फोरस"
         ],
-        "explanation": "मलक्का जलडमरूमध्य मलय प्रायद्वीप और सुमात्रा के बीच का प्रमुख समुद्री मार्ग है।"
+        "explanation": "मलक्का जलडमरूमध्य सुमात्रा और मलय प्रायद्वीप के बीच स्थित है।"
       },
       "pa": {
-        "stem": "ਮਲਯ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਸੁਮਾਤਰਾ ਨੂੰ ਵੱਖ ਕਰਦਿਆਂ ਅੰਡਮਾਨ ਸਾਗਰ ਨੂੰ ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ ਨਾਲ ਕਿਹੜਾ ਜਲਡਮਰੂ ਜੋੜਦਾ ਹੈ?",
+        "stem": "ਸੁਮਾਤਰਾ ਅਤੇ ਮਲਯ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਕਿਹੜਾ ਜਲਡਮਰੂ ਹੈ?",
         "options": [
-          "ਬੋਸ्फੋਰਸ",
           "ਬੇਰਿੰਗ ਜਲਡਮਰੂ",
+          "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ",
           "ਮਲੱਕਾ ਜਲਡਮਰੂ",
-          "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ"
+          "ਬੋਸਫੋਰਸ"
         ],
-        "explanation": "ਮਲੱਕਾ ਜਲਡਮਰੂ ਮਲਯ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਸੁਮਾਤਰਾ ਵਿਚਕਾਰ ਮਹੱਤਵਪੂਰਨ ਸਮੁੰਦਰੀ ਰਸਤਾ ਹੈ।"
+        "explanation": "ਮਲੱਕਾ ਜਲਡਮਰੂ ਸੁਮਾਤਰਾ ਅਤੇ ਮਲਯ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
       }
     }
   },
@@ -558,29 +558,29 @@
           "Philippines",
           "Japan",
           "Malaysia",
-          "Mongolia"
+          "Indonesia"
         ],
-        "explanation": "The Philippines is an archipelago in the western Pacific, east of Vietnam and north of Indonesia."
+        "explanation": "The Philippines lies east of Vietnam in the western Pacific."
       },
       "hi": {
-        "stem": "पश्चिमी प्रशांत में वियतनाम के पूर्व कौन-सा द्वीपसमूह देश स्थित है?",
+        "stem": "पश्चिमी प्रशांत में वियतनाम के पूर्व कौन-सा द्वीपीय देश स्थित है?",
         "options": [
           "फ़िलिपींस",
           "जापान",
           "मलेशिया",
-          "मंगोलिया"
+          "इंडोनेशिया"
         ],
-        "explanation": "फ़िलिपींस पश्चिमी प्रशांत में, वियतनाम के पूर्व और इंडोनेशिया के उत्तर में स्थित द्वीपसमूह है।"
+        "explanation": "फ़िलिपींस पश्चिमी प्रशांत में वियतनाम के पूर्व में स्थित है।"
       },
       "pa": {
-        "stem": "ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਵੀਅਤਨਾਮ ਦੇ ਪੂਰਬ ਵੱਲ ਕਿਹੜਾ ਟਾਪੂ-ਸਮੂਹ ਦੇਸ਼ ਸਥਿਤ ਹੈ?",
+        "stem": "ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਵੀਅਤਨਾਮ ਦੇ ਪੂਰਬ ਵੱਲ ਕਿਹੜਾ ਟਾਪੂ-ਦੇਸ਼ ਸਥਿਤ ਹੈ?",
         "options": [
           "ਫ਼ਿਲੀਪੀਨਜ਼",
           "ਜਪਾਨ",
           "ਮਲੇਸ਼ੀਆ",
-          "ਮੰਗੋਲੀਆ"
+          "ਇੰਡੋਨੇਸ਼ੀਆ"
         ],
-        "explanation": "ਫ਼ਿਲੀਪੀਨਜ਼ ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ, ਵੀਅਤਨਾਮ ਦੇ ਪੂਰਬ ਅਤੇ ਇੰਡੋਨੇਸ਼ੀਆ ਦੇ ਉੱਤਰ ਵੱਲ ਸਥਿਤ ਟਾਪੂ-ਸਮੂਹ ਹੈ।"
+        "explanation": "ਫ਼ਿਲੀਪੀਨਜ਼ ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਵੀਅਤਨਾਮ ਦੇ ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਹੈ।"
       }
     }
   },
@@ -598,7 +598,7 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which country’s island arc stretches across the Equator between the Indian and Pacific oceans?",
+        "stem": "Which country spans the Equator across islands between the Indian and Pacific oceans?",
         "options": [
           "Philippines",
           "Japan",
@@ -608,7 +608,7 @@
         "explanation": "Indonesia spans the Equator across a large archipelago between the Indian and Pacific oceans."
       },
       "hi": {
-        "stem": "हिंद और प्रशांत महासागरों के बीच भूमध्य रेखा पर किस देश की द्वीप-शृंखला फैली है?",
+        "stem": "हिंद और प्रशांत महासागरों के बीच द्वीपों में भूमध्य रेखा पर फैला देश कौन-सा है?",
         "options": [
           "फ़िलिपींस",
           "जापान",
@@ -618,7 +618,7 @@
         "explanation": "इंडोनेशिया हिंद और प्रशांत महासागरों के बीच विशाल द्वीपसमूह में भूमध्य रेखा को पार करता है।"
       },
       "pa": {
-        "stem": "ਹਿੰਦ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰਾਂ ਵਿਚਕਾਰ ਭੂ-ਮੱਧ ਰੇਖਾ ਉੱਤੇ ਕਿਹੜੇ ਦੇਸ਼ ਦੀ ਟਾਪੂ-ਲੜੀ ਫੈਲੀ ਹੈ?",
+        "stem": "ਹਿੰਦ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰਾਂ ਵਿਚਕਾਰ ਟਾਪੂਆਂ ਰਾਹੀਂ ਭੂ-ਮੱਧ ਰੇਖਾ ਉੱਤੇ ਫੈਲਿਆ ਦੇਸ਼ ਕਿਹੜਾ ਹੈ?",
         "options": [
           "ਫ਼ਿਲੀਪੀਨਜ਼",
           "ਜਪਾਨ",
@@ -643,34 +643,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which Asian region includes Kazakhstan, Uzbekistan, Kyrgyzstan, Tajikistan and Turkmenistan?",
+        "stem": "Kazakhstan, Uzbekistan, Kyrgyzstan, Tajikistan and Turkmenistan form which region?",
         "options": [
           "Scandinavia",
           "Caribbean",
           "CentralAsia",
           "Levant"
         ],
-        "explanation": "These five former Soviet republics are commonly grouped as Central Asia; all are landlocked."
+        "explanation": "These five countries are commonly grouped as Central Asia; all are landlocked."
       },
       "hi": {
-        "stem": "कज़ाख़स्तान, उज़्बेकिस्तान, किर्गिज़स्तान, ताजिकिस्तान और तुर्कमेनिस्तान किस एशियाई क्षेत्र में आते हैं?",
+        "stem": "कज़ाख़स्तान, उज़्बेकिस्तान, किर्गिज़स्तान, ताजिकिस्तान और तुर्कमेनिस्तान किस क्षेत्र में आते हैं?",
         "options": [
           "स्कैंडिनेविया",
           "कैरेबियन सागर",
           "मध्य एशिया",
           "लेवांत"
         ],
-        "explanation": "इन पाँच पूर्व सोवियत गणराज्यों को सामान्यतः मध्य एशिया में रखा जाता है; सभी स्थलरुद्ध हैं।"
+        "explanation": "इन पाँच देशों को सामान्यतः मध्य एशिया में रखा जाता है; सभी स्थलरुद्ध हैं।"
       },
       "pa": {
-        "stem": "ਕਜ਼ਾਖ਼ਸਤਾਨ, ਉਜ਼ਬੇਕਿਸਤਾਨ, ਕਿਰਗਿਜ਼ਸਤਾਨ, ਤਾਜਿਕਿਸਤਾਨ ਅਤੇ ਤੁਰਕਮੇਨਿਸਤਾਨ ਏਸ਼ੀਆ ਦੇ ਕਿਹੜੇ ਖੇਤਰ ਵਿੱਚ ਹਨ?",
+        "stem": "ਕਜ਼ਾਖ਼ਸਤਾਨ, ਉਜ਼ਬੇਕਿਸਤਾਨ, ਕਿਰਗਿਜ਼ਸਤਾਨ, ਤਾਜਿਕਿਸਤਾਨ ਅਤੇ ਤੁਰਕਮੇਨਿਸਤਾਨ ਕਿਹੜੇ ਖੇਤਰ ਵਿੱਚ ਆਉਂਦੇ ਹਨ?",
         "options": [
           "ਸਕੈਂਡੀਨੇਵੀਆ",
           "ਕੈਰੇਬੀਅਨ ਸਾਗਰ",
           "ਮੱਧ ਏਸ਼ੀਆ",
-          "ਲੇवांत"
+          "ਲੇਵਾਂਤ"
         ],
-        "explanation": "ਇਨ੍ਹਾਂ ਪੰਜ ਸਾਬਕਾ ਸੋਵੀਅਤ ਗਣਰਾਜਾਂ ਨੂੰ ਆਮ ਤੌਰ ’ਤੇ ਮੱਧ ਏਸ਼ੀਆ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ; ਸਾਰੇ ਭੂ-ਬੱਧ ਹਨ।"
+        "explanation": "ਇਨ੍ਹਾਂ ਪੰਜ ਦੇਸ਼ਾਂ ਨੂੰ ਆਮ ਤੌਰ ’ਤੇ ਮੱਧ ਏਸ਼ੀਆ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ; ਸਾਰੇ ਭੂ-ਬੱਧ ਹਨ।"
       }
     }
   },
@@ -712,7 +712,7 @@
         "options": [
           "ਤੁਰਕਮੇਨਿਸਤਾਨ",
           "ਕਜ਼ਾਖ਼ਸਤਾਨ",
-          "ਉਜ਼ਬੇਕਿਸतान",
+          "ਉਜ਼ਬੇਕਿਸਤਾਨ",
           "ਕਿਰਗਿਜ਼ਸਤਾਨ"
         ],
         "explanation": "ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਕਜ਼ਾਖ਼ਸਤਾਨ ਸਭ ਤੋਂ ਵੱਡਾ ਭੂ-ਬੱਧ ਦੇਸ਼ ਹੈ; ਇਹ ਦਰਜਾ ਖੇਤਰਫਲ ਦਾ ਹੈ, ਆਬਾਦੀ ਦਾ ਨਹੀਂ।"
@@ -823,34 +823,34 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which inland sea is bordered by Russia, Kazakhstan, Turkmenistan, Iran and Azerbaijan?",
+        "stem": "Russia, Kazakhstan, Turkmenistan, Iran and Azerbaijan border which inland sea?",
         "options": [
-          "BlackSea2",
           "DeadSea",
+          "Aral",
           "Caspian",
-          "Aral"
+          "BlackSea2"
         ],
-        "explanation": "The Caspian Sea has five littoral states and no natural outlet to the world ocean."
+        "explanation": "The Caspian Sea is bordered by all five countries named in the question."
       },
       "hi": {
-        "stem": "रूस, कज़ाख़स्तान, तुर्कमेनिस्तान, ईरान और अज़रबैजान से कौन-सा अंतर्देशीय सागर लगता है?",
+        "stem": "रूस, कज़ाख़स्तान, तुर्कमेनिस्तान, ईरान और अज़रबैजान किस अंतर्देशीय सागर से लगते हैं?",
         "options": [
-          "काला सागर",
           "मृत सागर",
+          "अराल सागर",
           "कैस्पियन सागर",
-          "अराल सागर"
+          "काला सागर"
         ],
-        "explanation": "कैस्पियन सागर से पाँच देश लगते हैं और इसका विश्व महासागर तक प्राकृतिक निकास नहीं है।"
+        "explanation": "कैस्पियन सागर प्रश्न में बताए गए पाँचों देशों से घिरा है।"
       },
       "pa": {
-        "stem": "ਰੂਸ, ਕਜ਼ਾਖ਼ਸਤਾਨ, ਤੁਰਕਮੇਨਿਸਤਾਨ, ਈਰਾਨ ਅਤੇ ਅਜ਼ਰਬਾਈਜਾਨ ਨਾਲ ਕਿਹੜਾ ਅੰਦਰੂਨੀ ਸਾਗਰ ਲੱਗਦਾ ਹੈ?",
+        "stem": "ਰੂਸ, ਕਜ਼ਾਖ਼ਸਤਾਨ, ਤੁਰਕਮੇਨਿਸਤਾਨ, ਈਰਾਨ ਅਤੇ ਅਜ਼ਰਬਾਈਜਾਨ ਕਿਹੜੇ ਅੰਦਰੂਨੀ ਸਾਗਰ ਨਾਲ ਲੱਗਦੇ ਹਨ?",
         "options": [
-          "ਕਾਲਾ ਸਾਗਰ",
           "ਮ੍ਰਿਤ ਸਾਗਰ",
+          "ਅਰਾਲ ਸਾਗਰ",
           "ਕੈਸਪੀਅਨ ਸਾਗਰ",
-          "ਅਰਾਲ ਸਾਗਰ"
+          "ਕਾਲਾ ਸਾਗਰ"
         ],
-        "explanation": "ਕੈਸਪੀਅਨ ਸਾਗਰ ਨਾਲ ਪੰਜ ਦੇਸ਼ ਲੱਗਦੇ ਹਨ ਅਤੇ ਇਸਦਾ ਵਿਸ਼ਵ ਮਹਾਂਸਾਗਰ ਵੱਲ ਕੁਦਰਤੀ ਨਿਕਾਸ ਨਹੀਂ ਹੈ।"
+        "explanation": "ਕੈਸਪੀਅਨ ਸਾਗਰ ਸਵਾਲ ਵਿੱਚ ਦੱਸੇ ਪੰਜਾਂ ਦੇਸ਼ਾਂ ਨਾਲ ਘਿਰਿਆ ਹੋਇਆ ਹੈ।"
       }
     }
   },
@@ -868,34 +868,34 @@
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "Which Central Asian inland sea has shrunk sharply after river water was diverted for irrigation?",
+        "stem": "River diversion for irrigation has sharply reduced which Central Asian sea?",
         "options": [
-          "DeadSea",
+          "LakeChad",
           "Aral",
-          "Caspian",
-          "LakeChad"
+          "DeadSea",
+          "Caspian"
         ],
-        "explanation": "Diversion from the Amu Darya and Syr Darya sharply reduced inflow to the Aral Sea."
+        "explanation": "The Aral Sea has shrunk markedly after water from its tributary rivers was diverted for irrigation."
       },
       "hi": {
-        "stem": "सिंचाई के लिए नदियों का पानी मोड़ने के बाद कौन-सा मध्य एशियाई अंतर्देशीय सागर बहुत सिकुड़ गया?",
+        "stem": "सिंचाई के लिए नदियों का पानी मोड़ने से मध्य एशिया का कौन-सा सागर बहुत सिकुड़ गया है?",
         "options": [
-          "मृत सागर",
+          "चाड झील",
           "अराल सागर",
-          "कैस्पियन सागर",
-          "चाड झील"
+          "मृत सागर",
+          "कैस्पियन सागर"
         ],
-        "explanation": "अमू दरिया और सिर दरिया से पानी मोड़ने के कारण अराल सागर में आने वाला जल बहुत घट गया।"
+        "explanation": "सहायक नदियों का पानी सिंचाई के लिए मोड़े जाने के बाद अराल सागर काफ़ी सिकुड़ गया।"
       },
       "pa": {
-        "stem": "ਸਿੰਚਾਈ ਲਈ ਦਰਿਆਵਾਂ ਦਾ ਪਾਣੀ ਮੋੜਨ ਤੋਂ ਬਾਅਦ ਕਿਹੜਾ ਮੱਧ ਏਸ਼ੀਆਈ ਅੰਦਰੂਨੀ ਸਾਗਰ ਬਹੁਤ ਸੁੱਕ ਗਿਆ?",
+        "stem": "ਸਿੰਚਾਈ ਲਈ ਦਰਿਆਵਾਂ ਦਾ ਪਾਣੀ ਮੋੜਨ ਕਾਰਨ ਮੱਧ ਏਸ਼ੀਆ ਦਾ ਕਿਹੜਾ ਸਾਗਰ ਬਹੁਤ ਸੁੰਗੜ ਗਿਆ ਹੈ?",
         "options": [
-          "ਮ੍ਰਿਤ ਸਾਗਰ",
+          "ਚਾਡ ਝੀਲ",
           "ਅਰਾਲ ਸਾਗਰ",
-          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
-          "ਚਾਡ ਝੀਲ"
+          "ਮ੍ਰਿਤ ਸਾਗਰ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ"
         ],
-        "explanation": "ਅਮੂ ਦਰਿਆ ਅਤੇ ਸਿਰ ਦਰਿਆ ਦਾ ਪਾਣੀ ਮੋੜਨ ਕਾਰਨ ਅਰਾਲ ਸਾਗਰ ਵਿੱਚ ਆਉਣ ਵਾਲਾ ਪਾਣੀ ਬਹੁਤ ਘਟ ਗਿਆ।"
+        "explanation": "ਸਹਾਇਕ ਦਰਿਆਵਾਂ ਦਾ ਪਾਣੀ ਸਿੰਚਾਈ ਲਈ ਮੋੜੇ ਜਾਣ ਤੋਂ ਬਾਅਦ ਅਰਾਲ ਸਾਗਰ ਕਾਫ਼ੀ ਸੁੰਗੜ ਗਿਆ ਹੈ।"
       }
     }
   }
