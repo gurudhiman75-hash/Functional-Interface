@@ -50,10 +50,10 @@ for (const [runtime, canonical] of Object.entries(mappings)) {
   assert.equal(misCandidateCreatesSemanticAuthority(runtime), false, runtime);
 }
 
-const all = Array.from({length:100},(_,i)=>'MIS-CAND-'+String(i+1).padStart(3,'0'));
+const all = Array.from({length:103},(_,i)=>'MIS-CAND-'+String(i+1).padStart(3,'0'));
 const authorities = new Set(all.map(canonicalMisSemanticAuthorityId));
-assert.equal(authorities.size,65);
-assert.equal(all.filter(misCandidateCreatesSemanticAuthority).length,65);
+assert.equal(authorities.size,68);
+assert.equal(all.filter(misCandidateCreatesSemanticAuthority).length,68);
 
 assert.equal(canonicalMisSemanticAuthorityId('MIS-CAND-062'),'MIS-CAND-011');
 assert.equal(canonicalMisSemanticAuthorityId('MIS-CAND-066'),'MIS-CAND-051');
