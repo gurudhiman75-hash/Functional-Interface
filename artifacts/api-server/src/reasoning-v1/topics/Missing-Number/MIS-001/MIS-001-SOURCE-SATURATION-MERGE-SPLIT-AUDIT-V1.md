@@ -6,7 +6,7 @@ Status: **MERGE-SPLIT COMPLETE AGAINST THE IMPLEMENTED BLUEPRINT; EXTERNAL SOURC
 
 The MIS-001 blueprint requires permanent QLs to represent semantic exam patterns rather than constants, number tuples, renderer shapes, blank positions or difficulty labels. It also requires source saturation across SSC, Banking and Punjab-state material before permanent QL allocation.
 
-The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP027. Source crosswalk waves V1–V12 now provide growing SSC, RRB and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
+The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP028. Source crosswalk waves V1–V13 now provide growing SSC, RRB and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
 
 Therefore:
 
@@ -45,15 +45,16 @@ Current runtime review patterns:
 - CP025: 1 RRB linked-product renderer/role alias of PRODUCT
 - CP026: 1 RRB opposite-square renderer/role alias of SQUARE_INPUT
 - CP027: 1 SSC Stenographer sum-of-cubes semantic authority
+- CP028: 1 SSC CGL signed square-root-combination semantic authority
 
-**Total runtime patterns: 111**
+**Total runtime patterns: 112**
 
 ## 3. Chapter-wide consolidation result
 
 After normalization by semantic rule rather than checkpoint/renderer/query direction:
 
-- runtime patterns: **111**
-- canonical semantic authorities: **74**
+- runtime patterns: **112**
+- canonical semantic authorities: **75**
 - reuse / alias patterns: **37**
 - permanent QLs allocated: **0**
 
@@ -162,7 +163,8 @@ MIS-CAND-086 is not a new authority; the PSPCL missing-corner form reuses MIS-CA
 - MIS-CAND-106: arithmetic mean `(a+b)/2`;
 - MIS-CAND-107: PSPCL mixed-root `(√a+√b)c+2`;
 - MIS-CAND-108: repeated affine transform `x→3x+1` applied twice across each row;
-- MIS-CAND-111: sum of individual cubes `a³+b³`.
+- MIS-CAND-111: sum of individual cubes `a³+b³`;
+- MIS-CAND-112: signed exact-root combination `√a−√b+√c`.
 
 Source-form additions that do **not** create semantic authorities:
 - MIS-CAND-109 → MIS-CAND-003 PRODUCT: RRB linked shared-factor dual-product figure;
@@ -252,18 +254,19 @@ Still pending before closure:
 
 **Permanent QL allocation remains BLOCKED.**
 
-Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V12`.
+Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V13`.
 
 Recent saturation waves:
-- V10 added two semantic authorities: arithmetic mean and PSPCL mixed-root;
-- V11 added one semantic authority (repeated affine transform) plus two RRB source-form aliases;
-- V12 added one semantic authority: sum of individual cubes.
+- V10 added arithmetic mean and PSPCL mixed-root semantic authorities;
+- V11 added the repeated-affine semantic authority plus two RRB source-form aliases;
+- V12 added the sum-of-individual-cubes semantic authority;
+- V13 added the signed exact-square-root combination `√a−√b+√c`.
 
-Because three consecutive deep waves continued to expose meaningful gaps, practical source saturation is not yet proven.
+Because successive deep waves are still exposing meaningful semantic gaps, practical source saturation is not yet proven.
 
 Required next checkpoint:
 
-`MIS-001-SOURCE-CROSSWALK-V13`
+`MIS-001-SOURCE-CROSSWALK-V14`
 
 For each observed target-exam source family record:
 
@@ -276,4 +279,4 @@ For each observed target-exam source family record:
 - frequency confidence
 - source-thin flag
 
-Only after the crosswalk reaches practical saturation should the current 74 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
+Only after the crosswalk reaches practical saturation should the current 75 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
