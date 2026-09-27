@@ -378,9 +378,9 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   ]);
 
   const shareSurface = surface(`${seed}:SELECTED_SHARE_OF_TOTAL:surface`, [
-    `The selected candidates from ${rows[shareIndex]!.label} form approximately what percentage of all selected candidates? Give the nearest whole percent.`,
-    `To the nearest whole percent, what percentage of all selected candidates came from ${rows[shareIndex]!.label}?`,
-    `What percent of the total number of selected candidates were selected from ${rows[shareIndex]!.label}? Round to the nearest whole percent.`,
+    `The selected candidates from ${rows[shareIndex]!.label} form approximately what percentage of all selected candidates?`,
+    `Approximately what percentage of all selected candidates came from ${rows[shareIndex]!.label}?`,
+    `Approximately what percent of the total selected candidates were selected from ${rows[shareIndex]!.label}?`,
   ]);
 
   const combinedRejectedSurface = surface(`${seed}:COMBINED_REJECTED:surface`, [
@@ -408,15 +408,15 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   ]);
 
   const relativeSurface = surface(`${seed}:RELATIVE_SELECTED_PERCENT_EXCESS:surface`, [
-    `The number selected from ${rows[largerIndex]!.label} is approximately what percent more than that from ${rows[smallerIndex]!.label}? Give the nearest whole percent.`,
-    `By what percentage is the number selected from ${rows[largerIndex]!.label} greater than the number selected from ${rows[smallerIndex]!.label}, to the nearest whole percent?`,
-    `Taking the number selected from ${rows[smallerIndex]!.label} as the base, by what percentage is the number selected from ${rows[largerIndex]!.label} higher? Round to the nearest whole percent.`,
+    `The number selected from ${rows[largerIndex]!.label} is approximately what percent more than that from ${rows[smallerIndex]!.label}?`,
+    `Approximately by what percentage is the number selected from ${rows[largerIndex]!.label} greater than the number selected from ${rows[smallerIndex]!.label}?`,
+    `Taking the number selected from ${rows[smallerIndex]!.label} as the base, approximately by what percentage is the number selected from ${rows[largerIndex]!.label} higher?`,
   ]);
 
   const combinedRateSurface = surface(`${seed}:COMBINED_SELECTION_RATE:surface`, [
-    `If ${rows[rateA]!.label} and ${rows[rateB]!.label} are considered together, what is their overall selection rate to the nearest whole percent?`,
-    `Find the overall selection percentage for ${rows[rateA]!.label} and ${rows[rateB]!.label} together. Round to the nearest whole percent.`,
-    `Of all applicants from ${rows[rateA]!.label} and ${rows[rateB]!.label} together, approximately what percentage were selected? Give the nearest whole percent.`,
+    `If ${rows[rateA]!.label} and ${rows[rateB]!.label} are considered together, approximately what is their overall selection rate?`,
+    `Approximately what is the overall selection percentage for ${rows[rateA]!.label} and ${rows[rateB]!.label} together?`,
+    `Of all applicants from ${rows[rateA]!.label} and ${rows[rateB]!.label} together, approximately what percentage were selected?`,
   ]);
 
   const rejectedRatioSurface = surface(`${seed}:REJECTED_TO_SELECTED_RATIO:surface`, [
