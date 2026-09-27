@@ -147,6 +147,27 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/question-studio-production-integration.test.ts 2>&1 | tee /tmp/cal-001-finished-production-integration.log
           echo "${PIPESTATUS[0]}" > /tmp/cal-001-finished-production-integration-exit
           exit 0
+      - name: Run deep-audit learner-surface proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/cal-001-deep-audit-wave1.test.ts 2>&1 | tee /tmp/cal-001-deep-audit-wave1.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-deep-audit-wave1-exit
+          exit 0
+      - name: Run deep-audit difficulty reachability proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/cal-001-difficulty-reachability.test.ts 2>&1 | tee /tmp/cal-001-difficulty-reachability.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-difficulty-reachability-exit
+          exit 0
+      - name: Run deep-audit generated-content profile
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/cal-001-generated-profile.test.ts 2>&1 | tee /tmp/cal-001-generated-profile.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-generated-profile-exit
+          exit 0
       - name: Publish proof diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -171,6 +192,12 @@ jobs:
             /tmp/cal-001-question-studio-production-exit
             /tmp/cal-001-finished-production-integration.log
             /tmp/cal-001-finished-production-integration-exit
+            /tmp/cal-001-deep-audit-wave1.log
+            /tmp/cal-001-deep-audit-wave1-exit
+            /tmp/cal-001-difficulty-reachability.log
+            /tmp/cal-001-difficulty-reachability-exit
+            /tmp/cal-001-generated-profile.log
+            /tmp/cal-001-generated-profile-exit
           if-no-files-found: error
           retention-days: 14
       - name: Enforce proof results
@@ -184,6 +211,9 @@ jobs:
           test "$(cat /tmp/cal-001-final-discovery-freeze-exit)" = "0"
           test "$(cat /tmp/cal-001-question-studio-production-exit)" = "0"
           test "$(cat /tmp/cal-001-finished-production-integration-exit)" = "0"
+          test "$(cat /tmp/cal-001-deep-audit-wave1-exit)" = "0"
+          test "$(cat /tmp/cal-001-difficulty-reachability-exit)" = "0"
+          test "$(cat /tmp/cal-001-generated-profile-exit)" = "0"
 
   review-export:
     runs-on: ubuntu-latest
