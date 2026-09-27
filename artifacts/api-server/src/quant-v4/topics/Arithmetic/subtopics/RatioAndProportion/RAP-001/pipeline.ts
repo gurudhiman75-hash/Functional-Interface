@@ -58,10 +58,16 @@ function resolveRap001DefaultInput(
   const source = difficultyFiltered.length > 0 ? difficultyFiltered : curatedIds;
   if (source.length === 0) return input;
   const seed = input.seed ?? `RAP-001:${cpId}`;
+  const diversityOrdinal = Number.isInteger(input.diversityOrdinal)
+    ? Math.max(0, Math.floor(Number(input.diversityOrdinal)))
+    : null;
+  const selectedIndex = diversityOrdinal == null
+    ? stableBucket(`${seed}:curated-default-ql`, source.length)
+    : diversityOrdinal % source.length;
 
   return {
     ...input,
-    questionLanguageId: source[stableBucket(`${seed}:curated-default-ql`, source.length)]!,
+    questionLanguageId: source[selectedIndex]!,
   };
 }
 
